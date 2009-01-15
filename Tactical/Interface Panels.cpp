@@ -267,16 +267,17 @@ int MONEY_HEIGHT;
  *	why we declare array with 12 items? coz we got 2 valuse x and y maby we can work it out
  *	and change INT16 to INV_REGION_DESC for ex.
  */
-INT16 sTEAMAPPanelXY[12];
-INT16 sTEAMFacesXY[12];
-INT16 sTEAMNamesXY[12];
-INT16 sTEAMFaceHighlXY[12];
-INT16 sTEAMLifeXY[12];
-INT16 sTEAMBreathXY[12];
-INT16 sTEAMMoraleXY[12];
-INT16 sTEAMApXY[12];
-INT16 sTEAMBarsXY[12];
-INT16 sTEAMHandInvXY[12];
+const int TeamInterfaceMax = NUMBER_OF_SOLDIERS_PER_SQUAD * 2;	// WDS
+INT16 sTEAMAPPanelXY[TeamInterfaceMax];
+INT16 sTEAMFacesXY[TeamInterfaceMax];
+INT16 sTEAMNamesXY[TeamInterfaceMax];
+INT16 sTEAMFaceHighlXY[TeamInterfaceMax];
+INT16 sTEAMLifeXY[TeamInterfaceMax];
+INT16 sTEAMBreathXY[TeamInterfaceMax];
+INT16 sTEAMMoraleXY[TeamInterfaceMax];
+INT16 sTEAMApXY[TeamInterfaceMax];
+INT16 sTEAMBarsXY[TeamInterfaceMax];
+INT16 sTEAMHandInvXY[TeamInterfaceMax];
 
 int TM_FACE_WIDTH;
 int TM_FACE_HEIGHT;
@@ -454,14 +455,14 @@ MOUSE_REGION	gSM_SELMERCBarsRegion;
 MOUSE_REGION	gSM_SELMERCMoneyRegion;
 MOUSE_REGION	gSM_SELMERCEnemyIndicatorRegion;
 MOUSE_REGION	gTEAM_PanelRegion;
-MOUSE_REGION	gTEAM_FaceRegions[ 6 ];
-MOUSE_REGION	gTEAM_BarsRegions[ 6 ];
-MOUSE_REGION	gTEAM_LeftBarsRegions[ 6 ];
-MOUSE_REGION	gTEAM_FirstHandInv[ 6 ];
-MOUSE_REGION	gTEAM_SecondHandInv[ 6 ];
-MOUSE_REGION	gTEAM_EnemyIndicator[ 6 ];
+MOUSE_REGION	gTEAM_FaceRegions[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
+MOUSE_REGION	gTEAM_BarsRegions[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
+MOUSE_REGION	gTEAM_LeftBarsRegions[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
+MOUSE_REGION	gTEAM_FirstHandInv[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
+MOUSE_REGION	gTEAM_SecondHandInv[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
+MOUSE_REGION	gTEAM_EnemyIndicator[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
 
-BOOLEAN			gfTEAM_HandInvDispText[ 6 ][ NUM_INV_SLOTS ];
+BOOLEAN			gfTEAM_HandInvDispText[ NUMBER_OF_SOLDIERS_PER_SQUAD ][ NUM_INV_SLOTS ];
 BOOLEAN			gfSM_HandInvDispText[ NUM_INV_SLOTS ];
 
 void HelpTextDoneCallback( void );
@@ -771,7 +772,7 @@ void UpdateForContOverPortrait( SOLDIERTYPE *pSoldier, BOOLEAN fOn )
 	}
 	else
 	{
-		for ( cnt = 0; cnt < 6; cnt++ )
+		for ( cnt = 0; cnt < NUMBER_OF_SOLDIERS_PER_SQUAD; cnt++ )
 		{
 			if ( gTeamPanel[ cnt ].ubID == pSoldier->ubID )
 			{
@@ -4449,6 +4450,24 @@ BOOLEAN InitializeTEAMPanelCoords( )
 	INDICATOR_BOX_WIDTH	= 12;
 	INDICATOR_BOX_HEIGHT = 10;
 
+	for (int idx = 0; idx < TeamInterfaceMax/2; idx+=1) {
+		const int evenIdx = idx * 2;
+		Assert(evenIdx < TeamInterfaceMax);
+		const int oddIdx = idx*2+1;
+		Assert(oddIdx < TeamInterfaceMax);
+		sTEAMAPPanelXY[evenIdx] = ( 69+idx*83	+ INTERFACE_START_X );		sTEAMAPPanelXY[oddIdx] = ( 6 + INTERFACE_START_Y );
+		sTEAMFacesXY[evenIdx] = ( 13+idx*83+(idx>0) + INTERFACE_START_X );	sTEAMFacesXY[oddIdx] = ( 6 + INTERFACE_START_Y );
+		sTEAMNamesXY[evenIdx] = ( 7+idx*83 + INTERFACE_START_X );			sTEAMNamesXY[oddIdx] = ( 55 + INTERFACE_START_Y );
+		sTEAMFaceHighlXY[evenIdx] = ( 4+idx*83 + INTERFACE_START_X );		sTEAMFaceHighlXY[oddIdx] = ( 2 + INTERFACE_START_Y );
+		sTEAMLifeXY[evenIdx] = ( 69+idx*83 + INTERFACE_START_X );			sTEAMLifeXY[oddIdx] = ( ( 5 + INTERFACE_START_Y ) + TM_LIFEBAR_HEIGHT );
+		sTEAMBreathXY[evenIdx] = ( 75+idx*83 + INTERFACE_START_X );			sTEAMBreathXY[oddIdx] = ( ( 5 + INTERFACE_START_Y ) + TM_LIFEBAR_HEIGHT );
+		sTEAMMoraleXY[evenIdx] = ( 81+idx*83 + INTERFACE_START_X );			sTEAMMoraleXY[oddIdx] = ( ( 5 + INTERFACE_START_Y ) + TM_LIFEBAR_HEIGHT );
+		sTEAMApXY[evenIdx] = ( 68+idx*83 + INTERFACE_START_X );				sTEAMApXY[oddIdx] = ( 52 + INTERFACE_START_Y );
+		sTEAMBarsXY[evenIdx] = ( 61+idx*83+(idx>0) + INTERFACE_START_X );	sTEAMBarsXY[oddIdx] = ( 3 + INTERFACE_START_Y );
+		sTEAMHandInvXY[evenIdx] = ( TM_INV_HAND1STARTX + ( idx * TM_INV_HAND_SEP ));	sTEAMHandInvXY[oddIdx] = TM_INV_HAND1STARTY;
+	}
+
+/*
 	sTEAMAPPanelXY[0] = ( 69	+ INTERFACE_START_X );	sTEAMAPPanelXY[1] = ( 6 + INTERFACE_START_Y );
 	sTEAMAPPanelXY[2] = ( 151 + INTERFACE_START_X );	sTEAMAPPanelXY[3] = ( 6 + INTERFACE_START_Y );
 	sTEAMAPPanelXY[4] = ( 234 + INTERFACE_START_X );	sTEAMAPPanelXY[5] = ( 6 + INTERFACE_START_Y );
@@ -4519,7 +4538,7 @@ BOOLEAN InitializeTEAMPanelCoords( )
 	sTEAMHandInvXY[8] = ( TM_INV_HAND1STARTX + ( 4 * TM_INV_HAND_SEP ));	sTEAMHandInvXY[9] = TM_INV_HAND1STARTY;
 	sTEAMHandInvXY[10] = ( TM_INV_HAND1STARTX + ( 5 * TM_INV_HAND_SEP ));	sTEAMHandInvXY[11] = TM_INV_HAND1STARTY;
 	// ufff to much copy&paste :D
-
+*/
 	// CHRISL: New definitions for the team panel clock and location coordinates
 	INTERFACE_CLOCK_TM_X	= ( SCREEN_WIDTH - 86 );
 	INTERFACE_CLOCK_TM_Y	= ( 98	+ INTERFACE_START_Y );
@@ -4680,7 +4699,7 @@ BOOLEAN ShutdownTEAMPanel( )
 	// Remove viewport
 	MSYS_RemoveRegion( &gViewportRegion );
 
-	for ( cnt = 0; cnt < 6; cnt++ )
+	for ( cnt = 0; cnt < NUMBER_OF_SOLDIERS_PER_SQUAD; cnt++ )
 	{
 		MSYS_RemoveRegion( &gTEAM_EnemyIndicator[ cnt ] );
 		MSYS_RemoveRegion( &gTEAM_FaceRegions[ cnt ] );
@@ -4760,9 +4779,10 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 				if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER ) )
 				{
 					// Get soldier pointer for vehicle.....
-					SOLDIERTYPE *pVehicle;
+					SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
 
-					pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
+					// WDS 07/02/3008 - Fix bug of getting into vehicle you don't control
+					Assert (pVehicle != 0);
 
 					//OK, for each item, set dirty text if applicable!
 					swprintf( pStr, TacticalStr[ DRIVER_POPUPTEXT ], pVehicle->stats.bLife, pVehicle->stats.bLifeMax, pVehicle->bBreath, pVehicle->bBreathMax );
@@ -5157,7 +5177,7 @@ void UpdateTEAMPanel( )
 		DisableButton( iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] );
 
 		// OK, disable item regions.......
-		for ( cnt = 0; cnt < 6; cnt++ )
+		for ( cnt = 0; cnt < NUMBER_OF_SOLDIERS_PER_SQUAD; cnt++ )
 		{
 			MSYS_DisableRegion( &gTEAM_EnemyIndicator[ cnt ] );
 
@@ -5178,7 +5198,7 @@ void UpdateTEAMPanel( )
 	{
 		EnableButton( iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] );
 
-		for ( cnt = 0; cnt < 6; cnt++ )
+		for ( cnt = 0; cnt < NUMBER_OF_SOLDIERS_PER_SQUAD; cnt++ )
 		{
 			MSYS_EnableRegion( &gTEAM_EnemyIndicator[ cnt ] );
 
@@ -6918,7 +6938,7 @@ void ConfirmationToDepositMoneyToPlayersAccount( UINT8 ubExitValue )
 	if ( ubExitValue == MSG_BOX_RETURN_YES )
 	{
 		//add the money to the players account
-		AddTransactionToPlayersBook( MERC_DEPOSITED_MONEY_TO_PLAYER_ACCOUNT, gpSMCurrentMerc->ubProfile, GetWorldTotalMin(), (*gpItemPointer)[0]->data.money.uiMoneyAmount );
+		AddTransactionToPlayersBook( MERC_DEPOSITED_MONEY_TO_PLAYER_ACCOUNT, gpSMCurrentMerc->ubProfile, GetWorldTotalMin(), (*gpItemPointer)[0]->data.money.uiMoneyAmount);
 
 		// dirty shopkeeper
 		gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;

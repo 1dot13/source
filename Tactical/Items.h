@@ -281,6 +281,7 @@ INT8 FindRocketLauncherOrCannon( SOLDIERTYPE * pSoldier );
 INT8 FindNonSmokeLaunchable( SOLDIERTYPE * pSoldier, UINT16 usWeapon );
 OBJECTTYPE* FindNonSmokeLaunchableAttachment( OBJECTTYPE * pObj, UINT16 usWeapon );
 UINT16 PickARandomLaunchable(UINT16 itemIndex);
+bool BadGoggles(SOLDIERTYPE *pTeamSoldier);
 
 BOOLEAN IsFlashSuppressor( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier );
 // HEADROCK: Declaration of new function to detect flash suppression without SOLDIERTYPE argument
@@ -329,8 +330,8 @@ INT16 GetAPBonus( OBJECTTYPE * pObj );
 
 UINT16 GetFirstExplosiveOfType(UINT16 expType);
 
-OBJECTTYPE* FindSunGogglesInInv( SOLDIERTYPE * pSoldier );
-OBJECTTYPE* FindNightGogglesInInv( SOLDIERTYPE * pSoldier );
+OBJECTTYPE* FindSunGogglesInInv( SOLDIERTYPE * pSoldier, BOOLEAN searchAllInventory = FALSE );
+OBJECTTYPE* FindNightGogglesInInv( SOLDIERTYPE * pSoldier, BOOLEAN searchAllInventory = FALSE  );
 
 INT16 GetMinRangeForAimBonus( OBJECTTYPE * pObj );
 UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier);

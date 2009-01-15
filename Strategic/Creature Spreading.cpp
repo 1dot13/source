@@ -496,10 +496,12 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CreatureSpreading1");
 		}
 	}
 	else if( giHabitatedDistance > iDistance )
-	{ //we are within the "safe" habitated area of the creature's area of influence.	The chance of
+	{
+        // WDS - make number of mercenaries, etc. be configurable
+		//we are within the "safe" habitated area of the creature's area of influence.	The chance of
 		//increasing the population inside this sector depends on how deep we are within the sector.
 		if( node->pLevel->ubNumCreatures < gGameExternalOptions.iMaxEnemyGroupSize ||
-			node->pLevel->ubNumCreatures < 32 && node->pLevel->ubCreatureHabitat == QUEEN_LAIR )
+			node->pLevel->ubNumCreatures < gGameExternalOptions.ubGameMaximumNumberOfCreatures && node->pLevel->ubCreatureHabitat == QUEEN_LAIR )
 		{ //there is ALWAYS a chance to habitate an interior sector, though the chances are slim for
 			//highly occupied sectors.	This chance is modified by the type of area we are in.
 			INT32 iAbsoluteMaxPopulation;
@@ -508,7 +510,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CreatureSpreading1");
 			switch( node->pLevel->ubCreatureHabitat )
 			{
 				case QUEEN_LAIR: //Defend the queen bonus
-					iAbsoluteMaxPopulation = 32;
+					iAbsoluteMaxPopulation = gGameExternalOptions.ubGameMaximumNumberOfCreatures;
 					break;
 				case LAIR: //Smaller defend the queen bonus
 					iAbsoluteMaxPopulation = 18;

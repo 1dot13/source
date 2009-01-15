@@ -6,6 +6,8 @@
 #include "Soldier Control.h"
 #include "MessageBoxScreen.h"
 #include "Font Control.h"
+// WDS - make number of mercenaries, etc. be configurable
+#include "Squads.h"
 
 
 typedef struct FASTHELPREGION {
@@ -38,11 +40,6 @@ typedef struct FASTHELPREGION {
 #define CHAR_ICON_WIDTH 10
 #define CHAR_ICON_HEIGHT 10
 #define CHAR_ICON_SPACING 13
-
-// max number of characters and vehicles
-//Character List Length
-#define MAX_CHARACTER_COUNT 20
-#define MAX_VEHICLE_COUNT 20
 
 // map screen font
 #define MAP_SCREEN_FONT BLOCKFONT2
@@ -228,8 +225,9 @@ enum{
 #define TACT_UPDATE_MERC_X_OFFSET 4
 
 
-// the first vehicle slot int he list
-#define FIRST_VEHICLE 18
+// WDS - make number of mercenaries, etc. be configurable
+// the first vehicle slot in the list
+#define FIRST_VEHICLE CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS
 
 class OLD_MERC_LEAVE_ITEM_101
 {

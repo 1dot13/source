@@ -356,7 +356,7 @@ void LuaStrategicSetup(lua_State *L)
 	for (int sect=0; sect < 256; sect++)
 	{
 		lua_pushinteger( L, sect);
-		NewLuaObject( L, SECTOR_CLASS, SectorInfo + sect );
+		NewLuaObject( L, SECTOR_CLASS, &SectorInfo[sect]);
 		lua_settable( L, -3);
 	}
 

@@ -295,7 +295,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 
 		case DISARM_TRAP_CHECK:
 
-		fForceDamnSound = TRUE;
+			fForceDamnSound = TRUE;
 
 			iSkill = EffectiveExplosive( pSoldier ) * 7;
 			if ( iSkill == 0 )

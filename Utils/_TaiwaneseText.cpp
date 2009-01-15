@@ -4425,6 +4425,7 @@ STR16 New113Message[] =
 	L"Deleted all items of this type",
 	L"Sold item",
 	L"Sold all items of this type",
+	L"You should check your goggles",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
@@ -4521,7 +4522,7 @@ STR16 MPClientMessage[] =
 	L"Kicked client #%d - '%S'",
 	// 30
 	L"Start turn for client number: #1 - '%S' | #2 - '%S' | #3 - '%S' | #4 - '%S'",
-	L"Starting turn for client #%d",	
+	L"Starting turn for client #%d",
 	L"Requesting for realtime...",
 	L"Switched back to realtime.",
 	L"Error: Something went wrong switching back.",

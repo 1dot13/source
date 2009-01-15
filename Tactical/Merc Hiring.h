@@ -7,7 +7,8 @@
 //
 // Used with the HireMerc function
 //
-#define		MERC_HIRE_OVER_18_MERCS_HIRED		-1
+// WDS - make number of mercenaries, etc. be configurable
+#define		MERC_HIRE_OVER_PLAYER_LIMIT		-1
 #define		MERC_HIRE_FAILED								0
 #define		MERC_HIRE_OK										1
 

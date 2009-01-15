@@ -4425,6 +4425,7 @@ STR16 New113Message[] =
 	L"Deleted all items of this type",
 	L"Sold item",
 	L"Sold all items of this type",
+	L"You should check your goggles",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends

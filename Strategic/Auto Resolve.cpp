@@ -1,4 +1,3 @@
-// MAXIMUM NUMBER OF ENEMIES: 32
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -66,6 +65,8 @@
 	#include "cheats.h"
 	#include "Map Information.h"
 	#include "MilitiaSquads.h"
+//	#include "Strategic AI.h"
+	#include "interface Dialogue.h"
 #endif
 
 #include "Reinforcement.h"
@@ -134,7 +135,8 @@ typedef struct AUTORESOLVE_STRUCT
 	INT32 iButton[ NUM_AR_BUTTONS ];
 	INT32 iButtonImage[ NUM_AR_BUTTONS ];
 	INT32 iFaces; //for generic civs and enemies
-	INT32 iMercFaces[20]; //for each merc face
+    // WDS - make number of mercenaries, etc. be configurable
+	INT32 iMercFaces[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS]; //for each merc face
 	INT32 iIndent;
 	INT32 iInterfaceBuffer;
 	INT32 iNumMercFaces;
@@ -336,11 +338,6 @@ void RenderAutoResolve();
 void RenderSoldierCellHealth( SOLDIERCELL *pCell );
 void RenderSoldierCell( SOLDIERCELL *pCell );
 void RenderSoldierCellBars( SOLDIERCELL *pCell );
-
-#ifdef JA2BETAVERSION
-	extern void CountRandomCalls( BOOLEAN fStart );
-	extern void GetRandomCalls( UINT32 *puiRandoms, UINT32 *puiPreRandoms );
-#endif
 
 void GenerateDirectionInfos( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT16 pMoveDir[4][3], BOOLEAN fWithCities, BOOLEAN fForBattle, BOOLEAN fOnlyCitySectors );
 
@@ -586,11 +583,6 @@ extern UINT8 guiDirNumber;
 
 void EnterAutoResolveMode( UINT8 ubSectorX, UINT8 ubSectorY )
 {
-	#ifdef JA2BETAVERSION
-		CountRandomCalls( TRUE );
-	#endif
-
-
 	guiDirNumber = 0;
 
 	//Set up mapscreen for removal
@@ -599,19 +591,20 @@ void EnterAutoResolveMode( UINT8 ubSectorX, UINT8 ubSectorY )
 	RenderButtons();
 
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
+    // WDS - make number of mercenaries, etc. be configurable
 	//Allocate memory for all the globals while we are in this mode.
 	gpAR = (AUTORESOLVE_STRUCT*)MemAlloc( sizeof( AUTORESOLVE_STRUCT ) );
 	Assert( gpAR );
 	memset( gpAR, 0, sizeof( AUTORESOLVE_STRUCT ) );
-	//Mercs -- 20 max
-	gpMercs = (SOLDIERCELL*)MemAlloc( sizeof( SOLDIERCELL) * 20 );
+	//Mercs 
+	gpMercs = (SOLDIERCELL*)MemAlloc( sizeof( SOLDIERCELL) * MAX_AR_TEAM_SIZE );
 	Assert( gpMercs );
-	memset( gpMercs, 0, sizeof( SOLDIERCELL ) * 20 );
-	//Militia -- MAX_ALLOWABLE_MILITIA_PER_SECTOR max
+	memset( gpMercs, 0, sizeof( SOLDIERCELL ) * MAX_AR_TEAM_SIZE );
+	//Militia
 	gpCivs = (SOLDIERCELL*)MemAlloc( sizeof( SOLDIERCELL) * MAX_AR_TEAM_SIZE	);
 	Assert( gpCivs );
 	memset( gpCivs, 0, sizeof( SOLDIERCELL ) * MAX_AR_TEAM_SIZE	);
-	//Enemies -- 32 max
+	//Enemies
 	gpEnemies = (SOLDIERCELL*)MemAlloc( sizeof( SOLDIERCELL) * MAX_AR_TEAM_SIZE	);
 	Assert( gpEnemies );
 	memset( gpEnemies, 0, sizeof( SOLDIERCELL ) * MAX_AR_TEAM_SIZE	);
@@ -706,12 +699,6 @@ UINT32 AutoResolveScreenHandle()
 	{
 		gfEnteringMapScreen = TRUE;
 		RemoveAutoResolveInterface( TRUE );
-		#ifdef JA2BETAVERSION
-		{
-			UINT32 uiRandoms, uiPreRandoms;
-			GetRandomCalls( &uiRandoms, &uiPreRandoms );
-		}
-		#endif
 		return MAP_SCREEN;
 	}
 	if( gpAR->fPendingSurrender )
@@ -948,6 +935,8 @@ void CalculateSoldierCells( BOOLEAN fReset )
 	gpAR->ubAliveCivs = gpAR->ubCivs;
 	gpAR->ubAliveEnemies = gpAR->ubEnemies;
 
+    // WDS - make number of mercenaries, etc. be configurable
+	// WDS TO BE FIXED -- Why is this 40 here? (18 April 2008)
 	//iMaxTeamSize = max( gpAR->ubMercs + gpAR->ubCivs, gpAR->ubEnemies );
 	iMaxTeamSize = max( min( 40,	gpAR->ubMercs + gpAR->ubCivs ), min( 40,	gpAR->ubEnemies ) );
 
@@ -2495,14 +2484,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 			}
 		}
 	}
-	//Eliminate all excess soldiers (as more than 32 can exist in the same battle.
-	//Autoresolve only processes 32, so the excess is slaughtered as the player never
-	//knew they existed.
+	//Eliminate all excess soldiers
 	if( fDeleteForGood )
 	{ //Warp the game time accordingly
 		if( gpAR->ubBattleStatus == BATTLE_VICTORY )
-		{	//Get rid of any extra enemies that could be here.	It is possible for the number of total enemies to exceed 32, but
-			//autoresolve can only process 32.	We basically cheat by eliminating the rest of them.
+		{	//Get rid of any extra enemies that could be here.
 			EliminateAllEnemies( gpAR->ubSectorX, gpAR->ubSectorY );
 		}
 		else
@@ -3043,7 +3029,7 @@ void CalculateRowsAndColumns()
 		gpAR->ubEnemyRows = (gpAR->ubEnemies+2)/3;
 	}
 	else
-	{ //16-32
+	{ //16+
 		gpAR->ubEnemyCols = 4;
 		gpAR->ubEnemyRows = (gpAR->ubEnemies+3)/4;
 	}
@@ -3187,6 +3173,19 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 						gpAR->fInstantFinish ^= TRUE;
 					}
 					break;
+				// WDS - Debug "Drassen" battles
+				case F12:
+					if( CHEATER_CHEAT_LEVEL() )
+					{
+						UINT8 ubMapX, ubMapY;
+						for ( ubMapX = 1; ubMapX < MAP_WORLD_X - 1; ubMapX++ ) {
+							for ( ubMapY = 1; ubMapY < MAP_WORLD_Y - 1; ubMapY++ ) {
+							SetSectorFlag( ubMapX, ubMapY, 0, SF_ALREADY_VISITED ); //hayden
+							}
+						}
+						ExecuteStrategicAIAction( NPC_ACTION_SEND_SOLDIERS_TO_DRASSEN, 13, 4 );
+					}
+					break;
 				case BACKSPACE:
 					if( CHEATER_CHEAT_LEVEL() )
 					{
@@ -3318,7 +3317,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 				case '>':
 					if( CHEATER_CHEAT_LEVEL() )
 					{
-						gpAR->ubEnemies = 32;
+						gpAR->ubEnemies = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
 						fResetAutoResolve = TRUE;
 					}
 					break;
@@ -3335,7 +3334,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 				case '.':
 					if( CHEATER_CHEAT_LEVEL() )
 					{
-						if( gpAR->ubEnemies < 32 )
+						if( gpAR->ubEnemies < gGameExternalOptions.ubGameMaximumNumberOfEnemies )
 						{
 							gpAR->ubEnemies++;
 							fResetAutoResolve = TRUE;
@@ -3354,9 +3353,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 				case '?':
 					if( CHEATER_CHEAT_LEVEL() )
 					{
-						gpAR->ubMercs = 20;
+						gpAR->ubMercs = gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs;
 						gpAR->ubCivs = MAX_AR_TEAM_SIZE;
-						gpAR->ubEnemies = 32;
+						gpAR->ubEnemies = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
 						fResetAutoResolve = TRUE;
 					}
 					break;
@@ -4139,6 +4138,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 				pAttacker->pSoldier->usAttackingWeapon = pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ].usItem;
 		}
 
+        // WDS - make number of mercenaries, etc. be configurable
 		// WANNE: Does this lead to a CTD -> no I did not get any CTD, so I reenabled it
 		if( pAttacker->bWeaponSlot != HANDPOS && pAttacker->bWeaponSlot != -1)
 		{
@@ -4153,12 +4153,14 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		{
 			iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife || fClaw) );
 		}
+
 		// WANNE: Why is impact here always set to 0? The impact was calculated a few lines before!
 		//iImpact = 0;
 
 		// WANNE: Just for safty.
 		if (iImpact < 0)
 			iImpact = 0;
+		
 		iNewLife = pTarget->pSoldier->stats.bLife - iImpact;
 
 		if( pAttacker->uiFlags & CELL_MERC )
@@ -5026,4 +5028,31 @@ BOOLEAN ProcessLoyalty()
 		return TRUE;
 
 	return FALSE;
+}
+
+
+void CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors()
+{
+	for(int sX = 1; sX < ( MAP_WORLD_X - 1 ); sX++ ) {
+		for(int sY = 1; sY < ( MAP_WORLD_Y - 1); sY++ ) {
+			// Check if there is a sector where enemies retreated to and there are also militia present
+			if ((NumEnemiesInSector(sX, sY) > 0) &&
+				(CountAllMilitiaInSector(sX, sY) > 0) &&
+				(!gTacticalStatus.fEnemyInSector)) {
+				unsigned mercCnt = 0;
+				for( int i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ ) {
+					if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[ i ] ) )
+					{ //Merc is active and alive, and not a vehicle or robot
+						if ((MercPtrs[ i ]->sSectorX == sX) &&(MercPtrs[ i ]->sSectorY == sY) && (MercPtrs[ i ]->bSectorZ == 0)) {
+							++mercCnt;
+						}
+					}
+				}
+				// If there are PC mercs here the player will have to handle the battle
+				if (mercCnt == 0) {
+//					EnterAutoResolveMode ((UINT8)sX, (UINT8)sY);
+				}
+			}
+		}
+	}
 }

@@ -56,6 +56,8 @@
 	#include "los.h"
 	#include "qarray.h"
 #endif
+#include <vector>
+#include "Auto Resolve.h"
 
 #include "connect.h"
 
@@ -477,7 +479,6 @@ void HandleDialogue( )
 	}
 
 	iQSize = QueueSize( ghDialogueQ );
-
 
 	if ( iQSize == 0 && gpCurrentTalkingFace == NULL )
 	{
@@ -2453,7 +2454,8 @@ void RenderSubtitleBoxOverlay( VIDEO_OVERLAY *pBlitter )
 
 void SayQuoteFromAnyBodyInSector( UINT16 usQuoteNum )
 {
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
+    // WDS - make number of mercenaries, etc. be configurable
+	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS, 0);
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
@@ -2516,7 +2518,8 @@ void SayQuoteFromAnyBodyInSector( UINT16 usQuoteNum )
 
 void SayQuoteFromAnyBodyInThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usQuoteNum )
 {
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
+// WDS - make number of mercenaries, etc. be configurable
+	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
@@ -2568,7 +2571,8 @@ void SayQuoteFromAnyBodyInThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSect
 
 void SayQuoteFromNearbyMercInSector( INT16 sGridNo, INT8 bDistance, UINT16 usQuoteNum )
 {
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
+// WDS - make number of mercenaries, etc. be configurable
+	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0 );
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
@@ -2612,7 +2616,8 @@ void SayQuoteFromNearbyMercInSector( INT16 sGridNo, INT8 bDistance, UINT16 usQuo
 
 void SayQuote58FromNearbyMercInSector( INT16 sGridNo, INT8 bDistance, UINT16 usQuoteNum, INT8 bSex )
 {
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
+// WDS - make number of mercenaries, etc. be configurable
+	std::vector<UINT8> ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;

@@ -151,7 +151,7 @@ void DecayStrategicMorale( SOLDIERTYPE * pSoldier )
 void DecayTacticalMoraleModifiers( void )
 {
 	SOLDIERTYPE * pSoldier;
-	UINT8					ubLoop, ubLoop2;
+	UINT8 ubLoop, ubLoop2;
 	BOOLEAN				fHandleNervous;
 
 	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -251,7 +251,7 @@ void DecayTacticalMoraleModifiers( void )
 void DecayStrategicMoraleModifiers( void )
 {
 	SOLDIERTYPE * pSoldier;
-	UINT8					ubLoop;
+	UINT8 ubLoop;
 
 	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	for ( pSoldier = MercPtrs[ ubLoop ]; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++, pSoldier++ )
@@ -444,7 +444,7 @@ void HandleMoraleEventForSoldier( SOLDIERTYPE * pSoldier, INT8 bMoraleEvent )
 
 void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
-	UINT8									ubLoop;
+	UINT8 ubLoop;
 	SOLDIERTYPE *					pTeamSoldier;
 	MERCPROFILESTRUCT *		pProfile;
 

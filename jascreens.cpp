@@ -58,6 +58,7 @@
 	#include "Multi Language Graphic Utils.h"
 	#include "text.h"
 	#include "Language Defines.h"
+	#include "IniReader.h"
 #endif
 
 #define _UNICODE
@@ -281,14 +282,14 @@ UINT32 ErrorScreenHandle(void)
 	SetFont( LARGEFONT1 );
 	SetFontBackground( FONT_MCOLOR_BLACK );
 	SetFontForeground( FONT_MCOLOR_LTGRAY );
-	mprintf( 50, 200, L"RUNTIME ERROR" );
+	mprintf( 50, 200, L"RUNTIME ERROR -- PRESS <ESC> TO EXIT" );
 
-	mprintf( 50, 225, L"PRESS <ESC> TO EXIT" );
-
-	SetFont( FONT12ARIAL );
-	SetFontForeground( FONT_YELLOW );
-	SetFontShadow( 60 );		//60 is near black
-	mprintf( 50, 255, L"%S", gubErrorText );
+//	SetFont( FONT12ARIAL );
+//	SetFontForeground( FONT_YELLOW );
+//	SetFontShadow( 60 );		//60 is near black
+	swprintf( str, L"%S", gubErrorText );
+	DisplayWrappedString (50, 225, 560, 2, FONT12ARIAL, FONT_YELLOW, str, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED);
+//	mprintf( 50, 255, L"%S", gubErrorText );
 	SetFontForeground( FONT_LTRED );
 
 
@@ -403,11 +404,7 @@ UINT32 InitScreenHandle(void)
 		mprintf( 10, 10, L"%s: %s %S", pMessageStrings[ MSG_VERSION ], zVersionLabel, czVersionNumber );
 #endif
 
-#ifdef CRIPPLED_VERSION
-
-		mprintf( 10, 0, L"(LIMITED PRESS PREVIEW VERSION)" );
-
-#elif defined JA2BETAVERSION
+#if defined JA2BETAVERSION
 
 		mprintf( 10, 0, L"(Beta version error reporting enabled)" );
 
@@ -424,6 +421,20 @@ UINT32 InitScreenHandle(void)
 			#else
 				mprintf( 10, 20, L"Using software blitters" );
 			#endif
+		}
+
+        // Remove this for real release
+        mprintf( 10, 40, L"(Space Viking's Many Mercs beta 007n -- 29 December 2008)" );
+
+		// Handle queued .ini file error messages
+ 		int y = 40;
+		while (! iniErrorMessages.empty()) {
+			std::string iniErrorMessage = iniErrorMessages.top();
+			y += 10;
+			CHAR16 str[256];
+			swprintf( str, L"%S", iniErrorMessage.c_str() );
+		    DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
+			iniErrorMessages.pop();
 		}
 
 		InvalidateScreen( );

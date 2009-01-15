@@ -575,7 +575,10 @@ void InitNewCampaign()
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewCampaign");
 	//First clear all the sector information of all enemy existance.	Conveniently, the
 	//ubGroupType is also cleared, which is perceived to be an empty group.
-	memset( &SectorInfo, 0, sizeof( SECTORINFO ) * 256 );
+	//memset( &SectorInfo, 0, sizeof( SECTORINFO ) * 256 );
+	for (std::vector<SECTORINFO>::iterator secIter = SectorInfo.begin(); secIter != SectorInfo.end(); ++secIter) {
+		memset( &(*secIter), 0, sizeof( SECTORINFO ) );
+	}
 	InitStrategicMovementCosts();
 	RemoveAllGroups();
 
@@ -587,7 +590,7 @@ void InitNewCampaign()
 
 	if (!is_networked)
 		// allow overhead view of omerta A9 on game onset
-		SetSectorFlag( 9, 1, 0, SF_ALREADY_VISITED ); //hayden
+		SetSectorFlag( startingX, startingY, startingZ, SF_ALREADY_VISITED ); //hayden
 
 	//Generates the initial forces in a new campaign.	The idea is to randomize numbers and sectors
 	//so that no two games are the same.

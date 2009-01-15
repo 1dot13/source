@@ -270,8 +270,8 @@ UINT16 CountDirectionEnemyRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 	}
 
 	//for( uiSector = 0 ; uiSector < 256 ; ++uiSector )
-	for( sLMX = 0; sLMX < 16 ; ++sLMX )
-		for( sLMY = 0; sLMY < 16 ; ++sLMY )
+	for( sLMX = MINIMUM_VALID_X_COORDINATE; sLMX <= MAXIMUM_VALID_X_COORDINATE ; ++sLMX )
+		for( sLMY = MINIMUM_VALID_Y_COORDINATE; sLMY <= MAXIMUM_VALID_Y_COORDINATE ; ++sLMY )
 	{
 //		SECTORINFO *pSectorInfo = &( SectorInfo[ uiSector ] );
 		UINT8 uiSumOfEnemyTroops = NumEnemiesInSector( sLMX, sLMY );
@@ -810,7 +810,7 @@ void MilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 	sMSMapX = sMapX;
 	sMSMapY = sMapY;
 
-	if( !gGameExternalOptions.gfAllowMilitiaGroups )
+	if( !gGameExternalOptions.gfAllowReinforcements )
 		return;
 
 	gTacticalStatus.uiFlags &= (~WANT_MILITIA_REINFORCEMENTS);

@@ -665,7 +665,7 @@ void CompileWorldTerrainIDs( void )
 	INT16						sTempGridNo;
 	LEVELNODE	*			pNode;
 	TILE_ELEMENT *	pTileElement;
-	UINT8						ubLoop;
+	UINT8 ubLoop;
 
  	for( sGridNo = 0; sGridNo < WORLD_MAX; sGridNo++ )
 	{

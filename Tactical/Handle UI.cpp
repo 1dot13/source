@@ -1077,9 +1077,10 @@ UINT32 UIHandleNewMerc( UI_EVENT *pUIEvent )
 		{
 			ScreenMsg( FONT_ORANGE, MSG_BETAVERSION, L"Merc hire failed:	Either already hired or dislikes you." );
 		}
-		else if( bReturnCode == MERC_HIRE_OVER_18_MERCS_HIRED )
+		// WDS - make number of mercenaries, etc. be configurable
+		else if( bReturnCode == MERC_HIRE_OVER_PLAYER_LIMIT )
 		{
-			ScreenMsg( FONT_ORANGE, MSG_BETAVERSION, L"Can't hire more than 18 mercs." );
+			ScreenMsg( FONT_ORANGE, MSG_BETAVERSION, L"Can't hire that many mercs." );
 		}
 		else
 		{

@@ -1,10 +1,16 @@
 #include "builddefines.h"
 #include "IniReader.h"
 #include "FileMan.h"
+#include "debug.h"
+#include "Font Control.h"
+#include "message.h"
 #include <stdio.h>
 #include <string.h>
+#include <sstream>
 
 // Kaiden: INI reading function definitions:
+
+std::stack<std::string> iniErrorMessages;
 
 
 CIniReader::CIniReader(const STR8	szFileName)
@@ -26,41 +32,80 @@ int CIniReader::ReadInteger(const STR8	szSection, const STR8	szKey, int iDefault
 }
 
 
-int CIniReader::ReadInteger(const STR8	szSection, const STR8	szKey, int iDefaultValue, int iMinValue, int iMaxValue)
+int CIniReader::ReadInteger(const STR8 szSection, const STR8 szKey, int defaultValue, int minValue, int maxValue)
 {
-	int i = GetPrivateProfileInt(szSection,	szKey, iDefaultValue, m_szFileName);
-	if (i < iMinValue)
-		return iMinValue;
-	else if (i > iMaxValue)
-		return iMaxValue;
-	return i;
+	int iniValueReadFromFile = GetPrivateProfileInt(szSection,	szKey, defaultValue, m_szFileName);
+	//AssertGE(iniValueReadFromFile, minValue);
+	//AssertLE(iniValueReadFromFile, maxValue);
+	if (iniValueReadFromFile < minValue) {
+		std::stringstream errMessage;
+		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+			<< ") is outsize the valid range of " << minValue << " to " << maxValue
+			<< ".  " << minValue << " will be used.";
+		iniErrorMessages.push(errMessage.str());
+		return minValue;
+	} else if (iniValueReadFromFile > maxValue) {
+		std::stringstream errMessage;
+		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+			<< ") is outsize the valid range of " << minValue << " to " << maxValue
+			<< ".  " << maxValue << " will be used.";
+		iniErrorMessages.push(errMessage.str());
+		return maxValue;
+	}
+	return iniValueReadFromFile;
 }
 
-	int ReadInteger(const STR8	szSection, const STR8	szKey, int iDefaultValue, int iMinValue, int iMaxValue);
 
 
+//float CIniReader::ReadDouble(const STR8	szSection, const STR8	szKey, float fltDefaultValue)
+//{
+// char szResult[255];
+// char szDefault[255];
+// float fltResult;
+// sprintf(szDefault, "%f",fltDefaultValue);
+// GetPrivateProfileString(szSection,	szKey, szDefault, szResult, 255, m_szFileName);
+// fltResult = (float) atof(szResult);
+// return fltResult;
+//}
 
-float CIniReader::ReadFloat(const STR8	szSection, const STR8	szKey, float fltDefaultValue)
+double CIniReader::ReadDouble(const STR8 szSection, const STR8 szKey, double defaultValue, double minValue, double maxValue)
+{
+	char szResult[255];
+	char szDefault[255];
+	double iniValueReadFromFile;
+	sprintf(szDefault, "%f", defaultValue);
+	GetPrivateProfileString(szSection,	szKey, szDefault, szResult, 255, m_szFileName);
+	iniValueReadFromFile = (float) atof(szResult);
+	//AssertGE(iniValueReadFromFile, minValue);
+	//AssertLE(iniValueReadFromFile, maxValue);
+	if (iniValueReadFromFile < minValue) {
+		std::stringstream errMessage;
+		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+			<< ") is outsize the valid range of " << minValue << " to " << maxValue
+			<< ".  " << minValue << " will be used.";
+		iniErrorMessages.push(errMessage.str());
+		return minValue;
+	} else if (iniValueReadFromFile > maxValue) {
+		std::stringstream errMessage;
+		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+			<< ") is outsize the valid range of " << minValue << " to " << maxValue
+			<< ".  " << maxValue << " will be used.";
+		iniErrorMessages.push(errMessage.str());
+		return maxValue;
+	}
+	return iniValueReadFromFile;
+}
+
+
+bool CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, bool defaultValue)
 {
  char szResult[255];
  char szDefault[255];
- float fltResult;
- sprintf(szDefault, "%f",fltDefaultValue);
- GetPrivateProfileString(szSection,	szKey, szDefault, szResult, 255, m_szFileName);
- fltResult = (float) atof(szResult);
- return fltResult;
-}
-
-
-bool CIniReader::ReadBoolean(const STR8	szSection, const STR8	szKey, bool bolDefaultValue)
-{
- char szResult[255];
- char szDefault[255];
- bool bolResult;
- sprintf(szDefault, "%s", bolDefaultValue? "TRUE" : "FALSE");
+ bool boolResult;
+ sprintf(szDefault, "%s", defaultValue? "TRUE" : "FALSE");
  GetPrivateProfileString(szSection, szKey, szDefault, szResult, 255, m_szFileName);
- bolResult =	(strcmp(szResult, "TRUE") == 0 || strcmp(szResult, "TRUE") == 0) ? true : false;
- return bolResult;
+ boolResult =	(strcmp(szResult, "TRUE") == 0 || strcmp(szResult, "TRUE") == 0) ? true : false;
+ return boolResult;
 }
 
 

@@ -22,10 +22,11 @@ typedef struct
 } CONTRACT_NEWAL_LIST_NODE;
 
 
-extern CONTRACT_NEWAL_LIST_NODE	ContractRenewalList[ 20 ];
-extern UINT8										ubNumContractRenewals;
+// WDS - make number of mercenaries, etc. be configurable
+//extern CONTRACT_NEWAL_LIST_NODE	ContractRenewalList[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
+//extern UINT8										ubNumContractRenewals;
 extern BOOLEAN									gfContractRenewalSquenceOn;		
-extern UINT8										ubCurrentContractRenewal;
+//extern UINT8										ubCurrentContractRenewal;
 extern BOOLEAN									gfInContractMenuFromRenewSequence;
 
 

@@ -26,6 +26,7 @@
 	#include "Assignments.h"
 	#include "Map Screen Interface.h"
 #endif
+#include <vector>
 
 #define		INS_CTRCT_ORDER_GRID_WIDTH					132
 #define		INS_CTRCT_ORDER_GRID_HEIGHT					216
@@ -118,7 +119,8 @@ UINT8		gubNumberofDisplayedInsuranceGrids;
 
 BOOLEAN	gfChangeInsuranceFormButtons = FALSE;
 
-UINT8		gubInsuranceMercArray[ 20 ];
+// WDS - make number of mercenaries, etc. be configurable
+std::vector<UINT8> gubInsuranceMercArray (CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS, 0);
 INT16		gsCurrentInsuranceMercIndex;
 INT16		gsMaxPlayersOnTeam;
 

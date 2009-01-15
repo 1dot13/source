@@ -830,6 +830,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic2");
 void ValidateLargeGroup( GROUP *pGroup )
 {
 	#ifdef JA2BETAVERSION
+	/* WDS - this code is no longer applicable with changes to group sizes
 		if( pGroup->ubGroupSize > 25 )
 		{
 			CHAR16 str[ 512 ];
@@ -840,6 +841,7 @@ void ValidateLargeGroup( GROUP *pGroup )
 									pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX );
 			SAIReportError( str );
 		}
+    */
 	#endif
 }
 
@@ -2326,6 +2328,7 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 			return FALSE;
 		if( !EnemyPermittedToAttackSector( NULL, (UINT8)SECTOR( pPlayerGroup->ubSectorX, pPlayerGroup->ubSectorY ) ) )
 			return FALSE;
+		// WDS BAD BUG FIX - 12/25/2008 - some of the +1/-1 in the following were goofed up
 		if( pPlayerGroup->ubSectorY > 1 )
 		{
 			pEnemyGroup = FindMovementGroupInSector( pPlayerGroup->ubSectorX, (UINT8)(pPlayerGroup->ubSectorY-1), FALSE );
@@ -2350,11 +2353,11 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 				HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
 				return FALSE;
 			}
-			pSector = &SectorInfo[ SECTOR( pPlayerGroup->ubSectorX-1, pPlayerGroup->ubSectorY ) ];
+			pSector = &SectorInfo[ SECTOR( pPlayerGroup->ubSectorX+1, pPlayerGroup->ubSectorY ) ];
 			ubNumEnemies = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites;
 			if( ubNumEnemies && pSector->ubGarrisonID != NO_GARRISON && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
-				HandlePlayerGroupNoticedByGarrison( pPlayerGroup, (UINT8)SECTOR( pPlayerGroup->ubSectorX-1, pPlayerGroup->ubSectorY ) );
+				HandlePlayerGroupNoticedByGarrison( pPlayerGroup, (UINT8)SECTOR( pPlayerGroup->ubSectorX+1, pPlayerGroup->ubSectorY ) );
 				return FALSE;
 			}
 		}
@@ -2382,11 +2385,11 @@ BOOLEAN StrategicAILookForAdjacentGroups( GROUP *pGroup )
 				HandlePlayerGroupNoticedByPatrolGroup( pPlayerGroup, pEnemyGroup );
 				return FALSE;
 			}
-			pSector = &SectorInfo[ SECTOR( pPlayerGroup->ubSectorX+1, pPlayerGroup->ubSectorY ) ];
+			pSector = &SectorInfo[ SECTOR( pPlayerGroup->ubSectorX-1, pPlayerGroup->ubSectorY ) ];
 			ubNumEnemies = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites;
 			if( ubNumEnemies && pSector->ubGarrisonID != NO_GARRISON && AttemptToNoticeAdjacentGroupSucceeds() )
 			{
-				HandlePlayerGroupNoticedByGarrison( pPlayerGroup, (UINT8)SECTOR( pPlayerGroup->ubSectorX+1, pPlayerGroup->ubSectorY ) );
+				HandlePlayerGroupNoticedByGarrison( pPlayerGroup, (UINT8)SECTOR( pPlayerGroup->ubSectorX-1, pPlayerGroup->ubSectorY ) );
 				return FALSE;
 			}
 		}
@@ -2790,7 +2793,7 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 	UINT8 ubGroupSize;
 	BOOLEAN fLimitMaxTroopsAllowable = FALSE;
 
- Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
+	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
 	ValidateWeights( 8 );
 
 	if( gGarrisonGroup[ iDstGarrisonID ].ubSectorID == SEC_B13 ||
@@ -2928,7 +2931,9 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 	else
 	{
 		iSrcGarrisonID = ChooseSuitableGarrisonToProvideReinforcements( iDstGarrisonID, iReinforcementsRequested );
-		if( iSrcGarrisonID == -1 )
+		// WDS 08/01/2008 - Fix 0 reinforcement problem
+		iReinforcementsAvailable = ReinforcementsAvailable( iSrcGarrisonID );
+		if( (iSrcGarrisonID == -1) || (iReinforcementsAvailable == 0) )
 		{
 			ValidateWeights( 15 );
 			goto QUEEN_POOL;
@@ -4154,14 +4159,15 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic7");
 	}
 }
 
-void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSectorY )
+void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSectorY, 
+							   INT32 option1, INT32 option2 )
 {
 	GROUP *pGroup, *pGroup0, *pGroup1, *pGroup2, *pGroup3, *pPendingGroup = NULL;
 	SECTORINFO *pSector;
 	UINT8 ubSectorID;
 	UINT8 ubSourceSectorID;
 	UINT8 ubTargetSectorID;
-	UINT8 ubNumSoldiers;
+	unsigned ubNumSoldiers;
 
 	switch( usActionCode )
 	{
@@ -4318,7 +4324,151 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			{
 				MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, PURSUIT );
 			}
+			break;
 
+		// WDS - New AI
+		case NPC_ACTION_SEND_WEIGHTED_ASSAULT_TO_LOCATION:  // USES OPTIONAL PARAMETERS
+			if (gGameExternalOptions.useNewAI) {
+				// Send troops to assault the specified location.
+
+				// **  1st optional parm is a "direness" rating from the queens point of view 
+				//  that ranges from 0 to 100.  It it used to determine the number of troops and
+				//  their composition
+				// ** If 2nd optional parm is specified that is used as the groups "intention"
+				unsigned direness = (unsigned) option1;
+				Assert(direness >= 0 && direness <= 100);
+				unsigned intention = (unsigned) option2;
+				Assert(intention < NUM_ENEMY_INTENTIONS);
+
+				ubNumSoldiers = ( gubMinEnemyGroupSize + 
+					              gGameOptions.ubDifficultyLevel * 3 + 
+								  Random(HighestPlayerProgressPercentage() / 5) +
+								  Random(option1 / 5)
+								 );
+
+				if ( !gfUnlimitedTroops )
+					giReinforcementPool -= ubNumSoldiers;
+
+				giReinforcementPool = max( giReinforcementPool, 0 );
+
+				ubSourceSectorID = SEC_H13;
+				ubTargetSectorID = (UINT8)SECTOR( sSectorX, sSectorY );
+
+				if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+				{
+					ubSourceSectorID = SEC_P3;
+				}
+
+				int groupCnt = 0;
+				while (ubNumSoldiers != 0) {
+					++groupCnt;
+					unsigned soldiersThisSquad = ubNumSoldiers;
+					if (soldiersThisSquad > (unsigned)gGameExternalOptions.iMaxEnemyGroupSize) {
+						soldiersThisSquad = (unsigned)gGameExternalOptions.iMaxEnemyGroupSize;
+					}
+					ubNumSoldiers -= soldiersThisSquad;
+					unsigned adminsThisSquad = 0;
+					unsigned troopsThisSquad = 0;
+					unsigned elitesThisSquad = 0;
+					if (direness < 25) {
+						adminsThisSquad = soldiersThisSquad * (40 + Random(20)) / 100;	// 40-60% of total
+						troopsThisSquad = soldiersThisSquad - adminsThisSquad;			// The rest
+					} else if (direness < 50) {
+						adminsThisSquad = soldiersThisSquad * (20 + Random(10)) / 100;	// 20-30% of total
+						troopsThisSquad = soldiersThisSquad * (30 + Random(20)) / 100;	// 30-50% of total
+						elitesThisSquad = soldiersThisSquad - troopsThisSquad - adminsThisSquad; // The rest
+					} else if (direness < 75) {
+						adminsThisSquad = soldiersThisSquad * (10 + Random(10)) / 100;	// 10-20% of total
+						troopsThisSquad = soldiersThisSquad * (20 + Random(20)) / 100;	// 20-40% of total
+						elitesThisSquad = soldiersThisSquad - troopsThisSquad - adminsThisSquad; // The rest
+					} else /* direness >=75  */ {
+						adminsThisSquad = 0;											// 0% of total
+						troopsThisSquad = soldiersThisSquad * (30 + Random(20)) / 100;	// 30-50% of total
+						elitesThisSquad = soldiersThisSquad - troopsThisSquad - adminsThisSquad; // The rest
+					}
+					Assert(adminsThisSquad + troopsThisSquad + elitesThisSquad == soldiersThisSquad);
+					pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, adminsThisSquad, soldiersThisSquad, elitesThisSquad );
+					if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID ) {
+						pGroup0->pEnemyGroup->ubIntention = STAGE;
+						if (groupCnt > 2) {
+							pGroup0->pEnemyGroup->ubIntention = REINFORCEMENTS;
+							gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup0->ubGroupID;
+						}
+					} else {
+						pGroup0->pEnemyGroup->ubIntention = PURSUIT;
+					}
+					MoveSAIGroupToSector( &pGroup0, ubTargetSectorID, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+				} // while
+			} // if (gGameExternalOptions.useNewAI)
+			break;
+
+		// WDS - New AI
+		case NPC_ACTION_SEND_SPECIFIC_ASSAULT_TO_LOCATION:  // USES OPTIONAL PARAMETERS
+			if (gGameExternalOptions.useNewAI) {
+				// Send specific troops to assauat the specified location.
+
+				// Note:  1st optional parm is a count of troops to send
+				//        2nd optional parm is the composition of troops
+				if (option1 > 0 && option1 < 256) {
+					ubNumSoldiers = (UINT8)(option1);
+				} else {
+					// Something is goofy, just send a default sized squad
+					ubNumSoldiers = gubMinEnemyGroupSize;
+				}
+				unsigned adminsPercentage = 0;
+				unsigned troopsPercentage = 0;
+				unsigned elitesPercentage = 0;
+				// option2: value is eettaa
+				if (option2 > 0 && option2 < 99+99*100+99*100*100) {
+					adminsPercentage = option2 % 100;
+					troopsPercentage = (option2 / 100) % 100;
+					elitesPercentage = (option2 / 10000) % 100;
+				} else {
+					// Something is goofy, just use a default composition
+					adminsPercentage = 25;
+					troopsPercentage = 50;
+					elitesPercentage = 25;
+				}
+				Assert(adminsPercentage + troopsPercentage + elitesPercentage == 100);
+
+				if ( !gfUnlimitedTroops )
+					giReinforcementPool -= ubNumSoldiers;
+				giReinforcementPool = max( giReinforcementPool, 0 );
+
+				ubSourceSectorID = SEC_H13;
+				ubTargetSectorID = (UINT8)SECTOR( sSectorX, sSectorY );
+
+				if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+				{
+					ubSourceSectorID = SEC_P3;
+				}
+
+				int groupCnt = 0;
+				while (ubNumSoldiers != 0) {
+					++groupCnt;
+					unsigned soldiersThisSquad = ubNumSoldiers;
+					if (soldiersThisSquad > (unsigned)gGameExternalOptions.iMaxEnemyGroupSize) {
+						soldiersThisSquad = (unsigned)gGameExternalOptions.iMaxEnemyGroupSize;
+					}
+					ubNumSoldiers -= soldiersThisSquad;
+					unsigned adminsThisSquad = soldiersThisSquad * adminsPercentage / 100;
+					unsigned troopsThisSquad = soldiersThisSquad * troopsPercentage / 100;
+					unsigned elitesThisSquad = soldiersThisSquad - troopsThisSquad - adminsThisSquad; // The rest
+
+					Assert(adminsThisSquad + troopsThisSquad + elitesThisSquad == soldiersThisSquad);
+					pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, adminsThisSquad, soldiersThisSquad, elitesThisSquad );
+					if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID ) {
+						pGroup0->pEnemyGroup->ubIntention = STAGE;
+						if (groupCnt > 2) {
+							pGroup0->pEnemyGroup->ubIntention = REINFORCEMENTS;
+							gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup0->ubGroupID;
+						}
+					} else {
+						pGroup0->pEnemyGroup->ubIntention = PURSUIT;
+					}
+					MoveSAIGroupToSector( &pGroup0, ubTargetSectorID, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+				} // while
+			} // if (gGameExternalOptions.useNewAI)
 			break;
 
 		case NPC_ACTION_SEND_SOLDIERS_TO_OMERTA:
@@ -4402,6 +4552,14 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			break;
 	}
 }
+
+
+// WDS - New AI
+void HourlyCheckStrategicAI()
+{
+	// Nothing (yet!)
+}
+
 
 #ifdef JA2BETAVERSION
 
@@ -5233,7 +5391,8 @@ void UpgradeAdminsToTroops()
 	for( i = 0; i < giGarrisonArraySize; i++ )
 	{
 		// skip sector if it's currently loaded, we'll never upgrade guys in those
-		if ( SECTOR( gWorldSectorX, gWorldSectorY ) == gGarrisonGroup[ i ].ubSectorID )
+		if ( (gWorldSectorX != 0) && (gWorldSectorY != 0) &&
+			 (SECTOR( gWorldSectorX, gWorldSectorY ) == gGarrisonGroup[ i ].ubSectorID) )
 		{
 			continue;
 		}

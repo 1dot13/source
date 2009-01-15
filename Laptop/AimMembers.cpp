@@ -1668,6 +1668,19 @@ void BtnBuyEquipmentButtonCallback(GUI_BUTTON *btn,INT32 reason)
 //Transfer funds button callback
 void BtnAuthorizeButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
+// WDS - make number of mercenaries, etc. be configurable
+// WDS DEBUG
+if (LaptopSaveInfo.iCurrentBalance == 4500001) {
+	unsigned hired = 0;
+	while (hired < gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs) {
+		if (AimMemberHireMerc()) {
+    	  giIdOfLastHiredMerc = AimMercArray[gbCurrentIndex];
+		  ++hired;
+		}
+		++gbCurrentIndex;
+	}
+	return;
+}
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
@@ -1804,10 +1817,10 @@ INT8 AimMemberHireMerc()
 
 	//if we succesfully hired the merc
 	bReturnCode = HireMerc( &HireMercStruct );
-	if( bReturnCode == MERC_HIRE_OVER_18_MERCS_HIRED )
+	if( bReturnCode == MERC_HIRE_OVER_PLAYER_LIMIT )
 	{
-		//display a warning saying u cant hire more than 18 mercs
-		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_18_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		//display a warning saying u cant hire more than the max mercs
+		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_MAX_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 		return(FALSE);
 	}
 	else if( bReturnCode == MERC_HIRE_FAILED )
@@ -4204,10 +4217,10 @@ BOOLEAN QuickHireMerc()
 	SetFlagToForceHireMerc( TRUE );
 	bReturnCode = HireMerc( &HireMercStruct );
 	SetFlagToForceHireMerc( FALSE );
-	if( bReturnCode == MERC_HIRE_OVER_18_MERCS_HIRED )
+	if( bReturnCode == MERC_HIRE_OVER_PLAYER_LIMIT )
 	{
 		//display a warning saying u cant hire more than 18 mercs
-		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_18_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_MAX_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 		return(FALSE);
 	}
 	else if( bReturnCode == MERC_HIRE_FAILED )

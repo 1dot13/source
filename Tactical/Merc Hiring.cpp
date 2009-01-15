@@ -102,8 +102,8 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	if( ( pMerc->bMercStatus != 0 ) && (pMerc->bMercStatus != MERC_ANNOYED_BUT_CAN_STILL_CONTACT ) && ( pMerc->bMercStatus != MERC_HIRED_BUT_NOT_ARRIVED_YET ) )
 		return( MERC_HIRE_FAILED );
 
-	if( NumberOfMercsOnPlayerTeam() >= 18 || (is_client && NumberOfMercsOnPlayerTeam() >= MAX_MERCS)) //hayden, 7 member team limit setable in ini
-		return( MERC_HIRE_OVER_18_MERCS_HIRED );
+	if( NumberOfMercsOnPlayerTeam() >= gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs )
+		return( MERC_HIRE_OVER_PLAYER_LIMIT );
 
 	// ATE: if we are to use landing zone, update to latest value
 	// they will be updated again just before arrival...
@@ -197,21 +197,21 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 
 	if (!is_networked)
 	{
-		if( DidGameJustStart() )
-		{
-			pHireMerc->uiTimeTillMercArrives = ( gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay ) / NUM_SEC_IN_MIN;
+	if( DidGameJustStart() )
+	{
+		pHireMerc->uiTimeTillMercArrives = ( gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay ) / NUM_SEC_IN_MIN;
 
-			// Set insertion for first time in chopper
-			pHireMerc->ubInsertionCode				= INSERTION_CODE_CHOPPER;
+		// Set insertion for first time in chopper
+		pHireMerc->ubInsertionCode				= INSERTION_CODE_CHOPPER;
 
-			//set when the merc's contract is finished
-			pSoldier->iEndofContractTime = GetMidnightOfFutureDayInMinutes( pSoldier->iTotalContractLength ) + ( GetHourWhenContractDone( pSoldier ) * 60 );
-		}
-		else
-		{
-			//set when the merc's contract is finished ( + 1 cause it takes a day for the merc to arrive )
-			pSoldier->iEndofContractTime = GetMidnightOfFutureDayInMinutes( 1 + pSoldier->iTotalContractLength ) + ( GetHourWhenContractDone( pSoldier ) * 60 );
-		}
+		//set when the merc's contract is finished
+		pSoldier->iEndofContractTime = GetMidnightOfFutureDayInMinutes( pSoldier->iTotalContractLength ) + ( GetHourWhenContractDone( pSoldier ) * 60 );
+	}
+	else
+	{
+		//set when the merc's contract is finished ( + 1 cause it takes a day for the merc to arrive )
+		pSoldier->iEndofContractTime = GetMidnightOfFutureDayInMinutes( 1 + pSoldier->iTotalContractLength ) + ( GetHourWhenContractDone( pSoldier ) * 60 );
+	}
 	}
 	// WANNE - MP: We need this, so the merc contract is correct!
 	else
@@ -225,15 +225,15 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 
 	if (!is_client)
 	{
-			//if we are trying to hire a merc that should arrive later, put the merc in the queue
-			if( pHireMerc->uiTimeTillMercArrives  != 0 )
-			{
-				AddStrategicEvent( EVENT_DELAYED_HIRING_OF_MERC, pHireMerc->uiTimeTillMercArrives,  pSoldier->ubID );
+	//if we are trying to hire a merc that should arrive later, put the merc in the queue
+	if( pHireMerc->uiTimeTillMercArrives	!= 0 )
+	{
+		AddStrategicEvent( EVENT_DELAYED_HIRING_OF_MERC, pHireMerc->uiTimeTillMercArrives,	pSoldier->ubID );
 				
-				//specify that the merc is hired but hasnt arrived yet
-				pMerc->bMercStatus = MERC_HIRED_BUT_NOT_ARRIVED_YET;
+		//specify that the merc is hired but hasnt arrived yet
+		pMerc->bMercStatus = MERC_HIRED_BUT_NOT_ARRIVED_YET;
 
-			}
+	}
 	}
 	else
 	{
@@ -315,16 +315,16 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	if (!is_networked)
 	{
 		// hayden - maybe you want to duke it out in omerta ;)
-		if( !DidGameJustStart() && gsMercArriveSectorX == 9 && gsMercArriveSectorY == 1 )
+	if( !DidGameJustStart() && gsMercArriveSectorX == 9 && gsMercArriveSectorY == 1 )
 		{ 
 			//Mercs arriving in A9.  This sector has been deemed as the always safe sector.
-			//Seeing we don't support entry into a hostile sector (except for the beginning),
-			//we will nuke any enemies in this sector first.
-			if( gWorldSectorX != 9 || gWorldSectorY != 1 || gbWorldSectorZ )
-			{
-				EliminateAllEnemies( (UINT8)gsMercArriveSectorX, (UINT8)gsMercArriveSectorY );
-			}
+		//Seeing we don't support entry into a hostile sector (except for the beginning),
+		//we will nuke any enemies in this sector first.
+		if( gWorldSectorX != 9 || gWorldSectorY != 1 || gbWorldSectorZ )
+		{
+			EliminateAllEnemies( (UINT8)gsMercArriveSectorX, (UINT8)gsMercArriveSectorY );
 		}
+	}
 	}
 
 	// This will update ANY soldiers currently schedules to arrive too
@@ -471,17 +471,22 @@ BOOLEAN IsTheSoldierAliveAndConcious( SOLDIERTYPE		*pSoldier )
 
 UINT8	NumberOfMercsOnPlayerTeam()
 {
-	INT8					cnt;
+	INT8			cnt;
 	SOLDIERTYPE		*pSoldier;
-	INT16					bLastTeamID;
-	UINT8					ubCount=0;
+	INT16			bLastTeamID;
+	UINT8			ubCount=0;
 
 	// Set locator to first merc
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
+	if (! MercPtrs[cnt])
+		return 0;
+
 	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
 	{
+		AssertNotNIL(pSoldier);
+
 		//if the is active, and is not a vehicle
 		if( pSoldier->bActive && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{

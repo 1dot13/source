@@ -19,8 +19,14 @@ enum
 
 };
 
-
-void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSectorY );
+// WDS - New AI
+void ExecuteStrategicAIAction(
+							  UINT16 usActionCode,  // See list in "interface Dialogue.h"
+							  INT16 sSectorX,		// Target X location of strategic action
+							  INT16 sSectorY,		// Target Y location of strategic action
+							  INT32 option1 = 0,	// Option 1, vaies with action
+							  INT32 option2 = 0		// Option 2, vaies with action
+							  );
 
 void CheckEnemyControlledSector( UINT8 ubSectorID );
 void EvaluateQueenSituation();
@@ -39,6 +45,9 @@ BOOLEAN EnemyPermittedToAttackSector( GROUP **pGroup, UINT8 ubSectorID );
 void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 
 void InvestigateSector( UINT8 ubSectorID );
+
+// WDS - New AI
+void HourlyCheckStrategicAI();
 
 void WakeUpQueen();
 

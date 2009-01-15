@@ -2378,7 +2378,8 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCos
 	// make sure the guy's actually got a throwable item in his hand!
 	usInHand = pSoldier->inv[ HANDPOS ].usItem;
 
-	if ( ( !(Item[ usInHand ].usItemClass & IC_GRENADE) ) )
+	if ( ( !(Item[ usInHand ].usItemClass & IC_GRENADE) &&
+		   !(Item[ usInHand ].usItemClass & IC_LAUNCHER)) )
 	{
 		//AXP 25.03.2007: See if we are about to throw grenade (grenade was not in hand, but in temp object)
 		if ( pSoldier->pTempObject != NULL && pSoldier->pThrowParams != NULL &&

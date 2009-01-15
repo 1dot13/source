@@ -327,7 +327,7 @@ BOOLEAN ReloadQuoteFileIfLoaded( UINT8 ubNPC )
 
 BOOLEAN RefreshNPCScriptRecord( UINT8 ubNPC, UINT8 ubRecord )
 {
-	UINT8							ubLoop;
+	UINT8 ubLoop;
 	NPCQuoteInfo *		pNewArray;
 
 	if ( ubNPC == NO_PROFILE )
@@ -460,7 +460,7 @@ BOOLEAN ReloadCivQuoteFileIfLoaded( UINT8 ubIndex )
 
 void ShutdownNPCQuotes( void )
 {
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 
 	for ( ubLoop = 0; ubLoop < NUM_PROFILES; ubLoop++ )
 	{
@@ -618,7 +618,7 @@ UINT8 CalcDesireToTalk( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach )
 
 void ApproachedForFirstTime( MERCPROFILESTRUCT * pNPCProfile, INT8 bApproach )
 {
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 	UINT32	uiTemp;
 
 	pNPCProfile->bApproached |= gbFirstApproachFlags[bApproach - 1];
@@ -1499,7 +1499,7 @@ void ReplaceLocationInNPCDataFromProfileID( UINT8 ubNPC, INT16 sOldGridNo, INT16
 
 void ResetOncePerConvoRecords( NPCQuoteInfo * pNPCQuoteInfoArray )
 {
-	UINT8									ubLoop;
+	UINT8 ubLoop;
 
 	for ( ubLoop = 0; ubLoop < NUM_NPC_QUOTE_RECORDS; ubLoop++ )
 	{
@@ -1522,7 +1522,7 @@ void ResetOncePerConvoRecordsForNPC( UINT8 ubNPC )
 
 void ResetOncePerConvoRecordsForAllNPCsInLoadedSector( void )
 {
-	UINT8	ubLoop;
+	UINT8 ubLoop;
 
 	if ( gWorldSectorX == 0 || gWorldSectorY == 0 )
 	{
@@ -2314,7 +2314,7 @@ void NPCReachedDestination( SOLDIERTYPE * pNPC, BOOLEAN fAlreadyThere )
 	UINT8		ubNPC;
 	NPCQuoteInfo *				pQuotePtr;
 	NPCQuoteInfo *				pNPCQuoteInfoArray;
-	UINT8									ubLoop;
+	UINT8 ubLoop;
 	UINT8									ubQuoteRecord;
 
 	if ( pNPC->ubQuoteRecord == 0 )
@@ -2441,7 +2441,7 @@ void TriggerNPCRecordImmediately( UINT8 ubTriggerNPC, UINT8 ubTriggerNPCRec )
 
 void PCsNearNPC( UINT8 ubNPC )
 {
-	UINT8									ubLoop;
+	UINT8 ubLoop;
 	NPCQuoteInfo *				pNPCQuoteInfoArray;
 	SOLDIERTYPE *pSoldier;
 	NPCQuoteInfo *				pQuotePtr;
@@ -2482,7 +2482,7 @@ void PCsNearNPC( UINT8 ubNPC )
 
 BOOLEAN PCDoesFirstAidOnNPC( UINT8 ubNPC )
 {
-	UINT8									ubLoop;
+	UINT8 ubLoop;
 	NPCQuoteInfo *				pNPCQuoteInfoArray;
 	SOLDIERTYPE *pSoldier;
 	NPCQuoteInfo *				pQuotePtr;
@@ -2573,7 +2573,7 @@ BOOLEAN TriggerNPCWithIHateYouQuote( UINT8 ubTriggerNPC )
 	NPCQuoteInfo *				pNPCQuoteInfoArray;
 	NPCQuoteInfo	*pQuotePtr;
 	BOOLEAN				fDisplayDialogue = TRUE;
-	UINT8					ubLoop;
+	UINT8 ubLoop;
 
 	if (EnsureQuoteFileLoaded( ubTriggerNPC ) == FALSE)
 	{
@@ -2605,7 +2605,7 @@ BOOLEAN NPCHasUnusedRecordWithGivenApproach( UINT8 ubNPC, UINT8 ubApproach )
 	// Check if we have a quote that could be used
 	NPCQuoteInfo *				pNPCQuoteInfoArray;
 	NPCQuoteInfo	*pQuotePtr;
-	UINT8					ubLoop;
+	UINT8 ubLoop;
 
 	if (EnsureQuoteFileLoaded( ubNPC ) == FALSE)
 	{
@@ -2633,7 +2633,7 @@ BOOLEAN NPCHasUnusedHostileRecord( UINT8 ubNPC, UINT8 ubApproach )
 	// Check if we have a quote that could be used
 	NPCQuoteInfo *				pNPCQuoteInfoArray;
 	NPCQuoteInfo	*pQuotePtr;
-	UINT8					ubLoop;
+	UINT8 ubLoop;
 
 	if (EnsureQuoteFileLoaded( ubNPC ) == FALSE)
 	{
@@ -2696,7 +2696,7 @@ BOOLEAN GetInfoForAbandoningEPC( UINT8 ubNPC, UINT16 * pusQuoteNum, UINT16 * pus
 	// Check if we have a quote that could be used
 	NPCQuoteInfo *				pNPCQuoteInfoArray;
 	NPCQuoteInfo	*pQuotePtr;
-	UINT8					ubLoop;
+	UINT8 ubLoop;
 
 	if (EnsureQuoteFileLoaded( ubNPC ) == FALSE)
 	{
@@ -2725,7 +2725,7 @@ BOOLEAN TriggerNPCWithGivenApproach( UINT8 ubTriggerNPC, UINT8 ubApproach, BOOLE
 	NPCQuoteInfo *				pNPCQuoteInfoArray;
 	NPCQuoteInfo	*pQuotePtr;
 	BOOLEAN				fDisplayDialogue = TRUE;
-	UINT8					ubLoop;
+	UINT8 ubLoop;
 
 	if (EnsureQuoteFileLoaded( ubTriggerNPC ) == FALSE)
 	{
@@ -3383,7 +3383,7 @@ BOOLEAN RecordHasDialogue( UINT8 ubNPC, UINT8 ubRecord )
 
 INT8 FindCivQuoteFileIndex( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 {
-	UINT8			ubLoop;
+	UINT8 ubLoop;
 
   if ( sSectorZ > 0 )
   {

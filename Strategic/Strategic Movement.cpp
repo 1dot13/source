@@ -50,6 +50,8 @@
 #endif
 
 #include "MilitiaSquads.h"
+#include "Vehicles.h"
+
 #include "connect.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -76,7 +78,6 @@ extern BOOLEAN gfUsePersistantPBI;
 
 extern BOOLEAN gubNumAwareBattles;
 extern INT8 SquadMovementGroups[ ];
-extern INT8 gubVehicleMovementGroups[ ];
 
 BOOLEAN gfDelayAutoResolveStart = FALSE;
 
@@ -740,6 +741,8 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 										L"with a save close to this event, that would really help me! -- KM:0" );
 			DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 		}
+		/*
+		 * Not valid
 		else if( pNew->ubGroupSize > 25 )
 		{
 			swprintf( str, L"Strategic AI warning:	Creating an enemy group containing %d soldiers "
@@ -749,6 +752,7 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 										pNew->ubSectorY + 'A' - 1, pNew->ubSectorX );
 			DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 		}
+		*/
 	}
 #endif
 
@@ -767,10 +771,22 @@ UINT8 AddGroupToList( GROUP *pGroup )
 {
 	GROUP *curr;
 	UINT32 bit, index, mask;
-	UINT8 ID = 0;
+	unsigned ID = 0;
+
+	AssertNotNIL (pGroup);
+	AssertGE (pGroup->ubSectorX, MINIMUM_VALID_X_COORDINATE);
+	AssertLE (pGroup->ubSectorX, MAXIMUM_VALID_X_COORDINATE);
+	AssertGE (pGroup->ubSectorY, MINIMUM_VALID_Y_COORDINATE);
+	AssertLE (pGroup->ubSectorY, MAXIMUM_VALID_Y_COORDINATE);
+	AssertGE (pGroup->ubSectorZ, MINIMUM_VALID_Z_COORDINATE);
+	AssertLE (pGroup->ubSectorZ, MAXIMUM_VALID_Z_COORDINATE);
+	//AssertGT (pGroup->ubGroupSize, 0);
+
 	//First, find a unique ID
 	while( ++ID )
 	{
+		AssertLT (ID, 256);
+
 		index = ID / 32;
 		bit = ID % 32;
 		mask = 1 << bit;
@@ -898,15 +914,18 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 	// ATE; Changed alogrithm here...
 	// We first loop through the group and save ubID's ov valid guys to talk....
 	// ( Can't if sleeping, unconscious, and EPC, etc....
-	UINT8				ubMercsInGroup[ 20 ] = { 0 };
-	UINT8				ubNumMercs = 0;
-	UINT8				ubChosenMerc;
+// WDS - make number of mercenaries, etc. be configurable
+	unsigned			ubMercsInGroup[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
+	unsigned			ubNumMercs = 0;
+	unsigned				ubChosenMerc;
 	SOLDIERTYPE *pSoldier;
 	PLAYERGROUP *pPlayer;
 
 	if( fDisableMapInterfaceDueToBattle )
 	{
-		AssertMsg( 0, "fDisableMapInterfaceDueToBattle is set before attempting to bring up PBI.	Please send PRIOR save if possible and details on anything that just happened before this battle." );
+		// WDS Note: This can validly happen when multiple teams retreat and then immediately return to a sector.
+		// Just returning causes no problems.
+//		AssertMsg( 0, "fDisableMapInterfaceDueToBattle is set before attempting to bring up PBI.	Please send PRIOR save if possible and details on anything that just happened before this battle." );
 		return;
 	}
 
@@ -1094,7 +1113,8 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 	{
 		pPlayerDialogGroup = pGroup;
 
-		if( NumEnemiesInSector( pGroup->ubSectorX, pGroup->ubSectorY ) )
+		if( NumEnemiesInSector( pGroup->ubSectorX, pGroup->ubSectorY ) &&
+			(!IsGroupTheHelicopterGroup( pGroup ) || (gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE)))
 		{
 			fBattlePending = TRUE;
 			StopTimeCompression();
@@ -1392,7 +1412,7 @@ BOOLEAN AttemptToMergeSeparatedGroups( GROUP *pGroup, BOOLEAN fDecrementTraversa
 								}
 								pPlayer = pPlayer->next;
 							}
-							while( pGroup->ubGroupSize && curr->ubGroupSize < 6 )
+							while( pGroup->ubGroupSize && curr->ubGroupSize < NUMBER_OF_SOLDIERS_PER_SQUAD )
 							{ //while there is room in the new group, move one soldier at a time automatically.
 								#ifdef JA2BETAVERSION
 									counter++;
@@ -1425,7 +1445,7 @@ BOOLEAN AttemptToMergeSeparatedGroups( GROUP *pGroup, BOOLEAN fDecrementTraversa
 			curr = curr->next;
 		}
 	}
-	else if( pGroup->ubGroupSize < 6 )
+	else if( pGroup->ubGroupSize < NUMBER_OF_SOLDIERS_PER_SQUAD )
 	{ //Search for other groups looking to join our group.
 		while( curr )
 		{
@@ -1449,7 +1469,7 @@ BOOLEAN AttemptToMergeSeparatedGroups( GROUP *pGroup, BOOLEAN fDecrementTraversa
 								}
 								pPlayer = pPlayer->next;
 							}
-							while( curr->ubGroupSize && pGroup->ubGroupSize < 6 )
+							while( curr->ubGroupSize && pGroup->ubGroupSize < NUMBER_OF_SOLDIERS_PER_SQUAD )
 							{ //while there is room in the new group, move one soldier at a time automatically.
 								#ifdef JA2BETAVERSION
 									counter++;
@@ -1969,15 +1989,18 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			// check if sector had been visited previously
 			fFirstTimeInSector = !GetSectorFlagStatus( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ, SF_ALREADY_VISITED );
 
+			if (fFirstTimeInSector) {
+				AddExtraItems( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ );
+			}
+
 			// on foot, or in a vehicle other than the chopper
 			if ( !pGroup->fVehicle || !IsGroupTheHelicopterGroup( pGroup ) )
 			{
-
-		// ATE: Add a few corpse to the bloodcat lair...
-		if ( SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ) == SEC_I16 && fFirstTimeInSector )
-		{
-			AddCorpsesToBloodcatLair( pGroup->ubSectorX, pGroup->ubSectorY );
-		}
+				// ATE: Add a few corpse to the bloodcat lair...
+				if ( SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ) == SEC_I16 && fFirstTimeInSector )
+				{
+					AddCorpsesToBloodcatLair( pGroup->ubSectorX, pGroup->ubSectorY );
+				}
 
 				// mark the sector as visited already
 				SetSectorFlag( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ, SF_ALREADY_VISITED );
@@ -2005,7 +2028,8 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 				while( gubNumGroupsArrivedSimultaneously && pGroup )
 				{
 					next = pGroup->next;
-					if( pGroup->uiFlags & GROUPFLAG_GROUP_ARRIVED_SIMULTANEOUSLY )
+					// WDS - Fix bug with 0 size group arriving at 0,0,0
+					if( (pGroup->ubGroupSize > 0) && pGroup->uiFlags & GROUPFLAG_GROUP_ARRIVED_SIMULTANEOUSLY )
 					{
 						gubNumGroupsArrivedSimultaneously--;
 						HandleNonCombatGroupArrival( pGroup, FALSE, FALSE );
@@ -2375,9 +2399,11 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 	dx = wp->x - pGroup->ubSectorX;
 	dy = wp->y - pGroup->ubSectorY;
 	if( dx && dy )
-	{ //Can't move diagonally!
-		AssertMsg( 0, String("Attempting to move to waypoint in a diagonal direction from sector %d,%d to sector %d,%d",
-			pGroup->ubSectorX, pGroup->ubSectorY, wp->x, wp->y ) );
+	{ //Shouldn't move diagonally!
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("Attempting to move to waypoint in a diagonal direction from sector %d,%d to sector %d,%d",
+			pGroup->ubSectorX, pGroup->ubSectorY, wp->x, wp->y ));
+		//AssertMsg( 0, String("Attempting to move to waypoint in a diagonal direction from sector %d,%d to sector %d,%d",
+		//	pGroup->ubSectorX, pGroup->ubSectorY, wp->x, wp->y ) );
 	}
 	if( !dx && !dy ) //Can't move to position currently at!
 		AssertMsg( 0, String("Attempting to move to waypoint %d, %d that you are already at!", wp->x, wp->y ) );
@@ -3317,48 +3343,44 @@ BOOLEAN PlayersBetweenTheseSectors( INT16 sSource, INT16 sDest, INT32 *iCountEnt
 					fMayRetreatFromBattle = FALSE;
 					fRetreatingFromBattle = FALSE;
 
-					if( ( sBattleSector == sSource ) && ( SECTOR( curr->ubSectorX, curr->ubSectorY ) == sSource ) && ( SECTOR( curr->ubPrevX, curr->ubPrevY ) == sDest ) )
-					{
-						fMayRetreatFromBattle = TRUE;
-					}
-
-					if( ( sBattleSector == sDest ) && ( SECTOR( curr->ubSectorX, curr->ubSectorY ) == sDest ) && ( SECTOR( curr->ubPrevX, curr->ubPrevY ) == sSource ) )
-					{
-						fRetreatingFromBattle = TRUE;
-					}
-
-					ubMercsInGroup = curr->ubGroupSize;
-
-					if( ( ( SECTOR( curr->ubSectorX, curr->ubSectorY ) == sSource ) && ( SECTOR( curr->ubNextX, curr->ubNextY ) == sDest) ) || ( fMayRetreatFromBattle == TRUE ) )
-					{
-						// if it's a valid vehicle, but not the helicopter (which can fly empty)
-						if ( curr->fVehicle && !fHelicopterGroup && ( GivenMvtGroupIdFindVehicleId( curr->ubGroupID ) != -1 ) )
-						{
-							// make sure empty vehicles (besides helicopter) aren't in motion!
-							Assert( ubMercsInGroup > 0 );
-							// subtract 1, we don't wanna count the vehicle itself for purposes of showing a number on the map
-							ubMercsInGroup--;
+					if ((curr->ubSectorX != 0) && (curr->ubSectorY != 0) &&
+						(curr->ubNextX != 0) && (curr->ubNextY != 0)) {
+						if( ( sBattleSector == sSource ) && ( SECTOR( curr->ubSectorX, curr->ubSectorY ) == sSource ) && ( SECTOR( curr->ubPrevX, curr->ubPrevY ) == sDest ) ) {
+							fMayRetreatFromBattle = TRUE;
+						}
+						if( ( sBattleSector == sDest ) && ( SECTOR( curr->ubSectorX, curr->ubSectorY ) == sDest ) && ( SECTOR( curr->ubPrevX, curr->ubPrevY ) == sSource ) ) {
+							fRetreatingFromBattle = TRUE;
 						}
 
-						*iCountEnter += ubMercsInGroup;
+						ubMercsInGroup = curr->ubGroupSize;
 
-						if( ( curr->uiArrivalTime - GetWorldTotalMin( ) <= ABOUT_TO_ARRIVE_DELAY ) || ( fMayRetreatFromBattle == TRUE ) )
-						{
-							*fAboutToArriveEnter = TRUE;
+						if (((SECTOR(curr->ubSectorX, curr->ubSectorY) == sSource) && 
+							 (SECTOR(curr->ubNextX, curr->ubNextY) == sDest)) || 
+							(fMayRetreatFromBattle)) {
+							// if it's a valid vehicle, but not the helicopter (which can fly empty)
+							if ( curr->fVehicle && !fHelicopterGroup && ( GivenMvtGroupIdFindVehicleId( curr->ubGroupID ) != -1 ) ) {
+								// make sure empty vehicles (besides helicopter) aren't in motion!
+								Assert( ubMercsInGroup > 0 );
+								// subtract 1, we don't wanna count the vehicle itself for purposes of showing a number on the map
+								ubMercsInGroup--;
+							}
+							*iCountEnter += ubMercsInGroup;
+							if( ( curr->uiArrivalTime - GetWorldTotalMin( ) <= ABOUT_TO_ARRIVE_DELAY ) || ( fMayRetreatFromBattle ) ) {
+								*fAboutToArriveEnter = TRUE;
+							}
 						}
-					}
-					else if( ( SECTOR( curr->ubSectorX, curr->ubSectorY ) == sDest )&&( SECTOR( curr->ubNextX, curr->ubNextY ) == sSource) || ( fRetreatingFromBattle == TRUE ) )
-					{
-						// if it's a valid vehicle, but not the helicopter (which can fly empty)
-						if ( curr->fVehicle && !fHelicopterGroup && ( GivenMvtGroupIdFindVehicleId( curr->ubGroupID ) != -1 ) )
-						{
-							// make sure empty vehicles (besides helicopter) aren't in motion!
-							Assert( ubMercsInGroup > 0 );
-							// subtract 1, we don't wanna count the vehicle itself for purposes of showing a number on the map
-							ubMercsInGroup--;
+						else if ((SECTOR( curr->ubSectorX, curr->ubSectorY ) == sDest) &&
+							     (SECTOR( curr->ubNextX, curr->ubNextY ) == sSource) || 
+								 (fRetreatingFromBattle)) {
+							// if it's a valid vehicle, but not the helicopter (which can fly empty)
+							if ( curr->fVehicle && !fHelicopterGroup && ( GivenMvtGroupIdFindVehicleId( curr->ubGroupID ) != -1 ) ) {
+								// make sure empty vehicles (besides helicopter) aren't in motion!
+								Assert( ubMercsInGroup > 0 );
+								// subtract 1, we don't wanna count the vehicle itself for purposes of showing a number on the map
+								ubMercsInGroup--;
+							}
+							*iCountExit += ubMercsInGroup;
 						}
-
-						*iCountExit += ubMercsInGroup;
 					}
 				}
 			}

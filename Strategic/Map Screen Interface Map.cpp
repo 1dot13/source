@@ -43,8 +43,10 @@
 	#include "Tactical Save.h"
 	#include "Map Information.h"
 	#include "Air Raid.h"
+	#include "Auto Resolve.h"
 #endif
 
+#include "Quests.h"
 #include "connect.h"
 
 // zoom x and y coords for map scrolling
@@ -900,6 +902,8 @@ UINT32 DrawMap( void )
 	DisplayLevelString( );
 
 	RestoreClipRegionToFullScreen( );
+
+	CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors();
 
 	return( TRUE );
 }
@@ -4067,19 +4071,19 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 
 		sDest = sSource;
 
-		if( ( iCounter == 0 ) && sY > 1 )
+		if( ( iCounter == 0 ) && sY > MINIMUM_VALID_Y_COORDINATE )
 		{
 			sDest += NORTH_MOVE;
 		}
-		else if( ( iCounter == 1 ) && ( sX < MAP_WORLD_X - 1 ) )
+		else if( ( iCounter == 1 ) && ( sX < MAXIMUM_VALID_X_COORDINATE ) )
 		{
 			sDest += EAST_MOVE;
 		}
-		else if( ( iCounter == 2 ) && ( sY < MAP_WORLD_Y - 1 ) )
+		else if( ( iCounter == 2 ) && ( sY < MAXIMUM_VALID_Y_COORDINATE ) )
 		{
 			sDest += SOUTH_MOVE;
 		}
-		else if( ( iCounter == 3 ) && ( sX > 1 ) )
+		else if( ( iCounter == 3 ) && ( sX > MINIMUM_VALID_X_COORDINATE ) )
 		{
 			sDest += WEST_MOVE;
 		}
@@ -4087,7 +4091,11 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 		// if not at edge of map
 		if ( sDest != sSource )
 		{
-			if( PlayersBetweenTheseSectors( ( INT16 ) SECTOR( sSource % MAP_WORLD_X, sSource / MAP_WORLD_X ) , ( INT16 ) SECTOR( sDest % MAP_WORLD_X, sDest / MAP_WORLD_X ), &sExiting, &sEntering, &fAboutToEnter ) )
+			int tXS = sSource % MAP_WORLD_X;
+			int tYS = sSource / MAP_WORLD_X;
+			int tXD = sDest % MAP_WORLD_X;
+			int tYD = sDest / MAP_WORLD_X;
+			if( PlayersBetweenTheseSectors( ( INT16 ) SECTOR(tXS, tYS) , ( INT16 ) SECTOR(tXD, tYD), &sExiting, &sEntering, &fAboutToEnter ) )
 			{
 				// someone is leaving
 
@@ -4307,7 +4315,6 @@ void DisplayDistancesForHelicopter( void )
 //	sTotalCanTravel = ( INT16 )GetTotalDistanceHelicopterCanTravel( );
 	sDistanceToGo = ( INT16 )DistanceOfIntendedHelicopterPath( );
 	sTotalOfTrip = sDistanceToGo;		// + ( INT16 ) ( DistanceToNearestRefuelPoint( ( INT16 )( LastSectorInHelicoptersPath() % MAP_WORLD_X ), ( INT16 ) ( LastSectorInHelicoptersPath() / MAP_WORLD_X ) ) );
-
   sNumSafeSectors = GetNumSafeSectorsInPath( );
   sNumUnSafeSectors = GetNumUnSafeSectorsInPath( );
 
@@ -4411,81 +4418,59 @@ void DisplayPositionOfHelicopter( void )
 	INT32 iNumberOfPeopleInHelicopter = 0;
 	CHAR16 sString[ 4 ];
 
-
 	AssertMsg( ( sOldMapX >= 0 ) && ( sOldMapX < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid sOldMapX = %d", sOldMapX ) );
 	AssertMsg( ( sOldMapY >= 0 ) && ( sOldMapY < SCREEN_HEIGHT ), String( "DisplayPositionOfHelicopter: Invalid sOldMapY = %d", sOldMapY ) );
 
 	// restore background on map where it is
-	if( sOldMapX != 0 )
-	{
+	if( sOldMapX != 0 ) {
 		RestoreExternBackgroundRect( sOldMapX, sOldMapY, HELI_ICON_WIDTH, HELI_ICON_HEIGHT );
 		sOldMapX = 0;
 	}
 
-
-	if( iHelicopterVehicleId != -1 )
-	{
+	if( iHelicopterVehicleId != -1 ) {
 		// draw the destination icon first, so when they overlap, the real one is on top!
 		DisplayDestinationOfHelicopter( );
 
 		// check if mvt group
-		if( pVehicleList[ iHelicopterVehicleId ].ubMovementGroup != 0 )
-		{
-
+		if( pVehicleList[ iHelicopterVehicleId ].ubMovementGroup != 0 ) {
 			pGroup = GetGroup( pVehicleList[ iHelicopterVehicleId ].ubMovementGroup );
 
-			// this came up in one bug report!
-			Assert( pGroup->uiTraverseTime != -1 );
-
-			if( ( pGroup->uiTraverseTime > 0 ) && ( pGroup->uiTraverseTime != 0xffffffff ) )
-			{
+			if (!pGroup) {
+				// Something is really goofed up, there's no group for the helicopter.  Re-create it.
+				static bool heliMsg1Given = false;
+				if (!heliMsg1Given) {
+					DoScreenIndependantMessageBox( L"The helicopter data is corrupted.  Attempting to repair it...", MSG_BOX_FLAG_OK, NULL );
+					heliMsg1Given = true;
+				}
+				RemoveVehicleFromList (iHelicopterVehicleId);
+				InitAVehicle (iHelicopterVehicleId, 13, MAP_ROW_B);
+				fSkyRiderSetUp = FALSE;
+				SetUpHelicopterForPlayer( 13, MAP_ROW_B );
+				pGroup = GetGroup( pVehicleList[ iHelicopterVehicleId ].ubMovementGroup );
+				if (!pGroup) {
+					static bool heliMsg2Given = false;
+					if (!heliMsg2Given) {
+						DoScreenIndependantMessageBox( L"The helicopter data is corrupted beyond repair.  Please report this and send a save file and your .ini file.  You can continue playing but the helicopter will not work properly.", MSG_BOX_FLAG_OK, NULL );
+						heliMsg2Given = true;
+					}
+					return;
+				}
+			}
+			if( ( pGroup->uiTraverseTime > 0 ) && ( pGroup->uiTraverseTime != 0xffffffff ) ) {
 				flRatio = ( ( pGroup->uiTraverseTime + GetWorldTotalMin() ) - pGroup->uiArrivalTime ) / ( float ) pGroup->uiTraverseTime;
 			}
 
-/*
-			AssertMsg( ( flRatio >= 0 ) && ( flRatio <= 100 ), String( "DisplayPositionOfHelicopter: Invalid flRatio = %6.2f, trav %d, arr %d, time %d",
-																				flRatio, pGroup->uiTraverseTime, pGroup->uiArrivalTime, GetWorldTotalMin() ) );
-*/
-
-			if ( flRatio < 0 )
-			{
+			if ( flRatio < 0 ) {
 				flRatio = 0;
-			}
-			else if ( flRatio > 100 )
-			{
+			} else if ( flRatio > 100 ) {
 				flRatio = 100;
 			}
 
-//			if( !fZoomFlag )
-			{
-				// grab min and max locations to interpolate sub sector position
-				minX = MAP_VIEW_START_X + MAP_GRID_X * ( pGroup->ubSectorX );
-				maxX = MAP_VIEW_START_X + MAP_GRID_X * ( pGroup->ubNextX );
-				minY = MAP_VIEW_START_Y + MAP_GRID_Y * ( pGroup->ubSectorY );
-				maxY = MAP_VIEW_START_Y + MAP_GRID_Y * ( pGroup->ubNextY );
-			}
-/*
-			else
-			{
-
-				// grab coords for nextx,y and current x,y
-
-				// zoomed in, takes a little more work
-				GetScreenXYFromMapXYStationary( ((UINT16)(pGroup->ubSectorX)),((UINT16)(pGroup->ubSectorY)) , &sX, &sY );
- 				sY=sY-MAP_GRID_Y;
-				sX=sX-MAP_GRID_X;
-
-				minX = ( sX );
-				minY = ( sY );
-
-				GetScreenXYFromMapXYStationary( ((UINT16)(pGroup->ubNextX)),((UINT16)(pGroup->ubNextY)) , &sX, &sY );
- 				sY=sY-MAP_GRID_Y;
-				sX=sX-MAP_GRID_X;
-
-				maxX = ( sX );
-				maxY = ( sY );
-			}
-*/
+			// grab min and max locations to interpolate sub sector position
+			minX = MAP_VIEW_START_X + MAP_GRID_X * ( pGroup->ubSectorX );
+			maxX = MAP_VIEW_START_X + MAP_GRID_X * ( pGroup->ubNextX );
+			minY = MAP_VIEW_START_Y + MAP_GRID_Y * ( pGroup->ubSectorY );
+			maxY = MAP_VIEW_START_Y + MAP_GRID_Y * ( pGroup->ubNextY );
 
 			AssertMsg( ( minX >= 0 ) && ( minX < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid minX = %d", minX ) );
 			AssertMsg( ( maxX >= 0 ) && ( maxX < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid maxX = %d", maxX ) );
@@ -4496,25 +4481,13 @@ void DisplayPositionOfHelicopter( void )
 			x = ( UINT32 )( minX + flRatio * ( ( INT16 ) maxX - ( INT16 ) minX ) );
  			y = ( UINT32 )( minY + flRatio * ( ( INT16 ) maxY - ( INT16 ) minY ) );
 
-/*
-			if( fZoomFlag )
-			{
-				x += 13;
-				y += 8;
-			}
-			else
-*/
-			{
-				x += 1;
-				y += 3;
-			}
+			x += 1;
+			y += 3;
 
 			AssertMsg( ( x >= 0 ) && ( x < (UINT32)SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid x = %d.  At %d,%d.  Next %d,%d.  Min/Max X = %d/%d",
-							x, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubNextX, pGroup->ubNextY, minX, maxX ) );
-
+						x, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubNextX, pGroup->ubNextY, minX, maxX ) );
 			AssertMsg( ( y >= 0 ) && ( y < (UINT32)SCREEN_HEIGHT ), String( "DisplayPositionOfHelicopter: Invalid y = %d.  At %d,%d.  Next %d,%d.  Min/Max Y = %d/%d",
-							y, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubNextX, pGroup->ubNextY, minY, maxY ) );
-
+						y, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubNextX, pGroup->ubNextY, minY, maxY ) );
 
 			// clip blits to mapscreen region
 			ClipBlitsToMapViewRegion( );
@@ -5985,7 +5958,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 				}
 
 				// if this sector is currently loaded
-				if( sSector == SECTOR( gWorldSectorX, gWorldSectorY ) && gWorldSectorY != 0 )
+				if( (gWorldSectorX != 0) &&
+					(gWorldSectorY != 0) && 
+					(sSector == SECTOR( gWorldSectorX, gWorldSectorY )) )
 				{
 					gfStrategicMilitiaChangesMade = TRUE;
 				}
@@ -6212,8 +6187,8 @@ void DrawTownMilitiaForcesOnMap( void )
 	}*/
 
 	// now handle militia for sam sectors
-	for( sSectorX = 0; sSectorX < 16 ; ++sSectorX )
-	for( sSectorY = 0; sSectorY < 16 ; ++sSectorY )
+	for( sSectorX = MINIMUM_VALID_X_COORDINATE; sSectorX <= MAXIMUM_VALID_X_COORDINATE ; ++sSectorX )
+	for( sSectorY = MINIMUM_VALID_Y_COORDINATE; sSectorY <= MAXIMUM_VALID_Y_COORDINATE ; ++sSectorY )
 	//for( iCounter = 0; iCounter < NUMBER_OF_SAMS; iCounter++ )
 	{
 //		sSectorX = SECTORX( pSamList[ iCounter ] );
@@ -6623,7 +6598,7 @@ UINT8 NumActiveCharactersInSector( INT16 sSectorX, INT16 sSectorY, INT16 bSector
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT8 ubNumberOnTeam = 0;
 
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter ].fValid )
 		{

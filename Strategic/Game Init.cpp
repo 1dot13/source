@@ -63,6 +63,7 @@
 	#include "Interface Panels.h"
 #endif
 
+#include "Vehicles.h"
 #include "text.h"
 #include "connect.h"
 class OBJECTTYPE;
@@ -76,7 +77,6 @@ extern UINT32 uiMeanWhileFlags;
 extern BOOLEAN gfGamePaused;
 
 extern UNDERGROUND_SECTORINFO* FindUnderGroundSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ );
-extern void InitVehicles( );
 
 
 UINT8			gubScreenCount=0;
@@ -109,6 +109,8 @@ void InitNPCs( void )
 			pProfile->sSectorY = MAP_ROW_C;
 			pProfile->bSectorZ = 0;
 			break;
+		default:
+			AssertMsg(false, "Skyrider was not set up properly");
 	}
 
 	#ifdef JA2TESTVERSION
@@ -311,7 +313,7 @@ void InitStrategicLayer( void )
 	// Init Squad Lists
 	InitSquads();
 	// Init vehicles
-	InitVehicles( );
+	InitAllVehicles( );
 	// init town loyalty
 	InitTownLoyalty();
 	// init the mine management system
@@ -342,7 +344,7 @@ void InitStrategicLayer( void )
 	SetGameTimeCompressionLevel( TIME_COMPRESS_X0 );
 
 	// select A9 Omerta as the initial selected sector
-	ChangeSelectedMapSector( 9, 1, 0 );
+	ChangeSelectedMapSector( startingX, startingY, startingZ );
 
 	// Reset these flags or mapscreen could be disabled and cause major headache.
 	fDisableDueToBattleRoster = FALSE;
@@ -559,7 +561,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 	if ( gubScreenCount == 2 )
 	{
 
-		if ( !SetCurrentWorldSector( 9, 1, 0 ) )
+		if ( !SetCurrentWorldSector( startingX, startingY, startingZ ) )
 		{
 
 		}

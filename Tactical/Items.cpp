@@ -8416,38 +8416,53 @@ UINT16 GetFirstExplosiveOfType(UINT16 expType)
 	return 0;
 }
 
-OBJECTTYPE* FindSunGogglesInInv( SOLDIERTYPE * pSoldier )
+// WDS - Smart goggle switching
+OBJECTTYPE* FindSunGogglesInInv( SOLDIERTYPE * pSoldier, BOOLEAN searchAllInventory )
 {
 	INT8	bLoop;
 	INT16	bonusToBeat = 0;
 	OBJECTTYPE*	pGoggles = 0;
 	// CHRISL:
-	for (bLoop = HANDPOS; bLoop < NUM_INV_SLOTS; bLoop++)
-	{
+	for (bLoop = (searchAllInventory ? HELMETPOS : HANDPOS); bLoop < NUM_INV_SLOTS; bLoop++) {
 		if ( pSoldier->inv[bLoop].exists() == true ) {
-			if (Item[pSoldier->inv[bLoop].usItem].brightlightvisionrangebonus > bonusToBeat && Item[pSoldier->inv[bLoop].usItem].usItemClass == IC_FACE )
-			{
+			if (Item[pSoldier->inv[bLoop].usItem].brightlightvisionrangebonus > bonusToBeat && Item[pSoldier->inv[bLoop].usItem].usItemClass == IC_FACE ) {
 				pGoggles = &(pSoldier->inv[bLoop]);
 				bonusToBeat = Item[pSoldier->inv[bLoop].usItem].brightlightvisionrangebonus;
+			}
+			if (searchAllInventory) {
+				OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+					if ( Item[ iter->usItem ].brightlightvisionrangebonus > bonusToBeat && Item[ iter->usItem ].usItemClass == IC_FACE ) {
+						pGoggles = &(*iter);
+						bonusToBeat = Item[ iter->usItem ].brightlightvisionrangebonus;
+					}
+				}
 			}
 		}
 	}
 	return( pGoggles );
 }
 
-OBJECTTYPE* FindNightGogglesInInv( SOLDIERTYPE * pSoldier  )
+OBJECTTYPE* FindNightGogglesInInv( SOLDIERTYPE * pSoldier, BOOLEAN searchAllInventory )
 {
 	INT8	bLoop;
 	INT16	bonusToBeat = 0;
 	OBJECTTYPE*	pGoggles = 0;
 	// CHRISL:
-	for (bLoop = HANDPOS; bLoop < NUM_INV_SLOTS; bLoop++)
-	{
+	for (bLoop = (searchAllInventory ? HELMETPOS : HANDPOS); bLoop < NUM_INV_SLOTS; bLoop++) {
 		if ( pSoldier->inv[bLoop].exists() == true ) {
-			if (Item[pSoldier->inv[bLoop].usItem].nightvisionrangebonus > bonusToBeat && Item[pSoldier->inv[bLoop].usItem].usItemClass == IC_FACE )
-			{
+			if (Item[pSoldier->inv[bLoop].usItem].nightvisionrangebonus > bonusToBeat && Item[pSoldier->inv[bLoop].usItem].usItemClass == IC_FACE ) {
 				pGoggles = &(pSoldier->inv[bLoop]);
 				bonusToBeat = Item[pSoldier->inv[bLoop].usItem].nightvisionrangebonus;
+			}
+			if (searchAllInventory) {
+				OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);
+				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+					if ( Item[ iter->usItem ].nightvisionrangebonus > bonusToBeat && Item[ iter->usItem ].usItemClass == IC_FACE ) {
+						pGoggles = &(*iter);
+						bonusToBeat = Item[ iter->usItem ].nightvisionrangebonus;
+					}
+				}
 			}
 		}
 	}

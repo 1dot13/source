@@ -78,6 +78,7 @@
 	#include "end game.h"
 	#include "Map Screen Helicopter.h"
 	#include "Cheats.h"
+	#include "Overhead.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -2036,13 +2037,16 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				// Delete menu
 				DeleteTalkingMenu( );
 
-		if ( PlayerTeamFull( ) )
-		{
+				if ( PlayerTeamFull( ) )
+				{
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANNOT_RECRUIT_TEAM_FULL ] );
-		}
+				}
 				else
 				{
-					RecruitRPC( ubTargetNPC );
+					if (!RecruitRPC( ubTargetNPC )) {
+						ScreenMsg( FONT_MCOLOR_RED, MSG_ERROR, L"Internal error in recruiting RPC, trying to recover as best it can but this might not be pretty..." );
+						return;
+					}
 					// OK, update UI with message that we have been recruited
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ HAS_BEEN_RECRUITED_STR ], gMercProfiles[ ubTargetNPC ].zNickname );
 				}
@@ -4366,25 +4370,7 @@ UINT32 CalcMedicalCost( UINT8 ubId )
 
 BOOLEAN PlayerTeamHasTwoSpotsLeft( )
 {
-	UINT32					cnt, uiCount = 0;
-	SOLDIERTYPE		*pSoldier;
-
-	for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID, pSoldier = MercPtrs[ cnt ]; cnt <= (UINT32)( gTacticalStatus.Team[ gbPlayerNum ].bLastID - 2 ); cnt++, pSoldier++ )
-	{
-		if ( pSoldier->bActive )
-		{
-			uiCount++;
-		}
-	}
-
-	if ( uiCount <= (UINT32) (gTacticalStatus.Team[ gbPlayerNum].bLastID - 2) - 1 )
-	{
-		return( TRUE );
-	}
-	else
-	{
-		return( FALSE );
-	}
+	return ( CountNonVehiclesOnPlayerTeam() <= gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs - 2 );
 }
 
 

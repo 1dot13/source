@@ -38,6 +38,7 @@
 	#include "ai.h"
 	#include "Dialogue Control.h"
 	#include "Music Control.h"
+	#include "Tactical Save.h"
 #endif
 
 
@@ -45,7 +46,8 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-#define		MAX_MERC_IN_HELI		20
+// WDS - make number of mercenaries, etc. be configurable
+#define		MAX_MERC_IN_HELI		CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS
 #define		MAX_HELI_SCRIPT			30
 #define		ME_SCRIPT_DELAY				100
 #define		NUM_PER_HELI_RUN		6
@@ -474,7 +476,7 @@ void HandleHeliDrop( )
 			{
 				// Add merc to sector
 				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-				UpdateMercInSector( MercPtrs[ gusHeliSeats[ cnt ] ], 9, 1, 0 );
+				UpdateMercInSector( MercPtrs[ gusHeliSeats[ cnt ] ], startingX, startingY, startingZ );
 
 				// Check for merc arrives quotes...
 				HandleMercArrivesQuotes( MercPtrs[ gusHeliSeats[ cnt ] ] );
@@ -610,7 +612,7 @@ void HandleHeliDrop( )
 						// Change insertion code
 						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 
-						UpdateMercInSector( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], 9, 1, 0 );
+						UpdateMercInSector( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], startingX, startingY, startingZ );
 						//EVENT_SetSoldierPosition( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], sWorldX, sWorldY );
 
 						// IF the first guy down, set squad!
@@ -809,6 +811,9 @@ void HandleFirstHeliDropOfGame( )
 		// Call people to area
 		CallAvailableEnemiesTo( gsGridNoSweetSpot );
 
+		// Move to header file...
+		AddExtraItems( startingX, startingY, startingZ, true );
+
 		// Say quote.....
 		SayQuoteFromAnyBodyInSector( QUOTE_ENEMY_PRESENCE );
 
@@ -820,8 +825,7 @@ void HandleFirstHeliDropOfGame( )
 	}
 
 	// Send message to turn on ai again....
-	CharacterDialogueWithSpecialEvent( 0, 0,	0 , DIALOGUE_TACTICAL_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_ENABLE_AI ,0, 0 );
-
+	CharacterDialogueWithSpecialEvent( 0, 0, 0, DIALOGUE_TACTICAL_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_ENABLE_AI ,0, 0 );
 }
 
 

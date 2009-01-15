@@ -149,7 +149,8 @@ typedef struct _GUI_BUTTON {
 
 #define MAX_BUTTONS					400
 
-extern GUI_BUTTON			*ButtonList[MAX_BUTTONS];									// Button System's Main Button List
+//extern GUI_BUTTON			*ButtonList[MAX_BUTTONS];									// Button System's Main Button List
+extern std::vector<GUI_BUTTON *> ButtonList;
 
 #define GetButtonPtr(x)	(((x>=0) && (x<MAX_BUTTONS))? ButtonList[x] : NULL)
 
@@ -168,7 +169,8 @@ typedef struct {
 
 #define MAX_BUTTON_PICS			256
 
-extern BUTTON_PICS		ButtonPictures[MAX_BUTTON_PICS];
+//extern BUTTON_PICS		ButtonPictures[MAX_BUTTON_PICS];
+extern std::vector<BUTTON_PICS> ButtonPictures;
 
 
 // Function protos for button system

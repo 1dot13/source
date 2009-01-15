@@ -52,10 +52,13 @@
 #include "connect.h"
 #include "Reinforcement.h"
 #include "MilitiaSquads.h"
+#include <vector>
 
 //The sector information required for the strategic AI.  Contains the number of enemy troops,
 //as well as intentions, etc.
-SECTORINFO SectorInfo[256];
+//SECTORINFO SectorInfo[256];
+std::vector<SECTORINFO> SectorInfo (256);
+
 UNDERGROUND_SECTORINFO *gpUndergroundSectorInfoHead = NULL;
 extern UNDERGROUND_SECTORINFO* gpUndergroundSectorInfoTail;
 BOOLEAN gfPendingEnemies = FALSE;
@@ -95,6 +98,11 @@ void ValidateEnemiesHaveWeapons()
 			{
 				iNumInvalid++;
 			}
+			// WDS DEBUG
+			// Uncommenting the following two lines will cause all the PLACED soldiers to instantly drop dead, 
+			// which is useful for debugging some things
+			//pSoldier->bBleeding = 10;
+			//pSoldier->stats.bLife = 1;
 		}
 
 		// do message box and return
@@ -112,9 +120,12 @@ UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 {
 	UINT8 ubNumHostiles = 0;
 
-	Assert( sSectorX >= 1 && sSectorX <= 16 );
-	Assert( sSectorY >= 1 && sSectorY <= 16 );
-	Assert( sSectorZ >= 0 && sSectorZ <= 3 );
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE);
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
+	AssertGE( sSectorZ, MINIMUM_VALID_Z_COORDINATE );
+	AssertLE( sSectorZ, MAXIMUM_VALID_Z_COORDINATE );
 
 	if( sSectorZ )
 	{
@@ -153,9 +164,12 @@ UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 {
 	UINT8 ubNumEnemies = 0;
 
-	Assert( sSectorX >= 1 && sSectorX <= 16 );
-	Assert( sSectorY >= 1 && sSectorY <= 16 );
-	Assert( sSectorZ >= 0 && sSectorZ <= 3 );
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE);
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
+	AssertGE( sSectorZ, MINIMUM_VALID_Z_COORDINATE );
+	AssertLE( sSectorZ, MAXIMUM_VALID_Z_COORDINATE );
 
 	if( sSectorZ )
 	{
@@ -196,8 +210,10 @@ UINT8 NumEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	GROUP *pGroup;
 	UINT8 ubNumTroops;
 
-	//Assert( sSectorX >= 1 && sSectorX <= 16 );
-	//Assert( sSectorY >= 1 && sSectorY <= 16 );
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE);
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
 
 	pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
 	ubNumTroops = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites);
@@ -220,8 +236,10 @@ UINT8 NumEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 UINT8 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 {
 	SECTORINFO *pSector;
-	Assert( sSectorX >= 1 && sSectorX <= 16 );
-	Assert( sSectorY >= 1 && sSectorY <= 16 );
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE);
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
 	pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
 
 	if( pSector->ubGarrisonID == NO_GARRISON )
@@ -246,8 +264,10 @@ UINT8 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	GROUP *pGroup;
 	SECTORINFO *pSector;
 	UINT8 ubNumTroops;
-	Assert( sSectorX >= 1 && sSectorX <= 16 );
-	Assert( sSectorY >= 1 && sSectorY <= 16 );
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE);
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
 
 	ubNumTroops = 0;
 	pGroup = gpGroupList;
@@ -273,8 +293,10 @@ void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pu
 {
 	GROUP *pGroup;
 	SECTORINFO *pSector;
-	Assert( sSectorX >= 1 && sSectorX <= 16 );
-	Assert( sSectorY >= 1 && sSectorY <= 16 );
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE);
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
 
 	//Now count the number of mobile groups in the sector.
 	*pubNumTroops = *pubNumElites = *pubNumAdmins = 0;
@@ -303,8 +325,10 @@ void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pu
 void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites )
 {
 	GROUP *pGroup;
-	Assert( sSectorX >= 1 && sSectorX <= 16 );
-	Assert( sSectorY >= 1 && sSectorY <= 16 );
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE);
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
 
 	//Now count the number of mobile groups in the sector.
 	*pubNumTroops = *pubNumElites = *pubNumAdmins = 0;
@@ -325,8 +349,10 @@ void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSe
 void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites )
 {
 	SECTORINFO *pSector;
-	Assert( sSectorX >= 1 && sSectorX <= 16 );
-	Assert( sSectorY >= 1 && sSectorY <= 16 );
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE);
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
 	pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
 
 	//grab the number of each type in the stationary sector
@@ -428,6 +454,7 @@ UINT8 NumFreeEnemySlots()
 	return ubNumFreeSlots;
 }
 
+
 //Called when entering a sector so the campaign AI can automatically insert the
 //correct number of troops of each type based on the current number in the sector
 //in global focus (gWorldSectorX/Y)
@@ -436,11 +463,11 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	SECTORINFO *pSector;
 	GROUP *pGroup;
 	SOLDIERTYPE *pSoldier;
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites;
-	UINT8 ubTotalAdmins, ubTotalElites, ubTotalTroops;
-	UINT8 ubStationaryEnemies;
-	INT32 i, num;
-	INT16 sNumSlots;
+	unsigned ubNumAdmins, ubNumTroops, ubNumElites;
+	unsigned ubTotalAdmins, ubTotalElites, ubTotalTroops;
+	unsigned totalCountOfStationaryEnemies = 0;
+	unsigned totalCountOfMobileEnemies = 0;
+	int sNumSlots;
 
 	gfPendingEnemies = FALSE;
 
@@ -459,7 +486,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) )
 		{
 			UINT16 pusMoveDir[4][3];
-			UINT8 ubDirNumber = 0, ubIndex;
+			UINT8 ubDirNumber = 0;
 			GROUP *pGroup;
 			SECTORINFO *pThisSector;
 
@@ -469,7 +496,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			GenerateDirectionInfos( gWorldSectorX, gWorldSectorY, &ubDirNumber, pusMoveDir,
 				( GetTownIdForSector( gWorldSectorX, gWorldSectorY ) != BLANK_SECTOR ? TRUE : FALSE ), TRUE, IS_ONLY_IN_CITIES );
 
-			for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
+			for( unsigned ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
 			{
 				while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) && GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) )
 				{
@@ -505,19 +532,27 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		return ( ( BOOLEAN) ( gpBattleGroup->ubGroupSize > 0 ) );
 	}
 
-	if( !gbWorldSectorZ )
-	{
-		if( NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) > 32 )
-		{
-			gfPendingEnemies = TRUE;
+	// WDS Count the number of placements.  This will limit the maximum number of enemies we can place on the map
+	SOLDIERINITNODE *curr = gSoldierInitHead;
+	unsigned mapMaximumNumberOfEnemies = 0;
+	while( curr ) {
+		if( curr->pBasicPlacement->bTeam == ENEMY_TEAM ) {
+			++mapMaximumNumberOfEnemies;
 		}
+		curr = curr->next;
 	}
+
+	AssertGE (mapMaximumNumberOfEnemies, 0);
+
+	if (mapMaximumNumberOfEnemies > gGameExternalOptions.ubGameMaximumNumberOfEnemies)
+		mapMaximumNumberOfEnemies = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
+
+	gfPendingEnemies = (NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) > mapMaximumNumberOfEnemies );
 
 	pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 	if( pSector->uiFlags & SF_USE_MAP_SETTINGS )
 	{ //count the number of enemy placements in a map and use those
-		SOLDIERINITNODE *curr;
-		curr = gSoldierInitHead;
+		SOLDIERINITNODE *curr = gSoldierInitHead;
 		ubTotalAdmins = ubTotalTroops = ubTotalElites = 0;
 		while( curr )
 		{
@@ -526,8 +561,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				switch( curr->pBasicPlacement->ubSoldierClass )
 				{
 					case SOLDIER_CLASS_ADMINISTRATOR:		ubTotalAdmins++;	break;
-					case SOLDIER_CLASS_ARMY:						ubTotalTroops++;	break;
-					case SOLDIER_CLASS_ELITE:						ubTotalElites++;	break;
+					case SOLDIER_CLASS_ARMY:				ubTotalTroops++;	break;
+					case SOLDIER_CLASS_ELITE:				ubTotalElites++;	break;
 				}
 			}
 			curr = curr->next;
@@ -541,23 +576,25 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	}
 	else
 	{
-		ubTotalAdmins = (UINT8)(pSector->ubNumAdmins - pSector->ubAdminsInBattle);
-		ubTotalTroops = (UINT8)(pSector->ubNumTroops - pSector->ubTroopsInBattle);
-		ubTotalElites = (UINT8)(pSector->ubNumElites - pSector->ubElitesInBattle);
+		ubTotalAdmins = pSector->ubNumAdmins - pSector->ubAdminsInBattle;
+		ubTotalTroops = pSector->ubNumTroops - pSector->ubTroopsInBattle;
+		ubTotalElites = pSector->ubNumElites - pSector->ubElitesInBattle;
 	}
 
-	ubStationaryEnemies = (UINT8)(ubTotalAdmins + ubTotalTroops + ubTotalElites);
+	totalCountOfStationaryEnemies = ubTotalAdmins + ubTotalTroops + ubTotalElites;
 
-	if( ubStationaryEnemies > 32 )
+	if( totalCountOfStationaryEnemies > mapMaximumNumberOfEnemies )
 	{
+		/*
 		#ifdef JA2BETAVERSION
 			ScreenMsg( FONT_RED, MSG_ERROR, L"The total stationary enemy forces in sector %c%d is %d. (max %d)",
-				gWorldSectorY + 'A' - 1, gWorldSectorX, ubTotalAdmins + ubTotalTroops + ubTotalElites, 32 );
+				gWorldSectorY + 'A' - 1, gWorldSectorX, ubTotalAdmins + ubTotalTroops + ubTotalElites, mapMaximumNumberOfEnemies );
 		#endif
+		*/
 
-		ubTotalAdmins = min( 32, ubTotalAdmins );
-		ubTotalTroops = min( 32-ubTotalAdmins, ubTotalTroops );
-		ubTotalElites = min( 32-ubTotalAdmins+ubTotalTroops, ubTotalElites );
+		ubTotalAdmins = min( mapMaximumNumberOfEnemies, ubTotalAdmins );
+		ubTotalTroops = min( mapMaximumNumberOfEnemies-ubTotalAdmins, ubTotalTroops );
+		ubTotalElites = min( mapMaximumNumberOfEnemies-ubTotalAdmins-ubTotalTroops, ubTotalElites );
 	}
 
 	pSector->ubAdminsInBattle += ubTotalAdmins;
@@ -578,6 +615,11 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 	//Search for movement groups that happen to be in the sector.
 	sNumSlots = NumFreeEnemySlots();
+	if (sNumSlots > (int)mapMaximumNumberOfEnemies)
+		sNumSlots = mapMaximumNumberOfEnemies;
+
+	/*
+	 * WDS - this test no longer valid with the above change
 	//Test:  All slots should be free at this point!
 	if( sNumSlots != gTacticalStatus.Team[ENEMY_TEAM].bLastID - gTacticalStatus.Team[ENEMY_TEAM].bFirstID + 1 )
 	{
@@ -587,6 +629,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				ubTotalAdmins, ubTotalTroops, ubTotalElites );
 		#endif
 	}
+	*/
 
 	//Subtract the total number of stationary enemies from the available slots, as stationary forces take
 	//precendence in combat.  The mobile forces that could also be in the same sector are considered later if
@@ -606,7 +649,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		{ //Process enemy group in sector.
 			if( sNumSlots > 0 )
 			{
-				ubNumAdmins = (UINT8)(pGroup->pEnemyGroup->ubNumAdmins - pGroup->pEnemyGroup->ubAdminsInBattle);
+				AssertGE(pGroup->pEnemyGroup->ubNumAdmins, pGroup->pEnemyGroup->ubAdminsInBattle);
+				ubNumAdmins = pGroup->pEnemyGroup->ubNumAdmins - pGroup->pEnemyGroup->ubAdminsInBattle;
 				sNumSlots -= ubNumAdmins;
 				if( sNumSlots < 0 )
 				{ //adjust the value to zero
@@ -619,7 +663,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			}
 			if( sNumSlots > 0 )
 			{ //Add regular army forces.
-				ubNumTroops = (UINT8)(pGroup->pEnemyGroup->ubNumTroops - pGroup->pEnemyGroup->ubTroopsInBattle);
+				AssertGE(pGroup->pEnemyGroup->ubNumTroops, pGroup->pEnemyGroup->ubTroopsInBattle);
+				ubNumTroops = pGroup->pEnemyGroup->ubNumTroops - pGroup->pEnemyGroup->ubTroopsInBattle;
 				sNumSlots -= ubNumTroops;
 				if( sNumSlots < 0 )
 				{ //adjust the value to zero
@@ -632,7 +677,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			}
 			if( sNumSlots > 0 )
 			{ //Add elite troops
-				ubNumElites = (UINT8)(pGroup->pEnemyGroup->ubNumElites - pGroup->pEnemyGroup->ubElitesInBattle);
+				AssertGE(pGroup->pEnemyGroup->ubNumElites, pGroup->pEnemyGroup->ubElitesInBattle);
+				ubNumElites = pGroup->pEnemyGroup->ubNumElites - pGroup->pEnemyGroup->ubElitesInBattle;
 				sNumSlots -= ubNumElites;
 				if( sNumSlots < 0 )
 				{ //adjust the value to zero
@@ -673,10 +719,10 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 	//Now, we have to go through all of the enemies in the new map, and assign their respective groups if
 	//in a mobile group, but only for the ones that were assigned from the
-	sNumSlots = 32 - ubStationaryEnemies;
+	sNumSlots = mapMaximumNumberOfEnemies - totalCountOfStationaryEnemies;
 
 	pGroup = gpGroupList;
-	while( pGroup && sNumSlots )
+	while( pGroup && sNumSlots > 0 )
 	{
 		if( !pGroup->fPlayer && !pGroup->fVehicle &&
 				 pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
@@ -684,22 +730,27 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			ubNumAdmins = pGroup->pEnemyGroup->ubAdminsInBattle;
 			ubNumTroops = pGroup->pEnemyGroup->ubTroopsInBattle;
 			ubNumElites = pGroup->pEnemyGroup->ubElitesInBattle;
-			num = ubNumAdmins + ubNumTroops + ubNumElites;
+			unsigned num = ubNumAdmins + ubNumTroops + ubNumElites;
 
-			for (i= gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
-				i<= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID && num;
-				i++)
+			unsigned firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
+			unsigned lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
+			unsigned slotsAvailable = lastSlot-firstSlot+1;
+			AssertGE((int)slotsAvailable, sNumSlots);
+
+			for (unsigned slot = firstSlot;
+				(slot <= lastSlot) && (num > 0);
+				++slot)
 			{
-				// At this point we should not have added more soldiers than are in slots
-				Assert( sNumSlots);
-
-				pSoldier = &Menptr[ i ];
+				pSoldier = &Menptr[ slot ];
 
 				// Skip inactive and already grouped soldiers
 				if (!pSoldier->bActive || pSoldier->ubGroupID)
 				{
 					continue;
 				}
+
+				// At this point we should not have added more soldiers than are in slots
+				AssertGT( sNumSlots, 0 );
 
 				switch( pSoldier->ubSoldierClass )
 				{
@@ -733,7 +784,10 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				}
 			}
 
-			Assert( ubNumElites + ubNumTroops + ubNumAdmins + num == 0);
+			AssertEQ( ubNumElites , 0);
+			AssertEQ( ubNumTroops , 0);
+			AssertEQ( ubNumAdmins , 0);
+			AssertEQ( num , 0);
 		}
 		pGroup = pGroup->next;
 	}
@@ -746,7 +800,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 BOOLEAN PrepareEnemyForUndergroundBattle()
 {
 	UNDERGROUND_SECTORINFO *pUnderground;
-	UINT8 ubTotalAdmins, ubTotalTroops, ubTotalElites;
+	unsigned ubTotalAdmins, ubTotalTroops, ubTotalElites;
+
 	pUnderground = gpUndergroundSectorInfoHead;
 	while( pUnderground )
 	{
@@ -780,9 +835,10 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 {
 	INT32 iNumEnemiesInSector;
 	SECTORINFO *pSector;
-//	CHAR16 str[128];
 	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
-DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
+    DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
+
+	AssertNotNIL (pSoldier);
 
 	EvaluateDeathEffectsToSoldierInitList( pSoldier );
 
@@ -861,7 +917,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 					if( guiCurrentScreen == GAME_SCREEN )
 					{
 						if( pGroup->ubGroupSize <= iMaxEnemyGroupSize && pGroup->pEnemyGroup->ubNumElites != pGroup->pEnemyGroup->ubElitesInBattle && !gfPendingEnemies ||
-								pGroup->ubGroupSize > iMaxEnemyGroupSize || pGroup->pEnemyGroup->ubNumElites > 50 || pGroup->pEnemyGroup->ubElitesInBattle > 50 )
+								pGroup->ubGroupSize > iMaxEnemyGroupSize /* || pGroup->pEnemyGroup->ubNumElites > 50 || pGroup->pEnemyGroup->ubElitesInBattle > 50*/ )
 						{
 							DoScreenIndependantMessageBox( L"Group elite counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
 						}
@@ -887,7 +943,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 					if( guiCurrentScreen == GAME_SCREEN )
 					{
 						if( pGroup->ubGroupSize <= iMaxEnemyGroupSize && pGroup->pEnemyGroup->ubNumTroops != pGroup->pEnemyGroup->ubTroopsInBattle && !gfPendingEnemies ||
-								pGroup->ubGroupSize > iMaxEnemyGroupSize || pGroup->pEnemyGroup->ubNumTroops > 50 || pGroup->pEnemyGroup->ubTroopsInBattle > 50 )
+								pGroup->ubGroupSize > iMaxEnemyGroupSize /*|| pGroup->pEnemyGroup->ubNumTroops > 50 || pGroup->pEnemyGroup->ubTroopsInBattle > 50*/ )
 						{
 							// haydent
 							if (!is_client)
@@ -918,7 +974,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 					if( guiCurrentScreen == GAME_SCREEN )
 					{
 						if( pGroup->ubGroupSize <= iMaxEnemyGroupSize && pGroup->pEnemyGroup->ubNumAdmins != pGroup->pEnemyGroup->ubAdminsInBattle && !gfPendingEnemies ||
-						pGroup->ubGroupSize > iMaxEnemyGroupSize || pGroup->pEnemyGroup->ubNumAdmins > 50 || pGroup->pEnemyGroup->ubAdminsInBattle > 50 )
+						pGroup->ubGroupSize > iMaxEnemyGroupSize /*|| pGroup->pEnemyGroup->ubNumAdmins > 50 || pGroup->pEnemyGroup->ubAdminsInBattle > 50*/ )
 						{
 							DoScreenIndependantMessageBox( L"Group admin counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
 						}
@@ -970,9 +1026,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 					#ifdef JA2BETAVERSION
 						if( guiCurrentScreen == GAME_SCREEN )
 						{
-							if( ubTotalEnemies <= 32 && pSector->ubNumAdmins != pSector->ubAdminsInBattle ||
+							if( ubTotalEnemies <= gGameExternalOptions.ubGameMaximumNumberOfEnemies && pSector->ubNumAdmins != pSector->ubAdminsInBattle ||
 								!pSector->ubNumAdmins || !pSector->ubAdminsInBattle ||
-								pSector->ubNumAdmins > 100 || pSector->ubAdminsInBattle > 32 )
+								pSector->ubNumAdmins > gGameExternalOptions.ubGameMaximumNumberOfEnemies || pSector->ubAdminsInBattle > gGameExternalOptions.ubGameMaximumNumberOfEnemies )
 							{
 								DoScreenIndependantMessageBox( L"Sector admin counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
 							}
@@ -991,9 +1047,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 					#ifdef JA2BETAVERSION
 						if( guiCurrentScreen == GAME_SCREEN )
 						{
-							if( ubTotalEnemies <= 32 && pSector->ubNumTroops != pSector->ubTroopsInBattle ||
+							if( ubTotalEnemies <= gGameExternalOptions.ubGameMaximumNumberOfEnemies && pSector->ubNumTroops != pSector->ubTroopsInBattle ||
 									!pSector->ubNumTroops || !pSector->ubTroopsInBattle ||
-									pSector->ubNumTroops > 100 || pSector->ubTroopsInBattle > 32 )
+									pSector->ubNumTroops > gGameExternalOptions.ubGameMaximumNumberOfEnemies || pSector->ubTroopsInBattle > gGameExternalOptions.ubGameMaximumNumberOfEnemies )
 							{
 								if(!is_client)DoScreenIndependantMessageBox( L"Sector troop counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
 								//disabled: hayden.
@@ -1013,9 +1069,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 					#ifdef JA2BETAVERSION
 						if( guiCurrentScreen == GAME_SCREEN )
 						{
-							if( ubTotalEnemies <= 32 && pSector->ubNumElites != pSector->ubElitesInBattle ||
+							if( ubTotalEnemies <= gGameExternalOptions.ubGameMaximumNumberOfEnemies && pSector->ubNumElites != pSector->ubElitesInBattle ||
 									!pSector->ubNumElites || !pSector->ubElitesInBattle ||
-									pSector->ubNumElites > 100 || pSector->ubElitesInBattle > 32 )
+									pSector->ubNumElites > gGameExternalOptions.ubGameMaximumNumberOfEnemies || pSector->ubElitesInBattle > gGameExternalOptions.ubGameMaximumNumberOfEnemies )
 							{
 								DoScreenIndependantMessageBox( L"Sector elite counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
 							}
@@ -1133,7 +1189,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 						#ifdef JA2BETAVERSION
 						if( ubTotalEnemies <= (UINT32)iMaxEnemyGroupSize && pSector->ubNumCreatures != pSector->ubCreaturesInBattle ||
 								!pSector->ubNumCreatures || !pSector->ubCreaturesInBattle ||
-								pSector->ubNumCreatures > 50 || pSector->ubCreaturesInBattle > 50 )
+								pSector->ubNumCreatures > gGameExternalOptions.ubGameMaximumNumberOfCreatures || pSector->ubCreaturesInBattle > gGameExternalOptions.ubGameMaximumNumberOfCreatures )
 						{
 							DoScreenIndependantMessageBox( L"Underground sector creature counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
 						}
@@ -1191,11 +1247,15 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 //Well, not so rarely with mobile reinforcements!
 //Rarely, there will be more enemies than supported by the engine.  In this case, these
 //soldiers are waiting for a slot to be free so that they can enter the battle.  This
-//essentially allows for an infinite number of troops, though only 32 at a time can fight.
+//essentially allows for an infinite number of troops, though only gGameExternalOptions.ubGameMaximumNumberOfEnemies at a time can fight.
 //This is also called whenever an enemy group's reinforcements arrive because the code is
 //identical, though it is highly likely that they will all be successfully added on the first call.
 void AddPossiblePendingEnemiesToBattle()
 {
+	// check if no world is loaded
+	if ( !gWorldSectorX && !gWorldSectorY && (gbWorldSectorZ == -1) )
+		return;
+
 	UINT8 ubSlots, ubNumAvailable;
 	UINT8 ubNumElites, ubNumTroops, ubNumAdmins;
 	UINT8 ubNumGroupsInSector;
@@ -1213,10 +1273,6 @@ void AddPossiblePendingEnemiesToBattle()
 			return;
 		}
 	}
-
-	// check if no world is loaded
-	if ( !gWorldSectorX && !gWorldSectorY && (gbWorldSectorZ == -1) )
-		return;
 
 	if( ( !PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) && !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) )
 		|| !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) ) return;
@@ -1810,6 +1866,8 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	static INT16 sAlmaCaptureItemsGridNo[] = { 12246, 12406, 13046 };
 
 	static INT16 sInterrogationItemGridNo[] = { 12089, 12089, 12089 };
+
+	AssertNotNIL(pSoldier);
 
 
   // ATE: Check first if ! in player captured sequence already

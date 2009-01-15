@@ -364,8 +364,8 @@ BOOLEAN		gfRemindedPlayerToPickUpHisStuff = FALSE;
 BOOLEAN		gfDoneBusinessThisSession = FALSE;
 
 // this is used within SKI exclusively, to handle small faces
-UINT8			gubArrayOfEmployedMercs[ MAX_CHARACTER_COUNT ];
-UINT32		guiSmallSoldiersFace[ MAX_CHARACTER_COUNT ];
+UINT8			gubArrayOfEmployedMercs[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
+UINT32		guiSmallSoldiersFace[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 UINT8			gubNumberMercsInArray;
 
 //The subutitled text for what the merc is saying

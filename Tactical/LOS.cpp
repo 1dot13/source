@@ -3601,7 +3601,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 
 	INT32		iDistance;
 
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 	UINT8		ubShots;
 	UINT8		ubImpact;
 	INT8		bCTGT;

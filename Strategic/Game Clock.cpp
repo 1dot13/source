@@ -412,7 +412,7 @@ void StartTimeCompression( void )
 
 		// check that we can start compressing
 		if ( !AllowedToTimeCompress( ) )
-		{
+		{ 
 			// not allowed to compress time
 			TellPlayerWhyHeCantCompressTime();
 			return;

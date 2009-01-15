@@ -355,9 +355,9 @@ void InitGameOptions()
 
 
 // WDS: These HAVE to total 100% at all times!!!
-#define PROGRESS_PORTION_KILLS		25
-#define PROGRESS_PORTION_CONTROL	25
-#define PROGRESS_PORTION_INCOME		50
+//#define PROGRESS_PORTION_KILLS		25
+//#define PROGRESS_PORTION_CONTROL	25
+//#define PROGRESS_PORTION_INCOME		50
 
 
 // The following are for fixing problems when reading the .ini file
@@ -385,7 +385,7 @@ void LoadGameExternalOptions()
 	//################# Laptop Settings #################
 
 	// WDS: Allow flexible numbers of IMPs of each sex
-	gGameExternalOptions.iMaxIMPCharacters		= iniReader.ReadInteger("JA2 Laptop Settings","MAX_IMP_CHARACTERS",1);
+	gGameExternalOptions.iMaxIMPCharacters		= iniReader.ReadInteger("JA2 Laptop Settings","MAX_IMP_CHARACTERS",1, 1, NUM_PROFILES);
 
 	gGameExternalOptions.iIMPMaleCharacterCount	= iniReader.ReadInteger("JA2 Laptop Settings","IMP_MALE_CHARACTER_COUNT", COUNT_STANDARD_MALE_SLOTS, 1, NUM_PROFILES);
 	gGameExternalOptions.iIMPFemaleCharacterCount = iniReader.ReadInteger("JA2 Laptop Settings","IMP_FEMALE_CHARACTER_COUNT", COUNT_STANDARD_FEMALE_SLOTS, 1, NUM_PROFILES);
@@ -439,15 +439,15 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iaIMPSlots[gGameExternalOptions.iIMPFemaleCharacterCount+gGameExternalOptions.iIMPMaleCharacterCount+1] = -1;
 
 	//Character generation
-	gGameExternalOptions.iMinAttribute			= iniReader.ReadInteger("JA2 Laptop Settings","MIN_ATTRIBUTE_POINT",35);
-	gGameExternalOptions.iMaxAttribute			= iniReader.ReadInteger("JA2 Laptop Settings","MAX_ATTRIBUTE_POINT",90);
-	gGameExternalOptions.iImpAttributePoints	= iniReader.ReadInteger("JA2 Laptop Settings","IMPATTRIBUTEPOINTS",40);
-	gGameExternalOptions.iMaxZeroBonus			= iniReader.ReadInteger("JA2 Laptop Settings","MAX_ZERO_BONUS",15);
-	gGameExternalOptions.iStartAttribute		= iniReader.ReadInteger("JA2 Laptop Settings","START_ATTRIBUTE",55);
+	gGameExternalOptions.iMinAttribute			= iniReader.ReadInteger("JA2 Laptop Settings","MIN_ATTRIBUTE_POINT",35, 10, 100);
+	gGameExternalOptions.iMaxAttribute			= iniReader.ReadInteger("JA2 Laptop Settings","MAX_ATTRIBUTE_POINT",90, 10, 100);
+	gGameExternalOptions.iImpAttributePoints	= iniReader.ReadInteger("JA2 Laptop Settings","IMPATTRIBUTEPOINTS",40, 10, 100);
+	gGameExternalOptions.iMaxZeroBonus			= iniReader.ReadInteger("JA2 Laptop Settings","MAX_ZERO_BONUS",15, 10, 100);
+	gGameExternalOptions.iStartAttribute		= iniReader.ReadInteger("JA2 Laptop Settings","START_ATTRIBUTE",55, 10, 100);
 
 	//gGameExternalOptions.fPers_att				= iniReader.ReadBoolean("JA2 Laptop Settings","USE_RANDOM_PERSONALITY",FALSE);
-	gGameExternalOptions.iCustomPersonality		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_PERSONALITY",0);
-	gGameExternalOptions.iCustomAttitude		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_ATTITUDE",0);
+	gGameExternalOptions.iCustomPersonality		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_PERSONALITY",0, 0, NUM_PERSONALITYTRAIT-1);
+	gGameExternalOptions.iCustomAttitude		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_ATTITUDE",0, 0, NUM_ATTITUDES-1);
 
 	//Merc settings
 	gGameExternalOptions.fMercDayOne			= iniReader.ReadBoolean("JA2 Laptop Settings","MERC_AVAILABLE_DAY_ONE",FALSE);
@@ -455,30 +455,33 @@ void LoadGameExternalOptions()
 
 	//Merc Death Settings:
 	gGameExternalOptions.gfMercsDieOnAssignment			= iniReader.ReadBoolean("JA2 Laptop Settings","MERCS_DIE_ON_ASSIGNMENT",TRUE);
-	gGameExternalOptions.giEasyMercDeaths				= iniReader.ReadInteger("JA2 Laptop Settings","EASY_MERC_DEATHS",1);
-	gGameExternalOptions.giExperiencedMercDeaths	 = iniReader.ReadInteger("JA2 Laptop Settings","EXPERIENCED_MERC_DEATHS",2);
-	gGameExternalOptions.giExpertMercDeaths			= iniReader.ReadInteger("JA2 Laptop Settings","EXPERT_MERC_DEATHS",3);
-	gGameExternalOptions.giInsaneMercDeaths			= iniReader.ReadInteger("JA2 Laptop Settings","INSANE_MERC_DEATHS",4);
+	gGameExternalOptions.giEasyMercDeaths				= iniReader.ReadInteger("JA2 Laptop Settings","EASY_MERC_DEATHS",1, 0, 10);
+	gGameExternalOptions.giExperiencedMercDeaths	 = iniReader.ReadInteger("JA2 Laptop Settings","EXPERIENCED_MERC_DEATHS",2, 0, 10);
+	gGameExternalOptions.giExpertMercDeaths			= iniReader.ReadInteger("JA2 Laptop Settings","EXPERT_MERC_DEATHS",3, 0, 10);
+	gGameExternalOptions.giInsaneMercDeaths			= iniReader.ReadInteger("JA2 Laptop Settings","INSANE_MERC_DEATHS",4, 0, 10);
 
 	//################# System Settings #################
-	gGameExternalOptions.gubDeadLockDelay = (UINT8) iniReader.ReadInteger("JA2 System Settings","DEAD_LOCK_DELAY",15);
+	gGameExternalOptions.gubDeadLockDelay = (UINT8) iniReader.ReadInteger("JA2 System Settings","DEAD_LOCK_DELAY",15, 5, 50);
 	gGameExternalOptions.gfEnableEmergencyButton_SkipStrategicEvents = iniReader.ReadBoolean("JA2 System Settings","ENABLE_EMERGENCY_BUTTON_NUMLOCK_TO_SKIP_STRATEGIC_EVENTS",0);
 
+	// WDS - Automatically try to save when an assertion failure occurs
+	gGameExternalOptions.autoSaveOnAssertionFailure 	    = iniReader.ReadBoolean("JA2 System Settings","AUTO_SAVE_ON_ASSERTION_FAILURE", FALSE);
+	gGameExternalOptions.autoSaveTime 	    = iniReader.ReadInteger("JA2 System Settings","AUTO_SAVE_TIME", 6, 0, 24);
 
 	//################# Video Settings #################
 	gGameExternalOptions.gfVSync = iniReader.ReadBoolean("JA2 Video Settings","VERTICAL_SYNC",0);
 
 
 	//################# Animation Settings #################
-	gGameExternalOptions.gubPlayerTurnSpeedUpFactor		= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","PLAYER_TURN_SPEED_UP_FACTOR",1);
-	gGameExternalOptions.gubEnemyTurnSpeedUpFactor		= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","ENEMY_TURN_SPEED_UP_FACTOR",1);
-	gGameExternalOptions.gubCreatureTurnSpeedUpFactor	= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","CREATURE_TURN_SPEED_UP_FACTOR",1);
-	gGameExternalOptions.gubMilitiaTurnSpeedUpFactor	= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","MILITIA_TURN_SPEED_UP_FACTOR",1);
-	gGameExternalOptions.gubCivilianTurnSpeedUpFactor	= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","CIVILIAN_TURN_SPEED_UP_FACTOR",1);
+	gGameExternalOptions.gubPlayerTurnSpeedUpFactor		= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","PLAYER_TURN_SPEED_UP_FACTOR",1, 0, 100);
+	gGameExternalOptions.gubEnemyTurnSpeedUpFactor		= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","ENEMY_TURN_SPEED_UP_FACTOR",1, 0, 100);
+	gGameExternalOptions.gubCreatureTurnSpeedUpFactor	= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","CREATURE_TURN_SPEED_UP_FACTOR",1, 0, 100);
+	gGameExternalOptions.gubMilitiaTurnSpeedUpFactor	= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","MILITIA_TURN_SPEED_UP_FACTOR",1, 0, 100);
+	gGameExternalOptions.gubCivilianTurnSpeedUpFactor	= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","CIVILIAN_TURN_SPEED_UP_FACTOR",1, 0, 100);
 
 
 	//################# Sound Settings #################
-	gGameExternalOptions.guiWeaponSoundEffectsVolume = iniReader.ReadInteger("JA2 Sound Settings","WEAPON_SOUND_EFFECTS_VOLUME",0);
+	gGameExternalOptions.guiWeaponSoundEffectsVolume = iniReader.ReadInteger("JA2 Sound Settings","WEAPON_SOUND_EFFECTS_VOLUME",0, 0, 1000 /*1000 = 10x?*/);
 
 
 
@@ -497,8 +500,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iPlayerAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","PLAYER_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
 
 	// Sight range
-	gGameExternalOptions.ubStraightSightRange				= iniReader.ReadInteger("JA2 Tactical Settings","BASE_SIGHT_RANGE",13);
-	gGameExternalOptions.ubVisDistDecreasePerRainIntensity	= iniReader.ReadInteger("JA2 Tactical Settings","VISUAL_DISTANCE_DECREASE_PER_RAIN_INTENSITY",30);
+	gGameExternalOptions.ubStraightSightRange				= iniReader.ReadInteger("JA2 Tactical Settings","BASE_SIGHT_RANGE",13, 5, 100);
+	gGameExternalOptions.ubVisDistDecreasePerRainIntensity	= iniReader.ReadInteger("JA2 Tactical Settings","VISUAL_DISTANCE_DECREASE_PER_RAIN_INTENSITY",30, 0, 100);
 	gGameExternalOptions.gfAllowLimitedVision				= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_LIMITED_VISION",0);
 
 	// Maximal search distance for grenades
@@ -508,7 +511,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gfAllowSoldierToolTips		= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_SOLDIER_TOOL_TIPS",0);
 
 	// ShadoWarrior: Tooltip changes (start)
-	gGameExternalOptions.ubSoldierTooltipDetailLevel		= (UINT8) iniReader.ReadInteger("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DETAIL_LEVEL", 1);
+	gGameExternalOptions.ubSoldierTooltipDetailLevel		= (UINT8) iniReader.ReadInteger("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DETAIL_LEVEL", 1, 0, 4);
 
 	gGameExternalOptions.fEnableDynamicSoldierTooltips		= iniReader.ReadBoolean("JA2 Tactical Settings", "DYNAMIC_SOLDIER_TOOLTIPS", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipLocation		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_LOCATION", TRUE);
@@ -545,21 +548,21 @@ void LoadGameExternalOptions()
 
 	// Rain settings
 	gGameExternalOptions.gfAllowRain									= iniReader.ReadBoolean("JA2 Rain Settings","ALLOW_RAIN",0);
-	gGameExternalOptions.gusRainChancePerDay							= iniReader.ReadInteger("JA2 Rain Settings","RAIN_CHANCE_PER_DAY",100);
-	gGameExternalOptions.gusRainMinLength								= iniReader.ReadInteger("JA2 Rain Settings","RAIN_MIN_LENGTH_IN_MINUTES",60);
-	gGameExternalOptions.gusRainMaxLength								= iniReader.ReadInteger("JA2 Rain Settings","RAIN_MAX_LENGTH_IN_MINUTES",300);
-	gGameExternalOptions.guiMaxRainDrops								= iniReader.ReadInteger("JA2 Rain Settings","MAX_RAIN_DROPS",80);
-	gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity	= iniReader.ReadInteger("JA2 Rain Settings","WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY",0);
-	gGameExternalOptions.ubBreathGainReductionPerRainIntensity			= iniReader.ReadFloat("JA2 Rain Settings","BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY",25);
+	gGameExternalOptions.gusRainChancePerDay							= iniReader.ReadInteger("JA2 Rain Settings","RAIN_CHANCE_PER_DAY",100, 0, 100);
+	gGameExternalOptions.gusRainMinLength								= iniReader.ReadInteger("JA2 Rain Settings","RAIN_MIN_LENGTH_IN_MINUTES",60, 1, 300);
+	gGameExternalOptions.gusRainMaxLength								= iniReader.ReadInteger("JA2 Rain Settings","RAIN_MAX_LENGTH_IN_MINUTES",300, 10, 600);
+	gGameExternalOptions.guiMaxRainDrops								= iniReader.ReadInteger("JA2 Rain Settings","MAX_RAIN_DROPS",80, 1, 800);
+	gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity	= iniReader.ReadInteger("JA2 Rain Settings","WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY",0, 0, 10);
+	gGameExternalOptions.ubBreathGainReductionPerRainIntensity			= iniReader.ReadDouble("JA2 Rain Settings","BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY",25, 1, 100);
 
 	// Thunder settings
 	gGameExternalOptions.gfAllowLightning					= iniReader.ReadBoolean("JA2 Thunder Settings","ALLOW_LIGHTNING",TRUE);
-	gGameExternalOptions.guiMinLightningInterval			= iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",5);
-	gGameExternalOptions.guiMaxLightningInterval			= iniReader.ReadInteger("JA2 Thunder Settings","MAX_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",15);
-	gGameExternalOptions.guiMinDLInterval					= iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",1);
-	gGameExternalOptions.guiMaxDLInterval					= iniReader.ReadInteger("JA2 Thunder Settings","MAX_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",5);
-	gGameExternalOptions.guiProlongLightningIfSeenSomeone	= iniReader.ReadInteger("JA2 Thunder Settings","PROLOGNE_DELAY_IF_SEEN_SOMEONE_DURING_LIGHTNING_IN_TURNBASED_IN_SECONDS",5);
-	gGameExternalOptions.guiChanceToDoLightningBetweenTurns = iniReader.ReadInteger("JA2 Thunder Settings","CHANCE_TO_DO_LIGHTNING_BETWEEN_TURNS",35);
+	gGameExternalOptions.guiMinLightningInterval			= iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",5, 1, 100);
+	gGameExternalOptions.guiMaxLightningInterval			= iniReader.ReadInteger("JA2 Thunder Settings","MAX_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",15, 2, 600);
+	gGameExternalOptions.guiMinDLInterval					= iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",1, 1, 100);
+	gGameExternalOptions.guiMaxDLInterval					= iniReader.ReadInteger("JA2 Thunder Settings","MAX_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",5, 2, 600);
+	gGameExternalOptions.guiProlongLightningIfSeenSomeone	= iniReader.ReadInteger("JA2 Thunder Settings","PROLOGNE_DELAY_IF_SEEN_SOMEONE_DURING_LIGHTNING_IN_TURNBASED_IN_SECONDS",5, 1, 60);
+	gGameExternalOptions.guiChanceToDoLightningBetweenTurns = iniReader.ReadInteger("JA2 Thunder Settings","CHANCE_TO_DO_LIGHTNING_BETWEEN_TURNS",35, 0, 100);
 
 
 
@@ -567,46 +570,41 @@ void LoadGameExternalOptions()
 
 	//################# Settings valid on game start only ##################
 	//Money settings
-	gGameExternalOptions.iStartingCashNovice		= iniReader.ReadInteger("JA2 Gameplay Settings", "NOVICE_CASH",45000);
-	gGameExternalOptions.iStartingCashExperienced	= iniReader.ReadInteger("JA2 Gameplay Settings", "EXPERIENCED_CASH",35000);
-	gGameExternalOptions.iStartingCashExpert		= iniReader.ReadInteger("JA2 Gameplay Settings", "EXPERT_CASH",30000);
-	gGameExternalOptions.iStartingCashInsane		= iniReader.ReadInteger("JA2 Gameplay Settings", "INSANE_CASH",15000);
+	gGameExternalOptions.iStartingCashNovice		= iniReader.ReadInteger("JA2 Gameplay Settings", "NOVICE_CASH",45000, 2000, 0x0FFFFFFF);
+	gGameExternalOptions.iStartingCashExperienced	= iniReader.ReadInteger("JA2 Gameplay Settings", "EXPERIENCED_CASH",35000, 2000, 0x0FFFFFFF);
+	gGameExternalOptions.iStartingCashExpert		= iniReader.ReadInteger("JA2 Gameplay Settings", "EXPERT_CASH",30000, 2000, 0x0FFFFFFF);
+	gGameExternalOptions.iStartingCashInsane		= iniReader.ReadInteger("JA2 Gameplay Settings", "INSANE_CASH",15000, 2000, 0x0FFFFFFF);
 
 	
 	//Lalien: Game starting time
-	gGameExternalOptions.iGameStartingTime			= iniReader.ReadInteger("JA2 Gameplay Settings", "GAME_STARTING_TIME", NUM_SEC_IN_HOUR);
-
-
-	// WANNE: Check for invalid starting time
-	if (gGameExternalOptions.iGameStartingTime < 0 || gGameExternalOptions.iGameStartingTime >= NUM_SEC_IN_DAY)
-	{
-		gGameExternalOptions.iGameStartingTime = NUM_SEC_IN_HOUR + NUM_SEC_IN_DAY;
-	}
-	else
-	{
-		gGameExternalOptions.iGameStartingTime += NUM_SEC_IN_DAY;
-	}
+	gGameExternalOptions.iGameStartingTime			= iniReader.ReadInteger("JA2 Gameplay Settings", "GAME_STARTING_TIME", NUM_SEC_IN_HOUR, 0, NUM_SEC_IN_DAY-1);
+	gGameExternalOptions.iGameStartingTime += NUM_SEC_IN_DAY;
 	
-	gGameExternalOptions.iFirstArrivalDelay			= iniReader.ReadInteger("JA2 Gameplay Settings", "FIRST_ARRIVAL_DELAY", 6 * NUM_SEC_IN_HOUR);
+	gGameExternalOptions.iFirstArrivalDelay			= iniReader.ReadInteger("JA2 Gameplay Settings", "FIRST_ARRIVAL_DELAY", 6 * NUM_SEC_IN_HOUR, 0, NUM_SEC_IN_DAY);
 
 	//################# Settings valid on game start only end ##################
 
 
 	gGameExternalOptions.fSellAll					= iniReader.ReadBoolean("JA2 Gameplay Settings","CAN_SELL_ALT_LMB",FALSE);
-	gGameExternalOptions.iPriceModifier				= (INT16) iniReader.ReadInteger("JA2 Gameplay Settings","PRICE_MODIFIER",10);
+	gGameExternalOptions.iPriceModifier				= (INT16) iniReader.ReadInteger("JA2 Gameplay Settings","PRICE_MODIFIER",10, 1, 100);
 
 
 	// WDS - Option to turn off stealing
 	gGameExternalOptions.fStealingDisabled			= iniReader.ReadBoolean("JA2 Gameplay Settings","STEALING_FROM_SHIPMENTS_DISABLED",FALSE);
 
 	// WDS: Game progress 
-	gGameExternalOptions.ubGameProgressPortionKills	 = iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_KILLS",25);
-	gGameExternalOptions.ubGameProgressPortionControl	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_CONTROL",25);
-	gGameExternalOptions.ubGameProgressPortionIncome	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_INCOME",50);
-	gGameExternalOptions.ubGameProgressPortionVisited	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_VISITED",0);
+	gGameExternalOptions.ubGameProgressPortionKills	 = iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_KILLS", 25, 0, 100);
+	gGameExternalOptions.ubGameProgressPortionControl	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_CONTROL", 25, 0, 100);
+	gGameExternalOptions.ubGameProgressPortionIncome	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_INCOME", 50, 0, 100);
+	gGameExternalOptions.ubGameProgressPortionVisited	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_VISITED", 0, 0, 100);
+	gGameExternalOptions.ubGameProgressMinimum	 = iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_MINIMUM", 0, 0, 100);
+	gGameExternalOptions.ubGameProgressIncrement = iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_INCREMENT", 0, 0, 100);
 
 	// Any way to warn on this?
-	if (gGameExternalOptions.ubGameProgressPortionKills + gGameExternalOptions.ubGameProgressPortionControl + gGameExternalOptions.ubGameProgressPortionIncome + gGameExternalOptions.ubGameProgressPortionVisited != 100) 
+	if (gGameExternalOptions.ubGameProgressPortionKills + 
+		gGameExternalOptions.ubGameProgressPortionControl + 
+		gGameExternalOptions.ubGameProgressPortionIncome + 
+		gGameExternalOptions.ubGameProgressPortionVisited != 100) 
 	{
 		gGameExternalOptions.ubGameProgressPortionKills	 = 25;
 		gGameExternalOptions.ubGameProgressPortionControl	= 25;
@@ -614,75 +612,86 @@ void LoadGameExternalOptions()
 		gGameExternalOptions.ubGameProgressPortionVisited	= 0;
 	}
 
+	// WDS: Advanced start 
+	gGameExternalOptions.ubIMPStartingLevel = iniReader.ReadInteger("JA2 Gameplay Settings","IMP_STARTING_LEVEL", 1, 1, 7);
+
+	// WDS - make number of mercenaries, etc. be configurable
+	gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs = iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_PLAYER_MERCS", 24, 1, CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS);
+	gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles = iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_PLAYER_VEHICLES", 2, 2, CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES);
+	gGameExternalOptions.ubGameMaximumNumberOfEnemies = iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_ENEMIES", 32, 16, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
+	gGameExternalOptions.ubGameMaximumNumberOfCreatures = iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_CREATURES", 32, 0, CODE_MAXIMUM_NUMBER_OF_CREATURES);
+	gGameExternalOptions.ubGameMaximumNumberOfRebels = iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_REBELS", 32, 16, CODE_MAXIMUM_NUMBER_OF_REBELS);
+	gGameExternalOptions.ubGameMaximumNumberOfCivilians = iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_CIVS", 32, 16, CODE_MAXIMUM_NUMBER_OF_CIVS);
+
 	//Global game events 
-	gGameExternalOptions.ubGameProgressStartMadlabQuest = iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_START_MADLAB_QUEST",35);
-	gGameExternalOptions.ubGameProgressMikeAvailable	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_MIKE_AVAILABLE",50);
-	gGameExternalOptions.ubGameProgressIggyAvaliable	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_IGGY_AVAILABLE",70);
+	gGameExternalOptions.ubGameProgressStartMadlabQuest = iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_START_MADLAB_QUEST",35, 1, 100);
+	gGameExternalOptions.ubGameProgressMikeAvailable	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_MIKE_AVAILABLE",50, 1, 100);
+	gGameExternalOptions.ubGameProgressIggyAvaliable	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_IGGY_AVAILABLE",70, 1, 100);
 	gGameExternalOptions.ubSendTroopsToDrassen			= iniReader.ReadBoolean("JA2 Gameplay Settings","STRATEGIC_EVENT_SEND_TROOPS_TO_DRASSEN",TRUE);
 
 
 	//Weapons modification
-	gGameExternalOptions.ubExplosivesDamageMultiplier	= iniReader.ReadInteger("JA2 Gameplay Settings","EXPLOSIVES_DAMAGE_MULTIPLIER",0);
-	gGameExternalOptions.ubMeleeDamageMultiplier		= iniReader.ReadInteger("JA2 Gameplay Settings","MELEE_DAMAGE_MULTIPLIER",0);
-	gGameExternalOptions.ubGunDamageMultiplier			= iniReader.ReadInteger("JA2 Gameplay Settings","GUN_DAMAGE_MULTIPLIER",0);
+	gGameExternalOptions.ubExplosivesDamageMultiplier	= iniReader.ReadInteger("JA2 Gameplay Settings","EXPLOSIVES_DAMAGE_MULTIPLIER",0, 0, 100);
+	gGameExternalOptions.ubMeleeDamageMultiplier		= iniReader.ReadInteger("JA2 Gameplay Settings","MELEE_DAMAGE_MULTIPLIER",0, 0, 100);
+	gGameExternalOptions.ubGunDamageMultiplier			= iniReader.ReadInteger("JA2 Gameplay Settings","GUN_DAMAGE_MULTIPLIER",0, 0, 100);
 
 
 	//Strategic AI settings
-	gGameExternalOptions.iMaxEnemyGroupSize					= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_STRATEGIC_TEAM_SIZE",20);
+	gGameExternalOptions.iMaxEnemyGroupSize					= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_STRATEGIC_TEAM_SIZE",20, 10, 100);
 
-	gGameExternalOptions.iReinforcementPoolNovice			= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_QUEENS_POOL_OF_TROOPS",150);
-	gGameExternalOptions.iReinforcementPoolExperienced		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_QUEENS_POOL_OF_TROOPS",200);
-	gGameExternalOptions.iReinforcementPoolExpert			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_QUEENS_POOL_OF_TROOPS",400);
-	gGameExternalOptions.iReinforcementPoolInsane			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_QUEENS_POOL_OF_TROOPS",8000);
+	gGameExternalOptions.iReinforcementPoolNovice			= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_QUEENS_POOL_OF_TROOPS",150, 25, 1000000);
+	gGameExternalOptions.iReinforcementPoolExperienced		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_QUEENS_POOL_OF_TROOPS",200, 25, 1000000);
+	gGameExternalOptions.iReinforcementPoolExpert			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_QUEENS_POOL_OF_TROOPS",400, 25, 1000000);
+	gGameExternalOptions.iReinforcementPoolInsane			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_QUEENS_POOL_OF_TROOPS",8000, 25, 1000000);
 
-	gGameExternalOptions.iForcePercentageNovice				= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_INITIAL_GARRISON_PERCENTAGES",70);
-	gGameExternalOptions.iForcePercentageExperienced		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_INITIAL_GARRISON_PERCENTAGES",100);
-	gGameExternalOptions.iForcePercentageExpert				= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_INITIAL_GARRISON_PERCENTAGES",150);
-	gGameExternalOptions.iForcePercentageInsane				= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_INITIAL_GARRISON_PERCENTAGES",200);
+	gGameExternalOptions.iForcePercentageNovice				= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_INITIAL_GARRISON_PERCENTAGES",70, 1, 200);
+	gGameExternalOptions.iForcePercentageExperienced		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_INITIAL_GARRISON_PERCENTAGES",100, 1, 300);
+	gGameExternalOptions.iForcePercentageExpert				= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_INITIAL_GARRISON_PERCENTAGES",150, 1, 400);
+	gGameExternalOptions.iForcePercentageInsane				= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_INITIAL_GARRISON_PERCENTAGES",200, 1, 600);
 
-	gGameExternalOptions.iPercentElitesBonusExperienced		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_ELITE_BONUS",0);
-	gGameExternalOptions.iPercentElitesBonusExpert			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_ELITE_BONUS",25);
-	gGameExternalOptions.iPercentElitesBonusInsane			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_ELITE_BONUS",50);
+	gGameExternalOptions.iPercentElitesBonusExperienced		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_ELITE_BONUS",0, 0, 100);
+	gGameExternalOptions.iPercentElitesBonusExpert			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_ELITE_BONUS",25, 0, 100);
+	gGameExternalOptions.iPercentElitesBonusInsane			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_ELITE_BONUS",50, 0, 100);
 
-	gGameExternalOptions.ubMinEnemyGroupSizeNovice			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_MIN_ENEMY_GROUP_SIZE",3);
-	gGameExternalOptions.ubMinEnemyGroupSizeExperienced		= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_MIN_ENEMY_GROUP_SIZE",4);
-	gGameExternalOptions.ubMinEnemyGroupSizeExpert			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_MIN_ENEMY_GROUP_SIZE",6);
-	gGameExternalOptions.ubMinEnemyGroupSizeInsane			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_MIN_ENEMY_GROUP_SIZE",12);
+	gGameExternalOptions.ubMinEnemyGroupSizeNovice			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_MIN_ENEMY_GROUP_SIZE",3, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
+	gGameExternalOptions.ubMinEnemyGroupSizeExperienced		= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_MIN_ENEMY_GROUP_SIZE",4, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
+	gGameExternalOptions.ubMinEnemyGroupSizeExpert			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_MIN_ENEMY_GROUP_SIZE",6, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
+	gGameExternalOptions.ubMinEnemyGroupSizeInsane			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_MIN_ENEMY_GROUP_SIZE",12, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
 
-	gGameExternalOptions.ubEasyEnemyStartingAlertLevel		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_ENEMY_STARTING_ALERT_LEVEL", 5);
-	gGameExternalOptions.ubNormalEnemyStartingAlertLevel	= iniReader.ReadInteger("JA2 Gameplay Settings","NORMAL_ENEMY_STARTING_ALERT_LEVEL", 20);
-	gGameExternalOptions.ubHardEnemyStartingAlertLevel		= iniReader.ReadInteger("JA2 Gameplay Settings","HARD_ENEMY_STARTING_ALERT_LEVEL", 60);
-	gGameExternalOptions.ubInsaneEnemyStartingAlertLevel	= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_ENEMY_STARTING_ALERT_LEVEL", 80);
+	gGameExternalOptions.ubEasyEnemyStartingAlertLevel		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_ENEMY_STARTING_ALERT_LEVEL", 5, 1, 100);
+	gGameExternalOptions.ubNormalEnemyStartingAlertLevel	= iniReader.ReadInteger("JA2 Gameplay Settings","NORMAL_ENEMY_STARTING_ALERT_LEVEL", 20, 1, 100);
+	gGameExternalOptions.ubHardEnemyStartingAlertLevel		= iniReader.ReadInteger("JA2 Gameplay Settings","HARD_ENEMY_STARTING_ALERT_LEVEL", 60, 1, 100);
+	gGameExternalOptions.ubInsaneEnemyStartingAlertLevel	= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_ENEMY_STARTING_ALERT_LEVEL", 80, 1, 100);
 
-	gGameExternalOptions.ubEasyEnemyStartingAlertDecay		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_ENEMY_STARTING_ALERT_DECAY", 75);
-	gGameExternalOptions.ubNormalEnemyStartingAlertDecay	= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_ENEMY_STARTING_ALERT_DECAY", 50);
-	gGameExternalOptions.ubHardEnemyStartingAlertDecay		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_ENEMY_STARTING_ALERT_DECAY", 25);
-	gGameExternalOptions.ubInsaneEnemyStartingAlertDecay	= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_ENEMY_STARTING_ALERT_DECAY", 10);
+	gGameExternalOptions.ubEasyEnemyStartingAlertDecay		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_ENEMY_STARTING_ALERT_DECAY", 75, 1, 100);
+	gGameExternalOptions.ubNormalEnemyStartingAlertDecay	= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_ENEMY_STARTING_ALERT_DECAY", 50, 1, 100);
+	gGameExternalOptions.ubHardEnemyStartingAlertDecay		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_ENEMY_STARTING_ALERT_DECAY", 25, 1, 100);
+	gGameExternalOptions.ubInsaneEnemyStartingAlertDecay	= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_ENEMY_STARTING_ALERT_DECAY", 10, 1, 100);
 
-	gGameExternalOptions.ubEasyTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_TIME_EVALUATE_IN_MINUTES", 480);
-	gGameExternalOptions.ubNormalTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_TIME_EVALUATE_IN_MINUTES", 360);
-	gGameExternalOptions.ubHardTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_TIME_EVALUATE_IN_MINUTES", 180);
-	gGameExternalOptions.ubInsaneTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_TIME_EVALUATE_IN_MINUTES", 90);
+	gGameExternalOptions.ubEasyTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_TIME_EVALUATE_IN_MINUTES", 480, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubNormalTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_TIME_EVALUATE_IN_MINUTES", 360, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubHardTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_TIME_EVALUATE_IN_MINUTES", 180, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubInsaneTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_TIME_EVALUATE_IN_MINUTES", 90, 10, NUM_MIN_IN_DAY);
 
-	gGameExternalOptions.ubEasyTimeEvaluateVariance			= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_TIME_EVALUATE_VARIANCE", 240);
-	gGameExternalOptions.ubNormalTimeEvaluateVariance		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_TIME_EVALUATE_VARIANCE", 180);
-	gGameExternalOptions.ubHardTimeEvaluateVariance			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_TIME_EVALUATE_VARIANCE", 120);
-	gGameExternalOptions.ubInsaneTimeEvaluateVariance		= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_TIME_EVALUATE_VARIANCE", 60);
+	gGameExternalOptions.ubEasyTimeEvaluateVariance			= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_TIME_EVALUATE_VARIANCE", 240, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubNormalTimeEvaluateVariance		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_TIME_EVALUATE_VARIANCE", 180, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubHardTimeEvaluateVariance			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_TIME_EVALUATE_VARIANCE", 120, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubInsaneTimeEvaluateVariance		= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_TIME_EVALUATE_VARIANCE", 60, 10, NUM_MIN_IN_DAY);
 
-	gGameExternalOptions.ubEasyGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","EASY_GRACE_PERIOD_IN_HOURS", 144);
-	gGameExternalOptions.ubNormalGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","NORMAL_GRACE_PERIOD_IN_HOURS", 96);
-	gGameExternalOptions.ubHardGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","HARD_GRACE_PERIOD_IN_HOURS", 48);
-	gGameExternalOptions.ubInsaneGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_GRACE_PERIOD_IN_HOURS", 6);
+	gGameExternalOptions.ubEasyGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","EASY_GRACE_PERIOD_IN_HOURS", 144, 1, 288);
+	gGameExternalOptions.ubNormalGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","NORMAL_GRACE_PERIOD_IN_HOURS", 96, 1, 288);
+	gGameExternalOptions.ubHardGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","HARD_GRACE_PERIOD_IN_HOURS", 48, 1, 288);
+	gGameExternalOptions.ubInsaneGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_GRACE_PERIOD_IN_HOURS", 6, 1, 288);
 
-	gGameExternalOptions.ubEasyPatrolGracePeriodInDays		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_PATROL_GRACE_PERIOD_IN_DAYS", 16);
-	gGameExternalOptions.ubNormalPatrolGracePeriodInDays	= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_PATROL_GRACE_PERIOD_IN_DAYS", 12);
-	gGameExternalOptions.ubHardPatrolGracePeriodInDays		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_PATROL_GRACE_PERIOD_IN_DAYS", 8);
-	gGameExternalOptions.ubInsanePatrolGracePeriodInDays	= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_PATROL_GRACE_PERIOD_IN_DAYS", 2);
+	gGameExternalOptions.ubEasyPatrolGracePeriodInDays		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_PATROL_GRACE_PERIOD_IN_DAYS", 16, 1, 100);
+	gGameExternalOptions.ubNormalPatrolGracePeriodInDays	= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_PATROL_GRACE_PERIOD_IN_DAYS", 12, 1, 100);
+	gGameExternalOptions.ubHardPatrolGracePeriodInDays		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_PATROL_GRACE_PERIOD_IN_DAYS", 8, 1, 100);
+	gGameExternalOptions.ubInsanePatrolGracePeriodInDays	= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_PATROL_GRACE_PERIOD_IN_DAYS", 2, 1, 100);
 
-	gGameExternalOptions.ubEasyNumAwareBattles				= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_NUM_AWARE_BATTLES", 1);
-	gGameExternalOptions.ubNormalNumAwareBattles			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_NUM_AWARE_BATTLES", 2);
-	gGameExternalOptions.ubHardNumAwareBattles				= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_NUM_AWARE_BATTLES", 3);
-	gGameExternalOptions.ubInsaneNumAwareBattles			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_NUM_AWARE_BATTLES", 4);
+	gGameExternalOptions.ubEasyNumAwareBattles				= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_NUM_AWARE_BATTLES", 1, 1, 10);
+	gGameExternalOptions.ubNormalNumAwareBattles			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_NUM_AWARE_BATTLES", 2, 1, 10);
+	gGameExternalOptions.ubHardNumAwareBattles				= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_NUM_AWARE_BATTLES", 3, 1, 10);
+	gGameExternalOptions.ubInsaneNumAwareBattles			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_NUM_AWARE_BATTLES", 4, 1, 10);
 
 	//New v1.13 settings
 	gGameExternalOptions.gfEasyUnlimitedTroops				= iniReader.ReadBoolean("JA2 Gameplay Settings","NOVICE_UNLIMITED_POOL_OF_TROOPS",FALSE);
@@ -695,64 +704,79 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gfHardAggressiveQueen				= iniReader.ReadBoolean("JA2 Gameplay Settings","EXPERT_QUEEN_AGGRESSIVE",FALSE);
 	gGameExternalOptions.gfInsaneAggressiveQueen			= iniReader.ReadBoolean("JA2 Gameplay Settings","INSANE_QUEEN_AGGRESSIVE",TRUE);
 
+	// WDS - New AI
+// Not ready yet...
+//	gGameExternalOptions.useNewAI					        = iniReader.ReadBoolean("JA2 Gameplay Settings","NEW_AGGRESSIVE_AI",FALSE);
+
 	gGameExternalOptions.gfInvestigateSector				= iniReader.ReadBoolean("JA2 Gameplay Settings","ENEMY_INVESTIGATE_SECTOR",FALSE);
 	gGameExternalOptions.gfReassignPendingReinforcements	= iniReader.ReadBoolean("JA2 Gameplay Settings","REASSIGN_PENDING_REINFORCEMENTS",TRUE);
 
-	gGameExternalOptions.ubEnemiesItemDrop					= iniReader.ReadInteger("JA2 Gameplay Settings","ENEMIES_ITEM_DROP", 0);
+	gGameExternalOptions.ubEnemiesItemDrop					= iniReader.ReadInteger("JA2 Gameplay Settings","ENEMIES_ITEM_DROP", 0, 0, 1);
 
 	gGameExternalOptions.gfUseExternalLoadscreens			= iniReader.ReadBoolean("JA2 Gameplay Settings","USE_EXTERNALIZED_LOADSCREENS", FALSE);
 
 	// Militia settings
-	gGameExternalOptions.guiAllowMilitiaGroupsDelay			= iniReader.ReadInteger("JA2 Gameplay Settings","ALLOW_MILITIA_MOBILE_DELAY",1);
-	gGameExternalOptions.guiTrainVeteranMilitiaDelay		= iniReader.ReadInteger("JA2 Gameplay Settings","TRAIN_VETERAN_MILITIA_DELAY",1);
+	gGameExternalOptions.guiAllowMilitiaGroupsDelay			= iniReader.ReadInteger("JA2 Gameplay Settings","ALLOW_MILITIA_MOBILE_DELAY",1, 0, 30);
+	gGameExternalOptions.guiTrainVeteranMilitiaDelay		= iniReader.ReadInteger("JA2 Gameplay Settings","TRAIN_VETERAN_MILITIA_DELAY",1, 0, 30);
 	gGameExternalOptions.gfTrainVeteranMilitia				= iniReader.ReadBoolean("JA2 Gameplay Settings","TRAIN_VETERAN_MILITIA",FALSE);
 	gGameExternalOptions.gfAllowMilitiaGroups				= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_MILITIA_MOBILE_GROUPS",FALSE);
 	gGameExternalOptions.gfmusttrainroaming					= iniReader.ReadBoolean("JA2 Gameplay Settings","MUST_TRAIN_MOBILE_MILITIA",FALSE);
 	gGameExternalOptions.gfAllowReinforcements				= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_REINFORCEMENTS",FALSE);
 	gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_REINFORCEMENTS_ONLY_IN_CITIES",FALSE);
-	gGameExternalOptions.guiBaseQueenPoolIncrement			= iniReader.ReadInteger("JA2 Gameplay Settings","QUEEN_POOL_INCREMENT_PER_DIFFICULTY_LEVEL",60);
+	gGameExternalOptions.guiBaseQueenPoolIncrement			= iniReader.ReadInteger("JA2 Gameplay Settings","QUEEN_POOL_INCREMENT_PER_DIFFICULTY_LEVEL",60, 1, 100);
 
-	gGameExternalOptions.guiCreateEachNHours				= iniReader.ReadInteger("JA2 Gameplay Settings","CREATE_EACH_N_HOURS",24);
-	gGameExternalOptions.guiDivOfOriginalMilitia			= iniReader.ReadInteger("JA2 Gameplay Settings","DIV_OF_ORIGINAL_MILITIA",4);
-	gGameExternalOptions.guiMinMilitiaSquadSize				= iniReader.ReadInteger("JA2 Gameplay Settings","MINIMUM_MILITIA_SQUAD_SIZE",5);
-	gGameExternalOptions.guiMaxMilitiaSquadSize				= iniReader.ReadInteger("JA2 Gameplay Settings","MAXIMUM_MILITIA_SQUAD_SIZE",20);
-	gGameExternalOptions.guiMaxMilitiaSquadSizeBattle		= iniReader.ReadInteger("JA2 Gameplay Settings","MAXIMUM_MILITIA_SQUAD_SIZE",20); //lal: this have to be the same value as MAXIMUM_MILITIA_SQUAD_SIZE!! do not change!!
+	gGameExternalOptions.guiCreateEachNHours				= iniReader.ReadInteger("JA2 Gameplay Settings","CREATE_EACH_N_HOURS",24, 1, 96);
+	gGameExternalOptions.guiDivOfOriginalMilitia			= iniReader.ReadInteger("JA2 Gameplay Settings","DIV_OF_ORIGINAL_MILITIA",4, 1, 100);
+	gGameExternalOptions.guiMinMilitiaSquadSize				= iniReader.ReadInteger("JA2 Gameplay Settings","MINIMUM_MILITIA_SQUAD_SIZE",5, 1, CODE_MAXIMUM_NUMBER_OF_REBELS);
+	gGameExternalOptions.guiMaxMilitiaSquadSize				= iniReader.ReadInteger("JA2 Gameplay Settings","MAXIMUM_MILITIA_SQUAD_SIZE",20, gGameExternalOptions.guiMinMilitiaSquadSize, CODE_MAXIMUM_NUMBER_OF_REBELS);
+	gGameExternalOptions.guiMaxMilitiaSquadSizeBattle		= gGameExternalOptions.guiMaxMilitiaSquadSize;
 
-	gGameExternalOptions.iMaxMilitiaPerSector				= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_MILITIA_PER_SECTOR",20);
-	gGameExternalOptions.iTrainingSquadSize					= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_TRAINING_SQUAD_SIZE",10);
-	gGameExternalOptions.iMilitiaTrainingCost				= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_TRAINING_COST",750);
-	gGameExternalOptions.iMilitiaCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_COST_MODIFIER",3);
-	gGameExternalOptions.iRegularCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","REGULAR_COST_MODIFIER",1);
-	gGameExternalOptions.iVeteranCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","VETERAN_COST_MODIFIER",2);
-	gGameExternalOptions.iMinLoyaltyToTrain					= iniReader.ReadInteger("JA2 Gameplay Settings","MIN_LOYALTY_TO_TRAIN",20);
+	gGameExternalOptions.iMaxMilitiaPerSector				= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_MILITIA_PER_SECTOR",20, 1, CODE_MAXIMUM_NUMBER_OF_REBELS);
+	gGameExternalOptions.iTrainingSquadSize					= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_TRAINING_SQUAD_SIZE",10, 1, CODE_MAXIMUM_NUMBER_OF_REBELS);
+	gGameExternalOptions.iMilitiaTrainingCost				= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_TRAINING_COST",750, 10, 10000);
+	gGameExternalOptions.iMilitiaCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_COST_MODIFIER",3, 1, 10);
+	gGameExternalOptions.iRegularCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","REGULAR_COST_MODIFIER",1, 1, 10);
+	gGameExternalOptions.iVeteranCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","VETERAN_COST_MODIFIER",2, 1, 10);
+	gGameExternalOptions.iMinLoyaltyToTrain					= iniReader.ReadInteger("JA2 Gameplay Settings","MIN_LOYALTY_TO_TRAIN",20, 0, 100);
 	gGameExternalOptions.gflimitedRoaming					= iniReader.ReadBoolean("JA2 Gameplay Settings","RESTRICT_ROAMING",FALSE);
+
+	// WDS - Improve Tony's and Devin's inventory like BR's
+	gGameExternalOptions.tonyUsesBRSetting			        = iniReader.ReadBoolean("JA2 Gameplay Settings","TONY_USES_BR_SETTING", FALSE);
+	gGameExternalOptions.devinUsesBRSetting			        = iniReader.ReadBoolean("JA2 Gameplay Settings","DEVIN_USES_BR_SETTING", FALSE);
+
+	// WDS - Smart goggle switching
+	gGameExternalOptions.smartGoggleSwitch			        = iniReader.ReadBoolean("JA2 Gameplay Settings","SMART_GOGGLE_SWITCH", FALSE);
+
+	// WDS - Automatically flag mines
+	gGameExternalOptions.automaticallyFlagMines			    = iniReader.ReadBoolean("JA2 Gameplay Settings","AUTOMATICALLY_FLAG_MINES", FALSE);
+
 	//Assignment Settings (training, repairing, doctoring, etc)
-	gGameExternalOptions.ubAssignmentUnitsPerDay			= iniReader.ReadInteger("JA2 Gameplay Settings","ASSIGNMENT_UNITS_PER_DAY",24);
-	gGameExternalOptions.ubMinutesForAssignmentToCount		= iniReader.ReadInteger("JA2 Gameplay Settings","MINUTES_FOR_ASSIGNMENT_TO_COUNT",45);
+	gGameExternalOptions.ubAssignmentUnitsPerDay			= iniReader.ReadInteger("JA2 Gameplay Settings","ASSIGNMENT_UNITS_PER_DAY",24, 1, 96);
+	gGameExternalOptions.ubMinutesForAssignmentToCount		= iniReader.ReadInteger("JA2 Gameplay Settings","MINUTES_FOR_ASSIGNMENT_TO_COUNT",45, 1, NUM_MIN_IN_DAY);
 
 
-	gGameExternalOptions.ubTrainingSkillMin					= iniReader.ReadInteger("JA2 Gameplay Settings","TRAINING_SKILL_MIN",0);
-	gGameExternalOptions.ubTrainingSkillMax					= iniReader.ReadInteger("JA2 Gameplay Settings","TRAINING_SKILL_MAX",100);
-	gGameExternalOptions.ubSelfTrainingDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","SELF_TRAINING_DIVISOR",1000);
-	gGameExternalOptions.ubInstructedTrainingDivisor		= iniReader.ReadInteger("JA2 Gameplay Settings","INSTRUCTED_TRAINING_DIVISOR",3000);
-	gGameExternalOptions.ubGunRangeTrainingBonus			= iniReader.ReadInteger("JA2 Gameplay Settings","GUN_RANGE_TRAINING_BONUS",25);
-	gGameExternalOptions.ubTownMilitiaTrainingRate			= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_TRAINING_RATE",4);
-	gGameExternalOptions.ubMaxMilitiaTrainersPerSector		= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_MILITIA_TRAINERS_PER_SECTOR",2);
-	gGameExternalOptions.ubTeachBonusToTrain				= iniReader.ReadInteger("JA2 Gameplay Settings","TEACH_BONUS_TO_TRAIN",30);
-	gGameExternalOptions.ubRpcBonusToTrainMilitia			= iniReader.ReadInteger("JA2 Gameplay Settings","RPC_BONUS_TO_TRAIN_MILITIA",10);
-	gGameExternalOptions.ubMinSkillToTeach					= iniReader.ReadInteger("JA2 Gameplay Settings","MIN_RATING_TO_TEACH",25);
+	gGameExternalOptions.ubTrainingSkillMin					= iniReader.ReadInteger("JA2 Gameplay Settings","TRAINING_SKILL_MIN",0, 0, 100);
+	gGameExternalOptions.ubTrainingSkillMax					= iniReader.ReadInteger("JA2 Gameplay Settings","TRAINING_SKILL_MAX",100, 0, 100);
+	gGameExternalOptions.ubSelfTrainingDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","SELF_TRAINING_DIVISOR",1000, 1, 10000);
+	gGameExternalOptions.ubInstructedTrainingDivisor		= iniReader.ReadInteger("JA2 Gameplay Settings","INSTRUCTED_TRAINING_DIVISOR",3000, 1, 10000);
+	gGameExternalOptions.ubGunRangeTrainingBonus			= iniReader.ReadInteger("JA2 Gameplay Settings","GUN_RANGE_TRAINING_BONUS",25, 0, 100);
+	gGameExternalOptions.ubTownMilitiaTrainingRate			= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_TRAINING_RATE",4, 1, 10);
+	gGameExternalOptions.ubMaxMilitiaTrainersPerSector		= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_MILITIA_TRAINERS_PER_SECTOR",2, 1, gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs);
+	gGameExternalOptions.ubTeachBonusToTrain				= iniReader.ReadInteger("JA2 Gameplay Settings","TEACH_BONUS_TO_TRAIN",30, 0, 100);
+	gGameExternalOptions.ubRpcBonusToTrainMilitia			= iniReader.ReadInteger("JA2 Gameplay Settings","RPC_BONUS_TO_TRAIN_MILITIA",10, 0, 100);
+	gGameExternalOptions.ubMinSkillToTeach					= iniReader.ReadInteger("JA2 Gameplay Settings","MIN_RATING_TO_TEACH",25, 0, 100);
 
-	gGameExternalOptions.ubLowActivityLevel					= iniReader.ReadInteger("JA2 Gameplay Settings","LOW_ACTIVITY_LEVEL",1);
-	gGameExternalOptions.ubMediumActivityLevel				= iniReader.ReadInteger("JA2 Gameplay Settings","MEDIUM_ACTIVITY_LEVEL",4);
-	gGameExternalOptions.ubHighActivityLevel				= iniReader.ReadInteger("JA2 Gameplay Settings","HIGH_ACTIVITY_LEVEL",12);
-	gGameExternalOptions.ubDoctoringRateDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","DOCTORING_RATE_DIVISOR",2400);
-	gGameExternalOptions.ubHospitalHealingRate				= iniReader.ReadInteger("JA2 Gameplay Settings","HOSPITAL_HEALING_RATE",5);
-	gGameExternalOptions.ubBaseMedicalSkillToDealWithEmergency	= iniReader.ReadInteger("JA2 Gameplay Settings","BASE_MEDICAL_SKILL_TO_DEAL_WITH_EMERGENCY",20);
-	gGameExternalOptions.ubMultiplierForDifferenceInLifeValueForEmergency = iniReader.ReadInteger("JA2 Gameplay Settings","MULTIPLIER_FOR_DIFFERENCE_IN_LIFE_VALUE_FOR_EMERGENCY",4);
-	gGameExternalOptions.ubPointCostPerHealthBelowOkLife	= iniReader.ReadInteger("JA2 Gameplay Settings","POINT_COST_PER_HEALTH_BELOW_OKLIFE",2);//OKLIFE = 15
+	gGameExternalOptions.ubLowActivityLevel					= iniReader.ReadInteger("JA2 Gameplay Settings","LOW_ACTIVITY_LEVEL",1, 1, 100);
+	gGameExternalOptions.ubMediumActivityLevel				= iniReader.ReadInteger("JA2 Gameplay Settings","MEDIUM_ACTIVITY_LEVEL",4, 1, 100);
+	gGameExternalOptions.ubHighActivityLevel				= iniReader.ReadInteger("JA2 Gameplay Settings","HIGH_ACTIVITY_LEVEL",12, 1, 100);
+	gGameExternalOptions.ubDoctoringRateDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","DOCTORING_RATE_DIVISOR",2400, 1200, 24000);
+	gGameExternalOptions.ubHospitalHealingRate				= iniReader.ReadInteger("JA2 Gameplay Settings","HOSPITAL_HEALING_RATE",5, 1, 10);
+	gGameExternalOptions.ubBaseMedicalSkillToDealWithEmergency	= iniReader.ReadInteger("JA2 Gameplay Settings","BASE_MEDICAL_SKILL_TO_DEAL_WITH_EMERGENCY",20, 0, 100);
+	gGameExternalOptions.ubMultiplierForDifferenceInLifeValueForEmergency = iniReader.ReadInteger("JA2 Gameplay Settings","MULTIPLIER_FOR_DIFFERENCE_IN_LIFE_VALUE_FOR_EMERGENCY",4, 1, 10);
+	gGameExternalOptions.ubPointCostPerHealthBelowOkLife	= iniReader.ReadInteger("JA2 Gameplay Settings","POINT_COST_PER_HEALTH_BELOW_OKLIFE",2, 1, 5);//OKLIFE = 15
 
-	gGameExternalOptions.ubRepairCostPerJam					= iniReader.ReadInteger("JA2 Gameplay Settings","REPAIR_COST_PER_JAM",2);
-	gGameExternalOptions.ubRepairRateDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","REPAIR_RATE_DIVISOR",2500);
+	gGameExternalOptions.ubRepairCostPerJam					= iniReader.ReadInteger("JA2 Gameplay Settings","REPAIR_COST_PER_JAM",2, 1, 10);
+	gGameExternalOptions.ubRepairRateDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","REPAIR_RATE_DIVISOR",2500, 1250, 25000);
 
 
 	//Misc
@@ -782,7 +806,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fRestrictFemaleEnemiesExceptElite = iniReader.ReadBoolean("JA2 Gameplay Settings","RESTRICT_FEMALE_ENEMIES_EXCEPT_ELITE",FALSE);
 
 	// HEADROCK: Use Enhanced Item Description Box?
-	gGameExternalOptions.fEnhancedDescriptionBox	= iniReader.ReadInteger("JA2 Gameplay Settings","USE_ENHANCED_DESCRIPTION_BOX",0);
+	gGameExternalOptions.fEnhancedDescriptionBox	= iniReader.ReadInteger("JA2 Gameplay Settings","USE_ENHANCED_DESCRIPTION_BOX",0, 0, 2);
 
 	// WANNE: Always use prof.dat??
 	gGameExternalOptions.fAlwaysUseProfDat = iniReader.ReadBoolean("JA2 Gameplay Settings", "ALWAYS_USE_PROF_DAT", FALSE);
@@ -807,6 +831,8 @@ INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEA
 
 void LoadGameAPBPConstants()
 {
+	// WDS - Chris you should fix up the ReadIntegers below to have valid min/max values.
+
 	CIniReader iniReader(AP_BP_CONSTANTS_FILE);
 	//CHRISL: To allow for dynamic settings, we need to switch AP_MAXIMUM and AP_MINIMUM so that only the max value needs
 	//	to be changed to effect the entire system.  This will require a change in the ENUM so that we can use a loop to
@@ -949,6 +975,7 @@ void LoadGameAPBPConstants()
 	APBPConstants[BP_UNJAM] = iniReader.ReadInteger("APConstants","BP_WORK_ZIPPER",0);
 
 	SetupMaxActionPointsAnimation();
+#undef ReadInteger
 }
 
 void FreeGameExternalOptions()
@@ -1288,6 +1315,11 @@ void DisplayGameSettings( )
 
 	if (!is_networked)
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[58], CurrentPlayerProgressPercentage(), HighestPlayerProgressPercentage() );
+
+#ifdef _DEBUG
+	// WDS - Add debug output here
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[58], CurrentPlayerProgressPercentage(), HighestPlayerProgressPercentage() );
+#endif
 
 	////if( CHEATER_CHEAT_LEVEL() )
 	//{

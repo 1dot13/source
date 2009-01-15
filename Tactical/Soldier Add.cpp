@@ -1090,14 +1090,14 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 
 	if ( pSoldier->bActive	)
 	{
-	// ATE: Make sure life of elliot is OK if from a meanwhile
-	if ( AreInMeanwhile() && pSoldier->ubProfile == ELLIOT )
-	{
-		if ( pSoldier->stats.bLife < OKLIFE )
+		// ATE: Make sure life of elliot is OK if from a meanwhile
+		if ( AreInMeanwhile() && pSoldier->ubProfile == ELLIOT )
 		{
-		pSoldier->stats.bLife = 25;
+			if ( pSoldier->stats.bLife < OKLIFE )
+			{
+				pSoldier->stats.bLife = 25;
+			}
 		}
-	}
 
 		// ADD SOLDIER TO SLOT!
 		if (pSoldier->flags.uiStatusFlags & SOLDIER_OFF_MAP)
@@ -1151,7 +1151,7 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 			if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 			{
 				sGridNo = FindGridNoFromSweetSpotWithStructDataUsingGivenDirectionFirst( pSoldier, STANDING, pSoldier->sInsertionGridNo, 12, &ubCalculatedDirection, FALSE, pSoldier->ubInsertionDirection );
-		// ATE: Override insertion direction
+				// ATE: Override insertion direction
 				if (sGridNo == NOWHERE)
 				{
 					// Well, we gotta place this soldier/vehicle somewhere.	Just use the first position for now

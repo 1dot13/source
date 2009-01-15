@@ -24,6 +24,7 @@
 	#include "soldier profile type.h"
 	#include "GameSettings.h"
 	#include "Soldier Profile.h"
+	#include "Squads.h"
 #endif
 
 
@@ -602,7 +603,7 @@ void BtnIMPMainPageBeginCallback(GUI_BUTTON *btn,INT32 reason)
 					DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 3 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, BeginMessageBoxCallBack);
 
 				}
-				else if( NumberOfMercsOnPlayerTeam() >= 18 )
+				else if( NumberOfMercsOnPlayerTeam() >= gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs )
 				{
 					DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 5 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, BeginMessageBoxCallBack);
 				}

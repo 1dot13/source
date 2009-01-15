@@ -284,7 +284,8 @@ void IncrementTownLoyalty( INT8 bTownId, UINT32 uiLoyaltyIncrease )
 	INT16 sThisIncrement;
 
 
-	Assert( ( bTownId >= FIRST_TOWN ) && ( bTownId < NUM_TOWNS ) );
+	AssertGE (bTownId, BLANK_SECTOR);
+	AssertLT (bTownId, NUM_TOWNS);
 
 	// doesn't affect towns where player hasn't established a "presence" yet
 	if (!gTownLoyalty[ bTownId ].fStarted)

@@ -4967,10 +4967,18 @@ void MineSpottedDialogueCallBack( void )
 
 	GetItemPool( gsBoobyTrapGridNo, &pItemPool, gbBoobyTrapLevel );
 
-	guiPendingOverrideEvent = LU_BEGINUILOCK;
+	// WDS - Automatically flag mines
+	if (gGameExternalOptions.automaticallyFlagMines) {
+		// play a locator at the location of the mine
+		SetItemPoolLocator( pItemPool );
 
-	// play a locator at the location of the mine
-	SetItemPoolLocatorWithCallback( pItemPool, MineSpottedLocatorCallback );
+		AddBlueFlag( gsBoobyTrapGridNo, gbBoobyTrapLevel );
+	} else {
+		guiPendingOverrideEvent = LU_BEGINUILOCK;
+
+		// play a locator at the location of the mine
+		SetItemPoolLocatorWithCallback( pItemPool, MineSpottedLocatorCallback );
+	}
 }
 
 void MineSpottedLocatorCallback( void )

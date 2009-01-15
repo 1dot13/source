@@ -88,6 +88,9 @@ typedef PARSE_STAGE;
 #define ALTSECTORSFILENAME						"Map\\AltSectors.xml"
 #define SAMSITESFILENAME						"Map\\SamSites.xml"
 #define ROAMINGMILITIAFILENAME					"Map\\RestrictedRoamingMilitia.xml"
+#define EXTRAITEMSFILENAME						"Map\\A9_0_ExtraItems.xml"
+#define EXTRAITEMSFILENAME2						"Map\\A11_0_ExtraItems.xml"
+
 // Gotthard: Strategic Text Files [2007-10-19]
 #define STRATEGICSECTORNAMETEXTFILENAME			"Map\\SectorNames.xml"
 

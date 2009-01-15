@@ -958,11 +958,17 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 		}
 	}
 
+	// WDS - Improve Tony's and Devin's inventory like BR's
 	// Tony has the better stuff sooner (than Bobby R's)
 	if (bArmsDealer == ARMS_DEALER_TONY)
 	{
 		ubMinCoolness += 1;
 		ubMaxCoolness += 1;
+
+		if (gGameExternalOptions.tonyUsesBRSetting) {
+			ubMinCoolness += gGameOptions.ubBobbyRay / 3;
+			ubMaxCoolness += gGameOptions.ubBobbyRay;
+		}
 	}
 	else if (bArmsDealer == ARMS_DEALER_DEVIN)
 	{
@@ -971,6 +977,11 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 		{
 			ubMinCoolness = 3;
 			ubMaxCoolness = 4;
+		}
+
+		if (gGameExternalOptions.devinUsesBRSetting) {
+			ubMinCoolness += gGameOptions.ubBobbyRay / 3;
+			ubMaxCoolness += gGameOptions.ubBobbyRay;
 		}
 	}
 

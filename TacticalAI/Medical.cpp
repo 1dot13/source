@@ -43,7 +43,7 @@ BOOLEAN FindAutobandageClimbPoint( INT16 sDesiredGridNo, BOOLEAN fClimbUp )
 	// checks for existance of location to climb up to building, not occupied by a medic
 	BUILDING *	pBuilding;
 	UINT8				ubNumClimbSpots;
-	UINT8				ubLoop;
+	UINT8 ubLoop;
 	UINT8				ubWhoIsThere;
 
 	pBuilding = FindBuilding( sDesiredGridNo );

@@ -142,6 +142,7 @@ INT32		giPauseAllAITimer = 0;
 
 BOOLEAN sniperwarning;
 BOOLEAN biggunwarning;
+BOOLEAN gogglewarning;
 //BOOLEAN airstrikeavailable;
 
 TacticalStatusType	gTacticalStatus;
@@ -326,7 +327,7 @@ CHAR8					gzDirectionStr[][ 30 ] =
 	"NORTH"
 };
 
-// TEMP VALUES FOR TEAM DEAFULT POSITIONS
+// TEMP VALUES FOR TEAM DEFAULT POSITIONS
 UINT8 bDefaultTeamRangesMP[ MAXTEAMS ][ 2 ] = 
 
 {
@@ -345,12 +346,18 @@ UINT8 bDefaultTeamRangesMP[ MAXTEAMS ][ 2 ] =
 
 UINT8 bDefaultTeamRanges[ MAXTEAMS_SP ][ 2 ] = 
 {
-	0,              19,                             //20  US
-	20,             51,                             //32  ENEMY
-	52,             83,                             //32    CREATURE
-	84,             115,                            //32    REBELS ( OUR GUYS )
-	116,    MAX_NUM_SOLDIERS - 1,                   //32  CIVILIANS
-	MAX_NUM_SOLDIERS, TOTAL_SOLDIERS - 1            // PLANNING SOLDIERS
+	0,
+	  CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS+CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES-1,
+	CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS+CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES,
+      CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS+CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES+CODE_MAXIMUM_NUMBER_OF_ENEMIES-1,
+	CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS+CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES+CODE_MAXIMUM_NUMBER_OF_ENEMIES,
+	  CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS+CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES+CODE_MAXIMUM_NUMBER_OF_ENEMIES+CODE_MAXIMUM_NUMBER_OF_CREATURES-1,
+	CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS+CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES+CODE_MAXIMUM_NUMBER_OF_ENEMIES+CODE_MAXIMUM_NUMBER_OF_CREATURES,
+	  CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS+CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES+CODE_MAXIMUM_NUMBER_OF_ENEMIES+CODE_MAXIMUM_NUMBER_OF_CREATURES+CODE_MAXIMUM_NUMBER_OF_REBELS-1,
+	CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS+CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES+CODE_MAXIMUM_NUMBER_OF_ENEMIES+CODE_MAXIMUM_NUMBER_OF_CREATURES+CODE_MAXIMUM_NUMBER_OF_REBELS,	
+	  MAX_NUM_SOLDIERS -1,
+	MAX_NUM_SOLDIERS, 
+	  TOTAL_SOLDIERS - 1			// PLANNING SOLDIERS
 };
 
 COLORVAL bDefaultTeamColors[ MAXTEAMS ] = 
@@ -669,6 +676,36 @@ BOOLEAN InitOverhead( )
 			gTacticalStatus.Team[ cnt ].bFirstID = bDefaultTeamRangesMP[ cnt ][0];
 			gTacticalStatus.Team[ cnt ].bLastID =	bDefaultTeamRangesMP[ cnt ][1];
 		}
+		// WDS - make number of mercenaries, etc. be configurable
+		unsigned max = 0;
+		switch (cnt) {
+			case OUR_TEAM:
+				max = gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles;
+				break;
+			case ENEMY_TEAM:
+				max = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
+				break;
+			case CREATURE_TEAM:
+				max = gGameExternalOptions.ubGameMaximumNumberOfCreatures;
+				break;
+			case MILITIA_TEAM:
+				max = gGameExternalOptions.ubGameMaximumNumberOfRebels;
+				break;
+			case CIV_TEAM:
+				max = gGameExternalOptions.ubGameMaximumNumberOfCivilians;
+				break;
+			// Don't worry about the others
+			case PLAYER_PLAN:
+			case LAN_TEAM_ONE:
+			case LAN_TEAM_TWO:
+			case LAN_TEAM_THREE:
+			case LAN_TEAM_FOUR:
+				max = 9999;
+				break;
+		}
+		if (max < (unsigned)(gTacticalStatus.Team[ cnt ].bLastID - gTacticalStatus.Team[ cnt ].bFirstID + 1)) {
+			gTacticalStatus.Team[ cnt ].bLastID = gTacticalStatus.Team[ cnt ].bFirstID + max - 1;
+		}
 
 		gTacticalStatus.Team[ cnt ].RadarColor = bDefaultTeamColors[ cnt ];
 
@@ -727,7 +764,7 @@ BOOLEAN InitOverhead( )
 	if (is_networked)
 		gTacticalStatus.fDidGameJustStart               = FALSE; //hayden
 	else
-		gTacticalStatus.fDidGameJustStart               = TRUE;
+	gTacticalStatus.fDidGameJustStart				= TRUE;
 
 	gTacticalStatus.ubLastRequesterTargetID					= NO_PROFILE;
 
@@ -985,6 +1022,13 @@ BOOLEAN ExecuteOverhead( )
 		for ( cnt = 0; cnt < guiNumMercSlots; cnt++ )
 		{
 			pSoldier = MercSlots[ cnt ];
+
+			if ( pSoldier && pSoldier->bActive && (pSoldier->bTeam == OUR_TEAM) ) {
+				if (!gogglewarning && BadGoggles(pSoldier)) {
+					gogglewarning = TRUE;
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_CHECK_GOGGLES] );
+				}
+			}
 
 			// Syncronize for upcoming soldier counters
 			SYNCTIMECOUNTER( );
@@ -4015,7 +4059,7 @@ void MilitiaChangesSides( void )
 /*
 void MakePotentiallyHostileCivGroupsHostile( void )
 {
-UINT8		ubLoop;
+UINT8 ubLoop;
 
 // loop through all civ groups that might become hostile and set them
 // to hostile
@@ -5651,11 +5695,11 @@ void EnterCombatMode( UINT8 ubStartingTeam )
 
 		if (!is_client || is_server) //hayden
 		{
-			StartPlayerTeamTurn( FALSE, TRUE );
+		StartPlayerTeamTurn( FALSE, TRUE );
 			if(is_client)send_EndTurn( ubStartingTeam ); //hayden
-		}
-		else
-		{
+	}
+	else
+	{
 			//ScreenMsg( FONT_YELLOW, MSG_CHAT, L"client skipped EnterCombatMode");	
 			if(is_client)startCombat(ubStartingTeam);//clients other than server meet and send request for combat for server
 		}
@@ -5775,6 +5819,7 @@ void SetEnemyPresence( )
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SetEnemyPresence: warnings = false"));
 			sniperwarning = FALSE;
 			biggunwarning = FALSE;
+			gogglewarning = FALSE;
 			//			airstrikeavailable = TRUE;
 		}
 		else
@@ -5782,6 +5827,7 @@ void SetEnemyPresence( )
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SetEnemyPresence: warnings = true"));
 			sniperwarning = TRUE;
 			biggunwarning = TRUE;
+			//gogglewarning = TRUE;
 			//			airstrikeavailable = FALSE;
 		}
 
@@ -5904,7 +5950,9 @@ BOOLEAN WeSawSomeoneThisTurn( void )
 
 void SayBattleSoundFromAnyBodyInSector( INT32 iBattleSnd )
 {
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
+// WDS - make number of mercenaries, etc. be configurable
+//	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
+	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
@@ -6615,11 +6663,11 @@ void CycleVisibleEnemies( SOLDIERTYPE *pSrcSoldier )
 }
 
 
-INT8 CountNonVehiclesOnPlayerTeam( void )
+UINT32 CountNonVehiclesOnPlayerTeam( void )
 {
 	UINT32				cnt;
 	SOLDIERTYPE		*pSoldier;
-	INT8					bNumber = 0;
+	UINT32					bNumber = 0;
 
 	for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID, pSoldier = MercPtrs[ cnt ]; cnt <= (UINT32)( gTacticalStatus.Team[ gbPlayerNum ].bLastID ); cnt++, pSoldier++ )
 	{
@@ -6637,7 +6685,7 @@ INT8 CountNonVehiclesOnPlayerTeam( void )
 BOOLEAN PlayerTeamFull( )
 {
 	// last ID for the player team is 19, so long as we have at most 17 non-vehicles...
-	if ( CountNonVehiclesOnPlayerTeam() <= gTacticalStatus.Team[ gbPlayerNum ].bLastID - 2 )
+	if ( CountNonVehiclesOnPlayerTeam() < gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs /*gTacticalStatus.Team[ gbPlayerNum ].bLastID - 2*/ )
 	{
 		return( FALSE );
 	}
@@ -6905,7 +6953,7 @@ BOOLEAN CheckForLosingEndOfBattle( )
 			{
 				// if here, check if we should autoresolve.
 				// if we have at least one guy unconscious, call below function...
-				if ( HandlePotentialBringUpAutoresolveToFinishBattle( ) )
+				if ( HandlePotentialBringUpAutoresolveToFinishBattle(  gWorldSectorX, gWorldSectorY, gbWorldSectorZ  ) )
 				{
 					// return false here as we are autoresolving...
 					return( FALSE );
@@ -7117,7 +7165,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 	INT16									sClosestOpponent, sClosestOppLoc;
 	UINT8									ubPointsLost, ubTotalPointsLost, ubNewStance;
 	UINT32								uiLoop;
-	UINT8									ubLoop2;
+	UINT8 ubLoop2;
 	UINT16								uiLoop3;
 	SOLDIERTYPE *					pSoldier;
 
@@ -8419,7 +8467,9 @@ BOOLEAN HostileBloodcatsPresent( void )
 
 void HandleCreatureTenseQuote( )
 {
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
+// WDS - make number of mercenaries, etc. be configurable
+//	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
+	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;

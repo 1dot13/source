@@ -345,7 +345,7 @@ void SwapBestSightingPositions( INT8 bPos1, INT8 bPos2 )
 
 void ReevaluateBestSightingPosition( SOLDIERTYPE * pSoldier, INT8 bInterruptDuelPts )
 {
-	UINT8			ubLoop, ubLoop2;
+	UINT8 ubLoop, ubLoop2;
 	BOOLEAN		fFound = FALSE;
 	BOOLEAN		fPointsGotLower = FALSE;
 
@@ -459,7 +459,7 @@ void HandleBestSightingPositionInRealtime( void )
 	// This function is called for handling interrupts when opening a door in non-combat or
 	// just sighting in non-combat, deciding who gets the first turn
 
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 
 	if ( gfDelayResolvingBestSightingDueToDoor )
 	{
@@ -533,7 +533,7 @@ void HandleBestSightingPositionInTurnbased( void )
 {
 	// This function is called for handling interrupts when opening a door in turnbased
 
-	UINT8		ubLoop, ubLoop2;
+	UINT8 ubLoop, ubLoop2;
 	BOOLEAN	fOk = FALSE;
 
 	if ( gubBestToMakeSighting[ 0 ] != NOBODY )
@@ -629,7 +629,7 @@ void InitSightArrays( void )
 
 void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID )
 {
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 
 	Assert( gubNumShouldBecomeHostileOrSayQuote < SHOULD_BECOME_HOSTILE_SIZE );
 
@@ -654,7 +654,7 @@ void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID )
 UINT8 SelectSpeakerFromHostileOrSayQuoteList( void )
 {
 	UINT8						ubProfileList[ SHOULD_BECOME_HOSTILE_SIZE ]; // NB list of merc IDs, not profiles!
-	UINT8						ubLoop, ubNumProfiles = 0;
+	UINT8 ubLoop, ubNumProfiles = 0;
 	SOLDIERTYPE *		pSoldier;
 
 	for ( ubLoop = 0; ubLoop < gubNumShouldBecomeHostileOrSayQuote; ubLoop++ )
@@ -823,7 +823,9 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 	} // end of SIGHT_LOOK
 
 	// if we've been told that interrupts are possible as a result of sighting
-	if ((gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) && (ubSightFlags & SIGHT_INTERRUPT))
+	if ((gTacticalStatus.uiFlags & TURNBASED) && 
+		(gTacticalStatus.uiFlags & INCOMBAT) && 
+		(ubSightFlags & SIGHT_INTERRUPT))
 	{
 		ResolveInterruptsVs( pSoldier, SIGHTINTERRUPT );
 	}
@@ -931,7 +933,8 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 void OurTeamRadiosRandomlyAbout(UINT8 ubAbout)
 {
  INT32				iLoop;
- INT8					radioCnt = 0,radioMan[20];
+ // WDS - make number of mercenaries, etc. be configurable
+INT8					radioCnt = 0,radioMan[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS];
  SOLDIERTYPE	*pSoldier;
 
 
@@ -1356,7 +1359,7 @@ void TurnOffEveryonesMuzzleFlashes( void )
 
 void TurnOffTeamsMuzzleFlashes( UINT8 ubTeam )
 {
-	UINT8						ubLoop;
+	UINT8 ubLoop;
 	SOLDIERTYPE *		pSoldier;
 
 	for (ubLoop = gTacticalStatus.Team[ ubTeam ].bFirstID; ubLoop <= gTacticalStatus.Team[ ubTeam ].bLastID; ubLoop++)
@@ -7066,7 +7069,7 @@ INT8 GetHighestWatchedLocPoints( UINT8 ubID )
 
 void CommunicateWatchedLoc( UINT8 ubID, INT16 sGridNo, INT8 bLevel, UINT8 ubPoints )
 {
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 	INT8		bTeam, bLoopPoint, bPoint;
 
 	bTeam = MercPtrs[ ubID ]->bTeam;

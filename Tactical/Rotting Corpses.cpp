@@ -354,7 +354,7 @@ INT8 gDecapitatedCorpse[ NUM_CORPSES ] =
 
 
 
-ROTTING_CORPSE	gRottingCorpse[ MAX_ROTTING_CORPSES ];
+std::vector<ROTTING_CORPSE> gRottingCorpse (MAX_ROTTING_CORPSES);
 INT32						giNumRottingCorpse = 0;
 
 
@@ -465,7 +465,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	STRUCTURE_FILE_REF * pStructureFileRef = NULL;
 	CHAR8						zFilename[150];
 	DB_STRUCTURE_REF	*pDBStructureRef;
-	UINT8									ubLoop;
+	UINT8 ubLoop;
 	INT16							sTileGridNo;
 	DB_STRUCTURE_TILE	**	ppTile;
 	UINT16						usStructIndex;

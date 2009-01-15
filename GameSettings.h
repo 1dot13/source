@@ -1,6 +1,8 @@
 #ifndef _GAME_SETTINGS__H_
 #define _GAME_SETTINGS__H_
 
+#include "Types.h"
+
 
 //If you add any options, MAKE sure you add the corresponding string to the Options Screen string array
 enum
@@ -263,7 +265,20 @@ typedef struct
 
 	BOOLEAN gfAllowSoldierToolTips;
 
+	// WDS - Improve Tony's and Devin's inventory like BR's
+	BOOLEAN tonyUsesBRSetting;
+	BOOLEAN devinUsesBRSetting;
+
+	// WDS - Smart goggle switching
+	BOOLEAN smartGoggleSwitch;
 	
+	// WDS - Automatically flag mines
+	BOOLEAN automaticallyFlagMines;
+
+	// WDS - Automatically try to save when an assertion failure occurs
+	BOOLEAN autoSaveOnAssertionFailure;
+	UINT32  autoSaveTime;
+
 	//Sight range
 	UINT32	ubStraightSightRange;
 	UINT32 ubVisDistDecreasePerRainIntensity;
@@ -290,20 +305,31 @@ typedef struct
 	UINT32 guiProlongLightningIfSeenSomeone;
 	UINT32 guiChanceToDoLightningBetweenTurns;
 
-	// WDS: Progress settings
-
+	// WDS - Progress settings
 	UINT32 ubGameProgressPortionKills;
 	UINT32 ubGameProgressPortionControl;
 	UINT32 ubGameProgressPortionIncome;
 	UINT32 ubGameProgressPortionVisited;
+	UINT32 ubGameProgressMinimum;
+	UINT32 ubGameProgressIncrement;
+
+	// WDS - Advanced start 
+	UINT32 ubIMPStartingLevel;
 
 	// Event settings
-
 	UINT32 ubGameProgressStartMadlabQuest;
 	UINT32 ubGameProgressMikeAvailable;
 	UINT32 ubGameProgressIggyAvaliable;
 	BOOLEAN ubSendTroopsToDrassen;
 
+	// WDS - make number of mercenaries, etc. be configurable
+	// group sizes
+	UINT32 ubGameMaximumNumberOfPlayerMercs;
+	UINT32 ubGameMaximumNumberOfPlayerVehicles;
+	UINT32 ubGameMaximumNumberOfEnemies;
+	UINT32 ubGameMaximumNumberOfCreatures;
+	UINT32 ubGameMaximumNumberOfRebels;
+	UINT32 ubGameMaximumNumberOfCivilians;
 
 	//Gameplay settings
 
@@ -346,6 +372,8 @@ typedef struct
 	UINT32 ubHardNumAwareBattles;
 	UINT32 ubInsaneNumAwareBattles;
 
+	// WDS - New AI
+	BOOLEAN useNewAI;
 
 	BOOLEAN gfEasyUnlimitedTroops;
 	BOOLEAN gfNormalUnlimitedTroops;
@@ -468,6 +496,9 @@ extern GAME_OPTIONS		gGameOptions;
 
 // Snap: Options read from an INI file in the default of custom Data directory
 extern GAME_EXTERNAL_OPTIONS gGameExternalOptions; 
+
+// WDS - Automatically try to save when an assertion failure occurs
+extern bool alreadySaving;
 
 BOOLEAN	SaveGameSettings();
 BOOLEAN LoadGameSettings();

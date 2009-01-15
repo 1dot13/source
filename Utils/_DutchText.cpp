@@ -4413,6 +4413,7 @@ STR16 New113Message[] =
 	L"Schrapte alle punten van dit type",
 	L"Verkocht punt",
 	L"Verkocht alle punten van dit type",
+	L"You should check your goggles",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends

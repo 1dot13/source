@@ -18,6 +18,7 @@ class SOLDIERTYPE;
 
 #define		SOLDIER_CREATE_AUTO_TEAM			-1
 
+// WDS - make number of mercenaries, etc. be configurable
 //Kris: 
 //This value is the total maximum number of slots in a map.	
 //Players		20
@@ -26,7 +27,7 @@ class SOLDIERTYPE;
 //Rebels		32
 //Civilians 32
 //Total			148
-#define MAX_INDIVIDUALS											148
+#define MAX_INDIVIDUALS											TOTAL_SOLDIERS
 
 //Kris:	SERIALIZING INFORMATION
 //All maps must have:

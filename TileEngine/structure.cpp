@@ -763,7 +763,7 @@ BOOLEAN OkayToAddStructureToTile( INT16 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 
 BOOLEAN InternalOkayToAddStructureToWorld( INT16 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fIgnorePeople )
 {
-	UINT8									ubLoop;
+	UINT8 ubLoop;
 	INT16									sCubeOffset;
 
 	CHECKF( pDBStructureRef );
@@ -844,8 +844,8 @@ STRUCTURE * InternalAddStructureToWorld( INT16 sBaseGridNo, INT8 bLevel, DB_STRU
 	STRUCTURE *						pBaseStructure;
 	DB_STRUCTURE *				pDBStructure;
 	DB_STRUCTURE_TILE	**	ppTile;
-	UINT8									ubLoop;
-	UINT8									ubLoop2;
+	UINT8 ubLoop;
+	UINT8 ubLoop2;
 	INT16									sBaseTileHeight=-1;
 	UINT16								usStructureID;
 
@@ -1066,7 +1066,7 @@ BOOLEAN DeleteStructureFromWorld( STRUCTURE * pStructure )
 	STRUCTURE *						pBaseStructure;
 	DB_STRUCTURE_TILE	**	ppTile;
 	STRUCTURE *						pCurrent;
-	UINT8									ubLoop, ubLoop2;
+	UINT8 ubLoop, ubLoop2;
 	UINT8									ubNumberOfTiles;
 	INT16									sBaseGridNo, sGridNo;
 	UINT16								usStructureID;
@@ -1329,7 +1329,7 @@ INT16 GetBaseTile( STRUCTURE * pStructure )
 INT8 StructureHeight( STRUCTURE * pStructure )
 {
 	// return the height of an object from 1-4
-	UINT8				ubLoopX, ubLoopY;
+	UINT8 ubLoopX, ubLoopY;
 	PROFILE *		pShape;
 	UINT8				ubShapeValue;
 	INT8				bLoopZ;
@@ -1462,7 +1462,7 @@ INT8 GetStructureTargetHeight( INT16 sGridNo, BOOLEAN fOnRoof )
 INT8 StructureBottomLevel( STRUCTURE * pStructure )
 {
 	// return the bottom level of an object, from 1-4
-	UINT8				ubLoopX, ubLoopY;
+	UINT8 ubLoopX, ubLoopY;
 	PROFILE *		pShape;
 	UINT8				ubShapeValue;
 	INT8				bLoopZ;
@@ -1502,7 +1502,7 @@ INT8 StructureBottomLevel( STRUCTURE * pStructure )
 
 BOOLEAN StructureDensity( STRUCTURE * pStructure, UINT8 * pubLevel0, UINT8 * pubLevel1, UINT8 * pubLevel2, UINT8 * pubLevel3 )
 {
-	UINT8				ubLoopX, ubLoopY;
+	UINT8 ubLoopX, ubLoopY;
 	UINT8				ubShapeValue;
 	PROFILE *		pShape;
 
@@ -1854,7 +1854,7 @@ void DebugStructurePage1( void )
 BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructureFileRef, BOOLEAN fFromAnimation, INT16 sSTIStartIndex )
 {
 	UINT32					uiLoop;
-	UINT8						ubLoop2;
+	UINT8 ubLoop2;
 	UINT8						ubNumIncreasing = 0;
 	UINT8						ubNumStable = 0;
 	UINT8						ubNumDecreasing = 0;
@@ -2344,7 +2344,7 @@ INT8 GetBlockingStructureInfo( INT16 sGridNo, INT8 bDir, INT8 bNextDir, INT8 bLe
 
 UINT8 StructureFlagToType( UINT32 uiFlag )
 {
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 	UINT32		uiBit = STRUCTURE_GENERIC;
 
 	for ( ubLoop = 8; ubLoop < 32; ubLoop++ )

@@ -481,7 +481,7 @@ BOOLEAN LoadMercProfiles(void)
 
 void DecideActiveTerrorists( void )
 {
-	UINT8		ubLoop, ubLoop2;
+	UINT8 ubLoop, ubLoop2;
 	UINT8		ubTerrorist;
 	UINT8		ubNumAdditionalTerrorists, ubNumTerroristsAdded = 0;
 	UINT32	uiChance, uiLocationChoice;
@@ -691,7 +691,7 @@ void DecideOnAssassin( void )
 {
 	UINT8		ubAssassinPossibility[NUM_ASSASSINS] = { NO_PROFILE, NO_PROFILE, NO_PROFILE, NO_PROFILE, NO_PROFILE, NO_PROFILE };
 	UINT8		ubAssassinsPossible = 0;
-	UINT8		ubLoop, ubLoop2;
+	UINT8 ubLoop, ubLoop2;
 	UINT8		ubTown;
 
 	#ifdef CRIPPLED_VERSION
@@ -1120,6 +1120,11 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 
 	// Add this guy to our team!
 	pNewSoldier = ChangeSoldierTeam( pSoldier, gbPlayerNum );
+
+	if (!pNewSoldier)
+	{
+		return( FALSE );
+	}
 
 	if ( ubCharNum == SLAY )
 	{

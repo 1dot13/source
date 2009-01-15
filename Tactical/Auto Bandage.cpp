@@ -59,11 +59,14 @@ MOUSE_REGION gAutoBandageRegion;
 
 
 // the lists of the doctor and patient
-INT32 iDoctorList[ MAX_CHARACTER_COUNT ];
-INT32 iPatientList[ MAX_CHARACTER_COUNT ];
+std::vector<INT32>	iDoctorList (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, -1);
+std::vector<INT32>	iPatientList (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, -1);
+//INT32 iDoctorList[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
+//INT32 iPatientList[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 
 // faces for update panel
-INT32 giAutoBandagesSoldierFaces[ 2 * MAX_CHARACTER_COUNT ];
+std::vector<INT32>	giAutoBandagesSoldierFaces (2*CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, -1);
+//INT32 giAutoBandagesSoldierFaces[ 2 * CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 
 // has the button for autobandage end been setup yet
 BOOLEAN fAutoEndBandageButtonCreated = FALSE;
@@ -307,7 +310,8 @@ BOOLEAN HandleAutoBandage( )
 BOOLEAN CreateAutoBandageString( void )
 {
 	INT32						cnt;
-	UINT8						ubDoctor[20], ubDoctors = 0;
+    // WDS - make number of mercenaries, etc. be configurable
+	UINT8						ubDoctor[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS], ubDoctors = 0;
 	UINT32					uiDoctorNameStringLength = 1; // for end-of-string character
 	STR16						sTemp;
 	SOLDIERTYPE *		pSoldier;
@@ -554,9 +558,16 @@ void SetUpAutoBandageUpdatePanel( void )
 	INT32 iNumberOnTeam = 0;
 	INT32 iCounterA = 0;
 
+	// WDS - make number of mercenaries, etc. be configurable
 	// reset the tables of merc ids
-	memset( iDoctorList, -1,	sizeof( INT32 ) * MAX_CHARACTER_COUNT );
-	memset( iPatientList, -1,	sizeof( INT32 ) * MAX_CHARACTER_COUNT );
+	for (std::vector<INT32>::iterator docIter = iDoctorList.begin(); docIter != iDoctorList.end(); ++docIter) {
+		*docIter = -1;
+	}
+	for (std::vector<INT32>::iterator pIter = iPatientList.begin(); pIter != iPatientList.end(); ++pIter) {
+		*pIter = -1;
+	}
+//	memset( iDoctorList, -1,	sizeof( iDoctorList ) );
+//	memset( iPatientList, -1,	sizeof( iPatientList ) );
 
 
 	// grab number of potential grunts on players team
@@ -588,9 +599,16 @@ void SetUpAutoBandageUpdatePanel( void )
 	// makes sure there is someone to doctor and patient...
 	if( ( iNumberDoctoring == 0 ) || ( iNumberPatienting == 0 ) )
 	{
+		// WDS - make number of mercenaries, etc. be configurable
 		// reset the tables of merc ids
-		memset( iDoctorList, -1,	sizeof( INT32 ) * MAX_CHARACTER_COUNT );
-		memset( iPatientList, -1, sizeof( INT32 ) * MAX_CHARACTER_COUNT );
+		for (std::vector<INT32>::iterator iter = iDoctorList.begin(); iter != iDoctorList.end(); ++iter) {
+			*iter = -1;
+		}
+		for (std::vector<INT32>::iterator iter = iPatientList.begin(); iter != iPatientList.end(); ++iter) {
+			*iter = -1;
+		}
+//		memset( iDoctorList, -1, sizeof( iDoctorList ) );
+//		memset( iPatientList, -1, sizeof( iPatientList ) );
 	}
 
 	// now add the faces
@@ -1046,12 +1064,16 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 	VOBJECT_DESC	 VObjectDesc;
 
 
+    // WDS - make number of mercenaries, etc. be configurable
 	// reset
-	memset( &giAutoBandagesSoldierFaces, -1, 2 * MAX_CHARACTER_COUNT );
+	for (std::vector<INT32>::iterator iter = giAutoBandagesSoldierFaces.begin(); iter != giAutoBandagesSoldierFaces.end(); ++iter) {
+		*iter = -1;
+	}
+//	memset( &giAutoBandagesSoldierFaces, -1, sizeof(giAutoBandagesSoldierFaces));
 
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// find a free slot
 		if( iDoctorList[ iCounter ] != -1 )
@@ -1074,7 +1096,7 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 		}
 	}
 
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// find a free slot
 		if( iPatientList[ iCounter ] != -1 )
@@ -1112,7 +1134,7 @@ BOOLEAN RemoveFacesForAutoBandage( void )
 	INT32 iCounter = 0, iNumberOfDoctors = 0;
 
 
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// find a free slot
 		if( iDoctorList[ iCounter ] != -1 )
@@ -1124,7 +1146,7 @@ BOOLEAN RemoveFacesForAutoBandage( void )
 	}
 
 
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// find a free slot
 		if( iPatientList[ iCounter ] != -1 )
@@ -1160,7 +1182,7 @@ BOOLEAN RenderSoldierSmallFaceForAutoBandagePanel( INT32 iIndex, INT16 sCurrentX
 	BltVideoObject( FRAME_BUFFER , hHandle , 0, sCurrentXPosition+2, sCurrentYPosition+2, VO_BLT_SRCTRANSPARENCY, NULL );
 
 
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// find a free slot
 		if( iDoctorList[ iCounter ] != -1 )

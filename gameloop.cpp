@@ -99,10 +99,14 @@ BOOLEAN InitializeGame(void)
 	is_client = FALSE;
 	is_server = FALSE;
 
+	// Set up the debugging topics
+	//
+	// Turn off all the flags
 	ClearAllDebugTopics();
+	//
+	// Now turn on the ones we are interested in watching
 	RegisterJA2DebugTopic( TOPIC_JA2OPPLIST, "Reg" );
-	//RegisterJA2DebugTopic( TOPIC_MEMORY_MANAGER, "Reg" );
-
+	RegisterJA2DebugTopic( TOPIC_JA2INTERRUPT, "Reg" );
 
 	// Snap: Read options from an INI file in the default of custom Data directory
 	// Moved this up because some settings are used during other inits
@@ -329,11 +333,10 @@ void GameLoop(void)
 	}
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: screen changed");
-
-
+	AssertNotNIL (GameScreens[guiCurrentScreen].HandleScreen);
 	uiOldScreen = (*(GameScreens[guiCurrentScreen].HandleScreen))();
 
-	// if the screen has chnaged
+	// if the screen has changed
 	if( uiOldScreen != guiCurrentScreen )
 	{
 		HandleNewScreenChange( uiOldScreen, guiCurrentScreen );

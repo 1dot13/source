@@ -7273,7 +7273,7 @@ BOOLEAN SOLDIERTYPE::CreateSoldierPalettes( void )
 	// --- TAKE FROM CURRENT ANIMATION HVOBJECT!
 	usAnimSurface = GetSoldierAnimationSurface( this, this->usAnimState );
 
-	CHECKF( usAnimSurface != INVALID_ANIMATION_SURFACE );
+//	CHECKF( usAnimSurface != INVALID_ANIMATION_SURFACE );
 
 	if ( ( bBodyTypePalette = GetBodyTypePaletteSubstitutionCode( this, this->ubBodyType, zColFilename ) ) == -1 )
 	{

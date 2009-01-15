@@ -3,6 +3,7 @@
 	#include "Enemy Soldier Save.h"
 #else
 	#include "builddefines.h"
+    #include "GameSettings.h"
 	#include <stdio.h>
 	#include <memory.h>
 
@@ -167,7 +168,8 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 	}
 
 	FileRead( hfile, &slots,		4, &uiNumBytesRead );
-	if( uiNumBytesRead != 4 )
+	// WDS - make number of mercenaries, etc. be configurable
+	if( (uiNumBytesRead != 4) || (slots > TOTAL_SOLDIERS) )
 	{
 		#ifdef JA2TESTVERSION
 			sprintf( zReason, "EnemySoldier -- EOF while reading slots.	KM" );
@@ -215,7 +217,7 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 		FileClose( hfile );
 		return TRUE;
 	}
-	if( slots < 0 || slots >= 64 )
+	if( slots < 0 || slots >= (int)gGameExternalOptions.ubGameMaximumNumberOfEnemies )
 	{ //bad IO!
 		#ifdef JA2TESTVERSION
 			sprintf( zReason, "EnemySoldier -- illegal slot value of %d.	KM", slots );
@@ -771,7 +773,8 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 	}
 
 	FileRead( hfile, &slots,		4, &uiNumBytesRead );
-	if( uiNumBytesRead != 4 )
+	// WDS - make number of mercenaries, etc. be configurable
+	if( (uiNumBytesRead != 4) || (slots > TOTAL_SOLDIERS) )
 	{
 		#ifdef JA2TESTVERSION
 			sprintf( zReason, "EnemySoldier -- EOF while reading slots.	KM" );
@@ -820,7 +823,7 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 	}
 
 
-	if( slots < 0 || slots >= 64 )
+	if( slots < 0 || slots >= (int)gGameExternalOptions.ubGameMaximumNumberOfEnemies )
 	{ //bad IO!
 		#ifdef JA2TESTVERSION
 			sprintf( zReason, "EnemySoldier -- illegal slot value of %d.	KM", slots );
@@ -1114,7 +1117,8 @@ BOOLEAN NewWayOfLoadingCiviliansFromTempFile()
 	}
 
 	FileRead( hfile, &slots,		4, &uiNumBytesRead );
-	if( uiNumBytesRead != 4 )
+	// WDS - make number of mercenaries, etc. be configurable
+	if( (uiNumBytesRead != 4) || (slots > TOTAL_SOLDIERS) )
 	{
 		#ifdef JA2TESTVERSION
 			sprintf( zReason, "Civilian -- EOF while reading slots.	KM" );
@@ -1149,6 +1153,7 @@ BOOLEAN NewWayOfLoadingCiviliansFromTempFile()
 		goto FAIL_LOAD;
 	}
 
+// WDS - DEBUG - Comment out the following ling to force reinit of a sector
 	if( !slots )
 	{
 		//no need to restore the enemy's to the map.	This means we are restoring a saved game.
@@ -1156,7 +1161,7 @@ BOOLEAN NewWayOfLoadingCiviliansFromTempFile()
 		FileClose( hfile );
 		return TRUE;
 	}
-	if( slots < 0 || slots >= 64 )
+	if( slots < 0 || slots >= (int)gGameExternalOptions.ubGameMaximumNumberOfCivilians )
 	{
 		//bad IO!
 		#ifdef JA2TESTVERSION
@@ -1647,7 +1652,8 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 	}
 
 	FileRead( hfile, &slots,		4, &uiNumBytesRead );
-	if( uiNumBytesRead != 4 )
+	// WDS - make number of mercenaries, etc. be configurable
+	if( (uiNumBytesRead != 4) || (slots > TOTAL_SOLDIERS) )
 	{
 		#ifdef JA2TESTVERSION
 			sprintf( zReason, "Check EnemySoldier -- EOF while reading slots.	KM" );
@@ -1690,7 +1696,7 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 	}
 
 
-	if( slots < 0 || slots >= 64 )
+	if( slots < 0 || slots >= (int)gGameExternalOptions.ubGameMaximumNumberOfEnemies )
 	{ //bad IO!
 		#ifdef JA2TESTVERSION
 			sprintf( zReason, "Check EnemySoldier -- illegal slot value of %d.	KM", slots );

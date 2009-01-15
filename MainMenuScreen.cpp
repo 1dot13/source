@@ -658,10 +658,6 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 	SGPFILENAME filename;
 	SGPFILENAME filenameMP;
 	INT16 sSlot;
-#ifndef _DEBUG
-	CHAR16	zText[512];
-#endif
-
 
 	if( fCreate )
 	{

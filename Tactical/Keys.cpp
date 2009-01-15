@@ -164,7 +164,7 @@ BOOLEAN SoldierHasKey( SOLDIERTYPE *pSoldier, UINT8 ubKeyID )
 BOOLEAN KeyExistsInKeyRing( SOLDIERTYPE *pSoldier, UINT8 ubKeyID, UINT8 * pubPos )
 {
 	// returns the index into the key ring where the key can be found
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 
 	if (!(pSoldier->pKeyRing))
 	{
@@ -193,7 +193,7 @@ BOOLEAN KeyExistsInKeyRing( SOLDIERTYPE *pSoldier, UINT8 ubKeyID, UINT8 * pubPos
 
 BOOLEAN KeyExistsInInventory( SOLDIERTYPE *pSoldier, UINT8 ubKeyID )
 {
-	UINT8				ubLoop;
+	UINT8 ubLoop;
 
 	for (ubLoop = 0; ubLoop < pSoldier->inv.size(); ubLoop++)
 	{
@@ -250,7 +250,7 @@ BOOLEAN DoUnlockDoor( DOOR * pDoor, UINT8 ubKeyID )
 
 BOOLEAN AttemptToUnlockDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 {
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 	UINT8		ubKeyID;
 
 	for( ubLoop = 0; ubLoop < MAX_KEYS_PER_LOCK; ubLoop++)
@@ -278,7 +278,7 @@ BOOLEAN AttemptToUnlockDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 
 BOOLEAN AttemptToLockDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 {
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 	UINT8		ubKeyID;
 
 	for( ubLoop = 0; ubLoop < MAX_KEYS_PER_LOCK; ubLoop++)
@@ -1866,7 +1866,7 @@ BOOLEAN LoadDoorStatusArrayFromDoorStatusTempFile()
 	CHAR8		zMapName[ 128 ];
 	HWFILE	hFile;
 	UINT32	uiNumBytesRead;
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 
 	//Convert the current sector location into a file name
 //	GetMapFileName( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, zTempName, FALSE );
@@ -2111,7 +2111,7 @@ void DropKeysInKeyRing( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, INT8 
 		// no key ring!
 		return;
 	}
-	UINT8		ubLoop;
+	UINT8 ubLoop;
 	UINT8		ubItem;
 	for (ubLoop = 0; ubLoop < NUM_KEYS; ubLoop++)
 	{

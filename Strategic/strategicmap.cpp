@@ -4629,12 +4629,18 @@ BOOLEAN SaveStrategicInfoToSavedFile( HWFILE hFile )
 	}
 
 	// Save the Sector Info
-	uiSize = sizeof( SECTORINFO ) * 256;
-	FileWrite( hFile, SectorInfo, uiSize, &uiNumBytesWritten );
-	if( uiNumBytesWritten != uiSize)
-	{
-		return(FALSE);
+	for (int sectorID = 0; sectorID <= 255; ++ sectorID) {
+		FileWrite( hFile, &SectorInfo[sectorID], sizeof( SECTORINFO ), &uiNumBytesWritten );
+		if( uiNumBytesWritten != sizeof( SECTORINFO )) {
+			return(FALSE);
+		}
 	}
+//	uiSize = sizeof( SECTORINFO ) * 256;
+//	FileWrite( hFile, SectorInfo, uiSize, &uiNumBytesWritten );
+//	if( uiNumBytesWritten != uiSize)
+//	{
+//		return(FALSE);
+//	}
 
 	// Save the SAM Controlled Sector Information
 	uiSize = MAP_WORLD_X * MAP_WORLD_Y;
@@ -4675,12 +4681,18 @@ BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 	}
 
 	// Load the Sector Info
-	uiSize = sizeof( SECTORINFO ) * 256;
-	FileRead( hFile, SectorInfo, uiSize, &uiNumBytesRead );
-	if( uiNumBytesRead != uiSize)
-	{
-		return(FALSE);
+	for (int sectorID = 0; sectorID <= 255; ++ sectorID) {
+		FileRead( hFile, &SectorInfo[sectorID], sizeof( SECTORINFO ), &uiNumBytesRead );
+		if( uiNumBytesRead != sizeof( SECTORINFO )) {
+			return(FALSE);
+		}
 	}
+//	uiSize = sizeof( SECTORINFO ) * 256;
+//	FileRead( hFile, SectorInfo, uiSize, &uiNumBytesRead );
+//	if( uiNumBytesRead != uiSize)
+//	{
+//		return(FALSE);
+//	}
 
 	// Load the SAM Controlled Sector Information
 	uiSize = MAP_WORLD_X * MAP_WORLD_Y;
@@ -5527,35 +5539,33 @@ BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
 	return TRUE;
 }
 
-BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( )
+BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle(int pSectorX, int pSectorY, int pSectorZ)
 {
-	INT32 i;
-
 	//We don't have mercs in the sector.  Now, we check to see if there are BOTH enemies and militia.  If both
 	//co-exist in the sector, then make them fight for control of the sector via autoresolve.
-	for( i = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; i++ )
+	for( int i = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; i++ )
 	{
 		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife )
 		{
-			if( MercPtrs[ i ]->sSectorX == gWorldSectorX &&
-					MercPtrs[ i ]->sSectorY == gWorldSectorY &&
-					MercPtrs[ i ]->bSectorZ == gbWorldSectorZ )
+			if( MercPtrs[ i ]->sSectorX == pSectorX &&
+					MercPtrs[ i ]->sSectorY == pSectorY &&
+					MercPtrs[ i ]->bSectorZ == pSectorZ )
 			{ //We have enemies, now look for militia!
 				for( i = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; i <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; i++ )
 				{
 					if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && MercPtrs[ i ]->bSide == OUR_TEAM )
 					{
-						if( MercPtrs[ i ]->sSectorX == gWorldSectorX &&
-								MercPtrs[ i ]->sSectorY == gWorldSectorY &&
-								MercPtrs[ i ]->bSectorZ == gbWorldSectorZ )
+						if( MercPtrs[ i ]->sSectorX == pSectorX &&
+								MercPtrs[ i ]->sSectorY == pSectorY &&
+								MercPtrs[ i ]->bSectorZ == pSectorZ )
 						{ //We have militia and enemies and no mercs!  Let's finish this battle in autoresolve.
 							gfEnteringMapScreen = TRUE;
 							gfEnteringMapScreenToEnterPreBattleInterface = TRUE;
 							gfAutomaticallyStartAutoResolve = TRUE;
 							gfUsePersistantPBI = FALSE;
-							gubPBSectorX = (UINT8)gWorldSectorX;
-							gubPBSectorY = (UINT8)gWorldSectorY;
-							gubPBSectorZ = (UINT8)gbWorldSectorZ;
+							gubPBSectorX = (UINT8)pSectorX;
+							gubPBSectorY = (UINT8)pSectorY;
+							gubPBSectorZ = (UINT8)pSectorZ;
 							gfBlitBattleSectorLocator = TRUE;
 							gfTransferTacticalOppositionToAutoResolve = TRUE;
 							if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
@@ -5639,7 +5649,7 @@ BOOLEAN CheckAndHandleUnloadingOfCurrentWorld()
 		//     Added logic to prevent a crash when player mercs would retreat from a battle involving militia and enemies.
 		//		 Without the return here, it would proceed to trash the world, and then when autoresolve would come up to
 		//     finish the tactical battle, it would fail to find the existing soldier information (because it was trashed).
-    if( HandlePotentialBringUpAutoresolveToFinishBattle( ) )
+    if( HandlePotentialBringUpAutoresolveToFinishBattle( sBattleSectorX, sBattleSectorY, sBattleSectorZ ) )
 		{
 			return FALSE;
 		}

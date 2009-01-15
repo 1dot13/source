@@ -61,6 +61,7 @@
 	#include "Map Screen Interface Map Inventory.h"
 	#include "interface dialogue.h"
 #endif
+#include <vector>
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -197,7 +198,7 @@ BOOLEAN gfAddDisplayBoxToWaitingQueue = FALSE;
 // redraw character list
 extern BOOLEAN fDrawCharacterList;
 
-extern BOOLEAN fSelectedListOfMercsForMapScreen[ MAX_CHARACTER_COUNT ];
+extern BOOLEAN fSelectedListOfMercsForMapScreen[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 
 SOLDIERTYPE *gpDismissSoldier = NULL;
 
@@ -517,6 +518,8 @@ void ChangeSoldiersAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
 	// values like fFixingRobot.	It will clear all subsidiary values so we don't leave the merc in a messed
 	// up state!
 
+	AssertNotNIL(pSoldier);
+
 	pSoldier->bAssignment = bAssignment;
 /// don't kill iVehicleId, though, 'cause militia training tries to put guys back in their vehicles when it's done(!)
 
@@ -540,6 +543,7 @@ void ChangeSoldiersAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
 
 BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInCombat )
 {
+	AssertNotNIL(pSoldier);
 	// global conditions restricting all assignment changes
 	if ( SectorIsImpassable( (INT16) SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ) )
 	{
@@ -559,6 +563,7 @@ BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInComba
 /*
 BOOLEAN CanSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
 {
+	AssertNotNIL(pSoldier);
 	switch( bAssignment )
 	{
 		case( DOCTOR ):
@@ -596,6 +601,7 @@ BOOLEAN CanSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
 
 BOOLEAN CanCharacterDoctorButDoesntHaveMedKit( SOLDIERTYPE *pSoldier )
 {
+	AssertNotNIL(pSoldier);
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 	{
 		return( FALSE );
@@ -656,6 +662,8 @@ BOOLEAN CanCharacterDoctor( SOLDIERTYPE *pSoldier )
 	BOOLEAN fFoundMedKit = FALSE;
 	INT8 bPocket = 0;
 
+	AssertNotNIL(pSoldier);
+
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 	{
 		return( FALSE );
@@ -694,6 +702,7 @@ BOOLEAN IsAnythingAroundForSoldierToRepair( SOLDIERTYPE * pSoldier )
 {
 	INT32 iCounter;
 
+	AssertNotNIL(pSoldier);
 
 	// items?
 	if ( DoesCharacterHaveAnyItemsToRepair( pSoldier, FINAL_REPAIR_PASS ) )
@@ -739,6 +748,8 @@ BOOLEAN HasCharacterFinishedRepairing( SOLDIERTYPE * pSoldier )
 {
 	BOOLEAN fCanStillRepair;
 
+	AssertNotNIL(pSoldier);
+
 	// NOTE: This must detect situations where the vehicle/robot has left the sector, in which case we want the
 	// guy to say "assignment done", so we return that he can no longer repair
 
@@ -772,6 +783,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 	OBJECTTYPE * pObj;
 	UINT8 ubPassType;
 
+	AssertNotNIL(pSoldier);
 
 	// check for jams
 	// CHRISL: Changed to dynamically determine max inventory locations.
@@ -852,6 +864,8 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 
 BOOLEAN BasicCanCharacterRepair( SOLDIERTYPE * pSoldier )
 {
+	AssertNotNIL(pSoldier);
+
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 	{
 		return( FALSE );
@@ -907,6 +921,8 @@ BOOLEAN BasicCanCharacterRepair( SOLDIERTYPE * pSoldier )
 
 BOOLEAN CanCharacterRepairButDoesntHaveARepairkit( SOLDIERTYPE *pSoldier )
 {
+	AssertNotNIL(pSoldier);
+
 	if ( BasicCanCharacterRepair( pSoldier ) == FALSE )
 	{
 		return( FALSE );
@@ -925,6 +941,7 @@ BOOLEAN CanCharacterRepairButDoesntHaveARepairkit( SOLDIERTYPE *pSoldier )
 // check that character is alive, oklife, has repair skill, and equipment, etc.
 BOOLEAN CanCharacterRepair( SOLDIERTYPE *pSoldier )
 {
+	AssertNotNIL(pSoldier);
 
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 	{
@@ -959,6 +976,8 @@ BOOLEAN CanCharacterRepair( SOLDIERTYPE *pSoldier )
 // can character be set to patient?
 BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 {
+	AssertNotNIL(pSoldier);
+
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 	{
 		return( FALSE );
@@ -1018,6 +1037,8 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 	// is the character capable of training a town?
 	// they must be alive/conscious and in the sector with the town
 	BOOLEAN fSamSitePresent = FALSE;
+
+	AssertNotNIL(pSoldier);
 
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 	{
@@ -1111,6 +1132,7 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 
 BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 {
+	AssertNotNIL(pSoldier);
 
 	if (gGameExternalOptions.gfmusttrainroaming
 		&& (GetWorldDay( ) >= gGameExternalOptions.guiAllowMilitiaGroupsDelay)
@@ -1151,7 +1173,6 @@ BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 BOOLEAN DoesTownHaveRatingToTrainMilitia( INT8 bTownId )
 {
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Assignments1");
-DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Assignments1");
 	// min loyalty rating?
 	if( ( gTownLoyalty[ bTownId ].ubRating < gGameExternalOptions.iMinLoyaltyToTrain ) )
 	{
@@ -1169,6 +1190,7 @@ BOOLEAN DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( SOLDIERTYPE *pSol
 	INT8 bTownId = 0;
 	BOOLEAN fSamSitePresent = FALSE;
 
+	AssertNotNIL(pSoldier);
 
 	// underground training is not allowed (code doesn't support and it's a reasonable enough limitation)
 	if( pSoldier->bSectorZ != 0 )
@@ -1209,6 +1231,8 @@ INT8 CountMilitiaTrainersInSoldiersSector( SOLDIERTYPE * pSoldier )
 	SOLDIERTYPE * pOtherSoldier;
 	INT8	bCount = 0;
 
+	AssertNotNIL(pSoldier);
+
 	for ( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; bLoop++ )
 	{
 		pOtherSoldier = MercPtrs[ bLoop ];
@@ -1230,6 +1254,7 @@ BOOLEAN IsMilitiaTrainableFromSoldiersSectorMaxed( SOLDIERTYPE *pSoldier, INT8 i
 	INT8 bTownId = 0;
 	BOOLEAN fSamSitePresent = FALSE;
 
+	AssertNotNIL(pSoldier);
 
 	if( pSoldier->bSectorZ != 0 )
 	{
@@ -1268,6 +1293,8 @@ BOOLEAN IsMilitiaTrainableFromSoldiersSectorMaxed( SOLDIERTYPE *pSoldier, INT8 i
 BOOLEAN CanCharacterTrainStat( SOLDIERTYPE *pSoldier, INT8 bStat, BOOLEAN fTrainSelf, BOOLEAN fTrainTeammate )
 {
 	// is the character capable of training this stat? either self or as trainer
+
+	AssertNotNIL(pSoldier);
 
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 	{
@@ -1453,6 +1480,8 @@ BOOLEAN CanCharacterOnDuty( SOLDIERTYPE *pSoldier )
 {
 	// can character commit themselves to on duty?
 
+	AssertNotNIL(pSoldier);
+
 	// only need to be alive and well to do so right now
 	// alive and conscious
 	if( pSoldier->stats.bLife < OKLIFE )
@@ -1514,6 +1543,8 @@ BOOLEAN CanCharacterPractise( SOLDIERTYPE *pSoldier )
 {
 	// can character practise right now?
 
+	AssertNotNIL(pSoldier);
+
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 	{
 		return( FALSE );
@@ -1571,6 +1602,7 @@ BOOLEAN CanCharacterPractise( SOLDIERTYPE *pSoldier )
 
 BOOLEAN CanCharacterTrainTeammates( SOLDIERTYPE *pSoldier )
 {
+	AssertNotNIL(pSoldier);
 
 	// can character train at all
 	if( CanCharacterPractise( pSoldier ) == FALSE )
@@ -1592,6 +1624,7 @@ BOOLEAN CanCharacterTrainTeammates( SOLDIERTYPE *pSoldier )
 
 BOOLEAN CanCharacterBeTrainedByOther( SOLDIERTYPE *pSoldier )
 {
+	AssertNotNIL(pSoldier);
 
 	// can character train at all
 	if( CanCharacterPractise( pSoldier ) == FALSE )
@@ -1615,6 +1648,8 @@ BOOLEAN CanCharacterBeTrainedByOther( SOLDIERTYPE *pSoldier )
 BOOLEAN CanCharacterSleep( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 {
 	CHAR16 sString[ 128 ];
+
+	AssertNotNIL(pSoldier);
 
 	// dead or dying?
 	if( pSoldier->stats.bLife < OKLIFE )
@@ -1726,6 +1761,8 @@ BOOLEAN CanCharacterBeAwakened( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 {
 	CHAR16 sString[ 128 ];
 
+	AssertNotNIL(pSoldier);
+
 	// if dead tired
 	if( ( pSoldier->bBreathMax <= BREATHMAX_ABSOLUTE_MINIMUM ) && !pSoldier->flags.fMercCollapsedFlag )
 	{
@@ -1753,6 +1790,8 @@ BOOLEAN CanCharacterBeAwakened( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 BOOLEAN CanCharacterVehicle( SOLDIERTYPE *pSoldier )
 {
 	// can character enter/leave vehicle?
+
+	AssertNotNIL(pSoldier);
 
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 	{
@@ -1828,8 +1867,8 @@ INT8 CanCharacterSquad( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 	// can character join this squad?
 	INT16 sX, sY, sZ;
 
-
-	Assert( bSquadValue < ON_DUTY );
+	AssertLT( bSquadValue, ON_DUTY );
+	AssertNotNIL(pSoldier);
 
 	if ( pSoldier->bAssignment == bSquadValue )
 	{
@@ -1904,6 +1943,7 @@ INT8 CanCharacterSquad( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 
 BOOLEAN IsCharacterInTransit( SOLDIERTYPE *pSoldier )
 {
+	AssertNotNIL(pSoldier);
 
 	// valid character?
 	if( pSoldier == NULL )
@@ -2014,7 +2054,7 @@ void VerifyTownTrainingIsPaidFor( void )
 	SOLDIERTYPE *pSoldier = NULL;
 
 
- 	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+ 	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// valid character?
 		if( gCharactersList[ iCounter ].fValid == FALSE )
@@ -2080,6 +2120,7 @@ UINT8 GetNumberThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLE
 	SOLDIERTYPE *pSoldier = MercPtrs[0], *pTeamSoldier = NULL;
 	UINT8 ubNumberOfPeople = 0;
 
+	AssertNotNIL(pDoctor);
 
 	// go through list of characters, find all who are patients/doctors healable by this doctor
 	for ( cnt = 0, pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; cnt++,pTeamSoldier++)
@@ -2103,6 +2144,8 @@ SOLDIERTYPE *AnyDoctorWhoCanHealThisPatient( SOLDIERTYPE *pPatient, BOOLEAN fThi
 	int cnt;
 	SOLDIERTYPE *pSoldier = MercPtrs[0], *pTeamSoldier = NULL;
 
+	AssertNotNIL(pPatient);
+	AssertNotNIL(pSoldier);
 
 	// go through list of characters, find all who are patients/doctors healable by this doctor
 	for ( cnt = 0, pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; cnt++,pTeamSoldier++)
@@ -2128,6 +2171,9 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 	UINT16 usHealPts = 0;
 	UINT16 usKitPts = 0;
 	INT8 bMedFactor;
+
+	AssertNotNIL(pDoctor);
+	AssertNotNIL(pusMaxPts);
 
 	// make sure he has a medkit in his hand, and preferably make it a medical bag, not a first aid kit
 	if( fMakeSureKitIsInHand )
@@ -2487,7 +2533,7 @@ BOOLEAN IsSoldierCloseEnoughToADoctor( SOLDIERTYPE *pPatient )
 		return( TRUE );
 	}
 
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		pSoldier = &Menptr[ iCounter ];
 
@@ -2971,8 +3017,8 @@ OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, UINT8 ubPa
 	INT8 bSlotToCheck;
 	OBJECTTYPE * pObj;
 
-
-	Assert( ubPassType < NUM_REPAIR_PASS_TYPES );
+	AssertLT( ubPassType, NUM_REPAIR_PASS_TYPES );
+	AssertNotNIL(pSoldier);
 
 	pPassList = &( gRepairPassSlotList[ ubPassType ] );
 
@@ -2980,7 +3026,7 @@ OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, UINT8 ubPa
 	for ( bLoop = 0; bLoop < pPassList->ubChoices[UsingNewInventorySystem()]; bLoop++ )
 	{
 		bSlotToCheck = pPassList->bSlot[ bLoop ];
-		Assert( bSlotToCheck != -1 );
+		AssertNE( bSlotToCheck, -1 );
 
 		for ( bLoop2 = 0; bLoop2 < pSoldier->inv[ bSlotToCheck ].ubNumberOfObjects; bLoop2++ )
 		{
@@ -3007,6 +3053,8 @@ OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, UINT8 ubPa
 OBJECTTYPE* FindRepairableItemInLBENODE( OBJECTTYPE * pObj, UINT8 subObject)
 {
 	OBJECTTYPE * pObject;
+
+	AssertNotNIL(pObj);
 
 	if(UsingNewInventorySystem() == false)
 		return( 0 );
@@ -3039,6 +3087,7 @@ OBJECTTYPE* FindRepairableItemInLBENODE( OBJECTTYPE * pObj, UINT8 subObject)
 
 OBJECTTYPE* FindRepairableItemInSpecificPocket( OBJECTTYPE * pObj, UINT8 subObject)
 {
+	AssertNotNIL(pObj);
 	if ( IsItemRepairable( pObj->usItem, (*pObj)[subObject]->data.objectStatus ) )
 	{
 		return( pObj );
@@ -3060,6 +3109,10 @@ void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, UI
 {
 	INT16		sRepairCostAdj;
 	UINT16	usDamagePts, usPtsFixed;
+	
+	AssertNotNIL (pSoldier);
+	AssertNotNIL (pbStatus);
+	AssertNotNIL (pubRepairPtsLeft);
 
 	// get item's repair ease, for each + point is 10% easier, each - point is 10% harder to repair
 	sRepairCostAdj = 100 - ( 10 * Item[ usItem ].bRepairEase );
@@ -3528,7 +3581,9 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	SOLDIERTYPE *pStatTrainerList[ NUM_TRAINABLE_STATS ];		// can't have more "best" trainers than trainable stats
 	INT16 sBestTrainingPts;
 	INT16 sTownTrainingPts;
-	TOWN_TRAINER_TYPE TownTrainer[ MAX_CHARACTER_COUNT ];
+    // WDS - make number of mercenaries, etc. be configurable
+	TOWN_TRAINER_TYPE TownTrainer[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
+//	std::vector<TOWN_TRAINER_TYPE>	TownTrainer (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS);
 	UINT8 ubTownTrainers;
 	UINT16 usMaxPts;
 	BOOLEAN fSamSiteInSector = FALSE;
@@ -3649,7 +3704,7 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	if( ( (StrategicMap[ sMapX + ( sMapY * MAP_WORLD_X ) ].bNameId != BLANK_SECTOR ) || ( fSamSiteInSector == TRUE ) ) && (bZ == 0) )
 	{
 		// init town trainer list
-		memset( TownTrainer, 0, sizeof( TownTrainer ) );
+	    memset( TownTrainer, 0, sizeof( TownTrainer ) );
 		ubTownTrainers = 0;
 
 		// build list of all the town trainers in this sector and their training pts
@@ -4184,7 +4239,7 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 	ubTownId = StrategicMap[ pTrainer->sSectorX + pTrainer->sSectorY * MAP_WORLD_X ].bNameId;
 	if( fSamSiteInSector == FALSE )
 	{
-		Assert(ubTownId != BLANK_SECTOR);
+		AssertNE(ubTownId, BLANK_SECTOR);
 	}
 
 	// trainer gains leadership - training argument is FALSE, because the trainer is not the one training!
@@ -4267,7 +4322,7 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 /* ARM: Decided this didn't make much sense - the guys I'm training damn well BETTER be loyal - and screw the rest!
 	// get town index
 	ubTownId = StrategicMap[ pTrainer->sSectorX + pTrainer->sSectorY * MAP_WORLD_X ].bNameId;
-	Assert(ubTownId != BLANK_SECTOR);
+	AssertNE(ubTownId, BLANK_SECTOR);
 
 	// adjust for town loyalty
 	sTotalTrainingPts = (sTotalTrainingPts * gTownLoyalty[ ubTownId ].ubRating) / 100;
@@ -4310,7 +4365,7 @@ void MakeSoldiersTacticalAnimationReflectAssignment( SOLDIERTYPE *pSoldier )
 
 void AssignmentAborted( SOLDIERTYPE *pSoldier, UINT8 ubReason )
 {
-	Assert( ubReason < NUM_ASSIGN_ABORT_REASONS );
+	AssertLT( ubReason, NUM_ASSIGN_ABORT_REASONS );
 
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ ubReason ], pSoldier->name );
 
@@ -4952,7 +5007,7 @@ void VehicleMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		iVehicleID = MSYS_GetRegionUserData( pRegion, 1 );
 
 		// inaccessible vehicles shouldn't be listed in the menu!
-		Assert( IsThisVehicleAccessibleToSoldier( pSoldier, iVehicleID ) );
+//		AssertT( IsThisVehicleAccessibleToSoldier( pSoldier, iVehicleID ) );
 
 		if ( IsEnoughSpaceInVehicle( iVehicleID ) )
 		{
@@ -5532,6 +5587,12 @@ void MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 		{
 			if( Item[pSoldier->inv[ bPocket ].usItem].toolkit )
 			{
+				// If the second hand is empty, swap item in first hand there
+				if (pSoldier->inv[HANDPOS].exists() &&
+					!pSoldier->inv[SECONDHANDPOS].exists() &&
+					CanItemFitInPosition(pSoldier, &pSoldier->inv[SECONDHANDPOS], HANDPOS, FALSE)) {
+					SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS, TRUE );
+				}
 				if(!CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bPocket, FALSE))
 					SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
 				SwapObjs( pSoldier, HANDPOS, bPocket, TRUE );
@@ -5562,6 +5623,12 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )
 		if ( Item[pSoldier->inv[ bPocket ].usItem].medicalkit )
 		{
 			fCharacterInfoPanelDirty = TRUE;
+			// If the second hand is empty, swap item in first hand there
+			if (pSoldier->inv[HANDPOS].exists() &&
+				!pSoldier->inv[SECONDHANDPOS].exists() &&
+				CanItemFitInPosition(pSoldier, &pSoldier->inv[SECONDHANDPOS], HANDPOS, FALSE)) {
+				SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS, TRUE );
+			}
 			if(!CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bPocket, FALSE))
 				SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
 			SwapObjs( pSoldier, HANDPOS, bPocket, TRUE );
@@ -7057,7 +7124,8 @@ void ContractMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		// can't renew contracts from tactical!
 	}
 
-	Assert( pSoldier && pSoldier->bActive );
+	AssertNotNIL( pSoldier );
+	AssertT( pSoldier->bActive );
 
 
 	iValue = MSYS_GetRegionUserData( pRegion, 0 );
@@ -10399,8 +10467,8 @@ BOOLEAN AnyMercInGroupCantContinueMoving( GROUP *pGroup )
 	BOOLEAN fGroupMustStop = FALSE;
 
 
-	Assert( pGroup );
-	Assert( pGroup->fPlayer );
+	AssertNotNIL( pGroup );
+	AssertT( pGroup->fPlayer );
 
 	pPlayer = pGroup->pPlayerList;
 
@@ -10546,7 +10614,7 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 	CHAR16 sString[ 128 ];
 
 
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		pSoldier = NULL;
 
@@ -10865,7 +10933,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 
 
 	// sets assignment for the list
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( ( gCharactersList[ iCounter ].fValid ) &&
 				( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE ) &&
@@ -11425,7 +11493,7 @@ SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK )
 	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
 		// mapscreen version
-		if( ( bSelectedAssignChar >= 0 ) && ( bSelectedAssignChar < MAX_CHARACTER_COUNT ) &&
+		if( ( bSelectedAssignChar >= 0 ) && ( bSelectedAssignChar < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) &&
 				( gCharactersList[ bSelectedAssignChar ].fValid ) )
 		{
 			pSoldier = &Menptr[ gCharactersList[ bSelectedAssignChar ].usSolID ];

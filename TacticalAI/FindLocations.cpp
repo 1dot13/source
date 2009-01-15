@@ -509,7 +509,7 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 
 UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT16 sGridNo )
 {
-	UINT8	ubLoop, ubCount, ubWhoIsThere;
+	UINT8 ubLoop, ubCount, ubWhoIsThere;
 	INT16	sTempGridNo;
 
 	ubCount = 0;

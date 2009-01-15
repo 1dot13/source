@@ -642,7 +642,7 @@ UINT8		gTileTypeMovementCost[ NUM_TERRAIN_TYPES ] =
 void CreateTileDatabase( )
 {
 	UINT32					cnt1, cnt2;
-	UINT8						ubLoop;
+	UINT8 ubLoop;
 	UINT32					NumRegions;
 	PTILE_IMAGERY   TileSurf;
 	TILE_ELEMENT		TileElement;

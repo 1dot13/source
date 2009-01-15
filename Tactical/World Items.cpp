@@ -559,7 +559,7 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 						usReplacement = StandardGunListAmmoReplacement( dummyItem.object.usItem );
 						if ( usReplacement )
 						{
-							UINT8		ubLoop;
+							UINT8 ubLoop;
 
 							// go through status values and scale up/down
 							for ( ubLoop = 0; ubLoop < dummyItem.object.ubNumberOfObjects; ubLoop++ )

@@ -476,7 +476,7 @@ void	HandleOldBobbyRMailOrders();
 #ifdef JA2BETAVERSION
 	extern BOOLEAN ValidateSoldierInitLinks( UINT8 ubCode );
 #endif
-void TruncateStrategicGroupSizes();
+void ValidateStrategicGroups();
 
 /////////////////////////////////////////////////////
 //
@@ -566,7 +566,7 @@ BOOLEAN LBENODE::Load( HWFILE hFile )
 	else
 	{
 		//we shouldn't be loading from anything before the first change
-		Assert(guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE);
+		AssertGE(guiCurrentSaveGameVersion, NIV_SAVEGAME_DATATYPE_CHANGE);
 	}
 	return TRUE;
 }
@@ -588,7 +588,7 @@ BOOLEAN	LBENODE::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMapV
 		}
 	}
 	else {
-		Assert(guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE);
+		AssertGE(guiCurrentSaveGameVersion, NIV_SAVEGAME_DATATYPE_CHANGE);
 	}
 	return TRUE;
 }
@@ -806,7 +806,7 @@ BOOLEAN DEALER_SPECIAL_ITEM::Load(HWFILE hFile)
 	else
 	{
 		//this will never be loaded from sometime before the first change
-		Assert(guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE);
+		AssertGE(guiCurrentSaveGameVersion, NIV_SAVEGAME_DATATYPE_CHANGE);
 	}
 	return TRUE;
 }
@@ -1618,7 +1618,7 @@ BOOLEAN StackedObjectData::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 u
 	}
 	else {
 		//we shouldn't be loading this
-		Assert(false);
+		AssertMsg(false, "we shouldn't be loading this");
 	}
 	return TRUE;
 }
@@ -1944,8 +1944,11 @@ BOOLEAN InitSaveDir()
 	return TRUE;
 }
 
+// WDS - Automatically try to save when an assertion failure occurs
+extern bool alreadySaving = false;
 
-BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
+
+BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 {
 	UINT32	uiNumBytesWritten=0;
 	HWFILE	hFile=0;
@@ -1968,8 +1971,9 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 #endif
 #endif
 
-	if( ubSaveGameID >= NUM_SAVE_GAMES && ubSaveGameID != SAVE__ERROR_NUM && ubSaveGameID != SAVE__END_TURN_NUM )
+	if( ubSaveGameID >= NUM_SAVE_GAMES && ubSaveGameID < EARLIST_SPECIAL_SAVE )
 		return( FALSE );		//ddd
+	alreadySaving = true;
 
 	//clear out the save game header
 	memset( &SaveGameHeader, 0, sizeof( SAVED_GAME_HEADER ) );
@@ -2808,7 +2812,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 
 	//if we succesfully saved the game, mark this entry as the last saved game file
-	if( ubSaveGameID != SAVE__ERROR_NUM && ubSaveGameID != SAVE__END_TURN_NUM )
+	if( ubSaveGameID <  EARLIST_SPECIAL_SAVE)
 	{
 		gGameSettings.bLastSavedGameSlot = ubSaveGameID;
 	}
@@ -2855,6 +2859,8 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//Check for enough free hard drive space
 	NextLoopCheckForEnoughFreeHardDriveSpace();
 
+	alreadySaving = false;
+
 	return( TRUE );
 
 	//if there is an error saving the game
@@ -2897,6 +2903,7 @@ FAILED_TO_SAVE:
 	Assert(guiCurrentSaveGameVersion == SAVE_GAME_VERSION);
 	guiCurrentSaveGameVersion = SAVE_GAME_VERSION;
 
+	alreadySaving = false;
 	return( FALSE );
 }
 
@@ -2906,7 +2913,7 @@ UINT32 guiBrokenSaveGameVersion = 0;
 extern int gEnemyPreservedTempFileVersion[256];
 extern int gCivPreservedTempFileVersion[256];
 
-BOOLEAN LoadSavedGame( UINT8 ubSavedGameID )
+BOOLEAN LoadSavedGame( int ubSavedGameID )
 {
 	HWFILE	hFile;
 	SAVED_GAME_HEADER SaveGameHeader;
@@ -3401,6 +3408,8 @@ BOOLEAN LoadSavedGame( UINT8 ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Strategic Movement Groups" );
 	#endif
+
+	ValidateStrategicGroups();
 
 
 	uiRelEndPerc += 30;
@@ -4055,7 +4064,7 @@ BOOLEAN LoadSavedGame( UINT8 ubSavedGameID )
 	}
 
 	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Contract renweal sequence stuff..." );
+	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Contract renewal sequence stuff..." );
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;
 
@@ -4076,7 +4085,7 @@ BOOLEAN LoadSavedGame( UINT8 ubSavedGameID )
 			return( FALSE );
 		}
 		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Contract renweal sequence stuff" );
+			LoadGameFilePosition( FileGetPos( hFile ), "Contract renewal sequence stuff" );
 		#endif
 	}
 
@@ -4271,13 +4280,6 @@ BOOLEAN LoadSavedGame( UINT8 ubSavedGameID )
 		OutputDebugString( "Resetting attack busy due to load game.\n");
 #endif
 		gTacticalStatus.ubAttackBusyCount = 0;
-	}
-
-	if( guiCurrentSaveGameVersion	< 64 )
-	{ //Militia/enemies/creature team sizes have been changed from 32 to 20.	This function
-		//will simply kill off the excess.	This will allow the ability to load previous saves, though
-		//there will still be problems, though a LOT less than there would be without this call.
-		TruncateStrategicGroupSizes();
 	}
 
 	// ATE: if we are within this window where skyridder was foobared, fix!
@@ -5233,17 +5235,77 @@ BOOLEAN SaveTacticalStatusToSavedGame( HWFILE hFile )
 	return( TRUE );
 }
 
+void FailedLoadingGameCallBack( UINT8 bExitValue );
+
+
+// WDS
+// This was going to be used to allow for increasing the sizes of teams once a game started but it is unfinished
+//TacticalTeamType savedTeamSettings[MAXTEAMS];
 
 
 BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
 
+//	for (unsigned idx=0; idx <= MAXTEAMS; ++idx) {
+//		savedTeamSettings[idx] = gTacticalStatus.Team[idx];
+//	}
+
 	//Read the gTacticalStatus to the saved game file
 	FileRead( hFile, &gTacticalStatus, sizeof( TacticalStatusType ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( TacticalStatusType ) )
-	{
+	if( uiNumBytesRead != sizeof( TacticalStatusType ) ) {
 		return(FALSE);
+	}
+
+//	for (unsigned idx=0; idx <= MAXTEAMS; ++idx) {
+//		gTacticalStatus.Team[idx] = savedTeamSettings[idx];
+//	}
+
+	// WDS - make number of mercenaries, etc. be configurable
+	// Check that the team lists match what we expect given the .ini settings
+	int cntFromFile = gTacticalStatus.Team[ OUR_TEAM ].bLastID - gTacticalStatus.Team[ OUR_TEAM ].bFirstID + 1;
+	int cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles;
+	if (cntFromFile != cntFromIni) {
+		CHAR16 errorMessage[512];
+		swprintf(errorMessage, L"Internal error in reading mercenary/vehicle slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
+		DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
+		return FALSE;
+	}
+
+	cntFromFile = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID - gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID + 1;
+	cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
+	if (cntFromFile != cntFromIni) {
+		CHAR16 errorMessage[512];
+		swprintf(errorMessage, L"Internal error in reading enemy slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
+		DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
+		return FALSE;
+	}
+
+	cntFromFile = gTacticalStatus.Team[ CREATURE_TEAM ].bLastID - gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID + 1;
+	cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfCreatures;
+	if (cntFromFile != cntFromIni) {
+		CHAR16 errorMessage[512];
+		swprintf(errorMessage, L"Internal error in reading creature slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
+		DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
+		return FALSE;
+	}
+
+	cntFromFile = gTacticalStatus.Team[ MILITIA_TEAM ].bLastID - gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID + 1;
+	cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfRebels;
+	if (cntFromFile != cntFromIni) {
+		CHAR16 errorMessage[512];
+		swprintf(errorMessage, L"Internal error in reading militia slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
+		DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
+		return FALSE;
+	}
+
+	cntFromFile = gTacticalStatus.Team[ CIV_TEAM ].bLastID - gTacticalStatus.Team[ CIV_TEAM ].bFirstID + 1;
+	cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfCivilians;
+	if (cntFromFile != cntFromIni) {
+		CHAR16 errorMessage[512];
+		swprintf(errorMessage, L"Internal error in reading civilian slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
+		DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
+		return FALSE;
 	}
 
 	//
@@ -6590,173 +6652,54 @@ void UnPauseAfterSaveGame( void )
 	}
 }
 
-void TruncateStrategicGroupSizes()
+
+void ValidateStrategicGroups()
 {
-	GROUP *pGroup;
 	SECTORINFO *pSector;
 	INT32 i;
-
-	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
-
 
 	for( i = SEC_A1; i < SEC_P16; i++ )
 	{
 		pSector = &SectorInfo[ i ];
-		if( pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites > iMaxEnemyGroupSize )
+		if( pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites > gGameExternalOptions.iMaxEnemyGroupSize )
 		{
-			if( pSector->ubNumAdmins > pSector->ubNumTroops )
-			{
-				if( pSector->ubNumAdmins > pSector->ubNumElites )
-				{
-					pSector->ubNumAdmins = 20;
-					pSector->ubNumTroops = 0;
-					pSector->ubNumElites = 0;
-				}
-				else
-				{
-					pSector->ubNumAdmins = 0;
-					pSector->ubNumTroops = 0;
-					pSector->ubNumElites = 20;
-				}
-			}
-			else if( pSector->ubNumTroops > pSector->ubNumElites )
-			{
-				if( pSector->ubNumTroops > pSector->ubNumAdmins )
-				{
-					pSector->ubNumAdmins = 0;
-					pSector->ubNumTroops = 20;
-					pSector->ubNumElites = 0;
-				}
-				else
-				{
-					pSector->ubNumAdmins = 20;
-					pSector->ubNumTroops = 0;
-					pSector->ubNumElites = 0;
-				}
-			}
-			else
-			{
-				if( pSector->ubNumElites > pSector->ubNumTroops )
-				{
-					pSector->ubNumAdmins = 0;
-					pSector->ubNumTroops = 0;
-					pSector->ubNumElites = 20;
-				}
-				else
-				{
-					pSector->ubNumAdmins = 0;
-					pSector->ubNumTroops = 20;
-					pSector->ubNumElites = 0;
-				}
-			}
 		}
 		//militia
-		if( pSector->ubNumberOfCivsAtLevel[0] + pSector->ubNumberOfCivsAtLevel[1] + pSector->ubNumberOfCivsAtLevel[2] > iMaxEnemyGroupSize )
+		if( pSector->ubNumberOfCivsAtLevel[0] + pSector->ubNumberOfCivsAtLevel[1] + pSector->ubNumberOfCivsAtLevel[2] > gGameExternalOptions.iMaxEnemyGroupSize )
 		{
-			if( pSector->ubNumberOfCivsAtLevel[0] > pSector->ubNumberOfCivsAtLevel[1] )
-			{
-				if( pSector->ubNumberOfCivsAtLevel[0] > pSector->ubNumberOfCivsAtLevel[2] )
-				{
-					pSector->ubNumberOfCivsAtLevel[0] = 20;
-					pSector->ubNumberOfCivsAtLevel[1] = 0;
-					pSector->ubNumberOfCivsAtLevel[2] = 0;
-				}
-				else
-				{
-					pSector->ubNumberOfCivsAtLevel[0] = 0;
-					pSector->ubNumberOfCivsAtLevel[1] = 0;
-					pSector->ubNumberOfCivsAtLevel[2] = 20;
-				}
-			}
-			else if( pSector->ubNumberOfCivsAtLevel[1] > pSector->ubNumberOfCivsAtLevel[2] )
-			{
-				if( pSector->ubNumberOfCivsAtLevel[1] > pSector->ubNumberOfCivsAtLevel[0] )
-				{
-					pSector->ubNumberOfCivsAtLevel[0] = 0;
-					pSector->ubNumberOfCivsAtLevel[1] = 20;
-					pSector->ubNumberOfCivsAtLevel[2] = 0;
-				}
-				else
-				{
-					pSector->ubNumberOfCivsAtLevel[0] = 20;
-					pSector->ubNumberOfCivsAtLevel[1] = 0;
-					pSector->ubNumberOfCivsAtLevel[2] = 0;
-				}
-			}
-			else
-			{
-				if( pSector->ubNumberOfCivsAtLevel[2] > pSector->ubNumberOfCivsAtLevel[1] )
-				{
-					pSector->ubNumberOfCivsAtLevel[0] = 0;
-					pSector->ubNumberOfCivsAtLevel[1] = 0;
-					pSector->ubNumberOfCivsAtLevel[2] = 20;
-				}
-				else
-				{
-					pSector->ubNumberOfCivsAtLevel[0] = 0;
-					pSector->ubNumberOfCivsAtLevel[1] = 20;
-					pSector->ubNumberOfCivsAtLevel[2] = 0;
-				}
-			}
 		}
 	}
-	//Enemy groups
-	pGroup = gpGroupList;
-	while( pGroup )
-	{
-		if( !pGroup->fPlayer )
-		{
-			if( pGroup->pEnemyGroup->ubNumAdmins + pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites > iMaxEnemyGroupSize )
-			{
-				pGroup->ubGroupSize = 20;
-				if( pGroup->pEnemyGroup->ubNumAdmins > pGroup->pEnemyGroup->ubNumTroops )
-				{
-					if( pGroup->pEnemyGroup->ubNumAdmins > pGroup->pEnemyGroup->ubNumElites )
-					{
-						pGroup->pEnemyGroup->ubNumAdmins = 20;
-						pGroup->pEnemyGroup->ubNumTroops = 0;
-						pGroup->pEnemyGroup->ubNumElites = 0;
-					}
-					else
-					{
-						pGroup->pEnemyGroup->ubNumAdmins = 0;
-						pGroup->pEnemyGroup->ubNumTroops = 0;
-						pGroup->pEnemyGroup->ubNumElites = 20;
-					}
-				}
-				else if( pGroup->pEnemyGroup->ubNumTroops > pGroup->pEnemyGroup->ubNumElites )
-				{
-					if( pGroup->pEnemyGroup->ubNumTroops > pGroup->pEnemyGroup->ubNumAdmins )
-					{
-						pGroup->pEnemyGroup->ubNumAdmins = 0;
-						pGroup->pEnemyGroup->ubNumTroops = 20;
-						pGroup->pEnemyGroup->ubNumElites = 0;
-					}
-					else
-					{
-						pGroup->pEnemyGroup->ubNumAdmins = 20;
-						pGroup->pEnemyGroup->ubNumTroops = 0;
-						pGroup->pEnemyGroup->ubNumElites = 0;
-					}
-				}
-				else
-				{
-					if( pGroup->pEnemyGroup->ubNumElites > pGroup->pEnemyGroup->ubNumTroops )
-					{
-						pGroup->pEnemyGroup->ubNumAdmins = 0;
-						pGroup->pEnemyGroup->ubNumTroops = 0;
-						pGroup->pEnemyGroup->ubNumElites = 20;
-					}
-					else
-					{
-						pGroup->pEnemyGroup->ubNumAdmins = 0;
-						pGroup->pEnemyGroup->ubNumTroops = 20;
-						pGroup->pEnemyGroup->ubNumElites = 0;
-					}
-				}
-			}
+
+	GROUP *pGroup = gpGroupList;
+	GROUP *next;
+	while( pGroup ) {
+		next = pGroup->next;
+		if (pGroup->ubSectorX < MINIMUM_VALID_X_COORDINATE) {
+			//ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"...");
 		}
-		pGroup = pGroup->next;
+		else if (pGroup->ubSectorX > MAXIMUM_VALID_X_COORDINATE) {
+			//ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"...");
+//			RemoveGroupFromList( pGroup );
+		}
+		else if (pGroup->ubSectorY < MINIMUM_VALID_Y_COORDINATE) {
+			//ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"...");
+		}
+		else if (pGroup->ubSectorY > MAXIMUM_VALID_Y_COORDINATE) {
+			//ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"...");
+//			RemoveGroupFromList( pGroup );
+		}
+		else if (pGroup->ubSectorZ < MINIMUM_VALID_Z_COORDINATE) {
+			//ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"...");
+//			RemoveGroupFromList( pGroup );
+		}
+		else if (pGroup->ubSectorZ > MAXIMUM_VALID_Z_COORDINATE) {
+			//ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"...");
+//			RemoveGroupFromList( pGroup );
+		}
+		else if (pGroup->ubGroupSize == 0) {
+			//ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"...");
+		}
+		pGroup = next;
 	}
 }
 

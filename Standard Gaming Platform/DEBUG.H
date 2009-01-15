@@ -25,36 +25,44 @@
 extern "C" {
 #endif
 */
-
-#define INVALID_TOPIC		0xffff
 #define MAX_TOPICS_ALLOTED	1024
 
 
 extern BOOLEAN	gfRecordToFile;
 extern BOOLEAN	gfRecordToDebugger;
-extern UINT32		guiProfileStart, guiExecutions, guiProfileTime;
-extern INT32		giProfileCount;
+extern UINT32	guiProfileStart, guiExecutions, guiProfileTime;
+extern INT32	giProfileCount;
 
 #define	PROFILE(x)		guiProfileStart=GetTickCount();				\
-											guiExecutions=x;											\
-											for(giProfileCount=0; giProfileCount < x; giProfileCount++)
+						guiExecutions=x;											\
+						for(giProfileCount=0; giProfileCount < x; giProfileCount++)
 
 #define PROFILE_REPORT()		guiProfileTime=(GetTickCount()-guiProfileStart);	\
-														_RPT3(_CRT_WARN, "*** PROFILE REPORT: %d executions took %dms, average of %.2fms per iteration.\n", guiExecutions, guiProfileTime, (FLOAT)guiProfileTime/guiExecutions); 
+								_RPT3(_CRT_WARN, "*** PROFILE REPORT: %d executions took %dms, average of %.2fms per iteration.\n", guiExecutions, guiProfileTime, (FLOAT)guiProfileTime/guiExecutions); 
 
-extern void			_Null(void);
-extern	STR8		String(const STR8 String, ...);
+extern	STR8	String(const STR8 String, ...);
+
+// This func is used by Assert()
+inline void _Null() { }
 
 
+#ifdef _DEBUG
+#ifndef FORCE_ASSERTS_ON
+#define FORCE_ASSERTS_ON
+#endif
+#endif
 
-#if defined ( _DEBUG ) || defined ( FORCE_ASSERTS_ON )
+#ifdef FORCE_ASSERTS_ON
 
-// If DEBUG_ is defined, we need to initialize all the debug macros. Otherwise all the
+// If FORCE_ASSERTS_ON is defined, we need to initialize all the debug macros. Otherwise all the
 // debug macros will be substituted by blank lines at compile time
 //*******************************************************************************************
 // Debug Mode
 //*******************************************************************************************
 
+// *****************************************************
+// OLD ASSERT CODE.  USE THE NEW ONES FURTHER DOWN BELOW
+// *****************************************************
 //Modified the Assertion code.	As of the writing of this code, there are no other functions that
 //make use of _FailMessage.	With that assumption made, we can then make two functions, the first Assert, taking
 //one argument, and passing a NULL string.	The second one, AssertMsg(), accepts a string as the second parameter.
@@ -64,13 +72,50 @@ extern	STR8		String(const STR8 String, ...);
 //Assert( pointer, "This pointer is null and you tried to access it in function A ");	
 //It'll make debugging a little simpler.	In anal cases, you could build the string first, then assert 
 //with it.
-extern void _FailMessage(STR8 pString, UINT32 uiLineNum, STR8 pSourceFile );
+extern void _FailMessage(const char* message, unsigned lineNum, const char * functionName, const char* sourceFileName);
+inline void _FailMessage(const char* message, unsigned lineNum, const char* sourceFileName) {
+	_FailMessage(message, lineNum, 0, sourceFileName );
+}
 
 #define Assert(a)										(a) ? _Null() : _FailMessage( NULL, __LINE__, __FILE__ )
 #define AssertMsg(a,b)							(a) ? _Null() : _FailMessage(	b, __LINE__, __FILE__ )
 
 extern CHAR8			gubAssertString[512];//for long filenames
 
+
+// WDS - Enhanced debugging
+// These provide more information than the original assertions.  Assertions test their condition and
+// if it fails they generate a message, try to save the game, then terminate the program.
+
+
+// (a) is not NIL or generate a message and terminate
+#define AssertNotNIL(a) ((a)!=0 ? _Null() : _FailMessage ("("#a" is a null pointer", __LINE__, __FUNCTION__, __FILE__))
+
+// (a) is true or generate a message and terminate
+#define AssertT(a) ((a) ? _Null() : _FailMessage ("("#a" is false but should be true", __LINE__, __FUNCTION__, __FILE__))
+
+// (a) is false
+#define AssertF(a) ((a) ? _Null() : _FailMessage ("("#a" is true but should be false", __LINE__, __FUNCTION__, __FILE__))
+
+// (a == b)
+//#define AssertEQs(a,as,b,bs) (((a)==(b)) ? _Null() : _FailMessage ("("#a" "#as") != ("#b" "#bs") but they should be equal", __LINE__, __FUNCTION__, __FILE__))
+//#define AssertEQ(a,b) (AssertEQs(a,#a,b,#b))
+#define AssertEQ(a,b) (((a)==(b)) ? _Null() : _FailMessage ("("#a") != ("#b") but they should be equal", __LINE__, __FUNCTION__, __FILE__))
+
+// (a != b)
+#define AssertNE(a,b) (((a)!=(b)) ? _Null() : _FailMessage ("("#a") == ("#b") but they should not be equal", __LINE__, __FUNCTION__, __FILE__))
+
+// (a < b)
+#define AssertLT(a,b) (((a)<(b)) ? _Null() : _FailMessage ("("#a") >= ("#b") but should be less than", __LINE__, __FUNCTION__, __FILE__))
+
+// (a <= b)
+#define AssertLE(a,b) (((a)<=(b)) ? _Null() : _FailMessage ("("#a") > ("#b") but should be less than or equal", __LINE__, __FUNCTION__, __FILE__))
+
+// (a > b)
+#define AssertGT(a,b) (((a)>(b)) ? _Null() : _FailMessage ("("#a") <= ("#b") but should be greater than", __LINE__, __FUNCTION__, __FILE__))
+
+// (a >= b)
+#define AssertGE(a,b) (((a)>=(b)) ? _Null() : _FailMessage ("("#a") < ("#b") but should be greater than or equal", __LINE__, __FUNCTION__, __FILE__))
 
 #else 
 
@@ -90,8 +135,8 @@ extern CHAR8			gubAssertString[512];//for long filenames
 #define InitializeDebugManager()		DbgInitialize()
 #define ShutdownDebugManager()			DbgShutdown()
 
-extern	BOOLEAN	DbgInitialize(void);
-extern	void		DbgShutdown(void);
+extern bool DbgInitialize();
+extern void DbgShutdown();
 
 
 #ifdef SGP_DEBUG
@@ -101,7 +146,7 @@ extern	void		DbgShutdown(void);
 // Debug Mode
 //*******************************************************************************************
 
-extern BOOLEAN		gfDebugTopics[MAX_TOPICS_ALLOTED];
+extern bool	gfDebugTopics[MAX_TOPICS_ALLOTED];
 // These are the debug macros (the ones the use will use). The user should never call
 // the actual debug functions directly
 
@@ -109,36 +154,25 @@ extern BOOLEAN		gfDebugTopics[MAX_TOPICS_ALLOTED];
 #define DebugBreakpoint()						__asm { int 3 }
 
 
-#define DbgMessage(a, b, c)					DbgMessageReal( (UINT16)(a), (UINT8)(TOPIC_MESSAGE), (UINT8)(b), (CHAR8 *)(c) )
-#define FastDebugMsg(a)							_DebugMessage( (UINT8 *)(a), (UINT32)(__LINE__), (UINT8 *)(__FILE__) )
+#define DbgMessage(a, b, c)			(gfDebugTopics[(a)] ? DbgMessageReal((a), TOPIC_MESSAGE, (b), (c) ) : _Null())
+#define FastDebugMsg(a)				_DebugMessage((a), __LINE__, __FILE__)
 
-#define UnRegisterDebugTopic(a, b)	DbgTopicRegistration( (UINT8)TOPIC_UNREGISTER, (UINT16 *)(&(a)), (CHAR8 *)(b) )
-#define ClearAllDebugTopics( )			DbgClearAllTopics( )
+#define UnRegisterDebugTopic(a, b)	DbgTopicRegistration( TOPIC_UNREGISTER, (a), (b) )
+#define ClearAllDebugTopics( )		DbgClearAllTopics( )
 
-#define ErrorMsg(a)									_DebugMessage( (UINT8 *)(a), (UINT32)(__LINE__), (UINT8 *)(__FILE__))
+#define ErrorMsg(a)					_DebugMessage( (a), __LINE__, __FILE__)
 
-// Enable the debug topic we want
-#if defined( JA2 ) || defined( UTIL )
-#define RegisterJA2DebugTopic(a, b)		DbgTopicRegistration( TOPIC_REGISTER, &(a), (b) )
+#define RegisterJA2DebugTopic(a, b)		DbgTopicRegistration( TOPIC_REGISTER, (a), (b) )
 #define RegisterDebugTopic(a, b)		((void *)0)
 #define DebugMsg(a, b, c)				DbgMessageReal( (a), TOPIC_MESSAGE, (b), (c) )
-#else
-#define RegisterJA2DebugTopic(a, b)		((void *)0)
-#define RegisterDebugTopic(a, b)		DbgTopicRegistration( (UINT8)TOPIC_REGISTER, (UINT16 *)(&(a)), (CHAR8 *)(b) )
-#define DebugMsg(a)						_DebugMessage((UINT8 *)(a), (UINT32)(__LINE__), (UINT8 *)(__FILE__))
-#endif
 
 // public interface to debug methods:
-extern void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, STR8 strMessage);
+extern void DbgMessageReal(unsigned uiTopicId, unsigned uiCommand, unsigned uiDebugLevel, const char *strMessage);
 
-extern	BOOLEAN	DbgSetDebugLevel(UINT16 TopicId, UINT8 uiDebugLevel);
-extern	void		DbgFailedAssertion( BOOLEAN fExpression, STR8 szFile, int nLine );
-#if _MSC_VER <= 1200
-	extern	void		_FailMessage(UINT8 *pString, UINT32 uiLineNum, UINT8 *pSourceFile );
-#endif
-extern	void		DbgTopicRegistration( UINT8 ubCmd, UINT16 *usTopicID, CHAR8 *zMessage );
-extern	void		DbgClearAllTopics( void );
-extern	void		_DebugMessage(UINT8 *pSourceFile, UINT32 uiLineNum, UINT8 *pString);
+extern	bool	DbgSetDebugLevel(unsigned TopicId, unsigned uiDebugLevel);
+extern	void	DbgTopicRegistration( unsigned ubCmd, const unsigned usTopicID, const char *zMessage );
+extern	void	DbgClearAllTopics( void );
+extern	void	_DebugMessage(const char *pSourceFile, unsigned uiLineNum, const char *pString);
 
 //*******************************************************************************************
 

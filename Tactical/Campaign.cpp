@@ -1267,7 +1267,7 @@ UINT8 CurrentPlayerProgressPercentage(void)
 {
 	UINT32 uiCurrentIncome;
 	UINT32 uiPossibleIncome;
-	UINT8 ubCurrentProgress;
+	UINT8 ubCurrentProgress = gGameExternalOptions.ubGameProgressIncrement;
 	UINT8 ubKillsPerPoint;
 	UINT16 usKillsProgress;
 	UINT16 usControlProgress;
@@ -1343,12 +1343,21 @@ UINT8 CurrentPlayerProgressPercentage(void)
 
 	// WDS: Adding more ways to progress in the game
 	// Get a ratio of sectors visited to the total number of sectors
-	usVisitProgress = CountSurfaceSectorsVisited() * gGameExternalOptions.ubGameProgressPortionVisited / ((MAP_WORLD_X - 2) * (MAP_WORLD_Y - 2));
+	usVisitProgress = CountSurfaceSectorsVisited() * gGameExternalOptions.ubGameProgressPortionVisited / ((MAP_WORLD_X - 2) * (MAP_WORLD_Y - 2) - 56 /* note: should be calculated */);
 
-	// add control progress
+	// add visit progress
 	ubCurrentProgress += usVisitProgress;
 
-	return(ubCurrentProgress);
+	// Add increment to progress
+	ubCurrentProgress += gGameExternalOptions.ubGameProgressIncrement;
+
+	if (ubCurrentProgress < gGameExternalOptions.ubGameProgressMinimum)
+		return gGameExternalOptions.ubGameProgressMinimum;
+
+	if (ubCurrentProgress < 100)
+		return ubCurrentProgress;
+	else
+		return 100;
 }
 
 

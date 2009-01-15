@@ -13,10 +13,18 @@ class SOLDIERTYPE;
 
 #define		SIZE_OF_SAVE_GAME_DESC				128
 
-#define		GAME_VERSION_LENGTH						16
+#define		GAME_VERSION_LENGTH					16
 
 #define		SAVE__ERROR_NUM						99
-#define		SAVE__END_TURN_NUM				98
+#define		SAVE__END_TURN_NUM					98
+
+// WDS - Automatically try to save when an assertion failure occurs
+#define		SAVE__ASSERTION_FAILURE				97
+
+#define     SAVE__TIMED_AUTOSAVE				11
+
+#define		EARLIST_SPECIAL_SAVE				97
+
 
 typedef struct
 {
@@ -71,8 +79,8 @@ void			CreateSavedGameFileNameFromNumber( UINT8 ubSaveGameID, STR pzNewFileName 
 
 BOOLEAN InitSaveDir();
 
-BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc );
-BOOLEAN LoadSavedGame( UINT8 ubSavedGameID );
+BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc );
+BOOLEAN LoadSavedGame( int ubSavedGameID );
 
 BOOLEAN CopySavedSoldierInfoToNewSoldier( SOLDIERTYPE *pDestSourceInfo, SOLDIERTYPE *pSourceInfo );
 

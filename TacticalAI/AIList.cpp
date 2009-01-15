@@ -52,7 +52,7 @@ void DeleteAIListEntry( AILIST *	pEntry )
 
 UINT8	FindEmptyAIListEntry( void )
 {
-	UINT8	ubLoop;
+	UINT8 ubLoop;
 
 	for ( ubLoop = 0; ubLoop < AI_LIST_SIZE; ubLoop++ )
 	{

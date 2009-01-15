@@ -142,13 +142,13 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	// gender
 	if ( fCharacterIsMale == TRUE )
 	{
-	// male
-	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bSex = MALE;
+		// male
+		gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bSex = MALE;
 	}
 	else
 	{
 		// female
-	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bSex = FEMALE;
+		gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bSex = FEMALE;
 	}
 
 
@@ -175,7 +175,8 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	// attitude
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bAttitude = ( INT8 )iAttitude;
 
-	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = 1;
+	// WDS: Advanced start 
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = gGameExternalOptions.ubIMPStartingLevel;
 
 	// set time away
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bMercStatus = 0;

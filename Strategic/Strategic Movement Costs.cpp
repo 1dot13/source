@@ -160,7 +160,8 @@ smctableEndElementHandle(void *userData, const XML_Char *name)
 			// We've read in a complete section. Process the contents of pData into the
 			// SectionInfo array
 			SECTORINFO *pSector;
-			pSector = &SectorInfo[	((pData->uiRowNumber - 1) * 16) + (pData->uiColNumber - 1)	];
+			int sectorID = ((pData->uiRowNumber - 1) * 16) + (pData->uiColNumber - 1);
+			pSector = &SectorInfo[ sectorID ];
 			pSector->ubTravelRating = pData->travRating;
 			pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ] = pData->travNorth;
 			pSector->ubTraversability[ EAST_STRATEGIC_MOVE ] = pData->travEast;

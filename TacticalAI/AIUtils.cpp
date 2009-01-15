@@ -1286,7 +1286,7 @@ INT16 ClosestPC( SOLDIERTYPE *pSoldier, INT16 * psDistance )
 
 	// NOTE: skips EPCs!
 
-	UINT8					ubLoop;
+	UINT8 ubLoop;
 	SOLDIERTYPE		*pTargetSoldier;
 	INT16					sMinDist = (INT16)WORLD_MAX;
 	INT16					sDist;
@@ -1640,7 +1640,7 @@ INT16 ClosestReachableFriendInTrouble(SOLDIERTYPE *pSoldier, BOOLEAN * pfClimbin
 INT16 DistanceToClosestFriend( SOLDIERTYPE * pSoldier )
 {
 	// find the distance to the closest person on the same team
-	UINT8					ubLoop;
+	UINT8 ubLoop;
 	SOLDIERTYPE		*pTargetSoldier;
 	INT16					sMinDist = 1000;
 	INT16					sDist;

@@ -168,7 +168,7 @@ INT8 GetSAMIdFromSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
 void SetupProfileInsertionDataForSoldier( SOLDIERTYPE *pSoldier );
 
-BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( );
+BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( int pSectorX, int pSectorY, int pSectorZ );
 
 //Used for determining the type of error message that comes up when you can't traverse to
 //an adjacent sector.	THESE VALUES DO NOT NEED TO BE SAVED!

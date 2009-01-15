@@ -664,7 +664,7 @@ void RenderTopmostTacticalInterface( )
 	}
 
 
-
+/*
 	if ( gfUIInDeadlock )
 	{
 		SetFont( LARGEFONT1 );
@@ -674,7 +674,7 @@ void RenderTopmostTacticalInterface( )
 		mprintf( 0, 300, L"OPPONENT %d DEADLOCKED - 'Q' TO DEBUG, <ALT><ENTER> END OPP TURN", gUIDeadlockedSoldier );
 
 	}
-
+*/
 
 	// Syncronize for upcoming soldier counters
 	SYNCTIMECOUNTER( );

@@ -438,6 +438,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 	tbTeam=pCreateStruct->bTeam;
 	tfPP=pCreateStruct->fPlayerPlan; //used as temp indicator of struct sent from the server //hayden.
 
+	if(is_networked) {
 	if(is_networked && (pCreateStruct->fOnRoof==1))
 	{
 		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"skipping roof merc");
@@ -464,7 +465,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"skipping tank");
 		return NULL;
 	}
-
+	}
 
 	//hayden
 		//Kris:
@@ -606,7 +607,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			{
 				if( Soldier.bTeam == gbPlayerNum )
 				{
-					cnt = gTacticalStatus.Team[ Soldier.bTeam ].bLastID - 1;
+					cnt = gTacticalStatus.Team[ Soldier.bTeam ].bLastID - gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles+1;
 				}
 			}
 

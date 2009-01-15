@@ -332,7 +332,7 @@ UINT8 NumFreeMilitiaSlots()
 		if( !pSoldier->bActive )
 			ubNumFreeSlots++;
 	}
-	return max( 0 , ubNumFreeSlots - ( 32 - gGameExternalOptions.guiMaxMilitiaSquadSize ) );
+	return max( 0 , ubNumFreeSlots - ( gGameExternalOptions.ubGameMaximumNumberOfRebels - gGameExternalOptions.guiMaxMilitiaSquadSize ) );
 }
 
 UINT8 DoReinforcementAsPendingMilitia( INT16 sMapX, INT16 sMapY, UINT8 *pubRank )
@@ -403,9 +403,9 @@ void AddPossiblePendingMilitiaToBattle()
 
 	//	if( !PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) || !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) 
 	//		|| !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) ) return;
-	if( !PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) 
+	if( (PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) == 0) 
 		|| !(gTacticalStatus.uiFlags & WANT_MILITIA_REINFORCEMENTS)
-		|| !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) 
+		|| (NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) == 0)
 		) 
 		return;
 	//gGameExternalOptions.guiMaxMilitiaSquadSize - CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY );

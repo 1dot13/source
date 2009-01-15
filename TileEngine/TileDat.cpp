@@ -605,7 +605,7 @@ UINT8	gTileTypeLogicalHeight[ NUMBEROFTILETYPES ] =
 
 void	SetSpecificDatabaseValues( UINT16 usType, UINT16 uiDatabaseElem, TILE_ELEMENT *TileElement, BOOLEAN fUseRaisedObjectType )
 {
-	UINT8						ubLoop;
+	UINT8 ubLoop;
 	INT16						sIndexDiff;
 	UINT32					cnt;
 

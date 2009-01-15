@@ -23,15 +23,12 @@
 // undefine _DEBUG or you get linker errors.
 
 
-#ifdef JA2_PRECOMPILED_HEADERS
-	#include "JA2 SGP ALL.H"
-#elif defined( WIZ8_PRECOMPILED_HEADERS )
-	#include "WIZ8 SGP ALL.H"
-#else
 	#include "types.h"
 	#include <windows.h>
 	#include <ddeml.h>
 	#include <stdio.h>
+	#include <string>
+	#include <sstream>
 	#include "debug.h"
 	#include "WCheck.h"
 	#include "TopicIDs.h"
@@ -51,7 +48,8 @@
 	#ifndef _NO_DEBUG_TXT
 		#include "fileman.h"
 	#endif
-#endif
+#include	"GameSettings.h"
+#include "SaveLoadGame.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,7 +66,7 @@ INT32		giProfileCount;
 // they are required for the String() function, which is NOT a 
 // debug-mode only function, it's used in release-mode as well! -- DB
  
-CHAR8 gubAssertString[512];//for long filenames
+CHAR8 gubAssertString[512];
 
 #define MAX_MSG_LENGTH2 512
 CHAR8		gbTmpDebugString[8][MAX_MSG_LENGTH2];
@@ -99,43 +97,16 @@ extern "C" {
 //
 //**************************************************************************
 
-UINT16 TOPIC_MEMORY_MANAGER = INVALID_TOPIC;
-UINT16 TOPIC_FILE_MANAGER = INVALID_TOPIC;
-UINT16 TOPIC_DATABASE_MANAGER = INVALID_TOPIC;
-UINT16 TOPIC_GAME = INVALID_TOPIC;
-UINT16 TOPIC_SGP = INVALID_TOPIC;
-UINT16 TOPIC_VIDEO = INVALID_TOPIC;
-UINT16 TOPIC_INPUT = INVALID_TOPIC;
-UINT16 TOPIC_STACK_CONTAINERS = INVALID_TOPIC;
-UINT16 TOPIC_LIST_CONTAINERS = INVALID_TOPIC;
-UINT16 TOPIC_QUEUE_CONTAINERS = INVALID_TOPIC;
-UINT16 TOPIC_PRILIST_CONTAINERS = INVALID_TOPIC;
-UINT16 TOPIC_HIMAGE = INVALID_TOPIC;
-UINT16 TOPIC_ORDLIST_CONTAINERS = INVALID_TOPIC;
-UINT16 TOPIC_3DENGINE = INVALID_TOPIC;
-UINT16 TOPIC_VIDEOOBJECT = INVALID_TOPIC;
-UINT16 TOPIC_FONT_HANDLER = INVALID_TOPIC;
-UINT16 TOPIC_VIDEOSURFACE = INVALID_TOPIC;
-UINT16 TOPIC_MOUSE_SYSTEM = INVALID_TOPIC;
-UINT16 TOPIC_BUTTON_HANDLER = INVALID_TOPIC;
-UINT16 TOPIC_MUTEX = INVALID_TOPIC;
-UINT16 TOPIC_JA2 = 3;
-UINT16 TOPIC_BLIT_QUEUE = INVALID_TOPIC;
-UINT16 TOPIC_JA2OPPLIST = 2;
-UINT16 TOPIC_JA2AI = 1;
-
 
 UINT32	guiTimerID = 0;
-UINT8		guiDebugLevels[NUM_TOPIC_IDS];	// don't change this, Luis!!!!
 
-BOOLEAN		gfDebugTopics[MAX_TOPICS_ALLOTED];
-UINT16 		*gpDbgTopicPtrs[MAX_TOPICS_ALLOTED];
-
+bool           gfDebugTopics[MAX_TOPICS_ALLOTED];
 
 // remove debug .txt file
 void RemoveDebugText( void );
 
-STRING512 gpcDebugLogFileName;
+STRING512 debugLogFileName;
+FILE * debugLogFile = 0;
 
 #ifdef __cplusplus
 }
@@ -161,26 +132,26 @@ STRING512 gpcDebugLogFileName;
 //		xxjun98:CJC		->creation
 //
 //**************************************************************************
-BOOLEAN DbgGetLogFileName( STRING512 pcName )
+bool DbgGetLogFileName( STRING512 pcName )
 {
 	// use the provided buffer to get the directory name, then tack on
 	// "\debug.txt"
 #ifndef _NO_DEBUG_TXT
 	if ( ! GetExecutableDirectory( pcName ) )
 	{
-		return( FALSE );
+		return false;
 	}
 
 	if ( strlen( pcName ) > (512 - strlen( "\\debug.txt" ) - 1 ) )
 	{
 		// no room!
-		return( FALSE );
+		return false;
 	}
 
 	strcat( pcName, "\\debug.txt" );
 #endif
 
-	return( TRUE );
+	return true;
 }
 
 
@@ -198,15 +169,8 @@ BOOLEAN DbgGetLogFileName( STRING512 pcName )
 //
 //**************************************************************************
 
-BOOLEAN DbgInitialize(void)
+bool DbgInitialize()
 {
-	INT32 iX;
-
-	for( iX = 0; iX < MAX_TOPICS_ALLOTED; iX++ )
-	{
-		gpDbgTopicPtrs[iX] = NULL;
-	}
-
 	DbgClearAllTopics();
 
 	gfRecordToFile = TRUE;
@@ -214,15 +178,14 @@ BOOLEAN DbgInitialize(void)
 	gubAssertString[0] = '\0';
 
 #ifndef _NO_DEBUG_TXT
-	if (! DbgGetLogFileName( gpcDebugLogFileName ) )
-	{
-		return( FALSE );
+	if (! DbgGetLogFileName( debugLogFileName ) ) {
+		return false;
 	}
 	// clear debug text file out
 	RemoveDebugText( );
 #endif
 
-	return(TRUE);
+	return true;
 }
 
 //**************************************************************************
@@ -239,9 +202,9 @@ BOOLEAN DbgInitialize(void)
 //
 //**************************************************************************
 
-void DbgShutdown(void)
+void DbgShutdown()
 {
-	DbgMessageReal( (UINT16)(-1), CLIENT_SHUTDOWN, 0, "SGP Going Down" );
+	DbgMessageReal( -1, CLIENT_SHUTDOWN, 0, "SGP Going Down" );
 }
 
 
@@ -258,47 +221,26 @@ void DbgShutdown(void)
 //
 //**************************************************************************
 
-void DbgTopicRegistration( UINT8 ubCmd, UINT16 *usTopicID, CHAR8 *zMessage )
+void DbgTopicRegistration( unsigned ubCmd, const unsigned usTopicID, const char *zMessage )
 {
-	UINT16 usIndex,usUse;
-	BOOLEAN fFound;
-
 	if ( usTopicID == NULL )
 		return;
 
+	AssertGE(ubCmd, TOPIC_REGISTER);
+	AssertLE(ubCmd, TOPIC_UNREGISTER);
+
 	if( ubCmd == TOPIC_REGISTER )
 	{
-		usUse = INVALID_TOPIC;
-		fFound = FALSE;
-		for( usIndex = 0; usIndex < MAX_TOPICS_ALLOTED && !fFound; usIndex++)
-		{
-			if ( !gfDebugTopics[usIndex] )
-			{
-				fFound = TRUE;
-				usUse = usIndex;
-			}
-		}
-
-		gfDebugTopics[ usUse ] = TRUE;
-		*usTopicID = usUse;
-		gpDbgTopicPtrs[usUse] = usTopicID;
-		DbgMessageReal(usUse, TOPIC_MESSAGE, DBG_LEVEL_0, zMessage );
+		gfDebugTopics[ usTopicID ] = true;
+		DbgMessageReal(usTopicID, TOPIC_MESSAGE, DBG_LEVEL_0, zMessage );
 	}
 	else if( ubCmd == TOPIC_UNREGISTER )
 	{
-		if ( *usTopicID >= MAX_TOPICS_ALLOTED )
+		if ( usTopicID >= MAX_TOPICS_ALLOTED )
 			return;
 
-		DbgMessageReal( *usTopicID, TOPIC_MESSAGE, DBG_LEVEL_0, zMessage );
-		gfDebugTopics[ *usTopicID ] = FALSE;
-
-
-		if (gpDbgTopicPtrs[ *usTopicID ] != NULL )
-		{
-			gpDbgTopicPtrs[ *usTopicID ] = NULL;
-		}
-
-		*usTopicID = INVALID_TOPIC;
+		DbgMessageReal( usTopicID, TOPIC_MESSAGE, DBG_LEVEL_0, zMessage );
+		gfDebugTopics[ usTopicID ] = false;
 	}
 }
 
@@ -309,9 +251,10 @@ void DbgTopicRegistration( UINT8 ubCmd, UINT16 *usTopicID, CHAR8 *zMessage )
 //
 // *************************************************************************
 
-void RemoveDebugText( void )
+void RemoveDebugText()
 {
-	DeleteFile( gpcDebugLogFileName );
+	DeleteFile( debugLogFileName );
+	debugLogFile = 0;
 }
 
 
@@ -330,16 +273,9 @@ void RemoveDebugText( void )
 
 void DbgClearAllTopics( void )
 {
-	UINT16 usIndex;
-
-	for( usIndex = 0; usIndex < MAX_TOPICS_ALLOTED; usIndex++)
+	for( unsigned usIndex = 0; usIndex < MAX_TOPICS_ALLOTED; usIndex++)
 	{
-		gfDebugTopics[ usIndex ] = FALSE;
-		if ( gpDbgTopicPtrs[ usIndex ] != NULL )
-		{
-			*gpDbgTopicPtrs[usIndex] = INVALID_TOPIC;
-			gpDbgTopicPtrs[usIndex] = NULL;
-		}
+		gfDebugTopics[ usIndex ] = false;
 	}
 }
 
@@ -356,13 +292,13 @@ void DbgClearAllTopics( void )
 //		xxnov96:HJH		->creation
 //
 //**************************************************************************
-void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, STR8 strMessage)
+void DbgMessageReal(unsigned uiTopicId, unsigned uiCommand, unsigned uiDebugLevel, const char* strMessage)
 {
 #ifndef _NO_DEBUG_TXT
-  FILE      *OutFile;
+  static FILE      *OutFile = 0;
 #endif
 	// Check for a registered topic ID
-	if ( uiTopicId < MAX_TOPICS_ALLOTED )//&& gfDebugTopics[uiTopicId] )
+	if ( (uiTopicId < MAX_TOPICS_ALLOTED) && (gfDebugTopics[uiTopicId]) )
 	{
 		OutputDebugString ( strMessage );
 		OutputDebugString ( "\n" );
@@ -370,10 +306,11 @@ void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, STR8 
 //add _NO_DEBUG_TXT to your SGP preprocessor definitions to avoid this f**king huge file from 
 //slowly growing behind the scenes!!!!
 #ifndef _NO_DEBUG_TXT
-		if ((OutFile = fopen(gpcDebugLogFileName, "a+t")) != NULL)
-		{ 
-			fprintf(OutFile, "%s\n", strMessage);
-			fclose(OutFile);
+		if (!debugLogFile)
+			debugLogFile = fopen(debugLogFileName, "a+t");
+	    if (debugLogFile) { 
+			fprintf(debugLogFile, "%s\n", strMessage);
+			fflush( debugLogFile );
 		}
 #endif
 	}
@@ -393,39 +330,9 @@ void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, STR8 
 //
 //**************************************************************************
 
-BOOLEAN DbgSetDebugLevel(UINT16 uiTopicId, UINT8 uiDebugLevel)
+bool DbgSetDebugLevel(unsigned uiTopicId, unsigned uiDebugLevel)
 {
-	return(TRUE);
-}
-
-//**************************************************************************
-//
-// DbgFailedAssertion
-//
-//		
-//
-// Parameter List :
-// Return Value :
-// Modification history :
-//
-//		xxnov96:HJH		->creation
-//
-//**************************************************************************
-
-void DbgFailedAssertion( BOOLEAN fExpression, STR8 szFile, int nLine )
-{
-#ifndef _NO_DEBUG_TXT
-  FILE *OutFile;
-
-	if ( fExpression == FALSE )
-	{
-		if ((OutFile = fopen(gpcDebugLogFileName, "a+t")) != NULL)
-		{ 
-		  fprintf(OutFile, "Assertion Failed at:\n    line %i\n    %s\n", nLine, szFile);
-	    fclose(OutFile);
-		}
-	}
-#endif
+	return true;
 }
 
 
@@ -447,12 +354,9 @@ void			_DebugRecordToDebugger(BOOLEAN gfState)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Wiz8 compatible debug messaging
 
-void			_DebugMessage(UINT8 *pString, UINT32 uiLineNum, UINT8 *pSourceFile)
+void			_DebugMessage(const char *pString, unsigned uiLineNum, const char *pSourceFile)
 {
 	CHAR8 ubOutputString[512];
-#ifndef _NO_DEBUG_TXT
-	FILE *DebugFile;
-#endif
 
 	//
 	// Build the output string
@@ -476,83 +380,78 @@ void			_DebugMessage(UINT8 *pString, UINT32 uiLineNum, UINT8 *pSourceFile)
 #ifndef _NO_DEBUG_TXT
 	if (gfRecordToFile)
 	{
-		if ((DebugFile = fopen( gpcDebugLogFileName, "a+t" )) != NULL)
-		{
-			fputs( ubOutputString, DebugFile );
-			fclose( DebugFile );
+		if (!debugLogFile)
+			debugLogFile = fopen( debugLogFileName, "a+t" );
+		if (debugLogFile) {
+			fputs( ubOutputString, debugLogFile );
+			fflush( debugLogFile );
 		}
 	}
 #endif
 }
 #else
-BOOLEAN	DbgInitialize(void) { return true; };
-void		DbgShutdown(void) {};
+bool	DbgInitialize() { return true; };
+void	DbgShutdown() {};
 #endif
 
 
-#if defined ( _DEBUG ) || defined ( FORCE_ASSERTS_ON )
+#ifdef FORCE_ASSERTS_ON
 
 
 //////////////////////////////////////////////////////////////////////
-// This func is used by Assert()
-void _Null(void)
-{
-}
 
 extern HVOBJECT FontObjs[25];
 
-#ifdef JA2 //JAGGED ALLIANCE 2 VERSION ONLY
-void _FailMessage( STR8 pString, UINT32 uiLineNum, STR8 pSourceFile )
+
+void _FailMessage(const char* message, unsigned lineNum, const char * functionName, const char* sourceFileName)
 {
-	CHAR8 ubOutputString[512];
-#ifndef _NO_DEBUG_TXT
-	MSG Message;
-//	FILE *DebugFile;
-#endif
+	// This function shouldn't recurse
+	static bool alreadyInThisFunction = false;
+	if (alreadyInThisFunction)
+		return;
+	alreadyInThisFunction = true;
+
+	std::stringstream basicInformation;
+	basicInformation << "Assertion Failure [Line " << lineNum;
+	if (functionName) {
+		basicInformation << " in function " << functionName;
+	}
+	basicInformation << " in file " << sourceFileName << "]";
+
+	std::stringstream outputString;
+	outputString << "{ " << GetTickCount() << " } " << basicInformation;
+
 	//Build the output strings
-	sprintf( ubOutputString, "{ %ld } Assertion Failure [Line %d in \n%c %s]\n", GetTickCount(), uiLineNum, '\n', pSourceFile );
-	if( pString )
-		sprintf( gubAssertString, pString );	
+	if( message )
+		sprintf( gubAssertString, message );	
 	else
 		sprintf( gubAssertString, "" );
 
 	//Output to debugger
 	if (gfRecordToDebugger)
-		OutputDebugString( ubOutputString );
+		OutputDebugString( outputString.str().c_str() );
 	
-	//Record to file if required
-#ifndef _NO_DEBUG_TXT
-#if 0
-	if (gfRecordToFile)
-	{
-		if ((DebugFile = fopen( gpcDebugLogFileName, "a+t" )) != NULL)
-		{
-			fputs( ubOutputString, DebugFile );
-			fclose( DebugFile );
-		}
-	}
-#endif
-	// 0verhaul:  Replacement for the above.  More consistent.
-	DbgMessage( TOPIC_GAME, DBG_LEVEL_1, ubOutputString);
+	DbgMessage( TOPIC_GAME, DBG_LEVEL_1, outputString.str().c_str());
 
-
-#if 0
-	if( !FontObjs[0] )
-	{ //Font manager hasn't yet been initialized so use the windows error system
-		sprintf( gubErrorText, "Assertion Failure -- Line %d in %s", uiLineNum, pSourceFile );
-		MessageBox( NULL, gubErrorText, "Jagged Alliance 2 v1.13", MB_OK );
-		gfProgramIsRunning = FALSE;
-		return;
-	}
-#endif
-
-	//Kris:
-	//NASTY HACK, THE GAME IS GOING TO DIE ANYWAY, SO WHO CARES WHAT WE DO.
 	//This will actually bring up a screen that prints out the assert message
 	//until the user hits esc or alt-x.
-	sprintf( gubErrorText, "Assertion Failure -- Line %d in %s %s", uiLineNum, std::string("\n").c_str(), pSourceFile );
+	// WDS - Automatically try to save when an assertion failure occurs
+	if (gGameExternalOptions.autoSaveOnAssertionFailure &&
+		!alreadySaving) {
+		sprintf( gubErrorText, "%s. Attempting to do a debug save as SaveGame%d.sav (this may fail)", basicInformation.str().c_str(), SAVE__ASSERTION_FAILURE );
+	} else {
+		sprintf( gubErrorText, "%s", basicInformation.str().c_str());
+	}
 	SetPendingNewScreen( ERROR_SCREEN );
 	SetCurrentScreen( ERROR_SCREEN );
+
+	// WDS - Automatically try to save when an assertion failure occurs
+	if (gGameExternalOptions.autoSaveOnAssertionFailure &&
+		!alreadySaving) {
+		SaveGame( SAVE__ASSERTION_FAILURE, L"Assertion Failure Auto Save" );
+	}
+
+    MSG Message;
 	while (gfProgramIsRunning)
 	{
 		if (PeekMessage(&Message, NULL, 0, 0, PM_NOREMOVE))
@@ -571,54 +470,10 @@ void _FailMessage( STR8 pString, UINT32 uiLineNum, STR8 pSourceFile )
 			gfSGPInputReceived  =  FALSE;			
 		}
 	}
-#endif
+
+	alreadyInThisFunction = false;
 	exit(0);
 }
-
-#else //NOT JAGGED ALLIANCE 2
-
-void _FailMessage(STR8 pString, UINT32 uiLineNum, STR8 pSourceFile)
-{
-	CHAR8 ubOutputString[512];
-	BOOLEAN fDone = FALSE;
-
-#ifndef _NO_DEBUG_TXT
-	FILE *DebugFile;
-#endif
-
-
-	// Build the output string
-	sprintf( ubOutputString, "{ %ld } Assertion Failure: %s [Line %d in %s]\n", GetTickCount(), pString, uiLineNum, pSourceFile );
-	if( pString )
-		sprintf( gubAssertString, pString );
-	// Output to debugger
-	if (gfRecordToDebugger)
-	{
-		OutputDebugString( ubOutputString );
-		if( pString )
-		{ //tag on the assert message
-			OutputDebugString( gubAssertString );
-		}
-	}
-	// Record to file if required
-#ifndef _NO_DEBUG_TXT
-	if (gfRecordToFile)
-	{
-		if ((DebugFile = fopen( gpcDebugLogFileName, "a+t" )) != NULL)
-		{
-			fputs( ubOutputString, DebugFile );
-			if( pString )
-			{ //tag on the assert message
-				fputs( gubAssertString, DebugFile );
-			}
-			fclose( DebugFile );
-		}
-	}
-#endif
-	exit( 0 );
-}
-
-#endif
 
 #endif
 

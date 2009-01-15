@@ -36,6 +36,7 @@
 		#include "video2.h"
 	#endif
 #endif
+#include <vector>
 
 
 //ATE: Added to let Wiz default creating mouse regions with no cursor, JA2 default to a cursor ( first one )
@@ -133,14 +134,16 @@ GUI_BUTTON *gpCurrentFastHelpButton;
 
 BOOLEAN gfRenderHilights = TRUE;
 
-BUTTON_PICS		ButtonPictures[MAX_BUTTON_PICS];
+//BUTTON_PICS		ButtonPictures[MAX_BUTTON_PICS];
+std::vector<BUTTON_PICS> ButtonPictures(MAX_BUTTON_PICS);
 INT32					ButtonPicsLoaded;
 
 UINT32 ButtonDestBuffer = BACKBUFFER;
 UINT32 ButtonDestPitch = 640*2;
 UINT32 ButtonDestBPP = 16;
 
-GUI_BUTTON *ButtonList[MAX_BUTTONS];
+//GUI_BUTTON *ButtonList[MAX_BUTTONS];
+std::vector<GUI_BUTTON *> ButtonList(MAX_BUTTONS);
 
 INT32 ButtonsInList=0;
 

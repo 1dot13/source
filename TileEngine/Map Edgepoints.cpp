@@ -1087,8 +1087,9 @@ void ChooseMapEdgepoints( MAPEDGEPOINTINFO *pMapEdgepointInfo, UINT8 ubStrategic
 	UINT16 usSlots, usCurrSlot;
 	INT16 *psTempArray = NULL;
 
-	AssertMsg( ubNumDesiredPoints > 0	&& ubNumDesiredPoints <= 32,
-		String( "ChooseMapEdgepoints:	Desired points = %d, valid range is 1-32", ubNumDesiredPoints ) );
+// WDS 07/20/2008 - beta 4 problem
+//	AssertMsg( ubNumDesiredPoints > 0	&& ubNumDesiredPoints <= 32,
+//		String( "ChooseMapEdgepoints:	Desired points = %d, valid range is 1-32", ubNumDesiredPoints ) );
 	//First validate and get access to the correct array based on strategic direction.
 	//We will use the selected array to choose insertion gridno's.
 	switch( ubStrategicInsertionCode )

@@ -3,6 +3,7 @@
 
 #include "Soldier Control.h"
 #include "FileMan.h"
+#include "Overhead Types.h"
 
 // header for squad management system
 #define NUMBER_OF_SOLDIERS_PER_SQUAD 6

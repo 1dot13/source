@@ -18,9 +18,13 @@
 	#include "finances.h"
 	#include "history.h"
 	#include "Dialogue Control.h"
+	#include "Strategic AI.h"
 #endif
 
+#include "SaveLoadGame.h"
+#include "GameSettings.h"
 #include "connect.h"
+
 void HourlyQuestUpdate( void );
 void HourlyLarryUpdate( void );
 
@@ -74,12 +78,19 @@ void HandleHourlyUpdate()
 
 	HourlyCheckIfSlayAloneSoHeCanLeave();
 
-	PayOffSkyriderDebtIfAny();
+	// WDS - New AI
+	HourlyCheckStrategicAI();
 
+	PayOffSkyriderDebtIfAny();
 
 	if ( GetWorldHour() % 6 == 0 ) // 4 times a day
 	{
 		UpdateRegenCounters();
+	}
+
+	if ((gGameExternalOptions.autoSaveTime != 0) && 
+		(GetWorldHour() % gGameExternalOptions.autoSaveTime == 0)) {
+		SaveGame( SAVE__TIMED_AUTOSAVE, L"Auto Save" );
 	}
 }
 

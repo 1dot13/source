@@ -2,11 +2,25 @@
 #define __CAMPAIGN_TYPES_H
 
 #include "types.h"
+#include "DEBUG.H"
+
+const int MAXIMUM_VALID_X_COORDINATE = 16;
+const int MINIMUM_VALID_X_COORDINATE = 1;
+const int MAXIMUM_VALID_Y_COORDINATE = 16;
+const int MINIMUM_VALID_Y_COORDINATE = 1;
+const int MAXIMUM_VALID_Z_COORDINATE = 3;
+const int MINIMUM_VALID_Z_COORDINATE = 0;
 
 //Macro to convert sector coordinates (1-16,1-16) to 0-255
-#define SECTOR(x,y)			(UINT8)((y-1)*16+x-1)
-#define SECTORX(SectorID)	(UINT8)((SectorID % 16) + 1)
-#define SECTORY(SectorID)	(UINT8)((SectorID / 16) + 1)
+#define SECTOR(x,y)			(UINT8)(AssertGE(x, MINIMUM_VALID_X_COORDINATE), \
+	                                AssertLE(x, MAXIMUM_VALID_X_COORDINATE), \
+	                                AssertGE(y, MINIMUM_VALID_Y_COORDINATE), \
+	                                AssertLE(y, MAXIMUM_VALID_Y_COORDINATE), \
+									((y-1)*16+x-1))
+#define SECTORX(SectorID)	(UINT8)(AssertLE(SectorID, MAXIMUM_VALID_X_COORDINATE*MAXIMUM_VALID_Y_COORDINATE), \
+	                                ((SectorID % 16) + 1))
+#define SECTORY(SectorID)	(UINT8)(AssertLE(SectorID, MAXIMUM_VALID_X_COORDINATE*MAXIMUM_VALID_Y_COORDINATE), \
+	                                ((SectorID / 16) + 1))
 
 //Sector enumerations
 //
@@ -264,7 +278,9 @@ typedef struct UNDERGROUND_SECTORINFO
 
 //The sector information required for the strategic AI.	Contains the number of enemy troops,
 //as well as intentions, etc.
-extern SECTORINFO SectorInfo[256];
+//extern SECTORINFO SectorInfo[256];
+extern std::vector<SECTORINFO> SectorInfo;
+
 extern UNDERGROUND_SECTORINFO *gpUndergroundSectorInfoHead;
 
 #endif

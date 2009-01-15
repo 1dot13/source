@@ -26,6 +26,8 @@
 	#include "HelpScreen.h"
 	#include "Map Screen Helicopter.h"
 	#include "Tactical Save.h"
+	#include "GameSettings.h"
+	#include "debug.h"
 #endif
 
 
@@ -94,6 +96,12 @@ void MinWidthOfTownMineInfoBox( void );
 void DisplayTownInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
 	// will display town info for a particular town
+	AssertGE( sMapX, MINIMUM_VALID_X_COORDINATE);
+	AssertLE( sMapX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sMapY, MINIMUM_VALID_Y_COORDINATE);
+	AssertLE( sMapY, MAXIMUM_VALID_Y_COORDINATE );
+	AssertGE( bMapZ, bMapZ );
+	AssertLE( bMapZ, bMapZ );
 
 	// set current sector
 	if( ( bCurrentTownMineSectorX != sMapX ) || ( bCurrentTownMineSectorY != sMapY ) || ( bCurrentTownMineSectorZ != bMapZ ) )
@@ -646,6 +654,8 @@ void AddCommonInfoToBox(void)
 
 	// how many are there, really?
 	ubNumEnemies = NumEnemiesInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY );
+	AssertGE(gGameExternalOptions.ubGameMaximumNumberOfEnemies, NumFreeEnemySlots());
+	unsigned numEnemiesOnMap = gGameExternalOptions.ubGameMaximumNumberOfEnemies - NumFreeEnemySlots();
 
 	switch ( WhatPlayerKnowsAboutEnemiesInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) )
 	{
@@ -670,7 +680,10 @@ void AddCommonInfoToBox(void)
 
 		case KNOWS_HOW_MANY:
 			// show exactly how many
-			swprintf( wString, L"%d", ubNumEnemies );
+			if (numEnemiesOnMap != ubNumEnemies)
+				swprintf( wString, L"%d (%d)", numEnemiesOnMap, ubNumEnemies );
+			else
+				swprintf( wString, L"%d", ubNumEnemies );
 			break;
 	}
 

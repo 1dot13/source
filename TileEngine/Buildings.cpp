@@ -472,7 +472,7 @@ INT16 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT16 sStartGridNo, INT16 sD
 #else
 	UINT8				ubNumClimbSpots;
 	INT16 *			psClimbSpots;
-	UINT8				ubLoop;
+	UINT8 ubLoop;
 #endif
 	INT16				sDistance, sClosestDistance = 1000, sClosestSpot= NOWHERE;
 

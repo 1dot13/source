@@ -7,6 +7,7 @@
 #include "Strategic Movement.h"
 
 #define	MAX_VEHICLES	10
+extern std::vector<INT8>	gubVehicleMovementGroups;
 
 // type of vehicles
 enum{
@@ -232,6 +233,10 @@ BOOLEAN DoesVehicleHaveAnyPassengers( INT32 iVehicleID );
 BOOLEAN DoesVehicleGroupHaveAnyPassengers( GROUP *pGroup );
 
 void SetSoldierExitVehicleInsertionData( SOLDIERTYPE *pSoldier, INT32 iId );
+
+void InitAVehicle(int index, int x, int y);
+
+void InitAllVehicles( );
 
 
 #endif

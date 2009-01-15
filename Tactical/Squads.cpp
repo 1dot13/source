@@ -18,7 +18,9 @@
 	#include "jascreens.h"
 	#include "screenids.h"
 	#include "Soldier macros.h"
+	#include "GameSettings.h"
 #endif
+#include <vector>
 
 
 typedef struct
@@ -341,9 +343,8 @@ BOOLEAN AddCharacterToAnySquad( SOLDIERTYPE *pCharacter )
 	RemoveCharacterFromSquads( pCharacter );
 
 	// first look for a compatible NON-EMPTY squad (don't start new squad if we don't have to)
-	for( bCounter = 0; bCounter < NUMBER_OF_SQUADS; bCounter++ )
-	{
-		if( SquadIsEmpty( bCounter ) == FALSE )
+	for( bCounter = 0; bCounter < NUMBER_OF_SQUADS; bCounter++ ) {
+		if( !SquadIsEmpty( bCounter ) )
 		{
 			if( AddCharacterToSquad( pCharacter, bCounter ) == TRUE )
 			{
@@ -400,24 +401,19 @@ INT8 AddCharacterToUniqueSquad( SOLDIERTYPE *pCharacter )
 	return( -1 );
 }
 
+// WDS - make number of mercenaries, etc. be configurable
 void SortSquadByID( INT8 bSquadValue )
 {
-	INT8		teamOrder[18] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
-
-	for(int count = 0; count < NUMBER_OF_SOLDIERS_PER_SQUAD; count ++)
-	{
-		if(Squad[bSquadValue][0] != NULL)
-		{
-			teamOrder[Squad[bSquadValue][0]->ubID] = count;
-			RemoveCharacterFromSquads( Squad[bSquadValue][0] );
-		}
-	}
-	for(int count = 0; count < 18; count++)
-	//for(int count = 17; count >= 0; count--)
-	{
-		if(teamOrder[count] != -1)
-		{
-			AddCharacterToSquad(MercPtrs[count], bSquadValue);
+	for(unsigned idx1 = 0; idx1 < NUMBER_OF_SOLDIERS_PER_SQUAD-1; ++idx1) {
+		if (Squad[bSquadValue][idx1]) {
+			for(unsigned idx2 = idx1+1; idx2 < NUMBER_OF_SOLDIERS_PER_SQUAD; ++idx2) {
+				if (Squad[bSquadValue][idx2] &&
+					(Squad[bSquadValue][idx2]->ubID < Squad[bSquadValue][idx1]->ubID)) {
+					SOLDIERTYPE *temp = Squad[bSquadValue][idx1];
+					Squad[bSquadValue][idx1] = Squad[bSquadValue][idx2];
+					Squad[bSquadValue][idx2] = temp;
+				}
+			}
 		}
 	}
 }
@@ -914,7 +910,7 @@ void RebuildCurrentSquad( void )
 void ExamineCurrentSquadLights( void )
 {
 	// rebuilds current squad to reset faces in tactical
-	UINT8	ubLoop;
+	UINT8 ubLoop;
 
 	// OK, we should add lights for any guy currently bInSector who is not bad OKLIFE...
 	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;

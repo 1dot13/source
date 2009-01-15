@@ -2473,7 +2473,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 									//no crates in sector inventory.  search merc inventories
 									if(mergeSuccessful == false)
 									{
-										for(int loop=0; loop<18; loop++)
+										for(int loop=0; loop<(int)gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs; loop++)
 										{
 											if(MercPtrs[loop]->bActive && MercPtrs[loop]->bInSector)
 											{
@@ -2818,6 +2818,12 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							//Display the range to the target
 							DisplayRangeToTarget( MercPtrs[ gusSelectedSoldier ], sGridNo );
 						}
+
+						#ifdef JA2TESTVERSION
+							CHAR16	zOutputString[512];
+							swprintf( zOutputString, L"gridno: %d", sGridNo);
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
+						#endif
 					}
 				}
 				break;
@@ -3302,8 +3308,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				INT8		bLoop;
 				for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
 				{
-					if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
-					{
+					if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) ) {
 						SwapGoggles(pTeamSoldier);
 					}
 				}
@@ -5554,134 +5559,228 @@ void PopupMilitiaControlMenu( SOLDIERTYPE *pSoldier )
 	gfIgnoreScrolling = TRUE;
 }
 
+INT32 PickPocket(MERCPROFILESTRUCT *pProfile, UINT8 ppStart, UINT8 ppStop, UINT16 usItem, UINT8 iNumber, UINT8 * cap);
+
+bool BadGoggles(SOLDIERTYPE *pTeamSoldier) {
+    // WDS - Smart goggle switching
+	// NOTE: Investigate using GetItemVisionRangeBonus from Items.cpp???
+	if (!gGameExternalOptions.smartGoggleSwitch) {
+		return false;
+	} else {
+		// Look through the head slots and find any sort of goggle.  Check if it is bad for this time of day.
+		for (int headSlot = HEAD1POS; headSlot <= HEAD2POS; ++headSlot) {
+			if ( (Item[pTeamSoldier->inv[headSlot].usItem].brightlightvisionrangebonus > 0) && !DayTime() ) {
+				return true;
+			} else if ( (Item[pTeamSoldier->inv[headSlot].usItem].nightvisionrangebonus > 0) && DayTime() ) {
+				return true;
+			}
+		}
+
+		// Find the best goggles for the current time of day anywhere in inventory
+		OBJECTTYPE * pGoggles = 0;
+		if (DayTime()) {
+			pGoggles = FindSunGogglesInInv( pTeamSoldier, TRUE );
+		} else {
+			pGoggles = FindNightGogglesInInv( pTeamSoldier, TRUE );
+		}
+
+		if (pGoggles) {
+			// Check that the player is actually wearing them
+			for (int headSlot = HEAD1POS; headSlot <= HEAD2POS; ++headSlot) {
+				if (!(pTeamSoldier->inv[headSlot] == *pGoggles)) {
+//					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
 
 void SwapGoggles(SOLDIERTYPE *pTeamSoldier)
 {
 	/* CHRISL - Adjusted this option to allow the game to search through Helmet attachments
 		as well as inventory positions.
 	*/
-	OBJECTTYPE * pObj;
-	OBJECTTYPE * pGoggles = NULL;
-	INT8		bSlot1;
-	int			bestBonus;
-	bool		itemFound = false;
-	//CHRISL: Before doing anything, we should look at both head slots to see if either slot has some sort of goggles
-	for(bSlot1 = HEAD1POS; bSlot1 <= HEAD2POS; bSlot1++)
-	{
-		if(Item[pTeamSoldier->inv[bSlot1].usItem].brightlightvisionrangebonus > 0)
-			itemFound = true;
-		if(Item[pTeamSoldier->inv[bSlot1].usItem].nightvisionrangebonus > 0)
-			itemFound = true;
-	}
-	//2 head slots
-	for (bSlot1 = HEAD1POS; bSlot1 <= HEAD2POS; bSlot1++)
-	{
-		// if wearing sungoggles
-		if ( Item[pTeamSoldier->inv[bSlot1].usItem].brightlightvisionrangebonus > 0	)
-		{
-			itemFound = true;
-			bestBonus = 0;
-			pGoggles = FindNightGogglesInInv( pTeamSoldier );
-			//search for better goggles on the helmet
-			if (pGoggles)
-			{
-				bestBonus = Item[pGoggles->usItem].nightvisionrangebonus;
-			}
-			//search helmet and vest
-			for(UINT8 gear = HELMETPOS; gear <= VESTPOS; gear++)
-			{
-				pObj = &(pTeamSoldier->inv[gear]);
-				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-				{
-					if ( Item[ iter->usItem ].nightvisionrangebonus > bestBonus && Item[ iter->usItem ].usItemClass == IC_FACE )
-					{
-						pGoggles = &(*iter);
-						bestBonus = Item[ iter->usItem ].nightvisionrangebonus;
-					}
-				}
-			}
-			if ( pGoggles )
-			{
-				SwapObjs( pTeamSoldier, bSlot1, pGoggles, TRUE );
+
+    // WDS - Smart goggle switching
+	// NOTE: Investigate using GetItemVisionRangeBonus from Items.cpp???
+	if (gGameExternalOptions.smartGoggleSwitch) {
+		// Look through the head slots and find any sort of goggle or an empty spot
+		int slotToUse = -1;
+		for (int headSlot = HEAD1POS; headSlot <= HEAD2POS; ++headSlot) {
+			if ( (Item[pTeamSoldier->inv[headSlot].usItem].brightlightvisionrangebonus > 0) ) {
+				slotToUse = headSlot;
 				break;
+			} else if ( (Item[pTeamSoldier->inv[headSlot].usItem].nightvisionrangebonus > 0) ) {
+				slotToUse = headSlot;
+				break;
+			} else if (pTeamSoldier->inv[headSlot].exists() == false) {
+				slotToUse = headSlot;
 			}
 		}
-		// else if wearing NVGs
-		else if(Item[pTeamSoldier->inv[bSlot1].usItem].nightvisionrangebonus > 0)
-		{
-			itemFound = true;
-			bestBonus = 0;
-			pGoggles = FindSunGogglesInInv( pTeamSoldier );
-			//search for better goggles on the helmet
-			if (pGoggles)
-			{
-				bestBonus = Item[pGoggles->usItem].brightlightvisionrangebonus;
+		if (slotToUse == -1) {
+			// No place to swap in a new goggle, give up
+			return;
+		}
+
+		// Find the best goggles for the current time of day anywhere in inventory
+		OBJECTTYPE * pGoggles = 0;
+		if (DayTime()) {
+			pGoggles = FindSunGogglesInInv( pTeamSoldier, TRUE );
+		} else {
+			pGoggles = FindNightGogglesInInv( pTeamSoldier, TRUE );
+		}
+
+		if (pGoggles) {
+			// Now either swap or equip the best one that was found
+			if (pTeamSoldier->inv[slotToUse].exists()) {
+				SwapObjs( pTeamSoldier, slotToUse, pGoggles, TRUE );
+			} else {
+				pGoggles->MoveThisObjectTo(pTeamSoldier->inv[slotToUse], 1, pTeamSoldier, slotToUse);
 			}
-			//search helmet and vest
-			for(UINT8 gear = HELMETPOS; gear <= VESTPOS; gear++)
-			{
-				pObj = &(pTeamSoldier->inv[gear]);
-				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-				{
-					if ( Item[ iter->usItem ].brightlightvisionrangebonus > bestBonus && Item[ iter->usItem ].usItemClass == IC_FACE )
-					{
-						pGoggles = &(*iter);
-						bestBonus = Item[ iter->usItem ].brightlightvisionrangebonus;
+		} else {
+			// No goggles to equip, should the current ones be unequiped?
+			if (pTeamSoldier->inv[slotToUse].exists()) {
+				if ((DayTime() && (Item[pTeamSoldier->inv[slotToUse].usItem].nightvisionrangebonus > 0)) ||
+				    (!DayTime() && (Item[pTeamSoldier->inv[slotToUse].usItem].brightlightvisionrangebonus > 0))) {
+					// It's day and we're wearing night goggles (or vice-versa), find a place to stash them
+					if (pTeamSoldier->inv[ HELMETPOS ].exists()) {
+						if (pTeamSoldier->inv[ HELMETPOS ].AttachObject( NULL, &pTeamSoldier->inv[slotToUse] )) {
+							// It worked!
+						} else {
+							// Try dumping it anywhere in inventory because it doesn't attach to the helmet
+						}
+					} else {
+						// Try dumping it anywhere in inventory given there's no helemt
 					}
 				}
-			}
-			if ( pGoggles )
-			{
-				SwapObjs( pTeamSoldier, bSlot1, pGoggles, TRUE );
-				break;
 			}
 		}
-		// else if not wearing anything and no goggles found
-		else if(itemFound == false && pTeamSoldier->inv[bSlot1].exists() == false)
+	} else {
+		// Normal goggle switching
+		OBJECTTYPE * pObj;
+		OBJECTTYPE * pGoggles = NULL;
+		INT8		bSlot1;
+		int			bestBonus;
+		bool		itemFound = false;
+
+		//CHRISL: Before doing anything, we should look at both head slots to see if either slot has some sort of goggles
+		for (bSlot1 = HEAD1POS; bSlot1 <= HEAD2POS; bSlot1++) {
+			if ((Item[pTeamSoldier->inv[bSlot1].usItem].brightlightvisionrangebonus > 0) ||
+				(Item[pTeamSoldier->inv[bSlot1].usItem].nightvisionrangebonus > 0))
+				itemFound = true;
+		}
+		//2 head slots
+		for (bSlot1 = HEAD1POS; bSlot1 <= HEAD2POS; bSlot1++)
 		{
-			bestBonus = 0;
-			// search helmet and vest for goggles of some kind
-			for(UINT8 gear = HELMETPOS; gear <= VESTPOS; gear++)
+			// if wearing sungoggles
+			if ( (Item[pTeamSoldier->inv[bSlot1].usItem].brightlightvisionrangebonus > 0) )
 			{
-				pObj = &(pTeamSoldier->inv[gear]);
-				for(attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+				bestBonus = 0;
+				pGoggles = FindNightGogglesInInv( pTeamSoldier );
+				//search for better goggles on the helmet
+				if (pGoggles)
 				{
-					if(DayTime() == TRUE && Item[iter->usItem].brightlightvisionrangebonus > bestBonus && Item[iter->usItem].usItemClass == IC_FACE)
+					bestBonus = Item[pGoggles->usItem].nightvisionrangebonus;
+				}
+				//search helmet and vest
+				for(UINT8 gear = HELMETPOS; gear <= VESTPOS; gear++)
+				{
+					pObj = &(pTeamSoldier->inv[gear]);
+					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 					{
-						pGoggles = &(*iter);
-						bestBonus = Item[iter->usItem].brightlightvisionrangebonus;
-					}
-					else if(NightTime() == TRUE && Item[iter->usItem].nightvisionrangebonus > bestBonus && Item[iter->usItem].usItemClass == IC_FACE)
-					{
-						pGoggles = &(*iter);
-						bestBonus = Item[iter->usItem].nightvisionrangebonus;
+						if ( Item[ iter->usItem ].nightvisionrangebonus > bestBonus && Item[ iter->usItem ].usItemClass == IC_FACE )
+						{
+							pGoggles = &(*iter);
+							bestBonus = Item[ iter->usItem ].nightvisionrangebonus;
+						}
 					}
 				}
-				if(pGoggles)
-				{
-					pGoggles->MoveThisObjectTo(pTeamSoldier->inv[bSlot1], 1, pTeamSoldier, bSlot1);
-					pObj->RemoveAttachment(pGoggles);
-					break;
-				}
-			}
-			if(pTeamSoldier->inv[bSlot1].exists() == false)
-			{
-				if(DayTime() == TRUE)
-					pGoggles = FindSunGogglesInInv( pTeamSoldier );
-				else
-					pGoggles = FindNightGogglesInInv( pTeamSoldier );
-				if(pGoggles)
+				if ( pGoggles )
 				{
 					SwapObjs( pTeamSoldier, bSlot1, pGoggles, TRUE );
 					break;
 				}
 			}
-			else
+			// else if wearing NVGs
+			else if(Item[pTeamSoldier->inv[bSlot1].usItem].nightvisionrangebonus > 0 )
 			{
-				break;
+				bestBonus = 0;
+				pGoggles = FindSunGogglesInInv( pTeamSoldier );
+				//search for better goggles on the helmet
+				if (pGoggles)
+				{
+					bestBonus = Item[pGoggles->usItem].brightlightvisionrangebonus;
+				}
+				//search helmet and vest
+				for(UINT8 gear = HELMETPOS; gear <= VESTPOS; gear++)
+				{
+					pObj = &(pTeamSoldier->inv[gear]);
+					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+					{
+						if ( Item[ iter->usItem ].brightlightvisionrangebonus > bestBonus && Item[ iter->usItem ].usItemClass == IC_FACE )
+						{
+							pGoggles = &(*iter);
+							bestBonus = Item[ iter->usItem ].brightlightvisionrangebonus;
+						}
+					}
+				}
+				if ( pGoggles )
+				{
+					SwapObjs( pTeamSoldier, bSlot1, pGoggles, TRUE );
+					break;
+				}
+			}
+			// else if not wearing anything and no goggles found
+			else if(itemFound == false && pTeamSoldier->inv[bSlot1].exists() == false)
+			{
+				bestBonus = 0;
+				// search helmet and vest for goggles of some kind
+				for(UINT8 gear = HELMETPOS; gear <= VESTPOS; gear++)
+				{
+					pObj = &(pTeamSoldier->inv[gear]);
+					for(attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+					{
+						if(DayTime() == TRUE && Item[iter->usItem].brightlightvisionrangebonus > bestBonus && Item[iter->usItem].usItemClass == IC_FACE)
+						{
+							pGoggles = &(*iter);
+							bestBonus = Item[iter->usItem].brightlightvisionrangebonus;
+						}
+						else if(NightTime() == TRUE && Item[iter->usItem].nightvisionrangebonus > bestBonus && Item[iter->usItem].usItemClass == IC_FACE)
+						{
+							pGoggles = &(*iter);
+							bestBonus = Item[iter->usItem].nightvisionrangebonus;
+						}
+					}
+					if(pGoggles)
+					{
+						pGoggles->MoveThisObjectTo(pTeamSoldier->inv[bSlot1], 1, pTeamSoldier, bSlot1);
+						pObj->RemoveAttachment(pGoggles);
+						break;
+					}
+				}
+				if(pTeamSoldier->inv[bSlot1].exists() == false)
+				{
+					if(DayTime() == TRUE)
+						pGoggles = FindSunGogglesInInv( pTeamSoldier );
+					else
+						pGoggles = FindNightGogglesInInv( pTeamSoldier );
+					if(pGoggles)
+					{
+						SwapObjs( pTeamSoldier, bSlot1, pGoggles, TRUE );
+						break;
+					}
+				}
+				else
+				{
+					break;
+				}
 			}
 		}
 	}
+	
+
+
 	fCharacterInfoPanelDirty = TRUE;
 	fTeamPanelDirty = TRUE;
 	fInterfacePanelDirty = DIRTYLEVEL2;

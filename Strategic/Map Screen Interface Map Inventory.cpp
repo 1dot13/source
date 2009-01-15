@@ -2267,10 +2267,9 @@ INT32 MapScreenSectorInventoryCompare( const void *pNum1, const void *pNum2)
 BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier )
 {
 	INT16	sSectorX, sSectorY, sSectorZ;
-	BOOLEAN fInCombat;
 
 	//Get the sector that has a battle
-	fInCombat = GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( &sSectorX, &sSectorY, &sSectorZ );
+	BOOLEAN fInCombat = GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( &sSectorX, &sSectorY, &sSectorZ );
 
 	//if there is a battle going on
 	if( fInCombat )

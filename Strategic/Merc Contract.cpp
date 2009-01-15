@@ -78,8 +78,9 @@ SOLDIERTYPE *pContractReHireSoldier = NULL;
 UINT8		gubContractLength = 0;		//used when extending a mercs insurance contract
 SOLDIERTYPE *gpInsuranceSoldier=NULL;
 
+// WDS - make number of mercenaries, etc. be configurable
 // The values need to be saved!
-CONTRACT_NEWAL_LIST_NODE	ContractRenewalList[ 20 ];
+std::vector<CONTRACT_NEWAL_LIST_NODE> ContractRenewalList (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS);
 UINT8											ubNumContractRenewals = 0;
 // end
 UINT8											ubCurrentContractRenewal = 0;
@@ -97,11 +98,18 @@ BOOLEAN SaveContractRenewalDataToSaveGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesWritten;
 
-	FileWrite( hFile, ContractRenewalList, sizeof( ContractRenewalList ), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( ContractRenewalList ) )
-	{
-		return( FALSE );
+	for (int idx=0; idx < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; idx++) {
+		FileWrite( hFile, &ContractRenewalList[idx], sizeof( CONTRACT_NEWAL_LIST_NODE ), &uiNumBytesWritten );
+		if( uiNumBytesWritten != sizeof( CONTRACT_NEWAL_LIST_NODE ) )
+		{
+			return( FALSE );
+		}
 	}
+	//FileWrite( hFile, ContractRenewalList, sizeof( ContractRenewalList ), &uiNumBytesWritten );
+	//if( uiNumBytesWritten != sizeof( ContractRenewalList ) )
+	//{
+	//	return( FALSE );
+	//}
 
 	FileWrite( hFile, &ubNumContractRenewals, sizeof( ubNumContractRenewals ), &uiNumBytesWritten );
 	if( uiNumBytesWritten != sizeof( ubNumContractRenewals ) )
@@ -118,11 +126,18 @@ BOOLEAN LoadContractRenewalDataFromSaveGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
 
-	FileRead( hFile, ContractRenewalList, sizeof( ContractRenewalList ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( ContractRenewalList ) )
-	{
-		return( FALSE );
+	for (int idx=0; idx < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; idx++) {
+		FileRead( hFile, &ContractRenewalList[idx], sizeof( CONTRACT_NEWAL_LIST_NODE ), &uiNumBytesRead );
+		if( uiNumBytesRead != sizeof( CONTRACT_NEWAL_LIST_NODE ) )
+		{
+			return( FALSE );
+		}
 	}
+	//FileRead( hFile, ContractRenewalList, sizeof( ContractRenewalList ), &uiNumBytesRead );
+	//if( uiNumBytesRead != sizeof( ContractRenewalList ) )
+	//{
+	//	return( FALSE );
+	//}
 
 	FileRead( hFile, &ubNumContractRenewals, sizeof( ubNumContractRenewals ), &uiNumBytesRead );
 	if( uiNumBytesRead != sizeof( ubNumContractRenewals ) )
@@ -1323,7 +1338,8 @@ void FindOutIfAnyMercAboutToLeaveIsGonnaRenew( void )
 	// find out is something was said
 	SOLDIERTYPE *pSoldier = NULL, *pSoldierWhoWillQuit = NULL;
 	INT32				iCounter= 0, iNumberOnTeam = 0;
-	UINT8				ubPotentialMercs[ 20 ] = { 0 };
+// WDS - make number of mercenaries, etc. be configurable
+	UINT8				ubPotentialMercs[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
 	UINT8				ubNumMercs = 0;
 	UINT8				ubChosenMerc;
 

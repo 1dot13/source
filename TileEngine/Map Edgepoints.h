@@ -3,13 +3,14 @@
 
 #include "types.h"
 #include "Fileman.h"
+#include "Overhead Types.h"
 #include "strategic.h"
 
 typedef struct MAPEDGEPOINTINFO
 {
 	UINT8 ubNumPoints;
 	UINT8 ubStrategicInsertionCode;
-	INT16 sGridNo[ 32 ];
+	INT16 sGridNo[ LARGEST_NUMBER_IN_ANY_GROUP ];
 }MAPEDGEPOINTINFO;
 
 UINT16 ChooseMapEdgepoint( UINT8 *ubStrategicInsertionCode, UINT8 lastValidICode );

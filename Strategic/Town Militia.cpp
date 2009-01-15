@@ -51,10 +51,10 @@ INT32 giListOfMercsInSectorsCompletedMilitiaTraining[ SIZE_OF_MILITIA_COMPLETED_
 SOLDIERTYPE *pMilitiaTrainerSoldier = NULL;
 
 // note that these sector values are STRATEGIC INDEXES, not 0-255!
-INT16 gsUnpaidStrategicSector[ MAX_CHARACTER_COUNT ];
+INT16 gsUnpaidStrategicSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 
 // the selected list of mercs
-extern BOOLEAN fSelectedListOfMercsForMapScreen[ MAX_CHARACTER_COUNT ];
+extern BOOLEAN fSelectedListOfMercsForMapScreen[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 
 // towns with militia training allowed
 BOOLEAN gfMilitiaAllowedInTown[MAX_TOWNS] =
@@ -532,7 +532,8 @@ UINT8 CountAllMilitiaInSector(INT16 sMapX, INT16 sMapY)
 
 UINT8 MilitiaInSectorOfRank(INT16 sMapX, INT16 sMapY, UINT8 ubRank)
 {
-	return( SectorInfo[ SECTOR( sMapX, sMapY ) ].ubNumberOfCivsAtLevel[ ubRank ] );
+	unsigned count = SectorInfo[ SECTOR( sMapX, sMapY ) ].ubNumberOfCivsAtLevel[ ubRank ];
+	return count;
 }
 
 
@@ -1162,7 +1163,7 @@ void HandleCompletionOfTownTrainingByGroupWithTrainer( SOLDIERTYPE *pTrainer )
 	sSectorY = pTrainer->sSectorY;
 	bSectorZ = pTrainer->bSectorZ;
 
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// valid character?
 		if( gCharactersList[ iCounter ].fValid == FALSE )
@@ -1292,11 +1293,12 @@ void BuildListOfUnpaidTrainableSectors( void )
 	INT32 iCounter = 0, iCounterB = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 
-	memset( gsUnpaidStrategicSector, 0, sizeof( INT16 ) * MAX_CHARACTER_COUNT );
+    // WDS - make number of mercenaries, etc. be configurable
+	memset( gsUnpaidStrategicSector, 0, sizeof(gsUnpaidStrategicSector) );
 
 	if( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
 	{
-		for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+		for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 		{
 			// valid character?
 			if( gCharactersList[ iCounter ].fValid )
@@ -1335,11 +1337,11 @@ void BuildListOfUnpaidTrainableSectors( void )
 	}
 
 	// now clean out repeated sectors
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT - 1; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1; iCounter++ )
 	{
 		if( gsUnpaidStrategicSector[ iCounter ] > 0 )
 		{
-			for( iCounterB = iCounter + 1 ; iCounterB < MAX_CHARACTER_COUNT; iCounterB++ )
+			for( iCounterB = iCounter + 1 ; iCounterB < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounterB++ )
 			{
 				if( gsUnpaidStrategicSector[ iCounterB ] == gsUnpaidStrategicSector[ iCounter ] )
 				{
@@ -1360,7 +1362,7 @@ INT32 GetNumberOfUnpaidTrainableSectors( void )
 	BuildListOfUnpaidTrainableSectors();
 
 	// now count up the results
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gsUnpaidStrategicSector[ iCounter ] > 0 )
 		{
@@ -1385,7 +1387,7 @@ void StartTrainingInAllUnpaidTrainableSectors()
 	BuildListOfUnpaidTrainableSectors();
 
 	// pay up in each sector
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
+	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gsUnpaidStrategicSector[ iCounter ] > 0 )
 		{

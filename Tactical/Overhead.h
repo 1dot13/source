@@ -45,12 +45,12 @@ typedef struct
 	UINT8			bFirstID;
 	UINT8			bLastID;
 	COLORVAL	RadarColor;
-	INT8			bSide;
+	INT8		bSide;
 	INT8			bMenInSector;
 	UINT8			ubLastMercToRadio;
-	INT8			bTeamActive;
-	INT8			bAwareOfOpposition;
-	INT8			bHuman;
+	INT8		bTeamActive;
+	INT8		bAwareOfOpposition;
+	INT8		bHuman;
 } TacticalTeamType;
 
 //for use with TacticalStatusType.ubEnemyIntention 
@@ -223,6 +223,8 @@ BOOLEAN InitOverhead( );
 BOOLEAN ShutdownOverhead( );
 BOOLEAN GetSoldier( SOLDIERTYPE **ppSoldier, UINT16 usSoldierIndex );
 
+UINT32 CountNonVehiclesOnPlayerTeam( void );
+
 INT16 NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT16 sGridNo, BOOLEAN fPeopleToo, INT8 bLevel );
 
 //Simple check to see if a (one-tiled) soldier can occupy a given location on the ground or roof.
@@ -361,6 +363,7 @@ void SetSoldierNeutral( SOLDIERTYPE * pSoldier );
 
 extern BOOLEAN sniperwarning;
 extern BOOLEAN biggunwarning;
+extern BOOLEAN gogglewarning;
 //extern BOOLEAN airstrikeavailable;
 
 //void CheckForAndSetupAirRaid ();

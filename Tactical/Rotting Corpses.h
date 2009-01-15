@@ -168,9 +168,11 @@ void HandleCrowLeave( SOLDIERTYPE *pSoldier );
 
 void HandleCrowFlyAway( SOLDIERTYPE *pSoldier );
 
-#define		MAX_ROTTING_CORPSES		100
+// WDS - increase number of corpses
+#define		MAX_ROTTING_CORPSES		250
 
-extern ROTTING_CORPSE	gRottingCorpse[ MAX_ROTTING_CORPSES ];
+//extern ROTTING_CORPSE	gRottingCorpse[ MAX_ROTTING_CORPSES ];
+extern std::vector<ROTTING_CORPSE> gRottingCorpse;
 extern INT32					giNumRottingCorpse;
 extern UINT8					gb4DirectionsFrom8[8];
 

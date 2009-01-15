@@ -82,16 +82,18 @@ enum //GraphicIDs for the panel
 	UNINVOLVED_HEADER
 };
 
+// WDS - make number of mercenaries, etc. be configurable
+//The height of each row
+#define ROW_HEIGHT				10
 //The start of the black space
 #define TOP_Y							113
 //The end of the black space
-#define BOTTOM_Y					349
+#define BOTTOM_Y					(349+(gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs-18)*ROW_HEIGHT)
+//#define BOTTOM_Y					349
 //The internal height of the uninvolved panel
 #define INTERNAL_HEIGHT		27
 //The actual height of the uninvolved panel
 #define ACTUAL_HEIGHT			34
-//The height of each row
-#define ROW_HEIGHT				10
 
 BOOLEAN gfDisplayPotentialRetreatPaths = FALSE;
 UINT16 gusRetreatButtonLeft, gusRetreatButtonTop, gusRetreatButtonRight, gusRetreatButtonBottom;
@@ -122,16 +124,17 @@ SOLDIERTYPE* UninvolvedSoldier( INT32 index );
 
 MOUSE_REGION PBInterfaceBlanket;
 BOOLEAN gfPreBattleInterfaceActive = FALSE;
-UINT32 iPBButton[3];
-UINT32 iPBButtonImage[3];
-UINT32 uiInterfaceImages;
-BOOLEAN gfRenderPBInterface;
-BOOLEAN	gfPBButtonsHidden;
+UINT32 iPBButton[3] = {0,0,0};
+UINT32 iPBButtonImage[3] = {0,0,0};
+// WDS Graphics bug die to uninitialized variable
+UINT32 uiInterfaceImages = 0;
+BOOLEAN gfRenderPBInterface = FALSE;
+BOOLEAN	gfPBButtonsHidden = FALSE;
 BOOLEAN fDisableMapInterfaceDueToBattle = FALSE;
 
 void DoTransitionFromMapscreenToPreBattleInterface();
 
-BOOLEAN gfBlinkHeader;
+BOOLEAN gfBlinkHeader = FALSE;
 
 // mouse regions in mapscreen proper than must have thier help text disabled then re-enabled
 extern MOUSE_REGION gMapStatusBarsRegion;
@@ -145,8 +148,8 @@ extern void UpdateTheStateOfTheNextPrevMapScreenCharacterButtons( void );
 // were we showing the mapscreen inventory when the prebattle interface came up
 extern BOOLEAN fShowInventoryFlag;
 
-UINT32 guiNumInvolved;
-UINT32 guiNumUninvolved;
+UINT32 guiNumInvolved = 0;
+UINT32 guiNumUninvolved = 0;
 
 //SAVE START
 
@@ -177,9 +180,10 @@ extern UINT8 gubPBSectorZ = 0;
 BOOLEAN gfCantRetreatInPBI = FALSE;
 //SAVE END
 
-BOOLEAN gfUsePersistantPBI;
+BOOLEAN gfUsePersistantPBI = FALSE;
 
-INT32 giHilitedInvolved, giHilitedUninvolved;
+INT32 giHilitedInvolved = 0;
+INT32 giHilitedUninvolved = 0;
 
 extern void CalculateGroupRetreatSector( GROUP *pGroup );
 
@@ -258,7 +262,6 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	INT8	bBestExpLevel = 0;
 	BOOLEAN fRetreatAnOption = TRUE;
 	SECTORINFO *pSector;
-
 
 	// ARM: Feb01/98 - Cancel out of mapscreen movement plotting if PBI subscreen is coming up
 	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
@@ -506,8 +509,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				}
 				guiNumInvolved ++;
 			}
-			else
+			else {
 				guiNumUninvolved++;
+			}
 		}
 	}
 
@@ -999,7 +1003,7 @@ void RenderPreBattleInterface()
 		if( gusMouseXPos < gusRetreatButtonLeft || gusMouseXPos > gusRetreatButtonRight ||
 				gusMouseYPos < gusRetreatButtonTop || gusMouseYPos > gusRetreatButtonBottom )
 			fMouseInRetreatButtonArea = FALSE;
-		else
+ 		else
 			fMouseInRetreatButtonArea = TRUE;
 		if( fMouseInRetreatButtonArea != gfDisplayPotentialRetreatPaths )
 		{
@@ -1106,7 +1110,8 @@ void RenderPreBattleInterface()
 			BltVideoObject( guiSAVEBUFFER, hVObject, BOTTOM_COLUMN, 161, y, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
-		for( i = 0; i < (INT32)(21 - max( guiNumUninvolved, 1 )); i++ )
+        // WDS - make number of mercenaries, etc. be configurable
+		for( i = 0; i < (INT32)(/*21*/3+gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs - max( guiNumUninvolved, 1 )); i++ )
 		{
 			y = TOP_Y + ROW_HEIGHT * i;
 			BltVideoObject( guiSAVEBUFFER, hVObject, TOP_COLUMN, 186, y, VO_BLT_SRCTRANSPARENCY, NULL );

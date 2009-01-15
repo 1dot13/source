@@ -44,7 +44,9 @@ extern UINT8 NumEnemyInSector();
 
 void HandleRPCDescription(	)
 {
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
+// WDS - make number of mercenaries, etc. be configurable
+	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+//	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;

@@ -167,7 +167,6 @@ void ResetMilitia()
 		// a flag for autoresolve if different initialization or destruction is desired.
 		guiCurrentScreen = GAME_SCREEN;
 
-
 		RemoveMilitiaFromTactical();
 		ubNumGreen = MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, GREEN_MILITIA);
 		ubNumReg = MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, REGULAR_MILITIA);

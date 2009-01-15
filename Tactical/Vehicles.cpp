@@ -38,9 +38,11 @@
 	#include "Soldier macros.h"
 	#include "opplist.h"
 	#include "Soldier ani.h"
+	#include "GameSettings.h"
 #endif
 
-INT8 gubVehicleMovementGroups[ MAX_VEHICLES ];
+//INT8 gubVehicleMovementGroups[ MAX_VEHICLES ];
+std::vector<INT8>	gubVehicleMovementGroups (MAX_VEHICLES, 0);
 
 // the list of vehicles
 VEHICLETYPE *pVehicleList = NULL;
@@ -174,23 +176,20 @@ void SetDriver( INT32 iID, UINT8 ubID );
 
 void TeleportVehicleToItsClosestSector( INT32 iVehicleId, UINT8 ubGroupID );
 
+void InitAVehicle(int index, int x, int y) {
+	gubVehicleMovementGroups[ index ] = CreateNewVehicleGroupDepartingFromSector( x, y, index );
+
+	// Set persistent....
+	GROUP *pGroup = GetGroup( gubVehicleMovementGroups[ index ] );
+	AssertNotNIL(pGroup);
+	pGroup->fPersistant = TRUE;
+}
 
 
-// Loop through and create a few soldier squad ID's for vehicles ( max # 3 )
-void InitVehicles( )
-{
-	INT32		cnt;
-	GROUP		*pGroup	=	NULL;
-
-	for( cnt = 0; cnt <	MAX_VEHICLES; cnt++ )
-	{
-		// create mvt groups
-		gubVehicleMovementGroups[ cnt ] = CreateNewVehicleGroupDepartingFromSector( 1, 1, cnt );
-
-		// Set persistent....
-		pGroup = GetGroup( gubVehicleMovementGroups[ cnt ] );
-		pGroup->fPersistant = TRUE;
-	}
+// Loop through and create a few soldier squad ID's for vehicles
+void InitAllVehicles( ) {
+	for( int cnt = 0; cnt <	MAX_VEHICLES; cnt++ )
+		InitAVehicle(cnt, 1, 1);
 }
 
 
@@ -431,7 +430,7 @@ BOOLEAN IsThisVehicleAccessibleToSoldier( SOLDIERTYPE *pSoldier, INT32 iId )
 BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 {
 	INT32 iCounter = 0;
-	INT8	vCount = 0;
+	UINT32 vCount = 0;
 	SOLDIERTYPE *pVehicleSoldier = NULL;
 
 
@@ -453,7 +452,7 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 	pVehicleSoldier = GetSoldierStructureForVehicle( iId );
 
 	//CHRISL: Get number of vehicles currently in player team
-	for(int x = 0; x < 20; x++)
+	for(int x = 0; x < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; x++)
 	{
 		if(MercPtrs[x]->bTeam == OUR_TEAM && (MercPtrs[x]->flags.uiStatusFlags & SOLDIER_VEHICLE) && MercPtrs[x]->bActive == TRUE)
 			vCount ++;
@@ -464,7 +463,7 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 		if ( pVehicleSoldier->bTeam != gbPlayerNum )
 		{
 			// Can we add a new vehicle
-			if( vCount >= 2 )
+			if( vCount >= gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles )
 			{
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[VEHICLE_CAN_NOT_BE_ADDED] );
 				return( FALSE );
@@ -1793,30 +1792,24 @@ INT16 GetOrigInternalArmorValueForVehicleInLocation( UINT8 ubID, UINT8 ubLocatio
 
 SOLDIERTYPE * GetSoldierStructureForVehicle( INT32 iId )
 {
-	SOLDIERTYPE *pSoldier = NULL, *pFoundSoldier = NULL;
-	INT32 iCounter = 0, iNumberOnTeam = 0;
-
-	// get number of mercs on team
-	iNumberOnTeam = TOTAL_SOLDIERS; //gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-
-	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	for( INT32 iCounter = 0; iCounter < TOTAL_SOLDIERS; iCounter++ )
 	{
-		pSoldier = &Menptr[ iCounter ];
+		SOLDIERTYPE *pSoldier = &Menptr[ iCounter ];
 
-		if ( pSoldier->bActive )
+		if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
-			if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+			if ( pSoldier->bActive )
 			{
 				if( pSoldier->bVehicleID == iId )
 				{
-					pFoundSoldier = pSoldier;
-					iCounter = iNumberOnTeam;
+					return( pSoldier );
 				}
 			}
 		}
 	}
 
-	return( pFoundSoldier );
+	// Didn't find the vehicle
+	return( 0 );
 }
 
 
@@ -2153,10 +2146,16 @@ BOOLEAN SaveVehicleMovementInfoToSavedGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesWritten = 0;
 	//Save all the vehicle movement id's
-	FileWrite( hFile, gubVehicleMovementGroups, sizeof( INT8 ) * 5, &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( INT8 ) * 5 )
-	{
-		return(FALSE);
+//	FileWrite( hFile, gubVehicleMovementGroups, sizeof( INT8 ) * 5, &uiNumBytesWritten );
+//	if( uiNumBytesWritten != sizeof( INT8 ) * 5 )
+//	{
+//		return(FALSE);
+//	}
+	for (int cnt=0; cnt<5; ++cnt) {
+		FileWrite( hFile, &gubVehicleMovementGroups[cnt], sizeof( INT8 ), &uiNumBytesWritten );
+		if( uiNumBytesWritten != sizeof( INT8 ) ) {
+			return(FALSE);
+		}
 	}
 
 	return( TRUE );
@@ -2165,17 +2164,22 @@ BOOLEAN SaveVehicleMovementInfoToSavedGameFile( HWFILE hFile )
 
 BOOLEAN LoadVehicleMovementInfoFromSavedGameFile( HWFILE hFile )
 {
-	INT32		cnt;
 	GROUP		*pGroup	=	NULL;
 	UINT32	uiNumBytesRead=0;
 	//Load in the Squad movement id's
-	FileRead( hFile, gubVehicleMovementGroups, sizeof( INT8 ) * 5, &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( INT8 ) * 5 )
-	{
-		return(FALSE);
+//	FileRead( hFile, gubVehicleMovementGroups, sizeof( INT8 ) * 5, &uiNumBytesRead );
+//	if( uiNumBytesRead != sizeof( INT8 ) * 5 )
+//	{
+//		return(FALSE);
+//	}
+	for (int cnt=0; cnt<5; ++cnt) {
+		FileRead( hFile, &gubVehicleMovementGroups[cnt], sizeof( INT8 ), &uiNumBytesRead );
+		if( uiNumBytesRead != sizeof( INT8 ) ) {
+			return(FALSE);
+		}
 	}
 
-	for( cnt = 5; cnt <	MAX_VEHICLES; cnt++ )
+	for( int cnt = 5; cnt <	MAX_VEHICLES; cnt++ )
 	{
 		// create mvt groups
 		gubVehicleMovementGroups[ cnt ] = CreateNewVehicleGroupDepartingFromSector( 1, 1, cnt );
@@ -2193,10 +2197,16 @@ BOOLEAN NewSaveVehicleMovementInfoToSavedGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesWritten = 0;
 	//Save all the vehicle movement id's
-	FileWrite( hFile, gubVehicleMovementGroups, sizeof( INT8 ) * MAX_VEHICLES, &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( INT8 ) * MAX_VEHICLES )
-	{
-		return(FALSE);
+//	FileWrite( hFile, gubVehicleMovementGroups, sizeof( INT8 ) * MAX_VEHICLES, &uiNumBytesWritten );
+//	if( uiNumBytesWritten != sizeof( INT8 ) * MAX_VEHICLES )
+//	{
+//		return(FALSE);
+//	}
+	for (int cnt=0; cnt<MAX_VEHICLES; ++cnt) {
+		FileWrite( hFile, &gubVehicleMovementGroups[cnt], sizeof( INT8 ), &uiNumBytesWritten );
+		if( uiNumBytesWritten != sizeof( INT8 ) ) {
+			return(FALSE);
+		}
 	}
 
 	return( TRUE );
@@ -2207,10 +2217,16 @@ BOOLEAN NewLoadVehicleMovementInfoFromSavedGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead=0;
 	//Load in the Squad movement id's
-	FileRead( hFile, gubVehicleMovementGroups, sizeof( INT8 ) * MAX_VEHICLES, &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( INT8 ) * MAX_VEHICLES )
-	{
-		return(FALSE);
+//	FileRead( hFile, gubVehicleMovementGroups, sizeof( INT8 ) * MAX_VEHICLES, &uiNumBytesRead );
+//	if( uiNumBytesRead != sizeof( INT8 ) * MAX_VEHICLES )
+//	{
+//		return(FALSE);
+//	}
+	for (int cnt=0; cnt<MAX_VEHICLES; ++cnt) {
+		FileRead( hFile, &gubVehicleMovementGroups[cnt], sizeof( INT8 ), &uiNumBytesRead );
+		if( uiNumBytesRead != sizeof( INT8 ) ) {
+			return(FALSE);
+		}
 	}
 
 	return( TRUE );
@@ -2472,7 +2488,9 @@ BOOLEAN IsSoldierInThisVehicleSquad( SOLDIERTYPE *pSoldier, INT8 bSquadNumber )
 
 SOLDIERTYPE*	PickRandomPassengerFromVehicle( SOLDIERTYPE *pSoldier )
 {
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
+// WDS - make number of mercenaries, etc. be configurable
+	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+//	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	INT32 iCounter, iId;

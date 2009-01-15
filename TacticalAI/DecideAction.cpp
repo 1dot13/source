@@ -1309,7 +1309,6 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	STR16 tempstr;
 #endif
 
-
 	if (fCivilian)
 	{
 		if (pSoldier->flags.uiStatusFlags & SOLDIER_COWERING)
@@ -2472,10 +2471,11 @@ if(!is_networked)//hayden
 	}
 
 
-
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: calculate morale");
 	// calculate our morale
 	pSoldier->aiData.bAIMorale = CalcMorale(pSoldier);
+// WDS DEBUG - this will make all enemies run away (to test retreating into occupied sector bugs)
+//	pSoldier->aiData.bAIMorale = MORALE_HOPELESS;
 
 	// if a guy is feeling REALLY discouraged, he may continue to run like hell
 	if ((pSoldier->aiData.bAIMorale == MORALE_HOPELESS) && ubCanMove)
@@ -4170,7 +4170,13 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	}
 
 	// NB a desire of 4 or more is only achievable by brave/aggressive guys with high morale
-	if ( pSoldier->bActionPoints == pSoldier->bInitialActionPoints && ubBestAttackAction == AI_ACTION_FIRE_GUN && (pSoldier->aiData.bShock == 0) && (pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2) && BestAttack.ubChanceToReallyHit < 30 && ( PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) > Weapon[ pSoldier->inv[ BestAttack.bWeaponIn ].usItem ].usRange / CELL_X_SIZE ) && RangeChangeDesire( pSoldier ) >= 4 )
+	if ( (pSoldier->bActionPoints == pSoldier->bInitialActionPoints) &&
+		 (ubBestAttackAction == AI_ACTION_FIRE_GUN) && 
+		 (pSoldier->aiData.bShock == 0) && 
+		 (pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2) && 
+		 (BestAttack.ubChanceToReallyHit < 30) && 
+		 (PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) > Weapon[ pSoldier->inv[ BestAttack.bWeaponIn ].usItem ].usRange / CELL_X_SIZE ) && 
+		 (RangeChangeDesire( pSoldier ) >= 4) )
 	{
 		// okay, really got to wonder about this... could taking cover be an option?
 		if (ubCanMove && pSoldier->aiData.bOrders != STATIONARY && !gfHiddenInterrupt &&
@@ -5019,7 +5025,9 @@ INT8 DecideAction(SOLDIERTYPE *pSoldier)
 			//TODO: don't say this again after reloading a savegame
 			SayQuoteFromAnyBodyInSector( QUOTE_WEARY_SLASH_SUSPUCIOUS );
 		}
+
 	}
+
 	// turn off cautious flag
 	pSoldier->aiData.fAIFlags &= (~AI_CAUTIOUS);
 	//reset flank count

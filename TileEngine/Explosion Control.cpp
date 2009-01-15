@@ -1220,7 +1220,7 @@ void ExplosiveDamageGridNo( INT16 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 	STRUCTURE *	pBaseStructure;
 	INT16	sDesiredLevel;
 	DB_STRUCTURE_TILE **ppTile;
-	UINT8	ubLoop, ubLoop2;
+	UINT8 ubLoop, ubLoop2;
 	INT16	sNewGridNo, sNewGridNo2, sBaseGridNo;
 	BOOLEAN	fToBreak = FALSE;
 	BOOLEAN	fMultiStructure = FALSE;
@@ -3010,6 +3010,8 @@ void HandleExplosionQueue( void )
 	}
 
 	uiCurrentTime = GetJA2Clock();
+	// WDS 07/25/2008 - Avoid error where gWorldItems and/or gWorldBombs is nil
+	if (gWorldBombs && gWorldItems) {
 	for ( uiIndex = 0; uiIndex < gubElementsOnExplosionQueue; uiIndex++ )
 	{
 		if ( gExplosionQueue[ uiIndex ].fExists && uiCurrentTime >= gExplosionQueue[ uiIndex ].uiTimeStamp )
@@ -3069,6 +3071,7 @@ void HandleExplosionQueue( void )
 			// Bye bye bomb
 			gExplosionQueue[ uiIndex ].fExists = FALSE;
 		}
+	}
 	}
 
 	// See if we can reduce the # of elements on the queue that we have recorded

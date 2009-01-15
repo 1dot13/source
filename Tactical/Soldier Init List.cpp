@@ -17,6 +17,7 @@
 #include "debug.h"
 #include "Random.h"
 #include "items.h"
+#include "GameSettings.h"
 
 #include "cursors.h"
 
@@ -917,6 +918,8 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	//administrators.
 
 	ubMaxNum = ubTotalAdmin + ubTotalTroops + ubTotalElite;
+
+	AssertLE (ubMaxNum, gGameExternalOptions.ubGameMaximumNumberOfEnemies);
 
 	//Sort the list in the following manner:
 	//-Priority placements first

@@ -49,21 +49,23 @@ UINT16 itemRPG;
 
 UINT32 guiMortarsRolledByTeam = 0;
 
+//
+// WDS note 08/06/2008:  This is no longer used
+// ARMY_GUN_CHOICE_TYPE gRegularArmyGunChoices[ARMY_GUN_LEVELS] =
+// {	// INDEX		CLASS				 #CHOICES
+// 	{ /* 0 - lo pistols			*/	2,	SW38,					DESERTEAGLE,		-1,						-1,					-1					},
+// 	{ /* 1 - hi pistols			*/	2,	GLOCK_17,			BERETTA_93R,		-1,						-1,					-1					},
+// 	{ /* 2 - lo SMG/shotgun	*/	2,	M870,					MP5K,						-1,						-1,					-1					},
+// 	{ /* 3 - lo rifles			*/	1,	MINI14,				-1,							-1,						-1,					-1					},
+// 	{ /* 4 - hi SMGs				*/	2,	MAC10,				COMMANDO,				-1,						-1,					-1					},
+// 	{ /* 5 - med rifles  		*/	1,	G41,					-1,							-1,						-1,					-1					},
+// 	{ /* 6 - sniper rifles	*/	1,	M24,					-1,							-1,						-1,					-1					},
+// 	{	/* 7 - hi rifles			*/	2,	M14,					C7,							-1,						-1,					-1					},
+// 	{ /* 8 - best rifle			*/	1,	FNFAL,				-1,							-1,						-1,					-1					},
+// 	{ /* 9 - machine guns		*/	1,	MINIMI,				-1,							-1,						-1,					-1					},
+// 	{ /* 10- rocket rifle		*/	2,	ROCKET_RIFLE,	MINIMI,							-1,						-1,					-1					},
+// };
 
-ARMY_GUN_CHOICE_TYPE gRegularArmyGunChoices[ARMY_GUN_LEVELS] =
-{	// INDEX		CLASS				 #CHOICES
-	{ /* 0 - lo pistols			*/	2,	SW38,					DESERTEAGLE,		-1,						-1,					-1					},
-	{ /* 1 - hi pistols			*/	2,	GLOCK_17,			BERETTA_93R,		-1,						-1,					-1					},
-	{ /* 2 - lo SMG/shotgun	*/	2,	M870,					MP5K,						-1,						-1,					-1					},
-	{ /* 3 - lo rifles			*/	1,	MINI14,				-1,							-1,						-1,					-1					},
-	{ /* 4 - hi SMGs				*/	2,	MAC10,				COMMANDO,				-1,						-1,					-1					},
-	{ /* 5 - med rifles  		*/	1,	G41,					-1,							-1,						-1,					-1					},
-	{ /* 6 - sniper rifles	*/	1,	M24,					-1,							-1,						-1,					-1					},
-	{	/* 7 - hi rifles			*/	2,	M14,					C7,							-1,						-1,					-1					},
-	{ /* 8 - best rifle			*/	1,	FNFAL,				-1,							-1,						-1,					-1					},
-	{ /* 9 - machine guns		*/	1,	MINIMI,				-1,							-1,						-1,					-1					},
-	{ /* 10- rocket rifle		*/	2,	ROCKET_RIFLE,	MINIMI,							-1,						-1,					-1					},
-};
 
 ARMY_GUN_CHOICE_TYPE gExtendedArmyGunChoices[ARMY_GUN_LEVELS];// =
 //{	// INDEX		CLASS				 #CHOICES
@@ -3145,7 +3147,10 @@ UINT16 PickARandomItem(UINT8 typeIndex, UINT8 maxCoolness, BOOLEAN getMatchingCo
 	}
 
 	// couldn't find anything with the exact matching coolness, so return the best item we did find
-	return defaultItem;
+	if (ItemIsLegal(defaultItem))
+		return defaultItem;
+	else
+		return 0;
 }
 UINT16 PickARandomAttachment(UINT8 typeIndex, UINT16 usBaseItem, UINT8 maxCoolness, BOOLEAN getMatchingCoolness)
 {
@@ -3187,7 +3192,7 @@ UINT16 PickARandomAttachment(UINT8 typeIndex, UINT16 usBaseItem, UINT8 maxCoolne
 
 	// couldn't find anything with the exact matching coolness, so return the best item we did find
 //	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("PickARandomAttachment: baseItem = %d, defaultItem = %d",usBaseItem, defaultItem));
-	if (ItemIsLegal(usItem))
+	if (ItemIsLegal(defaultItem))
 		return defaultItem;
 	else
 		return 0;

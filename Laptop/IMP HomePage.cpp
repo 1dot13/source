@@ -26,6 +26,8 @@
 	#include "IMP MainPage.h"
 	#include "IMP Confirm.h"
 	#include "Game Clock.h"
+	// WDS - make number of mercenaries, etc. be configurable
+	#include "Squads.h"
 #endif
 
 void GetPlayerKeyBoardInputForIMPHomePage( void );
@@ -396,7 +398,7 @@ void ProcessPlayerInputActivationString( void )
 	BOOLEAN freeMercSlot = TRUE;
 
 	// WANNE: Check total number of hired mercs
-	if( NumberOfMercsOnPlayerTeam() >= 18 )
+	if( NumberOfMercsOnPlayerTeam() >= gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs )
 	{
 		freeMercSlot = FALSE;
 	}
@@ -407,7 +409,7 @@ void ProcessPlayerInputActivationString( void )
 		// WANNE: Check total number of hired mercs
 		if( freeMercSlot == FALSE )
 		{
-			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_18_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_MAX_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 			return;
 		}
 
@@ -429,7 +431,7 @@ void ProcessPlayerInputActivationString( void )
 		// WANNE: Check total number of hired mercs
 		if( freeMercSlot == FALSE )
 		{
-			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_18_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_MAX_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 			return;
 		}
 
@@ -455,7 +457,7 @@ void ProcessPlayerInputActivationString( void )
 		// WANNE: Check total number of hired mercs
 		if( freeMercSlot == FALSE )
 		{
-			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_18_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_MAX_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 			return;
 		}
 

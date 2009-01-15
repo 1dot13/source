@@ -2937,8 +2937,11 @@ BOOLEAN ShouldMercSayHappyWithGunQuote( SOLDIERTYPE *pSoldier )
 
 void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT16 sGridNo, INT8 bLevel )
 {
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
-	INT8	bBuddyIndex[ 20 ] = { -1 };
+// WDS - make number of mercenaries, etc. be configurable
+	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+//	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
+	std::vector<INT8>	bBuddyIndex (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, -1);
+//	INT8	bBuddyIndex[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { -1 };
 	INT8	bTempBuddyIndex;
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
@@ -3043,7 +3046,9 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 {
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;
-	UINT8	ubMercsInSector[ 20 ] = { 0 };
+// WDS - make number of mercenaries, etc. be configurable
+	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+//	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	BOOLEAN fDoSomeoneElse = FALSE;

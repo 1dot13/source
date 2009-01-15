@@ -314,7 +314,7 @@ BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 			if ( DoesSkyriderNoticeEnemiesInSector( ubNumEnemies ) == TRUE )
 			{
 				// if just passing through (different quotes are used below if it's his final destination)
-				if( !EndOfHelicoptersPath( ) )
+				if( !EndOfHelicoptersPath( ) && gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE )
 				{
 					// stop time compression and inform player that there are enemies in the sector below
 					StopTimeCompression();
@@ -358,7 +358,7 @@ BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 		{
 			// if he has passengers, or he's not going straight to base, tell player he's arrived
 			// (i.e. don't say anything nor stop time compression if he's empty and just returning to base)
-			if ( ( GetNumberOfPassengersInHelicopter() > 0 ) || !fHeliReturnStraightToBase )
+			if ( ( GetNumberOfPassengersInHelicopter() > 0 ) /*|| !fHeliReturnStraightToBase*/ )
 			{
 				// arrived at destination
 				if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) HeliCharacterDialogue( pSkyRider, ARRIVED_IN_NON_HOSTILE_SECTOR );

@@ -95,6 +95,8 @@ BOOLEAN SetSectorFlag( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet
 BOOLEAN ReSetUnderGroundSectorFlag( INT16 sSectorX, INT16 sSectorY, UINT8 ubSectorZ, UINT32 uiFlagToSet );
 BOOLEAN ReSetSectorFlag( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet );
 
+void AddExtraItems (UINT8, UINT8, UINT8, bool = false);
+
 
 //Saves the NPC temp Quote file to the saved game file
 BOOLEAN LoadTempNpcQuoteArrayToSaveGameFile( HWFILE hFile );
