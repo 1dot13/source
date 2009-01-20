@@ -570,10 +570,12 @@ UINT16 IanDisplayWrappedString(UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UIN
 	do
 	{
 		// each character goes towards building a new word
+
 		if (pString[usSourceCounter] != TEXT_SPACE && pString[usSourceCounter] != 0
-#ifdef CHINESE
-	  && pString[usSourceCounter] < 255
-#endif
+// WANNE: Chinese version. Don't know why there is an ifdef
+//#ifdef CHINESE
+//	  && pString[usSourceCounter] < 255
+//#endif
 	  )
 		{
 			zWordString[usDestCounter++] = pString[usSourceCounter];

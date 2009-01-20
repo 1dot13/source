@@ -52,6 +52,9 @@ LibraryInitHeader gGameLibaries[ ] =
 	{ "French.slf",						FALSE, TRUE },
 #endif
 
+#ifdef CHINESE
+	{ "Chinese.slf",					FALSE, TRUE },
+#endif
 };
 
 

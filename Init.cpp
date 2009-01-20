@@ -514,7 +514,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
 #endif
 #ifdef CHINESE
-	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
+	AddLanguagePrefix( fileName, CHINESE_PREFIX);
 #endif
 #ifndef ENGLISH
 	if ( FileExists(fileName) )
