@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AMMOLIST>
+	<AMMO>
+		<uiIndex>0</uiIndex>
+		<AmmoCaliber>0</AmmoCaliber>
+		<BRCaliber>0</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>1</uiIndex>
+		<AmmoCaliber>.38 Spc</AmmoCaliber>
+		<BRCaliber>.38 Spc</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>2</uiIndex>
+		<AmmoCaliber>9x19mm</AmmoCaliber>
+		<BRCaliber>9x19mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>3</uiIndex>
+		<AmmoCaliber>.45 ACP</AmmoCaliber>
+		<BRCaliber>.45 ACP</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>4</uiIndex>
+		<AmmoCaliber>.357 Mag</AmmoCaliber>
+		<BRCaliber>.357 Mag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>5</uiIndex>
+		<AmmoCaliber>12 gauge</AmmoCaliber>
+		<BRCaliber>12 gauge</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>6</uiIndex>
+		<AmmoCaliber>CAWS</AmmoCaliber>
+		<BRCaliber>CAWS</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>7</uiIndex>
+		<AmmoCaliber>5.45x39mm</AmmoCaliber>
+		<BRCaliber>5.45x39mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>8</uiIndex>
+		<AmmoCaliber>5.56x45mm</AmmoCaliber>
+		<BRCaliber>5.56x45mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>9</uiIndex>
+		<AmmoCaliber>7.62x51mm</AmmoCaliber>
+		<BRCaliber>7.62x51mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>10</uiIndex>
+		<AmmoCaliber>7.62x39mm</AmmoCaliber>
+		<BRCaliber>7.62x39mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>11</uiIndex>
+		<AmmoCaliber>4.7x33mm</AmmoCaliber>
+		<BRCaliber>4.7x33mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>12</uiIndex>
+		<AmmoCaliber>5.7x28mm</AmmoCaliber>
+		<BRCaliber>5.7x28mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>13</uiIndex>
+		<AmmoCaliber>Monster</AmmoCaliber>
+		<BRCaliber>Monster</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>14</uiIndex>
+		<AmmoCaliber>Rocket</AmmoCaliber>
+		<BRCaliber>Rocket</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>15</uiIndex>
+		<AmmoCaliber>Dart</AmmoCaliber>
+		<BRCaliber>Dart</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>16</uiIndex>
+		<AmmoCaliber>flame</AmmoCaliber>
+		<BRCaliber>flame</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>17</uiIndex>
+		<AmmoCaliber>.50 BMG</AmmoCaliber>
+		<BRCaliber>.50 BMG</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>18</uiIndex>
+		<AmmoCaliber>9x39mm</AmmoCaliber>
+		<BRCaliber>9x39mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>19</uiIndex>
+		<AmmoCaliber>4.6x30mm</AmmoCaliber>
+		<BRCaliber>4.6x30mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>20</uiIndex>
+		<AmmoCaliber>7.62x25mm</AmmoCaliber>
+		<BRCaliber>7.62x25mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>21</uiIndex>
+		<AmmoCaliber>12.7mm</AmmoCaliber>
+		<BRCaliber>12.7mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>22</uiIndex>
+		<AmmoCaliber>9x18mm</AmmoCaliber>
+		<BRCaliber>9x18mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>23</uiIndex>
+		<AmmoCaliber>.40 S&amp;W</AmmoCaliber>
+		<BRCaliber>.40 S&amp;W</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>24</uiIndex>
+		<AmmoCaliber>7.62x54R</AmmoCaliber>
+		<BRCaliber>7.62x54R</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>25</uiIndex>
+		<AmmoCaliber>.338 Lapua</AmmoCaliber>
+		<BRCaliber>.338 LM</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>26</uiIndex>
+		<AmmoCaliber>.44 Mag</AmmoCaliber>
+		<BRCaliber>.44 Mag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>27</uiIndex>
+		<AmmoCaliber>10mm</AmmoCaliber>
+		<BRCaliber>10mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>28</uiIndex>
+		<AmmoCaliber>12.5x35mm</AmmoCaliber>
+		<BRCaliber>12.5x35mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>29</uiIndex>
+		<AmmoCaliber>9x21mm</AmmoCaliber>
+		<BRCaliber>9x21mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>30</uiIndex>
+		<AmmoCaliber>7.62x37mm</AmmoCaliber>
+		<BRCaliber>7.62x37mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>31</uiIndex>
+		<AmmoCaliber>9mm SP-5</AmmoCaliber>
+		<BRCaliber>9mm SP-5</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>32</uiIndex>
+		<AmmoCaliber>9mm SP-6</AmmoCaliber>
+		<BRCaliber>9mm SP-6</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>33</uiIndex>
+		<AmmoCaliber>5.45x18mm</AmmoCaliber>
+		<BRCaliber>5.45x18mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>34</uiIndex>
+		<AmmoCaliber>9mm MS</AmmoCaliber>
+		<BRCaliber>9mm MS</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>35</uiIndex>
+		<AmmoCaliber>.50 AE</AmmoCaliber>
+		<BRCaliber>.50 AE</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>36</uiIndex>
+		<AmmoCaliber>.454 Casull</AmmoCaliber>
+		<BRCaliber>.454 Casull</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>37</uiIndex>
+		<AmmoCaliber>.45 WinMag</AmmoCaliber>
+		<BRCaliber>.45 WinMag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>38</uiIndex>
+		<AmmoCaliber>.50 Beowulf</AmmoCaliber>
+		<BRCaliber>.50 Beowulf</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>39</uiIndex>
+		<AmmoCaliber>.300 WinMag</AmmoCaliber>
+		<BRCaliber>.300 WinMag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>40</uiIndex>
+		<AmmoCaliber>7.92x57mm</AmmoCaliber>
+		<BRCaliber>7.92x57mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>41</uiIndex>
+		<AmmoCaliber>12.7x97mm Subsonic</AmmoCaliber>
+		<BRCaliber>12.7x97mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>42</uiIndex>
+		<AmmoCaliber>6.8x43mm SPC</AmmoCaliber>
+		<BRCaliber>6.8x43mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>43</uiIndex>
+		<AmmoCaliber>5.56x45mm SCF</AmmoCaliber>
+		<BRCaliber>5.56mm SCF</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>44</uiIndex>
+		<AmmoCaliber>.41 AE</AmmoCaliber>
+		<BRCaliber>.41 AE</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>45</uiIndex>
+		<AmmoCaliber>.30 car</AmmoCaliber>
+		<BRCaliber>.30 car</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>46</uiIndex>
+		<AmmoCaliber>.30-06</AmmoCaliber>
+		<BRCaliber>.30-06</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>47</uiIndex>
+		<AmmoCaliber>6x35mm</AmmoCaliber>
+		<BRCaliber>6x35mm</BRCaliber>
+	</AMMO>
+</AMMOLIST>
