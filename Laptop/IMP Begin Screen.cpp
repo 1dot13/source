@@ -593,11 +593,28 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 		break;
 
 	default:
-	 if( uiKey >= 'A' && uiKey <= 'Z' ||
+
+//Heinz (18.01.2009): Russian layout
+//
+#if defined(RUSSIAN)
+		if( ( (DWORD)GetKeyboardLayout(0) & 0xFFFF ) == 0x419)
+		{
+			unsigned char RussianTranslationTable[] = 
+			" #İ####ı####á-ş.0123456789ÆæÁ#Ş##ÔÈÑÂÓÀÏĞØÎËÄÜÒÙÇÉÊÛÅÃÌÖ×Íßõ#ú#_¸ôèñâóàïğøîëäüòùçéêûåãìö÷íÿÕ#Ú¨";
+			if(uiKey >= ' ' && uiKey <= '~') uiKey = RussianTranslationTable[uiKey-' '];
+			else uiKey = '#';
+		}
+		else if( !(uiKey >= 'A' && uiKey <= 'Z' || uiKey >= 'a' && uiKey <= 'z' || uiKey >= '0' && uiKey <= '9' ||
+			uiKey == '_' || uiKey == '.' ||	uiKey == ' ') ) uiKey = '#';
+		if(uiKey != '#')
+#else
+		if( uiKey >= 'A' && uiKey <= 'Z' ||
 					uiKey >= 'a' && uiKey <= 'z' ||
 					uiKey >= '0' && uiKey <= '9' ||
 					uiKey == '_' || uiKey == '.' ||
 					uiKey == ' ' )
+#endif
+
 			{
 				// if the current string position is at max or great, do nothing
 			switch( ubTextEnterMode )

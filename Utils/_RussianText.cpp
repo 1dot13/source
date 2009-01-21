@@ -577,7 +577,7 @@ STR16 pUpperLeftMapScreenStrings[] =
 	L"Назначение", // the mercs current assignment 
 	L"Контракт", // the contract info about the merc
 	L"Здоровье", // the health level of the current merc
-	L"Боевой дух", // the morale of the current merc
+	L"Боев.дух", // the morale of the current merc
 	L"Сост.",	// the condition of the current vehicle
 	L"Бензин",	// the fuel level of the current vehicle
 };

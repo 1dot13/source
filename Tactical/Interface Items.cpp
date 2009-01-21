@@ -174,7 +174,7 @@ INT16		ITEMDESC_ITEM_STATUS_HEIGHT;
 #define		WORD_WRAP_INV_WIDTH			58
 
 #define		ITEM_BAR_WIDTH					2
-#define		ITEM_BAR_HEIGHT					21
+#define		ITEM_BAR_HEIGHT					20
 
 #define		ITEM_FONT								TINYFONT1
 

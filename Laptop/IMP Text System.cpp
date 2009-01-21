@@ -164,11 +164,19 @@ void PrintImpText( void )
 			// gender
 			LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 81, LAPTOP_SCREEN_WEB_UL_Y + 259, ( 640	), IMP_BEGIN_6, FONT14ARIAL, FONT_BLACK, FALSE, 0);
 
+//inshy (18.01.2009): fix position for russian text
+	#ifdef RUSSIAN
+			// male
+			LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 225, LAPTOP_SCREEN_WEB_UL_Y + 259, ( 640	), IMP_BEGIN_10, FONT14ARIAL, FONT_BLACK, FALSE, 0);
+			// female
+			LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 335, LAPTOP_SCREEN_WEB_UL_Y + 259, ( 640	), IMP_BEGIN_11, FONT14ARIAL, FONT_BLACK, FALSE, 0);
+	#else
 			// male
 			LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 240, LAPTOP_SCREEN_WEB_UL_Y + 259, ( 640	), IMP_BEGIN_10, FONT14ARIAL, FONT_BLACK, FALSE, 0);
 
 			// female
 			LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 360, LAPTOP_SCREEN_WEB_UL_Y + 259, ( 640	), IMP_BEGIN_11, FONT14ARIAL, FONT_BLACK, FALSE, 0);
+	#endif
 
 		break;
 		case ( IMP_PERSONALITY ):
