@@ -621,8 +621,14 @@ BOOLEAN RestoreExternBackgroundRect( INT16 sLeft, INT16 sTop, INT16 sWidth, INT1
 	UINT32 uiDestPitchBYTES, uiSrcPitchBYTES;
 	UINT8	*pDestBuf, *pSrcBuf;
 
-
-	Assert( ( sLeft >= 0 ) && ( sTop >= 0 ) && ( sLeft + sWidth <= SCREEN_WIDTH ) && ( sTop + sHeight <= SCREEN_HEIGHT ) );
+//Heinz (18.01.2009): fixed RUNTIME ERROR when user use screen resolution 640x480
+	//Assert( ( sLeft >= 0 ) && ( sTop >= 0 ) && ( sLeft + sWidth <= SCREEN_WIDTH ) && ( sTop + sHeight <= SCREEN_HEIGHT ) );
+	if(sLeft < 0) sLeft = 0;
+	if(sTop <0 ) sTop = 0;
+	if(sLeft > SCREEN_WIDTH) sLeft = SCREEN_WIDTH;
+	if(sTop > SCREEN_HEIGHT) sTop = SCREEN_HEIGHT;
+	if(sLeft + sWidth > SCREEN_WIDTH) sWidth = SCREEN_WIDTH - sLeft;
+	if(sTop + sHeight > SCREEN_HEIGHT) sHeight = SCREEN_HEIGHT - sTop;
 
 	pDestBuf = LockVideoSurface(guiRENDERBUFFER, &uiDestPitchBYTES);
 	pSrcBuf = LockVideoSurface(guiSAVEBUFFER, &uiSrcPitchBYTES);
