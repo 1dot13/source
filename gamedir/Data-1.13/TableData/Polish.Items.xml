@@ -7522,19 +7522,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>940</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 940</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Illumination Shell</szItemName>
+		<szLongItemName>60mm Illumination Shell</szLongItemName>
+		<szItemDesc>An illumination shell for a 60mm mortar.</szItemDesc>
+		<szBRName>60mm Illumination Shell</szBRName>
+		<szBRDesc>The M721 60mm mortar shell provides illumination on a scale not possible by other means at the achieved range.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>941</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 941</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Smoke Shell</szItemName>
+		<szLongItemName>60mm Smoke Shell</szLongItemName>
+		<szItemDesc>A mortar round that delivers a WP-based smokescreen.</szItemDesc>
+		<szBRName>60mm Smoke Shell</szBRName>
+		<szBRDesc>The M722 smoke round for 60mm mortars produces a dense smokescreen wherever you need it on a battlefield. Great for covering your advance! Be careful of the smoke, though, it is based on WP, and thus may be harmful to unprotected personnel.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>942</uiIndex>
@@ -7962,11 +7962,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>995</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 995</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>40mm ILL</szItemName>
+		<szLongItemName>40mm ILL Grenade</szLongItemName>
+		<szItemDesc>An illumination grenade for nightfighting.</szItemDesc>
+		<szBRName>40mm ILL Grenade</szBRName>
+		<szBRDesc>The M583A1 illumination grenade.provides battlefield illumination from most 40mm grenade launchers. Longer range and more candlepower than a breaklight!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>996</uiIndex>

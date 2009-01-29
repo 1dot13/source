@@ -7962,11 +7962,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>995</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 995</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>40mm ILL</szItemName>
+		<szLongItemName>40mm ILL Grenade</szLongItemName>
+		<szItemDesc>An illumination grenade for nightfighting.</szItemDesc>
+		<szBRName>40mm ILL Grenade</szBRName>
+		<szBRDesc>The M583A1 illumination grenade.provides battlefield illumination from most 40mm grenade launchers. Longer range and more candlepower than a breaklight!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>996</uiIndex>

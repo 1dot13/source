@@ -3540,7 +3540,7 @@
 		<ubClassIndex>17</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>111</ubGraphicNum>
-		<ubWeight>2</ubWeight>
+		<ubWeight>3</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>16</ItemSize>
 		<usPrice>240</usPrice>
@@ -22520,27 +22520,56 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>940</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 940</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<ItemSize>34</ItemSize>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Illumination Shell</szItemName>
+		<szLongItemName>60mm Illumination Shell</szLongItemName>
+		<szItemDesc>An illumination shell for a 60mm mortar.</szItemDesc>
+		<szBRName>60mm Illumination Shell</szBRName>
+		<szBRDesc>The M721 60mm mortar shell provides illumination on a scale not possible by other means at the achieved range.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<ubClassIndex>30</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>749</ubGraphicNum>
+		<ubWeight>17</ubWeight>
+		<ubPerPocket>2</ubPerPocket>
+		<ItemSize>24</ItemSize>
+		<usPrice>600</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<Flare>1</Flare>
 	</ITEM>
 	<ITEM>
 		<uiIndex>941</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 941</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<ItemSize>34</ItemSize>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Smoke Shell</szItemName>
+		<szLongItemName>60mm Smoke Shell</szLongItemName>
+		<szItemDesc>A mortar round that delivers a WP-based smokescreen.</szItemDesc>
+		<szBRName>60mm Smoke Shell</szBRName>
+		<szBRDesc>The M722 smoke round for 60mm mortars produces a dense smokescreen wherever you need it on a battlefield. Great for covering your advance! Be careful of the smoke, though, it is based on WP, and thus may be harmful to unprotected personnel.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<ubClassIndex>31</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>748</ubGraphicNum>
+		<ubWeight>17</ubWeight>
+		<ubPerPocket>2</ubPerPocket>
+		<ItemSize>24</ItemSize>
+		<usPrice>500</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>942</uiIndex>
@@ -22740,7 +22769,7 @@
 		<szBRName>60mm Mustard Gas Shell</szBRName>
 		<szBRDesc>This Mustard Gas mortar shell features waterproof "horseshoe" snap-off propellant increments and the M734 multi-option fuse. WARNING: this item may release a noxious odour upon detonation.</szBRDesc>
 		<usItemClass>512</usItemClass>
-		<ubClassIndex>30</ubClassIndex>
+		<ubClassIndex>32</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>160</ubGraphicNum>
 		<ubWeight>17</ubWeight>
@@ -22766,7 +22795,7 @@
 		<szBRName>20mm HE Clip</szBRName>
 		<szBRDesc>A six-shot magazine of 20mm high explosive fragmentation grenades.  Fun for the whole family!</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>31</ubClassIndex>
+		<ubClassIndex>33</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>301</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -22789,7 +22818,7 @@
 		<szBRName>20mm Mustard Gas Clip</szBRName>
 		<szBRDesc>Take a lesson from the Central Powers in WWI and don't fire these shells into prevailing tradewinds.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>32</ubClassIndex>
+		<ubClassIndex>34</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>302</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -22812,7 +22841,7 @@
 		<szBRName>20mm Smoke Clip</szBRName>
 		<szBRDesc>Mask your advance or cover your withdrawal with these smoke grenades.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>33</ubClassIndex>
+		<ubClassIndex>35</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>303</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -22835,7 +22864,7 @@
 		<szBRName>20mm Stun Clip</szBRName>
 		<szBRDesc>These grenades siphon the air out of their blast radius, leaving enemies helpless on the ground.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>34</ubClassIndex>
+		<ubClassIndex>36</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>304</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -22858,7 +22887,7 @@
 		<szBRName>20mm Tear Gas Clip</szBRName>
 		<szBRDesc>Before deploying these grenades indoors or in a confined space, remember: gas takes the shape of its container.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>35</ubClassIndex>
+		<ubClassIndex>37</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>305</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -22881,7 +22910,7 @@
 		<szBRName>20mm Thermobaric Clip</szBRName>
 		<szBRDesc>These shells will destroy enemy personnel and material with super-heated blast wave.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>36</ubClassIndex>
+		<ubClassIndex>38</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>306</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -22904,7 +22933,7 @@
 		<szBRName>25mm HE Clip</szBRName>
 		<szBRDesc>These 25mm HE grenades arm in mid-air to prevent harm to the user.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>37</ubClassIndex>
+		<ubClassIndex>39</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>295</ubGraphicNum>
 		<ubWeight>12</ubWeight>
@@ -22927,7 +22956,7 @@
 		<szBRName>25mm Mustard Gas Clip</szBRName>
 		<szBRDesc>These grenades are filled with an invariably fatal blistering agent.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>38</ubClassIndex>
+		<ubClassIndex>40</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>296</ubGraphicNum>
 		<ubWeight>12</ubWeight>
@@ -22950,7 +22979,7 @@
 		<szBRName>25mm Smoke Clip</szBRName>
 		<szBRDesc>Screen your troop movement or indicate potential LZ's for the medivac with these smoke grenades.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>39</ubClassIndex>
+		<ubClassIndex>41</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>297</ubGraphicNum>
 		<ubWeight>12</ubWeight>
@@ -22973,7 +23002,7 @@
 		<szBRName>25mm Stun Clip</szBRName>
 		<szBRDesc>Leave them breathless, literally, with a 25mm stun grenade.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>40</ubClassIndex>
+		<ubClassIndex>42</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>298</ubGraphicNum>
 		<ubWeight>12</ubWeight>
@@ -22996,7 +23025,7 @@
 		<szBRName>25mm Tear Gas Clip</szBRName>
 		<szBRDesc>Nothing stops a riot or stifles enemy fire like a chemical irritant.  Buy it by the clip-full in 25mm.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>41</ubClassIndex>
+		<ubClassIndex>43</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>299</ubGraphicNum>
 		<ubWeight>12</ubWeight>
@@ -23019,7 +23048,7 @@
 		<szBRName>25mm Thermobaric Clip</szBRName>
 		<szBRDesc>Turn the air in the surrounding atmospheric air into a lethal firestorm with themobaric ordinance.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>42</ubClassIndex>
+		<ubClassIndex>44</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>300</ubGraphicNum>
 		<ubWeight>12</ubWeight>
@@ -23042,7 +23071,7 @@
 		<szBRName>40mm HE Cylinder</szBRName>
 		<szBRDesc>This is a six-shot grenade cylinder filled with fragmentation grenades.  Each grenade features a time-delayed firing device to ignite its encased TNT. Fired from the MGL Mk.1 grenade launcher, this round can provide great lethal coverage.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>43</ubClassIndex>
+		<ubClassIndex>45</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>315</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -23065,7 +23094,7 @@
 		<szBRName>40mm Mustard Gas Cylinder</szBRName>
 		<szBRDesc>Disclaimer: This product is classed as a chemical weapon and is banned by the Geneva convention. Sold for pest control purposes only! </szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>44</ubClassIndex>
+		<ubClassIndex>46</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>316</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -23088,7 +23117,7 @@
 		<szBRName>40mm Mustard Gas Grenade</szBRName>
 		<szBRDesc>Disclaimer: This product is classed as a chemical weapon and is banned by the Geneva convention. Sold for pest control purposes only! </szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>45</ubClassIndex>
+		<ubClassIndex>47</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>313</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -23115,7 +23144,7 @@
 		<szBRName>40mm Smoke Grenade Cylinder</szBRName>
 		<szBRDesc>When fired from a MGL Mk.1, the grenades in this six-shot cylinder will quickly release a cloud of smoke that will aid in battlefield entry or withdrawal.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>46</ubClassIndex>
+		<ubClassIndex>48</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>317</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -23138,7 +23167,7 @@
 		<szBRName>40mm Stun Grenade Cylinder</szBRName>
 		<szBRDesc>This six-shot MGL Mk.1 grenade cylinder contains projectile rounds that will create a massive vacuum, depriving the surrounding impact area of oxygen. Anyone standing within the detonated area will be left gasping, as waves of air rush back into its core.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>47</ubClassIndex>
+		<ubClassIndex>49</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>318</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -23161,7 +23190,7 @@
 		<szBRName>40mm Tear Gas Cylinder</szBRName>
 		<szBRDesc>This Tear Gas cylinder contains nasty substance that certainly is not odorless. In fact, after walking through a cloud of this stuff you will smell like you just chopped a million raw onions. No, forget that, it's worse.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>48</ubClassIndex>
+		<ubClassIndex>50</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>319</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -23184,7 +23213,7 @@
 		<szBRName>40mm Thermobaric Grenade</szBRName>
 		<szBRDesc>Thermobaric grenades provide a better kill probability than standard HE grenades. An overpressure blast uses atmospheric oxygen once the volatile liquid inside the grenade spreads and ignites.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>49</ubClassIndex>
+		<ubClassIndex>51</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>314</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -23212,7 +23241,7 @@
 		<szBRName>43mm HE Grenades, 4</szBRName>
 		<szBRDesc>High Explosive grenades for the GM-94. Sold only in packs of four since we here at Bobby Ray's want to make sure that you won't go into battle with a half-empty weapon.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>50</ubClassIndex>
+		<ubClassIndex>52</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>358</ubGraphicNum>
 		<ubWeight>17</ubWeight>
@@ -23233,7 +23262,7 @@
 		<szBRName>43mm Mustard Gas Grenades, 4</szBRName>
 		<szBRDesc>This product is classed as a chemical weapon and is banned by the Geneva convention. Sold for pest control purposes only!</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>51</ubClassIndex>
+		<ubClassIndex>53</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>355</ubGraphicNum>
 		<ubWeight>17</ubWeight>
@@ -23254,7 +23283,7 @@
 		<szBRName>43mm Smoke Grenades, 4</szBRName>
 		<szBRDesc>Smoke rounds for the GM-94. Sold only in packs of four since we here at Bobby Ray's want to make sure that you won't go into battle with a half-empty weapon. </szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>52</ubClassIndex>
+		<ubClassIndex>54</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>359</ubGraphicNum>
 		<ubWeight>17</ubWeight>
@@ -23275,7 +23304,7 @@
 		<szBRName>43mm Stun Grenades, 4</szBRName>
 		<szBRDesc>Crowd of rioters or room full of hyperactive children (we kid, of course), a stun grenade will take the wind and the fight right out of them.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>53</ubClassIndex>
+		<ubClassIndex>55</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>360</ubGraphicNum>
 		<ubWeight>17</ubWeight>
@@ -23296,7 +23325,7 @@
 		<szBRName>43mm Tear Gas Grenades, 4</szBRName>
 		<szBRDesc>Drop 4 CS gas grenades on your target and reduce them to blubbering wrecks.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>54</ubClassIndex>
+		<ubClassIndex>56</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>356</ubGraphicNum>
 		<ubWeight>17</ubWeight>
@@ -23317,7 +23346,7 @@
 		<szBRName>OG-7V Fragmentation Rocket</szBRName>
 		<szBRDesc>A rocket propelled grenade is perfect for those times when you need to make a big entrance.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>55</ubClassIndex>
+		<ubClassIndex>57</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>150</ubGraphicNum>
 		<ubWeight>21</ubWeight>
@@ -23343,7 +23372,7 @@
 		<szBRName>PG-7VM HEAT Rocket</szBRName>
 		<szBRDesc>Works exactly like a can opener, but on tanks.  Oh, and it's a bit louder.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>56</ubClassIndex>
+		<ubClassIndex>58</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>224</ubGraphicNum>
 		<ubWeight>21</ubWeight>
@@ -23369,7 +23398,7 @@
 		<szBRName>TBG-7V Thermobaric Rocket</szBRName>
 		<szBRDesc>Guaranteed to blow your enemies away.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>57</ubClassIndex>
+		<ubClassIndex>59</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>225</ubGraphicNum>
 		<ubWeight>21</ubWeight>
@@ -23395,7 +23424,7 @@
 		<szBRName>Molotov Cocktail</szBRName>
 		<szBRDesc>Arguably one of Russia's most deadly exports, next to the Vodka itself, a bottle of alcohol with a cloth fuse is, like a good Vodka, simple and powerful. </szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>58</ubClassIndex>
+		<ubClassIndex>60</ubClassIndex>
 		<ubCursor>6</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>200</ubGraphicNum>
@@ -23414,7 +23443,7 @@
 		<szBRName>VOG-25 40mm Grenade</szBRName>
 		<szBRDesc>40mm HE shell for Russian grenade launchers.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>59</ubClassIndex>
+		<ubClassIndex>61</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>291</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -23441,7 +23470,7 @@
 		<szBRName>VOG-25P 40mm Jumping Grenade</szBRName>
 		<szBRDesc>40mm jumping grenade - a few hundred bucks. Grenade launcher - a few thousand. Seeing your enemies' expression once they see this little bugger merrily hopping towards them - priceless.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>60</ubClassIndex>
+		<ubClassIndex>62</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>292</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -23468,7 +23497,7 @@
 		<szBRName>40mm Thermobaric Cylinder</szBRName>
 		<szBRDesc>This cylinder of 40mm fuel-air grenades transforms the user into a walking, talking WMD. </szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>61</ubClassIndex>
+		<ubClassIndex>63</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>320</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -23492,7 +23521,7 @@
 		<szBRName>40mm Metal Storm HE</szBRName>
 		<szBRDesc>Take the load off the team grenadier with Metal Storm's 40mm multi shot grenade system. Three rounds of High Explosive (HE) death configured for the AICW's hi-tech integrated launcher.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>62</ubClassIndex>
+		<ubClassIndex>64</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>307</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -23515,7 +23544,7 @@
 		<szBRName>40mm Metal Storm Tear Gas</szBRName>
 		<szBRDesc>Take the load off the team grenadier with Metal Storm's 40mm multi shot grenade system. Three rounds of tear gas should be enough to quickly pacify any threat</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>63</ubClassIndex>
+		<ubClassIndex>65</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>311</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -23538,7 +23567,7 @@
 		<szBRName>40mm Metal Storm Smoke</szBRName>
 		<szBRDesc>Quickly lay down a long wall of blinding smoke with a three round stack of 40mm Metal Storm enabled 40mm smoke grenades.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>64</ubClassIndex>
+		<ubClassIndex>66</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>309</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -23561,7 +23590,7 @@
 		<szBRName>40mm Metal Storm Mustard Gas</szBRName>
 		<szBRDesc>These things shouldn't exist, but here we have a three round stack of 40mm grenades containing what appears to be Mustard Gas. Where in the world did these things come from, we won't tell.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>65</ubClassIndex>
+		<ubClassIndex>67</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>308</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -23584,7 +23613,7 @@
 		<szBRName>40mm Metal Storm Thermobaric</szBRName>
 		<szBRDesc>Overpressure and heat, instead of shrapnel, is the prime killing effect of Thermobaric explosives. This new way to clear a large space, is packaged in the new Metal Storm 40mm multi-shot grenade stack for the AICW.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>66</ubClassIndex>
+		<ubClassIndex>68</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>312</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -23607,7 +23636,7 @@
 		<szBRName>40mm Metal Storm Stun</szBRName>
 		<szBRDesc>Knock the wind out of any line of infantry with this compact 3 round stack of stun grenades made possible by Metal Storm's patented electronic firing system. Caution: these are only stun weapons, they only buy time.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>67</ubClassIndex>
+		<ubClassIndex>69</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>310</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -23630,7 +23659,7 @@
 		<szBRName>20mm Napalm Clip</szBRName>
 		<szBRDesc>These shells will destroy enemy personnel and material with super-heated napalm.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>68</ubClassIndex>
+		<ubClassIndex>70</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>306</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -23651,7 +23680,7 @@
 		<szBRName>25mm Napalm Clip</szBRName>
 		<szBRDesc>Turn the surrounding area into a lethal firestorm with napalm ordinance.  Six rounds of superheated fun.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>69</ubClassIndex>
+		<ubClassIndex>71</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>300</ubGraphicNum>
 		<ubWeight>12</ubWeight>
@@ -23672,7 +23701,7 @@
 		<szBRName>40mm Napalm Grenade</szBRName>
 		<szBRDesc>Nothing's beats super-heated napalm for burning off some calories.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>70</ubClassIndex>
+		<ubClassIndex>72</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>314</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -23696,7 +23725,7 @@
 		<szBRName>40mm Napalm Cylinder</szBRName>
 		<szBRDesc>This cylinder of 40mm napalm grenades transforms the user into a walking, talking WMD. </szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>71</ubClassIndex>
+		<ubClassIndex>73</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>320</ubGraphicNum>
 		<ubWeight>14</ubWeight>
@@ -23717,7 +23746,7 @@
 		<szBRName>40mm Metal Storm Napalm</szBRName>
 		<szBRDesc>This super hot way to clear a large space is packaged in the new Metal Storm 40mm multi-shot grenade stack for the AICW.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>72</ubClassIndex>
+		<ubClassIndex>74</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>312</ubGraphicNum>
 		<ubWeight>13</ubWeight>
@@ -23738,7 +23767,7 @@
 		<szBRName>Flashbang Grenade</szBRName>
 		<szBRDesc>The flash of light from this grenade momentarily activates all sensory pigment in the retina, making vision impossible for approximately five seconds until the eye restores the pigment to its original, unstimulated state. </szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>73</ubClassIndex>
+		<ubClassIndex>75</ubClassIndex>
 		<ubCursor>6</ubCursor>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>524</ubGraphicNum>
@@ -23759,15 +23788,31 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>995</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 995</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<ItemSize>34</ItemSize>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>40mm ILL</szItemName>
+		<szLongItemName>40mm ILL Grenade</szLongItemName>
+		<szItemDesc>An illumination grenade for nightfighting.</szItemDesc>
+		<szBRName>40mm ILL Grenade</szBRName>
+		<szBRDesc>The M583A1 illumination grenade.provides battlefield illumination from most 40mm grenade launchers. Longer range and more candlepower than a breaklight!</szBRDesc>
+		<usItemClass>256</usItemClass>
+		<ubClassIndex>76</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>747</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<GLGrenade>1</GLGrenade>
+		<Flare>1</Flare>
 	</ITEM>
 	<ITEM>
 		<uiIndex>996</uiIndex>
@@ -28548,7 +28593,7 @@
 		<szBRName>Emergency Flare</szBRName>
 		<szBRDesc>Brighter than chemical lightsticks, but also comparatively short-lived, these flares can light up the night for you.</szBRDesc>
 		<usItemClass>256</usItemClass>
-		<ubClassIndex>74</ubClassIndex>
+		<ubClassIndex>77</ubClassIndex>
 		<ubCursor>6</ubCursor>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>71</ubGraphicNum>

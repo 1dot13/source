@@ -5214,7 +5214,7 @@
 		<APsToReload>28</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>22</MaxDistForMessyDeath>
-		<APsToReloadManually>7</APsToReloadManually>
+		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
