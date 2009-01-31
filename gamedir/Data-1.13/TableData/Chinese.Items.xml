@@ -1061,7 +1061,7 @@
 		<szItemName>催泪手雷</szItemName>
 		<szLongItemName>催泪手雷</szLongItemName>
 		<szItemDesc>催泪手雷投掷后会释放出强力催泪瓦斯使目标迅速就范。</szItemDesc>
-		<szBRName>BR商品名称</szBRName>
+		<szBRName>催泪手雷</szBRName>
 		<szBRDesc>催泪手雷释放出的强力催泪瓦斯会让壮汉像小婴儿一样一把鼻涕一把泪。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1141,7 +1141,7 @@
 		<szItemName>C4</szItemName>
 		<szLongItemName>C4</szLongItemName>
 		<szItemDesc>C4炸药是可塑炸药的一种，成分不定，常出现在电影电视中，你必须装上一个起爆器才能使用。</szItemDesc>
-		<szBRName>BR商品名称</szBRName>
+		<szBRName>C4</szBRName>
 		<szBRDesc>C4炸药是可塑炸药的一种，成分不定，常出现在电影电视中，你必须装上一个起爆器才能使用。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1525,7 +1525,7 @@
 		<szItemName>加硬凯芙拉皮衣</szItemName>
 		<szLongItemName>加硬凯芙拉皮衣</szLongItemName>
 		<szItemDesc>经过合成物18处理过处理的凯芙拉皮衣增强了抗击打力。</szItemDesc>
-		<szBRName>BR商品名称</szBRName>
+		<szBRName>加硬凯芙拉皮衣</szBRName>
 		<szBRDesc>经过合成物18处理过的凯芙拉皮衣增强了抗击打力。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2436,17 +2436,17 @@
 		<uiIndex>304</uiIndex>
 		<szItemName>电工胶带</szItemName>
 		<szLongItemName>电工胶带</szLongItemName>
-		<szItemDesc>物品说明</szItemDesc>
-		<szBRName>一卷灰色，两寸宽的结实胶带。非常适合用来补洞和粘接东西。</szBRName>
-		<szBRDesc>BR不出售此物品。</szBRDesc>
+		<szItemDesc>一卷灰色，两寸宽的结实胶带。非常适合用来补洞和粘接东西。</szItemDesc>
+		<szBRName>电工胶带</szBRName>
+		<szBRDesc>一卷灰色，两寸宽的结实胶带。非常适合用来补洞和粘接东西。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>305</uiIndex>
 		<szItemName>管子</szItemName>
 		<szLongItemName>铝管</szLongItemName>
-		<szItemDesc>一截用来挂窗帘的铝管，两端都断了。真想知道可怜的小窗帘被怎么了...</szItemDesc>
+		<szItemDesc>一截用来挂窗帘的铝管，两端都断了。真想知道可怜的小窗帘被怎么了……</szItemDesc>
 		<szBRName>铝管</szBRName>
-		<szBRDesc>BR不出售此物品。</szBRDesc>
+		<szBRDesc>一截用来挂窗帘的铝管，两端都断了。真想知道可怜的小窗帘被怎么了……</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>306</uiIndex>
@@ -2454,7 +2454,7 @@
 		<szLongItemName>弹簧</szLongItemName>
 		<szItemDesc>一小根弹簧，很多家用电器上都有它的身影。</szItemDesc>
 		<szBRName>弹簧</szBRName>
-		<szBRDesc>BR不出售此物品。</szBRDesc>
+		<szBRDesc>一小根弹簧，很多家用电器上都有它的身影。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>307</uiIndex>
@@ -2462,7 +2462,7 @@
 		<szLongItemName>弹簧铝管</szLongItemName>
 		<szItemDesc>把这个精巧的小玩意儿装到枪里面可以提高武器的射速。</szItemDesc>
 		<szBRName>弹簧铝管</szBRName>
-		<szBRDesc>BR不出售此物品。</szBRDesc>
+		<szBRDesc>把这个精巧的小玩意儿装到枪里面可以提高武器的射速。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>308</uiIndex>
@@ -2582,7 +2582,7 @@
 		<szLongItemName>电池</szLongItemName>
 		<szItemDesc>"北孚电池，聚能环锁住电力持久耐用。"---你知道这些都是狗屁，电池就像女人，在你最需要她们的时候就会把你给甩了。</szItemDesc>
 		<szBRName>电池</szBRName>
-		<szBRDesc>BR不出售此物品。</szBRDesc>
+		<szBRDesc>"北孚电池，聚能环锁住电力持久耐用。"---你知道这些都是狗屁，电池就像女人，在你最需要她们的时候就会把你给甩了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>323</uiIndex>
@@ -2724,7 +2724,7 @@
 		<uiIndex>340</uiIndex>
 		<szItemName>Saiga 12K</szItemName>
 		<szLongItemName>Saiga 12K</szLongItemName>
-		<szItemDesc>当你按下班机，像一堵墙一般的霰弹就会喷射而出。适合用作自家防卫，或者用来紧张家庭聚会的气氛。</szItemDesc>
+		<szItemDesc>当你按下扳机，像一堵墙一般的霰弹就会喷射而出。适合用作自家防卫，或者用来紧张家庭聚会的气氛。</szItemDesc>
 		<szBRName>Saiga 12K</szBRName>
 		<szBRDesc>于AK-47诞生后而生产，设计精良，造价便宜，半自动射击。无论是家用自卫还是警用，都有很不错的效果。</szBRDesc>
 	</ITEM>
@@ -7522,19 +7522,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>940</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 940</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>60mm照明弹</szItemName>
+		<szLongItemName>60mm照明弹</szLongItemName>
+		<szItemDesc>60mm照明弹,迫击炮专用。</szItemDesc>
+		<szBRName>60mm照明弹</szBRName>
+		<szBRDesc>60mm M721型照明弹可能是佣兵战场上拥有最强大照明功能的炮弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>941</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 941</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>60mm烟雾弹</szItemName>
+		<szLongItemName>60mm烟雾弹</szLongItemName>
+		<szItemDesc>60mm白磷烟雾弹。</szItemDesc>
+		<szBRName>60mm烟雾弹</szBRName>
+		<szBRDesc>M722型60mm烟雾弹可以为您的进攻或者撤退提供强力的烟雾覆盖，但是小心它的白磷成分对人员的伤害。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>942</uiIndex>
@@ -7940,9 +7940,9 @@
 		<uiIndex>992</uiIndex>
 		<szItemName>40mm凝固汽油弹组，6</szItemName>
 		<szLongItemName>40mm，6发凝固汽油弹</szLongItemName>
-		<szItemDesc>拿上这个，你就是"人形大杀器“！</szItemDesc>
+		<szItemDesc>拿上这个，你就是“人形大杀器”！</szItemDesc>
 		<szBRName>40mm凝固汽油弹组，6</szBRName>
-		<szBRDesc>拿上这个，你就是"人形大杀器“！</szBRDesc>
+		<szBRDesc>拿上这个，你就是“人形大杀器”！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>993</uiIndex>
@@ -7962,11 +7962,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>995</uiIndex>
-		<szItemName>40mm ILL</szItemName>
-		<szLongItemName>40mm ILL Grenade</szLongItemName>
-		<szItemDesc>An illumination grenade for nightfighting.</szItemDesc>
-		<szBRName>40mm ILL Grenade</szBRName>
-		<szBRDesc>The M583A1 illumination grenade.provides battlefield illumination from most 40mm grenade.</szBRDesc>
+		<szItemName>40mm照明弹</szItemName>
+		<szLongItemName>40mm照明榴弹</szLongItemName>
+		<szItemDesc>40mm照明榴弹，夜战专用。</szItemDesc>
+		<szBRName>40mm照明榴弹</szBRName>
+		<szBRDesc>M583A1，40mm照明榴弹，为夜间的战场提供照明。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>996</uiIndex>
@@ -8870,7 +8870,7 @@
 		<szLongItemName>Kevlar-18医护背心</szLongItemName>
 		<szItemDesc>野战医护人员常用，带有一些专为放置医疗用具的位置。经C-18增强。</szItemDesc>
 		<szBRName>Kev.-18医护背心</szBRName>
-		<szBRDesc>BR商品说明</szBRDesc>
+		<szBRDesc>野战医护人员常用，带有一些专为放置医疗用具的位置。经C-18增强。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1109</uiIndex>
@@ -9014,7 +9014,7 @@
 		<szLongItemName>Kevlar-18野战增强背心</szLongItemName>
 		<szItemDesc>看起来是为长时间野外行动作战设计。经C-18增强。</szItemDesc>
 		<szBRName>Kevlar-18野战背心</szBRName>
-		<szBRDesc>BR商品说明</szBRDesc>
+		<szBRDesc>看起来是为长时间野外行动作战设计。经C-18增强。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1127</uiIndex>
@@ -9302,7 +9302,7 @@
 		<szLongItemName>Guardian野战涂层背心</szLongItemName>
 		<szItemDesc>看起来是为长时间野外行动作战设计。经异形女王体液涂覆处理。</szItemDesc>
 		<szBRName>C. Guardian野战背心</szBRName>
-		<szBRDesc>BR商品说明</szBRDesc>
+		<szBRDesc>看起来是为长时间野外行动作战设计。经异形女王体液涂覆处理。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1163</uiIndex>
