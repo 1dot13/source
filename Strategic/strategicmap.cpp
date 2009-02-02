@@ -5863,3 +5863,15 @@ void CrippledVersionFailureToLoadMapCallBack( UINT8 bExitValue )
 	}
 }
 #endif
+BOOLEAN EscapeDirectionIsValid( INT8 * pbDirection )
+{
+	switch( *pbDirection )
+		{
+			case NORTHEAST: if( gWorldSectorX + 1 > MAXIMUM_VALID_X_COORDINATE ) *pbDirection = -1; break; // east
+			case SOUTHEAST: if( gWorldSectorY + 1 > MAXIMUM_VALID_Y_COORDINATE ) *pbDirection = -1; break; // south
+			case SOUTHWEST: if( gWorldSectorX - 1 < MINIMUM_VALID_X_COORDINATE ) *pbDirection = -1; break; // west
+			case NORTHWEST: if( gWorldSectorY - 1 < MINIMUM_VALID_Y_COORDINATE ) *pbDirection = -1; break; // north
+			default: *pbDirection = -1;
+	}
+	return( *pbDirection != -1 );
+}

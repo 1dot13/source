@@ -915,7 +915,7 @@ STR16 gzMercSkillText[] =
 	L"偷窃",	//"Thief",
 	L"武术",	//"Martial Arts",
 	L"刀技",	//"Knifing",
-	L"神射手",	//"Sniper",
+	L"狙击手",	//"Sniper",
 	L"伪装",	//"Camouflage",						//JA25: modified
 	L"伪装（城市）",	//"Camouflage (Urban)",						
 	L"伪装（沙漠）",	//"Camouflage (Desert)",						

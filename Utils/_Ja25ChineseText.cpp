@@ -88,7 +88,7 @@ STR16 gzIMPSkillTraitsText[]=
 	L"潜行",	//"Stealth",
 	L"双手武器",	//"Ambidextrous",
 	L"刀技",	//"Knifing",
-	L"神射手",	//"Sniper",
+	L"狙击手",	//"Sniper",
 	L"伪装",	//"Camouflage",
 	L"武术",	//"Martial Arts",
 

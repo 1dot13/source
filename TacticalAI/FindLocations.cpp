@@ -1334,7 +1334,7 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 
 			iSpotClosestThreatRange = 1500;
 
-			if ( pSoldier->bTeam == ENEMY_TEAM && GridNoOnEdgeOfMap( sGridNo, &bEscapeDirection ) )
+			if ( pSoldier->bTeam == ENEMY_TEAM && GridNoOnEdgeOfMap( sGridNo, &bEscapeDirection ) && EscapeDirectionIsValid( &bEscapeDirection ) )
 			{
 				// We can escape!	This is better than anything else except a closer spot which we can
 				// cross over from.
