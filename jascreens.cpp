@@ -424,7 +424,7 @@ UINT32 InitScreenHandle(void)
 		}
 
         // Remove this for real release
-        mprintf( 10, 40, L"(Space Viking's Many Mercs beta 007n -- 29 December 2008)" );
+       // mprintf( 10, 40, L"(Space Viking's Many Mercs beta 007n -- 29 December 2008)" );
 
 		// Handle queued .ini file error messages
  		int y = 40;
