@@ -5497,4 +5497,13 @@ STR16 MPHelp[] =
 	L"'F1' - 显示基本帮助",
 };
 
+// WANNE: Some Chinese specific strings that needs to be in unicode!
+STR16 ChineseSpecString1 = L"%％";			//defined in _ChineseText.cpp as this file is already unicode
+STR16 ChineseSpecString2 = L"*%3d%％%%";	//defined in _ChineseText.cpp as this file is already unicode
+STR16 ChineseSpecString3 = L"%d%％";		//defined in _ChineseText.cpp as this file is already unicode
+STR16 ChineseSpecString4 = L"%s (%s) [%d%％]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d) %s\n%s %1.1f %s";
+STR16 ChineseSpecString5 = L"%s [%d%％]\n%s %d\n%s %d\n%s %1.1f %s";
+STR16 ChineseSpecString6 = L"%s [%d%％]\n%s %d%％ (%d/%d)\n%s %d%％\n%s %1.1f %s";
+STR16 ChineseSpecString7 = L"%s [%d%％]\n%s %1.1f %s";
+
 #endif //CHINESE

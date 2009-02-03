@@ -1585,6 +1585,15 @@ extern STR16 MPServerMessage[];
 extern STR16 MPClientMessage[];
 extern STR16 MPHelp[];
 
+// WANNE: Some Chinese specific strings that needs to be in unicode!
+extern STR16 ChineseSpecString1;
+extern STR16 ChineseSpecString2;
+extern STR16 ChineseSpecString3;
+extern STR16 ChineseSpecString4;
+extern STR16 ChineseSpecString5;
+extern STR16 ChineseSpecString6;
+extern STR16 ChineseSpecString7;
+
 enum
 {
 	NIV_CAN_NOT_PICKUP,
