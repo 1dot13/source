@@ -5329,7 +5329,7 @@ STR16 New113Message[] =
 	L"下雨了。",
 	L"雨停了。",
 	L"小心狙击手……",
-	L"火力压制！",	
+	L"火力压制！",
 	L"点射",
 	L"自动",
 	L"榴弹",
@@ -5342,7 +5342,7 @@ STR16 New113Message[] =
 	L"此类物品全部销毁",
 	L"物品卖出",
 	L"此类物品全部卖出",
-	L"You should check your goggles",
+	L"该检查你的护目镜了",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
