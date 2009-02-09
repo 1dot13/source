@@ -296,6 +296,7 @@ void GetPlayerKeyBoardInputForIMPHomePage( void )
 					}
 				break;
 				case (( ESC )):
+			HandleLapTopESCKey();		// WANNE: Fix for proper closing of the IMP laptop page
 			LeaveLapTopScreen( );
 				break;
 				default:

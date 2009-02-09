@@ -40,6 +40,7 @@ BOOLEAN		DoLapTopSystemMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitSc
 BOOLEAN		RemoveBookMark( INT32 iBookId );
 void			CreateFileAndNewEmailIconFastHelpText( UINT32 uiHelpTextID, BOOLEAN fClearHelpText );
 BOOLEAN		InitLaptopAndLaptopScreens();
+void HandleLapTopESCKey( void );
 
 // clear out all tempf iles from laptop
 void ClearOutTempLaptopFiles( void );

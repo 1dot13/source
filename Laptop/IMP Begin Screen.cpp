@@ -512,6 +512,7 @@ void GetPlayerKeyBoardInputForIMPBeginScreen( void )
 				fNewCharInString = TRUE;
 				break;
 		 case (( ESC )):
+			HandleLapTopESCKey();		// WANNE: Fix for proper closing of the IMP laptop page
 			LeaveLapTopScreen( );
 				break;
 				case (( TAB )):
