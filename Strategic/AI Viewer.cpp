@@ -398,8 +398,9 @@ BOOLEAN CreateAIViewer()
 	AddTextInputField( 10, VIEWER_BOTTOM + 90, 25, 15, MSYS_PRIORITY_NORMAL, str, 2, INPUTTYPE_NUMERICSTRICT );
 
 	//Press buttons in based on current settings
-	Assert( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_EASY && gGameOptions.ubDifficultyLevel <= DIF_LEVEL_HARD );
-	ButtonList[ iViewerButton[ RESET_EASY + gGameOptions.ubDifficultyLevel - DIF_LEVEL_EASY ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	if (gGameOptions.ubDifficultyLevel >= DIF_LEVEL_EASY && gGameOptions.ubDifficultyLevel <= DIF_LEVEL_HARD) 
+		ButtonList[ iViewerButton[ RESET_EASY + gGameOptions.ubDifficultyLevel - DIF_LEVEL_EASY ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	
 	ButtonList[ iViewerButton[ COMPRESSION0 ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	if( !GamePaused() )
 		SetGameMinutesPerSecond( 0 );
