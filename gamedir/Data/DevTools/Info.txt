@@ -1,0 +1,1 @@
+To open the the AI Viewer Dialog press F12 in Strategy Screen. This only works in Debug Version.
