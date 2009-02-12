@@ -10344,4 +10344,60 @@
 		<szBRName>Skrzynka amunicji poddźwiękowej 12.7x97mm</szBRName>
 		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1293</uiIndex>
+		<szItemName>5.56 SCF</szItemName>
+		<szLongItemName>5.56x45mm SCF ammo crate</szLongItemName>
+		<szItemDesc>skrzynka ammunicji</szItemDesc>
+		<szBRName>5.56x45mm SCF ammo crate</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1294</uiIndex>
+		<szItemName>Skrzynka amunicji 4.6mm</szItemName>
+		<szLongItemName>Skrzynka amunicji 4.6x30mm</szLongItemName>
+		<szItemDesc>Skrzynka amunicji</szItemDesc>
+		<szBRName>Skrzynka amunicji 4.6x30mm</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1295</uiIndex>
+		<szItemName>Skrzynka amunicji 4.6mm AET</szItemName>
+		<szLongItemName>Skrzynka amunicji 4.6x30mm AET</szLongItemName>
+		<szItemDesc>Skrzynka amunicji</szItemDesc>
+		<szBRName>Skrzynka amunicji 4.6x30mm AET</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1296</uiIndex>
+		<szItemName>Skrzynka amunicji 9mm MS</szItemName>
+		<szLongItemName>9mm MS ammo crate</szLongItemName>
+		<szItemDesc>Skrzynka amunicji</szItemDesc>
+		<szBRName>9mm MS ammo crate</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1297</uiIndex>
+		<szItemName>Skrzynka amunicji .30-06</szItemName>
+		<szLongItemName>Skrzynka amunicji .30-06</szLongItemName>
+		<szItemDesc>skrzynka amunicji</szItemDesc>
+		<szBRName>Skrzynka amunicji .30-06</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1298</uiIndex>
+		<szItemName>Skrzynka amunicji .300WM HP</szItemName>
+		<szLongItemName>Skrzynka amunicji .300WinMag HP</szLongItemName>
+		<szItemDesc>skrzynka amunicji</szItemDesc>
+		<szBRName>Skrzynka amunicji .300WinMag HP</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1299</uiIndex>
+		<szItemName>Skrzynka amunicji .300WM AP</szItemName>
+		<szLongItemName>Skrzynka amunicji .300WinMag AP</szLongItemName>
+		<szItemDesc>skrzynka amunicji</szItemDesc>
+		<szBRName>Skrzynka amunicji .300WinMag AP</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
 </ITEMLIST>

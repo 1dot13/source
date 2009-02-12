@@ -10344,4 +10344,60 @@
 		<szBRName>12.7x97mm Subs. ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1293</uiIndex>
+		<szItemName>5.56 SCF crate</szItemName>
+		<szLongItemName>5.56x45mm SCF ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.56x45mm SCF ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1294</uiIndex>
+		<szItemName>4.6mm crate</szItemName>
+		<szLongItemName>4.6x30mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>4.6x30mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1295</uiIndex>
+		<szItemName>4.6mm AET crate</szItemName>
+		<szLongItemName>4.6x30mm AET ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>4.6x30mm AET ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1296</uiIndex>
+		<szItemName>9mm MS crate</szItemName>
+		<szLongItemName>9mm MS ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9mm MS ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1297</uiIndex>
+		<szItemName>.30-06 crate</szItemName>
+		<szLongItemName>.30-06 ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.30-06 ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1298</uiIndex>
+		<szItemName>.300WM HP crate</szItemName>
+		<szLongItemName>.300WinMag HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.300WinMag HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1299</uiIndex>
+		<szItemName>.300WM AP crate</szItemName>
+		<szLongItemName>.300WinMag AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.300WinMag AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
 </ITEMLIST>

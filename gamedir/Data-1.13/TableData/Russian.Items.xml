@@ -10346,4 +10346,60 @@
 		<szBRName>12,7x97мм дозв., ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1293</uiIndex>
+		<szItemName>5.56 SCF crate</szItemName>
+		<szLongItemName>5.56x45mm SCF ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.56x45mm SCF ammo crate</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1294</uiIndex>
+		<szItemName>4,6мм</szItemName>
+		<szLongItemName>4,6x30мм, ящик с патронами</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>4,6x30мм, ящик с патронами</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1295</uiIndex>
+		<szItemName>4,6мм AET</szItemName>
+		<szLongItemName>4.6x30мм AET, ящик с патронами</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>4.6x30мм AET, ящик с патронами</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1296</uiIndex>
+		<szItemName>9мм MS</szItemName>
+		<szLongItemName>9mm MS ammo crate</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>9mm MS ammo crate</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1297</uiIndex>
+		<szItemName>.30-06</szItemName>
+		<szLongItemName>.30-06, ящик с патронами</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>.30-06, ящик с патронами</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1298</uiIndex>
+		<szItemName>.300WM HP</szItemName>
+		<szLongItemName>.300WinMag HP, ящик с патронами</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>.300WinMag HP, ящик с патронами</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1299</uiIndex>
+		<szItemName>.300WM AP</szItemName>
+		<szLongItemName>.300WinMag AP, ящик с патронами</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>.300WinMag AP, ящик с патронами</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
 </ITEMLIST>

@@ -4210,4 +4210,39 @@
 		<sItemIndex>797</sItemIndex>
 		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>842</uiIndex>
+		<sItemIndex>1293</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>843</uiIndex>
+		<sItemIndex>1294</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>844</uiIndex>
+		<sItemIndex>1295</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>845</uiIndex>
+		<sItemIndex>1296</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>846</uiIndex>
+		<sItemIndex>1297</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>847</uiIndex>
+		<sItemIndex>1298</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>848</uiIndex>
+		<sItemIndex>1299</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
 </INVENTORYLIST>

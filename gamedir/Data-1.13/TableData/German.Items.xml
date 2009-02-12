@@ -9970,4 +9970,60 @@
 		<szBRName>12.7x97mm Subs. Munitionskiste</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1293</uiIndex>
+		<szItemName>5.56 SCF Kiste</szItemName>
+		<szLongItemName>5.56x45mm SCF Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.56x45mm SCF.</szItemDesc>
+		<szBRName>5.56x45mm SCF Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1294</uiIndex>
+		<szItemName>4.6mm Kiste</szItemName>
+		<szLongItemName>4.6x30mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 4.6x30mm.</szItemDesc>
+		<szBRName>4.6x30mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1295</uiIndex>
+		<szItemName>4.6mm AET Kiste</szItemName>
+		<szLongItemName>4.6x30mm AET Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 4.6x30mm AET.</szItemDesc>
+		<szBRName>4.6x30mm AET Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1296</uiIndex>
+		<szItemName>9mm MS Kiste</szItemName>
+		<szLongItemName>9mm MS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9mm Metalstorm.</szItemDesc>
+		<szBRName>9mm MS Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1297</uiIndex>
+		<szItemName>.30-06 Kiste</szItemName>
+		<szLongItemName>.30-06 Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers .30-06.</szItemDesc>
+		<szBRName>.30-06 Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1298</uiIndex>
+		<szItemName>.300WM HS Kiste</szItemName>
+		<szLongItemName>.300WinMag HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 2000 Patronen des Kalibers .300WinMag HS.</szItemDesc>
+		<szBRName>.300WinMag HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1299</uiIndex>
+		<szItemName>.300WM PB Kiste</szItemName>
+		<szLongItemName>.300WinMag PB Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 2000 Patronen des Kalibers .300WinMag PB.</szItemDesc>
+		<szBRName>.300WinMag PB Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
 </ITEMLIST>
