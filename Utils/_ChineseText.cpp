@@ -3764,7 +3764,7 @@ STR16			BobbyRaysFrontText[] =
 	//Details on the web site
 
 	L"这里有最新最火爆的军火供应",	//"This is the place to be for the newest and hottest in weaponry and military supplies",
-	L"我们会完美地满足你各种各样的需求",	//"We can find the perfect solution for all your explosives needs",
+	L"我们提供硬件满足您所有破坏欲望！",	//"We can find the perfect solution for all your explosives needs",
 	L"二手货",	//"Used and refitted items",
 
 	//Text for the various links to the sub pages
@@ -5342,7 +5342,7 @@ STR16 New113Message[] =
 	L"此类物品全部销毁",
 	L"物品卖出",
 	L"此类物品全部卖出",
-	L"该检查你的护目镜了",
+	L"你得检查一下你的眼部装备",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
