@@ -10,19 +10,19 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>2</pIndex>
-		<pName>刀套</pName>
+		<pName>刀</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>3</pIndex>
-		<pName>车辆</pName>
+		<pName>车尾箱</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>4</pIndex>
-		<pName>大号通用包</pName>
+		<pName>大通用包</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>5</pIndex>
-		<pName>战斗包</pName>
+		<pName>杂物包</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>6</pIndex>
@@ -34,7 +34,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>8</pIndex>
-		<pName>中号通用包</pName>
+		<pName>中型杂物包</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>9</pIndex>
@@ -42,11 +42,11 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>10</pIndex>
-		<pName>突击步枪弹匣包</pName>
+		<pName>AR弹匣包</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>11</pIndex>
-		<pName>手枪套</pName>
+		<pName>手枪枪套</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>12</pIndex>
@@ -66,11 +66,11 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>16</pIndex>
-		<pName>极小号通用包</pName>
+		<pName>小口袋</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>17</pIndex>
-		<pName>小号通用包</pName>
+		<pName>大口袋</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>18</pIndex>
@@ -78,18 +78,18 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>19</pIndex>
-		<pName>快速上弹器包</pName>
+		<pName>快速上弹器袋</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>20</pIndex>
-		<pName>医疗用品包</pName>
+		<pName>医疗包</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>21</pIndex>
-		<pName>注射器包</pName>
+		<pName>针筒包</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>22</pIndex>
-		<pName>双弹链包</pName>
+		<pName>大形弹链包</pName>
 	</POCKET>
 </POCKETLIST>
