@@ -3497,6 +3497,8 @@ STR16	zOptionsText[] =
 	L"Zapisz grê",
 	L"Odczytaj grê",
 	L"Wyjœcie",
+	L"Next",
+	L"Prev",
 	L"OK",
 
 	//Text above the slider bars
@@ -3683,6 +3685,7 @@ STR16		zOptionsToggleText[] =
 	L"Cichy Skyrider",
 	L"Niskie obci¹¿enie procesora",
 	L"Rozszerzone Okno Opisu (EDB)",	//Enhanced Description Box
+	L"Forced Turn Mode",			// arynn : add forced turn mode
 };
 
 //This is the help text associated with the above toggles.
@@ -3764,6 +3767,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeœli W£¥CZONE, Skyrider nie bêdzie nic mówi³.",
 	L"Jeœli W£¥CZONE, gra bêdzie obci¹¿a³a procesor w mniejszym stopniu.",
 	L"Jeœli W£¥CZONE, rozszerzone opisy bêd¹ pokazane dla przedmiotów i broni.",
+	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
 };
 
 STR16	gzGIOScreenText[] =

@@ -311,6 +311,8 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ]					= FALSE;
+	gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ]					= FALSE;
+	
 
 	gGameSettings.ubSizeOfDisplayCover = 4;
 	gGameSettings.ubSizeOfLOS = 4;

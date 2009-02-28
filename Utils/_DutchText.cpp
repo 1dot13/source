@@ -3490,6 +3490,8 @@ STR16	zOptionsText[] =
 	L"Spel Bewaren",
 	L"Spel Laden",
 	L"Stop",
+	L"Next",
+	L"Prev",
 	L"OK",
 
 	//Text above the slider bars
@@ -3676,6 +3678,7 @@ STR16		zOptionsToggleText[] =
 	L"Silent Skyrider",
 	L"Low CPU Usage",
 	L"Enhanced Description Box",
+	L"Forced Turn Mode",			// arynn : add forced turn mode
 };
 
 //This is the help text associated with the above toggles.
@@ -3706,7 +3709,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Schakel deze optie IN als je karakters wil selecteren zoals in de vorige JAGGED ALLIANCE (methode is tegengesteld dus).",
 
 	//Show movement path
-	L"Schakel deze optie IN om bewegingspaden te tonen in real-time (schakel het uit en gebruik dan de SHIFT-toets om paden te tonen).",
+	L"Schakel deze optie IN om bewegingspaden te tonen in real-time (schakel het uit en gebruik dan de |S|H|I|F|T-toets om paden te tonen).",
 
 	//show misses
 	L"Schakel IN om het spel de plaats van inslag van je kogels te tonen wanneer je \"mist\".",
@@ -3757,6 +3760,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, game will run with much lower CPU usage.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
+	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
 };
 
 

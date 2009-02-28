@@ -58,6 +58,8 @@ enum
 	TOPTION_SILENT_SKYRIDER,
 	TOPTION_LOW_CPU_USAGE,
 	TOPTION_ENHANCED_DESC_BOX,
+	TOPTION_TOGGLE_TURN_MODE, // arynn : add forced turn mode
+
 	NUM_GAME_OPTIONS,				//Toggle up this will be able to be Toggled by the player
 	
 

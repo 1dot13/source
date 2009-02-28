@@ -3485,6 +3485,8 @@ STR16	zOptionsText[] =
 	L"Salva partita",
 	L"Carica partita",
 	L"Abbandona",
+	L"Next",
+	L"Prev",
 	L"Fine",
 
 	//Text above the slider bars
@@ -3669,6 +3671,7 @@ STR16		zOptionsToggleText[] =
 	L"Silent Skyrider",
 	L"Low CPU usage",
 	L"Enhanced Description Box",
+	L"Forced Turn Mode",			// arynn : add forced turn mode
 };
 
 //This is the help text associated with the above toggles.
@@ -3699,7 +3702,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Attivate questa opzione per selezionare i personaggi e muoverli come nel vecchio JA (dato che la funzione è stata invertita).",
 
 	//Show movement path
-	L"Attivate questa opzione per visualizzare i sentieri di movimento in tempo reale (oppure disattivatela utilizzando il tasto MAIUSC).",
+	L"Attivate questa opzione per visualizzare i sentieri di movimento in tempo reale (oppure disattivatela utilizzando il tasto |M|A|I|U|S|C).",
 
 	//show misses
 	L"Attivate per far sì che la partita vi mostri dove finiscono i proiettili quando \"sbagliate\".",
@@ -3750,6 +3753,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, game will run with much lower CPU usage.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
+	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
 };
 
 

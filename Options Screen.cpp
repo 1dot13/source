@@ -39,6 +39,7 @@
 	#include "SmokeEffects.h"
 #endif
 
+#include		"line.h" // arynn : Debug Options Screen
 #include		"connect.h"
 #include		"WorldMan.h"
 
@@ -54,25 +55,33 @@
 #define	OPT_MAIN_COLOR							OPT_BUTTON_ON_COLOR
 #define	OPT_HIGHLIGHT_COLOR						FONT_MCOLOR_WHITE
 
-#define		OPTIONS_SCREEN_WIDTH									440
-#define		OPTIONS_SCREEN_HEIGHT									400
+// these both could be established at run time, then never worry about it again
+// derived from "OPTIONSCREENBASE.sti"
+#define	OPTIONS_SCREEN_WIDTH					638
+#define	OPTIONS_SCREEN_HEIGHT					478
 
-#define	OPTIONS__TOP_LEFT_X						iScreenWidthOffset + 100
-#define	OPTIONS__TOP_LEFT_Y						iScreenHeightOffset + 40
-#define		OPTIONS__BOTTOM_RIGHT_X								OPTIONS__TOP_LEFT_X + OPTIONS_SCREEN_WIDTH
-#define		OPTIONS__BOTTOM_RIGHT_Y								OPTIONS__TOP_LEFT_Y + OPTIONS_SCREEN_HEIGHT
+#define	OPTIONS__TOP_LEFT_X						iScreenWidthOffset
+#define	OPTIONS__TOP_LEFT_Y						iScreenHeightOffset
+#define	OPTIONS__BOTTOM_RIGHT_X					OPTIONS__TOP_LEFT_X + OPTIONS_SCREEN_WIDTH
+#define	OPTIONS__BOTTOM_RIGHT_Y					OPTIONS__TOP_LEFT_Y + OPTIONS_SCREEN_HEIGHT
 
-#define	OPT_SAVE_BTN_X							iScreenWidthOffset + 51
+#define	OPT_SAVE_BTN_X							iScreenWidthOffset + 50
 #define	OPT_SAVE_BTN_Y							iScreenHeightOffset + 438
 
-#define	OPT_LOAD_BTN_X							iScreenWidthOffset + 190
-#define		OPT_LOAD_BTN_Y												OPT_SAVE_BTN_Y
+#define	OPT_LOAD_BTN_X							iScreenWidthOffset + 120
+#define	OPT_LOAD_BTN_Y							OPT_SAVE_BTN_Y
 
-#define	OPT_QUIT_BTN_X							(SCREEN_WIDTH - 640)/ 2 + 329
-#define		OPT_QUIT_BTN_Y												OPT_SAVE_BTN_Y
+#define	OPT_QUIT_BTN_X							iScreenWidthOffset + 190
+#define	OPT_QUIT_BTN_Y							OPT_SAVE_BTN_Y
+// arynn : need more option screen toggles : Add in buttons that allow for options column paging
+#define	OPT_PREV_BTN_X							iScreenWidthOffset + 310
+#define	OPT_PREV_BTN_Y							OPT_SAVE_BTN_Y 
 
-#define	OPT_DONE_BTN_X							iScreenWidthOffset + 469
-#define		OPT_DONE_BTN_Y												OPT_SAVE_BTN_Y
+#define	OPT_NEXT_BTN_X							iScreenWidthOffset + 420
+#define	OPT_NEXT_BTN_Y							OPT_SAVE_BTN_Y 
+
+#define	OPT_DONE_BTN_X							iScreenWidthOffset + 550
+#define	OPT_DONE_BTN_Y							OPT_SAVE_BTN_Y
 
 #define	OPT_GAP_BETWEEN_TOGGLE_BOXES			18
 
@@ -91,15 +100,15 @@
 #define	OPT_TOGGLE_BOX_FIRST_COLUMN_START_Y		iScreenHeightOffset + 82
 
 #define	OPT_TOGGLE_BOX_SECOND_COLUMN_X			iScreenWidthOffset + 435
-#define		OPT_TOGGLE_BOX_SECOND_COLUMN_START_Y		OPT_TOGGLE_BOX_FIRST_COLUMN_START_Y
+#define	OPT_TOGGLE_BOX_SECOND_COLUMN_START_Y	OPT_TOGGLE_BOX_FIRST_COLUMN_START_Y
 
-#define		OPT_TOGGLE_BOX_TEXT_WIDTH								OPT_TOGGLE_BOX_SECOND_COLUMN_X - OPT_TOGGLE_BOX_FIRST_COLUMN_X - 20
+#define	OPT_TOGGLE_BOX_TEXT_WIDTH				OPT_TOGGLE_BOX_SECOND_COLUMN_X - OPT_TOGGLE_BOX_FIRST_COLUMN_X - 20
 
 // Slider bar defines
-#define		OPT_GAP_BETWEEN_SLIDER_BARS					60
-#define		OPT_SLIDER_BAR_SIZE									258
+#define	OPT_GAP_BETWEEN_SLIDER_BARS				60
+#define	OPT_SLIDER_BAR_SIZE						258
 
-#define		OPT_SLIDER_TEXT_WIDTH								45
+#define	OPT_SLIDER_TEXT_WIDTH					45
 
 #define	OPT_SOUND_FX_TEXT_X						iScreenWidthOffset + 38
 #define	OPT_SOUND_FX_TEXT_Y						iScreenHeightOffset + 87
@@ -110,21 +119,27 @@
 #define	OPT_MUSIC_TEXT_X						iScreenWidthOffset + 137
 #define	OPT_MUSIC_TEXT_Y						OPT_SOUND_FX_TEXT_Y
 
-#define		OPT_TEXT_TO_SLIDER_OFFSET_Y					25
+#define	OPT_TEXT_TO_SLIDER_OFFSET_Y				25
 
 #define	OPT_SOUND_EFFECTS_SLIDER_X				iScreenWidthOffset + 56
 #define	OPT_SOUND_EFFECTS_SLIDER_Y				iScreenHeightOffset + 126
 
 #define	OPT_SPEECH_SLIDER_X						iScreenWidthOffset + 107
-#define		OPT_SPEECH_SLIDER_Y									OPT_SOUND_EFFECTS_SLIDER_Y
+#define	OPT_SPEECH_SLIDER_Y						OPT_SOUND_EFFECTS_SLIDER_Y
 
 #define	OPT_MUSIC_SLIDER_X						iScreenWidthOffset + 158
-#define		OPT_MUSIC_SLIDER_Y									OPT_SOUND_EFFECTS_SLIDER_Y
+#define	OPT_MUSIC_SLIDER_Y						OPT_SOUND_EFFECTS_SLIDER_Y
 
-#define		OPT_MUSIC_SLIDER_PLAY_SOUND_DELAY		75
+#define	OPT_MUSIC_SLIDER_PLAY_SOUND_DELAY		75
 
 #define	OPT_FIRST_COLUMN_TOGGLE_CUT_OFF			18
+#define	MAX_NUMBER_OF_OPTION_TOGGLES			OPT_FIRST_COLUMN_TOGGLE_CUT_OFF * 2
+#define	MAX_NUMBER_OF_COLUMNS					((NUM_GAME_OPTIONS / OPT_FIRST_COLUMN_TOGGLE_CUT_OFF)-1)
 
+// arynn : added some defines to control feedback during debugging
+//#define OPTIONS_SCREEN_DEBUG_DRAWRECT_AROUND_REGION
+//#define OPTIONSCREEN_DEBUG_FEEDBACK
+//#define OPTIONSCREEN_DEBUG_FEEDBACK2
 
 /////////////////////////////////
 //
@@ -144,7 +159,7 @@ BOOLEAN		gfOptionsScreenEntry = TRUE;
 BOOLEAN		gfOptionsScreenExit	= FALSE;
 BOOLEAN		gfRedrawOptionsScreen = TRUE;
 
-CHAR8			gzSavedGameName[ 128 ];
+CHAR8		gzSavedGameName[ 128 ];
 BOOLEAN		gfEnteredFromMapScreen=FALSE;
 
 UINT32		guiOptionsScreen = OPTIONS_SCREEN;
@@ -157,32 +172,50 @@ BOOLEAN		gfExitOptionsAfterMessageBox = FALSE;
 UINT32		guiSoundFxSliderMoving = 0xffffffff;
 UINT32		guiSpeechSliderMoving = 0xffffffff;
 
-INT32			giOptionsMessageBox = -1;					// Options pop up messages index value
+INT32		giOptionsMessageBox = -1;			// Options pop up messages index value
 
-INT8			gbHighLightedOptionText = -1;
+INT8		gbHighLightedOptionText = -1;
 
 BOOLEAN		gfHideBloodAndGoreOption=FALSE;		//If a germany build we are to hide the blood and gore option
-UINT8			gubFirstColOfOptions=OPT_FIRST_COLUMN_TOGGLE_CUT_OFF;
+UINT8		gubFirstColOfOptions=OPT_FIRST_COLUMN_TOGGLE_CUT_OFF;
 
 
 BOOLEAN		gfSettingOfTreeTopStatusOnEnterOfOptionScreen;
 BOOLEAN		gfSettingOfItemGlowStatusOnEnterOfOptionScreen;
-BOOLEAN	gfSettingOfDontAnimateSmoke;
+BOOLEAN		gfSettingOfDontAnimateSmoke;
 
 // Goto save game Button
 void BtnOptGotoSaveGameCallback(GUI_BUTTON *btn,INT32 reason);
-UINT32	guiOptGotoSaveGameBtn;
+UINT32		guiOptGotoSaveGameBtn;
 INT32		giOptionsButtonImages;
 
 // Goto load game button
 void BtnOptGotoLoadGameCallback(GUI_BUTTON *btn,INT32 reason);
-UINT32	guiOptGotoLoadGameBtn;
+UINT32		guiOptGotoLoadGameBtn;
 INT32		giGotoLoadBtnImage;
 
 // QuitButton
 void BtnOptQuitCallback(GUI_BUTTON *btn,INT32 reason);
-UINT32	guiQuitButton;
+UINT32		guiQuitButton;
 INT32		giQuitBtnImage;
+
+// arynn : need more option screen toggles : Add in button that allow for options column paging
+// Options Screen globals
+INT32	OptionsList_Column_Offset	= 0 ;	// the first column's starting point
+INT32	Current_First_Option_Index;			// index of the first (single) option in the first column, used in lookup option vs togglebox
+INT32	Last_Count_Of_Toggles_Created;		// index to control destroy toggle box function, basically limit loops to not exceed
+void Create_Toggle_Buttons();				// these two are blcok removals from functions, an isolation of toggle create/destroy
+void Destroy_Toggle_Buttons();
+
+// Next Button
+void BtnOptNextCallback(GUI_BUTTON *btn,INT32 reason);
+UINT32		guiOptNextButton;
+INT32		giOptNextBtnImage;
+
+// Prev Button
+void BtnOptPrevCallback(GUI_BUTTON *btn,INT32 reason);
+UINT32		guiOptPrevButton;
+INT32		giOptPrevBtnImage;
 
 // Done Button
 void BtnDoneCallback(GUI_BUTTON *btn,INT32 reason);
@@ -191,12 +224,14 @@ INT32		giDoneBtnImage;
 
 
 //checkbox to toggle tracking mode on or off
-UINT32	guiOptionsToggles[ NUM_GAME_OPTIONS ];
+//UINT32	guiOptionsToggles[ NUM_GAME_OPTIONS ]; //old limiter is old ?
+UINT32	guiOptionsToggles[ MAX_NUMBER_OF_OPTION_TOGGLES ];
 void BtnOptionsTogglesCallback(GUI_BUTTON *btn,INT32 reason);
 
 
 //Mouse regions for the name of the option
-MOUSE_REGION	gSelectedOptionTextRegion[ NUM_GAME_OPTIONS ];
+//MOUSE_REGION	gSelectedOptionTextRegion[ NUM_GAME_OPTIONS ]; //old limiter is old ?
+MOUSE_REGION	gSelectedOptionTextRegion[ MAX_NUMBER_OF_OPTION_TOGGLES ];
 void		SelectedOptionTextRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void		SelectedOptionTextRegionMovementCallBack(MOUSE_REGION * pRegion, INT32 reason );
 
@@ -213,7 +248,7 @@ void		SelectedToggleBoxAreaRegionMovementCallBack(MOUSE_REGION * pRegion, INT32 
 /////////////////////////////////
 
 
-BOOLEAN		EnterOptionsScreen();
+BOOLEAN			EnterOptionsScreen();
 void			RenderOptionsScreen();
 void			ExitOptionsScreen();
 void			HandleOptionsScreen();
@@ -224,7 +259,7 @@ void			SetOptionsExitScreen( UINT32 uiExitScreen );
 void			SoundFXSliderChangeCallBack( INT32 iNewValue );
 void			SpeechSliderChangeCallBack( INT32 iNewValue );
 void			MusicSliderChangeCallBack( INT32 iNewValue );
-//BOOLEAN		DoOptionsMessageBox( UINT8 ubStyle, STR16zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
+//BOOLEAN			DoOptionsMessageBox( UINT8 ubStyle, STR16zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
 void			ConfirmQuitToMainMenuMessageBoxCallBack( UINT8 bExitValue );
 void			HandleSliderBarMovementSounds();
 void			HandleOptionToggle( UINT8 ubButton, BOOLEAN fState, BOOLEAN fDown, BOOLEAN fPlaySound );
@@ -314,25 +349,178 @@ UINT32	OptionsScreenHandle()
 	return( guiOptionsScreen );
 }
 
-
-
 UINT32	OptionsScreenShutdown()
 {
 	return( TRUE );
 }
 
-
-
-
-
-
-
-BOOLEAN		EnterOptionsScreen()
+void Create_Toggle_Buttons()
 {
-	VOBJECT_DESC	VObjectDesc;
-	UINT16 usPosY;
+	UINT16	usPosY;
 	UINT8	cnt;
 	UINT16	usTextWidth, usTextHeight;
+
+	//
+	// Toggle Boxes
+	//
+	Current_First_Option_Index = OptionsList_Column_Offset * OPT_FIRST_COLUMN_TOGGLE_CUT_OFF;
+
+	usTextHeight = GetFontHeight( OPT_MAIN_FONT );
+
+	//Create the first column of check boxes
+	usPosY = OPT_TOGGLE_BOX_FIRST_COLUMN_START_Y;
+
+	for( cnt=0; cnt<OPT_FIRST_COLUMN_TOGGLE_CUT_OFF; cnt++)
+	{
+		//if this is the blood and gore option, and we are to hide the option
+		if( cnt == TOPTION_BLOOD_N_GORE && gfHideBloodAndGoreOption )
+		{
+			gubFirstColOfOptions++;
+
+			//advance to the next
+			continue;
+		}
+
+		if( !(cnt + Current_First_Option_Index < NUM_GAME_OPTIONS ))
+		{
+			//we have no more toggles to add
+			break;
+		}
+		//Check box to toggle tracking mode
+		guiOptionsToggles[ cnt ] = CreateCheckBoxButton( OPT_TOGGLE_BOX_FIRST_COLUMN_X, usPosY,
+															"INTERFACE\\OptionsCheckBoxes_12x12.sti", 
+															MSYS_PRIORITY_HIGH+10,
+															BtnOptionsTogglesCallback );
+
+		MSYS_SetBtnUserData( guiOptionsToggles[ cnt ], 0, cnt );
+
+
+		usTextWidth = StringPixLength( zOptionsToggleText[ cnt + Current_First_Option_Index ], OPT_MAIN_FONT );
+
+		if( usTextWidth > OPT_TOGGLE_BOX_TEXT_WIDTH )
+		{
+			//Get how many lines will be used to display the string, without displaying the string
+			UINT8	ubNumLines = (UINT8) (	DisplayWrappedString( 0, 0, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_HIGHLIGHT_COLOR, 
+											zOptionsToggleText[ cnt + Current_First_Option_Index ], FONT_MCOLOR_BLACK, TRUE, 
+											LEFT_JUSTIFIED | DONT_DISPLAY_TEXT ) / GetFontHeight( OPT_MAIN_FONT ) );
+
+			usTextWidth = OPT_TOGGLE_BOX_TEXT_WIDTH;
+
+			//Create mouse regions for the option toggle text
+			MSYS_DefineRegion(	&gSelectedOptionTextRegion[cnt], OPT_TOGGLE_BOX_FIRST_COLUMN_X+13, usPosY, 
+								(UINT16)(OPT_TOGGLE_BOX_FIRST_COL_TEXT_X+usTextWidth), (UINT16)(usPosY+usTextHeight*ubNumLines), MSYS_PRIORITY_HIGH,
+								CURSOR_NORMAL, SelectedOptionTextRegionMovementCallBack, SelectedOptionTextRegionCallBack );
+			MSYS_AddRegion( &gSelectedOptionTextRegion[cnt]);
+			MSYS_SetRegionUserData( &gSelectedOptionTextRegion[ cnt ], 0, cnt);
+		}
+		else
+		{
+			//Create mouse regions for the option toggle text
+			MSYS_DefineRegion(	&gSelectedOptionTextRegion[cnt], OPT_TOGGLE_BOX_FIRST_COLUMN_X+13, usPosY, 
+								(UINT16)(OPT_TOGGLE_BOX_FIRST_COL_TEXT_X+usTextWidth), (UINT16)(usPosY+usTextHeight), MSYS_PRIORITY_HIGH,
+								CURSOR_NORMAL, SelectedOptionTextRegionMovementCallBack, SelectedOptionTextRegionCallBack );
+			MSYS_AddRegion( &gSelectedOptionTextRegion[cnt]);
+			MSYS_SetRegionUserData( &gSelectedOptionTextRegion[ cnt ], 0, cnt);
+		}
+
+
+		SetRegionFastHelpText( &gSelectedOptionTextRegion[ cnt ], zOptionsScreenHelpText[ cnt+ Current_First_Option_Index ] );
+		SetButtonFastHelpText( guiOptionsToggles[ cnt ], zOptionsScreenHelpText[ cnt + Current_First_Option_Index ] );
+
+		usPosY += OPT_GAP_BETWEEN_TOGGLE_BOXES;
+	}
+
+
+	//Create the 2nd column of check boxes
+	usPosY = OPT_TOGGLE_BOX_FIRST_COLUMN_START_Y;
+
+	for( ; cnt<MAX_NUMBER_OF_OPTION_TOGGLES; cnt++)
+	{
+		if( !(cnt + Current_First_Option_Index < NUM_GAME_OPTIONS ))
+		{
+			//we have no more toggles to add
+			break;
+		}
+		//Check box to toggle tracking mode
+		guiOptionsToggles[ cnt ] = CreateCheckBoxButton( OPT_TOGGLE_BOX_SECOND_COLUMN_X, usPosY,
+														"INTERFACE\\OptionsCheckBoxes_12x12.sti", MSYS_PRIORITY_HIGH+10,
+														BtnOptionsTogglesCallback );
+		MSYS_SetBtnUserData( guiOptionsToggles[ cnt ], 0, cnt );
+
+
+		//
+		// Create mouse regions for the option toggle text
+		//
+
+
+		usTextWidth = StringPixLength( zOptionsToggleText[ cnt + Current_First_Option_Index ], OPT_MAIN_FONT );
+
+		if( usTextWidth > OPT_TOGGLE_BOX_TEXT_WIDTH )
+		{
+			//Get how many lines will be used to display the string, without displaying the string
+			UINT8	ubNumLines = (UINT8) (	DisplayWrappedString( 0, 0, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_HIGHLIGHT_COLOR, 
+											zOptionsToggleText[ cnt + Current_First_Option_Index ], FONT_MCOLOR_BLACK, TRUE, 
+											LEFT_JUSTIFIED | DONT_DISPLAY_TEXT ) / GetFontHeight( OPT_MAIN_FONT ) );
+
+			usTextWidth = OPT_TOGGLE_BOX_TEXT_WIDTH;
+
+			MSYS_DefineRegion(	&gSelectedOptionTextRegion[cnt], OPT_TOGGLE_BOX_SECOND_COLUMN_X+13, usPosY, 
+								(UINT16)(OPT_TOGGLE_BOX_SECOND_TEXT_X+usTextWidth), (UINT16)(usPosY+usTextHeight*ubNumLines), 
+								MSYS_PRIORITY_HIGH, CURSOR_NORMAL, SelectedOptionTextRegionMovementCallBack, 
+								SelectedOptionTextRegionCallBack );
+			MSYS_AddRegion( &gSelectedOptionTextRegion[cnt]);
+			MSYS_SetRegionUserData( &gSelectedOptionTextRegion[ cnt ], 0, cnt );
+		}
+		else
+		{
+			MSYS_DefineRegion(	&gSelectedOptionTextRegion[cnt], OPT_TOGGLE_BOX_SECOND_COLUMN_X+13, usPosY, 
+								(UINT16)(OPT_TOGGLE_BOX_SECOND_TEXT_X+usTextWidth), (UINT16)(usPosY+usTextHeight), 
+								MSYS_PRIORITY_HIGH,	CURSOR_NORMAL, SelectedOptionTextRegionMovementCallBack, 
+								SelectedOptionTextRegionCallBack );
+			MSYS_AddRegion( &gSelectedOptionTextRegion[cnt]);
+			MSYS_SetRegionUserData( &gSelectedOptionTextRegion[ cnt ], 0, cnt );
+		}
+
+
+		SetRegionFastHelpText( &gSelectedOptionTextRegion[ cnt ], zOptionsScreenHelpText[ cnt+ Current_First_Option_Index ] );
+		SetButtonFastHelpText( guiOptionsToggles[ cnt ], zOptionsScreenHelpText[ cnt + Current_First_Option_Index ] );
+
+		usPosY += OPT_GAP_BETWEEN_TOGGLE_BOXES;
+	}
+
+	Last_Count_Of_Toggles_Created = cnt;
+
+}
+
+void Destroy_Toggle_Buttons()
+{
+	UINT8	cnt;
+
+	//Remove the toggle buttons
+	for( cnt=0; cnt<MAX_NUMBER_OF_OPTION_TOGGLES; cnt++)
+	{
+		//if this is the blood and gore option, and we are to hide the option
+		if( cnt == TOPTION_BLOOD_N_GORE && gfHideBloodAndGoreOption )
+		{
+			//advance to the next
+			continue;
+		}
+
+		if( cnt >=  Last_Count_Of_Toggles_Created )
+		{
+			break;
+		}
+
+		RemoveButton( guiOptionsToggles[ cnt ] );
+
+	MSYS_RemoveRegion( &gSelectedOptionTextRegion[cnt]);
+	}
+
+}
+
+BOOLEAN EnterOptionsScreen()
+{
+	VOBJECT_DESC	VObjectDesc;
 
 	// WANNE: Do not draw the blackground back
 	//ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
@@ -394,8 +582,8 @@ Uncomment this to enable the check for files to activate the blood and gore opti
 	CHECKF(AddVideoObject(&VObjectDesc, &guiOptionsAddOnImages));
 
 	//Save game button
-	giOptionsButtonImages = LoadButtonImage("INTERFACE\\OptionScreenAddons.sti", -1,2,-1,3,-1 );
-	guiOptGotoSaveGameBtn = CreateIconAndTextButton( giOptionsButtonImages, zOptionsText[OPT_SAVE_GAME], OPT_BUTTON_FONT,
+	giOptionsButtonImages = LoadButtonImage("INTERFACE\\OptionScreenAddons2.sti", -1,2,-1,3,-1 );
+	guiOptGotoSaveGameBtn = CreateIconAndTextButton( giOptionsButtonImages, zOptionsText[OPT_SAVE_GAME], OPT_BUTTON_FONT2,
 													OPT_BUTTON_ON_COLOR, DEFAULT_SHADOW,
 													OPT_BUTTON_OFF_COLOR, DEFAULT_SHADOW,
 													TEXT_CJUSTIFIED,
@@ -409,7 +597,7 @@ Uncomment this to enable the check for files to activate the blood and gore opti
 
 	//Load game button
 	giGotoLoadBtnImage = UseLoadedButtonImage( giOptionsButtonImages, -1,2,-1,3,-1 );
-	guiOptGotoLoadGameBtn = CreateIconAndTextButton( giGotoLoadBtnImage, zOptionsText[OPT_LOAD_GAME], OPT_BUTTON_FONT,
+	guiOptGotoLoadGameBtn = CreateIconAndTextButton( giGotoLoadBtnImage, zOptionsText[OPT_LOAD_GAME], OPT_BUTTON_FONT2,
 													OPT_BUTTON_ON_COLOR, DEFAULT_SHADOW,
 													OPT_BUTTON_OFF_COLOR, DEFAULT_SHADOW,
 													TEXT_CJUSTIFIED,
@@ -417,10 +605,9 @@ Uncomment this to enable the check for files to activate the blood and gore opti
 													DEFAULT_MOVE_CALLBACK, BtnOptGotoLoadGameCallback);
 //	SpecifyDisabledButtonStyle( guiBobbyRAcceptOrder, DISABLED_STYLE_SHADED );
 
-
 	//Quit to main menu button
 	giQuitBtnImage = UseLoadedButtonImage( giOptionsButtonImages, -1,2,-1,3,-1 );
-	guiQuitButton = CreateIconAndTextButton( giQuitBtnImage, zOptionsText[OPT_MAIN_MENU], OPT_BUTTON_FONT,
+	guiQuitButton = CreateIconAndTextButton( giQuitBtnImage, zOptionsText[OPT_MAIN_MENU], OPT_BUTTON_FONT2,
 													OPT_BUTTON_ON_COLOR, DEFAULT_SHADOW,
 													OPT_BUTTON_OFF_COLOR, DEFAULT_SHADOW,
 													TEXT_CJUSTIFIED,
@@ -429,9 +616,38 @@ Uncomment this to enable the check for files to activate the blood and gore opti
 	SpecifyDisabledButtonStyle( guiQuitButton, DISABLED_STYLE_HATCHED );
 //	DisableButton( guiQuitButton );
 
+// arynn : need more option screen toggles : Add in buttons that allow for options column paging
+	// Previous Column of options
+ 	giOptPrevBtnImage = UseLoadedButtonImage( giOptionsButtonImages, -1,2,-1,3,-1 );                         
+ 	guiOptPrevButton = CreateIconAndTextButton( giOptPrevBtnImage, zOptionsText[OPT_PREV], OPT_BUTTON_FONT2,
+ 													OPT_BUTTON_ON_COLOR, DEFAULT_SHADOW,                                                      
+ 													OPT_BUTTON_OFF_COLOR, DEFAULT_SHADOW,                                                     
+ 													TEXT_CJUSTIFIED,                                                                          
+ 													OPT_PREV_BTN_X, OPT_PREV_BTN_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,                        
+ 													DEFAULT_MOVE_CALLBACK, BtnOptPrevCallback);                                               
+ 	SpecifyDisabledButtonStyle( guiOptPrevButton, DISABLED_STYLE_HATCHED );  
+	if( OptionsList_Column_Offset == 0 )
+	{
+		DisableButton( guiOptPrevButton );
+	}
+
+	// Next Column of options
+ 	giOptNextBtnImage = UseLoadedButtonImage( giOptionsButtonImages, -1,2,-1,3,-1 );                         
+ 	guiOptNextButton = CreateIconAndTextButton( giOptNextBtnImage, zOptionsText[OPT_NEXT], OPT_BUTTON_FONT2,
+ 													OPT_BUTTON_ON_COLOR, DEFAULT_SHADOW,                                                      
+ 													OPT_BUTTON_OFF_COLOR, DEFAULT_SHADOW,                                                     
+ 													TEXT_CJUSTIFIED,                                                                          
+ 													OPT_NEXT_BTN_X, OPT_NEXT_BTN_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,                        
+ 													DEFAULT_MOVE_CALLBACK, BtnOptNextCallback);                                               
+ 	SpecifyDisabledButtonStyle( guiOptNextButton, DISABLED_STYLE_HATCHED );   
+	if( OptionsList_Column_Offset >= MAX_NUMBER_OF_COLUMNS )
+	{
+		DisableButton( guiOptNextButton );
+	}
+
 	//Done button
 	giDoneBtnImage = UseLoadedButtonImage( giOptionsButtonImages, -1,2,-1,3,-1 );
-	guiDoneButton = CreateIconAndTextButton( giDoneBtnImage, zOptionsText[OPT_DONE], OPT_BUTTON_FONT,
+	guiDoneButton = CreateIconAndTextButton( giDoneBtnImage, zOptionsText[OPT_DONE], OPT_BUTTON_FONT2,
 													OPT_BUTTON_ON_COLOR, DEFAULT_SHADOW,
 													OPT_BUTTON_OFF_COLOR, DEFAULT_SHADOW,
 													TEXT_CJUSTIFIED,
@@ -439,109 +655,7 @@ Uncomment this to enable the check for files to activate the blood and gore opti
 													DEFAULT_MOVE_CALLBACK, BtnDoneCallback);
 //	SpecifyDisabledButtonStyle( guiBobbyRAcceptOrder, DISABLED_STYLE_SHADED );
 
-
-
-	//
-	// Toggle Boxes
-	//
-	usTextHeight = GetFontHeight( OPT_MAIN_FONT );
-
-	//Create the first column of check boxes
-	usPosY = OPT_TOGGLE_BOX_FIRST_COLUMN_START_Y;
-	gubFirstColOfOptions = OPT_FIRST_COLUMN_TOGGLE_CUT_OFF;
-	for( cnt=0; cnt<gubFirstColOfOptions; cnt++)
-	{
-		//if this is the blood and gore option, and we are to hide the option
-		if( cnt == TOPTION_BLOOD_N_GORE && gfHideBloodAndGoreOption )
-		{
-			gubFirstColOfOptions++;
-
-			//advance to the next
-			continue;
-		}
-		//Check box to toggle tracking mode
-		guiOptionsToggles[ cnt ] = CreateCheckBoxButton( OPT_TOGGLE_BOX_FIRST_COLUMN_X, usPosY,
-																		"INTERFACE\\OptionsCheckBoxes_12x12.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnOptionsTogglesCallback );
-		MSYS_SetBtnUserData( guiOptionsToggles[ cnt ], 0, cnt );
-
-
-		usTextWidth = StringPixLength( zOptionsToggleText[ cnt ], OPT_MAIN_FONT );
-
-		if( usTextWidth > OPT_TOGGLE_BOX_TEXT_WIDTH )
-		{
-			//Get how many lines will be used to display the string, without displaying the string
-			UINT8	ubNumLines = (UINT8) ( DisplayWrappedString( 0, 0, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_HIGHLIGHT_COLOR, zOptionsToggleText[ cnt ], FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED | DONT_DISPLAY_TEXT ) / GetFontHeight( OPT_MAIN_FONT ) );
-
-			usTextWidth = OPT_TOGGLE_BOX_TEXT_WIDTH;
-
-			//Create mouse regions for the option toggle text
-			MSYS_DefineRegion( &gSelectedOptionTextRegion[cnt], OPT_TOGGLE_BOX_FIRST_COLUMN_X+13, usPosY, (UINT16)(OPT_TOGGLE_BOX_FIRST_COL_TEXT_X+usTextWidth), (UINT16)(usPosY+usTextHeight*ubNumLines), MSYS_PRIORITY_HIGH,
-									CURSOR_NORMAL, SelectedOptionTextRegionMovementCallBack, SelectedOptionTextRegionCallBack );
-			MSYS_AddRegion( &gSelectedOptionTextRegion[cnt]);
-			MSYS_SetRegionUserData( &gSelectedOptionTextRegion[ cnt ], 0, cnt);
-		}
-		else
-		{
-			//Create mouse regions for the option toggle text
-			MSYS_DefineRegion( &gSelectedOptionTextRegion[cnt], OPT_TOGGLE_BOX_FIRST_COLUMN_X+13, usPosY, (UINT16)(OPT_TOGGLE_BOX_FIRST_COL_TEXT_X+usTextWidth), (UINT16)(usPosY+usTextHeight), MSYS_PRIORITY_HIGH,
-									CURSOR_NORMAL, SelectedOptionTextRegionMovementCallBack, SelectedOptionTextRegionCallBack );
-			MSYS_AddRegion( &gSelectedOptionTextRegion[cnt]);
-			MSYS_SetRegionUserData( &gSelectedOptionTextRegion[ cnt ], 0, cnt);
-		}
-
-
-		SetRegionFastHelpText( &gSelectedOptionTextRegion[ cnt ], zOptionsScreenHelpText[cnt] );
-		SetButtonFastHelpText( guiOptionsToggles[ cnt ], zOptionsScreenHelpText[cnt] );
-
-		usPosY += OPT_GAP_BETWEEN_TOGGLE_BOXES;
-	}
-
-
-	//Create the 2nd column of check boxes
-	usPosY = OPT_TOGGLE_BOX_FIRST_COLUMN_START_Y;
-	for( cnt=gubFirstColOfOptions; cnt<NUM_GAME_OPTIONS; cnt++)
-	{
-		//Check box to toggle tracking mode
-		guiOptionsToggles[ cnt ] = CreateCheckBoxButton( OPT_TOGGLE_BOX_SECOND_COLUMN_X, usPosY,
-																		"INTERFACE\\OptionsCheckBoxes_12x12.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnOptionsTogglesCallback );
-		MSYS_SetBtnUserData( guiOptionsToggles[ cnt ], 0, cnt );
-
-
-		//
-		// Create mouse regions for the option toggle text
-		//
-
-
-		usTextWidth = StringPixLength( zOptionsToggleText[ cnt ], OPT_MAIN_FONT );
-
-		if( usTextWidth > OPT_TOGGLE_BOX_TEXT_WIDTH )
-		{
-			//Get how many lines will be used to display the string, without displaying the string
-			UINT8	ubNumLines = (UINT8) ( DisplayWrappedString( 0, 0, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_HIGHLIGHT_COLOR, zOptionsToggleText[ cnt ], FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED | DONT_DISPLAY_TEXT ) / GetFontHeight( OPT_MAIN_FONT ) );
-
-			usTextWidth = OPT_TOGGLE_BOX_TEXT_WIDTH;
-
-			MSYS_DefineRegion( &gSelectedOptionTextRegion[cnt], OPT_TOGGLE_BOX_SECOND_COLUMN_X+13, usPosY, (UINT16)(OPT_TOGGLE_BOX_SECOND_TEXT_X+usTextWidth), (UINT16)(usPosY+usTextHeight*ubNumLines), MSYS_PRIORITY_HIGH,
-									CURSOR_NORMAL, SelectedOptionTextRegionMovementCallBack, SelectedOptionTextRegionCallBack );
-			MSYS_AddRegion( &gSelectedOptionTextRegion[cnt]);
-			MSYS_SetRegionUserData( &gSelectedOptionTextRegion[ cnt ], 0, cnt );
-		}
-		else
-		{
-			MSYS_DefineRegion( &gSelectedOptionTextRegion[cnt], OPT_TOGGLE_BOX_SECOND_COLUMN_X+13, usPosY, (UINT16)(OPT_TOGGLE_BOX_SECOND_TEXT_X+usTextWidth), (UINT16)(usPosY+usTextHeight), MSYS_PRIORITY_HIGH,
-									CURSOR_NORMAL, SelectedOptionTextRegionMovementCallBack, SelectedOptionTextRegionCallBack );
-			MSYS_AddRegion( &gSelectedOptionTextRegion[cnt]);
-			MSYS_SetRegionUserData( &gSelectedOptionTextRegion[ cnt ], 0, cnt );
-		}
-
-
-		SetRegionFastHelpText( &gSelectedOptionTextRegion[ cnt ], zOptionsScreenHelpText[cnt] );
-		SetButtonFastHelpText( guiOptionsToggles[ cnt ], zOptionsScreenHelpText[cnt] );
-
-		usPosY += OPT_GAP_BETWEEN_TOGGLE_BOXES;
-	}
+	Create_Toggle_Buttons(); // arynn : moved block out of func
 
 	//Create a mouse region so when the user leaves a togglebox text region we can detect it then unselect the region
 	MSYS_DefineRegion( &gSelectedToggleBoxAreaRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_NORMAL,
@@ -553,17 +667,20 @@ Uncomment this to enable the check for files to activate the blood and gore opti
 	RenderOptionsScreen();
 
 	//Add a slider bar for the Sound Effects
-	guiSoundEffectsSliderID = AddSlider( SLIDER_VERTICAL_STEEL, CURSOR_NORMAL, OPT_SOUND_EFFECTS_SLIDER_X, OPT_SOUND_EFFECTS_SLIDER_Y, OPT_SLIDER_BAR_SIZE, 127, MSYS_PRIORITY_HIGH, SoundFXSliderChangeCallBack, 0 );
+	guiSoundEffectsSliderID = AddSlider(	SLIDER_VERTICAL_STEEL, CURSOR_NORMAL, OPT_SOUND_EFFECTS_SLIDER_X, OPT_SOUND_EFFECTS_SLIDER_Y, 
+											OPT_SLIDER_BAR_SIZE, 127, MSYS_PRIORITY_HIGH, SoundFXSliderChangeCallBack, 0 );
 	AssertMsg( guiSoundEffectsSliderID, "Failed to AddSlider" );
 	SetSliderValue( guiSoundEffectsSliderID, GetSoundEffectsVolume() );
 
 	//Add a slider bar for the Speech
-	guiSpeechSliderID = AddSlider( SLIDER_VERTICAL_STEEL, CURSOR_NORMAL, OPT_SPEECH_SLIDER_X, OPT_SPEECH_SLIDER_Y, OPT_SLIDER_BAR_SIZE, 127, MSYS_PRIORITY_HIGH, SpeechSliderChangeCallBack, 0 );
+	guiSpeechSliderID = AddSlider(	SLIDER_VERTICAL_STEEL, CURSOR_NORMAL, OPT_SPEECH_SLIDER_X, OPT_SPEECH_SLIDER_Y, 
+									OPT_SLIDER_BAR_SIZE, 127, MSYS_PRIORITY_HIGH, SpeechSliderChangeCallBack, 0 );
 	AssertMsg( guiSpeechSliderID, "Failed to AddSlider" );
 	SetSliderValue( guiSpeechSliderID, GetSpeechVolume() );
 
 	//Add a slider bar for the Music
-	guiMusicSliderID = AddSlider( SLIDER_VERTICAL_STEEL, CURSOR_NORMAL, OPT_MUSIC_SLIDER_X, OPT_MUSIC_SLIDER_Y, OPT_SLIDER_BAR_SIZE, 127, MSYS_PRIORITY_HIGH, MusicSliderChangeCallBack, 0 );
+	guiMusicSliderID = AddSlider(	SLIDER_VERTICAL_STEEL, CURSOR_NORMAL, OPT_MUSIC_SLIDER_X, OPT_MUSIC_SLIDER_Y, 
+									OPT_SLIDER_BAR_SIZE, 127, MSYS_PRIORITY_HIGH, MusicSliderChangeCallBack, 0 );
 	AssertMsg( guiMusicSliderID, "Failed to AddSlider" );
 	SetSliderValue( guiMusicSliderID, MusicGetVolume() );
 
@@ -593,10 +710,8 @@ Uncomment this to enable the check for files to activate the blood and gore opti
 	return( TRUE );
 }
 
-
-void			ExitOptionsScreen()
+void ExitOptionsScreen()
 {
-	UINT8	cnt;
 
 	if( gfExitOptionsDueToMessageBox )
 	{
@@ -611,7 +726,9 @@ void			ExitOptionsScreen()
 	//Get the current status of the toggle boxes
 	GetOptionsScreenToggleBoxes();
 	//The save the current settings to disk
-	SaveGameSettings();
+	// arynn : note : if dynamic options (dif option sets for dif builds) is used, SaveGameSettings(), LoadGameSettings()
+	// arynn : note : is going to require differing JA2.set names for each build, this is because of settings order/organization/quantity
+	SaveGameSettings(); 
 
 	//Create the clock mouse region
 	CreateMouseRegionForPauseOfClock( CLOCK_REGION_START_X, CLOCK_REGION_START_Y );
@@ -622,31 +739,22 @@ void			ExitOptionsScreen()
 	RemoveButton( guiOptGotoSaveGameBtn );
 	RemoveButton( guiOptGotoLoadGameBtn );
 	RemoveButton( guiQuitButton );
+	RemoveButton( guiOptNextButton );// arynn : more option screen toggles
+	RemoveButton( guiOptPrevButton );
 	RemoveButton( guiDoneButton );
 
 	UnloadButtonImage( giOptionsButtonImages );
 	UnloadButtonImage( giGotoLoadBtnImage );
 	UnloadButtonImage( giQuitBtnImage );
+	UnloadButtonImage( giOptNextBtnImage );// arynn : more option screen toggles
+	UnloadButtonImage( giOptPrevBtnImage );
 	UnloadButtonImage( giDoneBtnImage );
 
 	DeleteVideoObjectFromIndex( guiOptionBackGroundImage );
 	DeleteVideoObjectFromIndex( guiOptionsAddOnImages );
 
 
-	//Remove the toggle buttons
-	for( cnt=0; cnt<NUM_GAME_OPTIONS; cnt++)
-	{
-		//if this is the blood and gore option, and we are to hide the option
-		if( cnt == TOPTION_BLOOD_N_GORE && gfHideBloodAndGoreOption )
-		{
-			//advance to the next
-			continue;
-		}
-
-		RemoveButton( guiOptionsToggles[ cnt ] );
-
-	MSYS_RemoveRegion( &gSelectedOptionTextRegion[cnt]);
-	}
+	Destroy_Toggle_Buttons(); // arynn : moved block out of func
 
 
 	//REmove the slider bars
@@ -685,8 +793,6 @@ void			ExitOptionsScreen()
 
 }
 
-
-
 void			HandleOptionsScreen()
 {
 	HandleSliderBarMovementSounds();
@@ -694,15 +800,16 @@ void			HandleOptionsScreen()
 	HandleHighLightedText( TRUE );
 }
 
-
-
-
-void			RenderOptionsScreen()
+void RenderOptionsScreen()
 {
 	HVOBJECT hPixHandle;
 	UINT16	usPosY;
 	UINT8	cnt;
 	UINT16	usWidth=0;
+#ifdef OPTIONS_SCREEN_DEBUG_DRAWRECT_AROUND_REGION
+	UINT32 uiDestPitchBYTES;	// arynn : needed by draw functions that show up in debug
+	UINT8 *pDestBuf;
+#endif
 
 	//Get and display the background image
 	GetVideoObject(&hPixHandle, guiOptionBackGroundImage);
@@ -713,7 +820,18 @@ void			RenderOptionsScreen()
 	BltVideoObject(FRAME_BUFFER, hPixHandle, 0, iScreenWidthOffset, iScreenHeightOffset, VO_BLT_SRCTRANSPARENCY,NULL);
 	BltVideoObject(FRAME_BUFFER, hPixHandle, 1, iScreenWidthOffset, iScreenHeightOffset + 434, VO_BLT_SRCTRANSPARENCY,NULL);
 
-
+#ifdef OPTIONS_SCREEN_DEBUG_DRAWRECT_AROUND_REGION
+	{
+	// arynn : this block draws a rect and line thru the zone that should encompass the whole options screen diag box
+	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+	LineDraw(	TRUE, OPTIONS__TOP_LEFT_X, OPTIONS__TOP_LEFT_Y, OPTIONS__BOTTOM_RIGHT_X,  OPTIONS__BOTTOM_RIGHT_Y, 
+				Get16BPPColor( FROMRGB( 200, 200, 200 )), pDestBuf);
+	RectangleDraw(	TRUE, OPTIONS__TOP_LEFT_X, OPTIONS__TOP_LEFT_Y, OPTIONS__BOTTOM_RIGHT_X,  OPTIONS__BOTTOM_RIGHT_Y, 
+					Get16BPPColor( FROMRGB( 200, 200, 200 )), pDestBuf);
+	UnLockVideoSurface( FRAME_BUFFER );
+	}
+#endif
 
 	//
 	// Text for the toggle boxes
@@ -722,7 +840,7 @@ void			RenderOptionsScreen()
 	usPosY = OPT_TOGGLE_BOX_FIRST_COLUMN_START_Y + OPT_TOGGLE_TEXT_OFFSET_Y;
 
 	//Display the First column of toggles
-	for( cnt=0; cnt<gubFirstColOfOptions; cnt++)
+	for( cnt=0; cnt<OPT_FIRST_COLUMN_TOGGLE_CUT_OFF; cnt++)
 	{
 		//if this is the blood and gore option, and we are to hide the option
 		if( cnt == TOPTION_BLOOD_N_GORE && gfHideBloodAndGoreOption )
@@ -730,35 +848,48 @@ void			RenderOptionsScreen()
 		//advance to the next
 			continue;
 		}
+		if( cnt >=  Last_Count_Of_Toggles_Created )
+		{
+			break;
+		}
 
-		usWidth = StringPixLength( zOptionsToggleText[ cnt ], OPT_MAIN_FONT );
+
+		usWidth = StringPixLength( zOptionsToggleText[ cnt + Current_First_Option_Index ], OPT_MAIN_FONT );
 
 		//if the string is going to wrap, move the string up a bit
 		if( usWidth > OPT_TOGGLE_BOX_TEXT_WIDTH )
-			DisplayWrappedString( OPT_TOGGLE_BOX_FIRST_COL_TEXT_X, usPosY, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_MAIN_COLOR, zOptionsToggleText[ cnt ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+			DisplayWrappedString(	OPT_TOGGLE_BOX_FIRST_COL_TEXT_X, usPosY, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_MAIN_COLOR, 
+									zOptionsToggleText[ cnt + Current_First_Option_Index ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 		else
-			DrawTextToScreen( zOptionsToggleText[ cnt ], OPT_TOGGLE_BOX_FIRST_COL_TEXT_X, usPosY, 0, OPT_MAIN_FONT, OPT_MAIN_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
+			DrawTextToScreen(	zOptionsToggleText[ cnt + Current_First_Option_Index ], OPT_TOGGLE_BOX_FIRST_COL_TEXT_X, usPosY, 0, 
+								OPT_MAIN_FONT, OPT_MAIN_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
 
 		usPosY += OPT_GAP_BETWEEN_TOGGLE_BOXES;
 	}
 
 
 	usPosY = OPT_TOGGLE_BOX_SECOND_COLUMN_START_Y + OPT_TOGGLE_TEXT_OFFSET_Y;
+
 	//Display the 2nd column of toggles
-	for( cnt=gubFirstColOfOptions; cnt<NUM_GAME_OPTIONS; cnt++)
-	{
-		usWidth = StringPixLength( zOptionsToggleText[ cnt ], OPT_MAIN_FONT );
+	for( cnt=OPT_FIRST_COLUMN_TOGGLE_CUT_OFF; cnt<MAX_NUMBER_OF_OPTION_TOGGLES; cnt++)	{
+
+		if( cnt >=  Last_Count_Of_Toggles_Created )
+		{
+			break;
+		}
+
+		usWidth = StringPixLength( zOptionsToggleText[ cnt + Current_First_Option_Index ], OPT_MAIN_FONT );
 
 		//if the string is going to wrap, move the string up a bit
 		if( usWidth > OPT_TOGGLE_BOX_TEXT_WIDTH )
-			DisplayWrappedString( OPT_TOGGLE_BOX_SECOND_TEXT_X, usPosY, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_MAIN_COLOR, zOptionsToggleText[ cnt ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+			DisplayWrappedString(	OPT_TOGGLE_BOX_SECOND_TEXT_X, usPosY, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_MAIN_COLOR, 
+									zOptionsToggleText[ cnt + Current_First_Option_Index ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 		else
-			DrawTextToScreen( zOptionsToggleText[ cnt ], OPT_TOGGLE_BOX_SECOND_TEXT_X, usPosY, 0, OPT_MAIN_FONT, OPT_MAIN_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
+			DrawTextToScreen(	zOptionsToggleText[ cnt + Current_First_Option_Index ], OPT_TOGGLE_BOX_SECOND_TEXT_X, usPosY, 0, 
+								OPT_MAIN_FONT, OPT_MAIN_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
 
 		usPosY += OPT_GAP_BETWEEN_TOGGLE_BOXES;
 	}
-
-
 
 
 	//
@@ -766,26 +897,22 @@ void			RenderOptionsScreen()
 	//
 
 	//Display the Sound Fx text
-	DisplayWrappedString( OPT_SOUND_FX_TEXT_X, OPT_SOUND_FX_TEXT_Y, OPT_SLIDER_TEXT_WIDTH, 2, OPT_SLIDER_FONT, OPT_MAIN_COLOR, zOptionsText[ OPT_SOUND_FX ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
+	DisplayWrappedString(	OPT_SOUND_FX_TEXT_X, OPT_SOUND_FX_TEXT_Y, OPT_SLIDER_TEXT_WIDTH, 2, OPT_SLIDER_FONT, OPT_MAIN_COLOR, 
+							zOptionsText[ OPT_SOUND_FX ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
 
 	//Display the Speech text
-	DisplayWrappedString( OPT_SPEECH_TEXT_X, OPT_SPEECH_TEXT_Y, OPT_SLIDER_TEXT_WIDTH, 2, OPT_SLIDER_FONT, OPT_MAIN_COLOR, zOptionsText[ OPT_SPEECH ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
+	DisplayWrappedString(	OPT_SPEECH_TEXT_X, OPT_SPEECH_TEXT_Y, OPT_SLIDER_TEXT_WIDTH, 2, OPT_SLIDER_FONT, OPT_MAIN_COLOR, 
+							zOptionsText[ OPT_SPEECH ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
 
 	//Display the Music text
-	DisplayWrappedString( OPT_MUSIC_TEXT_X, OPT_MUSIC_TEXT_Y, OPT_SLIDER_TEXT_WIDTH, 2, OPT_SLIDER_FONT, OPT_MAIN_COLOR, zOptionsText[ OPT_MUSIC ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString(	OPT_MUSIC_TEXT_X, OPT_MUSIC_TEXT_Y, OPT_SLIDER_TEXT_WIDTH, 2, OPT_SLIDER_FONT, OPT_MAIN_COLOR, 
+							zOptionsText[ OPT_MUSIC ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	InvalidateRegion( OPTIONS__TOP_LEFT_X, OPTIONS__TOP_LEFT_Y, OPTIONS__BOTTOM_RIGHT_X, OPTIONS__BOTTOM_RIGHT_Y);
+
 }
 
-
-
-
-
-
-
-
-
-void		GetOptionsScreenUserInput()
+void GetOptionsScreenUserInput()
 {
 	InputAtom Event;
 	POINT	MousePos;
@@ -915,7 +1042,6 @@ void SetOptionsExitScreen( UINT32 uiExitScreen )
 	gfOptionsScreenExit	= TRUE;
 }
 
-
 void BtnOptGotoSaveGameCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -962,7 +1088,6 @@ void BtnOptGotoLoadGameCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-
 void BtnOptQuitCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -975,7 +1100,8 @@ void BtnOptQuitCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 		//Confirm the Exit to the main menu screen
-		DoOptionsMessageBox( MSG_BOX_BASIC_STYLE, zOptionsText[OPT_RETURN_TO_MAIN], OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmQuitToMainMenuMessageBoxCallBack );
+		DoOptionsMessageBox(	MSG_BOX_BASIC_STYLE, zOptionsText[OPT_RETURN_TO_MAIN], OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, 
+								ConfirmQuitToMainMenuMessageBoxCallBack );
 
 ///		SetOptionsExitScreen( MAINMENU_SCREEN );
 
@@ -987,6 +1113,114 @@ void BtnOptQuitCallback(GUI_BUTTON *btn,INT32 reason)
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
 }
+
+// arynn : need more option screen toggles : Functions for button callbacks
+void BtnOptPrevCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags |= BUTTON_CLICKED_ON;
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+
+		ExitOptionsScreen();
+
+		OptionsList_Column_Offset--;
+		if(OptionsList_Column_Offset < 0) OptionsList_Column_Offset = 0;
+
+		OptionsScreenInit();	// arynn : This is important to refresh the screen properly, it indicates that we are to store a new SAVE_BUFFER
+//		OptionsScreenHandle();	// arynn : unsure about forcing this function now, or letting gameloop's screen management handle
+
+#if defined OPTIONSCREEN_DEBUG_FEEDBACK	
+		CHAR16	Information_String1[200];
+		CHAR16	Information_String2[200];
+
+		swprintf( Information_String1, L"OptionsList_Column_Offset : %d _ Current_First_Option_Index : %d _ Last_Count_Of_Toggles_Created : %d", 
+			OptionsList_Column_Offset,
+			Current_First_Option_Index,
+			Last_Count_Of_Toggles_Created
+			);		
+		swprintf( Information_String2, L"%s", Information_String1);
+
+		DoOptionsMessageBox( MSG_BOX_BASIC_STYLE, Information_String2, OPTIONS_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		gfExitOptionsDueToMessageBox = FALSE;
+#endif
+
+
+
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+}
+
+void BtnOptNextCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags |= BUTTON_CLICKED_ON;
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+
+		ExitOptionsScreen();
+
+		OptionsList_Column_Offset++;
+		if(OptionsList_Column_Offset > 	MAX_NUMBER_OF_COLUMNS) 
+			OptionsList_Column_Offset = MAX_NUMBER_OF_COLUMNS;
+
+		OptionsScreenInit();	// arynn : This is important to refresh the screen properly, it indicates that we are to store a new SAVE_BUFFER
+//		OptionsScreenHandle();	// arynn : unsure about forcing this function now, or letting gameloop's screen management handle
+
+#if defined OPTIONSCREEN_DEBUG_FEEDBACK	
+		CHAR16	Information_String1[200];
+		CHAR16	Information_String2[200];
+
+		swprintf( Information_String1, L"OptionsList_Column_Offset : %d _ Current_First_Option_Index : %d _ Last_Count_Of_Toggles_Created : %d", 
+			OptionsList_Column_Offset,
+			Current_First_Option_Index,
+			Last_Count_Of_Toggles_Created
+			);
+		//swprintf( Information_String1, L"%d / %d = %d _____ %d / %d = %d ", 
+		//	NUM_GAME_OPTIONS, OPT_FIRST_COLUMN_TOGGLE_CUT_OFF, ( (NUM_GAME_OPTIONS / OPT_FIRST_COLUMN_TOGGLE_CUT_OFF)),
+		//	OPT_FIRST_COLUMN_TOGGLE_CUT_OFF, NUM_GAME_OPTIONS, ( (OPT_FIRST_COLUMN_TOGGLE_CUT_OFF / NUM_GAME_OPTIONS))
+		//	);
+		swprintf( Information_String2, L"%s", Information_String1);
+
+		DoOptionsMessageBox( MSG_BOX_BASIC_STYLE, Information_String2, OPTIONS_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		gfExitOptionsDueToMessageBox = FALSE;
+#endif
+#if defined OPTIONSCREEN_DEBUG_FEEDBACK2
+		CHAR16	Information_String1[200];
+		CHAR16	Information_String2[200];
+
+		swprintf( Information_String1, L"iScreenWidthOffset : %d \n iScreenHeightOffset : %d ", 
+			iScreenWidthOffset,
+			iScreenHeightOffset
+			);
+		swprintf( Information_String2, L"%s", Information_String1);
+
+		DoOptionsMessageBox( MSG_BOX_BASIC_STYLE, Information_String2, OPTIONS_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		gfExitOptionsDueToMessageBox = FALSE;
+#endif
+
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+}
+
 
 void BtnDoneCallback(GUI_BUTTON *btn,INT32 reason)
 {
@@ -1009,7 +1243,6 @@ void BtnDoneCallback(GUI_BUTTON *btn,INT32 reason)
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
 }
-
 
 void BtnOptionsTogglesCallback( GUI_BUTTON *btn, INT32 reason )
 {
@@ -1049,7 +1282,6 @@ void BtnOptionsTogglesCallback( GUI_BUTTON *btn, INT32 reason )
 
 }
 
-
 void HandleOptionToggle( UINT8 ubButton, BOOLEAN fState, BOOLEAN fDown, BOOLEAN fPlaySound )
 {
 	static UINT32	uiOptionToggleSound = NO_SAMPLE;
@@ -1057,7 +1289,7 @@ void HandleOptionToggle( UINT8 ubButton, BOOLEAN fState, BOOLEAN fDown, BOOLEAN 
 
 	if( fState )
 	{
-		gGameSettings.fOptions[ ubButton ] = TRUE;
+		gGameSettings.fOptions[ ubButton + Current_First_Option_Index ] = TRUE;
 
 		ButtonList[ guiOptionsToggles[ ubButton ] ]->uiFlags |= BUTTON_CLICKED_ON;
 
@@ -1066,7 +1298,7 @@ void HandleOptionToggle( UINT8 ubButton, BOOLEAN fState, BOOLEAN fDown, BOOLEAN 
 	}
 	else
 	{
-		gGameSettings.fOptions[ ubButton ] = FALSE;
+		gGameSettings.fOptions[ ubButton + Current_First_Option_Index ] = FALSE;
 
 		ButtonList[ guiOptionsToggles[ ubButton ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 
@@ -1074,18 +1306,21 @@ void HandleOptionToggle( UINT8 ubButton, BOOLEAN fState, BOOLEAN fDown, BOOLEAN 
 			DrawCheckBoxButtonOff( guiOptionsToggles[ ubButton ] );
 
 		//check to see if the user is unselecting either the spech or subtitles toggle
-		if( ubButton == TOPTION_SPEECH	|| ubButton == TOPTION_SUBTITLES )
+		if( ubButton + Current_First_Option_Index == TOPTION_SPEECH	|| ubButton + Current_First_Option_Index == TOPTION_SUBTITLES )
 		{
 			//make sure that at least of of the toggles is still enabled
+			// arynn : use of TOPTION_SPEECH and TOPTION_SUBTITLES relies on the fact that,
+			//			(ubButton + Current_First_Option_Index) == TOPTION_SPEECH || TOPTION_SUBTITLES
 			if( !(ButtonList[ guiOptionsToggles[ TOPTION_SPEECH ] ]->uiFlags & BUTTON_CLICKED_ON) )
 			{
 				if( !( ButtonList[ guiOptionsToggles[ TOPTION_SUBTITLES ] ]->uiFlags & BUTTON_CLICKED_ON ) )
 				{
-					gGameSettings.fOptions[ ubButton ] = TRUE;
+					gGameSettings.fOptions[ ubButton + Current_First_Option_Index  ] = TRUE;
 					ButtonList[ guiOptionsToggles[ ubButton ] ]->uiFlags |= BUTTON_CLICKED_ON;
 
 					//Confirm the Exit to the main menu screen
-					DoOptionsMessageBox( MSG_BOX_BASIC_STYLE, zOptionsText[OPT_NEED_AT_LEAST_SPEECH_OR_SUBTITLE_OPTION_ON], OPTIONS_SCREEN, MSG_BOX_FLAG_OK, NULL );
+					DoOptionsMessageBox(	MSG_BOX_BASIC_STYLE, zOptionsText[OPT_NEED_AT_LEAST_SPEECH_OR_SUBTITLE_OPTION_ON], 
+											OPTIONS_SCREEN, MSG_BOX_FLAG_OK, NULL );
 					gfExitOptionsDueToMessageBox = FALSE;
 				}
 			}
@@ -1123,7 +1358,6 @@ void SoundFXSliderChangeCallBack( INT32 iNewValue )
 	guiSoundFxSliderMoving = GetJA2Clock();
 }
 
-
 void SpeechSliderChangeCallBack( INT32 iNewValue )
 {
 	SetSpeechVolume( iNewValue );
@@ -1131,19 +1365,20 @@ void SpeechSliderChangeCallBack( INT32 iNewValue )
 	guiSpeechSliderMoving = GetJA2Clock();
 }
 
-
 void MusicSliderChangeCallBack( INT32 iNewValue )
 {
 	MusicSetVolume( iNewValue );
 }
 
-BOOLEAN DoOptionsMessageBoxWithRect( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
+BOOLEAN DoOptionsMessageBoxWithRect(	UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, 
+										MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
 {
 	// reset exit mode
 	gfExitOptionsDueToMessageBox = TRUE;
 
 	// do message box and return
-	giOptionsMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback,	pCenteringRect );
+	giOptionsMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	
+										ReturnCallback,	pCenteringRect );
 
 	// send back return state
 	return( ( giOptionsMessageBox != -1 ) );
@@ -1157,15 +1392,14 @@ BOOLEAN DoOptionsMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitSc
 	gfExitOptionsDueToMessageBox = TRUE;
 
 	// do message box and return
-	giOptionsMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback,	&CenteringRect );
+	giOptionsMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	
+										ReturnCallback,	&CenteringRect );
 
 	// send back return state
 	return( ( giOptionsMessageBox != -1 ) );
 }
 
-
-
-void			ConfirmQuitToMainMenuMessageBoxCallBack( UINT8 bExitValue )
+void ConfirmQuitToMainMenuMessageBoxCallBack( UINT8 bExitValue )
 {
 	// yes, Quit to main menu
 	if( bExitValue == MSG_BOX_RETURN_YES )
@@ -1192,33 +1426,31 @@ void			ConfirmQuitToMainMenuMessageBoxCallBack( UINT8 bExitValue )
 	}
 }
 
-
 void SetOptionsScreenToggleBoxes()
 {
 	UINT8	cnt;
 
-	for( cnt=0; cnt<NUM_GAME_OPTIONS; cnt++)
+
+// arynn : careful, toggle button[cnt] no longer means gGameSettings.fOptions[cnt], its offset now based on global column offset
+	for( cnt=0; cnt<Last_Count_Of_Toggles_Created; cnt++)
 	{
-		if( gGameSettings.fOptions[ cnt ] )
+		if( gGameSettings.fOptions[ cnt + Current_First_Option_Index ] )
 			ButtonList[ guiOptionsToggles[ cnt ] ]->uiFlags |= BUTTON_CLICKED_ON;
 		else
 			ButtonList[ guiOptionsToggles[ cnt ] ]->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
 }
 
-
-
-
 void GetOptionsScreenToggleBoxes()
 {
 	UINT8	cnt;
 
-	for( cnt=0; cnt<NUM_GAME_OPTIONS; cnt++)
+	for( cnt=0; cnt<Last_Count_Of_Toggles_Created; cnt++)
 	{
 		if( ButtonList[ guiOptionsToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
-			gGameSettings.fOptions[ cnt ] = TRUE;
+			gGameSettings.fOptions[ cnt + Current_First_Option_Index ] = TRUE;
 		else
-			gGameSettings.fOptions[ cnt ] = FALSE;
+			gGameSettings.fOptions[ cnt + Current_First_Option_Index ] = FALSE;
 	}
 }
 
@@ -1256,16 +1488,13 @@ void HandleSliderBarMovementSounds()
 
 }
 
-
-
-
 void SelectedOptionTextRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	UINT8	ubButton = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-		HandleOptionToggle( ubButton, (BOOLEAN)(!gGameSettings.fOptions[ ubButton ]), FALSE, TRUE );
+		HandleOptionToggle( ubButton, (BOOLEAN)(!gGameSettings.fOptions[ ubButton + Current_First_Option_Index ]), FALSE, TRUE );
 
 		InvalidateRegion(pRegion->RegionTopLeftX, pRegion->RegionTopLeftY, pRegion->RegionBottomRightX, pRegion->RegionBottomRightY);
 	}
@@ -1283,7 +1512,6 @@ void SelectedOptionTextRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		}
 	}
 }
-
 
 void SelectedOptionTextRegionMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
 {
@@ -1306,13 +1534,12 @@ void SelectedOptionTextRegionMovementCallBack(MOUSE_REGION * pRegion, INT32 reas
 	}
 }
 
-
 void HandleHighLightedText( BOOLEAN fHighLight )
 {
 	UINT16		usPosX=0;
 	UINT16		usPosY=0;
-	UINT8			ubCnt;
-	INT8			bHighLight=-1;
+	UINT8		ubCnt;
+	INT8		bHighLight=-1;
 	UINT16		usWidth;
 
 	static	INT8	bLastRegion = -1;
@@ -1321,7 +1548,7 @@ void HandleHighLightedText( BOOLEAN fHighLight )
 		fHighLight = FALSE;
 
 	//if the user has the mouse in one of the checkboxes
-	for( ubCnt=0; ubCnt<NUM_GAME_OPTIONS;ubCnt++)
+	for( ubCnt=0; ubCnt<Last_Count_Of_Toggles_Created;ubCnt++)
 	{
 		if( ubCnt == TOPTION_BLOOD_N_GORE && gfHideBloodAndGoreOption )
 		{
@@ -1369,7 +1596,8 @@ void HandleHighLightedText( BOOLEAN fHighLight )
 		else
 		{
 			usPosX = OPT_TOGGLE_BOX_SECOND_TEXT_X;
-			usPosY = OPT_TOGGLE_BOX_SECOND_COLUMN_START_Y + OPT_TOGGLE_TEXT_OFFSET_Y + ( ( bHighLight - OPT_FIRST_COLUMN_TOGGLE_CUT_OFF ) * OPT_GAP_BETWEEN_TOGGLE_BOXES ) ;
+			usPosY = OPT_TOGGLE_BOX_SECOND_COLUMN_START_Y + OPT_TOGGLE_TEXT_OFFSET_Y + 
+					 ( ( bHighLight - OPT_FIRST_COLUMN_TOGGLE_CUT_OFF ) * OPT_GAP_BETWEEN_TOGGLE_BOXES ) ;
 		}
 
 		//If we are to hide the blood and gore option, and we are to highlight an option past the blood and gore option
@@ -1380,29 +1608,35 @@ void HandleHighLightedText( BOOLEAN fHighLight )
 		}
 
 
-		usWidth = StringPixLength( zOptionsToggleText[ bHighLight ], OPT_MAIN_FONT );
+		usWidth = StringPixLength( zOptionsToggleText[ bHighLight + Current_First_Option_Index ], OPT_MAIN_FONT );
 
 		//if the string is going to wrap, move the string up a bit
 		if( usWidth > OPT_TOGGLE_BOX_TEXT_WIDTH )
 		{
 			if( fHighLight )
-				DisplayWrappedString( usPosX, usPosY, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_HIGHLIGHT_COLOR, zOptionsToggleText[ bHighLight ], FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
-//				DrawTextToScreen( zOptionsToggleText[ bHighLight ], usPosX, usPosY, 0, OPT_MAIN_FONT, OPT_HIGHLIGHT_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
+				DisplayWrappedString(	usPosX, usPosY, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_HIGHLIGHT_COLOR, 
+										zOptionsToggleText[ bHighLight + Current_First_Option_Index ], FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
+
+//				DrawTextToScreen( zOptionsToggleText[ bHighLight ], usPosX, usPosY, 0, OPT_MAIN_FONT, OPT_HIGHLIGHT_COLOR, 
+//																					FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
 			else
-				DisplayWrappedString( usPosX, usPosY, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_MAIN_COLOR, zOptionsToggleText[ bHighLight ], FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
-//				DrawTextToScreen( zOptionsToggleText[ bHighLight ], usPosX, usPosY, 0, OPT_MAIN_FONT, OPT_MAIN_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
+				DisplayWrappedString(	usPosX, usPosY, OPT_TOGGLE_BOX_TEXT_WIDTH, 2, OPT_MAIN_FONT, OPT_MAIN_COLOR, 
+										zOptionsToggleText[ bHighLight + Current_First_Option_Index ], FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
+
+//				DrawTextToScreen( zOptionsToggleText[ bHighLight ], usPosX, usPosY, 0, OPT_MAIN_FONT, OPT_MAIN_COLOR, 
+//																				FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
 		}
 		else
 		{
 			if( fHighLight )
-				DrawTextToScreen( zOptionsToggleText[ bHighLight ], usPosX, usPosY, 0, OPT_MAIN_FONT, OPT_HIGHLIGHT_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
+				DrawTextToScreen(	zOptionsToggleText[ bHighLight + Current_First_Option_Index ], usPosX, usPosY, 0, 
+									OPT_MAIN_FONT, OPT_HIGHLIGHT_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
 			else
-				DrawTextToScreen( zOptionsToggleText[ bHighLight ], usPosX, usPosY, 0, OPT_MAIN_FONT, OPT_MAIN_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
+				DrawTextToScreen(	zOptionsToggleText[ bHighLight + Current_First_Option_Index ], usPosX, usPosY, 0, 
+									OPT_MAIN_FONT, OPT_MAIN_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
 		}
 	}
 }
-
-
 
 void SelectedToggleBoxAreaRegionMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
 {
@@ -1414,7 +1648,7 @@ void SelectedToggleBoxAreaRegionMovementCallBack(MOUSE_REGION * pRegion, INT32 r
 		UINT8	ubCnt;
 
 		//loop through all the toggle box's and remove the in area flag
-		for( ubCnt=0;ubCnt<NUM_GAME_OPTIONS;ubCnt++)
+		for( ubCnt=0;ubCnt<Last_Count_Of_Toggles_Created;ubCnt++)
 		{
 			ButtonList[ guiOptionsToggles[ ubCnt ] ]->Area.uiFlags &= ~MSYS_MOUSE_IN_AREA;
 		}

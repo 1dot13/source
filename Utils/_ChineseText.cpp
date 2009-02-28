@@ -4186,6 +4186,8 @@ STR16	zOptionsText[] =
 	L"保存游戏",	//"Save Game",
 	L"载入游戏",	//"Load Game",
 	L"退出",	//"Quit",
+	L"Next",
+	L"Prev",
 	L"完成",	//"Done",
 
 	//Text above the slider bars
@@ -4408,6 +4410,7 @@ STR16		zOptionsToggleText[] =
 	L"沉默的Skyrider",	//"Silent Skyrider",
 	L"降低CPU的使用率",	//"Low CPU usage",
 	L"Enhanced Description Box",
+	L"Forced Turn Mode",			// arynn : add forced turn mode
 };
 
 //This is the help text associated with the above toggles.
@@ -4446,7 +4449,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开这个选项，使用铁血联盟1代的佣兵选择方式。",
 
 	//Show movement path
-	//L"Turn this ON to display movement paths in Real-time (or leave it off and use the SHIFT key when you do want them displayed).",
+	//L"Turn this ON to display movement paths in Real-time (or leave it off and use the |S|H|I|F|T key when you do want them displayed).",
 	L"打开这个选项，会实时显示移动路径(关闭此选项。如果你想要显示路径的话，使用SHIFT键)。",
 
 	//show misses
@@ -4519,6 +4522,7 @@ STR16	zOptionsScreenHelpText[] =
 	//L"When ON, game will run with much lower CPU usage.",
 	L"当打开时，游戏将使用更少的CPU资源。",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
+	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
 };
 
 

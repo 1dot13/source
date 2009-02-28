@@ -3503,6 +3503,8 @@ STR16	zOptionsText[] =
 	L"Save Game",
 	L"Load Game",
 	L"Quit",
+	L"Next",
+	L"Prev",
 	L"Done",
 
 	//Text above the slider bars
@@ -3689,6 +3691,7 @@ STR16		zOptionsToggleText[] =
 	L"Silent Skyrider",
 	L"Low CPU usage",
 	L"Enhanced Description Box",
+	L"Forced Turn Mode",			// arynn : add forced turn mode
 };
 
 //This is the help text associated with the above toggles.
@@ -3719,7 +3722,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Turn this ON for character selection to work as in previous JAGGED ALLIANCE games (which is the opposite of how it works otherwise).",
 
 	//Show movement path
-	L"Turn this ON to display movement paths in Real-time (or leave it off and use the SHIFT key when you do want them displayed).",
+	L"Turn this ON to display movement paths in Real-time (or leave it off and use the |S|H|I|F|T key when you do want them displayed).",
 
 	//show misses
 	L"Turn ON to have the game show you where your bullets ended up when you \"miss\".",
@@ -3770,6 +3773,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, game will run with much lower CPU usage.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
+	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
 };
 
 

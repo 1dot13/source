@@ -3504,6 +3504,8 @@ STR16	zOptionsText[] =
 	L"Sauvegarder",
 	L"Charger partie",
 	L"Quitter",
+	L"Next",
+	L"Prev",
 	L"OK",
 
 	//Text above the slider bars
@@ -3690,6 +3692,7 @@ STR16		zOptionsToggleText[] =
 	L"Silence Skyrider !",
 	L"Faible consommation processeur",
 	L"EDB (mod rajoutant info utiles)",
+	L"Forced Turn Mode",			// arynn : add forced turn mode
 };
 
 //This is the help text associated with the above toggles.
@@ -3720,7 +3723,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Activez cette option pour retrouver vos automatismes de la version précédente.",
 
 	//Show movement path
-	L"Activez cette option pour afficher le chemin suivi par les mercenaires. \nVous pouvez la désactiver et utiliser la touche MAJ en cours de jeu.",
+	L"Activez cette option pour afficher le chemin suivi par les mercenaires. \nVous pouvez la désactiver et utiliser la touche |M|A|J en cours de jeu.",
 
 	//show misses
 	L"Activez cette option pour voir où atterrissent tous vos tirs.",
@@ -3771,6 +3774,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, les confirmations insistantes de Skyrider cessent.",
 	L"Si activé, le jeu restreint l'utilisation du processeur.",
 	L"Si activé, l'EDB sera affiché pour les armes et objets.",
+	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
 };
 
 

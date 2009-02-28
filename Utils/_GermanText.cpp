@@ -3310,7 +3310,9 @@ STR16 zOptionsText[] =
 	//button Text
 	L"Spiel sichern",
 	L"Spiel laden",
-	L"Spiel beenden",	
+	L"Spiel beenden",
+	L"Nächste",
+	L"Vorherige",
 	L"Fertig",
 	//Text above the slider bars
 	L"Effekte",
@@ -3494,7 +3496,8 @@ STR16 zOptionsToggleText[] =
 	L"Automatisch speichern",
 	L"Stummer Skyrider",
 	L"Niedrige CPU Belastung",
-	L"Enhanced Description Box",
+	L"Erweiterte Gegenstandsinfo (EDB)",
+	L"Erzwungender Runden-Modus",
 };
 
 //This is the help text associated with the above toggles.
@@ -3525,7 +3528,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Mit dieser Option funktioniert die Auswahl der Söldner so wie in früheren JAGGED ALLIANCE-Spielen (also genau andersherum als jetzt).",
 
 	//Show movement path
-	L"Diese Funktion ANschalten, um die geplanten Wege der Söldner in Echtzeit anzuzeigen\n(oder abgeschaltet lassen und bei gewünschter Anzeige die SHIFT-Taste drücken).",
+	L"Diese Funktion ANschalten, um die geplanten Wege der Söldner in Echtzeit anzuzeigen\n(oder abgeschaltet lassen und bei gewünschter Anzeige die |S|H|I|F|T-Taste drücken).",
 
 	//show misses
 	L"Mit dieser Option zeigt Ihnen das Spiel, wo Ihre Kugeln hinfliegen, wenn Sie \"nicht treffen\".",
@@ -3576,6 +3579,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sprechen.",
 	L"Wenn diese Funktion aktiviert ist, wird das Spiel mit viel geringerer CPU Belastung laufen.",
 	L"Wenn diese Funktion aktiviert ist, werden erweiterte Beschreibungen zu den Waffen und Gegenständen angezeigt.",
+	L"Wenn diese Funktion aktiviert ist und noch Gegner im Sektor sind, bleibt das Spiel im Runden-Mods bis alle Feinde tot sind (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).", 
 };
 
 STR16 gzGIOScreenText[] =

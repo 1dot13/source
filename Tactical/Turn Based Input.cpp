@@ -205,6 +205,7 @@ void ToggleWireFrame();
 void RefreshSoldier();
 void ChangeSoldiersBodyType( UINT8 ubBodyType, BOOLEAN fCreateNewPalette );
 void TeleportSelectedSoldier();
+void ToggleTurnMode();// arynn : add forced turn mode
 void ToggleTreeTops();
 void ToggleZBuffer();
 void TogglePlanningMode();
@@ -3662,9 +3663,16 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					ToggleTreeTops();
 				break;
 
-			case 'T':
-				//resort Team by ubID
-				SortSquadByID(MercPtrs[gusSelectedSoldier]->bTeam);
+			case 'T':	
+				if ( fCtrl && fShift && fAlt && !is_networked)// arynn : add forced turn mode
+				{
+					ToggleTurnMode();
+				}				
+				else
+				{	
+					//resort Team by ubID
+					SortSquadByID(MercPtrs[gusSelectedSoldier]->bTeam);
+				}
 				break;
 
 			case '=':
@@ -4519,7 +4527,20 @@ void TeleportSelectedSoldier()
 	}
 }
 
-
+void ToggleTurnMode()// arynn : add forced turn mode
+{
+	if ( !gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Forced Turn Mode" );
+		gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] = TRUE;
+		EnterCombatMode( OUR_TEAM ); // arynn : randomize ? i'm leaving this for now due to "i made the call, i get dibs"
+	}
+	else
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Normal turn mode");
+		gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] = FALSE;
+	}
+}// arynn : add forced turn mode
 
 void ToggleTreeTops()
 {

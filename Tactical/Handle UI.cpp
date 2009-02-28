@@ -1901,7 +1901,7 @@ UINT32 UIHandleCMoveMerc( UI_EVENT *pUIEvent )
 					//else
 					if ( pSoldier->EVENT_InternalGetNewSoldierPath( sMapPos, pSoldier->usUIMovementMode, TRUE, FALSE ) )
 					{
-						pSoldier->InternalSoldierReadyWeapon( BATTLE_SOUND_OK1, BATTLE_SND_LOWER_VOLUME );
+						pSoldier->InternalDoMercBattleSound( BATTLE_SOUND_OK1, BATTLE_SND_LOWER_VOLUME );
 					}
 					else
 					{
@@ -4703,7 +4703,20 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 		// ATE: make stationary if...
 		if ( pSoldier->flags.fNoAPToFinishMove )
 		{
-			pSoldier->SoldierGotoStationaryStance( );
+			// arynn : fix lower ready weapons
+			//previously "ready weapon" state was being dropped in a couple of cases
+			//the fix involves bypassing the reset animation state for the various "ready weapon" types
+			//since this is a reset animation function, we should be VERY specific about when and what we dont reset
+
+			UINT16	test;
+			test = pSoldier->usAnimState; 
+			if (!( 	test == AIM_RIFLE_STAND ||	test == AIM_RIFLE_CROUCH ||
+					test == AIM_RIFLE_PRONE ||	test == AIM_DUAL_STAND 	 ||
+					test == AIM_DUAL_CROUCH ||	test == AIM_DUAL_PRONE
+				)) 
+			{
+				pSoldier->SoldierGotoStationaryStance( );
+			}// arynn : fix lower ready weapon end_if	
 		}
 
 		//DEF:	made it an event
@@ -5100,7 +5113,7 @@ void EndMultiSoldierSelection( BOOLEAN fAcknowledge )
 				}
 
 				if( !gGameSettings.fOptions[ TOPTION_MUTE_CONFIRMATIONS ] && fAcknowledge )
-					pSoldier->InternalSoldierReadyWeapon( BATTLE_SOUND_ATTN1, BATTLE_SND_LOWER_VOLUME );
+					pSoldier->InternalDoMercBattleSound( BATTLE_SOUND_ATTN1, BATTLE_SND_LOWER_VOLUME );
 
 				if ( pSoldier->flags.fMercAsleep )
 				{
@@ -5227,7 +5240,7 @@ BOOLEAN HandleMultiSelectionMove( INT16 sDestGridNo )
 
 				if ( pSoldier->EVENT_InternalGetNewSoldierPath( sDestGridNo, pSoldier->usUIMovementMode , TRUE, pSoldier->flags.fNoAPToFinishMove ) )
 				{
-					pSoldier->InternalSoldierReadyWeapon( BATTLE_SOUND_OK1, BATTLE_SND_LOWER_VOLUME );
+					pSoldier->InternalDoMercBattleSound( BATTLE_SOUND_OK1, BATTLE_SND_LOWER_VOLUME );
 				}
 				else
 				{

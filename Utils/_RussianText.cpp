@@ -3499,6 +3499,8 @@ STR16	zOptionsText[] =
 	L"Сохранить игру",
 	L"Загрузить игру",
 	L"Выход",
+	L"Next",
+	L"Prev",
 	L"Готово",
 
 	//Text above the slider bars
@@ -3684,6 +3686,7 @@ STR16		zOptionsToggleText[] =
 	L"Молчаливый пилот вертолёта",
 	L"Низкая загрузка процессора",
 	L"Подробное описание предметов", //Enhanced Description Box
+	L"Forced Turn Mode",			// arynn : add forced turn mode
 };
 
 //This is the help text associated with the above toggles.
@@ -3714,7 +3717,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, то будет использоваться старый метод выбора наемников\n(для тех, кто привык к управлению предыдущих частей Jagged Alliance).",
 
 	//Show movement path
-	L"Если включено, то в режиме реального времени будет отображаться путь передвижения\n(если выключено,  нажмите SHIFT, чтобы увидеть путь).",
+	L"Если включено, то в режиме реального времени будет отображаться путь передвижения\n(если выключено,  нажмите |S|H|I|F|T, чтобы увидеть путь).",
 
 	//show misses
 	L"Если включено, то камера будет отслеживать\nтраекторию пуль, прошедших мимо цели.",
@@ -3765,6 +3768,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, Небесный Всадник\nне будет вас раздражать болтливостью.",
 	L"Если включено, игра будет использовать\nменьше процессорного времени.",
 	L"Если включено, будет задействовано\nподробное описание предметов.", //EDB description
+	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
 };
 
 

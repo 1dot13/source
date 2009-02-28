@@ -4,6 +4,7 @@
 #include "MessageBoxScreen.h"
 
 #define		OPT_BUTTON_FONT												FONT14ARIAL
+#define		OPT_BUTTON_FONT2											FONT10ARIAL //smaller button on options screen
 #define		OPT_BUTTON_ON_COLOR										73//FONT_MCOLOR_WHITE
 #define		OPT_BUTTON_OFF_COLOR									73//FONT_MCOLOR_WHITE
 
