@@ -1,1 +1,9 @@
-To open the the AI Viewer Dialog press F12 in Strategy Screen. This only works in Debug Version.
+-=ENGLISH DESCRIPTION=-
+AI Viewer dialog is opened by switching to the Strategy screen and pressing F12.
+Quest Debug System dialog is opened by switching to the Tactical screen and pressing F11.
+This only works in the Debug Version.
+
+-=RUSSIAN DESCRIPTION=-
+Окно "AI Viewer" открывается на стратегической карте по нажатию кнопки F12.
+Окно "Quest Debug System" открывается на тактической карте по нажатию кнопки F11.
+Эти функции доступны лишь в отладочной версии игры (в Debug версии).
