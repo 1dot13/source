@@ -1542,7 +1542,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					gfCameDirectlyFromGame = TRUE;
 
 					guiPreviousOptionScreen = GAME_SCREEN;
-					LeaveTacticalScreen( SAVE_LOAD_SCREEN );
+					//Heinz: 28.02.09 BUGFIX: player doesn't need to see save/load screen
+					//LeaveTacticalScreen( SAVE_LOAD_SCREEN );
 					DoQuickLoad();
 				}
 			}
@@ -3834,15 +3835,15 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 						// Recruit!
 						RecruitEPC( MARIA );
+					
+						//Heinz: 28.02.09 BUGFIX: giving G41 to Maria only in cheat mode
+						// Create object and set
+						CreateItem( (UINT16) G41, 100, &Object );
+
+						pSoldier = FindSoldierByProfileID( MARIA, FALSE );
+
+						AutoPlaceObject( pSoldier, &Object, FALSE );
 					}
-
-					// Create object and set
-					CreateItem( (UINT16) G41, 100, &Object );
-
-					pSoldier = FindSoldierByProfileID( MARIA, FALSE );
-
-					AutoPlaceObject( pSoldier, &Object, FALSE );
-
 				}
 				else
 				{

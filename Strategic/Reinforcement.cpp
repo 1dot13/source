@@ -247,7 +247,7 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 	GROUP *pGroup;
 	//ENEMYGROUP *pEnemyGroup;
 	SECTORINFO *pThisSector, *pSector;
-
+	
 	if( !gGameExternalOptions.gfAllowReinforcements )
 		return 255;
 
@@ -274,7 +274,7 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 		}
 	}
 
-	while( ubDirNumber > 0)
+	while( ubDirNumber > 0 )
 	{
 		ubIndex = Random(ubDirNumber);
 
@@ -286,25 +286,21 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 			{
 				(pThisSector->ubNumElites)++;
 				(pSector->ubNumElites)--;
+				(pThisSector->ubElitesInBattle)++;
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 0, 1, FALSE );
 			}else if( pSector->ubNumTroops )
 			{
 				(pThisSector->ubNumTroops)++;
 				(pSector->ubNumTroops)--;
+				(pThisSector->ubTroopsInBattle)++;
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 1, 0, FALSE );
 			}else if( pSector->ubNumAdmins )
 			{
 				(pThisSector->ubNumAdmins)++;
 				(pSector->ubNumAdmins)--;
+				(pThisSector->ubAdminsInBattle)++;
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 1, 0, 0, FALSE );
 			}
-
-			AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 
-				pThisSector->ubNumAdmins - pThisSector->ubAdminsInBattle, 
-				pThisSector->ubNumTroops - pThisSector->ubTroopsInBattle,
-				pThisSector->ubNumElites - pThisSector->ubElitesInBattle, 
-				FALSE );
-
-			pThisSector->ubAdminsInBattle = pThisSector->ubNumAdmins;
-			pThisSector->ubTroopsInBattle = pThisSector->ubNumTroops;
-			pThisSector->ubElitesInBattle = pThisSector->ubNumElites;
 
 			return (UINT8)pusMoveDir[ ubIndex ][ 2 ];
 		}
@@ -458,3 +454,4 @@ void AddPossiblePendingMilitiaToBattle()
 		}
 	}
 }
+

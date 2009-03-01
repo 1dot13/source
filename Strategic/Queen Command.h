@@ -56,4 +56,6 @@ BOOLEAN OnlyHostileCivsInSector();
 
 extern INT16 gsInterrogationGridNo[3];
 
+BOOLEAN CheckPendingEnemies();
+
 #endif

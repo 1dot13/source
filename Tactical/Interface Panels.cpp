@@ -3011,7 +3011,8 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					else
 					{
 						// Send message
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANNOT_DO_INV_STUFF_STR ] );
+						//Heinz: 23.02.09 BUGFIX: Don't send message when SKI is on
+						if( !( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) ) ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANNOT_DO_INV_STUFF_STR ] );
 					}
 				}
 			}

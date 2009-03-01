@@ -403,7 +403,6 @@ extern		BOOLEAN BltVSurfaceUsingDD( HVSURFACE hDestVSurface, HVSURFACE hSrcVSurf
 
 extern		UINT8 gubLastSpecialItemAddedAtElement;
 
-
 //Enums for the various Atm modes
 enum
 {
@@ -790,12 +789,18 @@ UINT32	ShopKeeperScreenHandle()
 	// render buttons marked dirty
 //ATM:
 	DisableSMPpanelButtonsWhenInShopKeeperInterface( FALSE );
+	//Heinz: 22.02.09 BUGFIX: buttons should not render upon shopkeeper's message
+	if( gfIsTheShopKeeperTalking && !gfInItemDescBox ) 
+	{
+		ButtonList[ guiSKI_TransactionButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
+		ButtonList[ guiSKI_DoneButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
+	}
 	RenderButtons( );
-
+	RenderItemDescriptionBox( );
 	// render help
 	SaveBackgroundRects( );
 	RenderButtonsFastHelp( );
-
+	
 	ExecuteBaseDirtyRectQueue();
 	EndFrameBufferRender();
 
@@ -912,8 +917,12 @@ BOOLEAN EnterShopKeeperInterface()
 
 	// Create a video surface to blt corner of the tactical screen that still shines through
 	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
-	vs_desc.usWidth = SKI_TACTICAL_BACKGROUND_START_WIDTH;
-	vs_desc.usHeight = SKI_TACTICAL_BACKGROUND_START_HEIGHT;
+	//Heinz: 22.02.09 BUGFIX: best way - to update whole tactical screen around SKI
+	//vs_desc.usWidth = SKI_TACTICAL_BACKGROUND_START_WIDTH;
+	//vs_desc.usHeight = SKI_TACTICAL_BACKGROUND_START_HEIGHT;
+	vs_desc.usWidth = SCREEN_WIDTH;
+	vs_desc.usHeight = SCREEN_HEIGHT;
+
 	vs_desc.ubBitDepth = 16;
 	if( !AddVideoSurface( &vs_desc, &guiCornerWhereTacticalIsStillSeenImage) )
 	{
@@ -923,8 +932,10 @@ BOOLEAN EnterShopKeeperInterface()
 
 		return( FALSE );
 	}
-
-
+	
+	//Heinz: 22.02.09 shadowing of tactical screen for further using as a background 
+	ShadowVideoSurfaceRect( guiCornerWhereTacticalIsStillSeenImage, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+	
 	//Clear out all the save background rects
 	EmptyBackgroundRects( );
 
@@ -1361,8 +1372,9 @@ void HandleShopKeeperInterface()
 		//make sure the buttons dont render
 //		ButtonList[ guiSKI_InvPageUpButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
 //		ButtonList[ guiSKI_InvPageDownButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
-		ButtonList[ guiSKI_TransactionButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
-		ButtonList[ guiSKI_DoneButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
+		//Heinz: 22.02.09 BUGFIX: buttons should render for items in inventory with EDB
+		//ButtonList[ guiSKI_TransactionButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
+		//ButtonList[ guiSKI_DoneButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
 
 
 		// make sure the shop keeper doesn't start talking ( reset the timing variable )
@@ -1450,8 +1462,9 @@ void HandleShopKeeperInterface()
 	//if the merc is talking and there is an item currently being highlighted
 	// ( this gets rid of the item burning through the dealers text box )
 	if( gfIsTheShopKeeperTalking )
-		if( gpHighLightedItemObject != NULL || gubSkiDirtyLevel != SKI_DIRTY_LEVEL0 )
-			RenderMercPopUpBoxFromIndex( giPopUpBoxId, gusPositionOfSubTitlesX, SKI_POSITION_SUBTITLES_Y, FRAME_BUFFER);
+		//Heinz: 23.02.09 BUGFIX: if shopkeeper is talking we should render popup in all cases
+		//if( gpHighLightedItemObject != NULL || gubSkiDirtyLevel != SKI_DIRTY_LEVEL0 )
+				RenderMercPopUpBoxFromIndex( giPopUpBoxId, gusPositionOfSubTitlesX, SKI_POSITION_SUBTITLES_Y, FRAME_BUFFER);
 
 
 	//if we are to display the drop item to ground text
@@ -1515,8 +1528,9 @@ BOOLEAN RenderShopKeeperInterface()
 	InsertDollarSignInToString( zMoney );
 	DrawTextToScreen( zMoney, SKI_PLAYERS_CURRENT_BALANCE_X, SKI_PLAYERS_CURRENT_BALANCE_OFFSET_TO_VALUE, SKI_PLAYERS_CURRENT_BALANCE_WIDTH, FONT10ARIAL, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
 
-	BlitBufferToBuffer( guiRENDERBUFFER, guiSAVEBUFFER, 0, 0, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_HEIGHT );
-
+	//Heinz: 22.02.09 BUGFIX: best way - to update whole tactical screen around SKI
+	//BlitBufferToBuffer( guiRENDERBUFFER, guiSAVEBUFFER, 0, 0, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_HEIGHT );
+	BlitBufferToBuffer( guiRENDERBUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	//At this point the background is pure, copy it to the save buffer
 	if( gfRenderScreenOnNextLoop )
 	{
@@ -1524,12 +1538,17 @@ BOOLEAN RenderShopKeeperInterface()
 		GetVideoSurface( &hDestVSurface, guiCornerWhereTacticalIsStillSeenImage );
 		GetVideoSurface( &hSrcVSurface, guiSAVEBUFFER );
 
-		SrcRect.iLeft = SKI_TACTICAL_BACKGROUND_START_X;
-		SrcRect.iTop = SKI_TACTICAL_BACKGROUND_START_Y;
-		SrcRect.iRight = SKI_TACTICAL_BACKGROUND_START_X + SKI_TACTICAL_BACKGROUND_START_WIDTH;
-		SrcRect.iBottom = SKI_TACTICAL_BACKGROUND_START_Y + SKI_TACTICAL_BACKGROUND_START_HEIGHT;
-
-		BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_Y, (RECT*)&SrcRect );
+		//Heinz: 22.02.09 BUGFIX: best way - to update whole tactical screen around SKI
+		//SrcRect.iLeft = SKI_TACTICAL_BACKGROUND_START_X;
+		//SrcRect.iTop = SKI_TACTICAL_BACKGROUND_START_Y;
+		//SrcRect.iRight = SKI_TACTICAL_BACKGROUND_START_X + SKI_TACTICAL_BACKGROUND_START_WIDTH;
+		//SrcRect.iBottom = SKI_TACTICAL_BACKGROUND_START_Y + SKI_TACTICAL_BACKGROUND_START_HEIGHT;
+		//BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_Y, (RECT*)&SrcRect );
+		SrcRect.iLeft = 0;
+		SrcRect.iTop = 0;
+		SrcRect.iRight = SCREEN_WIDTH;
+		SrcRect.iBottom = SCREEN_HEIGHT;
+		BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, 0, 0, (RECT*)&SrcRect );
 
 		gfRenderScreenOnNextLoop = FALSE;
 	}
@@ -1574,14 +1593,37 @@ void RestoreTacticalBackGround()
 	GetVideoSurface( &hDestVSurface, guiRENDERBUFFER );
 	GetVideoSurface( &hSrcVSurface, guiCornerWhereTacticalIsStillSeenImage );
 
+	//Heinz: 22.02.09 BUGFIX: best way - to update whole tactical screen around SKI
+	//SrcRect.iLeft = SKI_TACTICAL_BACKGROUND_START_X; //0;
+	//SrcRect.iTop = SKI_TACTICAL_BACKGROUND_START_Y; //0;
+	//SrcRect.iRight = SKI_TACTICAL_BACKGROUND_START_WIDTH;		//SKI_TACTICAL_BACKGROUND_START_WIDTH;
+	//SrcRect.iBottom = SKI_TACTICAL_BACKGROUND_START_HEIGHT;	//SKI_TACTICAL_BACKGROUND_START_HEIGHT;
+
+	//BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_Y, (RECT*)&SrcRect );
 	// Top
-	SrcRect.iLeft = SKI_TACTICAL_BACKGROUND_START_X; //0;
-	SrcRect.iTop = SKI_TACTICAL_BACKGROUND_START_Y; //0;
-	SrcRect.iRight = SKI_TACTICAL_BACKGROUND_START_WIDTH;		//SKI_TACTICAL_BACKGROUND_START_WIDTH;
-	SrcRect.iBottom = SKI_TACTICAL_BACKGROUND_START_HEIGHT;	//SKI_TACTICAL_BACKGROUND_START_HEIGHT;
-
-	BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_Y, (RECT*)&SrcRect );
-
+	SrcRect.iLeft = 0; 
+	SrcRect.iTop = 0; 
+	SrcRect.iRight = SCREEN_WIDTH; 
+	SrcRect.iBottom = SCREEN_Y_OFFSET; 
+	BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SrcRect.iLeft, SrcRect.iTop, (RECT*)&SrcRect );
+	// Bottom
+	SrcRect.iLeft = 0; 
+	SrcRect.iTop = SCREEN_Y_OFFSET + SKI_INTERFACE_HEIGHT; 
+	SrcRect.iRight = SCREEN_WIDTH; 
+	SrcRect.iBottom = SCREEN_HEIGHT - INV_INTERFACE_HEIGHT; 
+	BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SrcRect.iLeft, SrcRect.iTop, (RECT*)&SrcRect );
+	// Left
+	SrcRect.iLeft = 0; 
+	SrcRect.iTop = SCREEN_Y_OFFSET; 
+	SrcRect.iRight = SCREEN_X_OFFSET; 
+	SrcRect.iBottom = SCREEN_Y_OFFSET + SKI_INTERFACE_HEIGHT; 
+	BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SrcRect.iLeft, SrcRect.iTop, (RECT*)&SrcRect );
+	// Right
+	SrcRect.iLeft = SCREEN_X_OFFSET + SKI_INTERFACE_WIDTH; 
+	SrcRect.iTop = SCREEN_Y_OFFSET; 
+	SrcRect.iRight = SCREEN_WIDTH; 
+	SrcRect.iBottom = SCREEN_Y_OFFSET + SKI_INTERFACE_HEIGHT; 
+	BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SrcRect.iLeft, SrcRect.iTop, (RECT*)&SrcRect );
 	// WANNE: I think it is not used.
 	//InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 }

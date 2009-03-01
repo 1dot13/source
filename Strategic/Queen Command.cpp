@@ -1600,7 +1600,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 		{
 			ubNumElites--;
 			ubTotalSoldiers--;
-			pSoldier = TacticalCreateEliteEnemy();
+			Assert(pSoldier = TacticalCreateEliteEnemy());
 			if( pGroup )
 			{
 				pSoldier->ubGroupID = pGroup->ubGroupID;
@@ -1623,7 +1623,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 		{
 			ubNumTroops--;
 			ubTotalSoldiers--;
-			pSoldier = TacticalCreateArmyTroop();
+			Assert(pSoldier = TacticalCreateArmyTroop());
 			if( pGroup )
 			{
 				pSoldier->ubGroupID = pGroup->ubGroupID;
@@ -1646,7 +1646,7 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 		{
 			ubNumAdmins--;
 			ubTotalSoldiers--;
-			pSoldier = TacticalCreateAdministrator();
+			Assert(pSoldier = TacticalCreateAdministrator());
 			if( pGroup )
 			{
 				pSoldier->ubGroupID = pGroup->ubGroupID;
@@ -2184,4 +2184,21 @@ BOOLEAN OnlyHostileCivsInSector()
 	return TRUE;
 }
 
+BOOLEAN CheckPendingEnemies()
+{
+	if( gbWorldSectorZ ) return FALSE;
+	SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+	if( (pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins) > ( pSector->ubElitesInBattle + pSector->ubTroopsInBattle + pSector->ubAdminsInBattle) )
+		return TRUE;
+	for (GROUP *pGroup = gpGroupList; pGroup; pGroup = pGroup->next)
+	{
+		if( !pGroup->fPlayer 
+			&& !pGroup->fVehicle 
+			&& pGroup->ubSectorX == gWorldSectorX 
+			&& pGroup->ubSectorY == gWorldSectorY
+			&& pGroup->ubGroupSize > pGroup->pEnemyGroup->ubElitesInBattle + pGroup->pEnemyGroup->ubTroopsInBattle + pGroup->pEnemyGroup->ubAdminsInBattle)
+			return TRUE;
+	}
+	return FALSE;
+}
 

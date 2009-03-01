@@ -4280,6 +4280,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		OutputDebugString( "Resetting attack busy due to load game.\n");
 #endif
 		gTacticalStatus.ubAttackBusyCount = 0;
+		gfPendingEnemies = CheckPendingEnemies();
 	}
 
 	// ATE: if we are within this window where skyridder was foobared, fix!
