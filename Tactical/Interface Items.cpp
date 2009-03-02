@@ -2828,7 +2828,7 @@ void InitItemDescriptionBoxStartCoords( BOOLEAN fIsEnhanced )
 	{
 		ITEMDESC_START_X	= 259;
 		ITEMDESC_START_Y	= (1 + INV_INTERFACE_START_Y);
-		ITEMDESC_HEIGHT		= guiCurrentItemDescriptionScreen == SHOPKEEPER_SCREEN ? 133 : 195;
+		ITEMDESC_HEIGHT		= 195;
 		ITEMDESC_WIDTH		= 320; // OIV only
 	}
 	else	// ODB/OIV
@@ -8392,7 +8392,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 				//Info for weapons
 
 					#ifdef CHINESE
-						swprintf( pStr, ChineseSpecString4,
+						swprintf( pStr, L"%s [%d%ге]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s",
 					#else
 						swprintf( pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s",
 					#endif

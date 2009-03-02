@@ -4532,13 +4532,21 @@ void ToggleTurnMode()// arynn : add forced turn mode
 {
 	if ( !gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Forced Turn Mode" );
+		#ifdef CHINESE
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"强制回合制模式" );
+		#else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Forced Turn Mode" );
+		#endif
 		gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] = TRUE;
 		EnterCombatMode( OUR_TEAM ); // arynn : randomize ? i'm leaving this for now due to "i made the call, i get dibs"
 	}
 	else
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Normal turn mode");
+		#ifdef CHINESE
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"标准即时回合制模式");
+		#else
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Normal turn mode");
+		#endif
 		gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] = FALSE;
 	}
 }// arynn : add forced turn mode
