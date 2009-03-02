@@ -251,17 +251,17 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"不易修复",	//"hard to repair",
 	L"杀伤力高",	//"high damage",
 	L"杀伤力低",	//"low damage",
-	L"射速快",	//"quick firing",
-	L"射速慢",	//"slow firing",
+	L"射击快",	//"quick firing",
+	L"射击慢",	//"slow firing",
 	L"射程远",	//"long range",
 	L"射程近",	//"short range",
 	L"轻盈",	//"light",
 	L"笨重",	//"heavy",
 	L"小巧",	//"small",
-	L"高速扫射",	//"fast burst fire",
-	L"无法扫射",	//"no burst fire",
-	L"装弹量大",	//"large magazine",
-	L"装弹量少",	//"small magazine",
+	L"射速高",	//"fast burst fire",
+	L"没有点射限制",	//"no burst fire",
+	L"大容弹量",	//"large magazine",
+	L"小容弹量",	//"small magazine",
 
 	// In the following two lines, all %s's are merc names
 
@@ -1369,12 +1369,12 @@ STR16		gzWeaponStatsFasthelp[ 27 ] =
 	L"精度",
 	L"可靠性",
 	L"修理难度",
-	L"举枪所需AP",
-	L"单发所需AP",
-	L"点射所需AP",
-	L"连发所需AP",	//10
-	L"上弹所需AP",
-	L"手动上弹所需AP",
+	L"举枪AP",
+	L"单发AP",
+	L"点射AP",
+	L"连发AP",	//10
+	L"上弹AP",
+	L"手动上弹AP",
 	L"消焰",
 	L"噪音（越低越好）",
 	L"命中修正",
@@ -1382,13 +1382,13 @@ STR16		gzWeaponStatsFasthelp[ 27 ] =
 	L"精瞄修正",
 	L"精瞄加成所需最小距离",
 	L"两角架修正",
-	L"投掷所需AP",	//20
-	L"发射所需AP",
-	L"捅人所需AP",
+	L"投掷AP",	//20
+	L"发射AP",
+	L"捅人AP",
 	L"无法单发！",
 	L"无点射模式！",
 	L"无连发模式！",
-	L"击打所需AP",
+	L"格斗AP",
 };
 
 STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
@@ -1609,18 +1609,18 @@ STR16		gzMiscItemStatsFasthelp[ 34 ] =
 	L"点射惩罚修正（越高越好）", // 10
 	L"连发惩罚修正（越高越好）",
 	L"AP修正",
-	L"点射所需AP修正（越低越好）",
-	L"连发所需AP修正（越低越好）",
-	L"举枪所需AP修正（越低越好）", // 15
-	L"上弹所需AP修正（越低越好）",
+	L"点射AP修正（越低越好）",
+	L"连发AP修正（越低越好）",
+	L"举枪AP修正（越低越好）", // 15
+	L"上弹AP修正（越低越好）",
 	L"弹容量修正",
-	L"攻击所需AP修正（越低越好）",
+	L"攻击AP修正（越低越好）",
 	L"杀伤修正",
 	L"近战杀伤修正", // 20
-	L"林地伪装",
-	L"城市伪装",
-	L"沙漠伪装",
-	L"雪地伪装",
+	L"丛林迷彩",
+	L"城市迷彩",
+	L"沙漠迷彩",
+	L"雪地迷彩",
 	L"潜行修正", // 25
 	L"听觉距离修正",
 	L"视距修正",
@@ -1628,7 +1628,7 @@ STR16		gzMiscItemStatsFasthelp[ 34 ] =
 	L"夜晚视距修正",
 	L"亮光下视距修正", //30
 	L"洞穴视距修正",
-	L"视野狭窄百分比（越低越好）",
+	L"隧道视野百分比（越低越好）",
 	L"精瞄加成所需最小距离",
 };
 
@@ -2405,8 +2405,8 @@ STR16 pSenderNameList[] =
 STR16 pTraverseStrings[] =
 {
 /*
-  L"Previous",
-  L"Next",
+  L"上一页",
+  L"下一页",
 */
   L"上一个",
   L"下一个",
@@ -4186,8 +4186,8 @@ STR16	zOptionsText[] =
 	L"保存游戏",	//"Save Game",
 	L"载入游戏",	//"Load Game",
 	L"退出",	//"Quit",
-	L"Next",
-	L"Prev",
+	L"下一页",	//L"Next",
+	L"上一页",	//L"Prev",
 	L"完成",	//"Done",
 
 	//Text above the slider bars
@@ -4410,7 +4410,7 @@ STR16		zOptionsToggleText[] =
 	L"沉默的Skyrider",	//"Silent Skyrider",
 	L"降低CPU的使用率",	//"Low CPU usage",
 	L"Enhanced Description Box",
-	L"Forced Turn Mode",			// arynn : add forced turn mode
+	L"强制回合制模式",//L"Forced Turn Mode",			// arynn : add forced turn mode
 };
 
 //This is the help text associated with the above toggles.
@@ -4516,13 +4516,16 @@ STR16	zOptionsScreenHelpText[] =
 	//L"When ON, the crows are present in game.",
 	L"当打开时，允许乌鸦出现。",
 	L"当打开时, I.M.P人物的性格和属性为随机生成。",	//"When ON, I.M.P characters will get random personality and attitude.",
-	L"When ON, game will be saved after each players turn.",
+	//L"When ON, game will be saved after each players turn.",
+	L"当打开时，游戏将在玩家回合后自动存盘",
 	//L"When ON, Skyrider will not talk anymore.",
 	L"当打开时，Skyrider将保持沉默。",
 	//L"When ON, game will run with much lower CPU usage.",
 	L"当打开时，游戏将使用更少的CPU资源。",
-	L"When ON, enhanced descriptions will be shown for items and weapons.",
-	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
+	//L"When ON, enhanced descriptions will be shown for items and weapons.",
+	L"当打开时，将出现物品及武器的“增强描述框”（EDB）。",
+	//L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
+	L"当打开时，且在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭（可以通过快捷键|C|T|R|L+|S|H|I|F|T+|A|L|T+|T来控制打开或关闭强制回合制模式）",
 };
 
 
