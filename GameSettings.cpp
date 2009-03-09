@@ -868,6 +868,11 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_MOVEMENT_SHORE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MOVEMENT_SHORE",28),28);
 	APBPConstants[AP_MOVEMENT_LAKE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MOVEMENT_LAKE",36),36);
 	APBPConstants[AP_MOVEMENT_OCEAN] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MOVEMENT_OCEAN",32),32);
+	APBPConstants[AP_MODIFIER_RUN] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MODIFIER_RUN",-8),-8);
+	APBPConstants[AP_MODIFIER_WALK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MODIFIER_WALK",-4),-4);
+	APBPConstants[AP_MODIFIER_SWAT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MODIFIER_SWAT",0),0);
+	APBPConstants[AP_MODIFIER_CRAWL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MODIFIER_CRAWL",4),4);
+	APBPConstants[AP_MODIFIER_PACK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MODIFIER_PACK",4),4);
 	APBPConstants[AP_CHANGE_FACING] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CHANGE_FACING",4),4);
 	APBPConstants[AP_CHANGE_TARGET] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CHANGE_TARGET",2),2);
 	APBPConstants[AP_TOSS_ITEM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_TOSS_ITEM",32),32);

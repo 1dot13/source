@@ -1459,13 +1459,13 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT
 						// add in cost of later climbing up, too
 						sPathCost += APBPConstants[AP_CLIMBOFFROOF] + APBPConstants[AP_CLIMBROOF];
 						// add in an estimate of getting there after climbing down
-						sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo );
+						sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_WALK]) * PythSpacesAway( sClimbGridNo, sDestGridNo );
 					}
 					else
 					{
 						sPathCost += APBPConstants[AP_CLIMBOFFROOF];
 						// add in an estimate of getting there after climbing down, *but not on top of roof*
-						sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo ) / 2;
+						sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_WALK]) * PythSpacesAway( sClimbGridNo, sDestGridNo ) / 2;
 					}
 					*pfClimbingNecessary = TRUE;
 					*psClimbGridNo = sClimbGridNo;
@@ -1505,7 +1505,7 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT
 					{
 						// add to path a rough estimate of how far to go from the climb gridno to the friend
 						// estimate walk cost
-						sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo );
+						sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_WALK]) * PythSpacesAway( sClimbGridNo, sDestGridNo );
 					}
 				}
 				else
@@ -1514,7 +1514,7 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT
 					sPathCost += APBPConstants[AP_CLIMBOFFROOF];
 					// add to path a rough estimate of how far to go from the climb gridno to the friend
 					// estimate walk cost
-					sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo );
+					sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_WALK]) * PythSpacesAway( sClimbGridNo, sDestGridNo );
 				}
 				*pfClimbingNecessary = TRUE;
 				*psClimbGridNo = sClimbGridNo;

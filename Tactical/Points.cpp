@@ -336,10 +336,9 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, UINT16 u
 			case ADULTMONSTER_WALKING:
 			case BLOODCAT_RUN:
 				// CHRISL
+				sPoints = sTileCost + APBPConstants[AP_MODIFIER_RUN];
 				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
-					sPoints = (INT16)(DOUBLE)( (sTileCost / RUNDIVISORBPACK) );
-				else
-					sPoints = (INT16)(DOUBLE)( (sTileCost / RUNDIVISOR) );
+					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
 			case CROW_FLY:
@@ -351,26 +350,23 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, UINT16 u
       case LARVAE_WALK:
 			case WALKING :
 				// CHRISL
+				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK];
 				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
-					sPoints = (sTileCost + WALKCOSTBPACK);
-				else
-					sPoints = (sTileCost + WALKCOST);
+					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
 			case START_SWAT:
 			case SWAT_BACKWARDS:
 			// CHRISL
 			case SWATTING:
+				sPoints = sTileCost + APBPConstants[AP_MODIFIER_SWAT];
 				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
-					sPoints = (sTileCost + SWATCOSTBPACK);
-				else
-					sPoints = (sTileCost + SWATCOST);
+					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 			case CRAWLING:
+				sPoints = sTileCost + APBPConstants[AP_MODIFIER_CRAWL];
 				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
-					sPoints = (sTileCost + CRAWLCOSTBPACK);
-				else
-					sPoints = (sTileCost + CRAWLCOST);
+					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
 			default:
@@ -426,10 +422,9 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, 
 			case ADULTMONSTER_WALKING:
 			case BLOODCAT_RUN:
 				// CHRISL
+				sPoints = sTileCost + APBPConstants[AP_MODIFIER_RUN];
 				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
-					sPoints = (INT16)(DOUBLE)( (sTileCost / RUNDIVISORBPACK) );
-				else
-					sPoints = (INT16)(DOUBLE)( (sTileCost / RUNDIVISOR) );
+					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
 			case CROW_FLY:
@@ -441,26 +436,23 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, 
 			case LARVAE_WALK:
 			// CHRISL
 			case WALKING :
+				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK];
 				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
-					sPoints = (sTileCost + WALKCOSTBPACK);
-				else
-					sPoints = (sTileCost + WALKCOST);
+					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
 			case START_SWAT:
 			case SWAT_BACKWARDS:
 			// CHRISL
 			case SWATTING:
+				sPoints = sTileCost + APBPConstants[AP_MODIFIER_SWAT];
 				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
-					sPoints = (sTileCost + SWATCOSTBPACK);
-				else
-					sPoints = (sTileCost + SWATCOST);
+					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 			case CRAWLING:
+				sPoints = sTileCost + APBPConstants[AP_MODIFIER_CRAWL];
 				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
-					sPoints = (sTileCost + CRAWLCOSTBPACK);
-				else
-					sPoints = (sTileCost + CRAWLCOST);
+					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
 			default:
