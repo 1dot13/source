@@ -8840,6 +8840,62 @@
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
+		<uiIndex>887</uiIndex>
+		<szWeaponName>Colt Anaconda</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>26</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>11.11</ubShotsPer4Turns>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>29</ubImpact>
+		<ubDeadliness>18</ubDeadliness>
+		<bAccuracy>2</bAccuracy>
+		<ubMagSize>6</ubMagSize>
+		<usRange>135</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>316</sSound>
+		<sReloadSound>99</sReloadSound>
+		<sLocknLoadSound>105</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>20</bBurstAP>
+		<APsToReload>20</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>480</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>888</uiIndex>
+		<szWeaponName>Manurhin MR-96</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>4</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>12.26</ubShotsPer4Turns>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>27</ubImpact>
+		<ubDeadliness>16</ubDeadliness>
+		<bAccuracy>2</bAccuracy>
+		<ubMagSize>6</ubMagSize>
+		<usRange>135</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>423</sSound>
+		<sReloadSound>99</sReloadSound>
+		<sLocknLoadSound>105</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>20</bBurstAP>
+		<APsToReload>18</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>480</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
 		<uiIndex>889</uiIndex>
 		<szWeaponName>FN PRO-9</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>

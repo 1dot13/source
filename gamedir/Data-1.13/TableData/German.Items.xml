@@ -7080,19 +7080,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>887</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 887</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>Anaconda</szItemName>
+		<szLongItemName>Colt Anaconda</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Colt Anaconda</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>888</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 888</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>MR-96</szItemName>
+		<szLongItemName>Manurhin MR-96</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Manurhin MR-96</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>889</uiIndex>
@@ -10024,6 +10024,30 @@
 		<szLongItemName>.300WinMag PB Munitionskiste</szLongItemName>
 		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 2000 Patronen des Kalibers .300WinMag PB.</szItemDesc>
 		<szBRName>.300WinMag PB Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1300</uiIndex>
+		<szItemName>12.7x108mm Kiste</szItemName>
+		<szLongItemName>12.7x108mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 300 Patronen des Kalibers 12.7x108mm.</szItemDesc>
+		<szBRName>12.7x108mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1301</uiIndex>
+		<szItemName>7.92x57mm Kiste</szItemName>
+		<szLongItemName>7.92x57mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 2500 Patronen des Kalibers 7.92x57mm.</szItemDesc>
+		<szBRName>7.92x57mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1302</uiIndex>
+		<szItemName>7.92x57mm HS Kiste</szItemName>
+		<szLongItemName>7.92x57mm HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 2500 Patronen des Kalibers 7.92x57mm HS.</szItemDesc>
+		<szBRName>7.92x57mm HP Munitionskiste</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 </ITEMLIST>

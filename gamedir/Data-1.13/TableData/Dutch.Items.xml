@@ -7098,19 +7098,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>887</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 887</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Anaconda</szItemName>
+		<szLongItemName>Colt Anaconda</szLongItemName>
+		<szItemDesc>A sturdy large frame revolver for the .44 Magnum round.</szItemDesc>
+		<szBRName>Colt Anaconda</szBRName>
+		<szBRDesc>I hate to say it, but Harry Callahan would've looked cooler carrying an Anaconda instead of a Model 29.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>888</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 888</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>MR-96</szItemName>
+		<szLongItemName>Manurhin MR-96</szLongItemName>
+		<szItemDesc>Another French quality revolver. Its only drawback is the smaller ammo capacity, compared to a .357 Desert Eagle pistol.</szItemDesc>
+		<szBRName>Manurhin MR-96</szBRName>
+		<szBRDesc>The patented Manurhin MR96 design is a revolution in revolver engineering. The grip - a long-lasting rubber design specific to this revolver - allows continuous firing of the most powerful loads without fatigue.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>889</uiIndex>
@@ -10398,6 +10398,30 @@
 		<szLongItemName>.300WinMag AP ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>.300WinMag AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1300</uiIndex>
+		<szItemName>12.7x108mm crate</szItemName>
+		<szLongItemName>12.7x108mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>12.7x108mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1301</uiIndex>
+		<szItemName>7.92x57mm crate</szItemName>
+		<szLongItemName>7.92x57mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.92x57mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1302</uiIndex>
+		<szItemName>7.92x57mm HP crate</szItemName>
+		<szLongItemName>7.92x57mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.92x57mm HP ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 </ITEMLIST>

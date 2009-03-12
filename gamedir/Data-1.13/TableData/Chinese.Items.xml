@@ -7098,19 +7098,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>887</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>物品说明</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Anaconda</szItemName>
+		<szLongItemName>Colt Anaconda</szLongItemName>
+		<szItemDesc>A sturdy large frame revolver for the .44 Magnum round.</szItemDesc>
+		<szBRName>Colt Anaconda</szBRName>
+		<szBRDesc>Another snake from the Colt factory. The Anaconda fires the .44 Magnum Round.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>888</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 888</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>MR-96</szItemName>
+		<szLongItemName>Manurhin MR-96</szLongItemName>
+		<szItemDesc>Another French quality revolver.</szItemDesc>
+		<szBRName>Manurhin MR-96</szBRName>
+		<szBRDesc>The patented Manurhin MR96 design is a revolution in revolver engineering.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>889</uiIndex>
@@ -10398,6 +10398,30 @@
 		<szLongItemName>.300温彻斯特，2000发穿甲弹箱</szLongItemName>
 		<szItemDesc>弹药箱</szItemDesc>
 		<szBRName>.300WinMag，3000发空尖弹箱</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1300</uiIndex>
+		<szItemName>12.7x108mm，300</szItemName>
+		<szLongItemName>12.7x108mm，300发勃朗宁机枪弹箱</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>12.7x108mm，300</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1301</uiIndex>
+		<szItemName>7.92x57，3000</szItemName>
+		<szLongItemName>7.92x57mm，3000发普通弹箱</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>7.92x57，3000</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1302</uiIndex>
+		<szItemName>7.92x57 HP，3000</szItemName>
+		<szLongItemName>7.92x57mm，3000发空尖弹箱</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>7.92x57 HP，3000</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 </ITEMLIST>
