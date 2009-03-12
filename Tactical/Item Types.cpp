@@ -441,7 +441,9 @@ bool OBJECTTYPE::IsActiveLBE(unsigned int index)
 
 bool OBJECTTYPE::HasAnyActiveLBEs(SOLDIERTYPE * pSoldier, UINT8 iter)
 {
-	if (exists() == true) {
+	//CHRISL: Since only IC_LBEGEAR items can be classified as LBENODEs, only allow this to return true if the item we're
+	//	working with is actually the right class of item.
+	if (exists() == true && Item[this->usItem].usItemClass == IC_LBEGEAR) {
 		if(pSoldier != NULL){
 			for (int x = 0; x < ubNumberOfObjects; ++x) {
 				if ((*this)[x]->data.lbe.bLBE == -1) {
