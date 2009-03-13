@@ -7100,17 +7100,17 @@
 		<uiIndex>887</uiIndex>
 		<szItemName>Anaconda</szItemName>
 		<szLongItemName>Colt Anaconda</szLongItemName>
-		<szItemDesc>A sturdy large frame revolver for the .44 Magnum round.</szItemDesc>
+		<szItemDesc>柯尔特森蚺是发射.44马格努姆弹的强力转轮手枪。</szItemDesc>
 		<szBRName>Colt Anaconda</szBRName>
-		<szBRDesc>Another snake from the Colt factory. The Anaconda fires the .44 Magnum Round.</szBRDesc>
+		<szBRDesc>又一条柯尔特公司爬出来的蛇，森蚺是发射.44马格努姆弹的强力转轮手枪。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>888</uiIndex>
 		<szItemName>MR-96</szItemName>
 		<szLongItemName>Manurhin MR-96</szLongItemName>
-		<szItemDesc>Another French quality revolver.</szItemDesc>
+		<szItemDesc>玛努金MR-96，法国制造的高级转轮手枪。</szItemDesc>
 		<szBRName>Manurhin MR-96</szBRName>
-		<szBRDesc>The patented Manurhin MR96 design is a revolution in revolver engineering.</szBRDesc>
+		<szBRDesc>玛努金MR-96是法国制造的警用转轮手枪。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>889</uiIndex>
