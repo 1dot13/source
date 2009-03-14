@@ -6099,6 +6099,8 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 
 	// If we have reach a point where a cons. number of turns gone by....
 	//if ( gTacticalStatus.bConsNumTurnsNotSeen > 1 )
+	// arynn : add forced turn mode : note : no forced turn mode option for Multi Player
+	if ( is_networked ) gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] = FALSE;
 	if ( gTacticalStatus.bConsNumTurnsNotSeen > 1 && !gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ])// arynn : add forced turn mode
 	{
 

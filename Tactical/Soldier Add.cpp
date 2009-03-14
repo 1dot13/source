@@ -1531,7 +1531,9 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubDir
 			if ( pSoldier->ubBodyType != BLOODCAT )
 			{
 				SetEnemyPresence( );
-				// arynn : add forced turn mode : note not for bloodcats.. 
+				// arynn : add forced turn mode : note : not for bloodcats..
+				// arynn : add forced turn mode : note : no forced turn mode option for Multi Player
+				if ( is_networked ) gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] = FALSE;
 				if ( gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ])
 				{
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Forced Turn Mode Active, Entering Combat" );
