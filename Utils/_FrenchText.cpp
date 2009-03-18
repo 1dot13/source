@@ -3504,8 +3504,8 @@ STR16	zOptionsText[] =
 	L"Sauvegarder",
 	L"Charger partie",
 	L"Quitter",
-	L"Next",
-	L"Prev",
+	L">>",
+	L"<<",
 	L"OK",
 
 	//Text above the slider bars
@@ -3692,7 +3692,7 @@ STR16		zOptionsToggleText[] =
 	L"Silence Skyrider !",
 	L"Faible consommation processeur",
 	L"EDB (mod rajoutant info utiles)",
-	L"Forced Turn Mode",			// arynn : add forced turn mode
+	L"Mode tour par tour forcé",			// arynn : add forced turn mode
 };
 
 //This is the help text associated with the above toggles.
@@ -3774,7 +3774,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, les confirmations insistantes de Skyrider cessent.",
 	L"Si activé, le jeu restreint l'utilisation du processeur.",
 	L"Si activé, l'EDB sera affiché pour les armes et objets.",
-	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
+	L"Si cette option est activée et que des ennemis sont présents, \nle mode tour par tour est actif tant qu'il reste \ndes ennemis dans le secteur (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
 };
 
 
