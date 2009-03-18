@@ -3496,11 +3496,11 @@ STR16	SkiMessageBoxText[] =
 STR16	zOptionsText[] = 
 {
 	//button Text
-	L"Сохранить игру",
-	L"Загрузить игру",
+	L"Сохранить",
+	L"Загрузить",
 	L"Выход",
-	L"Next",
-	L"Prev",
+	L">>",
+	L"<<",
 	L"Готово",
 
 	//Text above the slider bars
@@ -3686,7 +3686,7 @@ STR16		zOptionsToggleText[] =
 	L"Молчаливый пилот вертолёта",
 	L"Низкая загрузка процессора",
 	L"Подробное описание предметов", //Enhanced Description Box
-	L"Forced Turn Mode",			// arynn : add forced turn mode
+	L"Только пошаговый режим",			// arynn : add Forced Turn Mode
 };
 
 //This is the help text associated with the above toggles.
@@ -3768,7 +3768,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, Небесный Всадник\nне будет вас раздражать болтливостью.",
 	L"Если включено, игра будет использовать\nменьше процессорного времени.",
 	L"Если включено, будет задействовано\nподробное описание предметов.", //EDB description
-	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
+	L"Если включено и в секторе присутствует враг, \nпошаговый режим будет задействован \nдо полной зачистки сектора (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).", //When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T). // arynn : add forced turn mode
 };
 
 
