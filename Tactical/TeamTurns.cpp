@@ -530,8 +530,7 @@ void BeginTeamTurn( UINT8 ubTeam )
 			}
 			break;
 		}
-		else
-		if (ubTeam > 4 || (is_client && !is_server )) //hayden
+		else if (ubTeam > 4 || (is_client && !is_server )) //hayden
 		{
 			
 			InitEnemyUIBar( 0, 0 );

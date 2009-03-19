@@ -49,6 +49,7 @@
 	#include "GameSettings.h"
 	#include "_Ja25EnglishText.h"
 	#include "SaveLoadScreen.h"
+#include "game init.h"
 #endif
 
 #include "connect.h"
@@ -1649,7 +1650,7 @@ BOOLEAN AnyUsableRealMercenariesOnTeam( void )
 
 void RequestTriggerExitFromMapscreen( INT8 bExitToWhere )
 {
-	Assert( ( bExitToWhere >= MAP_EXIT_TO_LAPTOP ) && ( bExitToWhere <= MAP_EXIT_TO_SAVE ) );
+	Assert( ( bExitToWhere >= MAP_EXIT_TO_LAPTOP ) && ( bExitToWhere <= MAP_EXIT_TO_MAINMENU ) );
 
 	// if allowed to do so
 	if ( AllowedToExitFromMapscreenTo( bExitToWhere ) )
@@ -1663,6 +1664,18 @@ void RequestTriggerExitFromMapscreen( INT8 bExitToWhere )
 				//Display a message saying the player cant save now
 				DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 				return;
+			}
+		}
+		else if (!(bExitToWhere == MAP_EXIT_TO_TACTICAL || bExitToWhere == MAP_EXIT_TO_MAINMENU))
+		{
+			// OJW - 20090301
+			if (is_networked && is_client)
+			{
+				if (client_ready[CLIENT_NUM-1]==1 && is_game_started == false)
+				{
+					// un-ready if we are not on map screen
+					start_battle();
+				}
 			}
 		}
 
@@ -1680,12 +1693,19 @@ void RequestTriggerExitFromMapscreen( INT8 bExitToWhere )
 
 BOOLEAN AllowedToExitFromMapscreenTo( INT8 bExitToWhere )
 {
-	Assert( ( bExitToWhere >= MAP_EXIT_TO_LAPTOP ) && ( bExitToWhere <= MAP_EXIT_TO_SAVE ) );
+	Assert( ( bExitToWhere >= MAP_EXIT_TO_LAPTOP ) && ( bExitToWhere <= MAP_EXIT_TO_MAINMENU ) );
 
 	// if already leaving, disallow any other attempts to exit
 	if ( fLeavingMapScreen )
 	{
 		return( FALSE );
+	}
+
+	// OJW - 20090210 - clean resources on disconnect
+	if (bExitToWhere == MAP_EXIT_TO_MAINMENU)
+	{
+		// always allow this
+		return( TRUE );
 	}
 
 	// WANNE: At least one merc must be hired so we can go to tactical.
@@ -1839,7 +1859,12 @@ void HandleExitsFromMapScreen( void )
 					guiPreviousOptionScreen = guiCurrentScreen;
 					SetPendingNewScreen( SAVE_LOAD_SCREEN );
 					break;
-
+				// OJW - 20090210 - clean resources on disconnect
+				case MAP_EXIT_TO_MAINMENU:
+					// Re-initialise the game
+					ReStartingGame();
+					SetPendingNewScreen( MAINMENU_SCREEN );
+					break;
 				default:
 					// invalid exit type
 					Assert( FALSE );

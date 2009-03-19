@@ -10,6 +10,8 @@ typedef struct
 {
 	UINT16 soldier_id;
 	UINT16 attacker_id;
+	UINT8 attacker_team;
+	UINT8 soldier_team;
 }death_struct;
 
 typedef struct

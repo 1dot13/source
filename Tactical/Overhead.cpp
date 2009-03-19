@@ -6218,20 +6218,28 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 		return( FALSE );
 	}
 
-	// We can only check for end of battle if in combat mode or there are enemies
-	// present (they might bleed to death or run off the map!)
-	if ( ! ( gTacticalStatus.uiFlags & INCOMBAT ) )
+	// OJW - 090212 - Fix end conditions for multiplayer - TeamDM
+	if(is_server)
 	{
-		if ( ! (gTacticalStatus.fEnemyInSector) )
+		// check the server's conditions for continueing the game, if the server wants to continue the game it returns true
+		// hence we return false that the battle has ended. If not, when this function returns below we will force the game to end.
+		if ( check_status() )
+			return(FALSE);
+		// the block of code below would always cause this function to exit before checking the servers desires
+		// in cases of team deathmatch where there were no more enemies
+	}
+	else
+	{
+		// We can only check for end of battle if in combat mode or there are enemies
+		// present (they might bleed to death or run off the map!)
+		if ( ! ( gTacticalStatus.uiFlags & INCOMBAT ) )
 		{
-			return( FALSE );
+			if ( ! (gTacticalStatus.fEnemyInSector) )
+			{
+				return( FALSE );
+			}
 		}
 	}
-
-		if(is_server && check_status())
-		{
-			return(FALSE);
-		}
 
 	// ATE: If attack busy count.. get out...
 	if ( (gTacticalStatus.ubAttackBusyCount > 0 ) )
@@ -6329,6 +6337,10 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 		//Whenever returning TRUE, make sure you clear gfBlitBattleSectorLocator;
 		LogBattleResults( LOG_DEFEAT );
 		gfBlitBattleSectorLocator = FALSE;
+		// If we are the server, we escape this function at the top if we think the game should still be running
+		// hence if we get here the game is over for all clients and we should report it
+		if (is_networked && is_server)
+			game_over();
 		return( TRUE );
 	}
 
@@ -6438,11 +6450,15 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 				{
 					SetMusicMode( MUSIC_TACTICAL_VICTORY );
 
-					ShouldBeginAutoBandage( );
+					// OJW - 20081222 - dont auto-bandage if networked
+					if (!is_networked)
+						ShouldBeginAutoBandage( );
 				}
 				else if ( gfLastMercTalkedAboutKillingID != NOBODY && ( MercPtrs[ gfLastMercTalkedAboutKillingID ]->flags.uiStatusFlags & SOLDIER_MONSTER ) )
 				{
-					ShouldBeginAutoBandage( );
+					// OJW - 20081222 - dont auto-bandage if networked
+					if (!is_networked)
+						ShouldBeginAutoBandage( );
 				}
 
 				// Say battle end quote....
@@ -6474,7 +6490,9 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 			{
 				// Change to nothing music...
 				SetMusicMode( MUSIC_TACTICAL_NOTHING );
-				ShouldBeginAutoBandage();
+				// OJW - 20081222 - dont auto bandage if networked
+				if (!is_networked)
+					ShouldBeginAutoBandage();
 			}
 
 			HandleMilitiaStatusInCurrentMapBeforeLoadingNewMap();
@@ -6550,8 +6568,16 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 		if(gGameExternalOptions.gfRevealItems)
 			RevealAllDroppedEnemyItems();
 
+		// If we are the server, we escape this function at the top if we think the game should still be running
+		// hence if we get here the game is over for all clients and we should report it
+		if (is_networked && is_server)
+			game_over();
 		return( TRUE );
 	}
+	// If we are the server, we escape this function at the top if we think the game should still be running
+	// hence if we get here the game is over for all clients and we should report it
+	if (is_networked && is_server)
+		game_over();
 
 	return( FALSE );
 }

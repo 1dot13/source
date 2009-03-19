@@ -16,6 +16,8 @@
 #define		MSG_BOX_FLAG_OKSKIP									0x0200			// Displays ok or skip (meanwhile) buttons
 #define		MSG_BOX_FLAG_GENERICCONTRACT				0x0400			// displays contract buttoin + 2 user-defined text buttons
 #define		MSG_BOX_FLAG_GENERIC								0x0800			// 2 user-defined text buttons
+// OJW - Adding text chatbox 
+#define		MSG_BOX_FLAG_INPUTBOX					0x1000 // has a text input field
 
 // message box return codes
 #define		MSG_BOX_RETURN_OK									1					// ENTER or on OK button
@@ -83,6 +85,8 @@ extern		BOOLEAN							fRestoreBackgroundForMessageBox;
 //this variable can be unset if ur in a non gamescreen and DONT want the msg box to use the save buffer
 extern		BOOLEAN							gfDontOverRideSaveBuffer;
 
+//OJW - 20090208
+extern		CHAR16							gszMsgBoxInputString[255];
 ////////////////////////////////
 // ubStyle:				Determines the look of graphics including buttons
 // zString:				16-bit string

@@ -1643,7 +1643,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 				}
 			}
-		}
+
+			// OJW - 090209 - ingame chat
+			if (InputEvent.usEvent == KEY_UP && InputEvent.usParam == 'y')
+			{
+				OpenChatMsgBox();
+				continue;
+			}
+		} // end is_networked
 
 
 		// Break of out IN CONV...

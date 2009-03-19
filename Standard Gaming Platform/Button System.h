@@ -287,6 +287,9 @@ void SpecifyButtonTextSubOffsets( INT32 iButtonID, INT8 bTextXOffset, INT8 bText
 void SpecifyButtonTextWrappedWidth(INT32 iButtonID, INT16 sWrappedWidth);
 
 void SpecifyButtonSoundScheme( INT32 iButtonID, INT8 bSoundScheme );
+//OJW - 20081224
+BOOLEAN SpecifyButtonImage( INT32 iButtonID, UINT32 iButtonImageID);
+BOOLEAN SpecifyButtonImage( GUI_BUTTON *b, UINT32 iButtonImageID);
 void PlayButtonSound( INT32 iButtonID, INT32 iSoundType );
 
 void AllowDisabledButtonFastHelp( INT32 iButtonID, BOOLEAN fAllow );

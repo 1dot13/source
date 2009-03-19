@@ -3,6 +3,7 @@
 //this one just for structs, variables and functions used between the client and server scripts...
 
 extern  char CLIENT_NAME[30];
+extern char SERVER_NAME[30];
 extern bool Sawarded;
 
 
@@ -41,6 +42,10 @@ typedef struct
 	UINT8 client_num;
 	char client_name[30];
 	char client_names[4][30];
+	// OJW - added 20081204
+	int	 client_edges[4];
+	int  client_teams[4];
+	char server_name[30];
 	//int cl_ops[4];
 	int team;
 	int TESTING;
@@ -52,7 +57,33 @@ typedef struct
 	int WEAPON_READIED_BONUS;
 	int ALLOW_CUSTOM_NIV;
 	int DISABLE_SPEC_MODE;
+	// OJW - added 20081220
+	int RANDOM_SPAWN;
+	int RANDOM_MERCS;
+	int random_mercs[7];
 } settings_struct;
+
+
+
+// added 080101 by OJW
+typedef struct
+{
+	INT16 gsMercArriveSectorX;
+	INT16 gsMercArriveSectorY;
+	float TIME;
+} mapchange_struct;
+
+typedef struct
+{
+	UINT8 client_num;
+	UINT8 newedge;
+} edgechange_struct;
+
+typedef struct
+{
+	UINT8 client_num;
+	UINT8 newteam;
+} teamchange_struct;
 
 //typedef struct
 //{

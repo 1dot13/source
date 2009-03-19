@@ -42,6 +42,7 @@ extern INT8 NUM_TOWNS;
 extern BOOLEAN fCharacterInfoPanelDirty;
 extern BOOLEAN fTeamPanelDirty;
 extern BOOLEAN fMapPanelDirty;
+extern BOOLEAN fDrawCharacterList; // OJW - 20081204
 
 extern BOOLEAN fMapInventoryItem;
 extern BOOLEAN gfInConfirmMapMoveMode;

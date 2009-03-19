@@ -654,7 +654,7 @@ UINT32	MainGameScreenHandle(void)
 		return( GAME_SCREEN );
 	}
 
-	if ( guiCurrentScreen != MSG_BOX_SCREEN )
+	if ( guiCurrentScreen != MSG_BOX_SCREEN && guiCurrentScreen != MP_CHAT_SCREEN )
 	{
 		if ( HandleBeginFadeOut( GAME_SCREEN ) )
 		{

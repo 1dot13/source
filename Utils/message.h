@@ -69,6 +69,15 @@ UINT8 GetRangeOfMapScreenMessages( void );
 
 void EnableDisableScrollStringVideoOverlay( BOOLEAN fEnable );
 
+// OJW - 20090315 - Allow access to these functions outside of message
+// adding chat log
+ScrollStringStPtr GetNextString(ScrollStringStPtr pStringSt);
+ScrollStringStPtr GetPrevString(ScrollStringStPtr pStringSt);
+void SetStringPosition(ScrollStringStPtr pStringSt, UINT16 x, UINT16 y);
+void SetStringColor(ScrollStringStPtr pStringSt, UINT16 color);
+ScrollStringStPtr SetStringNext(ScrollStringStPtr pStringSt, ScrollStringStPtr pNext);
+ScrollStringStPtr SetStringPrev(ScrollStringStPtr pStringSt, ScrollStringStPtr pPrev);
+void SetString(ScrollStringStPtr pStringSt, STR16 String);
 // will go and clear all displayed strings off the screen
 void ClearDisplayedListOfTacticalStrings( void );
 

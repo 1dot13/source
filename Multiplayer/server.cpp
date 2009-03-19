@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+#include <list>
 
 #include "types.h"
 #include "gamesettings.h"
@@ -26,11 +28,12 @@ int gsREPORT_NAME;
 #include "game init.h"
 
 #include "text.h"
+#include "network.h"
 #include "connect.h"
 #include "message.h"
-#include "network.h"
 #include "overhead.h"
 #include "fresh_header.h"
+#include "Debug Control.h"
 UINT16 nc; //number of open connection
 UINT16 ncr; //number of ready confirmed connections
 //something keep record of ready connections ..
@@ -74,6 +77,68 @@ typedef struct
 
 client_data client_d[4];
 
+// OJW - 20081223
+// Random Merc teams
+// First attempt at "balanced" teams
+int random_merc_teams[4][7] =
+{
+	{ 16, 10, 19, 25, 4 , 11, 39 } ,	// Gus , Shadow, Spider , Raven , Vicki , Red , Meltdown
+	{ 29, 36, 28, 2 , 22, 8 , 32 } ,	// Magic , Scope, Danny , Lynx , Hitman , Steroid , Malice
+	{ 12, 5 , 20, 23, 48, 34, 17 } ,	// Reaper , Trevor, Cliff , Buzz , Cougar , Nails , Buns
+	{ 31, 7 , 33, 35, 27, 37, 1 }		// Scully , Ivan , Dr Q  , Thor , Len , Wolf , Blood
+};
+
+int client_mercteam[4] = { 0 , 1 , 2 , 3 }; // random index of random_merc_teams per player
+
+bool inline can_joingame();
+
+int f_rec_num(int mode, SystemAddress sender)//from client data
+{
+	int x;
+	client_data cl_record;
+	for ( x=0; x<4;x++)
+	{
+		cl_record = client_d[x];
+
+		if(mode==0)//find empty slot for new record
+		{
+			if(cl_record.address.binaryAddress==0)
+				return(x);
+		}
+		if(mode==1)//wipe clean all
+		{
+			client_d[x].address.binaryAddress=0;
+			client_d[x].address.port=0;
+			client_d[x].cl_number=0;
+		}
+		if(mode==2)//clear one record
+		{
+			if(cl_record.address.binaryAddress==sender.binaryAddress && cl_record.address.port==sender.port)
+			{
+				client_d[x].address.port=0;
+				client_d[x].cl_number=0;
+				client_d[x].address.binaryAddress=0;
+				return(254);
+			}
+
+		}
+		// OJW - 090212 - look up client number
+		if (mode == 3)
+		{
+			if(cl_record.address.binaryAddress==sender.binaryAddress && cl_record.address.port==sender.port)
+			{
+				return (x);
+			}
+		}
+	}
+	if(mode == 0)//'no free slots'
+	{
+	ScreenMsg( FONT_RED, MSG_CHAT, L"Client Record Error, Restart Server, and Report Error." );
+	return (255);
+	}
+	return(254);
+}
+
 // use UNASSIGNED_SYSTEM_ADDRESS instead of rpcParameters->sender to send it back to yourself (the sender)
 // there is very little in here dependant on the game engine and originally started out as an independant dedicated server .exe, and could if go ther again ... hayden.
 //********* RPC SECTION ************
@@ -100,6 +165,15 @@ void sendFIRE(RPCParameters *rpcParameters)
 
 void sendHIT(RPCParameters *rpcParameters)
 {
+	EV_S_WEAPONHIT* hit = (EV_S_WEAPONHIT*)rpcParameters->input;
+	
+	int team = MercPtrs[ hit->ubAttackerID ]->bTeam;
+	if (team == 1) team = 5;
+	else if (team >= 6) team -= 6;
+	else if (team == 0) team = CLIENT_NUM-1; // this case should not be possible, including as a precaution
+
+	gMPPlayerStats[team].hits++;
+
 	server->RPC("recieveHIT",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
 
@@ -157,18 +231,69 @@ void sendSTATE(RPCParameters *rpcParameters)
 }
 void sendDEATH(RPCParameters *rpcParameters)
 {
+	// the master copy of the scoreboard is kept on the server
+	death_struct* nDeath = (death_struct*)rpcParameters->input;
+	
+	// Save Stats on the server side
+	gMPPlayerStats[nDeath->soldier_team-1].deaths++;
+	gMPPlayerStats[nDeath->attacker_team-1].kills++;
+	
+
+	// get the client number of the client sending the message
+	int iCLnum = f_rec_num(3,rpcParameters->sender)+1;
+
 	server->RPC("recieveDEATH",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+
+#if _DEBUG
+	wchar_t ateam[5];
+	wchar_t steam[5];
+	wchar_t clnum[5];
+	_itow(nDeath->attacker_team,ateam,10);
+	_itow(nDeath->soldier_team,steam,10);
+	_itow(iCLnum,clnum,10);
+	ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"DEBUG: Soldier Killed : Attacking team %s , Soldier Team %s, Sender %s",ateam,steam,clnum);
+	char logmsg[100];
+	sprintf(logmsg, "MP DEBUG: Soldier Killed #%i : Attacking team %i , Soldier Team %i, Sender %i\n",nDeath->soldier_id,nDeath->attacker_team,nDeath->soldier_team,iCLnum);
+	MPDebugMsg( logmsg );
+#endif
 }
 void sendhitSTRUCT(RPCParameters *rpcParameters)
 {
+	EV_S_STRUCTUREHIT* miss = (EV_S_STRUCTUREHIT*)rpcParameters->input;
+	
+	int team = MercPtrs[ miss->ubAttackerID ]->bTeam;
+	if (team == 1) team = 5;
+	else if (team >= 6) team -= 6;
+	else if (team == 0) team = CLIENT_NUM-1; // this case should not be possible, including as a precaution
+
+	gMPPlayerStats[team].misses++;
+
 	server->RPC("recievehitSTRUCT",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
 void sendhitWINDOW(RPCParameters *rpcParameters)
 {
+	EV_S_WINDOWHIT* miss = (EV_S_WINDOWHIT*)rpcParameters->input;
+	
+	int team = MercPtrs[ miss->ubAttackerID ]->bTeam;
+	if (team == 1) team = 5;
+	else if (team >= 6) team -= 6;
+	else if (team == 0) team = CLIENT_NUM-1; // this case should not be possible, including as a precaution
+
+	gMPPlayerStats[team].misses++;
+
 	server->RPC("recievehitWINDOW",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
 void sendMISS(RPCParameters *rpcParameters)
 {
+	EV_S_MISS* miss = (EV_S_MISS*)rpcParameters->input;
+
+	int team = MercPtrs[ miss->ubAttackerID ]->bTeam;
+	if (team == 1) team = 5;
+	else if (team >= 6) team -= 6;
+	else if (team == 0) team = CLIENT_NUM-1; // this case should not be possible, including as a precaution
+
+	gMPPlayerStats[team].misses++;
+
 	server->RPC("recieveMISS",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
 void updatenetworksoldier(RPCParameters *rpcParameters)
@@ -205,6 +330,18 @@ void sendHEAL(RPCParameters *rpcParameters)
 {
 	server->RPC("recieve_heal",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
+
+// OJW - edge and team changes
+void sendEDGECHANGE(RPCParameters *rpcParameters)
+{
+	server->RPC("recieveEDGECHANGE",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+void sendTEAMCHANGE(RPCParameters *rpcParameters)
+{
+	server->RPC("recieveTEAMCHANGE",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
 //
 //void rINT(RPCParameters *rpcParameters)//who is first
 //{
@@ -276,46 +413,76 @@ void sendREAL(RPCParameters *rpcParameters)
 	}
 
 }
-int f_rec_num(int mode, SystemAddress sender)//from client data
+
+// 20081222 - OJW
+void sendGAMEOVER(RPCParameters *rpcParameters)
 {
+	// ignore the RPCParams and send the server side scoreboard
+	server->RPC("recieveGAMEOVER",(const char*)gMPPlayerStats, sizeof(gMPPlayerStats)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+void sendCHATMSG(RPCParameters *rpcParameters)
+{
+	// ignore the RPCParams and send the server side scoreboard
+	server->RPC("recieveCHATMSG",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+
+
+
+// OJW - 20081223
+// fix client disconnecting mid game, allowing the game to proceed
+void HandleDisconnect(SystemAddress sender)
+{
+	// find the CLIENT_NUM of the player
 	int x;
 	client_data cl_record;
+
 	for ( x=0; x<4;x++)
 	{
 		cl_record = client_d[x];
-
-		if(mode==0)//find empty slot for new record
+		if(cl_record.address.binaryAddress==sender.binaryAddress && cl_record.address.port==sender.port)
 		{
-			if(cl_record.address.binaryAddress==0)
-				return(x);
+			// notify all the clients of the disconnect
+			server->RPC("recieveDISCONNECT",(const char*)&cl_record.cl_number , sizeof(int)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+			f_rec_num(2,sender); // remove from server's client list
+			break;
 		}
-		if(mode==1)//wipe clean all
-		{
-			client_d[x].address.binaryAddress=0;
-			client_d[x].address.port=0;
-			client_d[x].cl_number=0;
-		}
-		if(mode==2)//clear one record
-		{
-			if(cl_record.address.binaryAddress==sender.binaryAddress && cl_record.address.port==sender.port)
-			{
-				client_d[x].address.port=0;
-				client_d[x].cl_number=0;
-				client_d[x].address.binaryAddress=0;
-				return(254);
-			}
-
-		}
-
-
 	}
-	if(mode == 0)//'no free slots'
-	{
-	ScreenMsg( FONT_RED, MSG_CHAT, L"Client Record Error, Restart Server, and Report Error." );
-	return (255);
-	}
-	return(254);
 }
+
+// OJW - 20081218
+// shuffle an integer array
+//<TODO> remove shuffledList and put directly into arr[]
+void rSortArray(int* arr, int len)
+{
+	std::list<int> tmpList;
+	std::list<int> shuffledList;
+	std::list<int>::iterator Iter;
+	int i=0;
+
+	// add all our array items
+	for(i=0; i<len; i++)
+		tmpList.push_front(arr[i]);
+
+	// shuffle the items
+	while(tmpList.size())
+	{
+		int iRandPos =  rand() % tmpList.size();
+		for(Iter = tmpList.begin(); iRandPos>0; iRandPos--, Iter++);
+		//Iter += iRandPos;
+		shuffledList.push_front(*Iter);
+		tmpList.erase(Iter);
+	}
+
+	// add all our elements
+	for(i=0; i<len; i++)
+	{
+		arr[i] = shuffledList.back();
+		shuffledList.pop_back();
+	}
+}
+
 
 //************************* //UNASSIGNED_SYSTEM_ADDRESS
 //START INTERNAL SERVER
@@ -323,72 +490,141 @@ int f_rec_num(int mode, SystemAddress sender)//from client data
 //void send_settings (void)//send server settings to client
 void requestSETTINGS(RPCParameters *rpcParameters )
 {
+	// dont generate or send settings to a new user if they are about to be disconnected
+	// because no more players can join the the game
+	if (can_joingame())
+	{
+		client_info* clinf = (client_info*)rpcParameters->input;
 
-	client_info* clinf = (client_info*)rpcParameters->input;
+		//server assigned client numbers - hayden.
+		SystemAddress sender = rpcParameters->sender;//get senders address
+		int bslot = f_rec_num(0,blank);//get empty record slot
+		client_d[bslot].address=sender; //record clients address
+		int new_cl_num = bslot+1;//client number to assign
+		client_d[bslot].cl_number=new_cl_num; //record clients number
 
-	//server assigned client numbers - hayden.
-	SystemAddress sender = rpcParameters->sender;//get senders address
-	int bslot = f_rec_num(0,blank);//get empty record slot
-	client_d[bslot].address=sender; //record clients address
-	int new_cl_num = bslot+1;//client number to assign
-	client_d[bslot].cl_number=new_cl_num; //record clients number
-	
 
-		settings_struct lan;
+			settings_struct lan;
 
-		//lan.client_num = clinf->client_num;//old client assigned number
-		lan.client_num = new_cl_num; //new server assigned number
-		strcpy(lan.client_name , clinf->client_name);
+			//lan.client_num = clinf->client_num;//old client assigned number
+			lan.client_num = new_cl_num; //new server assigned number
+			strcpy(lan.client_name , clinf->client_name);
 
-		lan.max_clients = gsMAX_CLIENTS;
-		memcpy(lan.kitbag , kbag,sizeof (char)*100);
-		lan.damage_multiplier = gsDAMAGE_MULTIPLIER;
+			// OJW - 20081204
+			strcpy(lan.server_name , SERVER_NAME);
+			memcpy(lan.client_edges,client_edges,sizeof(int)*4);
+			memcpy(lan.client_teams,client_teams,sizeof(int)*4);
+
+			lan.RANDOM_SPAWN = RANDOM_SPAWN;
+			lan.RANDOM_MERCS = RANDOM_MERCS;
+
+			lan.max_clients = gsMAX_CLIENTS;
+			memcpy(lan.kitbag , kbag,sizeof (char)*100);
+			lan.damage_multiplier = gsDAMAGE_MULTIPLIER;
+			
+			lan.same_merc = gsSAME_MERC;
+			lan.gsMercArriveSectorX=gsMercArriveSectorX;
+			lan.gsMercArriveSectorY=gsMercArriveSectorY;
+
+			lan.ENEMY_ENABLED=ENEMY_ENABLED;
+			lan.CREATURE_ENABLED=CREATURE_ENABLED;
+			lan.MILITIA_ENABLED=MILITIA_ENABLED;
+			lan.CIV_ENABLED=CIV_ENABLED;
+
+			lan.gsPLAYER_BSIDE=gsPLAYER_BSIDE;
+
+			lan.emorale=gsMORALE;
+			lan.gsREPORT_NAME=gsREPORT_NAME;
+	//something new
+					lan.secs_per_tick=gssecs_per_tick;
+					lan.soubBobbyRay=gGameOptions.ubBobbyRay;
+					lan.sofGunNut=gGameOptions.fGunNut;	
+					lan.soubGameStyle=gGameOptions.ubGameStyle;
+					lan.soubDifficultyLevel=gGameOptions.ubDifficultyLevel;
+					lan.sofTurnTimeLimit=gGameOptions.fTurnTimeLimit;
+					lan.sofIronManMode=gGameOptions.fIronManMode;
+					lan.starting_balance=gsstarting_balance;
 		
-		lan.same_merc = gsSAME_MERC;
+					// OJW - 20090319 - Changing allow custom NIV to force NIV on all clients
+					// as with the new join screen setup, no way for the individual client to choose
+					// whether or not to use NIV. If this is wrong, its easily fixed...
+					// just change description text for the toggle option on the host screen to
+					// "Allow custom inventory" and delete this if statement.
+					if (sALLOW_CUSTOM_NIV==1)
+						gGameOptions.ubInventorySystem = INVENTORY_NEW;
+					
+					lan.sofNewInv=gGameOptions.ubInventorySystem;
+
+					lan.soDis_Bobby=gsDis_Bobby;
+					lan.soDis_Equip=gsDis_Equip;
+
+					lan.gsMAX_MERCS=gsMAX_MERCS;
+					
+					memcpy( lan.client_names , client_names, sizeof( char ) * 4 * 30 );
+					lan.team=clinf->team;
+
+					lan.TESTING=gsTESTING;
+
+					// OJW - 20081218
+					if (RANDOM_SPAWN)
+						lan.cl_edge = client_edges[lan.client_num-1];
+					else
+						lan.cl_edge=clinf->cl_edge;
+
+					// OJW - 20081223
+					if (RANDOM_MERCS)
+					{
+						memcpy(lan.random_mercs, random_merc_teams[client_mercteam[lan.client_num - 1]], sizeof(int) * 7);
+					}
+
+					lan.TIME=TIME;
+					lan.WEAPON_READIED_BONUS=sWEAPON_READIED_BONUS;
+					lan.ALLOW_CUSTOM_NIV=sALLOW_CUSTOM_NIV;
+					lan.DISABLE_SPEC_MODE=sDISABLE_SPEC_MODE;
+
+
+			server->RPC("recieveSETTINGS",(const char*)&lan, (int)sizeof(settings_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+	} // end if(can_joingame)
+}
+
+// added 081201 by Owen , allow the server to change the map while its still not in laptop mode
+void send_mapchange(void)
+{
+	if (is_server  && !allowlaptop)
+	{
+		mapchange_struct lan;
+
 		lan.gsMercArriveSectorX=gsMercArriveSectorX;
 		lan.gsMercArriveSectorY=gsMercArriveSectorY;
+		lan.TIME=TIME;
 
-		lan.ENEMY_ENABLED=ENEMY_ENABLED;
-		lan.CREATURE_ENABLED=CREATURE_ENABLED;
-		lan.MILITIA_ENABLED=MILITIA_ENABLED;
-		lan.CIV_ENABLED=CIV_ENABLED;
+		server->RPC("recieveMAPCHANGE",(const char*)&lan, (int)sizeof(mapchange_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+	}
+	else
+	{
+		ScreenMsg( FONT_LTBLUE, MSG_CHAT, MPServerMessage[45]);
+	}
+}
 
-		lan.gsPLAYER_BSIDE=gsPLAYER_BSIDE;
+// OJW 090212
+bool inline can_joingame()
+{
+	return !allowlaptop;
+}
 
-		lan.emorale=gsMORALE;
-		lan.gsREPORT_NAME=gsREPORT_NAME;
-//something new
-				lan.secs_per_tick=gssecs_per_tick;
-				lan.soubBobbyRay=gGameOptions.ubBobbyRay;
-				lan.sofGunNut=gGameOptions.fGunNut;	
-				lan.soubGameStyle=gGameOptions.ubGameStyle;
-				lan.soubDifficultyLevel=gGameOptions.ubDifficultyLevel;
-				lan.sofTurnTimeLimit=gGameOptions.fTurnTimeLimit;
-				lan.sofIronManMode=gGameOptions.fIronManMode;
-				lan.starting_balance=gsstarting_balance;
-	
-				lan.sofNewInv=gGameOptions.ubInventorySystem;
-
-				lan.soDis_Bobby=gsDis_Bobby;
-				lan.soDis_Equip=gsDis_Equip;
-
-				lan.gsMAX_MERCS=gsMAX_MERCS;
-				
-				memcpy( lan.client_names , client_names, sizeof( char ) * 4 * 30 );
-				lan.team=clinf->team;
-
-
-				lan.TESTING=gsTESTING;
-
-				lan.cl_edge=clinf->cl_edge;
-				lan.TIME=TIME;
-				lan.WEAPON_READIED_BONUS=sWEAPON_READIED_BONUS;
-				lan.ALLOW_CUSTOM_NIV=sALLOW_CUSTOM_NIV;
-				lan.DISABLE_SPEC_MODE=sDISABLE_SPEC_MODE;
-
-
-		server->RPC("recieveSETTINGS",(const char*)&lan, (int)sizeof(settings_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
-
+// Allow server to disconnect incoming clients after the game has started
+void CheckIncomingConnection(Packet* p)
+{
+	// some clients might reconnect after disconnecting, either after the laptop is unlocked
+	// or after the game has started
+	// we dont want to allow this as thier game will be out of state
+	if (!can_joingame())
+	{
+		ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"CONNECTION REJECTED - GAME HAS STARTED");
+		// disconnect this client, no need to notify them as they will know if they disconnected
+		// before receiving a settings packet that they were not allowed to join
+		server->CloseConnection(p->systemAddress, true);
+	}
 }
 
 
@@ -428,10 +664,18 @@ void start_server (void)
 			char time_div[30];
 			char mor[30];
 
+			char sRandomMercs[30];
+			char sRandomEdges[30];
+
+			// OJW - 20081204
+			GetPrivateProfileString( "Ja2_mp Settings","SERVER_NAME", "", SERVER_NAME, MAX_PATH, "..\\Ja2_mp.ini" );
+
 			GetPrivateProfileString( "Ja2_mp Settings","SAME_MERC", "", hire_same_merc, MAX_PATH, "..\\Ja2_mp.ini" );
 			GetPrivateProfileString( "Ja2_mp Settings","DISABLE_MORALE", "", mor, MAX_PATH, "..\\Ja2_mp.ini" );
 			GetPrivateProfileString( "Ja2_mp Settings","MAX_CLIENTS", "", maxclients, MAX_PATH, "..\\Ja2_mp.ini" );
 			GetPrivateProfileString( "Ja2_mp Settings","DAMAGE_MULTIPLIER", "", net_div, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","RANDOM_MERCS", "", sRandomMercs, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","RANDOM_EDGES", "", sRandomEdges, MAX_PATH, "..\\Ja2_mp.ini" );
 			
 			GetPrivateProfileString( "Ja2_mp Settings","ENEMY_ENABLED", "", bteam1_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
 			//GetPrivateProfileString( "Ja2_mp Settings","CREATURE_ENABLED", "", bteam2_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
@@ -479,14 +723,30 @@ void start_server (void)
 			 MILITIA_ENABLED=0;
 			 CIV_ENABLED=0;
 
-if(gsPLAYER_BSIDE==2)//only enable ai during coop
-{
-			ENEMY_ENABLED =atoi(bteam1_enabled);
-			//CREATURE_ENABLED =atoi(bteam2_enabled);
-			MILITIA_ENABLED =atoi(bteam3_enabled);
-			CIV_ENABLED =atoi(bteam4_enabled);
+			 RANDOM_MERCS = atoi(sRandomMercs);
+			 RANDOM_SPAWN = atoi(sRandomEdges);
 
-}		
+			 if (RANDOM_SPAWN)
+			 {
+				 // create random starting edges
+				 int spawns[4] = { 0 , 1 , 2 , 3 };
+				 rSortArray(spawns,4);
+				 memcpy(client_edges,spawns,sizeof(int)*4);
+			 }
+
+			 if (RANDOM_MERCS)
+			 {
+				// randomly sort team indexes to give client
+			    // one of four random merc teams
+				rSortArray(client_mercteam,4);
+			 }
+
+			if(gsPLAYER_BSIDE==2)//only enable ai during coop
+			{
+				ENEMY_ENABLED = 1; // always enable enemies in co-op
+				MILITIA_ENABLED = atoi(bteam3_enabled);
+				CIV_ENABLED = atoi(bteam4_enabled);
+			}		
 
 			gsSAME_MERC = atoi(hire_same_merc);
 			gsDAMAGE_MULTIPLIER =(FLOAT)atof(net_div);
@@ -560,6 +820,10 @@ if(gsPLAYER_BSIDE==2)//only enable ai during coop
 		REGISTER_STATIC_RPC(server, startCOMBAT);
 		REGISTER_STATIC_RPC(server, sendWIPE);
 			REGISTER_STATIC_RPC(server, sendHEAL);
+			REGISTER_STATIC_RPC(server, sendEDGECHANGE);
+			REGISTER_STATIC_RPC(server, sendTEAMCHANGE);
+			REGISTER_STATIC_RPC(server, sendGAMEOVER);
+			REGISTER_STATIC_RPC(server, sendCHATMSG);
 			//REGISTER_STATIC_RPC(server, rINT);
 	//
 
@@ -614,7 +878,7 @@ void server_packet ( void )
 			case ID_DISCONNECTION_NOTIFICATION://client disconnected purposefullly
 				  // Connection lost normally
 				ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"ID_DISCONNECTION_NOTIFICATION");
-				f_rec_num(2, p->systemAddress);//clear record
+				HandleDisconnect(p->systemAddress);//clear record
 				break;
 			case ID_ALREADY_CONNECTED:
 				// Connection lost normally
@@ -641,7 +905,7 @@ void server_packet ( void )
 				// Couldn't deliver a reliable packet - i.e. the other system was abnormally
 				// terminated
 				ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"ID_CONNECTION_LOST");//client dropped
-				f_rec_num(2, p->systemAddress);//clear record
+				HandleDisconnect(p->systemAddress);//clear record
 				break;
 			case ID_CONNECTION_REQUEST_ACCEPTED:
 				// This tells the client they have connected
@@ -650,6 +914,8 @@ void server_packet ( void )
 			case ID_NEW_INCOMING_CONNECTION:
 				//tells server client has connected
 				ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"ID_NEW_INCOMING_CONNECTION");
+				// make sure they can connect
+				CheckIncomingConnection(p);
 				//send_settings();//send off server set settings
 				break;
 			case ID_MODIFIED_PACKET:

@@ -118,6 +118,24 @@ extern	UINT32	CreditScreenInit( void );
 extern	UINT32	CreditScreenHandle( void );
 extern	UINT32	CreditScreenShutdown( void );
 
+// OJW - 20081129
+extern  UINT32	MPJoinScreenInit( void );
+extern  UINT32	MPJoinScreenHandle( void );
+extern  UINT32	MPJoinScreenShutdown( void );
+
+extern  UINT32	MPHostScreenInit( void );
+extern  UINT32	MPHostScreenHandle( void );
+extern  UINT32	MPHostScreenShutdown( void );
+
+// OJW - 20081222
+extern  UINT32	MPScoreScreenInit( void );
+extern  UINT32	MPScoreScreenHandle( void );
+extern  UINT32	MPScoreScreenShutdown( void );
+
+// OJW - 20090314
+extern  UINT32	MPChatScreenInit( void );
+extern  UINT32	MPChatScreenHandle( void );
+extern  UINT32	MPChatScreenShutdown( void );
 
 // External functions
 void DisplayFrameRate( );

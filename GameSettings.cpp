@@ -987,6 +987,7 @@ void LoadGameAPBPConstants()
 
 void FreeGameExternalOptions()
 {
+	if (gGameExternalOptions.iaIMPSlots != NULL) // OJW - 20081129 - Fix memory leak when calling LoadGameExternalOptions twice
 	MemFree( gGameExternalOptions.iaIMPSlots);
 }
 

@@ -66,6 +66,9 @@
 	#include "BobbyRMailOrder.h"
 	#include "Finances.h"
 	#include "TeamTurns.h"
+	#include "gameloop.h"
+	#include "Options Screen.h"
+#include "MPChatScreen.h"
 #endif
 
 #include "MessageIdentifiers.h"
@@ -92,7 +95,7 @@
 unsigned char GetPacketIdentifier(Packet *p);
 unsigned char packetIdentifier;
 
-#include "messagebox.h"
+#include "MessageBoxScreen.h"
 
 #pragma pack(1)
 
@@ -116,6 +119,7 @@ unsigned char packetIdentifier;
 #include "interface panels.h"
 
 #include "game init.h"
+#include "Debug Control.h"
 
 extern INT8 SquadMovementGroups[ ];
 RakPeerInterface *client;
@@ -182,7 +186,6 @@ typedef struct
 	UINT8 client_num;
 	bool status;
 	UINT8 ready_stage;
-
 } ready_struct;
 
 typedef struct
@@ -197,9 +200,24 @@ typedef struct
 		UINT8 ubResult;
 	}kickR;
 
+typedef struct
+{
+	UINT8 client_num;
+	BOOLEAN bToAll;
+	CHAR16 msg[300];
+} chat_msg;
+
 bullets_table bTable[11][50];
 
 char client_names[4][30];
+// OJW - 20081204
+int	 client_ready[4];
+int	 client_edges[4];
+int	 client_teams[4];
+int	 random_mercs[7];
+
+// OJW - 20081222
+player_stats gMPPlayerStats[5];
 
 INT32 MAX_MERCS;
 
@@ -219,6 +237,11 @@ UINT8	ubID_prefix;
  bool is_server=false;
  bool is_networked=false;
 
+ bool is_host=false; // OJW - added 20081130 - new flag to signal our intention to host, coming in from the HOST screen
+ bool auto_retry=true;
+ int  giNumTries = 5; // default is 5 retries
+ UINT32 giNextRetryTime = 0;
+
  bool requested=false;
 
 int tcount;
@@ -236,6 +259,10 @@ bool DISABLE_MORALE;
  char SECT_EDGE[30];
 char ckbag[100];
  char CLIENT_NAME[30];
+ // OJW - 20081204
+ char	SERVER_NAME[30];
+ int	RANDOM_SPAWN;
+ int	RANDOM_MERCS;
 
  char SERVER_IP[30] ;
  char SERVER_PORT[30];
@@ -279,6 +306,95 @@ INT16	crate_sGridX, crate_sGridY;
 void overide_callback( UINT8 ubResult );
 void kick_callback( UINT8 ubResult );
 void turn_callback (UINT8 ubResult);
+void ChatCallback (UINT8 ubResult);
+
+// OJW - 20081222
+void send_gameover( void );
+void StartScoreScreen(); // this screen will send us to the multiplayer score screen
+bool is_game_over = false;
+UINT32 iScoreScreenTime = 0;
+int iTeamsWiped = 0; // counts how many teams have wiped
+
+//OJW - 20090210
+int iDisconnectedScreen = 0;
+
+//OJW - 20090302
+int bClosingChatBoxToStartGame = false;
+UINT32 iCCStartGameTime = 0;
+
+// OJW - 20090317
+bool is_game_started = false;
+
+
+// OJW - added 20081130
+// <TODO> - add retry timer and notification
+void NetworkAutoStart()
+{
+	if (!is_networked)
+		return; // not networked, bad call
+
+	if (!is_host || is_server) 
+	{
+		// is pure client or the server has been started
+		// so do client connection checking...though probably not needed for the server client. cant hurt.
+
+		// user JOIN'd game
+		if (is_client && is_connected)
+		{
+			return; // should be set up and running
+		}
+		else if (is_connecting)
+		{
+			return; // we're waiting on a connection , do nothing
+		}
+		else
+		{
+			if (giNumTries <= 0 || !auto_retry)
+				return; // dont auto-retry
+
+			if (guiBaseJA2NoPauseClock < giNextRetryTime)
+				return; // we are waiting for a retry timer
+
+			// try and connect
+			giNumTries--;
+			connect_client();
+
+			// next rety time is set in client_packet()
+		}
+	}
+	else 
+	{
+		// is host and server isnt started so start it
+		start_server();
+	}
+}
+
+void HireRandomMercs()
+{
+	MERC_HIRE_STRUCT HireMercStruct;
+	for (int i=0; i < MAX_MERCS; i++)
+	{
+		memset(&HireMercStruct, 0, sizeof(MERC_HIRE_STRUCT));
+
+		HireMercStruct.ubProfileID = random_mercs[i];// use the merc list recieved from the server
+
+		//DEF: temp
+		HireMercStruct.sSectorX = gsMercArriveSectorX;
+		HireMercStruct.sSectorY = gsMercArriveSectorY;
+		HireMercStruct.fUseLandingZoneForArrival = TRUE;
+		HireMercStruct.ubInsertionCode	= INSERTION_CODE_ARRIVING_GAME;
+		HireMercStruct.iTotalContractLength = 1;
+		HireMercStruct.fCopyProfileItemsOver = true;
+
+		gMercProfiles[ HireMercStruct.ubProfileID ].ubMiscFlags |= PROFILE_MISC_FLAG_ALREADY_USED_ITEMS;
+
+		HireMerc(&HireMercStruct);
+	}
+
+	fDrawCharacterList = true;
+	fTeamPanelDirty = true;
+	ReBuildCharactersList();
+}
 
 
 //*****************
@@ -781,10 +897,11 @@ void send_EndTurn( UINT8 ubNextTeam )
 		{
 			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"sendEndTurn" );
 		
-			if(ubNextTeam==0)
-			{
-				ubNextTeam=netbTeam;
-			}
+		if(ubNextTeam==0)
+		{
+			// translate next team id for clients
+			ubNextTeam=netbTeam;
+		}
 		
 	
 		turn_struct tStruct;
@@ -802,22 +919,23 @@ void send_EndTurn( UINT8 ubNextTeam )
 
 void recieveEndTurn(RPCParameters *rpcParameters)
 {
-		turn_struct* tStruct = (turn_struct*)rpcParameters->input;
-		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"recieveEndTurn" );
-		UINT8 sender_bTeam;
-		UINT8 ubTeam;
-		sender_bTeam=tStruct->tsnetbTeam;
-		ubTeam=tStruct->tsubNextTeam;
-		if(is_server)Sawarded=false;
+	turn_struct* tStruct = (turn_struct*)rpcParameters->input;
+	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"recieveEndTurn" );
+	UINT8 sender_bTeam;
+	UINT8 ubTeam;
+	sender_bTeam=tStruct->tsnetbTeam;
+	ubTeam=tStruct->tsubNextTeam;
+	if(is_server)Sawarded=false;
 	
+	// if the message was recieved from the server..
 	if(is_server || sender_bTeam==6)
 	{
+		// if not the server and we're not in combat...
 		if (!is_server && !(gTacticalStatus.uiFlags & INCOMBAT))
 		{
 			EnterCombatMode(0); 
 		}
 
-	
 		if(ubTeam==netbTeam)ubTeam=0;
 		{
 			if(!is_server && is_client)
@@ -988,6 +1106,9 @@ void send_ready ( void )
 					status=1;
 					numready = numready+1;
 					ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[7],numready,MAX_CLIENTS );
+					// OJW - 20081204
+					client_ready[info.client_num-1]=1;
+					fDrawCharacterList = true; // set the character list to be redrawn
 					}
 					else
 					{
@@ -995,6 +1116,9 @@ void send_ready ( void )
 					status=0;
 					numready = numready-1;
 					ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[8],numready,MAX_CLIENTS );
+					// OJW - 20081204
+					client_ready[info.client_num-1]=0;
+					fDrawCharacterList = true; // set the character list to be redrawn
 					}	
 				}
 				
@@ -1044,13 +1168,17 @@ void recieveREADY (RPCParameters *rpcParameters)
 		{
 		numready = numready+1;
 		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[10], info->client_num,client_names[info->client_num-1],numready,MAX_CLIENTS );
-		
+		// OJW - 20081204
+		client_ready[info->client_num-1]=1;
+		fDrawCharacterList = true; // set the character list to be redrawn
 		}
 		else
 		{
 		numready = numready-1;
 		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[11], info->client_num,client_names[info->client_num-1],numready,MAX_CLIENTS );
-		
+		// OJW - 20081204
+		client_ready[info->client_num-1]=0;
+		fDrawCharacterList = true; // set the character list to be redrawn
 		}
 		
 		if(is_server && numready == MAX_CLIENTS) //all ready. and server tells all to load...and loads himself
@@ -1066,6 +1194,18 @@ void recieveREADY (RPCParameters *rpcParameters)
 	{
 		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[36] );
 		allowlaptop=1;
+		if (RANDOM_MERCS)
+			HireRandomMercs();
+
+		// server is starting the game, adjust the games max players
+		// this will allow the game to be started, rather than saying 2/4 players are connected
+		// where there are only two players connected
+		int iPlayersConnected = 0;
+		for (int i=0; i< 4; i++)
+			if (client_names[i] != NULL && strcmp(client_names[i],"") != 0)
+				iPlayersConnected++;
+
+		MAX_CLIENTS = iPlayersConnected;
 	}
 
 }
@@ -1217,78 +1357,131 @@ void allowlaptop_callback ( UINT8 ubResult )
 				info.ready_stage=36;
 				info.status=1;
 
+	if (RANDOM_MERCS)
+		HireRandomMercs();
+
+	// server client is starting the game, adjust the games max players
+	// this will allow the game to be started, rather than saying 2/4 players are connected
+	// where there are only two players connected
+	int iPlayersConnected = 0;
+	for (int i=0; i< 4; i++)
+		if (client_names[i] != NULL && strcmp(client_names[i],"") != 0)
+			iPlayersConnected++;
+
+	MAX_CLIENTS = iPlayersConnected;
+
 	client->RPC("sendREADY",(const char*)&info, (int)sizeof(ready_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 
 	}
 }
 
+void StartBattleChatBoxClosedCallback(void)
+{
+	// The chat box has been closed, now we can start
+	SetCurrentWorldSector( gubPBSectorX, gubPBSectorY, gubPBSectorZ );
+	is_game_started = true;
+}
+
+
 
 void start_battle ( void )
 { 
-if(!is_client)
-{
-ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[14] );
-}
-else if(!allowlaptop && is_server)
-{
-			SGPRect CenterRect = { 100, 100, SCREEN_WIDTH - 100, 300 };
-			DoMessageBox( MSG_BOX_BASIC_STYLE, MPClientMessage[35],  guiCurrentScreen, MSG_BOX_FLAG_YESNO | MSG_BOX_FLAG_USE_CENTERING_RECT, allowlaptop_callback,  &CenterRect );
-
-}
-else if(allowlaptop)
-{
-	
-	if ( NumberOfMercsOnPlayerTeam() ==0)
+	if(!is_client)
 	{
-	ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[15] );
+	ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[14] );
 	}
-	else if(goahead==1)
-	{	
-	goahead=0;
-	status=0;//reset
-	numready=0;
-	SOLDIERTYPE *pSoldier = MercPtrs[ 0 ];
-	UINT8 ubGroupID = pSoldier->ubGroupID;
+	else if(!allowlaptop && is_server)
+	{
+		// check that another player is actually connected
+		int iPlayersConnected = 0;
+		for (int i=0; i< 4; i++)
+			if (client_names[i] != NULL && strcmp(client_names[i],"") != 0)
+				iPlayersConnected++;
 
-	GROUP *pGroup;
-	pGroup = GetGroup( ubGroupID ); 
-	gpBattleGroup = pGroup;
-		gubPBSectorX = gpBattleGroup->ubSectorX;
-		gubPBSectorY = gpBattleGroup->ubSectorY;
-		gubPBSectorZ = gpBattleGroup->ubSectorZ;
-
-	gfEnterTacticalPlacementGUI = 1;
-
-	UINT32	i;
-	for(i=0; i<4;i++)
-	{	
-		CHAR16 name[255];
-		int nm = mbstowcs( name, client_names[i], sizeof (char)*30 );
-		//copy in client specified name for the player turn bar :)
-		if(nm)
+		if (iPlayersConnected > 1)
 		{
-			CHAR16 string[255];
-			memcpy(string,TeamTurnString[ (i+6) ], sizeof( CHAR16) * 255 );
+				SGPRect CenterRect = { 100, 100, SCREEN_WIDTH - 100, 300 };
+				DoMessageBox( MSG_BOX_BASIC_STYLE, MPClientMessage[35],  guiCurrentScreen, MSG_BOX_FLAG_YESNO | MSG_BOX_FLAG_USE_CENTERING_RECT, allowlaptop_callback,  &CenterRect );
+		}
+		else
+		{
+			// notify the server that at least one other player must be connected
+			ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[51] );
+		}
+
+	}
+	else if(allowlaptop)
+	{
 		
+		if ( NumberOfMercsOnPlayerTeam() ==0)
+		{
+		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[15] );
+		}
+		else if(goahead==1)
+		{	
+			goahead=0; // this ensures that we dont reload the sector again the next time this function is called
 
-			CHAR16 full[255];
-			swprintf(full, L"%s - '%s'",string,name);
+			if (is_game_started)
+				return; // 20090317 - OJW - there is a bug or out of sync condition that rarely somestimes causes a client to reach here
+						// twice, and reload the sector, which causes an assertion failure on line 1782 of strategicmap.cpp in SetCurrentWorldSector()
+						// therefore i'm adding this to make sure if they client loaded the map once, it wont do it again
+			
+			status=0;//reset
+			numready=0;
+			SOLDIERTYPE *pSoldier = MercPtrs[ 0 ];
+			UINT8 ubGroupID = pSoldier->ubGroupID;
 
-			memcpy( TeamTurnString[ (i+6) ] , full, sizeof( CHAR16) * 255 );
+			GROUP *pGroup;
+			pGroup = GetGroup( ubGroupID ); 
+			gpBattleGroup = pGroup;
+				gubPBSectorX = gpBattleGroup->ubSectorX;
+				gubPBSectorY = gpBattleGroup->ubSectorY;
+				gubPBSectorZ = gpBattleGroup->ubSectorZ;
+
+			gfEnterTacticalPlacementGUI = 1;
+			// OJW - 20090205
+			iTeamsWiped = 0; // reset the number of wiped teams to Zero
+
+			UINT32	i;
+			for(i=0; i<4;i++)
+			{	
+				CHAR16 name[255];
+				int nm = mbstowcs( name, client_names[i], sizeof (char)*30 );
+				//copy in client specified name for the player turn bar :)
+				if(nm)
+				{
+					// OJW - 20090318 - fixed name copying bug with multiple games
+					CHAR16 full[255];
+					swprintf(full, MPClientMessage[57],i+1,name);
+
+					memcpy( TeamTurnString[ (i+6) ] , full, sizeof( CHAR16) * 255 );
+				}
+			}
+
+			// this closes the chat window if its open and the game is starting
+			// if this is open then the client will crash when the screen returns
+			if (guiCurrentScreen == MP_CHAT_SCREEN)
+			{
+				gChatBox.bHandled = MSG_BOX_RETURN_NO;
+				bClosingChatBoxToStartGame = true;
+				iCCStartGameTime = guiBaseJA2NoPauseClock+1000;
+			}
+			else
+			{
+				SetCurrentWorldSector( gubPBSectorX, gubPBSectorY, gubPBSectorZ );
+				is_game_started = true;
+			}
+
+		}
+		else
+		{
+		send_ready();
 		}
 	}
-
-	SetCurrentWorldSector( gubPBSectorX, gubPBSectorY, gubPBSectorZ );
-	}
-	else
+	else if(!allowlaptop && is_client && !is_server)
 	{
-	send_ready();
+	   ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[16] );
 	}
-}
-else if(!allowlaptop && is_client && !is_server)
-{
-   ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[16] );
-}
 	
 }
 
@@ -1797,14 +1990,21 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 
 	settings_struct* cl_lan = (settings_struct*)rpcParameters->input;
 
-				char szDefault[30];
-				sprintf(szDefault, "%s",cl_lan->client_name);
+		char szDefault[30];
+		sprintf(szDefault, "%s",cl_lan->client_name);
 
-		if(!recieved_settings)
+		// OJW - 20081204
+		// get complete client data from the server
+		memcpy( client_edges, cl_lan->client_edges , sizeof(int) * 4);
+		memcpy( client_teams, cl_lan->client_teams , sizeof(int) * 4);
+
+		if(!recieved_settings && strcmp(cl_lan->client_name, CLIENT_NAME)==0)
 		{
+			// This settings packet contains information and settings specifically for us
 			recieved_settings=1;
 
 			CLIENT_NUM=cl_lan->client_num;//assign client number from server
+
 
 			netbTeam = (CLIENT_NUM)+5;
 			ubID_prefix = gTacticalStatus.Team[ netbTeam ].bFirstID;//over here now
@@ -1813,7 +2013,23 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 			
 			strcpy(client_names[cl_lan->client_num-1],szDefault);
 
-		
+			// OJW - 20081204
+			strcpy(SERVER_NAME,cl_lan->server_name);
+			RANDOM_MERCS = cl_lan->RANDOM_MERCS;
+			RANDOM_SPAWN = cl_lan->RANDOM_SPAWN;
+
+			if (RANDOM_SPAWN)
+			{
+				// store sector edge
+				_itoa(cl_lan->cl_edge,SECT_EDGE,10);
+			}
+
+			if(RANDOM_MERCS)
+			{
+				// copy the random merc list locally
+				memcpy(random_mercs,cl_lan->random_mercs,sizeof(int) * 7);
+			}
+
 			ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[2] );
 			
 
@@ -1957,8 +2173,14 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 			// WANNE - MP: We also have to reinitialize the merc profiles because
 			// they depend on the inventory!
 			LoadMercProfiles();
-				
-			ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,cl_lan->cl_edge,cl_lan->team );
+			
+			if (!RANDOM_SPAWN)
+				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,cl_lan->cl_edge,cl_lan->team );
+			else
+				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,L"?",cl_lan->team );
+
+			fDrawCharacterList = true; // set the character list to be redrawn
+
 //		if(PLAYER_BSIDE==0)ScreenMsg(FONT_LTGREEN,MSG_CHAT,MPClientMessage[27],cl_lan->cl_ops[0],cl_lan->cl_ops[1],cl_lan->cl_ops[2],cl_lan->cl_ops[3]);
 		//ScreenMsg(FONT_LTGREEN,MSG_CHAT,MPClientMessage[27],cl_lan->team);
 	
@@ -1967,14 +2189,92 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		}
 		else 
 		{
+			fDrawCharacterList = true; // set the character list to be redrawn
 			
-			
-			ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,cl_lan->cl_edge,cl_lan->team );
+			if (!RANDOM_SPAWN)
+				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,cl_lan->cl_edge,cl_lan->team );
+			else
+				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,L"?",cl_lan->team );
+
 		//	ScreenMsg(FONT_LTGREEN,MSG_CHAT,MPClientMessage[27],cl_lan->team);	
 				strcpy(client_names[cl_lan->client_num-1],szDefault);				
 
 		}
 
+}
+
+void recieveTEAMCHANGE( RPCParameters *rpcParameters )
+{
+	teamchange_struct* cl_lan = (teamchange_struct*)rpcParameters->input;
+
+	if (!can_teamchange())
+	{
+		// error
+		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"An error occured in recieveTEAMCHANGE that should not occur");
+	}
+	else
+	{
+		// redraw the character list on the map screen
+		fTeamPanelDirty = true; 
+		fDrawCharacterList = true;
+		client_teams[cl_lan->client_num-1] = cl_lan->newteam;
+		if (cl_lan->client_num == CLIENT_NUM)
+		{
+			TEAM = cl_lan->newteam;
+		}
+	}
+}
+
+void recieveEDGECHANGE( RPCParameters *rpcParameters )
+{
+	edgechange_struct* cl_lan = (edgechange_struct*)rpcParameters->input;
+
+	if (!can_edgechange())
+	{
+		// error
+		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"An error occured in recieveEDGECHANGE that should not occur");
+	}
+	else
+	{
+		// redraw the character list on the map screen
+		fTeamPanelDirty = true;
+		fDrawCharacterList = true;
+		client_edges[cl_lan->client_num-1] = cl_lan->newedge;
+		if (cl_lan->client_num == CLIENT_NUM)
+		{
+			// store the setting locally
+			_itoa(cl_lan->newedge,SECT_EDGE,10);
+		}
+	}
+}
+
+
+void recieveMAPCHANGE( RPCParameters *rpcParameters )
+{
+	mapchange_struct* cl_lan = (mapchange_struct*)rpcParameters->input;
+
+	if (!is_client || allowlaptop)
+	{
+		// error
+		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"An error occured in recieveMAPCHANGE that should not occur");
+	}
+	else
+	{
+		// copy new map settings locally
+		gsMercArriveSectorX=cl_lan->gsMercArriveSectorX;
+		gsMercArriveSectorY=cl_lan->gsMercArriveSectorY;
+
+
+		ChangeSelectedMapSector( gsMercArriveSectorX, gsMercArriveSectorY, 0 );
+
+		gGameExternalOptions.iGameStartingTime= NUM_SEC_IN_DAY + int(cl_lan->TIME*3600);
+
+		CHAR16 str[128];
+		GetSectorIDString( gsMercArriveSectorX, gsMercArriveSectorY, 0, str, TRUE );
+
+		// notify clients of map change in console
+		ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[46],str);
+	}
 }
 
 
@@ -2095,34 +2395,101 @@ void send_death( SOLDIERTYPE *pSoldier )
 	death_struct nDeath;
 	nDeath.soldier_id=pSoldier->ubID;
 	nDeath.attacker_id=pSoldier->ubAttackerID;
-		if(pSoldier->ubAttackerID==NULL)nDeath.attacker_id=pSoldier->ubPreviousAttackerID;
-		if(pSoldier->ubID<20)nDeath.soldier_id=nDeath.soldier_id+ubID_prefix;
-		
-	client->RPC("sendDEATH",(const char*)&nDeath, (int)sizeof(death_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
-		
+
+	// Translate soldier id for other clients if the soldier was one of ours
+	if(pSoldier->ubID<20)nDeath.soldier_id=nDeath.soldier_id+ubID_prefix;
+	
+
+	// if soldier died from bleeding
+	if(pSoldier->ubAttackerID==NULL || pSoldier->ubAttackerID == NOBODY)
+	{
+		if (pSoldier->ubPreviousAttackerID != NOBODY && pSoldier->ubPreviousAttackerID != NULL)
+			nDeath.attacker_id = pSoldier->ubPreviousAttackerID;
+		else if (pSoldier->ubNextToPreviousAttackerID != NOBODY && pSoldier->ubNextToPreviousAttackerID != NULL)
+			nDeath.attacker_id = pSoldier->ubNextToPreviousAttackerID;
+	}
+
 	SOLDIERTYPE * pAttacker=MercPtrs[ nDeath.attacker_id ];
 	INT8 pA_bTeam;
 	CHAR16	pA_name[ 10 ];
 	INT8 pS_bTeam;
 	CHAR16	pS_name[ 10 ];
+
+	// OJW - 20081222
+	// save stats
 	if(pAttacker)
 	{
-	pA_bTeam=pAttacker->bTeam;
-	memcpy(pA_name,pAttacker->name,sizeof(CHAR16)*10);
-	if(pA_bTeam>5)pA_bTeam=pA_bTeam-5;
-	if(pA_bTeam==0)pA_bTeam=CLIENT_NUM;
+		// if attacker was one of our own mercs, use the last hostile attacker as the killer if there is one
+		if (pAttacker->bTeam == pSoldier->bTeam && pSoldier->ubPreviousAttackerID != NULL && pSoldier->ubPreviousAttackerID != NOBODY)
+		{
+			pAttacker=MercPtrs[ pSoldier->ubPreviousAttackerID ];
+			// check if the new attacker was also a friendly...
+			if (pAttacker->bTeam == pSoldier->bTeam && pSoldier->ubNextToPreviousAttackerID != NULL && pSoldier->ubNextToPreviousAttackerID != NOBODY)
+				pAttacker=MercPtrs[ pSoldier->ubNextToPreviousAttackerID ];
+			// if its still a friendly, use the original attacker id...for posterity
+			// guy must snore too loudly if all his mates wanna kill him :)
+			if (pAttacker->bTeam == pSoldier->bTeam && pSoldier->ubAttackerID != NULL && pSoldier->ubAttackerID != NOBODY)
+				pAttacker = MercPtrs[ pSoldier->ubAttackerID ];
+
+			nDeath.attacker_id = pAttacker->ubID;
+		}
+	
+		
+
+		// Translate attacker id for other clients if attacker was one of ours
+		if(pAttacker->ubID<20)nDeath.attacker_id=pAttacker->ubID+ubID_prefix;
+
+		pA_bTeam=pAttacker->bTeam;
+		memcpy(pA_name,pAttacker->name,sizeof(CHAR16)*10);
+		if (pA_bTeam==1 && PLAYER_BSIDE==MP_TYPE_COOP)
+		{
+			// CO-OP Kill by an enemy ai
+			pA_bTeam = 5; // the server subtracts 1 from these numbers to score in scoreboard, AI is index 4
+		}
+		else
+		{
+			// Any mode, kill by a players merc
+			if(pA_bTeam>5)pA_bTeam=pA_bTeam-5;
+			if(pA_bTeam==0)pA_bTeam= CLIENT_NUM;
+		}
 	}
 	if(pSoldier)
 	{
-	pS_bTeam=pSoldier->bTeam;
-	memcpy(pS_name,pSoldier->name,sizeof(CHAR16)*10);
-	if(pS_bTeam>5)pS_bTeam=pS_bTeam-5;
-	if(pS_bTeam==0)pS_bTeam=CLIENT_NUM;
+		pS_bTeam=pSoldier->bTeam;
+		memcpy(pS_name,pSoldier->name,sizeof(CHAR16)*10);
+		if(pS_bTeam==1 && PLAYER_BSIDE==MP_TYPE_COOP) 
+		{
+			// CO-OP Death of an enemy ai
+			pS_bTeam = 5; // the server subtracts 1 from these numbers to score in scoreboard, AI is index 4
+		}
+		else
+		{
+			// Any mode death of a players merc
+			if(pS_bTeam>5)pS_bTeam=pS_bTeam-5;
+			if(pS_bTeam==0)pS_bTeam=CLIENT_NUM;
+		}
 	}
+
+	nDeath.attacker_team = pA_bTeam;
+	nDeath.soldier_team = pS_bTeam;
+
+	// notify other clients of death
+	client->RPC("sendDEATH",(const char*)&nDeath, (int)sizeof(death_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+	
+	// print kill notice to screen	
 	if (pSoldier->bTeam==1)  ScreenMsg( FONT_YELLOW, MSG_CHAT, L"You Killed An Enemy AI");	
 	else  ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[28],pS_name,(pS_bTeam),client_names[(pS_bTeam-1)],pA_name,(pA_bTeam),client_names[(pA_bTeam-1)] );
-	//ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[28],(pS_bTeam), pS_name,client_names[(pS_bTeam-1)],pA_name,(pA_bTeam),client_names[(pA_bTeam-1)] );
 
+#if _DEBUG
+	char s_name[10];
+	char a_name[10];
+	WideCharToMultiByte(CP_UTF8,0,pS_name,-1, s_name,10,NULL,NULL);
+	WideCharToMultiByte(CP_UTF8,0,pA_name,-1, a_name,10,NULL,NULL);
+	if (pSoldier->bTeam==1) MPDebugMsg( String ( "MPDEBUG SEND - Enemy AI #%d was killed by ('%s' - %d) (client %d - '%s')\n",nDeath.soldier_id,a_name,nDeath.attacker_id,pA_bTeam,client_names[pA_bTeam-1]) );
+	else if (pAttacker->bTeam==1) MPDebugMsg( String ( "MPDEBUG SEND - '%s' (client %d - '%S') was killed by '%s' (client %d - '%s')\n",s_name,pS_bTeam,client_names[(pS_bTeam-1)],a_name,pA_bTeam,"Queens Army") );
+	else MPDebugMsg( String ( "MPDEBUG SEND - '%s' (client %d - '%S') was killed by '%s' (client %d - '%s')\n",s_name,pS_bTeam,client_names[(pS_bTeam-1)],a_name,pA_bTeam,client_names[(pA_bTeam-1)]) );
+#endif
+	//ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[28],(pS_bTeam), pS_name,client_names[(pS_bTeam-1)],pA_name,(pA_bTeam),client_names[(pA_bTeam-1)] );
 }
 
 void recieveDEATH (RPCParameters *rpcParameters)
@@ -2182,6 +2549,16 @@ void recieveDEATH (RPCParameters *rpcParameters)
 		if (pSoldier->bTeam==1)  ScreenMsg( FONT_YELLOW, MSG_CHAT, L"An Enemy AI was killed...");	
 		CheckForEndOfBattle( FALSE );
 	}
+
+#if _DEBUG
+	char s_name[10];
+	char a_name[10];
+	WideCharToMultiByte(CP_UTF8,0,pS_name,-1, s_name,10,NULL,NULL);
+	WideCharToMultiByte(CP_UTF8,0,pA_name,-1, a_name,10,NULL,NULL);
+	if (pSoldier->bTeam==1) MPDebugMsg( String ( "MPDEBUG RECV - Enemy AI #%d was killed by ('%s' - #%d) (client %d - '%s')\n",nDeath->soldier_id,a_name,nDeath->attacker_id,pA_bTeam,client_names[pA_bTeam-1]) );
+	else if (pAttacker->bTeam==1) MPDebugMsg( String ( "MPDEBUG RECV - '%s' (client %d - '%s') was killed by '%s' (client %d - '%s')\n",s_name,pS_bTeam,client_names[(pS_bTeam-1)],a_name,pA_bTeam,"Queens Army") );
+	else MPDebugMsg( String ( "MPDEBUG RECV - '%s' (client %d - '%s') was killed by '%s' (client %d - '%s')\n",s_name,pS_bTeam,client_names[(pS_bTeam-1)],a_name,pA_bTeam,client_names[(pA_bTeam-1)]) );
+#endif
 
 }
 
@@ -2269,53 +2646,89 @@ BOOLEAN check_status (void)// any 'enemies' and clients left to fight ??
 	SOLDIERTYPE *pSoldier;
 	int cnt;
 	int soldiers= 0 ;
+	int numActiveSides = 0;
 	
+	int dm_teams[4] = {0 , 0 , 0 , 0};
 
+	for(int x=0;x < MAXTEAMS; x++)
+	{
+		soldiers=0;
 
-				for(int x=0;x < MAXTEAMS; x++)
-				{
+		for(cnt = gTacticalStatus.Team[ x ].bFirstID;cnt <= gTacticalStatus.Team[ x ].bLastID; cnt++)
+		{
+			pSoldier = MercPtrs[ cnt ];
+			if(pSoldier->stats.bLife >= OKLIFE && pSoldier->bActive && pSoldier->bInSector)
+			{
+				soldiers++;
+			}
+		}
+		if(soldiers>0)
+		{
+			gTacticalStatus.Team[ x ].bTeamActive=1;
+			gTacticalStatus.Team[ x ].bMenInSector=soldiers;
 
-					for(cnt = gTacticalStatus.Team[ x ].bFirstID;cnt <= gTacticalStatus.Team[ x ].bLastID; cnt++)
-					{
-						pSoldier = MercPtrs[ cnt ];
-						if(pSoldier->stats.bLife!=0 && pSoldier->bActive && pSoldier->bInSector)
-						{
-							soldiers++;
-						}
-					}
-					if(soldiers>0)
-					{
-						gTacticalStatus.Team[ x ].bTeamActive=1;
-						gTacticalStatus.Team[x].bMenInSector=soldiers;
-					
-						soldiers=0 ;
-					}
-					else
-					{
-					
-						gTacticalStatus.Team[ x ].bTeamActive=0;
-						gTacticalStatus.Team[x].bMenInSector=0;
-					}
-				}
-				if( (gTacticalStatus.Team[ 0 ].bTeamActive == 0) && wiped==0)//server's team has been knocked out
-				{		
-							wiped=1;
-							ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
+			if (PLAYER_BSIDE==1 && (x==0 || x>5))
+			{
+				// store the number of active DM teams, and number of players per team still alive
+				int cl_num = CLIENT_NUM; // 1 based
+				if (x>5) cl_num = x - 5;
+				dm_teams[ client_teams[ cl_num - 1 ] ]++;
+			}
+			else if (PLAYER_BSIDE != 1)
+			{
+				// count number of active teams
+				numActiveSides++;
+			}
+		}
+		else
+		{
+			gTacticalStatus.Team[ x ].bTeamActive=0;
+			gTacticalStatus.Team[x].bMenInSector=0;
+		}
+	}
+	if( (gTacticalStatus.Team[ 0 ].bTeamActive == 0) && wiped==0)//server's team has been knocked out
+	{		
+		wiped=1;
+		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
 		if(!DISABLE_SPEC_MODE)
 		{
-		gTacticalStatus.uiFlags |= SHOW_ALL_MERCS;//hayden
-		ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
+			gTacticalStatus.uiFlags |= SHOW_ALL_MERCS;//hayden
+			ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
 		}
 		else ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"spectator mode disabled");
-							teamwiped();
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[42] );
 
-				}
-				if((gTacticalStatus.Team[ 0 ].bTeamActive==1 || gTacticalStatus.Team[ 6 ].bTeamActive==1 || gTacticalStatus.Team[ 7 ].bTeamActive==1 || gTacticalStatus.Team[ 0 ].bTeamActive==1 || gTacticalStatus.Team[ 9 ].bTeamActive==1  )&& NumEnemyInSector() > 0)return(TRUE);
-				else return(FALSE);
+		teamwiped();
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[42] );
+	}
 
-		
-					
+	if (PLAYER_BSIDE == 0)
+	{
+		// check game end for DeathMatch
+		return (numActiveSides > 1);
+	}
+	else if (PLAYER_BSIDE == 1)
+	{
+		// check game end for Team Deathmatch
+		// count how many active deathmatch teams are alive (two players could be alive but might be on the same TEAM)
+		for (int i=0; i < 4; i++)
+		{
+			if (dm_teams[i] > 0)
+			{
+				numActiveSides++;
+			}
+		}
+
+		return (numActiveSides > 1);
+	}
+	else if (PLAYER_BSIDE == 2)
+	{
+		// check for game end for CO-OP
+		// If any player team is alive && the number of enemies > 0 then continue game (true), else quit (false) 
+		return ((gTacticalStatus.Team[ 0 ].bTeamActive==1 || gTacticalStatus.Team[ 6 ].bTeamActive==1 || gTacticalStatus.Team[ 7 ].bTeamActive==1 || gTacticalStatus.Team[ 8 ].bTeamActive==1 || gTacticalStatus.Team[ 9 ].bTeamActive==1  )&& NumEnemyInSector() > 0);
+	}
+
+	// dont stop the game by default
+	return true;	
 }
 
 void UpdateSoldierToNetwork ( SOLDIERTYPE *pSoldier )
@@ -2554,6 +2967,174 @@ void recieve_door (RPCParameters *rpcParameters)
 
 }
 
+void recieveCHATMSG(RPCParameters* rpcParameters)
+{
+	chat_msg* cmsg = (chat_msg*)rpcParameters->input;
+
+	if (PLAYER_BSIDE==1 && cmsg->bToAll == false)
+	{
+		// If Team deathmatch && msg is allies only
+		if (client_teams[cmsg->client_num-1] == TEAM)
+		{
+			// only display on an ally client
+			ChatLogMessage( FONT_LTGREEN, MSG_CHAT, cmsg->msg);
+		}
+	}
+	else
+	{
+		// display to all clients
+		ChatLogMessage( FONT_LTGREEN, MSG_CHAT, cmsg->msg);
+	}
+}
+
+/// OJW - 20081223
+// recieveDISCONNECT - Handle disconnection
+void recieveDISCONNECT(RPCParameters* rpcParameters)
+{
+	// for starters - we shouldnt get a message for ourselves :)
+	int cl_num = (int) *rpcParameters->input; // cl_num starts at 1
+
+	wchar_t szPlayerName[30];
+	memset(szPlayerName,0,30*sizeof(wchar_t));
+	mbstowcs( szPlayerName,client_names[cl_num-1],30);
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[47], szPlayerName );
+
+	// clear our records from this client
+	memset(client_names[cl_num-1],NULL,sizeof(char)*30);
+	memset(&client_ready[cl_num-1],0,sizeof(int));
+	memset(&client_teams[cl_num-1],0,sizeof(int));
+
+	if (guiCurrentScreen == MAP_SCREEN && !(gTacticalStatus.uiFlags & INCOMBAT))
+	{
+		// in the map screen and not in combat
+		// refresh player list to remove from the game
+		fDrawCharacterList = true; // set the character list to be redrawn
+		fTeamPanelDirty = true; // redraw the background
+	}
+	else if (guiCurrentScreen == GAME_SCREEN) // <TODO> get a more valid check that the game is in progress here
+	{
+		// in tactical screen and in combat
+		// kill the dead clients mercs out of the game
+
+		UINT8 iNetbTeam = (cl_num)+5;
+		UINT8 iubID_prefix = gTacticalStatus.Team[ iNetbTeam ].bFirstID;//over here now
+
+		// kill any alive soldiers for the disconnected team
+		SOLDIERTYPE *pTeamSoldier;
+		INT32				cnt = 0;
+
+		for ( pTeamSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; pTeamSoldier++, cnt++ )
+		{
+			if ( pTeamSoldier->bActive && pTeamSoldier->bInSector  && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
+			{
+				// Checkf for any more bacguys
+				if ( !pTeamSoldier->aiData.bNeutral && (pTeamSoldier->bTeam == iNetbTeam ) )
+				{
+					// KIll......
+					pTeamSoldier->SoldierTakeDamage( ANIM_CROUCH, pTeamSoldier->stats.bLife, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
+				}
+			}
+		}
+
+		// if it was that teams turn then end it
+		if(is_server)
+		{
+			if(gTacticalStatus.ubCurrentTeam==iNetbTeam)EndTurn( iNetbTeam+1 );	
+		}
+	}
+
+}
+
+void disconnected_callback(UINT8 ubResult)
+{
+	if (iDisconnectedScreen == MAP_SCREEN)
+	{
+		// clean up all resources and exit from map to main menu
+		RequestTriggerExitFromMapscreen(MAP_EXIT_TO_MAINMENU);
+		// game is restarted in HandleExitsFromMapScreen()
+	}
+	else if (iDisconnectedScreen == GAME_SCREEN)
+	{
+		// clean up all resources and exit from tactical to main menu
+		LeaveTacticalScreen(MAINMENU_SCREEN);
+	}
+	else if (iDisconnectedScreen == OPTIONS_SCREEN)
+	{
+		// Re-initialise the game
+		ReStartingGame();
+		// clean up all resources and exit from options to main menu
+		SetOptionsExitScreen( MAINMENU_SCREEN );
+	}
+	else if (iDisconnectedScreen == LAPTOP_SCREEN)
+	{
+		// Re-initialise the game
+		ReStartingGame();
+		// clean up all resources and exit from laptop to main menu
+		SetPendingNewScreen(MAINMENU_SCREEN); // Laptop screen is always cleaned up on screen change in gameloop
+	}
+	else
+	{
+		// Re-initialise the game
+		ReStartingGame();
+		// else dont clean "everything" but still exit to main menu
+		SetPendingNewScreen(MAINMENU_SCREEN);
+	}
+	
+}
+
+// Gracefully handle self-disconnection of the client by Dropout
+void HandleClientConnectionLost()
+{
+	if (guiCurrentScreen != MP_SCORE_SCREEN)
+	{
+		// cleanup client
+		client_disconnect();
+		auto_retry = false;
+
+		if (is_server)
+			server_disconnect();
+
+		// connection lost, let user know via popup then quit to main menu
+		iDisconnectedScreen = guiCurrentScreen;
+		SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
+
+		UINT32 giMPHMessageBox = DoMessageBox(	MSG_BOX_BASIC_STYLE,	(recieved_settings ? MPClientMessage[48] : MPClientMessage[55] ),	guiCurrentScreen, ( UINT16 ) ( MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT ),disconnected_callback,	&CenteringRect );
+
+	}
+
+	/*
+	// handle UI
+	if (guiCurrentScreen == MAP_SCREEN && !(gTacticalStatus.uiFlags & INCOMBAT))
+	{
+		// in the map screen and not in combat
+
+		
+		// refresh player list to remove from the game
+		fDrawCharacterList = true; // set the character list to be redrawn
+		fTeamPanelDirty = true; // redraw the background
+		// <TODO> can set connection retries here if desired
+
+	}
+	else if (guiCurrentScreen == GAME_SCREEN) // <TODO> get a more valid check that the game is in progress here
+	{
+		// connection lost, let user know via popup then quit to main menu
+		SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
+		UINT32 giMPHMessageBox = DoMessageBox(	MSG_BOX_BASIC_STYLE,	MPClientMessage[48],	MAINMENU_SCREEN, ( UINT16 ) ( MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT ),	NULL,	&CenteringRect );
+
+		if (is_networked)
+		{
+			// haydent
+			if (is_server)
+				server_disconnect();
+
+			client_disconnect();
+
+		}
+
+		//We want to reinitialize the game
+		ReStartingGame();
+	}*/
+}
 
 void sendRT(void)
 {
@@ -2614,6 +3195,16 @@ void teamwiped ( void )
 
 	client->RPC("sendWIPE",(const char*)&data, (int)sizeof(sc_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 
+	if (is_server)
+	{
+		// end the co-op game if all player teams have wiped
+		if (PLAYER_BSIDE==MP_TYPE_COOP)
+		{
+			iTeamsWiped++;
+			if (iTeamsWiped >= MAX_CLIENTS)
+				game_over();
+		}
+	}
 }
 
 void recieve_wipe (RPCParameters *rpcParameters)
@@ -2621,10 +3212,18 @@ void recieve_wipe (RPCParameters *rpcParameters)
 {
 	sc_struct* data = (sc_struct*)rpcParameters->input;
 	ScreenMsg( FONT_LTGREEN, MSG_INTERFACE, L"Team #%d is wiped out.", data->ubStartingTeam );
-if(is_server)
-{
-	if(gTacticalStatus.ubCurrentTeam==data->ubStartingTeam)EndTurn( data->ubStartingTeam+1 );	
-}
+	if(is_server)
+	{
+		if(gTacticalStatus.ubCurrentTeam==data->ubStartingTeam)EndTurn( data->ubStartingTeam+1 );	
+
+		// end the co-op game if all player teams have wiped
+		if (PLAYER_BSIDE==MP_TYPE_COOP)
+		{
+			iTeamsWiped++;
+			if (iTeamsWiped >= MAX_CLIENTS)
+				game_over();
+		}
+	}
 }
 
 void send_heal (SOLDIERTYPE *pSoldier )
@@ -2681,6 +3280,44 @@ void awardINT (RPCParameters *rpcParameters)
 
 }
 
+void game_over()
+{
+	// wait 3 seconds then notify all clients
+	is_game_over = true;
+	iScoreScreenTime = guiBaseJA2NoPauseClock + 5000;
+}
+
+// OJW - note: i dont use the internal timer callback for this because
+// death notices use it and i want all those to go through normally
+// so all clients have time to receive death notice of the last merc
+// which creates victory condition
+
+void send_gameover()
+{
+	// handle the user calling the wrong function first
+	if (!is_game_over)
+	{
+		game_over(); // start the event
+		return;
+	}
+
+	// stop the event from firing again
+	is_game_over = false;
+	iScoreScreenTime = 0;
+
+	// notify all the clients that the game is over
+	client->RPC("sendGAMEOVER",(const char*)&CLIENT_NUM, (int)sizeof(CLIENT_NUM)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+void recieveGAMEOVER(RPCParameters *rpcParameters)
+{
+	player_stats* data= (player_stats*)rpcParameters->input;
+	memcpy(gMPPlayerStats,data,sizeof(player_stats)*5);
+
+	// fire the score screen
+	StartScoreScreen();
+}
+
 
 //***************************
 //*** client connection*****
@@ -2715,6 +3352,9 @@ void connect_client ( void )
 			REGISTER_STATIC_RPC(client, recieveREADY);
 			REGISTER_STATIC_RPC(client, recieveGUI);
 			REGISTER_STATIC_RPC(client, recieveSETTINGS);
+			REGISTER_STATIC_RPC(client, recieveTEAMCHANGE);
+			REGISTER_STATIC_RPC(client, recieveEDGECHANGE);
+			REGISTER_STATIC_RPC(client, recieveMAPCHANGE);
 			REGISTER_STATIC_RPC(client, recieveBULLET);
 			REGISTER_STATIC_RPC(client, recieveSTATE);
 			REGISTER_STATIC_RPC(client, recieveDEATH);
@@ -2730,6 +3370,9 @@ void connect_client ( void )
 			REGISTER_STATIC_RPC(client, recieve_wipe);
 			REGISTER_STATIC_RPC(client, recieve_heal);
 				REGISTER_STATIC_RPC(client, awardINT);
+			REGISTER_STATIC_RPC(client, recieveGAMEOVER);
+			REGISTER_STATIC_RPC(client, recieveDISCONNECT);
+			REGISTER_STATIC_RPC(client, recieveCHATMSG);
 			//***
 			
 		if (b)
@@ -2763,9 +3406,18 @@ void connect_client ( void )
 			numready = 0;
 			readystage = 0;
 			status = 0;
+			is_game_started = false;
 			gTacticalStatus.uiFlags&= (~SHOW_ALL_MERCS );
 			memset( &readyteamreg , 0 , sizeof (int) * 10);
-
+			//OJW - 20081204
+			memset ( &client_names,NULL,sizeof(int)*4);
+			memset ( &client_ready,0,sizeof(int)*4);
+			memset ( &client_teams,0,sizeof(int)*4);
+			if (!RANDOM_SPAWN)
+				memset ( &client_edges,0,sizeof(int)*4);
+			if (RANDOM_MERCS)
+				memset (random_mercs,0,sizeof(int)*7);
+			memset( gMPPlayerStats,0,sizeof(player_stats)*5);
 
 
 			//retrieve settings from Ja2_mp.ini
@@ -2880,6 +3532,10 @@ void connect_client ( void )
 			ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[1],SERVER_IP);
 			client->Connect(SERVER_IP, atoi(SERVER_PORT), 0,0);
 			is_connecting=true;
+
+#if _DEBUG
+			MPDebugMsg( String ( "connect_client()\n" ) );
+#endif
 			
 		}
 	
@@ -2903,79 +3559,118 @@ void client_packet ( void )
 	if (is_client)
 	{
 
-	p = client->Receive();
+		p = client->Receive();
 
-	while(p)
-	{
-			//continue; // Didn't get any packets
-
-		// We got a packet, get the identifier with our handy function
-		packetIdentifier = GetPacketIdentifier(p);
-		//ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"packet recieved");
-		// Check if this is a network message packet
-		switch (packetIdentifier)
+		while(p)
 		{
-			case ID_DISCONNECTION_NOTIFICATION:
-				  // Connection lost normally
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_DISCONNECTION_NOTIFICATION");
-				is_connected=false;
-				break;
-			case ID_ALREADY_CONNECTED:
-				// Connection lost normally
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_ALREADY_CONNECTED");
-				break;
-			case ID_REMOTE_DISCONNECTION_NOTIFICATION: // Server telling the clients of another client disconnecting gracefully.  You can manually broadcast this in a peer to peer enviroment if you want.
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_REMOTE_DISCONNECTION_NOTIFICATION");
-				break;
-			case ID_REMOTE_CONNECTION_LOST: // Server telling the clients of another client disconnecting forcefully.  You can manually broadcast this in a peer to peer enviroment if you want.
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_REMOTE_CONNECTION_LOST");
-				break;
-			case ID_REMOTE_NEW_INCOMING_CONNECTION: // Server telling the clients of another client connecting.  You can manually broadcast this in a peer to peer enviroment if you want.
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_REMOTE_NEW_INCOMING_CONNECTION");
-				break;
-			case ID_CONNECTION_ATTEMPT_FAILED:
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_CONNECTION_ATTEMPT_FAILED");
-				is_connected=false;
-				is_connecting=false;
-				break;
-			case ID_NO_FREE_INCOMING_CONNECTIONS:
-				 // Sorry, the server is full.  I don't do anything here but
-				// A real app should tell the user
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_NO_FREE_INCOMING_CONNECTIONS");
-				break;
-			case ID_CONNECTION_LOST:
-				// Couldn't deliver a reliable packet - i.e. the other system was abnormally
-				// terminated
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_CONNECTION_LOST");
-				is_connected=false;
-				break;
-			case ID_CONNECTION_REQUEST_ACCEPTED:
-				// This tells the client they have connected
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_CONNECTION_REQUEST_ACCEPTED");
-				is_connected=true;
-				is_connecting=false;
-				requestSETTINGS();
-				//request_settings();//ask server for game settings...
-				break;
-				case ID_NEW_INCOMING_CONNECTION:
-				//tells server client has connected
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_NEW_INCOMING_CONNECTION");
-				break;
-			case ID_MODIFIED_PACKET:
-				// Cheater!
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_MODIFIED_PACKET");
-				break;
-			default:
-					
-					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"** a packet has been recieved for which i dont know what to do... **");
-				break;
+				//continue; // Didn't get any packets
+
+			// We got a packet, get the identifier with our handy function
+			packetIdentifier = GetPacketIdentifier(p);
+			//ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"packet recieved");
+			// Check if this is a network message packet
+			switch (packetIdentifier)
+			{
+				case ID_DISCONNECTION_NOTIFICATION:
+					  // Connection lost normally
+					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_DISCONNECTION_NOTIFICATION");
+					is_connected=false;
+					//OJW - 20081223
+					//Gracefully notify and disconnect the client
+					client->DeallocatePacket(p); // HandleClientConnectionLost shuts down the client
+					HandleClientConnectionLost();
+					//OJW - 2009
+					return;
+					break;
+				case ID_ALREADY_CONNECTED:
+					// Connection lost normally
+					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_ALREADY_CONNECTED");
+					break;
+				case ID_REMOTE_DISCONNECTION_NOTIFICATION: // Server telling the clients of another client disconnecting gracefully.  You can manually broadcast this in a peer to peer enviroment if you want.
+					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_REMOTE_DISCONNECTION_NOTIFICATION");
+					break;
+				case ID_REMOTE_CONNECTION_LOST: // Server telling the clients of another client disconnecting forcefully.  You can manually broadcast this in a peer to peer enviroment if you want.
+					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_REMOTE_CONNECTION_LOST");
+					break;
+				case ID_REMOTE_NEW_INCOMING_CONNECTION: // Server telling the clients of another client connecting.  You can manually broadcast this in a peer to peer enviroment if you want.
+					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_REMOTE_NEW_INCOMING_CONNECTION");
+					break;
+				case ID_CONNECTION_ATTEMPT_FAILED:
+					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_CONNECTION_ATTEMPT_FAILED");
+					is_connected=false;
+					is_connecting=false;
+
+					//OJW - 20081224
+					// handle auto retry
+					if (auto_retry && giNumTries > 0)
+						ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[49],giNumTries); // we already tried once, let the user know we are retrying
+					else
+						ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[50],giNumTries); // we already tried once, let the user know we are retrying
+					giNextRetryTime = guiBaseJA2NoPauseClock + 5000; // 5 seconds?
+					break;
+				case ID_NO_FREE_INCOMING_CONNECTIONS:
+					 // Sorry, the server is full.  I don't do anything here but
+					// A real app should tell the user
+					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_NO_FREE_INCOMING_CONNECTIONS");
+					break;
+				case ID_CONNECTION_LOST:
+					// Couldn't deliver a reliable packet - i.e. the other system was abnormally
+					// terminated
+					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_CONNECTION_LOST");
+					is_connected=false;
+					//OJW - 20081223
+					//Gracefully notify and disconnect the client
+					client->DeallocatePacket(p); // HandleClientConnectionLost shuts down the client
+					HandleClientConnectionLost();
+					return;
+					break;
+				case ID_CONNECTION_REQUEST_ACCEPTED:
+					// This tells the client they have connected
+					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_CONNECTION_REQUEST_ACCEPTED");
+					is_connected=true;
+					is_connecting=false;
+					requestSETTINGS();
+					//request_settings();//ask server for game settings...
+					break;
+					case ID_NEW_INCOMING_CONNECTION:
+					//tells server client has connected
+					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_NEW_INCOMING_CONNECTION");
+					break;
+				case ID_MODIFIED_PACKET:
+					// Cheater!
+					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_MODIFIED_PACKET");
+					break;
+				default:
+						
+						ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"** a packet has been recieved for which i dont know what to do... **");
+					break;
+			}
+
+
+			// We're done with the packet, get more :)
+			client->DeallocatePacket(p);
+			p = client->Receive();
 		}
 
+		// OJW - 20081223
+		if (is_game_over)
+		{
+			if (guiBaseJA2NoPauseClock >= iScoreScreenTime)
+			{
+				send_gameover();
+			}
+		}
 
-		// We're done with the packet, get more :)
-		client->DeallocatePacket(p);
-		p = client->Receive();
-	}
+		// OJW - 20090203
+		// Using the built in callback functions didnt work, so doing manually here
+		if (bClosingChatBoxToStartGame)
+		{
+			if (guiBaseJA2NoPauseClock >= iCCStartGameTime)
+			{
+				bClosingChatBoxToStartGame = false;
+				StartBattleChatBoxClosedCallback();
+			}
+		}
 	}
 }
 // Copied from Multiplayer.cpp
@@ -3007,14 +3702,127 @@ void client_disconnect (void)
 	
 	allowlaptop=false;
 
+	// clear local client cache
+	memset(client_names,0,sizeof(char)*4*30);
+	memset(client_edges,0,sizeof(int)*4);
+	memset(client_ready,0,sizeof(int)*4);
+	memset(client_teams,0,sizeof(int)*4);
+	memset(gMPPlayerStats,0,sizeof(player_stats)*5);
+	memset(random_mercs,0,sizeof(int)*7);
+
+
 			
 
 	// We're done with the network
 	RakNetworkFactory::DestroyRakPeerInterface(client);
 	ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"client disconnected and shutdown");
+
+#if _DEBUG
+	MPDebugMsg( "client_disconnect()\n" );
+#endif
 	}
 	else
 	{
 	ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"client is not running");
 	}
+}
+
+//OJW - 20081204 - send a starting edge change to all the clients
+void send_edgechange(int newedge)
+{
+	// <TODO> remove this godawful hack with a proper game status check
+	if (can_edgechange())
+	{
+		edgechange_struct lan;
+
+		lan.client_num = CLIENT_NUM;
+		lan.newedge = newedge;
+
+		client->RPC("sendEDGECHANGE",(const char*)&lan, (int)sizeof(edgechange_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+
+		// redraw the character list on the map screen
+		fDrawCharacterList = true;
+		fTeamPanelDirty = true;
+		client_edges[CLIENT_NUM-1] =newedge;
+		// store the setting locally
+		_itoa(newedge,SECT_EDGE,10);
+
+	}
+	else
+	{
+		ScreenMsg( FONT_LTBLUE, MSG_CHAT, gszMPMapscreenText[3]);
+	}
+}
+
+bool can_edgechange()
+{
+	return (is_game_started != 1 && client_ready[CLIENT_NUM-1] == 0 && !allowlaptop && !RANDOM_SPAWN);
+}
+
+//OJW - 20081204 - send a starting team change to all the clients
+void send_teamchange(int newteam)
+{
+	// <TODO> remove this godawful hack with a proper game status check
+	if (can_teamchange())
+	{
+		teamchange_struct lan;
+
+		lan.client_num = CLIENT_NUM;
+		lan.newteam = newteam;
+
+		client->RPC("sendTEAMCHANGE",(const char*)&lan, (int)sizeof(teamchange_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+
+		// redraw the character list on the map screen
+		fDrawCharacterList = true;
+		fTeamPanelDirty = true;
+		client_teams[lan.client_num-1] = lan.newteam;
+		TEAM = newteam;
+
+	}
+	else
+	{
+		ScreenMsg( FONT_LTBLUE, MSG_CHAT, gszMPMapscreenText[4]);
+	}
+}
+
+bool can_teamchange()
+{
+	return (is_game_started != 1 && client_ready[CLIENT_NUM-1] == 0 && !allowlaptop);
+}
+
+// 20081222 - OJW
+void StartScoreScreen( void )
+{
+	// pause game
+	
+	// set main screen as score screen
+	LeaveTacticalScreen( MP_SCORE_SCREEN );
+}
+
+void ChatCallback( UINT8 ubResult )
+{
+	if (ubResult == MSG_BOX_RETURN_OK && wcscmp(gszChatBoxInputString,L"") > 0)
+	{
+		chat_msg cmsg;
+		wchar_t szPlayerName[30];
+		memset(szPlayerName,0,30*sizeof(wchar_t));
+		mbstowcs( szPlayerName,CLIENT_NAME,30);
+
+		cmsg.bToAll = gbChatSendToAll;
+		if (PLAYER_BSIDE==1 && !cmsg.bToAll)
+			swprintf(cmsg.msg,MPClientMessage[56], szPlayerName, gszChatBoxInputString);
+		else
+			swprintf(cmsg.msg,MPClientMessage[52], szPlayerName, gszChatBoxInputString);
+		cmsg.client_num = CLIENT_NUM;
+
+		// notify all of the chat message
+		client->RPC("sendCHATMSG",(const char*)&cmsg, (int)sizeof(chat_msg)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+	}
+
+	memset(gszMsgBoxInputString,0,sizeof(gszMsgBoxInputString));
+}
+
+void OpenChatMsgBox( void )
+{
+	DoChatBox((guiCurrentScreen == GAME_SCREEN? true : false),gzMPChatboxText[1],guiCurrentScreen,ChatCallback,NULL);
 }

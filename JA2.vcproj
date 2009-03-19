@@ -1865,6 +1865,18 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\MPChatScreen.cpp">
+			</File>
+			<File
+				RelativePath=".\MPHostScreen.cpp">
+			</File>
+			<File
+				RelativePath=".\MPJoinScreen.cpp">
+			</File>
+			<File
+				RelativePath=".\MPScoreScreen.cpp">
+			</File>
+			<File
 				RelativePath="Options Screen.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -2284,6 +2296,18 @@
 			</File>
 			<File
 				RelativePath="MessageBoxScreen.h">
+			</File>
+			<File
+				RelativePath=".\MPChatScreen.h">
+			</File>
+			<File
+				RelativePath=".\MPHostScreen.h">
+			</File>
+			<File
+				RelativePath=".\MPJoinScreen.h">
+			</File>
+			<File
+				RelativePath=".\MPScoreScreen.h">
 			</File>
 			<File
 				RelativePath="Options Screen.h">

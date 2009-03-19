@@ -14,6 +14,7 @@
 
 void LiveMessage( CHAR8 *strMessage);
 
+void MPDebugMsg( CHAR8 *strMessage);
 
 #ifdef _ANIMSUBSYSTEM_DEBUG
 

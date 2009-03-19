@@ -67,3 +67,13 @@ void LiveMessage( CHAR8 *strMessage)
 		fclose(OutFile);
 	}
 }
+void MPDebugMsg( CHAR8 *strMessage)
+{
+	FILE		*OutFile;
+
+	if ((OutFile = fopen("MPDebug.txt", "a+t")) != NULL)
+	{ 
+	fprintf(OutFile, "%s\n", strMessage);
+		fclose(OutFile);
+	}
+}

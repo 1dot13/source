@@ -1025,6 +1025,11 @@ void ExitLaptop()
 		return;
 	}
 
+	if (gfEnterLapTop)
+	{
+		// we have already exited the laptop, its not currently initialised
+		return;
+	}
 	if ( DidGameJustStart() )
 	{
 	SetMusicMode( MUSIC_LAPTOP );

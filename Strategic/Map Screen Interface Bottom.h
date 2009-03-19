@@ -15,6 +15,8 @@ enum{
 	MAP_EXIT_TO_OPTIONS,
 	MAP_EXIT_TO_LOAD,
 	MAP_EXIT_TO_SAVE,
+	// OJW - 20090210 - clean resources on disconnect
+	MAP_EXIT_TO_MAINMENU
 };
 
 // there's no button for entering SAVE/LOAD screen directly...

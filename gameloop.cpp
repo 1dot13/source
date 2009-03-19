@@ -56,6 +56,7 @@ extern BOOLEAN gfTacticalPlacementGUIActive;
 extern BOOLEAN gfTacticalPlacementGUIDirty;
 extern BOOLEAN gfValidLocationsChanged;
 extern BOOLEAN	gfInMsgBox;
+extern BOOLEAN gfInChatBox; // OJW - 20090314 - new chatbox
 extern void InitSightRange(); //lal
 
 
@@ -152,7 +153,10 @@ BOOLEAN InitializeGame(void)
 	//InitGameOptions();
 
 	// preload mapscreen graphics
-	HandlePreloadOfMapGraphics( );
+	// OJW - Temporarily disabliing this as is_networked is not set up yet
+	// <TODO> see if there is a better place we can pre-load the gfx if nessesary
+	// or perhaps just reload the bits that will change
+	//HandlePreloadOfMapGraphics( );
 
 	guiCurrentScreen = INIT_SCREEN;
 
@@ -300,6 +304,11 @@ void GameLoop(void)
 		guiPendingScreen = MSG_BOX_SCREEN;
 	}
 
+	// OJW - 20090314 - new chatbox
+	if (gfInChatBox)
+	{
+		guiPendingScreen = MP_CHAT_SCREEN;
+	}
 	if ( guiPendingScreen != NO_PENDING_SCREEN )
 	{
 		// Based on active screen, deinit!
@@ -308,7 +317,7 @@ void GameLoop(void)
 			switch( guiCurrentScreen )
 			{
 			case MAP_SCREEN:
-				if( guiPendingScreen != MSG_BOX_SCREEN )
+				if( guiPendingScreen != MSG_BOX_SCREEN && guiPendingScreen != MP_CHAT_SCREEN )
 				{
 					EndMapScreen( FALSE );
 				}
@@ -411,7 +420,7 @@ extern UINT32 guiRainLoop;
 void HandleNewScreenChange( UINT32 uiNewScreen, UINT32 uiOldScreen )
 {
 	//if we are not going into the message box screen, and we didnt just come from it
-	if( ( uiNewScreen != MSG_BOX_SCREEN && uiOldScreen != MSG_BOX_SCREEN ) )
+	if( ( uiNewScreen != MSG_BOX_SCREEN && uiOldScreen != MSG_BOX_SCREEN && uiNewScreen != MP_CHAT_SCREEN && uiOldScreen != MP_CHAT_SCREEN ) )
 	{
 		//reset the help screen
 		NewScreenSoResetHelpScreen( );

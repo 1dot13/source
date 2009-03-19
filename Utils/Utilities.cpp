@@ -371,6 +371,7 @@ UINT32 gCheckFileMinSizes[] =
 	187000000,
 	236000000
 };
+#define NOCDCHECK
 
 #if defined( JA2TESTVERSION	) || defined( _DEBUG )
 	#define NOCDCHECK

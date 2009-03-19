@@ -2467,6 +2467,43 @@ BOOLEAN SpecifyButtonIcon( INT32 iButtonID, INT32 iVideoObjectID, UINT16 usVideo
 	return TRUE;
 }
 
+//OJW - 20081224
+BOOLEAN SpecifyButtonImage( INT32 iButtonID, UINT32 iButtonImageID)
+{
+	GUI_BUTTON *b;
+
+	Assert( iButtonID >= 0 );
+	Assert( iButtonID < MAX_BUTTONS );
+	b = ButtonList[ iButtonID ];
+	Assert( b );
+
+	// Is there a QuickButton image in the given image slot?
+	if(ButtonPictures[iButtonImageID].vobj == NULL)
+	{
+		DbgMessage(TOPIC_BUTTON_HANDLER,DBG_LEVEL_0,"QuickCreateButton: Invalid button image number");
+		return false;
+	}
+
+	b->ImageNum = iButtonImageID;
+
+	return TRUE;
+}
+
+BOOLEAN SpecifyButtonImage( GUI_BUTTON *b, UINT32 iButtonImageID)
+{
+	Assert( b );
+
+	// Is there a QuickButton image in the given image slot?
+	if(ButtonPictures[iButtonImageID].vobj == NULL)
+	{
+		DbgMessage(TOPIC_BUTTON_HANDLER,DBG_LEVEL_0,"QuickCreateButton: Invalid button image number");
+		return false;
+	}
+
+	b->ImageNum = iButtonImageID;
+
+	return TRUE;
+}
 void RemoveTextFromButton( INT32 iButtonID )
 {
 	GUI_BUTTON *b;

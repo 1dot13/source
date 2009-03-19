@@ -3803,6 +3803,60 @@ STR16	gzGIOScreenText[] =
 	L"POCZ¥TKOWE USTAWIENIA GRY (Only the server settings take effect)",
 };
 
+STR16	gzMPJScreenText[] =
+{
+	L"MULTIPLAYER",
+	L"Join",
+	L"Host",
+	L"Cancel",
+	L"Refresh",
+	L"Player Name",
+	L"Server IP",
+	L"Port",
+	L"Server Name",
+	L"# Plrs",
+	L"Version",
+	L"Game Type",
+	L"Ping",
+	L"You must enter a player name",
+	L"You must enter a valid server IP address.\n (eg 192.168.0.1)",
+	L"You must enter a valid Server Port between 1 and 65535"
+};
+
+STR16	gzMPHScreenText[] =
+{
+	L"HOST GAME",
+	L"Start",
+	L"Cancel",
+	L"Server Name",
+	L"Game Type",
+	L"Deathmatch",
+	L"Team Deathmatch",
+	L"Co-operative",
+	L"Max Players",
+	L"Squad Size",
+	L"Merc Selection",
+	L"Random Mercs",
+	L"Hired by Player",
+	L"Starting Balance",
+	L"Can Hire Same Merc",
+	L"Report Hired Mercs",
+	L"Allow Bobby Rays",
+	L"Randomise Starting Edge",
+	L"You must enter a server name",
+	L"Max Players must be between 2 and 4",
+	L"Squad size must be between 1 and 6",
+	L"Time of Day",
+	L"Time of Day must be a 24 hr time (HH:MM)\n\n eg. 13:30 = 1.30pm",
+	L"Starting Cash must be a valid dollar amount ( no cents )\n\n eg. 150000" ,
+	L"Damage Multiplier",
+	L"Damage Multiplier must be a number between 0 and 5",
+	L"Turn Timer Multiplier",
+	L"Turn Timer multiplier must be a number between 1 and 200",
+	L"Enable Civilians in CO-OP",
+	L"Use New Inventory (NIV)",
+};
+
 STR16 pDeliveryLocationStrings[] =
 {
 	L"Austin",			//Austin, Texas, USA	
@@ -4535,6 +4589,22 @@ STR16 MPClientMessage[] =
 	L"Zosta³eœ pokonany!",
 	L"Wspinanie wy³¹czone w MP",
 	L"Wynajêto '%s'",
+	// 45
+	L"You cant change the map once purchasing has commenced",
+	L"Map changed to '%s'",
+	L"Client '%s' disconnected, removing from game",
+	L"You were disconnected from the game, returning to the Main Menu",
+	L"Connection failed, Retrying in 5 seconds, %i retries left...",
+	//50
+	L"Connection failed, giving up...",
+	L"You cannot start the game until another player has connected",
+	L"%s : %s",
+	L"Send to All",
+	L"Allies only",
+	// 55
+	L"Cannot join game. This game has already started.",
+	L"%s (team): %s",
+	L"Client #%i - '%s'",
 };
 
 STR16 MPHelp[] =
@@ -4560,6 +4630,62 @@ STR16 MPHelp[] =
 	// 15
 	L"* Nie ustawiaj przeciwników w zasiêgu ich wzroku *",
 	L"'F1' - Wyœwietl 1. pomoc",
+};
+
+STR16 gszMPEdgesText[] =
+{
+	L"N",
+	L"S",
+	L"E",
+	L"W"
+};
+
+STR16 gszMPTeamNames[] =
+{
+	L"Foxtrot",
+	L"Bravo",
+	L"Delta",
+	L"Charlie"
+};
+
+STR16 gszMPMapscreenText[] =
+{
+	L"Game Type: ",
+	L"Players: ",
+	L"Mercs each: ",
+	L"You cannot change starting edge once Laptop is unlocked",
+	L"You cannot change teams once the Laptop is unlocked",
+	L"Random Mercs: ",
+	L"Y",
+	L"Difficulty:"
+};
+
+STR16 gzMPSScreenText[] =
+{
+	L"Scoreboard",
+	L"Continue",
+	L"Cancel",
+	L"Player",
+	L"Kills",
+	L"Deaths",
+	L"Queen's Army",
+	L"Hits",
+	L"Misses",
+	L"Accuracy",
+	L"Damage Dealt",
+	L"Damage Taken"
+};
+
+STR16 gzMPChatToggleText[] =
+{
+	L"Send to All",
+	L"Send to Allies only",
+};
+
+STR16 gzMPChatboxText[] =
+{
+	L"Multiplayer Chat",
+	L"Chat: press ENTER to send of ESC to cancel",
 };
 
 #endif //POLISH

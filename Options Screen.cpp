@@ -253,7 +253,6 @@ void			RenderOptionsScreen();
 void			ExitOptionsScreen();
 void			HandleOptionsScreen();
 void			GetOptionsScreenUserInput();
-void			SetOptionsExitScreen( UINT32 uiExitScreen );
 
 
 void			SoundFXSliderChangeCallBack( INT32 iNewValue );

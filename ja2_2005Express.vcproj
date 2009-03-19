@@ -66,7 +66,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStaticDebug.lib ws2_32.lib"
-				OutputFile="$(OutDir)\ja2_debug_2620_en.exe"
+				OutputFile="$(OutDir)\ja2_debug_2628_en.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -145,7 +145,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="$(OutDir)\ja2_release_2620_en.exe"
+				OutputFile="$(OutDir)\ja2_release_2628_en.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -425,6 +425,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MPChatScreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MPHostScreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MPJoinScreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MPScoreScreen.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Options Screen.cpp"
 				>
 			</File>
@@ -548,6 +564,22 @@
 			</File>
 			<File
 				RelativePath=".\MessageBoxScreen.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MPChatScreen.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MPHostScreen.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MPJoinScreen.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MPScoreScreen.h"
 				>
 			</File>
 			<File

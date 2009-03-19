@@ -388,6 +388,7 @@ void ExitMainMenu( )
 void InitDependingGameStyleOptions(BOOLEAN isNetworked)
 {
 	// Load the ja2_options.ini
+	FreeGameExternalOptions();
 	LoadGameExternalOptions();
 
 	ReStartingGame();
@@ -449,7 +450,8 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 					//if something didnt work, dont even know how to make error code...//hayden
 				}
 
-			SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
+			SetMainMenuExitScreen( MP_JOIN_SCREEN ); // OJW - 20081129
+			//SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
 		}
 		else if( gbHandledMainMenu == LOAD_GAME )
 		{

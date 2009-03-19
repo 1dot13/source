@@ -82,6 +82,7 @@ void CheckCustomizableTimer( void );
 
 //Don't modify this value
 extern UINT32	guiBaseJA2Clock;
+extern UINT32	guiBaseJA2NoPauseClock;
 extern CUSTOMIZABLE_TIMER_CALLBACK gpCustomizableTimerCallback;
 
 // MACROS

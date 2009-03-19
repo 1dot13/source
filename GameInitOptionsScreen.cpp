@@ -933,7 +933,7 @@ void BtnDifficultyTogglesCallback( GUI_BUTTON *btn, INT32 reason )
 			BOOLEAN fAnyChecked=FALSE;
 
 			//if none of the other boxes are checked, do not uncheck this box
-			for( cnt=0; cnt<NUM_GUN_OPTIONS; cnt++)
+			for( cnt=0; cnt<NUM_DIFF_SETTINGS; cnt++) // OJW - 20081129 - fixed a bug
 			{
 
 				if( ButtonList[ guiDifficultySettingsToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )

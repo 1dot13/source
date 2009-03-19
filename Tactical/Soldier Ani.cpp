@@ -3692,6 +3692,13 @@ BOOLEAN CheckForAndHandleSoldierDyingNotFromHit( SOLDIERTYPE *pSoldier )
 		// Increment	being attacked count
 		// pSoldier->bBeingAttackedCount++;
 
+		// OJW - Send bleeding death
+		if (is_networked)
+		{
+			if(pSoldier->bTeam==0) send_death(pSoldier);
+			else if(pSoldier->bTeam <6 && ((gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE) || (gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE)))send_death(pSoldier);
+			else if (pSoldier->bTeam < 6 && (is_server)) send_death(pSoldier);
+		}
 		if ( gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ] )
 		{
 			switch( pSoldier->usAnimState )

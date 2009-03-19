@@ -23,6 +23,8 @@ UINT32	OptionsScreenInit( void );
 
 void SetOptionsScreenToggleBoxes();
 void GetOptionsScreenToggleBoxes();
+// OJW - moved this here so can exit options screen on client disconnect
+void			SetOptionsExitScreen( UINT32 uiExitScreen );
 
 
 BOOLEAN		DoOptionsMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );

@@ -341,6 +341,37 @@ int SOLDIER_HAND_Y;
 //int CLOCK_X;
 //int CLOCK_Y;
 
+// OJW: MP POSITIONS
+int MP_BTN_Y;
+int MP_ROWSTART_Y;
+int MP_PLAYER_X;
+int MP_PLAYER_W;
+int MP_TEAM_X;
+int MP_TEAM_W;
+int MP_COMPASS_X;
+int MP_COMPASS_W;
+int MP_GAMEINFO_X;
+int MP_GAMEINFO_W;
+
+#define MAX_MP_BUTTONS	4
+
+INT   gMapMPButtonsX[ MAX_MP_BUTTONS ] = {5 , 84 , 130 , 154  };
+
+#define MP_BTN_STARTGAME	4
+#define MP_BTN_READY		3
+
+
+INT32 giMapMPButtonImage[ MAX_MP_BUTTONS+1 ] = { -1, -1, -1, -1 ,-1};
+INT32 giMapMPButton[ MAX_MP_BUTTONS ] = { -1, -1, -1, -1};
+
+// Compass Drowndown
+INT32 ghMPCompassBox;
+INT32 ghMPTeamBox;
+MOUSE_REGION gMPReadyButtonRegion;
+MOUSE_REGION gCompassMenuRegion[MAX_EDGES];
+MOUSE_REGION gTeamMenuRegion[MAX_MP_TEAMS];
+bool is_compass_box_open = false;
+bool is_team_box_open = false;
 
 #define RGB_WHITE				( FROMRGB( 255, 255, 255 ) )
 #define RGB_YELLOW			( FROMRGB( 255, 255,	0 ) )
@@ -825,6 +856,23 @@ void AddTeamPanelSortButtonsForMapScreen( void );
 void RemoveTeamPanelSortButtonsForMapScreen( void );
 void SortListOfMercsInTeamPanel( BOOLEAN fRetainSelectedMercs, BOOLEAN fReverse = FALSE );
 
+// OJW - buttons and boxes for MP interface
+void AddMPButtonsForMapScreen( void );
+void RemoveMPButtonsForMapScreen( void );
+void InitializeMPCoordinates( void );
+void CreateMPCompassBox( void );
+void DestroyMPCompassBox( void );
+void CreateMPTeamBox( void );
+void DestroyMPTeamBox( void );
+void MPReadyButtonCallback( GUI_BUTTON *btn, INT32 reason );
+void MPCompassChangeCallback( MOUSE_REGION * pReason, INT32 iReason);
+void CreateDestroyMouseRegionsForCompassBox();
+void CompassBoxMvtCallback ( MOUSE_REGION* pRegion, INT32 iReason);
+void CompassBoxBtnCallback ( MOUSE_REGION* pRegion, INT32 iReason);
+void MPTeamChangeCallback( MOUSE_REGION * pReason, INT32 iReason);
+void CreateDestroyMouseRegionsForTeamBox();
+void TeamBoxMvtCallback ( MOUSE_REGION* pRegion, INT32 iReason);
+void TeamBoxBtnCallback ( MOUSE_REGION* pRegion, INT32 iReason);
 
 // Rendering
 void RenderCharacterInfoBackground( void );
@@ -977,6 +1025,7 @@ void BltCharInvPanel();
 void DrawCharacterInfo(INT16 sCharNumber);
 void DisplayCharacterInfo( void );
 void UpDateStatusOfContractBox( void );
+void DrawMPPlayerList (); // OJW - 20081201
 
 // get which index in the mapscreen character list is this guy
 INT32 GetIndexForthis( SOLDIERTYPE *pSoldier );
@@ -1347,6 +1396,8 @@ BOOLEAN InitializeInvPanelCoordsOld()
 	//CLOCK_X						= (SCREEN_WIDTH - 86);
 	//CLOCK_Y						= (SCREEN_HEIGHT - 21);
 
+	//OJW - MP interface changes
+	InitializeMPCoordinates();
 	gSCamoXY.sX = INV_BODY_X;	gSCamoXY.sY = INV_BODY_Y;	// X, Y Location of Map screen's Camouflage region
 
 	return ( TRUE );
@@ -1667,7 +1718,39 @@ BOOLEAN InitializeInvPanelCoordsNew()
 
 	gSCamoXY.sX = INV_BODY_X;	gSCamoXY.sY = INV_BODY_Y;	// X, Y Location of Map screen's Camouflage region
 
+	//OJW - MP interface changes
+	InitializeMPCoordinates();
+
+
 	return ( TRUE );
+}
+void InitializeMPCoordinates()
+{
+	//OJW - MP interface changes
+	if (iResolution == 0)
+	{
+		MP_BTN_Y = 268;
+	}
+	else if (iResolution == 1)
+	{
+		MP_BTN_Y = 386;
+	}
+	else if (iResolution == 2)
+	{
+		MP_BTN_Y = 554;
+	}
+
+	MP_ROWSTART_Y = MP_BTN_Y + 21;
+	MP_PLAYER_X = 5;
+	MP_PLAYER_W = 75;
+	MP_TEAM_X = 84;
+	MP_TEAM_W = 40;
+	MP_COMPASS_X = 130;
+	MP_COMPASS_W = 19;
+	MP_GAMEINFO_X = 154;
+	MP_GAMEINFO_W = 81;
+
+	// End of MP interface changes
 }
 BOOLEAN InitializeInvPanelCoordsVehicle( )
 {
@@ -3666,6 +3749,9 @@ void DisplayCharacterList()
 		}
 	}
 
+	// draw multiplayer player list
+	if (is_networked && is_client)
+		DrawMPPlayerList();
 	HandleDisplayOfSelectedMercArrows( );
 	SetFontDestBuffer(FRAME_BUFFER ,0,0,SCREEN_WIDTH,SCREEN_HEIGHT,FALSE);
 
@@ -3677,6 +3763,487 @@ void DisplayCharacterList()
 	return;
 }
 
+// OJW - Added 081201
+// Draw Lan clients in the vehicle slots
+// <TODO> change the graphics, add more relevant info...
+// this is just a temp test
+void DrawMPPlayerList ()
+{
+	INT16 usX=0;
+	INT16 usY=0;
+
+	if (is_networked && is_client && is_connected)
+	{
+		wchar_t szPlayerName[30];
+		wchar_t szTeam[20];
+		wchar_t szCompass[2];
+		int row=0;
+		for(int i=0; i < 4; i++)
+		{
+			//if (i != CLIENT_NUM)
+			//{
+				if (client_names[i] != NULL)
+				{
+					if (client_ready[i]==1)
+					{
+						SetFontForeground( FONT_GREEN );
+					}
+					else
+					{
+						SetFontForeground( FONT_WHITE );
+					}
+
+					if (strcmp(client_names[i],"")!=0)
+					{
+						// valid player
+						memset(szPlayerName,0,30*sizeof(wchar_t));
+						mbstowcs( szPlayerName,client_names[i],30);
+						FindFontCenterCoordinates((short)MP_PLAYER_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_PLAYER_W, (short)Y_SIZE, szPlayerName, (long)MAP_SCREEN_FONT, &usX, &usY);
+						DrawString( (STR16)szPlayerName , usX,usY, MAP_SCREEN_FONT);
+
+						// <TODO> check for gametype here
+						//wcscpy(szTeam,L"N/A");
+						if (PLAYER_BSIDE==MP_TYPE_DEATHMATCH)
+							wcscpy(szTeam,L"N/A");
+						else
+							wcscpy(szTeam,gszMPTeamNames[client_teams[i]]);
+						FindFontCenterCoordinates((short)MP_TEAM_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_TEAM_W, (short)Y_SIZE, szTeam, (long)MAP_SCREEN_FONT, &usX, &usY);
+						DrawString( szTeam,usX,(short)usY, MAP_SCREEN_FONT);
+
+						wcscpy(szCompass,(RANDOM_SPAWN==1 ? L"?" : gszMPEdgesText[client_edges[i]]));
+						FindFontCenterCoordinates((short)MP_COMPASS_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_COMPASS_W, (short)Y_SIZE, szCompass, (long)MAP_SCREEN_FONT, &usX, &usY);
+						DrawString(szCompass , usX,(short)usY, MAP_SCREEN_FONT);
+
+						row++;
+					}
+
+				}
+
+			//}
+		}
+
+		// Draw the Server Info
+
+		// Server name
+		// <TODO> change this text to wrap
+		/*wchar_t szServerName[30];
+		memset(szServerName,0,30*sizeof(wchar_t));
+		mbstowcs( szServerName,SERVER_NAME,30);
+
+		SetFontForeground( FONT_YELLOW );
+		DrawString( L"Server Name:" , MP_GAMEINFO_X ,MP_ROWSTART_Y, MAP_SCREEN_FONT);
+		SetFontForeground( FONT_WHITE );
+		DrawString( (STR16)szServerName , MP_GAMEINFO_X ,MP_ROWSTART_Y+(1*Y_SIZE), MAP_SCREEN_FONT);*/
+
+		// Game Type
+		SetFontForeground( FONT_YELLOW );
+		DrawString( gszMPMapscreenText[0] , MP_GAMEINFO_X ,MP_ROWSTART_Y, MAP_SCREEN_FONT);
+		SetFontForeground( FONT_WHITE );
+
+		switch(PLAYER_BSIDE)
+		{
+		case MP_TYPE_DEATHMATCH:
+			DrawString( gzMPHScreenText[MPH_DEATHMATCH_TEXT] , MP_GAMEINFO_X ,MP_ROWSTART_Y+(1*Y_SIZE), MAP_SCREEN_FONT);
+			break;
+		case MP_TYPE_TEAMDEATMATCH:
+			DrawString( gzMPHScreenText[MPH_TEAMDM_TEXT] , MP_GAMEINFO_X ,MP_ROWSTART_Y+(1*Y_SIZE), MAP_SCREEN_FONT);
+			break;
+		case MP_TYPE_COOP:
+			DrawString( gzMPHScreenText[MPH_COOP_TEXT] , MP_GAMEINFO_X ,MP_ROWSTART_Y+(1*Y_SIZE), MAP_SCREEN_FONT);
+			break;
+		}
+
+		// Max Players
+		SetFontForeground( FONT_YELLOW );
+		DrawString( gszMPMapscreenText[1] , MP_GAMEINFO_X ,MP_ROWSTART_Y+(2*Y_SIZE), MAP_SCREEN_FONT);
+		SetFontForeground( FONT_WHITE );
+
+		wchar_t szMaxPlayers[10];
+		swprintf(szMaxPlayers,L"%i",MAX_CLIENTS);
+		DrawString( szMaxPlayers , MP_GAMEINFO_X + StringPixLength(gszMPMapscreenText[1],MAP_SCREEN_FONT),MP_ROWSTART_Y+(2*Y_SIZE), MAP_SCREEN_FONT);
+
+		// Number of Mercs
+		SetFontForeground( FONT_YELLOW );
+		DrawString( gszMPMapscreenText[2] , MP_GAMEINFO_X ,MP_ROWSTART_Y+(3*Y_SIZE), MAP_SCREEN_FONT);
+		SetFontForeground( FONT_WHITE );
+
+		wchar_t szSquadSize[10];
+		swprintf(szSquadSize,L"%i",MAX_MERCS);
+		DrawString( szSquadSize , MP_GAMEINFO_X + StringPixLength(gszMPMapscreenText[2],MAP_SCREEN_FONT),MP_ROWSTART_Y+(3*Y_SIZE), MAP_SCREEN_FONT);
+
+		if (RANDOM_MERCS)
+		{
+			// Random Mercs
+			SetFontForeground( FONT_YELLOW );
+			DrawString( gszMPMapscreenText[5] , MP_GAMEINFO_X ,MP_ROWSTART_Y+(4*Y_SIZE), MAP_SCREEN_FONT);
+			SetFontForeground( FONT_WHITE );
+			DrawString( gszMPMapscreenText[6] , MP_GAMEINFO_X + StringPixLength(gszMPMapscreenText[5],MAP_SCREEN_FONT),MP_ROWSTART_Y+(4*Y_SIZE), MAP_SCREEN_FONT);
+		}
+
+	}
+}
+void DestroyMPCompassBox( void )
+{
+	RemoveBox(ghMPCompassBox);
+	ghMPCompassBox = -1;
+}
+void CreateMPCompassBox( void )
+{
+ UINT32 hStringHandle;
+ UINT32 uiCounter;
+
+
+ // will create attribute pop up menu for mapscreen assignments
+	SGPPoint CompassPosition = { MP_COMPASS_X, MP_ROWSTART_Y };
+	SGPRect CompassDimensions = { 0,0, 100, 95};
+
+
+	// create basic box
+	CreatePopUpBox(&ghMPCompassBox, CompassDimensions, CompassPosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_CENTER_TEXT|POPUP_BOX_FLAG_RESIZE ));
+
+	// which buffer will box render to
+	SetBoxBuffer(ghMPCompassBox, FRAME_BUFFER);
+
+	// border type?
+	SetBorderType(ghMPCompassBox,guiPOPUPBORDERS);
+
+	// background texture
+	SetBackGroundSurface(ghMPCompassBox, guiPOPUPTEX);
+
+	// margin sizes
+	SetMargins(ghMPCompassBox, 6, 6, 4, 4 );
+
+	// space between lines
+	SetLineSpace(ghMPCompassBox, 2);
+
+	// set current box to this one
+	SetCurrentBox( ghMPCompassBox );
+
+	// add strings for box
+	for(uiCounter=0; uiCounter < MAX_EDGES; uiCounter++)
+	{
+
+		AddMonoString(&hStringHandle, gszMPEdgesText[uiCounter] );
+
+		// make sure it is unhighlighted
+		UnHighLightLine(hStringHandle);
+	}
+
+	// set font type
+	SetBoxFont(ghMPCompassBox, MAP_SCREEN_FONT);
+
+	// set highlight color
+	SetBoxHighLight(ghMPCompassBox, FONT_WHITE);
+
+	// unhighlighted color
+	SetBoxForeground(ghMPCompassBox, FONT_LTGREEN);
+
+	// background color
+	SetBoxBackground(ghMPCompassBox, FONT_BLACK);
+
+	// shaded color..for darkened text
+	SetBoxShade( ghMPCompassBox, FONT_GRAY7 );
+	SetBoxSecondaryShade( ghMPCompassBox, FONT_YELLOW );
+
+	// resize box to text
+	ResizeBoxToText( ghMPCompassBox );
+
+	//DetermineBoxPositions( );
+}
+void CreateDestroyMouseRegionsForCompassBox()
+{
+	INT32 iFontHeight = 0;
+	INT32 iBoxXPosition = 0;
+	INT32 iBoxYPosition = 0;
+	INT32 iCounter = 0;
+	SGPPoint pPosition;
+	INT32 iBoxWidth = 0;
+	SGPRect pDimensions;
+
+	if (!is_compass_box_open)
+	{
+
+		// grab height of font
+		iFontHeight = GetLineSpace( ghMPCompassBox ) + GetFontHeight( GetBoxFont( ghMPCompassBox ) );
+
+		// get x.y position of box
+		GetBoxPosition( ghMPCompassBox, &pPosition);
+
+		// grab box x and y position
+		iBoxXPosition = pPosition.iX;
+		iBoxYPosition = pPosition.iY;
+
+		// get dimensions..mostly for width
+		GetBoxSize( ghMPCompassBox, &pDimensions );
+
+		// get width
+		iBoxWidth = pDimensions.iRight;
+
+		SetCurrentBox( ghMPCompassBox );
+
+		// define regions
+		for( iCounter = 0; iCounter < MAX_EDGES; iCounter++ )
+		{
+			// add mouse region for each line of text..and set user data
+			MSYS_DefineRegion( &gCompassMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghMPCompassBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghMPCompassBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
+							MSYS_NO_CURSOR, CompassBoxMvtCallback, CompassBoxBtnCallback );
+
+			MSYS_SetRegionUserData( &gCompassMenuRegion[ iCounter ], 0, iCounter );
+		}
+	}
+	else
+	{
+		// destroy regions
+		for( iCounter = 0; iCounter < MAX_EDGES; iCounter++ )
+		{
+			// add mouse region for each line of text..and set user data
+			MSYS_RemoveRegion( &gCompassMenuRegion[ iCounter ] );
+		}
+	}
+}
+void CompassBoxMvtCallback ( MOUSE_REGION* pRegion, INT32 iReason)
+{
+	// mvt callback handler for assignment region
+	INT32 iValue = -1;
+
+	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
+	{
+		if( GetBoxShadeFlag( ghMPCompassBox, iValue ) == FALSE )
+		{
+			HighLightBoxLine( ghMPCompassBox, iValue );
+		}
+	}
+	else if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		// unhighlight all strings in box
+		UnHighLightBox( ghMPCompassBox );
+	}
+}
+void CompassBoxBtnCallback ( MOUSE_REGION* pRegion, INT32 iReason)
+{
+	INT32 iValue = -1;
+
+	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+
+	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		UnHighLightBox( ghMPCompassBox );
+
+		/*switch( iValue )
+		{
+		case MP_EDGE_NORTH:
+			break;
+		case MP_EDGE_SOUTH:
+			break;
+		case MP_EDGE_EAST:
+			break;
+		case MP_EDGE_WEST:
+			break;
+		}*/
+
+		// send edge change to all clients, if allowed :)
+		send_edgechange(iValue);
+
+
+		// close the box
+		CreateDestroyMouseRegionsForCompassBox();
+		HideBox(ghMPCompassBox);
+		is_compass_box_open = false;
+		fTeamPanelDirty = true;
+	}
+	else if( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP )
+	{
+		// close the box
+		CreateDestroyMouseRegionsForCompassBox();
+		HideBox(ghMPCompassBox);
+		is_compass_box_open = false;
+		fTeamPanelDirty = true;
+	}
+}
+void DestroyMPTeamBox( void )
+{
+	RemoveBox(ghMPTeamBox);
+	ghMPTeamBox = -1;
+}
+void CreateMPTeamBox( void )
+{
+ UINT32 hStringHandle;
+ UINT32 uiCounter;
+
+
+ // will create attribute pop up menu for mapscreen assignments
+	SGPPoint TeamPosition = { MP_TEAM_X, MP_ROWSTART_Y };
+	SGPRect TeamDimensions = { 0,0, 100, 95};
+
+
+	// create basic box
+	CreatePopUpBox(&ghMPTeamBox, TeamDimensions, TeamPosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_CENTER_TEXT|POPUP_BOX_FLAG_RESIZE ));
+
+	// which buffer will box render to
+	SetBoxBuffer(ghMPTeamBox, FRAME_BUFFER);
+
+	// border type?
+	SetBorderType(ghMPTeamBox,guiPOPUPBORDERS);
+
+	// background texture
+	SetBackGroundSurface(ghMPTeamBox, guiPOPUPTEX);
+
+	// margin sizes
+	SetMargins(ghMPTeamBox, 6, 6, 4, 4 );
+
+	// space between lines
+	SetLineSpace(ghMPTeamBox, 2);
+
+	// set current box to this one
+	SetCurrentBox( ghMPTeamBox );
+
+	// add strings for box
+	for(uiCounter=0; uiCounter < MAX_MP_TEAMS; uiCounter++)
+	{
+
+		AddMonoString(&hStringHandle, gszMPTeamNames[uiCounter] );
+
+		// make sure it is unhighlighted
+		UnHighLightLine(hStringHandle);
+	}
+
+	// set font type
+	SetBoxFont(ghMPTeamBox, MAP_SCREEN_FONT);
+
+	// set highlight color
+	SetBoxHighLight(ghMPTeamBox, FONT_WHITE);
+
+	// unhighlighted color
+	SetBoxForeground(ghMPTeamBox, FONT_LTGREEN);
+
+	// background color
+	SetBoxBackground(ghMPTeamBox, FONT_BLACK);
+
+	// shaded color..for darkened text
+	SetBoxShade( ghMPTeamBox, FONT_GRAY7 );
+	SetBoxSecondaryShade( ghMPTeamBox, FONT_YELLOW );
+
+	// resize box to text
+	ResizeBoxToText( ghMPTeamBox );
+
+	//DetermineBoxPositions( );
+}
+void CreateDestroyMouseRegionsForTeamBox()
+{
+	INT32 iFontHeight = 0;
+	INT32 iBoxXPosition = 0;
+	INT32 iBoxYPosition = 0;
+	INT32 iCounter = 0;
+	SGPPoint pPosition;
+	INT32 iBoxWidth = 0;
+	SGPRect pDimensions;
+
+	if (!is_team_box_open)
+	{
+
+		// grab height of font
+		iFontHeight = GetLineSpace( ghMPTeamBox ) + GetFontHeight( GetBoxFont( ghMPTeamBox ) );
+
+		// get x.y position of box
+		GetBoxPosition( ghMPTeamBox, &pPosition);
+
+		// grab box x and y position
+		iBoxXPosition = pPosition.iX;
+		iBoxYPosition = pPosition.iY;
+
+		// get dimensions..mostly for width
+		GetBoxSize( ghMPTeamBox, &pDimensions );
+
+		// get width
+		iBoxWidth = pDimensions.iRight;
+
+		SetCurrentBox( ghMPTeamBox );
+
+		// define regions
+		for( iCounter = 0; iCounter < MAX_EDGES; iCounter++ )
+		{
+			// add mouse region for each line of text..and set user data
+			MSYS_DefineRegion( &gTeamMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghMPTeamBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghMPTeamBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
+							MSYS_NO_CURSOR, TeamBoxMvtCallback, TeamBoxBtnCallback );
+
+			MSYS_SetRegionUserData( &gTeamMenuRegion[ iCounter ], 0, iCounter );
+		}
+	}
+	else
+	{
+		// destroy regions
+		for( iCounter = 0; iCounter < MAX_MP_TEAMS; iCounter++ )
+		{
+			// add mouse region for each line of text..and set user data
+			MSYS_RemoveRegion( &gTeamMenuRegion[ iCounter ] );
+		}
+	}
+}
+void TeamBoxMvtCallback ( MOUSE_REGION* pRegion, INT32 iReason)
+{
+	// mvt callback handler for assignment region
+	INT32 iValue = -1;
+
+	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
+	{
+		if( GetBoxShadeFlag( ghMPTeamBox, iValue ) == FALSE )
+		{
+			HighLightBoxLine( ghMPTeamBox, iValue );
+		}
+	}
+	else if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		// unhighlight all strings in box
+		UnHighLightBox( ghMPTeamBox );
+	}
+}
+void TeamBoxBtnCallback ( MOUSE_REGION* pRegion, INT32 iReason)
+{
+	INT32 iValue = -1;
+
+	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+
+	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		UnHighLightBox( ghMPTeamBox );
+
+		/*switch( iValue )
+		{
+		case MP_EDGE_NORTH:
+			break;
+		case MP_EDGE_SOUTH:
+			break;
+		case MP_EDGE_EAST:
+			break;
+		case MP_EDGE_WEST:
+			break;
+		}*/
+
+		// send team change to all clients, if allowed :)
+		send_teamchange(iValue);
+
+
+		// close the box
+		CreateDestroyMouseRegionsForTeamBox();
+		HideBox(ghMPTeamBox);
+		is_team_box_open = false;
+		fTeamPanelDirty = true;
+	}
+	else if( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP )
+	{
+		// close the box
+		CreateDestroyMouseRegionsForTeamBox();
+		HideBox(ghMPTeamBox);
+		is_team_box_open = false;
+		fTeamPanelDirty = true;
+	}
+}
 
 
 // THIS IS STUFF THAT RUNS *ONCE* DURING APPLICATION EXECUTION, AT INITIAL STARTUP
@@ -3716,6 +4283,12 @@ UINT32 MapScreenShutdown(void)
 	// destroy some popup boxes
 	fShowAssignmentMenu = FALSE;
 	CreateDestroyAssignmentPopUpBoxes( );
+	// OJW
+	if (is_networked)
+	{
+		DestroyMPCompassBox();
+		DestroyMPTeamBox();
+	}
 
 	fShowContractMenu = FALSE;
 	DetermineIfContractMenuCanBeShown( );
@@ -3827,6 +4400,9 @@ UINT32 MapScreenHandle(void)
 		// handle the sort buttons
 		AddTeamPanelSortButtonsForMapScreen( );
 
+		// OJW - 20081204
+		if (is_networked)
+			AddMPButtonsForMapScreen();
 		// load bottom graphics
 		LoadMapScreenInterfaceBottom( );
 
@@ -3917,17 +4493,36 @@ UINT32 MapScreenHandle(void)
 		CHECKF(AddVideoSurface( &vs_desc, &guiCHARLIST ));*/
 
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		if (iResolution == 0)
+		if (!is_networked)
 		{
-				FilenameForBPP("INTERFACE\\newgoldpiece3.sti", VObjectDesc.ImageFile );
+			if (iResolution == 0)
+			{
+					FilenameForBPP("INTERFACE\\newgoldpiece3.sti", VObjectDesc.ImageFile );
+			}
+			else if (iResolution == 1)
+			{
+					FilenameForBPP("INTERFACE\\newgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
+			}
+			else if (iResolution == 2)
+			{
+				FilenameForBPP("INTERFACE\\newgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
+			}
 		}
-		else if (iResolution == 1)
+		else
 		{
-				FilenameForBPP("INTERFACE\\newgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
-		}
-		else if (iResolution == 2)
-		{
-			FilenameForBPP("INTERFACE\\newgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
+			// OJW - 20081204 - change mapscreen interface for MP games
+			if (iResolution == 0)
+			{
+					FilenameForBPP("INTERFACE\\mpgoldpiece3.sti", VObjectDesc.ImageFile );
+			}
+			else if (iResolution == 1)
+			{
+					FilenameForBPP("INTERFACE\\mpgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
+			}
+			else if (iResolution == 2)
+			{
+				FilenameForBPP("INTERFACE\\mpgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
+			}
 		}
 		CHECKF(AddVideoObject(&VObjectDesc, &guiCHARLIST));
 
@@ -4200,6 +4795,12 @@ UINT32 MapScreenHandle(void)
 		CreateDestroyAssignmentPopUpBoxes( );
 		fShowAssignmentMenu = FALSE;
 
+		// OJW
+		if (is_networked)
+		{
+			CreateMPCompassBox();
+			CreateMPTeamBox();
+		}
 
 		// create merc remove box
 		CreateMercRemoveAssignBox( );
@@ -4305,6 +4906,25 @@ UINT32 MapScreenHandle(void)
 	// don't process any input until we've been through here once
 	if( gfFirstMapscreenFrame == FALSE )
 	{
+		// OJW - 20081129
+		// Auto-start server or join server
+		if (is_networked)
+		{
+			// this function does nothing if
+			// already connected
+			NetworkAutoStart();
+
+			// handle changing picture on start game button
+			// for server
+			if (is_server)
+			{
+				if (allowlaptop && ButtonList [ giMapMPButton[3] ]->ImageNum == giMapMPButtonImage [4])
+				{
+					// Change server's button to "ready"
+					SpecifyButtonImage( giMapMPButton [3] , giMapMPButtonImage [3] );
+				}
+			}
+		}
 		// Handle Interface
 		uiNewScreen = HandleMapUI( );
 		if ( uiNewScreen != MAP_SCREEN )
@@ -5499,7 +6119,13 @@ UINT32 HandleMapUI( )
 
 							// added by haydent
 							if (is_networked)
+							{
 								ChangeSelectedMapSector( sMapX, sMapY, ( INT8 )iCurrentMapSectorZ );
+								// <TODO> OJW - 20081201 - change this state away from allowlaptop to its own field
+								// or something more seperate from that concept
+								if (is_server && !allowlaptop)
+									send_mapchange();
+							}
 						}
 						else
 						{
@@ -6097,53 +6723,55 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 
 
 					// ROMAN:0 multiplayer: Maybe we need to change the keys, because they are bound to other functions
+					// OJW - 20090210 - disabling the old method's for starting server and disconnecting
+					// as they are no longer needed
 				case '1':
 					{
-						if (is_networked)
+						/*if (is_networked)
 						{
 							// haydent
 							start_server();
 							break;
-						}
+						}*/
 					}
 				case '2':
 					{
-						if (is_networked)
+						/*if (is_networked)
 						{
 							// haydent
 							connect_client();
 							break;
-						}
+						}*/
 					}
 				case '3':
 					{
-						if (is_networked)
+						/*if (is_networked)
 						{
 							// haydent
 							start_battle();
 							break;
-						}
+						}*/
 					}
 				case '4':
 					{
-						if (is_networked)
+						/*if (is_networked)
 						{
 							// haydent
 							server_disconnect();
 							client_disconnect();
 							break;
-						}
+						}*/
 					}
 				case '5':
 				case '6':
 				case '7':
 					// WANNE: Only show the override panel when '7' is pressed
-					if (is_networked && InputEvent.usParam == '7')
+					/*if (is_networked && InputEvent.usParam == '7')
 					{
 						// haydent
 						manual_overide();
 						break;
-					}
+					}*/
 				case '8':
 				case '9':
 					// multi-selects all characters in that squad.	SHIFT key and 1-0 for squads 11-20
@@ -6818,6 +7446,15 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							fSAMSitesDisabledFromAttackingPlayer = !fSAMSitesDisabledFromAttackingPlayer;
 						#endif
 					}
+					// OJW - 20090208
+					// Adding ingame chat
+					else
+					{
+						if (is_networked && is_client)
+						{
+							OpenChatMsgBox();
+						}
+					}
 					break;
 
 				case 'z':
@@ -6931,6 +7568,9 @@ void EndMapScreen( BOOLEAN fDuringFade )
 	// remove team panel sort button
 	RemoveTeamPanelSortButtonsForMapScreen( );
 
+	// OJW - 20081204
+	if (is_networked)
+		RemoveMPButtonsForMapScreen( );
 	// for th merc insurance help text
 	CreateDestroyInsuranceMouseRegionForMercs( FALSE );
 
@@ -6963,6 +7603,12 @@ void EndMapScreen( BOOLEAN fDuringFade )
 	// remove contract pop up box (always created upon mapscreen entry)
 	RemoveBox(ghContractBox);
 	ghContractBox = -1;
+	// OJW
+	if (is_networked)
+	{
+		DestroyMPCompassBox();
+		DestroyMPTeamBox();
+	}
 
 	CreateDestroyAssignmentPopUpBoxes( );
 	CreateDestroyMilitiaControlPopUpBoxes( ); //lal
@@ -7949,6 +8595,14 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 	UINT16	usOldItemIndex, usNewItemIndex;
 	static BOOLEAN	fRightDown = FALSE;
 
+	// OJW - 20090319 - fix merging bug on mapscreen
+	// If you left click a merge item such as EBR stock, then left click it on the item to merge, such as M-14...
+	// instead of right clicking (which is the correct action to merge)
+	// it will open an ItemDescriptionPanel, but then after that call PlaceObject, which performs a swap
+	// and overwites the gpItemDescObject pointer. Hence when the ItemDescriptionPanel is deleted
+	// it no longer references the right object, and does not necessarily free up all resources
+	// creating an error the next time it is called
+	bool bJustOpenedItemDescPanel = false;
 
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
@@ -8076,6 +8730,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 					// TOO PAINFUL TO DO!! --CC
 					if ( !InItemDescriptionBox( ) )
 					{
+						bJustOpenedItemDescPanel = true; // OJW - 20090319 - fix merging on mapscreen - see top of function
 						MAPInternalInitItemDescriptionBox( &(pSoldier->inv[ uiHandPos ]), 0, pSoldier );
 					}
 
@@ -8110,6 +8765,8 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 			}
 
 			// Else, try to place here
+			if ( !bJustOpenedItemDescPanel ) // OJW - 20090319 - fix merging on mapscreen - see top of function
+			{
 			if ( PlaceObject( pSoldier, (UINT8)uiHandPos, gpItemPointer ) )
 			{
 
@@ -8153,6 +8810,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_ITEM_PASSED_TO_MERC ], ShortItemNames[ usNewItemIndex ], pSoldier->name );
 				}
 
+				}
 			}
 		}
 	}
@@ -8656,7 +9314,12 @@ void CreateMouseRegionsForTeamList( void )
 
 	// the info region...is the background for the list itself
 
-	for( sCounter = 0; sCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; sCounter++ )
+	// OJW - MP
+	int max_rows = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+	if (is_networked)
+		max_rows = 7; // <TODO> check this value is correct / unhardcode it
+
+	for( sCounter = 0; sCounter < max_rows; sCounter++ )
 	{
 		if( sCounter >= FIRST_VEHICLE )
 		{
@@ -8758,6 +9421,157 @@ void DestroyMouseRegionsForTeamList( void )
 		MSYS_RemoveRegion( &gTeamListContractRegion[ sCounter ]);
 	}
 }
+void MPReadyButtonCallback( GUI_BUTTON *btn, INT32 reason )
+{
+	int iIndex = MSYS_GetBtnUserData(btn,0);
+	if (iIndex >= 1 || iIndex <= 4)
+	{
+		if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+		{
+			btn->uiFlags|=(BUTTON_CLICKED_ON);			
+		}
+		else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+		{
+			if (btn->uiFlags & BUTTON_CLICKED_ON)
+			{
+				btn->uiFlags &= ~(BUTTON_CLICKED_ON);
+
+				if (iIndex == 3 || iIndex == 4)
+				{
+					// ready / start button was clicked
+					if (is_networked)
+					{
+						start_battle();
+					}
+				}
+				else if (iIndex == 2)
+				{
+					// compass button clicked
+					if (!is_compass_box_open)
+					{
+						if (can_edgechange())
+						{
+							// open the box
+							CreateDestroyMouseRegionsForCompassBox();
+							ShowBox(ghMPCompassBox);
+							is_compass_box_open = true;
+						}
+						else if (allowlaptop)
+						{
+							// warn the user that cannot change once buying has commenced
+							ScreenMsg( FONT_LTBLUE, MSG_CHAT, gszMPMapscreenText[3]);
+						}
+					}
+					else
+					{
+						// close the box
+						CreateDestroyMouseRegionsForCompassBox();
+						HideBox(ghMPCompassBox);
+						is_compass_box_open = false;
+						fTeamPanelDirty = true;
+					}
+
+				}
+				else if (iIndex == 1)
+				{
+					// team button clicked
+					if (!is_team_box_open)
+					{
+						if (can_teamchange())
+						{
+							// open the box
+							CreateDestroyMouseRegionsForTeamBox();
+							ShowBox(ghMPTeamBox);
+							is_team_box_open = true;
+						}
+						else if (allowlaptop)
+						{
+							// warn the user that cannot change once buying has commenced
+							ScreenMsg( FONT_LTBLUE, MSG_CHAT, gszMPMapscreenText[4]);
+						}
+						else if (RANDOM_SPAWN)
+						{
+							ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"Cannot change edge, the game is set to random spawn");
+						}
+					}
+					else
+					{
+						// close the box
+						CreateDestroyMouseRegionsForTeamBox();
+						HideBox(ghMPTeamBox);
+						is_team_box_open = false;
+						fTeamPanelDirty = true;
+					}
+				}
+			}
+		}
+	}
+	InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+}
+void MPCompassChangeCallback( MOUSE_REGION * pReason, INT32 iReason)
+{
+	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		if (!is_compass_box_open)
+		{
+			if (can_edgechange())
+			{
+				// open the box
+				CreateDestroyMouseRegionsForCompassBox();
+				ShowBox(ghMPCompassBox);
+				is_compass_box_open = true;
+			}
+			else if (allowlaptop)
+			{
+				// warn the user that cannot change once buying has commenced
+				ScreenMsg( FONT_LTBLUE, MSG_CHAT, gszMPMapscreenText[3]);
+			}
+		}
+		else
+		{
+			// close the box
+			CreateDestroyMouseRegionsForCompassBox();
+			HideBox(ghMPCompassBox);
+			is_compass_box_open = false;
+			fTeamPanelDirty = true;
+		}
+	}
+}
+void MPTeamChangeCallback( MOUSE_REGION * pReason, INT32 iReason)
+{
+	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		if (!is_team_box_open)
+		{
+			if (can_teamchange())
+			{
+				// open the box
+				CreateDestroyMouseRegionsForTeamBox();
+				ShowBox(ghMPTeamBox);
+				is_team_box_open = true;
+			}
+			else if (allowlaptop)
+			{
+				// warn the user that cannot change once buying has commenced
+				ScreenMsg( FONT_LTBLUE, MSG_CHAT, gszMPMapscreenText[4]);
+			}
+			else if (RANDOM_SPAWN)
+			{
+				ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"Cannot change edge, the game is set to random spawn");
+			}
+		}
+		else
+		{
+			// close the box
+			CreateDestroyMouseRegionsForTeamBox();
+			HideBox(ghMPTeamBox);
+			is_team_box_open = false;
+			fTeamPanelDirty = true;
+		}
+	}
+}
+
+// OJW - End MP Mouse Regions and Callbacks
 
 
 // mask for mapscreen region
@@ -10992,6 +11806,14 @@ void UpdateStatusOfMapSortButtons( void )
 			{
 				HideButton( giMapSortButton[ iCounter ] );
 			}
+			// OJW - 20090210 - hide MP buttons here
+			if (is_networked)
+			{
+				for( iCounter = 0; iCounter < MAX_MP_BUTTONS; iCounter++ )
+				{
+					HideButton( giMapMPButton[ iCounter ] );
+				}
+			}
 			if ( gfPreBattleInterfaceActive )
 			{
 				HideButton( giCharInfoButton[ 0 ] );
@@ -11010,6 +11832,14 @@ void UpdateStatusOfMapSortButtons( void )
 				ShowButton( giMapSortButton[ iCounter ] );
 			}
 
+			// OJW - 20090210 - show MP buttons here
+			if (is_networked)
+			{
+				for( iCounter = 0; iCounter < MAX_MP_BUTTONS; iCounter++ )
+				{
+					ShowButton( giMapMPButton[ iCounter ] );
+				}
+			}
 			ShowButton( giCharInfoButton[ 0 ] );
 			ShowButton( giCharInfoButton[ 1 ] );
 
@@ -11456,17 +12286,36 @@ BOOLEAN HandlePreloadOfMapGraphics( void )
 	CHECKF(AddVideoSurface( &vs_desc, &guiCHARLIST ));*/
 
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	if (iResolution == 0)
+	if (!is_networked)
 	{
-		FilenameForBPP("INTERFACE\\newgoldpiece3.sti", VObjectDesc.ImageFile );
+		if (iResolution == 0)
+		{
+				FilenameForBPP("INTERFACE\\newgoldpiece3.sti", VObjectDesc.ImageFile );
+		}
+		else if (iResolution == 1)
+		{
+				FilenameForBPP("INTERFACE\\newgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
+		}
+		else if (iResolution == 2)
+		{
+			FilenameForBPP("INTERFACE\\newgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
+		}
 	}
-	else if (iResolution == 1)
+	else
 	{
-		FilenameForBPP("INTERFACE\\newgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
-	}
-	else if (iResolution == 2)
-	{
-		FilenameForBPP("INTERFACE\\newgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
+		// OJW - 20081204 - change mapscreen interface for MP games
+		if (iResolution == 0)
+		{
+				FilenameForBPP("INTERFACE\\mpgoldpiece3.sti", VObjectDesc.ImageFile );
+		}
+		else if (iResolution == 1)
+		{
+				FilenameForBPP("INTERFACE\\mpgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
+		}
+		else if (iResolution == 2)
+		{
+			FilenameForBPP("INTERFACE\\mpgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
+		}
 	}
 	CHECKF(AddVideoObject(&VObjectDesc, &guiCHARLIST));
 
@@ -12089,8 +12938,41 @@ void AddTeamPanelSortButtonsForMapScreen( void )
 	return;
 }
 
+void AddMPButtonsForMapScreen( void )
+{
+	INT32 iCounter = 0;
+	//SGPFILENAME filename;
+	INT32 iImageIndex[ MAX_MP_BUTTONS+1 ] = { 0, 1, 3, 5 , 7 };		// sleep image is out or order (last)
+	INT32 iPressedIndex[ MAX_MP_BUTTONS+1 ] = { 0 , 2 , 4 , 6 , 8 };
 
+	// <TODO> add start game button and hide it...
 
+	for( iCounter = 0; iCounter < MAX_MP_BUTTONS+1; iCounter++ )
+	{
+		giMapMPButtonImage[ iCounter ] = LoadButtonImage( "INTERFACE\\MPGOLDPIECEBUTTONS.STI", -1, iImageIndex[ iCounter ] , -1, iPressedIndex[ iCounter ] , -1 );
+
+		if (iCounter < MAX_MP_BUTTONS)
+		{
+			// buttonmake
+			giMapMPButton[ iCounter ]= QuickCreateButton( giMapMPButtonImage[ iCounter ], ( INT16 )( gMapMPButtonsX[ iCounter ] ), ( INT16 )( MP_BTN_Y ),
+											BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 5,
+											(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)MPReadyButtonCallback );
+
+			// so we can tell which button was clicked
+			MSYS_SetBtnUserData(giMapMPButton[ iCounter ], 0, iCounter );
+		}
+
+		//SetButtonFastHelpText( giMapSortButton[ iCounter ], wMapScreenSortButtonHelpText[ iCounter ] );
+	}
+
+	if ((is_server || is_host) && !allowlaptop)
+	{
+		// Server has 'Start game' button showing first if the game hasnt started
+		SpecifyButtonImage( giMapMPButton [3] , giMapMPButtonImage [4] );
+	}
+
+	return;
+}
 void SortListOfMercsInTeamPanel( BOOLEAN fRetainSelectedMercs, BOOLEAN fReverse )
 {
 	INT32 iCounter = 0, iCounterA = 0;
@@ -12428,6 +13310,22 @@ void RemoveTeamPanelSortButtonsForMapScreen( void )
 	return;
 }
 
+void RemoveMPButtonsForMapScreen( void )
+{
+	INT32 iCounter = 0;
+
+	for( iCounter = 0; iCounter < MAX_MP_BUTTONS+1; iCounter++ )
+	{
+		UnloadButtonImage( giMapMPButtonImage[ iCounter ] );
+
+		if(iCounter < MAX_MP_BUTTONS)
+			RemoveButton( giMapMPButton[ iCounter ] );
+
+		giMapMPButtonImage[ iCounter ] = -1;
+		giMapMPButton[ iCounter ] = -1;
+	}
+	return;
+}
 
 void HandleCommonGlowTimer( )
 {
@@ -13661,7 +14559,8 @@ BOOLEAN CanMoveBullseyeAndClickedOnIt( INT16 sMapX, INT16 sMapY )
 		if (is_networked)
 		{
 			// haydent
-			if (!is_server && !is_client)
+			// OJW 080101 - allow map change before laptop unlock
+			if ((!is_server && !is_client) || (is_server && !allowlaptop))
 			{
 				// if he clicked on the bullseye, and we're on the surface level
 				if ( ( sMapX == gsMercArriveSectorX ) && ( sMapY == gsMercArriveSectorY ) && ( iCurrentMapSectorZ == 0 ) )

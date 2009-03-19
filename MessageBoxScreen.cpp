@@ -23,6 +23,7 @@
 	#include "cursor control.h"
 	#include "laptop.h"
 	#include "text.h"
+	#include "Text Input.h"
 	#include "overhead map.h"
 #endif
 
@@ -49,6 +50,8 @@ BOOLEAN	gfInMsgBox = FALSE;
 extern BOOLEAN fInMapMode;
 extern BOOLEAN gfOverheadMapDirty;
 
+//OJW - 20090208
+CHAR16 gszMsgBoxInputString[255];
 
 void		OKMsgBoxCallback(GUI_BUTTON *btn, INT32 reason );
 void		YESMsgBoxCallback(GUI_BUTTON *btn, INT32 reason );
@@ -349,6 +352,51 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 		ForceButtonUnDirty( gMsgBox.uiButton[2] );
 		ForceButtonUnDirty( gMsgBox.uiButton[1] );
 		ForceButtonUnDirty( gMsgBox.uiButton[0] );
+
+	}
+	else if (usFlags & MSG_BOX_FLAG_INPUTBOX)
+	{
+		// Initialise Text Boxes
+		InitTextInputMode(); // API call to initialise text input mode for this screen
+							 // does not mean we are inputting text right away
+
+		// Player Name field
+		SetTextInputCursor( CUROSR_IBEAM_WHITE );
+		SetTextInputFont( (UINT16) FONT12ARIALFIXEDWIDTH ); //FONT12ARIAL //FONT12ARIALFIXEDWIDTH
+		Set16BPPTextFieldColor( Get16BPPColor(FROMRGB( 0, 0, 0) ) );
+		SetBevelColors( Get16BPPColor(FROMRGB(136, 138, 135)), Get16BPPColor(FROMRGB(24, 61, 81)) );
+		SetTextInputRegularColors( FONT_WHITE, 2 );
+		SetTextInputHilitedColors( 2, FONT_WHITE, FONT_WHITE	);
+		SetCursorColor( Get16BPPColor(FROMRGB(255, 255, 255) ) );
+
+		int ibx = gMsgBox.sX + 10;
+		int iby = gMsgBox.sY +(usTextBoxHeight - 20 - 10);
+		//Add Player Name textbox 
+		AddTextInputField(	ibx,
+							iby, 
+							usTextBoxWidth - 20,
+							20,
+							MSYS_PRIORITY_HIGH+2,
+							gszMsgBoxInputString,
+							255,
+							INPUTTYPE_ASCII );//23
+
+		// exit text input mode in this screen and clean up text boxes
+		SetActiveField( 0 );
+
+		// initialise the chat toggle boxes
+		/*int usPosY = gMsgBox.sY + (usTextBoxHeight - 45);
+		int usPosX = gMsgBox.sX + (usTextBoxWidth / 3);
+
+		guiChatToggles[ 0 ] = CreateCheckBoxButton( usPosX, usPosY,
+													"INTERFACE\\OptionsCheckBoxes_12x12.sti", MSYS_PRIORITY_HIGH+10,
+													BtnChatTogglesCallback );
+		MSYS_SetBtnUserData( guiOptionsToggles[ 0 ], 0, 0 );
+
+		guiChatToggles[ 1 ] = CreateCheckBoxButton( usPosX, usPosY,
+													"INTERFACE\\OptionsCheckBoxes_12x12.sti", MSYS_PRIORITY_HIGH+10,
+													BtnChatTogglesCallback );
+		MSYS_SetBtnUserData( guiOptionsToggles[ 1 ], 0, 1 );*/
 
 	}
 	else
@@ -810,6 +858,12 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 		RemoveButton( gMsgBox.uiButton[2] );
 		RemoveButton( gMsgBox.uiButton[3] );
 	}
+	// OJW - 20090208 - Add text input box type
+	else if (gMsgBox.usFlags & MSG_BOX_FLAG_INPUTBOX)
+	{
+		// exit text input mode in this screen and clean up text boxes
+		KillAllTextInputModes();
+	}
 	else
 	{
 		if ( gMsgBox.usFlags & MSG_BOX_FLAG_OK )
@@ -1102,21 +1156,33 @@ UINT32	MessageBoxScreenHandle( )
 	// Render buttons
 	RenderButtons( );
 
+	if (gMsgBox.usFlags & MSG_BOX_FLAG_INPUTBOX)
+	{
+		// render text boxes
+		RenderAllTextFields(); // textbox system call
+	}
 	EndFrameBufferRender( );
 
 	// carter, need key shortcuts for clearing up message boxes
 	// Check for esc
 	while (DequeueEvent(&InputEvent) == TRUE)
 	{
-		if( InputEvent.usEvent == KEY_UP )
+		if( !HandleTextInput( &InputEvent ) && InputEvent.usEvent == KEY_DOWN )
 			{
 				if( ( InputEvent.usParam == ESC ) || ( InputEvent.usParam == 'n') )
 				{
-			if ( gMsgBox.usFlags & MSG_BOX_FLAG_YESNO )
-			{
-					// Exit messagebox
-					gMsgBox.bHandled = MSG_BOX_RETURN_NO;
-			}
+					if ( gMsgBox.usFlags & MSG_BOX_FLAG_YESNO )
+					{
+							// Exit messagebox
+							gMsgBox.bHandled = MSG_BOX_RETURN_NO;
+					}
+					//OJW - 20090208 - Input Box
+					else if( gMsgBox.usFlags & MSG_BOX_FLAG_INPUTBOX )
+					{
+						// Exit messagebox
+						gMsgBox.bHandled = MSG_BOX_RETURN_NO;
+						memset(gszMsgBoxInputString,0,sizeof(CHAR16)*255);
+					}
 				}
 
 				if( InputEvent.usParam == ENTER )
@@ -1133,6 +1199,14 @@ UINT32	MessageBoxScreenHandle( )
 					}
 					else if( gMsgBox.usFlags & MSG_BOX_FLAG_CONTINUESTOP )
 					{
+						// Exit messagebox
+						gMsgBox.bHandled = MSG_BOX_RETURN_OK;
+					}
+					//OJW - 20090208 - Input Box
+					else if( gMsgBox.usFlags & MSG_BOX_FLAG_INPUTBOX )
+					{
+						// retrieve the string from the text box
+						Get16BitStringFromField( 0, gszMsgBoxInputString ); // these indexes are based on the order created
 						// Exit messagebox
 						gMsgBox.bHandled = MSG_BOX_RETURN_OK;
 					}
