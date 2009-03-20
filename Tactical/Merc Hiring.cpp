@@ -102,7 +102,9 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	if( ( pMerc->bMercStatus != 0 ) && (pMerc->bMercStatus != MERC_ANNOYED_BUT_CAN_STILL_CONTACT ) && ( pMerc->bMercStatus != MERC_HIRED_BUT_NOT_ARRIVED_YET ) )
 		return( MERC_HIRE_FAILED );
 
-	if( NumberOfMercsOnPlayerTeam() >= gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs )
+
+    //hayden, 7 member team limit setable in ini
+	if( NumberOfMercsOnPlayerTeam() >= gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs || (is_client && NumberOfMercsOnPlayerTeam() >= MAX_MERCS) )
 		return( MERC_HIRE_OVER_PLAYER_LIMIT );
 
 	// ATE: if we are to use landing zone, update to latest value
