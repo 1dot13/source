@@ -1065,6 +1065,10 @@ void ExitLaptop()
 	{
 		ExitLaptopMode(guiCurrentLaptopMode);
 	}
+	else
+	{
+		ExitLaptopMode(guiPreviousLaptopMode);
+	}
 
 	fExitDuringLoad = FALSE;
 	fLoadPendingFlag = FALSE;
@@ -1163,7 +1167,7 @@ void RenderLaptop()
 		return;
 	}
 
-	if(fLoadPendingFlag)
+	if(fLoadPendingFlag || fExitDuringLoad)
 	{
 		uiTempMode = guiCurrentLaptopMode;
 		guiCurrentLaptopMode = guiPreviousLaptopMode;
