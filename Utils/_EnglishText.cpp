@@ -4598,7 +4598,7 @@ STR16 MPClientMessage[] =
 	L"Sorry, climbing is disable in MP",
 	L"You Hired '%s'",
 	// 45
-	L"You cant change the map once purchasing has commenced",
+	L"You can't change the map once purchasing has commenced",
 	L"Map changed to '%s'",
 	L"Client '%s' disconnected, removing from game",
 	L"You were disconnected from the game, returning to the Main Menu",

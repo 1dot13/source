@@ -4368,7 +4368,7 @@ STR16 MPClientMessage[] =
 	L"Wähle exklusive Server Aktion:  ('1' - Laptop freischalten/anheuern)  ('2' - Gefecht starten/Sektor laden)  ('3' - Interface freischalten )  ('4' - Söldner Platzierung abschließen) ",
 	//L"Sektor=%s, Max Clients=%d, Max Söldner=%d, Ko-Op=%d Gleiche Söldner=%d, Schaden Mult.=%f, Gegner=%d, Monster=%d, Miliz=%d, Zivilisten=%d, Zeitbeschränkung=%d, Sek/Tic=%d, Startgehalt=%d$, Zusatzwaffen=%d, Sci-Fi= %d, Schwierigkeit=%d, Extraschwer=%d, Bobby Rays Auswahl= %d, Deakt. Bobby Ray=%d, Deak. Aim/Merc Ausrüstung=%d, Deakt. Moral=%d, Testen=%d.",
 	//L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Enemies=%d, Creatures=%d, Militias=%d, Civilians=%d, Timed Turns=%d, Secs/Tic=%d, Starting Cash=$%d, Tons of Guns=%d, Sci-Fi=%d, Difficulty=%d, Iron-Man=%d, BobbyRays Range=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
-	L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Timed Turns=%d, Secs/Tic=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
+	L"Sektor=%s, Max. Clients=%d, Max. Söldner=%d, Spielmodus=%d, Gleiche Söldner=%d, Schaden Mult.=%f, Zeitbeschränkung=%d, Sek/Tik=%d, Deakt. Bobby Ray=%d, Deakt. Aim/Merc Ausrüstung=%d, Deakt. Moral=%d, Testen=%d",
 
 	// 25
 	L"Testmodus und Cheat-Funktion mit '9' ist freigeschalten.",
@@ -4398,20 +4398,20 @@ STR16 MPClientMessage[] =
 	L"Auf Dächer klettern ist nicht erlaubt in einem Mehrspieler Spiel",
 	L"Sie haben '%s' angeheuert.",
 	// 45
-	L"You cant change the map once purchasing has commenced",
-	L"Map changed to '%s'",
-	L"Client '%s' disconnected, removing from game",
-	L"You were disconnected from the game, returning to the Main Menu",
-	L"Connection failed, Retrying in 5 seconds, %i retries left...",
+	L"Sie können den Sektor nicht ändern wenn bereits Anschaffungen getätigt sind",
+	L"Sektor gewechselt zu '%s'",
+	L"Client '%s' Verbindung abgebrochen und vom Spiel entfernt",
+	L"Ihre Verbindung zum Spiel wurde abgebrochen, gehen zum Hauptmenü",
+	L"Verbindungsfehler, Wiederverbindung in 5 Sekunden, %i Versuche übrig...",
 	//50
-	L"Connection failed, giving up...",
-	L"You cannot start the game until another player has connected",
+	L"Verbindungsfehler, beenden...",
+	L"Sie können das Spiel nicht starten, solange sich kein weitere Spieler verbunden hat",
 	L"%s : %s",
-	L"Send to All",
-	L"Allies only",
+	L"Send an alle",
+	L"Nur Verbündete",
 	// 55
-	L"Cannot join game. This game has already started.",
-	L"%s (team): %s",
+	L"Teilnahme nicht möglich. Dieses Spiel hat bereits begonnen.",
+	L"%s (Team): %s",
 	L"Client #%i - '%s'",
 };
 
@@ -4444,7 +4444,7 @@ STR16 gszMPEdgesText[] =
 {
 	L"N",
 	L"S",
-	L"E",
+	L"O",
 	L"W"
 };
 
@@ -4458,42 +4458,42 @@ STR16 gszMPTeamNames[] =
 
 STR16 gszMPMapscreenText[] =
 {
-	L"Game Type: ",
-	L"Players: ",
-	L"Mercs each: ",
-	L"You cannot change starting edge once Laptop is unlocked",
-	L"You cannot change teams once the Laptop is unlocked",
-	L"Random Mercs: ",
-	L"Y",
-	L"Difficulty:"
+	L"Spieltyp: ",
+	L"Spieler: ",
+	L"Söldner: ",
+	L"Sie können die Startposition nicht mehr ändern, sobald der Laptop freigeschaltet ist",
+	L"Sie können die Teams nicht mehr ändern, sobald der Laptop freigeschaltet ist",
+	L"Zufällige Soldner: ",
+	L"J",
+	L"Schwierigkeit:"
 };
 
 STR16 gzMPSScreenText[] =
 {
-	L"Scoreboard",
-	L"Continue",
-	L"Cancel",
-	L"Player",
-	L"Kills",
-	L"Deaths",
-	L"Queen's Army",
-	L"Hits",
-	L"Misses",
-	L"Accuracy",
-	L"Damage Dealt",
-	L"Damage Taken"
+	L"Auswertung",
+	L"Weiter",
+	L"Abbrechen",
+	L"Spieler",
+	L"Tötungen",
+	L"Tote",
+	L"Gegnerische Armee",
+	L"Treffer",
+	L"Fehlschüsse",
+	L"Treffergenauigkeit",
+	L"Schaden verursacht",
+	L"Schaden erhalten"
 };
 
 STR16 gzMPChatToggleText[] =
 {
-	L"Send to All",
-	L"Send to Allies only",
+	L"Sende an alle",
+	L"Sende zu Verbündete",
 };
 
 STR16 gzMPChatboxText[] =
 {
-	L"Multiplayer Chat",
-	L"Chat: press ENTER to send of ESC to cancel",
+	L"Mehrspieler Chat",
+	L"Chat: ENTER zum Senden oder ESC zum Schließen",
 };
 
 #endif //GERMAN
