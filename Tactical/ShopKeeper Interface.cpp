@@ -796,7 +796,8 @@ UINT32	ShopKeeperScreenHandle()
 		ButtonList[ guiSKI_DoneButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
 	}
 	RenderButtons( );
-	RenderItemDescriptionBox( );
+	//CHRISL: If we put this function call here, we overwrite the bullet graphic.  I don't know why.  I just know it happens.
+//	RenderItemDescriptionBox( );
 	// render help
 	SaveBackgroundRects( );
 	RenderButtonsFastHelp( );
