@@ -607,6 +607,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Win Util.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\WordWrap.cpp"
 				>
 			</File>

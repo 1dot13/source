@@ -407,7 +407,7 @@ typedef void (*SOUND_STOP_CALLBACK)( void *pData );
 
 extern UINT8 AmbientVols[NUM_AMBIENTS];
 
-extern char szSoundEffects[MAX_SAMPLES][255];
+//extern char szSoundEffects[MAX_SAMPLES][255];
 
 
 BOOLEAN InitJA2Sound( );

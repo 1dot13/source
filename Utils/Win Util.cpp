@@ -44,20 +44,20 @@ LPDIRECTSOUND           lpDS = NULL;
 LPDIRECTSOUNDBUFFER     lpSoundEffects[NUM_SOUND_EFFECTS];
 
 
-
+extern char szSoundEffects[MAX_SAMPLES][255];
 //char szSoundEffects[NUM_SOUND_EFFECTS][255] =
-char szSoundEffects[MAX_SAMPLES][255] =
-{
-    "SHOOT1",
-		"MISS1",
-		"FALL1",
-		"HIT1",
-		"HIT2",
-		"DOOROPEN1",
-		"DOORCLOSE1",
-		"BURST1",
-		"ENDTURN"
-};
+//char szSoundEffects[MAX_SAMPLES][255] =
+//{
+//    "SHOOT1",
+//		"MISS1",
+//		"FALL1",
+//		"HIT1",
+//		"HIT2",
+//		"DOOROPEN1",
+//		"DOORCLOSE1",
+//		"BURST1",
+//		"ENDTURN"
+//};
 
 /*
  * DSEnable

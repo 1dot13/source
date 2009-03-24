@@ -43,6 +43,8 @@
 	#include "XML.h"
 #endif
 
+extern char szSoundEffects[MAX_SAMPLES][255];
+
 struct
 {
 	PARSE_STAGE	curElement;
