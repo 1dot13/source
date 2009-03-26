@@ -273,12 +273,12 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 		ptWindowSize.x = window.right;
 		ptWindowSize.y = window.bottom;
 
-		hWindow = CreateWindowEx(exstyle, (LPCSTR) ClassName, "Jagged Alliance 2 v1.13", style, window.left, window.top, window.right, window.bottom, NULL, NULL, hInstance, NULL);
+		hWindow = CreateWindowEx(exstyle, (LPCSTR) ClassName, "Jagged Alliance 2", style, window.left, window.top, window.right, window.bottom, NULL, NULL, hInstance, NULL);
 		GetClientRect( hWindow, &window);
 		window.top = window.top;
 	}
 	else
-		hWindow = CreateWindowEx(WS_EX_TOPMOST, (LPCSTR) ClassName, (LPCSTR)ClassName, WS_POPUP | WS_VISIBLE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, NULL, NULL, hInstance, NULL);
+		hWindow = CreateWindowEx(WS_EX_TOPMOST, (LPCSTR) ClassName, "Jagged Alliance 2", WS_POPUP | WS_VISIBLE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, NULL, NULL, hInstance, NULL);
 
 	if (hWindow == NULL)
 	{
@@ -643,7 +643,6 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 
 	if (GetRGBDistribution() == FALSE)
 		return FALSE;
-
 
 	return TRUE;
 }

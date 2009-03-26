@@ -4463,7 +4463,7 @@ STR16 gszMPMapscreenText[] =
 	L"Söldner: ",
 	L"Sie können die Startposition nicht mehr ändern, sobald der Laptop freigeschaltet ist",
 	L"Sie können die Teams nicht mehr ändern, sobald der Laptop freigeschaltet ist",
-	L"Zufällige Soldner: ",
+	L"Zufällige Söldner: ",
 	L"J",
 	L"Schwierigkeit:"
 };
