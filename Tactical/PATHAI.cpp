@@ -813,7 +813,11 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 				//CHAR8		str[128];
 				//sprintf( str, "Duplicate GridNo found during pathfinding" );
 				//AssertMsg( 0, str );
-				AssertMsg( FALSE, String( "Duplicate GridNo found during pathfinding at %d.  Related to soldier %d at GridNo %d.", current, s->ubID, s->sGridNo ) );
+				//AssertMsg( FALSE, String( "Duplicate GridNo found during pathfinding at %d.  Related to soldier %d at GridNo %d.", current, s->ubID, s->sGridNo ) );
+				
+				// lalien: hack to avoid freezing, return 0 if the path is bad.
+				// Probably it will make trouble, need to check this
+				return 0;
 			}
 		}
 		trackNode.push_back(current);

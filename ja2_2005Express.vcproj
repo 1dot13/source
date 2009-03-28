@@ -66,7 +66,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStaticDebug.lib ws2_32.lib"
-				OutputFile="$(OutDir)\ja2_debug_2628_en.exe"
+				OutputFile="$(OutDir)\JA2_v1.13.2634_EN_Debug.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -145,7 +145,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="$(OutDir)\ja2_release_2633_en.exe"
+				OutputFile="$(OutDir)\JA2_v1.13.2634_EN_Release.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -229,7 +229,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="$(OutDir)\Map Editor_2389_en.exe"
+				OutputFile="$(OutDir)\MapEditor_2634_EN_Release.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -316,7 +316,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStaticDebug.lib ws2_32.lib"
-				OutputFile="$(OutDir)\Map EditorD_2389_en.exe"
+				OutputFile="$(OutDir)\MapEditor_2634_EN_Debug.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
