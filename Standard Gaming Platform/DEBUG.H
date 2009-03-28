@@ -52,6 +52,11 @@ inline void _Null() { }
 #endif
 #endif
 
+//
+// Uncomment the follow to turn on more aggressive assertions
+//
+//#define USE_AGGRESSIVE_ASSERTIONS
+
 #ifdef FORCE_ASSERTS_ON
 
 // If FORCE_ASSERTS_ON is defined, we need to initialize all the debug macros. Otherwise all the

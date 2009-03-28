@@ -12,6 +12,7 @@ const int MAXIMUM_VALID_Z_COORDINATE = 3;
 const int MINIMUM_VALID_Z_COORDINATE = 0;
 
 //Macro to convert sector coordinates (1-16,1-16) to 0-255
+#ifdef USE_AGGRESSIVE_ASSERTIONS
 #define SECTOR(x,y)			(UINT8)(AssertGE(x, MINIMUM_VALID_X_COORDINATE), \
 	                                AssertLE(x, MAXIMUM_VALID_X_COORDINATE), \
 	                                AssertGE(y, MINIMUM_VALID_Y_COORDINATE), \
@@ -21,6 +22,11 @@ const int MINIMUM_VALID_Z_COORDINATE = 0;
 	                                ((SectorID % 16) + 1))
 #define SECTORY(SectorID)	(UINT8)(AssertLE(SectorID, MAXIMUM_VALID_X_COORDINATE*MAXIMUM_VALID_Y_COORDINATE), \
 	                                ((SectorID / 16) + 1))
+#else
+#define SECTOR(x,y)			(UINT8)(((y-1)*16+x-1))
+#define SECTORX(SectorID)	(UINT8)(((SectorID % 16) + 1))
+#define SECTORY(SectorID)	(UINT8)(((SectorID / 16) + 1))
+#endif
 
 //Sector enumerations
 //
