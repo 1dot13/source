@@ -8,7 +8,7 @@
 /// license found at
 /// http://creativecommons.org/licenses/by-nc/2.5/
 /// Single application licensees are subject to the license found at
-/// http://www.rakkarsoft.com/SingleApplicationLicense.html
+/// http://www.jenkinssoftware.com/SingleApplicationLicense.html
 /// Custom license users are subject to the terms therein.
 /// GPL license users are subject to the GNU General Public
 /// License as published by the Free
@@ -17,6 +17,10 @@
 
 #ifndef __MESSAGE_IDENTIFIERS_H
 #define __MESSAGE_IDENTIFIERS_H 
+
+#if defined(RAKNET_USE_CUSTOM_PACKET_IDS)
+#include "CustomPacketIdentifiers.h"
+#else
 
 /// You should not edit the file MessageIdentifiers.h as it is a part of RakNet static library
 /// To define your own message id, define an enum following the code example that follows. 
@@ -30,7 +34,7 @@
 /// \endcode 
 ///
 /// \note All these enumerations should be casted to (unsigned char) before writing them to RakNet::BitStream
-enum
+enum DefaultMessageIDTypes
 {
 	//
 	// RESERVED TYPES - DO NOT CHANGE THESE
@@ -63,6 +67,9 @@ enum
 	ID_RPC,
 	/// Remote procedure call reply, for RPCs that return data (internal use only)
 	ID_RPC_REPLY,
+	/// RakPeer - Same as ID_ADVERTISE_SYSTEM, but intended for internal use rather than being passed to the user. Second byte indicates type. Used currently for NAT punchthrough for receiver port advertisement. See ID_NAT_ADVERTISE_RECIPIENT_PORT
+	ID_OUT_OF_BAND_INTERNAL,
+	
 
 	//
 	// USER TYPES - DO NOT CHANGE THESE
@@ -70,7 +77,7 @@ enum
 
 	/// RakPeer - In a client/server environment, our connection request to the server has been accepted.
 	ID_CONNECTION_REQUEST_ACCEPTED,
-	/// RakPeer - Sent to the player when a connection request cannot be completed due to inability to connect.
+	/// RakPeer - Sent to the player when a connection request cannot be completed due to inability to connect. 
 	ID_CONNECTION_ATTEMPT_FAILED,
 	/// RakPeer - Sent a connect request to a system we are currently connected to.
 	ID_ALREADY_CONNECTED,
@@ -78,9 +85,9 @@ enum
 	ID_NEW_INCOMING_CONNECTION,
 	/// RakPeer - The system we attempted to connect to is not accepting new connections.
 	ID_NO_FREE_INCOMING_CONNECTIONS,
-	/// RakPeer - The system specified in Packet::systemAddress has disconnected from us.  For the client, this would mean the server has shutdown.
+	/// RakPeer - The system specified in Packet::systemAddress has disconnected from us.  For the client, this would mean the server has shutdown. 
 	ID_DISCONNECTION_NOTIFICATION,
-	/// RakPeer - Reliable packets cannot be delivered to the system specified in Packet::systemAddress.  The connection to that system has been closed.
+	/// RakPeer - Reliable packets cannot be delivered to the system specified in Packet::systemAddress.  The connection to that system has been closed. 
 	ID_CONNECTION_LOST,
 	/// RakPeer - We preset an RSA public key which does not match what the system we connected to is using.
 	ID_RSA_PUBLIC_KEY_MISMATCH,
@@ -100,11 +107,11 @@ enum
 	ID_REMOTE_DISCONNECTION_NOTIFICATION,
 	/// ConnectionGraph plugin - In a client/server environment, a client other than ourselves has been forcefully dropped. Packet::systemAddress is modified to reflect the systemAddress of this client.
 	ID_REMOTE_CONNECTION_LOST,
-	/// ConnectionGraph plugin - In a client/server environment, a client other than ourselves has connected.  Packet::systemAddress is modified to reflect the systemAddress of this client.
+	/// ConnectionGraph plugin - In a client/server environment, a client other than ourselves has connected.  Packet::systemAddress is modified to reflect the systemAddress of the client that is not connected directly to us. The packet encoding is SystemAddress 1, ConnectionGraphGroupID 1, SystemAddress 2, ConnectionGraphGroupID 2
 	ID_REMOTE_NEW_INCOMING_CONNECTION,
-	// RakPeer - Downloading a large message. Format is ID_DOWNLOAD_PROGRESS (MessageID), partCount (unsigned int), partTotal (unsigned int), partLength (unsigned int), first part data (length <= MAX_MTU_SIZE)
+	// RakPeer - Downloading a large message. Format is ID_DOWNLOAD_PROGRESS (MessageID), partCount (unsigned int), partTotal (unsigned int), partLength (unsigned int), first part data (length <= MAX_MTU_SIZE). See the three parameters partCount, partTotal and partLength in OnFileProgress in FileListTransferCBInterface.h
 	ID_DOWNLOAD_PROGRESS,
-
+	
 	/// FileListTransfer plugin - Setup data
 	ID_FILE_LIST_TRANSFER_HEADER,
 	/// FileListTransfer plugin - A file
@@ -124,6 +131,8 @@ enum
 	ID_REPLICA_MANAGER_SCOPE_CHANGE,
 	/// ReplicaManager plugin - Serialized data of an object
 	ID_REPLICA_MANAGER_SERIALIZE,
+	/// ReplicaManager plugin - New connection, about to send all world objects
+	ID_REPLICA_MANAGER_DOWNLOAD_STARTED,
 	/// ReplicaManager plugin - Finished downloading all serialized objects
 	ID_REPLICA_MANAGER_DOWNLOAD_COMPLETE,
 
@@ -180,6 +189,10 @@ enum
 	ID_NAT_CONNECT_AT_TIME,
 	/// NATPunchthrough plugin - Internal message to send a message (to punch through the nat) at a certain time
 	ID_NAT_SEND_OFFLINE_MESSAGE_AT_TIME,
+	/// NATPunchthrough plugin - The facilitator is already attempting this connection
+	ID_NAT_IN_PROGRESS,
+	/// NATPunchthrough plugin - Another system tried to connect to us, and failed. See guid and system address field in the Packet structure
+	ID_NAT_REMOTE_CONNECTION_ATTEMPT_FAILED,
 
 	/// LightweightDatabase plugin - Query
 	ID_DATABASE_QUERY_REQUEST,
@@ -202,11 +215,56 @@ enum
 	ID_READY_EVENT_ALL_SET,
 	/// ReadyEvent plugin - Request of ready event state - used for pulling data when newly connecting
 	ID_READY_EVENT_QUERY,
-	
+
+	/// Lobby packets. Second byte indicates type.
+	ID_LOBBY_GENERAL,
+
+	/// Auto RPC procedure call
+	ID_AUTO_RPC_CALL,
+
+	/// Auto RPC functionName to index mapping
+	ID_AUTO_RPC_REMOTE_INDEX,
+
+	/// Auto RPC functionName to index mapping, lookup failed. Will try to auto recover
+	ID_AUTO_RPC_UNKNOWN_REMOTE_INDEX,
+
+	/// Auto RPC error code
+	/// See AutoRPC.h for codes, stored in packet->data[1]
+	ID_RPC_REMOTE_ERROR,
+
+	/// FileListTransfer transferring large files in chunks that are read only when needed, to save memory
+	ID_FILE_LIST_REFERENCE_PUSH,
+
+	/// Force the ready event to all set
+	ID_READY_EVENT_FORCE_ALL_SET,
+
+	/// Rooms function
+	ID_ROOMS_EXECUTE_FUNC,
+	ID_ROOMS_LOGON_STATUS,
+	ID_ROOMS_HANDLE_CHANGE,
+
+	/// Lobby2 message
+	ID_LOBBY2_SEND_MESSAGE,
+	ID_LOBBY2_SERVER_ERROR,
+
+	// RAKNET_PROTOCOL_VERSION in RakNetVersion.h does not match on the remote system what we have on our system
+	// This means the two systems cannot communicate.
+	// The 2nd byte of the message contains the value of RAKNET_PROTOCOL_VERSION for the remote system
+	ID_INCOMPATIBLE_PROTOCOL_VERSION,
+
+	/// FCMHost plugin telling another system we are adding them as a participant
+	ID_FCM_HOST_ADD_PARTICIPANT_REQUEST,
+	/// FCMHost plugin notifying the user that the host has changed. 2nd byte is FCMHostGroupID
+	ID_FCM_HOST_CHANGED,
+	// FCMHost plugin sent us a new list
+	ID_FCM_HOST_LIST_UPDATE,
+
 	// For the user to use.  Start your first enumeration at this value.
 	ID_USER_PACKET_ENUM,
 	//-------------------------------------------------------------------------------------------------------------
  
 };
+
+#endif // RAKNET_USE_CUSTOM_PACKET_IDS
 
 #endif

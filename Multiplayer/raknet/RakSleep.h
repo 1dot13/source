@@ -1,6 +1,8 @@
 #ifndef __RAK_SLEEP_H
 #define __RAK_SLEEP_H
 
-void RakSleep(unsigned int ms);
+#include "Export.h"
+
+void RAK_DLL_EXPORT RakSleep(unsigned int ms);
 
 #endif

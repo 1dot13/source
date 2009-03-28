@@ -8,7 +8,7 @@
 /// license found at
 /// http://creativecommons.org/licenses/by-nc/2.5/
 /// Single application licensees are subject to the license found at
-/// http://www.rakkarsoft.com/SingleApplicationLicense.html
+/// http://www.jenkinssoftware.com/SingleApplicationLicense.html
 /// Custom license users are subject to the terms therein.
 /// GPL license users are subject to the GNU General Public
 /// License as published by the Free

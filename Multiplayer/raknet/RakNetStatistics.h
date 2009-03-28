@@ -8,7 +8,7 @@
 /// license found at
 /// http://creativecommons.org/licenses/by-nc/2.5/
 /// Single application licensees are subject to the license found at
-/// http://www.rakkarsoft.com/SingleApplicationLicense.html
+/// http://www.jenkinssoftware.com/SingleApplicationLicense.html
 /// Custom license users are subject to the terms therein.
 /// GPL license users are subject to the GNU General Public
 /// License as published by the Free
@@ -33,28 +33,28 @@ struct RAK_DLL_EXPORT RakNetStatistics
 	///  Number of messages sent (high, medium, low priority)
 	unsigned messagesSent[ NUMBER_OF_PRIORITIES ];
 	///  Number of data bits used for user messages
-	unsigned messageDataBitsSent[ NUMBER_OF_PRIORITIES ];
+	uint64_t messageDataBitsSent[ NUMBER_OF_PRIORITIES ];
 	///  Number of total bits used for user messages, including headers
-	unsigned messageTotalBitsSent[ NUMBER_OF_PRIORITIES ];
+	uint64_t messageTotalBitsSent[ NUMBER_OF_PRIORITIES ];
 	
-	///  Number of packets sent containing only acknowledgements
+	///  Number of packets sent containing only acknowledgments
 	unsigned packetsContainingOnlyAcknowlegements;
-	///  Number of acknowledgements sent
+	///  Number of acknowledgments sent
 	unsigned acknowlegementsSent;
-	///  Number of acknowledgements waiting to be sent
+	///  Number of acknowledgments waiting to be sent
 	unsigned acknowlegementsPending;
-	///  Number of acknowledgements bits sent
-	unsigned acknowlegementBitsSent;
+	///  Number of acknowledgments bits sent
+	uint64_t acknowlegementBitsSent;
 	
-	///  Number of packets containing only acknowledgements and resends
+	///  Number of packets containing only acknowledgments and resends
 	unsigned packetsContainingOnlyAcknowlegementsAndResends;
 	
 	///  Number of messages resent
 	unsigned messageResends;
 	///  Number of bits resent of actual data
-	unsigned messageDataBitsResent;
+	uint64_t messageDataBitsResent;
 	///  Total number of bits resent, including headers
-	unsigned messagesTotalBitsResent;
+	uint64_t messagesTotalBitsResent;
 	///  Number of messages waiting for ack (// TODO - rename this)
 	unsigned messagesOnResendQueue;
 	
@@ -69,9 +69,9 @@ struct RAK_DLL_EXPORT RakNetStatistics
 	unsigned packetsSent;
 	
 	///  Number of bits added by encryption
-	unsigned encryptionBitsSent;
+	uint64_t encryptionBitsSent;
 	///  total bits sent
-	unsigned totalBitsSent;
+	uint64_t totalBitsSent;
 	
 	///  Number of sequenced messages arrived out of order
 	unsigned sequencedMessagesOutOfOrder;
@@ -88,9 +88,9 @@ struct RAK_DLL_EXPORT RakNetStatistics
 	///  Packets with a bad CRC received
 	unsigned packetsWithBadCRCReceived;
 	///  Bits with a good CRC received
-	unsigned bitsReceived;
+	uint64_t bitsReceived;
 	///  Bits with a bad CRC received
-	unsigned bitsWithBadCRCReceived;
+	uint64_t bitsWithBadCRCReceived;
 	///  Number of acknowledgement messages received for packets we are resending
 	unsigned acknowlegementsReceived;
 	///  Number of acknowledgement messages received for packets we are not resending
