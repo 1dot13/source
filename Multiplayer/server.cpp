@@ -5,6 +5,14 @@
 #include "RakNetStatistics.h"
 #include "RakNetTypes.h"
 
+
+#include "FileListTransfer.h"
+#include "FileListTransferCBInterface.h"
+#include "FileOperations.h"
+#include "SuperFastHash.h"
+#include "RakAssert.h"
+#include "IncrementalReadInterface.h"
+
 #include "BitStream.h"
 #include "RakSleep.h"
 #include <assert.h>
@@ -16,8 +24,26 @@
 #include <time.h>
 #include <list>
 
+#include "connect.h"
+
 #include "types.h"
 #include "gamesettings.h"
+
+//char *fileToSend;
+unsigned int setID;
+//char *fileToSendCopy;
+
+
+// Sender progress notification
+class TestFileListProgress : public FileListProgress
+{
+	virtual void OnFilePush(const char *fileName, unsigned int fileLengthBytes, unsigned int offset, unsigned int bytesBeingSent, bool done, SystemAddress targetSystem)
+	{
+		printf("Sending %s bytes=%i offset=%i\n", fileName, bytesBeingSent, offset);
+	}
+} testFileListProgress;
+
+
 
 char kbag[100];
 char net_div[30];
@@ -29,7 +55,7 @@ int gsREPORT_NAME;
 
 #include "text.h"
 #include "network.h"
-#include "connect.h"
+
 #include "message.h"
 #include "overhead.h"
 #include "fresh_header.h"
@@ -60,6 +86,16 @@ unsigned char SGetPacketIdentifier(Packet *p);
 unsigned char SpacketIdentifier;
 
 RakPeerInterface *server;
+
+
+
+// WANNE: FILE TRANSFER
+FileListTransfer fltServer;	// flt1
+IncrementalReadInterface incrementalReadInterface;
+FileList fileList;
+
+
+
 
 int numreadyteams;
 int readyteamreg[10];
@@ -584,6 +620,9 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 
 
 			server->RPC("recieveSETTINGS",(const char*)&lan, (int)sizeof(settings_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+
+			
+
 	} // end if(can_joingame)
 }
 
@@ -826,14 +865,35 @@ void start_server (void)
 			REGISTER_STATIC_RPC(server, sendCHATMSG);
 			//REGISTER_STATIC_RPC(server, rINT);
 	//
-
-
+			
 		if (b)
 		{
 			ScreenMsg( FONT_LTBLUE, MSG_CHAT, MPServerMessage[1]);
 			ScreenMsg( FONT_LTBLUE, MSG_CHAT, MPServerMessage[2]);
 			is_server = true;
-			
+
+
+			// WANNE: FILE TRANSFER
+			server->AttachPlugin(&fltServer);
+			server->SetSplitMessageProgressInterval(1);
+			fltServer.SetCallback(&testFileListProgress);
+
+			STRING512 executableDir;
+			STRING512 fileToSend;
+			GetExecutableDirectory(executableDir);
+
+			// 1st Testfile to send to the client
+			strcpy(fileToSend, executableDir);
+			strcat(fileToSend, "\\Data-1.13\\TableData\\Items.xml");
+			unsigned int fileLength = GetFileLength(fileToSend);
+			fileList.AddFile(fileToSend, 0, fileLength, fileLength, FileListNodeContext(0,0), true);
+
+			// 2nd Testfile to send to the client
+			strcpy(fileToSend, executableDir);
+			strcat(fileToSend, "\\Data-1.13\\TableData\\German.Items.xml");
+			fileLength = GetFileLength(fileToSend);
+			fileList.AddFile(fileToSend, 0, fileLength, fileLength, FileListNodeContext(0,0), true);
+
 			connect_client();//connect client to server
 		}
 		else
@@ -917,6 +977,9 @@ void server_packet ( void )
 				// make sure they can connect
 				CheckIncomingConnection(p);
 				//send_settings();//send off server set settings
+		
+				// TODO.RW: Send the files to the connect clients
+				fltServer.Send(&fileList,server,p->systemAddress,setID,HIGH_PRIORITY,0,false, &incrementalReadInterface, 5000);
 				break;
 			case ID_MODIFIED_PACKET:
 				// Cheater!
@@ -958,6 +1021,7 @@ void server_disconnect (void)
 	{
 	server->Shutdown(300);
 	is_server = false;
+	fileList.Clear();
 	// We're done with the network
 	RakNetworkFactory::DestroyRakPeerInterface(server);
 	ScreenMsg( FONT_LTBLUE, MSG_CHAT, MPServerMessage[6]);
