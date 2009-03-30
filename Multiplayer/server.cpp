@@ -29,19 +29,17 @@
 #include "types.h"
 #include "gamesettings.h"
 
-//char *fileToSend;
+// WANNE: FILE TRANSFER
 unsigned int setID;
-//char *fileToSendCopy;
-
 
 // Sender progress notification
-class TestFileListProgress : public FileListProgress
+class ServerFileListProgress : public FileListProgress
 {
 	virtual void OnFilePush(const char *fileName, unsigned int fileLengthBytes, unsigned int offset, unsigned int bytesBeingSent, bool done, SystemAddress targetSystem)
 	{
 		printf("Sending %s bytes=%i offset=%i\n", fileName, bytesBeingSent, offset);
 	}
-} testFileListProgress;
+} serverFileListProgress;
 
 
 
@@ -519,6 +517,15 @@ void rSortArray(int* arr, int len)
 	}
 }
 
+void requestEXECUTABLE_DIR(RPCParameters *rpcParameters)
+{
+	SystemAddress sender = rpcParameters->sender;//get senders address
+	STRING512 executableDir;
+	GetExecutableDirectory(executableDir);
+
+	server->RPC("recieveEXECUTABLE_DIR",(const char*)&executableDir, (int)sizeof(STRING512), HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
 
 //************************* //UNASSIGNED_SYSTEM_ADDRESS
 //START INTERNAL SERVER
@@ -843,6 +850,7 @@ void start_server (void)
 		REGISTER_STATIC_RPC(server, sendGUI);
 		REGISTER_STATIC_RPC(server, sendBULLET);
 		REGISTER_STATIC_RPC(server, requestSETTINGS);
+		REGISTER_STATIC_RPC(server, requestEXECUTABLE_DIR);
 		REGISTER_STATIC_RPC(server, sendSTATE);
 		REGISTER_STATIC_RPC(server, sendDEATH);
 		REGISTER_STATIC_RPC(server, sendhitSTRUCT);
@@ -876,7 +884,7 @@ void start_server (void)
 			// WANNE: FILE TRANSFER
 			server->AttachPlugin(&fltServer);
 			server->SetSplitMessageProgressInterval(1);
-			fltServer.SetCallback(&testFileListProgress);
+			fltServer.SetCallback(&serverFileListProgress);
 
 			STRING512 executableDir;
 			STRING512 fileToSend;
