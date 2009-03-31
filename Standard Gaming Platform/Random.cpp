@@ -33,7 +33,11 @@ UINT32 Random(UINT32 uiRange)
 
 BOOLEAN Chance( UINT32 uiChance )
 {
-	AssertLE(uiChance, 100);
+	//AssertLE(uiChance, 100);
+	// lalien: since uiChance calculation is based on different values it can happen that uiChance is > than 100%
+	// It's not critical because uiChance >= 100 will always return TRUE. No need to crash the entire game.
+	// Make sure that uiChance value is not < than 0, or it can switch to positive
+
 	return (BOOLEAN)(Random( 100 ) < uiChance);
 }
 
@@ -71,6 +75,10 @@ UINT32 PreRandom( UINT32 uiRange )
 
 BOOLEAN PreChance( UINT32 uiChance )
 {
-	AssertLE(uiChance, 100);
+	//AssertLE(uiChance, 100); 
+	// lalien: since uiChance calculation is based on different values it can happen that uiChance is > than 100%
+	// It's not critical because uiChance >= 100 will always return TRUE. No need to crash the entire game.
+	// Make sure that uiChance value is not < than 0, or it can switch to positive
+
 	return (BOOLEAN)(PreRandom( 100 ) < uiChance);
 }
