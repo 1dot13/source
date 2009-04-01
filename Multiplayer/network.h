@@ -6,10 +6,6 @@ extern  char CLIENT_NAME[30];
 extern char SERVER_NAME[30];
 extern bool Sawarded;
 
-//extern char *fileToSend;
-extern unsigned int setID;
-//extern char *fileToSendCopy;
-
 
 typedef struct
 {

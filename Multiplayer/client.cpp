@@ -76,14 +76,6 @@
 #include "RakPeerInterface.h"
 #include "RakNetStatistics.h"
 #include "RakNetTypes.h"
-#include "RakSleep.h"
-
-#include "FileListTransfer.h"
-#include "FileListTransferCBInterface.h"
-#include "FileOperations.h"
-#include "SuperFastHash.h"
-#include "RakAssert.h"
-#include "IncrementalReadInterface.h"
 
 #include "BitStream.h"
 #include <assert.h>
@@ -99,109 +91,6 @@
 
 #include "tactical placement gui.h"
 #include "prebattle interface.h"
-
-// WANNE: FILE TRANSFER
-STRING512	client_executableDirectory;	// the clients executable dir
-STRING512	server_executableDirectory;	// the server executable dir
-
-class ClientTransferCB : public FileListTransferCBInterface
-{
-	public:
-		// This method gets called when all the data is received on the client.
-		// Now the file will be saved on the client
-		bool OnFile(OnFileStruct *onFileStruct)
-		{
-			STRING512 targetFileName;
-
-			ScreenMsg( FONT_BCOLOR_ORANGE, MSG_CHAT, L"(100%%) Got file from server: %S", onFileStruct->fileName);
-			//ScreenMsg( FONT_BCOLOR_ORANGE, MSG_CHAT, L"%i. (100%%) %i/%i %S %ib->%ib / %ib->%ib\n", onFileStruct->setID, onFileStruct->fileIndex+1, onFileStruct->setCount, onFileStruct->fileName, onFileStruct->compressedTransmissionLength, onFileStruct->finalDataLength, onFileStruct->setTotalCompressedTransmissionLength, onFileStruct->setTotalFinalLength);
-
-			// Replace server executable directory with client executable directory then we have the correct path
-			char* file = ReplaceString(onFileStruct->fileName, server_executableDirectory, client_executableDirectory);
-			/*		
-			// Save the file in the clients executable dir!
-			strcpy(targetFileName, client_executableDirectory);
-			strcat(targetFileName, "\\");
-			// Only get the filename
-			char* file = ExtractFilename(onFileStruct->fileName);
-			*/
-
-			//strcat(targetFileName, file);
-			
-
-			FILE *fp = fopen(file, "wb");
-			fwrite(onFileStruct->fileData, onFileStruct->finalDataLength, 1, fp);
-			fclose(fp);
-
-			/*
-			// Make sure it worked
-			unsigned int hash1 = SuperFastHashFile(fileToSend);
-			if (RakNet::BitStream::DoEndianSwap())
-				RakNet::BitStream::ReverseBytesInPlace((unsigned char*) &hash1, sizeof(hash1));
-			unsigned int hash2 = SuperFastHashFile(targetFileName);
-			if (RakNet::BitStream::DoEndianSwap())
-				RakNet::BitStream::ReverseBytesInPlace((unsigned char*) &hash2, sizeof(hash2));
-			RakAssert(hash1==hash2);
-			*/
-
-			ScreenMsg( FONT_BCOLOR_ORANGE, MSG_CHAT, L"Saved file local in %S", file);
-
-			// Return true to have RakNet delete the memory allocated to hold this file.
-			// False if you hold onto the memory, and plan to delete it yourself later
-			return true;
-		}
-
-		virtual void OnFileProgress(OnFileStruct *onFileStruct,unsigned int partCount,unsigned int partTotal,unsigned int partLength, char *firstDataChunk)
-		{
-
-			//ScreenMsg( FONT_BLUE, MSG_CHAT, L"(%i%%) %S", 100*partCount/partTotal, onFileStruct->fileName);
-			//ScreenMsg( FONT_BLUE, MSG_CHAT, L"%i (%i%%) %i/%i %S %ib->%ib / %ib->%ib\n", onFileStruct->setID, 100*partCount/partTotal, onFileStruct->fileIndex+1, onFileStruct->setCount, onFileStruct->fileName, onFileStruct->compressedTransmissionLength, onFileStruct->finalDataLength, onFileStruct->setTotalCompressedTransmissionLength, onFileStruct->setTotalFinalLength, firstDataChunk);
-
-			//printf("%i (%i%%) %i/%i %s %ib->%ib / %ib->%ib\n", onFileStruct->setID, 100*partCount/partTotal, onFileStruct->fileIndex+1, onFileStruct->setCount, onFileStruct->fileName, onFileStruct->compressedTransmissionLength, onFileStruct->finalDataLength, onFileStruct->setTotalCompressedTransmissionLength, onFileStruct->setTotalFinalLength, firstDataChunk);
-		}
-
-		virtual bool OnDownloadComplete(void)
-		{
-			//printf("Download complete.\n");
-
-			ScreenMsg( FONT_RED, MSG_CHAT, L"Download complete");
-
-			// Returning false automatically deallocates the automatically allocated handler that was created by DirectoryDeltaTransfer
-			return false;
-		}
-
-	private:
-		char *ExtractFilename(char *pathname) 
-		{
-			char *s;
-
-			if ((s=strrchr(pathname, '\\')) != NULL) s++;
-			else if ((s=strrchr(pathname, '/')) != NULL) s++;
-			else if ((s=strrchr(pathname, ':')) != NULL) s++;
-			else s = pathname;
-			return s;
-		}
-
-		char *ReplaceString(char *str, char *orig, char *rep)
-		{
-		  static char buffer[4096];
-		  char *p;
-
-		  if(!(p = strstr(str, orig)))  // Is 'orig' even in 'str'?
-			return str;
-
-		  strncpy(buffer, str, p-str); // Copy characters from 'str' start to 'orig' st$
-		  buffer[p-str] = '\0';
-
-		  sprintf(buffer+(p-str), "%s%s", rep, p+strlen(orig));
-
-		  return buffer;
-		}
-
-
-} transferCallback;
-
-
 
 unsigned char GetPacketIdentifier(Packet *p);
 unsigned char packetIdentifier;
@@ -234,11 +123,6 @@ unsigned char packetIdentifier;
 
 extern INT8 SquadMovementGroups[ ];
 RakPeerInterface *client;
-
-
-// WANNE: FILE TRANSFER
-FileListTransfer fltClient;	// flt2
-ClientTransferCB transferCBClient;
 
 typedef struct
 {
@@ -440,9 +324,6 @@ UINT32 iCCStartGameTime = 0;
 
 // OJW - 20090317
 bool is_game_started = false;
-
-
-
 
 
 // OJW - added 20081130
@@ -2087,11 +1968,6 @@ void overide_callback( UINT8 ubResult )
 	}
 }
 
-void requestEXECUTABLE_DIR(void)
-{
-	client->RPC("requestEXECUTABLE_DIR","", 0, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
-}
-
 void requestSETTINGS(void)
 {
 	client_info cl_name;
@@ -2106,18 +1982,7 @@ void requestSETTINGS(void)
 
 }
 
-// Get executable Directory from Server. This is used to get corret file location on client side
-void recieveEXECUTABLE_DIR (RPCParameters *rpcParameters)
-{
-	//unsigned char* test = rpcParameters->input;
 
-	// Now get directory
-	strcpy( server_executableDirectory, (const char*)rpcParameters->input );
-
-	//GetExecutableDirectory()
-	//server_executableDirectory = "TEST1";
-	//GetExecutableDirectory(server_executableDirectory);
-}
 
 
 void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from server
@@ -2336,8 +2201,6 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 
 		}
 
-
-	
 }
 
 void recieveTEAMCHANGE( RPCParameters *rpcParameters )
@@ -3489,7 +3352,6 @@ void connect_client ( void )
 			REGISTER_STATIC_RPC(client, recieveREADY);
 			REGISTER_STATIC_RPC(client, recieveGUI);
 			REGISTER_STATIC_RPC(client, recieveSETTINGS);
-			REGISTER_STATIC_RPC(client, recieveEXECUTABLE_DIR);
 			REGISTER_STATIC_RPC(client, recieveTEAMCHANGE);
 			REGISTER_STATIC_RPC(client, recieveEDGECHANGE);
 			REGISTER_STATIC_RPC(client, recieveMAPCHANGE);
@@ -3517,12 +3379,7 @@ void connect_client ( void )
 		{
 			//ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"Client started, waiting for connections...");
 			is_client=true;
-
-			GetExecutableDirectory(client_executableDirectory);
-
-			// WANNE: FILE TRANSFER
-			client->AttachPlugin(&fltClient);
-			client->SetSplitMessageProgressInterval(1);
+			/*repo=0;*/
 		}
 		else
 		{ 
@@ -3680,8 +3537,6 @@ void connect_client ( void )
 			MPDebugMsg( String ( "connect_client()\n" ) );
 #endif
 			
-
-			
 		}
 	
 		else if (is_connecting)
@@ -3774,18 +3629,10 @@ void client_packet ( void )
 					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_CONNECTION_REQUEST_ACCEPTED");
 					is_connected=true;
 					is_connecting=false;
-
-					// WANNE: FILE TRANSFER
-					// Get the server executable dir
-					requestEXECUTABLE_DIR();
-
 					requestSETTINGS();
-
-					// WANNE: FILE TRANSFER
-					Sleep(1000);
-					setID = fltClient.SetupReceive(&transferCBClient, false, p->systemAddress);
+					//request_settings();//ask server for game settings...
 					break;
-				case ID_NEW_INCOMING_CONNECTION:
+					case ID_NEW_INCOMING_CONNECTION:
 					//tells server client has connected
 					ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"ID_NEW_INCOMING_CONNECTION");
 					break;
@@ -3854,7 +3701,6 @@ void client_disconnect (void)
 	is_connecting=false;
 	
 	allowlaptop=false;
-
 
 	// clear local client cache
 	memset(client_names,0,sizeof(char)*4*30);
