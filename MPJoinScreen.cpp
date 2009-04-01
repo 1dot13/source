@@ -322,8 +322,6 @@ UINT32	MPJoinScreenShutdown( void )
 BOOLEAN		EnterMPJScreen()
 {
 	VOBJECT_DESC	VObjectDesc;
-	UINT16					cnt;
-	UINT16					usPosY;
 
 	if( gfMPJButtonsAllocated )
 		return( TRUE );
@@ -446,8 +444,6 @@ BOOLEAN		EnterMPJScreen()
 
 BOOLEAN		ExitMPJScreen()
 {
-	UINT16	cnt;
-
 	if( !gfMPJButtonsAllocated )
 		return( TRUE );
 
@@ -535,7 +531,6 @@ void			HandleMPJScreen()
 BOOLEAN		RenderMPJScreen()
 {
 	HVOBJECT	hPixHandle;
-	UINT16		usPosY;
 
 	//Get the main background screen graphic and blt it
 	GetVideoObject(&hPixHandle, guiMPJMainBackGroundImage );

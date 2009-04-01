@@ -7267,7 +7267,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			{
 				if (ubPointsLost > APBPConstants[AP_MAX_SUPPRESSED])
 				{
-					ubPointsLost = APBPConstants[AP_MAX_SUPPRESSED];
+					ubPointsLost = (UINT8)APBPConstants[AP_MAX_SUPPRESSED];
 				}
 			}
 

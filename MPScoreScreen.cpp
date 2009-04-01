@@ -223,8 +223,6 @@ UINT32	MPScoreScreenShutdown( void )
 BOOLEAN		EnterMPSScreen()
 {
 	VOBJECT_DESC	VObjectDesc;
-	UINT16					cnt;
-	UINT16					usPosY;
 
 	if( gfMPSButtonsAllocated )
 		return( TRUE );
@@ -290,8 +288,6 @@ BOOLEAN		EnterMPSScreen()
 
 BOOLEAN		ExitMPSScreen()
 {
-	UINT16	cnt;
-
 	if( !gfMPSButtonsAllocated )
 		return( TRUE );
 
