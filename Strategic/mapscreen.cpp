@@ -653,6 +653,8 @@ extern BOOLEAN gfDeductPoints;
 
 extern void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj );
 extern void SwapGoggles(SOLDIERTYPE *pTeamSoldier);
+// HEADROCK HAM B2.8: Function to switch team's goggles uniformly
+extern void SwapGogglesUniformly(SOLDIERTYPE *pTeamSoldier, BOOLEAN fToNightVision);
 
 UINT32	guiCHARLIST;
 UINT32	guiCHARINFO;
@@ -1038,7 +1040,8 @@ void CheckForInventoryModeCancellation();
 void ChangeMapScreenMaskCursor( UINT16 usCursor );
 void CancelOrShortenPlottedPath( void );
 
-BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber );
+// HEADROCK HAM B2.8: Added argument to enable multi-selecting entire squads
+BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickAssignments );
 
 INT32 GetContractExpiryTime( SOLDIERTYPE *pSoldier );
 
@@ -9674,7 +9677,8 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 		if( gCharactersList[ iValue ].fValid == TRUE )
 		{
-			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue ) )
+			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
+			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue , FALSE ))
 			{
 				return;
 			}
@@ -9824,7 +9828,8 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 		if( gCharactersList[ iValue ].fValid == TRUE )
 		{
-			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue ) )
+			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
+			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue , FALSE ))
 			{
 				return;
 			}
@@ -9892,8 +9897,87 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 	if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
+		// HEADROCK HAM B2.8: Added argument for multi-select entire squads
+		if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue, TRUE ))
+		{
+			return;
+		}
 		// reset selected characters
 		ResetAllSelectedCharacterModes( );
+		// HEADROCK HAM B2.8: Right mouse button selects entire squad, if clicked on a squad-assigned character.
+				// set to new info character...make sure is valid
+		if( IsMapScreenHelpTextUp() )
+		{
+			// stop mapscreen text
+			StopMapScreenHelpText( );
+			return;
+		}
+
+		if( gCharactersList[ iValue ].fValid == TRUE )
+		{
+
+			ChangeSelectedInfoChar( ( INT8 ) iValue, TRUE );
+
+			pSoldier = &Menptr[ gCharactersList[ iValue ].usSolID ];
+
+			// highlight
+			giDestHighLine = -1;
+
+			// reset character
+			bSelectedAssignChar = -1;
+			bSelectedDestChar = -1;
+			bSelectedContractChar = -1;
+			fPlotForHelicopter = FALSE;
+
+			// if not dead or POW, select his sector
+			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) )
+			{
+				ChangeSelectedMapSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+			}
+
+			// Select all characters in squad
+			INT16 iCounter;
+
+			for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+			{
+				if( gCharactersList[ iCounter ].fValid == TRUE )
+				{
+					// if not already selected
+					if( fSelectedListOfMercsForMapScreen[ iCounter ] == FALSE )
+					{
+						pSoldier = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+
+						// if on a squad or in a vehicle
+						if ( ( pSoldier->bAssignment < ON_DUTY ) || ( pSoldier->bAssignment == VEHICLE ) )
+						{
+							// and a member of that squad or vehicle is selected
+							if ( AnyMercInSameSquadOrVehicleIsSelected( pSoldier ) )
+							{
+								// then also select this guy
+								SetEntryInSelectedCharacterList( ( INT8 ) iCounter );
+							}
+						}
+					}
+				}
+			}
+
+			// unhilight contract line
+			giContractHighLine = -1;
+
+			// can't assign highlight line
+			giAssignHighLine = -1;
+
+			// dirty team and map regions
+			fTeamPanelDirty = TRUE;
+			fMapPanelDirty = TRUE;
+			//fMapScreenBottomDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+		}
+		else
+		{
+			// reset selected characters
+			ResetAllSelectedCharacterModes( );
+		}
 	}
 }
 
@@ -9980,7 +10064,8 @@ void TeamListDestinationRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 		if( gCharactersList[ iValue ].fValid == TRUE )
 		{
-			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue ) )
+			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
+			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue , FALSE ))
 			{
 				return;
 			}
@@ -10153,7 +10238,8 @@ void TeamListSleepRegionBtnCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 
 		if( ( gCharactersList[ iValue ].fValid == TRUE ) )
 		{
-			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue ) )
+			// HEADROCK HAM B2.8: Added argument for multi-select entire squads
+			if ( HandleCtrlOrShiftInTeamPanel( ( INT8 ) iValue , FALSE ))
 			{
 				return;
 			}
@@ -10171,6 +10257,8 @@ void TeamListSleepRegionBtnCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 					// try to wake him up
 					if( SetMercAwake( pSoldier, TRUE, FALSE ) )
 					{
+						// HEADROCK HAM B2.8: New feature wakes all trainees/trainers automatically
+						HandleTrainingWakeSynchronize( pSoldier );
 						// propagate
 						HandleSelectedMercsBeingPutAsleep( TRUE, TRUE );
 						return;
@@ -10185,6 +10273,8 @@ void TeamListSleepRegionBtnCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 					// try to put him to sleep
 					if( SetMercAsleep( pSoldier, TRUE ) )
 					{
+						// HEADROCK HAM B2.8: New feature sends all trainees/trainers to sleep automatically
+						HandleTrainingSleepSynchronize( pSoldier );
 						// propagate
 						HandleSelectedMercsBeingPutAsleep( FALSE, TRUE );
 						return;
@@ -13853,34 +13943,160 @@ void CancelOrShortenPlottedPath( void )
 }
 
 
-BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber )
+BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickAssignments )
 {
-	// check if shift or ctrl held down, if so, set values in list
-	if (_KeyDown(CTRL))
+	// HEADROCK HAM B2.8: New condition based on new argument.
+	if (fFromRightClickAssignments)
 	{
-		ToggleEntryInSelectedList( bCharNumber );
+		if ( _KeyDown(CTRL) || _KeyDown(SHIFT) )
+		{
+			if ( fSelectedListOfMercsForMapScreen[ bCharNumber ] == FALSE )
+			{
+				SetEntryInSelectedCharacterList( bCharNumber );
 
-		fTeamPanelDirty = TRUE;
-		fCharacterInfoPanelDirty = TRUE;
+				INT16 iCounter;
 
-		return( TRUE);
+				for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+				{
+					if( gCharactersList[ iCounter ].fValid == TRUE )
+					{
+						// if not already selected
+						if( fSelectedListOfMercsForMapScreen[ iCounter ] == FALSE )
+						{
+							SOLDIERTYPE * pSelected = &( Menptr[ gCharactersList[ bCharNumber ].usSolID ] );
+							SOLDIERTYPE * pSoldier = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+
+							// if on a squad, or in a vehicle, or IS a vehicle
+							if ( pSoldier->bAssignment == VEHICLE )
+							{
+								// and a member of that squad or vehicle is selected, or we are a vehicle
+								if ( pSoldier->iVehicleId == pSelected->iVehicleId ||
+									(pSelected->flags.uiStatusFlags & SOLDIER_VEHICLE && pSoldier->iVehicleId == pSelected->bVehicleID ) ||
+									(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && pSelected->iVehicleId == pSoldier->bVehicleID ) )
+								{
+									// then also select this guy
+									SetEntryInSelectedCharacterList( ( INT8 ) iCounter );
+								}
+							}
+
+							else if ( pSoldier->bAssignment == pSelected->bAssignment &&
+								(pSoldier->bAssignment == TRAIN_TEAMMATE || pSoldier->bAssignment == TRAIN_BY_OTHER) &&
+								pSoldier->sSectorX == pSelected->sSectorX &&
+								pSoldier->sSectorY == pSelected->sSectorY &&
+								pSoldier->sZLevel == pSelected->sZLevel )
+							{
+								// make sure only trainers/trainees of the same stat are selected together.
+								if (pSoldier->bTrainStat == pSelected->bTrainStat)
+								{
+									SetEntryInSelectedCharacterList( ( INT8 ) iCounter );
+								}
+							}
+								
+							else if ( pSoldier->bAssignment == pSelected->bAssignment &&
+								pSoldier->sSectorX == pSelected->sSectorX &&
+								pSoldier->sSectorY == pSelected->sSectorY &&
+								pSoldier->sZLevel == pSelected->sZLevel )
+							{
+								SetEntryInSelectedCharacterList( ( INT8 ) iCounter );
+							}
+						}
+					}
+				}
+			}
+
+			else
+			{
+				// Deselect entire group
+				ResetEntryForSelectedList( bCharNumber );
+
+				INT16 iCounter;
+
+				for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+				{
+					if( gCharactersList[ iCounter ].fValid == TRUE )
+					{
+						// if not already selected
+						if( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE )
+						{
+							SOLDIERTYPE * pSelected = &( Menptr[ gCharactersList[ bCharNumber ].usSolID ] );
+							SOLDIERTYPE * pSoldier = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+
+							// if on a squad, or in a vehicle, or IS a vehicle
+							if ( pSoldier->bAssignment == VEHICLE )
+							{
+								// and a member of that squad or vehicle is selected, or we are a vehicle
+								if ( pSoldier->iVehicleId == pSelected->iVehicleId ||
+									(pSelected->flags.uiStatusFlags & SOLDIER_VEHICLE && pSoldier->iVehicleId == pSelected->bVehicleID ) ||
+									(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && pSelected->iVehicleId == pSoldier->bVehicleID ) )
+								{
+									// then also select this guy
+									ResetEntryForSelectedList( ( INT8 ) iCounter );
+								}
+							}
+
+							else if ( pSoldier->bAssignment == pSelected->bAssignment &&
+								(pSoldier->bAssignment == TRAIN_TEAMMATE || pSoldier->bAssignment == TRAIN_BY_OTHER) &&
+								pSoldier->sSectorX == pSelected->sSectorX &&
+								pSoldier->sSectorY == pSelected->sSectorY &&
+								pSoldier->sZLevel == pSelected->sZLevel )
+							{
+								// make sure only trainers/trainees of the same stat are selected together.
+								if (pSoldier->bTrainStat == pSelected->bTrainStat)
+								{
+									ResetEntryForSelectedList( ( INT8 ) iCounter );
+								}
+							}
+								
+							else if ( pSoldier->bAssignment == pSelected->bAssignment &&
+								pSoldier->sSectorX == pSelected->sSectorX &&
+								pSoldier->sSectorY == pSelected->sSectorY &&
+								pSoldier->sZLevel == pSelected->sZLevel )
+							{
+								ResetEntryForSelectedList( ( INT8 ) iCounter );
+							}
+						}
+					}
+				}
+			}
+
+			fTeamPanelDirty = TRUE;
+			fCharacterInfoPanelDirty = TRUE;
+
+			return(TRUE);
+		}
+
+		return (FALSE);
 	}
-	else if( _KeyDown(SHIFT) )
+	else
 	{
-		// build a list from the bSelectedInfoChar To here, reset everyone
 
-		//empty the list
-		ResetSelectedListForMapScreen( );
-		// rebuild the list
-		BuildSelectedListFromAToB( bSelectedInfoChar, bCharNumber );
+		// check if shift or ctrl held down, if so, set values in list
+		if (_KeyDown(CTRL))
+		{
+			ToggleEntryInSelectedList( bCharNumber );
 
-		fTeamPanelDirty = TRUE;
-		fCharacterInfoPanelDirty = TRUE;
+			fTeamPanelDirty = TRUE;
+			fCharacterInfoPanelDirty = TRUE;
 
-		return( TRUE );
+			return( TRUE);
+		}
+		else if( _KeyDown(SHIFT) )
+		{
+			// build a list from the bSelectedInfoChar To here, reset everyone
+
+			//empty the list
+			ResetSelectedListForMapScreen( );
+			// rebuild the list
+			BuildSelectedListFromAToB( bSelectedInfoChar, bCharNumber );
+
+			fTeamPanelDirty = TRUE;
+			fCharacterInfoPanelDirty = TRUE;
+
+			return( TRUE );
+		}
+
+		return( FALSE );
 	}
-
-	return( FALSE );
 }
 
 

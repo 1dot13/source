@@ -59,8 +59,9 @@ extern INT8 gbCurrentRainIntensity;
 //end rain
 
 
-#define MINCHANCETOHIT          1
-#define MAXCHANCETOHIT          99
+// HEADROCK HAM B1: Externalized both values to INI
+//#define MINCHANCETOHIT          1
+//#define MAXCHANCETOHIT          99
 
 // NB this is arbitrary, chances in DG ranged from 1 in 6 to 1 in 20
 #define BASIC_DEPRECIATE_CHANCE	15
@@ -104,6 +105,10 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 
 BOOLEAN gfNextShotKills = FALSE;
 BOOLEAN gfReportHitChances = FALSE;
+
+// HEADROCK HAM B2.5:Using this boolean to tell the CTH formula that it is being called by UseGun(), rather than
+// by other functions. This is mostly to assist the new Tracer Fire system...
+BOOLEAN fCalculateCTHDuringGunfire = FALSE;
 
 //GLOBALS
 
@@ -1683,8 +1688,10 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 	}
 	else
 	{
-	  uiHitChance = CalcChanceToHitGun( pSoldier, sTargetGridNo, pSoldier->aiData.bAimTime, pSoldier->bAimShotLocation );
+		fCalculateCTHDuringGunfire = TRUE;
+		uiHitChance = CalcChanceToHitGun( pSoldier, sTargetGridNo, pSoldier->aiData.bAimTime, pSoldier->bAimShotLocation );
 	}
+	fCalculateCTHDuringGunfire = FALSE;
 
 	//DIGICRAB: Barrel extender wear code
 	// Relocated from CalcChanceToHitGun
@@ -1728,10 +1735,19 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 				// big penalty to hit
 				// WDS 07/06/2008 fix randoms
 				//if(uiHitChance < 30)
-				if(uiHitChance <= 30)
-					uiHitChance = MINCHANCETOHIT;
+				// HEADROCK: Altered formula to accept variable MINIMUM CTH.
+				//if(uiHitChance <= 30)
+				//	uiHitChance = MINCHANCETOHIT;
+				//else
+				//	uiHitChance -= 30;
+				if(uiHitChance <= (UINT16)(__max(30, gGameExternalOptions.iMinimumCTH + 30)))
+				{
+					uiHitChance = gGameExternalOptions.iMinimumCTH ;
+				}
 				else
+				{
 					uiHitChance -= 30;
+				}
 
 				// curse!
 				if ( pSoldier->bTeam == OUR_TEAM )
@@ -3552,8 +3568,9 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 
 	if ( pSoldier->stats.bMarksmanship == 0 )
 	{
-		// always min chance
-		return( MINCHANCETOHIT );
+		// HEADROCK: (HAM) Altered to accept external arguments
+		// return( MINCHANCETOHIT );
+		return( gGameExternalOptions.iMinimumCTH );
 	}
 
 	// make sure the guy's actually got a weapon in his hand!
@@ -3724,7 +3741,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 	}
 
 	// If in burst mode, deduct points for change to hit for each shot after the first
-	if ( pSoldier->bDoBurst > 0 && pSoldier->bDoAutofire == 0 )
+	if ( pSoldier->bDoBurst && pSoldier->bDoAutofire == 0 )
 	{
 		// Snap: bipod may reduce burst penalty
 		iPenalty = GetBurstPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)
@@ -3749,6 +3766,54 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 			iPenalty /= 2 * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS );
 		}
 		iChance -= iPenalty;
+		// HEADROCK HAM B2.5: One of every X bullets in a tracer magazine is a tracer round, which will
+		// bump the CTH up by a certain amount.
+
+		if (AmmoTypes[(*pInHand)[0]->data.gun.ubGunAmmoType].tracerEffect == 1 && gGameExternalOptions.iRealisticTracers > 0 )
+		{
+			UINT16 iBulletsLeft, iTracersFired, iBulletsPerTracer, iBulletsSinceLastTracer;
+			UINT8 cnt;
+			UINT16 iAutoPenaltySinceLastTracer;
+			iTracersFired = 0;
+			iBulletsPerTracer = gGameExternalOptions.iNumBulletsPerTracer;
+
+			// Calculate number of bullets left right before firing this bullet
+			if (fCalculateCTHDuringGunfire)
+			{
+				iBulletsLeft = (*pInHand)[0]->data.gun.ubGunShotsLeft + (pSoldier->bDoBurst - 1);
+			}
+			else
+			{
+				iBulletsLeft = (*pInHand)[0]->data.gun.ubGunShotsLeft;
+			}
+
+			iBulletsSinceLastTracer = 0;
+			for (cnt=0;cnt<pSoldier->bDoBurst;cnt++)
+			{
+				iBulletsSinceLastTracer++;
+				if ((( iBulletsLeft - (cnt - 1) ) / iBulletsPerTracer) - ((iBulletsLeft - cnt) / iBulletsPerTracer) == 1)
+				{
+					iBulletsSinceLastTracer = 0;
+				}
+			}
+
+			iTracersFired = ((iBulletsLeft+1) / iBulletsPerTracer) - (((iBulletsLeft+1) - (pSoldier->bDoBurst)) / iBulletsPerTracer);
+
+			if ( iTracersFired > 0 )
+			{
+				// Correct all autofire penalty so far
+				iBonus = iPenalty;
+				// Add Tracer Bump if previous bullet was a tracer
+				//if (iBulletsSinceLastTracer == 0)
+					iBonus += (gGameExternalOptions.iCTHBumpPerTracer * iTracersFired);
+				// Calculate penalty since last tracer was fired
+				iAutoPenaltySinceLastTracer = GetAutoPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * iBulletsSinceLastTracer;
+				// Add penalty to bonus.
+				iBonus -= iAutoPenaltySinceLastTracer;
+				
+				iChance += iBonus;
+			}
+		}
 	}
 
 	//ADB we need to calculate the distance visible and SoldierTo...LOSTests that we want to
@@ -3866,7 +3931,22 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 
 	// if shooter is still in shock
 	if (pSoldier->aiData.bShock)
-		iChance -= (pSoldier->aiData.bShock * AIM_PENALTY_PER_SHOCK);
+	{
+		// HEADROCK HAM B2.8: Placed a maximum here, as shock is now also used in suppression.
+		UINT16 usShockPenalty;
+
+		usShockPenalty = pSoldier->aiData.bShock * AIM_PENALTY_PER_SHOCK;
+
+		if (gGameExternalOptions.usMaxShooterCoweringPenalty > 0)
+		{
+			if ( usShockPenalty > gGameExternalOptions.usMaxShooterCoweringPenalty )
+				usShockPenalty = gGameExternalOptions.usMaxShooterCoweringPenalty;
+		}
+		if ( usShockPenalty < 1 )
+			usShockPenalty = 1;
+
+		iChance -= usShockPenalty;
+	}
 
 	// WANNE: Changed this, because RPGs are not in the calculation, only guns
 	//if ( Item[ usInHand ].usItemClass == IC_GUN )
@@ -3961,6 +4041,92 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 		if (iSightRange < 1)
 		{
 			iSightRange = 1;
+		}
+		// HEADROCK HAM B2.1 : The TARGET's shock now also affects aiming. If the target is prone
+		// and in shock, they are harder to hit! This represents a target that's cowering as close
+		// to the ground (and as close to any possible cover, like a small dune or a fold of earth
+		// or anything like that).
+		if ( gGameExternalOptions.iAimPenaltyPerTargetShock > 0 )
+		{
+			// HEADROCK HAM B2.1 : This value determines how much penalty the target's shock-value gives the shooter.
+			// As of HAM B2.3: There's a maximum range at which 100% penalty is given.
+			// As of HAM B2.8: Target's stance and the targetted bodypart will affect the end result.
+			
+			INT8 AIM_PENALTY_PER_TARGET_SHOCK;
+			INT16 sCoweringPenalty = 0;
+			UINT8 ubCoweringDivisor;
+			UINT16 MIN_RANGE_FOR_FULL_COWER;
+			UINT16 MAX_TARGET_COWERING_PENALTY;
+
+			AIM_PENALTY_PER_TARGET_SHOCK = gGameExternalOptions.iAimPenaltyPerTargetShock;
+			MIN_RANGE_FOR_FULL_COWER = gGameExternalOptions.usMinRangeForFullCoweringPenalty; 
+			MAX_TARGET_COWERING_PENALTY = gGameExternalOptions.usMaxTargetCoweringPenalty;
+
+			pTarget = SimpleFindSoldier( sGridNo, pSoldier->bTargetLevel );
+			if (pTarget != NULL)
+			{
+				if (pTarget->aiData.bShock )
+				{
+					if (gAnimControl[ pTarget->usAnimState ].ubHeight == ANIM_PRONE)
+					{
+						ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorProne;
+
+						sCoweringPenalty = (pTarget->aiData.bShock * AIM_PENALTY_PER_TARGET_SHOCK);
+						sCoweringPenalty = sCoweringPenalty / ubCoweringDivisor;
+						sCoweringPenalty = (sCoweringPenalty * __min(iSightRange,MIN_RANGE_FOR_FULL_COWER)) / MIN_RANGE_FOR_FULL_COWER;
+
+						if (gGameExternalOptions.usMaxTargetCoweringPenalty > 0)
+						{
+							if ( sCoweringPenalty > gGameExternalOptions.usMaxTargetCoweringPenalty )
+								sCoweringPenalty = gGameExternalOptions.usMaxTargetCoweringPenalty;
+						}
+						if ( sCoweringPenalty < 1 )
+							sCoweringPenalty = 1;
+
+						iChance -= sCoweringPenalty;
+					}
+					else if (gAnimControl[ pTarget->usAnimState ].ubHeight == ANIM_CROUCH) 
+					{
+						switch ( ubAimPos )
+						{
+							case AIM_SHOT_HEAD:
+								ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedHead;
+								break;
+							case AIM_SHOT_TORSO:
+							case AIM_SHOT_RANDOM:
+							case AIM_SHOT_GLAND:
+								ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedTorso;
+								break;
+							case AIM_SHOT_LEGS:
+								ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedLegs;
+								break;
+						}
+
+						sCoweringPenalty = (pTarget->aiData.bShock * AIM_PENALTY_PER_TARGET_SHOCK);
+						sCoweringPenalty = sCoweringPenalty / ubCoweringDivisor;
+						sCoweringPenalty = (sCoweringPenalty * __min(iSightRange,MIN_RANGE_FOR_FULL_COWER)) / MIN_RANGE_FOR_FULL_COWER;
+
+						if (gGameExternalOptions.usMaxTargetCoweringPenalty > 0)
+						{
+							if ( sCoweringPenalty > gGameExternalOptions.usMaxTargetCoweringPenalty )
+								sCoweringPenalty = gGameExternalOptions.usMaxTargetCoweringPenalty;
+						}
+						if ( sCoweringPenalty < 1 )
+							sCoweringPenalty = 1;
+
+						// HEADROCK HAM B2.8.1: Added formula to make sure that cowering target penalties
+						// are not given when on the roof.
+
+						if (pSoldier->pathing.bLevel == pTarget->pathing.bLevel && pSoldier->pathing.bLevel > 0)
+							sCoweringPenalty = 0; // No cowering penalties when both are on the roof!
+						else if (pSoldier->pathing.bLevel < pSoldier->pathing.bLevel && gAnimControl[ pTarget->usAnimState ].ubHeight == ANIM_PRONE)
+							sCoweringPenalty *= 2; // Much harder to shoot at anyone cowering above you.
+						else if (pSoldier->pathing.bLevel > pSoldier->pathing.bLevel)
+							sCoweringPenalty /= 2; // Much easier to shoot at cowerers below you.
+						iChance -= sCoweringPenalty;
+					}
+				}
+			}
 		}
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: after scope bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
 
@@ -4123,7 +4289,8 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 		}
 
 		// penalty for amount that enemy has moved
-		iPenalty = __min( ((pTarget->bTilesMoved * 3) / 2), 30 );
+		// HEADROCK HAM B2.6: Externalized the value
+		iPenalty = __min( (UINT16)((float)pTarget->bTilesMoved * (float)gGameExternalOptions.iMovementEffectOnAiming), 30 );
 		iChance -= iPenalty;
 
 		// if target sees us, he may have a chance to dodge before the gun goes off
@@ -4235,7 +4402,12 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 	}
 
   // MAKE SURE CHANCE TO HIT IS WITHIN DEFINED LIMITS
-  if (iChance < MINCHANCETOHIT)
+	// HEADROCK: (HAM) Altered so called "Defined Limits" to accept external arguments.
+	// The divisor argument only works when the minimum is set to 0. It has a chance of 1 in X to
+	// bump the minimum back to 1, where X = the Divisor value. So a divisor value of 50 gives a 1/50
+	// chance of getting some actual chance to hit despite the 0 minimum. The overall total would then
+	// be an effective CTH of only 1/5000 (50 chances to get a 1 out of 100 CTH, hehehe)
+	if (iChance <= gGameExternalOptions.iMinimumCTH)
 	{
 		if ( TANK( pSoldier ) )
 		{
@@ -4244,14 +4416,24 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 		}
 		else
 		{
-			iChance = MINCHANCETOHIT;
+			iChance = gGameExternalOptions.iMinimumCTH;
+			if ( gGameExternalOptions.iMinimumCTH == 0 )
+			{
+				if ( PreRandom( gGameExternalOptions.iMinimumCTHDivisor ) == (gGameExternalOptions.iMinimumCTHDivisor - 1) )
+				{
+					iChance = 1;
+				}
+			}
 		}
 	}
-  else
-   {
-    if (iChance > MAXCHANCETOHIT)
-      iChance = MAXCHANCETOHIT;
-   }
+	else
+	{
+		// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
+		// if (iChance > MAXCHANCETOHIT)
+		// iChance = MAXCHANCETOHIT;
+		if (iChance > gGameExternalOptions.iMaximumCTH)
+			iChance = gGameExternalOptions.iMaximumCTH;
+	}
 
 //  NumMessage("ChanceToHit = ",chance);
    DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: ichance = %d",iChance));
@@ -5305,14 +5487,19 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 
 
   // MAKE SURE CHANCE TO HIT IS WITHIN DEFINED LIMITS
-  if (iChance < MINCHANCETOHIT)
+  // HEADROCK: I urinate on your Defined Limits! Power Rangers, Externalize!
+  // Disclaimer: No offense meant, all in good fun ;)
+  if (iChance < gGameExternalOptions.iMinimumCTH)
 	{
-    iChance = MINCHANCETOHIT;
+    iChance = gGameExternalOptions.iMinimumCTH;
 	}
   else
 	{
-		if (iChance > MAXCHANCETOHIT)
-			iChance = MAXCHANCETOHIT;
+		// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
+		//if (iChance > MAXCHANCETOHIT)
+		//	iChance = MAXCHANCETOHIT;
+		if (iChance > gGameExternalOptions.iMaximumCTH)
+			iChance = gGameExternalOptions.iMaximumCTH;
 	}
 
   //NumMessage("ChanceToStab = ",chance);
@@ -5768,13 +5955,17 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTi
 		// reduce iChance to hit DIRECTLY by the item's working condition
 		iChance = (iChance * WEAPON_STATUS_MOD(pSoldier->inv[HANDPOS][0]->data.objectStatus)) / 100;
 
-	// MAKE SURE CHANCE TO HIT IS WITHIN DEFINED LIMITS
-	if (iChance < MINCHANCETOHIT)
-		iChance = MINCHANCETOHIT;
+	// What's with all these defined limits? Let's think out of the box for a minute, shall we?
+	// HEADROCK (HAM): externalized, effective immediately.
+	if (iChance < gGameExternalOptions.iMinimumCTH)
+		iChance = gGameExternalOptions.iMinimumCTH;
 	else
 	{
-		if (iChance > MAXCHANCETOHIT)
-			iChance = MAXCHANCETOHIT;
+		// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
+		//if (iChance > MAXCHANCETOHIT)
+		//	iChance = MAXCHANCETOHIT;
+		if (iChance > gGameExternalOptions.iMaximumCTH)
+			iChance = gGameExternalOptions.iMaximumCTH;
 	}
 
 
@@ -5969,7 +6160,13 @@ UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj )
 {
 //	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetAutofireShotsPerFiveAPs"));
 
-	return Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP;
+//	HEADROCK HAM B2.6: Added overall modifier
+	if (Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP > 0)
+	{
+		return __max((Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP + gGameExternalOptions.iAutofireBulletsPer5APModifier), 0);
+	}
+	else
+		return 0;
 
 }
 UINT16 GetMagSize( OBJECTTYPE *pObj )

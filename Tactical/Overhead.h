@@ -316,6 +316,8 @@ void ResetAllMercSpeeds( );
 BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLEAN fInitialMove, UINT16 usAnimState );
 
 SOLDIERTYPE * ReduceAttackBusyCount( );
+// HEADROCK HAM B2.6: Made this public so it can be used elsewhere.
+INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier );
 
 void CommonEnterCombatModeCode( );
 

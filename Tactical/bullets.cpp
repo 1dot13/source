@@ -470,7 +470,11 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 		}
 	}
 
-	if (fTracer == TRUE)
+	// HEADROCK HAM B2.5: Created new bullet flag that tells us whether this specific bullet is a tracer.
+	// The condition now reads that flag and creates a lightshow only for tracer bullets. This flag is only
+	// used if the new Tracer System is on.
+	//if (fTracer == TRUE)
+	if ((gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.iRealisticTracers == 0 && fTracer == TRUE))
 	{
 		if ( pBullet->iLoop < 5 )
 		{
@@ -517,7 +521,11 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 		AniParams.sDelay							= (INT16)( 100 );
 	}
 	//else if ( pBullet->usFlags & ( BULLET_FLAG_TRACER ) )
-	else if (fTracer == TRUE)
+	// HEADROCK HAM B2.5: Created new bullet flag that tells us whether this specific bullet is a tracer.
+	// The condition now reads that flag and creates a lightshow only for tracer bullets. This flag is only
+	// used if the new Tracer System is on.
+	// else if (fTracer == TRUE)
+	else if ((gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.iRealisticTracers == 0 && fTracer == TRUE))
 	{
 		INT16 sXPos, sYPos;
 

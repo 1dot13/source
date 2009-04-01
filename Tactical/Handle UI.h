@@ -220,7 +220,11 @@ extern BOOLEAN		gTintBulletCounts;
 extern BOOLEAN		gfUIAutofireBulletCount;
 
 extern BOOLEAN		gfUICtHBar;
-extern UINT8		gbCtH;
+// HEADROCK HAM B1/2: Multiple-bullet CTH bar array (replaces old single integer)
+extern UINT8		gbCtH[ 10 ];
+extern UINT8		gbCtHBurstCount;
+// HEADROCK HAM B2: Track autofire on/off
+extern BOOLEAN		gbCtHAutoFire;
 
 extern CHAR16		gzIntTileLocation[ 20 ];
 extern BOOLEAN		gfUIIntTileLocation;

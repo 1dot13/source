@@ -7102,6 +7102,9 @@ INT16 GetBurstToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance )
 			bonus += Item[pObj->usItem].bipod;
 
 		bonus += BonusReduceMore( Item[pObj->usItem].bursttohitbonus, (*pObj)[0]->data.objectStatus );
+		// HEADROCK HAM B2.5: A certain setting in the New Tracer System can turn auto/burst penalties off
+		// entirely, to make up for "Tracer Bump".
+		if ( gGameExternalOptions.iRealisticTracers != 1 )
 		bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].bursttohitbonus ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
@@ -7228,6 +7231,10 @@ INT16 GetAutoToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance )
 
 		bonus += BonusReduceMore( Item[pObj->usItem].autofiretohitbonus, (*pObj)[0]->data.objectStatus );
 
+		// HEADROCK HAM B2.5: This external setting determines whether autofire penalty is affected by
+		// tracer ammo. At setting "1", it is disabled. This goes hand in hand with a new tracer effect that
+		// "bumps" CTH up after firing a tracer bullet.
+		if ( gGameExternalOptions.iRealisticTracers != 1 ) 
 		bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].autofiretohitbonus ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
@@ -8491,6 +8498,88 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier)
 	float iScopeBonus = 0;
 	BOOLEAN allowed = TRUE;
 
+	// HEADROCK HAM B2.6: Dynamic aiming level restrictions based on gun type and attachments.
+	if ( gGameExternalOptions.fDynamicAimingTime )
+	{
+		UINT16 weaponRange;
+		UINT8 weaponType, maxAimForType, maxAimWithoutBipod;
+		BOOLEAN fTwoHanded, fUsingBipod;
+		
+		// Read weapon data
+		fTwoHanded = Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded;
+		weaponRange = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usRange + GetRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]);
+		weaponType = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType;
+		fUsingBipod = FALSE;
+
+		maxAimWithoutBipod = 4;
+		
+		// Define basic (no attachments), and absolute maximums
+		if (weaponType == GUN_PISTOL || weaponType == GUN_M_PISTOL || (weaponType == GUN_SMG && fTwoHanded == 0) || fTwoHanded == 0)
+		{
+			maxAimForType = 2;
+			aimLevels = 1;
+			maxAimWithoutBipod = 2;
+		}
+		else if (weaponType == GUN_SHOTGUN || weaponType == GUN_LMG || (weaponType == GUN_SMG && fTwoHanded == 1))
+		{
+			maxAimForType = 3;
+			aimLevels = 2;
+			maxAimWithoutBipod = 3;
+		}
+		else if ((weaponType == GUN_AS_RIFLE || weaponType == GUN_RIFLE || weaponType == GUN_SN_RIFLE) && weaponRange <= 500)
+		{
+			maxAimForType = 4;
+			aimLevels = 2;
+			maxAimWithoutBipod = 3;
+		}
+		else if ((weaponType == GUN_AS_RIFLE || weaponType == GUN_RIFLE || weaponType == GUN_SN_RIFLE) && weaponRange > 500)
+		{
+			maxAimForType = 8;
+			aimLevels = 3;
+			maxAimWithoutBipod = 4;
+		}
+		else
+		{
+			return 4;
+		}
+
+		// Determine whether a bipod is being used (prone)
+		if (GetBipodBonus(&pSoldier->inv[pSoldier->ubAttackingHand])>0 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+		{
+			fUsingBipod = TRUE;
+		}
+
+		iScopeBonus = ( (float)gGameExternalOptions.ubStraightSightRange * GetMinRangeForAimBonus(&pSoldier->inv[pSoldier->ubAttackingHand]) / 100 );
+
+		if ( iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.6) ) // >= 60% of sight range (~9 tiles by default)
+		{
+			aimLevels = (UINT8)((float)aimLevels * (float)2);
+		}
+
+		else if ( iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.3) ) // >= 30% of sight range (~4 tiles by default)
+		{
+			aimLevels = (UINT8)((float)(aimLevels+1) * (float)1.5);
+		}
+
+		// Smaller scopes increase by one.
+		else if ( iScopeBonus > 0 )
+		{
+			aimLevels++;
+		}
+
+		// Make sure not over maximum allowed for weapon type.
+		if (aimLevels > maxAimForType)
+		{
+			aimLevels = maxAimForType;
+		}
+		// Make sure not over maximum allowed without a bipod.
+		if (!fUsingBipod)
+		{
+			aimLevels = __min(aimLevels, maxAimWithoutBipod);
+		}
+	}
+	else // JA2 1.13 Basic aiming restrictions (8 levels for 10x scope, 6 levels for 7x scope)
+	{
 	if ( gGameSettings.fOptions[TOPTION_AIM_LEVEL_RESTRICTION] && Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType != GUN_RIFLE && Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType != GUN_SN_RIFLE )
 			allowed = FALSE;
 
@@ -8506,6 +8595,7 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier)
 		if ( iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.6) ) // >= 60% of sight range (~9 tiles by default)
 		{
 			aimLevels += 2;
+			}
 		}
 	}
 

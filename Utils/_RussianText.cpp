@@ -4250,9 +4250,10 @@ STR16 sRepairsDoneString[] =
 	L"%s: завершен ремонт личных вещей.",
 	L"%s: завершен ремонт всего оружия и брони.",
 	L"%s: завершен ремонт всей экипировки отряда.",
-	L"%s: завершен ремонт всех вещей, имеющихся у отряда.",
-	L"%s: завершен ремонт всех вещей, имеющихся у отряда.",
-	L"%s: завершен ремонт всех вещей, имеющихся у отряда.",
+	L"%s finished repairing everyone's large carried items",
+	L"%s finished repairing everyone's medium carried items",
+	L"%s finished repairing everyone's small carried items",
+	L"%s finished repairing everyone's LBE gear",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -4480,6 +4481,11 @@ STR16 New113Message[] =
 	L"Вещь продана голодающему населению Арулько.",
 	L"Проданы все вещи выбранной группы.",
 	L"Проверь что солдату мешает лучше видеть.",	//You should check your goggles
+};
+
+STR16 New113HAMMessage[] = 
+{
+	L"%s cowers in fear!",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends

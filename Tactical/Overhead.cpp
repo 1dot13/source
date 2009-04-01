@@ -7206,12 +7206,24 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
 
 void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 {
+	///////////////////////////////////////////////////////////////////////////////
+	// 
+	// HEADROCK HAM B2: This entire function has been completely revamped.
+	//
+	///////////////////////////////////////////////////////////////////////////////
+
+	// External options.
+	UINT8 MAX_APS_SUPPRESSED = gGameExternalOptions.iMaxSuppressionAPLossPerAttack;
+	UINT8 MAX_APS_SUPPRESSED_TOTAL = gGameExternalOptions.iMaxSuppressionAPLossPerTurn;
+	INT8 SUPPRESSION_AP_LIMIT = gGameExternalOptions.iMinAPLimitFromSuppression;
+	INT8 MAXIMUM_SUPPRESSION_SHOCK = gGameExternalOptions.iMaxSuppressionShock;
 	INT8									bTolerance;
 	INT16									sClosestOpponent, sClosestOppLoc;
 	UINT8									ubPointsLost, ubTotalPointsLost, ubNewStance;
 	UINT32								uiLoop;
 	UINT8 ubLoop2;
-	UINT16								uiLoop3;
+	// Flag to determine if the target is cowering (if allowed)
+	BOOLEAN								fCower;
 	SOLDIERTYPE *					pSoldier;
 
 	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
@@ -7226,7 +7238,14 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: figure out aps lost"));
 			// multiply by 2, add 1 and divide by 2 to round off to nearest whole number
-			ubPointsLost = (UINT8)( (FLOAT)((pSoldier->ubSuppressionPoints * APBPConstants[AP_SUPPRESSION_MOD]) / (bTolerance + 6)) * 2 + 1 ) / 2;
+			// HEADROCK: Note that suppression points accumulate by bullets flying near the character. It includes
+			// friendly fire at a certain distance. Also note that it may be reset either each attack or each turn 
+			// (based on new INI settings), which has a small effect on how suppression builds up (but nothing 
+			// major).
+			ubPointsLost = ( ( (pSoldier->ubSuppressionPoints * APBPConstants[AP_SUPPRESSION_MOD]) / (bTolerance + 6) ) * 2 + 1 ) / 2;
+			
+			// HEADROCK HAM Beta 2.2: SuppressionEffectiveness acts as a percentage for the number of lost APs.
+			ubPointsLost = ( ubPointsLost * gGameExternalOptions.iSuppressionEffectiveness ) / 100;
 
 			// reduce loss of APs based on stance
 			// ATE: Taken out because we can possibly supress ourselves...
@@ -7243,37 +7262,125 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			//}
 
 			// cap the # of APs we can lose
-			if (ubPointsLost > APBPConstants[AP_MAX_SUPPRESSED])
+			// HEADROCK HAM B2: This now reads an external value. 0 means no limit.
+			if (MAX_APS_SUPPRESSED > 0)
 			{
-				ubPointsLost = (UINT8)APBPConstants[AP_MAX_SUPPRESSED];
+				if (ubPointsLost > APBPConstants[AP_MAX_SUPPRESSED])
+				{
+					ubPointsLost = APBPConstants[AP_MAX_SUPPRESSED];
+				}
 			}
 
+			// HEADROCK HAM B2: This makes sure that we never lose more APs than we're allowed per turn,
+			if (MAX_APS_SUPPRESSED_TOTAL > 0)
+			{
+				if (pSoldier->ubAPsLostToSuppression + ubPointsLost > MAX_APS_SUPPRESSED_TOTAL)
+				{
+					ubPointsLost = MAX_APS_SUPPRESSED_TOTAL - pSoldier->ubAPsLostToSuppression;
+				}
+			}
+			// Keeps a number for later reference
 			ubTotalPointsLost = ubPointsLost;
 
-			// Subtract off the APs lost before this point to find out how many points are lost now
+			// Make sure we're suffering extra AP loss at all. If the number of APs we're supposed to lose now
+			// is equal/higher to the number of APs we've already lost, it means we haven't actually gained any
+			// suppression. This is very important, as this function runs EVERY TIME an attack, ANY attack, ends.
+			// If the soldier hasn't suffered suppression since the last time this check ran, we'll hit the
+			// "continue" command. Note that with a certain INI setting, this value is reset after each attack
+			// or after each turn, but overall the function acts the same in both cases.
 			if (pSoldier->ubAPsLostToSuppression >= ubPointsLost)
 			{
 				continue;
 			}
 
+			// APs actually lost will be the difference between the potential loss and the APs we've already lost
+			// so far. Would theoretically equal 0 if we haven't suffered sufficient extra suppression this turn to
+			// cause any AP loss, but then we would've already hit the "continue" command, above.
+			ubPointsLost -= pSoldier->ubAPsLostToSuppression;
+
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: check for morale effects"));
-			// morale modifier
-			if (ubTotalPointsLost / 2 > pSoldier->ubAPsLostToSuppression / 2)
+
+			// HEADROCK HAM B2: This nifty little bit gives suppression an "extra kick". Soldiers affected by
+			// suppression (I.E. lost APs) will also suffer from SHOCK. This is similar to getting shot but
+			// without the health/stamina loss - the soldier will lose 5% CTH for every point of shock they suffer.
+			// Shock is sliced in half at the start of every turn. Also note that shock may cause "cowering", and
+			// may also reduce any attacker's aim as well!
+			if (gGameExternalOptions.fSuppressionShock)
 			{
-				//CHRISL: This should dynamically adjust the number of times we run the morale loop based on AP_MAXIMUM
-				uiLoop3 = (((ubTotalPointsLost / 2) - (pSoldier->ubAPsLostToSuppression / 2)) * APBPConstants[AP_MAXIMUM]) / 100;
-				for ( ubLoop2 = 0; ubLoop2 < uiLoop3; ubLoop2++ )
+				if (ubPointsLost > 0)
+				{
+					// Experienced and/or high-morale soldiers suffer less shock than others.
+					INT8 bShockValue, bShockLimit;
+					bShockLimit = MAXIMUM_SUPPRESSION_SHOCK - bTolerance;
+					// the amount of shock received depends mainly on how many APs we've lost. 8 here is arbitrary,
+					// as the shock loss can later be adjusted by the external modifier below.
+					bShockValue = (bShockLimit * ubPointsLost) / 8;
+
+					if (bShockValue < 0)
+						bShockValue = 0;
+					if (bShockLimit < 0)
+						bShockLimit = 0;
+
+					// use external value to determine how effective SHOCK really is.
+					bShockValue = (bShockValue * gGameExternalOptions.iSuppressionShockEffectiveness) / 100;
+
+					// Make sure total shock doesn't go TOO high. Maximum is around 30 (for a CTH effect of -150!),
+					// including previous shock from suppression and/or wounds. The Maximum is mitigated by
+					// the character's experience and morale. The shock value can bump above that level
+					// momentarily, for particularily lousy characters, rendering them practically incapable of firing
+					// back effectively... But of course, it is halved once the character starts his next turn, so
+					// shock at turnstart will usually be no higher than 15.
+
+					if ( pSoldier->aiData.bShock + bShockValue <= bShockLimit )
+					{
+						// Shock limit not yet breached. Add shock to character.
+						pSoldier->aiData.bShock += bShockValue;
+					}
+					else if ( pSoldier->aiData.bShock < bShockLimit ) // Shock limit will be breached.
+					{
+						// Original shock was lower than the limit, so add extra shock and breach the limit.
+						pSoldier->aiData.bShock += bShockValue;	
+					}
+					// Else, original shock was already over the limit. No more shock is added.
+				}
+			}
+			// HEADROCK: Untrained characters won't react well to being fired at (they'll keep standing), but if
+			// Suppression Shock is activated, they may dive and "COWER" anyway. For this to happen, they must first
+			// make a check to see if they are in enough shock to cower.
+
+			fCower = false;
+			if ( gGameExternalOptions.fSuppressionShock && gGameExternalOptions.iAimPenaltyPerTargetShock > 0 )
+			{
+				if (pSoldier->aiData.bShock >= bTolerance)
+				{ fCower = true; }
+			}
+
+			// HEADROCK HAM B2: If enemy cowers in fear, let the player know.
+			if (fCower)
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113HAMMessage[0], pSoldier->name );
+				// If cowering, increase suppression effectiveness by external percentage
+				if (gGameExternalOptions.iCowerEffectOnSuppression > 0)
+					ubPointsLost = (ubPointsLost * gGameExternalOptions.iCowerEffectOnSuppression) / 100;
+			}
+			// morale modifier
+			// For every 2 APs lost, subtract morale by a certain value.
+			// HEADROCK: Modified - now externalized to INI.
+			if (gGameExternalOptions.iAPLostPerMoraleDrop > 0 && ubPointsLost > 0)
+			{
+				for ( ubLoop2 = 0; ubLoop2 < (ubPointsLost / gGameExternalOptions.iAPLostPerMoraleDrop); ubLoop2++ )
 				{
 					HandleMoraleEvent( pSoldier, MORALE_SUPPRESSED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 				}
 			}
+	
 
-			ubPointsLost -= pSoldier->ubAPsLostToSuppression;
 			ubNewStance = 0;
 
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: check for reaction"));
 			// merc may get to react
-			if ( pSoldier->ubSuppressionPoints >= ( 130 / (6 + bTolerance) ) )
+			// Headrock: apply suppression effectiveness percentage to this value.
+			if ( (pSoldier->ubSuppressionPoints * gGameExternalOptions.iSuppressionEffectiveness) / 100 >= ( 130 / (6 + bTolerance) ) || fCower )
 			{
 				// merc gets to use APs to react!
 				switch (gAnimControl[ pSoldier->usAnimState ].ubEndHeight)
@@ -7285,7 +7392,8 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 					if (ubTotalPointsLost >= APBPConstants[AP_PRONE] && IsValidStance( pSoldier, ANIM_PRONE ) )
 					{
 						sClosestOpponent = ClosestKnownOpponent( pSoldier, &sClosestOppLoc, NULL );
-						if (sClosestOpponent == NOWHERE || SpacesAway( pSoldier->sGridNo, sClosestOppLoc ) > 8)
+						// HEADROCK: Added cowering.
+						if (sClosestOpponent == NOWHERE || SpacesAway( pSoldier->sGridNo, sClosestOppLoc ) > 8 || fCower)
 						{
 							if (ubPointsLost < APBPConstants[AP_PRONE])
 							{
@@ -7311,7 +7419,8 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 					else if (ubTotalPointsLost >= (APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE]) && ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_PRONE ) && IsValidStance( pSoldier, ANIM_PRONE ) )
 					{
 						sClosestOpponent = ClosestKnownOpponent( pSoldier, &sClosestOppLoc, NULL );
-						if ( sClosestOpponent == NOWHERE || SpacesAway( pSoldier->sGridNo, sClosestOppLoc ) > 8 )
+						// HEADROCK: Added cowering.
+						if ( sClosestOpponent == NOWHERE || SpacesAway( pSoldier->sGridNo, sClosestOppLoc ) > 8 ||fCower )
 						{
 							if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND )
 							{
@@ -7341,7 +7450,18 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: reduce action points"));
 			// Reduce action points!
-			pSoldier->bActionPoints -= ubPointsLost;
+			// HEADROCK HAM Beta 2.2: Enforce a minimum limit via INI.
+			if (pSoldier->bActionPoints - ubPointsLost < gGameExternalOptions.iMinAPLimitFromSuppression )
+			{
+				pSoldier->bActionPoints = gGameExternalOptions.iMinAPLimitFromSuppression;
+			}
+			else
+			{
+				pSoldier->bActionPoints -= ubPointsLost;
+			}
+			// Remember how many APs were lost. This prevents us from losing more and more APs without receiving
+			// extra suppression. Note that a specific HAM setting will reset this value after every attack,
+			// but also resets ubSuppressionPoints.
 			pSoldier->ubAPsLostToSuppression = ubTotalPointsLost;
 
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: check for quote"));
@@ -7402,6 +7522,18 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 
 				pSoldier->flags.fChangingStanceDueToSuppression = TRUE;
 				pSoldier->flags.fDontChargeAPsForStanceChange = TRUE;
+			}
+
+			// HEADROCK HAM B2: Optional fix for suppression. This clears up the value that measures suppression
+			// accumulated so far. Previously, the value was NEVER cleared, which means that a character could
+			// only be suppressed ONCE in the game (unless they die or get deleted).
+			// With the setting at "2", these two values are cleared every turn. Therefore, suppression doesn't
+			// accumulate at all, only its effects are cumulative. In the end, it functions almost the same as
+			// clearing every turn, but I added this as an alternative.
+			if (gGameExternalOptions.iClearSuppression == 2)
+			{
+				pSoldier->ubAPsLostToSuppression = 0;
+				pSoldier->ubSuppressionPoints = 0;
 			}
 
 		} // end of examining one soldier
@@ -7988,6 +8120,17 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 				pSoldier->flags.fGettingHit = FALSE;
 			}
 
+			// HEADROCK HAM B2: Optional fix for suppression. This clears up the value that measures suppression
+			// accumulated so far. Previously, the value was NEVER cleared, which means that a character could
+			// only be suppressed ONCE in the game (unless they die or get deleted).
+			// With the setting at "2", these two values are cleared every turn. Therefore, suppression doesn't
+			// accumulate at all, only its effects are cumulative. In the end, it functions almost the same as
+			// clearing every turn, but I added this as an alternative.
+			if (gGameExternalOptions.iClearSuppression == 2)
+			{
+				pSoldier->ubAPsLostToSuppression = 0;
+				pSoldier->ubSuppressionPoints = 0;
+			}
 			if (pSoldier->ubAttackerID != NOBODY )
 			{
 				if (pSoldier->ubPreviousAttackerID != pSoldier->ubAttackerID)

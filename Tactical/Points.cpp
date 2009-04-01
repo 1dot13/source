@@ -1122,7 +1122,43 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 		}
 		else
 		{
-			sAPCost += (bAimTime*APBPConstants[AP_CLICK_AIM]);
+			if (gGameExternalOptions.fIncreasedAimingCost )
+			{
+				// HEADROCK HAM B2.6: Changed the number of APs to attack when aiming.
+				if (bAimTime > 0)
+				{
+					// Add 1/2 ready cost (rounded up) for getting the sights up to the eye
+					sAPCost += ((Weapon[ usItemNum ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[HANDPOS])) / 100) + 1) / 2;
+					
+					// Add regular aim time for the first 4 aiming actions.
+					sAPCost += __min(bAimTime,4);
+
+					// If the weapon has a scope, and the target is within eligible range for scope use
+					if ( IsScoped(&pSoldier->inv[HANDPOS]) 
+						&& GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) >= GetMinRangeForAimBonus(&pSoldier->inv[HANDPOS]) )
+					{
+						// Add time to adjust eye to scope
+						if (bAimTime > 0)
+						{
+							sAPCost += 1;
+						}
+						// Add 2 APs for each aiming point between 5 and 6
+						if (bAimTime > 4)
+						{
+							sAPCost += __min(((bAimTime - 4) * 2), 4);
+						}
+						// Add 3 APs for each aiming point beyond 6.
+						if (bAimTime > 6)
+						{
+							sAPCost += (bAimTime - 6) * 3;
+						}
+					}
+				}
+			}
+			else
+			{
+				sAPCost += bAimTime;
+			}
 		}
 	}
 

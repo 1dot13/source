@@ -1653,6 +1653,8 @@ extern STR16 New113Message[];
 extern STR16 New113MERCMercMailTexts[];
 extern STR16 MissingIMPSkillsDescriptions[];
 
+// HEADROCK: HAM Messages
+extern STR16 New113HAMMessage[];
 enum
 {
 	MSG113_STORM_STARTED,

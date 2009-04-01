@@ -19,7 +19,8 @@ enum WeaponMode
 void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInvPos, UINT16 usOldItem, UINT16 usNewItem );
 
 
-#define MAXCHANCETOHIT 99
+// HEADROCK: Removed this and externalized to JA2_OPTIONS.INI as part of HAM project.
+//#define MAXCHANCETOHIT 99
 #define BAD_DODGE_POSITION_PENALTY 20
 
 #define GUN_BARREL_RANGE_BONUS	100

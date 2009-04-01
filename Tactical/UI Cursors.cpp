@@ -575,19 +575,123 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT16 sMapPos, BOOLEAN
 			{
 				usCursor = ACTION_TARGETCONFIRMBURST_UICURSOR;
 
+				// HEADROCK HAM B1: Burst cursor now shows multiple CTH bars (one for each bullet)
+				// and also a Targetted Bodypart indicator.
 				if(pSoldier->bDoAutofire == 0 && gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
 				{
-					//AXP 29.03.2007: Rooftop CtH fix. See below.
-					INT8 bTempTargetLevel = pSoldier->bTargetLevel;
-					pSoldier->bTargetLevel = (INT8) gsInterfaceLevel;
+					if (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 2)
+					{
+						// Burst mode only
+						OBJECTTYPE * pInHand;
+						pInHand = &(pSoldier->inv[pSoldier->ubAttackingHand]);
+						// Burst size
+						gbCtHBurstCount = GetShotsPerBurst(pInHand);
+						UINT8 i, saveDoBurst;
+						// Save original burst value (should be 1 always, before the burst has been fired, but
+						// this is just a failsafe
+						saveDoBurst = pSoldier->bDoBurst;
 
-					UINT32 uiHitChance;
-					uiHitChance = CalcChanceToHitGun( pSoldier, sMapPos, 0, pSoldier->bAimShotLocation );
+						// For each bullet in the burst
+						for (i=0;i<gbCtHBurstCount;i++)
+						{
+							//AXP 29.03.2007: Rooftop CtH fix. See below.
+							INT8 bTempTargetLevel = pSoldier->bTargetLevel;
+							pSoldier->bTargetLevel = (INT8) gsInterfaceLevel;
 
-					pSoldier->bTargetLevel = bTempTargetLevel;
+							// Calculate hit chance (using the current bDoBurst for burst-penalty calculations)
+							UINT32 uiHitChance;
+							uiHitChance = CalcChanceToHitGun( pSoldier, sMapPos, 0, pSoldier->bAimShotLocation );
+							// HEADROCK HAM B2.7: CTH approximation?
+							if (gGameExternalOptions.fApproximateCTH)
+							{	
+								uiHitChance = ChanceToHitApproximation( pSoldier, uiHitChance );
+							}
 
-					gfUICtHBar = TRUE;
-					gbCtH = (gbCtH+uiHitChance)/2;
+							pSoldier->bTargetLevel = bTempTargetLevel;
+
+							// Put result (burst CTH) into the array
+							gbCtH[i] = (gbCtH[i]+uiHitChance)/2;
+
+							// Increase burst size, so that the next time we run CalcChanceToHitGun we'll get a lower
+							// result, based on our Burst Penalty
+							pSoldier->bDoBurst++;
+						}
+						// Reset original burst status
+						pSoldier->bDoBurst = saveDoBurst;
+						// Activate CTH bar display
+						gfUICtHBar = TRUE;
+					}
+					else // One "BASE CTH" bar, JA2 1.13 vanilla
+					{
+						//AXP 29.03.2007: Rooftop CtH fix. See below.
+						INT8 bTempTargetLevel = pSoldier->bTargetLevel;
+						pSoldier->bTargetLevel = (INT8) gsInterfaceLevel;
+
+						UINT32 uiHitChance;
+						uiHitChance = CalcChanceToHitGun( pSoldier, sMapPos, 0, pSoldier->bAimShotLocation );
+						// HEADROCK HAM B2.7: CTH approximation?
+						if (gGameExternalOptions.fApproximateCTH)
+						{	
+							uiHitChance = ChanceToHitApproximation( pSoldier, uiHitChance );
+						}
+
+						pSoldier->bTargetLevel = bTempTargetLevel;
+
+						gfUICtHBar = TRUE;
+						gbCtH[0] = (gbCtH[0]+uiHitChance)/2;
+						gbCtHBurstCount = 1;
+					}
+				}
+
+				// HEADROCK HAM B2: Now autofire will show both its starting CTH and the CTH of the last
+				// bullet in the volley.
+				
+				else if(pSoldier->bDoAutofire > 0 && gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
+				{
+					if (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3)
+					{
+						gbCtHBurstCount = 1;
+
+						//AXP 29.03.2007: Rooftop CtH fix. See below.
+						INT8 bTempTargetLevel = pSoldier->bTargetLevel;
+						pSoldier->bTargetLevel = (INT8) gsInterfaceLevel;
+						
+						UINT32 uiHitChance;
+						// Calculate CTH for the first bullet
+						uiHitChance = CalcChanceToHitGun( pSoldier, sMapPos, 0, pSoldier->bAimShotLocation );
+						// HEADROCK HAM B2.7: CTH approximation?
+						if (gGameExternalOptions.fApproximateCTH)
+						{	
+							uiHitChance = ChanceToHitApproximation( pSoldier, uiHitChance );
+						}
+
+						// CTH for the first bullet is entered into this array, and later displayed
+						gbCtH[0] = (gbCtH[0]+uiHitChance)/2;
+
+						// Fool the CTH formula into thinking we're already firing the last bullet in the volley,
+						// by artificially altering bDoBurst (which tracks actual burst progression). The CTH formula
+						// calculates Auto Penalty based on bDoBurst - (Autopen * (bDoBurst-1), basically).
+						UINT8 saveDoBurst = pSoldier->bDoBurst;
+						pSoldier->bDoBurst = pSoldier->bDoAutofire;
+						
+						uiHitChance = CalcChanceToHitGun( pSoldier, sMapPos, 0, pSoldier->bAimShotLocation );
+						// HEADROCK HAM B2.7: CTH approximation?
+						if (gGameExternalOptions.fApproximateCTH)
+						{	
+							uiHitChance = ChanceToHitApproximation( pSoldier, uiHitChance );
+						}
+
+						pSoldier->bTargetLevel = bTempTargetLevel;
+						// Return Burst State to original value
+						pSoldier->bDoBurst = saveDoBurst;
+
+						// CTH for the last bullet is entered into this array and later displayed.
+						gbCtH[1] = (gbCtH[1]+uiHitChance)/2;
+				
+						// Flag to tell the program to draw two CTH bars.
+						gbCtHAutoFire = TRUE;
+						gfUICtHBar = TRUE;
+					}
 				}
 			}
 		}
@@ -603,11 +707,17 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT16 sMapPos, BOOLEAN
 
 				UINT32 uiHitChance;
 				uiHitChance = CalcChanceToHitGun( pSoldier, sMapPos, (INT8)(pSoldier->aiData.bShownAimTime ), pSoldier->bAimShotLocation );
+				// HEADROCK HAM B2.7: CTH approximation?
+				if (gGameExternalOptions.fApproximateCTH)
+				{	
+					uiHitChance = ChanceToHitApproximation( pSoldier, uiHitChance );
+				}
 
 				pSoldier->bTargetLevel = bTempTargetLevel;
 
 				gfUICtHBar = TRUE;
-				gbCtH = (gbCtH+uiHitChance)/2;
+				gbCtHBurstCount = 1;
+				gbCtH[0] = (gbCtH[0]+uiHitChance)/2;
 			}
 
 			switchVal = pSoldier->aiData.bShownAimTime;
@@ -1283,8 +1393,10 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 		}
 
 	}
-
-	if ( fDisplay && !pSoldier->bDoBurst)
+	// HEADROCK HAM B2: Now shows targetted bodypart for ALL firing modes. Note that the external toggle is not
+	// taken into account yet.
+	//	if ( fDisplay && !pSoldier->bDoAutofire )
+	if ( fDisplay )
 	{
 		if ( gfUIFullTargetFound )
 		{
@@ -1296,7 +1408,14 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 
 				wcscpy( gzLocation, TacticalStr[ CROW_HIT_LOCATION_STR ] );
 
-				gfUIBodyHitLocation = TRUE;
+				if ( !pSoldier->bDoBurst )
+					gfUIBodyHitLocation = TRUE;
+				// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
+				// CTH cursors.
+				else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 2) )
+					gfUIBodyHitLocation = TRUE;
+				else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3) )
+					gfUIBodyHitLocation = TRUE;
 				return;
 			}
 
@@ -1318,16 +1437,37 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 					{
 						wcscpy( gzLocation, TacticalStr[ HEAD_HIT_LOCATION_STR ] );
 					}
-					gfUIBodyHitLocation = TRUE;
+					if ( !pSoldier->bDoBurst )
+						gfUIBodyHitLocation = TRUE;
+					// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
+					// CTH cursors.
+					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 2) )
+						gfUIBodyHitLocation = TRUE;
+					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3) )
+						gfUIBodyHitLocation = TRUE;
 					break;
 
 				case AIM_SHOT_TORSO:
 					wcscpy( gzLocation, TacticalStr[ TORSO_HIT_LOCATION_STR ] );
-					gfUIBodyHitLocation = TRUE;
+					if ( !pSoldier->bDoBurst )
+						gfUIBodyHitLocation = TRUE;
+					// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
+					// CTH cursors.
+					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 2) )
+						gfUIBodyHitLocation = TRUE;
+					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3) )
+						gfUIBodyHitLocation = TRUE;
 					break;
 
 				case AIM_SHOT_LEGS:
 					wcscpy( gzLocation, TacticalStr[ LEGS_HIT_LOCATION_STR ] );
+					if ( !pSoldier->bDoBurst )
+						gfUIBodyHitLocation = TRUE;
+					// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
+					// CTH cursors.
+					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 2) )
+						gfUIBodyHitLocation = TRUE;
+					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3) )
 					gfUIBodyHitLocation = TRUE;
 					break;
 			}
@@ -2383,4 +2523,81 @@ void HandleUICursorRTFeedback( SOLDIERTYPE *pSoldier )
 			break;
 	}
 
+}
+// HEADROCK HAM B2.7: This function gives us an "approximate" CTH bar, that doesn't show the exact value of
+// CTH unless the character is well-trained. The worse trained a character is, the wilder the speculation.
+
+UINT32 ChanceToHitApproximation( SOLDIERTYPE * pSoldier, UINT32 uiChance )
+{
+	UINT16 bExpLevel = pSoldier->stats.bExpLevel;
+	UINT16 bMarksmanship = pSoldier->stats.bMarksmanship;
+	UINT16 bWisdom = pSoldier->stats.bWisdom;
+	UINT16 iNumStages, iNumStagesBase, StageSize, SubStageSize;
+	UINT8 iSniper;
+	UINT16 uiNewChance;
+	UINT16 i;
+
+	if ( pSoldier->ubProfile != NO_PROFILE )
+	{
+		iSniper = NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER );
+	}
+	else
+	{
+		// Dunno, but I get the strong feeling that we don't want CTH bars for non-mercs.
+		return(0);
+	}
+
+	if (uiChance == 100)
+	{
+		// Sure hit. The player needs to set Maximum_CTH to 100 for this to happen. Normally, the
+		// max chance is only 99.
+		return(100);
+	}
+	if (uiChance == 0)
+	{
+		// Sure Miss. The player needs to set Minimum_CTH to 0 for this to happen. Normally, the
+		// min chance is 1.
+		return(0);
+	}
+
+	uiNewChance = uiChance;
+	iNumStagesBase = __min(165,__max(0, ((bExpLevel * 10) - 30) + (bMarksmanship - 25) + (bWisdom - 50)));
+	//iNumStagesBase = __max(255, iNumStagesBase);
+	
+	iNumStagesBase = __min(165, iNumStagesBase + (10 * iSniper));
+
+	iNumStagesBase = (UINT16)((float)iNumStagesBase * (float)((float)iNumStagesBase / 195.0));
+
+	// Gives a number between 2 and 51.
+	iNumStages = __max(2,(100 * iNumStagesBase) / 300);
+
+	// Find out how large the slices are
+	StageSize = 100/iNumStages;
+	// Correct iNumStages to match StageSize, +1 compensates for the rounding down of StageSize.
+	iNumStages = (100/StageSize) + 1;
+	// These sub-stages are used to determine which way to round the results.
+	SubStageSize = __max(1, StageSize / 2);
+
+	if (StageSize == 1)
+		// CTH assessment is perfect. No need for the rest of this function
+		return (uiChance);
+
+	// Jump each "stage" and see whether the CTH is within this slice of the scale
+	for (i=0; i<iNumStages; i++)
+	{
+		UINT16 CurrentStage = i * StageSize;
+		UINT16 NextStage = (i+1) * StageSize;
+		// Check whether the CTH should be rounded down or up.
+		if ( (CurrentStage <= (UINT16) uiChance) && (CurrentStage + SubStageSize > (UINT16) uiChance) )
+		{
+			return (CurrentStage);
+		}
+		else if ( (CurrentStage + SubStageSize <= (UINT16) uiChance) && (NextStage > (UINT16) uiChance))
+		{
+			return (NextStage);
+		}
+	}
+
+	// Something went wrong. Return 50, as in "God Knows"
+	return (50);
 }

@@ -4243,9 +4243,10 @@ STR16 sRepairsDoneString[] =
 	L"%s is klaar met reparatie van eigen items",
 	L"%s is klaar met reparatie van ieders wapens en bepantering",
 	L"%s is klaar met reparatie van ieders uitrusting",
-	L"%s is klaar met reparatie van ieders vervoerde items",
-	L"%s is klaar met reparatie van ieders vervoerde items",
-	L"%s is klaar met reparatie van ieders vervoerde items",
+	L"%s finished repairing everyone's large carried items",
+	L"%s finished repairing everyone's medium carried items",
+	L"%s finished repairing everyone's small carried items",
+	L"%s finished repairing everyone's LBE gear",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -4472,6 +4473,11 @@ STR16 New113Message[] =
 	L"Verkocht punt",
 	L"Verkocht alle punten van dit type",
 	L"You should check your goggles",
+};
+
+STR16 New113HAMMessage[] = 
+{
+	L"%s cowers in fear!",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends

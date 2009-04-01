@@ -105,6 +105,8 @@
 	#include "Assignments.h"
 	#include "Interface Items.h"
 	#include "Shopkeeper Interface.h"
+	// HEADROCK HAM B1: Additional Include for HAM
+	#include "MilitiaSquads.h"
 #endif
 
 #include		"BobbyR.h"
@@ -4401,6 +4403,11 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	// fix squads
 	CheckSquadMovementGroups();
+	// HEADROCK HAM B1: Re-Adjust Dynamic Roaming Militia restrictions
+	if (gGameExternalOptions.bDynamicRestrictRoaming)
+	{
+		AdjustRoamingRestrictions();
+	}
 
 	//The above function LightSetBaseLevel adjusts ALL the level node light values including the merc node,
 	//we must reset the values

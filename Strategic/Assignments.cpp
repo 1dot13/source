@@ -105,10 +105,12 @@ enum {
 	REPAIR_BIG_POCKETS,
 	REPAIR_MED_POCKETS,
 	REPAIR_SML_POCKETS,
+	REPAIR_LBE_GEAR, // HEADROCK HAM B2.8: New pass type for fixing LBEs only
 	NUM_REPAIR_PASS_TYPES,
 };
 
-#define FINAL_REPAIR_PASS			REPAIR_SML_POCKETS
+// HEADROCK HAM B2.8: Changed LBEs to be the final pass
+#define FINAL_REPAIR_PASS			REPAIR_LBE_GEAR
 
 
 /* CHRISL: bSlot[xx] array declaration needs to reflect largest number of inventory locations.  New inventory
@@ -128,6 +130,7 @@ REPAIR_PASS_SLOTS_TYPE gRepairPassSlotList[ NUM_REPAIR_PASS_TYPES ] =
 	{ /* big pockets */			4,			7,					BIGPOCK1POS, BIGPOCK2POS, BIGPOCK3POS, BIGPOCK4POS, BIGPOCK5POS, BIGPOCK6POS, BIGPOCK7POS, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
 	{ /* med pockets */			0,			4,					MEDPOCK1POS, MEDPOCK2POS, MEDPOCK3POS, MEDPOCK4POS, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }, 
 	{ /* sml pockets */			8,			30,					SMALLPOCK1POS, SMALLPOCK2POS, SMALLPOCK3POS, SMALLPOCK4POS, SMALLPOCK5POS, SMALLPOCK6POS, SMALLPOCK7POS, SMALLPOCK8POS, SMALLPOCK9POS, SMALLPOCK10POS, SMALLPOCK11POS, SMALLPOCK12POS, SMALLPOCK13POS, SMALLPOCK14POS, SMALLPOCK15POS, SMALLPOCK16POS, SMALLPOCK17POS, SMALLPOCK18POS, SMALLPOCK19POS, SMALLPOCK20POS, SMALLPOCK21POS, SMALLPOCK22POS, SMALLPOCK23POS, SMALLPOCK24POS, SMALLPOCK25POS, SMALLPOCK26POS, SMALLPOCK27POS, SMALLPOCK28POS, SMALLPOCK29POS, SMALLPOCK30POS },
+	{ /* HEADROCK HAM B2.8: LBE Slot pass */	0,		5,		VESTPOCKPOS, LTHIGHPOCKPOS, RTHIGHPOCKPOS, CPACKPOCKPOS, BPACKPOCKPOS, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
 };
 
 extern STR16 sRepairsDoneString[];
@@ -3298,18 +3301,42 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 		fAnyOfSoldiersOwnItemsWereFixed = UnjamGunsOnSoldier( pSoldier, pSoldier, &ubRepairPtsLeft );
 
 		// repair items on self
-		for( bLoop = 0; bLoop < 2; bLoop++ )
+		// HEADROCK HAM B2.8: Experimental feature: Fixes LBEs last, as they don't actually require repairs.
+		for( bLoop = 0; bLoop < 4; bLoop++ )
 		{
 			if ( bLoop == 0 )
 			{
 				bLoopStart = SECONDHANDPOS;
+				// HEADROCK: New loop stage only checks second hand, to avoid LBEs.
+				bLoopEnd = SECONDHANDPOS;
+			}
+			else if ( bLoop == 1 )
+			{
+				// HEADROCK: Second check is for armor and headgear only.
+				bLoopStart = HELMETPOS;
+				bLoopEnd = HEAD2POS;
+			}
+			else if ( bLoop == 2 )
+			{
+				// HEADROCK: Loop stage altered to run through inventory only
+				bLoopStart = UsingNewInventorySystem() == false ? BIGPOCKSTART : GUNSLINGPOCKPOS;
 				// CHRISL: Changed to dynamically determine max inventory locations.
 				bLoopEnd = (NUM_INV_SLOTS - 1);
 			}
-			else
+			else if ( bLoop == 3 )
 			{
-				bLoopStart = HELMETPOS;
-				bLoopEnd = UsingNewInventorySystem() == false ? HEAD2POS : BPACKPOCKPOS;
+				if (UsingNewInventorySystem() == true)
+				{
+					// HEADROCK: Last loop fixes LBEs
+					bLoopStart = VESTPOCKPOS;
+					bLoopEnd = BPACKPOCKPOS;
+				}
+				else
+				{
+					// HEADROCK: In OIV, simply check everything again.
+					bLoopStart = SECONDHANDPOS;
+					bLoopEnd = (NUM_INV_SLOTS - 1);
+				}
 			}
 
 			// now repair objects running from left hand to small pocket
@@ -3317,10 +3344,12 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 			{
 				//CHRISL: These two conditions allow us to repair LBE pocket items at the same time as worn armor, while
 				//	still letting us repair the item in our offhand first.
-				if(UsingNewInventorySystem() == true && bLoop == 0 && bPocket>SECONDHANDPOS && bPocket<GUNSLINGPOCKPOS)
-					continue;
-				if(UsingNewInventorySystem() == true && bLoop == 1 && bPocket==SECONDHANDPOS)
-					continue;
+				// HEADROCK HAM B2.8: No longer necessary, as I've artificially added new stages for this. LBE
+				// pockets are now repaired LAST.
+				//if(UsingNewInventorySystem() == true && bLoop == 0 && bPocket>SECONDHANDPOS && bPocket<GUNSLINGPOCKPOS)
+				//	continue;
+				//if(UsingNewInventorySystem() == true && bLoop == 1 && bPocket==SECONDHANDPOS)
+				//	continue;
 				pObj = &(pSoldier->inv[ bPocket ]);
 
 				if ( RepairObject( pSoldier, pSoldier, pObj, &ubRepairPtsLeft ) )
@@ -3693,7 +3722,17 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 					}
 
 					// now finally train the grunt
-					TrainSoldierWithPts( pStudent, sTotalTrainingPts );
+					// HEADROCK HAM B2.8: A new trainer/student synch system allows students to rest while
+					// their trainer is asleep. If this happens, the student should not train on their own!
+					if (gGameExternalOptions.ubSmartTrainingRest == 0 || gGameExternalOptions.ubSmartTrainingRest == 2)
+					{
+						TrainSoldierWithPts( pStudent, sTotalTrainingPts );
+					}
+					else if ( pTrainer != NULL )
+					{
+						// This only occurs if at least one trainer is awake.
+						TrainSoldierWithPts( pStudent, sTotalTrainingPts );
+					}
 				}
 			}
 		}
@@ -5587,13 +5626,17 @@ void MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 		{
 			if( Item[pSoldier->inv[ bPocket ].usItem].toolkit )
 			{
-				// If the second hand is empty, swap item in first hand there
-				if (pSoldier->inv[HANDPOS].exists() &&
-					!pSoldier->inv[SECONDHANDPOS].exists() &&
-					CanItemFitInPosition(pSoldier, &pSoldier->inv[SECONDHANDPOS], HANDPOS, FALSE)) {
-					SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS, TRUE );
-				}
-				if(!CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bPocket, FALSE))
+				// HEADROCK HAM B2.8: These new conditions will create a bias for swapping an item out of
+				// our hand. 
+				
+				//If the second hand is free, the item will go to the SECONDHANDPOS while the toolkit
+				// goes into the HANDPOS
+				if( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & (IC_WEAPON | IC_PUNCH) && !pSoldier->inv[SECONDHANDPOS].exists())
+					SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
+				// Else, if the gun sling slot is free, and the item can go there, it will.
+				else if(UsingNewInventorySystem() && !pSoldier->inv[GUNSLINGPOCKPOS].exists() && CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], GUNSLINGPOCKPOS, FALSE))
+					SwapObjs(pSoldier, HANDPOS, GUNSLINGPOCKPOS, TRUE);
+				else if(!CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bPocket, FALSE))
 					SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
 				SwapObjs( pSoldier, HANDPOS, bPocket, TRUE );
 				break;
@@ -5623,13 +5666,17 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )
 		if ( Item[pSoldier->inv[ bPocket ].usItem].medicalkit )
 		{
 			fCharacterInfoPanelDirty = TRUE;
-			// If the second hand is empty, swap item in first hand there
-			if (pSoldier->inv[HANDPOS].exists() &&
-				!pSoldier->inv[SECONDHANDPOS].exists() &&
-				CanItemFitInPosition(pSoldier, &pSoldier->inv[SECONDHANDPOS], HANDPOS, FALSE)) {
-				SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS, TRUE );
-			}
-			if(!CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bPocket, FALSE))
+			// HEADROCK HAM B2.8: These new conditions will create a bias for swapping an item out of
+			// our hand. 
+			
+			//If the second hand is free, the item will go to the SECONDHANDPOS while the medikit
+			// goes into the HANDPOS
+			if( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & (IC_WEAPON | IC_PUNCH) && !pSoldier->inv[SECONDHANDPOS].exists())
+				SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
+			// Else, if the gun sling slot is free, and the item can go there, it will.
+			else if(UsingNewInventorySystem() && !pSoldier->inv[GUNSLINGPOCKPOS].exists() && CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], GUNSLINGPOCKPOS, FALSE))
+				SwapObjs(pSoldier, HANDPOS, GUNSLINGPOCKPOS, TRUE);
+			else if(!CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bPocket, FALSE))
 				SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
 			SwapObjs( pSoldier, HANDPOS, bPocket, TRUE );
 			return(TRUE);
@@ -11719,9 +11766,357 @@ BOOLEAN UnjamGunsOnSoldier( SOLDIERTYPE *pOwnerSoldier, SOLDIERTYPE *pRepairSold
 	return ( fAnyGunsWereUnjammed );
 }
 
+// HEADROCK HAM B2.8: A set of functions to synchronize sleeping periods of trainers and trainees
+BOOLEAN SetTrainerSleepWhenTraineesSleep( SOLDIERTYPE *pThisTrainee)
+{
+	UINT16 sMapX = pThisTrainee->sSectorX;
+	UINT16 sMapY = pThisTrainee->sSectorY;
+	UINT16 sMapZ = pThisTrainee->sZLevel;
+	UINT8 bStat = pThisTrainee->bTrainStat;
+	INT32 iCounter, iNumberOnTeam;
+	
+	SOLDIERTYPE * pOtherTrainee;
+	SOLDIERTYPE * pTrainer;
+	BOOLEAN fAllTraineesAsleep = TRUE;
+	BOOLEAN fTrainersSentToSleep = FALSE;
+
+	if (pThisTrainee->bAssignment != TRAIN_BY_OTHER)
+	{
+		// Shouldn't happen...
+		return (FALSE);
+	}
+
+	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+
+	// Check to see if all other trainees of the same stat are also asleep
+	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	{
+		pOtherTrainee = &Menptr[ iCounter ];
+		if (pOtherTrainee->bAssignment == TRAIN_BY_OTHER && pOtherTrainee->bTrainStat == pThisTrainee->bTrainStat && 
+			pOtherTrainee->sSectorX == sMapX && pOtherTrainee->sSectorY == sMapY && pOtherTrainee->sZLevel == sMapZ &&			
+			pOtherTrainee->bActive && !pOtherTrainee->flags.fMercAsleep )
+		{
+			// Trainee is present and awake. Flag is reset to false.
+			fAllTraineesAsleep = FALSE;
+		}
+	}
+	// If they are all asleep
+	if (fAllTraineesAsleep)
+	{
+		// Look for trainers of that stat, in the same sector
+		for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+		{
+			pTrainer = &Menptr[ iCounter ];
+			if (pTrainer->bAssignment == TRAIN_TEAMMATE && pTrainer->bTrainStat == pThisTrainee->bTrainStat && 
+				pTrainer->sSectorX == sMapX && pTrainer->sSectorY == sMapY && pTrainer->sZLevel == sMapZ &&	
+				pTrainer->bActive && !pTrainer->flags.fMercAsleep )
+			{
+				// Trainer will go to sleep
+				if( SetMercAsleep( pTrainer, FALSE ) )
+				{
+					if( gGameSettings.fOptions[ TOPTION_SLEEPWAKE_NOTIFICATION ] )
+					{
+						// tell player about it
+						AddSoldierToWaitingListQueue( pTrainer );
+					}
+					
+					// seems unnecessary now?	ARM
+					pTrainer->bOldAssignment = pTrainer->bAssignment;
+					
+					fTrainersSentToSleep = TRUE;
+				}
+			}
+		}
+		if (fTrainersSentToSleep)
+		{
+			return(TRUE);
+		}
+		else
+		{
+			return(FALSE);
+		}
+	}
+	else
+	{
+		return(FALSE);
+	}
+}
 
 
+BOOLEAN SetTraineesSleepWhenTrainerSleeps( SOLDIERTYPE *pTrainer)
+{
+	UINT16 sMapX = pTrainer->sSectorX;
+	UINT16 sMapY = pTrainer->sSectorY;
+	UINT16 sMapZ = pTrainer->sZLevel;
+	UINT8 bStat = pTrainer->bTrainStat;
+	INT32 iCounter, iNumberOnTeam;
+	BOOLEAN fTraineesSentToSleep = FALSE;
+
+	SOLDIERTYPE * pTrainee;
+
+	if (pTrainer->bAssignment != TRAIN_TEAMMATE)
+	{
+		// Shouldn't happen...
+		return(FALSE);
+	}
+
+	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+
+	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	{
+		pTrainee = &Menptr[ iCounter ];
+		if (pTrainee->bAssignment == TRAIN_BY_OTHER && pTrainee->bTrainStat == pTrainer->bTrainStat && 
+			pTrainee->sSectorX == sMapX && pTrainee->sSectorY == sMapY && pTrainee->sZLevel == sMapZ &&
+			pTrainee->bActive && !pTrainee->flags.fMercAsleep )
+		{
+			// Trainee will go to sleep
+			if( SetMercAsleep( pTrainee, FALSE ) )
+			{
+				if( gGameSettings.fOptions[ TOPTION_SLEEPWAKE_NOTIFICATION ] )
+				{
+					// tell player about it
+					AddSoldierToWaitingListQueue( pTrainee );
+				}
+				
+				// seems unnecessary now?	ARM
+				pTrainee->bOldAssignment = pTrainee->bAssignment;
+				
+				fTraineesSentToSleep = TRUE;
+			}
+		}
+	}
+
+	if (fTraineesSentToSleep)
+	{
+		return(TRUE);
+	}
+	else
+	{
+		return(FALSE);
+	}
+}
 
 
+BOOLEAN SetTrainerWakeWhenTraineesWake( SOLDIERTYPE *pThisTrainee)
+{
+	UINT16 sMapX = pThisTrainee->sSectorX;
+	UINT16 sMapY = pThisTrainee->sSectorY;
+	UINT16 sMapZ = pThisTrainee->sZLevel;
+	UINT8 bStat = pThisTrainee->bTrainStat;
+	INT32 iCounter, iNumberOnTeam;
+	
+	SOLDIERTYPE * pOtherTrainee;
+	SOLDIERTYPE * pTrainer;
+	BOOLEAN fAllTraineesAwake = TRUE;
+	BOOLEAN fTrainersWokenUp = FALSE;
 
+	if (pThisTrainee->bAssignment != TRAIN_BY_OTHER)
+	{
+		// Shouldn't happen...
+		return (FALSE);
+	}
 
+	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+
+	// Check to see if all other trainees of the same stat are also asleep
+	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	{
+		pOtherTrainee = &Menptr[ iCounter ];
+		if (pOtherTrainee->bAssignment == TRAIN_BY_OTHER && pOtherTrainee->bTrainStat == pThisTrainee->bTrainStat && 
+			pOtherTrainee->sSectorX == sMapX && pOtherTrainee->sSectorY == sMapY && pOtherTrainee->sZLevel == sMapZ &&			
+			pOtherTrainee->bActive && pOtherTrainee->flags.fMercAsleep )
+		{
+			// Trainee is present and asleep. Flag is reset to FALSE.
+			fAllTraineesAwake = FALSE;
+		}
+	}
+	// If they are all awake
+	if (fAllTraineesAwake)
+	{
+		// Look for trainers of that stat, in the same sector
+		for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+		{
+			pTrainer = &Menptr[ iCounter ];
+			if (pTrainer->bAssignment == TRAIN_TEAMMATE && pTrainer->bTrainStat == pThisTrainee->bTrainStat && 
+				pTrainer->sSectorX == sMapX && pTrainer->sSectorY == sMapY && pTrainer->sZLevel == sMapZ &&	
+				pTrainer->bActive && pTrainer->flags.fMercAsleep )
+			{
+				// Trainer will wake up
+				if( SetMercAwake( pTrainer, FALSE, FALSE ) )
+				{
+					if( gGameSettings.fOptions[ TOPTION_SLEEPWAKE_NOTIFICATION ] )
+					{
+						// tell player about it
+						AddSoldierToWaitingListQueue( pTrainer );
+					}
+					
+					// seems unnecessary now?	ARM
+					pTrainer->bOldAssignment = pTrainer->bAssignment;
+					
+					fTrainersWokenUp = TRUE;
+				}
+			}
+		}
+		if (fTrainersWokenUp)
+		{
+			return(TRUE);
+		}
+		else
+		{
+			return(FALSE);
+		}
+	}
+	else
+	{
+		return(FALSE);
+	}
+}
+
+BOOLEAN SetTraineesWakeWhenTrainerWakes( SOLDIERTYPE *pTrainer)
+{
+	UINT16 sMapX = pTrainer->sSectorX;
+	UINT16 sMapY = pTrainer->sSectorY;
+	UINT16 sMapZ = pTrainer->sZLevel;
+	UINT8 bStat = pTrainer->bTrainStat;
+	INT32 iCounter, iNumberOnTeam;
+	BOOLEAN fTraineesWokenUp = FALSE;
+
+	SOLDIERTYPE * pTrainee;
+
+	if (pTrainer->bAssignment != TRAIN_TEAMMATE)
+	{
+		// Shouldn't happen...
+		return(FALSE);
+	}
+
+	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+
+	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	{
+		pTrainee = &Menptr[ iCounter ];
+		if (pTrainee->bAssignment == TRAIN_BY_OTHER && pTrainee->bTrainStat == pTrainer->bTrainStat && 
+			pTrainee->sSectorX == sMapX && pTrainee->sSectorY == sMapY && pTrainee->sZLevel == sMapZ &&
+			pTrainee->bActive && pTrainee->flags.fMercAsleep )
+		{
+			// Trainee will wake up
+			if( SetMercAwake( pTrainee, FALSE, FALSE ) )
+			{
+				if( gGameSettings.fOptions[ TOPTION_SLEEPWAKE_NOTIFICATION ] )
+				{
+					// tell player about it
+					AddSoldierToWaitingListQueue( pTrainee );
+				}
+				
+				// seems unnecessary now?	ARM
+				pTrainee->bOldAssignment = pTrainee->bAssignment;
+				
+				fTraineesWokenUp = TRUE;
+			}
+		}
+	}
+
+	if (fTraineesWokenUp)
+	{
+		return(TRUE);
+	}
+	else
+	{
+		return(FALSE);
+	}
+}
+
+void HandleTrainingSleepSynchronize( SOLDIERTYPE *pSoldier )
+{
+	// HEADROCK HAM B2.8: Trainees will now go to sleep if the trainer goes to sleep.
+	if ((gGameExternalOptions.ubSmartTrainingSleep == 1 || gGameExternalOptions.ubSmartTrainingSleep == 2) && pSoldier->bAssignment == TRAIN_TEAMMATE)
+	{
+		SetTraineesSleepWhenTrainerSleeps( pSoldier );
+	}
+		
+	// HEADROCK HAM B2.8: If this is a trainee, and all other trainees are already asleep, put all trainers to sleep as well.
+	if ( (gGameExternalOptions.ubSmartTrainingSleep == 1 || gGameExternalOptions.ubSmartTrainingSleep == 3 ) && pSoldier->bAssignment == TRAIN_BY_OTHER)
+	{
+		SetTrainerSleepWhenTraineesSleep( pSoldier );
+	}
+}
+
+void HandleTrainingWakeSynchronize( SOLDIERTYPE *pSoldier )
+{
+	// HEADROCK HAM B2.8: Trainees will now go to sleep if the trainer goes to sleep.
+	if ((gGameExternalOptions.ubSmartTrainingWake == 1 || gGameExternalOptions.ubSmartTrainingWake == 2) && pSoldier->bAssignment == TRAIN_TEAMMATE)
+	{
+		SetTraineesWakeWhenTrainerWakes( pSoldier );
+	}
+		
+	// HEADROCK HAM B2.8: If this is a trainee, and all other trainees are already asleep, put all trainers to sleep as well.
+	if ( (gGameExternalOptions.ubSmartTrainingWake == 1 || gGameExternalOptions.ubSmartTrainingWake == 3 ) && pSoldier->bAssignment == TRAIN_BY_OTHER)
+	{
+		SetTrainerWakeWhenTraineesWake( pSoldier );
+	}
+}
+
+BOOLEAN FindAnyAwakeTrainers( SOLDIERTYPE *pTrainee )
+{
+	UINT16 sMapX = pTrainee->sSectorX;
+	UINT16 sMapY = pTrainee->sSectorY;
+	UINT16 sMapZ = pTrainee->sZLevel;
+	UINT8 bStat = pTrainee->bTrainStat;
+	INT32 iCounter, iNumberOnTeam;
+	BOOLEAN fAllTrainersAsleep = TRUE;
+
+	SOLDIERTYPE * pTrainer;
+
+	if (pTrainee->bAssignment != TRAIN_BY_OTHER)
+	{
+		// Shouldn't happen...
+		return(FALSE);
+	}
+
+	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+
+	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	{
+		pTrainer = &Menptr[ iCounter ];
+		if (pTrainer->bAssignment == TRAIN_TEAMMATE && pTrainer->bTrainStat == pTrainee->bTrainStat && 
+			pTrainer->sSectorX == sMapX && pTrainer->sSectorY == sMapY && pTrainer->sZLevel == sMapZ &&
+			pTrainer->bActive && !pTrainer->flags.fMercAsleep )
+		{
+			fAllTrainersAsleep = FALSE;
+		}
+	}
+
+	return(fAllTrainersAsleep);
+}
+
+BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer )
+{
+	UINT16 sMapX = pTrainer->sSectorX;
+	UINT16 sMapY = pTrainer->sSectorY;
+	UINT16 sMapZ = pTrainer->sZLevel;
+	UINT8 bStat = pTrainer->bTrainStat;
+	INT32 iCounter, iNumberOnTeam;
+	BOOLEAN fAllTraineesAsleep = TRUE;
+
+	SOLDIERTYPE * pTrainee;
+
+	if (pTrainer->bAssignment != TRAIN_TEAMMATE)
+	{
+		// Shouldn't happen...
+		return(FALSE);
+	}
+
+	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+
+	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	{
+		pTrainee = &Menptr[ iCounter ];
+		if (pTrainee->bAssignment == TRAIN_BY_OTHER && pTrainee->bTrainStat == pTrainer->bTrainStat && 
+			pTrainee->sSectorX == sMapX && pTrainee->sSectorY == sMapY && pTrainee->sZLevel == sMapZ &&
+			pTrainee->bActive && !pTrainee->flags.fMercAsleep )
+		{
+			fAllTraineesAsleep = FALSE;
+		}
+	}
+
+	return(fAllTraineesAsleep);
+}

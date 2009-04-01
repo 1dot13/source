@@ -486,7 +486,141 @@ BOOLEAN gbBulletTracer;
 	INT32 fEnhancedDescriptionBox;
 
 	// WANNE: Always use "prof.dat".
-	BOOLEAN fAlwaysUseProfDat;  
+	BOOLEAN fAlwaysUseProfDat;
+
+	// HEADROCK HAM B1: Global modifier for mine income (0 is automatically turned to 1 to avoid divide-by-zero.)
+	INT16 iMineIncomePercentage;
+
+	// HEADROCK HAM B1: Allows changing the maximum CTH possible, for any attack 0-100
+	UINT8 iMaximumCTH;
+	
+	// HEADROCK HAM B1: Allows changing the minimum CTH possible, for any attack 0-100
+	UINT8 iMinimumCTH;
+
+	// HEADROCK HAM B1: Allows reducing the chance of scoring a hit fractionally, if CTH = Minimum CTH
+	UINT8 iMinimumCTHDivisor;
+
+	// HEADROCK HAM B1: Allows Restricted Roaming Militia to move through previously visited sectors, even if restricted.
+	BOOLEAN bUnrestrictVisited;
+
+	// HEADROCK HAM B1: Allows the capture of towns to dynamically alter roaming restrictions
+	BOOLEAN bDynamicRestrictRoaming;
+
+	// HEADROCK HAM B2: Reset suppression counter. 0 = never (oldskool), 1 = Every turn, 2 = Every attack.
+	UINT8 iClearSuppression;
+
+	// HEADROCK HAM B2.1: This controls how effective suppression is, by increasing the number of ubSuppressionPoints accumulated by combatants (percentage);
+	INT16 iSuppressionEffectiveness;
+
+	// HEADROCK HAM B2: MAXIMUM number of APs that can be lost to suppression in a given turn (0=unlimited)
+	UINT8 iMaxSuppressionAPLossPerTurn;
+
+	// HEADROCK HAM B2: MAXIMUM number of APs that can be lost to suppression in a given attack (0=unlimited)
+	UINT8 iMaxSuppressionAPLossPerAttack;
+
+	// HEADROCK HAM B2: Rigid limit to which a soldier's APs can drop due to suppression fire. (0=unlimited)
+	INT8 iMinAPLimitFromSuppression;
+
+	// HEADROCK HAM B2: Suppression Shock ON/OFF
+	BOOLEAN fSuppressionShock;
+
+	// HEADROCK HAM B2: Suppression Shock effectiveness (percentage, 100 = "normal", 0 = deactivated. Range 0-65535)
+	UINT16 iSuppressionShockEffectiveness;
+
+	// HEADROCK HAM B2.1: CTH penalty given by a "Cowering" target to any enemy shooter.
+	INT8 iAimPenaltyPerTargetShock;
+
+	// HEADROCK HAM B2.3: It is now possible for "cowering" to increase a target's suppression.
+	UINT16 iCowerEffectOnSuppression;
+
+	// HEADROCK HAM B2.4: How many APs must be lost due to suppression for every 1 point of morale lost?
+	UINT8 iAPLostPerMoraleDrop;
+
+	// HEADROCK HAM B2.5: Turn on Realistic Tracers. 0 = off (regular tracers). 1 = Fully realistic tracers. 2 = Tracer Bump + 1.13 Autofire Penalty Reduction
+	UINT8 iRealisticTracers;
+
+	// HEADROCK HAM B2.5: Realistic tracers - one of every X bullets in a tracer magazines will be a tracer bullet. 0 = off (JA2 normal)
+	UINT8 iNumBulletsPerTracer;
+
+	// HEADROCK HAM B2.5: Realistic tracers - CTH increased by this amount whenever a tracer is fired. 0 = off.
+	INT16 iCTHBumpPerTracer;
+
+	// HEADROCK HAM B2.6: Increased aiming costs?
+	BOOLEAN fIncreasedAimingCost;
+
+	// HEADROCK HAM B2.6: Dynamically determine Max-Aiming based also on weapon, bipod, etc?
+	BOOLEAN fDynamicAimingTime;
+
+	// HEADROCK HAM B2.6: Controls how much effect target movement has on aiming
+	FLOAT iMovementEffectOnAiming;
+
+	// HEADROCK HAM B2.6: Autofire Bullets/5AP modifier
+	INT16 iAutofireBulletsPer5APModifier;
+
+	// HEADROCK HAM B2.6/B1: Adjustable "luck" factor in Auto-Resolve
+	FLOAT iAutoResolveLuckFactor;
+
+	// HEADROCK HAM B2.6: Adjustable maximum for Suppression Shock effect. This has the added effect of reducing overall susceptibility to shock and may render some enemies unshockable.
+	UINT8 iMaxSuppressionShock;
+
+	// HEADROCK HAM B2.6/2/1: Toggle new Burst/Auto CTH bars: 0=neither, 1=both, 2=Burst, 3=Auto
+	UINT8 iNewCTHBars;
+
+	// HEADROCK HAM B2.6: Toggle whether AI checks for larger magazine when wanting to suppress at a distance
+	BOOLEAN fIncreaseAISuppressionFire;
+
+	// HEADROCK HAM B2.7: Change the speed of skill progression. (defaults set to JA2 normal)
+	UINT16 ubHealthSubpointsToImprove;
+	UINT16 ubStrengthSubpointsToImprove;
+	UINT16 ubDexteritySubpointsToImprove;
+	UINT16 ubAgilitySubpointsToImprove;
+	UINT16 ubWisdomSubpointsToImprove;
+	UINT16 ubMarksmanshipSubpointsToImprove;
+	UINT16 ubMedicalSubpointsToImprove;
+	UINT16 ubMechanicalSubpointsToImprove;
+	UINT16 ubExplosivesSubpointsToImprove;
+	UINT16 ubLeadershipSubpointsToImprove;
+	UINT16 ubLevelSubpointsToImprove;
+
+	// HEADROCK HAM B2.7: When turned on, this will give a CTH approximation instead of an exact value, on CTH Bars and "F" key feedback.
+	BOOLEAN fApproximateCTH;
+
+	// HEADROCK HAM B2.7: Augmented Roaming Militia code - turn this to TRUE to allow militia free travel through San Mona, Tixa, Orta, Omerta, and Estoni.
+	BOOLEAN fAllowMilitiaMoveThroughMinorCities;
+
+	// HEADROCK HAM B2.7: Smarter Roaming Militia Generator will generate Roamers in any available city perimeter square, allowing us to avoid "wasting" training sessions more easily.
+	BOOLEAN fSmartRoamingMilitiaGenerator;
+
+	// HEADROCK HAM B2.7: When "TRUE", Roaming Militia will be created on a 25% Veteran, 25% Regular, 50% green basis. If new militia is placed into a full group, it will upgrade greens/regulars in that group. 
+	BOOLEAN fDiverseRoamingMilitiaGroups;
+
+	// HEADROCK HAM B2.8: This setting controls whether militia will try to join up into the largest groups they can, or average out the size of the groups to cover more territory.
+	UINT8 ubRoamingMilitiaSpreadsOutChance;
+
+	// HEADROCK HAM B2.8: These are new cowering penalty divisors that help us determine how effective cowering is in different stances and when the shooter is targetting different bodyparts
+	UINT8 ubCoweringPenaltyDivisorProne;
+	UINT8 ubCoweringPenaltyDivisorCrouchedHead;
+	UINT8 ubCoweringPenaltyDivisorCrouchedTorso;
+	UINT8 ubCoweringPenaltyDivisorCrouchedLegs;
+
+	// HEADROCK HAM B2.8: This is the maximum range at which a target gives out the full CTH penalty for cowering. At lower range, it'll give proportionally less penalty.
+	UINT16 usMinRangeForFullCoweringPenalty;
+
+	// HEADROCK HAM B2.8: Absolute maximum CTH penalty from target/shooter cowering
+	UINT16 usMaxShooterCoweringPenalty;
+	UINT16 usMaxTargetCoweringPenalty;
+
+	// HEADROCK HAM B2.8: If this is turned on, Militia will drop their equipment similar to enemies, IF killed by non-player character.
+	UINT8 ubMilitiaDropEquipment;
+
+	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will go to sleep when their trainer goes to sleep. 3 = Trainer will go to sleep if all trainees are asleep. 1 = Both. 0 = Neither.
+	UINT8 ubSmartTrainingSleep;
+
+	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will wake up when their trainer wakes up. 3 = Trainer will wake up if all trainees wake up. 1 = Both. 0 = Neither.
+	UINT8 ubSmartTrainingWake;
+
+	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainers will rest if no trainees available. 3 = Trainees will rest if no trainers available (not recommended). 1 = Both. 0 = Neither.
+	UINT8 ubSmartTrainingRest;
 
 } GAME_EXTERNAL_OPTIONS;
 

@@ -2565,3 +2565,236 @@ void AINameMessage(SOLDIERTYPE * pSoldier,const STR8	str,INT32 num)
 	DebugAI( tempstr );
 }
 #endif
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// HEADROCK:
+//
+// The following function(s) are part of my half-assed attempt to have the AI analyze the tactical
+// situation, by comparing (known) squad sizes, the state of all combatants, and the orders of all
+// friendlies. The idea is to return a value called "TacticalSituation" which can tell a combatant
+// whether he should try to undertake a smarter course of action.
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+INT16 AssessTacticalSituation( INT8 bTeam )
+{
+	UINT16 ubFriendlyTeamTacticalValue = 0;
+	UINT16 ubEnemyTeamTacticalValue = 0;
+	UINT8 ubSoldierTacticalThreat;
+	INT16 ubTacticalSituation;
+	UINT16 cnt;
+	SOLDIERTYPE * pSoldier;
+	
+	// begin loop through all MERCs.
+	for ( cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++ )
+	{
+		pSoldier = MercPtrs[ cnt ];
+		ubSoldierTacticalThreat = CalcStraightThreatValue( pSoldier );
+		// Player-controlled Mercs are 1.5 times more threatening than AIs
+		if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
+			ubSoldierTacticalThreat = (UINT8)((float)ubSoldierTacticalThreat * 1.5);
+		
+		// Assess Threat
+		if (bTeam == OUR_TEAM || bTeam == MILITIA_TEAM)
+		{
+			// Friendly!
+			ubFriendlyTeamTacticalValue += ubSoldierTacticalThreat;
+		}
+		else
+		{
+			// Enemy!
+			if ( TeamSeesOpponent( ENEMY_TEAM, pSoldier ) )
+				ubEnemyTeamTacticalValue += ubSoldierTacticalThreat;
+
+		}
+	}
+
+	// begin loop through all Militia.
+	for ( cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++ )
+	{
+		pSoldier = MercPtrs[ cnt ];
+		ubSoldierTacticalThreat = CalcStraightThreatValue( pSoldier );
+		
+		// Assess Threat
+		if (bTeam == OUR_TEAM || bTeam == MILITIA_TEAM)
+		{
+			// Friendly!
+			ubFriendlyTeamTacticalValue += ubSoldierTacticalThreat;
+		}
+		else
+		{
+			// Enemy!
+			if ( TeamSeesOpponent( ENEMY_TEAM, pSoldier ) )
+				ubEnemyTeamTacticalValue += ubSoldierTacticalThreat;
+		}
+	}	
+
+	// begin loop through all Enemies.
+	for ( cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; cnt++ )
+	{
+		pSoldier = MercPtrs[ cnt ];
+		ubSoldierTacticalThreat = CalcStraightThreatValue( pSoldier );
+		
+		// Assess Threat
+
+		if (bTeam == ENEMY_TEAM)
+		{
+			// Friendly!
+			ubFriendlyTeamTacticalValue += ubSoldierTacticalThreat;
+		}
+		else
+		{
+			// Enemy!
+			if ( TeamSeesOpponent( OUR_TEAM, pSoldier ) || TeamSeesOpponent ( MILITIA_TEAM, pSoldier) )
+				ubEnemyTeamTacticalValue += ubSoldierTacticalThreat;
+		}
+		
+	}
+
+	ubTacticalSituation = ubEnemyTeamTacticalValue - ubFriendlyTeamTacticalValue;
+
+	return (ubTacticalSituation);
+
+
+}
+
+
+// HEADROCK: Function to check whether a team can see the specified soldier.
+BOOLEAN TeamSeesOpponent( INT8 bTeam, SOLDIERTYPE * pOpponent )
+{
+	SOLDIERTYPE * pSoldier;
+	UINT16 cnt;
+
+	// This assertion can be safely removed, assuming the program does what it should. It simply checks
+	// whether the "opponent" is on the same team being checked. That should be avoided when calling this
+	// function.
+	Assert( pOpponent->bTeam != bTeam );
+
+	// We're checking Merc/Militia visibility
+	if (bTeam == OUR_TEAM || bTeam == MILITIA_TEAM )
+	{
+		for ( cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++ )
+		{
+			pSoldier = MercPtrs[ cnt ];
+
+			if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE)
+			{
+
+
+				if (pSoldier->aiData.bOppList[ pOpponent->ubID ] == SEEN_CURRENTLY)
+					return ( TRUE );
+			}
+		}
+		for ( cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++ )
+		{
+			pSoldier = MercPtrs[ cnt ];
+
+			if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE)
+			{
+				// This assertion can be safely removed, assuming the program does what it should. It simply checks
+				// whether the "opponent" is on the same team being checked. That should be avoided when calling this
+				// function.
+				//Assert( pOpponent->bSide != bSide );
+
+				if (pSoldier->aiData.bOppList[ pOpponent->ubID ] == SEEN_CURRENTLY)
+					return ( TRUE );
+			}
+		}		
+		
+		return ( FALSE );
+	}
+	// Check enemy visibility
+	else if (bTeam == ENEMY_TEAM)
+	{
+		for ( cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; cnt++ )
+		{
+			pSoldier = MercPtrs[ cnt ];
+
+			if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE)
+			{
+				// This assertion can be safely removed, assuming the program does what it should. It simply checks
+				// whether the "opponent" is on the same team being checked. That should be avoided when calling this
+				// function.
+				//Assert( pOpponent->bSide != bSide );
+
+				if (pSoldier->aiData.bOppList[ pOpponent->ubID ] == SEEN_CURRENTLY)
+					return ( TRUE );
+			}
+		}	
+		return ( FALSE );
+	}
+
+	else
+		return (FALSE);
+
+}
+
+// HEADROCK: Function to assess an enemy's threat value without "me" argument.
+INT32 CalcStraightThreatValue( SOLDIERTYPE *pEnemy )
+{
+	INT32	iThreatValue = 0;
+
+	// If man is inactive, at base, on assignment, dead, unconscious
+	if (!pEnemy->bActive || !pEnemy->bInSector || !pEnemy->stats.bLife )
+	{
+		// he's no threat at all, return a negative number
+		iThreatValue = 0;
+		return(iThreatValue);
+	}
+
+	else
+	{
+		// ADD twice the man's level (2-20)
+		iThreatValue += pEnemy->stats.bExpLevel;
+
+		// ADD man's total action points (10-35)
+		iThreatValue += pEnemy->CalcActionPoints();
+
+		// ADD 1/2 of man's current action points (4-17)
+		iThreatValue += (pEnemy->bActionPoints / 2);
+
+		// ADD 1/10 of man's current health (0-10)
+		iThreatValue += (pEnemy->stats.bLife / 10);
+
+		if (pEnemy->bAssignment < ON_DUTY )
+		{
+			// ADD 1/4 of man's protection percentage (0-25)
+			iThreatValue += ArmourPercent( pEnemy ) / 4;
+
+			// ADD 1/5 of man's marksmanship skill (0-20)
+			iThreatValue += (pEnemy->stats.bMarksmanship / 5);
+
+			if ( Item[ pEnemy->inv[HANDPOS].usItem ].usItemClass & IC_WEAPON )
+			{
+				// ADD the deadliness of the item(weapon) he's holding (0-50)
+				iThreatValue += Weapon[pEnemy->inv[HANDPOS].usItem].ubDeadliness;
+			}
+		}
+
+		// SUBTRACT 1/5 of man's bleeding (0-20)
+		iThreatValue -= (pEnemy->bBleeding / 5);
+
+		// SUBTRACT 1/10 of man's breath deficiency (0-10)
+		iThreatValue -= ((100 - pEnemy->bBreath) / 10);
+
+		// SUBTRACT man's current shock value
+		iThreatValue -= pEnemy->aiData.bShock;
+	}
+
+	// if this man is conscious
+	if (pEnemy->stats.bLife < OKLIFE)
+	{
+		// if he's still something of a threat
+		if (iThreatValue > 0)
+		{
+			// drastically reduce his threat value (divide by 5 to 18)
+			iThreatValue /= (4 + (OKLIFE - pEnemy->stats.bLife));
+		}
+	}
+
+	// threat value of any opponent can never drop below 1
+	if (iThreatValue < 0)
+	{
+		iThreatValue = 0;
+	}
+
+	return(iThreatValue);
+}

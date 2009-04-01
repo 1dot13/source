@@ -1296,7 +1296,9 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 				}
 			}
 			else
-				ubChanceToHit = MAXCHANCETOHIT;
+				// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
+				// ubChanceToHit = MAXCHANCETOHIT;
+				ubChanceToHit = gGameExternalOptions.iMaximumCTH;
 			//NumMessage("chance to Hit = ",ubChanceToHit);
 
 			//sprintf(tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
@@ -1473,7 +1475,9 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 				ubChanceToHit = (INT16) CalcChanceToStab(pSoldier,pOpponent,ubAimTime);
 			}
 			else
-				ubChanceToHit = MAXCHANCETOHIT;
+				// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
+				// ubChanceToHit = MAXCHANCETOHIT;
+				ubChanceToHit = gGameExternalOptions.iMaximumCTH;
 			//NumMessage("chance to Hit = ",ubChanceToHit);
 
 			//sprintf(tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
@@ -2472,8 +2476,20 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 		}
 
 		//if ( (!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj) > pSoldier->MaxDistanceVisible(pBestShot->sTarget, pBestShot->bTargetLevel) ) || pSoldier->bOrders == SNIPER ) ) ||
-		if ( (!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj) > MaxNormalDistanceVisible() ) || pSoldier->aiData.bOrders == SNIPER ) ) ||
-			(suppressionFire  && IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn] ) && GetMagSize(pObj) > 30 && (*pObj)[0]->data.gun.ubGunShotsLeft > 20 ))
+		// HEADROCK HAM B2.4: Changed this again - weapons are no longer checked for larger magazine to allow suppressive fire, due to
+		// suppressive fire revamp.
+//		if ( (!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj) > MaxNormalDistanceVisible() ) || pSoldier->aiData.bOrders == SNIPER ) ) ||
+//			(suppressionFire  && IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn] ) && GetMagSize(pObj) > 30 && (*pObj)[0]->data.gun.ubGunShotsLeft > 20 ))
+		BOOLEAN fEnableAISuppression = FALSE;
+
+		if ( gGameExternalOptions.fIncreaseAISuppressionFire && ((!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj) > MaxNormalDistanceVisible() ) || pSoldier->aiData.bOrders == SNIPER ) ) ||
+			(suppressionFire  && IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn]))) )
+			fEnableAISuppression = TRUE;
+		else if ( !gGameExternalOptions.fIncreaseAISuppressionFire && ( (!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj) > MaxNormalDistanceVisible() ) || pSoldier->aiData.bOrders == SNIPER ) ) ||
+			(suppressionFire  && IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn] ) && GetMagSize(pObj) > 30 && (*pObj)[0]->data.gun.ubGunShotsLeft > 20 )))
+			fEnableAISuppression = TRUE;
+
+		if (fEnableAISuppression)
 		{
 			// get the minimum cost to attack with this item
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible: getting min aps");

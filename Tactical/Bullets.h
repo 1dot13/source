@@ -69,6 +69,10 @@ typedef struct
 	UINT16		ubItemStatus;
 	UINT16	fromItem;
 	INT32 flash;
+	// HEADROCK HAM B2.5: Experimental bullet tracer info. If the new tracer system is activated, this flag tells
+	// the bullet animation functions to create a lightpath for this bullet. This means now all bullets in a tracer
+	// magazine will cause a lightshow (that's the intended result).
+	BOOLEAN fTracer;
 } BULLET;
 
 extern UINT32 guiNumBullets;

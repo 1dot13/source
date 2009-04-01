@@ -24,5 +24,8 @@ void HandleEndConfirmCursor( SOLDIERTYPE *pSoldier );
 
 BOOLEAN GetMouseRecalcAndShowAPFlags( UINT32 *puiCursorFlags, BOOLEAN *pfShowAPs );
 
+// HEADROCK HAM B2.7: This function calculates the nearest value (display purposes only) 
+// based on how trained the shooter is.
+UINT32 ChanceToHitApproximation( SOLDIERTYPE * pSoldier, UINT32 uiChance );
 
 #endif

@@ -4007,7 +4007,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 
 	pAttacker->uiFlags |= CELL_FIREDATTARGET | CELL_DIRTY;
 	if( pAttacker->usAttack < 950 )
-		usAttack = (UINT16)(pAttacker->usAttack + PreRandom(2000 - pAttacker->usAttack ));
+		usAttack = (UINT16)(pAttacker->usAttack + PreRandom((INT16)(gGameExternalOptions.iAutoResolveLuckFactor*1000.0) - pAttacker->usAttack ));
 	else
 		usAttack = (UINT16)(950 + PreRandom( 50 ));
 	if( pTarget->uiFlags & CELL_RETREATING && !(pAttacker->uiFlags & CELL_FEMALECREATURE) )
@@ -4016,7 +4016,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		usAttack = usAttack * 7 / 10;
 	}
 	if( pTarget->usDefence < 950 )
-		usDefence = (UINT16)(pTarget->usDefence + PreRandom(2000 - pTarget->usDefence ));
+		usDefence = (UINT16)(pTarget->usDefence + PreRandom((INT16)(gGameExternalOptions.iAutoResolveLuckFactor*1000.0) - pTarget->usDefence ));
 	else
 		usDefence = (UINT16)(950 + PreRandom( 50 ));
 	if( pAttacker->uiFlags & CELL_FEMALECREATURE )

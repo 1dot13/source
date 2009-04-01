@@ -324,6 +324,15 @@ void UnEscortEPC( SOLDIERTYPE *pSoldier );
 
 SOLDIERTYPE *AnyDoctorWhoCanHealThisPatient( SOLDIERTYPE *pPatient, BOOLEAN fThisHour );
 
+// HEADROCK HAM B2.8: A set of functions to synchronize sleeping periods of trainers and trainees
+BOOLEAN SetTrainerSleepWhenTraineesSleep( SOLDIERTYPE *pTrainee);
+BOOLEAN SetTraineesSleepWhenTrainerSleeps( SOLDIERTYPE *pTrainer );
+BOOLEAN SetTrainerWakeWhenTraineesWake( SOLDIERTYPE *pTrainee );
+BOOLEAN SetTraineesWakeWhenTrainerWakes( SOLDIERTYPE *pTrainer );
+void HandleTrainingSleepSynchronize( SOLDIERTYPE *pSoldier );
+void HandleTrainingWakeSynchronize( SOLDIERTYPE *pSoldier );
+BOOLEAN FindAnyAwakeTrainers( SOLDIERTYPE *pTrainee );
+BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer );
 
 #endif
 

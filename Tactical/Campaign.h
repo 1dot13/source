@@ -25,9 +25,13 @@
 #define MAX_STAT_VALUE 100			// for stats and skills
 #define MAXEXPLEVEL	 10		// maximum merc experience level
 
-#define SKILLS_SUBPOINTS_TO_IMPROVE		25
-#define ATTRIBS_SUBPOINTS_TO_IMPROVE	50
-#define LEVEL_SUBPOINTS_TO_IMPROVE		350	// per current level!	(Can't go over 6500, 10x must fit in USHORT!)
+// HEADROCK HAM B2.7 : Externalizing these (changed from #define)
+//#define SKILLS_SUBPOINTS_TO_IMPROVE		25
+//#define ATTRIBS_SUBPOINTS_TO_IMPROVE	50
+//#define LEVEL_SUBPOINTS_TO_IMPROVE		350	// per current level!	(Can't go over 6500, 10x must fit in USHORT!)
+extern UINT16 SKILLS_SUBPOINTS_TO_IMPROVE;
+extern UINT16 ATTRIBS_SUBPOINTS_TO_IMPROVE;
+extern UINT16 LEVEL_SUBPOINTS_TO_IMPROVE;
 
 #define WORKIMPROVERATE	2		// increase to make working	mercs improve more
 #define TRAINIMPROVERATE 2		// increase to make training mercs improve more

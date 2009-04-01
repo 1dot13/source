@@ -4250,14 +4250,16 @@ STR16	gzCreditNameFunny[]=
 	L"(did items and loading screens too!)",	// Joey \"Joeker\" Whelan",
 };
 
+// HEADROCK: Adjusted strings for better feedback, and added new string for LBE repair.
 STR16 sRepairsDoneString[] =
 {
 	L"%s finished repairing own items",
 	L"%s finished repairing everyone's guns & armor",
 	L"%s finished repairing everyone's equipped items",
-	L"%s finished repairing everyone's carried items",
-	L"%s finished repairing everyone's carried items",
-	L"%s finished repairing everyone's carried items",
+	L"%s finished repairing everyone's large carried items",
+	L"%s finished repairing everyone's medium carried items",
+	L"%s finished repairing everyone's small carried items",
+	L"%s finished repairing everyone's LBE gear",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -4484,6 +4486,11 @@ STR16 New113Message[] =
 	L"Sold item",
 	L"Sold all items of this type",
 	L"You should check your goggles",
+};
+
+STR16 New113HAMMessage[] = 
+{
+	L"%s cowers in fear!",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends

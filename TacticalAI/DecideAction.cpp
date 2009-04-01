@@ -1950,6 +1950,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP ||
 		(pSoldier->aiData.bNeutral && gTacticalStatus.fCivGroupHostile[pSoldier->ubCivilianGroup] == CIV_GROUP_NEUTRAL) ||
 		(pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
+	// HEADROCK HAM B2.7: Calculate the overall tactical situation
+	INT16 ubOverallTacticalSituation = AssessTacticalSituation(pSoldier->bSide);
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("DecideActionRed: soldier orders = %d",pSoldier->aiData.bOrders));
 
@@ -2313,7 +2315,17 @@ if(!is_networked)//hayden
 		CheckIfShotPossible(pSoldier,&BestShot,TRUE);
 
 		//must have a small chance to hit and the opponent must be on the ground (can't suppress guys on the roof)
-		if ( BestShot.ubPossible && BestShot.ubChanceToReallyHit < 50 && Menptr[BestShot.ubOpponent].pathing.bLevel == 0 && pSoldier->aiData.bOrders != SNIPER )
+		// HEADROCK HAM BETA2.4: Adjusted this for a random chance to suppress regardless of chance. This augments
+		// current revamp of suppression fire.
+		BOOLEAN fEnableAIAutofire = FALSE;
+
+		if ( gGameExternalOptions.fIncreaseAISuppressionFire && ( ( BestShot.ubPossible && BestShot.ubChanceToReallyHit < 50 ) || (BestShot.ubPossible && BestShot.ubChanceToReallyHit < PreRandom(100)) && Menptr[BestShot.ubOpponent].pathing.bLevel == 0 && pSoldier->aiData.bOrders != SNIPER ))
+			fEnableAIAutofire = TRUE;
+
+		else if ( !gGameExternalOptions.fIncreaseAISuppressionFire && ( BestShot.ubPossible && BestShot.ubChanceToReallyHit < 50 && Menptr[BestShot.ubOpponent].pathing.bLevel == 0 && pSoldier->aiData.bOrders != SNIPER ))
+			fEnableAIAutofire = TRUE;
+
+		if (fEnableAIAutofire)
 		{
 			// then do it!
 
@@ -3141,7 +3153,23 @@ if(!is_networked)//hayden
 		{
 			// only try to run if we've actually been hit recently & noticably so
 			// otherwise, presumably our current cover is pretty good & sufficient
-			if (pSoldier->aiData.bShock > 0 || fCivilian)
+			// HEADROCK HAM B2.6: New value here helps us change the ratio of running away due to shock. This
+			// is terribly important if Suppression Shock is enabled.
+			UINT16 bShock = 0;
+
+			if (gGameExternalOptions.fSuppressionShock)
+			{
+				// If bShock value is greater than (2*ExpLevel + MoraleModifier)*1.5, the target will flee.
+				bShock = pSoldier->aiData.bShock;
+				if (bShock <= ((float)CalcSuppressionTolerance(pSoldier)*(float)1.5))
+					bShock = 0;
+			}
+			else
+			{			
+				bShock = pSoldier->aiData.bShock;
+			}
+			
+			if (bShock > 0 || fCivilian)
 			{
 				// look for best place to RUN AWAY to (farthest from the closest threat)
 				pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents(pSoldier);
@@ -4424,7 +4452,10 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 						case ATTACKSLAYONLY:iChance += 30; break;
 						}
 
-						if ( pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft > 50 )
+						// HEADROCK HAM B2.6: Allows control over increased enemy burstfire.
+						if ( gGameExternalOptions.fIncreaseAISuppressionFire && pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft > 10 )
+							iChance += 20;
+						else if ( !gGameExternalOptions.fIncreaseAISuppressionFire && pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft > 50 )
 							iChance += 20;
 
 						// increase chance based on proximity and difficulty of enemy
@@ -4502,7 +4533,10 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 							}
 
 
-							if ( pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft > 50 )
+							// HEADROCK HAM B2.6: Allows control over increased enemy autofire.
+							if ( gGameExternalOptions.fIncreaseAISuppressionFire && pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft > 20 )
+								iChance += 30;
+							else if ( !gGameExternalOptions.fIncreaseAISuppressionFire && pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft > 50 )
 								iChance += 30;
 
 							if ( bInGas )

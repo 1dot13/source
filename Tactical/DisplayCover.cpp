@@ -30,6 +30,8 @@
 #include "Text.h"
 #include "strategicmap.h"
 #include "Render Fun.h"
+// HEADROCK HAM B2.7: Allow calling a CTH approximation function for the CTH display ("F" key)
+#include "UI Cursors.h"
 #endif
 
 
@@ -635,7 +637,12 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
 		//AXP 30.03.2007: Fix CtH calculation for first shot after changing aim level (roof/ground)
 		INT8 bTempTargetLevel = pSoldier->bTargetLevel;
 		pSoldier->bTargetLevel = (INT8)gsInterfaceLevel;
-		uiHitChance = CalcChanceToHitGun( pSoldier, sTargetGridNo, (pSoldier->aiData.bShownAimTime ), pSoldier->bAimShotLocation );
+		uiHitChance = CalcChanceToHitGun( pSoldier, sTargetGridNo, (INT8)(pSoldier->aiData.bShownAimTime ), pSoldier->bAimShotLocation );
+		// HEADROCK HAM B2.7: CTH approximation?
+		if (gGameExternalOptions.fApproximateCTH)
+		{	
+			uiHitChance = ChanceToHitApproximation( pSoldier, uiHitChance );
+		}
 		pSoldier->bTargetLevel = bTempTargetLevel;
 
 		swprintf( zOutputString, zNewTacticalMessages[ TCTL_MSG__GUN_RANGE_AND_CTH ], Weapon[ pSoldier->inv[HANDPOS].usItem ].usRange / 10, uiHitChance );

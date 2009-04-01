@@ -230,7 +230,11 @@ INT16		gsTreeRevealYPos;
 
 // taken out of header to remove multiple symbol definitions (jonathanl)
 BOOLEAN		gfUICtHBar;
-UINT8		gbCtH;
+// HEADROCK HAM B1/2: Created an array to hold CTH of different bullets for Burst/Auto CTH Bar.
+UINT8		gbCtH[ 10 ];
+UINT8		gbCtHBurstCount;
+// HEADROCK HAM B2: This value tracks whether Autofire mode is selected. This value may be redundant... not sure.
+BOOLEAN		gbCtHAutoFire;
 UINT16		gsTotalBulletCount;
 UINT16		gsBulletCount;
 BOOLEAN		gTintBulletCounts;
@@ -514,6 +518,8 @@ UINT32	HandleTacticalUI( void )
 	gTintBulletCounts				= FALSE;
 	gfUIAutofireBulletCount			= FALSE;
 	gfUICtHBar						= FALSE;
+	// HEADROCK HAM B2: tells the cursor-drawing function to draw two CTH bars (for autofire).
+	gbCtHAutoFire					= FALSE;
 
 	// Set old event value
 	guiOldEvent							= uiNewEvent = guiCurrentEvent;

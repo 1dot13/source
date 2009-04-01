@@ -231,4 +231,8 @@ INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubS
 
 INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel);
 
+// HEADROCK HAM B2.7: Functions to assist group AI
 
+INT16 AssessTacticalSituation( INT8 bSide );
+BOOLEAN TeamSeesOpponent( INT8 bSide, SOLDIERTYPE * pOpponent );
+INT32 CalcStraightThreatValue( SOLDIERTYPE *pEnemy );

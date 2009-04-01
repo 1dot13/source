@@ -1849,8 +1849,9 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 	ubPoints = DynamicAdjustAPConstants(ubPoints, ubPoints);
 
 	// If resulting APs are below our permitted minimum, raise them to it!
-	if (ubPoints < APBPConstants[AP_MINIMUM])
-		ubPoints = APBPConstants[AP_MINIMUM];
+	// HEADROCK: Enforce new minimums due to suppression. I should've done this neater though.
+	if (ubPoints < gGameExternalOptions.iMinAPLimitFromSuppression)
+		ubPoints = gGameExternalOptions.iMinAPLimitFromSuppression;
 
 	// make sure action points doesn't exceed the permitted maximum
 	ubMaxAPs = gubMaxActionPoints[ this->ubBodyType ];
@@ -6688,6 +6689,15 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		this->usQuoteSaidExtFlags &= ( ~SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL );
 		this->bNumHitsThisTurn = 0;
 		this->ubSuppressionPoints = 0;
+		// HEADROCK HAM B2: Optional fix for suppression. This clears up the value that measures suppression
+		// accumulated so far. Previously, the value was NEVER cleared, which means that a character could
+		// only be suppressed ONCE in the game (unless they die or get deleted). There's really no reason to
+		// keep this in an IF statement though, as it should, by all rights, erase itself each turn at the very
+		// least to avoid the once-in-a-lifetime suppression problem.
+		if (gGameExternalOptions.iClearSuppression == 1)
+		{
+			this->ubAPsLostToSuppression = 0;
+		}
 		this->flags.fCloseCall = FALSE;
 
 		this->ubMovementNoiseHeard = 0;

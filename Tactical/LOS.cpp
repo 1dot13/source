@@ -3669,6 +3669,24 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 		usBulletFlags |= BULLET_FLAG_FLAME;
 		ubSpreadIndex = 2;
 	}
+	// HEADROCK HAM B2.5: Set tracer effect on/off for individual bullets in a Tracer Magazine, as part of the
+	// New Tracer System.
+	else if (gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && (pFirer->bDoAutofire > 0 || pFirer->bDoBurst > 0)
+		&& AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].tracerEffect )
+	{
+		UINT16 iBulletsLeft, iBulletsPerTracer;
+		iBulletsPerTracer = gGameExternalOptions.iNumBulletsPerTracer;
+		iBulletsLeft = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
+
+		if ((((iBulletsLeft - (pFirer->bDoBurst - 1)) / iBulletsPerTracer) - ((iBulletsLeft - pFirer->bDoBurst) / iBulletsPerTracer)) == 1)
+		{
+			fTracer = TRUE;
+		}
+		else
+		{
+			fTracer = FALSE;
+		}
+	}
 	else if ( AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].tracerEffect && (pFirer->bDoBurst || gGameSettings.fOptions[ TOPTION_TRACERS_FOR_SINGLE_FIRE ]) )
 	{
 		//usBulletFlags |= BULLET_FLAG_TRACER;
@@ -3817,6 +3835,26 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 		// this distance limit only applies in a "hard" sense to fake bullets for chance-to-get-through,
 		// but is used for determining structure hits by the regular code
 		pBullet->iDistanceLimit = iDistance;
+		// HEADROCK HAM BETA2.5: New method for signifying whether a bullet is a tracer or not, using an individual
+		// bullet structure flag. Hehehehe, I think this is kind of reverting to old code, isn't it?
+		if (gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && (pFirer->bDoAutofire > 0 || pFirer->bDoBurst > 0)
+			&& AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].tracerEffect )
+		{
+			UINT16 iBulletsLeft, iBulletsPerTracer;
+			iBulletsPerTracer = gGameExternalOptions.iNumBulletsPerTracer;
+			iBulletsLeft = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
+
+			// Is this specific bullet a tracer? - based on how many tracers there are per regular bullets in
+			// a tracer magazine (INI-settable).
+			if ((((iBulletsLeft - (pFirer->bDoBurst - 1)) / iBulletsPerTracer) - ((iBulletsLeft - pFirer->bDoBurst) / iBulletsPerTracer)) == 1)
+			{
+				pBullet->fTracer = TRUE;
+			}
+			else
+			{
+				pBullet->fTracer = FALSE;
+			}
+		}
 		if (fFake)
 		{
 			bCTGT = FireBullet( pFirer, pBullet, TRUE );
@@ -4366,7 +4404,10 @@ void MoveBullet( INT32 iBullet )
 				}
 				}
 
-				if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER*/	) ) || fTracer == TRUE)
+				// HEADROCK HAM B2.5: Changed condition to read fTracer flag directly from bullet's struct.
+				// This is for the New Tracer System.
+				if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER*/	) ) 
+					|| ((gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.iRealisticTracers == 0 && fTracer == TRUE)))
 				{
 					INT8 bStepsPerMove = STEPS_FOR_BULLET_MOVE_TRAILS;
 
@@ -4653,7 +4694,10 @@ void MoveBullet( INT32 iBullet )
 					pBullet->iCurrCubesZ = CONVERT_HEIGHTUNITS_TO_INDEX( FIXEDPT_TO_INT32( pBullet->qCurrZ ) );
 					pBullet->iLoop++;
 
-					if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER */) ) || fTracer == TRUE)
+					// HEADROCK HAM B2.5: Changed condition to read fTracer flag directly from bullet's struct.
+					// This is for the New Tracer System.
+					if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER */) ) 
+						|| ((gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.iRealisticTracers == 0 && fTracer == TRUE)))
 					{
 						INT8 bStepsPerMove = STEPS_FOR_BULLET_MOVE_TRAILS;
 

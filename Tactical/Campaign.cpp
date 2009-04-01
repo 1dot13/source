@@ -73,7 +73,11 @@ STR16 wDebugStatStrings[]={
 
 // local prototypes
 UINT8 CalcImportantSectorControl( void );
+// HEADROCK HAM B1: New function to calculate how many important sectors there are in the game at all.
+UINT8 CalcTotalImportantSectors( void );
 UINT16 CountSurfaceSectorsVisited( void );
+// HAEDROCK HAM B1: New function to calculate how many sectors CAN be visited, on the surface.
+UINT16 TotalVisitableSurfaceSectors( void );
 
 
 
@@ -1076,30 +1080,58 @@ UINT16 SubpointsPerPoint(UINT8 ubStat, INT8 bExpLevel)
 {
 	UINT16 usSubpointsPerPoint;
 
+	UINT16 HEALTH_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubHealthSubpointsToImprove;
+	UINT16 STRENGTH_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubStrengthSubpointsToImprove;
+	UINT16 DEXTERITY_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubDexteritySubpointsToImprove;
+	UINT16 AGILITY_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubAgilitySubpointsToImprove;
+	UINT16 WISDOM_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubWisdomSubpointsToImprove;
+	UINT16 MARKSMANSHIP_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubMarksmanshipSubpointsToImprove;
+	UINT16 MEDICAL_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubMedicalSubpointsToImprove;
+	UINT16 MECHANICAL_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubMechanicalSubpointsToImprove;
+	UINT16 LEADERSHIP_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubLeadershipSubpointsToImprove;
+	UINT16 EXPLOSIVES_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubExplosivesSubpointsToImprove;
+	UINT16 LEVEL_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubLevelSubpointsToImprove;
 	// figure out how many subpoints this type of stat needs to change
   switch (ubStat)
   {
+	  // Attributes
     case HEALTHAMT:
+		usSubpointsPerPoint = HEALTH_SUBPOINTS_TO_IMPROVE;
+		break;
     case AGILAMT:
+		usSubpointsPerPoint = AGILITY_SUBPOINTS_TO_IMPROVE;
+		break;
     case DEXTAMT:
+		usSubpointsPerPoint = DEXTERITY_SUBPOINTS_TO_IMPROVE;
+		break;
     case WISDOMAMT:
-		case STRAMT:
-			// attributes
-			usSubpointsPerPoint = ATTRIBS_SUBPOINTS_TO_IMPROVE;
-      break;
-
+		usSubpointsPerPoint = WISDOM_SUBPOINTS_TO_IMPROVE;
+		break;
+	case STRAMT:
+		usSubpointsPerPoint = STRENGTH_SUBPOINTS_TO_IMPROVE;
+		break;
+		
+	  // Skills
     case MEDICALAMT:
+		usSubpointsPerPoint = MEDICAL_SUBPOINTS_TO_IMPROVE;
+		break;
     case EXPLODEAMT:
+		usSubpointsPerPoint = EXPLOSIVES_SUBPOINTS_TO_IMPROVE;
+		break;
     case MECHANAMT:
+		usSubpointsPerPoint = MECHANICAL_SUBPOINTS_TO_IMPROVE;
+		break;
     case MARKAMT:
-		case LDRAMT:
-			// skills
-			usSubpointsPerPoint = SKILLS_SUBPOINTS_TO_IMPROVE;
-      break;
+		usSubpointsPerPoint = MARKSMANSHIP_SUBPOINTS_TO_IMPROVE;
+		break;
+	case LDRAMT:
+		usSubpointsPerPoint = LEADERSHIP_SUBPOINTS_TO_IMPROVE;
+		break;
 
+	  // Experience
     case EXPERAMT:
-			usSubpointsPerPoint = LEVEL_SUBPOINTS_TO_IMPROVE * bExpLevel;
-      break;
+		usSubpointsPerPoint = LEVEL_SUBPOINTS_TO_IMPROVE * bExpLevel;
+		break;
 
     default:
 			// BETA message
@@ -1267,7 +1299,7 @@ UINT8 CurrentPlayerProgressPercentage(void)
 {
 	UINT32 uiCurrentIncome;
 	UINT32 uiPossibleIncome;
-	UINT8 ubCurrentProgress = gGameExternalOptions.ubGameProgressIncrement;
+	UINT8 ubCurrentProgress;
 	UINT8 ubKillsPerPoint;
 	UINT16 usKillsProgress;
 	UINT16 usControlProgress;
@@ -1332,7 +1364,12 @@ UINT8 CurrentPlayerProgressPercentage(void)
 
 
 	// 19 sectors in mining towns + 3 wilderness SAMs each count double.  Balime & Meduna are extra and not required
-	usControlProgress = CalcImportantSectorControl();
+	// HEADROCK HAM B1: Changed the next line, adding a call to a new function. This allows the weight of Sector
+	// Control to be altered in JA2_OPTIONS.INI (Previously damaged the game's progress if set over 25... So I've 
+	// made this MOD-Friendly :D )
+	// BTW, Balime and Meduna _ARE_ required. The function doesn't differentiate! Such carelessness. Tsk tsk tsk.
+
+	usControlProgress = gGameExternalOptions.ubGameProgressPortionControl * CalcImportantSectorControl() / CalcTotalImportantSectors();
 	if (usControlProgress > gGameExternalOptions.ubGameProgressPortionControl)
 	{
 		usControlProgress = gGameExternalOptions.ubGameProgressPortionControl;
@@ -1343,21 +1380,14 @@ UINT8 CurrentPlayerProgressPercentage(void)
 
 	// WDS: Adding more ways to progress in the game
 	// Get a ratio of sectors visited to the total number of sectors
-	usVisitProgress = CountSurfaceSectorsVisited() * gGameExternalOptions.ubGameProgressPortionVisited / ((MAP_WORLD_X - 2) * (MAP_WORLD_Y - 2) - 56 /* note: should be calculated */);
+	// HEADROCK HAM B1: Fixed this so it doesn't count sectors that can't be visited. Allows progress to go to
+	// 100 even if the map has some unvisitable sectors (heh, doesn't it always?)
+	usVisitProgress = CountSurfaceSectorsVisited() * gGameExternalOptions.ubGameProgressPortionVisited / TotalVisitableSurfaceSectors();
 
-	// add visit progress
+	// add control progress
 	ubCurrentProgress += usVisitProgress;
 
-	// Add increment to progress
-	ubCurrentProgress += gGameExternalOptions.ubGameProgressIncrement;
-
-	if (ubCurrentProgress < gGameExternalOptions.ubGameProgressMinimum)
-		return gGameExternalOptions.ubGameProgressMinimum;
-
-	if (ubCurrentProgress < 100)
-		return ubCurrentProgress;
-	else
-		return 100;
+	return(ubCurrentProgress);
 }
 
 
@@ -1607,6 +1637,36 @@ UINT8 CalcImportantSectorControl( void )
 	return( ubSectorControlPts );
 }
 
+// HEADROCK HAM B1: function to calculate how many "important sectors" there actually are in the game. This is
+// used to fix the weight of strategic control importance on game progress, which was until now not really 
+// moddable.
+
+UINT8 CalcTotalImportantSectors( void )
+{
+	UINT8 ubMapX, ubMapY;
+	UINT8	ubSectorControlPts = 0;
+
+
+	for ( ubMapX = 1; ubMapX < MAP_WORLD_X - 1; ubMapX++ )
+	{
+		for ( ubMapY = 1; ubMapY < MAP_WORLD_Y - 1; ubMapY++ )
+		{
+			// towns where militia can be trained and SAM sites are important sectors
+			if ( MilitiaTrainingAllowedInSector( ubMapX, ubMapY, 0 ) )
+			{
+				ubSectorControlPts++;
+
+				// SAM sites count double - they have no income, but have significant air control value
+				if ( IsThisSectorASAMSector( ubMapX, ubMapY, 0 ) )
+				{
+					ubSectorControlPts++;
+				}
+			}
+		}
+	}
+
+	return( ubSectorControlPts );
+}
 
 // WDS: Adding more ways to progress in the game
 // Count how many surface sectors the player has visited
@@ -1626,6 +1686,24 @@ UINT16 CountSurfaceSectorsVisited( void )
 	}
 
 	return( ubSectorsVisited );
+}
+// HEADROCK: Count number of VISITABLE sectors
+UINT16 TotalVisitableSurfaceSectors( void )
+{
+	UINT8 ubMapX, ubMapY;
+	UINT16	ubVisitableSectors = 0;
+
+
+	for ( ubMapX = 1; ubMapX < MAP_WORLD_X - 1; ubMapX++ )
+	{
+		for ( ubMapY = 1; ubMapY < MAP_WORLD_Y - 1; ubMapY++ )
+		{
+			if( SectorInfo[ SECTOR(ubMapX,ubMapY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] != GROUNDBARRIER && SectorInfo[ SECTOR(ubMapX,ubMapY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] != EDGEOFWORLD )
+				++ubVisitableSectors;
+		}
+	}
+
+	return( ubVisitableSectors );
 }
 
 void MERCMercWentUpALevelSendEmail( UINT8 ubMercMercIdValue )

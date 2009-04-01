@@ -33,6 +33,8 @@
 	#include "history.h"
 	#include "meanwhile.h"
 	#include "Strategic Status.h"
+	// HEADROCK HAM B1: Added include for Dynamic Roaming Militia
+	#include "MilitiaSquads.h"
 #endif
 
 // the max loyalty rating for any given town
@@ -1813,6 +1815,11 @@ void CheckIfEntireTownHasBeenLiberated( INT8 bTownId, INT16 sSectorX, INT16 sSec
 		else
 		{
 			UpdateLastDayOfPlayerActivity( ( UINT16 ) ( GetWorldDay() + 2 ) );
+		}
+		// HEADROCK HAM B1: Run a function to redefine Roaming Militia Restrictions on city capture.
+		if (gGameExternalOptions.bDynamicRestrictRoaming)
+		{
+			AdjustRoamingRestrictions();
 		}
 
 		// set flag even for towns where you can't train militia, useful for knowing Orta/Tixa were previously controlled

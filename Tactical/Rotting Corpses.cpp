@@ -932,9 +932,12 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 				if ( !(Item[ pObj->usItem ].defaultundroppable ) )
 				{
 					ReduceAmmoDroppedByNonPlayerSoldiers( pSoldier, cnt );
-						//if this soldier was an enemy
-						// Kaiden: Added from UB's reveal all items after combat feature!
-						if( pSoldier->bTeam == ENEMY_TEAM )
+					//if this soldier was an enemy
+					// Kaiden: Added from UB's reveal all items after combat feature!
+					// HEADROCK HAM B2.8: Now also reveals equipment dropped by militia, if requirement is met.
+					if( pSoldier->bTeam == ENEMY_TEAM ||
+						( gGameExternalOptions.ubMilitiaDropEquipment == 2 && pSoldier->bTeam == MILITIA_TEAM ) ||
+						( gGameExternalOptions.ubMilitiaDropEquipment == 1 && pSoldier->bTeam == MILITIA_TEAM && Menptr[ pSoldier->ubAttackerID ].bTeam != OUR_TEAM ))
 						{
 							//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
 							usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
@@ -946,7 +949,12 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 							}
 						}
 
+					// HEADROCK HAM B2.8: Militia will drop items only if allowed.
+					if (!(gGameExternalOptions.ubMilitiaDropEquipment == 0 && pSoldier->bTeam == MILITIA_TEAM ) &&
+						!(gGameExternalOptions.ubMilitiaDropEquipment == 1 && pSoldier->bTeam == MILITIA_TEAM && Menptr[ pSoldier->ubAttackerID ].bTeam == OUR_TEAM ))
+					{
 						AddItemToPool( pSoldier->sGridNo, pObj, bVisible , pSoldier->pathing.bLevel, usItemFlags, -1 );
+					}
 				}
 			}
 		}

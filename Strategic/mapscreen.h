@@ -13,6 +13,9 @@
 #define MAX_TOWNS			50	//13 //50
 #define MAX_TOWN_SECTORS	260	//40 //260
 
+// HEADROCK HAM B2.7: Moved here from Strategicmap.cpp to allow use by MilitiaSquads.cpp
+
+extern BOOLEAN	gfMilitiaAllowedInTown	[ MAX_TOWNS ];
 // Sector name identifiers
 enum Towns
 {

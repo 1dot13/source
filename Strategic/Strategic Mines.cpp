@@ -342,7 +342,8 @@ UINT32 GetMaxPeriodicRemovalFromMine( INT8 bMineIndex )
 		return ( 0 );
 	}
 
-	return( gMineStatus[ bMineIndex ].uiMaxRemovalRate );
+	// HEADROCK HAM B1: Affected by external INI option.
+	return(( gMineStatus[ bMineIndex ].uiMaxRemovalRate * gGameExternalOptions.iMineIncomePercentage ) / 100);
 }
 
 
@@ -368,6 +369,8 @@ UINT32 GetMaxDailyRemovalFromMine( INT8 bMineIndex )
 		// yes, reduce to value of mine
 		uiAmtExtracted = gMineStatus[ bMineIndex ].uiRemainingOreSupply;
 	}
+	// HEADROCK HAM B1: Affected by external INI option.
+	uiAmtExtracted = (uiAmtExtracted * gGameExternalOptions.iMineIncomePercentage) / 100;
 
 	return(uiAmtExtracted);
 }
@@ -664,6 +667,8 @@ void HandleIncomeFromMines( void )
 		// mine this mine
 		iIncome += MineAMine( bCounter );
 	}
+	// HEADROCK HAM B1: Affected by external INI Option.
+	iIncome = (iIncome * gGameExternalOptions.iMineIncomePercentage) / 100;
 	if( iIncome )
 	{
 		AddTransactionToPlayersBook( DEPOSIT_FROM_SILVER_MINE, 0, GetWorldTotalMin( ), iIncome );
@@ -690,7 +695,8 @@ UINT32 PredictDailyIncomeFromAMine( INT8 bMineIndex )
 		}
 	}
 
-	return( uiAmtExtracted );
+	// HEADROCK HAM B1: Affected by external INI Option.
+	return( ( uiAmtExtracted * gGameExternalOptions.iMineIncomePercentage ) / 100 ) ;
 }
 
 
@@ -720,6 +726,8 @@ INT32 CalcMaxPlayerIncomeFromMines( void )
 		// add up the total
 		iTotal += (MINE_PRODUCTION_NUMBER_OF_PERIODS * gMineStatus[bCounter].uiMaxRemovalRate);
 	}
+	// HEADROCK HAM B1: Affected by external INI Option.
+	iTotal = (iTotal * gGameExternalOptions.iMineIncomePercentage) / 100;
 
 	return( iTotal );
 }

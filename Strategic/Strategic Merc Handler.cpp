@@ -40,6 +40,8 @@
 	#include "finances.h"
 	#include "GameSettings.h"
 	#include "Quests.h"
+	// HEADROCK HAM B1: Additional Include for Dynamic Roaming Restrictions
+	#include "MilitiaSquads.h"
 #endif
 
 
@@ -510,6 +512,11 @@ void MercDailyUpdate()
 
 	// rebuild list for mapscreen
 	ReBuildCharactersList( );
+	// HEADROCK HAM B1: Run a function to redefine Roaming Militia Restrictions.
+	if (gGameExternalOptions.bDynamicRestrictRoaming)
+	{
+		AdjustRoamingRestrictions();
+	}
 }
 
 /*
