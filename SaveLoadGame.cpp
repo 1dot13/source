@@ -4222,6 +4222,11 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		//Lock the ui
 		SetUIBusy( (UINT8)gusSelectedSoldier );
 	}
+	// OJW - 20090403 - Fix Tactical Interface is still locked after quick-load
+	else
+	{
+		UIHandleLUIEndLock(NULL); // this only takes action if it needs to
+	}
 
 	//Reset the shadow 
 	SetFontShadow( DEFAULT_SHADOW );
