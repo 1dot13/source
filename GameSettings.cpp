@@ -588,7 +588,7 @@ void LoadGameExternalOptions()
 
 
 	gGameExternalOptions.fSellAll					= iniReader.ReadBoolean("JA2 Gameplay Settings","CAN_SELL_ALT_LMB",FALSE);
-	gGameExternalOptions.iPriceModifier				= (INT16) iniReader.ReadInteger("JA2 Gameplay Settings","PRICE_MODIFIER",10, 0, 100);
+	gGameExternalOptions.iPriceModifier				= (INT16) iniReader.ReadInteger("JA2 Gameplay Settings","PRICE_MODIFIER",10, -1, 100);
 
 
 	// WDS - Option to turn off stealing
