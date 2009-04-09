@@ -7456,9 +7456,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: reduce action points"));
 			// Reduce action points!
 			// HEADROCK HAM Beta 2.2: Enforce a minimum limit via INI.
-			if (pSoldier->bActionPoints - ubPointsLost < APBPConstants[AP_MIN_SUPPRESSION_LIMIT] )
+			if (pSoldier->bActionPoints - ubPointsLost < APBPConstants[AP_MIN_LIMIT] )
 			{
-				pSoldier->bActionPoints = APBPConstants[AP_MIN_SUPPRESSION_LIMIT];
+				pSoldier->bActionPoints = APBPConstants[AP_MIN_LIMIT];
 			}
 			else
 			{
