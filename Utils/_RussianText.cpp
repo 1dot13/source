@@ -3807,56 +3807,56 @@ STR16	gzGIOScreenText[] =
 
 STR16	gzMPJScreenText[] =
 {
-	L"MULTIPLAYER",
-	L"Join",
-	L"Host",
-	L"Cancel",
-	L"Refresh",
-	L"Player Name",
-	L"Server IP",
-	L"Port",
-	L"Server Name",
+	L"СЕТЕВАЯ ИГРА",	//MULTIPLAYER
+	L"Присоединиться",	//Join
+	L"Создать игру",	//Host
+	L"Отмена",	//Cancel
+	L"Обновить",	//Refresh
+	L"Имя игрока",	//Player Name
+	L"IP сервера",	//Server IP
+	L"Порт",	//Port
+	L"Имя сервера",	//Server Name
 	L"# Plrs",
-	L"Version",
+	L"Версия",	//Version
 	L"Game Type",
 	L"Ping",
-	L"You must enter a player name",
-	L"You must enter a valid server IP address.\n (eg 192.168.0.1)",
-	L"You must enter a valid Server Port between 1 and 65535"
+	L"Впишите имя игрока.",	//You must enter a player name
+	L"Впишите корректный IP адрес. \n(пример 192.168.0.1)",	//You must enter a valid server IP address.\n (eg 192.168.0.1)
+	L"Впишите корректный порт сервера (используйте диапазон от 1 до 65535)",	//You must enter a valid Server Port between 1 and 65535
 };
 
 STR16	gzMPHScreenText[] =
 {
-	L"HOST GAME",
-	L"Start",
-	L"Cancel",
-	L"Server Name",
-	L"Game Type",
+	L"СТАРТОВЫЕ УСТАНОВКИ СЕРВЕРА",			//HOST GAME
+	L"Начать игру",					//Start
+	L"Главное меню",				//Cancel
+	L"Имя сервера",					//Server Name
+	L"Тип игры",					//Game Type
 	L"Deathmatch",
 	L"Team Deathmatch",
 	L"Co-operative",
-	L"Max Players",
-	L"Squad Size",
+	L"Кол-во игроков",				//Max Players
+	L"Солдат в отряде",				//Squad Size
 	L"Merc Selection",
-	L"Random Mercs",
-	L"Hired by Player",
-	L"Starting Balance",
-	L"Can Hire Same Merc",
-	L"Report Hired Mercs",
-	L"Allow Bobby Rays",
-	L"Randomise Starting Edge",
-	L"You must enter a server name",
-	L"Max Players must be between 2 and 4",
-	L"Squad size must be between 1 and 6",
-	L"Time of Day",
-	L"Time of Day must be a 24 hr time (HH:MM)\n\n eg. 13:30 = 1.30pm",
-	L"Starting Cash must be a valid dollar amount ( no cents )\n\n eg. 150000" ,
-	L"Damage Multiplier",
-	L"Damage Multiplier must be a number between 0 and 5",
-	L"Turn Timer Multiplier",
-	L"Turn Timer multiplier must be a number between 1 and 200",
-	L"Enable Civilians in CO-OP",
-	L"Use New Inventory (NIV)",
+	L"Случайные бойцы",				//Random Mercs
+	L"Нанят игроком",				//Hired by Player
+	L"Стартовый баланс",				//Starting Balance
+	L"Можно нанимать тех же бойцов",		//Can Hire Same Merc
+	L"Сообщения о нанятых бойцах",			//Report Hired Mercs
+	L"Бобби Рэй доступен",				//Allow Bobby Rays
+	L"Высадка со случайной стороны",		//Randomise Starting Edge
+	L"Впишите имя сервера",				//You must enter a server name
+	L"Количество игроков должно быть в диапазоне от 2 до 4",		//Max Players must be between 2 and 4
+	L"Количество бойцов в отряде должно быть от 1-го до 6-и",		//Squad size must be between 1 and 6
+	L"Время высадки",							//Time of Day
+	L"Время высадки должно быть в 24-х часовом формате (ЧЧ:ММ).\n\n Помните, что 13:30 = 1.30pm",	//Time of Day must be a 24 hr time (HH:MM)\n\n eg. 13:30 = 1.30pm
+	L"Стартовый баланс должен быть целым числом",				//Starting Cash must be a valid dollar amount ( no cents )\n\n eg. 150000
+	L"Множитель урона",							//Damage Multiplier
+	L"Множитель урона должен находиться в промежутке от 0 до 5.",		//Damage Multiplier must be a number between 0 and 5
+	L"Множитель время хода",						//Turn Timer Multiplier
+	L"Множитель время хода должен быть числом в промежутке от 1 до 200.",	//Turn Timer multiplier must be a number between 1 and 200
+	L"Присутствуют гражданские в CO-OP",						//Enable Civilians in CO-OP
+	L"Реалистичная система инвентаря (NIV)",				//Use New Inventory (NIV)
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3950,7 +3950,7 @@ STR16 pMessageStrings[] =
 	L"Свободное место", //An empty save game slot
 	L"Демо",				//Demo of JA2
 	L"Ловля Багов",				//State of development of a project (JA2) that is a debug build
-	L"Release",			//Release build for JA2
+	L"Релиз",			//Release build for JA2
 	L"пвм",				//Abbreviation for Rounds per minute -- the potential # of bullets fired in a minute.
 	L"мин",					//Abbreviation for minute.
 	L"м",					//One character abbreviation for meter (metric distance measurement unit).
@@ -4247,13 +4247,13 @@ STR16	gzCreditNameFunny[]=
 
 STR16 sRepairsDoneString[] =
 {
-	L"%s: завершен ремонт личных вещей.",
-	L"%s: завершен ремонт всего оружия и брони.",
-	L"%s: завершен ремонт всей экипировки отряда.",
-	L"%s finished repairing everyone's large carried items",
-	L"%s finished repairing everyone's medium carried items",
-	L"%s finished repairing everyone's small carried items",
-	L"%s finished repairing everyone's LBE gear",
+	L"%s: завершён ремонт личных вещей.",
+	L"%s: завершён ремонт всего оружия и брони.",
+	L"%s: завершён ремонт всей экипировки отряда.",
+	L"%s: завершён ремонт всех крупных вещей отряда.",	//%s finished repairing everyone's large carried items
+	L"%s: завершён ремонт всех малых вещей отряда.",	//%s finished repairing everyone's medium carried items
+	L"%s: завершён ремонт всех мелких вещей отряда.",	//%s finished repairing everyone's small carried items
+	L"%s: завершён ремонт разгрузочных систем отряда.",	//%s finished repairing everyone's LBE gear
 };
 
 STR16 zGioDifConfirmText[]=
@@ -4485,7 +4485,7 @@ STR16 New113Message[] =
 
 STR16 New113HAMMessage[] = 
 {
-	L"%s cowers in fear!",
+	L"%s в страхе пытается укрыться!",		//%s cowers in fear!
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
@@ -4644,18 +4644,18 @@ STR16 MPHelp[] =
 
 STR16 gszMPEdgesText[] =
 {
-	L"N",
-	L"S",
-	L"E",
-	L"W"
+	L"С",	//N
+	L"Ю",	//S
+	L"В",	//E
+	L"З"	//W
 };
 
 STR16 gszMPTeamNames[] =
 {
-	L"Foxtrot",
-	L"Bravo",
-	L"Delta",
-	L"Charlie"
+	L"Фокстрот",	//Foxtrot
+	L"Браво",	//Bravo
+	L"Дельта",	//Delta
+	L"Чарли"	//Charlie
 };
 
 STR16 gszMPMapscreenText[] =
@@ -4694,8 +4694,8 @@ STR16 gzMPChatToggleText[] =
 
 STR16 gzMPChatboxText[] =
 {
-	L"Multiplayer Chat",
-	L"Chat: press ENTER to send of ESC to cancel",
+	L"Чат сетевой игры Jagged Alliance 2 v1.13",	//Multiplayer Chat
+	L"Заметка: нажмите |В|В|О|Д для отправки сообщения, |К|Л|Ю|Ч для выхода из чата",	//Chat: press ENTER to send of ESC to cancel
 };
 
 #endif //RUSSIAN
