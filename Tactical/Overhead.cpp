@@ -7279,9 +7279,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			// HEADROCK HAM B2: This makes sure that we never lose more APs than we're allowed per turn,
 			if (APS_SUPPRESSED_TOTAL = TRUE)
 			{
-				if (pSoldier->ubAPsLostToSuppression + ubPointsLost > APBPConstants[AP_MAX_SUPPRESSED])
+				if (pSoldier->ubAPsLostToSuppression + ubPointsLost > APBPConstants[AP_MAX_TURN_SUPPRESSED])
 				{
-					ubPointsLost = APBPConstants[AP_MAX_SUPPRESSED] - pSoldier->ubAPsLostToSuppression;
+					ubPointsLost = APBPConstants[AP_MAX_TURN_SUPPRESSED] - pSoldier->ubAPsLostToSuppression;
 				}
 			}
 			// Keeps a number for later reference
@@ -7456,9 +7456,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: reduce action points"));
 			// Reduce action points!
 			// HEADROCK HAM Beta 2.2: Enforce a minimum limit via INI.
-			if (pSoldier->bActionPoints - ubPointsLost < APBPConstants[AP_MIN_LIMIT_SUPPRESSION_LOSS] )
+			if (pSoldier->bActionPoints - ubPointsLost < APBPConstants[AP_MIN_SUPPRESSION_LIMIT] )
 			{
-				pSoldier->bActionPoints = APBPConstants[AP_MIN_LIMIT_SUPPRESSION_LOSS];
+				pSoldier->bActionPoints = APBPConstants[AP_MIN_SUPPRESSION_LIMIT];
 			}
 			else
 			{
