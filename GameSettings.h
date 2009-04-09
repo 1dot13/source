@@ -513,13 +513,13 @@ BOOLEAN gbBulletTracer;
 	INT16 iSuppressionEffectiveness;
 
 	// HEADROCK HAM B2: MAXIMUM number of APs that can be lost to suppression in a given turn (0=unlimited)
-	UINT8 iMaxSuppressionAPLossPerTurn;
+	BOOLEAN fSuppressionAPLossPerTurn;
 
 	// HEADROCK HAM B2: MAXIMUM number of APs that can be lost to suppression in a given attack (0=unlimited)
-	UINT8 iMaxSuppressionAPLossPerAttack;
+	BOOLEAN fSuppressionAPLossPerAttack;
 
-	// HEADROCK HAM B2: Rigid limit to which a soldier's APs can drop due to suppression fire. (0=unlimited)
-	INT8 iMinAPLimitFromSuppression;
+	UINT8 iSuppressionToleranceMax;
+	UINT8 iSuppressionToleranceMin;
 
 	// HEADROCK HAM B2: Suppression Shock ON/OFF
 	BOOLEAN fSuppressionShock;
@@ -532,9 +532,6 @@ BOOLEAN gbBulletTracer;
 
 	// HEADROCK HAM B2.3: It is now possible for "cowering" to increase a target's suppression.
 	UINT16 iCowerEffectOnSuppression;
-
-	// HEADROCK HAM B2.4: How many APs must be lost due to suppression for every 1 point of morale lost?
-	UINT8 iAPLostPerMoraleDrop;
 
 	// HEADROCK HAM B2.5: Turn on Realistic Tracers. 0 = off (regular tracers). 1 = Fully realistic tracers. 2 = Tracer Bump + 1.13 Autofire Penalty Reduction
 	UINT8 iRealisticTracers;

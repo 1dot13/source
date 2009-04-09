@@ -7196,9 +7196,14 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
 		}
 	}
 
-	if (bTolerance < 0)
+	if (bTolerance < gGameExternalOptions.iSuppressionToleranceMin)
 	{
-		bTolerance = 0;
+		bTolerance = gGameExternalOptions.iSuppressionToleranceMin;
+	}
+
+	if (bTolerance > gGameExternalOptions.iSuppressionToleranceMax)
+	{
+	   bTolerance = gGameExternalOptions.iSuppressionToleranceMax;
 	}
 
 	return( bTolerance );
@@ -7213,9 +7218,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 	///////////////////////////////////////////////////////////////////////////////
 
 	// External options.
-	UINT8 MAX_APS_SUPPRESSED = gGameExternalOptions.iMaxSuppressionAPLossPerAttack;
-	UINT8 MAX_APS_SUPPRESSED_TOTAL = gGameExternalOptions.iMaxSuppressionAPLossPerTurn;
-	INT8 SUPPRESSION_AP_LIMIT = gGameExternalOptions.iMinAPLimitFromSuppression;
+	BOOLEAN APS_SUPPRESSED = gGameExternalOptions.fSuppressionAPLossPerAttack;
+	BOOLEAN APS_SUPPRESSED_TOTAL = gGameExternalOptions.fSuppressionAPLossPerTurn;
+	//INT8 SUPPRESSION_AP_LIMIT = gGameExternalOptions.iMinAPLimitFromSuppression;
 	INT8 MAXIMUM_SUPPRESSION_SHOCK = gGameExternalOptions.iMaxSuppressionShock;
 	INT8									bTolerance;
 	INT16									sClosestOpponent, sClosestOppLoc;
@@ -7263,7 +7268,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 
 			// cap the # of APs we can lose
 			// HEADROCK HAM B2: This now reads an external value. 0 means no limit.
-			if (MAX_APS_SUPPRESSED > 0)
+			if (APS_SUPPRESSED == TRUE)
 			{
 				if (ubPointsLost > APBPConstants[AP_MAX_SUPPRESSED])
 				{
@@ -7272,11 +7277,11 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			}
 
 			// HEADROCK HAM B2: This makes sure that we never lose more APs than we're allowed per turn,
-			if (MAX_APS_SUPPRESSED_TOTAL > 0)
+			if (APS_SUPPRESSED_TOTAL = TRUE)
 			{
-				if (pSoldier->ubAPsLostToSuppression + ubPointsLost > MAX_APS_SUPPRESSED_TOTAL)
+				if (pSoldier->ubAPsLostToSuppression + ubPointsLost > APBPConstants[AP_MAX_SUPPRESSED])
 				{
-					ubPointsLost = MAX_APS_SUPPRESSED_TOTAL - pSoldier->ubAPsLostToSuppression;
+					ubPointsLost = APBPConstants[AP_MAX_SUPPRESSED] - pSoldier->ubAPsLostToSuppression;
 				}
 			}
 			// Keeps a number for later reference
@@ -7366,9 +7371,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			// morale modifier
 			// For every 2 APs lost, subtract morale by a certain value.
 			// HEADROCK: Modified - now externalized to INI.
-			if (gGameExternalOptions.iAPLostPerMoraleDrop > 0 && ubPointsLost > 0)
+			if (APBPConstants[AP_LOST_PER_MORALE_DROP] > 0 && ubPointsLost > 0)
 			{
-				for ( ubLoop2 = 0; ubLoop2 < (ubPointsLost / gGameExternalOptions.iAPLostPerMoraleDrop); ubLoop2++ )
+				for ( ubLoop2 = 0; ubLoop2 < (ubPointsLost / APBPConstants[AP_LOST_PER_MORALE_DROP]); ubLoop2++ )
 				{
 					HandleMoraleEvent( pSoldier, MORALE_SUPPRESSED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 				}
@@ -7451,9 +7456,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: reduce action points"));
 			// Reduce action points!
 			// HEADROCK HAM Beta 2.2: Enforce a minimum limit via INI.
-			if (pSoldier->bActionPoints - ubPointsLost < gGameExternalOptions.iMinAPLimitFromSuppression )
+			if (pSoldier->bActionPoints - ubPointsLost < APBPConstants[AP_MIN_LIMIT_SUPPRESSION_LOSS] )
 			{
-				pSoldier->bActionPoints = gGameExternalOptions.iMinAPLimitFromSuppression;
+				pSoldier->bActionPoints = APBPConstants[AP_MIN_LIMIT_SUPPRESSION_LOSS];
 			}
 			else
 			{

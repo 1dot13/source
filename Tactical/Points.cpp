@@ -1131,7 +1131,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 					sAPCost += ((Weapon[ usItemNum ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[HANDPOS])) / 100) + 1) / 2;
 					
 					// Add regular aim time for the first 4 aiming actions.
-					sAPCost += __min(bAimTime,4);
+					sAPCost += __min((bAimTime*APBPConstants[AP_CLICK_AIM]),(4*APBPConstants[AP_CLICK_AIM]));
 
 					// If the weapon has a scope, and the target is within eligible range for scope use
 					if ( IsScoped(&pSoldier->inv[HANDPOS]) 
@@ -1140,24 +1140,24 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 						// Add time to adjust eye to scope
 						if (bAimTime > 0)
 						{
-							sAPCost += 1;
+							sAPCost += APBPConstants[AP_CLICK_AIM];
 						}
 						// Add 2 APs for each aiming point between 5 and 6
 						if (bAimTime > 4)
 						{
-							sAPCost += __min(((bAimTime - 4) * 2), 4);
+							sAPCost += __min(((bAimTime - 4) * APBPConstants[AP_CLICK_AIM] * 2), (4*APBPConstants[AP_CLICK_AIM]));
 						}
 						// Add 3 APs for each aiming point beyond 6.
 						if (bAimTime > 6)
 						{
-							sAPCost += (bAimTime - 6) * 3;
+							sAPCost += (bAimTime - 6) * APBPConstants[AP_CLICK_AIM] * 3;
 						}
 					}
 				}
 			}
 			else
 			{
-				sAPCost += bAimTime;
+				sAPCost += bAimTime * APBPConstants[AP_CLICK_AIM];
 			}
 		}
 	}

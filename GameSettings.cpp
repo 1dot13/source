@@ -840,13 +840,13 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iSuppressionEffectiveness	= iniReader.ReadInteger("JA2 HAM Settings","SUPPRESSION_EFFECTIVENESS",100);
 
 	// HEADROCK HAM B2: MAXIMUM number of APs that can be lost to suppression in a given turn (0=unlimited)
-	gGameExternalOptions.iMaxSuppressionAPLossPerTurn	= iniReader.ReadInteger("JA2 HAM Settings","MAX_SUPPRESSION_AP_LOSS_PER_TURN",8);
+	gGameExternalOptions.fSuppressionAPLossPerTurn	= iniReader.ReadBoolean("JA2 HAM Settings","LIMITED_SUPPRESSION_AP_LOSS_PER_TURN",TRUE);
 
 	// HEADROCK HAM B2: MAXIMUM number of APs that can be lost to suppression in a given attack (0=unlimited)
-	gGameExternalOptions.iMaxSuppressionAPLossPerAttack	= iniReader.ReadInteger("JA2 HAM Settings","MAX_SUPPRESSION_AP_LOSS_PER_ATTACK",8);
+	gGameExternalOptions.fSuppressionAPLossPerAttack	= iniReader.ReadBoolean("JA2 HAM Settings","LIMITED_SUPPRESSION_AP_LOSS_PER_ATTACK",TRUE);
 
-	// HEADROCK HAM B2: Rigid limit to which a soldier's APs can drop due to suppression fire. (0=unlimited)
-	gGameExternalOptions.iMinAPLimitFromSuppression		= iniReader.ReadInteger("JA2 HAM Settings","MIN_LIMIT_SUPPRESSION_AP_LOSS",0);
+	gGameExternalOptions.iSuppressionToleranceMax			= iniReader.ReadInteger("JA2 HAM Settings","SUPPRESSION_TOLERANCE_MAX", 18, 1, 24);
+	gGameExternalOptions.iSuppressionToleranceMin			= iniReader.ReadInteger("JA2 HAM Settings","SUPPRESSION_TOLERANCE_MIN", 1, 0, 24);
 
 	// HEADROCK HAM B2: Suppression Shock ON/OFF
 	gGameExternalOptions.fSuppressionShock			= iniReader.ReadBoolean("JA2 HAM Settings","SUPPRESSION_SHOCK",FALSE);
@@ -859,9 +859,6 @@ void LoadGameExternalOptions()
 
 	// HEADROCK HAM B2.3: A "cowering" soldier is twice as susceptible to suppression.
 	gGameExternalOptions.iCowerEffectOnSuppression		= iniReader.ReadInteger("JA2 HAM Settings","COWER_EFFECT_ON_SUPPRESSION",0);
-
-	// HEADROCK HAM B2.4: How many APs must be lost due to suppression for every 1 point of morale lost?
-	gGameExternalOptions.iAPLostPerMoraleDrop			= iniReader.ReadInteger("JA2 HAM Settings","AP_LOST_PER_MORALE_DROP",2);
 
 	// HEADROCK HAM B2.5: Turn on Realistic Tracers. 0 = off (regular tracers). 1 = Fully realistic tracers. 2 = Tracer Bump + 1.13 Autofire Penalty Reduction
 	gGameExternalOptions.iRealisticTracers				= iniReader.ReadInteger("JA2 HAM Settings","REALISTIC_TRACERS",0);
@@ -1068,6 +1065,9 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_RELOAD_LOOSE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_RELOAD_LOOSE",8),8);
 	APBPConstants[AP_UNJAM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_UNJAM",2),2);
 	APBPConstants[AP_MAX_SUPPRESSED] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MAX_SUPPRESSED",32),32);
+	APBPConstants[AP_MAX_TURN_SUPPRESSED] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MAX_TURN_SUPPRESSED",100),100);
+	APBPConstants[AP_MIN_LIMIT_SUPPRESSION_LOSS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MIN_LIMIT_SUPPRESSION_LOSS",-100),-100);
+	APBPConstants[AP_LOST_PER_MORALE_DROP] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_LOST_PER_MORALE_DROP",12),12);
 	APBPConstants[AP_SUPPRESSION_MOD] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_SUPPRESSION_MOD",24),24);
 	APBPConstants[DEFAULT_APS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","DEFAULT_APS",80),80);
 	APBPConstants[DEFAULT_AIMSKILL] = iniReader.ReadInteger("APConstants","DEFAULT_AIMSKILL",80);

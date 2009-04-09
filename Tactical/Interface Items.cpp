@@ -3423,6 +3423,14 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 		fRightDown = FALSE;
 		gfItemAmmoDown = FALSE;
 
+		//CHRISL: We dont' want to be able to reload guns using the ammo crate from this function
+		if(gpItemPointer != NULL && Item[gpItemPointer->usItem].ammocrate)
+		{
+			fInterfacePanelDirty = DIRTYLEVEL2;
+			btn->uiFlags &= (~BUTTON_CLICKED_ON );
+			return;
+		}
+
 		if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
 		{
 			//if ( gpItemPointer == NULL && EmptyWeaponMagazine( gpItemDescObject, &gItemPointer, ubStatusIndex ) )

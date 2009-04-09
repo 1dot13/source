@@ -1850,8 +1850,8 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 
 	// If resulting APs are below our permitted minimum, raise them to it!
 	// HEADROCK: Enforce new minimums due to suppression. I should've done this neater though.
-	if (ubPoints < gGameExternalOptions.iMinAPLimitFromSuppression)
-		ubPoints = gGameExternalOptions.iMinAPLimitFromSuppression;
+	if (ubPoints < APBPConstants[AP_MIN_LIMIT_SUPPRESSION_LOSS])
+		ubPoints = APBPConstants[AP_MIN_LIMIT_SUPPRESSION_LOSS];
 
 	// make sure action points doesn't exceed the permitted maximum
 	ubMaxAPs = gubMaxActionPoints[ this->ubBodyType ];
