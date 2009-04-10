@@ -39,5 +39,12 @@ BOOLEAN	SET_ERROR( const STR8 String, ...)
 	return( FALSE );
 }
 
+//create a varible that can be tested outside the pre-compiler convention. 
+// also see its "Sys Globals.h" declaration
+#ifdef JA2BETAVERSION 
+BOOLEAN JA2BETAVERSION_FLAG = 1;
+#else
+BOOLEAN JA2BETAVERSION_FLAG = 0;
 
+#endif
 

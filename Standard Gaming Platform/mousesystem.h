@@ -195,6 +195,11 @@ void MSYS_MoveMouseRegionTo( MOUSE_REGION *region, INT16 sX, INT16 sY);
 
 void MSYS_AllowDisabledRegionFastHelp( MOUSE_REGION *region, BOOLEAN fAllow );
 
+// arynn : render mouse regions
+// functions to help externalize mouse region data
+MOUSE_REGION *get_first_entry_in_MSYS_RegList(void);						//list iteration initialize
+MOUSE_REGION *get_next_entry_in_MSYS_RegList(MOUSE_REGION *current_region);	//list iteration increment
+
 // This function will force a re-evaluation of mous regions
 // Usually used to force change of mouse cursor if panels switch, etc
 void RefreshMouseRegions( );

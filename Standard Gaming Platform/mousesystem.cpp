@@ -1715,3 +1715,15 @@ void ResetClickedMode(void)
 {
 	gfClickedModeOn = FALSE;
 }
+
+// arynn : render mouse regions : mouse region list iteration initial
+MOUSE_REGION *get_first_entry_in_MSYS_RegList(void)
+{
+	return MSYS_RegList;
+}
+
+// arynn : render mouse regions : mouse region list iteration
+MOUSE_REGION *get_next_entry_in_MSYS_RegList(MOUSE_REGION *current_region)
+{
+	return current_region->next;
+}

@@ -37,6 +37,9 @@
 #include "Rain.h"
 // end rain
 
+// arynn : render mouse regions
+#include "line.h"
+
 //network headers
 #include "connect.h"
 
@@ -354,6 +357,41 @@ void GameLoop(void)
 
 	// rain
 	RenderRain();
+
+	//DEBUG MODE : DEBUG RENDER ENTRY : point to drop in debugging render code
+	if( (gGameSettings.fOptions[TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE]) || (JA2BETAVERSION_FLAG))
+	{
+		// arynn : render mouse regions
+		if(gGameSettings.fOptions[TOPTION_RENDER_MOUSE_REGIONS])
+		{
+			MOUSE_REGION *curr;
+			UINT32 uiDestPitchBYTES;
+			UINT8 *pDestBuf;
+
+			curr = get_first_entry_in_MSYS_RegList();
+
+			while((curr != NULL) )
+			{
+				pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+				SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+				LineDraw(		TRUE,	curr->RegionTopLeftX,		curr->RegionTopLeftY, 
+										curr->RegionBottomRightX,	curr->RegionBottomRightY, 
+										Get16BPPColor( FROMRGB( 200, 200, 200 )), pDestBuf);
+				RectangleDraw(	TRUE,	curr->RegionTopLeftX,		curr->RegionTopLeftY, 
+										curr->RegionBottomRightX,	curr->RegionBottomRightY,
+										Get16BPPColor( FROMRGB( 200, 200, 200 )), pDestBuf);
+				curr = get_next_entry_in_MSYS_RegList(curr);
+				UnLockVideoSurface( FRAME_BUFFER );
+			}
+		}
+	}
+	else
+	{
+		//when coming from a recent debug.exe to a rel.exe, and option to carry over debug functions is off, disable debug mode options
+		gGameSettings.fOptions[TOPTION_RENDER_MOUSE_REGIONS] = FALSE;
+	}
+
+
 
 	if( gfSkipFrame )
 		gfSkipFrame = FALSE;

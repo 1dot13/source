@@ -185,9 +185,9 @@ BOOLEAN LoadGameSettings()
 	SetSpeechVolume( gGameSettings.ubSpeechVolume );
 	MusicSetVolume( gGameSettings.ubMusicVolumeSetting );
 
-#ifndef BLOOD_N_GORE_ENABLED
-	gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ]				= FALSE;
-#endif
+//#ifndef BLOOD_N_GORE_ENABLED // arynn : del_me : defunct
+//	gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ]				= FALSE;
+//#endif
 
 	//if the user doesnt want the help screens present
 	if( gGameSettings.fHideHelpInAllScreens )
@@ -278,9 +278,9 @@ void InitGameSettings()
 
 	gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ]					= FALSE;
 
-	#ifndef BLOOD_N_GORE_ENABLED
-		gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ]					= FALSE;
-	#endif
+	//#ifndef BLOOD_N_GORE_ENABLED	// arynn : del_me : defunct
+	//	gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ]					= FALSE;
+	//#endif
 
 	gGameSettings.fOptions[ TOPTION_MERC_ALWAYS_LIGHT_UP ]				= FALSE;
 	gGameSettings.fOptions[ TOPTION_SMART_CURSOR ]						= FALSE;
@@ -312,6 +312,16 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ]					= FALSE;
+	gGameSettings.fOptions[ TOPTION_SHOW_RESET_ALL_OPTIONS ]			= FALSE;	// arynn : failsafe show/hide option
+	gGameSettings.fOptions[ TOPTION_RESET_ALL_OPTIONS ]					= FALSE;	// arynn : a do once and reset self option
+	gGameSettings.fOptions[ TOPTION_DEBUG_MODE_OPTIONS_HEADER ]			= FALSE;	// arynn : a sample options screen options header
+	gGameSettings.fOptions[ TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE ]	= FALSE;	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
+	gGameSettings.fOptions[	TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP ]	= FALSE;	// arynn : a sample option which affects options screen listing only
+	gGameSettings.fOptions[	TOPTION_RENDER_MOUSE_REGIONS ]				= FALSE;	// arynn : a sample DEBUG build option
+	gGameSettings.fOptions[	TOPTION_DEBUG_MODE_OPTIONS_END ]			= FALSE;	// arynn : a sample options screen options divider
+
+
+	gGameSettings.fOptions[	TOPTION_LAST_OPTION ]						= FALSE;	// arynn : this is THE LAST option that exists (intended for debugging the options screen, doesnt do anything, except exist)
 	
 
 	gGameSettings.ubSizeOfDisplayCover = 4;

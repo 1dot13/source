@@ -22,7 +22,7 @@
 
 #define	FORCE_ASSERTS_ON
 
-#define BLOOD_N_GORE_ENABLED
+//#define BLOOD_N_GORE_ENABLED // arynn : del_me : defunct, german build's differed with blood and gore option.. it got universalized
 
 //#ifdef _DEBUG
 //	#ifndef JA2TESTVERSION

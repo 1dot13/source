@@ -27,4 +27,8 @@ extern INT32	giCounterPeriodOverlay;
 
 extern	BOOLEAN	SET_ERROR( const STR8 String, ...);
 
+// arynn : note	: a varible version of #define JA2BETAVERSION, used for control flow when not debugging
+//		 : note	:	i wasnt sure about any existing. i'd imagine there is one. if so, it will get fixed later.
+extern BOOLEAN JA2BETAVERSION_FLAG; 
+
 #endif

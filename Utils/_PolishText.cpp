@@ -3686,6 +3686,81 @@ STR16		zOptionsToggleText[] =
 	L"Niskie obci¹¿enie procesora",
 	L"Rozszerzone Okno Opisu (EDB)",	//Enhanced Description Box
 	L"Wymuœ tryb turowy",			// arynn : add forced turn mode
+	// arynn : reset all toggle options, in cases for corrupted JA2.set files (and general debugging of options)
+	L"Reset ALL game options",	
+	L"Do you really want to reset?",
+	// arynn : a sample options screen options header, just text, not a real option                                                             
+	L"--DEBUG OPTIONS--",
+	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
+	L"Retain Debug Options in Rel",
+	// arynn : a sample option which affects options screen listing only                                            
+	L"DEBUG Render Option group",
+	// arynn : a sample DEBUG build option, this will draw slash-rects through current mouse region "hot spots"
+	L"Render Mouse Regions",
+	// arynn : a sample options screen options divider, just text, not a real option                                                             
+	L"-----------------",
+
+	L"Option044",	// arynn : note : everything south of here (should) only ever show in debug.. i doubt translating would prove useful
+	L"Option045",
+	L"Option046",
+	L"Option047",
+	L"Option048",
+	L"Option049",
+	L"Option050",
+	L"Option051",
+	L"Option052",
+	L"Option053",
+	L"Option054",
+	L"Option055",
+	L"Option056",
+	L"Option057",
+	L"Option058",
+	L"Option059",
+	L"Option060",
+	L"Option061",
+	L"Option062",
+	L"Option063",
+	L"Option064",
+	L"Option065",
+	L"Option066",
+	L"Option067",
+	L"Option068",
+	L"Option069",
+	L"Option070",
+	L"Option071",
+	L"Option072",
+	L"Option073",
+	L"Option074",
+	L"Option075",
+	L"Option076",
+	L"Option077",
+	L"Option078",
+	L"Option079",
+	L"Option080",
+	L"Option081",
+	L"Option082",
+	L"Option083",
+	L"Option084",
+	L"Option085",
+	L"Option086",
+	L"Option087",
+	L"Option088",
+	L"Option089",
+	L"Option090",
+	L"Option091",
+	L"Option092",
+	L"Option093",
+	L"Option094",
+	L"Option095",
+	L"Option096",
+	L"Option097",
+	L"Option098",
+	L"Option099",
+	L"Option100",
+
+	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
+	L"THE_LAST_OPTION",
+
 };
 
 //This is the help text associated with the above toggles.
@@ -3768,6 +3843,81 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeœli W£¥CZONE, gra bêdzie obci¹¿a³a procesor w mniejszym stopniu.",
 	L"Jeœli W£¥CZONE, rozszerzone opisy bêd¹ pokazane dla przedmiotów i broni.",
 	L"Jeœli W£¥CZONE i wróg jest obecny, \ntryb turowy jest w³¹czony, \ndopóki sektor nie zostanie oczyszczony (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
+	// arynn : immediate effect option that fixes corrupt ja2.set keeping of toggle options
+	L"Click me to fix corrupt game settings",
+	L"Click me to fix corrupt game settings",
+	// arynn : a sample options screen options header, this pop up help text never render (well as of yet)
+	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",
+	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
+	L"Allows debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file",
+	// arynn : a sample option which affects options screen listing only                                            
+	L"Toggle to display debugging render options",
+	// arynn : a sample DEBUG build option                                                                          
+	L"Attempts to display slash-rects around mouse regions",
+	// arynn : a sample options screen options divider, this pop up help text never render (well as of yet)
+	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_END",
+	// text past this point is for debugging, translating would doubtfully prove usefull
+	L"044",
+	L"045",
+	L"046",
+	L"047",
+	L"048",
+	L"049",
+	L"050",
+	L"051",
+	L"052",
+	L"053",
+	L"054",
+	L"055",
+	L"056",
+	L"057",
+	L"058",
+	L"059",
+	L"060",
+	L"061",
+	L"062",
+	L"063",
+	L"064",
+	L"065",
+	L"066",
+	L"067",
+	L"068",
+	L"069",
+	L"070",
+	L"071",
+	L"072",
+	L"073",
+	L"074",
+	L"075",
+	L"076",
+	L"077",
+	L"078",
+	L"079",
+	L"080",
+	L"081",
+	L"082",
+	L"083",
+	L"084",
+	L"085",
+	L"086",
+	L"087",
+	L"088",
+	L"089",
+	L"090",
+	L"091",
+	L"092",
+	L"093",
+	L"094",
+	L"095",
+	L"096",
+	L"097",
+	L"098",
+	L"099",
+	L"100",
+
+	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
+	L"TOPTION_LAST_OPTION",
+
 };
 
 STR16	gzGIOScreenText[] =

@@ -5,6 +5,8 @@
 
 
 //If you add any options, MAKE sure you add the corresponding string to the Options Screen string array
+//	 look up : zOptionsScreenHelpText , zOptionsToggleText , InitGameSettings , 
+//	 also, to establish non typical display rules (options screen list) : Establish_Options_Screen_Rules
 enum
 {
 	TOPTION_SPEECH,
@@ -58,8 +60,77 @@ enum
 	TOPTION_SILENT_SKYRIDER,
 	TOPTION_LOW_CPU_USAGE,
 	TOPTION_ENHANCED_DESC_BOX,
-	TOPTION_TOGGLE_TURN_MODE, // arynn : add forced turn mode
+	TOPTION_TOGGLE_TURN_MODE,					// arynn : add forced turn mode
+	TOPTION_SHOW_RESET_ALL_OPTIONS,				// arynn : in game ja2.set file fixer (one time done button, not a reall toggle option)
+	TOPTION_RESET_ALL_OPTIONS,					// arynn : in game ja2.set file fixer (one time done button, not a reall toggle option)
 
+	TOPTION_DEBUG_MODE_OPTIONS_HEADER,			// arynn : a sample options screen options header
+	TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE,	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
+	TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP,	// arynn : a sample option which affects options screen listing only
+	TOPTION_RENDER_MOUSE_REGIONS,				// arynn : a sample DEBUG build option
+	TOPTION_DEBUG_MODE_OPTIONS_END,				// arynn : a sample options screen options divider
+
+	//TOPTION PADDIN : go ahead, use one of em, just try to keep the # inline with where they are in foptions[] so the # makes sense
+	TOPTION_044,
+	TOPTION_045,
+	TOPTION_046,
+	TOPTION_047,
+	TOPTION_048,
+	TOPTION_049,
+	TOPTION_050,
+	TOPTION_051,
+	TOPTION_052,
+	TOPTION_053,
+	TOPTION_054,
+	TOPTION_055,
+	TOPTION_056,
+	TOPTION_057,
+	TOPTION_058,
+	TOPTION_059,
+	TOPTION_060,
+	TOPTION_061,
+	TOPTION_062,
+	TOPTION_063,
+	TOPTION_064,
+	TOPTION_065,
+	TOPTION_066,
+	TOPTION_067,
+	TOPTION_068,
+	TOPTION_069,
+	TOPTION_070,
+	TOPTION_071,
+	TOPTION_072,
+	TOPTION_073,
+	TOPTION_074,
+	TOPTION_075,
+	TOPTION_076,
+	TOPTION_077,
+	TOPTION_078,
+	TOPTION_079,
+	TOPTION_080,
+	TOPTION_081,
+	TOPTION_082,
+	TOPTION_083,
+	TOPTION_084,
+	TOPTION_085,
+	TOPTION_086,
+	TOPTION_087,
+	TOPTION_088,
+	TOPTION_089,
+	TOPTION_090,
+	TOPTION_091,
+	TOPTION_092,
+	TOPTION_093,
+	TOPTION_094,
+	TOPTION_095,
+	TOPTION_096,
+	TOPTION_097,
+	TOPTION_098,
+	TOPTION_099,
+	TOPTION_100,
+
+	// arynn : this is THE LAST option that exists (intended for debugging the options screen, doesnt do anything, except exist)
+	TOPTION_LAST_OPTION, 
 	NUM_GAME_OPTIONS,				//Toggle up this will be able to be Toggled by the player
 	
 
@@ -67,6 +138,7 @@ enum
 	TOPTION_MERC_CASTS_LIGHT = NUM_GAME_OPTIONS,
 	TOPTION_HIDE_BULLETS,
 	TOPTION_TRACKING_MODE,
+	
 
 	NUM_ALL_GAME_OPTIONS,
 };	
