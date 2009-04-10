@@ -3515,7 +3515,7 @@ STR16	zOptionsText[] =
 	//Confirmation pop when the user selects..
 	L"Quit game and return to the main menu?",
 
-	L"You need either the Speech option, or the Subtitle option to be enabled.", // arynn : defunct : no more nag screen
+	L"You need either the Speech option, or the Subtitle option to be enabled.",
 };
 
 
@@ -3691,8 +3691,7 @@ STR16		zOptionsToggleText[] =
 	L"Silent Skyrider",
 	L"Low CPU usage",
 	L"Enhanced Description Box",
-	// arynn : add forced turn mode                                                                                 
-	L"Forced Turn Mode",
+	L"Forced Turn Mode",			// arynn : add forced turn mode
 	// arynn : reset all toggle options, in cases for corrupted JA2.set files (and general debugging of options)
 	L"Reset ALL game options",	
 	L"Do you really want to reset?",
@@ -3848,8 +3847,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, game will run with much lower CPU usage.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
-	// arynn : add forced turn mode
-	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",
+	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
 	// arynn : immediate effect option that fixes corrupt ja2.set keeping of toggle options
 	L"Click me to fix corrupt game settings",
 	L"Click me to fix corrupt game settings",
@@ -3975,9 +3973,11 @@ STR16	gzMPJScreenText[] =
 	L"Version",
 	L"Game Type",
 	L"Ping",
-	L"You must enter a player name",
-	L"You must enter a valid server IP address.\n (eg 192.168.0.1)",
-	L"You must enter a valid Server Port between 1 and 65535"
+	L"You must enter a player name.",
+	L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
+	L"You must enter a valid Server Port between 1 and 65535.",
+	L"File transfer directory",
+	L"You must enter a file transfer directory."
 };
 
 STR16	gzMPHScreenText[] =
@@ -4012,6 +4012,7 @@ STR16	gzMPHScreenText[] =
 	L"Turn Timer multiplier must be a number between 1 and 200",
 	L"Enable Civilians in CO-OP",
 	L"Use New Inventory (NIV)",
+	L"Enforce Maximum AI Enemies"
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -4685,7 +4686,7 @@ STR16 MPServerMessage[] =
 	// 0
 	L"Initiating RakNet server...",
 	L"Server started, waiting for connections...",
-	L"You must now connect with your client to the server by pressing '2'.",
+	L"You must now connect with your client to the server by pressing '2'.",	// No more used
 	L"Server is already running.",
 	L"Server failed to start. Terminating.",
 	// 5
@@ -4694,6 +4695,8 @@ STR16 MPServerMessage[] =
 	L"Server is not running.",
 	L"Clients are still loading, please wait...",
 	L"You cannot change dropzone after the server has started.",
+	// 10
+	L"Sent file '%S' - 100/100",
 };
 
 STR16 MPClientMessage[] =
@@ -4721,24 +4724,24 @@ STR16 MPClientMessage[] =
 	L"Awaiting 'OK' from server to unlock the laptop...",
 	L"Interrupted",
 	L"Finish from interrupt",
-	L"Mouse Grid Coordinates:",
+	L"Mouse grid coordinates:",
 	// 20
 	L"X: %d, Y: %d",
-	L"Grid Number: %d",
+	L"Grid number: %d",
 	L"Server only feature",
 	L"Choose server manual override stage:  ('1' - Enable laptop/hiring)  ('2' - Launch/load level)  ('3' - Unlock UI)  ('4' - Finish placement)",
 	//L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Enemies=%d, Creatures=%d, Militias=%d, Civilians=%d, Timed Turns=%d, Secs/Tic=%d, Starting Cash=$%d, Tons of Guns=%d, Sci-Fi=%d, Difficulty=%d, Iron-Man=%d, BobbyRays Range=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
-	L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Timed Turns=%d, Secs/Tic=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
+	L"Sector=%s, Max. clients=%d, Max. mercs=%d, Game type=%d, Same merc=%d, Damage multiplier=%f, Timed turns=%d, Secs/Tic=%d, Disable Bobby Ray=%d, Disable Aim/Merc Equipment=%d, Disable Morale=%d, Testing=%d.",
 
 	// 25
 	L"Testing and cheat function '9' is enabled.",
 	L"New connection: Client #%d - '%S', Edge: %d, Team: %d.",
 	L"Team: %d.",//not used any more
-	L"'%s' (client %d - '%S') was killed by '%s' (client %d - '%S')",
-	L"Kicked client #%d - '%S'",
+	L"'%s' (client %d - '%S') was killed by '%s' (client %d - '%S').",
+	L"Kicked client #%d - '%S'.",
 	// 30
 	L"Start turn for client number: #1 - '%S' | #2 - '%S' | #3 - '%S' | #4 - '%S'",
-	L"Starting turn for client #%d",
+	L"Starting turn for client #%d.",
 	L"Requesting for realtime...",
 	L"Switched back to realtime.",
 	L"Error: Something went wrong switching back.",
@@ -4747,29 +4750,33 @@ STR16 MPClientMessage[] =
 	L"The server has unlocked the laptop. Begin hiring!",
 	L"Interruptor.",
 	L"You cannot change dropzone if you are only the client and not the server.",
-	L"You declined the offer to surrender, because you are in a multiplayer game.",
+	L"You declined the offer to surrender.",
 	// 40
 	L"All your mercs are wiped dead!",
 	L"Spectator mode enabled.",
 	L"You have been defeated!",
-	L"Sorry, climbing is disable in MP",
+	L"Sorry, climbing is disable in a multiplayer game.",
 	L"You Hired '%s'",
 	// 45
-	L"You can't change the map once purchasing has commenced",
-	L"Map changed to '%s'",
+	L"You can't change the map once purchasing has commenced.",
+	L"Map changed to '%s'.",
 	L"Client '%s' disconnected, removing from game",
-	L"You were disconnected from the game, returning to the Main Menu",
+	L"You were disconnected from the game. Returning to Main Menu.",
 	L"Connection failed, Retrying in 5 seconds, %i retries left...",
 	//50
 	L"Connection failed, giving up...",
-	L"You cannot start the game until another player has connected",
+	L"You cannot start the game until another player has connected.",
 	L"%s : %s",
-	L"Send to All",
+	L"Send to all",
 	L"Allies only",
 	// 55
 	L"Cannot join game. This game has already started.",
 	L"%s (team): %s",
 	L"Client #%i - '%s'",
+	L"%S - 100/100",
+	L"%S - %i/100",
+	// 60
+	L"Received all files from server!",
 };
 
 STR16 MPHelp[] =
@@ -4818,8 +4825,8 @@ STR16 gszMPMapscreenText[] =
 	L"Game Type: ",
 	L"Players: ",
 	L"Mercs each: ",
-	L"You cannot change starting edge once Laptop is unlocked",
-	L"You cannot change teams once the Laptop is unlocked",
+	L"You cannot change starting edge once Laptop is unlocked.",
+	L"You cannot change teams once the Laptop is unlocked.",
 	L"Random Mercs: ",
 	L"Y",
 	L"Difficulty:"
@@ -4838,7 +4845,8 @@ STR16 gzMPSScreenText[] =
 	L"Misses",
 	L"Accuracy",
 	L"Damage Dealt",
-	L"Damage Taken"
+	L"Damage Taken",
+	L"Please wait for the server to press 'Continue'."
 };
 
 STR16 gzMPChatToggleText[] =
@@ -4850,6 +4858,6 @@ STR16 gzMPChatToggleText[] =
 STR16 gzMPChatboxText[] =
 {
 	L"Multiplayer Chat",
-	L"Chat: press ENTER to send of ESC to cancel",
+	L"Chat: Press ENTER to send of ESC to cancel.",
 };
 #endif //ENGLISH

@@ -3753,7 +3753,6 @@ STR16		zOptionsToggleText[] =
 
 	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"THE_LAST_OPTION",
-
 };
 
 //This is the help text associated with the above toggles.
@@ -3910,7 +3909,6 @@ STR16	zOptionsScreenHelpText[] =
 
 	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"TOPTION_LAST_OPTION",
-
 };
 
 
@@ -3962,9 +3960,11 @@ STR16	gzMPJScreenText[] =
 	L"Version",
 	L"Game Type",
 	L"Ping",
-	L"You must enter a player name",
-	L"You must enter a valid server IP address.\n (eg 192.168.0.1)",
-	L"You must enter a valid Server Port between 1 and 65535"
+	L"You must enter a player name.",
+	L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
+	L"You must enter a valid Server Port between 1 and 65535.",
+	L"File transfer directory",
+	L"You must enter a file transfer directory."
 };
 
 STR16	gzMPHScreenText[] =
@@ -3999,6 +3999,7 @@ STR16	gzMPHScreenText[] =
 	L"Turn Timer multiplier must be a number between 1 and 200",
 	L"Enable Civilians in CO-OP",
 	L"Use New Inventory (NIV)",
+	L"Enforce Maximum AI Enemies",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -4681,6 +4682,8 @@ STR16 MPServerMessage[] =
 	L"Server is not running.",
 	L"Clients are still loading, please wait...",
 	L"You cannot change dropzone after the server has started.",
+	// 10
+	L"Sent file '%S' - 100/100",
 };
 
 STR16 MPClientMessage[] =
@@ -4756,6 +4759,10 @@ STR16 MPClientMessage[] =
 	L"Cannot join game. This game has already started.",
 	L"%s (team): %s",
 	L"Client #%i - '%s'",
+	L"%S - 100/100",
+	L"%S - %i/100",
+	// 60
+	L"Received all files from server!",
 };
 
 STR16 MPHelp[] =
@@ -4824,7 +4831,8 @@ STR16 gzMPSScreenText[] =
 	L"Misses",
 	L"Accuracy",
 	L"Damage Dealt",
-	L"Damage Taken"
+	L"Damage Taken",
+	L"Please wait for the server to press Continue"
 };
 
 STR16 gzMPChatToggleText[] =

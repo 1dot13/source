@@ -3761,7 +3761,6 @@ STR16		zOptionsToggleText[] =
 
 	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"THE_LAST_OPTION",
-
 };
 
 //This is the help text associated with the above toggles.
@@ -3918,7 +3917,6 @@ STR16	zOptionsScreenHelpText[] =
 
 	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"TOPTION_LAST_OPTION",
-
 };
 
 
@@ -3971,8 +3969,10 @@ STR16	gzMPJScreenText[] =
 	L"Game Type",
 	L"Ping",
 	L"Впишите имя игрока.",	//You must enter a player name
-	L"Впишите корректный IP адрес. \n(пример 192.168.0.1)",	//You must enter a valid server IP address.\n (eg 192.168.0.1)
-	L"Впишите корректный порт сервера (используйте диапазон от 1 до 65535)",	//You must enter a valid Server Port between 1 and 65535
+	L"Впишите корректный IP адрес. \n(пример 84.114.195.239).",	//You must enter a valid server IP address.\n (eg 192.168.0.1)
+	L"Впишите корректный порт сервера (используйте диапазон от 1 до 65535).",	//You must enter a valid Server Port between 1 and 65535
+	L"File Transfer Directory",
+	L"You must enter a file transfer directory."
 };
 
 STR16	gzMPHScreenText[] =
@@ -4007,6 +4007,7 @@ STR16	gzMPHScreenText[] =
 	L"Множитель время хода должен быть числом в промежутке от 1 до 200.",	//Turn Timer multiplier must be a number between 1 and 200
 	L"Присутствуют гражданские в CO-OP",						//Enable Civilians in CO-OP
 	L"Реалистичная система инвентаря (NIV)",				//Use New Inventory (NIV)
+	L"Enforce Maximum AI Enemies,
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -4689,6 +4690,8 @@ STR16 MPServerMessage[] =
 	L"Сервер не запущен.",
 	L"Подождите пожалуйста, игроки все еще загружаются...",
 	L"Вы не можете изменять зону высадки после запуска сервера.",
+	// 10
+	L"Sent file '%S' - 100/100",
 };
 
 STR16 MPClientMessage[] =
@@ -4765,6 +4768,10 @@ STR16 MPClientMessage[] =
 	L"Cannot join game. This game has already started.",
 	L"%s (team): %s",
 	L"Client #%i - '%s'",
+	L"%S - 100/100",
+	L"%S - %i/100",
+	// 60
+	L"Received all files from server!",
 };
 
 STR16 MPHelp[] =

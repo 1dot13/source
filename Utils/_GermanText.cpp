@@ -3572,7 +3572,6 @@ STR16 zOptionsToggleText[] =
 
 	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"THE_LAST_OPTION",
-
 };
 
 //This is the help text associated with the above toggles.
@@ -3655,81 +3654,6 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird das Spiel mit viel geringerer CPU Belastung laufen.",
 	L"Wenn diese Funktion aktiviert ist, werden erweiterte Beschreibungen zu den Waffen und Gegenständen angezeigt.",
 	L"Wenn diese Funktion aktiviert ist und noch Gegner im Sektor sind, bleibt das Spiel im Runden-Mods bis alle Feinde tot sind (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).", 
-	// arynn : immediate effect option that fixes corrupt ja2.set keeping of toggle options
-	L"Click me to fix corrupt game settings",
-	L"Click me to fix corrupt game settings",
-	// arynn : a sample options screen options header, this pop up help text never render (well as of yet)
-	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",
-	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
-	L"Allows debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file",
-	// arynn : a sample option which affects options screen listing only                                            
-	L"Toggle to display debugging render options",
-	// arynn : a sample DEBUG build option                                                                          
-	L"Attempts to display slash-rects around mouse regions",
-	// arynn : a sample options screen options divider, this pop up help text never render (well as of yet)
-	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_END",
-	// text past this point is for debugging, translating would doubtfully prove usefull
-	L"044",
-	L"045",
-	L"046",
-	L"047",
-	L"048",
-	L"049",
-	L"050",
-	L"051",
-	L"052",
-	L"053",
-	L"054",
-	L"055",
-	L"056",
-	L"057",
-	L"058",
-	L"059",
-	L"060",
-	L"061",
-	L"062",
-	L"063",
-	L"064",
-	L"065",
-	L"066",
-	L"067",
-	L"068",
-	L"069",
-	L"070",
-	L"071",
-	L"072",
-	L"073",
-	L"074",
-	L"075",
-	L"076",
-	L"077",
-	L"078",
-	L"079",
-	L"080",
-	L"081",
-	L"082",
-	L"083",
-	L"084",
-	L"085",
-	L"086",
-	L"087",
-	L"088",
-	L"089",
-	L"090",
-	L"091",
-	L"092",
-	L"093",
-	L"094",
-	L"095",
-	L"096",
-	L"097",
-	L"098",
-	L"099",
-	L"100",
-
-	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
-	L"TOPTION_LAST_OPTION",
-
 };
 
 STR16 gzGIOScreenText[] =
@@ -3780,9 +3704,11 @@ STR16	gzMPJScreenText[] =
 	L"Version",
 	L"Game Type",
 	L"Ping",
-	L"You must enter a player name",
-	L"You must enter a valid server IP address.\n (eg 192.168.0.1)",
-	L"You must enter a valid Server Port between 1 and 65535"
+	L"You must enter a player name.",
+	L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
+	L"You must enter a valid Server Port between 1 and 65535".,
+	L"Verzeichnis für Datei-Transfer.",
+	L"Bitte geben Sie ein Verzeichnis für den Datei-Transfer ein."
 };
 
 STR16	gzMPHScreenText[] =
@@ -3817,6 +3743,7 @@ STR16	gzMPHScreenText[] =
 	L"Turn Timer multiplier must be a number between 1 and 200",
 	L"Enable Civilians in CO-OP",
 	L"Use New Inventory (NIV)",
+	L"Enforce Maximum AI Enemies",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -4489,6 +4416,8 @@ STR16 MPServerMessage[] =
 	L"Server läuft nicht.",
 	L"Clients sind noch am laden, bitte warten...",
 	L"Sie können die Absprungzone nicht ändern, wenn der Server bereits gestartet wurde.",
+	// 10
+	L"Sent file '%S' - 100/100",
 };
 
 STR16 MPClientMessage[] =
@@ -4522,9 +4451,7 @@ STR16 MPClientMessage[] =
 	L"Raster Nummer: %d",
 	L"Aktion kann nur der Server durchführen.",
 	L"Wähle exklusive Server Aktion:  ('1' - Laptop freischalten/anheuern)  ('2' - Gefecht starten/Sektor laden)  ('3' - Interface freischalten )  ('4' - Söldner Platzierung abschließen) ",
-	//L"Sektor=%s, Max Clients=%d, Max Söldner=%d, Ko-Op=%d Gleiche Söldner=%d, Schaden Mult.=%f, Gegner=%d, Monster=%d, Miliz=%d, Zivilisten=%d, Zeitbeschränkung=%d, Sek/Tic=%d, Startgehalt=%d$, Zusatzwaffen=%d, Sci-Fi= %d, Schwierigkeit=%d, Extraschwer=%d, Bobby Rays Auswahl= %d, Deakt. Bobby Ray=%d, Deak. Aim/Merc Ausrüstung=%d, Deakt. Moral=%d, Testen=%d.",
-	//L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Enemies=%d, Creatures=%d, Militias=%d, Civilians=%d, Timed Turns=%d, Secs/Tic=%d, Starting Cash=$%d, Tons of Guns=%d, Sci-Fi=%d, Difficulty=%d, Iron-Man=%d, BobbyRays Range=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
-	L"Sektor=%s, Max. Clients=%d, Max. Söldner=%d, Spielmodus=%d, Gleiche Söldner=%d, Schaden Mult.=%f, Zeitbeschränkung=%d, Sek/Tik=%d, Deakt. Bobby Ray=%d, Deakt. Aim/Merc Ausrüstung=%d, Deakt. Moral=%d, Testen=%d",
+	L"Sektor=%s, Max. Clients=%d, Max. Söldner=%d, Spieltyp=%d, Gleiche Söldner=%d, Schaden Mult.=%f, Zeitl. Runden=%d, Seks/Tik=%d, Kein Bobby Ray=%d, Keine Aim/Merc Ausrüstung=%d, Keine Moral=%d, Testen=%d",
 
 	// 25
 	L"Testmodus und Cheat-Funktion mit '9' ist freigeschalten.",
@@ -4533,7 +4460,7 @@ STR16 MPClientMessage[] =
 	L"New connection: Client #%d - '%S', Edge: %d, Team: %d.",
 	L"Team: %d.",//not used any more
 
-	L"'%s' (Client #%d - '%S') was killed by '%s' (Client #%d - '%S')",
+	L"'%s' (Client #%d - '%S') wurde getötet von '%s' (Client #%d - '%S')",
 	L"Werfe Client #%d - '%S' aus dem Spiel.",
 	// 30
 	L"Starte Spielzug für Client Nummer: #1 - '%S' | #2 - '%S' | #3 - '%S' | #4 - '%S'",
@@ -4546,29 +4473,33 @@ STR16 MPClientMessage[] =
 	L"Server hat den Laptop freigeschalten. Söldner anheuern!",
 	L"Unterbrecher.",
 	L"Sie können die Absprungzone nicht ändern, wenn Sie nur der Client und nicht zusätzlich der Server sind.",
-	L"Sie haben das Angebot zur Kampfaufgabe abgelehnt, da Sie sich gerade in einem Mehrspieler Spiel befinden.",
+	L"Sie haben das Angebot zur Kampfaufgabe abgelehnt.",
 	// 40
 	L"Alle Ihre Söldner wurden getötet!",
 	L"Überwachungsmodus wurde eingeschalten.",
 	L"Sie wurden besiegt!",
-	L"Auf Dächer klettern ist nicht erlaubt in einem Mehrspieler Spiel",
+	L"Auf Dächer klettern ist nicht erlaubt in einem Mehrspieler Spiel.",
 	L"Sie haben '%s' angeheuert.",
 	// 45
-	L"Sie können den Sektor nicht ändern wenn bereits Anschaffungen getätigt sind",
+	L"Sie können den Sektor nicht ändern, wenn bereits Einkäufe begonnen haben",
 	L"Sektor gewechselt zu '%s'",
-	L"Client '%s' Verbindung abgebrochen und vom Spiel entfernt",
-	L"Ihre Verbindung zum Spiel wurde abgebrochen, gehen zum Hauptmenü",
-	L"Verbindungsfehler, Wiederverbindung in 5 Sekunden, %i Versuche übrig...",
+	L"Client '%s' Verbindung abgebrochen, entferne Client vom Spiel.",
+	L"Ihre Verbindung zum Spiel wurde unterbrochen, gehen zurück zum Hauptmenü.",
+	L"Verbindung fehlgeschlagen. Wiederverbindungsaufbau in 5 Sekunden. %i Versuche übrig...",
 	//50
-	L"Verbindungsfehler, beenden...",
-	L"Sie können das Spiel nicht starten, solange sich kein weitere Spieler verbunden hat",
+	L"Verbindung fehlgeschlagen, Abbruch...",
+	L"Sie können das Spiel nicht beginnen, solange sich noch kein weiterer Spieler verbunden hat.",
 	L"%s : %s",
-	L"Send an alle",
+	L"Sende an alle",
 	L"Nur Verbündete",
 	// 55
-	L"Teilnahme nicht möglich. Dieses Spiel hat bereits begonnen.",
+	L"Spielbeitritt nicht möglich. Das Spiel ist bereits gestartet.",
 	L"%s (Team): %s",
 	L"Client #%i - '%s'",
+	L"%S - 100/100",
+	L"%S - %i/100",
+	// 60
+	L"Received all files from server!",
 };
 
 STR16 MPHelp[] =
@@ -4616,9 +4547,9 @@ STR16 gszMPMapscreenText[] =
 {
 	L"Spieltyp: ",
 	L"Spieler: ",
-	L"Söldner: ",
-	L"Sie können die Startposition nicht mehr ändern, sobald der Laptop freigeschaltet ist",
-	L"Sie können die Teams nicht mehr ändern, sobald der Laptop freigeschaltet ist",
+	L"Söldner/Spieler: ",
+	L"Sie können die Startpositionen nicht mehr ändern, sobald der Laptop freigeschaltet ist.",
+	L"Sie können die Teams nicht mehr ändern, sobald der Laptop freigeschaltet ist.",
 	L"Zufällige Söldner: ",
 	L"J",
 	L"Schwierigkeit:"
@@ -4626,7 +4557,7 @@ STR16 gszMPMapscreenText[] =
 
 STR16 gzMPSScreenText[] =
 {
-	L"Auswertung",
+	L"Kampfstatistik",
 	L"Weiter",
 	L"Abbrechen",
 	L"Spieler",
@@ -4635,21 +4566,22 @@ STR16 gzMPSScreenText[] =
 	L"Gegnerische Armee",
 	L"Treffer",
 	L"Fehlschüsse",
-	L"Treffergenauigkeit",
+	L"Treffgenauigkeit",
 	L"Schaden verursacht",
-	L"Schaden erhalten"
+	L"Schaden erhalten",
+	L"Bitte warten Sie bis der Server auf 'Weiter' geklickt hat."
 };
 
 STR16 gzMPChatToggleText[] =
 {
 	L"Sende an alle",
-	L"Sende zu Verbündete",
+	L"Sende nur an Verbündete",
 };
 
 STR16 gzMPChatboxText[] =
 {
 	L"Mehrspieler Chat",
-	L"Chat: ENTER zum Senden oder ESC zum Schließen",
+	L"Chat: Drücke ENTER zum Senden oder ESC zum Verlassen.",
 };
 
 #endif //GERMAN
