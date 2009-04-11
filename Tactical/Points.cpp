@@ -1441,7 +1441,7 @@ void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT16 sGridNo
 			fAddingRaiseGunCost = TRUE;
 		}
 		//CHRISL: Handle ready weapon with facing changes based on stance
-		if(fAddingTurningCost)
+		if(fAddingTurningCost && !fAddingRaiseGunCost)
 		{
 			switch (gAnimControl[ pSoldier->usAnimState ].ubHeight)
 			{
