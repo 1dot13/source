@@ -3971,8 +3971,9 @@ STR16	gzMPJScreenText[] =
 	L"Впишите имя игрока.",	//You must enter a player name
 	L"Впишите корректный IP адрес. \n(пример 84.114.195.239).",	//You must enter a valid server IP address.\n (eg 192.168.0.1)
 	L"Впишите корректный порт сервера (используйте диапазон от 1 до 65535).",	//You must enter a valid Server Port between 1 and 65535
-	L"File Transfer Directory",
-	L"You must enter a file transfer directory."
+	L"MP Sync. Directory",
+	L"You must enter a file transfer directory.",
+	L"(Use '/' instead of '\\' for directory delimiters.)",
 };
 
 STR16	gzMPHScreenText[] =
@@ -4008,6 +4009,7 @@ STR16	gzMPHScreenText[] =
 	L"Присутствуют гражданские в CO-OP",						//Enable Civilians in CO-OP
 	L"Реалистичная система инвентаря (NIV)",				//Use New Inventory (NIV)
 	L"Enforce Maximum AI Enemies,
+	L"Sync. MP Clients Directory",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -4820,8 +4822,8 @@ STR16 gszMPMapscreenText[] =
 	L"Game Type: ",
 	L"Players: ",
 	L"Mercs each: ",
-	L"You cannot change starting edge once Laptop is unlocked",
-	L"You cannot change teams once the Laptop is unlocked",
+	L"You cannot change starting edge once Laptop is unlocked.",
+	L"You cannot change teams once the Laptop is unlocked.",
 	L"Random Mercs: ",
 	L"Y",
 	L"Difficulty:"
@@ -4852,7 +4854,7 @@ STR16 gzMPChatToggleText[] =
 STR16 gzMPChatboxText[] =
 {
 	L"Чат сетевой игры Jagged Alliance 2 v1.13",	//Multiplayer Chat
-	L"Заметка: нажмите |В|В|О|Д для отправки сообщения, |К|Л|Ю|Ч для выхода из чата",	//Chat: press ENTER to send of ESC to cancel
+	L"Заметка: нажмите |В|В|О|Д для отправки сообщения, |К|Л|Ю|Ч для выхода из чата.",	//Chat: press ENTER to send of ESC to cancel
 };
 
 #endif //RUSSIAN

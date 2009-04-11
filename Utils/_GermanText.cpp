@@ -3707,8 +3707,9 @@ STR16	gzMPJScreenText[] =
 	L"You must enter a player name.",
 	L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
 	L"You must enter a valid Server Port between 1 and 65535".,
-	L"Verzeichnis für Datei-Transfer.",
-	L"Bitte geben Sie ein Verzeichnis für den Datei-Transfer ein."
+	L"MP Sync. Directory",
+	L"You must enter a file transfer directory.",
+	L"(Use '/' instead of '\\' for directory delimiters.)",
 };
 
 STR16	gzMPHScreenText[] =
@@ -3744,6 +3745,7 @@ STR16	gzMPHScreenText[] =
 	L"Enable Civilians in CO-OP",
 	L"Use New Inventory (NIV)",
 	L"Enforce Maximum AI Enemies",
+	L"Sync. MP Clients Directory",
 };
 
 STR16 pDeliveryLocationStrings[] =

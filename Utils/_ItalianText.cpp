@@ -3956,8 +3956,9 @@ STR16	gzMPJScreenText[] =
 	L"You must enter a player name.",
 	L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
 	L"You must enter a valid Server Port between 1 and 65535.",
-	L"File Transfer Directory",
-	L"You must enter a file transfer directory."
+	L"MP Sync. Directory",
+	L"You must enter a file transfer directory.",
+	L"(Use '/' instead of '\\' for directory delimiters.)",
 };
 
 STR16	gzMPHScreenText[] =
@@ -3993,6 +3994,7 @@ STR16	gzMPHScreenText[] =
 	L"Enable Civilians in CO-OP",
 	L"Use New Inventory (NIV)",
 	L"Enforce Maximum AI Enemies",
+	L"Sync. MP Clients Directory",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -4809,8 +4811,8 @@ STR16 gszMPMapscreenText[] =
 	L"Game Type: ",
 	L"Players: ",
 	L"Mercs each: ",
-	L"You cannot change starting edge once Laptop is unlocked",
-	L"You cannot change teams once the Laptop is unlocked",
+	L"You cannot change starting edge once Laptop is unlocked.",
+	L"You cannot change teams once the Laptop is unlocked.",
 	L"Random Mercs: ",
 	L"Y",
 	L"Difficulty:"
@@ -4830,7 +4832,7 @@ STR16 gzMPSScreenText[] =
 	L"Accuracy",
 	L"Damage Dealt",
 	L"Damage Taken",
-	L"Please wait for the server to press Continue"
+	L"Please wait for the server to press 'Continue'."
 };
 
 STR16 gzMPChatToggleText[] =
@@ -4842,7 +4844,7 @@ STR16 gzMPChatToggleText[] =
 STR16 gzMPChatboxText[] =
 {
 	L"Multiplayer Chat",
-	L"Chat: press ENTER to send of ESC to cancel",
+	L"Chat: Press ENTER to send of ESC to cancel.",
 };
 
 #endif //ITALIAN
