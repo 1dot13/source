@@ -390,8 +390,9 @@ void LoadGameExternalOptions()
 	CIniReader iniReader(GAME_EXTERNAL_OPTIONS_FILE);
 	
 
-	
-	if(is_networked) memset(&iniReader, 0, sizeof (CIniReader) );//disable ini in mp (taking default values)
+	// WANNE: FILE TRANSFER: We disable reading from ja2_options.ini until we get file transfer working
+	if(is_networked) 
+		memset(&iniReader, 0, sizeof (CIniReader) );//disable ini in mp (taking default values)
 	
 
 	//################# Laptop Settings #################
@@ -828,26 +829,26 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iMineIncomePercentage		= iniReader.ReadInteger("JA2 HAM Settings","MINE_INCOME_PERCENTAGE",0);
 	// HEADROCK HAM B2.4: Set a threshold at 1% - otherwise game crashes on asserting mine income. 
 	// Can anyone have a look at circumventing the income check? I don't want to cause any damage...
-	gGameExternalOptions.iMineIncomePercentage = __max(gGameExternalOptions.iMineIncomePercentage, 1);
+	gGameExternalOptions.iMineIncomePercentage = __max(gGameExternalOptions.iMineIncomePercentage, 100);
 
 	// HEADROCK HAM B1: Set minimum and maximum CTH
-	gGameExternalOptions.iMaximumCTH				= iniReader.ReadInteger("JA2 HAM Settings","MAXIMUM_POSSIBLE_CTH",0);
+	gGameExternalOptions.iMaximumCTH				= iniReader.ReadInteger("JA2 HAM Settings","MAXIMUM_POSSIBLE_CTH",99);
 
 	gGameExternalOptions.iMinimumCTH				= iniReader.ReadInteger("JA2 HAM Settings","MINIMUM_POSSIBLE_CTH",0);
 
 	// HEADROCK HAM B1: Set minimum CTH at fraction between 0 and 1 ( MINCTH = 1/(100*divisor) ) Note Minimum above must be 0.
-	gGameExternalOptions.iMinimumCTHDivisor			= iniReader.ReadInteger("JA2 HAM Settings","MINIMUM_CTH_DIVISOR",0);
+	gGameExternalOptions.iMinimumCTHDivisor			= iniReader.ReadInteger("JA2 HAM Settings","MINIMUM_CTH_DIVISOR",100);
 
 	// HEADROCK HAM B1: Allow restricted militia to move through visited sectors?
-	gGameExternalOptions.bUnrestrictVisited			= iniReader.ReadBoolean("JA2 HAM Settings","ALLOW_RESTRICTED_MILITIA_THROUGH_VISITED_SECTORS",0);
+	gGameExternalOptions.bUnrestrictVisited			= iniReader.ReadBoolean("JA2 HAM Settings","ALLOW_RESTRICTED_MILITIA_THROUGH_VISITED_SECTORS",FALSE);
 
-	gGameExternalOptions.bDynamicRestrictRoaming	= iniReader.ReadBoolean("JA2 HAM Settings","ALLOW_DYNAMIC_RESTRICTED_ROAMING",0);
+	gGameExternalOptions.bDynamicRestrictRoaming	= iniReader.ReadBoolean("JA2 HAM Settings","ALLOW_DYNAMIC_RESTRICTED_ROAMING",TRUE);
 
 	// HEADROCK HAM B2: Reset suppression counter. 0 = never (oldskool), 1 = Every turn, 2 = Every attack.
-	gGameExternalOptions.iClearSuppression			= iniReader.ReadInteger("JA2 HAM Settings","CLEAR_SUPPRESSION_COUNTER",0);
+	gGameExternalOptions.iClearSuppression			= iniReader.ReadInteger("JA2 HAM Settings","CLEAR_SUPPRESSION_COUNTER",1);
 
 	// HEADROCK HAM B2.1: This controls how effective suppression is, by increasing the number of ubSuppressionPoints accumulated by combatants (percentage);
-	gGameExternalOptions.iSuppressionEffectiveness	= iniReader.ReadInteger("JA2 HAM Settings","SUPPRESSION_EFFECTIVENESS",100);
+	gGameExternalOptions.iSuppressionEffectiveness	= iniReader.ReadInteger("JA2 HAM Settings","SUPPRESSION_EFFECTIVENESS",0);
 
 	// HEADROCK HAM B2: MAXIMUM number of APs that can be lost to suppression in a given turn (0=unlimited)
 	gGameExternalOptions.fSuppressionAPLossPerTurn	= iniReader.ReadBoolean("JA2 HAM Settings","LIMITED_SUPPRESSION_AP_LOSS_PER_TURN",TRUE);
@@ -862,7 +863,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fSuppressionShock			= iniReader.ReadBoolean("JA2 HAM Settings","SUPPRESSION_SHOCK",FALSE);
 
 	// HEADROCK HAM B2: Suppression Shock effectiveness (percentage, 100 = "normal", 0 = deactivated. Range 0-65535)
-	gGameExternalOptions.iSuppressionShockEffectiveness	= iniReader.ReadInteger("JA2 HAM Settings","SUPPRESSION_SHOCK_EFFECTIVENESS",100);
+	gGameExternalOptions.iSuppressionShockEffectiveness	= iniReader.ReadInteger("JA2 HAM Settings","SUPPRESSION_SHOCK_EFFECTIVENESS",0);
 
 	// HEADROCK HAM B2.1: CTH penalty given by a "Cowering" target to any enemy shooter.
 	gGameExternalOptions.iAimPenaltyPerTargetShock		= iniReader.ReadInteger("JA2 HAM Settings","AIM_PENALTY_PER_TARGET_SHOCK",0);
@@ -940,11 +941,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedLegs		= __max(1,iniReader.ReadInteger("JA2 HAM Settings","CTH_PENALTY_FOR_COWERING_CROUCHED_TARGET_LEGS_DIVISOR", 5));
 
 	// HEADROCK HAM B2.8: This is the maximum range at which a target gives out the full CTH penalty for cowering. At lower range, it'll give proportionally less penalty.
-	gGameExternalOptions.usMinRangeForFullCoweringPenalty		= __max(10,iniReader.ReadInteger("JA2 HAM Settings","MIN_RANGE_FOR_FULL_COWERING_TARGET_PENALTY", 100));
+	gGameExternalOptions.usMinRangeForFullCoweringPenalty		= __max(10,iniReader.ReadInteger("JA2 HAM Settings","MIN_RANGE_FOR_FULL_COWERING_TARGET_PENALTY", 300));
 
 	// HEADROCK HAM B2.8: Absolute maximum CTH penalty from target/shooter cowering
-	gGameExternalOptions.usMaxShooterCoweringPenalty		= __max(1,iniReader.ReadInteger("JA2 HAM Settings","MAX_SHOOTER_COWERING_PENALTY", 100));
-	gGameExternalOptions.usMaxTargetCoweringPenalty		= __max(1,iniReader.ReadInteger("JA2 HAM Settings","MAX_TARGET_COWERING_PENALTY", 100));
+	gGameExternalOptions.usMaxShooterCoweringPenalty		= __max(1,iniReader.ReadInteger("JA2 HAM Settings","MAX_SHOOTER_COWERING_PENALTY", 0));
+	gGameExternalOptions.usMaxTargetCoweringPenalty		= __max(1,iniReader.ReadInteger("JA2 HAM Settings","MAX_TARGET_COWERING_PENALTY", 0));
 
 	// HEADROCK HAM B2.8: If this is turned on, Militia will drop their equipment similar to enemies, IF killed by non-player character.
 	gGameExternalOptions.ubMilitiaDropEquipment					= iniReader.ReadInteger("JA2 HAM Settings","MILITIA_DROP_EQUIPMENT", 0);
