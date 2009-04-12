@@ -3310,7 +3310,7 @@ STR16 zOptionsText[] =
 	//button Text
 	L"Spiel sichern",
 	L"Spiel laden",
-	L"Spiel beenden",
+	L"Spielende",
 	L"Nächste",
 	L"Vorherige",
 	L"Fertig",
@@ -3496,11 +3496,11 @@ STR16 zOptionsToggleText[] =
 	L"Automatisch speichern",
 	L"Stummer Skyrider",
 	L"Niedrige CPU Belastung",
-	L"Erweiterte Gegenstandsinfo (EDB)",
+	L"Erw. Gegenstandsinfo (EDB)",
 	L"Erzwungender Runden-Modus",
 	// arynn : reset all toggle options, in cases for corrupted JA2.set files (and general debugging of options)
-	L"Reset ALL game options",	
-	L"Do you really want to reset?",
+	L"ALLE Einstellungen rücksetzen",	
+	L"Wollen Sie wirklich rücksetzen?",
 	// arynn : a sample options screen options header, just text, not a real option                                                             
 	L"--DEBUG OPTIONS--",
 	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
@@ -3691,61 +3691,62 @@ STR16 gzGIOScreenText[] =
 
 STR16	gzMPJScreenText[] =
 {
-	L"MULTIPLAYER",
-	L"Join",
-	L"Host",
-	L"Cancel",
-	L"Refresh",
-	L"Player Name",
+	L"MEHRSPIELER",
+	L"Teilnehmen",
+	L"Eröffnen",
+	L"Abbrechen",
+	L"Aktualisieren",
+	L"Spieler Name",
 	L"Server IP",
 	L"Port",
 	L"Server Name",
-	L"# Plrs",
+	L"# Spieler",
 	L"Version",
-	L"Game Type",
+	L"Spieltyp",
 	L"Ping",
-	L"You must enter a player name.",
-	L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
-	L"You must enter a valid Server Port between 1 and 65535".,
-	L"MP Sync. Directory",
-	L"You must enter a file transfer directory.",
-	L"(Use '/' instead of '\\' for directory delimiters.)",
+	L"Sie müssen einen Spieler Name eingeben.",
+	L"Sie müssen eine gültie Server IP Adresse eingeben.\n (Bsp: 84.114.195.239).",
+	L"Sie müssen eine gültige Server Portnummer zwischen 1 und 65535 eingeben.",
+	L"MP Synk. Verzeichnis",
+	L"Sie müssen ein gültiges MP Synchronsiationsverzeichnis eingeben.",
+	L"(Benutzen Sie '/' anstelle von '\\' als Verzeichnistrennzeichen.)",
+	L"Das angegebene MP Synk. Verzeichnis existiert nicht.",
 };
 
 STR16	gzMPHScreenText[] =
 {
-	L"HOST GAME",
-	L"Start",
-	L"Cancel",
+	L"ERÖFFNE SPIEL",
+	L"Starten",
+	L"Abbrechen",
 	L"Server Name",
-	L"Game Type",
+	L"Spieltyp",
 	L"Deathmatch",
 	L"Team Deathmatch",
-	L"Co-operative",
-	L"Max Players",
-	L"Squad Size",
-	L"Merc Selection",
-	L"Random Mercs",
-	L"Hired by Player",
-	L"Starting Balance",
-	L"Can Hire Same Merc",
-	L"Report Hired Mercs",
-	L"Allow Bobby Rays",
-	L"Randomise Starting Edge",
-	L"You must enter a server name",
-	L"Max Players must be between 2 and 4",
-	L"Squad size must be between 1 and 6",
-	L"Time of Day",
-	L"Time of Day must be a 24 hr time (HH:MM)\n\n eg. 13:30 = 1.30pm",
-	L"Starting Cash must be a valid dollar amount ( no cents )\n\n eg. 150000" ,
-	L"Damage Multiplier",
-	L"Damage Multiplier must be a number between 0 and 5",
-	L"Turn Timer Multiplier",
-	L"Turn Timer multiplier must be a number between 1 and 200",
-	L"Enable Civilians in CO-OP",
-	L"Use New Inventory (NIV)",
-	L"Enforce Maximum AI Enemies",
-	L"Sync. MP Clients Directory",
+	L"CO-OP",
+	L"Max. Spieler",
+	L"Teamgröße",
+	L"Söldnerauswahl",
+	L"Zufällige Söldner anheuern",
+	L"Söldner selbst wählen",
+	L"Startkapital",
+	L"Kann gleiche Söldner anheuern",
+	L"Zeige angeheuerten Söldner",
+	L"Bobby Ray erlauben",
+	L"Zufällige Startzone",
+	L"Sie müssen einen Server Namen eingeben.",
+	L"Max. Spieleranzahl muss zwischen 2 und 4 sein.",
+	L"Teamgröße muss zwischen 1 und 6 sein.",
+	L"Tageszeit",
+	L"Tageszeit muss eine 24h Zeit (SS:MM) sein.\n\nBsp: 13:30",
+	L"Startkapital muss ein gültiger Dollerwert (keine Cents) sein.\n\nBsp: 150000" ,
+	L"Schaden Multiplikator",
+	L"Schaden Multiplikator muss zwischen 0 and 5 sein.",
+	L"Zeit Multiplikator",
+	L"Zeit Multiplikator muss zwischen 1 and 200 sein.",
+	L"Erlaube Zivilisten in CO-OP",
+	L"Verwende neues Inventar (NIV)",
+	L"Erzwinge maximale AI Gegner",
+	L"Synk. MP Client Verzeichnisse",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -4419,7 +4420,7 @@ STR16 MPServerMessage[] =
 	L"Clients sind noch am laden, bitte warten...",
 	L"Sie können die Absprungzone nicht ändern, wenn der Server bereits gestartet wurde.",
 	// 10
-	L"Sent file '%S' - 100/100",
+	L"Datei '%S' gesendet - 100/100",
 };
 
 STR16 MPClientMessage[] =
@@ -4453,15 +4454,11 @@ STR16 MPClientMessage[] =
 	L"Raster Nummer: %d",
 	L"Aktion kann nur der Server durchführen.",
 	L"Wähle exklusive Server Aktion:  ('1' - Laptop freischalten/anheuern)  ('2' - Gefecht starten/Sektor laden)  ('3' - Interface freischalten )  ('4' - Söldner Platzierung abschließen) ",
-	L"Sektor=%s, Max. Clients=%d, Max. Söldner=%d, Spieltyp=%d, Gleiche Söldner=%d, Schaden Mult.=%f, Zeitl. Runden=%d, Seks/Tik=%d, Kein Bobby Ray=%d, Keine Aim/Merc Ausrüstung=%d, Keine Moral=%d, Testen=%d",
-
+	L"Sektor=%s, Max. Clients=%d, Teamgröße=%d, Spieltyp=%d, Gleiche Söldner=%d, Schaden Mult.=%f, Zeitl. Runden=%d, Seks/Tik=%d, Kein Bobby Ray=%d, Keine Aim/Merc Ausrüstung=%d, Keine Moral=%d, Testen=%d",
 	// 25
 	L"Testmodus und Cheat-Funktion mit '9' ist freigeschalten.",
-	//L"Neue Verbindung: Client #%d - '%S', Startzone: %d.",
-	//L"Feindlich mit Client: #1=%d, #2=%d, #3=%d, #4=%d.",
-	L"New connection: Client #%d - '%S', Edge: %d, Team: %d.",
-	L"Team: %d.",//not used any more
-
+	L"Neue Verbindung: Client #%d - '%S'.",
+	L"Team: %d.",
 	L"'%s' (Client #%d - '%S') wurde getötet von '%s' (Client #%d - '%S')",
 	L"Werfe Client #%d - '%S' aus dem Spiel.",
 	// 30
@@ -4501,7 +4498,7 @@ STR16 MPClientMessage[] =
 	L"%S - 100/100",
 	L"%S - %i/100",
 	// 60
-	L"Received all files from server!",
+	L"Alle Dateien vom Server erhalten!",
 };
 
 STR16 MPHelp[] =
@@ -4549,10 +4546,10 @@ STR16 gszMPMapscreenText[] =
 {
 	L"Spieltyp: ",
 	L"Spieler: ",
-	L"Söldner/Spieler: ",
+	L"Teamgröße: ",
 	L"Sie können die Startpositionen nicht mehr ändern, sobald der Laptop freigeschaltet ist.",
 	L"Sie können die Teams nicht mehr ändern, sobald der Laptop freigeschaltet ist.",
-	L"Zufällige Söldner: ",
+	L"Zuf. Söldner: ",
 	L"J",
 	L"Schwierigkeit:"
 };

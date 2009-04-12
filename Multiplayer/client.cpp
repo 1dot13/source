@@ -2173,16 +2173,10 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 			// WANNE - MP: We also have to reinitialize the merc profiles because
 			// they depend on the inventory!
 			LoadMercProfiles();
+
+			ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault );
 			
-			if (!RANDOM_SPAWN)
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,cl_lan->cl_edge,cl_lan->team );
-			else
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,L"?",cl_lan->team );
-
 			fDrawCharacterList = true; // set the character list to be redrawn
-
-//		if(PLAYER_BSIDE==0)ScreenMsg(FONT_LTGREEN,MSG_CHAT,MPClientMessage[27],cl_lan->cl_ops[0],cl_lan->cl_ops[1],cl_lan->cl_ops[2],cl_lan->cl_ops[3]);
-		//ScreenMsg(FONT_LTGREEN,MSG_CHAT,MPClientMessage[27],cl_lan->team);
 	
 			strcpy(client_names[cl_lan->client_num-1],szDefault);				
 
@@ -2190,14 +2184,10 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		else 
 		{
 			fDrawCharacterList = true; // set the character list to be redrawn
-			
-			if (!RANDOM_SPAWN)
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,cl_lan->cl_edge,cl_lan->team );
-			else
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,L"?",cl_lan->team );
 
-		//	ScreenMsg(FONT_LTGREEN,MSG_CHAT,MPClientMessage[27],cl_lan->team);	
-				strcpy(client_names[cl_lan->client_num-1],szDefault);				
+			ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault );
+				
+			strcpy(client_names[cl_lan->client_num-1],szDefault);				
 
 		}
 

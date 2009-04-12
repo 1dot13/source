@@ -3972,6 +3972,7 @@ STR16	gzMPJScreenText[] =
 	L"MP Sync. Directory",
 	L"You must enter a file transfer directory.",
 	L"(Use '/' instead of '\\' for directory delimiters.)",
+	L"The specified synchronisation directory does not exist.",
 };
 
 STR16	gzMPHScreenText[] =
@@ -4727,7 +4728,7 @@ STR16 MPClientMessage[] =
 	L"Sektor=%s, MaxKlientów=%d, Max Najem=%d, Tryb_Gry=%d, TenSamNaj=%d, Mno¿nik obra¿.=%f, TuryCzas=%d, Sek/ruch=%d, Dis BobbyRay=%d, Wy³ Aim/Merc Ekwip=%d, Wy³ morale=%d, Test=%d",
 	// 25
 	L"Test, funkcja cheat’ów '9' jest w³¹czona.",
-	L"Nowe po³¹czenie Client #%d - '%S', Edge: %d, Team: %d.",
+	L"Nowe po³¹czenie Client #%d - '%S'.",
 	L"Team: %d.",//not used any more
 	L"'%s' (klient %d - '%S') zabity przez '%s' (client %d - '%S')",
 	L"Wyrzucono #%d - '%S'",

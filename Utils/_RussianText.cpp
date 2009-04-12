@@ -3974,6 +3974,7 @@ STR16	gzMPJScreenText[] =
 	L"MP Sync. Directory",
 	L"You must enter a file transfer directory.",
 	L"(Use '/' instead of '\\' for directory delimiters.)",
+	L"The specified synchronisation directory does not exist.",
 };
 
 STR16	gzMPHScreenText[] =
@@ -4732,7 +4733,7 @@ STR16 MPClientMessage[] =
 
 	// 25
 	L"Тестовая чит-функция '9' включена.",
-	L"Новый игрок: клиент №%d - '%S', Сторона: %d, Команда: %d.",
+	L"Новый игрок: клиент №%d - '%S'.",
 	L"Команда: %d.",//not used any more
 	L"%s (клиент %d - '%S') был убит %s (клиент %d - '%S')",
 	L"Клиент №%d - '%S' выкинут из игры.",

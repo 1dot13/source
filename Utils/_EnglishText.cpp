@@ -3979,6 +3979,8 @@ STR16	gzMPJScreenText[] =
 	L"MP Sync. Directory",
 	L"You must enter a file transfer directory.",
 	L"(Use '/' instead of '\\' for directory delimiters.)",
+	L"The specified synchronisation directory does not exist.",
+	L"The specified synchronisation directory does not exist.",
 };
 
 STR16	gzMPHScreenText[] =
@@ -4737,7 +4739,7 @@ STR16 MPClientMessage[] =
 
 	// 25
 	L"Testing and cheat function '9' is enabled.",
-	L"New connection: Client #%d - '%S', Edge: %d, Team: %d.",
+	L"New connection: Client #%d - '%S'.",
 	L"Team: %d.",//not used any more
 	L"'%s' (client %d - '%S') was killed by '%s' (client %d - '%S').",
 	L"Kicked client #%d - '%S'.",

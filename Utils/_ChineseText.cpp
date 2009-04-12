@@ -4741,6 +4741,7 @@ STR16	gzMPJScreenText[] =
 	L"MP Sync. Directory",
 	L"You must enter a file transfer directory.",
 	L"(Use '/' instead of '\\' for directory delimiters.)",
+	L"The specified synchronisation directory does not exist.",
 };
 
 STR16	gzMPHScreenText[] =
@@ -5670,7 +5671,7 @@ STR16 MPClientMessage[] =
 
 	// 25
 	L"测试与欺骗功能键'9'已被激活。",
-	L"新建连接: 客户端 #%d - '%S', Edge: %d, 队: %d.",
+	L"新建连接: 客户端 #%d - '%S'.",
 	L"队: %d.",//not used any more
 	L"'%s' (客户端 %d - '%S') 已被 '%s' (客户端 %d - '%S' 杀死)",
 	L"踢出客户端 #%d - '%S'",
