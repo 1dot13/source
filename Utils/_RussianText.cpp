@@ -4009,7 +4009,7 @@ STR16	gzMPHScreenText[] =
 	L"Множитель время хода должен быть числом в промежутке от 1 до 200.",	//Turn Timer multiplier must be a number between 1 and 200
 	L"Присутствуют гражданские в CO-OP",						//Enable Civilians in CO-OP
 	L"Реалистичная система инвентаря (NIV)",				//Use New Inventory (NIV)
-	L"Enforce Maximum AI Enemies,
+	L"Enforce Maximum AI Enemies",
 	L"Sync. MP Clients Directory",
 };
 
