@@ -1104,6 +1104,8 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 	UINT8							ubDirection;
 	INT16							sAdjustedGridNo;
 	UINT32						uiItemClass;
+	BOOLEAN	fAddingTurningCost = FALSE;
+	BOOLEAN	fAddingRaiseGunCost = FALSE;
 
 	// LOOK IN BUDDY'S HAND TO DETERMINE WHAT TO DO HERE
 	usItemNum = pSoldier->inv[HANDPOS].usItem;
@@ -1127,8 +1129,15 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 				// HEADROCK HAM B2.6: Changed the number of APs to attack when aiming.
 				if (bAimTime > 0)
 				{
-					// Add 1/2 ready cost (rounded up) for getting the sights up to the eye
-					sAPCost += ((Weapon[ usItemNum ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[HANDPOS])) / 100) + 1) / 2;
+					GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sGridNo, ubAddTurningCost, &fAddingTurningCost, &fAddingRaiseGunCost );
+					if(fAddingRaiseGunCost == TRUE)
+					{
+						//CHRISL: I'm disabling this for now.  Charging 1/2 ready cost for every shot isn't legitimate
+						//	but for the time being, we have no way to track whether we've previously aimed or not.  Until
+						//	we do, this code shouldn't be used.
+						// Add 1/2 ready cost (rounded up) for getting the sights up to the eye
+						//sAPCost += ((Weapon[ usItemNum ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[HANDPOS])) / 100) + 1) / 2;
+					}
 					
 					// Add regular aim time for the first 4 aiming actions.
 					sAPCost += __min((bAimTime*APBPConstants[AP_CLICK_AIM]),(4*APBPConstants[AP_CLICK_AIM]));
@@ -1140,7 +1149,10 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 						// Add time to adjust eye to scope
 						if (bAimTime > 0)
 						{
-							sAPCost += APBPConstants[AP_CLICK_AIM];
+							//CHRISL: I'm disabling this for now.  Charging an extra "click" every time we use a scope
+							//	isn't legitimate.  If we could track whether we previously used a scope on the current
+							//	target, that would be another matter.  But for now, we can't, so this should be used.
+							//sAPCost += APBPConstants[AP_CLICK_AIM];
 						}
 						// Add 2 APs for each aiming point between 5 and 6
 						if (bAimTime > 4)
