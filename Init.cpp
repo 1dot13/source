@@ -569,6 +569,19 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if(!ReadInRoamingInfo(fileName))
 		return FALSE;
 
+	// Dealtar: Read in shipping destinations and delivery methods
+	strcpy(fileName, directoryName);
+	strcat(fileName, SHIPPINGDESTINATIONSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	if(!ReadInShippingDestinations(fileName))
+		return FALSE;
+	strcpy(fileName, directoryName);
+	strcat(fileName, DELIVERYMETHODSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	if(!ReadInDeliveryMethods(fileName))
+		return FALSE;
+
+		
 	return TRUE;
 }
 

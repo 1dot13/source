@@ -105,6 +105,7 @@
 	#include "Assignments.h"
 	#include "Interface Items.h"
 	#include "Shopkeeper Interface.h"
+	#include "postalservice.h"
 	// HEADROCK HAM B1: Additional Include for HAM
 	#include "MilitiaSquads.h"
 #endif
@@ -141,6 +142,8 @@ extern void ResetJA2ClockGlobalTimers( void );
 
 extern void BeginLoadScreen( void );
 extern void EndLoadScreen();
+
+extern		CPostalService		gPostalService;
 
 //Global variable used
 #ifdef JA2BETAVERSION
@@ -2807,6 +2810,13 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	SaveGameFilePosition( FileGetPos( hFile ), "New way of saving Bobby R mailorders" );
 	#endif
 
+	// Dealtar: New shipment system data
+	if(!gPostalService.SaveShipmentListToSaveGameFile(hFile))
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing mail orders");
+		goto FAILED_TO_SAVE;
+	}
+
 
 
 	//Close the saved game file
@@ -4129,6 +4139,17 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	if( guiCurrentSaveGameVersion < 85 )
 	{
 		HandleOldBobbyRMailOrders();
+	}
+
+	//Dealtar's Airport Externalization
+	if( SaveGameHeader.uiSavedGameVersion >= 104 )
+	{
+		if ( !gPostalService.LoadShipmentListFromSaveGameFile(hFile) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gPostalService.LoadShipmentListFromSaveGameFile failed" ) );
+			FileClose( hFile );
+			return( FALSE );
+		}
 	}
 
 

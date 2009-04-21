@@ -21,6 +21,7 @@
 	#include "armsdealerinvinit.h"
 	#include "GameSettings.h"
 	#include "message.h"
+	#include "postalservice.h"
 #endif
 
 
@@ -174,6 +175,17 @@ UINT8		gubBobbyRPages[]={
 						LAPTOP_MODE_BOBBY_R_AMMO,
 						LAPTOP_MODE_BOBBY_R_ARMOR};
 
+//Dealtar's Airport Externalization.						
+BOOLEAN gfBobbyRInitialized = 0;
+extern CPostalService gPostalService;
+extern UINT8 guiNumOfDisplayedCities;
+extern vector < PDestinationStruct > gDestinationTable;
+extern vector < PShipmentStruct > gShipmentTable;
+extern MOUSE_REGION *gSelectedDropDownRegion;
+extern MOUSE_REGION *gSelectedScrollAreaDropDownRegion;
+extern void BobbyRDeliveryCallback(RefToCShipmentManipulator ShipmentManipulator);
+//End Dealtar's Airport Externalization.
+
 
 //Bobby's Sign menu mouse regions
 MOUSE_REGION	gSelectedBobbiesSignMenuRegion[ BOBBIES_NUMBER_SIGNS ];
@@ -189,6 +201,9 @@ void SimulateBobbyRayCustomer(STORE_INVENTORY *pInventoryArray, BOOLEAN fUsed);
 
 void GameInitBobbyR()
 {
+	//Dealtar's Airport Externalization.
+	//Originally, this function was empty!
+	gPostalService.RegisterDeliveryCallback(0, BobbyRDeliveryCallback);
 }
 
 
@@ -197,6 +212,50 @@ BOOLEAN EnterBobbyR()
 	VOBJECT_DESC	VObjectDesc;
 	UINT8 i;
 
+	//Dealtar's Airport Externalization.
+	// Update the destination and shipment tables upon entering Bobby R
+	if (!gDestinationTable.empty())
+	{
+		gDestinationTable.erase(gDestinationTable.begin(), gDestinationTable.end());
+	}
+
+	if (!gShipmentTable.empty())
+	{
+		gShipmentTable.erase(gShipmentTable.begin(), gShipmentTable.end());
+	}
+
+	RefToDestinationListIterator dli = gPostalService.LookupDestinationList().begin();
+
+	while (dli != gPostalService.LookupDestinationList().end())
+	{
+		gDestinationTable.push_back(&DESTINATION(dli));
+		dli++;
+
+	}
+
+	RefToShipmentListIterator sli = gPostalService.LookupShipmentList().begin();
+
+	while (sli != gPostalService.LookupShipmentList().end())
+	{
+		gShipmentTable.push_back(&SHIPMENT(sli));
+		sli++;
+	}
+
+	// Dealtar: The following code had to be put here, because GameInitBobbyR() is called
+	// before XML data is read into gPostalService due to the screen order in
+	// screens.cpp -> GameScreens[]
+	if (!gfBobbyRInitialized)
+	{
+		gfBobbyRInitialized = TRUE;
+		gSelectedDropDownRegion = new MOUSE_REGION[gPostalService.LookupDestinationList().size()];
+		gSelectedScrollAreaDropDownRegion = new MOUSE_REGION[gPostalService.LookupDestinationList().size()];
+		int x = gPostalService.LookupDestinationList().size();
+		guiNumOfDisplayedCities = (x < 10) ? x : 10;
+		//gDestinationTable.resize(gPostalService.LookupDestinationList().size());
+	}
+	//End Dealtar's Airport Externalization.
+	
+	
 	// an array of mouse regions for the bobbies signs.	Top Left corner, bottom right corner
 	UINT16	usMouseRegionPosArray[] = {BOBBIES_USED_SIGN_X, BOBBIES_USED_SIGN_Y, BOBBIES_USED_SIGN_X+BOBBIES_USED_SIGN_WIDTH, BOBBIES_USED_SIGN_Y+BOBBIES_USED_SIGN_HEIGHT,
 																	BOBBIES_MISC_SIGN_X, BOBBIES_MISC_SIGN_Y, BOBBIES_MISC_SIGN_X+BOBBIES_MISC_SIGN_WIDTH, BOBBIES_MISC_SIGN_Y+BOBBIES_MISC_SIGN_HEIGHT,

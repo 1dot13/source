@@ -4492,6 +4492,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\PostalService.cpp">
+			</File>
+			<File
 				RelativePath="sirtech.cpp">
 				<FileConfiguration
 					Name="Demo Release with Debug Info|Win32">
@@ -4641,6 +4644,12 @@
 						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\XML_DeliveryMethods.cpp">
+			</File>
+			<File
+				RelativePath=".\XML_ShippingDestinations.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -4788,6 +4797,9 @@
 			</File>
 			<File
 				RelativePath="personnel.h">
+			</File>
+			<File
+				RelativePath=".\PostalService.h">
 			</File>
 			<File
 				RelativePath="sirtech.h">

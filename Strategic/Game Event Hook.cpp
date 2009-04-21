@@ -44,6 +44,7 @@
 	#include "Soldier Profile.h"
 	#include "laptop.h"
 	#include "Campaign.h"
+	#include "PostalService.h"
 #endif
 
 #include "connect.h"
@@ -59,6 +60,7 @@ extern void HandleMinuteUpdate();
 extern BOOLEAN gfProcessingGameEvents;
 extern UINT32	guiTimeStampOfCurrentlyExecutingEvent;
 extern BOOLEAN gfPreventDeletionOfAnyEvent;
+extern CPostalService gPostalService;
 
 
 #ifdef CRIPPLED_VERSION
@@ -432,6 +434,9 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 
 		case EVENT_MERC_SITE_NEW_MERC_AVAILABLE:
 			NewMercsAvailableAtMercSiteCallBack( );
+			break;
+		case EVENT_POSTAL_SERVICE_SHIPMENT:
+			gPostalService.DeliverShipment(pEvent->uiParam);
 			break;
 
 #ifdef CRIPPLED_VERSION

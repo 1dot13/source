@@ -21,7 +21,11 @@
 	#include "Text.h"
 	#include "LaptopSave.h"
 	#include "finances.h"
+	#include "PostalService.h"
+	#include <string>
 #endif
+
+using namespace std;
 
 //static EmailPtr pEmailList;
 EmailPtr pEmailList;
@@ -324,6 +328,8 @@ void PreProcessEmail( EmailPtr pMail );
 void ModifyInsuranceEmails( UINT16 usMessageId, INT32 *iResults, EmailPtr pMail, UINT8 ubNumberOfRecords );
 BOOLEAN ReplaceMercNameAndAmountWithProperData( CHAR16 *pFinishedString, EmailPtr pMail );
 BOOLEAN ReplaceBiffNameWithProperMercName( CHAR16 *pFinishedString, EmailPtr pMail, CHAR16 *pMercName );
+extern UINT16 gusCurShipmentDestinationID;
+extern CPostalService gPostalService;
 
 
 void InitializeMouseRegions()
@@ -3173,6 +3179,36 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 		case AIM_MEDICAL_DEPOSIT_NO_REFUND:
 		case AIM_MEDICAL_DEPOSIT_PARTIAL_REFUND:
 			ModifyInsuranceEmails( usMessageId, iResults, pMail, AIM_MEDICAL_DEPOSIT_REFUND_LENGTH );
+			break;
+		//Dealtar's Airport Externalization
+		case BOBBYR_SHIPMENT_ARRIVED:
+			wstring wstrMail;
+			wstring::size_type index;
+			CHAR16 szMail[MAIL_STRING_SIZE];
+
+			if (!pMessageRecordList)
+			{
+				for (int i = 0; i < BOBBYR_SHIPMENT_ARRIVED_LENGTH; i++)
+				{
+					wstrMail.clear();
+					LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", szMail, MAIL_STRING_SIZE *usMessageId, MAIL_STRING_SIZE);
+					wstrMail = szMail;
+
+					index = wstrMail.find(L"$DESTINATIONNAME$");
+
+					if (index != wstring::npos)
+					{
+						wstrMail.erase(index, strlen("$DESTINATIONNAME$"));
+						RefToDestinationStruct ds = gPostalService.GetDestination(gusCurShipmentDestinationID);
+						wstrMail.insert(index, ds.wstrName.c_str());
+					}
+
+					AddEmailRecordToList((STR16)wstrMail.c_str());
+
+					usMessageId++;
+				}
+			}
+			giPrevMessageId = giMessageId;
 			break;
 	}
 

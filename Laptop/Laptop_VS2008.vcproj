@@ -512,6 +512,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PostalService.h"
+				>
+			</File>
+			<File
 				RelativePath="sirtech.h"
 				>
 			</File>
@@ -752,11 +756,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PostalService.cpp"
+				>
+			</File>
+			<File
 				RelativePath="sirtech.cpp"
 				>
 			</File>
 			<File
 				RelativePath="Store Inventory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_DeliveryMethods.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_ShippingDestinations.cpp"
 				>
 			</File>
 		</Filter>

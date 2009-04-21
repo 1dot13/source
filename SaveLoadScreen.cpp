@@ -36,6 +36,7 @@
 	#include	"Map Screen Interface.h"
 	#include "Multi Language Graphic Utils.h"
 	#include "Campaign Types.h"
+	#include "PostalService.h"
 #endif
 
 #include "Campaign Init.h"
@@ -200,6 +201,10 @@ BOOLEAN		gfGettingNameFromSaveLoadScreen = FALSE;
 #ifdef JA2BETAVERSION
 extern	BOOLEAN		gfDisplaySaveGamesNowInvalidatedMsg;
 #endif
+
+//Dealtar's Airport Externalization
+extern		CPostalService gPostalService;
+
 
 //
 //Buttons

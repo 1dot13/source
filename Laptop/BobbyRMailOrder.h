@@ -72,7 +72,7 @@ typedef struct
 extern	NewBobbyRayOrderStruct	*gpNewBobbyrShipments;
 extern	INT32			giNumberOfNewBobbyRShipment;
 
-BOOLEAN AddNewBobbyRShipment( BobbyRayPurchaseStruct *pPurchaseStruct, UINT8 ubDeliveryLoc, UINT8 ubDeliveryMethod, BOOLEAN fPruchasedFromBobbyR, UINT32 uiPackageWeight );
+BOOLEAN AddNewBobbyRShipment( BobbyRayPurchaseStruct *pPurchaseStruct, UINT16 usDeliveryLoc, UINT8 ubDeliveryMethod, BOOLEAN fPurchasedFromBobbyR, UINT32 uiPackageWeight );
 
 UINT16	CountNumberOfBobbyPurchasesThatAreInTransit();
 
