@@ -9336,7 +9336,7 @@
 		<sSound>406</sSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<SilencedSound>157</SilencedSound>
-		<APsToReload>24</APsToReload>
+		<APsToReload>16</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
@@ -9430,7 +9430,7 @@
 		<sSound>405</sSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<SilencedSound>157</SilencedSound>
-		<APsToReload>24</APsToReload>
+		<APsToReload>16</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>

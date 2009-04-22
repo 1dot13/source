@@ -7410,35 +7410,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>926</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 926</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>9x18mm Mag 8 AP</szItemName>
+		<szLongItemName>9x18mm Pistol Mag, 8 AP</szLongItemName>
+		<szItemDesc>8 full metal jacket rounds of 9x18mm Makarov.</szItemDesc>
+		<szBRName>9x18mm Mag 8 AP</szBRName>
+		<szBRDesc>9x18mm in FMJ for added penetration.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>927</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 927</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>9x18mm Mag 12 AP</szItemName>
+		<szLongItemName>9x18mm Pistol Mag, 12 AP</szLongItemName>
+		<szItemDesc>12 rounds of full metal jacket ammo in cost effective 9x18mm.</szItemDesc>
+		<szBRName>9x18mm Mag 12 AP</szBRName>
+		<szBRDesc>This AP 9x18mm ammo penetrates much better than standard ball rounds.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>928</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 928</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>9x18mm Mag 20 AP</szItemName>
+		<szLongItemName>9x18mm SMG Mag, 20 AP</szLongItemName>
+		<szItemDesc>20 round SMG mag loaded with full metal jacket ammo.</szItemDesc>
+		<szBRName>9x18mm Mag 20 AP</szBRName>
+		<szBRDesc>AP rounds, as preferred by the military for defeating light body armor.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>929</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 929</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>9x18mm Mag 30 AP</szItemName>
+		<szLongItemName>9x18mm SMG Mag, 30 AP</szLongItemName>
+		<szItemDesc>30 round SMG mag loaded with full metal jacket ammunition.</szItemDesc>
+		<szBRName>9x18mm Mag 30 AP</szBRName>
+		<szBRDesc>30 full metal jacket bullets will make a sieve out of most things.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>930</uiIndex>
@@ -7490,27 +7490,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>936</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 936</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62x54R 5 M</szItemName>
+		<szLongItemName>7.62x54R Mag, 5 Match</szLongItemName>
+		<szItemDesc>5 high precision rounds for a Dragunov or other 7.62x54mm rifle.</szItemDesc>
+		<szBRName>7.62x54R Mag 5 M</szBRName>
+		<szBRDesc>7.62x54R Sniper ammo, manufactured to ensure higher precision.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>937</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 937</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62x54R 10 M</szItemName>
+		<szLongItemName>7.62x54R Mag 10 Match</szLongItemName>
+		<szItemDesc>Ammo manufactured to higher standards, made especially for snipers.</szItemDesc>
+		<szBRName>7.62x54R Mag 10 M</szBRName>
+		<szBRDesc>10 rounds of the so-called "Sniper" ammo in 7.62x54R.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>938</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 938</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62x54R Box M</szItemName>
+		<szLongItemName>7.62x54R Box Match</szLongItemName>
+		<szItemDesc>200 round box of 7.62x54 Sniper ammo.</szItemDesc>
+		<szBRName>7.62x54R Box M</szBRName>
+		<szBRDesc>Not available at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>939</uiIndex>
@@ -10422,6 +10422,22 @@
 		<szLongItemName>7.92x57mm HP ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>7.92x57mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1303</uiIndex>
+		<szItemName>7.62x54mm M crate</szItemName>
+		<szLongItemName>7.62x54mm M ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x54mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1304</uiIndex>
+		<szItemName>9x18 AP crate</szItemName>
+		<szLongItemName>9x18mm AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x18mm AP ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 </ITEMLIST>

@@ -7392,35 +7392,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>926</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 926</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>9x18 PB</szItemName>
+		<szLongItemName>9x18mm Magazin, PB</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x18 Mag PB #8</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>927</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 927</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>9x18 PB</szItemName>
+		<szLongItemName>9x18mm Magazin, PB</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x18 Mag PB #12</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>928</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 928</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>9x18 PB</szItemName>
+		<szLongItemName>9x18mm MP-Mag, PB</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x18 Mag PB #20</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>929</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 929</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>9x18 PB</szItemName>
+		<szLongItemName>9x18mm MP-Mag, PB</szLongItemName>
+		<szItemDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>9x18 Mag PB</szBRName>
+		<szBRDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>930</uiIndex>
@@ -7472,27 +7472,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>936</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 936</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>7.62x54R 5 M</szItemName>
+		<szLongItemName>7.62x54R Magazin Match</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x54R Mag #5 M</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>937</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 937</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>7.62x54R 10 M</szItemName>
+		<szLongItemName>7.62x54R Magazin Match</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x54R Mag #10 M</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>938</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 938</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>7.62x54R Box M</szItemName>
+		<szLongItemName>7.62x54R Box Match</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x54R Box #200 M</szBRName>
+		<szBRDesc>Not available at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>939</uiIndex>
@@ -9152,7 +9152,7 @@
 		<szLongItemName>KAC PDW</szLongItemName>
 		<szItemDesc>Diese PDW hat eine 8"-Lauf und ist nicht schwerer als eine große Pistole. Sie stellt die ideale Bewaffnung für Militärpolizei und private Sicherheitskräfte dar.</szItemDesc>
 		<szBRName>KAC PDW</szBRName>
-		<szBRDesc>Die 2006 vorgestellte Neuentwicklung von KNIGHT'S ARMANT COMPANY (USA) besitzt einen 8"-Lauf und feuert eine für kurze Waffenläufe optimierte Patrone im Kaliber 6x35mm. Bestellen Sie noch heute Ihr Exemplar zum testen!</szBRDesc>
+		<szBRDesc>Die 2006 vorgestellte Neuentwicklung von KNIGHT'S ARMAMENT COMPANY (USA) besitzt einen 8"-Lauf und feuert eine für kurze Waffenläufe optimierte Patrone im Kaliber 6x35mm. Bestellen Sie noch heute Ihr Exemplar zum testen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1191</uiIndex>
@@ -10048,6 +10048,22 @@
 		<szLongItemName>7.92x57mm HS Munitionskiste</szLongItemName>
 		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 2500 Patronen des Kalibers 7.92x57mm HS.</szItemDesc>
 		<szBRName>7.92x57mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1303</uiIndex>
+		<szItemName>7.62x54mm M Kiste</szItemName>
+		<szLongItemName>7.62x54mm Match Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Match Patronen des Kalibers 7.62x54.</szItemDesc>
+		<szBRName>7.62x54mm M Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1304</uiIndex>
+		<szItemName>9x18 PB Kiste</szItemName>
+		<szLongItemName>9x18mm PB Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x18mm PB.</szItemDesc>
+		<szBRName>9x18mm PB Munitionskiste</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 </ITEMLIST>
