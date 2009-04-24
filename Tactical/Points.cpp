@@ -602,11 +602,14 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN f
 		fInterfacePanelDirty = TRUE;
 	}
 
+	// WANNE: negative APs didn't actually have any effect on the next turn because they were being reset to 0 before they could have any effect (by Headrock)
 	// If we cannot deduct points, return FALSE
+	/*
 	if ( sNewAP < 0 )
 	{
 		sNewAP = 0;
 	}
+	*/
 
 	pSoldier->bActionPoints = sNewAP;
 
