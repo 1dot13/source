@@ -1455,7 +1455,7 @@ void GenerateDirectionInfosWithCapacityCheck( INT16 sMapX, INT16 sMapY, UINT8* u
 #endif
 
 	pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY - 1 ) ] );
-	if(CheckStandardConditionsForDirection( sMapX, sMapY, sMapX, sMapY - 1, fWithCities, fForBattle, fOnlyCitySectors ) &&
+	if(sMapY > MINIMUM_VALID_Y_COORDINATE && CheckStandardConditionsForDirection( sMapX, sMapY, sMapX, sMapY - 1, fWithCities, fForBattle, fOnlyCitySectors ) &&
 		pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] < gGameExternalOptions.iMaxMilitiaPerSector )
 	{
 		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX, sMapY - 1 );
@@ -1474,7 +1474,7 @@ void GenerateDirectionInfosWithCapacityCheck( INT16 sMapX, INT16 sMapY, UINT8* u
 		++(*uiDirNumber);
 	}
 	pSectorInfo = &( SectorInfo[ SECTOR( sMapX - 1, sMapY ) ] );
-	if(CheckStandardConditionsForDirection(	sMapX, sMapY, sMapX - 1, sMapY, fWithCities, fForBattle, fOnlyCitySectors ) &&
+	if(sMapX > MINIMUM_VALID_X_COORDINATE && CheckStandardConditionsForDirection(	sMapX, sMapY, sMapX - 1, sMapY, fWithCities, fForBattle, fOnlyCitySectors ) &&
 		pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] < gGameExternalOptions.iMaxMilitiaPerSector)	
 	{
 		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX - 1, sMapY );
@@ -1493,7 +1493,7 @@ void GenerateDirectionInfosWithCapacityCheck( INT16 sMapX, INT16 sMapY, UINT8* u
 		++(*uiDirNumber);
 	}
 	pSectorInfo = &( SectorInfo[ SECTOR( sMapX , sMapY + 1 ) ] );
-	if(CheckStandardConditionsForDirection(	sMapX, sMapY, sMapX, sMapY + 1, fWithCities, fForBattle, fOnlyCitySectors ) &&
+	if(sMapY < MAXIMUM_VALID_Y_COORDINATE && CheckStandardConditionsForDirection(	sMapX, sMapY, sMapX, sMapY + 1, fWithCities, fForBattle, fOnlyCitySectors ) &&
 		pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] < gGameExternalOptions.iMaxMilitiaPerSector )	
 	{
 		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX, sMapY + 1 );
@@ -1512,7 +1512,7 @@ void GenerateDirectionInfosWithCapacityCheck( INT16 sMapX, INT16 sMapY, UINT8* u
 		++(*uiDirNumber);
 	}
 	pSectorInfo = &( SectorInfo[ SECTOR( sMapX + 1 , sMapY ) ] );
-	if(CheckStandardConditionsForDirection(	sMapX, sMapY, sMapX + 1, sMapY, fWithCities, fForBattle, fOnlyCitySectors ) &&
+	if(sMapX < MAXIMUM_VALID_X_COORDINATE && CheckStandardConditionsForDirection(	sMapX, sMapY, sMapX + 1, sMapY, fWithCities, fForBattle, fOnlyCitySectors ) &&
 		pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] < gGameExternalOptions.iMaxMilitiaPerSector )	
 	{
 		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX + 1, sMapY );
