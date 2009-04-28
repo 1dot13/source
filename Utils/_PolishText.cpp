@@ -4691,6 +4691,8 @@ STR16 MPServerMessage[] =
 	L"Nie mo¿na zmieniaæ miejsc zrzutu po starcie serwera.",
 	// 10
 	L"Sent file '%S' - 100/100",
+	L"Finished sending files to '%S'.",
+	L"Started sending files to '%S'.",
 };
 
 STR16 MPClientMessage[] =
@@ -4769,7 +4771,9 @@ STR16 MPClientMessage[] =
 	L"%S - 100/100",
 	L"%S - %i/100",
 	// 60
-	L"Received all files from server!",
+	L"Received all files from server.",
+	L"'%S' finished downloading from server.",
+	L"'%S' started downloading from server.",
 };
 
 STR16 MPHelp[] =
@@ -4842,6 +4846,17 @@ STR16 gzMPSScreenText[] =
 	L"Please wait for the server to press 'Continue'."
 };
 
+STR16 gzMPCScreenText[] =
+{
+	L"Cancel",
+	L"Connecting to Server",
+	L"Getting Server Settings",
+	L"Downloading custom files",
+	L"Press 'ESC' to cancel or 'Y' to chat",
+	L"Press 'ESC' to cancel",
+	L"Ready"
+};
+
 STR16 gzMPChatToggleText[] =
 {
 	L"Send to All",
@@ -4851,7 +4866,7 @@ STR16 gzMPChatToggleText[] =
 STR16 gzMPChatboxText[] =
 {
 	L"Multiplayer Chat",
-	L"Chat: Press ENTER to send of ESC to cancel.",
+	L"Chat: Press 'ENTER' to send of 'ESC' to cancel.",
 };
 
 #endif //POLISH

@@ -4695,6 +4695,8 @@ STR16 MPServerMessage[] =
 	L"Вы не можете изменять зону высадки после запуска сервера.",
 	// 10
 	L"Sent file '%S' - 100/100",
+	L"Finished sending files to '%S'.",
+	L"Started sending files to '%S'.",
 };
 
 STR16 MPClientMessage[] =
@@ -4774,7 +4776,9 @@ STR16 MPClientMessage[] =
 	L"%S - 100/100",
 	L"%S - %i/100",
 	// 60
-	L"Received all files from server!",
+	L"Received all files from server.",
+	L"'%S' finished downloading from server.",
+	L"'%S' started downloading from server.",
 };
 
 STR16 MPHelp[] =
@@ -4846,6 +4850,17 @@ STR16 gzMPSScreenText[] =
 	L"Damage Taken"
 };
 
+STR16 gzMPCScreenText[] =
+{
+	L"Cancel",
+	L"Connecting to Server",
+	L"Getting Server Settings",
+	L"Downloading custom files",
+	L"Press 'ESC' to cancel or 'Y' to chat",
+	L"Press 'ESC' to cancel",
+	L"Ready"
+};
+
 STR16 gzMPChatToggleText[] =
 {
 	L"Send to All",
@@ -4855,7 +4870,7 @@ STR16 gzMPChatToggleText[] =
 STR16 gzMPChatboxText[] =
 {
 	L"Чат сетевой игры Jagged Alliance 2 v1.13",	//Multiplayer Chat
-	L"Заметка: нажмите |В|В|О|Д для отправки сообщения, |К|Л|Ю|Ч для выхода из чата.",	//Chat: press ENTER to send of ESC to cancel
+	L"Заметка: нажмите |В|В|О|Д для отправки сообщения, |К|Л|Ю|Ч для выхода из чата.",	//Chat: press 'ENTER' to send of 'ESC' to cancel
 };
 
 #endif //RUSSIAN

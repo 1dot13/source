@@ -3653,7 +3653,81 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sprechen.",
 	L"Wenn diese Funktion aktiviert ist, wird das Spiel mit viel geringerer CPU Belastung laufen.",
 	L"Wenn diese Funktion aktiviert ist, werden erweiterte Beschreibungen zu den Waffen und Gegenständen angezeigt.",
-	L"Wenn diese Funktion aktiviert ist und noch Gegner im Sektor sind, bleibt das Spiel im Runden-Mods bis alle Feinde tot sind (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).", 
+	L"Wenn diese Funktion aktiviert ist und noch Gegner im Sektor sind, bleibt das Spiel im Runden-Mods bis alle Feinde tot sind (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",
+	// arynn : immediate effect option that fixes corrupt ja2.set keeping of toggle options
+	L"Hier klicken um fehlerhafte Optionseinstellungen zu beheben",
+	L"Hier klicken um fehlerhafte Optionseinstellungen zu beheben",
+	// arynn : a sample options screen options header, this pop up help text never render (well as of yet)
+	L"(Text wird nicht angezeigt)TOPTION_DEBUG_MODE_OPTIONS_HEADER",
+	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
+	L"Allows debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file",
+	// arynn : a sample option which affects options screen listing only                                            
+	L"Toggle to display debugging render options",
+	// arynn : a sample DEBUG build option                                                                          
+	L"Attempts to display slash-rects around mouse regions",
+	// arynn : a sample options screen options divider, this pop up help text never render (well as of yet)
+	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_END",
+	// text past this point is for debugging, translating would doubtfully prove usefull
+	L"044",
+	L"045",
+	L"046",
+	L"047",
+	L"048",
+	L"049",
+	L"050",
+	L"051",
+	L"052",
+	L"053",
+	L"054",
+	L"055",
+	L"056",
+	L"057",
+	L"058",
+	L"059",
+	L"060",
+	L"061",
+	L"062",
+	L"063",
+	L"064",
+	L"065",
+	L"066",
+	L"067",
+	L"068",
+	L"069",
+	L"070",
+	L"071",
+	L"072",
+	L"073",
+	L"074",
+	L"075",
+	L"076",
+	L"077",
+	L"078",
+	L"079",
+	L"080",
+	L"081",
+	L"082",
+	L"083",
+	L"084",
+	L"085",
+	L"086",
+	L"087",
+	L"088",
+	L"089",
+	L"090",
+	L"091",
+	L"092",
+	L"093",
+	L"094",
+	L"095",
+	L"096",
+	L"097",
+	L"098",
+	L"099",
+	L"100",
+
+	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
+	L"TOPTION_LAST_OPTION",
 };
 
 STR16 gzGIOScreenText[] =
@@ -4421,6 +4495,8 @@ STR16 MPServerMessage[] =
 	L"Sie können die Absprungzone nicht ändern, wenn der Server bereits gestartet wurde.",
 	// 10
 	L"Datei '%S' gesendet - 100/100",
+	L"Alle Dateien wurden an '%S' gesendet.",
+	L"Starte mit dem versenden der Dateien an '%S'.",
 };
 
 STR16 MPClientMessage[] =
@@ -4498,7 +4574,9 @@ STR16 MPClientMessage[] =
 	L"%S - 100/100",
 	L"%S - %i/100",
 	// 60
-	L"Alle Dateien vom Server erhalten!",
+	L"Alle Dateien vom Server erhalten.",
+	L"'%S' hat alle Dateien vom Server heruntergeladen.",
+	L"'%S' startet mit dem Download der Dateien.",
 };
 
 STR16 MPHelp[] =
@@ -4571,6 +4649,17 @@ STR16 gzMPSScreenText[] =
 	L"Bitte warten Sie bis der Server auf 'Weiter' geklickt hat."
 };
 
+STR16 gzMPCScreenText[] =
+{
+	L"Abbrechen",
+	L"Verbindungsaufbau zum Server",
+	L"Erhalte Server Einstellungen",
+	L"Herunterladen von Dateien",
+	L"Drücke 'ESC' zum Verlassen oder 'Y' zum Chatten",
+	L"Drücke 'ESC' zum Verlassen",
+	L"Fertig"
+};
+
 STR16 gzMPChatToggleText[] =
 {
 	L"Sende an alle",
@@ -4580,7 +4669,7 @@ STR16 gzMPChatToggleText[] =
 STR16 gzMPChatboxText[] =
 {
 	L"Mehrspieler Chat",
-	L"Chat: Drücke ENTER zum Senden oder ESC zum Verlassen.",
+	L"Chat: Drücke 'ENTER' zum Senden oder 'ESC' zum Verlassen.",
 };
 
 #endif //GERMAN
