@@ -285,8 +285,8 @@ CHAR16 Message[][STRING_LENGTH] =
 	//Ex: You cannot use sun goggles and you gas mask at the same time.
 	L"Sie können %s nicht zusammen mit %s benutzen.",	//
 
-	L"Der Gegenstand in Ihrem Cursor kann mit anderen Gegenständen verbunden werden, indem Sie ihn in einem der vier Slots plazieren",
-	L"Der Gegenstand in Ihrem Cursor kann mit anderen Gegenständen verbunden werden, indem Sie ihn in einem der vier Attachment-Slots plazieren. (Aber in diesem Fall sind die Gegenstände nicht kompatibel.)",
+	L"Der Gegenstand in Ihrem Cursor kann mit anderen Gegenständen verbunden werden, indem Sie ihn in einem der vier Slots platzieren",
+	L"Der Gegenstand in Ihrem Cursor kann mit anderen Gegenständen verbunden werden, indem Sie ihn in einem der vier Attachment-Slots platzieren. (Aber in diesem Fall sind die Gegenstände nicht kompatibel.)",
 	L"Es sind noch Feinde im Sektor!",
 	L"Geben Sie %s %s", 
 	L"%s am Kopf getroffen!",
@@ -783,7 +783,7 @@ STR16 pTacticalPopupButtonStrings[] =
 STR16 pDoorTrapStrings[] =
 {
 	L"keine Falle",
-	L"eine Sprengstoffalle",
+	L"eine Sprengstofffalle",
 	L"eine elektrische Falle",
 	L"eine Falle mit Sirene",
 	L"eine Falle mit stummem Alarm",
@@ -910,7 +910,7 @@ STR16 gpStrategicString[] =
 	//Dialog strings for enemies.
 
 	L"Feind bietet die Chance zum Aufgeben an.",			//STR_ENEMY_SURRENDER_OFFER
-	L"Feind hat restliche bewusstlose Söldner gefangengenommen.",	//STR_ENEMY_CAPTURED
+	L"Feind hat restliche bewusstlose Söldner gefangen genommen.",	//STR_ENEMY_CAPTURED
 
 	//The text that goes on the autoresolve buttons							
 
@@ -993,7 +993,7 @@ STR16 gpStrategicString[] =
 
 	//The help text for the four buttons. Use \n to denote new line (just like enter).
 
-	L"Söldner räumen ihre Positionen\n und können manuell neu plaziert werden. (|C)", 
+	L"Söldner räumen ihre Positionen\n und können manuell neu platziert werden. (|C)", 
 	L"Söldner |schwärmen in alle Richtungen aus\n wenn der Button gedrückt wird.",
 	L"Mit diesem Button können Sie wählen, wo die Söldner |gruppiert werden sollen.",
 	L"Klicken Sie auf diesen Button, wenn Sie die\n Positionen der Söldner gewählt haben. (|E|n|t|e|r)",
@@ -1007,7 +1007,7 @@ STR16 gpStrategicString[] =
 	//Strings used for various popup message boxes. Can be as long as desired.
 
 	L"Das sieht nicht gut aus. Gelände ist unzugänglich. Versuchen Sie es an einer anderen Stelle.",
-	L"Plazieren Sie Ihre Söldner in den markierten Sektor auf der Karte.",
+	L"Platzieren Sie Ihre Söldner in den markierten Sektor auf der Karte.",
 
 	//This message is for mercs arriving in sectors. Ex: Red has arrived in sector A9.
 	//Don't uppercase first character, or add spaces on either end.
@@ -1157,7 +1157,7 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 	L"Schaden Modifikator",
 	L"Treffer Modifikator",
 	L"Feuerstoß/Autofeuer Strafe Modifikator (Höher ist besser)",
-	L"Zuverlässigheits Modifikator",
+	L"Zuverlässigkeits Modifikator",
 	L"Lautstärke Modifikator (Niedriger ist besser)",
 	L"",
 	L"",
@@ -1195,7 +1195,7 @@ STR16		gzExplosiveStatsFasthelp[ 20 ] =
 {
 	L"Schaden",
 	L"Betäubungsschaden",
-	L"Detonation Geräusch (Niedriger ist besser)",
+	L"Detonationsgeräusch (Niedriger ist besser)",
 	L"Verflüchtigung!!! (Niedriger ist besser)",
 	L"Detonationsbereich",
 	L"Startauswirkungsbereich",
@@ -1248,9 +1248,9 @@ STR16		gzMiscItemStatsFasthelp[ 34 ] =
 	L"Tagsichtweite Modifikator",
 	L"Nachtsichtweite Modifikator",
 	L"Grelles Licht Modifikator",
-	L"Höhle Sichtweite Modifikator",
+	L"Höhlensichtweite Modifikator",
 	L"Tunnelsicht Modifikator (Niedriger ist besser)",
-	L"Minimale Reichweiter für Zielbonus",
+	L"Minimale Reichweite für Zielbonus",
 };
 
 // HEADROCK: End new tooltip text
@@ -1570,7 +1570,7 @@ STR16 pExitingSectorHelpText[] =
 	L"Sie kommen sofort zum Kartenbildschirm, wenn Sie das Kästchen aktivieren\nweil die Reise Zeit braucht.",
 
 	//If you attempt to leave a sector when you have multiple squads in a hostile sector.
-	L"Der Sektor ist von Feinden besetzt. Sie können keine Söldner hierlassen.\nRegeln Sie das, bevor Sie neue Sektoren laden.",
+	L"Der Sektor ist von Feinden besetzt. Sie können keine Söldner hier lassen.\nRegeln Sie das, bevor Sie neue Sektoren laden.",
 
 	//Because you only have one squad in the sector, and the "move all" option is checked, the "go to sector" option is locked to on. 
 	//The helptext explains why it is locked.
@@ -1590,7 +1590,7 @@ STR16 pExitingSectorHelpText[] =
 
 	//If one or more of your mercs in the selected squad aren't in range of the traversal area, then the "move all" option is disabled,
 	//and this helptext explains why.
-	L"Alle Söldner müssen in der Nähe sein\ndamit der Trupp weiterreisen kann.",
+	L"Alle Söldner müssen in der Nähe sein,\ndamit der Trupp weiterreisen kann.",
 
 	L"", //UNUSED
 
@@ -1780,7 +1780,7 @@ STR16 pMapScreenFastHelpTextList[] =
 	L"Test-Text",
 	L"Test-Text",
 	L"Test-Text",
-	L"In diesem Bildschirm können Sie nicht viel machen, bevor Sie in Arulco ankommen. Wenn Sie Ihr Team fertiggestellt haben, klicken Sie auf den Zeitraffer-Button unten links. Dadurch vergeht die Zeit schneller, bis Ihr Team in Arulco ankommt.",
+	L"In diesem Bildschirm können Sie nicht viel machen, bevor Sie in Arulco ankommen. Wenn Sie Ihr Team zusammengestellt haben, klicken Sie auf den Zeitraffer-Button unten links. Dadurch vergeht die Zeit schneller, bis Ihr Team in Arulco ankommt.",
 };
 
 // movement menu text
@@ -2074,8 +2074,8 @@ STR16 pMapErrorString[] =
 	L"Sie haben noch keine Teammitglieder.", 		// you have no members, can't do anything 
 	L"Söldner kann nicht gehorchen.",			 		// merc can't comply with your order
 //6-10
-	L"braucht eine Eskorte. Plazieren Sie ihn in einem Trupp mit Eskorte.", // merc can't move unescorted .. for a male
-	L"braucht eine Eskorte. Plazieren Sie sie in einem Trupp mit Eskorte.", // for a female
+	L"braucht eine Eskorte. Platzieren Sie ihn in einem Trupp mit Eskorte.", // merc can't move unescorted .. for a male
+	L"braucht eine Eskorte. Platzieren Sie sie in einem Trupp mit Eskorte.", // for a female
 	L"Söldner ist noch nicht in Arulco!",
 	L"Erst mal Vertrag aushandeln!",
 	L"Marschbefehl ist nicht möglich. Luftangriffe finden statt.",
@@ -2125,7 +2125,7 @@ STR16 pMapErrorString[] =
 	L"Ein oder mehrere Söldner des ANDEREN Trupps kann sich gerade nicht bewegen.",
 	L"Fahrzeug zu stark beschädigt!",
 	L"Nur zwei Söldner pro Sektor können Milizen trainieren.",
-	L"Roboter muss von jemandem bedient werden. Beide im selben Trupp plazieren.",
+	L"Roboter muss von jemandem bedient werden. Beide im selben Trupp platzieren.",
 
 };
 
@@ -2170,8 +2170,8 @@ STR16 pMercHeLeaveString[] =
 // female version
 STR16 pMercSheLeaveString[] =
 {
-	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Drassen (B13), bevor sie Arulco verläßt?",
-	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Omerta (A9), bevor sie Arulco verläßt?",
+	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Drassen (B13), bevor sie Arulco verlässt?",
+	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Omerta (A9), bevor sie Arulco verlässt?",
 	L"geht bald und lässt ihre Ausrüstung in Omerta (A9).",
 	L"geht bald und lässt ihre Ausrüstung in Drassen (B13).",
 	L"%s geht bald und lässt ihre Ausrüstung in %s.",
@@ -2283,7 +2283,7 @@ STR16 pHistoryStrings[] =
 {
 	L"",																						// leave this line blank
 	//1-5
-	L"%s von A.I.M angeheuert.", 										// merc was hired from the aim site
+	L"%s von A.I.M. angeheuert.", 										// merc was hired from the aim site
 	L"%s von M.E.R.C. angeheuert.", 									// merc was hired from the aim site
 	L"%s ist tot.", 															// merc was killed
 	L"Rechnung an M.E.R.C. bezahlt",								// paid outstanding bills at MERC
@@ -2641,8 +2641,8 @@ CHAR16 LargeTacticalStr[][ LARGE_STRING_LENGTH ] =
 {
 	L"Sie sind in diesem Sektor geschlagen worden!",
 	L"Der Feind hat kein Erbarmen mit den Seelen Ihrer Teammitglieder und verschlingt jeden einzelnen.",
-	L"Ihre bewusstlosen Teammitglieder wurden gefangengenommen!",
-	L"Ihre Teammitglieder wurden vom Feind gefangengenommen.",
+	L"Ihre bewusstlosen Teammitglieder wurden gefangen genommen!",
+	L"Ihre Teammitglieder wurden vom Feind gefangen genommen.",
 };
 
 //Insurance Contract.c
@@ -2711,7 +2711,7 @@ STR16 MercInfo[] =
 	L"Pro Tag",
 	L"Verstorben",	
 
-	L"Sie versuchen, zuviele Söldner anzuheuern. 18 ist Maximum.",
+	L"Sie versuchen, zu viele Söldner anzuheuern. Sie haben die Maximalgröße erreicht.",
 	L"nicht da",											
 };
 
@@ -2774,7 +2774,7 @@ STR16 sFloristText[] =
 	// detail of the florist page
 
 	L"Wir arbeiten schnell und effizient",
-	L"Lieferung am darauffolgenden Tag, in fast jedes Land der Welt. Ausnahmen sind möglich. ",
+	L"Lieferung am darauf folgenden Tag, in fast jedes Land der Welt. Ausnahmen sind möglich. ",
 	L"Wir haben die garantiert niedrigsten Preise weltweit!",
 	L"Wenn Sie anderswo einen niedrigeren Preis für irgend ein Arrangement sehen, bekommen Sie von uns ein Dutzend Rosen umsonst!",
 	L"Fliegende Flora, Fauna & Blumen seit 1981.",
@@ -3396,7 +3396,7 @@ STR16 zMarksMapScreenText[] =
 	L"Söldner hat Lebensversicherung", 
 	L"%s ist nicht müde.", 
 	L"%s ist unterwegs und kann nicht schlafen.", 
-	L"%s ist zu müde. Versuchen Sie es ein bißchen später nochmal.",
+	L"%s ist zu müde. Versuchen Sie es ein bisschen später noch mal.",
 	L"%s fährt.", 
 	L"Der Trupp kann nicht weiter, wenn einer der Söldner pennt.",
 
@@ -3497,7 +3497,7 @@ STR16 zOptionsToggleText[] =
 	L"Stummer Skyrider",
 	L"Niedrige CPU Belastung",
 	L"Erw. Gegenstandsinfo (EDB)",
-	L"Erzwungender Runden-Modus",
+	L"Erzwungener Runden-Modus",
 	// arynn : reset all toggle options, in cases for corrupted JA2.set files (and general debugging of options)
 	L"ALLE Einstellungen rücksetzen",	
 	L"Wollen Sie wirklich rücksetzen?",
@@ -3593,7 +3593,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Schalten Sie diese Option ab, wenn animierter Rauch Ihre Bildwiederholrate verlangsamt.",
 
 	//Blood n Gore
-	L"Diese Option abschalten, wenn Sie kein Blut sehen können. ",
+	L"Diese Option abschalten, wenn Sie kein Blut sehen können.",
 
 	//Never move my mouse
 	L"Wenn Sie diese Option abstellen, wird der Mauszeiger nicht mehr von den Popup-Fenstern verdeckt.",
@@ -3626,7 +3626,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, springt der Cursor automatisch auf eine Tür, sobald eine in der Nähe ist.",
 
 	//glow items
-	L"Angeschaltet bekommen Gegenstände einen pulsierenden Rahmen(|I)",
+	L"ANgeschaltet, bekommen Gegenstände einen pulsierenden Rahmen (|I).",
 
 	//toggle tree tops
 	L"ANgeschaltet, werden die Baumkronen gezeigt (|T).",
@@ -3634,29 +3634,29 @@ STR16 zOptionsScreenHelpText[] =
 	//toggle wireframe
 	L"ANgeschaltet, werden Drahtgitter für verborgene Wände gezeigt (|W).",
 
-	L"ANgeschaltet, wird der Bewegungs-Cursor in 3D angezeigt. ( |Home )",
+	L"ANgeschaltet, wird der Bewegungs-Cursor in 3D angezeigt (|Home).",
 	
 	// Options for 1.13
 	L"Wenn diese Funktion aktiviert ist, wird die Trefferwahrscheinlichkeit am Cursor angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, wird für einen GL Burst der Burst Cursor angezeigt.",
-	L"Wenn diese Funktion aktiviert ist, lassen tote Gegner alle Gegenstände zurück am Boden.",
+	L"Wenn diese Funktion aktiviert ist, lassen tote Gegner alle Gegenstände am Boden zurück.",
 	L"Wenn diese Funktion aktiviert ist, können Granatwerfer Granaten in höherem Winkel abfeuern (|Q).",
-	L"Wenn diese Funktion aktiviert ist, kann die Zielgenauigkeit von Gewehre und Scharfschützengewehre über 4 gesteigert werden.",
+	L"Wenn diese Funktion aktiviert ist, kann die Zielgenauigkeit von Gewehren und Scharfschützengewehren über 4 gesteigert werden.",
 	L"Wenn diese Funktion aktiviert ist, selektiert |S|p|a|c|e automatisch die nächste Gruppe.",
 	L"Wenn diese Funktion aktiviert ist, wird der Schatten von Gegenständen angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, werden Waffenreichweiten in Feldern angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, wird Tracereffekt auch für Einzelschüsse angezeigt.",
-	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar falls es regnet.",
+	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar, sobald es regnet.",
 	L"Wenn diese Funktion aktiviert ist, sind Krähen im Spiel vorhanden.",
-	L"Wenn diese Funktion aktiviert ist, erhalten B.S.E Charaktere zufällige Persönlichkeiten und Gesinnung.",
+	L"Wenn diese Funktion aktiviert ist, erhalten B.S.E Charaktere zufällige Persönlichkeiten und Gesinnungen.",
 	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch gespeichert.",
 	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sprechen.",
 	L"Wenn diese Funktion aktiviert ist, wird das Spiel mit viel geringerer CPU Belastung laufen.",
 	L"Wenn diese Funktion aktiviert ist, werden erweiterte Beschreibungen zu den Waffen und Gegenständen angezeigt.",
-	L"Wenn diese Funktion aktiviert ist und noch Gegner im Sektor sind, bleibt das Spiel im Runden-Mods bis alle Feinde tot sind (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",
+	L"Wenn diese Funktion aktiviert ist und noch Gegner im Sektor sind, bleibt das Spiel im Runden-Modus, bis alle Feinde tot sind (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",
 	// arynn : immediate effect option that fixes corrupt ja2.set keeping of toggle options
-	L"Hier klicken um fehlerhafte Optionseinstellungen zu beheben",
-	L"Hier klicken um fehlerhafte Optionseinstellungen zu beheben",
+	L"Hier klicken, um fehlerhafte Optionseinstellungen zu beheben.",
+	L"Hier klicken, um fehlerhafte Optionseinstellungen zu beheben.",
 	// arynn : a sample options screen options header, this pop up help text never render (well as of yet)
 	L"(Text wird nicht angezeigt)TOPTION_DEBUG_MODE_OPTIONS_HEADER",
 	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
@@ -3847,7 +3847,7 @@ STR16 pDeliveryLocationStrings[] =
 STR16 pSkillAtZeroWarning[] =
 { //This string is used in the IMP character generation. It is possible to select 0 ability
 	//in a skill meaning you can't use it. This text is confirmation to the player.
-	L"Sind Sie sicher? Ein Wert von 0 bedeutet, daß der Charakter diese Fähigkeit nicht nutzen kann.",
+	L"Sind Sie sicher? Ein Wert von 0 bedeutet, dass der Charakter diese Fähigkeit nicht nutzen kann.",
 };
 
 STR16 pIMPBeginScreenStrings[] =
@@ -4221,9 +4221,9 @@ STR16 sRepairsDoneString[] =
 STR16 zGioDifConfirmText[]=
 {
 	L"Sie haben sich für den EINSTEIGER-Modus entschieden. Dies ist die passende Einstellung für Spieler, die noch nie zuvor Jagged Alliance oder ähnliche Spiele gespielt haben oder für Spieler, die sich ganz einfach kürzere Schlachten wünschen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Einsteiger-Modus spielen wollen?",
-	L"Sie haben sich für den FORTGESCHRITTENEN-Modus entschieden. Dies ist die passende Einstellung für Spieler, die bereits Erfahrung mit Jagged Alliance oder ähnlichen Spielen haben. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, daß Sie im Fortgeschrittenen-Modus spielen wollen?",
-	L"Sie haben sich für den PROFI-Modus entschieden. Na gut, wir haben Sie gewarnt. Machen Sie hinterher bloß nicht uns dafür verantwortlich, wenn Sie im Sarg nach Hause kommen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, daß Sie im Profi-Modus spielen wollen?",
-	L"Sie haben sich für den WAHNSINNIG-Modus entschieden. WARNUNG: Beschweren Sie sich nicht, wenn Sie in kleinen Stücken zurückkommen ... Deidranna wird Sie in den Allerwertesten treten und das schmerzhaft. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, daß Sie im WAHNSINNIG-Modus spielen wollen?",
+	L"Sie haben sich für den FORTGESCHRITTENEN-Modus entschieden. Dies ist die passende Einstellung für Spieler, die bereits Erfahrung mit Jagged Alliance oder ähnlichen Spielen haben. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Fortgeschrittenen-Modus spielen wollen?",
+	L"Sie haben sich für den PROFI-Modus entschieden. Na gut, wir haben Sie gewarnt. Machen Sie hinterher bloß nicht uns dafür verantwortlich, wenn Sie im Sarg nach Hause kommen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Profi-Modus spielen wollen?",
+	L"Sie haben sich für den WAHNSINNIG-Modus entschieden. WARNUNG: Beschweren Sie sich nicht, wenn Sie in kleinen Stücken zurückkommen ... Deidranna wird Sie in den Allerwertesten treten und das schmerzhaft. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im WAHNSINNIG-Modus spielen wollen?",
 };
 
 STR16 gzLateLocalizedString[] =
@@ -4276,7 +4276,7 @@ STR16 gzLateLocalizedString[] =
 	//22-24 plural versions
 	L"%d grüne Milizen wurden zu Elitemilizen befördert.",
 	L"%d grüne Milizen wurden zu regulären Milizen befördert.",
-	L"%d reguläre Milizen wurde zu Elitemilizen befördert.",
+	L"%d reguläre Milizen wurden zu Elitemilizen befördert.",
 
 	//25 
 	L"Schalter",
@@ -4316,7 +4316,7 @@ STR16 gzLateLocalizedString[] =
 	//40-43
 	//%s is the name of merc.
 	L"%s hat keinen Erste-Hilfe-Kasten mehr!",
-	L"%s hat nicht das geringste Talent jemanden zu verarzten!",
+	L"%s hat nicht das geringste Talent, jemanden zu verarzten!",
 	L"%s hat keinen Werkzeugkasten mehr!",
 	L"%s ist absolut unfähig dazu, irgend etwas zu reparieren!",
 
@@ -4342,7 +4342,7 @@ STR16 gzLateLocalizedString[] =
 	L"%s hat die Ladehemmung von %ss %s behoben",
 
 	//55
-	L"Die Zeit kann nicht komprimiert werden während das Sektorinventar eingesehen wird.",
+	L"Die Zeit kann nicht komprimiert werden, während das Sektorinventar eingesehen wird.",
 
 	L"Die Jagged Alliance 2 v1.13 PLAY CD wurde nicht gefunden. Das Programm wird jetzt beendet.",
 
@@ -4430,11 +4430,11 @@ STR16 New113Message[] =
 	L"Heckenschütze!",
 	L"Geld kann nicht aufgeteilt werden, weil ein Gegenstand am Cursor ist.",
 	L"Ankunft der neuen Söldner wurde in den Sektor %s verlegt, weil der vorhergesehene Sektor %s von Feinden belagert ist.",
-	L"Gegenstand gelöscht",
-	L"Alle Gegenstände dieses Typs gelöscht",
-	L"Gegestand verkauft",
-	L"Alle Gegenstände dieses Typs verkauft",
-	L"Sie sollten Ihre Brillen prüfen",
+	L"Gegenstand gelöscht.",
+	L"Alle Gegenstände dieses Typs gelöscht.",
+	L"Gegestand verkauft.",
+	L"Alle Gegenstände dieses Typs verkauft.",
+	L"Sie sollten Ihre Brillen prüfen!",
 };
 
 STR16 New113HAMMessage[] = 
@@ -4577,6 +4577,8 @@ STR16 MPClientMessage[] =
 	L"Alle Dateien vom Server erhalten.",
 	L"'%S' hat alle Dateien vom Server heruntergeladen.",
 	L"'%S' startet mit dem Download der Dateien.",
+	L"Starten des Spiels ist nicht möglich solange die Clients noch nicht alle Dateien erhalten haben.",
+	L"Dieser Server erfordert, dass sie modifizierte Dateien für das Spiel herunterladen. Möchten Sie fortfahren?",
 };
 
 STR16 MPHelp[] =

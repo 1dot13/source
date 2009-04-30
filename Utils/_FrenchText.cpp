@@ -4784,6 +4784,8 @@ STR16 MPClientMessage[] =
 	L"Received all files from server.",
 	L"'%S' finished downloading from the server.",
 	L"'%S' started downloading from the server.",
+	L"Cannot start the game until all clients have finished receiving files",
+	L"This server requires that you download modified files to play, do you wish to continue?",
 };
 
 STR16 MPHelp[] =
