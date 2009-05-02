@@ -6409,11 +6409,19 @@ BOOLEAN SavePreRandomNumbersToSaveGameFile( HWFILE hFile )
 	}
 
 	//Save the Prerandom number index
-	FileWrite( hFile, guiPreRandomNums, sizeof( UINT32 ) * MAX_PREGENERATED_NUMS, &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( UINT32 ) * MAX_PREGENERATED_NUMS )
+	for (std::vector<UINT32>::iterator iter = guiPreRandomNums.begin();
+			iter != guiPreRandomNums.end(); ++iter) {
+		FileWrite( hFile, &*iter, sizeof( UINT32 ), &uiNumBytesWritten );
+		if( uiNumBytesWritten != sizeof( UINT32 ) )
 	{
 		return( FALSE );
 	}
+	}
+	//FileWrite( hFile, guiPreRandomNums, sizeof( UINT32 ) * MAX_PREGENERATED_NUMS, &uiNumBytesWritten );
+	//if( uiNumBytesWritten != sizeof( UINT32 ) * MAX_PREGENERATED_NUMS )
+	//{
+	//	return( FALSE );
+	//}
 
 	return( TRUE );
 }
@@ -6430,11 +6438,19 @@ BOOLEAN LoadPreRandomNumbersFromSaveGameFile( HWFILE hFile )
 	}
 
 	//Load the Prerandom number index
-	FileRead( hFile, guiPreRandomNums, sizeof( UINT32 ) * MAX_PREGENERATED_NUMS, &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( UINT32 ) * MAX_PREGENERATED_NUMS )
+	for (std::vector<UINT32>::iterator iter = guiPreRandomNums.begin();
+			iter != guiPreRandomNums.end(); ++iter) {
+		FileRead( hFile, &*iter, sizeof( UINT32 ), &uiNumBytesRead );
+		if( uiNumBytesRead != sizeof( UINT32 ) )
 	{
 		return( FALSE );
 	}
+	}
+//	FileRead( hFile, guiPreRandomNums, sizeof( UINT32 ) * MAX_PREGENERATED_NUMS, &uiNumBytesRead );
+//	if( uiNumBytesRead != sizeof( UINT32 ) * MAX_PREGENERATED_NUMS )
+//	{
+//		return( FALSE );
+//	}
 
 	return( TRUE );
 }
