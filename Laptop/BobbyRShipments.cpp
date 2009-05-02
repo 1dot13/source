@@ -249,7 +249,7 @@ void RenderBobbyRShipments()
 	{
 		RefToShipmentPackageListIterator spli = gShipmentTable[giBobbyRShipmentSelectedShipment]->ShipmentPackages.begin();
 		int j;
-		for(int i = 0; i < gShipmentTable[giBobbyRShipmentSelectedShipment]->ShipmentPackages.size(); i++, spli++)
+		for(unsigned i = 0; i < gShipmentTable[giBobbyRShipmentSelectedShipment]->ShipmentPackages.size(); i++, spli++)
 		{
 			brps[i].bItemQuality = ((ShipmentPackageStruct)*spli).bItemQuality;
 			brps[i].ubNumberPurchased = ((ShipmentPackageStruct)*spli).ubNumber;
