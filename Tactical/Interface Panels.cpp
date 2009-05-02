@@ -2756,7 +2756,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 		CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 		// CHRISL: Change function call to include X,Y coordinates.
 		RenderTownIDString( LOCATION_NAME_X, LOCATION_NAME_Y );
-	}
+	}//XXXj in tactical bug is: NIV pushes town name +Y and boom
 	else
 	{
 		RemoveMouseRegionForPauseOfClock( );
@@ -6185,6 +6185,9 @@ void RenderTownIDString( INT16 sX, INT16 sY )
 {
 	CHAR16	zTownIDString[80];
 	INT16 sFontX, sFontY;
+
+	// when NIV is open in tactical
+	if (sY+GetFontHeight(COMPFONT) >= SCREEN_HEIGHT) return;
 
 	// Render town, position
 	SetFont( COMPFONT );
