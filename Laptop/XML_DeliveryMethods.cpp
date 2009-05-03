@@ -45,7 +45,7 @@ struct
 	struct
 	{
 		CHAR16 szDescription[MAX_DELIVERYMETHOD_DESC_LENGTH+1];
-		DestinationDeliveryInfoReadInTable DestinationDeliveryInfos;
+		DestinationDeliveryInfoReadInTable* DestinationDeliveryInfos;
 	}CurDeliveryMethod;
 
 	struct
@@ -145,16 +145,16 @@ deliveryMethodEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = DELIVERYMETHOD_ELEMENT_TABLE;
 			UINT8 ubCurrentDM = gPostalService.AddDeliveryMethod(pData->CurDeliveryMethod.szDescription);
 			
-			RefToDestinationDeliveryInfoReadInTableIterator dfriti = pData->CurDeliveryMethod.DestinationDeliveryInfos.begin();
+			RefToDestinationDeliveryInfoReadInTableIterator dfriti = pData->CurDeliveryMethod.DestinationDeliveryInfos->begin();
 
-			while(dfriti != pData->CurDeliveryMethod.DestinationDeliveryInfos.end())
+			while(dfriti != pData->CurDeliveryMethod.DestinationDeliveryInfos->end())
 			{
 				gPostalService.SetDestinationDeliveryInfo(ubCurrentDM, ((RefToDestinationDeliveryInfoReadInStruct)*dfriti).uiDestinationIndex, ((RefToDestinationDeliveryInfoReadInStruct)*dfriti).usDestinationFee, ((RefToDestinationDeliveryInfoReadInStruct)*dfriti).bDaysAhead);
 				dfriti++;
 			}
 
 			// Clean up
-			pData->CurDeliveryMethod.DestinationDeliveryInfos.clear();
+			pData->CurDeliveryMethod.DestinationDeliveryInfos->clear();
 			memset(pData->CurDeliveryMethod.szDescription, 0, sizeof(pData->CurDeliveryMethod.szDescription));
 			pData->CurDestinationDeliveryInfo.uiDestinationIndex = 0;
 			pData->CurDestinationDeliveryInfo.uiDestinationIndex = 0;
@@ -179,7 +179,7 @@ deliveryMethodEndElementHandle(void *userData, const XML_Char *name)
 
 			memset(&pData->CurDestinationDeliveryInfo, 0, sizeof(pData->CurDestinationDeliveryInfo));
 
-			pData->CurDeliveryMethod.DestinationDeliveryInfos.push_back(dfris);
+			pData->CurDeliveryMethod.DestinationDeliveryInfos->push_back(dfris);
 		}
 		else if(strcmp(name, "uiDestinationIndex") == 0)
 		{
@@ -238,6 +238,7 @@ BOOLEAN ReadInDeliveryMethods(STR fileName)
 
 
 	memset(&pData,0,sizeof(pData));
+	pData.CurDeliveryMethod.DestinationDeliveryInfos = new DestinationDeliveryInfoReadInTable();
 	pData.maxArraySize = sizeof(UINT16);
 
 	XML_SetUserData(parser, &pData);
@@ -254,6 +255,10 @@ BOOLEAN ReadInDeliveryMethods(STR fileName)
 		return FALSE;
 	}
 
+	if(pData.CurDeliveryMethod.DestinationDeliveryInfos)
+	{
+		delete pData.CurDeliveryMethod.DestinationDeliveryInfos;
+	}
 	MemFree(lpcBuffer);
 
 
