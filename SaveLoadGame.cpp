@@ -4142,7 +4142,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 
 	//Dealtar's Airport Externalization
-	if( SaveGameHeader.uiSavedGameVersion >= 104 )
+	if( SaveGameHeader.uiSavedGameVersion >= AIRPORT_SAVEGAME_DATATYPE_CHANGE )
 	{
 		if ( !gPostalService.LoadShipmentListFromSaveGameFile(hFile) )
 		{

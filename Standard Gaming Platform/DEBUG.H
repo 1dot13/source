@@ -55,7 +55,7 @@ inline void _Null() { }
 //
 // Uncomment the follow to turn on more aggressive assertions
 //
-//#define USE_AGGRESSIVE_ASSERTIONS
+#define USE_AGGRESSIVE_ASSERTIONS
 
 #ifdef FORCE_ASSERTS_ON
 
