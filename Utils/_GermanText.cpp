@@ -4579,6 +4579,8 @@ STR16 MPClientMessage[] =
 	L"'%S' startet mit dem Download der Dateien.",
 	L"Starten des Spiels ist nicht möglich solange die Clients noch nicht alle Dateien erhalten haben.",
 	L"Dieser Server erfordert, dass sie modifizierte Dateien für das Spiel herunterladen. Möchten Sie fortfahren?",
+	// 65
+	L"Drücken Sie 'Bereit' um in den taktischen Bildschirm zu gelangen.",
 };
 
 STR16 MPHelp[] =

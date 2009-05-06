@@ -4786,6 +4786,8 @@ STR16 MPClientMessage[] =
 	L"'%S' started downloading from the server.",
 	L"Cannot start the game until all clients have finished receiving files",
 	L"This server requires that you download modified files to play, do you wish to continue?",
+	// 65
+	L"Press 'Ready' to enter tactical screen.",
 };
 
 STR16 MPHelp[] =
