@@ -453,7 +453,7 @@ void LoadGameExternalOptions()
 
 	//Character generation
     gGameExternalOptions.iMinAttribute          = iniReader.ReadInteger("JA2 Laptop Settings","MIN_ATTRIBUTE_POINT",35, 1, 99);
-    gGameExternalOptions.iMaxAttribute          = iniReader.ReadInteger("JA2 Laptop Settings","MAX_ATTRIBUTE_POINT",90, GameExternalOptions.iMinAttribute+1, 100);
+    gGameExternalOptions.iMaxAttribute          = iniReader.ReadInteger("JA2 Laptop Settings","MAX_ATTRIBUTE_POINT",90, gGameExternalOptions.iMinAttribute+1, 100);
 	gGameExternalOptions.iImpAttributePoints	= iniReader.ReadInteger("JA2 Laptop Settings","IMPATTRIBUTEPOINTS",40, 1, 100);
 	gGameExternalOptions.iMaxZeroBonus			= iniReader.ReadInteger("JA2 Laptop Settings","MAX_ZERO_BONUS",15, 0, 100);
 	gGameExternalOptions.iStartAttribute		= iniReader.ReadInteger("JA2 Laptop Settings","START_ATTRIBUTE",55, 1, 100);
