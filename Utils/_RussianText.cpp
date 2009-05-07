@@ -4836,7 +4836,7 @@ STR16 gszMPMapscreenText[] =
 	L"Нельзя изменить имя команды после открытия лэптопа.",	//You cannot change teams once the Laptop is unlocked.
 	L"Случ. бойцы: ",	//Random Mercs: 
 	L"Да",			//Y
-	L"Сложность:"		//Difficulty:
+	L"Сложность:",		//Difficulty:
 	L"Server Version:",
 };
 

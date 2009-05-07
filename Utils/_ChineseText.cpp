@@ -5774,7 +5774,7 @@ STR16 gszMPMapscreenText[] =
 	L"手提电脑开启后你无法更换队伍。",//	L"You cannot change teams once the Laptop is unlocked.",
 	L"随机佣兵: ",//	L"Random Mercs: ",
 	L"Y",
-	L"难度:"//	L"Difficulty:"
+	L"难度:",//	L"Difficulty:",
 	L"Server Version:",
 };
 
