@@ -827,7 +827,17 @@ void HourlyMoraleUpdate( void )
 							continue;
 						}
 					}
-					bOpinion = pProfile->bMercOpinion[ pOtherSoldier->ubProfile ];
+
+					// WANNE: Fix by Headrock: Morale and the ice-cream truck.
+					if (pOtherSoldier->ubProfile < 75)
+                    {
+                        bOpinion = pProfile->bMercOpinion[ pOtherSoldier->ubProfile ];
+                    }
+                    else
+                    {
+                        bOpinion = 0;
+                    }
+
 					if (bOpinion == HATED_OPINION)
 					{
 
