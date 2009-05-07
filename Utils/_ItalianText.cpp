@@ -3956,10 +3956,6 @@ STR16	gzMPJScreenText[] =
 	L"You must enter a player name.",
 	L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
 	L"You must enter a valid Server Port between 1 and 65535.",
-	L"MP Sync. Directory",
-	L"You must enter a file transfer directory.",
-	L"(Use '/' instead of '\\' for directory delimiters.)",
-	L"The specified synchronisation directory does not exist.",
 };
 
 STR16	gzMPHScreenText[] =
@@ -3996,6 +3992,10 @@ STR16	gzMPHScreenText[] =
 	L"Use New Inventory (NIV)",
 	L"Enforce Maximum AI Enemies",
 	L"Sync. MP Clients Directory",
+	L"MP Sync. Directory",
+	L"You must enter a file transfer directory.",
+	L"(Use '/' instead of '\\' for directory delimiters.)",
+	L"The specified synchronisation directory does not exist.",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -4772,6 +4772,7 @@ STR16 MPClientMessage[] =
 	L"This server requires that you download modified files to play, do you wish to continue?",
 	// 65
 	L"Press 'Ready' to enter tactical screen.",
+	L"Cannot connect because your version %S is different from the server version %S.",
 };
 
 STR16 MPHelp[] =
@@ -4824,7 +4825,8 @@ STR16 gszMPMapscreenText[] =
 	L"You cannot change teams once the Laptop is unlocked.",
 	L"Random Mercs: ",
 	L"Y",
-	L"Difficulty:"
+	L"Difficulty:",
+	L"Server Version:",
 };
 
 STR16 gzMPSScreenText[] =

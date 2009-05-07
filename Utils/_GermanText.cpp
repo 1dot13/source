@@ -3781,10 +3781,6 @@ STR16	gzMPJScreenText[] =
 	L"Sie müssen einen Spieler Name eingeben.",
 	L"Sie müssen eine gültie Server IP Adresse eingeben.\n (Bsp: 84.114.195.239).",
 	L"Sie müssen eine gültige Server Portnummer zwischen 1 und 65535 eingeben.",
-	L"MP Synk. Verzeichnis",
-	L"Sie müssen ein gültiges MP Synchronsiationsverzeichnis eingeben.",
-	L"(Benutzen Sie '/' anstelle von '\\' als Verzeichnistrennzeichen.)",
-	L"Das angegebene MP Synk. Verzeichnis existiert nicht.",
 };
 
 STR16	gzMPHScreenText[] =
@@ -3821,6 +3817,10 @@ STR16	gzMPHScreenText[] =
 	L"Verwende neues Inventar (NIV)",
 	L"Erzwinge maximale AI Gegner",
 	L"Synk. MP Client Verzeichnisse",
+	L"MP Synk. Verzeichnis",
+	L"Sie müssen ein gültiges MP Synchronsiationsverzeichnis eingeben.",
+	L"(Benutzen Sie '/' anstelle von '\\' als Verzeichnistrennzeichen.)",
+	L"Das angegebene MP Synk. Verzeichnis existiert nicht.",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -4439,7 +4439,7 @@ STR16 New113Message[] =
 
 STR16 New113HAMMessage[] = 
 {
-	L"%s cowers in fear!",
+	L"%s Deckung ist aufgeflogen!",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
@@ -4581,6 +4581,7 @@ STR16 MPClientMessage[] =
 	L"Dieser Server erfordert, dass sie modifizierte Dateien für das Spiel herunterladen. Möchten Sie fortfahren?",
 	// 65
 	L"Drücken Sie 'Bereit' um in den taktischen Bildschirm zu gelangen.",
+	L"Kann keine Verbindung herstellen, weil Ihre Version %S unterschiedlich zur Server Version %S ist.",
 };
 
 STR16 MPHelp[] =
@@ -4633,7 +4634,8 @@ STR16 gszMPMapscreenText[] =
 	L"Sie können die Teams nicht mehr ändern, sobald der Laptop freigeschaltet ist.",
 	L"Zuf. Söldner: ",
 	L"J",
-	L"Schwierigkeit:"
+	L"Schwierigkeit:",
+	L"Server Version:",
 };
 
 STR16 gzMPSScreenText[] =

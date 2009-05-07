@@ -4412,8 +4412,8 @@ STR16		zOptionsToggleText[] =
 	L"Enhanced Description Box",
 	L"强制回合制模式",//L"Forced Turn Mode",			// arynn : add forced turn mode
 	// arynn : reset all toggle options, in cases for corrupted JA2.set files (and general debugging of options)
-	L"Reset ALL game options",	
-	L"Do you really want to reset?",
+	L"重置所有选项",	//L"Reset ALL game options",
+	L"确定要重置？",//L"Do you really want to reset?",
 	// arynn : a sample options screen options header, just text, not a real option                                                             
 	L"--DEBUG OPTIONS--",
 	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
@@ -4722,62 +4722,62 @@ STR16	gzGIOScreenText[] =
 
 STR16	gzMPJScreenText[] =
 {
-	L"MULTIPLAYER",
-	L"Join",
-	L"Host",
-	L"Cancel",
-	L"Refresh",
-	L"Player Name",
-	L"Server IP",
-	L"Port",
-	L"Server Name",
+	L"多人游戏",//L"MULTIPLAYER",
+	L"加入",//L"Join",
+	L"主机",//L"Host",
+	L"取消",//L"Cancel",
+	L"刷新",//L"Refresh",
+	L"玩家名称",//L"Player Name",
+	L"服务器 IP",//L"Server IP",
+	L"端口",//L"Port",
+	L"服务器名",//L"Server Name",
 	L"# Plrs",
-	L"Version",
-	L"Game Type",
+	L"版本",//L"Version",
+	L"游戏类型",//L"Game Type",
 	L"Ping",
-	L"You must enter a player name.",
-	L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
-	L"You must enter a valid Server Port between 1 and 65535.",
-	L"MP Sync. Directory",
-	L"You must enter a file transfer directory.",
-	L"(Use '/' instead of '\\' for directory delimiters.)",
-	L"The specified synchronisation directory does not exist.",
+	L"你必须输入你的玩家名称。",//L"You must enter a player name.",
+	L"你必须输入有效的服务器IP地址。\n (例如 84.114.195.239).",//L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
+	L"您必须输入正确的服务器端口，范围1~65535。",//L"You must enter a valid Server Port between 1 and 65535.",	
 };
 
 STR16	gzMPHScreenText[] =
 {
-	L"HOST GAME",
-	L"Start",
-	L"Cancel",
-	L"Server Name",
-	L"Game Type",
-	L"Deathmatch",
-	L"Team Deathmatch",
-	L"Co-operative",
-	L"Max Players",
-	L"Squad Size",
-	L"Merc Selection",
-	L"Random Mercs",
-	L"Hired by Player",
-	L"Starting Balance",
-	L"Can Hire Same Merc",
+	L"建立主机",//L"HOST GAME",
+	L"开始",//L"Start",
+	L"取消",//L"Cancel",
+	L"服务器名",//L"Server Name",
+	L"游戏类型",//L"Game Type",
+	L"死亡模式",//L"Deathmatch",
+	L"团队死亡模式",//L"Team Deathmatch",
+	L"合作模式",//L"Co-operative",
+	L"最大玩家数",//L"Max Players",
+	L"小队规模",//L"Squad Size",
+	L"选择佣兵",//L"Merc Selection",
+	L"随机佣兵",//L"Random Mercs",
+	L"已被雇佣",//L"Hired by Player",
+	L"起始平衡",//L"Starting Balance",
+	L"可以雇佣相同佣兵",//L"Can Hire Same Merc",
 	L"Report Hired Mercs",
-	L"Allow Bobby Rays",
-	L"Randomise Starting Edge",
-	L"You must enter a server name",
-	L"Max Players must be between 2 and 4",
-	L"Squad size must be between 1 and 6",
-	L"Time of Day",
-	L"Time of Day must be a 24 hr time (HH:MM)\n\n eg. 13:30 = 1.30pm",
-	L"Starting Cash must be a valid dollar amount ( no cents )\n\n eg. 150000" ,
-	L"Damage Multiplier",
-	L"Damage Multiplier must be a number between 0 and 5",
-	L"Turn Timer Multiplier",
-	L"Turn Timer multiplier must be a number between 1 and 200",
-	L"Enable Civilians in CO-OP",
-	L"Use New Inventory (NIV)",
-	L"Enforce Maximum AI Enemies",
-	L"Sync. MP Clients Directory",
+	L"开启Bobby Rays网上商店",//L"Allow Bobby Rays",
+	L"随机选择起始位置",//L"Randomise Starting Edge",
+	L"必须输入服务器名",//L"You must enter a server name",
+	L"最大玩家数必须在2-4之间",//L"Max Players must be between 2 and 4",
+	L"队伍大小必须在1-6之间",//L"Squad size must be between 1 and 6",
+	L"当日时间",//L"Time of Day",
+	L"当日时间必须是24小时制 (HH:MM)\n\n 例如 13:30 = 1.30pm",//L"Time of Day must be a 24 hr time (HH:MM)\n\n eg. 13:30 = 1.30pm",
+	L"开始资金必须是整数（最小单位为1美元）\n\n 例如 150000" ,//L"Starting Cash must be a valid dollar amount ( no cents )\n\n eg. 150000" ,
+	L"伤害系数",//L"Damage Multiplier",
+	L"伤害系数必须于0-5之间",//L"Damage Multiplier must be a number between 0 and 5",
+	L"回合计时器",//L"Turn Timer Multiplier",
+	L"计时器必须设定在1-200之间",//L"Turn Timer multiplier must be a number between 1 and 200",
+	L"合作模式中允许平民",//L"Enable Civilians in CO-OP",
+	L"使用新携行模式(NIV)",//L"Use New Inventory (NIV)",
+	L"强制执行最大AI敌人数量",//L"Enforce Maximum AI Enemies",
+	L"同步多人模式终端目录",//L"Sync. MP Clients Directory",
+	L"同步多人模式目录",//L"MP Sync. Directory",
+	L"你必须进入一个文件传输目录",//L"You must enter a file transfer directory.",
+	L"（使用 '/' 代替 '\\' 作为目录分隔符）",//L"(Use '/' instead of '\\' for directory delimiters.)",
+	L"指定的同步目录不存在。",//L"The specified synchronisation directory does not exist.",	
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -5242,13 +5242,13 @@ STR16 sRepairsDoneString[] =
 	L"%s finished repairing everyone's carried items",
 	L"%s finished repairing everyone's carried items",
 */
-	L"%s修复了自己的物品。",
-	L"%s修复了所有人的枪和护甲。",
-	L"%s修复了所有人的装备。",
-	L"%s finished repairing everyone's large carried items",
-	L"%s finished repairing everyone's medium carried items",
-	L"%s finished repairing everyone's small carried items",
-	L"%s finished repairing everyone's LBE gear",
+	L"%s 修复了自己的物品。",
+	L"%s 修复了所有人的枪和护甲。",
+	L"%s 修复了所有人的装备。",
+	L"%s 修复所有人携带的大型物品",//L"%s finished repairing everyone's large carried items",
+	L"%s 修复所有人携带的中型物品",//L"%s finished repairing everyone's medium carried items",
+	L"%s 修复所有人携带的小型物品",//L"%s finished repairing everyone's small carried items",
+	L"%s 修复所有人的携行具",//L"%s finished repairing everyone's LBE gear",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -5563,7 +5563,7 @@ STR16 New113Message[] =
 
 STR16 New113HAMMessage[] = 
 {
-	L"%s cowers in fear!",
+	L"%s 害怕到抖缩。",//	L"%s cowers in fear!",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
@@ -5632,9 +5632,9 @@ STR16 MPServerMessage[] =
 	L"客户端仍在载入, 请稍等...",
 	L"服务器启动之后你无法更改着陆点。",
 	// 10
-	L"Sent file '%S' - 100/100",
-	L"Finished sending files to '%S'.",
-	L"Started sending files to '%S'.",
+	L"已发送文件 '%S' - 100/100",//L"Sent file '%S' - 100/100",
+	L"文件已发送到 '%S' ",//	L"Finished sending files to '%S'.",
+	L"开始发送文件到 '%S'.",//	L"Started sending files to '%S'.",
 };
 
 STR16 MPClientMessage[] =
@@ -5696,31 +5696,32 @@ STR16 MPClientMessage[] =
 	L"对不起, 在多人游戏中无法攀登。",
 	L"你雇佣了 '%s'",
 	// 45
-	L"You cant change the map once purchasing has commenced",
-	L"Map changed to '%s'",
-	L"Client '%s' disconnected, removing from game",
-	L"You were disconnected from the game, returning to the Main Menu",
-	L"Connection failed, Retrying in 5 seconds, %i retries left...",
+	L"当开始购买后你不能更换地图",//	L"You cant change the map once purchasing has commenced",
+	L"地图改为 '%s'",//	L"Map changed to '%s'",
+	L"玩家 '%s' 断开连接, 踢出游戏",//	L"Client '%s' disconnected, removing from game",
+	L"您已经断开连接，返回主菜单",//	L"You were disconnected from the game, returning to the Main Menu",
+	L"连接失败, 5秒内重试, 还有 %i 次重试机会……",//	L"Connection failed, Retrying in 5 seconds, %i retries left...",
 	//50
-	L"Connection failed, giving up...",
-	L"You cannot start the game until another player has connected",
+	L"连接失败，放弃……",//	L"Connection failed, giving up...",
+	L"在另一个玩家进入前您无法开始游戏",//	L"You cannot start the game until another player has connected",
 	L"%s : %s",
-	L"Send to All",
-	L"Allies only",
+	L"发送给所有人",//	L"Send to All",
+	L"发送给盟友",//	L"Allies only",
 	// 55
-	L"Cannot join game. This game has already started.",
+	L"此游戏已经开始，无法加入。",//	L"Cannot join game. This game has already started.",
 	L"%s (team): %s",
-	L"Client #%i - '%s'",
+	L"玩家 #%i - '%s'",//	L"Client #%i - '%s'",
 	L"%S - 100/100",
 	L"%S - %i/100",
 	// 60
-	L"Received all files from server.",
-	L"'%S' finished downloading from server.",
-	L"'%S' started downloading from server".,
-	L"Cannot start the game until all clients have finished receiving files",
-	L"This server requires that you download modified files to play, do you wish to continue?",
+	L"已收到服务器的所有文件。",//	L"Received all files from server.",
+	L"'%S' 完成下载。",//	L"'%S' finished downloading from server.",
+	L"'%S' 开始从服务器下载。",//	L"'%S' started downloading from server".,
+	L"在全部客户端的文件未接收完以前不能开始游戏",//	L"Cannot start the game until all clients have finished receiving files",
+	L"你需要下载修改后的文件才能继续游戏, 你想继续吗？",//	L"This server requires that you download modified files to play, do you wish to continue?",
 	// 65
-	L"Press 'Ready' to enter tactical screen.",
+	L"点击 '准备' 进入战术画面。",//	L"Press 'Ready' to enter tactical screen.",
+	L"Cannot connect because your version %S is different from the server version %S.",
 };
 
 STR16 MPHelp[] =
@@ -5766,54 +5767,55 @@ STR16 gszMPTeamNames[] =
 
 STR16 gszMPMapscreenText[] =
 {
-	L"Game Type: ",
-	L"Players: ",
-	L"Mercs each: ",
-	L"You cannot change starting edge once Laptop is unlocked.",
-	L"You cannot change teams once the Laptop is unlocked.",
-	L"Random Mercs: ",
+	L"游戏类型: ",//	L"Game Type: ",
+	L"玩家: ",//	L"Players: ",
+	L"所拥有的佣兵: ",//	L"Mercs each: ",
+	L"手提电脑开启时你无法开始移动。",//	L"You cannot change starting edge once Laptop is unlocked.",
+	L"手提电脑开启后你无法更换队伍。",//	L"You cannot change teams once the Laptop is unlocked.",
+	L"随机佣兵: ",//	L"Random Mercs: ",
 	L"Y",
-	L"Difficulty:"
+	L"难度:"//	L"Difficulty:"
+	L"Server Version:",
 };
 
 STR16 gzMPSScreenText[] =
 {
-	L"Scoreboard",
-	L"Continue",
-	L"Cancel",
-	L"Player",
-	L"Kills",
-	L"Deaths",
-	L"Queen's Army",
-	L"Hits",
-	L"Misses",
-	L"Accuracy",
-	L"Damage Dealt",
-	L"Damage Taken",
-	L"Please wait for the server to press 'Continue'."
+	L"记分板",//	L"Scoreboard",
+	L"继续",//	L"Continue",
+	L"取消",//	L"Cancel",
+	L"玩家",//	L"Player",
+	L"杀人数",//	L"Kills",
+	L"死亡数",//	L"Deaths",
+	L"女王的部队",//	L"Queen's Army",
+	L"命中数",//	L"Hits",
+	L"脱靶数",//	L"Misses",
+	L"准确度",//	L"Accuracy",
+	L"损害量",//	L"Damage Dealt",
+	L"受损量",//	L"Damage Taken",
+	L"请等待服务器指令按‘继续’。"	//L"Please wait for the server to press 'Continue'."
 };
 
 STR16 gzMPCScreenText[] =
 {
-	L"Cancel",
-	L"Connecting to Server",
-	L"Getting Server Settings",
-	L"Downloading custom files",
-	L"Press 'ESC' to cancel or 'Y' to chat",
-	L"Press 'ESC' to cancel",
-	L"Ready"
+	L"取消",//	L"Cancel",
+	L"连接到服务器",//	L"Connecting to Server",
+	L"获得服务器设置",//	L"Getting Server Settings",
+	L"下载定制文件",//	L"Downloading custom files",
+	L"按 'ESC' 取消， 'Y' 开始聊天",//	L"Press 'ESC' to cancel or 'Y' to chat",
+	L"按 'ESC' 取消",//	L"Press 'ESC' to cancel",
+	L"准备"//	L"Ready"
 };
 
 STR16 gzMPChatToggleText[] =
 {
-	L"Send to All",
-	L"Send to Allies only",
+	L"发送给所有人",//	L"Send to All",
+	L"发送给盟友",//	L"Send to Allies only",
 };
 
 STR16 gzMPChatboxText[] =
 {
-	L"Multiplayer Chat",
-	L"Chat: Press 'ENTER' to send of 'ESC' to cancel.",
+	L"多人聊天",//	L"Multiplayer Chat",
+	L"聊天: 按 'Enter' 发送， 'Esc' 取消。",//	L"Chat: Press 'ENTER' to send of 'ESC' to cancel.",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

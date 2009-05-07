@@ -3688,10 +3688,10 @@ STR16		zOptionsToggleText[] =
 	L"Подробное описание предметов", //Enhanced Description Box
 	L"Только пошаговый режим",			// arynn : add Forced Turn Mode
 	// arynn : reset all toggle options, in cases for corrupted JA2.set files (and general debugging of options)
-	L"Reset ALL game options",	
-	L"Do you really want to reset?",
+	L"Сброс всех игровых настроек",	//Reset ALL game options
+	L"В самом деле хотите этого?",	//Do you really want to reset?
 	// arynn : a sample options screen options header, just text, not a real option                                                             
-	L"--DEBUG OPTIONS--",
+	L"--Настройки отладочной версии--",	//--DEBUG OPTIONS--
 	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
 	L"Retain Debug Options in Rel",
 	// arynn : a sample option which affects options screen listing only                                            
@@ -3760,7 +3760,7 @@ STR16		zOptionsToggleText[] =
 	L"Option100",
 
 	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
-	L"THE_LAST_OPTION",
+	L"Последняя_Строка_Настроек",	//THE_LAST_OPTION
 };
 
 //This is the help text associated with the above toggles.
@@ -3844,8 +3844,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, будет задействовано\nподробное описание предметов.", //EDB description
 	L"Если включено и в секторе присутствует враг, \nпошаговый режим будет задействован \nдо полной зачистки сектора (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).", //When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T). // arynn : add forced turn mode
 	// arynn : immediate effect option that fixes corrupt ja2.set keeping of toggle options
-	L"Click me to fix corrupt game settings",
-	L"Click me to fix corrupt game settings",
+	L"Если включить, \nповреждённые игровые настройки будут восстановлены.",	//Click me to fix corrupt game settings
+	L"Отметьте строку для подтверждения сброса игровых настроек.",	//Click me to fix corrupt game settings
 	// arynn : a sample options screen options header, this pop up help text never render (well as of yet)
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",
 	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
@@ -3916,7 +3916,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"100",
 
 	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
-	L"TOPTION_LAST_OPTION",
+	L"Последняя строка в списке настроек.",	//TOPTION_LAST_OPTION
 };
 
 
@@ -3971,10 +3971,6 @@ STR16	gzMPJScreenText[] =
 	L"Впишите имя игрока.",	//You must enter a player name
 	L"Впишите корректный IP адрес. \n(пример 84.114.195.239).",	//You must enter a valid server IP address.\n (eg 192.168.0.1)
 	L"Впишите корректный порт сервера (используйте диапазон от 1 до 65535).",	//You must enter a valid Server Port between 1 and 65535
-	L"MP Sync. Directory",
-	L"You must enter a file transfer directory.",
-	L"(Use '/' instead of '\\' for directory delimiters.)",
-	L"The specified synchronisation directory does not exist.",
 };
 
 STR16	gzMPHScreenText[] =
@@ -4011,6 +4007,10 @@ STR16	gzMPHScreenText[] =
 	L"Реалистичная система инвентаря (NIV)",				//Use New Inventory (NIV)
 	L"Enforce Maximum AI Enemies",
 	L"Sync. MP Clients Directory",
+	L"MP Sync. Directory",
+	L"You must enter a file transfer directory.",
+	L"(Use '/' instead of '\\' for directory delimiters.)",
+	L"The specified synchronisation directory does not exist.",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -4783,6 +4783,7 @@ STR16 MPClientMessage[] =
 	L"This server requires that you download modified files to play, do you wish to continue?",
 	// 65
 	L"Press 'Ready' to enter tactical screen.",
+	L"Cannot connect because your version %S is different from the server version %S.",
 };
 
 STR16 MPHelp[] =
@@ -4828,47 +4829,48 @@ STR16 gszMPTeamNames[] =
 
 STR16 gszMPMapscreenText[] =
 {
-	L"Game Type: ",
-	L"Players: ",
-	L"Mercs each: ",
-	L"You cannot change starting edge once Laptop is unlocked.",
-	L"You cannot change teams once the Laptop is unlocked.",
-	L"Random Mercs: ",
-	L"Y",
-	L"Difficulty:"
+	L"Тип игры: ",		//Game Type: 
+	L"Игроков: ",		//Players: 
+	L"Всего бойцов: ",	//Mercs each: 
+	L"Нельзя изменять сторону высадки отряда после открытия лэптопа.",	//You cannot change starting edge once Laptop is unlocked.
+	L"Нельзя изменить имя команды после открытия лэптопа.",	//You cannot change teams once the Laptop is unlocked.
+	L"Случ. бойцы: ",	//Random Mercs: 
+	L"Да",			//Y
+	L"Сложность:"		//Difficulty:
+	L"Server Version:",
 };
 
 STR16 gzMPSScreenText[] =
 {
-	L"Scoreboard",
-	L"Continue",
-	L"Cancel",
-	L"Player",
-	L"Kills",
-	L"Deaths",
-	L"Queen's Army",
-	L"Hits",
-	L"Misses",
-	L"Accuracy",
-	L"Damage Dealt",
-	L"Damage Taken"
+	L"Доска счёта",		//Scoreboard
+	L"Продолжить",		//Continue
+	L"Отмена",		//Cancel
+	L"Игрок",		//Player
+	L"Убито",		//Kills
+	L"Погибло",		//Deaths
+	L"Королевская армия",	//Queen's Army
+	L"Выстрелов",		//Hits
+	L"Промахи",		//Misses
+	L"Меткость",		//Accuracy
+	L"Нанесённый урон",	//Damage Dealt
+	L"Полученный урон",	//Damage Taken
 };
 
 STR16 gzMPCScreenText[] =
 {
-	L"Cancel",
-	L"Connecting to Server",
-	L"Getting Server Settings",
-	L"Downloading custom files",
-	L"Press 'ESC' to cancel or 'Y' to chat",
-	L"Press 'ESC' to cancel",
-	L"Ready"
+	L"Отмена",						//Cancel
+	L"Подключаюсь к серверу...",				//Connecting to Server
+	L"Получаю настройки от сервера...",			//Getting Server Settings
+	L"Скачиваю выбранные файлы...",				//Downloading custom files
+	L"Нажмите 'ESC' для отмены или 'Y' чтобы войти в чат.",	//Press 'ESC' to cancel or 'Y' to chat
+	L"Нажмите 'ESC' для отмены",				//Press 'ESC' to cancel
+	L"Выполнено."						//Ready
 };
 
 STR16 gzMPChatToggleText[] =
 {
-	L"Send to All",
-	L"Send to Allies only",
+	L"Отправть всем",		//Send to All
+	L"Отправть только союзникам",	//Send to Allies only
 };
 
 STR16 gzMPChatboxText[] =
