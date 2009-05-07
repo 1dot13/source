@@ -424,7 +424,10 @@ INT16 gpSamSectorY[ MAX_NUMBER_OF_SAMS ];
 extern BOOLEAN fSamSiteFoundOrig[ MAX_NUMBER_OF_SAMS ];
 
 // map region
-SGPRect MapScreenRect={	(MAP_VIEW_START_X+MAP_GRID_X - 2),	( MAP_VIEW_START_Y+MAP_GRID_Y - 1), MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X , MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-10+MAP_GRID_Y};
+SGPRect MapScreenRect={	(MAP_VIEW_START_X+MAP_GRID_X - 2),
+						( MAP_VIEW_START_Y+MAP_GRID_Y - 1), 
+						MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X , 
+						MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-10+MAP_GRID_Y};
 
 extern SGPRect gOldClipRect; // symbol already declared globally in renderworld.cpp (jonathanl)
 
@@ -1328,6 +1331,7 @@ BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor )
 
 		if( iColor != MAP_SHADE_BLACK )
 		{
+			//sScreenX +=1;
 			// airspace
 /*
 			if( sMapX == 1 )
@@ -3943,7 +3947,10 @@ void RestoreBackgroundForMapGrid( INT16 sMapX, INT16 sMapY )
 void ClipBlitsToMapViewRegion( void )
 {
 	// the standard mapscreen rectangle doesn't work for clipping while zoomed...
-	SGPRect ZoomedMapScreenClipRect={	MAP_VIEW_START_X + MAP_GRID_X, MAP_VIEW_START_Y + MAP_GRID_Y - 1, MAP_VIEW_START_X + MAP_VIEW_WIDTH + MAP_GRID_X, MAP_VIEW_START_Y + MAP_VIEW_HEIGHT + MAP_GRID_Y - 10 };
+	SGPRect ZoomedMapScreenClipRect={	MAP_VIEW_START_X + MAP_GRID_X, 
+										MAP_VIEW_START_Y + MAP_GRID_Y - 1, 
+										MAP_VIEW_START_X + MAP_VIEW_WIDTH + MAP_GRID_X, 
+										MAP_VIEW_START_Y + MAP_VIEW_HEIGHT + MAP_GRID_Y - 10 };
 	SGPRect *pRectToUse;
 
 	if (fZoomFlag)

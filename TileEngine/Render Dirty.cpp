@@ -208,6 +208,11 @@ INT32	iTempX, iTempY;
 	//{
 	//	return(-1 );
 	//}
+//only time this shoudl be true is tactical..fix for games saved in broken state
+extern UINT32 guiTacticalInterfaceFlags;
+if (guiTacticalInterfaceFlags & 0x00000001)
+	if(gDirtyClipRect.iBottom < SCREEN_HEIGHT)
+		gDirtyClipRect.iBottom = SCREEN_HEIGHT;
 
 	ClipX1= gDirtyClipRect.iLeft;
 	ClipY1= gDirtyClipRect.iTop;

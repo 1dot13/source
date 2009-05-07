@@ -5257,9 +5257,9 @@ UINT32 MapScreenHandle(void)
 		{
 			fShowInventoryFlag = FALSE;
 			// CHRISL: Added call to re-render the bottom panel
-			RenderMapScreenInterfaceBottom ( TRUE );
+//			RenderMapScreenInterfaceBottom ( TRUE );
 			// set help text for item glow region
-			SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
+//XXXj?			SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
 		}
 
 
@@ -15377,7 +15377,8 @@ void RequestToggleMercInventoryPanel( void )
 		else
 		{
 			// Headrock. New line forces InvBottom rerender when the inventory is opened and closed.
-			RenderMapScreenInterfaceBottom ( TRUE ); 
+			//RenderMapScreenInterfaceBottom ( TRUE ); 
+			fMapScreenBottomDirty = TRUE;
 			SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
 		}
 	}

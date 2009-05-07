@@ -295,7 +295,8 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 
 	// render whole panel
 	// HEADROCK Changed this line to accept outside influence through the new boolean:
-	if ( fForceMapscreenFullRender == TRUE || fMapScreenBottomDirty == TRUE)
+	//if ( fForceMapscreenFullRender == TRUE || fMapScreenBottomDirty == TRUE)
+	if ( fMapScreenBottomDirty )
 	{
 		// get and blt panel
 		GetVideoObject(&hHandle, guiMAPBOTTOMPANEL );
