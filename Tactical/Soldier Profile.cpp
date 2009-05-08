@@ -477,7 +477,7 @@ BOOLEAN LoadMercProfiles(void)
 	return(TRUE);
 }
 
-#define MAX_ADDITIONAL_TERRORISTS 4
+#define MAX_ADDITIONAL_TERRORISTS 5 // instead of 4
 
 void DecideActiveTerrorists( void )
 {
@@ -486,7 +486,7 @@ void DecideActiveTerrorists( void )
 	UINT8		ubNumAdditionalTerrorists, ubNumTerroristsAdded = 0;
 	UINT32	uiChance, uiLocationChoice;
 	BOOLEAN	fFoundSpot;
-	INT16		sTerroristPlacement[MAX_ADDITIONAL_TERRORISTS][2] = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
+	INT16		sTerroristPlacement[MAX_ADDITIONAL_TERRORISTS][2] = { {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0} }; // added one here
 
 	#ifdef CRIPPLED_VERSION
 		return;
@@ -512,18 +512,27 @@ void DecideActiveTerrorists( void )
 			break;
 	}
 
-	if ( gGameExternalOptions.fEnableAllTerrorists )
-		uiChance = 100;
+	//////////////////////////////////////////////////////////////////////////
+	// this makes no sense now, we just set the exact number of them below
+	//if ( gGameExternalOptions.fEnableAllTerrorists )
+	//	uiChance = 100;
+	//////////////////////////////////////////////////////////////////////////
 
 	// add at least 2 more
 	ubNumAdditionalTerrorists = 2;
-	for (ubLoop = 0; ubLoop < (MAX_ADDITIONAL_TERRORISTS - 2); ubLoop++)
+	for (ubLoop = 0; ubLoop < (MAX_ADDITIONAL_TERRORISTS - 3); ubLoop++) // -3 instead of -2  because we increased MAX_ADDITIONAL_TERRORISTS above by 1
 	{
 		if (Random( 100 ) < uiChance)
 		{
 			ubNumAdditionalTerrorists++;
 		}
 	}
+
+	/////////////////////////////////////////////////////
+	// Added so with ENABLE_ALL_TERRORISTS you really get all of them  (5 + Charlie)
+	if ( gGameExternalOptions.fEnableAllTerrorists )
+		ubNumAdditionalTerrorists = 5;
+	/////////////////////////////////////////////////////
 
 	// ifdefs added by CJC
 	#ifdef JA2TESTVERSION
@@ -542,7 +551,7 @@ void DecideActiveTerrorists( void )
 			ubTerrorist = gubTerrorists[ ubLoop ];
 
 			// random 40% chance of adding this terrorist if not yet placed
-			if ( ( gMercProfiles[ ubTerrorist ].sSectorX == 0 ) && ( Random( 100 ) < 40 ) )
+			if ( ( gMercProfiles[ ubTerrorist ].sSectorX == 0 ) && (( Random( 100 ) < 40 ) || gGameExternalOptions.fEnableAllTerrorists ) ) // also added the check because it makes no sense to choose randomly which terrorist will be in game, all of them should
 			{
 				fFoundSpot = FALSE;
 				// Since there are 5 spots per terrorist and a maximum of 5 terrorists, we
