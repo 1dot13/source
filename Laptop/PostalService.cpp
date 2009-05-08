@@ -328,7 +328,11 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 					uiCount++;
 				}
 
-				ubItemsDelivered -= ubTempNumItems;
+				if (ubTempNumItems > 0)
+					ubItemsDelivered -= ubTempNumItems;
+				// WANNE: Temporary Bugfix, because we always get an endless loop in the while (ubTempNumItems is always 0 and therefore ubItemsDelivered always > 0!!)
+				else
+					ubItemsDelivered -= 1;
 			}
 		}
 
