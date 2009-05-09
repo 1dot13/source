@@ -7099,19 +7099,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>887</uiIndex>
-		<szItemName>Anaconda</szItemName>
-		<szLongItemName>Colt Anaconda</szLongItemName>
-		<szItemDesc>A sturdy large frame revolver for the .44 Magnum round.</szItemDesc>
+		<szItemName>Анаконда</szItemName>
+		<szLongItemName>Кольт Анаконда</szLongItemName>
+		<szItemDesc>Надёжный, тяжёлый и большой револьвер под патрон калибра .44 магнум. Использование прицела при хорошей меткости позволит вам вести бой на приличном расстоянии.</szItemDesc>
 		<szBRName>Colt Anaconda</szBRName>
-		<szBRDesc>I hate to say it, but Harry Callahan would've looked cooler carrying an Anaconda instead of a Model 29.</szBRDesc>
+		<szBRDesc>Разработка 1991-1999 годов. Изготовлен из нержавеющей стали. На оружейном рынке Colt Anaconda мгновенно заработал себе репутацию самого точного, надёжного и удобного револьвера калибра .44 Magnum. Возможна установка оптического прицела.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>888</uiIndex>
 		<szItemName>MR-96</szItemName>
 		<szLongItemName>Manurhin MR-96</szLongItemName>
-		<szItemDesc>Another French quality revolver. Its only drawback is the smaller ammo capacity, compared to a .357 Desert Eagle pistol.</szItemDesc>
+		<szItemDesc>Ещё один французский револьвер отличного качества. Его единственный недостаток - маленькая ёмкость магазина (по сравнению с пистолетом .357 Десерт Игл).</szItemDesc>
 		<szBRName>Manurhin MR-96</szBRName>
-		<szBRDesc>The patented Manurhin MR96 design is a revolution in revolver engineering. The grip - a long-lasting rubber design specific to this revolver - allows continuous firing of the most powerful loads without fatigue.</szBRDesc>
+		<szBRDesc>Запатентованный дизайн Manurhin MR96 - революция в проектировании револьверов. Особенность этого револьвера - цевье из долговечной резины, позволяющее вести продолжительный огонь мощными патронами без особой усталости для руки.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>889</uiIndex>
@@ -7413,33 +7413,33 @@
 		<uiIndex>926</uiIndex>
 		<szItemName>9x18мм, 8 AP</szItemName>
 		<szLongItemName>9x18мм магазин к пистолету, 8 AP</szLongItemName>
-		<szItemDesc>8 full metal jacket rounds of 9x18mm Makarov.</szItemDesc>
+		<szItemDesc>Магазин на 8 стандартных оболочечных патрона для пистолета Макарова. Калибр 9x18мм.</szItemDesc>
 		<szBRName>9x18мм маг, 8 AP</szBRName>
-		<szBRDesc>9x18mm in FMJ for added penetration.</szBRDesc>
+		<szBRDesc>Магазин на 8 стандартных оболочечных патрона для пистолета Макарова. Калибр 9x18мм.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>927</uiIndex>
 		<szItemName>9x18мм, 12 AP</szItemName>
 		<szLongItemName>9x18мм магазин к пистолету, 12 AP</szLongItemName>
-		<szItemDesc>12 rounds of full metal jacket ammo in cost effective 9x18mm.</szItemDesc>
+		<szItemDesc>Магазин на 12 стандартных оболочечных патрона калибра 9x18мм.</szItemDesc>
 		<szBRName>9x18мм маг, 12 AP</szBRName>
-		<szBRDesc>This AP 9x18mm ammo penetrates much better than standard ball rounds.</szBRDesc>
+		<szBRDesc>Отличные бронебойные патроны калибра 9х18мм! Гораздо эффективнее стандартных.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>928</uiIndex>
 		<szItemName>9x18мм, 20 AP</szItemName>
 		<szLongItemName>9x18мм магазин к ПП, 20 AP</szLongItemName>
-		<szItemDesc>20 round SMG mag loaded with full metal jacket ammo.</szItemDesc>
+		<szItemDesc>Магазин на 20 патронов с оболочечной пулей для пистолет-пулемёта.</szItemDesc>
 		<szBRName>9x18мм маг, 20 AP</szBRName>
-		<szBRDesc>AP rounds, as preferred by the military for defeating light body armor.</szBRDesc>
+		<szBRDesc>Магазин на 20 патронов с оболочечной пулей для пистолет-пулемёта. Предпочтительный выбор военных для борьбы с врагом в легкой броне.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>929</uiIndex>
 		<szItemName>9x18мм, 30 AP</szItemName>
 		<szLongItemName>9x18мм магазин для ПП, 30 AP</szLongItemName>
-		<szItemDesc>30 round SMG mag loaded with full metal jacket ammunition.</szItemDesc>
+		<szItemDesc>Магазин на 30 патронов с оболочечной пулей для пистолет-пулемёта.</szItemDesc>
 		<szBRName>9x18мм маг, 30 AP</szBRName>
-		<szBRDesc>30 full metal jacket bullets will make a sieve out of most things.</szBRDesc>
+		<szBRDesc>Магазин на 30 патронов с оболочечной пулей для пистолет-пулемёта. Данные патроны отлично подойдут для изготовления решета из чего угодно.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>930</uiIndex>
@@ -7493,25 +7493,25 @@
 		<uiIndex>936</uiIndex>
 		<szItemName>7.62x54R, 5 M</szItemName>
 		<szLongItemName>7,62x54R магазин, 5 M</szLongItemName>
-		<szItemDesc>5 high precision rounds for a Dragunov or other 7.62x54mm rifle.</szItemDesc>
+		<szItemDesc>Пять целевых патрона для снайперской винтовки Драгунова или иной винтовки калибра 7,62x54мм.</szItemDesc>
 		<szBRName>7,62x54R маг, 5 M</szBRName>
-		<szBRDesc>7.62x54R Sniper ammo, manufactured to ensure higher precision.</szBRDesc>
+		<szBRDesc>Эти пять целевых патрона калибра 7,62x54R изготовлены специально для повышения точности и дальности выстрела снайпера.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>937</uiIndex>
 		<szItemName>7.62x54R 10 M</szItemName>
 		<szLongItemName>7,62x54R магазин, 10 M</szLongItemName>
-		<szItemDesc>Ammo manufactured to higher standards, made especially for snipers.</szItemDesc>
+		<szItemDesc>Эти патроны были изготовлены по сверхточным технологиям для обеспечения максимальной дальности и точности выстрела снайпера.</szItemDesc>
 		<szBRName>7,62x54R маг, 10 M</szBRName>
-		<szBRDesc>10 rounds of the so-called "Sniper" ammo in 7.62x54R.</szBRDesc>
+		<szBRDesc>Магазин с 10-ю, так называемыми, "снайперскими" патронами, калибра 7,62x54R.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>938</uiIndex>
 		<szItemName>7,62x54R, 200M</szItemName>
 		<szLongItemName>7,62x54R Короб с патронами M</szLongItemName>
-		<szItemDesc>200 round box of 7.62x54 Sniper ammo.</szItemDesc>
+		<szItemDesc>Короб на 200 целевых патрона калибра 7.62x54R.</szItemDesc>
 		<szBRName>7,62x54R короб, 200M</szBRName>
-		<szBRDesc>Not available at BR</szBRDesc>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>939</uiIndex>
@@ -7523,19 +7523,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>940</uiIndex>
-		<szItemName>Illumination Shell</szItemName>
-		<szLongItemName>60mm Illumination Shell</szLongItemName>
-		<szItemDesc>An illumination shell for a 60mm mortar.</szItemDesc>
-		<szBRName>60mm Illumination Shell</szBRName>
-		<szBRDesc>The M721 60mm mortar shell provides illumination on a scale not possible by other means at the achieved range.</szBRDesc>
+		<szItemName>60мм ОСВ.</szItemName>
+		<szLongItemName>60 мм выстрел с осветительной гранатой</szLongItemName>
+		<szItemDesc>Осветительный выстрел для 60мм гранатомёта.</szItemDesc>
+		<szBRName>60 мм выстрел, ОСВ.</szBRName>
+		<szBRDesc>Этот 60 мм минометный выстрел M721 обеспечит такую огромную по площади подсветку поля боя, которую невозможно достичь другими средствами на подобном расстоянии.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>941</uiIndex>
-		<szItemName>Smoke Shell</szItemName>
-		<szLongItemName>60mm Smoke Shell</szLongItemName>
-		<szItemDesc>A mortar round that delivers a WP-based smokescreen.</szItemDesc>
-		<szBRName>60mm Smoke Shell</szBRName>
-		<szBRDesc>The M722 smoke round for 60mm mortars produces a dense smokescreen wherever you need it on a battlefield. Great for covering your advance! Be careful of the smoke, though, it is based on WP, and thus may be harmful to unprotected personnel.</szBRDesc>
+		<szItemName>60мм Дым</szItemName>
+		<szLongItemName>60 мм выстрел с дымом</szLongItemName>
+		<szItemDesc>Этот миномётный вытрел способен создать абсолютно непросматриваемую стену дыма.</szItemDesc>
+		<szBRName>60 мм выстрел, дым</szBRName>
+		<szBRDesc>M722 - 60 мм выстрел с дымом для миномёта. Создаст абсолютно непросматриваемую дымовую завесу, когда это так необходимо! Будьте осторожны! Дым создаётся белым фосфором, для человека без маски он опасен.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>942</uiIndex>
@@ -7964,11 +7964,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>995</uiIndex>
-		<szItemName>40mm ILL</szItemName>
-		<szLongItemName>40mm ILL Grenade</szLongItemName>
-		<szItemDesc>An illumination grenade for nightfighting.</szItemDesc>
-		<szBRName>40mm ILL Grenade</szBRName>
-		<szBRDesc>The M583A1 illumination grenade.provides battlefield illumination from most 40mm grenade launchers. Longer range and more candlepower than a breaklight!</szBRDesc>
+		<szItemName>40мм ОСВ. Г</szItemName>
+		<szLongItemName>40мм граната осветительная</szLongItemName>
+		<szItemDesc>Осветительная граната для ночных боёв.</szItemDesc>
+		<szBRName>40мм ОСВ. Г</szBRName>
+		<szBRDesc>С помощью этой осветительной гранаты M583A1, подходящей к больнинству 40-а мм гранатомётов, вы сможете рассеять ночьную пелену, в которой укрывается противник. Действие гранаты значительно дольше обычного осветителя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>996</uiIndex>
@@ -10348,10 +10348,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1293</uiIndex>
-		<szItemName>5.56 SCF crate</szItemName>
-		<szLongItemName>5.56x45mm SCF ammo crate</szLongItemName>
-		<szItemDesc>ammo crate</szItemDesc>
-		<szBRName>5.56x45mm SCF ammo crate</szBRName>
+		<szItemName>5,56x45 SCF</szItemName>
+		<szLongItemName>5,56x45мм маг, SCF, ящик с патронами</szLongItemName>
+		<szItemDesc>Ящик со спецпатронами со стреловидным поражающим элементом (СПЭЛ), в виде оперенной стрелы из вольфрама. Калибр 5,56x45мм.</szItemDesc>
+		<szBRName>5,56x45мм маг, SCF, ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -10404,15 +10404,15 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1300</uiIndex>
-		<szItemName>12.7x108mm</szItemName>
-		<szLongItemName>12.7x108mm, ящик с патронами</szLongItemName>
+		<szItemName>12.7x108мм</szItemName>
+		<szLongItemName>12.7x108мм, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
-		<szBRName>12.7x108mm, ящик с патронами</szBRName>
+		<szBRName>12.7x108мм, ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1301</uiIndex>
-		<szItemName>7.92x57mm</szItemName>
+		<szItemName>7.92x57мм</szItemName>
 		<szLongItemName>7.92x57мм, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
 		<szBRName>7.92x57мм, ящик с патронами</szBRName>
@@ -10420,7 +10420,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1302</uiIndex>
-		<szItemName>7.92x57mm HP</szItemName>
+		<szItemName>7.92x57мм HP</szItemName>
 		<szLongItemName>7.92x57мм HP, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
 		<szBRName>7.92x57мм HP, ящик с патронами</szBRName>
