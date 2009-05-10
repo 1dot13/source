@@ -6,6 +6,7 @@
 #include "strategicmap.h"
 #include "random.h"
 #include "game clock.h"
+#include "GameSettings.h"
 #include <list>
 #include <string>
 #include <iostream>
@@ -315,7 +316,16 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 			while ( ubItemsDelivered )
 			{
 				//ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(usItem, BIGPOCK1POS) );
-				ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(&tempObject, BIGPOCK1POS) );
+
+				if (UsingNewInventorySystem() == false)
+				{
+					ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(&tempObject, BIGPOCK1POS) );
+				}
+				else
+				{
+					ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(&tempObject, STACK_SIZE_LIMIT) );
+				}
+				
 				CreateItems( usItem, shs.ShipmentPackages[i].bItemQuality, ubTempNumItems, &tempObject );
 
 				if( fSectorLoaded )
@@ -328,11 +338,7 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 					uiCount++;
 				}
 
-				if (ubTempNumItems > 0)
-					ubItemsDelivered -= ubTempNumItems;
-				// WANNE: Temporary Bugfix, because we always get an endless loop in the while (ubTempNumItems is always 0 and therefore ubItemsDelivered always > 0!!)
-				else
-					ubItemsDelivered -= 1;
+				ubItemsDelivered -= ubTempNumItems;
 			}
 		}
 
