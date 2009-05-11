@@ -482,7 +482,7 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 	}
 	else
 	{
-		if ( pSoldier->ubID < 20 )
+		if ( pSoldier->bTeam == OUR_TEAM )
 		{
 			// Find locked door here....
 			pDoor = FindDoorInfoAtGridNo( sGridNo );
