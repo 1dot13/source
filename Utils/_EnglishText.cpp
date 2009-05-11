@@ -4000,7 +4000,7 @@ STR16	gzMPHScreenText[] =
 	L"Randomise Starting Edge",
 	L"You must enter a server name",
 	L"Max Players must be between 2 and 4",
-	L"Squad size must be between 1 and 6",
+	L"Squad size must be between 1 and 5",
 	L"Time of Day",
 	L"Time of Day must be a 24 hr time (HH:MM)\n\n eg. 13:30 = 1.30pm",
 	L"Starting Cash must be a valid dollar amount ( no cents )\n\n eg. 150000" ,

@@ -3805,7 +3805,7 @@ STR16	gzMPHScreenText[] =
 	L"Zufällige Startzone",
 	L"Sie müssen einen Server Namen eingeben.",
 	L"Max. Spieleranzahl muss zwischen 2 und 4 sein.",
-	L"Teamgröße muss zwischen 1 und 6 sein.",
+	L"Teamgröße muss zwischen 1 und 5 sein.",
 	L"Tageszeit",
 	L"Tageszeit muss eine 24h Zeit (SS:MM) sein.\n\nBsp: 13:30",
 	L"Startkapital muss ein gültiger Dollerwert (keine Cents) sein.\n\nBsp: 150000" ,
