@@ -255,6 +255,10 @@ enum
 	MSG_DROP_ALL_OFF,
 	MSG_GL_LOW_ANGLE,
 	MSG_GL_HIGH_ANGLE,
+	MSG_FORCED_TURN_MODE,
+	MSG_NORMAL_TURN_MODE,
+	MSG_FTM_EXIT_COMBAT,
+	MSG_FTM_ENTER_COMBAT,
 #ifdef JA2BETAVERSION
 	MSG_END_TURN_AUTO_SAVE,
 #endif
@@ -1710,3 +1714,26 @@ enum
 // OJW - MP
 extern STR16 gszMPMapscreenText[];
 #endif
+
+
+//suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
+//these are dummy functions. Not all of these may be necessary. They are included for future possible useage
+void this_is_the_ChineseText_public_symbol(void);
+void this_is_the_DutchText_public_symbol(void);
+void this_is_the_EnglishText_public_symbol(void);
+void this_is_the_FrenchText_public_symbol(void);
+void this_is_the_GermanText_public_symbol(void);
+void this_is_the_ItalianText_public_symbol(void);
+void this_is_the_PolishText_public_symbol(void);
+void this_is_the_RussianText_public_symbol(void);
+void this_is_the_TaiwaneseText_public_symbol(void);
+
+void this_is_the_Ja25ChineseText_public_symbol(void);
+void this_is_the_Ja25DutchText_public_symbol(void);
+void this_is_the_Ja25EnglishText_public_symbol(void);
+void this_is_the_Ja25FrenchText_public_symbol(void);
+void this_is_the_Ja25GermanText_public_symbol(void);
+void this_is_the_Ja25ItalianText_public_symbol(void);
+void this_is_the_Ja25PolishText_public_symbol(void);
+void this_is_the_Ja25RussianText_public_symbol(void);
+void this_is_the_Ja25TaiwaneseText_public_symbol(void);

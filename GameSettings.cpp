@@ -34,18 +34,19 @@
 	#include "Queen Command.h"
 	#include "Game Clock.h"
 	#include "Init.h"
+	#include "displaycover.h"
 #endif
 
 #include "Text.h"
 #include "connect.h"
 
-#define				GAME_SETTINGS_FILE		"Ja2.set"
+#define				GAME_SETTINGS_FILE				"Ja2_Settings.INI"
 
 #define				GAME_INI_FILE					"..\\Ja2.ini"
 
-#define				GAME_EXTERNAL_OPTIONS_FILE	"Ja2_Options.ini"
+#define				GAME_EXTERNAL_OPTIONS_FILE		"Ja2_Options.ini"
 
-#define				AP_BP_CONSTANTS_FILE	"APBPConstants.ini"
+#define				AP_BP_CONSTANTS_FILE			"APBPConstants.ini"
 
 #define				CD_ROOT_DIR						"DATA\\"
 
@@ -69,9 +70,6 @@ BOOLEAN GetCDromDriveLetter( STR8	pString );
 BOOLEAN	IsDriveLetterACDromDrive( STR pDriveLetter );
 void		CDromEjectionErrorMessageBoxCallBack( UINT8 bExitValue );
 
-
-//Change this number when we want any who gets the new build to reset the options
-#define				GAME_SETTING_CURRENT_VERSION		522
 
 bool UsingNewInventorySystem()
 {
@@ -103,55 +101,85 @@ BOOLEAN IsNIVModeValid(bool checkRes)
 
 BOOLEAN LoadGameSettings()
 {
-	HWFILE	hFile;
-	UINT32	uiNumBytesRead;
-	char gameSettingsFilePath[MAX_PATH];
 
-	sprintf(gameSettingsFilePath, "%s\\%s", gCustomDataCat.GetRootDir().c_str(), GAME_SETTINGS_FILE);
+	CIniReader iniReader(GAME_SETTINGS_FILE, TRUE);	// force path even for non existing files
 
-	//if the game settings file does NOT exist, or if it is smaller then what it should be
-	if( !FileExists( gameSettingsFilePath ) || FileSize( gameSettingsFilePath ) != sizeof( GAME_SETTINGS ) )
+	//memset( &gGameSettings2, 0, sizeof( GAME_SETTINGS ) ); // Blank out GameSettings
+
+	if ( ! iniReader.Is_CIniReader_File_Found() )
 	{
-		//Initialize the settings
+		// file does not exist, InitGamesettings() and then return. 
+		// InitGamesettings() will also call SaveGameSettings().
 		InitGameSettings();
-
-		//delete the shade tables aswell
-		DeleteShadeTableDir( );
+		return(FALSE);
 	}
-	else
-	{
-		hFile = FileOpen( gameSettingsFilePath, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-		if( !hFile )
-		{
-			FileClose( hFile );
-			InitGameSettings();
-			return(FALSE);
-		}
+	
+	gGameSettings.bLastSavedGameSlot                                = iniReader.ReadInteger("JA2 Game Settings","bLastSavedGameSlot"                       ,  -1        , -1 , NUM_SAVE_GAMES );
+	gGameSettings.ubMusicVolumeSetting                              = iniReader.ReadInteger("JA2 Game Settings","ubMusicVolumeSetting"                     ,  MIDVOLUME ,  0 , HIGHVOLUME );
+	gGameSettings.ubSoundEffectsVolume                              = iniReader.ReadInteger("JA2 Game Settings","ubSoundEffectsVolume"                     ,  MIDVOLUME ,  0 , HIGHVOLUME );
+	gGameSettings.ubSpeechVolume                                    = iniReader.ReadInteger("JA2 Game Settings","ubSpeechVolume"                           ,  MIDVOLUME ,  0 , HIGHVOLUME );
+	gGameSettings.uiMeanwhileScenesSeenFlags                        = iniReader.ReadUINT32 ("JA2 Game Settings","uiMeanwhileScenesSeenFlags"               ,  0         ,  0 , UINT_MAX );
+	gGameSettings.fHideHelpInAllScreens                             = iniReader.ReadBoolean("JA2 Game Settings","fHideHelpInAllScreens"                    ,  FALSE );
+	gGameSettings.ubSizeOfDisplayCover                              = iniReader.ReadInteger("JA2 Game Settings","ubSizeOfDisplayCover"                     ,  DC__MIN_SIZE , DC__MIN_SIZE , DC__MAX_SIZE );
+	gGameSettings.ubSizeOfLOS                                       = iniReader.ReadInteger("JA2 Game Settings","ubSizeOfLOS"                              ,  DC__MIN_SIZE , DC__MIN_SIZE , DC__MAX_SIZE );
+	gGameSettings.fOptions[TOPTION_SPEECH]                          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SPEECH"                           ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_MUTE_CONFIRMATIONS]              = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MUTE_CONFIRMATIONS"               ,  FALSE );
+	gGameSettings.fOptions[TOPTION_SUBTITLES]                       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SUBTITLES"                        ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_KEY_ADVANCE_SPEECH]              = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_KEY_ADVANCE_SPEECH"               ,  FALSE );
+	gGameSettings.fOptions[TOPTION_ANIMATE_SMOKE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ANIMATE_SMOKE"                    ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_BLOOD_N_GORE]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_BLOOD_N_GORE"                     ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_DONT_MOVE_MOUSE]                 = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DONT_MOVE_MOUSE"                  ,  FALSE );
+	gGameSettings.fOptions[TOPTION_OLD_SELECTION_METHOD]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_OLD_SELECTION_METHOD"             ,  FALSE );
+	gGameSettings.fOptions[TOPTION_ALWAYS_SHOW_MOVEMENT_PATH]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALWAYS_SHOW_MOVEMENT_PATH"        ,  FALSE );
+	gGameSettings.fOptions[TOPTION_SHOW_MISSES]                     = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_MISSES"                      ,  FALSE );
+	gGameSettings.fOptions[TOPTION_RTCONFIRM]                       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_RTCONFIRM"                        ,  FALSE );
+	gGameSettings.fOptions[TOPTION_SLEEPWAKE_NOTIFICATION]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SLEEPWAKE_NOTIFICATION"           ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_USE_METRIC_SYSTEM]               = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_METRIC_SYSTEM"                ,  FALSE );
+	gGameSettings.fOptions[TOPTION_MERC_ALWAYS_LIGHT_UP]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERC_ALWAYS_LIGHT_UP"             ,  FALSE );
+	gGameSettings.fOptions[TOPTION_SMART_CURSOR]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SMART_CURSOR"                     ,  FALSE );
+	gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SNAP_CURSOR_TO_DOOR"              ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_GLOW_ITEMS]                      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_GLOW_ITEMS"                       ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_TOGGLE_TREE_TOPS]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TOGGLE_TREE_TOPS"                 ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_TOGGLE_WIREFRAME]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TOGGLE_WIREFRAME"                 ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_3D_CURSOR]                       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_3D_CURSOR"                        ,  FALSE );
+	gGameSettings.fOptions[TOPTION_CTH_CURSOR]                      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_CTH_CURSOR"                       ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR]                 = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_GL_BURST_CURSOR"                  ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_DROP_ALL]                        = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DROP_ALL"                         ,  FALSE );
+	gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_GL_HIGH_ANGLE"                    ,  FALSE );
+	gGameSettings.fOptions[TOPTION_AIM_LEVEL_RESTRICTION]           = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_AIM_LEVEL_RESTRICTION"            ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_SPACE_SELECTS_NEXT_SQUAD]        = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SPACE_SELECTS_NEXT_SQUAD"         ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_SHOW_ITEM_SHADOW]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_ITEM_SHADOW"                 ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_SHOW_WEAPON_RANGE_IN_TILES]      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_WEAPON_RANGE_IN_TILES"       ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_TRACERS_FOR_SINGLE_FIRE]         = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TRACERS_FOR_SINGLE_FIRE"          ,  FALSE );
+	gGameSettings.fOptions[TOPTION_RAIN_SOUND]                      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_RAIN_SOUND"                       ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_ALLOW_CROWS]                     = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALLOW_CROWS"                      ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_USE_RANDOM_PERSONALITY]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_RANDOM_PERSONALITY"           ,  FALSE );
+	gGameSettings.fOptions[TOPTION_USE_AUTO_SAVE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_AUTO_SAVE"                    ,  FALSE );
+	gGameSettings.fOptions[TOPTION_SILENT_SKYRIDER]                 = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SILENT_SKYRIDER"                  ,  FALSE );
+	gGameSettings.fOptions[TOPTION_LOW_CPU_USAGE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_LOW_CPU_USAGE"                    ,  FALSE );
+	gGameSettings.fOptions[TOPTION_ENHANCED_DESC_BOX]               = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ENHANCED_DESC_BOX"                ,  FALSE );
+	gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TOGGLE_TURN_MODE"                 ,  FALSE );
+	gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_CHEAT_MODE_OPTIONS_HEADER"        ,  FALSE );
+	gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_FORCE_BOBBY_RAY_SHIPMENTS"        ,  FALSE );
+	gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_END]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_CHEAT_MODE_OPTIONS_END"           ,  FALSE );
+	gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_HEADER]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DEBUG_MODE_OPTIONS_HEADER"        ,  FALSE );
+	gGameSettings.fOptions[TOPTION_SHOW_RESET_ALL_OPTIONS]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_RESET_ALL_OPTIONS"           ,  FALSE );
+	gGameSettings.fOptions[TOPTION_RESET_ALL_OPTIONS]               = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_RESET_ALL_OPTIONS"                ,  FALSE );
+	gGameSettings.fOptions[TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE] = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE"  ,  FALSE );
+	gGameSettings.fOptions[TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP] = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP"  ,  FALSE );
+	gGameSettings.fOptions[TOPTION_RENDER_MOUSE_REGIONS]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_RENDER_MOUSE_REGIONS"             ,  FALSE );
+	gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_END]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DEBUG_MODE_OPTIONS_END"           ,  FALSE );
+	gGameSettings.fOptions[TOPTION_LAST_OPTION]                     = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_LAST_OPTION"                      ,  FALSE );
+	gGameSettings.fOptions[NUM_GAME_OPTIONS]                        = iniReader.ReadBoolean("JA2 Game Settings","NUM_GAME_OPTIONS"                         ,  FALSE );
+	gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERC_CASTS_LIGHT"                 ,  TRUE  );
+	gGameSettings.fOptions[TOPTION_HIDE_BULLETS]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_HIDE_BULLETS"                     ,  FALSE );
+	gGameSettings.fOptions[TOPTION_TRACKING_MODE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TRACKING_MODE"                    ,  TRUE  );
+	gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]                    = iniReader.ReadBoolean("JA2 Game Settings","NUM_ALL_GAME_OPTIONS"                     ,  FALSE );
 
-		FileRead( hFile, &gGameSettings, sizeof( GAME_SETTINGS ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( GAME_SETTINGS ) )
-		{
-			FileClose( hFile );
-			InitGameSettings();
-			return(FALSE);
-		}
 
-		FileClose( hFile );
-	}
-
-
-	//if the version in the game setting file is older then the we want, init the game settings
-	if( gGameSettings.uiSettingsVersionNumber < GAME_SETTING_CURRENT_VERSION )
-	{
-		//Initialize the settings
-		InitGameSettings();
-
-		//delete the shade tables aswell
-		DeleteShadeTableDir( );
-
-		return( TRUE );
-	}
-
+	DeleteShadeTableDir();  // ary-05/05/2009 : Might be bad idea for it to be here. But its gotta happen for some reason every now and then.
+							//		 : The call to DeleteShadeTableDir() used to coincided with reseting an older settings file.
+							//		 : Shade Table Dir is rebuilt when ever LoadShadeTable() cant find it. Its only around ~1.5 MB. 
 
 	//
 	//Do checking to make sure the settings are valid
@@ -173,7 +201,7 @@ BOOLEAN LoadGameSettings()
 	if( !gGameSettings.fOptions[ TOPTION_SUBTITLES ] && !gGameSettings.fOptions[ TOPTION_SPEECH ] )
 	{
 		gGameSettings.fOptions[ TOPTION_SUBTITLES ]						= TRUE;
-		gGameSettings.fOptions[ TOPTION_SPEECH ]							= TRUE;
+		gGameSettings.fOptions[ TOPTION_SPEECH ]						= TRUE;
 	}
 
 
@@ -184,10 +212,6 @@ BOOLEAN LoadGameSettings()
 	SetSoundEffectsVolume( gGameSettings.ubSoundEffectsVolume );
 	SetSpeechVolume( gGameSettings.ubSpeechVolume );
 	MusicSetVolume( gGameSettings.ubMusicVolumeSetting );
-
-//#ifndef BLOOD_N_GORE_ENABLED // arynn : del_me : defunct
-//	gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ]				= FALSE;
-//#endif
 
 	//if the user doesnt want the help screens present
 	if( gGameSettings.fHideHelpInAllScreens )
@@ -206,98 +230,173 @@ BOOLEAN LoadGameSettings()
 
 BOOLEAN	SaveGameSettings()
 {
-	HWFILE		hFile;
-	UINT32	uiNumBytesWritten;
-	char gameSettingsFilePath[MAX_PATH];
+	char	gameSettingsFilePath[MAX_PATH];
+	FILE	*file_pointer;
+
+	//Record the current settings into the game settins structure
+	gGameSettings.ubSoundEffectsVolume = (UINT8)GetSoundEffectsVolume( );
+	gGameSettings.ubSpeechVolume       = (UINT8)GetSpeechVolume( );
+	gGameSettings.ubMusicVolumeSetting = (UINT8)MusicGetVolume( );
+
 
 	sprintf(gameSettingsFilePath, "%s\\%s", gCustomDataCat.GetRootDir().c_str(), GAME_SETTINGS_FILE);
 
+	fopen_s( &file_pointer, gameSettingsFilePath, "w" );
 
-	//create the file
-	hFile = FileOpen( gameSettingsFilePath, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
-	if( !hFile )
+	if( file_pointer )
 	{
-		FileClose( hFile );
-		return(FALSE);
+		fprintf_s (file_pointer , ";******************************************************************************************************************************\n" );
+		fprintf_s (file_pointer , ";******************************************************************************************************************************\n" );
+		fprintf_s (file_pointer , ";    Jagged Alliance 2 --Settings File--                                                                                       \n" );
+		fprintf_s (file_pointer , ";                                                                                                                              \n" );
+		fprintf_s (file_pointer , ";    Please note that this file is automatically generated by the game.                                                        \n" );
+		fprintf_s (file_pointer , ";                                                                                                                              \n" );
+		fprintf_s (file_pointer , ";    While it is safe to change things from within this file, not all values are acceptable. Some may break the game,          \n" );
+		fprintf_s (file_pointer , ";      some may be ignored, but most likely they will be acceptable or reset to a default value.                               \n" );
+		fprintf_s (file_pointer , ";                                                                                                                              \n" );
+		fprintf_s (file_pointer , ";    Please note, This file and its contents are in a beta phase. Expect changes, however they should be minimal and automated.\n" );
+		fprintf_s (file_pointer , ";                                                                                                                              \n" );
+		fprintf_s (file_pointer , ";******************************************************************************************************************************\n" );
+		fprintf_s (file_pointer , "\n" );
+		fprintf_s (file_pointer , ";******************************************************************************************************************************\n" );
+		fprintf_s (file_pointer , ";\n" );
+		fprintf_s (file_pointer , ";    The Current Game Setting Struct is defined as : \n" );
+		fprintf_s (file_pointer , ";\n" );
+		fprintf_s (file_pointer , ";    typedef struct                                                                                                                                \n");
+		fprintf_s (file_pointer , ";    {                                                                                                                                             \n");
+		fprintf_s (file_pointer , ";        INT8     bLastSavedGameSlot;                 // The last saved game number goes in here                                                   \n");
+		fprintf_s (file_pointer , ";        UINT8    ubMusicVolumeSetting;               // Volume Setting                                                                            \n");
+		fprintf_s (file_pointer , ";        UINT8    ubSoundEffectsVolume;               // Volume Setting                                                                            \n");
+		fprintf_s (file_pointer , ";        UINT8    ubSpeechVolume;                     // Volume Setting                                                                            \n");
+		fprintf_s (file_pointer , ";        UINT8    fOptions[ NUM_ALL_GAME_OPTIONS ];   // Toggle Options (Speech, Subtitles, Show Tree Tops, etc.. )                                \n");
+		fprintf_s (file_pointer , ";        UINT32   uiMeanwhileScenesSeenFlags;         // Bit Vector describing seen 'mean whiles..'                                                \n");
+		fprintf_s (file_pointer , ";        BOOLEAN  fHideHelpInAllScreens;              // Controls Help \"do not show help again\" checkbox                                         \n");
+		fprintf_s (file_pointer , ";        UINT8    ubSizeOfDisplayCover;               // The number of grids the player designates thru [Delete + ( = or - )]                      \n");
+		fprintf_s (file_pointer , ";        UINT8    ubSizeOfLOS;                        // The number of grids the player designates thru [End    + ( = or - )]                      \n");
+		fprintf_s (file_pointer , ";    } GAME_SETTINGS;                                                                                                                              \n");
+		fprintf_s (file_pointer , ";\n" );
+		fprintf_s (file_pointer , ";******************************************************************************************************************************\n" );
+		fprintf_s (file_pointer , "\n\n" );
+		fprintf_s (file_pointer , "[JA2 Game Settings]\n" );
+		
+		
+		fprintf_s (file_pointer , "bLastSavedGameSlot                       =  %d  \n"  ,  gGameSettings.bLastSavedGameSlot              );
+		fprintf_s (file_pointer , "ubMusicVolumeSetting                     =  %u  \n"  ,  gGameSettings.ubMusicVolumeSetting            );
+		fprintf_s (file_pointer , "ubSoundEffectsVolume                     =  %u  \n"  ,  gGameSettings.ubSoundEffectsVolume            );
+		fprintf_s (file_pointer , "ubSpeechVolume                           =  %u  \n"  ,  gGameSettings.ubSpeechVolume                  );
+		fprintf_s (file_pointer , "uiMeanwhileScenesSeenFlags               =  %u  \n"  ,  gGameSettings.uiMeanwhileScenesSeenFlags      );
+		fprintf_s (file_pointer , "fHideHelpInAllScreens                    =  %s  \n"  ,  (gGameSettings.fHideHelpInAllScreens                              ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "ubSizeOfDisplayCover                     =  %u  \n"  ,  gGameSettings.ubSizeOfDisplayCover            );
+		fprintf_s (file_pointer , "ubSizeOfLOS                              =  %u  \n"  ,  gGameSettings.ubSizeOfLOS                     );
+		fprintf_s (file_pointer , "TOPTION_SPEECH                           =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SPEECH]                           ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_MUTE_CONFIRMATIONS               =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_MUTE_CONFIRMATIONS]               ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_SUBTITLES                        =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SUBTITLES]                        ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_KEY_ADVANCE_SPEECH               =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_KEY_ADVANCE_SPEECH]               ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_ANIMATE_SMOKE                    =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_ANIMATE_SMOKE]                    ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_BLOOD_N_GORE                     =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_BLOOD_N_GORE]                     ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_DONT_MOVE_MOUSE                  =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_DONT_MOVE_MOUSE]                  ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_OLD_SELECTION_METHOD             =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_OLD_SELECTION_METHOD]             ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_ALWAYS_SHOW_MOVEMENT_PATH        =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_ALWAYS_SHOW_MOVEMENT_PATH]        ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_SHOW_MISSES                      =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SHOW_MISSES]                      ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_RTCONFIRM                        =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_RTCONFIRM]                        ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_SLEEPWAKE_NOTIFICATION           =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SLEEPWAKE_NOTIFICATION]           ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_USE_METRIC_SYSTEM                =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_USE_METRIC_SYSTEM]                ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_MERC_ALWAYS_LIGHT_UP             =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_MERC_ALWAYS_LIGHT_UP]             ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_SMART_CURSOR                     =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SMART_CURSOR]                     ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_SNAP_CURSOR_TO_DOOR              =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]              ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_GLOW_ITEMS                       =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_GLOW_ITEMS]                       ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_TOGGLE_TREE_TOPS                 =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_TOGGLE_TREE_TOPS]                 ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_TOGGLE_WIREFRAME                 =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_TOGGLE_WIREFRAME]                 ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_3D_CURSOR                        =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_3D_CURSOR]                        ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_CTH_CURSOR                       =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_CTH_CURSOR]                       ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_GL_BURST_CURSOR                  =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR]                  ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_DROP_ALL                         =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_DROP_ALL]                         ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_GL_HIGH_ANGLE                    =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE]                    ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_AIM_LEVEL_RESTRICTION            =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_AIM_LEVEL_RESTRICTION]            ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_SPACE_SELECTS_NEXT_SQUAD         =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SPACE_SELECTS_NEXT_SQUAD]         ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_SHOW_ITEM_SHADOW                 =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SHOW_ITEM_SHADOW]                 ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_SHOW_WEAPON_RANGE_IN_TILES       =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SHOW_WEAPON_RANGE_IN_TILES]       ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_TRACERS_FOR_SINGLE_FIRE          =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_TRACERS_FOR_SINGLE_FIRE]          ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_RAIN_SOUND                       =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_RAIN_SOUND]                       ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_ALLOW_CROWS                      =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_ALLOW_CROWS]                      ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_USE_RANDOM_PERSONALITY           =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_USE_RANDOM_PERSONALITY]           ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_USE_AUTO_SAVE                    =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_USE_AUTO_SAVE]                    ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_SILENT_SKYRIDER                  =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SILENT_SKYRIDER]                  ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_LOW_CPU_USAGE                    =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_LOW_CPU_USAGE]                    ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_ENHANCED_DESC_BOX                =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_ENHANCED_DESC_BOX]                ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_TOGGLE_TURN_MODE                 =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]                 ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_CHEAT_MODE_OPTIONS_HEADER        =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]        ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]        ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_CHEAT_MODE_OPTIONS_END           =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_END]           ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_DEBUG_MODE_OPTIONS_HEADER        =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_HEADER]        ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_SHOW_RESET_ALL_OPTIONS           =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SHOW_RESET_ALL_OPTIONS]           ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_RESET_ALL_OPTIONS                =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_RESET_ALL_OPTIONS]                ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE  =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE]  ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP  =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP]  ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_RENDER_MOUSE_REGIONS             =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_RENDER_MOUSE_REGIONS]             ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_DEBUG_MODE_OPTIONS_END           =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_DEBUG_MODE_OPTIONS_END]           ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , ";******************************************************************************************************************************\n" );
+		fprintf_s (file_pointer , ";  Options beyond this point are Code derived options, DO NOT CHANGE THESE UNLESS YOU KNOW WHAT YOUR ARE DOING.	\n" );
+		fprintf_s (file_pointer , ";  They are only included here for complete transparency for all GameSettings content.							\n" );
+		fprintf_s (file_pointer , ";******************************************************************************************************************************\n" );
+		fprintf_s (file_pointer , "TOPTION_LAST_OPTION                      =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_LAST_OPTION]                      ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "NUM_GAME_OPTIONS                         =  %s  \n"  ,  (gGameSettings.fOptions[NUM_GAME_OPTIONS]                         ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_MERC_CASTS_LIGHT                 =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT]                 ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_HIDE_BULLETS                     =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_HIDE_BULLETS]                     ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_TRACKING_MODE                    =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_TRACKING_MODE]                    ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "NUM_ALL_GAME_OPTIONS                     =  %s  \n"  ,  (gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]                     ?    "TRUE" : "FALSE" ) );
+
 	}
-
-
-
-	//Record the current settings into the game settins structure
-
-	gGameSettings.ubSoundEffectsVolume = (UINT8)GetSoundEffectsVolume( );
-	gGameSettings.ubSpeechVolume = (UINT8)GetSpeechVolume( );
-	gGameSettings.ubMusicVolumeSetting = (UINT8)MusicGetVolume( );
-
-	strcpy( gGameSettings.zVersionNumber, czVersionNumber );
-
-	gGameSettings.uiSettingsVersionNumber = GAME_SETTING_CURRENT_VERSION;
-
-	//Write the game settings to disk
-	FileWrite( hFile, &gGameSettings, sizeof( GAME_SETTINGS ), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( GAME_SETTINGS ) )
-	{
-		FileClose( hFile );
-		return(FALSE);
-	}
-
-	FileClose( hFile );
+	fclose( file_pointer );
 
 	return( TRUE );
+
 }
+
 
 void InitGameSettings()
 {
+	// completely blank out gGameSettings
 	memset( &gGameSettings, 0, sizeof( GAME_SETTINGS ) );
 
 	//Init the Game Settings
-	gGameSettings.bLastSavedGameSlot		= -1;
+	gGameSettings.bLastSavedGameSlot	= -1;
 	gGameSettings.ubMusicVolumeSetting	= 63;
 	gGameSettings.ubSoundEffectsVolume	= 63;
-	gGameSettings.ubSpeechVolume				= 63;
+	gGameSettings.ubSpeechVolume		= 63;
 
 	//Set the settings
 	SetSoundEffectsVolume( gGameSettings.ubSoundEffectsVolume );
 	SetSpeechVolume( gGameSettings.ubSpeechVolume );
 	MusicSetVolume( gGameSettings.ubMusicVolumeSetting );
 
-	gGameSettings.fOptions[ TOPTION_SUBTITLES ]							= TRUE;
 	gGameSettings.fOptions[ TOPTION_SPEECH ]							= TRUE;
-	gGameSettings.fOptions[ TOPTION_KEY_ADVANCE_SPEECH ]				= FALSE;
-	gGameSettings.fOptions[ TOPTION_RTCONFIRM ]							= FALSE;
-	gGameSettings.fOptions[ TOPTION_HIDE_BULLETS ]						= FALSE;
-	gGameSettings.fOptions[ TOPTION_TRACKING_MODE ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_MUTE_CONFIRMATIONS ]				= FALSE;
+	gGameSettings.fOptions[ TOPTION_SUBTITLES ]							= TRUE;
+	gGameSettings.fOptions[ TOPTION_KEY_ADVANCE_SPEECH ]				= FALSE;
 	gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_DONT_MOVE_MOUSE ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_OLD_SELECTION_METHOD ]				= FALSE;
 	gGameSettings.fOptions[ TOPTION_ALWAYS_SHOW_MOVEMENT_PATH ]			= FALSE;
-
+	gGameSettings.fOptions[	TOPTION_SHOW_MISSES ]						= FALSE;
+	gGameSettings.fOptions[ TOPTION_RTCONFIRM ]							= FALSE;
 	gGameSettings.fOptions[ TOPTION_SLEEPWAKE_NOTIFICATION ]			= TRUE;
-
 	gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ]					= FALSE;
-
-	//#ifndef BLOOD_N_GORE_ENABLED	// arynn : del_me : defunct
-	//	gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ]					= FALSE;
-	//#endif
-
 	gGameSettings.fOptions[ TOPTION_MERC_ALWAYS_LIGHT_UP ]				= FALSE;
 	gGameSettings.fOptions[ TOPTION_SMART_CURSOR ]						= FALSE;
-
 	gGameSettings.fOptions[ TOPTION_SNAP_CURSOR_TO_DOOR ]				= TRUE;
 	gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_TOGGLE_TREE_TOPS ]					= TRUE;
 	gGameSettings.fOptions[ TOPTION_TOGGLE_WIREFRAME ]					= TRUE;
 	gGameSettings.fOptions[ TOPTION_3D_CURSOR ]							= FALSE;
 	gGameSettings.fOptions[ TOPTION_CTH_CURSOR ]						= TRUE;
+
 	//Madd:
 	gGameSettings.fOptions[ TOPTION_GL_BURST_CURSOR ]					= TRUE;
 	gGameSettings.fOptions[ TOPTION_DROP_ALL ]							= FALSE;
 	gGameSettings.fOptions[ TOPTION_GL_HIGH_ANGLE ]						= FALSE;
 	gGameSettings.fOptions[	TOPTION_AIM_LEVEL_RESTRICTION ]				= TRUE;
-	// JA2Gold
-	gGameSettings.fOptions[ TOPTION_MERC_CASTS_LIGHT ]					= TRUE;
 
 	//lalien
 	gGameSettings.fOptions[ TOPTION_SPACE_SELECTS_NEXT_SQUAD ]			= TRUE;
@@ -311,24 +410,42 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ]					= FALSE;
+
+	// arynn 
 	gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ]					= FALSE;
-	gGameSettings.fOptions[ TOPTION_SHOW_RESET_ALL_OPTIONS ]			= FALSE;	// arynn : failsafe show/hide option
-	gGameSettings.fOptions[ TOPTION_RESET_ALL_OPTIONS ]					= FALSE;	// arynn : a do once and reset self option
-	gGameSettings.fOptions[ TOPTION_DEBUG_MODE_OPTIONS_HEADER ]			= FALSE;	// arynn : a sample options screen options header
-	gGameSettings.fOptions[ TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE ]	= FALSE;	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
-	gGameSettings.fOptions[	TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP ]	= FALSE;	// arynn : a sample option which affects options screen listing only
-	gGameSettings.fOptions[	TOPTION_RENDER_MOUSE_REGIONS ]				= FALSE;	// arynn : a sample DEBUG build option
-	gGameSettings.fOptions[	TOPTION_DEBUG_MODE_OPTIONS_END ]			= FALSE;	// arynn : a sample options screen options divider
+	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_HEADER ]			= FALSE;	
+	gGameSettings.fOptions[ TOPTION_FORCE_BOBBY_RAY_SHIPMENTS ]			= FALSE;	// force all pending Bobby Ray shipments
+	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_END ]			= FALSE;	
+	gGameSettings.fOptions[ TOPTION_DEBUG_MODE_OPTIONS_HEADER ]			= FALSE;	// an example options screen options header (pure text)
+	gGameSettings.fOptions[ TOPTION_SHOW_RESET_ALL_OPTIONS ]			= FALSE;	// failsafe show/hide option to reset all options
+	gGameSettings.fOptions[ TOPTION_RESET_ALL_OPTIONS ]					= FALSE;	// a do once and reset self option (button like effect)
+	gGameSettings.fOptions[ TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE ]	= FALSE;	// allow debug options that were set in debug.exe to continue in a rel.exe (debugging release can be beneficial)
+	gGameSettings.fOptions[	TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP ]	= FALSE;	// an example option that will show/hide other options
+	gGameSettings.fOptions[	TOPTION_RENDER_MOUSE_REGIONS ]				= FALSE;	// an example of a DEBUG build option
+	gGameSettings.fOptions[	TOPTION_DEBUG_MODE_OPTIONS_END ]			= FALSE;	// an example options screen options divider (pure text)
 
+	// enum control options (not real options but included here for the sake of complete control of values)
 
-	gGameSettings.fOptions[	TOPTION_LAST_OPTION ]						= FALSE;	// arynn : this is THE LAST option that exists (intended for debugging the options screen, doesnt do anything, except exist)
-	
+	// ary-05/05/2009 : TOPTION_LAST_OPTION is THE LAST options screen toggle option that exists. (its still an option, and its < NUM_GAME_OPTIONS)
+	//		 : intended for debugging options screen final page. test to avoid last page over or under extension. 
+	//		 : might be useful in future of toggle option content developement.
+	gGameSettings.fOptions[	TOPTION_LAST_OPTION ]						= FALSE; // doesnt do anything except exist
+	gGameSettings.fOptions[	NUM_GAME_OPTIONS ]						    = FALSE; // Toggles prior to this will be able to be toggled by the player
+
+	// JA2Gold
+	gGameSettings.fOptions[ TOPTION_MERC_CASTS_LIGHT ]					= TRUE;
+
+	gGameSettings.fOptions[ TOPTION_HIDE_BULLETS ]						= FALSE;
+	gGameSettings.fOptions[ TOPTION_TRACKING_MODE ]						= TRUE;
+
+	gGameSettings.fOptions[	NUM_ALL_GAME_OPTIONS ]						= FALSE; // Absolute final end of enum
 
 	gGameSettings.ubSizeOfDisplayCover = 4;
 	gGameSettings.ubSizeOfLOS = 4;
 
 	//Since we just set the settings, save them
 	SaveGameSettings();
+
 }
 
 void InitGameOptions()

@@ -8,6 +8,9 @@
 	#endif
 #endif
 
+//suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
+void this_is_the_TaiwaneseText_public_symbol(void){;}
+
 #ifdef TAIWANESE
 
 /*
@@ -3690,80 +3693,19 @@ STR16		zOptionsToggleText[] =
 	L"Silent Skyrider",
 	L"Low CPU usage",
 	L"Enhanced Description Box",
-	L"Forced Turn Mode",			// arynn : add forced turn mode
-	// arynn : reset all toggle options, in cases for corrupted JA2.set files (and general debugging of options)
-	L"Reset ALL game options",	
-	L"Do you really want to reset?",
-	// arynn : a sample options screen options header, just text, not a real option                                                             
-	L"--DEBUG OPTIONS--",
-	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
-	L"Retain Debug Options in Rel",
-	// arynn : a sample option which affects options screen listing only                                            
-	L"DEBUG Render Option group",
-	// arynn : a sample DEBUG build option, this will draw slash-rects through current mouse region "hot spots"
-	L"Render Mouse Regions",
-	// arynn : a sample options screen options divider, just text, not a real option                                                             
-	L"-----------------",
+	L"Forced Turn Mode",					// add forced turn mode
+	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
+	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
+	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
+	L"--DEBUG OPTIONS--",					// an example options screen options header (pure text)
+	L"Reset ALL game options",				// failsafe show/hide option to reset all options
+	L"Do you really want to reset?",		// a do once and reset self option (button like effect)
+	L"Debug Options in other builds",		// allow debugging in release or mapeditor
+	L"DEBUG Render Option group",			// an example option that will show/hide other options
+	L"Render Mouse Regions",				// an example of a DEBUG build option
+	L"-----------------",					// an example options screen options divider (pure text)
 
-	L"Option044",	// arynn : note : everything south of here (should) only ever show in debug.. i doubt translating would prove useful
-	L"Option045",
-	L"Option046",
-	L"Option047",
-	L"Option048",
-	L"Option049",
-	L"Option050",
-	L"Option051",
-	L"Option052",
-	L"Option053",
-	L"Option054",
-	L"Option055",
-	L"Option056",
-	L"Option057",
-	L"Option058",
-	L"Option059",
-	L"Option060",
-	L"Option061",
-	L"Option062",
-	L"Option063",
-	L"Option064",
-	L"Option065",
-	L"Option066",
-	L"Option067",
-	L"Option068",
-	L"Option069",
-	L"Option070",
-	L"Option071",
-	L"Option072",
-	L"Option073",
-	L"Option074",
-	L"Option075",
-	L"Option076",
-	L"Option077",
-	L"Option078",
-	L"Option079",
-	L"Option080",
-	L"Option081",
-	L"Option082",
-	L"Option083",
-	L"Option084",
-	L"Option085",
-	L"Option086",
-	L"Option087",
-	L"Option088",
-	L"Option089",
-	L"Option090",
-	L"Option091",
-	L"Option092",
-	L"Option093",
-	L"Option094",
-	L"Option095",
-	L"Option096",
-	L"Option097",
-	L"Option098",
-	L"Option099",
-	L"Option100",
-
-	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
+	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"THE_LAST_OPTION",
 };
 
@@ -3846,80 +3788,20 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, game will run with much lower CPU usage.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
-	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// arynn : add forced turn mode
-	// arynn : immediate effect option that fixes corrupt ja2.set keeping of toggle options
-	L"Click me to fix corrupt game settings",
-	L"Click me to fix corrupt game settings",
-	// arynn : a sample options screen options header, this pop up help text never render (well as of yet)
-	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",
-	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
-	L"Allows debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file",
-	// arynn : a sample option which affects options screen listing only                                            
-	L"Toggle to display debugging render options",
-	// arynn : a sample DEBUG build option                                                                          
-	L"Attempts to display slash-rects around mouse regions",
-	// arynn : a sample options screen options divider, this pop up help text never render (well as of yet)
-	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_END",
-	// text past this point is for debugging, translating would doubtfully prove usefull
-	L"044",
-	L"045",
-	L"046",
-	L"047",
-	L"048",
-	L"049",
-	L"050",
-	L"051",
-	L"052",
-	L"053",
-	L"054",
-	L"055",
-	L"056",
-	L"057",
-	L"058",
-	L"059",
-	L"060",
-	L"061",
-	L"062",
-	L"063",
-	L"064",
-	L"065",
-	L"066",
-	L"067",
-	L"068",
-	L"069",
-	L"070",
-	L"071",
-	L"072",
-	L"073",
-	L"074",
-	L"075",
-	L"076",
-	L"077",
-	L"078",
-	L"079",
-	L"080",
-	L"081",
-	L"082",
-	L"083",
-	L"084",
-	L"085",
-	L"086",
-	L"087",
-	L"088",
-	L"089",
-	L"090",
-	L"091",
-	L"092",
-	L"093",
-	L"094",
-	L"095",
-	L"096",
-	L"097",
-	L"098",
-	L"099",
-	L"100",
+	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
+	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
+	L"Force all pending Bobby Ray shipments",
+	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
+	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",			// an example options screen options header (pure text)
+	L"Click me to fix corrupt game settings",							// failsafe show/hide option to reset all options
+	L"Click me to fix corrupt game settings",							// a do once and reset self option (button like effect)
+	L"Allows debug options in release or mapeditor builds",				// allow debugging in release or mapeditor
+	L"Toggle to display debugging render options",						// an example option that will show/hide other options
+	L"Attempts to display slash-rects around mouse regions",			// an example of a DEBUG build option
+	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_END",				// an example options screen options divider (pure text)
 
-	// arynn : this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
+
+	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"TOPTION_LAST_OPTION",
 };
 
@@ -4196,6 +4078,11 @@ STR16 pMessageStrings[] =
 	L"Drop All Disabled",
 	L"Grenade Launchers fire at standard angles",
 	L"Grenade Launchers fire at higher angles",
+	// forced turn mode strings
+    L"Forced Turn Mode",
+	L"Normal turn mode",
+	L"Exit combat mode",
+	L"Forced Turn Mode Active, Entering Combat",
 #ifdef JA2BETAVERSION
 	L"Successfully Saved the Game into the End Turn Auto Save slot.",
 #endif

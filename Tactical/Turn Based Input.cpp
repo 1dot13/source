@@ -207,7 +207,7 @@ void ToggleWireFrame();
 void RefreshSoldier();
 void ChangeSoldiersBodyType( UINT8 ubBodyType, BOOLEAN fCreateNewPalette );
 void TeleportSelectedSoldier();
-void ToggleTurnMode();// arynn : add forced turn mode
+void ToggleTurnMode();// ary-05/05/2009 : add forced turn mode
 void ToggleTreeTops();
 void ToggleZBuffer();
 void TogglePlanningMode();
@@ -3707,7 +3707,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'T':	
-				if ( fCtrl && fShift && fAlt && !is_networked)// arynn : add forced turn mode
+				if ( fCtrl && fShift && fAlt && !is_networked)// ary-05/05/2009 : add forced turn mode
 				{
 					ToggleTurnMode();
 				}				
@@ -4570,28 +4570,20 @@ void TeleportSelectedSoldier()
 	}
 }
 
-void ToggleTurnMode()// arynn : add forced turn mode
+void ToggleTurnMode()// ary-05/05/2009 : add forced turn mode
 {
 	if ( !gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] )
 	{
-		#ifdef CHINESE
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"强制回合制模式" );
-		#else
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Forced Turn Mode" );
-		#endif
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_FORCED_TURN_MODE ] );
 		gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] = TRUE;
-		EnterCombatMode( OUR_TEAM ); // arynn : randomize ? i'm leaving this for now due to "i made the call, i get dibs"
+		EnterCombatMode( OUR_TEAM ); // ary-05/05/2009 : randomize ? i'm leaving this for now due to "player makes the call, player gets dibs"
 	}
 	else
 	{
-		#ifdef CHINESE
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"标准即时回合制模式");
-		#else
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Normal turn mode");
-		#endif
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_NORMAL_TURN_MODE ] );
 		gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] = FALSE;
 	}
-}// arynn : add forced turn mode
+}
 
 void ToggleTreeTops()
 {

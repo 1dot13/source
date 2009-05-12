@@ -40,13 +40,7 @@ class OBJECTTYPE;
 class SOLDIERTYPE;
 
 //*******	Local Defines **************************************************
-
-
-#define		DC_MAX_COVER_RANGE					43 //31
-#define		DC__SOLDIER_VISIBLE_RANGE			43 //31
-
-#define		DC__MIN_SIZE						4
-#define		DC__MAX_SIZE						21 //11
+// moved no longer local
 
 typedef struct
 {

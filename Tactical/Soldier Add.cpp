@@ -24,9 +24,10 @@
 #endif
 
 
-#include "GameSettings.h"	// arynn : add forced turn mode
-#include "font control.h"	// arynn : add forced turn mode
-#include "message.h"		// arynn : add forced turn mode
+#include "GameSettings.h"	// ary-05/05/2009 : add forced turn mode
+#include "text.h"			//	: add forced turn mode
+#include "font control.h"	//	: add forced turn mode
+#include "message.h"		//  : add forced turn mode
 #include "connect.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -1531,17 +1532,17 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubDir
 			if ( pSoldier->ubBodyType != BLOODCAT )
 			{
 				SetEnemyPresence( );
-				// arynn : add forced turn mode : note : not for bloodcats..
-				// arynn : add forced turn mode : note : no forced turn mode option for Multi Player
+				// ary-05/05/2009 : add forced turn mode : note : not for bloodcats..
+				//  : note : no forced turn mode option for Multi Player
 				if ( is_networked ) gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] = FALSE;
 				if ( gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ])
 				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Forced Turn Mode Active, Entering Combat" );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_FTM_ENTER_COMBAT ] );
 					if( Random( 100 ) >= Random( 100 ) ) // give a chance for either to go first
 						EnterCombatMode( OUR_TEAM );
 					else
 						EnterCombatMode( ENEMY_TEAM );
-				}// arynn : add forced turn mode
+				}
 			}
 		}
 	}

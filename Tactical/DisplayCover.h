@@ -10,6 +10,12 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo );
 void RemoveVisibleGridNoAtSelectedGridNo();
 void DisplayGridNoVisibleToSoldierGrid( );
 
+
+#define		DC_MAX_COVER_RANGE					43 //31
+#define		DC__SOLDIER_VISIBLE_RANGE			43 //31
+#define		DC__MIN_SIZE						4
+#define		DC__MAX_SIZE						21 //11
+
 #ifdef JA2TESTVERSION
 	void DisplayLosAndDisplayCoverUsageScreenMsg();
 #endif

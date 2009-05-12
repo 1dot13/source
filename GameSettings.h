@@ -4,9 +4,10 @@
 #include "Types.h"
 
 
-//If you add any options, MAKE sure you add the corresponding string to the Options Screen string array
-//	 look up : zOptionsScreenHelpText , zOptionsToggleText , InitGameSettings , 
-//	 also, to establish non typical display rules (options screen list) : Establish_Options_Screen_Rules
+//If you add any options, MAKE sure you add the corresponding string to the Options Screen string array.
+//	 look up : zOptionsScreenHelpText , zOptionsToggleText
+//Also, define its initialization and add its load/save to INI lines in : InitGameSettings() , SaveGameSettings() , LoadGameSettings()
+//Also, to establish non typical display rules (options screen list) : Establish_Options_Screen_Rules()
 enum
 {
 	TOPTION_SPEECH,
@@ -20,35 +21,28 @@ enum
 	TOPTION_DONT_MOVE_MOUSE,
 	TOPTION_OLD_SELECTION_METHOD,
 	TOPTION_ALWAYS_SHOW_MOVEMENT_PATH,
-
-
 //	TOPTION_TIME_LIMIT_TURNS,			//moved to the game init screen
-
 	TOPTION_SHOW_MISSES,
-
 	TOPTION_RTCONFIRM,
-
-
-//	TOPTION_DISPLAY_ENEMY_INDICATOR,		//Displays the number of enemies seen by the merc, ontop of their portrait
+//	TOPTION_DISPLAY_ENEMY_INDICATOR,	//Displays the number of enemies seen by the merc, ontop of their portrait
 	TOPTION_SLEEPWAKE_NOTIFICATION,
-
-	TOPTION_USE_METRIC_SYSTEM,		//If set, uses the metric system
-
+	TOPTION_USE_METRIC_SYSTEM,			//If set, uses the metric system
 	TOPTION_MERC_ALWAYS_LIGHT_UP,
-
 	TOPTION_SMART_CURSOR,
-
 	TOPTION_SNAP_CURSOR_TO_DOOR,
-
 	TOPTION_GLOW_ITEMS,
 	TOPTION_TOGGLE_TREE_TOPS,
 	TOPTION_TOGGLE_WIREFRAME,
 	TOPTION_3D_CURSOR,
 	TOPTION_CTH_CURSOR,
+
+	//Madd:
 	TOPTION_GL_BURST_CURSOR,
 	TOPTION_DROP_ALL,
 	TOPTION_GL_HIGH_ANGLE,
 	TOPTION_AIM_LEVEL_RESTRICTION,
+
+	//lalien
 	TOPTION_SPACE_SELECTS_NEXT_SQUAD,
 	TOPTION_SHOW_ITEM_SHADOW,
 	TOPTION_SHOW_WEAPON_RANGE_IN_TILES,
@@ -60,85 +54,31 @@ enum
 	TOPTION_SILENT_SKYRIDER,
 	TOPTION_LOW_CPU_USAGE,
 	TOPTION_ENHANCED_DESC_BOX,
-	TOPTION_TOGGLE_TURN_MODE,					// arynn : add forced turn mode
-	TOPTION_SHOW_RESET_ALL_OPTIONS,				// arynn : in game ja2.set file fixer (one time done button, not a reall toggle option)
-	TOPTION_RESET_ALL_OPTIONS,					// arynn : in game ja2.set file fixer (one time done button, not a reall toggle option)
-
-	TOPTION_DEBUG_MODE_OPTIONS_HEADER,			// arynn : a sample options screen options header
-	TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE,	// arynn : allow debug options that were set in debug.exe to continue in a rel.exe that shares same JA2.set file
-	TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP,	// arynn : a sample option which affects options screen listing only
-	TOPTION_RENDER_MOUSE_REGIONS,				// arynn : a sample DEBUG build option
-	TOPTION_DEBUG_MODE_OPTIONS_END,				// arynn : a sample options screen options divider
-
-	//TOPTION PADDIN : go ahead, use one of em, just try to keep the # inline with where they are in foptions[] so the # makes sense
-	TOPTION_044,
-	TOPTION_045,
-	TOPTION_046,
-	TOPTION_047,
-	TOPTION_048,
-	TOPTION_049,
-	TOPTION_050,
-	TOPTION_051,
-	TOPTION_052,
-	TOPTION_053,
-	TOPTION_054,
-	TOPTION_055,
-	TOPTION_056,
-	TOPTION_057,
-	TOPTION_058,
-	TOPTION_059,
-	TOPTION_060,
-	TOPTION_061,
-	TOPTION_062,
-	TOPTION_063,
-	TOPTION_064,
-	TOPTION_065,
-	TOPTION_066,
-	TOPTION_067,
-	TOPTION_068,
-	TOPTION_069,
-	TOPTION_070,
-	TOPTION_071,
-	TOPTION_072,
-	TOPTION_073,
-	TOPTION_074,
-	TOPTION_075,
-	TOPTION_076,
-	TOPTION_077,
-	TOPTION_078,
-	TOPTION_079,
-	TOPTION_080,
-	TOPTION_081,
-	TOPTION_082,
-	TOPTION_083,
-	TOPTION_084,
-	TOPTION_085,
-	TOPTION_086,
-	TOPTION_087,
-	TOPTION_088,
-	TOPTION_089,
-	TOPTION_090,
-	TOPTION_091,
-	TOPTION_092,
-	TOPTION_093,
-	TOPTION_094,
-	TOPTION_095,
-	TOPTION_096,
-	TOPTION_097,
-	TOPTION_098,
-	TOPTION_099,
-	TOPTION_100,
-
-	// arynn : this is THE LAST option that exists (intended for debugging the options screen, doesnt do anything, except exist)
-	TOPTION_LAST_OPTION, 
-	NUM_GAME_OPTIONS,				//Toggle up this will be able to be Toggled by the player
 	
+	// arynn
+	TOPTION_TOGGLE_TURN_MODE,					
+	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
+	TOPTION_FORCE_BOBBY_RAY_SHIPMENTS,			// force all pending Bobby Ray shipments
+	TOPTION_CHEAT_MODE_OPTIONS_END,
+	TOPTION_DEBUG_MODE_OPTIONS_HEADER,			// an example options screen options header (pure text)                                                         
+	TOPTION_SHOW_RESET_ALL_OPTIONS,				// failsafe show/hide option to reset all options 
+	TOPTION_RESET_ALL_OPTIONS,					// a do once and reset self option (button like effect)                                                         
+	TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE,	// allow debug options that were set in debug.exe to continue in a rel.exe (debugging release can be beneficial)
+	TOPTION_DEBUG_MODE_RENDER_OPTIONS_GROUP,	// an example option that will show/hide other options                                                          
+	TOPTION_RENDER_MOUSE_REGIONS,				// an example of a DEBUG build option                                                                           
+	TOPTION_DEBUG_MODE_OPTIONS_END,				// an example options screen options divider (pure text)   
+
+	// this is THE LAST option that exists (intended for debugging the options screen, doesnt do anything, except exist)
+	TOPTION_LAST_OPTION, 
+	NUM_GAME_OPTIONS,							// Toggles prior to this will be able to be toggled by the player
 
 	//These options will NOT be toggable by the Player
-	TOPTION_MERC_CASTS_LIGHT = NUM_GAME_OPTIONS,
+
+	// JA2Gold
+	TOPTION_MERC_CASTS_LIGHT,
+
 	TOPTION_HIDE_BULLETS,
 	TOPTION_TRACKING_MODE,
-	
 
 	NUM_ALL_GAME_OPTIONS,
 };	
@@ -146,27 +86,21 @@ enum
 
 typedef struct
 {
-	INT8				bLastSavedGameSlot;							// The last saved game number goes in here	
+	INT8				bLastSavedGameSlot;					// The last saved game number goes in here	
 
-	UINT8				ubMusicVolumeSetting;
-	UINT8				ubSoundEffectsVolume;
-	UINT8				ubSpeechVolume;
+	UINT8				ubMusicVolumeSetting;               // Volume Setting
+	UINT8				ubSoundEffectsVolume;               // Volume Setting
+	UINT8				ubSpeechVolume;                     // Volume Setting
 
 	//The following are set from the status of the toggle boxes in the Options Screen
-	UINT8				fOptions[ NUM_ALL_GAME_OPTIONS ];
+	UINT8				fOptions[ NUM_ALL_GAME_OPTIONS ];	// Toggle Options (Speech, Subtitles, Show Tree Tops, etc.. )
 
-	CHAR8				zVersionNumber[14];
+	UINT32				uiMeanwhileScenesSeenFlags;         // Bit Vector describing seen 'mean whiles..' (not sure why this is in Game Settings )
 
-	UINT32			uiSettingsVersionNumber;
-	UINT32			uiMeanwhileScenesSeenFlags;
+	BOOLEAN				fHideHelpInAllScreens;              // Controls Help "do not show help again" checkbox
 
-	BOOLEAN			fHideHelpInAllScreens;
-
-	BOOLEAN				fUNUSEDPlayerFinishedTheGame; // JA2Gold: for UB compatibility
-	UINT8				ubSizeOfDisplayCover;
-	UINT8				ubSizeOfLOS;
-
-	UINT8		ubFiller[17];
+	UINT8				ubSizeOfDisplayCover;               // The number of grids the player designates thru "Delete + '=' or '-'"
+	UINT8				ubSizeOfLOS;                        // The number of grids the player designates thru "End    + '=' or '-'"
 
 }	GAME_SETTINGS;
 

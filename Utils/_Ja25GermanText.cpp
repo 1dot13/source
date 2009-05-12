@@ -8,6 +8,9 @@
 	#include "Fileman.h"
 #endif
 
+//suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
+void this_is_the_Ja25GermanText_public_symbol(void){;}
+
 #ifdef GERMAN
 
 // VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD

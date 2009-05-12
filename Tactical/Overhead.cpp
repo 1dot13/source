@@ -5729,7 +5729,7 @@ void ExitCombatMode( )
 
 	EndTopMessage( );
 
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Exit combat mode");// arynn : add forced turn mode
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_FTM_EXIT_COMBAT ] );// ary-05/05/2009 : add forced turn mode
 
 	// OK, we have exited combat mode.....
 	// Reset some flags for no aps to move, etc
@@ -5749,7 +5749,7 @@ void ExitCombatMode( )
 				{
 					pSoldier->AdjustNoAPToFinishMove( FALSE );
 
-					// arynn : fix lower ready weapons
+					// ary-05/05/2009 : fix lower ready weapons
 					//previously "ready weapon" state was being dropped in a couple of cases
 					//the fix involves bypassing the reset animation state for the various "ready weapon" types
 					//since this is a reset animation function, we should be VERY specific about when and what we dont reset
@@ -5762,7 +5762,7 @@ void ExitCombatMode( )
 						)) 
 					{
 						pSoldier->SoldierGotoStationaryStance( );
-					}// arynn : fix lower ready weapon end_if					
+					}				
 				}
 
 				//Cancel pending events
@@ -6099,9 +6099,9 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 
 	// If we have reach a point where a cons. number of turns gone by....
 	//if ( gTacticalStatus.bConsNumTurnsNotSeen > 1 )
-	// arynn : add forced turn mode : note : no forced turn mode option for Multi Player
+	// ary-05/05/2009 : add forced turn mode : note : no forced turn mode option for Multi Player
 	if ( is_networked ) gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ] = FALSE;
-	if ( gTacticalStatus.bConsNumTurnsNotSeen > 1 && !gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ])// arynn : add forced turn mode
+	if ( gTacticalStatus.bConsNumTurnsNotSeen > 1 && !gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ])
 	{
 
 		if(is_networked && !getReal)//hayden

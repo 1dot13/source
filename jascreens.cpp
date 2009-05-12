@@ -429,12 +429,32 @@ UINT32 InitScreenHandle(void)
 		// Handle queued .ini file error messages
  		int y = 40;
 		while (! iniErrorMessages.empty()) {
+			FILE *file_pointer;
+			static BOOL iniErrorMessage_create_out_file = TRUE;
 			std::string iniErrorMessage = iniErrorMessages.top();
-			y += 10;
 			CHAR16 str[256];
+
+			if (iniErrorMessage_create_out_file)
+			{
+				fopen_s( &file_pointer, "..\\ERROR_REPORT.iniErrorMessages.txt", "w" );
+				y += 25;
+				swprintf( str, L"%S", "ERROR_REPORT.iniErrorMessages.txt has been created. Please review its content." );
+				DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
+				iniErrorMessage_create_out_file = FALSE;
+			}
+			else
+			{
+				fopen_s( &file_pointer, "..\\ERROR_REPORT.iniErrorMessages.txt", "a+" );
+			}
+
+			y += 25;
 			swprintf( str, L"%S", iniErrorMessage.c_str() );
+			fprintf_s (file_pointer , "%S\n"  , str );
+			fclose( file_pointer );
 		    DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 			iniErrorMessages.pop();
+
+			if (iniErrorMessages.empty()) {for(int x=0 ; x <= 65535*2 ; x++);}
 		}
 
 		InvalidateScreen( );
