@@ -4694,9 +4694,9 @@ STR16 MPServerMessage[] =
 	L"Подождите пожалуйста, игроки все еще загружаются...",
 	L"Вы не можете изменять зону высадки после запуска сервера.",
 	// 10
-	L"Sent file '%S' - 100/100",
-	L"Finished sending files to '%S'.",
-	L"Started sending files to '%S'.",
+	L"Отправка файла '%S' - 100/100",	//Sent file '%S' - 100/100
+	L"Завершена отправка файлов для '%S'.",	//Finished sending files to '%S'.
+	L"Начата отправка файлов для '%S'.",	//Started sending files to '%S'.
 };
 
 STR16 MPClientMessage[] =
@@ -4758,32 +4758,32 @@ STR16 MPClientMessage[] =
 	L"Извините, залезать на крышу в сетевой игре запрещено.",
 	L"Вы наняли %s.",
 	// 45
-	L"You cant change the map once purchasing has commenced",
-	L"Map changed to '%s'",
-	L"Client '%s' disconnected, removing from game",
-	L"You were disconnected from the game, returning to the Main Menu",
-	L"Connection failed, Retrying in 5 seconds, %i retries left...",
+	L"Вы не можете изменить карту после начала закупки.",	//You cant change the map once purchasing has commenced
+	L"Карта изменена на '%s'",	//Map changed to '%s'
+	L"Клиент '%s' отключился, убираем его из игры.",	//Client '%s' disconnected, removing from game
+	L"Вы были отключены от игры, возвращаемся в главное меню.",	//You were disconnected from the game, returning to the Main Menu
+	L"Подключиться не удалось. Повторная попытка через 5 секунд (осталось %i попыток)",	//Connection failed, Retrying in 5 seconds, %i retries left...
 	//50
-	L"Connection failed, giving up...",
-	L"You cannot start the game until another player has connected",
+	L"Подключиться не удалось, сдаюсь...",	//Connection failed, giving up...
+	L"Вы не можете начать игру во время подключения других игроков.",	//You cannot start the game until another player has connected
 	L"%s : %s",
-	L"Send to All",
-	L"Allies only",
+	L"Отправить всем",	//Send to All
+	L"Только союзникам",	//Allies only
 	// 55
-	L"Cannot join game. This game has already started.",
-	L"%s (team): %s",
-	L"Client #%i - '%s'",
+	L"Не могу присоединиться к игре. Игра уже началась.",	//Cannot join game. This game has already started.
+	L"%s (команда): %s",	//%s (team): %s
+	L"Клиент #%i - '%s'",	//Client #%i - '%s'
 	L"%S - 100/100",
 	L"%S - %i/100",
 	// 60
-	L"Received all files from server.",
-	L"'%S' finished downloading from server.",
-	L"'%S' started downloading from server.",
-	L"Cannot start the game until all clients have finished receiving files",
-	L"This server requires that you download modified files to play, do you wish to continue?",
+	L"От сервера получены все необходимые файлы.",	//Received all files from server.
+	L"'%S' закачка с сервера завершена.",	//'%S' finished downloading from server.
+	L"'%S' начата закачка с сервера.",	//'%S' started downloading from server.
+	L"Нельзя начать игру пока все игроки не завершать приём файлов от сервера.",	//Cannot start the game until all clients have finished receiving files
+	L"Для игры на этом сервере необходимо скачать некоторые изменённые файлы, желаете продолжить?",	//This server requires that you download modified files to play, do you wish to continue?
 	// 65
-	L"Press 'Ready' to enter tactical screen.",
-	L"Cannot connect because your version %S is different from the server version %S.",
+	L"Нажмите 'Готов' для входа на тактическую карту.",	//Press 'Ready' to enter tactical screen.
+	L"Не удаётся подключиться. Версия вашего клиента (%S) отличается от версии сервера (%S).",	//Cannot connect because your version %S is different from the server version %S.
 };
 
 STR16 MPHelp[] =
@@ -4837,7 +4837,7 @@ STR16 gszMPMapscreenText[] =
 	L"Случ. бойцы: ",	//Random Mercs: 
 	L"Да",			//Y
 	L"Сложность:",		//Difficulty:
-	L"Server Version:",
+	L"Версия сервера:",	//Server Version:
 };
 
 STR16 gzMPSScreenText[] =
