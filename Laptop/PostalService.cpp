@@ -444,7 +444,10 @@ BOOLEAN CPostalService::LoadShipmentListFromSaveGameFile(HWFILE hFile)
 		}
 
 		// Add shipment
-		memset(&shs, 0, sizeof(ShipmentStruct));
+
+		// WANNE: Bugfix: Fixed CTD in VS 2008 Release EXE (by birdflu)
+		//memset(&shs, 0, sizeof(ShipmentStruct));
+
 		shs.pDestination	= &(_GetDestination(sfs.usDestinationID));
 		shs.pDestinationDeliveryInfo = &(_DeliveryMethods[sfs.ubDeliveryMethodIndex].pDestinationDeliveryInfos->at(sfs.usDestinationID));
 		shs.ShipmentStatus	= sfs.ShipmentStatus;
