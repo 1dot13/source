@@ -829,7 +829,7 @@ void HourlyMoraleUpdate( void )
 					}
 
 					// WANNE: Fix by Headrock: Morale and the ice-cream truck.
-					if (pOtherSoldier->ubProfile < 75)
+					if (OKToCheckOpinion(pOtherSoldier->ubProfile))
                     {
                         bOpinion = pProfile->bMercOpinion[ pOtherSoldier->ubProfile ];
                     }

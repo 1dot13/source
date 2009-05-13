@@ -4270,7 +4270,8 @@ void DebugSoldierPage3( )
 			SetFontShade(LARGEFONT1, FONT_SHADE_GREEN);
 			gprintf( 0, LINE_HEIGHT * ubLine, L"NPC Opinion:");
 			SetFontShade(LARGEFONT1, FONT_SHADE_NEUTRAL);
-			gprintf( 150, LINE_HEIGHT * ubLine, L"%d", gMercProfiles[ pSoldier->ubProfile ].bMercOpinion[ MercPtrs[ gusSelectedSoldier ]->ubProfile ] );
+			if (OKToCheckOpinion(MercPtrs[ gusSelectedSoldier ]->ubProfile))
+			        gprintf( 150, LINE_HEIGHT * ubLine, L"%d", gMercProfiles[ pSoldier->ubProfile ].bMercOpinion[ MercPtrs[ gusSelectedSoldier ]->ubProfile ] );
 			ubLine++;
 		}
 

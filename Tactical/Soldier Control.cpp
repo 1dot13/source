@@ -1216,7 +1216,7 @@ MERCPROFILESTRUCT& MERCPROFILESTRUCT::operator=(const OLD_MERCPROFILESTRUCT_101&
 
 		memcpy( &(this->ubApproachVal), &(src.ubApproachVal), 4 * sizeof (UINT8));
 		memcpy( &(this->ubApproachMod), &(src.ubApproachMod), 3 * 4 * sizeof (UINT8));
-		memcpy( &(this->bMercOpinion), &(src.bMercOpinion), 75 * sizeof (INT8));
+		memcpy( &(this->bMercOpinion), &(src.bMercOpinion), DontUseMeDirectly::MaxIDToCheckForMorale * sizeof (INT8));
 
 		memcpy( &(this->usStatChangeChances), &(src.usStatChangeChances),  12  * sizeof (UINT16));// used strictly for balancing, never shown!
 		memcpy( &(this->usStatChangeSuccesses), &(src.usStatChangeSuccesses),  12  * sizeof (UINT16));// used strictly for balancing, never shown!

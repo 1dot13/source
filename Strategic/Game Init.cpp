@@ -697,7 +697,8 @@ void QuickSetupOfMercProfileItems( UINT32 uiCount, UINT8 ubProfileIndex )
 
 		// TEMP!
 		// make carman's opinion of us high!
-		gMercProfiles[ 78 ].bMercOpinion[ ubProfileIndex ] = 25;
+		if (OKToCheckOpinion(ubProfileIndex))
+			gMercProfiles[ 78 ].bMercOpinion[ ubProfileIndex ] = 25;
 
 	}
 	else if ( uiCount == 1 )

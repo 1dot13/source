@@ -991,8 +991,10 @@ void UpdateBuddyAndHatedCounters( void )
 										else if (pProfile->bLearnToHateCount == 0)
 										{
 											// set as bHated[2];
+											if (OKToCheckOpinion(ubOtherProfileID)) {
 											pProfile->bHated[2] = pProfile->bLearnToHate;
 											pProfile->bMercOpinion[ubOtherProfileID] = HATED_OPINION;
+											}
 
 											if (pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC || (pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__NPC && (pSoldier->ubProfile == DEVIN || pSoldier->ubProfile == SLAY || pSoldier->ubProfile == IGGY || pSoldier->ubProfile == CONRAD ) ) )
 											{
@@ -1012,8 +1014,10 @@ void UpdateBuddyAndHatedCounters( void )
 										if (pProfile->bLearnToHateCount < pProfile->bLearnToHateTime / 2)
 										{
 											// gradual opinion drop
+											if (OKToCheckOpinion(ubOtherProfileID)) {
 											pProfile->bMercOpinion[ubOtherProfileID] += (HATED_OPINION - pProfile->bMercOpinion[ubOtherProfileID]) / (pProfile->bLearnToHateCount + 1);
 										}
+									}
 									}
 									else
 									{
@@ -1045,13 +1049,17 @@ void UpdateBuddyAndHatedCounters( void )
 									if (pProfile->bLearnToLikeCount == 0)
 									{
 										// add to liked!
-										pProfile->bBuddy[2] = pProfile->bLearnToLike;
-										pProfile->bMercOpinion[ubOtherProfileID] = BUDDY_OPINION;
+										if (OKToCheckOpinion(ubOtherProfileID)) {
+											pProfile->bBuddy[2] = pProfile->bLearnToLike;
+											pProfile->bMercOpinion[ubOtherProfileID] = BUDDY_OPINION;
+										}
 									}
 									else if (pProfile->bLearnToLikeCount < pProfile->bLearnToLikeTime / 2)
 									{
 										// increase opinion of them!
-										pProfile->bMercOpinion[ubOtherProfileID] += (BUDDY_OPINION - pProfile->bMercOpinion[ubOtherProfileID]) / (pProfile->bLearnToLikeCount + 1);
+										if (OKToCheckOpinion(ubOtherProfileID)) {
+											pProfile->bMercOpinion[ubOtherProfileID] += (BUDDY_OPINION - pProfile->bMercOpinion[ubOtherProfileID]) / (pProfile->bLearnToLikeCount + 1);
+										}
 										break;
 									}
 								}

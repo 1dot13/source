@@ -78,6 +78,20 @@
 #define NEEDS_TRAINING_SKILL_VALUE 50
 #define NO_CHANCE_IN_HELL_SKILL_VALUE 0
 
+//
+// WDS 05/13/2009
+// This is a temporary fix and should be REALLY fixed someday.
+// The bMercOpinion array in MERCPROFILESTRUCT below only contains 75 entries.  That
+// means profile ID#s of 75 and beyond are not valid to be used for checking morale.
+//
+namespace DontUseMeDirectly {
+	const static int MaxIDToCheckForMorale = 75;
+}
+	
+inline bool OKToCheckOpinion(int profileNumber) {
+	return (profileNumber < DontUseMeDirectly::MaxIDToCheckForMorale);
+}
+
 
 typedef enum
 {
@@ -354,7 +368,10 @@ public:
 	INT8 bTown;
 	INT8 bTownAttachment;
 	UINT16 usOptionalGearCost;
-	INT8 bMercOpinion[75];
+	
+	// See above note near the definition of MaxIDToCheckForMorale
+	INT8 bMercOpinion[DontUseMeDirectly::MaxIDToCheckForMorale];
+
 	INT8 bApproached;
 	INT8 bMercStatus;								//The status of the merc.	If negative, see flags at the top of this file.	Positive:	The number of days the merc is away for.	0:	Not hired but ready to be.
 	INT8 bHatedTime[5];
@@ -589,7 +606,10 @@ public:
 	INT8 bTown;
 	INT8 bTownAttachment;
 	UINT16 usOptionalGearCost;
-	INT8 bMercOpinion[75];
+	
+	// See above note near the definition of MaxIDToCheckForMorale
+	INT8 bMercOpinion[DontUseMeDirectly::MaxIDToCheckForMorale];
+
 	INT8 bApproached;
 	INT8 bMercStatus;								//The status of the merc.	If negative, see flags at the top of this file.	Positive:	The number of days the merc is away for.	0:	Not hired but ready to be.
 	INT8 bHatedTime[5];
