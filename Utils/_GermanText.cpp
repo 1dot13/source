@@ -3501,10 +3501,10 @@ STR16 zOptionsToggleText[] =
 	L"Niedrige CPU Belastung",
 	L"Erw. Gegenstandsinfo (EDB)",
 	L"Erzwungener Runden-Modus",			// add forced turn mode
-	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
-	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
+	L"--Cheat Mode Optionen--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
+	L"Erwzinge Bobby Ray Lieferungen",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
-	L"--DEBUG OPTIONS--",					// an example options screen options header (pure text)
+	L"--DEBUG OPTIONEN--",					// an example options screen options header (pure text)
 	L"ALLE Einstellungen rücksetzen",		// failsafe show/hide option to reset all options
 	L"Wollen Sie wirklich rücksetzen?", 	// a do once and reset self option (button like effect)
 	L"Debug Options in other builds",		// allow debugging in release or mapeditor
@@ -3884,12 +3884,12 @@ STR16 pMessageStrings[] =
 	L"Granatwerfer schießen im normalen Winkel.",
 	L"Granatwerfer schießen im erhöhten Winkel.",
 	// forced turn mode strings
-    L"Forced Turn Mode",
-	L"Normal turn mode",
-	L"Exit combat mode",
-	L"Forced Turn Mode Active, Entering Combat",
+    L"Erzwungener Runden Modus",
+	L"Normaler Runden Modus",
+	L"Verlasse Kampf Modus",
+	L"Erzwungener Runden Modus ist aktiv, gehen in Kampf Modus",
 #ifdef JA2BETAVERSION
-	L"Spiel erfolgreich in Slot End Turn Auto Save gespeichert.",		// 83
+	L"Spiel erfolgreich im Slot End Turn Auto Save gespeichert.",		// 83
 #endif
 	L"..\\Spielstände\\MP_Spielstände", //The name of the directory where games are saved.
 	L"Client",
