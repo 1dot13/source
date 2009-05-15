@@ -70,14 +70,14 @@ int CIniReader::ReadInteger(const STR8 szSection, const STR8 szKey, int defaultV
 	//AssertLE(iniValueReadFromFile, maxValue);
 	if (iniValueReadFromFile < minValue) {
 		std::stringstream errMessage;
-		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+		errMessage << "The .ini setting " << szKey << "(" << iniValueReadFromFile
 			<< ") is outside the valid range of " << minValue << " to " << maxValue
 			<< ".  " << minValue << " will be used.";
 		iniErrorMessages.push(errMessage.str());
 		return minValue;
 	} else if (iniValueReadFromFile > maxValue) {
 		std::stringstream errMessage;
-		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+		errMessage << "The .ini setting " << szKey << "(" << iniValueReadFromFile
 			<< ") is outside the valid range of " << minValue << " to " << maxValue
 			<< ".  " << maxValue << " will be used.";
 		iniErrorMessages.push(errMessage.str());
@@ -114,14 +114,14 @@ DOUBLE CIniReader::ReadDouble(const STR8 szSection, const STR8 szKey, DOUBLE def
 
 	if (iniValueReadFromFile < minValue) {
 		std::stringstream errMessage;
-		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+		errMessage << "The .ini setting " << szKey << "(" << iniValueReadFromFile
 			<< ") is outside the valid range of " << minValue << " to " << maxValue
 			<< ".  " << minValue << " will be used.";
 		iniErrorMessages.push(errMessage.str());
 		return minValue;
 	} else if (iniValueReadFromFile > maxValue) {
 		std::stringstream errMessage;
-		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+		errMessage << "The .ini setting " << szKey << "(" << iniValueReadFromFile
 			<< ") is outside the valid range of " << minValue << " to " << maxValue
 			<< ".  " << maxValue << " will be used.";
 		iniErrorMessages.push(errMessage.str());
@@ -145,14 +145,14 @@ FLOAT CIniReader::ReadFloat(const STR8 szSection, const STR8 szKey, FLOAT defaul
 
 	if (iniValueReadFromFile < minValue) {
 		std::stringstream errMessage;
-		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+		errMessage << "The .ini setting " << szKey << "(" << iniValueReadFromFile
 			<< ") is outside the valid range of " << minValue << " to " << maxValue
 			<< ".  " << minValue << " will be used.";
 		iniErrorMessages.push(errMessage.str());
 		return minValue;
 	} else if (iniValueReadFromFile > maxValue) {
 		std::stringstream errMessage;
-		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+		errMessage << "The .ini setting " << szKey << "(" << iniValueReadFromFile
 			<< ") is outside the valid range of " << minValue << " to " << maxValue
 			<< ".  " << maxValue << " will be used.";
 		iniErrorMessages.push(errMessage.str());
@@ -163,13 +163,22 @@ FLOAT CIniReader::ReadFloat(const STR8 szSection, const STR8 szKey, FLOAT defaul
 
 BOOL CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, BOOL defaultValue)
 {
- char szResult[255];
- char szDefault[255];
- bool boolResult;
- sprintf(szDefault, "%s", defaultValue? "TRUE" : "FALSE");
- GetPrivateProfileString(szSection, szKey, szDefault, szResult, 255, m_szFileName);
- boolResult =	(strcmp(szResult, "TRUE") == 0 || strcmp(szResult, "TRUE") == 0) ? true : false;
- return boolResult;
+	char szResult[255];
+	char szDefault[255];
+	sprintf(szDefault, "%s", defaultValue? "TRUE" : "FALSE");
+	GetPrivateProfileString(szSection, szKey, szDefault, szResult, 255, m_szFileName);
+	for (int idx=0; (szResult[idx] != 0) && (idx < 255); ++idx)
+		szResult[idx] = toupper(szResult[idx]);
+	if (strcmp(szResult, "TRUE") == 0)
+		return TRUE;
+	else if (strcmp(szResult, "FALSE") == 0)
+		return FALSE;
+
+	std::stringstream errMessage;
+	errMessage << "The .ini setting " << szKey << "(" << szResult
+			   << ") is neither TRUE nor FALSE.  The value " << szDefault << " will be used.";
+	iniErrorMessages.push(errMessage.str());
+	return defaultValue;
 }
 
 
@@ -237,7 +246,7 @@ UINT32 CIniReader::ReadUINT(const STR8 szSection, const STR8 szKey, UINT32 defau
 	if (iniValueReadFromFile < minValue) 
 	{
 		std::stringstream errMessage;
-		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+		errMessage << "The .ini setting " << szKey << "(" << iniValueReadFromFile
 			<< ") is outside the valid range of " << minValue << " to " << maxValue
 			<< ".  " << minValue << " will be used.";
 		iniErrorMessages.push(errMessage.str());
@@ -246,7 +255,7 @@ UINT32 CIniReader::ReadUINT(const STR8 szSection, const STR8 szKey, UINT32 defau
 	else if (iniValueReadFromFile > maxValue) 
 	{
 		std::stringstream errMessage;
-		errMessage << "The value of the .ini setting " << szKey << "(" << iniValueReadFromFile
+		errMessage << "The .ini setting " << szKey << "(" << iniValueReadFromFile
 			<< ") is outside the valid range of " << minValue << " to " << maxValue
 			<< ".  " << maxValue << " will be used.";
 		iniErrorMessages.push(errMessage.str());
