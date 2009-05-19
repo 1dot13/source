@@ -4531,7 +4531,7 @@ STR16 New113Message[] =
 
 STR16 New113HAMMessage[] =
 {
-	L"%s 害怕到抖缩。",//	L"%s cowers in fear!",
+	L"%s 被火力压制！",//	L"%s cowers in fear!",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
