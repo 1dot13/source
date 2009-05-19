@@ -93,7 +93,7 @@ typedef struct
 	UINT8				ubSpeechVolume;                     // Volume Setting
 
 	//The following are set from the status of the toggle boxes in the Options Screen
-	UINT8				fOptions[ NUM_ALL_GAME_OPTIONS ];	// Toggle Options (Speech, Subtitles, Show Tree Tops, etc.. )
+	BOOLEAN				fOptions[ NUM_ALL_GAME_OPTIONS + 1 ];	// Toggle Options (Speech, Subtitles, Show Tree Tops, etc.. )
 
 	UINT32				uiMeanwhileScenesSeenFlags;         // Bit Vector describing seen 'mean whiles..' (not sure why this is in Game Settings )
 

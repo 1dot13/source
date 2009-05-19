@@ -27,7 +27,7 @@ CIniReader::CIniReader(const STR8	szFileName)
 	}
 }
 
-CIniReader::CIniReader(const STR8	szFileName, BOOL Force_Custom_Data_Path)
+CIniReader::CIniReader(const STR8	szFileName, BOOLEAN Force_Custom_Data_Path)
 {
 	// ary-05/05/2009 : force custom data path for potential non existing file -or- force default data path
 	//       : Also, flag file detection to allow functions to determine course of action for case of file [not found/is found].
@@ -161,7 +161,7 @@ FLOAT CIniReader::ReadFloat(const STR8 szSection, const STR8 szKey, FLOAT defaul
 	return iniValueReadFromFile;
 }
 
-BOOL CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, BOOL defaultValue)
+BOOLEAN CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, BOOLEAN defaultValue)
 {
 	char szResult[255];
 	char szDefault[255];
@@ -182,12 +182,14 @@ BOOL CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, BOOL defaul
 }
 
 
-STR8	CIniReader::ReadString(const STR8	szSection, const STR8	szKey, const STR8	szDefaultValue)
+// ary-05/15/2009 : snippet on how to use CIniReader::ReadString
+//	const  STR8 test_ini_string = new char[255];
+//	memset(test_ini_string, 0x00, 255);
+//	iniReader.ReadString("JA2 Game Settings" , "TEST_STRING" , "default string" , test_ini_string , 255 );
+
+void CIniReader::ReadString(const STR8 szSection, const STR8 szKey, const STR8 szDefaultValue, STR8 input_buffer, size_t buffer_size)
 {
- STR8	szResult = new char[255];
- memset(szResult, 0x00, 255);
- GetPrivateProfileString(szSection,	szKey, szDefaultValue, szResult, 255, m_szFileName);
- return szResult;
+	GetPrivateProfileString(szSection,	szKey, szDefaultValue, input_buffer, buffer_size, m_szFileName);
 }
 
 
@@ -237,7 +239,7 @@ UINT32 CIniReader::ReadUINT(const STR8 szSection, const STR8 szKey, UINT32 defau
 
 	sprintf(szDefault, "%u", defaultValue);
 
-	sprintf_s(	szResult , (size_t) 255 , "%s",   this->ReadString (szSection , szKey , szDefault ));
+	this->ReadString (szSection , szKey , szDefault, szResult, (size_t) 255 );
 	iniValueReadFromFile = (UINT32) strtoul(szResult,NULL,0);
 
 	//AssertGE(iniValueReadFromFile, minValue);

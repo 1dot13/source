@@ -21,17 +21,17 @@ class CIniReader
 {
 public:
 	CIniReader(const STR8 szFileName);
-	CIniReader(const STR8 szFileName, BOOL Force_Custom_Data_Path); // force path for nonexisting INI files
+	CIniReader(const STR8 szFileName, BOOLEAN Force_Custom_Data_Path); // force path for nonexisting INI files
 
 	// Warning: the following function will be removed
 	int ReadInteger(const STR8 szSection, const STR8 szKey, int iDefaultValue);
 	int ReadInteger(const STR8 szSection, const STR8 szKey, int defaultValue, int minValue, int maxValue);
 
-	//UINT32 CIniReader::testReadUINT32(void);//various limit tests of UINT and double/float handling
+	//void testReadUINT32(void);//various limit tests of UINT and double/float handling
 	//front end functions that control type interpretation and range control, each calls internal ReadUINT
-	UINT32 CIniReader::ReadUINT32(const STR8 szSection, const STR8 szKey, UINT32 defaultValue, UINT32 minValue, UINT32 maxValue);
-	UINT16 CIniReader::ReadUINT16(const STR8 szSection, const STR8 szKey, UINT16 defaultValue, UINT16 minValue, UINT16 maxValue);
-	UINT8  CIniReader::ReadUINT8 (const STR8 szSection, const STR8 szKey, UINT8  defaultValue, UINT8  minValue, UINT8  maxValue);
+	UINT32 ReadUINT32(const STR8 szSection, const STR8 szKey, UINT32 defaultValue, UINT32 minValue, UINT32 maxValue);
+	UINT16 ReadUINT16(const STR8 szSection, const STR8 szKey, UINT16 defaultValue, UINT16 minValue, UINT16 maxValue);
+	UINT8  ReadUINT8 (const STR8 szSection, const STR8 szKey, UINT8  defaultValue, UINT8  minValue, UINT8  maxValue);
 
 	// Warning: the following function will be removed
 	//double ReadDouble(const STR8 szSection, const STR8 szKey, double fltDefaultValue);
@@ -40,17 +40,17 @@ public:
 	DOUBLE ReadDouble(const STR8 szSection, const STR8 szKey, DOUBLE defaultValue, DOUBLE minValue, DOUBLE maxValue);
 	FLOAT  ReadFloat (const STR8 szSection, const STR8 szKey, FLOAT  defaultValue, FLOAT  minValue, FLOAT  maxValue);
 
-	BOOL ReadBoolean(const STR8	szSection, const STR8 szKey, BOOL bolDefaultValue);
+	BOOLEAN ReadBoolean(const STR8	szSection, const STR8 szKey, BOOLEAN bolDefaultValue);
 
-	STR8 ReadString(const STR8 szSection, const STR8 szKey, const STR8	szDefaultValue);
-	
-	BOOL Is_CIniReader_File_Found(void) {return (CIniReader_File_Found);}
+	void ReadString(const STR8 szSection, const STR8 szKey, const STR8 szDefaultValue, STR8 input_buffer, size_t buffer_size);
+
+	BOOLEAN Is_CIniReader_File_Found(void) {return (CIniReader_File_Found);}
 
 private:
 	char m_szFileName[MAX_PATH];
-	BOOL CIniReader_File_Found;
+	BOOLEAN CIniReader_File_Found;
 
-	UINT32 CIniReader::ReadUINT(const STR8 szSection, const STR8 szKey, UINT32 defaultValue, UINT32 minValue, UINT32 maxValue);
+	UINT32 ReadUINT(const STR8 szSection, const STR8 szKey, UINT32 defaultValue, UINT32 minValue, UINT32 maxValue);
 
 };
 
