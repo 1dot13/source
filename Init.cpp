@@ -573,8 +573,42 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcpy(fileName, directoryName);
 	strcat(fileName, SHIPPINGDESTINATIONSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInShippingDestinations(fileName))
+	if(!ReadInShippingDestinations(fileName, FALSE))
 		return FALSE;
+
+#ifdef GERMAN 
+	AddLanguagePrefix( fileName, GERMAN_PREFIX);
+#endif
+#ifdef RUSSIAN 
+	AddLanguagePrefix( fileName, RUSSIAN_PREFIX);
+#endif
+#ifdef DUTCH 
+	AddLanguagePrefix( fileName, DUTCH_PREFIX);
+#endif
+#ifdef POLISH 
+	AddLanguagePrefix( fileName, POLISH_PREFIX);
+#endif
+#ifdef FRENCH 
+	AddLanguagePrefix( fileName, FRENCH_PREFIX);
+#endif
+#ifdef ITALIAN 
+	AddLanguagePrefix( fileName, ITALIAN_PREFIX);
+#endif
+#ifdef TAIWANESE 
+	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
+#endif
+#ifdef CHINESE
+	AddLanguagePrefix( fileName, CHINESE_PREFIX);
+#endif
+#ifndef ENGLISH
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInShippingDestinations(fileName, TRUE))
+			return FALSE;
+	}
+#endif
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, DELIVERYMETHODSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));

@@ -231,7 +231,7 @@ extern BOOLEAN WriteInArmyCompositionInfo(STR fileName);
 extern BOOLEAN ReadInRoamingInfo(STR filename);
 
 // Dealtar: New shipping system XMLs
-extern BOOLEAN ReadInShippingDestinations(STR fileName);
+extern BOOLEAN ReadInShippingDestinations(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN ReadInDeliveryMethods(STR fileName);
 //Gotthard: Laptop Florist Text
 extern BOOLEAN ReadInFloristText(STR fileName);

@@ -37,6 +37,8 @@ struct
 }
 typedef destinationParseData;
 
+BOOLEAN ShippingDestinations_TextOnly;
+
 static void XMLCALL
 destinationStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
@@ -104,7 +106,34 @@ destinationEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT_LIST;
 			
-			gPostalService.AddDestination(pData->tempDest.uiIndex, pData->tempDest.ubMapX, pData->tempDest.ubMapY, pData->tempDest.ubMapZ, pData->tempDest.sGridNo, pData->tempDest.szName);
+			if( !ShippingDestinations_TextOnly )
+			{
+				// We are reading the base data in the first pass of the file
+				gPostalService.AddDestination(pData->tempDest.uiIndex, pData->tempDest.ubMapX, pData->tempDest.ubMapY, pData->tempDest.ubMapZ, pData->tempDest.sGridNo, pData->tempDest.szName);
+			}
+			else
+			{
+				// We are in second pass, during the loadup of the localization file.
+				// We should have legitimate data for the <uiIndex> and <name> elements.
+				// using uiIndex, iterate thru gPostalService::_Destinations till we find the correct 
+				// DestinationStruct, and change its wstrName
+
+				RefToDestinationListIterator dli = gPostalService.LookupDestinationList().begin();
+				
+				while(DESTINATION(dli).uiIndex != pData->tempDest.uiIndex)
+				{
+					dli++;
+					if(dli == gPostalService.LookupDestinationList().end() )
+					{
+						// this doesnt really work, displays a message but then exits imediately, 
+						// but at least it doesnt generate a software exception.. which would prolly actually make this string readable
+						AssertMsg( 0, "Loading invalid uiIndex inside ShippingDestinations.xml." );
+					}
+					
+				}
+				DESTINATION(dli).wstrName = pData->tempDest.szName; 
+
+			}
 		}
 		else if(strcmp(name, "name") == 0)
 		{
@@ -146,7 +175,7 @@ destinationEndElementHandle(void *userData, const XML_Char *name)
 	pData->currentDepth--;
 }
 
-BOOLEAN ReadInShippingDestinations(STR fileName)
+BOOLEAN ReadInShippingDestinations(STR fileName, BOOLEAN localizedVersion)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -156,34 +185,41 @@ BOOLEAN ReadInShippingDestinations(STR fileName)
 
 	destinationParseData pData;
 
+	ShippingDestinations_TextOnly = localizedVersion;
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading ShippingDestinations.xml" );
 
+	// Open ShippingDestinations.xml
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-
+	
+	// Get ShippingDestinations.xml file size and alloc buffer
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
-
+	
+	//Read in ShippingDestinations.xml to the buffer
 	if ( !FileRead( hFile, lpcBuffer, uiFSize, &uiBytesRead ) )
 	{
 		MemFree(lpcBuffer);
 		return( FALSE );
 	}
 
-	lpcBuffer[uiFSize] = 0;
+	lpcBuffer[uiFSize] = 0; // terminator for buffer array
 
-	FileClose( hFile );
+	FileClose( hFile ); // done with ShippingDestinations.xml
 
+	// setup Interpreter Callback functions
 	XML_SetElementHandler(parser, destinationStartElementHandle, destinationEndElementHandle);
 	XML_SetCharacterDataHandler(parser, destinationCharacterDataHandle);
 
+	// Initialize Data container
 	memset(&pData,0,sizeof(pData));
 	pData.maxArraySize = sizeof(UINT16);
 	pData.curIndex = -1;
 
-	XML_SetUserData(parser, &pData);
+	XML_SetUserData(parser, &pData); // establish address of data container for Interpreter callbacks
 
+	// Parse the buffer, 
 	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
