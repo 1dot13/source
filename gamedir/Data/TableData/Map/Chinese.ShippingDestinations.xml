@@ -2,35 +2,35 @@
 <DESTINATIONLIST>
 	<DESTINATION>
 		<uiIndex>0</uiIndex>
-		<name>Austin</name>
+		<name>奥斯汀</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>1</uiIndex>
-		<name>Baghdad</name>
+		<name>巴格达</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>2</uiIndex>
-		<name>Drassen</name>		
+		<name>Drassen</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>3</uiIndex>
-		<name>Hong Kong</name>
+		<name>香港</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>4</uiIndex>
-		<name>Beirut</name>
+		<name>贝鲁特</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>5</uiIndex>
-		<name>London</name>
-	</DESTINATION>	
+		<name>伦敦</name>
+	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>6</uiIndex>
-		<name>Los Angeles</name>
+		<name>洛杉矶</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>7</uiIndex>
-		<name>Meduna</name>		
+		<name>Meduna</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>8</uiIndex>
@@ -38,34 +38,34 @@
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>9</uiIndex>
-		<name>Miami</name>
+		<name>迈阿密</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>10</uiIndex>
-		<name>Moscow</name>
+		<name>莫斯科</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>11</uiIndex>
-		<name>New York</name>
+		<name>纽约</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>12</uiIndex>
-		<name>Ottawa</name>
+		<name>渥太华</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>13</uiIndex>
-		<name>Paris</name>
+		<name>巴黎</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>14</uiIndex>
-		<name>Tripoli</name>
+		<name>的黎波里</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>15</uiIndex>
-		<name>Tokyo</name>
+		<name>东京</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>16</uiIndex>
-		<name>Vancouver</name>
+		<name>温哥华</name>
 	</DESTINATION>
 </DESTINATIONLIST>
