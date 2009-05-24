@@ -342,7 +342,9 @@ void BobbyRDeliveryCallback(RefToCShipmentManipulator ShipmentManipulator)
 {
 	// ScreenMsg(FONT_MCOLOR_RED, MSG_DEBUG, L"Shipment from Bobby Ray has arrived at %s!", ShipmentManipulator.GetDestination().wstrName.c_str());
 	gusCurShipmentDestinationID = ShipmentManipulator.GetDestination().usID;
-	AddEmail( BOBBYR_SHIPMENT_ARRIVED, BOBBYR_SHIPMENT_ARRIVED_LENGTH, BOBBY_R, GetWorldTotalMin(), -1 );
+	// WANNE - MP: Do not send email notification from Bobby Ray in a multiplayer game
+	if (!is_networked)
+		AddEmail( BOBBYR_SHIPMENT_ARRIVED, BOBBYR_SHIPMENT_ARRIVED_LENGTH, BOBBY_R, GetWorldTotalMin(), -1 );
 }
 
 
@@ -821,7 +823,7 @@ void BtnBobbyRAcceptOrderCallback(GUI_BUTTON *btn,INT32 reason)
 				if( (gDestinationTable[gbSelectedCity]->ubMapX >= 0 ||
 					 gDestinationTable[gbSelectedCity]->ubMapY >= 0 ||
 					 gDestinationTable[gbSelectedCity]->sGridNo >= 0) &&				
-					 !StrategicMap[ CALCULATE_STRATEGIC_INDEX(gDestinationTable[gbSelectedCity]->ubMapX, gDestinationTable[gbSelectedCity]->ubMapY) ].fEnemyControlled )
+					 !StrategicMap[ CALCULATE_STRATEGIC_INDEX(gDestinationTable[gbSelectedCity]->ubMapX, gDestinationTable[gbSelectedCity]->ubMapY) ].fEnemyControlled || is_client)
 				//End Dealtar's Code.
 				{
 					//Quick hack to bypass the confirmation box

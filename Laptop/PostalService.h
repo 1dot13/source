@@ -205,6 +205,7 @@ public:
 	BOOLEAN AddPackageToShipment(UINT16 usShipmentID, UINT16 usItemIndex, UINT8 ubNumber, INT8 bItemQuality); 
 	BOOLEAN SendShipment(UINT16 usShipmentID);
 	BOOLEAN DeliverShipment(UINT16 usShipmentID);
+	BOOLEAN DeliverShipmentForMultiplayer(UINT16 usShipmentID);
 	BOOLEAN RegisterDeliveryCallback(INT16 sSenderID, PtrToDeliveryCallbackFunc DeliveryCallbackFunc);	
 	
 	// Interfaces
@@ -228,6 +229,7 @@ public:
 	UINT16 GetDestinationFee(UINT8 ubDeliveryMethodIndex, UINT16 usDestinationID);
 	RefToDeliveryMethodStruct GetDeliveryMethod(UINT8 ubDeliveryMethodIndex) const;
 
+	void Clear();
 	CPostalService();
 private:
 	ShipmentList _Shipments;

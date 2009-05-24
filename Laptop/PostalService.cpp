@@ -11,6 +11,9 @@
 #include <string>
 #include <iostream>
 
+// WANNE - MP: Used for multiplayer
+#include "connect.h"
+#include "Strategic Event Handler.h"
 using namespace std;
 
 /************************************************************************************/
@@ -81,6 +84,15 @@ OBJECTTYPE	CPostalService::tempObject;
 
 CPostalService::CPostalService()
 {
+}
+void CPostalService::Clear()
+{
+	_Shipments.clear();
+	_UsedShipmentIDList.clear();;
+	_DeliveryCallbacks.clear();
+	_Destinations.clear();
+	_UsedDestinationIDList.clear();
+	_DeliveryMethods.clear();
 }
 
 UINT16 CPostalService::CreateNewShipment(UINT16 usDestinationID, UINT8  ubDeliveryMethodIndex, INT16 sSenderID)
@@ -201,8 +213,18 @@ BOOLEAN CPostalService::SendShipment(UINT16 usShipmentID)
 
 	SHIPMENT(sli).ShipmentStatus = SHIPMENT_INTRANSIT;
 		
-	AddFutureDayStrategicEvent( EVENT_POSTAL_SERVICE_SHIPMENT, (8 + Random(4) ) * 60, usShipmentID, 
+	if (is_networked)
+	{
+		if (is_client)
+		{
+			this->DeliverShipmentForMultiplayer(usShipmentID);
+		}
+	}
+	else
+	{	
+		AddFutureDayStrategicEvent( EVENT_POSTAL_SERVICE_SHIPMENT, (8 + Random(4) ) * 60, usShipmentID, 
 								SHIPMENT(sli).pDestinationDeliveryInfo->bDaysAhead);
+	}
 	return TRUE;
 }
 
@@ -369,6 +391,163 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 	return FALSE;
 }
 
+BOOLEAN CPostalService::DeliverShipmentForMultiplayer(UINT16 usShipmentID)
+{
+	if(	usShipmentID > _UsedShipmentIDList.size() ||
+		!_UsedShipmentIDList[usShipmentID])
+	{
+		Assert(0);
+		return FALSE;
+	}
+
+	RefToShipmentListIterator sli = _Shipments.begin();
+
+	while(SHIPMENT(sli).usID != usShipmentID)
+	{
+		if(sli == _Shipments.end())
+		{
+			Assert(0);
+			return FALSE;
+		}
+		sli++;
+	}
+
+	if(SHIPMENT(sli).ShipmentStatus == SHIPMENT_STATIONARY)
+	{
+		return FALSE;
+	}
+	
+	PCShipmentManipulator ShipmentManipulator = new CShipmentManipulator(this, &SHIPMENT(sli));
+
+	// Delivery callback code goes here
+	if(_DeliveryCallbacks[0].DeliveryCallbackFunc)
+	{
+		_DeliveryCallbacks[0].DeliveryCallbackFunc(*ShipmentManipulator);
+	}
+
+	if(ShipmentManipulator->_fContinueCallbackChain)
+	{
+		if( SHIPMENT(sli).sSenderID + 2 <= (INT16)_DeliveryCallbacks.size() &&
+			_DeliveryCallbacks[SHIPMENT(sli).sSenderID + 1].DeliveryCallbackFunc)
+		{
+			_DeliveryCallbacks[SHIPMENT(sli).sSenderID + 1].DeliveryCallbackFunc(*ShipmentManipulator);
+		}
+	}
+	
+
+	if(SHIPMENT(sli).ShipmentStatus == SHIPMENT_CANCEL_DELIVERY)
+	{
+		SHIPMENT(sli).ShipmentStatus = SHIPMENT_STATIONARY;
+		return FALSE;
+	}
+
+
+	RefToShipmentStruct shs = SHIPMENT(sli);
+
+	if( (shs.pDestination->ubMapX > 0) && 
+		(shs.pDestination->ubMapX < MAP_WORLD_X - 1) &&
+		(shs.pDestination->ubMapY > 0) && 
+		(shs.pDestination->ubMapY < MAP_WORLD_Y - 1) && 
+		GridNoOnVisibleWorldTile(shs.pDestination->sGridNo) )
+	{
+		BOOLEAN fSectorLoaded = ( gWorldSectorX == shs.pDestination->ubMapX ) && 
+								( gWorldSectorY == shs.pDestination->ubMapY ) && 
+								( gbWorldSectorZ == shs.pDestination->ubMapZ);
+
+		if(fSectorLoaded)
+		{
+			SetOpenableStructureToClosed( shs.pDestination->sGridNo, 0 );
+		}
+		else
+		{
+			ChangeStatusOfOpenableStructInUnloadedSector(	shs.pDestination->ubMapX, shs.pDestination->ubMapY, 
+															shs.pDestination->ubMapZ, shs.pDestination->sGridNo, FALSE );
+		}
+
+		UINT16 usNumberOfItems=0;
+		for(int i = 0; i < (int)shs.ShipmentPackages.size(); i++)
+		{
+			usNumberOfItems += shs.ShipmentPackages[i].ubNumber;
+		}
+
+		OBJECTTYPE *pObject;
+		if(!fSectorLoaded)
+		{
+			pObject = new OBJECTTYPE[usNumberOfItems];
+
+			if(!pObject)
+			{
+				Assert(0);
+				return FALSE;
+			}
+		}
+
+		UINT		uiCount=0;
+		UINT8		ubItemsDelivered, ubTempNumItems;
+		UINT16		usItem;
+		
+		for(int i=0; i < (int)shs.ShipmentPackages.size(); i++)
+		{
+			ubItemsDelivered = shs.ShipmentPackages[i].ubNumber;
+			usItem = shs.ShipmentPackages[i].usItemIndex;
+
+			CreateItem(usItem, 100, &tempObject);
+
+			while ( ubItemsDelivered )
+			{
+				//ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(usItem, BIGPOCK1POS) );
+
+				if (UsingNewInventorySystem() == false)
+				{
+					ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(&tempObject, BIGPOCK1POS) );
+				}
+				else
+				{
+					ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(&tempObject, STACK_SIZE_LIMIT) );
+				}
+				
+				CreateItems( usItem, shs.ShipmentPackages[i].bItemQuality, ubTempNumItems, &tempObject );
+
+				if( fSectorLoaded )
+				{
+					AddItemToPool( 12880, &tempObject, 1, 0, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0 );
+				}
+				else
+				{
+					pObject[ uiCount ] = tempObject;
+					uiCount++;
+				}
+
+				ubItemsDelivered -= ubTempNumItems;
+			}
+		}
+
+		if( !fSectorLoaded )
+		{
+			if( !AddItemsToUnLoadedSector(	gsMercArriveSectorX, gsMercArriveSectorY, 
+				0, 12880, uiCount, pObject, 0, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE ) )
+			{
+				Assert( 0 );
+			}
+			delete[]( pObject );
+			pObject = NULL;
+		}
+
+		shs.ShipmentPackages.clear();
+		shs.pDestination = NULL;
+		shs.pDestinationDeliveryInfo = NULL;
+		shs.ShipmentStatus = SHIPMENT_STATIONARY;
+		_UsedShipmentIDList[usShipmentID] = FALSE;
+
+		_Shipments.erase(sli);
+
+		return TRUE;
+	}
+	else
+		Assert(0);
+
+	return FALSE;
+}
 BOOLEAN CPostalService::RegisterDeliveryCallback(INT16 sSenderID, PtrToDeliveryCallbackFunc DeliveryCallbackFunc)
 {
 	if(sSenderID < - 1 || !DeliveryCallbackFunc)
