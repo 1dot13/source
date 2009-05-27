@@ -4075,10 +4075,10 @@ STR16 pMessageStrings[] =
 	L"Гранатометы стреляют под обычным углом",
 	L"Гранатометы стреляют навесом",
 	// forced turn mode strings
-    L"Forced Turn Mode",
-	L"Normal turn mode",
-	L"Exit combat mode",
-	L"Forced Turn Mode Active, Entering Combat",
+    L"Только пошаговый режим",
+	L"Режим реального времени",	//Normal turn mode
+	L"Выход из пошагавого режима",	//Exit combat mode
+	L"Включен только пошаговый режим. Вступаем в бой!",	//Forced Turn Mode Active, Entering Combat
 #ifdef JA2BETAVERSION
 	L"Игра сохранена в ячейку авто-сохранения.",
 #endif
