@@ -89,7 +89,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			return;
 		}
 
-		// SCORE: If UDT range, we work it out as half actual LOS
+		//SCORE: If UDT range, we work it out as half actual LOS
 		if ( gGameExternalOptions.gfAllowUDTRange )
 		{
 			uiMaxTooltipDistance = (UINT32)( MercPtrs[ gusSelectedSoldier ]->GetMaxDistanceVisible(MercPtrs[ gusUIFullTargetID ]->sGridNo, 0, CALC_FROM_WANTED_DIR) * (gGameExternalOptions.ubUDTModifier));
