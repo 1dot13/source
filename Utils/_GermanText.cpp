@@ -4457,7 +4457,7 @@ STR16 MPClientMessage[] =
 	// 55
 	L"Spielbeitritt nicht möglich. Das Spiel ist bereits gestartet.",
 	L"%s (Team): %s",
-	L"Client #%i - '%s'",
+	L"#%i - '%s'",
 	L"%S - 100/100",
 	L"%S - %i/100",
 	// 60

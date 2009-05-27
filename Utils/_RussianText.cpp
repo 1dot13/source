@@ -4659,7 +4659,7 @@ STR16 MPClientMessage[] =
 	// 55
 	L"Не могу присоединиться к игре. Игра уже началась.",	//Cannot join game. This game has already started.
 	L"%s (команда): %s",	//%s (team): %s
-	L"Клиент #%i - '%s'",	//Client #%i - '%s'
+	L"#%i - '%s'",	//Client #%i - '%s'
 	L"%S - 100/100",
 	L"%S - %i/100",
 	// 60

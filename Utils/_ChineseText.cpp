@@ -4664,7 +4664,7 @@ STR16 MPClientMessage[] =
 	// 55
 	L"此游戏已经开始，无法加入。",//	L"Cannot join game. This game has already started.",
 	L"%s (team): %s",
-	L"玩家 #%i - '%s'",//	L"Client #%i - '%s'",
+	L"#%i - '%s'",//	L"Client #%i - '%s'",
 	L"%S - 100/100",
 	L"%S - %i/100",
 	// 60
