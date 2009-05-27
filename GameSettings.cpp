@@ -639,6 +639,10 @@ void LoadGameExternalOptions()
 
 	// Soldier tool tips
 	gGameExternalOptions.gfAllowSoldierToolTips		= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_SOLDIER_TOOL_TIPS",0);
+	//SCORE: Settings for UDT
+	gGameExternalOptions.gfAllowUDTRange			= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_UDT_RANGE",0);
+	gGameExternalOptions.gfAllowUDTDetail			= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_UDT_DETAIL",0);
+	gGameExternalOptions.ubUDTModifier			= (UINT8) iniReader.ReadInteger("JA2 Tactical Settings", "UDT_MODIFIER", 50);
 
 	// ShadoWarrior: Tooltip changes (start)
 	gGameExternalOptions.ubSoldierTooltipDetailLevel		= (UINT8) iniReader.ReadInteger("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DETAIL_LEVEL", 1, 0, 4);

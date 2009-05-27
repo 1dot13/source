@@ -20,6 +20,7 @@
 #include "local.h"
 #include "vsurface.h"
 #include "line.h"
+#include "los.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -88,7 +89,14 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			return;
 		}
 
-		if ( gGameExternalOptions.fEnableDynamicSoldierTooltips )
+		// SCORE: If UDT range, we work it out as half actual LOS
+		if ( gGameExternalOptions.gfAllowUDTRange )
+		{
+			uiMaxTooltipDistance = (UINT32)( MercPtrs[ gusSelectedSoldier ]->GetMaxDistanceVisible(MercPtrs[ gusUIFullTargetID ]->sGridNo, 0, CALC_FROM_WANTED_DIR) * (gGameExternalOptions.ubUDTModifier));
+			uiMaxTooltipDistance /= 100;
+		}
+		//SCORE: Otherwise if we're using dynamics then do this
+		else if ( gGameExternalOptions.fEnableDynamicSoldierTooltips )
 		{
 			OBJECTTYPE* pObject = &(MercPtrs[gusSelectedSoldier]->inv[HANDPOS]);
 			for (attachmentList::iterator iter = (*pObject)[0]->attachments.begin(); iter != (*pObject)[0]->attachments.end(); ++iter) {
@@ -104,8 +112,13 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				// set detail level to (at least) Full
 				ubTooltipDetailLevel = MAX(DL_Full,ubTooltipDetailLevel);
 			}
-			else
-			{
+		}
+		//SCORE: removed to enable scopes to affect range of tooltips.
+		//else
+		//{
+		//If we're using original settings and no scope, we do this
+		if (gGameExternalOptions.fEnableDynamicSoldierTooltips && fMercIsUsingScope == 0 && !gGameExternalOptions.gfAllowUDTRange)
+		{
 				// add 10% to max tooltip viewing distance per level of the merc
 				uiMaxTooltipDistance *= 1 + (MercPtrs[ gusSelectedSoldier ]->stats.bExpLevel / 10);
 
@@ -119,7 +132,31 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 					// if night reduce max tooltip viewing distance by a factor of 4 if merc is not wearing NVG
 					uiMaxTooltipDistance >>= 2;
 				}
+		}				
+		//SCORE: Dynamic detail, otherwise do what we usually do
+		if ( gGameExternalOptions.gfAllowUDTDetail )
+		{
+			//Check range. Less than a third? Full. Less than 2 thirds? Basic. Otherwise Limited.
+			if ( iRangeToTarget <= (INT32)(uiMaxTooltipDistance / 3) )
+			{
+				ubTooltipDetailLevel = DL_Full;
+			}
+			else if ( iRangeToTarget <= (INT32)((uiMaxTooltipDistance / 3)*2) )
+			{
+				ubTooltipDetailLevel = DL_Basic;
+			}
+			else if ( iRangeToTarget <= (INT32)uiMaxTooltipDistance )
+			{
+				ubTooltipDetailLevel = DL_Limited;
+			}
+			else
+			{
+				return;
+			}
 
+		}
+		else
+		{
 				if ( iRangeToTarget <= (INT32)(uiMaxTooltipDistance / 2) )
 				{
 					// at under half the maximum view distance set tooltip detail to (at least) Basic
@@ -136,8 +173,10 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 					if ( ubTooltipDetailLevel < DL_Full )
 						return;
 				}
-			} // fMercIsUsingScope is false
-		} // gGameExternalOptions.fEnableDynamicSoldierTooltips
+		}
+		//} // fMercIsUsingScope is false
+		// gGameExternalOptions.fEnableDynamicSoldierTooltips
+		
 
 
 		// WANNE: Check if enemy soldier is in line of sight but only if player has not choosen debug details

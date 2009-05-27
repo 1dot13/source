@@ -464,6 +464,10 @@ typedef struct
 	BOOLEAN fEnableSoldierTooltipBigSlot6;
 	BOOLEAN fEnableSoldierTooltipBigSlot7;
 	// ShadoWarrior: Tooltip changes (end)
+	//SCORE: UDT related
+	BOOLEAN gfAllowUDTRange;
+	BOOLEAN gfAllowUDTDetail;
+	INT8	ubUDTModifier;
 
 	//Kaiden MERC Deaths Externalized:
 	BOOLEAN gfMercsDieOnAssignment;
