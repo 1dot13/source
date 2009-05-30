@@ -3879,7 +3879,7 @@ STR16	gzMPHScreenText[] =
 	L"Количество игроков должно быть в диапазоне от 2 до 4",		//Max Players must be between 2 and 4
 	L"Количество бойцов в отряде должно быть от 1-го до 5-и",		//Squad size must be between 1 and 6
 	L"Время высадки",							//Time of Day
-	L"Время высадки должно быть в 24-х часовом формате (ЧЧ:ММ).\n\n Помните, что 13:30 = 1.30pm",	//Time of Day must be a 24 hr time (HH:MM)\n\n eg. 13:30 = 1.30pm
+	L"Время высадки должно быть в 24-х часовом формате (ЧЧ:ММ)",	//Time of Day must be a 24 hr time (HH:MM)\n\n eg. 13:30 = 1.30pm
 	L"Стартовый баланс должен быть целым числом",				//Starting Cash must be a valid dollar amount ( no cents )\n\n eg. 150000
 	L"Множитель урона",							//Damage Multiplier
 	L"Множитель урона должен находиться в промежутке от 0 до 5.",		//Damage Multiplier must be a number between 0 and 5
