@@ -4527,6 +4527,12 @@ STR16 New113Message[] =
 	L"Sold item",
 	L"Sold all items of this type",
 	L"You should check your goggles",
+	// Real Time Mode messages
+	L"In combat already",
+	L"No enemies in sight",
+	L"Real-time sneaking OFF",
+	L"Real-time sneaking ON",
+	L"Enemy spotted! (Ctrl + x to enter turn based)",
 };
 
 STR16 New113HAMMessage[] = 
@@ -4676,6 +4682,7 @@ STR16 MPClientMessage[] =
 	// 65
 	L"Press 'Ready' to enter tactical screen.",
 	L"Cannot connect because your version %S is different from the server version %S.",
+	L"You killed an enemy soldier.",
 };
 
 STR16 MPHelp[] =

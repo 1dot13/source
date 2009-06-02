@@ -2374,14 +2374,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						if( gTacticalStatus.uiFlags & INCOMBAT )
 						{	// Don't allow this in combat
 							if (!gGameExternalOptions.fQuietRealTimeSneak)
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"In combat already !");
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_IN_COMBAT_ALREADY]);
 							fSneakingInRealTime = false;
 						}
 
 						if( WeSeeNoOne() )
 						{	// Don't allow this if no enemies are seen - we have the forced turn mode for that
 							if (!gGameExternalOptions.fQuietRealTimeSneak)
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"No enemies in sight !");
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_NO_ENEMIES]);
 							fSneakingInRealTime = false;
 						}
 						
@@ -2397,7 +2397,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					if (gGameExternalOptions.fAllowRealTimeSneak)
 					{
 						gGameExternalOptions.fAllowRealTimeSneak = false;
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Real-time sneaking OFF");
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_SNEAKING_OFF]);
 						
 						if( !WeSeeNoOne() )	// if we're sneaking up on someone, enter turn-based
 							EnterCombatMode(OUR_TEAM);
@@ -2405,7 +2405,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					else
 					{
 						gGameExternalOptions.fAllowRealTimeSneak = true;
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Real-time sneaking ON");
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_SNEAKING_ON]);
 					}
 
 				}

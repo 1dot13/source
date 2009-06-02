@@ -494,7 +494,7 @@ void HandleBestSightingPositionInRealtime( void )
 							SelectSoldier (MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID, false, true);
 						// if not quiet, emit a message warning the player
 						if (!gGameExternalOptions.fQuietRealTimeSneak)
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Enemy spotted! (ctrl-x to enter turn based)");
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_ENEMIES_SPOOTED]);
 
 						return;	// and do nothing
 					}

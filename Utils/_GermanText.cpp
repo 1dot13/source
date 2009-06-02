@@ -3689,7 +3689,7 @@ STR16	gzMPHScreenText[] =
 	L"Max. Spieleranzahl muss zwischen 2 und 4 sein.",
 	L"Teamgröße muss zwischen 1 und 5 sein.",
 	L"Tageszeit",
-	L"Tageszeit muss eine 24h Zeit (SS:MM) sein.,
+	L"Tageszeit muss eine 24h Zeit (SS:MM) sein.",
 	L"Startkapital muss ein gültiger Dollerwert (keine Cents) sein." ,
 	L"Schaden Multiplikator",
 	L"Schaden Multiplikator muss zwischen 0 and 5 sein.",
@@ -4322,6 +4322,12 @@ STR16 New113Message[] =
 	L"Gegestand verkauft.",
 	L"Alle Gegenstände dieses Typs verkauft.",
 	L"Sie sollten Ihre Brillen prüfen!",
+	// Real Time Mode messages
+	L"Sie sind bereits im Kampfmodus",
+	L"Keine Gegner in Sicht",
+	L"Echtzeit Schleichmodus AUS",
+	L"Echtzeit Schleichmodus AN",
+	L"Gegner gesichtet! (Ctrl + x für Rundenmodus)",
 };
 
 STR16 New113HAMMessage[] = 
@@ -4469,6 +4475,7 @@ STR16 MPClientMessage[] =
 	// 65
 	L"Drücken Sie 'Bereit' um in den taktischen Bildschirm zu gelangen.",
 	L"Kann keine Verbindung herstellen, weil Ihre Version %S unterschiedlich zur Server Version %S ist.",
+	L"Sie haben einen gegnerischen Soldaten getötet.",
 };
 
 STR16 MPHelp[] =

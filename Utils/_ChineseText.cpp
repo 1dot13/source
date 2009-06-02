@@ -4527,6 +4527,12 @@ STR16 New113Message[] =
 	L"物品卖出",
 	L"此类物品全部卖出",
 	L"你得检查一下你的眼部装备",
+	// Real Time Mode messages
+	L"In combat already",
+	L"No enemies in sight",
+	L"Real-time sneaking OFF",
+	L"Real-time sneaking ON",
+	L"Enemy spotted! (Ctrl + x to enter turn based)",
 };
 
 STR16 New113HAMMessage[] =
@@ -4676,6 +4682,7 @@ STR16 MPClientMessage[] =
 	// 65
 	L"点击 '准备' 进入战术画面。",//	L"Press 'Ready' to enter tactical screen.",
 	L"Cannot connect because your version %S is different from the server version %S.",
+	L"You killed an enemy soldier.",
 };
 
 STR16 MPHelp[] =
