@@ -74,6 +74,9 @@ void DecayWatchedLocs( INT8 bTeam );
 
 void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT8 * pPersOL, INT8 * pbPublOL );
 
+// The_Bob - real time sneaking code 01/06/09
+extern void CancelItemPointer(void);
+extern BOOLEAN NobodyAlerted(void);
 //#define TESTOPPLIST
 
 // for ManSeesMan()
@@ -480,9 +483,24 @@ void HandleBestSightingPositionInRealtime( void )
 		//if (gfHumanSawSomeoneInRealtime)
 		{
 			if (gubBestToMakeSighting[ 1 ] == NOBODY)
-			{
-				// award turn
-				EnterCombatMode( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam );
+			{	// The_Bob - real time sneaking code 01/06/09
+				// if real time sneaking conditions are met...
+				if (gGameExternalOptions.fAllowRealTimeSneak && MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam == OUR_TEAM && NobodyAlerted() )
+					{
+						// get rid of the item under cursor (we gotta react FAST)
+						CancelItemPointer();
+						// select (and center screen on) the merc who saw the enemy
+						if (gusSelectedSoldier != (UINT16)MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID)
+							SelectSoldier (MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID, false, true);
+						// if not quiet, emit a message warning the player
+						if (!gGameExternalOptions.fQuietRealTimeSneak)
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Enemy spotted! (ctrl-x to enter turn based)");
+
+						return;	// and do nothing
+					}
+				else
+					// otherwise, simply award the turn to the team that saw the enemy first
+					EnterCombatMode( MercPtrs[gubBestToMakeSighting[ 0 ]]->bTeam );
 			}
 			else
 			{

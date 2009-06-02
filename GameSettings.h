@@ -629,6 +629,10 @@ BOOLEAN gbBulletTracer;
 	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainers will rest if no trainees available. 3 = Trainees will rest if no trainers available (not recommended). 1 = Both. 0 = Neither.
 	UINT8 ubSmartTrainingRest;
 
+	// The_Bob - real time sneaking code 01/06/09
+	// Suport disabling/silencing real time sneaking via external .ini file
+	BOOLEAN fAllowRealTimeSneak;
+	BOOLEAN fQuietRealTimeSneak;
 } GAME_EXTERNAL_OPTIONS;
 
 //This structure will contain general Ja2 settings	NOT individual game settings.
