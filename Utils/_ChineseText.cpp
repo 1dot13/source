@@ -4528,11 +4528,11 @@ STR16 New113Message[] =
 	L"此类物品全部卖出",
 	L"你得检查一下你的眼部装备",
 	// Real Time Mode messages
-	L"In combat already",
-	L"No enemies in sight",
-	L"Real-time sneaking OFF",
-	L"Real-time sneaking ON",
-	L"Enemy spotted! (Ctrl + x to enter turn based)",
+	L"进入战斗模式",
+	L"视野中没有敌人",
+	L"即时潜行模式 关闭",
+	L"即时潜行模式 开启",
+	L"发现敌人！（按|C|t|r|l|+|x进入回合制）",
 };
 
 STR16 New113HAMMessage[] =
@@ -4681,8 +4681,8 @@ STR16 MPClientMessage[] =
 	L"你需要下载修改后的文件才能继续游戏, 你想继续吗？",//	L"This server requires that you download modified files to play, do you wish to continue?",
 	// 65
 	L"点击 '准备' 进入战术画面。",//	L"Press 'Ready' to enter tactical screen.",
-	L"Cannot connect because your version %S is different from the server version %S.",
-	L"You killed an enemy soldier.",
+	L"不能连接到服务器，因为你的版本 %S 和服务器端的版本 %S 不同。",
+	L"你击毙了一个敌人。",
 };
 
 STR16 MPHelp[] =
