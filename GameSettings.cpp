@@ -680,9 +680,9 @@ void LoadGameExternalOptions()
 
 	// The_Bob - real time sneaking code 01/06/09
 	// Suport disabling real time sneaking via external .ini file
-	gGameExternalOptions.fAllowRealTimeSneak		= iniReader.ReadBoolean("JA2 Real Time Sneaking Settings","ALLOW_REAL_TIME_SNEAK", FALSE);
+	gGameExternalOptions.fAllowRealTimeSneak		= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_REAL_TIME_SNEAK", FALSE);
 	// Silence the RT sneaking messages
-	gGameExternalOptions.fQuietRealTimeSneak		= iniReader.ReadBoolean("JA2 Real Time Sneaking Settings","QUIET_REAL_TIME_SNEAK", FALSE);
+	gGameExternalOptions.fQuietRealTimeSneak		= iniReader.ReadBoolean("JA2 Tactical Settings","QUIET_REAL_TIME_SNEAK", FALSE);
 	
 
 	//################# Rain Settings ##################
