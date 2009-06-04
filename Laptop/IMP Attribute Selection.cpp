@@ -24,6 +24,7 @@
 	#include "text.h"
 	#include "GameSettings.h"
 	#include "IMP Disability Trait.h" // Added this one - SANDRO
+
 #endif
 
 #define STARTING_LEVEL_BOX_POS_X	( 51 )
@@ -255,8 +256,8 @@ void RenderIMPAttributeSelection( void )
 	// don't blit bonus if reviewing
 	if( fReviewStats != TRUE )
 	{
+		// Bonus points remaining
 		DisplayWrappedString( LAPTOP_SCREEN_UL_X + 355, LAPTOP_SCREEN_WEB_UL_Y + 51,  ( 640 ), 2, FONT12ARIAL, FONT_WHITE, sgAttributeSelectionText[2],FONT_BLACK,FALSE,0);
-		DisplayWrappedString( LAPTOP_SCREEN_UL_X + 59, LAPTOP_SCREEN_WEB_UL_Y + 36,  ( 240 ), 2, FONT10ARIAL, 142, sgAttributeSelectionText[0],FONT_BLACK,FALSE,0);
 
 		// this show us the exact maximum attribute based on ini option
 		CHAR16 sMaxPntsString[64];
@@ -265,14 +266,10 @@ void RenderIMPAttributeSelection( void )
 		if (iMaxPointsToShow > 100 )
 			iMaxPointsToShow = 100;
 
-		swprintf(sMaxPntsString, L"%d", iMaxPointsToShow);
+		swprintf(sMaxPntsString, L"%s %d%s", sgAttributeSelectionText[0], iMaxPointsToShow, L".");
 
-		// set font color
-		SetFontForeground( 142 );
-		SetFontBackground( FONT_BLACK );
-		SetFont( FONT10ARIAL );
-		// print string
-		mprintf( LAPTOP_SCREEN_UL_X + 88 ,LAPTOP_SCREEN_WEB_UL_Y + 58, sMaxPntsString );
+		// Explanatory text
+		DisplayWrappedString( LAPTOP_SCREEN_UL_X + 59, LAPTOP_SCREEN_WEB_UL_Y + 36,  ( 240 ), 2, FONT10ARIAL, 142, sMaxPntsString,FONT_BLACK,FALSE,0);
 
 		InvalidateRegion( LAPTOP_SCREEN_UL_X + 65, LAPTOP_SCREEN_WEB_UL_Y + 51, LAPTOP_SCREEN_UL_X + 85, LAPTOP_SCREEN_WEB_UL_Y + 71 );
 
