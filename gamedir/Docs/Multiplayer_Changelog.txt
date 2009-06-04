@@ -1,4 +1,26 @@
 *****************************************************
+** JA2 1.13 Multiplayer - Version 1.2 - 05/06/2009 **
+*****************************************************
+
+Bugs Fixed
+==========
+Updated turn bar on enemy interrupt
+Civs in a CO-OP game are displayed in Red instead of White on the overhead map
+Scoreboard for Queen's Army
+Clicking on "Cancel" in the scoreboard screen did not shut down the server and client. MP Game was in a bad state
+DIFFICULT_LEVEL was not saved to ja2_mp.ini
+Game on the server was always initialized with EXPERIENCED game difficult. It did not had any effect what you have chosen in the HOST screen
+Last character of client player name was not saved to ja2_mp.ini
+
+New Features
+============
+Changed Team colors in radarmap so it can be seen more easily
+The merc of each client in the Overhead Map have now different colors (the same than on the radar map) for their merc
+Disabled Reinforcements and Real-Time Mode in a multiplayer game
+Feature to avoid CTD: If a user select an insertion direction which is not supported by the map the next valid insertion direction will be chosen for the map when entering Tactical Placement GUI.
+
+
+*****************************************************
 ** JA2 1.13 Multiplayer - Version 1.1 - 01/06/2009 **
 *****************************************************
 
