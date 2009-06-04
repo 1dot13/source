@@ -1,0 +1,68 @@
+File Transfer
+=============
+
+This document explains how to set up and use the new File Transfer feature in JA2MP.
+
+First off let it be clear that downloading files from a server will NOT overwrite any of your game files
+or data. Files downloaded from any server are stored in a VFS profile (a folder) that is unique for that server.
+This means that you can play on many different servers that have different settings and never have to worry
+about your game data getting messed up.
+
+
+1. Security
+-----------
+
+File transfer has two levels of built in security:
+ 1) As a client connects to a server that wants to send files, they will be asked if they want
+    to proceed or disconnect without downloading anything.
+ 2) Both the client and the server use the new VFS system by Birdflu. Clients can configure this
+    to filter out files / folders / filetypes they do not wish to recieve (transfer_rules.txt). If the server sends any of
+	these files they are ignored.
+	
+2. Setting up Files to send as a Server
+---------------------------------------
+
+To send files to a client, you need to set up a mod folder in your GAME DIRECTORY (in short: GAMEDIR) ( this is where your ja2.exe's
+are stored ). You can call this mod folder whatever you like, "My Server" for example.
+Per default, this folder is in your "GAMEDIR\MULTIPLAYER\Servers\My Server", but can also be in another location inside your GAMEDIR folder.
+
+Once you have created a folder (the folder "GAMEDIR\MULTIPLAYER\Servers\My Server" should already be created), you can add the modified game files to it in the
+relative places they would be stored under GAMEDIR\Data\ or GAMEDIR\Data-1.13\. For example put modified TABLEDATA xml files
+into "GAMEDIR\MULTIPLAYER\Servers\My Server\TABLEDATA\" and the "ja2_Options.ini" inside the "GAMEDIR\MULTIPLAYER\Servers\My Server\" folder.
+
+Once this is done you can host a game. Run the game and do the following on the HOST options screen:
+ 1) Check the Sync MP Clients Directory option.
+ 2) Enter 'MULTIPLAYER/Servers/My Server' or the name of your mod folder (do not start with the GAMEDIR folder), without the quotes (''). If your path is nested,
+    seperate the folder names with a forwardslash /. Eg 'MULTIPLAYER/Servers/My Server'
+ 3) Host the game!
+ 4) NOTE: Even if you do not want to send files to the client ("Sync. MP Clients Directory" option is unchecked)
+    the folder entered in "MP Sync directory" has to exist on the server, because this folder will be used in the first place for initializing files.
+    If the specificed files are not found in this folder it will look in the "Data-1.13" folder and then in the "Data" folder.
+
+You will host the game as normal, now when clients connect you will see a blue progress bar behind their
+name in the player list (in the Strategy Screen) so you can see how long they have left on thier downloads.
+
+NOTE: you cannot START GAME until all players have finished downloading
+
+3. Using File Transfer as a client
+----------------------------------
+
+Before you connect to the server you can set up the file "transfer_rules.txt" inside your GAMEDIR. There you can set any files to the "ignore list" which you would not receive from the server. Normally you do not need to change this file for the client. (The server is responsible for sending only valid files to the clients). 
+
+When you connect to a server that wishes to send you files, you will be asked  if you wish to continue:
+ 1) If you click YES, you will start downloading files from the server.
+ 2) If you click NO, you will leave the game and go back to the Join screen.
+ 
+When you are downloading files from the server you will see a progress bar so you can estimate remaining
+time, you will also see the names of the files you are downloading. During this time you can also chat
+with other players using the "Y" key.
+
+Once all files are downloaded you will progress to the Strategy Screen where you can see if other players are
+still downloading and how long they have left.
+
+NOTE: The downloaded files are automatically stored on the client in the "GAMEDIR\MULTIPLAYER\Servers\Unique_Server_Id" folder.
+Unique_Server_id will be a unique string (e.g: 4MWZX-5WUKF-BXJSQ-MWFCW-FDM5E) which identifies each different server.
+The folder "GAMEDIR\MULTIPLAYER\Servers\Unique_Server_Id" will always be created (if not exists) even if the server does not send any files.
+This folder "GAMEDIR\MULTIPLAYER\Servers\Unique_Server_Id" will be used in the first place for initializing GameDir files.
+If the specificed files are not found in this folder it will look in the "Data-1.13" folder and then in the "Data" folder.
+
