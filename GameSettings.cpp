@@ -153,7 +153,7 @@ BOOLEAN LoadGameSettings()
 	gGameSettings.fOptions[TOPTION_TRACERS_FOR_SINGLE_FIRE]         = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TRACERS_FOR_SINGLE_FIRE"          ,  FALSE );
 	gGameSettings.fOptions[TOPTION_RAIN_SOUND]                      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_RAIN_SOUND"                       ,  TRUE  );
 	gGameSettings.fOptions[TOPTION_ALLOW_CROWS]                     = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALLOW_CROWS"                      ,  TRUE  );
-	gGameSettings.fOptions[TOPTION_USE_RANDOM_PERSONALITY]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_RANDOM_PERSONALITY"           ,  FALSE );
+	gGameSettings.fOptions[TOPTION_ALLOW_SOLDIER_TOOLTIPS]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALLOW_SOLDIER_TOOLTIPS"           ,  TRUE ); // Changed from random IMP personality - SANDRO
 	gGameSettings.fOptions[TOPTION_USE_AUTO_SAVE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_AUTO_SAVE"                    ,  FALSE );
 	gGameSettings.fOptions[TOPTION_SILENT_SKYRIDER]                 = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SILENT_SKYRIDER"                  ,  FALSE );
 	gGameSettings.fOptions[TOPTION_LOW_CPU_USAGE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_LOW_CPU_USAGE"                    ,  FALSE );
@@ -319,7 +319,7 @@ BOOLEAN	SaveGameSettings()
 		fprintf_s (file_pointer , "TOPTION_TRACERS_FOR_SINGLE_FIRE          =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_TRACERS_FOR_SINGLE_FIRE]          ?    "TRUE" : "FALSE" ) );
 		fprintf_s (file_pointer , "TOPTION_RAIN_SOUND                       =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_RAIN_SOUND]                       ?    "TRUE" : "FALSE" ) );
 		fprintf_s (file_pointer , "TOPTION_ALLOW_CROWS                      =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_ALLOW_CROWS]                      ?    "TRUE" : "FALSE" ) );
-		fprintf_s (file_pointer , "TOPTION_USE_RANDOM_PERSONALITY           =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_USE_RANDOM_PERSONALITY]           ?    "TRUE" : "FALSE" ) );
+		fprintf_s (file_pointer , "TOPTION_ALLOW_SOLDIER_TOOLTIPS           =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_ALLOW_SOLDIER_TOOLTIPS]           ?    "TRUE" : "FALSE" ) ); // changed from random IMP personality - SANDRO
 		fprintf_s (file_pointer , "TOPTION_USE_AUTO_SAVE                    =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_USE_AUTO_SAVE]                    ?    "TRUE" : "FALSE" ) );
 		fprintf_s (file_pointer , "TOPTION_SILENT_SKYRIDER                  =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_SILENT_SKYRIDER]                  ?    "TRUE" : "FALSE" ) );
 		fprintf_s (file_pointer , "TOPTION_LOW_CPU_USAGE                    =  %s  \n"  ,  (gGameSettings.fOptions[TOPTION_LOW_CPU_USAGE]                    ?    "TRUE" : "FALSE" ) );
@@ -405,7 +405,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_TRACERS_FOR_SINGLE_FIRE ]			= FALSE;
 	gGameSettings.fOptions[ TOPTION_RAIN_SOUND ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_ALLOW_CROWS ]						= TRUE;
-	gGameSettings.fOptions[ TOPTION_USE_RANDOM_PERSONALITY ]			= FALSE;
+	gGameSettings.fOptions[ TOPTION_ALLOW_SOLDIER_TOOLTIPS ]			= TRUE;	// changed - SANDRO
 	gGameSettings.fOptions[ TOPTION_USE_AUTO_SAVE ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ]						= FALSE;
@@ -576,8 +576,14 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iStartAttribute		= iniReader.ReadInteger("JA2 Laptop Settings","START_ATTRIBUTE",55, 1, 100);
 
 	//gGameExternalOptions.fPers_att				= iniReader.ReadBoolean("JA2 Laptop Settings","USE_RANDOM_PERSONALITY",FALSE);
-	gGameExternalOptions.iCustomPersonality		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_PERSONALITY",0, 0, NUM_PERSONALITYTRAIT-1);
-	gGameExternalOptions.iCustomAttitude		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_ATTITUDE",0, 0, NUM_ATTITUDES-1);
+	// These two removed - SANDRO
+	//gGameExternalOptions.iCustomPersonality		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_PERSONALITY",0, 0, NUM_PERSONALITYTRAIT-1);
+	//gGameExternalOptions.iCustomAttitude		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_ATTITUDE",0, 0, NUM_ATTITUDES-1);
+
+	// These three added - SANDRO
+	gGameExternalOptions.iIMPStartingLevelCostMultiplier = iniReader.ReadInteger("JA2 Laptop Settings","IMP_STARTING_LEVEL_COST_MULTIPLIER", 5, 0, 100);
+	gGameExternalOptions.iBonusPointsForDisability		 = iniReader.ReadInteger("JA2 Laptop Settings","IMP_BONUS_POINTS_FOR_DISABILITY",20, 0, 500);
+	gGameExternalOptions.iBonusPointsPerSkillNotTaken	 = iniReader.ReadInteger("JA2 Laptop Settings","IMP_BONUS_POINTS_PER_SKILL_NOT_TAKEN",25, 0, 500);
 
 	//Merc settings
 	gGameExternalOptions.fMercDayOne			= iniReader.ReadBoolean("JA2 Laptop Settings","MERC_AVAILABLE_DAY_ONE",FALSE);
@@ -637,8 +643,8 @@ void LoadGameExternalOptions()
 	// Maximal search distance for grenades
 	//gGameExternalOptions.guiMaxTossSearchDist = iniReader.ReadInteger("JA2 Tactical Settings","MaxTossSearchDist",3);
 
-	// Soldier tool tips
-	gGameExternalOptions.gfAllowSoldierToolTips		= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_SOLDIER_TOOL_TIPS",0);
+	// Soldier tool tips - removed from here, placed into preferences - SANDRO
+	//gGameExternalOptions.gfAllowSoldierToolTips		= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_SOLDIER_TOOL_TIPS",0);
 	//SCORE: Settings for UDT
 	gGameExternalOptions.gfAllowUDTRange			= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_UDT_RANGE",0);
 	gGameExternalOptions.gfAllowUDTDetail			= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_UDT_DETAIL",0);
@@ -753,8 +759,8 @@ void LoadGameExternalOptions()
 		gGameExternalOptions.ubGameProgressPortionVisited	= 0;
 	}
 
-	// WDS: Advanced start 
-	gGameExternalOptions.ubIMPStartingLevel = iniReader.ReadInteger("JA2 Gameplay Settings","IMP_STARTING_LEVEL", 1, 1, 7);
+	// WDS: Advanced start - removed - SANDRO
+	//gGameExternalOptions.ubIMPStartingLevel = iniReader.ReadInteger("JA2 Gameplay Settings","IMP_STARTING_LEVEL", 1, 1, 7);
 
 	// WDS - make number of mercenaries, etc. be configurable
 	gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs = iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_PLAYER_MERCS", 24, 1, CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS);

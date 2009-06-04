@@ -56,7 +56,9 @@ UINT32 guiA2INDENT;
 UINT32 guiAVGMERCINDENT;
 UINT32 guiABOUTUSINDENT;
 UINT32 guiSHORT2HINDENT;
-
+// These 2 added - SANDRO
+UINT32 guiASTARTLEVEL;
+UINT32 guiCOLORCHOICEFRAME;
 
 // position defines
 #define CHAR_PROFILE_BACKGROUND_TILE_WIDTH 125
@@ -1417,8 +1419,81 @@ void RenderQtnShort2IndentHighFrame(INT16 sX, INT16 sY)
 	return;
 }
 
+// Following procedures added - SANDRO
+BOOLEAN LoadAttribStartingLevelFrame( void )
+{
+
+	// this procedure will load the activation indent into memory
+	VOBJECT_DESC	VObjectDesc;
+
+	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("LAPTOP\\STARTINGLEVELBAR.sti", VObjectDesc.ImageFile);
+
+	CHECKF(AddVideoObject(&VObjectDesc, &guiASTARTLEVEL));
+
+	return (TRUE);
+}
 
 
+void DeleteAttribStartingLevelFrame( void )
+{
+
+	// remove activation indent symbol
+	DeleteVideoObjectFromIndex( guiASTARTLEVEL );
+
+	return;
+}
+
+void RenderAttribStartingLevelFrame(INT16 sX, INT16 sY)
+{
+
+	HVOBJECT hHandle;
+
+	// get the video object
+	GetVideoObject(&hHandle, guiASTARTLEVEL);
+
+	// blt to sX, sY relative to upper left corner
+	BltVideoObject(FRAME_BUFFER, hHandle, 0, LAPTOP_SCREEN_UL_X + sX, LAPTOP_SCREEN_WEB_UL_Y + sY , VO_BLT_SRCTRANSPARENCY,NULL);
+
+	return;
+}
+
+BOOLEAN LoadColorChoiceFrame( void )
+{
+
+	// this procedure will load the activation indent into memory
+	VOBJECT_DESC	VObjectDesc;
+
+	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("LAPTOP\\COLORCHOICEFRAME.sti", VObjectDesc.ImageFile);
+	CHECKF(AddVideoObject(&VObjectDesc, &guiCOLORCHOICEFRAME));
+
+	return (TRUE);
+}
+
+
+void DeleteColorChoiceFrame( void )
+{
+
+	// remove activation indent symbol
+	DeleteVideoObjectFromIndex( guiCOLORCHOICEFRAME );
+
+	return;
+}
+
+void RenderColorChoiceFrame(INT16 sX, INT16 sY)
+{
+
+	HVOBJECT hHandle;
+
+	// get the video object
+	GetVideoObject(&hHandle, guiCOLORCHOICEFRAME);
+
+	// blt to sX, sY relative to upper left corner
+	BltVideoObject(FRAME_BUFFER, hHandle, 0, sX, sY , VO_BLT_SRCTRANSPARENCY,NULL);
+
+	return;
+}
 
 
 

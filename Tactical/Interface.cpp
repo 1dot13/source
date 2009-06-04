@@ -1814,7 +1814,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 
 		//jones
 		extern void SoldierTooltip(SOLDIERTYPE*);
-		if ( gGameExternalOptions.gfAllowSoldierToolTips )
+		//if ( gGameExternalOptions.gfAllowSoldierToolTips ) // changed by SANDRO
+		if ( gGameSettings.fOptions[TOPTION_ALLOW_SOLDIER_TOOLTIPS] )
 		 SoldierTooltip(pSoldier);
 
 		SetFont( TINYFONT1 );

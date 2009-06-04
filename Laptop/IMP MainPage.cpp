@@ -464,14 +464,15 @@ void CreateIMPMainPageButtons( void )
 										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPMainPageVoiceCallback);
 	*/
 
-	if( iCurrentProfileMode != IMP__VOICE		&&	iCurrentProfileMode != IMP__PORTRAIT )
-	{
-		swprintf( sString, pImpButtonText[ 5 ], GetVoiceCountFromVoiceSlot(iCurrentVoice) );
-	}
-	else
-	{
-		swprintf( sString, pImpButtonText[ 25 ] );
-	}
+	// Changed to display "Character" instead of "Voice" - SANDRO
+	//if( iCurrentProfileMode != IMP__VOICE		&&	iCurrentProfileMode != IMP__PORTRAIT )
+	//{
+	//	swprintf( sString, pImpButtonText[ 5 ], GetVoiceCountFromVoiceSlot(iCurrentVoice) );
+	//}
+	//else
+	//{
+		swprintf( sString, pImpButtonText[ 25 ] ); // "Character"
+	//}
 
 	//Voice
 	giIMPMainPageButton[5] = CreateIconAndTextButton( giIMPMainPageButtonImage[ 5 ], sString, FONT12ARIAL,
@@ -740,7 +741,9 @@ void BtnIMPMainPageVoiceCallback(GUI_BUTTON *btn,INT32 reason)
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 		btn->uiFlags&=~(BUTTON_CLICKED_ON);
-		iCurrentImpPage = IMP_VOICE;
+		// changed to go to character analysis - SANDRO
+		iCurrentImpPage = IMP_CHARACTER_AND_DISABILITY_ENTRANCE;
+		//iCurrentImpPage = IMP_VOICE;
 			fButtonPendingFlag = TRUE;
 		}
 	}

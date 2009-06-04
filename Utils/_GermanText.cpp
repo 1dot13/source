@@ -2213,7 +2213,7 @@ STR16 pImpButtonText[] =
 	L"BEGINNEN", 			// begin profiling
 	L"Persönlichkeiten", 		// personality section
 	L"Eigenschaften", 		// personal stats/attributes section
-	L"Porträt", 			// the personal portrait selection
+	L"Aussehen", 			// changed from portrait - SANDRO
 	L"Stimme %d", 			// the voice selection
 	L"Fertig", 			// done profiling
 	L"Von vorne anfangen",	 		// start over profiling
@@ -2234,15 +2234,16 @@ STR16 pImpButtonText[] =
 	L"Registrieren", 			// the IMP site registry..when name and gender is selected
 	L"Analyse wird durchgeführt",	// analyzing your profile results
 	L"OK",
-	L"Stimme",
+	L"Charakter", // Change from "Voice" - SANDRO
 };
 
 STR16 pExtraIMPStrings[] =
 {
-	L"Nachdem Sie nun die Stimme bestimmt haben, ist es an der Zeit die Persönlichkeiten auszuwählen.",
-	L"Wählen Sie abschließend Ihre Eigenschaften aus.",
-	L"Um mit der Evaluierung zu beginnen wählen Sie ein Porträt aus.",
-	L"Nachdem Sie nun Ihr Porträt ausgewählt haben, wählen Sie die Stimme aus, die Ihnen am nächsten kommt.",
+	// These texts have been also slightly changed - SANDRO
+	L"Nach Festlegung Ihres Charakters, können Sie Ihre Fertigkeit(en) auswählen.",
+	L"Um die Evaluation erfolgreich abzuschließen, bestimmen Sie Ihre Eigenschaften.",
+	L"Um Ihr Profil zu erstellen, wählen Sie ein(e) Portrait, Stimme aus und definieren Erscheinung und Äußeres.",
+	L"Jetzt, da Sie Ihr Aussehen bestimmt haben, fahren wir mit der Charakter-Analyse fort.",
 };
 
 STR16 pFilesTitle[] =
@@ -3495,14 +3496,14 @@ STR16 zOptionsToggleText[] =
 	L"Tracereffekte für Einzelschüsse",
 	L"Regengeräusche",
 	L"Krähen erlauben",
-	L"Zufällige B.S.E Persönlichkeiten",
+	L"Tooltips über Gegner",	// Changed from "Random I.M.P personality" - SANDRO
 	L"Automatisch speichern",
 	L"Stummer Skyrider",
 	L"Niedrige CPU Belastung",
 	L"Erw. Gegenstandsinfo (EDB)",
 	L"Erzwungener Runden-Modus",			// add forced turn mode
 	L"--Cheat Mode Optionen--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
-	L"Erwzinge Bobby Ray Lieferungen",			// force all pending Bobby Ray shipments
+	L"Erzwinge Bobby Ray Lieferungen",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG OPTIONEN--",					// an example options screen options header (pure text)
 	L"ALLE Einstellungen rücksetzen",		// failsafe show/hide option to reset all options
@@ -3590,7 +3591,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird Tracereffekt auch für Einzelschüsse angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar, sobald es regnet.",
 	L"Wenn diese Funktion aktiviert ist, sind Krähen im Spiel vorhanden.",
-	L"Wenn diese Funktion aktiviert ist, erhalten B.S.E Charaktere zufällige Persönlichkeiten und Gesinnungen.",
+	L"Wenn diese Funktion aktiviert ist, erscheint ein Tooltip Fenster über dem Gegner, bei gleichzeitigem Drücken von |A|l|t und Halten des Cursors über dem Feind.", 	// - Changed from random IMP personality - SANDRO
 	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch gespeichert.",
 	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sprechen.",
 	L"Wenn diese Funktion aktiviert ist, wird das Spiel mit viel geringerer CPU Belastung laufen.",
@@ -4570,6 +4571,76 @@ STR16 gzMPChatboxText[] =
 {
 	L"Mehrspieler Chat",
 	L"Chat: Drücke 'ENTER' zum Senden oder 'ESC' zum Verlassen.",
+};
+
+// Following strings added - SANDRO
+// Translated by Scheinworld
+STR16 pSkillTraitBeginIMPStrings[] =
+{
+	L"Auf der nächsten Seite können Sie die Fertigkeit(en) angeben, durch die Sie sich auszeichnen. Mehr als zwei verschiedene Fertigkeiten oder eine, die Sie in diesem Gebiet automatisch als Experten ausweist, können bzw. kann nicht gewählt werden.",
+	L"Wählen Sie nur eine oder gar keine Fertigkeit aus, so erhalten Sie einen Bonus in Form von zusätzlichen Eigenschaftspunkten. Bitte beachten Sie, dass die Fertigkeiten: 'Elektronik' und 'Beidhändig geschickt' über keinen Expertenstatus verfügen.",
+};
+
+STR16 sgAttributeSelectionText[] =
+{
+	L"Bitte verteilen Sie nun Ihre Bonuspunkte auf die gewünschten Attribute. Der Wert kann dabei nicht höher sein als    .",
+	L"B.S.E. Eigenschaften und Fähigkeiten.",
+	L"Bonus Pkt.:",
+	L"Anfangs-Level",
+};
+
+STR16 pCharacterTraitBeginIMPStrings[] =
+{
+	L"B.S.E. Charakter-Analyse",
+	L"Die Charakter-Analyse ist der nächste Schritt bei der Erstellung Ihres Profils. Auf der nun folgenden Seite steht eine Vielzahl von Charaktereigenschaften zur Auswahl. Wir können uns vorstellen, dass Sie sich mit mehreren verbunden fühlen, entscheiden Sie sich daher bitte für die zutreffendste. ",
+	L"Die zweite Seite dient der Erfassung Ihrer Unzulänglichkeiten, die Sie möglicherweise haben (wir glauben, dass jeder Mensch nur eine große Schwäche hat). Bitte seien Sie dabei ehrlich, damit potentielle Arbeitgeber über Ihr zukünftiges Einsatzfeld informiert werden können.",
+};
+
+STR16 gzIMPCharacterTraitText[]=
+{
+	L"Normal",
+	L"Freundlich",
+	L"Einzelgänger",
+	L"Optimist",
+	L"Pessimist",
+	L"Aggressiv",
+	L"Arrogant",
+	L"Bonze",
+	L"Arschloch",
+	L"Feigling",
+	L"Charaktereigenschaften",
+};
+
+STR16 gzIMPColorChoosingText[] =
+{
+	L"Erscheinung und Äußeres",
+	L"Hautfarbe",
+	L"Bitte geben Sie Ihre Haar- und Hautfarbe, Ihre Statur, sowie Ihre bevorzugten Kleidungsfarben an.",
+	L"Bitte geben Sie Ihre Haar- und Hautfarbe, sowie Ihre bevorzugten Kleidungsfarben an.",
+	L"Eingeschaltet, wird ein Gewehr einhändig abgefeuert.",
+};
+
+STR16 sColorChoiceExplanationTexts[]=
+{
+	L"Haarfarbe",
+	L"Hautfarbe",
+	L"Hemdfarbe",
+	L"Hosenfarbe",
+	L"Normale Statur",
+	L"Kräftige Statur",
+};
+
+STR16 gzIMPDisabilityTraitText[]=
+{
+	L"Keine Schwäche",
+	L"Hitzeempfindlichkeit",
+	L"Nervosität",
+	L"Klaustrophobie",
+	L"Nichtschwimmer",
+	L"Angst vor Insekten",
+	L"Vergesslichkeit",
+	L"Psychopath",
+	L"Ihre größte Schwäche",
 };
 
 #endif //GERMAN

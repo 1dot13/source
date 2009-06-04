@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="Laptop_2005Express"
 	ProjectGUID="{5234CD2E-97F1-42FF-828D-CE0A1B46805E}"
 	RootNamespace="Laptop_2005Express"
@@ -409,11 +409,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IMP Character and Disability Entrance.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IMP Character Trait.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IMP Color Choosing.h"
+				>
+			</File>
+			<File
 				RelativePath=".\IMP Compile Character.h"
 				>
 			</File>
 			<File
 				RelativePath=".\IMP Confirm.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IMP Disability Trait.h"
 				>
 			</File>
 			<File
@@ -663,11 +679,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IMP Character and Disability Entrance.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IMP Character Trait.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IMP Color Choosing.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\IMP Compile Character.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\IMP Confirm.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IMP Disability Trait.cpp"
 				>
 			</File>
 			<File

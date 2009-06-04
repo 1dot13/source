@@ -23,7 +23,13 @@
 	#include "IMP Compile Character.h"
 	#include "text.h"
 	#include "GameSettings.h"
+	#include "IMP Disability Trait.h" // Added this one - SANDRO
+
 #endif
+
+#define STARTING_LEVEL_BOX_POS_X	( 51 )
+#define STARTING_LEVEL_BOX_POS_Y	( 296 )
+
 
 // width of the slider bar region
 #define BAR_WIDTH 423 - 197
@@ -63,6 +69,9 @@ enum
 
 // Snap: these globals will be properly initialized in SetAttributes
 
+INT32 iStartingLevel = 1; // Added by SANDRO
+INT32 iLevelCostMultiplier; // Added by SANDRO
+
 // the skills as they stand
 INT32 iCurrentStrength	= 0;
 INT32 iCurrentAgility	 = 0;
@@ -99,6 +108,11 @@ BOOLEAN fReviewStats = FALSE;
 UINT32 giIMPAttributeSelectionButton[ 1 ];
 UINT32 giIMPAttributeSelectionButtonImage[ 1 ];
 
+// STARTING LEVEL BUTTONS ADDED - SANDRO
+UINT32 giIMPStartingLevelButton[ 2 ];
+UINT32 giIMPStartingLevelButtonImage[ 2 ];
+
+
 // slider buttons
 UINT32 giIMPAttributeSelectionSliderButton[ 20 ];
 UINT32 giIMPAttributeSelectionSliderButtonImage[ 20 ];
@@ -119,6 +133,9 @@ INT32 uiBarToReRender = -1;
 
 // are we actually coming back to edit, or are we restarting?
 BOOLEAN fReturnStatus = FALSE;
+
+UINT32	guiIST_GreyGoldBoxLvl;
+
 
 // function definition
 void ProcessAttributes( void );
@@ -148,6 +165,12 @@ void SliderRegionButtonCallback(MOUSE_REGION * pRegion, INT32 iReason );
 void SliderBarRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason );
 void StatAtZeroBoxCallBack( UINT8 bExitValue );
 
+// added starting level choosing
+void CreateIMPStartingLevelSelectionButtons( void );
+void BtnIMPLevelSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnIMPLevelSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+INT32 iBonusPointsNeededForLevelUp();
+INT32 iBonusPointsRecievedForLevelDown();
 
 void EnterIMPAttributeSelection( void )
 {
@@ -157,7 +180,9 @@ void EnterIMPAttributeSelection( void )
 	if( ( fReturnStatus == FALSE ) && ( fFirstIMPAttribTime == TRUE ) )
 	{
 		// re starting
-	SetAttributes( );
+		SetAttributes( );
+
+		iStartingLevel = 1; // ADDED - SADNRO
 
 		gpCurrentScrollBox = NULL;
 		giCurrentlySelectedStat = -1;
@@ -186,6 +211,9 @@ void EnterIMPAttributeSelection( void )
 	CreateSlideRegionMouseRegions( );
 	//CreateSliderBarMouseRegions( );
 
+	// create starting level choice button
+	CreateIMPStartingLevelSelectionButtons( );
+
 	// render background
 	RenderIMPAttributeSelection( );
 
@@ -196,6 +224,7 @@ void EnterIMPAttributeSelection( void )
 
 void RenderIMPAlteredAttribute( void )
 {
+
 
 }
 void RenderIMPAttributeSelection( void )
@@ -223,8 +252,70 @@ void RenderIMPAttributeSelection( void )
 	// print text for screen
 	PrintImpText( );
 
+	// texts around
+	// don't blit bonus if reviewing
+	if( fReviewStats != TRUE )
+	{
+		DisplayWrappedString( LAPTOP_SCREEN_UL_X + 355, LAPTOP_SCREEN_WEB_UL_Y + 51,  ( 640 ), 2, FONT12ARIAL, FONT_WHITE, sgAttributeSelectionText[2],FONT_BLACK,FALSE,0);
+		DisplayWrappedString( LAPTOP_SCREEN_UL_X + 59, LAPTOP_SCREEN_WEB_UL_Y + 36,  ( 240 ), 2, FONT10ARIAL, 142, sgAttributeSelectionText[0],FONT_BLACK,FALSE,0);
+
+		// this show us the exact maximum attribute based on ini option
+		CHAR16 sMaxPntsString[64];
+		INT32 iMaxPointsToShow  = gGameExternalOptions.iMaxAttribute;
+
+		if (iMaxPointsToShow > 100 )
+			iMaxPointsToShow = 100;
+
+		swprintf(sMaxPntsString, L"%d", iMaxPointsToShow);
+
+		// set font color
+		SetFontForeground( 142 );
+		SetFontBackground( FONT_BLACK );
+		SetFont( FONT10ARIAL );
+		// print string
+		mprintf( LAPTOP_SCREEN_UL_X + 88 ,LAPTOP_SCREEN_WEB_UL_Y + 58, sMaxPntsString );
+
+		InvalidateRegion( LAPTOP_SCREEN_UL_X + 65, LAPTOP_SCREEN_WEB_UL_Y + 51, LAPTOP_SCREEN_UL_X + 85, LAPTOP_SCREEN_WEB_UL_Y + 71 );
+
+	}
+	else
+	{
+		//LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 60, LAPTOP_SCREEN_WEB_UL_Y + 44, ( 200 ), sgAttributeSelectionTextReview, FONT10ARIAL, 142, TRUE, 0);
+		DisplayWrappedString( LAPTOP_SCREEN_UL_X + 60, LAPTOP_SCREEN_WEB_UL_Y + 44,  ( 240 ), 2, FONT10ARIAL, 142, sgAttributeSelectionText[1],FONT_BLACK,FALSE,0);
+	}
+
 	// amt of bonus pts
 	DrawBonusPointsRemaining( );
+
+	//***********************************************************************************************
+	// STARTING LEVEL BOX
+	///////////////////////////
+
+	// Bonus frame for starting level
+	RenderAttribStartingLevelFrame( STARTING_LEVEL_BOX_POS_X, STARTING_LEVEL_BOX_POS_Y );
+
+	// text
+	DrawTextToScreen( sgAttributeSelectionText[3], LAPTOP_SCREEN_UL_X + STARTING_LEVEL_BOX_POS_X + 9, LAPTOP_SCREEN_WEB_UL_Y + STARTING_LEVEL_BOX_POS_Y + 4, ( 100 ), FONT12ARIAL, FONT_WHITE, FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
+
+	// show level index
+	HVOBJECT	hImageHandle;
+	GetVideoObject(&hImageHandle, guiIST_GreyGoldBoxLvl );
+	BltVideoObject(FRAME_BUFFER, hImageHandle, 0,STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 20, STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 70, VO_BLT_SRCTRANSPARENCY,NULL);
+
+		CHAR16 sStartLevelString[64];
+
+		swprintf(sStartLevelString, L"%d", iStartingLevel );
+
+		// set font color
+		SetFontForeground( 142 );
+		SetFontBackground( FONT_BLACK );
+		SetFont( FONT14ARIAL );
+		// print string
+		mprintf( STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 144 , STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 6, sStartLevelString );
+
+		InvalidateRegion( STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 130, STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 10, STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 172, STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 42 );
+
+	//****************************************
 
 	return;
 }
@@ -914,7 +1005,7 @@ void CreateIMPAttributeSelectionButtons( void )
 {
 
 	// the finished button
-	giIMPAttributeSelectionButtonImage[0]=	LoadButtonImage( "LAPTOP\\button_2.sti" ,-1,0,-1,1,-1 );
+	giIMPAttributeSelectionButtonImage[0]=	LoadButtonImage( "LAPTOP\\button_5.sti" ,-1,0,-1,1,-1 );
 /*	giIMPAttributeSelectionButton[0] = QuickCreateButton( giIMPAttributeSelectionButtonImage[0], LAPTOP_SCREEN_UL_X +	( 136 ), LAPTOP_SCREEN_WEB_UL_Y + ( 314 ),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPAttributeFinishCallback );
@@ -923,7 +1014,7 @@ void CreateIMPAttributeSelectionButtons( void )
 														FONT_WHITE, DEFAULT_SHADOW,
 														FONT_WHITE, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,
-														LAPTOP_SCREEN_UL_X +	( 136 ), LAPTOP_SCREEN_WEB_UL_Y + ( 314 ), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+														LAPTOP_SCREEN_UL_X +	( 350 ), LAPTOP_SCREEN_WEB_UL_Y + ( 340 ), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 															BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPAttributeFinishCallback);
 
 
@@ -940,9 +1031,14 @@ void DestroyIMPAttributeSelectionButtons( void )
 	RemoveButton(giIMPAttributeSelectionButton[ 0 ] );
 	UnloadButtonImage(giIMPAttributeSelectionButtonImage[ 0 ] );
 
+	// Destroy also starting level buttons
+	RemoveButton(giIMPStartingLevelButton[ 0 ] );
+	RemoveButton(giIMPStartingLevelButton[ 1 ] );
+	UnloadButtonImage(giIMPStartingLevelButtonImage[ 0 ] );
+	UnloadButtonImage(giIMPStartingLevelButtonImage[ 1 ] );
+
  	return;
 }
-
 
 
 void BtnIMPAttributeFinishCallback(GUI_BUTTON *btn,INT32 reason)
@@ -962,22 +1058,175 @@ void BtnIMPAttributeFinishCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
-			//are we done diting, or just reviewing the stats?
-			if( fReviewStats == TRUE )
-			{
+			//iCurrentImpPage = IMP_MAIN_PAGE;
+
+			// SANDRO WAS HERE - THE FINISH PAGE AFTER ATTRIBUTES IS WORTHLESS AND HAVE BEEN CUT OUT
+			//if ( fReviewStats == TRUE )
+			//{
 				iCurrentImpPage = IMP_FINISH;
-			}
-			else
-			{
-		iCurrentImpPage = IMP_ATTRIBUTE_FINISH;
-			}
-			fButtonPendingFlag = TRUE;
+			//}
+			//else
+			//{
+				iCurrentProfileMode = IMP__FINISH; // All done
+			//}
+
+			// SET ATTRIBUTES NOW
+			SetGeneratedCharacterAttributes( );
+			//fButtonPendingFlag = TRUE;
 		}
 	}
 }
 
+void CreateIMPStartingLevelSelectionButtons( void )
+{
+	giIMPStartingLevelButtonImage[ 0 ]=	LoadButtonImage( "LAPTOP\\AttributeArrows.sti" ,-1,0,-1,1,-1 );
+	giIMPStartingLevelButtonImage[ 1 ]=	LoadButtonImage( "LAPTOP\\AttributeArrows.sti" ,-1,3,-1,4,-1 );
 
 
+	// left button - decrement level
+	giIMPStartingLevelButton[ 0 ] = QuickCreateButton( giIMPStartingLevelButtonImage[ 0 ], STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 112, STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 3,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPLevelSelectionLeftCallback );
+
+	// right button - increment level
+	giIMPStartingLevelButton[ 1 ] = QuickCreateButton( giIMPStartingLevelButtonImage[ 1 ], STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 166, STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 3,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPLevelSelectionRightCallback );
+
+	SetButtonCursor(giIMPStartingLevelButton[0], CURSOR_WWW);
+	SetButtonCursor(giIMPStartingLevelButton[1 ], CURSOR_WWW);
+
+	// set user data
+	MSYS_SetBtnUserData(giIMPStartingLevelButton[0],0, 0 / 2 );
+	MSYS_SetBtnUserData(giIMPStartingLevelButton[1],0, 1 / 2 );
+
+	//Get rid of playing the button sound, it will be handled here
+	//ButtonList[ giIMPStartingLevelButton[0] ]->ubSoundSchemeID = 0;
+	//ButtonList[ giIMPStartingLevelButton[1] ]->ubSoundSchemeID = 0;
+
+	MarkButtonsDirty( );
+}
+void BtnIMPLevelSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	// btn callback for IMP personality quiz answer button
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
+	{
+		if ( (iStartingLevel > 1) && !fReviewStats )
+		{
+			PlayButtonSound( giIMPStartingLevelButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBonusPoints += iBonusPointsRecievedForLevelDown();
+			iStartingLevel--;
+
+			fHasAnySlidingBarMoved = TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giIMPStartingLevelButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		if ( (iStartingLevel > 1) && !fReviewStats )
+		{
+			PlayButtonSound( giIMPStartingLevelButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBonusPoints += iBonusPointsRecievedForLevelDown();
+			iStartingLevel--;
+
+			fHasAnySlidingBarMoved = TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giIMPStartingLevelButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+void BtnIMPLevelSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	// btn callback for IMP personality quiz answer button
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
+	{
+		if ((iBonusPointsNeededForLevelUp() <= iCurrentBonusPoints) && ( iStartingLevel < 10 ) && !fReviewStats )
+		{
+			PlayButtonSound( giIMPStartingLevelButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBonusPoints -= iBonusPointsNeededForLevelUp();
+			iStartingLevel++;
+
+			fHasAnySlidingBarMoved = TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giIMPStartingLevelButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+
+		if ((iBonusPointsNeededForLevelUp() <= iCurrentBonusPoints) && ( iStartingLevel < 10 ) && !fReviewStats )
+		{
+			PlayButtonSound( giIMPStartingLevelButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iCurrentBonusPoints -= iBonusPointsNeededForLevelUp();
+			iStartingLevel++;
+
+			fHasAnySlidingBarMoved = TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giIMPStartingLevelButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+INT32 iBonusPointsNeededForLevelUp()
+{
+	INT32 iBonusPointsNeeded = 0; 
+
+	if (iStartingLevel > 0 && iStartingLevel < 10)
+	{
+		iBonusPointsNeeded = (iStartingLevel + 1) * iLevelCostMultiplier;
+	}
+
+	return( iBonusPointsNeeded );
+
+}
+
+INT32 iBonusPointsRecievedForLevelDown()
+{
+	INT32 iBonusPointsRecieved; 
+
+	if (iStartingLevel > 1 && iStartingLevel <= 10)
+	{
+		iBonusPointsRecieved = iStartingLevel * iLevelCostMultiplier;
+	}
+
+	return( iBonusPointsRecieved );
+}
 void RenderAttributeBoxes( void )
 {
 
@@ -1185,7 +1434,7 @@ void CreateAttributeSliderButtons( void )
 										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPAttributeSliderLeftCallback );
 
 	// right button - increment stat
-	giIMPAttributeSelectionSliderButton[ iCounter + 1 ] = QuickCreateButton( giIMPAttributeSelectionSliderButtonImage[ 1 ], LAPTOP_SCREEN_UL_X +	( 419 ), ( INT16 ) ( LAPTOP_SCREEN_WEB_UL_Y + ( 99 + iCounter / 2 * 20 ) ),
+	giIMPAttributeSelectionSliderButton[ iCounter + 1 ] = QuickCreateButton( giIMPAttributeSelectionSliderButtonImage[ 1 ], LAPTOP_SCREEN_UL_X +	( 420 ), ( INT16 ) ( LAPTOP_SCREEN_WEB_UL_Y + ( 99 + iCounter / 2 * 20 ) ),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPAttributeSliderRightCallback );
 
@@ -1647,7 +1896,7 @@ INT32 GetCurrentAttributeValue( INT32 iAttribute )
 
 void SetAttributes( void )
 {
-	INT8	bExtraPoints;
+	INT8	bExtraPoints = 0;
 /*
 	// set attributes and skills based on what is in charprofile.c
 
@@ -1669,6 +1918,9 @@ void SetAttributes( void )
 	iCurrentBonusPoints = 40;
 */
 
+	// added externilized multiplier for starting level - SADNRO
+	iLevelCostMultiplier = gGameExternalOptions.iIMPStartingLevelCostMultiplier;
+
 	iCurrentStrength = gGameExternalOptions.iStartAttribute;
 	iCurrentDexterity = gGameExternalOptions.iStartAttribute;
 	iCurrentHealth = gGameExternalOptions.iStartAttribute;
@@ -1689,7 +1941,8 @@ void SetAttributes( void )
 
 
 	//Determine if the player has any extra points
-	bExtraPoints = DoesPlayerHaveExtraAttibutePointsToDistributeBasedOnSkillSelection();
+	bExtraPoints += iPlayersAttributePointsBonusForDisabilitySelected(); // Added attribute bonus for chosen disability - SANDRO
+	bExtraPoints += DoesPlayerHaveExtraAttibutePointsToDistributeBasedOnSkillSelection();
 
 	if( bExtraPoints > 0 )
 	{
@@ -1814,4 +2067,12 @@ INT32 DetermineNewPosition( INT32 iAttribute )
 	iNewLoc += iStartLoc;
 
 	return( iNewLoc );
+}
+
+INT8 StartingLevelChosen()
+{
+	if ( (iStartingLevel > 0) && (iStartingLevel <= 10) )
+		return(iStartingLevel);
+	else
+		return(1);
 }

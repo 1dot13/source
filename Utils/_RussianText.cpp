@@ -2295,7 +2295,7 @@ STR16 pImpButtonText[] =
 	L"НАЧАТЬ", 			// begin profiling
 	L"Способности", 		// personality section
 	L"Характеристики", 		// personal stats/attributes section
-	L"Портрет", 			// the personal portrait selection
+	L"Appearance", 			// changed from portrait - SANDRO
 	L"Голос: %d", 			// the voice selection
 	L"Готово", 			// done profiling
 	L"Начать сначала", 		// start over profiling
@@ -2316,15 +2316,16 @@ STR16 pImpButtonText[] =
 	L"Регистрация", 			// the IMP site registry..when name and gender is selected
 	L"Анализ данных", 			// analyzing your profile results
 	L"Готово",
-	L"Голос",
+	L"Character", // Change from "Voice" - SANDRO
 };
 
 STR16 pExtraIMPStrings[] =
 {
-	L"Сейчас необходимо указать ваши способности.",
-	L"Способности героя заданы. Чтобы завершить процесс, укажите свои характеристики.",
-	L"Чтобы создать профиль, необходимо указать некоторые данные. Начните с выбора портрета.",
-	L"Теперь, выберите голос, который вам подходит.",
+	// These texts have been also slightly changed - SANDRO
+	L"With your character traits chosen, it is time to select your skills.",
+	L"To complete the process, select your attributes.",
+	L"To commence actual profiling, select portrait, voice and colors.",
+	L"Now that you have completed your appearence choice, procced to character analysis.",
 };
 
 STR16 pFilesTitle[] =
@@ -3684,7 +3685,7 @@ STR16		zOptionsToggleText[] =
 	L"Одиночный трассер",
 	L"Шум дождя",
 	L"Вороны",
-	L"Случайный I.M.P персонаж",
+	L"Show Soldier Tooltips",	// Changed from "Random I.M.P personality" - SANDRO
 	L"Автосохранение каждый ход",
 	L"Молчаливый пилот вертолёта",
 	L"Низкая загрузка процессора",
@@ -3779,7 +3780,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, трассирующий эффект\nсоздается одиночным выстрелом.",	
 	L"Если включено, вы услышите шум дождя во время непогоды.",
 	L"Если включено, вороны присутствуют в игре.",
-	L"Если включено, персонаж I.M.P будет получать\nслучайную внешность и характеристики.",
+	L"When ON, a tooltip window is shown when pressing |A|l|t and hovering cursor over an enemy.", 	// - Changed from random IMP personality - SANDRO
 	L"Если включено, игра будет автоматически сохраняться\nпосле каждого хода игрока.",
 	L"Если включено, Небесный Всадник\nне будет вас раздражать болтливостью.",
 	L"Если включено, игра будет использовать\nменьше процессорного времени.",
@@ -4771,6 +4772,75 @@ STR16 gzMPChatboxText[] =
 {
 	L"Чат сетевой игры Jagged Alliance 2 v1.13",	//Multiplayer Chat
 	L"Заметка: нажмите |В|В|О|Д для отправки сообщения, |К|Л|Ю|Ч для выхода из чата.",	//Chat: press 'ENTER' to send of 'ESC' to cancel
+};
+
+// Following strings added - SANDRO
+STR16 pSkillTraitBeginIMPStrings[] =
+{
+	L"On the next page, you are going to choose your skill traits according to your proffessional specialization as a mercenary. No more than two different traits or one expert trait can be selected. To achieve an expert level on a trait, simply choose only that one trait.",
+	L"You can also choose only one or even no traits, which will give you a bonus to your attribute points as a compensation. Note that Electronics and Ambidextrous traits cannot be achieved at expert levels, and if you choose one of them only, you will have only one skill trait.",
+};
+
+STR16 sgAttributeSelectionText[] = 
+{
+	L"Please adjust your physical attributes as comapred to that of an avarage merc. You cannot raise any score above    .",
+	L"I.M.P. Attributes and skills review.",
+	L"Bonus Pts.:",
+	L"Starting Level",
+};
+
+STR16 pCharacterTraitBeginIMPStrings[] =
+{
+	L"I.M.P. Character Analysis",
+	L"The analysis of your character is the next step on your profile creation. On the first page you will be shown a list of attitudes to choose. We imagine you could identify yourself with more of them, but here you will be able to pick only one. Choose the one which you feel aligned with mostly. ",
+	L"The second page enlists possible disabilities you might have. If you suffer from any of these disabilities, choose which one (we believe that everyone has only one such disablement). Be honest, as it is important to inform potential employers of your true condition.",
+};
+
+STR16 gzIMPCharacterTraitText[]=
+{
+	L"Normal",
+	L"Friendly",
+	L"Loner",
+	L"Optimist",
+	L"Pessimist",
+	L"Aggressive",
+	L"Arrogant",
+	L"Big Shot",
+	L"Asshole",
+	L"Coward",
+	L"I.M.P. Character Traits",
+};
+
+STR16 gzIMPColorChoosingText[] = 
+{
+	L"I.M.P. Colors and Body Type",
+	L"I.M.P. Colors",
+	L"Please select the respective colors of your skin, hair and clothing. And select what body type you have.",
+	L"Please select the respective colors of your skin, hair and clothing.",
+	L"Toggle this to use alternative rifle holding.",
+};
+
+STR16 sColorChoiceExplanationTexts[]=
+{
+	L"Hair Color",
+	L"Skin Color",
+	L"Shirt Color",
+	L"Pants Color",
+	L"Normal Body",
+	L"Big Body",
+};
+
+STR16 gzIMPDisabilityTraitText[]=
+{
+	L"No Disability",
+	L"Heat Intolerant",
+	L"Nervous",
+	L"Claustrophobic",
+	L"Nonswimmer",
+	L"Fear of Insects",
+	L"Forgetful",
+	L"Psychotic",
+	L"I.M.P. Disabilities",
 };
 
 #endif //RUSSIAN

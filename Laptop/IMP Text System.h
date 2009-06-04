@@ -15,6 +15,7 @@ extern STR16 pImpButtonText[];
 // extra strings not found in IMP Text Document
 extern STR16 pExtraIMPStrings[];
 
+extern STR16 pSkillTraitBeginIMPStrings[]; // added - SANDRO
 
 enum{
 	IMP_HOME_1,

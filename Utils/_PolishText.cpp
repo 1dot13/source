@@ -2292,7 +2292,7 @@ STR16 pImpButtonText[] =
 	L"ZACZNIJ", 			// begin profiling
 	L"Umiejêtnoœci", 		// personality section
 	L"Atrybuty", 		// personal stats/attributes section
-	L"Portret", 			// the personal portrait selection
+	L"Appearance", 			// changed from portrait - SANDRO
 	L"G³os %d", 			// the voice selection
 	L"Gotowe", 			// done profiling
 	L"Zacznij od pocz¹tku", 		// start over profiling
@@ -2313,15 +2313,16 @@ STR16 pImpButtonText[] =
 	L"Rejestr", 			// the IMP site registry..when name and gender is selected
 	L"Analizujê...", 			// analyzing your profile results
 	L"OK",
-	L"G³os",
+	L"Character", // Change from "Voice" - SANDRO
 };
 
 STR16 pExtraIMPStrings[] =
 {
-	L"Aby zacz¹æ analizê profilu, wybierz osobowoœæ.",
-	L"Teraz okreœl swoje atrybuty.",
-	L"Teraz mo¿esz przyst¹piæ do wyboru portretu.",
-	L"Aby zakoñczyæ proces, wybierz próbkê g³osu, która ci najbardziej odpowiada."
+	// These texts have been also slightly changed - SANDRO
+	L"With your character traits chosen, it is time to select your skills.",
+	L"To complete the process, select your attributes.",
+	L"To commence actual profiling, select portrait, voice and colors.",
+	L"Now that you have completed your appearence choice, procced to character analysis.",
 };
 
 STR16 pFilesTitle[] =
@@ -3682,7 +3683,7 @@ STR16		zOptionsToggleText[] =
 	L"Efekt smugowy dla poj. strza³u",
 	L"Odg³osy padaj¹cego deszczu",
 	L"Pokazuj wrony",
-	L"Losowa osobowoœæ postaci I.M.P.",
+	L"Show Soldier Tooltips",	// Changed from "Random I.M.P personality" - SANDRO
 	L"Automatyczny zapis",
 	L"Cichy Skyrider",
 	L"Niskie obci¹¿enie procesora",
@@ -3777,7 +3778,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeœli W£¥CZONE, pojedynczy strza³ bêdzie z efektem pocisku smugowego",
 	L"Jeœli W£¥CZONE, bêdziesz s³ysza³ padaj¹cy deszcz.",
 	L"Jeœli W£¥CZONE, w grze pojawiaæ siê bêd¹ wrony.",
-	L"Jeœli W£¥CZONE, postacie I.M.P. bêd¹ otrzymywaæ losow¹ osobowoœæ i postawê.",
+	L"When ON, a tooltip window is shown when pressing |A|l|t and hovering cursor over an enemy.", 	// - Changed from random IMP personality - SANDRO
 	L"Jeœli W£¥CZONE, gra bêdzie zapisywana ka¿dorazowo po zakoñczeniu tury gracza.",
 	L"Jeœli W£¥CZONE, Skyrider nie bêdzie nic mówi³.",
 	L"Jeœli W£¥CZONE, gra bêdzie obci¹¿a³a procesor w mniejszym stopniu.",
@@ -4766,6 +4767,75 @@ STR16 gzMPChatboxText[] =
 {
 	L"Multiplayer Chat",
 	L"Chat: Press 'ENTER' to send of 'ESC' to cancel.",
+};
+
+// Following strings added - SANDRO
+STR16 pSkillTraitBeginIMPStrings[] =
+{
+	L"On the next page, you are going to choose your skill traits according to your proffessional specialization as a mercenary. No more than two different traits or one expert trait can be selected. To achieve an expert level on a trait, simply choose only that one trait.",
+	L"You can also choose only one or even no traits, which will give you a bonus to your attribute points as a compensation. Note that Electronics and Ambidextrous traits cannot be achieved at expert levels, and if you choose one of them only, you will have only one skill trait.",
+};
+
+STR16 sgAttributeSelectionText[] = 
+{
+	L"Please adjust your physical attributes as comapred to that of an avarage merc. You cannot raise any score above    .",
+	L"I.M.P. Attributes and skills review.",
+	L"Bonus Pts.:",
+	L"Starting Level",
+};
+
+STR16 pCharacterTraitBeginIMPStrings[] =
+{
+	L"I.M.P. Character Analysis",
+	L"The analysis of your character is the next step on your profile creation. On the first page you will be shown a list of attitudes to choose. We imagine you could identify yourself with more of them, but here you will be able to pick only one. Choose the one which you feel aligned with mostly. ",
+	L"The second page enlists possible disabilities you might have. If you suffer from any of these disabilities, choose which one (we believe that everyone has only one such disablement). Be honest, as it is important to inform potential employers of your true condition.",
+};
+
+STR16 gzIMPCharacterTraitText[]=
+{
+	L"Normal",
+	L"Friendly",
+	L"Loner",
+	L"Optimist",
+	L"Pessimist",
+	L"Aggressive",
+	L"Arrogant",
+	L"Big Shot",
+	L"Asshole",
+	L"Coward",
+	L"I.M.P. Character Traits",
+};
+
+STR16 gzIMPColorChoosingText[] = 
+{
+	L"I.M.P. Colors and Body Type",
+	L"I.M.P. Colors",
+	L"Please select the respective colors of your skin, hair and clothing. And select what body type you have.",
+	L"Please select the respective colors of your skin, hair and clothing.",
+	L"Toggle this to use alternative rifle holding.",
+};
+
+STR16 sColorChoiceExplanationTexts[]=
+{
+	L"Hair Color",
+	L"Skin Color",
+	L"Shirt Color",
+	L"Pants Color",
+	L"Normal Body",
+	L"Big Body",
+};
+
+STR16 gzIMPDisabilityTraitText[]=
+{
+	L"No Disability",
+	L"Heat Intolerant",
+	L"Nervous",
+	L"Claustrophobic",
+	L"Nonswimmer",
+	L"Fear of Insects",
+	L"Forgetful",
+	L"Psychotic",
+	L"I.M.P. Disabilities",
 };
 
 #endif //POLISH

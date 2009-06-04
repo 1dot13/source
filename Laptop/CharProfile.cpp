@@ -25,6 +25,11 @@
 	#include "IMP Confirm.h"
 	#include "messageboxscreen.h"
 	#include "LaptopSave.h"
+	// These 4 added - SANDRO
+	#include "IMP Character and Disability Entrance.h"
+	#include "IMP Character Trait.h"
+	#include "IMP Disability Trait.h"
+	#include "IMP Color Choosing.h"
 #endif
 
 
@@ -250,6 +255,19 @@ void HandleCharProfile()
 		case( IMP_CONFIRM ):
 			HandleIMPConfirm( );
 		break;
+		// These 4 added - SANDRO
+		case( IMP_CHARACTER_AND_DISABILITY_ENTRANCE ):
+			HandleIMPCharacterAndDisabilityEntrance( );
+		break;
+		case( IMP_CHARACTER_PAGE ):
+			HandleIMPCharacterTrait( );
+		break;
+		case( IMP_DISABILITY_PAGE ):
+			HandleIMPDisabilityTrait( );
+		break;
+		case( IMP_COLOR_CHOICE_PAGE ):
+			HandleIMPColorChoice( );
+		break;
 	}
 
 	return;
@@ -309,6 +327,19 @@ void RenderCharProfile()
 		break;
 		case( IMP_CONFIRM ):
 			RenderIMPConfirm( );
+		break;
+		// These 4 added - SANDRO
+		case( IMP_CHARACTER_AND_DISABILITY_ENTRANCE ):
+			RenderIMPCharacterAndDisabilityEntrance( );
+		break;
+		case( IMP_CHARACTER_PAGE ):
+			RenderIMPCharacterTrait( );
+		break;
+		case( IMP_DISABILITY_PAGE ):
+			RenderIMPDisabilityTrait( );
+		break;
+		case( IMP_COLOR_CHOICE_PAGE ):
+			RenderIMPColorChoice( );
 		break;
 	}
 
@@ -394,6 +425,23 @@ void ExitOldIMPMode( void )
 		case( IMP_CONFIRM ):
 			ExitIMPConfirm( );
 		break;
+		// These 4 added - SANDRO
+		case( IMP_CHARACTER_AND_DISABILITY_ENTRANCE ):
+			DestroyIMPButtons( );
+			ExitIMPCharacterAndDisabilityEntrance( );
+		break;
+		case( IMP_CHARACTER_PAGE ):
+			DestroyIMPButtons( );
+			ExitIMPCharacterTrait( );
+		break;
+		case( IMP_DISABILITY_PAGE ):
+			DestroyIMPButtons( );
+			ExitIMPDisabilityTrait( );
+		break;
+		case( IMP_COLOR_CHOICE_PAGE ):
+			DestroyIMPButtons( );
+			ExitIMPColorChoice( );
+		break;
 	}
 
 	return;
@@ -459,6 +507,23 @@ void EnterNewIMPMode( void )
 		break;
 		case( IMP_CONFIRM ):
 			EnterIMPConfirm( );
+		break;
+		// These 4 added - SANDRO
+		case( IMP_CHARACTER_AND_DISABILITY_ENTRANCE ):
+			CreateIMPButtons( );
+			EnterIMPCharacterAndDisabilityEntrance( );
+		break;
+		case( IMP_CHARACTER_PAGE ):
+			CreateIMPButtons( );
+			EnterIMPCharacterTrait( );
+		break;
+		case( IMP_DISABILITY_PAGE ):
+			CreateIMPButtons( );
+			EnterIMPDisabilityTrait( );
+		break;
+		case( IMP_COLOR_CHOICE_PAGE ):
+			CreateIMPButtons( );
+			EnterIMPColorChoice( );
 		break;
 	}
 
@@ -549,6 +614,8 @@ void LoadImpGraphics( void )
 	LoadAvgMercIndentFrame( );
 	LoadAboutUsIndentFrame( );
 
+	LoadAttribStartingLevelFrame( ); // Added by SANDRO
+	LoadColorChoiceFrame( ); // Added by SANDRO
 
 	return;
 
@@ -599,6 +666,10 @@ void RemoveImpGraphics( void )
 	DeleteAttrib2IndentFrame( );
 	DeleteAvgMercIndentFrame( );
 	DeleteAboutUsIndentFrame( );
+	
+	DeleteAttribStartingLevelFrame( ); // Added by SANDRO
+	DeleteColorChoiceFrame( ); // Added by SANDRO
+
 	return;
 }
 

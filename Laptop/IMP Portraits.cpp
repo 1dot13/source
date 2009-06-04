@@ -227,7 +227,7 @@ void CreateIMPPortraitButtons( void )
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPPortraitDoneCallback );
 	*/
-	giIMPPortraitButton[ 2 ] = CreateIconAndTextButton( giIMPPortraitButtonImage[ 2 ], pImpButtonText[ 11 ], FONT12ARIAL,
+	giIMPPortraitButton[ 2 ] = CreateIconAndTextButton( giIMPPortraitButtonImage[ 2 ], pImpButtonText[ 13 ], FONT12ARIAL,	// changed text on button to [13]("Next") - SANDRO
 														FONT_WHITE, DEFAULT_SHADOW,
 														FONT_WHITE, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,
@@ -331,8 +331,13 @@ void BtnIMPPortraitDoneCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
+
+		// Changed to go to voice selection after portrait selection - SANDRO
+		iCurrentImpPage = IMP_VOICE;
+		// Following part has been cut out
+
 			// go to main page
-			iCurrentImpPage = IMP_MAIN_PAGE;
+			//iCurrentImpPage = IMP_MAIN_PAGE;
 /*
 			// current mode now is voice
 		if( iCurrentProfileMode < IMP__VOICE )
@@ -341,7 +346,7 @@ void BtnIMPPortraitDoneCallback(GUI_BUTTON *btn,INT32 reason)
 			}
 */
 			// if we are already done, leave
-	 if( iCurrentProfileMode == IMP__FINISH )
+	/* if( iCurrentProfileMode == IMP__FINISH )
 			{
 		iCurrentImpPage = IMP_FINISH;
 			}
@@ -356,7 +361,7 @@ void BtnIMPPortraitDoneCallback(GUI_BUTTON *btn,INT32 reason)
 				{
 					iCurrentProfileMode = IMP__VOICE;
 				}
-			}
+			}*/
 
 			// grab picture number
 			if( fCharacterIsMale	)

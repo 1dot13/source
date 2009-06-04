@@ -251,7 +251,7 @@ void CreateIMPVoicesButtons( void )
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPVoicesDoneCallback );
 	*/
-	giIMPVoicesButton[ 2 ] = CreateIconAndTextButton( giIMPVoicesButtonImage[ 2 ], pImpButtonText[ 11 ], FONT12ARIAL,
+	giIMPVoicesButton[ 2 ] = CreateIconAndTextButton( giIMPVoicesButtonImage[ 2 ], pImpButtonText[ 13 ], FONT12ARIAL,	// changed text on button to [13]("Next") - SANDRO
 														FONT_WHITE, DEFAULT_SHADOW,
 														FONT_WHITE, DEFAULT_SHADOW,
 														TEXT_CJUSTIFIED,
@@ -377,8 +377,12 @@ void BtnIMPVoicesDoneCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
+			// Changed to continue to color choosing - SANDRO
+			iCurrentImpPage = IMP_COLOR_CHOICE_PAGE;
+			// Following part removed
+
 			// go to main page
-			iCurrentImpPage = IMP_MAIN_PAGE;
+			/*iCurrentImpPage = IMP_MAIN_PAGE;
 
 			// if we are already done, leave
 	 if( iCurrentProfileMode == IMP__FINISH )
@@ -395,7 +399,7 @@ void BtnIMPVoicesDoneCallback(GUI_BUTTON *btn,INT32 reason)
 				{
 					iCurrentProfileMode = IMP__PERSONALITY;
 				}
-			}
+			}*/
 /*
 			// current mode now is voice
 		else if( iCurrentProfileMode < IMP__PORTRAIT )

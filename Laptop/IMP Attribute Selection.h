@@ -20,5 +20,6 @@ extern BOOLEAN fReturnStatus;
 #define SKILL_SLIDE_START_Y 100
 #define SKILL_SLIDE_HEIGHT 20
 
+INT8 StartingLevelChosen(); // added - SANDRO
 
 #endif

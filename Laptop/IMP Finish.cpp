@@ -215,7 +215,9 @@ void CreateIMPFinishButtons( void )
 	SpecifyButtonIcon(	giIMPFinishButton[ 4 ], guiCHARACTERPORTRAIT, 0,
 													33, 23, FALSE );
 
-	swprintf( sString, pImpButtonText[ 5 ], GetVoiceCountFromVoiceSlot(iCurrentVoice));
+	// Canged to display "Character" - SANDRO
+	//swprintf( sString, pImpButtonText[ 5 ], GetVoiceCountFromVoiceSlot(iCurrentVoice));
+	swprintf( sString, pImpButtonText[ 25 ]);
 
 	// the voice button
 	giIMPFinishButtonImage[5]=	LoadButtonImage( "LAPTOP\\button_8.sti" ,-1,0,-1,1,-1 );

@@ -49,7 +49,7 @@ enum
 	TOPTION_TRACERS_FOR_SINGLE_FIRE,
 	TOPTION_RAIN_SOUND,
 	TOPTION_ALLOW_CROWS,
-	TOPTION_USE_RANDOM_PERSONALITY,
+	TOPTION_ALLOW_SOLDIER_TOOLTIPS, // Changed from TOPTION_USE_RANDOM_PERSONALITY - SANDRO
 	TOPTION_USE_AUTO_SAVE,
 	TOPTION_SILENT_SKYRIDER,
 	TOPTION_LOW_CPU_USAGE,
@@ -185,6 +185,11 @@ typedef struct
 	INT32 iMaxZeroBonus;
 	INT32 iStartAttribute;
 
+	// These 3 added - SANDRO
+	INT32 iIMPStartingLevelCostMultiplier;
+	INT32 iBonusPointsForDisability;
+	INT32 iBonusPointsPerSkillNotTaken;
+
 	INT32 iMaxMilitiaPerSector;
 	INT32 iTrainingSquadSize;
 	INT32 iMilitiaTrainingCost;
@@ -219,8 +224,9 @@ typedef struct
 
 	//BOOLEAN fPers_att;
 
-	INT8 iCustomPersonality;
-	INT8 iCustomAttitude;
+	// These 2 removed - SANDRO
+	//INT8 iCustomPersonality;
+	//INT8 iCustomAttitude;
 
 	INT8 iEasyAPBonus;
 	INT8 iExperiencedAPBonus;
@@ -271,7 +277,7 @@ typedef struct
 	UINT32	guiMaxMilitiaSquadSize;
 	UINT32	guiMaxMilitiaSquadSizeBattle;
 
-	BOOLEAN gfAllowSoldierToolTips;
+	//BOOLEAN gfAllowSoldierToolTips; // moved to prefereces - SANDRO
 
 	// WDS - Improve Tony's and Devin's inventory like BR's
 	BOOLEAN tonyUsesBRSetting;
@@ -322,7 +328,7 @@ typedef struct
 	UINT32 ubGameProgressIncrement;
 
 	// WDS - Advanced start 
-	UINT32 ubIMPStartingLevel;
+	//UINT32 ubIMPStartingLevel; // removed - SANDRO
 
 	// Event settings
 	UINT32 ubGameProgressStartMadlabQuest;

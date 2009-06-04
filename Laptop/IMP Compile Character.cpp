@@ -34,6 +34,10 @@
 	#include "Animation Data.h"
 	#include "random.h"
 	#include "LaptopSave.h"
+	// These 3 added - SANDRO
+	#include "IMP Character Trait.h"
+	#include "IMP Disability Trait.h"
+	#include "IMP Color Choosing.h"
 #endif
 
 // how many times should a 'die' be rolled for skills of the same type?
@@ -176,15 +180,19 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bAttitude = ( INT8 )iAttitude;
 
 	// WDS: Advanced start 
-	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = gGameExternalOptions.ubIMPStartingLevel;
+	//gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = gGameExternalOptions.ubIMPStartingLevel;
+	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = StartingLevelChosen(); // We now choose the starting level on IMP creation - SANDRO
 
 	// set time away
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bMercStatus = 0;
 
-
-
 	// face
 	SelectMercFace( );
+
+	//  Option for badass added - SANDRO
+	if (bBadAssSelected())
+		gMercProfiles[ LaptopSaveInfo.iIMPIndex ].uiBodyTypeSubFlags = 1;
+
 
 	return;
 
@@ -251,8 +259,8 @@ BOOLEAN DoesCharacterHaveAPersoanlity( void )
 
 void CreatePlayerAttitude( void )
 {
-
-	if(gGameSettings.fOptions[TOPTION_USE_RANDOM_PERSONALITY] == TRUE)
+	// We no longer need this - SANDRO
+	/*if(gGameSettings.fOptions[TOPTION_USE_RANDOM_PERSONALITY] == TRUE)
 		{
 			AddAnAttitudeToAttitudeList( ATT_OPTIMIST );
 			AddAnAttitudeToAttitudeList(	ATT_LONER );
@@ -328,7 +336,10 @@ void CreatePlayerAttitude( void )
 		else
 		{
 			iAttitude =	gGameExternalOptions.iCustomAttitude;
-		}
+		}*/
+
+	// Chosen by ourselves - SANDRO
+	iAttitude =	iChosenCharacterTrait();
 }
 
 
@@ -595,8 +606,8 @@ void CreatePlayerPersonality( void )
 {
 
 	// Kaiden: Added for optional Mercenary personalities and attitudes
-
-	if(gGameSettings.fOptions[TOPTION_USE_RANDOM_PERSONALITY] == TRUE)
+	// We don't need this - SANDRO
+	/*if(gGameSettings.fOptions[TOPTION_USE_RANDOM_PERSONALITY] == TRUE)
 		{
 				// Kaiden: More chances for Psycho and Normal.
 			AddAPersonalityToPersonalityList( NO_PERSONALITYTRAIT );
@@ -652,7 +663,12 @@ void CreatePlayerPersonality( void )
 		else
 		{
 			iPersonality = gGameExternalOptions.iCustomPersonality;
-		}
+		}*/
+
+	// Chosen by ourselves - SANDRO
+	iPersonality = iChosenDisabilityTrait();
+
+	
 	return;
 
 }
@@ -738,7 +754,8 @@ void SelectMercFace( void )
 
 void SetMercSkinAndHairColors( void )
 {
-	enum{ PINKSKIN, TANSKIN, DARKSKIN, BLACKSKIN, NUMSKINS };
+	// We don't need this - SANDRO
+	/*enum{ PINKSKIN, TANSKIN, DARKSKIN, BLACKSKIN, NUMSKINS };
 	enum{ BROWNHEAD, BLACKHEAD, //black skin (only this line )
 		 WHITEHEAD,						//dark skin (this line plus all above)
 				BLONDHEAD, REDHEAD,	//pink/tan skin (this line plus all above )
@@ -770,7 +787,7 @@ void SetMercSkinAndHairColors( void )
 		BEIGEPANTS,
 		GREENPANTS,
 		NUMPANTS
-	};//pants
+	};//pants*/
 
 	// skin strings
 	STR sSkinStrings[]={
@@ -815,8 +832,9 @@ void SetMercSkinAndHairColors( void )
 		"GREENPANTS",
 	};//pants
 
+	// We don't need this - SANDRO
 	// given the portrait number, set the merc's skin and hair color
-	INT16 sSkinColor = 0, sHairColor = 0, sShirtColor, sPantColor;
+	/*INT16 sSkinColor = 0, sHairColor = 0, sShirtColor, sPantColor;
 
 	switch( iPortraitNumber )
 	{
@@ -922,8 +940,13 @@ void SetMercSkinAndHairColors( void )
 	strcpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].HAIR, sHairStrings[ sHairColor ] );
 	strcpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].SKIN, sSkinStrings[ sSkinColor ] );
 	strcpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].PANTS, sPantStrings[ sPantColor ] );
-	strcpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].VEST, sShirtStrings[ sShirtColor ] );
+	strcpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].VEST, sShirtStrings[ sShirtColor ] );*/
 
+	// Cosen colors by ourselves - SANDRO
+	strcpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].HAIR, sHairStrings[ iChosenHair() ] );
+	strcpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].SKIN, sSkinStrings[ iChosenSkin() ] );
+	strcpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].PANTS, sPantStrings[ iChosenPants() ] );
+	strcpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].VEST, sShirtStrings[ iChosenShirt() ] );
 }
 
 
@@ -992,11 +1015,14 @@ BOOLEAN ShouldThisMercHaveABigBody( void )
 	// Madd - don't limit it by portrait
 	//if ( ( iPortraitNumber == 0 ) || ( iPortraitNumber == 6 ) || ( iPortraitNumber == 7 ) )
 	//{
-		if ( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bStrength >= 75 )
-		{
-			return( TRUE );
-		}
+	//	if ( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bStrength >= 75 )
+	//	{
+	//		return( TRUE );
+	//	}
 	//}
 
-	return( FALSE );
+	//return( FALSE );
+
+	// We can now choose this ourselves - SANDRO
+	return( bBigBodySelected() );
 }

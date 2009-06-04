@@ -164,6 +164,16 @@ extern STR16 gzCWStrings[];
 
 extern STR16 gzTooltipStrings[];
 
+// These have been added - SANDRO 
+extern STR16 pSkillTraitBeginIMPStrings[];
+extern STR16 sgAttributeSelectionText[];
+extern STR16 pCharacterTraitBeginIMPStrings[];
+extern STR16 gzIMPCharacterTraitText[];
+extern STR16 gzIMPColorChoosingText[];
+extern STR16 sColorChoiceExplanationTexts[];
+extern STR16 gzIMPDisabilityTraitText[];
+//****
+
 enum
 {
 	ANTIHACKERSTR_EXITGAME,

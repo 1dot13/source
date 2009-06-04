@@ -19,6 +19,8 @@
 	#include "CharProfile.h"
 	#include "soldier profile type.h"
 	#include "IMP Compile Character.h"
+	#include "GameSettings.h" // added by SANDRO
+	#include "IMP Color Choosing.h" // added by SANDRO
 #endif
 
 
@@ -83,8 +85,6 @@ INT32 giIMPSkillTraitAnswerButtonImage[ IMP_SKILL_TRAITS__NUMBER_SKILLS ];
 // this is the Done	buttons
 INT32 giIMPSkillTraitFinsihButton;
 INT32 giIMPSkillTraitFinsihButtonImage;
-
-
 
 //BOOLEAN	gfSkillTraitButtonChanged=FALSE;
 
@@ -256,7 +256,7 @@ void AddImpSkillTraitButtons()
 		SetButtonCursor( giIMPSkillTraitAnswerButton[iCnt], CURSOR_WWW);
 
 		//Get rid of playing the button sound, it will be handled here
-		ButtonList[ giIMPSkillTraitAnswerButton[ iCnt ] ]->ubSoundSchemeID = 0;
+		//ButtonList[ giIMPSkillTraitAnswerButton[ iCnt ] ]->ubSoundSchemeID = 0; // - This would disable the sounds totally resulted to play no sound - SANDRO
 
 		//Determine the next x location
 		if( iCnt < IMP_SKILL_TRAIT__SKILL_TRAIT_TO_START_RIGHT_COL )
@@ -569,7 +569,8 @@ INT8	DoesPlayerHaveExtraAttibutePointsToDistributeBasedOnSkillSelection()
 	//if there NONE selected
 	if( bNumSkills == 0 )
 	{
-		bExtraPoints = 10;
+		// Externilized bonus for not taking skills - SANDRO
+		bExtraPoints = 2 * (gGameExternalOptions.iBonusPointsPerSkillNotTaken); 
 	}
 
 	//if there is 1 trait selected
@@ -577,10 +578,11 @@ INT8	DoesPlayerHaveExtraAttibutePointsToDistributeBasedOnSkillSelection()
 	{
 		//if the trait is not the ones you cant be expert in )
 		if( gfSkillTraitQuestions[ IMP_SKILL_TRAITS__ELECTRONICS ] ||
-				gfSkillTraitQuestions[ IMP_SKILL_TRAITS__AMBIDEXTROUS	] ||
-				gfSkillTraitQuestions[ IMP_SKILL_TRAITS__CAMO ] )
+				gfSkillTraitQuestions[ IMP_SKILL_TRAITS__AMBIDEXTROUS	] ) // Actually camo skill can be achived at expert level, although it does nothing now - SANDRO
+				// || gfSkillTraitQuestions[ IMP_SKILL_TRAITS__CAMO ] )
 		{
-			bExtraPoints = 5;
+			// Externilized bonus for not taking skills - SANDRO
+			bExtraPoints = gGameExternalOptions.iBonusPointsPerSkillNotTaken; 
 		}
 		else
 		{
@@ -601,7 +603,8 @@ INT8	DoesPlayerHaveExtraAttibutePointsToDistributeBasedOnSkillSelection()
 
 BOOLEAN ShouldTraitBeSkipped( UINT32 uiTrait )
 {
-	if( uiTrait == IMP_SKILL_TRAITS__MARTIAL_ARTS && !fCharacterIsMale )
+	 // added a check to not offer martial arts to big mercs - SANDRO
+	if( uiTrait == IMP_SKILL_TRAITS__MARTIAL_ARTS && (!fCharacterIsMale || bBigBodySelected()) )
 		return( TRUE );
 	else
 		return( FALSE );

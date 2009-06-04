@@ -2299,7 +2299,7 @@ STR16 pImpButtonText[] =
 	L"开始",		// begin profiling
 	L"性格",		// personality section
 	L"属性", 		// personal stats/attributes section
-	L"肖像",		// the personal portrait selection
+	L"外表", 			// changed from portrait - SANDRO
 	L"嗓音%d",		// the voice selection
 	L"完成",		// done profiling
 	L"重新开始",	// start over profiling
@@ -2320,15 +2320,16 @@ STR16 pImpButtonText[] =
 	L"注册",			// the IMP site registry..when name and gender is selected
 	L"分析...", 		// analyzing your profile results
 	L"完成",
-	L"嗓音",
+	L"性格特征", // Change from "Voice" - SANDRO
 };
 
 STR16 pExtraIMPStrings[] =
 {
-	L"现在嗓音选好了，接着选择您所掌握的技能。",
-	L"最后选择你的属性完成注册。",
-	L"开始实际分析，选择您的肖像",
-	L"接着选择与您最相似的嗓音。",
+	// These texts have been also slightly changed - SANDRO
+	L"选择完角色性格特征之后，接着选择您所掌握的技能。",
+	L"最后调整好你的各项属性值完成整个自创角色过程。",
+	L"开始实际分析，请先选择头像、声音和颜色。",
+	L"初步阶段完成，现在开始角色性格特征分析部分。",
 };
 
 STR16 pFilesTitle[] =
@@ -3689,7 +3690,7 @@ STR16		zOptionsToggleText[] =
 	L"单发曳光弹显示曳光",	//"Tracer effect for single shot",
 	L"雨声",	//"Rain noises",
 	L"允许乌鸦",	//"Allow crows",
-	L"随机产生I.M.P人物性格",	//"Random I.M.P personality",
+	L"允许士兵工具提示",	// Changed from "Random I.M.P personality" - SANDRO
 	L"自动存盘",	//"Auto save",
 	L"沉默的Skyrider",	//"Silent Skyrider",
 	L"降低CPU的使用率",	//"Low CPU usage",
@@ -3784,7 +3785,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"当打开时，单发曳光弹也显示曳光。",
 	L"当打开时，下雨时能听到雨水音效。",	//"When ON, you will hear rain noises when it is raining.",
 	L"当打开时，允许乌鸦出现。",
-	L"当打开时, I.M.P人物的性格和属性为随机生成。",	//"When ON, I.M.P characters will get random personality and attitude.",
+	L"当启用时，把光标定位在敌人身上并且按下 |A|l|t 键会显示一个提示工具窗口。", 	// - Changed from random IMP personality - SANDRO
 	L"当打开时，游戏将在玩家回合后自动存盘",
 	L"当打开时，Skyrider将保持沉默。",
 	L"当打开时，游戏将使用更少的CPU资源。",
@@ -4787,5 +4788,74 @@ STR16 ChineseSpecString4 = L"%s (%s) [%d%％]\n%s %d\n%s %d\n%s %d (%d)\n%s (%d)
 STR16 ChineseSpecString5 = L"%s [%d%％]\n%s %d\n%s %d\n%s %1.1f %s";
 STR16 ChineseSpecString6 = L"%s [%d%％]\n%s %d%％ (%d/%d)\n%s %d%％\n%s %1.1f %s";
 STR16 ChineseSpecString7 = L"%s [%d%％]\n%s %1.1f %s";
+
+// Following strings added - SANDRO
+STR16 pSkillTraitBeginIMPStrings[] =
+{
+	L"下一页你将会选择你所创造的佣兵的特长，请留意你最多能够选择两种特长，当你只选择一种特长时，该特长将会升级成为专家特长。除了电子和双手持枪之外，这两种是没有专家级的，请特别留意。",
+	L"你也可以选择什么特长也不要，作为补偿，你会得到更多的创造点数可以增加你的佣兵的各项能力数值。",
+};
+
+STR16 sgAttributeSelectionText[] =
+{
+	L"请 按 照 你 对 自 己 的 感 觉 ， 调 整 你 的 各 项 能 力 值 。 各 项 能 力 值 的 最 大 值 为  ",
+	L"IMP能力值和技能概览。",
+	L"奖励点数 :",
+	L"开始等级",
+};
+
+STR16 pCharacterTraitBeginIMPStrings[] =
+{
+	L"I.M.P. 性格分析",
+	L"现在开始你个人档案的建立，在第一页会有一些性格特质给你的角色选择，可能你会发觉列出的选择未能完全反映你的性格，但是请至少选择一样你认为最接近你的。",
+	L"下面来设定你性格上的缺陷，相信自己做一个诚实的孩子吧！每个人至少都有一种缺陷的。真实反映有助于让你的未来雇主更能了解你的潜力，避免给你安排不利的工作环境。",
+};
+
+STR16 gzIMPCharacterTraitText[]=
+{
+	L"平常",
+	L"友善",
+	L"独行侠",
+	L"乐观主义者",
+	L"悲观主义者",
+	L"有侵略性",
+	L"傲慢自大",
+	L"大人物",
+	L"神憎鬼厌",
+	L"胆小鬼",
+	L"I.M.P. 性格特征",
+};
+
+STR16 gzIMPColorChoosingText[] =
+{
+	L"I.M.P. 颜色及身型",
+	L"I.M.P. 颜色",
+	L"请选择你喜欢的IMP发色、肤色、服装颜色以及体型。",
+	L"请选择你喜欢的IMP发色、肤色、服装颜色。",
+	L"点选这里佣兵将单手持大枪",
+};
+
+STR16 sColorChoiceExplanationTexts[]=
+{
+	L"头色",
+	L"肤色",
+	L"上衣颜色",
+	L"裤子颜色",
+	L"一般体型",
+	L"魔鬼身材",
+};
+
+STR16 gzIMPDisabilityTraitText[]=
+{
+	L"身心健全",
+	L"怕热",
+	L"神经质",
+	L"幽闭恐怖症",
+	L"旱鸭子",
+	L"怕虫",
+	L"健忘",
+	L"神经错乱",
+	L"I.M.P. 性格缺陷",
+};
 
 #endif //CHINESE

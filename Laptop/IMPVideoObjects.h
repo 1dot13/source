@@ -144,6 +144,15 @@ void RenderAboutUsIndentFrame(INT16 sX, INT16 sY);
 
 void RenderAttributeFrameForIndex( INT16 sX, INT16 sY, INT32 iIndex );
 
+// Added by SANDRO
+BOOLEAN LoadAttribStartingLevelFrame( void );
+void DeleteAttribStartingLevelFrame( void );
+void RenderAttribStartingLevelFrame(INT16 sX, INT16 sY);
+
+// Added by SANDRO
+BOOLEAN LoadColorChoiceFrame( void );
+void DeleteColorChoiceFrame( void );
+void RenderColorChoiceFrame(INT16 sX, INT16 sY);
 
 // graphical handles
 
