@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="C:\games\jagged alliance 2 EN"
+			OutputDirectory="\games\jagged alliance 2"
 			IntermediateDirectory="build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Debug.vsprops;.\ja2_VS2008Linker.vsprops;.\ja2_VS2008Libs.vsprops"
@@ -62,7 +62,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="$(OutDir)\JA2_EN_Debug.exe"
+				OutputFile="$(OutDir)\JA2_EN_Debug_2963.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="Multiplayer\raknet"
 				IgnoreDefaultLibraryNames="libc"
@@ -141,7 +141,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="$(OutDir)\JA2_MP_EN_v1.1.exe"
+				OutputFile="$(OutDir)\JA2_EN_2963.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="Multiplayer\raknet"
 				GenerateDebugInformation="false"
