@@ -4583,7 +4583,7 @@ STR16 pSkillTraitBeginIMPStrings[] =
 
 STR16 sgAttributeSelectionText[] =
 {
-	L"Bitte verteilen Sie nun Ihre Bonuspunkte auf die gewünschten Attribute. Der Wert kann dabei nicht höher sein als    .",
+	L"Bitte verteilen Sie nun Ihre Bonuspunkte auf die gewünschten Attribute. Der Wert kann dabei nicht höher sein als",
 	L"B.S.E. Eigenschaften und Fähigkeiten.",
 	L"Bonus Pkt.:",
 	L"Anfangs-Level",

@@ -4798,7 +4798,7 @@ STR16 pSkillTraitBeginIMPStrings[] =
 
 STR16 sgAttributeSelectionText[] =
 {
-	L"请 按 照 你 对 自 己 的 感 觉 ， 调 整 你 的 各 项 能 力 值 。 各 项 能 力 值 的 最 大 值 为  ",
+	L"请 按 照 你 对 自 己 的 感 觉 ， 调 整 你 的 各 项 能 力 值 。 各 项 能 力 值 的 最 大 值 为",
 	L"IMP能力值和技能概览。",
 	L"奖励点数 :",
 	L"开始等级",

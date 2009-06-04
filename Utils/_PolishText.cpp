@@ -4778,7 +4778,7 @@ STR16 pSkillTraitBeginIMPStrings[] =
 
 STR16 sgAttributeSelectionText[] = 
 {
-	L"Please adjust your physical attributes as comapred to that of an avarage merc. You cannot raise any score above    .",
+	L"Please adjust your physical attributes as comapred to that of an avarage merc. You cannot raise any score above",
 	L"I.M.P. Attributes and skills review.",
 	L"Bonus Pts.:",
 	L"Starting Level",
