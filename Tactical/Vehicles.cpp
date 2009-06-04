@@ -452,7 +452,7 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 	pVehicleSoldier = GetSoldierStructureForVehicle( iId );
 
 	//CHRISL: Get number of vehicles currently in player team
-	for(int x = 0; x < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; x++)
+	for(int x = 0; x < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; x++)
 	{
 		if(MercPtrs[x]->bTeam == OUR_TEAM && (MercPtrs[x]->flags.uiStatusFlags & SOLDIER_VEHICLE) && MercPtrs[x]->bActive == TRUE)
 			vCount ++;

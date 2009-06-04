@@ -27,6 +27,8 @@
 	#include "himage.h"
 	#include "vobject.h"
 	#include "vobject_blitters.h"
+
+	#include <sstream>
 #endif
 //*******************************************************
 //
@@ -126,7 +128,12 @@ void SetFontForeground(UINT8 ubForeground)
 UINT32 uiRed, uiGreen, uiBlue;
 
 	if((FontDefault < 0) || (FontDefault > MAX_FONTS))
-		return;
+	{
+		//return;
+		std::wstringstream wss;
+		wss << L"invalid font index ( " << FontDefault << L" )";
+		THROWEXCEPTION(wss.str().c_str());
+	}
 
 	FontForeground8=ubForeground;
 
@@ -186,7 +193,12 @@ void SetFontBackground(UINT8 ubBackground)
 UINT32 uiRed, uiGreen, uiBlue;
 
 	if((FontDefault < 0) || (FontDefault > MAX_FONTS))
-		return;
+	{
+		//return;
+		std::wstringstream wss;
+		wss << L"invalid color background value ( " << ubBackground << L" )";
+		THROWEXCEPTION(wss.str().c_str());
+	}
 
 	FontBackground8=ubBackground;
 
@@ -582,6 +594,34 @@ INT16 StringPixLength(const STR16 string, INT32 UseFont)
 	return((INT16)Cur);
 }
 
+//*****************************************************************************************
+//
+//	SubstringPixLength
+//
+//	Return the length of the of a substring of a string
+//
+//	Returns INT16
+//
+//	Created by:	 Owen Wigg
+//	Created on:	 26/04/2009
+//
+//*****************************************************************************************
+INT16 SubstringPixLength(STR16 string, UINT32 iStart, UINT32 iEnd, INT32 UseFont)
+{
+	Assert (string != NULL);
+	Assert(iStart >= 0 && iStart <= iEnd);
+	Assert(iEnd < wcslen(string));
+
+	INT16 cnt = 0;
+
+	for (unsigned int i=iStart; i <= iEnd; i++)
+	{
+		cnt += GetWidth(FontObjs[UseFont], GetIndex(string[i]));
+	}
+
+	return cnt;
+}
+
 
 //*****************************************************************************
 //
@@ -899,9 +939,12 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 //*****************************************************************************
 BOOLEAN SetFont(INT32 iFontIndex)
 {
-	Assert(iFontIndex >= 0);
-	Assert(iFontIndex <= MAX_FONTS);
-	Assert(FontObjs[iFontIndex]!=NULL);
+	//Assert(iFontIndex >= 0);
+	//Assert(iFontIndex <= MAX_FONTS);
+	//Assert(FontObjs[iFontIndex]!=NULL);
+	THROWIFFALSE( iFontIndex >= 0 ,"negative font index");
+	THROWIFFALSE( iFontIndex <= MAX_FONTS, "font index > MAX_FONTS" );
+	THROWIFFALSE( FontObjs[iFontIndex]!=NULL, "font is not initialized" );
 #ifdef WINFONTS
 	SET_WINFONT(WinFontMap[iFontIndex]);
 #endif
@@ -1405,6 +1448,14 @@ UINT8				*pDestBuf;
 		{
 			destx=x;
 			desty+=GetHeight(FontObjs[FontDefault], transletter);
+		}
+
+		// we get a ctd if we try try to write outside of the screen
+		if(desty + GetHeight(FontObjs[FontDefault], transletter) > SCREEN_HEIGHT)
+		{
+			// don't forget to unlock buffer
+			UnLockVideoSurface( FontDestBuffer );
+			return 0;
 		}
 
 		// Blit directly

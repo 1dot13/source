@@ -34,6 +34,7 @@
 #endif
 
 #include "BobbyRMailOrder.h"
+#include "connect.h"
 
 
 #define TESTQUESTS
@@ -1248,10 +1249,11 @@ void InternalStartQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN 
 	{
 		gubQuest[ubQuest] = QUESTINPROGRESS;
 
-	if ( fUpdateHistory )
-	{
-		SetHistoryFact( HISTORY_QUEST_STARTED, ubQuest, GetWorldTotalMin(), sSectorX, sSectorY );
-	}
+		if ( fUpdateHistory )
+		{
+			if (!is_networked)
+				SetHistoryFact( HISTORY_QUEST_STARTED, ubQuest, GetWorldTotalMin(), sSectorX, sSectorY );
+		}
 	}
 	else
 	{
@@ -1330,9 +1332,12 @@ void CheckForQuests( UINT32 uiDay )
 	// already started
 	if (gubQuest[QUEST_DELIVER_LETTER] == QUESTNOTSTARTED)
 	{
+
 		StartQuest( QUEST_DELIVER_LETTER, -1, -1 );
 #ifdef TESTQUESTS
-		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Started DELIVER LETTER quest");
+
+		if (!is_networked)
+			ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Started DELIVER LETTER quest");
 #endif
 	}
 

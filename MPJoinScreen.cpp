@@ -29,7 +29,14 @@
 #include "connect.h"
 #include "network.h" // for client name
 #include "saveloadscreen.h"
+#include "game init.h"
 
+#include "VFS/vfs.h"
+#include "VFS/vfs_init.h"
+#include "VFS/PropertyContainer.h"
+#include "VFS/iteratedir.h"
+
+#include "Random.h"
 
 ////////////////////////////////////////////
 //
@@ -113,9 +120,52 @@ UINT32		gubMPJExitScreen = MP_JOIN_SCREEN;	// The screen that is in control next
 UINT32		guiMPJMainBackGroundImage;
 
 // Wide-char strings that will hold the variables until they are transferred to the CHAR ascii fields
-CHAR16		gzPlayerHandleField[ 30 ] = {0} ;
-CHAR16		gzServerIPField[ 15 ] = {0} ;
-CHAR16		gzServerPortField[ 5 ] = {0} ;
+CHAR16		gzPlayerHandleField[ 10+1 ] = {0} ;
+CHAR16		gzServerIPField[ 15+1 ] = {0} ;
+CHAR16		gzServerPortField[ 5+1 ] = {0} ;
+
+// client sets this when joining
+extern CHAR16 gzFileTransferDirectory[100];
+
+#ifdef USE_VFS
+utf8string const& CUniqueServerId::GetServerId(vfs::Path dir, CPropertyContainer* props)
+{
+	if(!props)
+	{
+		return _id;
+	}
+	utf8string key = L"\"" + dir().c_wcs() + L"\"";
+	utf8string id = props->GetStringProperty(L"SERVER",key);
+	if(id.empty())
+	{
+		std::vector<wchar_t> _rand(30,0);
+		int pos = 0;
+		for(int block = 0; block < 5; ++block)
+		{
+			for(int i=0; i<5; ++i)
+			{
+				int r = Random(36);
+				if(r < 10)
+				{
+					r += L'0';
+				}
+				else
+				{
+					r += L'A' - 10;
+				}
+				_rand[pos++] = r;
+			}
+			_rand[pos++] = L'-';
+		}
+		id.r_wcs().assign(&_rand[0],29);
+	}
+	_id = id;
+	props->SetStringProperty(L"SERVER",key,_id);
+	return _id;
+}
+
+CUniqueServerId s_ServerId;
+#endif
 
 ////////////////////////////////////////////
 //
@@ -155,7 +205,6 @@ BOOLEAN		ExitMPJScreen();
 void		HandleMPJScreen();
 BOOLEAN		RenderMPJScreen();
 void		GetMPJScreenUserInput();
-void		SaveJoinSettings();
 bool		ValidateJoinSettings(bool bSkipServerAddress);
 BOOLEAN DoMPJMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
 void			DoneFadeOutForExitMPJScreen( void );
@@ -164,85 +213,137 @@ void			DoneFadeInForExitMPJScreen( void );
 
 UINT32	MPJoinScreenInit( void )
 {
+// WANNE - MP: Read the values from Profiles/UserProfile/ja2_mp.ini
+#ifndef USE_VFS
 	// read settings from JA2 ini
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_IP", L"", gzServerIPField, 15, L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_PORT", L"", gzServerPortField, 5, L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"CLIENT_NAME", L"Fresh Meat", gzPlayerHandleField, 30 , L"..\\Ja2_mp.ini" );
+	GetPrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_IP", L"127.0.0.1", gzServerIPField, 16, L"..\\Ja2_mp.ini" );
+	GetPrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_PORT", L"60005", gzServerPortField, 6, L"..\\Ja2_mp.ini" );
+	GetPrivateProfileStringW( L"Ja2_mp Settings",L"CLIENT_NAME", L"Player Name", gzPlayerHandleField, 12 , L"..\\Ja2_mp.ini" );
+#else
+	CPropertyContainer props;
+	props.InitFromIniFile( L"Ja2_mp.ini");
+	props.GetStringProperty( L"Ja2_mp Settings", L"SERVER_IP", gzServerIPField, 16, "127.0.0.1");
+	props.GetStringProperty( L"Ja2_mp Settings", L"SERVER_PORT", gzServerPortField, 6, "60005");
+	props.GetStringProperty( L"Ja2_mp Settings", L"CLIENT_NAME", gzPlayerHandleField, 12, L"Player Name");
+#endif
 	return( 1 );
 }
 
-void		SaveJoinSettings()
+void		SaveJoinSettings(bool ReSaving)
 {
-	Get16BitStringFromField( 0, gzPlayerHandleField ); // these indexes are based on the order created
-	Get16BitStringFromField( 1, gzServerIPField );
-	Get16BitStringFromField( 2, gzServerPortField );
-
+	if (!ReSaving)
+	{
+		Get16BitStringFromField( 0, gzPlayerHandleField, 12 ); // these indexes are based on the order created
+		Get16BitStringFromField( 1, gzServerIPField, 16 );
+		Get16BitStringFromField( 2, gzServerPortField, 6 );
+	}
+	
+#ifndef USE_VFS
 	// save settings to JA2_mp.ini
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_IP",  gzServerIPField, L"..\\Ja2_mp.ini" );
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_PORT", gzServerPortField, L"..\\Ja2_mp.ini" );
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"CLIENT_NAME", gzPlayerHandleField , L"..\\Ja2_mp.ini" );
+#else
+	CPropertyContainer props;
+	props.InitFromIniFile("Ja2_mp.ini");
+
+	props.SetStringProperty(L"Ja2_mp Settings",L"SERVER_IP", gzServerIPField);
+	props.SetStringProperty(L"Ja2_mp Settings",L"SERVER_PORT", gzServerPortField);
+	props.SetStringProperty(L"Ja2_mp Settings",L"CLIENT_NAME", gzPlayerHandleField);
+
+	s_ServerId.GetServerId(vfs::Path(gzFileTransferDirectory), &props);
+
+	props.WriteToIniFile(L"ja2_mp.ini",true);
+#endif
 }
 
-bool	ValidateJoinSettings(bool bSkipServerAddress)
+bool	ValidateJoinSettings(bool bSkipServerAddress, bool bSkipSyncDir)
 {
-	// Check a Server name is entered
-	Get16BitStringFromField( 0, gzPlayerHandleField ); // these indexes are based on the order created
+	// Check a Player name is entered
+	Get16BitStringFromField( 0, gzPlayerHandleField, 12 ); // these indexes are based on the order created
 	if (wcscmp(gzPlayerHandleField,L"")<=0)
 	{
 		DoMPJMessageBox( MSG_BOX_BASIC_STYLE, gzMPJScreenText[MPJ_HANDLE_INVALID], MP_JOIN_SCREEN, MSG_BOX_FLAG_OK, NULL );
 		return false;
 	}
 
-	// dont check server address if we are going to HOST
-	if (bSkipServerAddress)
-		return true;
-
-	// Verify the IP Address
-	Get16BitStringFromField( 1, gzServerIPField );
-
-	// loop through octets and check
-	int numOctets = 0;
-	wchar_t* tok;
-	tok = wcstok(gzServerIPField,L".");
-	while (tok != NULL)
+	if (!bSkipServerAddress)
 	{
-		numOctets++;
-		INT32 oct = _wtoi(tok);
-		// check for invalid conversion, ie alpha chars
-		// wtoi returns 0 if it cant convert, but we need this value
-		// therefore if tok <> 0 then it was a bad convert.
-		if (oct == 0 && wcscmp(tok,L"0") != 0)
+		// Verify the IP Address
+		Get16BitStringFromField( 1, gzServerIPField, 16 );
+
+		// loop through octets and check
+		int numOctets = 0;
+		wchar_t* tok;
+		tok = wcstok(gzServerIPField,L".");
+		while (tok != NULL)
 		{
-			// force error
-			numOctets=0;
-			break;
+			numOctets++;
+			INT32 oct = _wtoi(tok);
+			// check for invalid conversion, ie alpha chars
+			// wtoi returns 0 if it cant convert, but we need this value
+			// therefore if tok <> 0 then it was a bad convert.
+			if (oct == 0 && wcscmp(tok,L"0") != 0)
+			{
+				// force error
+				numOctets=0;
+				break;
+			}
+
+			if (oct < 0 || oct > 254) // dont allow broadcast nums
+			{
+				// bad octet, error
+				numOctets=0;
+				break;
+			}
+
+			// get next octet
+			tok = wcstok(NULL,L".");
 		}
 
-		if (oct < 0 || oct > 254) // dont allow broadcast nums
+		if (numOctets != 4)
 		{
-			// bad octet, error
-			numOctets=0;
-			break;
+			// not a valid ip address
+			DoMPJMessageBox( MSG_BOX_BASIC_STYLE, gzMPJScreenText[MPJ_SERVERIP_INVALID], MP_JOIN_SCREEN, MSG_BOX_FLAG_OK, NULL );
+			return false;
+		}
+		
+		// Verify the Server Port
+		Get16BitStringFromField( 2, gzServerPortField, 6 );
+		INT32 svrPort = _wtoi(gzServerPortField);
+		if (svrPort < 1 || svrPort > 65535)
+		{
+			DoMPJMessageBox( MSG_BOX_BASIC_STYLE, gzMPJScreenText[MPJ_SERVERPORT_INVALID], MP_JOIN_SCREEN, MSG_BOX_FLAG_OK, NULL );
+			return false;
+		}
+	}
+
+	if (!bSkipSyncDir)
+	{
+#ifndef USE_VFS
+		// Create MULTIPLAYER / SERVERS if it dosent exist
+		STRING512 syncDir;
+		STRING512 executableDir;
+
+		GetExecutableDirectory(executableDir);
+		sprintf(syncDir, "%s\\multiplayer", executableDir);
+
+		if (!DirectoryExists(syncDir))
+		{
+			CreateDirectoryA(syncDir, NULL);
 		}
 
-		// get next octet
-		tok = wcstok(NULL,L".");
-	}
-
-	if (numOctets != 4)
-	{
-		// not a valid ip address
-		DoMPJMessageBox( MSG_BOX_BASIC_STYLE, gzMPJScreenText[MPJ_SERVERIP_INVALID], MP_JOIN_SCREEN, MSG_BOX_FLAG_OK, NULL );
-		return false;
-	}
-	
-	// Verify the Server Port
-	Get16BitStringFromField( 2, gzServerPortField );
-	INT32 svrPort = _wtoi(gzServerPortField);
-	if (svrPort < 1 || svrPort > 65535)
-	{
-		DoMPJMessageBox( MSG_BOX_BASIC_STYLE, gzMPJScreenText[MPJ_SERVERPORT_INVALID], MP_JOIN_SCREEN, MSG_BOX_FLAG_OK, NULL );
-		return false;
+		sprintf(syncDir, "%s\\multiplayer\\servers", executableDir);
+		if (!DirectoryExists(syncDir))
+		{
+			CreateDirectoryA(syncDir, NULL);
+		}
+#else
+		if(os::CreateRealDirecory(vfs::Path(L"Multiplayer")))
+		{
+			os::CreateRealDirecory(vfs::Path(L"Multiplayer/Servers"));
+		}
+#endif
 	}
 
 	return true;
@@ -402,7 +503,7 @@ BOOLEAN		EnterMPJScreen()
 						MPJ_TXT_HANDLE_HEIGHT,
 						MSYS_PRIORITY_HIGH+2,
 						gzPlayerHandleField,
-						30,
+						11,
 						INPUTTYPE_ASCII );//23
 
 	//Add Server IP textbox 
@@ -577,10 +678,14 @@ void			GetMPJScreenUserInput()
 					break;
 
 				case ENTER:
-					if (ValidateJoinSettings(false))
+					if (ValidateJoinSettings(false, false))
 					{
-						SaveJoinSettings();
+						SaveJoinSettings(false);
 						gubMPJScreenHandler = MPJ_JOIN;
+
+						// force client to use "MULTIPLAYER/SERVERS" path
+						memset(gzFileTransferDirectory,0,100*sizeof(CHAR16));
+						wcscpy(gzFileTransferDirectory,L"multiplayer/servers");
 					}
 					break;
 			}
@@ -602,11 +707,14 @@ void BtnMPJoinCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-		if (ValidateJoinSettings(false))
+		if (ValidateJoinSettings(false, false))
 		{
-			SaveJoinSettings();
+			SaveJoinSettings(false);
 			gubMPJScreenHandler = MPJ_JOIN;
-			//gubMPJScreenHandler = MPJ_JOIN;
+
+			// force client to use "MULTIPLAYER/SERVERS" path
+			memset(gzFileTransferDirectory,0,100*sizeof(CHAR16));
+			wcscpy(gzFileTransferDirectory,L"multiplayer/servers");
 		}
 
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
@@ -624,9 +732,9 @@ void BtnMPJHostCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-		if (ValidateJoinSettings(true))
+		if (ValidateJoinSettings(true, false))
 		{
-			SaveJoinSettings();
+			SaveJoinSettings(false);
 			gubMPJScreenHandler = MPJ_HOST;
 		}
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
@@ -673,58 +781,19 @@ void DoneFadeOutForExitMPJScreen( void )
 	auto_retry = true;
 	giNumTries = 5;
 
-	// loop through and get the status of all the buttons
-	// Madd
-	/*gGameOptions.fGunNut = GetCurrentGunButtonSetting();
-	gGameOptions.ubGameStyle = GetCurrentGameStyleButtonSetting();
-	gGameOptions.ubDifficultyLevel = GetCurrentDifficultyButtonSetting() + 1;*/
-	// JA2Gold: no more timed turns setting
-	//gGameOptions.fTurnTimeLimit = GetCurrentTimedTurnsButtonSetting();//hayden : re-enabled
+	// set up and initialise a new game on the client
+	InitNewGame(false);
+	SetPendingNewScreen( MP_CONNECT_SCREEN );
 
 	if (is_networked)
 		gGameOptions.fTurnTimeLimit = TRUE;
 	else
 		gGameOptions.fTurnTimeLimit = FALSE;
 	
-	// JA2Gold: iron man
-	//gGameOptions.fIronManMode = GetCurrentGameSaveButtonSetting();
-
 	// Bobby Rays - why would we want anything less than the best
 	gGameOptions.ubBobbyRay = BR_AWESOME;
-	
 
-	// CHRISL:
-	/*if(IsNIVModeValid() == TRUE){
-		switch ( GetCurrentINVOptionButtonSetting() )
-		{
-			case GIO_INV_OLD:
-				gGameOptions.ubInventorySystem = INVENTORY_OLD;
-				break;
-			case GIO_INV_NEW:
-				gGameOptions.ubInventorySystem = INVENTORY_NEW;
-				break;
-		}
-	}*/
-
-	//	gubGIOExitScreen = INIT_SCREEN;
-	gubMPJExitScreen = INTRO_SCREEN;
-
-	//set the fact that we should do the intro videos
-//	gbIntroScreenMode = INTRO_BEGINING;
-#ifdef JA2TESTVERSION
-	if( gfKeyState[ ALT ] )
-	{
-		if( gfKeyState[ CTRL ] )
-		{
-			gMercProfiles[ MIGUEL ].bMercStatus = MERC_IS_DEAD;
-			gMercProfiles[ SKYRIDER ].bMercStatus = MERC_IS_DEAD;
-		}
-
-		SetIntroType( INTRO_ENDING );
-	}
-	else
-#endif
-		SetIntroType( INTRO_BEGINING );
+	gubMPJExitScreen = MP_CONNECT_SCREEN;
 
 	ExitMPJScreen(); // cleanup please, if we called a fadeout then we didnt do it above
 

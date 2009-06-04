@@ -126,6 +126,9 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			case MLG_BR:
 				sprintf( filename, "LAPTOP\\BR.STI" );
 				return TRUE;
+			case MLG_MP_GOLDPIECEBUTTONS:
+				sprintf( filename, "INTERFACE\\MPGOLDPIECEBUTTONS.sti" );
+				return TRUE;
 		}
 
 	#elif defined( GERMAN )
@@ -244,6 +247,9 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 				return TRUE;
 			case MLG_BR:
 				sprintf( filename, "LAPTOP\\BR.STI" );
+				return TRUE;
+			case MLG_MP_GOLDPIECEBUTTONS:
+				sprintf( filename, "GERMAN\\MPGOLDPIECEBUTTONS_german.sti" );
 				return TRUE;
 		}
 
@@ -398,6 +404,9 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			case MLG_BR:
 				sprintf( filename, "%s\\BR_%s.STI", zLanguage, zLanguage );
 				break;
+			case MLG_MP_GOLDPIECEBUTTONS:
+				sprintf( filename, "%s\\MPGOLDPIECEBUTTONS_%s.sti", zLanguage, zLanguage );
+				break
 			default:
 				return FALSE;
 		}
@@ -515,6 +524,9 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			return TRUE;
 		case MLG_BR:
 			sprintf( filename, "LAPTOP\\BR.STI" );
+			return TRUE;
+		case MLG_MP_GOLDPIECEBUTTONS:
+			sprintf( filename, "INTERFACE\\MPGOLDPIECEBUTTONS.sti" );
 			return TRUE;
 		}
 

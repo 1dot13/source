@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="SGP_2005Express"
 	ProjectGUID="{6283CE93-2960-4596-8E74-7A6FBA8716FF}"
 	RootNamespace="SGP_2005Express"
@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\VFS"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -105,7 +105,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\VFS"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -166,7 +166,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\VFS"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -228,7 +228,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\VFS"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -422,6 +422,10 @@
 			</File>
 			<File
 				RelativePath=".\pcx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PngLoader.h"
 				>
 			</File>
 			<File
@@ -640,6 +644,10 @@
 			</File>
 			<File
 				RelativePath=".\PCX.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PngLoader.cpp"
 				>
 			</File>
 			<File

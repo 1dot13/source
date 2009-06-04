@@ -1206,7 +1206,7 @@ UINT32	MessageBoxScreenHandle( )
 					else if( gMsgBox.usFlags & MSG_BOX_FLAG_INPUTBOX )
 					{
 						// retrieve the string from the text box
-						Get16BitStringFromField( 0, gszMsgBoxInputString ); // these indexes are based on the order created
+						Get16BitStringFromField( 0, gszMsgBoxInputString, 255 ); // these indexes are based on the order created
 						// Exit messagebox
 						gMsgBox.bHandled = MSG_BOX_RETURN_OK;
 					}

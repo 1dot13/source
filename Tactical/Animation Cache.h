@@ -4,7 +4,8 @@
 #include "types.h"
 
 #define MAX_CACHE_SIZE		20
-#define MIN_CACHE_SIZE		2
+//#define MIN_CACHE_SIZE		2
+#define MIN_CACHE_SIZE		4
 
 
 typedef struct

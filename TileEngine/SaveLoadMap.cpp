@@ -20,6 +20,8 @@
 	#include "Smell.h"
 #endif
 
+#include "VFS/vfs.h"
+
 #define			NUM_REVEALED_BYTES			3200
 
 extern BOOLEAN gfLoadingExitGrids;
@@ -300,8 +302,12 @@ BOOLEAN LoadAllMapChangesFromMapTempFileAndApplyThem( )
 	{
 		ReSetSectorFlag( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS );
 	}
-
+#ifndef USE_VFS
 	FileClose( hFile );
+#else
+	// FileClose( hFile );
+	// file already deleted. can't close it anymore (handle is invalid)
+#endif
 
 	//Free the memory used for the temp array
 	MemFree( pTempArrayOfMaps );

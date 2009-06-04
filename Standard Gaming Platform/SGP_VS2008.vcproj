@@ -424,6 +424,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PngLoader.h"
+				>
+			</File>
+			<File
 				RelativePath="RAD.H"
 				>
 			</File>
@@ -637,6 +641,10 @@
 			</File>
 			<File
 				RelativePath="PCX.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PngLoader.cpp"
 				>
 			</File>
 			<File

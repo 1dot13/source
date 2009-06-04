@@ -932,16 +932,18 @@ void StartInterrupt( void )
 		}
 		// otherwise it's the AI interrupting another AI team
 
-		gTacticalStatus.ubCurrentTeam	= pSoldier->bTeam;
-
-		//#ifdef JA2BETAVERSION
+		if (pSoldier != NULL)
+			gTacticalStatus.ubCurrentTeam	= pSoldier->bTeam;
 		
 		if (is_networked)
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Interrupt ( could be hidden )" );
-		
-		//#endif
-		//send_interrupt( pSoldier );//hayden
-		StartNPCAI( pSoldier );
+		{
+			#ifdef JA2BETAVERSION
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Interrupt ( could be hidden )" );
+			#endif
+		}
+
+		if (pSoldier != NULL)
+			StartNPCAI( pSoldier );
 		
 		}
 	}
@@ -1776,11 +1778,14 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 	#ifdef DEBUG_INTERRUPTS
 		DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("Calculating int pts for %d vs %d, number is %d", pSoldier->ubID, ubOpponentID, iPoints ) );
 	#endif
-if(is_networked)
-{
-	SOLDIERTYPE	*pOpp = &Menptr[ubOpponentID];
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_CHAT, L"Interrupt: '%s' vs '%s' = %d points.",pSoldier->name,pOpp->name, iPoints );
-}
+	if(is_networked)
+	{
+		SOLDIERTYPE	*pOpp = &Menptr[ubOpponentID];
+
+		#ifdef JA2BETAVERSION
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_MPSYSTEM, L"Interrupt: '%s' vs '%s' = %d points.",pSoldier->name,pOpp->name, iPoints );
+		#endif
+	}
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"CalcInterruptDuelPts done");
 	return( (INT8)iPoints );
 }

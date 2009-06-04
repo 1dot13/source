@@ -117,6 +117,16 @@
 #include "test_space.h"
 #include "connect.h"
 
+// OJW - 20090419
+UINT8	giMAXIMUM_NUMBER_OF_PLAYER_MERCS = CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS;
+UINT8	giMAXIMUM_NUMBER_OF_PLAYER_VEHICLES = CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES;
+UINT8	giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+UINT8	giMAXIMUM_NUMBER_OF_ENEMIES = CODE_MAXIMUM_NUMBER_OF_ENEMIES;
+UINT8	giMAXIMUM_NUMBER_OF_CREATURES = CODE_MAXIMUM_NUMBER_OF_CREATURES;
+UINT8	giMAXIMUM_NUMBER_OF_REBELS = CODE_MAXIMUM_NUMBER_OF_REBELS;
+UINT8	giMAXIMUM_NUMBER_OF_CIVS = CODE_MAXIMUM_NUMBER_OF_CIVS;
+
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -362,16 +372,16 @@ UINT8 bDefaultTeamRanges[ MAXTEAMS_SP ][ 2 ] =
 
 COLORVAL bDefaultTeamColors[ MAXTEAMS ] = 
 {
-	FROMRGB( 255, 255, 0 ),
+	FROMRGB( 255, 255, 0 ),										// own team: yellow
 	FROMRGB( 255, 0, 0 ),
 	FROMRGB( 255, 0, 255 ),
 	FROMRGB( 0, 255, 0 ),
 	FROMRGB( 255, 255, 255 ),
 	FROMRGB( 0, 0, 255 ),
-	FROMRGB( 255, 156, 49 ), //hayden //team 1 (radar colours)
-	FROMRGB( 49, 255, 207 ), //2
-	FROMRGB( 193, 85, 255 ), //3
-	FROMRGB( 0, 255, 115 ) //4
+	FROMRGB( 255, 120, 0 ), //hayden //team 1 (radar colours)	// orange
+	FROMRGB( 62, 140, 240 ), //2									// light blue							
+	FROMRGB( 180, 50, 255 ), //3								// violett
+	FROMRGB( 0, 180, 20 ) //4									// green
 
 };
 
@@ -7075,16 +7085,19 @@ BOOLEAN CheckForLosingEndOfBattle( )
 
 			gfKillingGuysForLosingBattle = FALSE;
 
-			if ( fDoCapture )
+			// WANNE - MP: Only do special scenes (capture, ...) in a single player game
+			if (!is_networked)
 			{
-				EndCaptureSequence( );
-				SetCustomizableTimerCallbackAndDelay( 3000, CaptureTimerCallback, FALSE );
+				if ( fDoCapture )
+				{
+					EndCaptureSequence( );
+					SetCustomizableTimerCallbackAndDelay( 3000, CaptureTimerCallback, FALSE );
+				}
+				else
+				{
+					SetCustomizableTimerCallbackAndDelay( 10000, DeathTimerCallback, FALSE );
+				}
 			}
-			else
-			{
-				SetCustomizableTimerCallbackAndDelay( 10000, DeathTimerCallback, FALSE );
-			}
-
 		}
 		return( TRUE );
 	}

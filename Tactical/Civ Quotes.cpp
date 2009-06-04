@@ -249,7 +249,7 @@ void ShutDownQuoteBox( BOOLEAN fForce )
 			}
 			else 
 			{
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[39] );
+				ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, MPClientMessage[39] );
 				ActionDone( gCivQuoteData.pCiv );
 			}
 		}

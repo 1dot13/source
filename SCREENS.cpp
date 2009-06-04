@@ -59,6 +59,7 @@ Screens GameScreens[MAX_SCREENS] =
 	{ MPHostScreenInit,						MPHostScreenHandle,						MPHostScreenShutdown				},
 	{ MPScoreScreenInit,					MPScoreScreenHandle,					MPScoreScreenShutdown				}, // OJW - 20081222
 	{ MPChatScreenInit,					MPChatScreenHandle,					MPChatScreenShutdown				}, // OJW - 20090314
+	{ MPConnectScreenInit,					MPConnectScreenHandle,					MPConnectScreenShutdown				}, // OJW - 20090422
 
 #ifdef JA2BETAVERSION
 	{ AIViewerScreenInit,					AIViewerScreenHandle,			AIViewerScreenShutdown			},

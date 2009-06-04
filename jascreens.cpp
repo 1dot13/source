@@ -61,6 +61,8 @@
 	#include "IniReader.h"
 #endif
 
+#include "VFS/vfs.h"
+
 #define _UNICODE
 // Networking Stuff
 #ifdef NETWORKED
@@ -75,6 +77,7 @@ extern BOOLEAN			gfAmINetworked;
 
 #define MAX_DEBUG_PAGES 4
 
+std::list<SExceptionData> g_ExceptionList;
 
 // GLOBAL FOR PAL EDITOR
 UINT8	CurrentPalette = 0;
@@ -277,7 +280,12 @@ UINT32 ErrorScreenHandle(void)
 	//StartFrameBufferRender( );
 	SetFontDestBuffer(FRAME_BUFFER,0,0,SCREEN_WIDTH,SCREEN_HEIGHT,FALSE );
 
-
+	if(!g_ExceptionList.empty())
+	{
+		PrintExceptionList();
+	}
+	else
+	{
 	// Create string
 	SetFont( LARGEFONT1 );
 	SetFontBackground( FONT_MCOLOR_BLACK );
@@ -301,7 +309,7 @@ UINT32 ErrorScreenHandle(void)
 		DisplayWrappedString( 50, 270, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 	}
 #endif
-
+	}
 	if ( !fFirstTime )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_0, String( "Runtime Error: %s ", gubErrorText ) );
@@ -326,6 +334,9 @@ UINT32 ErrorScreenHandle(void)
 				}
 			}
 	}
+
+	// there is no need to create 100 % cpu load in this stage of the game
+	Sleep(50);
 
 	return( ERROR_SCREEN );
 }
@@ -428,15 +439,23 @@ UINT32 InitScreenHandle(void)
 
 		// Handle queued .ini file error messages
  		int y = 40;
+#ifdef USE_VFS
+		CLog logger(L"ERROR_REPORT.iniErrorMessages.txt");
+		//logger.SetAppend();
+#endif
 		while (! iniErrorMessages.empty()) {
+#ifndef USE_VFS
 			FILE *file_pointer;
+#endif
 			static BOOL iniErrorMessage_create_out_file = TRUE;
 			std::string iniErrorMessage = iniErrorMessages.top();
 			CHAR16 str[256];
 
 			if (iniErrorMessage_create_out_file)
 			{
+#ifndef USE_VFS
 				fopen_s( &file_pointer, "..\\ERROR_REPORT.iniErrorMessages.txt", "w" );
+#endif
 				y += 25;
 				swprintf( str, L"%S", "ERROR_REPORT.iniErrorMessages.txt has been created. Please review its content." );
 				DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
@@ -444,13 +463,19 @@ UINT32 InitScreenHandle(void)
 			}
 			else
 			{
+#ifndef USE_VFS
 				fopen_s( &file_pointer, "..\\ERROR_REPORT.iniErrorMessages.txt", "a+" );
+#endif
 			}
 
 			y += 25;
 			swprintf( str, L"%S", iniErrorMessage.c_str() );
+#ifndef USE_VFS
 			fprintf_s (file_pointer , "%S\n"  , str );
 			fclose( file_pointer );
+#else
+			logger << iniErrorMessage << CLog::endl;
+#endif
 		    DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 			iniErrorMessages.pop();
 
@@ -1080,3 +1105,53 @@ UINT32 EditScreenShutdown()
 
 
 #endif
+
+void PrintExceptionList()
+{
+	UINT8*		pDestBuf;
+	UINT32		uiDestPitchBYTES;
+	SGPRect		ClipRect;
+	
+	ClipRect.iLeft		= 0;
+	ClipRect.iRight		= SCREEN_WIDTH;
+	ClipRect.iTop		= 0;
+	ClipRect.iBottom	= SCREEN_HEIGHT;
+
+	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+	//Blt16BPPBufferShadowRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect );
+	Blt16BPPBufferHatchRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect );
+	UnLockVideoSurface( FRAME_BUFFER );
+	
+	// Create string
+	SetFont( LARGEFONT1 );
+	SetFontBackground( FONT_MCOLOR_BLACK );
+	SetFontForeground( FONT_MCOLOR_LTGRAY );
+	mprintf( 50, 200, L"RUNTIME ERROR" );
+
+	mprintf( 50, 225, L"PRESS <ESC> TO EXIT" );
+
+	const int iStartY = 255;
+	const int iDiffY = 70;
+
+	std::list<SExceptionData>::iterator it = g_ExceptionList.begin();
+	for(int i = 0; it != g_ExceptionList.end(); ++it, ++i)
+	{
+		//std::stringstream ss;
+		//ss << (*it).file << "(l. " << it->line;
+		SetFont( FONT12ARIAL );
+		SetFontForeground( FONT_YELLOW );
+		SetFontShadow( 60 );		//60 is near black
+		mprintf( 50, iStartY+(i*iDiffY)   , L"File");
+		mprintf( 100, iStartY+(i*iDiffY)   , L":  %s", it->file.c_wcs().c_str() );
+
+		mprintf( 50, iStartY+(i*iDiffY)+14, L"Line");
+		mprintf( 100, iStartY+(i*iDiffY)+14, L":  %i", it->line );
+
+		mprintf( 50, iStartY+(i*iDiffY)+28, L"Function");
+		mprintf( 100, iStartY+(i*iDiffY)+28, L":  %s", it->function.c_wcs().c_str() );
+
+		SetFontForeground( FONT_LTRED );
+		DisplayWrappedString( 60, iStartY+(i*iDiffY) + 44, SCREEN_WIDTH - 100, 2, FONT12ARIAL, FONT_RED, const_cast<wchar_t*>(it->message.c_wcs().c_str()), FONT_BLACK, TRUE, LEFT_JUSTIFIED );
+	}
+}
+

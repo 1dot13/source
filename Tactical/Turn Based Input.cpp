@@ -2366,27 +2366,31 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 				}
 				else if ( fCtrl )	// The_Bob - real time sneaking, 01-06-09
-				{	// ctrl-x: enter turn based while sneaking - check if RT sneak is on, iw we're not already in combat and if we actually see any enemies
-					if (gGameExternalOptions.fAllowRealTimeSneak)
+				{	
+					if (!is_networked)
 					{
-						BOOLEAN fSneakingInRealTime = true;
+						// ctrl-x: enter turn based while sneaking - check if RT sneak is on, iw we're not already in combat and if we actually see any enemies
+						if (gGameExternalOptions.fAllowRealTimeSneak)
+						{
+							BOOLEAN fSneakingInRealTime = true;
 
-						if( gTacticalStatus.uiFlags & INCOMBAT )
-						{	// Don't allow this in combat
-							if (!gGameExternalOptions.fQuietRealTimeSneak)
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_IN_COMBAT_ALREADY]);
-							fSneakingInRealTime = false;
-						}
+							if( gTacticalStatus.uiFlags & INCOMBAT )
+							{	// Don't allow this in combat
+								if (!gGameExternalOptions.fQuietRealTimeSneak)
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_IN_COMBAT_ALREADY]);
+								fSneakingInRealTime = false;
+							}
 
-						if( WeSeeNoOne() )
-						{	// Don't allow this if no enemies are seen - we have the forced turn mode for that
-							if (!gGameExternalOptions.fQuietRealTimeSneak)
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_NO_ENEMIES]);
-							fSneakingInRealTime = false;
+							if( WeSeeNoOne() )
+							{	// Don't allow this if no enemies are seen - we have the forced turn mode for that
+								if (!gGameExternalOptions.fQuietRealTimeSneak)
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_NO_ENEMIES]);
+								fSneakingInRealTime = false;
+							}
+							
+							if (fSneakingInRealTime)
+								EnterCombatMode(OUR_TEAM);
 						}
-						
-						if (fSneakingInRealTime)
-							EnterCombatMode(OUR_TEAM);
 					}
 				}
 				break;
@@ -2394,24 +2398,24 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case 'X':	// shift-ctrl-x: toggle real time sneaking
 				if ( fCtrl )
 				{
-					if (gGameExternalOptions.fAllowRealTimeSneak)
+					if (!is_networked)
 					{
-						gGameExternalOptions.fAllowRealTimeSneak = false;
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_SNEAKING_OFF]);
-						
-						if( !WeSeeNoOne() )	// if we're sneaking up on someone, enter turn-based
-							EnterCombatMode(OUR_TEAM);
+						if (gGameExternalOptions.fAllowRealTimeSneak)
+						{
+							gGameExternalOptions.fAllowRealTimeSneak = false;
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_SNEAKING_OFF]);
+							
+							if( !WeSeeNoOne() )	// if we're sneaking up on someone, enter turn-based
+								EnterCombatMode(OUR_TEAM);
+						}
+						else
+						{
+							gGameExternalOptions.fAllowRealTimeSneak = true;
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_SNEAKING_ON]);
+						}
 					}
-					else
-					{
-						gGameExternalOptions.fAllowRealTimeSneak = true;
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RTM_SNEAKING_ON]);
-					}
-
 				}
 				break;
-
-
 
 			case '/':
 

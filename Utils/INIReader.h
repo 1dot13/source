@@ -6,6 +6,8 @@
 #include <stack>
 #include <string>
 
+#include "VFS/PropertyContainer.h"
+
 // Kaiden: This will read any value out of 
 // an INI file as long as the correct type is specified.
 // Methods should be fairly self explainatory
@@ -27,7 +29,7 @@ public:
 	int ReadInteger(const STR8 szSection, const STR8 szKey, int iDefaultValue);
 	int ReadInteger(const STR8 szSection, const STR8 szKey, int defaultValue, int minValue, int maxValue);
 
-	//void testReadUINT32(void);//various limit tests of UINT and double/float handling
+	//UINT32 CIniReader::testReadUINT32(void);//various limit tests of UINT and double/float handling
 	//front end functions that control type interpretation and range control, each calls internal ReadUINT
 	UINT32 ReadUINT32(const STR8 szSection, const STR8 szKey, UINT32 defaultValue, UINT32 minValue, UINT32 maxValue);
 	UINT16 ReadUINT16(const STR8 szSection, const STR8 szKey, UINT16 defaultValue, UINT16 minValue, UINT16 maxValue);
@@ -40,13 +42,17 @@ public:
 	DOUBLE ReadDouble(const STR8 szSection, const STR8 szKey, DOUBLE defaultValue, DOUBLE minValue, DOUBLE maxValue);
 	FLOAT  ReadFloat (const STR8 szSection, const STR8 szKey, FLOAT  defaultValue, FLOAT  minValue, FLOAT  maxValue);
 
-	BOOLEAN ReadBoolean(const STR8	szSection, const STR8 szKey, BOOLEAN bolDefaultValue);
+	BOOLEAN ReadBoolean(const STR8	szSection, const STR8 szKey, bool bolDefaultValue);
 
 	void ReadString(const STR8 szSection, const STR8 szKey, const STR8 szDefaultValue, STR8 input_buffer, size_t buffer_size);
 
+	// WANNE - MP: Old version, currently used by Multiplayer
+	STR8 ReadString(const STR8 szSection, const STR8 szKey, const STR8	szDefaultValue);
+	
 	BOOLEAN Is_CIniReader_File_Found(void) {return (CIniReader_File_Found);}
-
+	void Clear();
 private:
+	CPropertyContainer m_oProps;
 	char m_szFileName[MAX_PATH];
 	BOOLEAN CIniReader_File_Found;
 

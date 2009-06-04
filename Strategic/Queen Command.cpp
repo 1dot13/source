@@ -550,23 +550,24 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	gfPendingEnemies = (NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) > mapMaximumNumberOfEnemies );
 
 	pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
-	if( pSector->uiFlags & SF_USE_MAP_SETTINGS )
-	{ //count the number of enemy placements in a map and use those
-		SOLDIERINITNODE *curr = gSoldierInitHead;
-		ubTotalAdmins = ubTotalTroops = ubTotalElites = 0;
-		while( curr )
+
+	// OJW - 20090403 - override max ai in co-op
+	if (is_networked && is_server && OVERRIDE_MAX_AI == 1)
+	{
+		float totalEnemies = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites;
+		ubTotalAdmins = ((float)pSector->ubNumAdmins / totalEnemies) * mapMaximumNumberOfEnemies;
+		ubTotalTroops = ((float)pSector->ubNumTroops / totalEnemies) * mapMaximumNumberOfEnemies;
+		ubTotalElites = ((float)pSector->ubNumElites / totalEnemies) * mapMaximumNumberOfEnemies;
+		totalEnemies = ubTotalAdmins + ubTotalTroops + ubTotalElites;
+
+		// take care of any rounding losses
+		while (totalEnemies < mapMaximumNumberOfEnemies)
 		{
-			if( curr->pBasicPlacement->bTeam == ENEMY_TEAM )
-			{
-				switch( curr->pBasicPlacement->ubSoldierClass )
-				{
-					case SOLDIER_CLASS_ADMINISTRATOR:		ubTotalAdmins++;	break;
-					case SOLDIER_CLASS_ARMY:				ubTotalTroops++;	break;
-					case SOLDIER_CLASS_ELITE:				ubTotalElites++;	break;
-				}
-			}
-			curr = curr->next;
+			// just fill out with standard troops
+			ubTotalTroops++;
+			totalEnemies++;
 		}
+
 		pSector->ubNumAdmins = ubTotalAdmins;
 		pSector->ubNumTroops = ubTotalTroops;
 		pSector->ubNumElites = ubTotalElites;
@@ -576,9 +577,37 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	}
 	else
 	{
-		ubTotalAdmins = pSector->ubNumAdmins - pSector->ubAdminsInBattle;
-		ubTotalTroops = pSector->ubNumTroops - pSector->ubTroopsInBattle;
-		ubTotalElites = pSector->ubNumElites - pSector->ubElitesInBattle;
+
+		if( pSector->uiFlags & SF_USE_MAP_SETTINGS )
+		{ //count the number of enemy placements in a map and use those
+			SOLDIERINITNODE *curr = gSoldierInitHead;
+			ubTotalAdmins = ubTotalTroops = ubTotalElites = 0;
+			while( curr )
+			{
+				if( curr->pBasicPlacement->bTeam == ENEMY_TEAM )
+				{
+					switch( curr->pBasicPlacement->ubSoldierClass )
+					{
+						case SOLDIER_CLASS_ADMINISTRATOR:		ubTotalAdmins++;	break;
+						case SOLDIER_CLASS_ARMY:				ubTotalTroops++;	break;
+						case SOLDIER_CLASS_ELITE:				ubTotalElites++;	break;
+					}
+				}
+				curr = curr->next;
+			}
+			pSector->ubNumAdmins = ubTotalAdmins;
+			pSector->ubNumTroops = ubTotalTroops;
+			pSector->ubNumElites = ubTotalElites;
+			pSector->ubAdminsInBattle = 0;
+			pSector->ubTroopsInBattle = 0;
+			pSector->ubElitesInBattle = 0;
+		}
+		else
+		{
+			ubTotalAdmins = pSector->ubNumAdmins - pSector->ubAdminsInBattle;
+			ubTotalTroops = pSector->ubNumTroops - pSector->ubTroopsInBattle;
+			ubTotalElites = pSector->ubNumElites - pSector->ubElitesInBattle;
+		}
 	}
 
 	totalCountOfStationaryEnemies = ubTotalAdmins + ubTotalTroops + ubTotalElites;

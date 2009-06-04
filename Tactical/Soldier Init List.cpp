@@ -753,7 +753,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: return false"));
-	if(is_server)	ScreenMsg( FONT_YELLOW, MSG_CHAT, L"report this MP error (AddPlacementToWorld-FAIL!)");
+	if(is_server)	ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"report this MP error (AddPlacementToWorld-FAIL!)");
 	return FALSE;
 }
 

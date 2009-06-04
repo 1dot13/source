@@ -5,6 +5,6 @@
 BOOLEAN InitMainMenu( );
 void ClearMainMenu( );
 
-void InitDependingGameStyleOptions(BOOLEAN isNetworked);
+void InitDependingGameStyleOptions();
 
 #endif

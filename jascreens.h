@@ -5,6 +5,8 @@
 #include "ScreenIds.h"
 #include "mousesystem.h"
 #include "Button System.h"
+#include <list>
+#include "VFS/utf8string.h"
 
 extern UINT32 EditScreenInit(void);
 extern UINT32 EditScreenHandle(void);
@@ -137,6 +139,11 @@ extern  UINT32	MPChatScreenInit( void );
 extern  UINT32	MPChatScreenHandle( void );
 extern  UINT32	MPChatScreenShutdown( void );
 
+// OJW - 20090422
+extern  UINT32	MPConnectScreenInit( void );
+extern  UINT32	MPConnectScreenHandle( void );
+extern  UINT32	MPConnectScreenShutdown( void );
+
 // External functions
 void DisplayFrameRate( );
 
@@ -145,6 +152,7 @@ void HandleTitleScreenAnimation();
 //External Globals
 extern CHAR8					gubFilename[ 200 ];
 extern UINT32				guiCurrentScreen;
+extern UINT32				guiPendingScreen;
 
 typedef void (*RENDER_HOOK)( void );	
 
@@ -156,6 +164,18 @@ void DisableFPSOverlay( BOOLEAN fEnable );
 
 void EnterTacticalScreen( );
 void LeaveTacticalScreen( UINT32 uiNewScreen );
+
+//////////////////////////////////////////////////////////////////////////
+
+struct SExceptionData
+{
+	utf8string		message,function,file;
+	int				line;
+};
+
+extern std::list<SExceptionData> g_ExceptionList;
+
+void PrintExceptionList();
 
 
 #endif

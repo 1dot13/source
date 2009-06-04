@@ -2966,7 +2966,7 @@ BOOLEAN AddTopMessage( UINT8 ubType, STR16 pzString )
 		gTacticalStatus.fInTopMessage = TRUE;
 
 		// Copy string
-		wcscpy( gTacticalStatus.zTopMessageString, pzString );
+		wcsncpy( gTacticalStatus.zTopMessageString, pzString, 19 );
 
 		CreateTopMessage( gTopMessage.uiSurface, ubType, pzString );
 

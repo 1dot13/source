@@ -20,6 +20,8 @@
 #include "TopicOps.h"
 #include "TopicIDs.h"
 
+#include "VFS/vfs_types.h"
+
 /*
 #ifdef __cplusplus
 extern "C" {
@@ -55,7 +57,7 @@ inline void _Null() { }
 //
 // Uncomment the follow to turn on more aggressive assertions
 //
-#define USE_AGGRESSIVE_ASSERTIONS
+//#define USE_AGGRESSIVE_ASSERTIONS
 
 #ifdef FORCE_ASSERTS_ON
 
@@ -214,6 +216,10 @@ extern	void	_DebugMessage(const char *pSourceFile, unsigned uiLineNum, const cha
 #else
 #define DebugAttackBusy(x)
 #endif
+
+#include "VFS/vfs_debug.h"
+
+void _ExceptionMessage( CBasicException &ex );
 
 /*
 #ifdef __cplusplus

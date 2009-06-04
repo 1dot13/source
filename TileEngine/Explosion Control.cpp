@@ -2282,7 +2282,7 @@ void SpreadEffect( INT16 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 	}
 if(is_networked)
 {
-	ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"explosives not coded in MP");
+	ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, L"explosives not coded in MP");
 	return;
 }
 	// Set values for recompile region to optimize area we need to recompile for MPs

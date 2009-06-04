@@ -424,7 +424,7 @@ void GameInitFinances()
 	if( (FileExists( FINANCES_DATA_FILE ) ) )
 	{
 		FileClearAttributes( FINANCES_DATA_FILE );
-	FileDelete( FINANCES_DATA_FILE );
+		FileDelete( FINANCES_DATA_FILE );
 	}
 	GetBalanceFromDisk( );
 }
@@ -1612,6 +1612,9 @@ void GetBalanceFromDisk( void )
 	HWFILE hFileHandle;
 	INT32 iBytesRead=0;
 
+	if(!FileExists(FINANCES_DATA_FILE))
+		return;
+
 	// open file
  	hFileHandle=FileOpen( FINANCES_DATA_FILE,( FILE_OPEN_EXISTING |	FILE_ACCESS_READ ), FALSE );
 
@@ -1620,7 +1623,7 @@ void GetBalanceFromDisk( void )
 	{
 		LaptopSaveInfo.iCurrentBalance = 0;
 		// close file
-	FileClose( hFileHandle );
+		FileClose( hFileHandle );
 		return;
 	}
 
@@ -1708,8 +1711,8 @@ UINT32 ReadInLastElementOfFinanceListAndReturnIdNumber( void )
 	// make sure file is more than balance size + length of 1 record - 1 byte
 	if ( FileGetSize( hFileHandle ) < sizeof( INT32 ) + sizeof( UINT32 ) + sizeof( UINT8 )+ sizeof(UINT8) + sizeof( INT32 )	)
 	{
-	FileClose( hFileHandle );
-	return 0;
+		FileClose( hFileHandle );
+		return 0;
 	}
 
 	// size is?

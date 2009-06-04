@@ -186,7 +186,6 @@ extern MOUSE_REGION *gSelectedScrollAreaDropDownRegion;
 extern void BobbyRDeliveryCallback(RefToCShipmentManipulator ShipmentManipulator);
 //End Dealtar's Airport Externalization.
 
-
 //Bobby's Sign menu mouse regions
 MOUSE_REGION	gSelectedBobbiesSignMenuRegion[ BOBBIES_NUMBER_SIGNS ];
 void SelectBobbiesSignMenuRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
@@ -254,8 +253,6 @@ BOOLEAN EnterBobbyR()
 		//gDestinationTable.resize(gPostalService.LookupDestinationList().size());
 	}
 	//End Dealtar's Airport Externalization.
-	
-	
 	// an array of mouse regions for the bobbies signs.	Top Left corner, bottom right corner
 	UINT16	usMouseRegionPosArray[] = {BOBBIES_USED_SIGN_X, BOBBIES_USED_SIGN_Y, BOBBIES_USED_SIGN_X+BOBBIES_USED_SIGN_WIDTH, BOBBIES_USED_SIGN_Y+BOBBIES_USED_SIGN_HEIGHT,
 																	BOBBIES_MISC_SIGN_X, BOBBIES_MISC_SIGN_Y, BOBBIES_MISC_SIGN_X+BOBBIES_MISC_SIGN_WIDTH, BOBBIES_MISC_SIGN_Y+BOBBIES_MISC_SIGN_HEIGHT,

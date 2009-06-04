@@ -545,8 +545,11 @@ BOOLEAN ReadInMercStartingGearStats(STR fileName)
 	
 	XML_SetUserData(parser, &pData);
 
-
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	for(int i=0; i<NUM_PROFILES; ++i)
+	{
+		gMercProfileGear[i].clearInventory();
+	}
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 

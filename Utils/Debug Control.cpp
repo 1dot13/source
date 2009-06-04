@@ -6,7 +6,8 @@
 	#include "stdio.h"
 #endif
 
-
+#include "vfs.h"
+#include "PropertyContainer.h"
 
 #ifdef _ANIMSUBSYSTEM_DEBUG
 
@@ -59,6 +60,7 @@ void AiDbgMessage( CHAR8 *strMessage)
 
 void LiveMessage( CHAR8 *strMessage)
 {
+#ifndef USE_VFS
 	FILE		*OutFile;
 
 	if ((OutFile = fopen("Log.txt", "a+t")) != NULL)
@@ -66,9 +68,14 @@ void LiveMessage( CHAR8 *strMessage)
 	fprintf(OutFile, "%s\n", strMessage);
 		fclose(OutFile);
 	}
+#else
+	static CLog& liveMsg = *CLog::Create(L"LiveLog.txt",true);
+	liveMsg << strMessage << CLog::endl;
+#endif
 }
 void MPDebugMsg( CHAR8 *strMessage)
 {
+#ifndef USE_VFS
 	FILE		*OutFile;
 
 	if ((OutFile = fopen("MPDebug.txt", "a+t")) != NULL)
@@ -76,4 +83,8 @@ void MPDebugMsg( CHAR8 *strMessage)
 	fprintf(OutFile, "%s\n", strMessage);
 		fclose(OutFile);
 	}
+#else
+	static CLog& mpMsg = *CLog::Create(L"MPDebug.txt", true);
+	mpMsg << strMessage << CLog::endl;
+#endif
 }

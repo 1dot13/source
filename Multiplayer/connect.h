@@ -12,6 +12,11 @@ extern bool is_server;
 extern bool is_networked;
 extern bool is_host; // OJW - added 20081129
 
+// OJW - 20040922
+extern bool recieved_settings;
+extern bool recieved_transfer_settings;
+extern INT16 serverSyncClientsDirectory;
+
 extern int PLAYER_TEAM_TIMER_SEC_PER_TICKS;
 
 //extern char CLIENT_NUM[30];
@@ -38,6 +43,14 @@ extern int RANDOM_MERCS;
 
 //OJW - 20090317
 extern bool is_game_started;
+
+//OJW - 20090403
+extern int OVERRIDE_MAX_AI;
+
+//OJW - 20090405
+extern STRING512 gCurrentTransferFilename;
+extern INT32 gCurrentTransferBytes;
+extern INT32 gTotalTransferBytes;
 
 extern UINT16 crate_usMapPos;
 
@@ -98,6 +111,8 @@ void send_interrupt(SOLDIERTYPE *pSoldier);
 
 void OpenChatMsgBox(void);
 
+void reapplySETTINGS();
+
 BOOLEAN CheckConditionsForBattle( GROUP *pGroup ); // this comes from strategic movement.cpp
 
 extern char client_names[4][30];
@@ -108,10 +123,13 @@ extern char client_names[4][30];
 extern int  client_ready[4];
 extern int	client_teams[4];
 extern int	client_edges[4];
+extern int  client_downloading[4];
+extern int  client_progress[4];
 
 extern char	SERVER_NAME[30];
 
 //OJW - 20081224
+#define MAX_CONNECT_RETRIES	5
 extern bool auto_retry;
 extern int giNumTries;
 
@@ -146,3 +164,11 @@ typedef struct
 extern player_stats gMPPlayerStats[5];
 
 extern void game_over( void );
+
+// OJW - 20090422
+extern BOOLEAN		fClientReceivedAllFiles;
+
+// OJW - 20090507
+// Add basic version checking, will only work from now on
+// note: this cannot be longer than char[30]
+#define MPVERSION	"1.13MP-v1.1"

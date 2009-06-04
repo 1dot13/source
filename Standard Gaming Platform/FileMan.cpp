@@ -34,6 +34,7 @@
 	#include <malloc.h>
 	#include <stdio.h>
 	#include <direct.h>
+	
 
 	#include "windows.h"
 	#include "FileMan.h"
@@ -44,6 +45,30 @@
 	#include "Container.h"
 	#include "LibraryDataBase.h"
 	#include "io.h"
+
+#endif
+
+using namespace std;
+
+#include "VFS/vfs.h"
+
+#ifdef USE_VFS
+
+#include "VFS/vfs_file_raii.h"
+#include <map>
+
+struct SOperation
+{
+	enum EOperation
+	{
+		UNKNOWN, READ, WRITE,
+	};
+	EOperation op;
+	SOperation() : op(UNKNOWN) {};
+};
+
+typedef std::map<vfs::IBaseFile*, SOperation> tFILEMAP;
+static tFILEMAP s_mapFiles;
 
 #endif
 //**************************************************************************
@@ -230,6 +255,9 @@ void FileDebug( BOOLEAN f )
 //**************************************************************************
 BOOLEAN	FileExists( STR strFilename )
 {
+#ifdef USE_VFS
+	return GetVFS()->FileExists(vfs::Path(strFilename));
+#else
 	// First check to see if it's in a library (most files should be there)
 	if ( gFileDataBase.fInitialized &&
 		CheckIfFileExistInLibrary(	strFilename ) ) return TRUE;
@@ -246,6 +274,7 @@ BOOLEAN	FileExists( STR strFilename )
 		return TRUE;
 	
 	return FALSE;
+#endif
 }
 
 //**************************************************************************
@@ -272,6 +301,9 @@ BOOLEAN	FileExists( STR strFilename )
 //**************************************************************************
 extern BOOLEAN	FileExistsNoDB( STR strFilename )
 {
+#ifdef USE_VFS
+	return GetVFS()->FileExists(vfs::Path(strFilename));
+#else
 	// First check if it's in the custom Data directory
 	if ( gCustomDataCat.FindFile(strFilename) ) return TRUE;
 
@@ -284,6 +316,7 @@ extern BOOLEAN	FileExistsNoDB( STR strFilename )
 		return TRUE;
 	
 	return FALSE;
+#endif
 }
 
 //**************************************************************************
@@ -308,12 +341,16 @@ extern BOOLEAN	FileExistsNoDB( STR strFilename )
 //**************************************************************************	
 BOOLEAN	FileDelete( STR strFilename )
 {
+#ifdef USE_VFS
+	return GetVFS()->RemoveFileFromFS(vfs::Path(strFilename));
+#else
 	// Snap: delete the file from the default Data catalogue (if it is there)
 	// Since the path can be either relative or absolute, try both methods
 	gDefaultDataCat.RemoveFile(strFilename, true);
 	gDefaultDataCat.RemoveFile(strFilename, false);
 
 	return( DeleteFile( (LPCSTR) strFilename ) );
+#endif
 }
 
 //**************************************************************************
@@ -343,6 +380,41 @@ BOOLEAN	FileDelete( STR strFilename )
 //**************************************************************************
 HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose )
 {
+#ifdef USE_VFS
+	vfs::Path path(strFilename);
+	vfs::IBaseFile *pFile = NULL;
+	try
+	{
+		if(uiOptions & FILE_ACCESS_WRITE)
+		{
+			// 'vfs::CVirtualFile::SF_TOP' should be enough, but if for some strange reason
+			// file creation fails, we will stop at a writeable profile 
+			// and won't unintentionally mess up a file from another profile
+			vfs::COpenWriteFile open_w( path, true, false, vfs::CVirtualFile::SF_STOP_ON_WRITEABLE_PROFILE);
+			pFile = &open_w.file();
+			open_w.release();
+			s_mapFiles[pFile].op = SOperation::WRITE;
+			return (HWFILE)pFile;
+		}
+		else if(uiOptions & FILE_ACCESS_READ)
+		{
+			vfs::COpenReadFile open_r(path, vfs::CVirtualFile::SF_TOP);
+			pFile = &open_r.file();
+			open_r.release();
+			s_mapFiles[pFile].op = SOperation::READ;
+			return (HWFILE)pFile;
+		}
+	}
+	// sometimes a file is supposed to opened that does not exist (not tested with FileExists())
+	// this operation can fail with an exception that the calling code doesn't catch
+	// instead we catch it (any exception, not just CBasicException) here and return 0
+	catch(CBasicException& ex) { LogException(ex); }
+	catch(...)
+	{ 
+		LogException( CBasicException("Caught undefined exception", _FUNCTION_FORMAT_, __LINE__, __FILE__) );
+	}
+	return 0;
+#else
 	HWFILE	hFile;
 	HANDLE	hRealFile;
 	DWORD		dwAccess;
@@ -483,6 +555,7 @@ HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose )
 		return(0);
 
 	return(hFile);
+#endif
 }
 
 
@@ -507,6 +580,14 @@ HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose )
 
 void FileClose( HWFILE hFile )
 {
+#ifdef USE_VFS
+	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
+	if(pFile)
+	{
+		pFile->Close();
+		s_mapFiles.erase(pFile);
+	}
+#else
 	INT16 sLibraryID;
 	UINT32 uiFileNum;
 
@@ -535,6 +616,7 @@ void FileClose( HWFILE hFile )
 		if( gFileDataBase.fInitialized )
 			CloseLibraryFile( sLibraryID, uiFileNum );
 	}
+#endif
 }
 
 //**************************************************************************
@@ -573,6 +655,36 @@ void FileClose( HWFILE hFile )
 
 BOOLEAN FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead )
 {
+#ifdef USE_VFS
+#ifdef JA2TESTVERSION
+	UINT32 uiStartTime = GetJA2Clock();
+#endif
+	bool bSuccess = false;
+	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
+	if(pFile && (s_mapFiles[pFile].op == SOperation::READ))
+	{
+		vfs::tReadableFile *pRF = vfs::tReadableFile::Cast(pFile);
+		if(pRF)
+		{
+			UINT32 uiBytesRead;
+			bSuccess = pRF->Read((vfs::Byte*)pDest, uiBytesToRead, uiBytesRead);			
+			if(uiBytesToRead != uiBytesRead)
+			{
+				return FALSE;
+			}
+			if(puiBytesRead)
+			{
+				*puiBytesRead = uiBytesRead;
+			}
+		}
+	}
+#ifdef JA2TESTVERSION
+	//Add the time that we spent in this function to the total.
+	uiTotalFileReadTime += GetJA2Clock() - uiStartTime;
+	uiTotalFileReadCalls++;
+#endif
+	return bSuccess;
+#else
 	HANDLE	hRealFile;
 	DWORD		dwNumBytesToRead, dwNumBytesRead;
 	BOOLEAN	fRet = FALSE;
@@ -640,6 +752,7 @@ BOOLEAN FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiByte
 	#endif
 
 	return(fRet);
+#endif
 }
 
 //**************************************************************************
@@ -671,6 +784,29 @@ BOOLEAN FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiByte
 
 BOOLEAN FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBytesWritten )
 {
+#ifdef USE_VFS
+	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
+	if(pFile && (s_mapFiles[pFile].op == SOperation::WRITE))
+	{
+		vfs::tWriteableFile *pWF = vfs::tWriteableFile::Cast(pFile);
+		if(pWF)
+		{
+			UINT32 uiBytesWritten;
+			bool bSuccess = pWF->Write((vfs::Byte*)pDest, uiBytesToWrite, uiBytesWritten);			
+
+			if (uiBytesToWrite != uiBytesWritten)
+			{
+				return FALSE;
+			}
+			if ( puiBytesWritten )
+			{
+				*puiBytesWritten = uiBytesWritten;
+			}
+			return bSuccess;
+		}
+	}
+	return FALSE;
+#else
 	HANDLE	hRealFile;
 	DWORD		dwNumBytesToWrite, dwNumBytesWritten;
 	BOOLEAN	fRet;
@@ -705,6 +841,7 @@ BOOLEAN FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBy
 	}
 
 	return(fRet);
+#endif
 }
 
 //**************************************************************************
@@ -730,6 +867,27 @@ BOOLEAN FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBy
 
 BOOLEAN FileLoad( STR strFilename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead )
 {
+#ifdef USE_VFS
+	vfs::tReadableFile *pFile = GetVFS()->GetRFile(vfs::Path(strFilename));
+	if(pFile)
+	{
+		UINT32	uiNumBytesRead;
+		bool bSuccess = pFile->Read((vfs::Byte*)pDest,uiBytesToRead, uiNumBytesRead);
+		pFile->Close();
+
+		if (uiBytesToRead != uiNumBytesRead)
+		{
+			return FALSE;
+		}
+		if ( puiBytesRead )
+		{
+			*puiBytesRead = uiNumBytesRead;
+		}
+		CHECKF( uiNumBytesRead == uiBytesToRead );
+		return bSuccess;
+	}
+	return FALSE;
+#else
 	HWFILE	hFile;
 	UINT32	uiNumBytesRead;
 	BOOLEAN	fRet;
@@ -752,6 +910,7 @@ BOOLEAN FileLoad( STR strFilename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiB
 		fRet = FALSE;
 
 	return(fRet);
+#endif
 }
 
 //**************************************************************************
@@ -784,6 +943,19 @@ BOOLEAN FileLoad( STR strFilename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiB
 
 BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8	strFormatted, ... )
 {
+#ifdef USE_VFS
+	CHAR8		strToSend[160]; /* itemdescription of item 0 will NOT fit if only 80 Chars per Line!, Sergeant_Kolja, 2007-06-10 */
+	va_list	argptr;
+	BOOLEAN fRetVal = FALSE;
+
+	va_start(argptr, strFormatted);
+	_vsnprintf( strToSend, DIM(strToSend), strFormatted, argptr ); /* made StringLen Save, Sergeant_Kolja, 2007-06-10 */
+	strToSend[ DIM(strToSend)-1 ] = 0;
+	va_end(argptr);
+	
+	fRetVal = FileWrite( hFile, strToSend, strlen(strToSend), NULL );
+	return( fRetVal );
+#else
 	CHAR8		strToSend[160]; /* itemdescription of item 0 will NOT fit if only 80 Chars per Line!, Sergeant_Kolja, 2007-06-10 */
 	va_list	argptr;
 	BOOLEAN fRetVal = FALSE;
@@ -810,6 +982,7 @@ BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8	strFormatted, ... )
 	}
 
 	return( fRetVal );
+#endif
 }
 
 //**************************************************************************
@@ -839,6 +1012,53 @@ BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8	strFormatted, ... )
 
 BOOLEAN FileSeek( HWFILE hFile, UINT32 uiDistance, UINT8 uiHow )
 {
+#ifdef USE_VFS
+	INT32 iDistance = (INT32)uiDistance;
+
+	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
+	if(pFile)
+	{
+		vfs::IBaseFile::ESeekDir eSD;
+		if ( uiHow == FILE_SEEK_FROM_START )
+		{
+			eSD = vfs::IBaseFile::SD_BEGIN;
+		}
+		else if ( uiHow == FILE_SEEK_FROM_END )
+		{
+			eSD = vfs::IBaseFile::SD_END;
+			if( iDistance > 0 )
+			{
+				iDistance = -(iDistance);
+			}
+		}
+		else
+		{
+			eSD = vfs::IBaseFile::SD_CURRENT;
+		}
+
+		if(s_mapFiles[pFile].op == SOperation::WRITE)
+		{
+			vfs::tWriteableFile *pWF = vfs::tWriteableFile::Cast(pFile);
+			if(pWF)
+			{
+				return pWF->SetWriteLocation(iDistance, eSD);
+			}
+		}
+		else if(s_mapFiles[pFile].op == SOperation::READ)
+		{
+			vfs::tReadableFile *pRF = vfs::tReadableFile::Cast(pFile);
+			if(pRF)
+			{
+				return pRF->SetReadLocation(iDistance, eSD);
+			}
+		}
+		else
+		{
+			THROWEXCEPTION(L"unknown operation");
+		}
+	}
+	return FALSE;
+#else
 	HANDLE	hRealFile;
 	LONG		lDistanceToMove;
 	DWORD		dwMoveMethod;
@@ -881,6 +1101,7 @@ BOOLEAN FileSeek( HWFILE hFile, UINT32 uiDistance, UINT8 uiHow )
 	}
 
 	return(TRUE);
+#endif
 }
 
 //**************************************************************************
@@ -908,6 +1129,30 @@ BOOLEAN FileSeek( HWFILE hFile, UINT32 uiDistance, UINT8 uiHow )
 
 INT32 FileGetPos( HWFILE hFile )
 {
+#ifdef USE_VFS
+	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
+	if(pFile)
+	{
+		if(pFile->IsWriteable())
+		{
+			vfs::tWriteableFile *pWF = vfs::tWriteableFile::Cast(pFile);
+			if(pWF)
+			{
+				return pWF->GetWriteLocation();
+			}
+		}
+		else if(pFile->IsReadable())
+		{
+			vfs::tReadableFile *pRF = vfs::tReadableFile::Cast(pFile);
+			if(pRF)
+			{
+				return pRF->GetReadLocation();
+			}
+		}
+	}
+
+	return BAD_INDEX;
+#else
 	HANDLE	hRealFile;
 	UINT32	uiPositionInFile=0;
 
@@ -944,6 +1189,7 @@ INT32 FileGetPos( HWFILE hFile )
 	}
 
 	return(BAD_INDEX);
+#endif
 }
 
 //**************************************************************************
@@ -971,6 +1217,14 @@ INT32 FileGetPos( HWFILE hFile )
 
 UINT32 FileGetSize( HWFILE hFile )
 {
+#ifdef USE_VFS
+	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
+	if(pFile)
+	{
+		return pFile->GetFileSize();
+	}
+	return 0;
+#else
 	HANDLE	hRealHandle;
 	UINT32	uiFileSize = 0xFFFFFFFF;
 
@@ -999,6 +1253,7 @@ UINT32 FileGetSize( HWFILE hFile )
 		return(0);
 	else
 		return( uiFileSize );
+#endif
 }
 
 //**************************************************************************
@@ -1250,6 +1505,10 @@ void BuildFileDirectory( void )
 */
 }
 
+
+
+
+
 //**************************************************************************
 //
 // GetFilesInDirectory
@@ -1356,7 +1615,11 @@ BOOLEAN DirectoryExists( STRING512 pcDirectory )
 
 BOOLEAN MakeFileManDirectory( STRING512 pcDirectory )
 {
+#ifndef USE_VFS
 	return CreateDirectory( pcDirectory, NULL );
+#else
+	return FALSE;
+#endif
 }
 
 
@@ -1366,6 +1629,10 @@ BOOLEAN MakeFileManDirectory( STRING512 pcDirectory )
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 BOOLEAN RemoveFileManDirectory( STRING512 pcDirectory, BOOLEAN fRecursive )
 {
+#ifdef USE_VFS
+	// ignore 'recursive' flag, just delete every file in that subtree (but leave the directories)
+	return GetVFS()->RemoveDirectoryFromFS(pcDirectory);
+#else
 	WIN32_FIND_DATA sFindData;
 	HANDLE		SearchHandle;
 	const CHAR8	*pFileSpec = "*.*";
@@ -1442,6 +1709,7 @@ BOOLEAN RemoveFileManDirectory( STRING512 pcDirectory, BOOLEAN fRecursive )
 	}
 
 	return fRetval;
+#endif
 }
 
 
@@ -1451,6 +1719,10 @@ BOOLEAN RemoveFileManDirectory( STRING512 pcDirectory, BOOLEAN fRecursive )
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 BOOLEAN EraseDirectory( STRING512 pcDirectory)
 {
+#ifdef USE_VFS
+	// ignore 'recursive' flag, just delete every file in that subtree (but leave the directories)
+	return GetVFS()->RemoveDirectoryFromFS(pcDirectory);
+#else
 	WIN32_FIND_DATA sFindData;
 	HANDLE		SearchHandle;
 	const CHAR8	*pFileSpec = "*.*";
@@ -1502,6 +1774,7 @@ BOOLEAN EraseDirectory( STRING512 pcDirectory)
 	}
 
 	return( TRUE );
+#endif
 }
 
 
@@ -1530,8 +1803,31 @@ BOOLEAN GetExecutableDirectory( STRING512 pcDirectory )
 	return( TRUE );
 }
 
+#ifdef USE_VFS
+static vfs::CVirtualFileSystem::Iterator file_iter; 
+#endif
 BOOLEAN GetFileFirst( CHAR8 * pSpec, GETFILESTRUCT *pGFStruct )
 {
+#ifdef USE_VFS
+	CHECKF( pSpec != NULL );
+	CHECKF( pGFStruct != NULL );
+
+	file_iter = GetVFS()->begin(pSpec);
+	if(!file_iter.end())
+	{
+		//vfs::Path const& path = file_iter.value()->GetFullPath();
+		vfs::Path const& path = file_iter.value()->GetFileName();
+		std::string s = path().utf8();
+		utf8string::size_t size = s.length();
+		size = std::min<unsigned int>(size,260-1);
+		sprintf( pGFStruct->zFileName, s.c_str());
+		pGFStruct->zFileName[size] = 0;
+
+		// don't care for the rest of variables in pGFStruct
+		return TRUE;
+	}
+	return FALSE;
+#else
 	INT32 x,iWhich=0;
 	BOOLEAN fFound;
 
@@ -1562,10 +1858,31 @@ BOOLEAN GetFileFirst( CHAR8 * pSpec, GETFILESTRUCT *pGFStruct )
 	W32toSGPFileFind( pGFStruct, &Win32FindInfo[iWhich] );
 
 	return(TRUE);
+#endif
 }
 
 BOOLEAN GetFileNext( GETFILESTRUCT *pGFStruct )
 {
+#ifdef USE_VFS
+	if(!file_iter.end())
+	{
+		file_iter.next();
+	}
+	if(!file_iter.end())
+	{
+		//vfs::Path const& path = file_iter.value()->GetFullPath();
+		vfs::Path const& path = file_iter.value()->GetFileName();
+		std::string s = path().utf8();
+		utf8string::size_t size = s.length();
+		size = std::min<unsigned int>(size,260-1);
+		sprintf( pGFStruct->zFileName, s.c_str());
+		pGFStruct->zFileName[size] = 0;
+
+		// don't care for the rest of variables in pGFStruct
+		return TRUE;
+	}
+	return FALSE;
+#else
 	CHECKF( pGFStruct != NULL );
 	
 	if ( FindNextFile(hFindInfoHandle[pGFStruct->iFindHandle], &Win32FindInfo[pGFStruct->iFindHandle]) )
@@ -1574,10 +1891,14 @@ BOOLEAN GetFileNext( GETFILESTRUCT *pGFStruct )
 		return(TRUE);
 	}
 	return(FALSE);
+#endif
 }
 
 void GetFileClose( GETFILESTRUCT *pGFStruct )
 {
+#ifdef USE_VFS
+	file_iter = vfs::CVirtualFileSystem::Iterator();
+#else
 	if ( pGFStruct == NULL )
 		return;
 
@@ -1586,6 +1907,7 @@ void GetFileClose( GETFILESTRUCT *pGFStruct )
 	fFindInfoInUse[pGFStruct->iFindHandle] = FALSE;
 
 	return;
+#endif
 }
 
 void W32toSGPFileFind( GETFILESTRUCT *pGFStruct, WIN32_FIND_DATA *pW32Struct )
@@ -1802,13 +2124,45 @@ UINT32 FileGetAttributes( STR strFilename )
 
 BOOLEAN FileClearAttributes( STR strFilename )
 {
+#ifndef USE_VFS
 	return SetFileAttributes( (LPCSTR) strFilename, FILE_ATTRIBUTE_NORMAL );
+#else
+	return TRUE;
+#endif
 }
 
 
 //returns true if at end of file, else false
 BOOLEAN	FileCheckEndOfFile( HWFILE hFile )
 {
+#ifdef USE_VFS
+	UINT32 uiCurrentLocation, uiMaxLocation;
+	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
+	if(pFile)
+	{
+		if(pFile->IsWriteable())
+		{
+			vfs::tWriteableFile *pWF = vfs::tWriteableFile::Cast(pFile);
+			if(pWF)
+			{
+				uiCurrentLocation = pWF->GetWriteLocation();
+				uiMaxLocation = pWF->GetFileSize();
+				return uiCurrentLocation < uiMaxLocation;
+			}
+		}
+		else if(pFile->IsReadable())
+		{
+			vfs::tReadableFile *pRF = vfs::tReadableFile::Cast(pFile);
+			if(pRF)
+			{
+				uiCurrentLocation = pRF->GetReadLocation();
+				uiMaxLocation = pRF->GetFileSize();
+				return uiCurrentLocation < uiMaxLocation;
+			}
+		}
+	}
+	return FALSE;
+#else
 	INT16 sLibraryID;
 	UINT32 uiFileNum;
 	HANDLE	hRealFile;
@@ -1873,6 +2227,7 @@ BOOLEAN	FileCheckEndOfFile( HWFILE hFile )
 
 	//we are not and the end of a file
 	return( 0 );
+#endif
 }
 
 
@@ -1944,6 +2299,14 @@ INT32	CompareSGPFileTimes( SGP_FILETIME	*pFirstFileTime, SGP_FILETIME *pSecondFi
 
 UINT32 FileSize(STR strFilename)
 {
+#ifdef USE_VFS
+	vfs::IBaseFile *pFile = GetVFS()->GetFile(vfs::Path(strFilename));
+	if(pFile)
+	{
+		return pFile->GetFileSize();
+	}
+	return 0;
+#else
 HWFILE hFile;
 UINT32 uiSize;
 
@@ -1954,6 +2317,7 @@ UINT32 uiSize;
 	FileClose(hFile);				
 
 	return(uiSize);
+#endif
 }
 
 

@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="\games\jagged alliance 2"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="C:\games\jagged alliance 2 EN"
+			IntermediateDirectory="build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Debug.vsprops;.\ja2_VS2008Linker.vsprops;.\ja2_VS2008Libs.vsprops"
 			CharacterSet="0"
@@ -62,10 +62,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="$(OutDir)\JA2_EN_Debug_2949.exe"
+				OutputFile="$(OutDir)\JA2_EN_Debug.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="Multiplayer\raknet"
-				IgnoreDefaultLibraryNames=""
+				IgnoreDefaultLibraryNames="libc"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
@@ -96,7 +96,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="\games\jagged alliance 2"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Linker.vsprops;.\ja2_VS2008Libs.vsprops"
 			CharacterSet="0"
@@ -141,7 +141,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="$(OutDir)\JA2_EN_Release_2949.exe"
+				OutputFile="$(OutDir)\JA2_MP_EN_v1.1.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="Multiplayer\raknet"
 				GenerateDebugInformation="false"
@@ -176,7 +176,7 @@
 		<Configuration
 			Name="MapEditor|Win32"
 			OutputDirectory="\games\jagged alliance 2"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Linker.vsprops;.\ja2_VS2008Libs.vsprops;.\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -256,7 +256,7 @@
 		<Configuration
 			Name="MapEditorD|Win32"
 			OutputDirectory="\games\jagged alliance 2"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Linker.vsprops;.\ja2_VS2008Libs.vsprops;.\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -440,6 +440,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MPConnectScreen.h"
+				>
+			</File>
+			<File
 				RelativePath=".\MPHostScreen.h"
 				>
 			</File>
@@ -615,6 +619,10 @@
 			</File>
 			<File
 				RelativePath=".\MPChatScreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MPConnectScreen.cpp"
 				>
 			</File>
 			<File

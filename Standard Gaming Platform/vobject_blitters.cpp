@@ -22,6 +22,85 @@
 #endif
 
 
+static UINT8 g_AlphaTimesValueCache[256][256];
+
+class InitAlphaTimesValueCache
+{
+public:
+	InitAlphaTimesValueCache()
+	{
+		for(unsigned int alpha = 0; alpha < 256; alpha++)
+		{
+			for(unsigned int val = 0; val < 256; val++)
+			{
+				// it can't get any simpler than that
+				g_AlphaTimesValueCache[alpha][val] = (UINT8)( ((double)alpha/255.0) * val );
+			}
+		}
+	}
+};
+
+static InitAlphaTimesValueCache s_InitAlphaCache;
+
+BOOLEAN Blt32BPPTo16BPPTrans(UINT16 *pDest, UINT32 uiDestPitch, UINT32 *pSrc, UINT32 uiSrcPitch, INT32 iDestXPos, INT32 iDestYPos, INT32 iSrcXPos, INT32 iSrcYPos, UINT32 uiWidth, UINT32 uiHeight)
+{
+	UINT32 *pSrcPtr;
+	UINT16 *pDestPtr;
+	UINT32 uiLineSkipDest, uiLineSkipSrc;
+
+	Assert(pDest!=NULL);
+	Assert(pSrc!=NULL);
+
+	pSrcPtr			= (UINT32 *)((UINT8 *)pSrc+(iSrcYPos*uiSrcPitch)+(iSrcXPos*4));
+	uiLineSkipSrc	= uiSrcPitch-(uiWidth*4);
+
+	pDestPtr		= (UINT16 *)((UINT8 *)pDest+(iDestYPos*uiDestPitch)+(iDestXPos*2));
+	uiLineSkipDest	= uiDestPitch-(uiWidth*2);
+
+	UINT8 alpha, dst_channel, src_channel;
+	UINT8 red, green, blue;
+	do
+	{
+		UINT32 w = uiWidth;
+		do
+		{
+			//alpha = (UINT8)((0xFF000000 & *pSrcPtr) >> 24);
+			alpha = 255;
+			// r
+			dst_channel = (UINT8)((0x1F & *pDestPtr) << 3);
+			src_channel = (UINT8)((0xFF & *pSrcPtr) );
+			//red = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
+			red = (UINT8)( g_AlphaTimesValueCache[alpha][src_channel] );
+
+			// g
+			dst_channel = (UINT8)((0x7E0 & *pDestPtr) >> 3);
+			src_channel = (UINT8)((0xFF00 & *pSrcPtr) >> 8);
+			//green = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
+			green = (UINT8)( g_AlphaTimesValueCache[alpha][src_channel] );
+
+			// b
+			dst_channel = (UINT8)((0xF800 & *pDestPtr) >> 8);
+			src_channel = (UINT8)((0xFF0000 & *pSrcPtr) >> 16);
+			//blue = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
+			blue = (UINT8)( g_AlphaTimesValueCache[alpha][src_channel] );
+
+
+			UINT32 newcolor = FROMRGB(red,green,blue);
+			*pDestPtr = Get16BPPColor(newcolor);
+			pSrcPtr++;
+			pDestPtr++;
+		}
+		while (--w != 0);
+		pSrcPtr  = (UINT32*)((UINT8*)pSrcPtr  + uiLineSkipSrc);
+		pDestPtr = (UINT16*)((UINT8*)pDestPtr + uiLineSkipDest);
+	}
+	while (--uiHeight != 0);
+
+	return ( TRUE );
+}
+
+
+
 /*	Here are bliting functions. If you dont know what kind of functions they are so :
  *	correct me if im wrong they copy array of bits from src image to dest image
  *	maby we can get ride this includes above? we dont need theme here i thinks so
@@ -6907,6 +6986,15 @@ UINT32 uiLineSkipDest, uiLineSkipSrc;
 	Assert(pDest!=NULL);
 	Assert(pSrc!=NULL);
 
+	if(iSrcXPos >= SCREEN_WIDTH)
+		return false;
+	if(iSrcYPos >= SCREEN_HEIGHT)
+		return false;
+	if(iSrcXPos + uiWidth > SCREEN_WIDTH)
+		uiWidth = SCREEN_WIDTH - iSrcXPos;
+	if(iSrcYPos + uiHeight > SCREEN_HEIGHT)
+		uiHeight = SCREEN_HEIGHT - iSrcYPos;
+
 	pSrcPtr=(UINT16 *)((UINT8 *)pSrc+(iSrcYPos*uiSrcPitch)+(iSrcXPos*2));
 	pDestPtr=(UINT16 *)((UINT8 *)pDest+(iDestYPos*uiDestPitch)+(iDestXPos*2));
 	uiLineSkipDest=uiDestPitch-(uiWidth*2);
@@ -6978,7 +7066,22 @@ UINT32 uiLineSkipDest, uiLineSkipSrc;
 	pDestPtr=(UINT16 *)((UINT8 *)pDest+(iDestYPos*uiDestPitch)+(iDestXPos*2));
 	uiLineSkipDest=uiDestPitch-(uiWidth*2);
 	uiLineSkipSrc=uiSrcPitch-(uiWidth*2);
-
+#if 1
+	do
+	{
+		UINT32 w = uiWidth;
+		do
+		{
+			if (*pSrcPtr != usTrans) *pDestPtr = *pSrcPtr;
+			pSrcPtr++;
+			pDestPtr++;
+		}
+		while (--w != 0);
+		pSrcPtr  = (UINT16*)((UINT8*)pSrcPtr  + uiLineSkipSrc);
+		pDestPtr = (UINT16*)((UINT8*)pDestPtr + uiLineSkipDest);
+	}
+	while (--uiHeight != 0);
+#else
 __asm {
 	mov		esi, pSrcPtr
 	mov		edi, pDestPtr
@@ -7007,7 +7110,7 @@ Blit3:
 	jnz		BlitNewLine
 
 	}
-
+#endif
 	return(TRUE);
 }
 

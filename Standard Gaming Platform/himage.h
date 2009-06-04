@@ -19,6 +19,8 @@
 #define TGA_FILE_READER					0x2
 #define STCI_FILE_READER				0x4
 #define TRLE_FILE_READER				0x8
+#define PNG_FILE_READER					0x10
+#define JPC_FILE_READER					0x20
 #define UNKNOWN_FILE_READER			0x200
 
 // Defines for buffer bit depth
@@ -93,41 +95,29 @@ typedef struct
 {
 	UINT16					usWidth;
 	UINT16					usHeight;
-	UINT8						ubBitDepth;
+	UINT8					ubBitDepth;
 	UINT16					fFlags;
-	SGPFILENAME			ImageFile;
+	SGPFILENAME				ImageFile;
 	UINT32					iFileLoader;
-	SGPPaletteEntry *pPalette;
-	UINT16					*pui16BPPPalette;
-	UINT8 *					pAppData;
+	SGPPaletteEntry*		pPalette;
+	UINT16*					pui16BPPPalette;
+	UINT8*					pAppData;
 	UINT32					uiAppDataSize;
 	// This union is used to describe each data type and is flexible to include the
 	// data strucutre of the compresssed format, once developed.
 	union 
 	{
-		//struct
-		//{
-			PTR		pImageData;
-		//};
-		//struct
-		//{
-			PTR		pCompressedImageData;
-		//};
-		//struct 
-		//{
-			UINT8						*p8BPPData;
-		//};
-		//struct
-		//{
-		
-			UINT16 *p16BPPData;
-		//};
+		PTR				pImageData;
+		PTR				pCompressedImageData;
+		UINT8*			p8BPPData;
+		UINT16*			p16BPPData;
+		UINT32*			p32BPPData;
 		struct
 		{
-			UINT8 *					pPixData8;
-			UINT32					uiSizePixData;
-			ETRLEObject *		pETRLEObject;
-			UINT16					usNumberOfObjects;
+			UINT8*			pPixData8;
+			UINT32			uiSizePixData;
+			ETRLEObject*	pETRLEObject;
+			UINT16			usNumberOfObjects;
 		};
 	};
 

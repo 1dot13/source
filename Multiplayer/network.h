@@ -6,6 +6,10 @@ extern  char CLIENT_NAME[30];
 extern char SERVER_NAME[30];
 extern bool Sawarded;
 
+//extern char *fileToSend;
+extern unsigned int setID;
+//extern char *fileToSendCopy;
+
 
 typedef struct
 {
@@ -13,6 +17,7 @@ typedef struct
 	char client_name[30];
 	int team;
 	int cl_edge;
+	char client_version[30];
 }client_info;
 
 typedef struct
@@ -61,9 +66,18 @@ typedef struct
 	int RANDOM_SPAWN;
 	int RANDOM_MERCS;
 	int random_mercs[7];
+	char server_version[30];
 } settings_struct;
 
-
+// WANNE: FILE TRANSFER
+typedef struct
+{
+	STRING512 fileTransferDirectory;
+	//char fileTransferDirectory[600];	// The file transfer directory path from the server
+	int syncClientsDirectory;			// Does the server want to sync files to the clients
+	char serverName[30];				// The name of the server. This is used on the client side as a folder inside the client transfer directory
+	long totalTransferBytes;
+} filetransfersettings_struct;
 
 // added 080101 by OJW
 typedef struct
@@ -84,6 +98,13 @@ typedef struct
 	UINT8 client_num;
 	UINT8 newteam;
 } teamchange_struct;
+
+typedef struct
+{
+	UINT8 client_num;
+	UINT8 progress;
+	UINT8 downloading;
+} progress_struct;
 
 //typedef struct
 //{

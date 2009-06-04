@@ -24,7 +24,6 @@
 	#include "PostalService.h"
 	#include <string>
 #endif
-
 using namespace std;
 
 //static EmailPtr pEmailList;

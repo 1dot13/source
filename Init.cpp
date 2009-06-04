@@ -67,6 +67,9 @@ extern INT16 APBPConstants[TOTAL_APBP_VALUES] = {0};
 extern INT16 gubMaxActionPoints[28];//MAXBODYTYPES = 28... JUST GETTING IT TO WORK NOW.  GOTTHARD 7/2/08
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );
 
+#include "PostalService.h"
+extern CPostalService gPostalService;
+
 // The InitializeGame function is responsible for setting up all data and Gaming Engine
 // tasks which will run the game
 
@@ -119,6 +122,33 @@ static void AddLanguagePrefix(STR fileName, const STR language)
 	memmove( fileComponent, language, strlen( language) );
 }
 
+static void AddLanguagePrefix(STR fileName)
+{
+#ifdef GERMAN 
+	AddLanguagePrefix( fileName, GERMAN_PREFIX);
+#endif
+#ifdef RUSSIAN 
+	AddLanguagePrefix( fileName, RUSSIAN_PREFIX);
+#endif
+#ifdef DUTCH 
+	AddLanguagePrefix( fileName, DUTCH_PREFIX);
+#endif
+#ifdef POLISH 
+	AddLanguagePrefix( fileName, POLISH_PREFIX);
+#endif
+#ifdef FRENCH 
+	AddLanguagePrefix( fileName, FRENCH_PREFIX);
+#endif
+#ifdef ITALIAN 
+	AddLanguagePrefix( fileName, ITALIAN_PREFIX);
+#endif
+#ifdef TAIWANESE 
+	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
+#endif
+#ifdef CHINESE
+	AddLanguagePrefix( fileName, CHINESE_PREFIX);
+#endif
+}
 
 BOOLEAN LoadExternalGameplayData(STR directoryName)
 {
@@ -128,32 +158,27 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcpy(fileName, directoryName);
 	strcat(fileName, ENEMYMISCDROPSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInEnemyMiscDropsStats(gEnemyMiscDrops, fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInEnemyMiscDropsStats(gEnemyMiscDrops, fileName), ENEMYMISCDROPSFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ENEMYEXPLOSIVEDROPSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInEnemyExplosiveDropsStats(gEnemyExplosiveDrops, fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInEnemyExplosiveDropsStats(gEnemyExplosiveDrops, fileName),ENEMYEXPLOSIVEDROPSFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ENEMYWEAPONDROPSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInEnemyWeaponDropsStats(gEnemyWeaponDrops, fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInEnemyWeaponDropsStats(gEnemyWeaponDrops, fileName),ENEMYWEAPONDROPSFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ENEMYAMMODROPSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInEnemyAmmoDropsStats(gEnemyAmmoDrops, fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInEnemyAmmoDropsStats(gEnemyAmmoDrops, fileName),ENEMYAMMODROPSFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ENEMYARMOURDROPSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInEnemyArmourDropsStats(gEnemyArmourDrops, fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInEnemyArmourDropsStats(gEnemyArmourDrops, fileName),ENEMYARMOURDROPSFILENAME);
 	// WANNE: Enemy drops - end
 
 	// WANNE: Sector Loadscreens [2007-05-18]
@@ -163,8 +188,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInSectorLoadscreensStats(gSectorLoadscreens, fileName))
-			return FALSE;
+		THROWIFFALSE(ReadInSectorLoadscreensStats(gSectorLoadscreens, fileName),SECTORLOADSCREENSFILENAME);
 	}
 	else
 	{
@@ -176,8 +200,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcpy(fileName, directoryName);
 	strcat(fileName, AMMOTYPESFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInAmmoTypeStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInAmmoTypeStats(fileName),AMMOTYPESFILENAME);
 
 //Madd: Simple Localization
 //Read in the correct ammostring file for the given language
@@ -213,8 +236,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		//CHRISL: If we fail to load, try loading just the default english
 		strcpy(fileName, directoryName);
 		strcat(fileName, AMMOFILENAME);
-		if(!ReadInAmmoStats(fileName))
-			return FALSE;
+		THROWIFFALSE(!ReadInAmmoStats(fileName),AMMOFILENAME);
 	}
 
 
@@ -222,15 +244,13 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcpy(fileName, directoryName);
 	strcat(fileName, BURSTSOUNDSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInBurstSoundArray(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInBurstSoundArray(fileName),BURSTSOUNDSFILENAME);
 	// Lesh: end
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ITEMSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInItemStats(fileName,FALSE))
-		return FALSE;
+	THROWIFFALSE(ReadInItemStats(fileName,FALSE),ITEMSFILENAME);
 
 //Madd: Simple localization
 // The idea here is that we can have a separate xml file that's named differently
@@ -241,31 +261,9 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 // So for instance, the german file would be called German.Items.xml and would only contain
 // the uiIndex (for reference), szItemName, szLongItemName, szItemDesc, szBRName, and szBRDesc tags
 
-#ifdef GERMAN
-	AddLanguagePrefix( fileName, GERMAN_PREFIX);
-#endif
-#ifdef RUSSIAN
-	AddLanguagePrefix( fileName, RUSSIAN_PREFIX);
-#endif
-#ifdef DUTCH
-	AddLanguagePrefix( fileName, DUTCH_PREFIX);
-#endif
-#ifdef POLISH
-	AddLanguagePrefix( fileName, POLISH_PREFIX);
-#endif
-#ifdef FRENCH
-	AddLanguagePrefix( fileName, FRENCH_PREFIX);
-#endif
-#ifdef ITALIAN
-	AddLanguagePrefix( fileName, ITALIAN_PREFIX);
-#endif
-#ifdef TAIWANESE
-	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
-#endif
-#ifdef CHINESE
-	AddLanguagePrefix( fileName, CHINESE_PREFIX);
-#endif
+
 #ifndef ENGLISH
+	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
@@ -279,97 +277,63 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, SOUNDSFILENAME);
-	if(!ReadInSoundArray(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInSoundArray(fileName),SOUNDSFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, MAGAZINESFILENAME);
-	if(!ReadInMagazineStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInMagazineStats(fileName),MAGAZINESFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ATTACHMENTSFILENAME);
-	if(!ReadInAttachmentStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInAttachmentStats(fileName),ATTACHMENTSFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ATTACHMENTINFOFILENAME);
-	if(!ReadInAttachmentInfoStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInAttachmentInfoStats(fileName),ATTACHMENTINFOFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, LAUNCHABLESFILENAME);
-	if(!ReadInLaunchableStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInLaunchableStats(fileName),LAUNCHABLESFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, COMPATIBLEFACEITEMSFILENAME);
-	if(!ReadInCompatibleFaceItemStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInCompatibleFaceItemStats(fileName),COMPATIBLEFACEITEMSFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, MERGESFILENAME);
-	if(!ReadInMergeStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInMergeStats(fileName),MERGESFILENAME);
 
 	//if(!WriteMergeStats())
 	//	return FALSE;
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ATTACHMENTCOMBOMERGESFILENAME);
-	if(!ReadInAttachmentComboMergeStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInAttachmentComboMergeStats(fileName),ATTACHMENTCOMBOMERGESFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, EXPLOSIVESFILENAME);
-	if(!ReadInExplosiveStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInExplosiveStats(fileName),EXPLOSIVESFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ARMOURSFILENAME);
-	if(!ReadInArmourStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInArmourStats(fileName),ARMOURSFILENAME);
 
 	// CHRISL:
 	strcpy(fileName, directoryName);
 	strcat(fileName, LOADBEARINGEQUIPMENTFILENAME);
-	if(!ReadInlbeStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInlbeStats(fileName),LOADBEARINGEQUIPMENTFILENAME);
 
 	// CHRISL:
+	LBEPocketType.clear();
 	strcpy(fileName, directoryName);
 	strcat(fileName, LBEPOCKETFILENAME);
-	if(!ReadInLBEPocketStats(fileName,FALSE))
-		return FALSE;
+	THROWIFFALSE(ReadInLBEPocketStats(fileName,FALSE),LBEPOCKETFILENAME);
 
 //CHRISL: Simple localization
 // Same setup as what Madd used for items.xml
 
-#ifdef GERMAN
-	AddLanguagePrefix( fileName, GERMAN_PREFIX);
-#endif
-#ifdef RUSSIAN
-	AddLanguagePrefix( fileName, RUSSIAN_PREFIX);
-#endif
-#ifdef DUTCH
-	AddLanguagePrefix( fileName, DUTCH_PREFIX);
-#endif
-#ifdef POLISH
-	AddLanguagePrefix( fileName, POLISH_PREFIX);
-#endif
-#ifdef FRENCH
-	AddLanguagePrefix( fileName, FRENCH_PREFIX);
-#endif
-#ifdef ITALIAN
-	AddLanguagePrefix( fileName, ITALIAN_PREFIX);
-#endif
-#ifdef TAIWANESE
-	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
-#endif
-#ifdef CHINESE
-	AddLanguagePrefix( fileName, CHINESE_PREFIX);
-#endif
 #ifndef ENGLISH
+	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
@@ -381,142 +345,111 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	// CHRISL:
 	strcpy(fileName, directoryName);
 	strcat(fileName, MERCSTARTINGGEARFILENAME);
-	if(!ReadInMercStartingGearStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInMercStartingGearStats(fileName),MERCSTARTINGGEARFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, WEAPONSFILENAME);
-	if(!ReadInWeaponStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInWeaponStats(fileName),WEAPONSFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, INCOMPATIBLEATTACHMENTSFILENAME);
-	if(!ReadInIncompatibleAttachmentStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInIncompatibleAttachmentStats(fileName),INCOMPATIBLEATTACHMENTSFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ENEMYGUNCHOICESFILENAME);
-	if(!ReadInExtendedArmyGunChoicesStats (fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInExtendedArmyGunChoicesStats (fileName),ENEMYGUNCHOICESFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ENEMYITEMCHOICESFILENAME);
-	if(!ReadInArmyItemChoicesStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInArmyItemChoicesStats(fileName),ENEMYITEMCHOICESFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, IMPITEMCHOICESFILENAME);
-	if(!ReadInIMPItemChoicesStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInIMPItemChoicesStats(fileName),IMPITEMCHOICESFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, TONYINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gTonyInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gTonyInventory,fileName),TONYINVENTORYFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, DEVININVENTORYFILENAME);
-	if(!ReadInInventoryStats(gDevinInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gDevinInventory,fileName),DEVININVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, FRANZINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gFranzInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gFranzInventory,fileName),FRANZINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, KEITHINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gKeithInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gKeithInventory,fileName),KEITHINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, SAMINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gSamInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gSamInventory,fileName),SAMINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, JAKEINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gJakeInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gJakeInventory,fileName),JAKEINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, HOWARDINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gHowardInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gHowardInventory,fileName),HOWARDINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, GABBYINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gGabbyInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gGabbyInventory,fileName),GABBYINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, FRANKINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gFrankInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gFrankInventory,fileName),FRANKINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, ELGININVENTORYFILENAME);
-	if(!ReadInInventoryStats(gElginInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gElginInventory,fileName),ELGININVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, MANNYINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gMannyInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gMannyInventory,fileName),MANNYINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, HERVEINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gHerveInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gHerveInventory,fileName),HERVEINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, PETERINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gPeterInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gPeterInventory,fileName),PETERINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, ALBERTOINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gAlbertoInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gAlbertoInventory,fileName),ALBERTOINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, CARLOINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gCarloInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gCarloInventory,fileName),CARLOINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, MICKEYINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gMickyInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gMickyInventory,fileName),MICKEYINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, ARNIEINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gArnieInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gArnieInventory,fileName),ARNIEINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, PERKOINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gPerkoInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gPerkoInventory,fileName),PERKOINVENTORYFILENAME);
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, FREDOINVENTORYFILENAME);
-	if(!ReadInInventoryStats(gFredoInventory,fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInInventoryStats(gFredoInventory,fileName),FREDOINVENTORYFILENAME);
+
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, CITYTABLEFILENAME);
-	if(!ReadInMapStructure(fileName, FALSE))
-		return FALSE;
+	THROWIFFALSE(ReadInMapStructure(fileName, FALSE),CITYTABLEFILENAME);
 
-#ifdef GERMAN 
-	AddLanguagePrefix( fileName, GERMAN_PREFIX);
-#endif
-#ifdef RUSSIAN 
-	AddLanguagePrefix( fileName, RUSSIAN_PREFIX);
-#endif
-#ifdef DUTCH 
-	AddLanguagePrefix( fileName, DUTCH_PREFIX);
-#endif
-#ifdef POLISH 
-	AddLanguagePrefix( fileName, POLISH_PREFIX);
-#endif
-#ifdef FRENCH 
-	AddLanguagePrefix( fileName, FRENCH_PREFIX);
-#endif
-#ifdef ITALIAN 
-	AddLanguagePrefix( fileName, ITALIAN_PREFIX);
-#endif
-#ifdef TAIWANESE 
-	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
-#endif
-#ifdef CHINESE
-	AddLanguagePrefix( fileName, CHINESE_PREFIX);
-#endif
 #ifndef ENGLISH
+	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
@@ -532,90 +465,57 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	// Lesh: load altsectors list
 	strcpy(fileName, directoryName);
 	strcat(fileName, ALTSECTORSFILENAME);
-	if ( !ReadInAltSectors(fileName) )
-		return FALSE;
+	THROWIFFALSE(ReadInAltSectors(fileName),ALTSECTORSFILENAME);
 
 	// Lesh: load samsites - must be after cities.xml
 	strcpy(fileName, directoryName);
 	strcat(fileName, SAMSITESFILENAME);
-	if ( !ReadInSAMInfo(fileName) )
-		return FALSE;
+	THROWIFFALSE(ReadInSAMInfo(fileName),SAMSITESFILENAME);
 
 	// Lesh: army externalization
 	strcpy(fileName, directoryName);
 	strcat(fileName, GARRISONFILENAME);
-	if ( !ReadInGarrisonInfo(fileName) )
-		return FALSE;
+	THROWIFFALSE(ReadInGarrisonInfo(fileName),GARRISONFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, PATROLFILENAME);
-	if ( !ReadInPatrolInfo(fileName) )
-		return FALSE;
+	THROWIFFALSE(ReadInPatrolInfo(fileName),PATROLFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, COMPOSITIONFILENAME);
-	if ( !ReadInArmyCompositionInfo(fileName) )
-		return FALSE;
+	THROWIFFALSE(ReadInArmyCompositionInfo(fileName),COMPOSITIONFILENAME);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, EXPLOSIONDATAFILENAME);
-	if(!ReadInExplosionDataStats(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInExplosionDataStats(fileName),EXPLOSIONDATAFILENAME);
 
 	// Kaiden: Read in Restricted Sectors for Mobile Militia
 	strcpy(fileName, directoryName);
 	strcat(fileName, ROAMINGMILITIAFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInRoamingInfo(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInRoamingInfo(fileName),ROAMINGMILITIAFILENAME);
 
 	// Dealtar: Read in shipping destinations and delivery methods
+	gPostalService.Clear();
 	strcpy(fileName, directoryName);
 	strcat(fileName, SHIPPINGDESTINATIONSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInShippingDestinations(fileName, FALSE))
-		return FALSE;
+	THROWIFFALSE(ReadInShippingDestinations(fileName, FALSE),SHIPPINGDESTINATIONSFILENAME);
 
-#ifdef GERMAN 
-	AddLanguagePrefix( fileName, GERMAN_PREFIX);
-#endif
-#ifdef RUSSIAN 
-	AddLanguagePrefix( fileName, RUSSIAN_PREFIX);
-#endif
-#ifdef DUTCH 
-	AddLanguagePrefix( fileName, DUTCH_PREFIX);
-#endif
-#ifdef POLISH 
-	AddLanguagePrefix( fileName, POLISH_PREFIX);
-#endif
-#ifdef FRENCH 
-	AddLanguagePrefix( fileName, FRENCH_PREFIX);
-#endif
-#ifdef ITALIAN 
-	AddLanguagePrefix( fileName, ITALIAN_PREFIX);
-#endif
-#ifdef TAIWANESE 
-	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
-#endif
-#ifdef CHINESE
-	AddLanguagePrefix( fileName, CHINESE_PREFIX);
-#endif
 #ifndef ENGLISH
+	AddLanguagePrefix(fileName);
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInShippingDestinations(fileName, TRUE))
-			return FALSE;
+		THROWIFFALSE(ReadInShippingDestinations(fileName, TRUE),SHIPPINGDESTINATIONSFILENAME);
 	}
 #endif
-
+	
 	strcpy(fileName, directoryName);
 	strcat(fileName, DELIVERYMETHODSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInDeliveryMethods(fileName))
-		return FALSE;
+	THROWIFFALSE(ReadInDeliveryMethods(fileName),DELIVERYMETHODSFILENAME);
 
-		
 	return TRUE;
 }
 
@@ -632,10 +532,11 @@ UINT32 InitializeJA2(void)
 	gfWorldLoaded = FALSE;
 
 	//Load external game mechanic data
-	if ( !LoadExternalGameplayData(TABLEDATA_DIRECTORY))
-	{
-		return( ERROR_SCREEN );
-	}
+	//if ( !LoadExternalGameplayData(TABLEDATA_DIRECTORY))
+	//{
+	//	return( ERROR_SCREEN );
+	//}
+	TRYCATCH_RETHROW(LoadExternalGameplayData(TABLEDATA_DIRECTORY),L"Loading external data failed");
 
 	// Load external text
 	LoadAllExternalText();

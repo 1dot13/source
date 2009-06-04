@@ -157,7 +157,7 @@ extern UINT32 GetWidth(HVOBJECT hSrcVObject, INT16 ssIndex);
 extern INT16 StringPixLengthArgFastHelp( INT32 usUseFont, INT32 usBoldFont, UINT32 uiCharCount, STR16 pFontString );
 extern INT16 StringPixLengthArg(INT32 usUseFont, UINT32 uiCharCount, STR16 pFontString, ...);
 extern INT16 StringPixLength(const STR16 string,INT32 UseFont);
-
+extern INT16 SubstringPixLength(STR16 string, UINT32 iStart, UINT32 iEnd, INT32 UseFont);
 extern INT16 StringNPixLength(STR16 string, UINT32 uiMaxCount, INT32 UseFont);
 extern void SaveFontSettings(void);
 extern void RestoreFontSettings(void);

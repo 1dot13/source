@@ -108,7 +108,7 @@ bool ovh_ready;
 
 void test_func2 (void)//now bound to "0" 
 {
-	ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"test_func2 - function testing ground:" );
+	ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, L"test_func2 - function testing ground:" );
 
 
 SOLDIERTYPE * pSoldier=MercPtrs[ 0 ];
@@ -174,19 +174,19 @@ pSoldier->EVENT_InternalSetSoldierPosition( sCellX, sCellY ,FALSE, FALSE, FALSE 
 
 //UIHandleLUIEndLock( NULL );
 //if( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
-//		ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"combat turn based" );
+//		ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, L"combat turn based" );
 //else
-//		ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"not" );
+//		ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, L"not" );
 
 
 //SOLDIERTYPE * pSoldier=MercPtrs[ 0 ];
 //
 //		if ( ( gAnimControl[ pSoldier->usAnimState ].uiFlags &( ANIM_FIREREADY | ANIM_FIRE ) ) )
 //		{
-//			ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"Ready" );
+//			ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, L"Ready" );
 //		}
 //		else
-//			ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"Not" );
+//			ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, L"Not" );
 
 ////fInterfacePanelDirty = DIRTYLEVEL2;
 ////guiPendingOverrideEvent = LU_ENDUILOCK;
@@ -343,7 +343,7 @@ pSoldier->EVENT_InternalSetSoldierPosition( sCellX, sCellY ,FALSE, FALSE, FALSE 
 		sprintf(szDefault, "%s","hello");	
 			
 				
-		ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"%S has connected.",szDefault );*/
+		ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, L"%S has connected.",szDefault );*/
 	
 	//manual overide
 	//manual_overide();
@@ -363,11 +363,11 @@ pSoldier->EVENT_InternalSetSoldierPosition( sCellX, sCellY ,FALSE, FALSE, FALSE 
 	//	iBullet = CreateBullet( 0, 0, 0,11 );
 	//	if (iBullet == -1)
 	//	{
-	//		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"Failed to create bullet");		
+	//		ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"Failed to create bullet");		
 	//	}
 	//	pBullet = GetBulletPtr( iBullet );
 
-	//	//ScreenMsg( FONT_YELLOW, MSG_CHAT, L"Created Bullet");		
+	//	//ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"Created Bullet");		
 
 	//	pBullet->fCheckForRoof=0;
 	//	pBullet->qIncrX=-917769;

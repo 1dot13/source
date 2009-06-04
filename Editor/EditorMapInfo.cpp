@@ -227,7 +227,7 @@ void ExtractAndUpdateMapInfo()
 		gMapInformation.ubRestrictedScrollID = (UINT8)temp;
 
 	//set up fields for exitgrid information
-	Get16BitStringFromField( 7, str );
+	Get16BitStringFromField( 7, str, 10 );
 	if( str[0] >= 'a' && str[0] <= 'z' )
 		str[0] -= 32; //uppercase it!
 	if( str[0] >= 'A' && str[0] <= 'Z' &&

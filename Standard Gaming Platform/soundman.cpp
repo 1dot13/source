@@ -1801,10 +1801,14 @@ UINT32 uiCount;
 	return(FALSE);
 }
 
+#include "vfs.h"
+#include "PropertyContainer.h"
 
 // Lesh modifications
 // Sound debug
-
+#ifdef USE_VFS
+static CLog& s_SoundLog = *CLog::Create(SndDebugFileName,true);
+#endif
 //*****************************************************************************************
 // SoundLog
 //	Writes string into log file
@@ -1815,11 +1819,15 @@ UINT32 uiCount;
 //*****************************************************************************************
 void SoundLog(CHAR8 *strMessage)
 {
+#ifndef USE_VFS
 	if ((SndDebug = fopen(SndDebugFileName, "a+t")) != NULL)
 	{
 	 fprintf(SndDebug, "%s\n", strMessage);
 		fclose(SndDebug);
 	}
+#else
+	s_SoundLog << strMessage << CLog::endl;
+#endif
 }
 
 //*****************************************************************************************
@@ -1832,8 +1840,10 @@ void SoundLog(CHAR8 *strMessage)
 //*****************************************************************************************
 void InitLogging()
 {
+#ifndef USE_VFS
 	if ((SndDebug = fopen(SndDebugFileName, "wt")) != NULL)
 	{
 		fclose(SndDebug);
 	}
+#endif
 }

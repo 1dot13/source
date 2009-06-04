@@ -425,6 +425,14 @@
 				RelativePath="WordWrap.h"
 				>
 			</File>
+			<File
+				RelativePath=".\XML_Parser.h"
+				>
+			</File>
+			<File
+				RelativePath=".\XMLWriter.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Source Files"
@@ -623,6 +631,14 @@
 			</File>
 			<File
 				RelativePath="XML_Strings2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XMLProperties.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XMLWriter.cpp"
 				>
 			</File>
 		</Filter>

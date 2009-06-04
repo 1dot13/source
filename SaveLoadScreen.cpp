@@ -204,8 +204,6 @@ extern	BOOLEAN		gfDisplaySaveGamesNowInvalidatedMsg;
 
 //Dealtar's Airport Externalization
 extern		CPostalService gPostalService;
-
-
 //
 //Buttons
 //
@@ -1032,7 +1030,7 @@ void		GetSaveLoadScreenUserInput()
 						bActiveTextField = (INT8)GetActiveFieldID();
 						if( bActiveTextField && bActiveTextField != -1 )
 						{
-							Get16BitStringFromField( (UINT8)bActiveTextField, gzGameDescTextField);
+							Get16BitStringFromField( (UINT8)bActiveTextField, gzGameDescTextField, 128 );
 							SetActiveField(0);
 
 							DestroySaveLoadTextInputBoxes();
@@ -1081,7 +1079,7 @@ void SaveLoadGameNumber( INT8 bSaveGameID )
 		bActiveTextField = (INT8)GetActiveFieldID();
 		if( bActiveTextField && bActiveTextField != -1 )
 		{
-			Get16BitStringFromField( (UINT8)bActiveTextField, gzGameDescTextField );
+			Get16BitStringFromField( (UINT8)bActiveTextField, gzGameDescTextField, 128 );
 		}
 
 		//if there is save game in the slot, ask for confirmation before overwriting
@@ -1504,7 +1502,8 @@ BOOLEAN LoadSavedGameHeader( INT8 bEntry, SAVED_GAME_HEADER *pSaveGameHeader )
 	//make sure the entry is valid
 	if( bEntry < 0 || bEntry > NUM_SAVE_GAMES )
 	{
-		memset( &pSaveGameHeader, 0, sizeof( SAVED_GAME_HEADER ) );
+		//memset( &pSaveGameHeader, 0, sizeof( SAVED_GAME_HEADER ) );
+		memset( pSaveGameHeader, 0, sizeof( SAVED_GAME_HEADER ) );
 		return( FALSE );
 	}
 
@@ -1761,7 +1760,7 @@ void SelectedSaveRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 					bActiveTextField = (INT8)GetActiveFieldID();
 					if( bActiveTextField && bActiveTextField != -1 )
 					{
-						Get16BitStringFromField( (UINT8)bActiveTextField, gzGameDescTextField);
+						Get16BitStringFromField( (UINT8)bActiveTextField, gzGameDescTextField, 128 );
 						SetActiveField(0);
 
 						DestroySaveLoadTextInputBoxes();

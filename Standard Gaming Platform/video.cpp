@@ -2916,7 +2916,11 @@ BOOLEAN EraseMouseCursor( )
 	//
 
 	pTmpPointer = LockMouseBuffer(&uiPitch);
-	memset(pTmpPointer, 0, MAX_CURSOR_HEIGHT * uiPitch);
+	// when there is no mouse buffer the game can run into an infinite loop (some DirectX stuff)
+	if(pTmpPointer)
+	{
+		memset(pTmpPointer, 0, MAX_CURSOR_HEIGHT * uiPitch);
+	}
 	UnlockMouseBuffer();
 
 	// Don't set dirty

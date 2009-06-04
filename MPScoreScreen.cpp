@@ -93,6 +93,7 @@ BOOLEAN		gfMPSScreenEntry = TRUE;
 BOOLEAN		gfMPSScreenExit	= FALSE;
 BOOLEAN		gfReRenderMPSScreen=TRUE;
 BOOLEAN		gfMPSButtonsAllocated = FALSE;
+BOOLEAN		gfMPSScoreScreenCanContinue = FALSE;
 
 //enum for different states of screen
 enum
@@ -222,6 +223,8 @@ UINT32	MPScoreScreenShutdown( void )
 
 BOOLEAN		EnterMPSScreen()
 {
+	gfMPSScoreScreenCanContinue = FALSE;
+
 	VOBJECT_DESC	VObjectDesc;
 
 	if( gfMPSButtonsAllocated )
@@ -326,6 +329,14 @@ void			HandleMPSScreen()
 		switch( gubMPSScreenHandler )
 		{
 			case MPS_CANCEL:
+				// TODO.RW: Exit game, disconnect
+
+				if (is_server)
+					server_disconnect();
+
+				if (is_client)
+					client_disconnect();
+
 				gubMPSExitScreen = MAINMENU_SCREEN;
 				gfMPSScreenExit	= TRUE;
 				break;
@@ -356,6 +367,16 @@ void			HandleMPSScreen()
 
 		gubMPSScreenHandler = MPS_NOTHING;
 	}
+
+	// disable the continue button
+	if (!is_server)
+	{
+		if (gfMPSScoreScreenCanContinue)
+			ShowButton( guiMPSContinueButton );
+		else
+			HideButton( guiMPSContinueButton );
+	}
+	
 
 
 	if( gfReRenderMPSScreen )
@@ -492,6 +513,14 @@ BOOLEAN		RenderMPSScreen()
 		DisplayWrappedString( MPS_LABEL_ACCURACY_X, usPosY, MPS_LABEL_ACCURACY_WIDTH, 2, MPS_LABEL_TEXT_FONT, MPS_LABEL_TEXT_COLOR, szPlayerAccuracy, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	}
 
+	// OJW - 20090403
+	// Draw Please wait for server message
+	if (!is_server)
+	{
+		if (!gfMPSScoreScreenCanContinue)
+			DisplayWrappedString( MPS_BTN_CONTINUE_X, MPS_BTN_CONTINUE_Y, 100, 2, MPS_LABEL_TEXT_FONT, MPS_LABEL_TEXT_COLOR, gzMPSScreenText[MPS_WAITSERVER_TEXT], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	}
+
 /*	
 	// Player name text label
 	DisplayWrappedString( MPJ_LABEL_HANDLE_X, MPJ_LABEL_HANDLE_Y, MPJ_LABEL_HANDLE_WIDTH, 2, MPJ_LABEL_TEXT_FONT, MPJ_LABEL_TEXT_COLOR, gzMPJScreenText[ MPJ_HANDLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
@@ -507,12 +536,9 @@ BOOLEAN		RenderMPSScreen()
 
 
 
-void			GetMPSScreenUserInput()
+void GetMPSScreenUserInput()
 {
 	InputAtom Event;
-//	POINT	MousePos;
-
-//	GetCursorPos(&MousePos);
 
 	while( DequeueEvent( &Event ) )
 	{
@@ -527,12 +553,7 @@ void			GetMPSScreenUserInput()
 					gubMPSScreenHandler = MPS_CANCEL;
 					break;
 
-				case ENTER:
-					/*if (ValidateJoinSettings(false))
-					{
-						SaveJoinSettings();
-						gubMPSScreenHandler = MPS_JOIN;
-					}*/
+				case ENTER:					
 					gubMPSScreenHandler = MPS_CONTINUE;
 					break;
 			}

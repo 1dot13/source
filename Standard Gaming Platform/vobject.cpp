@@ -455,6 +455,54 @@ HVOBJECT CreateVideoObject( VOBJECT_DESC *VObjectDesc )
 				}
 			}
 
+			if(hImage->ubBitDepth == 32)
+			{
+				hVObject->p16BPPObject = new SixteenBPPObjectInfo;
+				int SIZE = hImage->usHeight*hImage->usWidth;
+				hVObject->pPixData = new UINT32[SIZE];
+				memcpy(hVObject->pPixData, hImage->p32BPPData, SIZE*sizeof(UINT32));
+				hVObject->p16BPPObject->p16BPPData = NULL;
+				hVObject->p16BPPObject->sOffsetX = 0;
+				hVObject->p16BPPObject->sOffsetY = 0;
+				hVObject->p16BPPObject->ubShadeLevel = 0;
+				hVObject->p16BPPObject->usHeight = hImage->usHeight;
+				hVObject->p16BPPObject->usWidth = hImage->usWidth;
+				hVObject->p16BPPObject->usRegionIndex = 0;
+
+				hVObject->usNumberOf16BPPObjects = 1;
+				hVObject->ubBitDepth = hImage->ubBitDepth;
+
+				if ( VObjectDesc->fCreateFlags & VOBJECT_CREATE_FROMFILE )
+				{
+					DestroyImage( hImage );
+				}
+
+				return hVObject;
+			}
+			else if(hImage->ubBitDepth == 16)
+			{
+				hVObject->p16BPPObject = new SixteenBPPObjectInfo;
+				int SIZE = hImage->usHeight*hImage->usWidth;
+				hVObject->p16BPPObject->p16BPPData = new UINT16[SIZE];
+				memcpy(hVObject->p16BPPObject->p16BPPData, hImage->p16BPPData, SIZE*sizeof(UINT16));
+				hVObject->p16BPPObject->sOffsetX = 0;
+				hVObject->p16BPPObject->sOffsetY = 0;
+				hVObject->p16BPPObject->ubShadeLevel = 0;
+				hVObject->p16BPPObject->usHeight = hImage->usHeight;
+				hVObject->p16BPPObject->usWidth = hImage->usWidth;
+				hVObject->p16BPPObject->usRegionIndex = 0;
+
+				hVObject->usNumberOf16BPPObjects = 1;
+				hVObject->ubBitDepth = hImage->ubBitDepth;
+
+				if ( VObjectDesc->fCreateFlags & VOBJECT_CREATE_FROMFILE )
+				{
+					DestroyImage( hImage );
+				}
+
+				return hVObject;
+			}
+
 			// Check if returned himage is TRLE compressed - return error if not
 			if ( ! (hImage->fFlags & IMAGE_TRLECOMPRESSED ) )
 			{
@@ -723,23 +771,49 @@ BOOLEAN BltVideoObjectToBuffer( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, HVOBJE
 	__try
 	{
 	// Assertions
-	Assert( pBuffer != NULL );
+	//Assert( pBuffer != NULL );
+	THROWIFFALSE( pBuffer != NULL, L"No Destination Buffer" );
 
 	if ( hSrcVObject == NULL )
 	{
 		//int breakpoint=0;
 	}
 
-	Assert( hSrcVObject != NULL );
+	//Assert( hSrcVObject != NULL );
+	THROWIFFALSE( hSrcVObject != NULL, L"No Source Object" )
 
+	SixteenBPPObjectInfo *image = NULL;
 	// Check For Flags and bit depths
 	switch( hSrcVObject->ubBitDepth )
 	{
+			case 32:
+				image = &hSrcVObject->p16BPPObject[usIndex];
+#if 0
+				Blt16BPPTo16BPPTrans( pBuffer, uiDestPitchBYTES, 
+					image->p16BPPData, image->usWidth * sizeof(UINT16),
+					iDestX, iDestY, 
+					0, 0, image->usWidth, image->usHeight,
+					0 ); 
+#else
+				Blt32BPPTo16BPPTrans( pBuffer, uiDestPitchBYTES, 
+					(UINT32*)hSrcVObject->pPixData, image->usWidth * sizeof(UINT32),
+					iDestX, iDestY, 
+					0, 0, image->usWidth, image->usHeight); 
+#endif
+				break;
+
 			case 16:
+				image = &hSrcVObject->p16BPPObject[usIndex];
+				Blt16BPPTo16BPP( pBuffer, uiDestPitchBYTES, 
+					image->p16BPPData, image->usWidth * sizeof(UINT16),
+					iDestX, iDestY, 
+					0, 0, image->usWidth, image->usHeight );
+
 				break;
 
 			case 8:
 
+				THROWIFFALSE( hSrcVObject->usNumberOfObjects > usIndex, L"Video object index is larger than the number of subimages");
 				// Switch based on flags given
 				do
 				{

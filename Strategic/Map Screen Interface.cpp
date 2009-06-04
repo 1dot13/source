@@ -432,7 +432,7 @@ void InitalizeVehicleAndCharacterList( void )
 
 void SetEntryInSelectedCharacterList( INT8 bEntry )
 {
-	Assert( ( bEntry >= 0 ) && ( bEntry < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
+	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
 	// set this entry to selected
 	fSelectedListOfMercsForMapScreen[ bEntry ] = TRUE ;
@@ -442,7 +442,7 @@ void SetEntryInSelectedCharacterList( INT8 bEntry )
 
 void ResetEntryForSelectedList( INT8 bEntry )
 {
-	Assert( ( bEntry >= 0 ) && ( bEntry < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
+	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
 	// set this entry to selected
 	fSelectedListOfMercsForMapScreen[ bEntry ] = FALSE;
@@ -469,7 +469,7 @@ void ResetSelectedListForMapScreen( void )
 
 BOOLEAN IsEntryInSelectedListSet( INT8 bEntry )
 {
-	Assert( ( bEntry >= 0 ) && ( bEntry < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
+	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
 	// is this entry in the selected list set?
 
@@ -480,7 +480,7 @@ BOOLEAN IsEntryInSelectedListSet( INT8 bEntry )
 
 void ToggleEntryInSelectedList( INT8 bEntry )
 {
-	Assert( ( bEntry >= 0 ) && ( bEntry < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
+	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
 	// toggle the value in the selected list
 	fSelectedListOfMercsForMapScreen[ bEntry ] = !( fSelectedListOfMercsForMapScreen[ bEntry ] );
@@ -522,7 +522,7 @@ BOOLEAN MultipleCharacterListEntriesSelected( void )
 	INT32 iCounter = 0;
 
 	// check if more than one person is selected in the selected list
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++	)
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++	)
 	{
 		if( fSelectedListOfMercsForMapScreen[iCounter] == TRUE )
 		{
@@ -547,7 +547,7 @@ void ResetAssignmentsForMercsTrainingUnpaidSectorsInSelectedList( INT8 bAssignme
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 
- 	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+ 	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// valid character?
 		if( gCharactersList[ iCounter ].fValid == FALSE )
@@ -579,7 +579,7 @@ void ResetAssignmentOfMercsThatWereTrainingMilitiaInThisSector( INT16 sSectorX, 
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// valid character?
 		if( gCharactersList[ iCounter ].fValid == FALSE )
@@ -632,7 +632,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 
 
 	// deselect any other selected mercs that can't travel together with pSoldier
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
@@ -727,7 +727,7 @@ void SelectUnselectedMercsWhoMustMoveWithThisGuy( void )
 	SOLDIERTYPE *pSoldier = NULL;
 
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
@@ -759,7 +759,7 @@ BOOLEAN AnyMercInSameSquadOrVehicleIsSelected( SOLDIERTYPE *pSoldier )
 	SOLDIERTYPE *pSoldier2 = NULL;
 
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
@@ -838,7 +838,7 @@ void RestoreBackgroundForAssignmentGlowRegionList( void )
 	if( iOldAssignmentLine != giAssignHighLine )
 	{
 		// restore background
-		RestoreExternBackgroundRect( 66, Y_START - 1, 118 + 1 - 67, ( INT16 )( ( ( CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) );
+		RestoreExternBackgroundRect( 66, Y_START - 1, 118 + 1 - 67, ( INT16 )( ( ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) );
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -866,7 +866,7 @@ void RestoreBackgroundForDestinationGlowRegionList( void )
 	if( iOldDestinationLine != giDestHighLine )
 	{
 		// restore background
-		RestoreExternBackgroundRect( 182, Y_START - 1, 217 + 1 - 182, ( INT16 )( ( ( CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) );
+		RestoreExternBackgroundRect( 182, Y_START - 1, 217 + 1 - 182, ( INT16 )( ( ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) );
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -894,7 +894,7 @@ void RestoreBackgroundForContractGlowRegionList( void )
 	if( iOldContractLine != giContractHighLine )
 	{
 		// restore background
-		RestoreExternBackgroundRect( 222, Y_START - 1, 250 + 1 - 222, ( INT16 )( ( ( CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) ) ;
+		RestoreExternBackgroundRect( 222, Y_START - 1, 250 + 1 - 222, ( INT16 )( ( ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) ) ;
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -926,7 +926,7 @@ void RestoreBackgroundForSleepGlowRegionList( void )
 	if( iOldSleepHighLine != giSleepHighLine )
 	{
 		// restore background
-		RestoreExternBackgroundRect( 123, Y_START - 1, 142 + 1 - 123, ( INT16 )( ( ( CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) ) ;
+		RestoreExternBackgroundRect( 123, Y_START - 1, 142 + 1 - 123, ( INT16 )( ( ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) ) ;
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -967,7 +967,7 @@ void PlayGlowRegionSound( void )
 INT16 CharacterIsGettingPathPlotted( INT16 sCharNumber )
 {
 	// valid character number?
-	if( ( sCharNumber < 0 ) || ( sCharNumber >= CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) )
+	if( ( sCharNumber < 0 ) || ( sCharNumber >= giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) )
 	{
 		return( FALSE );
 	}
@@ -1009,7 +1009,7 @@ INT16 CharacterIsGettingPathPlotted( INT16 sCharNumber )
 BOOLEAN IsCharacterSelectedForAssignment( INT16 sCharNumber )
 {
 	// valid character number?
-	if( ( sCharNumber < 0 ) || ( sCharNumber >= CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) )
+	if( ( sCharNumber < 0 ) || ( sCharNumber >= giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) )
 	{
 		return( FALSE );
 	}
@@ -1046,7 +1046,7 @@ BOOLEAN IsCharacterSelectedForAssignment( INT16 sCharNumber )
 BOOLEAN IsCharacterSelectedForSleep( INT16 sCharNumber )
 {
 	// valid character number?
-	if( ( sCharNumber < 0 ) || ( sCharNumber >= CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) )
+	if( ( sCharNumber < 0 ) || ( sCharNumber >= giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) )
 	{
 		return( FALSE );
 	}
@@ -1249,7 +1249,7 @@ void CheckAndUpdateBasedOnContractTimes( void )
 	INT32 iCounter = 0;
 	INT32 iTimeRemaining = 0;
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[iCounter].fValid == TRUE )
 		{
@@ -1345,7 +1345,7 @@ void HandleDisplayOfSelectedMercArrows( void )
 	BltVideoObject( guiSAVEBUFFER , hHandle, 0,SELECTED_CHAR_ARROW_X, sYPosition , VO_BLT_SRCTRANSPARENCY,NULL );
 
 	// now run through the selected list of guys, an arrow for each
-	for( ubCount = 0; ubCount < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; ubCount++ )
+	for( ubCount = 0; ubCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ubCount++ )
 	{
 		if( gCharactersList[ ubCount ].fValid == TRUE )
 		{
@@ -2111,7 +2111,7 @@ void FindAndSetThisContractSoldier( SOLDIERTYPE *pSoldier )
 
 	fShowContractMenu = FALSE;
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter].fValid == TRUE )
 		{
@@ -2345,7 +2345,7 @@ INT32 GetNumberOfPeopleInCharacterList( void )
 	INT32 iCounter = 0, iCount = 0;
 
 	// get the number of valid mercs in the mapscreen character list
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter].fValid == TRUE )
 		{
@@ -2513,7 +2513,7 @@ void GoToNextCharacterInList( void )
 	}
 
 	// is the current guy invalid or the first one?
-	if( ( bSelectedInfoChar == -1 )|| ( bSelectedInfoChar == CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) )
+	if( ( bSelectedInfoChar == -1 )|| ( bSelectedInfoChar == giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) )
 	{
 		iCount = 0;
 	}
@@ -2522,9 +2522,9 @@ void GoToNextCharacterInList( void )
 		iCount = bSelectedInfoChar + 1;
 	}
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
-		if ( ( gCharactersList[ iCount ].fValid ) && ( iCount < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCount ) )
+		if ( ( gCharactersList[ iCount ].fValid ) && ( iCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCount ) )
 		{
 			ChangeSelectedInfoChar( ( INT8 )iCount, TRUE );
 			break;
@@ -2533,7 +2533,7 @@ void GoToNextCharacterInList( void )
 		{
 			iCount++;
 
-			if( iCount >= CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS )
+			if( iCount >= giMAXIMUM_NUMBER_OF_PLAYER_SLOTS )
 			{
 				iCount = 0;
 			}
@@ -2560,7 +2560,7 @@ void GoToPrevCharacterInList( void )
 	// is the current guy invalid or the first one?
 	if( ( bSelectedInfoChar == -1 ) || ( bSelectedInfoChar == 0 ) )
 	{
-		iCount = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+		iCount = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
 	}
 	else
 	{
@@ -2568,9 +2568,9 @@ void GoToPrevCharacterInList( void )
 	}
 
 	// now run through the list and find first prev guy
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
-		if ( ( gCharactersList[ iCount ].fValid ) && ( iCount < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCount ) )
+		if ( ( gCharactersList[ iCount ].fValid ) && ( iCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCount ) )
 		{
 			ChangeSelectedInfoChar( ( INT8 )iCount, TRUE );
 			break;
@@ -2582,7 +2582,7 @@ void GoToPrevCharacterInList( void )
 			if( iCount < 0 )
 			{
 				// was FIRST_VEHICLE
-				iCount = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+				iCount = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
 			}
 		}
 	}
@@ -3363,7 +3363,7 @@ void AddSoldierToMovingLists( SOLDIERTYPE *pSoldier )
 {
 	INT32 iCounter = 0;
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( pSoldierMovingList[ iCounter ] == pSoldier )
 		{
@@ -3459,7 +3459,7 @@ void InitializeMovingLists( void )
 	giNumberOfVehiclesInSectorMoving = 0;
 
 	// init the soldiers
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// soldier is NOT moving
 		pSoldierMovingList[ iCounter ] = NULL;
@@ -3497,7 +3497,7 @@ BOOLEAN	IsAnythingSelectedForMoving( void )
 
 
 	// check soldiers
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if ( ( pSoldierMovingList[ iCounter ] != NULL ) && fSoldierIsMoving[ iCounter ] )
 		{
@@ -3580,7 +3580,7 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 
 	// note that Skyrider can't be moved using the move box, and won't appear because the helicoprer is not in the char list
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter ].fValid )
 		{
@@ -4442,7 +4442,7 @@ void HandleSettingTheSelectedListOfMercs( void )
 	bSelectedDestChar = -1;
 
 	// run through the list of grunts
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// is the current guy a valid character?
 		if( gCharactersList[ iCounter ].fValid == TRUE )
@@ -6107,7 +6107,7 @@ BOOLEAN CanEntireMovementGroupMercIsInMove( SOLDIERTYPE *pSoldier, INT8 *pbError
 	// even if group is 0 (not that that should happen, should it?) still loop through for other mercs selected to move
 
 	// if anyone in the merc's group or also selected cannot move for whatever reason return false
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{

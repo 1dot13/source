@@ -1080,7 +1080,7 @@ void MSYS_DisableRegion(MOUSE_REGION *region)
 //
 void MSYS_SetCurrentCursor(UINT16 Cursor)
 {
-	SetCurrentCursorFromDatabase( Cursor );
+	TRYCATCH_RETHROW(SetCurrentCursorFromDatabase( Cursor ), "Could not set Cursor");
 }
 
 

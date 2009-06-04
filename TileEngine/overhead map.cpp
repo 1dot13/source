@@ -503,20 +503,20 @@ void HandleOverheadMap( )
 				}
 			}
 
-	}
+		}
 
-	if ( GetOverheadMouseGridNoForFullSoldiersGridNo( &sMapPos ) )
-	{
+		if ( GetOverheadMouseGridNoForFullSoldiersGridNo( &sMapPos ) )
+		{
 			if ( GetClosestMercInOverheadMap( sMapPos, &pSoldier, 1 ) )
 			{
-		if ( pSoldier->bTeam == gbPlayerNum )
-		{
-			gfUIHandleSelectionAboveGuy			= TRUE;
-			gsSelectedGuy					= pSoldier->ubID;
-		}
+				if ( pSoldier->bTeam == gbPlayerNum )
+				{
+					gfUIHandleSelectionAboveGuy			= TRUE;
+					gsSelectedGuy					= pSoldier->ubID;
+				}
 
-		DisplayMercNameInOverhead( pSoldier );
-		}
+				DisplayMercNameInOverhead( pSoldier );
+			}
 		}
 	}
 
@@ -529,7 +529,7 @@ void HandleOverheadMap( )
 	{
 		pSoldier = MercPtrs[ gusSelectedSoldier ];
 
-	DisplayMercNameInOverhead( pSoldier );
+		DisplayMercNameInOverhead( pSoldier );
 	}
 
 	RenderButtons( );
@@ -1272,22 +1272,44 @@ void RenderOverheadOverlays()
 		else
 		#endif
 		if( !gfTacticalPlacementGUIActive )
-		{ //normal
+		{ 
+			//normal
 			if(is_networked)
 			{
 				if(pSoldier->bTeam!=0)
 				{
-				if(pSoldier->bSide==1)Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 1 );
-				if(pSoldier->bSide==0)Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 3 );
+					if(pSoldier->bSide==1)
+					{
+						// Civ (white)
+						if (pSoldier->bTeam == 4)
+							Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 4 );
+						// Enemy (red)
+						else
+							Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 1 );
+					}
+
+					// Other clients
+					if(pSoldier->bSide==0)
+					{
+						int personIndex = pSoldier->bTeam + 4;
+						// TODO.RW: Get the correct person index (depending on the pSoldier->bTeam)
+						//Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 3 );
+						Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, personIndex );
+					}
 				}
-				else Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
+				else 
+					// Color depends on the bTeam
+					Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
 			}
+			// Color depends on the bTeam
 			else
-			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
+				Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
+
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 3), (INT16)(sY + 9));
 		}
 		else if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
-		{ //vehicle
+		{ 
+			//vehicle
 			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 9 );
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, (INT16)(sX-6), (INT16)(sY), (INT16)(sX + 9), (INT16)(sY + 10));
 		}
@@ -1296,30 +1318,49 @@ void RenderOverheadOverlays()
 		//	ubPassengers++;
 		//}
 		else if( gpTacticalPlacementSelectedSoldier == pSoldier )
-		{ //tactical placement selected merc
+		{ 
+			//tactical placement selected merc
 			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 7 );
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, (INT16)(sX-2), (INT16)(sY-2), (INT16)(sX + 5), (INT16)(sY + 11));
 		}
 		else if( gpTacticalPlacementHilightedSoldier == pSoldier && pSoldier->flags.uiStatusFlags )
-		{ //tactical placement hilighted merc
+		{ 
+			//tactical placement hilighted merc
 			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 8 );
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, (INT16)(sX-2), (INT16)(sY-2), (INT16)(sX + 5), (INT16)(sY + 11));
 		}
 		else
-		{ //normal
+		{ 
+			//normal
 			if(is_networked)
 			{
 				if(pSoldier->bTeam!=0)
 				{
-				if(pSoldier->bSide==1)continue;//dont render enemy
-				if(pSoldier->bSide==0)Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 3 );
+					if(pSoldier->bSide==1)
+						continue;//dont render enemy
+
+					// Green
+					// Other clients
+					if(pSoldier->bSide==0)
+					{
+						int personIndex = pSoldier->bTeam + 4;
+						// TODO.RW: Get the correct person index (depending on the pSoldier->bTeam)
+
+						//Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 3 );
+						Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, personIndex );
+					}
 				}
-				else Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
+				else 
+					// Color depends on the bTeam
+					Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
 			}
 			else
-			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
+				// Color depends on the bTeam
+				Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
+			
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 3), (INT16)(sY + 9));
 		}
+
 		if( ubPassengers )
 		{
 			SetFont( SMALLCOMPFONT );

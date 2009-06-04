@@ -7,5 +7,6 @@
 
 void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 sHeight,	STR cOutputName, UINT32 fFlags, UINT32 uiAppDataSize );
 
+UINT32 ETRLECompressSubImage( UINT8 * pDest, UINT32 uiDestLen, UINT8 * p8BPPBuffer, UINT16 usWidth, UINT16 usHeight, STCISubImage * pSubImage );
 
 #endif

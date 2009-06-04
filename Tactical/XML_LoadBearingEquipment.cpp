@@ -232,8 +232,8 @@ BOOLEAN ReadInlbeStats(STR fileName)
 	
 	XML_SetUserData(parser, &pData);
 
-
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	LoadBearingEquipment.clear();
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 

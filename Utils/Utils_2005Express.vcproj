@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\VFS"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -105,7 +105,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\VFS"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -166,7 +166,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\VFS"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -228,7 +228,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\VFS"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -422,6 +422,14 @@
 			</File>
 			<File
 				RelativePath=".\WordWrap.h"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Parser.h"
+				>
+			</File>
+			<File
+				RelativePath=".\XMLWriter.h"
 				>
 			</File>
 		</Filter>
@@ -620,6 +628,14 @@
 			</File>
 			<File
 				RelativePath=".\XML_Strings.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XMLProperties.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XMLWriter.cpp"
 				>
 			</File>
 		</Filter>

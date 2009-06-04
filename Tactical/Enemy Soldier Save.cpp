@@ -1360,7 +1360,7 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 		pSoldier = MercPtrs[ i ];
 
 		//make sure the person is active, alive, in the sector, and is not a profiled person
-		if( pSoldier->bActive /*&& pSoldier->bInSector*/ && pSoldier->stats.bLife && pSoldier->ubProfile == NO_PROFILE )
+		if( pSoldier && pSoldier->bActive /*&& pSoldier->bInSector*/ && pSoldier->stats.bLife && pSoldier->ubProfile == NO_PROFILE )
 		{ //soldier is valid, so find the matching soldier init list entry for modification.
 			curr = gSoldierInitHead;
 			while( curr && curr->pSoldier != pSoldier )

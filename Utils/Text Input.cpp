@@ -33,6 +33,11 @@ void AddChar( UINT32 uiKey );
 void RemoveChar( UINT8 ubArrayIndex );
 void DeleteHilitedText();
 
+// OJW - 20090427 - Copy/Paste text to/from the clipboard
+UINT32 PasteClipboardText();
+void CopyToClipboard( void );
+
+
 void DoublePercentileCharacterFromStringIntoString( STR16 pSrcString, STR16 pDstString );
 
 //All exclusive input types are handled in this function.
@@ -140,6 +145,8 @@ BOOLEAN gfHiliteMode = FALSE;
 UINT8 gubCursorPos = 0;
 UINT8 gubStartHilite = 0;
 UINT8 gubEndHilite = 0;
+// OJW - 20090426
+UINT8 gubParkingPos = 0; // start of the visible string we render in the textbox
 
 //allow the user to cut, copy, and paste just like windows.
 CHAR16 gszClipboardString[256];
@@ -285,6 +292,7 @@ void AddTextInputField( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, IN
 	//if this is the first field, then hilight it.
 	if( gpTextInputHead == pNode )
 	{
+		gubParkingPos = 0;
 		gubStartHilite = 0;
 		gubEndHilite = pNode->ubStrLen;
 		gubCursorPos = pNode->ubStrLen;
@@ -443,7 +451,7 @@ void SetInputFieldStringWith8BitString( UINT8 ubField, const STR8 szNewText )
 }
 
 //Allows external functions to access the strings within the fields at anytime.
-void Get8BitStringFromField( UINT8 ubField, STR8 szString )
+void Get8BitStringFromField( UINT8 ubField, STR8 szString, UINT32 uiBufferSize )
 {
 	TEXTINPUTNODE *curr;
 	curr = gpTextInputHead;
@@ -451,7 +459,12 @@ void Get8BitStringFromField( UINT8 ubField, STR8 szString )
 	{
 		if( curr->ubID == ubField )
 		{
-			sprintf( szString, "%S", curr->szString );
+			size_t len = __min(uiBufferSize, wcslen(curr->szString)+1);
+#ifdef WIN32
+			sprintf_s(szString, len, "%S", curr->szString );
+#else
+			snprintf(szString, len, "%S", curr->szString );
+#endif
 			return;
 		}
 		curr = curr->next;
@@ -459,7 +472,7 @@ void Get8BitStringFromField( UINT8 ubField, STR8 szString )
 	szString[0] = '\0';
 }
 
-void Get16BitStringFromField( UINT8 ubField, STR16 szString )
+void Get16BitStringFromField( UINT8 ubField, STR16 szString, UINT32 uiBufferSize )
 {
 	TEXTINPUTNODE *curr;
 	curr = gpTextInputHead;
@@ -467,7 +480,8 @@ void Get16BitStringFromField( UINT8 ubField, STR16 szString )
 	{
 		if( curr->ubID == ubField )
 		{
-			swprintf( szString, curr->szString );
+			size_t len = __min(uiBufferSize, wcslen(curr->szString)+1);
+			swprintf( szString, len, curr->szString );
 			return;
 		}
 		curr = curr->next;
@@ -482,7 +496,7 @@ INT32 GetNumericStrictValueFromField( UINT8 ubField )
 	STR16 ptr;
 	CHAR16 str[20];
 	INT32 total;
-	Get16BitStringFromField( ubField, str );
+	Get16BitStringFromField( ubField, str, 20 );
 	//Blank string, so return -1
 	if( str[0] == '\0' )
 		return -1;
@@ -544,6 +558,7 @@ void SetActiveField( UINT8 ubField )
 			gpActive = curr;
 			if( gpActive->szString )
 			{
+				gubParkingPos = 0;
 				gubStartHilite = 0;
 				gubEndHilite = gpActive->ubStrLen;
 				gubCursorPos = gpActive->ubStrLen;
@@ -585,6 +600,7 @@ void SelectNextField()
 			fDone = TRUE;
 			if( gpActive->szString )
 			{
+				gubParkingPos = 0;
 				gubStartHilite = 0;
 				gubEndHilite = gpActive->ubStrLen;
 				gubCursorPos = gpActive->ubStrLen;
@@ -629,6 +645,7 @@ void SelectPrevField()
 			fDone = TRUE;
 			if( gpActive->szString )
 			{
+				gubParkingPos = 0;
 				gubStartHilite = 0;
 				gubEndHilite = gpActive->ubStrLen;
 				gubCursorPos = gpActive->ubStrLen;
@@ -738,23 +755,39 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 	}
 	//For any number of reasons, these ALT and CTRL combination key presses
 	//will be processed externally
-#if 0
+#if 1
 	if( Event->usKeyState & CTRL_DOWN	)
 	{
 		if( Event->usParam == 'c' || Event->usParam == 'C' )
 		{
 			ExecuteCopyCommand();
-			return TRUE;
+			
+			// only swallow key if we did anything
+			if (szClipboard && wcslen(szClipboard)>0)
+				return TRUE;
+			else
+				return FALSE;
 		}
 		else if( Event->usParam == 'x' || Event->usParam == 'X' )
 		{
 			ExecuteCutCommand();
-			return TRUE;
+			
+			// only swallow key if we did anything
+			if (szClipboard && wcslen(szClipboard)>0)
+				return TRUE;
+			else
+				return FALSE;
 		}
 		else if( Event->usParam == 'v' || Event->usParam == 'V' )
 		{
+			PasteClipboardText();
 			ExecutePasteCommand();
-			return TRUE;
+
+			// only swallow key if we did anything
+			if (szClipboard && wcslen(szClipboard)>0)
+				return TRUE;
+			else
+				return FALSE;
 		}
 	}
 #endif
@@ -1161,13 +1194,16 @@ void MouseMovedInTextRegionCallback(MOUSE_REGION *reg, INT32 reason)
 			//Calculate the cursor position.
 			iClickX = gusMouseXPos - reg->RegionTopLeftX;
 			iCurrCharPos = 0;
-			gubCursorPos = 0;
-			iNextCharPos = StringPixLengthArg( pColors->usFont, 1, gpActive->szString ) / 2;
+			gubCursorPos = gubParkingPos;
+			iNextCharPos = SubstringPixLength(gpActive->szString,gubParkingPos, gubCursorPos, pColors->usFont) / 2;
 			while( iCurrCharPos + (iNextCharPos-iCurrCharPos)/2 < iClickX && gubCursorPos < gpActive->ubStrLen )
 			{
 				gubCursorPos++;
+				if (gubCursorPos >= gpActive->ubStrLen)
+					break;
+
 				iCurrCharPos = iNextCharPos;
-				iNextCharPos = StringPixLengthArg( pColors->usFont, gubCursorPos + 1, gpActive->szString );
+				iNextCharPos = SubstringPixLength(gpActive->szString,gubParkingPos, gubCursorPos, pColors->usFont);
 			}
 			gubEndHilite = gubCursorPos;
 			if( gubEndHilite != gubStartHilite )
@@ -1193,7 +1229,8 @@ void MouseClickedInTextRegionCallback(MOUSE_REGION *reg, INT32 reason)
 			{
 				if( curr->ubID == ubNewID )
 				{
-					gpActive = curr;
+					//gpActive = curr;
+					SetActiveField(ubNewID);
 					break;
 				}
 				curr = curr->next;
@@ -1204,13 +1241,15 @@ void MouseClickedInTextRegionCallback(MOUSE_REGION *reg, INT32 reason)
 		//Calculate the cursor position.
 		iClickX = gusMouseXPos - reg->RegionTopLeftX;
 		iCurrCharPos = 0;
-		gubCursorPos = 0;
-		iNextCharPos = StringPixLengthArg( pColors->usFont, 1, gpActive->szString ) / 2;
+		gubCursorPos = gubParkingPos;
+		iNextCharPos = SubstringPixLength(gpActive->szString,gubParkingPos, gubCursorPos, pColors->usFont) / 2;//StringPixLengthArg( pColors->usFont, 1, gpActive->szString ) / 2;
 		while( iCurrCharPos + (iNextCharPos-iCurrCharPos)/2 < iClickX && gubCursorPos < gpActive->ubStrLen )
 		{
 			gubCursorPos++;
+			if (gubCursorPos >= gpActive->ubStrLen)
+				break;
 			iCurrCharPos = iNextCharPos;
-			iNextCharPos = StringPixLengthArg( pColors->usFont, gubCursorPos + 1, gpActive->szString );
+			iNextCharPos = SubstringPixLength(gpActive->szString,gubParkingPos, gubCursorPos, pColors->usFont);
 		}
 		gubStartHilite = gubCursorPos;	//This value is the anchor
 		gubEndHilite = gubCursorPos;		//The end will move with the cursor as long as it's down.
@@ -1254,6 +1293,57 @@ void RenderActiveTextField()
 	SetFont( pColors->usFont );
 	usOffset = (UINT16)(( gpActive->region.RegionBottomRightY - gpActive->region.RegionTopLeftY - GetFontHeight( pColors->usFont ) ) / 2);
 	RenderBackgroundField( gpActive );
+
+	// OJW - 20090426
+	// Scroll string if message is larger than the textbox area
+	UINT16 strPixLen = StringPixLength( gpActive->szString , pColors->usFont );
+	UINT16 regionXLen = gpActive->region.RegionBottomRightX - gpActive->region.RegionTopLeftX - 6; // 3 pixel gap either side
+	CHAR16 scrollStr[ 256 ]; // the visible portion of the string based on where we moved with the cursor
+	UINT16 scrollStrLen = 0; // the length of the new string to render
+	UINT8  scrollCursorPos = gubCursorPos; // the relative position of the cursor (for drawing only)
+	memset(scrollStr,0,256*sizeof(CHAR16));
+	// if string to big to fit in text box...
+	if ( strPixLen > regionXLen )
+	{
+		// if the cursor is left of the visible position
+		if (gubCursorPos < gubParkingPos)
+		{
+			// shift the visible string left
+			gubParkingPos = gubCursorPos;
+		}
+		// if the cursor is right of the visible position
+		else if (gubCursorPos > gubParkingPos)
+		{
+			// if the cursor is outside of the visible area on the right
+			UINT16 visPixLengthToCursor = SubstringPixLength(gpActive->szString,gubParkingPos,gubCursorPos-1, pColors->usFont);
+			if (visPixLengthToCursor > regionXLen)
+			{
+				// shift the visble string right
+				
+				// find out how many characters to shift the parked character right by
+				UINT16 diff = visPixLengthToCursor - regionXLen;
+				UINT16 j = 0; // the number of characters
+				for (j = 0; j <= (gubCursorPos - gubParkingPos); j++)
+				{
+					if (SubstringPixLength( gpActive->szString, gubParkingPos, gubParkingPos+j,  pColors->usFont) >= diff)
+						break;
+				}
+				gubParkingPos += j + 1;
+			}
+		}
+		
+		scrollCursorPos = gubCursorPos - gubParkingPos; // set the relative cursor position (for drawing only)
+		scrollStrLen = gpActive->ubStrLen - gubParkingPos;
+		memcpy(scrollStr,&gpActive->szString[gubParkingPos], scrollStrLen*sizeof(CHAR16));
+	}
+	else
+	{
+		scrollCursorPos = gubCursorPos;
+		scrollStrLen = gpActive->ubStrLen;
+		memcpy(scrollStr,gpActive->szString, scrollStrLen*sizeof(CHAR16));
+	}
+	// end scroll string code
+
 	if( gfHiliteMode && gubStartHilite != gubEndHilite )
 	{ //Some or all of the text is hilighted, so we will use a different method.
 		UINT16 i;
@@ -1261,18 +1351,19 @@ void RenderActiveTextField()
 		//sort the hilite order.
 		if( gubStartHilite < gubEndHilite )
 		{
-			usStart = gubStartHilite;
-			usEnd = gubEndHilite;
+			// translate hilite positions into the shifted string
+			usStart = gubStartHilite - gubParkingPos;
+			usEnd = gubEndHilite - gubParkingPos;
 		}
 		else
 		{
-			usStart = gubEndHilite;
-			usEnd = gubStartHilite;
+			usStart = gubEndHilite - gubParkingPos;
+			usEnd = gubStartHilite - gubParkingPos;
 		}
 		//Traverse the string one character at a time, and draw the highlited part differently.
-		for( i = 0; i < gpActive->ubStrLen; i++ )
+		for( i = 0; i < scrollStrLen; i++ )
 		{
-			uiCursorXPos = StringPixLengthArg( pColors->usFont, i, gpActive->szString ) + 3;
+			uiCursorXPos = StringPixLengthArg( pColors->usFont, i, scrollStr ) + 3;
 			if( i >= usStart && i < usEnd )
 			{ //in highlighted part of text
 				SetFontForeground( pColors->ubHiForeColor );
@@ -1285,9 +1376,9 @@ void RenderActiveTextField()
 				SetFontShadow( pColors->ubShadowColor );
 				SetFontBackground( 0 );
 			}
-			if( gpActive->szString[i] != '%' )
+			if( scrollStr[i] != '%' )
 			{
-				mprintf( uiCursorXPos + gpActive->region.RegionTopLeftX, gpActive->region.RegionTopLeftY + usOffset, L"%c", gpActive->szString[i] );
+				mprintf( uiCursorXPos + gpActive->region.RegionTopLeftX, gpActive->region.RegionTopLeftY + usOffset, L"%c", scrollStr[i] );
 			}
 			else
 			{
@@ -1300,14 +1391,14 @@ void RenderActiveTextField()
 		SetFontForeground( pColors->ubForeColor );
 		SetFontShadow( pColors->ubShadowColor );
 		SetFontBackground( 0 );
-		DoublePercentileCharacterFromStringIntoString( gpActive->szString, str );
+		DoublePercentileCharacterFromStringIntoString(  scrollStr, str );
 		mprintf( gpActive->region.RegionTopLeftX + 3, gpActive->region.RegionTopLeftY + usOffset, str );
 	}
 	//Draw the cursor in the correct position.
-	if( gfEditingText && gpActive->szString )
+	if( gfEditingText && scrollStr )
 	{
-		DoublePercentileCharacterFromStringIntoString( gpActive->szString, str );
-		uiCursorXPos = StringPixLengthArg( pColors->usFont, gubCursorPos, str ) + 2;
+		DoublePercentileCharacterFromStringIntoString( scrollStr, str );
+		uiCursorXPos = StringPixLengthArg( pColors->usFont, scrollCursorPos, str ) + 2;
 		if( GetJA2Clock()%1000 < 500 )
 		{	//draw the blinking ibeam cursor during the on blink period.
 			ColorFillVideoSurfaceArea(FRAME_BUFFER,
@@ -1590,6 +1681,9 @@ void ExecuteCopyCommand()
 			szClipboard[ ubCount-ubStart ] = gpActive->szString[ ubCount ];
 		}
 		szClipboard[ ubCount-ubStart ] = L'\0';
+
+		// also copy this data to the W32 clipboard
+		CopyToClipboard();
 	}
 }
 
@@ -1765,4 +1859,93 @@ void DoublePercentileCharacterFromStringIntoString( STR16 pSrcString, STR16 pDst
 		iSrcIndex++, iDstIndex++;
 	}
 	pDstString[ iDstIndex ] = 0;
+}
+
+// OJW - 20090427 - Paste clipboard text
+UINT32 PasteClipboardText()
+{
+	// get the window handle of the window which currently holds the clipboard
+	//HWND wndH = GetOpenClipboardWindow();
+	UINT32 iStrLen = 0;
+
+	// open the clipboard
+	if(OpenClipboard(NULL))
+	{
+		if (IsClipboardFormatAvailable(CF_UNICODETEXT))
+		{
+			STR16 cbText = (STR16)GetClipboardData(CF_UNICODETEXT);
+			if (cbText != NULL)
+			{
+				iStrLen = wcslen(cbText);
+				if (iStrLen > 0)
+				{
+					szClipboard = (STR16)MemAlloc((iStrLen+1)*sizeof(CHAR16));
+					wcscpy(szClipboard,cbText);
+					szClipboard[iStrLen] = L'\0';
+
+					// empty clipboard of data as we have copied it into the "local" clipboard
+					// and we will use that from now on
+					EmptyClipboard();
+				}
+			}
+		}
+
+		if (iStrLen == 0)
+		{
+			// no unicode text availble, try and get regular text
+			char* cbTextA = (char*)GetClipboardData(CF_TEXT);
+			if (cbTextA != NULL)
+			{
+				iStrLen = strlen(cbTextA);
+				if (iStrLen > 0)
+				{
+					szClipboard = (STR16)MemAlloc((iStrLen+1)*sizeof(CHAR16));
+					MultiByteToWideChar( CP_UTF8, 0, cbTextA, -1, (LPWSTR)szClipboard, iStrLen);//swprintf(szClipboard,L"%S",cbTextA);
+					szClipboard[iStrLen] = L'\0';
+
+					// empty clipboard of data as we have copied it into the "local" clipboard
+					// and we will use that from now on
+					EmptyClipboard();
+				}
+			}
+		}
+
+		CloseClipboard();
+	}
+
+	// did we copy anything from the windows clipboard?
+	return iStrLen;
+}
+
+// OJW - 20090427 - Copy text to the Win32 Clipboard
+void CopyToClipboard( void )
+{
+	if (!szClipboard || wcslen(szClipboard) <=0)
+		return;
+
+	if(OpenClipboard(ghWindow))
+	{
+		HGLOBAL clipbuffer;
+		STR16 writeBuffer;
+
+		if (IsClipboardFormatAvailable(CF_UNICODETEXT))
+		{
+			// duh
+			EmptyClipboard();
+
+			// create new DDE buffer and get exclusive lock to it
+			clipbuffer = GlobalAlloc(GMEM_DDESHARE, (wcslen(szClipboard)+1)*sizeof(CHAR16));
+			writeBuffer = (STR16)GlobalLock(clipbuffer);
+
+			// copy the clipboard string
+			wcscpy(writeBuffer, szClipboard);
+
+			// unlock and write data to clipboard
+			GlobalUnlock(clipbuffer);
+			SetClipboardData(CF_UNICODETEXT,clipbuffer);
+		}
+
+		// finish up
+		CloseClipboard();	
+	}
 }

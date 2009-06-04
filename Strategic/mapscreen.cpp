@@ -1851,7 +1851,7 @@ BOOLEAN SetInfoChar( UINT8 ubID )
 {
 	INT8 bCounter;
 
-	for ( bCounter = 0; bCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCounter++)
+	for ( bCounter = 0; bCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCounter++)
 	{
 		// skip invalid characters
 		if ( gCharactersList[ bCounter ].fValid == TRUE )
@@ -3121,7 +3121,7 @@ BOOLEAN CharacterIsInTransitAndHasItemPickedUp( INT8 bCharacterNumber )
 
 void DisplayCharacterInfo( void )
 {
-	Assert( bSelectedInfoChar < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS );
+	Assert( bSelectedInfoChar < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS );
 	Assert( gCharactersList[ bSelectedInfoChar ].fValid );
 
 	// set font buffer
@@ -3313,7 +3313,7 @@ void HighLightAssignLine()
 	UINT16 usColor;
 	static INT32 iColorNum = STARTING_COLOR_NUM;
 	static BOOLEAN fDelta=FALSE;
-	static INT32 uiOldHighlight = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
+	static INT32 uiOldHighlight = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
 	INT16 usCount = 0;
 	UINT16 usX;
 	UINT16 usY;
@@ -3323,7 +3323,7 @@ void HighLightAssignLine()
 	// is this a valid line?
 	if( ( giAssignHighLine == -1 ) || fShowInventoryFlag )
 	{
-		uiOldHighlight = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
+		uiOldHighlight = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
 		return;
 	}
 
@@ -3354,7 +3354,7 @@ void HighLightAssignLine()
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	for( usCount = 0; usCount < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; usCount++ )
+	for( usCount = 0; usCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; usCount++ )
 	{
 		if( IsCharacterSelectedForAssignment( usCount ) == TRUE )
 		{
@@ -3377,7 +3377,7 @@ void HighLightAssignLine()
 				LineDraw( TRUE, usX, usY, usX+ASSIGN_WIDTH, usY, usColor,pDestBuf);
 			}
 
-			if( ( ( usCount == CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ) || ( usCount != ( CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ? !( IsCharacterSelectedForAssignment( ( UINT16 )( usCount + 1 ) ) ) : 0) || ( usCount == FIRST_VEHICLE - 1 ) )
+			if( ( ( usCount == giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ) || ( usCount != ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ? !( IsCharacterSelectedForAssignment( ( UINT16 )( usCount + 1 ) ) ) : 0) || ( usCount == FIRST_VEHICLE - 1 ) )
 			{
 				LineDraw(TRUE, usX, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usX+ASSIGN_WIDTH, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
 			}
@@ -3397,7 +3397,7 @@ void HighLightDestLine()
 	UINT16 usColor;
 	static INT32 iColorNum = STARTING_COLOR_NUM;
 	static BOOLEAN fDelta=FALSE;
-	static INT32 uiOldHighlight = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
+	static INT32 uiOldHighlight = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
 	UINT16 usCount = 0;
 	UINT16 usX;
 	UINT16 usY;
@@ -3406,7 +3406,7 @@ void HighLightDestLine()
 
 	if( ( giDestHighLine == -1 ) || fShowInventoryFlag )
 	{
-		uiOldHighlight = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
+		uiOldHighlight = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
 		return;
 	}
 
@@ -3438,7 +3438,7 @@ void HighLightDestLine()
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	for( usCount = 0; usCount < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; usCount++ )
+	for( usCount = 0; usCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; usCount++ )
 	{
 		if( CharacterIsGettingPathPlotted( usCount ) == TRUE )
 		{
@@ -3457,7 +3457,7 @@ void HighLightDestLine()
 			{
 				LineDraw( TRUE, usX+4, usY, usX+DEST_ETA_WIDTH+4, usY, usColor,pDestBuf);
 			}
-			if( ( ( usCount == CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ) || ( usCount != ( CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ? !( CharacterIsGettingPathPlotted( ( UINT16 )( usCount + 1 ) ) ) : 0) || ( usCount == FIRST_VEHICLE - 1 ) )
+			if( ( ( usCount == giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ) || ( usCount != ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ? !( CharacterIsGettingPathPlotted( ( UINT16 )( usCount + 1 ) ) ) : 0) || ( usCount == FIRST_VEHICLE - 1 ) )
 			{
 				LineDraw(TRUE, usX+4, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usX+DEST_ETA_WIDTH+4, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
 			}
@@ -3483,7 +3483,7 @@ void HighLightSleepLine()
 	UINT16 usColor;
 	static INT32 iColorNum = STARTING_COLOR_NUM;
 	static BOOLEAN fDelta=FALSE;
-	static INT32 uiOldHighlight = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
+	static INT32 uiOldHighlight = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
 	UINT16 usCount = 0;
 	UINT16 usX, usX2;
 	UINT16 usY;
@@ -3493,7 +3493,7 @@ void HighLightSleepLine()
 	// is this a valid line?
 	if( ( giSleepHighLine == -1 ) || fShowInventoryFlag )
 	{
-		uiOldHighlight = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
+		uiOldHighlight = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1;
 		return;
 	}
 
@@ -3525,7 +3525,7 @@ void HighLightSleepLine()
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	for( usCount = 0; usCount < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; usCount++ )
+	for( usCount = 0; usCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; usCount++ )
 	{
 		if( IsCharacterSelectedForSleep( usCount ) == TRUE )
 		{
@@ -3546,7 +3546,7 @@ void HighLightSleepLine()
 			{
 				LineDraw( TRUE, usX+4, usY, usX2, usY, usColor,pDestBuf);
 			}
-			if( ( ( usCount == CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ) || ( usCount != ( CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ? !( IsCharacterSelectedForSleep( ( UINT16 )( usCount + 1 ) ) ) : 0) || ( usCount == FIRST_VEHICLE - 1 ) )
+			if( ( ( usCount == giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ) || ( usCount != ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1 ) ? !( IsCharacterSelectedForSleep( ( UINT16 )( usCount + 1 ) ) ) : 0) || ( usCount == FIRST_VEHICLE - 1 ) )
 			{
 				LineDraw(TRUE, usX+4, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usX2, usY+GetFontHeight(MAP_SCREEN_FONT)+2, usColor, pDestBuf);
 			}
@@ -3583,7 +3583,7 @@ void AddCharacter( SOLDIERTYPE *pCharacter )
 	// adding a vehicle?
 	if( pCharacter->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
-		while( usVehicleLoop < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS )
+		while( usVehicleLoop < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS )
 		{
 			if ( gCharactersList[ usVehicleLoop ].fValid )
 			{
@@ -3600,15 +3600,15 @@ void AddCharacter( SOLDIERTYPE *pCharacter )
 	else
 	{
 		// go through character list until a blank is reached
-		while( (gCharactersList[usCount].fValid)&&(usCount < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS) )
+		while( (gCharactersList[usCount].fValid)&&(usCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS) )
 		{
 			usCount++;
 		}
 	}
 
 
-	Assert( usCount < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS );
-	if (usCount >= CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS )
+	Assert( usCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS );
+	if (usCount >= giMAXIMUM_NUMBER_OF_PLAYER_SLOTS )
 	{
 		return;
 	}
@@ -3707,7 +3707,7 @@ void DisplayCharacterList()
 	SetFontBackground(FONT_BLACK);
 
 
-	for (sCount = 0; sCount < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; sCount++)
+	for (sCount = 0; sCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; sCount++)
 	{
 		// skip invalid characters
 		if ( gCharactersList[sCount].fValid == TRUE )
@@ -3776,6 +3776,8 @@ void DrawMPPlayerList ()
 	INT16 usX=0;
 	INT16 usY=0;
 
+	static UINT8 pbar_id_player[4];
+
 	if (is_networked && is_client && is_connected)
 	{
 		wchar_t szPlayerName[30];
@@ -3784,46 +3786,78 @@ void DrawMPPlayerList ()
 		int row=0;
 		for(int i=0; i < 4; i++)
 		{
-			//if (i != CLIENT_NUM)
-			//{
-				if (client_names[i] != NULL)
+			if (client_names[i] != NULL)
+			{
+				// setup bouds for player dirty rect and progress bar
+				int l,t,b,r;
+				l = MP_PLAYER_X+1;
+				r = l + MP_PLAYER_W - 1;
+				t = MP_ROWSTART_Y+(row*Y_SIZE);
+				b = t + Y_SIZE - 1;
+
+				// set up or destroy progress bar if needed
+				if (client_downloading[i] == 1 && pbar_id_player[i] == 0)
 				{
-					if (client_ready[i]==1)
-					{
-						SetFontForeground( FONT_GREEN );
-					}
-					else
-					{
-						SetFontForeground( FONT_WHITE );
-					}
-
-					if (strcmp(client_names[i],"")!=0)
-					{
-						// valid player
-						memset(szPlayerName,0,30*sizeof(wchar_t));
-						mbstowcs( szPlayerName,client_names[i],30);
-						FindFontCenterCoordinates((short)MP_PLAYER_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_PLAYER_W, (short)Y_SIZE, szPlayerName, (long)MAP_SCREEN_FONT, &usX, &usY);
-						DrawString( (STR16)szPlayerName , usX,usY, MAP_SCREEN_FONT);
-
-						// <TODO> check for gametype here
-						//wcscpy(szTeam,L"N/A");
-						if (PLAYER_BSIDE==MP_TYPE_DEATHMATCH)
-							wcscpy(szTeam,L"N/A");
-						else
-							wcscpy(szTeam,gszMPTeamNames[client_teams[i]]);
-						FindFontCenterCoordinates((short)MP_TEAM_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_TEAM_W, (short)Y_SIZE, szTeam, (long)MAP_SCREEN_FONT, &usX, &usY);
-						DrawString( szTeam,usX,(short)usY, MAP_SCREEN_FONT);
-
-						wcscpy(szCompass,(RANDOM_SPAWN==1 ? L"?" : gszMPEdgesText[client_edges[i]]));
-						FindFontCenterCoordinates((short)MP_COMPASS_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_COMPASS_W, (short)Y_SIZE, szCompass, (long)MAP_SCREEN_FONT, &usX, &usY);
-						DrawString(szCompass , usX,(short)usY, MAP_SCREEN_FONT);
-
-						row++;
-					}
-
+					fTeamPanelDirty = true;
+					
+					CreateProgressBarNoBorder(i,l,t,r,b);
+					SetProgressBarColor(i,112,154,209);
+					SetProgressBarRenderBuffer(i,guiSAVEBUFFER);
+					pbar_id_player[i] = 1;
+				}
+				else if (client_downloading[i] == 0 && pbar_id_player[i] == 1)
+				{
+					fTeamPanelDirty = true;
+					RemoveProgressBar(i);
+					pbar_id_player[i] = 0;
+				}
+				
+				// render the progress bar if needed
+				if (client_downloading[i] == 1 && pbar_id_player[i] == 1)
+				{
+					RenderProgressBar(i,client_progress[i]);
 				}
 
-			//}
+				if (client_ready[i]==1)
+				{
+					SetFontForeground( FONT_GREEN );
+				}
+				else
+				{
+					SetFontForeground( FONT_WHITE );
+				}
+
+				if (strcmp(client_names[i],"")!=0)
+				{
+					// valid player
+					memset(szPlayerName,0,30*sizeof(wchar_t));
+					mbstowcs( szPlayerName,client_names[i],30);
+					FindFontCenterCoordinates((short)MP_PLAYER_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_PLAYER_W, (short)Y_SIZE, szPlayerName, (long)MAP_SCREEN_FONT, &usX, &usY);
+					// do it manually here so as DrawString overrides the dirty rects
+					// we want the dirty rect to include progress bar as well as player text
+					SetFont(MAP_SCREEN_FONT);
+					mprintf(usX,usY,(STR16)szPlayerName);
+					int iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, l, t, r, b);
+					SetBackgroundRectFilled( iBack );
+					//DrawString( (STR16)szPlayerName , usX,usY, MAP_SCREEN_FONT);
+
+					// <TODO> check for gametype here
+					//wcscpy(szTeam,L"N/A");
+					if (PLAYER_BSIDE==MP_TYPE_DEATHMATCH)
+						wcscpy(szTeam,L"N/A");
+					else
+						wcscpy(szTeam,gszMPTeamNames[client_teams[i]]);
+					FindFontCenterCoordinates((short)MP_TEAM_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_TEAM_W, (short)Y_SIZE, szTeam, (long)MAP_SCREEN_FONT, &usX, &usY);
+					DrawString( szTeam,usX,(short)usY, MAP_SCREEN_FONT);
+
+					wcscpy(szCompass,(RANDOM_SPAWN==1 ? L"?" : gszMPEdgesText[client_edges[i]]));
+					FindFontCenterCoordinates((short)MP_COMPASS_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_COMPASS_W, (short)Y_SIZE, szCompass, (long)MAP_SCREEN_FONT, &usX, &usY);
+					DrawString(szCompass , usX,(short)usY, MAP_SCREEN_FONT);
+
+					row++;
+				}
+
+			}
 		}
 
 		// Draw the Server Info
@@ -3875,14 +3909,27 @@ void DrawMPPlayerList ()
 		swprintf(szSquadSize,L"%i",MAX_MERCS);
 		DrawString( szSquadSize , MP_GAMEINFO_X + StringPixLength(gszMPMapscreenText[2],MAP_SCREEN_FONT),MP_ROWSTART_Y+(3*Y_SIZE), MAP_SCREEN_FONT);
 
+		row = 4;
 		if (RANDOM_MERCS)
 		{
 			// Random Mercs
 			SetFontForeground( FONT_YELLOW );
-			DrawString( gszMPMapscreenText[5] , MP_GAMEINFO_X ,MP_ROWSTART_Y+(4*Y_SIZE), MAP_SCREEN_FONT);
+			DrawString( gszMPMapscreenText[5] , MP_GAMEINFO_X ,MP_ROWSTART_Y+(row*Y_SIZE), MAP_SCREEN_FONT);
 			SetFontForeground( FONT_WHITE );
-			DrawString( gszMPMapscreenText[6] , MP_GAMEINFO_X + StringPixLength(gszMPMapscreenText[5],MAP_SCREEN_FONT),MP_ROWSTART_Y+(4*Y_SIZE), MAP_SCREEN_FONT);
+			DrawString( gszMPMapscreenText[6] , MP_GAMEINFO_X + StringPixLength(gszMPMapscreenText[5],MAP_SCREEN_FONT),MP_ROWSTART_Y+(row*Y_SIZE), MAP_SCREEN_FONT);
+			row++;
 		}
+
+		// Server Version
+		SetFontForeground( FONT_YELLOW );
+		DrawString( gszMPMapscreenText[8] , MP_GAMEINFO_X ,MP_ROWSTART_Y+(row*Y_SIZE), MAP_SCREEN_FONT);
+		row++;
+
+		wchar_t szServerVer[30];
+		memset(szServerVer,0,30*sizeof(wchar_t));
+		mbstowcs( szServerVer,MPVERSION,30);
+		SetFontForeground( FONT_WHITE );
+		DrawString( szServerVer , MP_GAMEINFO_X ,MP_ROWSTART_Y+(row*Y_SIZE), MAP_SCREEN_FONT);
 
 	}
 }
@@ -5257,9 +5304,9 @@ UINT32 MapScreenHandle(void)
 		{
 			fShowInventoryFlag = FALSE;
 			// CHRISL: Added call to re-render the bottom panel
-//			RenderMapScreenInterfaceBottom ( TRUE );
+			RenderMapScreenInterfaceBottom ( TRUE );
 			// set help text for item glow region
-//XXXj?			SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
+			SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
 		}
 
 
@@ -6536,20 +6583,25 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 				case BACKSPACE:
 					StopAnyCurrentlyTalkingSpeech( );
 					break;
-
-				// multiplayer: Roman: Should be changed, because the keys are already bount to another feature
+				
 				case F1:
+					// WANNE: No more needed
+					/*
 					if (is_networked)
 					{
 						mp_help();
 						break;
 					}
+					*/
 				case F2:
+					// WANNE: No more needed
+					/*
 					if (is_networked)
 					{
 						mp_help2();
 						break;
 					}
+					*/
 				case F3:
 				case F4:
 				case F5:
@@ -9319,7 +9371,7 @@ void CreateMouseRegionsForTeamList( void )
 	// the info region...is the background for the list itself
 
 	// OJW - MP
-	int max_rows = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+	int max_rows = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
 	if (is_networked)
 		max_rows = 7; // <TODO> check this value is correct / unhardcode it
 
@@ -9415,7 +9467,7 @@ void DestroyMouseRegionsForTeamList( void )
 	// will destroy mouse regions overlaying the team list area
 	INT32 sCounter = 0;
 
-	for( sCounter = 0; sCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; sCounter++ )
+	for( sCounter = 0; sCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; sCounter++ )
 	{
 	MSYS_RemoveRegion( &gTeamListNameRegion[ sCounter ]);
 		MSYS_RemoveRegion( &gTeamListAssignmentRegion[ sCounter ]);
@@ -9463,7 +9515,7 @@ void MPReadyButtonCallback( GUI_BUTTON *btn, INT32 reason )
 						else if (allowlaptop)
 						{
 							// warn the user that cannot change once buying has commenced
-							ScreenMsg( FONT_LTBLUE, MSG_CHAT, gszMPMapscreenText[3]);
+							ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, gszMPMapscreenText[3]);
 						}
 					}
 					else
@@ -9491,11 +9543,11 @@ void MPReadyButtonCallback( GUI_BUTTON *btn, INT32 reason )
 						else if (allowlaptop)
 						{
 							// warn the user that cannot change once buying has commenced
-							ScreenMsg( FONT_LTBLUE, MSG_CHAT, gszMPMapscreenText[4]);
+							ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, gszMPMapscreenText[4]);
 						}
 						else if (RANDOM_SPAWN)
 						{
-							ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"Cannot change edge, the game is set to random spawn");
+							ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, L"Cannot change edge, the game is set to random spawn");
 						}
 					}
 					else
@@ -9528,7 +9580,7 @@ void MPCompassChangeCallback( MOUSE_REGION * pReason, INT32 iReason)
 			else if (allowlaptop)
 			{
 				// warn the user that cannot change once buying has commenced
-				ScreenMsg( FONT_LTBLUE, MSG_CHAT, gszMPMapscreenText[3]);
+				ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, gszMPMapscreenText[3]);
 			}
 		}
 		else
@@ -9557,11 +9609,11 @@ void MPTeamChangeCallback( MOUSE_REGION * pReason, INT32 iReason)
 			else if (allowlaptop)
 			{
 				// warn the user that cannot change once buying has commenced
-				ScreenMsg( FONT_LTBLUE, MSG_CHAT, gszMPMapscreenText[4]);
+				ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, gszMPMapscreenText[4]);
 			}
 			else if (RANDOM_SPAWN)
 			{
-				ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"Cannot change edge, the game is set to random spawn");
+				ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, L"Cannot change edge, the game is set to random spawn");
 			}
 		}
 		else
@@ -9939,7 +9991,7 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			// Select all characters in squad
 			INT16 iCounter;
 
-			for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+			for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 			{
 				if( gCharactersList[ iCounter ].fValid == TRUE )
 				{
@@ -11054,19 +11106,21 @@ void ReBuildCharactersList( void )
 
 
 	// add in characters
-	for ( sCount = 0; sCount < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; sCount++)
+	for ( sCount = 0; sCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; sCount++)
 	{
 		// clear this slot
 		gCharactersList[ sCount ].fValid = FALSE;
 		gCharactersList[ sCount ].usSolID = 0;
 	}
 
-	for ( sCount = 0; sCount < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; sCount++)
+	// fills array with pressence of player controlled characters
+	for ( INT32 cnt=gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++)
 	{
-	// add character into the cleared slot
-	AddCharacter( &Menptr[ gTacticalStatus.Team[ OUR_TEAM ].bFirstID + sCount ] );
+		if(Menptr[ cnt ].bActive == 1)
+		{
+			AddCharacter( &Menptr[ cnt ] );
+		}
 	}
-
 
 	// sort them according to current sorting method
 	SortListOfMercsInTeamPanel( FALSE );
@@ -11156,7 +11210,7 @@ void EnableDisableTeamListRegionsAndHelpText( void )
 	INT8 bCharNum;
 
 
-	for( bCharNum = 0; bCharNum < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCharNum++ )
+	for( bCharNum = 0; bCharNum < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCharNum++ )
 	{
 		if( gCharactersList[ bCharNum ].fValid == FALSE )
 		{
@@ -11351,7 +11405,7 @@ BOOLEAN ContinueDialogue(SOLDIERTYPE *pSoldier, BOOLEAN fDone )
 	}
 
 	// otherwise, find this character
-	for( bCounter = 0; bCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCounter++ )
+	for( bCounter = 0; bCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCounter++ )
 	{
 		if( gCharactersList[bCounter].fValid == TRUE )
 		{
@@ -11378,7 +11432,7 @@ void HandleSpontanousTalking(	)
 
 	if( DialogueActive() == FALSE )
 	{
-		if( ( bSelectedInfoChar != -1 ) && ( bSelectedInfoChar < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) )
+		if( ( bSelectedInfoChar != -1 ) && ( bSelectedInfoChar < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) )
 		{
 			ContinueDialogue( ( &Menptr[gCharactersList[bSelectedInfoChar].usSolID] ), TRUE );
 		}
@@ -11514,7 +11568,7 @@ void RebuildWayPointsForAllSelectedCharsGroups( void )
 
 	memset( fGroupIDRebuilt, FALSE, sizeof( fGroupIDRebuilt ) );
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( ( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE ) )
 		{
@@ -11946,7 +12000,7 @@ INT8 GetLastValidCharacterInTeamPanelList( void )
 	INT8 iCounter = 0, iValue = 0;
 
 	// run through the list and find the last valid guy in the list
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
@@ -12254,7 +12308,7 @@ void UpdateBadAssignments( void )
 {
 	UINT32 iCounter;
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
@@ -12312,7 +12366,7 @@ BOOLEAN AnyMercsLeavingRealSoon()
 	UINT32 uiTimeInMin = GetWorldTotalMin();
 	BOOLEAN fFoundOne = FALSE;
 
-	for( uiCounter = 0; uiCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; uiCounter++ )
+	for( uiCounter = 0; uiCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; uiCounter++ )
 	{
 		if( gCharactersList[ uiCounter ].fValid == TRUE )
 		{
@@ -12892,7 +12946,7 @@ void TellPlayerWhyHeCantCompressTime( void )
 	// WANNE - MP: It is forbidden to compress time in multiplayer
 	else if (is_networked)
 	{
-		ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"You cannot compress time in multiplayer game. Press '3' to start the battle.");
+		ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, MPClientMessage[65]);
 	}
 	else if ( !AnyUsableRealMercenariesOnTeam() )
 	{
@@ -13032,15 +13086,17 @@ void AddTeamPanelSortButtonsForMapScreen( void )
 void AddMPButtonsForMapScreen( void )
 {
 	INT32 iCounter = 0;
-	//SGPFILENAME filename;
+	SGPFILENAME filename;
 	INT32 iImageIndex[ MAX_MP_BUTTONS+1 ] = { 0, 1, 3, 5 , 7 };		// sleep image is out or order (last)
 	INT32 iPressedIndex[ MAX_MP_BUTTONS+1 ] = { 0 , 2 , 4 , 6 , 8 };
+
+	GetMLGFilename( filename, MLG_MP_GOLDPIECEBUTTONS );
 
 	// <TODO> add start game button and hide it...
 
 	for( iCounter = 0; iCounter < MAX_MP_BUTTONS+1; iCounter++ )
 	{
-		giMapMPButtonImage[ iCounter ] = LoadButtonImage( "INTERFACE\\MPGOLDPIECEBUTTONS.STI", -1, iImageIndex[ iCounter ] , -1, iPressedIndex[ iCounter ] , -1 );
+		giMapMPButtonImage[ iCounter ] = LoadButtonImage( filename, -1, iImageIndex[ iCounter ] , -1, iPressedIndex[ iCounter ] , -1 );
 
 		if (iCounter < MAX_MP_BUTTONS)
 		{
@@ -13084,7 +13140,7 @@ void SortListOfMercsInTeamPanel( BOOLEAN fRetainSelectedMercs, BOOLEAN fReverse 
 		}
 
 
-		for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+		for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 		{
 			// set current entry to null
 			pSelectedSoldier[ iCounter ] = NULL;
@@ -13321,11 +13377,11 @@ void SortListOfMercsInTeamPanel( BOOLEAN fRetainSelectedMercs, BOOLEAN fReverse 
 
 
 		// now select all the soldiers that were selected before
-		for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+		for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 		{
 			if( pSelectedSoldier[ iCounter ] )
 			{
-				for( iCounterA = 0; iCounterA < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounterA++ )
+				for( iCounterA = 0; iCounterA < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounterA++ )
 				{
 					// is this entry even valid
 					if( gCharactersList[ iCounterA ].fValid == FALSE )
@@ -13463,7 +13519,7 @@ void HandleAssignmentsDoneAndAwaitingFurtherOrders( void )
 		// update timer so that we only run check so often
 		giFlashAssignBaseTime = iCurrentTime;
 
-		for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+		for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 		{
 			if( gCharactersList[ iCounter ].fValid == FALSE )
 			{
@@ -13501,7 +13557,7 @@ void DisplayIconsForMercsAsleep( void )
 
 	GetVideoObject(&hHandle, guiSleepIcon );
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
@@ -13618,7 +13674,7 @@ BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber )
 
 
 	Assert( bCharNumber >= 0 );
-	Assert( bCharNumber < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS );
+	Assert( bCharNumber < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS );
 
 	// invalid character slot selected?
 	if( gCharactersList[ bCharNumber ].fValid == FALSE )
@@ -13957,7 +14013,7 @@ BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickA
 
 				INT16 iCounter;
 
-				for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+				for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 				{
 					if( gCharactersList[ iCounter ].fValid == TRUE )
 					{
@@ -14012,7 +14068,7 @@ BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickA
 
 				INT16 iCounter;
 
-				for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+				for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 				{
 					if( gCharactersList[ iCounter ].fValid == TRUE )
 					{
@@ -14118,7 +14174,7 @@ INT32 GetContractExpiryTime( SOLDIERTYPE *pSoldier )
 
 void ChangeSelectedInfoChar( INT8 bCharNumber, BOOLEAN fResetSelectedList )
 {
-	Assert( ( bCharNumber >= -1 ) && ( bCharNumber < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
+	Assert( ( bCharNumber >= -1 ) && ( bCharNumber < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
 	if( ( bCharNumber != -1 ) && ( gCharactersList[ bCharNumber ].fValid == FALSE ) )
 		return;
@@ -14194,7 +14250,7 @@ void CopyPathToAllSelectedCharacters( PathStPtr pPath )
 
 
 	// run through list and copy paths for each selected character
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE )
 		{
@@ -14232,7 +14288,7 @@ void CancelPathsOfAllSelectedCharacters()
 
 
 	// cancel destination for the clicked and ALL other valid & selected characters with a route set
-	for( bCounter = 0; bCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCounter++ )
+	for( bCounter = 0; bCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCounter++ )
 	{
 		// if we've clicked on a selected valid character
 		if( ( gCharactersList[ bCounter ].fValid == TRUE ) && IsEntryInSelectedListSet( bCounter ) )
@@ -14315,7 +14371,7 @@ INT16 CalcLocationValueForChar( INT32 iCounter )
 	SOLDIERTYPE *pSoldier = NULL;
 	INT16 sLocValue = 0;
 
-	Assert( iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS );
+	Assert( iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS );
 
 	if( gCharactersList[ iCounter ].fValid == FALSE )
 		return( sLocValue );
@@ -14620,7 +14676,7 @@ void RandomAwakeSelectedMercConfirmsStrategicMove( void )
 	UINT8	ubChosenMerc;
 
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( ( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE ) )
 		{
@@ -14789,10 +14845,10 @@ BOOLEAN CanMoveBullseyeAndClickedOnIt( INT16 sMapX, INT16 sMapY )
 			// haydent
 			else if(is_server)
 			{
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPServerMessage[9] );
+				ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, MPServerMessage[9] );
 			}
 			else if(is_client)
-				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[38] );
+				ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, MPClientMessage[38] );
 		}
 		else
 		{
@@ -14849,7 +14905,7 @@ void WakeUpAnySleepingSelectedMercsOnFootOrDriving( void )
 	BOOLEAN fSuccess = FALSE;
 
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( ( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE ) )
 		{
@@ -15086,7 +15142,7 @@ void InitPreviousPaths( void )
 	INT32 iCounter = 0;
 
 	// init character previous paths
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		gpCharacterPreviousMercPath[ iCounter ] = NULL;
 	}
@@ -15101,7 +15157,7 @@ void RememberPreviousPathForAllSelectedChars( void )
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE )
 		{
@@ -15168,7 +15224,7 @@ void RestorePreviousPaths( void )
 	}
 	else	// character(s) plotting
 	{
-		for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+		for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 		{
 			// if selected
 			if( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE )
@@ -15241,7 +15297,7 @@ void ClearPreviousPaths( void )
 {
 	INT32 iCounter = 0;
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE )
 		{
@@ -15268,7 +15324,7 @@ void SelectAllCharactersInSquad( INT8 bSquadNumber )
 	ChangeSelectedInfoChar( -1, TRUE );
 
 	// now select all the soldiers that are in this squad
-	for( bCounter = 0; bCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCounter++ )
+	for( bCounter = 0; bCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; bCounter++ )
 	{
 		// is this entry is valid
 		if( gCharactersList[ bCounter ].fValid == TRUE )
@@ -15377,8 +15433,7 @@ void RequestToggleMercInventoryPanel( void )
 		else
 		{
 			// Headrock. New line forces InvBottom rerender when the inventory is opened and closed.
-			//RenderMapScreenInterfaceBottom ( TRUE ); 
-			fMapScreenBottomDirty = TRUE;
+			RenderMapScreenInterfaceBottom ( TRUE ); 
 			SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
 		}
 	}

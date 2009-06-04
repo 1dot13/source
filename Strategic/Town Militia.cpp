@@ -1163,7 +1163,7 @@ void HandleCompletionOfTownTrainingByGroupWithTrainer( SOLDIERTYPE *pTrainer )
 	sSectorY = pTrainer->sSectorY;
 	bSectorZ = pTrainer->bSectorZ;
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// valid character?
 		if( gCharactersList[ iCounter ].fValid == FALSE )
@@ -1298,7 +1298,7 @@ void BuildListOfUnpaidTrainableSectors( void )
 
 	if( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
 	{
-		for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+		for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 		{
 			// valid character?
 			if( gCharactersList[ iCounter ].fValid )
@@ -1337,11 +1337,11 @@ void BuildListOfUnpaidTrainableSectors( void )
 	}
 
 	// now clean out repeated sectors
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1; iCounter++ )
 	{
 		if( gsUnpaidStrategicSector[ iCounter ] > 0 )
 		{
-			for( iCounterB = iCounter + 1 ; iCounterB < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounterB++ )
+			for( iCounterB = iCounter + 1 ; iCounterB < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounterB++ )
 			{
 				if( gsUnpaidStrategicSector[ iCounterB ] == gsUnpaidStrategicSector[ iCounter ] )
 				{
@@ -1362,7 +1362,7 @@ INT32 GetNumberOfUnpaidTrainableSectors( void )
 	BuildListOfUnpaidTrainableSectors();
 
 	// now count up the results
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gsUnpaidStrategicSector[ iCounter ] > 0 )
 		{
@@ -1387,7 +1387,7 @@ void StartTrainingInAllUnpaidTrainableSectors()
 	BuildListOfUnpaidTrainableSectors();
 
 	// pay up in each sector
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gsUnpaidStrategicSector[ iCounter ] > 0 )
 		{

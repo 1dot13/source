@@ -51,6 +51,8 @@
 #include "fresh_header.h"
 #include "Encrypted File.h"
 
+#include <sstream>
+
 //
 //******	Defines	******
 //
@@ -1252,7 +1254,17 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 
 			pItem = &Item[ usItem ];
 			GetVideoObject( &hVObject, GetInterfaceGraphicForItem( pItem ) );
-			pTrav = &(hVObject->pETRLEObject[ pItem->ubGraphicNum ] );
+			if(pItem->ubGraphicNum < hVObject->usNumberOfObjects)
+			{
+				pTrav = &(hVObject->pETRLEObject[ pItem->ubGraphicNum ] );
+			}
+			else
+			{
+				std::wstringstream wss;
+				wss << L"Number of images in VObject [" << hVObject->usNumberOfObjects
+					<< L"] is smaller than the requested index [" << (int)pItem->ubGraphicNum << L"]";
+				THROWEXCEPTION(wss.str().c_str());
+			}
 
 			usHeight				= (UINT32)pTrav->usHeight;
 			usWidth					= (UINT32)pTrav->usWidth;

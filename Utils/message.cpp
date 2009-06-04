@@ -26,6 +26,9 @@
 	#include "GameSettings.h"
 #endif
 
+#include "VFS/vfs.h"
+#include "PropertyContainer.h"
+
 typedef struct
 {
 	UINT32	uiFont;
@@ -89,6 +92,9 @@ extern BOOLEAN gfFacePanelActive;
 extern BOOLEAN fTextBoxMouseRegionCreated;
 extern BOOLEAN fDialogueBoxDueToLastMessage;
 
+// OJW - 20090426
+INT16 gTacticalMsgFilterPriority = -1; // filter for writing messages to the tactical log
+
 
 
 // prototypes
@@ -118,7 +124,7 @@ void AddStringToMapScreenMessageList( STR16 pString, UINT16 usColor, UINT32 uiFo
 
 // clear up a linked list of wrapped strings
 void ClearWrappedStrings( WRAPPED_STRING *pStringWrapperHead );
-void WriteMessageToFile( STR16 pString );
+void WriteMessageToFile( const STR16 pString );
 
 // tactical screen message
 void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... );
@@ -727,6 +733,12 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 		return;
 	}
 
+	// OJW - 20090426 - Filter tactical messages
+	if ( gTacticalMsgFilterPriority != -1 && gTacticalMsgFilterPriority != ubPriority )
+	{
+		return;
+	}
+
 	if( ubPriority == MSG_BETAVERSION )
 	{
 		usColor = BETAVERSION_COLOR;
@@ -735,8 +747,10 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 				return;
 			#endif
 		#endif
+		va_start(argptr, pStringA);					// Set up variable argument pointer
+		vswprintf(DestString, pStringA, argptr);	// process gprintf string (get output str)
+		va_end(argptr);
 		WriteMessageToFile( DestString );
-
 	}
 
 	if( ubPriority == MSG_TESTVERSION )
@@ -746,9 +760,10 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 		#ifndef JA2TESTVERSION
 			return;
 		#endif
-
+		va_start(argptr, pStringA);					// Set up variable argument pointer
+		vswprintf(DestString, pStringA, argptr);	// process gprintf string (get output str)
+		va_end(argptr);
 		WriteMessageToFile( DestString );
-
 	}
 
 
@@ -797,51 +812,51 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	pStringWrapperHead=LineWrap(uiFont, LINE_WIDTH, &usLineWidthIfWordIsWiderThenWidth, DestString);
 	pStringWrapper=pStringWrapperHead;
 	if(!pStringWrapper)
-	return;
+		return;
 
 	fNewString = TRUE;
 	while(pStringWrapper->pNextWrappedString!=NULL)
 	{
-	if(!pStringSt)
-	{
-	pStringSt=AddString(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority );
-		fNewString = FALSE;
-		pStringSt->pNext=NULL;
-		pStringSt->pPrev=NULL;
-	pStringS=pStringSt;
-	}
-	else
-	{
-	pTempStringSt=AddString(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority);
-	fNewString = FALSE;
-		pTempStringSt->pPrev=pStringSt;
-	pStringSt->pNext=pTempStringSt;
-	pStringSt=pTempStringSt;
-	pTempStringSt->pNext=NULL;
-	}
-	pStringWrapper=pStringWrapper->pNextWrappedString;
+		if(!pStringSt)
+		{
+			pStringSt=AddString(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority );
+			fNewString = FALSE;
+			pStringSt->pNext=NULL;
+			pStringSt->pPrev=NULL;
+			pStringS=pStringSt;
+		}
+		else
+		{
+			pTempStringSt=AddString(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority);
+			fNewString = FALSE;
+			pTempStringSt->pPrev=pStringSt;
+			pStringSt->pNext=pTempStringSt;
+			pStringSt=pTempStringSt;
+			pTempStringSt->pNext=NULL;
+		}
+		pStringWrapper=pStringWrapper->pNextWrappedString;
 	}
 	pTempStringSt=AddString(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority );
 	if(pStringSt)
 	{
-	pStringSt->pNext=pTempStringSt;
-	pTempStringSt->pPrev=pStringSt;
-	pStringSt=pTempStringSt;
-	pStringSt->pNext=NULL;
+		pStringSt->pNext=pTempStringSt;
+		pTempStringSt->pPrev=pStringSt;
+		pStringSt=pTempStringSt;
+		pStringSt->pNext=NULL;
 	}
 	else
 	{
 		pStringSt=pTempStringSt;
 		pStringSt->pNext=NULL;
 		pStringSt->pPrev=NULL;
-	pStringS=pStringSt;
+		pStringS=pStringSt;
 	}
 
 	// clear up list of wrapped strings
 	ClearWrappedStrings( pStringWrapperHead );
 
- //LeaveMutex(SCROLL_MESSAGE_MUTEX, __LINE__, __FILE__);
- return;
+	//LeaveMutex(SCROLL_MESSAGE_MUTEX, __LINE__, __FILE__);
+	return;
 }
 
 
@@ -885,12 +900,18 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 			#endif
 		#endif
 
+		va_start(argptr, pStringA);			// Set up variable argument pointer
+		vswprintf(DestString, pStringA, argptr);	// process gprintf string (get output str)
+		va_end(argptr);
 		WriteMessageToFile( DestString );
 	}
 
 	if( ubPriority == MSG_TESTVERSION )
 	{
 		usColor = TESTVERSION_COLOR;
+		va_start(argptr, pStringA);			// Set up variable argument pointer
+		vswprintf(DestString, pStringA, argptr);	// process gprintf string (get output str)
+		va_end(argptr);
 
 		#ifndef JA2TESTVERSION
 			return;
@@ -1439,10 +1460,10 @@ void ClearTacticalMessageQueue( void )
 	return;
 }
 
-void WriteMessageToFile( STR16 pString )
+void WriteMessageToFile( const STR16 pString )
 {
 #ifdef JA2BETAVERSION
-
+#ifndef USE_VFS
 	FILE *fp;
 
 	fp = fopen( "DebugMessage.txt", "a" );
@@ -1454,7 +1475,10 @@ void WriteMessageToFile( STR16 pString )
 
 	fprintf( fp, "%S\n", pString );
 	fclose( fp );
-
+#else
+	static CLog& debugMessage = *CLog::Create(L"DebugMessage.txt", true, CLog::FLUSH_IMMEDIATELY);
+	debugMessage << pString << CLog::endl;
+#endif
 #endif
 }
 
@@ -1514,6 +1538,17 @@ UINT8 GetRangeOfMapScreenMessages( void )
 	}
 
 	return ( ubRange );
+}
+
+// OJW - 20090426 - only show certain messages in the tactical / message overlay
+void SetTacticalMessageFilter( UINT ubPriority )
+{
+	gTacticalMsgFilterPriority = ubPriority;
+}
+
+void RemoveTacticalMessageFilter ( void )
+{
+	gTacticalMsgFilterPriority = -1;
 }
 
 

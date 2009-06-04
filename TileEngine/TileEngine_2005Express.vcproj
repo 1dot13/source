@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="TileEngine_2005Express"
 	ProjectGUID="{FC1938E8-9253-49A8-AA99-4639BBB46C1B}"
 	RootNamespace="TileEngine_2005Express"
@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\utf8\source;..\VFS"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -105,7 +105,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\utf8\source;..\VFS"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -166,7 +166,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\utf8\source;..\VFS"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -228,7 +228,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\utf8\source;..\VFS"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

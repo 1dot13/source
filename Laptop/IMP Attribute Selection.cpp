@@ -24,7 +24,6 @@
 	#include "text.h"
 	#include "GameSettings.h"
 	#include "IMP Disability Trait.h" // Added this one - SANDRO
-
 #endif
 
 #define STARTING_LEVEL_BOX_POS_X	( 51 )

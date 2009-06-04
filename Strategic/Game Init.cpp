@@ -519,10 +519,14 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		{
 			SetLaptopExitScreen( MAP_SCREEN ); //hayden
 			SetPendingNewScreen( MAP_SCREEN );
-			ScreenMsg( MSG_FONT_WHITE, MSG_CHAT, L"------------------------------------------------------");
-			ScreenMsg( MSG_FONT_WHITE, MSG_CHAT, MPHelp[0]);
-			ScreenMsg( MSG_FONT_WHITE, MSG_CHAT, L"------------------------------------------------------");
-			ScreenMsg( MSG_FONT_WHITE, MSG_CHAT, MPHelp[1]);
+			
+			// WANNE: No more used
+			/*
+			ScreenMsg( MSG_FONT_WHITE, MSG_MPSYSTEM, L"------------------------------------------------------");
+			ScreenMsg( MSG_FONT_WHITE, MSG_MPSYSTEM, MPHelp[0]);
+			ScreenMsg( MSG_FONT_WHITE, MSG_MPSYSTEM, L"------------------------------------------------------");
+			ScreenMsg( MSG_FONT_WHITE, MSG_MPSYSTEM, MPHelp[1]);
+			*/
 			
 		}
 		else
@@ -698,7 +702,7 @@ void QuickSetupOfMercProfileItems( UINT32 uiCount, UINT8 ubProfileIndex )
 		// TEMP!
 		// make carman's opinion of us high!
 		if (OKToCheckOpinion(ubProfileIndex))
-			gMercProfiles[ 78 ].bMercOpinion[ ubProfileIndex ] = 25;
+		gMercProfiles[ 78 ].bMercOpinion[ ubProfileIndex ] = 25;
 
 	}
 	else if ( uiCount == 1 )
@@ -896,5 +900,9 @@ void ReStartingGame()
 	// Reset timer callbacks
 	gpCustomizableTimerCallback = NULL;
 
-	gubCheatLevel = STARTING_CHEAT_LEVEL;
+	// WANNE - MP: Set cheat level to 0 for mp
+	if (!is_networked)
+		gubCheatLevel = STARTING_CHEAT_LEVEL;
+	else
+		gubCheatLevel = 0;
 }

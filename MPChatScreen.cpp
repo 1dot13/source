@@ -756,27 +756,71 @@ UINT32	MPChatScreenHandle( )
 
 	// carter, need key shortcuts for clearing up message boxes
 	// Check for esc
+	bool bHandled;
 	while (DequeueEvent(&InputEvent) == TRUE)
 	{
-		if( !HandleTextInput( &InputEvent ) && InputEvent.usEvent == KEY_DOWN )
+		bHandled = false;
+		if(InputEvent.usEvent == KEY_DOWN )
+		{
+			if( ( InputEvent.usParam == ESC ) )
 			{
-				if( ( InputEvent.usParam == ESC ) || ( InputEvent.usParam == 'n') )
-				{
-					// Exit messagebox
-					gChatBox.bHandled = MSG_BOX_RETURN_NO;
-					memset(gszChatBoxInputString,0,sizeof(CHAR16)*255);
-				}
-
-				if( InputEvent.usParam == ENTER )
-				{
-					// retrieve the string from the text box
-					Get16BitStringFromField( 0, gszChatBoxInputString ); // these indexes are based on the order created
-					// Exit messagebox
-					gChatBox.bHandled = MSG_BOX_RETURN_OK;
-				}
-				
-
+				// Exit messagebox
+				gChatBox.bHandled = MSG_BOX_RETURN_NO;
+				memset(gszChatBoxInputString,0,sizeof(CHAR16)*255);
+				bHandled = true;
 			}
+			
+			if( InputEvent.usParam == ENTER )
+			{
+				// retrieve the string from the text box
+				Get16BitStringFromField( 0, gszChatBoxInputString, 255 ); // these indexes are based on the order created
+				// Exit messagebox
+				gChatBox.bHandled = MSG_BOX_RETURN_OK;
+				bHandled = true;
+			}
+
+			// OJW - 20090403 - add better key control
+			UINT8 ubDesiredMessageIndex;
+			UINT8 ubNumMessages;
+
+			ubNumMessages = GetRangeOfChatLogMessages();
+
+			if ( ubNumMessages > MAX_CHATLOG_MESSAGES )
+			{
+				if (InputEvent.usParam == PGUP)
+				{
+					//move up a page
+					ChatScreenMsgScrollUp( MAX_CHATLOG_MESSAGES );
+					bHandled = true;
+				}
+
+				if (InputEvent.usParam == PGDN)
+				{
+					// move down a page
+					ChatScreenMsgScrollDown( MAX_CHATLOG_MESSAGES );
+					bHandled = true;
+				}
+
+				if (InputEvent.usParam == HOME)
+				{
+					// move to the beginning
+					ChangeCurrentChatScreenMessageIndex( 0 );
+					bHandled = true;
+				}
+
+				if (InputEvent.usParam == END)
+				{
+					// move to end
+					ubDesiredMessageIndex = ubNumMessages - MAX_CHATLOG_MESSAGES;
+					ChangeCurrentChatScreenMessageIndex( ubDesiredMessageIndex );
+					bHandled = true;
+				}
+			}
+		}
+
+		// send to text box
+		if (!bHandled)
+			HandleTextInput( &InputEvent );
 	}
 
 	if ( gChatBox.bHandled )
@@ -839,7 +883,7 @@ void OKChatBoxCallback(GUI_BUTTON *btn, INT32 reason )
 		// OK, exit
 		gChatBox.bHandled = MSG_BOX_RETURN_OK;
 		// retrieve the string from the text box
-		Get16BitStringFromField( 0, gszChatBoxInputString ); // these indexes are based on the order created
+		Get16BitStringFromField( 0, gszChatBoxInputString, 255 ); // these indexes are based on the order created
 	}
 	else if ( reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{

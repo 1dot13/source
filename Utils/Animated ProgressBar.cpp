@@ -12,6 +12,7 @@
 	#include "music control.h"
 	#include "Timer Control.h"
 	#include "sysutil.h"
+#include "math.h"
 #endif
 
 double rStart, rEnd;
@@ -23,7 +24,6 @@ double rActual;
 
 PROGRESSBAR *pBar[ MAX_PROGRESSBARS ];
 
-BOOLEAN gfUseLoadScreenProgressBar = FALSE;
 UINT16 gusLeftmostShaded = 0;
 
 extern BOOLEAN bShowSmallImage;
@@ -31,7 +31,6 @@ extern BOOLEAN bShowSmallImage;
 void CreateLoadingScreenProgressBar()
 {
 	gusLeftmostShaded = 162;
-	gfUseLoadScreenProgressBar = TRUE;
 
 	// Special case->show small image centered
 	if (bShowSmallImage == TRUE)
@@ -56,19 +55,28 @@ void CreateLoadingScreenProgressBar()
 			CreateProgressBar(0, 259, 683, 767, 708);
 		}
 	}
+
+	SetProgressBarUseBorder(0, FALSE );
 }
 
 void RemoveLoadingScreenProgressBar()
 {
-	gfUseLoadScreenProgressBar = FALSE;
 	RemoveProgressBar( 0 );
 	SetFontShadow(DEFAULT_SHADOW);
+}
+
+// OJW - 20090422
+void CreateProgressBarNoBorder( UINT8 ubProgressBarID, UINT16 usLeft, UINT16 usTop, UINT16 usRight, UINT16 usBottom )
+{
+	CreateProgressBar( ubProgressBarID, usLeft, usTop, usRight, usBottom );
+	SetProgressBarUseBorder( ubProgressBarID, FALSE );
 }
 
 //This creates a single progress bar given the coordinates without a panel (containing a title and background).
 //A panel is automatically created if you specify a title using SetProgressBarTitle
 BOOLEAN CreateProgressBar( UINT8 ubProgressBarID, UINT16 usLeft, UINT16 usTop, UINT16 usRight, UINT16 usBottom )
 {
+
 	PROGRESSBAR *pNew;
 	//Allocate new progress bar
 	pNew = (PROGRESSBAR*)MemAlloc( sizeof( PROGRESSBAR ) );
@@ -100,6 +108,10 @@ BOOLEAN CreateProgressBar( UINT8 ubProgressBarID, UINT16 usLeft, UINT16 usTop, U
 	pNew->ubColorFillBlue = 0;
 
 	pNew->fDisplayText = FALSE;
+	//OJW - 20090222
+	pNew->uiFrameBuffer = FRAME_BUFFER;
+	pNew->fDrawBorder = TRUE;
+
 
 	return TRUE;
 }
@@ -166,6 +178,27 @@ void SetProgressBarMsgAttributes( UINT32 ubID, UINT32 usFont, UINT8 ubForeColor,
 	pCurr->ubMsgFontShadowColor = ubShadowColor;
 }
 
+//OJW - 20090422
+void SetProgressBarRenderBuffer( UINT32 ubID , UINT32 uiBufferID )
+{
+	PROGRESSBAR *pCurr;
+	Assert( ubID < MAX_PROGRESSBARS );
+	pCurr = pBar[ ubID ];
+	if( !pCurr )
+		return;
+	pCurr->uiFrameBuffer = uiBufferID;
+}
+
+void SetProgressBarUseBorder( UINT32 ubID , BOOLEAN bBorder )
+{
+	PROGRESSBAR *pCurr;
+	Assert( ubID < MAX_PROGRESSBARS );
+	pCurr = pBar[ ubID ];
+	if( !pCurr )
+		return;
+	pCurr->fDrawBorder = bBorder;
+}
+
 
 //When finished, the progress bar needs to be removed.
 void RemoveProgressBar( UINT8 ubID )
@@ -198,8 +231,8 @@ void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT32 uiRelStartPerc, UINT32
 	if( !pCurr )
 		return;
 
-	pCurr->rStart = uiRelStartPerc*0.01;
-	pCurr->rEnd = uiRelEndPerc*0.01;
+	pCurr->rStart = (double)uiRelStartPerc*0.01f;
+	pCurr->rEnd = (double)uiRelEndPerc*0.01f;
 
 	//Render the entire panel now, as it doesn't need update during the normal rendering
 	if( pCurr->fPanel )
@@ -271,7 +304,7 @@ void RenderProgressBar( UINT8 ubID, UINT32 uiPercentage )
 	{
 		rActual = pCurr->rStart+(pCurr->rEnd-pCurr->rStart)*uiPercentage*0.01;
 
-		if( rActual - pCurr->rLastActual < 0.01 )
+		if( fabs(rActual - pCurr->rLastActual) < 0.01 )
 		{
 			return;
 		}
@@ -283,9 +316,9 @@ void RenderProgressBar( UINT8 ubID, UINT32 uiPercentage )
 		{
 			return;
 		}
-		if( gfUseLoadScreenProgressBar )
+		if( !pCurr->fDrawBorder )
 		{
-			ColorFillVideoSurfaceArea( FRAME_BUFFER,
+			ColorFillVideoSurfaceArea( pCurr->uiFrameBuffer, //FRAME_BUFFER,
 				pCurr->usBarLeft, pCurr->usBarTop, end, pCurr->usBarBottom,
 				Get16BPPColor(FROMRGB( pCurr->ubColorFillRed, pCurr->ubColorFillGreen, pCurr->ubColorFillBlue )) );
 			//if( pCurr->usBarRight > gusLeftmostShaded )
@@ -297,14 +330,14 @@ void RenderProgressBar( UINT8 ubID, UINT32 uiPercentage )
 		else
 		{
 			//Border edge of the progress bar itself in gray
-			ColorFillVideoSurfaceArea( FRAME_BUFFER,
+			ColorFillVideoSurfaceArea( pCurr->uiFrameBuffer,
 				pCurr->usBarLeft, pCurr->usBarTop, pCurr->usBarRight, pCurr->usBarBottom,
 				Get16BPPColor(FROMRGB(160, 160, 160)) );
 			//Interior of progress bar in black
-			ColorFillVideoSurfaceArea( FRAME_BUFFER,
+			ColorFillVideoSurfaceArea( pCurr->uiFrameBuffer,
 				pCurr->usBarLeft+2, pCurr->usBarTop+2, pCurr->usBarRight-2, pCurr->usBarBottom-2,
 				Get16BPPColor(FROMRGB(	0,	0,	0)) );
-			ColorFillVideoSurfaceArea(FRAME_BUFFER,	pCurr->usBarLeft+2, pCurr->usBarTop+2, end, pCurr->usBarBottom-2, Get16BPPColor(FROMRGB(72 , 155, 24)));
+			ColorFillVideoSurfaceArea(pCurr->uiFrameBuffer,	pCurr->usBarLeft+2, pCurr->usBarTop+2, end, pCurr->usBarBottom-2, Get16BPPColor(FROMRGB(72 , 155, 24)));
 		}
 		InvalidateRegion( pCurr->usBarLeft, pCurr->usBarTop, pCurr->usBarRight, pCurr->usBarBottom );
 		ExecuteBaseDirtyRectQueue();

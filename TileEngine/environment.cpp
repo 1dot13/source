@@ -27,6 +27,7 @@
 #endif
 
 #include "Text.h"
+#include "connect.h"
 
 //effects whether or not time of day effects the lighting.	Underground
 //maps have an ambient light level that is saved in the map, and doesn't change.
@@ -682,13 +683,20 @@ BOOLEAN LightningEndOfTurn( UINT8 ubTeam )
 
 UINT8 GetTimeOfDayAmbientLightLevel()
 {
-	if ( SectorTemperature( GetWorldMinutesInDay(), gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) == HOT )
+	if (!is_networked)
 	{
-		return( HOT_DAY_LIGHTLEVEL );
+		if ( SectorTemperature( GetWorldMinutesInDay(), gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) == HOT )
+		{
+			return( HOT_DAY_LIGHTLEVEL );
+		}
+		else
+		{
+			return( gubEnvLightValue );
+		}
 	}
 	else
 	{
-		return( gubEnvLightValue );
+		return ( gubEnvLightValue );
 	}
 }
 

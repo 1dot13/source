@@ -342,6 +342,7 @@ void BobbyRDeliveryCallback(RefToCShipmentManipulator ShipmentManipulator)
 {
 	// ScreenMsg(FONT_MCOLOR_RED, MSG_DEBUG, L"Shipment from Bobby Ray has arrived at %s!", ShipmentManipulator.GetDestination().wstrName.c_str());
 	gusCurShipmentDestinationID = ShipmentManipulator.GetDestination().usID;
+
 	// WANNE - MP: Do not send email notification from Bobby Ray in a multiplayer game
 	if (!is_networked)
 		AddEmail( BOBBYR_SHIPMENT_ARRIVED, BOBBYR_SHIPMENT_ARRIVED_LENGTH, BOBBY_R, GetWorldTotalMin(), -1 );
@@ -1143,7 +1144,6 @@ void DisplayShippingCosts( BOOLEAN fCalledFromOrderPage, INT32 iSubTotal, UINT16
 			default:
 				usStandardCost = 0;
 		}
-
 		iShippingCost = (INT32)( ( gpNewBobbyrShipments[ iOrderNum ].uiPackageWeight / (FLOAT)10 ) * usStandardCost + .5 );
 		* Dealtar's Code: */
 		UINT32 uiPackageWeight=0;
@@ -1621,7 +1621,6 @@ void DrawSelectedCity( UINT8 ubCityNumber )
 	*/
 	if( gubCityAtTopOfList+guiNumOfDisplayedCities > (UINT8)gPostalService.LookupDestinationList().size() )
 		gubCityAtTopOfList = gPostalService.LookupDestinationList().size() - guiNumOfDisplayedCities - 1;
-	
 
 
 	//Display the list of cities
@@ -1659,7 +1658,6 @@ void DrawSelectedCity( UINT8 ubCityNumber )
 		DrawTextToScreen( (STR16)gDestinationTable[0]->wstrName.c_str(), BOBBYR_CITY_START_LOCATION_X+BOBBYR_CITY_NAME_OFFSET, (UINT16)(usPosY+5), 0, BOBBYR_DROPDOWN_FONT, BOBBYR_FONT_BLACK, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
 	else
 		DrawTextToScreen( (STR16)gDestinationTable[ubCityNumber]->wstrName.c_str(), BOBBYR_CITY_START_LOCATION_X+BOBBYR_CITY_NAME_OFFSET, (UINT16)(usPosY+5), 0, BOBBYR_DROPDOWN_FONT, BOBBYR_FONT_BLACK, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
-	
 
 	SetFontShadow(DEFAULT_SHADOW);
 
@@ -2028,7 +2026,6 @@ UINT32	CalcCostFromWeightOfPackage( UINT8	ubTypeOfService )
 	}
 	*/
 	usStandardCost = gPostalService.GetDestinationFee(ubTypeOfService, gDestinationTable[gbSelectedCity]->usID);
-	
 
 	//Get the actual weight ( either in lbs or metric )
 ///	usStandardCost = (UINT16) GetWeightBasedOnMetricOption( usStandardCost );

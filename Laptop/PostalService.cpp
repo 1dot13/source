@@ -14,6 +14,7 @@
 // WANNE - MP: Used for multiplayer
 #include "connect.h"
 #include "Strategic Event Handler.h"
+
 using namespace std;
 
 /************************************************************************************/
@@ -85,6 +86,7 @@ OBJECTTYPE	CPostalService::tempObject;
 CPostalService::CPostalService()
 {
 }
+
 void CPostalService::Clear()
 {
 	_Shipments.clear();
@@ -94,6 +96,7 @@ void CPostalService::Clear()
 	_UsedDestinationIDList.clear();
 	_DeliveryMethods.clear();
 }
+
 
 UINT16 CPostalService::CreateNewShipment(UINT16 usDestinationID, UINT8  ubDeliveryMethodIndex, INT16 sSenderID)
 {
@@ -212,7 +215,7 @@ BOOLEAN CPostalService::SendShipment(UINT16 usShipmentID)
 	}
 
 	SHIPMENT(sli).ShipmentStatus = SHIPMENT_INTRANSIT;
-		
+
 	if (is_networked)
 	{
 		if (is_client)
@@ -548,6 +551,7 @@ BOOLEAN CPostalService::DeliverShipmentForMultiplayer(UINT16 usShipmentID)
 
 	return FALSE;
 }
+
 BOOLEAN CPostalService::RegisterDeliveryCallback(INT16 sSenderID, PtrToDeliveryCallbackFunc DeliveryCallbackFunc)
 {
 	if(sSenderID < - 1 || !DeliveryCallbackFunc)

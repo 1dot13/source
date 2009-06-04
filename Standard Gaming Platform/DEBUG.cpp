@@ -500,3 +500,22 @@ STR8 String(const STR8 String, ...)
   return gbTmpDebugString[usIndex];
 
 }
+
+void _ExceptionMessage( CBasicException &ex )
+{
+	g_ExceptionList.clear();
+	CBasicException::CALLSTACK::iterator it = ex.m_CallStack.begin();
+	for(; it!=ex.m_CallStack.end(); ++it)
+	{
+		SExceptionData exd;
+		exd.message = (*it).message;
+		exd.function = (*it).function;
+		exd.file = (*it).file;
+		exd.line = (*it).line;
+		g_ExceptionList.push_back(exd);
+	}
+	_FailMessage("",0,"");
+}
+
+
+

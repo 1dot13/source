@@ -48,6 +48,8 @@
 	#include "Map Screen Interface Map Inventory.h"
 #endif
 
+#include "VFS/vfs.h"
+
 BOOLEAN gfWasInMeanwhile = FALSE;
 
 
@@ -1546,6 +1548,7 @@ BOOLEAN RetrieveTempFileFromSavedGame( HWFILE hFile, UINT32 uiType, INT16 sMapX,
 //Deletes the Temp map Directory
 BOOLEAN InitTacticalSave( BOOLEAN fCreateTempDir )
 {
+#ifndef USE_VFS
 	UINT32	uiRetVal;
 
 	//If the Map Temp directory exists, removes the temp files
@@ -1569,13 +1572,14 @@ BOOLEAN InitTacticalSave( BOOLEAN fCreateTempDir )
 			AssertMsg( 0, "Error creating the Temp Directory.");
 		}
 	}
-
+#else
+	EraseDirectory( MAPS_DIR );
+#endif
 	if( fCreateTempDir )
 	{
 		//Create the initial temp file for the Npc Quote Info
 		InitTempNpcQuoteInfoForNPCFromTempFile();
 	}
-
  	return( TRUE );
 }
 

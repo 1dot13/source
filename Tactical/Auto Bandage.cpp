@@ -1073,7 +1073,7 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// find a free slot
 		if( iDoctorList[ iCounter ] != -1 )
@@ -1096,7 +1096,7 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 		}
 	}
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// find a free slot
 		if( iPatientList[ iCounter ] != -1 )
@@ -1134,7 +1134,7 @@ BOOLEAN RemoveFacesForAutoBandage( void )
 	INT32 iCounter = 0, iNumberOfDoctors = 0;
 
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// find a free slot
 		if( iDoctorList[ iCounter ] != -1 )
@@ -1146,7 +1146,7 @@ BOOLEAN RemoveFacesForAutoBandage( void )
 	}
 
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// find a free slot
 		if( iPatientList[ iCounter ] != -1 )
@@ -1182,7 +1182,7 @@ BOOLEAN RenderSoldierSmallFaceForAutoBandagePanel( INT32 iIndex, INT16 sCurrentX
 	BltVideoObject( FRAME_BUFFER , hHandle , 0, sCurrentXPosition+2, sCurrentYPosition+2, VO_BLT_SRCTRANSPARENCY, NULL );
 
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// find a free slot
 		if( iDoctorList[ iCounter ] != -1 )

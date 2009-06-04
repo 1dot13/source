@@ -522,8 +522,9 @@ extern BOOLEAN gfLoadShadeTablesFromTextFile;
 void BuildTileShadeTables(	)
 {
 	HWFILE				hfile;
-	STRING512			DataDir;
-	STRING512			ShadeTableDir;
+	// BF
+	//STRING512			DataDir;
+	//STRING512			ShadeTableDir;
 	UINT32					uiLoop;
 	CHAR8 		cRootFile[ 128 ];
 	BOOLEAN		fForceRebuildForSlot = FALSE;
@@ -540,18 +541,22 @@ void BuildTileShadeTables(	)
 		uiStartTime = GetJA2Clock();
 	#endif
 
-
-	//Set the directory to the shadetable directory
-	GetFileManCurrentDirectory( DataDir );
-	sprintf( ShadeTableDir, "%s\\ShadeTables", DataDir );
-	if( !SetFileManCurrentDirectory( ShadeTableDir ) )
+	// BF : adjust filename, instead of changing current directory (doesn't make sence with a VFS)
+	//////////////Set the directory to the shadetable directory
+	////////////GetFileManCurrentDirectory( DataDir );
+	////////////sprintf( ShadeTableDir, "%s\\ShadeTables", DataDir );
+	////////////if( !SetFileManCurrentDirectory( ShadeTableDir ) )
+	////////////{
+	////////////	AssertMsg( 0, "Can't set the directory to Data\\ShadeTable.	Kris' big problem!" );
+	////////////}
+	CHAR8 sIgnoreShadeTables[50];
+	sprintf( sIgnoreShadeTables, "%s\\%s", "ShadeTables", "IgnoreShadeTables.txt");
+	//hfile = FileOpen( sIgnoreShadeTables, FILE_ACCESS_READ, FALSE );
+	//if( hfile )
+	//{
+	//	FileClose( hfile );
+	if(FileExists(sIgnoreShadeTables))
 	{
-		AssertMsg( 0, "Can't set the directory to Data\\ShadeTable.	Kris' big problem!" );
-	}
-	hfile = FileOpen( "IgnoreShadeTables.txt", 	FILE_ACCESS_READ, FALSE );
-	if( hfile )
-	{
-		FileClose( hfile );
 		gfForceBuildShadeTables = TRUE;
 	}
 	else
@@ -585,40 +590,41 @@ void BuildTileShadeTables(	)
 		if ( gTileSurfaceArray[ uiLoop ] != NULL )
 		{
 			// Don't Create shade tables if default were already used once!
-			#ifdef JA2EDITOR
-				if( gbNewTileSurfaceLoaded[ uiLoop ] || gfEditorForceShadeTableRebuild )
-			#else
-				if( gbNewTileSurfaceLoaded[ uiLoop ]	)
-		#endif
-				{
-			fForceRebuildForSlot = FALSE;
+#ifdef JA2EDITOR
+			if( gbNewTileSurfaceLoaded[ uiLoop ] || gfEditorForceShadeTableRebuild )
+#else
+			if( gbNewTileSurfaceLoaded[ uiLoop ]	)
+#endif
+			{
+				fForceRebuildForSlot = FALSE;
 
 				GetRootName( cRootFile, TileSurfaceFilenames[ uiLoop ] );
 
-			if ( strcmp( cRootFile, "grass2" ) == 0 )
-			{
-			fForceRebuildForSlot = TRUE;
-			}
+				if ( strcmp( cRootFile, "grass2" ) == 0 )
+				{
+					fForceRebuildForSlot = TRUE;
+				}
 
-					#ifdef JA2TESTVERSION
-						uiNumImagesReloaded++;
-					#endif
-					RenderProgressBar( 0, uiLoop * 100 / NUMBEROFTILETYPES );
-					CreateTilePaletteTables( gTileSurfaceArray[ uiLoop ]->vo, uiLoop, fForceRebuildForSlot );
-		}
+#ifdef JA2TESTVERSION
+				uiNumImagesReloaded++;
+#endif
+				RenderProgressBar( 0, uiLoop * 100 / NUMBEROFTILETYPES );
+				CreateTilePaletteTables( gTileSurfaceArray[ uiLoop ]->vo, uiLoop, fForceRebuildForSlot );
+			}
 		}
 	}
 
-	//Restore the data directory once we are finished.
-	SetFileManCurrentDirectory( DataDir );
+	// BF : see above
+	////Restore the data directory once we are finished.
+	//SetFileManCurrentDirectory( DataDir );
 
 	ubLastRed = gpLightColors[0].peRed;
 	ubLastGreen = gpLightColors[0].peGreen;
 	ubLastBlue = gpLightColors[0].peBlue;
 
-	#ifdef JA2TESTVERSION
-		uiBuildShadeTableTime = GetJA2Clock() - uiStartTime;
-	#endif
+#ifdef JA2TESTVERSION
+	uiBuildShadeTableTime = GetJA2Clock() - uiStartTime;
+#endif
 }
 
 void DestroyTileShadeTables( )

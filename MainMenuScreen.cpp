@@ -38,6 +38,8 @@
 #include "mercs.h"
 #include "gamesettings.h"
 #include "connect.h"
+#include "VFS/vfs.h"
+#include "VFS/vfs_profile.h"
 
 #define	MAINMENU_TEXT_FILE						"LoadScreens\\MainMenu.edt"
 #define MAINMENU_RECORD_SIZE					80 * 2
@@ -98,6 +100,8 @@ void CreateDestroyBackGroundMouseMask( BOOLEAN fCreate );
 BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate );
 void RenderMainMenu();
 void RestoreButtonBackGrounds();
+
+extern void InitSightRange(); //lal
 
 
 
@@ -281,16 +285,25 @@ BOOLEAN InitMainMenu( )
 
 //	gfDoHelpScreen = 0;
 
-				if(is_networked)
-				{	
-					is_networked = FALSE;
-					// Snap: UN-Init MP save game directory
-				if ( !InitSaveDir() )
-				{
+	if(is_networked)
+	{	
+		is_networked = FALSE;
+#ifdef USE_VFS
+		// remove Multiplayer profile if it exists
+		vfs::CProfileStack *PS = GetVFS()->GetProfileStack();
+		vfs::CVirtualProfile *pProf = PS->GetProfile("_MULTIPLAYER");
+		if( pProf && (pProf == PS->TopProfile()) )
+		{
+			THROWIFFALSE(PS->PopProfile(), "Leaving Multiplayer mode : Could not remove \"_MULTIPLAYER\" profile");
+		}
+#endif
 
-					//if something didnt work, dont even know how to make error code...//hayden
-				}
-				}
+		// Snap: UN-Init MP save game directory
+		if ( !InitSaveDir() )
+		{
+			//if something didnt work, dont even know how to make error code...//hayden
+		}
+	}
 
 	//Check to see whatr saved game files exist
 	InitSaveGameArray();
@@ -385,22 +398,27 @@ void ExitMainMenu( )
 
 // WANNE - MP: This method initializes variables that should be initialized
 // differently for single and multiplayer
-void InitDependingGameStyleOptions(BOOLEAN isNetworked)
+void InitDependingGameStyleOptions()
 {
-	// Load the ja2_options.ini
 	FreeGameExternalOptions();
+
+	// Load APBPConstants.ini
+	LoadGameAPBPConstants();
+	// Load ja2_options.ini
 	LoadGameExternalOptions();
+	InitSightRange(); //lal
 
 	ReStartingGame();
-	InitGameOptions();
 
-	if (isNetworked)
+	if (is_networked)
 	{
 		NUMBER_OF_MERCS = 28;
 		LAST_MERC_ID = 27;
 	}
 	else
 	{
+		InitGameOptions();
+
 		NUMBER_OF_MERCS = 15;
 		LAST_MERC_ID = 14;
 	}
@@ -428,6 +446,7 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 				if(is_networked)
 				{
 					is_networked = FALSE;
+					giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
 						// Snap: UN-Init MP save game directory
 				if ( !InitSaveDir() )
 				{
@@ -442,6 +461,7 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		else if (gbHandledMainMenu == NEW_MP_GAME)
 		{
 			is_networked = TRUE;
+			giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = 7;
 
 				// Snap: Re-Init MP save game directory
 				if ( !InitSaveDir() )
@@ -470,15 +490,8 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 			if( gfKeyState[ ALT ] )
 				gfLoadGameUponEntry = TRUE;
 		}
-		//else if ( gbHandledMainMenu == LOAD_MP_GAME )
-		//{
-		//	is_networked = TRUE;
 
-		//	if (gfKeyState[ ALT ] )
-		//		gfLoadGameUponEntry = TRUE;
-		//}
-
-		InitDependingGameStyleOptions(is_networked);
+		InitDependingGameStyleOptions();
 
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}

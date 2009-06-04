@@ -12,6 +12,8 @@ extern BOOLEAN gbChatSendToAll;
 extern MESSAGE_BOX_STRUCT	gChatBox;
 extern BOOLEAN	gfInChatBox;
 
+#define CHAT_FONT_COLOR		208 // WHITE
+
 ////////////////////////////////
 // ubStyle:				Determines the look of graphics including buttons
 // zString:				16-bit string

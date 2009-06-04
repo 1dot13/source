@@ -19,7 +19,7 @@
 	#include "LaptopSave.h"
 #endif
 
-
+#include "connect.h"
 
 #define TOP_X											LAPTOP_SCREEN_UL_X
 #define TOP_Y											LAPTOP_SCREEN_UL_Y
@@ -226,8 +226,8 @@ void GameInitHistory()
 	FileDelete( HISTORY_DATA_FILE );
 	}
 
-	AddHistoryToPlayersLog(HISTORY_ACCEPTED_ASSIGNMENT_FROM_ENRICO, 0, GetWorldTotalMin( ), -1, -1);
-
+	if (!is_networked)
+		AddHistoryToPlayersLog(HISTORY_ACCEPTED_ASSIGNMENT_FROM_ENRICO, 0, GetWorldTotalMin( ), -1, -1);
 }
 
 void EnterHistory()

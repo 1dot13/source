@@ -121,6 +121,8 @@
 #include "Mercs.h"
 #include "INIReader.h"
 
+#include "VFS/vfs.h"
+
 //rain
 #include "Rain.h"
 //end rain
@@ -142,7 +144,6 @@ extern void ResetJA2ClockGlobalTimers( void );
 
 extern void BeginLoadScreen( void );
 extern void EndLoadScreen();
-
 extern		CPostalService		gPostalService;
 
 //Global variable used
@@ -1920,6 +1921,7 @@ BOOLEAN Inventory::Save( HWFILE hFile, bool fSavingMap )
 // The save directory now resides in the data directory (default or custom)
 BOOLEAN InitSaveDir()
 {
+#ifndef USE_VFS
 	// Look for a custom data dir first
 	std::string dataDir = gCustomDataCat.GetRootDir();
 	if( dataDir.empty() || FileGetAttributes( (STR) dataDir.c_str() ) == 0xFFFFFFFF ) {
@@ -1945,7 +1947,16 @@ BOOLEAN InitSaveDir()
 			return FALSE;
 		}
 	}
-
+#else
+	if(is_networked)
+	{
+		sprintf(	gSaveDir, "%s", utf8string::as_utf8(pMessageStrings[ MSG_MPSAVEDIRECTORY ] + 3).c_str() );
+	}
+	else
+	{
+		sprintf(	gSaveDir, "%s", utf8string::as_utf8(pMessageStrings[ MSG_SAVEDIRECTORY ] + 3).c_str() );
+	}
+#endif
 	return TRUE;
 }
 
@@ -6635,7 +6646,8 @@ void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *p
 		//loop through all the mercs on the players team to find the one that is not moving
 		for ( pSoldier = MercPtrs[ sSoldierCnt ]; sSoldierCnt <= bLastTeamID; sSoldierCnt++,pSoldier++)
 		{
-			if( pSoldier->bActive )
+			// test for !NULL (if initilization fails and MercPtrs contains 'NULL's)
+			if( pSoldier && pSoldier->bActive )
 			{
 				if ( pSoldier->bAssignment != IN_TRANSIT && !pSoldier->flags.fBetweenSectors)
 				{
@@ -6659,7 +6671,7 @@ void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *p
 			//loop through all the mercs and find one that is moving
 			for ( pSoldier = MercPtrs[ sSoldierCnt ]; sSoldierCnt <= bLastTeamID; sSoldierCnt++,pSoldier++)
 			{
-				if( pSoldier->bActive )
+				if( pSoldier && pSoldier->bActive )
 				{
 					//we found an alive, merc that is not moving
 					*psSectorX = pSoldier->sSectorX;

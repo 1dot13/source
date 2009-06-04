@@ -441,7 +441,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 	if(is_networked) {
 	if(is_networked && (pCreateStruct->fOnRoof==1))
 	{
-		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"skipping roof merc");
+		ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"skipping roof merc");
 		return NULL;
 	}
 
@@ -462,7 +462,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 
 	if(is_networked && (pCreateStruct->bBodyType==23 || pCreateStruct->bBodyType==24))
 	{
-		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"skipping tank");
+		ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"skipping tank");
 		return NULL;
 	}
 	}

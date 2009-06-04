@@ -1118,9 +1118,16 @@ void InitHelicopterEntranceByMercs( void )
 		if( (gGameExternalOptions.iGameStartingTime + gGameExternalOptions.	iFirstArrivalDelay) < 111600 ||
 			(gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay >= 162000))
 		{ 
+			// Default: Night
 			gubEnvLightValue = 12; 
-			LightSetBaseLevel(gubEnvLightValue); 
-		} 
+		}
+		else
+		{
+			// Default: Day
+			gubEnvLightValue = 3;
+		}
+
+		LightSetBaseLevel(gubEnvLightValue); 
 
 		AirRaidDef.sSectorX		= 9;
 		AirRaidDef.sSectorY		= 1;

@@ -11,6 +11,9 @@ void RenderTacticalPlacementGUI();
 
 void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason );
 
+// WANNE - MP: This method checks, if the desired entry direction (N, E, S, W) on the map is valid. If not it chooses the next valid diretion
+UINT8 GetValidInsertionDirectionForMP(UINT8	currentInsertionPoint);
+
 extern BOOLEAN gfTacticalPlacementGUIActive;
 extern BOOLEAN gfEnterTacticalPlacementGUI;
 

@@ -1017,7 +1017,7 @@ void UpdateBuddyAndHatedCounters( void )
 											if (OKToCheckOpinion(ubOtherProfileID)) {
 											pProfile->bMercOpinion[ubOtherProfileID] += (HATED_OPINION - pProfile->bMercOpinion[ubOtherProfileID]) / (pProfile->bLearnToHateCount + 1);
 										}
-									}
+										}
 									}
 									else
 									{
@@ -1050,15 +1050,15 @@ void UpdateBuddyAndHatedCounters( void )
 									{
 										// add to liked!
 										if (OKToCheckOpinion(ubOtherProfileID)) {
-											pProfile->bBuddy[2] = pProfile->bLearnToLike;
-											pProfile->bMercOpinion[ubOtherProfileID] = BUDDY_OPINION;
+										pProfile->bBuddy[2] = pProfile->bLearnToLike;
+										pProfile->bMercOpinion[ubOtherProfileID] = BUDDY_OPINION;
 										}
 									}
 									else if (pProfile->bLearnToLikeCount < pProfile->bLearnToLikeTime / 2)
 									{
 										// increase opinion of them!
 										if (OKToCheckOpinion(ubOtherProfileID)) {
-											pProfile->bMercOpinion[ubOtherProfileID] += (BUDDY_OPINION - pProfile->bMercOpinion[ubOtherProfileID]) / (pProfile->bLearnToLikeCount + 1);
+										pProfile->bMercOpinion[ubOtherProfileID] += (BUDDY_OPINION - pProfile->bMercOpinion[ubOtherProfileID]) / (pProfile->bLearnToLikeCount + 1);
 										}
 										break;
 									}

@@ -47,6 +47,7 @@
 #endif
 #include "connect.h"
 #include "saveloadscreen.h"
+#include "Map Edgepoints.h"
 
 
 typedef struct MERCPLACEMENT
@@ -120,7 +121,8 @@ void PickUpMercPiece( INT32 iPlacement );
 void SetCursorMerc( INT8 bPlacementID );
 void SelectNextUnplacedUnit();
 
-#ifdef JA2BETAVERSION
+// WANNE: Made methods available for Release build, because we need them in multiplayer
+//#ifdef JA2BETAVERSION
 
 BOOLEAN gfNorthValid, gfEastValid, gfSouthValid, gfWestValid;
 BOOLEAN gfChangedEntrySide = FALSE;
@@ -219,7 +221,7 @@ void CheckForValidMapEdge( UINT8 *pubStrategicInsertionCode )
 	}
 }
 
-#endif
+//#endif
 
 
 void InitTacticalPlacementGUI()
@@ -316,6 +318,7 @@ void InitTacticalPlacementGUI()
 	SpecifyButtonHilitedTextColors( iTPButtons[ GROUP_BUTTON ], FONT_WHITE, FONT_NEARBLACK );
 	SpecifyButtonHilitedTextColors( iTPButtons[ DONE_BUTTON ], FONT_WHITE, FONT_NEARBLACK );
 
+
 	//First pass:	Count the number of mercs that are going to be placed by the player.
 	//			 This determines the size of the array we will allocate.
 	giPlacements = 0;
@@ -349,6 +352,12 @@ void InitTacticalPlacementGUI()
 				!MercPtrs[ i ]->bSectorZ )
 		{
 
+			// WANNE - MP: Check if the desired insertion direction is valid on the map. If not, choose another entry direction!
+			if (is_networked)
+			{
+				MercPtrs[ i ]->ubStrategicInsertionCode = GetValidInsertionDirectionForMP(MercPtrs[ i ]->ubStrategicInsertionCode);
+			}
+
 			// ATE: If we are in a vehicle - remove ourselves from it!
 			//if ( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 			//{
@@ -363,9 +372,15 @@ void InitTacticalPlacementGUI()
 			gMercPlacement[ giPlacements ].pSoldier = MercPtrs[ i ];
 			gMercPlacement[ giPlacements ].ubStrategicInsertionCode = MercPtrs[ i ]->ubStrategicInsertionCode;
 			gMercPlacement[ giPlacements ].fPlaced = FALSE;
+
 			#ifdef JA2BETAVERSION
 				CheckForValidMapEdge( &MercPtrs[ i ]->ubStrategicInsertionCode );
+			#else
+				// WANNE: We need to have valid map edges in multiplayer!
+				 if (is_networked)
+					CheckForValidMapEdge( &MercPtrs[ i ]->ubStrategicInsertionCode );
 			#endif
+
 			switch( MercPtrs[ i ]->ubStrategicInsertionCode )
 			{
 				case INSERTION_CODE_NORTH:
@@ -443,6 +458,107 @@ void InitTacticalPlacementGUI()
 			}
 		}
 	}
+}
+
+// WANNE - MP: This method checks, if the desired entry direction (N, E, S, W) on the map is valid. If not it chooses the next valid diretion
+UINT8 GetValidInsertionDirectionForMP(UINT8	currentInsertionPoint)
+{
+	bool foundValidDirection = false;
+	UINT8 validInsertionDirection = currentInsertionPoint;
+
+	// Check if current insertion direction is valid
+	switch (currentInsertionPoint)
+	{
+		case INSERTION_CODE_NORTH:
+			if (gus1stNorthEdgepointArraySize > 0 || gus2ndNorthEdgepointArraySize > 0)
+			{
+				foundValidDirection = true;
+				validInsertionDirection = INSERTION_CODE_NORTH;
+			}
+			break;
+		case INSERTION_CODE_SOUTH:
+			if (gus1stSouthEdgepointArraySize > 0 || gus2ndSouthEdgepointArraySize > 0)
+			{
+				foundValidDirection = true;
+				validInsertionDirection = INSERTION_CODE_SOUTH;
+			}
+			break;
+		case INSERTION_CODE_EAST:
+			if (gus1stEastEdgepointArraySize > 0 || gus2ndEastEdgepointArraySize > 0)
+			{
+				foundValidDirection = true;
+				validInsertionDirection = INSERTION_CODE_EAST;
+			}
+			break;
+		case INSERTION_CODE_WEST:
+			if (gus1stWestEdgepointArraySize > 0 || gus2ndWestEdgepointArraySize > 0)
+			{
+				foundValidDirection = true;
+				validInsertionDirection = INSERTION_CODE_WEST;
+			}
+			break;
+	}
+
+	// Find alternate insertion direction by looping through all directions (N, S, E, W)
+	if (!foundValidDirection)
+	{
+		UINT8 direction = 0;
+
+		// Find NEXT valid direction
+		for (int i = currentInsertionPoint; (i < currentInsertionPoint + 4); i++)
+		{
+			// First iteration, start with current insertion direction
+			if (i == currentInsertionPoint)
+				direction = i;
+			else
+			{
+				if (i <= 3)
+					direction = i;
+				else
+				{
+					direction = 4 - i;
+				}
+			}
+
+			switch (direction)
+			{
+				case INSERTION_CODE_NORTH:
+					if (gus1stNorthEdgepointArraySize > 0 || gus2ndNorthEdgepointArraySize > 0)
+					{
+						foundValidDirection = true;
+						validInsertionDirection = INSERTION_CODE_NORTH;
+					}
+					break;
+				case INSERTION_CODE_SOUTH:
+					if (gus1stSouthEdgepointArraySize > 0 || gus2ndSouthEdgepointArraySize > 0)
+					{
+						foundValidDirection = true;
+						validInsertionDirection = INSERTION_CODE_SOUTH;
+					}
+					break;
+				case INSERTION_CODE_EAST:
+					if (gus1stEastEdgepointArraySize > 0 || gus2ndEastEdgepointArraySize > 0)
+					{
+						foundValidDirection = true;
+						validInsertionDirection = INSERTION_CODE_EAST;
+					}
+					break;
+				case INSERTION_CODE_WEST:
+					if (gus1stWestEdgepointArraySize > 0 || gus2ndWestEdgepointArraySize > 0)
+					{
+						foundValidDirection = true;
+						validInsertionDirection = INSERTION_CODE_WEST;
+					}
+					break;
+			}
+
+			// Exit loop condition
+			if (foundValidDirection)
+				break;
+		}
+	}
+
+	return validInsertionDirection;
 }
 
 void RenderTacticalPlacementGUI()
@@ -574,17 +690,33 @@ void RenderTacticalPlacementGUI()
 		}
 		else
 		{
+			// TODO.RW: Check for insertion
+			if (is_networked)
+			{
+				gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode = GetValidInsertionDirectionForMP(gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode);
+			}
+
 			gTPClipRect.iLeft		= iOffsetHorizontal;
 			gTPClipRect.iTop		= iOffsetVertical + 3;
 			//gTPClipRect.iRight		= iOffsetHorizontal + 640;
 			gTPClipRect.iRight		= iOffsetHorizontal + 634;	// 635
 			gTPClipRect.iBottom		= iOffsetVertical + 320;
+
+			
 			switch( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode )
 			{
-				case INSERTION_CODE_NORTH:	gTPClipRect.iTop	= iOffsetVertical + 30 + 3;			break;
-				case INSERTION_CODE_EAST:	gTPClipRect.iRight	= iOffsetHorizontal + 610;		break;
-				case INSERTION_CODE_SOUTH:	gTPClipRect.iBottom	= iOffsetVertical + 290;		break;
-				case INSERTION_CODE_WEST:	gTPClipRect.iLeft	= iOffsetHorizontal + 30;		break;
+				case INSERTION_CODE_NORTH:	
+					gTPClipRect.iTop	= iOffsetVertical + 30 + 3;			
+					break;
+				case INSERTION_CODE_EAST:	
+					gTPClipRect.iRight	= iOffsetHorizontal + 610;		
+					break;
+				case INSERTION_CODE_SOUTH:	
+					gTPClipRect.iBottom	= iOffsetVertical + 290;		
+					break;
+				case INSERTION_CODE_WEST:	
+					gTPClipRect.iLeft	= iOffsetHorizontal + 30;		
+					break;
 			}
 		}
 		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );

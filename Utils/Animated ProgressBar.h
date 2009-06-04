@@ -25,6 +25,8 @@ typedef struct PROGRESSBAR
 	BOOLEAN	fDisplayText;
 	BOOLEAN	fUseSaveBuffer;	//use the save buffer when display the text
 	double rLastActual;
+	UINT32 uiFrameBuffer;
+	BOOLEAN fDrawBorder;
 }PROGRESSBAR;
 
 extern PROGRESSBAR *pBar[ MAX_PROGRESSBARS ];
@@ -74,5 +76,14 @@ void SetProgressBarColor( UINT8 ubID, UINT8 ubColorFillRed, UINT8 ubColorFillGre
 
 //Pass in TRUE to display the strings.
 void SetProgressBarTextDisplayFlag( UINT8 ubID, BOOLEAN fDisplayText, BOOLEAN fUseSaveBuffer, BOOLEAN fSaveScreenToFrameBuffer );
+
+// OJW - 20090422
+// draw the progress bar with a white border, or not
+void SetProgressBarUseBorder( UINT32 ubID , BOOLEAN bBorder );
+// specify which buffer to render the bar to
+void SetProgressBarRenderBuffer( UINT32 ubID , UINT32 uiBufferID );
+// create a color bar with no border
+void CreateProgressBarNoBorder( UINT8 ubProgressBarID, UINT16 usLeft, UINT16 usTop, UINT16 usRight, UINT16 usBottom );
+
 
 #endif

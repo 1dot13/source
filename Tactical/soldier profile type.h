@@ -92,7 +92,6 @@ inline bool OKToCheckOpinion(int profileNumber) {
 	return (profileNumber < DontUseMeDirectly::MaxIDToCheckForMorale);
 }
 
-
 typedef enum
 {
 	NO_SKILLTRAIT = 0,
@@ -368,7 +367,6 @@ public:
 	INT8 bTown;
 	INT8 bTownAttachment;
 	UINT16 usOptionalGearCost;
-	
 	// See above note near the definition of MaxIDToCheckForMorale
 	INT8 bMercOpinion[DontUseMeDirectly::MaxIDToCheckForMorale];
 
@@ -606,7 +604,6 @@ public:
 	INT8 bTown;
 	INT8 bTownAttachment;
 	UINT16 usOptionalGearCost;
-	
 	// See above note near the definition of MaxIDToCheckForMorale
 	INT8 bMercOpinion[DontUseMeDirectly::MaxIDToCheckForMorale];
 

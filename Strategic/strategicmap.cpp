@@ -109,6 +109,9 @@
 #include "connect.h" //hayden added alot ""'s to get around client spawing random/different placed AI
 #include "SaveLoadGame.h"
 
+#include "vfs.h"
+#include "PropertyContainer.h"
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -1377,6 +1380,7 @@ void EndLoadScreen( )
 							'A' + gWorldSectorY - 1, gWorldSectorX, gbWorldSectorZ, uiSeconds, uiHundreths );
 	}
 	ScreenMsg( FONT_YELLOW, MSG_TESTVERSION, str );
+#ifndef USE_VFS
 	if( fStartNewFile )
 	{ //start new file
 		fp = fopen( "TimeResults.txt", "w" );
@@ -1447,6 +1451,65 @@ void EndLoadScreen( )
 
 		fclose( fp );
 	}
+#else
+	CLog timeResults(L"TimeResults.txt", true);
+	ScreenMsg( FONT_YELLOW, MSG_TESTVERSION, L"See JA2\\Data\\TimeResults.txt for more detailed timings." );
+
+	//Record all of the timings.
+	timeResults << str << CLog::endl;
+	timeResults << "EnterSector() supersets LoadWorld().  This includes other external sections." << CLog::endl;
+		//FileRead()
+	timeResults << 	CLog::endl << CLog::endl << "VARIOUS FUNCTION TIMINGS (exclusive of actual function timings in second heading)" << CLog::endl;
+	uiSeconds = uiTotalFileReadTime / 1000;
+	uiHundreths = (uiTotalFileReadTime / 10) % 100;
+	//fprintf( fp, "FileRead:  %d.%02d (called %d times)\n", uiSeconds, uiHundreths, uiTotalFileReadCalls );
+	timeResults << "FileRead:  " <<uiSeconds<< "." << uiHundreths << " (called " << uiTotalFileReadCalls << " times)" << CLog::endl;
+
+	timeResults.Endl().Endl() << "SECTIONS OF LOADWORLD (all parts should add up to 100%)" << CLog::endl;
+
+	//TrashWorld()
+	uiSeconds = uiTrashWorldTime / 1000;
+	uiHundreths = (uiTrashWorldTime / 10) % 100;
+	timeResults << "TrashWorld: " << uiSeconds << "." << uiHundreths << CLog::endl;
+	//LoadMapTilesets()
+	uiSeconds = uiLoadMapTilesetTime / 1000;
+	uiHundreths = (uiLoadMapTilesetTime / 10) % 100;
+	timeResults << "LoadMapTileset: " << uiSeconds << "." << uiHundreths << CLog::endl;
+	//LoadMapLights()
+	uiSeconds = uiLoadMapLightsTime / 1000;
+	uiHundreths = (uiLoadMapLightsTime / 10) % 100;
+	timeResults << "LoadMapLights: " << uiSeconds << "." << uiHundreths << CLog::endl;
+
+	uiSeconds = uiBuildShadeTableTime / 1000;
+	uiHundreths = (uiBuildShadeTableTime / 10) % 100;
+	timeResults << "  1)  BuildShadeTables: " << uiSeconds << "." << uiHundreths << CLog::endl;
+
+	uiPercentage = uiNumImagesReloaded * 100 / NUMBEROFTILETYPES;
+	timeResults << "  2)  " << uiPercentage << "% of the tileset images were actually reloaded." << CLog::endl;
+	if ( ( uiNumTablesSaved+uiNumTablesLoaded ) != 0 )
+	{
+		uiPercentage = uiNumTablesSaved * 100 / (uiNumTablesSaved+uiNumTablesLoaded);
+	}
+	else
+	{
+		uiPercentage = 0;
+	}
+	timeResults << "  3)  Of that, " << uiPercentage << "% of the shade tables were generated (not loaded)." << CLog::endl;
+	if( gfForceBuildShadeTables )
+	{
+		timeResults << "  NOTE:  Force building of shadetables enabled on this local computer." << CLog::endl;
+	}
+
+	//Unaccounted
+	uiUnaccounted = uiLoadWorldTime - uiTrashWorldTime - uiLoadMapTilesetTime - uiLoadMapLightsTime;
+	uiSeconds = uiUnaccounted / 1000;
+	uiHundreths = (uiUnaccounted / 10) % 100;
+	timeResults << "Unaccounted: " << uiSeconds << "." << uiHundreths << CLog::endl;
+	//LoadWorld()
+	uiSeconds = uiLoadWorldTime / 1000;
+	uiHundreths = (uiLoadWorldTime / 10) % 100;
+	timeResults.Endl() << "Total: " << uiSeconds << "." << uiHundreths << CLog::endl;
+#endif // USE_VFS
 #endif
 }
 

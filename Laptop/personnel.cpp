@@ -578,7 +578,7 @@ void EnterPersonnel( void )
 	InitVariables();
 
 	// Clear out the current team list
-	for (unsigned idx=0; idx < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; idx++) {
+	for (unsigned idx=0; idx < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; idx++) {
 		currentTeamList[idx] = -1;
 	}
 

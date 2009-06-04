@@ -2057,7 +2057,7 @@ void VerifyTownTrainingIsPaidFor( void )
 	SOLDIERTYPE *pSoldier = NULL;
 
 
- 	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+ 	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		// valid character?
 		if( gCharactersList[ iCounter ].fValid == FALSE )
@@ -3950,9 +3950,9 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 
 		// factor in their mutual relationship
 		if (OKToCheckOpinion(pInstructor->ubProfile))
-			bOpinionFactor	= gMercProfiles[	pStudent->ubProfile ].bMercOpinion[ pInstructor->ubProfile ];
+		bOpinionFactor	= gMercProfiles[	pStudent->ubProfile ].bMercOpinion[ pInstructor->ubProfile ];
 		if (OKToCheckOpinion(pStudent->ubProfile))
-			bOpinionFactor += gMercProfiles[ pInstructor->ubProfile ].bMercOpinion[	pStudent->ubProfile ] / 2;
+		bOpinionFactor += gMercProfiles[ pInstructor->ubProfile ].bMercOpinion[	pStudent->ubProfile ] / 2;
 	}
 
 
@@ -10663,7 +10663,7 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 	CHAR16 sString[ 128 ];
 
 
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		pSoldier = NULL;
 
@@ -10982,7 +10982,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 
 
 	// sets assignment for the list
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( ( gCharactersList[ iCounter ].fValid ) &&
 				( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE ) &&
@@ -11542,7 +11542,7 @@ SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK )
 	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
 		// mapscreen version
-		if( ( bSelectedAssignChar >= 0 ) && ( bSelectedAssignChar < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ) &&
+		if( ( bSelectedAssignChar >= 0 ) && ( bSelectedAssignChar < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) &&
 				( gCharactersList[ bSelectedAssignChar ].fValid ) )
 		{
 			pSoldier = &Menptr[ gCharactersList[ bSelectedAssignChar ].usSolID ];

@@ -37,6 +37,13 @@
 	#include "input.h"
 	#include "zmouse.h"
 
+#include "VFS/vfs.h"
+#include "VFS/vfs_init.h"
+#include "VFS/File/vfs_file.h"
+#include "VFS/Location/vfs_slf_library.h"
+#include "Text.h"
+
+#define USE_CONSOLE 0
 
 #include <iostream>
 
@@ -46,6 +53,7 @@
 #include "INIReader.h"
 #include "Console.h"
 #include "Lua Interpreter.h"
+#include "connect.h"
 
 #ifdef JA2
 	#include "BuildDefines.h"
@@ -56,6 +64,24 @@
 	#define WIN32_LEAN_AND_MEAN
 #endif
 
+
+static void MAGIC(std::string const& aarrrrgggh = "")
+{}
+
+static bool s_VfsIsInitialized = false;
+static std::list<vfs::Path> vfs_config_ini;
+
+
+void SHOWEXCEPTION(CBasicException& ex)
+{
+	try {
+		_ExceptionMessage(ex);
+	}
+	catch(CBasicException &ex2) {
+		LogException(ex2);
+		exit(0);
+	} 
+}
 
 extern UINT32 MemDebugCounter;
 #ifdef JA2
@@ -76,7 +102,9 @@ void						GetRuntimeSettings( );
 
 int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow);
 
+#if USE_CONSOLE
 Console g_Console("", "", "Lua Console", "no");
+#endif
 
 #if !defined(JA2) && !defined(UTILS)
 void							ProcessCommandLine(CHAR8 *pCommandLine);
@@ -485,12 +513,20 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			break;
 
 		case WM_CHAR:
-			if (wParam == '\\' &&
-				lParam && KF_ALTDOWN)
 			{
-				g_Console.Create(ghWindow);
-				cout << "LUA console ready" << endl;
-				cout << "> ";
+				// WANNE: We disable this for now in multiplayer, because user could enter "\" for the file transfer path
+				if (!is_networked)
+				{
+					if (wParam == '\\' &&
+						lParam && KF_ALTDOWN)
+					{
+#if USE_CONSOLE
+						g_Console.Create(ghWindow);
+						cout << "LUA console ready" << endl;
+						cout << "> ";
+#endif
+					}
+				}
 			}
 			break;
 
@@ -515,8 +551,6 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 	return 0L;
 }
 
-
-
 BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 {
 	FontTranslationTable *pFontTable;
@@ -533,7 +567,31 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 #endif
 
 	// Second, read in settings
-	GetRuntimeSettings( );
+	std::list<CBasicException> exlist;
+	try
+	{
+		GetRuntimeSettings( );
+	}
+	catch(CBasicException& ex)
+	{
+		// nothing is set up, no vfs, no video manager
+		// regular error processing wouldn't work here
+		// set default values and continue as if nothing has happened
+		iResolution = 1;
+
+		gbPixelDepth = PIXEL_DEPTH;
+
+		SCREEN_WIDTH = 800;
+		SCREEN_HEIGHT = 600;
+
+		iScreenWidthOffset = (SCREEN_WIDTH - 640) / 2;
+		iScreenHeightOffset = (SCREEN_HEIGHT - 480) / 2;
+
+		iScreenMode = 1;
+		iPlayIntro = 0;
+		// rethrow exception after full setup
+		exlist.push_back(ex);
+	}
 
 	// Initialize the Debug Manager - success doesn't matter
 	InitializeDebugManager();
@@ -603,12 +661,37 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		return FALSE;
 	}
 
+	InitializeJA2Clock();
+	//InitializeJA2TimerID();
+
+#ifdef USE_VFS
+	STRING512 sExecutableDir;
+	GetExecutableDirectory( sExecutableDir );
+
+	//vfs::Path fullpath = vfs::Path(sExecutableDir) + vfs::Path("vfs_config.ini");
+
+	// set current directory to exe's directory 
+	SetCurrentDirectory(sExecutableDir);
+
+	//if(!InitVirtualFileSystem( fullpath ))
+	//{
+	//	FastDebugMsg("FAILED : Initializing Virtual File System");
+	//	return FALSE;
+	//}
+	//THROWIFFALSE( InitVirtualFileSystem( fullpath ), L"Initializing Virtual File System failed");
+	THROWIFFALSE( InitVirtualFileSystem( vfs_config_ini ), L"Initializing Virtual File System failed");
+
+	s_VfsIsInitialized = true;
+
+	GetVFS()->GetVirtualLocation(vfs::Path("Temp"),true)->SetIsExclusive(true);
+	GetVFS()->GetVirtualLocation(vfs::Path("ShadeTables"),true)->SetIsExclusive(true);
+	GetVFS()->GetVirtualLocation(vfs::Path(pMessageStrings[MSG_SAVEDIRECTORY]+3),true)->SetIsExclusive(true);
+	GetVFS()->GetVirtualLocation(vfs::Path(pMessageStrings[MSG_MPSAVEDIRECTORY]+3),true)->SetIsExclusive(true);
+#else
 	// Snap: moved the following from InitJA2SplashScreen for clarity
 	STRING512			CurrentDir;
 	STRING512			DataDir;
 
-	InitializeJA2Clock();
-	//InitializeJA2TimerID();
 	// Get Executable Directory
 	GetExecutableDirectory( CurrentDir );
 
@@ -633,7 +716,7 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	if ( GetPrivateProfileString( "Ja2 Settings","CUSTOM_DATA_LOCATION", "", customDataPath, MAX_PATH, "..\\Ja2.ini" ) ) {
 		gCustomDataCat.NewCat(std::string(CurrentDir) + '\\' + customDataPath);
 	}
-
+#endif
 	//#ifdef JA2
 		InitJA2SplashScreen();
 	//#endif
@@ -686,7 +769,11 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	guiMouseWheelMsg = RegisterWindowMessage( MSH_MOUSEWHEEL );
 
 	gfGameInitialized = TRUE;
-	
+
+	if(!exlist.empty())
+	{
+		RETHROWEXCEPTION(L"Error during reading runtime settings", &exlist.front());
+	}	
 	return TRUE;
 }
 
@@ -762,6 +849,10 @@ void ShutdownStandardGamingPlatform(void)
 	UnRegisterDebugTopic(TOPIC_SGP, "Standard Gaming Platform");
 
 	ShutdownDebugManager();
+
+	CLog::FlushFinally();
+	vfs::CVirtualFileSystem::ShutdownVFS();
+	CFileAllocator::Clear();
 }
 
 
@@ -870,10 +961,78 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 
 //	ShowCursor(FALSE);
 
-	// Inititialize the SGP
-	if (InitializeStandardGamingPlatform(hInstance, sCommandShow) == FALSE)
-	{ // We failed to initialize the SGP
-	return 0;
+#ifdef USE_VFS
+	STRING512 sExecutableDir;
+	GetExecutableDirectory( sExecutableDir );
+	SetCurrentDirectory(sExecutableDir);
+#endif
+	try
+	{
+		// Inititialize the SGP
+		if (InitializeStandardGamingPlatform(hInstance, sCommandShow) == FALSE)
+		{
+			// We failed to initialize the SGP
+			return 0;
+		}
+	}
+	catch(CBasicException &ex)
+	{
+		if(!s_VfsIsInitialized)
+		{
+			vfs::CFile* fonts = new vfs::CFile("Data/Fonts.slf");
+			vfs::CSLFLibrary* slfLib = new vfs::CSLFLibrary(vfs::tReadableFile::Cast(fonts),"");
+			if(slfLib->Init())
+			{
+				GetVFS()->AddLocation(slfLib,"doesn't matter");
+			}
+			// fonts not initialized 
+			FontTranslationTable *pFontTable = CreateEnglishTransTable( );
+			if ( pFontTable == NULL )
+			{
+				return( FALSE );
+			}
+
+			// Initialize Font Manager
+			FastDebugMsg("Initializing the Font Manager");
+			// Init the manager and copy the TransTable stuff into it.
+			if ( !InitializeFontManager( 8, pFontTable ) )
+			{ 
+				FastDebugMsg("FAILED : Initializing Font Manager");
+				return FALSE;
+			}
+			// Don't need this thing anymore, so get rid of it (but don't de-alloc the contents)
+			MemFree( pFontTable );
+			if ( !InitializeFonts( ) )
+			{
+				// Send debug message and quit
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "COULD NOT INUT FONT SYSTEM...");
+				return( ERROR_SCREEN );
+			}
+		}
+		gfProgramIsRunning = 1;
+		LogException(ex);
+		SHOWEXCEPTION(ex);
+	}
+	catch(std::exception &ex)
+	{
+		gfProgramIsRunning = 1;
+		CBasicException nex(ex.what(),_FUNCTION_FORMAT_,__LINE__,__FILE__);
+		LogException(nex);
+		SHOWEXCEPTION(nex);
+	}
+	catch(const char* msg)
+	{
+		gfProgramIsRunning = 1;
+		CBasicException ex(msg,_FUNCTION_FORMAT_,__LINE__,__FILE__);
+		LogException(ex);
+		SHOWEXCEPTION(ex);
+	}
+	catch(...)
+	{
+		gfProgramIsRunning = 1;
+		CBasicException ex("Caught undefined exception", _FUNCTION_FORMAT_, __LINE__, __FILE__);
+		LogException( ex );
+		SHOWEXCEPTION(ex);
 	}
 
 #ifdef LUACONSOLE
@@ -901,18 +1060,45 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	// attend to the gaming mechanics themselves
 	Message.wParam = 0;
 
-	while (gfProgramIsRunning)
+	try
 	{
-//	if (PeekMessage(&Message, NULL, 0, 0, PM_NOREMOVE))
-//	{ // We have a message on the WIN95 queue, let's get it
-		if (!GetMessage(&Message, NULL, 0, 0))
-		{ // It's quitting time
-		return Message.wParam;
+		MAGIC();
+		while (gfProgramIsRunning)
+		{
+			if (!GetMessage(&Message, NULL, 0, 0))
+			{
+				// It's quitting time
+				return Message.wParam;
+			}
+			// Ok, now that we have the message, let's handle it
+			TranslateMessage(&Message);
+			DispatchMessage(&Message);
 		}
-		// Ok, now that we have the message, let's handle it
-		TranslateMessage(&Message);
-		DispatchMessage(&Message);		
 	}
+	catch(CBasicException &ex)
+	{
+		LogException(ex);
+		SHOWEXCEPTION(ex);
+	}
+	catch(std::exception &ex)
+	{
+		CBasicException nex(ex.what(),_FUNCTION_FORMAT_,__LINE__,__FILE__);
+		LogException(nex);
+		SHOWEXCEPTION(nex);
+	}
+	catch(const char* msg)
+	{
+		CBasicException ex(msg,_FUNCTION_FORMAT_,__LINE__,__FILE__);
+		LogException(ex);
+		SHOWEXCEPTION(ex);
+	}
+	catch(...)
+	{
+		CBasicException ex("Caught undefined exception", _FUNCTION_FORMAT_, __LINE__, __FILE__);
+		LogException( ex );
+		SHOWEXCEPTION(ex);
+	}
+
 #if 0
 	else
 	{ // Windows hasn't processed any messages, therefore we handle the rest
@@ -992,6 +1178,7 @@ void SGPExit(void)
 
 void GetRuntimeSettings( )
 {
+#ifndef USE_VFS
 	// Runtime settings - for now use INI file - later use registry
 	STRING512		INIFile;		// Path to the ini file
 	CHAR8			zScreenResolution[ 50 ];
@@ -1000,19 +1187,43 @@ void GetRuntimeSettings( )
 	GetExecutableDirectory( INIFile );
 
 	strcat(INIFile, "\\Ja2.ini");
-
+#else
+	CPropertyContainer oProps;
+	oProps.InitFromIniFile("Ja2.ini");
+#endif
 	iResolution = -1;
-
+#ifndef USE_VFS
 	if (GetPrivateProfileString( "Ja2 Settings","SCREEN_RESOLUTION", "", zScreenResolution, 50, INIFile ))
 	{
 		iResolution = atoi(zScreenResolution);
 	}
+#else
+	iResolution = oProps.GetIntProperty(L"Ja2 Settings", L"SCREEN_RESOLUTION", -1);
+
+	std::list<utf8string> ini_list;
+	if(oProps.GetStringListProperty(L"Ja2 Settings", L"VFS_CONFIG_INI", ini_list, L""))
+	{
+		vfs_config_ini.clear();
+		for(std::list<utf8string>::iterator it = ini_list.begin(); it != ini_list.end(); ++it)
+		{
+			vfs_config_ini.push_back(*it);
+		}
+	}
+	else
+	{
+		vfs_config_ini.push_back(L"vfs_config.ini");
+	}
+#endif
 
 #ifdef JA2EDITOR
+#ifndef USE_VFS
 		if (GetPrivateProfileString( "Ja2 Settings","EDITOR_SCREEN_RESOLUTION", "", zScreenResolution, 50, INIFile ))
 		{
 			iResolution = atoi(zScreenResolution);
 		}
+#else
+		iResolution = oProps.GetIntProperty("Ja2 Settings","EDITOR_SCREEN_RESOLUTION", -1); 
+#endif
 #endif
 
 
@@ -1038,7 +1249,7 @@ void GetRuntimeSettings( )
 			iResY = 600;
 			break;
 	}
-
+#ifndef USE_VFS
 	gbPixelDepth = GetPrivateProfileInt( "SGP", "PIXEL_DEPTH", PIXEL_DEPTH, INIFile );
 
 	SCREEN_WIDTH = GetPrivateProfileInt( "SGP", "WIDTH", iResX, INIFile );
@@ -1054,6 +1265,25 @@ void GetRuntimeSettings( )
 
 	// WANNE: Should we play the intro?
 	iPlayIntro = (int) GetPrivateProfileInt( "Ja2 Settings","PLAY_INTRO", iPlayIntro, INIFile );
+#else
+	gbPixelDepth = (UINT8)oProps.GetIntProperty(L"SGP", L"PIXEL_DEPTH", PIXEL_DEPTH);
+
+	SCREEN_WIDTH = (UINT16)oProps.GetIntProperty(L"SGP", L"WIDTH", iResX);
+	SCREEN_HEIGHT = (UINT16)oProps.GetIntProperty(L"SGP", L"HEIGHT", iResY);
+
+	iScreenWidthOffset = (SCREEN_WIDTH - 640) / 2;
+	iScreenHeightOffset = (SCREEN_HEIGHT - 480) / 2;
+
+	/* Sergeant_Kolja. 2007-02-20: runtime Windowed mode instead of compile-time */
+	/* 1 for Windowed, 0 for Fullscreen */
+	if( !bScreenModeCmdLine )
+	{
+		iScreenMode = oProps.GetIntProperty("Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode);
+	}
+
+	// WANNE: Should we play the intro?
+	iPlayIntro = oProps.GetIntProperty("Ja2 Settings","PLAY_INTRO", iPlayIntro);
+#endif
 }
 
 void ShutdownWithErrorBox(CHAR8 *pcMessage)

@@ -2787,7 +2787,7 @@ void SummaryUpdateCallback( GUI_BUTTON *btn, INT32 reason )
 void ExtractTempFilename()
 {
 	CHAR16 str[40];
-	Get16BitStringFromField( 1, str );
+	Get16BitStringFromField( 1, str, 40 );
 	if( wcscmp( gszTempFilename, str ) )
 	{
 		wcscpy( gszTempFilename, str );

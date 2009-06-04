@@ -30,6 +30,14 @@
 #include "network.h" // for client name
 #include "saveloadscreen.h"
 
+#include "VFS/vfs.h"
+#include "VFS/vfs_init.h"
+#include "VFS/PropertyContainer.h"
+#include "VFS/iteratedir.h"
+#include "MPJoinScreen.h"
+#include "MainMenuScreen.h"
+#include "Init.h"
+#include "xml.h"
 
 ////////////////////////////////////////////
 //
@@ -79,6 +87,10 @@
 #define		MPH_TXT_TIMER_Y							MPH_TXT_DMG_Y + MPH_TXT_DMG_HEIGHT + 13
 #define		MPH_TXT_TIMER_WIDTH						60
 #define		MPH_TXT_TIMER_HEIGHT					17
+#define		MPH_TXT_FILE_TRANSFER_DIR_X				iScreenWidthOffset + 100
+#define		MPH_TXT_FILE_TRANSFER_DIR_Y				MPH_TXT_TIMER_Y + MPH_TXT_TIMER_HEIGHT + 13
+#define		MPH_TXT_FILE_TRANSFER_DIR_WIDTH			200
+#define		MPH_TXT_FILE_TRANSFER_DIR_HEIGHT		17
 
 
 
@@ -116,6 +128,10 @@
 #define		MPH_LABEL_TIMER_Y						MPH_TXT_TIMER_Y + 3
 #define		MPH_LABEL_TIMER_WIDTH					80
 #define		MPH_LABEL_TIMER_HEIGHT					17
+#define		MPH_LABEL_FILE_TRANSFER_DIR_X			MPH_TXT_FILE_TRANSFER_DIR_X - 80
+#define		MPH_LABEL_FILE_TRANSFER_DIR_Y			MPH_TXT_FILE_TRANSFER_DIR_Y + 3
+#define		MPH_LABEL_FILE_TRANSFER_DIR_WIDTH		80
+#define		MPH_LABEL_FILE_TRANSFER_DIR_HEIGHT		17
 
 //radio box locations
 #define		MPH_GAP_BN_SETTINGS								35
@@ -131,8 +147,12 @@
 #define		MPH_GAMETYPE_SETTINGS_Y					iScreenHeightOffset + 75
 #define		MPH_GAMETYPE_SETTINGS_WIDTH				MPH_OFFSET_TO_TOGGLE_BOX - MPH_OFFSET_TO_TEXT
 
+#define		MPH_OVERRIDEMAXAI_X						MPH_DIF_SETTINGS_X
+#define		MPH_OVERRIDEMAXAI_Y						MPH_TXT_SVRNAME_Y
+#define		MPH_OVERRIDEMAXAI_WIDTH					MPH_OFFSET_TO_TOGGLE_BOX
+
 #define		MPH_RNDMERC_X							MPH_DIF_SETTINGS_X
-#define		MPH_RNDMERC_Y							MPH_TXT_MAXPLAYERS_Y//iScreenHeightOffset+214
+#define		MPH_RNDMERC_Y							MPH_OVERRIDEMAXAI_Y + MPH_GAP_BN_SETTINGS - 5
 #define		MPH_RNDMERC_WIDTH						MPH_OFFSET_TO_TOGGLE_BOX
 
 #define		MPH_SAMEMERC_X							MPH_DIF_SETTINGS_X
@@ -159,14 +179,16 @@
 #define		MPH_USENIV_Y							MPH_CIVS_Y + MPH_GAP_BN_SETTINGS - 5
 #define		MPH_USENIV_WIDTH						MPH_OFFSET_TO_TOGGLE_BOX
 
+#define		MPH_SEND_FILES_X						MPH_DIF_SETTINGS_X
+#define		MPH_SEND_FILES_Y						MPH_USENIV_Y + MPH_GAP_BN_SETTINGS - 5
+#define		MPH_SEND_FILES_WIDTH					MPH_OFFSET_TO_TOGGLE_BOX
+
 //Difficulty settings
 enum
 {
-	MPH_DIFF_EASY,
-	MPH_DIFF_MED,
 	MPH_DIFF_HARD,
 	MPH_DIFF_INSANE,
-	NUM_DIFF_SETTINGS,
+	MPH_NUM_DIFF_SETTINGS,
 };
 
 
@@ -200,17 +222,21 @@ UINT32		guiMPHMainBackGroundImage;
 CHAR16		gzServerNameField[ 30 ] = {0} ;
 CHAR16		gzMaxPlayersField[ 2 ] = {0} ;
 CHAR16		gzSquadSizeField[ 2 ] = {0} ;
-CHAR16		gzTimeOfDayField[ 5 ] = {0};
+CHAR16		gzTimeOfDayField[ 6 ] = {0};
 CHAR16		gzStartingBalanceField[ 10 ] = {0};
 INT16		giMPHTimeHours = 0;
 INT16		giMPHTimeMins = 0;
 CHAR16		gzDmgMultiplierField[ 5 ] = {0};
-CHAR16		gzTimerField[ 5 ] = {0};
+CHAR16		gzTimerField[ 6 ] = {0};
+CHAR16		gzFileTransferDirectory[ 100 ] = {0} ;
+CHAR16		gzKitBag[ 100 ] = {0};
 
 UINT8		guiMPHGameType = MP_TYPE_DEATHMATCH; // default value
+UINT8		guiMPHDifficultLevel = DIF_LEVEL_HARD; // Expert
 
 INT32		giMPHMessageBox = -1; // message box handle
 
+INT			giMPHOverrideMaxAI = 0;
 INT			giMPHRandomMercs = 0;
 INT			giMPHSameMercs = 0;
 INT			giMPHReportMercs = 0;
@@ -218,6 +244,7 @@ INT			giMPHBobbyRays = 0;
 INT			giMPHRandomSpawn = 0;
 INT			giMPHEnableCivilians = 0;
 INT			giMPHUseNIV = 0;
+INT			giMPHSendFiles = 0;
 
 
 ////////////////////////////////////////////
@@ -237,12 +264,16 @@ UINT32	guiMPHCancelButton;
 INT32	giMPHCancelBtnImage;
 
 //checkbox to toggle the Diff level
-UINT32	guiMPHDifficultySettingsToggles[ NUM_DIFF_SETTINGS ];
+UINT32	guiMPHDifficultySettingsToggles[ MPH_NUM_DIFF_SETTINGS ];
 void BtnMPHDifficultyTogglesCallback(GUI_BUTTON *btn,INT32 reason);
 
 //checkbox to toggle Game Type
 UINT32	guiMPHGameTypeToggles[ NUM_MP_GAMETYPE ];
 void BtnMPHGameTypeTogglesCallback(GUI_BUTTON *btn,INT32 reason);
+
+//checkbox for override max ai
+UINT32 guiMPHOverrideMaxAIToggle;
+void BtnMPHOverrideMaxAICallback(GUI_BUTTON *btn,INT32 reason);
 
 //checkbox for merc options
 UINT32 guiMPHRandomMercsToggle;
@@ -271,6 +302,10 @@ void BtnMPHCivsCallback(GUI_BUTTON *btn,INT32 reason);
 //checkbox for use NIV
 UINT32 guiMPHUseNIVToggle;
 void BtnMPHUseNIVCallback(GUI_BUTTON *btn,INT32 reason);
+
+//checkbox for send files
+UINT32 guiMPHSendFiles;
+void BtnMPHSendFilesCallback(GUI_BUTTON *btn,INT32 reason);
 
 
 ////////////////////////////////////////////
@@ -303,10 +338,11 @@ void			DoneFadeInForExitMPHScreen( void );
 
 void		SaveMPSettings()
 {
-	Get16BitStringFromField( 0, gzServerNameField ); // these indexes are based on the order created
-	Get16BitStringFromField( 1, gzMaxPlayersField );
-	Get16BitStringFromField( 2, gzSquadSizeField );
-
+	Get16BitStringFromField( 0, gzServerNameField, 30 ); // these indexes are based on the order created
+	Get16BitStringFromField( 1, gzMaxPlayersField, 2 );
+	Get16BitStringFromField( 2, gzSquadSizeField, 2 );
+	Get16BitStringFromField( 7, gzFileTransferDirectory, 100 );
+#ifndef USE_VFS
 	// save settings to JA2_mp.ini
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_NAME", gzServerNameField, L"..\\Ja2_mp.ini" );
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"MAX_CLIENTS", gzMaxPlayersField, L"..\\Ja2_mp.ini" );
@@ -314,6 +350,9 @@ void		SaveMPSettings()
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"STARTING_BALANCE", gzStartingBalanceField, L"..\\Ja2_mp.ini" );
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"DAMAGE_MULTIPLIER", gzDmgMultiplierField, L"..\\Ja2_mp.ini" );
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"TIMED_TURN_SECS_PER_TICK", gzTimerField, L"..\\Ja2_mp.ini" );
+	WritePrivateProfileStringW( L"Ja2_mp Settings",L"FILE_TRANSFER_DIRECTORY", gzFileTransferDirectory , L"..\\Ja2_mp.ini" );
+	WritePrivateProfileStringW( L"Ja2_mp Settings",L"KIT_BAG", gzKitBag , L"..\\Ja2_mp.ini" );
+
 
 
 	guiMPHGameType = GetMPHGameTypeButtonSetting();
@@ -326,6 +365,10 @@ void		SaveMPSettings()
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"TIME", tmpTimeStr, L"..\\Ja2_mp.ini" );
 
 	CHAR16 tmpVal[2];
+
+	giMPHOverrideMaxAI = ( ButtonList[ guiMPHOverrideMaxAIToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
+	_itow(giMPHOverrideMaxAI,tmpVal,10);
+	WritePrivateProfileStringW( L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", tmpVal, L"..\\Ja2_mp.ini" );
 
 	giMPHRandomMercs = ( ButtonList[ guiMPHRandomMercsToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
 	_itow(giMPHRandomMercs,tmpVal,10);
@@ -355,22 +398,89 @@ void		SaveMPSettings()
 	_itow(giMPHUseNIV,tmpVal,10);
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", tmpVal, L"..\\Ja2_mp.ini" );
 
+	giMPHSendFiles = ( ButtonList[ guiMPHSendFiles ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
+	_itow(giMPHSendFiles,tmpVal,10);
+	WritePrivateProfileStringW( L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", tmpVal, L"..\\Ja2_mp.ini" );
+	guiMPHDifficultLevel = GetMPHCurrentDifficultyButtonSetting();
+	CHAR16 tmpDiffStr[2];
+	_itow(guiMPHDifficultLevel,tmpDiffStr,10);
+	WritePrivateProfileStringW( L"Ja2_mp Settings",L"DIFFICULT_LEVEL", tmpDiffStr, L"..\\Ja2_mp.ini" );
+#else
+	CPropertyContainer props;
+	props.InitFromIniFile("Ja2_mp.ini");
+
+	props.SetStringProperty(L"Ja2_mp Settings",L"SERVER_NAME", gzServerNameField);
+	props.SetStringProperty(L"Ja2_mp Settings",L"MAX_CLIENTS", gzMaxPlayersField);
+	props.SetStringProperty(L"Ja2_mp Settings",L"MAX_MERCS", gzSquadSizeField);
+	props.SetStringProperty(L"Ja2_mp Settings",L"STARTING_BALANCE", gzStartingBalanceField);
+	props.SetStringProperty(L"Ja2_mp Settings",L"DAMAGE_MULTIPLIER", gzDmgMultiplierField);
+	props.SetStringProperty(L"Ja2_mp Settings",L"TIMED_TURN_SECS_PER_TICK", gzTimerField);
+	props.SetStringProperty(L"Ja2_mp Settings",L"FILE_TRANSFER_DIRECTORY", gzFileTransferDirectory);
+	props.SetStringProperty(L"Ja2_mp Settings",L"KIT_BAG", gzKitBag);
+
+
+	guiMPHGameType = GetMPHGameTypeButtonSetting();
+	CHAR16 tmpGTStr[2];
+	_itow(guiMPHGameType,tmpGTStr,10);
+	props.SetStringProperty(L"Ja2_mp Settings",L"GAME_MODE", tmpGTStr);
+
+	CHAR16 tmpTimeStr[6];
+	swprintf(tmpTimeStr,L"%i.%i",giMPHTimeHours,giMPHTimeMins);
+	props.SetStringProperty(L"Ja2_mp Settings",L"TIME", tmpTimeStr);
+
+	CHAR16 tmpVal[2];
+
+	giMPHOverrideMaxAI = ( ButtonList[ guiMPHOverrideMaxAIToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
+	_itow(giMPHOverrideMaxAI,tmpVal,10);
+	props.SetStringProperty(L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", tmpVal);
+
+	giMPHRandomMercs = ( ButtonList[ guiMPHRandomMercsToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
+	_itow(giMPHRandomMercs,tmpVal,10);
+	props.SetStringProperty(L"Ja2_mp Settings",L"RANDOM_MERCS", tmpVal);
+
+	giMPHSameMercs = ( ButtonList[ guiMPHSameMercToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
+	_itow(giMPHSameMercs,tmpVal,10);
+	props.SetStringProperty(L"Ja2_mp Settings",L"SAME_MERC", tmpVal);
+
+	giMPHBobbyRays = ( ButtonList[ guiMPHBobbyRayToggle ]->uiFlags & BUTTON_CLICKED_ON  ? 0 : 1 );  // This setting is reversed
+	_itow(giMPHBobbyRays,tmpVal,10);
+	props.SetStringProperty(L"Ja2_mp Settings",L"DISABLE_BOBBY_RAYS", tmpVal);
+
+	giMPHReportMercs = ( ButtonList[ guiMPHReportMercToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
+	_itow(giMPHReportMercs,tmpVal,10);
+	props.SetStringProperty(L"Ja2_mp Settings",L"REPORT_NAME", tmpVal);
+
+	giMPHRandomSpawn = ( ButtonList[ guiMPHRandomSpawnToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
+	_itow(giMPHRandomSpawn,tmpVal,10);
+	props.SetStringProperty(L"Ja2_mp Settings",L"RANDOM_EDGES", tmpVal);
+
+	giMPHEnableCivilians = ( ButtonList[ guiMPHCivsToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
+	_itow(giMPHEnableCivilians,tmpVal,10);
+	props.SetStringProperty(L"Ja2_mp Settings",L"CIV_ENABLED", tmpVal);
+
+	giMPHUseNIV = ( ButtonList[ guiMPHUseNIVToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
+	_itow(giMPHUseNIV,tmpVal,10);
+	props.SetStringProperty(L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", tmpVal);
+
+	giMPHSendFiles = ( ButtonList[ guiMPHSendFiles ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
+	_itow(giMPHSendFiles,tmpVal,10);
+	props.SetStringProperty(L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", tmpVal);
+
+	guiMPHDifficultLevel = GetMPHCurrentDifficultyButtonSetting();
+	CHAR16 tmpDiffStr[2];
+	_itow(guiMPHDifficultLevel,tmpDiffStr,10);
+	props.SetStringProperty(L"Ja2_mp Settings",L"DIFFICULT_LEVEL", tmpDiffStr);
+	props.WriteToIniFile(L"Ja2_mp.ini",true);	// This writes to the Profiles/UserProfile/ja2_mp.ini
+#endif
 
 
 
-	/*if ( ButtonList[ guiMPHRandomSpawnToggle ]->uiFlags & BUTTON_CLICKED_ON )
-		WritePrivateProfileStringW( L"Ja2_mp Settings",L"RANDOM_EDGES", L"1", L"..\\Ja2_mp.ini" );
-	else
-		WritePrivateProfileStringW( L"Ja2_mp Settings",L"RANDOM_EDGES", L"0", L"..\\Ja2_mp.ini" );*/
-
-	// save game difficulty setting
-	gGameOptions.ubDifficultyLevel = GetMPHCurrentDifficultyButtonSetting();
 }
 
 bool	ValidateMPSettings()
 {
 	// Check a Server name is entered
-	Get16BitStringFromField( 0, gzServerNameField ); // these indexes are based on the order created
+	Get16BitStringFromField( 0, gzServerNameField, 30 ); // these indexes are based on the order created
 	if (wcscmp(gzServerNameField,L"")<=0)
 	{
 		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_SERVERNAME_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
@@ -378,7 +488,7 @@ bool	ValidateMPSettings()
 	}
 
 	// Verify the Max Players
-	Get16BitStringFromField( 1, gzMaxPlayersField );
+	Get16BitStringFromField( 1, gzMaxPlayersField, 2 );
 	UINT8 numPlayers = _wtoi(gzMaxPlayersField);
 	if (numPlayers < 2 || numPlayers > 4)
 	{
@@ -387,46 +497,61 @@ bool	ValidateMPSettings()
 	}
 	
 	// Verify the Squad Size
-	Get16BitStringFromField( 2, gzSquadSizeField );
+	Get16BitStringFromField( 2, gzSquadSizeField, 2 );
 	UINT8 squadSize = _wtoi(gzSquadSizeField);
-	if (squadSize < 1 || squadSize > 6)
+	if (squadSize < 1 || squadSize > 5)
 	{
 		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_SQUADSIZE_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
 		return false;
 	}
 
 	// verify the Time of Day
-	Get16BitStringFromField( 3, gzTimeOfDayField );
+	Get16BitStringFromField( 3, gzTimeOfDayField, 6 );
 	wchar_t* tok;
 	bool bTimeOK = true;
 	int hours = 0;
 	int mins = 0;
 
 	// strtok is destructive, make a copy to work on
-	CHAR16 tmpTODStr[5];
+	CHAR16 tmpTODStr[6];
 	memcpy(tmpTODStr,gzTimeOfDayField,sizeof(CHAR16)*5);
 
 	tok = wcstok(tmpTODStr,L":");
 	if (tok != NULL)
 	{
-		hours = _wtoi(tok);
-		// check for invalid conversion, ie alpha chars
-		// wtoi returns 0 if it cant convert, but we need this value
-		// therefore if tok <> 0 then it was a bad convert.
-		if (hours == 0 && wcscmp(tok,L"0") != 0)
+		// Special case, because _wtoi() returns 0 if invalid number!
+		if (wcscmp(tok, L"00") == 0)
 		{
-			// force error
-			bTimeOK = false;
+			hours = 0;
+		}
+		else
+		{
+			hours = _wtoi(tok);
+			// check for invalid conversion, ie alpha chars
+			// wtoi returns 0 if it cant convert, but we need this value
+			// therefore if tok <> 0 then it was a bad convert.
+			if (hours == 0 && wcscmp(tok,L"0") != 0)
+			{
+				// force error
+				bTimeOK = false;
+			}
 		}
 
 		tok = wcstok(NULL,L".");
 		if (tok != NULL)
 		{
-			mins = _wtoi(tok);
-			if (mins == 0 && wcscmp(tok,L"0") != 0)
+			if (wcsnlen(tok, 50) >= 2 && tok[0] == '0' && tok[1] == '0')
 			{
-				// force error
-				bTimeOK = false;
+				mins = 0;
+			}
+			else
+			{
+				mins = _wtoi(tok);
+				if (mins == 0 && wcscmp(tok,L"0") != 0)
+				{
+					// force error
+					bTimeOK = false;
+				}
 			}
 
 			// fix for single digits
@@ -459,7 +584,7 @@ bool	ValidateMPSettings()
 
 
 	// verify the Starting Balance
-	Get16BitStringFromField( 4, gzStartingBalanceField );
+	Get16BitStringFromField( 4, gzStartingBalanceField, 10 );
 	UINT32 sBalance = _wtoi(gzStartingBalanceField);
 	if (sBalance < 1)
 	{
@@ -467,7 +592,7 @@ bool	ValidateMPSettings()
 		return false;
 	}
 
-	Get16BitStringFromField( 5, gzDmgMultiplierField );
+	Get16BitStringFromField( 5, gzDmgMultiplierField, 5 );
 	double fDmg = _wtof(gzDmgMultiplierField);
 	if (fDmg <= 0.0f || fDmg >= 5.0f)
 	{
@@ -475,7 +600,7 @@ bool	ValidateMPSettings()
 		return false;
 	}
 
-	Get16BitStringFromField( 6, gzTimerField );
+	Get16BitStringFromField( 6, gzTimerField, 6 );
 	UINT32 iTimer = _wtoi(gzTimerField);
 	if (iTimer < 1 || iTimer > 200)
 	{
@@ -483,39 +608,105 @@ bool	ValidateMPSettings()
 		return false;
 	}
 
+	// Verify the File Transfer Directory
+	Get16BitStringFromField( 7, gzFileTransferDirectory, 100 );
+	if (wcscmp(gzFileTransferDirectory,L"")<=0)
+	{
+		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_FILE_TRANSFER_DIR_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		return false;
+	}
+
+#ifdef USE_VFS
+	vfs::Path sUserDir(gzFileTransferDirectory);
+	if(!os::CreateRealDirecory(sUserDir,true))
+	{
+		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_FILE_TRANSFER_DIR_NOT_EXIST], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		return false;
+	}
+#endif
+
+	//if (!bSkipSyncDir)
+	//{
+#ifndef USE_VFS
+		// Check if sync folder exists
+		STRING512 syncDir;
+		STRING512 executableDir;
+
+		GetExecutableDirectory(executableDir);
+		sprintf(syncDir, "%s\\%S", executableDir, gzFileTransferDirectory);
+
+		if (!DirectoryExists(syncDir))
+		{
+			DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_FILE_TRANSFER_DIR_NOT_EXIST], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
+			return false;
+		}
+#endif
+	//}
+
 	return true;
 }
 
 UINT32	MPHostScreenInit( void )
 {
+	// this is wrong as ScreenInit is called at game start, but the settigs can change anytime
+	// has be called in ScreenEnter for example
+	std::vector<CHAR16> szTime(6,0);
+#ifndef USE_VFS
 	// read settings from JA2_mp.ini
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_NAME", L"Mr Server", gzServerNameField, 30, L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"MAX_CLIENTS", L"", gzMaxPlayersField, 2, L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"MAX_MERCS", L"", gzSquadSizeField, 2 , L"..\\Ja2_mp.ini" );
-	guiMPHGameType = GetPrivateProfileIntW( L"Ja2_mp Settings",L"GAME_MODE", MP_TYPE_DEATHMATCH, L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"STARTING_BALANCE", L"9:30", gzStartingBalanceField, 10 , L"..\\Ja2_mp.ini" );
+	GetPrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_NAME", L"Server Name", gzServerNameField, 30, L"..\\Ja2_mp.ini" );
+	GetPrivateProfileStringW( L"Ja2_mp Settings",L"MAX_CLIENTS", L"4", gzMaxPlayersField, 4, L"..\\Ja2_mp.ini" );
+	GetPrivateProfileStringW( L"Ja2_mp Settings",L"MAX_MERCS", L"5", gzSquadSizeField, 5 , L"..\\Ja2_mp.ini" );
+	GetPrivateProfileStringW( L"Ja2_mp Settings",L"STARTING_BALANCE", L"25000", gzStartingBalanceField, 10 , L"..\\Ja2_mp.ini" );
 	GetPrivateProfileStringW( L"Ja2_mp Settings",L"DAMAGE_MULTIPLIER", L"0.7", gzDmgMultiplierField, 5 , L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"TIMED_TURN_SECS_PER_TICK", L"100", gzTimerField, 5 , L"..\\Ja2_mp.ini" );
+	GetPrivateProfileStringW( L"Ja2_mp Settings",L"TIMED_TURN_SECS_PER_TICK", L"25", gzTimerField, 5 , L"..\\Ja2_mp.ini" );
+	GetPrivateProfileStringW( L"Ja2_mp Settings",L"FILE_TRANSFER_DIRECTORY", L"MULTIPLAYER/Servers/My Server", gzFileTransferDirectory, 100, L"..\\Ja2_mp.ini" );
+	GetStringProperty( L"Ja2_mp Settings", L"KIT_BAG", L"[201,214,243]", kbag, 100, L"..\\Ja2_mp.ini" );
+	GetPrivateProfileStringW( L"Ja2_mp Settings",L"TIME", L"13.50", &szTime[0], 5 , L"..\\Ja2_mp.ini" );
 
+	giMPHOverrideMaxAI = GetPrivateProfileIntW( L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", 0, L"..\\Ja2_mp.ini" );
 	giMPHRandomMercs = GetPrivateProfileIntW( L"Ja2_mp Settings",L"RANDOM_MERCS", 0, L"..\\Ja2_mp.ini" );
-	giMPHSameMercs = GetPrivateProfileIntW( L"Ja2_mp Settings",L"SAME_MERC", 0, L"..\\Ja2_mp.ini" );
-	giMPHReportMercs = GetPrivateProfileIntW( L"Ja2_mp Settings",L"REPORT_NAME", 0, L"..\\Ja2_mp.ini" );
+	giMPHSameMercs = GetPrivateProfileIntW( L"Ja2_mp Settings",L"SAME_MERC", 1, L"..\\Ja2_mp.ini" );
+	giMPHReportMercs = GetPrivateProfileIntW( L"Ja2_mp Settings",L"REPORT_NAME", 1, L"..\\Ja2_mp.ini" );
 	giMPHBobbyRays = GetPrivateProfileIntW( L"Ja2_mp Settings",L"DISABLE_BOBBY_RAYS", 0, L"..\\Ja2_mp.ini" );
 	giMPHRandomSpawn = GetPrivateProfileIntW( L"Ja2_mp Settings",L"RANDOM_EDGES", 0, L"..\\Ja2_mp.ini" );
 	giMPHEnableCivilians = GetPrivateProfileIntW( L"Ja2_mp Settings",L"CIV_ENABLED", 0, L"..\\Ja2_mp.ini" );
 	giMPHUseNIV = GetPrivateProfileIntW( L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", 0, L"..\\Ja2_mp.ini" );
+	giMPHSendFiles = GetPrivateProfileIntW( L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", 1, L"..\\Ja2_mp.ini" );
+	guiMPHGameType = GetPrivateProfileIntW( L"Ja2_mp Settings",L"GAME_MODE", MP_TYPE_DEATHMATCH, L"..\\Ja2_mp.ini" );
+	giMPHDifficultLevel = GetPrivateProfileIntW( L"Ja2_mp Settings",L"DIFFICULT_LEVEL", 2, L"..\\Ja2_mp.ini" );
+#else
+	// read settings from JA2_mp.ini
+	CPropertyContainer props;
+	props.InitFromIniFile("Ja2_mp.ini");
+	props.GetStringProperty( L"Ja2_mp Settings", L"SERVER_NAME", gzServerNameField, 30, L"Server Name");
+	props.GetStringProperty( L"Ja2_mp Settings", L"MAX_CLIENTS", gzMaxPlayersField, 4, L"4");
+	props.GetStringProperty( L"Ja2_mp Settings", L"MAX_MERCS", gzSquadSizeField, 5, L"5");
+	props.GetStringProperty( L"Ja2_mp Settings", L"STARTING_BALANCE", gzStartingBalanceField, 10, L"25000");
+	props.GetStringProperty( L"Ja2_mp Settings", L"DAMAGE_MULTIPLIER", gzDmgMultiplierField, 5, L"0.7");
+	props.GetStringProperty( L"Ja2_mp Settings", L"TIMED_TURN_SECS_PER_TICK", gzTimerField, 5, L"25");
+	props.GetStringProperty( L"Ja2_mp Settings", L"FILE_TRANSFER_DIRECTORY", gzFileTransferDirectory, 100, L"MULTIPLAYER/Servers/My Server");
+	props.GetStringProperty( L"Ja2_mp Settings", L"KIT_BAG", gzKitBag, 100, L"[201,214,243]");
+	props.GetStringProperty(L"Ja2_mp Settings", L"TIME", &szTime[0], 6, L"13.50");
 
-
-	// read in time
-	CHAR16 szTime[5];
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"TIME", L"13.50", szTime, 5 , L"..\\Ja2_mp.ini" );
+	giMPHOverrideMaxAI =			props.GetIntProperty( L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", 0);
+	giMPHRandomMercs =				props.GetIntProperty( L"Ja2_mp Settings",L"RANDOM_MERCS", 0);
+	giMPHSameMercs =				props.GetIntProperty( L"Ja2_mp Settings",L"SAME_MERC", 1);
+	giMPHReportMercs =				props.GetIntProperty( L"Ja2_mp Settings",L"REPORT_NAME", 1);
+	giMPHBobbyRays =				props.GetIntProperty( L"Ja2_mp Settings",L"DISABLE_BOBBY_RAYS", 0);
+	giMPHRandomSpawn =				props.GetIntProperty( L"Ja2_mp Settings",L"RANDOM_EDGES", 0);
+	giMPHEnableCivilians =			props.GetIntProperty( L"Ja2_mp Settings",L"CIV_ENABLED", 0);
+	giMPHUseNIV =					props.GetIntProperty( L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", 0);
+	giMPHSendFiles =				props.GetIntProperty( L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", 1);
+	guiMPHGameType =				(UINT8)props.GetIntProperty( L"Ja2_mp Settings",L"GAME_MODE", MP_TYPE_DEATHMATCH);
+	guiMPHDifficultLevel =			(UINT8)props.GetIntProperty( L"Ja2_mp Settings",L"DIFFICULT_LEVEL", 3);	// Expert
+#endif
 	
 	wchar_t* tok;
 	bool bTimeOK = true;
 	int hours = 0;
 	int mins = 0;
 
-	tok = wcstok(szTime,L".");
+	tok = wcstok(&szTime[0],L".");
 
 	if (tok != NULL)
 	{
@@ -574,6 +765,9 @@ UINT32	MPHostScreenHandle( void )
 	if( gfMPHScreenEntry )
 	{
 //		PauseGame();
+
+		// need to reload ja2_mp.ini
+		MPHostScreenInit();
 
 		EnterMPHScreen();
 		gfMPHScreenEntry = FALSE;
@@ -774,6 +968,16 @@ BOOLEAN		EnterMPHScreen()
 						5,
 						INPUTTYPE_ASCII );//23
 
+	//Add File transfer directory textbox
+	AddTextInputField(	MPH_TXT_FILE_TRANSFER_DIR_X,
+						MPH_TXT_FILE_TRANSFER_DIR_Y,
+						MPH_TXT_FILE_TRANSFER_DIR_WIDTH,
+						MPH_TXT_FILE_TRANSFER_DIR_HEIGHT,
+						MSYS_PRIORITY_HIGH+2,
+						gzFileTransferDirectory,
+						100,
+						INPUTTYPE_ASCII );
+
 
 	SetActiveField( 0 ); // Playername textbox has focus
 
@@ -783,7 +987,7 @@ BOOLEAN		EnterMPHScreen()
 	//
 	usPosY = MPH_DIF_SETTINGS_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y;
 
-	for( cnt=0; cnt<NUM_DIFF_SETTINGS; cnt++)
+	for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
 	{
 		// create each checkbox
 		guiMPHDifficultySettingsToggles[ cnt ] = CreateCheckBoxButton(	MPH_DIF_SETTINGS_X+MPH_OFFSET_TO_TOGGLE_BOX, usPosY,
@@ -795,22 +999,12 @@ BOOLEAN		EnterMPHScreen()
 	}
 
 	// Set default selection
-	if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
-		ButtonList[ guiMPHDifficultySettingsToggles[ MPH_DIFF_EASY ] ]->uiFlags |= BUTTON_CLICKED_ON;
-
-	else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
-		ButtonList[ guiMPHDifficultySettingsToggles[ MPH_DIFF_MED ] ]->uiFlags |= BUTTON_CLICKED_ON;
-
-	else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+	if( guiMPHDifficultLevel == DIF_LEVEL_HARD )
 		ButtonList[ guiMPHDifficultySettingsToggles[ MPH_DIFF_HARD ] ]->uiFlags |= BUTTON_CLICKED_ON;
-
-	else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+	else if( guiMPHDifficultLevel == DIF_LEVEL_INSANE )
 		ButtonList[ guiMPHDifficultySettingsToggles[ MPH_DIFF_INSANE ] ]->uiFlags |= BUTTON_CLICKED_ON;
-
 	else
-		ButtonList[ guiMPHDifficultySettingsToggles[ MPH_DIFF_MED ] ]->uiFlags |= BUTTON_CLICKED_ON;
-
-
+		ButtonList[ guiMPHDifficultySettingsToggles[ MPH_DIFF_HARD ] ]->uiFlags |= BUTTON_CLICKED_ON;
 
 
 	//
@@ -831,6 +1025,12 @@ BOOLEAN		EnterMPHScreen()
 	// set default selection
 	ButtonList[ guiMPHGameTypeToggles[ guiMPHGameType ] ]->uiFlags |= BUTTON_CLICKED_ON;
 
+	// Override Max AI
+	guiMPHOverrideMaxAIToggle = CreateCheckBoxButton(	MPH_OVERRIDEMAXAI_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_OVERRIDEMAXAI_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
+																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
+																		BtnMPHOverrideMaxAICallback );
+	if ( giMPHOverrideMaxAI )
+		ButtonList[ guiMPHOverrideMaxAIToggle ]->uiFlags |= BUTTON_CLICKED_ON;
 
 	// Random Mercs
 	guiMPHRandomMercsToggle = CreateCheckBoxButton(	MPH_RNDMERC_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_RNDMERC_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
@@ -884,6 +1084,14 @@ BOOLEAN		EnterMPHScreen()
 		ButtonList[ guiMPHUseNIVToggle ]->uiFlags |= BUTTON_CLICKED_ON;
 
 
+	// checkbox for send files to clients
+	guiMPHSendFiles = CreateCheckBoxButton(	MPH_SEND_FILES_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_SEND_FILES_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
+																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
+																		BtnMPHSendFilesCallback );
+
+	if (giMPHSendFiles)
+		ButtonList[ guiMPHSendFiles ]->uiFlags |= BUTTON_CLICKED_ON;
+
 
 
 	//Reset the exit screen - screen the main game loop will call next iteration
@@ -919,13 +1127,14 @@ BOOLEAN		ExitMPHScreen()
 	UnloadButtonImage( giMPHStartBtnImage );
 
 	//Check box to toggle Difficulty settings
-	for( cnt=0; cnt<NUM_DIFF_SETTINGS; cnt++)
+	for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
 		RemoveButton( guiMPHDifficultySettingsToggles[ cnt ] );
 
 	//Check box to toggle Game Types
 	for( cnt=0; cnt<NUM_MP_GAMETYPE; cnt++)
 		RemoveButton( guiMPHGameTypeToggles[ cnt ] );
 
+	RemoveButton( guiMPHOverrideMaxAIToggle );
 	RemoveButton( guiMPHRandomMercsToggle );
 	RemoveButton( guiMPHSameMercToggle );
 	RemoveButton( guiMPHReportMercToggle );
@@ -933,6 +1142,7 @@ BOOLEAN		ExitMPHScreen()
 	RemoveButton( guiMPHRandomSpawnToggle );
 	RemoveButton( guiMPHCivsToggle );
 	RemoveButton( guiMPHUseNIVToggle );
+	RemoveButton( guiMPHSendFiles );
 
 	// exit text input mode in this screen and clean up text boxes
 	KillAllTextInputModes();
@@ -1026,25 +1236,20 @@ BOOLEAN		RenderMPHScreen()
 	// Starting Cash text label
 	DisplayWrappedString( MPH_LABEL_CASH_X, MPH_LABEL_CASH_Y, MPH_LABEL_CASH_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_BALANCE_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	// Starting Cash text label
+	// Damage multiplier text label
 	DisplayWrappedString( MPH_LABEL_DMG_X, MPH_LABEL_DMG_Y, MPH_LABEL_DMG_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_DMG_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	// Starting Cash text label
+	// Turn timer text label
 	DisplayWrappedString( MPH_LABEL_TIMER_X, MPH_LABEL_TIMER_Y, MPH_LABEL_TIMER_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_TIMER_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+
+	// File transfer directory (source directory for server, target directory for client)
+	DisplayWrappedString( MPH_LABEL_FILE_TRANSFER_DIR_X, MPH_LABEL_FILE_TRANSFER_DIR_Y, MPH_LABEL_FILE_TRANSFER_DIR_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_FILE_TRANSFER_DIR_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	//Display the Dif Settings Title Text
 	DisplayWrappedString( MPH_DIF_SETTINGS_X, (UINT16)(MPH_DIF_SETTINGS_Y-MPH_GAP_BN_SETTINGS), MPH_DIF_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	// Novice
-	usPosY = MPH_DIF_SETTINGS_Y+2;
-	DisplayWrappedString( (UINT16)(MPH_DIF_SETTINGS_X+MPH_OFFSET_TO_TEXT), usPosY, MPH_DIF_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_EASY_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-
-	// Intermediate
-	usPosY += MPH_GAP_BN_SETTINGS-5;
-	DisplayWrappedString( (UINT16)(MPH_DIF_SETTINGS_X+MPH_OFFSET_TO_TEXT), usPosY, MPH_DIF_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_MEDIUM_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-
 	// Hard
-	usPosY += MPH_GAP_BN_SETTINGS-5;
+	usPosY = MPH_DIF_SETTINGS_Y+2;
 	DisplayWrappedString( (UINT16)(MPH_DIF_SETTINGS_X+MPH_OFFSET_TO_TEXT), usPosY, MPH_DIF_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_HARD_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	// Insane
@@ -1067,6 +1272,9 @@ BOOLEAN		RenderMPHScreen()
 	usPosY += MPH_GAP_BN_SETTINGS-5;
 	DisplayWrappedString( (UINT16)(MPH_GAMETYPE_SETTINGS_X+MPH_OFFSET_TO_TEXT), usPosY, MPH_GAMETYPE_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_COOP_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
+	// Override Max AI
+	DisplayWrappedString( (UINT16)MPH_OVERRIDEMAXAI_X, MPH_OVERRIDEMAXAI_Y, MPH_OVERRIDEMAXAI_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_OVERRIDEMAXAI_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+
 	// Random Mercs
 	DisplayWrappedString( (UINT16)MPH_RNDMERC_X, MPH_RNDMERC_Y, MPH_RNDMERC_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_RANDOMMERCS_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
@@ -1086,8 +1294,10 @@ BOOLEAN		RenderMPHScreen()
 	DisplayWrappedString( (UINT16)MPH_CIVS_X, MPH_CIVS_Y, MPH_CIVS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_ENABLECIV_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	// Use NIV
-	DisplayWrappedString( (UINT16)MPH_USENIV_X, MPH_USENIV_Y, MPH_CIVS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_USENIV_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DisplayWrappedString( (UINT16)MPH_USENIV_X, MPH_USENIV_Y, MPH_USENIV_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_USENIV_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
+	// Send Files
+	DisplayWrappedString( (UINT16)MPH_SEND_FILES_X, MPH_SEND_FILES_Y, MPH_SEND_FILES_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_SYNC_CLIENT_MP_DIR ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	return( TRUE );
 } // end of RenderMPHScreen()
@@ -1117,7 +1327,27 @@ void			GetMPHScreenUserInput()
 				case ENTER:
 					if (ValidateMPSettings())
 					{
-						SaveMPSettings();
+						SaveMPSettings(); // Update Profiles/UserProfile/ja2_mp.ini
+#ifdef USE_VFS	
+						// "gzFileTransferDirectory" is the new multiplayer profile root
+						vfs::CProfileStack *PS = GetVFS()->GetProfileStack();
+
+						// remove Multiplayer profile if it exists
+						vfs::CVirtualProfile *pProf = PS->GetProfile("_MULTIPLAYER");
+						if( pProf && (pProf == PS->TopProfile()) )
+						{
+							THROWIFFALSE(PS->PopProfile(), "Could not remove old \"_MULTIPLAYER\" profile");
+							// careful, pProf is not valid anymore
+						}
+						// create and initialize a new Multiplayer profile
+						pProf = new vfs::CVirtualProfile("_MULTIPLAYER",true);
+						PS->PushProfile(pProf);
+						if(!InitWriteProfile(*pProf, vfs::Path(gzFileTransferDirectory)))
+						{
+							THROWIFFALSE(PS->PopProfile(), L"Could not remove \"_MULTIPLAYER\" profile");			
+							THROWEXCEPTION(L"Directory exists, but Multiplayer profile could not be iniitalized");
+						}
+#endif
 						gubMPHScreenHandler = MPH_START;
 					}
 					break;
@@ -1142,8 +1372,35 @@ void BtnMPHStartCallback(GUI_BUTTON *btn,INT32 reason)
 
 		if (ValidateMPSettings())
 		{
-			SaveMPSettings();
 			gubMPHScreenHandler = MPH_START;
+			SaveMPSettings(); // Update the Profiles/UserProfile/ja2_mp.ini
+#ifdef USE_VFS	
+			// "gzFileTransferDirectory" is the new multiplayer profile root
+			vfs::CProfileStack *PS = GetVFS()->GetProfileStack();
+
+			// remove Multiplayer profile if it exists
+			vfs::CVirtualProfile *pProf = PS->GetProfile("_MULTIPLAYER");
+			if( pProf && (pProf == PS->TopProfile()) )
+			{
+				THROWIFFALSE(PS->PopProfile(), "Could not remove old \"_MULTIPLAYER\" profile");
+				// careful, pProf is not valid anymore
+			}
+			// create and initialize a new Multiplayer profile
+			pProf = new vfs::CVirtualProfile("_MULTIPLAYER",true);
+			PS->PushProfile(pProf);
+			if(!InitWriteProfile(*pProf, vfs::Path(gzFileTransferDirectory)))
+			{
+				THROWIFFALSE(PS->PopProfile(), L"Could not remove \"_MULTIPLAYER\" profile");			
+				THROWEXCEPTION(L"Directory exists, but Multiplayer profile could not be iniitalized");
+			}
+#endif
+
+			// The difficult level has to be set there. This is the only value so far, because it is used for initialization!
+			gGameOptions.ubDifficultyLevel = GetMPHCurrentDifficultyButtonSetting();
+
+			// WANNE - MP: Reinit TableData folder and INIs
+			LoadExternalGameplayData(TABLEDATA_DIRECTORY);
+			InitDependingGameStyleOptions();
 		}
 
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
@@ -1177,7 +1434,7 @@ void BtnMPHDifficultyTogglesCallback( GUI_BUTTON *btn, INT32 reason )
 		{
 			UINT8	cnt;
 
-			for( cnt=0; cnt<NUM_DIFF_SETTINGS; cnt++)
+			for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
 			{
 				ButtonList[ guiMPHDifficultySettingsToggles[ cnt ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 			}
@@ -1191,7 +1448,7 @@ void BtnMPHDifficultyTogglesCallback( GUI_BUTTON *btn, INT32 reason )
 			BOOLEAN fAnyChecked=FALSE;
 
 			//if none of the other boxes are checked, do not uncheck this box
-			for( cnt=0; cnt<NUM_DIFF_SETTINGS; cnt++)
+			for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
 			{
 
 				if( ButtonList[ guiMPHDifficultySettingsToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
@@ -1253,7 +1510,7 @@ void RestoreMPHButtonBackGrounds()
 
 	usPosY = MPH_DIF_SETTINGS_Y-MPH_OFFSET_TO_TOGGLE_BOX_Y;
 	//Check box to toggle Difficulty settings
-	for( cnt=0; cnt<NUM_DIFF_SETTINGS; cnt++)
+	for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
 	{
 		RestoreExternBackgroundRect( MPH_DIF_SETTINGS_X+MPH_OFFSET_TO_TOGGLE_BOX, usPosY, 34, 29 );
 		usPosY += MPH_GAP_BN_SETTINGS-5;
@@ -1267,6 +1524,7 @@ void RestoreMPHButtonBackGrounds()
 		usPosY += MPH_GAP_BN_SETTINGS-5;
 	}
 
+	RestoreExternBackgroundRect( MPH_OVERRIDEMAXAI_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_OVERRIDEMAXAI_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
 	RestoreExternBackgroundRect( MPH_RNDMERC_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_RNDMERC_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
 	RestoreExternBackgroundRect( MPH_SAMEMERC_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_SAMEMERC_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
 	RestoreExternBackgroundRect( MPH_REPORTMERC_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_REPORTMERC_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
@@ -1274,6 +1532,7 @@ void RestoreMPHButtonBackGrounds()
 	RestoreExternBackgroundRect( MPH_RNDSPAWN_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_RNDSPAWN_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
 	RestoreExternBackgroundRect( MPH_CIVS_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_CIVS_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
 	RestoreExternBackgroundRect( MPH_USENIV_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_USENIV_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
+	RestoreExternBackgroundRect( MPH_SEND_FILES_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_SEND_FILES_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
 
 }
 
@@ -1281,11 +1540,11 @@ UINT8	GetMPHCurrentDifficultyButtonSetting()
 {
 	UINT8	cnt;
 
-	for( cnt=0; cnt<NUM_DIFF_SETTINGS; cnt++)
+	for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
 	{
 		if( ButtonList[ guiMPHDifficultySettingsToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
 		{
-			return( cnt );
+			return( cnt + 3 ); // removed two difficulty options from MPH
 		}
 	}
 
@@ -1296,7 +1555,7 @@ UINT8	GetMPHGameTypeButtonSetting()
 {
 	UINT8	cnt;
 
-	for( cnt=0; cnt<NUM_DIFF_SETTINGS; cnt++)
+	for( cnt=0; cnt<NUM_MP_GAMETYPE; cnt++)
 	{
 		if( ButtonList[ guiMPHGameTypeToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
 		{
@@ -1393,6 +1652,21 @@ void DoneFadeInForExitMPHScreen( void )
 	SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
 }
 
+void BtnMPHOverrideMaxAICallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		MSYS_GetBtnUserData( btn, 0 );
+
+		if( btn->uiFlags & BUTTON_CLICKED_ON )
+		{
+			ButtonList[ guiMPHOverrideMaxAIToggle ]->uiFlags &= ~BUTTON_CLICKED_ON;
+
+			//enable the current button
+			btn->uiFlags |= BUTTON_CLICKED_ON;
+		}
+	}
+}
 
 void BtnMPHRandomMercCallback(GUI_BUTTON *btn,INT32 reason)
 {
@@ -1483,6 +1757,22 @@ void BtnMPHUseNIVCallback(GUI_BUTTON *btn,INT32 reason)
 		if( btn->uiFlags & BUTTON_CLICKED_ON )
 		{
 			ButtonList[ guiMPHUseNIVToggle ]->uiFlags &= ~BUTTON_CLICKED_ON;
+
+			//enable the current button
+			btn->uiFlags |= BUTTON_CLICKED_ON;
+		}
+	}
+}
+
+void BtnMPHSendFilesCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		MSYS_GetBtnUserData( btn, 0 );
+
+		if( btn->uiFlags & BUTTON_CLICKED_ON )
+		{
+			ButtonList[ guiMPHSendFiles ]->uiFlags &= ~BUTTON_CLICKED_ON;
 
 			//enable the current button
 			btn->uiFlags |= BUTTON_CLICKED_ON;

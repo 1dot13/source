@@ -36,6 +36,9 @@
 	#endif
 //#endif
 
+#include "vfs.h"
+#include "PropertyContainer.h"
+
 #ifdef _DEBUG
 	//#define DEBUG_MEM_LEAKS // turns on tracking of every MemAlloc and MemFree!
 #endif
@@ -211,6 +214,7 @@ void ShutdownMemoryManager( void )
 		#ifndef EXTREME_MEMORY_DEBUGGING
 			#ifdef JA2BETAVERSION
 			{
+#ifndef USE_VFS
 				FILE *fp;
 				fp = fopen( "MemLeakInfo.txt", "a" );
 				if( fp )
@@ -226,6 +230,18 @@ void ShutdownMemoryManager( void )
 					fprintf( fp, "\n\n" );
 				}
 				fclose( fp );
+#else
+				CLog memLeak( L"MemLeakInfo.txt", true);
+				memLeak.Endl().Endl();
+				memLeak << ">>>>> MEMORY LEAK DETECTED!!! <<<<<" << CLog::endl;
+				memLeak << "	" << guiMemAlloced << " bytes memory total was allocated" << CLog::endl;
+				memLeak << "- " << guiMemFreed << " bytes memory total was freed" << CLog::endl;
+				memLeak << "_______________________________________________" << CLog::endl;
+				memLeak << guiMemTotal << " bytes memory total STILL allocated" << CLog::endl;
+				memLeak << MemDebugCounter << " memory blocks still allocated" << CLog::endl;
+				memLeak << "guiScreenExitedFrom = " << gzJA2ScreenNames[ gMsgBox.uiExitScreen ] << CLog::endl;
+				memLeak.Endl().Endl();
+#endif
 			}
 			#endif
 		#endif

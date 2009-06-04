@@ -25,6 +25,8 @@
 
 #include "FileCat.h"
 
+#include "Container.h"
+
 //**************************************************************************
 //
 //				Defines
@@ -162,7 +164,7 @@ BOOLEAN	FileCheckEndOfFile( HWFILE hFile );
 
 BOOLEAN GetFileManFileTime( HWFILE hFile, SGP_FILETIME	*pCreationTime, SGP_FILETIME *pLastAccessedTime, SGP_FILETIME *pLastWriteTime );
 
-
+INT32 GetFilesInDirectory( HCONTAINER hStack, CHAR *pcDir, HANDLE hFile, WIN32_FIND_DATA *pFind );
 
 
 

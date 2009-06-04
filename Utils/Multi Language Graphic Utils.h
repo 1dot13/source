@@ -40,6 +40,7 @@ enum
 	MLG_TITLETEXT_MP,	// ROMAN: Additional multiplayer text
 	MLG_BOBBYRAYTITLE,	//inshy: translation needed for russian version
 	MLG_BR,
+	MLG_MP_GOLDPIECEBUTTONS,
 };
 
 BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID );

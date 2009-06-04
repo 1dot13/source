@@ -22,18 +22,19 @@ struct stringstruct{
 	struct	stringstruct *pPrev;
 };
 
-#define		MSG_INTERFACE				0
-#define		MSG_DIALOG					1
-#define		MSG_CHAT						2
-#define	MSG_DEBUG						3
-#define		MSG_UI_FEEDBACK			4
-#define	MSG_ERROR						5
-#define	MSG_BETAVERSION	 6
-#define	MSG_TESTVERSION	 7
-#define	MSG_MAP_UI_POSITION_MIDDLE 8
-#define	MSG_MAP_UI_POSITION_UPPER 9
-#define	MSG_MAP_UI_POSITION_LOWER 10
-#define	MSG_SKULL_UI_FEEDBACK	11
+#define		MSG_INTERFACE					0
+#define		MSG_DIALOG						1
+#define		MSG_MPSYSTEM					2
+#define		MSG_DEBUG						3
+#define		MSG_UI_FEEDBACK					4
+#define		MSG_ERROR						5
+#define		MSG_BETAVERSION					6
+#define		MSG_TESTVERSION					7
+#define		MSG_MAP_UI_POSITION_MIDDLE		8
+#define		MSG_MAP_UI_POSITION_UPPER		9
+#define		MSG_MAP_UI_POSITION_LOWER		10
+#define		MSG_SKULL_UI_FEEDBACK			11
+#define		MSG_CHAT						12
 
 
 // These defines correlate to defines in font.h
@@ -80,6 +81,9 @@ ScrollStringStPtr SetStringPrev(ScrollStringStPtr pStringSt, ScrollStringStPtr p
 void SetString(ScrollStringStPtr pStringSt, STR16 String);
 // will go and clear all displayed strings off the screen
 void ClearDisplayedListOfTacticalStrings( void );
+// OJW - 20090426
+void SetTacticalMessageFilter( UINT ubPriority );
+void RemoveTacticalMessageFilter ( void );
 
 // clear ALL strings in the tactical Message Queue
 void ClearTacticalMessageQueue( void );

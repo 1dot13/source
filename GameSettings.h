@@ -189,7 +189,6 @@ typedef struct
 	INT32 iIMPStartingLevelCostMultiplier;
 	INT32 iBonusPointsForDisability;
 	INT32 iBonusPointsPerSkillNotTaken;
-
 	INT32 iMaxMilitiaPerSector;
 	INT32 iTrainingSquadSize;
 	INT32 iMilitiaTrainingCost;

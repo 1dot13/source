@@ -14,10 +14,17 @@
 	#include "impTGA.h"
 	#include "pcx.h"
 	#include "STCI.h"
+	#include "PngLoader.h"
 	#include "wcheck.h"
 	#include "Compression.h"
 	#include "vobject.h"
 #endif
+
+#include "VFS/vfs.h"
+
+const utf8string::str_t CONST_DOTJPC(L".jpc.7z");
+
+
 
 // This is the color substituted to keep a 24bpp->16bpp color
 // from going transparent (0x0000) -- DB
@@ -79,19 +86,42 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents )
 			iFileLoader = PCX_FILE_READER;
 			break;
 		}
-
-		if ( _stricmp( Extension, "TGA" ) == 0 )
+		else if ( _stricmp( Extension, "TGA" ) == 0 )
 		{
 			iFileLoader = TGA_FILE_READER;
 			break;
 		}
-
-		if ( _stricmp( Extension, "STI" ) == 0 )
+		else if ( _stricmp( Extension, "STI" ) == 0 )
 		{
+#ifdef USE_VFS
+			// see if there is a .jpc file first and when that fails, try .sti
+			utf8string str(ImageFile);
+			utf8string::str_t const& findext = str.c_wcs();
+			utf8string::size_t dot = findext.find_last_of(vfs::Const::DOT());
+			utf8string fname = findext.substr(0,dot).append(CONST_DOTJPC);
+			if(GetVFS()->FileExists(fname))
+			{
+				iFileLoader = JPC_FILE_READER;
+				strncpy(ImageFile, fname.utf8().c_str(), fname.length());
+				ImageFile[fname.length()] = 0;
+				break;
+			}
+#endif
 			iFileLoader = STCI_FILE_READER;
 			break;
 		}
-
+		else if ( _stricmp( Extension, "PNG" ) == 0 )
+		{
+			iFileLoader = PNG_FILE_READER;
+			break;
+		}
+#ifdef USE_VFS
+		else if ( StrCmp::Equal(Extension, L"jpc.7z") )
+		{
+			iFileLoader = JPC_FILE_READER;
+			break;
+		}
+#endif
 	} while ( FALSE );
 
 	// Determine if resource exists before creating image structure
@@ -104,6 +134,7 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents )
 #endif
 #endif
 		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, String("Resource file %s does not exist.", ImageFile) );
+
 		return( NULL );
 	}
 
@@ -221,6 +252,14 @@ BOOLEAN LoadImageData( HIMAGE hImage, UINT16 fContents )
 			fReturnVal = LoadSTCIFileToImage( hImage, fContents );
 			break;
 
+		case PNG_FILE_READER:
+			fReturnVal = LoadPNGFileToImage( hImage, fContents );
+			break;
+
+		case JPC_FILE_READER:
+			fReturnVal = LoadJPCFileToImage( hImage, fContents );
+			break;
+		
 		default:
 
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, "Unknown image loader was specified." );
@@ -905,6 +944,10 @@ BOOLEAN GetETRLEImageData( HIMAGE hImage, ETRLEData *pBuffer )
 
 	// Create buffer for objects
 	pBuffer->pETRLEObject = (ETRLEObject *) MemAlloc( sizeof( ETRLEObject ) * pBuffer->usNumberOfObjects );
+	if(!pBuffer->pETRLEObject)
+	{
+		return false;
+	}
 	CHECKF( pBuffer->pETRLEObject != NULL );
 	memset( pBuffer->pETRLEObject, 0, sizeof( ETRLEObject ) * pBuffer->usNumberOfObjects );
 
@@ -913,6 +956,10 @@ BOOLEAN GetETRLEImageData( HIMAGE hImage, ETRLEData *pBuffer )
 
 	// Allocate memory for pixel data
 	pBuffer->pPixData = MemAlloc( hImage->uiSizePixData );
+	if(!pBuffer->pPixData)
+	{
+		return false;
+	}
 	CHECKF( pBuffer->pPixData != NULL );
 	memset( pBuffer->pPixData, 0, hImage->uiSizePixData );
 
