@@ -293,23 +293,13 @@ void RenderIMPAttributeSelection( void )
 	// text
 	DrawTextToScreen( sgAttributeSelectionText[3], LAPTOP_SCREEN_UL_X + STARTING_LEVEL_BOX_POS_X + 9, LAPTOP_SCREEN_WEB_UL_Y + STARTING_LEVEL_BOX_POS_Y + 4, ( 100 ), FONT12ARIAL, FONT_WHITE, FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
 
-	// show level index
-	HVOBJECT	hImageHandle;
-	GetVideoObject(&hImageHandle, guiIST_GreyGoldBoxLvl );
-	BltVideoObject(FRAME_BUFFER, hImageHandle, 0,STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 20, STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 70, VO_BLT_SRCTRANSPARENCY,NULL);
+	CHAR16 sStartLevelString[64];
+	swprintf(sStartLevelString, L"%d", iStartingLevel );
 
-		CHAR16 sStartLevelString[64];
+	// print string
+	DrawTextToScreen( sStartLevelString, STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 99, STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 6, ( 100 ), FONT14ARIAL, 142, FONT_BLACK, FALSE, CENTER_JUSTIFIED );
 
-		swprintf(sStartLevelString, L"%d", iStartingLevel );
-
-		// set font color
-		SetFontForeground( 142 );
-		SetFontBackground( FONT_BLACK );
-		SetFont( FONT14ARIAL );
-		// print string
-		mprintf( STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 144 , STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 6, sStartLevelString );
-
-		InvalidateRegion( STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 130, STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 10, STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 172, STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 42 );
+	InvalidateRegion( STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 94, STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 8, STARTING_LEVEL_BOX_POS_X + LAPTOP_SCREEN_UL_X + 130, STARTING_LEVEL_BOX_POS_Y + LAPTOP_SCREEN_WEB_UL_Y + 42 );
 
 	//****************************************
 
