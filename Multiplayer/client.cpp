@@ -3023,30 +3023,33 @@ void send_changestate (EV_S_CHANGESTATE * SChangeState)
 
 void recieveSTATE(RPCParameters *rpcParameters)
 {
-
 	EV_S_CHANGESTATE*	new_state = (EV_S_CHANGESTATE*)rpcParameters->input;
-
-
-	//ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"recieved state");	
-	
 
 	SOLDIERTYPE * pSoldier=MercPtrs[ new_state->usSoldierID ];
 
 		if(pSoldier->bActive)
 		{
-			if(new_state->usNewState==93)
+			// Start first AID
+			if(new_state->usNewState==START_AID)
 			{
 				pSoldier->EVENT_InternalSetSoldierPosition( new_state->sXPos, new_state->sYPos ,FALSE, FALSE, FALSE );
 				pSoldier->ChangeSoldierStance( ANIM_CROUCH );
 				pSoldier->EVENT_SetSoldierDirection(	new_state->usNewDirection );
 
 			}
-			//if(new_state->usNewState==95)ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"All Bandaged.");	
+			// Start cutting fence
+			else if (new_state->usNewState==CUTTING_FENCE)
+			{
+				// The usTargetGridNo holds the GridNo of the fence tile
+				pSoldier->sTargetGridNo = new_state->usTargetGridNo;
+
+				pSoldier->EVENT_InternalSetSoldierPosition( new_state->sXPos, new_state->sYPos ,FALSE, FALSE, FALSE );
+				pSoldier->ChangeSoldierStance( ANIM_CROUCH );
+				pSoldier->EVENT_SetSoldierDirection(	new_state->usNewDirection );
+			}
 
 		pSoldier->EVENT_InitNewSoldierAnim( new_state->usNewState, new_state->usStartingAniCode, new_state->fForce );
-		}
-//AddGameEvent( S_CHANGESTATE, 0, &SChangeState );
-	//someday ;)
+	}
 }
 
 void send_death( SOLDIERTYPE *pSoldier )

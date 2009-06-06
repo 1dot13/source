@@ -55,10 +55,10 @@ vfs::CVirtualLocation::CVirtualLocation(vfs::Path const& sPath)
 vfs::CVirtualLocation::~CVirtualLocation()
 {
 	tVFiles::iterator it = m_mapVFiles.begin();
-	//for(; it != m_mapVFiles.end(); ++it)
-	//{
-	//	delete it->second;
-	//}
+	for(; it != m_mapVFiles.end(); ++it)
+	{
+		it->second->Destroy();
+	}
 	m_mapVFiles.clear();
 }
 

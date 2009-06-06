@@ -68,6 +68,7 @@ typedef struct
 	UINT16	usStartingAniCode;
 	BOOLEAN	fForce;
 	UINT8	usNewDirection;//hayden
+	UINT16	usTargetGridNo; // WANNE - MP: Used for manipulating the target grid no
 
 } EV_S_CHANGESTATE;
 

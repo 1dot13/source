@@ -8,15 +8,15 @@ ObjBlockAllocator<vfs::CVirtualFile>* vfs::CVirtualFile::_vfile_pool = NULL;
 vfs::CVirtualFile* vfs::CVirtualFile::Create(vfs::Path const& sFilePath, vfs::CProfileStack& rPStack)
 {
 	unsigned int ID=0;
-#if 0
-	CVirtualFile* file = new CVirtualFile();
-#else
+#ifdef VFILE_BLOCK_CREATE
 	if(!_vfile_pool)
 	{
 		_vfile_pool = new ObjBlockAllocator<vfs::CVirtualFile>();
 		CFileAllocator::RegisterAllocator(_vfile_pool);
 	}
 	CVirtualFile* file = _vfile_pool->New(&ID);
+#else
+	CVirtualFile* file = new CVirtualFile();
 #endif
 	file->_path = sFilePath;
 	file->_pstack = &rPStack;
@@ -24,10 +24,14 @@ vfs::CVirtualFile* vfs::CVirtualFile::Create(vfs::Path const& sFilePath, vfs::CP
 	return file;
 }
 
-//vfs::CVirtualFile::CVirtualFile(vfs::Path const& sFilePath, CProfileStack& rPStack)
-//: _path(sFilePath), _top_pname("_INVALID_"), _top_file(NULL), _rstack(rPStack)
-//{
-//};
+void vfs::CVirtualFile::Destroy()
+{
+#ifndef VFILE_BLOCK_CREATE
+	delete this;
+#endif
+}
+
+
 vfs::CVirtualFile::CVirtualFile()
 : _path(""), _top_pname("_INVALID_"), _top_file(NULL), _pstack(NULL)
 , _myID(-1)
@@ -36,7 +40,6 @@ vfs::CVirtualFile::CVirtualFile()
 
 vfs::CVirtualFile::~CVirtualFile()
 {
-	int i = 0;
 }
 
 vfs::Path const& vfs::CVirtualFile::Path()

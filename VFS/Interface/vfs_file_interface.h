@@ -48,6 +48,10 @@ namespace vfs
 			return 0;
 		};
 
+		virtual bool _getRealPath(vfs::Path& rPath)
+		{
+			return false;
+		}
 	protected:
 		vfs::Path		m_sFileName;
 	};

@@ -2522,6 +2522,7 @@ BOOLEAN SOLDIERTYPE::ChangeSoldierState( UINT16 usNewState, UINT16 usStartingAni
 	SChangeState.sYPos						 = this->sY;
 	SChangeState.fForce						 = fForce;
 	SChangeState.usNewDirection = this->ubDirection;
+	SChangeState.usTargetGridNo = this->sTargetGridNo;
 
 
 	//AddGameEvent( S_CHANGESTATE, 0, &SChangeState );
@@ -10694,8 +10695,10 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT16 sGridNo, UINT8 ubDirection )
 		//else
 		{
 			// CHANGE TO ANIMATION
-			if(!is_networked)this->EVENT_InitNewSoldierAnim( START_AID, 0 , FALSE );
-			else this->ChangeSoldierState( START_AID, 0, 0 );
+			if(!is_networked)
+				this->EVENT_InitNewSoldierAnim( START_AID, 0 , FALSE );
+			else 
+				this->ChangeSoldierState( START_AID, 0, 0 );
 
 		}
 
@@ -12350,7 +12353,10 @@ void SOLDIERTYPE::EVENT_SoldierBeginCutFence( INT16 sGridNo, UINT8 ubDirection )
 		this->sTargetGridNo = sGridNo;
 
 		// CHANGE TO ANIMATION
-		this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0 , FALSE );
+		if (!is_networked)
+			this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0 , FALSE );
+		else
+			this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
 	}
 }
 

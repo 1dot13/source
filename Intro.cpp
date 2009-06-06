@@ -32,6 +32,8 @@
 	#include "MessageBoxScreen.h"
 #endif
 
+#include "VFS/vfs.h"
+
 extern STR16	gzIntroScreen[];
 extern HVSURFACE ghFrameBuffer;
 
@@ -198,13 +200,14 @@ BOOLEAN EnterIntroScreen()
 //		return( TRUE );
 //	}
 //#endif
-
+#ifndef USE_VFS
 	//if the library doesnt exist, exit
 	if( !IsLibraryOpened( LIBRARY_INTRO ) )
 	{
 		PrepareToExitIntroScreen();
 		return( TRUE );
 	}
+#endif
 
 	//initialize smacker
 	SmkInitialize( ghWindow, SCREEN_WIDTH, SCREEN_HEIGHT);

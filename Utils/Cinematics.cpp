@@ -30,6 +30,8 @@
 #include "DirectDraw Calls.h"
 #include "Cinematics.h"
 #include "soundman.h"
+#include "VFS/vfs.h"
+#include "VFS/vfs_file_raii.h"
 
 #ifdef JA2
 	#include "video.h"
@@ -200,6 +202,7 @@ SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
 		return(NULL);
 	}
 
+#ifndef USE_VFS
 	// Attempt opening the filename
 	if(!(pSmack->hFileHandle=FileOpen(cFilename, FILE_OPEN_EXISTING | FILE_ACCESS_READ, FALSE)))
 	{
@@ -209,6 +212,36 @@ SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
 
 	//Get the real file handle for the file man handle for the smacker file
 	hFile = GetRealFileHandleFromFileManFileHandle( pSmack->hFileHandle );
+#else
+	vfs::Path introname(cFilename);
+	vfs::Path dir,filename;
+	introname.SplitLast(dir,filename);
+	vfs::Path tempfile = vfs::Path(L"Temp") + filename;
+	if(!GetVFS()->FileExists(tempfile))
+	{
+		try
+		{
+			if(!GetVFS()->FileExists(introname))
+			{
+				return NULL;
+			}
+			vfs::COpenReadFile rfile(introname);
+			vfs::UInt32 size = rfile.file().GetFileSize();
+			std::vector<vfs::Byte> data(size);
+			vfs::UInt32 io;
+			rfile.file().Read(&data[0],size,io);
+
+			vfs::COpenWriteFile wfile(tempfile,true);
+			wfile.file().Write(&data[0],size,io);
+		}
+		catch(CBasicException& ex)
+		{
+			std::wstringstream wss;
+			wss << L"Intro file \"" << filename() << L"\" could not be extracted";
+			RETHROWEXCEPTION(wss.str().c_str(),&ex);
+		}
+	}
+#endif
 
 	// Allocate a Smacker buffer for video decompression
 	if(!(pSmack->SmackBuffer=SmackBufferOpen(hDisplayWindow,SMACKAUTOBLIT,SCREEN_WIDTH,SCREEN_HEIGHT,0,0)))
@@ -216,9 +249,25 @@ SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
 		ErrorMsg("SMK ERROR: Can't allocate a Smacker decompression buffer");
 		return(NULL);
 	}
-
+#ifndef USE_VFS
 	if(!(pSmack->SmackHandle=SmackOpen((CHAR8 *)hFile, SMACKFILEHANDLE | SMACKTRACKS, SMACKAUTOEXTRA)))
+#else
 //	if(!(pSmack->SmackHandle=SmackOpen(cFilename, SMACKTRACKS, SMACKAUTOEXTRA)))
+	vfs::Path tempfilename;
+	try
+	{
+		vfs::COpenWriteFile wfile(tempfile);
+		if(!wfile.file()._getRealPath(tempfilename))
+		{
+			return NULL;
+		}
+	}
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(L"Temporary intro file could not be read", &ex);
+	}
+	if(!(pSmack->SmackHandle=SmackOpen(tempfilename().utf8().c_str(), SMACKTRACKS, SMACKAUTOEXTRA)))
+#endif
 	{
 		ErrorMsg("SMK ERROR: Smacker won't open the SMK file");
 		return(NULL);

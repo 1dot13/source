@@ -14,6 +14,17 @@ vfs::Path vfs::CVFSFile::GetFullPath()
 	}
 }
 
+bool vfs::CVFSFile::_getRealPath(vfs::Path& rPath)
+{
+	if(_pLoc_)
+	{
+		rPath = static_cast<IDirectory<CVFSFile::write_type>*>(_pLoc_)->GetRealPath() + m_sFileName;
+		return true;
+	}
+	return false;
+}
+
+
 bool vfs::CVFSFile::Delete()
 {
 	Close();

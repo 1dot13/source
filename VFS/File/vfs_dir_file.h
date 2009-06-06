@@ -24,6 +24,8 @@ namespace vfs
 
 		virtual bool		OpenRead();
 		virtual bool		OpenWrite(bool bCreateWhenNotExist = false, bool bTruncate = false);
+
+		virtual bool		_getRealPath(vfs::Path& rPath);
 	};
 
 	class CVFSTextFile : public vfs::CTextFile, public vfs::ILocationAware<vfs::CFile::read_type, vfs::CFile::write_type>

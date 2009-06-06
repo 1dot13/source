@@ -4,6 +4,8 @@
 #include "vfs_profile.h"
 #include <vector>
 
+#define VFILE_BLOCK_CREATE
+
 namespace vfs
 {
 	class CVirtualFile
@@ -17,9 +19,9 @@ namespace vfs
 		};
 	public:
 		~CVirtualFile();
-		//CVirtualFile(vfs::Path const& sFilePath, CProfileStack& rPStack);
+		void Destroy();
 		static CVirtualFile* Create(vfs::Path const& sFilePath, CProfileStack& rPStack);
-		
+
 		vfs::Path const&	Path();
 		void				Add(vfs::IBaseFile *pFile, utf8string sProfileName, bool bReplace = false);
 		bool				Remove(vfs::IBaseFile *pFile);
@@ -37,7 +39,9 @@ namespace vfs
 		CProfileStack*		_pstack;
 	private:
 		unsigned int		_myID;
+#ifdef VFILE_BLOCK_CREATE
 		static ObjBlockAllocator<CVirtualFile>* _vfile_pool;
+#endif
 	};
 } // end namspace
 
