@@ -1114,11 +1114,11 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
 // Please note, several of these are artificially inflated to 19 entries to help fix a complication with
 // changing item type while watching its description box
-STR16		gzWeaponStatsFasthelp[ 27 ] =
+STR16		gzWeaponStatsFasthelp[ 29 ] =
 {
 	L"Range",
 	L"Damage",
-	L"Burst/Auto Penalty",
+	L"Burst/Auto Penalty (Lower is better)",
 	L"Autofire shots per 5 AP",
 	L"Accuracy",
 	L"Reliability",
@@ -1143,13 +1143,15 @@ STR16		gzWeaponStatsFasthelp[ 27 ] =
 	L"No Burst Mode!",
 	L"No Auto Mode!",
 	L"APs to Bash",
+	L"Autofire Penalty (Lower is better)",
+    L"Burst Penalty (Lower is better)",
 };
 
-STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
+STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
 {
 	L"Range",
 	L"Damage",
-	L"Burst/Auto Penalty",
+	L"Burst/Auto Penalty (Lower is better)",
 	L"Autofire shots per 5 AP",
 	L"Accuracy",
 	L"Reliability",
@@ -1174,6 +1176,8 @@ STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
 	L"No Burst Mode!",
 	L"No Auto Mode!",
 	L"APs to Bash",
+	L"Autofire Penalty (Lower is better)",
+    L"Burst Penalty (Lower is better)",
 };
 
 STR16		gzAmmoStatsFasthelp[ 20 ] =
@@ -1189,10 +1193,10 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 	L"Range Modifier",
 	L"Damage Modifier",
 	L"To-Hit Modifier",
+	L"Autofire Penalty Modifier (Higher is better)",
 	L"Burst/Auto Penalty Modifier (Higher is better)",
 	L"Reliability Modifier",
 	L"Loudness Modifier (Lower is better)",
-	L"",
 	L"",
 	L"",
 	L"",

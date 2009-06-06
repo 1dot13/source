@@ -1084,11 +1084,11 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
 // Please note, several of these are artificially inflated to 19 entries to help fix a complication with
 // changing item type while watching its description box
-STR16		gzWeaponStatsFasthelp[ 27 ] =
+STR16		gzWeaponStatsFasthelp[ 29 ] =
 {
 	L"Reichweite",
 	L"Schaden",
-	L"Burst/Auto Strafe",
+	L"Burst/Auto Strafe (Niedriger ist besser)",
 	L"Autofeuer Schüsse für 5 AP",
 	L"Genauigkeit",
 	L"Zuverlässigkeit",
@@ -1113,13 +1113,15 @@ STR16		gzWeaponStatsFasthelp[ 27 ] =
 	L"Kein Feuerstoß!",
 	L"Kein Autofeuer!",
 	L"APs zum Schlagen",
+	L"Autofeuer Strafe (Niedriger ist besser)",
+    L"Feuerstoß Strafe (Niedriger ist besser)",
 };
 
-STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
+STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
 {
 	L"Reichweite",
 	L"Schaden",
-	L"Feuerstoß/Autofeuer Strafe",
+	L"Feuerstoß/Autofeuer Strafe (Niedriger ist besser)",
 	L"Autofeuer Schüsse für 5 AP",
 	L"Genauigkeit",
 	L"Zuverlässigkeit",
@@ -1144,6 +1146,8 @@ STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
 	L"Kein Feuerstoß!",
 	L"Kein Autofeuer!",
 	L"APs zum Schlagen",
+	L"Autofeuer Strafe (Niedriger ist besser)",
+    L"Feuerstoß Strafe (Niedriger ist besser)",
 };
 
 STR16		gzAmmoStatsFasthelp[ 20 ] =
@@ -1159,10 +1163,10 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 	L"Reichweite MOdifikator",
 	L"Schaden Modifikator",
 	L"Treffer Modifikator",
+	L"Autofeuer Strafe Modifikator (Höher ist besser)",
 	L"Feuerstoß/Autofeuer Strafe Modifikator (Höher ist besser)",
 	L"Zuverlässigkeits Modifikator",
 	L"Lautstärke Modifikator (Niedriger ist besser)",
-	L"",
 	L"",
 	L"",
 	L"",

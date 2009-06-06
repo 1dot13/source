@@ -1116,11 +1116,11 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
 // Please note, several of these are artificially inflated to 19 entries to help fix a complication with
 // changing item type while watching its description box
-STR16		gzWeaponStatsFasthelp[ 27 ] =
+STR16		gzWeaponStatsFasthelp[ 29 ] =
 {
 	L"Portée",
 	L"Dégats",
-	L"Pénalité Rafale/Auto",
+	L"Pénalité Rafale/Auto (Moins c'est mieux)",
 	L"Nombre de tirs pour 5 PA",
 	L"Précision",
 	L"Fiabilité",
@@ -1145,13 +1145,15 @@ STR16		gzWeaponStatsFasthelp[ 27 ] =
 	L"Pas de tir en rafale!",
 	L"Pas de tir auto.!",
 	L"PA pour frapper",
+	L"Autofire Penalty (Lower is better)",
+    L"Burst Penalty (Lower is better)",
 };
 
-STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
+STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
 {
 	L"Portée",
 	L"Dégats",
-	L"Pénalité Rafale/Auto",
+	L"Pénalité Rafale/Auto (Moins c'est mieux)",
 	L"Nombre de tirs pour 5 PA",
 	L"Précision",
 	L"Fiabilité",
@@ -1176,6 +1178,8 @@ STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
 	L"Pas de tir en rafale!",
 	L"Pas de tir auto.!",
 	L"PA pour frapper",
+	L"Autofire Penalty (Lower is better)",
+    L"Burst Penalty (Lower is better)",
 };
 
 STR16		gzAmmoStatsFasthelp[ 20 ] =
@@ -1191,10 +1195,10 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 	L"Facteur de portée",
 	L"Facteur de dégats",
 	L"Facteur de toucher",
+	L"Autofire Penalty Modifier (Higher is better)",
 	L"Facteur de pénalité rafle/auto. (Plus c'est mieux)",
 	L"Facteur de fiabilité",
 	L"Facteur d'intensité sonore (Moins c'est mieux)",
-	L"",
 	L"",
 	L"",
 	L"",

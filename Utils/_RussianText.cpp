@@ -1113,11 +1113,11 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
 // Please note, several of these are artificially inflated to 19 entries to help fix a complication with
 // changing item type while watching its description box
-STR16		gzWeaponStatsFasthelp[ 27 ] =
+STR16		gzWeaponStatsFasthelp[ 29 ] =
 {
 	L"Дальнобойность",						//Range
 	L"Урон",							//Damage
-	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без)",	//Burst/Auto Penalty
+	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без) (чем меньше, тем лучше)",	//Burst/Auto Penalty
 	L"Выстрелов в автоматическом\nрежиме за 5 ОД",			//Autofire shots per 5 AP
 	L"Точность",							//Accuracy
 	L"Надёжность",							//Reliability
@@ -1142,13 +1142,15 @@ STR16		gzWeaponStatsFasthelp[ 27 ] =
 	L"Нет отсечки патрона!",					//No Burst Mode!
 	L"Нет автоматического режима!",					//No Auto Mode!
 	L"ОД на удар",							//APs to Bash
+	L"Autofire Penalty (Lower is better)",
+    L"Burst Penalty (Lower is better)",
 };
 
-STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
+STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
 {
 	L"Дальнобойность",
 	L"Урон",
-	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без)",
+	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без) (Lower is better)",
 	L"Выстрелов в автоматическом\nрежиме за 5 ОД",
 	L"Точность",
 	L"Надёжность",
@@ -1173,6 +1175,8 @@ STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
 	L"Нет отсечки патрона!",
 	L"Нет автоматического режима!",
 	L"ОД на удар",
+	L"Autofire Penalty (Lower is better)",
+    L"Burst Penalty (Lower is better)",
 };
 
 STR16		gzAmmoStatsFasthelp[ 20 ] =
@@ -1188,10 +1192,10 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 	L"Модификатор дальнобойности",				//Range Modifier
 	L"Модификатор урона",					//Damage Modifier
 	L"Модификатор точности",				//To-Hit Modifier
+	L"Autofire Penalty Modifier (Higher is better)",
 	L"Модификатор штрафа\nза отдачу при\nстрельбе очередью\n(c отсечкой/без)",	//Burst/Auto Penalty Modifier (Higher is better)",
 	L"Модификатор надёжности",				//Reliability Modifier
 	L"Модификатор шумности\n(чем меньше, тем лучше)",	//Loudness Modifier (Lower is better)
-	L"",
 	L"",
 	L"",
 	L"",

@@ -1115,11 +1115,11 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
 // Please note, several of these are artificially inflated to 19 entries to help fix a complication with
 // changing item type while watching its description box
-STR16		gzWeaponStatsFasthelp[ 27 ] =
+STR16		gzWeaponStatsFasthelp[ 29 ] =
 {
 	L"射程",
 	L"杀伤",
-	L"点射/自动惩罚",
+	L"点射/自动惩罚 (Lower is better)",
 	L"连发数量/5AP",
 	L"精度",
 	L"可靠性",
@@ -1144,13 +1144,15 @@ STR16		gzWeaponStatsFasthelp[ 27 ] =
 	L"无点射模式！",
 	L"无连发模式！",
 	L"格斗AP",
+	L"Autofire Penalty (Lower is better)",
+    L"Burst Penalty (Lower is better)",
 };
 
-STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
+STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
 {
 	L"射程",
 	L"杀伤",
-	L"点射/连发惩罚",
+	L"点射/连发惩罚（越低越好）",
 	L"连发数量/5AP",
 	L"精度",
 	L"可靠性",
@@ -1175,6 +1177,8 @@ STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
 	L"无点射模式！",
 	L"无连发模式！",
 	L"击打所需AP",
+	L"Autofire Penalty (Lower is better)",
+    L"Burst Penalty (Lower is better)",
 };
 
 STR16		gzAmmoStatsFasthelp[ 20 ] =
@@ -1190,10 +1194,10 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 	L"射程修正",
 	L"杀伤修正",
 	L"命中修正",
+	L"Autofire Penalty Modifier (Higher is better)",
 	L"点射/连发惩罚修正（越高越好）",
 	L"可靠性修正",
 	L"噪音修正（越低越好）",
-	L"",
 	L"",
 	L"",
 	L"",

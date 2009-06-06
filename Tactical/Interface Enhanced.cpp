@@ -155,6 +155,8 @@ INT16		BULLET_AMMOTOHITBON_X;
 INT16		BULLET_AMMOTOHITBON_Y;
 INT16		BULLET_AMMOBURSTBON_X;
 INT16		BULLET_AMMOBURSTBON_Y;
+INT16		BULLET_AMMOAUTOBON_X;
+INT16		BULLET_AMMOAUTOBON_Y;
 INT16		BULLET_AMMORELIABILITYBON_X;
 INT16		BULLET_AMMORELIABILITYBON_Y;
 INT16		BULLET_AMMONOISESUPP_X;
@@ -383,7 +385,7 @@ void InitEDBCoords()
 		gAmmoDescStatsRects[11].iLeft = 173;	gAmmoDescStatsRects[11].iTop = 265;	gAmmoDescStatsRects[11].iRight = 230;	gAmmoDescStatsRects[11].iBottom = 276;
 		gAmmoDescStatsRects[12].iLeft = 173;	gAmmoDescStatsRects[12].iTop = 277;	gAmmoDescStatsRects[12].iRight = 230;	gAmmoDescStatsRects[12].iBottom = 288;	// Fourth Column
 		gAmmoDescStatsRects[13].iLeft = 173;	gAmmoDescStatsRects[13].iTop = 289;	gAmmoDescStatsRects[13].iRight = 230;	gAmmoDescStatsRects[13].iBottom = 300;
-		gAmmoDescStatsRects[14].iLeft = 0;		gAmmoDescStatsRects[14].iTop = 0;	gAmmoDescStatsRects[14].iRight = 1;		gAmmoDescStatsRects[14].iBottom = 1;	// Placeholders
+		gAmmoDescStatsRects[14].iLeft = 173;	gAmmoDescStatsRects[14].iTop = 301;	gAmmoDescStatsRects[14].iRight = 230;	gAmmoDescStatsRects[14].iBottom = 312;	// Placeholders
 		gAmmoDescStatsRects[15].iLeft = 0;		gAmmoDescStatsRects[15].iTop = 0;	gAmmoDescStatsRects[15].iRight = 1;		gAmmoDescStatsRects[15].iBottom = 1;
 		gAmmoDescStatsRects[16].iLeft = 0;		gAmmoDescStatsRects[16].iTop = 0;	gAmmoDescStatsRects[16].iRight = 1;		gAmmoDescStatsRects[16].iBottom = 1;
 		gAmmoDescStatsRects[17].iLeft = 0;		gAmmoDescStatsRects[17].iTop = 0;	gAmmoDescStatsRects[17].iRight = 1;		gAmmoDescStatsRects[17].iBottom = 1;
@@ -519,12 +521,12 @@ void InitEDBCoords()
 			gAmmoDescStatsRects[6].iLeft = 296;		gAmmoDescStatsRects[6].iTop = 66;	gAmmoDescStatsRects[6].iRight = 321;	gAmmoDescStatsRects[6].iBottom = 89;
 			gAmmoDescStatsRects[7].iLeft = 269;		gAmmoDescStatsRects[7].iTop = 90;	gAmmoDescStatsRects[7].iRight = 291;	gAmmoDescStatsRects[7].iBottom = 113;
 			gAmmoDescStatsRects[8].iLeft = 202;		gAmmoDescStatsRects[8].iTop = 134;	gAmmoDescStatsRects[8].iRight = 260;	gAmmoDescStatsRects[8].iBottom = 145;	// Third Column
-			gAmmoDescStatsRects[9].iLeft = 202;		gAmmoDescStatsRects[9].iTop = 146;	gAmmoDescStatsRects[9].iRight = 260;	gAmmoDescStatsRects[9].iBottom = 157;
-			gAmmoDescStatsRects[10].iLeft = 202;	gAmmoDescStatsRects[10].iTop = 158;	gAmmoDescStatsRects[10].iRight = 260;	gAmmoDescStatsRects[10].iBottom = 169;
-			gAmmoDescStatsRects[11].iLeft = 202;	gAmmoDescStatsRects[11].iTop = 170;	gAmmoDescStatsRects[11].iRight = 260;	gAmmoDescStatsRects[11].iBottom = 181;
-			gAmmoDescStatsRects[12].iLeft = 267;	gAmmoDescStatsRects[12].iTop = 134;	gAmmoDescStatsRects[12].iRight = 325;	gAmmoDescStatsRects[12].iBottom = 145;	// Fourth Column
-			gAmmoDescStatsRects[13].iLeft = 267;	gAmmoDescStatsRects[13].iTop = 146;	gAmmoDescStatsRects[13].iRight = 325;	gAmmoDescStatsRects[13].iBottom = 1;
-			gAmmoDescStatsRects[14].iLeft = 0;		gAmmoDescStatsRects[14].iTop = 0;	gAmmoDescStatsRects[14].iRight = 1;		gAmmoDescStatsRects[14].iBottom = 1;	// Placeholders
+			gAmmoDescStatsRects[9].iLeft = 202;		gAmmoDescStatsRects[9].iTop = 158;	gAmmoDescStatsRects[9].iRight = 260;	gAmmoDescStatsRects[9].iBottom = 169;
+			gAmmoDescStatsRects[10].iLeft = 267;	gAmmoDescStatsRects[10].iTop = 134;	gAmmoDescStatsRects[10].iRight = 325;	gAmmoDescStatsRects[10].iBottom = 145;
+			gAmmoDescStatsRects[11].iLeft = 267;	gAmmoDescStatsRects[11].iTop = 146;	gAmmoDescStatsRects[11].iRight = 325;	gAmmoDescStatsRects[11].iBottom = 157;
+			gAmmoDescStatsRects[12].iLeft = 267;	gAmmoDescStatsRects[12].iTop = 158;	gAmmoDescStatsRects[12].iRight = 325;	gAmmoDescStatsRects[12].iBottom = 169;	// Fourth Column
+			gAmmoDescStatsRects[13].iLeft = 202;	gAmmoDescStatsRects[13].iTop = 170;	gAmmoDescStatsRects[13].iRight = 260;	gAmmoDescStatsRects[13].iBottom = 181;
+			gAmmoDescStatsRects[14].iLeft = 267;	gAmmoDescStatsRects[14].iTop = 170;	gAmmoDescStatsRects[14].iRight = 325;	gAmmoDescStatsRects[14].iBottom = 181;	// Placeholders
 			gAmmoDescStatsRects[15].iLeft = 0;		gAmmoDescStatsRects[15].iTop = 0;	gAmmoDescStatsRects[15].iRight = 1;		gAmmoDescStatsRects[15].iBottom = 1;
 			gAmmoDescStatsRects[16].iLeft = 0;		gAmmoDescStatsRects[16].iTop = 0;	gAmmoDescStatsRects[16].iRight = 1;		gAmmoDescStatsRects[16].iBottom = 1;
 			gAmmoDescStatsRects[17].iLeft = 0;		gAmmoDescStatsRects[17].iTop = 0;	gAmmoDescStatsRects[17].iRight = 1;		gAmmoDescStatsRects[17].iBottom = 1;
@@ -662,8 +664,8 @@ void InitEDBCoords()
 			gAmmoDescStatsRects[10].iLeft = 407;	gAmmoDescStatsRects[10].iTop = 36;	gAmmoDescStatsRects[10].iRight = 465;	gAmmoDescStatsRects[10].iBottom = 47;
 			gAmmoDescStatsRects[11].iLeft = 407;	gAmmoDescStatsRects[11].iTop = 48;	gAmmoDescStatsRects[11].iRight = 465;	gAmmoDescStatsRects[11].iBottom = 59;
 			gAmmoDescStatsRects[12].iLeft = 407;	gAmmoDescStatsRects[12].iTop = 60;	gAmmoDescStatsRects[12].iRight = 465;	gAmmoDescStatsRects[12].iBottom = 71;
-			gAmmoDescStatsRects[13].iLeft = 407;	gAmmoDescStatsRects[13].iTop = 72;	gAmmoDescStatsRects[13].iRight = 465;	gAmmoDescStatsRects[13].iBottom = 1;
-			gAmmoDescStatsRects[14].iLeft = 0;		gAmmoDescStatsRects[14].iTop = 0;	gAmmoDescStatsRects[14].iRight = 1;		gAmmoDescStatsRects[14].iBottom = 1;	// Placeholders
+			gAmmoDescStatsRects[13].iLeft = 407;	gAmmoDescStatsRects[13].iTop = 72;	gAmmoDescStatsRects[13].iRight = 465;	gAmmoDescStatsRects[13].iBottom = 83;
+			gAmmoDescStatsRects[14].iLeft = 407;	gAmmoDescStatsRects[14].iTop = 84;	gAmmoDescStatsRects[14].iRight = 465;	gAmmoDescStatsRects[14].iBottom = 95;	// Placeholders
 			gAmmoDescStatsRects[15].iLeft = 0;		gAmmoDescStatsRects[15].iTop = 0;	gAmmoDescStatsRects[15].iRight = 1;		gAmmoDescStatsRects[15].iBottom = 1;
 			gAmmoDescStatsRects[16].iLeft = 0;		gAmmoDescStatsRects[16].iTop = 0;	gAmmoDescStatsRects[16].iRight = 1;		gAmmoDescStatsRects[16].iBottom = 1;
 			gAmmoDescStatsRects[17].iLeft = 0;		gAmmoDescStatsRects[17].iTop = 0;	gAmmoDescStatsRects[17].iRight = 1;		gAmmoDescStatsRects[17].iBottom = 1;
@@ -854,8 +856,8 @@ void InitDescStatCoords()
 				gWeaponStats[18].sX = 268;	gWeaponStats[18].sY = 136;	gWeaponStats[18].sValDx = 30;	// 18) COL 4; ROW 1
 				gWeaponStats[19].sX = 268;	gWeaponStats[19].sY = 148;	gWeaponStats[19].sValDx = 30;	// 19) COL 4; ROW 2
 				gWeaponStats[20].sX = 268;	gWeaponStats[20].sY = 160;	gWeaponStats[20].sValDx = 30;	// 20) COL 4; ROW 3
-				gWeaponStats[21].sX = 268;	gWeaponStats[21].sY = 172;	gWeaponStats[21].sValDx = 30;	// 21) COL 4; ROW 4
-				gWeaponStats[22].sX = 203;	gWeaponStats[22].sY = 172;	gWeaponStats[22].sValDx = 30;	// 22) COL 3; ROW 4
+				gWeaponStats[21].sX = 203;	gWeaponStats[21].sY = 172;	gWeaponStats[21].sValDx = 30;	// 21) COL 3; ROW 4
+				gWeaponStats[22].sX = 268;	gWeaponStats[22].sY = 172;	gWeaponStats[22].sValDx = 30;	// 22) COL 4; ROW 4
 				// EQUALS signs
 				gWeaponStats[23].sX = 235;	gWeaponStats[23].sY = 44;	gWeaponStats[23].sValDx = 0;	// 23) COL 1; ROW 1
 				gWeaponStats[24].sX = 235;	gWeaponStats[24].sY = 56;	gWeaponStats[24].sValDx = 0;	// 24) COL 1; ROW 2
@@ -876,8 +878,8 @@ void InitDescStatCoords()
 				gWeaponStats[39].sX = 300;	gWeaponStats[39].sY = 136;	gWeaponStats[39].sValDx = 0;	// 39) COL 4; ROW 1
 				gWeaponStats[40].sX = 300;	gWeaponStats[40].sY = 148;	gWeaponStats[40].sValDx = 0;	// 40) COL 4; ROW 2
 				gWeaponStats[41].sX = 300;	gWeaponStats[41].sY = 160;	gWeaponStats[41].sValDx = 0;	// 41) COL 4; ROW 3
-				gWeaponStats[42].sX = 300;	gWeaponStats[42].sY = 172;	gWeaponStats[42].sValDx = 0;	// 42) COL 4; ROW 4
-				gWeaponStats[43].sX = 235;	gWeaponStats[43].sY = 172;	gWeaponStats[43].sValDx = 0;	// 43) COL 3; ROW 4
+				gWeaponStats[42].sX = 235;	gWeaponStats[42].sY = 172;	gWeaponStats[42].sValDx = 0;	// 42) COL 3; ROW 4
+				gWeaponStats[43].sX = 300;	gWeaponStats[43].sY = 172;	gWeaponStats[43].sValDx = 0;	// 43) COL 4; ROW 4
 				// Nonregular locations for explosive radius values (COL 2; ROW 3)
 				gWeaponStats[44].sX = 273;	gWeaponStats[44].sY = 68;	gWeaponStats[44].sValDx = 0;	// 44) COL 2; ROW 3; LOC 1 - Starting Radius
 				gWeaponStats[45].sX = 291;	gWeaponStats[45].sY = 68;	gWeaponStats[45].sValDx = 0;	// 45) COL 2; ROW 3; LOC 2 - Single Radius
@@ -1369,12 +1371,14 @@ void InitItemDescriptionBoxOffsets()
 			BULLET_AMMODAMAGEBON_Y		= (136 + gsInvDescY);
 			BULLET_AMMOTOHITBON_X		= (174 + gsInvDescX);
 			BULLET_AMMOTOHITBON_Y		= (148 + gsInvDescY);
+			BULLET_AMMOAUTOBON_X		= (174 + gsInvDescX);
+			BULLET_AMMOAUTOBON_Y		= (160 + gsInvDescY);
 			BULLET_AMMOBURSTBON_X		= (174 + gsInvDescX);
-			BULLET_AMMOBURSTBON_Y		= (160 + gsInvDescY);
+			BULLET_AMMOBURSTBON_Y		= (172 + gsInvDescY);
 			BULLET_AMMORELIABILITYBON_X		= (174 + gsInvDescX);
-			BULLET_AMMORELIABILITYBON_Y		= (172 + gsInvDescY);
+			BULLET_AMMORELIABILITYBON_Y		= (184 + gsInvDescY);
 			BULLET_AMMONOISESUPP_X		= (174 + gsInvDescX);
-			BULLET_AMMONOISESUPP_Y		= (184 + gsInvDescY);
+			BULLET_AMMONOISESUPP_Y		= (196 + gsInvDescY);
 
 			// Icon Locations for EXPLOSIVES stats
 			BULLET_EXPLOSIVEDAMAGE_X	= (47 + gsInvDescX);
@@ -1574,15 +1578,17 @@ void InitItemDescriptionBoxOffsets()
 			BULLET_AMMORANGEBON_X	=	(203 + gsInvDescX);
 			BULLET_AMMORANGEBON_Y	=	(136 + gsInvDescY);
 			BULLET_AMMODAMAGEBON_X	=	(203 + gsInvDescX);
-			BULLET_AMMODAMAGEBON_Y	=	(148 + gsInvDescY);
-			BULLET_AMMOTOHITBON_X	=	(203 + gsInvDescX);
-			BULLET_AMMOTOHITBON_Y	=	(160 + gsInvDescY);
-			BULLET_AMMOBURSTBON_X	=	(203 + gsInvDescX);
-			BULLET_AMMOBURSTBON_Y	=	(172 + gsInvDescY);
-			BULLET_AMMORELIABILITYBON_X	=	(268 + gsInvDescX);
-			BULLET_AMMORELIABILITYBON_Y	=	(136 + gsInvDescY);
+			BULLET_AMMODAMAGEBON_Y	=	(160 + gsInvDescY);
+			BULLET_AMMOTOHITBON_X	=	(268 + gsInvDescX);
+			BULLET_AMMOTOHITBON_Y	=	(136 + gsInvDescY);
+			BULLET_AMMORELIABILITYBON_X	=	(203 + gsInvDescX);
+			BULLET_AMMORELIABILITYBON_Y	=	(172 + gsInvDescY);
+			BULLET_AMMOAUTOBON_X	=	(268 + gsInvDescX);
+			BULLET_AMMOAUTOBON_Y	=	(148 + gsInvDescY);
+			BULLET_AMMOBURSTBON_X	=	(268 + gsInvDescX);
+			BULLET_AMMOBURSTBON_Y	=	(160 + gsInvDescY);
 			BULLET_AMMONOISESUPP_X	=	(268 + gsInvDescX);
-			BULLET_AMMONOISESUPP_Y	=	(148 + gsInvDescY);
+			BULLET_AMMONOISESUPP_Y	=	(172 + gsInvDescY);
 
 			// Icon Locations for EXPLOSIVES stats
 			BULLET_EXPLOSIVEDAMAGE_X	=	(203 + gsInvDescX);
@@ -1750,12 +1756,14 @@ void InitItemDescriptionBoxOffsets()
 			BULLET_AMMODAMAGEBON_Y	=	(26 + gsInvDescY);
 			BULLET_AMMOTOHITBON_X	=	(408 + gsInvDescX);
 			BULLET_AMMOTOHITBON_Y	=	(38 + gsInvDescY);
+			BULLET_AMMOAUTOBON_X	=	(408 + gsInvDescX);
+			BULLET_AMMOAUTOBON_Y	=	(50 + gsInvDescY);
 			BULLET_AMMOBURSTBON_X	=	(408 + gsInvDescX);
-			BULLET_AMMOBURSTBON_Y	=	(50 + gsInvDescY);
+			BULLET_AMMOBURSTBON_Y	=	(62 + gsInvDescY);
 			BULLET_AMMORELIABILITYBON_X	=	(408 + gsInvDescX);
-			BULLET_AMMORELIABILITYBON_Y	=	(62 + gsInvDescY);
+			BULLET_AMMORELIABILITYBON_Y	=	(74 + gsInvDescY);
 			BULLET_AMMONOISESUPP_X	=	(408 + gsInvDescX);
-			BULLET_AMMONOISESUPP_Y	=	(74 + gsInvDescY);
+			BULLET_AMMONOISESUPP_Y	=	(86 + gsInvDescY);
 
 			// Icon Locations for EXPLOSIVES stats
 			BULLET_EXPLOSIVEDAMAGE_X	=	(274 + gsInvDescX);
@@ -2099,16 +2107,27 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			// Non-Launcher Guns Only
 			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher )
 			{
-				if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject)> 0 )
+				if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject) > 0 )
 				{
-					// BURST PENALTY
+					// AUTO/BURST PENALTY TOOLTIP activated
 					MSYS_EnableRegion( &gStatsFasthelpRegions[ 2 ] );
 
-					if ( Weapon[ gpItemDescObject->usItem ].bAutofireShotsPerFiveAP > 0 )
+					if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 && GetShotsPerBurst(gpItemDescObject) <= 0 )
 					{
-						// AUTOFIRE SHOTS PER 5 AP
-						MSYS_EnableRegion( &gStatsFasthelpRegions[ 3 ] );
+						// Change help text to "Autofire Penalty" (no burst)
+						SetRegionFastHelpText( &(gStatsFasthelpRegions[ 2 ]), gzWeaponStatsFasthelp[ 27 ] );
 					}
+					if ( GetShotsPerBurst(gpItemDescObject) > 0 && GetAutofireShotsPerFiveAPs(gpItemDescObject) <= 0 )
+					{
+						// Change help text to "Burst Penalty" (no autofire)
+						SetRegionFastHelpText( &(gStatsFasthelpRegions[ 2 ]), gzWeaponStatsFasthelp[ 28 ] );
+					}
+				}
+
+				if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
+				{
+					// AUTOFIRE SHOTS PER 5 AP
+					MSYS_EnableRegion( &gStatsFasthelpRegions[ 3 ] );
 				}
 			}
 				
@@ -2237,22 +2256,28 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				MSYS_EnableRegion( &gStatsFasthelpRegions[ 10 ] );
 			}
 
-			// BURST BONUS
-			if ( Item[ gpItemDescObject->usItem ].bursttohitbonus != 0 || Item[ gpItemDescObject->usItem ].autofiretohitbonus != 0 )
+			// AUTO BONUS
+			if ( Item[ gpItemDescObject->usItem ].autofiretohitbonus != 0 )
 			{
 				MSYS_EnableRegion( &gStatsFasthelpRegions[ 11 ] );
+			}
+
+			// BURST BONUS
+			if ( Item[ gpItemDescObject->usItem ].bursttohitbonus != 0 )
+			{
+				MSYS_EnableRegion( &gStatsFasthelpRegions[ 12 ] );
 			}
 
 			// RELIABILITY BONUS
 			if ( Item[ gpItemDescObject->usItem ].bReliability != 0 )
 			{
-				MSYS_EnableRegion( &gStatsFasthelpRegions[ 12 ] );
+				MSYS_EnableRegion( &gStatsFasthelpRegions[ 13 ] );
 			}
 
 			// NOISE SUPPRESSION
 			if ( Item[ gpItemDescObject->usItem ].percentnoisereduction > 0 )
 			{
-				MSYS_EnableRegion( &gStatsFasthelpRegions[ 13 ] );
+				MSYS_EnableRegion( &gStatsFasthelpRegions[ 14 ] );
 			}
 		}
 
@@ -2873,16 +2898,27 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			// Non-Launcher Guns Only
 			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher )
 			{
-				if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject)> 0 )
+				if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject) > 0 )
 				{
-					// BURST PENALTY
+					// AUTO/BURST PENALTY TOOLTIP activated
 					MSYS_EnableRegion( &gStatsFasthelpRegions[ 2 ] );
 
-					if ( Weapon[ gpItemDescObject->usItem ].bAutofireShotsPerFiveAP > 0 )
+					if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 && GetShotsPerBurst(gpItemDescObject) <= 0 )
 					{
-						// AUTOFIRE SHOTS PER 5 AP
-						MSYS_EnableRegion( &gStatsFasthelpRegions[ 3 ] );
+						// Change help text to "Autofire Penalty" (no burst)
+						SetRegionFastHelpText( &(gStatsFasthelpRegions[ 2 ]), gzWeaponStatsFasthelp[ 27 ] );
 					}
+					if ( GetShotsPerBurst(gpItemDescObject) > 0 && GetAutofireShotsPerFiveAPs(gpItemDescObject) <= 0 )
+					{
+						// Change help text to "Burst Penalty" (no autofire)
+						SetRegionFastHelpText( &(gStatsFasthelpRegions[ 2 ]), gzWeaponStatsFasthelp[ 28 ] );
+					}
+				}
+
+				if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
+				{
+					// AUTOFIRE SHOTS PER 5 AP
+					MSYS_EnableRegion( &gStatsFasthelpRegions[ 3 ] );
 				}
 			}
 				
@@ -3011,22 +3047,28 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				MSYS_EnableRegion( &gStatsFasthelpRegions[ 10 ] );
 			}
 
-			// BURST BONUS
-			if ( Item[ gpItemDescObject->usItem ].bursttohitbonus != 0 || Item[ gpItemDescObject->usItem ].autofiretohitbonus != 0 )
+			// AUTO BONUS
+			if ( Item[ gpItemDescObject->usItem ].autofiretohitbonus )
 			{
 				MSYS_EnableRegion( &gStatsFasthelpRegions[ 11 ] );
+			}
+
+			// BURST BONUS
+			if ( Item[ gpItemDescObject->usItem ].bursttohitbonus )
+			{
+				MSYS_EnableRegion( &gStatsFasthelpRegions[ 12 ] );
 			}
 
 			// RELIABILITY BONUS
 			if ( Item[ gpItemDescObject->usItem ].bReliability != 0 )
 			{
-				MSYS_EnableRegion( &gStatsFasthelpRegions[ 12 ] );
+				MSYS_EnableRegion( &gStatsFasthelpRegions[ 13 ] );
 			}
 
 			// NOISE SUPPRESSION
 			if ( Item[ gpItemDescObject->usItem ].percentnoisereduction > 0 )
 			{
-				MSYS_EnableRegion( &gStatsFasthelpRegions[ 13 ] );
+				MSYS_EnableRegion( &gStatsFasthelpRegions[ 14 ] );
 			}
 		}
 
@@ -3685,17 +3727,25 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 	// Non-Launcher Guns Only
 	if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher )
 	{
-		if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject)> 0 )
-		{
+		if (GetShotsPerBurst(gpItemDescObject)> 0 && GetAutofireShotsPerFiveAPs(gpItemDescObject) <= 0 )
+			// BURST PENALTY ICON
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 30, BULLET_AUTOPEN_X, BULLET_AUTOPEN_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+		else if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 && GetShotsPerBurst(gpItemDescObject) <= 0)
 			// AUTO PENALTY ICON
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 6, BULLET_AUTOPEN_X, BULLET_AUTOPEN_Y, VO_BLT_SRCTRANSPARENCY, NULL );
-			
+		else if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 && GetShotsPerBurst(gpItemDescObject) > 0 )
+			// BURST/AUTO PENALTY ICON
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 29, BULLET_AUTOPEN_X, BULLET_AUTOPEN_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+
+		if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject)> 0 )
+		{
 			if ( Weapon[ gpItemDescObject->usItem ].bAutofireShotsPerFiveAP > 0 )
 			{
 				// AUTOFIRE SHOTS PER 5 AP ICON
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 7, BULLET_AUTO5AP_X, BULLET_AUTO5AP_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 		}
+	
 	}
 		
 	//////////////////////////////////////////////////////////////////////
@@ -3800,10 +3850,15 @@ void DrawAmmoStats( OBJECTTYPE * gpItemDescObject )
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 11, BULLET_AMMOTOHITBON_X, BULLET_AMMOTOHITBON_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
-	// BURST BONUS
-	if ( Item[ gpItemDescObject->usItem ].bursttohitbonus != 0 || Item[ gpItemDescObject->usItem ].autofiretohitbonus != 0 )
+	// AUTO PENALTY BONUS
+	if ( Item[ gpItemDescObject->usItem ].autofiretohitbonus > 0 )
 	{
-		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 10, BULLET_AMMOBURSTBON_X, BULLET_AMMOBURSTBON_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 10, BULLET_AMMOAUTOBON_X, BULLET_AMMOAUTOBON_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+	}
+	// BURST PENALTY BONUS
+	if ( Item[ gpItemDescObject->usItem ].bursttohitbonus > 0 )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 15, BULLET_AMMOBURSTBON_X, BULLET_AMMOBURSTBON_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	// RELIABILITY BONUS
@@ -4539,7 +4594,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 	if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher )
 	{
 
-		if ( GetShotsPerBurst(gpItemDescObject)> 0 )
+		if ( GetShotsPerBurst(gpItemDescObject)> 0 && ! GetAutofireShotsPerFiveAPs(gpItemDescObject) )
 		{
 			// BURST PENALTY
 			// equals
@@ -4562,10 +4617,23 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			
 			// print value
 			SetFontForeground( 5 );
-			swprintf( pStr, L"%2d", GetAutoPenalty( gpItemDescObject, FALSE ) );
+			swprintf( pStr, L"%d", GetAutoPenalty( gpItemDescObject, FALSE ) );
 			FindFontRightCoordinates( (INT16)(gWeaponStats[ 4 ].sX + gsInvDescX + gWeaponStats[ 4 ].sValDx), (INT16)(gWeaponStats[ 4 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
 			SetFontForeground( 6 );
+
+			// Add BurstPenalty if necessary
+			if (GetShotsPerBurst(gpItemDescObject)> 0 )
+			{
+				// Colored white and placed in front of the auto penalty.
+				static CHAR16 pStr2[ 100 ];
+				SetFontForeground( FONT_WHITE );
+				swprintf(pStr2, L"%d/", GetBurstPenalty( gpItemDescObject, FALSE ) );
+				FindFontRightCoordinates( (INT16)(gWeaponStats[ 4 ].sX + gsInvDescX + gWeaponStats[ 4 ].sValDx) - StringPixLength(pStr,BLOCKFONT2), (INT16)(gWeaponStats[ 4 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr2, BLOCKFONT2, &usX, &usY);
+				mprintf( usX, usY, pStr2 );
+				SetFontForeground( 6 );
+			}
+
 		}
 
 		// Note "if" here to display this regardless of BURST PENALTY
@@ -4921,24 +4989,54 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 		mprintf( sStrX, gWeaponStats[ 18 ].sY + gsInvDescY, pStr );
 	}
 
-	if ( Item[ gpItemDescObject->usItem ].bursttohitbonus != 0 || Item[ gpItemDescObject->usItem ].autofiretohitbonus != 0 )
+	if ( Item[ gpItemDescObject->usItem ].autofiretohitbonus )
 	{
-		// AMMO BURST/AUTO BONUS
+		// AUTO PENALTY MODIFIER
+		// equals
+		mprintf( gWeaponStats[ 40 ].sX + gsInvDescX, gWeaponStats[ 40 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );	
+		SetFontForeground( 6 );
+
+		// determine value
+		INT16 iAutoBonus = 0;
+		iAutoBonus = Item[ gpItemDescObject->usItem ].autofiretohitbonus;
+
+		// determine value print color
+		SetFontForeground( 5 );
+		if ( iAutoBonus < 0 )
+		{
+			SetFontForeground( ITEMDESC_FONTNEGATIVE );
+		}
+		else if ( iAutoBonus > 0 )
+		{
+			SetFontForeground( ITEMDESC_FONTPOSITIVE );
+		}
+		
+		// print value
+		if ( iAutoBonus > 0 )
+		{
+			swprintf( pStr, L"%+2d", iAutoBonus );
+		}
+		else
+		{
+			swprintf( pStr, L"%2d", iAutoBonus );
+		}
+
+		uiStringLength=StringPixLength(pStr, ITEMDESC_FONT );
+		FindFontRightCoordinates( (INT16)(gWeaponStats[ 19 ].sX + gsInvDescX + gWeaponStats[ 19 ].sValDx), (INT16)(gWeaponStats[ 19 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
+		mprintf( sStrX, gWeaponStats[ 19 ].sY + gsInvDescY, pStr );
+	}
+
+	if ( Item[ gpItemDescObject->usItem ].bursttohitbonus )
+	{
+		// BURST PENALTY MODIFIER
 		// equals
 		SetFontForeground( 6 );
-		mprintf( gWeaponStats[ 40 ].sX + gsInvDescX, gWeaponStats[ 40 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
+		mprintf( gWeaponStats[ 41 ].sX + gsInvDescX, gWeaponStats[ 41 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );	
 
 		// determine value
 		INT16 iBurstBonus = 0;
-		if ( Item[ gpItemDescObject->usItem ].bursttohitbonus > 0 || Item[ gpItemDescObject->usItem ].autofiretohitbonus > 0)
-		{
-			iBurstBonus = __max( Item[ gpItemDescObject->usItem ].bursttohitbonus, Item[ gpItemDescObject->usItem ].autofiretohitbonus ) ;
-		}
-		else
-		{	
-			iBurstBonus = __min( Item[ gpItemDescObject->usItem ].bursttohitbonus, Item[ gpItemDescObject->usItem ].autofiretohitbonus ) ;
-		}
-		
+		iBurstBonus = Item[ gpItemDescObject->usItem ].bursttohitbonus;
+
 		// determine value print color
 		SetFontForeground( 5 );
 		if ( iBurstBonus < 0 )
@@ -4959,9 +5057,10 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 		{
 			swprintf( pStr, L"%2d", iBurstBonus );
 		}
+
 		uiStringLength=StringPixLength(pStr, ITEMDESC_FONT );
-		FindFontRightCoordinates( (INT16)(gWeaponStats[ 19 ].sX + gsInvDescX + gWeaponStats[ 19 ].sValDx), (INT16)(gWeaponStats[ 19 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
-		mprintf( sStrX, gWeaponStats[ 19 ].sY + gsInvDescY, pStr );
+		FindFontRightCoordinates( (INT16)(gWeaponStats[ 20 ].sX + gsInvDescX + gWeaponStats[ 20 ].sValDx), (INT16)(gWeaponStats[ 20 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
+		mprintf( sStrX, gWeaponStats[ 20 ].sY + gsInvDescY, pStr );
 	}
 
 	if ( Item[ gpItemDescObject->usItem ].bReliability != 0 )
@@ -4969,7 +5068,7 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 		// AMMO RELIABILITY BONUS
 		// equals
 		SetFontForeground( 6 );
-		mprintf( gWeaponStats[ 41 ].sX + gsInvDescX, gWeaponStats[ 41 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
+		mprintf( gWeaponStats[ 42 ].sX + gsInvDescX, gWeaponStats[ 42 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
 
 		// determine value
 		INT16 iReliabilityBonus = 0;
@@ -4996,8 +5095,8 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			swprintf( pStr, L"%2d", iReliabilityBonus );
 		}
 		uiStringLength=StringPixLength(pStr, ITEMDESC_FONT );
-		FindFontRightCoordinates( (INT16)(gWeaponStats[ 20 ].sX + gsInvDescX + gWeaponStats[ 20 ].sValDx), (INT16)(gWeaponStats[ 20 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
-		mprintf( sStrX, gWeaponStats[ 20 ].sY + gsInvDescY, pStr );
+		FindFontRightCoordinates( (INT16)(gWeaponStats[ 21 ].sX + gsInvDescX + gWeaponStats[ 21 ].sValDx), (INT16)(gWeaponStats[ 21 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
+		mprintf( sStrX, gWeaponStats[ 21 ].sY + gsInvDescY, pStr );
 	}
 
 	if ( Item[ gpItemDescObject->usItem ].percentnoisereduction > 0 )
@@ -5005,7 +5104,7 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 		// AMMO NOISE SUPPRESSION
 		// equals
 		SetFontForeground( 6 );
-		//mprintf( gWeaponStats[ 41 ].sX + gsInvDescX, gWeaponStats[ 41 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
+		//mprintf( gWeaponStats[ 43 ].sX + gsInvDescX, gWeaponStats[ 43 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
 
 		// determine value
 		INT16 iNoiseSuppression = 0;
@@ -5031,7 +5130,7 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			swprintf( pStr, L"%2d%%", iNoiseSuppression );
 		}
 		uiStringLength=StringPixLength(pStr, ITEMDESC_FONT );
-		FindFontRightCoordinates( (INT16)(gWeaponStats[ 21 ].sX + gsInvDescX + gWeaponStats[ 21 ].sValDx), (INT16)(gWeaponStats[ 21 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
+		FindFontRightCoordinates( (INT16)(gWeaponStats[ 22 ].sX + gsInvDescX + gWeaponStats[ 22 ].sValDx), (INT16)(gWeaponStats[ 22 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
 		
 		#ifdef CHINESE
 			wcscat( pStr, ChineseSpecString1 );
@@ -5039,7 +5138,7 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			wcscat( pStr, L"%%" );
 		#endif
 
-		mprintf( sStrX, gWeaponStats[ 21 ].sY + gsInvDescY, pStr );
+		mprintf( sStrX, gWeaponStats[ 22 ].sY + gsInvDescY, pStr );
 	}
 }
 

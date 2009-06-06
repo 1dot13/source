@@ -1108,11 +1108,11 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
 // Please note, several of these are artificially inflated to 19 entries to help fix a complication with
 // changing item type while watching its description box
-STR16		gzWeaponStatsFasthelp[ 27 ] =
+STR16		gzWeaponStatsFasthelp[ 29 ] =
 {
 	L"Zas.",
 	L"Obra¿.",
-	L"PA:",
+	L"PA: (mniej - lepiej)",
 	L"Auto/5AP",
 	L"Celnoœæ",
 	L"Stan",
@@ -1137,13 +1137,15 @@ STR16		gzWeaponStatsFasthelp[ 27 ] =
 	L"Wy³. seriê!",
 	L"Wy³. auto!",
 	L"AP/cios-³om",
+	L"Autofire Penalty (Lower is better)",
+    L"Burst Penalty (Lower is better)",
 };
 
-STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
+STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
 {
 	L"Zas.",
 	L"Obra¿.",
-	L"PA:",
+	L"PA: (mniej - lepiej)",
 	L"Auto/5AP",
 	L"Celnoœæ",
 	L"Stan",
@@ -1168,6 +1170,8 @@ STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
 	L"Wy³. seriê!",
 	L"Wy³. auto!",
 	L"AP/cios-³om",
+	L"Autofire Penalty (Lower is better)",
+    L"Burst Penalty (Lower is better)",
 };
 
 STR16		gzAmmoStatsFasthelp[ 20 ] =
@@ -1183,10 +1187,10 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 	L"Modyf. zasg.",
 	L"Modyf. obra¿eñ",
 	L"Modyf. trafieñ",
+	L"Autofire Penalty Modifier (Higher is better)",
 	L"Modyf. kary za seriê/auto (wiêcej – lepiej)",
 	L"Modyf. sprawnoœci",
 	L"Modyf. g³oœnoœci (mniej - lepiej)",
-	L"",
 	L"",
 	L"",
 	L"",
