@@ -1119,7 +1119,7 @@ STR16		gzWeaponStatsFasthelp[ 29 ] =
 {
 	L"Range",
 	L"Damage",
-	L"Burst/Auto Penalty (lower is better)",
+	L"Burst/Auto Penalty (Lower is better)",
 	L"Autofire shots per 5 AP",
 	L"Accuracy",
 	L"Reliability",
