@@ -532,6 +532,10 @@
 			Name="Resource Files"
 			>
 			<File
+				RelativePath=".\Console\Console.rc"
+				>
+			</File>
+			<File
 				RelativePath="Res\ja2.rc"
 				>
 			</File>

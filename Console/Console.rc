@@ -1,13 +1,14 @@
 //Microsoft Developer Studio generated resource script.
 //
-#include "resource.h"
+#include "res\resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
+#define IDC_STATIC 00
 /////////////////////////////////////////////////////////////////////////////
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "afxres.h"
+#include "windows.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS

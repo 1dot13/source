@@ -43,7 +43,7 @@
 #include "VFS/Location/vfs_slf_library.h"
 #include "Text.h"
 
-#define USE_CONSOLE 0
+#define USE_CONSOLE 1
 
 #include <iostream>
 
@@ -54,6 +54,7 @@
 #include "Console.h"
 #include "Lua Interpreter.h"
 #include "connect.h"
+#include "english.h"
 
 #ifdef JA2
 	#include "BuildDefines.h"
@@ -527,6 +528,11 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 #endif
 					}
 				}
+
+				// Reset the pressed keys
+				gfKeyState[ ALT ] = FALSE;
+				gfKeyState[ CTRL ] = FALSE;
+				gfKeyState[ 219 ] = FALSE;	// "\"
 			}
 			break;
 
