@@ -27,7 +27,7 @@
 #endif
 
 #include "VFS/vfs.h"
-#include "PropertyContainer.h"
+#include "VFS/Tools/Log.h"
 
 typedef struct
 {

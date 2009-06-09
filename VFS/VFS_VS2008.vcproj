@@ -406,6 +406,34 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Tools"
+			>
+			<File
+				RelativePath=".\Tools\Log.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Tools\Log.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tools\ParserTools.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Tools\ParserTools.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tools\Tools.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Tools\Tools.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\iteratedir.cpp"
 			>

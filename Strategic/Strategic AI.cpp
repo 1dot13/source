@@ -4562,8 +4562,8 @@ void HourlyCheckStrategicAI()
 
 
 #ifdef JA2BETAVERSION
-#include "vfs.h"
-#include "PropertyContainer.h"
+#include "VFS/vfs.h"
+#include "VFS/Tools/Log.h"
 
 static CLog& s_stratD = *CLog::Create(L"Strategic Decisions.txt", true);
 

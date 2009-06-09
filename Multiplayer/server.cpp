@@ -33,6 +33,7 @@
 
 #include "IniReader.h"
 #include "VFS/vfs.h"
+#include "VFS/Tools/ParserTools.h"
 #include "MPJoinScreen.h"
 
 #include "game init.h"

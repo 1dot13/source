@@ -3,7 +3,7 @@
 #include "Location/vfs_lib_dir.h"
 #include "Location/vfs_directory_tree.h"
 
-#include "PropertyContainer.h"
+#include "Tools/Log.h"
 
 #include <sstream>
 

@@ -108,6 +108,7 @@
 #include "VFS/vfs_file_raii.h"
 #include "VFS/iteratedir.h"
 #include "VFS/File/vfs_file.h"
+#include "VFS/Tools/ParserTools.h"
 
 #include "keys.h"
 

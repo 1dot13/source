@@ -32,6 +32,8 @@
 	#include "LaptopSave.h"
 #endif
 
+#include "VFS/Tools/ParserTools.h"
+
 #define FULL_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 138
 #define NICK_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 195
 #define MALE_BOX_X 2 + 192 + LAPTOP_SCREEN_UL_X
@@ -455,39 +457,38 @@ void GetPlayerKeyBoardInputForIMPBeginScreen( void )
 	// handle input events
 	while( DequeueEvent(&InputEvent) )
 	{
-	/*
+/*
 		// HOOK INTO MOUSE HOOKS
-	switch(InputEvent.usEvent)
+		switch(InputEvent.usEvent)
 		{
-
 		case LEFT_BUTTON_DOWN:
 			MouseSystemHook(LEFT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
-		break;
+			break;
 		case LEFT_BUTTON_UP:
 			MouseSystemHook(LEFT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
-		break;
+			break;
 		case RIGHT_BUTTON_DOWN:
 			MouseSystemHook(RIGHT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
-		break;
+			break;
 		case RIGHT_BUTTON_UP:
 			MouseSystemHook(RIGHT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
-		break;
+			break;
 		}
-		*/
-	if(	!HandleTextInput( &InputEvent ) && (InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT) )
+*/
+		if(	!HandleTextInput( &InputEvent ) && (InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT) )
 		{
-		switch( InputEvent.usParam )
+			switch( InputEvent.usParam )
 			{
 			case (( ENTER )):
-			// check to see if gender was highlighted..if so, select it
-			 if( FEMALE_GENDER_SELECT	== ubTextEnterMode )
-					{
+				// check to see if gender was highlighted..if so, select it
+				if( FEMALE_GENDER_SELECT	== ubTextEnterMode )
+				{
 					bGenderFlag = IMP_FEMALE;
-					}
+				}
 				else if( MALE_GENDER_SELECT	== ubTextEnterMode	)
-					{
+				{
 					bGenderFlag = IMP_MALE;
-					}
+				}
 
 				// increment to next selection box
 				IncrementTextEnterMode( );
@@ -497,12 +498,12 @@ void GetPlayerKeyBoardInputForIMPBeginScreen( void )
 				// handle space bar
 				if( FEMALE_GENDER_SELECT	== ubTextEnterMode )
 				{
-				bGenderFlag = IMP_FEMALE;
+					bGenderFlag = IMP_FEMALE;
 					DecrementTextEnterMode( );
 				}
-			else if( MALE_GENDER_SELECT	== ubTextEnterMode	)
+				else if( MALE_GENDER_SELECT	== ubTextEnterMode	)
 				{
-				bGenderFlag = IMP_MALE;
+					bGenderFlag = IMP_MALE;
 					IncrementTextEnterMode( );
 				}
 				else
@@ -511,22 +512,22 @@ void GetPlayerKeyBoardInputForIMPBeginScreen( void )
 				}
 				fNewCharInString = TRUE;
 				break;
-		 case (( ESC )):
-			HandleLapTopESCKey();		// WANNE: Fix for proper closing of the IMP laptop page
-			LeaveLapTopScreen( );
+			case (( ESC )):
+				HandleLapTopESCKey();	// WANNE: Fix for proper closing of the IMP laptop page
+				LeaveLapTopScreen( );
 				break;
-				case (( TAB )):
-			 // tab hit, increment to next selection box
-			IncrementTextEnterMode( );
-			fNewCharInString = TRUE;
+			case (( TAB )):
+				// tab hit, increment to next selection box
+				IncrementTextEnterMode( );
+				fNewCharInString = TRUE;
 				break;
-				case ( 265 ):
+			case ( 265 ):
 				// tab and shift
-					DecrementTextEnterMode( );
-					fNewCharInString = TRUE;
+				DecrementTextEnterMode( );
+				fNewCharInString = TRUE;
 				break;
-				default:
-					HandleBeginScreenTextEvent( InputEvent.usParam );
+			default:
+				HandleBeginScreenTextEvent( InputEvent.usParam );
 				break;
 			}
 		}
@@ -544,59 +545,48 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 	{
 	case ( BACKSPACE ):
 
-			switch( ubTextEnterMode )
+		switch( ubTextEnterMode )
+		{
+		case( FULL_NAME_MODE ):
+			if( uiFullNameCharacterPosition >= 0 )
 			{
-			case( FULL_NAME_MODE ):
-			 if( uiFullNameCharacterPosition >= 0 )
-					{
-
-
-						// decrement StringPosition
-				 if( uiFullNameCharacterPosition > 0)
-						{
-						uiFullNameCharacterPosition-=1;
-			}
-
-
-
-
-				 // null out char
-			pFullNameString[uiFullNameCharacterPosition] = 0;
+				// decrement StringPosition
+				if( uiFullNameCharacterPosition > 0)
+				{
+					uiFullNameCharacterPosition-=1;
+				}
+				// null out char
+				pFullNameString[uiFullNameCharacterPosition] = 0;
 
 				// move cursor back by sizeof char
-						uiFullNameCursorPosition = 196 + LAPTOP_SCREEN_UL_X + StringPixLength( pFullNameString, FONT14ARIAL );
+				uiFullNameCursorPosition = 196 + LAPTOP_SCREEN_UL_X + StringPixLength( pFullNameString, FONT14ARIAL );
 
-				 // string has been altered, redisplay
-			fNewCharInString = TRUE;
-					}
-				break;
-			case ( NICK_NAME_MODE ):
-			 if( uiNickNameCharacterPosition >= 0 )
-					{
-
-
-			// decrement StringPosition
-						if( uiNickNameCharacterPosition > 0 )
+				// string has been altered, redisplay
+				fNewCharInString = TRUE;
+			}
+			break;
+		case ( NICK_NAME_MODE ):
+			if( uiNickNameCharacterPosition >= 0 )
+			{
+				// decrement StringPosition
+				if( uiNickNameCharacterPosition > 0 )
 					uiNickNameCharacterPosition-=1;
 
-				 // null out char
-			pNickNameString[uiNickNameCharacterPosition] = 0;
+				// null out char
+				pNickNameString[uiNickNameCharacterPosition] = 0;
 
 				// move cursor back by sizeof char
-						uiNickNameCursorPosition = 196 + LAPTOP_SCREEN_UL_X + StringPixLength( pNickNameString, FONT14ARIAL );
+				uiNickNameCursorPosition = 196 + LAPTOP_SCREEN_UL_X + StringPixLength( pNickNameString, FONT14ARIAL );
 
-				 // string has been altered, redisplay
-			fNewCharInString = TRUE;
-					}
-
-			break;
+				// string has been altered, redisplay
+				fNewCharInString = TRUE;
 			}
+			break;
+		}
 		break;
-
 	default:
-
-//Heinz (18.01.2009): Russian layout
-//
+		//Heinz (18.01.2009): Russian layout
+		//
 #if defined(RUSSIAN)
 		if( ( (DWORD)GetKeyboardLayout(0) & 0xFFFF ) == 0x419)
 		{
@@ -609,91 +599,88 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 			uiKey == '_' || uiKey == '.' ||	uiKey == ' ') ) uiKey = '#';
 		if(uiKey != '#')
 #else
+	#ifndef USE_CODE_PAGE
 		if( uiKey >= 'A' && uiKey <= 'Z' ||
 					uiKey >= 'a' && uiKey <= 'z' ||
 					uiKey >= '0' && uiKey <= '9' ||
 					uiKey == '_' || uiKey == '.' ||
 					uiKey == ' ' )
+	#else
+		if( charSet::IsFromSet( uiKey, charSet::CS_SPACE|charSet::CS_ALPHA_NUM|charSet::CS_SPECIAL_ALPHA ) )
+	#endif
 #endif
-
-			{
-				// if the current string position is at max or great, do nothing
+		{
+			// if the current string position is at max or great, do nothing
 			switch( ubTextEnterMode )
-					{
-					case( FULL_NAME_MODE ):
-					if( uiFullNameCharacterPosition >= MAX_FULL_NAME )
-							{
-								break;
-							}
-							else
-							{
-
-								if(uiFullNameCharacterPosition < 1 )
-								{
-							uiFullNameCharacterPosition = 0;
-								}
-								// make sure we haven't moved too far
-								if( ( uiFullNameCursorPosition + StringPixLength( ( CHAR16 *)&(uiKey ), FONT14ARIAL ) ) > (UINT32)FULL_NAME_REGION_WIDTH + 196 + LAPTOP_SCREEN_UL_X)
-								{
-									// do nothing for now, when pop up is in place, display
-									break;
-								}
-				 // valid char, capture and convert to CHAR16
-				 pFullNameString[uiFullNameCharacterPosition] = ( CHAR16 )uiKey;
-
-
-						// null out next char position
-						pFullNameString[uiFullNameCharacterPosition + 1] = 0;
-
-						// move cursor position ahead
-				 uiFullNameCursorPosition = 196 + LAPTOP_SCREEN_UL_X + StringPixLength( pFullNameString, FONT14ARIAL );
-
-						// increment string position
-						uiFullNameCharacterPosition +=1;
-
-						// string has been altered, redisplay
-				 fNewCharInString = TRUE;
-							}
+			{
+			case( FULL_NAME_MODE ):
+				if( uiFullNameCharacterPosition >= MAX_FULL_NAME )
+				{
 					break;
-				case ( NICK_NAME_MODE ):
-					if( uiNickNameCharacterPosition >= MAX_NICK_NAME )
-							{
-								break;
-							}
-							else
-							{
-
-								if(uiNickNameCharacterPosition == -1)
-								{
-							uiNickNameCharacterPosition = 0;
-								}
-
-								// make sure we haven't moved too far
-								if( ( uiNickNameCursorPosition + StringPixLength( (CHAR16 *)&(uiKey ), FONT14ARIAL ) ) > (UINT32)NICK_NAME_REGION_WIDTH + 196 + LAPTOP_SCREEN_UL_X )
-								{
-									// do nothing for now, when pop up is in place, display
-									break;
-								}
-
-				 // valid char, capture and convert to CHAR16
-				 pNickNameString[uiNickNameCharacterPosition] = ( CHAR16 )uiKey;
-
-						// null out next char position
-						pNickNameString[uiNickNameCharacterPosition + 1] = 0;
-
-						// move cursor position ahead
-				 uiNickNameCursorPosition = 196 + LAPTOP_SCREEN_UL_X + StringPixLength( pNickNameString, FONT14ARIAL );
-
-						// increment string position
-						uiNickNameCharacterPosition +=1;
-
-						// string has been altered, redisplay
-				 fNewCharInString = TRUE;
-							}
-
-				break;
+				}
+				else
+				{
+					if(uiFullNameCharacterPosition < 1 )
+					{
+						uiFullNameCharacterPosition = 0;
 					}
+					// make sure we haven't moved too far
+					if( ( uiFullNameCursorPosition + StringPixLength( ( CHAR16 *)&(uiKey ), FONT14ARIAL ) ) > (UINT32)FULL_NAME_REGION_WIDTH + 196 + LAPTOP_SCREEN_UL_X)
+					{
+						// do nothing for now, when pop up is in place, display
+						break;
+					}
+					// valid char, capture and convert to CHAR16
+					pFullNameString[uiFullNameCharacterPosition] = ( CHAR16 )uiKey;
+
+					// null out next char position
+					pFullNameString[uiFullNameCharacterPosition + 1] = 0;
+
+					// move cursor position ahead
+					uiFullNameCursorPosition = 196 + LAPTOP_SCREEN_UL_X + StringPixLength( pFullNameString, FONT14ARIAL );
+
+					// increment string position
+					uiFullNameCharacterPosition +=1;
+
+					// string has been altered, redisplay
+					fNewCharInString = TRUE;
+				}
+				break;
+			case ( NICK_NAME_MODE ):
+				if( uiNickNameCharacterPosition >= MAX_NICK_NAME )
+				{
+					break;
+				}
+				else
+				{
+					if(uiNickNameCharacterPosition == -1)
+					{
+						uiNickNameCharacterPosition = 0;
+					}
+					// make sure we haven't moved too far
+					if( ( uiNickNameCursorPosition + StringPixLength( (CHAR16 *)&(uiKey ), FONT14ARIAL ) ) > (UINT32)NICK_NAME_REGION_WIDTH + 196 + LAPTOP_SCREEN_UL_X )
+					{
+						// do nothing for now, when pop up is in place, display
+						break;
+					}
+					 // valid char, capture and convert to CHAR16
+					pNickNameString[uiNickNameCharacterPosition] = ( CHAR16 )uiKey;
+
+					// null out next char position
+					pNickNameString[uiNickNameCharacterPosition + 1] = 0;
+
+					// move cursor position ahead
+					uiNickNameCursorPosition = 196 + LAPTOP_SCREEN_UL_X + StringPixLength( pNickNameString, FONT14ARIAL );
+
+					// increment string position
+					uiNickNameCharacterPosition +=1;
+
+					// string has been altered, redisplay
+					fNewCharInString = TRUE;
+				}
+				break;
 			}
+		}
 		break;
 	}
 	return;

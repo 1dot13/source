@@ -62,6 +62,7 @@
 #endif
 
 #include "VFS/vfs.h"
+#include "VFS/Tools/Log.h"
 
 #define _UNICODE
 // Networking Stuff

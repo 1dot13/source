@@ -34,16 +34,18 @@
 	#include "utilities.h"
 #endif
 
-	#include "input.h"
-	#include "zmouse.h"
+#include "input.h"
+#include "zmouse.h"
 
 #include "VFS/vfs.h"
 #include "VFS/vfs_init.h"
 #include "VFS/File/vfs_file.h"
 #include "VFS/Location/vfs_slf_library.h"
+#include "VFS/Tools/Log.h"
+#include "VFS/Tools/ParserTools.h"
 #include "Text.h"
 
-#define USE_CONSOLE 1
+#define USE_CONSOLE 0
 
 #include <iostream>
 
@@ -69,9 +71,11 @@
 static void MAGIC(std::string const& aarrrrgggh = "")
 {}
 
-static bool s_VfsIsInitialized = false;
+static bool			s_VfsIsInitialized = false;
 static std::list<vfs::Path> vfs_config_ini;
 
+static bool			s_DebugKeyboardInput = false;
+static vfs::Path	s_CodePage;
 
 void SHOWEXCEPTION(CBasicException& ex)
 {
@@ -81,25 +85,25 @@ void SHOWEXCEPTION(CBasicException& ex)
 	catch(CBasicException &ex2) {
 		LogException(ex2);
 		exit(0);
-	} 
+	}
 }
 
-extern UINT32 MemDebugCounter;
+extern UINT32		MemDebugCounter;
 #ifdef JA2
-extern BOOLEAN gfPauseDueToPlayerGamePause;
-extern int	 iScreenMode;
-extern BOOL	bScreenModeCmdLine;
+	extern BOOLEAN	gfPauseDueToPlayerGamePause;
+	extern int		iScreenMode;
+	extern BOOL		bScreenModeCmdLine;
 #endif
 
-extern	BOOLEAN	CheckIfGameCdromIsInCDromDrive();
-extern	void	QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam);
+extern	BOOLEAN		CheckIfGameCdromIsInCDromDrive();
+extern	void		QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam);
 
 // Prototype Declarations
 
-INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam);
-BOOLEAN			InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow);
-void			 ShutdownStandardGamingPlatform(void);
-void						GetRuntimeSettings( );
+INT32 FAR PASCAL	WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam);
+BOOLEAN				InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow);
+void				ShutdownStandardGamingPlatform(void);
+void				GetRuntimeSettings( );
 
 int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow);
 
@@ -108,18 +112,18 @@ Console g_Console("", "", "Lua Console", "no");
 #endif
 
 #if !defined(JA2) && !defined(UTILS)
-void							ProcessCommandLine(CHAR8 *pCommandLine);
-BOOLEAN						RunSetup(void);
+void				ProcessCommandLine(CHAR8 *pCommandLine);
+BOOLEAN				RunSetup(void);
 
 // Should the game immediately load the quick save at startup?
-BOOLEAN						gfLoadAtStartup=FALSE;
-BOOLEAN						gfUsingBoundsChecker=FALSE;
-CHAR8						*gzStringDataOverride=NULL;
-BOOLEAN						gfCapturingVideo = FALSE;
+BOOLEAN				gfLoadAtStartup=FALSE;
+BOOLEAN				gfUsingBoundsChecker=FALSE;
+CHAR8				*gzStringDataOverride=NULL;
+BOOLEAN				gfCapturingVideo = FALSE;
 
 #endif
 
-HINSTANCE					ghInstance;
+HINSTANCE			ghInstance;
 
 
 #ifdef JA2
@@ -131,27 +135,27 @@ RECT				rcWindow;
 POINT				ptWindowSize;
 
 // moved from header file: 24mar98:HJH
-UINT32		giStartMem;
-//UINT8			gbPixelDepth;		// redefintion... look down a few lines (jonathanl)
+UINT32				giStartMem;
+//UINT8				gbPixelDepth;		// redefintion... look down a few lines (jonathanl)
 // GLOBAL RUN-TIME SETTINGS
 
-UINT32		guiMouseWheelMsg;			// For mouse wheel messages
+UINT32				guiMouseWheelMsg;			// For mouse wheel messages
 
-BOOLEAN gfApplicationActive;
-BOOLEAN gfProgramIsRunning;
-BOOLEAN gfGameInitialized = FALSE;
-//UINT32	giStartMem; // redefintion... look up a few lines (jonathanl)
-BOOLEAN	gfDontUseDDBlits	= FALSE;
+BOOLEAN				gfApplicationActive;
+BOOLEAN				gfProgramIsRunning;
+BOOLEAN				gfGameInitialized = FALSE;
+//UINT32			giStartMem; // redefintion... look up a few lines (jonathanl)
+BOOLEAN				gfDontUseDDBlits	= FALSE;
 
 // There were TWO of them??!?! -- DB
-//CHAR8		gzCommandLine[ 100 ];
-CHAR8		gzCommandLine[100];		// Command line given
+//CHAR8				gzCommandLine[ 100 ];
+CHAR8				gzCommandLine[100];		// Command line given
 
-CHAR8		gzErrorMsg[2048]="";
-BOOLEAN	gfIgnoreMessages=FALSE;
+CHAR8				gzErrorMsg[2048]="";
+BOOLEAN				gfIgnoreMessages=FALSE;
 
 // GLOBAL VARIBLE, SET TO DEFAULT BUT CAN BE CHANGED BY THE GAME IF INIT FILE READ
-UINT8		gbPixelDepth = PIXEL_DEPTH;
+UINT8				gbPixelDepth = PIXEL_DEPTH;
 
 INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam)
 {
@@ -171,7 +175,7 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 	if ( Message == guiMouseWheelMsg )
 	{
 		QueueEvent(MOUSE_WHEEL, wParam, lParam);
-			return( 0L );
+		return( 0L );
 	}
  
 	switch(Message)
@@ -188,8 +192,8 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 */		
 #ifdef JA2
 	case WM_MOVE:
-//		if( 1==iScreenMode )
-          {
+		// if( 1==iScreenMode )
+		{
 			GetClientRect(hWindow, &rcWindow);
 			// Go ahead and clamp the client width and height
 			rcWindow.right = SCREEN_WIDTH;
@@ -214,7 +218,7 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 				SetWindowPos( hWindow, NULL, xPos, yPos, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_SHOWWINDOW);
 			}
 
-          }
+		}
 		break;
 	case WM_GETMINMAXINFO:
 		{
@@ -226,21 +230,21 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			break;
 		}
 #else
-		case WM_MOUSEMOVE:
-			break;
+	case WM_MOUSEMOVE:
+		break;
 
-		case WM_SIZING:
+	case WM_SIZING:
 		{
-			LPRECT	lpWindow;
+			LPRECT		lpWindow;
 			INT32		iWidth, iHeight, iX, iY;
-			BOOLEAN fWidthByHeight=FALSE, fHoldRight=FALSE;
+			BOOLEAN		fWidthByHeight=FALSE, fHoldRight=FALSE;
 
-			lpWindow = (LPRECT) lParam;	
+			lpWindow	= (LPRECT) lParam;
 
-			iWidth=lpWindow->right-lpWindow->left;
-			iHeight=lpWindow->bottom-lpWindow->top;
-			iX = (lpWindow->left + lpWindow->right)/2;
-			iY = (lpWindow->top + lpWindow->bottom)/2;
+			iWidth		= lpWindow->right-lpWindow->left;
+			iHeight		= lpWindow->bottom-lpWindow->top;
+			iX			= (lpWindow->left + lpWindow->right)/2;
+			iY			= (lpWindow->top + lpWindow->bottom)/2;
 
 			switch(wParam)
 			{
@@ -303,7 +307,6 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 				lpWindow->bottom = lpWindow->top + iHeight;
 			}
 	
-
 /*
 			switch(wParam)
 			{
@@ -311,7 +314,9 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 				case WMSZ_BOTTOMLEFT:
 				case WMSZ_BOTTOMRIGHT:
 					if(iHeight < SCREEN_HEIGHT)
+					{
 						lpWindow->bottom=lpWindow->top+SCREEN_HEIGHT;
+					}
 			}
 
 			switch(wParam)
@@ -320,7 +325,9 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 				case WMSZ_TOPLEFT:
 				case WMSZ_TOPRIGHT:
 					if(iHeight < SCREEN_HEIGHT)
+					{
 						lpWindow->top=lpWindow->bottom-SCREEN_HEIGHT;
+					}
 			}
 
 			switch(wParam)
@@ -329,7 +336,9 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 				case WMSZ_LEFT:
 				case WMSZ_TOPLEFT:
 					if(iWidth < SCREEN_WIDTH)
+					{
 						lpWindow->left=lpWindow->right-SCREEN_WIDTH;
+					}
 			}
 
 			switch(wParam)
@@ -338,7 +347,9 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 				case WMSZ_RIGHT:
 				case WMSZ_TOPRIGHT:
 					if(iWidth < SCREEN_WIDTH)
+					{
 						lpWindow->right=lpWindow->left+SCREEN_WIDTH;
+					}
 			}
 */
 		}
@@ -367,8 +378,8 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 
 	case WM_MOVE:
 		{
-			INT32 xPos = (INT32)LOWORD(lParam);	// horizontal position 
-			INT32 yPos = (INT32)HIWORD(lParam);	// vertical position 		
+			INT32 xPos = (INT32)LOWORD(lParam);	// horizontal position
+			INT32 yPos = (INT32)HIWORD(lParam);	// vertical position
 		}
 		break;
 #endif
@@ -380,12 +391,11 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 #ifdef LUACONSOLE
 		PollConsole( );
 #endif
-
 		if (gfApplicationActive)
 		{
-		GameLoop();		
+			GameLoop();		
 		} 
-	break;
+		break;
 
 	case WM_ACTIVATEAPP: 
 		switch(wParam)
@@ -394,122 +404,132 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			if (fRestore == TRUE)
 			{
 #ifdef JA2
-			RestoreVideoManager();
-			 RestoreVideoSurfaces();	// Restore any video surfaces
-
-						// unpause the JA2 Global clock
-			if ( !gfPauseDueToPlayerGamePause )
-			{
-						PauseTime( FALSE );
-			}
-#else
-						if(!VideoInspectorIsEnabled())
-						{
-			 RestoreVideoManager();
+				RestoreVideoManager();
 				RestoreVideoSurfaces();	// Restore any video surfaces
-						}
 
-			MoveTimer(TIMER_RESUME);
+				// unpause the JA2 Global clock
+				if ( !gfPauseDueToPlayerGamePause )
+				{
+					PauseTime( FALSE );
+				}
+#else
+				if(!VideoInspectorIsEnabled())
+				{
+					RestoreVideoManager();
+					RestoreVideoSurfaces();	// Restore any video surfaces
+				}
+
+				MoveTimer(TIMER_RESUME);
 #endif
-			gfApplicationActive = TRUE;
+				gfApplicationActive = TRUE;
 			}
 			break;
 		case FALSE: // We are suspending direct draw
-
 			if (iScreenMode == 0)
 			{
 #ifdef JA2
-						// pause the JA2 Global clock
-						//PauseTime( TRUE );
-						SuspendVideoManager();
+				// pause the JA2 Global clock
+				//PauseTime( TRUE );
+				SuspendVideoManager();
 #else
 #ifndef UTIL 
-						if(!VideoInspectorIsEnabled())
-							SuspendVideoManager();
+				if(!VideoInspectorIsEnabled())
+				{
+					SuspendVideoManager();
+				}
 #endif
 #endif
-          // suspend movement timer, to prevent timer crash if delay becomes long
-          // * it doesn't matter whether the 3-D engine is actually running or not, or if it's even been initialized
-          // * restore is automatic, no need to do anything on reactivation
+				// suspend movement timer, to prevent timer crash if delay becomes long
+				// * it doesn't matter whether the 3-D engine is actually running or not, or if it's even been initialized
+				// * restore is automatic, no need to do anything on reactivation
 #if !defined( JA2 ) && !defined( UTIL )
-          MoveTimer(TIMER_SUSPEND);
+				MoveTimer(TIMER_SUSPEND);
 #endif
-
-         // gfApplicationActive = FALSE;
-          fRestore = TRUE;
+				// gfApplicationActive = FALSE;
+				fRestore = TRUE;
 			}
 			break;
 		}
 		break;
 
-	case WM_CREATE: 
+	case WM_CREATE:
 			break;
 
 	case WM_DESTROY: 
-			ShutdownStandardGamingPlatform();
+		ShutdownStandardGamingPlatform();
 //		ShowCursor(TRUE);
 		PostQuitMessage(0);
 		break;
 
-		case WM_SETFOCUS:
-			//if (iScreenMode == 0)
-			{
+	case WM_SETFOCUS:
+		//if (iScreenMode == 0)
+		{
 #if !defined( JA2 ) && !defined( UTIL )
 			if(!VideoInspectorIsEnabled())
+			{
 				RestoreVideoManager();
+			}
 			gfApplicationActive=TRUE;
 //			RestrictMouseToXYXY(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 #else
-      RestoreCursorClipRect( );
+			RestoreCursorClipRect( );
 #endif
-			}
-			break;
+		}
+		break;
 
-		case WM_KILLFOCUS:
-			if (iScreenMode == 0)
-			{
+	case WM_KILLFOCUS:
+		if (iScreenMode == 0)
+		{
 #if !defined( JA2 ) && !defined( UTIL )
 			if(!VideoInspectorIsEnabled())
+			{
 				SuspendVideoManager();
-
+			}
 			gfApplicationActive=FALSE;
 			FreeMouseCursor();
 #endif
 			// Set a flag to restore surfaces once a WM_ACTIVEATEAPP is received
 			fRestore = TRUE;
-			}
-			break;
-
+		}
+		break;
 
 #if defined( JA2 )
-		case	WM_DEVICECHANGE:
-			{
-				//DEV_BROADCAST_HDR	*pHeader = (DEV_BROADCAST_HDR	*)lParam;
+	case	WM_DEVICECHANGE:
+		{
+			//DEV_BROADCAST_HDR	*pHeader = (DEV_BROADCAST_HDR	*)lParam;
 
-				////if a device has been removed
-				//if( wParam == DBT_DEVICEREMOVECOMPLETE )
-				//{
-				//	//if its	a disk
-				//	if( pHeader->dbch_devicetype == DBT_DEVTYP_VOLUME )
-				//	{
-				//		//check to see if the play cd is still in the cdrom
-				//		if( !CheckIfGameCdromIsInCDromDrive() )
-				//		{
-				//		}
-				//	}
-				//}
-			}
-			break;
+			////if a device has been removed
+			//if( wParam == DBT_DEVICEREMOVECOMPLETE )
+			//{
+			//	//if its	a disk
+			//	if( pHeader->dbch_devicetype == DBT_DEVTYP_VOLUME )
+			//	{
+			//		//check to see if the play cd is still in the cdrom
+			//		if( !CheckIfGameCdromIsInCDromDrive() )
+			//		{
+			//		}
+			//	}
+			//}
+		}
+		break;
 #endif
 
-		case WM_SYSKEYUP:
-		case WM_KEYUP:
-		 KeyUp(wParam, lParam);
-			break;
+	case WM_SYSKEYUP:
+	case WM_KEYUP:
+		KeyUp(wParam, lParam);
+		break;
 
-		case WM_SYSKEYDOWN:
-		case WM_KEYDOWN:
-		 KeyDown(wParam, lParam);
+	case WM_SYSKEYDOWN:
+	case WM_KEYDOWN:
+#ifdef USE_CODE_PAGE
+			if(s_DebugKeyboardInput)
+			{
+				static CLog& debugKeys = *CLog::Create(L"DebugKeys.txt");
+				static int input_counter = 1;
+				debugKeys << (input_counter++) << " : " << (int)wParam << CLog::endl;
+			}
+#endif // USE_CODE_PAGE
+			KeyDown(wParam, lParam);
 			gfSGPInputReceived =	TRUE;
 			break;
 
@@ -528,7 +548,6 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 #endif
 					}
 				}
-
 				// Reset the pressed keys
 				gfKeyState[ ALT ] = FALSE;
 				gfKeyState[ CTRL ] = FALSE;
@@ -551,8 +570,8 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 				cout << "> ";
 			}
 			break;
-	default
-	: return DefWindowProc(hWindow, Message, wParam, lParam);
+	default	:
+		return DefWindowProc(hWindow, Message, wParam, lParam);
 	}
 	return 0L;
 }
@@ -609,7 +628,8 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	FastDebugMsg("Initializing Memory Manager");
 	// Initialize the Memory Manager
 	if (InitializeMemoryManager() == FALSE)
-	{ // We were unable to initialize the memory manager
+	{
+		// We were unable to initialize the memory manager
 		FastDebugMsg("FAILED : Initializing Memory Manager");
 		return FALSE;
 	}
@@ -618,7 +638,8 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	FastDebugMsg("Initializing Mutex Manager");
 	// Initialize the Dirty Rectangle Manager
 	if (InitializeMutexManager() == FALSE)
-	{ // We were unable to initialize the game
+	{
+		// We were unable to initialize the game
 		FastDebugMsg("FAILED : Initializing Mutex Manager");
 		return FALSE;
 	}
@@ -627,7 +648,8 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	FastDebugMsg("Initializing File Manager");
 	// Initialize the File Manager
 	if (InitializeFileManager(NULL) == FALSE)
-	{ // We were unable to initialize the file manager
+	{
+		// We were unable to initialize the file manager
 		FastDebugMsg("FAILED : Initializing File Manager");
 		return FALSE;
 	}
@@ -638,7 +660,8 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	FastDebugMsg("Initializing Input Manager");
 	// Initialize the Input Manager
 	if (InitializeInputManager() == FALSE)
-	{ // We were unable to initialize the input manager
+	{
+		// We were unable to initialize the input manager
 		FastDebugMsg("FAILED : Initializing Input Manager");
 		return FALSE;
 	}
@@ -646,7 +669,8 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	FastDebugMsg("Initializing Video Manager");
 	// Initialize DirectDraw (DirectX 2)
 	if (InitializeVideoManager(hInstance, (UINT16) sCommandShow, (void *) WindowProcedure) == FALSE)
-	{ // We were unable to initialize the video manager
+	{
+		// We were unable to initialize the video manager
 		FastDebugMsg("FAILED : Initializing Video Manager");
 		return FALSE;
 	}
@@ -654,7 +678,7 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	// Initialize Video Object Manager
 	FastDebugMsg("Initializing Video Object Manager");
 	if ( !InitializeVideoObjectManager( ) )
-	{ 
+	{
 		FastDebugMsg("FAILED : Initializing Video Object Manager");
 		return FALSE;
 	}
@@ -674,17 +698,9 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	STRING512 sExecutableDir;
 	GetExecutableDirectory( sExecutableDir );
 
-	//vfs::Path fullpath = vfs::Path(sExecutableDir) + vfs::Path("vfs_config.ini");
-
 	// set current directory to exe's directory 
 	SetCurrentDirectory(sExecutableDir);
 
-	//if(!InitVirtualFileSystem( fullpath ))
-	//{
-	//	FastDebugMsg("FAILED : Initializing Virtual File System");
-	//	return FALSE;
-	//}
-	//THROWIFFALSE( InitVirtualFileSystem( fullpath ), L"Initializing Virtual File System failed");
 	THROWIFFALSE( InitVirtualFileSystem( vfs_config_ini ), L"Initializing Virtual File System failed");
 
 	s_VfsIsInitialized = true;
@@ -693,6 +709,25 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	GetVFS()->GetVirtualLocation(vfs::Path("ShadeTables"),true)->SetIsExclusive(true);
 	GetVFS()->GetVirtualLocation(vfs::Path(pMessageStrings[MSG_SAVEDIRECTORY]+3),true)->SetIsExclusive(true);
 	GetVFS()->GetVirtualLocation(vfs::Path(pMessageStrings[MSG_MPSAVEDIRECTORY]+3),true)->SetIsExclusive(true);
+
+#ifdef USE_CODE_PAGE
+	charSet::InitializeCharSets();
+	
+	if(!s_CodePage.empty())
+	{
+		try
+		{
+			CodePageReader cpr;
+			cpr.ReadCodePage(s_CodePage);
+		}
+		catch(CBasicException& ex)
+		{
+			std::wstringstream wss;
+			wss << L"Could not process codepage file \"" << s_CodePage() << L"\"";
+			RETHROWEXCEPTION(wss.str().c_str(), &ex);
+		}
+	}
+#endif // USE_CODE_PAGE
 #else
 	// Snap: moved the following from InitJA2SplashScreen for clarity
 	STRING512			CurrentDir;
@@ -719,13 +754,14 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	// Snap: Get the custom Data directory location from ja2.ini (if any)
 	// and initialize the custom catalogue
 	char customDataPath[MAX_PATH];
-	if ( GetPrivateProfileString( "Ja2 Settings","CUSTOM_DATA_LOCATION", "", customDataPath, MAX_PATH, "..\\Ja2.ini" ) ) {
+	if ( GetPrivateProfileString( "Ja2 Settings","CUSTOM_DATA_LOCATION", "", customDataPath, MAX_PATH, "..\\Ja2.ini" ) )
+	{
 		gCustomDataCat.NewCat(std::string(CurrentDir) + '\\' + customDataPath);
 	}
 #endif
-	//#ifdef JA2
-		InitJA2SplashScreen();
-	//#endif
+//#ifdef JA2
+	InitJA2SplashScreen();
+//#endif
 
 	// Make sure we start up our local clock (in milliseconds)
 	// We don't need to check for a return value here since so far its always TRUE
@@ -742,7 +778,7 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	FastDebugMsg("Initializing the Font Manager");
 	// Init the manager and copy the TransTable stuff into it.
 	if ( !InitializeFontManager( 8, pFontTable ) )
-	{ 
+	{
 		FastDebugMsg("FAILED : Initializing Font Manager");
 		return FALSE;
 	}
@@ -753,10 +789,11 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	// Initialize the Sound Manager (DirectSound)
 #ifndef UTIL
 	if (InitializeSoundManager() == FALSE)
-	{ // We were unable to initialize the sound manager
+	{
+		// We were unable to initialize the sound manager
 		FastDebugMsg("FAILED : Initializing Sound Manager");
 		return FALSE;
-	}	
+	}
 #endif
 
 	FastDebugMsg("Initializing Random");
@@ -766,7 +803,8 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	FastDebugMsg("Initializing Game Manager");
 	// Initialize the Game
 	if (InitializeGame() == FALSE)
-	{ // We were unable to initialize the game
+	{
+		// We were unable to initialize the game
 		FastDebugMsg("FAILED : Initializing Game Manager");
 		return FALSE;
 	}
@@ -779,7 +817,7 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	if(!exlist.empty())
 	{
 		RETHROWEXCEPTION(L"Error during reading runtime settings", &exlist.front());
-	}	
+	}
 	return TRUE;
 }
 
@@ -812,7 +850,7 @@ void ShutdownStandardGamingPlatform(void)
 
 	if (gfGameInitialized)
 	{
-		ShutdownGame();	
+		ShutdownGame();
 	}
 
 
@@ -925,19 +963,19 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	//_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF);
 	
 	/****************************************************************************************************/
-	/*                                                                                                	*/
-	/*               DEBUG MEMORY ALLOCATION ON THE HEAP :  uncomment when required                   	*/
-	/*          ------------------------------------------------------------------------              	*/
-	/*                                                                                                	*/
-	/*	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_1024_DF);  	*/
-	/*                                                                                                	*/
-	/****************************************************************************************************/	
+	/*                                                                                                  */
+	/*               DEBUG MEMORY ALLOCATION ON THE HEAP :  uncomment when required                     */
+	/*          ------------------------------------------------------------------------                */
+	/*                                                                                                  */
+	/*.._CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_1024_DF);    */
+	/*                                                                                                  */
+	/****************************************************************************************************/
 
 #endif
 
 	ghInstance = hInstance;
 
-		// Copy commandline!
+	// Copy commandline!
 #ifdef JA2
 	strncpy( gzCommandLine, pCommandLine, 100);
 	gzCommandLine[99]='\0';
@@ -961,8 +999,9 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 #else
 
 	if(!RunSetup())
+	{
 		return(0);
-
+	}
 #endif
 
 //	ShowCursor(FALSE);
@@ -1002,7 +1041,7 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 			FastDebugMsg("Initializing the Font Manager");
 			// Init the manager and copy the TransTable stuff into it.
 			if ( !InitializeFontManager( 8, pFontTable ) )
-			{ 
+			{
 				FastDebugMsg("FAILED : Initializing Font Manager");
 				return FALSE;
 			}
@@ -1044,7 +1083,7 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 #ifdef LUACONSOLE
 	if (1==iScreenMode)
 	{
-	CreateConsole();
+		CreateConsole();
 	}
 #endif
 
@@ -1107,21 +1146,24 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 
 #if 0
 	else
-	{ // Windows hasn't processed any messages, therefore we handle the rest
+	{
+		// Windows hasn't processed any messages, therefore we handle the rest
 #ifdef LUACONSOLE
 		PollConsole( );
 #endif
 
 		if (gfApplicationActive == FALSE)
-		{ // Well we got nothing to do but to wait for a message to activate
-		WaitMessage();
-		} 
+		{
+			// Well we got nothing to do but to wait for a message to activate
+			WaitMessage();
+		}
 		else
-		{ // Well, the game is active, so we handle the game stuff		
-		GameLoop();		
+		{
+			// Well, the game is active, so we handle the game stuff
+			GameLoop();
 
-				// After this frame, reset input given flag
-		gfSGPInputReceived	=	FALSE;
+			// After this frame, reset input given flag
+			gfSGPInputReceived	=	FALSE;
 		}
 	}
 	}
@@ -1158,7 +1200,7 @@ void SGPExit(void)
 #if !defined( JA2 ) && !defined( UTIL )
 	if (gfGameInitialized)
 	{
-// ARM: if in DEBUG mode & we've ShutdownWithErrorBox, don't unload screens and release data structs to permit easier debugging
+		// ARM: if in DEBUG mode & we've ShutdownWithErrorBox, don't unload screens and release data structs to permit easier debugging
 #ifdef _DEBUG
 		if (gfIgnoreMessages)
 		{
@@ -1289,6 +1331,11 @@ void GetRuntimeSettings( )
 
 	// WANNE: Should we play the intro?
 	iPlayIntro = oProps.GetIntProperty("Ja2 Settings","PLAY_INTRO", iPlayIntro);
+
+#ifdef USE_CODE_PAGE
+	s_DebugKeyboardInput = oProps.GetBoolProperty(L"Ja2 Settings", L"DEBUG_KEYS", false);
+	s_CodePage = oProps.GetStringProperty(L"Ja2 Settings", L"CODE_PAGE");
+#endif // USE_CODE_PAGE
 #endif
 }
 
@@ -1305,19 +1352,20 @@ void ShutdownWithErrorBox(CHAR8 *pcMessage)
 
 void ProcessCommandLine(CHAR8 *pCommandLine)
 {
-CHAR8 cSeparators[]="\t =";
-CHAR8	*pCopy=NULL, *pToken;
+	CHAR8 cSeparators[] = "\t =";
+	CHAR8 *pCopy=NULL, *pToken;
 
-	pCopy=(CHAR8 *)MemAlloc(strlen(pCommandLine) + 1);
+	pCopy = (CHAR8 *)MemAlloc(strlen(pCommandLine) + 1);
 
 	Assert(pCopy);
 	if(!pCopy)
+	{
 		return;
-
+	}
 	memcpy(pCopy, pCommandLine, strlen(pCommandLine)+1);
 
 	pToken=strtok(pCopy, cSeparators);
-	while(pToken)													
+	while(pToken)
 	{
 		if(!_strnicmp(pToken, "/NOSOUND", 8))
 		{
@@ -1368,8 +1416,9 @@ CHAR8	*pCopy=NULL, *pToken;
 BOOLEAN RunSetup(void)
 {
 	if(!FileExists(VideoGetConfigFile()))
+	{
 		_spawnl(_P_WAIT, "3DSetup.EXE", "3DSetup.EXE", VideoGetConfigFile(), NULL);
-
+	}
 	return(FileExists(VideoGetConfigFile()));
 }
 
@@ -1391,7 +1440,7 @@ void ProcessJa2CommandLineBeforeInitialization(CHAR8 *pCommandLine)
 	memcpy(pCopy, pCommandLine, strlen(pCommandLine)+1);
 
 	pToken=strtok(pCopy, cSeparators);
-	while(pToken)													
+	while(pToken)
 	{
 		//if its the NO SOUND option
 		if(!_strnicmp(pToken, "/NOSOUND", 8))
@@ -1403,18 +1452,18 @@ void ProcessJa2CommandLineBeforeInitialization(CHAR8 *pCommandLine)
 		{
 			//overwrite Graphic setting from JA2_settings.ini
 			iScreenMode=0; /* 1 for Windowed, 0 for Fullscreen */
-		bScreenModeCmdLine = TRUE; /* if set TRUE, INI is no longer evaluated */
-		/* no resolution read from Args. Still from INI, but could be added here, too...*/
+			bScreenModeCmdLine = TRUE; /* if set TRUE, INI is no longer evaluated */
+			/* no resolution read from Args. Still from INI, but could be added here, too...*/
 		}
 		else if(!_strnicmp(pToken, "/WINDOW", 7))
 		{
 			//overwrite Graphic setting from JA2_settings.ini
 			iScreenMode=1; /* 1 for Windowed, 0 for Fullscreen */
-		bScreenModeCmdLine = TRUE; /* if set TRUE, INI is no longer evaluated */
-		/* no resolution read from Args. Still from INI, but could be added here, too...*/
+			bScreenModeCmdLine = TRUE; /* if set TRUE, INI is no longer evaluated */
+			/* no resolution read from Args. Still from INI, but could be added here, too...*/
 		}
 
-	//get the next token
+		//get the next token
 		pToken=strtok(NULL, cSeparators);
 	}
 

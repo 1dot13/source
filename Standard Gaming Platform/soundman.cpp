@@ -1801,8 +1801,8 @@ UINT32 uiCount;
 	return(FALSE);
 }
 
-#include "vfs.h"
-#include "PropertyContainer.h"
+#include "VFS/vfs.h"
+#include "VFS/Tools/Log.h"
 
 // Lesh modifications
 // Sound debug

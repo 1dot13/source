@@ -1,9 +1,10 @@
 #include "vfs_debug.h"
 
 #include "utf8string.h"
-#include "PropertyContainer.h"
 #include "vfs_file_raii.h"
 #include "FILE/vfs_file.h"
+
+#include "Tools/Log.h"
 
 #include <sstream>
 #include <ctime>

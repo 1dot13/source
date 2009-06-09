@@ -1,12 +1,14 @@
 #include "vfs_init.h"
 #include "vfs.h"
-#include "PropertyContainer.h"
 #include "File/vfs_file.h"
 #include "File/vfs_memory_file.h"
 #include "Location/vfs_directory_tree.h"
 #include "Location/vfs_slf_library.h"
 #include "Location/vfs_7z_library.h"
 #include "Location/vfs_create_7z_library.h"
+
+#include "PropertyContainer.h"
+#include "Tools/Log.h"
 
 /********************************************************************/
 /********************************************************************/

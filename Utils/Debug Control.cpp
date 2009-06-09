@@ -6,8 +6,8 @@
 	#include "stdio.h"
 #endif
 
-#include "vfs.h"
-#include "PropertyContainer.h"
+#include "VFS/vfs.h"
+#include "VFS/Tools/Log.h"
 
 #ifdef _ANIMSUBSYSTEM_DEBUG
 

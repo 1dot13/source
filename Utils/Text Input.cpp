@@ -21,6 +21,8 @@
 	#include "Sound Control.h"
 #endif
 
+#include "VFS/Tools/ParserTools.h"
+
 STR16 szClipboard;
 BOOLEAN gfNoScroll = FALSE;
 
@@ -943,7 +945,11 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 				UINT32 key = Event->usParam;
 				UINT16 type = gpActive->usInputType;
 				//Handle space key
+#ifndef USE_CODE_PAGE
 				if( key == SPACE && type & INPUTTYPE_SPACES )
+#else
+				if( charSet::IsFromSet(key, charSet::CS_SPACE) && type & INPUTTYPE_SPACES )
+#endif
 				{
 					AddChar( key );
 					return TRUE;
@@ -955,7 +961,11 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 					return TRUE;
 				}
 				//Handle numerics
+#ifndef USE_CODE_PAGE
 				if( key >= '0' && key <= '9' && type & INPUTTYPE_NUMERICSTRICT )
+#else
+				if( charSet::IsFromSet(key, charSet::CS_NUMERIC) && type & INPUTTYPE_NUMERICSTRICT )
+#endif
 				{
 					AddChar( key );
 					return TRUE;
@@ -963,17 +973,25 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 				//Handle alphas
 				if( type & INPUTTYPE_ALPHA )
 				{
+#ifndef USE_CODE_PAGE
 					if( key >= 'A' && key <= 'Z' )
+#else
+					if( charSet::IsFromSet(key, charSet::CS_ALPHA_UC) )
+#endif
 					{
 						if( type & INPUTTYPE_LOWERCASE )
-							key -= 32;
+							key -= 32; // won't work for non-ascii alpha characters
 						AddChar( key );
 						return TRUE;
 					}
+#ifndef USE_CODE_PAGE
 					if( key >= 'a' && key <= 'z' )
+#else
+					if( charSet::IsFromSet(key, charSet::CS_ALPHA_LC) )
+#endif
 					{
 						if( type & INPUTTYPE_UPPERCASE )
-							key += 32;
+							key += 32; // won't work for non-ascii alpha characters
 						AddChar( key );
 						return TRUE;
 					}
@@ -982,10 +1000,14 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 				if( type & INPUTTYPE_SPECIAL )
 				{
 					//More can be added, but not all of the fonts support these
+#ifndef USE_CODE_PAGE
 					if( key >= 0x21 && key <= 0x2f || // ! " # $ % & ' ( ) * + , - . /
 						key >= 0x3a && key <= 0x40 || // : ; < = > ? @
 							key >= 0x5b && key <= 0x5f || // [ \ ] ^ _
 							key >= 0x7b && key <= 0x7d	) // { | }
+#else
+					if( charSet::IsFromSet(key, charSet::CS_SPECIAL_ALPHA|charSet::CS_SPECIAL_NON_CHAR) )
+#endif
 					{
 						AddChar( key );
 						return TRUE;

@@ -660,7 +660,7 @@ UINT32	MPHostScreenInit( void )
 	GetPrivateProfileStringW( L"Ja2_mp Settings",L"DAMAGE_MULTIPLIER", L"0.7", gzDmgMultiplierField, 5 , L"..\\Ja2_mp.ini" );
 	GetPrivateProfileStringW( L"Ja2_mp Settings",L"TIMED_TURN_SECS_PER_TICK", L"25", gzTimerField, 5 , L"..\\Ja2_mp.ini" );
 	GetPrivateProfileStringW( L"Ja2_mp Settings",L"FILE_TRANSFER_DIRECTORY", L"MULTIPLAYER/Servers/My Server", gzFileTransferDirectory, 100, L"..\\Ja2_mp.ini" );
-	GetStringProperty( L"Ja2_mp Settings", L"KIT_BAG", L"[201,214,243]", kbag, 100, L"..\\Ja2_mp.ini" );
+	GetPrivateProfileStringW( L"Ja2_mp Settings",L"KIT_BAG", L"[201,214,243]", gzKitBag, 100, L"..\\Ja2_mp.ini" );
 	GetPrivateProfileStringW( L"Ja2_mp Settings",L"TIME", L"13.50", &szTime[0], 5 , L"..\\Ja2_mp.ini" );
 
 	giMPHOverrideMaxAI = GetPrivateProfileIntW( L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", 0, L"..\\Ja2_mp.ini" );
@@ -673,7 +673,7 @@ UINT32	MPHostScreenInit( void )
 	giMPHUseNIV = GetPrivateProfileIntW( L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", 0, L"..\\Ja2_mp.ini" );
 	giMPHSendFiles = GetPrivateProfileIntW( L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", 1, L"..\\Ja2_mp.ini" );
 	guiMPHGameType = GetPrivateProfileIntW( L"Ja2_mp Settings",L"GAME_MODE", MP_TYPE_DEATHMATCH, L"..\\Ja2_mp.ini" );
-	giMPHDifficultLevel = GetPrivateProfileIntW( L"Ja2_mp Settings",L"DIFFICULT_LEVEL", 2, L"..\\Ja2_mp.ini" );
+	guiMPHDifficultLevel = GetPrivateProfileIntW( L"Ja2_mp Settings",L"DIFFICULT_LEVEL", 2, L"..\\Ja2_mp.ini" );
 #else
 	// read settings from JA2_mp.ini
 	CPropertyContainer props;

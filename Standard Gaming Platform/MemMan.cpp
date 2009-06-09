@@ -36,8 +36,8 @@
 	#endif
 //#endif
 
-#include "vfs.h"
-#include "PropertyContainer.h"
+#include "VFS/vfs.h"
+#include "VFS/Tools/Log.h"
 
 #ifdef _DEBUG
 	//#define DEBUG_MEM_LEAKS // turns on tracking of every MemAlloc and MemFree!

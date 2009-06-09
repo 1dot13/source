@@ -1822,8 +1822,11 @@ BOOLEAN GetFileFirst( CHAR8 * pSpec, GETFILESTRUCT *pGFStruct )
 		size = std::min<unsigned int>(size,260-1);
 		sprintf( pGFStruct->zFileName, s.c_str());
 		pGFStruct->zFileName[size] = 0;
+		
+		pGFStruct->iFindHandle = 0;
+		pGFStruct->uiFileSize = file_iter.value()->GetFileSize();
+		pGFStruct->uiFileAttribs = ( file_iter.value()->IsWriteable() ? FILE_IS_NORMAL : FILE_IS_READONLY );
 
-		// don't care for the rest of variables in pGFStruct
 		return TRUE;
 	}
 	return FALSE;
@@ -1878,7 +1881,10 @@ BOOLEAN GetFileNext( GETFILESTRUCT *pGFStruct )
 		sprintf( pGFStruct->zFileName, s.c_str());
 		pGFStruct->zFileName[size] = 0;
 
-		// don't care for the rest of variables in pGFStruct
+		pGFStruct->iFindHandle = 0;
+		pGFStruct->uiFileSize = file_iter.value()->GetFileSize();
+		pGFStruct->uiFileAttribs = ( file_iter.value()->IsWriteable() ? FILE_IS_NORMAL : FILE_IS_READONLY );
+
 		return TRUE;
 	}
 	return FALSE;

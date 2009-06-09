@@ -610,7 +610,7 @@ INT16 SubstringPixLength(STR16 string, UINT32 iStart, UINT32 iEnd, INT32 UseFont
 {
 	Assert (string != NULL);
 	Assert(iStart >= 0 && iStart <= iEnd);
-	Assert(iEnd < wcslen(string));
+	Assert(iEnd <= wcslen(string));
 
 	INT16 cnt = 0;
 

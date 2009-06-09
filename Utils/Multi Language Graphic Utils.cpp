@@ -406,7 +406,7 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 				break;
 			case MLG_MP_GOLDPIECEBUTTONS:
 				sprintf( filename, "%s\\MPGOLDPIECEBUTTONS_%s.sti", zLanguage, zLanguage );
-				break;
+				break
 			default:
 				return FALSE;
 		}
