@@ -3178,11 +3178,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>HP-35</szItemName>
+		<szLongItemName>Browning HP-35</szLongItemName>
+		<szItemDesc>大名鼎鼎的勃朗宁大威力手枪，在二战中同时为盟军和法西斯两边采用。</szItemDesc>
+		<szBRName>FN Browning HP-35</szBRName>
+		<szBRDesc>虽然勃朗宁大威力手枪是1925年设计的，但到了1935年，才为军队列装。最新的HP35型号迄今为止仍然被比利时陆军列装。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
@@ -5154,10 +5154,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>644</uiIndex>
-		<szItemName>HP-35</szItemName>
-		<szLongItemName>Browning HP-35</szLongItemName>
+		<szItemName>HP-35 .40</szItemName>
+		<szLongItemName>Browning HP-35 .40</szLongItemName>
 		<szItemDesc>大名鼎鼎的勃朗宁大威力手枪，在二战中同时为盟军和法西斯两边采用。</szItemDesc>
-		<szBRName>FN Browning HP-35</szBRName>
+		<szBRName>FN Browning HP-35 .40</szBRName>
 		<szBRDesc>虽然勃朗宁大威力手枪是1925年设计的，但到了1935年，才为军队列装。最新的HP35型号迄今为止仍然被比利时陆军列装。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7202,11 +7202,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 900</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Pro II</szItemName>
+		<szLongItemName>Kimber Eclipse Pro II</szLongItemName>
+		<szItemDesc>A 10mm pistol based on the Colt Commander design,</szItemDesc>
+		<szBRName>Kimber Eclipse Pro II</szBRName>
+		<szBRDesc>A 10mm pistol based on the Colt Commander design,</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>901</uiIndex>
@@ -10438,6 +10438,38 @@
 		<szLongItemName>9x18mm AP ammo crate</szLongItemName>
 		<szItemDesc>弹药箱</szItemDesc>
 		<szBRName>9x18mm AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1305</uiIndex>
+		<szItemName>.50 Beo AP crate</szItemName>
+		<szLongItemName>.50 Beowulf AP ammo crate</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>.50 Beowulf AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1306</uiIndex>
+		<szItemName>.50 Beo HP crate</szItemName>
+		<szLongItemName>.50 Beowulf HP ammo crate</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>.50 Beowulf HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1307</uiIndex>
+		<szItemName>6mm crate</szItemName>
+		<szLongItemName>6x35mm，4000发普通弹箱</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>6x35mm，4000发普通弹箱</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1308</uiIndex>
+		<szItemName>6mm HP crate</szItemName>
+		<szLongItemName>6x35mm HP ammo crate</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>6x35mm HP ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 </ITEMLIST>

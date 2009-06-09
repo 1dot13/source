@@ -3178,11 +3178,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>HP-35</szItemName>
+		<szLongItemName>FN Browning HP-35</szLongItemName>
+		<szItemDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.</szItemDesc>
+		<szBRName>FN Browning HP-35</szBRName>
+		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.  The latest incarnation, the HP-35, is in use today in the Belgian Military.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
@@ -5154,11 +5154,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>644</uiIndex>
-		<szItemName>HP-35</szItemName>
-		<szLongItemName>FN Browning HP-35</szLongItemName>
-		<szItemDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.</szItemDesc>
-		<szBRName>FN Browning HP-35</szBRName>
-		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.  The latest incarnation, the HP-35, is in use today in the Belgian Military.</szBRDesc>
+		<szItemName>HP-35 .40</szItemName>
+		<szLongItemName>FN Browning HP-35 .40</szLongItemName>
+		<szItemDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2. This one is chambered in .40S&amp;W.</szItemDesc>
+		<szBRName>FN Browning HP-35 .40</szBRName>
+		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.  The latest incarnation, the HP-35, is in use today in the Belgian Military. This one is chambered in .40S&amp;W.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>645</uiIndex>
@@ -7202,11 +7202,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 900</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Pro II</szItemName>
+		<szLongItemName>Kimber Eclipse Pro II</szLongItemName>
+		<szItemDesc>A 10mm pistol based on the Colt Commander design, i.e. with a shorter barrel than the Colt Government models.</szItemDesc>
+		<szBRName>Kimber Eclipse Pro II</szBRName>
+		<szBRDesc>Produced from stainless steel and to very tight tolerances, the Kimber Eclipse is a high quality pistol. The Pro II is the intermediate version between the Ultra II and the Custom II, and like the Custom II, it can be equipped with better sights.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>901</uiIndex>
@@ -10438,6 +10438,38 @@
 		<szLongItemName>Skrzynka amunicji 9x18mm AP</szLongItemName>
 		<szItemDesc>Skrzynka amunicji</szItemDesc>
 		<szBRName>Skrzynka amunicji 9x18mm AP</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1305</uiIndex>
+		<szItemName>Skrzynka amunicji .50 Beo AP</szItemName>
+		<szLongItemName>Skrzynka amunicji .50 Beo AP</szLongItemName>
+		<szItemDesc>skrzynka amunicji</szItemDesc>
+		<szBRName>Skrzynka amunicji .50 Beo AP</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1306</uiIndex>
+		<szItemName>Skrzynka amunicji .50 Beo HP</szItemName>
+		<szLongItemName>Skrzynka amunicji .50 Beo HP</szLongItemName>
+		<szItemDesc>skrzynka amunicji</szItemDesc>
+		<szBRName>Skrzynka amunicji .50 Beo HP</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1307</uiIndex>
+		<szItemName>Skrzynka amunicji 6mm</szItemName>
+		<szLongItemName>Skrzynka amunicji 6x35mm</szLongItemName>
+		<szItemDesc>Skrzynka amunicji</szItemDesc>
+		<szBRName>Skrzynka amunicji 6x35mm</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1308</uiIndex>
+		<szItemName>Skrzynka amunicji 6mm HP</szItemName>
+		<szLongItemName>Skrzynka amunicji 6x35mm HP</szLongItemName>
+		<szItemDesc>Skrzynka amunicji</szItemDesc>
+		<szBRName>Skrzynka amunicji 6x35mm HP</szBRName>
 		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
 	</ITEM>
 </ITEMLIST>

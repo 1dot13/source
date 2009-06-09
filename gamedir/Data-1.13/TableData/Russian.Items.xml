@@ -3178,11 +3178,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
-		<szItemName>Ничто</szItemName>
-		<szLongItemName>Ничто</szLongItemName>
-		<szItemDesc>Ничто</szItemDesc>
-		<szBRName>Ничто</szBRName>
-		<szBRDesc>Ничто</szBRDesc>
+		<szItemName>HP-35</szItemName>
+		<szLongItemName>FN Browning HP-35</szLongItemName>
+		<szItemDesc>Разработан в 1925г, но был принят на вооружение лишь в 1935г. и являлся единственным пистолетом, который производился обеими сторонами во 2ой Мировой Войне.</szItemDesc>
+		<szBRName>FN Browning HP-35</szBRName>
+		<szBRDesc>Разработан в 1925г, но был принят на вооруже- ние лишь в 1935г. и являлся единственным пистолетом, который производился обеими сторонами во Второй Мировой Войне. Последняя модель - НР-35, в наше время находится на вооружении Бельгийской Армии.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
@@ -5154,10 +5154,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>644</uiIndex>
-		<szItemName>HP-35</szItemName>
-		<szLongItemName>FN Browning HP-35</szLongItemName>
+		<szItemName>HP-35 .40</szItemName>
+		<szLongItemName>FN Browning HP-35 .40</szLongItemName>
 		<szItemDesc>Разработан в 1925г, но был принят на вооружение лишь в 1935г. и являлся единственным пистолетом, который производился обеими сторонами во 2ой Мировой Войне.</szItemDesc>
-		<szBRName>FN Browning HP-35</szBRName>
+		<szBRName>FN Browning HP-35 .40</szBRName>
 		<szBRDesc>Разработан в 1925г, но был принят на вооруже- ние лишь в 1935г. и являлся единственным пистолетом, который производился обеими сторонами во Второй Мировой Войне. Последняя модель - НР-35, в наше время находится на вооружении Бельгийской Армии.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7203,11 +7203,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 900</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Pro II</szItemName>
+		<szLongItemName>Kimber Eclipse Pro II</szLongItemName>
+		<szItemDesc>A 10mm pistol based on the Colt Commander design, i.e. with a shorter barrel than the Colt Government models.</szItemDesc>
+		<szBRName>Kimber Eclipse Pro II</szBRName>
+		<szBRDesc>Produced from stainless steel and to very tight tolerances, the Kimber Eclipse is a high quality pistol. The Pro II is the intermediate version between the Ultra II and the Custom II, and like the Custom II, it can be equipped with better sights.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>901</uiIndex>
@@ -10440,6 +10440,38 @@
 		<szLongItemName>9x18мм AP, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
 		<szBRName>9x18мм AP, ящик с патронами</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1305</uiIndex>
+		<szItemName>.50 Beo AP crate</szItemName>
+		<szLongItemName>.50 Beowulf AP, ящик с патронами</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>.50 Beowulf AP, ящик с патронами</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1306</uiIndex>
+		<szItemName>.50 Beo HP crate</szItemName>
+		<szLongItemName>.50 Beowulf HP, ящик с патронами</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>.50 Beowulf HP, ящик с патронами</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1307</uiIndex>
+		<szItemName>6мм</szItemName>
+		<szLongItemName>6x35мм, ящик с патронами</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>6x35мм, ящик с патронами</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1308</uiIndex>
+		<szItemName>6mm HP crate</szItemName>
+		<szLongItemName>6x35mm HP ammo crate</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>6x35mm HP ammo crate</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 </ITEMLIST>

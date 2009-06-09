@@ -3179,11 +3179,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>HP-35</szItemName>
+		<szLongItemName>FN Browning HP-35</szLongItemName>
+		<szItemDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.</szItemDesc>
+		<szBRName>FN Browning HP-35</szBRName>
+		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.  The latest incarnation, the HP-35, is in use today in the Belgian Military.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
@@ -5155,11 +5155,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>644</uiIndex>
-		<szItemName>HP-35</szItemName>
-		<szLongItemName>FN Browning HP-35</szLongItemName>
-		<szItemDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.</szItemDesc>
-		<szBRName>FN Browning HP-35</szBRName>
-		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.  The latest incarnation, the HP-35, is in use today in the Belgian Military.</szBRDesc>
+		<szItemName>HP-35 .40</szItemName>
+		<szLongItemName>FN Browning HP-35 .40</szLongItemName>
+		<szItemDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2. This one is chambered in .40S&amp;W.</szItemDesc>
+		<szBRName>FN Browning HP-35 .40</szBRName>
+		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.  The latest incarnation, the HP-35, is in use today in the Belgian Military. This one is chambered in .40S&amp;W.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>645</uiIndex>
@@ -7203,11 +7203,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 900</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Pro II</szItemName>
+		<szLongItemName>Kimber Eclipse Pro II</szLongItemName>
+		<szItemDesc>A 10mm pistol based on the Colt Commander design, i.e. with a shorter barrel than the Colt Government models.</szItemDesc>
+		<szBRName>Kimber Eclipse Pro II</szBRName>
+		<szBRDesc>Produced from stainless steel and to very tight tolerances, the Kimber Eclipse is a high quality pistol. The Pro II is the intermediate version between the Ultra II and the Custom II, and like the Custom II, it can be equipped with better sights.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>901</uiIndex>
@@ -10439,6 +10439,38 @@
 		<szLongItemName>9x18mm AP ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>9x18mm AP ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1305</uiIndex>
+		<szItemName>.50 Beo AP crate</szItemName>
+		<szLongItemName>.50 Beowulf AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.50 Beowulf AP ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1306</uiIndex>
+		<szItemName>.50 Beo HP crate</szItemName>
+		<szLongItemName>.50 Beowulf HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.50 Beowulf HP ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1307</uiIndex>
+		<szItemName>6mm crate</szItemName>
+		<szLongItemName>6x35mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>6x35mm ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1308</uiIndex>
+		<szItemName>6mm HP crate</szItemName>
+		<szLongItemName>6x35mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>6x35mm HP ammo crate</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
 </ITEMLIST>

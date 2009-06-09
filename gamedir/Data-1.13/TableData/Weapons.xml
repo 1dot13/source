@@ -1489,7 +1489,7 @@
 		<ubImpact>30</ubImpact>
 		<ubDeadliness>20</ubDeadliness>
 		<ubMagSize>4</ubMagSize>
-		<usRange>140</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -2531,6 +2531,34 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>397</uiIndex>
+		<szWeaponName>FN Browning HP-35</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>18.71</ubShotsPer4Turns>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>16</ubDeadliness>
+		<ubMagSize>15</ubMagSize>
+		<usRange>115</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>52</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>367</sSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>20</bBurstAP>
+		<APsToReload>12</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -3981,7 +4009,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>644</uiIndex>
-		<szWeaponName>FN Browning HP-35</szWeaponName>
+		<szWeaponName>FN Browning HP-35 .40</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>23</ubCalibre>
@@ -7608,7 +7636,7 @@
 		<ubDeadliness>28</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>7</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -9185,6 +9213,33 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<APsToReloadManually>12</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>900</uiIndex>
+		<szWeaponName>Kimber Eclipse Pro II</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>27</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>16.93</ubShotsPer4Turns>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>26</ubImpact>
+		<ubDeadliness>18</ubDeadliness>
+		<ubMagSize>8</ubMagSize>
+		<usRange>110</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>74</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>388</sSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>20</bBurstAP>
+		<APsToReload>12</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>901</uiIndex>

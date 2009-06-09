@@ -8914,13 +8914,32 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<PercentNoiseReduction>40</PercentNoiseReduction>
+		<szItemName>HP-35</szItemName>
+		<szLongItemName>FN Browning HP-35</szLongItemName>
+		<szItemDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.</szItemDesc>
+		<szBRName>FN Browning HP-35</szBRName>
+		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.  The latest incarnation, the HP-35, is in use today in the Belgian Military.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>397</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>357</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>1</ItemSize>
+		<usPrice>590</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>1</bReliability>
+		<bRepairEase>1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>36</BR_ROF>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
@@ -10264,7 +10283,7 @@
 		<szBRName>.30-06 AP Clip</szBRName>
 		<szBRDesc>If you happen to have a M1 Garand around, here's some ammo for it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>417</ubClassIndex>
+		<ubClassIndex>418</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>682</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -10396,7 +10415,7 @@
 		<szBRName>.30 car HP mag</szBRName>
 		<szBRDesc>Hollowpoint rounds for the old M1 Carbine.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>413</ubClassIndex>
+		<ubClassIndex>414</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>683</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -10515,7 +10534,7 @@
 		<szBRName>.30 car AP mag</szBRName>
 		<szBRDesc>Full Metal Jacket ammo for the old M1 Carbine.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>414</ubClassIndex>
+		<ubClassIndex>415</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>684</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -10536,7 +10555,7 @@
 		<szBRName>.300 WM Mag HP</szBRName>
 		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, especially with expanding hollowpoint bullets.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>397</ubClassIndex>
+		<ubClassIndex>398</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>540</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10557,7 +10576,7 @@
 		<szBRName>.300 WM Mag AP</szBRName>
 		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, though these bullets are for the deer with Kevlar vest.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>398</ubClassIndex>
+		<ubClassIndex>399</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>541</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10578,7 +10597,7 @@
 		<szBRName>7.92x57mm 5 HP</szBRName>
 		<szBRDesc>Own a vintage Mauser Gewehr 98 or Karabiner 98k? We have the ammo for your old pal!</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>401</ubClassIndex>
+		<ubClassIndex>402</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>542</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10599,7 +10618,7 @@
 		<szBRName>7.92x57mm 5 AP</szBRName>
 		<szBRDesc>Our AP ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>402</ubClassIndex>
+		<ubClassIndex>403</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>543</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10620,7 +10639,7 @@
 		<szBRName>12.7x97mm Subsonic</szBRName>
 		<szBRDesc>Want to fire a .50 cal round without making noise? These babies are cutdown 12.7mm rounds to fit the Russian VSSK.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>405</ubClassIndex>
+		<ubClassIndex>406</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>544</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -10642,7 +10661,7 @@
 		<szBRName>5.56x45mm SCF mag</szBRName>
 		<szBRDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>411</ubClassIndex>
+		<ubClassIndex>412</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>580</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -10663,7 +10682,7 @@
 		<szBRName>6.8x43mm SPC mag HP</szBRName>
 		<szBRDesc>The 6.8x43mm Special Purpose Cartridge was developed under participation of the special operations comunity, who wanted a round that should be more lethal than the 5.56x45mm. Now they got it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>407</ubClassIndex>
+		<ubClassIndex>408</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>582</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -10684,7 +10703,7 @@
 		<szBRName>6.8x43mm SPC mag</szBRName>
 		<szBRDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>408</ubClassIndex>
+		<ubClassIndex>409</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>583</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -11935,8 +11954,7 @@
 		<szItemDesc>Deal out armor penetration and radiation damage from a suppressed rifle.</szItemDesc>
 		<szBRName>7.62x37mm Mag D-U</szBRName>
 		<szBRDesc>Deliver a tactical nuclear strike on the smallest possible scale from your silenced sniper rifle.</szBRDesc>
-		<usItemClass>1024</usItemClass>
-		<ubClassIndex>374</ubClassIndex>
+		<usItemClass>1</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>437</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11959,7 +11977,7 @@
 		<szBRName>5.45x18mm Mag</szBRName>
 		<szBRDesc>8 round magazine of 5.45x18mm ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>377</ubClassIndex>
+		<ubClassIndex>376</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>293</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11980,7 +11998,7 @@
 		<szBRName>5.45x18mm Mag HP</szBRName>
 		<szBRDesc>HP bullets augment the stopping power of this small-bore cartridge.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>376</ubClassIndex>
+		<ubClassIndex>375</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>294</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12001,7 +12019,7 @@
 		<szBRName>9mm Metal Storm Mag</szBRName>
 		<szBRDesc>Dispensing with mechanical loading and firing, Metal Storm's stacked electronically fired ammunition promises reliable mass firepower at low weight. This bundle is configured for 72 rounds across 6 barrels, in 9mm.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>380</ubClassIndex>
+		<ubClassIndex>379</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>463</ubGraphicNum>
 		<ubWeight>19</ubWeight>
@@ -12066,7 +12084,7 @@
 		<szBRName>.50 Action Express Mag</szBRName>
 		<szBRDesc>Magzine size, accuracy and controlability are a fair trade off for stopping power and coolness, right?  Because if you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>383</ubClassIndex>
+		<ubClassIndex>382</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>175</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12246,7 +12264,7 @@
 		<szBRName>.50 Beowulf 7</szBRName>
 		<szBRDesc>7 rounds of the highpowered .50 Beowulf ammo, just the thing for stopping vehicles.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>396</ubClassIndex>
+		<ubClassIndex>395</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>515</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12270,7 +12288,7 @@
 		<szBRName>.50 Beowulf 7 HP</szBRName>
 		<szBRDesc>A clip of 7 Hollow Point rounds, perfect for harassing big pussycats.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>395</ubClassIndex>
+		<ubClassIndex>394</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>516</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12294,7 +12312,7 @@
 		<szBRName>.50 Beowulf 4</szBRName>
 		<szBRDesc>not for sale at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>394</ubClassIndex>
+		<ubClassIndex>393</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>517</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12317,7 +12335,7 @@
 		<szBRName>.50 Beowulf 4 HP</szBRName>
 		<szBRDesc>not for sale at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>393</ubClassIndex>
+		<ubClassIndex>392</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>518</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12521,7 +12539,7 @@
 		<szBRName>.45 WinMag Mag</szBRName>
 		<szBRDesc>Standard ammo for some of the big-bore pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>390</ubClassIndex>
+		<ubClassIndex>389</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>528</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12542,7 +12560,7 @@
 		<szBRName>.45 WinMag Mag HP</szBRName>
 		<szBRDesc>If you're a hunter, then you'll need this for your sidearm if your prey is not as dead as you believed on first sight...</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>391</ubClassIndex>
+		<ubClassIndex>390</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>529</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12563,7 +12581,7 @@
 		<szBRName>.45 WinMag Mag AP</szBRName>
 		<szBRDesc>Armor piercing ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>392</ubClassIndex>
+		<ubClassIndex>391</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>530</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12584,7 +12602,7 @@
 		<szBRName>.454 C S-Load</szBRName>
 		<szBRDesc>.454 Casull is a round developed for some truly large revolvers.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>387</ubClassIndex>
+		<ubClassIndex>386</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>531</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12605,7 +12623,7 @@
 		<szBRName>.454 C S-Load HP</szBRName>
 		<szBRDesc>.454 Casull Hollow Point ammunition, if you use your revolver for hunting.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>388</ubClassIndex>
+		<ubClassIndex>387</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>532</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12626,7 +12644,7 @@
 		<szBRName>.454 C S-Load AP</szBRName>
 		<szBRDesc>.454 Casull Armor Piercers meet any need for self-defense ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>389</ubClassIndex>
+		<ubClassIndex>388</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>533</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12647,7 +12665,7 @@
 		<szBRName>.454 C Cartridge</szBRName>
 		<szBRDesc>A single .454 Casull cartridge.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>384</ubClassIndex>
+		<ubClassIndex>383</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>534</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12668,7 +12686,7 @@
 		<szBRName>.454 C Cartridge HP</szBRName>
 		<szBRDesc>.454 Casull Hollow Point ammunition, for hunting game large enough not to be splattered by it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>385</ubClassIndex>
+		<ubClassIndex>384</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>535</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12689,7 +12707,7 @@
 		<szBRName>.454 C Cartridge AP</szBRName>
 		<szBRDesc>A .454 Casull Armor Piercer, if you want to shock the rangemaster at your next silhouette-training.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>386</ubClassIndex>
+		<ubClassIndex>385</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>536</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12835,7 +12853,7 @@
 		<szBRName>.50 Action Express Mag HP</szBRName>
 		<szBRDesc>Hollowpoint bullets for your .50 AE handcannon. Probably better used for target-practice, if you shoot anything living with these, there will not be much left of it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>382</ubClassIndex>
+		<ubClassIndex>381</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>557</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14577,11 +14595,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>644</uiIndex>
-		<szItemName>HP-35</szItemName>
-		<szLongItemName>FN Browning HP-35</szLongItemName>
-		<szItemDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.</szItemDesc>
-		<szBRName>FN Browning HP-35</szBRName>
-		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.  The latest incarnation, the HP-35, is in use today in the Belgian Military.</szBRDesc>
+		<szItemName>HP-35 .40</szItemName>
+		<szLongItemName>FN Browning HP-35 .40</szLongItemName>
+		<szItemDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2. This one is chambered in .40S&amp;W.</szItemDesc>
+		<szBRName>FN Browning HP-35 .40</szBRName>
+		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.  The latest incarnation, the HP-35, is in use today in the Belgian Military. This one is chambered in .40S&amp;W.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>644</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -14598,7 +14616,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>5</BR_NewInventory>
+		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>36</BR_ROF>
 	</ITEM>
@@ -14627,7 +14645,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>5</BR_NewInventory>
+		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>36</BR_ROF>
 	</ITEM>
@@ -21657,15 +21675,32 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 900</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<ItemSize>34</ItemSize>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Pro II</szItemName>
+		<szLongItemName>Kimber Eclipse Pro II</szLongItemName>
+		<szItemDesc>A 10mm pistol based on the Colt Commander design, i.e. with a shorter barrel than the Colt Government models.</szItemDesc>
+		<szBRName>Kimber Eclipse Pro II</szBRName>
+		<szBRDesc>Produced from stainless steel and to very tight tolerances, the Kimber Eclipse is a high quality pistol. The Pro II is the intermediate version between the Ultra II and the Custom II, and like the Custom II, it can be equipped with better sights.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>900</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>358</ubGraphicNum>
+		<ubWeight>10</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>1</ItemSize>
+		<usPrice>830</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>36</BR_ROF>
+		<DefaultAttachment>1183</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>901</uiIndex>
@@ -22464,7 +22499,7 @@
 		<szBRName>6x35mm HP</szBRName>
 		<szBRDesc>Here's what you need for your shiny new 6x35mm PDW: 30 rounds tipped with hollowpoint bullets for anti-personnel work.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>419</ubClassIndex>
+		<ubClassIndex>420</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>713</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -22485,7 +22520,7 @@
 		<szBRName>6x35mm AP</szBRName>
 		<szBRDesc>30 full metal jacket rounds for 6x35mm personal defense weapons, if hollowpoints won't do it any longer.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>420</ubClassIndex>
+		<ubClassIndex>421</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>712</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -30288,7 +30323,7 @@
 		<szBRName>5,45x18mm AP ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>379</ubClassIndex>
+		<ubClassIndex>378</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>511</ubWeight>
@@ -30308,7 +30343,7 @@
 		<szBRName>5,45x18mm HP ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>378</ubClassIndex>
+		<ubClassIndex>377</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>511</ubWeight>
@@ -30388,7 +30423,7 @@
 		<szBRName>.30car ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>416</ubClassIndex>
+		<ubClassIndex>417</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>760</ubWeight>
@@ -30408,7 +30443,7 @@
 		<szBRName>.30car HP ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>415</ubClassIndex>
+		<ubClassIndex>416</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>760</ubWeight>
@@ -30428,7 +30463,7 @@
 		<szBRName>6.8x43mm ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>410</ubClassIndex>
+		<ubClassIndex>411</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>760</ubWeight>
@@ -30448,7 +30483,7 @@
 		<szBRName>6.8x43mm HP ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>409</ubClassIndex>
+		<ubClassIndex>410</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>760</ubWeight>
@@ -30488,7 +30523,7 @@
 		<szBRName>7.62x37mm ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>375</ubClassIndex>
+		<ubClassIndex>374</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>724</ubWeight>
@@ -30848,7 +30883,7 @@
 		<szBRName>12.7x97mm Subs. ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>406</ubClassIndex>
+		<ubClassIndex>407</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>465</ubWeight>
@@ -30868,7 +30903,7 @@
 		<szBRName>5.56x45mm SCF ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>412</ubClassIndex>
+		<ubClassIndex>413</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>374</ubWeight>
@@ -30928,7 +30963,7 @@
 		<szBRName>9mm MS ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>381</ubClassIndex>
+		<ubClassIndex>380</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>465</ubWeight>
@@ -30948,7 +30983,7 @@
 		<szBRName>.30-06 ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>418</ubClassIndex>
+		<ubClassIndex>419</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>873</ubWeight>
@@ -30968,7 +31003,7 @@
 		<szBRName>.300WinMag HP ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>399</ubClassIndex>
+		<ubClassIndex>400</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>742</ubWeight>
@@ -30988,7 +31023,7 @@
 		<szBRName>.300WinMag AP ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>400</ubClassIndex>
+		<ubClassIndex>401</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>742</ubWeight>
@@ -31028,7 +31063,7 @@
 		<szBRName>7.92x57mm ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>404</ubClassIndex>
+		<ubClassIndex>405</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -31048,7 +31083,7 @@
 		<szBRName>7.92x57mm HP ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>403</ubClassIndex>
+		<ubClassIndex>404</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>729</ubGraphicNum>
 		<ubWeight>800</ubWeight>
@@ -31095,6 +31130,86 @@
 		<ubWeight>624</ubWeight>
 		<ItemSize>34</ItemSize>
 		<usPrice>11250</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<TwoHanded>1</TwoHanded>
+		<AmmoCrate>1</AmmoCrate>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1305</uiIndex>
+		<szItemName>.50 Beo AP crate</szItemName>
+		<szLongItemName>.50 Beowulf AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.50 Beowulf AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>397</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>730</ubGraphicNum>
+		<ubWeight>805</ubWeight>
+		<ItemSize>34</ItemSize>
+		<usPrice>27000</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<TwoHanded>1</TwoHanded>
+		<AmmoCrate>1</AmmoCrate>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1306</uiIndex>
+		<szItemName>.50 Beo HP crate</szItemName>
+		<szLongItemName>.50 Beowulf HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.50 Beowulf HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>396</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>729</ubGraphicNum>
+		<ubWeight>805</ubWeight>
+		<ItemSize>34</ItemSize>
+		<usPrice>18000</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<TwoHanded>1</TwoHanded>
+		<AmmoCrate>1</AmmoCrate>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1307</uiIndex>
+		<szItemName>6mm crate</szItemName>
+		<szLongItemName>6x35mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>6x35mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>423</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>730</ubGraphicNum>
+		<ubWeight>828</ubWeight>
+		<ItemSize>34</ItemSize>
+		<usPrice>40000</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<TwoHanded>1</TwoHanded>
+		<AmmoCrate>1</AmmoCrate>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1308</uiIndex>
+		<szItemName>6mm HP crate</szItemName>
+		<szLongItemName>6x35mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>6x35mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>422</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>729</ubGraphicNum>
+		<ubWeight>828</ubWeight>
+		<ItemSize>34</ItemSize>
+		<usPrice>30000</usPrice>
 		<ubCoolness>8</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>

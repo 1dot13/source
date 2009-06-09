@@ -3160,11 +3160,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
-		<szItemName>Nichts</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Nichts</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>FN HP-35</szItemName>
+		<szLongItemName>FN Browning HP-35</szLongItemName>
+		<szItemDesc>Ursprünglich 1925 entworfen, wurde diese Pistole erst 1935 von Belgiens Armee in Dienst gestellt.</szItemDesc>
+		<szBRName>FN Browning HP-35</szBRName>
+		<szBRDesc>Ursprünglich 1925 entworfen, wurde diese Pistole erst 1935 von Belgiens Armee in Dienst gestellt. Sie war die einzige Seitenwaffe die von beiden Seiten im 2. Weltkrieg eingesetzt wurde. Die neueste Variante der HP-35 wird heute vom belgischen Militär verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
@@ -5136,11 +5136,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>644</uiIndex>
-		<szItemName>FN HP-35</szItemName>
-		<szLongItemName>FN Browning HP-35</szLongItemName>
-		<szItemDesc>Ursprünglich 1925 entworfen, wurde diese Pistole erst 1935 von Belgiens Armee in Dienst gestellt.</szItemDesc>
-		<szBRName>FN Browning HP-35</szBRName>
-		<szBRDesc>Ursprünglich 1925 entworfen, wurde diese Pistole erst 1935 von Belgiens Armee in Dienst gestellt. Sie war die einzige Seitenwaffe die von beiden Seiten im 2. Weltkrieg eingesetzt wurde. Die neueste Variante der HP-35 wird heute vom belgischen Militär verwendet.</szBRDesc>
+		<szItemName>HP-35 .40</szItemName>
+		<szLongItemName>FN Browning HP-35 .40</szLongItemName>
+		<szItemDesc>Ursprünglich 1925 entworfen, wurde diese Pistole erst 1935 von Belgiens Armee in Dienst gestellt. Diese Version hat das Kaliber .40S&amp;W.</szItemDesc>
+		<szBRName>FN Browning HP-35 .40</szBRName>
+		<szBRDesc>Ursprünglich 1925 entworfen, wurde diese Pistole erst 1935 von Belgiens Armee in Dienst gestellt. Sie war die einzige Seitenwaffe die von beiden Seiten im 2. Weltkrieg eingesetzt wurde. Die neueste Variante der HP-35 wird heute vom belgischen Militär verwendet. Diese Version hat das Kaliber .40S&amp;W.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>645</uiIndex>
@@ -7184,11 +7184,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 900</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>Pro II</szItemName>
+		<szLongItemName>Kimber Eclipse Pro II</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht.</szItemDesc>
+		<szBRName>Kimber Eclipse Pro II</szBRName>
+		<szBRDesc>Beschreibung erwünscht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>901</uiIndex>
@@ -10064,6 +10064,38 @@
 		<szLongItemName>9x18mm PB Munitionskiste</szLongItemName>
 		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x18mm PB.</szItemDesc>
 		<szBRName>9x18mm PB Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1305</uiIndex>
+		<szItemName>.50 Beo PB Kiste</szItemName>
+		<szLongItemName>.50 Beowulf PB Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 1500 Patronen des Kalibers .50 Beowulf PB.</szItemDesc>
+		<szBRName>.50 Beowulf PB Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1306</uiIndex>
+		<szItemName>.50 Beo HS Kiste</szItemName>
+		<szLongItemName>.50 Beowulf HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 1500 Patronen des Kalibers .50 Beowulf HS.</szItemDesc>
+		<szBRName>.50 Beowulf HS Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1307</uiIndex>
+		<szItemName>6mm Kiste</szItemName>
+		<szLongItemName>6x35mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 6x35mm.</szItemDesc>
+		<szBRName>6x35mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1308</uiIndex>
+		<szItemName>6mm HS Kiste</szItemName>
+		<szLongItemName>6x35mm HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 6x35mm HS.</szItemDesc>
+		<szBRName>6x35mm HS Munitionskiste</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 </ITEMLIST>
