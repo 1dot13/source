@@ -7204,9 +7204,9 @@
 		<uiIndex>900</uiIndex>
 		<szItemName>Pro II</szItemName>
 		<szLongItemName>Kimber Eclipse Pro II</szLongItemName>
-		<szItemDesc>A 10mm pistol based on the Colt Commander design,</szItemDesc>
+		<szItemDesc>在Colt Commander设计基础上的10mm手枪。</szItemDesc>
 		<szBRName>Kimber Eclipse Pro II</szBRName>
-		<szBRDesc>A 10mm pistol based on the Colt Commander design,</szBRDesc>
+		<szBRDesc>在Colt Commander设计基础上的10mm手枪。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>901</uiIndex>
