@@ -20,6 +20,8 @@
 #endif
 
 #include "connect.h"
+#include "VFS/vfs.h"
+#include "XMLWriter.h"
 
 extern BOOLEAN InitStrategicMovementCosts();
 void InitKnowFacilitiesFlags( );
@@ -205,6 +207,7 @@ BOOLEAN ReadInAltSectors(STR fileName)
 
 BOOLEAN WriteInAltSectors(STR fileName)
 {
+#ifndef USE_VFS
 	// Lets output the current Strategic map format using the XML structure I've devised.
 	FILE *outfile = fopen(fileName, "wt");
 
@@ -223,7 +226,23 @@ BOOLEAN WriteInAltSectors(STR fileName)
 	fprintf (outfile, "</ALT_SECTORS_LIST>\n");
 
 	fclose(outfile);
-
+#else
+	XMLWriter xmlw;
+	xmlw.OpenNode(L"ALT_SECTORS_LIST");
+	UINT32 x, y;
+	for(y = 1;y <= 16;y++)
+	{
+		xmlw.AddAttributeToNextValue(L"y",(char)(y+0x40));
+		std::stringstream ss;
+		for(x = 1;x <= 16; x++)
+		{
+			ss << " " << RandomSector[ ((y - 1) * 16) + (x - 1) ];
+		}
+		xmlw.AddValue(L"ROW", ss.str());
+	}
+	xmlw.CloseNode();
+	xmlw.WriteToFile(fileName);
+#endif
 	return (TRUE);
 }
 

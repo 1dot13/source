@@ -109,8 +109,8 @@
 #include "connect.h" //hayden added alot ""'s to get around client spawing random/different placed AI
 #include "SaveLoadGame.h"
 
-#include "vfs.h"
-#include "PropertyContainer.h"
+#include "VFS/vfs.h"
+#include "VFS/Tools/Log.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
