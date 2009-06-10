@@ -2063,10 +2063,13 @@ void RefreshScreen(void *DummyVariable)
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 			}
 		}
+
+#ifdef USE_VFS
 		catch(CBasicException& ex)
 		{
 			RETHROWEXCEPTION(L"",&ex);
 		}
+#endif
 
 		//
 		// Release temp surface

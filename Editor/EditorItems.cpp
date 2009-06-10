@@ -531,7 +531,7 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 				sOffset = hVObject->pETRLEObject[item->ubGraphicNum].sOffsetX;
 				sStart = x + (60 - sWidth - sOffset*2) / 2;
 
-				if( sWidth )
+				if( sWidth && sWidth > 0 )
 				{
 					BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, item->ubGraphicNum, sStart, y+2, 0, FALSE );
 				}
