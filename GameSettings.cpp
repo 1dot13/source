@@ -1000,12 +1000,8 @@ void LoadGameExternalOptions()
 	// WANNE: Always use prof.dat??
 	gGameExternalOptions.fAlwaysUseProfDat					= iniReader.ReadBoolean("JA2 Gameplay Settings", "ALWAYS_USE_PROF_DAT", FALSE);
 
-
-	// HEADROCK HAM B1: Set % of mine income, where 100% = normal
-	gGameExternalOptions.iMineIncomePercentage				= iniReader.ReadInteger("JA2 HAM Settings","MINE_INCOME_PERCENTAGE",0);
-	// HEADROCK HAM B2.4: Set a threshold at 1% - otherwise game crashes on asserting mine income. 
-	// Can anyone have a look at circumventing the income check? I don't want to cause any damage...
-	gGameExternalOptions.iMineIncomePercentage = __max(gGameExternalOptions.iMineIncomePercentage, 100);
+	// HEADROCK HAM B2.4
+	gGameExternalOptions.iMineIncomePercentage				= iniReader.ReadInteger("JA2 HAM Settings","MINE_INCOME_PERCENTAGE", 100, 1, 1000);
 
 	// HEADROCK HAM B1: Set minimum and maximum CTH
 	gGameExternalOptions.iMaximumCTH						= iniReader.ReadInteger("JA2 HAM Settings","MAXIMUM_POSSIBLE_CTH",99);
