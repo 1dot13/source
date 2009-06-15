@@ -720,6 +720,10 @@ typedef struct
 	BOOLEAN newinv;	// item only available in new inventory mode
 
 	UINT16 defaultattachment;
+
+	//zilpin: pellet spread patterns externalized in XML
+	INT32 spreadPattern;
+
 } INVTYPE;
 
 // CHRISL: Added new structures to handle LBE gear and the two new XML files that will be needed to deal

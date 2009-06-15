@@ -108,9 +108,14 @@ typedef PARSE_STAGE;
 // WANNE: Sector loadscreens [2007-05-18]
 #define SECTORLOADSCREENSFILENAME				"Map\\SectorLoadscreens.xml"
 
+//zilpin: pellet spread patterns externalized in XML
+#define SPREADPATTERNSFILENAME            "SpreadPatterns.xml"
+#define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"
+
 // Dealtar: Shipping destinations and delivery methods
 #define SHIPPINGDESTINATIONSFILENAME			"Map\\ShippingDestinations.xml"
 #define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"
+
 // Gotthard: Laptop Text files [2007-10-16]
 #define LAPTOPFLORISTTEXTFILENAME				"Laptop\\Florist.xml"
 #define LAPTOPFUNERALTEXTFILENAME				"Laptop\\Funeral.xml"
@@ -233,6 +238,11 @@ extern BOOLEAN ReadInRoamingInfo(STR filename);
 // Dealtar: New shipping system XMLs
 extern BOOLEAN ReadInShippingDestinations(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN ReadInDeliveryMethods(STR fileName);
+
+//zilpin: pellet spread patterns externalized in XML
+extern BOOLEAN ReadInSpreadPatterns(STR fileName);
+extern BOOLEAN WriteSpreadPatterns();
+extern int FindSpreadPatternIndex( const STR strName );
 //Gotthard: Laptop Florist Text
 extern BOOLEAN ReadInFloristText(STR fileName);
 

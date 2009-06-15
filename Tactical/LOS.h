@@ -165,4 +165,33 @@ extern LOSResults gLOSTestResults;
 void MoveBullet( INT32 iBullet );
 //BOOLEAN FireBullet2( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, INT16 sHitBy );
 
+//zilpin: pellet spread patterns externalized in XML
+#define SPREADPATTERN_NAME_SIZE 32
+enum SpreadPatternMethod_enum
+{
+	SPREADPATTERNMETHOD_RECT = 0,
+	SPREADPATTERNMETHOD_DIAMOND,
+	SPREADPATTERNMETHOD_ELLIPSE,
+	SPREADPATTERNMETHOD_COUNT,
+};
+extern char *gSpreadPatternMethodNames[];
+extern int giSpreadPatternMethod_Default;
+typedef struct SpreadPattern_struct
+{
+	//Unique name.
+	char Name[SPREADPATTERN_NAME_SIZE];
+	//Max spread for randomized cone of fire.
+	DOUBLE  xspread,yspread;
+	//Method (i.e. algorithm) used to distribute randomized cone.
+	int  method;
+	//List of statically defined spread angles.
+	//These get used first.
+	INT32	iCount;					
+	DOUBLE  *x;
+	DOUBLE  *y;
+} t_SpreadPattern;
+extern t_SpreadPattern  *gpSpreadPattern;
+extern INT32 giSpreadPatternCount;
+extern INT32 GetSpreadPattern( OBJECTTYPE * pObj );
+
 #endif

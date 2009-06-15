@@ -106,6 +106,12 @@ UINT32 FPMult32(UINT32 uiA, UINT32 uiB)
 }
 
 
+//zilpin: pellet spread patterns externalized in XML
+t_SpreadPattern  *gpSpreadPattern=NULL;
+INT32 giSpreadPatternCount=0;
+char * gSpreadPatternMethodNames[] = {"RECTANGLE","DIAMOND","ELLIPSE",NULL};
+int giSpreadPatternMethod_Default = SPREADPATTERNMETHOD_ELLIPSE;
+//zilpin: ddShotgunSpread is only used as a backup if the XML file does not exist.
 static DOUBLE ddShotgunSpread[3][BUCKSHOT_SHOTS][2] =
 {
 	{
@@ -149,6 +155,72 @@ static DOUBLE ddShotgunSpread[3][BUCKSHOT_SHOTS][2] =
 		},
 
 };
+
+
+//zilpin: pellet spread patterns externalized in XML
+//Decide what spread pattern to use for an object in inventory.
+//Attachment trumps Weapon trumps Ammo trumps AmmoType
+//If multiple attachments, then the first one encountered is used.
+//This will work for non-weapons, but ammo and ammo type are only checked for guns.
+INT32 GetSpreadPattern( OBJECTTYPE * pObj )
+{
+	int i=0,n=0;
+	if( !pObj || !pObj->usItem || !pObj->exists() ) return 0;
+
+	//If there are attachments, check them.  Stop on the first one with something defined.
+	//Dear God, I hate C++ iterators.  What a fugly mess.
+	for (attachmentList::iterator iter = pObj[0][0]->attachments.begin(); iter != pObj[0][0]->attachments.end(); ++iter){
+			if( n=Item[ iter->usItem ].spreadPattern )
+				//An attachment has it, and it trumps everything, so return it's value.
+				return n;
+	}
+
+	//The object's own spread pattern, if it has one.
+	if( n=Item[pObj->usItem].spreadPattern )
+		return n;
+
+	//If a gun, and don't have a pattern yet, check it's ammo.
+	if( IC_GUN & Item[pObj->usItem].usItemClass ){
+		//Check for the ammo first.
+		if( n=Item[ pObj[0][0]->data.gun.usGunAmmoItem ].spreadPattern )
+			return n;
+		//If no pattern for the ammo, try the ammo type.
+		if( n=AmmoTypes[pObj[0][0]->data.gun.ubGunAmmoType].spreadPattern )
+			return n;
+	}
+
+
+	/*
+	This is the old code to iterate through all the attachments.
+	No longer works, since the NewInv project object-orientified everything.
+	*
+	//If there are attachments, check them.  Stop on the first one with something defined.
+	for (i=0; i<MAX_ATTACHMENTS; i++)
+		if (pObj->usAttachItem[i])
+			if( n=Item[ pObj->usAttachItem[i] ].spreadPattern )
+				//The attachment has it, and it trumps everything, so return it's value.
+				return n;
+
+	//The object's own spread pattern, if it has one.
+	if( n=Item[pObj->usItem].spreadPattern )
+		return n;
+
+	//If a gun, and don't have a pattern yet, check it's ammo.
+	if( IC_GUN & Item[pObj->usItem].usItemClass ){
+		//Check for the ammo first.
+		if( n=Item[ pObj->ItemData.Gun.usGunAmmoItem ].spreadPattern )
+			return n;
+		//If no pattern for the ammo, try the ammo type.
+		if( n=AmmoTypes[pObj->ItemData.Gun.ubGunAmmoType].spreadPattern )
+			return n;
+	}
+	*/
+
+	//No pattern for anything found, so use the default.
+	return 0;
+}
+
+
 
 static UINT8 gubTreeSightReduction[ANIM_STAND + 1] =
 {
@@ -3483,6 +3555,15 @@ void CalculateFiringIncrements( DOUBLE ddHorizAngle, DOUBLE ddVerticAngle, DOUBL
 	pBullet->qIncrZ = FloatToFixed( (FLOAT) ( sin( ddVerticAngle ) / sin( (PI/2) - ddVerticAngle ) * 2.56 ) );
 }
 
+//zilpin: pellet spread patterns externalized in XML
+//New firing increments calculation, without any adjustment.
+void CalculateFiringIncrementsSimple( DOUBLE ddHorizAngle, DOUBLE ddVerticAngle, BULLET * pBullet)
+{
+	pBullet->qIncrX = FloatToFixed( (FLOAT) cos( ddHorizAngle ) );
+	pBullet->qIncrY = FloatToFixed( (FLOAT) sin( ddHorizAngle ) );
+	pBullet->qIncrZ = FloatToFixed( (FLOAT) ( sin( ddVerticAngle ) / sin( (PI/2) - ddVerticAngle ) * 2.56 ) );
+}
+
 INT8 FireBullet( SOLDIERTYPE * pFirer, BULLET * pBullet, BOOLEAN fFake )
 {
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBullet"));
@@ -3577,36 +3658,37 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 {
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"FireBulletGivenTarget");
 	// fFake indicates that we should set things up for a call to ChanceToGetThrough
-	FLOAT		dStartZ;
+	FLOAT		dStartZ=0;
 
-	FLOAT		d2DDistance;
-	FLOAT		dDeltaX;
-	FLOAT		dDeltaY;
-	FLOAT		dDeltaZ;
+	FLOAT		d2DDistance=0;
+	FLOAT		dDeltaX=0;
+	FLOAT		dDeltaY=0;
+	FLOAT		dDeltaZ=0;
 
-	FLOAT		dStartX;
-	FLOAT		dStartY;
+	FLOAT		dStartX=0;
+	FLOAT		dStartY=0;
 
-	DOUBLE	ddOrigHorizAngle;
-	DOUBLE	ddOrigVerticAngle;
-	DOUBLE	ddHorizAngle;
-	DOUBLE	ddVerticAngle;
-	DOUBLE	ddAdjustedHorizAngle;
-	DOUBLE	ddAdjustedVerticAngle;
-	DOUBLE	ddDummyHorizAngle;
-	DOUBLE	ddDummyVerticAngle;
+	DOUBLE	ddOrigHorizAngle=0;
+	DOUBLE	ddOrigVerticAngle=0;
+	DOUBLE	ddHorizAngle=0;
+	DOUBLE	ddVerticAngle=0;
+	DOUBLE	ddAdjustedHorizAngle=0;
+	DOUBLE	ddAdjustedVerticAngle=0;
+	DOUBLE	ddDummyHorizAngle=0;
+	DOUBLE	ddDummyVerticAngle=0;
 
-	BULLET *				pBullet;
-	INT32						iBullet;
+	BULLET *				pBullet=NULL;
+	INT32						iBullet=0;
 
-	INT32		iDistance;
+	INT32		iDistance=0;
 
-	UINT8 ubLoop;
-	UINT8		ubShots;
-	UINT8		ubImpact;
+	UINT8		ubLoop=0;
+	UINT8		ubShots=0;
+	UINT8		ubImpact=0;
 	INT8		bCTGT;
 	UINT8		ubSpreadIndex = 0;
 	UINT16	usBulletFlags = 0;
+	int n=0;
 
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBulletGivenTarget"));
 
@@ -3694,6 +3776,12 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	}
 
 	ubImpact =(UINT8) GetDamage(&pFirer->inv[pFirer->ubAttackingHand]);
+
+
+	//zilpin: pellet spread patterns externalized in XML
+	/* zilpin: The section below, including line comments, is the original adjustment made to multiple projectile stats.
+	           Left in comments for reference, but the new handling is after it.
+	           The fBuckshot flag is now ignored, so it can probably be taken out of the function definition.
 	//	if (!fFake)
 	{
 		if (fBuckshot)
@@ -3722,6 +3810,25 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 			ubImpact = (UINT8) (ubImpact * AmmoTypes[pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType].multipleBulletDamageMultiplier / max(1,AmmoTypes[pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType].multipleBulletDamageDivisor) );
 		}
 	}
+	*/
+	//zilpin: Begin new code block for spread patterns, number of projectiles, impact adjustment, etc.
+	{
+		ObjectData *weapon = &(pFirer->inv[pFirer->ubAttackingHand][0]->data);
+		ubShots = AmmoTypes[ weapon->gun.ubGunAmmoType].numberOfBullets;
+		ubSpreadIndex = GetSpreadPattern(  &pFirer->inv[pFirer->ubAttackingHand]  );
+		if( ubShots>1 && !fFake )
+		{
+			fBuckshot = true;
+			usBulletFlags |= BULLET_FLAG_BUCKSHOT;
+			ubImpact = (UINT8) (ubImpact * AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageMultiplier / max(1,AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageDivisor) );
+			if (pFirer->ubTargetID != NOBODY)
+			{
+				MercPtrs[ pFirer->ubTargetID ]->bNumPelletsHitBy = 0;
+			}
+		}
+		weapon=NULL;
+	}
+	//zilpin: End of new code block.
 
 	// GET BULLET
 	for (ubLoop = 0; ubLoop < ubShots; ubLoop++)
@@ -3759,7 +3866,11 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 			}
 		}
 
-		if ( ubLoop == 0 )
+		//zilpin: pellet spread patterns externalized in XML
+		//Now the first shot will use the pattern, as well.
+		//Single shot weapons will still be stuck with straight-ahead only, though.
+		//if ( ubLoop == 0 )
+		if( ubShots == 1 )
 		{
 			ddHorizAngle = ddOrigHorizAngle;
 			ddVerticAngle = ddOrigVerticAngle;
@@ -3779,16 +3890,156 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 				CalculateFiringIncrements( ddHorizAngle, ddVerticAngle, d2DDistance, pBullet, &ddAdjustedHorizAngle, &ddAdjustedVerticAngle );
 			}
 		}
-		else
+		else if( ubShots > 1 )
 		{
+			//Calculate the deviation due to to-hit, but only for the first shot.
+			//The bullet is only used temporarily.  It gets reset later.
+			//Should this use d3DDistance?
+			if( ubLoop<1 ){
+				CalculateFiringIncrements( ddOrigHorizAngle, ddOrigVerticAngle, d2DDistance, pBullet, &ddAdjustedHorizAngle, &ddAdjustedVerticAngle );
+			}
+
 			// temporarily set bullet's sHitBy value to 0 to get unadjusted angles
-			pBullet->sHitBy = 0;
+			//Note: this no longer needs to be done since the CalculateFiringIncrementsSimple is being used below.
+			//pBullet->sHitBy = 0;
 
-			ddHorizAngle = ddAdjustedHorizAngle + ddShotgunSpread[ubSpreadIndex][ubLoop][0];
-			ddVerticAngle = ddAdjustedVerticAngle + ddShotgunSpread[ubSpreadIndex][ubLoop][1];
+			//Also prevent out-of-bounds overflows.
+			//Rotates through the array if more pellets than expected, and uses pattern index 0 if requested pattern does not exist.
+			if( gpSpreadPattern == NULL || giSpreadPatternCount<1 ){
+				//XML file missing, or empty, or error while loading.  Use hard-coded defaults.
+				//This is from the original code.
+				if( ubSpreadIndex > 2 || ubSpreadIndex<0 ) ubSpreadIndex=0;
+				n = ubLoop % BUCKSHOT_SHOTS;
+				ddHorizAngle  = ddAdjustedHorizAngle  + ddShotgunSpread[ubSpreadIndex][n][0];
+				ddVerticAngle = ddAdjustedVerticAngle + ddShotgunSpread[ubSpreadIndex][n][1];
+			}else{
+				double d=0,r=0,xspread=0,yspread=0;
+				int n=0;
 
-			CalculateFiringIncrements( ddHorizAngle, ddVerticAngle, d2DDistance, pBullet, &ddDummyHorizAngle, &ddDummyVerticAngle );
-			pBullet->sHitBy = sHitBy;
+				//Use spread patterns loaded from XML.
+				if( ubSpreadIndex >= giSpreadPatternCount || ubSpreadIndex < 0)
+					ubSpreadIndex=0;
+
+				xspread=gpSpreadPattern[ubSpreadIndex].xspread;
+				yspread=gpSpreadPattern[ubSpreadIndex].yspread;
+
+				//Only use randomized spread pattern if the random spread is defined AND each static angle already fired once.
+				if( ubLoop >= gpSpreadPattern[ubSpreadIndex].iCount && (xspread + yspread) ){
+					//Create random angle within range, positive and negative.
+					switch( gpSpreadPattern[ubSpreadIndex].method )
+					{
+					case SPREADPATTERNMETHOD_RECT:  //Rectangle Method. (Simple)
+						//Applying a new random number to each angle results in a rectangular spread pattern, rather than an oval one.
+						ddHorizAngle  = (double)rand() * 2 * xspread / RAND_MAX - xspread;
+						ddVerticAngle = (double)rand() * 2 * yspread / RAND_MAX - yspread;
+						break;
+					case SPREADPATTERNMETHOD_DIAMOND:  //Diamond Method. (Kinda Simple)
+						//Angles are generated within a diamond shaped region.
+						//This is more natural than the rectangular pattern, but still not optimal.
+						//The first random number is in a range of 0 to (x+y).
+						d = (xspread+yspread) * (double)rand() / (double)RAND_MAX;
+						//The second random number determines the percentage of that value to use on x.  The rest is spent on y.
+						r = (double)rand() / (double)RAND_MAX;
+						ddHorizAngle = r*d;
+						ddVerticAngle = (1-r)*d;
+						//Positive and negative are then randomly determined.  Otherwise, everthing would always shoot to the high right (+,+).
+						n = rand()%4;
+						if(n&1) ddHorizAngle *= -1;
+						if(n&2) ddVerticAngle *= -1;
+						break;
+					case SPREADPATTERNMETHOD_ELLIPSE:  //Ellipse Method.
+						//Angles are generated within an ellipse.
+						//This is getting close to true spread behaviour, and may be the preferred general purpose method.
+						//However, due to the distribution of random numbers for r, the pattern generated tends to have
+						//more pellets land along the axis, making the pattern look a bit like the Swiss cross sometimes.
+						//(It only becomes noticable in simulations I do in an external program. In-game it looks fine.)
+						//
+						//First, get our random range of -pi to pi. This could be recalculated for every use, but doesn't need to be.
+						r=(double)rand()*2*PI/RAND_MAX - PI;
+						//Which axis is our major axis?
+						if( xspread > yspread )
+						{
+							//The Ellipse.
+							//  Any point on an Ellipse border line = (x,y)
+							//  where x = m * cos(r) and y = n * sin(r)
+							//  where m = major axis radius and n = minor axis radius and r = all values -pi <= r <= pi
+							//We use any random value between -pi and pi, but vary the radius to get points inside the ellipse as well.
+							ddHorizAngle  = ( (double)rand()*xspread / RAND_MAX ) * cos(r);
+							ddVerticAngle = ( (double)rand()*yspread / RAND_MAX ) * sin(r);
+						}else{
+							//Reverse sine and cosine if our major axis is y.
+							ddHorizAngle  = ( (double)rand()*xspread / RAND_MAX ) * sin(r);
+							ddVerticAngle = ( (double)rand()*yspread / RAND_MAX ) * cos(r);
+						}
+						break;
+					case -1:  //Optimal Method.  (Most realistic)
+						//Not yet implemented.
+						//Using the random distribution above, normal distrubution causes more pellets to end up toward the middle.
+						//This is generally not noticable, and in fact feels more natural to some people (not zilpin),
+						//but is not _even_ distribution.
+						//In addition, since it is random, it is possible for all of the pellets to vear off center,
+						//resulting in rare unnatural freak shots, which would never occur in a real shotgun.
+						//This may add to gameplay, but it may bother some people (like zilpin).
+						//Should anyone devise a way to adjust the ellipse distribution to account for this, here is where to put it.
+						//This would probably be done by adjusting the random value of 'r' above.
+						//Contact zilpin for real life shotgun spread pattern data, if you happen to be one of those mathematicians
+						//who can extrapolate a succinct algorithm from raw data.  But keep in mind that there's not much data to go on.
+						//
+						//Also note that in the real world, shot spread tends to take the shape of a sagging funnel, rather than a cone.
+						//That is to say, the path of each pellet follows a mild curve, not a straight line.
+						//I'm really not going to worry about that here.  Ever.
+						break;
+					default:
+						//If an invalid method is set in the structure, no randomized pellets are shot.
+						//Note that there still may have been static angle pellets fired.
+						//This should never happen, since the XML loading function will set them to giSpreadPatternMethod_Default.
+						break;
+					}
+				}else if( gpSpreadPattern[ubSpreadIndex].iCount>0 ){
+					//Use static angle, if they exist.
+					n = ubLoop % gpSpreadPattern[ubSpreadIndex].iCount;
+					ddHorizAngle  = gpSpreadPattern[ubSpreadIndex].x[n];
+					ddVerticAngle = gpSpreadPattern[ubSpreadIndex].y[n];
+				}else{
+					//No angles defined, so just fire straight.
+					ddHorizAngle = ddVerticAngle = 0.0;
+				}
+
+
+				//#ifdef JA2TESTVERSION
+				DOUBLE ddRawHorizAngle = ddHorizAngle;
+				DOUBLE ddRawVerticAngle = ddVerticAngle;
+				//#endif
+
+				//Adjust based on the to-hit deviation calculated when the first pellet was fired.
+				ddHorizAngle  += ddAdjustedHorizAngle;
+				ddVerticAngle += ddAdjustedVerticAngle;
+
+				//Logging for debugging
+				//#ifdef JA2TESTVERSION
+				if(!fFake)
+				{
+					FILE      *OutFile;
+					if ((OutFile = fopen("SpreadPatternLog.txt", "a+t")) != NULL)
+					{ 
+						//To easily cut-and-paste these values from the log into a C/C++ source file for later analysis
+						//Lots of reference debug info in a comment.
+						fprintf(OutFile, "{ % 9.8f , % 9.8f , % 9.8f , % 9.8f }, //DEBUG: merc %4d fired pellet %4d of %4d using method %4d %12s with SpreadPattern %4d %s\n",
+							ddRawHorizAngle, ddRawVerticAngle,
+							ddHorizAngle, ddVerticAngle,
+							pFirer->ubID, ubLoop, ubShots,
+							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
+							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name,
+							NULL
+						);
+						fclose(OutFile);
+					}
+				}
+				//#endif
+			}
+
+			//Just calculate the increments the bullet will use, not any of the to-hit adjustments, because we already did.
+			CalculateFiringIncrementsSimple( ddHorizAngle, ddVerticAngle, pBullet );
 		}
 
 
@@ -3811,10 +4062,17 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 
 		// apply increments for first move
 
-		pBullet->qCurrX = FloatToFixed( dStartX ) + pBullet->qIncrX;
-		pBullet->qCurrY = FloatToFixed( dStartY ) + pBullet->qIncrY;
-		pBullet->qCurrZ = FloatToFixed( dStartZ ) + pBullet->qIncrZ;
+		//zilpin: pellet spread patterns externalized in XML
+		//This is a bugfix for strange behavior when firing, such as the projectile hitting walls behind a merc.
+		//The bullet should start it's journey at the beginning, not down range.
+		//Commented out the qIncr adjustments.
+		pBullet->qCurrX = FloatToFixed( dStartX ) ; //+ pBullet->qIncrX;
+		pBullet->qCurrY = FloatToFixed( dStartY ) ; //+ pBullet->qIncrY;
+		pBullet->qCurrZ = FloatToFixed( dStartZ ) ; //+ pBullet->qIncrZ;
 
+		//zilpin: pellet spread patterns externalized in XML
+		//Also bugfix.  I understand why this was added, but it causes problems.
+		/*
 		// NB we can only apply correction for leftovers if the bullet is going to hit
 		// because otherwise the increments are not right for the calculations!
 		if ( pBullet->sHitBy >= 0 )
@@ -3823,6 +4081,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 			pBullet->qCurrY += ( FloatToFixed( dDeltaY ) - pBullet->qIncrY * iDistance ) / 2;
 			pBullet->qCurrZ += ( FloatToFixed( dDeltaZ ) - pBullet->qIncrZ * iDistance ) / 2;
 		}
+		*/
 
 		pBullet->iImpact = ubImpact;
 

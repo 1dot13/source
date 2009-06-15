@@ -5637,6 +5637,10 @@
 				RelativePath=".\XML_Sounds.cpp">
 			</File>
 			<File
+				RelativePath=".\XML_SpreadPatterns.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_TonyInventory.cpp">
 			</File>
 		</Filter>
