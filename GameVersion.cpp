@@ -13,7 +13,7 @@
 #ifdef JA2EDITOR
 
 //MAP EDITOR BUILD VERSION
-CHAR16 zVersionLabel[256]		= { L"Map Editor v1.13.2996" }; 
+CHAR16 zVersionLabel[256]		= { L"Map Editor v1.13.3023" }; 
 
 #elif defined JA2BETAVERSION
 
@@ -32,7 +32,7 @@ CHAR16 zVersionLabel[256]		= { L"Beta v. 0.98" };
 
 #endif
 										
-CHAR8		czVersionNumber[16]	= { "Build 09.06.10" };		//YY.MM.DD
+CHAR8		czVersionNumber[16]	= { "Build 09.06.19" };		//YY.MM.DD
 CHAR16		zTrackingNumber[16]	= { L"Z" };
 	
 

@@ -2,7 +2,7 @@
 #include "utf8.h"
 #include <vector>
 
-#include <vfs_debug.h>
+#include "vfs_debug.h"
 ////////////////////////////////////////////////////////////////////
 
 namespace _StrCmp

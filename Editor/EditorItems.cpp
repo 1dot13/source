@@ -44,6 +44,8 @@
 	#include "keys.h"
 #endif
 
+#include "VFS/Tools/Log.h"
+
 #define NUMBER_TRIGGERS			27
 #define PRESSURE_ACTION_ID	(NUMBER_TRIGGERS - 1)
 
@@ -526,25 +528,35 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 
 				DisplayWrappedString(x, (UINT16)(y+25), 60, 2, SMALLCOMPFONT, FONT_WHITE, pStr, FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 
-				//Calculate the center position of the graphic in a 60 pixel wide area.
-				sWidth = hVObject->pETRLEObject[item->ubGraphicNum].usWidth;
-				sOffset = hVObject->pETRLEObject[item->ubGraphicNum].sOffsetX;
-				sStart = x + (60 - sWidth - sOffset*2) / 2;
-
-				if( sWidth && sWidth > 0 )
+				if(item->ubGraphicNum < hVObject->usNumberOfObjects)
 				{
-					BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, item->ubGraphicNum, sStart, y+2, 0, FALSE );
-				}
+					//Calculate the center position of the graphic in a 60 pixel wide area.
+					sWidth = hVObject->pETRLEObject[item->ubGraphicNum].usWidth;
+					sOffset = hVObject->pETRLEObject[item->ubGraphicNum].sOffsetX;
+					sStart = x + (60 - sWidth - sOffset*2) / 2;
 
-				//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
-				if( y == 0 )
-				{
-					y = 40;
+					if( sWidth && sWidth > 0 )
+					{
+						BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, item->ubGraphicNum, sStart, y+2, 0, FALSE );
+					}
+
+					//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
+					if( y == 0 )
+					{
+						y = 40;
+					}
+					else
+					{
+						y = 0;
+						x += 60;
+					}
 				}
 				else
 				{
-					y = 0;
-					x += 60;
+					static CLog& editorLog = *CLog::Create(L"EditorItems.log");
+					editorLog	<< L"Tried to access item [" 
+								<< item->ubGraphicNum << L"/" << hVObject->usNumberOfObjects 
+								<< L"]" << CLog::endl;
 				}
 			}
 			usCounter++;

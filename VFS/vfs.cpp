@@ -551,15 +551,15 @@ bool vfs::CVirtualFileSystem::CreateNewFile(vfs::Path const& sFileName)
 			}
 			// see if the closest match is exclusive
 			// if yes, then the the new path is a subdirectory and has to be exclusive too
-			vfs::CVirtualLocation *pVLoc = this->GetVirtualLocation(sLeft);
+			vfs::CVirtualLocation *pVLoc = this->GetVirtualLocation(sLeft,true);
 			if(pVLoc)
 			{
 				bIsExclusive = pVLoc->GetIsExclusive();
 			}
-			else
-			{
-				THROWEXCEPTION(L"location (closest match) should exist");
-			}
+			//else
+			//{
+			//	THROWEXCEPTION(L"location (closest match) should exist");
+			//}
 			bNewLocation = true;
 		}
 		if(pProfLoc && pProfLoc->IsWriteable())

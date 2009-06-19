@@ -21,6 +21,8 @@
 	#include "shading.h"
 #endif
 
+#include <map>
+std::map<UINT32,ClipRectangle> g_SurfaceRectangle;
 
 static UINT8 g_AlphaTimesValueCache[256][256];
 
@@ -1729,6 +1731,9 @@ UINT16 *pBuffer;
 
 	if((pBuffer = (UINT16 *) MemAlloc(uiPitch*uiHeight))==NULL)
 		return(NULL);
+	BYTE* data = (BYTE*)pBuffer;
+	SurfaceData::SetApplicationData(data);
+	g_SurfaceRectangle[SurfaceData::GetSurfaceID(data)].SetRect(ClippingRect);
 
 	memset(pBuffer, 0, (uiPitch*uiHeight));
 	return(pBuffer);
@@ -1742,6 +1747,7 @@ UINT16 *pBuffer;
 **********************************************************************************************/
 BOOLEAN ShutdownZBuffer(UINT16 *pBuffer)
 {
+	SurfaceData::ReleaseApplicationData((BYTE*)pBuffer);
 	MemFree(pBuffer);
 	return(TRUE);
 }
@@ -6968,7 +6974,7 @@ BlitDone:
 
 
 
-
+extern void WriteMessageToFile( const STR16 pString );
 
 /**********************************************************************************************
 	Blt16BPPTo16BPP
@@ -6986,14 +6992,37 @@ UINT32 uiLineSkipDest, uiLineSkipSrc;
 	Assert(pDest!=NULL);
 	Assert(pSrc!=NULL);
 
-	if(iSrcXPos >= SCREEN_WIDTH)
+	try
+	{
+		UINT32 surfID = SurfaceData::GetSurfaceID((BYTE*)pDest);
+		ClipRectangle::ClipType ct;
+		if( (ct=g_SurfaceRectangle[surfID].Clip(iDestXPos, iDestYPos,uiWidth, uiHeight)) != ClipRectangle::NoClip )
+		{
+#if _DEBUG
+			WriteMessageToFile(L"Trying to render to outside of destination surface");
+#endif
+			if(ct == ClipRectangle::FullClip)
+			{
+				return false;
+			}
+		}
+		surfID = SurfaceData::GetSurfaceID((BYTE*)pSrc);
+		if( (ct=g_SurfaceRectangle[surfID].Clip(iSrcXPos, iSrcYPos,uiWidth, uiHeight)) != ClipRectangle::NoClip )
+		{
+#if _DEBUG
+			WriteMessageToFile(L"Trying to render from outside of surface surface");
+#endif
+			if(ct == ClipRectangle::FullClip)
+			{
+				return false;
+			}
+		}
+	}
+	catch(CBasicException& ex)
+	{
+		LogException(ex);
 		return false;
-	if(iSrcYPos >= SCREEN_HEIGHT)
-		return false;
-	if(iSrcXPos + uiWidth > SCREEN_WIDTH)
-		uiWidth = SCREEN_WIDTH - iSrcXPos;
-	if(iSrcYPos + uiHeight > SCREEN_HEIGHT)
-		uiHeight = SCREEN_HEIGHT - iSrcYPos;
+	}
 
 	pSrcPtr=(UINT16 *)((UINT8 *)pSrc+(iSrcYPos*uiSrcPitch)+(iSrcXPos*2));
 	pDestPtr=(UINT16 *)((UINT8 *)pDest+(iDestYPos*uiDestPitch)+(iDestXPos*2));

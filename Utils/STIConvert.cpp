@@ -16,6 +16,9 @@
 	#include "wcheck.h"
 #endif
 
+#include "VFS/vfs.h"
+#include "VFS/vfs_file_raii.h"
+
 //CONVERT_TO_16_BIT
 BOOLEAN ConvertToETRLE( UINT8 ** ppDest, UINT32 * puiDestLen, UINT8 ** ppSubImageBuffer, UINT16 * pusNumberOfSubImages, UINT8 * p8BPPBuffer, UINT16 usWidth, UINT16 usHeight, UINT32 fFlags );
 
@@ -163,7 +166,7 @@ void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 s
 	//
 	// save file
 	//
-
+#ifndef USE_VFS
 	pOutput = fopen( cOutputName, "wb" );
 	if (pOutput == NULL )
 	{
@@ -171,6 +174,12 @@ void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 s
 	}
 	// write header
 	fwrite( &Header, STCI_HEADER_SIZE, 1, pOutput );
+#else
+	vfs::COpenWriteFile wfile(cOutputName,true,true);
+	// write header
+	vfs::UInt32 io;
+	wfile.file().Write( (vfs::Byte*)&Header, STCI_HEADER_SIZE, io );
+#endif
 	// write palette and subimage structs, if any
 	if (Header.fFlags & STCI_INDEXED)
 	{
@@ -183,15 +192,24 @@ void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 s
 				STCIPaletteEntry.ubRed = pSGPPaletteEntry[uiLoop].peRed;
 				STCIPaletteEntry.ubGreen = pSGPPaletteEntry[uiLoop].peGreen;
 				STCIPaletteEntry.ubBlue = pSGPPaletteEntry[uiLoop].peBlue;
+#ifndef USE_VFS
 				fwrite( &STCIPaletteEntry, STCI_PALETTE_ELEMENT_SIZE, 1, pOutput );
+#else
+				wfile.file().Write( (vfs::Byte*)&STCIPaletteEntry, STCI_PALETTE_ELEMENT_SIZE, io );
+#endif
 			}
 		}
 		if (Header.fFlags & STCI_ETRLE_COMPRESSED)
 		{
+#ifndef USE_VFS
 			fwrite( pSubImageBuffer, uiSubImageBufferSize, 1, pOutput );
+#else
+			wfile.file().Write( (vfs::Byte*)pSubImageBuffer, uiSubImageBufferSize, io );
+#endif
 		}
 	}
 
+#ifndef USE_VFS
 	// write file data
 	if (Header.fFlags & STCI_ZLIB_COMPRESSED || Header.fFlags & STCI_ETRLE_COMPRESSED)
 	{
@@ -201,6 +219,17 @@ void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 s
 	{
 		fwrite( Image.pImageData, Header.uiStoredSize, 1, pOutput );
 	}
+#else
+	// write file data
+	if (Header.fFlags & STCI_ZLIB_COMPRESSED || Header.fFlags & STCI_ETRLE_COMPRESSED)
+	{
+		wfile.file().Write( (vfs::Byte*)pOutputBuffer, Header.uiStoredSize, io );
+	}
+	else
+	{
+		wfile.file().Write( (vfs::Byte*)Image.pImageData, Header.uiStoredSize, io );
+	}
+#endif
 
 	// write app-specific data (blanked to 0)
 	if (Image.pAppData == NULL )
@@ -209,22 +238,31 @@ void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 s
 		{
 			for (uiLoop = 0; uiLoop < Header.uiAppDataSize; uiLoop++)
 			{
+#ifndef USE_VFS
 				fputc( 0, pOutput );
+#else
+				vfs::Byte c = 0;
+				wfile.file().Write( &c, sizeof(c), io );
+#endif
 			}
 		}
 	}
 	else
 	{
+#ifndef USE_VFS
 		fwrite( Image.pAppData, Header.uiAppDataSize, 1, pOutput );
+#else
+		wfile.file().Write( (vfs::Byte*)Image.pAppData, Header.uiAppDataSize, io );
+#endif
 	}
-
+#ifndef USE_VFS
 	fclose( pOutput );
 
 	if( pOutputBuffer != NULL )
 	{
 		MemFree( pOutputBuffer );
 	}
-
+#endif
 }
 
 

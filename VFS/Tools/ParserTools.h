@@ -77,8 +77,9 @@ private:
 /**************************************************************/
 /**************************************************************/
 
-#define USE_CODE_PAGE
+//#define USE_CODE_PAGE
 
+#ifdef USE_CODE_PAGE
 class CodePageReader
 {
 public:
@@ -117,6 +118,7 @@ namespace charSet
 
 	void InitializeCharSets();
 };
+#endif // USE_CODE_PAGE
 
 #endif // _PARSER_TOOLS_H_
 

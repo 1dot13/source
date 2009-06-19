@@ -11,13 +11,38 @@ extern "C" {
 #endif
 */
 
+class ClipRectangle
+{
+public:
+	enum ClipType
+	{
+		NoClip, PartialClip, FullClip,
+	};
+public:
+	ClipRectangle();
+
+	void SetRect(SGPRect const& rect);
+	void SetRect(unsigned int w, unsigned int h, int x=0, int y=0);
+	void Set(int x1, int y1, int x2, int y2);
+
+	/**
+	 * @returns: 
+	 *   NoClip      : value references are not modified
+	 *   FullClip    : value references are not modified, as the values lie completely outside. Why bother doing the extra work.
+	 *   PartialClip : value references are modified 
+	 */
+	ClipType Clip(int& x, int& y, unsigned int& w, unsigned int& h);
+	ClipType Clip(int& x1, int& y1, int& x2, int& y2);
+private:
+	SGPRect	cr;
+};
+
 extern SGPRect		ClippingRect;
 extern UINT32			guiTranslucentMask;
 extern UINT16			White16BPPPalette[ 256 ];
 
 extern void SetClippingRect(SGPRect *clip);
 void GetClippingRect(SGPRect *clip);
-
 
 BOOLEAN BltIsClipped(HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex, SGPRect *clipregion);
 CHAR8 BltIsClippedOrOffScreen( HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex, SGPRect *clipregion );

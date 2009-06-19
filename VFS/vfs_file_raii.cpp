@@ -93,7 +93,7 @@ vfs::COpenWriteFile::COpenWriteFile(vfs::tWriteableFile *pFile)
 	{
 		m_pFile = pFile;
 		THROWIFFALSE(m_pFile, L"no file");
-		THROWIFFALSE(m_pFile->OpenWrite(true,false), L"not open");
+		THROWIFFALSE(m_pFile->OpenWrite(true,false), (L"File not open : " + m_pFile->GetFullPath()().c_wcs()).c_str());
 	}
 	catch(CBasicException& ex)
 	{

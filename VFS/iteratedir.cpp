@@ -3,7 +3,7 @@
 // This class reads the contents of a directory file-by-file
 //
 #include "iteratedir.h"
-#include "VFS/vfs_debug.h"
+#include "vfs_debug.h"
 #include <sstream>
 
 #include "utf8string.h"

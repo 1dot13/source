@@ -118,6 +118,15 @@ typedef struct
 
 } VSURFACE_DESC;
 
+namespace SurfaceData
+{
+	typedef unsigned long tID;
+	BYTE*	SetApplicationData(BYTE* data);
+	void	ReleaseApplicationData(BYTE* data);
+
+	tID		GetSurfaceID(BYTE* data);
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Video Surface Manager Functions

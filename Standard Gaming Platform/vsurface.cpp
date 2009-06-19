@@ -120,6 +120,201 @@ HVSURFACE		ghBackBuffer = NULL;
 HVSURFACE   ghFrameBuffer = NULL;
 HVSURFACE   ghMouseBuffer = NULL;
 
+#include <map>
+
+extern std::map<UINT32,ClipRectangle> g_SurfaceRectangle;
+
+namespace SurfaceData
+{
+	typedef void* tSurface;
+	std::map<tID,tSurface>		_surfaceID;
+	std::map<tSurface,BYTE*>	_surfaceData;
+	std::map<BYTE*,tID>			_surfaceOfData;
+
+	void RegisterSurface(tID surfaceID, HVSURFACE surface)
+	{
+		SurfaceData::_surfaceID[surfaceID] = surface;
+		g_SurfaceRectangle[surfaceID].SetRect(surface->usWidth, surface->usHeight);
+	}
+	void UnRegisterSurface(tID surfaceID)
+	{
+		std::map<tID,tSurface>::iterator it = SurfaceData::_surfaceID.find(surfaceID);
+		if(it != SurfaceData::_surfaceID.end())
+		{
+			g_SurfaceRectangle.erase(it->first);
+			SurfaceData::_surfaceID.erase(it);
+		}
+	}
+	void UnRegisterSurface(HVSURFACE surface)
+	{
+		std::map<tID,tSurface>::iterator it = SurfaceData::_surfaceID.begin();
+		for(;it != SurfaceData::_surfaceID.end(); it++)
+		{
+			if(it->second == surface)
+			{
+				SurfaceData::_surfaceID.erase(it);
+				return;
+			}
+		}
+	}
+
+	BYTE* SetSurfaceData(tID surfaceID, BYTE* data)
+	{
+		std::map<tID,tSurface>::iterator sit = SurfaceData::_surfaceID.find(surfaceID);
+		if(sit != SurfaceData::_surfaceID.end())
+		{
+			SurfaceData::_surfaceData[sit->second] = data;
+			SurfaceData::_surfaceOfData[data] = surfaceID;
+			return data;
+		}
+		THROWEXCEPTION(L"Unregistered surface ID");
+	}
+	BYTE* SetSurfaceData(HVSURFACE surface, BYTE* data)
+	{
+		std::map<tID,tSurface>::iterator sit = SurfaceData::_surfaceID.begin();
+		for(;sit != SurfaceData::_surfaceID.end(); ++sit)
+		{
+			if(sit->second = surface)
+			{
+				SurfaceData::_surfaceData[sit->second] = data;
+				SurfaceData::_surfaceOfData[data] = sit->first;
+				return data;
+			}
+		}
+		THROWEXCEPTION(L"Unregistered surface");
+	}
+	void ReleaseSurfaceData(tID surfaceID)
+	{
+		// does a surface with this ID exist
+		std::map<tID,tSurface>::iterator sit = SurfaceData::_surfaceID.find(surfaceID);
+		if(sit != SurfaceData::_surfaceID.end())
+		{
+			// get saved data of this surface
+			std::map<tSurface,BYTE*>::iterator dit = SurfaceData::_surfaceData.find(sit->second);
+			if(dit != SurfaceData::_surfaceData.end())
+			{
+				// as data pointer is going to be removed, release its connection to a surface ID
+				std::map<BYTE*,tID>::iterator it = SurfaceData::_surfaceOfData.find(dit->second);
+				if(it != SurfaceData::_surfaceOfData.end())
+				{
+					SurfaceData::_surfaceOfData.erase(it);
+				}
+				// finally remove data pointer
+				SurfaceData::_surfaceData.erase(dit);
+			}
+		}
+	}
+	void ReleaseSurfaceData(HVSURFACE surface)
+	{
+		// get saved data of this surface
+		std::map<tSurface,BYTE*>::iterator dit = SurfaceData::_surfaceData.find(surface);
+		if(dit != SurfaceData::_surfaceData.end())
+		{
+			// as data pointer is going to be removed, release its connection to a surface ID
+			std::map<BYTE*,tID>::iterator it = SurfaceData::_surfaceOfData.find(dit->second);
+			if(it != SurfaceData::_surfaceOfData.end())
+			{
+				_surfaceOfData.erase(it);
+			}
+			// finally remove data pointer
+			SurfaceData::_surfaceData.erase(dit);
+		}
+	}
+
+	BYTE* SetApplicationData(BYTE* data)
+	{
+		tID id = (tID)(data);
+		SurfaceData::_surfaceOfData[data] = id;
+		return data;
+	}
+	void ReleaseApplicationData(BYTE* data)
+	{
+		tID id = (tID)(data);
+		std::map<BYTE*,tID>::iterator it = SurfaceData::_surfaceOfData.find(data);
+		if(it != SurfaceData::_surfaceOfData.end())
+		{
+			g_SurfaceRectangle.erase(it->second);
+			SurfaceData::_surfaceOfData.erase(it);
+		}
+		return ReleaseSurfaceData(id);
+	}
+
+	tID GetSurfaceID(BYTE* data)
+	{
+		std::map<BYTE*,tID>::iterator it = SurfaceData::_surfaceOfData.find(data);
+		if(it != SurfaceData::_surfaceOfData.end())
+		{
+			return it->second;
+		}
+		THROWEXCEPTION(L"Pointer to surface invalid");
+	}
+};
+
+ClipRectangle::ClipRectangle()
+{
+	cr.iLeft = 0;
+	cr.iTop = 0;
+	cr.iRight = 0;
+	cr.iBottom = 0;
+};
+
+void ClipRectangle::SetRect(SGPRect const& rect)
+{
+	Set(rect.iLeft, rect.iTop, rect.iRight, rect.iBottom);
+}
+void ClipRectangle::SetRect(unsigned int w, unsigned int h, int x, int y)
+{
+	Set(x,y,x+w,y+h);
+}
+void ClipRectangle::Set(int x1, int y1, int x2, int y2)
+{
+	cr.iLeft = x1;
+	cr.iRight = x2;
+	cr.iTop = y1;
+	cr.iBottom = y2;
+}
+
+/**
+ * @returns: 
+ *   NoClip      : value references are not modified
+ *   FullClip    : value references are not modified, as the values lie completely outside. Why bother doing the extra work.
+ *   PartialClip : value references are modified 
+ */
+ClipRectangle::ClipType ClipRectangle::Clip(int& x, int& y, unsigned int& w, unsigned int& h)
+{
+	int right = x + w - 1;
+	int bottom = y + h - 1;
+	ClipType ct;
+	if( (ct = Clip(x,y,right,bottom)) == PartialClip)
+	{
+		w = right - x + 1;
+		h = bottom - y + 1;
+	}
+	return ct;
+}
+ClipRectangle::ClipType ClipRectangle::Clip(int& x1, int& y1, int& x2, int& y2)
+{
+	if( (x1 >= cr.iLeft)	&&
+		(x2 <= cr.iRight)	&&
+		(y1 >= cr.iTop)		&&
+		(y2 <= cr.iBottom) )
+	{
+		return NoClip;
+	}
+	if( (x1 > cr.iRight)	||	// right of rectangle
+		(x2 < cr.iLeft)		||	// left of rectangle
+		(y1 > cr.iBottom)	||	// below rectangle
+		(y2 < cr.iTop) )		// above rectangle
+	{
+		return FullClip;
+	}
+	if( x1 < cr.iLeft)		x1 = cr.iLeft;
+	if( x2 > cr.iRight)		x2 = cr.iRight;
+	if( y1 < cr.iTop)		y1 = cr.iTop;
+	if( y2 > cr.iBottom)	y2 = cr.iBottom;
+	return PartialClip;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Video Surface Manager functions
@@ -244,6 +439,7 @@ BOOLEAN AddStandardVideoSurface( VSURFACE_DESC *pVSurfaceDesc, UINT32 *puiIndex 
 	gpVSurfaceTail->hVSurface = hVSurface;
 	gpVSurfaceTail->uiIndex = guiVSurfaceIndex+=2;
 	*puiIndex = gpVSurfaceTail->uiIndex;
+	SurfaceData::RegisterSurface(*puiIndex, hVSurface);
 	Assert( guiVSurfaceIndex < 0xfffffff0 ); //unlikely that we will ever use 2 billion VSurfaces!
 	//We would have to create about 70 VSurfaces per second for 1 year straight to achieve this...
 	guiVSurfaceSize++;
@@ -266,23 +462,23 @@ BYTE *LockVideoSurface( UINT32 uiVSurface, UINT32 *puiPitch )
 #ifdef JA2
 	if ( uiVSurface == PRIMARY_SURFACE )
 	{
-		return (BYTE *)LockPrimarySurface( puiPitch );
+		return SurfaceData::SetSurfaceData(uiVSurface, (BYTE *)LockPrimarySurface( puiPitch ));
 	}
 
 	if ( uiVSurface == BACKBUFFER )
 	{
-		return (BYTE *)LockBackBuffer( puiPitch );
+		return SurfaceData::SetSurfaceData(uiVSurface, (BYTE *)LockBackBuffer( puiPitch ));
 	}
 #endif
 
 	if ( uiVSurface == FRAME_BUFFER )
 	{
-		return (BYTE *)LockFrameBuffer( puiPitch );
+		return SurfaceData::SetSurfaceData(uiVSurface, (BYTE *)LockFrameBuffer( puiPitch ));
 	}
 
 	if ( uiVSurface == MOUSE_BUFFER )
 	{
-		return (BYTE *)LockMouseBuffer( puiPitch );
+		return SurfaceData::SetSurfaceData(uiVSurface, (BYTE *)LockMouseBuffer( puiPitch ));
 	}
 
 	//
@@ -307,7 +503,7 @@ BYTE *LockVideoSurface( UINT32 uiVSurface, UINT32 *puiPitch )
 	// Lock buffer
 	//
 
-	return LockVideoSurfaceBuffer( curr->hVSurface, puiPitch );
+	return SurfaceData::SetSurfaceData(uiVSurface, LockVideoSurfaceBuffer( curr->hVSurface, puiPitch ));
 
 }
 
@@ -315,6 +511,7 @@ void UnLockVideoSurface( UINT32 uiVSurface )
 {
 	VSURFACE_NODE *curr;
 
+	SurfaceData::ReleaseSurfaceData(uiVSurface);
 	//
 	// Check if given backbuffer or primary buffer
 	//
@@ -495,6 +692,7 @@ BOOLEAN SetPrimaryVideoSurfaces( )
 
 	ghPrimary = CreateVideoSurfaceFromDDSurface( pSurface );
 	CHECKF( ghPrimary != NULL );
+	SurfaceData::RegisterSurface(PRIMARY_SURFACE,ghPrimary);
 
 	//
 	// Get Backbuffer surface
@@ -505,6 +703,7 @@ BOOLEAN SetPrimaryVideoSurfaces( )
 
 	ghBackBuffer = CreateVideoSurfaceFromDDSurface( pSurface );
 	CHECKF( ghBackBuffer != NULL );
+	SurfaceData::RegisterSurface(BACKBUFFER,ghBackBuffer);
 
 	//
 	// Get mouse buffer surface
@@ -514,6 +713,7 @@ BOOLEAN SetPrimaryVideoSurfaces( )
 
 	ghMouseBuffer = CreateVideoSurfaceFromDDSurface( pSurface );
 	CHECKF( ghMouseBuffer != NULL );
+	SurfaceData::RegisterSurface(MOUSE_BUFFER,ghMouseBuffer);
 
 #endif
 
@@ -526,7 +726,7 @@ BOOLEAN SetPrimaryVideoSurfaces( )
 
 	ghFrameBuffer = CreateVideoSurfaceFromDDSurface( pSurface );
 	CHECKF( ghFrameBuffer != NULL );
-
+	SurfaceData::RegisterSurface(FRAME_BUFFER,ghFrameBuffer);
 
 	return( TRUE );
 }
@@ -539,24 +739,28 @@ void DeletePrimaryVideoSurfaces( )
 
 	if ( ghPrimary != NULL )
 	{
+		SurfaceData::UnRegisterSurface(ghPrimary);
 		DeleteVideoSurface( ghPrimary );
 		ghPrimary = NULL;
 	}
 
 	if ( ghBackBuffer != NULL )
 	{
+		SurfaceData::UnRegisterSurface(ghBackBuffer);
 		DeleteVideoSurface( ghBackBuffer );
 		ghBackBuffer = NULL;
 	}
 
 	if ( ghFrameBuffer != NULL )
 	{
+		SurfaceData::UnRegisterSurface(ghFrameBuffer);
 		DeleteVideoSurface( ghFrameBuffer );
 		ghFrameBuffer = NULL;
 	}
 
 	if ( ghMouseBuffer != NULL )
 	{
+		SurfaceData::UnRegisterSurface(ghMouseBuffer);
 		DeleteVideoSurface( ghMouseBuffer );
 		ghMouseBuffer = NULL;
 	}

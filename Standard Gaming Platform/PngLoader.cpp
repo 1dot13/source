@@ -257,17 +257,19 @@ class CAppDataParser : public IXMLParser
 	enum DOM_OBJECT
 	{
 		DO_ELEMENT_NONE,
-		DO_ELEMENT_APPDATA,
+		DO_ELEMENT_ImageData,
+		DO_ELEMENT_SubImage,
+		DO_ELEMENT_offset,
 		DO_ELEMENT_AuxData,
 		DO_ELEMENT_flags,
 		DO_ELEMENT_properties,
 	};
 public:
 	CAppDataParser(XML_Parser &parser, IXMLParser* caller=NULL)
-		: IXMLParser("APPDATA", parser, caller), 
+		: IXMLParser("ImageData", parser, caller), 
 		current_state(DO_ELEMENT_NONE),
 		m_hImage(NULL),
-		m_iCurrentAux(-1)
+		m_iCurrentIndex(-1)
 	{
 	}
 	virtual ~CAppDataParser() {};
@@ -279,29 +281,66 @@ public:
 	void SetImage(HIMAGE hImage)
 	{
 		m_hImage = hImage;
+		if(m_hImage)
+		{
+			m_vAppData.resize(m_hImage->usNumberOfObjects);
+		}
 	}
 private:
 	DOM_OBJECT					current_state;
 	HIMAGE						m_hImage;
-	std::vector<AuxObjectData>	m_vAppData;
-	int							m_iCurrentAux;			
+	struct SubImage{
+		SubImage()
+		{
+			memset(&aux,0,sizeof(AuxObjectData));
+			offset._override = false;
+			offset.x = 0;
+			offset.y = 0;
+		};
+		AuxObjectData aux;
+		struct{
+			int x,y;
+			bool _override;
+		} offset;
+	};
+	std::vector<SubImage>		m_vAppData;
+	int							m_iCurrentIndex;			
 };
 
 void CAppDataParser::OnStartElement(const XML_Char* name, const XML_Char** atts)
 {
 	if( current_state == DO_ELEMENT_NONE && strcmp(name, this->ElementName) == 0 )
 	{
-		current_state = DO_ELEMENT_APPDATA;
+		current_state = DO_ELEMENT_ImageData;
 	}
-	else if(current_state == DO_ELEMENT_APPDATA && strcmp(name, "AuxObjectData") == 0)
+	else if(current_state == DO_ELEMENT_ImageData && strcmp(name, "SubImage") == 0)
 	{
 		int index = -1;
 		THROWIFFALSE(GetAttributeAsInt("index",atts,index), L"could not read attribute \"index\"");
-		m_iCurrentAux = index;
+		m_iCurrentIndex = index;
 		if(index >= (int)m_vAppData.size())
 		{
 			m_vAppData.resize(index+1);
 		}
+		current_state = DO_ELEMENT_SubImage; 
+	}
+	else if(current_state == DO_ELEMENT_SubImage && strcmp(name, "offset") == 0)
+	{
+		int offset_x = 0, offset_y = 0;
+		if(GetAttributeAsInt("x",atts,offset_x))
+		{
+			m_vAppData[m_iCurrentIndex].offset.x = offset_x;
+			m_vAppData[m_iCurrentIndex].offset._override = true;
+		}
+		if(GetAttributeAsInt("y",atts,offset_y))
+		{
+			m_vAppData[m_iCurrentIndex].offset.y = offset_y;
+			m_vAppData[m_iCurrentIndex].offset._override = true;
+		}
+		current_state = DO_ELEMENT_offset; 
+	}
+	else if(current_state == DO_ELEMENT_SubImage && strcmp(name, "AuxObjectData") == 0)
+	{
 		current_state = DO_ELEMENT_AuxData; 
 	}
 	else if(current_state == DO_ELEMENT_AuxData && strcmp(name, "flags") == 0)
@@ -310,7 +349,7 @@ void CAppDataParser::OnStartElement(const XML_Char* name, const XML_Char** atts)
 	}
 	else if(current_state == DO_ELEMENT_flags)
 	{
-		SetFlag(m_vAppData[m_iCurrentAux].fFlags, name);
+		SetFlag(m_vAppData[m_iCurrentIndex].aux.fFlags, name);
 	}
 	else if(current_state == DO_ELEMENT_AuxData && 
 				(	strcmp(name, "ubCurrentFrame") == 0 || 
@@ -329,39 +368,53 @@ void CAppDataParser::OnEndElement(const XML_Char* name)
 	char *p;
 	if( strcmp(name, "usTileLocIndex") == 0 && current_state == DO_ELEMENT_properties)
 	{
-		m_vAppData[m_iCurrentAux].usTileLocIndex = (UINT16)strtoul( sCharData.c_str(),&p,10);
+		m_vAppData[m_iCurrentIndex].aux.usTileLocIndex = (UINT16)strtoul( sCharData.c_str(),&p,10);
 		current_state = DO_ELEMENT_AuxData;
 	}
 	else if( strcmp(name, "ubWallOrientation") == 0 && current_state == DO_ELEMENT_properties)
 	{
-		m_vAppData[m_iCurrentAux].ubWallOrientation = (UINT8)strtoul(sCharData.c_str(),&p,10);
+		m_vAppData[m_iCurrentIndex].aux.ubWallOrientation = (UINT8)strtoul(sCharData.c_str(),&p,10);
 		current_state = DO_ELEMENT_AuxData;
 	}
 	else if( strcmp(name, "ubNumberOfTiles") == 0 && current_state == DO_ELEMENT_properties)
 	{
-		m_vAppData[m_iCurrentAux].ubNumberOfTiles = (UINT8)strtoul(sCharData.c_str(),&p,10);
+		m_vAppData[m_iCurrentIndex].aux.ubNumberOfTiles = (UINT8)strtoul(sCharData.c_str(),&p,10);
 		current_state = DO_ELEMENT_AuxData;
 	}
 	else if( strcmp(name, "ubNumberOfFrames") == 0 && current_state == DO_ELEMENT_properties)
 	{
-		m_vAppData[m_iCurrentAux].ubNumberOfFrames = (UINT)strtoul(sCharData.c_str(),&p,10);
+		m_vAppData[m_iCurrentIndex].aux.ubNumberOfFrames = (UINT)strtoul(sCharData.c_str(),&p,10);
 		current_state = DO_ELEMENT_AuxData;
 	}
 	else if( strcmp(name, "ubCurrentFrame") == 0 && current_state == DO_ELEMENT_properties)
 	{
-		m_vAppData[m_iCurrentAux].ubCurrentFrame = (UINT8)strtoul(sCharData.c_str(),&p,10);
+		m_vAppData[m_iCurrentIndex].aux.ubCurrentFrame = (UINT8)strtoul(sCharData.c_str(),&p,10);
 		current_state = DO_ELEMENT_AuxData;
 	}
 	else if( strcmp(name, "flags") == 0 && current_state == DO_ELEMENT_flags)
 	{
 		current_state = DO_ELEMENT_AuxData;
 	}
+	else if( strcmp(name, "offset") == 0 && current_state == DO_ELEMENT_offset)
+	{
+		current_state = DO_ELEMENT_SubImage;
+	}
 	else if( strcmp(name, "AuxObjectData") == 0 && current_state == DO_ELEMENT_AuxData)
 	{
-		current_state = DO_ELEMENT_APPDATA;
+		current_state = DO_ELEMENT_SubImage;
 	}
-	else if( strcmp(name, this->ElementName) == 0 && current_state == DO_ELEMENT_APPDATA)
+	else if( strcmp(name, "SubImage") == 0 && current_state == DO_ELEMENT_SubImage)
 	{
+		current_state = DO_ELEMENT_ImageData;
+	}
+	else if( strcmp(name, this->ElementName) == 0 && current_state == DO_ELEMENT_ImageData)
+	{
+		unsigned int sum_frames = 0;
+		for(unsigned int i = 0; i < m_vAppData.size(); ++i)
+		{
+			sum_frames += m_vAppData[i].aux.ubNumberOfFrames;
+		}
+		THROWIFFALSE(sum_frames <= m_vAppData.size(), L"Sum of animation frames doesn't match the total number of frames");
 		int iAppDataSize = m_vAppData.size()*sizeof(AuxObjectData);
 		m_hImage->pAppData = (UINT8*) MemAlloc( iAppDataSize );
 		for(unsigned int i = 0; i < m_vAppData.size(); ++i)
@@ -369,6 +422,15 @@ void CAppDataParser::OnEndElement(const XML_Char* name)
 			memcpy(&((AuxObjectData*)m_hImage->pAppData)[i],&m_vAppData[i],sizeof(AuxObjectData));
 		}
 		m_hImage->uiAppDataSize = iAppDataSize;
+		unsigned int aaa = std::max<int>(m_hImage->usNumberOfObjects,m_vAppData.size());
+		for(unsigned int i = 0; i < aaa; ++i)
+		{
+			if(m_vAppData[i].offset._override)
+			{
+				m_hImage->pETRLEObject[i].sOffsetX = m_vAppData[i].offset.x;
+				m_hImage->pETRLEObject[i].sOffsetY = m_vAppData[i].offset.y;
+			}
+		}
 		current_state = DO_ELEMENT_NONE;
 	}
 }
@@ -669,6 +731,7 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 	}
 	vFiles.resize(count_files);
 	it = oLib.begin();
+	vfs::tReadableFile* appdata_file = NULL;
 	for(; !it.end(); it.next())
 	{
 		// check extension
@@ -693,7 +756,7 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 			}
 			else if (StrCmp::Equal(fname.substr(dot,fname.length()-dot), CONST_DOTXML) )
 			{
-				image.ReadAppDataFromXMLFile(hImage, vfs::tReadableFile::Cast(it.value()));
+				appdata_file = vfs::tReadableFile::Cast(it.value());
 			}
 		}
 	}
@@ -794,7 +857,12 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 			}
 		}
 	}
-	return image.WriteToHIMAGE(hImage);
+	bool success = image.WriteToHIMAGE(hImage);
+	if(appdata_file)
+	{
+		success &= image.ReadAppDataFromXMLFile(hImage, appdata_file);
+	}
+	return success;
 }
 
 

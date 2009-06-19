@@ -269,6 +269,9 @@ CTransferRules::EAction CTransferRules::ApplyRule(utf8string const& sStr)
 
 /*************************************************************************************/
 /*************************************************************************************/
+
+#ifdef USE_CODE_PAGE
+
 typedef vfs::UInt16 UINT16;
 extern UINT16 gsKeyTranslationTable[1024];
 
@@ -468,6 +471,8 @@ void charSet::InitializeCharSets()
 	charSet::AddToCharSet(charSet::CS_SPECIAL_ALPHA_UC,	L"ƒ÷‹¡¿¬…» ”“‘⁄Ÿ€");
 	charSet::AddToCharSet(charSet::CS_SPECIAL_NON_CHAR,	L"~*+-_.,:;'¥`#∞^!\"ß$%&/()=?\\{}[]");
 }
+
+#endif // USE_CODE_PAGE
 
 /*************************************************************************************/
 /*************************************************************************************/

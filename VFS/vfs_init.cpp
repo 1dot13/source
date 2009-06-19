@@ -10,6 +10,12 @@
 #include "PropertyContainer.h"
 #include "Tools/Log.h"
 
+//#define LOG_VFS_INITIALIZATION
+#ifdef LOG_VFS_INITIALIZATION
+#define LOG(x) (x)
+#else 
+#define LOG(x)
+#endif
 /********************************************************************/
 /********************************************************************/
 
@@ -27,61 +33,64 @@ bool InitVirtualFileSystem(std::list<vfs::Path> const& vfs_ini_list)
 	{
 		oVFSProps.InitFromIniFile(*clit);
 	}
-
-	CLog _LOG(vfs::Path(L"vfs_init.log"));
+	return InitVirtualFileSystem(oVFSProps);
+}
+bool InitVirtualFileSystem(CPropertyContainer& oVFSProps)
+{
+	LOG(CLog _LOG(vfs::Path(L"vfs_init.log")));
 
 	vfs::CVirtualFileSystem *pVirtFileSys = GetVFS();
 
-	_LOG << "Initializing Virtual File System";
-	_LOG.Endl();
+	LOG(_LOG << "Initializing Virtual File System");
+	LOG(_LOG.Endl());
 
-	_LOG.Endl() << "reading profiles .. ";
+	LOG(_LOG.Endl() << "reading profiles .. ");
 	std::list<utf8string> lProfiles, lLocSections;
 	oVFSProps.GetStringListProperty(L"vfs_config",L"PROFILES",lProfiles,L"");
 	if(lProfiles.empty())
 	{
-		_LOG << " ERROR";
+		LOG(_LOG << " ERROR");
 		return false;
 	}
 	else
 	{
-		_LOG << " OK";
+		LOG(_LOG << " OK");
 	}
-	_LOG.Endl() << "  profiles to read : ";
+	LOG(_LOG.Endl() << "  profiles to read : ");
 	std::list<utf8string>::const_iterator cit_profiles = lProfiles.begin();
 	for(; cit_profiles != lProfiles.end(); ++cit_profiles)
 	{
-		_LOG << (*cit_profiles) << ", ";
+		LOG(_LOG << (*cit_profiles) << ", ");
 	}
-	_LOG.Endl();
+	LOG(_LOG.Endl());
 	
 	std::list<utf8string>::const_iterator prof_cit = lProfiles.begin();
 	for(; prof_cit != lProfiles.end(); ++prof_cit)
 	{
-		_LOG.Endl() << "  reading profile [";
+		LOG(_LOG.Endl() << "  reading profile [");
 		utf8string sProfSection = utf8string("PROFILE_") + utf8string(*prof_cit);
 		utf8string sProfName = oVFSProps.GetStringProperty(sProfSection,L"NAME",L"");
-		_LOG << sProfName << "] .. ";
+		LOG(_LOG << sProfName << "] .. ");
 
 		vfs::Path profileRoot = oVFSProps.GetStringProperty(sProfSection,L"PROFILE_ROOT",L"");
 		
 		lLocSections.clear();
 		oVFSProps.GetStringListProperty(sProfSection,L"LOCATIONS",lLocSections,L"");
 
-		_LOG << "OK";
-		_LOG.Endl() << "  locations to read : ";
+		LOG(_LOG << "OK");
+		LOG(_LOG.Endl() << "  locations to read : ");
 		std::list<utf8string>::const_iterator cit_locations = lLocSections.begin();
 		for(; cit_locations != lLocSections.end(); ++cit_locations)
 		{
-			_LOG << (*cit_locations) << ", ";
+			LOG(_LOG << (*cit_locations) << ", ");
 		}
-		_LOG.Endl().Endl();
+		LOG(_LOG.Endl().Endl());
 
 		std::list<utf8string>::iterator loc_it = lLocSections.begin();
 		bool bIsWriteable = oVFSProps.GetBoolProperty(sProfSection,L"WRITE",false);
 		for(; loc_it != lLocSections.end(); ++loc_it)
 		{
-			_LOG << "    reading location [ ";
+			LOG(_LOG << "    reading location [ ");
 			utf8string sLocSection = utf8string("LOC_") + utf8string(*loc_it);
 			vfs::Path sLocPath, sLocMountPoint;
 			utf8string sLocType;
@@ -92,7 +101,7 @@ bool InitVirtualFileSystem(std::list<vfs::Path> const& vfs_ini_list)
 			bool bOptional = oVFSProps.GetBoolProperty(sLocSection,L"OPTIONAL",false);
 			if(StrCmp::Equal(sLocType,L"LIBRARY"))
 			{
-				_LOG << sLocType << " | " << (*loc_it) << " ] .. ";
+				LOG(_LOG << sLocType << " | " << (*loc_it) << " ] .. ");
 				vfs::tReadableFile *pLibFile = NULL;
 				bool bOwnFile = false;
 				if(!sLocPath.empty())
@@ -123,7 +132,7 @@ bool InitVirtualFileSystem(std::list<vfs::Path> const& vfs_ini_list)
 					}
 					else
 					{
-						_LOG << "ERROR" << CLog::endl;
+						LOG(_LOG << "ERROR" << CLog::endl);
 						utf8string::str_t s = L"File [" + utf8string(sLocPath()).c_wcs() + L"] in not an SLF or 7z library";
 						THROWEXCEPTION(s.c_str());
 						return false;
@@ -132,7 +141,7 @@ bool InitVirtualFileSystem(std::list<vfs::Path> const& vfs_ini_list)
 					{
 						if(!bOptional)
 						{
-							_LOG << "ERROR" << CLog::endl;
+							LOG(_LOG << "ERROR" << CLog::endl);
 							//std::cout << "ERROR : library initialization failed [ " << full_str << " ]" << std::endl;
 							std::wstring s = L"Could not initialize library [ " + sLocPath().c_wcs()
 								+ L" ] in : profile [ " + utf8string(sProfName).c_wcs()
@@ -141,27 +150,27 @@ bool InitVirtualFileSystem(std::list<vfs::Path> const& vfs_ini_list)
 							THROWEXCEPTION(s.c_str());
 							return false;
 						}
-						_LOG << "optional library ignored" << CLog::endl;
+						LOG(_LOG << "optional library ignored" << CLog::endl);
 					}
 					else
 					{
-						_LOG << "OK" << CLog::endl;
+						LOG(_LOG << "OK" << CLog::endl);
 					}
 					pVirtFileSys->AddLocation(vfs::tReadLocation::Cast(pLib), sProfName, bIsWriteable);
 				}
 				else
 				{
-					_LOG << "ERROR" << CLog::endl;
+					LOG(_LOG << "ERROR" << CLog::endl);
 					THROWEXCEPTION(L"File not found");
 				}
 			}
 			else if(StrCmp::Equal(sLocType,L"DIRECTORY"))
 			{
-				_LOG << sLocType << " | " << (*loc_it) << " ] .. ";
+				LOG(_LOG << sLocType << " | " << (*loc_it) << " ] .. ");
 				vfs::CDirectoryTree *pDirTree = new vfs::CDirectoryTree(sLocMountPoint,profileRoot + sLocPath);
 				if(!pDirTree->Init())
 				{
-					_LOG << "ERROR" << CLog::endl;
+					LOG(_LOG << "ERROR" << CLog::endl);
 					std::wstring s = L"Could not initialize directory [\"" + sLocPath().c_wcs()
 						+ L"\"] in : profile [\"" + utf8string(sProfName).c_wcs()
 						+ L"\"], location [\"" + (*loc_it).c_wcs()
@@ -170,11 +179,11 @@ bool InitVirtualFileSystem(std::list<vfs::Path> const& vfs_ini_list)
 					return false;
 				}
 				pVirtFileSys->AddLocation(vfs::tReadLocation::Cast(pDirTree),sProfName,bIsWriteable);
-				_LOG << "OK" << CLog::endl;
+				LOG(_LOG << "OK" << CLog::endl);
 			}
 			else
 			{
-				_LOG << "]" << CLog::endl;
+				LOG(_LOG << "]" << CLog::endl);
 			}
 			//else if( sLocType == "NOT_FOUND")
 			//{
@@ -201,7 +210,7 @@ bool InitVirtualFileSystem(std::list<vfs::Path> const& vfs_ini_list)
 			InitWriteProfile(*pProf, profileRoot);
 		}
 	}
-	_LOG.Endl() << "VFS successfully initialized" << CLog::endl;
+	LOG(_LOG.Endl() << "VFS successfully initialized" << CLog::endl);
 
 	return true;
 }

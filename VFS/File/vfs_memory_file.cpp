@@ -1,5 +1,5 @@
 #include "vfs_memory_file.h"
-#include "vfs_file_raii.h"
+#include "../vfs_file_raii.h"
 
 #include <vector>
 

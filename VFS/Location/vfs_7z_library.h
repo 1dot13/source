@@ -2,7 +2,7 @@
 #define _VFS_7Z_LIBRARY_H_
 
 #include "vfs_uncompressed_lib_base.h"
-#include "File/vfs_lib_file.h"
+#include "../File/vfs_lib_file.h"
 
 namespace vfs
 {

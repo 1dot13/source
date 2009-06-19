@@ -1118,7 +1118,10 @@ void PrintExceptionList()
 	ClipRect.iTop		= 0;
 	ClipRect.iBottom	= SCREEN_HEIGHT;
 
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+	if( !(pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES ) ) )
+	{
+		return;
+	}
 	//Blt16BPPBufferShadowRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect );
 	Blt16BPPBufferHatchRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect );
 	UnLockVideoSurface( FRAME_BUFFER );
