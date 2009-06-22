@@ -362,17 +362,22 @@ BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 			{
 				// arrived at destination
 				if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) HeliCharacterDialogue( pSkyRider, ARRIVED_IN_NON_HOSTILE_SECTOR );
-				StopTimeCompression();
+				//StopTimeCompression();
 			}
 
 			// destination reached, payment due.	If player can't pay, mercs get kicked off and heli flies to base!
 			PaySkyriderBill();
+
+			// WANNE: Fix by Headrock: Always stop time!
+			StopTimeCompression();
 		}
 		else
 		{
 			// Say quote: "Gonna have to abort.	Enemies below"
-			if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) HeliCharacterDialogue( pSkyRider, ARRIVED_IN_HOSTILE_SECTOR );
-			StopTimeCompression();
+			if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) 
+				HeliCharacterDialogue( pSkyRider, ARRIVED_IN_HOSTILE_SECTOR );
+			
+			//StopTimeCompression();
 		}
 
 		if( CheckForArrivalAtRefuelPoint( ) )
