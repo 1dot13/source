@@ -11441,8 +11441,7 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 	// base comes from profile
 	ubNeedForSleep = gMercProfiles[ pSoldier->ubProfile ].ubNeedForSleep;
 
-
-	ubPercentHealth = pSoldier->stats.bLife / pSoldier->stats.bLifeMax;
+	ubPercentHealth = (pSoldier->stats.bLife*100) / pSoldier->stats.bLifeMax;
 
 	if ( ubPercentHealth < 75 )
 	{
