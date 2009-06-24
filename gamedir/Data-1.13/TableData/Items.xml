@@ -8719,7 +8719,7 @@
 		<ubGraphicNum>157</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>21</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>100</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Metal>1</Metal>
@@ -8740,7 +8740,7 @@
 		<ubGraphicNum>159</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>21</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>200</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Metal>1</Metal>
@@ -8761,7 +8761,7 @@
 		<ubGraphicNum>158</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>21</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>300</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Metal>1</Metal>
@@ -8782,7 +8782,7 @@
 		<ubGraphicNum>270</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>21</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>800</usPrice>
 		<bReliability>-3</bReliability>
 		<Metal>1</Metal>
@@ -8802,7 +8802,7 @@
 		<ubGraphicNum>267</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>21</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>700</usPrice>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -8821,7 +8821,7 @@
 		<ubGraphicNum>268</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>21</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>300</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Metal>1</Metal>
@@ -8845,7 +8845,7 @@
 		<ubGraphicNum>269</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>21</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>600</usPrice>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -8865,7 +8865,7 @@
 		<ubGraphicNum>325</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>21</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>90</usPrice>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -8885,7 +8885,7 @@
 		<ubGraphicNum>322</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>21</ItemSize>
+		<ItemSize>25</ItemSize>
 		<usPrice>180</usPrice>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -8905,7 +8905,7 @@
 		<ubGraphicNum>324</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
-		<ItemSize>21</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>270</usPrice>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -23986,7 +23986,7 @@
 		<BigGunList>1</BigGunList>
 		<Inseparable>1</Inseparable>
 		<BR_NewInventory>2</BR_NewInventory>
-		<MagSizeBonus>70</MagSizeBonus>
+		<MagSizeBonus>45</MagSizeBonus>
 		<PercentReloadTimeAPReduction>-30</PercentReloadTimeAPReduction>
 	</ITEM>
 	<ITEM>
