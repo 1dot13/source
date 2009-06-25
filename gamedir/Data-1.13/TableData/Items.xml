@@ -5611,6 +5611,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<RangeBonus>20</RangeBonus>
 		<Duckbill>1</Duckbill>
+		<spreadPattern>DuckbillSpread</spreadPattern>
 	</ITEM>
 	<ITEM>
 		<uiIndex>245</uiIndex>
@@ -16591,6 +16592,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>24</BR_ROF>
+		<spreadPattern>SawedoffSpread</spreadPattern>
 	</ITEM>
 	<ITEM>
 		<uiIndex>712</uiIndex>
@@ -17210,6 +17212,7 @@
 		<BR_ROF>28</BR_ROF>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
+		<spreadPattern>SawedoffSpread</spreadPattern>
 	</ITEM>
 	<ITEM>
 		<uiIndex>733</uiIndex>
@@ -31216,4 +31219,84 @@
 		<TwoHanded>1</TwoHanded>
 		<AmmoCrate>1</AmmoCrate>
 	</ITEM>
+<!--
+Shotgun attachment ideas, not implemented
+- - - -
+	<ITEM>
+		<uiIndex></uiIndex>
+		<szItemName>Imp. Mod. Choke</szItemName>
+		<szLongItemName>Imp. Mod. Shotgun Choke</szLongItemName>
+		<szItemDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group tighter, permiting longer range and more shot to hit the target.</szItemDesc>
+		<szBRName>Imp. Mod. Shotgun Choke</szBRName>
+		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group tighter, permiting longer range and more shot to hit the target.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>134</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>1</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bRepairEase>5</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>2</BR_UsedInventory>
+		<RangeBonus>30</RangeBonus>
+		<spreadPattern>ChokeImpModSpread</spreadPattern>
+	</ITEM>
+	<ITEM>
+		<uiIndex></uiIndex>
+		<szItemName>Full Choke</szItemName>
+		<szLongItemName>Full Shotgun Choke</szLongItemName>
+		<szItemDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.  Not for use with slugs!</szItemDesc>
+		<szBRName>Full Shotgun Choke</szBRName>
+		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.  Not for use with slugs!</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>134</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>1</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bRepairEase>5</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>2</BR_UsedInventory>
+		<RangeBonus>40</RangeBonus>
+		<spreadPattern>ChokeFullSpread</spreadPattern>
+	</ITEM>
+	<ITEM>
+		<uiIndex></uiIndex>
+		<szItemName>Rifled Choke</szItemName>
+		<szLongItemName>Rifled Shotgun Choke</szLongItemName>
+		<szItemDesc>When attached to the end of a shotgun barrel, causes slugs to fire more accurately and farther.  However, shot will fire in a very wide, ineffective pattern.</szItemDesc>
+		<szBRName>Rifled Shotgun Choke</szBRName>
+		<szBRDesc>Makes your slugs to fire long and straight, but throws shot all over tarnation!</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>134</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>1</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bRepairEase>5</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>2</BR_UsedInventory>
+		<RangeBonus>60</RangeBonus>
+		<ToHitBonus>20</ToHitBonus>
+		<spreadPattern>ChokeRifledSpread</spreadPattern>
+	</ITEM>
+-->
 </ITEMLIST>

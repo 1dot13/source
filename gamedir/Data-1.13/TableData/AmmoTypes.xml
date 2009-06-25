@@ -159,6 +159,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern>BuckshotSpread</spreadPattern>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex>
@@ -178,9 +179,9 @@
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>1</canGoThrough>
 		<standardIssue>0</standardIssue>
-		<numberOfBullets>6</numberOfBullets>
+		<numberOfBullets>20</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
-		<multipleBulletDamageDivisor>3</multipleBulletDamageDivisor>
+		<multipleBulletDamageDivisor>10</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
 		<antiTank>0</antiTank>
@@ -191,6 +192,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern>FlechetteSpread</spreadPattern>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>6</uiIndex>
@@ -863,5 +865,38 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>0</uiIndex>
+		<name>Duplex Ball</name>
+		<fontColour>136</fontColour>
+		<grayed>4</grayed>
+		<offNormal>1</offNormal>
+		<onNormal>3</onNormal>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>1</standardIssue>
+		<numberOfBullets>2</numberOfBullets>
+		<multipleBulletDamageMultiplier>2</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>3</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
+		<spreadPattern>DuplexSpread</spreadPattern>
 	</AMMOTYPE>
 </AMMOTYPELIST>

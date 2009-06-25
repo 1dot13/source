@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SPREADPATTERNLIST>
+<!--
+<SPREADPATTERN>
+	Defines the pattern.
+	Can have 1 <NAME>, 1 <xpsread>, 1 <yspread>, 1 <method>, and any number of <p>
+<NAME>
+	The Name used by other XML files.
+	Case insensitive, leading and trailing spaces are trimmed on load.
+	No actual naming convention is specified, but I use full UpperCamelCase and put Spread at the end of every name.
+<DESC>
+	Description, for informative purposes only.
+	Not used in game at all.
+<p>
+	Defines a specific pellet angle.  Must have 1 <x> and 1 <y>
+<x>
+	Defines a pellet angle's horizontal deviation from a Mer'c line of sight.
+	Similar to yaw, but not the same.
+	Can be negative, positive, or zero.
+<y>
+	As <x> but vertical.
+	Similar to pitch, but not the same.
+<xspread>
+	Defines a spread range's horizontal range for randomized pellets.  Negative numbers will be made positive on load.
+	Any pellets fired in the range could fall anwhere between -xspread and +xspread.
+	Keep in mind that since this defines maximum spread, normal distribution will cause most pellets to land closer to the center, so the group may be tighter than you expect.
+	If both xspread and yspread are zero, then they are ignored.
+<yspread>
+	As <xspread> but vertical.
+<method>
+	The distribution method to use for a random spread.
+	These are pretty self explanitory.  Think of it this way: if you fired the shotgun at the side of a barn from 10 meters, this is the rough shape the pellets would make on it.
+	Can be one of:
+		Rectangle
+		Diamond
+		Ellipse
+	If left unspecified, the pattern will default to the value of giSpreadPatternMethod_Default, which is Ellipse.
+	This default value may be moved to the INI file in the future.
+
+The first spread pattern defined here is the default used if no other pattern is specified in other XML files.
+Sections are commented below, and initial arrangement is organized, but this is not necesary for the code.
+Any number of SPREADPATTERN tags can exist in any order... but clarity is nice to have.
+
+If specific pellet angles are defined (e.g. <p><x> 0.0000</x><y> 0.0000</y></p> )  then they will be used first, in the order they are listed.
+If more pellet angles are defined than the number of pellets an AmmoType fires, then the excess angles are ignored.
+If an AmmoType has more shots than the number of angles that are defined, and there no spread ranges defined, then the pellet angles are recycled.
+E.g. if 9 pellet angles are defined, no xspread or yspread, then pellet 10 will follow angle 0, 11 will follow 1, etc.
+(pellets angles are created as arrays on load, so if nine pellet angles are defined the first is index 0 and the last is index 8)
+
+If an AmmoType has more shots than the number of angles that are defined, and there are spread ranges defined, then the excess pellets will fire at random angles within the spread.
+E.g. 9 pellet angles defined, xspread=0.032 and yspread=0.032 then the first nine pellets follow the defined angles, and all remaining pellets fired will be at random angles between -0.032 and +0.032
+
+If no pellet angles are defined, and spread are defined, then all pellets will fire at random angles within the defined range.
+In order for the spread to be used, one value must be non-zero.  If both are zero, it is ignored.
+
+All angles (for individual pellet angles and random spread) are defined in radians.
+Traditional shotgun chokes are talked about in how much spread they have on paper at a particular range.
+For example, 10inch spread at 20 yards, or 25cm at 20m.
+If you are thinking in these terms when designing your pattern, here are some equations to help you on your way.
+(note that these work for both xspread and yspread, and that the unit of measure for spread_on_paper and distance is the same)
+	Eq.1: Finding the amount of spread for a given xspread angle at a given distance:
+		spread_on_paper  =  2 * distance * tan(xspread) 
+	Eq.2: Finding the distance at which a known spread will occur for a known angle:
+		distance = spread_on_paper / (2 * tan(xspread) )
+	Eq.3: Finding the angle needed for a known desired spread at a desired range:
+		xspread = cot( spread_on_paper / (2 * distance) )
+If trying to find out where a pellet would land for a <p> angle specified, just remove to 2 from the equations above.
+These only work as expected for  xspread  <  pi/2  and are decreasingly useful as you approach pi/2
+
+Please note that real world spread patterns open up in a non-linear manner.  That is to say, the flight path of real shotgun pellets more closely resembles a funnel than a cone.
+The methods used here are strickly conical, which is fine for the purposes of a game.
+
+Also  note that the JA2 game engine sends bullets in a flat trajectory as if they were fired in zero gravity.
+So there is no bullet drop or pellet drop at any time in the game, regardless of bullet type.
+
+Please show a sign for positive and negative numbers, and no sign for 0, for pellet angles.
+For xspread and yspread, please use positive number and never use a sign.
+Please use the decimal format shown. That is, 0.0000
+Doing so makes everything a lot easier to read.
+
+-->
+	<SPREADPATTERN>
+		<NAME>DefaultSpread</NAME>
+		<DESC>First pellet straight ahead, then follow the original game's shotgun pattern, then wide random spread.</DESC>
+		<!-- First fires straight  -->
+		<p><x> 0.0000</x><y> 0.0000</y></p>
+		<!-- Normal Shotgun. Spread of about 2 degrees in all directions, from original game code -->
+		<p><x>-0.0120</x><y> 0.0000</y></p>
+		<p><x>+0.0120</x><y> 0.0000</y></p>
+		<p><x> 0.0000</x><y>-0.0120</y></p>
+		<p><x> 0.0000</x><y>+0.0120</y></p>
+		<p><x>-0.0080</x><y>-0.0080</y></p>
+		<p><x>-0.0080</x><y>+0.0080</y></p>
+		<p><x>+0.0080</x><y>-0.0080</y></p>
+		<p><x>+0.0080</x><y>+0.0080</y></p>
+		<!-- Fairly wide spread range, slightly wider than the Flamer was in the original game, about +-7 degrees both ways  -->
+		<xspread>0.1234</xspread> <yspread>0.1234</yspread>
+	</SPREADPATTERN>
+	<!--
+	*** Section for AmmoType spread patterns ***
+	-->
+	<SPREADPATTERN>
+		<NAME>BuckshotSpread</NAME>
+		<DESC>Spread range slightly wider than the original game.</DESC>
+		<xspread>0.0150</xspread> <yspread>0.0150</yspread>
+	</SPREADPATTERN>
+	<SPREADPATTERN>
+		<NAME>FlechetteSpread</NAME>
+		<DESC>Flechettes spread much wider than shot.</DESC>
+		<xspread>0.0250</xspread> <yspread>0.0250</yspread>
+	</SPREADPATTERN>
+	<SPREADPATTERN>
+		<NAME>DuplexSpread</NAME>
+		<DESC>Also for triplex, quadplex, or any other inline multiple projectile.</DESC>
+		<xspread>0.0120</xspread> <yspread>0.0120</yspread>
+		<p><x> 0.0000</x><y> 0.0000</y></p>
+	</SPREADPATTERN>
+	<!--
+	*** Section for Ammo item specific spread patterns ***
+	-->
+	<SPREADPATTERN>
+		<NAME>12gaTungstenSpread</NAME>
+		<DESC>
+			(not used anywhere right now, just an example)
+			Tungsten shot groups better and hits harder at range.
+			Of course, it also groups better out of a choke, so this would ideally be cumulative
+			with choke or weapon, but no need to complicate things more than I already have.
+		</DESC>
+		<xspread>0.0090</xspread> <yspread>0.0090</yspread>
+	</SPREADPATTERN>
+	<!--
+	*** Section for Weapon item specific spread patterns ***
+	-->
+	<SPREADPATTERN>
+		<NAME>FlamerSpread</NAME>
+		<DESC>Flamethrower more spread out.  Uses static angles, unchanged from original game.</DESC>
+		<p><x> 0.0000</x><y> 0.0000</y></p>
+		<p><x>-0.1200</x><y> 0.0000</y></p>
+		<p><x>+0.1200</x><y> 0.0000</y></p>
+		<p><x> 0.0000</x><y>-0.1200</y></p>
+		<p><x> 0.0000</x><y>+0.1200</y></p>
+		<p><x>-0.0080</x><y>-0.0080</y></p>
+		<p><x>-0.0080</x><y>+0.0080</y></p>
+		<p><x>+0.0080</x><y>-0.0080</y></p>
+		<p><x>+0.0080</x><y>+0.0080</y></p>
+	</SPREADPATTERN>
+	<SPREADPATTERN>
+		<NAME>SawedoffSpread</NAME>
+		<DESC>
+			Very wide spread from a crudely cut-off barrel.
+			Use weapon based spread patterns spareingly, since ammo will likely be tweaked to have a specific
+			performance at specific ranges, and spreads are non-cumulative.
+		</DESC>
+		<xspread>0.0300</xspread> <yspread>0.0300</yspread>
+	</SPREADPATTERN>
+	<!--
+	*** Section for Attachment item specific spread patterns ***
+	-->
+	<SPREADPATTERN>
+		<NAME>DuckbillSpread</NAME>
+		<DESC>Duckbill flattens the spread and makes it wider horizontally.</DESC>
+		<xspread>0.0350</xspread> <yspread>0.0050</yspread>
+	</SPREADPATTERN>
+	<SPREADPATTERN>
+		<NAME>ChokeImpModSpread</NAME>
+		<DESC>A improved modified choke for standard 12ga shotguns.</DESC>
+		<xspread>0.0110</xspread> <yspread>0.0100</yspread>
+	</SPREADPATTERN>
+	<SPREADPATTERN>
+		<NAME>ChokeFullSpread</NAME>
+		<DESC>A full choke for standard 12ga shotguns.
+			Not for use with slugs or steel shot!
+			Well, in real life, but it won't hurt you in the game.
+			Very tight pattern.
+		</DESC>
+		<xspread>0.0080</xspread> <yspread>0.0080</yspread>
+	</SPREADPATTERN>
+	<SPREADPATTERN>
+		<NAME>ChokeRifledSpread</NAME>
+		<DESC>A rifled choke for standard 12ga shotguns.
+			This is a little bit of a hack, and a good example of what can be done when getting creative.
+			Rifled chokes are intended to increase the range and accuracy of slugs.
+			So, the attachment will do so.
+			However, rifled chokes also spray out the pellets wildly, making them rather bad for shot.
+			They also tend to give shot _less_ range, but we can't accomplish that, so the spread is exaggerated.
+			Hopefully, spread will have the desired impact on reducing the usefulness of shot at range.
+			(though unskilled characters may find that it inadvertantly increases their chance to hit the target
+			with at least one pellet)
+		</DESC>
+		<xspread>0.7853</xspread> <yspread>0.7853</yspread>
+	</SPREADPATTERN>
+	<!--
+	*** Section for other unused, special case, testing, or quicky mod-related spread patterns ***
+	-->
+	<SPREADPATTERN>
+		<NAME>RandomSpread</NAME>
+		<DESC>Random angles, from straight ahead to straight back, up, down, left, right.</DESC>
+		<method>Rectangle</method>
+		<xspread>3.1415</xspread> <yspread>3.1415</yspread>
+	</SPREADPATTERN>
+	<SPREADPATTERN>
+		<NAME>CrazySpread</NAME>
+		<DESC>Everything firing with moderate spread, but backwards</DESC>
+		<p><x>+3.1415</x><y> 0.0000</y></p>
+		<p><x>-3.1415</x><y> 0.0000</y></p>
+		<p><x>+3.0415</x><y>+0.0050</y></p>
+		<p><x>-3.0415</x><y>-0.0050</y></p>
+		<p><x>+3.0000</x><y>+0.0100</y></p>
+		<p><x>-3.0000</x><y>-0.0100</y></p>
+	</SPREADPATTERN>
+	<SPREADPATTERN>
+		<NAME>AxisSpread</NAME>
+		<DESC>In straight lines along every axis</DESC>
+		<p><x> 0.0000</x><y> 0.0000</y></p> <!-- forward -->
+		<p><x>+3.1415</x><y> 0.0000</y></p> <!-- backward -->
+		<p><x> 0.0000</x><y>+1.5707</y></p> <!-- up -->
+		<p><x> 0.0000</x><y>-1.5707</y></p> <!-- down -->
+		<p><x>+1.5707</x><y> 0.0000</y></p> <!-- right -->
+		<p><x>-1.5707</x><y> 0.0000</y></p> <!-- left -->
+	</SPREADPATTERN>
+	<SPREADPATTERN>
+		<NAME>Nada</NAME>
+		<DESC>Nothing defined.</DESC>
+	</SPREADPATTERN>
+	<SPREADPATTERN>
+		<NAME>Template</NAME>
+		<DESC>Template</DESC>
+		<method>Ellipse</method>
+		<xspread>0.0000</xspread> <yspread>0.0000</yspread>
+		<p><x> 0.0000</x><y> 0.0000</y></p>
+	</SPREADPATTERN>
+</SPREADPATTERNLIST>
