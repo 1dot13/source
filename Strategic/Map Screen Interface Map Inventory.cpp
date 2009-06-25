@@ -1471,7 +1471,9 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 			{
 				for( UINT32 iNumber = 0 ; iNumber <  pInventoryPoolList.size() ; ++iNumber)
 				{
-					if ( pInventoryPoolList[ iNumber ].object.usItem == gItemPointer.usItem )
+					// WANNE: Fix by Headrock
+					//if ( pInventoryPoolList[ iNumber ].object.usItem == gItemPointer.usItem )
+					if ( pInventoryPoolList[ iNumber ].object.usItem == gItemPointer.usItem && pInventoryPoolList[ iNumber ].usFlags & WORLD_ITEM_REACHABLE)
 					{
 						iPrice += SellItem( pInventoryPoolList[ iNumber ].object );
 						DeleteObj( &pInventoryPoolList [ iNumber ].object );
