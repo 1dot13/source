@@ -5936,7 +5936,7 @@
 		<ubImpact>33</ubImpact>
 		<ubDeadliness>44</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
-		<ubMagSize>100</ubMagSize>
+		<ubMagSize>75</ubMagSize>
 		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
@@ -5970,7 +5970,7 @@
 		<ubImpact>33</ubImpact>
 		<ubDeadliness>47</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
-		<ubMagSize>100</ubMagSize>
+		<ubMagSize>75</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
