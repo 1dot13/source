@@ -338,14 +338,18 @@ extern CPostalService gPostalService;
 UINT8 guiNumOfDisplayedCities=0;
 vector<PDestinationStruct> gDestinationTable;
 vector<PShipmentStruct> gShipmentTable;
+
+// WANNE: This method gets called when the shippment arrived
 void BobbyRDeliveryCallback(RefToCShipmentManipulator ShipmentManipulator)
 {
 	// ScreenMsg(FONT_MCOLOR_RED, MSG_DEBUG, L"Shipment from Bobby Ray has arrived at %s!", ShipmentManipulator.GetDestination().wstrName.c_str());
-	gusCurShipmentDestinationID = ShipmentManipulator.GetDestination().usID;
+	gusCurShipmentDestinationID = ShipmentManipulator.GetDestination().usID;	
+
+	StopTimeCompression();
 
 	// WANNE - MP: Do not send email notification from Bobby Ray in a multiplayer game
 	if (!is_networked)
-		AddEmail( BOBBYR_SHIPMENT_ARRIVED, BOBBYR_SHIPMENT_ARRIVED_LENGTH, BOBBY_R, GetWorldTotalMin(), -1 );
+		AddEmail( BOBBYR_SHIPMENT_ARRIVED, BOBBYR_SHIPMENT_ARRIVED_LENGTH, BOBBY_R, GetWorldTotalMin(), -1 );	
 }
 
 

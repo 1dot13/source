@@ -270,6 +270,7 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 		if( SHIPMENT(sli).sSenderID + 2 <= (INT16)_DeliveryCallbacks.size() &&
 			_DeliveryCallbacks[SHIPMENT(sli).sSenderID + 1].DeliveryCallbackFunc)
 		{
+			// WANNE: This calls the BobbyRDeliveryCallback() method in BobbyRMailOrder.cpp
 			_DeliveryCallbacks[SHIPMENT(sli).sSenderID + 1].DeliveryCallbackFunc(*ShipmentManipulator);
 		}
 	}
@@ -331,6 +332,8 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 		UINT8		ubItemsDelivered, ubTempNumItems;
 		UINT16		usItem;
 		
+		// Loop through the packages of the order.
+		// A package is the sum of the same items (e.g: 5 Colts = 1 package, 2 Colts & 1 legging = 2 packages)
 		for(int i=0; i < (int)shs.ShipmentPackages.size(); i++)
 		{
 			ubItemsDelivered = shs.ShipmentPackages[i].ubNumber;
@@ -340,8 +343,7 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 
 			while ( ubItemsDelivered )
 			{
-				//ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(usItem, BIGPOCK1POS) );
-
+				// Check how many items we can group together on one stack
 				if (UsingNewInventorySystem() == false)
 				{
 					ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(&tempObject, BIGPOCK1POS) );
@@ -351,10 +353,12 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 					ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(&tempObject, STACK_SIZE_LIMIT) );
 				}
 				
+				// Create all the items that are grouped together
 				CreateItems( usItem, shs.ShipmentPackages[i].bItemQuality, ubTempNumItems, &tempObject );
 
 				if( fSectorLoaded )
 				{
+					// Add the single item to the pool
 					AddItemToPool( shs.pDestination->sGridNo, &tempObject, -1, 0, 0, 0 );
 				}
 				else
@@ -363,6 +367,7 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 					uiCount++;
 				}
 
+				// Substract the number of items we already placed from the total number of items of this package
 				ubItemsDelivered -= ubTempNumItems;
 			}
 		}
@@ -610,13 +615,13 @@ BOOLEAN CPostalService::LoadShipmentListFromSaveGameFile(HWFILE hFile)
 	{
 		return FALSE;
 	}
-	
-	ShipmentSaveFileDataStruct	sfs;
-	ShipmentPackageStruct		sps;
-	ShipmentStruct				shs;
+		
+	ShipmentPackageStruct		sps;	
 		
 	for(int i = 0; i < (int)sls.uiNumberOfShipments; i++)
 	{
+		ShipmentSaveFileDataStruct	sfs;
+
 		// Read in shipment data header
 		memset(&sfs, 0, sizeof(ShipmentSaveFileDataStruct));
 		uiBytesRead = 0;
@@ -625,11 +630,12 @@ BOOLEAN CPostalService::LoadShipmentListFromSaveGameFile(HWFILE hFile)
 		{
 			return FALSE;
 		}
+		
+		// WANNE: Bugfix: Fixed CTD in VS 2008 Release EXE (by birdflu) -> This leads to item duplication!!!
+		//memset(&shs, 0, sizeof(ShipmentStruct));		
 
-		// Add shipment
-
-		// WANNE: Bugfix: Fixed CTD in VS 2008 Release EXE (by birdflu)
-		//memset(&shs, 0, sizeof(ShipmentStruct));
+		// WANNE: This is the fix for the item duplication!
+		ShipmentStruct	shs;
 
 		shs.pDestination	= &(_GetDestination(sfs.usDestinationID));
 		shs.pDestinationDeliveryInfo = &(_DeliveryMethods[sfs.ubDeliveryMethodIndex].pDestinationDeliveryInfos->at(sfs.usDestinationID));
