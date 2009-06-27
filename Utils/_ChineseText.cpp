@@ -1951,7 +1951,7 @@ STR16 pSenderNameList[] =
 	L"MD",
 	L"Meltdown",
 	//----------
-	L"M.I.S. 保险公司",
+	L"M.I.S 保险公司",
 	L"Bobby Rays",
 	L"Kingpin",
 	L"John Kulba",
@@ -2501,7 +2501,7 @@ STR16 pBookMarkStrings[] =
 	L"M.E.R.C.",
 	L"公墓",
 	L"花店",
-	L"MIS保险公司",
+	L"M.I.S 保险公司",
 	L"取消",
 };
 
@@ -2604,7 +2604,7 @@ STR16 pWebPagesTitles[] =
 	L"联合花卉服务公司 - 花卉",
 	L"联合花卉服务公司 - 订单",
 	L"联合花卉服务公司 - 贺卡",
-	L"Malleus, Incus & Stapes保险公司",
+	L"Malleus, Incus & Stapes 保险公司",
 	L"信息",
 	L"合同",
 	L"评论",
@@ -4542,7 +4542,7 @@ STR16 New113Message[] =
 
 STR16 New113HAMMessage[] =
 {
-	L"%s 被火力压制！",//	L"%s cowers in fear!",
+	L"%s 害怕得退缩了！",//	L"%s cowers in fear!",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
