@@ -867,7 +867,7 @@
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>0</uiIndex>
+		<uiIndex>27</uiIndex>
 		<name>Duplex Ball</name>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
