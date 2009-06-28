@@ -52,9 +52,10 @@ UINT32 guiPabloExtraDaysBribed = 0;
 
 UINT8		gubCambriaMedicalObjects;
 
+// WANNE: No more used for the new airport code
+//void DropOffItemsInMeduna( UINT8 ubOrderNum );
 
-void DropOffItemsInMeduna( UINT8 ubOrderNum );
-
+/*
 // WANNE: Dieser Code wird nicht mehr ausgeführt. Es gibt jetzt das PostalService.cpp::DeliverShipment()
 // In der Methode DeliverShipment() fehlt eine ganze Menge (PABLO Quests, ...)
 void BobbyRayPurchaseEventCallback( UINT8 ubOrderID )
@@ -409,7 +410,7 @@ void BobbyRayPurchaseEventCallback( UINT8 ubOrderID )
 		AddEmail( JOHN_KULBA_GIFT_IN_DRASSEN, JOHN_KULBA_GIFT_IN_DRASSEN_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1 );
 	}
 }
-
+*/
 
 
 void HandleDelayedItemsArrival( UINT32 uiReason )
@@ -1116,7 +1117,8 @@ void CheckForMissingHospitalSupplies( void )
 
 }
 
-
+// WANNE: No more used for the new airport code
+/*
 void DropOffItemsInMeduna( UINT8 ubOrderNum )
 {
 	BOOLEAN	fSectorLoaded = FALSE;
@@ -1218,3 +1220,4 @@ void DropOffItemsInMeduna( UINT8 ubOrderNum )
 	//Add an email from kulba telling the user the shipment is there
 	AddEmail( BOBBY_R_MEDUNA_SHIPMENT, BOBBY_R_MEDUNA_SHIPMENT_LENGTH, BOBBY_R, GetWorldTotalMin(), -1 );
 }
+*/

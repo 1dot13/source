@@ -181,12 +181,15 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			}
 			break;
 		case EVENT_AIM_RESET_MERC_ANNOYANCE:
-			ResetMercAnnoyanceAtPlayer( (UINT8) pEvent->uiParam );
+			ResetMercAnnoyanceAtPlayer( (UINT8) pEvent->uiParam );		
 			break;
+		// WANNE: This is the EVENT for the old Bobby Ray shipment code. Look for the EVENT "EVENT_POSTAL_SERVICE_SHIPMENT" below
+		/*
 		//The players purchase from Bobby Ray has arrived
 		case EVENT_BOBBYRAY_PURCHASE:
 			BobbyRayPurchaseEventCallback( (UINT8) pEvent->uiParam);
 			break;
+		*/
 		//Gets called once a day ( at BOBBYRAY_UPDATE_TIME).	To simulate the items being bought and sold at bobby rays
 		case EVENT_DAILY_UPDATE_BOBBY_RAY_INVENTORY:
 			DailyUpdateOfBobbyRaysNewInventory();

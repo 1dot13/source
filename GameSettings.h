@@ -258,6 +258,9 @@ typedef struct
 	// WDS - Option to turn off stealing
 	BOOLEAN fStealingDisabled;
 
+	// WANNE: Externalize chance of shipment package lost
+	UINT32	gubChanceOfShipmentLost;
+
 	// Militia Settings	
 	BOOLEAN fAllowTacticalMilitiaCommand;
 	BOOLEAN gfTrainVeteranMilitia;

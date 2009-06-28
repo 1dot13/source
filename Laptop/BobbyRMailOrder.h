@@ -4,7 +4,9 @@
 #include "LaptopSave.h"
 
 
-
+//Dealtar's Airport Externalization.
+#define		BOBBYR_SENDER_ID						0
+#define		JOHN_KULBA_SENDER_ID					1
 
 
 //enums for the various destinations that are available in the bobbyR dest drop down box

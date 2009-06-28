@@ -10,6 +10,10 @@
 #include <list>
 #include <string>
 #include <iostream>
+#include "Quests.h"
+#include "Strategic Town Loyalty.h"
+#include "email.h"
+#include "BobbyRMailOrder.h"
 
 // WANNE - MP: Used for multiplayer
 #include "connect.h"
@@ -233,6 +237,13 @@ BOOLEAN CPostalService::SendShipment(UINT16 usShipmentID)
 
 BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 {
+	UINT32	uiChanceOfTheft;
+	static UINT8 ubShipmentsSinceNoBribes = 0;
+	BOOLEAN		fPablosStoleLastItem = FALSE;
+	UINT32	uiStolenCount = 0;
+	INT16 sMapPos;
+	BOOLEAN		fPablosStoleSomething = FALSE;
+
 	if(	usShipmentID > _UsedShipmentIDList.size() ||
 		!_UsedShipmentIDList[usShipmentID])
 	{
@@ -285,9 +296,18 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 
 	RefToShipmentStruct shs = SHIPMENT(sli);
 
+	// Sector is enemy controlled or shipment sector does not exist (->ubMapX = 0, ubMapY = 0)  -> Clear the shipments
 	if( StrategicMap[ CALCULATE_STRATEGIC_INDEX( shs.pDestination->ubMapX, shs.pDestination->ubMapY ) ].fEnemyControlled )
 	{
-		return FALSE;
+		shs.ShipmentPackages.clear();
+		shs.pDestination = NULL;
+		shs.pDestinationDeliveryInfo = NULL;
+		shs.ShipmentStatus = SHIPMENT_STATIONARY;
+		_UsedShipmentIDList[usShipmentID] = FALSE;
+
+		_Shipments.erase(sli);
+
+		return TRUE;
 	}
 
 	if( (shs.pDestination->ubMapX > 0) && 
@@ -299,6 +319,49 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 		BOOLEAN fSectorLoaded = ( gWorldSectorX == shs.pDestination->ubMapX ) && 
 								( gWorldSectorY == shs.pDestination->ubMapY ) && 
 								( gbWorldSectorZ == shs.pDestination->ubMapZ);
+
+		
+		// WDS - Option to turn off stealing
+		// check for potential theft
+		if (gGameExternalOptions.fStealingDisabled ||
+			CheckFact( FACT_PABLO_WONT_STEAL, 0 ))
+		{
+			uiChanceOfTheft = 0;
+		}
+		else if (CheckFact( FACT_PABLOS_BRIBED, 0 ))
+		{
+			// Since Pablo has some money, reduce record of # of shipments since last bribed...
+			ubShipmentsSinceNoBribes /= 2;
+			uiChanceOfTheft = 0;
+		}
+		else
+		{
+			ubShipmentsSinceNoBribes++;
+			// this chance might seem high but it's only applied at most to every second item
+			uiChanceOfTheft = 12 + Random( 4 * ubShipmentsSinceNoBribes );
+		}
+	
+		// Shipment from John Kulba can never be lost, only from Bobby Ray
+		if (shs.sSenderID == BOBBYR_SENDER_ID)
+		{
+			// The whole shipment will be lost
+			if (Random( 100 ) < gGameExternalOptions.gubChanceOfShipmentLost)
+			{
+				// lose the whole shipment!
+				// Delete the shipments!
+				shs.ShipmentPackages.clear();
+				shs.pDestination = NULL;
+				shs.pDestinationDeliveryInfo = NULL;
+				shs.ShipmentStatus = SHIPMENT_STATIONARY;
+				_UsedShipmentIDList[usShipmentID] = FALSE;
+
+				_Shipments.erase(sli);
+
+				SetFactTrue( FACT_LAST_SHIPMENT_CRASHED );
+
+				return TRUE;
+			}
+		}
 
 		if(fSectorLoaded)
 		{
@@ -317,11 +380,13 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 		}
 
 		OBJECTTYPE *pObject;
+		OBJECTTYPE *pStolenObject;
 		if(!fSectorLoaded)
 		{
 			pObject = new OBJECTTYPE[usNumberOfItems];
+			pStolenObject = new OBJECTTYPE[ usNumberOfItems ];
 
-			if(!pObject)
+			if(!pObject || !pStolenObject)
 			{
 				Assert(0);
 				return FALSE;
@@ -336,13 +401,30 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 		// A package is the sum of the same items (e.g: 5 Colts = 1 package, 2 Colts & 1 legging = 2 packages)
 		for(int i=0; i < (int)shs.ShipmentPackages.size(); i++)
 		{
+			// Wie viele items sollen geliefert werden ?
 			ubItemsDelivered = shs.ShipmentPackages[i].ubNumber;
+			
+			// das aktuelle item
 			usItem = shs.ShipmentPackages[i].usItemIndex;
 
 			CreateItem(usItem, 100, &tempObject);
 
+			// if it's a gun
+			if (Item [ usItem ].usItemClass == IC_GUN )
+			{
+				// Empty out the bullets put in by CreateItem().	We now sell all guns empty of bullets.	This is done for BobbyR
+				// simply to be consistent with the dealers in Arulco, who must sell guns empty to prevent ammo cheats by players.
+				tempObject[0]->data.gun.ubGunShotsLeft = 0;
+			}
+
+			// TODO.RW: Hier Pablo stealing code einfügen und ubItemsDelivered reduzieren!!!
+
+			UINT8 cnt = -1;
+			// Loop through the items of a package
 			while ( ubItemsDelivered )
 			{
+				cnt++;
+
 				// Check how many items we can group together on one stack
 				if (UsingNewInventorySystem() == false)
 				{
@@ -358,13 +440,39 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 
 				if( fSectorLoaded )
 				{
-					// Add the single item to the pool
-					AddItemToPool( shs.pDestination->sGridNo, &tempObject, -1, 0, 0, 0 );
+					// Pablo has stolen the item
+					if ( !fPablosStoleLastItem && uiChanceOfTheft > 0 && Random( 100 ) < (uiChanceOfTheft + cnt) )
+					{
+						uiStolenCount++;
+						sMapPos = PABLOS_STOLEN_DEST_GRIDNO; // off screen!
+						fPablosStoleSomething = TRUE;
+						fPablosStoleLastItem = TRUE;
+					}
+					// Item not stolen
+					else
+					{
+						sMapPos = shs.pDestination->sGridNo;
+						fPablosStoleLastItem = FALSE;
+					}
+
+					// Add the single item to the pool (the Crate or Pablose stolen grid no)
+					AddItemToPool( sMapPos, &tempObject, -1, 0, 0, 0 );
 				}
 				else
 				{
-					pObject[ uiCount ] = tempObject;
-					uiCount++;
+					// Pablo steals the item
+					if ( !fPablosStoleLastItem && uiChanceOfTheft > 0 && Random( 100 ) < (uiChanceOfTheft + cnt) )
+					{
+						pStolenObject[ uiStolenCount ] = gTempObject;
+						uiStolenCount++;
+						fPablosStoleSomething = TRUE;
+						fPablosStoleLastItem = TRUE;
+					}
+					else
+					{
+						pObject[ uiCount ] = tempObject;
+						uiCount++;
+					}
 				}
 
 				// Substract the number of items we already placed from the total number of items of this package
@@ -374,13 +482,55 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 
 		if( !fSectorLoaded )
 		{
-			if( !AddItemsToUnLoadedSector(	shs.pDestination->ubMapX, shs.pDestination->ubMapY, 
-				shs.pDestination->ubMapZ, shs.pDestination->sGridNo, uiCount, pObject, 0, 0, 0, -1, FALSE ) )
+			// Successfull delivered items into the crate
+			if (uiCount > 0)
 			{
-				Assert( 0 );
+				if( !AddItemsToUnLoadedSector(	shs.pDestination->ubMapX, shs.pDestination->ubMapY, 
+					shs.pDestination->ubMapZ, shs.pDestination->sGridNo, uiCount, pObject, 0, 0, 0, -1, FALSE ) )
+				{
+					Assert( 0 );
+				}
+				delete[]( pObject );
+				pObject = NULL;
 			}
-			delete[]( pObject );
-			pObject = NULL;
+
+			// Stolen items by Pablo
+			if (uiStolenCount > 0)
+			{
+				// Delivered items
+				if( !AddItemsToUnLoadedSector(	shs.pDestination->ubMapX, shs.pDestination->ubMapY, 
+					shs.pDestination->ubMapZ, PABLOS_STOLEN_DEST_GRIDNO, uiStolenCount, pStolenObject, 0, 0, 0, -1, FALSE ) )
+				{
+					Assert( 0 );
+				}
+				delete[]( pStolenObject );
+				pStolenObject = NULL;
+			}
+		}
+
+		if (fPablosStoleSomething)
+		{
+			SetFactTrue( FACT_PABLOS_STOLE_FROM_LATEST_SHIPMENT );
+		}
+		else
+		{
+			SetFactFalse( FACT_PABLOS_STOLE_FROM_LATEST_SHIPMENT );
+		}
+
+		SetFactFalse( FACT_PLAYER_FOUND_ITEMS_MISSING );
+		SetFactFalse( FACT_LARGE_SIZED_OLD_SHIPMENT_WAITING );
+
+		// WANNE - MP: Do not send email notification from Bobby Ray in a multiplayer game
+		if (!is_networked)
+		{
+			StopTimeCompression();
+
+			// Shipment from Bobby Ray
+			if (shs.sSenderID == BOBBYR_SENDER_ID)
+				AddEmail( BOBBYR_SHIPMENT_ARRIVED, BOBBYR_SHIPMENT_ARRIVED_LENGTH, BOBBY_R, GetWorldTotalMin(), -1 );	
+			// Shipment from John Kulba
+			else
+				AddEmail( JOHN_KULBA_GIFT_IN_DRASSEN, JOHN_KULBA_GIFT_IN_DRASSEN_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1 );
 		}
 
 		shs.ShipmentPackages.clear();
@@ -503,8 +653,6 @@ BOOLEAN CPostalService::DeliverShipmentForMultiplayer(UINT16 usShipmentID)
 
 			while ( ubItemsDelivered )
 			{
-				//ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(usItem, BIGPOCK1POS) );
-
 				if (UsingNewInventorySystem() == false)
 				{
 					ubTempNumItems = __min( ubItemsDelivered, ItemSlotLimit(&tempObject, BIGPOCK1POS) );

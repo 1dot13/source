@@ -16,7 +16,7 @@ extern UINT8 gubCambriaMedicalObjects;
 void CheckForKingpinsMoneyMissing( BOOLEAN fFirstCheck );
 void CheckForMissingHospitalSupplies( void );
 
-void BobbyRayPurchaseEventCallback( UINT8 ubOrderID );
+//void BobbyRayPurchaseEventCallback( UINT8 ubOrderID );
 
 void HandleStolenItemsReturned( void );
 

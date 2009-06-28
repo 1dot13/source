@@ -545,7 +545,7 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 						g_Console.Create(ghWindow);
 						cout << "LUA console ready" << endl;
 						cout << "> ";
-						
+
 						// Reset the pressed keys
 						gfKeyState[ ALT ] = FALSE;						
 						gfKeyState[ 219 ] = FALSE;	// "\"

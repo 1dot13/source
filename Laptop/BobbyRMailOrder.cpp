@@ -219,9 +219,7 @@ enum
 #define		BOBBYR_PACKAXGE_WEIGHT_Y					LAPTOP_SCREEN_WEB_UL_Y + 249
 #define		BOBBYR_PACKAXGE_WEIGHT_WIDTH			188
 
-//Dealtar's Airport Externalization.
-#define		BOBBYR_SENDER_ID						0
-#define		JOHN_KULBA_SENDER_ID					1
+
 
 UINT16 gShippingSpeedAreas[] = {585, 218 + LAPTOP_SCREEN_WEB_DELTA_Y,
 																585, 238 + LAPTOP_SCREEN_WEB_DELTA_Y,
@@ -344,12 +342,6 @@ void BobbyRDeliveryCallback(RefToCShipmentManipulator ShipmentManipulator)
 {
 	// ScreenMsg(FONT_MCOLOR_RED, MSG_DEBUG, L"Shipment from Bobby Ray has arrived at %s!", ShipmentManipulator.GetDestination().wstrName.c_str());
 	gusCurShipmentDestinationID = ShipmentManipulator.GetDestination().usID;	
-
-	StopTimeCompression();
-
-	// WANNE - MP: Do not send email notification from Bobby Ray in a multiplayer game
-	if (!is_networked)
-		AddEmail( BOBBYR_SHIPMENT_ARRIVED, BOBBYR_SHIPMENT_ARRIVED_LENGTH, BOBBY_R, GetWorldTotalMin(), -1 );	
 }
 
 
@@ -923,7 +915,7 @@ void BtnBobbyRAcceptOrderCallback(GUI_BUTTON *btn,INT32 reason)
 					//uiResetTimeSec += (8 + Random(4) ) * 60;
 
 					//AddStrategicEvent( EVENT_BOBBYRAY_PURCHASE, uiResetTimeSec, cnt);
-					AddFutureDayStrategicEvent( EVENT_BOBBYRAY_PURCHASE, (8 + Random(4) ) * 60, cnt, bDaysAhead );
+					AddFutureDayStrategicEvent(		EVENT_BOBBYRAY_PURCHASE, (8 + Random(4) ) * 60, cnt, bDaysAhead );
 
 				}
 
@@ -2480,10 +2472,12 @@ BOOLEAN AddNewBobbyRShipment( BobbyRayPurchaseStruct *pPurchaseStruct, UINT16 us
 {
 	UINT16 usID;
 
+	// Shipment from Bobby Ray
 	if(fPurchasedFromBobbyR)
-		usID = gPostalService.CreateNewShipment(usDeliveryLoc, ubDeliveryMethod, 0);
+		usID = gPostalService.CreateNewShipment(usDeliveryLoc, ubDeliveryMethod, BOBBYR_SENDER_ID);
+	// Shipment from John Kulba (Automag 2)
 	else
-		usID = gPostalService.CreateNewShipment(usDeliveryLoc, 2, 1);
+		usID = gPostalService.CreateNewShipment(usDeliveryLoc, 2, JOHN_KULBA_SENDER_ID);
 
 	for(int i=0; i < MAX_PURCHASE_AMOUNT && pPurchaseStruct[i].usItemIndex > 0; i++)
 	{

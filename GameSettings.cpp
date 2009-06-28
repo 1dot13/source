@@ -783,6 +783,9 @@ void LoadGameExternalOptions()
 	// WDS - Option to turn off stealing
 	gGameExternalOptions.fStealingDisabled			= iniReader.ReadBoolean("JA2 Gameplay Settings","STEALING_FROM_SHIPMENTS_DISABLED",FALSE);
 
+	// WANNE - Chance of shipment lost
+	gGameExternalOptions.gubChanceOfShipmentLost	= iniReader.ReadInteger("JA2 Gameplay Settings","CHANCE_OF_SHIPMENT_LOST", 10);
+
 	// WDS: Game progress 
 	gGameExternalOptions.ubGameProgressPortionKills		= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_KILLS", 25, 0, 100);
 	gGameExternalOptions.ubGameProgressPortionControl	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_CONTROL", 25, 0, 100);
