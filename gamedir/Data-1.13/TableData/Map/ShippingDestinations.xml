@@ -35,10 +35,10 @@
 	<DESTINATION>
 		<uiIndex>7</uiIndex>
 		<name>Meduna</name>
-		<ubMapX>0</ubMapX>
-		<ubMapY>0</ubMapY>
+		<ubMapX>3</ubMapX>
+		<ubMapY>14</ubMapY>
 		<ubMapZ>0</ubMapZ>
-		<sGridNo>0</sGridNo>
+		<sGridNo>10959</sGridNo>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>8</uiIndex>
