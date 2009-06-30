@@ -1142,15 +1142,15 @@ STR16		gzWeaponStatsFasthelp[ 29 ] =
 	L"Нет отсечки патрона!",					//No Burst Mode!
 	L"Нет автоматического режима!",					//No Auto Mode!
 	L"ОД на удар",							//APs to Bash
-	L"Autofire Penalty (Lower is better)",
-    L"Burst Penalty (Lower is better)",
+	L"Штраф за отдачу при \nстрельбе очередью \n(чем меньше, тем лучше)",	//Autofire Penalty (Lower is better)
+    L"Штраф за отдачу при\nстрельбе очередью c отсечкой\n(чем меньше, тем лучше)",		//Burst Penalty (Lower is better)
 };
 
 STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
 {
 	L"Дальнобойность",
 	L"Урон",
-	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без) (Lower is better)",
+	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без) (чем меньше, тем лучше)",
 	L"Выстрелов в автоматическом\nрежиме за 5 ОД",
 	L"Точность",
 	L"Надёжность",
@@ -1175,8 +1175,8 @@ STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
 	L"Нет отсечки патрона!",
 	L"Нет автоматического режима!",
 	L"ОД на удар",
-	L"Autofire Penalty (Lower is better)",
-    L"Burst Penalty (Lower is better)",
+	L"Штраф за отдачу при \nстрельбе очередью \n(чем меньше, тем лучше)",
+    L"Штраф за отдачу при\nстрельбе очередью c отсечкой\n(чем меньше, тем лучше)",
 };
 
 STR16		gzAmmoStatsFasthelp[ 20 ] =
@@ -1192,7 +1192,7 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 	L"Модификатор дальнобойности",				//Range Modifier
 	L"Модификатор урона",					//Damage Modifier
 	L"Модификатор точности",				//To-Hit Modifier
-	L"Autofire Penalty Modifier (Higher is better)",
+	L"Модификатор штрафа\nза отдачу при стрельбе\nв автоматическом режиме\n(чем больше, тем лучше)",	//Autofire Penalty Modifier (Higher is better)
 	L"Модификатор штрафа\nза отдачу при\nстрельбе очередью\n(c отсечкой/без)",	//Burst/Auto Penalty Modifier (Higher is better)",
 	L"Модификатор надёжности",				//Reliability Modifier
 	L"Модификатор шумности\n(чем меньше, тем лучше)",	//Loudness Modifier (Lower is better)
@@ -2295,41 +2295,41 @@ STR16 pImpPopUpStrings[] =
 
 STR16 pImpButtonText[] =
 {
-	L"Информация о нас", 			// about the IMP site
+	L"Информация о нас", 		// about the IMP site
 	L"НАЧАТЬ", 			// begin profiling
-	L"Способности", 		// personality section
+	L"Способности", 		//Skills
 	L"Характеристики", 		// personal stats/attributes section
-	L"Appearance", 			// changed from portrait - SANDRO
+	L"Внешность", 			// Appearance
 	L"Голос: %d", 			// the voice selection
 	L"Готово", 			// done profiling
 	L"Начать сначала", 		// start over profiling
-	L"Да, я выбираю отмеченный ответ.", 
+	L"Да, я выбираю отмеченный ответ.",
 	L"Да", 
 	L"Нет",
 	L"Готово", 			// finished answering questions
 	L"Назад", 			// previous question..abbreviated form
 	L"Дальше", 			// next question
-	L"ДА.", 		// yes, I am certain 
-	L"НЕТ, Я ХОЧУ НАЧАТЬ СНОВА.", // no, I want to start over the profiling process
+	L"ДА.", 			// yes, I am certain 
+	L"НЕТ, Я ХОЧУ НАЧАТЬ СНОВА.",	// no, I want to start over the profiling process
 	L"ДА",
 	L"НЕТ",
 	L"Назад", 			// back one page
 	L"Отменить", 			// cancel selection
 	L"Да, все верно.",
 	L"Нет, еще раз взгляну.",
-	L"Регистрация", 			// the IMP site registry..when name and gender is selected
-	L"Анализ данных", 			// analyzing your profile results
+	L"Регистрация", 		// the IMP site registry..when name and gender is selected
+	L"Анализ данных", 		// analyzing your profile results
 	L"Готово",
-	L"Character", // Change from "Voice" - SANDRO
+	L"Личные качества", 			// Character
 };
 
 STR16 pExtraIMPStrings[] =
 {
 	// These texts have been also slightly changed - SANDRO
-	L"With your character traits chosen, it is time to select your skills.",
-	L"To complete the process, select your attributes.",
-	L"To commence actual profiling, select portrait, voice and colors.",
-	L"Now that you have completed your appearence choice, procced to character analysis.",
+	L"Теперь, когда формирование внешности и личных качеств завершён, укажите ваши способности.",	//With your character traits chosen, it is time to select your skills.
+	L"Для завершения, выберите свои характеристики.",	//To complete the process, select your attributes.
+	L"Для начала, подберите наиболее подходящее вам лицо, голос, телосложение и соответствующую расцветку.",	//To commence actual profiling, select portrait, voice and colors.
+	L"Теперь, когда вы завершили формирование своей внешности, перейдём к анализу ваших личных качеств.",	//Now that you have completed your appearence choice, procced to character analysis.
 };
 
 STR16 pFilesTitle[] =
@@ -3689,7 +3689,7 @@ STR16		zOptionsToggleText[] =
 	L"Одиночный трассер",
 	L"Шум дождя",
 	L"Вороны",
-	L"Show Soldier Tooltips",	// Changed from "Random I.M.P personality" - SANDRO
+	L"Подсказки над солдатами",	//Show Soldier Tooltips
 	L"Автосохранение каждый ход",
 	L"Молчаливый пилот вертолёта",
 	L"Низкая загрузка процессора",
@@ -3784,22 +3784,22 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, трассирующий эффект\nсоздается одиночным выстрелом.",	
 	L"Если включено, вы услышите шум дождя во время непогоды.",
 	L"Если включено, вороны присутствуют в игре.",
-	L"When ON, a tooltip window is shown when pressing |A|l|t and hovering cursor over an enemy.", 	// - Changed from random IMP personality - SANDRO
+	L"Если включено, при нажатии кнопки |A|l|t \nи наведении курсора мыши на вражеского солдата \nбудет показана дополнительная информация.", 	//When ON, a tooltip window is shown when pressing |A|l|t and hovering cursor over an enemy
 	L"Если включено, игра будет автоматически сохраняться\nпосле каждого хода игрока.",
 	L"Если включено, Небесный Всадник\nне будет вас раздражать болтливостью.",
 	L"Если включено, игра будет использовать\nменьше процессорного времени.",
 	L"Если включено, будет задействовано\nподробное описание предметов.", //EDB description
 	L"Если включено и в секторе присутствует враг, \nпошаговый режим будет задействован \nдо полной зачистки сектора (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).", //When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T). // add forced turn mode
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
-	L"Force all pending Bobby Ray shipments",
+	L"Ускорить доставку заказанного груза у Бобби Рэя",	//Force all pending Bobby Ray shipments
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
-	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",			// an example options screen options header (pure text)
+	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",	// an example options screen options header (pure text)
 	L"Если включить, \nповреждённые игровые настройки будут восстановлены.",	// failsafe show/hide option to reset all options
-	L"Отметьте строку для подтверждения сброса игровых настроек.",		// a do once and reset self option (button like effect)
-	L"Allows debug options in release or mapeditor builds",				// allow debugging in release or mapeditor
-	L"Toggle to display debugging render options",						// an example option that will show/hide other options
-	L"Attempts to display slash-rects around mouse regions",			// an example of a DEBUG build option
-	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_END",				// an example options screen options divider (pure text)
+	L"Отметьте строку для подтверждения сброса игровых настроек.",	// a do once and reset self option (button like effect)
+	L"Allows debug options in release or mapeditor builds",	// allow debugging in release or mapeditor
+	L"Toggle to display debugging render options",	//Toggle to display debugging render options					// an example option that will show/hide other options
+	L"Attempts to display slash-rects around mouse regions",	// an example of a DEBUG build option
+	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_END",	// an example options screen options divider (pure text)
 
 
 	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
@@ -4528,11 +4528,11 @@ STR16 New113Message[] =
 	L"Проданы все вещи выбранной группы.",
 	L"Проверь что солдату мешает лучше видеть.",	//You should check your goggles
 	// Real Time Mode messages
-	L"In combat already",
-	L"No enemies in sight",
-	L"Real-time sneaking OFF",
-	L"Real-time sneaking ON",
-	L"Enemy spotted! (Ctrl + x to enter turn based)",
+	L"Уже в бою.",	//In combat already
+	L"В приделах видимости нет врагов.",	//No enemies in sight
+	L"Красться в режиме реального времени ВЫКЛ.",	//Real-time sneaking OFF
+	L"Красться в режиме реального времени ОТКЛ.",	//Real-time sneaking ON
+	L"Обнаружен враг! (Ctrl+x перейти в пошаговый режим).",	//Enemy spotted! (Ctrl + x to enter turn based)
 };
 
 STR16 New113HAMMessage[] = 
@@ -4682,7 +4682,7 @@ STR16 MPClientMessage[] =
 	// 65
 	L"Нажмите 'Готов' для входа на тактическую карту.",	//Press 'Ready' to enter tactical screen.
 	L"Не удаётся подключиться. Версия вашего клиента (%S) отличается от версии сервера (%S).",	//Cannot connect because your version %S is different from the server version %S.
-	L"You killed an enemy soldier.",
+	L"Вы убили вражеского солдата.",	//You killed an enemy soldier
 };
 
 STR16 MPHelp[] =
@@ -4781,70 +4781,70 @@ STR16 gzMPChatboxText[] =
 // Following strings added - SANDRO
 STR16 pSkillTraitBeginIMPStrings[] =
 {
-	L"On the next page, you are going to choose your skill traits according to your proffessional specialization as a mercenary. No more than two different traits or one expert trait can be selected. To achieve an expert level on a trait, simply choose only that one trait.",
-	L"You can also choose only one or even no traits, which will give you a bonus to your attribute points as a compensation. Note that Electronics and Ambidextrous traits cannot be achieved at expert levels, and if you choose one of them only, you will have only one skill trait.",
+	L"На следующей странице вам нужно выбрать профессиональные навыки в соответствии со специализацией вашего наёмника. Вы можете выбрать не более двух разных навыков или один и владеть им в совершенстве (для этого нужно выбрать лишь один навык).",
+	L"Можно выбрать всего один навык или вообще остаться без него. Тогда вам будут даны дополнительные баллы для улучшения характеристик. Так же обращаем ваше внимание, что навык электроники и двурукости не может быть экспертным, и выбрав лишь один из них вы останетесь с единственным простым навыком.",
 };
 
 STR16 sgAttributeSelectionText[] = 
 {
-	L"Please adjust your physical attributes as comapred to that of an avarage merc. You cannot raise any score above",
-	L"I.M.P. Attributes and skills review.",
-	L"Bonus Pts.:",
-	L"Starting Level",
+	L"Откорректируйте свои способности по сравнению со средним наёмником. Максимальное значение для любого из умений",	//Please adjust your physical attributes as compared to that of an average merc. You cannot raise any score above
+	L"I.M.P. Характеристики и умения.",	//I.M.P. Attributes and skills review.
+	L"Бонус:",	//Bonus Pts.
+	L"Ваш уровень",	//Starting Level
 };
 
 STR16 pCharacterTraitBeginIMPStrings[] =
 {
-	L"I.M.P. Character Analysis",
-	L"The analysis of your character is the next step on your profile creation. On the first page you will be shown a list of attitudes to choose. We imagine you could identify yourself with more of them, but here you will be able to pick only one. Choose the one which you feel aligned with mostly. ",
-	L"The second page enlists possible disabilities you might have. If you suffer from any of these disabilities, choose which one (we believe that everyone has only one such disablement). Be honest, as it is important to inform potential employers of your true condition.",
+	L"I.M.P. Анализ личных качеств",	//I.M.P. Character Analysis
+	L"Следующий шаг - анализ ваших личных качеств. На первой странице вам на выбор будет предложен список черт характера. Уверены, что вам могут быть свойственны несколько из указанных черт, но выбрать нужно лишь одну. Выберите лишь самую ярко выраженную вашу черту характера.",
+	L"На второй странице вам будет предложен список недостатков, которые, возможно, есть у вас. Если найдёте свой недостаток в списке, отметьте его. Будьте предельно честны при ответах, очень важно предоставить вашим потенциальным работодателям достоверную информацию о вас.",
 };
 
 STR16 gzIMPCharacterTraitText[]=
 {
-	L"Normal",
-	L"Friendly",
-	L"Loner",
-	L"Optimist",
-	L"Pessimist",
-	L"Aggressive",
-	L"Arrogant",
-	L"Big Shot",
-	L"Asshole",
-	L"Coward",
-	L"I.M.P. Character Traits",
+	L"Адекватный",	//Normal
+	L"Дружелюбный",	//Friendly
+	L"Одиночка",	//Loner
+	L"Оптимист",	//Optimist
+	L"Пессимист",	//Pessimist
+	L"Отважный",	//Aggressive
+	L"Высокомерен",	//Arrogant
+	L"Крутой",	//Big Shot
+	L"Мудак",	//Asshole
+	L"Трус",	//Coward
+	L"I.M.P. Характер",	//I.M.P. Character Traits
 };
 
 STR16 gzIMPColorChoosingText[] = 
 {
-	L"I.M.P. Colors and Body Type",
-	L"I.M.P. Colors",
-	L"Please select the respective colors of your skin, hair and clothing. And select what body type you have.",
-	L"Please select the respective colors of your skin, hair and clothing.",
-	L"Toggle this to use alternative rifle holding.",
+	L"I.M.P. Расцветака и телосложение",	//I.M.P. Colors and Body Type
+	L"I.M.P. Расцветка",	//I.M.P. Colors
+	L"Выберите соответствующие цвета вашей кожи, волос и одежды, а так же укажите ваше телосложение.",	//Please select the respective colors of your skin, hair and clothing. And select what body type you have.
+	L"Выберите соответствующие цвета вашей кожи, волос и одежды.",	//Please select the respective colors of your skin, hair and clothing.
+	L"Поставьте кретик здесь чтобы ваш \nперсонаж не держал автомат одной рукой.",	//Toggle this to use alternative rifle holding
 };
 
 STR16 sColorChoiceExplanationTexts[]=
 {
-	L"Hair Color",
-	L"Skin Color",
-	L"Shirt Color",
-	L"Pants Color",
-	L"Normal Body",
-	L"Big Body",
+	L"Цвет волос",	//Hair Color
+	L"Цвет кожи",	//Skin Color
+	L"Цвет майки",	//Shirt Color
+	L"Цвет штанов",	//Pants Color
+	L"Нормальное телосложение",	//Normal Body
+	L"Мускулистое телосложение",	//Big Body
 };
 
 STR16 gzIMPDisabilityTraitText[]=
 {
-	L"No Disability",
-	L"Heat Intolerant",
-	L"Nervous",
-	L"Claustrophobic",
-	L"Nonswimmer",
-	L"Fear of Insects",
-	L"Forgetful",
-	L"Psychotic",
-	L"I.M.P. Disabilities",
+	L"Идеален",	//No Disability
+	L"Вспыльчивый",		//Heat Intolerant
+	L"Нервный",		//Nervous
+	L"Клаустрафобик",	//Claustrophobic
+	L"Не умеющий плавать",	//Nonswimmer
+	L"Боязнь насекомых",	//Fear of Insects
+	L"Забывчивый",		//Forgetful
+	L"Психопат",		//Psychotic
+	L"I.M.P. Недостатки",	//I.M.P. Disabilities
 };
 
 #endif //RUSSIAN
