@@ -260,7 +260,7 @@ void RenderIMPAttributeSelection( void )
 		DisplayWrappedString( LAPTOP_SCREEN_UL_X + 355, LAPTOP_SCREEN_WEB_UL_Y + 51,  ( 640 ), 2, FONT12ARIAL, FONT_WHITE, sgAttributeSelectionText[2],FONT_BLACK,FALSE,0);
 
 		// this show us the exact maximum attribute based on ini option
-		CHAR16 sMaxPntsString[64];
+		CHAR16 sMaxPntsString[200];
 		INT32 iMaxPointsToShow  = gGameExternalOptions.iMaxAttribute;
 
 		if (iMaxPointsToShow > 100 )
