@@ -234,15 +234,15 @@ BOOLEAN		EnterMPCScreen()
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	if (iResolution == 0)
 	{
-		FilenameForBPP("LOADSCREENS\\LS_DayOmerta.sti",VObjectDesc.ImageFile);
+		FilenameForBPP("INTERFACE\\MPConnect.sti",VObjectDesc.ImageFile);
 	}
 	else if (iResolution == 1)
 	{
-		FilenameForBPP("LOADSCREENS\\LS_DayOmerta_800x600.sti",VObjectDesc.ImageFile);
+		FilenameForBPP("INTERFACE\\MPConnect_800x600.sti",VObjectDesc.ImageFile);
 	}
 	else if (iResolution == 2)
 	{
-		FilenameForBPP("LOADSCREENS\\LS_DayOmerta_1024x768.sti",VObjectDesc.ImageFile);
+		FilenameForBPP("INTERFACE\\MPConnect_1024x768.sti",VObjectDesc.ImageFile);
 	}
 	CHECKF(AddVideoObject(&VObjectDesc, &guiMPCMainBackGroundImage ));
 
