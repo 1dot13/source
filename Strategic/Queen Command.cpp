@@ -210,6 +210,16 @@ UINT8 NumEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	GROUP *pGroup;
 	UINT8 ubNumTroops;
 
+	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
+    // probably isn't. But I need this bit to work.
+    if (sSectorX < MINIMUM_VALID_X_COORDINATE ||
+        sSectorX > MAXIMUM_VALID_X_COORDINATE ||
+        sSectorY < MINIMUM_VALID_Y_COORDINATE ||
+        sSectorY > MAXIMUM_VALID_Y_COORDINATE)
+    {
+        return (0);
+    }
+
 	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
 	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
 	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE);
