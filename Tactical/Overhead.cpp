@@ -6203,13 +6203,25 @@ void DeathNoMessageTimerCallback( void )
 	}
 }
 
-void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY )
+void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
-	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
+    if (!bMapZ) // Battle ended Above-ground
+    {
+        SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
-	pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = 0;
-	pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = 0;
+        pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = 0;
+        pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = 0;
+    }
+    else
+    {
+        UNDERGROUND_SECTORINFO *pSectorInfo;
+        
+        pSectorInfo = FindUnderGroundSector( sMapX, sMapY, bMapZ );
+        pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = 0;
+        pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = 0;
+    }
 }
+
 
 //!!!!
 //IMPORTANT NEW NOTE:
@@ -6371,7 +6383,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 		}
 
 		// Kill all enemies. Sometime even after killing all the enemies, there appeares "in battle" enemies in sector info
-		RemoveStaticEnemiesFromSectorInfo( gWorldSectorX, gWorldSectorY );
+		RemoveStaticEnemiesFromSectorInfo( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
 
 		// If here, the battle has been won!
