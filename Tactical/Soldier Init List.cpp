@@ -1938,8 +1938,13 @@ void AddSoldierInitListBloodcats()
 								pSector->bBloodCatPlacements, gWorldSectorY + 'A' - 1, gWorldSectorX, bBloodCatPlacements );
 			DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 #endif
-			pSector->bBloodCatPlacements = bBloodCatPlacements;
-			pSector->bBloodCats = -1;
+			// WANNE: Fix by Headrock
+			//pSector->bBloodCatPlacements = bBloodCatPlacements;
+			//pSector->bBloodCats = -1;
+
+			pSector->bBloodCatPlacements = __min(bBloodCatPlacements, pSector->bBloodCatPlacements);
+			pSector->bBloodCats = __min(pSector->bBloodCats, pSector->bBloodCatPlacements);
+
 			if( !bBloodCatPlacements )
 			{
 				return;
