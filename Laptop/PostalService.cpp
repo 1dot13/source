@@ -952,6 +952,38 @@ UINT16 CPostalService::RemoveDestination(UINT16 usDestinationID)
 	return usDestinationID;
 }
 
+// WANNE: This method returns, if a given sector (x, y, z) is a shipment destination sector
+BOOLEAN CPostalService::IsSectorAShipmentSector(UINT8 ubMapX, UINT8 ubMapY, UINT8 ubMapZ)
+{
+	BOOLEAN isShipmentSector = FALSE;
+
+	vector<PDestinationStruct> destinations;
+	RefToDestinationListIterator dli = LookupDestinationList().begin();
+
+	while (dli != LookupDestinationList().end())
+	{
+		destinations.push_back(&DESTINATION(dli));
+		dli++;
+	}
+
+	for (unsigned int i = 0; i < destinations.size(); i++)
+	{
+		PDestinationStruct destStruct = destinations.at(i);
+		if (destStruct)
+		{
+			if (destStruct->ubMapX == ubMapX &&
+				destStruct->ubMapY == ubMapY &&
+				destStruct->ubMapZ == ubMapZ)
+			{
+				isShipmentSector = TRUE;
+				break;
+			}
+		}
+	}
+
+	return isShipmentSector;
+}
+
 UINT16 CPostalService::GetShipmentCount(SHIPMENT_STATUS TargetedShipmentStatus)
 {
 	if(_Shipments.empty())

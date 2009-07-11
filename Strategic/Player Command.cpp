@@ -27,10 +27,10 @@
 	#include "Random.h"
 #endif
 
+#include "postalservice.h"
 
 extern BOOLEAN fMapScreenBottomDirty;
-
-
+extern CPostalService gPostalService;
 
 void GetSectorFacilitiesFlags( INT16 sMapX, INT16 sMapY, STR16 sFacilitiesString )
 {
@@ -144,10 +144,21 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 			return FALSE;
 		}
 
-		// check if we ever grabbed drassen airport, if so, set fact we can go to BR's
-		if( ( sMapX == BOBBYR_SHIPPING_DEST_SECTOR_X ) && ( sMapY == BOBBYR_SHIPPING_DEST_SECTOR_Y ) )
+		if (LaptopSaveInfo.fBobbyRSiteCanBeAccessed == FALSE)
 		{
-			LaptopSaveInfo.fBobbyRSiteCanBeAccessed = TRUE;
+			// Check if the sector is a shipment sector
+			BOOLEAN isShipmentSector = gPostalService.IsSectorAShipmentSector((UINT8)sMapX, (UINT8)sMapY, (UINT8)bMapZ);
+
+			if (isShipmentSector)
+				LaptopSaveInfo.fBobbyRSiteCanBeAccessed = TRUE;
+		}
+
+		// WANNE: Get Airport sector from ShippingDestination.xml file!
+		// check if we ever grabbed drassen airport, if so, set fact we can go to BR's
+		//if( ( sMapX == BOBBYR_SHIPPING_DEST_SECTOR_X ) && ( sMapY == BOBBYR_SHIPPING_DEST_SECTOR_Y ) )
+		if (LaptopSaveInfo.fBobbyRSiteCanBeAccessed)
+		{
+			//LaptopSaveInfo.fBobbyRSiteCanBeAccessed = TRUE;
 
 			//If the player has been to Bobbyr when it was down, and we havent already sent email, send him an email
 			if( LaptopSaveInfo.ubHaveBeenToBobbyRaysAtLeastOnceWhileUnderConstruction == BOBBYR_BEEN_TO_SITE_ONCE &&	LaptopSaveInfo.ubHaveBeenToBobbyRaysAtLeastOnceWhileUnderConstruction != BOBBYR_ALREADY_SENT_EMAIL )
