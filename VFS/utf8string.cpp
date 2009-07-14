@@ -203,6 +203,10 @@ std::string utf8string::as_utf8(utf8string const& str)
 }
 std::string utf8string::as_utf8(std::wstring const& str)
 {
+	if(str.length() == 0)
+	{
+		return "";
+	}
 #if 0
 	std::string s;
 	utf8::utf16to8(str.begin(), str.end(), std::back_inserter(s));
@@ -223,6 +227,10 @@ std::string	utf8string::as_utf8(const wchar_t* str, unsigned int strlength)
 	if(len == 0)
 	{
 		len = wcslen(str);
+	}
+	if(len == 0)
+	{
+		return "";
 	}
 	utf8::utf16to8(str,str+len,std::back_inserter(s));
 	return s;

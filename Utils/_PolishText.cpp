@@ -3298,7 +3298,7 @@ STR16			AimPopUpText[] =
 
 	//If you try to hire more mercs than game can support
 
-	L"Masz ju¿ pe³ny zespó³ 18 najemników.",
+	L"You have a full team of mercs already.",
 
 	L"Nagrana wiadomoœæ",
 	L"Wiadomoœæ zapisana",
