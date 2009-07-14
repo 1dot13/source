@@ -1,17 +1,40 @@
 
- -------------   Howto setup the Virtual File System (VFS)   ------------- 
- 
-  v 1.0 by BirdFlu
+ -------------   Howto setup the Virtual File System (VFS)   -------------
+
+  v 1.1 by BirdFlu
+
+
+* Table of Contents *
+---------------------
+I.       * Introduction
+
+II.      * Configuration
+II.1       - Glossary
+
+II.2       - Basic Configuration
+II.2.1         main section
+II.2.2         profiles
+II.2.3         locations
+
+II.3       - Use Cases
+II.3.1         main game files
+II.3.2         "1.13 Mod"
+II.3.3         User Mods
+
+II.4       - Extension
+II.4.1         += Extension
+
+III.     * Points of Discussion
 
 ***********************************
 I. Introduction
 ***********************************
 The Virtual File System (VFS) manages file handling and offers a unified
-view on the file system at game runtime. All files are accessible through
+view on the file system to the game at runtime. All files are accessible through
 a path inside the VFS. During the setup, files and directories can be mapped
 to a specified location in the VFS independent of its real location on the
 hard disc. Additionally to the mapping of real files and directories, also
-file archives can be mapped. Only SLF and uncompressed 7z archives are 
+file archives can be mapped. Only SLF and uncompressed 7z archives are
 supported right now.
 
 The current layout of the VFS is based on the original Ja2 game data directory,
@@ -23,14 +46,14 @@ e.g. Tilesets/0/smguns.sti), the game looks in the Data directory first, and whe
 the file cannot be found there, it looks in the according archive (tilesets.slf
 in this case).
 
-The 1.13 Mod adds another layer on top, which is the Data-1.13 directory that
+The 1.13 Mod adds another layer on top, the Data-1.13 directory, that
 behaves in the same way as the Data directory. That is, when a file is accessed,
 the game looks in the Data-1.13 directory first and only then continues with the
 previously described steps.
 
 The VFS extends this system even further. It externalizes the definition and
 configuration of these layers or profiles (as they are called in the VFS jargon)
-and allows for an unlimited number of them. Additionally the 7z file (uncompressed)
+and allows for an unlimited number of them. Additionally, the 7z file (uncompressed)
 archive format is supported. Now the order of inclusion of the profiles and the
 actual files and directories lie in the hands of the user. Thus a proper
 configuration of the VFS is required.
@@ -78,8 +101,8 @@ Lets start with a basic configuration.
 II.2.1 main section
 -----------------------------------
 The ini file start with 
-[vfs_config]
-PROFILES = profile1, profile2, profile3, ...
+  [vfs_config]
+  PROFILES = profile1, profile2, profile3, ...
 
 The value of the key PROFILES is a list of profile names. For every element
 (profile) in this list another section must exist that has the format
@@ -88,11 +111,11 @@ The value of the key PROFILES is a list of profile names. For every element
 
 II.2.2 profiles
 -----------------------------------
-[PROFILE_profile1]
-NAME = Some Arbitrary Name (probably a mod's Name)
-LOCATIONS = location1, location2, loaction 3
-PROFILE_ROOT = Profiles\mod1
-WRITE = TRUE
+  [PROFILE_profile1]
+  NAME = Some Arbitrary Name (probably a mod's Name)
+  LOCATIONS = location1, location2, loaction 3
+  PROFILE_ROOT = Profiles\mod1
+  WRITE = TRUE
 
 Each profile definition must have a NAME key and also a LOCATIONS key. The value
 of NAME can be used inside the game to access the data of the specified profile.
@@ -108,18 +131,18 @@ supposed to have the TYPE = DIRECTORY. This directory should be mapped as root
 described properties. Thus the written temporary files will be saved in one place,
 instead of being scattered over multiple unrelated directories.
 
-II.2.2 locations
+II.2.3 locations
 -----------------------------------
-[LOC_location1]
-TYPE = DIRECTORY
-PATH = 
-MOUNT_POINT = 
+  [LOC_location1]
+  TYPE = DIRECTORY
+  PATH = 
+  MOUNT_POINT = 
 
-[LOC_location2]
-TYPE = LIBRARY
-PATH = profiles/libs/archive.slf
-VFS_PATH = archive.slf
-MOUNT_POINT = 
+  [LOC_location2]
+  TYPE = LIBRARY
+  PATH = profiles/libs/archive.slf
+  VFS_PATH = archive.slf
+  MOUNT_POINT = 
 
 A location section name is build from an element from the LOCATIONS list of the
 profile that is prepended with LOC_, e.g. [LOC_location1]. For every location the
@@ -149,54 +172,54 @@ II.3.1 main game files
 -----------------------------------
 The main use case is the setup of the main files for the game.
 
-##############
-[vfs_config]
-PROFILES = Libs, Data
-##############
-[PROFILE_Libs]
-NAME = Ja2 game libraries
-LOCATIONS = Anims, ..., Faces, ..., Tilesets, ...
-PROFILE_ROOT = Data
+  ##############
+  [vfs_config]
+  PROFILES = Libs, Data
+  ##############
+  [PROFILE_Libs]
+  NAME = Ja2 game libraries
+  LOCATIONS = Anims, ..., Faces, ..., Tilesets, ...
+  PROFILE_ROOT = Data
 
-[PROFILE_Data]
-NAME = Ja2 game files
-LOCATIONS = Files
-PROFILE_ROOT = Data
-##############
-[LOC_Files]
-TYPE = DIRECTORY
-PATH = 
-MOUNT_POINT = 
-##############
-[LOC_Anims]
-TYPE = LIBRARY
-PATH = anims.slf
-MOUNT_POINT = 
+  [PROFILE_Data]
+  NAME = Ja2 game files
+  LOCATIONS = Files
+  PROFILE_ROOT = Data
+  ##############
+  [LOC_Files]
+  TYPE = DIRECTORY
+  PATH = 
+  MOUNT_POINT = 
+  ##############
+  [LOC_Anims]
+  TYPE = LIBRARY
+  PATH = anims.slf
+  MOUNT_POINT = 
 
-[...]
+  [...]
 
-[LOC_Tilesets]
-TYPE = LIBRARY
-PATH = tilesets.slf
-MOUNT_POINT = 
+  [LOC_Tilesets]
+  TYPE = LIBRARY
+  PATH = tilesets.slf
+  MOUNT_POINT = 
 
-##############
+  ##############
 
 So, basically, you have the profile that specifies the game libraries as described
 in (I.). Following is the profile with the Data directory. Since you need to have 
 a writable profile, we define a user profile that will contain only user data (the
 other profiles contain only game data).
 
-[vfs_config]
-PROFILES = Libs, Data, UserProfile
+  [vfs_config]
+  PROFILES = Libs, Data, UserProfile
 
-[Libs and Data as before]
+  [Libs and Data as before]
 
-[PROFILE_UserProfile]
-NAME = User files
-LOCATIONS = 
-PROFILE_ROOT = Profiles\UserProfile
-WRITE = true
+  [PROFILE_UserProfile]
+  NAME = User files
+  LOCATIONS = 
+  PROFILE_ROOT = Profiles\UserProfile
+  WRITE = true
 
 If LOCATIONS is empty and WRITE is set to TRUE, then a writable directory in
 PROFILE_ROOT will be initialized automatically.
@@ -205,20 +228,20 @@ II.3.2 "1.13 Mod"
 -----------------------------------
 Adding a mod is simple. We take the 1.13 Mod as an example.
 
-[vfs_config]
-PROFILES = Libs, Data, v113, UserProfile
+  [vfs_config]
+  PROFILES = Libs, Data, v113, UserProfile
 
-[Libs, Data and UserProfile as before]
+  [Libs, Data and UserProfile as before]
 
-[PROFILE_v113]
-NAME = v1.13
-LOCATIONS = datav113_dir
-PROFILE_ROOT = 
+  [PROFILE_v113]
+  NAME = v1.13
+  LOCATIONS = datav113_dir
+  PROFILE_ROOT = 
 
-[LOC_datav113_dir]
-TYPE = DIRECTORY
-PATH = Data-1.13
-MOUNT_POINT = 
+  [LOC_datav113_dir]
+  TYPE = DIRECTORY
+  PATH = Data-1.13
+  MOUNT_POINT = 
 
 The new profile for the Mod 1.13 is inserted into the profile list after the 
 Data profile, but before UserProfile. So, whenever a file is accessed, it
@@ -231,112 +254,147 @@ Instead of adding game data, the user can also add or replace the writable
 profile (user profile). Thus, he can try out a new mod (that uses the VFS system)
 without risking to overwite his savegames (and other temporary files).
 
-#################
-[vfs_config]
-PROFILE = Libs, Data, v113, ExperimentalMod, UserProfile_exp
+  #################
+  [vfs_config]
+  PROFILE = Libs, Data, v113, ExperimentalMod, UserProfile_exp
 
-#################
-[Libs, Data, v113 as before]
+  #################
+  [Libs, Data, v113 as before]
 
-#################
-[ExperimentalMod as in II.3.2]
-[PROFILE_ExperimentalMod]
-NAME = Files for experimental Mod
-LOCATIONS = ExpMod_Libs, ExpMod_Files
-PROFILE_ROOT = Profiles/ExpMod
+  #################
+  [ExperimentalMod as in II.3.2]
+  [PROFILE_ExperimentalMod]
+  NAME = Files for experimental Mod
+  LOCATIONS = ExpMod_Libs, ExpMod_Files
+  PROFILE_ROOT = Profiles/ExpMod
 
-[LOC_ExpMod_Libs]
-TYPE = LIBRARY
-PATH = exp_mod.7z
-MOUNT_POINT = Tabledata
+  [LOC_ExpMod_Libs]
+  TYPE = LIBRARY
+  PATH = exp_mod.7z
+  MOUNT_POINT = Tabledata
 
-[LOC_ExpMod_Files]
-TYPE = DIRECTORY
-PATH = ModFiles
-MOUNT_POINT = Interface
+  [LOC_ExpMod_Files]
+  TYPE = DIRECTORY
+  PATH = ModFiles
+  MOUNT_POINT = Interface
 
-#################
-[PROFILE_UserProfile_exp]
-NAME = User file for ExpMod
-LOCATIONS = 
-PROFILE_ROOT = Profiles\User_ExpMod
-WRITE = true
+  #################
+  [PROFILE_UserProfile_exp]
+  NAME = User file for ExpMod
+  LOCATIONS = 
+  PROFILE_ROOT = Profiles\User_ExpMod
+  WRITE = true
 
-(NOTE: the user directories have to exist, even if they are empty)
+(NOTE: the user directory has to exist, even if it is empty)
 
 Since you can define the filenames for you VFS configuration file in ja2.ini,
-you can create a couple of vfs config file and switch between then fairly 
+you can create a couple of vfs config file and switch between them fairly 
 easy
 
-############# ja2.ini
-[Ja2 Settings]
-;VFS_CONFIG_INI = vfs_config.main.ini
-;VFS_CONFIG_INI = vfs_config.my_mod.ini
-VFS_CONFIG_INI = vfs_config.ExpMod.ini
+  ############# ja2.ini
+  [Ja2 Settings]
+  ;VFS_CONFIG_INI = vfs_config.main.ini
+  ;VFS_CONFIG_INI = vfs_config.my_mod.ini
+  VFS_CONFIG_INI = vfs_config.ExpMod.ini
 
------------------------------------------------
 
-//**********************************
-Combine INIs:
-//**********************************
+II.4 Extensions
+===================================
 
-It is possible now to use += in an ini file, which appends a value to a previously set entry, making it a essentially list. Additionally,
-in ja2.ini you can specify a list of ini files instead of only one file. Of course only one value works too, so everything is optional.
+II.4.1 += Extension
+-----------------------------------
+In an ini file it is possible to use the += operator, which appends a value to
+a previously set entry, making it a essentially list. This is possible, because
+internally a data structure (PropertyContainer) is used that contains a set of
+mappings, that in turn map two keys to a property
+  [key1][key2] = property
+This data structure can be initialized from an ini file, which make 'key1' a
+section, 'key2' a key and 'property' the value of that section-key pair in that
+ini file. This data structure can also be initialized from multiple ini files,
+where the += operator appends a new value to an already defined entry.
 
-This gives us the possibility to define an ini file for every mod  (or to combine inis as we like, as long as the ordering is the same.) I'll give you an example.
+This extenstion is used in the configuration of the VFS, such that the definition
+of the VFS_CONFIG_INI value in in ja2.ini accepts a list of configuration files. As
+one value makes a one-valued list, this extension fits nicely in the system without
+requiring modifications to existing configuration files.
 
---------- vfs_config.vanilla.ini ---------
-[vfs_config]
-PROFILES = SlfLibs, Vanilla, UserProf
+So, a possible application of this extension could be the stand-alone configuration
+of a mod, where each mod brings an own configuration file that is merged with 
+configuration files from other mods. Thus, it is easy to create a valid configuration
+for a larger  number of mods, where otherwise for every mod combination an own
+configuration file would have to be created. And even for a small amount of 
+(combinable) mods the total number of configuration files would increase very fast.
 
-[PROFILE_SlfLibs]
-....
+For the default mod combination (Vanilla, 1.13) there would be two mod and one user
+configuration file
 
-[PROFILE_Vanilla]
-....
+  ############# vfs_config.ja2.ini
+  [vfs_config]
+  PROFILES = SlfLibs, Ja2Data
 
-[LOC_...]
-....
-....
----------  ---------
+  [PROFILE_SlfLibs]
+  ...
 
---------- vfs_config.v113.ini ---------
-[vfs_config]
-PROFILES += v113
+  [PROFILE_Ja2Data]
+  ...
 
-[PROFILE_v113]
-NAME = v1.13
-LOCATIONS = datav113_dir
-PROFILE_ROOT = 
+  [LOC_...]
+  ...
 
-[LOC_datav113_dir]
-TYPE = DIRECTORY
-PATH = Data-1.13
-MOUNT_POINT = 
----------  ---------
+  ############# vfs_config.v113.ini
+  [vfs_config]
+  PROFILES += v113
 
---------- vfs_config.user.ini ---------
-[vfs_config]
-PROFILES += UserProf
+  [PROFILE_v113]
+  NAME = v1.13
+  LOCATIONS = datav113_dir
+  PROFILE_ROOT = 
 
-[PROFILE_UserProf]
-NAME = Player Profile
-LOCATIONS = 
-PROFILE_ROOT = Profiles\UserProfile
-WRITE = true
----------  ---------
+  [LOC_datav113_dir]
+  TYPE = DIRECTORY
+  PATH = Data-1.13
+  MOUNT_POINT = 
 
-So, in ja2.ini we would have the following entry for Vanille
+  ############# vfs_config.user.ini
+  [vfs_config]
+  PROFILES += UserProf
 
-VFS_CONFIG_INI = vfs_config.vanilla.ini, vfs_config.user.ini
+  [PROFILE_UserProf]
+  NAME = User Profile
+  LOCATIONS = 
+  PROFILE_ROOT = Profiles\UserProfile
+  WRITE = true
+  ##############
 
-and for v1.13
+The actual combination of mods would be done in the file ja2.ini, where
 
-VFS_CONFIG_INI = vfs_config.vanilla.ini, vfs_config.v113.ini, vfs_config.user.ini
+  ############# ja2.ini
+  [Ja2 Settings]
+  VFS_CONFIG_INI = vfs_config.ja2.ini, vfs_config.user.ini
 
-and for any other mod 
+would be the Vanilla game configuration, and the following
 
-VFS_CONFIG_INI = vfs_config.vanilla.ini, vfs_config.v113.ini, mod1.ini, mod2.ini, vfs_config.user.ini
+  ############# ja2.ini
+  [Ja2 Settings]
+  VFS_CONFIG_INI = vfs_config.ja2.ini, vfs_config.v113.ini, vfs_config.user.ini
 
-Of course, the user.ini can be adjusted to every mod, so that savegames are not mixed. So, if you (=inexperienced user) want to add a small mod, you don't have to struggle with a big incomprehensible ini, but instead just take the provided mod ini (which will work if all files are in default directories) and add it to the ini list in ja2.ini.
+would be the setup for the "1.13" mod.
+
+Other mods can be added by simply entering its configuration file
+in the list
+
+  ############# ja2.ini
+  [Ja2 Settings]
+  VFS_CONFIG_INI = vfs_config.ja2.ini, vfs_config.v113.ini, mod1.ini, mod2.ini, vfs_config.user.ini
+
+In order to avoid mixing savegames and temporary files of different mod combinations,
+a separate user profile directory can be used, where every user profile is defined
+in an own user configuration file. The user profile can be selected by adding the 
+according configuration file at the end of the mod configuration file list.
+
+***********************************
+II. Points of Discussion
+***********************************
+
+TODO: ...
 
