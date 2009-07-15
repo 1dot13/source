@@ -303,6 +303,7 @@ bool vfs::CDirectoryTree::Init()
 		{
 			// probably directory doesn't exist. abort or continue???
 			// -> abort AND continue
+			LogException(ex);
 			return false;
 		}
 		qSubDirs.pop();

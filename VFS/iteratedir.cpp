@@ -30,8 +30,9 @@ os::CIterateDirectory::CIterateDirectory(vfs::Path const& sPath, utf8string cons
 	fSearchHandle = FindFirstFileW((sPath+searchPattern)().c_wcs().c_str(), &fFileInfo);
 	if (fSearchHandle == INVALID_HANDLE_VALUE) 
 	{
+		DWORD error = GetLastError();
 		std::wstringstream wss;
-		wss << L"Path [" << (sPath+searchPattern)() << L"] does not exist";
+		wss << L"Error accessing path [" << (sPath+searchPattern)() << L"],  error code : " << error;
 		THROWEXCEPTION(wss.str().c_str());
 	}
 #else
