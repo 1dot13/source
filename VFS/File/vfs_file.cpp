@@ -3,6 +3,8 @@
 
 #include <sys/stat.h>
 
+extern bool g_VFS_NO_UNICODE;
+
 vfs::CFile::CFile(vfs::Path const& sFileName) 
 : vfs::IFileTemplate<vfs::IReadable,vfs::IWriteable>(sFileName), m_bIsOpen_read(false), m_bIsOpen_write(false)
 {
@@ -58,7 +60,10 @@ bool vfs::CFile::OpenRead()
 	// try to open 
 	Mode = std::ios::in|std::ios::binary;
 #ifdef WIN32
-	m_oFile.open(m_sFileName().c_wcs().c_str(), Mode);
+	utf8string::str_t const& fname = m_sFileName().c_wcs();
+	g_VFS_NO_UNICODE ? 
+		m_oFile.open( utf8string::narrow(fname.c_str(),fname.length()).c_str(), Mode ) :
+		m_oFile.open( fname.c_str(), Mode);
 #else
 	m_oFile.open(m_sFileName().utf8().c_str(), Mode);
 #endif
@@ -144,7 +149,10 @@ bool vfs::CFile::OpenWrite(bool bCreateWhenNotExist, bool bTruncate)
 		Mode |= std::ios::trunc;
 	}
 #ifdef WIN32
-	m_oFile.open(m_sFileName().c_wcs().c_str(),Mode);
+	utf8string::str_t const& fname = m_sFileName().c_wcs();
+	g_VFS_NO_UNICODE ?
+		m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
+		m_oFile.open(fname.c_str(),Mode);
 #else
 	m_oFile.open(m_sFileName().utf8().c_str(),Mode);
 #endif
@@ -161,7 +169,9 @@ bool vfs::CFile::OpenWrite(bool bCreateWhenNotExist, bool bTruncate)
 			}
 			//m_oFile.open(VfsString(sFileName).AsString().c_str(),Mode);
 #ifdef WIN32
-			m_oFile.open(m_sFileName().c_wcs().c_str(),Mode);
+			g_VFS_NO_UNICODE ?
+				m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
+				m_oFile.open(fname.c_str(),Mode);
 #else
 			m_oFile.open(m_sFileName().utf8().c_str(),Mode);
 #endif
@@ -172,7 +182,9 @@ bool vfs::CFile::OpenWrite(bool bCreateWhenNotExist, bool bTruncate)
 			m_oFile.close();
 			Mode |= std::ios::in;
 #ifdef WIN32
-			m_oFile.open(m_sFileName().c_wcs().c_str(),Mode);
+			g_VFS_NO_UNICODE ?
+				m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
+				m_oFile.open(fname.c_str(),Mode);
 #else
 			m_oFile.open(m_sFileName().utf8().c_str(),Mode);
 #endif
@@ -299,7 +311,10 @@ bool vfs::CTextFile::OpenRead()
 	std::ios::openmode Mode;
 	Mode = std::ios::in;
 #ifdef WIN32
-	m_oFile.open(m_sFileName().c_wcs().c_str(),Mode);
+	utf8string::str_t const& fname = m_sFileName().c_wcs();
+	g_VFS_NO_UNICODE ? 
+		m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
+		m_oFile.open(fname.c_str(),Mode);
 #else
 	m_oFile.open(m_sFileName().utf8().c_str(),Mode);
 #endif
@@ -322,7 +337,10 @@ bool vfs::CTextFile::OpenWrite(bool bCreateWhenNotExist, bool bTruncate)
 		std::ios::openmode Mode;
 		Mode = std::ios::out|std::ios::app;
 #ifdef WIN32
-		m_oFile.open(m_sFileName().c_wcs().c_str(),Mode);
+		utf8string::str_t const& fname = m_sFileName().c_wcs();
+		g_VFS_NO_UNICODE ?
+			m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
+			m_oFile.open(fname.c_str(),Mode);
 #else
 		m_oFile.open(m_sFileName().utf8().c_str(),Mode);
 #endif
@@ -335,7 +353,9 @@ bool vfs::CTextFile::OpenWrite(bool bCreateWhenNotExist, bool bTruncate)
 				Mode = std::ios::out;
 				Mode |= bTruncate ? std::ios::trunc : std::ios::app;
 #ifdef WIN32
-				m_oFile.open(m_sFileName().c_wcs().c_str(),Mode);
+				g_VFS_NO_UNICODE ?
+					m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
+					m_oFile.open(fname.c_str(),Mode);
 #else
 				m_oFile.open(m_sFileName().utf8().c_str(),Mode);
 #endif

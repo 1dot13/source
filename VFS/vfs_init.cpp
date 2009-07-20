@@ -10,12 +10,14 @@
 #include "PropertyContainer.h"
 #include "Tools/Log.h"
 
-//#define LOG_VFS_INITIALIZATION
+#define LOG_VFS_INITIALIZATION
 #ifdef LOG_VFS_INITIALIZATION
-#define LOG(x) (x)
+#define LOG(x) x
 #else 
 #define LOG(x)
 #endif
+
+extern bool g_VFS_NO_UNICODE;
 /********************************************************************/
 /********************************************************************/
 
@@ -41,8 +43,9 @@ bool InitVirtualFileSystem(CPropertyContainer& oVFSProps)
 
 	vfs::CVirtualFileSystem *pVirtFileSys = GetVFS();
 
-	LOG(_LOG << "Initializing Virtual File System");
-	LOG(_LOG.Endl());
+	LOG(_LOG << "Initializing Virtual File System" << CLog::endl);
+
+	if(g_VFS_NO_UNICODE){ LOG(_LOG.Endl() << "UNICODE disabled" << CLog::endl); }
 
 	LOG(_LOG.Endl() << "reading profiles .. ");
 	std::list<utf8string> lProfiles, lLocSections;

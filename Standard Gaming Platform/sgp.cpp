@@ -599,6 +599,7 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	}
 	catch(CBasicException& ex)
 	{
+		LogException(ex);
 		// nothing is set up, no vfs, no video manager
 		// regular error processing wouldn't work here
 		// set default values and continue as if nothing has happened
@@ -1224,6 +1225,7 @@ void SGPExit(void)
 
 }
 
+extern bool g_VFS_NO_UNICODE;
 void GetRuntimeSettings( )
 {
 #ifndef USE_VFS
@@ -1247,6 +1249,8 @@ void GetRuntimeSettings( )
 	}
 #else
 	iResolution = oProps.GetIntProperty(L"Ja2 Settings", L"SCREEN_RESOLUTION", -1);
+
+	g_VFS_NO_UNICODE = oProps.GetBoolProperty(L"Ja2 Settings", L"VFS_NO_UNICODE", false);
 
 	std::list<utf8string> ini_list;
 	if(oProps.GetStringListProperty(L"Ja2 Settings", L"VFS_CONFIG_INI", ini_list, L""))

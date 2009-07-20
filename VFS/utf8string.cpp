@@ -5,6 +5,9 @@
 #include "vfs_debug.h"
 ////////////////////////////////////////////////////////////////////
 
+bool g_VFS_NO_UNICODE = false;
+
+////////////////////////////////////////////////////////////////////
 namespace _StrCmp
 {
 	////////////////////////////////////////////////////////////////
@@ -241,6 +244,61 @@ std::string utf8string::as_utf8(std::string const& str)
 {
 	return str;
 }
+
+size_t utf8string::narrow(std::wstring const& src, std::string& dst)
+{
+	size_t len = utf8string::narrow(src.c_str(),src.length(),NULL,0);
+	dst.resize(len);
+	return utf8string::narrow(src.c_str(),src.length(),&dst[0],len);
+}
+std::string utf8string::narrow(wchar_t const* str, size_t length)
+{
+	size_t len = utf8string::narrow(str,length,NULL,0);
+	std::string s;
+	s.resize(len);
+	utf8string::narrow(str,length,&s[0],len);
+	return s;
+}
+size_t utf8string::narrow(wchar_t const* src_str, size_t src_len, char* dst_str, size_t dst_len)
+{
+	if(src_str && src_len>0)
+	{
+		if(!dst_str || dst_len==0)
+		{
+			return wcstombs(NULL, src_str, src_len);
+		}
+		return wcstombs(dst_str, src_str, std::min<size_t>(src_len,dst_len));
+	}
+	return 0;
+}
+// 
+std::wstring utf8string::widen(char const* str, size_t length)
+{
+	size_t len = utf8string::widen(str,length,NULL,0);
+	std::wstring ws;
+	ws.resize(len);
+	utf8string::widen(str,length,&ws[0],len);
+	return ws;
+}
+size_t utf8string::widen(std::string const& src, std::wstring& dst)
+{
+	size_t len = utf8string::widen(src.c_str(),src.length(),NULL,0);
+	dst.resize(len);
+	return utf8string::widen(src.c_str(),src.length(),&dst[0],len);
+}
+size_t utf8string::widen(char const* src_str, size_t src_len, wchar_t* dst_str, size_t dst_len)
+{
+	if(src_str && src_len>0)
+	{
+		if(!dst_str || dst_len==0)
+		{
+			return mbstowcs(NULL, src_str, src_len);
+		}
+		return mbstowcs(dst_str, src_str, std::min<size_t>(src_len,dst_len));
+	}
+	return 0;
+}
+
 
 ////////////////////////////////////////////////////////////////////
 ///                     get string methods

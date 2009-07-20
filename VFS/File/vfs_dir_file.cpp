@@ -2,6 +2,8 @@
 #include "../Interface/vfs_directory_interface.h"
 #include "../iteratedir.h"
 
+extern bool g_VFS_NO_UNICODE;
+
 vfs::Path vfs::CVFSFile::GetFullPath()
 {
 	if(_pLoc_)
@@ -65,7 +67,10 @@ bool vfs::CVFSFile::OpenRead()
 	// try to open 
 	Mode = std::ios::in|std::ios::binary;
 #ifdef WIN32
-	m_oFile.open(sFileName().c_wcs().c_str(),Mode);
+	utf8string::str_t const& fname = sFileName().c_wcs();
+	g_VFS_NO_UNICODE ? 
+		m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
+		m_oFile.open(fname.c_str(),Mode);
 #else
 	m_oFile.open(sFileName().utf8().c_str(),Mode);
 #endif
@@ -106,7 +111,10 @@ bool vfs::CVFSFile::OpenWrite(bool bCreateWhenNotExist, bool bTruncate)
 		Mode |= std::ios::trunc;
 	}
 #ifdef WIN32
-	m_oFile.open(sFileName().c_wcs().c_str(),Mode);
+	utf8string::str_t const& fname = sFileName().c_wcs();
+	g_VFS_NO_UNICODE ?
+		m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
+		m_oFile.open(fname.c_str(),Mode);
 #else
 	m_oFile.open(sFileName().utf8().c_str(),Mode);
 #endif
@@ -122,7 +130,9 @@ bool vfs::CVFSFile::OpenWrite(bool bCreateWhenNotExist, bool bTruncate)
 				Mode |= std::ios::trunc;
 			}
 #ifdef WIN32
-			m_oFile.open(sFileName().c_wcs().c_str(),Mode);
+			g_VFS_NO_UNICODE ?
+				m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
+				m_oFile.open(fname.c_str(),Mode);
 #else
 			m_oFile.open(sFileName().utf8().c_str(),Mode);
 #endif
@@ -133,7 +143,9 @@ bool vfs::CVFSFile::OpenWrite(bool bCreateWhenNotExist, bool bTruncate)
 			m_oFile.close();
 			Mode |= std::ios::in;
 #ifdef WIN32
-			m_oFile.open(sFileName().c_wcs().c_str(),Mode);
+			g_VFS_NO_UNICODE ?
+				m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
+				m_oFile.open(fname.c_str(),Mode);
 #else
 			m_oFile.open(sFileName().utf8().c_str(),Mode);
 #endif
@@ -185,7 +197,10 @@ bool vfs::CVFSTextFile::OpenRead()
 	std::ios::openmode Mode;
 	Mode = std::ios::in;
 #ifdef WIN32
-	m_oFile.open(sFileName().c_wcs().c_str(),Mode);
+	utf8string::str_t const& fname = sFileName().c_wcs();
+	g_VFS_NO_UNICODE ?
+		m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
+		m_oFile.open(fname.c_str(),Mode);
 #else
 	m_oFile.open(sFileName().utf8().c_str(),Mode);
 #endif

@@ -51,11 +51,18 @@ public:
 	static utf8string::str_t	as_utf16(std::string const& str);
 	static void					as_utf16(std::string const& str, utf8string::str_t &str16);
 	// fast conversion without creating an internal copy
-	static std::string	as_utf8(utf8string const& str);
-	static std::string	as_utf8(std::wstring const& str);
+	static std::string			as_utf8(utf8string const& str);
+	static std::string			as_utf8(std::wstring const& str);
 	// if 'strlen' is 0, length is determined automatically
-	static std::string	as_utf8(const wchar_t* str, unsigned int strlength=0);
+	static std::string			as_utf8(const wchar_t* str, unsigned int strlength=0);
 	// 
+	static std::string			narrow(wchar_t const* str, size_t length);
+	static size_t				narrow(wchar_t const* src_str, size_t src_len, char* dst_str, size_t dst_len);
+	static size_t				narrow(std::wstring const& src, std::string& dst);
+	// 
+	static std::wstring			widen(char const* str, size_t length);
+	static size_t				widen(char const* src_str, size_t src_len, wchar_t* dst_str, size_t dst_len);
+	static size_t				widen(std::string const& src, std::wstring& dst);
 
 	// convenience method, for the case it should be used in generic code (overloading)
 	static std::string	as_utf8(std::string const& str);

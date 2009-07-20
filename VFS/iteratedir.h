@@ -35,7 +35,11 @@ namespace os
 	private:
 	#ifdef WIN32
 		HANDLE fSearchHandle;
-		WIN32_FIND_DATAW	fFileInfo;
+		union
+		{
+			WIN32_FIND_DATAA	fFileInfoA;
+			WIN32_FIND_DATAW	fFileInfoW;
+		};
 	#else
 		struct direct **files;
 		int count, current_pos;
