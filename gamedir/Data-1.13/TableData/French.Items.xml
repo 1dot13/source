@@ -10473,4 +10473,221 @@
 		<szBRName>6x35mm HP ammo crate</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1309</uiIndex>
+		<szItemName>.44 crate</szItemName>
+		<szLongItemName>.44 ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.44 ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1310</uiIndex>
+		<szItemName>.44 AP crate</szItemName>
+		<szLongItemName>.44 AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.44 AP ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1311</uiIndex>
+		<szItemName>.44 HP crate</szItemName>
+		<szLongItemName>.44 HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.44 HP ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1312</uiIndex>
+		<szItemName>.44 G crate</szItemName>
+		<szLongItemName>.44 G ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.44 G ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1313</uiIndex>
+		<szItemName>.44 AET crate</szItemName>
+		<szLongItemName>.44 AET ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.44 AET ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1314</uiIndex>
+		<szItemName>.45WM crate</szItemName>
+		<szLongItemName>.45WM ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.45WM ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1315</uiIndex>
+		<szItemName>.45WM AP crate</szItemName>
+		<szLongItemName>.45WM AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.45WM AP ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1316</uiIndex>
+		<szItemName>.45WM HP crate</szItemName>
+		<szLongItemName>.45WM HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.45WM HP ammo crate</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1317</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1318</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1319</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1320</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1321</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1322</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1323</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1324</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1325</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1326</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1327</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1328</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 923</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1329</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1330</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1331</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1332</uiIndex>
+		<szItemName>AR57 16"</szItemName>
+		<szLongItemName>AR57 16"</szLongItemName>
+		<szItemDesc>A new upper receiver for the 5.7x28mm round, placed onto a M16 lower receiver. This configuration uses standard P90-magazines. The longer barrel gets more range out of this round than the P90 does, however.</szItemDesc>
+		<szBRName>AR57 16"</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1333</uiIndex>
+		<szItemName>AR57 11"</szItemName>
+		<szLongItemName>AR57 11"</szLongItemName>
+		<szItemDesc>A new upper receiver for the 5.7x28mm round, placed onto a M16 lower receiver. This configuration uses standard P90-magazines.</szItemDesc>
+		<szBRName>AR57 11"</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1334</uiIndex>
+		<szItemName>AR57 6"-S</szItemName>
+		<szLongItemName>AR57 6"-Silenced</szLongItemName>
+		<szItemDesc>A new upper receiver for the 5.7x28mm round, placed onto a M16 lower receiver. This configuration uses standard P90-magazines. As the barrel is just 6" long, range is just a bit more than most pistols.</szItemDesc>
+		<szBRName>AR57 6"-Silenced</szBRName>
+		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1335</uiIndex>
+		<szItemName>AR57 16 upper</szItemName>
+		<szLongItemName>AR57 16" upper</szLongItemName>
+		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 16".</szItemDesc>
+		<szBRName>AR57 16" upper</szBRName>
+		<szBRDesc>If you want to shoot the 5.7x28mm round but still want the ergonomics of the M4 series, take this new upper receiver and mount it onto your old M4 Commando or M4A1 lower receiver. This one comes with a 16" barrel.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1336</uiIndex>
+		<szItemName>AR57 11 upper</szItemName>
+		<szLongItemName>AR57 11" upper</szLongItemName>
+		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 11".</szItemDesc>
+		<szBRName>AR57 11" upper</szBRName>
+		<szBRDesc>If you want to shoot the 5.7x28mm round but still want the ergonomics of the M4 series, take this new upper receiver and mount it onto your old M4 Commando or M4A1 lower receiver. Comes with a 11" barrel.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1337</uiIndex>
+		<szItemName>AR57 6S upper</szItemName>
+		<szLongItemName>AR57 6"-S upper</szLongItemName>
+		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 6"-S, the silenced version of the AR57.</szItemDesc>
+		<szBRName>AR57 6"-S upper</szBRName>
+		<szBRDesc>If you want to shoot the 5.7x28mm round but still want the ergonomics of the M4 series, take this new upper receiver and mount it onto your old M4 Commando or M4A1 lower receiver. This is the silenced version, combining a Gemtech suppressor with a 6" barrel.</szBRDesc>
+	</ITEM>
 </ITEMLIST>
