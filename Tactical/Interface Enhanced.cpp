@@ -5987,6 +5987,11 @@ void DrawMiscValues( OBJECTTYPE * gpItemDescObject )
 
 	// HIDE MUZZLE FLASH
 	// NO DATA SHOWN, icon either appears or does not appear.
+	// HEADROCK HAM 3.5 - Fixed this, because the count needs to be increased to skip a line!
+    if ( Item[ gpItemDescObject->usItem ].hidemuzzleflash > 0 && cnt<=27 )
+    {
+        cnt++;
+    }
 
 	// BIPOD
 	if ( Item[ gpItemDescObject->usItem ].bipod != 0 && cnt<=27 )
