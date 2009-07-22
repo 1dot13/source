@@ -68,7 +68,7 @@ ammotypeStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 				strcmp(name, "standardIssue") == 0 ||
 				strcmp(name, "numberOfBullets") == 0 ||
 				//zilpin: pellet spread patterns externalized in XML
-				stricmp(name, "spreadPattern") == 0 ||
+				strcmp(name, "spreadPattern") == 0 ||
 				strcmp(name, "highExplosive") == 0 ||
 				strcmp(name, "explosionSize") == 0 ||
 				strcmp(name, "antiTank") == 0 ||
@@ -226,7 +226,7 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curAmmoType.numberOfBullets	= (UINT8) atol(pData->szCharData);
 		}
 		//zilpin: pellet spread patterns externalized in XML
-		else if(stricmp(name, "spreadPattern") == 0)
+		else if(strcmp(name, "spreadPattern") == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curAmmoType.spreadPattern = FindSpreadPatternIndex( pData->szCharData );

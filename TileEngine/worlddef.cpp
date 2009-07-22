@@ -521,7 +521,6 @@ extern BOOLEAN gfLoadShadeTablesFromTextFile;
 
 void BuildTileShadeTables(	)
 {
-	HWFILE				hfile;
 	// BF
 	//STRING512			DataDir;
 	//STRING512			ShadeTableDir;

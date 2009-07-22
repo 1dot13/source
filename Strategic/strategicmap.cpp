@@ -1358,7 +1358,6 @@ void EndLoadScreen( )
 	//Report the time it took to load the map.  This is temporary until we are satisfied with the time
 	//it takes to load the map.
 	CHAR16 str[60];
-	FILE *fp;
 	UINT32 uiSeconds;
 	UINT32 uiHundreths;
 	UINT32 uiUnaccounted;
@@ -1381,6 +1380,8 @@ void EndLoadScreen( )
 	}
 	ScreenMsg( FONT_YELLOW, MSG_TESTVERSION, str );
 #ifndef USE_VFS
+	FILE *fp;
+
 	if( fStartNewFile )
 	{ //start new file
 		fp = fopen( "TimeResults.txt", "w" );

@@ -1914,12 +1914,13 @@ void RefreshScreen(void *DummyVariable)
 #endif
 		CHAR8					FileName[64];
 		INT32					iIndex;
-		STRING512			DataDir;
-		STRING512					ExecDir;
 		UINT16				 *p16BPPData;
 
 		// Snap: save current directory
 #ifndef USE_VFS
+		STRING512			DataDir;
+		STRING512			ExecDir;
+
 		GetFileManCurrentDirectory( DataDir );
 		GetExecutableDirectory( ExecDir );
 		SetFileManCurrentDirectory( ExecDir );

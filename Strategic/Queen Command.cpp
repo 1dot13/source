@@ -564,11 +564,11 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	// OJW - 20090403 - override max ai in co-op
 	if (is_networked && is_server && OVERRIDE_MAX_AI == 1)
 	{
-		float totalEnemies = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites;
-		ubTotalAdmins = ((float)pSector->ubNumAdmins / totalEnemies) * mapMaximumNumberOfEnemies;
-		ubTotalTroops = ((float)pSector->ubNumTroops / totalEnemies) * mapMaximumNumberOfEnemies;
-		ubTotalElites = ((float)pSector->ubNumElites / totalEnemies) * mapMaximumNumberOfEnemies;
-		totalEnemies = ubTotalAdmins + ubTotalTroops + ubTotalElites;
+		float totalEnemies = (float)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites);
+		ubTotalAdmins = (unsigned int)(((float)pSector->ubNumAdmins / totalEnemies) * mapMaximumNumberOfEnemies);
+		ubTotalTroops = (unsigned int)(((float)pSector->ubNumTroops / totalEnemies) * mapMaximumNumberOfEnemies);
+		ubTotalElites = (unsigned int)(((float)pSector->ubNumElites / totalEnemies) * mapMaximumNumberOfEnemies);
+		totalEnemies = (float)(ubTotalAdmins + ubTotalTroops + ubTotalElites);
 
 		// take care of any rounding losses
 		while (totalEnemies < mapMaximumNumberOfEnemies)

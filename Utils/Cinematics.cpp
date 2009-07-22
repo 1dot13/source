@@ -193,7 +193,7 @@ SMKFLIC *pSmack;
 SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
 {
 	SMKFLIC *pSmack;
-	HANDLE	hFile;
+	
 
 	// Get an available flic slot from the list
 	if(!(pSmack=SmkGetFreeFlic()))
@@ -209,6 +209,8 @@ SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
 		ErrorMsg("SMK ERROR: Can't open the SMK file");
 		return(NULL);
 	}
+
+	HANDLE	hFile;
 
 	//Get the real file handle for the file man handle for the smacker file
 	hFile = GetRealFileHandleFromFileManFileHandle( pSmack->hFileHandle );

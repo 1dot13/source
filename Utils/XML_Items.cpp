@@ -214,8 +214,8 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "SciFi") == 0 ||
 				strcmp(name, "NewInv") == 0 ||
 				//zilpin: pellet spread patterns externalized in XML
-				stricmp(name, "spreadPattern") == 0 ||
-	strcmp(name, "fFlags") == 0 ))
+				strcmp(name, "spreadPattern") == 0 ||
+				strcmp(name, "fFlags") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1028,7 +1028,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curItem.bestlaserrange    = (INT16) atol(pData->szCharData);
 		}
 		//zilpin: pellet spread patterns externalized in XML
-		else if(stricmp(name, "spreadPattern") == 0)
+		else if(strcmp(name, "spreadPattern") == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.spreadPattern = FindSpreadPatternIndex( pData->szCharData );

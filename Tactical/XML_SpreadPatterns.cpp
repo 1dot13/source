@@ -69,12 +69,11 @@ typedef spreadpatternParseData;
 static void XMLCALL 
 spreadpatternStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
-	int i;
 	spreadpatternParseData * pData = (spreadpatternParseData *)userData;
 
 	if(pData->currentDepth <= pData->maxReadDepth) //are we reading this element?
 	{
-		if(stricmp(name, "SPREADPATTERNLIST") == 0 && pData->curElement == ELEMENT_NONE)
+		if(strcmp(name, "SPREADPATTERNLIST") == 0 && pData->curElement == ELEMENT_NONE)
 		{
 			pData->curElement = ELEMENT_LIST;
 
@@ -86,7 +85,7 @@ spreadpatternStartElementHandle(void *userData, const XML_Char *name, const XML_
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
-		else if(stricmp(name, "SPREADPATTERN") == 0 && pData->curElement == ELEMENT_LIST)
+		else if(strcmp(name, "SPREADPATTERN") == 0 && pData->curElement == ELEMENT_LIST)
 		{
 			pData->curElement = ELEMENT_LIST;
 
@@ -111,7 +110,7 @@ spreadpatternStartElementHandle(void *userData, const XML_Char *name, const XML_
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
-		else if(stricmp(name, "p") == 0 )//&& pData->curElement == ELEMENT_LIST)
+		else if(strcmp(name, "p") == 0 )//&& pData->curElement == ELEMENT_LIST)
 		{
 			pData->curElement = ELEMENT;
 			gpSpreadPattern[giSpreadPatternCount-1].iCount++;
@@ -128,12 +127,12 @@ spreadpatternStartElementHandle(void *userData, const XML_Char *name, const XML_
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if( //pData->curElement == ELEMENT &&
-				(  stricmp(name, "x") == 0
-				|| stricmp(name, "y") == 0
-				|| stricmp(name, "xspread") == 0
-				|| stricmp(name, "yspread") == 0
-				|| stricmp(name, "Name") == 0
-				|| stricmp(name, "method") == 0
+				(  strcmp(name, "x") == 0
+				|| strcmp(name, "y") == 0
+				|| strcmp(name, "xspread") == 0
+				|| strcmp(name, "yspread") == 0
+				|| strcmp(name, "Name") == 0
+				|| strcmp(name, "method") == 0
 				))
 				
 		{
@@ -167,21 +166,20 @@ static void XMLCALL
 spreadpatternEndElementHandle(void *userData, const XML_Char *name)
 {
 	DOUBLE d;
-	int i;
-
+	
 	spreadpatternParseData * pData = (spreadpatternParseData *)userData;
 
 	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
 	{
-		if(stricmp(name, "SPREADPATTERNLIST") == 0)
+		if(strcmp(name, "SPREADPATTERNLIST") == 0)
 		{
 			pData->curElement = ELEMENT_NONE;
 		}
-		else if(stricmp(name, "SPREADPATTERN") == 0)
+		else if(strcmp(name, "SPREADPATTERN") == 0)
 		{
 			pData->curElement = ELEMENT_LIST;
 		}
-		else if(stricmp(name, "p") == 0)
+		else if(strcmp(name, "p") == 0)
 		{
 			//I would prefer the format to be:
 			//  <SPREADPATTERN><p x="0.1" y="0.1"/><p x="0.2" y="0.2"/></SPREADPATTERN>
@@ -190,31 +188,31 @@ spreadpatternEndElementHandle(void *userData, const XML_Char *name)
 			//because the XML editor will probably have problems with using attributes instead of tags.
 			pData->curElement = ELEMENT_LIST;
 		}
-		else if(stricmp(name, "x") == 0)
+		else if(strcmp(name, "x") == 0)
 		{
 			pData->curElement = ELEMENT;
 			d = atof(pData->szCharData);
 			gpSpreadPattern[giSpreadPatternCount-1].x[ gpSpreadPattern[giSpreadPatternCount-1].iCount-1 ] = d;
 		}
-		else if(stricmp(name, "y") == 0)
+		else if(strcmp(name, "y") == 0)
 		{
 			pData->curElement = ELEMENT;
 			d = atof(pData->szCharData);
 			gpSpreadPattern[giSpreadPatternCount-1].y[ gpSpreadPattern[giSpreadPatternCount-1].iCount-1 ] = d;
 		}
-		else if(stricmp(name, "xspread") == 0)
+		else if(strcmp(name, "xspread") == 0)
 		{
 			pData->curElement = ELEMENT;
 			d = fabs( atof(pData->szCharData) );
 			gpSpreadPattern[giSpreadPatternCount-1].xspread = d;
 		}
-		else if(stricmp(name, "yspread") == 0)
+		else if(strcmp(name, "yspread") == 0)
 		{
 			pData->curElement = ELEMENT;
 			d = fabs( atof(pData->szCharData) );
 			gpSpreadPattern[giSpreadPatternCount-1].yspread = d;
 		}
-		else if(stricmp(name, "Name") == 0)
+		else if(strcmp(name, "Name") == 0)
 		{
 			pData->curElement = ELEMENT;
 			//Trim whitespace.
@@ -224,15 +222,15 @@ spreadpatternEndElementHandle(void *userData, const XML_Char *name)
 			memset(gpSpreadPattern[giSpreadPatternCount-1].Name,0,SPREADPATTERN_NAME_SIZE);
 			strncpy(gpSpreadPattern[giSpreadPatternCount-1].Name,pData->szCharData,SPREADPATTERN_NAME_SIZE-1);
 		}
-		else if(stricmp(name, "method") == 0)
+		else if(strcmp(name, "method") == 0)
 		{
 			pData->curElement = ELEMENT;
 			//Trim whitespace.
 			while( pData->szCharData[0] == ' ' ) memmove( pData->szCharData , &pData->szCharData[1] , strlen(&pData->szCharData[1]) );
 			while( strlen(pData->szCharData)>0 && pData->szCharData[ strlen(pData->szCharData)-1 ] == ' ' ) pData->szCharData[ strlen(pData->szCharData)-1 ]=0;
 			//Find it.
-			for(i=0;i<SPREADPATTERNMETHOD_COUNT;++i){
-				if(stricmp(pData->szCharData,  gSpreadPatternMethodNames[i] ) == 0){
+			for(unsigned int i=0;i<SPREADPATTERNMETHOD_COUNT;++i){
+				if(strcmp(pData->szCharData,  gSpreadPatternMethodNames[i] ) == 0){
 					gpSpreadPattern[giSpreadPatternCount-1].method = i;
 					break;
 				}
@@ -326,11 +324,9 @@ BOOLEAN WriteSpreadPatterns()
 
 
 	{
-		UINT32 i,j;
-
 		FilePrintf(hFile,"<SPREADPATTERNLIST>\r\n");
 		FilePrintf(hFile,"<!-- giSpreadPatternCount = %d  -->\r\n", giSpreadPatternCount );
-		for(i = 0 ; i < giSpreadPatternCount; i++)
+		for(INT32 i = 0 ; i < giSpreadPatternCount; i++)
 		{
 			FilePrintf(hFile,"\t<SPREADPATTERN>\r\n");
 			FilePrintf(hFile,"\t<!-- index = %d -->\r\n",i);
@@ -339,7 +335,7 @@ BOOLEAN WriteSpreadPatterns()
 			FilePrintf(hFile,"\t<xspread>%2.4f</xspread>",gpSpreadPattern[i].xspread);
 			FilePrintf(hFile," <yspread>%2.4f</yspread>\r\n",gpSpreadPattern[i].yspread);
 			FilePrintf(hFile,"\t<!-- p iCount = %d -->\r\n",gpSpreadPattern[i].iCount);
-			for(j=0;j<gpSpreadPattern[i].iCount;j++)
+			for(INT32 j=0;j<gpSpreadPattern[i].iCount;j++)
 			{
 				FilePrintf(hFile,"\t\t<p>");
 				FilePrintf(hFile,"<x>%2.4f</x>",gpSpreadPattern[i].x[j]);
@@ -364,7 +360,8 @@ BOOLEAN WriteSpreadPatterns()
 //If the name is not found, or the index was out of range, then return 0.
 int FindSpreadPatternIndex( const STR strName )
 {
-	int i=0,n=0;
+	UINT32 ui = 0;
+	INT32 i,n=0;
 	char str[SPREADPATTERN_NAME_SIZE]={};
 
 	//Copy search name sans leading and trailing space.
@@ -374,14 +371,16 @@ int FindSpreadPatternIndex( const STR strName )
 	while( strlen(str)>0 && str[ strlen(str)-1 ] == ' ' ) str[ strlen(str)-1 ]=0;
 
 	//Named pattern or raw index?
-	for(i=0;i<strlen(str);i++) if( !isdigit(str[i]) ) break;
+	for(ui=0;ui<strlen(str);ui++) 
+		if( !isdigit(str[ui]) ) 
+			break;
 
-	if(i<strlen(str))
+	if(ui<strlen(str))
 	{
 		//Holds named SpreadPattern.  Search.
 		for(i=0;i<giSpreadPatternCount;i++)
 		{
-			if( !stricmp(str, gpSpreadPattern[i].Name) )
+			if( !strcmp(str, gpSpreadPattern[i].Name) )
 			{
 				//Match!  Assign and return.
 				n=i;
