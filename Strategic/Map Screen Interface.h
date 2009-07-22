@@ -643,6 +643,8 @@ void RequestDecreaseInTimeCompression( void );
 void SelectUnselectedMercsWhoMustMoveWithThisGuy( void );
 BOOLEAN AnyMercInSameSquadOrVehicleIsSelected( SOLDIERTYPE *pSoldier );
 
+INT16 GetRefreshHeightForMercList( void );
+
 BOOLEAN LoadLeaveItemList( HWFILE hFile );
 BOOLEAN SaveLeaveItemList( HWFILE hFile );
 

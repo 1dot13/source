@@ -804,7 +804,55 @@ BOOLEAN AnyMercInSameSquadOrVehicleIsSelected( SOLDIERTYPE *pSoldier )
 	return ( FALSE );
 }
 
+// WANNE: Get the refreshing high depending on the resolution and on the game type (single or multiplayer)
+INT16 GetRefreshHeightForMercList( void )
+{
+	INT16 yHeight = ( INT16 )( ( ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 );
 
+	// WANNE: Get maximum refresh height depending on the resolution!
+	if (iResolution == 0)
+	{
+		if (!is_networked)
+		{
+			if (yHeight > 224)
+				yHeight = 224;
+		}
+		else
+		{
+			if (yHeight > 131)
+				yHeight = 131;
+		}
+
+	}
+	else if (iResolution == 1)
+	{
+		if (!is_networked)
+		{
+			if (yHeight > 340)
+				yHeight = 340;
+		}
+		else
+		{
+			if (yHeight > 249)
+				yHeight = 249;
+		}
+	}
+	else if (iResolution == 2)
+	{
+		if (!is_networked)
+		{
+			if (yHeight > 510)
+				yHeight = 510;
+		}
+		else
+		{
+			if (yHeight > 415)
+				yHeight = 415;
+		}
+	}
+
+	return yHeight;
+}
 
 void RestoreBackgroundForAssignmentGlowRegionList( void )
 {
@@ -837,8 +885,10 @@ void RestoreBackgroundForAssignmentGlowRegionList( void )
 
 	if( iOldAssignmentLine != giAssignHighLine )
 	{
+		INT16 yHeight = GetRefreshHeightForMercList();
+
 		// restore background
-		RestoreExternBackgroundRect( 66, Y_START - 1, 118 + 1 - 67, ( INT16 )( ( ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) );
+		RestoreExternBackgroundRect( 66, Y_START - 1, 118 + 1 - 67, yHeight );
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -865,8 +915,10 @@ void RestoreBackgroundForDestinationGlowRegionList( void )
 
 	if( iOldDestinationLine != giDestHighLine )
 	{
+		INT16 yHeight = GetRefreshHeightForMercList();
+
 		// restore background
-		RestoreExternBackgroundRect( 182, Y_START - 1, 217 + 1 - 182, ( INT16 )( ( ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) );
+		RestoreExternBackgroundRect( 182, Y_START - 1, 217 + 1 - 182, yHeight );
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -893,8 +945,10 @@ void RestoreBackgroundForContractGlowRegionList( void )
 
 	if( iOldContractLine != giContractHighLine )
 	{
+		INT16 yHeight = GetRefreshHeightForMercList();
+
 		// restore background
-		RestoreExternBackgroundRect( 222, Y_START - 1, 250 + 1 - 222, ( INT16 )( ( ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) ) ;
+		RestoreExternBackgroundRect( 222, Y_START - 1, 250 + 1 - 222, yHeight ) ;
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -925,8 +979,10 @@ void RestoreBackgroundForSleepGlowRegionList( void )
 
 	if( iOldSleepHighLine != giSleepHighLine )
 	{
+		INT16 yHeight = GetRefreshHeightForMercList();
+
 		// restore background
-		RestoreExternBackgroundRect( 123, Y_START - 1, 142 + 1 - 123, ( INT16 )( ( ( giMAXIMUM_NUMBER_OF_PLAYER_SLOTS + 1 ) * ( Y_SIZE + 2 ) ) + 1 ) ) ;
+		RestoreExternBackgroundRect( 123, Y_START - 1, 142 + 1 - 123, yHeight ) ;
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
