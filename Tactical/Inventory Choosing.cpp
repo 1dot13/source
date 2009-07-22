@@ -2745,7 +2745,11 @@ else
 						uiItemClass == IC_THROWING_KNIFE || uiItemClass == IC_LAUNCHER ||
 						uiItemClass == IC_APPLIABLE || uiItemClass == IC_FACE || uiItemClass == IC_TENTACLES ||
 						uiItemClass == IC_THROWN || uiItemClass == IC_PUNCH || uiItemClass == IC_KEY ||
-						uiItemClass == IC_MISC || uiItemClass == IC_MONEY)
+						uiItemClass == IC_MISC || uiItemClass == IC_MONEY 
+						
+						// WANNE: Fix by Roadkill: Also drop LBE Gear
+						|| uiItemClass == IC_LBEGEAR || uiItemClass == IC_BELTCLIP
+						)
 					{
 						// Find matching armour in the XML
 						for (j = 0; j < MAX_DROP_ITEMS; j++)
