@@ -6612,6 +6612,24 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 
 		this->CalcNewActionPoints( );
 
+		// HEADROCK HAM 3.6: If this soldier is in a "moving" animation, but has not moved any tiles
+        // in the previous turn, then the player has apparently forgotten that he was moving.
+        // In this case, abort the character's action.
+        
+		// If haven't moved since the start of last round
+        if (!this->bTilesMoved)
+        {
+            // but are doing a movement animation
+            if ( !( gAnimControl[ this->usAnimState ].uiFlags & ANIM_STATIONARY ) )
+            {
+                // Stop the merc
+                this->EVENT_StopMerc( this->sGridNo, this->ubDirection );
+            }
+
+            // Reset destination
+            this->pathing.sFinalDestination = this->sGridNo;
+        }
+
 		this->bTilesMoved						= 0;
 
 		if ( this->bInSector )
