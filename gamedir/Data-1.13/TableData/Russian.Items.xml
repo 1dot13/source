@@ -7205,9 +7205,9 @@
 		<uiIndex>900</uiIndex>
 		<szItemName>Pro II</szItemName>
 		<szLongItemName>Kimber Eclipse Pro II</szLongItemName>
-		<szItemDesc>A 10mm pistol based on the Colt Commander design, i.e. with a shorter barrel than the Colt Government models.</szItemDesc>
+		<szItemDesc>Этот 10мм пистолет на основе Colt Commander, т.е. с более коротким стволом чем у полноразмерной модели 1911.</szItemDesc>
 		<szBRName>Kimber Eclipse Pro II</szBRName>
-		<szBRDesc>Produced from stainless steel and to very tight tolerances, the Kimber Eclipse is a high quality pistol. The Pro II is the intermediate version between the Ultra II and the Custom II, and like the Custom II, it can be equipped with better sights.</szBRDesc>
+		<szBRDesc>Изготовленный из нержавеющей стали с высокими допусками, Kimber Eclipse является высококачественным пистолетом. Pro II представляет собой среднюю версию между Ultra II и Custom II, и как последний может оснащаться лучшими прицельными приспособлениями.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>901</uiIndex>
@@ -10444,7 +10444,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1305</uiIndex>
-		<szItemName>.50 Beo AP crate</szItemName>
+		<szItemName>.50 Beo AP</szItemName>
 		<szLongItemName>.50 Beowulf AP, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
 		<szBRName>.50 Beowulf AP, ящик с патронами</szBRName>
@@ -10452,7 +10452,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1306</uiIndex>
-		<szItemName>.50 Beo HP crate</szItemName>
+		<szItemName>.50 Beo HP</szItemName>
 		<szLongItemName>.50 Beowulf HP, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
 		<szBRName>.50 Beowulf HP, ящик с патронами</szBRName>
@@ -10460,7 +10460,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1307</uiIndex>
-		<szItemName>6мм</szItemName>
+		<szItemName>6x35мм</szItemName>
 		<szLongItemName>6x35мм, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
 		<szBRName>6x35мм, ящик с патронами</szBRName>
@@ -10468,10 +10468,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1308</uiIndex>
-		<szItemName>6mm HP crate</szItemName>
-		<szLongItemName>6x35mm HP ammo crate</szLongItemName>
+		<szItemName>6x35мм HP</szItemName>
+		<szLongItemName>6x35мм HP, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
-		<szBRName>6x35mm HP ammo crate</szBRName>
+		<szBRName>6x35мм HP, ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -10636,18 +10636,33 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1329</uiIndex>
+		<szItemName>Imp. Mod. Choke</szItemName>
+		<szLongItemName>Imp. Mod. Shotgun Choke</szLongItemName>
+		<szItemDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group tighter, permiting longer range and more shot to hit the target.</szItemDesc>
+		<szBRName>Imp. Mod. Shotgun Choke</szBRName>
+		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group tighter, permiting longer range and more shot to hit the target.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1330</uiIndex>
+		<szItemName>Full Choke</szItemName>
+		<szLongItemName>Full Shotgun Choke</szLongItemName>
+		<szItemDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.  Not for use with slugs!</szItemDesc>
+		<szBRName>Full Shotgun Choke</szBRName>
+		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.  Not for use with slugs!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1331</uiIndex>
+		<szItemName>Rifled Choke</szItemName>
+		<szLongItemName>Rifled Shotgun Choke</szLongItemName>
+		<szItemDesc>When attached to the end of a shotgun barrel, causes slugs to fire more accurately and farther.  However, shot will fire in a very wide, ineffective pattern.</szItemDesc>
+		<szBRName>Rifled Shotgun Choke</szBRName>
+		<szBRDesc>Makes your slugs to fire long and straight, but throws shot all over tarnation!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1332</uiIndex>
 		<szItemName>AR57 16"</szItemName>
 		<szLongItemName>AR57 16"</szLongItemName>
-		<szItemDesc>A new upper receiver for the 5.7x28mm round, placed onto a M16 lower receiver. This configuration uses standard P90-magazines. The longer barrel gets more range out of this round than the P90 does, however.</szItemDesc>
+		<szItemDesc>Оружие оснащено новым верхним модулем под патрон 5.7x28мм, установленым на нижний модуль M16. Такая конфигурация предназаначена для стандартных магазинов к Р-90, а более длинный ствол, по сравнению с Р-90, повышает дальнобойность этим патронам.</szItemDesc>
 		<szBRName>AR57 16"</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
@@ -10655,40 +10670,40 @@
 		<uiIndex>1333</uiIndex>
 		<szItemName>AR57 11"</szItemName>
 		<szLongItemName>AR57 11"</szLongItemName>
-		<szItemDesc>A new upper receiver for the 5.7x28mm round, placed onto a M16 lower receiver. This configuration uses standard P90-magazines.</szItemDesc>
+		<szItemDesc>Пистолет-пулемёт оснащён новым верхним модулем под патрон 5.7x28мм, установленым на нижний модуль M16. Такая конфигурация предназаначена для стандартных магазинов к Р90.</szItemDesc>
 		<szBRName>AR57 11"</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1334</uiIndex>
 		<szItemName>AR57 6"-S</szItemName>
-		<szLongItemName>AR57 6"-Silenced</szLongItemName>
-		<szItemDesc>A new upper receiver for the 5.7x28mm round, placed onto a M16 lower receiver. This configuration uses standard P90-magazines. As the barrel is just 6" long, range is just a bit more than most pistols.</szItemDesc>
-		<szBRName>AR57 6"-Silenced</szBRName>
+		<szLongItemName>AR57 6" Бесшумная</szLongItemName>
+		<szItemDesc>Новейший верхний модуль под патрон 5.7x28мм установлен на нижний модуль M16. Конфигурация предназаначена для стандартных магазинов к P90. Длина ствола всего 6", поэтому дальнобойность не сильно отличается от обычных пистолетов.</szItemDesc>
+		<szBRName>AR57 6"-Бесшумная</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1335</uiIndex>
 		<szItemName>AR57 16 upper</szItemName>
-		<szLongItemName>AR57 16" upper</szLongItemName>
-		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 16".</szItemDesc>
+		<szLongItemName>AR57 16" верхний модуль</szLongItemName>
+		<szItemDesc>Верхний модуль для трансформации M4A1 или M4 Commando в AR57 16".</szItemDesc>
 		<szBRName>AR57 16" upper</szBRName>
-		<szBRDesc>If you want to shoot the 5.7x28mm round but still want the ergonomics of the M4 series, take this new upper receiver and mount it onto your old M4 Commando or M4A1 lower receiver. This one comes with a 16" barrel.</szBRDesc>
+		<szBRDesc>Если вы хотите пострелять патронами калибра 5.7x28мм и в то же время не желаете расставаться с эргономичностью серии M4, купите этот верхний модуль и установите на ваш стандартный нижний модуль M4 Commando или M4A1. Поставляется с 16" стволиком.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1336</uiIndex>
 		<szItemName>AR57 11 upper</szItemName>
-		<szLongItemName>AR57 11" upper</szLongItemName>
-		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 11".</szItemDesc>
+		<szLongItemName>AR57 11" верхний модуль</szLongItemName>
+		<szItemDesc>Верхний модуль для трансформации M4A1 или M4 Commando в AR57 11".</szItemDesc>
 		<szBRName>AR57 11" upper</szBRName>
-		<szBRDesc>If you want to shoot the 5.7x28mm round but still want the ergonomics of the M4 series, take this new upper receiver and mount it onto your old M4 Commando or M4A1 lower receiver. Comes with a 11" barrel.</szBRDesc>
+		<szBRDesc>Если вы хотите пострелять патронами калибра 5.7x28мм и в то же время не желаете расставаться с эргономичностью серии M4, купите этот верхний модуль и установите на ваш стандартный нижний модуль M4 Commando или M4A1. Поставляется с 11" стволиком.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1337</uiIndex>
 		<szItemName>AR57 6S upper</szItemName>
-		<szLongItemName>AR57 6"-S upper</szLongItemName>
-		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 6"-S, the silenced version of the AR57.</szItemDesc>
+		<szLongItemName>AR57 6"-S верхний модуль</szLongItemName>
+		<szItemDesc>Верхний модуль для трансформации M4A1 или M4 Commando в AR57 6"-S - в бесшумную версию ПП AR57.</szItemDesc>
 		<szBRName>AR57 6"-S upper</szBRName>
-		<szBRDesc>If you want to shoot the 5.7x28mm round but still want the ergonomics of the M4 series, take this new upper receiver and mount it onto your old M4 Commando or M4A1 lower receiver. This is the silenced version, combining a Gemtech suppressor with a 6" barrel.</szBRDesc>
+		<szBRDesc>Если вы хотите пострелять патронами калибра 5.7x28мм и в то же время не желаете расставаться с эргономичностью серии M4, купите этот верхний модуль и установите на ваш стандартный нижний модуль M4 Commando или M4A1. Поставляется комплектом: глушитель Gemtech и 6" стволик.</szBRDesc>
 	</ITEM>
 </ITEMLIST>
