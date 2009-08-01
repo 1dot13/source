@@ -10634,18 +10634,33 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1329</uiIndex>
+		<szItemName>Imp. Mod. Choke</szItemName>
+		<szLongItemName>Imp. Mod. Shotgun Choke</szLongItemName>
+		<szItemDesc>喉缩的作用是使霰弹的弹丸流在离开枪口前受到一定的集束作用,使枪管在枪口部聚集弹丸的能力增强、瞬间膛压提高，由此使霰弹弹丸形成较小的散布和更远的射程。</szItemDesc>
+		<szBRName>Imp. Mod. Shotgun Choke</szBRName>
+		<szBRDesc>喉缩的作用是使霰弹的弹丸流在离开枪口前受到一定的集束作用,使枪管在枪口部聚集弹丸的能力增强、瞬间膛压提高，由此使霰弹弹丸形成较小的散布和更远的射程。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1330</uiIndex>
+		<szItemName>Full Choke</szItemName>
+		<szLongItemName>Full Shotgun Choke</szLongItemName>
+		<szItemDesc>全喉缩的作用是使霰弹的弹丸流在离开枪口前受到一定的集束作用,使枪管在枪口部聚集弹丸的能力增强、瞬间膛压提高，由此使霰弹弹丸形成较小的散布和更远的射程。警告：不要和铅弹一起使用！</szItemDesc>
+		<szBRName>Full Shotgun Choke</szBRName>
+		<szBRDesc>全喉缩的作用是使霰弹的弹丸流在离开枪口前受到一定的集束作用,使枪管在枪口部聚集弹丸的能力增强、瞬间膛压提高，由此使霰弹弹丸形成较小的散布和更远的射程。警告：不要和铅弹一起使用！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1331</uiIndex>
+		<szItemName>Rifled Choke</szItemName>
+		<szLongItemName>Rifled Shotgun Choke</szLongItemName>
+		<szItemDesc>这种喉缩的作用是使霰弹的弹丸流在离开枪口前受到一定的集束作用,使枪管在枪口部聚集弹丸的能力增强、瞬间膛压提高，能让弹丸做到准确无误和更远的射程。但是, 射击会更加难以控制，而且没人能预料到后果。</szItemDesc>
+		<szBRName>Rifled Shotgun Choke</szBRName>
+		<szBRDesc>让你的子弹打的又远又直，但我估计射出去的都是该死的咒骂。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1332</uiIndex>
 		<szItemName>AR57 16"</szItemName>
 		<szLongItemName>AR57 16"</szLongItemName>
-		<szItemDesc>A 5.7x28mm upper receiver on a M16 lower receiver.</szItemDesc>
+		<szItemDesc>M16换装5.7x28mm弹所需要升级的机匣。</szItemDesc>
 		<szBRName>AR57 16"</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
@@ -10653,7 +10668,7 @@
 		<uiIndex>1333</uiIndex>
 		<szItemName>AR57 11"</szItemName>
 		<szLongItemName>AR57 11"</szLongItemName>
-		<szItemDesc>A 5.7x28mm upper receiver on a M16 lower receiver.</szItemDesc>
+		<szItemDesc>M16换装5.7x28mm弹所需要升级的机匣。</szItemDesc>
 		<szBRName>AR57 11"</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
@@ -10661,7 +10676,7 @@
 		<uiIndex>1334</uiIndex>
 		<szItemName>AR57 6"-S</szItemName>
 		<szLongItemName>AR57 6"-Silenced</szLongItemName>
-		<szItemDesc>A 5.7x28mm upper receiver on a M16 lower receiver.</szItemDesc>
+		<szItemDesc>M16换装5.7x28mm弹所需要升级的机匣，但这套是消声版的。</szItemDesc>
 		<szBRName>AR57 6"-Silenced</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
@@ -10669,24 +10684,24 @@
 		<uiIndex>1335</uiIndex>
 		<szItemName>AR57 16 upper</szItemName>
 		<szLongItemName>AR57 16" upper</szLongItemName>
-		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 16.</szItemDesc>
+		<szItemDesc>升级M4A1或M4 Commando到AR57 16所需更换的机匣。</szItemDesc>
 		<szBRName>AR57 16" upper</szBRName>
-		<szBRDesc>A new upper receiver, to shoot 5.7mm ammo from a M4 Commando or M4A1.</szBRDesc>
+		<szBRDesc>能让M4 Commando或M4A1使用5.7mm弹的新型机匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1336</uiIndex>
 		<szItemName>AR57 11 upper</szItemName>
 		<szLongItemName>AR57 11" upper</szLongItemName>
-		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 11.</szItemDesc>
+		<szItemDesc>升级M4A1或M4 Commando到AR57 11所需更换的机匣。</szItemDesc>
 		<szBRName>AR57 11" upper</szBRName>
-		<szBRDesc>A new upper receiver, to shoot 5.7mm ammo from a M4 Commando or M4A1.</szBRDesc>
+		<szBRDesc>能让M4 Commando或M4A1使用5.7mm弹的新型机匣。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1337</uiIndex>
 		<szItemName>AR57 6S upper</szItemName>
 		<szLongItemName>AR57 6"-S upper</szLongItemName>
-		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 6S.</szItemDesc>
+		<szItemDesc>升级M4A1或M4 Commando到AR57 6S所需更换的机匣。</szItemDesc>
 		<szBRName>AR57 6"-S upper</szBRName>
-		<szBRDesc>A new upper receiver, to shoot 5.7mm ammo from a M4 Commando or M4A1 silently.</szBRDesc>
+		<szBRDesc>能让M4 Commando或M4A1使用5.7mm弹的新型机匣，不过这套是消声版的。</szBRDesc>
 	</ITEM>
 </ITEMLIST>
