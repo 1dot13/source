@@ -10216,6 +10216,16 @@
 		<APCost>20</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
+		<attachmentIndex>592</attachmentIndex>
+		<itemIndex>639</itemIndex>
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>592</attachmentIndex>
+		<itemIndex>618</itemIndex>
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
 		<attachmentIndex>593</attachmentIndex>
 		<itemIndex>282</itemIndex>
 		<APCost>8</APCost>
