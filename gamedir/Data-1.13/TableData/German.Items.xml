@@ -10260,12 +10260,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1329</uiIndex>
+		<szItemName>Imp. Mod. Choke</szItemName>
+		<szLongItemName>Imp. Mod. Shotgun Choke</szLongItemName>
+		<szItemDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group tighter, permiting longer range and more shot to hit the target.</szItemDesc>
+		<szBRName>Imp. Mod. Shotgun Choke</szBRName>
+		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group tighter, permiting longer range and more shot to hit the target.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1330</uiIndex>
+		<szItemName>Full Choke</szItemName>
+		<szLongItemName>Full Shotgun Choke</szLongItemName>
+		<szItemDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.  Not for use with slugs!</szItemDesc>
+		<szBRName>Full Shotgun Choke</szBRName>
+		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.  Not for use with slugs!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1331</uiIndex>
+		<szItemName>Rifled Choke</szItemName>
+		<szLongItemName>Rifled Shotgun Choke</szLongItemName>
+		<szItemDesc>When attached to the end of a shotgun barrel, causes slugs to fire more accurately and farther.  However, shot will fire in a very wide, ineffective pattern.</szItemDesc>
+		<szBRName>Rifled Shotgun Choke</szBRName>
+		<szBRDesc>Makes your slugs to fire long and straight, but throws shot all over tarnation!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1332</uiIndex>
