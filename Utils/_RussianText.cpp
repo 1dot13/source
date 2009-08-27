@@ -966,9 +966,9 @@ STR16 gpStrategicString[] =
 	//These are the labels for the different types of enemies we fight in autoresolve.
 
 	L"Ополченец",					//STR_AR_MILITIA_NAME,
-	L"Элита",					//STR_AR_ELITE_NAME,
+	L"Спецназ",					//STR_AR_ELITE_NAME,
 	L"Солдат",					//STR_AR_TROOP_NAME,
-	L"Смотритель",					//STR_AR_ADMINISTRATOR_NAME,
+	L"Полицай",					//STR_AR_ADMINISTRATOR_NAME,
 	L"Рептион",					//STR_AR_CREATURE_NAME,
 
 	//Label for the length of time the battle took
@@ -4082,7 +4082,7 @@ STR16 pMessageStrings[] =
 	// forced turn mode strings
     L"Только пошаговый режим",
 	L"Режим реального времени",	//Normal turn mode
-	L"Выход из пошагавого режима",	//Exit combat mode
+	L"Выход из пошагового режима",	//Exit combat mode
 	L"Включен только пошаговый режим. Вступаем в бой!",	//Forced Turn Mode Active, Entering Combat
 #ifdef JA2BETAVERSION
 	L"Игра сохранена в ячейку авто-сохранения.",
