@@ -24,6 +24,10 @@
 #include "VFS/vfs.h"
 #include "VFS/vfs_file_raii.h"
 
+#include "Local.h"
+#include "text.h"
+
+
 #ifndef _MT
 #define _MT
 #endif
@@ -2845,7 +2849,7 @@ BOOLEAN GetRGBDistribution(void)
 
 	if (!gusRedMask)
 	{
-		MessageBox( NULL, "Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp or less.", "Jagged Alliance 2 v1.13", MB_ICONEXCLAMATION);
+		MessageBoxW( NULL, Additional113Text[ADDTEXT_16BPP_REQUIRED], APPLICATION_NAMEW, MB_ICONEXCLAMATION);
 		PostQuitMessage(1);
 		return FALSE;
 	}

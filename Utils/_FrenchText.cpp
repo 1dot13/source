@@ -4853,4 +4853,9 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"I.M.P. Disabilities",
 };
 
+STR16 Additional113Text[]=
+{
+	L"Jagged Alliance 2 v1.13 mode fenêtré exige une profondeur de couleur de 16 bit ou moins.",
+};
+
 #endif //FRENCH

@@ -966,9 +966,9 @@ STR16 gpStrategicString[] =
 	//These are the labels for the different types of enemies we fight in autoresolve.
 
 	L"Ополченец",					//STR_AR_MILITIA_NAME,
-	L"Спецназ",					//STR_AR_ELITE_NAME,
+	L"Элита",					//STR_AR_ELITE_NAME,
 	L"Солдат",					//STR_AR_TROOP_NAME,
-	L"Полицай",					//STR_AR_ADMINISTRATOR_NAME,
+	L"Полиция",					//STR_AR_ADMINISTRATOR_NAME,
 	L"Рептион",					//STR_AR_CREATURE_NAME,
 
 	//Label for the length of time the battle took
@@ -4845,6 +4845,11 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Забывчивый",		//Forgetful
 	L"Психопат",		//Psychotic
 	L"I.M.P. Недостатки",	//I.M.P. Disabilities
+};
+
+STR16 Additional113Text[]=
+{
+	L"Для запуска Jagged Alliance 2 v1.13 в оконном режиме требуется установить 16-битное качество цветопередачи экрана",//Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp or less.
 };
 
 #endif //RUSSIAN

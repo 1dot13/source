@@ -4850,4 +4850,9 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"I.M.P. Disabilities",
 };
 
+STR16 Additional113Text[]=
+{
+	L"Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp or less.",
+};
+
 #endif //TAIWANESE

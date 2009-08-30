@@ -4842,4 +4842,9 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"I.M.P. Disabilities",
 };
 
+STR16 Additional113Text[]=
+{
+	L"Jagged Alliance 2 v1.13 trybie okienkowym wymaga g³êbi koloru 16-bitowego lub mniej.",
+};
+
 #endif //POLISH

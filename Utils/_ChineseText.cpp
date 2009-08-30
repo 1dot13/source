@@ -4862,4 +4862,9 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"I.M.P. 性格缺陷",
 };
 
+STR16 Additional113Text[]=
+{
+	L"Jagged Alliance 2 v1.13 窗口模式需要一个16bpp或更少的颜色深度。",
+};
+
 #endif //CHINESE

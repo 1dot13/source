@@ -12,6 +12,7 @@
 //
 
 #define APPLICATION_NAME		"Jagged Alliance 2 v1.13"
+#define APPLICATION_NAMEW		L"Jagged Alliance 2 v1.13"
 
 //
 // Basic defines for the video manager. These represent the starting values

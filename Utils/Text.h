@@ -1745,6 +1745,14 @@ enum
 
 // OJW - MP
 extern STR16 gszMPMapscreenText[];
+
+//SB
+enum
+{
+	ADDTEXT_16BPP_REQUIRED,
+};
+extern STR16 Additional113Text[];
+
 #endif
 
 
