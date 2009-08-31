@@ -4649,7 +4649,7 @@ STR16 gzIMPDisabilityTraitText[]=
 
 STR16 Additional113Text[]=
 {
-	L"Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp or less.",
+	L"Für die korrekte Arbeit im Fenster-Modus benötigt Jagged Alliance 2 v1.13 16-bit Farbmodus.", //Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp or less.
 };
 
 #endif //GERMAN
