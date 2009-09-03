@@ -2346,7 +2346,12 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 	UINT8	i;
 	CHAR16	zItemName[ SIZE_ITEM_NAME ];
 	UINT8	ubItemCount=0;
-	CHAR16	pStr[ 250 ];
+	// HEADROCK HAM 3: Increased size, to allow larger tooltips. Used for Attachments Shown on Tooltips feature.
+	// Please note, if a mod introduces a weapon that can take several hundred attachments, this value MIGHT overflow.
+	// I do not have the expertise to think of a better solution. Still, 5000 is enough for around 200 possible attachments,
+	// so overflow will first be felt ON-SCREEN. I consider that scenario extremely unlikely.
+	//CHAR16	pStr[ 250 ];
+	CHAR16	pStr[ 5000 ];
 
 	if( gfBigImageMouseRegionCreated )
 		return;
@@ -2412,6 +2417,16 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 				CHAR16		apStr2[20];
 				OBJECTTYPE	pObject;
 
+				// HEADROCK HAM 3: Variables for "Possible Attachment List"
+				BOOLEAN		fAttachmentsFound = FALSE;
+				// Contains entire string of attachment names
+				CHAR16		attachStr[3900];
+				// Contains current attachment string
+				CHAR16		attachStr2[100];
+				// Contains temporary attachment list before added to string constant from text.h
+				CHAR16		attachStr3[3900];
+				UINT16		usAttachment;
+
 				CreateItem(pItemNumbers[ i ], 100, &pObject);
 				UINT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject );
 
@@ -2436,7 +2451,57 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 				else
 					wcscat( apStr, L" / -" );
 
-				swprintf( pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s (%d) %s\n%s %1.1f %s",
+				// HEADROCK HAM 3: Empty these strings first, to avoid crashes. Please keep this here.
+				swprintf( attachStr, L"" );
+				swprintf( attachStr2, L"" );
+				swprintf( attachStr3, L"" );
+
+				// HEADROCK HAM 3: Generate list of possible attachments to a gun (Guns only!)
+				//if (gGameExternalOptions.fBobbyRayTooltipsShowAttachments)
+				{
+					// Check entire attachment list
+					UINT16 iLoop = 0;
+					while( 1 )
+					{
+						// Is the weapon we're checking the same as the one we're tooltipping?
+						if (Attachment[iLoop][1] == Item[pItemNumbers[ i ]].uiIndex)
+						{
+							usAttachment = Attachment[iLoop][0];
+							// If the attachment is not hidden
+							if (!Item[ usAttachment ].hiddenaddon && !Item[ usAttachment ].hiddenattachment)
+							{
+								if (wcslen( attachStr3 ) + wcslen(Item[usAttachment].szItemName) > 3800)
+								{
+									// End list early to avoid stack overflow
+									wcscat( attachStr3, L"\n..." );
+									break;
+								}
+								else
+								{// Add the attachment's name to the list.
+									fAttachmentsFound = TRUE;
+									swprintf( attachStr2, L"\n%s", Item[ usAttachment ].szItemName );
+									wcscat( attachStr3, attachStr2);
+								}
+							}
+						}
+						iLoop++;
+						if (Attachment[iLoop][0] == 0)
+						{
+							// Reached end of list
+							break;
+						}
+					}
+					if (fAttachmentsFound)
+					{
+						// Add extra empty line and attachment list title
+						swprintf( attachStr, L"\n \n%s", gWeaponStatsDesc[ 14 ] );
+						wcscat( attachStr, attachStr3 );
+					}
+				}
+				// HEADROCK HAM 3: Added last string (attachStr), for display of the possible attachment list. 
+				// If the feature is deactivated, the attachStr will simply be empty at this point 
+				// (remember? we emptied it earlier!).
+				swprintf( pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s (%d) %s\n%s %1.1f %s%s",
 					ItemNames[ pItemNumbers[ i ] ],
 					AmmoCaliber[ Weapon[ pItemNumbers[ i ] ].ubCalibre ],
 					gWeaponStatsDesc[ 9 ],					//Accuracy String
@@ -2451,7 +2516,8 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 					//L"- / - / -",
 					gWeaponStatsDesc[ 12 ],					//Weight String
 					fWeight,								//Weight
-					GetWeightUnitString()					//Weight units
+					GetWeightUnitString(),					//Weight units
+					attachStr
 					);
 			}
 			break;
