@@ -637,6 +637,9 @@ BOOLEAN gbBulletTracer;
 	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainers will rest if no trainees available. 3 = Trainees will rest if no trainers available (not recommended). 1 = Both. 0 = Neither.
 	UINT8 ubSmartTrainingRest;
 
+	// HEADROCK HAM 3: Show Tooltips from Attachments in Bobby Rays shop=
+	BOOLEAN fBobbyRayTooltipsShowAttachments;
+
 	// The_Bob - real time sneaking code 01/06/09
 	// Suport disabling/silencing real time sneaking via external .ini file
 	BOOLEAN fAllowRealTimeSneak;

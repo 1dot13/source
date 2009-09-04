@@ -2457,7 +2457,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 				swprintf( attachStr3, L"" );
 
 				// HEADROCK HAM 3: Generate list of possible attachments to a gun (Guns only!)
-				//if (gGameExternalOptions.fBobbyRayTooltipsShowAttachments)
+				if (gGameExternalOptions.fBobbyRayTooltipsShowAttachments)
 				{
 					// Check entire attachment list
 					UINT16 iLoop = 0;

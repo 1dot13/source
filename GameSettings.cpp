@@ -1133,6 +1133,9 @@ void LoadGameExternalOptions()
 
 	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainers will rest if no trainees available. 3 = Trainees will rest if no trainers available (not recommended). 1 = Both. 0 = Neither.
 	gGameExternalOptions.ubSmartTrainingRest				= iniReader.ReadInteger("JA2 HAM Settings","SMART_TRAINING_REST", 0);
+
+	// WANNE: HEADROCK HAM 3: Bobby Rays attachment tooltips
+	gGameExternalOptions.fBobbyRayTooltipsShowAttachments	= iniReader.ReadBoolean("JA2 HAM Settings","BOBBY_RAY_TOOLTIPS_SHOW_POSSIBLE_ATTACHMENTS", FALSE);
 }
 
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)
