@@ -10540,43 +10540,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1317</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.454 Casull crate</szItemName>
+		<szLongItemName>.454 Casull ammo crate</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>.454 Casull ammo crate</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1318</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.454 Casull AP crate</szItemName>
+		<szLongItemName>.454 Casull AP ammo crate</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>.454 Casull AP ammo crate</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1319</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.454 Casull HP crate</szItemName>
+		<szLongItemName>.454 Casull HP ammo crate</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>.454 Casull HP ammo crate</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1320</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.50AE AP crate</szItemName>
+		<szLongItemName>.50AE AP ammo crate</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>.50AE AP ammo crate</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1321</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.50AE HP crate</szItemName>
+		<szLongItemName>.50AE HP ammo crate</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>.50AE HP ammo crate</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1322</uiIndex>
@@ -10705,5 +10705,53 @@
 		<szItemDesc>Верхний модуль для трансформации M4A1 или M4 Commando в AR57 6"-S - в бесшумную версию ПП AR57.</szItemDesc>
 		<szBRName>AR57 6"-S upper</szBRName>
 		<szBRDesc>Если вы хотите пострелять патронами калибра 5.7x28мм и в то же время не желаете расставаться с эргономичностью серии M4, купите этот верхний модуль и установите на ваш стандартный нижний модуль M4 Commando или M4A1. Поставляется комплектом: глушитель Gemtech и 6" стволик.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1338</uiIndex>
+		<szItemName>5,45мм, 30 HP C</szItemName>
+		<szLongItemName>5,45x39мм магазин, 30 HP Cold</szLongItemName>
+		<szItemDesc>Тридцать дозвуковых патронов калибра 5,45x39мм с экспансивной пулей.</szItemDesc>
+		<szBRName>5,45x39мм, 30 HP Cold</szBRName>
+		<szBRDesc>Большая останавливающая сила при достаточно тихом звуке выстрела - и все это в предлагаемом нами магазине с дозвуковыми экспансивными патронами калибра 5,45x39мм.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1339</uiIndex>
+		<szItemName>5,45мм, 30 C</szItemName>
+		<szLongItemName>5,45x39мм магазин, 30 дозвуковые</szLongItemName>
+		<szItemDesc>Изрешети их не разбудив односельчан. Патроны с пониженным пороховым зарядом на 40 процентов тише стандартных.</szItemDesc>
+		<szBRName>5,45x39мм, 30 Cold</szBRName>
+		<szBRDesc>Этот магазин на 30 патронов с пониженным пороховым зарядом сделает ваших врагов такими же "тихими", как и звук выстрела.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1340</uiIndex>
+		<szItemName>5,45x39мм, 45HP C</szItemName>
+		<szLongItemName>5.45x39mm RPK-Mag, HP C</szLongItemName>
+		<szItemDesc>This 45-round mag contains 5.45 subsonic jacketed hollow point ammunition.</szItemDesc>
+		<szBRName>5.45x39mm Mag, HP C</szBRName>
+		<szBRDesc>This 45-round mag contains 5.45 subsonic jacketed hollow point ammunition.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1341</uiIndex>
+		<szItemName>5,45x39мм, 45AP C</szItemName>
+		<szLongItemName>5.45x39mm RPK-Mag AP C</szLongItemName>
+		<szItemDesc>This 45-round mag holds 5.45 light armor piercing subsonic ammo.</szItemDesc>
+		<szBRName>5.45x39mm RPK-Mag AP C</szBRName>
+		<szBRDesc>This 45-round mag holds 5.45 light armor piercing subsonic ammo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1342</uiIndex>
+		<szItemName>5.45mm C crate</szItemName>
+		<szLongItemName>5.45x39mm C ammo crate</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>5.45x39mm C ammo crate</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1343</uiIndex>
+		<szItemName>5.45mm HP C crate</szItemName>
+		<szLongItemName>5.45x39mm HP C ammo crate</szLongItemName>
+		<szItemDesc>Ящик с патронами.</szItemDesc>
+		<szBRName>5.45x39mm HP C ammo crate</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 </ITEMLIST>

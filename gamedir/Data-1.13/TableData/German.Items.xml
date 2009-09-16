@@ -10164,43 +10164,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1317</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>.454 Casull Kiste</szItemName>
+		<szLongItemName>.454 Casull Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers .45WinMag.</szItemDesc>
+		<szBRName>.454 Casull Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1318</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>.454 Casull PB Kiste</szItemName>
+		<szLongItemName>.454 Casull PB Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers .45WinMag PB.</szItemDesc>
+		<szBRName>.454 Casull PB Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1319</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>.454 Casull HS Kiste</szItemName>
+		<szLongItemName>.454 Casull HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers .45WinMag HS.</szItemDesc>
+		<szBRName>.454 Casull HS Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1320</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>.50AE PB Kiste</szItemName>
+		<szLongItemName>.50AE PB Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers .45WinMag PB.</szItemDesc>
+		<szBRName>.50AE PB Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1321</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>.50AE HS Kiste</szItemName>
+		<szLongItemName>.50AE HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers .45WinMag HS.</szItemDesc>
+		<szBRName>.50AE HS Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1322</uiIndex>
@@ -10329,5 +10329,53 @@
 		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 6"-S, the silenced version of the AR57.</szItemDesc>
 		<szBRName>AR57 6"-S upper</szBRName>
 		<szBRDesc>If you want to shoot the 5.7x28mm round but still want the ergonomics of the M4 series, take this new upper receiver and mount it onto your old M4 Commando or M4A1 lower receiver. This is the silenced version, combining a Gemtech suppressor with a 6" barrel.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1338</uiIndex>
+		<szItemName>5.45x39 US-HS</szItemName>
+		<szLongItemName>5.45x39mm Magazin, US-HS</szLongItemName>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
+		<szBRName>5.45x39 Mag US-HS</szBRName>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1339</uiIndex>
+		<szItemName>5.45x39 US</szItemName>
+		<szLongItemName>5.45x39mm Magazin, Unterschall</szLongItemName>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
+		<szBRName>5.45x39 Mag US</szBRName>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1340</uiIndex>
+		<szItemName>5.45x39 HS US</szItemName>
+		<szLongItemName>5.45x39mm RPK-Magazin, HS US</szLongItemName>
+		<szItemDesc>This 45-round mag contains 5.45 subsonic jacketed hollow point ammunition.</szItemDesc>
+		<szBRName>5.45x39mm RPK-Magazin, HS US</szBRName>
+		<szBRDesc>This 45-round mag contains 5.45 subsonic jacketed hollow point ammunition.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1341</uiIndex>
+		<szItemName>5.45x39 Mag C</szItemName>
+		<szLongItemName>5.45x39mm RPK-Magazin C</szLongItemName>
+		<szItemDesc>This 45-round mag holds 5.45 light armor piercing subsonic ammo.</szItemDesc>
+		<szBRName>5.45x39mm RPK-Magazin C</szBRName>
+		<szBRDesc>This 45-round mag holds 5.45 light armor piercing subsonic ammo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1342</uiIndex>
+		<szItemName>5.45mm US Kiste</szItemName>
+		<szLongItemName>5.45x39mm US Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.45x39mm.</szItemDesc>
+		<szBRName>5.45x39mm US Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1343</uiIndex>
+		<szItemName>5.45mm HP US Kiste</szItemName>
+		<szLongItemName>5.45x39mm HP US Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.45x39mm HP.</szItemDesc>
+		<szBRName>5.45x39mm HP US Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 </ITEMLIST>

@@ -10538,43 +10538,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1317</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.454 Casull crate</szItemName>
+		<szLongItemName>.454 Casull ammo crate</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>.454 Casull ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1318</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.454 Casull AP crate</szItemName>
+		<szLongItemName>.454 Casull AP ammo crate</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>.454 Casull AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1319</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.454 Casull HP crate</szItemName>
+		<szLongItemName>.454 Casull HP ammo crate</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>.454 Casull HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1320</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.50AE AP crate</szItemName>
+		<szLongItemName>.50AE AP ammo crate</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>.50AE AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1321</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.50AE HP crate</szItemName>
+		<szLongItemName>.50AE HP ammo crate</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>.50AE HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1322</uiIndex>
@@ -10703,5 +10703,53 @@
 		<szItemDesc>升级M4A1或M4 Commando到AR57 6S所需更换的机匣。</szItemDesc>
 		<szBRName>AR57 6"-S upper</szBRName>
 		<szBRDesc>能让M4 Commando或M4A1使用5.7mm弹的新型机匣，不过这套是消声版的。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1338</uiIndex>
+		<szItemName>5.45mm Mag 30 HP C</szItemName>
+		<szLongItemName>5.45x39mm，30发消音空尖弹</szLongItemName>
+		<szItemDesc>这30发弹药安静而且拥有额外的扩张能力。</szItemDesc>
+		<szBRName>5.45x39mm，30发消音空尖弹</szBRName>
+		<szBRDesc>这些5.45弹药有着额外的威力，更小的噪音。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1339</uiIndex>
+		<szItemName>5.45mm Mag 30 C</szItemName>
+		<szLongItemName>5.45x39mm，30发消音弹</szLongItemName>
+		<szItemDesc>这些弹药可以在不惊醒敌人的情况下把他们打成筛子。消音弹要比普通弹药安静40％。</szItemDesc>
+		<szBRName>5.45x39mm，30发消音弹</szBRName>
+		<szBRDesc>这个30发弹匣可以让你如极地寒风一般安静地把敌人变成冰凉的尸体。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1340</uiIndex>
+		<szItemName>5.45x39mm Mag HP C</szItemName>
+		<szLongItemName>5.45x39mm RPK-Mag, HP C</szLongItemName>
+		<szItemDesc>This 45-round mag contains 5.45 subsonic hollow point ammo.</szItemDesc>
+		<szBRName>5.45x39mm Mag, HP C</szBRName>
+		<szBRDesc>This 45-round mag contains 5.45 subsonic jacketed hollow point ammunition.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1341</uiIndex>
+		<szItemName>5.45x39mm Mag C</szItemName>
+		<szLongItemName>5.45x39mm RPK-Mag C</szLongItemName>
+		<szItemDesc>This 45-round mag holds 5.45 light armor piercing subsonic ammo</szItemDesc>
+		<szBRName>5.45x39mm RPK-Mag C</szBRName>
+		<szBRDesc>This 45-round mag holds 5.45 light armor piercing subsonic ammo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1342</uiIndex>
+		<szItemName>5.45mm C crate</szItemName>
+		<szLongItemName>5.45x39mm C ammo crate</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>5.45x39mm C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1343</uiIndex>
+		<szItemName>5.45mm HP C crate</szItemName>
+		<szLongItemName>5.45x39mm HP C ammo crate</szLongItemName>
+		<szItemDesc>弹药箱</szItemDesc>
+		<szBRName>5.45x39mm HP C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 </ITEMLIST>
