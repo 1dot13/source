@@ -49,3 +49,35 @@ How to Use
 
 4. In-game chat
 	Press the 'y' key to open ingame chat.
+
+
+FAQs
+----
+
+Q: I started the server, but others can't connect.
+A: Check the following things:
+	a.) The JA2 MP Executable file should not be blocked by your firewall
+	b.) The other players have my external IP and use them for joining. 
+	    You can get your external IP from here: http://www.whatismyip.com
+	c.) The Port (default: 60005) is forwarded on your router
+
+Q: How do I forward my port on the router?
+A: Take a look at the following website: http://portforward.com/
+
+Q: How can I find out my external IP?
+A: http://www.whatismyip.com
+
+Q: How can I find out my internal IP?
+A: Click "START" -> "RUN" -> cmd
+   Type "ipconfig /all" (Search for IP Address)
+
+Q: Please give me a step by step example how you forwarded the port on your router.
+A: I have a (wireless) Belkin router. The steps I did are the following:
+	a.) First I check my internal ip address (-> 192.168.2.2)
+	b.) I open the routers configuration page in the web browser. This is often your IP ending with a "1".
+            In my case this is "192.168.2.1". So I entered "http://192.168.2.1" in the browser and the configuration site opens
+	c.) I click on "Firewall" -> "Virtual Servers" and "Submit" the login page with a blank password. 
+	d.) Now I see a table on the website where I can enter the IP addresses and ports for forwarding
+	e.) I enter the internal IP address (192.168.2.2) and the port (60005) and select the port forwaring for "UDP" and "TCP"
+	f.) Save the changes on the configuration site
+	g.) Start the JA2 1.13 MP Executable and host a game
