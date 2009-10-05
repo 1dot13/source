@@ -12,6 +12,18 @@
 #define NO_BUILDING 0
 #define MAX_BUILDINGS 31
 
+// WANNE: If this is defined, this fixes the bug, that soldiers do not
+// climb on roofs anymore if ASTAR is disabled.
+// The "Bug" was introduced in Revision 1534 (TileEngine\Buildings.cpp)
+// Overhaul wanted to improve the climbing on buildings, but introduced this bug
+// If the VANILLA_BUILDING_CLIMBING is not defined, it uses Overhaul code,
+// where enemies do not climb on buildings!!
+
+// PS: I did not looked in Overhaul's Building code was causes the problem.
+// If someone has time to debug and fixes the problem, Overhaul's code should 
+// be used -> Disable the define!
+#define VANILLA_BUILDING_CLIMBING
+
 
 typedef struct BUILDING
 {
