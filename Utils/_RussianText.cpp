@@ -4621,7 +4621,7 @@ STR16 MPClientMessage[] =
 	L"Игра не может быть начата, вы не наняли ни одного бойца.",
 	L"Ждем, когда сервер даст добро на доступ к лэптопу...",
 	L"Перехвачен",			//Interrupted
-	L"Finish from interrupt",	//Finish from interrupt
+	L"Продолжение после перехвата",	//Finish from interrupt
 	L"Координаты курсора:",		//Mouse Grid Coordinates
 	// 20
 	L"X: %d, Y: %d",
@@ -4821,7 +4821,7 @@ STR16 gzIMPColorChoosingText[] =
 	L"I.M.P. Расцветка",	//I.M.P. Colors
 	L"Выберите соответствующие цвета вашей кожи, волос и одежды, а так же укажите ваше телосложение.",	//Please select the respective colors of your skin, hair and clothing. And select what body type you have.
 	L"Выберите соответствующие цвета вашей кожи, волос и одежды.",	//Please select the respective colors of your skin, hair and clothing.
-	L"Поставьте кретик здесь чтобы ваш \nперсонаж не держал автомат одной рукой.",	//Toggle this to use alternative rifle holding
+	L"Поставьте крестик здесь чтобы ваш \nперсонаж не держал автомат одной рукой.",	//Toggle this to use alternative rifle holding
 };
 
 STR16 sColorChoiceExplanationTexts[]=
@@ -4839,7 +4839,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Идеален",	//No Disability
 	L"Вспыльчивый",		//Heat Intolerant
 	L"Нервный",		//Nervous
-	L"Клаустрафобик",	//Claustrophobic
+	L"Клаустрафоб",	//Claustrophobic
 	L"Не умеющий плавать",	//Nonswimmer
 	L"Боязнь насекомых",	//Fear of Insects
 	L"Забывчивый",		//Forgetful
