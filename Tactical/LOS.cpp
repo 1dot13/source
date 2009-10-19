@@ -21,6 +21,8 @@
 #include "opplist.h"
 #include "bullets.h"
 
+#include "lighting.h"
+
 #include "phys math.h"
 #include "items.h"
 #include "Soldier Profile.h"
@@ -44,6 +46,8 @@
 #endif
 #include "fresh_header.h"
 #include "test_space.h"
+#include "WorldDat.h"
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -372,6 +376,325 @@ enum
 	LOC_4_4
 }
 LocationCode;
+
+// TODO: Relocate functions in appropriate class (soldiertype obviously)
+/**
+* Calculates the height and gives it back as one of the ANIM_* defines
+*
+* @comment I don't want to repetitivly use code that should be part of the pSoldier class, so I made a oo-c-based-method
+*
+* @param pSoldier
+* @return ANIM_STAND or ANIM_CROUCH or ANIM_PRONE
+*/
+inline UINT8 GetCurrentHeightOfSoldier( SOLDIERTYPE* pSoldier )
+{
+	return gAnimControl[ pSoldier->usAnimState ].ubHeight;
+}
+
+// why not functions? because these are typeless
+#define MINMAX(iMin, iMax, iVal) min(iMax, max(iMin, iVal))
+#define MINMAX100(iVal) MINMAX(0, 100, iVal)
+#define MINMAX100N(iVal) MINMAX(-100, 100, iVal)
+
+/*
+* Calculates the total camouflage for the corresponding type.
+*
+* @comment I don't want to repetitivly use code that should be part of the pSoldier class, so I made a oo-c-based-method
+* @comment we don't need the snow camo as we don't have a terrain type -> camouflage association for snow
+*          (meaning we would need externalisation for specifing camo effectivness based on terrain textures and not terrain types)
+*          (unfortunatly that's not only programming but alot of content-heavy work, which doesn't seem probable to happen)
+* @precondition camo on soldiertypes are correctly set
+*
+* @param pSoldier 
+* @return a value generally between 0 and 100 (but who knows if someone wants to use negative values, the basic types allow for that)
+*/
+inline INT8 GetJungleCamouflage( SOLDIERTYPE* pSoldier )
+{
+	if (HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED )) {
+		return 100;
+	}
+	
+	return MINMAX100N(pSoldier->bCamo + pSoldier->wornCamo);
+}
+inline INT8 GetDesertCamouflage( SOLDIERTYPE* pSoldier )
+{
+	if (HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_DESERT )) {
+		return 100;
+	}
+	
+	return MINMAX100N(pSoldier->desertCamo + pSoldier->wornDesertCamo);
+}
+inline INT8 GetUrbanCamouflage( SOLDIERTYPE* pSoldier )
+{
+	if (HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_URBAN )) {
+		return 100;
+	}
+	
+	return MINMAX100N(pSoldier->urbanCamo + pSoldier->wornUrbanCamo);
+}
+
+/**
+* Calculates the total stealth value of a player.
+*
+* @comment I don't want to repetitivly use code that should be part of the pSoldier class, so I made a oo-c-based-method
+*
+* @param pSoldier
+* @return ANIM_STAND or ANIM_CROUCH or ANIM_PRONE
+*/
+inline INT8 GetStealth( SOLDIERTYPE* pSoldier )
+{
+	INT16 stealth = GetWornStealth( pSoldier );
+	if (HAS_SKILL_TRAIT( pSoldier, STEALTHY ))
+	{
+		stealth += gGameExternalOptions.ubStealthTraitCoverValue * NUM_SKILL_TRAITS( pSoldier, STEALTHY );
+	}
+
+	return MINMAX100N(stealth);
+}
+
+/**
+* Gives back a valid terrainId for a specified GridNo
+*
+* @comment I don't want to repetitivly use code that should be part of the pSoldier class, so I made a oo-c-based-method
+* @comment the current method GetTerrainType doesn't check for more info, but for camouflage we need that extra info
+* 
+* @param pSoldier
+* @return ANIM_STAND or ANIM_CROUCH or ANIM_PRONE
+*/
+INT8 GetTerrainTypeForGrid( const UINT16& sGridNo )
+{
+	if (gpWorldLevelData[sGridNo].ubTerrainID != NO_TERRAIN)
+	{
+		return gpWorldLevelData[sGridNo].ubTerrainID;
+	}
+
+	// Check if we have anything in object layer which has a terrain modifier
+	LEVELNODE* pNode = gpWorldLevelData[ sGridNo ].pObjectHead;
+	if ( pNode != NULL )
+	{
+		if ( gTileDatabase[ pNode->usIndex ].ubTerrainID != NO_TERRAIN )
+		{
+			return gTileDatabase[ pNode->usIndex ].ubTerrainID ;
+		}
+	}
+
+	// Now try terrain!
+	pNode = gpWorldLevelData[ sGridNo ].pLandHead;
+
+	return gTileDatabase[ pNode->usIndex ].ubTerrainID;
+}
+
+// the following functions should return percentage values which can be easily added/substracted from
+// the sight reduction variable inside the Soldier-sight-test.
+// This means we specify here how much each test counts towards the total.
+// e.g. camouflage of 100 at stance prone on perfect terrain will give back "-50" as value, indicating a 50% sight reduction
+
+/**
+* Calculates a percentage value to be added (or substracted) from sight. it's based on the camouflage and stance of the soldier, as well as the type of terrain.
+* - usually it should return something smaller than 0 but we might give a bonus in a later version if the target wears a red-glowing hat
+*
+* @param pSoldier the target needed to get the correct camouflage info
+* @param ubTerrainType terrain type defined by TerrainTypeDefines
+* @return a negative value will indicate a reduction of sight, a positive one an addition to sight
+*/
+INT8 GetSightAdjustmentCamouflageOnTerrain( SOLDIERTYPE* pSoldier, const UINT8& ubStance, const UINT8& ubTerrainType )
+{
+	if (gGameExternalOptions.ubCamouflageEffectiveness == 0) {
+		return 0;
+	}
+
+	// current implementation will assume the return will be below 0 and then scale it depending on your stance
+	INT8 scaler = -(ANIM_STAND - ubStance) * 5; // stand = 0%, crouch = 6-3 = 30%, prone = 6-1 = 50;
+
+	// last term corresponds to the maximum of scaler before
+	scaler *= gGameExternalOptions.ubCamouflageEffectiveness / 50;
+
+	switch(ubTerrainType) {
+		case LOW_GRASS:
+		case HIGH_GRASS:
+			return GetJungleCamouflage(pSoldier) * scaler/100;
+		case FLAT_FLOOR:
+		case PAVED_ROAD:
+			return GetUrbanCamouflage(pSoldier) * scaler/100;
+		case DIRT_ROAD:
+		case TRAIN_TRACKS:
+			return GetDesertCamouflage(pSoldier) * scaler/100;
+		case FLAT_GROUND:
+			// here it would be best if we could have a terrain texture -> camo association instead of terrain type -> camo
+			//  but we need to allow modders to specify that information in an xml file
+			// this is because flat ground is used by both (it's irritating to see wood camo work perfectly on brown ground, at least ingame)
+			return max( GetDesertCamouflage(pSoldier), GetJungleCamouflage(pSoldier) ) * scaler/100;
+		default:
+			return 0;
+	}
+}
+
+/**
+* Calculates a percentage value to be added (or substracted) from sight. it's based on the movement of a soldier and the brightness level.
+* - this will be used to calculate the penalty (sight addition) which occurs on the soldier who is been spot-tested
+* - it also will be used to reduce the ability to find others if the spotter moves
+*
+* @param pSoldier the target
+* @return a negative value will indicate a reduction of sight, a positive one an addition to sight
+*/
+INT8 GetSightAdjustmentThroughMovement( SOLDIERTYPE* pSoldier, const INT8& bTilesMoved, const UINT8& ubLightlevel  )
+{
+	if (!gGameExternalOptions.fMovementSightAdjustment) {
+		return 0;
+	}
+
+	INT8 stealth = GetStealth(pSoldier);
+
+	INT8 bMovementAdjustment = bTilesMoved * ( 100 - stealth ) / 100;
+
+	UINT8 ubBrightness = SHADE_MIN - ubLightlevel; // 3: starlight, 5: evening dark, 15: day
+	UINT8 ubScalerInPercent = 6 * ubBrightness; //0:0, 15:90
+
+	return bMovementAdjustment * ubScalerInPercent / 100;
+}
+
+INT8 GetSightAdjustmentThroughStance( const UINT8& ubStance )
+{
+	if (!gGameExternalOptions.fStanceSightAdjustment) {
+		return 0;
+	}
+
+	// well why do we have a positive number here?
+	// just because I wanted to have logic which goes both directions
+	INT8 bStanceAdjustment = (ubStance - 3) * 2; // stand = 15%, crouch = 0%, prone = -10%
+
+	return bStanceAdjustment;
+}
+
+/**
+* TODO: Figure out how to find out your equipment cost. Big equipment will make you more visible! we could go after the load itself (kg)
+* TODO: but we still want a backpack to count more than your vest
+* 
+* Calculates a percentage value to be added (or substracted) from sight. it's based on the amount of LBE.
+*
+* @param pSoldier the target
+* @return a negative value will indicate a reduction of sight, a positive one an addition to sight
+*/
+INT8 GetSightAdjustmentBasedOnLBE( SOLDIERTYPE* pSoldier )
+{
+	if (!gGameExternalOptions.fLBESightAdjustment) {
+		return 0;
+	}
+
+	// ....
+	//if(UsingNewInventorySystem() == true && pSoldier->inv[BPACKPOCKPOS].exists() == true) {
+		//pSoldier->inv[BPACKPOCKPOS]
+		//CalculateObjectWeight
+	//}
+	return 0;
+}
+
+/**
+* Calculates a percentage value to be added (or substracted) from sight. it's based on the stealth value and the brightness.
+* - usually it should return something smaller than 0 but we might give a bonus if the target uses a lamp for better viewing (LAM-Lamp) which the spotter can see
+*
+* @param pSoldier the target
+* @param ubLightLevel light level given back by the LightTrueLevel function
+* @return a negative value will indicate a reduction of sight, a positive one an addition to sight
+*/
+INT8 GetSightAdjustmentStealthAtLightLevel( SOLDIERTYPE* pSoldier, const UINT8& ubLightlevel )
+{
+	if (gGameExternalOptions.ubStealthEffectiveness == 0) {
+		return 0;
+	}
+
+	INT8 ibStealthInPercent = GetStealth( pSoldier );
+
+	// set scaler to scale with light level
+	UINT8 ubBrightness = SHADE_MIN - ubLightlevel; // 3: starlight, 5: evening dark, 15: day
+	UINT8 ubScaler = -4 * ubBrightness + 60; //0:60, 15:0
+
+	// last term corresponds to the maximum of ubScaler before
+	ubScaler *= gGameExternalOptions.ubStealthEffectiveness / 60;
+
+	return (INT8) MINMAX100N( - ibStealthInPercent * ubScaler / 100);
+}
+
+/**
+* Calculates a percentage value used for trees that hide you. Will be used inside line of sight function.
+* - It's based on the tree "height", fill and density.
+* - As well as range and you point of intersection
+* - can go up to 100% hiding
+*
+* @param iRange one tile = 10 range
+* @param pTreeStructure a structure containing the tree you want to check
+* @param ubHeightLevel between 1 and 4 of the current merc
+* @return >=0 the percentage a tree will give a bonus to hiding / view range degradation
+*/
+INT8 GetSightAdjustmentBehindStructure( const INT16& iRange, STRUCTURE* pStructure, const UINT8& ubHeightLevel )
+{
+	if (gGameExternalOptions.ubTreeCoverEffectiveness == 0) {
+		return 0;
+	}
+
+	// Assertions here because we might need this function in other line of sight tests
+	Assert( ubHeightLevel >= 1 );
+	Assert( ubHeightLevel <= 4 );
+	Assert( pStructure != NULL );
+	Assert( iRange >= 0 ); // ==0 for you being inside a passable tree
+
+	// pStructure->fFlags & STRUCTURE_TREE
+	UINT8 ubLevels[4];
+	if (StructureDensity( pStructure, &ubLevels[0], &ubLevels[1], &ubLevels[2], &ubLevels[3] ) != TRUE)
+	{
+		return 0; // this structure has no density therefore no additional sight adjustment possible
+	}
+	
+	//const UINT8& ubDensityInPercent = pStructure->pDBStructureRef->pDBStructure->ubDensity;
+	UINT16 ubFillInPercent = ubLevels[ubHeightLevel-1];
+
+	Assert( ubFillInPercent >= 0 );
+	Assert( ubFillInPercent <= 100 );
+
+	// these scalers are for backwards compatibility to mods
+	UINT8 ubCloseRangeScaler = iRange > CLOSE_TO_FIRER; // zero or 1
+	INT16 ubLongRangeScaler = iRange > 100 ? iRange / 100 : 1;
+
+	//* ubDensityInPercent / 100 we assume densitiy is used for bullets
+	// we make the fill less effective
+	INT8 ubSolidityInPercent = ubFillInPercent * gGameExternalOptions.ubTreeCoverEffectiveness / 100;
+
+	INT8 ubResult = MINMAX100N(- ubSolidityInPercent * ubCloseRangeScaler * ubLongRangeScaler);
+
+	return  ubResult; 
+}
+
+/*
+* Easy way to get all sight adjustments into one that affect a soldier
+*/
+INT16 GetSightAdjustment( SOLDIERTYPE* pSoldier, INT16 sGridNo, INT8 bStance )
+{
+	if (sGridNo == -1) {
+		sGridNo = pSoldier->sGridNo;
+	}
+
+	if (bStance == -1) {
+		bStance = GetCurrentHeightOfSoldier( pSoldier );
+	}
+
+	UINT8 ubTerrainType = GetTerrainTypeForGrid( sGridNo );
+	UINT8 ubLightLevel = LightTrueLevel( sGridNo, gsInterfaceLevel );
+
+	INT16 iSightAdjustment = 0;
+
+	// general stuff (independant of soldier)
+	iSightAdjustment += GetSightAdjustmentThroughStance( bStance );
+
+	// context sensitive (needs soldier)
+	iSightAdjustment += GetSightAdjustmentBasedOnLBE( pSoldier );
+
+	// context sensitive stuff with 2nd parameter (needs soldier for attributes but can be given a second parameter)
+	iSightAdjustment += GetSightAdjustmentThroughMovement( pSoldier, pSoldier->bTilesMoved, ubLightLevel );
+	iSightAdjustment += GetSightAdjustmentStealthAtLightLevel( pSoldier, ubLightLevel );
+	iSightAdjustment += GetSightAdjustmentCamouflageOnTerrain( pSoldier, bStance, ubTerrainType );
+
+	return MINMAX100N(iSightAdjustment);
+}
 
 BOOLEAN ResolveHitOnWall( STRUCTURE * pStructure, INT32 iGridNo, INT8 bLOSIndexX, INT8 bLOSIndexY, DOUBLE ddHorizAngle )
 {
@@ -724,7 +1047,7 @@ BOOLEAN ResolveHitOnWall( STRUCTURE * pStructure, INT32 iGridNo, INT8 bLOSIndexX
 * - stops at other obstacles
 *
 */
-INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, int iTileSightLimit, UINT8 ubTreeSightReduction, INT8 bAware, INT32 bCamouflage, BOOLEAN fSmell, INT16 * psWindowGridNo, bool adjustForSight = true )
+INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, int iTileSightLimit, INT8 bAware, BOOLEAN fSmell, INT16 * psWindowGridNo, bool adjustForSight = true )
 {
 	// Parameters...
 	// the X,Y,Z triplets should be obvious
@@ -819,13 +1142,6 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("LineOfSightTest: Thermal Optics = %d",fSmell));
 
-
-	if (!bAware && !fSmell)
-	{
-		// trees are x3 as good at reducing sight if looker is unaware
-		// and increase that up to double for camouflage!
-		ubTreeSightReduction = (ubTreeSightReduction * 3) * (100 + bCamouflage) / 100;
-	}
 	// verify start and end to make sure we'll always be inside the map
 
 	// hack end location to the centre of the tile, because there was a problem
@@ -1258,19 +1574,9 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 									{
 										if (pStructure->fFlags & STRUCTURE_TREE)
 										{
-											// don't count trees close to the person
-											if (iLoop > CLOSE_TO_FIRER)
-											{
-												if (iLoop > 100)
-												{
-													// at longer range increase the value of tree cover
-													iAdjSightLimit -= (ubTreeSightReduction * iLoop) / 100;
-												}
-												else
-												{
-													// use standard value
-													iAdjSightLimit -= ubTreeSightReduction;
-												}
+											INT8 adjustment = GetSightAdjustmentBehindStructure( iLoop, pStructure, iCurrCubesAboveLevelZ+1 );
+											iAdjSightLimit = iAdjSightLimit + iAdjSightLimit * adjustment/100;
+
 #ifdef LOS_DEBUG
 												gLOSTestResults.ubTreeSpotsHit++;
 												gLOSTestResults.iMaxDistance = iSightLimit;
@@ -1285,7 +1591,6 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 													return( 0 );
 												}
 											}
-										}
 										else if ( (pStructure->fFlags & STRUCTURE_WALLNWINDOW) && !(pStructure->fFlags & STRUCTURE_SPECIAL) && qCurrZ >= (gqStandardWindowBottomHeight + qLandHeight) && qCurrZ <= (gqStandardWindowTopHeight + qLandHeight))
 										{
 											// do nothing; windows are transparent (except ones marked as special)
@@ -1670,17 +1975,15 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 	return( TRUE );
 }
 
+// this is the only function which actually uses the SightAdjustment directly, as it knows that you want to point to a soldier and therefore it can 
+// calculate all stealthy stuff of that soldier so the "start soldier" cant see him that good
 INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, INT8 bAware, int iTileSightLimit, UINT8 ubAimLocation, bool adjustForSight )
 {
 	FLOAT			dStartZPos, dEndZPos;
 	BOOLEAN		fOk;
 	BOOLEAN		fSmell;
-	INT16			bEffectiveCamo;
-	INT16			bEffectiveStealth;
-	UINT8			ubTreeReduction;
 	UINT8			ubPosType;
 
-	// TO ADD: if target is camouflaged and in cover, reduce sight distance by 30%
 	// TO ADD: if in tear gas, reduce sight limit to 2 tiles
 	CHECKF( pStartSoldier );
 	CHECKF( pEndSoldier );
@@ -1759,98 +2062,27 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		}
 	}
 
-	//get the total camouflage
-	int jungle = max(1,min(100,pEndSoldier->bCamo + pEndSoldier->wornCamo));
-	int urban = max(1,min(100,pEndSoldier->urbanCamo + pEndSoldier->wornUrbanCamo));
-	int desert = max(1,min(100,pEndSoldier->desertCamo + pEndSoldier->wornDesertCamo));
-	int snow = max(1,min(100,pEndSoldier->snowCamo + pEndSoldier->wornSnowCamo));
-	int totalCamo = max(1,min(100,jungle + urban + desert + snow));
-
-	if ( ( totalCamo ) > 0 && !bAware )
-	{
-
-		// reduce effects of camo of 5% per tile moved last turn
-		if ( pEndSoldier->ubBodyType == BLOODCAT )
-		{
-			bEffectiveCamo = 100 - pEndSoldier->bTilesMoved * 5;
-		}
-		else
-		{
-			bEffectiveCamo = max(0,min(100,(totalCamo))) * (100 - pEndSoldier->bTilesMoved * 5) / 100;
-		}
-		bEffectiveCamo = __max( bEffectiveCamo, 0 );
-
-		if ( gAnimControl[ pEndSoldier->usAnimState ].ubEndHeight < ANIM_STAND )
-		{
-			// reduce visibility by up to a third for camouflage!
-			switch( pEndSoldier->bOverTerrainType )
-			{
-			case LOW_GRASS:
-			case HIGH_GRASS:	// jungle camo bonus
-				iTileSightLimit -= iTileSightLimit * (jungle * bEffectiveCamo / 3 / totalCamo) / 100;
-				break;
-			case FLAT_FLOOR: // flat floor = indoors
-			case PAVED_ROAD: // urban camo bonus
-				iTileSightLimit -= iTileSightLimit * (urban * bEffectiveCamo / 3 / totalCamo) / 100;
-				break;
-			case DIRT_ROAD:	// desert camo bonus
-			case TRAIN_TRACKS:
-				iTileSightLimit -= iTileSightLimit * (desert * bEffectiveCamo / 3 / totalCamo) / 100;
-				break;
-				//case ??? :	// snow camo bonus
-				//	iTileSightLimit -= iTileSightLimit * (snow * bEffectiveCamo / 3 / totalCamo) / 100;
-				//	break;
-			case FLAT_GROUND:
-				//in this case both desert and jungle can work:
-				iTileSightLimit -= iTileSightLimit * (jungle * bEffectiveCamo / 3 / totalCamo) / 100;
-				iTileSightLimit -= iTileSightLimit * (desert * bEffectiveCamo / 3 / totalCamo) / 100;
-				break;
-			default:
-				break;
-			}
-		}
-	}
-	else
-	{
-		bEffectiveCamo = 0;
-	}
-
-	//Madd: added - note stealth is capped at 100 just like camo
-	if ( ( GetWornStealth(pEndSoldier) ) > 0 && !bAware )
-	{
-
-		// reduce effects of stealth by 5% per tile moved last turn
-		bEffectiveStealth = max(0,min(100,(GetWornStealth(pEndSoldier)))) * (100 - pEndSoldier->bTilesMoved * 5) / 100;
-
-		bEffectiveStealth = __max( bEffectiveStealth, 0 );
-
-		// reduce visibility by up to a third for Stealth!
-		// stance and terrain don't matter
-		iTileSightLimit -= iTileSightLimit * (bEffectiveStealth / 3) / 100;
-	}
-	else
-	{
-		bEffectiveStealth = 0;
-	}
-
-	if ( TANK( pEndSoldier ) )
-	{
-		ubTreeReduction = 0;
-	}
-	else
-	{
-		ubTreeReduction = gubTreeSightReduction[ gAnimControl[pEndSoldier->usAnimState].ubEndHeight ];
-	}
-
+	// needed for sight limit calculation
 	if (iTileSightLimit == CALC_FROM_ALL_DIRS || iTileSightLimit == CALC_FROM_WANTED_DIR) {
 		iTileSightLimit = pStartSoldier->GetMaxDistanceVisible( pEndSoldier->sGridNo, pEndSoldier->pathing.bLevel, iTileSightLimit );
-	}
-	else if (iTileSightLimit == NO_DISTANCE_LIMIT) {
-		iTileSightLimit = 255 + pStartSoldier->GetMaxDistanceVisible( pEndSoldier->sGridNo, pEndSoldier->pathing.bLevel, CALC_FROM_ALL_DIRS );
+		iTileSightLimit += iTileSightLimit * GetSightAdjustment(pEndSoldier) / 100;
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos, iTileSightLimit, ubTreeReduction, bAware, bEffectiveCamo + bEffectiveStealth, fSmell, NULL, adjustForSight ) );
-}
+	// needed for gun hit calculation (can you even hit him)
+	else if (iTileSightLimit == NO_DISTANCE_LIMIT) {
+		iTileSightLimit = pStartSoldier->GetMaxDistanceVisible( pEndSoldier->sGridNo, pEndSoldier->pathing.bLevel, CALC_FROM_ALL_DIRS );
+		iTileSightLimit += iTileSightLimit * GetSightAdjustment(pEndSoldier) / 100;
+		iTileSightLimit += 255; // this shifts the limit for something special (we don't know yet)
+	}
+
+	// we assume that if we are given a limit it doesn't include stealth or similar stuff
+	// for other function we assume the opposite but not this one, as we here are given the needed target soldier information to calculate sight adjustment
+	else {
+		iTileSightLimit += iTileSightLimit * GetSightAdjustment(pEndSoldier) / 100;
+	}
+
+	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos, iTileSightLimit, bAware, fSmell, NULL, adjustForSight ) );
+	}
 
 INT16 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT16 sEndGridNo )
 {
@@ -1875,7 +2107,7 @@ INT16 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT16 sEndGridNo
 	//ADB changed from 255 to 511 to handle new LOS test
 	// We don't want to consider distance limits here so pass in tile sight limit of 255( + 256)
 	// and consider trees as little as possible
-	iRet = LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, 511, 0, TRUE, 0, FALSE, &sWindowGridNo );
+	iRet = LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, 511, TRUE, FALSE, &sWindowGridNo );
 
 	return( sWindowGridNo );
 }
@@ -1923,7 +2155,7 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGr
 		iTileSightLimit = 255 + pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel, CALC_FROM_ALL_DIRS );
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, HasThermalOptics( pStartSoldier), NULL, adjustForSight ) );
+	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, bAware, HasThermalOptics( pStartSoldier), NULL, adjustForSight ) );
 }
 
 INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bStance, INT8 bAware, int iTileSightLimit )
@@ -1958,7 +2190,6 @@ INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16
 		dEndZPos += WALL_HEIGHT_UNITS;
 	}
 
-
 	ConvertGridNoToXY( sGridNo, &sXPos, &sYPos );
 	sXPos = sXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
 	sYPos = sYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
@@ -1970,7 +2201,7 @@ INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16
 		iTileSightLimit = 255 + pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel, CALC_FROM_ALL_DIRS );
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, HasThermalOptics( pStartSoldier), NULL ) );
+	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, bAware, HasThermalOptics( pStartSoldier), NULL, false ) );
 }
 
 INT32 LocationToLocationLineOfSightTest( INT16 sStartGridNo, INT8 bStartLevel, INT16 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit )
@@ -2008,7 +2239,7 @@ INT32 LocationToLocationLineOfSightTest( INT16 sStartGridNo, INT8 bStartLevel, I
 	else if (iTileSightLimit == NO_DISTANCE_LIMIT) {
 		iTileSightLimit = 255 + MaxNormalDistanceVisible();
 	}
-	return( LineOfSightTest( (FLOAT)sStartXPos, (FLOAT)sStartYPos, dStartZPos, (FLOAT) sEndXPos, (FLOAT) sEndYPos, dEndZPos, iTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, FALSE, NULL ) );
+	return( LineOfSightTest( (FLOAT)sStartXPos, (FLOAT)sStartYPos, dStartZPos, (FLOAT) sEndXPos, (FLOAT) sEndYPos, dEndZPos, iTileSightLimit, bAware, FALSE, NULL ) );
 }
 
 /*

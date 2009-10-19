@@ -133,8 +133,8 @@ BOOLEAN LoadGameSettings()
 	gGameSettings.ubSpeechVolume                                    = iniReader.ReadInteger("JA2 Game Settings","ubSpeechVolume"                           ,  MIDVOLUME ,  0 , HIGHVOLUME );
 	gGameSettings.uiMeanwhileScenesSeenFlags                        = iniReader.ReadUINT32 ("JA2 Game Settings","uiMeanwhileScenesSeenFlags"               ,  0         ,  0 , UINT_MAX );
 	gGameSettings.fHideHelpInAllScreens                             = iniReader.ReadBoolean("JA2 Game Settings","fHideHelpInAllScreens"                    ,  FALSE );
-	gGameSettings.ubSizeOfDisplayCover                              = iniReader.ReadInteger("JA2 Game Settings","ubSizeOfDisplayCover"                     ,  DC__MIN_SIZE , DC__MIN_SIZE , DC__MAX_SIZE );
-	gGameSettings.ubSizeOfLOS                                       = iniReader.ReadInteger("JA2 Game Settings","ubSizeOfLOS"                              ,  DC__MIN_SIZE , DC__MIN_SIZE , DC__MAX_SIZE );
+	//gGameSettings.ubSizeOfDisplayCover                              = iniReader.ReadInteger("JA2 Game Settings","ubSizeOfDisplayCover"                     ,  DC__MIN_SIZE , DC__MIN_SIZE , DC__MAX_SIZE );
+	//gGameSettings.ubSizeOfLOS                                       = iniReader.ReadInteger("JA2 Game Settings","ubSizeOfLOS"                              ,  DC__MIN_SIZE , DC__MIN_SIZE , DC__MAX_SIZE );
 	gGameSettings.fOptions[TOPTION_SPEECH]                          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SPEECH"                           ,  TRUE  );
 	gGameSettings.fOptions[TOPTION_MUTE_CONFIRMATIONS]              = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MUTE_CONFIRMATIONS"               ,  FALSE );
 	gGameSettings.fOptions[TOPTION_SUBTITLES]                       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SUBTITLES"                        ,  TRUE  );
@@ -289,8 +289,8 @@ BOOLEAN	SaveGameSettings()
 	settings << ";        UINT8    fOptions[ NUM_ALL_GAME_OPTIONS ];   // Toggle Options (Speech, Subtitles, Show Tree Tops, etc.. )" << endl;
 	settings << ";        UINT32   uiMeanwhileScenesSeenFlags;         // Bit Vector describing seen 'mean whiles..'" << endl;
 	settings << ";        BOOLEAN  fHideHelpInAllScreens;              // Controls Help \"do not show help again\" checkbox" << endl;
-	settings << ";        UINT8    ubSizeOfDisplayCover;               // The number of grids the player designates thru [Delete + ( = or - )]" << endl;
-	settings << ";        UINT8    ubSizeOfLOS;                        // The number of grids the player designates thru [End    + ( = or - )]" << endl;
+	//settings << ";        UINT8    ubSizeOfDisplayCover;               // The number of grids the player designates thru [Delete + ( = or - )]" << endl;
+	//settings << ";        UINT8    ubSizeOfLOS;                        // The number of grids the player designates thru [End    + ( = or - )]" << endl;
 	settings << ";    } GAME_SETTINGS" << endl;
 	settings << ";" << endl;
 	settings << ";******************************************************************************************************************************" << endl;
@@ -303,8 +303,8 @@ BOOLEAN	SaveGameSettings()
 	settings << "ubSpeechVolume                           = " << (int)gGameSettings.ubSpeechVolume << endl;
 	settings << "uiMeanwhileScenesSeenFlags               = " << gGameSettings.uiMeanwhileScenesSeenFlags << endl;
 	settings << "fHideHelpInAllScreens                    = " << (gGameSettings.fHideHelpInAllScreens								?    "TRUE" : "FALSE" ) << endl;
-	settings << "ubSizeOfDisplayCover                     = " << (int)gGameSettings.ubSizeOfDisplayCover << endl;
-	settings << "ubSizeOfLOS                              = " << (int)gGameSettings.ubSizeOfLOS << endl;
+	//settings << "ubSizeOfDisplayCover                     = " << (int)gGameSettings.ubSizeOfDisplayCover << endl;
+	//settings << "ubSizeOfLOS                              = " << (int)gGameSettings.ubSizeOfLOS << endl;
 	settings << "TOPTION_SPEECH                           = " << (gGameSettings.fOptions[TOPTION_SPEECH]							?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_MUTE_CONFIRMATIONS               = " << (gGameSettings.fOptions[TOPTION_MUTE_CONFIRMATIONS]				?	 "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_SUBTITLES                        = " << (gGameSettings.fOptions[TOPTION_SUBTITLES]							?    "TRUE" : "FALSE" ) << endl;
@@ -461,6 +461,9 @@ void InitGameSettings()
 
 	// enum control options (not real options but included here for the sake of complete control of values)
 
+	//gGameSettings.ubSizeOfDisplayCover = 16;
+	//gGameSettings.ubSizeOfLOS = 16;
+
 	// ary-05/05/2009 : TOPTION_LAST_OPTION is THE LAST options screen toggle option that exists. (its still an option, and its < NUM_GAME_OPTIONS)
 	//		 : intended for debugging options screen final page. test to avoid last page over or under extension. 
 	//		 : might be useful in future of toggle option content developement.
@@ -474,9 +477,6 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_TRACKING_MODE ]						= TRUE;
 
 	gGameSettings.fOptions[	NUM_ALL_GAME_OPTIONS ]						= FALSE; // Absolute final end of enum
-
-	gGameSettings.ubSizeOfDisplayCover = 4;
-	gGameSettings.ubSizeOfLOS = 4;
 
 	//Since we just set the settings, save them
 	SaveGameSettings();
@@ -1005,6 +1005,17 @@ void LoadGameExternalOptions()
 
 	// HEADROCK HAM B2.4
 	gGameExternalOptions.iMineIncomePercentage				= iniReader.ReadInteger("JA2 HAM Settings","MINE_INCOME_PERCENTAGE", 100, 1, 1000);
+	
+	// CPT: Cover System Settings
+	gGameExternalOptions.ubStealthTraitCoverValue = iniReader.ReadInteger("JA2 Gameplay Settings","STEALTH_TRAIT_COVER_VALUE", 15, 0, 100);
+	gGameExternalOptions.ubStealthEffectiveness = iniReader.ReadInteger("JA2 Gameplay Settings", "STEALTH_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubTreeCoverEffectiveness = iniReader.ReadInteger("JA2 Gameplay Settings","TREE_COVER_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubCamouflageEffectiveness = iniReader.ReadInteger("JA2 Gameplay Settings", "CAMOUFLAGE_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubCoverDisplayUpdateWait = iniReader.ReadInteger("JA2 Gameplay Settings", "COVER_DISPLAY_UPDATE_WAIT", 500, -1, 10000);
+
+	gGameExternalOptions.fMovementSightAdjustment = iniReader.ReadBoolean("JA2 Gameplay Settings", "MOVEMENT_SIGHT_ADJUSTMENT", TRUE);
+	gGameExternalOptions.fStanceSightAdjustment = iniReader.ReadBoolean("JA2 Gameplay Settings", "STANCE_SIGHT_ADJUSTMENT", TRUE);
+	gGameExternalOptions.fLBESightAdjustment = iniReader.ReadBoolean("JA2 Gameplay Settings", "LBE_SIGHT_ADJUSTMENT", TRUE);
 
 	// HEADROCK HAM B1: Set minimum and maximum CTH
 	gGameExternalOptions.iMaximumCTH						= iniReader.ReadInteger("JA2 HAM Settings","MAXIMUM_POSSIBLE_CTH",99);

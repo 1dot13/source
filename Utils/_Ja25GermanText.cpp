@@ -17,14 +17,14 @@ void this_is_the_Ja25GermanText_public_symbol(void){;}
 
 STR16	zNewTacticalMessages[]=
 {
-	L"Entfernung zum Ziel: %d Felder, Helligkeit: %d/%d",
+	//L"Entfernung zum Ziel: %d Felder, Helligkeit: %d/%d",
 	L"Verbinden Sie den Transmitter mit Ihrem Laptop-Computer.",
 	L"Sie haben nicht genug Geld, um %s anzuheuern",
 	L"Das obenstehende Honorar deckt für einen begrenzten Zeitraum die Kosten der Gesamtmission, und schließt untenstehendes Equipment mit ein.",
 	L"Engagieren Sie %s jetzt und nutzen Sie den Vorteil unseres beispiellosen 'Ein Betrag für alles'-Honorars. Das persönliche Equipment des Söldners ist gratis in diesem Preis mit inbegriffen.",
 	L"Honorar",
 	L"Da ist noch jemand im Sektor...",
-	L"Waffen-Rchwt.: %d Felder, Trefferwahrsch.: %d Prozent",
+	//L"Waffen-Rchwt.: %d Felder, Trefferwahrsch.: %d Prozent",
 	L"Deckung anzeigen",
 	L"Sichtfeld",
 	L"Neue Rekruten können dort nicht hinkommen.",
@@ -68,6 +68,21 @@ STR16 gzIMPSkillTraitsText[]=
 STR16	gzIronManModeWarningText[]=
 {
 	L"Sie haben sich für den Ironman- Modus entschieden. Mit dieser Einstellung können Sie das Spiel nicht speichern, wenn Feinde im Sektor sind. Sind Sie sicher, dass Sie im Ironman- Modus spielen wollen?",
+};
+
+STR16 gzDisplayCoverText[]=
+{
+	L"Cover: %d/100 %s, Brightness: %d/100",
+	L"Gun Range: %d/%d tiles, Chance to hit: %d/100",
+	L"Disabling Cover Display",
+	L"Showing Mercenary View",
+	L"Showing Cover for Mercenary",
+	L"Wood", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
+	L"Urban",
+	L"Desert",
+	L"Snow", // NOT USED!!!
+	L"Wood and Desert",
+	L"" // yes empty for now
 };
 
 

@@ -18,14 +18,14 @@ void this_is_the_Ja25DutchText_public_symbol(void){;}
 
 STR16	zNewTacticalMessages[]=
 {
-	L"Range to target: %d tiles, Brightness: %d/%d",
+	//L"Range to target: %d tiles, Brightness: %d/%d",
 	L"Attaching the transmitter to your laptop computer.",
 	L"You cannot afford to hire %s",
 	L"For a limited time, the above fee covers the cost of the entire mission and includes the equipment listed below.",
 	L"Hire %s now and take advantage of our unprecedented 'one fee covers all' pricing.  Also included in this unbelievable offer is the mercenary's personal equipment at no charge.",
 	L"Fee",
 	L"There is someone else in the sector...",
-	L"Gun Range: %d tiles, Chance to hit: %d percent",
+	//L"Gun Range: %d tiles, Chance to hit: %d percent",
 	L"Display Cover",
 	L"Line of Sight",
 	L"New Recruits cannot arrive there.",
@@ -68,6 +68,21 @@ STR16 gzIMPSkillTraitsText[]=
 STR16	gzIronManModeWarningText[]=
 {
 	L"You have chosen IRON MAN mode. This setting makes the game considerably more challenging as you will not be able to save your game when in a sector occupied by enemies. This setting will affect the entire course of the game.  Are you sure want to play in IRON MAN mode?",
+};
+
+STR16 gzDisplayCoverText[]=
+{
+	L"Cover: %d/100 %s, Brightness: %d/100",
+	L"Gun Range: %d/%d tiles, Chance to hit: %d/100",
+	L"Disabling Cover Display",
+	L"Showing Mercenary View",
+	L"Showing Cover for Mercenary",
+	L"Wood", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
+	L"Urban",
+	L"Desert",
+	L"Snow", // NOT USED!!!
+	L"Wood and Desert",
+	L"" // yes empty for now
 };
 
 

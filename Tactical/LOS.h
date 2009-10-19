@@ -2,7 +2,7 @@
 #define LOS_H
 
 //#define LOS_DEBUG
-
+#include "WorldDat.h" // needed for MAX_TILESETS
 
 // fixed-point arithmetic definitions start here
 
@@ -164,6 +164,17 @@ extern LOSResults gLOSTestResults;
 
 void MoveBullet( INT32 iBullet );
 //BOOLEAN FireBullet2( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, INT16 sHitBy );
+
+// TODO: public but at the wrong place, the original function deletes the important parts, not sure what it could brake
+// to be used in conjunction with the camo thing and the "F" key
+INT8 GetTerrainTypeForGrid( const UINT16& uGridNo );
+
+// check the flat distance adjustment based on your stance
+// use this to test your view on your surroundings based on your stance
+INT8 GetSightAdjustmentThroughStance( const UINT8& ubStance );
+
+// quick way to get all. should be used for all sight line tests with target soldier known
+INT16 GetSightAdjustment( SOLDIERTYPE* pSoldier, INT16 sGridNo = -1, INT8 bStance = -1 );
 
 //zilpin: pellet spread patterns externalized in XML
 #define SPREADPATTERN_NAME_SIZE 32

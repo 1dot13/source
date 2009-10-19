@@ -87,6 +87,7 @@
 #include "environment.h"
 #include "Map Information.h"
 #include "Soldier Control.h"
+#include "DisplayCover.h"
 #endif
 
 #include "teamturns.h"
@@ -604,6 +605,8 @@ UINT32	HandleTacticalUI( void )
 		uiNewEvent = 	guiPendingOverrideEvent;
 		guiPendingOverrideEvent = I_DO_NOTHING;
 	}
+
+	DisplayCover();
 
 	if ( HandleItemPickupMenu( ) )
 	{

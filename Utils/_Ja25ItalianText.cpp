@@ -19,14 +19,14 @@ void this_is_the_Ja25ItalianText_public_symbol(void){;}
 
 STR16	zNewTacticalMessages[]=
 {
-	L"Distanza dal bersaglio: %d caselle, Luminosità: %d/%d",
+	//L"Distanza dal bersaglio: %d caselle, Luminosità: %d/%d",
 	L"Colleghi il trasmettitore al tuo computer portatile.",
 	L"Non puoi permetterti di ingaggiare %s",
 	L"Per un periodo limitato, la tariffa qui sopra includerà i costi dell'intera missione, oltre all'equipaggiamento indicato sotto.",
 	L"Assolda %s adesso e approfitta della nostra nuova tariffa 'tutto incluso'. Compreso in questa incredibile offerta anche l'equipaggiamento personale del mercenario, senza alcun costo aggiuntivo.",
 	L"Tariffa",
 	L"C'è qualcun altro nel settore...",
-	L"Gittata dell'arma: %d caselle, Probabilità di colpire: %d percent",
+	//L"Gittata dell'arma: %d caselle, Probabilità di colpire: %d percent",
 	L"Mostra nascondigli",
 	L"Linea di Vista",
 	L"Le nuove reclute non possono arrivare qui.",
@@ -69,6 +69,21 @@ STR16 gzIMPSkillTraitsText[]=
 STR16	gzIronManModeWarningText[]=
 {
 	L"Hai scelto la modalità IRON MAN. Questa impostazione rende il gioco notevolmente più impegnativo, poiché non potrai salvare la partita in un settore occupato da nemici. Non potrai cambiare questa decisione nel corso della partita. Sei sicuro di voler giocare al livello IRON MAN?",
+};
+
+STR16 gzDisplayCoverText[]=
+{
+	L"Cover: %d/100 %s, Brightness: %d/100",
+	L"Gun Range: %d/%d tiles, Chance to hit: %d/100",
+	L"Disabling Cover Display",
+	L"Showing Mercenary View",
+	L"Showing Cover for Mercenary",
+	L"Wood", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
+	L"Urban",
+	L"Desert",
+	L"Snow", // NOT USED!!!
+	L"Wood and Desert",
+	L"" // yes empty for now
 };
 
 

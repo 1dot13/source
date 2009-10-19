@@ -25,7 +25,7 @@ STR16	zNewTacticalMessages[]=
 	L"For a limited time, the above fee covers the cost of the entire mission and includes the equipment listed below.",
 	L"Hire %s now and take advantage of our unprecedented 'one fee covers all' pricing.  Also included in this unbelievable offer is the mercenary's personal equipment at no charge.",
 	*/
-	L"目标的距离: %d格, 亮度: %d/%d",
+	//L"目标的距离: %d格, 亮度: %d/%d",
 	L"将发报机装到笔记本电脑上。",
 	L"你无法支付雇佣%s的费用",
 	L"在限定时间内，以上的费用包括了整个行动和下列装备的花费。",
@@ -39,7 +39,7 @@ STR16	zNewTacticalMessages[]=
 	*/
 	L"费用",
 	L"在本分区发现有人……",
-	L"枪的射程: %d格， 命中率: %d％",
+	//L"枪的射程: %d格， 命中率: %d％",
 	L"显示覆盖物",
 	L"视距",
 
@@ -103,6 +103,21 @@ STR16	gzIronManModeWarningText[]=
 {
 //	L"You have chosen IRON MAN mode. This setting makes the game considerably more challenging as you will not be able to save your game when in a sector occupied by enemies. This setting will affect the entire course of the game.  Are you sure want to play in IRON MAN mode?",
 	L"你选择了铁人模式。这将会游戏变得相当有挑战性，因为你无法在敌人占据的分区存档。 这个设置会影响游戏的整个进程。你确认你要在铁人模式下进行游戏吗?",
+};
+
+STR16 gzDisplayCoverText[]=
+{
+	L"Cover: %d/100 %s, Brightness: %d/100",
+	L"Gun Range: %d/%d tiles, Chance to hit: %d/100",
+	L"Disabling Cover Display",
+	L"Showing Mercenary View",
+	L"Showing Cover for Mercenary",
+	L"Wood", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
+	L"Urban",
+	L"Desert",
+	L"Snow", // NOT USED!!!
+	L"Wood and Desert",
+	L"" // yes empty for now
 };
 
 

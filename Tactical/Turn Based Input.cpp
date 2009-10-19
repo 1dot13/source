@@ -1259,10 +1259,8 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 		}
 
 		usOldMapPos = sMapPos;
-
 	}
 }
-
 
 void GetPolledKeyboardInput( UINT32 *puiNewEvent )
 {
@@ -1382,32 +1380,32 @@ void GetPolledKeyboardInput( UINT32 *puiNewEvent )
 
 	if( _KeyDown( DEL ) )
 	{
-		DisplayCoverOfSelectedGridNo( );
+		DisplayCover(TRUE);
 
 		fDeleteDown = TRUE;
 	}
 
 	if( !_KeyDown( DEL ) && fDeleteDown )
 	{
-		RemoveCoverOfSelectedGridNo();
+		//EMPTY
 
 		fDeleteDown = FALSE;
 	}
 
 	if( _KeyDown( END ) )
 	{
-		DisplayGridNoVisibleToSoldierGrid( );
+		//EMPTY
 
 		fEndDown = TRUE;
 	}
 
 	if( !_KeyDown( END ) && fEndDown )
 	{
-		RemoveVisibleGridNoAtSelectedGridNo();
+		//EMPTY
+		SwitchCoverDrawMode();
 
 		fEndDown = FALSE;
 	}
-
 }
 
 
@@ -3774,11 +3772,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				//if the display cover or line of sight is being displayed
 				if( _KeyDown( END ) || _KeyDown( DEL ) )
 				{
-					if( _KeyDown( DEL ) )
-						ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover + 1 );
+					//f( _KeyDown( DEL ) )
+						//ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover + 1 );
 
-					if( _KeyDown( END ) )
-						ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS + 1 );
+					//if( _KeyDown( END ) )
+						//ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS + 1 );
 				}
 				else
 				{
@@ -4020,11 +4018,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				//if the display cover or line of sight is being displayed
 				if( _KeyDown( END ) || _KeyDown( DEL ) )
 				{
-					if( _KeyDown( DEL ) )
-						ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover - 1 );
+					//if( _KeyDown( DEL ) )
+						//ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover - 1 );
 
-					if( _KeyDown( END ) )
-						ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS - 1 );
+					//if( _KeyDown( END ) )
+						//ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS - 1 );
 				}
 				else
 				{

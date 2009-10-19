@@ -80,6 +80,7 @@ enum
 	TOPTION_HIDE_BULLETS,
 	TOPTION_TRACKING_MODE,
 
+
 	NUM_ALL_GAME_OPTIONS,
 };	
 
@@ -505,6 +506,17 @@ BOOLEAN gbBulletTracer;
 
 	// WANNE: Always use "prof.dat".
 	BOOLEAN fAlwaysUseProfDat;
+
+	// CPT: Cover System Settings
+	UINT8 ubStealthTraitCoverValue;
+	UINT8 ubStealthEffectiveness;
+	UINT8 ubTreeCoverEffectiveness;
+	UINT8 ubCamouflageEffectiveness;
+	UINT8 ubCoverDisplayUpdateWait;
+
+	BOOLEAN fMovementSightAdjustment;
+	BOOLEAN fStanceSightAdjustment;
+	BOOLEAN fLBESightAdjustment;
 
 	// HEADROCK HAM B1: Global modifier for mine income (0 is automatically turned to 1 to avoid divide-by-zero.)
 	INT16 iMineIncomePercentage;
