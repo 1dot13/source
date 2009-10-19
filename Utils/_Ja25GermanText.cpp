@@ -72,16 +72,16 @@ STR16	gzIronManModeWarningText[]=
 
 STR16 gzDisplayCoverText[]=
 {
-	L"Cover: %d/100 %s, Brightness: %d/100",
-	L"Gun Range: %d/%d tiles, Chance to hit: %d/100",
-	L"Disabling Cover Display",
-	L"Showing Mercenary View",
-	L"Showing Cover for Mercenary",
-	L"Wood", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
-	L"Urban",
-	L"Desert",
-	L"Snow", // NOT USED!!!
-	L"Wood and Desert",
+	L"Deckung: %d/100 %s, Helligkeit: %d/100",
+	L"Waffen-Rchwt.: %d/%d Felder, Trefferwahrsch.: %d/100",
+	L"Deckungsanzeige ausschalten",
+	L"Zeige Söldneransicht",
+	L"Zeige Deckung für Söldner",
+	L"Wald", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
+	L"Stadt",
+	L"Wüste",
+	L"Schnee", // NOT USED!!!
+	L"Wald and Wüste",
 	L"" // yes empty for now
 };
 
