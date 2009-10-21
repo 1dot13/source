@@ -107,16 +107,16 @@ STR16	gzIronManModeWarningText[]=
 
 STR16 gzDisplayCoverText[]=
 {
-	L"Cover: %d/100 %s, Brightness: %d/100",
-	L"Gun Range: %d/%d tiles, Chance to hit: %d/100",
-	L"Disabling cover display",
-	L"Showing mercenary view",
-	L"Showing danger zones for mercenary",
-	L"Wood", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
-	L"Urban",
-	L"Desert",
-	L"Snow", // NOT USED!!!
-	L"Wood and Desert",
+	L"隐蔽程度: %d/100 %s, 光亮度: %d/100",
+	L"武器射程: %d/%d 格, 命中率: %d/100",
+	L"关闭隐蔽程度显示",
+	L"显示佣兵的视线",
+	L"显示佣兵的隐蔽程度",
+	L"树林", //本想用丛林, 但树林这词在德文中更短 (dschungel vs wald) // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
+	L"城市",
+	L"沙漠",
+	L"雪地", // NOT USED!!!
+	L"树林和沙漠",
 	L"" // yes empty for now
 };
 
