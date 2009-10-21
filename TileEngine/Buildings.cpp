@@ -288,7 +288,7 @@ INT32					iLoopCount = 0;
 				{
 					bSkipSpots--;
 				}
-				else /*if ( Random( uiChanceIn ) == 0 )*/
+				else if ( Random( uiChanceIn ) == 0 )
 				{
 					pBuilding->sUpClimbSpots[ pBuilding->ubNumClimbSpots ] = sCurrGridNo;
 					pBuilding->sDownClimbSpots[ pBuilding->ubNumClimbSpots ] = sRightGridNo;
@@ -307,8 +307,7 @@ INT32					iLoopCount = 0;
 #endif
 					// skip the next spot
 					bSkipSpots = 1;					
-				}
-				/*
+				}				
 				else
 				{
 					// didn't pick this location, so increase chance that next location
@@ -317,9 +316,7 @@ INT32					iLoopCount = 0;
 					{
 						uiChanceIn--;
 					}
-				}
-				*/
-
+				}				
 			}
 			else
 			{
