@@ -75,9 +75,9 @@ STR16 gzDisplayCoverText[]=
 {
 	L"Cover: %d/100 %s, Brightness: %d/100",
 	L"Gun Range: %d/%d tiles, Chance to hit: %d/100",
-	L"Disabling Cover Display",
-	L"Showing Mercenary View",
-	L"Showing Cover for Mercenary",
+	L"Disabling cover display",
+	L"Showing mercenary view",
+	L"Showing danger zones for mercenary",
 	L"Wood", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
 	L"Urban",
 	L"Desert",

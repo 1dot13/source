@@ -75,8 +75,8 @@ STR16 gzDisplayCoverText[]=
 	L"Deckung: %d/100 %s, Helligkeit: %d/100",
 	L"Waffen-Rchwt.: %d/%d Felder, Trefferwahrsch.: %d/100",
 	L"Deckungsanzeige ausschalten",
-	L"Zeige Söldneransicht",
-	L"Zeige Deckung für Söldner",
+	L"Zeige Ansicht für Söldner",
+	L"Zeige Gefahrenbereich für Söldner",
 	L"Wald", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
 	L"Stadt",
 	L"Wüste",
