@@ -10378,4 +10378,68 @@
 		<szBRName>5.45x39mm HP US Munitionskiste</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1344</uiIndex>
+		<szItemName>7.62x39 Mag US</szItemName>
+		<szLongItemName>7.62x39mm Magazin US</szLongItemName>
+		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39 Mag US</szBRName>
+		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1345</uiIndex>
+		<szItemName>7.62x39 US-HS</szItemName>
+		<szLongItemName>7.62x39mm Magazin, US-HS</szLongItemName>
+		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39 Mag US-HS</szBRName>
+		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1346</uiIndex>
+		<szItemName>7.62x39 Mag US</szItemName>
+		<szLongItemName>7.62x39mm Magazin US</szLongItemName>
+		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39 Mag US</szBRName>
+		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1347</uiIndex>
+		<szItemName>7.62x39 US-HS</szItemName>
+		<szLongItemName>7.62x39mm Magazin, US-HS</szLongItemName>
+		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39 Mag US-HS</szBRName>
+		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1348</uiIndex>
+		<szItemName>7.62x39 Tr. US</szItemName>
+		<szLongItemName>7.62x39mm Trommel US</szLongItemName>
+		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39 Trommel US</szBRName>
+		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1349</uiIndex>
+		<szItemName>7.62x39 US-HS</szItemName>
+		<szLongItemName>7.62x39mm Trommel, US-HS</szLongItemName>
+		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39 Tr. US-HS</szBRName>
+		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1350</uiIndex>
+		<szItemName>7.62WP US Kiste</szItemName>
+		<szLongItemName>7.62x39mm US Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 7.62x39mm.</szItemDesc>
+		<szBRName>7.62x39mm US Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1351</uiIndex>
+		<szItemName>7.62WP US-HS Kiste</szItemName>
+		<szLongItemName>7.62x39mm US-HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 7.62x39mm HP.</szItemDesc>
+		<szBRName>7.62x39mm US-HS Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
 </ITEMLIST>

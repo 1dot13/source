@@ -2831,7 +2831,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
 		<ubDeadliness>28</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
 		<usRange>310</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2897,7 +2897,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>31</ubImpact>
 		<ubDeadliness>27</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
 		<usRange>275</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2930,7 +2930,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>29</ubImpact>
 		<ubDeadliness>27</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
 		<usRange>280</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2963,7 +2963,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
 		<ubDeadliness>30</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
 		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2996,7 +2996,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
 		<ubDeadliness>31</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -5578,7 +5578,7 @@
 		<APsToReload>28</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
-		<APsToReloadManually>28</APsToReloadManually>
+		<APsToReloadManually>30</APsToReloadManually>
 		<ManualReloadSound>478</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -5674,7 +5674,7 @@
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>5</ubWeaponType>
 		<ubCalibre>21</ubCalibre>
-		<ubReadyTime>48</ubReadyTime>
+		<ubReadyTime>35</ubReadyTime>
 		<ubShotsPer4Turns>5.56</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>60</ubImpact>

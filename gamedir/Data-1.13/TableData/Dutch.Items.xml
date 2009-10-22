@@ -10752,4 +10752,68 @@
 		<szBRName>5.45x39mm HP C ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1344</uiIndex>
+		<szItemName>7.62x39mm 10 C</szItemName>
+		<szLongItemName>7.62x39mm Mag, 10 Cold</szLongItemName>
+		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39mm Mag, 10 Cold</szBRName>
+		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1345</uiIndex>
+		<szItemName>7.62x39mm Mag 10 HP C</szItemName>
+		<szLongItemName>7.62x39mm Mag, 10 HP Cold</szLongItemName>
+		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39mm Mag, 10 HP Cold</szBRName>
+		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1346</uiIndex>
+		<szItemName>7.62x39mm 30 C</szItemName>
+		<szLongItemName>7.62x39mm Mag, 30 Cold</szLongItemName>
+		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39mm Mag, 30 Cold</szBRName>
+		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1347</uiIndex>
+		<szItemName>7.62x39mm Mag 30 HP C</szItemName>
+		<szLongItemName>7.62x39mm Mag, 30 HP Cold</szLongItemName>
+		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39mm Mag, 30 HP Cold</szBRName>
+		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1348</uiIndex>
+		<szItemName>7.62x39mm Drum C</szItemName>
+		<szLongItemName>7.62x39mm Drum Cold</szLongItemName>
+		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39mm Drum Cold</szBRName>
+		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1349</uiIndex>
+		<szItemName>7.62x39mm Drum HP C</szItemName>
+		<szLongItemName>7.62x39mm Drum, HP Cold</szLongItemName>
+		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szBRName>7.62x39mm Drum, HP Cold</szBRName>
+		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1350</uiIndex>
+		<szItemName>7.62WP C crate</szItemName>
+		<szLongItemName>7.62x39mm C ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x39mm C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1351</uiIndex>
+		<szItemName>7.62WP HP C crate</szItemName>
+		<szLongItemName>7.62x39mm HP C ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x39mm HP C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
 </ITEMLIST>
