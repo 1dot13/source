@@ -79,6 +79,8 @@ const UINT8 animArr[3] = {
 #define COVER_Y_CELLS WORLD_ROWS
 #define COVER_Z_CELLS 2 // roof or no roof
 
+INT16 gsMinCellX, gsMinCellY, gsMaxCellX, gsMaxCellY = -1;
+
 CoverCell gCoverViewArea[ COVER_X_CELLS ][ COVER_Y_CELLS ][ COVER_Z_CELLS ];
 
 DWORD guiCoverNextUpdateTime = 0;
@@ -243,12 +245,17 @@ BOOLEAN HasAdjTile( const UINT8& ubX, const UINT8& ubY, const UINT8& ubZ )
 
 void AddCoverObjectsToViewArea()
 {
+	if (gsMaxCellY == -1)
+	{
+		return;
+	}
+
 	UINT8 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
-	for ( ubX=0; ubX<COVER_X_CELLS; ++ubX )
+	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
-		for ( ubY=0; ubY<COVER_Y_CELLS; ++ubY )
+		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
@@ -275,12 +282,17 @@ void AddCoverObjectsToViewArea()
 
 void RemoveCoverObjectsFromViewArea()
 {
+	if (gsMaxCellY == -1)
+	{
+		return;
+	}
+
 	UINT8 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
-	for ( ubX=0; ubX<COVER_X_CELLS; ++ubX )
+	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
-		for ( ubY=0; ubY<COVER_Y_CELLS; ++ubY )
+		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
@@ -366,9 +378,16 @@ void CalculateCover()
 
 	const INT16& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
 
-	for ( ubX=0; ubX<COVER_X_CELLS; ++ubX )
+	INT16 usTmp;
+	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp );
+	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMaxCellX, &usTmp );
+
+	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY );
+	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY );
+
+	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
-		for ( ubY=0; ubY<COVER_Y_CELLS; ++ubY )
+		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
