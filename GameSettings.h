@@ -512,11 +512,10 @@ BOOLEAN gbBulletTracer;
 	UINT8 ubStealthEffectiveness;
 	UINT8 ubTreeCoverEffectiveness;
 	UINT8 ubCamouflageEffectiveness;
+	UINT8 ubStanceEffectiveness;
+	UINT8 ubLBEEffectiveness;
+	UINT8 ubMovementEffectiveness;
 	UINT8 ubCoverDisplayUpdateWait;
-
-	BOOLEAN fMovementSightAdjustment;
-	BOOLEAN fStanceSightAdjustment;
-	BOOLEAN fLBESightAdjustment;
 
 	// HEADROCK HAM B1: Global modifier for mine income (0 is automatically turned to 1 to avoid divide-by-zero.)
 	INT16 iMineIncomePercentage;

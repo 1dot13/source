@@ -736,16 +736,14 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fQuietRealTimeSneak		= iniReader.ReadBoolean("JA2 Tactical Settings","QUIET_REAL_TIME_SNEAK", FALSE);
 
 	// CPT: Cover System Settings
-	gGameExternalOptions.ubStealthTraitCoverValue = iniReader.ReadInteger("JA2 Tactical Settings","STEALTH_TRAIT_COVER_VALUE", 15, 0, 100);
-	gGameExternalOptions.ubStealthEffectiveness = iniReader.ReadInteger("JA2 Tactical Settings", "STEALTH_EFFECTIVENESS", 50, 0, 100);
-	gGameExternalOptions.ubTreeCoverEffectiveness = iniReader.ReadInteger("JA2 Tactical Settings","TREE_COVER_EFFECTIVENESS", 50, 0, 100);
-	gGameExternalOptions.ubCamouflageEffectiveness = iniReader.ReadInteger("JA2 Tactical Settings", "CAMOUFLAGE_EFFECTIVENESS", 50, 0, 100);
-	gGameExternalOptions.ubCoverDisplayUpdateWait = iniReader.ReadInteger("JA2 Tactical Settings", "COVER_DISPLAY_UPDATE_WAIT", 500, -1, 10000);
-
-	gGameExternalOptions.fMovementSightAdjustment = iniReader.ReadBoolean("JA2 Tactical Settings", "MOVEMENT_SIGHT_ADJUSTMENT", TRUE);
-	gGameExternalOptions.fStanceSightAdjustment = iniReader.ReadBoolean("JA2 Tactical Settings", "STANCE_SIGHT_ADJUSTMENT", TRUE);
-	gGameExternalOptions.fLBESightAdjustment = iniReader.ReadBoolean("JA2 Tactical Settings", "LBE_SIGHT_ADJUSTMENT", TRUE);
-
+	gGameExternalOptions.ubStealthTraitCoverValue	= iniReader.ReadInteger("JA2 Tactical Settings", "STEALTH_TRAIT_COVER_VALUE", 15, 0, 100);
+	gGameExternalOptions.ubStealthEffectiveness		= iniReader.ReadInteger("JA2 Tactical Settings", "STEALTH_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubTreeCoverEffectiveness	= iniReader.ReadInteger("JA2 Tactical Settings", "TREE_COVER_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubCamouflageEffectiveness	= iniReader.ReadInteger("JA2 Tactical Settings", "CAMOUFLAGE_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubStanceEffectiveness		= iniReader.ReadInteger("JA2 Tactical Settings", "STANCE_EFFECTIVENESS", 10, 0, 100);
+	gGameExternalOptions.ubLBEEffectiveness			= iniReader.ReadInteger("JA2 Tactical Settings", "LBE_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubMovementEffectiveness	= iniReader.ReadInteger("JA2 Tactical Settings", "MOVEMENT_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubCoverDisplayUpdateWait	= iniReader.ReadInteger("JA2 Tactical Settings", "COVER_DISPLAY_UPDATE_WAIT", 500, -1, 10000);
 
 	//################# Rain Settings ##################
 
@@ -1017,8 +1015,6 @@ void LoadGameExternalOptions()
 
 	// HEADROCK HAM B2.4
 	gGameExternalOptions.iMineIncomePercentage				= iniReader.ReadInteger("JA2 HAM Settings","MINE_INCOME_PERCENTAGE", 100, 1, 1000);
-	
-	
 
 	// HEADROCK HAM B1: Set minimum and maximum CTH
 	gGameExternalOptions.iMaximumCTH						= iniReader.ReadInteger("JA2 HAM Settings","MAXIMUM_POSSIBLE_CTH",99);

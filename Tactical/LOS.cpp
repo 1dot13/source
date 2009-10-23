@@ -43,6 +43,7 @@
 #include "Text.h"
 #include "Quests.h"
 #include "items.h"
+#include "Item Types.h"
 #endif
 #include "fresh_header.h"
 #include "test_space.h"
@@ -503,11 +504,9 @@ INT8 GetSightAdjustmentCamouflageOnTerrain( SOLDIERTYPE* pSoldier, const UINT8& 
 		return 0;
 	}
 
-	// current implementation will assume the return will be below 0 and then scale it depending on your stance
-	INT8 scaler = -(ANIM_STAND - ubStance) * 5; // stand = 0%, crouch = 6-3 = 30%, prone = 6-1 = 50;
+	INT8 scaler = -(ANIM_STAND+1 - ubStance); // stand = 7-6 => 10%, crouch = 7-3 => 66%, prone = 7-1 => 100%;
 
-	// last term corresponds to the maximum of scaler before
-	scaler *= gGameExternalOptions.ubCamouflageEffectiveness / 50;
+	scaler = gGameExternalOptions.ubCamouflageEffectiveness * scaler / 6;
 
 	switch(ubTerrainType) {
 		case LOW_GRASS:
@@ -539,7 +538,7 @@ INT8 GetSightAdjustmentCamouflageOnTerrain( SOLDIERTYPE* pSoldier, const UINT8& 
 */
 INT8 GetSightAdjustmentThroughMovement( SOLDIERTYPE* pSoldier, const INT8& bTilesMoved, const UINT8& ubLightlevel  )
 {
-	if (!gGameExternalOptions.fMovementSightAdjustment) {
+	if (gGameExternalOptions.ubMovementEffectiveness == 0) {
 		return 0;
 	}
 
@@ -550,26 +549,21 @@ INT8 GetSightAdjustmentThroughMovement( SOLDIERTYPE* pSoldier, const INT8& bTile
 	UINT8 ubBrightness = SHADE_MIN - ubLightlevel; // 3: starlight, 5: evening dark, 15: day
 	UINT8 ubScalerInPercent = 6 * ubBrightness; //0:0, 15:90
 
-	return bMovementAdjustment * ubScalerInPercent / 100;
+	return bMovementAdjustment * ubScalerInPercent / 100 * gGameExternalOptions.ubMovementEffectiveness / 100;
 }
 
 INT8 GetSightAdjustmentThroughStance( const UINT8& ubStance )
 {
-	if (!gGameExternalOptions.fStanceSightAdjustment) {
+	if (gGameExternalOptions.ubStanceEffectiveness == 0) {
 		return 0;
 	}
 
-	// well why do we have a positive number here?
-	// just because I wanted to have logic which goes both directions
-	INT8 bStanceAdjustment = (ubStance - 3) * 2; // stand = 15%, crouch = 0%, prone = -10%
+	INT8 bStanceAdjustment = -(ANIM_STAND - ubStance) * 20; // stand = 6-6 => 0%, crouch = 6-3 => 60%, prone = 6-1 => 100%;
 
-	return bStanceAdjustment;
+	return gGameExternalOptions.ubStanceEffectiveness * bStanceAdjustment / 100;
 }
 
 /**
-* TODO: Figure out how to find out your equipment cost. Big equipment will make you more visible! we could go after the load itself (kg)
-* TODO: but we still want a backpack to count more than your vest
-* 
 * Calculates a percentage value to be added (or substracted) from sight. it's based on the amount of LBE.
 *
 * @param pSoldier the target
@@ -577,16 +571,41 @@ INT8 GetSightAdjustmentThroughStance( const UINT8& ubStance )
 */
 INT8 GetSightAdjustmentBasedOnLBE( SOLDIERTYPE* pSoldier )
 {
-	if (!gGameExternalOptions.fLBESightAdjustment) {
+	if (gGameExternalOptions.ubLBEEffectiveness == 0) {
 		return 0;
 	}
 
-	// ....
-	//if(UsingNewInventorySystem() == true && pSoldier->inv[BPACKPOCKPOS].exists() == true) {
-		//pSoldier->inv[BPACKPOCKPOS]
-		//CalculateObjectWeight
-	//}
-	return 0;
+	UINT8 ubScale = 0;
+
+	if(UsingNewInventorySystem() == true)
+	{
+		if (pSoldier->inv[HANDPOS].exists())
+		{
+			ubScale += min( 10, CalculateItemSize( &pSoldier->inv[HANDPOS] ) );
+		}
+
+		if (pSoldier->inv[SECONDHANDPOS].exists())
+		{
+			ubScale += max( 0, min( 10, CalculateItemSize( &pSoldier->inv[SECONDHANDPOS] ) ) - 5 );
+		}
+		
+		if (pSoldier->inv[CPACKPOCKPOS].exists())
+		{
+			ubScale += 5;
+		}
+
+		if (pSoldier->inv[BPACKPOCKPOS].exists())
+		{
+			ubScale += 15;
+		}
+
+		if (pSoldier->inv[GUNSLINGPOCKPOS].exists())
+		{
+			ubScale += max( 0, min( 10, CalculateItemSize( &pSoldier->inv[GUNSLINGPOCKPOS] ) ) - 5 );
+		}
+	}
+
+	return gGameExternalOptions.ubLBEEffectiveness * ubScale / 50;
 }
 
 /**
