@@ -10723,97 +10723,97 @@
 	<ITEM>
 		<uiIndex>1340</uiIndex>
 		<szItemName>5.45x39mm Mag HP C</szItemName>
-		<szLongItemName>5.45x39mm RPK-Mag, HP C</szLongItemName>
-		<szItemDesc>This 45-round mag contains 5.45 subsonic hollow point ammo.</szItemDesc>
-		<szBRName>5.45x39mm Mag, HP C</szBRName>
-		<szBRDesc>This 45-round mag contains 5.45 subsonic jacketed hollow point ammunition.</szBRDesc>
+		<szLongItemName>5.45x39mm，45发亚音速空尖弹</szLongItemName>
+		<szItemDesc>这个45发装的加长弹匣里填满了5.45x39mm亚音速被甲空尖弹。</szItemDesc>
+		<szBRName>5.45x39mm，45发亚音速空尖弹</szBRName>
+		<szBRDesc>这个45发装的加长弹匣里填满了5.45x39mm亚音速被甲空尖弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1341</uiIndex>
 		<szItemName>5.45x39mm Mag C</szItemName>
-		<szLongItemName>5.45x39mm RPK-Mag C</szLongItemName>
-		<szItemDesc>This 45-round mag holds 5.45 light armor piercing subsonic ammo</szItemDesc>
-		<szBRName>5.45x39mm RPK-Mag C</szBRName>
-		<szBRDesc>This 45-round mag holds 5.45 light armor piercing subsonic ammo.</szBRDesc>
+		<szLongItemName>5.45x39mm，45发亚音速穿甲弹</szLongItemName>
+		<szItemDesc>这个45发装的加长弹匣里填满了5.45x39mm亚音速穿甲弹。</szItemDesc>
+		<szBRName>5.45x39mm，45发亚音速穿甲弹</szBRName>
+		<szBRDesc>这个45发装的加长弹匣里填满了5.45x39mm亚音速穿甲弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1342</uiIndex>
 		<szItemName>5.45mm C crate</szItemName>
-		<szLongItemName>5.45x39mm C ammo crate</szLongItemName>
+		<szLongItemName>5.45x39mm，5000发亚音速弹弹箱</szLongItemName>
 		<szItemDesc>弹药箱</szItemDesc>
-		<szBRName>5.45x39mm C ammo crate</szBRName>
+		<szBRName>5.45x39mm，5000发亚音速弹弹箱</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1343</uiIndex>
 		<szItemName>5.45mm HP C crate</szItemName>
-		<szLongItemName>5.45x39mm HP C ammo crate</szLongItemName>
+		<szLongItemName>5.45x39mm，5000发亚音速空尖弹弹箱</szLongItemName>
 		<szItemDesc>弹药箱</szItemDesc>
-		<szBRName>5.45x39mm HP C ammo crate</szBRName>
+		<szBRName>5.45x39mm，5000发亚音速空尖弹弹箱</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1344</uiIndex>
 		<szItemName>7.62x39mm 10 C</szItemName>
-		<szLongItemName>7.62x39mm Mag, 10 Cold</szLongItemName>
-		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm guns.</szItemDesc>
-		<szBRName>7.62x39mm Mag, 10 Cold</szBRName>
-		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+		<szLongItemName>7.62x39mm，10发亚音速弹</szLongItemName>
+		<szItemDesc>7.62x39mm口径枪械所使用的亚音速全被甲弹。</szItemDesc>
+		<szBRName>7.62x39mm，10发亚音速弹</szBRName>
+		<szBRDesc>东方阵营步枪上使用的亚音速全被甲弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1345</uiIndex>
 		<szItemName>7.62x39mm Mag 10 HP C</szItemName>
-		<szLongItemName>7.62x39mm Mag, 10 HP Cold</szLongItemName>
-		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm weapons.</szItemDesc>
-		<szBRName>7.62x39mm Mag, 10 HP Cold</szBRName>
-		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+		<szLongItemName>7.62x39mm，10发亚音速空尖弹</szLongItemName>
+		<szItemDesc>7.62x39mm口径枪械所使用的亚音速空尖弹。</szItemDesc>
+		<szBRName>7.62x39mm，10发亚音速空尖弹</szBRName>
+		<szBRDesc>如果你拥有一支AK并且想让她成为一个寂静的勇士，那么这种弹药是最适合你的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1346</uiIndex>
 		<szItemName>7.62x39mm 30 C</szItemName>
-		<szLongItemName>7.62x39mm Mag, 30 Cold</szLongItemName>
-		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm guns.</szItemDesc>
-		<szBRName>7.62x39mm Mag, 30 Cold</szBRName>
-		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+		<szLongItemName>7.62x39mm，30发亚音速弹</szLongItemName>
+		<szItemDesc>7.62x39mm口径枪械所使用的亚音速全被甲弹。</szItemDesc>
+		<szBRName>7.62x39mm，30发亚音速弹</szBRName>
+		<szBRDesc>东方阵营步枪上使用的亚音速全被甲弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1347</uiIndex>
 		<szItemName>7.62x39mm Mag 30 HP C</szItemName>
-		<szLongItemName>7.62x39mm Mag, 30 HP Cold</szLongItemName>
-		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm weapons.</szItemDesc>
-		<szBRName>7.62x39mm Mag, 30 HP Cold</szBRName>
-		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+		<szLongItemName>7.62x39mm，30发亚音速空尖弹</szLongItemName>
+		<szItemDesc>7.62x39mm口径枪械所使用的亚音速空尖弹。</szItemDesc>
+		<szBRName>7.62x39mm，30发亚音速空尖弹</szBRName>
+		<szBRDesc>如果你拥有一支AK并且想让她成为一个寂静的勇士，那么这种弹药是最适合你的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1348</uiIndex>
 		<szItemName>7.62x39mm Drum C</szItemName>
-		<szLongItemName>7.62x39mm Drum Cold</szLongItemName>
-		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm guns.</szItemDesc>
-		<szBRName>7.62x39mm Drum Cold</szBRName>
-		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+		<szLongItemName>7.62x39mm，75发亚音速弹</szLongItemName>
+		<szItemDesc>7.62x39mm口径枪械所使用的亚音速全被甲弹。</szItemDesc>
+		<szBRName>7.62x39mm，75发亚音速弹</szBRName>
+		<szBRDesc>东方阵营步枪上使用的亚音速全被甲弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1349</uiIndex>
 		<szItemName>7.62x39mm Drum HP C</szItemName>
-		<szLongItemName>7.62x39mm Drum, HP Cold</szLongItemName>
-		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm weapons.</szItemDesc>
-		<szBRName>7.62x39mm Drum, HP Cold</szBRName>
-		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+		<szLongItemName>7.62x39mm，75发亚音速空尖弹</szLongItemName>
+		<szItemDesc>7.62x39mm口径枪械所使用的亚音速空尖弹。</szItemDesc>
+		<szBRName>7.62x39mm，75发亚音速空尖弹</szBRName>
+		<szBRDesc>如果你拥有一支AK并且想让她成为一个寂静的勇士，那么这种弹药是最适合你的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1350</uiIndex>
 		<szItemName>7.62WP C crate</szItemName>
-		<szLongItemName>7.62x39mm C ammo crate</szLongItemName>
+		<szLongItemName>7.62x39mm，4000发亚音速弹弹箱</szLongItemName>
 		<szItemDesc>弹药箱</szItemDesc>
-		<szBRName>7.62x39mm C ammo crate</szBRName>
+		<szBRName>7.62x39mm，4000发亚音速弹弹箱</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1351</uiIndex>
 		<szItemName>7.62WP HP C crate</szItemName>
-		<szLongItemName>7.62x39mm HP C ammo crate</szLongItemName>
+		<szLongItemName>7.62x39mm，4000发亚音速空尖弹弹箱</szLongItemName>
 		<szItemDesc>弹药箱</szItemDesc>
-		<szBRName>7.62x39mm HP C ammo crate</szBRName>
+		<szBRName>7.62x39mm，4000发亚音速空尖弹弹箱</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 </ITEMLIST>
