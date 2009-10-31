@@ -1402,9 +1402,18 @@ INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj )
 	//{
 	//	Top *= 100;
 	//}
-	Bottom = (INT32)(( 100 + bAimSkill ) * rof);
+
+	// WANNE : Fixed CTD that occurs when trowing item (grenade, throwing knife, ...)
+	// with open description box in tactical
+	INT16 baseAPsToShootOrStab = -1;
+	if (rof > 0)
+	{
+		Bottom = (INT32)(( 100 + bAimSkill ) * rof);
+		baseAPsToShootOrStab = ( Top + Bottom / 2 ) / Bottom;
+	}
+
 	// (this will round to the nearest integer)
-	return ( Top + Bottom / 2 ) / Bottom;
+	return baseAPsToShootOrStab;
 }
 
 void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost, BOOLEAN *pfChargeTurning, BOOLEAN *pfChargeRaise )

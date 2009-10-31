@@ -4203,26 +4203,10 @@ void RenderItemDescriptionBox( )
 
 				ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
 
-				if (ubAttackAPs <= EXCEPTIONAL_AP_COST)
+				// WANNE: Fixed CTD when trowing an item with open description box
+				if (ubAttackAPs != -1)
 				{
-					SetFontForeground( ITEMDESC_FONTHIGHLIGHT );
-				}
-				else
-				{
-					SetFontForeground( 5 );
-				}
-
-				 //AP's
-				if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
-				{
-					swprintf( pStr, L"%2d", ubAttackAPs );
-					FindFontRightCoordinates( (INT16)(gWeaponStats[ 5 ].sX + gsInvDescX + gWeaponStats[ 5 ].sValDx), (INT16)(gWeaponStats[ 5 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-					mprintf( usX, usY, pStr );
-				}
-
-				if (GetShotsPerBurst(gpItemDescObject) > 0)
-				{
-					if (GetShotsPerBurst(gpItemDescObject) >= EXCEPTIONAL_BURST_SIZE )//|| gpItemDescObject->usItem == G11)
+					if (ubAttackAPs <= EXCEPTIONAL_AP_COST)
 					{
 						SetFontForeground( ITEMDESC_FONTHIGHLIGHT );
 					}
@@ -4230,16 +4214,41 @@ void RenderItemDescriptionBox( )
 					{
 						SetFontForeground( 5 );
 					}
-					swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject ) );
-					FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-					mprintf( usX, usY, pStr );
+
+					 //AP's
+					if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
+					{
+						swprintf( pStr, L"%2d", ubAttackAPs );
+						FindFontRightCoordinates( (INT16)(gWeaponStats[ 5 ].sX + gsInvDescX + gWeaponStats[ 5 ].sValDx), (INT16)(gWeaponStats[ 5 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+						mprintf( usX, usY, pStr );
+					}
+
+					if (GetShotsPerBurst(gpItemDescObject) > 0)
+					{
+						if (GetShotsPerBurst(gpItemDescObject) >= EXCEPTIONAL_BURST_SIZE )//|| gpItemDescObject->usItem == G11)
+						{
+							SetFontForeground( ITEMDESC_FONTHIGHLIGHT );
+						}
+						else
+						{
+							SetFontForeground( 5 );
+						}
+						swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject ) );
+						FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+						mprintf( usX, usY, pStr );
+					}
+					else if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0)
+					{
+						SetFontForeground( 5 );
+						swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3 ) );
+						FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+						mprintf( usX, usY, pStr );
+					}
 				}
-				else if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0)
+				else
 				{
-					SetFontForeground( 5 );
-					swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3 ) );
-					FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-					mprintf( usX, usY, pStr );
+					// WANNE: Close the description box after we threw the item.
+					DeleteItemDescriptionBox();
 				}
 			}
 		}
