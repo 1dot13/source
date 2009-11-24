@@ -452,7 +452,7 @@ void ExitIMPColorChoice( void )
 	DeleteVideoObjectFromIndex( guiIST_GreyGoldBox4 );
 
 	//remove the skin buttons
-	for(iCnt = 0; iCnt < 11; iCnt++)
+	for(iCnt = 0; iCnt < ( fCharacterIsMale ? 11 : 8); iCnt++) // fix of bug, removing unasigned buttons when female
 	{
 		//if there is a button allocated
 		if( giIMPColorChoiceButton[iCnt] != -1 )
