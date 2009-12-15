@@ -1,55 +1,43 @@
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-
-Attribute Field Reference:
-
-	launchableIndex		- index of launchable item
-	itemIndex			- index of item that launchable can be launched from
-
-	IMPORTANT!!!!!
-	
-	All equal launchable indexes should be grouped together.  The is due to the way the code looks at this array.  If you separate equal launchable indexes, the launchables that come after the first group will not be found by the game.
-	
--->
-
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LAUNCHABLELIST>
 	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex> <!-- 40mm Grenade -->
-		<itemIndex>40</itemIndex> <!-- M79 -->
+		<launchableIndex>140</launchableIndex>
+		<itemIndex>41</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex> <!-- 40mm Grenade -->
-		<itemIndex>50</itemIndex> <!-- Talon -->
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>40</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex> <!-- 40mm Tear Gas -->
-		<itemIndex>40</itemIndex> <!-- M79 -->
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>50</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex> <!-- 40mm Tear Gas -->
-		<itemIndex>50</itemIndex> <!-- Talon -->
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>40</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex> <!-- 40mm Stun -->
-		<itemIndex>40</itemIndex> <!-- M79 -->
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>50</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex> <!-- 40mm Stun -->
-		<itemIndex>50</itemIndex> <!-- Talon -->
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>40</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex> <!-- 40mm Smoke -->
-		<itemIndex>40</itemIndex> <!-- M79 -->
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>50</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex> <!-- 40mm Smoke -->
-		<itemIndex>50</itemIndex> <!-- Talon -->
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>40</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>140</launchableIndex> <!-- Mortar Shell -->
-		<itemIndex>41</itemIndex> <!-- Mortar -->
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>50</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>152</launchableIndex> <!-- Shell -->
-		<itemIndex>60</itemIndex> <!-- Cannon -->
+		<launchableIndex>152</launchableIndex>
+		<itemIndex>60</itemIndex>
 	</LAUNCHABLE>
 </LAUNCHABLELIST>

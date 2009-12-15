@@ -1,288 +1,283 @@
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-
-Attribute Field Reference:
-
-	uiIndex				- index of item in array, just increment this for each new entry - should match to item class in items.xml
-	ubArmourClass		- type of armour
-	ubProtection		- protection offered by armour
-	ubDegradePercent	- how fast the armour's status decreases
-
-ARMOUR CLASSES:
-
-	ARMOURCLASS_HELMET, 0
-	ARMOURCLASS_VEST, 1
-	ARMOURCLASS_LEGGINGS, 2
-	ARMOURCLASS_PLATE, 3
-	ARMOURCLASS_MONST, 4
-	ARMOURCLASS_VEHICLE, 5
-
-	
--->
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ARMOURLIST>
 	<ARMOUR>
-		<uiIndex>0</uiIndex> <!-- Flak Jacket -->
+		<uiIndex>0</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>10</ubProtection>
 		<ubCoverage>75</ubCoverage>
 		<ubDegradePercent>25</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>1</uiIndex> <!-- Flak-18 Jacket -->
+		<uiIndex>1</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>13</ubProtection>
 		<ubCoverage>75</ubCoverage>
 		<ubDegradePercent>20</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>2</uiIndex> <!-- C.Flak Jacket -->
+		<uiIndex>2</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>16</ubProtection>
 		<ubCoverage>75</ubCoverage>
 		<ubDegradePercent>15</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>3</uiIndex> <!-- Kevlar Vest -->
+		<uiIndex>3</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>15</ubProtection>
 		<ubCoverage>70</ubCoverage>
 		<ubDegradePercent>20</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>4</uiIndex> <!-- Kevlar-18 Vest -->
+		<uiIndex>4</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>19</ubProtection>
 		<ubCoverage>70</ubCoverage>
 		<ubDegradePercent>15</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>5</uiIndex> <!-- C.Kevlar Vest -->
+		<uiIndex>5</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>24</ubProtection>
 		<ubCoverage>70</ubCoverage>
 		<ubDegradePercent>10</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>6</uiIndex> <!-- Spectra Vest -->
+		<uiIndex>6</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>30</ubProtection>
 		<ubCoverage>85</ubCoverage>
 		<ubDegradePercent>15</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>7</uiIndex> <!-- Spec-18 Vest -->
+		<uiIndex>7</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>36</ubProtection>
 		<ubCoverage>85</ubCoverage>
 		<ubDegradePercent>10</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>8</uiIndex> <!-- C.Spec Vest -->
+		<uiIndex>8</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>42</ubProtection>
 		<ubCoverage>85</ubCoverage>
 		<ubDegradePercent>5</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>9</uiIndex> <!-- Kevlar Pants -->
+		<uiIndex>9</uiIndex>
 		<ubArmourClass>2</ubArmourClass>
 		<ubProtection>15</ubProtection>
 		<ubCoverage>65</ubCoverage>
 		<ubDegradePercent>20</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>10</uiIndex> <!-- Kevlar-18 Pants -->
+		<uiIndex>10</uiIndex>
 		<ubArmourClass>2</ubArmourClass>
 		<ubProtection>19</ubProtection>
 		<ubCoverage>65</ubCoverage>
 		<ubDegradePercent>15</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>11</uiIndex> <!-- C.Kevlar Pants -->
+		<uiIndex>11</uiIndex>
 		<ubArmourClass>2</ubArmourClass>
 		<ubProtection>24</ubProtection>
 		<ubCoverage>65</ubCoverage>
 		<ubDegradePercent>10</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>12</uiIndex> <!-- Spectra Pants -->
+		<uiIndex>12</uiIndex>
 		<ubArmourClass>2</ubArmourClass>
 		<ubProtection>30</ubProtection>
 		<ubCoverage>90</ubCoverage>
 		<ubDegradePercent>15</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>13</uiIndex> <!-- Spec-18 Pants -->
+		<uiIndex>13</uiIndex>
 		<ubArmourClass>2</ubArmourClass>
 		<ubProtection>36</ubProtection>
 		<ubCoverage>90</ubCoverage>
 		<ubDegradePercent>10</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>14</uiIndex> <!-- C.Spec Pants -->
+		<uiIndex>14</uiIndex>
 		<ubArmourClass>2</ubArmourClass>
 		<ubProtection>42</ubProtection>
 		<ubCoverage>90</ubCoverage>
 		<ubDegradePercent>5</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>15</uiIndex> <!-- Steel Helmet -->
+		<uiIndex>15</uiIndex>
 		<ubArmourClass>0</ubArmourClass>
 		<ubProtection>10</ubProtection>
 		<ubCoverage>65</ubCoverage>
 		<ubDegradePercent>5</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>16</uiIndex> <!-- Kevlar Helmet -->
+		<uiIndex>16</uiIndex>
 		<ubArmourClass>0</ubArmourClass>
 		<ubProtection>15</ubProtection>
 		<ubCoverage>75</ubCoverage>
 		<ubDegradePercent>20</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>17</uiIndex> <!-- Kvlr-18 Helmet -->
+		<uiIndex>17</uiIndex>
 		<ubArmourClass>0</ubArmourClass>
 		<ubProtection>19</ubProtection>
 		<ubCoverage>75</ubCoverage>
 		<ubDegradePercent>15</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>18</uiIndex> <!-- C.Kvlr Helmet -->
+		<uiIndex>18</uiIndex>
 		<ubArmourClass>0</ubArmourClass>
 		<ubProtection>24</ubProtection>
 		<ubCoverage>75</ubCoverage>
 		<ubDegradePercent>10</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>19</uiIndex> <!-- Spectra Helmet -->
+		<uiIndex>19</uiIndex>
 		<ubArmourClass>0</ubArmourClass>
 		<ubProtection>30</ubProtection>
 		<ubCoverage>75</ubCoverage>
 		<ubDegradePercent>15</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>20</uiIndex> <!-- Spec-18 Helmet -->
+		<uiIndex>20</uiIndex>
 		<ubArmourClass>0</ubArmourClass>
 		<ubProtection>36</ubProtection>
 		<ubCoverage>75</ubCoverage>
 		<ubDegradePercent>10</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>21</uiIndex> <!-- C.Spec Helmet -->
+		<uiIndex>21</uiIndex>
 		<ubArmourClass>0</ubArmourClass>
 		<ubProtection>42</ubProtection>
 		<ubCoverage>75</ubCoverage>
 		<ubDegradePercent>5</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>22</uiIndex> <!-- Ceramic Plates -->
+		<uiIndex>22</uiIndex>
 		<ubArmourClass>3</ubArmourClass>
 		<ubProtection>15</ubProtection>
 		<ubCoverage>50</ubCoverage>
 		<ubDegradePercent>200</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>23</uiIndex> <!-- Infant Hide -->
+		<uiIndex>23</uiIndex>
 		<ubArmourClass>4</ubArmourClass>
 		<ubProtection>3</ubProtection>
 		<ubCoverage>99</ubCoverage>
 		<ubDegradePercent>0</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>24</uiIndex> <!-- Kiddy Hide -->
+		<uiIndex>24</uiIndex>
 		<ubArmourClass>4</ubArmourClass>
 		<ubProtection>5</ubProtection>
 		<ubCoverage>99</ubCoverage>
 		<ubDegradePercent>0</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>25</uiIndex> <!-- Adult Hide -->
+		<uiIndex>25</uiIndex>
 		<ubArmourClass>4</ubArmourClass>
 		<ubProtection>6</ubProtection>
 		<ubCoverage>99</ubCoverage>
 		<ubDegradePercent>0</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>26</uiIndex> <!-- Queen Hide -->
+		<uiIndex>26</uiIndex>
 		<ubArmourClass>4</ubArmourClass>
 		<ubProtection>20</ubProtection>
 		<ubCoverage>99</ubCoverage>
 		<ubDegradePercent>0</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>27</uiIndex> <!-- Leather Jacket -->
+		<uiIndex>27</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>2</ubProtection>
 		<ubCoverage>95</ubCoverage>
 		<ubDegradePercent>25</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>28</uiIndex> <!-- Kvlr Leather -->
+		<uiIndex>28</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>12</ubProtection>
 		<ubCoverage>85</ubCoverage>
 		<ubDegradePercent>30</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>29</uiIndex> <!-- Kvlr-18 Leather -->
+		<uiIndex>29</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>16</ubProtection>
 		<ubCoverage>95</ubCoverage>
 		<ubDegradePercent>25</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>30</uiIndex> <!-- C.Kvlr Leather -->
+		<uiIndex>30</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>19</ubProtection>
 		<ubCoverage>95</ubCoverage>
 		<ubDegradePercent>20</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>31</uiIndex> <!-- YF Hide -->
+		<uiIndex>31</uiIndex>
 		<ubArmourClass>4</ubArmourClass>
 		<ubProtection>7</ubProtection>
 		<ubCoverage>99</ubCoverage>
 		<ubDegradePercent>0</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>32</uiIndex> <!-- OF Hide -->
+		<uiIndex>32</uiIndex>
 		<ubArmourClass>4</ubArmourClass>
 		<ubProtection>8</ubProtection>
 		<ubCoverage>99</ubCoverage>
 		<ubDegradePercent>0</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>33</uiIndex> <!-- Arulco T-Shirt -->
+		<uiIndex>33</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>1</ubProtection>
 		<ubCoverage>99</ubCoverage>
 		<ubDegradePercent>25</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>34</uiIndex> <!-- Deidranna T-Shirt -->
+		<uiIndex>34</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>1</ubProtection>
 		<ubCoverage>99</ubCoverage>
 		<ubDegradePercent>25</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>35</uiIndex> <!-- Guardian Vest -->
+		<uiIndex>35</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>22</ubProtection>
 		<ubCoverage>70</ubCoverage>
 		<ubDegradePercent>20</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>36</uiIndex> <!-- T. Guard Vest -->
+		<uiIndex>36</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>27</ubProtection>
 		<ubCoverage>70</ubCoverage>
 		<ubDegradePercent>15</ubDegradePercent>
 	</ARMOUR>
-		<ARMOUR>
-		<uiIndex>37</uiIndex> <!-- C. Guard Vest -->
+	<ARMOUR>
+		<uiIndex>37</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>32</ubProtection>
 		<ubCoverage>70</ubCoverage>
 		<ubDegradePercent>10</ubDegradePercent>
+	</ARMOUR>
+	<ARMOUR>
+		<uiIndex>38</uiIndex>
+		<ubArmourClass>0</ubArmourClass>
+		<ubProtection>0</ubProtection>
+		<ubCoverage>0</ubCoverage>
+		<ubDegradePercent>0</ubDegradePercent>
+	</ARMOUR>
+	<ARMOUR>
+		<uiIndex>39</uiIndex>
+		<ubArmourClass>0</ubArmourClass>
+		<ubProtection>0</ubProtection>
+		<ubCoverage>0</ubCoverage>
+		<ubDegradePercent>0</ubDegradePercent>
 	</ARMOUR>
 </ARMOURLIST>

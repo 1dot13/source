@@ -1981,21 +1981,21 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>333</uiIndex>
-		<szWeaponName>VSS Vintorez</szWeaponName>
+		<szWeaponName>AS Val</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
-		<ubWeaponType>5</ubWeaponType>
+		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>18</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>12</ubShotsPer4Turns>
-		<ubBurstPenalty>11</ubBurstPenalty>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubBurstPenalty>10</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>32</ubImpact>
-		<ubDeadliness>42</ubDeadliness>
-		<bAccuracy>7</bAccuracy>
+		<ubDeadliness>35</ubDeadliness>
+		<bAccuracy>6</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>325</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>34</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>385</sSound>
@@ -2006,9 +2006,9 @@
 		<SilencedSound>386</SilencedSound>
 		<bBurstAP>3</bBurstAP>
 		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
-		<APsToReload>6</APsToReload>
+		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>11</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>

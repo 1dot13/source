@@ -31,6 +31,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>1</uiIndex>
@@ -63,6 +64,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>2</uiIndex>
@@ -95,6 +97,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>3</uiIndex>
@@ -127,6 +130,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>4</uiIndex>
@@ -159,6 +163,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex>
@@ -191,6 +196,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>6</uiIndex>
@@ -223,6 +229,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>7</uiIndex>
@@ -255,6 +262,7 @@
 		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>8</uiIndex>
@@ -287,6 +295,7 @@
 		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>9</uiIndex>
@@ -319,6 +328,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>10</uiIndex>
@@ -351,6 +361,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>11</uiIndex>
@@ -383,6 +394,7 @@
 		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>12</uiIndex>
@@ -415,6 +427,7 @@
 		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>13</uiIndex>
@@ -447,6 +460,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>14</uiIndex>
@@ -479,6 +493,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>15</uiIndex>
@@ -511,6 +526,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>1</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>16</uiIndex>
@@ -543,6 +559,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>1</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>17</uiIndex>
@@ -575,6 +592,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>18</uiIndex>
@@ -607,6 +625,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>19</uiIndex>
@@ -639,6 +658,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>20</uiIndex>
@@ -671,6 +691,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>21</uiIndex>
@@ -703,6 +724,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>22</uiIndex>
@@ -735,6 +757,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>23</uiIndex>
@@ -767,6 +790,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>24</uiIndex>
@@ -799,6 +823,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>25</uiIndex>
@@ -831,6 +856,7 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>100</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>26</uiIndex>
@@ -863,5 +889,6 @@
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
 	</AMMOTYPE>
 </AMMOTYPELIST>

@@ -1,38 +1,15 @@
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-
-Attribute Field Reference:
-
-	uiIndex			- index of item in array - Do Not add new entries to this array!
-	ubChoices		- number of valid choices in this entry - VERY IMPORTANT!!!!! MAKE SURE THIS NUMBER MATCHES THE NUMBER OF CHOICES AVAILABLE OTHERWISE YOUR GAME _WILL_ CRASH!!!!!!!!!!!
-	bItemNoXX(1-50)	- item index of gun to allow, invalid choices should be 0
-
-Indexes:
-
-0 - low powered pistols			
-1 - high powered pistols/shtgn	
-2 - low SMGs/shtgn	
-3 - low rifles    	
-4 - high SMGs			
-5 - medium rifles  	
-6 - sniper rifles	
-7 - high rifles
-8 - best rifles			
-9 - machine guns		
-10- rocket rifles / machine guns		
-
-
--->
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ENEMYGUNCHOICESLIST>
 	<ENEMYGUNCHOICES>
 		<uiIndex>0</uiIndex>
 		<name>0%</name>
 		<ubChoices>6</ubChoices>
-		<bItemNo1>5</bItemNo1> <!-- .38 S&W -->
-		<bItemNo2>6</bItemNo2> <!-- Barracuda -->
-		<bItemNo3>7</bItemNo3> <!-- Desert Eagle -->
-		<bItemNo4>1</bItemNo4> <!-- Glock 17 -->
-		<bItemNo5>8</bItemNo5> <!-- Colt .45 -->
-		<bItemNo6>3</bItemNo6> <!-- Beretta 92F -->
+		<bItemNo1>5</bItemNo1>
+		<bItemNo2>6</bItemNo2>
+		<bItemNo3>7</bItemNo3>
+		<bItemNo4>1</bItemNo4>
+		<bItemNo5>8</bItemNo5>
+		<bItemNo6>3</bItemNo6>
 		<bItemNo7>0</bItemNo7>
 		<bItemNo8>0</bItemNo8>
 		<bItemNo9>0</bItemNo9>
@@ -82,9 +59,9 @@ Indexes:
 		<uiIndex>1</uiIndex>
 		<name>10%</name>
 		<ubChoices>3</ubChoices>
-		<bItemNo1>2</bItemNo1> <!-- Glock 18 -->
-		<bItemNo2>4</bItemNo2> <!-- Beretta 93R -->
-		<bItemNo3>31</bItemNo3> <!-- M870 -->
+		<bItemNo1>2</bItemNo1>
+		<bItemNo2>4</bItemNo2>
+		<bItemNo3>31</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -137,10 +114,10 @@ Indexes:
 		<uiIndex>2</uiIndex>
 		<name>20%</name>
 		<ubChoices>4</ubChoices>
-		<bItemNo1>16</bItemNo1> <!-- Type-85 -->
-		<bItemNo2>11</bItemNo2> <!-- Thompson -->
-		<bItemNo3>9</bItemNo3> <!-- MP5K -->
-		<bItemNo4>13</bItemNo4> <!-- MP53 -->
+		<bItemNo1>16</bItemNo1>
+		<bItemNo2>11</bItemNo2>
+		<bItemNo3>9</bItemNo3>
+		<bItemNo4>13</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
@@ -192,9 +169,9 @@ Indexes:
 		<uiIndex>3</uiIndex>
 		<name>30%</name>
 		<ubChoices>3</ubChoices>
-		<bItemNo1>22</bItemNo1> <!-- Mini04 -->
-		<bItemNo2>17</bItemNo2> <!-- SKS -->
-		<bItemNo3>32</bItemNo3> <!-- SPAS05 -->
+		<bItemNo1>22</bItemNo1>
+		<bItemNo2>17</bItemNo2>
+		<bItemNo3>32</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -247,9 +224,9 @@ Indexes:
 		<uiIndex>4</uiIndex>
 		<name>40%</name>
 		<ubChoices>3</ubChoices>
-		<bItemNo1>10</bItemNo1> <!-- MAC00 -->
-		<bItemNo2>14</bItemNo2> <!-- AKSU-74 -->
-		<bItemNo3>12</bItemNo3> <!-- Commando -->
+		<bItemNo1>10</bItemNo1>
+		<bItemNo2>14</bItemNo2>
+		<bItemNo3>12</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -302,10 +279,10 @@ Indexes:
 		<uiIndex>5</uiIndex>
 		<name>50%</name>
 		<ubChoices>4</ubChoices>
-		<bItemNo1>26</bItemNo1> <!-- AKM -->
-		<bItemNo2>29</bItemNo2> <!-- G3A3 -->
-		<bItemNo3>21</bItemNo3> <!-- G41 -->
-		<bItemNo4>25</bItemNo4> <!-- AK-74 -->
+		<bItemNo1>26</bItemNo1>
+		<bItemNo2>29</bItemNo2>
+		<bItemNo3>21</bItemNo3>
+		<bItemNo4>25</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
@@ -357,8 +334,8 @@ Indexes:
 		<uiIndex>6</uiIndex>
 		<name>60%</name>
 		<ubChoices>2</ubChoices>
-		<bItemNo1>18</bItemNo1> <!-- Dragunov -->
-		<bItemNo2>19</bItemNo2> <!-- M24 -->
+		<bItemNo1>18</bItemNo1>
+		<bItemNo2>19</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -412,10 +389,10 @@ Indexes:
 		<uiIndex>7</uiIndex>
 		<name>70%</name>
 		<ubChoices>4</ubChoices>
-		<bItemNo1>24</bItemNo1> <!-- FA-MAS -->
-		<bItemNo2>27</bItemNo2> <!-- M04 -->
-		<bItemNo3>20</bItemNo3> <!-- Steyr -->
-		<bItemNo4>23</bItemNo4> <!-- C-7 -->
+		<bItemNo1>24</bItemNo1>
+		<bItemNo2>27</bItemNo2>
+		<bItemNo3>20</bItemNo3>
+		<bItemNo4>23</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
@@ -467,7 +444,7 @@ Indexes:
 		<uiIndex>8</uiIndex>
 		<name>80%</name>
 		<ubChoices>1</ubChoices>
-		<bItemNo1>28</bItemNo1> <!-- FN-FAL -->
+		<bItemNo1>28</bItemNo1>
 		<bItemNo2>0</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
@@ -522,9 +499,9 @@ Indexes:
 		<uiIndex>9</uiIndex>
 		<name>90%</name>
 		<ubChoices>3</ubChoices>
-		<bItemNo1>34</bItemNo1> <!-- Minimi -->
-		<bItemNo2>35</bItemNo2> <!-- RPK-74 -->
-		<bItemNo3>36</bItemNo3> <!-- H&K 21 -->
+		<bItemNo1>34</bItemNo1>
+		<bItemNo2>35</bItemNo2>
+		<bItemNo3>36</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -577,11 +554,11 @@ Indexes:
 		<uiIndex>10</uiIndex>
 		<name>100%</name>
 		<ubChoices>5</ubChoices>
-		<bItemNo1>55</bItemNo1> <!-- Rocket Rifle -->
-		<bItemNo2>65</bItemNo2> <!-- A. R. Rifle -->
-		<bItemNo3>35</bItemNo3> <!-- RPK-74 -->
-		<bItemNo4>36</bItemNo4> <!-- H&K 21 -->
-		<bItemNo5>34</bItemNo5> <!-- Minimi -->
+		<bItemNo1>55</bItemNo1>
+		<bItemNo2>65</bItemNo2>
+		<bItemNo3>35</bItemNo3>
+		<bItemNo4>36</bItemNo4>
+		<bItemNo5>34</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
 		<bItemNo8>0</bItemNo8>

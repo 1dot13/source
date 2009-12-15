@@ -1,1420 +1,1123 @@
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-
-Attribute Field Reference:
-
-	attachmentIndex		- the item index of the attachment
-	itemIndex			- the item index of the item to attach it to
-
-	
--->
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ATTACHMENTLIST>
 	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>		<!-- Silencer -->
-		<itemIndex>1</itemIndex>		<!-- Glock 17 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>		<!-- Silencer -->
-		<itemIndex>2</itemIndex>		<!-- Glock 18 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>		<!-- Silencer -->
-		<itemIndex>3</itemIndex>		<!-- Beretta 92F -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>		<!-- Silencer -->
-		<itemIndex>4</itemIndex>		<!-- Beretta 93R -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>		<!-- Silencer -->
-		<itemIndex>5</itemIndex>		<!-- .38 S&W -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>		<!-- Silencer -->
-		<itemIndex>6</itemIndex>		<!-- Barracuda -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>
-		<!-- Silencer -->
-		<itemIndex>7</itemIndex>
-		<!-- Desert Eagle -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>
-		<!-- Silencer -->
-		<itemIndex>8</itemIndex>
-		<!-- Colt .45 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>
-		<!-- Silencer -->
-		<itemIndex>9</itemIndex>
-		<!-- MP5K -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>
-		<!-- Silencer -->
-		<itemIndex>10</itemIndex>
-		<!-- MAC-10 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>
-		<!-- Silencer -->
-		<itemIndex>11</itemIndex>
-		<!-- Thompson -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>207</attachmentIndex>
-		<!-- Silencer -->
-		<itemIndex>15</itemIndex>
-		<!-- P90 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>12</itemIndex>
-		<!-- Commando -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
-		<itemIndex>17</itemIndex>
-		<!-- SKS -->
+		<attachmentIndex>50</attachmentIndex>
+		<itemIndex>14</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
-		<itemIndex>18</itemIndex>
-		<!-- Dragunov -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
-		<itemIndex>19</itemIndex>
-		<!-- M24 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>20</itemIndex>
-		<!-- Steyr -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>21</itemIndex>
-		<!-- G41 -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>22</itemIndex>
-		<!-- Mini-14 -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>23</itemIndex>
-		<!-- C-7 -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>24</itemIndex>
-		<!-- FA-MAS -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>25</itemIndex>
-		<!-- AK-74 -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>26</itemIndex>
-		<!-- AKM -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>27</itemIndex>
-		<!-- M-14 -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>28</itemIndex>
-		<!-- FN-FAL -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>29</itemIndex>
-		<!-- G3A3 -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
-		<itemIndex>30</itemIndex>
-		<!-- G11 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
-		<itemIndex>68</itemIndex>
-		<!-- nada -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
-		<itemIndex>67</itemIndex>
-		<!-- nada -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>208</attachmentIndex>
-		<!-- Sniper Scope -->
+		<attachmentIndex>50</attachmentIndex>
 		<itemIndex>69</itemIndex>
-		<!-- nada -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>1</itemIndex>
-		<!-- Glock 17 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>2</itemIndex>
-		<!-- Glock 18 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>3</itemIndex>
-		<!-- Beretta 92F -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>4</itemIndex>
-		<!-- Beretta 93R -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>5</itemIndex>
-		<!-- .38 S&W -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>6</itemIndex>
-		<!-- Barracuda -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>7</itemIndex>
-		<!-- Desert Eagle -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>8</itemIndex>
-		<!-- Colt .45 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>9</itemIndex>
-		<!-- MP5K -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>10</itemIndex>
-		<!-- MAC-10 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>11</itemIndex>
-		<!-- Thompson -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>12</itemIndex>
-		<!-- Commando -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>13</itemIndex>
-		<!-- MP53 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>14</itemIndex>
-		<!-- AKSU-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>15</itemIndex>
-		<!-- P90 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>16</itemIndex>
-		<!-- Type-85 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>17</itemIndex>
-		<!-- SKS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>18</itemIndex>
-		<!-- Dragunov -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>19</itemIndex>
-		<!-- M24 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>20</itemIndex>
-		<!-- Steyr -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>21</itemIndex>
-		<!-- G41 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>22</itemIndex>
-		<!-- Mini-14 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>23</itemIndex>
-		<!-- C-7 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>24</itemIndex>
-		<!-- FA-MAS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>25</itemIndex>
-		<!-- AK-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>26</itemIndex>
-		<!-- AKM -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>27</itemIndex>
-		<!-- M-14 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>28</itemIndex>
-		<!-- FN-FAL -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>29</itemIndex>
-		<!-- G3A3 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>30</itemIndex>
-		<!-- G11 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>31</itemIndex>
-		<!-- M870 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>32</itemIndex>
-		<!-- SPAS-15 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>33</itemIndex>
-		<!-- CAWS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>34</itemIndex>
-		<!-- Minimi -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>35</itemIndex>
-		<!-- RPK-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>36</itemIndex>
-		<!-- H&K 21 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>241</attachmentIndex>
-		<!-- Laser Scope -->
-		<itemIndex>56</itemIndex>
-		<!-- Automag -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>17</itemIndex>
-		<!-- SKS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>18</itemIndex>
-		<!-- Dragunov -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>19</itemIndex>
-		<!-- M24 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>20</itemIndex>
-		<!-- Steyr -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>21</itemIndex>
-		<!-- G41 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>22</itemIndex>
-		<!-- Mini-14 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>23</itemIndex>
-		<!-- C-7 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>24</itemIndex>
-		<!-- FA-MAS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>25</itemIndex>
-		<!-- AK-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>26</itemIndex>
-		<!-- AKM -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>27</itemIndex>
-		<!-- M-14 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>28</itemIndex>
-		<!-- FN-FAL -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>29</itemIndex>
-		<!-- G3A3 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>30</itemIndex>
-		<!-- G11 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>33</itemIndex>
-		<!-- CAWS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>34</itemIndex>
-		<!-- Minimi -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>35</itemIndex>
-		<!-- RPK-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
-		<!-- Bipod -->
-		<itemIndex>36</itemIndex>
-		<!-- H&K 21 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>244</attachmentIndex>
-		<!-- Duckbill -->
-		<itemIndex>31</itemIndex>
-		<!-- M870 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>244</attachmentIndex>
-		<!-- Duckbill -->
-		<itemIndex>32</itemIndex>
-		<!-- SPAS-15 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>244</attachmentIndex>
-		<!-- Duckbill -->
-		<itemIndex>33</itemIndex>
-		<!-- CAWS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>12</itemIndex>
-		<!-- Commando -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>14</itemIndex>
-		<!-- AKSU-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>20</itemIndex>
-		<!-- Steyr -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>21</itemIndex>
-		<!-- G41 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>22</itemIndex>
-		<!-- Mini-14 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>23</itemIndex>
-		<!-- C-7 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>24</itemIndex>
-		<!-- FA-MAS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>25</itemIndex>
-		<!-- AK-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>26</itemIndex>
-		<!-- AKM -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>27</itemIndex>
-		<!-- M-14 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>28</itemIndex>
-		<!-- FN-FAL -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>29</itemIndex>
-		<!-- G3A3 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>50</attachmentIndex>
-		<!-- Talon -->
-		<itemIndex>69</itemIndex>
-		<!-- nada -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>1</itemIndex>
-		<!-- Glock 17 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>2</itemIndex>
-		<!-- Glock 18 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>3</itemIndex>
-		<!-- Beretta 92F -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>4</itemIndex>
-		<!-- Beretta 93R -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>5</itemIndex>
-		<!-- .38 S&W -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>6</itemIndex>
-		<!-- Barracuda -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>7</itemIndex>
-		<!-- Desert Eagle -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>8</itemIndex>
-		<!-- Colt .45 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>9</itemIndex>
-		<!-- MP5K -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>10</itemIndex>
-		<!-- MAC-10 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>11</itemIndex>
-		<!-- Thompson -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>12</itemIndex>
-		<!-- Commando -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>13</itemIndex>
-		<!-- MP53 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>14</itemIndex>
-		<!-- AKSU-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>15</itemIndex>
-		<!-- P90 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>16</itemIndex>
-		<!-- Type-85 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>17</itemIndex>
-		<!-- SKS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>18</itemIndex>
-		<!-- Dragunov -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>19</itemIndex>
-		<!-- M24 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>20</itemIndex>
-		<!-- Steyr -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>21</itemIndex>
-		<!-- G41 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>22</itemIndex>
-		<!-- Mini-14 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>23</itemIndex>
-		<!-- C-7 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>24</itemIndex>
-		<!-- FA-MAS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>25</itemIndex>
-		<!-- AK-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>26</itemIndex>
-		<!-- AKM -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>27</itemIndex>
-		<!-- M-14 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>28</itemIndex>
-		<!-- FN-FAL -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>29</itemIndex>
-		<!-- G3A3 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>30</itemIndex>
-		<!-- G11 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>31</itemIndex>
-		<!-- M870 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>32</itemIndex>
-		<!-- SPAS-15 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>33</itemIndex>
-		<!-- CAWS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>34</itemIndex>
-		<!-- Minimi -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>35</itemIndex>
-		<!-- RPK-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>36</itemIndex>
-		<!-- H&K 21 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<!-- Rod & Spring -->
-		<itemIndex>56</itemIndex>
-		<!-- Automag -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>1</itemIndex>
-		<!-- Glock 17 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>2</itemIndex>
-		<!-- Glock 18 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>3</itemIndex>
-		<!-- Beretta 92F -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>4</itemIndex>
-		<!-- Beretta 93R -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>5</itemIndex>
-		<!-- .38 S&W -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>6</itemIndex>
-		<!-- Barracuda -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>7</itemIndex>
-		<!-- Desert Eagle -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>8</itemIndex>
-		<!-- Colt .45 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>9</itemIndex>
-		<!-- MP5K -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>10</itemIndex>
-		<!-- MAC-10 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>11</itemIndex>
-		<!-- Thompson -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>12</itemIndex>
-		<!-- Commando -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>13</itemIndex>
-		<!-- MP53 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>14</itemIndex>
-		<!-- AKSU-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>15</itemIndex>
-		<!-- P90 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>16</itemIndex>
-		<!-- Type-85 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>17</itemIndex>
-		<!-- SKS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>18</itemIndex>
-		<!-- Dragunov -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>19</itemIndex>
-		<!-- M24 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>20</itemIndex>
-		<!-- Steyr -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>21</itemIndex>
-		<!-- G41 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>22</itemIndex>
-		<!-- Mini-14 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>23</itemIndex>
-		<!-- C-7 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>24</itemIndex>
-		<!-- FA-MAS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>25</itemIndex>
-		<!-- AK-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>26</itemIndex>
-		<!-- AKM -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>27</itemIndex>
-		<!-- M-14 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>28</itemIndex>
-		<!-- FN-FAL -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>29</itemIndex>
-		<!-- G3A3 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>30</itemIndex>
-		<!-- G11 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>31</itemIndex>
-		<!-- M870 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>32</itemIndex>
-		<!-- SPAS-15 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>33</itemIndex>
-		<!-- CAWS -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>34</itemIndex>
-		<!-- Minimi -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>35</itemIndex>
-		<!-- RPK-74 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>36</itemIndex>
-		<!-- H&K 21 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
-		<!-- Extender -->
-		<itemIndex>56</itemIndex>
-		<!-- Automag -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>223</attachmentIndex>
-		<!-- Detonator -->
-		<itemIndex>137</itemIndex>
-		<!-- TNT -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>223</attachmentIndex>
-		<!-- Detonator -->
-		<itemIndex>138</itemIndex>
-		<!-- HMX -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>223</attachmentIndex>
-		<!-- Detonator -->
-		<itemIndex>139</itemIndex>
-		<!-- C1 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>223</attachmentIndex>
-		<!-- Detonator -->
-		<itemIndex>142</itemIndex>
-		<!-- C4 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>224</attachmentIndex>
-		<!-- Remote Det. -->
-		<itemIndex>137</itemIndex>
-		<!-- TNT -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>224</attachmentIndex>
-		<!-- Remote Det. -->
-		<itemIndex>138</itemIndex>
-		<!-- HMX -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>224</attachmentIndex>
-		<!-- Remote Det. -->
-		<itemIndex>139</itemIndex>
-		<!-- C1 -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>224</attachmentIndex>
-		<!-- Remote Det. -->
-		<itemIndex>142</itemIndex>
-		<!-- C4 -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>161</itemIndex>
-		<!-- Flak Jacket -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>162</itemIndex>
-		<!-- Flak-18 Jacket -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>163</itemIndex>
-		<!-- C.Flak Jacket -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>164</itemIndex>
-		<!-- Kevlar Vest -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>165</itemIndex>
-		<!-- Kevlar-18 Vest -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>166</itemIndex>
-		<!-- C.Kevlar Vest -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>167</itemIndex>
-		<!-- Spectra Vest -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>168</itemIndex>
-		<!-- Spec-18 Vest -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>169</itemIndex>
-		<!-- C.Spec Vest -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>196</itemIndex>
-		<!-- Guardian Vest -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>197</itemIndex>
-		<!-- T. Guard Vest -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>183</attachmentIndex>
-		<!-- Ceramic Plates -->
 		<itemIndex>198</itemIndex>
-		<!-- C. Guard Vest -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>306</attachmentIndex>
-		<!-- Spring -->
-		<itemIndex>305</itemIndex>
-		<!-- Rod -->
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>1</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
-		<attachmentIndex>309</attachmentIndex>
-		<!-- Quick Glue -->
-		<itemIndex>308</itemIndex>
-		<!-- Steel Tube -->
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>2</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>3</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>4</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>5</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>6</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>7</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>8</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>9</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>10</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>11</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>15</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex>
+		<itemIndex>330</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>12</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>17</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>18</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>19</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>20</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>21</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>22</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>23</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>24</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>25</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>26</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>27</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>28</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>29</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>30</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>68</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>67</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>69</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>335</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>334</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>331</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>332</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex>
+		<itemIndex>333</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>17</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>18</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>19</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>20</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>21</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>22</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>23</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>24</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>25</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>26</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>27</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>28</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>29</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>30</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>33</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>34</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>35</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>36</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>334</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>223</attachmentIndex>
+		<itemIndex>137</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>223</attachmentIndex>
+		<itemIndex>138</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>223</attachmentIndex>
+		<itemIndex>139</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>223</attachmentIndex>
+		<itemIndex>142</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>224</attachmentIndex>
+		<itemIndex>137</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>224</attachmentIndex>
+		<itemIndex>138</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>224</attachmentIndex>
+		<itemIndex>139</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>224</attachmentIndex>
+		<itemIndex>142</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>1</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>2</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>3</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>4</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>5</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>6</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>7</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>8</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>9</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>10</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>11</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>12</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>13</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>14</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>15</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>16</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>17</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>18</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>19</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>20</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>21</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>22</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>23</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>24</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>25</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>26</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>27</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>28</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>29</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>30</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>31</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>32</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>33</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>34</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>35</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>36</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>56</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>330</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>331</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>332</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>333</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>334</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>335</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>244</attachmentIndex>
+		<itemIndex>31</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>244</attachmentIndex>
+		<itemIndex>32</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>244</attachmentIndex>
+		<itemIndex>33</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>304</attachmentIndex>
-		<!-- Duct Tape -->
 		<itemIndex>308</itemIndex>
-		<!-- Steel Tube -->
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>306</attachmentIndex>
+		<itemIndex>305</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>1</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>2</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>3</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>4</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>5</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>6</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>7</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>8</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>9</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>10</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>11</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>12</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>13</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>14</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>15</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>16</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>17</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>18</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>19</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>20</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>21</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>22</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>23</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>24</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>25</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>26</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>27</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>28</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>29</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>30</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>31</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>32</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>33</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>34</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>35</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>36</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>56</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>330</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>331</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>332</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex>
+		<itemIndex>333</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>309</attachmentIndex>
+		<itemIndex>308</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>1</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>2</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>3</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>4</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>5</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>6</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>7</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>8</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>9</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>10</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>11</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>12</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>13</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>14</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>15</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>16</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>17</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>18</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>19</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>20</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>21</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>22</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>23</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>24</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>25</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>26</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>27</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>28</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>29</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>30</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>31</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>32</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>33</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>34</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>35</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>36</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>56</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>330</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>331</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>332</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex>
+		<itemIndex>333</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>316</attachmentIndex>
+		<itemIndex>315</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>316</attachmentIndex>
+		<itemIndex>264</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>319</attachmentIndex>
-		<!-- X-ray Tube -->
 		<itemIndex>318</itemIndex>
-		<!-- FumblePak -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>320</attachmentIndex>
-		<!-- Gum -->
 		<itemIndex>318</itemIndex>
-		<!-- FumblePak -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>322</attachmentIndex>
-		<!-- Batteries -->
 		<itemIndex>324</itemIndex>
-		<!-- X-ray Detector -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>316</attachmentIndex>
-		<!-- Copper Wire -->
-		<itemIndex>315</itemIndex>
-		<!-- LameBoy -->
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>316</attachmentIndex>
-		<!-- Copper Wire -->
-		<itemIndex>264</itemIndex>
-		<!-- Platinum Watch -->
 		<APCost>5</APCost>
 	</ATTACHMENT>
 </ATTACHMENTLIST>

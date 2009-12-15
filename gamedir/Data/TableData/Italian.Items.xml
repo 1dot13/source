@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -2688,5 +2688,4 @@
 		<szBRName>Barrett M82A2</szBRName>
 		<szBRDesc>This modified M82A2's bullpup layout places the action and barrel further back in the stock, retaining its barrel length while shortening its overall size.</szBRDesc>
 	</ITEM>
-	<ITEM>
 </ITEMLIST>
