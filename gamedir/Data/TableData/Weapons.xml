@@ -178,6 +178,7 @@
 		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
@@ -205,6 +206,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
@@ -1731,6 +1733,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>

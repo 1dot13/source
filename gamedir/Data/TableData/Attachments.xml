@@ -656,6 +656,11 @@
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>66</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
 		<attachmentIndex>244</attachmentIndex>
 		<itemIndex>31</itemIndex>
 		<APCost>5</APCost>
