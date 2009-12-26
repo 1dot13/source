@@ -72,16 +72,16 @@ STR16	gzIronManModeWarningText[]=
 
 STR16 gzDisplayCoverText[]=
 {
-	L"Cover: %d/100 %s, Brightness: %d/100",
-	L"Gun Range: %d/%d tiles, Chance to hit: %d/100",
-	L"Disabling cover display",
-	L"Showing mercenary view",
-	L"Showing danger zones for mercenary",
-	L"Wood", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
-	L"Urban",
-	L"Desert",
-	L"Snow", // NOT USED!!!
-	L"Wood and Desert",
+	L"Местность: %d/100 %s, Освещённость: %d/100",			//Cover: %d/100 %s, Brightness: %d/100
+	L"Дальнобойность оружия: %d/%d ед., шанс попасть: %d/100",	//Gun Range: %d/%d tiles, Chance to hit: %d/100
+	L"Отключено выделение видимых зон наёмника и врага",		//Disabling cover display
+	L"Видимые зоны наёмнка",					//Showing mercenary view
+	L"Опасные зоны для наёмника",				//Showing danger zones for mercenary
+	L"Джунгли", //Wood //wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
+	L"Постройка",	//Urban
+	L"Пустыня",	//Desert
+	L"Снег", //Snow //NOT USED!!!
+	L"Лес и пустыня",	//Wood and Desert
 	L"" // yes empty for now
 };
 
