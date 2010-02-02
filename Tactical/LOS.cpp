@@ -2090,7 +2090,6 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 	// needed for gun hit calculation (can you even hit him)
 	else if (iTileSightLimit == NO_DISTANCE_LIMIT) {
 		iTileSightLimit = pStartSoldier->GetMaxDistanceVisible( pEndSoldier->sGridNo, pEndSoldier->pathing.bLevel, CALC_FROM_ALL_DIRS );
-		iTileSightLimit += iTileSightLimit * GetSightAdjustment(pEndSoldier) / 100;
 		iTileSightLimit += 255; // this shifts the limit for something special (we don't know yet)
 	}
 

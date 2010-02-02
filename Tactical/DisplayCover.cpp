@@ -101,7 +101,7 @@ void	RemoveCoverObjectsFromViewArea();
 
 void	CalculateCover();
 void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT16& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
-void	CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT16& sTargetGridNo, const BOOLEAN& fRoof, const INT32& iSightAdjustment, INT8& bCover );
+void	CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT16& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover, SOLDIERTYPE* pToSoldier=NULL );
 
 void	GetGridNoForViewPort( const UINT8& ubX, const UINT8& ubY, INT16& sGridNo );
 
@@ -253,9 +253,9 @@ void AddCoverObjectsToViewArea()
 	UINT8 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
-	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+	for ( ubX=(UINT8)gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
-		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		for ( ubY=(UINT8)gsMinCellY; ubY<=gsMaxCellY; ++ubY )
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
@@ -290,9 +290,9 @@ void RemoveCoverObjectsFromViewArea()
 	UINT8 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
-	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+	for ( ubX=(UINT8)gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
-		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		for ( ubY=(UINT8)gsMinCellY; ubY<=gsMaxCellY; ++ubY )
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
@@ -385,9 +385,9 @@ void CalculateCover()
 	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY );
 	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY );
 
-	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+	for ( ubX=(UINT8)gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
-		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		for ( ubY=(UINT8)gsMinCellY; ubY<=gsMaxCellY; ++ubY )
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
@@ -424,12 +424,16 @@ void CalculateCover()
 
 				if ( gubDrawMode == COVER_DRAW_ENEMY_VIEW ) // view of enemies against your selected merc
 				{
+					// reset cover value
+					bCover = MAX_COVER;
 					CalculateCoverForSoldier( pSoldier, sGridNo, ubZ, bCover );
 					fInverseColor = FALSE;
 				}
 				else if ( gubDrawMode == COVER_DRAW_MERC_VIEW ) // single view from your merc
 				{
-					CalculateCoverFromSoldier( pSoldier, sGridNo, ubZ, 0, bCover );
+					// reset cover value
+					bCover = MAX_COVER;
+					CalculateCoverFromSoldier( pSoldier, sGridNo, ubZ, bCover );
 					fInverseColor = TRUE; // we don't want to show the cover for the enemy
 				}
 			}
@@ -475,10 +479,7 @@ void CalculateCoverForSoldier( SOLDIERTYPE* pSoldier, const INT16& sTargetGridNo
 			continue;			// next merc
 		}
 
-		INT16 iTileSightLimit = pOpponent->GetMaxDistanceVisible( sTargetGridNo, pSoldier->pathing.bLevel, CALC_FROM_WANTED_DIR );
-		INT16 iSightAdjustment = GetSightAdjustment( pSoldier, sTargetGridNo, ANIM_PRONE ) - GetSightAdjustmentThroughStance( ANIM_PRONE );
-
-		CalculateCoverFromSoldier( pOpponent, sTargetGridNo, fRoof, iSightAdjustment, bCover );
+		CalculateCoverFromSoldier( pOpponent, sTargetGridNo, fRoof, bCover, pSoldier );
 
 		// if we got no cover, just return, can't get any worse than that. Helldorados lets you count
 		if (bCover == NO_COVER)
@@ -488,20 +489,25 @@ void CalculateCoverForSoldier( SOLDIERTYPE* pSoldier, const INT16& sTargetGridNo
 	}
 }
 
-void CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT16& sTargetGridNo, const BOOLEAN& fRoof, const INT32& iSightAdjustment, INT8& bCover )
+void CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT16& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover, SOLDIERTYPE* pToSoldier )
 {
 	UINT16 usSightLimit = pFromSoldier->GetMaxDistanceVisible(sTargetGridNo, (INT8)fRoof, CALC_FROM_WANTED_DIR);
 
-	bCover = MAX_COVER;
 	for ( int i = 0; i<sizeof(animArr); ++i )
 	{
 		const UINT8& ubStance = animArr[i];
 
-		UINT16 usAdjustedSight = usSightLimit + usSightLimit * ( GetSightAdjustmentThroughStance(ubStance) + iSightAdjustment )/100;
+		UINT16 usAdjustedSight;
+
+		if (pToSoldier == NULL) {
+			usAdjustedSight = usSightLimit;
+		} else {
+			usAdjustedSight = usSightLimit + usSightLimit * GetSightAdjustment( pToSoldier, sTargetGridNo, ubStance ) /100;
+		}
 
 		if ( SoldierToVirtualSoldierLineOfSightTest( pFromSoldier, sTargetGridNo, (INT8) fRoof, ubStance, FALSE, usAdjustedSight ) != 0 )
 		{
-			bCover = i;
+			if (bCover > i) bCover = i;
 			break; // we go from prone to stand, if soldier can see someone crouching, he can also see someone standing
 		}
 	}
