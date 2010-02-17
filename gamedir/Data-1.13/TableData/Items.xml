@@ -13935,6 +13935,7 @@
 		<BigGunList>1</BigGunList>
 		<SciFi>1</SciFi>
 		<BR_ROF>16</BR_ROF>
+		<Bipod>10</Bipod>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -14138,6 +14139,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>500</BR_ROF>
+		<Bipod>10</Bipod>
 	</ITEM>
 	<ITEM>
 		<uiIndex>628</uiIndex>
@@ -14477,6 +14479,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
+		<Bipod>10</Bipod>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -15018,6 +15021,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>12</BR_ROF>
+		<Bipod>10</Bipod>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -15761,6 +15765,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>18</BR_ROF>
+		<Bipod>10</Bipod>
 		<DefaultAttachment>1000</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -16197,6 +16202,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>12</BR_ROF>
+		<Bipod>10</Bipod>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -16282,6 +16288,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>600</BR_ROF>
+		<Bipod>10</Bipod>
 	</ITEM>
 	<ITEM>
 		<uiIndex>701</uiIndex>
@@ -17626,6 +17633,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>24</BR_ROF>
+		<Bipod>10</Bipod>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>

@@ -6,7 +6,7 @@
 		<ubDamage>1</ubDamage>
 		<ubStunDamage>140</ubStunDamage>
 		<ubRadius>4</ubRadius>
-		<ubVolume>0</ubVolume>
+		<ubVolume>10</ubVolume>
 		<ubVolatility>0</ubVolatility>
 		<ubAnimationID>4</ubAnimationID>
 		<ubDuration>0</ubDuration>
@@ -18,7 +18,7 @@
 		<ubDamage>0</ubDamage>
 		<ubStunDamage>40</ubStunDamage>
 		<ubRadius>4</ubRadius>
-		<ubVolume>0</ubVolume>
+		<ubVolume>5</ubVolume>
 		<ubVolatility>0</ubVolatility>
 		<ubAnimationID>6</ubAnimationID>
 		<ubDuration>5</ubDuration>
@@ -30,7 +30,7 @@
 		<ubDamage>15</ubDamage>
 		<ubStunDamage>40</ubStunDamage>
 		<ubRadius>4</ubRadius>
-		<ubVolume>0</ubVolume>
+		<ubVolume>5</ubVolume>
 		<ubVolatility>0</ubVolatility>
 		<ubAnimationID>8</ubAnimationID>
 		<ubDuration>5</ubDuration>

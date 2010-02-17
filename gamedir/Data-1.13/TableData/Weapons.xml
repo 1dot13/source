@@ -7243,7 +7243,7 @@
 		<bBurstAP>20</bBurstAP>
 		<APsToReload>16</APsToReload>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<APsToReloadManually>25</APsToReloadManually>
+		<APsToReloadManually>20</APsToReloadManually>
 		<ManualReloadSound>478</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -8107,7 +8107,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>37</ubImpact>
 		<ubDeadliness>43</ubDeadliness>
-		<bAccuracy>5</bAccuracy>
+		<bAccuracy>6</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>660</usRange>
 		<usReloadDelay>200</usReloadDelay>
