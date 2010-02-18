@@ -6616,18 +6616,21 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
         // in the previous turn, then the player has apparently forgotten that he was moving.
         // In this case, abort the character's action.
         
-		// If haven't moved since the start of last round
-        if (!this->bTilesMoved)
+		// If hasn't moved since the start of last round
+        // AND this function is being executed in Turn Based mode
+        // AND character is a player-controlled merc
+		if (!fFromRealTime && !this->bTilesMoved && this->bTeam == OUR_TEAM )
         {
             // but are doing a movement animation
             if ( !( gAnimControl[ this->usAnimState ].uiFlags & ANIM_STATIONARY ) )
             {
                 // Stop the merc
                 this->EVENT_StopMerc( this->sGridNo, this->ubDirection );
+				this->pathing.sFinalDestination = NOWHERE;
             }
 
             // Reset destination
-            this->pathing.sFinalDestination = this->sGridNo;
+            //this->pathing.sFinalDestination = this->sGridNo;
         }
 
 		this->bTilesMoved						= 0;

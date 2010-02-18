@@ -738,8 +738,10 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 							// character then didn't trigger the end of boxing record
 							// (and we know from the if statement above that we're
 							// still in a boxing state of some sort...)
-							TriggerEndOfBoxingRecord( NULL );
+							//TriggerEndOfBoxingRecord( NULL );
 
+							// HEADROCK HAM 3.6: This should trigger Darren's script
+							TriggerEndOfBoxingRecord( pSoldier );
 						}
 					}
 				}

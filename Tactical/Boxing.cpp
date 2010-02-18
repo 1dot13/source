@@ -83,6 +83,14 @@ void ExitBoxing( void )
 					pSoldier->aiData.bAlertStatus = STATUS_GREEN;
 					pSoldier->aiData.bUnderFire = 0;
 
+					// HEADROCK HAM 3.6: Make sure all boxers' APs have been reset to a reasonable number. Otherwise,
+                    // the AI combatant may fail several conditions in subsequent functions, and fail to leave the ring
+                    // as a result.
+                    if (pSoldier->bActionPoints < (APBPConstants[AP_MAXIMUM]*6)/10)
+                    {
+                        pSoldier->bActionPoints = (APBPConstants[AP_MAXIMUM]*6)/10;
+                    }
+
 					// if necessary, revive boxer so he can leave ring
 					if (pSoldier->stats.bLife > 0 && (pSoldier->stats.bLife < OKLIFE || pSoldier->bBreath < OKBREATH ) )
 					{
