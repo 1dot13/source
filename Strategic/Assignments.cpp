@@ -12802,7 +12802,7 @@ BOOLEAN FindAnyAwakeTrainers( SOLDIERTYPE *pTrainee )
 		ubCounter++;
 	}
 
-	return(fAllTrainersAsleep);
+	return(!fAllTrainersAsleep);
 }
 
 BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer )
@@ -12837,7 +12837,7 @@ BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer )
 		ubCounter++;
 	}
 
-	return(fAllTraineesAsleep);
+	return(!fAllTraineesAsleep);
 }
 
 // HEADROCK HAM 3.6: A new set of functions (this & next) to determine whether a character can train Mobile Militia.
