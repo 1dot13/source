@@ -389,7 +389,7 @@ STR16 pAssignmentStrings[] =
 	L"In Trans", // in transit - abbreviated form
 	L"Repair", // repairing
 	L"Practice", // training themselves  
-	L"Militia", // training a town to revolt 
+	L"Militia", // training a town to revolt
 	L"M.Militia", //training moving militia units
 	L"Trainer", // training a teammate
 	L"Student", // being trained by someone else 
