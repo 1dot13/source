@@ -173,6 +173,12 @@ extern STR16 gzIMPColorChoosingText[];
 extern STR16 sColorChoiceExplanationTexts[];
 extern STR16 gzIMPDisabilityTraitText[];
 //****
+
+// HEADROCK HAM 3.6: New arrays for facility operation messages
+extern STR16 gzFacilityErrorMessage[];
+extern STR16 gzFacilityAssignmentStrings[];
+extern STR16 gzFacilityRiskResultStrings[];
+
 enum
 {
 	ANTIHACKERSTR_EXITGAME,

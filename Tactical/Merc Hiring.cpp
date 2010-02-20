@@ -78,8 +78,9 @@ extern BOOLEAN		gfFirstHeliRun;
 // ATE: Globals that dictate where the mercs will land once being hired
 // Default to Omerta
 // Saved in general saved game structure
-INT16	gsMercArriveSectorX = 9;
-INT16	gsMercArriveSectorY = 1;
+// HEADROCK HAM 3.5: Externalized coordinates
+INT16 gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
+INT16 gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
 
 void CheckForValidArrivalSector( );
 
@@ -317,16 +318,20 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	if (!is_networked)
 	{
 		// hayden - maybe you want to duke it out in omerta ;)
-	if( !DidGameJustStart() && gsMercArriveSectorX == 9 && gsMercArriveSectorY == 1 )
-		{ 
-			//Mercs arriving in A9.  This sector has been deemed as the always safe sector.
-		//Seeing we don't support entry into a hostile sector (except for the beginning),
-		//we will nuke any enemies in this sector first.
-		if( gWorldSectorX != 9 || gWorldSectorY != 1 || gbWorldSectorZ )
-		{
-			EliminateAllEnemies( (UINT8)gsMercArriveSectorX, (UINT8)gsMercArriveSectorY );
-		}
-	}
+		// HEADROCK HAM 3.5: Externalized starting (safe) sector
+		// HEADROCK HAM 3.5: Actually, this is really ridiculous. Why should enemies at the LZ be eliminated at all?
+		// I'm taking the initiative and removing this from the code. Mainly because it ends up interfering with
+		// externalized LZs combined with other features like "Always Real Time" and "Forced Turn Based".
+		//if( !DidGameJustStart() && gsMercArriveSectorX == gGameExternalOptions.ubDefaultArrivalSectorX && gsMercArriveSectorY == gGameExternalOptions.ubDefaultArrivalSectorY )
+		//	{ 
+		//		//Mercs arriving in A9.  This sector has been deemed as the always safe sector.
+		//		//Seeing we don't support entry into a hostile sector (except for the beginning),
+		//		//we will nuke any enemies in this sector first.
+		//		if( gWorldSectorX != gGameExternalOptions.ubDefaultArrivalSectorX || gWorldSectorY != gGameExternalOptions.ubDefaultArrivalSectorY || gbWorldSectorZ )
+		//		{
+		//			EliminateAllEnemies( (UINT8)gsMercArriveSectorX, (UINT8)gsMercArriveSectorY );
+		//		}
+		//	}
 	}
 
 	// This will update ANY soldiers currently schedules to arrive too

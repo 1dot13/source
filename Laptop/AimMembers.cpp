@@ -1432,7 +1432,15 @@ BOOLEAN DisplayMercsFace()
 	BltVideoObject(FRAME_BUFFER, hPortraitHandle, 0,PORTRAIT_X, PORTRAIT_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 
 	// load the Face graphic and add it
-	sprintf(sTemp, "%s%02d.sti", sFaceLoc, gbCurrentSoldier);
+	if (gGameExternalOptions.fReadProfileDataFromXML)
+	{
+		// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
+		sprintf(sTemp, "%s%02d.sti", sFaceLoc, gMercProfiles[gbCurrentSoldier].ubFaceIndex);
+	}
+	else
+	{
+		sprintf(sTemp, "%s%02d.sti", sFaceLoc, gbCurrentSoldier);
+	}
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP(sTemp, VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &guiFace));

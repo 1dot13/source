@@ -21,6 +21,8 @@
 	#include "mapscreen.h"
 	#include "Soldier macros.h"
 	#include "Event Pump.h"
+	// HEADROCK HAM 3.5: Added for facility effect on morale
+	#include "Facilities.h"
 #endif
 
 #include "connect.h"
@@ -137,14 +139,19 @@ void DecayTacticalMorale( SOLDIERTYPE * pSoldier )
 
 void DecayStrategicMorale( SOLDIERTYPE * pSoldier )
 {
+	// HEADROCK HAM 3.5: Strategic Morale Mod no longer normalizes to 0 by default. In fact, a local facility can
+	// cause normalization to another value (positive or negative!), based on the activity that the character is
+	// currently performing. It can literally reduce morale to ridiculously low amounts if you don't watch your
+	// assignments in some sectors.
+
 	// decay the modifier!
 	if (pSoldier->aiData.bStrategicMoraleMod > 0)
 	{
-		pSoldier->aiData.bStrategicMoraleMod = __max( 0, pSoldier->aiData.bStrategicMoraleMod - (8 - pSoldier->aiData.bStrategicMoraleMod / 10) );
+		pSoldier->aiData.bStrategicMoraleMod = __max( 0, pSoldier->aiData.bStrategicMoraleMod - (8 - (pSoldier->aiData.bStrategicMoraleMod / 10)) );
 	}
 	else
 	{
-		pSoldier->aiData.bStrategicMoraleMod = __min( 0, pSoldier->aiData.bStrategicMoraleMod + (6 + pSoldier->aiData.bStrategicMoraleMod / 10) );
+		pSoldier->aiData.bStrategicMoraleMod = __min( 0, pSoldier->aiData.bStrategicMoraleMod + (6 + (pSoldier->aiData.bStrategicMoraleMod / 10)) );
 	}
 }
 
@@ -295,6 +302,36 @@ void RefreshSoldierMorale( SOLDIERTYPE * pSoldier )
 
 	iActualMorale = __min( 100, iActualMorale );
 	iActualMorale = __max( 0, iActualMorale );
+
+	UINT8 ubMaxMorale = 100;
+	// HEADROCK HAM 3.5: Local facilities may decrease the total morale allowed.
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	{
+		if (gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][cnt].fFacilityHere)
+		{
+			if (cnt == (UINT16)pSoldier->sFacilityTypeOperated && // Soldier is operating this facility
+				GetSoldierFacilityAssignmentIndex( pSoldier ) != -1) 
+			{
+				UINT8 ubFacilityType = (UINT8)cnt;
+				UINT8 ubAssignmentType = GetSoldierFacilityAssignmentIndex( pSoldier );
+				// Check this facility both for an assignment-specific AND ambient value. Use it if it's the lowest
+				// encountered yet.
+				ubMaxMorale = __min(ubMaxMorale, (UINT8)GetFacilityModifier(FACILITY_MAX_MORALE, ubFacilityType, ubAssignmentType ));
+			}
+			else // Soldier is not operating this facility
+			{
+				// Check this facility for an AMBIENT Maximum Morale limit. Use it if it's the lowest encountered yet.
+				ubMaxMorale = __min(ubMaxMorale, (UINT8)GetFacilityModifier(FACILITY_MAX_MORALE, (UINT8)cnt, FAC_AMBIENT));
+			}
+		}
+	}
+
+	if (ubMaxMorale > 0 && iActualMorale > ubMaxMorale)
+	{
+		// Normalize to Max Morale
+		iActualMorale = (iActualMorale + ubMaxMorale) / 2;
+	}
+
 	pSoldier->aiData.bMorale = (INT8) iActualMorale;
 
 	// update mapscreen as needed

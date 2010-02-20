@@ -18,7 +18,7 @@ extern UINT8 SlotToPocket[7];
 
 extern BOOLEAN WeaponInHand( SOLDIERTYPE * pSoldier );
 
-INT8 FindAmmo( SOLDIERTYPE * pSoldier, UINT8 ubCalibre, UINT16 ubMagSize, INT8 bExcludeSlot );
+INT8 FindAmmo( SOLDIERTYPE * pSoldier, UINT8 ubCalibre, UINT16 ubMagSize, UINT8 ubAmmoType, INT8 bExcludeSlot );
 
 INT8 FindBestWeaponIfCurrentIsOutOfRange(SOLDIERTYPE * pSoldier, INT8 bCurrentWeaponIndex, UINT16 bWantedRange);
 
@@ -343,7 +343,8 @@ INT16 GetDesertCamoBonus( OBJECTTYPE * pObj );
 INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier );
 INT16 GetSnowCamoBonus( OBJECTTYPE * pObj );
 
-
+// HEADROCK HAM 3.6: Looks for a backpack anywhere on this character.
+INT8 FindBackpackOnSoldier( SOLDIERTYPE * pSoldier );
 
 #endif
 

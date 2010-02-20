@@ -17,6 +17,10 @@
 	#include "LaptopSave.h"
 	#include "Campaign Types.h"
 	#include "strategicmap.h"
+	// HEADROCK HAM 3.6: Added facilities for calculating hourly expenses
+	#include "Facilities.h"
+	// HEADROCK HAM 3.6: Militia upkeep
+	#include "Town Militia.h"
 #endif
 
 // the global defines
@@ -402,7 +406,27 @@ INT32 GetProjectedTotalDailyIncome( void )
 	// then there is how many deposits have been made, now look at how many mines we have, thier rate, amount of ore left and predict if we still
 	// had these mines how much more would we get?
 
-	return( PredictIncomeFromPlayerMines() );
+	// HEADROCK HAM 3.6: Facilities can make you money, and this is figured into your daily income.
+	
+	INT32 iRate = 0;
+	iRate = PredictIncomeFromPlayerMines() + (15 * GetTotalFacilityHourlyCosts( TRUE )); // 15 hours is the average time a merc can work per day
+
+	return( iRate );
+}
+
+// HEADROCK HAM 3.6: Predict expenses today. Takes into account facilities, and in the future merc contracts.
+INT32 GetProjectedExpenses( void )
+{
+	INT32 iTotalExpenses = 0;
+	
+	INT32 iFacilityExpenses = GetTotalFacilityHourlyCosts( FALSE );
+	INT32 iContractExpenses = GetTotalContractExpenses();
+
+	iTotalExpenses += (iFacilityExpenses*15); // 15 hours is the average time a merc can work every day.
+	iTotalExpenses += iContractExpenses;
+	iTotalExpenses += guiTotalUpkeepForMilitia;
+
+	return (iTotalExpenses);
 }
 
 INT32 GetProjectedBalance( void )
@@ -1224,7 +1248,8 @@ UINT32 ProcessAndEnterAFinacialRecord( UINT8 ubCode, UINT32 uiDate, INT32 iAmoun
 	else
 	{
 		// alloc space
-		uiId = ReadInLastElementOfFinanceListAndReturnIdNumber( );
+		// HEADROCK HAM 3.6: Fix by Warmsteel to prevent repetitive entries on finance list. Next line commented out.
+		// uiId = ReadInLastElementOfFinanceListAndReturnIdNumber( );
 		pFinance = (FinanceUnitPtr) MemAlloc(sizeof(FinanceUnit));
 
 		// setup info passed
@@ -1532,6 +1557,16 @@ void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 
 		case( MERC_DEPOSITED_MONEY_TO_PLAYER_ACCOUNT ):
 			swprintf(pString, pTransactionText[ MERC_DEPOSITED_MONEY_TO_PLAYER_ACCOUNT ],	gMercProfiles[ pFinance->ubSecondCode ].zNickname );
+			break;
+
+		// HEADROCK HAM 3.6: Paid for Facility Use
+		case( FACILITY_OPERATIONS ):
+			swprintf(pString, L"%s", pTransactionText[ FACILITY_OPERATIONS ]);
+			break;
+
+		// HEADROCK HAM 3.6: Paid for militia upkeep
+		case( MILITIA_UPKEEP ):
+			swprintf(pString, L"%s", pTransactionText[ MILITIA_UPKEEP ]);
 			break;
 
 	}

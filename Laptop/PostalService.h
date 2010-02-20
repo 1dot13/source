@@ -222,7 +222,7 @@ public:
 	UINT16 RemoveDestination(UINT16 usDestinationID);
 	RefToDestinationStruct GetDestination(UINT16 usDestinationID) const;
 	RefToDestinationList LookupDestinationList(void) const;
-	
+
 	// WANNE: 
 	BOOLEAN IsSectorAShipmentSector(UINT8 ubMapX, UINT8 ubMapY, UINT8 ubMapZ);
 

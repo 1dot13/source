@@ -48,6 +48,8 @@
 	#include "NPC.h"
 #endif
 
+// HEADROCK HAM 3.2: Gamesettings.h for external modifications to team turns.
+#include "GameSettings.h"
 #include "Reinforcement.h"
 #include "fresh_header.h"
 //forward declarations of common classes to eliminate includes
@@ -315,9 +317,15 @@ void EndTurn( UINT8 ubNextTeam )
 	}
 	else
 	{
-		AddPossiblePendingEnemiesToBattle();
-
-		AddPossiblePendingMilitiaToBattle();
+		// HEADROCK HAM 3.2: Experimental fix to force reinforcements enter battle with 0 APs.
+		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 1 && gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 2)
+		{
+			AddPossiblePendingEnemiesToBattle();
+		}
+		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 1 && gGameExternalOptions.ubReinforcementsFirstTurnFreeze != 3)
+		{
+			AddPossiblePendingMilitiaToBattle();
+		}
 
 //		InitEnemyUIBar( );
 
@@ -336,6 +344,16 @@ void EndTurn( UINT8 ubNextTeam )
 		gTacticalStatus.ubCurrentTeam	= ubNextTeam;
 
 		if(is_server || !is_client) BeginTeamTurn( gTacticalStatus.ubCurrentTeam );
+
+		// HEADROCK HAM 3.2: Experimental fix to force reinforcements enter battle with 0 APs.
+		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 1 || gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 2)
+		{
+			AddPossiblePendingEnemiesToBattle();
+		}
+		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 1 || gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 3)
+		{
+			AddPossiblePendingMilitiaToBattle();
+		}
 
 		BetweenTurnsVisibilityAdjustments();
 	}

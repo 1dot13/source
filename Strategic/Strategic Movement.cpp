@@ -1554,6 +1554,10 @@ void AwardExperienceForTravelling( GROUP * pGroup )
 
 void AddCorpsesToBloodcatLair( INT16 sSectorX, INT16 sSectorY )
 {
+	// HEADROCK HAM 3.6: Note, lair location externalized, but may cause issues because the GridNos here are
+	// hardcoded... Maybe there will be a better way to solve this in the future, with externalized GridNos.
+	// At the moment, no changes.
+
 	ROTTING_CORPSE_DEFINITION		Corpse;
 	INT16							 sXPos, sYPos;
 
@@ -1884,12 +1888,14 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 					if( pGroup->pPlayerList->pSoldier->bAssignment < ON_DUTY )
 					{
 						// squad
-						ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], pAssignmentStrings[ pGroup->pPlayerList->pSoldier->bAssignment ], pMapVertIndex[ pGroup->pPlayerList->pSoldier->sSectorY ], pMapHortIndex[ pGroup->pPlayerList->pSoldier->sSectorX ]);
+						// HEADROCK HAM 3.6: Messages are no longer yellow by default.
+						ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], pAssignmentStrings[ pGroup->pPlayerList->pSoldier->bAssignment ], pMapVertIndex[ pGroup->pPlayerList->pSoldier->sSectorY ], pMapHortIndex[ pGroup->pPlayerList->pSoldier->sSectorX ]);
 					}
 					else
 					{
 						// a loner
-						ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], pGroup->pPlayerList->pSoldier->name, pMapVertIndex[ pGroup->pPlayerList->pSoldier->sSectorY	], pMapHortIndex[ pGroup->pPlayerList->pSoldier->sSectorX	] );
+						// HEADROCK HAM 3.6: Messages are no longer yellow by default.
+						ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], pGroup->pPlayerList->pSoldier->name, pMapVertIndex[ pGroup->pPlayerList->pSoldier->sSectorY	], pMapHortIndex[ pGroup->pPlayerList->pSoldier->sSectorX	] );
 					}
 				}
 			}
@@ -1978,7 +1984,8 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 				// don't print any messages when arriving underground, there's no delay involved
 				if ( GroupAtFinalDestination( pGroup ) && ( pGroup->ubSectorZ == 0 ) && !fNeverLeft )
 				{
-					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], pVehicleStrings[ pVehicleList[ iVehId ].ubVehicleType ], pMapVertIndex[ pGroup->ubSectorY ], pMapHortIndex[ pGroup->ubSectorX ] );
+					// HEADROCK HAM 3.6: Messages are no longer yellow by default.
+					ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], pVehicleStrings[ pVehicleList[ iVehId ].ubVehicleType ], pMapVertIndex[ pGroup->ubSectorY ], pMapHortIndex[ pGroup->ubSectorX ] );
 				}
 			}
 		}
@@ -1997,7 +2004,8 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			if ( !pGroup->fVehicle || !IsGroupTheHelicopterGroup( pGroup ) )
 			{
 				// ATE: Add a few corpse to the bloodcat lair...
-				if ( SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ) == SEC_I16 && fFirstTimeInSector )
+				// HEADROCK: No longer hardcoded to I16
+				if ( SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ) == gubBloodcatLairSectorId && fFirstTimeInSector )
 				{
 					AddCorpsesToBloodcatLair( pGroup->ubSectorX, pGroup->ubSectorY );
 				}
@@ -4708,13 +4716,20 @@ void RandomizePatrolGroupLocation( GROUP *pGroup )
 //roll the dice to see if this will become an ambush random encounter.
 BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 {
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// HEADROCK HAM 3.6: Ambush locations, min/max strength and chance of ambush have all been externalized to XML.
+
 	SECTORINFO *pSector;
 	INT32 iHoursElapsed;
 	UINT8 ubSectorID;
 	UINT8 ubChance;
-	INT8 bDifficultyMaxCats;
-	INT8 bProgressMaxCats;
+	UINT8 ubDifficulty = gGameOptions.ubDifficultyLevel-1; // For use by Placements Array. Novice = 0 instead of 1.
+	UINT8 ubRange;
+	UINT8 ubRandomCats;
 	INT8 bNumMercMaxCats;
+	UINT8 PlacementType; // 0 = Ambush site. 1 = Static placement. 2 = Lair.
+	UINT8 ubMinBloodcats; // XML minimum.
+	UINT8 ubMaxBloodcats; // XML maximum.
 	BOOLEAN fAlreadyAmbushed = FALSE;
 
 	if( pGroup->ubSectorZ )
@@ -4725,17 +4740,24 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 	ubSectorID = (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
 	pSector = &SectorInfo[ ubSectorID ];
 
-	ubChance = 5 * gGameOptions.ubDifficultyLevel;
+	// Read chance from XML data, based on difficulty.
+	ubChance = gBloodcatPlacements[ ubSectorID ][ ubDifficulty ].ubAmbushChance;
+	iHoursElapsed = __max(0,(GetWorldTotalMin() - pSector->uiTimeCurrentSectorWasLastLoaded) / 60);
+	// Decrease chance to 0% if sector has been visited this hour. Every hour after that, increase the chance by 1% 
+	// until it reaches the default value again.
+	ubChance = (UINT8)__min((INT32)ubChance, iHoursElapsed);
+	ubChance = __max(0,ubChance);
 
-	iHoursElapsed = (GetWorldTotalMin() - pSector->uiTimeCurrentSectorWasLastLoaded) / 60;
-	if( ubSectorID == SEC_N5 || ubSectorID == SEC_I16 )
-	{ //These are special maps -- we use all placements.
-		if( pSector->bBloodCats == -1 )
-		{
-			pSector->bBloodCats = pSector->bBloodCatPlacements;
-		}
-		else if( pSector->bBloodCats > 0 && pSector->bBloodCats < pSector->bBloodCatPlacements )
-		{ //Slowly have them recuperate if we haven't been here for a long time.	The population will
+	// Determine what type of placement this is.
+	PlacementType = gBloodcatPlacements[ ubSectorID ][0].PlacementType;
+
+	// At lair?
+	if( PlacementType == BLOODCAT_PLACEMENT_LAIR )
+	{ 
+		// Bloodcats still exist here, but aren't at the optimal number?
+		if( pSector->bBloodCats > 0 && pSector->bBloodCats < pSector->bBloodCatPlacements )
+		{ 
+			//Slowly have them recuperate if we haven't been here for a long time.	The population will
 			//come back up to the maximum if left long enough.
 			INT32 iBloodCatDiff;
 			iBloodCatDiff = pSector->bBloodCatPlacements - pSector->bBloodCats;
@@ -4743,55 +4765,80 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 		}
 		//Once 0, the bloodcats will never recupe.
 	}
-	else if( pSector->bBloodCats == -1 )
-	{ //If we haven't been ambushed by bloodcats yet...
-		if( gfAutoAmbush || PreChance( ubChance ) )
+
+	// At ambush sector?
+	else if( PlacementType == BLOODCAT_PLACEMENT_AMBUSH )
+	{ 
+		//If there's any chance of ambush in this sector, and we beat that chance...
+		if( ubChance && (gfAutoAmbush || PreChance( ubChance )) )
 		{
 			//randomly choose from 5-8, 7-10, 9-12 bloodcats based on easy, normal, and hard, respectively
-			bDifficultyMaxCats = (INT8)( Random( 4 ) + gGameOptions.ubDifficultyLevel*2 + 3 );
-
+			//bDifficultyMaxCats = (INT8)( Random( 4 ) + gGameOptions.ubDifficultyLevel*2 + 3 );
 			//maximum of 3 bloodcats or 1 for every 6%, 5%, 4% progress based on easy, normal, and hard, respectively
-			bProgressMaxCats = (INT8)max( CurrentPlayerProgressPercentage() / (7 - gGameOptions.ubDifficultyLevel), 3 );
-
-			//make sure bloodcats don't outnumber mercs by a factor greater than 2
-			bNumMercMaxCats = (INT8)(PlayerMercsInSector( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ ) * 2);
-
+			//bProgressMaxCats = (INT8)max( CurrentPlayerProgressPercentage() / (7 - gGameOptions.ubDifficultyLevel), 3 );
 			//choose the lowest number of cats calculated by difficulty and progress.
-			pSector->bBloodCats = (INT8)min( bDifficultyMaxCats, bProgressMaxCats );
+			//pSector->bBloodCats = (INT8)min( bDifficultyMaxCats, bProgressMaxCats );
 
+			///////////////////////////////////////////////////////////////////////////////////////////////////////
+			// HEADROCK HAM 3.6: Minimum and Maximum are now modder-defined, so pick a random number between them.
+
+			// Read Min/Max from XML
+			ubMaxBloodcats = gBloodcatPlacements[ ubSectorID ][ ubDifficulty ].ubMaxBloodcats;
+			ubMinBloodcats = gBloodcatPlacements[ ubSectorID ][ ubDifficulty ].ubMinBloodcats;
+			// Find range between Min and Max
+			ubRange = ubMaxBloodcats-ubMinBloodcats;
+			// Adjust range based on current progress.
+			ubRange = __max(0,( ubRange * CurrentPlayerProgressPercentage() ) / 100);
+			// Randomize "extra" bloodcats
+			ubRandomCats = PreRandom(ubRange+1);
+			// Add "extra" bloodcats to minimum value
+			ubRandomCats += ubMinBloodcats;
+
+			// SET NUMBER OF CATS THAT WILL APPEAR
+			pSector->bBloodCats = ubRandomCats;
+			
 			if( gGameOptions.ubDifficultyLevel < DIF_LEVEL_HARD )
-			{ //if not hard difficulty, ensure cats never outnumber mercs by a factor of 2 (min 3 bloodcats)
+			{ 
+				//At NOVICE/EXPERIENCED difficulty, ensure cats never outnumber mercs by a factor of more than 2.
+				bNumMercMaxCats = (INT8)(PlayerMercsInSector( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ ) * 2);
 				pSector->bBloodCats = (INT8)min( pSector->bBloodCats, bNumMercMaxCats );
-				pSector->bBloodCats = (INT8)max( pSector->bBloodCats, 3 );
+				//pSector->bBloodCats = (INT8)max( pSector->bBloodCats, 3 );
 			}
 
 			//ensure that there aren't more bloodcats than placements
 			pSector->bBloodCats = (INT8)min( pSector->bBloodCats, pSector->bBloodCatPlacements );
+
+			// Once again, make absolutely sure we're still within XML-set limits
+			pSector->bBloodCats = (INT8)min( pSector->bBloodCats, ubMaxBloodcats);
+			pSector->bBloodCats = (INT8)max( pSector->bBloodCats, ubMinBloodcats);
 		}
-	}
-	else if( ubSectorID != SEC_I16 )
-	{
-		if( !gfAutoAmbush && PreChance( 95 ) )
-		{ //already ambushed here.	But 5% chance of getting ambushed again!
+		else
+		{
+			// Chance was 0.
 			fAlreadyAmbushed = TRUE;
 		}
 	}
 
-	if( !fAlreadyAmbushed && ubSectorID != SEC_N5 && pSector->bBloodCats > 0 &&
+	// An ambush is occuring?
+	if( !fAlreadyAmbushed && PlacementType != BLOODCAT_PLACEMENT_STATIC && pSector->bBloodCats > 0 &&
 			!pGroup->fVehicle && !NumEnemiesInSector( pGroup->ubSectorX, pGroup->ubSectorY ) )
 	{
-		if( ubSectorID != SEC_I16 || !gubFact[ FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR ] )
+		// Wilderness ambush, or the player has unwittingly entered the lair?
+		if( PlacementType == BLOODCAT_PLACEMENT_AMBUSH || !gubFact[ FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR ] )
 		{
+			// Ambush occurs.
 			gubEnemyEncounterCode = BLOODCAT_AMBUSH_CODE;
 		}
 		else
 		{
+			// Player knowingly enters lair.
 			gubEnemyEncounterCode = ENTERING_BLOODCAT_LAIR_CODE;
 		}
 		return TRUE;
 	}
 	else
 	{
+		// No special bloodcat encounter. This ALWAYS happens in STATIC PLACEMENT sectors.
 		gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
 		return FALSE;
 	}
@@ -4808,7 +4855,8 @@ void NotifyPlayerOfBloodcatBattle( UINT8 ubSectorX, UINT8 ubSectorY )
 	}
 	else if( gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE )
 	{
-		wcscpy( str, pMapErrorString[ 13 ] );
+		GetSectorIDString( ubSectorX, ubSectorY, 0, zTempString, FALSE );
+		swprintf( str, pMapErrorString[ 13 ], zTempString );
 	}
 
 	if( guiCurrentScreen == MAP_SCREEN )

@@ -58,7 +58,8 @@
 #define WE_SEE_WHAT_MILITIA_SEES_AND_VICE_VERSA
 
 extern void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
-void MakeBloodcatsHostile( void );
+// HEADROCK HAM 3.6: Moved to header
+//void MakeBloodcatsHostile( void );
 
 void OurNoise( UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,	UINT8 ubNoiseType );
 void TheirNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType );
@@ -490,7 +491,9 @@ void HandleBestSightingPositionInRealtime( void )
 						// get rid of the item under cursor (we gotta react FAST)
 						CancelItemPointer();
 						// select (and center screen on) the merc who saw the enemy
-						if (gusSelectedSoldier != (UINT16)MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID)
+						// HEADROCK HAM 3.6: A much-requested toggle.
+						if (gusSelectedSoldier != (UINT16)MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID &&
+							!gGameExternalOptions.fNoAutoFocusChangeInRealtimeSneak)
 							SelectSoldier (MercPtrs[gubBestToMakeSighting[ 0 ]]->ubID, false, true);
 						// if not quiet, emit a message warning the player
 						if (!gGameExternalOptions.fQuietRealTimeSneak)
@@ -1251,6 +1254,19 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 	if (!sideViewLimit)
 	{
 		sDistVisible += sDistVisible * GetTotalVisionRangeBonus(pSoldier, bLightLevel) / 100;
+
+		// HEADROCK HAM 3.2: Further reduce sightrange for cowering characters.
+		if (gGameExternalOptions.ubCoweringReducesSightRange == 1 || gGameExternalOptions.ubCoweringReducesSightRange == 2)
+		{
+			INT8 bTolerance = CalcSuppressionTolerance( pSoldier );
+
+			// Make sure character is cowering.
+			if ( pSoldier->aiData.bShock >= bTolerance && gGameExternalOptions.ubMaxSuppressionShock > 0 && 
+				sDistVisible > 0 )
+			{
+				sDistVisible = __max(1,(sDistVisible * (gGameExternalOptions.ubMaxSuppressionShock - pSoldier->aiData.bShock)) / gGameExternalOptions.ubMaxSuppressionShock);
+			}
+		}
 	}
 
 
@@ -2299,7 +2315,13 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT16 sOppGridno,
 		}
 		else if ( pOpponent->ubBodyType == BLOODCAT && pOpponent->aiData.bNeutral)
 		{
-			MakeBloodcatsHostile();
+			// HEADROCK HAM 3.6: If bloodcats are set as affiliated with civilians, do not trigger hostilities.
+			if ( gBloodcatPlacements[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][ 0 ].PlacementType != BLOODCAT_PLACEMENT_STATIC ||
+				gBloodcatPlacements[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][ gGameOptions.ubDifficultyLevel - 1 ].ubFactionAffiliation == NON_CIV_GROUP ||
+				gBloodcatPlacements[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][ gGameOptions.ubDifficultyLevel - 1 ].ubFactionAffiliation == QUEENS_CIV_GROUP )
+			{			
+				MakeBloodcatsHostile();
+			}
 			/*
 			SetSoldierNonNeutral( pOpponent );
 			RecalculateOppCntsDueToNoLongerNeutral( pOpponent );
@@ -5608,20 +5630,44 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 						break;
 				}
 
-				if ( gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_N )
+				// HEADROCK HAM 3.6: Bloodcat "static" sectors have been externalized, and there can be more than one.
+				// Also, there's a toggle that determines whether or not bloodcats can sense enemies in this sector.
+				UINT8 ubSectorID = SECTOR(gWorldSectorX, gWorldSectorY);
+				UINT8 PlacementType = gBloodcatPlacements[ ubSectorID ][0].PlacementType;
+				
+				if (PlacementType == BLOODCAT_PLACEMENT_STATIC)
 				{
-					// in the bloodcat arena sector, skip noises between army & bloodcats
-					if ( pSoldier->bTeam == ENEMY_TEAM && MercPtrs[ ubNoiseMaker ]->bTeam == CREATURE_TEAM )
+					if (gBloodcatPlacements[ ubSectorID ][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation == QUEENS_CIV_GROUP)
 					{
-						continue;
+						// skip noises between army & bloodcats
+						if ( pSoldier->bTeam == ENEMY_TEAM && MercPtrs[ ubNoiseMaker ]->ubBodyType == BLOODCAT && MercPtrs[ ubNoiseMaker ]->bTeam == CREATURE_TEAM )
+						{
+							continue;
+						}
+						if ( pSoldier->bTeam == CREATURE_TEAM && pSoldier->ubBodyType == BLOODCAT && MercPtrs[ ubNoiseMaker ]->bTeam == ENEMY_TEAM )
+						{
+							continue;
+						}
 					}
-					if ( pSoldier->bTeam == CREATURE_TEAM && MercPtrs[ ubNoiseMaker ]->bTeam == ENEMY_TEAM )
+					else if (gBloodcatPlacements[ ubSectorID ][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation > NON_CIV_GROUP)
 					{
-						continue;
+						if ( MercPtrs[ ubNoiseMaker ]->ubBodyType == BLOODCAT && MercPtrs[ ubNoiseMaker ]->bTeam == CREATURE_TEAM && pSoldier->bSide != gbPlayerNum)
+						{
+							// Target is a bloodcat. He can't be heard by civilians no matter what.
+							{
+								continue;
+							}
+						}
+						else if ( pSoldier->bTeam == CREATURE_TEAM && pSoldier->ubBodyType == BLOODCAT )
+						{
+							// Source is a bloodcat. He can only hear player-side soldiers, and only if hostile.
+							if ( MercPtrs[ ubNoiseMaker ]->bSide != gbPlayerNum || pSoldier->aiData.bNeutral )
+							{
+								continue;
+							}
+						}
 					}
 				}
-
-
 			}
 			else
 			{
@@ -7253,12 +7299,12 @@ void MakeBloodcatsHostile( void )
 	{
 		if ( pSoldier->ubBodyType == BLOODCAT && pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
 		{
-		SetSoldierNonNeutral( pSoldier );
-		RecalculateOppCntsDueToNoLongerNeutral( pSoldier );
-		if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
-		{
-			CheckForPotentialAddToBattleIncrement( pSoldier );
-		}
+			SetSoldierNonNeutral( pSoldier );
+			RecalculateOppCntsDueToNoLongerNeutral( pSoldier );
+			if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
+			{
+				CheckForPotentialAddToBattleIncrement( pSoldier );
+			}
 		}
 	}
 

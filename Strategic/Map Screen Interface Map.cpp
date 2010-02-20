@@ -48,6 +48,9 @@
 
 #include "Quests.h"
 #include "connect.h"
+// HEADROCK HAM 3.5: included for detectionlevels
+#include "Facilities.h"
+#include "MilitiaSquads.h"
 
 // zoom x and y coords for map scrolling
 INT32 iZoomX = 0;
@@ -355,8 +358,9 @@ extern BOOLEAN fMapScreenBottomDirty;
 BOOLEAN fFoundTixa = FALSE;
 
 // selected sector
-UINT16		sSelMapX = 9;
-UINT16		sSelMapY = 1;
+// HEADROCK HAM 3.5: Default selected sector doesn't have to be Omerta does it? :)
+UINT16		sSelMapX = gGameExternalOptions.ubDefaultArrivalSectorX;
+UINT16		sSelMapY = gGameExternalOptions.ubDefaultArrivalSectorY;
 
 // highlighted sector
 INT16 gsHighlightSectorX=-1;
@@ -522,6 +526,7 @@ void CreateMilitiaPanelBottomButton( void );
 void DeleteMilitiaPanelBottomButton( void );
 void MilitiaDoneButtonCallback(GUI_BUTTON *btn,INT32 reason);
 void MilitiaAutoButtonCallback(GUI_BUTTON *btn,INT32 reason);
+void MilitiaDisbandYesNoBoxCallback( UINT8 bExitValue ); // HEADROCK HAM 3.6: Disband militia callback
 void RenderShadingForUnControlledSectors( void );
 void DrawTownMilitiaForcesOnMap( void );
 void CheckAndUpdateStatesOfSelectedMilitiaSectorButtons( void );
@@ -4381,7 +4386,10 @@ void DisplayDistancesForHelicopter( void )
 
 
 	// calculate the cost of the trip based on the number of safe and unsafe sectors it will pass through
-	uiTripCost = ( sNumSafeSectors * COST_AIRSPACE_SAFE ) + ( sNumUnSafeSectors * COST_AIRSPACE_UNSAFE );
+	// HEADROCK HAM 3.5: Externalized Base Cost. Also includes hourly-calculated facility modifier.
+	UINT32 uiCostGreen = __max(0,gGameExternalOptions.usHelicopterBaseCostPerGreenTile + gsSkyriderCostModifier);
+	UINT32 uiCostRed = __max(0,gGameExternalOptions.usHelicopterBaseCostPerRedTile + gsSkyriderCostModifier);
+	uiTripCost = ( sNumSafeSectors * uiCostGreen ) + ( sNumUnSafeSectors * uiCostRed );
 
 	swprintf( sString, L"%d", uiTripCost );
 	InsertCommasForDollarFigure( sString );
@@ -6092,13 +6100,22 @@ void MilitiaDoneButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			btn->uiFlags &= ~( BUTTON_CLICKED_ON );
 
-			// reset fact we are in the box
-			sSelectedMilitiaTown = 0;
-			fMapPanelDirty = TRUE;
-			// Go ahead and reset the militia in the selected sector (even if we didn't change it here)
-			if (gfStrategicMilitiaChangesMade)
+			// HEADROCK HAM 3.6: Clicking the done button while militia are on the cursor causes a pop-up
+			// for authorizing DISBANDING those militia.
+			if (sGreensOnCursor || sRegularsOnCursor || sElitesOnCursor)
 			{
-				ResetMilitia();
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMilitiaString[ 3 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, MilitiaDisbandYesNoBoxCallback );
+			}
+			else
+			{
+				// reset fact we are in the box
+				sSelectedMilitiaTown = 0;
+				fMapPanelDirty = TRUE;
+				// Go ahead and reset the militia in the selected sector (even if we didn't change it here)
+				if (gfStrategicMilitiaChangesMade)
+				{
+					ResetMilitia();
+				}
 			}
 		}
 	}
@@ -6279,13 +6296,17 @@ void CheckAndUpdateStatesOfSelectedMilitiaSectorButtons( void )
 	iNumberOfRegulars = SectorInfo[ sGlobalMapSector ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] + sRegularsOnCursor;
 	iNumberOfElites = SectorInfo[ sGlobalMapSector ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] + sElitesOnCursor;
 
+	// HEADROCK HAM 3.6: This button is no longer disabled when there are unassigned militia. In fact,
+	// clicking the button when militia are unassigned will prompt the player to authorize disbanding them.
 	if( ( sGreensOnCursor > 0 ) || ( sRegularsOnCursor > 0 ) || ( sElitesOnCursor > 0 ) )
 	{
-		DisableButton( giMapMilitiaButton[ 4 ] );	// DONE
+	//	DisableButton( giMapMilitiaButton[ 4 ] );	// DONE
+		SpecifyButtonText( giMapMilitiaButton[ 4 ], pMilitiaButtonString[ 2 ] );
 	}
 	else
 	{
-		EnableButton( giMapMilitiaButton[ 4 ] );	// DONE
+	//	EnableButton( giMapMilitiaButton[ 4 ] );	// DONE
+		SpecifyButtonText( giMapMilitiaButton[ 4 ], pMilitiaButtonString[ 1 ] );
 	}
 
 	// greens button
@@ -6445,34 +6466,59 @@ void ClearAnySectorsFlashingNumberOfEnemies()
 UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 {
 	UINT32 uiSectorFlags = SectorInfo[ SECTOR( sSectorX, sSectorY ) ].uiFlags;
+	BOOLEAN fDetection = FALSE;
+	BOOLEAN fCount = FALSE;
 
+	Assert(sSectorX > 0 && sSectorY > 0 && sSectorX < 17 && sSectorY < 17);
 
-	// if player has militia close enough to scout this sector out, if there are mercs who can scout here, OR
-	//Special case flag used when players encounter enemies in a sector, then retreat.  The number of enemies
-	//will display on mapscreen until time is compressed.  When time is compressed, the flag is cleared, and
-	//a question mark is displayed to reflect that the player no longer knows.
+	// HEADROCK HAM 3.5: There are now several ways to control the detection of enemy units. This function has been revamped
+	// to consider all options. Depending on externalized settings, different conditions yield different results.
+	//
+	// Option #1: Vanilla Default. 
+	//		It is possible to detect all enemies in explored territory, including cities. 
+	//		Militia in an adjacent sector can count how many enemies are there, except standing garrisons.
+	// Option #2: HAM 3.2. No Detection without Recon.
+	//      Mobile enemy groups are only detected if there are militia in any adjacent sector. Otherwise, they can 
+	//		travel through explored sectors without being seen.
+	//
+	// Option #3: This is a new feature for HAM 3.5, which ties together with Facility Externalization. 
+	//		In simple words, facilities can enhance detection abilities. Facilities that do so may be placed around the 
+	//		map in any sector. When a merc with sufficient wisdom is resting here, he increases the detection "level",
+	//		making it easier to detect or even count enemies in distant sectors.
+	//		This option can be combined with either of the two above.
+	
+
+	// Detection through active recon.
+	// Mercs provide recon in the same sector they're in.
+	// Militia provide recon in any adjacent sector (diagonals included)
+	// There's also a special case flag used when players encounter enemies in a sector, then retreat. You can only
+	// see the size of their force while the clock is paused. When unpaused, the flag is reset.
 	if ( CanMercsScoutThisSector( sSectorX, sSectorY, 0 ) ||
 			CanNearbyMilitiaScoutThisSector( sSectorX, sSectorY ) ||
 			( uiSectorFlags & SF_PLAYER_KNOWS_ENEMIES_ARE_HERE ) )
 	{
-		// if the enemies are stationary (i.e. mercs attacking a garrison)
-		if ( NumStationaryEnemiesInSector( sSectorX, sSectorY ) > 0 )
+		fDetection = TRUE;
+
+		// if all enemies are mobile (I.E. not garrison troops)
+		if ( NumStationaryEnemiesInSector( sSectorX, sSectorY ) == 0 )
 		{
-			// inside a garrison - hide their # (show question mark) to match what the PBI is showing
-			return KNOWS_THEYRE_THERE;
-		}
-		else
-		{
-			// other situations - show exactly how many there are
-			return KNOWS_HOW_MANY;
+			// They're also counted by default.
+			fCount = TRUE;
 		}
 	}
 
-	// if the player has visited the sector during this game
+	// Explored Sector Detection
+	// Enemy can be detected in any previously-visited sector.
+	// This is also enabled by some facilities, provided a merc is present and available to do it.
 	if( GetSectorFlagStatus( sSectorX, sSectorY, 0, SF_ALREADY_VISITED ) == TRUE )
 	{
-		// then he always knows about any enemy presence for the remainder of the game, but not exact numbers
-		return KNOWS_THEYRE_THERE;
+		// HEADROCK HAM 3.2: When enabled, this INI setting disallows detection of enemy roamers beyond merc/militia
+		// recon range.
+		if (!gGameExternalOptions.fNoEnemyDetectionWithoutRecon)
+		{
+			// then he always knows about any enemy presence for the remainder of the game, but not exact numbers
+			fDetection = TRUE;
+		}
 	}
 
 	// if Skyrider noticed the enemis in the sector recently
@@ -6482,7 +6528,7 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 		if( IsSkyriderIsFlyingInSector( sSectorX, sSectorY ) )
 		{
 			// player remains aware of them as long as Skyrider remains in the sector
-			return KNOWS_THEYRE_THERE;
+			fDetection = TRUE;
 		}
 		else
 		{
@@ -6491,9 +6537,32 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 		}
 	}
 
+	// Facilities can set a flag that allows detection in some sectors. We can read flags directly from the sector
+	// data to know whether we should show the enemies there. This overrides ANYTHING else.
+	if (SectorInfo[ SECTOR( sSectorX, sSectorY ) ].ubDetectionLevel & 1)
+	{
+		fDetection = TRUE;
+	}
+	if (SectorInfo[ SECTOR( sSectorX, sSectorY ) ].ubDetectionLevel & (1<<2) )
+	{
+		fCount = TRUE;
+	}
 
-	// no information available
-	return KNOWS_NOTHING;
+	if (!fDetection)
+	{
+		// no information available
+		return KNOWS_NOTHING;
+	}
+	else if (!fCount)
+	{
+		// No accurate information
+		return KNOWS_THEYRE_THERE;
+	}
+	else
+	{
+		// Accurate information
+		return KNOWS_HOW_MANY;
+	}
 }
 
 
@@ -7125,4 +7194,39 @@ BOOLEAN CanRedistributeMilitiaInSector( INT16 sClickedSectorX, INT16 sClickedSec
 
 	// the fight is elsewhere - ok to redistribute
 	return( TRUE );
+}
+
+// Callback for disbanding militia in the Militia Box
+void MilitiaDisbandYesNoBoxCallback( UINT8 bExitValue )
+{
+	// yes
+	if( bExitValue == MSG_BOX_RETURN_YES )
+	{
+		if( sSelectedMilitiaTown != BLANK_SECTOR )
+		{
+			// HEADROCK HAM 3.6: Adjust loyalty based on how many militia were disbanded, compared to
+			// how many can be trained in a single session (max).
+			UINT32 uiMilitiaToDisband = sGreensOnCursor + (2*sRegularsOnCursor) + (3*sElitesOnCursor);
+			UINT32 uiTownLoyaltyBonus = (LOYALTY_BONUS_FOR_TOWN_TRAINING * uiMilitiaToDisband) / gGameExternalOptions.iTrainingSquadSize;
+			// loyalty in this town increases a bit because we obviously care about them...
+			DecrementTownLoyalty( (UINT8)sSelectedMilitiaTown, uiTownLoyaltyBonus );
+		}
+
+		// zero out numbers on the cursor
+		sGreensOnCursor = 0;
+		sRegularsOnCursor = 0;
+		sElitesOnCursor = 0;
+
+		// reset fact we are in the box
+		sSelectedMilitiaTown = 0;
+		fMapPanelDirty = TRUE;
+		// Go ahead and reset the militia in the selected sector
+		ResetMilitia();
+	}
+	else if( bExitValue == MSG_BOX_RETURN_NO )
+	{
+		return;
+	}
+
+	return;
 }

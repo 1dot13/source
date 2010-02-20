@@ -238,7 +238,9 @@ BOOLEAN	WrapString( STR16 pStr, STR16 pStr2, UINT16 usWidth, INT32 uiFont )
 				}
 
 				if ( fLineSplit )
-					break;
+					// HEADROCK HAM 3.6: This is erroneous. At this point, the function should RETURN, otherwise it
+					// cuts another bit off pStr for no reason.
+					return (fLineSplit);
 
 				uiNewLet--;
 				curletter--;
@@ -250,7 +252,9 @@ BOOLEAN	WrapString( STR16 pStr, STR16 pStr2, UINT16 usWidth, INT32 uiFont )
 				swprintf( pStr2, L"-%s", &(pStr[uiHyphenLet]) );
 				pStr[uiHyphenLet] = (INT16)'/0';
 				fLineSplit = TRUE;	//hyphen method
-				break;
+				// HEADROCK HAM 3.6: This is erroneous. At this point, the function should RETURN, otherwise it
+				// cuts another bit off pStr for no reason.
+				return (fLineSplit);
 			}
 		}
 

@@ -2508,8 +2508,22 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				//		SetFontForeground( FONT_MCOLOR_DKGRAY );
 				//		break;
 				//}
+				
+				// HEADROCK HAM 3.4: Get estimate of bullets left.
+				if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+				{
+					// Soldier doesn't know.
+					EstimateBulletsLeft( pSoldier, pObject );
+					swprintf( pStr, L"%s", gBulletCount );
+				}
+				else
+				{
+					swprintf( pStr, L"%d", (*pObject)[iter]->data.gun.ubGunShotsLeft );
+				}
 
-				swprintf( pStr, L"%d", (*pObject)[iter]->data.gun.ubGunShotsLeft );
+				//swprintf( pStr, L"%d", (*pObject)[iter]->data.gun.ubGunShotsLeft );
+				//swprintf( pStr, L"%d", GetEstimateBulletsLeft(pSoldier, pObject) );
+
 				if ( uiBuffer == guiSAVEBUFFER )
 				{
 					RestoreExternBackgroundRect( sNewX, sNewY, 20, 15 );
@@ -2892,7 +2906,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 	//CHRISL: Initialize coords based on EDB/NIV settings
 	InitDescStatCoords();
 	InitEDBCoords();
-	InitItemDescriptionBoxStartCoords( gGameExternalOptions.fEnhancedDescriptionBox );
+	InitItemDescriptionBoxStartCoords( gGameExternalOptions.iEnhancedDescriptionBox );
 
 	//CHRISL: We only want this condition to be true when looking at MONEY.  Not IC_MONEY since we can't actually split
 	//	things like gold nuggets or wallets.
@@ -2974,10 +2988,33 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		// Add button
 //    if( guiCurrentScreen != MAP_SCREEN )
 		//if( guiCurrentItemDescriptionScreen != MAP_SCREEN )
+
 		if ( GetMagSize(gpItemDescObject) <= 99 )
-			swprintf( pStr, L"%d/%d", (*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunShotsLeft, GetMagSize(gpItemDescObject));
+		{
+			// HEADROCK HAM 3.4: "Bullet Hide" feature - bullet count only shown during combat if character is competent enough.
+			if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+			{
+				EstimateBulletsLeft( pSoldier, pObject );
+				swprintf(pStr, L"%s/%d", gBulletCount, GetMagSize(gpItemDescObject) );
+			}
+			else
+			{
+				swprintf( pStr, L"%d/%d", (*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunShotsLeft, GetMagSize(gpItemDescObject));
+			}
+		}
 		else
-			swprintf( pStr, L"%d", (*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunShotsLeft );
+		{
+			// HEADROCK HAM 3.4: "Bullet Hide" feature - bullet count only shown during combat if character is competent enough.
+			if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+			{
+				EstimateBulletsLeft( pSoldier, pObject );
+				swprintf( pStr, L"%s", gBulletCount );
+			}
+			else
+			{
+				swprintf( pStr, L"%d", (*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunShotsLeft );
+			}
+		}
 
 		FilenameForBPP("INTERFACE\\infobox.sti", ubString);
 		 sForeColour = ITEMDESC_AMMO_FORE;

@@ -339,7 +339,8 @@ void RenderSoldierCellHealth( SOLDIERCELL *pCell );
 void RenderSoldierCell( SOLDIERCELL *pCell );
 void RenderSoldierCellBars( SOLDIERCELL *pCell );
 
-void GenerateDirectionInfos( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT16 pMoveDir[4][3], BOOLEAN fWithCities, BOOLEAN fForBattle, BOOLEAN fOnlyCitySectors );
+// HEADROCK HAM 3.4: New argument configuration to make use of revamped movement controls
+void GenerateDirectionInfos( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT16 pMoveDir[4][3], BOOLEAN fForTraining, BOOLEAN fForBattle );
 
 
 //Dynamic globals -- to conserve memory, all global variables are allocated upon entry
@@ -2146,8 +2147,8 @@ void CreateAutoResolveInterface()
 	ARCreateMilitiaSquad( &cnt, ubEliteMilitia, ubRegMilitia, ubGreenMilitia, gpAR->ubSectorX, gpAR->ubSectorY);
 
 	// Add the militia in the surrounding sectors
-	GenerateDirectionInfos( gpAR->ubSectorX, gpAR->ubSectorY, &uiDirNumber, pMoveDir,
-		( GetTownIdForSector( gpAR->ubSectorX, gpAR->ubSectorY ) != BLANK_SECTOR ? TRUE : FALSE ), TRUE, FALSE );
+	// HEADROCK HAM 3.4: Changed argument configuration.
+	GenerateDirectionInfos( gpAR->ubSectorX, gpAR->ubSectorY, &uiDirNumber, pMoveDir, FALSE, TRUE );
 	for( i=0; i<uiDirNumber; i++)
 	{
 		INT16 sX = SECTORX( pMoveDir[ i ][0] );

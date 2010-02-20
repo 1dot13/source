@@ -1298,7 +1298,7 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 			else
 				// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
 				// ubChanceToHit = MAXCHANCETOHIT;
-				ubChanceToHit = gGameExternalOptions.iMaximumCTH;
+				ubChanceToHit = gGameExternalOptions.ubMaximumCTH;
 			//NumMessage("chance to Hit = ",ubChanceToHit);
 
 			//sprintf(tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
@@ -1477,7 +1477,7 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 			else
 				// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
 				// ubChanceToHit = MAXCHANCETOHIT;
-				ubChanceToHit = gGameExternalOptions.iMaximumCTH;
+				ubChanceToHit = gGameExternalOptions.ubMaximumCTH;
 			//NumMessage("chance to Hit = ",ubChanceToHit);
 
 			//sprintf(tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
@@ -1886,8 +1886,10 @@ INT8 TryToReload( SOLDIERTYPE * pSoldier )
 	WEAPONTYPE *pWeapon;
 	OBJECTTYPE *pObj, *pObj2;
 
+	// HEADROCK HAM 3.3: Attempt to reload now takes magazine type into account. Prefernace will be given to magazines of similar type.
+	pObj = &(pSoldier->inv[HANDPOS]);
 	pWeapon = &(Weapon[pSoldier->inv[HANDPOS].usItem]);
-	bSlot = FindAmmo( pSoldier, pWeapon->ubCalibre, pWeapon->ubMagSize, NO_SLOT );
+	bSlot = FindAmmo( pSoldier, pWeapon->ubCalibre, pWeapon->ubMagSize, GetAmmoType(pObj), NO_SLOT );
 
 	//if (bSlot != NO_SLOT)
 	//{
@@ -1898,7 +1900,7 @@ INT8 TryToReload( SOLDIERTYPE * pSoldier )
 	//}
 
 	//<SB> manual recharge
-	pObj = &(pSoldier->inv[HANDPOS]);
+	//pObj = &(pSoldier->inv[HANDPOS]);
 
 	if ((*pObj)[0]->data.gun.ubGunShotsLeft && !((*pObj)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
 	{

@@ -39,6 +39,11 @@ UINT8 CheckOneMilitiaForPromotion(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRank,
 
 void BuildMilitiaPromotionsString( STR16 str );
 
+// HEADROCK HAM 3.3: Function to determine best leadership for militia training in a given sector.
+// Is used for both town and mobile militia.
+// HEADROCK HAM 3.6: Argument for Mobile/Town Militia training
+UINT8 FindBestMilitiaTrainingLeadershipInSector ( INT16 sMapX, INT16 sMapY, INT8 usMapZ, UINT8 ubMilitiaType );
+
 // call this if the player attacks his own militia
 void HandleMilitiaDefections(INT16 sMapX, INT16 sMapY);
 
@@ -70,12 +75,38 @@ BOOLEAN IsSAMSiteFullOfMilitia( INT16 sSectorX, INT16 sSectorY, INT8 iMilitiaTyp
 void HandleContinueOfTownTraining( void );
 
 // handle completion of assignment byt his soldier too and inform the player
-void HandleCompletionOfTownTrainingByGroupWithTrainer( SOLDIERTYPE *pTrainer );
+// HEADROCK HAM 3.6: Added argument for Mobile Militia training.
+void HandleCompletionOfTownTrainingByGroupWithTrainer( SOLDIERTYPE *pTrainer, UINT8 ubMilitiaType );
 
 // clear the list of training completed sectors
 void ClearSectorListForCompletedTrainingOfMilitia( void );
 
 BOOLEAN MilitiaTrainingAllowedInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 BOOLEAN MilitiaTrainingAllowedInTown( INT8 bTownId );
+
+// HEADROCK HAM 3.6: Function to calculate Militia and Mobile Militia training squad size.
+UINT8 CalcNumMilitiaTrained(UINT8 ubBestLeadership, BOOLEAN fMobile);
+
+// HEADROCK HAM 3.6: Total upkeep costs for YESTERDAY at midnight. Saved to savegames.
+extern UINT32 guiTotalUpkeepForMilitia;
+
+// HEADROCK HAM 3.6: Daily check for upkeep of all militia
+void HandleMilitiaUpkeepPayment( void );
+
+// Type to hold number of militia in each sector.
+typedef struct MILITIA_LIST_TYPE
+{
+	UINT8 ubSectorId;
+	UINT8 ubNumTownGreens;
+	UINT8 ubNumTownRegulars;
+	UINT8 ubNumTownElites;
+	UINT8 ubNumMobileGreens;
+	UINT8 ubNumMobileRegulars;
+	UINT8 ubNumMobileElites;
+
+} MILITIA_LIST_TYPE;
+
+// HEADROCK HAM 3.6: Calculate upkeep costs for militia
+UINT32 CalcMilitiaUpkeep( void );
 
 #endif

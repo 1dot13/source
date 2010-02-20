@@ -1266,7 +1266,7 @@ void DrawMouseGraphics( )
 		// HEADROCK HAM B1/2/2.6:
 		// This causes the function to display two CTH bars for autofire - the CTH of the first bullet,
 		// and the CTH of the last bullet in the volley, stored in gbCtH[0] and [1] respectively.
-		if ( gbCtHAutoFire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3) )
+		if ( gbCtHAutoFire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
 			gbCtHBurstCount = 2;
 		else if	( gbCtHAutoFire )
 			gbCtHBurstCount = 0;
@@ -1274,9 +1274,9 @@ void DrawMouseGraphics( )
 
 		// Sets the initial offsets of the bars. Burst and Autofire will display them higher above the
 		// cursor, to avoid obscuring the target or other data.
-		if (gbCtHBurstCount > 1 && !gbCtHAutoFire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 2) )
+		if (gbCtHBurstCount > 1 && !gbCtHAutoFire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2) )
 			barY = gsCurMouseOffsetY-__min(55,gsCurMouseHeight)/2;
-		else if (gbCtHBurstCount && gbCtHAutoFire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3) )
+		else if (gbCtHBurstCount && gbCtHAutoFire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
 			barY = gsCurMouseOffsetY-__min(55,gsCurMouseHeight)/2;
 		else
 			barY = gsCurMouseOffsetY-__min(35,gsCurMouseHeight)/2;
@@ -1378,7 +1378,7 @@ void DrawMouseText( )
 		FindFontCenterCoordinates( 0, 0, gsCurMouseWidth, gsCurMouseHeight, pStr, TINYFONT1, &sX, &sY );
 		// HEADROCK HAM B2: Moved bullet counter to right side (and a bit upwards) to accomodate two CTH bars.
 		//mprintf( sX, sY - 10 - GetFontHeight(TINYFONT1), pStr );
-		if (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3)
+		if (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3)
 			// New CTH Bar moves bullet count to new location.
 			mprintf( 46, sY - 15 - GetFontHeight(TINYFONT1), pStr );
 		else
@@ -1387,9 +1387,10 @@ void DrawMouseText( )
 
 		// HEADROCK HAM B2: Removed this. The bottom line will now display bodypart targetting, like Burst and
 		// Single.
-		if ( gGameExternalOptions.iNewCTHBars != 1 && gGameExternalOptions.iNewCTHBars != 3 )
+		if ( gGameExternalOptions.ubNewCTHBars != 1 && gGameExternalOptions.ubNewCTHBars != 3 )
 		{
 			swprintf( pStr, L"%d", gsTotalBulletCount );
+
 			FindFontCenterCoordinates( 0, 0, gsCurMouseWidth, gsCurMouseHeight, pStr, TINYFONT1, &sX, &sY );
 			mprintf( sX, sY + 7 + GetFontHeight(TINYFONT1), pStr );
 		}

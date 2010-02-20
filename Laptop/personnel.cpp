@@ -824,10 +824,21 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 
 	// special case?..player generated merc
 	if (fCurrentTeamMode) {
-		if( ( 50 < 	MercPtrs[iId]->ubProfile )&&( 57 > 	MercPtrs[iId]->ubProfile ) ) {
+		if( ( 50 < 	MercPtrs[iId]->ubProfile )&&( 57 > 	MercPtrs[iId]->ubProfile ) ) 
+		{
 			sprintf( sTemp, "%s%03d.sti", FACES_DIR, 	gMercProfiles[ MercPtrs[iId]->ubProfile	].ubFaceIndex );
-		} else {
-			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	Menptr[ iId ].ubProfile);
+		} 
+		else 
+		{
+			if (gGameExternalOptions.fReadProfileDataFromXML)
+			{
+				// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
+				sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[Menptr[ iId ].ubProfile].ubFaceIndex);
+			}
+			else
+			{
+				sprintf(sTemp, "%s%02d.sti", FACES_DIR,	Menptr[ iId ].ubProfile);
+			}
 		}
 
 		if( MercPtrs[iId]->flags.uiStatusFlags & SOLDIER_VEHICLE ) {
@@ -839,10 +850,21 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 			return;
 		}
 
-		if( ( 50 < 	iId )&&( 57 > 	iId ) ) {
+		if( ( 50 < 	iId )&&( 57 > 	iId ) ) 
+		{
 			sprintf( sTemp, "%s%03d.sti", FACES_DIR, 	gMercProfiles[ iId	].ubFaceIndex );
-		} else {
-			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	iId );
+		} 
+		else 
+		{
+			if (gGameExternalOptions.fReadProfileDataFromXML)
+			{
+				// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
+				sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[Menptr[ iId ].ubProfile].ubFaceIndex );
+			}
+			else
+			{
+				sprintf(sTemp, "%s%02d.sti", FACES_DIR,	iId );
+			}
 		}
 	}
 
@@ -1943,10 +1965,29 @@ void DisplayPicturesOfCurrentTeam( void )
 		if ((50 < pSoldier->ubProfile) && (57 > pSoldier->ubProfile)) {
 			sprintf( sTemp, "%s%03d.sti", SMALL_FACES_DIR, 	gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex );
 		} else {
-			if ( pSoldier->ubProfile < 100 ) {
-				sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, pSoldier->ubProfile);
-			} else {
-				sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR, pSoldier->ubProfile);
+			if ( pSoldier->ubProfile < 100 ) 
+			{
+				if (gGameExternalOptions.fReadProfileDataFromXML)
+				{
+					// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
+					sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex);
+				}
+				else
+				{
+					sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, pSoldier->ubProfile);
+				}
+			} 
+			else 
+			{
+				if (gGameExternalOptions.fReadProfileDataFromXML)
+				{
+					// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
+					sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR, gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex);
+				}
+				else
+				{
+					sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR, pSoldier->ubProfile);
+				}
 			} // else
 		} // else
 
@@ -4462,10 +4503,29 @@ void DisplayPortraitOfPastMerc( INT32 iId , INT32 iCounter, BOOLEAN fDead, BOOLE
 	if( ( 50 < 	iId	)&&( 57 > 	iId	) ) {
 		sprintf( sTemp, "%s%03d.sti", SMALL_FACES_DIR, 	gMercProfiles[ iId ].ubFaceIndex );
 	} else {
-		if(	iId	< 100 ) {
-			sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, iId );
-		} else {
-			sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR,	iId	);
+		if(	iId	< 100 ) 
+		{
+			if (gGameExternalOptions.fReadProfileDataFromXML)
+			{
+				// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
+				sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[ iId ].ubFaceIndex );
+			}
+			else
+			{
+				sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, iId );
+			}
+		} 
+		else 
+		{
+			if (gGameExternalOptions.fReadProfileDataFromXML)
+			{
+				// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
+				sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR,	gMercProfiles[ iId ].ubFaceIndex	);
+			}
+			else
+			{
+				sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR,	iId	);
+			}
 		}
 	}
 

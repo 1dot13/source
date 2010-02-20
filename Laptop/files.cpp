@@ -15,6 +15,9 @@
 	#include "cursors.h"
 	#include "email.h"
 	#include "text.h"
+	// HEADROCK PROFEX: This is required to display the proper facial image.
+	#include "Soldier Profile.h"
+	#include "GameSettings.h"
 #endif
 
 #define TOP_X														LAPTOP_SCREEN_UL_X
@@ -1759,15 +1762,29 @@ BOOLEAN HandleSpecialTerroristFile( INT32 iFileNumber, STR sPictureName )
 			// show picture
 			if( ( giFilesPage == 0 ) && ( iCounter == 5 ) )
 			{
-				if( usProfileIdsForTerroristFiles[ iFileNumber + 1 ] < 100 )
+				if (gGameExternalOptions.fReadProfileDataFromXML)
 				{
-					sprintf(sTemp, "%s%02d.sti", "FACES\\BIGFACES\\",	usProfileIdsForTerroristFiles[ iFileNumber + 1 ]);
+					// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
+					if( usProfileIdsForTerroristFiles[ iFileNumber + 1 ] < 100 )
+					{
+						sprintf(sTemp, "%s%02d.sti", "FACES\\BIGFACES\\",	gMercProfiles[ usProfileIdsForTerroristFiles[ iFileNumber + 1 ] ].ubFaceIndex);
+					}
+					else
+					{
+						sprintf(sTemp, "%s%03d.sti", "FACES\\BIGFACES\\",	gMercProfiles[ usProfileIdsForTerroristFiles[ iFileNumber + 1 ] ].ubFaceIndex);
+					}
 				}
 				else
 				{
-					sprintf(sTemp, "%s%03d.sti", "FACES\\BIGFACES\\",	usProfileIdsForTerroristFiles[ iFileNumber + 1 ]);
+					if( usProfileIdsForTerroristFiles[ iFileNumber + 1 ] < 100 )
+					{
+						sprintf(sTemp, "%s%02d.sti", "FACES\\BIGFACES\\",	usProfileIdsForTerroristFiles[ iFileNumber + 1 ]);
+					}
+					else
+					{
+						sprintf(sTemp, "%s%03d.sti", "FACES\\BIGFACES\\",	usProfileIdsForTerroristFiles[ iFileNumber + 1 ]);
+					}
 				}
-
 
 				VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 				FilenameForBPP(sTemp, VObjectDesc.ImageFile);

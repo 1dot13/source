@@ -210,15 +210,15 @@ UINT8 NumEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	GROUP *pGroup;
 	UINT8 ubNumTroops;
 
-	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
-    // probably isn't. But I need this bit to work.
-    if (sSectorX < MINIMUM_VALID_X_COORDINATE ||
-        sSectorX > MAXIMUM_VALID_X_COORDINATE ||
-        sSectorY < MINIMUM_VALID_Y_COORDINATE ||
-        sSectorY > MAXIMUM_VALID_Y_COORDINATE)
-    {
-        return (0);
-    }
+	// HEADROCK HAM 3.5: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
+	// probably isn't. But I need this bit to work.
+	if (sSectorX < MINIMUM_VALID_X_COORDINATE ||
+		sSectorX > MAXIMUM_VALID_X_COORDINATE ||
+		sSectorY < MINIMUM_VALID_Y_COORDINATE ||
+		sSectorY > MAXIMUM_VALID_Y_COORDINATE)
+	{
+		return (0);
+	}
 
 	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
 	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
@@ -503,8 +503,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			// They arrived in multiple groups, so here they come
 			pThisSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 
-			GenerateDirectionInfos( gWorldSectorX, gWorldSectorY, &ubDirNumber, pusMoveDir,
-				( GetTownIdForSector( gWorldSectorX, gWorldSectorY ) != BLANK_SECTOR ? TRUE : FALSE ), TRUE, IS_ONLY_IN_CITIES );
+			GenerateDirectionInfos( gWorldSectorX, gWorldSectorY, &ubDirNumber, pusMoveDir,	FALSE, TRUE );
 
 			for( unsigned ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
 			{
@@ -788,7 +787,6 @@ BOOLEAN PrepareEnemyForSectorBattle()
 					continue;
 				}
 
-				// At this point we should not have added more soldiers than are in slots
 				AssertGT( sNumSlots, 0 );
 
 				switch( pSoldier->ubSoldierClass )
@@ -1394,6 +1392,7 @@ void AddPossiblePendingEnemiesToBattle()
 
 			if( ubStrategicInsertionCode == 255 )
 			{
+				// HEADROCK HAM 3.5: This runs into assertion errors along the map's edge! Should be fixed!
 				if( NumEnemiesInSector( gWorldSectorX + 1, gWorldSectorY ) )
 					ubStrategicInsertionCode = INSERTION_CODE_EAST;
 				else if( NumEnemiesInSector( gWorldSectorX - 1, gWorldSectorY ) )
@@ -1703,6 +1702,11 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 				pSoldier->ubStrategicInsertionCode = ubStrategicInsertionCode;
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
+		}
+		// HEADROCK HAM 3.2: enemy reinforcements arrive with 0 APs.
+		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 1 || gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 2)
+		{
+			pSoldier->bActionPoints = 0;
 		}
 	}
 }

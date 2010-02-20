@@ -1402,6 +1402,12 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT16 sBombGridNo
 	usHalfExplosionRadius = Explosive[Item[usItem].ubClassIndex].ubRadius / 2;
 	if ( fFlashbang && !gbWorldSectorZ && !fInBuilding && (UINT16)uiDist > usHalfExplosionRadius )
 	{
+		// HEADROCK HAM 3.3: Flashbang at half distance causes up to 6 suppression points. Roughly equivalent of being
+		// "lightly" shot at.
+		if (gGameExternalOptions.usExplosionSuppressionEffect > 0)
+		{
+			pSoldier->ubSuppressionPoints += (PreRandom(6) * gGameExternalOptions.usExplosionSuppressionEffect) / 100;
+		}
 		// then no effect
 		return( FALSE );
 	}
@@ -1424,6 +1430,16 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT16 sBombGridNo
 	if ( (Item[usItem].usItemClass & IC_EXPLOSV) && fFlashbang )
 	{
 		ubSpecial = DetermineFlashbangEffect( pSoldier, ubDirection, fInBuilding);
+	}
+
+	// HEADROCK HAM 3.3: Explosions cause suppression based on distance.
+	if (gGameExternalOptions.usExplosionSuppressionEffect > 0)
+	{
+		pSoldier->ubSuppressionPoints += ((__max(0,((Explosive[Item[usItem].ubClassIndex].ubRadius * 3) - uiDist)))* gGameExternalOptions.usExplosionSuppressionEffect) / 100;
+		if (fFlashbang && (gbWorldSectorZ || fInBuilding) && (UINT16)uiDist <= usHalfExplosionRadius)
+		{
+			pSoldier->ubSuppressionPoints += (15 * gGameExternalOptions.usExplosionSuppressionEffect) / 100;
+		}
 	}
 
 	pSoldier->EVENT_SoldierGotHit( usItem, sNewWoundAmt, sBreathAmt, ubDirection, (INT16)uiDist, ubOwner, ubSpecial, ANIM_CROUCH, sSubsequent, sBombGridNo );

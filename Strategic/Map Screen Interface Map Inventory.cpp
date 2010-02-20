@@ -582,6 +582,8 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
 		fMapPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
+		// HEADROCK HAM 3.6: Yet again, make sure to refresh the bottom panel on closing.
+		fMapScreenBottomDirty = TRUE;
 
 		//CHRISL: close stack popup and item description windows
 		DeleteItemStackPopup();
@@ -1471,8 +1473,6 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 			{
 				for( UINT32 iNumber = 0 ; iNumber <  pInventoryPoolList.size() ; ++iNumber)
 				{
-					// WANNE: Fix by Headrock
-					//if ( pInventoryPoolList[ iNumber ].object.usItem == gItemPointer.usItem )
 					if ( pInventoryPoolList[ iNumber ].object.usItem == gItemPointer.usItem && pInventoryPoolList[ iNumber ].usFlags & WORLD_ITEM_REACHABLE)
 					{
 						iPrice += SellItem( pInventoryPoolList[ iNumber ].object );

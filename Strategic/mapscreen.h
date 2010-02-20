@@ -9,6 +9,7 @@
 #define			MAP_WORLD_Y						18
 
 #define MAX_TOWN_NAME_LENGHT	32
+#define MAX_SECTOR_NAME_LENGTH	128
 
 #define MAX_TOWNS			50	//13 //50
 #define MAX_TOWN_SECTORS	260	//40 //260
@@ -92,5 +93,8 @@ BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber );
 BOOLEAN InitializeInvPanelCoordsOld( );
 BOOLEAN InitializeInvPanelCoordsNew( );
 BOOLEAN InitializeInvPanelCoordsVehicle( );
+
+// HEADROCK HAM 3.6: Calculate daily cost for all mercs who have one.
+INT32 GetTotalContractExpenses ( void );
 
 #endif

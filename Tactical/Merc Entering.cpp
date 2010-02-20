@@ -8,6 +8,8 @@
 	#include "stdlib.h"
 	#include "debug.h"
 	//#include "soldier control.h"
+	// HEADROCK HAM 3.5: Strange that this wasn't included.
+	#include "GameSettings.h"
 	#include "weapons.h"
 	#include "handle items.h"
 	#include "worlddef.h"
@@ -39,6 +41,8 @@
 	#include "Dialogue Control.h"
 	#include "Music Control.h"
 	#include "Tactical Save.h"
+	// HEADROCK HAM 3.5: Need this to see if enemies present at starting sector
+	#include "Overhead.h"
 #endif
 
 
@@ -476,7 +480,8 @@ void HandleHeliDrop( )
 			{
 				// Add merc to sector
 				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-				UpdateMercInSector( MercPtrs[ gusHeliSeats[ cnt ] ], startingX, startingY, startingZ );
+				// HEADROCK HAM 3.5: Externalized!
+				UpdateMercInSector( MercPtrs[ gusHeliSeats[ cnt ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 
 				// Check for merc arrives quotes...
 				HandleMercArrivesQuotes( MercPtrs[ gusHeliSeats[ cnt ] ] );
@@ -612,7 +617,8 @@ void HandleHeliDrop( )
 						// Change insertion code
 						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 
-						UpdateMercInSector( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], startingX, startingY, startingZ );
+						// HEADROCK HAM 3.5: Externalized!
+						UpdateMercInSector( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 						//EVENT_SetSoldierPosition( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], sWorldX, sWorldY );
 
 						// IF the first guy down, set squad!
@@ -777,6 +783,11 @@ void HandleHeliDrop( )
 
 					// End
 					fFadingHeliOut			= TRUE;
+
+					// HEADROCK HAM 3.5: Update now, in case the LZ is still in a "RED" airspace sector. This is only
+					// required if the sector is free of enemies... but still required. Will run immediately after the
+					// helicopter is gone.
+					UpdateAirspaceControl( );
 					break;
 			}
 
@@ -812,13 +823,25 @@ void HandleFirstHeliDropOfGame( )
 		CallAvailableEnemiesTo( gsGridNoSweetSpot );
 
 		// Move to header file...
-		AddExtraItems( startingX, startingY, startingZ, true );
+		// HEADROCK HAM 3.5: Externalized!
+		AddExtraItems( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ, true );
 
-		// Say quote.....
-		SayQuoteFromAnyBodyInSector( QUOTE_ENEMY_PRESENCE );
-
-		// Start music
-		SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
+		// HEADROCK HAM 3.5: Starting sector externalized - might not contain enemies at all!
+		if (NumEnemyInSector( ) > 0)
+		//if ( NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, 0 ) > 0 )
+		{
+			// Say quote.....
+			SayQuoteFromAnyBodyInSector( QUOTE_ENEMY_PRESENCE );
+			// Start music
+			SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
+		}
+		else
+		{
+			// Say quote.....
+			SayQuoteFromAnyBodyInSector( QUOTE_MERC_REACHED_DESTINATION );
+			// Start music
+			SetMusicMode( MUSIC_TACTICAL_NOTHING );
+		}
 
 		gfFirstHeliRun = FALSE;
 
@@ -826,6 +849,7 @@ void HandleFirstHeliDropOfGame( )
 
 	// Send message to turn on ai again....
 	CharacterDialogueWithSpecialEvent( 0, 0, 0, DIALOGUE_TACTICAL_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_ENABLE_AI ,0, 0 );
+
 }
 
 

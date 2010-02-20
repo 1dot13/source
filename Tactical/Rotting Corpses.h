@@ -169,7 +169,8 @@ void HandleCrowLeave( SOLDIERTYPE *pSoldier );
 void HandleCrowFlyAway( SOLDIERTYPE *pSoldier );
 
 // WDS - increase number of corpses
-#define		MAX_ROTTING_CORPSES		250
+// HEADROCK HAM 3.6: Increase again (250->500).
+#define		MAX_ROTTING_CORPSES		500
 
 //extern ROTTING_CORPSE	gRottingCorpse[ MAX_ROTTING_CORPSES ];
 extern std::vector<ROTTING_CORPSE> gRottingCorpse;

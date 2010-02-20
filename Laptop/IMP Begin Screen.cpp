@@ -604,7 +604,9 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 					uiKey >= 'a' && uiKey <= 'z' ||
 					uiKey >= '0' && uiKey <= '9' ||
 					uiKey == '_' || uiKey == '.' ||
-					uiKey == ' ' )
+					uiKey == ' ' || uiKey == '"' ||
+					uiKey == 39 // This is ' which cannot be written explicitly here of course
+					)
 	#else
 		if( charSet::IsFromSet( uiKey, charSet::CS_SPACE|charSet::CS_ALPHA_NUM|charSet::CS_SPECIAL_ALPHA ) )
 	#endif

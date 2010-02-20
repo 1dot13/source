@@ -387,8 +387,10 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT16 sMapPos, BOOLEAN
 						pSoldier->bDoAutofire++;
 						sAPCosts = CalcTotalAPsToAttack( pSoldier, sMapPos, TRUE, 0);
 					}
+
 					while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && sAPCosts == sCurAPCosts && pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire);
 					pSoldier->bDoAutofire--;
+					
 				}
 
 				gfUIAutofireBulletCount = TRUE;
@@ -579,7 +581,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT16 sMapPos, BOOLEAN
 				// and also a Targetted Bodypart indicator.
 				if(pSoldier->bDoAutofire == 0 && gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
 				{
-					if (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 2)
+					if (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2)
 					{
 						// Burst mode only
 						OBJECTTYPE * pInHand;
@@ -648,7 +650,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT16 sMapPos, BOOLEAN
 				
 				else if(pSoldier->bDoAutofire > 0 && gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
 				{
-					if (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3)
+					if (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3)
 					{
 						gbCtHBurstCount = 1;
 
@@ -1412,9 +1414,9 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 					gfUIBodyHitLocation = TRUE;
 				// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
 				// CTH cursors.
-				else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 2) )
+				else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2) )
 					gfUIBodyHitLocation = TRUE;
-				else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3) )
+				else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
 					gfUIBodyHitLocation = TRUE;
 				return;
 			}
@@ -1441,9 +1443,9 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 						gfUIBodyHitLocation = TRUE;
 					// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
 					// CTH cursors.
-					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 2) )
+					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2) )
 						gfUIBodyHitLocation = TRUE;
-					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3) )
+					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
 						gfUIBodyHitLocation = TRUE;
 					break;
 
@@ -1453,9 +1455,9 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 						gfUIBodyHitLocation = TRUE;
 					// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
 					// CTH cursors.
-					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 2) )
+					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2) )
 						gfUIBodyHitLocation = TRUE;
-					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3) )
+					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
 						gfUIBodyHitLocation = TRUE;
 					break;
 
@@ -1465,9 +1467,9 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 						gfUIBodyHitLocation = TRUE;
 					// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
 					// CTH cursors.
-					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 2) )
+					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2) )
 						gfUIBodyHitLocation = TRUE;
-					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.iNewCTHBars == 1 || gGameExternalOptions.iNewCTHBars == 3) )
+					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
 					gfUIBodyHitLocation = TRUE;
 					break;
 			}

@@ -1,0 +1,1190 @@
+///////////////////////////////////////////////////////////////////////////////
+// HEADROCK PROFEX: PROFile EXternalization
+//
+// This file handles all reading from Merc Profiles.XML. It offers an external
+// alternative to PROEDIT. Values that have no current use in the game were
+// EXCLUDED. If you wish to add them simply follow the example set here. You
+// can read MERCPROFILESTRUCT in the file "soldier profile type.h" to see
+// all profile data. Add the ones you want to externalize to TEMPPROFILESTRUCT 
+// in "Soldier Profile.h", and then add the appropriate lines where needed,
+// in this file, following my example.
+///////////////////////////////////////////////////////////////////////////////
+
+#ifdef PRECOMPILEDHEADERS
+	#include "Tactical All.h"
+#else
+	#include "sgp.h"
+	#include "Debug Control.h"
+	#include "expat.h"
+	#include "gamesettings.h"
+	#include "XML.h"
+	#include "Soldier Profile.h"
+#endif
+
+//#define MAX_PROFILE_NAME_LENGTH 30
+
+struct
+{
+	PARSE_STAGE	curElement;
+
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+
+	TEMPPROFILETYPE curProfile;
+	UINT32			maxArraySize;
+	UINT32			curIndex;
+	UINT32			currentDepth;
+	UINT32			maxReadDepth;
+}
+typedef profileParseData;
+
+TEMPPROFILETYPE tempProfiles[NUM_PROFILES+1];
+
+
+
+static void XMLCALL
+profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
+{
+	profileParseData * pData = (profileParseData *)userData;
+
+	if(pData->currentDepth <= pData->maxReadDepth) //are we reading this element?
+	{
+		if(strcmp(name, "MERCPROFILES") == 0 && pData->curElement == ELEMENT_NONE)
+		{
+			pData->curElement = ELEMENT_LIST;
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "PROFILE") == 0 && pData->curElement == ELEMENT_LIST)
+		{
+			pData->curElement = ELEMENT;
+
+			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3,"MergeStartElementHandle: setting memory for curMerge");
+
+			memset(&pData->curProfile,0,sizeof(TEMPPROFILETYPE));
+
+			pData->maxReadDepth++; //we are not skipping this element
+
+			//pData->curIndex++;
+		}
+		else if(pData->curElement == ELEMENT &&
+				(strcmp(name, "zName") == 0 ||
+				strcmp(name, "zNickname") == 0 ||
+				strcmp(name, "uiIndex") == 0 ||
+				strcmp(name, "ubFaceIndex") == 0 ||
+				strcmp(name, "usEyesX") == 0 ||
+				strcmp(name, "usEyesY") == 0 ||
+				strcmp(name, "usMouthX") == 0 ||
+				strcmp(name, "usMouthY") == 0 ||
+				strcmp(name, "uiEyeDelay") == 0 ||
+				strcmp(name, "uiMouthDelay") == 0 ||
+				strcmp(name, "uiBlinkFrequency") == 0 ||
+				strcmp(name, "uiExpressionFrequency") == 0 ||
+				strcmp(name, "PANTS") == 0 ||
+				strcmp(name, "VEST") == 0 ||
+				strcmp(name, "SKIN") == 0 ||
+				strcmp(name, "HAIR") == 0 ||
+				strcmp(name, "bSex") == 0 ||
+				strcmp(name, "ubBodyType") == 0 ||
+				strcmp(name, "uiBodyTypeSubFlags") == 0 ||
+				strcmp(name, "bAttitude") == 0 ||
+				strcmp(name, "bPersonalityTrait") == 0 ||
+				strcmp(name, "ubNeedForSleep") == 0 ||
+				strcmp(name, "bReputationTolerance") == 0 ||
+				strcmp(name, "bDeathRate") == 0 ||
+				strcmp(name, "bLifeMax") == 0 ||
+				strcmp(name, "bLife") == 0 ||
+				strcmp(name, "bStrength") == 0 ||
+				strcmp(name, "bAgility") == 0 ||
+				strcmp(name, "bDexterity") == 0 ||
+				strcmp(name, "bWisdom") == 0 ||
+				strcmp(name, "bMarksmanship") == 0 ||
+				strcmp(name, "bExplosive") == 0 ||
+				strcmp(name, "bLeadership") == 0 ||
+				strcmp(name, "bMedical") == 0 ||
+				strcmp(name, "bMechanical") == 0 ||
+				strcmp(name, "bExpLevel") == 0 ||
+				strcmp(name, "bEvolution") == 0 ||
+				strcmp(name, "bSkillTrait") == 0 ||
+				strcmp(name, "bSkillTrait2") == 0 ||
+				strcmp(name, "bBuddy1") == 0 ||
+				strcmp(name, "bBuddy2") == 0 ||
+				strcmp(name, "bBuddy3") == 0 ||
+				strcmp(name, "bBuddy4") == 0 ||
+				strcmp(name, "bBuddy5") == 0 ||
+				strcmp(name, "bLearnToLike") == 0 ||
+				strcmp(name, "bLearnToLikeTime") == 0 ||
+				strcmp(name, "bHated1") == 0 ||
+				strcmp(name, "bHatedTime1") == 0 ||
+				strcmp(name, "bHated2") == 0 ||
+				strcmp(name, "bHatedTime2") == 0 ||
+				strcmp(name, "bHated3") == 0 ||
+				strcmp(name, "bHatedTime3") == 0 ||
+				strcmp(name, "bHated4") == 0 ||
+				strcmp(name, "bHatedTime4") == 0 ||
+				strcmp(name, "bHated5") == 0 ||
+				strcmp(name, "bHatedTime5") == 0 ||
+				strcmp(name, "bLearnToHate") == 0 ||
+				strcmp(name, "bLearnToHateTime") == 0 ||
+				strcmp(name, "sSalary") == 0 ||
+				strcmp(name, "uiWeeklySalary") == 0 ||
+				strcmp(name, "uiBiWeeklySalary") == 0 ||
+				strcmp(name, "bMedicalDeposit") == 0 ||
+				strcmp(name, "sMedicalDepositAmount") == 0 ||
+				strcmp(name, "usOptionalGearCost") == 0 ||
+				strcmp(name, "bArmourAttractiveness") == 0 ||
+				strcmp(name, "bMainGunAttractiveness") == 0 ||
+				strcmp(name, "fGoodGuy") == 0 ||
+				strcmp(name, "usApproachFactorFriendly") == 0 ||
+				strcmp(name, "usApproachFactorDirect") == 0 ||
+				strcmp(name, "usApproachFactorThreaten") == 0 ||
+				strcmp(name, "usApproachFactorRecruit") == 0
+				))
+		{
+			pData->curElement = ELEMENT_PROPERTY;
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+
+		pData->szCharData[0] = '\0';
+	}
+
+	pData->currentDepth++;
+
+}
+
+static void XMLCALL
+profileCharacterDataHandle(void *userData, const XML_Char *str, int len)
+{
+	profileParseData * pData = (profileParseData *)userData;
+
+	if( (pData->currentDepth <= pData->maxReadDepth) &&
+		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
+	){
+		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
+	}
+}
+
+
+static void XMLCALL
+profileEndElementHandle(void *userData, const XML_Char *name)
+{
+	profileParseData * pData = (profileParseData *)userData;
+
+	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
+	{
+		if(strcmp(name, "MERCPROFILES") == 0)
+		{
+			pData->curElement = ELEMENT_NONE;
+		}
+		else if(strcmp(name, "PROFILE") == 0)
+		{
+			pData->curElement = ELEMENT_LIST;
+
+			if(pData->curIndex < pData->maxArraySize)
+			{
+
+				// Write data into a temporary array that holds profiles. We will later copy data from that
+				// temp array into the REAL profile array, one item at a time, replacing PROF.DAT data.
+				wcscpy(tempProfiles[pData->curIndex].zName, pData->curProfile.zName); 
+				wcscpy(tempProfiles[pData->curIndex].zNickname, pData->curProfile.zNickname);
+				
+				tempProfiles[pData->curIndex].ubFaceIndex = pData->curProfile.ubFaceIndex;
+				tempProfiles[pData->curIndex].usEyesX = pData->curProfile.usEyesX;
+				tempProfiles[pData->curIndex].usEyesY = pData->curProfile.usEyesY;
+				tempProfiles[pData->curIndex].usMouthX = pData->curProfile.usMouthX;
+				tempProfiles[pData->curIndex].usMouthY = pData->curProfile.usMouthY;
+				tempProfiles[pData->curIndex].uiEyeDelay = pData->curProfile.uiEyeDelay;
+				tempProfiles[pData->curIndex].uiMouthDelay = pData->curProfile.uiMouthDelay;
+				tempProfiles[pData->curIndex].uiBlinkFrequency = pData->curProfile.uiBlinkFrequency;
+				tempProfiles[pData->curIndex].uiExpressionFrequency = pData->curProfile.uiExpressionFrequency;
+
+				memcpy( &(tempProfiles[pData->curIndex].PANTS), &(pData->curProfile.PANTS), sizeof(PaletteRepID) );
+				memcpy( &(tempProfiles[pData->curIndex].VEST), &(pData->curProfile.VEST), sizeof(PaletteRepID) );
+				memcpy( &(tempProfiles[pData->curIndex].SKIN), &(pData->curProfile.SKIN), sizeof(PaletteRepID) );
+				memcpy( &(tempProfiles[pData->curIndex].HAIR), &(pData->curProfile.HAIR), sizeof(PaletteRepID) );
+
+				tempProfiles[pData->curIndex].bSex = pData->curProfile.bSex;
+				tempProfiles[pData->curIndex].ubBodyType = pData->curProfile.ubBodyType;
+				tempProfiles[pData->curIndex].uiBodyTypeSubFlags = pData->curProfile.uiBodyTypeSubFlags;
+
+				tempProfiles[pData->curIndex].bAttitude = pData->curProfile.bAttitude;
+				tempProfiles[pData->curIndex].bPersonalityTrait = pData->curProfile.bPersonalityTrait;
+				tempProfiles[pData->curIndex].ubNeedForSleep = pData->curProfile.ubNeedForSleep;
+				tempProfiles[pData->curIndex].bReputationTolerance = pData->curProfile.bReputationTolerance;
+				tempProfiles[pData->curIndex].bDeathRate = pData->curProfile.bDeathRate;
+
+				tempProfiles[pData->curIndex].bLifeMax = pData->curProfile.bLifeMax;
+				tempProfiles[pData->curIndex].bLife = pData->curProfile.bLife;
+				tempProfiles[pData->curIndex].bStrength = pData->curProfile.bStrength;
+				tempProfiles[pData->curIndex].bAgility = pData->curProfile.bAgility;
+				tempProfiles[pData->curIndex].bDexterity = pData->curProfile.bDexterity;
+				tempProfiles[pData->curIndex].bWisdom = pData->curProfile.bWisdom;
+				tempProfiles[pData->curIndex].bMarksmanship = pData->curProfile.bMarksmanship;
+				tempProfiles[pData->curIndex].bExplosive = pData->curProfile.bExplosive;
+				tempProfiles[pData->curIndex].bLeadership = pData->curProfile.bLeadership;
+				tempProfiles[pData->curIndex].bMedical = pData->curProfile.bMedical;
+				tempProfiles[pData->curIndex].bMechanical = pData->curProfile.bMechanical;
+				tempProfiles[pData->curIndex].bExpLevel = pData->curProfile.bExpLevel;
+
+				tempProfiles[pData->curIndex].bEvolution = pData->curProfile.bEvolution;
+				tempProfiles[pData->curIndex].bSkillTrait = pData->curProfile.bSkillTrait;
+				tempProfiles[pData->curIndex].bSkillTrait2 = pData->curProfile.bSkillTrait2;
+
+				memcpy( &(tempProfiles[pData->curIndex].bBuddy), &(pData->curProfile.bBuddy), 5 * sizeof (INT8));
+				tempProfiles[pData->curIndex].bLearnToLike = pData->curProfile.bLearnToLike;
+				tempProfiles[pData->curIndex].bLearnToLikeTime = pData->curProfile.bLearnToLikeTime;
+
+				memcpy( &(tempProfiles[pData->curIndex].bHated), &(pData->curProfile.bHated), 5 * sizeof (INT8));
+				memcpy( &(tempProfiles[pData->curIndex].bHatedTime), &(pData->curProfile.bHatedTime), 5 * sizeof (INT8));
+				tempProfiles[pData->curIndex].bLearnToHate = pData->curProfile.bLearnToHate;
+				tempProfiles[pData->curIndex].bLearnToHateTime = pData->curProfile.bLearnToHateTime;
+
+				tempProfiles[pData->curIndex].sSalary = pData->curProfile.sSalary;
+				tempProfiles[pData->curIndex].uiWeeklySalary = pData->curProfile.uiWeeklySalary;
+				tempProfiles[pData->curIndex].uiBiWeeklySalary = pData->curProfile.uiBiWeeklySalary;
+				tempProfiles[pData->curIndex].bMedicalDeposit = pData->curProfile.bMedicalDeposit;
+				tempProfiles[pData->curIndex].sMedicalDepositAmount = pData->curProfile.sMedicalDepositAmount;
+				tempProfiles[pData->curIndex].usOptionalGearCost = pData->curProfile.usOptionalGearCost;
+
+				tempProfiles[pData->curIndex].bArmourAttractiveness = pData->curProfile.bArmourAttractiveness;
+				tempProfiles[pData->curIndex].bMainGunAttractiveness = pData->curProfile.bMainGunAttractiveness;
+
+				tempProfiles[pData->curIndex].fGoodGuy = pData->curProfile.fGoodGuy;
+				memcpy( &(tempProfiles[pData->curIndex].usApproachFactor), &(pData->curProfile.usApproachFactor), 4 * sizeof (UINT16));
+			}
+		}
+
+		else if(strcmp(name, "zName") == 0)
+		{
+			pData->curElement = ELEMENT;
+
+			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curProfile.zName, sizeof(pData->curProfile.zName)/sizeof(pData->curProfile.zName[0]) );
+			pData->curProfile.zName[sizeof(pData->curProfile.zName)/sizeof(pData->curProfile.zName[0]) - 1] = '\0';
+		}
+
+		else if(strcmp(name, "zNickname") == 0)
+		{
+			pData->curElement = ELEMENT;
+
+			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curProfile.zNickname, sizeof(pData->curProfile.zNickname)/sizeof(pData->curProfile.zNickname[0]) );
+			pData->curProfile.zNickname[sizeof(pData->curProfile.zNickname)/sizeof(pData->curProfile.zNickname[0]) - 1] = '\0';
+		}
+
+		else if(strcmp(name, "ubFaceIndex") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.ubFaceIndex = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "usEyesX") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.usEyesX = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "usEyesY") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.usEyesY = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "usMouthX") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.usMouthX = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "usMouthY") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.usMouthY = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "uiEyeDelay") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.uiEyeDelay = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "uiMouthDelay") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.uiMouthDelay = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "uiBlinkFrequency") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.uiBlinkFrequency = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "uiExpressionFrequency") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.uiExpressionFrequency = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "PANTS") == 0)
+		{
+			pData->curElement = ELEMENT;
+			strcpy(pData->curProfile.PANTS, pData->szCharData);
+		}
+
+		else if(strcmp(name, "VEST") == 0)
+		{
+			pData->curElement = ELEMENT;
+			strcpy(pData->curProfile.VEST, pData->szCharData);
+		}
+
+		else if(strcmp(name, "SKIN") == 0)
+		{
+			pData->curElement = ELEMENT;
+			strcpy(pData->curProfile.SKIN, pData->szCharData);
+		}
+
+		else if(strcmp(name, "HAIR") == 0)
+		{
+			pData->curElement = ELEMENT;
+			strcpy(pData->curProfile.HAIR, pData->szCharData);
+		}
+
+		else if(strcmp(name, "bSex") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bSex = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "ubBodyType") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.ubBodyType = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "uiBodyTypeSubFlags") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.uiBodyTypeSubFlags = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bAttitude") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bAttitude = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bPersonalityTrait") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bPersonalityTrait = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "ubNeedForSleep") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.ubNeedForSleep = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bReputationTolerance") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bReputationTolerance = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bDeathRate") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bDeathRate = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bLifeMax") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bLifeMax = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bLife") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bLife = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bStrength") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bStrength = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bAgility") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bAgility = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bDexterity") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bDexterity = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bWisdom") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bWisdom = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bMarksmanship") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bMarksmanship = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bExplosive") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bExplosive = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bLeadership") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bLeadership = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bMedical") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bMedical = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bMechanical") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bMechanical = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bExpLevel") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bExpLevel = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bEvolution") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bEvolution = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bSkillTrait") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bSkillTrait = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bSkillTrait2") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bSkillTrait2 = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bBuddy1") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bBuddy[0] = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bBuddy2") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bBuddy[1] = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bBuddy3") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bBuddy[2] = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bBuddy4") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bBuddy[3] = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bBuddy5") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bBuddy[4] = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bLearnToLike") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bLearnToLike = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bLearnToLikeTime") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bLearnToLikeTime = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bHated1") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHated[0] = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bHatedTime1") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHatedTime[0] = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bHated2") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHated[1] = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bHatedTime2") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHatedTime[1] = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bHated3") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHated[2] = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bHatedTime3") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHatedTime[2] = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bHated4") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHated[3] = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bHatedTime4") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHatedTime[3] = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "bHated5") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHated[4] = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bHatedTime5") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bHatedTime[4] = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bLearnToHate") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bLearnToHate = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bLearnToHateTime") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bLearnToHateTime = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "sSalary") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.sSalary = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "uiWeeklySalary") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.uiWeeklySalary = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "uiBiWeeklySalary") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.uiBiWeeklySalary = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bMedicalDeposit") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bMedicalDeposit = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "sMedicalDepositAmount") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.sMedicalDepositAmount = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "usOptionalGearCost") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.usOptionalGearCost = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bArmourAttractiveness") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bArmourAttractiveness = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bMainGunAttractiveness") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bMainGunAttractiveness = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "fGoodGuy") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.fGoodGuy = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "usApproachFactorFriendly") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.usApproachFactor[0] = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "usApproachFactorDirect") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.usApproachFactor[1] = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "usApproachFactorThreaten") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.usApproachFactor[2] = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "usApproachFactorRecruit") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.usApproachFactor[3] = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "uiIndex") == 0)
+		{
+
+			pData->curElement = ELEMENT;
+
+			// Sets new index for writing.
+			pData->curIndex = (UINT32) atol(pData->szCharData);
+		}
+
+		pData->maxReadDepth--;
+	}
+
+	pData->currentDepth--;
+}
+
+
+
+
+BOOLEAN ReadInMercProfiles(STR fileName)
+{
+	HWFILE		hFile;
+	UINT32		uiBytesRead;
+	UINT32		uiFSize;
+	CHAR8 *		lpcBuffer;
+	XML_Parser	parser = XML_ParserCreate(NULL);
+
+	profileParseData pData;
+
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading MercProfiles.xml" );
+
+	// Open merges file
+	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
+	if ( !hFile )
+		return( FALSE );
+
+	uiFSize = FileGetSize(hFile);
+	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
+
+	//Read in block
+	if ( !FileRead( hFile, lpcBuffer, uiFSize, &uiBytesRead ) )
+	{
+		MemFree(lpcBuffer);
+		return( FALSE );
+	}
+
+	lpcBuffer[uiFSize] = 0; //add a null terminator
+
+	FileClose( hFile );
+
+
+	XML_SetElementHandler(parser, profileStartElementHandle, profileEndElementHandle);
+	XML_SetCharacterDataHandler(parser, profileCharacterDataHandle);
+
+
+	memset(&pData,0,sizeof(pData));
+	pData.maxArraySize = MAXITEMS;
+	pData.curIndex = -1;
+
+	XML_SetUserData(parser, &pData);
+
+
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	{
+		CHAR8 errorBuf[511];
+
+		sprintf(errorBuf, "XML Parser Error in MercProfiles.xml: %s at line %d", XML_ErrorString(XML_GetErrorCode(parser)), XML_GetCurrentLineNumber(parser));
+		LiveMessage(errorBuf);
+
+		MemFree(lpcBuffer);
+		return FALSE;
+	}
+
+	MemFree(lpcBuffer);
+
+
+	XML_ParserFree(parser);
+
+	return( TRUE );
+}
+
+BOOLEAN WriteMercProfiles()
+{
+	HWFILE		hFile;
+
+	//Debug code; make sure that what we got from the file is the same as what's there
+	// Open a new file
+	hFile = FileOpen( "TABLEDATA\\MercProfiles out.xml", FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
+	if ( !hFile )
+		return( FALSE );
+
+	{
+		UINT32 cnt;
+
+		FilePrintf(hFile,"<MERCPROFILES>\r\n");
+		for(cnt = 0;cnt < NUM_PROFILES ;cnt++)
+		{
+
+			FilePrintf(hFile,"\t<PROFILE>\r\n");
+
+			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",						cnt);
+
+			//////////////////////////////
+			// Write Character Name
+
+			FilePrintf(hFile,"\t\t<zName>");
+
+			STR16 szRemainder = gMercProfiles[cnt].zName; //the remaining string to be output (for making valid XML)
+
+			while(szRemainder[0] != '\0')
+			{
+				//UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
+				UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\0");
+				CHAR16 invChar = szRemainder[uiCharLoc];
+
+				if(uiCharLoc)
+				{
+					szRemainder[uiCharLoc] = '\0';
+					FilePrintf(hFile,"%S",szRemainder);
+					szRemainder[uiCharLoc] = invChar;
+				}
+
+				szRemainder += uiCharLoc;
+
+				switch(invChar)
+				{
+					case '&':
+						FilePrintf(hFile,"&amp;");
+						szRemainder++;
+					break;
+
+					case '<':
+						FilePrintf(hFile,"&lt;");
+						szRemainder++;
+					break;
+
+					case '>':
+						FilePrintf(hFile,"&gt;");
+						szRemainder++;
+					break;
+
+					//case '\'':
+					//	FilePrintf(hFile,"&apos;");
+					//	szRemainder++;
+					//break;
+
+					//case '\"':
+					//	FilePrintf(hFile,"&quot;");
+					//	szRemainder++;
+					//break;
+				}
+			}
+
+			FilePrintf(hFile,"</zName>\r\n");
+
+			//////////////////////////////
+			// Write Character Nickname
+
+			FilePrintf(hFile,"\t\t<zNickname>");
+
+			szRemainder = gMercProfiles[cnt].zNickname; //the remaining string to be output (for making valid XML)
+
+			while(szRemainder[0] != '\0')
+			{
+				//UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
+				UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\0");
+				CHAR16 invChar = szRemainder[uiCharLoc];
+
+				if(uiCharLoc)
+				{
+					szRemainder[uiCharLoc] = '\0';
+					FilePrintf(hFile,"%S",szRemainder);
+					szRemainder[uiCharLoc] = invChar;
+				}
+
+				szRemainder += uiCharLoc;
+
+				switch(invChar)
+				{
+					case '&':
+						FilePrintf(hFile,"&amp;");
+						szRemainder++;
+					break;
+
+					case '<':
+						FilePrintf(hFile,"&lt;");
+						szRemainder++;
+					break;
+
+					case '>':
+						FilePrintf(hFile,"&gt;");
+						szRemainder++;
+					break;
+
+					//case '\'':
+					//	FilePrintf(hFile,"&apos;");
+					//	szRemainder++;
+					//break;
+
+					//case '\"':
+					//	FilePrintf(hFile,"&quot;");
+					//	szRemainder++;
+					//break;
+				}
+			}
+
+			FilePrintf(hFile,"</zNickname>\r\n");
+			//
+
+			FilePrintf(hFile,"\t\t<ubFaceIndex>%d</ubFaceIndex>\r\n", gMercProfiles[ cnt ].ubFaceIndex);
+			FilePrintf(hFile,"\t\t<usEyesX>%d</usEyesX>\r\n", gMercProfiles[ cnt ].usEyesX);
+			FilePrintf(hFile,"\t\t<usEyesY>%d</usEyesY>\r\n", gMercProfiles[ cnt ].usEyesY);
+			FilePrintf(hFile,"\t\t<usMouthX>%d</usMouthX>\r\n", gMercProfiles[ cnt ].usMouthX);
+			FilePrintf(hFile,"\t\t<usMouthY>%d</usMouthY>\r\n", gMercProfiles[ cnt ].usMouthY);
+			FilePrintf(hFile,"\t\t<uiEyeDelay>%d</uiEyeDelay>\r\n", gMercProfiles[ cnt ].uiEyeDelay);
+			FilePrintf(hFile,"\t\t<uiMouthDelay>%d</uiMouthDelay>\r\n", gMercProfiles[ cnt ].uiMouthDelay);
+			FilePrintf(hFile,"\t\t<uiBlinkFrequency>%d</uiBlinkFrequency>\r\n", gMercProfiles[ cnt ].uiBlinkFrequency);
+			FilePrintf(hFile,"\t\t<uiExpressionFrequency>%d</uiExpressionFrequency>\r\n", gMercProfiles[ cnt ].uiExpressionFrequency);
+
+			//////////////////////////////
+			// Pant Color
+
+			FilePrintf(hFile,"\t\t<PANTS>");
+
+			STR8 zRemainder = gMercProfiles[cnt].PANTS;
+			//strcpy(zRemainder, gMercProfiles[cnt].PANTS); //the remaining string to be output (for making valid XML)
+
+			while(zRemainder[0] != '\0')
+			{
+				//UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
+				UINT32 uiCharLoc = strcspn(zRemainder,"&<>\0");
+				CHAR8 invChar = zRemainder[uiCharLoc];
+
+				if(uiCharLoc)
+				{
+					zRemainder[uiCharLoc] = '\0';
+					FilePrintf(hFile,"%s",zRemainder);
+					zRemainder[uiCharLoc] = invChar;
+				}
+
+				zRemainder += uiCharLoc;
+
+				switch(invChar)
+				{
+					case '&':
+						FilePrintf(hFile,"&amp;");
+						zRemainder++;
+					break;
+
+					case '<':
+						FilePrintf(hFile,"&lt;");
+						zRemainder++;
+					break;
+
+					case '>':
+						FilePrintf(hFile,"&gt;");
+						zRemainder++;
+					break;
+
+					//case '\'':
+					//	FilePrintf(hFile,"&apos;");
+					//	szRemainder++;
+					//break;
+
+					//case '\"':
+					//	FilePrintf(hFile,"&quot;");
+					//	szRemainder++;
+					//break;
+				}
+			}
+
+			FilePrintf(hFile,"</PANTS>\r\n");
+
+			//////////////////////////////
+			// Vest Color
+
+			FilePrintf(hFile,"\t\t<VEST>");
+
+			zRemainder = gMercProfiles[cnt].VEST;
+			//strcpy(zRemainder, gMercProfiles[cnt].VEST); //the remaining string to be output (for making valid XML)
+
+			while(zRemainder[0] != '\0')
+			{
+				//UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
+				UINT32 uiCharLoc = strcspn(zRemainder,"&<>\0");
+				CHAR8 invChar = zRemainder[uiCharLoc];
+
+				if(uiCharLoc)
+				{
+					zRemainder[uiCharLoc] = '\0';
+					FilePrintf(hFile,"%s",zRemainder);
+					zRemainder[uiCharLoc] = invChar;
+				}
+
+				zRemainder += uiCharLoc;
+
+				switch(invChar)
+				{
+					case '&':
+						FilePrintf(hFile,"&amp;");
+						zRemainder++;
+					break;
+
+					case '<':
+						FilePrintf(hFile,"&lt;");
+						zRemainder++;
+					break;
+
+					case '>':
+						FilePrintf(hFile,"&gt;");
+						zRemainder++;
+					break;
+
+					//case '\'':
+					//	FilePrintf(hFile,"&apos;");
+					//	szRemainder++;
+					//break;
+
+					//case '\"':
+					//	FilePrintf(hFile,"&quot;");
+					//	szRemainder++;
+					//break;
+				}
+			}
+
+			FilePrintf(hFile,"</VEST>\r\n");
+
+			//////////////////////////////
+			// Pant Color
+
+			FilePrintf(hFile,"\t\t<SKIN>");
+
+			zRemainder = gMercProfiles[cnt].SKIN;
+			//strcpy(zRemainder,gMercProfiles[cnt].SKIN); //the remaining string to be output (for making valid XML)
+
+			while(zRemainder[0] != '\0')
+			{
+				//UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
+				UINT32 uiCharLoc = strcspn(zRemainder,"&<>\0");
+				CHAR8 invChar = zRemainder[uiCharLoc];
+
+				if(uiCharLoc)
+				{
+					zRemainder[uiCharLoc] = '\0';
+					FilePrintf(hFile,"%s",zRemainder);
+					zRemainder[uiCharLoc] = invChar;
+				}
+
+				zRemainder += uiCharLoc;
+
+				switch(invChar)
+				{
+					case '&':
+						FilePrintf(hFile,"&amp;");
+						zRemainder++;
+					break;
+
+					case '<':
+						FilePrintf(hFile,"&lt;");
+						zRemainder++;
+					break;
+
+					case '>':
+						FilePrintf(hFile,"&gt;");
+						zRemainder++;
+					break;
+
+					//case '\'':
+					//	FilePrintf(hFile,"&apos;");
+					//	szRemainder++;
+					//break;
+
+					//case '\"':
+					//	FilePrintf(hFile,"&quot;");
+					//	szRemainder++;
+					//break;
+				}
+			}
+
+			FilePrintf(hFile,"</SKIN>\r\n");
+
+			//////////////////////////////
+			// Pant Color
+
+			FilePrintf(hFile,"\t\t<HAIR>");
+
+			zRemainder = gMercProfiles[cnt].HAIR;
+			//strcpy(zRemainder,gMercProfiles[cnt].HAIR); //the remaining string to be output (for making valid XML)
+
+			while(zRemainder[0] != '\0')
+			{
+				//UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
+				UINT32 uiCharLoc = strcspn(zRemainder,"&<>\0");
+				CHAR8 invChar = zRemainder[uiCharLoc];
+
+				if(uiCharLoc)
+				{
+					zRemainder[uiCharLoc] = '\0';
+					FilePrintf(hFile,"%s",zRemainder);
+					zRemainder[uiCharLoc] = invChar;
+				}
+
+				zRemainder += uiCharLoc;
+
+				switch(invChar)
+				{
+					case '&':
+						FilePrintf(hFile,"&amp;");
+						zRemainder++;
+					break;
+
+					case '<':
+						FilePrintf(hFile,"&lt;");
+						zRemainder++;
+					break;
+
+					case '>':
+						FilePrintf(hFile,"&gt;");
+						zRemainder++;
+					break;
+
+					//case '\'':
+					//	FilePrintf(hFile,"&apos;");
+					//	szRemainder++;
+					//break;
+
+					//case '\"':
+					//	FilePrintf(hFile,"&quot;");
+					//	szRemainder++;
+					//break;
+				}
+			}
+
+			FilePrintf(hFile,"</HAIR>\r\n");
+
+			FilePrintf(hFile,"\t\t<bSex>%d</bSex>\r\n", gMercProfiles[ cnt ].bSex);
+			FilePrintf(hFile,"\t\t<ubBodyType>%d</ubBodyType>\r\n", gMercProfiles[ cnt ].ubBodyType);
+			FilePrintf(hFile,"\t\t<uiBodyTypeSubFlags>%d</uiBodyTypeSubFlags>\r\n", gMercProfiles[ cnt ].uiBodyTypeSubFlags);
+
+			FilePrintf(hFile,"\t\t<bAttitude>%d</bAttitude>\r\n", gMercProfiles[ cnt ].bAttitude);
+			FilePrintf(hFile,"\t\t<bPersonalityTrait>%d</bPersonalityTrait>\r\n", gMercProfiles[ cnt ].bPersonalityTrait);
+			FilePrintf(hFile,"\t\t<ubNeedForSleep>%d</ubNeedForSleep>\r\n", gMercProfiles[ cnt ].ubNeedForSleep);
+
+			FilePrintf(hFile,"\t\t<bReputationTolerance>%d</bReputationTolerance>\r\n", gMercProfiles[ cnt ].bReputationTolerance);
+			FilePrintf(hFile,"\t\t<bDeathRate>%d</bDeathRate>\r\n", gMercProfiles[ cnt ].bDeathRate);
+
+			FilePrintf(hFile,"\t\t<bLifeMax>%d</bLifeMax>\r\n", gMercProfiles[ cnt ].bLifeMax);
+			FilePrintf(hFile,"\t\t<bLife>%d</bLife>\r\n", gMercProfiles[ cnt ].bLife);
+			FilePrintf(hFile,"\t\t<bStrength>%d</bStrength>\r\n", gMercProfiles[ cnt ].bStrength);
+			FilePrintf(hFile,"\t\t<bAgility>%d</bAgility>\r\n", gMercProfiles[ cnt ].bAgility);
+			FilePrintf(hFile,"\t\t<bDexterity>%d</bDexterity>\r\n", gMercProfiles[ cnt ].bDexterity);
+			FilePrintf(hFile,"\t\t<bWisdom>%d</bWisdom>\r\n", gMercProfiles[ cnt ].bWisdom);
+			FilePrintf(hFile,"\t\t<bMarksmanship>%d</bMarksmanship>\r\n", gMercProfiles[ cnt ].bMarksmanship);
+			FilePrintf(hFile,"\t\t<bExplosive>%d</bExplosive>\r\n", gMercProfiles[ cnt ].bExplosive);
+			FilePrintf(hFile,"\t\t<bLeadership>%d</bLeadership>\r\n", gMercProfiles[ cnt ].bLeadership);
+			FilePrintf(hFile,"\t\t<bMedical>%d</bMedical>\r\n", gMercProfiles[ cnt ].bMedical);
+			FilePrintf(hFile,"\t\t<bMechanical>%d</bMechanical>\r\n", gMercProfiles[ cnt ].bMechanical);
+			FilePrintf(hFile,"\t\t<bExpLevel>%d</bExpLevel>\r\n", gMercProfiles[ cnt ].bExpLevel);
+			FilePrintf(hFile,"\t\t<bEvolution>%d</bEvolution>\r\n", gMercProfiles[ cnt ].bEvolution);
+			FilePrintf(hFile,"\t\t<bSkillTrait>%d</bSkillTrait>\r\n", gMercProfiles[ cnt ].bSkillTrait);
+			FilePrintf(hFile,"\t\t<bSkillTrait2>%d</bSkillTrait2>\r\n", gMercProfiles[ cnt ].bSkillTrait2);
+
+			FilePrintf(hFile,"\t\t<bBuddy1>%d</bBuddy1>\r\n", gMercProfiles[ cnt ].bBuddy[0]);
+			FilePrintf(hFile,"\t\t<bBuddy2>%d</bBuddy2>\r\n", gMercProfiles[ cnt ].bBuddy[1]);
+			FilePrintf(hFile,"\t\t<bBuddy3>%d</bBuddy3>\r\n", gMercProfiles[ cnt ].bBuddy[2]);
+			FilePrintf(hFile,"\t\t<bBuddy4>%d</bBuddy4>\r\n", gMercProfiles[ cnt ].bBuddy[3]);
+			FilePrintf(hFile,"\t\t<bBuddy5>%d</bBuddy5>\r\n", gMercProfiles[ cnt ].bBuddy[4]);
+
+			FilePrintf(hFile,"\t\t<bLearnToLike>%d</bLearnToLike>\r\n", gMercProfiles[ cnt ].bLearnToLike);
+			FilePrintf(hFile,"\t\t<bLearnToLikeTime>%d</bLearnToLikeTime>\r\n", gMercProfiles[ cnt ].bLearnToLikeTime);
+
+			FilePrintf(hFile,"\t\t<bHated1>%d</bHated1>\r\n", gMercProfiles[ cnt ].bHated[0]);
+			FilePrintf(hFile,"\t\t<bHatedTime1>%d</bHatedTime1>\r\n", gMercProfiles[ cnt ].bHatedTime[0]);
+			FilePrintf(hFile,"\t\t<bHated2>%d</bHated2>\r\n", gMercProfiles[ cnt ].bHated[1]);
+			FilePrintf(hFile,"\t\t<bHatedTime2>%d</bHatedTime2>\r\n", gMercProfiles[ cnt ].bHatedTime[1]);
+			FilePrintf(hFile,"\t\t<bHated3>%d</bHated3>\r\n", gMercProfiles[ cnt ].bHated[2]);
+			FilePrintf(hFile,"\t\t<bHatedTime3>%d</bHatedTime3>\r\n", gMercProfiles[ cnt ].bHatedTime[2]);
+			FilePrintf(hFile,"\t\t<bHated4>%d</bHated4>\r\n", gMercProfiles[ cnt ].bHated[3]);
+			FilePrintf(hFile,"\t\t<bHatedTime4>%d</bHatedTime4>\r\n", gMercProfiles[ cnt ].bHatedTime[3]);
+			FilePrintf(hFile,"\t\t<bHated5>%d</bHated5>\r\n", gMercProfiles[ cnt ].bHated[4]);
+			FilePrintf(hFile,"\t\t<bHatedTime5>%d</bHatedTime5>\r\n", gMercProfiles[ cnt ].bHatedTime[4]);
+
+			FilePrintf(hFile,"\t\t<bLearnToHate>%d</bLearnToHate>\r\n", gMercProfiles[ cnt ].bLearnToHate);
+			FilePrintf(hFile,"\t\t<bLearnToHateTime>%d</bLearnToHateTime>\r\n", gMercProfiles[ cnt ].bLearnToHateTime);
+
+			FilePrintf(hFile,"\t\t<sSalary>%d</sSalary>\r\n", gMercProfiles[ cnt ].sSalary);
+			FilePrintf(hFile,"\t\t<uiWeeklySalary>%d</uiWeeklySalary>\r\n", gMercProfiles[ cnt ].uiWeeklySalary);
+			FilePrintf(hFile,"\t\t<uiBiWeeklySalary>%d</uiBiWeeklySalary>\r\n", gMercProfiles[ cnt ].uiBiWeeklySalary);
+			FilePrintf(hFile,"\t\t<bMedicalDeposit>%d</bMedicalDeposit>\r\n", gMercProfiles[ cnt ].bMedicalDeposit);
+			FilePrintf(hFile,"\t\t<sMedicalDepositAmount>%d</sMedicalDepositAmount>\r\n", gMercProfiles[ cnt ].sMedicalDepositAmount);
+			FilePrintf(hFile,"\t\t<usOptionalGearCost>%d</usOptionalGearCost>\r\n", gMercProfiles[ cnt ].usOptionalGearCost);
+
+			FilePrintf(hFile,"\t\t<bArmourAttractiveness>%d</bArmourAttractiveness>\r\n", gMercProfiles[ cnt ].bArmourAttractiveness);
+			FilePrintf(hFile,"\t\t<bMainGunAttractiveness>%d</bMainGunAttractiveness>\r\n", gMercProfiles[ cnt ].bMainGunAttractiveness);
+
+			FilePrintf(hFile,"\t\t<fGoodGuy>%d</fGoodGuy>\r\n", ((gMercProfiles[ cnt ].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) != 0));
+
+			FilePrintf(hFile,"\t\t<usApproachFactorFriendly>%d</usApproachFactorFriendly>\r\n", gMercProfiles[ cnt ].usApproachFactor[0]);
+			FilePrintf(hFile,"\t\t<usApproachFactorDirect>%d</usApproachFactorDirect>\r\n", gMercProfiles[ cnt ].usApproachFactor[1]);
+			FilePrintf(hFile,"\t\t<usApproachFactorThreaten>%d</usApproachFactorThreaten>\r\n", gMercProfiles[ cnt ].usApproachFactor[2]);
+			FilePrintf(hFile,"\t\t<usApproachFactorRecruit>%d</usApproachFactorRecruit>\r\n", gMercProfiles[ cnt ].usApproachFactor[3]);
+
+
+			FilePrintf(hFile,"\t</PROFILE>\r\n");
+		}
+		FilePrintf(hFile,"</MERCPROFILES>\r\n");
+	}
+	FileClose( hFile );
+
+	return( TRUE );
+}

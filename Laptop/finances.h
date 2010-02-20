@@ -50,7 +50,9 @@ enum
 	TRAIN_TOWN_MILITIA,
 	PURCHASED_ITEM_FROM_DEALER,
 	MERC_DEPOSITED_MONEY_TO_PLAYER_ACCOUNT,
-	SOLD_ITEMS
+	SOLD_ITEMS,
+	FACILITY_OPERATIONS, // HEADROCK HAM 3.6: Facility costs (daily payment)
+	MILITIA_UPKEEP, // HEADROCK HAM 3.6: Militia Upkeep Costs (daily payment)
 };
 
 
@@ -64,6 +66,7 @@ void InsertDollarSignInToString( STR16 pString );
 void InsertCommasForDollarFigure( STR16 pString );
 INT32 GetTodaysDaysIncome( void );
 INT32 GetProjectedTotalDailyIncome( void );
+INT32 GetProjectedExpenses( void ); // HEADROCK HAM 3.6: Projected daily expenses.
 
 #endif
 

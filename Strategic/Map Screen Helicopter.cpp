@@ -38,6 +38,8 @@
 	#include "soundman.h"
 	#include "Isometric Utils.h"
 	#include "Scheduling.h"
+	// HEADROCK HAM 3.5: Added facility-based skyrider costs modifier
+	#include "Facilities.h"
 #endif
 
 
@@ -527,15 +529,22 @@ INT32 GetCostOfPassageForHelicopter( INT16 sX, INT16 sY )
 	// check if sector is air controlled or not, if so, then normal cost, otherwise increase the cost
 	INT32 iCost = 0;
 
+	// HEADROCK HAM 3.5: Costs externalized
+	INT32 iBaseCostPerGreenTile = gGameExternalOptions.usHelicopterBaseCostPerGreenTile;
+	INT32 iBaseCostPerRedTile = gGameExternalOptions.usHelicopterBaseCostPerRedTile;
+
 	// if they don't control it
 	if( StrategicMap[ CALCULATE_STRATEGIC_INDEX( sX, sY ) ].fEnemyAirControlled == FALSE )
 	{
-		iCost = COST_AIRSPACE_SAFE;
+		iCost = iBaseCostPerGreenTile;
 	}
 	else
 	{
-		iCost = COST_AIRSPACE_UNSAFE;
+		iCost = iBaseCostPerRedTile;
 	}
+
+	// HEADROCK HAM 3.5: Apply facility-based modifiers from global integer recalculated hourly
+	iCost = __max(0, iCost + gsSkyriderCostModifier);
 
 	return( iCost );
 }

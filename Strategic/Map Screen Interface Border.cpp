@@ -773,7 +773,9 @@ void ToggleShowMilitiaMode( void )
 			// no - so put up a message explaining how it works
 
 			// if he's already training some
-			if( IsAnyOneOnPlayersTeamOnThisAssignment( TRAIN_TOWN ) )
+			// HEADROCK HAM 3.6: Also for Mobile trainers.
+			if( IsAnyOneOnPlayersTeamOnThisAssignment( TRAIN_TOWN ) ||
+				IsAnyOneOnPlayersTeamOnThisAssignment( TRAIN_MOBILE ) )
 			{
 				// say they'll show up when training is completed
 				pwString = pMapErrorString[ 28 ];

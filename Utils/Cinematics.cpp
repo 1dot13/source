@@ -193,7 +193,6 @@ SMKFLIC *pSmack;
 SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
 {
 	SMKFLIC *pSmack;
-	
 
 	// Get an available flic slot from the list
 	if(!(pSmack=SmkGetFreeFlic()))

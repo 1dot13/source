@@ -68,8 +68,12 @@ want to have the new inventory panel not overlap the message text area. */
 #define MESSAGE_SCROLL_AREA_HEIGHT				( MESSAGE_SCROLL_AREA_END_Y - MESSAGE_SCROLL_AREA_START_Y + 1 )
 
 // CHRISL: Use these if we want scroll bar based on left edge of screen
-#define MESSAGE_SCROLL_AREA_START_X				330
-#define MESSAGE_SCROLL_AREA_END_X				344
+// HEADROCK HAM 3.6: Now global variables to be changed when initializing map mode.
+// See InitMapScreenInterfaceBottomCoords()
+//#define MESSAGE_SCROLL_AREA_START_X				330
+//#define MESSAGE_SCROLL_AREA_END_X				344
+UINT16 MESSAGE_SCROLL_AREA_START_X;
+UINT16 MESSAGE_SCROLL_AREA_END_X;
 
 #define SLIDER_HEIGHT							11
 #define SLIDER_WIDTH							11
@@ -184,6 +188,7 @@ void DeleteMapScreenBottomMessageScrollRegion( void );
 void DisplayCurrentBalanceForMapBottom( void );
 void DisplayCurrentBalanceTitleForMapBottom( void );
 void DisplayProjectedDailyMineIncome( void );
+void DisplayProjectedDailyExpenses( void ); // HEADROCK HAM 3.6: New expenses window shows running costs today.
 void DrawNameOfLoadedSector( void );
 
 void EnableDisableBottomButtonsAndRegions( void );
@@ -296,7 +301,8 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 	// render whole panel
 	// HEADROCK Changed this line to accept outside influence through the new boolean:
 	//if ( fForceMapscreenFullRender == TRUE || fMapScreenBottomDirty == TRUE)
-	if ( fMapScreenBottomDirty )
+	// HEADROCK HAM 3.6: OK, let's always render this panel, as long as the team inventory screen isn't open.
+	if ( fMapScreenBottomDirty || !fShowInventoryFlag )
 	{
 		// get and blt panel
 		GetVideoObject(&hHandle, guiMAPBOTTOMPANEL );
@@ -334,12 +340,20 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 
 		// Headrock: Moved this next line from the above marker ^
 		fMapScreenBottomDirty = FALSE;
+
+		// CHRISL: Don't display messagelist if inventory panel is open
+		// CHRISL: Only run this condition if we're drawing the message list on the left
+		// display messages that can be scrolled through
+		// HEADROCK HAM 3.6: Hmmmm, why not draw them? LEt's just move this whole segment here, shall we?
+		//if(!fShowInventoryFlag)
+		DisplayStringsInMapScreenMessageList( );
 	}
 
 	DisplayCompressMode( );
 
 	DisplayCurrentBalanceForMapBottom( );
 	DisplayProjectedDailyMineIncome( );
+	DisplayProjectedDailyExpenses( );
 
 	// draw the name of the loaded sector
 	DrawNameOfLoadedSector( );
@@ -347,12 +361,7 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 	// display slider on the scroll bar
 	DisplayScrollBarSlider( );
 
-	// CHRISL: Don't display messagelist if inventory panel is open
-	// CHRISL: Only run this condition if we're drawing the message list on the left
-	// display messages that can be scrolled through
-	if(!fShowInventoryFlag)
-		DisplayStringsInMapScreenMessageList( );
-		
+	
 	// handle auto scroll
 	//CheckForAndHandleAutoMessageScroll( );
 
@@ -427,10 +436,12 @@ BOOLEAN CreateButtonsForMapScreenInterfaceBottom( void )
 //										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 //										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMessageDownMapScreenCallback);
 // CHRISL: Use these if we want buttons based on left edge of screen
-  guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_UP ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_UP ], 331, (SCREEN_HEIGHT - 109),
+// HEADROCK HAM 3.6: Message window is now as wide as possible.
+  
+	guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_UP ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_UP ], (SCREEN_WIDTH - 306), (SCREEN_HEIGHT - 109),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMessageUpMapScreenCallback);
-  guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_DOWN ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ], 331, (SCREEN_HEIGHT - 28),
+	guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_DOWN ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ], (SCREEN_WIDTH - 306), (SCREEN_HEIGHT - 28),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMessageDownMapScreenCallback);
 
@@ -1334,7 +1345,8 @@ BOOLEAN AllowedToTimeCompress( void )
 		return( FALSE );
 	}
 
-	if( fShowAssignmentMenu || fShowTrainingMenu || fShowAttributeMenu || fShowSquadMenu || fShowContractMenu || fShowRemoveMenu )
+	// HEADROCK HAM 3.6: Added Facility Menus
+	if( fShowAssignmentMenu || fShowTrainingMenu || fShowAttributeMenu || fShowSquadMenu || fShowContractMenu || fShowRemoveMenu || fShowFacilityAssignmentMenu || fShowFacilityMenu )
 	{
 		return( FALSE );
 	}
@@ -1428,7 +1440,9 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 	// CHRISL: Replaced X coordinate with dynamic coordinate set from right edge of screen
 	//VarFindFontCenterCoordinates( (SCREEN_WIDTH - 637), (SCREEN_HEIGHT - 107),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	// CHRISL: Use this if we want to display from the left edge
-	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 107),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	//VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 107),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	// HEADROCK HAM 3.6: The balance/income box has been moved to the right side, near the laptop button.
+	VarFindFontCenterCoordinates( (SCREEN_WIDTH - 278), (SCREEN_HEIGHT - 111), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
 	
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -1439,7 +1453,18 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 	// CHRISL: Replaced X coordinate with dynamic coordinate set from right edge of screen
 	//VarFindFontCenterCoordinates( (SCREEN_WIDTH - 637), (SCREEN_HEIGHT - 61),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	// CHRISL: Use this if we want to display from the left edge
-	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 61),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	//VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 61),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	// HEADROCK HAM 3.6: The balance/income box has been moved to the right side, near the laptop button.	
+	VarFindFontCenterCoordinates( (SCREEN_WIDTH - 278), (SCREEN_HEIGHT - 74), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
+
+	// print it
+	mprintf( sFontX, sFontY, L"%s", sString );
+
+	swprintf( sString, L"%s", New113HAMMessage[ 20 ] );
+
+	// HEADROCK HAM 3.6: Projected expenses for today, with facilities (and in the future, merc contracts) taken into
+	// account.
+	VarFindFontCenterCoordinates( (SCREEN_WIDTH - 278), (SCREEN_HEIGHT - 37), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
 
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -1474,7 +1499,9 @@ void DisplayCurrentBalanceForMapBottom( void )
 	// CHRISL: Replaced X coordinate with dynamic coordinate set from right edge of screen
 	//VarFindFontCenterCoordinates( (SCREEN_WIDTH - 637), (SCREEN_HEIGHT - 91),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	// CHRISL: Use this if we want to display from the left edge
-	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 91),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	//VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 91),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	// HEADROCK HAM 3.6: The balance/income box has been moved to the right side, near the laptop button.	
+	VarFindFontCenterCoordinates( (SCREEN_WIDTH - 278), (SCREEN_HEIGHT - 95), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
 	
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -1588,8 +1615,62 @@ void DisplayProjectedDailyMineIncome( void )
 	// CHRISL: Replaced X coordinate with dynamic coordinate set from right edge of screen
 	//VarFindFontCenterCoordinates( (SCREEN_WIDTH - 637), (SCREEN_HEIGHT - 45),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	// CHRISL: Use this if we want to display from the left edge
-	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 45),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	//VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 45),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	// HEADROCK HAM 3.6: The balance/income box has been moved to the right side, near the laptop button.	
+	VarFindFontCenterCoordinates( (SCREEN_WIDTH - 278), (SCREEN_HEIGHT - 58), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
 	
+	// print it
+	mprintf( sFontX, sFontY, L"%s", sString );
+
+	return;
+}
+
+void DisplayProjectedDailyExpenses( void )
+{
+	INT32 iRate = 0;
+	static INT32 iOldExpensesRate = -1;
+	CHAR16 sString[ 128 ];
+	INT16 sFontX, sFontY;
+
+	// grab the rate from the financial system
+	iRate = GetProjectedExpenses( );
+
+	if( iRate != iOldExpensesRate )
+	{
+		iOldExpensesRate = iRate;
+		fMapScreenBottomDirty = TRUE;
+
+		// if screen was not dirtied, leave
+		if( fMapBottomDirtied == FALSE )
+		{
+			return;
+		}
+	}
+
+	// set the font buffer
+	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+
+	// set up the font
+	SetFont( COMPFONT );
+	if (iRate == 0)
+	{
+		SetFontForeground( 183 );
+	}
+	else
+	{
+		SetFontForeground( FONT_MCOLOR_LTRED );
+	}
+	SetFontBackground( FONT_BLACK );
+
+	swprintf( sString, L"%d", iRate );
+
+	// insert extra characters
+	InsertCommasForDollarFigure( sString );
+	InsertDollarSignInToString( sString );
+
+	// center it
+	VarFindFontCenterCoordinates( (SCREEN_WIDTH - 278), (SCREEN_HEIGHT - 21), 78, 10, COMPFONT, &sFontX, &sFontY, sString );
+
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
 
@@ -1950,3 +2031,11 @@ void ChangeCurrentMapscreenMessageIndex( UINT8 ubNewMessageIndex )
 	// refresh screen
 	fMapScreenBottomDirty = TRUE;
 }
+
+void InitMapScreenInterfaceBottomCoords( void )
+{
+	// HEADROCK HAM 3.6: Message window is now as wide as possible.
+	MESSAGE_SCROLL_AREA_START_X = SCREEN_WIDTH - 307;
+	MESSAGE_SCROLL_AREA_END_X = SCREEN_WIDTH - 293;
+}
+

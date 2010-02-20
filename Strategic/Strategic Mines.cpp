@@ -21,6 +21,7 @@
 	#include "Strategic AI.h"
 	#include "Campaign Types.h"
 	#include "history.h"
+	#include "Facilities.h"
 #endif
 
 
@@ -202,12 +203,27 @@ void InitializeMines( void )
 		// Alma mine can't run out for quest-related reasons (see Ian)
 	} while (gMineStatus[ubDepletedMineIndex].fEmpty || (ubDepletedMineIndex == MINE_ALMA));
 
+	// HEADROCK HAM 3.1: We can now select which mine runs out, or disable mine shutdown.
+	if (gGameExternalOptions.fManuallySelectMineShutdown)
+	{
+		// Make sure selection isn't 0 (no mine runs out) or invalid (San Mona, Alma)
+		if (gGameExternalOptions.ubWhichMineRunsOut > 0 && 
+			gGameExternalOptions.ubWhichMineRunsOut < MAX_NUMBER_OF_MINES &&
+			gGameExternalOptions.ubWhichMineRunsOut-1 != MINE_SAN_MONA &&
+			gGameExternalOptions.ubWhichMineRunsOut-1 != MINE_ALMA )
+		{
+			// Set depleted mine index.
+			ubDepletedMineIndex = (gGameExternalOptions.ubWhichMineRunsOut-1);
+		}
+	}
 
 	for( ubMineIndex = 0; ubMineIndex < MAX_NUMBER_OF_MINES; ubMineIndex++ )
 	{
 		pMineStatus = &(gMineStatus[ ubMineIndex ]);
 
-		if (ubMineIndex == ubDepletedMineIndex)
+		// HEADROCK HAM 3.1: We can disable mine shutdown, so make sure the settings aren't telling us to do so.
+		if (!(gGameExternalOptions.fManuallySelectMineShutdown && gGameExternalOptions.ubWhichMineRunsOut == 0) &&
+			(ubMineIndex == ubDepletedMineIndex))
 		{
 			if ( ubDepletedMineIndex == MINE_DRASSEN )
 			{
@@ -343,7 +359,7 @@ UINT32 GetMaxPeriodicRemovalFromMine( INT8 bMineIndex )
 	}
 
 	// HEADROCK HAM B1: Affected by external INI option.
-	return(( gMineStatus[ bMineIndex ].uiMaxRemovalRate * gGameExternalOptions.iMineIncomePercentage ) / 100);
+	return(( gMineStatus[ bMineIndex ].uiMaxRemovalRate * gGameExternalOptions.usMineIncomePercentage ) / 100);
 }
 
 
@@ -370,7 +386,7 @@ UINT32 GetMaxDailyRemovalFromMine( INT8 bMineIndex )
 		uiAmtExtracted = gMineStatus[ bMineIndex ].uiRemainingOreSupply;
 	}
 	// HEADROCK HAM B1: Affected by external INI option.
-	uiAmtExtracted = (uiAmtExtracted * gGameExternalOptions.iMineIncomePercentage) / 100;
+	uiAmtExtracted = (uiAmtExtracted * gGameExternalOptions.usMineIncomePercentage) / 100;
 
 	return(uiAmtExtracted);
 }
@@ -660,15 +676,22 @@ void HandleIncomeFromMines( void )
 {
 	INT32 iIncome = 0;
 	INT8 bCounter = 0;
+	// HEADROCK HAM 3.6: Modifier from Facilities
+	INT32 iFacilityModifier = 0;
 
 	// mine each mine, check if we own it and such
 	for( bCounter = 0; bCounter < MAX_NUMBER_OF_MINES; bCounter++ )
 	{
+		if (bCounter)
+		{
+			// HEADROCK HAM 3.6: Add facility modifier as a percentage
+			iFacilityModifier = 100 + MineIncomeModifierFromFacility( bCounter );
+		}
 		// mine this mine
-		iIncome += MineAMine( bCounter );
+		iIncome += (MineAMine( bCounter ) * iFacilityModifier) / 100;
 	}
 	// HEADROCK HAM B1: Affected by external INI Option.
-	iIncome = (iIncome * gGameExternalOptions.iMineIncomePercentage) / 100;
+	iIncome = (iIncome * gGameExternalOptions.usMineIncomePercentage) / 100;
 	if( iIncome )
 	{
 		AddTransactionToPlayersBook( DEPOSIT_FROM_SILVER_MINE, 0, GetWorldTotalMin( ), iIncome );
@@ -681,6 +704,8 @@ UINT32 PredictDailyIncomeFromAMine( INT8 bMineIndex )
 	// predict income from this mine, estimate assumes mining situation will not change during next 4 income periods
 	// (miner loyalty, % town controlled, monster infestation level, and current max removal rate may all in fact change)
 	UINT32 uiAmtExtracted = 0;
+	// HEADROCK HAM 3.6: Facilities can now modify income
+	INT32 iFacilityModifier = 0;
 
 	if(PlayerControlsMine(bMineIndex))
 	{
@@ -693,10 +718,16 @@ UINT32 PredictDailyIncomeFromAMine( INT8 bMineIndex )
 			// yes reduce to value of mine
 			uiAmtExtracted = gMineStatus[ bMineIndex ].uiRemainingOreSupply;
 		}
+		if (bMineIndex)
+		{
+			// HEADROCK HAM 3.6: Facility modifier applied as a percentage
+			iFacilityModifier = 100 + MineIncomeModifierFromFacility( bMineIndex );
+			uiAmtExtracted = (uiAmtExtracted * iFacilityModifier) / 100;
+		}
 	}
 
 	// HEADROCK HAM B1: Affected by external INI Option.
-	return( ( uiAmtExtracted * gGameExternalOptions.iMineIncomePercentage ) / 100 ) ;
+	return( ( uiAmtExtracted * gGameExternalOptions.usMineIncomePercentage ) / 100 ) ;
 }
 
 
@@ -727,7 +758,7 @@ INT32 CalcMaxPlayerIncomeFromMines( void )
 		iTotal += (MINE_PRODUCTION_NUMBER_OF_PERIODS * gMineStatus[bCounter].uiMaxRemovalRate);
 	}
 	// HEADROCK HAM B1: Affected by external INI Option.
-	iTotal = (iTotal * gGameExternalOptions.iMineIncomePercentage) / 100;
+	iTotal = (iTotal * gGameExternalOptions.usMineIncomePercentage) / 100;
 
 	return( iTotal );
 }

@@ -277,6 +277,28 @@ enum
 #define SOLDIER_CLASS_ENEMY( bSoldierClass )		( ( bSoldierClass >= SOLDIER_CLASS_ADMINISTRATOR ) && ( bSoldierClass <= SOLDIER_CLASS_ARMY ) )
 #define SOLDIER_CLASS_MILITIA( bSoldierClass )	( ( bSoldierClass >= SOLDIER_CLASS_GREEN_MILITIA ) && ( bSoldierClass <= SOLDIER_CLASS_ELITE_MILITIA ) )
 
+// Types of uniforms available
+enum
+{
+	UNIFORM_ENEMY_ADMIN = 0,
+	UNIFORM_ENEMY_TROOP,
+	UNIFORM_ENEMY_ELITE,
+	UNIFORM_MILITIA_ROOKIE,
+	UNIFORM_MILITIA_REGULAR,
+	UNIFORM_MILITIA_ELITE,
+	NUM_UNIFORMS,
+};
+
+// enum of uniform pieces
+typedef struct
+{
+	PaletteRepID vest;
+	PaletteRepID pants;
+}UNIFORMCOLORS;
+
+// HEADROCK HAM 3.6: Uniform colors for the different soldier classes
+extern UNIFORMCOLORS gUniformColors[NUM_UNIFORMS];
+
 // This macro should be used whenever we want to see if someone is neutral
 // IF WE ARE CONSIDERING ATTACKING THEM.	Creatures & bloodcats will attack neutrals
 // but they can't attack empty vehicles!!
@@ -1021,7 +1043,6 @@ public:
 
 	UINT32											uiTimeSoldierWillArrive;
 
-
 	INT8												bVehicleUnderRepairID;
 	INT32						iTimeCanSignElsewhere;
 	INT8												bHospitalPriceModifier;
@@ -1050,7 +1071,11 @@ public:
 	INT8	snowCamo;	
 	INT8	wornSnowCamo;
 
-	INT16	filler;
+	// HEADROCK HAM 3.6: Added integer tracking the facility this character is using.
+	INT16 sFacilityTypeOperated;
+	// HEADROCK HAM 3.6: I'm removing this filler to make room for the above variable. I'm very worried though,
+	// I don't know if this is a good idea at all...
+	//INT16	filler;
 
 	char endOfPOD;	// marker for end of POD (plain old data)
 

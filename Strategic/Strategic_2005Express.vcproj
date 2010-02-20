@@ -297,6 +297,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Facilities.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Game Clock.h"
 				>
 			</File>
@@ -471,6 +475,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Facilities.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Game Clock.cpp"
 				>
 			</File>
@@ -627,11 +635,35 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Bloodcats.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_DynamicRestrictions.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_ExtraItems.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Facilities.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_FacilityTypes.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_Roaming.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_SectorNames.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_UniformColors.cpp"
 				>
 			</File>
 		</Filter>

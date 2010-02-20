@@ -151,4 +151,6 @@ extern INT8 gbLightSighting[1][16];
 
 BOOLEAN SoldierHasLimitedVision(SOLDIERTYPE * pSoldier);
 
+// HEADROCK HAM 3.6: Moved here from cpp
+void MakeBloodcatsHostile( void );
 #endif

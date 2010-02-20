@@ -72,6 +72,8 @@
 	#include "MessageBoxScreen.h"
 	#include "wordwrap.h"
 	#include "Boxing.h"
+	// HEADROCK HAM 3.6: This is required for Stat Progress Bars
+	#include "Campaign.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -1532,27 +1534,27 @@ BOOLEAN InitializeSMPanelCoordsOld()
 	SM_CAMMO_X				= ( 428 + INTERFACE_START_X );
 	SM_CAMMO_Y				= ( 121 + INV_INTERFACE_START_Y );
 
-	SM_STATS_WIDTH			= 30;
+	SM_STATS_WIDTH			= 16;
 	SM_STATS_HEIGHT			= 8 ;
-	SM_AGI_X				= ( 99 + INTERFACE_START_X );
+	SM_AGI_X				= ( 115 + INTERFACE_START_X );
 	SM_AGI_Y				= ( 7 + INV_INTERFACE_START_Y );
-	SM_DEX_X				= ( 99 + INTERFACE_START_X );
+	SM_DEX_X				= ( 115 + INTERFACE_START_X );
 	SM_DEX_Y				= ( 17 + INV_INTERFACE_START_Y );
-	SM_STR_X				= ( 99 + INTERFACE_START_X );
+	SM_STR_X				= ( 115 + INTERFACE_START_X );
 	SM_STR_Y				= ( 27 + INV_INTERFACE_START_Y );
-	SM_CHAR_X				= ( 99 + INTERFACE_START_X );
+	SM_CHAR_X				= ( 115 + INTERFACE_START_X );
 	SM_CHAR_Y				= ( 37 + INV_INTERFACE_START_Y );
-	SM_WIS_X				= ( 99 + INTERFACE_START_X );
+	SM_WIS_X				= ( 115 + INTERFACE_START_X );
 	SM_WIS_Y				= ( 47 + INV_INTERFACE_START_Y );
-	SM_EXPLVL_X				= ( 148 + INTERFACE_START_X );
+	SM_EXPLVL_X				= ( 163 + INTERFACE_START_X );
 	SM_EXPLVL_Y				= ( 7 + INV_INTERFACE_START_Y );
-	SM_MRKM_X				= ( 148 + INTERFACE_START_X );
+	SM_MRKM_X				= ( 163 + INTERFACE_START_X );
 	SM_MRKM_Y				= ( 17 + INV_INTERFACE_START_Y );
-	SM_EXPL_X				= ( 148 + INTERFACE_START_X );
+	SM_EXPL_X				= ( 163 + INTERFACE_START_X );
 	SM_EXPL_Y				= ( 27 + INV_INTERFACE_START_Y );
-	SM_MECH_X				= ( 148 + INTERFACE_START_X );
+	SM_MECH_X				= ( 163 + INTERFACE_START_X );
 	SM_MECH_Y				= ( 37 + INV_INTERFACE_START_Y );
-	SM_MED_X				= ( 148 + INTERFACE_START_X );
+	SM_MED_X				= ( 163 + INTERFACE_START_X );
 	SM_MED_Y				= ( 47 + INV_INTERFACE_START_Y );
 
 	MONEY_X					= ( 460 + INTERFACE_START_X );
@@ -1905,27 +1907,27 @@ BOOLEAN InitializeSMPanelCoordsNew()
 	SM_CAMMO_X				= ( 218 + INTERFACE_START_X );
 	SM_CAMMO_Y				= ( 49 + INV_INTERFACE_START_Y );
 
-	SM_STATS_WIDTH			= 30;
+	SM_STATS_WIDTH			= 16;
 	SM_STATS_HEIGHT			= 8 ;
-	SM_AGI_X				= ( 101 + INTERFACE_START_X );
+	SM_AGI_X				= ( 115 + INTERFACE_START_X );
 	SM_AGI_Y				= ( 7 + INV_INTERFACE_START_Y );
-	SM_DEX_X				= ( 101 + INTERFACE_START_X );
+	SM_DEX_X				= ( 115 + INTERFACE_START_X );
 	SM_DEX_Y				= ( 17 + INV_INTERFACE_START_Y );
-	SM_STR_X				= ( 101 + INTERFACE_START_X );
+	SM_STR_X				= ( 115 + INTERFACE_START_X );
 	SM_STR_Y				= ( 27 + INV_INTERFACE_START_Y );
-	SM_CHAR_X				= ( 101 + INTERFACE_START_X );
+	SM_CHAR_X				= ( 115 + INTERFACE_START_X );
 	SM_CHAR_Y				= ( 37 + INV_INTERFACE_START_Y );
-	SM_WIS_X				= ( 101 + INTERFACE_START_X );
+	SM_WIS_X				= ( 115 + INTERFACE_START_X );
 	SM_WIS_Y				= ( 47 + INV_INTERFACE_START_Y );
-	SM_EXPLVL_X				= ( 150 + INTERFACE_START_X );
+	SM_EXPLVL_X				= ( 163 + INTERFACE_START_X );
 	SM_EXPLVL_Y				= ( 7 + INV_INTERFACE_START_Y );
-	SM_MRKM_X				= ( 150 + INTERFACE_START_X );
+	SM_MRKM_X				= ( 163 + INTERFACE_START_X );
 	SM_MRKM_Y				= ( 17 + INV_INTERFACE_START_Y );
-	SM_EXPL_X				= ( 150 + INTERFACE_START_X );
+	SM_EXPL_X				= ( 163 + INTERFACE_START_X );
 	SM_EXPL_Y				= ( 27 + INV_INTERFACE_START_Y );
-	SM_MECH_X				= ( 150 + INTERFACE_START_X );
+	SM_MECH_X				= ( 163 + INTERFACE_START_X );
 	SM_MECH_Y				= ( 37 + INV_INTERFACE_START_Y );
-	SM_MED_X				= ( 150 + INTERFACE_START_X );
+	SM_MED_X				= ( 163 + INTERFACE_START_X );
 	SM_MED_Y				= ( 47 + INV_INTERFACE_START_Y );
 
 	MONEY_X					= ( 185 + INTERFACE_START_X );
@@ -2493,6 +2495,133 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiSMObjects, 0, SM_SELMERC_PLATE_X, SM_SELMERC_PLATE_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 					RestoreExternBackgroundRect( SM_SELMERC_PLATE_X, SM_SELMERC_PLATE_Y, SM_SELMERC_PLATE_WIDTH , SM_SELMERC_PLATE_HEIGHT );
 				}
+			}
+
+			// HEADROCK HAM 3.6: "progress" bars showing how near the character is to "leveling up" in any stat. The bar
+			// is displayed behind the current stat value, as see on the character's info panel.
+			// This section draws TACTICAL info pages. Another section is in mapscreen.cpp and draws STRATEGIC info pages.
+			// The feature is toggled by Options-Menu switch, and its color is determined in the INI files.
+			if ( gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS] )
+			{
+				UINT8	*pDestBuf;
+				UINT32 uiDestPitchBYTES = 0;
+				SGPRect ClipRect;
+				UINT8 ubBarWidth;
+				UINT16 usColor = Get16BPPColor( FROMRGB( gGameExternalOptions.ubStatProgressBarsRed, gGameExternalOptions.ubStatProgressBarsGreen, gGameExternalOptions.ubStatProgressBarsBlue ) );
+				//pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+				pDestBuf = LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES );
+
+				// AGI
+				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sAgilityGain)
+				{
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT,0);
+					ClipRect.iTop = (SM_AGI_Y-1);
+					ClipRect.iBottom = (SM_AGI_Y-1) + SM_STATS_HEIGHT;
+					ClipRect.iLeft = SM_AGI_X;
+					ClipRect.iRight = SM_AGI_X + ubBarWidth;
+					Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+				}
+
+				// DEX
+				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sDexterityGain)
+				{
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT,0);
+					ClipRect.iTop = (SM_DEX_Y-1);
+					ClipRect.iBottom = (SM_DEX_Y-1) + SM_STATS_HEIGHT;
+					ClipRect.iLeft = SM_DEX_X;
+					ClipRect.iRight = SM_DEX_X + ubBarWidth;
+					Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+				}
+
+				// STR
+				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sStrengthGain)
+				{
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT,0);
+					ClipRect.iTop = (SM_STR_Y-1);
+					ClipRect.iBottom = (SM_STR_Y-1) + SM_STATS_HEIGHT;
+					ClipRect.iLeft = SM_STR_X;
+					ClipRect.iRight = SM_STR_X + ubBarWidth;
+					Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+				}
+
+				// WIS
+				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sWisdomGain)
+				{
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT,0);
+					ClipRect.iTop = (SM_WIS_Y-1);
+					ClipRect.iBottom = (SM_WIS_Y-1) + SM_STATS_HEIGHT;
+					ClipRect.iLeft = SM_WIS_X;
+					ClipRect.iRight = SM_WIS_X + ubBarWidth;
+					Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+				}
+
+				// MRK
+				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMarksmanshipGain)
+				{
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT,0);
+					ClipRect.iTop = (SM_MRKM_Y-1);
+					ClipRect.iBottom = (SM_MRKM_Y-1) + SM_STATS_HEIGHT;
+					ClipRect.iLeft = SM_MRKM_X;
+					ClipRect.iRight = SM_MRKM_X + ubBarWidth;
+					Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+				}
+
+				// LDR
+				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sLeadershipGain)
+				{
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT,0);
+					ClipRect.iTop = (SM_CHAR_Y-1);
+					ClipRect.iBottom = (SM_CHAR_Y-1) + SM_STATS_HEIGHT;
+					ClipRect.iLeft = SM_CHAR_X;
+					ClipRect.iRight = SM_CHAR_X + ubBarWidth;
+					Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+				}
+
+				// MECH
+				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMechanicGain)
+				{
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT,0);
+					ClipRect.iTop = (SM_MECH_Y-1);
+					ClipRect.iBottom = (SM_MECH_Y-1) + SM_STATS_HEIGHT;
+					ClipRect.iLeft = SM_MECH_X;
+					ClipRect.iRight = SM_MECH_X + ubBarWidth;
+					Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+				}
+
+				// EXPLO
+				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExplosivesGain)
+				{
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT,0);
+					ClipRect.iTop = (SM_EXPL_Y-1);
+					ClipRect.iBottom = (SM_EXPL_Y-1) + SM_STATS_HEIGHT;
+					ClipRect.iLeft = SM_EXPL_X;
+					ClipRect.iRight = SM_EXPL_X + ubBarWidth;
+					Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+				}
+
+				// MED
+				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMedicalGain)
+				{
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT,0);
+					ClipRect.iTop = (SM_MED_Y-1);
+					ClipRect.iBottom = (SM_MED_Y-1) + SM_STATS_HEIGHT;
+					ClipRect.iLeft = SM_MED_X;
+					ClipRect.iRight = SM_MED_X + ubBarWidth;
+					Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+				}
+
+				// EXPLEVEL
+				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExpLevelGain)
+				{
+					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, gpSMCurrentMerc->stats.bExpLevel);
+					ClipRect.iTop = (SM_EXPLVL_Y-1);
+					ClipRect.iBottom = (SM_EXPLVL_Y-1) + SM_STATS_HEIGHT;
+					ClipRect.iLeft = SM_EXPLVL_X;
+					ClipRect.iRight = SM_EXPLVL_X + ubBarWidth;
+					Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+				}
+
+				UnLockVideoSurface( guiSAVEBUFFER );
 			}
 
 			// Render faceplate
@@ -5433,7 +5562,36 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					else
 					{
-						HandleLocateSelectMerc( ubSoldierID, 0 );
+						// HEADROCK HAM 3.5: Shift-Click a merc's face will add him to the current selection.
+						if (!(gTacticalStatus.uiFlags & INCOMBAT) && _KeyDown( SHIFT ) )
+						{
+							if ( ! (MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED ) )
+							{
+								if ( OK_CONTROLLABLE_MERC( MercPtrs[ ubSoldierID ] ) && !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_PASSENGER | SOLDIER_DRIVER ) ) )
+								{
+									//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s added", MercPtrs[ ubSoldierID ]->name );
+									MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
+									MercPtrs[ ubSoldierID ]->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
+									EndMultiSoldierSelection( TRUE );
+								}
+							}
+							// A shift-click on a selected character will remove that character from the current selection.
+							else
+							{
+								//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s removed", MercPtrs[ ubSoldierID ]->name );
+								MercPtrs[ ubSoldierID ]->flags.uiStatusFlags &= (~SOLDIER_MULTI_SELECTED );
+								if (ubSoldierID != gusSelectedSoldier)
+								{
+									MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags |= SOLDIER_MULTI_SELECTED;
+								}
+								EndMultiSoldierSelection( TRUE );
+							}
+						}
+						else
+						{
+							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s selected", MercPtrs[ ubSoldierID ]->name );
+							HandleLocateSelectMerc( ubSoldierID, 0 );
+						}
 					}
 				}
 				else

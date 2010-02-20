@@ -313,6 +313,8 @@ BOOLEAN fShowContractMenu = FALSE;
 BOOLEAN fShowRemoveMenu =	FALSE;
 BOOLEAN fShowMilitiaControlMenu =	FALSE; //lal
 //BOOLEAN fShowTalkToAllMenu =	FALSE;//lal
+BOOLEAN fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
+BOOLEAN fShowFacilityAssignmentMenu = FALSE; // HEADROCK HAM 3.6: Facility Sub-menu
 
 BOOLEAN fRebuildMoveBox = FALSE;
 
@@ -325,6 +327,12 @@ SGPRect TrainDimensions={0,0,100,95};
 SGPPoint TrainPosition={160,150};
 SGPRect VehicleDimensions={0,0,80,60};
 SGPPoint VehiclePosition={160,150};
+// HEADROCK HAM 3.6: Facility Menu Position/Size:
+SGPRect FacilityDimensions={0,0,80,60};
+SGPPoint FacilityPosition={160,150};
+// HEADROCK HAM 3.6: Facility Sub-menu Position/Size:
+SGPRect FacilityAssignmentDimensions={0,0,80,60};
+SGPPoint FacilityAssignmentPosition={220,150};
 
 SGPPoint RepairPosition={160,150};
 SGPRect RepairDimensions={0,0,80,80};
@@ -350,6 +358,8 @@ SGPPoint OrigAssignmentPosition = { 120, 150 };
 SGPPoint OrigTrainPosition={160,150};
 SGPPoint OrigVehiclePosition={160,150};
 SGPPoint OrigMilitiaControlPosition = { 120, 150 }; //lal
+SGPPoint OrigFacilityPosition = { 160, 150 }; // HEADROCK HAM 3.6
+SGPPoint OrigFacilityAssignmentPosition = { 220,150 }; // HEADROCK HAM 3.6
 //SGPPoint OrigTalkToAllPosition = { 160, 150 };
 
 //extern BOOLEAN fMapExitDueToMessageBox;
@@ -542,7 +552,7 @@ BOOLEAN MultipleCharacterListEntriesSelected( void )
 
 
 
-void ResetAssignmentsForMercsTrainingUnpaidSectorsInSelectedList( INT8 bAssignment )
+void ResetAssignmentsForMercsTrainingUnpaidSectorsInSelectedList( UINT8 ubMilitiaType )
 {
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
@@ -563,18 +573,31 @@ void ResetAssignmentsForMercsTrainingUnpaidSectorsInSelectedList( INT8 bAssignme
 			continue;
 		}
 
-		if( pSoldier->bAssignment == TRAIN_TOWN )
+		if (ubMilitiaType == TOWN_MILITIA)
 		{
-			if ( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMilitiaTrainingPaid == FALSE )
+			if( pSoldier->bAssignment == TRAIN_TOWN )
 			{
-				ResumeOldAssignment( pSoldier );
+				if ( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMilitiaTrainingPaid == FALSE )
+				{
+					ResumeOldAssignment( pSoldier );
+				}
+			}
+		}
+		else if (ubMilitiaType == MOBILE_MILITIA)
+		{
+			if( pSoldier->bAssignment == TRAIN_MOBILE )
+			{
+				if ( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMobileMilitiaTrainingPaid == FALSE )
+				{
+					ResumeOldAssignment( pSoldier );
+				}
 			}
 		}
 	}
 }
 
-
-void ResetAssignmentOfMercsThatWereTrainingMilitiaInThisSector( INT16 sSectorX, INT16 sSectorY )
+// HEADROCK HAM 3.6: Added argument for Militia Type
+void ResetAssignmentOfMercsThatWereTrainingMilitiaInThisSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubMilitiaType )
 {
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
@@ -595,11 +618,24 @@ void ResetAssignmentOfMercsThatWereTrainingMilitiaInThisSector( INT16 sSectorX, 
 			continue;
 		}
 
-		if( pSoldier->bAssignment == TRAIN_TOWN )
+		if( ubMilitiaType == TOWN_MILITIA )
 		{
-			if( ( pSoldier->sSectorX == sSectorX ) && ( pSoldier->sSectorY == sSectorY ) && ( pSoldier->bSectorZ == 0 ) )
+			if( pSoldier->bAssignment == TRAIN_TOWN )
 			{
-				ResumeOldAssignment( pSoldier );
+				if( ( pSoldier->sSectorX == sSectorX ) && ( pSoldier->sSectorY == sSectorY ) && ( pSoldier->bSectorZ == 0 ) )
+				{
+					ResumeOldAssignment( pSoldier );
+				}
+			}
+		}
+		else if (ubMilitiaType == MOBILE_MILITIA )
+		{
+			if( pSoldier->bAssignment == TRAIN_MOBILE )
+			{
+				if( ( pSoldier->sSectorX == sSectorX ) && ( pSoldier->sSectorY == sSectorY ) && ( pSoldier->bSectorZ == 0 ) )
+				{
+					ResumeOldAssignment( pSoldier );
+				}
 			}
 		}
 	}
@@ -889,6 +925,7 @@ void RestoreBackgroundForAssignmentGlowRegionList( void )
 
 		// restore background
 		RestoreExternBackgroundRect( 66, Y_START - 1, 118 + 1 - 67, yHeight );
+
 
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
@@ -2285,7 +2322,24 @@ void UpdateMapScreenAssignmentPositions( void )
 		SetBoxPosition( ghRepairBox, pPoint );
 	}
 
+	// HEADROCK HAM 3.6: Facility Menu
+	if( fShowFacilityMenu )
+	{
+		GetBoxPosition( ghFacilityBox, &pPoint);
+		pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY;
 
+		SetBoxPosition( ghFacilityBox, pPoint );
+	}
+
+	// HEADROCK HAM 3.6: Facility Sub-menu
+	if( fShowFacilityAssignmentMenu )
+	{
+		GetBoxPosition( ghFacilityAssignmentBox, &pPoint);
+
+		pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY;
+
+		SetBoxPosition( ghFacilityAssignmentBox, pPoint );
+	}
 
 	return;
 }
@@ -5655,7 +5709,8 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 
 	if (!is_networked)
 		// select starting sector (A9 - Omerta)
-		ChangeSelectedMapSector( startingX, startingY, startingZ );
+		// HEADROCK HAM 3.5: Externalized.
+		ChangeSelectedMapSector( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 	
 	if (is_networked)
 	{
@@ -5671,22 +5726,30 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 	else
 	{
 		// load starting sector
-		if ( !SetCurrentWorldSector( startingX, startingY, startingZ ) )
+		// Externalized
+		if ( !SetCurrentWorldSector( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ ) )
 		{
 			return( FALSE );
 		}
 
-		gubPBSectorX = startingX;
-		gubPBSectorY = startingY;
+		gubPBSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
+		gubPBSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
 	}
-	
+	gubPBSectorZ = 0;	
 
 	//Setup variables in the PBI for this first battle.  We need to support the
 	//non-persistant PBI in case the user goes to mapscreen.
-	gfBlitBattleSectorLocator = TRUE;
-
-	gubPBSectorZ = 0;
-	gubEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
+	// HEADROCK HAM 3.5: Arrival sector externalized. Fix for entering non-hostile sector/
+	if ( NumEnemiesInAnySector( gubPBSectorX, gubPBSectorY, 0 ) > 0 )
+	{
+		gfBlitBattleSectorLocator = TRUE;
+		gubEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
+	}
+	else
+	{
+		gfBlitBattleSectorLocator = FALSE;
+		gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
+	}
 
 	InitHelicopterEntranceByMercs( );
 

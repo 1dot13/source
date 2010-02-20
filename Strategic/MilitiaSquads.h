@@ -5,6 +5,7 @@
 
 #include "Types.h"
 #include "Soldier Control.h"
+#include "campaign types.h"
 
 //#define MAXIMUM_MILITIA_SQUAD_SIZE 30 
 
@@ -18,7 +19,8 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY );
 void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY );
 void MilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY );
 
-void GenerateDirectionInfos( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT16 pMoveDir[4][3], BOOLEAN fWithCities, BOOLEAN fForBattle, BOOLEAN fOnlyCitySectors );
+// HEADROCK HAM 3.4: Now using different arguments for this function. All relevent instances have also been altered.
+void GenerateDirectionInfos( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT16 pMoveDir[4][3], BOOLEAN fForTraining, BOOLEAN fForBattle );
 BOOLEAN MoveOneBestMilitiaMan(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY);
 void MilitiaFollowPlayer( INT16 sMapX, INT16 sMapY, INT16 sDMapX, INT16 sDMapY );
 
@@ -29,9 +31,29 @@ extern BOOLEAN gDynamicRestrictMilitia[ 256 ];
 // HEADROCK HAM B2.7: Wonder why this function wasn't declared here. It is now, to allow Town Militia.cpp to
 // access it.
 
-BOOLEAN CheckStandardConditionsForDirection( INT16 sSMapX, INT16 sSMapY, INT16 sMapX, INT16 sMapY, BOOLEAN fWithCities, BOOLEAN fForBattle, BOOLEAN fOnlyCitySectors );
+BOOLEAN CheckStandardConditionsForDirection( INT16 sSMapX, INT16 sSMapY, INT16 sMapX, INT16 sMapY, BOOLEAN fForTraining, BOOLEAN fForBattle );
 
 // HEADROCK HAM B2.7: Generates possible movement directions - this is used only in CreateMilitiaGroup(), and
 // makes sure that the target sector has room for more militia.
-void GenerateDirectionInfosWithCapacityCheck( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT16 pMoveDir[4][3], BOOLEAN fWithCities, BOOLEAN fForBattle, BOOLEAN fOnlyCitySectors );
+void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT16 pMoveDir[4][3] );
+
+// HEADROCK HAM 3.4: Stores restriction data from XML, including required cities for each sector to be allowed.
+typedef struct DYNAMICRESTRICTIONS
+{
+	INT8 bSectorID;
+	UINT32 uiReqTownFlags;
+} DYNAMICRESTRICTIONS;
+
+// HEADROCK HAM 3.4: New function for simple Roaming Restriction testing.
+BOOLEAN IsSectorRoamingAllowed( UINT32 uiSector );
+
+// HEADROCK HAM 3.6: New upgrade check returns the amount of militia that can be upgraded at target sector, in
+// "upgrade points"
+UINT16 MilitiaUpgradeSlotsCheck( SECTORINFO * pSectorInfo );
+
+// HEADROCK HAM 3.6: This needs to be accessible.
+void AddToBlockMoveList(INT16 sMapX, INT16 sMapY);
+// And this:
+UINT8 CountMilitia(SECTORINFO *pSectorInfo);
+
 #endif

@@ -556,7 +556,10 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
 		}
 		pSoldier->bTargetLevel = bTempTargetLevel;
 
-		swprintf( zOutputString, gzDisplayCoverText[DC_MSG__GUN_RANGE_INFORMATION], usRange / 10, Weapon[ pSoldier->inv[HANDPOS].usItem ].usRange / 10, uiHitChance );
+		// HEADROCK HAM 3.6: Calculate Gun Range using formula.
+		UINT16 usGunRange = GunRange(&pSoldier->inv[HANDPOS]);
+
+		swprintf( zOutputString, gzDisplayCoverText[DC_MSG__GUN_RANGE_INFORMATION], usRange / 10, usGunRange / 10, uiHitChance );
 		//Display the msg
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
 	}

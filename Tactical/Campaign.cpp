@@ -1080,17 +1080,17 @@ UINT16 SubpointsPerPoint(UINT8 ubStat, INT8 bExpLevel)
 {
 	UINT16 usSubpointsPerPoint;
 
-	UINT16 HEALTH_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubHealthSubpointsToImprove;
-	UINT16 STRENGTH_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubStrengthSubpointsToImprove;
-	UINT16 DEXTERITY_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubDexteritySubpointsToImprove;
-	UINT16 AGILITY_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubAgilitySubpointsToImprove;
-	UINT16 WISDOM_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubWisdomSubpointsToImprove;
-	UINT16 MARKSMANSHIP_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubMarksmanshipSubpointsToImprove;
-	UINT16 MEDICAL_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubMedicalSubpointsToImprove;
-	UINT16 MECHANICAL_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubMechanicalSubpointsToImprove;
-	UINT16 LEADERSHIP_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubLeadershipSubpointsToImprove;
-	UINT16 EXPLOSIVES_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubExplosivesSubpointsToImprove;
-	UINT16 LEVEL_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.ubLevelSubpointsToImprove;
+	UINT16 HEALTH_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.usHealthSubpointsToImprove;
+	UINT16 STRENGTH_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.usStrengthSubpointsToImprove;
+	UINT16 DEXTERITY_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.usDexteritySubpointsToImprove;
+	UINT16 AGILITY_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.usAgilitySubpointsToImprove;
+	UINT16 WISDOM_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.usWisdomSubpointsToImprove;
+	UINT16 MARKSMANSHIP_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.usMarksmanshipSubpointsToImprove;
+	UINT16 MEDICAL_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.usMedicalSubpointsToImprove;
+	UINT16 MECHANICAL_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.usMechanicalSubpointsToImprove;
+	UINT16 LEADERSHIP_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.usLeadershipSubpointsToImprove;
+	UINT16 EXPLOSIVES_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.usExplosivesSubpointsToImprove;
+	UINT16 LEVEL_SUBPOINTS_TO_IMPROVE = gGameExternalOptions.usLevelSubpointsToImprove;
 	// figure out how many subpoints this type of stat needs to change
   switch (ubStat)
   {
@@ -1299,15 +1299,46 @@ UINT8 CurrentPlayerProgressPercentage(void)
 {
 	UINT32 uiCurrentIncome;
 	UINT32 uiPossibleIncome;
-	UINT8 ubCurrentProgress;
-	UINT8 ubKillsPerPoint;
-	UINT16 usKillsProgress;
-	UINT16 usControlProgress;
-	UINT16 usVisitProgress;
+	// HEADROCK HAM 3: Changed to UINT16 to avoid overflow
+	UINT16 usCurrentProgress;
+ 	UINT16 ubKillsPerPoint;
+ 	UINT16 usKillsProgress;
+ 	UINT16 usControlProgress;
+ 	UINT16 usVisitProgress;
+	// HEADROCK HAM 3: Added a separate variable for Income Progress, 
+	// to enable comparing the results from each progress aspect SEPARATELY.
+	UINT16 usIncomeProgress;
+	// HEADROCK HAM 3: And another variable to contain the highest result so far.
+	UINT16 usHighestProgress;
+	// HEADROCK HAM 3: Four variables to hold the maximum attainable progress from each aspect.
+	UINT16 usMaxKillsProgress;
+	UINT16 usMaxIncomeProgress;
+	UINT16 usMaxControlProgress;
+	UINT16 usMaxVisitProgress;
 
 
 	if( gfEditMode )
 		return 0;
+
+	// HEADROCK HAM 3: If the alternate progress calculation is used, all four INI settings should be set to 100,
+	// otherwise progress cannot ever reach 100...
+	if (gGameExternalOptions.fAlternateProgressCalculation)
+	{
+		usMaxKillsProgress = 100;
+		usMaxIncomeProgress = 100;
+		usMaxControlProgress = 100;
+		usMaxVisitProgress = 100;
+	}
+	// Else, set to INI-read values. Note that the rest of the function now reads these instead of referring
+	// to the long variable names.
+	else
+	{
+		usMaxKillsProgress = gGameExternalOptions.ubGameProgressPortionKills;
+		usMaxIncomeProgress = gGameExternalOptions.ubGameProgressPortionIncome;
+		usMaxControlProgress = gGameExternalOptions.ubGameProgressPortionControl;
+		usMaxVisitProgress = gGameExternalOptions.ubGameProgressPortionVisited;
+	}
+
 
 	// figure out the player's current mine income
 	uiCurrentIncome = PredictIncomeFromPlayerMines();
@@ -1316,36 +1347,56 @@ UINT8 CurrentPlayerProgressPercentage(void)
 	uiPossibleIncome = CalcMaxPlayerIncomeFromMines();
 
 	// either of these indicates a critical failure of some sort
-	Assert(uiPossibleIncome > 0);
-	Assert(uiCurrentIncome <= uiPossibleIncome);
+	
+	// HEADROCK HAM 3.6: No need to assert this. Max Income can potentially be 0 in modded games.
+	// Assert(uiPossibleIncome > 0);
+
+	// HEADROCK HAM 3.6: It is now possible, with the help of facilities, 
+	// to make more money from mines than normally possible. 
+	// This assertion check is now obsolete.
+	//Assert(uiCurrentIncome <= uiPossibleIncome); 
+	uiCurrentIncome = __min(uiPossibleIncome, uiCurrentIncome);
 
 	// for a rough guess as to how well the player is doing,
 	// we'll take the current mine income / potential mine income as a percentage
 
+
+	/////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	// HEADROCK HAM 3
+	// Several changes have been made here to accomodate a new type of progress generation.
+	// With this alternate system, the program determines the current progress from each of the
+	// four aspects SEPARATELY. It then compares all of them, and only the HIGHEST one determines
+	// our current progress. Please note that while some changes have been made, the ORIGINAL
+	// progress control works EXACTLY THE SAME AS IT ALWAYS DID.
+	//
+	/////////////////////////////////////////////////////////////////////////////////////////////
+
 	//Kris:  Make sure you don't divide by zero!!!
 	if( uiPossibleIncome > 0)
 	{
-		ubCurrentProgress = (UINT8) ((uiCurrentIncome * gGameExternalOptions.ubGameProgressPortionIncome) / uiPossibleIncome);
+		usIncomeProgress = (UINT8) ((uiCurrentIncome * usMaxIncomeProgress) / uiPossibleIncome);
 	}
 	else
 	{
-		ubCurrentProgress = 0;
+		usIncomeProgress = 0;
 	}
 
 	// kills per point depends on difficulty, and should match the ratios of starting enemy populations (730/1050/1500)
+	// HEADROCK HAM 3: Externalized all four Kills-per-point ratios.
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
-			ubKillsPerPoint = 7;
+			ubKillsPerPoint = gGameExternalOptions.usNumKillsPerProgressPointNovice;
 			break;
 		case DIF_LEVEL_MEDIUM:
-			ubKillsPerPoint = 10;
+			ubKillsPerPoint = gGameExternalOptions.usNumKillsPerProgressPointExperienced;
 			break;
 		case DIF_LEVEL_HARD:
-			ubKillsPerPoint = 15;
+			ubKillsPerPoint = gGameExternalOptions.usNumKillsPerProgressPointExpert;
 			break;
 		case DIF_LEVEL_INSANE:
-			ubKillsPerPoint = 60; // Madd - uncertain whether this number is right
+			ubKillsPerPoint = gGameExternalOptions.usNumKillsPerProgressPointInsane;
 			break;
 		default:
 			Assert(FALSE);
@@ -1354,14 +1405,10 @@ UINT8 CurrentPlayerProgressPercentage(void)
 	}
 
 	usKillsProgress = gStrategicStatus.usPlayerKills / ubKillsPerPoint;
-	if (usKillsProgress > gGameExternalOptions.ubGameProgressPortionKills)
+	if (usKillsProgress > usMaxKillsProgress)
 	{
-		usKillsProgress = gGameExternalOptions.ubGameProgressPortionKills;
+		usKillsProgress = usMaxKillsProgress;
 	}
-
-	// add kills progress to income progress
-	ubCurrentProgress += usKillsProgress;
-
 
 	// 19 sectors in mining towns + 3 wilderness SAMs each count double.  Balime & Meduna are extra and not required
 	// HEADROCK HAM B1: Changed the next line, adding a call to a new function. This allows the weight of Sector
@@ -1369,27 +1416,48 @@ UINT8 CurrentPlayerProgressPercentage(void)
 	// made this MOD-Friendly :D )
 	// BTW, Balime and Meduna _ARE_ required. The function doesn't differentiate! Such carelessness. Tsk tsk tsk.
 
-	usControlProgress = gGameExternalOptions.ubGameProgressPortionControl * CalcImportantSectorControl() / CalcTotalImportantSectors();
-	if (usControlProgress > gGameExternalOptions.ubGameProgressPortionControl)
+	usControlProgress = usMaxControlProgress * CalcImportantSectorControl() / CalcTotalImportantSectors();
+	if (usControlProgress > usMaxControlProgress)
 	{
-		usControlProgress = gGameExternalOptions.ubGameProgressPortionControl;
+		usControlProgress = usMaxControlProgress;
 	}
-
-	// add control progress
-	ubCurrentProgress += usControlProgress;
 
 	// WDS: Adding more ways to progress in the game
 	// Get a ratio of sectors visited to the total number of sectors
 	// HEADROCK HAM B1: Fixed this so it doesn't count sectors that can't be visited. Allows progress to go to
 	// 100 even if the map has some unvisitable sectors (heh, doesn't it always?)
-	usVisitProgress = CountSurfaceSectorsVisited() * gGameExternalOptions.ubGameProgressPortionVisited / TotalVisitableSurfaceSectors();
+	usVisitProgress = CountSurfaceSectorsVisited() * usMaxVisitProgress / TotalVisitableSurfaceSectors();
 
-	// add control progress
-	ubCurrentProgress += usVisitProgress;
+	// HEADROCK HAM 3: This bit is ugly for now, unless someone can optimize it for me. 
+	// When the "Alternate Progress Calculation" is activated, the program selects only the HIGHEST of the 
+	// progress controls, and sets that to be the current progress, disregarding any advances in the three
+	// other fields.
 
-	return(ubCurrentProgress);
+	if (gGameExternalOptions.fAlternateProgressCalculation)
+	{
+		usHighestProgress = __max(usKillsProgress, usControlProgress);
+		usHighestProgress = __max(usHighestProgress, usIncomeProgress);
+		usHighestProgress = __max(usHighestProgress, usVisitProgress);
+		usCurrentProgress = usHighestProgress;
+	}
+	// Else, add them all up as normal (original progress calculation). This replaces all those lines I removed
+	// above where progress was summed along the way.
+	else
+	{
+		usCurrentProgress = usKillsProgress + usControlProgress + usIncomeProgress + usVisitProgress;
+	}
+
+	// Add a static amount of points, as declared in the INI file.
+	usCurrentProgress += gGameExternalOptions.ubGameProgressIncrement;
+
+	// And failsafes here. I'm not 100% sure about these though: I've never personally seen progress 
+	// values go over 100, and I don't think they SHOULD... Can the game handle values > 100? Should it?
+	usCurrentProgress = __min(100, usCurrentProgress);
+	// No less than 0, or the minimum set in the INI file.
+	usCurrentProgress = __max(gGameExternalOptions.ubGameProgressMinimum, __max(0, usCurrentProgress));
+
+	return((UINT8)usCurrentProgress);
 }
-
 
 UINT8 HighestPlayerProgressPercentage(void)
 {
@@ -1398,7 +1466,6 @@ UINT8 HighestPlayerProgressPercentage(void)
 
 	return(gStrategicStatus.ubHighestProgress);
 }
-
 
 // monitors the highest level of progress that player has achieved so far (checking hourly),
 // as opposed to his immediate situation (which may be worse if he's suffered a setback).

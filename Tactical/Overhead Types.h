@@ -265,8 +265,9 @@ enum WorldDirections
 
 
 // Starting Sector
-const int startingX = 9;
-const int startingY = 1;
+// HEADROCK HAM 3.5: Externalized.
+//UINT8 startingX = 9;
+//UINT8 startingY = 1;
 const int startingZ = 0;
 
 

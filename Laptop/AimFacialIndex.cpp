@@ -13,6 +13,7 @@
 	#include "Text.h"
 	#include "aimsort.h"
 	#include "Assignments.h"
+	#include "GameSettings.h"
 #endif
 
 
@@ -98,7 +99,15 @@ BOOLEAN EnterAimFacialIndex()
 			MSYS_AddRegion( &gMercFaceMouseRegions[ i ] );
 			MSYS_SetRegionUserData( &gMercFaceMouseRegions[ i ], 0, i);
 
-			sprintf(sTemp, "%s%02d.sti", sFaceLoc, AimMercArray[i]);
+			if (gGameExternalOptions.fReadProfileDataFromXML)
+			{
+				// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
+				sprintf(sTemp, "%s%02d.sti", sFaceLoc, gMercProfiles[AimMercArray[i]].ubFaceIndex);
+			}
+			else
+			{
+				sprintf(sTemp, "%s%02d.sti", sFaceLoc, AimMercArray[i]);
+			}
 			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 			FilenameForBPP(sTemp, VObjectDesc.ImageFile);
 			if( !AddVideoObject(&VObjectDesc, &guiAimFiFace[i]) )

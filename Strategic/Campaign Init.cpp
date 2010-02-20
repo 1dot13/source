@@ -273,8 +273,28 @@ UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UI
 // setup which know facilities are in which cities
 void InitKnowFacilitiesFlags( )
 {
-	SECTORINFO *pSector;
+	/////////////////////////////////////////////////////////////////
+	// HEADROCK HAM 3.5: No longer required. Function disconnected.
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//SECTORINFO *pSector;
 
+	// HEADROCK HAM 3.4: Externalized. All "known" facilities are read from gFacilityLocations. The
+	// ones that have (fHidden=0) will be added to the sector info now, and thus visible immediately.
+	// The others are added only once the player visits those sectors.
+
+	/*for(UINT32 cnt=0; (gFacilityLocations[cnt].uiSectorID >= 0 && gFacilityLocations[cnt].uiSectorID <= 256); cnt++ )
+	{
+		// Is the current sector valid? Is the facility set to be revealed on game-start?
+		if (gFacilityLocations[cnt].uiSectorID > 0 && gFacilityLocations[cnt].uiSectorID < 257 &&
+			gFacilityLocations[cnt].fHidden == 0)
+		{
+			// Reveal the facility.
+			pSector = &SectorInfo[gFacilityLocations[cnt].uiSectorID];
+			pSector->uiFacilitiesFlags |= (1 << (gFacilityLocations[cnt].uiFacilityType-1));
+		}
+	}*/
+
+	/* HEADROCK HAM 3.4: Externalized.
 	// Cambria hospital
 	pSector = &SectorInfo[SEC_G8];
 	pSector->uiFacilitiesFlags |= SFCF_HOSPITAL;
@@ -304,6 +324,7 @@ void InitKnowFacilitiesFlags( )
 	pSector->uiFacilitiesFlags |= SFCF_AIRPORT;
 	pSector = &SectorInfo[SEC_O4];
 	pSector->uiFacilitiesFlags |= SFCF_AIRPORT;
+	*/
 
 	return;
 }
@@ -603,13 +624,16 @@ void InitNewCampaign()
 
 	InitWorld();	// Lesh: generate different world each time using alternative maps
 	InitMiningLocations();
-	InitKnowFacilitiesFlags( );
+
+	// HEADROCK HAM 3.5: This is no longer required.
+	//InitKnowFacilitiesFlags( );
 
 	BuildUndergroundSectorInfoList();
 
 	if (!is_networked)
 		// allow overhead view of omerta A9 on game onset
-		SetSectorFlag( startingX, startingY, startingZ, SF_ALREADY_VISITED ); //hayden
+		// HEADROCK HAM 3.5: Externalized.
+		SetSectorFlag( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ, SF_ALREADY_VISITED ); //hayden
 
 	//Generates the initial forces in a new campaign.	The idea is to randomize numbers and sectors
 	//so that no two games are the same.

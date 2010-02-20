@@ -337,7 +337,7 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, UINT16 u
 			case BLOODCAT_RUN:
 				// CHRISL
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_RUN];
-				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
 					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
@@ -351,7 +351,7 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, UINT16 u
 			case WALKING :
 				// CHRISL
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK];
-				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
 					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
@@ -360,12 +360,12 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, UINT16 u
 			// CHRISL
 			case SWATTING:
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_SWAT];
-				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
 					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 			case CRAWLING:
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_CRAWL];
-				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
 					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
@@ -423,7 +423,7 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, 
 			case BLOODCAT_RUN:
 				// CHRISL
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_RUN];
-				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
 					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
@@ -437,7 +437,7 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, 
 			// CHRISL
 			case WALKING :
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK];
-				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
 					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
@@ -446,12 +446,12 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, 
 			// CHRISL
 			case SWATTING:
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_SWAT];
-				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
 					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 			case CRAWLING:
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_CRAWL];
-				if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
 					sPoints += APBPConstants[AP_MODIFIER_PACK];
 				break;
 
@@ -668,9 +668,11 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN f
 			pSoldier->bActionPoints -= (INT16)( (float)( pSoldier->sBreathRed + iBPCost - BREATH_RED_MAX )
 									/ (float)( 5 * APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL])
 									* (float)(4 * (float)APBPConstants[AP_MAXIMUM] / 100));
-			if ( pSoldier->bActionPoints < 0 )
+			// HEADROCK HAM 3.1: This may be the problem with suppression - it limits the lower APs to 0, which breaks
+			// suppression's negative values. Changed instances of "0" to the APBP constant.
+			if ( pSoldier->bActionPoints < APBPConstants[AP_MIN_LIMIT] )
 			{
-				pSoldier->bActionPoints = 0;
+				pSoldier->bActionPoints = APBPConstants[AP_MIN_LIMIT];
 			}
 
 			pSoldier->sBreathRed = BREATH_RED_MAX;
@@ -1130,46 +1132,63 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 			if (gGameExternalOptions.fIncreasedAimingCost )
 			{
 				// HEADROCK HAM B2.6: Changed the number of APs to attack when aiming.
+				// HEADROCK HAM 3.1: Externalized the entire function to allow customization of each detail.
 				if (bAimTime > 0)
 				{
 					GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sGridNo, ubAddTurningCost, &fAddingTurningCost, &fAddingRaiseGunCost );
 					if(fAddingRaiseGunCost == TRUE)
 					{
-						//CHRISL: I'm disabling this for now.  Charging 1/2 ready cost for every shot isn't legitimate
-						//	but for the time being, we have no way to track whether we've previously aimed or not.  Until
-						//	we do, this code shouldn't be used.
-						// Add 1/2 ready cost (rounded up) for getting the sights up to the eye
-						//sAPCost += ((Weapon[ usItemNum ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[HANDPOS])) / 100) + 1) / 2;
+						// HEADROCK HAM 3: No idea what should come here... For now I've put my extra gun-raise costs
+						// outside this IF (see below).
+					}
+
+					// HEADROCK HAM 3: One-time penalty: Add part of the weapon's Ready AP cost. Reinstated because
+					// it's now externalized.
+					if (gGameExternalOptions.ubFirstAimReadyCostDivisor > 0)
+					{
+						UINT16 usWeaponReadyTime;
+						UINT8 ubReadyTimeDivisor;
+
+						usWeaponReadyTime = Weapon[ usItemNum ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[HANDPOS])) / 100;
+						ubReadyTimeDivisor = gGameExternalOptions.ubFirstAimReadyCostDivisor;
+						sAPCost += usWeaponReadyTime / ubReadyTimeDivisor;
 					}
 					
-					// Add regular aim time for the first 4 aiming actions.
-					sAPCost += __min((bAimTime*APBPConstants[AP_CLICK_AIM]),(4*APBPConstants[AP_CLICK_AIM]));
-
 					// If the weapon has a scope, and the target is within eligible range for scope use
+					
 					if ( IsScoped(&pSoldier->inv[HANDPOS]) 
 						&& GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) >= GetMinRangeForAimBonus(&pSoldier->inv[HANDPOS]) )
 					{
-						// Add time to adjust eye to scope
-						if (bAimTime > 0)
-						{
-							//CHRISL: I'm disabling this for now.  Charging an extra "click" every time we use a scope
-							//	isn't legitimate.  If we could track whether we previously used a scope on the current
-							//	target, that would be another matter.  But for now, we can't, so this should be used.
-							//sAPCost += APBPConstants[AP_CLICK_AIM];
-						}
-						// Add 2 APs for each aiming point between 5 and 6
+						// Add an individual cost for EACH click, as necessary.
+
+						sAPCost += APBPConstants[AP_FIRST_CLICK_AIM_SCOPE];
+
+						if (bAimTime > 1)
+							sAPCost += APBPConstants[AP_SECOND_CLICK_AIM_SCOPE];
+						if (bAimTime > 2)
+							sAPCost += APBPConstants[AP_THIRD_CLICK_AIM_SCOPE];
+						if (bAimTime > 3)
+							sAPCost += APBPConstants[AP_FOURTH_CLICK_AIM_SCOPE];
 						if (bAimTime > 4)
-						{
-							sAPCost += __min(((bAimTime - 4) * APBPConstants[AP_CLICK_AIM] * 2), (4*APBPConstants[AP_CLICK_AIM]));
-						}
-						// Add 3 APs for each aiming point beyond 6.
+							sAPCost += APBPConstants[AP_FIFTH_CLICK_AIM_SCOPE];
+						if (bAimTime > 5)
+							sAPCost += APBPConstants[AP_SIXTH_CLICK_AIM_SCOPE];
 						if (bAimTime > 6)
-						{
-							sAPCost += (bAimTime - 6) * APBPConstants[AP_CLICK_AIM] * 3;
-						}
+							sAPCost += APBPConstants[AP_SEVENTH_CLICK_AIM_SCOPE];
+						if (bAimTime > 7)
+							sAPCost += APBPConstants[AP_EIGHTTH_CLICK_AIM_SCOPE];
 					}
+					
+					// Weapon has no scope or not within requried range. Apply regular AP costs.
+					else
+					{
+						sAPCost += bAimTime * APBPConstants[AP_CLICK_AIM];
+					}
+							
 				}
 			}
+
+			// Regular cost system
 			else
 			{
 				sAPCost += bAimTime * APBPConstants[AP_CLICK_AIM];
@@ -1402,7 +1421,6 @@ INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj )
 	//{
 	//	Top *= 100;
 	//}
-
 	// WANNE : Fixed CTD that occurs when trowing item (grenade, throwing knife, ...)
 	// with open description box in tactical
 	INT16 baseAPsToShootOrStab = -1;

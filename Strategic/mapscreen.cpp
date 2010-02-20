@@ -111,6 +111,8 @@
 	#include "Strategic Status.h"
 	#include "Soldier Create.h"
 	#include "Animation Control.h"
+	// HEADROCK HAM 3.6: Include facilities for assignment display
+	#include "Facilities.h"
 #endif
 
 #include "connect.h" //hayden
@@ -905,6 +907,9 @@ void CreateContractBox( SOLDIERTYPE *pCharacter );
 void CreateAssignmentsBox( void );
 void CreateTrainingBox( void );
 void CreateMercRemoveAssignBox( void );
+// HEADROCK HAM 3.6: Facility box, Sub-menu
+void CreateFacilityBox( void );
+void CreateFacilityAssignmentBox( void );
 
 void DetermineWhichAssignmentMenusCanBeShown( void );
 void DetermineWhichMilitiaControlMenusCanBeShown( void ); //lal
@@ -2837,16 +2842,29 @@ void DrawCharacterInfo(INT16 sCharNumber)
 
 	// second assignment line
 
+	// HEADROCK HAM 3.6: Operating a facility?
+	if (pSoldier->sFacilityTypeOperated != -1)
+	{
+		UINT8 ubFacilityType = (UINT8)pSoldier->sFacilityTypeOperated;
+		// Print sector ID string
+		GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, sString );
+		wcscat( sString, L": " );
+		wcscat( sString, gFacilityTypes[ubFacilityType].szFacilityShortName );
+		//wcscpy(sString, gFacilityTypes[ pSoldier->sFacilityTypeOperated ].szFacilityName);
+	}
+
 	// train self / teammate / by other ?
-	if( ( pSoldier->bAssignment == TRAIN_SELF ) || ( pSoldier->bAssignment == TRAIN_TEAMMATE ) || ( pSoldier->bAssignment == TRAIN_BY_OTHER ) )
+	else if( ( pSoldier->bAssignment == TRAIN_SELF ) || ( pSoldier->bAssignment == TRAIN_TEAMMATE ) || ( pSoldier->bAssignment == TRAIN_BY_OTHER ) )
 	{
 		wcscpy(sString, pAttributeMenuStrings[pSoldier->bTrainStat]);
 	}
 	// train town?
-	else if( pSoldier->bAssignment == TRAIN_TOWN )
+	// HEADROCK HAM 3.6: Draw for Mobile Trainers as well.
+	else if( pSoldier->bAssignment == TRAIN_TOWN || pSoldier->bAssignment == TRAIN_MOBILE )
 	{
 		wcscpy(sString,pTownNames[GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
 	}
+
 	// repairing?
 	else if( pSoldier->bAssignment == REPAIR )
 	{
@@ -3126,6 +3144,136 @@ void DisplayCharacterInfo( void )
 
 	// set font buffer
 	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+
+	// HEADROCK HAM 3.6: "progress" bars showing how near the character is to "leveling up" in any stat. The bar
+	// is displayed behind the current stat value, as see on the character's info panel.
+	// This section draws STRATEGIC info pages. Another section is in Interface Panels.cpp and draws TACTICAL info pages.
+	// The feature is toggled by Options-Menu switch, and its color is determined in the INI files.
+	if ( gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS] )
+	{
+		SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[bSelectedInfoChar].usSolID ];
+	
+		UINT8	*pDestBuf;
+		UINT32 uiDestPitchBYTES = 0;
+		SGPRect ClipRect;
+		UINT8 ubBarWidth = 0;
+		UINT16 usColor = Get16BPPColor( FROMRGB( gGameExternalOptions.ubStatProgressBarsRed, gGameExternalOptions.ubStatProgressBarsGreen, gGameExternalOptions.ubStatProgressBarsBlue ) );
+		//pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+		pDestBuf = LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES );
+
+		// AGI
+		if (gMercProfiles[ pSoldier->ubProfile ].sAgilityGain)
+		{
+			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT,0);
+			ClipRect.iTop = (AGL_Y-1);
+			ClipRect.iBottom = (AGL_Y-1) + STAT_HEI;
+			ClipRect.iLeft = AGL_X;
+			ClipRect.iRight = AGL_X + ubBarWidth;
+			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+		}
+
+		// DEX
+		if (gMercProfiles[ pSoldier->ubProfile ].sDexterityGain)
+		{
+			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT,0);
+			ClipRect.iTop = (DEX_Y-1);
+			ClipRect.iBottom = (DEX_Y-1) + STAT_HEI;
+			ClipRect.iLeft = DEX_X;
+			ClipRect.iRight = DEX_X + ubBarWidth;
+			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+		}
+
+		// STR
+		if (gMercProfiles[ pSoldier->ubProfile ].sStrengthGain)
+		{
+			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT,0);
+			ClipRect.iTop = (STR_Y-1);
+			ClipRect.iBottom = (STR_Y-1) + STAT_HEI;
+			ClipRect.iLeft = STR_X;
+			ClipRect.iRight = STR_X + ubBarWidth;
+			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+		}
+
+		// WIS
+		if (gMercProfiles[ pSoldier->ubProfile ].sWisdomGain)
+		{
+			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT,0);
+			ClipRect.iTop = (WIS_Y-1);
+			ClipRect.iBottom = (WIS_Y-1) + STAT_HEI;
+			ClipRect.iLeft = WIS_X;
+			ClipRect.iRight = WIS_X + ubBarWidth;
+			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+		}
+
+		// MRK
+		if (gMercProfiles[ pSoldier->ubProfile ].sMarksmanshipGain)
+		{
+			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT,0);
+			ClipRect.iTop = (MRK_Y-1);
+			ClipRect.iBottom = (MRK_Y-1) + STAT_HEI;
+			ClipRect.iLeft = MRK_X;
+			ClipRect.iRight = MRK_X + ubBarWidth;
+			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+		}
+
+		// LDR
+		if (gMercProfiles[ pSoldier->ubProfile ].sLeadershipGain)
+		{
+			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT,0);
+			ClipRect.iTop = (LDR_Y-1);
+			ClipRect.iBottom = (LDR_Y-1) + STAT_HEI;
+			ClipRect.iLeft = LDR_X;
+			ClipRect.iRight = LDR_X + ubBarWidth;
+			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+		}
+
+		// MECH
+		if (gMercProfiles[ pSoldier->ubProfile ].sMechanicGain)
+		{
+			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT,0);
+			ClipRect.iTop = (MEC_Y-1);
+			ClipRect.iBottom = (MEC_Y-1) + STAT_HEI;
+			ClipRect.iLeft = MEC_X;
+			ClipRect.iRight = MEC_X + ubBarWidth;
+			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+		}
+
+		// EXPLO
+		if (gMercProfiles[ pSoldier->ubProfile ].sExplosivesGain)
+		{
+			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT,0);
+			ClipRect.iTop = (EXP_Y-1);
+			ClipRect.iBottom = (EXP_Y-1) + STAT_HEI;
+			ClipRect.iLeft = EXP_X;
+			ClipRect.iRight = EXP_X + ubBarWidth;
+			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+		}
+
+		// MED
+		if (gMercProfiles[ pSoldier->ubProfile ].sMedicalGain)
+		{
+			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT,0);
+			ClipRect.iTop = (MED_Y-1);
+			ClipRect.iBottom = (MED_Y-1) + STAT_HEI;
+			ClipRect.iLeft = MED_X;
+			ClipRect.iRight = MED_X + ubBarWidth;
+			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+		}
+
+		// EXPLEVEL
+		if (gMercProfiles[ pSoldier->ubProfile ].sExpLevelGain)
+		{
+			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, pSoldier->stats.bExpLevel);
+			ClipRect.iTop = (LVL_Y-1);
+			ClipRect.iBottom = (LVL_Y-1) + STAT_HEI;
+			ClipRect.iLeft = LVL_X;
+			ClipRect.iRight = LVL_X + ubBarWidth;
+			Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+		}
+
+		UnLockVideoSurface( guiSAVEBUFFER );
+	}
+
 
 	// draw character info and face
 	DrawCharacterInfo( bSelectedInfoChar );
@@ -4428,12 +4576,16 @@ UINT32 MapScreenHandle(void)
 
 		InitPreviousPaths();
 
+		// HEADROCK HAM 3.6: Init coordinates for new variable-sized message window
+		InitMapScreenInterfaceBottomCoords();
+
 		// if arrival sector is invalid, reset to A9
 		if ( ( gsMercArriveSectorX <	1 ) || ( gsMercArriveSectorY <	1 ) ||
 				( gsMercArriveSectorX > 16 ) || ( gsMercArriveSectorY > 16 ) )
 		{
-			gsMercArriveSectorX = 9;
-			gsMercArriveSectorY = 1;
+			// HEADROCK HAM 3.5: Externalized coordinates
+			gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
+			gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
 		}
 
 		gfInConfirmMapMoveMode = FALSE;
@@ -4702,7 +4854,8 @@ UINT32 MapScreenHandle(void)
 		if( AnyMercsHired( ) == FALSE )
 		{
 			// select starting sector (A9 - Omerta)
-			ChangeSelectedMapSector( startingX, startingY, startingZ );
+			// HEADROCK HAM 3.5: Externalized!
+			ChangeSelectedMapSector( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 		}
 		else if( ( gWorldSectorX > 0 ) && ( gWorldSectorY > 0 ) && ( gbWorldSectorZ != -1 ) )
 		{
@@ -4714,7 +4867,8 @@ UINT32 MapScreenHandle(void)
 			// only select A9 - Omerta IF there is no current selection, otherwise leave it as is
 			if ( ( sSelMapX == 0 ) || ( sSelMapY == 0 ) || ( iCurrentMapSectorZ == -1 ) )
 			{
-				ChangeSelectedMapSector( startingX, startingY, startingZ );
+				// HEADROCK HAM 3.5: Externalized!
+				ChangeSelectedMapSector( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 			}
 		}
 
@@ -5261,7 +5415,8 @@ UINT32 MapScreenHandle(void)
 
 
 	// handle display of inventory pop up
-	HandleDisplayOfItemPopUpForSector( startingX, startingY, startingZ );
+	// HEADROCK HAM 3.5: Externalize!
+	HandleDisplayOfItemPopUpForSector( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 
 	// Display Framerate
 	DisplayFrameRate( );
@@ -5311,7 +5466,9 @@ UINT32 MapScreenHandle(void)
 
 
 
-
+		fCharacterInfoPanelDirty=TRUE;
+		fMapPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
 		fTeamPanelDirty = TRUE;
 		fEndShowInventoryFlag = FALSE;
 	}
@@ -5702,6 +5859,8 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 		FindFontCenterCoordinates((short)ASSIGN_X + 1, (short)(usVehicleY+(sRowIndex*Y_SIZE)), (short)ASSIGN_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 	}
 
+	SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[ sCharNumber ].usSolID ];
+
 	if( fFlashAssignDone == TRUE )
 	{
 		if( Menptr[gCharactersList[sCharNumber].usSolID].flags.fDoneAssignmentAndNothingToDoFlag )
@@ -5710,6 +5869,97 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 		}
 	}
 
+	if ( gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS] &&
+		(pSoldier->bAssignment >= TRAIN_SELF ||
+		pSoldier->bAssignment <= TRAIN_BY_OTHER ) &&
+		pSoldier->bAssignment != TRAIN_TEAMMATE )
+	{
+		// HEADROCK HAM 3.6: Draw militia training progress bar
+		UINT32 uiDestBuffer;
+		UINT8	*pDestBuf;
+		UINT32 uiDestPitchBYTES = 0;
+		SGPRect ClipRect;
+		UINT8 ubBarWidth;
+		UINT16 usColor = Get16BPPColor( FROMRGB( gGameExternalOptions.ubStatProgressBarsRed, gGameExternalOptions.ubStatProgressBarsGreen, gGameExternalOptions.ubStatProgressBarsBlue ) );
+
+		if( ( fShowAssignmentMenu == TRUE ) && ( fTeamPanelDirty == FALSE ) )
+		{
+			uiDestBuffer = FRAME_BUFFER;
+		}
+		else
+		{
+			uiDestBuffer = guiSAVEBUFFER;
+		}
+		pDestBuf = LockVideoSurface( uiDestBuffer, &uiDestPitchBYTES );
+
+		UINT8 ubProgress;
+		UINT16 usMaxProgress;
+		UINT8 sMapX = (UINT8)pSoldier->sSectorX;
+		UINT8 sMapY = (UINT8)pSoldier->sSectorY;
+		if ( pSoldier->bAssignment == TRAIN_TOWN )
+		{
+			ubProgress = SectorInfo[SECTOR(sMapX, sMapY)].ubMilitiaTrainingPercentDone;
+			usMaxProgress = 100;
+		}
+		else if ( pSoldier->bAssignment == TRAIN_MOBILE )
+		{
+			ubProgress = SectorInfo[SECTOR(sMapX, sMapY)].ubMobileMilitiaTrainingPercentDone;
+			usMaxProgress = 100;
+		}
+		else if ( pSoldier->bAssignment == TRAIN_SELF ||
+			pSoldier->bAssignment == TRAIN_BY_OTHER )
+		{
+			switch (pSoldier->bTrainStat)
+			{
+				case STRENGTH:
+					ubProgress = gMercProfiles[ pSoldier->ubProfile ].sStrengthGain+1;
+					usMaxProgress = gGameExternalOptions.usStrengthSubpointsToImprove;
+					break;
+				case AGILITY:
+					ubProgress = gMercProfiles[ pSoldier->ubProfile ].sAgilityGain+1;
+					usMaxProgress = gGameExternalOptions.usAgilitySubpointsToImprove;
+					break;
+				case DEXTERITY:
+					ubProgress = gMercProfiles[ pSoldier->ubProfile ].sDexterityGain+1;
+					usMaxProgress = gGameExternalOptions.usDexteritySubpointsToImprove;
+					break;
+				case HEALTH:
+					ubProgress = gMercProfiles[ pSoldier->ubProfile ].sLifeGain+1;
+					usMaxProgress = gGameExternalOptions.usHealthSubpointsToImprove;
+					break;
+				case MARKSMANSHIP:
+					ubProgress = gMercProfiles[ pSoldier->ubProfile ].sMarksmanshipGain+1;
+					usMaxProgress = gGameExternalOptions.usMarksmanshipSubpointsToImprove;
+					break;
+				case LEADERSHIP:
+					ubProgress = gMercProfiles[ pSoldier->ubProfile ].sLeadershipGain+1;
+					usMaxProgress = gGameExternalOptions.usLeadershipSubpointsToImprove;
+					break;
+				case MECHANICAL:
+					ubProgress = gMercProfiles[ pSoldier->ubProfile ].sMechanicGain+1;
+					usMaxProgress = gGameExternalOptions.usMechanicalSubpointsToImprove;
+					break;
+				case MEDICAL:
+					ubProgress = gMercProfiles[ pSoldier->ubProfile ].sMedicalGain+1;
+					usMaxProgress = gGameExternalOptions.usMedicalSubpointsToImprove;
+					break;
+				case EXPLOSIVE_ASSIGN:
+					ubProgress = gMercProfiles[ pSoldier->ubProfile ].sExplosivesGain+1;
+					usMaxProgress = gGameExternalOptions.usExplosivesSubpointsToImprove;
+					break;
+			}
+		}
+
+		ubBarWidth = (ASSIGN_WIDTH * ubProgress) / usMaxProgress;
+		ClipRect.iTop = (usY+(Y_OFFSET*sRowIndex+1))-1;
+		ClipRect.iBottom = ClipRect.iTop + Y_SIZE;
+		ClipRect.iLeft = ASSIGN_X+2;
+		ClipRect.iRight = ASSIGN_X + ubBarWidth;
+		Blt16BPPBufferHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect, usColor );
+
+		UnLockVideoSurface( uiDestBuffer );
+	}
+	
 	//RestoreExternBackgroundRect(ASSIGN_X-2, ((UINT16)(usY+(Y_OFFSET*sRowIndex+1))), ASSIGN_WIDTH+2, Y_SIZE);
 	DrawString(sString, (UINT16)usX, ((UINT16)(usY+(Y_OFFSET*sRowIndex+1))), iFont);
 }
@@ -6438,6 +6688,12 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							fShowAttributeMenu = FALSE;
 							fMapPanelDirty = TRUE;
 						}
+						// stop showing current assignment box
+						if( fShowFacilityAssignmentMenu == TRUE )
+						{
+							fShowFacilityAssignmentMenu = FALSE;
+							fMapPanelDirty = TRUE;
+						}
 						else if( fShowTrainingMenu == TRUE )
 						{
 							fShowTrainingMenu = FALSE;
@@ -6449,6 +6705,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						else if( fShowRepairMenu == TRUE )
 						{
 							fShowRepairMenu = FALSE;
+						}
+						// HEADROCK HAM 3.6: Facility Menu
+						else if( fShowFacilityMenu == TRUE )
+						{
+							fShowFacilityMenu = FALSE;
 						}
 						else
 						{
@@ -10693,6 +10954,12 @@ void RenderMapRegionBackground( void )
 	if ( ghAttributeBox != - 1 )
 	{
 		ForceUpDateOfBox( ghAttributeBox );
+	}
+
+	// HEADROCK HAM 3.6: Force re-render due to Facility box
+	if ( ghFacilityAssignmentBox != 1 )
+	{
+		ForceUpDateOfBox( ghFacilityAssignmentBox );
 	}
 
 	if ( ghTownMineBox != - 1 )
@@ -14970,13 +15237,18 @@ void HandlePostAutoresolveMessages()
 
 void GetMapscreenMercAssignmentString( SOLDIERTYPE *pSoldier, CHAR16 sString[] )
 {
-	if( pSoldier->bAssignment != VEHICLE )
+	if ( pSoldier->bAssignment == VEHICLE )
 	{
-		wcscpy(sString, pAssignmentStrings[ pSoldier->bAssignment ] );
+		wcscpy( sString, pShortVehicleStrings[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ] );
 	}
 	else
 	{
-		wcscpy( sString, pShortVehicleStrings[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ] );
+		wcscpy(sString, pAssignmentStrings[ pSoldier->bAssignment ] );
+	}
+	// If soldier is working at a facility, add an asterisk.
+	if (pSoldier->sFacilityTypeOperated != -1)
+	{
+		wcscat(sString, L"*");
 	}
 }
 
@@ -15433,6 +15705,7 @@ void RequestToggleMercInventoryPanel( void )
 		else
 		{
 			// Headrock. New line forces InvBottom rerender when the inventory is opened and closed.
+			fEndShowInventoryFlag = TRUE;
 			RenderMapScreenInterfaceBottom ( TRUE ); 
 			SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 0 ] );
 		}
@@ -15548,4 +15821,49 @@ void MapscreenMarkButtonsDirty()
 			UnMarkButtonDirty( giMapBorderButtons[ MAP_BORDER_TOWN_BTN ] );
 		}
 	}
+}
+
+// HEADROCK HAM 3.6: Get a total of all merc salaries. Used for the new Daily Expenses display.
+INT32 GetTotalContractExpenses ( void )
+{
+	if (gGameExternalOptions.ubIncludeContractsInExpenses == 0)
+	{
+		// Contract costs are excluded.
+		return (0);
+	}
+
+	UINT8 ubCounter = 0;
+	SOLDIERTYPE *pSoldier;
+	INT32 iTotalCost = 0;
+
+	while(gCharactersList[ubCounter].fValid)
+	{
+		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		// salary
+		if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+		{
+			if (gGameExternalOptions.ubIncludeContractsInExpenses == 2)
+			{
+				// daily rate
+				if( pSoldier->bTypeOfLastContract == CONTRACT_EXTEND_2_WEEK )
+				{
+					iTotalCost += ( gMercProfiles[ pSoldier->ubProfile ].uiBiWeeklySalary / 14 );
+				}
+				if( pSoldier->bTypeOfLastContract == CONTRACT_EXTEND_1_WEEK )
+				{
+					iTotalCost += ( gMercProfiles[ pSoldier->ubProfile ].uiWeeklySalary / 7 );
+				}
+				else
+				{
+					iTotalCost += gMercProfiles[ pSoldier->ubProfile ].sSalary;
+				}
+			}
+		}
+		else
+		{
+			iTotalCost += gMercProfiles[ pSoldier->ubProfile ].sSalary;
+		}
+		ubCounter++;
+	}
+	return (iTotalCost);
 }

@@ -37,6 +37,9 @@
 	#include "Interface Items.h"
 	#include "meanwhile.h"
 	#include "Map Screen Interface.h"
+	// HEADROCK HAM 3.2: Added two includes so that a function can read values of the Gun Range/hospital location
+	#include "Campaign Types.h"
+	#include "Strategic Event Handler.h"
 #endif
 
 // Defines
@@ -1256,7 +1259,6 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 	UINT16 					usMaximumPts = 0;
 	CHAR16					sString[ 32 ];
 	UINT16					usTextWidth;
-	BOOLEAN					fAtGunRange = FALSE;
 	BOOLEAN					fShowNumber = FALSE;
 	BOOLEAN					fShowMaximum = FALSE;
 	SOLDIERTYPE			*pSoldier;
@@ -1474,34 +1476,33 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 			case TRAIN_SELF:
 			case TRAIN_TOWN:
+			// HEADROCK HAM 3.6: New assignment.
+			case TRAIN_MOBILE:
 			case TRAIN_TEAMMATE:
 			case TRAIN_BY_OTHER:
 				sIconIndex = 3;
 				fDoIcon		= TRUE;
 				fShowNumber = TRUE;
 				fShowMaximum = TRUE;
-				// there could be bonus pts for training at gun range
-				if ( ( MercPtrs[ pFace->ubSoldierID ]->sSectorX == 13) && (MercPtrs[ pFace->ubSoldierID ]->sSectorY == MAP_ROW_H) && (MercPtrs[ pFace->ubSoldierID ]->bSectorZ == 0) )
-				{
-					fAtGunRange = TRUE;
-				}
 
 				switch( MercPtrs[ pFace->ubSoldierID ]->bAssignment )
 				{
 					case( TRAIN_SELF ):
-						sPtsAvailable = GetSoldierTrainingPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, fAtGunRange, &usMaximumPts );
+						sPtsAvailable = GetSoldierTrainingPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
 						break;
 					case( TRAIN_BY_OTHER ):
-						sPtsAvailable = GetSoldierStudentPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, fAtGunRange, &usMaximumPts );
+						sPtsAvailable = GetSoldierStudentPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
 						break;
+					// HEADROCK HAM 3.6: New assignment. Works just like Town Training.
 					case( TRAIN_TOWN ):
+					case( TRAIN_MOBILE ):
 						sPtsAvailable = GetTownTrainPtsForCharacter( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts );
 						// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
 						sPtsAvailable = ( sPtsAvailable + 5 ) / 10;
 						usMaximumPts	= ( usMaximumPts + 5 ) / 10;
 						break;
 					case( TRAIN_TEAMMATE ):
-						sPtsAvailable = GetBonusTrainingPtsDueToInstructor( MercPtrs[ pFace->ubSoldierID ], NULL , MercPtrs[ pFace->ubSoldierID ]->bTrainStat, fAtGunRange, &usMaximumPts );
+						sPtsAvailable = GetBonusTrainingPtsDueToInstructor( MercPtrs[ pFace->ubSoldierID ], NULL , MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
 						break;
 				}
 				break;

@@ -310,7 +310,18 @@ INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT16 sGridNo, UINT8 ubType )
 		Assert( 0 );
 	}
 
-	pGroup->ubTransportationMask = (UINT8)iMvtTypes[ ubType ];
+	
+	// HEADROCK HAM 3.1: An INI setting allows us to turn the Hummer into a true offroad vehicle. It will use the
+	// "TRUCK" type movement, which allows it to go into mild non-road terrain. I wish I could come with a more
+	// subtle method than this crude override, but this is what I've got at the moment.
+	if (gGameExternalOptions.fHumveeOffroad && ubType == HUMMER)
+	{
+		pGroup->ubTransportationMask = TRUCK;
+	}
+	else
+	{
+		pGroup->ubTransportationMask = (UINT8)iMvtTypes[ ubType ];
+	}
 
 	// ARM: setup group movement defaults
 	pGroup->ubSectorX = ( UINT8 ) sMapX;

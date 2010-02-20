@@ -18,7 +18,6 @@
 extern INT32	iRestrictedSectorArraySize;
 extern UINT32 gRestrictMilitia[256];
 
-
 typedef enum
 {
 	ROAMING_ELEMENT_NONE = 0,

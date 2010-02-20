@@ -603,6 +603,10 @@
 				RelativePath="XML.h"
 				>
 			</File>
+			<File
+				RelativePath=".\XML_Profiles.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Source Files"
@@ -993,6 +997,14 @@
 			</File>
 			<File
 				RelativePath="XML_Merge.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Opinions.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Profiles.cpp"
 				>
 			</File>
 			<File

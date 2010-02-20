@@ -524,6 +524,57 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	THROWIFFALSE(ReadInDeliveryMethods(fileName),DELIVERYMETHODSFILENAME);
 
+	// HEADROCK HAM 3.5: Read in facility types
+	strcpy(fileName, directoryName);
+	strcat(fileName, FACILITYTYPESFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	THROWIFFALSE(ReadInFacilityTypes(fileName), FACILITYTYPESFILENAME);
+
+	// HEADROCK HAM 3.4: Read in facility locations
+	strcpy(fileName, directoryName);
+	strcat(fileName, SECTORFACILITIESFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	THROWIFFALSE(ReadInSectorFacilities(fileName), SECTORFACILITIESFILENAME);
+
+	// HEADROCK HAM 3.4: Read in dynamic roaming restrictions
+	strcpy(fileName, directoryName);
+	strcat(fileName, DYNAMICROAMINGFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	THROWIFFALSE(ReadInDynamicRoamingRestrictions(fileName), DYNAMICROAMINGFILENAME);
+	
+	// HEADROCK HAM 3.6: Read in customized sector names
+	strcpy(fileName, directoryName);
+	strcat(fileName, SECTORNAMESFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	THROWIFFALSE(ReadInSectorNames(fileName), SECTORNAMESFILENAME);
+	
+	if (gGameExternalOptions.fReadProfileDataFromXML)
+	{
+		// HEADROCK PROFEX: Read in Merc Profile data to replace PROF.DAT data
+		strcpy(fileName, directoryName);
+		strcat(fileName, MERCPROFILESFILENAME);
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		THROWIFFALSE(ReadInMercProfiles(fileName), MERCPROFILESFILENAME);
+
+		// HEADROCK PROFEX: Read in Merc Opinion data to replace PROF.DAT data
+		strcpy(fileName, directoryName);
+		strcat(fileName, MERCOPINIONSFILENAME);
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		THROWIFFALSE(ReadInMercOpinions(fileName), MERCOPINIONSFILENAME);
+	}
+
+	// HEADROCK HAM 3.6: Read in customized Bloodcat Placements
+	strcpy(fileName, directoryName);
+	strcat(fileName, BLOODCATPLACEMENTSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	THROWIFFALSE(ReadInBloodcatPlacements(fileName), BLOODCATPLACEMENTSFILENAME);
+
+	// HEADROCK HAM 3.6: Read in customized Uniform Colors
+	strcpy(fileName, directoryName);
+	strcat(fileName, UNIFORMCOLORSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	THROWIFFALSE(ReadInUniforms(fileName), UNIFORMCOLORSFILENAME);
+
 	return TRUE;
 }
 

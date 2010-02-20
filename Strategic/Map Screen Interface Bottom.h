@@ -65,4 +65,7 @@ void MapScreenMsgScrollUp( UINT8 ubLinesUp );
 void ChangeCurrentMapscreenMessageIndex( UINT8 ubNewMessageIndex );
 void MoveToEndOfMapScreenMessageList( void );
 
+// HEADROCK HAM 3.6: Reset coordinates for slider bar and message window
+void InitMapScreenInterfaceBottomCoords( void );
+
 #endif

@@ -318,6 +318,8 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
 SOLDIERTYPE * ReduceAttackBusyCount( );
 // HEADROCK HAM B2.6: Made this public so it can be used elsewhere.
 INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier );
+// HEADROCK HAM 3.2: A new function for checking the condition of nearby friendlies and returning a modifier.
+INT8 CheckStatusNearbyFriendlies( SOLDIERTYPE *pSoldier );
 
 void CommonEnterCombatModeCode( );
 
@@ -374,4 +376,6 @@ extern BOOLEAN gogglewarning;
 // will a sam site under the players control shoot down an airraid?
 BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY );
 
+// HEADROCK HAM 3.5: Externalized for First Arrival enemy check
+extern UINT8 NumEnemyInSector();
 #endif

@@ -1915,8 +1915,7 @@ void AddSoldierInitListBloodcats()
 	{ //This map has no bloodcat placements, so don't waste CPU time.
 		return;
 	}
-
-	if( pSector->bBloodCatPlacements )
+	else
 	{ //We don't yet know the number of bloodcat placements in this sector so
 		//count them now, and permanently record it.
 		INT8 bBloodCatPlacements = 0;
@@ -1929,7 +1928,18 @@ void AddSoldierInitListBloodcats()
 			}
 			curr = curr->next;
 		}
-		if( bBloodCatPlacements != pSector->bBloodCatPlacements &&
+		// No placements on the map itself?
+		if( !bBloodCatPlacements )
+		{
+			// Don't place!
+			return;
+		}
+		// HEADROCK HAM 3.6: Check has been changed completely. We now use whichever value is lower - the ones we've
+		// set from XML, or the ones existing on the map. Either could override the other, if it is lower.
+		pSector->bBloodCatPlacements = __min(bBloodCatPlacements, pSector->bBloodCatPlacements);
+		pSector->bBloodCats = __min(pSector->bBloodCats, pSector->bBloodCatPlacements);
+
+		/*if( bBloodCatPlacements != pSector->bBloodCatPlacements &&
 			ubSectorID != SEC_I16 && ubSectorID != SEC_N5 )
 		{
 #ifdef JA2BETAVERSION
@@ -1938,18 +1948,21 @@ void AddSoldierInitListBloodcats()
 								pSector->bBloodCatPlacements, gWorldSectorY + 'A' - 1, gWorldSectorX, bBloodCatPlacements );
 			DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 #endif
-			// WANNE: Fix by Headrock
+			// HEADROCK HAM 3.5: This "solution" is extremely silly, as it prevents legal placement of bloodcats
+			// on the map if any discrepancy is encountered, which limits modders severely. Also, because the
+			// pSector->bBloodCatPlacements value is hardcoded, there is virtually no way for modders to increase
+			// the number of bloodcats on their own. 
 			//pSector->bBloodCatPlacements = bBloodCatPlacements;
 			//pSector->bBloodCats = -1;
-
+			// A better solution is to limit the number of bloodcats on the map based on whichever is lower - the
+			// hardcode, or the map-read value.
 			pSector->bBloodCatPlacements = __min(bBloodCatPlacements, pSector->bBloodCatPlacements);
 			pSector->bBloodCats = __min(pSector->bBloodCats, pSector->bBloodCatPlacements);
-
 			if( !bBloodCatPlacements )
 			{
 				return;
 			}
-		}
+		}*/
 	}
 	if( pSector->bBloodCats > 0 )
 	{ //Add them to the world now...
@@ -2564,6 +2577,12 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 				pSoldier->ubStrategicInsertionCode = ubStrategicInsertionCode;
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
+		}
+		
+		// HEADROCK HAM 3.2: Experimental, militia reinforcements arrive with 0 APs.
+		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 1 || gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 3)
+		{
+			pSoldier->bActionPoints = 0;
 		}
 	}
 }

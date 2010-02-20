@@ -3704,6 +3704,9 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	}
 	if( ubSAIVersion < 18 )
 	{ //adjust down the number of bloodcats based on difficulty in the two special bloodcat levels
+		// HEADROCK HAM 3.6: Run the Init function instead.
+		InitBloodCatSectors();
+		/*
 		switch( gGameOptions.ubDifficultyLevel )
 		{
 			case DIF_LEVEL_EASY: //50%
@@ -3729,7 +3732,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 				SectorInfo[ SEC_I16	].bBloodCats = 39;
 				SectorInfo[ SEC_N5	].bBloodCats = 37;
 				break;
-		}
+		}*/
 	}
 	if( ubSAIVersion < 19 )
 	{
@@ -3753,6 +3756,8 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	}
 	if( ubSAIVersion < 22 )
 	{ //adjust down the number of bloodcats based on difficulty in the two special bloodcat levels
+		// HEADROCK HAM 3.6: Run the Init function instead.
+		InitBloodCatSectors();
 		switch( gGameOptions.ubDifficultyLevel )
 		{
 			case DIF_LEVEL_EASY: //50%

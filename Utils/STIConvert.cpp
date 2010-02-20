@@ -105,8 +105,6 @@ void ConvertRGBDistribution555To565( UINT16 * p16BPPData, UINT32 uiNumberOfPixel
 void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 sHeight,	STR cOutputName, UINT32 fFlags, UINT32 uiAppDataSize )
 {
 
-	
-
 	UINT32							uiOriginalSize;
 	UINT8 *							pOutputBuffer = NULL;
 	UINT32							uiCompressedSize;

@@ -2646,6 +2646,30 @@ BOOLEAN SetSectorFlag( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet
 {
 	if( uiFlagToSet == SF_ALREADY_VISITED )
 	{
+
+		// HEADROCK HAM 3.5: This is no longer required at all.
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+		// HEADROCK HAM 3.4: Externalized. Hidden facilities listed on the facility array will be
+		// added to the sector info now, upon the first visit.
+
+		/*for(UINT32 cnt=0; (gFacilityLocations[cnt].uiSectorID >= 0 && gFacilityLocations[cnt].uiSectorID <= 256); cnt++ )
+		{
+			// Does the current record match the current sector?
+			if (gFacilityLocations[cnt].uiSectorID == SECTOR( sMapX, sMapY ))
+			{
+				// Is the current record set to be revealed?
+				if (gFacilityLocations[cnt].fHidden == 1)
+				{
+					// Reveal the facility.
+					SectorInfo[ SECTOR( sMapX, sMapY) ].uiFacilitiesFlags |= (1 << (gFacilityLocations[cnt].uiFacilityType - 1));
+				}
+			}
+		}*/
+		
+
+		// HEADROCK HAM 3.4: Externalized.
+		/*
 		// do certain things when particular sectors are visited
 		if ( ( sMapX == TIXA_SECTOR_X ) && ( sMapY == TIXA_SECTOR_Y ) )
 		{
@@ -2660,7 +2684,7 @@ BOOLEAN SetSectorFlag( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet
 			SectorInfo[ SEC_H14 ].uiFacilitiesFlags |= SFCF_GUN_RANGE;
 			SectorInfo[ SEC_I13 ].uiFacilitiesFlags |= SFCF_GUN_RANGE;
 			SectorInfo[ SEC_I14 ].uiFacilitiesFlags |= SFCF_GUN_RANGE;
-		}
+		}*/
 
 		if ( !GetSectorFlagStatus( sMapX, sMapY, bMapZ, SF_ALREADY_VISITED ) )
 		{

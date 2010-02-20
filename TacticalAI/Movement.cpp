@@ -849,7 +849,7 @@ void SoldierTriesToContinueAlongPath(SOLDIERTYPE *pSoldier)
 	// Find out how much it takes to move here!
 	bAPCost = EstimateActionPointCost( pSoldier, sNewGridNo, (INT8)pSoldier->pathing.usPathingData[ pSoldier->pathing.usPathIndex ], pSoldier->usUIMovementMode, (INT8) pSoldier->pathing.usPathIndex, (INT8) pSoldier->pathing.usPathDataSize );
 
-	if (pSoldier->bActionPoints >= bAPCost)
+	if (pSoldier->bActionPoints >= bAPCost )
 	{
 		// seems to have enough points...
 		NewDest(pSoldier,sNewGridNo);

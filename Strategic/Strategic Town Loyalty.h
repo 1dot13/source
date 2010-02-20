@@ -204,4 +204,7 @@ void HandleLoyaltyImplicationsOfMercRetreat( INT8 bRetreatCode, INT16 sSectorX, 
 
 void MaximizeLoyaltyForDeidrannaKilled( void );
 
+// HEADROCK HAM 3.6: Loyalty hit for owing too much money on facility work
+void HandleFacilityDebtLoyaltyHit( void );
+
 #endif

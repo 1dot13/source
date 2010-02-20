@@ -35,6 +35,8 @@
 	#include "Strategic Status.h"
 	// HEADROCK HAM B1: Added include for Dynamic Roaming Militia
 	#include "MilitiaSquads.h"
+	// HEADROCK HAM 3.6: Include for Facility Debt
+	#include "Facilities.h"
 #endif
 
 // the max loyalty rating for any given town
@@ -1817,7 +1819,7 @@ void CheckIfEntireTownHasBeenLiberated( INT8 bTownId, INT16 sSectorX, INT16 sSec
 			UpdateLastDayOfPlayerActivity( ( UINT16 ) ( GetWorldDay() + 2 ) );
 		}
 		// HEADROCK HAM B1: Run a function to redefine Roaming Militia Restrictions on city capture.
-		if (gGameExternalOptions.bDynamicRestrictRoaming)
+		if (gGameExternalOptions.fDynamicRestrictRoaming)
 		{
 			AdjustRoamingRestrictions();
 		}
@@ -1994,3 +1996,24 @@ void MaximizeLoyaltyForDeidrannaKilled(void)
 		SetTownLoyalty(bTownId, 100);
 	}
 }
+
+// HEADROCK HAM 3.6: A loyalty hit based on outstanding debt for facility use.
+void HandleFacilityDebtLoyaltyHit( void )
+{
+	// Loyalty hit is 1% per $1000 dollars owed.
+	INT32 iLoyaltyHit = giTotalOwedForFacilityOperationsToday;
+
+	if (giTotalOwedForFacilityOperationsToday > 500)
+	{
+		// But no less than 1%, if $500 are owed.
+		iLoyaltyHit = __max(500,iLoyaltyHit);
+	}
+
+	if (iLoyaltyHit > 1)
+	{
+		DecrementTownLoyaltyEverywhere( iLoyaltyHit );
+	}
+}
+
+
+

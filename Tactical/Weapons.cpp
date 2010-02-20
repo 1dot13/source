@@ -1740,9 +1740,9 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 				//	uiHitChance = MINCHANCETOHIT;
 				//else
 				//	uiHitChance -= 30;
-				if(uiHitChance <= (UINT16)(__max(30, gGameExternalOptions.iMinimumCTH + 30)))
+				if(uiHitChance <= (UINT16)(__max(30, gGameExternalOptions.ubMinimumCTH + 30)))
 				{
-					uiHitChance = gGameExternalOptions.iMinimumCTH ;
+					uiHitChance = gGameExternalOptions.ubMinimumCTH ;
 				}
 				else
 				{
@@ -3564,13 +3564,16 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 	bool	highPowerScope = false;
 	UINT32	pScope;
 
+	// HEADROCK HAM 3.5: Variable holds total autofire penalty.
+	INT16 sTotalAutofirePenalty = 0;
+
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun"));
 
 	if ( pSoldier->stats.bMarksmanship == 0 )
 	{
 		// HEADROCK: (HAM) Altered to accept external arguments
 		// return( MINCHANCETOHIT );
-		return( gGameExternalOptions.iMinimumCTH );
+		return( gGameExternalOptions.ubMinimumCTH );
 	}
 
 	// make sure the guy's actually got a weapon in his hand!
@@ -3766,54 +3769,8 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 			iPenalty /= 2 * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS );
 		}
 		iChance -= iPenalty;
-		// HEADROCK HAM B2.5: One of every X bullets in a tracer magazine is a tracer round, which will
-		// bump the CTH up by a certain amount.
-
-		if (AmmoTypes[(*pInHand)[0]->data.gun.ubGunAmmoType].tracerEffect == 1 && gGameExternalOptions.iRealisticTracers > 0 )
-		{
-			UINT16 iBulletsLeft, iTracersFired, iBulletsPerTracer, iBulletsSinceLastTracer;
-			UINT8 cnt;
-			UINT16 iAutoPenaltySinceLastTracer;
-			iTracersFired = 0;
-			iBulletsPerTracer = gGameExternalOptions.iNumBulletsPerTracer;
-
-			// Calculate number of bullets left right before firing this bullet
-			if (fCalculateCTHDuringGunfire)
-			{
-				iBulletsLeft = (*pInHand)[0]->data.gun.ubGunShotsLeft + (pSoldier->bDoBurst - 1);
-			}
-			else
-			{
-				iBulletsLeft = (*pInHand)[0]->data.gun.ubGunShotsLeft;
-			}
-
-			iBulletsSinceLastTracer = 0;
-			for (cnt=0;cnt<pSoldier->bDoBurst;cnt++)
-			{
-				iBulletsSinceLastTracer++;
-				if ((( iBulletsLeft - (cnt - 1) ) / iBulletsPerTracer) - ((iBulletsLeft - cnt) / iBulletsPerTracer) == 1)
-				{
-					iBulletsSinceLastTracer = 0;
-				}
-			}
-
-			iTracersFired = ((iBulletsLeft+1) / iBulletsPerTracer) - (((iBulletsLeft+1) - (pSoldier->bDoBurst)) / iBulletsPerTracer);
-
-			if ( iTracersFired > 0 )
-			{
-				// Correct all autofire penalty so far
-				iBonus = iPenalty;
-				// Add Tracer Bump if previous bullet was a tracer
-				//if (iBulletsSinceLastTracer == 0)
-					iBonus += (gGameExternalOptions.iCTHBumpPerTracer * iTracersFired);
-				// Calculate penalty since last tracer was fired
-				iAutoPenaltySinceLastTracer = GetAutoPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * iBulletsSinceLastTracer;
-				// Add penalty to bonus.
-				iBonus -= iAutoPenaltySinceLastTracer;
-				
-				iChance += iBonus;
-			}
-		}
+		// HEADROCK HAM 3.5: Store the penalty
+		sTotalAutofirePenalty = iPenalty;
 	}
 
 	//ADB we need to calculate the distance visible and SoldierTo...LOSTests that we want to
@@ -4046,7 +4003,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 		// and in shock, they are harder to hit! This represents a target that's cowering as close
 		// to the ground (and as close to any possible cover, like a small dune or a fold of earth
 		// or anything like that).
-		if ( gGameExternalOptions.iAimPenaltyPerTargetShock > 0 )
+		if ( gGameExternalOptions.ubAimPenaltyPerTargetShock > 0 )
 		{
 			// HEADROCK HAM B2.1 : This value determines how much penalty the target's shock-value gives the shooter.
 			// As of HAM B2.3: There's a maximum range at which 100% penalty is given.
@@ -4058,7 +4015,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 			UINT16 MIN_RANGE_FOR_FULL_COWER;
 			UINT16 MAX_TARGET_COWERING_PENALTY;
 
-			AIM_PENALTY_PER_TARGET_SHOCK = gGameExternalOptions.iAimPenaltyPerTargetShock;
+			AIM_PENALTY_PER_TARGET_SHOCK = gGameExternalOptions.ubAimPenaltyPerTargetShock;
 			MIN_RANGE_FOR_FULL_COWER = gGameExternalOptions.usMinRangeForFullCoweringPenalty; 
 			MAX_TARGET_COWERING_PENALTY = gGameExternalOptions.usMaxTargetCoweringPenalty;
 
@@ -4199,6 +4156,88 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 			iChance -= (iSightRange - NORMAL_RANGE) / 5;
 		}
 		*/
+	}
+
+	// HEADROCK HAM 3.5: Moved this here for now.
+	// HEADROCK HAM B2.5: One of every X bullets in a tracer magazine is a tracer round, which will
+	// bump the CTH up by a certain amount.
+
+	if (AmmoTypes[(*pInHand)[0]->data.gun.ubGunAmmoType].tracerEffect == 1 && gGameExternalOptions.ubRealisticTracers > 0 )
+	{
+		UINT16 iBulletsLeft, iTracersFired, iBulletsPerTracer, iBulletsSinceLastTracer;
+		UINT8 cnt;
+		//UINT16 iAutoPenaltySinceLastTracer;
+		iTracersFired = 0;
+		iBulletsPerTracer = gGameExternalOptions.ubNumBulletsPerTracer;
+
+		// Calculate number of bullets left right before firing this bullet
+		if (fCalculateCTHDuringGunfire)
+		{
+			iBulletsLeft = (*pInHand)[0]->data.gun.ubGunShotsLeft + (pSoldier->bDoBurst - 1);
+		}
+		else
+		{
+			iBulletsLeft = (*pInHand)[0]->data.gun.ubGunShotsLeft;
+		}
+
+		iBulletsSinceLastTracer = 0;
+		for (cnt=0;cnt<pSoldier->bDoBurst;cnt++)
+		{
+			iBulletsSinceLastTracer++;
+			if ((( iBulletsLeft - (cnt - 1) ) / iBulletsPerTracer) - ((iBulletsLeft - cnt) / iBulletsPerTracer) == 1)
+			{
+				iBulletsSinceLastTracer = 0;
+			}
+		}
+
+		iTracersFired = ((iBulletsLeft+1) / iBulletsPerTracer) - (((iBulletsLeft+1) - (pSoldier->bDoBurst)) / iBulletsPerTracer);
+
+		if ( iTracersFired > 0 )
+		{
+			// HEADROCK HAM 3.5: I'm going to revise this - my current system makes no sense at all. What was I
+			// thinking?!
+
+			// Correct all autofire penalty so far
+			//iBonus = iPenalty;
+			
+			// Add Tracer Bump if previous bullet was a tracer
+			//iBonus += (gGameExternalOptions.ubCTHBumpPerTracer * iTracersFired);
+			iBonus = (gGameExternalOptions.ubCTHBumpPerTracer * iTracersFired);
+
+			// Calculate penalty since last tracer was fired
+			UINT8 ubAutoPenaltySinceLastTracer = GetAutoPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * iBulletsSinceLastTracer;
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPS ) )
+			{
+				ubAutoPenaltySinceLastTracer /= 2 * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS );
+			}			
+			// Add penalty to bonus.
+			//iBonus -= iAutoPenaltySinceLastTracer;
+			
+			///////////////////////////////////////////////////
+			// HEADROCK HAM 3.5: Limit maximum bonus by range.
+			
+			INT16 sBaseChance = iChance + sTotalAutofirePenalty;
+
+			// We don't want to enforce a limit unless the tracers have actually put us over the original CtH.
+			if (sBaseChance <= iChance+iBonus) // Base_Chance without AutoPen, less or equal to Current_Chance plus tracer bumps
+			{
+				// store lowest: Chance+Tracer bumps, or Range-enforced limit
+				INT16 sChanceLimit = __min(iChance+iBonus, sBaseChance+(((iRange-100) / CELL_X_SIZE) * gGameExternalOptions.ubRangeDifficultyAimingWithTracers));
+				// store highest: Chance Delta or base CtH
+				//sChanceDelta = __max(sChanceDelta, sBaseChance);
+
+				// iBonus is the distance between the enforced limit (if any) and the current chance with all penalties so far.
+				// But it can't be negative, 'cause it's a bonus.
+				iBonus = __max(0,sChanceLimit - iChance);
+				// Add autopenalty since last tracer
+				if (iBulletsSinceLastTracer < iBulletsPerTracer)
+				{
+					iBonus -= ubAutoPenaltySinceLastTracer;
+				}
+
+			}
+			iChance += iBonus;
+		}
 	}
 
 	// adjust for roof/not on roof
@@ -4407,7 +4446,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 	// bump the minimum back to 1, where X = the Divisor value. So a divisor value of 50 gives a 1/50
 	// chance of getting some actual chance to hit despite the 0 minimum. The overall total would then
 	// be an effective CTH of only 1/5000 (50 chances to get a 1 out of 100 CTH, hehehe)
-	if (iChance <= gGameExternalOptions.iMinimumCTH)
+	if (iChance <= gGameExternalOptions.ubMinimumCTH)
 	{
 		if ( TANK( pSoldier ) )
 		{
@@ -4416,10 +4455,10 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 		}
 		else
 		{
-			iChance = gGameExternalOptions.iMinimumCTH;
-			if ( gGameExternalOptions.iMinimumCTH == 0 )
+			iChance = gGameExternalOptions.ubMinimumCTH;
+			if ( gGameExternalOptions.ubMinimumCTH == 0 )
 			{
-				if ( PreRandom( gGameExternalOptions.iMinimumCTHDivisor ) == (gGameExternalOptions.iMinimumCTHDivisor - 1) )
+				if ( PreRandom( gGameExternalOptions.usMinimumCTHDivisor ) == (gGameExternalOptions.usMinimumCTHDivisor - 1) )
 				{
 					iChance = 1;
 				}
@@ -4431,8 +4470,8 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime,
 		// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
 		// if (iChance > MAXCHANCETOHIT)
 		// iChance = MAXCHANCETOHIT;
-		if (iChance > gGameExternalOptions.iMaximumCTH)
-			iChance = gGameExternalOptions.iMaximumCTH;
+		if (iChance > gGameExternalOptions.ubMaximumCTH)
+			iChance = gGameExternalOptions.ubMaximumCTH;
 	}
 
 //  NumMessage("ChanceToHit = ",chance);
@@ -4778,7 +4817,9 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocat
 		{
 			case AIM_SHOT_HEAD:
 				// is the blow deadly enough for an instant kill?
-				if ( PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_DISTANCE_FOR_MESSY_DEATH || (PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && pFirer->usAttackingWeapon  == BARRETT ))
+				// HEADROCK HAM 3.6: Reattached "Max Distance For Messy Death" tag from the XML! God knows why it wasn't attached when they MADE THAT TAG.
+				//if ( PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_DISTANCE_FOR_MESSY_DEATH || (PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && pFirer->usAttackingWeapon  == BARRETT ))
+				if ( PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= Weapon[ pFirer->usAttackingWeapon ].maxdistformessydeath )
 				{
 					if (iImpactForCrits > MIN_DAMAGE_FOR_INSTANT_KILL && iImpactForCrits < pTarget->stats.bLife)
 					{
@@ -4825,7 +4866,9 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocat
 				// normal damage to torso
 				// is the blow deadly enough for an instant kill?
 				// since this value is much lower than the others, it only applies at short range...
-				if ( PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_DISTANCE_FOR_MESSY_DEATH || (PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && pFirer->usAttackingWeapon  == BARRETT ))
+				// HEADROCK HAM 3.6: Reattached "Max Distance For Messy Death" tag from the XML! God knows why it wasn't attached when they MADE THAT TAG.
+				//if ( PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_DISTANCE_FOR_MESSY_DEATH || (PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && pFirer->usAttackingWeapon  == BARRETT ))
+				if ( PythSpacesAway( pFirer->sGridNo, pTarget->sGridNo ) <= Weapon[ pFirer->usAttackingWeapon ].maxdistformessydeath )
 				{
 					if (iImpact > MIN_DAMAGE_FOR_INSTANT_KILL && iImpact < pTarget->stats.bLife)
 					{
@@ -4919,6 +4962,17 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocat
 						{
 							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_HEAD_HIT], pTarget->name );
 						}
+						
+						// HEADROCK HAM 3.2: Critical headshots may now cause blindness, based on shot damage.
+						if (gGameExternalOptions.ubChanceBlindedByHeadshot)
+						{
+							if (PreRandom(gGameExternalOptions.ubChanceBlindedByHeadshot) == 0)
+							{
+								if (pTarget->bBlindedCounter < iImpact / 10 )
+									pTarget->bBlindedCounter = iImpact / 10;
+							}
+						}
+
 						break;
 					case AIM_SHOT_TORSO:
 						if (PreRandom( 1 ) == 0 && !(pTarget->flags.uiStatusFlags & SOLDIER_MONSTER) )
@@ -5489,17 +5543,17 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
   // MAKE SURE CHANCE TO HIT IS WITHIN DEFINED LIMITS
   // HEADROCK: I urinate on your Defined Limits! Power Rangers, Externalize!
   // Disclaimer: No offense meant, all in good fun ;)
-  if (iChance < gGameExternalOptions.iMinimumCTH)
+  if (iChance < gGameExternalOptions.ubMinimumCTH)
 	{
-    iChance = gGameExternalOptions.iMinimumCTH;
+    iChance = gGameExternalOptions.ubMinimumCTH;
 	}
   else
 	{
 		// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
 		//if (iChance > MAXCHANCETOHIT)
 		//	iChance = MAXCHANCETOHIT;
-		if (iChance > gGameExternalOptions.iMaximumCTH)
-			iChance = gGameExternalOptions.iMaximumCTH;
+		if (iChance > gGameExternalOptions.ubMaximumCTH)
+			iChance = gGameExternalOptions.ubMaximumCTH;
 	}
 
   //NumMessage("ChanceToStab = ",chance);
@@ -5955,17 +6009,23 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTi
 		// reduce iChance to hit DIRECTLY by the item's working condition
 		iChance = (iChance * WEAPON_STATUS_MOD(pSoldier->inv[HANDPOS][0]->data.objectStatus)) / 100;
 
+	// HEADROCK HAM 3.2: External divisor for CTH with mortars, now that they are more prevalent in the battlefield.
+	if ( Item[ usHandItem ].mortar )
+	{
+		iChance = iChance / gGameExternalOptions.ubMortarCTHDivisor;
+	}
+
 	// What's with all these defined limits? Let's think out of the box for a minute, shall we?
 	// HEADROCK (HAM): externalized, effective immediately.
-	if (iChance < gGameExternalOptions.iMinimumCTH)
-		iChance = gGameExternalOptions.iMinimumCTH;
+	if (iChance < gGameExternalOptions.ubMinimumCTH)
+		iChance = gGameExternalOptions.ubMinimumCTH;
 	else
 	{
 		// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
 		//if (iChance > MAXCHANCETOHIT)
 		//	iChance = MAXCHANCETOHIT;
-		if (iChance > gGameExternalOptions.iMaximumCTH)
-			iChance = gGameExternalOptions.iMaximumCTH;
+		if (iChance > gGameExternalOptions.ubMaximumCTH)
+			iChance = gGameExternalOptions.ubMaximumCTH;
 	}
 
 
@@ -6163,7 +6223,7 @@ UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj )
 //	HEADROCK HAM B2.6: Added overall modifier
 	if (Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP > 0)
 	{
-		return __max((Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP + gGameExternalOptions.iAutofireBulletsPer5APModifier), 0);
+		return __max((Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP + gGameExternalOptions.bAutofireBulletsPer5APModifier), 0);
 	}
 	else
 		return 0;
@@ -6176,6 +6236,13 @@ UINT16 GetMagSize( OBJECTTYPE *pObj )
 	return Weapon[ pObj->usItem ].ubMagSize + GetMagSizeBonus(pObj);
 
 }
+
+// HEADROCK HAM 3.3: Function to get a weapon's current ammotype.
+UINT8 GetAmmoType( OBJECTTYPE *pObj )
+{
+	return (*pObj)[0]->data.gun.ubGunAmmoType;
+}
+
 bool WeaponReady(SOLDIERTYPE * pSoldier)
 {
 #ifdef ROBOT_ALWAYS_READY
@@ -6198,9 +6265,139 @@ INT8 GetAPsToReload( OBJECTTYPE *pObj )
 
 }
 
+// HEADROCK HAM 3.4: Estimates the number of bullets left in the gun. For use during combat.
 
+CHAR16 gBulletCount[10]; // This is a global containing the bullet count string
+void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
+{
 
+	UINT16 usExpLevel;
+	UINT16 usDexterity;
+	UINT16 usWisdom;
+	UINT8 ubMagSize = Weapon[pObj->usItem].ubMagSize;
+	UINT16 usRealBulletCount = (*pObj)[0]->data.gun.ubGunShotsLeft;
+	UINT16 i = 0;
+	BOOLEAN fPsycho = FALSE;
+	INT16 sEffectiveSkill;
+	INT8 bDeviation = 0;
 
+	// HEADROCK HAM 3.5: Bugfix, failsafe
+	if ( pSoldier == NULL )
+	{
+		// No soldier... Return true count.
+		swprintf(gBulletCount, L"%d", usRealBulletCount);
+		return;
+	}
 
+	usExpLevel = EffectiveExpLevel(pSoldier);
+	usDexterity = EffectiveDexterity(pSoldier);
+	usWisdom = EffectiveWisdom(pSoldier);
 
+	if ( gGameExternalOptions.usBulletHideIntensity <= 0 )
+	{
+		// Feature is disabled. Print the real bullet count.
+		swprintf(gBulletCount, L"%d", usRealBulletCount);
+		return;
+	}
 
+	// Is this Soldier a psycho?
+	if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile ].bPersonalityTrait == PSYCHO )
+	{
+		fPsycho = TRUE;
+	}
+
+	// High EXP Level, Wisdom and Dexterity required for any estimation to be possible.
+	// When Experience goes up, the required WIS+DEX goes down. 
+	// At ExpLevel 1 -> WIS+DEX must be > 180. A high requirement!
+	// At ExpLevel 2 -> WIS+DEX must be > 160.
+	// ...
+	// At ExpLevel 5 -> WIS+DEX must be > 100. Most characters have already attained estimation ability by now.
+	// At ExpLevel 10 -> WIS+DEX must be > 0, which is always.
+	if ( (usWisdom + usDexterity) < (200 - (usExpLevel * 20)) )
+	{
+		// Soldier is not skilled enough to know how many bullets are left in the gun. Print a "??" indicating that
+		// the real bullet count may be anywhere between empty and full.
+		swprintf(gBulletCount, L"%s", L"??");
+		return;
+	}
+	else // Soldier good enough for at least a rough estimate.
+	{
+		// HEADROCK HAM 3.5: Moved this here. If the character fails the above requirement, he shouldn't even know if the
+		// gun is empty or full.
+		//-------------------------
+		// If the magazine is empty or full, he knows it automatically.
+		if (usRealBulletCount == ubMagSize)
+		{
+			// Magazine is fresh. Let the soldier know this.
+			swprintf(gBulletCount, L"%d", usRealBulletCount);
+			return;
+		}
+		if (usRealBulletCount == 0)
+		{
+			// Magazine is empty, so it will also show as empty.
+			swprintf(gBulletCount, L"%d", usRealBulletCount);
+			return;
+		}
+		//-------------------------
+
+		// Let's see by how much we've beaten the requirement!
+		sEffectiveSkill = ( (usWisdom + usDexterity) - (200 - (usExpLevel * 20)) ) / 2;
+	}
+	// So from now on we've got the sEffectiveSkill value, which can go from 0 to 100
+	// This value represents getting better in all three stats (WIS,DEX,EXP), because as
+	// they go up the result of the calculation above also goes up. Having a particularly high
+	// value in any of the three stats, in fact, reduces the need to have high values in others.
+	//
+	// The higher your EXP level, the less WIS+DEX you need for an accurate estimate, so even
+	// inept characters will eventually be able to make a fair estimate, provided the EXP
+	// level goes high enough.
+	//
+	// On the other hand, WIS and DEX work together. In fact, it is the average of these
+	// skills that determines how soon you can start estimating, and how good your estimation gets
+	// as you gain levels. So while one high skill can bring better estimates sooner, it requires 
+	// both skills to be improved for a really good estimate.
+	//
+	// The range of sEffectiveSkill is 0 to 100
+	//``````````````````````````````````````````
+
+	// Psychos are eligible for an estimate just the same as any other character. But the trait reduces 
+	// effective skill by 10, so It'll take them longer before they can get a good estimate.
+	sEffectiveSkill -= (fPsycho * (10));
+
+	sEffectiveSkill = __max(0, sEffectiveSkill);
+	sEffectiveSkill = __min(100, sEffectiveSkill);
+	
+	// Now, we invert the effective skill
+	bDeviation = 100-sEffectiveSkill; // range is still 0-100, but lower is better
+	// Use this as a percentage, and figure out the deviation based on magazine size and current bullet. The nearer
+	// you get to the bottom of a magazine, the harder it is to accurately estimate how many bullets are in there.
+	bDeviation = ((ubMagSize - usRealBulletCount) * (bDeviation * bDeviation)) / 10000;
+
+	// Add externalized difficulty modifier
+	bDeviation = (bDeviation * gGameExternalOptions.usBulletHideIntensity) / 100;
+
+	// If the deviation surpasses the character's EXP level, then he/she is not able to know how many bullets are
+	// left in the gun, but can still give a rough estimate. There are currently three estimate stages - High, Mid, 
+	// and Low.
+	if (bDeviation > usExpLevel)
+	{
+		if (usRealBulletCount >= (ubMagSize*2)/3)
+		{
+			swprintf(gBulletCount, L"%s", L"?H");
+		}
+		else if (usRealBulletCount < (ubMagSize*2)/3 && usRealBulletCount >= ubMagSize/3)
+		{
+			swprintf(gBulletCount, L"%s", L"?M");
+		}
+		else if (usRealBulletCount < ubMagSize/3)
+		{
+			swprintf(gBulletCount, L"%s", L"?L");
+		}
+		return;
+	}
+
+	// Default - return true count.
+	swprintf(gBulletCount, L"%d", usRealBulletCount);
+	return;
+	
+}

@@ -738,9 +738,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 							// character then didn't trigger the end of boxing record
 							// (and we know from the if statement above that we're
 							// still in a boxing state of some sort...)
-							//TriggerEndOfBoxingRecord( NULL );
-
-							// HEADROCK HAM 3.6: This should trigger Darren's script
+							// HEADROCK HAM 3.6: The NULL here causes issues of non-payment!
 							TriggerEndOfBoxingRecord( pSoldier );
 						}
 					}
@@ -2247,7 +2245,10 @@ if(!is_networked)//hayden
 				// then call for spotters!  Uses up the rest of his turn (whatever
 				// that may be), but from now on, BLACK AI NPC may radio sightings!
 				gTacticalStatus.ubSpottersCalledForBy = pSoldier->ubID;
-				pSoldier->bActionPoints = 0;
+				// HEADROCK HAM 3.1: This may be causing problems with HAM's lowered AP limit. From now on, we'll check
+				// whether the soldier has more than 0 APs to begin with.
+				if (pSoldier->bActionPoints > 0)
+					pSoldier->bActionPoints = 0;
 
 #ifdef DEBUGDECISIONS
 				AINameMessage(pSoldier,"calls for spotters!",1000);
@@ -2304,7 +2305,10 @@ if(!is_networked)//hayden
 				// then call for spotters!  Uses up the rest of his turn (whatever
 				// that may be), but from now on, BLACK AI NPC may radio sightings!
 				gTacticalStatus.ubSpottersCalledForBy = pSoldier->ubID;
-				pSoldier->bActionPoints = 0;
+				// HEADROCK HAM 3.1: This may be causing problems with HAM's lowered AP limit. From now on, we'll check
+				// whether the soldier has more than 0 APs to begin with.
+				if (pSoldier->bActionPoints > 0)
+					pSoldier->bActionPoints = 0;
 
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: calling for sniper spotters");
 
@@ -3161,7 +3165,7 @@ if(!is_networked)//hayden
 			// is terribly important if Suppression Shock is enabled.
 			UINT16 bShock = 0;
 
-			if (gGameExternalOptions.fSuppressionShock)
+			if (gGameExternalOptions.usSuppressionShockEffect > 0 )
 			{
 				// If bShock value is greater than (2*ExpLevel + MoraleModifier)*1.5, the target will flee.
 				bShock = pSoldier->aiData.bShock;

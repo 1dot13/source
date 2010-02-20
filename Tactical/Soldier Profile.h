@@ -197,4 +197,90 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier );
 
 BOOLEAN DoesNPCOwnBuilding( SOLDIERTYPE *pSoldier, INT16 sGridNo );
 
+// HEADROCK PROFEX: Temporary array for merc profile data, read from XML
+typedef struct
+{
+	CHAR16 zName[NAME_LENGTH];
+	CHAR16 zNickname[ NICKNAME_LENGTH ];
+	UINT8		ubFaceIndex;
+	UINT16	usEyesX;
+	UINT16	usEyesY;
+	UINT16	usMouthX;
+	UINT16	usMouthY;
+	UINT32	uiEyeDelay;
+	UINT32	uiMouthDelay;
+	UINT32	uiBlinkFrequency;
+	UINT32	uiExpressionFrequency;
+
+	PaletteRepID		PANTS;
+	PaletteRepID		VEST;
+	PaletteRepID		SKIN;
+	PaletteRepID		HAIR;
+
+	INT8		bSex;
+	UINT8		ubBodyType;
+	UINT32		uiBodyTypeSubFlags;
+
+	INT8		bAttitude;
+	INT8		bPersonalityTrait;
+	UINT8		ubNeedForSleep;
+
+	INT8		bReputationTolerance;
+	INT8		bDeathRate;
+
+	INT8		bLifeMax;
+	INT8		bLife;
+	INT8		bStrength;
+	INT8		bAgility;
+	INT8		bDexterity;	
+	INT8		bWisdom;
+	INT8		bMarksmanship;
+	INT8		bExplosive;
+	INT8		bLeadership;
+	INT8		bMedical;
+	INT8		bMechanical;
+
+	INT8		bExpLevel;
+
+	INT8		bEvolution;
+	INT8		bSkillTrait;
+	INT8		bSkillTrait2;
+
+	INT8		bBuddy[5];
+	INT8		bLearnToLike;
+	INT8		bLearnToLikeTime;
+
+	INT8		bHated[5];
+	INT8		bHatedTime[5];
+	INT8		bLearnToHate;
+	INT8		bLearnToHateTime;
+
+	INT16		sSalary;
+	UINT32		uiWeeklySalary;
+	UINT32		uiBiWeeklySalary;
+	INT8		bMedicalDeposit;
+	UINT16		sMedicalDepositAmount;
+	UINT16		usOptionalGearCost;
+
+	INT8		bArmourAttractiveness;
+	INT8		bMainGunAttractiveness;
+
+	// This boolean DOES NOT EXIST in gMercProfiles - it is part of a flag set called ubMiscFlags. This code
+	// reads the boolean and applies the flag to that flagset, if true.
+	BOOLEAN		fGoodGuy;
+
+	UINT16		usApproachFactor[4];
+
+	INT8 bMercOpinion[75];
+
+} TEMPPROFILETYPE;
+
+extern TEMPPROFILETYPE tempProfiles[NUM_PROFILES+1];
+
+extern BOOLEAN WriteMercProfiles();
+extern BOOLEAN WriteMercOpinions();
+
+void OverwriteMercProfileWithXMLData( UINT32 uiLoop );
+void OverwriteMercOpinionsWithXMLData( UINT32 uiLoop );
+
 #endif

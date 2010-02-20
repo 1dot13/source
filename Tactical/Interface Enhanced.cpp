@@ -296,16 +296,16 @@ UINT8 UsingEDBSystem()
 	{
 		if(guiCurrentScreen == MAP_SCREEN)	//Strategic
 		{
-			if(gGameExternalOptions.fEnhancedDescriptionBox == 0)
+			if(gGameExternalOptions.iEnhancedDescriptionBox == 0)
 				return 1;
-			if(gGameExternalOptions.fEnhancedDescriptionBox == 1)
+			if(gGameExternalOptions.iEnhancedDescriptionBox == 1)
 				return 1;
 		}
 		else	//Tactical
 		{
-			if(gGameExternalOptions.fEnhancedDescriptionBox == 0)
+			if(gGameExternalOptions.iEnhancedDescriptionBox == 0)
 				return (UsingNewInventorySystem()==true?1:2);
-			if(gGameExternalOptions.fEnhancedDescriptionBox == 2)
+			if(gGameExternalOptions.iEnhancedDescriptionBox == 2)
 				return (UsingNewInventorySystem()==true?1:2);
 		}
 	}
@@ -856,8 +856,8 @@ void InitDescStatCoords()
 				gWeaponStats[18].sX = 268;	gWeaponStats[18].sY = 136;	gWeaponStats[18].sValDx = 30;	// 18) COL 4; ROW 1
 				gWeaponStats[19].sX = 268;	gWeaponStats[19].sY = 148;	gWeaponStats[19].sValDx = 30;	// 19) COL 4; ROW 2
 				gWeaponStats[20].sX = 268;	gWeaponStats[20].sY = 160;	gWeaponStats[20].sValDx = 30;	// 20) COL 4; ROW 3
-				gWeaponStats[21].sX = 203;	gWeaponStats[21].sY = 172;	gWeaponStats[21].sValDx = 30;	// 21) COL 3; ROW 4
-				gWeaponStats[22].sX = 268;	gWeaponStats[22].sY = 172;	gWeaponStats[22].sValDx = 30;	// 22) COL 4; ROW 4
+				gWeaponStats[21].sX = 268;	gWeaponStats[21].sY = 172;	gWeaponStats[21].sValDx = 30;	// 21) COL 4; ROW 4
+				gWeaponStats[22].sX = 203;	gWeaponStats[22].sY = 172;	gWeaponStats[22].sValDx = 30;	// 22) COL 3; ROW 4
 				// EQUALS signs
 				gWeaponStats[23].sX = 235;	gWeaponStats[23].sY = 44;	gWeaponStats[23].sValDx = 0;	// 23) COL 1; ROW 1
 				gWeaponStats[24].sX = 235;	gWeaponStats[24].sY = 56;	gWeaponStats[24].sValDx = 0;	// 24) COL 1; ROW 2
@@ -878,8 +878,8 @@ void InitDescStatCoords()
 				gWeaponStats[39].sX = 300;	gWeaponStats[39].sY = 136;	gWeaponStats[39].sValDx = 0;	// 39) COL 4; ROW 1
 				gWeaponStats[40].sX = 300;	gWeaponStats[40].sY = 148;	gWeaponStats[40].sValDx = 0;	// 40) COL 4; ROW 2
 				gWeaponStats[41].sX = 300;	gWeaponStats[41].sY = 160;	gWeaponStats[41].sValDx = 0;	// 41) COL 4; ROW 3
-				gWeaponStats[42].sX = 235;	gWeaponStats[42].sY = 172;	gWeaponStats[42].sValDx = 0;	// 42) COL 3; ROW 4
-				gWeaponStats[43].sX = 300;	gWeaponStats[43].sY = 172;	gWeaponStats[43].sValDx = 0;	// 43) COL 4; ROW 4
+				gWeaponStats[42].sX = 300;	gWeaponStats[42].sY = 172;	gWeaponStats[42].sValDx = 0;	// 42) COL 4; ROW 4
+				gWeaponStats[43].sX = 235;	gWeaponStats[43].sY = 172;	gWeaponStats[43].sValDx = 0;	// 43) COL 3; ROW 4
 				// Nonregular locations for explosive radius values (COL 2; ROW 3)
 				gWeaponStats[44].sX = 273;	gWeaponStats[44].sY = 68;	gWeaponStats[44].sValDx = 0;	// 44) COL 2; ROW 3; LOC 1 - Starting Radius
 				gWeaponStats[45].sX = 291;	gWeaponStats[45].sY = 68;	gWeaponStats[45].sValDx = 0;	// 45) COL 2; ROW 3; LOC 2 - Single Radius
@@ -5988,10 +5988,10 @@ void DrawMiscValues( OBJECTTYPE * gpItemDescObject )
 	// HIDE MUZZLE FLASH
 	// NO DATA SHOWN, icon either appears or does not appear.
 	// HEADROCK HAM 3.5 - Fixed this, because the count needs to be increased to skip a line!
-    if ( Item[ gpItemDescObject->usItem ].hidemuzzleflash > 0 && cnt<=27 )
-    {
-        cnt++;
-    }
+	if ( Item[ gpItemDescObject->usItem ].hidemuzzleflash > 0 && cnt<=27 )
+	{
+		cnt++;
+	}
 
 	// BIPOD
 	if ( Item[ gpItemDescObject->usItem ].bipod != 0 && cnt<=27 )

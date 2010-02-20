@@ -667,7 +667,17 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			{
 				if ( gTacticalStatus.fCivGroupHostile[ Soldier.ubCivilianGroup ] == CIV_GROUP_HOSTILE )
 				{
-					Soldier.aiData.bNeutral = FALSE;
+					// HEADROCK HAM 3.6: Flag to prevent non-combat civilians from becoming hostile and forcing
+					// you to kill them...
+					if (!gGameExternalOptions.fCanTrueCiviliansBecomeHostile && 
+						(Soldier.ubBodyType >= FATCIV && Soldier.ubBodyType <= CRIPPLECIV ))
+					{
+						Soldier.aiData.bNeutral = TRUE;
+					}
+					else
+					{
+						Soldier.aiData.bNeutral = FALSE;
+					}
 				}
 				else
 				{
@@ -1211,34 +1221,47 @@ void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass )
 	// OK, After skin, hair we could have a forced color scheme.. use here if so
 	switch( ubSoldierClass )
 	{
+		// HEADROCK HAM 3.6: Now reads default colors from XML.
 		case SOLDIER_CLASS_ADMINISTRATOR:
-			SET_PALETTEREP_ID( pSoldier->VestPal, "YELLOWVEST"	);
-			SET_PALETTEREP_ID( pSoldier->PantsPal, "GREENPANTS"	);
+			//SET_PALETTEREP_ID( pSoldier->VestPal, "YELLOWVEST"	);
+			//SET_PALETTEREP_ID( pSoldier->PantsPal, "GREENPANTS"	);
+			SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_ENEMY_ADMIN ].vest );
+			SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_ENEMY_ADMIN ].pants );
 			pSoldier->ubSoldierClass = ubSoldierClass;
 			return;
 		case SOLDIER_CLASS_ELITE:
-			SET_PALETTEREP_ID( pSoldier->VestPal, "BLACKSHIRT"	);
-			SET_PALETTEREP_ID( pSoldier->PantsPal, "BLACKPANTS"	);
+			//SET_PALETTEREP_ID( pSoldier->VestPal, "BLACKSHIRT"	);
+			//SET_PALETTEREP_ID( pSoldier->PantsPal, "BLACKPANTS"	);
+			SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_ENEMY_ELITE ].vest );
+			SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_ENEMY_ELITE ].pants );
 			pSoldier->ubSoldierClass = ubSoldierClass;
 			return;
 		case SOLDIER_CLASS_ARMY:
-			SET_PALETTEREP_ID( pSoldier->VestPal, "REDVEST"	);
-			SET_PALETTEREP_ID( pSoldier->PantsPal, "GREENPANTS"	);
+			//SET_PALETTEREP_ID( pSoldier->VestPal, "REDVEST"	);
+			//SET_PALETTEREP_ID( pSoldier->PantsPal, "GREENPANTS"	);
+			SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_ENEMY_TROOP ].vest );
+			SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_ENEMY_TROOP ].pants );
 			pSoldier->ubSoldierClass = ubSoldierClass;
 			return;
 		case SOLDIER_CLASS_GREEN_MILITIA:
-			SET_PALETTEREP_ID( pSoldier->VestPal, "GREENVEST"	);
-			SET_PALETTEREP_ID( pSoldier->PantsPal, "BEIGEPANTS"	);
+			//SET_PALETTEREP_ID( pSoldier->VestPal, "GREENVEST"	);
+			//SET_PALETTEREP_ID( pSoldier->PantsPal, "BEIGEPANTS"	);
+			SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_MILITIA_ROOKIE ].vest );
+			SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_MILITIA_ROOKIE ].pants );
 			pSoldier->ubSoldierClass = ubSoldierClass;
 			return;
 		case SOLDIER_CLASS_REG_MILITIA:
-			SET_PALETTEREP_ID( pSoldier->VestPal, "JEANVEST"	);
-			SET_PALETTEREP_ID( pSoldier->PantsPal, "BEIGEPANTS"	);
+			//SET_PALETTEREP_ID( pSoldier->VestPal, "JEANVEST"	);
+			//SET_PALETTEREP_ID( pSoldier->PantsPal, "BEIGEPANTS"	);
+			SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_MILITIA_REGULAR ].vest );
+			SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_MILITIA_REGULAR ].pants );
 			pSoldier->ubSoldierClass = ubSoldierClass;
 			return;
 		case SOLDIER_CLASS_ELITE_MILITIA:
-			SET_PALETTEREP_ID( pSoldier->VestPal, "BLUEVEST"	);
-			SET_PALETTEREP_ID( pSoldier->PantsPal, "BEIGEPANTS"	);
+			//SET_PALETTEREP_ID( pSoldier->VestPal, "BLUEVEST"	);
+			//SET_PALETTEREP_ID( pSoldier->PantsPal, "BEIGEPANTS"	);
+			SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[ UNIFORM_MILITIA_ELITE ].vest );
+			SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[ UNIFORM_MILITIA_ELITE ].pants );
 			pSoldier->ubSoldierClass = ubSoldierClass;
 			return;
 		case SOLDIER_CLASS_MINER:
@@ -1561,6 +1584,7 @@ void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 	pSoldier->uiXRayActivatedTime			= 0;
 	pSoldier->bBulletsLeft						= 0;
 	pSoldier->bVehicleUnderRepairID		= -1;
+	pSoldier->sFacilityTypeOperated		= -1; // HEADROCK HAM 3.6: Facility Operated
 }
 
 
@@ -1973,7 +1997,9 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 
 				case BLOODCAT:
 					pp->bExpLevel = 5 + bExpLevelModifier;
-					if( SECTOR( gWorldSectorX, gWorldSectorY ) == SEC_I16 )
+					// HEADROCK HAM 3.6: There can be several lairs now. Find out if this one is.
+					UINT8 PlacementType = gBloodcatPlacements[ SECTOR(gWorldSectorX, gWorldSectorY) ][0].PlacementType;
+					if( PlacementType == BLOODCAT_PLACEMENT_LAIR )
 					{
 						pp->bExpLevel += gGameOptions.ubDifficultyLevel;
 					}

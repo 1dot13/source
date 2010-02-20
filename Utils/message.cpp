@@ -45,8 +45,9 @@ typedef struct
 #define MAX_LINE_COUNT 6
 #define X_START 2
 #define MAX_AGE 10000
-#define LINE_WIDTH 320
-#define MAP_LINE_WIDTH 300
+// HEADROCK HAM 3.6: Turned into a variable.
+UINT16 LINE_WIDTH;
+UINT16 MAP_LINE_WIDTH;
 #define WIDTH_BETWEEN_NEW_STRINGS 5
 
 #define BETAVERSION_COLOR FONT_ORANGE
@@ -70,7 +71,12 @@ UINT8 gubCurrentMapMessageString = 0;
 BOOLEAN fOkToBeepNewMessage = TRUE;
 
 
-static ScrollStringStPtr	gpDisplayList[ MAX_LINE_COUNT ];
+// HEADROCK HAM 3.6: Increased size of absolute MAXIMUM possible displayed messages to 36 (the most that can be seen
+// in a 1024x768 display. There's now an INI setting that allows displaying up to 36 in the tactical screen. 
+// Strategic screen not yet changed. Please note that there are also fail-safes that make sure that the actual
+// maximum isn't more that can be displayed given the resolution being used.
+//static ScrollStringStPtr	gpDisplayList[ MAX_LINE_COUNT ];
+static ScrollStringStPtr	gpDisplayList[ 36 ];
 static ScrollStringStPtr gMapScreenMessageList[ 256 ];
 extern ScrollStringStPtr pStringS=NULL;
 
@@ -134,7 +140,8 @@ void PlayNewMessageSound( void );
 
 void HandleLastQuotePopUpTimer( void );
 
-
+// HEADROCK HAM 3.6: External boolean tells game to re-render map screen message log panel.
+extern BOOLEAN fMapScreenBottomDirty;
 
 // functions
 
@@ -335,8 +342,10 @@ void ClearDisplayedListOfTacticalStrings( void )
 {
 	// this function will go through list of display strings and clear them all out
 	UINT32 cnt;
-
-	for ( cnt = 0; cnt < MAX_LINE_COUNT; cnt++ )
+	
+	// HEADROCK HAM 3.6: Number of messages to display now depends on external options.
+	//for ( cnt = 0; cnt < MAX_LINE_COUNT; cnt++ )
+	for ( cnt = 0; cnt < gGameExternalOptions.ubMaxMessagesTactical; cnt++ )
 	{
 		if ( gpDisplayList[ cnt ] != NULL )
 		{
@@ -368,7 +377,6 @@ void ScrollString( )
 
 	INT16 iMsgYStart = ((UsingNewInventorySystem() == false)) ? SCREEN_HEIGHT - 150 : SCREEN_HEIGHT - 210;
 
-
 	// UPDATE TIMER
 	suiTimer=GetJA2Clock();
 
@@ -379,6 +387,9 @@ void ScrollString( )
 	{
 		return;
 	}
+
+	// HEADROCK HAM 3.6: This replaces the static variable MAX_LINE_COUNT for all tactical displays.
+	UINT8 ubLines = gGameExternalOptions.ubMaxMessagesTactical;
 
 	// DONOT UPDATE IF WE ARE SCROLLING!
 	if ( gfScrollPending || gfScrollInertia )
@@ -395,7 +406,7 @@ void ScrollString( )
 	iNumberOfMessagesOnQueue = GetMessageQueueSize( );
 	iMaxAge =	MAX_AGE;
 
-	if( ( iNumberOfMessagesOnQueue > 0 )&&( gpDisplayList[ MAX_LINE_COUNT - 1 ] != NULL) )
+	if( ( iNumberOfMessagesOnQueue > 0 )&&( gpDisplayList[ ubLines - 1 ] != NULL) )
 	{
 		fDitchLastMessage = TRUE;
 	}
@@ -416,11 +427,11 @@ void ScrollString( )
 	}
 
 	//AGE
-	for ( cnt = 0; cnt < MAX_LINE_COUNT; cnt++ )
+	for ( cnt = 0; cnt < ubLines; cnt++ )
 	{
 		if ( gpDisplayList[ cnt ] != NULL )
 		{
-			if( ( fDitchLastMessage ) && ( cnt == MAX_LINE_COUNT - 1 ) )
+			if( ( fDitchLastMessage ) && ( cnt == ubLines - 1 ) )
 			{
 				gpDisplayList[ cnt ]->uiTimeOfLastUpdate = iMaxAge;
 			}
@@ -446,12 +457,12 @@ void ScrollString( )
 	{
 		// CHECK IF WE HAVE A SLOT!
 		// CHECK OUR LAST SLOT!
-		if ( gpDisplayList[ MAX_LINE_COUNT - 1 ] == NULL )
+		if ( gpDisplayList[ ubLines - 1 ] == NULL )
 		{
 			// MOVE ALL UP!
 
 		// cpy, then move
-		for( cnt = MAX_LINE_COUNT - 1; cnt > 0; cnt-- )
+		for( cnt = ubLines - 1; cnt > 0; cnt-- )
 		{
 				gpDisplayList[ cnt ] =	gpDisplayList[ cnt - 1 ];
 		}
@@ -469,7 +480,7 @@ void ScrollString( )
 		pStringS->uiTimeOfLastUpdate = GetJA2Clock();
 
 		// now move
-		for ( cnt = 0; cnt <= MAX_LINE_COUNT - 1; cnt++ )
+		for ( cnt = 0; cnt <= (UINT8)(ubLines - 1); cnt++ )
 		{
 
 				// Adjust position!
@@ -500,7 +511,7 @@ void ScrollString( )
 		}
 
 		//check if new meesage we have not seen since mapscreen..if so, beep
-			if( ( fOkToBeepNewMessage == TRUE ) && ( gpDisplayList[ MAX_LINE_COUNT - 2 ] == NULL ) && ( ( guiCurrentScreen == GAME_SCREEN ) || ( guiCurrentScreen == MAP_SCREEN ) ) && ( gfFacePanelActive == FALSE ) )
+			if( ( fOkToBeepNewMessage == TRUE ) && ( gpDisplayList[ ubLines - 2 ] == NULL ) && ( ( guiCurrentScreen == GAME_SCREEN ) || ( guiCurrentScreen == MAP_SCREEN ) ) && ( gfFacePanelActive == FALSE ) )
 			{
 				PlayNewMessageSound( );
 			}
@@ -541,7 +552,19 @@ void HideMessagesDuringNPCDialogue( void )
 	fScrollMessagesHidden = TRUE;
 	uiStartOfPauseTime = GetJA2Clock();
 
-	for ( cnt = 0; cnt < MAX_LINE_COUNT; cnt++ )
+	UINT8 ubLines = 0;
+
+	// HEADROCK HAM 3.6: Different number of lines shown in Tactical and Strategic modes.
+	if( guiCurrentScreen == MAP_SCREEN )
+	{
+		ubLines = MAX_LINE_COUNT;
+	}
+	else
+	{
+		ubLines = gGameExternalOptions.ubMaxMessagesTactical;
+	}
+
+	for ( cnt = 0; cnt < ubLines; cnt++ )
 	{
 			if ( gpDisplayList[ cnt ] != NULL )
 			{
@@ -567,7 +590,19 @@ void UnHideMessagesDuringNPCDialogue( void )
 	VideoOverlayDesc.uiFlags	= VOVERLAY_DESC_DISABLED;
 	fScrollMessagesHidden				= FALSE;
 
-	for ( cnt = 0; cnt < MAX_LINE_COUNT; cnt++ )
+	UINT8 ubLines = 0;
+
+	// HEADROCK HAM 3.6: Different number of lines shown in Tactical and Strategic modes.
+	if( guiCurrentScreen == MAP_SCREEN )
+	{
+		ubLines = MAX_LINE_COUNT;
+	}
+	else
+	{
+		ubLines = gGameExternalOptions.ubMaxMessagesTactical;
+	}
+
+	for ( cnt = 0; cnt < ubLines; cnt++ )
 	{
 		if ( gpDisplayList[ cnt ] != NULL )
 		{
@@ -804,10 +839,12 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 
 	if ( ubPriority == MSG_INTERFACE )
 	{
-		usColor = INTERFACE_COLOR;
+		// HEADROCK HAM 3.6: Why force yellow? Let's not.
+		//usColor = INTERFACE_COLOR;
 	}
 
-
+	// HEADROCK HAM 3.6: Allow for longer lines.
+	LINE_WIDTH = (SCREEN_WIDTH - 320);
 
 	pStringWrapperHead=LineWrap(uiFont, LINE_WIDTH, &usLineWidthIfWordIsWiderThenWidth, DestString);
 	pStringWrapper=pStringWrapperHead;
@@ -1004,8 +1041,12 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 
 	if ( ubPriority == MSG_INTERFACE )
 	{
-		usColor = INTERFACE_COLOR;
+		// HEADROCK HAM 3.6: Why force yellow? Let's not.
+		//usColor = INTERFACE_COLOR;
 	}
+
+	// HEADROCK HAM 3.6: Allow for longer lines.
+	MAP_LINE_WIDTH = (SCREEN_WIDTH - 330);
 
 	pStringWrapperHead=LineWrap(uiFont, MAP_LINE_WIDTH, &usLineWidthIfWordIsWiderThenWidth, DestString);
 	pStringWrapper=pStringWrapperHead;
@@ -1023,7 +1064,9 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	}
 
 	AddStringToMapScreenMessageList(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority );
-
+	// HEADROCK HAM 3.6: Refresh screen bottom.
+	fMapScreenBottomDirty = TRUE;
+	//RenderMapScreenInterfaceBottom ( TRUE );
 
 	// clear up list of wrapped strings
 	ClearWrappedStrings( pStringWrapperHead );
@@ -1099,7 +1142,8 @@ void DisplayStringsInMapScreenMessageList( void )
 	// CHRISL: Change both X paramters so they dynamically generate from right edge of screen
 	//SetFontDestBuffer( FRAME_BUFFER, (SCREEN_WIDTH - 509), (SCREEN_HEIGHT - 114), (SCREEN_WIDTH - 233), (SCREEN_HEIGHT - 114) + 101, FALSE );
 	// CHRISL: Use this setup if we want message box on the left side
-	SetFontDestBuffer( FRAME_BUFFER, 17, (SCREEN_HEIGHT - 114), 407, (SCREEN_HEIGHT - 114) + 101, FALSE );
+	// HEADROCK HAM 3.6: Message window now as wide as possible. The money screen has been moved to the right side.
+	SetFontDestBuffer( FRAME_BUFFER, 17, (SCREEN_HEIGHT - 114), (SCREEN_WIDTH - 330), (SCREEN_HEIGHT - 114) + 101, FALSE );
 
 	SetFont( MAP_SCREEN_MESSAGE_FONT );		// no longer supports variable fonts
 	SetFontBackground( FONT_BLACK );
@@ -1150,8 +1194,18 @@ void EnableDisableScrollStringVideoOverlay( BOOLEAN fEnable )
 	// will go through the list of video overlays for the tactical scroll message system, and enable/disable
 	// video overlays depending on fEnable
 	INT8 bCounter = 0;
+	UINT8 ubLines = 0;
 
-	for( bCounter = 0; bCounter < MAX_LINE_COUNT; bCounter++ )
+	if( guiCurrentScreen == MAP_SCREEN )
+	{
+		ubLines = MAX_LINE_COUNT;
+	}
+	else
+	{
+		ubLines = gGameExternalOptions.ubMaxMessagesTactical;
+	}
+	
+	for( bCounter = 0; bCounter < ubLines; bCounter++ )
 	{
 
 		// if valid, enable/disable

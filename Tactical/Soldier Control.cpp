@@ -959,6 +959,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 
 		this->snowCamo = src.snowCamo;
 		this->wornSnowCamo = src.wornSnowCamo;
+
     }
     return *this;
 }
@@ -1794,6 +1795,9 @@ void HandleCrowShadowNewPosition( SOLDIERTYPE *pSoldier )
 
 extern INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse);
 
+// This function calculates how many APs are added to a character's pool at the start of the round. The normal maximum
+// amount that can be added is 80% of the Maximum AP value, with the remaining 20% coming from APs reserved in the
+// previous round. See also CalcNewActionPoints()
 INT16 SOLDIERTYPE::CalcActionPoints( void )
 {
 	INT16 ubPoints,ubMaxAPs;
@@ -1850,8 +1854,11 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 
 	// If resulting APs are below our permitted minimum, raise them to it!
 	// HEADROCK: Enforce new minimums due to suppression. I should've done this neater though.
-	if (ubPoints < APBPConstants[AP_MIN_LIMIT])
-		ubPoints = APBPConstants[AP_MIN_LIMIT];
+	// HEADROCK HAM 3.6: This was the wrong place to put AP_MIN_LIMIT. The value here should be AP_MINIMUM, which is
+	// the minimum amount of APs a character can GAIN each turn on top of what he had last turn. AP_MIN_LIMIT has been
+	// moved to CalcNewActionPoints() where it belongs.
+	if (ubPoints < APBPConstants[AP_MINIMUM])
+		ubPoints = APBPConstants[AP_MINIMUM];
 
 	// make sure action points doesn't exceed the permitted maximum
 	ubMaxAPs = gubMaxActionPoints[ this->ubBodyType ];
@@ -1975,6 +1982,10 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 	}
 
 	this->bActionPoints					+= this->CalcActionPoints( );
+	// HEADROCK HAM 3.6: This should've been here all along. This enforces an absolute minimum limit on APs, which
+	// can be negative.
+	if (this->bActionPoints < APBPConstants[AP_MIN_LIMIT])
+		this->bActionPoints = APBPConstants[AP_MIN_LIMIT];
 
 	// Don't max out if we are drugged....
 	if ( !GetDrugEffect( this, DRUG_TYPE_ADRENALINE ) )
@@ -5511,7 +5522,9 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 			{
 				if ( gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ] )
 				{
-					if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= MAX_DISTANCE_FOR_MESSY_DEATH || (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && usWeaponIndex == BARRETT ))
+					// HEADROCK HAM 3.6: Reattached "Max Distance For Messy Death" tag from the XML! God knows why it wasn't attached when they MADE THAT TAG.
+					//if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= Weapon[usWeaponIndex].maxdistformessydeath || (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && usWeaponIndex == BARRETT ))
+					if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= Weapon[usWeaponIndex].maxdistformessydeath)
 					{
 						sNewGridNo = NewGridNo( (INT16)pSoldier->sGridNo, (INT8)( DirectionInc( pSoldier->ubDirection ) ) );
 
@@ -5532,7 +5545,9 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 			{
 				if ( gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ] )
 				{
-					if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= MAX_DISTANCE_FOR_MESSY_DEATH || (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && usWeaponIndex == BARRETT ))
+					// HEADROCK HAM 3.6: Reattached "Max Distance For Messy Death" tag from the XML! God knows why it wasn't attached when they MADE THAT TAG.
+					//if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= Weapon[usWeaponIndex].maxdistformessydeath || (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && usWeaponIndex == BARRETT ))
+					if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= Weapon[usWeaponIndex].maxdistformessydeath)
 					{
 
 						// possibly play torso explosion anim!
@@ -5581,6 +5596,11 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 
 	if ( fFallenOver )
 	{
+		// HEADROCK HAM 3.2: Critical legshots cost an extra number of APs, based on shot damage.
+		if (gGameExternalOptions.fCriticalLegshotCausesAPLoss)
+		{
+			DeductPoints( pSoldier, APBPConstants[AP_LOSS_PER_LEGSHOT_DAMAGE]*sDamage, 0);
+		}
 		SoldierCollapse( pSoldier );
 		return;
 	}
@@ -6613,25 +6633,24 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		this->CalcNewActionPoints( );
 
 		// HEADROCK HAM 3.6: If this soldier is in a "moving" animation, but has not moved any tiles
-        // in the previous turn, then the player has apparently forgotten that he was moving.
-        // In this case, abort the character's action.
-        
-		// If hasn't moved since the start of last round
-        // AND this function is being executed in Turn Based mode
-        // AND character is a player-controlled merc
-		if (!fFromRealTime && !this->bTilesMoved && this->bTeam == OUR_TEAM )
-        {
-            // but are doing a movement animation
-            if ( !( gAnimControl[ this->usAnimState ].uiFlags & ANIM_STATIONARY ) )
-            {
-                // Stop the merc
-                this->EVENT_StopMerc( this->sGridNo, this->ubDirection );
-				this->pathing.sFinalDestination = NOWHERE;
-            }
+		// in the previous turn, then the player has apparently forgotten that he was moving.
+		// In this case, abort the character's action.
 
-            // Reset destination
-            //this->pathing.sFinalDestination = this->sGridNo;
-        }
+		// If hasn't moved since the start of last round
+		// AND this function is being executed in Turn Based mode
+		// AND character is a player-controlled merc
+		if (!fFromRealTime && !this->bTilesMoved && this->bTeam == OUR_TEAM )
+		{
+			// but is doing a movement animation
+			if ( !( gAnimControl[ this->usAnimState ].uiFlags & ANIM_STATIONARY ) )
+			{
+				// Stop the merc
+				this->EVENT_StopMerc( this->sGridNo, this->ubDirection );
+				// Reset destination
+				//this->pathing.sFinalDestination = this->sGridNo;
+				this->pathing.sFinalDestination = NOWHERE;
+			}
+		}
 
 		this->bTilesMoved						= 0;
 
@@ -6711,15 +6730,11 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		this->usQuoteSaidExtFlags &= ( ~SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL );
 		this->bNumHitsThisTurn = 0;
 		this->ubSuppressionPoints = 0;
-		// HEADROCK HAM B2: Optional fix for suppression. This clears up the value that measures suppression
-		// accumulated so far. Previously, the value was NEVER cleared, which means that a character could
-		// only be suppressed ONCE in the game (unless they die or get deleted). There's really no reason to
-		// keep this in an IF statement though, as it should, by all rights, erase itself each turn at the very
-		// least to avoid the once-in-a-lifetime suppression problem.
-		if (gGameExternalOptions.iClearSuppression == 1)
-		{
-			this->ubAPsLostToSuppression = 0;
-		}
+
+		// HEADROCK HAM 3.5: After considerable testing, suppression is now cleared after every attack. Total APs lost
+		// is cleared every turn (here) and only acts as reference now (no effect on AP loss).
+		this->ubAPsLostToSuppression = 0;
+
 		this->flags.fCloseCall = FALSE;
 
 		this->ubMovementNoiseHeard = 0;

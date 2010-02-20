@@ -48,6 +48,8 @@
 #include "fresh_header.h"
 #include "test_space.h"
 #include "WorldDat.h"
+// HEADROCK HAM 3.6: This must be included, for testing whether Bloodcats and Enemies can see one another.
+#include "Campaign Types.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -2009,19 +2011,46 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 	fOk = CalculateSoldierZPos( pStartSoldier, LOS_POS, &dStartZPos );
 	CHECKF( fOk );
 
-	if ( gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_N )
+	// HEADROCK HAM 3.6: Location of static sectors externalized, and there can be more than one. Also, modders can
+	// determine whether bloodcats really are blind to enemies here at all.
+	UINT8 ubSectorID = SECTOR(gWorldSectorX,gWorldSectorY);
+	UINT8 PlacementType = gBloodcatPlacements[ ubSectorID ][ 0 ].PlacementType;
+	// Does sector contain a Bloodcat Garrison?
+	if (PlacementType == BLOODCAT_PLACEMENT_STATIC)
 	{
-		// in the bloodcat arena sector, skip sight between army & bloodcats
-		if ( pStartSoldier->bTeam == ENEMY_TEAM && pEndSoldier->bTeam == CREATURE_TEAM )
+		// Are bloodcats set to forgo attacking enemies?
+		if (gBloodcatPlacements[ ubSectorID ][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation == QUEENS_CIV_GROUP)
 		{
-			return( 0 );
+			// skip sight between army & bloodcats
+			if ( pStartSoldier->bTeam == ENEMY_TEAM && pEndSoldier->bTeam == CREATURE_TEAM && pEndSoldier->ubBodyType == BLOODCAT )
+			{
+				return( 0 );
+			}
+			if ( pStartSoldier->bTeam == CREATURE_TEAM && pStartSoldier->ubBodyType == BLOODCAT && pEndSoldier->bTeam == ENEMY_TEAM )
+			{
+				return( 0 );
+			}
 		}
-		if ( pStartSoldier->bTeam == CREATURE_TEAM && pEndSoldier->bTeam == ENEMY_TEAM )
+		else if (gBloodcatPlacements[ ubSectorID ][ gGameOptions.ubDifficultyLevel-1 ].ubFactionAffiliation > NON_CIV_GROUP)
 		{
-			return( 0 );
+			// Bloodcats in this sector belong to a faction. They adhere to certain rules as a result.
+			if ( pEndSoldier->bTeam == CREATURE_TEAM && pEndSoldier->ubBodyType == BLOODCAT && pStartSoldier->bSide != gbPlayerNum)
+			{
+				// Target is a bloodcat. He can't be spotted by civilians no matter what.
+				{
+					return ( 0 );
+				}
+			}
+			else if ( pStartSoldier->bTeam == CREATURE_TEAM && pStartSoldier->ubBodyType == BLOODCAT )
+			{
+				// Source is a bloodcat. He can only spot player-side soldiers, and only if hostile.
+				if ( pEndSoldier->bSide != gbPlayerNum || pStartSoldier->aiData.bNeutral )
+				{
+					return ( 0 );
+				}
+			}
 		}
 	}
-
 
 	if (pStartSoldier->flags.uiStatusFlags & SOLDIER_MONSTER)
 	{
@@ -4002,11 +4031,11 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	}
 	// HEADROCK HAM B2.5: Set tracer effect on/off for individual bullets in a Tracer Magazine, as part of the
 	// New Tracer System.
-	else if (gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && (pFirer->bDoAutofire > 0 || pFirer->bDoBurst > 0)
+	else if (gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && (pFirer->bDoAutofire > 0 || pFirer->bDoBurst > 0)
 		&& AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].tracerEffect )
 	{
 		UINT16 iBulletsLeft, iBulletsPerTracer;
-		iBulletsPerTracer = gGameExternalOptions.iNumBulletsPerTracer;
+		iBulletsPerTracer = gGameExternalOptions.ubNumBulletsPerTracer;
 		iBulletsLeft = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
 
 		if ((((iBulletsLeft - (pFirer->bDoBurst - 1)) / iBulletsPerTracer) - ((iBulletsLeft - pFirer->bDoBurst) / iBulletsPerTracer)) == 1)
@@ -4345,11 +4374,11 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 		pBullet->iDistanceLimit = iDistance;
 		// HEADROCK HAM BETA2.5: New method for signifying whether a bullet is a tracer or not, using an individual
 		// bullet structure flag. Hehehehe, I think this is kind of reverting to old code, isn't it?
-		if (gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && (pFirer->bDoAutofire > 0 || pFirer->bDoBurst > 0)
+		if (gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && (pFirer->bDoAutofire > 0 || pFirer->bDoBurst > 0)
 			&& AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].tracerEffect )
 		{
 			UINT16 iBulletsLeft, iBulletsPerTracer;
-			iBulletsPerTracer = gGameExternalOptions.iNumBulletsPerTracer;
+			iBulletsPerTracer = gGameExternalOptions.ubNumBulletsPerTracer;
 			iBulletsLeft = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunShotsLeft + pFirer->bDoBurst;
 
 			// Is this specific bullet a tracer? - based on how many tracers there are per regular bullets in
@@ -4686,9 +4715,13 @@ void MoveBullet( INT32 iBullet )
 
 					if ( IS_MERC_BODY_TYPE( MercPtrs[pStructure->usStructureID] ) )
 					{
+						// HEADROCK HAM 3.3: Externalized distance at which characters suffer from friendly suppression.
+						// previously relied on minimum distance at which characters may suffer from friendly fire HITS.
+						UINT16 MIN_DIST_FOR_SCARE_FRIENDS = gGameExternalOptions.usMinDistanceFriendlySuppression;
+
 						// apply suppression, regardless of friendly or enemy
 						// except if friendly, not within a few tiles of shooter
-						if ( MercPtrs[ pStructure->usStructureID ]->bSide != pBullet->pFirer->bSide || pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS )
+						if ( MercPtrs[ pStructure->usStructureID ]->bSide != pBullet->pFirer->bSide || pBullet->iLoop > MIN_DIST_FOR_SCARE_FRIENDS )
 						{
 							// buckshot has only a 1 in 2 chance of applying a suppression point
 							if ( !(pBullet->usFlags & BULLET_FLAG_BUCKSHOT) || Random( 2 ) )
@@ -4915,7 +4948,7 @@ void MoveBullet( INT32 iBullet )
 				// HEADROCK HAM B2.5: Changed condition to read fTracer flag directly from bullet's struct.
 				// This is for the New Tracer System.
 				if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER*/	) ) 
-					|| ((gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.iRealisticTracers == 0 && fTracer == TRUE)))
+					|| ((gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.ubRealisticTracers == 0 && fTracer == TRUE)))
 				{
 					INT8 bStepsPerMove = STEPS_FOR_BULLET_MOVE_TRAILS;
 
@@ -5205,7 +5238,7 @@ void MoveBullet( INT32 iBullet )
 					// HEADROCK HAM B2.5: Changed condition to read fTracer flag directly from bullet's struct.
 					// This is for the New Tracer System.
 					if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER */) ) 
-						|| ((gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.iRealisticTracers == 0 && fTracer == TRUE)))
+						|| ((gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.ubRealisticTracers == 0 && fTracer == TRUE)))
 					{
 						INT8 bStepsPerMove = STEPS_FOR_BULLET_MOVE_TRAILS;
 

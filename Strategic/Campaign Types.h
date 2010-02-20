@@ -112,19 +112,214 @@ enum
 	MAX_MILITIA_LEVELS
 };
 
-// facilities flags
+// HEADROCK HAM 3.5: No longer needed. Facility types externalized.
+/*// facilities flags
 #define SFCF_HOSPITAL	0x00000001
 #define SFCF_INDUSTRY	0x00000002
 #define SFCF_PRISON		0x00000004
 #define SFCF_MILITARY	0x00000008
 #define SFCF_AIRPORT	0x00000010
-#define SFCF_GUN_RANGE	0x00000020
+#define SFCF_GUN_RANGE	0x00000020*/
 
-// coordinates of shooting range sector
+// HEADROCK HAM 3.4: These are no longer needed anywhere in the code.
+/*// coordinates of shooting range sector
 #define GUN_RANGE_X		13
 #define GUN_RANGE_Y		MAP_ROW_H
 #define GUN_RANGE_Z		0
 
+// HEADROCK HAM 3.2: New values for the location of an Industrial sector in Grumm H2. This sector boosts repair rates.
+#define INDUSTRIAL_X	2
+#define INDUSTRIAL_Y	MAP_ROW_H
+#define INDUSTRIAL_Z	0*/
+
+// HEADROCK HAM 3.4: Facility Locations
+typedef struct FACILITYLOCATIONS
+{
+	BOOLEAN fFacilityHere;
+	UINT8 ubHidden;
+}FACILITYLOCATIONS;
+
+enum
+{
+	// Enumerate the different assignments that a facility can emulate.
+	FAC_AMBIENT = 0,
+	FAC_STAFF,
+	FAC_REST,
+	FAC_REPAIR_ITEMS,
+	FAC_REPAIR_VEHICLE,
+	FAC_REPAIR_ROBOT,
+	FAC_DOCTOR,
+	FAC_PATIENT,
+	FAC_PRACTICE_STRENGTH,
+	FAC_PRACTICE_DEXTERITY,
+	FAC_PRACTICE_AGILITY,
+	FAC_PRACTICE_HEALTH,
+	FAC_PRACTICE_MARKSMANSHIP,
+	FAC_PRACTICE_MEDICAL,
+	FAC_PRACTICE_MECHANICAL,
+	FAC_PRACTICE_LEADERSHIP,
+	FAC_PRACTICE_EXPLOSIVES,
+	FAC_STUDENT_STRENGTH,
+	FAC_STUDENT_DEXTERITY,
+	FAC_STUDENT_AGILITY,
+	FAC_STUDENT_HEALTH,
+	FAC_STUDENT_MARKSMANSHIP,
+	FAC_STUDENT_MEDICAL,
+	FAC_STUDENT_MECHANICAL,
+	FAC_STUDENT_LEADERSHIP,
+	FAC_STUDENT_EXPLOSIVES,
+	FAC_TRAINER_STRENGTH,
+	FAC_TRAINER_DEXTERITY,
+	FAC_TRAINER_AGILITY,
+	FAC_TRAINER_HEALTH,
+	FAC_TRAINER_MARKSMANSHIP,
+	FAC_TRAINER_MEDICAL,
+	FAC_TRAINER_MECHANICAL,
+	FAC_TRAINER_LEADERSHIP,
+	FAC_TRAINER_EXPLOSIVES,
+	NUM_FACILITY_ASSIGNMENTS,
+};
+
+
+// Enumerated list of risk types
+enum
+{
+	RISK_STRENGTH = 0,
+	RISK_HEALTH,
+	RISK_AGILITY,
+	RISK_DEXTERITY,
+	RISK_WISDOM,
+	RISK_MARKSMANSHIP,
+	RISK_LEADERSHIP,
+	RISK_EXPLOSIVES,
+	RISK_MECHANICAL,
+	RISK_MEDICAL,
+
+	RISK_INJURY,
+	RISK_MORALE,
+	RISK_FATIGUE,
+	RISK_DRUNK,
+
+	RISK_LOYALTY_LOCAL,
+	RISK_LOYALTY_GLOBAL,
+
+	NUM_RISKS,
+};
+
+typedef struct FACILITYRISKTYPE
+{
+	// The risks involved with perfoming an assignment at a specific facility.
+
+	UINT8 ubChance;				// Chance out of X that this risk will trigger every hour. X is INI-defined and is normally 1000.
+	INT8 bBaseEffect;			// Base result. If negative, result will always be negative. If positive, result will always be positive.
+								// If 0, result can be either negative or positive.
+	UINT8 ubRange;				// Range of deviation for the base effect.
+
+} FACILITYRISKTYPE;
+
+typedef struct FACILITYASSIGNMENTTYPE
+{
+	// This contains data about performing a specific assignment at a specific facility.
+
+	UINT8 ubStaffLimit;				// Maximum number of people who can perform this assignment simultaneously
+	CHAR16 szTooltipText[300];		// Tooltip explaining the assignment in general terms.
+	INT16 sCostPerHour;				// Cost per hour. Can be negative to indicate FLAT PROFIT per hour.
+
+	UINT16 usPerformance;			// Percentage effectiveness of this assignment compared to non-emulated assignment (100 = normal)
+	UINT16 usFatigue;				// Percentage speed of losing Max Breath (100 = normal)
+	UINT16 usSleep;					// Percentage effectiveness of sleeping on the job (100 = normal)
+	UINT16 usKitDegrade;			// Percentage speed of kit degrade (100 = normal)
+
+	UINT8 ubMaximumMorale;			// Maximum morale achievable while performing this assignment
+	UINT8 ubMaximumBreath;			// Maximum breath achievable while performing this assignment
+
+	UINT8 ubDetectEnemiesImmediate;	// Detection of enemies in adjacent sectors, value = range of detection.
+	BOOLEAN fDetectEnemiesLongrange;	// Detection of enemies in explored territory
+	BOOLEAN fDetectEnemiesDynamic;		// Detection of enemies in Mobile Militia areas
+	BOOLEAN fDetectEnemiesAnywhere;		// Detection of enemies all over the map
+	BOOLEAN fCountEnemiesInWild;		// Count number of enemies in wilderness sectors
+	BOOLEAN fCountEnemiesInCities;		// Count number of enemies in city sectors
+
+	INT16 sSkyriderCostModifier;	// Flat modifier for Skyrider's Cost Per Tile
+	UINT16 usMineIncomeModifier;	// Percentage income adjustment
+	BOOLEAN fOnlyLocalMineAffected;		// Determines whether income modifier applies to local mine only, or all mines.
+	
+	UINT8 ubMinimumStrength;		// Minimum STR Requirement to begin this assignment
+	UINT8 ubMinimumHealth;			// Minimum HLT Requirement to begin this assignment
+	UINT8 ubMinimumWisdom;			// Minimum WIS Requirement to begin this assignment
+	UINT8 ubMinimumAgility;			// Minimum AGI Requirement to begin this assignment
+	UINT8 ubMinimumDexterity;		// Minimum DEX Requirement to begin this assignment
+	UINT8 ubMinimumMarksmanship;	// Minimum MRK Requirement to begin this assignment
+	UINT8 ubMinimumLeadership;		// Minimum LDR Requirement to begin this assignment
+	UINT8 ubMinimumExplosives;		// Minimum EXP Requirement to begin this assignment
+	UINT8 ubMinimumMechanical;		// Minimum MEC Requirement to begin this assignment
+	UINT8 ubMinimumMedical;			// Minimum MED Requirement to begin this assignment
+	UINT8 ubMinimumLevel;			// Minimum LVL Requirement to begin this assignment
+
+	UINT8 ubMinimumLoyaltyHere;		// Minimum loyalty required in the town where the facility is placed (if any)
+	UINT8 ubMinimumBreath;			// Minimum Breath Requirement to begin this assignment
+	UINT8 ubMinimumMorale;			// Minimum Morale Requirement to begin this assignment
+
+	FACILITYRISKTYPE Risk[ NUM_RISKS ];		// Data about risks/chances possible when doing this assignment
+
+} FACILITYASSIGNMENTTYPE;
+
+// HEADROCK HAM 3.5: Facility Type
+typedef struct FACILITYTYPE
+{
+	// Basic data about the facility
+
+	CHAR16 szFacilityName[30];				// Long facility name
+	CHAR16 szFacilityShortName[15];			// Short facility name
+	UINT8 ubTotalStaffLimit;				// Total number of people who can work here simultaneously
+
+	UINT8 ubMilitiaTrainersAllowed;			// Number of Militia trainers allowed simultaneously
+	UINT8 ubMobileMilitiaTrainersAllowed;	// Number of Mobile Militia trainers allowed simultaneously
+	UINT16 usMilitiaTraining;				// Percentage effectiveness of Militia training (100 = normal)
+	UINT16 usMobileMilitiaTraining;			// Percentage effectiveness of Mobile Militia training (100 = normal)
+
+	FACILITYASSIGNMENTTYPE AssignmentData[ NUM_FACILITY_ASSIGNMENTS ];		// Data about possible assignments that can be done here
+
+} FACILITYTYPE;
+
+
+// HEADROCK HAM 3.5: Maximum number of different facility types
+#define MAX_NUM_FACILITY_TYPES 255
+// HEADROCK HAM 3.5: Number of facilities placed on the map
+extern UINT16 NUM_FACILITIES;
+// HEADROCK HAM 3.5: Number of facility types read from XML
+extern UINT16 NUM_FACILITY_TYPES;
+// HEADROCK HAM 3.4: Array to hold facilities in each sector
+extern FACILITYLOCATIONS gFacilityLocations[256][MAX_NUM_FACILITY_TYPES];
+// HEADROCK HAM 3.5: Array to hold all different facility types
+extern FACILITYTYPE gFacilityTypes[MAX_NUM_FACILITY_TYPES];
+
+// HEADROCK HAM 3.6: Bloodcat Placement and Encounter data.
+typedef struct BLOODCATPLACEMENT
+{
+	UINT8 PlacementType;
+	UINT8 ubMinBloodcats;
+	UINT8 ubMaxBloodcats;
+	UINT8 ubAmbushChance;
+	BOOLEAN ubFactionAffiliation;
+	BOOLEAN fRespawn;
+}BLOODCATPLACEMENT;
+
+// HEADROCK HAM 3.6: Array to hold bloodcat placements and user-set bloodcat encounter data. There are 256 of these
+// (one for each sector), with 4 sublevels (one for each difficulty)
+extern BLOODCATPLACEMENT gBloodcatPlacements[256][4];
+// Location of the Bloodcat Lair. There can be only one, as there's a quest that relies on its location. This is a
+// sectorID, 0-255.
+extern UINT8 gubBloodcatLairSectorId;
+
+// HEADROCK HAM 3.6: Enumerated Bloodcat Placement types
+enum
+{
+	BLOODCAT_PLACEMENT_AMBUSH = 0,
+	BLOODCAT_PLACEMENT_STATIC,
+	BLOODCAT_PLACEMENT_LAIR,
+	NUM_BLOODCAT_PLACEMENT_TYPES
+};
 
 //Vehicle types
 #define FOOT			0x01 //anywhere
@@ -227,8 +422,8 @@ typedef struct SECTORINFO
 										//throught the sector without entering it.
 	INT8	bNameId;
 	INT8	bUSUSED;	
-	INT8	bBloodCats;
-	INT8	bBloodCatPlacements;
+	INT8	bBloodCats;					// Actual number of bloodcats existing on this map.
+	INT8	bBloodCatPlacements;		// "Maximum" potential bloodcats that can appear on this map.
 	INT8	UNUSEDbSAMCondition;
 
 	UINT8	ubTravelRating;				//Represents how travelled a sector is.	Typically, the higher the travel rating,
@@ -236,15 +431,22 @@ typedef struct SECTORINFO
 										//around.	This value is used for determining how often items would "vanish" from
 										//a sector (nice theory, except it isn't being used that way.	Stealing is only in towns.	ARM)
 	UINT8	ubNumberOfCivsAtLevel[ MAX_MILITIA_LEVELS ]; // town militia per experience class, 0/1/2 is GREEN/REGULAR/ELITE
-	UINT16	usUNUSEDMilitiaLevels;					// unused (ARM)
-	UINT8	ubUNUSEDNumberOfJoeBlowCivilians;		// unused (ARM)
+	// HEADROCK HAM 3.6: Adding separate training percentage for MOBILES.
+	UINT8	ubMobileMilitiaTrainingPercentDone;
+	UINT8	ubMobileMilitiaTrainingHundredths;
+	BOOLEAN fMobileMilitiaTrainingPaid;
+	// Replacing these variables with the ones above. They really are unused.
+	//UINT16	usUNUSEDMilitiaLevels;					// unused (ARM)
+	//UINT8	ubUNUSEDNumberOfJoeBlowCivilians;		// unused (ARM)
 	UINT32	uiTimeCurrentSectorWasLastLoaded;		//Specifies the last time the player was in the sector
 	UINT8	ubUNUSEDNumberOfEnemiesThoughtToBeHere;	// using bLastKnownEnemies instead
 	UINT32	uiTimeLastPlayerLiberated;				//in game seconds (used to prevent the queen from attacking for awhile)
 
 	BOOLEAN fSurfaceWasEverPlayerControlled;
 
-	UINT8	bFiller1;
+	// HEADROCK HAM 3.6: Flag to determine whether enemy units in this sector can be seen, and whether their numbers
+	// should be displayed. One filler was replaced to make room.
+	UINT8	ubDetectionLevel;
 	UINT8	bFiller2;
 	UINT8	bFiller3;
 

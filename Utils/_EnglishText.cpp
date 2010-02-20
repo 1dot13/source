@@ -359,6 +359,7 @@ STR16 sTimeStrings[] =
 // Assignment Strings: what assignment does the merc  have right now? For example, are they on a squad, training, 
 // administering medical aid (doctor) or training a town. All are abbreviated. 8 letters is the longest it can be.
 
+// HEADROCK HAM 3.6: Added string for Mobile Militia Training ("M.Militia"), string for Facility Staffing ("Facility")
 STR16 pAssignmentStrings[] =
 {
 	L"Squad 1",
@@ -388,9 +389,12 @@ STR16 pAssignmentStrings[] =
 	L"In Trans", // in transit - abbreviated form
 	L"Repair", // repairing
 	L"Practice", // training themselves  
-  L"Militia", // training a town to revolt 
+	L"Militia", // training a town to revolt 
+	L"M.Militia", //training moving militia units
 	L"Trainer", // training a teammate
 	L"Student", // being trained by someone else 
+	L"Staff", // operating a strategic facility
+	L"Rest", // Resting at a facility
 	L"Dead", // dead
 	L"Incap.", // abbreviation for incapacitated
 	L"POW", // Prisoner of war - captured
@@ -404,6 +408,7 @@ STR16 pMilitiaString[] =
 	L"Militia", // the title of the militia box
 	L"Unassigned", //the number of unassigned militia troops
 	L"You can't redistribute militia while there are hostilities in the area!",
+	L"Some militia were not assigned to a sector. Would you like to disband them?", // HEADROCK HAM 3.6
 };
 
 
@@ -411,6 +416,7 @@ STR16 pMilitiaButtonString[] =
 {
 	L"Auto", // auto place the militia troops for the player
 	L"Done", // done placing militia troops
+	L"Disband", // HEADROCK HAM 3.6: Disband militia
 };
 
 STR16 pConditionStrings[] = 
@@ -633,6 +639,7 @@ STR16 pAssignMenuStrings[] =
 	L"Vehicle", // the merc is in a vehicle
 	L"Repair", // the merc is repairing items 
 	L"Train", // the merc is training
+	L"Facility", // the merc is using/staffing a facility
 	L"Cancel", // cancel this menu
 };
 
@@ -686,10 +693,12 @@ STR16 pAttributeMenuStrings[] =
 	L"Cancel",
 };
 
+// HEADROCK HAM 3.6: Splitting Garrison and Mobile training.
 STR16 pTrainingMenuStrings[] =
 {
  L"Practice", // train yourself 
  L"Militia", // train the town 
+ L"Mobile Militia",
  L"Trainer", // train your teammates 
  L"Student",  // be trained by an instructor 
  L"Cancel", // cancel this menu
@@ -1106,7 +1115,9 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 	L"Weight:",		//12
 	L"Stun Damage:",//13
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
-	L"AUTOPEN:",	//14
+	// HEADROCK HAM 3: Replaced #14 with string for Possible Attachments (BR's Tooltips Only)
+	// Obviously, THIS SHOULD BE DONE IN ALL LANGUAGES...
+	L"Attachments:",	//14
 	L"AUTO/5:",		//15
 	L"Amount:",		//16
 
@@ -1145,7 +1156,7 @@ STR16		gzWeaponStatsFasthelp[ 29 ] =
 	L"No Auto Mode!",
 	L"APs to Bash",
 	L"Autofire Penalty (Lower is better)",
-    L"Burst Penalty (Lower is better)",
+	L"Burst Penalty (Lower is better)"
 };
 
 STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
@@ -1178,7 +1189,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
 	L"No Auto Mode!",
 	L"APs to Bash",
 	L"Autofire Penalty (Lower is better)",
-    L"Burst Penalty (Lower is better)",
+	L"Burst Penalty (Lower is better)"
 };
 
 STR16			gzAmmoStatsFasthelp[ 20 ] =
@@ -1195,7 +1206,7 @@ STR16			gzAmmoStatsFasthelp[ 20 ] =
 	L"Damage Modifier",
 	L"To-Hit Modifier",
 	L"Autofire Penalty Modifier (Higher is better)",
-	L"Burst/Auto Penalty Modifier (Higher is better)",
+	L"Burst Penalty Modifier (Higher is better)",
 	L"Reliability Modifier",
 	L"Loudness Modifier (Lower is better)",
 	L"",
@@ -1731,11 +1742,12 @@ STR16 gsTimeStrings[] =
 
 // text for the various facilities in the sector
 
+// HEADROCK HAM 3.4: Changed "Industry" into "Factory"
 STR16 sFacilitiesStrings[] =
 {
 	L"None",
 	L"Hospital",
-	L"Industry",
+	L"Factory",
 	L"Prison",
 	L"Military",
 	L"Airport",
@@ -1766,6 +1778,7 @@ STR16 pwTownInfoStrings[] =
 	L"Level", 					// the training level of civilians in this town
 	L"Civilian Training",				// 10 // state of civilian training in town
 	L"Militia", 					// the state of the trained civilians in the town
+	L"Mobile Training",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town
 };
 
 // Mine strings
@@ -2069,6 +2082,8 @@ STR16 pTransactionText[] =
 	L"Purchased items from %s.",	//is used for the Shop keeper interface.  The dealers name will be appended to the end of the string.
 	L"%s deposited money.",
 	L"Sold Item(s) to the Locals",
+	L"Facility Use", // HEADROCK HAM 3.6
+	L"Militia upkeep", // HEADROCK HAM 3.6
 };
 
 STR16 pTransactionAlternateText[] =
@@ -2163,7 +2178,7 @@ STR16 pMapErrorString[] =
 //11-15
 	L"Movement orders? There's a battle going on!",
 	L"You have been ambushed by bloodcats in sector %s!",
-	L"You have just entered what appears to be a bloodcat lair in sector I16!", 
+	L"You have just entered what appears to be a bloodcat lair in sector %s!", // HEADROCK HAM 3.6: Added argument.
 	L"", 
 	L"The SAM site in %s has been taken over.",
 //16-20
@@ -3646,6 +3661,10 @@ STR16 pMilitiaConfirmStrings[] =
 	L"You cannot afford the $%d to train town militia here.",
 	L"%s needs a loyalty of %d percent for you to be able to continue training militia.",
 	L"You cannot train the militia in %s any further.",
+	L"You cannot afford the $%d to train mobile militia here.", // HEADROCK HAM 3.6: Mobile Militia
+	L"Continue training mobile militia in %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia
+	L"Training mobile militia in %d sectors will cost $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia
+	L"Training a squad of mobile militia will cost $", // HEADROCK HAM 3.6: Mobile Militia
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
@@ -3700,6 +3719,7 @@ STR16		zOptionsToggleText[] =
 	L"Low CPU usage",
 	L"Enhanced Description Box",
 	L"Forced Turn Mode",					// add forced turn mode
+	L"Stat Progress Bars",					// Show progress towards stat increase
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -3795,6 +3815,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, game will run with much lower CPU usage.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
 	L"When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
+	L"When ON, shows character progress towards gaining levels.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -4425,7 +4446,8 @@ STR16 gzLateLocalizedString[] =
 
 	//46-48
 	L"%s's gun barrel extender falls off!",
-	L"No more than %d militia trainers are permitted per sector.",
+	// HEADROCK HAM 3.5: Changed to reflect facility effect.
+	L"No more than %d militia trainers are permitted in this sector.",
   L"Are you sure?",
 
 	//49-50
@@ -4461,9 +4483,10 @@ STR16 gzLateLocalizedString[] =
 	L"%s fires %d more round than intended!",
 };
 
+// HEADROCK HAM 3.5: Added sector name
 STR16 gzCWStrings[] = 
 {
-	L"Call reinforcements from adjacent sectors?",
+	L"Call reinforcements to %s from adjacent sectors?",
 };
 
 // WANNE: Tooltips
@@ -4542,7 +4565,34 @@ STR16 New113Message[] =
 
 STR16 New113HAMMessage[] = 
 {
+	// 0 - 5
 	L"%s cowers in fear!",
+	L"%s is pinned down!",
+	L"%s fires more rounds than intended!",
+	L"You cannot train militia in this sector.",
+	L"Militia picks up %s.",
+	L"Cannot train militia with enemies present!", 
+	// 6 - 10
+	L"%s lacks sufficient Leadership score to train militia.",
+	L"No more than %d Mobile Militia trainers are permitted in this sector.",
+	L"No room in %s or around it for new Mobile Militia!",
+	L"You need to have %d Town Militia in each of %s's liberated sectors before you can train Mobile Militia here.",
+	L"Can't staff a facility while enemies are present!",
+	// 11 - 15
+	L"%s lacks sufficient Wisdom to staff this facility.",
+	L"The %s is already fully-staffed.",
+	L"It will cost $%d per hour to staff this facility. Do you wish to continue?",
+	L"You have insufficient funds to pay for all Facility work today. $%d have been paid, but you still owe $%d. The locals are not pleased.",
+	L"You have insufficient funds to pay for all Facility work today. You owe $%d. The locals are not pleased.",
+	// 16 - 20
+	L"You have an outstanding debt of $%d for Facility Operation, and no money to pay it off!",
+	L"You have an outstanding debt of $%d for Facility Operation. You can't assign this merc to facility duty until you have enough money to pay off the entire debt.",
+	L"You have an outstanding debt of $%d for Facility Operation. Would you like to pay it all back?",
+	L"N/A in this sector",
+	L"Daily Expenses",
+	// 21 - 25
+	L"Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.",
+
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
@@ -4851,6 +4901,111 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Forgetful",
 	L"Psychotic",
 	L"I.M.P. Disabilities",
+};
+
+// HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
+STR16 gzFacilityErrorMessage[]=
+{
+	L"%s lacks sufficient Strength to perform this task.",
+	L"%s lacks sufficient Dexterity to perform this task.",
+	L"%s lacks sufficient Agility to perform this task.",
+	L"%s is not Healthy enough to perform this task.",
+	L"%s lacks sufficient Wisdom to perform this task.",
+	L"%s lacks sufficient Marksmanship to perform this task.",
+	// 6 - 10
+	L"%s lacks sufficient Medical Skill to perform this task.",
+	L"%s lacks sufficient Mechanical Skill to perform this task.",
+	L"%s lacks sufficient Leadership to perform this task.",
+	L"%s lacks sufficient Explosives Skill to perform this task.",
+	L"%s lacks sufficient Experience to perform this task.",
+	// 11 - 15
+	L"%s lacks sufficient Morale to perform this task.",
+	L"%s is too exhausted to perform this task.",
+	L"Insufficient loyalty in %s. The locals refuse to allow you to perform this task.",
+	L"Too many people are already working at the %s.",
+	L"Too many people are already performing this task at the %s.",
+	// 16 - 20
+	L"%s can find no items to repair.",
+	L"%s has lost some %s while working in sector %s!",
+	L"%s has lost some %s while working at the %s in %s!",
+	L"%s was injured while working in sector %s, and requires immediate medical attention!",
+	L"%s was injured while working at the %s in %s, and requires immediate medical attention!",
+	// 21 - 25
+	L"%s was injured while working in sector %s. It doesn't seem too bad though.",
+	L"%s was injured while working at the %s in %s. It doesn't seem too bad though.",
+	L"The residents of %s seem upset about %s's presence.",
+	L"The residents of %s seem upset about %s's work at the %s.",
+	L"%s's actions in sector %s have caused loyalty loss throughout the region!",
+	// 26 - 30
+	L"%s's actions at the %s in %s have caused loyalty loss throughout the region!",
+	L"%s is drunk.", // <--- This is a log message string.
+	L"%s has become severely ill in sector %s, and has been taken off duty.",
+	L"%s has become severely ill and cannot continue his work at the %s in %s.",
+	L"%s was injured in sector %s.", // <--- This is a log message string.
+	// 31 - 35
+	L"%s was severely injured in sector %s.", //<--- This is a log message string.
+
+
+};
+
+STR16 gzFacilityRiskResultStrings[]=
+{
+	L"Strength",
+	L"Agility",
+	L"Dexterity",
+	L"Wisdom",
+	L"Health",
+	L"Marksmanship",
+	// 5-10
+	L"Leadership",
+	L"Mechanical skill",
+	L"Medical skill",
+	L"Explosives skill",
+};
+
+STR16 gzFacilityAssignmentStrings[]=
+{
+	L"AMBIENT",
+	L"Staff",
+	L"Rest",
+	L"Repair Items",
+	L"Repair %s", // Vehicle name inserted here
+	L"Repair Robot",
+	// 6-10
+	L"Doctor",
+	L"Patient",
+	L"Practice Strength",
+	L"Practice Dexterity",
+	L"Practice Agility",
+	L"Practice Health",
+	// 11-15
+	L"Practice Marksmanship",
+	L"Practice Medical",
+	L"Practice Mechanical",
+	L"Practice Leadership",
+	L"Practice Explosives",
+	// 16-20
+	L"Student Strength",
+	L"Student Dexterity",
+	L"Student Agility",
+	L"Student Health",
+	L"Student Marksmanship",
+	// 21-25
+	L"Student Medical",
+	L"Student Mechanical",
+	L"Student Leadership",
+	L"Student Explosives",
+	L"Trainer Strength",
+	// 26-30
+	L"Trainer Dexterity",
+	L"Trainer Agility",
+	L"Trainer Health",
+	L"Trainer Marksmanship",
+	L"Trainer Medical",
+	// 30-35
+	L"Trainer Mechanical",
+	L"Trainer Leadership",
+	L"Trainer Explosives",
 };
 
 STR16 Additional113Text[]=

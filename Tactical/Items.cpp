@@ -2680,15 +2680,21 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 		//ADB the weight of the object is already counting stacked objects, attachments, et al
 		uiTotalWeight += CalculateObjectWeight(&pSoldier->inv[ubLoop]);
 	}
-	// for now, assume soldiers can carry 1/2 their strength in KGs without penalty.
-	// instead of multiplying by 100 for percent, and then dividing by 10 to account
-	// for weight units being in 10ths of kilos, not kilos... we just start with 10 instead of 100!
+	// Every point over 80 counts double.
 	ubStrengthForCarrying = EffectiveStrength( pSoldier );
 	if ( ubStrengthForCarrying > 80 )
 	{
 		ubStrengthForCarrying += (ubStrengthForCarrying - 80);
 	}
-	uiPercent = (10 * uiTotalWeight) / ( ubStrengthForCarrying / 2 );
+
+	// for now, assume soldiers can carry 1/2 their strength in KGs without penalty.
+	// instead of multiplying by 100 for percent, and then dividing by 10 to account
+	// for weight units being in 10ths of kilos, not kilos... we just start with 10 instead of 100!
+
+	// HEADROCK HAM 3: STR required per 1/2 kilo has been externalized. Can someone tidy this up though? The
+	// formula works great, but it's damn ugly now.
+	uiPercent = (UINT32)(((FLOAT)10 * (FLOAT)gGameExternalOptions.iStrengthToLiftHalfKilo) * uiTotalWeight) / ( ubStrengthForCarrying / 2 );
+
 	return( uiPercent );
 
 }
@@ -3152,9 +3158,12 @@ BOOLEAN EmptyWeaponMagazine( OBJECTTYPE * pWeapon, OBJECTTYPE *pAmmo, UINT32 sub
 	{
 		CreateAmmo((*pWeapon)[subObject]->data.gun.usGunAmmoItem, pAmmo, (*pWeapon)[subObject]->data.gun.ubGunShotsLeft);
 
-		(*pWeapon)[subObject]->data.gun.ubGunShotsLeft		= 0;
-		(*pWeapon)[subObject]->data.gun.ubGunAmmoType	  = 0;
-		//(*pWeapon)[subObject]->data.gun.usGunAmmoItem		= 0; // leaving the ammo item the same for auto-reloading purposes
+		(*pWeapon)[subObject]->data.gun.ubGunShotsLeft = 0;
+		(*pWeapon)[subObject]->data.gun.ubGunAmmoType = 0;
+		// HEADROCK HAM 3.5: Leaving the ammo inside the gun causes EDB stats to display values as though the magazine
+		// still gives some effects (like autopen reduction, range bonus, etcetera). I'm going to try to work around
+		// this issue.
+		(*pWeapon)[subObject]->data.gun.usGunAmmoItem = 0; // leaving the ammo item the same for auto-reloading purposes
 
 		// Play some effects!
 		usReloadSound	= Weapon[ pWeapon->usItem ].sReloadSound;
@@ -3174,13 +3183,20 @@ BOOLEAN EmptyWeaponMagazine( OBJECTTYPE * pWeapon, OBJECTTYPE *pAmmo, UINT32 sub
 	}
 	else
 	{
+		// HEADROCK HAM 3.5: Clear the ammo type and magazine on player command. This will remove all bonuses by
+		// the ammo and allow viewing the gun's normal stats. It will also change the weapon's ammocolor back to grey.
+		(*pWeapon)[subObject]->data.gun.ubGunAmmoType = 0;
+		(*pWeapon)[subObject]->data.gun.usGunAmmoItem = 0;
 		//CHRISL: Clear the contents of pAmmo just in case
 		pAmmo->initialize();
 		return( FALSE );
 	}
 }
 
-INT8 FindAmmo( SOLDIERTYPE * pSoldier, UINT8 ubCalibre, UINT16 ubMagSize, INT8 bExcludeSlot )
+// HEADROCK HAM 3.3: Added an additional argument which helps the program pick a magazine
+// that matches the ammotype currently used in the weapon. This makes for much smarter
+// ammo selection.
+INT8 FindAmmo( SOLDIERTYPE * pSoldier, UINT8 ubCalibre, UINT16 ubMagSize, UINT8 ubAmmoType, INT8 bExcludeSlot )
 {
 	INT8				bLoop;
 	INT8				capLoop = 0;
@@ -3211,7 +3227,10 @@ INT8 FindAmmo( SOLDIERTYPE * pSoldier, UINT8 ubCalibre, UINT16 ubMagSize, INT8 b
 						{
 							stackCap = __max(stackCap, pSoldier->inv[bLoop][i]->data.ubShotsLeft);
 						}
-						if(stackCap > curCap)
+						// If found a similar-sized magazine to the best one found so far, but this new one
+						// has the same ammotype as specified in the arguments, then this is a better choice!
+						if(stackCap > curCap || 
+							(stackCap == curCap && Magazine[pItem->ubClassIndex].ubAmmoType == ubAmmoType))
 						{
 							curCap = stackCap;
 							capLoop = bLoop;
@@ -3264,7 +3283,7 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 		//	return( bSlot );
 		//}
 		// look for any ammo that matches which is of the same calibre and magazine size
-		bSlot = FindAmmo( pSoldier, Weapon[pObj->usItem].ubCalibre, GetMagSize(pObj), bExcludeSlot );
+		bSlot = FindAmmo( pSoldier, Weapon[pObj->usItem].ubCalibre, GetMagSize(pObj), GetAmmoType(pObj), bExcludeSlot );
 		if (bSlot != NO_SLOT)
 		{
 			return( bSlot );
@@ -3272,7 +3291,7 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 		else
 		{
 			// look for any ammo that matches which is of the same calibre (different size okay)
-			return( FindAmmo( pSoldier, Weapon[pObj->usItem].ubCalibre, ANY_MAGSIZE, bExcludeSlot ) );
+			return( FindAmmo( pSoldier, Weapon[pObj->usItem].ubCalibre, ANY_MAGSIZE, GetAmmoType(pObj), bExcludeSlot ) );
 		}
 	}
 	else
@@ -3970,6 +3989,8 @@ void EjectAmmoAndPlace(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj)
 	CreateAmmo((*pObj)[0]->data.gun.usGunAmmoItem, &gTempObject, (*pObj)[0]->data.gun.ubGunShotsLeft);
 	(*pObj)[0]->data.gun.ubGunShotsLeft = 0;
 	(*pObj)[0]->data.gun.usGunAmmoItem = NONE;
+	// HEADROCK HAM 3.5: Clear ammo type
+	(*pObj)[0]->data.gun.ubGunAmmoType = NONE;
 	if ( pSoldier )
 	{
 		if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
@@ -7104,7 +7125,7 @@ INT16 GetBurstToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance )
 		bonus += BonusReduceMore( Item[pObj->usItem].bursttohitbonus, (*pObj)[0]->data.objectStatus );
 		// HEADROCK HAM B2.5: A certain setting in the New Tracer System can turn auto/burst penalties off
 		// entirely, to make up for "Tracer Bump".
-		if ( gGameExternalOptions.iRealisticTracers != 1 )
+		if ( gGameExternalOptions.ubRealisticTracers != 1 )
 		bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].bursttohitbonus ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
@@ -7234,7 +7255,7 @@ INT16 GetAutoToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance )
 		// HEADROCK HAM B2.5: This external setting determines whether autofire penalty is affected by
 		// tracer ammo. At setting "1", it is disabled. This goes hand in hand with a new tracer effect that
 		// "bumps" CTH up after firing a tracer bullet.
-		if ( gGameExternalOptions.iRealisticTracers != 1 ) 
+		if ( gGameExternalOptions.ubRealisticTracers != 1 ) 
 		bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].autofiretohitbonus ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
@@ -7645,6 +7666,26 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
 				bonus += Item[iter->usItem].percenttunnelvision;
 			}
+		}
+	}
+
+	// HEADROCK HAM 3.2: Further increase tunnel-vision for cowering characters.
+	if (gGameExternalOptions.ubCoweringReducesSightRange == 1 || gGameExternalOptions.ubCoweringReducesSightRange == 3)
+	{
+		INT8 bTolerance = CalcSuppressionTolerance( pSoldier );
+
+		// Make sure character is cowering.
+		if ( pSoldier->aiData.bShock >= bTolerance && gGameExternalOptions.ubMaxSuppressionShock > 0 && 
+			bonus < 100 )
+		{
+			// Calculates a "Flat" tunnel vision percentage
+			UINT8 ubNormalCoweringTunnelVision = (100 * pSoldier->aiData.bShock) / gGameExternalOptions.ubMaxSuppressionShock;
+
+			// Apply that percentage to the current tunnel vision
+			UINT16 usActualCoweringTunnelVision = bonus + (((100-bonus) * ubNormalCoweringTunnelVision) / 100);
+
+			// At shock 0, tunnel vision remains unchanged. At full shock, tunnel vision is full (100%)
+			bonus = __min(100,usActualCoweringTunnelVision);
 		}
 	}
 
@@ -8495,106 +8536,122 @@ INT16 GetMinRangeForAimBonus( OBJECTTYPE * pObj )
 UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier)
 {
 	UINT8 aimLevels = 4;
-	float iScopeBonus = 0;
+	UINT16 usScopeBonus = 0;
 	BOOLEAN allowed = TRUE;
 
-	// HEADROCK HAM B2.6: Dynamic aiming level restrictions based on gun type and attachments.
-	if ( gGameExternalOptions.fDynamicAimingTime )
-	{
-		UINT16 weaponRange;
-		UINT8 weaponType, maxAimForType, maxAimWithoutBipod;
-		BOOLEAN fTwoHanded, fUsingBipod;
-		
-		// Read weapon data
-		fTwoHanded = Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded;
-		weaponRange = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usRange + GetRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]);
-		weaponType = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType;
-		fUsingBipod = FALSE;
 
-		maxAimWithoutBipod = 4;
-		
-		// Define basic (no attachments), and absolute maximums
-		if (weaponType == GUN_PISTOL || weaponType == GUN_M_PISTOL || (weaponType == GUN_SMG && fTwoHanded == 0) || fTwoHanded == 0)
+	if ( gGameSettings.fOptions[TOPTION_AIM_LEVEL_RESTRICTION] ) // Options Menu setting.
+	{
+		// HEADROCK HAM B2.6: Dynamic aiming level restrictions based on gun type and attachments.
+		// HEADROCK HAM 3.5: Revamped this - it was illogically constructed.
+		if ( gGameExternalOptions.fDynamicAimingTime )
 		{
-			maxAimForType = 2;
-			aimLevels = 1;
-			maxAimWithoutBipod = 2;
-		}
-		else if (weaponType == GUN_SHOTGUN || weaponType == GUN_LMG || (weaponType == GUN_SMG && fTwoHanded == 1))
-		{
-			maxAimForType = 3;
-			aimLevels = 2;
-			maxAimWithoutBipod = 3;
-		}
-		else if ((weaponType == GUN_AS_RIFLE || weaponType == GUN_RIFLE || weaponType == GUN_SN_RIFLE) && weaponRange <= 500)
-		{
-			maxAimForType = 4;
-			aimLevels = 2;
-			maxAimWithoutBipod = 3;
-		}
-		else if ((weaponType == GUN_AS_RIFLE || weaponType == GUN_RIFLE || weaponType == GUN_SN_RIFLE) && weaponRange > 500)
-		{
-			maxAimForType = 8;
-			aimLevels = 3;
+			UINT16 weaponRange;
+			UINT8 weaponType, maxAimForType, maxAimWithoutBipod;
+			BOOLEAN fTwoHanded, fUsingBipod;
+			
+			// Read weapon data
+			fTwoHanded = Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded;
+			weaponRange = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usRange + GetRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]);
+			weaponType = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType;
+			fUsingBipod = FALSE;
+
 			maxAimWithoutBipod = 4;
-		}
-		else
-		{
-			return 4;
-		}
+			
+			// Define basic (no attachments), and absolute maximums
+			if (weaponType == GUN_PISTOL || weaponType == GUN_M_PISTOL || fTwoHanded == 0)
+			{
+				maxAimForType = 2;
+				aimLevels = 1;
+				maxAimWithoutBipod = 2;
+			}
+			else if (weaponType == GUN_SHOTGUN || weaponType == GUN_LMG || weaponType == GUN_SMG)
+			{
+				maxAimForType = 3;
+				aimLevels = 2;
+				maxAimWithoutBipod = 3;
+			}
+			else if ((weaponType == GUN_AS_RIFLE || weaponType == GUN_RIFLE ) && weaponRange <= 500)
+			{
+				maxAimForType = 4;
+				aimLevels = 2;
+				maxAimWithoutBipod = 3;
+			}
+			else if (((weaponType == GUN_AS_RIFLE || weaponType == GUN_RIFLE) && weaponRange > 500) || 
+						(weaponType == GUN_SN_RIFLE && weaponRange <= 500))
+			{
+				maxAimForType = 6;
+				aimLevels = 3;
+				maxAimWithoutBipod = 4;
+			}
+			else if (weaponType == GUN_SN_RIFLE && weaponRange > 500)
+			{
+				maxAimForType = 8;
+				aimLevels = 4;
+				maxAimWithoutBipod = 3;
+			}
+			else
+			{
+				return 4;
+			}
 
-		// Determine whether a bipod is being used (prone)
-		if (GetBipodBonus(&pSoldier->inv[pSoldier->ubAttackingHand])>0 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
-		{
-			fUsingBipod = TRUE;
+			// Determine whether a bipod is being used (prone)
+			if (GetBipodBonus(&pSoldier->inv[pSoldier->ubAttackingHand])>0 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+			{
+				fUsingBipod = TRUE;
+			}
+
+			usScopeBonus = ( GetMinRangeForAimBonus(&pSoldier->inv[pSoldier->ubAttackingHand]) * 10 ) / gGameExternalOptions.ubStraightSightRange;
+
+			if ( usScopeBonus >= 50 ) // Scope Min Range >= 7 Tiles
+			{
+				aimLevels *= 2;
+			}
+
+			else if ( usScopeBonus >= 30 ) // Scope Min Range >= 4 Tiles
+			{
+				aimLevels = (UINT8)((float)(aimLevels+1) * (float)1.5);
+			}
+
+			else if ( usScopeBonus >= 15 ) // Scope Min Range >= 2 Tiles
+			{
+				aimLevels = (UINT8)((float)(aimLevels+1) * (float)1.3);
+			}
+
+			// Smaller scopes increase by one.
+			else if ( usScopeBonus > 0 )
+			{
+				aimLevels++;
+			}
+
+			// Make sure not over maximum allowed for weapon type.
+			if (aimLevels > maxAimForType)
+			{
+				aimLevels = maxAimForType;
+			}
+			// Make sure not over maximum allowed without a bipod.
+			if (!fUsingBipod)
+			{
+				aimLevels = __min(aimLevels, maxAimWithoutBipod);
+			}
 		}
-
-		iScopeBonus = ( (float)gGameExternalOptions.ubStraightSightRange * GetMinRangeForAimBonus(&pSoldier->inv[pSoldier->ubAttackingHand]) / 100 );
-
-		if ( iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.6) ) // >= 60% of sight range (~9 tiles by default)
+		else // JA2 1.13 Basic aiming restrictions (8 levels for 10x scope, 6 levels for 7x scope)
 		{
-			aimLevels = (UINT8)((float)aimLevels * (float)2);
-		}
-
-		else if ( iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.3) ) // >= 30% of sight range (~4 tiles by default)
-		{
-			aimLevels = (UINT8)((float)(aimLevels+1) * (float)1.5);
-		}
-
-		// Smaller scopes increase by one.
-		else if ( iScopeBonus > 0 )
-		{
-			aimLevels++;
-		}
-
-		// Make sure not over maximum allowed for weapon type.
-		if (aimLevels > maxAimForType)
-		{
-			aimLevels = maxAimForType;
-		}
-		// Make sure not over maximum allowed without a bipod.
-		if (!fUsingBipod)
-		{
-			aimLevels = __min(aimLevels, maxAimWithoutBipod);
-		}
-	}
-	else // JA2 1.13 Basic aiming restrictions (8 levels for 10x scope, 6 levels for 7x scope)
-	{
-	if ( gGameSettings.fOptions[TOPTION_AIM_LEVEL_RESTRICTION] && Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType != GUN_RIFLE && Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType != GUN_SN_RIFLE )
-			allowed = FALSE;
-
-	if ( allowed && IsScoped( &pSoldier->inv[pSoldier->ubAttackingHand] ) )
-	{
-		iScopeBonus = ( (float)gGameExternalOptions.ubStraightSightRange * GetMinRangeForAimBonus(&pSoldier->inv[pSoldier->ubAttackingHand]) / 100 );
-
-		if ( iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.3) ) // >= 30% of sight range (~4 tiles by default)
-		{
-			aimLevels += 2;
-		}
-
-		if ( iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.6) ) // >= 60% of sight range (~9 tiles by default)
-		{
-			aimLevels += 2;
+			if ( !IsScoped( &pSoldier->inv[pSoldier->ubAttackingHand] ) )
+			{
+				// No scope. 4 Allowed.
+				return (4);
+			}
+			
+			usScopeBonus = ( GetMinRangeForAimBonus(&pSoldier->inv[pSoldier->ubAttackingHand]) * 10 ) / gGameExternalOptions.ubStraightSightRange;
+		
+			if ( usScopeBonus >= 50 ) // Scope Min Range >= 7 Tiles (Sniper Scope)
+			{
+				aimLevels += 2;
+			}
+			if ( usScopeBonus >= 30 ) // Scope Min Range >= 4 Tiles (Battle Scope)
+			{
+				aimLevels += 2;
 			}
 		}
 	}
@@ -8883,3 +8940,21 @@ INT16 GetBasicStealthBonus( OBJECTTYPE * pObj )
 	return( bonus );
 }
 
+// HEADROCK HAM 3.6: This is meant to squash an exploit where a backpack can be moved to your hand to avoid AP penalties.
+INT8 FindBackpackOnSoldier( SOLDIERTYPE * pSoldier )
+{
+	INT8	bLoop;
+
+	for (bLoop = 0; bLoop < NUM_INV_SLOTS ; bLoop++)
+	{
+		if (pSoldier->inv[bLoop].exists())
+		{
+			if (Item[pSoldier->inv[bLoop].usItem].usItemClass == IC_LBEGEAR &&
+				LoadBearingEquipment[Item[pSoldier->inv[bLoop].usItem].ubClassIndex].lbeClass == BACKPACK)
+			{
+				return( bLoop );
+			}
+		}
+	}
+	return( ITEM_NOT_FOUND );
+}

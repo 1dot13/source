@@ -68,6 +68,8 @@ class OBJECTTYPE;
 class SOLDIERTYPE;
 
 #include "MilitiaSquads.h"
+// HEADROCK HAM 3.5: Include Facility data
+#include "Facilities.h"
 
 // various reason an assignment can be aborted before completion
 enum{
@@ -146,6 +148,9 @@ INT32 ghAttributeBox = -1;
 INT32 ghRemoveMercAssignBox = -1;
 INT32 ghContractBox = -1;
 INT32 ghMoveBox = -1;
+// HEADROCK HAM 3.6: Facility Menu, Submenu
+INT32 ghFacilityBox = -1;
+INT32 ghFacilityAssignmentBox = -1;
 //INT32 ghUpdateBox = -1;
 
 // the x,y position of assignment pop up in tactical
@@ -161,9 +166,11 @@ MOUSE_REGION	gContractMenuRegion[ MAX_CONTRACT_MENU_STRING_COUNT ];
 MOUSE_REGION	gRemoveMercAssignRegion[ MAX_REMOVE_MERC_COUNT ];
 MOUSE_REGION	gEpcMenuRegion[ MAX_EPC_MENU_STRING_COUNT ];
 MOUSE_REGION	gRepairMenuRegion[ 20 ];
-
 // mouse region for vehicle menu
 MOUSE_REGION		gVehicleMenuRegion[ 20 ];
+// HEADROCK HAM 3.6: Facility Menu
+MOUSE_REGION	gFacilityMenuRegion[ MAX_NUM_FACILITY_TYPES ];
+MOUSE_REGION	gFacilityAssignmentMenuRegion[ NUM_FACILITY_ASSIGNMENTS ];
 
 MOUSE_REGION	gAssignmentScreenMaskRegion;
 
@@ -207,6 +214,11 @@ SOLDIERTYPE *gpDismissSoldier = NULL;
 
 BOOLEAN gfReEvaluateEveryonesNothingToDo = FALSE;
 
+// HEADROCK HAM 3.6: Stored Facility worker (for callback purposes)
+SOLDIERTYPE *gpFacilityStaffer;
+// HEADROCK HAM 3.6: Current FacilityType whose Assignments are shown in the Sub-Menu
+INT8 gubFacilityInSubmenu;
+UINT8 gubFacilityLineForSubmenu; // Which line to highlight in the facility menu...
 /*
 // the amount time must be on assignment before it can have any effect
 #define MINUTES_FOR_ASSIGNMENT_TO_COUNT	45
@@ -381,6 +393,9 @@ void HandleShadingOfLinesForVehicleMenu( void );
 void HandleShadingOfLinesForRepairMenu( void );
 void HandleShadingOfLinesForTrainingMenu( void );
 void HandleShadingOfLinesForAttributeMenus( void );
+// HEADROCK HAM 3.6: Shade Facility Box Lines
+void HandleShadingOfLinesForFacilityMenu( void );
+void HandleShadingOfLinesForFacilityAssignmentMenu( void );
 
 // post message about contract
 void PostContractMessage( SOLDIERTYPE *pCharacter, INT32 iContract );
@@ -390,12 +405,18 @@ void PostTerminateMessage( SOLDIERTYPE *pCharacter );
 
 BOOLEAN DisplayVehicleMenu( SOLDIERTYPE *pSoldier );
 BOOLEAN DisplayRepairMenu( SOLDIERTYPE *pSoldier );
+// HEADROCK HAM 3.6: Display Facility Menu.
+BOOLEAN DisplayFacilityMenu( SOLDIERTYPE *pSoldier );
+BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType );
 
 // create menus
 void CreateEPCBox( void );
 void CreateSquadBox( void );
 void CreateVehicleBox();
 void CreateRepairBox( void );
+// HEADROCK HAM 3.6: Facility Box.
+void CreateFacilityBox( void );
+void CreateFacilityAssignmentBox( void );
 
 /*
 // get how fast the person regains sleep
@@ -428,6 +449,7 @@ UINT8 RepairRobot( SOLDIERTYPE *pRobot, UINT8 ubRepairPts, BOOLEAN *pfNothingLef
 UINT8 HandleRepairOfRobotBySoldier( SOLDIERTYPE *pSoldier, UINT8 ubRepairPts, BOOLEAN *pfNothingLeftToRepair );
 BOOLEAN HandleAssignmentExpansionAndHighLightForAssignMenu( SOLDIERTYPE *pSoldier );
 BOOLEAN HandleAssignmentExpansionAndHighLightForTrainingMenu( void );
+BOOLEAN HandleAssignmentExpansionAndHighLightForFacilityMenu ( void ); // Facility menu and submenu expansion
 BOOLEAN HandleShowingOfMovementBox( void );
 //BOOLEAN HandleShowingOfUpBox( void );
 void ReportTrainersTraineesWithoutPartners( void );
@@ -442,8 +464,12 @@ extern BOOLEAN CanChangeSleepStatusForCharSlot( INT8 bCharNumber );
 extern UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OBJECTTYPE *pKit, INT16 sKitPts, INT16 sStatus );
 
 // only 2 trainers are allowed per sector, so this function counts the # in a guy's sector
-INT8 CountMilitiaTrainersInSoldiersSector( SOLDIERTYPE * pSoldier );
-
+// HEADROCK HAM 3.6: Now takes an extra argument for Militia Type
+INT8 CountMilitiaTrainersInSoldiersSector( SOLDIERTYPE * pSoldier, UINT8 ubMilitiaType );
+// HEADROCK HAM 3.6: Check number of mercs currently staffing a specific facility.
+INT8 CountFreeFacilitySlots( UINT8 sMapX, UINT8 sMapY, UINT8 ubFacilityType );
+// HEADROCK HAM 3.6: Check number of mercs currently staffing a specific facility AND performing the same assignment
+INT8 CountFreeFacilityAssignmentSlots( UINT8 sMapX, UINT8 sMapY, UINT8 ubFacilityType, UINT8 ubAssignmentType );
 
 // notify player of assignment attempt failure
 void NotifyPlayerOfAssignmentAttemptFailure( INT8 bAssignment );
@@ -464,6 +490,9 @@ BOOLEAN CanCharacterRepairAnotherSoldiersStuff( SOLDIERTYPE *pSoldier, SOLDIERTY
 
 // can this character EVER train militia?
 BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pCharacter );
+BOOLEAN BasicCanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier );
+// Can this character EVER work in any facility?
+BOOLEAN BasicCanCharacterFacility( SOLDIERTYPE *pSoldier );
 
 SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK );
 
@@ -483,6 +512,7 @@ BOOLEAN IsSoldierCloseEnoughToADoctor( SOLDIERTYPE *pPatient );
 */
 
 #ifdef JA2BETAVERSION
+// HEADROCK HAM 3.6: Added argument for separation of Mobile/Town Militia
 void VerifyTownTrainingIsPaidFor( void );
 #endif
 
@@ -529,6 +559,9 @@ void ChangeSoldiersAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
 	pSoldier->flags.fFixingSAMSite = FALSE;
 	pSoldier->flags.fFixingRobot = FALSE;
 	pSoldier->bVehicleUnderRepairID = -1;
+
+	// HEADROCK HAM 3.6: Clean out new Facility Operation variable.
+	pSoldier->sFacilityTypeOperated = -1;
 
 	if ( ( bAssignment == DOCTOR ) || ( bAssignment == PATIENT ) || ( bAssignment == ASSIGNMENT_HOSPITAL ) )
 	{
@@ -1034,12 +1067,12 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 }
 
 
-
+// This function tests whether this sector EVER allows Militia Training, and whether the character is at all capable
+// of taking an assignment.
 BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 {
-	// is the character capable of training a town?
-	// they must be alive/conscious and in the sector with the town
-	BOOLEAN fSamSitePresent = FALSE;
+	/////////////////////////////////////////////////////
+	// Tests whether character can do assignments at all!
 
 	AssertNotNIL(pSoldier);
 
@@ -1048,39 +1081,46 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
-	// make sure character is alive and conscious
+	// Is character dead or unconscious?
 	if( pSoldier->stats.bLife < OKLIFE )
 	{
 		// dead or unconscious...
 		return ( FALSE );
 	}
 
-	// underground training is not allowed (code doesn't support and it's a reasonable enough limitation)
+	// Is character underground?
 	if( pSoldier->bSectorZ != 0 )
 	{
+		// underground training is not allowed (code doesn't support and it's a reasonable enough limitation)
 		return( FALSE );
 	}
 
-	// is there a town in the character's current sector?
-	if( StrategicMap[ CALCULATE_STRATEGIC_INDEX( pSoldier->sSectorX, pSoldier->sSectorY ) ].bNameId == BLANK_SECTOR )
+	// Is character on the way into/out of Arulco?
+	if( IsCharacterInTransit( pSoldier ) == TRUE )
 	{
-		fSamSitePresent = IsThisSectorASAMSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
-
-		// check if sam site
-		if( fSamSitePresent == FALSE )
-		{
-			// nope
-			return ( FALSE );
-		}
+		return ( FALSE );
 	}
 
-	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+	// Is character travelling between sectors?
+	if( CharacterIsBetweenSectors( pSoldier ) )
 	{
 		return( FALSE );
 	}
 
+	// Is character an Escortee?
+	if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC )
+	{
+		// epcs can't do this
+		return( FALSE );
+	}
 
-	// check in helicopter in hostile sector
+	// Is character a Vehicle or Robot?
+	if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || AM_A_ROBOT( pSoldier ) )
+	{
+		return( FALSE );
+	}
+
+	// IS character inside a helicopter over a hostile sector?
 	if( pSoldier->bAssignment == VEHICLE )
 	{
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
@@ -1093,85 +1133,160 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-	// in transit?
-	if( IsCharacterInTransit( pSoldier ) == TRUE )
+	////////////////////////////////////////////////////////////////////////
+	// Tests to see whether this sector allows training militia for ANYBODY.
+
+	// is there a SAM Site in the character's current sector?
+	if( StrategicMap[ CALCULATE_STRATEGIC_INDEX( pSoldier->sSectorX, pSoldier->sSectorY ) ].bNameId == BLANK_SECTOR )
 	{
+		BOOLEAN fSamSitePresent = IsThisSectorASAMSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+
+		// check if sam site
+		if( fSamSitePresent == FALSE )
+		{
+			// nope
+			return ( FALSE );
+		}
+	}
+	else
+	{
+		// There's a city here. Does it allow training militia?
+		INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+		if (!MilitiaTrainingAllowedInTown( bTownId ))
+		{
+			// City does not allow militia training at all.
+			return ( FALSE );
+		}
+	}
+
+	// HEADROCK HAM 3.5: Only facilities allow militia training, and determine how many trainers can work here.
+	// Does sector have at least one facility that allows training?
+	BOOLEAN fMilitiaTrainingAllowed = FALSE;
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	{
+		// Is this facility here?
+		if (gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][cnt].fFacilityHere)
+		{
+			// Does it allow training militia?
+			if (gFacilityTypes[cnt].ubMilitiaTrainersAllowed)
+			{
+				// Cool.
+				fMilitiaTrainingAllowed = TRUE;
+			}
+		}
+	}
+	if (!fMilitiaTrainingAllowed)
+	{
+		// Militia training NOT allowed here!
 		return ( FALSE );
 	}
 
-	// character on the move?
-	if( CharacterIsBetweenSectors( pSoldier ) )
+	return ( TRUE );
+}
+
+// Determines whether the character has the required condition to train Militia at this time.
+// The conditions tested in this function might change WHILE THE CHARACTER IS ALREADY TRAINING MILITIA, which is
+// how this function is normally different from "BasicCan...".
+BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
+{
+	AssertNotNIL(pSoldier);
+
+	// Make sure the basic sector/merc variables are still applicable. This is simply a fail-safe.
+	if( !BasicCanCharacterTrainMilitia( pSoldier ) )
+	{
+		// Soldier/Sector have somehow failed the basic test. Character automatically fails this test as well.
+		return( FALSE );
+	}
+
+	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
 	{
 		return( FALSE );
 	}
 
-	if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC )
-	{
-		// epcs can't do this
-		return( FALSE );
-	}
-
-	if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || AM_A_ROBOT( pSoldier ) )
-	{
-		return( FALSE );
-	}
-
-	// has leadership skill?
+	// Has leadership skill?
 	if( pSoldier->stats.bLeadership <= 0 )
 	{
 		// no skill whatsoever
 		return ( FALSE );
 	}
 
+	// Sector Loyalty above minimum?
+	if( !DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) )
+	{
+		// Not enough Loyalty...
+		return ( FALSE );
+	}
 
-	// can train militia
+	// HEADROCK HAM 3: When "Minimum Leadership for Militia Training" is enforced, this value holds the
+	// merc's effective leadership, after the "TEACHER" trait is taken into account.
+	UINT16 usEffectiveLeadership;
+
+	// HEADROCK HAM 3: Determine whether the merc has enough leadership to train militia. The teacher trait may
+	// increase or decrease the effective skill.
+	if( gGameExternalOptions.ubMinimumLeadershipToTrainMilitia > 0 )
+	{
+		// Read BASE leadership
+		usEffectiveLeadership = pSoldier->stats.bLeadership;
+ 
+		// Apply modifier for TEACHER trait, if that feature is activated
+		if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
+		{
+			// Modifier applied once for each TEACHING level.
+			for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING ); i++ )
+			{
+				// This is a percentage modifier.
+				usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
+			}
+		}
+		
+		usEffectiveLeadership = __min(100,usEffectiveLeadership);
+		
+		// Is leadership too low to proceed?
+		if (usEffectiveLeadership < gGameExternalOptions.ubMinimumLeadershipToTrainMilitia)
+		{
+			return ( FALSE );
+		}
+	}
+
+	//////////////////////////////////////////////
+	// HEADROCK HAM 3.5: Militia Training Facility 
+	//
+
+	// Militia training is enabled in the sector only if there is a facility that allows this here. 
+	// If one or more facilities are found, positive values are summed up and presented as the number 
+	// of trainers allowed in the sector. Values are read from XML, and can be set to mimic JA2
+	// defaults. This renders the INI setting "MAX_MILITIA_TRAINERS.." obsolete.
+	// HEADROCK HAM 3.5: Only facilities allow militia training, and determine how many trainers can work here.
+	// Does sector have at least one facility that allows training?
+	UINT8 ubFacilityTrainersAllowed = 0;
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	{
+		// Is this facility here?
+		if (gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][cnt].fFacilityHere)
+		{
+			// Increase tally
+			ubFacilityTrainersAllowed += gFacilityTypes[cnt].ubMilitiaTrainersAllowed;
+		}
+	}
+
+	// Count number of trainers already operating here
+	if ( CountMilitiaTrainersInSoldiersSector( pSoldier, TOWN_MILITIA ) >= ubFacilityTrainersAllowed )
+	{
+		// Too many trainers in sector.
+		return (FALSE);
+	}
+
+	// Is town full of Elites?
+	if (IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, ELITE_MILITIA ))
+	{
+		// Town is full of Elites. No further training required.
+		// Also note that this takes care of Regulars as well, if Elite training is disabled.
+		return( FALSE );
+	}
+
+	// If we've reached this, then all is well.
 	return( TRUE );
 }
-
-// Kaiden: Roaming Militia Training:
-// Commenting out the check for:
-// IsMilitiaTrainableFromSoldiersSectorMaxed(
-// At this point, we don't care if it's full yet
-
-BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
-{
-	AssertNotNIL(pSoldier);
-
-	if (gGameExternalOptions.gfmusttrainroaming
-		&& (GetWorldDay( ) >= gGameExternalOptions.guiAllowMilitiaGroupsDelay)
-		&& (!IsThisSectorASAMSector(pSoldier->sSectorX,pSoldier->sSectorY,0 )))
-	{
-		if( BasicCanCharacterTrainMilitia( pSoldier ) &&
-			MilitiaTrainingAllowedInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) &&
-			DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) &&
-			/*( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier ) == FALSE ) && */
-			( CountMilitiaTrainersInSoldiersSector( pSoldier ) < gGameExternalOptions.ubMaxMilitiaTrainersPerSector ) )
-		{
-			return( TRUE );
-		}
-		else
-		{
-			return( FALSE );
-		}
-	}
-	else
-	{
-		if( BasicCanCharacterTrainMilitia( pSoldier ) &&
-			MilitiaTrainingAllowedInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) &&
-			DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) &&
-			( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier,ELITE_MILITIA ) == FALSE ) &&
-			( CountMilitiaTrainersInSoldiersSector( pSoldier ) < gGameExternalOptions.ubMaxMilitiaTrainersPerSector ) )
-		{
-			return( TRUE );
-		}
-		else
-		{
-			return( FALSE );
-		}
-	}
-}
-
-
 
 BOOLEAN DoesTownHaveRatingToTrainMilitia( INT8 bTownId )
 {
@@ -1228,7 +1343,7 @@ BOOLEAN DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( SOLDIERTYPE *pSol
 
 
 
-INT8 CountMilitiaTrainersInSoldiersSector( SOLDIERTYPE * pSoldier )
+INT8 CountMilitiaTrainersInSoldiersSector( SOLDIERTYPE * pSoldier, UINT8 ubMilitiaType )
 {
 	INT8	bLoop;
 	SOLDIERTYPE * pOtherSoldier;
@@ -1241,7 +1356,12 @@ INT8 CountMilitiaTrainersInSoldiersSector( SOLDIERTYPE * pSoldier )
 		pOtherSoldier = MercPtrs[ bLoop ];
 		if ( pSoldier != pOtherSoldier && pOtherSoldier->bActive && pOtherSoldier->stats.bLife >= OKLIFE && pOtherSoldier->sSectorX == pSoldier->sSectorX && pOtherSoldier->sSectorY == pSoldier->sSectorY && pSoldier->bSectorZ == pOtherSoldier->bSectorZ )
 		{
-			if (pOtherSoldier->bAssignment == TRAIN_TOWN )
+			// Count depends on Militia Type requested
+			if (ubMilitiaType == TOWN_MILITIA && pOtherSoldier->bAssignment == TRAIN_TOWN )
+			{
+				bCount++;
+			}
+			else if (ubMilitiaType == MOBILE_MILITIA && pOtherSoldier->bAssignment == TRAIN_MOBILE )
 			{
 				bCount++;
 			}
@@ -1743,7 +1863,9 @@ BOOLEAN CanCharacterSleep( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 
 
 	// not tired?
-	if( pSoldier->bBreathMax >= BREATHMAX_FULLY_RESTED )
+	// HEADROCK HAM 3.5: Facilities can now reduce the maximum fatigue.
+
+	if( pSoldier->bBreathMax >= __min(BREATHMAX_FULLY_RESTED, GetSectorModifier( pSoldier, FACILITY_MAX_BREATH ) ) )
 	{
 		if( fExplainWhyNot )
 		{
@@ -2000,6 +2122,9 @@ void UpdateAssignments()
 	VerifyTownTrainingIsPaidFor();
 #endif
 
+	// HEADROCK HAM 3.6: See what effect, if any, our Facility Staffers have on global variables.
+	UpdateGlobalVariablesFromFacilities();
+
 	// run through sectors and handle each type in sector
 	for(sX = 0 ; sX < MAP_WORLD_X; sX++ )
 	{
@@ -2068,6 +2193,7 @@ void VerifyTownTrainingIsPaidFor( void )
 
 		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
 
+		// HEADROCK HAM 3.6: New argument controls testing for Mobiles/Garrisons separately.
 		if( pSoldier->bActive && ( pSoldier->bAssignment == TRAIN_TOWN ) )
 		{
 			// make sure that sector is paid up!
@@ -2075,11 +2201,22 @@ void VerifyTownTrainingIsPaidFor( void )
 			{
 				// NOPE!	We've got a bug somewhere
 				StopTimeCompression();
-
-				// report the error
+					// report the error
 				DoScreenIndependantMessageBox( L"ERROR: Unpaid militia training. Describe *how* you're re-assigning mercs, how many/where/when! Send *prior* save!", MSG_BOX_FLAG_OK, NULL );
-
-				// avoid repeating this
+					// avoid repeating this
+				break;
+			}
+		}
+		if( pSoldier->bActive && ( pSoldier->bAssignment == TRAIN_MOBILE ) )
+		{
+			// make sure that sector is paid up!
+			if( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMobileMilitiaTrainingPaid == FALSE )
+			{
+				// NOPE!	We've got a bug somewhere
+				StopTimeCompression();
+					// report the error
+				DoScreenIndependantMessageBox( L"ERROR: Unpaid militia training. Describe *how* you're re-assigning mercs, how many/where/when! Send *prior* save!", MSG_BOX_FLAG_OK, NULL );
+					// avoid repeating this
 				break;
 			}
 		}
@@ -2175,6 +2312,8 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 	UINT16 usKitPts = 0;
 	INT8 bMedFactor;
 
+	INT16 sSectorModifier = 100;
+
 	AssertNotNIL(pDoctor);
 	AssertNotNIL(pusMaxPts);
 
@@ -2187,12 +2326,22 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 		}
 	}
 
+	// HEADROCK HAM 3.5: Read bonus directly from Sector Facility info
+	if (pDoctor->bSectorZ == 0 &&
+		GetSoldierFacilityAssignmentIndex(pDoctor) == FAC_DOCTOR )
+	{
+		// Read percentage modifier from the facility in question, including ambient effects.
+		sSectorModifier = GetSectorModifier( pDoctor, FACILITY_PERFORMANCE_MOD );
+	}
+
 	// calculate effective doctoring rate (adjusted for drugs, alcohol, etc.)
 	usHealPts = (UINT16) (( EffectiveMedical( pDoctor ) * (( EffectiveDexterity( pDoctor ) + EffectiveWisdom( pDoctor ) ) / 2) * (100 + ( 5 * EffectiveExpLevel( pDoctor) ) ) ) / gGameExternalOptions.ubDoctoringRateDivisor);
+	usHealPts = __max(0, (usHealPts * sSectorModifier)/100);
 
 	// calculate normal doctoring rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
 	*pusMaxPts = ( pDoctor->stats.bMedical * (( pDoctor->stats.bDexterity + pDoctor->stats.bWisdom ) / 2 ) * (100 + ( 5 * pDoctor->stats.bExpLevel) ) ) / gGameExternalOptions.ubDoctoringRateDivisor;
+	*pusMaxPts = __max(0,*pusMaxPts+((*pusMaxPts * sSectorModifier)/100));
 
 	// adjust for fatigue
 	ReducePointsForFatigue( pDoctor, &usHealPts );
@@ -2232,6 +2381,8 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	UINT16 usRepairPts;
 	UINT16 usKitPts;
 	UINT8	ubKitEffectiveness;
+	// HEADROCK HAM 3.5: Modifier from local facilities
+	INT16 sSectorModifier = 100;
 
 	// make sure toolkit in hand?
 	if( fMakeSureKitIsInHand )
@@ -2275,6 +2426,18 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	{
 		ubKitEffectiveness = 100;
 	}
+
+	if (pSoldier->bSectorZ == 0)
+	{
+		if (GetSoldierFacilityAssignmentIndex( pSoldier ) == FAC_REPAIR_ITEMS ||
+			GetSoldierFacilityAssignmentIndex( pSoldier ) == FAC_REPAIR_VEHICLE ||
+			GetSoldierFacilityAssignmentIndex( pSoldier ) == FAC_REPAIR_ROBOT)
+		{
+			// HEADROCK HAM 3.5: Read bonus directly from Sector Facility info
+			sSectorModifier = GetSectorModifier(pSoldier, FACILITY_PERFORMANCE_MOD);
+		}
+	}
+	usRepairPts = __max(0, (usRepairPts * sSectorModifier)/100);
 
 	// adjust for equipment
 	usRepairPts = (usRepairPts * ubKitEffectiveness) / 100;
@@ -3254,6 +3417,8 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 	BOOLEAN fAnyOfSoldiersOwnItemsWereFixed = FALSE;
 	OBJECTTYPE * pObj;
 
+	UINT16 usKitDegrade = 100;
+
 
 	// grab max number of repair pts open to this soldier
 	ubRepairPtsLeft = CalculateRepairPointsForRepairman( pSoldier, &usMax, TRUE );
@@ -3385,8 +3550,14 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 		StatChange( pSoldier, MECHANAMT, ( UINT16 ) (ubRepairPtsUsed / 2), FALSE );
 		StatChange( pSoldier, DEXTAMT,	( UINT16 ) (ubRepairPtsUsed / 2), FALSE );
 
+		// HEADROCK HAM 3.6: Facilities can change the speed of kit degrade.
+		if (pSoldier->bSectorZ == 0)
+		{
+			usKitDegrade = GetSectorModifier( pSoldier, FACILITY_KIT_DEGRADE_MOD );
+		}
+
 		// check if kit damaged/depleted
-		if( ( Random( 100 ) ) < (UINT32) (ubRepairPtsUsed * 5) ) // CJC: added a x5 as this wasn't going down anywhere fast enough
+		if( ( Random( 100 ) ) < (UINT32) __max(1,((ubRepairPtsUsed * 5 * usKitDegrade) / 100)) ) // CJC: added a x5 as this wasn't going down anywhere fast enough
 		{
 			// kit item damaged/depleted, burn up points of toolkit..which is in right hand
 			UseKitPoints( &( pSoldier->inv[ HANDPOS ] ), 1, pSoldier );
@@ -3438,8 +3609,8 @@ BOOLEAN IsItemRepairable( UINT16 usItem, INT16 bStatus )
 	return ( FALSE );
 }
 
-
-void HandleRestAndFatigueInSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
+// Not used anywhere?!
+/*void HandleRestAndFatigueInSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
 	// this will handle all sleeping characters in this sector
 	SOLDIERTYPE *pSoldier, *pTeamSoldier;
@@ -3457,7 +3628,7 @@ void HandleRestAndFatigueInSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			}
 		}
 	}
-}
+}*/
 
 
 /*
@@ -3487,14 +3658,57 @@ void RestCharacter( SOLDIERTYPE *pSoldier )
 {
 	// handle the sleep of this character, update bBreathMax based on sleep they have
 	INT8 bMaxBreathRegain = 0;
+	INT16 sSectorModifier = 100;
+	INT8 bDivisor = 0;
 
-	bMaxBreathRegain = 50 / CalcSoldierNeedForSleep( pSoldier );
+	// Determine how many hours a day this merc must sleep. Normally this would range between 6 and 12 hours.
+	// Injuries and/or martial arts trait can change the limits to between 4 and 18 hours a day.
+	bDivisor = CalcSoldierNeedForSleep( pSoldier );
+	
+	// HEADROCK HAM 3.6:
+	// Night ops specialists sleep better during the day. Others sleep better during the night.
+	if (NightTime())
+	{
+		bDivisor += 4-(2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS ));
+	}
+	else
+	{
+		bDivisor += (2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS ));
+	}
+
+	// Re-enforce limits
+	bDivisor = __min(18, __max(4, bDivisor));
+
+	bMaxBreathRegain = 50 / bDivisor;
+	
+	// Limit so that characters can't regain faster than 4 hours, ever
+	if (bMaxBreathRegain > 12)
+	{
+		bMaxBreathRegain = 12;
+	}
 
 	// if breath max is below the "really tired" threshold
 	if( pSoldier->bBreathMax < BREATHMAX_PRETTY_TIRED )
 	{
 		// real tired, rest rate is 50% higher (this is to prevent absurdly long sleep times for totally exhausted mercs)
 		bMaxBreathRegain = ( bMaxBreathRegain * 3 / 2 );
+	}
+
+	// HEADROCK HAM 3.5: Read adjustment from local sector facilities
+	if (pSoldier->bSectorZ == 0)
+	{
+		if (pSoldier->flags.fMercAsleep)
+		{
+			sSectorModifier = GetSectorModifier( pSoldier, FACILITY_SLEEP_MOD );
+		}
+		else
+		{
+			// Resting can be done at a facility now, and the program will automatically apply a performance bonus
+			// to this if the facility has one. If the character is simply resting ("On Duty", assigned to a squad),
+			// then only Ambient effects take place.
+			sSectorModifier = GetSectorModifier( pSoldier, FACILITY_PERFORMANCE_MOD );
+		}
+		bMaxBreathRegain = (bMaxBreathRegain * sSectorModifier) / 100;
 	}
 
 	pSoldier->bBreathMax += bMaxBreathRegain;
@@ -3527,6 +3741,7 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 	INT32 iPercentEncumbrance;
 	INT32 iBreathLoss;
 	INT8 bMaxBreathLoss = 0, bDivisor = 1;
+	INT16 sSectorModifier = 100;
 
 
 	// vehicle or robot?
@@ -3547,13 +3762,31 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-
+	// Determine how many hours a day this merc can operate. Normally this would range between 12 and 18 hours.
+	// Injuries and/or martial arts trait can change the limits to between 6 and 20 hours a day.
 	bDivisor = 24 - CalcSoldierNeedForSleep( pSoldier );
+	
+	// HEADROCK HAM 3.6:
+	// Night ops specialists tire faster during the day. Others tire faster during the night.
+	if (NightTime())
+	{
+		bDivisor -= 4-(2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS ));
+	}
+	else
+	{
+		bDivisor -= (2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS ));
+	}
+
+	// Re-enforce limits
+	bDivisor = __min(20, __max(6, bDivisor));
+
 	bMaxBreathLoss = 50 / bDivisor;
 
-	if( bMaxBreathLoss < 2 )
+	// HEADROCK HAM 3.6: And make sure we allow no more than 18 hours of straight
+	// work. (Actually, 16, but who's counting)
+	if( bMaxBreathLoss < 3 )
 	{
-		bMaxBreathLoss = 2;
+		bMaxBreathLoss = 3;
 	}
 
 	//KM: Added encumbrance calculation to soldiers moving on foot.	Anything above 100% will increase
@@ -3573,6 +3806,13 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 	{
 		// real tired, fatigue rate is 50% higher
 		bMaxBreathLoss = ( bMaxBreathLoss * 3 / 2 );
+	}
+
+	// HEADROCK HAM 3.5: Read adjustment from local sector facilities
+	if (pSoldier->bSectorZ == 0)
+	{
+		sSectorModifier = GetSectorModifier( pSoldier, FACILITY_FATIGUE_MOD );
+		bMaxBreathLoss = (bMaxBreathLoss * sSectorModifier) / 100;
 	}
 
 
@@ -3603,7 +3843,6 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	SOLDIERTYPE *pTrainer;
 	SOLDIERTYPE *pStudent;
 	UINT8 ubStat;
-	BOOLEAN fAtGunRange = FALSE;
 	UINT32 uiCnt=0;
 	INT16 sTotalTrainingPts = 0;
 	INT16 sTrainingPtsDueToInstructor = 0;
@@ -3636,12 +3875,6 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		return;
 	}
 
-	// are we training in the sector with gun range in Alma?
-	if ( (sMapX == GUN_RANGE_X) && (sMapY == GUN_RANGE_Y) && (bZ == GUN_RANGE_Z) )
-	{
-		fAtGunRange = TRUE;
-	}
-
 	// init trainer list
 	memset( pStatTrainerList, 0, sizeof( pStatTrainerList ) );
 
@@ -3663,7 +3896,7 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 				// if he's training teammates in this stat
 				if( ( pTrainer->bAssignment == TRAIN_TEAMMATE ) && ( pTrainer->bTrainStat == ubStat) && ( EnoughTimeOnAssignment( pTrainer ) ) && ( pTrainer->flags.fMercAsleep == FALSE ) )
 				{
-					sTrainingPtsDueToInstructor = GetBonusTrainingPtsDueToInstructor( pTrainer, NULL, ubStat, fAtGunRange, &usMaxPts );
+					sTrainingPtsDueToInstructor = GetBonusTrainingPtsDueToInstructor( pTrainer, NULL, ubStat, &usMaxPts );
 
 					// if he's the best trainer so far for this stat
 					if (sTrainingPtsDueToInstructor > sBestTrainingPts)
@@ -3690,7 +3923,7 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 				if ( EnoughTimeOnAssignment( pStudent ) && ( pStudent->flags.fMercAsleep == FALSE ) )
 				{
 					// figure out how much the grunt can learn in one training period
-					sTotalTrainingPts = GetSoldierTrainingPts( pStudent, pStudent->bTrainStat, fAtGunRange, &usMaxPts );
+					sTotalTrainingPts = GetSoldierTrainingPts( pStudent, pStudent->bTrainStat, &usMaxPts );
 
 					// if he's getting help
 					if ( pStudent->bAssignment == TRAIN_BY_OTHER )
@@ -3710,7 +3943,7 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 							//if ( EnoughTimeOnAssignment( pTrainer ) )
 							{
 								// valid trainer is available, this gives the student a large training bonus!
-								sTrainingPtsDueToInstructor = GetBonusTrainingPtsDueToInstructor( pTrainer, pStudent, pStudent->bTrainStat, fAtGunRange, &usMaxPts );
+								sTrainingPtsDueToInstructor = GetBonusTrainingPtsDueToInstructor( pTrainer, pStudent, pStudent->bTrainStat, &usMaxPts );
 
 								StatChange(pTrainer,LDRAMT,sTrainingPtsDueToInstructor,FALSE);
 								StatChange(pTrainer,WISDOMAMT,sTrainingPtsDueToInstructor,FALSE);
@@ -3730,8 +3963,11 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 					}
 					else if ( pTrainer != NULL )
 					{
-						// This only occurs if at least one trainer is awake.
-						TrainSoldierWithPts( pStudent, sTotalTrainingPts );
+						if ( pTrainer->flags.fMercAsleep == FALSE )
+						{
+							// This only occurs if at least one trainer is awake.
+							TrainSoldierWithPts( pStudent, sTotalTrainingPts );
+						}
 					}
 				}
 			}
@@ -3751,7 +3987,8 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		{
 			if( pTrainer->bActive && ( pTrainer->sSectorX == sMapX ) && ( pTrainer->sSectorY == sMapY ) && ( pTrainer->bSectorZ == bZ ) )
 			{
-				if( ( pTrainer->bAssignment == TRAIN_TOWN ) && ( EnoughTimeOnAssignment( pTrainer ) )	&& ( pTrainer->flags.fMercAsleep == FALSE ) )
+				// HEADROCK HAM 3.6: TRAIN_MOBILE also possible now. Handled the same way.
+				if( ( pTrainer->bAssignment == TRAIN_TOWN || pTrainer->bAssignment == TRAIN_MOBILE ) && ( EnoughTimeOnAssignment( pTrainer ) )	&& ( pTrainer->flags.fMercAsleep == FALSE ) )
 				{
 					sTownTrainingPts = GetTownTrainPtsForCharacter( pTrainer, &usMaxPts );
 
@@ -3816,7 +4053,7 @@ int TownTrainerQsortCompare(const void *pArg1, const void *pArg2)
 }
 
 
-INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE *pStudent, INT8 bTrainStat, BOOLEAN fAtGunRange, UINT16 *pusMaxPts )
+INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE *pStudent, INT8 bTrainStat, UINT16 *pusMaxPts )
 {
 	// return the bonus training pts of this instructor with this student,...if student null, simply assignment student skill of 0 and student wisdom of 100
 	INT16 sTrainingPts = 0;
@@ -3994,13 +4231,15 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	*pusMaxPts += ( ( ( bTrainingBonus + bOpinionFactor ) * *pusMaxPts ) / 100 );
 
 	// get special bonus if we're training marksmanship and we're in the gun range sector in Alma
-	if ( ( bTrainStat == MARKSMANSHIP ) && fAtGunRange )
+	// HEADROCK HAM 3.5: Now reads from XML facilities, and works for all stats.
+	UINT8 bFacilityModifier = 100;
+	if ( pInstructor->bSectorZ == 0 )
 	{
-		bTrainingBonus += gGameExternalOptions.ubGunRangeTrainingBonus;
+		bFacilityModifier = (UINT8)GetSectorModifier( pInstructor, FACILITY_PERFORMANCE_MOD );
 	}
 
 	// adjust for any training bonuses and for the relationship
-	sTrainingPts += ( ( ( bTrainingBonus + bOpinionFactor ) * sTrainingPts ) / 100 );
+	sTrainingPts += ( ( ( bTrainingBonus + (bFacilityModifier-100) + bOpinionFactor ) * sTrainingPts ) / 100 );
 
 	// adjust for instructor fatigue
 	ReducePointsForFatigue( pInstructor, (UINT16 *)&sTrainingPts );
@@ -4009,7 +4248,7 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 }
 
 
-INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAtGunRange, UINT16 *pusMaxPts )
+INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pusMaxPts )
 {
 	INT16 sTrainingPts = 0;
 	INT16	bTrainingBonus = 0;
@@ -4071,9 +4310,10 @@ INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAt
 	sTrainingPts = __max( ( ( EffectiveWisdom( pSoldier ) * ( gGameExternalOptions.ubTrainingSkillMax - bSkill ) ) / gGameExternalOptions.ubSelfTrainingDivisor ), 1 );
 
 	// get special bonus if we're training marksmanship and we're in the gun range sector in Alma
-	if ( ( bTrainStat == MARKSMANSHIP ) && fAtGunRange )
+	// HEADROCK HAM 3.5: Now reads from XML facilities, and works for all stats.
+	if ( pSoldier->bSectorZ == 0 )
 	{
-		bTrainingBonus += gGameExternalOptions.ubGunRangeTrainingBonus;
+		bTrainingBonus += (GetSectorModifier( pSoldier, FACILITY_PERFORMANCE_MOD ) - 100 );
 	}
 
 	// adjust for any training bonuses
@@ -4085,7 +4325,7 @@ INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAt
 	return( sTrainingPts );
 }
 
-INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAtGunRange, UINT16 *pusMaxPts )
+INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pusMaxPts )
 {
 	INT16 sTrainingPts = 0;
 	INT16	bTrainingBonus = 0;
@@ -4152,9 +4392,10 @@ INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAtG
 	sTrainingPts = __max( ( ( EffectiveWisdom( pSoldier ) * ( gGameExternalOptions.ubTrainingSkillMax - bSkill ) ) / gGameExternalOptions.ubSelfTrainingDivisor ), 1 );
 
 	// get special bonus if we're training marksmanship and we're in the gun range sector in Alma
-	if ( ( bTrainStat == MARKSMANSHIP ) && fAtGunRange )
+	// HEADROCK HAM 3.5: Now reads from XML facilities, and works for all stats.
+	if ( pSoldier->bSectorZ == 0 )
 	{
-		bTrainingBonus += gGameExternalOptions.ubGunRangeTrainingBonus;
+		bTrainingBonus += ( GetSectorModifier( pSoldier, FACILITY_PERFORMANCE_MOD ) - 100 );
 	}
 
 	// adjust for any training bonuses
@@ -4178,7 +4419,7 @@ INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAtG
 			// NB skip the EnoughTime requirement to display what the value should be even if haven't been training long yet...
 			if ( ( pTrainer->bAssignment == TRAIN_TEAMMATE ) && ( pTrainer->bTrainStat == bTrainStat) && ( pTrainer->flags.fMercAsleep == FALSE ) )
 			{
-				sTrainingPtsDueToInstructor = GetBonusTrainingPtsDueToInstructor( pTrainer, pSoldier, bTrainStat, fAtGunRange, &usMaxTrainerPts );
+				sTrainingPtsDueToInstructor = GetBonusTrainingPtsDueToInstructor( pTrainer, pSoldier, bTrainStat, &usMaxTrainerPts );
 
 				// if he's the best trainer so far for this stat
 				if (sTrainingPtsDueToInstructor > sBestTrainingPts)
@@ -4289,42 +4530,70 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 
 
 	// increase town's training completed percentage
-	pSectorInfo->ubMilitiaTrainingPercentDone += (sTrainingPts / 100);
-	pSectorInfo->ubMilitiaTrainingHundredths	+= (sTrainingPts % 100);
+	// HEADROCK HAM 3.6: New town data for training Mobile Militia.
+	if (pTrainer->bAssignment == TRAIN_TOWN)
+	{	
+		pSectorInfo->ubMilitiaTrainingPercentDone += (sTrainingPts / 100);
+		pSectorInfo->ubMilitiaTrainingHundredths	+= (sTrainingPts % 100);
 
-	if (pSectorInfo->ubMilitiaTrainingHundredths >= 100)
+		if (pSectorInfo->ubMilitiaTrainingHundredths >= 100)
+		{
+			pSectorInfo->ubMilitiaTrainingPercentDone++;
+			pSectorInfo->ubMilitiaTrainingHundredths -= 100;
+		}
+
+		// NOTE: Leave this at 100, change TOWN_TRAINING_RATE if necessary.	This value gets reported to player as a %age!
+		if( pSectorInfo->ubMilitiaTrainingPercentDone >= 100 )
+		{
+			// zero out training completion - there's no carryover to the next training session
+			pSectorInfo->ubMilitiaTrainingPercentDone = 0;
+			pSectorInfo->ubMilitiaTrainingHundredths	= 0;
+
+			// make the player pay again next time he wants to train here
+			pSectorInfo->fMilitiaTrainingPaid = FALSE;
+
+			TownMilitiaTrainingCompleted( pTrainer, sMapX, sMapY );
+
+			// training done
+			return( TRUE );
+		}
+	}
+	else if (pTrainer->bAssignment == TRAIN_MOBILE)
 	{
-		pSectorInfo->ubMilitiaTrainingPercentDone++;
-		pSectorInfo->ubMilitiaTrainingHundredths -= 100;
+		pSectorInfo->ubMobileMilitiaTrainingPercentDone += (sTrainingPts / 100);
+		pSectorInfo->ubMobileMilitiaTrainingHundredths	+= (sTrainingPts % 100);
+
+		if (pSectorInfo->ubMobileMilitiaTrainingHundredths >= 100)
+		{
+			pSectorInfo->ubMobileMilitiaTrainingPercentDone++;
+			pSectorInfo->ubMobileMilitiaTrainingHundredths -= 100;
+		}
+		// NOTE: Leave this at 100, change TOWN_TRAINING_RATE if necessary.	This value gets reported to player as a %age!
+		if( pSectorInfo->ubMobileMilitiaTrainingPercentDone >= 100 )
+		{
+			// zero out training completion - there's no carryover to the next training session
+			pSectorInfo->ubMobileMilitiaTrainingPercentDone = 0;
+			pSectorInfo->ubMobileMilitiaTrainingHundredths	= 0;
+
+			// make the player pay again next time he wants to train here
+			pSectorInfo->fMobileMilitiaTrainingPaid = FALSE;
+
+			TownMilitiaTrainingCompleted( pTrainer, sMapX, sMapY );
+
+			// training done
+			return( TRUE );
+		}
 	}
 
-	// NOTE: Leave this at 100, change TOWN_TRAINING_RATE if necessary.	This value gets reported to player as a %age!
-	if( pSectorInfo->ubMilitiaTrainingPercentDone >= 100 )
-	{
-		// zero out training completion - there's no carryover to the next training session
-		pSectorInfo->ubMilitiaTrainingPercentDone = 0;
-		pSectorInfo->ubMilitiaTrainingHundredths	= 0;
+	return ( FALSE );
 
-		// make the player pay again next time he wants to train here
-		pSectorInfo->fMilitiaTrainingPaid = FALSE;
-
-		TownMilitiaTrainingCompleted( pTrainer, sMapX, sMapY );
-
-		// training done
-		return( TRUE );
-	}
-	else
-	{
-		// not done
-		return ( FALSE );
-	}
 }
 
 
 INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 {
 	INT16 sTotalTrainingPts = 0;
-	INT16 bTrainingBonus = 0;
+	INT16 sTrainingBonus = 0;
 //	UINT8 ubTownId = 0;
 
 	// calculate normal training pts - what it would be if his stats were "normal" (ignoring drugs, fatigue)
@@ -4337,23 +4606,42 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 	// check for teaching bonuses
 	if( gMercProfiles[ pTrainer->ubProfile ].bSkillTrait == TEACHING )
 	{
-		bTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
+		sTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
 	}
 	if( gMercProfiles[ pTrainer->ubProfile ].bSkillTrait2 == TEACHING )
 	{
-		bTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
+		sTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
 	}
 
 	// RPCs get a small training bonus for being more familiar with the locals and their customs/needs than outsiders
 	if( pTrainer->ubProfile >= FIRST_RPC )
 	{
-		bTrainingBonus += gGameExternalOptions.ubRpcBonusToTrainMilitia;
+		sTrainingBonus += gGameExternalOptions.ubRpcBonusToTrainMilitia;
+	}
+
+	// HEADROCK HAM 3.5: Training bonus given by local facilities
+	if (pTrainer->bSectorZ == 0)
+	{
+		for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+		{
+			if (gFacilityLocations[SECTOR(pTrainer->sSectorX, pTrainer->sSectorY)][cnt].fFacilityHere)
+			{
+				if (pTrainer->bAssignment == TRAIN_TOWN)
+				{
+					sTrainingBonus += (100 - gFacilityTypes[cnt].usMilitiaTraining);
+				}
+				else if (pTrainer->bAssignment == TRAIN_MOBILE)
+				{
+					sTrainingBonus += (100 - gFacilityTypes[cnt].usMobileMilitiaTraining);
+				}
+			}
+		}
 	}
 
 	// adjust for teaching bonus (a percentage)
-	sTotalTrainingPts += ( ( bTrainingBonus * sTotalTrainingPts ) / 100 );
+	sTotalTrainingPts += ( ( sTrainingBonus * sTotalTrainingPts ) / 100 );
 	// teach bonus is considered "normal" - it's always there
-	*pusMaxPts				+= ( ( bTrainingBonus * *pusMaxPts		) / 100 );
+	*pusMaxPts				+= ( ( sTrainingBonus * *pusMaxPts		) / 100 );
 
 
 	// adjust for fatigue of trainer
@@ -4468,11 +4756,12 @@ void AssignmentDone( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote, BOOLEAN fMeToo )
 
 	if ( fSayQuote )
 	{
-		if ( ( fMeToo == FALSE ) && (pSoldier->bAssignment == TRAIN_TOWN	) )
+		// HEADROCK HAM 3.6: Separated Militia Training
+		if ( ( fMeToo == FALSE ) && (pSoldier->bAssignment == TRAIN_TOWN || pSoldier->bAssignment == TRAIN_MOBILE ) )
 		{
 			TacticalCharacterDialogue( pSoldier, QUOTE_ASSIGNMENT_COMPLETE );
 
-			if( pSoldier->bAssignment == TRAIN_TOWN )
+			if( pSoldier->bAssignment == TRAIN_TOWN || pSoldier->bAssignment == TRAIN_MOBILE )
 			{
 				AddSectorForSoldierToListOfSectorsThatCompletedMilitiaTraining( pSoldier );
 			}
@@ -4551,6 +4840,8 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 {
 	UINT32 uiPercentHealth = 0;
 	INT8 bActivityLevelDivisor = 0;
+	UINT16 usFacilityModifier = 100;
+	UINT8 ubAssignmentType = 0;
 
 
 	// check if soldier valid
@@ -4608,12 +4899,18 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 		bActivityLevelDivisor = gGameExternalOptions.ubMediumActivityLevel;
 	}
 
+	// HEADROCK HAM 3.6: Add better healing rate from facility
+	ubAssignmentType = GetSoldierFacilityAssignmentIndex( pSoldier );
+	if (ubAssignmentType == FAC_PATIENT )
+	{
+		usFacilityModifier = GetSectorModifier( pSoldier, FACILITY_PERFORMANCE_MOD );
+	}
 
 	// what percentage of health is he down to
 	uiPercentHealth = ( pSoldier->stats.bLife * 100 ) / pSoldier->stats.bLifeMax;
 
 	// gain that many hundredths of life points back, divided by the activity level modifier
-	pSoldier->sFractLife += ( INT16 ) ( uiPercentHealth / bActivityLevelDivisor );
+	pSoldier->sFractLife += ( INT16 ) ((( uiPercentHealth / bActivityLevelDivisor ) * usFacilityModifier) / 100 );
 
 	// now update the real life values
 	UpDateSoldierLife( pSoldier );
@@ -5866,6 +6163,16 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 				// shade vehicle line
 				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_VEHICLE );
 			}
+
+			if (BasicCanCharacterFacility( pSoldier ))
+			{
+				// unshade facility line
+				UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_FACILITY );
+			}
+			else
+			{
+				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_FACILITY );
+			}
 		}
 	}
 
@@ -5883,6 +6190,12 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 
 	// training attributes submenu
 	HandleShadingOfLinesForAttributeMenus( );
+
+	// HEADROCK HAM 3.6: Facility Menu
+	HandleShadingOfLinesForFacilityMenu( );
+
+	// HEADROCK HAM 3.6: Facility Submenu
+	HandleShadingOfLinesForFacilityAssignmentMenu( );
 
 	return;
 }
@@ -5932,6 +6245,8 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		fShowAssignmentMenu = FALSE;
 		fShowVehicleMenu = FALSE;
 		fShowRepairMenu = FALSE;
+		// HEADROCK HAM 3.6: Reset Facility menu
+		fShowFacilityMenu = FALSE;
 
 		// destroy mask, if needed
 		CreateDestroyScreenMaskForAssignmentAndContractMenus( );
@@ -5944,6 +6259,9 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		CreateDestroyMouseRegionsForAttributeMenu( );
 		CreateDestroyMouseRegionsForSquadMenu( TRUE );
 		CreateDestroyMouseRegionForRepairMenu( );
+		// HEADROCK HAM 3.6: Facility Menu, Submenu
+		CreateDestroyMouseRegionForFacilityMenu( );
+		CreateDestroyMouseRegionsForFacilityAssignmentMenu( );
 
 		// hide all boxes being shown
 		if ( IsBoxShown( ghEpcBox ) )
@@ -5979,6 +6297,20 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		if ( IsBoxShown( ghVehicleBox ) )
 		{
 			HideBox( ghVehicleBox );
+			fTeamPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+		}
+		// HEADROCK HAM 3.6: Facility Menu
+		if ( IsBoxShown( ghFacilityBox ) )
+		{
+			HideBox( ghFacilityBox );
+			fTeamPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+		}
+		// HEADROCK HAM 3.6: Facility Submenu
+		if ( IsBoxShown( ghFacilityAssignmentBox ) )
+		{
+			HideBox( ghFacilityAssignmentBox );
 			fTeamPanelDirty = TRUE;
 			gfRenderPBInterface = TRUE;
 		}
@@ -6110,8 +6442,47 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		//	SetRenderFlags(RENDER_FLAG_FULL);
 		}
 	}
-
 	CreateDestroyMouseRegionForVehicleMenu( );
+
+	// HEADROCK HAM 3.6: FACILITY menu
+	if( fShowFacilityMenu == TRUE )
+	{
+		HandleShadingOfLinesForFacilityMenu( );
+		ShowBox( ghFacilityBox );
+	}
+	else
+	{
+		if( IsBoxShown( ghFacilityBox ) )
+		{
+			HideBox( ghFacilityBox );
+			fTeamPanelDirty = TRUE;
+		fMapPanelDirty = TRUE;
+		gfRenderPBInterface = TRUE;
+		//	SetRenderFlags(RENDER_FLAG_FULL);
+		}
+	}
+	CreateDestroyMouseRegionForFacilityMenu( );
+
+	// Facility Sub-menu
+	if( fShowFacilityAssignmentMenu == TRUE )
+	{
+		HandleShadingOfLinesForFacilityAssignmentMenu( );
+		ShowBox( ghFacilityAssignmentBox );
+	}
+	else
+	{
+		if( IsBoxShown( ghFacilityAssignmentBox ) )
+		{
+			HideBox( ghFacilityAssignmentBox );
+			fTeamPanelDirty = TRUE;
+			fMapPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+			//	SetRenderFlags(RENDER_FLAG_FULL);
+		}
+
+	}
+	CreateDestroyMouseRegionsForFacilityAssignmentMenu( );
+
 
 	return;
 }
@@ -6171,6 +6542,11 @@ void AssignmentScreenMaskBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 
 		fShowContractMenu = FALSE;
 
+		// HEADROCK HAM 3.6: Facility Menu.
+		//fShowFacilityMenu = FALSE;
+		// And facility Submenu
+		//fShowFacilityAssignmentMenu = FALSE;
+
 		// stop showing town mine info
 		fShowTownInfo = FALSE;
 
@@ -6213,6 +6589,8 @@ void ClearScreenMaskForMapScreenExit( void )
 	CreateDestroyMouseRegionsForAttributeMenu( );
 	CreateDestroyMouseRegionsForSquadMenu( TRUE );
 	CreateDestroyMouseRegionForRepairMenu(	);
+	// HEADROCK HAM 3.6: Facility Menu
+	CreateDestroyMouseRegionForFacilityMenu( );
 
 	return;
 }
@@ -6730,10 +7108,14 @@ void CreateDestroyMouseRegionsForRemoveMenu( void )
 		if( fShowRemoveMenu == FALSE )
 		{
 			fShowAttributeMenu = FALSE;
+			// HEADROCK HAM 3.6: Stop showing Facility submenu
+			fShowFacilityAssignmentMenu = FALSE;
 			fMapPanelDirty = TRUE;
 			gfRenderPBInterface = TRUE;
-
 		}
+
+
+
 
 
 		RestorePopUpBoxes( );
@@ -7499,9 +7881,6 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	// btn callback handler for assignment region
 	INT32 iValue = -1;
 	SOLDIERTYPE * pSoldier = NULL;
-	INT8 bTownId;
-	CHAR16 sString[ 128 ];
-	CHAR16 sStringA[ 128 ];
 	BOOLEAN fCanTrainMilitia = TRUE;
 
 
@@ -7541,110 +7920,122 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				DetermineBoxPositions( );
 
 			break;
+			// HEADROCK HAM 3.6: This is revamped for separating Mobile and Garrison training.
 			case( TRAIN_MENU_TOWN):
-				if( BasicCanCharacterTrainMilitia(pSoldier) )
+
+				// Full test of Character and Sector to see if this training is possible at the moment.
+				if( !BasicCanCharacterTrainMilitia(pSoldier) )
 				{
-					bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
-
-					// if it's a town sector (the following 2 errors can't happen at non-town SAM sites)
-					if( bTownId != BLANK_SECTOR )
-					{
-						// can we keep militia in this town?
-						if( MilitiaTrainingAllowedInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) == FALSE )
-						{
-							swprintf( sString, pMapErrorString[ 31 ], pTownNames[ bTownId ] );
-							DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
-							break;
-						}
-
-						// is the current loyalty high enough to train some?
-						if( DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) == FALSE )
-						{
-							DoScreenIndependantMessageBox( zMarksMapScreenText[ 20 ], MSG_BOX_FLAG_OK, NULL );
-							break;
-						}
-					}
-
-
-					// Kaiden: Roaming Militia Training:
-					if(IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, ELITE_MILITIA ))
-						if (!gGameExternalOptions.gfmusttrainroaming)
-							fCanTrainMilitia = FALSE;
-						else if (GetWorldDay( ) < gGameExternalOptions.guiAllowMilitiaGroupsDelay)
-							fCanTrainMilitia = FALSE;
-						else if (IsThisSectorASAMSector(pSoldier->sSectorX,pSoldier->sSectorY,0 ))
-							fCanTrainMilitia = FALSE;
-						else
-							fCanTrainMilitia = TRUE;
-
-
-					if(!fCanTrainMilitia)
-					{
-						if( bTownId == BLANK_SECTOR )
-						{
-							// SAM site
-							GetShortSectorString(	pSoldier->sSectorX, pSoldier->sSectorY, sStringA );
-							swprintf( sString, zMarksMapScreenText[ 21 ], sStringA );
-						}
-						else
-						{
-							// town
-							swprintf( sString, zMarksMapScreenText[ 21 ], pTownNames[ bTownId ] );
-						}
-
-						DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
-						break;
-					}
-
-					if ( CountMilitiaTrainersInSoldiersSector( pSoldier ) >= gGameExternalOptions.ubMaxMilitiaTrainersPerSector )
-					{
-						swprintf( sString, gzLateLocalizedString[ 47 ], gGameExternalOptions.ubMaxMilitiaTrainersPerSector );
-						DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
-						break;
-					}
-
-
-					// PASSED ALL THE TESTS - ALLOW SOLDIER TO TRAIN MILITIA HERE
-
-					pSoldier->bOldAssignment = pSoldier->bAssignment;
-
-					if( ( pSoldier->bAssignment != TRAIN_TOWN ) )
-					{
-						SetTimeOfAssignmentChangeForMerc( pSoldier );
-					}
-
-					MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
-
-					// stop showing menu
-				fShowAssignmentMenu = FALSE;
-					giAssignHighLine = -1;
-
-					// remove from squad
-
-					if( pSoldier->bOldAssignment == VEHICLE )
-					{
-						TakeSoldierOutOfVehicle( pSoldier );
-					}
-					RemoveCharacterFromSquads(	pSoldier );
-
-					ChangeSoldiersAssignment( pSoldier, TRAIN_TOWN );
-
-					// assign to a movement group
-					AssignMercToAMovementGroup( pSoldier );
-					if( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMilitiaTrainingPaid == FALSE )
-					{
-						// show a message to confirm player wants to charge cost
-						HandleInterfaceMessageForCostOfTrainingMilitia( pSoldier );
-					}
-					else
-					{
-						SetAssignmentForList( TRAIN_TOWN, 0 );
-					}
-
-					gfRenderPBInterface = TRUE;
-
+					// No feedback. The menu options should be greyed out, anyway.
+					break;
 				}
-			break;
+				
+				// Check for specific errors why this merc should not be able to train, 
+				// and display a specific error message if one is encountered.
+				if( !CanCharacterTrainMilitiaWithErrorReport(pSoldier) )
+				{
+					// Error found. Breaking. Note that the above function DOES display feedback if an error is
+					// encountered at all.
+					break;
+				}
+
+				// PASSED BOTH TESTS - ALLOW SOLDIER TO TRAIN MILITIA HERE
+
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				if( ( pSoldier->bAssignment != TRAIN_TOWN ) )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+
+				// stop showing menu
+				fShowAssignmentMenu = FALSE;
+				giAssignHighLine = -1;
+
+				// remove from squad
+
+				if( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+				RemoveCharacterFromSquads(	pSoldier );
+
+				ChangeSoldiersAssignment( pSoldier, TRAIN_TOWN );
+
+				// assign to a movement group
+				AssignMercToAMovementGroup( pSoldier );
+				if( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMilitiaTrainingPaid == FALSE )
+				{
+					// show a message to confirm player wants to charge cost
+					HandleInterfaceMessageForCostOfTrainingMilitia( pSoldier );
+				}
+				else
+				{
+					SetAssignmentForList( TRAIN_TOWN, 0 );
+				}
+				gfRenderPBInterface = TRUE;
+				break;
+
+			// HEADROCK HAM 3.6: New separate Mobile Militia training.
+			case( TRAIN_MENU_MOBILE ):
+
+				// Full test of Character and Sector to see if this training is possible at the moment.
+				if( !BasicCanCharacterTrainMobileMilitia(pSoldier) )
+				{
+					// No feedback. The menu options should be greyed out, anyway.
+					break;
+				}
+				
+				// Check for specific errors why this merc should not be able to train, 
+				// and display a specific error message if one is encountered.
+				if( !CanCharacterTrainMobileMilitiaWithErrorReport(pSoldier) )
+				{
+					// Error found. Breaking. Note that the above function DOES display feedback if an error is
+					// encountered at all.
+					break;
+				}
+
+				// PASSED BOTH TESTS - ALLOW SOLDIER TO TRAIN MILITIA HERE
+
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				if( ( pSoldier->bAssignment != TRAIN_MOBILE ) )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+
+				// stop showing menu
+				fShowAssignmentMenu = FALSE;
+				giAssignHighLine = -1;
+
+				// remove from squad
+
+				if( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+				RemoveCharacterFromSquads(	pSoldier );
+
+				ChangeSoldiersAssignment( pSoldier, TRAIN_MOBILE );
+
+				// assign to a movement group
+				AssignMercToAMovementGroup( pSoldier );
+				if( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMobileMilitiaTrainingPaid == FALSE )
+				{
+					// show a message to confirm player wants to charge cost
+					HandleInterfaceMessageForCostOfTrainingMilitia( pSoldier );
+				}
+				else
+				{
+					SetAssignmentForList( TRAIN_MOBILE, 0 );
+				}
+				gfRenderPBInterface = TRUE;
+				break;
+
 			case( TRAIN_MENU_TEAMMATES):
 
 				if( CanCharacterTrainTeammates( pSoldier ) == TRUE )
@@ -7785,8 +8176,8 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-
-		if( ( fShowAttributeMenu )||( fShowTrainingMenu ) || ( fShowRepairMenu ) || ( fShowVehicleMenu ) ||( fShowSquadMenu ) )
+		// HEADROCK HAM 3.6: Added facility menu.
+		if( ( fShowAttributeMenu )||( fShowTrainingMenu ) || ( fShowRepairMenu ) || ( fShowVehicleMenu ) ||( fShowSquadMenu ) || ( fShowFacilityMenu ) || ( fShowFacilityAssignmentMenu ) )
 		{
 			return;
 		}
@@ -7804,6 +8195,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							fShowSquadMenu = TRUE;
 							fShowTrainingMenu = FALSE;
 							fShowVehicleMenu = FALSE;
+							fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 							fTeamPanelDirty = TRUE;
 							fMapScreenBottomDirty = TRUE;
 
@@ -7898,6 +8290,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							fShowSquadMenu = TRUE;
 							fShowTrainingMenu = FALSE;
 							fShowVehicleMenu = FALSE;
+							fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 							fTeamPanelDirty = TRUE;
 							fMapScreenBottomDirty = TRUE;
 							fShowRepairMenu = FALSE;
@@ -8021,6 +8414,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowSquadMenu = FALSE;
 						fShowTrainingMenu = FALSE;
 						fShowVehicleMenu = FALSE;
+						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
 
@@ -8056,9 +8450,34 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowSquadMenu = FALSE;
 						fShowVehicleMenu = FALSE;
 						fShowRepairMenu = FALSE;
+						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+					}
+				break;
+				// HEADROCK HAM 3.6: New assignments for Facility operation.
+				case( ASSIGN_MENU_FACILITY ):
+					if ( BasicCanCharacterFacility( pSoldier ) )
+					{
+						// put character on a team
+						fShowSquadMenu = FALSE;
+						fShowTrainingMenu = FALSE;
+						fShowVehicleMenu = FALSE;
+						fShowRepairMenu = FALSE;
+						fShowFacilityMenu = TRUE; // HEADROCK HAM 3.6: Facility Menu
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+
+						if( DisplayFacilityMenu( pSoldier ) )
+						{
+							fShowFacilityMenu = TRUE;
+							ShowBox( ghFacilityBox );
+						}
+						else
+						{
+							fShowFacilityMenu = FALSE;
+						}
 					}
 				break;
 				case( ASSIGN_MENU_CANCEL ):
@@ -8079,13 +8498,16 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP )
 	{
-		if( ( fShowAttributeMenu )||( fShowTrainingMenu ) || ( fShowRepairMenu ) || ( fShowVehicleMenu ) ||( fShowSquadMenu ) )
+		// HEADROCK HAM 3.6: Added facility menu
+		if( ( fShowAttributeMenu )||( fShowTrainingMenu ) || ( fShowRepairMenu ) || ( fShowVehicleMenu ) ||( fShowSquadMenu ) || ( fShowFacilityMenu ) || ( fShowFacilityAssignmentMenu ) )
 		{
 			fShowAttributeMenu = FALSE;
 			fShowTrainingMenu = FALSE;
 			fShowRepairMenu = FALSE;
 			fShowVehicleMenu = FALSE;
 			fShowSquadMenu = FALSE;
+			fShowFacilityMenu = FALSE; // Added facilities
+			fShowFacilityAssignmentMenu = FALSE; // Sub-menu for facilities
 
 			// rerender tactical stuff
 			gfRenderPBInterface = TRUE;
@@ -8109,6 +8531,8 @@ void RestorePopUpBoxes( void )
 	AssignmentPosition.iX = OrigAssignmentPosition.iX ;
 	TrainPosition.iX = OrigTrainPosition.iX;
 	VehiclePosition.iX = OrigVehiclePosition.iX;
+	FacilityPosition.iX = OrigFacilityPosition.iX;
+	FacilityAssignmentPosition.iX = OrigFacilityAssignmentPosition.iX;
 
 	return;
 }
@@ -8819,6 +9243,9 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 		CreateAttributeBox();
 		CreateVehicleBox();
 		CreateRepairBox( );
+		// HEADROCK HAM 3.6: Facility Menu
+		CreateFacilityBox( );
+		CreateFacilityAssignmentBox( );
 
 		UpdateMapScreenAssignmentPositions( );
 
@@ -8831,6 +9258,10 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 
 		RemoveBox(ghAttributeBox);
 		ghAttributeBox = -1;
+
+		// HEADROCK HAM 3.6: Remove Facility Assignment Menu
+		RemoveBox(ghFacilityAssignmentBox);
+		ghFacilityAssignmentBox = -1;
 
 		RemoveBox(ghVehicleBox);
 		ghVehicleBox = -1;
@@ -8846,6 +9277,10 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 
 		RemoveBox(ghTrainingBox);
 		ghTrainingBox = -1;
+
+		// HEADROCK HAM 3.6: Remove Facility Menu
+		RemoveBox(ghFacilityBox);
+		ghFacilityBox = -1;
 
 		fCreated = FALSE;
 		gfIgnoreScrolling = FALSE;
@@ -8935,6 +9370,40 @@ void DetermineBoxPositions( void )
 			pNewPoint.iX = pPoint.iX + pDimensions.iRight;
 			pNewPoint.iY = pPoint.iY;
 			SetBoxPosition( ghAttributeBox, pNewPoint );
+		}
+	}
+
+	/*// HEADROCK HAM 3.6: Facility Menu
+	if( ( fShowFacilityMenu == TRUE ) && ( ghFacilityBox != -1 ) )
+	{
+		CreateDestroyMouseRegionForFacilityMenu( );
+		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
+
+		SetBoxPosition( ghFacilityBox, pNewPoint );
+	}*/
+
+	// HEADROCK HAM 3.6: Facility Sub-menu
+	if( ( fShowFacilityMenu == TRUE ) && ( ghFacilityBox != -1 ) )
+	{
+		//CreateDestroyMouseRegionForFacilityMenu( );
+		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
+		SetBoxPosition( ghFacilityBox, pNewPoint );
+		FacilityPosition.iX = pNewPoint.iX;
+		FacilityPosition.iY = pNewPoint.iY;
+		OrigFacilityPosition.iY = pNewPoint.iY;
+		OrigFacilityPosition.iX = pNewPoint.iX;
+
+		ResizeBoxToText( ghFacilityBox );
+
+		GetBoxSize( ghFacilityBox, &pDimensions );
+		GetBoxPosition( ghFacilityBox, &pPoint );
+
+		if( ( fShowFacilityAssignmentMenu == TRUE ) && ( ghFacilityAssignmentBox != -1 ) )
+		{
+			// hang it right beside the training box menu
+			pNewPoint.iX = pPoint.iX + pDimensions.iRight;
+			pNewPoint.iY = pPoint.iY;
+			SetBoxPosition( ghFacilityAssignmentBox, pNewPoint );
 		}
 	}
 
@@ -9161,6 +9630,73 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 
 		SetBoxPosition( ghTrainingBox, pPoint );
 	}
+
+	// HEADROCK HAM 3.6: Facility Sub-menu
+	else if( fShowFacilityAssignmentMenu == TRUE )
+	{
+		GetBoxSize( ghFacilityBox, &pDimensions );
+		GetBoxSize( ghFacilityAssignmentBox, &pDimensions3 );
+
+		if( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight + pDimensions3.iRight >= SCREEN_WIDTH )
+		{
+			gsAssignmentBoxesX = ( INT16 ) ( (SCREEN_WIDTH - 1) - ( pDimensions2.iRight + pDimensions.iRight + pDimensions3.iRight ) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		if( gsAssignmentBoxesY + pDimensions3.iBottom + ( GetFontHeight( MAP_SCREEN_FONT ) * ASSIGN_MENU_FACILITY ) >= (SCREEN_HEIGHT - 120) )
+		{
+			gsAssignmentBoxesY = ( INT16 )( (SCREEN_HEIGHT - 121) - ( pDimensions3.iBottom ) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight;
+		pPoint.iY = gsAssignmentBoxesY;
+
+		pPoint.iY += (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
+		SetBoxPosition( ghFacilityAssignmentBox, pPoint );
+
+		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
+		pPoint.iY = gsAssignmentBoxesY;
+
+		pPoint.iY += (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
+
+		SetBoxPosition( ghFacilityBox, pPoint );
+
+
+	}
+
+	// HEADROCK HAM 3.6: Facility Menu
+	if( fShowFacilityMenu == TRUE )
+	{
+		GetBoxSize( ghFacilityBox, &pDimensions );
+
+		if( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
+		{
+			gsAssignmentBoxesX = ( INT16 ) ( (SCREEN_WIDTH - 1) - ( pDimensions2.iRight + pDimensions.iRight ) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		if( pDimensions2.iBottom >	pDimensions.iBottom )
+		{
+			sLongest = ( INT16 )pDimensions2.iBottom + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
+		}
+		else
+		{
+			sLongest	= ( INT16 )pDimensions.iBottom + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
+		}
+
+		if( gsAssignmentBoxesY + sLongest >= (SCREEN_HEIGHT - 120) )
+		{
+			gsAssignmentBoxesY = ( INT16 )( (SCREEN_HEIGHT - 121) - ( sLongest ) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
+		pPoint.iY = gsAssignmentBoxesY + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
+
+		SetBoxPosition( ghFacilityBox, pPoint );
+	}
+
 	else
 	{
 		// just the assignment box
@@ -9258,6 +9794,24 @@ void HandleRestFatigueAndSleepStatus( void )
 				FatigueCharacter( pSoldier );
 			}
 
+			// HEADROCK HAM 3.5: Enforce breath limits from sector facilities
+			if (pSoldier->bSectorZ == 0)
+			{
+				// Find maximum breath allowed by facilities (lowest limit found will be used)
+				UINT8 ubMaxFatigue = (UINT8)GetSectorModifier( pSoldier, FACILITY_MAX_BREATH );
+				if ( ubMaxFatigue > 0 && pSoldier->bBreathMax > ubMaxFatigue )
+				{
+					// Normalize to the maximum allowed here.
+					pSoldier->bBreathMax = (pSoldier->bBreathMax + ubMaxFatigue) / 2;
+
+					if (pSoldier->bBreath > pSoldier->bBreathMax)
+					{
+						// Adjust breath to max.
+						pSoldier->bBreath = pSoldier->bBreathMax;
+					}
+				}
+			}
+
 
 			// CHECK FOR MERCS GOING TO SLEEP
 
@@ -9282,6 +9836,11 @@ void HandleRestFatigueAndSleepStatus( void )
 							TacticalCharacterDialogue( pSoldier, QUOTE_NEED_SLEEP );
 							TacticalCharacterDialogueWithSpecialEvent( pSoldier, QUOTE_NEED_SLEEP, DIALOGUE_SPECIAL_EVENT_SLEEP, 1,0 );
 							fMeToo = TRUE;
+						}
+						// HEADROCK HAM 2.8/HAM 3.6: Run sleep synchronization between Trainers and Trainees
+						else
+						{
+							HandleTrainingSleepSynchronize( pSoldier );
 						}
 
 						// guy collapses
@@ -9315,6 +9874,10 @@ void HandleRestFatigueAndSleepStatus( void )
 
 							// seems unnecessary now?	ARM
 							pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+							// HEADROCK HAM 2.8/HAM 3.6: If a trainer goes to sleep, we may need to put all his trainees to sleep as well.
+							// If all trainees are asleep, put the trainer to sleep as well.
+							HandleTrainingSleepSynchronize( pSoldier );
 						}
 					}
 					else	// tired, in a squad / vehicle
@@ -9384,7 +9947,8 @@ void HandleRestFatigueAndSleepStatus( void )
 			if ( pSoldier->flags.fMercAsleep )
 			{
 				// but has had enough rest?
-				if( pSoldier->bBreathMax >= BREATHMAX_FULLY_RESTED )
+				// HEADROCK HAM 3.5: Facilities can reduce maximum fatigue below 95...
+				if( pSoldier->bBreathMax >= __min(BREATHMAX_FULLY_RESTED, GetSectorModifier( pSoldier, FACILITY_MAX_BREATH ) ) )
 				{
 					// try to wake merc up
 					if( SetMercAwake( pSoldier, FALSE, FALSE ) )
@@ -9403,6 +9967,9 @@ void HandleRestFatigueAndSleepStatus( void )
 								AddSoldierToWaitingListQueue( pSoldier );
 								fBoxSetUp = TRUE;
 							}
+							// HEADROCK HAM 2.8/HAM 3.6: If a trainer wakes up, we may need to wake up all his trainees as well.
+							// If all trainees are awake, wake up the trainer as well.
+							HandleTrainingWakeSynchronize( pSoldier );
 						}
 					}
 				}
@@ -9759,6 +10326,49 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				gfRenderPBInterface = TRUE;
 			}
 		break;
+		// HEADROCK HAM 3.6: Training mobiles is now a separate assignment.
+		case( TRAIN_MOBILE ):
+			if( CanCharacterTrainMobileMilitia( pSoldier ) )
+			{
+				// train mobile militia
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// set dirty flag
+				fTeamPanelDirty = TRUE;
+				fMapScreenBottomDirty = TRUE;
+
+				// remove from squad
+				RemoveCharacterFromSquads(	pSoldier );
+
+				// remove from any vehicle
+				if( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if( ( pSoldier->bAssignment != TRAIN_MOBILE ) )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, TRAIN_MOBILE );
+
+				if( pMilitiaTrainerSoldier == NULL )
+				{
+					if( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMilitiaTrainingPaid == FALSE )
+					{
+						// show a message to confirm player wants to charge cost
+						HandleInterfaceMessageForCostOfTrainingMilitia( pSoldier );
+					}
+				}
+
+				AssignMercToAMovementGroup( pSoldier );
+				// set dirty flag
+				fTeamPanelDirty = TRUE;
+				fMapScreenBottomDirty = TRUE;
+				gfRenderPBInterface = TRUE;
+			}
+		break;
 		case( TRAIN_SELF ):
 			if( CanCharacterTrainStat( pSoldier, ( INT8 )iParam1, TRUE, FALSE ) )
 			{
@@ -10080,6 +10690,13 @@ BOOLEAN HandleAssignmentExpansionAndHighLightForAssignMenu( SOLDIERTYPE *pSoldie
 		HighLightBoxLine( ghAssignmentBox, ASSIGN_MENU_VEHICLE );
 		return( TRUE );
 	}
+	// HEADROCK HAM 3.6: Facility Menu.
+	else if( fShowFacilityMenu )
+	{
+		// highlight the facility line in the previous menu
+		HighLightBoxLine( ghAssignmentBox, ASSIGN_MENU_FACILITY );
+		return( TRUE );
+	}
 
 	return( FALSE );
 }
@@ -10204,13 +10821,39 @@ void HandleShadingOfLinesForTrainingMenu( void )
 		}
 		else
 		{
+			UnShadeStringInBox( ghTrainingBox, TRAIN_MENU_TOWN );
 			SecondaryShadeStringInBox( ghTrainingBox, TRAIN_MENU_TOWN );
 		}
 	}
 	else
 	{
+		UnSecondaryShadeStringInBox( ghTrainingBox, TRAIN_MENU_TOWN );
 		// shade train militia line
 		ShadeStringInBox( ghTrainingBox, TRAIN_MENU_TOWN );
+	}
+
+	// HEADROCK HAM 3.6: Training Mobile Militia.
+	// can character EVER train Mobile Militia?
+	if( BasicCanCharacterTrainMobileMilitia( pSoldier ) )
+	{
+		// can he train here, now?
+		if( CanCharacterTrainMobileMilitia( pSoldier ) )
+		{
+			// unshade train militia line
+			UnShadeStringInBox( ghTrainingBox, TRAIN_MENU_MOBILE );
+			UnSecondaryShadeStringInBox( ghTrainingBox, TRAIN_MENU_MOBILE );
+		}
+		else
+		{
+			UnShadeStringInBox( ghTrainingBox, TRAIN_MENU_MOBILE );
+			SecondaryShadeStringInBox( ghTrainingBox, TRAIN_MENU_MOBILE );
+		}
+	}
+	else
+	{
+		UnSecondaryShadeStringInBox( ghTrainingBox, TRAIN_MENU_MOBILE );
+		// shade train militia line
+		ShadeStringInBox( ghTrainingBox, TRAIN_MENU_MOBILE );
 	}
 
 
@@ -10297,7 +10940,7 @@ void HandleShadingOfLinesForAttributeMenus( void )
 }
 
 
-void ResetAssignmentsForAllSoldiersInSectorWhoAreTrainingTown( SOLDIERTYPE *pSoldier )
+/*void ResetAssignmentsForAllSoldiersInSectorWhoAreTrainingTown( SOLDIERTYPE *pSoldier )
 {
 	INT32 iNumberOnTeam = 0, iCounter = 0;
 	SOLDIERTYPE *pCurSoldier = NULL;
@@ -10321,7 +10964,7 @@ void ResetAssignmentsForAllSoldiersInSectorWhoAreTrainingTown( SOLDIERTYPE *pSol
 	}
 
 	return;
-}
+}*/
 
 
 void ReportTrainersTraineesWithoutPartners( void )
@@ -10445,6 +11088,10 @@ BOOLEAN PutMercInAwakeState( SOLDIERTYPE *pSoldier )
 
 		// set merc awake
 		pSoldier->flags.fMercAsleep = FALSE;
+
+		// HEADROCK HAM 3.6: Merc hasn't been working all this time, so let's reset his assignment start time. This
+		// will squash an exploit, and is a bit more realistic anyway.
+		pSoldier->uiLastAssignmentChangeMin = GetWorldTotalMin();
 
 		// refresh panels
 		fCharacterInfoPanelDirty = TRUE;
@@ -10887,7 +11534,12 @@ void ReEvaluateEveryonesNothingToDo()
 					break;
 
 				case PATIENT:
-					fNothingToDo = !CanCharacterPatient( pSoldier ) || ( AnyDoctorWhoCanHealThisPatient( pSoldier, HEALABLE_EVER ) == NULL );
+					// HEADROCK HAM 3.6: Characters can be facility patients, in which case they are resting with a
+					// bonus or penalty to their healing rate. No doctor is actually required, even though the
+					// character is still eligible for a doctor's treatment.
+					fNothingToDo = !CanCharacterPatient( pSoldier ) || 
+						( AnyDoctorWhoCanHealThisPatient( pSoldier, HEALABLE_EVER ) == NULL &&
+						GetSoldierFacilityAssignmentIndex( pSoldier ) != FAC_PATIENT );
 					break;
 
 				case ASSIGNMENT_HOSPITAL:
@@ -10900,6 +11552,11 @@ void ReEvaluateEveryonesNothingToDo()
 
 				case TRAIN_TOWN:
 					fNothingToDo = !CanCharacterTrainMilitia( pSoldier );
+					break;
+
+				// HEADROCK HAM 3.6: Mobile Militia Training
+				case TRAIN_MOBILE:
+					fNothingToDo = !CanCharacterTrainMobileMilitia( pSoldier );
 					break;
 
 				case TRAIN_SELF:
@@ -10921,7 +11578,12 @@ void ReEvaluateEveryonesNothingToDo()
 					fNothingToDo = FALSE;
 					break;
 			}
-
+			// HEADROCK HAM 3.6: Separate "can do" checks when the character is using a facility.
+			if (fNothingToDo == FALSE && GetSoldierFacilityAssignmentIndex(pSoldier) >= 0)
+			{
+				// Can this soldier continue working at the same facility doing the same job?
+				fNothingToDo = !CanCharacterFacility( pSoldier, (UINT8)pSoldier->sFacilityTypeOperated, (UINT8)GetSoldierFacilityAssignmentIndex(pSoldier) );
+			}
 
 			// if his flag is wrong
 			if ( fNothingToDo != pSoldier->flags.fDoneAssignmentAndNothingToDoFlag )
@@ -11076,6 +11738,15 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 						fItWorked = TRUE;
 					}
 					break;
+				// HEADROCK HAM 3.6: Mobile Militia Training.
+				case( TRAIN_MOBILE ):
+					if( CanCharacterTrainMobileMilitia( pSoldier ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, TRAIN_MOBILE, 0, 0, 0 );
+						fItWorked = TRUE;
+					}
+					break;
 				case( TRAIN_TEAMMATE ):
 					if( CanCharacterTrainStat( pSoldier, bParam, FALSE, TRUE ) )
 					{
@@ -11089,6 +11760,17 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						SetSoldierAssignment( pSoldier, TRAIN_BY_OTHER, bParam, 0,0 );
+						fItWorked = TRUE;
+					}
+					break;
+				
+				// HEADROCK HAM 3.6: Facility Staffing
+				case FACILITY_STAFF:
+					if ( CanCharacterFacility( pSoldier, bParam, FAC_STAFF ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						ChangeSoldiersAssignment( pSoldier, FACILITY_STAFF );
+						pSoldier->sFacilityTypeOperated = bParam;
 						fItWorked = TRUE;
 					}
 					break;
@@ -11251,7 +11933,6 @@ BOOLEAN ValidTrainingPartnerInSameSectorOnAssignmentFound( SOLDIERTYPE *pTargetS
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 	INT16 sTrainingPts = 0;
-	BOOLEAN fAtGunRange = FALSE;
 	UINT16 usMaxPts;
 
 
@@ -11279,21 +11960,15 @@ BOOLEAN ValidTrainingPartnerInSameSectorOnAssignmentFound( SOLDIERTYPE *pTargetS
 			{
 				// so far so good, now let's see if the trainer can really teach the student anything new
 
-				// are we training in the sector with gun range in Alma?
-				if ( ( pSoldier->sSectorX == GUN_RANGE_X ) && (pSoldier->sSectorY == GUN_RANGE_Y ) && ( pSoldier->bSectorZ == GUN_RANGE_Z ) )
-				{
-					fAtGunRange = TRUE;
-				}
-
 				if ( pSoldier->bAssignment == TRAIN_TEAMMATE )
 				{
 					// pSoldier is the instructor, target is the student
-					sTrainingPts = GetBonusTrainingPtsDueToInstructor( pSoldier, pTargetSoldier, bTargetStat, fAtGunRange, &usMaxPts );
+					sTrainingPts = GetBonusTrainingPtsDueToInstructor( pSoldier, pTargetSoldier, bTargetStat, &usMaxPts );
 				}
 				else
 				{
 					// target is the instructor, pSoldier is the student
-					sTrainingPts = GetBonusTrainingPtsDueToInstructor( pTargetSoldier, pSoldier, bTargetStat, fAtGunRange, &usMaxPts );
+					sTrainingPts = GetBonusTrainingPtsDueToInstructor( pTargetSoldier, pSoldier, bTargetStat, &usMaxPts );
 				}
 
 				if ( sTrainingPts > 0 )
@@ -11407,6 +12082,7 @@ BOOLEAN CharacterIsTakingItEasy( SOLDIERTYPE *pSoldier )
 	{
 		// on duty, but able to catch naps (either not traveling, or not the driver of the vehicle)
 		// The actual checks for this are in the "can he sleep" check above
+
 		if ( ( pSoldier->bAssignment < ON_DUTY ) || ( pSoldier->bAssignment == VEHICLE ) )
 		{
 			return( TRUE );
@@ -11414,6 +12090,30 @@ BOOLEAN CharacterIsTakingItEasy( SOLDIERTYPE *pSoldier )
 
 		// and healing up?
 		if ( ( pSoldier->bAssignment == PATIENT ) || ( pSoldier->bAssignment == ASSIGNMENT_HOSPITAL ) )
+		{
+			return( TRUE );
+		}
+
+		// HEADROCK HAM 2.8/HAM 3.6: Trainers whose trainees are all asleep will not become fatigued.
+		if ( pSoldier->bAssignment == TRAIN_TEAMMATE && (gGameExternalOptions.ubSmartTrainingRest == 1 || gGameExternalOptions.ubSmartTrainingRest == 2))
+		{
+			if (FindAnyAwakeTrainees( pSoldier ) == FALSE)
+			{
+				return( TRUE );
+			}
+		}
+
+		// HEADROCK HAM 2.8/HAM 3.6: Characters in training whose trainer is asleep will not be fatigued.
+		if ( pSoldier->bAssignment == TRAIN_BY_OTHER && (gGameExternalOptions.ubSmartTrainingRest == 1 || gGameExternalOptions.ubSmartTrainingRest == 3))
+		{
+			if (FindAnyAwakeTrainers( pSoldier ) == FALSE)
+			{
+				return( TRUE );
+			}
+		}
+		
+		// HEADROCK HAM 3.6: Added new resting assignment for facilities only.
+		if ( pSoldier->bAssignment == FACILITY_REST )
 		{
 			return( TRUE );
 		}
@@ -11441,36 +12141,50 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 	// base comes from profile
 	ubNeedForSleep = gMercProfiles[ pSoldier->ubProfile ].ubNeedForSleep;
 
+	// Enforce a maximum of 12 hours before injury penalties.
+	if ( ubNeedForSleep > 12 )
+	{
+		ubNeedForSleep = 12;
+	}
+
+	// Enforce a minimum of 6 hours, before night/day considerations.
+	if ( ubNeedForSleep < 6 )
+	{
+		ubNeedForSleep = 6;
+	}
+
+	// HEADROCK HAM 3.5: WTF! This calculation is NOT correct!
+	//ubPercentHealth = pSoldier->stats.bLife / pSoldier->stats.bLifeMax;
 	ubPercentHealth = (pSoldier->stats.bLife*100) / pSoldier->stats.bLifeMax;
 
+	// Increase need for sleep based on injuries.
 	if ( ubPercentHealth < 75 )
 	{
 		ubNeedForSleep++;
 
 		if ( ubPercentHealth < 50 )
 		{
-			ubNeedForSleep++;
+			ubNeedForSleep += 2; // 3 extra hours a day
 
 			if ( ubPercentHealth < 25 )
 			{
-				ubNeedForSleep += 2;
+				ubNeedForSleep += 4; // 7 extra hours a day
 			}
 		}
 	}
 
-	// reduce for each Night Ops or Martial Arts trait
-	ubNeedForSleep -= NUM_SKILL_TRAITS( pSoldier, NIGHTOPS );
+	// Re-Enforce a maximum of 18 hours after injury penalties.
+	if ( ubNeedForSleep > 18 )
+	{
+		ubNeedForSleep = 18;
+	}
+
+	// reduce for Night Ops trait
+	// HEADROCK HAM 3.6: This is now split and applied depending on whether the merc is resting or working.
+	//ubNeedForSleep -= NUM_SKILL_TRAITS( pSoldier, NIGHTOPS );
+
+	// reduce for Martial Arts trait
 	ubNeedForSleep -= NUM_SKILL_TRAITS( pSoldier, MARTIALARTS );
-
-	if ( ubNeedForSleep < 4 )
-	{
-		ubNeedForSleep = 4;
-	}
-
-	if ( ubNeedForSleep > 12 )
-	{
-		ubNeedForSleep = 12;
-	}
 
 	return( ubNeedForSleep );
 }
@@ -11772,7 +12486,7 @@ BOOLEAN SetTrainerSleepWhenTraineesSleep( SOLDIERTYPE *pThisTrainee)
 {
 	UINT16 sMapX = pThisTrainee->sSectorX;
 	UINT16 sMapY = pThisTrainee->sSectorY;
-	UINT16 sMapZ = pThisTrainee->sZLevel;
+	UINT16 sMapZ = pThisTrainee->bSectorZ;
 	UINT8 bStat = pThisTrainee->bTrainStat;
 	INT32 iCounter, iNumberOnTeam;
 	
@@ -11794,7 +12508,7 @@ BOOLEAN SetTrainerSleepWhenTraineesSleep( SOLDIERTYPE *pThisTrainee)
 	{
 		pOtherTrainee = &Menptr[ iCounter ];
 		if (pOtherTrainee->bAssignment == TRAIN_BY_OTHER && pOtherTrainee->bTrainStat == pThisTrainee->bTrainStat && 
-			pOtherTrainee->sSectorX == sMapX && pOtherTrainee->sSectorY == sMapY && pOtherTrainee->sZLevel == sMapZ &&			
+			pOtherTrainee->sSectorX == sMapX && pOtherTrainee->sSectorY == sMapY && pOtherTrainee->bSectorZ == sMapZ &&			
 			pOtherTrainee->bActive && !pOtherTrainee->flags.fMercAsleep )
 		{
 			// Trainee is present and awake. Flag is reset to false.
@@ -11809,7 +12523,7 @@ BOOLEAN SetTrainerSleepWhenTraineesSleep( SOLDIERTYPE *pThisTrainee)
 		{
 			pTrainer = &Menptr[ iCounter ];
 			if (pTrainer->bAssignment == TRAIN_TEAMMATE && pTrainer->bTrainStat == pThisTrainee->bTrainStat && 
-				pTrainer->sSectorX == sMapX && pTrainer->sSectorY == sMapY && pTrainer->sZLevel == sMapZ &&	
+				pTrainer->sSectorX == sMapX && pTrainer->sSectorY == sMapY && pTrainer->bSectorZ == sMapZ &&	
 				pTrainer->bActive && !pTrainer->flags.fMercAsleep )
 			{
 				// Trainer will go to sleep
@@ -11848,7 +12562,7 @@ BOOLEAN SetTraineesSleepWhenTrainerSleeps( SOLDIERTYPE *pTrainer)
 {
 	UINT16 sMapX = pTrainer->sSectorX;
 	UINT16 sMapY = pTrainer->sSectorY;
-	UINT16 sMapZ = pTrainer->sZLevel;
+	UINT16 sMapZ = pTrainer->bSectorZ;
 	UINT8 bStat = pTrainer->bTrainStat;
 	INT32 iCounter, iNumberOnTeam;
 	BOOLEAN fTraineesSentToSleep = FALSE;
@@ -11867,7 +12581,7 @@ BOOLEAN SetTraineesSleepWhenTrainerSleeps( SOLDIERTYPE *pTrainer)
 	{
 		pTrainee = &Menptr[ iCounter ];
 		if (pTrainee->bAssignment == TRAIN_BY_OTHER && pTrainee->bTrainStat == pTrainer->bTrainStat && 
-			pTrainee->sSectorX == sMapX && pTrainee->sSectorY == sMapY && pTrainee->sZLevel == sMapZ &&
+			pTrainee->sSectorX == sMapX && pTrainee->sSectorY == sMapY && pTrainee->bSectorZ == sMapZ &&
 			pTrainee->bActive && !pTrainee->flags.fMercAsleep )
 		{
 			// Trainee will go to sleep
@@ -11902,7 +12616,7 @@ BOOLEAN SetTrainerWakeWhenTraineesWake( SOLDIERTYPE *pThisTrainee)
 {
 	UINT16 sMapX = pThisTrainee->sSectorX;
 	UINT16 sMapY = pThisTrainee->sSectorY;
-	UINT16 sMapZ = pThisTrainee->sZLevel;
+	UINT16 sMapZ = pThisTrainee->bSectorZ;
 	UINT8 bStat = pThisTrainee->bTrainStat;
 	INT32 iCounter, iNumberOnTeam;
 	
@@ -11924,7 +12638,7 @@ BOOLEAN SetTrainerWakeWhenTraineesWake( SOLDIERTYPE *pThisTrainee)
 	{
 		pOtherTrainee = &Menptr[ iCounter ];
 		if (pOtherTrainee->bAssignment == TRAIN_BY_OTHER && pOtherTrainee->bTrainStat == pThisTrainee->bTrainStat && 
-			pOtherTrainee->sSectorX == sMapX && pOtherTrainee->sSectorY == sMapY && pOtherTrainee->sZLevel == sMapZ &&			
+			pOtherTrainee->sSectorX == sMapX && pOtherTrainee->sSectorY == sMapY && pOtherTrainee->bSectorZ == sMapZ &&			
 			pOtherTrainee->bActive && pOtherTrainee->flags.fMercAsleep )
 		{
 			// Trainee is present and asleep. Flag is reset to FALSE.
@@ -11939,7 +12653,7 @@ BOOLEAN SetTrainerWakeWhenTraineesWake( SOLDIERTYPE *pThisTrainee)
 		{
 			pTrainer = &Menptr[ iCounter ];
 			if (pTrainer->bAssignment == TRAIN_TEAMMATE && pTrainer->bTrainStat == pThisTrainee->bTrainStat && 
-				pTrainer->sSectorX == sMapX && pTrainer->sSectorY == sMapY && pTrainer->sZLevel == sMapZ &&	
+				pTrainer->sSectorX == sMapX && pTrainer->sSectorY == sMapY && pTrainer->bSectorZ == sMapZ &&	
 				pTrainer->bActive && pTrainer->flags.fMercAsleep )
 			{
 				// Trainer will wake up
@@ -11977,7 +12691,7 @@ BOOLEAN SetTraineesWakeWhenTrainerWakes( SOLDIERTYPE *pTrainer)
 {
 	UINT16 sMapX = pTrainer->sSectorX;
 	UINT16 sMapY = pTrainer->sSectorY;
-	UINT16 sMapZ = pTrainer->sZLevel;
+	UINT16 sMapZ = pTrainer->bSectorZ;
 	UINT8 bStat = pTrainer->bTrainStat;
 	INT32 iCounter, iNumberOnTeam;
 	BOOLEAN fTraineesWokenUp = FALSE;
@@ -11996,7 +12710,7 @@ BOOLEAN SetTraineesWakeWhenTrainerWakes( SOLDIERTYPE *pTrainer)
 	{
 		pTrainee = &Menptr[ iCounter ];
 		if (pTrainee->bAssignment == TRAIN_BY_OTHER && pTrainee->bTrainStat == pTrainer->bTrainStat && 
-			pTrainee->sSectorX == sMapX && pTrainee->sSectorY == sMapY && pTrainee->sZLevel == sMapZ &&
+			pTrainee->sSectorX == sMapX && pTrainee->sSectorY == sMapY && pTrainee->bSectorZ == sMapZ &&
 			pTrainee->bActive && pTrainee->flags.fMercAsleep )
 		{
 			// Trainee will wake up
@@ -12060,9 +12774,9 @@ BOOLEAN FindAnyAwakeTrainers( SOLDIERTYPE *pTrainee )
 {
 	UINT16 sMapX = pTrainee->sSectorX;
 	UINT16 sMapY = pTrainee->sSectorY;
-	UINT16 sMapZ = pTrainee->sZLevel;
+	UINT16 sMapZ = pTrainee->bSectorZ;
 	UINT8 bStat = pTrainee->bTrainStat;
-	INT32 iCounter, iNumberOnTeam;
+	INT32 ubCounter = 0;
 	BOOLEAN fAllTrainersAsleep = TRUE;
 
 	SOLDIERTYPE * pTrainer;
@@ -12073,17 +12787,19 @@ BOOLEAN FindAnyAwakeTrainers( SOLDIERTYPE *pTrainee )
 		return(FALSE);
 	}
 
-	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-
-	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	while(gCharactersList[ubCounter].fValid)
 	{
-		pTrainer = &Menptr[ iCounter ];
+		pTrainer = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+			
+		// Is trainer awake?
 		if (pTrainer->bAssignment == TRAIN_TEAMMATE && pTrainer->bTrainStat == pTrainee->bTrainStat && 
-			pTrainer->sSectorX == sMapX && pTrainer->sSectorY == sMapY && pTrainer->sZLevel == sMapZ &&
+			pTrainer->sSectorX == sMapX && pTrainer->sSectorY == sMapY && pTrainer->bSectorZ == sMapZ &&
 			pTrainer->bActive && !pTrainer->flags.fMercAsleep )
 		{
+			// Reset flag
 			fAllTrainersAsleep = FALSE;
 		}
+		ubCounter++;
 	}
 
 	return(fAllTrainersAsleep);
@@ -12093,9 +12809,9 @@ BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer )
 {
 	UINT16 sMapX = pTrainer->sSectorX;
 	UINT16 sMapY = pTrainer->sSectorY;
-	UINT16 sMapZ = pTrainer->sZLevel;
+	UINT16 sMapZ = pTrainer->bSectorZ;
 	UINT8 bStat = pTrainer->bTrainStat;
-	INT32 iCounter, iNumberOnTeam;
+	INT32 ubCounter = 0;
 	BOOLEAN fAllTraineesAsleep = TRUE;
 
 	SOLDIERTYPE * pTrainee;
@@ -12106,18 +12822,2539 @@ BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer )
 		return(FALSE);
 	}
 
-	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-
-	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	while(gCharactersList[ubCounter].fValid)
 	{
-		pTrainee = &Menptr[ iCounter ];
+		pTrainee = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+			
+		// Is trainee awake?
 		if (pTrainee->bAssignment == TRAIN_BY_OTHER && pTrainee->bTrainStat == pTrainer->bTrainStat && 
-			pTrainee->sSectorX == sMapX && pTrainee->sSectorY == sMapY && pTrainee->sZLevel == sMapZ &&
+			pTrainee->sSectorX == sMapX && pTrainee->sSectorY == sMapY && pTrainee->bSectorZ == sMapZ &&
 			pTrainee->bActive && !pTrainee->flags.fMercAsleep )
 		{
+			// Reset flag.
 			fAllTraineesAsleep = FALSE;
 		}
+		ubCounter++;
 	}
 
 	return(fAllTraineesAsleep);
+}
+
+// HEADROCK HAM 3.6: A new set of functions (this & next) to determine whether a character can train Mobile Militia.
+// This function tests character statistics.
+
+BOOLEAN BasicCanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
+{
+
+	/////////////////////////////////////////////////////
+	// Tests whether character can do assignments at all!
+
+	AssertNotNIL(pSoldier);
+
+	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
+	{
+		return( FALSE );
+	}
+
+	// Mobile Training allowed by INI settings?
+	if (!gGameExternalOptions.gfmusttrainroaming || // Mobiles turned off?
+		GetWorldDay( ) < gGameExternalOptions.guiAllowMilitiaGroupsDelay) // Mobiles not yet available?
+	{
+		// No Mobile Militia training allowed!
+		return ( FALSE );
+	}
+
+	// Is character dead or unconscious?
+	if( pSoldier->stats.bLife < OKLIFE )
+	{
+		// dead or unconscious...
+		return ( FALSE );
+	}
+
+	// Is character underground?
+	if( pSoldier->bSectorZ != 0 )
+	{
+		// underground training is not allowed (code doesn't support and it's a reasonable enough limitation)
+		return( FALSE );
+	}
+
+	// Is character on the way into/out of Arulco?
+	if( IsCharacterInTransit( pSoldier ) == TRUE )
+	{
+		return ( FALSE );
+	}
+
+	// Is character travelling between sectors?
+	if( CharacterIsBetweenSectors( pSoldier ) )
+	{
+		return( FALSE );
+	}
+
+	// Is character an Escortee?
+	if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC )
+	{
+		// epcs can't do this
+		return( FALSE );
+	}
+
+	// Is character a Vehicle or Robot?
+	if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || AM_A_ROBOT( pSoldier ) )
+	{
+		return( FALSE );
+	}
+
+	// IS character inside a helicopter over a hostile sector?
+	if( pSoldier->bAssignment == VEHICLE )
+	{
+		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
+		{
+			// enemies in sector
+			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			{
+				return( FALSE );
+			}
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////
+	// Tests to see whether this sector allows training militia for ANYBODY.
+
+	// is there a city in the character's current sector?
+	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+	if (!bTownId)
+	{
+		// No city? No Mobiles.
+		return ( FALSE );
+	}
+	else
+	{
+		// There's a city here. Does it allow training militia?
+		if (!MilitiaTrainingAllowedInTown( bTownId ))
+		{
+			// City does not allow militia training at all.
+			return ( FALSE );
+		}
+	}
+
+	// HEADROCK HAM 3.5: Only facilities allow militia training, and determine how many trainers can work here.
+	// Does sector have at least one facility that allows training?
+	// HEADROCK HAM 3.5: Only facilities allow militia training, and determine how many trainers can work here.
+	// Does sector have at least one facility that allows training?
+	BOOLEAN fMobileMilitiaTrainingAllowed = FALSE;
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	{
+		// Is this facility here?
+		if (gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][cnt].fFacilityHere)
+		{
+			// Does it allow training militia?
+			if (gFacilityTypes[cnt].ubMobileMilitiaTrainersAllowed)
+			{
+				// Cool.
+				fMobileMilitiaTrainingAllowed = TRUE;
+			}
+		}
+	}
+	if (!fMobileMilitiaTrainingAllowed)
+	{
+		// Mobile Militia training NOT allowed here!
+		return ( FALSE );
+	}
+
+	return ( TRUE );
+}
+
+// HEADROCK HAM 3.6: A new set of functions (this & previous) to determine whether a character can train Mobile Militia.
+// This function tests location.
+
+BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
+{
+	AssertNotNIL(pSoldier);
+
+	// Make sure the basic sector/merc variables are still applicable. This is simply a fail-safe.
+	if( !BasicCanCharacterTrainMobileMilitia( pSoldier ) )
+	{
+		// Soldier/Sector have somehow failed the basic test. Character automatically fails this test as well.
+		return( FALSE );
+	}
+
+	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+	{
+		return( FALSE );
+	}
+
+	// Has leadership skill?
+	if( pSoldier->stats.bLeadership <= 0 )
+	{
+		// no skill whatsoever
+		return ( FALSE );
+	}
+
+	// Sector Loyalty above minimum?
+	if( !DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) )
+	{
+		// Not enough Loyalty...
+		return ( FALSE );
+	}
+
+	// HEADROCK HAM 3: When "Minimum Leadership for Militia Training" is enforced, this value holds the
+	// merc's effective leadership, after the "TEACHER" trait is taken into account.
+	UINT16 usEffectiveLeadership;
+
+	// HEADROCK HAM 3: Determine whether the merc has enough leadership to train militia. The teacher trait may
+	// increase or decrease the effective skill.
+	if( gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia > 0 )
+	{
+		// Read BASE leadership
+		usEffectiveLeadership = pSoldier->stats.bLeadership;
+ 
+		// Apply modifier for TEACHER trait, if that feature is activated
+		if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
+		{
+			// Modifier applied once for each TEACHING level.
+			for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING ); i++ )
+			{
+				// This is a percentage modifier.
+				usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
+			}
+		}
+		
+		usEffectiveLeadership = __min(100,usEffectiveLeadership);
+		
+		// Is leadership too low to proceed?
+		if (usEffectiveLeadership < gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia)
+		{
+			return ( FALSE );
+		}
+	}
+
+	////////////////////////////////////////////////
+	// Check whether controlled town sectors already have full militia
+
+	INT32 iCounter = 0;
+	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR(pSoldier->sSectorX, pSoldier->sSectorY) ] );
+	BOOLEAN fUnfullSectorFound = FALSE;
+
+	if ( CountMilitia( pSectorInfo ) < gGameExternalOptions.iMaxMilitiaPerSector )
+	{
+		fUnfullSectorFound = TRUE;
+	}
+	else
+	{
+		iCounter = 0;
+		while( pTownNamesList[ iCounter ] != 0 )
+		{
+			// Are we in this city?
+			if( pTownNamesList[ iCounter] == bTownId )
+			{
+				INT16 sCurrentX = GET_X_FROM_STRATEGIC_INDEX( pTownLocationsList[ iCounter ] );
+				INT16 sCurrentY = GET_Y_FROM_STRATEGIC_INDEX( pTownLocationsList[ iCounter ] );
+
+				pSectorInfo = &( SectorInfo[ SECTOR(sCurrentX, sCurrentY) ] );
+				// if sector has enemies or hasn't already been taken at least once, then
+				if ( !SectorInfo[ SECTOR(sCurrentX, sCurrentY) ].fSurfaceWasEverPlayerControlled || 
+					NumEnemiesInSector( sCurrentX, sCurrentY ) > 0 )
+				{
+					// skip the rest. This sector cannot generate militia anyway. 
+					iCounter++;
+					continue;
+				}
+				else
+				{
+					if (CountMilitia(pSectorInfo) < gGameExternalOptions.iMaxMilitiaPerSector )
+					{
+						// Found a controlled city sector that does not yet have a full garrison
+						fUnfullSectorFound = TRUE;
+					}
+				}
+			}
+			iCounter++;
+		}
+	}
+	if (fUnfullSectorFound)
+	{
+		// At least one city sector is controlled but not full of garrison militia. Can't train mobiles!
+		return (FALSE);
+	}
+
+	//////////////////////////////////////////////
+	// HEADROCK HAM 3.5: Militia Training Facility 
+	//
+
+	// Militia training is enabled in the sector only if there is a facility that allows this here. 
+	// If one or more facilities are found, positive values are summed up and presented as the number 
+	// of trainers allowed in the sector. Values are read from XML, and can be set to mimic JA2
+	// defaults. This renders the INI setting "MAX_MILITIA_TRAINERS.." obsolete.
+
+	// HEADROCK HAM 3.5: Only facilities allow militia training, and determine how many trainers can work here.
+	// Does sector have at least one facility that allows training?
+	UINT8 ubFacilityTrainersAllowed = 0;
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	{
+		// Is this facility here?
+		if (gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][cnt].fFacilityHere)
+		{
+			// Increase tally
+			ubFacilityTrainersAllowed += gFacilityTypes[cnt].ubMobileMilitiaTrainersAllowed;
+		}
+	}
+
+	// Count number of trainers already operating here
+	if ( CountMilitiaTrainersInSoldiersSector( pSoldier, MOBILE_MILITIA ) >= ubFacilityTrainersAllowed )
+	{
+		// Too many trainers in sector.
+		return (FALSE);
+	}
+
+	// This will be replaced with an appropriate check to see if we have militia presence in this city at all.
+	// For now, Mobile Militia training is allowed regardless of how many troopers you have here.
+	//
+	// Is town full of Elites?
+	//if (IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, ELITE_MILITIA ))
+	//{
+	//	// Town is full of Elites. No further training required.
+	//	// Also note that this takes care of Regulars as well, if Elite training is disabled.
+	//	return( FALSE );
+	//}
+
+	// If we've reached this, then all is well.
+	return( TRUE );
+
+}
+
+BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
+{
+	// Temp string.
+	CHAR16 sString[ 128 ];
+	CHAR16 sStringA[ 128 ];
+
+	// Enemies present?
+	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+	{
+		// Report "Enemies present!"
+		DoScreenIndependantMessageBox( New113HAMMessage[5], MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+
+	///////////////////////////////
+	// Test for required Leadership
+
+	UINT16 usEffectiveLeadership = pSoldier->stats.bLeadership; // Basic leadership score
+	BOOLEAN fSufficientLeadership = TRUE; // Result of check
+
+	// Apply modifier for TEACHER trait, if that feature is activated
+	if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
+	{
+		// Modifier applied once for each TEACHING level.
+		for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING ); i++ )
+		{
+			// This is a percentage modifier.
+			usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
+		}
+		usEffectiveLeadership = __min(100,usEffectiveLeadership);
+	}
+	
+	// Is there an INI-set requirement?
+	if (gGameExternalOptions.ubMinimumLeadershipToTrainMilitia)
+	{
+		// Does he fail the requirement?
+		if (usEffectiveLeadership < gGameExternalOptions.ubMinimumLeadershipToTrainMilitia)
+		{
+			fSufficientLeadership = FALSE;
+		}
+	}
+	// If there is no requirement, does the soldier have ANY leadership skill?
+	else if (usEffectiveLeadership <= 0)
+	{
+		fSufficientLeadership = FALSE;
+	}
+
+	// Failed above leadership tests?
+	if( !fSufficientLeadership )
+	{
+		// Report "Insufficient Leadership Skill"
+		swprintf(sString, New113HAMMessage[6], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return ( FALSE );
+	}
+
+	////////////////////////
+	// Test for town loyalty
+
+	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+
+	// Is this a town sector?
+	if( bTownId != BLANK_SECTOR )
+	{
+		// is the current loyalty high enough to train militia at all?
+		if( DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) == FALSE )
+		{
+			// Report "Not enough loyalty!"
+			DoScreenIndependantMessageBox( zMarksMapScreenText[ 20 ], MSG_BOX_FLAG_OK, NULL );
+			return (FALSE);
+		}
+	}
+
+	// HEADROCK HAM 3.6: To be moved into the Mobile Militia training routine....
+	// Kaiden: Roaming Militia Training:
+	//if(IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, ELITE_MILITIA ))
+	//	if (!gGameExternalOptions.gfmusttrainroaming)
+	//		fCanTrainMilitia = FALSE;
+	//	else if (GetWorldDay( ) < gGameExternalOptions.guiAllowMilitiaGroupsDelay)
+	//		fCanTrainMilitia = FALSE;
+	//	else if (IsThisSectorASAMSector(pSoldier->sSectorX,pSoldier->sSectorY,0 ))
+	//		fCanTrainMilitia = FALSE;
+	//	else
+	//		fCanTrainMilitia = TRUE;
+
+	////////////////////////////////
+	// Test for Militia Capacity
+
+	if(IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, ELITE_MILITIA ))
+	{
+		if( bTownId == BLANK_SECTOR )
+		{
+			// SAM site
+			GetShortSectorString(	pSoldier->sSectorX, pSoldier->sSectorY, sStringA );
+			swprintf( sString, zMarksMapScreenText[ 21 ], sStringA );
+		}
+		else
+		{
+			// town
+			swprintf( sString, zMarksMapScreenText[ 21 ], pTownNames[ bTownId ] );
+		}
+		
+		// Report "Not enough room for Militia!"
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return (FALSE);
+	}
+
+	//////////////////////////////////////////////
+	// HEADROCK HAM 3.5: Militia Training Facility 
+	//
+	// Militia training is enabled in the sector only if there is a facility that allows this here. 
+	// If one or more facilities are found, positive values are summed up and presented as the number 
+	// of trainers allowed in the sector. Values are read from XML, and can be set to mimic JA2
+	// defaults. This renders the INI setting "MAX_MILITIA_TRAINERS.." obsolete.
+
+	UINT8 ubFacilityTrainersAllowed = 0;
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	{
+		// Is this facility here?
+		if (gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][cnt].fFacilityHere)
+		{
+			// Increase tally
+			ubFacilityTrainersAllowed += gFacilityTypes[cnt].ubMilitiaTrainersAllowed;
+		}
+	}
+
+	// If we are here, then TrainersAllowed > 0. 
+	// Otherwise we'd have failed the BasicCanTrain check
+	if ( CountMilitiaTrainersInSoldiersSector( pSoldier, TOWN_MILITIA ) >= ubFacilityTrainersAllowed )
+	{
+		swprintf( sString, gzLateLocalizedString[ 47 ], ubFacilityTrainersAllowed );
+		
+		// Report "Too many Militia Trainers!"
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return (FALSE);
+	}
+
+	// No errors to report. Character can perform this assignment.
+	return (TRUE);
+
+}
+
+
+BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
+{
+	// Temp string.
+	CHAR16 sString[ 256 ];
+	INT32 iCounter = 0;
+
+	// Enemies present?
+	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+	{
+		// Report "Enemies present!"
+		DoScreenIndependantMessageBox( New113HAMMessage[5], MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+
+	///////////////////////////////
+	// Test for required Leadership
+
+	UINT16 usEffectiveLeadership = pSoldier->stats.bLeadership; // Basic leadership score
+	BOOLEAN fSufficientLeadership = TRUE; // Result of check
+
+	// Apply modifier for TEACHER trait, if that feature is activated
+	if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
+	{
+		// Modifier applied once for each TEACHING level.
+		for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING ); i++ )
+		{
+			// This is a percentage modifier.
+			usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
+		}
+		usEffectiveLeadership = __min(100,usEffectiveLeadership);
+	}
+	
+	// Is there an INI-set requirement?
+	if (gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia)
+	{
+		// Does he fail the requirement?
+		if (usEffectiveLeadership < gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia)
+		{
+			fSufficientLeadership = FALSE;
+		}
+	}
+	// If there is no requirement, does the soldier have ANY leadership skill?
+	else if (usEffectiveLeadership <= 0)
+	{
+		fSufficientLeadership = FALSE;
+	}
+
+	// Failed above leadership tests?
+	if( !fSufficientLeadership )
+	{
+		// Report "Insufficient Leadership Skill"
+		swprintf(sString, New113HAMMessage[6], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return ( FALSE );
+	}
+
+	/////////////////////////////////////////
+	// Town loyalty test
+	// is the current loyalty high enough to train militia at all?
+	if( DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) == FALSE )
+	{
+		// Report "Not enough loyalty!"
+		DoScreenIndependantMessageBox( zMarksMapScreenText[ 20 ], MSG_BOX_FLAG_OK, NULL );
+		return (FALSE);
+	}
+
+	////////////////////////////////////////////////
+	// Check whether controlled town sectors already have full militia
+
+	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR(pSoldier->sSectorX, pSoldier->sSectorY) ] );
+	UINT8 ubUnfullSectorsFound = 0;
+
+	if ( CountMilitia( pSectorInfo ) < gGameExternalOptions.iMaxMilitiaPerSector )
+	{
+		ubUnfullSectorsFound++;
+	}
+	else
+	{
+		iCounter = 0;
+		while( pTownNamesList[ iCounter ] != 0 )
+		{
+			// Are we in this city?
+			if( pTownNamesList[ iCounter] == bTownId )
+			{
+				INT16 sCurrentX = GET_X_FROM_STRATEGIC_INDEX( pTownLocationsList[ iCounter ] );
+				INT16 sCurrentY = GET_Y_FROM_STRATEGIC_INDEX( pTownLocationsList[ iCounter ] );
+
+				pSectorInfo = &( SectorInfo[ SECTOR(sCurrentX, sCurrentY) ] );
+				// if sector has enemies or hasn't already been taken at least once, then
+				if ( !SectorInfo[ SECTOR(sCurrentX, sCurrentY) ].fSurfaceWasEverPlayerControlled || 
+					NumEnemiesInSector( sCurrentX, sCurrentY ) > 0 )
+				{
+					// skip the rest. This sector cannot generate militia anyway. 
+					iCounter++;
+					continue;
+				}
+				else
+				{
+					if (CountMilitia(pSectorInfo) < gGameExternalOptions.iMaxMilitiaPerSector )
+					{
+						// Found a controlled city sector that does not yet have a full garrison
+						ubUnfullSectorsFound++;
+					}
+				}
+			}
+			iCounter++;
+		}
+	}
+	if (ubUnfullSectorsFound)
+	{
+		// At least one city sector is controlled but not full of garrison militia. Can't train mobiles!
+		swprintf(sString, New113HAMMessage[9], gGameExternalOptions.iMaxMilitiaPerSector, pTownNames[bTownId]);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return (FALSE);
+	}
+
+	//////////////////////////////////////////
+	// Capacity and Garrison checks in nearby sectors
+	UINT16 pMoveDir[4][3];
+	UINT8 uiDirNumber = 0;
+	BOOLEAN fFoundValidSector = FALSE;
+
+	GenerateDirectionInfosForTraining( pSoldier->sSectorX, pSoldier->sSectorY, &uiDirNumber, pMoveDir );
+	// Found at least one suitable place to put Mobiles?
+	if (uiDirNumber)
+	{
+		fFoundValidSector = TRUE;
+	}
+	// Try entire city. Only the HAM Smart Militia Generator can handle this.
+	else
+	{
+		iCounter = 0;
+		// Go through each city in the game
+		while( pTownNamesList[ iCounter ] != 0 )
+		{
+			// Are we in this city?
+			if( pTownNamesList[ iCounter] == bTownId )
+			{
+				INT16 sCurrentX = GET_X_FROM_STRATEGIC_INDEX( pTownLocationsList[ iCounter ] );
+				INT16 sCurrentY = GET_Y_FROM_STRATEGIC_INDEX( pTownLocationsList[ iCounter ] );
+
+				// if sector has enemies or hasn't already been taken at least once, then
+				if ( !SectorInfo[ SECTOR(sCurrentX, sCurrentY) ].fSurfaceWasEverPlayerControlled || 
+					NumEnemiesInSector( sCurrentX, sCurrentY ) > 0 )
+				{
+					// skip the rest. This sector cannot generate militia anyway. 
+					iCounter++;
+					continue;
+				}
+
+				// Find out if any adjacent sectors have room in them.
+				GenerateDirectionInfosForTraining( sCurrentX, sCurrentY, &uiDirNumber, pMoveDir );
+
+				if(uiDirNumber)
+				{
+					fFoundValidSector = TRUE;
+					break;
+				}
+			}
+			iCounter++;
+		}
+	}
+
+	// Couldn't find at least one sector to place Mobiles. Report "No room!"
+	if (!fFoundValidSector) 
+	{
+		swprintf(sString, New113HAMMessage[8], pTownNames[ bTownId ]);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return (FALSE);
+	}
+
+
+
+	//////////////////////////////////////////////
+	// HEADROCK HAM 3.5: Militia Training Facility 
+	//
+	// Militia training is enabled in the sector only if there is a facility that allows this here. 
+	// If one or more facilities are found, positive values are summed up and presented as the number 
+	// of trainers allowed in the sector. Values are read from XML, and can be set to mimic JA2
+	// defaults. This renders the INI setting "MAX_MILITIA_TRAINERS.." obsolete.
+
+	UINT8 ubFacilityTrainersAllowed = 0;
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	{
+		// Is this facility here?
+		if (gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][cnt].fFacilityHere)
+		{
+			// Increase tally
+			ubFacilityTrainersAllowed += gFacilityTypes[cnt].ubMobileMilitiaTrainersAllowed;
+		}
+	}
+	// If we are here, then TrainersAllowed > 0. 
+	// Otherwise we'd have failed the BasicCanTrain check
+	if ( CountMilitiaTrainersInSoldiersSector( pSoldier, MOBILE_MILITIA ) >= ubFacilityTrainersAllowed )
+	{
+		swprintf( sString, New113HAMMessage[ 7 ], ubFacilityTrainersAllowed );
+		// Report "Too many Militia Trainers!"
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return (FALSE);
+	}
+
+	// No errors to report. Character can perform this assignment.
+	return (TRUE);
+
+}
+// HEADROCK HAM 3.6: This function determines whether a character can use facilities at all, or whether the sector has
+// any "useable" facilities at all.
+BOOLEAN BasicCanCharacterFacility( SOLDIERTYPE *pSoldier )
+{
+	/////////////////////////////////////////////////////
+	// Tests whether character can do assignments at all!
+
+	AssertNotNIL(pSoldier);
+
+	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
+	{
+		return( FALSE );
+	}
+
+	// Is character dead or unconscious?
+	if( pSoldier->stats.bLife < OKLIFE )
+	{
+		// dead or unconscious...
+		return ( FALSE );
+	}
+
+	// Is character underground?
+	if( pSoldier->bSectorZ != 0 )
+	{
+		// underground training is not allowed (code doesn't support and it's a reasonable enough limitation)
+		return( FALSE );
+	}
+
+	// Is character on the way into/out of Arulco?
+	if( IsCharacterInTransit( pSoldier ) == TRUE )
+	{
+		return ( FALSE );
+	}
+
+	// Is character travelling between sectors?
+	if( CharacterIsBetweenSectors( pSoldier ) )
+	{
+		return( FALSE );
+	}
+
+	// Is character an Escortee?
+	if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC )
+	{
+		// epcs can't do this
+		return( FALSE );
+	}
+
+	// Is character a Vehicle or Robot?
+	if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || AM_A_ROBOT( pSoldier ) )
+	{
+		return( FALSE );
+	}
+
+	// IS character inside a helicopter over a hostile sector?
+	if( pSoldier->bAssignment == VEHICLE )
+	{
+		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
+		{
+			// enemies in sector
+			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
+			{
+				return( FALSE );
+			}
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////
+	// Tests to see whether this sector contains any facilities that could be used at all.
+
+	UINT8 ubSector = SECTOR(pSoldier->sSectorX, pSoldier->sSectorY);
+	BOOLEAN fFoundUseableFacility = FALSE;
+	
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	{
+		if (gFacilityLocations[ubSector][cnt].fFacilityHere)
+		{
+			if (gFacilityTypes[cnt].ubTotalStaffLimit)
+			{
+				fFoundUseableFacility = TRUE;
+			}
+		}
+	}
+	if (!fFoundUseableFacility)
+	{
+		// No useable facilities in this sector.
+		return FALSE;
+	}
+
+	return ( TRUE );
+}
+
+BOOLEAN DisplayFacilityMenu( SOLDIERTYPE *pSoldier )
+{
+	BOOLEAN fFacilityPresent=FALSE;
+	INT32 iCounter=0;
+	INT32 hStringHandle=0;
+
+	// first, clear pop up box
+	RemoveBox(ghFacilityBox);
+	ghFacilityBox = -1;
+
+	CreateFacilityBox();
+	SetCurrentBox(ghFacilityBox);
+
+	// run through list of staff/use facilities in sector and add them to pop up box
+	for ( iCounter = 0; iCounter < MAX_NUM_FACILITY_TYPES; iCounter++ )
+	{
+		if ( gFacilityLocations[ SECTOR(pSoldier->sSectorX,pSoldier->sSectorY) ][iCounter].fFacilityHere )
+		{
+			if ( gFacilityTypes[ iCounter ].ubTotalStaffLimit )
+			{
+				AddMonoString((UINT32 *)&hStringHandle, gFacilityTypes[ iCounter ].szFacilityName);
+				fFacilityPresent = TRUE;
+			}
+		}
+	}
+
+	if (!fFacilityPresent)
+	{
+		return FALSE;
+	}
+
+	// cancel string (borrow the one in the squad menu)
+	AddMonoString((UINT32 *)&hStringHandle, pSquadMenuStrings[ SQUAD_MENU_CANCEL ]);
+
+	SetBoxFont(ghFacilityBox, MAP_SCREEN_FONT);
+	SetBoxHighLight(ghFacilityBox, FONT_WHITE);
+	SetBoxShade(ghFacilityBox, FONT_GRAY7);
+	SetBoxForeground(ghFacilityBox, FONT_LTGREEN);
+	SetBoxBackground(ghFacilityBox, FONT_BLACK);
+
+	ResizeBoxToText( ghFacilityBox );
+
+	CheckAndUpdateTacticalAssignmentPopUpPositions( );
+
+	return TRUE;
+}
+
+BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType )
+{
+
+	if (!gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][ubFacilityType].fFacilityHere)
+	{	
+		// Facility isn't here? Odd.
+		return (FALSE);
+	}
+
+	INT32 iCounter=0;
+	INT32 iCounterB = 0;
+	INT32 hStringHandle=0;
+	CHAR16 sTempString[128];
+	BOOLEAN fFoundVehicle;
+
+	// first, clear pop up box
+	RemoveBox(ghFacilityAssignmentBox);
+	ghFacilityAssignmentBox = -1;
+
+	CreateFacilityAssignmentBox();
+	SetCurrentBox(ghFacilityAssignmentBox);
+
+	BOOLEAN fAssignmentsFound = FALSE;
+	// Create a list of possible assignments at this facility
+	for ( iCounter = 0; iCounter < NUM_FACILITY_ASSIGNMENTS; iCounter++ )
+	{
+		if ( gFacilityTypes[ ubFacilityType ].AssignmentData[iCounter].ubStaffLimit )
+		{
+			if ( iCounter == FAC_REPAIR_VEHICLE )
+			{
+				// Test to see whether there are any.
+				for ( iCounterB = 0; iCounterB < ubNumberOfVehicles; iCounterB++ )
+				{
+					if ( pVehicleList[iCounterB].fValid == TRUE )
+					{
+						if ( IsThisVehicleAccessibleToSoldier( pSoldier, iCounterB ) )
+						{
+							// Create line that says "Repair X" where X is the vehicle.
+							swprintf( sTempString, gzFacilityAssignmentStrings[ FAC_REPAIR_VEHICLE ], pVehicleStrings[ pVehicleList[ iCounterB ].ubVehicleType ]);
+							AddMonoString((UINT32 *)&hStringHandle, sTempString );
+							fFoundVehicle = TRUE;
+						}
+					}
+				}
+				if (fFoundVehicle = FALSE)
+				{
+					// Create line that says "Repair Vehicle", and will be shaded.
+					swprintf( sTempString, gzFacilityAssignmentStrings[ FAC_REPAIR_VEHICLE ], L"Vehicle" );
+					AddMonoString((UINT32 *)&hStringHandle, sTempString );
+				}
+			}
+			else if ( iCounter == FAC_REPAIR_ROBOT )
+			{
+				// is the ROBOT here?
+				if( IsRobotInThisSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+				{
+					// robot
+					AddMonoString((UINT32 *)&hStringHandle, gzFacilityAssignmentStrings[ FAC_REPAIR_ROBOT ] );
+				}
+			}
+			else
+			{
+				AddMonoString((UINT32 *)&hStringHandle, gzFacilityAssignmentStrings[ iCounter ]);
+			}
+			fAssignmentsFound = TRUE;
+		}
+	}
+
+	if (!fAssignmentsFound)
+	{
+		return FALSE;
+	}
+
+	// cancel string (borrow the one in the squad menu)
+	AddMonoString((UINT32 *)&hStringHandle, pSquadMenuStrings[ SQUAD_MENU_CANCEL ]);
+
+	SetBoxFont(ghFacilityAssignmentBox, MAP_SCREEN_FONT);
+	SetBoxHighLight(ghFacilityAssignmentBox, FONT_WHITE);
+	SetBoxShade(ghFacilityAssignmentBox, FONT_GRAY7);
+	SetBoxForeground(ghFacilityAssignmentBox, FONT_LTGREEN);
+	SetBoxBackground(ghFacilityAssignmentBox, FONT_BLACK);
+
+	ResizeBoxToText( ghFacilityAssignmentBox );
+
+	CheckAndUpdateTacticalAssignmentPopUpPositions( );
+
+	// Set the current facility whose assignments are being shown
+	gubFacilityInSubmenu = ubFacilityType;
+
+	return TRUE;
+}
+
+// HEADROCK HAM 3.6: Create the facility menu box.
+void CreateFacilityBox()
+{
+	FacilityPosition.iX = OrigFacilityPosition.iX;
+
+	if( giBoxY != 0 )
+	{
+		FacilityPosition.iY = giBoxY + ( ASSIGN_MENU_FACILITY * GetFontHeight( MAP_SCREEN_FONT ) );
+	}
+
+	CreatePopUpBox(&ghFacilityBox, FacilityDimensions, FacilityPosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_CENTER_TEXT|POPUP_BOX_FLAG_RESIZE ));
+	SetBoxBuffer(ghFacilityBox, FRAME_BUFFER);
+	SetBorderType(ghFacilityBox,guiPOPUPBORDERS);
+	SetBackGroundSurface(ghFacilityBox, guiPOPUPTEX);
+	SetMargins( ghFacilityBox, 6, 6, 4, 4 );
+	SetLineSpace(ghFacilityBox, 2);
+
+	// resize box to text
+	ResizeBoxToText( ghFacilityBox );
+
+	DetermineBoxPositions( );
+}
+
+void CreateDestroyMouseRegionForFacilityMenu( void )
+{
+	static BOOLEAN fCreated = FALSE;
+
+	UINT32 uiMenuLine = 0;
+	INT32 iFacilityType = 0;
+	INT32 iFontHeight = 0;
+	INT32 iBoxXPosition = 0;
+	INT32 iBoxYPosition = 0;
+	SGPPoint pPosition, pPoint;
+	INT32 iBoxWidth = 0;
+	SGPRect pDimensions;
+	SOLDIERTYPE *pSoldier = NULL;
+
+
+	if( fShowFacilityMenu )
+	{
+		GetBoxPosition( ghAssignmentBox, &pPoint);
+
+		// get dimensions..mostly for width
+		GetBoxSize( ghAssignmentBox, &pDimensions );
+
+		// vehicle position
+		FacilityPosition.iX = pPoint.iX + pDimensions.iRight;
+
+		SetBoxPosition( ghFacilityBox , FacilityPosition );
+	}
+
+
+	if( ( fShowFacilityMenu == TRUE ) && ( fCreated == FALSE ) )
+	{
+		CheckAndUpdateTacticalAssignmentPopUpPositions( );
+
+		// grab height of font
+		iFontHeight = GetLineSpace( ghFacilityBox ) + GetFontHeight( GetBoxFont( ghFacilityBox ) );
+
+		// get x.y position of box
+		GetBoxPosition( ghFacilityBox, &pPosition);
+
+		// grab box x and y position
+		iBoxXPosition = pPosition.iX;
+		iBoxYPosition = pPosition.iY;
+
+		// get dimensions..mostly for width
+		GetBoxSize( ghFacilityBox, &pDimensions );
+		SetBoxSecondaryShade( ghFacilityBox, FONT_YELLOW );
+
+		// get width
+		iBoxWidth = pDimensions.iRight;
+
+		SetCurrentBox( ghFacilityBox );
+
+		pSoldier = GetSelectedAssignSoldier( FALSE );
+
+		// define regions
+		//for( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghFacilityBox ); iCounter++ )
+		// run through list of staff/use facilities in sector and add them to pop up box
+		for ( UINT32 iCounter = 0; iCounter < MAX_NUM_FACILITY_TYPES; iCounter++ )
+		{
+			if ( gFacilityLocations[ SECTOR(pSoldier->sSectorX,pSoldier->sSectorY) ][iCounter].fFacilityHere )
+			{
+				if ( gFacilityTypes[ iCounter ].ubTotalStaffLimit )
+				{
+					// add mouse region for each facility
+					MSYS_DefineRegion( &gFacilityMenuRegion[ uiMenuLine ],	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
+								MSYS_NO_CURSOR, FacilityMenuMvtCallback, FacilityMenuBtnCallback );
+		
+					MSYS_SetRegionUserData( &gFacilityMenuRegion[ uiMenuLine ], 0, uiMenuLine );
+					// store facility ID in the SECOND user data
+		
+					MSYS_SetRegionUserData( &gFacilityMenuRegion[ uiMenuLine ], 1, iCounter );
+		
+					uiMenuLine++;
+				}
+			}
+		}
+
+		// cancel line
+		MSYS_DefineRegion( &gFacilityMenuRegion[ uiMenuLine ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
+							MSYS_NO_CURSOR, FacilityMenuMvtCallback, FacilityMenuBtnCallback );
+		MSYS_SetRegionUserData( &gFacilityMenuRegion[ uiMenuLine ], 0, uiMenuLine );
+		MSYS_SetRegionUserData( &gFacilityMenuRegion[ uiMenuLine ], 1, MAX_NUM_FACILITY_TYPES );
+
+		// created
+		fCreated = TRUE;
+
+		// pause game
+		PauseGame( );
+
+		// unhighlight all strings in box
+		UnHighLightBox( ghFacilityBox );
+
+		fCreated = TRUE;
+
+		//HandleShadingOfLinesForFacilityMenu( );
+	}
+	else if( ( ( fShowFacilityMenu == FALSE ) || ( fShowAssignmentMenu == FALSE ) ) && ( fCreated == TRUE ) )
+	{
+		fCreated = FALSE;
+
+		// remove these regions
+		for( uiMenuLine = 0; uiMenuLine < GetNumberOfLinesOfTextInBox( ghFacilityBox ); uiMenuLine++ )
+		{
+			MSYS_RemoveRegion( &gFacilityMenuRegion[ uiMenuLine ] );
+		}
+
+		fShowFacilityMenu = FALSE;
+
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		HideBox( ghFacilityBox );
+
+		if ( fShowAssignmentMenu )
+		{
+			// remove highlight on the parent menu
+			UnHighLightBox( ghAssignmentBox );
+		}
+	}
+
+	return;
+}
+
+void FacilityMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
+{
+	// mvt callback handler for assignment region
+	INT32 iValue = -1;
+
+	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	if( HandleAssignmentExpansionAndHighLightForFacilityMenu( ) == TRUE )
+	{
+		return;
+	}
+
+	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
+	{
+		if( iValue < MAX_NUM_FACILITY_TYPES )
+		{
+			// no shaded(disabled) lines actually appear in vehicle menus
+			if( GetBoxShadeFlag( ghFacilityBox, iValue ) == FALSE )
+			{
+				// highlight vehicle line
+				HighLightBoxLine( ghFacilityBox, iValue );
+			}
+		}
+		else
+		{
+			// highlight cancel line
+			HighLightBoxLine( ghFacilityBox, GetNumberOfLinesOfTextInBox( ghFacilityBox ) - 1 );
+		}
+	}
+	else if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		// unhighlight all strings in box
+		UnHighLightBox( ghFacilityBox );
+
+		//HandleShadingOfLinesForVehicleMenu( );
+	}
+}
+
+void FacilityMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	// btn callback handler for assignment region
+	INT32 iValue = -1;
+	SOLDIERTYPE * pSoldier = NULL;
+	BOOLEAN fCanOperateFacility = TRUE;
+
+	pSoldier = GetSelectedAssignSoldier( FALSE );
+
+	iValue = MSYS_GetRegionUserData( pRegion, 1 );
+
+	if( ( iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN ) || ( iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN ) )
+	{
+		if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) && !fShowMapInventoryPool )
+		{
+			UnMarkButtonDirty( giMapBorderButtons[ MAP_BORDER_TOWN_BTN ] );
+		}
+	}
+
+	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+
+		if( fShowFacilityAssignmentMenu )
+		{
+			// cancel Facility submenu
+			fShowFacilityAssignmentMenu = FALSE;
+			// Reset facility number
+			gubFacilityInSubmenu = 0;
+			gubFacilityLineForSubmenu = 0;
+			// rerender tactical stuff
+			gfRenderPBInterface = TRUE;
+
+			return;
+		}
+
+		if (iValue > 0 && iValue < MAX_NUM_FACILITY_TYPES)
+		{
+			// The line we clicked will open a new menu adjacent to this one. This menu lists all possible assignments
+			// that can be performed at this facility.
+			gubFacilityInSubmenu = (INT8)iValue;
+			gubFacilityLineForSubmenu = (UINT8) MSYS_GetRegionUserData( pRegion, 0 );
+
+			fShowFacilityAssignmentMenu = TRUE;
+			DetermineBoxPositions();
+
+			DisplayFacilityAssignmentMenu( pSoldier, iValue );
+
+
+			// For now, only tests whether the character can use facilities at all, or whether there ARE facilities
+			// to be used at the moment.
+			if( !BasicCanCharacterFacility(pSoldier) )
+			{
+				// No feedback. The menu options should be greyed out, anyway.
+				return;
+			}
+		}
+
+					
+
+
+
+
+
+			/*// Check for standing debt for Facility Operation. May trigger an on-screen prompt or error message.
+			if ( gFacilityTypes[iValue].AssignmentData[FAC_STAFF].sCostPerHour && // Facility costs money to operate
+				!IsOutstandingFacilityDebtWithErrorReport() ) // There's an outstanding debt for facilities
+			{
+				// Facility debt needs to be paid first.
+				return;
+			}
+
+			// PASSED BOTH TESTS - ALLOW SOLDIER TO TRAIN MILITIA HERE
+
+			pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+			if( ( pSoldier->bAssignment != FACILITY_STAFF ) )
+			{
+				SetTimeOfAssignmentChangeForMerc( pSoldier );
+			}
+
+			MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+
+			// stop showing menu
+			fShowAssignmentMenu = FALSE;
+			giAssignHighLine = -1;
+
+			// remove from squad
+
+			if( pSoldier->bOldAssignment == VEHICLE )
+			{
+				TakeSoldierOutOfVehicle( pSoldier );
+			}
+			RemoveCharacterFromSquads(	pSoldier );
+
+			ChangeSoldiersAssignment( pSoldier, FACILITY_STAFF );
+
+			pSoldier->sFacilityTypeOperated = iValue;
+
+			// assign to a movement group
+			AssignMercToAMovementGroup( pSoldier );
+			if( gFacilityTypes[ iValue ].AssignmentData[FAC_STAFF].sCostPerHour )
+			{
+				// Ask player if he wishes to expend this money.
+				HandleInterfaceMessageForCostOfOperatingFacility( pSoldier, FAC_STAFF );
+			}
+			else
+			{
+				SetAssignmentForList( FACILITY_STAFF, iValue );
+			}
+			gfRenderPBInterface = TRUE;*/
+
+		else
+		{
+			// stop showing menu
+			fShowFacilityMenu = FALSE;
+
+			// unhighlight the assignment box
+			UnHighLightBox( ghAssignmentBox );
+
+			// reset list
+			ResetSelectedListForMapScreen( );
+			gfRenderPBInterface = TRUE;
+		}
+
+		fTeamPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
+	}
+	else if( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP )
+	{
+		if( fShowFacilityAssignmentMenu )
+		{
+			// cancel attribute submenu
+			fShowFacilityAssignmentMenu = FALSE;
+			// rerender tactical stuff
+			gfRenderPBInterface = TRUE;
+
+			return;
+		}
+	}
+}
+
+// Check whether a character can staff a specific type of facility in this sector.
+BOOLEAN CanCharacterFacility( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType, UINT8 ubAssignmentType )
+{
+	AssertNotNIL(pSoldier);
+	UINT8 ubSectorID = SECTOR(pSoldier->sSectorX, pSoldier->sSectorY);
+	BOOLEAN fFoundVehicleToRepair = FALSE;
+
+	// Make sure the basic sector/merc variables are still applicable. This is simply a fail-safe.
+	if( !BasicCanCharacterFacility( pSoldier ) )
+	{
+		// Soldier/Sector have somehow failed the basic test. Character automatically fails this test as well.
+		return( FALSE );
+	}
+
+	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+	{
+		return( FALSE );
+	}
+
+	// Facility exists in this sector at all? (Failsafe)
+	if (!gFacilityLocations[ubSectorID][ubFacilityType].fFacilityHere)
+	{
+		// No such facility here! Odd.
+		return( FALSE );
+	}
+
+	//////////////////////////////////////////
+	// Does character have sufficient skill?
+	if (pSoldier->stats.bStrength < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumStrength ||
+		pSoldier->stats.bLife < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumHealth ||
+		pSoldier->stats.bWisdom < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumWisdom ||
+		pSoldier->stats.bAgility < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumAgility ||
+		pSoldier->stats.bDexterity < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumDexterity ||
+		pSoldier->stats.bMarksmanship < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMarksmanship ||
+		pSoldier->stats.bMechanical < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMechanical ||
+		pSoldier->stats.bMedical < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMedical ||
+		pSoldier->stats.bLeadership < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumLeadership ||
+		pSoldier->stats.bExplosive < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumExplosives ||
+		pSoldier->stats.bExpLevel < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumLevel ||
+
+		pSoldier->aiData.bMorale < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMorale ||
+		pSoldier->bBreathMax < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumBreath
+		)
+	{
+		// Character is lacking a stat required for this specific assignment.
+		return ( FALSE );
+	}
+
+	////////////////////////////////////////
+	// Check town loyalty
+
+	UINT8 ubTownID = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+	if (ubTownID != BLANK_SECTOR)
+	{
+		if (gTownLoyalty[ ubTownID ].ubRating < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumLoyaltyHere )
+		{
+			// Insufficient loyalty.
+			return (FALSE);
+		}
+	}	
+
+	//////////////////////////////////////////////
+	// Check capacity for mercs working at this particular facility.
+
+	// Count the number of open slots left for people trying to perform this assignment in the same facility, in the
+	// soldier's sector.
+	// Note that we can reach this when the soldier is ALREADY one of the people working at this facility, so in that
+	// case count him out.
+	INT8 bX = 0;
+	INT8 bY = 0;
+	if ( ubFacilityType == (UINT8)pSoldier->sFacilityTypeOperated )
+		bX = -1;
+	if ( ubAssignmentType == GetSoldierFacilityAssignmentIndex( pSoldier ) )
+		bY = -1;
+
+	if ( CountFreeFacilitySlots( (UINT8)pSoldier->sSectorX, (UINT8)pSoldier->sSectorY, ubFacilityType) <= bX || // Too many people in the facility, or
+		CountFreeFacilityAssignmentSlots( (UINT8)pSoldier->sSectorX, (UINT8)pSoldier->sSectorY, ubFacilityType, ubAssignmentType ) <= bY ) // Too many people doing this assignment
+	{
+		// No free slots.
+		return (FALSE);
+	}
+
+	////////////////////////////////////////////////////
+	// Check for extra requirements for specific assignments.
+
+	// DOCTOR
+	if (ubAssignmentType == FAC_DOCTOR)
+	{
+		BOOLEAN fFoundMedKit = FALSE;
+		INT8 bPocket = 0;
+
+		// find med kit
+		// CHRISL: Changed to dynamically determine max inventory locations.
+		for (bPocket = HANDPOS; bPocket < NUM_INV_SLOTS; bPocket++)
+		{
+			// doctoring is allowed using either type of med kit (but first aid kit halves doctoring effectiveness)
+			if( IsMedicalKitItem( &( pSoldier -> inv[ bPocket ] ) ) )
+			{
+				fFoundMedKit = TRUE;
+				break;
+			}
+		}
+
+		if( fFoundMedKit == FALSE )
+		{
+			return( FALSE );
+		}
+	}
+
+	// REPAIR ITEMS
+	if ( ubAssignmentType == FAC_REPAIR_ITEMS ||
+		ubAssignmentType == FAC_REPAIR_VEHICLE ||
+		ubAssignmentType == FAC_REPAIR_ROBOT )
+	{
+		// make sure he has a toolkit
+		if ( FindToolkit( pSoldier ) == NO_SLOT )
+		{
+			return( FALSE );
+		}
+
+		switch (ubAssignmentType)
+		{
+			case FAC_REPAIR_ITEMS:
+				// items?
+				if ( !DoesCharacterHaveAnyItemsToRepair( pSoldier, FINAL_REPAIR_PASS ) )
+				{
+					return( FALSE );
+				}
+				break;
+			case FAC_REPAIR_VEHICLE:
+				for ( INT32 iCounter = 0; iCounter < ubNumberOfVehicles; iCounter++ )
+				{
+					if ( pVehicleList[ iCounter ].fValid == TRUE )
+					{
+						// the helicopter, is NEVER repairable...
+						if ( iCounter != iHelicopterVehicleId )
+						{
+							if ( IsThisVehicleAccessibleToSoldier( pSoldier, iCounter ) )
+							{
+								if( CanCharacterRepairVehicle( pSoldier, iCounter ) == TRUE )
+								{
+									// there is a repairable vehicle here
+									fFoundVehicleToRepair = TRUE;
+								}
+							}
+						}
+					}
+				}
+				if (!fFoundVehicleToRepair)
+				{
+					return (FALSE);
+				}
+				break;
+			case FAC_REPAIR_ROBOT:
+				SOLDIERTYPE *pRobot = NULL;
+
+				// do we in fact have the robot on the team?
+				pRobot = GetRobotSoldier( );
+				if( pRobot == NULL )
+				{
+					return( FALSE );
+				}
+
+				// if robot isn't damaged at all
+				if( pRobot->stats.bLife == pRobot->stats.bLifeMax )
+				{
+					return( FALSE );
+				}
+
+				// is the robot in the same sector
+				if( IsRobotInThisSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) == FALSE )
+				{
+					return( FALSE );
+				}
+				break;
+		}
+	}
+
+	// If we've reached this, then all is well.
+	return( TRUE );
+
+}
+
+INT8 CountFreeFacilitySlots( UINT8 sMapX, UINT8 sMapY, UINT8 ubFacilityType )
+{
+	INT16 sFreeSlotsFound = 0;
+
+	UINT8 ubStaffLimit = gFacilityTypes[ubFacilityType].ubTotalStaffLimit;
+	UINT8 ubStaffFoundHere = 0;
+
+	if (!gFacilityLocations[SECTOR(sMapX,sMapY)][ubFacilityType].fFacilityHere)
+	{
+		// The facility is not present!
+		return (0);
+	}
+	
+	if (!ubStaffLimit)
+	{
+		// No people are allowed to work at this facility at all!
+		return (0);
+	}
+	else
+	{
+		UINT8 ubCounter = 0;
+		SOLDIERTYPE *pSoldier;
+		// Count number of people doing anything at this facility.
+		while(gCharactersList[ubCounter].fValid)
+		{
+			pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+
+			// Is character operating this facility?
+			if( (UINT8)pSoldier->sFacilityTypeOperated == ubFacilityType &&
+				pSoldier->sSectorX == sMapX &&  // Is he in the same sector?
+				pSoldier->sSectorY == sMapY )
+			{
+				// Increase tally.
+				ubStaffFoundHere++;
+			}
+			ubCounter++;
+		}
+		sFreeSlotsFound = ubStaffLimit - ubStaffFoundHere;
+		return ((INT8)sFreeSlotsFound);
+	}
+}
+
+INT8 CountFreeFacilityAssignmentSlots( UINT8 sMapX, UINT8 sMapY, UINT8 ubFacilityType, UINT8 ubAssignmentIndex )
+{
+	INT16 sFreeSlotsFound = 0;
+
+	UINT8 ubStaffLimit = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentIndex].ubStaffLimit;
+	UINT8 ubStaffFoundHere = 0;
+
+	if (!gFacilityLocations[SECTOR(sMapX,sMapY)][ubFacilityType].fFacilityHere)
+	{
+		// The facility is not present!
+		return (0);
+	}
+
+	if (!ubStaffLimit)
+	{
+		// No people are allowed to perform this assignment at this facility at all!
+		return (0);
+	}
+	else
+	{
+		UINT8 ubCounter = 0;
+		SOLDIERTYPE *pSoldier;
+
+		// Count number of people doing this assignment at this facility.
+		while(gCharactersList[ubCounter].fValid)
+		{
+			pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+
+			// Is character operating this facility?
+			if( (UINT8)pSoldier->sFacilityTypeOperated == ubFacilityType &&
+				pSoldier->sSectorX == sMapX &&  // Is he in the same sector?
+				pSoldier->sSectorY == sMapY )
+			{
+				// Is he performing the same exact assignment we're looking to do?
+				if (GetSoldierFacilityAssignmentIndex( pSoldier ) == ubAssignmentIndex)
+				{
+					// Increase tally.
+					ubStaffFoundHere++;
+				}
+			}
+			ubCounter++;
+		}
+		sFreeSlotsFound = ubStaffLimit - ubStaffFoundHere;
+		return ((INT8)sFreeSlotsFound);
+	}
+}
+
+
+// Check whether a character can staff a specific type of facility in this sector. Display a message informing player
+// of specific obstacles.
+BOOLEAN CanCharacterFacilityWithErrorReport( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType, UINT8 ubAssignmentType )
+{
+	CHAR16 sString[ 256 ];
+	AssertNotNIL(pSoldier);
+	UINT8 ubSectorID = SECTOR(pSoldier->sSectorX, pSoldier->sSectorY);
+	BOOLEAN fFoundVehicleToRepair = FALSE;
+
+	// Make sure the basic sector/merc variables are still applicable. This is simply a fail-safe.
+	if( !BasicCanCharacterFacility( pSoldier ) )
+	{
+		// Soldier/Sector have somehow failed the basic test. Character automatically fails this test as well.
+		return( FALSE );
+	}
+
+	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+	{
+		DoScreenIndependantMessageBox( New113HAMMessage[10], MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+
+	// Facility exists in this sector at all? (Failsafe)
+	if (!gFacilityLocations[ubSectorID][ubFacilityType].fFacilityHere)
+	{
+		// No such facility here! Odd.
+		return( FALSE );
+	}
+
+	//////////////////////////////////////////
+	// Skill/Condition check
+
+	if (pSoldier->stats.bStrength < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumStrength)
+	{
+		swprintf(sString, gzFacilityErrorMessage[0], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->stats.bDexterity < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumDexterity)
+	{
+		swprintf(sString, gzFacilityErrorMessage[1], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->stats.bAgility < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumAgility)
+	{
+		swprintf(sString, gzFacilityErrorMessage[2], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->stats.bLife < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumHealth)
+	{
+		swprintf(sString, gzFacilityErrorMessage[3], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->stats.bWisdom < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumWisdom)
+	{
+		swprintf(sString, gzFacilityErrorMessage[4], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->stats.bMarksmanship < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMarksmanship)
+	{
+		swprintf(sString, gzFacilityErrorMessage[5], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->stats.bMedical < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMedical)
+	{
+		swprintf(sString, gzFacilityErrorMessage[6], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->stats.bMechanical < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMechanical)
+	{
+		swprintf(sString, gzFacilityErrorMessage[7], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->stats.bLeadership < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumLeadership)
+	{
+		swprintf(sString, gzFacilityErrorMessage[8], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->stats.bExplosive < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumExplosives)
+	{
+		swprintf(sString, gzFacilityErrorMessage[9], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->stats.bExpLevel < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumLevel)
+	{
+		swprintf(sString, gzFacilityErrorMessage[10], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->aiData.bMorale < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumMorale)
+	{
+		swprintf(sString, gzFacilityErrorMessage[11], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	if (pSoldier->bBreathMax < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumBreath)
+	{
+		swprintf(sString, gzFacilityErrorMessage[12], pSoldier->name);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	
+	////////////////////////////////////////
+	// Check town loyalty
+
+	UINT8 ubTownID = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+	if (ubTownID != BLANK_SECTOR)
+	{
+		if (gTownLoyalty[ ubTownID ].ubRating < gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].ubMinimumLoyaltyHere )
+		{
+			swprintf(sString, gzFacilityErrorMessage[13], pTownNames[ ubTownID ]);
+			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+			// Insufficient loyalty.
+			return (FALSE);
+		}
+	}	
+
+	//////////////////////////////////////////////
+	// Check capacity for mercs working at this particular facility.
+
+	// Count the number of open slots left for people trying to perform this assignment in the same facility, in the
+	// soldier's sector.
+	// Note that we can reach this when the soldier is ALREADY one of the people working at this facility, so in that
+	// case count him out.
+	INT8 bX = 0;
+	INT8 bY = 0;
+	if ( ubFacilityType == (UINT8)pSoldier->sFacilityTypeOperated )
+		bX = -1;
+	if ( ubAssignmentType == GetSoldierFacilityAssignmentIndex( pSoldier ) )
+		bY = -1;
+
+	if ( CountFreeFacilitySlots( (UINT8)pSoldier->sSectorX, (UINT8)pSoldier->sSectorY, ubFacilityType) <= bX )
+	{
+		// Too many people working at this facility (overall)
+		swprintf(sString, gzFacilityErrorMessage[14], gFacilityTypes[ubFacilityType].szFacilityName);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		return (FALSE);
+	}
+	else if (CountFreeFacilityAssignmentSlots( (UINT8)pSoldier->sSectorX, (UINT8)pSoldier->sSectorY, ubFacilityType, ubAssignmentType ) <= bY )
+	{
+		// Too many people performing this specific assignment at this facility.
+		swprintf(sString, gzFacilityErrorMessage[15], gFacilityTypes[ubFacilityType].szFacilityName);
+		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );	
+		return (FALSE);
+	}
+
+	////////////////////////////////////////////////////
+	// Check for extra requirements for specific assignments.
+
+	// DOCTOR
+	if (ubAssignmentType == FAC_DOCTOR)
+	{
+		BOOLEAN fFoundMedKit = FALSE;
+		INT8 bPocket = 0;
+
+		// find med kit
+		// CHRISL: Changed to dynamically determine max inventory locations.
+		for (bPocket = HANDPOS; bPocket < NUM_INV_SLOTS; bPocket++)
+		{
+			// doctoring is allowed using either type of med kit (but first aid kit halves doctoring effectiveness)
+			if( IsMedicalKitItem( &( pSoldier -> inv[ bPocket ] ) ) )
+			{
+				fFoundMedKit = TRUE;
+				break;
+			}
+		}
+
+		if( fFoundMedKit == FALSE )
+		{
+			swprintf( sString, zMarksMapScreenText[19], pSoldier->name );
+			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+			return( FALSE );
+		}
+	}
+
+	if ( ubAssignmentType == FAC_REPAIR_ITEMS ||
+		ubAssignmentType == FAC_REPAIR_VEHICLE ||
+		ubAssignmentType == FAC_REPAIR_ROBOT )
+	{
+		// make sure he has a toolkit
+		if ( FindToolkit( pSoldier ) == NO_SLOT )
+		{
+			swprintf( sString, zMarksMapScreenText[18], pSoldier->name );
+			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+			return( FALSE );
+		}
+
+		switch (ubAssignmentType)
+		{
+			case FAC_REPAIR_ITEMS:
+				// items?
+				if ( !DoesCharacterHaveAnyItemsToRepair( pSoldier, FINAL_REPAIR_PASS ) )
+				{
+					swprintf( sString, gzFacilityErrorMessage[16], pSoldier->name );
+					DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+					return( FALSE );
+				}
+				break;
+			case FAC_REPAIR_VEHICLE:
+				for ( INT32 iCounter = 0; iCounter < ubNumberOfVehicles; iCounter++ )
+				{
+					if ( pVehicleList[ iCounter ].fValid == TRUE )
+					{
+						// the helicopter, is NEVER repairable...
+						if ( iCounter != iHelicopterVehicleId )
+						{
+							if ( IsThisVehicleAccessibleToSoldier( pSoldier, iCounter ) )
+							{
+								if( CanCharacterRepairVehicle( pSoldier, iCounter ) == TRUE )
+								{
+									// there is a repairable vehicle here
+									fFoundVehicleToRepair = TRUE;
+								}
+							}
+						}
+					}
+				}
+				if (!fFoundVehicleToRepair)
+				{
+					// No message. Will be greyed out anyway.
+					return (FALSE);
+				}
+				break;
+			case FAC_REPAIR_ROBOT:
+				SOLDIERTYPE *pRobot = NULL;
+
+				// do we in fact have the robot on the team?
+				pRobot = GetRobotSoldier( );
+				if( pRobot == NULL )
+				{
+					return( FALSE );
+				}
+
+				// if robot isn't damaged at all
+				if( pRobot->stats.bLife == pRobot->stats.bLifeMax )
+				{
+					return( FALSE );
+				}
+
+				// is the robot in the same sector
+				if( IsRobotInThisSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) == FALSE )
+				{
+					return( FALSE );
+				}
+				break;
+		}
+	}
+
+	// If we've reached this, then all is well.
+	return( TRUE );
+
+}
+
+void HandleShadingOfLinesForFacilityMenu( void )
+{
+	SOLDIERTYPE *pSoldier = NULL;
+	INT32 iCounter = 0;
+	INT32 iNumLine = 0;
+
+	if( ( fShowFacilityMenu == FALSE ) || ( ghFacilityBox == -1 ) )
+	{
+		return;
+	}
+
+	pSoldier = GetSelectedAssignSoldier( FALSE );
+
+
+	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
+	// CreateDestroyMouseRegionForRepairMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForRepairMenu().
+
+	// run through list of staff/use facilities in sector and add them to pop up box
+	for ( iCounter = 0; iCounter < MAX_NUM_FACILITY_TYPES; iCounter++ )
+	{
+		if ( gFacilityLocations[ SECTOR(pSoldier->sSectorX,pSoldier->sSectorY) ][iCounter].fFacilityHere )
+		{
+			if ( gFacilityTypes[ iCounter ].ubTotalStaffLimit )
+			{
+				if (BasicCanCharacterFacility( pSoldier ))
+				{
+					UnShadeStringInBox( ghFacilityBox, iNumLine );
+					UnSecondaryShadeStringInBox( ghFacilityBox, iNumLine );
+					// No secondary shade. Facilities are either shaded or unshaded. Specific
+					// assignments for this facility might be secondary-shaded though.
+				}
+				else
+				{
+					UnSecondaryShadeStringInBox( ghFacilityBox, iNumLine );
+					ShadeStringInBox( ghFacilityBox, iNumLine );
+				}
+				iNumLine++;
+			}
+		}
+	}
+	return;
+}
+
+void HandleInterfaceMessageForCostOfOperatingFacility( SOLDIERTYPE *pSoldier, UINT8 ubAssignmentType )
+{
+	// If you hit this assertion, then the soldier was not told to operate any facility before this function
+	// was called. Generally, it should happen RIGHT BEFORE calling this function!
+	Assert (pSoldier->sFacilityTypeOperated != -1);
+
+	UINT8 ubFacilityType = (UINT8)pSoldier->sFacilityTypeOperated;
+	INT32 iFacilityOperatingCost = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].sCostPerHour;
+	gpFacilityStaffer = pSoldier;
+
+	CHAR16 sString[ 128 ];
+	SGPRect pCenteringRect= {0, 0, 640, INV_INTERFACE_START_Y };
+
+	swprintf( sString, New113HAMMessage[13], iFacilityOperatingCost );
+
+	// if we are in mapscreen, make a pop up
+	if( guiCurrentScreen == MAP_SCREEN )
+	{
+		DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_YESNO, PayFacilityCostsYesNoBoxCallback );
+	}
+	else
+	{
+		DoMessageBox( MSG_BOX_BASIC_STYLE, sString, GAME_SCREEN, MSG_BOX_FLAG_YESNO, PayFacilityCostsYesNoBoxCallback, &pCenteringRect );
+	}
+
+	return;
+}
+
+// HEADROCK HAM 3.6: Callback on agreeing to continue facility staffing.
+void PayFacilityCostsYesNoBoxCallback( UINT8 bExitValue )
+{
+	// yes
+	if( bExitValue == MSG_BOX_RETURN_YES )
+	{
+		// reset staffer variable. We've already set his assignment so everything's good.
+		gpFacilityStaffer = NULL;
+	}
+	else if( bExitValue == MSG_BOX_RETURN_NO )
+	{
+		StopTimeCompression();
+
+		FacilityStaffingRejected();
+	}
+
+	return;
+}
+
+// HEADROCK HAM 3.6: Callback on agreeing to pay off facility debts before you can assign another character to facility work.
+void PayFacilityDebtManuallyYesNoBoxCallback( UINT8 bExitValue )
+{
+	// This callback should only be called if the player can pay off the ENTIRE debt!!
+	Assert( LaptopSaveInfo.iCurrentBalance >= giTotalOwedForFacilityOperationsToday );
+
+	// yes
+	if( bExitValue == MSG_BOX_RETURN_YES )
+	{
+		// Pay total debt.
+		INT32 iToPay = giTotalOwedForFacilityOperationsToday;
+		AddTransactionToPlayersBook( FACILITY_OPERATIONS, 0, GetWorldTotalMin(), -( iToPay ) );
+		giTotalOwedForFacilityOperationsToday = 0;
+		gfOutstandingFacilityDebt = FALSE;
+
+		// reset staffer variable. We've already set his assignment so everything's good.
+		gpFacilityStaffer = NULL;
+	}
+	else if( bExitValue == MSG_BOX_RETURN_NO )
+	{
+		StopTimeCompression();
+	}
+
+	return;
+}
+
+// IMPORTANT: Rejected player prompt to pay hourly for using a facility.
+void FacilityStaffingRejected( )
+{
+	// take the selected merc off Facility work.
+	gpFacilityStaffer->sFacilityTypeOperated = -1;
+	AddCharacterToAnySquad( gpFacilityStaffer );
+
+	// this completes the facility costs prompt sequence
+	gpFacilityStaffer = NULL;
+}
+
+// Resets all assignments for characters working at facilities that cost money to operate. This is run whenever the
+// player incurs an unpayable debt for facility operation.
+void ResetAllExpensiveFacilityAssignments()
+{
+	SOLDIERTYPE *pSoldier;
+	UINT8 ubCounter = 0;
+
+	while(gCharactersList[ubCounter].fValid)
+	{
+		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+
+		// Is character doing facility work?
+		UINT8 ubAssignmentIndex = GetSoldierFacilityAssignmentIndex( pSoldier );
+		if( ubAssignmentIndex != -1 )
+		{
+			UINT8 ubFacilityType = (UINT8)pSoldier->sFacilityTypeOperated;
+			// Does facility cost money to operate?
+			if (gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentIndex].sCostPerHour)
+			{
+				// Reset assignment.
+				ResumeOldAssignment( pSoldier );
+			}
+		}
+		ubCounter++;
+	}
+}
+
+BOOLEAN IsOutstandingFacilityDebtWithErrorReport()
+{
+	CHAR16 sString[256];
+	SGPRect pCenteringRect= {0, 0, 640, INV_INTERFACE_START_Y };
+
+	if (giTotalOwedForFacilityOperationsToday && // Owe money
+		gfOutstandingFacilityDebt ) // Owed money tonight as well
+	{
+		if (LaptopSaveInfo.iCurrentBalance)
+		{
+			if (LaptopSaveInfo.iCurrentBalance >= giTotalOwedForFacilityOperationsToday)
+			{
+				// Do message "want to pay entire sum?"
+				swprintf( sString, New113HAMMessage[18], giTotalOwedForFacilityOperationsToday );
+				if( guiCurrentScreen == MAP_SCREEN )
+				{
+					DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_YESNO, PayFacilityDebtManuallyYesNoBoxCallback );
+				}
+				else
+				{
+					DoMessageBox( MSG_BOX_BASIC_STYLE, sString, GAME_SCREEN, MSG_BOX_FLAG_YESNO, PayFacilityDebtManuallyYesNoBoxCallback, &pCenteringRect );
+				}
+				return FALSE;
+			}
+			else
+			{
+				// Do message "not enough money to pay entire debt"
+				swprintf( sString, New113HAMMessage[17], giTotalOwedForFacilityOperationsToday );
+				DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+				return FALSE;
+			}
+		}
+		else
+		{
+			// No money!
+			swprintf( sString, New113HAMMessage[16], giTotalOwedForFacilityOperationsToday );
+			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+			return FALSE;
+		}
+	}
+	
+	return TRUE;
+}
+
+// HEADROCK HAM 3.6: Create the facility menu box.
+void CreateFacilityAssignmentBox()
+{
+	FacilityAssignmentPosition.iX = OrigFacilityAssignmentPosition.iX;
+
+	if( giBoxY != 0 )
+	{
+		FacilityAssignmentPosition.iY = giBoxY + ( ASSIGN_MENU_FACILITY * GetFontHeight( MAP_SCREEN_FONT ) );
+	}
+
+	CreatePopUpBox(&ghFacilityAssignmentBox, FacilityAssignmentDimensions, FacilityAssignmentPosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_CENTER_TEXT|POPUP_BOX_FLAG_RESIZE ));
+	SetBoxBuffer(ghFacilityAssignmentBox, FRAME_BUFFER);
+	SetBorderType(ghFacilityAssignmentBox,guiPOPUPBORDERS);
+	SetBackGroundSurface(ghFacilityAssignmentBox, guiPOPUPTEX);
+	SetMargins( ghFacilityAssignmentBox, 6, 6, 4, 4 );
+	SetLineSpace(ghFacilityAssignmentBox, 2);
+
+	// resize box to text
+	ResizeBoxToText( ghFacilityAssignmentBox );
+
+	DetermineBoxPositions( );
+}
+
+void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void )
+{
+	static BOOLEAN fCreated = FALSE;
+
+	UINT32 uiMenuLine = 0;
+	UINT8 ubFacilityType = gubFacilityInSubmenu;
+	INT32 iFontHeight = 0;
+	INT32 iBoxXPosition = 0;
+	INT32 iBoxYPosition = 0;
+	SGPPoint pPosition;
+	INT32 iBoxWidth = 0;
+	SGPRect pDimensions;
+	SOLDIERTYPE *pSoldier = NULL;
+	INT8 bCurrentVehicleID = -1;
+
+	INT32 iCounter = 0;
+	INT32 iCounterB = 0;
+	BOOLEAN fFoundVehicle = FALSE;
+
+
+	if( ( fShowFacilityAssignmentMenu == TRUE ) && ( fCreated == FALSE ) )
+	{
+		if( ( fShowAssignmentMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
+		{
+			SetBoxPosition( ghAssignmentBox, AssignmentPosition );
+		}
+
+		//HandleShadingOfLinesForFacilityAssignmentMenus( );
+		CheckAndUpdateTacticalAssignmentPopUpPositions( );
+
+		// grab height of font
+		iFontHeight = GetLineSpace( ghFacilityAssignmentBox ) + GetFontHeight( GetBoxFont( ghFacilityAssignmentBox ) );
+
+		// get x.y position of box
+		GetBoxPosition( ghFacilityAssignmentBox, &pPosition);
+
+		// grab box x and y position
+		iBoxXPosition = pPosition.iX;
+		iBoxYPosition = pPosition.iY;
+
+		// get dimensions..mostly for width
+		GetBoxSize( ghFacilityAssignmentBox, &pDimensions );
+		SetBoxSecondaryShade( ghFacilityAssignmentBox, FONT_YELLOW );
+
+		// get width
+		iBoxWidth = pDimensions.iRight;
+
+		SetCurrentBox( ghFacilityAssignmentBox );
+
+		pSoldier = GetSelectedAssignSoldier( FALSE );
+
+		// define regions
+		//for( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghFacilityBox ); iCounter++ )
+		// run through list of staff/use facilities in sector and add them to pop up box
+		for ( iCounter = 0; iCounter < NUM_FACILITY_ASSIGNMENTS; iCounter++ )
+		{
+			if ( gFacilityTypes[ ubFacilityType ].AssignmentData[iCounter].ubStaffLimit )
+			{
+				if ( iCounter == FAC_REPAIR_VEHICLE )
+				{
+					for ( iCounterB = 0; iCounterB < ubNumberOfVehicles; iCounterB++ )
+					{
+						if ( pVehicleList[iCounterB].fValid == TRUE )
+						{
+							if ( IsThisVehicleAccessibleToSoldier( pSoldier, iCounterB ) )
+							{
+								MSYS_DefineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ],	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
+									MSYS_NO_CURSOR, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
+								MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 0, uiMenuLine );
+								MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 1, iCounter );
+								// Store Vehicle ID in THIRD location
+								MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 2, iCounterB );
+								uiMenuLine++;
+								fFoundVehicle = TRUE;
+							}
+						}
+					}
+					if (!fFoundVehicle)
+					{
+						uiMenuLine++; // Skip this line, it'll always be shaded anyway.
+					}
+				}
+				else if ( iCounter == FAC_REPAIR_ROBOT )
+				{
+					// is the ROBOT here?
+					if( IsRobotInThisSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+					{
+						// robot line only appears when it is around.
+						MSYS_DefineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ],	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
+									MSYS_NO_CURSOR, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
+						MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 0, uiMenuLine );
+						MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 1, iCounter );
+						MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 2, -1 );
+						uiMenuLine++;
+					}
+				}
+				else
+				{
+					// add mouse region for each remaining assignment type
+					MSYS_DefineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ],	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
+								MSYS_NO_CURSOR, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
+
+					// Add tooltip for region
+					if (wcscmp(gFacilityTypes[ ubFacilityType ].AssignmentData[iCounter].szTooltipText, L"") != 0)
+					{
+						CHAR16 szTextLeft[300];
+						CHAR16 szNewTextLeft[300];
+						CHAR16 szTooltipText[500];
+						wcscpy( szTextLeft, gFacilityTypes[ ubFacilityType ].AssignmentData[iCounter].szTooltipText );
+						swprintf( szTooltipText, L"" );
+						// Del First Part
+						BOOLEAN fLineSplit = TRUE;
+						
+						while (fLineSplit)
+						{
+							fLineSplit = WrapString( szTextLeft, szNewTextLeft, 250, FONT10ARIAL );
+							wcscat( szTooltipText, szTextLeft );
+							wcscat( szTooltipText, L"\n"); // Add line break.
+							wcscpy( szTextLeft, szNewTextLeft );
+						}
+
+						SetRegionFastHelpText( &gFacilityAssignmentMenuRegion[ uiMenuLine ], szTooltipText );
+					}
+					//SetRegionHelpEndCallback( &gFacilityAssignmentMenuRegion[ uiMenuLine ], HelpTextDoneCallback );
+
+					MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 0, uiMenuLine );
+					// store assignment type ID in the SECOND user data
+					MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 1, iCounter );
+					MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 2, -1 );
+					uiMenuLine++;
+				}
+			}
+		}
+
+		// cancel line
+		MSYS_DefineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
+							MSYS_NO_CURSOR, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
+		MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 0, uiMenuLine );
+		MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 1, NUM_FACILITY_ASSIGNMENTS );
+		MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 2, -1 );
+
+		// created
+		fCreated = TRUE;
+
+		// pause game
+		PauseGame( );
+
+		// unhighlight all strings in box
+		UnHighLightBox( ghFacilityAssignmentBox );
+
+		fCreated = TRUE;
+
+		//HandleShadingOfLinesForFacilityMenu( );
+	}
+	else if( ( ( fShowFacilityAssignmentMenu == FALSE ) || ( fShowFacilityMenu == FALSE ) || ( fShowAssignmentMenu == FALSE ) ) && ( fCreated == TRUE ) )
+	{
+		fCreated = FALSE;
+
+		// remove these regions
+		for( uiMenuLine = 0; uiMenuLine < GetNumberOfLinesOfTextInBox( ghFacilityAssignmentBox ); uiMenuLine++ )
+		{
+			MSYS_RemoveRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ] );
+		}
+
+		fShowFacilityAssignmentMenu = FALSE;
+		gfRenderPBInterface = TRUE;
+
+		RestorePopUpBoxes( );
+		fMapPanelDirty = TRUE;
+		fCharacterInfoPanelDirty= TRUE;
+		fTeamPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
+		HideBox( ghFacilityAssignmentBox );
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		if ( fShowFacilityMenu )
+		{
+			// remove highlight on the parent menu
+			UnHighLightBox( ghFacilityAssignmentBox );
+		}
+	}
+
+	return;
+}
+
+void FacilityAssignmentMenuMvtCallBack ( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	// mvt callback handler for assignment region
+	INT32 iValue = -1;
+
+	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
+	{
+		// highlight string
+		if( GetBoxShadeFlag( ghFacilityAssignmentBox, iValue ) == FALSE )
+		{
+			// get the string line handle
+			HighLightBoxLine( ghFacilityAssignmentBox, iValue );
+		}
+	}
+	else if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		// unhighlight all strings in box
+		UnHighLightBox( ghFacilityAssignmentBox );
+	}
+	return;
+}
+
+void FacilityAssignmentMenuBtnCallback ( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	// btn callback handler for assignment region
+	INT16 ubFacilityType = -1;
+	INT16 ubAssignmentType = -1;
+	INT16 ubVehicleID = -1;
+	SOLDIERTYPE * pSoldier = NULL;
+	BOOLEAN fCanOperateFacility = TRUE;
+
+	pSoldier = GetSelectedAssignSoldier( FALSE );
+
+	ubFacilityType = gubFacilityInSubmenu;
+	ubAssignmentType = (INT16)MSYS_GetRegionUserData( pRegion, 1 );
+	ubVehicleID = (INT16)MSYS_GetRegionUserData( pRegion, 2 );
+
+	if (ubFacilityType <= 0 || ubFacilityType >= NUM_FACILITY_TYPES || ubAssignmentType <= 0)
+	{
+		return;
+	}
+
+	if( ( iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN ) || ( iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN ) )
+	{
+		if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) && !fShowMapInventoryPool )
+		{
+			UnMarkButtonDirty( giMapBorderButtons[ MAP_BORDER_TOWN_BTN ] );
+		}
+	}
+
+	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		if (ubAssignmentType > 0 && ubAssignmentType < NUM_FACILITY_ASSIGNMENTS )
+		{
+			if (!BasicCanCharacterFacility( pSoldier ))
+			{
+				return;
+			}
+
+			if (!CanCharacterFacilityWithErrorReport( pSoldier, (UINT8)ubFacilityType, (UINT8)ubAssignmentType ) )
+			{
+				return;
+			}
+
+			// Check for standing debt for Facility Operation. May trigger an on-screen prompt or error message.
+			if ( gFacilityTypes[ ubFacilityType ].AssignmentData[ ubAssignmentType ].sCostPerHour > 0 && // Facility costs money to operate
+				!IsOutstandingFacilityDebtWithErrorReport() ) // There's an outstanding debt for facilities
+			{
+				// Facility debt needs to be paid first.
+				return;
+			}
+
+			// PASSED ALL TESTS - ALLOW SOLDIER TO WORK AT THIS FACILITY.
+
+			fShowAssignmentMenu = FALSE;
+			giAssignHighLine = -1;
+
+			pSoldier->bOldAssignment = pSoldier->bAssignment; // Set Old Assignment
+
+			if( pSoldier->bOldAssignment == VEHICLE )
+			{
+				TakeSoldierOutOfVehicle( pSoldier );
+			}
+			RemoveCharacterFromSquads(	pSoldier );
+
+			// Change assignment to new type
+			switch (ubAssignmentType)
+			{
+				case FAC_STAFF:
+					ChangeSoldiersAssignment( pSoldier, FACILITY_STAFF );
+					break;
+				case FAC_REST:
+					ChangeSoldiersAssignment( pSoldier, FACILITY_REST );
+					break;
+				case FAC_REPAIR_ITEMS:
+					MakeSureToolKitIsInHand( pSoldier );
+					pSoldier->flags.fFixingRobot = FALSE;
+					pSoldier->bVehicleUnderRepairID = -1;
+					ChangeSoldiersAssignment( pSoldier, REPAIR );
+					break;
+				case FAC_REPAIR_VEHICLE:
+					MakeSureToolKitIsInHand( pSoldier );
+					pSoldier->flags.fFixingRobot = FALSE;
+					pSoldier->bVehicleUnderRepairID = (INT8)ubVehicleID;
+					ChangeSoldiersAssignment( pSoldier, REPAIR );
+					break;
+				case FAC_REPAIR_ROBOT:
+					MakeSureToolKitIsInHand( pSoldier );
+					pSoldier->flags.fFixingRobot = TRUE;
+					pSoldier->bVehicleUnderRepairID = -1;
+					ChangeSoldiersAssignment( pSoldier, REPAIR );
+					break;
+				case FAC_DOCTOR:
+					MakeSureMedKitIsInHand( pSoldier );
+					ChangeSoldiersAssignment( pSoldier, DOCTOR );
+					break;
+				case FAC_PATIENT:
+					ChangeSoldiersAssignment( pSoldier, PATIENT );
+					break;
+				case FAC_PRACTICE_STRENGTH:
+					pSoldier->bTrainStat = STRENGTH;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_SELF );
+					break;
+				case FAC_PRACTICE_DEXTERITY:
+					pSoldier->bTrainStat = DEXTERITY;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_SELF );
+					break;
+				case FAC_PRACTICE_AGILITY:
+					pSoldier->bTrainStat = AGILITY;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_SELF );
+					break;
+				case FAC_PRACTICE_HEALTH:
+					pSoldier->bTrainStat = HEALTH;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_SELF );
+					break;
+				case FAC_PRACTICE_MARKSMANSHIP:
+					pSoldier->bTrainStat = MARKSMANSHIP;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_SELF );
+					break;
+				case FAC_PRACTICE_LEADERSHIP:
+					pSoldier->bTrainStat = LEADERSHIP;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_SELF );
+					break;
+				case FAC_PRACTICE_MEDICAL:
+					pSoldier->bTrainStat = MEDICAL;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_SELF );
+					break;
+				case FAC_PRACTICE_MECHANICAL:
+					pSoldier->bTrainStat = MECHANICAL;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_SELF );
+					break;
+				case FAC_PRACTICE_EXPLOSIVES:
+					pSoldier->bTrainStat = EXPLOSIVE_ASSIGN;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_SELF );
+					break;
+				case FAC_STUDENT_STRENGTH:
+					pSoldier->bTrainStat = STRENGTH;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_BY_OTHER );
+					break;
+				case FAC_STUDENT_DEXTERITY:
+					pSoldier->bTrainStat = DEXTERITY;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_BY_OTHER );
+					break;
+				case FAC_STUDENT_AGILITY:
+					pSoldier->bTrainStat = AGILITY;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_BY_OTHER );
+					break;
+				case FAC_STUDENT_HEALTH:
+					pSoldier->bTrainStat = HEALTH;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_BY_OTHER );
+					break;
+				case FAC_STUDENT_MARKSMANSHIP:
+					pSoldier->bTrainStat = MARKSMANSHIP;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_BY_OTHER );
+					break;
+				case FAC_STUDENT_LEADERSHIP:
+					pSoldier->bTrainStat = LEADERSHIP;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_BY_OTHER );
+					break;
+				case FAC_STUDENT_MEDICAL:
+					pSoldier->bTrainStat = MEDICAL;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_BY_OTHER );
+					break;
+				case FAC_STUDENT_MECHANICAL:
+					pSoldier->bTrainStat = MECHANICAL;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_BY_OTHER );
+					break;
+				case FAC_STUDENT_EXPLOSIVES:
+					pSoldier->bTrainStat = EXPLOSIVE_ASSIGN;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_BY_OTHER );
+					break;
+				case FAC_TRAINER_STRENGTH:
+					pSoldier->bTrainStat = STRENGTH;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_TEAMMATE );
+					break;
+				case FAC_TRAINER_DEXTERITY:
+					pSoldier->bTrainStat = DEXTERITY;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_TEAMMATE );
+					break;
+				case FAC_TRAINER_AGILITY:
+					pSoldier->bTrainStat = AGILITY;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_TEAMMATE );
+					break;
+				case FAC_TRAINER_HEALTH:
+					pSoldier->bTrainStat = HEALTH;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_TEAMMATE );
+					break;
+				case FAC_TRAINER_MARKSMANSHIP:
+					pSoldier->bTrainStat = MARKSMANSHIP;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_TEAMMATE );
+					break;
+				case FAC_TRAINER_LEADERSHIP:
+					pSoldier->bTrainStat = LEADERSHIP;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_TEAMMATE );
+					break;
+				case FAC_TRAINER_MEDICAL:
+					pSoldier->bTrainStat = MEDICAL;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_TEAMMATE );
+					break;
+				case FAC_TRAINER_MECHANICAL:
+					pSoldier->bTrainStat = MECHANICAL;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_TEAMMATE );
+					break;
+				case FAC_TRAINER_EXPLOSIVES:
+					pSoldier->bTrainStat = EXPLOSIVE_ASSIGN;
+					ChangeSoldiersAssignment( pSoldier, TRAIN_TEAMMATE );
+					break;
+
+			}
+			
+			AssignMercToAMovementGroup( pSoldier );			
+			MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+
+			pSoldier->sFacilityTypeOperated = ubFacilityType; // Set soldier as working at this facility.
+
+			if( gFacilityTypes[ ubFacilityType ].AssignmentData[ ubAssignmentType ].sCostPerHour > 0 )
+			{
+				// Ask player if he wishes to expend money on operating the facility.
+				HandleInterfaceMessageForCostOfOperatingFacility( pSoldier, (UINT8)ubAssignmentType );
+			}
+			gfRenderPBInterface = TRUE;
+		}
+		else
+		{
+			// stop showing menu
+			fShowFacilityAssignmentMenu = FALSE;
+
+			// unhighlight the assignment box
+			UnHighLightBox( ghFacilityBox );
+
+			// reset list
+			ResetSelectedListForMapScreen( );
+			gfRenderPBInterface = TRUE;
+		}
+		// rerender tactical stuff
+		gfRenderPBInterface = TRUE;
+
+		fTeamPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
+	}
+
+}
+
+BOOLEAN HandleAssignmentExpansionAndHighLightForFacilityMenu( void )
+{
+	if( fShowFacilityAssignmentMenu )
+	{
+		HighLightBoxLine( ghFacilityBox, gubFacilityLineForSubmenu );
+		return( TRUE );
+	}
+
+	return( FALSE );
+}
+
+void HandleShadingOfLinesForFacilityAssignmentMenu( void )
+{
+	SOLDIERTYPE *pSoldier = NULL;
+	INT32 iCounter = 0;
+	INT32 iCounterB = 0;
+	INT32 iNumLine = 0;
+	UINT8 ubFacilityType = gubFacilityInSubmenu;
+	BOOLEAN fFoundVehicle = FALSE;
+
+	if( ( fShowFacilityAssignmentMenu == FALSE ) || ( ghFacilityAssignmentBox == -1 ) )
+	{
+		return;
+	}
+
+	pSoldier = GetSelectedAssignSoldier( FALSE );
+
+	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
+	// CreateDestroyMouseRegionForRepairMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForRepairMenu().
+
+	// run through all possible assignments. Shade as necessary
+	for ( iCounter = 0; iCounter < NUM_FACILITY_ASSIGNMENTS; iCounter++ )
+	{
+		if ( gFacilityTypes[ubFacilityType].AssignmentData[iCounter].ubStaffLimit )
+		{
+			if ( iCounter == FAC_REPAIR_VEHICLE )
+			{
+				// Test to see whether there are any.
+				for ( iCounterB = 0; iCounterB < ubNumberOfVehicles; iCounterB++ )
+				{
+					if ( pVehicleList[iCounterB].fValid == TRUE )
+					{
+						if ( IsThisVehicleAccessibleToSoldier( pSoldier, iCounterB ) &&
+							CanCharacterFacility( pSoldier, ubFacilityType, iCounter ) )
+						{
+							UnShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+							UnSecondaryShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+						}
+						else
+						{
+							UnShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+							SecondaryShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+						}
+						iNumLine++;
+						fFoundVehicle = TRUE;
+					}
+				}
+				if (fFoundVehicle = FALSE)
+				{
+					// The line here says "Repair Vehicle", and is shaded because there's no vehicle present.
+					UnSecondaryShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+					ShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+					iNumLine++;
+				}
+			}
+			else if ( iCounter == FAC_REPAIR_ROBOT )
+			{
+				// is the ROBOT here?
+				if( IsRobotInThisSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+				{
+					if ( CanCharacterFacility( pSoldier, ubFacilityType, iCounter ) )
+					{
+						UnShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+						UnSecondaryShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+					}
+					else
+					{
+						UnShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+						SecondaryShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+					}
+					iNumLine++;
+				}
+				else
+				{
+					// Line won't appear in the menu, so don't bother shading it.
+				}
+			}
+			else if ( iCounter == FAC_PATIENT )
+			{
+				// is injured?
+				if ( CanCharacterPatient ( pSoldier ) )
+				{
+					UnShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+					UnSecondaryShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+				}
+				else
+				{
+					// A fully shaded line appears.
+					UnSecondaryShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+					ShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+				}
+				iNumLine++;
+			}
+			else if ( !BasicCanCharacterFacility( pSoldier ) )
+			{
+				// Character cannot perform facility work at all. This shouldn't happen, actually.
+				// Every line in this menu is, in theory, either valid or "not valid right now"...
+				UnSecondaryShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+				ShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+				iNumLine++;
+			}
+			else if ( !CanCharacterFacility( pSoldier, ubFacilityType, iCounter ) )
+			{
+				UnShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+				SecondaryShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+				iNumLine++;
+			}
+			else
+			{
+				UnShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+				UnSecondaryShadeStringInBox( ghFacilityAssignmentBox, iNumLine );
+				iNumLine++;
+			}
+		}
+	}
+	return;
 }

@@ -25,6 +25,8 @@
 	#include "Tactical Save.h"
 	#include "interface Dialogue.h"
 	#include "Random.h"
+	// HEADROCK HAM 3.6: Added for facility string printing...
+	#include "PopUpBox.h"
 #endif
 
 #include "postalservice.h"
@@ -32,26 +34,70 @@
 extern BOOLEAN fMapScreenBottomDirty;
 extern CPostalService gPostalService;
 
-void GetSectorFacilitiesFlags( INT16 sMapX, INT16 sMapY, STR16 sFacilitiesString )
+
+void AddFacilitiesToBox( INT16 sMapX, INT16 sMapY, UINT32 *uiHandle, BOOLEAN fCityInfoBox )
 {
 	// will build a string stating current facilities present in sector
 
-	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags == 0 )
+	// HEADROCK HAM 3.5: Facilities are now read from XMLs, including their names.
+
+	UINT32 cnt = 0;
+	UINT32 uiNumFacilities = 0;
+	BOOLEAN fHeaderAdded = FALSE;
+
+	CHAR16 szFacilityString[30];
+
+	Assert(sMapX > 0 && sMapY > 0 && sMapX < 17 && sMapY < 17);
+
+	for ( cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++ )
 	{
-		// none
-	swprintf( sFacilitiesString, L"%s", sFacilitiesStrings[ 0 ] );
+		if (fCityInfoBox && uiNumFacilities == 0 && !fHeaderAdded )
+		{
+			// For a city info box, always show this line on the left side.
+			swprintf( szFacilityString, L"%s:", pwTownInfoStrings[ 8 ] );
+			AddMonoString( uiHandle, szFacilityString );
+			fHeaderAdded = TRUE;
+		}
+		// Facility type exists at this location?
+		if (gFacilityLocations[SECTOR(sMapX,sMapY)][cnt].fFacilityHere)
+		{
+			if (gFacilityLocations[SECTOR(sMapX,sMapY)][cnt].ubHidden == 0 ||
+				(gFacilityLocations[SECTOR(sMapX,sMapY)][cnt].ubHidden == 1 && SectorInfo[SECTOR(sMapX,sMapY)].fSurfaceWasEverPlayerControlled) )
+			{
+				if (!fCityInfoBox && uiNumFacilities == 0 && !fHeaderAdded )
+				{
+					// For a non-city info box, show this line on the left side only if there's at least one facility.
+					swprintf( szFacilityString, L"%s:", pwTownInfoStrings[ 8 ] );
+					AddMonoString( uiHandle, szFacilityString );
+				}
+				else if (uiNumFacilities > 0)
+				{
+					// Add empty line on the left size to make room for text on the right.
+					AddMonoString( uiHandle, L"" );
+				}
+
+				AddSecondColumnMonoString( uiHandle, gFacilityTypes[cnt].szFacilityName );
+				uiNumFacilities++;
+			}
+		}
+	}
+
+	if( uiNumFacilities == 0 && fCityInfoBox )
+	{
+		// Add "NONE" on the right side. Only happens when the sector is a city.
+		AddSecondColumnMonoString( uiHandle, sFacilitiesStrings[0] );
 		return;
 	}
 
-
+	/* HEADROCK HAM 3.4: Hardcodes removed.
 	// hospital
-	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags & SFCF_HOSPITAL )
+	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags & (1 << FACILITY_HOSPITAL) )
 	{
-		swprintf( sFacilitiesString, L"%s", sFacilitiesStrings[ 1 ] );
+		swprintf( sFacilitiesString, L"%s", sFacilitiesStrings[ FACILITY_HOSPITAL ] );
 	}
 
 	// industry
-	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags & SFCF_INDUSTRY )
+	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags & (1 << FACILITY_INDUSTRY) )
 	{
 		if( wcslen( sFacilitiesString ) == 0 )
 		{
@@ -59,13 +105,13 @@ void GetSectorFacilitiesFlags( INT16 sMapX, INT16 sMapY, STR16 sFacilitiesString
 		}
 		else
 		{
-			wcscat( sFacilitiesString, L",");
+			wcscat( sFacilitiesString, L", ");
 			wcscat( sFacilitiesString, sFacilitiesStrings[ 2 ]);
 		}
 	}
 
 	// prison
-	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags & SFCF_PRISON )
+	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags & (1 << FACILITY_PRISON) )
 	{
 		if( wcslen( sFacilitiesString ) == 0 )
 		{
@@ -73,13 +119,27 @@ void GetSectorFacilitiesFlags( INT16 sMapX, INT16 sMapY, STR16 sFacilitiesString
 		}
 		else
 		{
-			wcscat( sFacilitiesString, L",");
+			wcscat( sFacilitiesString, L", ");
 			wcscat( sFacilitiesString, sFacilitiesStrings[ 3 ]);
 		}
 	}
 
+	// HEADROCK HAM 3.4: What about the military base!
+	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags & (1 << FACILITY_MILITARY) )
+	{
+		if( wcslen( sFacilitiesString ) == 0 )
+		{
+		swprintf( sFacilitiesString, L"%s", sFacilitiesStrings[ 4 ] );
+		}
+		else
+		{
+			wcscat( sFacilitiesString, L", ");
+			wcscat( sFacilitiesString, sFacilitiesStrings[ 4 ]);
+		}
+	}
+
 	// airport
-	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags & SFCF_AIRPORT )
+	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags & (1 << FACILITY_AIRPORT) )
 	{
 		if( wcslen( sFacilitiesString ) == 0 )
 		{
@@ -87,13 +147,13 @@ void GetSectorFacilitiesFlags( INT16 sMapX, INT16 sMapY, STR16 sFacilitiesString
 		}
 		else
 		{
-			wcscat( sFacilitiesString, L",");
+			wcscat( sFacilitiesString, L", ");
 			wcscat( sFacilitiesString, sFacilitiesStrings[ 5 ]);
 		}
 	}
 
 	// gun range
-	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags & SFCF_GUN_RANGE )
+	if( SectorInfo[ SECTOR( sMapX, sMapY ) ].uiFacilitiesFlags & (1 << FACILITY_GUNRANGE) )
 	{
 		if( wcslen( sFacilitiesString ) == 0 )
 		{
@@ -101,12 +161,11 @@ void GetSectorFacilitiesFlags( INT16 sMapX, INT16 sMapY, STR16 sFacilitiesString
 		}
 		else
 		{
-			wcscat( sFacilitiesString, L",");
+			wcscat( sFacilitiesString, L", ");
 			wcscat( sFacilitiesString, sFacilitiesStrings[ 6 ]);
 		}
 	}
-
-	sFacilitiesString[ wcslen( sFacilitiesString ) ] = 0;
+	*/
 
 	return;
 }

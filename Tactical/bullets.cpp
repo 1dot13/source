@@ -474,7 +474,7 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 	// The condition now reads that flag and creates a lightshow only for tracer bullets. This flag is only
 	// used if the new Tracer System is on.
 	//if (fTracer == TRUE)
-	if ((gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.iRealisticTracers == 0 && fTracer == TRUE))
+	if ((gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.ubRealisticTracers == 0 && fTracer == TRUE))
 	{
 		if ( pBullet->iLoop < 5 )
 		{
@@ -525,7 +525,7 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 	// The condition now reads that flag and creates a lightshow only for tracer bullets. This flag is only
 	// used if the new Tracer System is on.
 	// else if (fTracer == TRUE)
-	else if ((gGameExternalOptions.iRealisticTracers > 0 && gGameExternalOptions.iNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.iRealisticTracers == 0 && fTracer == TRUE))
+	else if ((gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.ubRealisticTracers == 0 && fTracer == TRUE))
 	{
 		INT16 sXPos, sYPos;
 

@@ -113,15 +113,17 @@ enum {
 	ASSIGN_MENU_VEHICLE,
 	ASSIGN_MENU_REPAIR,
 	ASSIGN_MENU_TRAIN,
+	ASSIGN_MENU_FACILITY, // HEAROCK HAM 3.6: Facility List menu
 	ASSIGN_MENU_CANCEL,
 	MAX_ASSIGN_STRING_COUNT,
 };
 
-
+// HEADROCK HAM 3.6: Added new option to train Mobile Militia separately.
 // training assignment menu defines
 enum {
 	TRAIN_MENU_SELF,
 	TRAIN_MENU_TOWN,
+	TRAIN_MENU_MOBILE,
 	TRAIN_MENU_TEAMMATES,
 	TRAIN_MENU_TRAIN_BY_OTHER,
 	TRAIN_MENU_CANCEL,
@@ -202,6 +204,12 @@ enum{
 	STOP_YELLOW_SECTOR_LOCATOR,
 };
 
+// HEADROCK HAM 3.6: Enums for Militia Training Types
+enum{
+	TOWN_MILITIA = 0,
+	MOBILE_MILITIA,
+	NUM_MILITIA_TRAINING_TYPES
+};
 
 // dimensions and offset for merc update box
 #define UPDATE_MERC_FACE_X_WIDTH 50
@@ -254,6 +262,8 @@ extern BOOLEAN fShowContractMenu ;
 extern BOOLEAN fShowRemoveMenu ;
 extern BOOLEAN fShowMilitiaControlMenu ; //lal
 //extern BOOLEAN fShowTalkToAllMenu ;
+extern BOOLEAN fShowFacilityMenu; // HEADROCK HAM 3.6
+extern BOOLEAN fShowFacilityAssignmentMenu; // HEADROCK HAM 3.6
 
 extern BOOLEAN fFirstTimeInMapScreen;
 extern BOOLEAN fLockOutMapScreenInterface;
@@ -299,6 +309,11 @@ extern SGPRect AssignmentDimensions ;
 extern SGPPoint AssignmentPosition ;
 extern SGPPoint SquadPosition ;
 extern SGPRect SquadDimensions ;
+// HEADROCK HAM 3.6: Facility Menu variables
+extern SGPPoint FacilityPosition;
+extern SGPRect FacilityDimensions;
+extern SGPPoint FacilityAssignmentPosition;
+extern SGPRect FacilityAssignmentDimensions;
 
 extern SGPPoint RepairPosition;
 extern SGPRect RepairDimensions;
@@ -316,6 +331,8 @@ extern SGPPoint OrigAssignmentPosition ;
 extern SGPPoint OrigTrainPosition;
 extern SGPPoint OrigVehiclePosition;
 extern SGPPoint OrigMilitiaControlPosition ; //lal
+extern SGPPoint OrigFacilityPosition; // HEADROCK HAM 3.6: Facility Menu
+extern SGPPoint OrigFacilityAssignmentPosition; // HEADROCK HAM 3.6
 //extern SGPPoint OrigTalkToAllPosition ;
 
 // disble team info panel due to showing of battle roster
@@ -374,7 +391,8 @@ BOOLEAN MultipleCharacterListEntriesSelected( void );
 void ToggleEntryInSelectedList( INT8 bEntry );
 
 // reset assignments for mercs on selected list who have this assignment
-void ResetAssignmentsForMercsTrainingUnpaidSectorsInSelectedList( INT8 bAssignment );
+// HEADROCK HAM 3.6: Argument was unused... adding my own.
+void ResetAssignmentsForMercsTrainingUnpaidSectorsInSelectedList( UINT8 ubMilitiaType );
 
 /*
 // plot path for selected character list
@@ -553,7 +571,7 @@ BOOLEAN SetUpFastHelpListRegions( INT32 iXPosition[], INT32 iYPosition[], INT32 
 void InitializeMovingLists( void );
 
 // reset assignment for mercs trainign militia in this sector
-void ResetAssignmentOfMercsThatWereTrainingMilitiaInThisSector( INT16 sSectorX, INT16 sSectorY );
+void ResetAssignmentOfMercsThatWereTrainingMilitiaInThisSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubMilitiaType );
 
 
 // the sector move box

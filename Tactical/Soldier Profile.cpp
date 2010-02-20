@@ -447,6 +447,13 @@ BOOLEAN LoadMercProfiles(void)
 		gMercProfiles[ uiLoop ].bHatedCount[1]	= gMercProfiles[ uiLoop ].bHatedTime[1];
 		gMercProfiles[ uiLoop ].bLearnToHateCount = gMercProfiles[ uiLoop ].bLearnToHateTime;
 		gMercProfiles[ uiLoop ].bLearnToLikeCount = gMercProfiles[ uiLoop ].bLearnToLikeTime;
+
+		if (gGameExternalOptions.fReadProfileDataFromXML)
+		{
+			// HEADROCK PROFEX: Overwrite data read from PROF.DAT with data read from XML
+			OverwriteMercProfileWithXMLData( uiLoop );
+			OverwriteMercOpinionsWithXMLData( uiLoop );
+		}
 	}
 
 	// SET SOME DEFAULT LOCATIONS FOR STARTING NPCS
@@ -1663,4 +1670,97 @@ BOOLEAN IsProfileIdAnAimOrMERCMerc( UINT8 ubProfileID )
 	}
 
 	return( FALSE );
+}
+
+void OverwriteMercProfileWithXMLData( UINT32 uiLoop )
+{
+		//////////////////////////////////////////////////////////////////////////////////
+		//
+		// HEADROCK PROFEX: Profile Externalization
+		//
+		// This is a complete hack which is meant for temporary use until a better system
+		// can be implemented. This bit OVERWRITES data accumulated so far, by drawing
+		// new data from XML. This allows making PROEDIT obsolete.
+		//
+		//////////////////////////////////////////////////////////////////////////////////
+		wcscpy(gMercProfiles[ uiLoop ].zName, tempProfiles[ uiLoop ].zName) ;
+		wcscpy(gMercProfiles[ uiLoop ].zNickname, tempProfiles[ uiLoop ].zNickname) ;
+
+		gMercProfiles[ uiLoop ].ubFaceIndex = tempProfiles[ uiLoop ].ubFaceIndex ;
+		gMercProfiles[ uiLoop ].usEyesX = tempProfiles[ uiLoop ].usEyesX ;
+		gMercProfiles[ uiLoop ].usEyesY = tempProfiles[ uiLoop ].usEyesY ;
+		gMercProfiles[ uiLoop ].usMouthX = tempProfiles[ uiLoop ].usMouthX ;
+		gMercProfiles[ uiLoop ].usMouthY = tempProfiles[ uiLoop ].usMouthY ;
+		gMercProfiles[ uiLoop ].uiEyeDelay = tempProfiles[ uiLoop ].uiEyeDelay ;
+		gMercProfiles[ uiLoop ].uiMouthDelay = tempProfiles[ uiLoop ].uiMouthDelay ;
+		gMercProfiles[ uiLoop ].uiBlinkFrequency = tempProfiles[ uiLoop ].uiBlinkFrequency ;
+		gMercProfiles[ uiLoop ].uiExpressionFrequency = tempProfiles[ uiLoop ].uiExpressionFrequency ;
+
+		strcpy(gMercProfiles[ uiLoop ].PANTS, tempProfiles[ uiLoop ].PANTS) ;
+		strcpy(gMercProfiles[ uiLoop ].VEST, tempProfiles[ uiLoop ].VEST) ;
+		strcpy(gMercProfiles[ uiLoop ].SKIN, tempProfiles[ uiLoop ].SKIN) ;
+		strcpy(gMercProfiles[ uiLoop ].HAIR, tempProfiles[ uiLoop ].HAIR) ;
+
+		gMercProfiles[ uiLoop ].bSex = tempProfiles[ uiLoop ].bSex ;
+		gMercProfiles[ uiLoop ].ubBodyType = tempProfiles[ uiLoop ].ubBodyType ;
+		gMercProfiles[ uiLoop ].uiBodyTypeSubFlags = tempProfiles[ uiLoop ].uiBodyTypeSubFlags ;
+
+		gMercProfiles[ uiLoop ].bAttitude = tempProfiles[ uiLoop ].bAttitude ;
+		gMercProfiles[ uiLoop ].bPersonalityTrait = tempProfiles[ uiLoop ].bPersonalityTrait ;
+		gMercProfiles[ uiLoop ].ubNeedForSleep = tempProfiles[ uiLoop ].ubNeedForSleep ;
+
+		gMercProfiles[ uiLoop ].bReputationTolerance = tempProfiles[ uiLoop ].bReputationTolerance ;
+		gMercProfiles[ uiLoop ].bDeathRate = tempProfiles[ uiLoop ].bDeathRate ;
+
+		gMercProfiles[ uiLoop ].bLifeMax = tempProfiles[ uiLoop ].bLifeMax ;
+		gMercProfiles[ uiLoop ].bLife = tempProfiles[ uiLoop ].bLife ;
+		gMercProfiles[ uiLoop ].bStrength = tempProfiles[ uiLoop ].bStrength ;
+		gMercProfiles[ uiLoop ].bAgility = tempProfiles[ uiLoop ].bAgility ;
+		gMercProfiles[ uiLoop ].bDexterity = tempProfiles[ uiLoop ].bDexterity ;
+		gMercProfiles[ uiLoop ].bWisdom = tempProfiles[ uiLoop ].bWisdom ;
+		gMercProfiles[ uiLoop ].bMarksmanship = tempProfiles[ uiLoop ].bMarksmanship ;
+		gMercProfiles[ uiLoop ].bExplosive = tempProfiles[ uiLoop ].bExplosive ;
+		gMercProfiles[ uiLoop ].bLeadership = tempProfiles[ uiLoop ].bLeadership ;
+		gMercProfiles[ uiLoop ].bMedical = tempProfiles[ uiLoop ].bMedical ;
+		gMercProfiles[ uiLoop ].bMechanical = tempProfiles[ uiLoop ].bMechanical ;
+		gMercProfiles[ uiLoop ].bExpLevel = tempProfiles[ uiLoop ].bExpLevel ;
+
+		gMercProfiles[ uiLoop ].bEvolution = tempProfiles[ uiLoop ].bEvolution ;
+		gMercProfiles[ uiLoop ].bSkillTrait = tempProfiles[ uiLoop ].bSkillTrait ;
+		gMercProfiles[ uiLoop ].bSkillTrait2 = tempProfiles[ uiLoop ].bSkillTrait2 ;
+
+		memcpy( &(gMercProfiles[ uiLoop ].bBuddy), &(tempProfiles[ uiLoop ].bBuddy), 5 * sizeof (INT8));
+		gMercProfiles[ uiLoop ].bLearnToLike = tempProfiles[ uiLoop ].bLearnToLike ;
+		gMercProfiles[ uiLoop ].bLearnToLikeTime = tempProfiles[ uiLoop ].bLearnToLikeTime ;
+
+		memcpy( &(gMercProfiles[ uiLoop ].bHated), &(tempProfiles[ uiLoop ].bHated), 5 * sizeof (INT8));
+		memcpy( &(gMercProfiles[ uiLoop ].bHatedTime), &(tempProfiles[ uiLoop ].bHatedTime), 5 * sizeof (INT8));
+		gMercProfiles[ uiLoop ].bLearnToHate = tempProfiles[ uiLoop ].bLearnToHate ;
+		gMercProfiles[ uiLoop ].bLearnToHateTime = tempProfiles[ uiLoop ].bLearnToHateTime ;
+
+		gMercProfiles[ uiLoop ].sSalary = tempProfiles[ uiLoop ].sSalary ;
+		gMercProfiles[ uiLoop ].uiWeeklySalary = tempProfiles[ uiLoop ].uiWeeklySalary ;
+		gMercProfiles[ uiLoop ].uiBiWeeklySalary = tempProfiles[ uiLoop ].uiBiWeeklySalary ;
+		gMercProfiles[ uiLoop ].bMedicalDeposit = tempProfiles[ uiLoop ].bMedicalDeposit ;
+		gMercProfiles[ uiLoop ].sMedicalDepositAmount = tempProfiles[ uiLoop ].sMedicalDepositAmount ;
+		gMercProfiles[ uiLoop ].usOptionalGearCost = tempProfiles[ uiLoop ].usOptionalGearCost ;
+
+		gMercProfiles[ uiLoop ].bArmourAttractiveness = tempProfiles[ uiLoop ].bArmourAttractiveness ;
+		gMercProfiles[ uiLoop ].bMainGunAttractiveness = tempProfiles[ uiLoop ].bMainGunAttractiveness ;
+
+		memcpy( &(gMercProfiles[ uiLoop ].usApproachFactor), &(tempProfiles[ uiLoop ].usApproachFactor), 4 * sizeof (UINT16));
+		if (tempProfiles[ uiLoop ].fGoodGuy)
+		{
+			gMercProfiles[ uiLoop ].ubMiscFlags3 |= PROFILE_MISC_FLAG3_GOODGUY;
+		}
+}
+
+void OverwriteMercOpinionsWithXMLData( UINT32 uiLoop )
+{
+	UINT8 cnt;
+
+	for (cnt=0; cnt<75; cnt++ )
+	{
+		gMercProfiles[ uiLoop ].bMercOpinion[cnt] = tempProfiles[ uiLoop ].bMercOpinion[cnt] ;
+	}
 }

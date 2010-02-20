@@ -61,6 +61,8 @@
 	#include "Interface.h"
 	#include "cheats.h"
 	#include "Interface Panels.h"
+	// HEADROCK HAM 3.6: Include for adding facility debt reset
+	#include "Facilities.h"
 #endif
 
 #include "Vehicles.h"
@@ -233,6 +235,64 @@ void InitNPCs( void )
 
 void InitBloodCatSectors()
 {
+	///////////////////////////////////////////////////
+	// HEADROCK HAM 3.6: Bloodcat Placement Externalization
+	//
+	// It is now possible for the user/modder to set the maximum number of bloodcats that may appear in the sector.
+	// We can now place bloodcats anywhere we'd like (aboveground), stretching the limits of maps without disturbing
+	// the game. The placements defined here are still the absolute MAXIMUM, so if the map has more placements available
+	// they will be ignored.
+	// Please note that if the mapfile has LESS placements than indicated here, then the game will reduce the number of
+	// placements automatically to fit the MAP, not the XML.
+
+	UINT16 x = 0;
+	UINT8 PlacementType = 0;
+	UINT8 ubMaxBloodcats = 0;
+	UINT8 ubDifficulty = gGameOptions.ubDifficultyLevel-1; // This way, novice=0.
+	INT16 ubLairSectorId = -1; // Location of ONE lair sector (the first one found)
+	
+	// Clean all bloodcat data.
+	for( x = 0; x < 256; x++ )
+	{
+		SectorInfo[ x ].bBloodCats = 0;
+		SectorInfo[ x ].bBloodCatPlacements = 0;
+	}
+
+	// Begin loop for every sector.
+	for (x = 0; x < 256; x++)
+	{
+		// Set "maximum placements" value to whatever is defined in the XML file for this difficulty level.
+		SectorInfo[ x ].bBloodCatPlacements = gBloodcatPlacements[x][ubDifficulty].ubMaxBloodcats;
+
+		PlacementType = gBloodcatPlacements[x][0].PlacementType;
+
+		// Record the first sector you can find which is defined as a LAIR sector. Only one sector can serve
+		// this purpose, because the quests rely on it.
+		if (PlacementType == BLOODCAT_PLACEMENT_LAIR && ubLairSectorId == -1)
+		{
+			ubLairSectorId = x;
+		}
+
+		if (PlacementType != 0)
+		{
+			// Sector is a lair or static bloodcat sector. Fill it up with actual bloodcats please.
+			SectorInfo[ x ].bBloodCats = gBloodcatPlacements[x][ubDifficulty].ubMaxBloodcats;
+			// "Ambush" sectors (PlacementType 0) do not have bloodcats in them until triggered.
+		}
+	}
+
+	if (ubLairSectorId >= 0)
+	{
+		gubBloodcatLairSectorId = (UINT8)ubLairSectorId;
+	}
+	else
+	{
+		THROWEXCEPTION(L"At least one Bloodcat Lair must be defined in BloodcatPlacements.XML!");
+	}
+
+	/*
+		
+
 	INT32 i;
 	//Hard coded table of bloodcat populations.	We don't have
 	//access to the real population (if different) until we physically
@@ -296,7 +356,7 @@ void InitBloodCatSectors()
 			SectorInfo[ SEC_N5	].bBloodCatPlacements = 18;
 			SectorInfo[ SEC_N5	].bBloodCats = 18;
 			break;
-	}
+	}*/
 }
 
 
@@ -334,6 +394,8 @@ void InitStrategicLayer( void )
 	// make Orta, Tixa, SAM sites not found
 	InitMapSecrets();
 
+	// HEADROCK HAM 3.6: Initialize facilities.
+	InitFacilities();
 
 	// free up any leave list arrays that were left allocated
 	ShutDownLeaveList( );
@@ -344,7 +406,8 @@ void InitStrategicLayer( void )
 	SetGameTimeCompressionLevel( TIME_COMPRESS_X0 );
 
 	// select A9 Omerta as the initial selected sector
-	ChangeSelectedMapSector( startingX, startingY, startingZ );
+	// HEADROCK HAM 3.5: Actually, this is where we set the starting sector based on external variables.
+	ChangeSelectedMapSector( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 
 	// Reset these flags or mapscreen could be disabled and cause major headache.
 	fDisableDueToBattleRoster = FALSE;
@@ -497,6 +560,10 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 			// schedule email for message from spec at 7am 3 days in the future
 			AddFutureDayStrategicEvent( EVENT_DAY3_ADD_EMAIL_FROM_SPECK, 60*7, 0, uiDaysTimeMercSiteAvailable );
 		}
+
+		// HEADROCK HAM 3.5: Reset LZ to default arrival
+		gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
+		gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
 
 #ifdef CRIPPLED_VERSION
 		{
@@ -863,6 +930,15 @@ void ReStartingGame()
 
 	//Reload the Merc profiles
 	LoadMercProfiles( );
+
+	if (gGameExternalOptions.fWriteProfileDataToXML)
+	{
+		// HEADROCK PROFEX: Create mercprofiles xml output
+		WriteMercProfiles();
+
+		// HEADROCK PROFEX: Create mercopinions xml output
+		WriteMercOpinions();
+	}
 
 	// Reload quote files
 	ReloadAllQuoteFiles();

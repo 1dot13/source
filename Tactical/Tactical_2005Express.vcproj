@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="Tactical_2005Express"
 	ProjectGUID="{D4BDA6AD-9B61-4953-892D-DA3F8CC7E096}"
 	RootNamespace="Tactical_2005Express"
@@ -600,6 +600,10 @@
 				RelativePath=".\XML.h"
 				>
 			</File>
+			<File
+				RelativePath=".\XML_Profiles.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Source Files"
@@ -992,6 +996,14 @@
 			</File>
 			<File
 				RelativePath=".\XML_Merge.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Opinions.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Profiles.cpp"
 				>
 			</File>
 			<File

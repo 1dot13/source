@@ -1126,8 +1126,9 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			gubFact[usFact] = gMercProfiles[ ARNIE ].bMercStatus != MERC_IS_DEAD;
 			break;
 
-		case FACT_I16_BLOODCATS_KILLED:
-			gubFact[usFact] = (SectorInfo[ SEC_I16 ].bBloodCats == 0);
+		// HEADROCK HAM 3.6: No longer necessarily I16.
+		case FACT_BLOODCAT_LAIR_CLEANED:
+			gubFact[usFact] = (SectorInfo[ gubBloodcatLairSectorId ].bBloodCats == 0);
 			break;
 
 		case FACT_NPC_BANDAGED_TODAY:

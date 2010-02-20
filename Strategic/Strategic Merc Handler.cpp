@@ -42,6 +42,10 @@
 	#include "Quests.h"
 	// HEADROCK HAM B1: Additional Include for Dynamic Roaming Restrictions
 	#include "MilitiaSquads.h"
+	// HEADROCK HAM 3.6: Additional include for Facility Operating Deby
+	#include "Facilities.h"
+	// HEADROCK HAM 3.6: And another include, for militia upkeep costs.
+	#include "Town Militia.h"
 #endif
 
 
@@ -513,10 +517,19 @@ void MercDailyUpdate()
 	// rebuild list for mapscreen
 	ReBuildCharactersList( );
 	// HEADROCK HAM B1: Run a function to redefine Roaming Militia Restrictions.
-	if (gGameExternalOptions.bDynamicRestrictRoaming)
+	if (gGameExternalOptions.fDynamicRestrictRoaming)
 	{
 		AdjustRoamingRestrictions();
 	}
+
+	// HEADROCK HAM 3.6: Pay debt for operating Facilities today. If can't be paid, apply loyalty hit.
+	if (giTotalOwedForFacilityOperationsToday)
+	{
+		HandleDailyPaymentFacilityDebt();
+	}
+
+	// HEADROCK HAM 3.6: Pay for militia upkeep
+	HandleMilitiaUpkeepPayment();
 }
 
 /*

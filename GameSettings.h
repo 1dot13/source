@@ -54,9 +54,14 @@ enum
 	TOPTION_SILENT_SKYRIDER,
 	TOPTION_LOW_CPU_USAGE,
 	TOPTION_ENHANCED_DESC_BOX,
-	
+
 	// arynn
-	TOPTION_TOGGLE_TURN_MODE,					
+	TOPTION_TOGGLE_TURN_MODE,
+
+	// HEADROCK HAM 3.6:
+	TOPTION_STAT_PROGRESS_BARS,
+
+	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	TOPTION_FORCE_BOBBY_RAY_SHIPMENTS,			// force all pending Bobby Ray shipments
 	TOPTION_CHEAT_MODE_OPTIONS_END,
@@ -79,7 +84,6 @@ enum
 
 	TOPTION_HIDE_BULLETS,
 	TOPTION_TRACKING_MODE,
-
 
 	NUM_ALL_GAME_OPTIONS,
 };	
@@ -276,9 +280,10 @@ typedef struct
 	UINT32	guiTrainVeteranMilitiaDelay;
 	UINT32	guiCreateEachNHours;
 	UINT32	guiDivOfOriginalMilitia;
-	UINT32	guiMinMilitiaSquadSize;
-	UINT32	guiMaxMilitiaSquadSize;
-	UINT32	guiMaxMilitiaSquadSizeBattle;
+	// HEADROCK HAM 3.6: These settings are REDUNDANT.
+	//UINT32	guiMinMilitiaSquadSize;
+	//UINT32	guiMaxMilitiaSquadSize;
+	//UINT32	guiMaxMilitiaSquadSizeBattle;
 
 	//BOOLEAN gfAllowSoldierToolTips; // moved to prefereces - SANDRO
 
@@ -419,9 +424,11 @@ typedef struct
 	INT32 ubTrainingSkillMax;
 	INT32 ubSelfTrainingDivisor;
 	INT32 ubInstructedTrainingDivisor;
-	INT32 ubGunRangeTrainingBonus;
+	// HEADROCK HAM 3.5: No longer necessary.
+	//INT32 ubGunRangeTrainingBonus;
 	INT32 ubTownMilitiaTrainingRate;
-	INT32 ubMaxMilitiaTrainersPerSector;
+	// HEADROCK HAM 3.5: No longer necessary.
+	//INT32 ubMaxMilitiaTrainersPerSector;
 	INT32 ubTeachBonusToTrain;
 	INT32 ubRpcBonusToTrainMilitia;
 	INT32 ubMinSkillToTeach;
@@ -502,7 +509,7 @@ BOOLEAN gbBulletTracer;
 
 	// HEADROCK: Enhanced Item Description Box ON/OFF
 	// WANNE: Changed from BOOLEAN to INT32!
-	INT32 fEnhancedDescriptionBox;
+	INT32 iEnhancedDescriptionBox;
 
 	// WANNE: Always use "prof.dat".
 	BOOLEAN fAlwaysUseProfDat;
@@ -518,58 +525,46 @@ BOOLEAN gbBulletTracer;
 	UINT8 ubCoverDisplayUpdateWait;
 
 	// HEADROCK HAM B1: Global modifier for mine income (0 is automatically turned to 1 to avoid divide-by-zero.)
-	INT16 iMineIncomePercentage;
+	INT16 usMineIncomePercentage;
 
 	// HEADROCK HAM B1: Allows changing the maximum CTH possible, for any attack 0-100
-	UINT8 iMaximumCTH;
+	UINT8 ubMaximumCTH;
 	
 	// HEADROCK HAM B1: Allows changing the minimum CTH possible, for any attack 0-100
-	UINT8 iMinimumCTH;
+	UINT8 ubMinimumCTH;
 
 	// HEADROCK HAM B1: Allows reducing the chance of scoring a hit fractionally, if CTH = Minimum CTH
-	UINT8 iMinimumCTHDivisor;
+	UINT16 usMinimumCTHDivisor;
 
 	// HEADROCK HAM B1: Allows Restricted Roaming Militia to move through previously visited sectors, even if restricted.
-	BOOLEAN bUnrestrictVisited;
+	BOOLEAN fUnrestrictVisited;
 
 	// HEADROCK HAM B1: Allows the capture of towns to dynamically alter roaming restrictions
-	BOOLEAN bDynamicRestrictRoaming;
-
-	// HEADROCK HAM B2: Reset suppression counter. 0 = never (oldskool), 1 = Every turn, 2 = Every attack.
-	UINT8 iClearSuppression;
+	BOOLEAN fDynamicRestrictRoaming;
 
 	// HEADROCK HAM B2.1: This controls how effective suppression is, by increasing the number of ubSuppressionPoints accumulated by combatants (percentage);
-	INT16 iSuppressionEffectiveness;
+	INT16 sSuppressionEffectiveness;
 
-	// HEADROCK HAM B2: MAXIMUM number of APs that can be lost to suppression in a given turn (0=unlimited)
-	BOOLEAN fSuppressionAPLossPerTurn;
-
-	// HEADROCK HAM B2: MAXIMUM number of APs that can be lost to suppression in a given attack (0=unlimited)
-	BOOLEAN fSuppressionAPLossPerAttack;
-
-	UINT8 iSuppressionToleranceMax;
-	UINT8 iSuppressionToleranceMin;
-
-	// HEADROCK HAM B2: Suppression Shock ON/OFF
-	BOOLEAN fSuppressionShock;
+	UINT8 ubSuppressionToleranceMax;
+	UINT8 ubSuppressionToleranceMin;
 
 	// HEADROCK HAM B2: Suppression Shock effectiveness (percentage, 100 = "normal", 0 = deactivated. Range 0-65535)
-	UINT16 iSuppressionShockEffectiveness;
+	UINT16 usSuppressionShockEffect;
 
 	// HEADROCK HAM B2.1: CTH penalty given by a "Cowering" target to any enemy shooter.
-	INT8 iAimPenaltyPerTargetShock;
+	UINT8 ubAimPenaltyPerTargetShock;
 
 	// HEADROCK HAM B2.3: It is now possible for "cowering" to increase a target's suppression.
-	UINT16 iCowerEffectOnSuppression;
+	UINT16 usCowerEffectOnSuppression;
 
 	// HEADROCK HAM B2.5: Turn on Realistic Tracers. 0 = off (regular tracers). 1 = Fully realistic tracers. 2 = Tracer Bump + 1.13 Autofire Penalty Reduction
-	UINT8 iRealisticTracers;
+	UINT8 ubRealisticTracers;
 
 	// HEADROCK HAM B2.5: Realistic tracers - one of every X bullets in a tracer magazines will be a tracer bullet. 0 = off (JA2 normal)
-	UINT8 iNumBulletsPerTracer;
+	UINT8 ubNumBulletsPerTracer;
 
 	// HEADROCK HAM B2.5: Realistic tracers - CTH increased by this amount whenever a tracer is fired. 0 = off.
-	INT16 iCTHBumpPerTracer;
+	UINT8 ubCTHBumpPerTracer;
 
 	// HEADROCK HAM B2.6: Increased aiming costs?
 	BOOLEAN fIncreasedAimingCost;
@@ -581,47 +576,38 @@ BOOLEAN gbBulletTracer;
 	FLOAT iMovementEffectOnAiming;
 
 	// HEADROCK HAM B2.6: Autofire Bullets/5AP modifier
-	INT16 iAutofireBulletsPer5APModifier;
+	INT8 bAutofireBulletsPer5APModifier;
 
 	// HEADROCK HAM B2.6/B1: Adjustable "luck" factor in Auto-Resolve
 	FLOAT iAutoResolveLuckFactor;
 
 	// HEADROCK HAM B2.6: Adjustable maximum for Suppression Shock effect. This has the added effect of reducing overall susceptibility to shock and may render some enemies unshockable.
-	UINT8 iMaxSuppressionShock;
+	UINT8 ubMaxSuppressionShock;
 
 	// HEADROCK HAM B2.6/2/1: Toggle new Burst/Auto CTH bars: 0=neither, 1=both, 2=Burst, 3=Auto
-	UINT8 iNewCTHBars;
+	UINT8 ubNewCTHBars;
 
 	// HEADROCK HAM B2.6: Toggle whether AI checks for larger magazine when wanting to suppress at a distance
 	BOOLEAN fIncreaseAISuppressionFire;
 
 	// HEADROCK HAM B2.7: Change the speed of skill progression. (defaults set to JA2 normal)
-	UINT16 ubHealthSubpointsToImprove;
-	UINT16 ubStrengthSubpointsToImprove;
-	UINT16 ubDexteritySubpointsToImprove;
-	UINT16 ubAgilitySubpointsToImprove;
-	UINT16 ubWisdomSubpointsToImprove;
-	UINT16 ubMarksmanshipSubpointsToImprove;
-	UINT16 ubMedicalSubpointsToImprove;
-	UINT16 ubMechanicalSubpointsToImprove;
-	UINT16 ubExplosivesSubpointsToImprove;
-	UINT16 ubLeadershipSubpointsToImprove;
-	UINT16 ubLevelSubpointsToImprove;
+	UINT16 usHealthSubpointsToImprove;
+	UINT16 usStrengthSubpointsToImprove;
+	UINT16 usDexteritySubpointsToImprove;
+	UINT16 usAgilitySubpointsToImprove;
+	UINT16 usWisdomSubpointsToImprove;
+	UINT16 usMarksmanshipSubpointsToImprove;
+	UINT16 usMedicalSubpointsToImprove;
+	UINT16 usMechanicalSubpointsToImprove;
+	UINT16 usExplosivesSubpointsToImprove;
+	UINT16 usLeadershipSubpointsToImprove;
+	UINT16 usLevelSubpointsToImprove;
 
 	// HEADROCK HAM B2.7: When turned on, this will give a CTH approximation instead of an exact value, on CTH Bars and "F" key feedback.
 	BOOLEAN fApproximateCTH;
 
 	// HEADROCK HAM B2.7: Augmented Roaming Militia code - turn this to TRUE to allow militia free travel through San Mona, Tixa, Orta, Omerta, and Estoni.
 	BOOLEAN fAllowMilitiaMoveThroughMinorCities;
-
-	// HEADROCK HAM B2.7: Smarter Roaming Militia Generator will generate Roamers in any available city perimeter square, allowing us to avoid "wasting" training sessions more easily.
-	BOOLEAN fSmartRoamingMilitiaGenerator;
-
-	// HEADROCK HAM B2.7: When "TRUE", Roaming Militia will be created on a 25% Veteran, 25% Regular, 50% green basis. If new militia is placed into a full group, it will upgrade greens/regulars in that group. 
-	BOOLEAN fDiverseRoamingMilitiaGroups;
-
-	// HEADROCK HAM B2.8: This setting controls whether militia will try to join up into the largest groups they can, or average out the size of the groups to cover more territory.
-	UINT8 ubRoamingMilitiaSpreadsOutChance;
 
 	// HEADROCK HAM B2.8: These are new cowering penalty divisors that help us determine how effective cowering is in different stances and when the shooter is targetting different bodyparts
 	UINT8 ubCoweringPenaltyDivisorProne;
@@ -648,8 +634,174 @@ BOOLEAN gbBulletTracer;
 	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainers will rest if no trainees available. 3 = Trainees will rest if no trainers available (not recommended). 1 = Both. 0 = Neither.
 	UINT8 ubSmartTrainingRest;
 
-	// HEADROCK HAM 3: Show Tooltips from Attachments in Bobby Rays shop=
+	// HEADROCK HAM 3: Externalized ratio between Weight and Strength. This value determines how many strength points we need to lift 0.5kg with no encumberance.
+	FLOAT iStrengthToLiftHalfKilo;
+
+	// HEADROCK HAM 3: Define minimum leadership required for training militia. Set to 0 for "no limit".
+	UINT8 ubMinimumLeadershipToTrainMilitia;
+
+	// HEADROCK HAM 3: Define effect of "TEACHER" trait in increasing effective leadership, for purposes of eligibility for training militia
+	UINT16 usTeacherTraitEffectOnLeadership;
+
+	// HEADROCK HAM 3: If enabled, the trainer's "effective" leadership skill determines HOW MANY militia he/she creates per session (only works in town militia training).
+	BOOLEAN fLeadershipAffectsMilitiaQuantity;
+
+	// HEADROCK HAM 3: If "LEADERSHIP_AFFECTS_MILITIA_QUANTITY" is true, this value determines the lowest leadership required to train a full (default size 10) squad of town militia in one training session.
+	UINT8 ubReqLeadershipForFullTraining;
+
+	// HEADROCK HAM 3: Four INI settings to control the number of kills you must accumulate to win one progress point, one setting per difficulty level
+	UINT16 usNumKillsPerProgressPointNovice;
+	UINT16 usNumKillsPerProgressPointExperienced;
+	UINT16 usNumKillsPerProgressPointExpert;
+	UINT16 usNumKillsPerProgressPointInsane;
+
+	// HEADROCK HAM 3: If enabled, changes the way the game calculates progress. It will look at each progress control separately (Kills/Income/Control/Visited) and set the progress to the HIGHEST scoring control.
+	BOOLEAN fAlternateProgressCalculation;
+
+	// HEADROCK HAM 3: If enabled, tooltipping over Bobby Ray's weapons will show a list of possible attachments to those weapons.
 	BOOLEAN fBobbyRayTooltipsShowAttachments;
+
+	// HEADROCK HAM 3.1: Divisor for the AP-to-Ready cost charge on first aiming click, when extra aiming costs are enabled. 0 = No ready-time-based charge.
+	UINT8 ubFirstAimReadyCostDivisor;
+
+	// HEADROCK HAM 3.1: This is a suppression tool that not everyone will like. It gives an on-screen message when any character has been suppressed so much he's lost his next turn completely!
+	BOOLEAN fShowSuppressionShutdown;
+
+	// HEADROCK HAM 3.1: Set whether you'd like to determine yourself which mine (if any) will shut down during the campaign.
+	BOOLEAN fManuallySelectMineShutdown;
+
+	// HEADROCK HAM 3.1: Select which mine will run out. 0 = no mine. 1 = San Mona (unused), 2 = Drassen, 3 = Alma, 4 = Cambria, 5 = Chitzena, 6 = Grumm.
+	UINT8 ubWhichMineRunsOut;
+
+	// HEADROCK HAM 3.1: Can the Humvee go off-road?
+	BOOLEAN fHumveeOffroad;
+
+	// HEADROCK HAM 3.2: If activated, reinforcements (militia/enemy) arrive in the battle with 0 APs. This makes them less of a diablo-ex-machina.
+	UINT8 ubReinforcementsFirstTurnFreeze;
+
+	// HEADROCK HAM 3.2: This feature allows the status, leadership and experience of nearby friendlies help/hinder a character's tolerance, based on their distance from him.
+	BOOLEAN fFriendliesAffectTolerance;
+
+	// HEADROCK HAM 3.2: Set a divisor for the CtH of Mortar weapons.
+	UINT8 ubMortarCTHDivisor;
+
+	// HEADROCK HAM 3.2: This enabled reduced sight for cowering characters. 0 = disabled. 2 = Reduced Sightrange. 3 = Tunnel-vision. 1 = Both.
+	UINT8 ubCoweringReducesSightRange;
+
+	// HEADROCK HAM 3.2: Critical Headshots may cause blindness. Rolls 1 to X change of being blinded. 0 = disabled.
+	UINT8 ubChanceBlindedByHeadshot;
+
+	// HEADROCK HAM 3.2: Critical Legshots cause additional AP loss
+	BOOLEAN fCriticalLegshotCausesAPLoss;
+
+	// HEADROCK HAM 3.2: When enabled, this setting removes the player's omniscience inside his own sectors. The player will no longer see the movement of enemy groups unless someone is nearby to scout them.
+	BOOLEAN fNoEnemyDetectionWithoutRecon;
+
+	// HEADROCK HAM 3.2: Determines the training bonus for the Medical skill, when training in "hospital" sectors
+	UINT8 ubHospitalTrainingBonus;
+
+	// HEADROCK HAM 3.2: Determines the repaid bonus when training in factory ("industrial") sectors
+	UINT8 ubFactoryRepairBonus;
+
+	// HEADROCK HAM 3.2: How much MECHANICAL skill do we need to gain a repair bonus from a factory?
+	UINT8 ubMinMechanicalForFactoryRepairBonus;
+
+	// HEADROCK HAM 3.3: Externalized maximum possible penalty for hitting a moving target. JA2 Default = 30.
+	UINT16 usMaxCTHPenaltyForMovingTarget;
+
+	// HEADROCK HAM 3.3: Increases tolerance while moving.
+	UINT8 ubTilesMovedPerBonusTolerancePoint;
+
+	// HEADROCK HAM 3.3: New militia feature, Minimum Leadership required to train Roaming Militia
+	UINT8 ubMinimumLeadershipToTrainMobileMilitia;
+
+	// HEADROCK HAM 3.3: If enabled, the trainer's "effective" leadership skill determines HOW MANY militia he/she creates per session.
+	BOOLEAN fLeadershipAffectsMobileMilitiaQuantity;
+
+	// HEADROCK HAM 3.3: If "LEADERSHIP_AFFECTS_MILITIA_QUANTITY" is true, this value determines the lowest leadership required to train a full (default size 10) squad of town militia in one training session.
+	UINT8 ubReqLeadershipForFullMobileTraining;
+
+	// HEADROCK HAM 3.3: Minimum distance (in METERS) at which character suffer from friendly suppression.
+	UINT16 usMinDistanceFriendlySuppression;
+
+	// HEADROCK HAM 3.3: If enabled, Roaming Militia can automatically reinforce city garrisons. 
+	BOOLEAN fAllowMobileReinforceCities;
+
+	// HEADROCK HAM 3.3: If enabled, Roaming Militia can automatically reinforce city garrisons. 
+	BOOLEAN fAllowMobileReinforceSAM;
+
+	// HEADROCK HAM 3.4: This controls the intensity of Hiding the Bullet Count during combat. The higher it is, the more intense the effect. Negative values reduce the effect.
+	UINT16 usBulletHideIntensity;
+
+	// HEADROCK HAM 3.4: What percentage of a new Mobile Militia group will be made of Elites? If >0, then at least one of every group will be an Elite. 100 = All Elites.
+	UINT8 ubPercentRoamingMilitiaElites;
+
+	// HEADROCK HAM 3.4: What percentage of a new Mobile Militia group will be made of Elites? If >0, then at least one of every group will be an Elite. 100 = All Elites.
+	UINT8 ubPercentRoamingMilitiaRegulars;
+
+	// HEADROCK HAM 3.5: Does leadership affect the Quality of new Mobile Militia groups?
+	BOOLEAN fLeadershipAffectsMobileMilitiaQuality;
+
+	// HEADROCK HAM 3.5: Explosive Suppression Effectiveness alters the amount of Suppression Points you get from nearby blasts.
+	UINT16 usExplosionSuppressionEffect;
+
+	// HEADROCK HAM 3.5: When enabled, goggle-switching affects every merc in the sector, not just those belonging to the current squad.
+	BOOLEAN fGoggleSwapAffectsAllMercsInSector;
+
+	// HEADROCK HAM 3.5: Helicopter - Base cost per tile in "GREEN" airspace
+	UINT16 usHelicopterBaseCostPerGreenTile;
+
+	// HEADROCK HAM 3.5: Helicopter - Base cost per tile in "RED" airspace
+	UINT16 usHelicopterBaseCostPerRedTile;
+
+	// HEADROCK HAM 3.5: Experimental, arrival sectorX/Y.
+	UINT8 ubDefaultArrivalSectorX;
+	UINT8 ubDefaultArrivalSectorY;
+
+	// HEADROCK HAM 3.5: Limit bonus from tracers based on range to target. This is a divisor for the effect.
+	UINT8 ubRangeDifficultyAimingWithTracers;
+
+	// HEADROCK HAM 3.6: Militia can now place flags on discovered mines.
+	BOOLEAN fMilitiaPlaceBlueFlags;
+
+	// HEADROCK PROFEX: Activate this to read Profile data from Profiles.XML and Opinions.XML
+	BOOLEAN fReadProfileDataFromXML;
+
+	// HEADROCK PROFEX: Activate this to read Profile data from Profiles.XML and Opinions.XML
+	BOOLEAN fWriteProfileDataToXML;
+
+	// HEADROCK HAM 3.6: Progress bars for each stat, displayed behind the stat value on the merc panel.
+	UINT8 ubStatProgressBarsRed;
+	UINT8 ubStatProgressBarsGreen;
+	UINT8 ubStatProgressBarsBlue;
+
+	// HEADROCK HAM 3.6: Determines how likely a character is, every hour, to trigger a facility event. The actual chance is X in every Y attempts, where X is facility-specific, and Y is the value adjusted here.
+	UINT16 usFacilityEventRarity;
+	// HEADROCK HAM 3.6: Controls how important the character's stats are, in insuring he/she gets better results (or smaller damage) from using facilities. The higher this is, the more dangerous all facilities are.
+	UINT8 ubFacilityDangerRate;
+
+	// HEADROCK HAM 3.6: Determines whether the extrapolated daily costs of mercs are figured into the "Daily Expenses" display. 0 = No, just facility costs. 1 = Only mercs with a fixed daily rate. 2 = All mercs, including AIM contracts.
+	UINT8 ubIncludeContractsInExpenses;
+
+	// HEADROCK HAM 3.6: Maximum number of messages displayed in Tactical view
+	UINT8 ubMaxMessagesTactical;
+
+	// HEADROCK HAM 3.6: Daily upkeep costs for militia
+	UINT16 usDailyCostTownGreen;
+	UINT16 usDailyCostTownRegular;
+	UINT16 usDailyCostTownElite;
+	UINT16 usDailyCostMobileGreen;
+	UINT16 usDailyCostMobileRegular;
+	UINT16 usDailyCostMobileElite;
+
+	// HEADROCK HAM 3.6: Non-Combat Bodytypes can't become hostile
+	BOOLEAN fCanTrueCiviliansBecomeHostile;
+
+	// HEADROCK HAM 3.6: Militia become hostile when attacked. 0 = No. 1 = If killed. 2 = If attacked (JA2 Default)
+	UINT8 ubCanMilitiaBecomeHostile;
+
+	// HEADROCK HAM 3.6: If activated, the game does not switch focus to a merc who spots an enemy in real-time mode. This fixes issues with Real-Time Sneak.
+	BOOLEAN fNoAutoFocusChangeInRealtimeSneak;
 
 	// The_Bob - real time sneaking code 01/06/09
 	// Suport disabling/silencing real time sneaking via external .ini file

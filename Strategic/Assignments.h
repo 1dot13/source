@@ -26,7 +26,7 @@
 
 #define	VEHICLE_REPAIR_POINTS_DIVISOR		10
 
-
+// HEADROCK HAM 3.6: Added separate Mobile Militia training assignment.
 // Assignments Defines
 enum{
  SQUAD_1 =0,
@@ -57,8 +57,11 @@ enum{
  REPAIR,
  TRAIN_SELF,
  TRAIN_TOWN,
+ TRAIN_MOBILE,			// HEADROCK HAM 3.6: Training mobile militia.
  TRAIN_TEAMMATE,
  TRAIN_BY_OTHER,
+ FACILITY_STAFF,		// HEADROCK HAM 3.6: Operating a facility for strategic gain.
+ FACILITY_REST,			// HEADROCK HAM 3.6: Facility equivalent of resting (no assignment)
  ASSIGNMENT_DEAD,
  ASSIGNMENT_UNCONCIOUS,			// unused
  ASSIGNMENT_POW,
@@ -83,6 +86,16 @@ enum{
 	// NOTE: Wisdom isn't trainable!
 };
 
+// HEADROCK HAM 3.2: Set bitwise flags for locating facilities in current sector (for training/otherwise)
+// facilities flags
+// HEADROCK HAM 3.4: Removed due to facility externalization.
+/*#define AT_HOSPITAL		0x00000001
+#define AT_INDUSTRY		0x00000002
+#define AT_PRISON		0x00000004
+#define AT_MILITARY		0x00000008
+#define AT_AIRPORT		0x00000010
+#define AT_GUN_RANGE	0x00000020*/
+
 
 typedef struct TOWN_TRAINER_TYPE
 {
@@ -106,6 +119,7 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pCharacter );
 
 // can character train militia?
 BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pCharacter );
+BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier );
 
 // can character train stat?..as train self or as trainer?
 BOOLEAN CanCharacterTrainStat( SOLDIERTYPE *pSoldier, INT8 bStat, BOOLEAN fTrainSelf, BOOLEAN fTrainTeammate );
@@ -115,6 +129,9 @@ BOOLEAN CanCharacterPractise( SOLDIERTYPE *pCharacter );
 
 // can this character train others?
 BOOLEAN CanCharacterTrainTeammates( SOLDIERTYPE *pSoldier );
+
+// HEADROCK HAM 3.6: Can character use a specific facility?
+BOOLEAN CanCharacterFacility( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType, UINT8 ubAssignmentType );
 
 // put character on duty?
 BOOLEAN CanCharacterOnDuty( SOLDIERTYPE *pCharacter );
@@ -183,16 +200,18 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 
 
 // get bonus tarining pts due to an instructor for this student
-INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE *pStudent, INT8 bTrainStat, BOOLEAN fAtGunRange, UINT16 *pusMaxPts );
+// HEADROCK HAM 3.5: Three functions below have lost an argument which is no longer required ("uiAtGunRange", which was "uiAtFacility" in HAM 3.4)
+INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE *pStudent, INT8 bTrainStat, UINT16 *pusMaxPts );
 
 // get training pts for this soldier
-INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAtGunRange, UINT16 *pusMaxPts );
+INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pusMaxPts );
 
 // pts for being a student for this soldier
-INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAtGunRange, UINT16 *pusMaxPts );
+INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pusMaxPts );
 
+// HEADROCK HAM 3.6: Completely unused.
 // reset these soldiers
-void ResetAssignmentsForAllSoldiersInSectorWhoAreTrainingTown( SOLDIERTYPE *pSoldier );
+//void ResetAssignmentsForAllSoldiersInSectorWhoAreTrainingTown( SOLDIERTYPE *pSoldier );
 
 // Handle assignment done
 void AssignmentDone( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote, BOOLEAN fMeToo );
@@ -207,6 +226,9 @@ extern INT32 ghAttributeBox;
 extern INT32 ghRemoveMercAssignBox;
 extern INT32 ghContractBox;
 extern INT32 ghMoveBox;
+// HEADROCK HAM 3.6: Facility Menu, Submenu
+extern INT32 ghFacilityBox;
+extern INT32 ghFacilityAssignmentBox;
 //extern INT32 ghUpdateBox;
 
 
@@ -219,6 +241,9 @@ extern MOUSE_REGION	gSquadMenuRegion[	];
 extern MOUSE_REGION	gContractMenuRegion[	];
 extern MOUSE_REGION	gRemoveMercAssignRegion[	];
 extern MOUSE_REGION		gVehicleMenuRegion[];
+// HEADROCK HAM 3.6: Facility Menu.
+extern MOUSE_REGION gFacilityMenuRegion[];
+extern MOUSE_REGION gFacilityMenuRegion[];
 
 extern BOOLEAN fShownContractMenu;
 extern BOOLEAN fShownAssignmentMenu;
@@ -259,6 +284,16 @@ void VehicleMenuBtnCallback(MOUSE_REGION * pRegion, INT32 iReason );
 void CreateDestroyMouseRegionForRepairMenu( void );
 void RepairMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason );
 void RepairMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
+
+// HEADROCK HAM 3.6: Facility Menu
+void CreateDestroyMouseRegionForFacilityMenu( void );
+void FacilityMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason );
+void FacilityMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
+
+// HEADROCK HAM 3.6: Facility sub-menu
+void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void );
+void FacilityAssignmentMenuMvtCallBack( MOUSE_REGION * pRegion, INT32 iReason );
+void FacilityAssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
 
 // contract menu
 void CreateDestroyMouseRegionsForContractMenu( void );
@@ -333,6 +368,20 @@ void HandleTrainingSleepSynchronize( SOLDIERTYPE *pSoldier );
 void HandleTrainingWakeSynchronize( SOLDIERTYPE *pSoldier );
 BOOLEAN FindAnyAwakeTrainers( SOLDIERTYPE *pTrainee );
 BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer );
+
+// HEADROCK HAM 3.6: Functions for testing and reporting reasons why character can't train here.
+BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier );
+BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier );
+// HEADROCK HAM 3.6: Function for testing and reporting reasons why character can't staff a facility.
+BOOLEAN CanCharacterFacilityWithErrorReport( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType, UINT8 ubAssignmentType );
+void HandleInterfaceMessageForCostOfOperatingFacility( SOLDIERTYPE *pSoldier, UINT8 ubAssignmentType );
+void PayFacilityCostsYesNoBoxCallback( UINT8 bExitValue );
+void FacilityStaffingRejected( void );
+void ResetAllExpensiveFacilityAssignments();
+BOOLEAN IsOutstandingFacilityDebtWithErrorReport();
+extern INT8 gubFacilityInSubmenu;
+extern UINT8 gubFacilityLineForSubmenu;
+extern SOLDIERTYPE *gpFacilityStaffer;
 
 #endif
 

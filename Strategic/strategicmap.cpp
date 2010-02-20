@@ -296,6 +296,9 @@ STR8 pHortStrings[]={
 "17",
 };
 
+// HEADROCK HAM 3.6: Array to hold user-defined sector names
+CHAR16 gzSectorNames[256][4][MAX_SECTOR_NAME_LENGTH];
+
 BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName, BOOLEAN localizedVersion);
 
 void DoneFadeOutAdjacentSector( void );
@@ -1616,8 +1619,9 @@ void InitializeSAMSites( void )
 {
 	UINT32 cnt;
 	// move the landing zone over to Omerta
-	gsMercArriveSectorX = 9;
-	gsMercArriveSectorY = 1;
+	// HEADROCK HAM 3.5: Externalized coordinates
+	gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
+	gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
 
 	// all SAM sites start game in perfect working condition
 	for ( cnt = 0; cnt < NUMBER_OF_SAMS; cnt++ )
@@ -3009,109 +3013,179 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 	}
 	else
 	{
+
 		bTownNameID = StrategicMap[ CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].bNameId;
 		ubSectorID = (UINT8)SECTOR( sSectorX, sSectorY );
+		AssertGE(ubSectorID, 0);
+		AssertLT(ubSectorID,256);
 		pSector = &SectorInfo[ ubSectorID ];
 		ubLandType = pSector->ubTraversability[ 4 ];
 		swprintf( zString, L"%c%d: ", 'A' + sSectorY - 1, sSectorX );
 
-		if ( bTownNameID == BLANK_SECTOR )
+		////////////////////////////////////
+		// Read and verify XML sector names
+		BOOLEAN fSectorHasXMLNames = TRUE;
+		CHAR16 zUnexplored[MAX_SECTOR_NAME_LENGTH];
+		CHAR16 zDetailedUnexplored[MAX_SECTOR_NAME_LENGTH];
+		CHAR16 zExplored[MAX_SECTOR_NAME_LENGTH];
+		CHAR16 zDetailedExplored[MAX_SECTOR_NAME_LENGTH];
+		
+		wcscpy( zUnexplored, gzSectorNames[ ubSectorID ][0] );
+		wcscpy( zDetailedUnexplored, gzSectorNames[ ubSectorID ][1] );
+		wcscpy( zExplored, gzSectorNames[ ubSectorID ][2] );
+		wcscpy( zDetailedExplored, gzSectorNames[ ubSectorID ][3] );
+
+		if (zUnexplored[0] == 0 || zDetailedUnexplored[0] == 0 || zExplored[0] == 0 || zDetailedExplored[0] == 0)
 		{
-			// OK, build string id like J11
-			// are we dealing with the unfound towns?
-			switch( ubSectorID )
+			fSectorHasXMLNames = FALSE;
+		}
+
+		if (fSectorHasXMLNames)
+		{
+			// HEADROCK HAM 3.6: The program can now read custom names from XML for all above-ground sectors.
+			// In the event that a specific name or set of names is missing, the program generates a default
+			// name as it always has.
+			// I've also updated the SAM Site sectors to rely on SamSite.XML data.
+			
+			BOOLEAN fVisited = (SectorInfo[ ubSectorID ].uiFlags & SF_ALREADY_VISITED);
+			BOOLEAN fSAMSiteKnown = FALSE;
+
+			// Test for known SAM Site at this location
+			for (UINT16 x=0; x < MAX_NUMBER_OF_SAMS; x++)
 			{
-				case SEC_D2: //Chitzena SAM
-					if( !fSamSiteFound[ SAM_SITE_ONE ] )
-						wcscat( zString, pLandTypeStrings[ TROPICS ] );
-					else if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ TROPICS_SAM_SITE ] );
-					else
-						wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
-					break;
-				case SEC_D15: //Drassen SAM
-					if( !fSamSiteFound[ SAM_SITE_TWO ] )
-						wcscat( zString, pLandTypeStrings[ SPARSE ] );
-					else if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ SPARSE_SAM_SITE ] );
-					else
-						wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
-					break;
-				case SEC_I8: //Cambria SAM
-					if( !fSamSiteFound[ SAM_SITE_THREE ] )
-						wcscat( zString, pLandTypeStrings[ SAND ] );
-					else if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ SAND_SAM_SITE ] );
-					else
-						wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
-					break;
-				default:
-					wcscat( zString, pLandTypeStrings[ ubLandType ] );
-					break;
+				if ( pSamList[x] == ubSectorID )
+				{
+					if ( fSamSiteFound[ x ] )
+					{
+						fSAMSiteKnown = TRUE;
+					}
+				}
+			}
+
+			if (fVisited || fSAMSiteKnown)
+			{
+				if (fDetailed)
+				{
+					wcscat( zString, zDetailedExplored );
+				}
+				else
+				{
+					wcscat( zString, zExplored);
+				}
+			}
+			else
+			{
+				if (fDetailed)
+				{
+					wcscat( zString, zDetailedUnexplored);
+				}
+				else
+				{
+					wcscat( zString, zUnexplored );
+				}
 			}
 		}
 		else
 		{
-			switch( ubSectorID )
+			// Default JA2 Name selection
+			if ( bTownNameID == BLANK_SECTOR )
 			{
-				case SEC_B13:
-					if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ DRASSEN_AIRPORT_SITE ] );
-					else
-						wcscat( zString, pTownNames[ DRASSEN ] );
-					break;
-				case SEC_F8:
-					if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ CAMBRIA_HOSPITAL_SITE ] );
-					else
-						wcscat( zString, pTownNames[ CAMBRIA ] );
-					break;
-				case SEC_J9: //Tixa
-					if( !fFoundTixa )
-						wcscat( zString, pLandTypeStrings[ SAND ] );
-					else
-						wcscat( zString, pTownNames[ TIXA ] );
-					break;
-				case SEC_K4: //Orta
-					if( !fFoundOrta )
-						wcscat( zString, pLandTypeStrings[ SWAMP ] );
-					else
-						wcscat( zString, pTownNames[ ORTA ] );
-					break;
-				case SEC_N3:
-					if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ MEDUNA_AIRPORT_SITE ] );
-					else
-						wcscat( zString, pTownNames[ MEDUNA ] );
-					break;
-				default:
-					if( ubSectorID == SEC_N4 && fSamSiteFound[ SAM_SITE_FOUR ] )
-					{	//Meduna's SAM site
-						if( fDetailed )
-							wcscat( zString, pLandTypeStrings[ MEDUNA_SAM_SITE ] );
+				// OK, build string id like J11
+				// are we dealing with the unfound towns?
+				switch( ubSectorID )
+				{
+					case SEC_D2: //Chitzena SAM
+						if( !fSamSiteFound[ SAM_SITE_ONE ] )
+							wcscat( zString, pLandTypeStrings[ TROPICS ] );
+						else if( fDetailed )
+							wcscat( zString, pLandTypeStrings[ TROPICS_SAM_SITE ] );
 						else
 							wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
-					}
-					else
-					{	//All other towns that are known since beginning of the game.
-						wcscat( zString, pTownNames[ bTownNameID ] );
+						break;
+					case SEC_D15: //Drassen SAM
+						if( !fSamSiteFound[ SAM_SITE_TWO ] )
+							wcscat( zString, pLandTypeStrings[ SPARSE ] );
+						else if( fDetailed )
+							wcscat( zString, pLandTypeStrings[ SPARSE_SAM_SITE ] );
+						else
+							wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
+						break;
+					case SEC_I8: //Cambria SAM
+						if( !fSamSiteFound[ SAM_SITE_THREE ] )
+							wcscat( zString, pLandTypeStrings[ SAND ] );
+						else if( fDetailed )
+							wcscat( zString, pLandTypeStrings[ SAND_SAM_SITE ] );
+						else
+							wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
+						break;
+					default:
+						wcscat( zString, pLandTypeStrings[ ubLandType ] );
+						break;
+				}
+			}
+			else
+			{
+				switch( ubSectorID )
+				{
+					case SEC_B13:
 						if( fDetailed )
-						{
-							switch( ubSectorID )
-							{ //Append the word, "mine" for town sectors containing a mine.
-								case SEC_B2:
-								case SEC_D4:
-								case SEC_D13:
-								case SEC_H3:
-								case SEC_H8:
-								case SEC_I14:
-									wcscat( zString, L" " ); //space
-									wcscat( zString, pwMineStrings[ 0 ] ); //then "Mine"
-									break;
+							wcscat( zString, pLandTypeStrings[ DRASSEN_AIRPORT_SITE ] );
+						else
+							wcscat( zString, pTownNames[ DRASSEN ] );
+						break;
+					case SEC_F8:
+						if( fDetailed )
+							wcscat( zString, pLandTypeStrings[ CAMBRIA_HOSPITAL_SITE ] );
+						else
+							wcscat( zString, pTownNames[ CAMBRIA ] );
+						break;
+					case SEC_J9: //Tixa
+						if( !fFoundTixa )
+							wcscat( zString, pLandTypeStrings[ SAND ] );
+						else
+							wcscat( zString, pTownNames[ TIXA ] );
+						break;
+					case SEC_K4: //Orta
+						if( !fFoundOrta )
+							wcscat( zString, pLandTypeStrings[ SWAMP ] );
+						else
+							wcscat( zString, pTownNames[ ORTA ] );
+						break;
+					case SEC_N3:
+						if( fDetailed )
+							wcscat( zString, pLandTypeStrings[ MEDUNA_AIRPORT_SITE ] );
+						else
+							wcscat( zString, pTownNames[ MEDUNA ] );
+						break;
+					default:
+						if( ubSectorID == SEC_N4 && fSamSiteFound[ SAM_SITE_FOUR ] )
+						{	//Meduna's SAM site
+							if( fDetailed )
+								wcscat( zString, pLandTypeStrings[ MEDUNA_SAM_SITE ] );
+							else
+								wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
+						}
+						else
+						{	//All other towns that are known since beginning of the game.
+							wcscat( zString, pTownNames[ bTownNameID ] );
+							if( fDetailed )
+							{
+								switch( ubSectorID )
+								{ //Append the word, "mine" for town sectors containing a mine.
+									case SEC_B2:
+									case SEC_D4:
+									case SEC_D13:
+									case SEC_H3:
+									case SEC_H8:
+									case SEC_I14:
+										wcscat( zString, L" " ); //space
+										wcscat( zString, pwMineStrings[ 0 ] ); //then "Mine"
+										break;
+								}
 							}
 						}
-					}
-					break;
+						break;
+				}
 			}
 		}
 	}
@@ -4605,8 +4679,26 @@ void UpdateAirspaceControl( void )
 		GetSectorIDString( gsMercArriveSectorX, gsMercArriveSectorY, 0, sMsgSubString1, FALSE );
 
 		// move the landing zone over to Omerta
-		gsMercArriveSectorX = 9;
-		gsMercArriveSectorY = 1;
+		// HEADROCK HAM 3.5: Externalized coordinates
+		if ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyAirControlled == FALSE )
+		{
+			gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
+			gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
+		}
+		else
+		{
+			for (UINT8 ubSectorX = 1; ubSectorX <= 16; ubSectorX++)
+			{
+				for (UINT8 ubSectorY = 1; ubSectorY <=16; ubSectorY++)
+				{
+					if ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( ubSectorX, ubSectorY ) ].fEnemyAirControlled == FALSE )
+					{
+						gsMercArriveSectorX = ubSectorX;
+						gsMercArriveSectorY = ubSectorY;
+					}
+				}
+			}
+		}
 
 		// get the name of the new sector
 		GetSectorIDString( gsMercArriveSectorX, gsMercArriveSectorY, 0, sMsgSubString2, FALSE );
@@ -4615,7 +4707,11 @@ void UpdateAirspaceControl( void )
 		swprintf( sMsgString, pBullseyeStrings[ 4 ], sMsgSubString1, sMsgSubString2 );
 
 		// confirm the change with overlay message
-		DoScreenIndependantMessageBox( sMsgString, MSG_BOX_FLAG_OK, NULL );
+		// HEADROCK HAM 3.5: If we do this during SaveLoad, the message box prevents loading the game at all!
+		if (guiCurrentScreen != SAVE_LOAD_SCREEN)
+		{
+			DoScreenIndependantMessageBox( sMsgString, MSG_BOX_FLAG_OK, NULL );
+		}
 
 		// update position of bullseye
 		fMapPanelDirty = TRUE;
@@ -4627,6 +4723,7 @@ void UpdateAirspaceControl( void )
 
 	// ARM: airspace control now affects refueling site availability, so update that too with every change!
 	UpdateRefuelSiteAvailability( );
+
 }
 
 
@@ -5524,6 +5621,12 @@ void HandleSlayDailyEvent( void )
 
 BOOLEAN IsSectorDesert( INT16 sSectorX, INT16 sSectorY )
 {
+	// HEADROCK HAM 3.5: Fix for assertion errors associated with rain checks.
+	if (sSectorX <= 0 || sSectorY <=0 || sSectorX > 16 || sSectorY > 16)
+	{
+		return( FALSE );
+	}
+
 	if ( SectorInfo[ SECTOR(sSectorX, sSectorY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] == SAND )
 	{
 		// desert
@@ -5669,7 +5772,7 @@ BOOLEAN CheckAndHandleUnloadingOfCurrentWorld()
 		return FALSE;
 	}
 
-	if( gTacticalStatus.fDidGameJustStart && gWorldSectorX == 9 && gWorldSectorY == 1 && !gbWorldSectorZ )
+	if( gTacticalStatus.fDidGameJustStart && gWorldSectorX == gGameExternalOptions.ubDefaultArrivalSectorX && gWorldSectorY == gGameExternalOptions.ubDefaultArrivalSectorY && !gbWorldSectorZ )
 	{
 		return FALSE;
 	}

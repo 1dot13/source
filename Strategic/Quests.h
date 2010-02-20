@@ -430,7 +430,8 @@ enum Facts
 	FACT_KINGPIN_NOT_IN_OFFICE,//															256
 	FACT_DONT_OWE_KINGPIN_MONEY,//														257
 	FACT_PC_MARRYING_DARYL_IS_FLO,//													258
-	FACT_I16_BLOODCATS_KILLED,//															259
+	// HEADROCK HAM 3.6: Renamed this. It is no longer necessarily at I16.
+	FACT_BLOODCAT_LAIR_CLEANED,//															259
 
 	FACT_NPC_COWERING	=																				261,
 

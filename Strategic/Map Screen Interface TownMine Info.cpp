@@ -340,11 +340,8 @@ void AddTextToTownBox( void )
 	AddSecondColumnMonoString( &hStringHandle, wString );
 
 	// main facilities
-	swprintf( wString, L"%s:", pwTownInfoStrings[ 8 ] );
-	AddMonoString( &hStringHandle, wString );
-	wcscpy(wString, L"");
-	GetSectorFacilitiesFlags( bCurrentTownMineSectorX, bCurrentTownMineSectorY, wString );
-	AddSecondColumnMonoString( &hStringHandle, wString );
+	// HEADROCK HAM 3.6: This function now does all the work of assembling a facility entry.
+	AddFacilitiesToBox( bCurrentTownMineSectorX, bCurrentTownMineSectorY, &hStringHandle, TRUE );
 
 	// the concept of control is only meaningful in sectors where militia can be trained
 	if ( MilitiaTrainingAllowedInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY, 0 ) )
@@ -551,6 +548,9 @@ void AddTextToBlankSectorBox( void )
 
 	// sector
 	AddSectorToBox();
+
+	// HEADROCK HAM 3.6: Facilities
+	AddFacilitiesToBox( bCurrentTownMineSectorX, bCurrentTownMineSectorY, &hStringHandle, FALSE );
 }
 
 
@@ -639,12 +639,64 @@ void AddCommonInfoToBox(void)
 			AddSecondColumnMonoString( &hStringHandle, wString );
 		}
 
+		// HEADROCK HAM 3.6: Only show these for sectors that have a training facility
+		BOOLEAN fMilitiaTrainingAllowed = FALSE;
+		BOOLEAN fMobileTrainingAllowed = FALSE;
 
 		// percentage of current militia squad training completed
 		swprintf( wString, L"%s:", pwTownInfoStrings[ 10 ] );
 		AddMonoString( &hStringHandle, wString );
-		swprintf( wString, L"%d%%%%", SectorInfo[ SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ].ubMilitiaTrainingPercentDone );
-		AddSecondColumnMonoString( &hStringHandle, wString );
+
+		// Sector contains Militia training facility?
+		for (UINT8 ubCounter = 0; ubCounter < MAX_NUM_FACILITY_TYPES; ubCounter++)
+		{
+			if (gFacilityLocations[SECTOR(bCurrentTownMineSectorX, bCurrentTownMineSectorY)][ubCounter].fFacilityHere)
+			{
+				if (gFacilityTypes[ubCounter].ubMilitiaTrainersAllowed)
+				{
+					fMilitiaTrainingAllowed = TRUE;
+				}
+			}
+		}
+		if (fMilitiaTrainingAllowed)
+		{
+			// Show percent completed
+			swprintf( wString, L"%d%%%%", SectorInfo[ SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ].ubMilitiaTrainingPercentDone );
+			AddSecondColumnMonoString( &hStringHandle, wString );
+		}
+		else
+		{
+			// Show N/A
+			AddSecondColumnMonoString( &hStringHandle, New113HAMMessage[19] );
+		}
+
+		// HEADROCK HAM 3.6: percentage of current Mobile Militia squad training completed
+		swprintf( wString, L"%s:", pwTownInfoStrings[ 12 ] );
+		AddMonoString( &hStringHandle, wString );
+
+		// Sector contains Mobile training facility?
+		for (UINT8 ubCounter = 0; ubCounter < MAX_NUM_FACILITY_TYPES; ubCounter++)
+		{
+			if (gFacilityLocations[SECTOR(bCurrentTownMineSectorX, bCurrentTownMineSectorY)][ubCounter].fFacilityHere)
+			{
+				if (gFacilityTypes[ubCounter].ubMobileMilitiaTrainersAllowed)
+				{
+					fMobileTrainingAllowed = TRUE;
+				}
+			}
+		}
+
+		if (fMobileTrainingAllowed)
+		{
+			// Show percentage completed
+			swprintf( wString, L"%d%%%%", SectorInfo[ SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ].ubMobileMilitiaTrainingPercentDone );
+			AddSecondColumnMonoString( &hStringHandle, wString );
+		}
+		else
+		{
+			// Show N/A
+			AddSecondColumnMonoString( &hStringHandle, New113HAMMessage[19] );
+		}
 	}
 
 

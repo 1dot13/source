@@ -125,6 +125,23 @@ typedef PARSE_STAGE;
 #define LAPTOPFLORISTLOCATIONFILENAME			"Laptop\\FloristPositions.xml"
 #define LAPTOPFUNERALLOCATIONFILENAME			"Laptop\\FuneralPositions.xml"
 
+// HEADROCK HAM 3.4: Facility Locations [2009-05-19]
+#define SECTORFACILITIESFILENAME				"Map\\Facilities.xml"
+// HEADROCK HAM 3.4: Dynamic Roaming Restrictions [2009-05-19]
+#define DYNAMICROAMINGFILENAME					"Map\\DynamicRestrictions.xml"
+// HEADROCK HAM 3.5: Facility Types [2009-06-14]
+#define FACILITYTYPESFILENAME					"Map\\FacilityTypes.xml"
+// HEADROCK HAM 3.6: Sector Names [2009-07-27]
+#define SECTORNAMESFILENAME						"Map\\SectorNames.xml"
+// HEADROCK PROFEX: Merc Profiles [2009-07-27]
+#define MERCPROFILESFILENAME					"MercProfiles.xml"
+// HEADROCK PROFEX: Merc Opinions [2009-07-27]
+#define MERCOPINIONSFILENAME					"MercOpinions.xml"
+// HEADROCK HAM 3.6: Bloodcat Placements [2009-07-31]
+#define BLOODCATPLACEMENTSFILENAME					"Map\\BloodcatPlacements.xml"
+// HEADROCK HAM 3.6: Uniform Colors [2009-09-29]
+#define UNIFORMCOLORSFILENAME					"Army\\UniformColors.xml"
+
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
 
@@ -260,4 +277,29 @@ extern BOOLEAN ReadInFloristLocations(STR fileName);
 
 //Gotthard: Laptop Funeral Locations
 extern BOOLEAN ReadInFuneralLocations(STR fileName);
+
+// HEADROCK HAM 3.4: Sector Facility Locations
+extern BOOLEAN ReadInSectorFacilities(STR fileName);
+
+// HEADROCK HAM 3.4: Dynamic Roaming Restrictions
+extern BOOLEAN ReadInDynamicRoamingRestrictions(STR fileName);
+
+// HEADROCK HAM 3.5: Facility Types and bonuses
+extern BOOLEAN ReadInFacilityTypes(STR fileName);
+
+// HEADROCK HAM 3.6: Customized Sector Names
+extern BOOLEAN ReadInSectorNames(STR fileName);
+
+// HEADROCK PROFEX: Merc Profiles
+extern BOOLEAN ReadInMercProfiles(STR fileName);
+
+// HEADROCK PROFEX: Merc Opinions
+extern BOOLEAN ReadInMercOpinions(STR fileName);
+
+// HEADROCK HAM 3.6: Customized Bloodcat Placements
+extern BOOLEAN ReadInBloodcatPlacements(STR fileName);
+
+// HEADROCK HAM 3.6: Customized Uniform Colors
+extern BOOLEAN ReadInUniforms(STR fileName);
+
 #endif

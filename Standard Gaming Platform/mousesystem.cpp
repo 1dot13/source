@@ -1296,6 +1296,8 @@ INT16 GetNumberOfLinesInHeight( const STR16 pStringA )
 {
 	STR16 pToken;
 	INT16 sCounter = 0;
+	// HEADROCK HAM 3.6: This is a serious limitation... Increasing size
+	//CHAR16 pString[ 512 ];
 	CHAR16 pString[ 4096 ];
 
 	wcscpy( pString, pStringA );
@@ -1305,16 +1307,14 @@ INT16 GetNumberOfLinesInHeight( const STR16 pStringA )
 
 	while( pToken != NULL )
 	{
-		// WANNE: Fix by Headrock
+		// HEADROCK HAM 3.6: Make sure that all lines can appear on screen. If impossible, reduce number of lines
+		// artificially.
 		if ( (sCounter+1) * (GetFontHeight(FONT10ARIAL)+1) > (SCREEN_HEIGHT - 10) )
-        {
-            break;
-        }
-        pToken = wcstok( NULL, L"\n" );
-        sCounter++;
-
-		/*pToken = wcstok( NULL, L"\n" );
-		sCounter++;*/
+		{
+			break;
+		}
+		pToken = wcstok( NULL, L"\n" );
+		sCounter++;
 	}
 
 	return( sCounter );
@@ -1347,7 +1347,10 @@ void DisplayFastHelp( MOUSE_REGION *region )
 		if ( (iX + iW) >= SCREEN_WIDTH )
 			iX = (SCREEN_WIDTH - iW - 4);
 
-		iY = (INT32)region->RegionTopLeftY - (iH * 3 / 4);
+		// HEADROCK HAM 3.6: This formula causes the tooltip to appear UNDERNEATH the cursor if
+		// the tooltip's parent region is small. That makes reading the tooltip very difficult. Not desirable.
+		//iY = (INT32)region->RegionTopLeftY - (iH * 3 / 4);
+		iY = (INT32)region->RegionTopLeftY - iH;
 		if (iY < 0)
 			iY = 0;
 
@@ -1384,6 +1387,8 @@ void DisplayFastHelp( MOUSE_REGION *region )
 
 INT16 GetWidthOfString( const STR16 pStringA )
 {
+	// HEADROCK HAM 3.6: This is a serious limitation... Increasing size.
+	//CHAR16 pString[ 512 ];
 	CHAR16 pString[ 4096 ];
 	STR16 pToken;
 	INT16 sWidth = 0;
@@ -1411,6 +1416,8 @@ void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY )
 	STR16 pToken;
 	INT32 iCounter = 0, i;
 	UINT32 uiCursorXPos;
+	// HEADROCK HAM 3.6: This is a serious limitation... Increasing size
+	//CHAR16 pString[ 512 ];
 	CHAR16 pString[ 4096 ];
 	INT32 iLength;
 
@@ -1421,15 +1428,14 @@ void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY )
 
 	while( pToken != NULL )
 	{
-		// WANNE: Fix by Headrock
+		// HEADROCK HAM 3.6: If height of screen exceeds screen height, replace the last VISIBLE line with "..."
+		// and break the cycle.
 		if ( (iCounter+2) * (GetFontHeight(FONT10ARIAL)+1) > (SCREEN_HEIGHT - 10) )
-        {
-            mprintf( sX, sY + iCounter * (GetFontHeight(FONT10ARIAL)+1), L"..." );
-            break;
-        }
-        iLength = (INT32)wcslen( pToken );
-
-		//iLength = (INT32)wcslen( pToken );
+		{
+			mprintf( sX, sY + iCounter * (GetFontHeight(FONT10ARIAL)+1), L"..." );
+			break;
+		}
+		iLength = (INT32)wcslen( pToken );
 		for( i = 0; i < iLength; i++ )
 		{
 			uiCursorXPos = StringPixLengthArgFastHelp( FONT10ARIAL, FONT10ARIALBOLD, i, pToken );

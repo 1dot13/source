@@ -1256,7 +1256,8 @@ void TestIncoming4SidesCallback( GUI_BUTTON *btn, INT32 reason )
 		UINT32 uiWorldMin;
 		Compression0Callback( ButtonList[ iViewerButton[ COMPRESSION0 ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
 		if( ( gsSelSectorX == 0 ) || ( gsSelSectorY == 0 ) )
-			gsSelSectorX = 9, gsSelSectorY = 1;
+			// HEADROCK HAM 3.5: Not sure what this function does at all... But this is externalized now anyway.
+			gsSelSectorX = gGameExternalOptions.ubDefaultArrivalSectorX, gsSelSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
 
 		ubSector = SECTOR( gsSelSectorX, gsSelSectorY );
 		uiWorldMin = GetWorldTotalMin();

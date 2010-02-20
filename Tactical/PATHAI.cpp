@@ -3358,7 +3358,7 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 					case RUNNING:
 					case ADULTMONSTER_WALKING:
 						// save on casting
-						if((UsingNewInventorySystem() == true) && s->inv[BPACKPOCKPOS].exists() == true)
+						if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( s ) != ITEM_NOT_FOUND )
 							//ubAPCost = ubAPCost * 10 / ( (UINT8) (RUNDIVISORBPACK * 10));
 							ubAPCost = ubAPCost + APBPConstants[AP_MODIFIER_RUN] + APBPConstants[AP_MODIFIER_PACK];
 						else
@@ -3368,19 +3368,19 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 						break;
 					case WALKING:
 					case ROBOT_WALK:
-						if((UsingNewInventorySystem() == true) && s->inv[BPACKPOCKPOS].exists() == true)
+						if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( s ) != ITEM_NOT_FOUND )
 							ubAPCost = (ubAPCost + APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_PACK]);	//WALKCOSTBPACK);
 						else
 							ubAPCost = (ubAPCost + APBPConstants[AP_MODIFIER_WALK]);	//WALKCOST);
 						break;
 					case SWATTING:
-						if((UsingNewInventorySystem() == true) && s->inv[BPACKPOCKPOS].exists() == true)
+						if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( s ) != ITEM_NOT_FOUND )
 							ubAPCost = (ubAPCost + APBPConstants[AP_MODIFIER_SWAT] + APBPConstants[AP_MODIFIER_PACK]);	//SWATCOSTBPACK);
 						else
 							ubAPCost = (ubAPCost + APBPConstants[AP_MODIFIER_SWAT]);	//SWATCOST);
 						break;
 					case CRAWLING:
-						if((UsingNewInventorySystem() == true) && s->inv[BPACKPOCKPOS].exists() == true)
+						if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( s ) != ITEM_NOT_FOUND )
 							ubAPCost = (ubAPCost + APBPConstants[AP_MODIFIER_CRAWL] + APBPConstants[AP_MODIFIER_PACK]);	//CRAWLCOSTBPACK);
 						else
 							ubAPCost = (ubAPCost + APBPConstants[AP_MODIFIER_CRAWL]);	//CRAWLCOST);
@@ -4308,27 +4308,27 @@ INT16 PlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPl
 				{
 					case RUNNING:
 						sPoints += sTileCost + sExtraCostStand + APBPConstants[AP_MODIFIER_RUN];
-						if((UsingNewInventorySystem() == true) && pSold->inv[BPACKPOCKPOS].exists() == true)
+						if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
 							sPoints += APBPConstants[AP_MODIFIER_PACK];
 						break;
 					case WALKING :
 						sPoints += sTileCost + sExtraCostStand + APBPConstants[AP_MODIFIER_WALK];
-						if((UsingNewInventorySystem() == true) && pSold->inv[BPACKPOCKPOS].exists() == true)
+						if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
 							sPoints += APBPConstants[AP_MODIFIER_PACK];
 						break;
 					case SWATTING:
 						sPoints += sTileCost + sExtraCostStand + APBPConstants[AP_MODIFIER_SWAT];
-						if((UsingNewInventorySystem() == true) && pSold->inv[BPACKPOCKPOS].exists() == true)
+						if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
 							sPoints += APBPConstants[AP_MODIFIER_PACK];
 						break;
 					case CRAWLING:
 						sPoints += sTileCost + sExtraCostStand + APBPConstants[AP_MODIFIER_CRAWL];
-						if((UsingNewInventorySystem() == true) && pSold->inv[BPACKPOCKPOS].exists() == true)
+						if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
 							sPoints += APBPConstants[AP_MODIFIER_PACK];
 						break;
 					default      :
 						sPoints += sPoints + sTileCost;
-						if((UsingNewInventorySystem() == true) && pSold->inv[BPACKPOCKPOS].exists() == true)
+						if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
 							sPoints += APBPConstants[AP_MODIFIER_PACK];
 						break;
 				}
@@ -4344,22 +4344,22 @@ INT16 PlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPl
 				// CHRISL: Adjusted system to use different move costs while wearing a backpack
 				// store WALK cost
 				sPointsWalk += sTileCost + APBPConstants[AP_MODIFIER_WALK] + sExtraCostStand;
-				if((UsingNewInventorySystem() == true) && pSold->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
 					sPointsWalk += APBPConstants[AP_MODIFIER_PACK];
 			
 				// now get cost as if CRAWLING
 				sPointsCrawl += sTileCost + APBPConstants[AP_MODIFIER_CRAWL] + sExtraCostCrawl;
-				if((UsingNewInventorySystem() == true) && pSold->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
 					sPointsCrawl += APBPConstants[AP_MODIFIER_PACK];
 
 				// now get cost as if SWATTING
 				sPointsSwat += sTileCost + APBPConstants[AP_MODIFIER_SWAT] + sExtraCostSwat;
-				if((UsingNewInventorySystem() == true) && pSold->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
 					sPointsSwat += APBPConstants[AP_MODIFIER_PACK];
 
 				// now get cost as if RUNNING
 				sPointsRun += sTileCost + APBPConstants[AP_MODIFIER_RUN] + sExtraCostStand;
-				if((UsingNewInventorySystem() == true) && pSold->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
 					sPointsRun += APBPConstants[AP_MODIFIER_PACK];
 			}
 

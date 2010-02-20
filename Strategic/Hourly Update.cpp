@@ -24,6 +24,8 @@
 #include "SaveLoadGame.h"
 #include "GameSettings.h"
 #include "connect.h"
+// HEADROCK HAM 3.5: Add facility code for hourly update of detection levels
+#include "Facilities.h"
 
 void HourlyQuestUpdate( void );
 void HourlyLarryUpdate( void );
@@ -56,8 +58,16 @@ void HandleHourlyUpdate()
 	// hourly update of team assignments
 	UpdateAssignments();
 
+	// HEADROCK HAM 3.5: Tells the rest of the program whether we've got mercs working on detecting enemy units.
+	UpdateStrategicDetectionLevel();
+
+	// HEADROCK HAM 3.5: Re-calculates a modifier to Skyrider's flight costs based on mercs working in specific facilities.
+	UpdateSkyriderCostModifier();
+
 	// hourly update of hated/liked mercs
 	UpdateBuddyAndHatedCounters();
+
+	HandleHourlyRisks();
 
 	// update morale!
 	HourlyMoraleUpdate();

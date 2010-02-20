@@ -108,6 +108,10 @@
 	#include "postalservice.h"
 	// HEADROCK HAM B1: Additional Include for HAM
 	#include "MilitiaSquads.h"
+	// HEADROCK HAM 3.5: Another include for HAM
+	#include "Facilities.h"
+	// HEADROCK HAM 3.6: Yet another include, goddammit
+	#include "Town Militia.h"
 #endif
 
 #include		"BobbyR.h"
@@ -389,7 +393,20 @@ typedef struct
 	INT8	fPlayerTeamSawJoey;
 	INT8	fMikeShouldSayHi;
 
-	UINT8		ubFiller[550];		//This structure should be 1024 bytes
+	// HEADROCK HAM 3.6: New global variable that tracks money owed for facility use.
+	INT32 iTotalOwedForFacilityOperationsToday;
+
+	// HEADROCK HAM 3.6: Now saving Skyrider Cost Modifier variable;
+	INT16 sSkyriderCostModifier;
+
+	// HEADROCK HAM 3.6: New global variable indicating whether we owe cash for facility work.
+	BOOLEAN fOutstandingFacilityDebt;
+
+	// HEADROCK HAM 3.6: Global variable keeping track of Militia Upkeep Costs at last midnight.
+	UINT32 uiTotalUpkeepForMilitia;
+
+	// HEADROCK HAM 3.6: Removed 16 fillers (16 bytes) to accomodate the above new variables.
+	UINT8		ubFiller[534];		//This structure should be 1024 bytes
 
 } GENERAL_SAVE_INFO;
 
@@ -4390,7 +4407,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		UpdateMercMercContractInfo();
 	}
 
-
 	if ( guiCurrentSaveGameVersion <= 89 )
 	{
 		// ARM: A change was made in version 89 where refuel site availability now also depends on whether the player has
@@ -4441,10 +4457,16 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	// fix squads
 	CheckSquadMovementGroups();
 	// HEADROCK HAM B1: Re-Adjust Dynamic Roaming Militia restrictions
-	if (gGameExternalOptions.bDynamicRestrictRoaming)
+	if (gGameExternalOptions.fDynamicRestrictRoaming)
 	{
 		AdjustRoamingRestrictions();
 	}
+
+	// HEADROCK HAM 3.5: Tells the rest of the program whether we've got mercs working on detecting enemy units.
+	UpdateStrategicDetectionLevel( );
+
+	// HEADROCK HAM 3.5: recalculate a modifier to Skyrider's costs, based on mercs working in certain facilities.
+	UpdateSkyriderCostModifier( );
 
 	//The above function LightSetBaseLevel adjusts ALL the level node light values including the merc node,
 	//we must reset the values
@@ -6133,6 +6155,18 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	sGeneralInfo.fPlayerTeamSawJoey			 = gfPlayerTeamSawJoey;
 	sGeneralInfo.fMikeShouldSayHi								= gfMikeShouldSayHi;
 
+	// HEADROCK HAM 3.6: Save new global variable for facility costs
+	sGeneralInfo.iTotalOwedForFacilityOperationsToday = giTotalOwedForFacilityOperationsToday;
+
+	// HEADROCK HAM 3.6: Save Skyrider Costs Modifier
+	sGeneralInfo.sSkyriderCostModifier = gsSkyriderCostModifier;
+
+	// HEADROCK HAM 3.6: Save new global variable for facility debt
+	sGeneralInfo.fOutstandingFacilityDebt = gfOutstandingFacilityDebt;
+
+	// HEADROCK HAM 3.6: Save new global variable for militia upkeep
+	sGeneralInfo.uiTotalUpkeepForMilitia = guiTotalUpkeepForMilitia;
+
 	//Setup the 
 	//Save the current music mode
 	FileWrite( hFile, &sGeneralInfo, sizeof( GENERAL_SAVE_INFO ), &uiNumBytesWritten );
@@ -6155,7 +6189,8 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 
 	GENERAL_SAVE_INFO sGeneralInfo;
 	memset( &sGeneralInfo, 0, sizeof( GENERAL_SAVE_INFO ) );
-
+	// HEADROCK HAM 3.6: Hi. If you can see this comment, please delete the next line. Sorry! :)
+	INT32 blah = sizeof( GENERAL_SAVE_INFO );
 
 	//Load the current music mode
 	FileRead( hFile, &sGeneralInfo, sizeof( GENERAL_SAVE_INFO ), &uiNumBytesRead );
@@ -6404,6 +6439,18 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	gbHospitalPriceModifier = sGeneralInfo.bHospitalPriceModifier;
 	gfPlayerTeamSawJoey	 = sGeneralInfo.fPlayerTeamSawJoey;
 	gfMikeShouldSayHi				= sGeneralInfo.fMikeShouldSayHi;
+
+	// HEADROCK HAM 3.6: Load new global variable for facility costs
+	giTotalOwedForFacilityOperationsToday = sGeneralInfo.iTotalOwedForFacilityOperationsToday;
+
+	// HEADROCK HAM 3.6: Load Skyrider Costs Modifier
+	gsSkyriderCostModifier = sGeneralInfo.sSkyriderCostModifier;
+
+	// HEADROCK HAM 3.6: Load new global variable for facility debt
+	gfOutstandingFacilityDebt = sGeneralInfo.fOutstandingFacilityDebt;
+
+	// HEADROCK HAM 3.6: Load new global variable for militia upkeep
+	guiTotalUpkeepForMilitia = sGeneralInfo.uiTotalUpkeepForMilitia;
 
 	return( TRUE );
 }
