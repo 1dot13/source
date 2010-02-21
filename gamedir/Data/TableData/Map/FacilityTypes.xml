@@ -1,0 +1,10 @@
+<FACILITYTYPES>
+	<FACILITYTYPE>
+		<ubIndex>1</ubIndex>
+		<szFacilityName>Legacy Militia Training Facility</szFacilityName>
+		<szFacilityShortName>Legacy</szFacilityShortName>
+		<ubTotalStaffLimit>32</ubTotalStaffLimit>
+		<ubMilitiaTrainersAllowed>2</ubMilitiaTrainersAllowed>
+		<ubMobileMilitiaTrainersAllowed>2</ubMobileMilitiaTrainersAllowed>
+	</FACILITYTYPE>
+</FACILITYTYPES>

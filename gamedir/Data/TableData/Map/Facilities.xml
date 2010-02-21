@@ -1,0 +1,181 @@
+<!-- Use this XML to place facilities on the map.
+
+		SectorGrid		=		Sector coordinates
+		FacilityType	=		Unique index number (see FacilityTypes.XML)
+		ubHidden			=		Does this facility appear in the sector info popup?
+											0 = Yes, always.
+											1 = Yes, but only once the sector's been explored.
+											2 = No, never.
+-->
+
+<SECTORFACILITIES>
+
+	<!-- Drassen Militia Training -->
+	<FACILITY>
+		<SectorGrid>B13</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>C13</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>D13</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+
+	<!-- Alma Militia Training -->
+	<FACILITY>
+		<SectorGrid>H13</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>H14</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>I13</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>I14</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+
+	<!-- Chitzena Militia Training -->
+	<FACILITY>
+		<SectorGrid>A2</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>B2</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+
+	<!-- Cambria Militia Training -->
+	<FACILITY>
+		<SectorGrid>F8</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>F9</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>G8</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>G9</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>H8</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+
+	<!-- Grumm Militia Training -->
+	<FACILITY>
+		<SectorGrid>G1</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>G2</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>H1</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>H2</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>H3</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+
+	<!-- Balime Militia Training -->
+	<FACILITY>
+		<SectorGrid>L11</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>L12</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+
+	<!-- Meduna Militia Training -->
+	<FACILITY>
+		<SectorGrid>N3</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>N4</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>N5</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>O3</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>O4</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>P3</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+
+	<!-- Drassen SAM SITE Militia Training -->
+	<FACILITY>
+		<SectorGrid>D15</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<!-- Cambria SAM SITE Militia Training -->
+	<FACILITY>
+		<SectorGrid>I8</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<!-- Chitzena SAM SITE Militia Training -->
+	<FACILITY>
+		<SectorGrid>D2</SectorGrid>
+		<FacilityType>1</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+
+</SECTORFACILITIES>
