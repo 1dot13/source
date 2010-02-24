@@ -388,12 +388,12 @@ STR16 pAssignmentStrings[] =
 	L"在途中",// in transit - abbreviated form
 	L"修理", // repairing
 	L"锻炼", // training themselves
-    L"民兵", // training a town to revolt
-  	L"M.Militia", //training moving militia units		// TODO.Translate
+  L"民兵", // training a town to revolt
+  L"游击队", //L"M.Militia", //training moving militia units //ham3.6
 	L"教练", // training a teammate
 	L"学员", // being trained by someone else
-	L"Staff", // operating a strategic facility			// TODO.Translate
-	L"Rest", // Resting at a facility					// TODO.Translate
+	L"工作", // L"Staff", // operating a strategic facility //ham3.6
+	L"休息", //L"Rest",// Resting at a facility //ham3.6
 	L"死亡", // dead
 	L"无力中", // abbreviation for incapacitated
 	L"战俘", // Prisoner of war - captured
@@ -407,7 +407,7 @@ STR16 pMilitiaString[] =
 	L"民兵", // the title of the militia box
 	L"未分配的民兵", //the number of unassigned militia troops
 	L"本地区有敌军存在，你无法重新分配民兵！",
-	L"Some militia were not assigned to a sector. Would you like to disband them?", // TODO.Translate
+	L"一些民兵未分派到防区，要不要把他们解散？", // L"Some militia were not assigned to a sector. Would you like to disband them?", // HEADROCK HAM 3.6
 };
 
 
@@ -415,7 +415,7 @@ STR16 pMilitiaButtonString[] =
 {
 	L"自动", // auto place the militia troops for the player
 	L"完成", // done placing militia troops
-	L"Disband", // HEADROCK HAM 3.6: Disband militia	// TODO.Translate
+	L"解散", // L"Disband", // HEADROCK HAM 3.6: Disband militia
 };
 
 STR16 pConditionStrings[] =
@@ -638,7 +638,7 @@ STR16 pAssignMenuStrings[] =
 	L"交通工具",
 	L"修理",
 	L"训练",
-	L"Facility", // the merc is using/staffing a facility	// TODO.Translate
+	L"设施", // L"Facility", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };
 
@@ -696,7 +696,7 @@ STR16 pTrainingMenuStrings[] =
 {
 	L"锻炼", // train yourself
 	L"民兵", // train the town
-	L"Mobile Militia",		// TODO.Translate
+	L"游击队", // L"Mobile Militia", //ham3.6
 	L"教练", // train your teammates
 	L"学员", // be trained by an instructor
 	L"取消", // cancel this menu
@@ -1113,7 +1113,9 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 	L"重量: ", //12
 	L"晕眩杀伤力: ",//13
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
-	L"Attachments:",	//14	// TODO.Translate
+	// HEADROCK HAM 3: Replaced #14 with string for Possible Attachments (BR's Tooltips Only)
+	// Obviously, THIS SHOULD BE DONE IN ALL LANGUAGES...
+	L"附件:",	//14 //ham3.6
 	L"连发/5AP: ",		//15
 	L"数量: ",		//16
 
@@ -1202,7 +1204,7 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 	L"杀伤修正",
 	L"命中修正",
 	L"连发惩罚修正（越高越好",
-	L"Burst Penalty Modifier (Higher is better)",	// TODO.Translate
+	L"点射惩罚修正（越高越好）", //ham3.6
 	L"可靠性修正",
 	L"噪音修正（越低越好）",
 	L"",
@@ -1742,7 +1744,7 @@ STR16 sFacilitiesStrings[] =
 {
 	L"无",
 	L"医院",
-	L"Factory",	// TODO.Translate
+	L"工厂",
 	L"监狱",
 	L"军事基地",
 	L"机场",
@@ -1773,7 +1775,7 @@ STR16 pwTownInfoStrings[] =
 	L"等级",			// the training level of civilians in this town
 	L"民兵训练度",		// 10 // state of civilian training in town
 	L"民兵",			// the state of the trained civilians in the town
-	L"Mobile Training",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town	// TODO.Translate
+	L"巡逻民兵",	// L"Mobile Training",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town
 };
 
 // Mine strings
@@ -2077,8 +2079,8 @@ STR16 pTransactionText[] =
 	L"向%s购买了物品。", //is used for the Shop keeper interface.  The dealers name will be appended to the end of the string.
 	L"%s存款",
 	L"将装备卖给了当地人",
-	L"Facility Use", // HEADROCK HAM 3.6		// TODO.Translate
-	L"Militia upkeep", // HEADROCK HAM 3.6		// TODO.Translate
+	L"工厂使用", // L"Facility Use", // HEADROCK HAM 3.6
+	L"民兵保养", // L"Militia upkeep", // HEADROCK HAM 3.6
 };
 
 STR16 pTransactionAlternateText[] =
@@ -2173,7 +2175,7 @@ STR16 pMapErrorString[] =
 //11-15
 	L"行军? 这里正在战斗中!",
 	L"你在分区%s被血猫伏击了!",
-	L"你刚刚进入了I16分区，这里是血猫的巢穴!",
+	L"你刚刚进入了 %s 分区，这里是血猫的巢穴!", // HEADROCK HAM 3.6: Added argument.
 	L"",
 	L"在%s的SAM导弹基地被敌军占领了。",
 //16-20
@@ -3656,6 +3658,10 @@ STR16 pMilitiaConfirmStrings[] =
 	L"你无法支付$%d以供在这里训练民兵。",
 	L"%s的忠诚度必须达到%d以上方可训练民兵。",
 	L"你不能在%s训练民兵了。",
+	L"你无法支付$%d以供在这里训练巡逻民兵。", // L"You cannot afford the $%d to train mobile militia here.", // HEADROCK HAM 3.6: Mobile Militia
+	L"继续在%s (%s %d)训练巡逻民兵吗？", // L"Continue training mobile militia in %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia
+	L"在%d地区训练巡逻民兵将花费$%d。%s", // L"Training mobile militia in %d sectors will cost $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia
+	L"训练一队民兵要花费$", // L"Training a squad of mobile militia will cost $", // HEADROCK HAM 3.6: Mobile Militia
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
@@ -3710,7 +3716,7 @@ STR16		zOptionsToggleText[] =
 	L"降低CPU的使用率",	//"Low CPU usage",
 	L"Enhanced Description Box",
 	L"强制回合制模式",						// add forced turn mode
-	L"Stat Progress Bars",					// Show progress towards stat increase		// TODO.Translate
+	L"属性进度条",	//L"Stat Progress Bars", // Show progress towards stat increase //ham3.6
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -3806,7 +3812,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"当打开时，游戏将使用更少的CPU资源。",
 	L"当打开时，将出现物品及武器的“增强描述框”（EDB）。",
 	L"当打开时，且在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭（可以通过快捷键|C|T|R|L+|S|H|I|F|T+|A|L|T+|T来控制打开或关闭强制回合制模式）",
-	L"When ON, shows character progress towards gaining levels.",	// TODO.Translate
+	L"当打开时，可显示各属性的成长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -4437,7 +4443,7 @@ STR16 gzLateLocalizedString[] =
 
 	//46-48
 	L"%s的增程枪管掉下来了！",	//"%s's gun barrel extender falls off!",
-	L"在每个分区，只允许有不多于%d名佣兵训练民兵。",	//"No more than %d militia trainers are permitted per sector.",
+	L"只允许不多于%d名佣兵在这个分区训练民兵。",	//"No more than %d militia trainers are permitted per sector.", //L"No more than %d militia trainers are permitted in this sector.",//ham3.6
   	L"你确定吗？",			//"Are you sure?",
 
 	//49-50
@@ -4475,7 +4481,7 @@ STR16 gzLateLocalizedString[] =
 
 STR16 gzCWStrings[] =
 {
-	L"是否呼叫邻近区域的援兵？",
+	L"是否呼叫邻近区域的援兵到%s？", //L"Call reinforcements to %s from adjacent sectors?",
 };
 
 // WANNE: Tooltips
@@ -4552,36 +4558,34 @@ STR16 New113Message[] =
 	L"发现敌人！（按|C|t|r|l|+|x进入回合制）",
 };
 
-// TODO.Translate
-STR16 New113HAMMessage[] = 
+STR16 New113HAMMessage[] =
 {
-	// 0 - 5
-	L"%s cowers in fear!",
-	L"%s is pinned down!",
-	L"%s fires more rounds than intended!",
-	L"You cannot train militia in this sector.",
-	L"Militia picks up %s.",
-	L"Cannot train militia with enemies present!", 
+	L"%s 害怕得退缩了！",//	L"%s cowers in fear!",
+	L"%s 被压制住了！",// L"%s is pinned down!", //ham3.6
+	L"%s 多打了几发子弹！",// L"%s fires more rounds than intended!",
+	L"你不能在这个地区训练民兵。",// L"You cannot train militia in this sector.",
+	L"民兵拾起 %s。",// L"Militia picks up %s.",
+	L"有敌人出没时无法训练民兵！", // L"Cannot train militia with enemies present!", 
 	// 6 - 10
-	L"%s lacks sufficient Leadership score to train militia.",
-	L"No more than %d Mobile Militia trainers are permitted in this sector.",
-	L"No room in %s or around it for new Mobile Militia!",
-	L"You need to have %d Town Militia in each of %s's liberated sectors before you can train Mobile Militia here.",
-	L"Can't staff a facility while enemies are present!",
+	L"%s缺乏训练民兵所需要的领导能力。",// L"%s lacks sufficient Leadership score to train militia.",
+	L"此地训练民兵的教官不能超过%d名。",// L"No more than %d Mobile Militia trainers are permitted in this sector.",
+	L"%s和周边地区的游击队已经满员了！",// L"No room in %s or around it for new Mobile Militia!",
+	L"你需要有至少%d个民兵在%s每个被解放的地区才能训练游击队。",// L"You need to have %d Town Militia in each of %s's liberated sectors before you can train Mobile Militia here.",
+	L"有敌人出没时不能在任何设施内工作！",// L"Can't staff a facility while enemies are present!",
 	// 11 - 15
-	L"%s lacks sufficient Wisdom to staff this facility.",
-	L"The %s is already fully-staffed.",
-	L"It will cost $%d per hour to staff this facility. Do you wish to continue?",
-	L"You have insufficient funds to pay for all Facility work today. $%d have been paid, but you still owe $%d. The locals are not pleased.",
-	L"You have insufficient funds to pay for all Facility work today. You owe $%d. The locals are not pleased.",
+	L"%s缺乏就任于该设施所需智慧。",// L"%s lacks sufficient Wisdom to staff this facility.",
+	L"%s已经满员了。",// L"The %s is already fully-staffed.",
+	L"使用该设施每小时消耗$%d，你确定吗？",// L"It will cost $%d per hour to staff this facility. Do you wish to continue?",
+	L"你没有足够的资金来支付今天的设施费用。付出$%d，还欠$%d，当地人很不满。",// L"You have insufficient funds to pay for all Facility work today. $%d have been paid, but you still owe $%d. The locals are not pleased.",
+	L"没有足够的资金来支付今天的设施费用。欠款$%d，当地人很不满.。",// L"You have insufficient funds to pay for all Facility work today. You owe $%d. The locals are not pleased.",
 	// 16 - 20
-	L"You have an outstanding debt of $%d for Facility Operation, and no money to pay it off!",
-	L"You have an outstanding debt of $%d for Facility Operation. You can't assign this merc to facility duty until you have enough money to pay off the entire debt.",
-	L"You have an outstanding debt of $%d for Facility Operation. Would you like to pay it all back?",
-	L"N/A in this sector",
-	L"Daily Expenses",
+	L"你仍有$%d的欠款，同时你已经身无分文了！",// L"You have an outstanding debt of $%d for Facility Operation, and no money to pay it off!",
+	L"你仍有$%d的欠款，在有钱还清这笔债务之前你不能分配雇佣兵去这个设施。",// L"You have an outstanding debt of $%d for Facility Operation. You can't assign this merc to facility duty until you have enough money to pay off the entire debt.",
+	L"你有$%d的欠款，是否支付？",// L"You have an outstanding debt of $%d for Facility Operation. Would you like to pay it all back?",
+	L"这个区域没有",// L"N/A in this sector",
+	L"日常支出",// L"Daily Expenses",
 	// 21 - 25
-	L"Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.",
+	L"维持民兵的资金不足！%d名民兵回老家结婚去了。",// L"Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
@@ -4901,114 +4905,110 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"I.M.P. 性格缺陷",
 };
 
-// TODO.Translate
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
 STR16 gzFacilityErrorMessage[]=
 {
-	L"%s lacks sufficient Strength to perform this task.",
-	L"%s lacks sufficient Dexterity to perform this task.",
-	L"%s lacks sufficient Agility to perform this task.",
-	L"%s is not Healthy enough to perform this task.",
-	L"%s lacks sufficient Wisdom to perform this task.",
-	L"%s lacks sufficient Marksmanship to perform this task.",
+	L"%s 缺乏所需的力量。",
+	L"%s 缺乏所需的敏捷。",
+	L"%s 缺乏所需的灵活。",
+	L"%s 缺乏所需的生命值。",
+	L"%s 缺乏所需的智慧。",
+	L"%s 缺乏所需的枪法。",
 	// 6 - 10
-	L"%s lacks sufficient Medical Skill to perform this task.",
-	L"%s lacks sufficient Mechanical Skill to perform this task.",
-	L"%s lacks sufficient Leadership to perform this task.",
-	L"%s lacks sufficient Explosives Skill to perform this task.",
-	L"%s lacks sufficient Experience to perform this task.",
+	L"%s 缺乏所需的医疗技术。",
+	L"%s 缺乏所需的机械技术。",
+	L"%s 缺乏所需的领导能力。",
+	L"%s 缺乏所需的爆破技术来完成这项任务。",
+	L"%s 缺乏所需的经验来完成这项任务。",
 	// 11 - 15
-	L"%s lacks sufficient Morale to perform this task.",
-	L"%s is too exhausted to perform this task.",
-	L"Insufficient loyalty in %s. The locals refuse to allow you to perform this task.",
-	L"Too many people are already working at the %s.",
-	L"Too many people are already performing this task at the %s.",
+	L"%s 的士气不足以完成这项任务。",
+	L"%s 过度疲劳, 无法完成任务。",
+	L"%s 的忠诚度不足. 当地人拒绝让你执行这项任务。",
+	L"已经有太多人被分配到%s了。",
+	L"已经有太多人在%s执行这项任务了。",
 	// 16 - 20
-	L"%s can find no items to repair.",
-	L"%s has lost some %s while working in sector %s!",
-	L"%s has lost some %s while working at the %s in %s!",
-	L"%s was injured while working in sector %s, and requires immediate medical attention!",
-	L"%s was injured while working at the %s in %s, and requires immediate medical attention!",
+	L"%s找不到更多需要修理的物品。",
+	L"%s损失了一些%s, 在%s的工作中！",
+	L"%s损失了一些%s, 在%s, %s的工作中！",
+	L"%s 在%s工作时负伤，急需医护！",
+	L"%s 在%s，%s工作时负伤，急需医护！",
 	// 21 - 25
-	L"%s was injured while working in sector %s. It doesn't seem too bad though.",
-	L"%s was injured while working at the %s in %s. It doesn't seem too bad though.",
-	L"The residents of %s seem upset about %s's presence.",
-	L"The residents of %s seem upset about %s's work at the %s.",
-	L"%s's actions in sector %s have caused loyalty loss throughout the region!",
+	L"%s 在%s工作时负伤，只不过是皮外伤。",
+	L"%s 在%s，%s工作时负伤，只不过是皮外伤。",
+	L"%s地区的居民似乎对%s的出现不满。",
+	L"%s地区的居民似乎对%s在%s的行为不满。",
+	L"%s在%s的所作所为造成地区忠诚度下降！",
 	// 26 - 30
-	L"%s's actions at the %s in %s have caused loyalty loss throughout the region!",
-	L"%s is drunk.", // <--- This is a log message string.
-	L"%s has become severely ill in sector %s, and has been taken off duty.",
-	L"%s has become severely ill and cannot continue his work at the %s in %s.",
-	L"%s was injured in sector %s.", // <--- This is a log message string.
+	L"%s在%s, %s的所作所为造成 地区忠诚度下降!",
+	L"%s喝高了", // <--- This is a log message string.
+	L"%s在%s得了重病, 被暂时解职了。",
+	L"%s得了重病, 无法继续在%s, %s的活动。",
+	L"%s在%s负伤了。", // <--- This is a log message string.
 	// 31 - 35
-	L"%s was severely injured in sector %s.", //<--- This is a log message string.
+	L"%s在%s负了重伤。", //<--- This is a log message string.
 
 
 };
 
-// TODO.Translate
 STR16 gzFacilityRiskResultStrings[]=
 {
-	L"Strength",
-	L"Agility",
-	L"Dexterity",
-	L"Wisdom",
-	L"Health",
-	L"Marksmanship",
+	L"力量",
+	L"灵活",
+	L"敏捷",
+	L"智慧",
+	L"生命",
+	L"枪法",
 	// 5-10
-	L"Leadership",
-	L"Mechanical skill",
-	L"Medical skill",
-	L"Explosives skill",
+	L"领导",
+	L"机械",
+	L"医疗",
+	L"爆破",
 };
 
-// TODO.Translate
 STR16 gzFacilityAssignmentStrings[]=
 {
-	L"AMBIENT",
-	L"Staff",
-	L"Rest",
-	L"Repair Items",
-	L"Repair %s", // Vehicle name inserted here
-	L"Repair Robot",
+	L"环境",
+	L"工作人员",
+	L"休息",
+	L"修理物品",
+	L"修理%s", // Vehicle name inserted here
+	L"修理机器人",
 	// 6-10
-	L"Doctor",
-	L"Patient",
-	L"Practice Strength",
-	L"Practice Dexterity",
-	L"Practice Agility",
-	L"Practice Health",
+	L"医生",
+	L"病人",
+	L"锻炼力量",
+	L"锻炼敏捷",
+	L"锻炼灵活",
+	L"锻炼生命",
 	// 11-15
-	L"Practice Marksmanship",
-	L"Practice Medical",
-	L"Practice Mechanical",
-	L"Practice Leadership",
-	L"Practice Explosives",
+	L"锻炼枪法",
+	L"锻炼医疗",
+	L"锻炼机械",
+	L"锻炼领导",
+	L"锻炼爆破",
 	// 16-20
-	L"Student Strength",
-	L"Student Dexterity",
-	L"Student Agility",
-	L"Student Health",
-	L"Student Marksmanship",
+	L"学习力量",
+	L"学习敏捷",
+	L"学习灵活",
+	L"学习生命",
+	L"学习枪法",
 	// 21-25
-	L"Student Medical",
-	L"Student Mechanical",
-	L"Student Leadership",
-	L"Student Explosives",
-	L"Trainer Strength",
+	L"学习医疗",
+	L"学习机械",
+	L"学习领导",
+	L"学习爆破",
+	L"训练力量",
 	// 26-30
-	L"Trainer Dexterity",
-	L"Trainer Agility",
-	L"Trainer Health",
-	L"Trainer Marksmanship",
-	L"Trainer Medical",
+	L"训练敏捷",
+	L"训练灵活",
+	L"训练生命",
+	L"训练枪法",
+	L"训练医疗",
 	// 30-35
-	L"Trainer Mechanical",
-	L"Trainer Leadership",
-	L"Trainer Explosives",
+	L"训练医疗",
+	L"训练领导",
+	L"训练爆破",
 };
-
 
 STR16 Additional113Text[]=
 {

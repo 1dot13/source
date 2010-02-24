@@ -2099,7 +2099,7 @@ STR16 pMapErrorString[] =
 //11-15
 	L"Marschbefehl? Hier tobt ein Kampf!",
 	L"Sie sind von Bloodcats umstellt in Sektor %s!",
-	L"Sie haben gerade eine Bloodcat-Höhle betreten in Sektor I16!", 
+	L"Sie haben gerade eine Bloodcat-Höhle betreten in Sektor %s!", 
 	L"", 
 	L"Raketenstützpunkt in %s wurde erobert.",
 //16-20
@@ -3461,7 +3461,11 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Milizen in %d Sektoren zu trainieren kostet $ %d. %s", // cost to train sveral sectors at once
 	L"Sie können sich keine $%d für die Miliz hier leisten.",
 	L"%s benötigt eine Loyalität von %d Prozent, um mit dem Milizen-Training fortzufahren.",
-	L"Sie können die Miliz in %s nicht mehr trainieren.", 
+	L"Sie können die Miliz in %s nicht mehr trainieren.",
+	L"You cannot afford the $%d to train mobile militia here.", // HEADROCK HAM 3.6: Mobile Militia		TODO.Translate
+	L"Continue training mobile militia in %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia				TODO.Translate
+	L"Training mobile militia in %d sectors will cost $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia	TODO.Translate
+	L"Training a squad of mobile militia will cost $", // HEADROCK HAM 3.6: Mobile Militia				TODO.Translate
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
