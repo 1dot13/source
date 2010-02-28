@@ -2,18 +2,27 @@
 #define _VFS_DEBUG_H_
 
 #include "vfs_types.h"
+#include "vfs_path.h"
 #include <list>
 
-class CBasicException : public std::exception
+#ifdef _MSC_VER
+class VFS_API std::exception;
+#endif
+
+class VFS_API CBasicException : public std::exception
 {
 public:
 	CBasicException(const wchar_t* text, const char* function, int line, const char* file, CBasicException* ex=NULL);
 	CBasicException(utf8string const& text, utf8string const& function, int line, const char* file, CBasicException* ex=NULL);
 
-	utf8string GetLastEntryString() const;
-	utf8string GetExceptionString() const;
+	virtual ~CBasicException() throw();
 
-	void WriteFile(vfs::Path const& sPath);
+	virtual const char* what() const throw();
+
+	utf8string getLastEntryString() const;
+	utf8string getExceptionString() const;
+
+	void writeFile(vfs::Path const& sPath);
 
 	struct SEntry
 	{
@@ -32,7 +41,7 @@ public:
 	utf8string		_time;
 };
 
-void LogException(CBasicException const& ex);
+void logException(CBasicException const& ex);
 
 #ifdef WIN32
 #define _FUNCTION_FORMAT_		__FUNCTION__
@@ -55,7 +64,7 @@ void LogException(CBasicException const& ex);
 #define IGNOREEXCEPTION(expr) \
 { \
 	try{ (expr); } \
-	catch(CBasicException& ex){ LogException(ex); } \
+	catch(CBasicException& ex){ logException(ex); } \
 }
 
 #endif // _VFS_DEBUG_H_

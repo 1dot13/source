@@ -495,12 +495,12 @@ UINT16 usTileNo, usSrcTileNo;
 	usTileNo=MAPROWCOLTOPOS(iY, iX);
 	usSrcTileNo=MAPROWCOLTOPOS(iSrcY, iSrcX);
 
-	if ( usTileNo >= NOWHERE )
+	if (TileIsOutOfBounds(usTileNo))
 	{
 		return( FALSE );
 	}
 
-	if ( usSrcTileNo >= NOWHERE )
+	if (TileIsOutOfBounds(usSrcTileNo))
 	{
 		return( FALSE );
 	}
@@ -553,18 +553,13 @@ UINT8		ubTravelCost;
 	{
 		return( FALSE );
 	}
-
-	//if ( usTileNo == 10125 || usTileNo == 10126 )
-	//{
-	//	int i = 0;
-	//}
-
-	if ( usTileNo >= NOWHERE )
+	
+	if ( TileIsOutOfBounds(usTileNo))
 	{
 		return( FALSE );
 	}
 
-	if ( usSrcTileNo >= NOWHERE )
+	if ( TileIsOutOfBounds(usSrcTileNo))
 	{
 		return( FALSE );
 	}
@@ -744,7 +739,7 @@ INT32 iDx, iDy;
 		Returns the light level at a particular level without fake lights
 
 ***************************************************************************************/
-UINT8 LightTrueLevel( INT16 sGridNo, INT16 bLevel )
+UINT8 LightTrueLevel( INT32 sGridNo, INT16 bLevel )
 {
 	LEVELNODE * pNode;
 	INT32 iSum;
@@ -860,8 +855,8 @@ BOOLEAN fFake;
 	Assert(gpWorldLevelData!=NULL);
 
 	uiTile= MAPROWCOLTOPOS( iY, iX );
-
-	if ( uiTile >= NOWHERE )
+	
+	if ( TileIsOutOfBounds( uiTile ) )
 	{
 		return( FALSE );
 	}
@@ -1002,8 +997,8 @@ BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 	Assert(gpWorldLevelData!=NULL);
 
 	uiTile= MAPROWCOLTOPOS( iY, iX );
-
-	if ( uiTile >= NOWHERE )
+	
+	if ( TileIsOutOfBounds( uiTile ) )
 	{
 		return( FALSE );
 	}
@@ -1164,7 +1159,7 @@ UINT32 uiIndex;
 
 	uiIndex = MAPROWCOLTOPOS( iY, iX );
 
-	Assert(uiIndex!=0xffff);
+	Assert(uiIndex!=0xffffffff);
 
 	ubShade=__max(SHADE_MAX, ubShade);
 	ubShade=__min(SHADE_MIN, ubShade);
@@ -1253,7 +1248,7 @@ UINT32 uiTile;
 
 	uiTile = MAPROWCOLTOPOS( iY, iX );
 
-	CHECKF(uiTile!=0xffff);
+	CHECKF(uiTile!=0xffffffff);
 
 	pLand = gpWorldLevelData[uiTile].pLandHead;
 
@@ -2320,7 +2315,7 @@ BOOLEAN LightRevealWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 		fDoLeftWalls=FALSE;
 
 	// IF A FENCE, RETURN FALSE
-	if ( IsFencePresentAtGridno( (INT16)uiTile ) )
+	if ( IsFencePresentAtGridNo( uiTile ) )
 	{
 		return( FALSE );
 	}

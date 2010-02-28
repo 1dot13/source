@@ -8,8 +8,8 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 INT32 GetFreeSlantRoof( void );
 void RecountSlantRoofs( void );
 void ClearSlantRoofs( void );
-BOOLEAN FindSlantRoofSlot( INT16 sGridNo );
-void AddSlantRoofFOVSlot( INT16 sGridNo );
+BOOLEAN FindSlantRoofSlot( INT32 sGridNo );
+void AddSlantRoofFOVSlot( INT32 sGridNo );
 void ExamineSlantRoofFOVSlots( );
 
 

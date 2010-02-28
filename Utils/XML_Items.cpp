@@ -215,7 +215,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "NewInv") == 0 ||
 				//zilpin: pellet spread patterns externalized in XML
 				strcmp(name, "spreadPattern") == 0 ||
-				strcmp(name, "fFlags") == 0 ))
+	strcmp(name, "fFlags") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );

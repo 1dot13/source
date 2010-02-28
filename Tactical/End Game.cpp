@@ -49,15 +49,15 @@ class OBJECTTYPE;
 class SOLDIERTYPE;
 
 
-INT16 sStatueGridNos[] = { 13829, 13830, 13669, 13670 };
+INT32 sStatueGridNos[] = { 13829, 13830, 13669, 13670 };
 
 SOLDIERTYPE *gpKillerSoldier = NULL;
-INT16				gsGridNo;
+INT32				 gsGridNo;
 INT8				gbLevel;
 
 
 // This function checks if our statue exists in the current sector at given gridno
-BOOLEAN DoesO3SectorStatueExistHere( INT16 sGridNo )
+BOOLEAN DoesO3SectorStatueExistHere( INT32 sGridNo )
 {
 	INT32 cnt;
 	EXITGRID								ExitGrid;
@@ -116,7 +116,7 @@ void ChangeO3SectorStatue( BOOLEAN fFromExplosion )
 	ExitGrid.ubGotoSectorX = 3;
 	ExitGrid.ubGotoSectorY = MAP_ROW_O;
 	ExitGrid.ubGotoSectorZ = 1;
-	ExitGrid.sGridNo = 13037;
+	ExitGrid.usGridNo = 13037;	
 
 	AddExitGridToWorld( 13669, &ExitGrid );
 	gpWorldLevelData[ 13669 ].uiFlags |= MAPELEMENT_REVEALED;
@@ -143,7 +143,7 @@ void DeidrannaTimerCallback( void )
 }
 
 
-void BeginHandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT16 sGridNo, INT8 bLevel )
+void BeginHandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	gpKillerSoldier = pKillerSoldier;
 	gsGridNo = sGridNo;
@@ -160,7 +160,7 @@ void BeginHandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT16 sGridNo, INT8
 
 }
 
-void HandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT16 sGridNo, INT8 bLevel )
+void HandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;
@@ -251,7 +251,7 @@ void DoneFadeOutKilledQueen( void )
 
 			// Set gridno
 			pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-			pSoldier->usStrategicInsertionData = 5687;
+			pSoldier->usStrategicInsertionData = 5687;//dnl!!!
 			// Set direction to face....
 			pSoldier->ubInsertionDirection		= 100 + NORTHWEST;
 		}
@@ -403,7 +403,7 @@ void QueenBitchTimerCallback( void )
 }
 
 
-void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT16 sGridNo, INT8 bLevel )
+void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;
@@ -449,7 +449,7 @@ void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT16 sGridNo, INT
 
 }
 
-void HandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT16 sGridNo, INT8 bLevel )
+void HandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;

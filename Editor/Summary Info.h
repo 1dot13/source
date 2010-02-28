@@ -6,8 +6,9 @@
 
 #include "Types.h"
 
-#define GLOBAL_SUMMARY_VERSION		14
-#define MINIMUMVERSION						7
+//dnl ch28
+#define GLOBAL_SUMMARY_VERSION	15
+#define MINIMUMVERSION			7
 
 typedef struct TEAMSUMMARY
 {
@@ -20,14 +21,14 @@ typedef struct TEAMSUMMARY
 	UINT8 ubBadE, ubPoorE, ubAvgE, ubGoodE, ubGreatE; //equipment
 }TEAMSUMMARY; //15 bytes
 
-typedef struct SUMMARYFILE					
+typedef struct
 {
 	//start version 1
 	UINT8 ubSummaryVersion;									
 	UINT8 ubSpecial;									
 	UINT16 usNumItems;								
 	UINT16 usNumLights;								
-	MAPCREATE_STRUCT MapInfo;					
+	_OLD_MAPCREATE_STRUCT MapInfo;					
 	TEAMSUMMARY EnemyTeam;						
 	TEAMSUMMARY CreatureTeam;					
 	TEAMSUMMARY RebelTeam;						
@@ -65,7 +66,7 @@ typedef struct SUMMARYFILE
 	//																//-----
 																		//	190
 	//start version 10
-	EXITGRID ExitGrid[4];			//5*4 //	20
+	_OLD_EXITGRID ExitGrid[4];			//5*4 //	20
 	UINT16 usExitGridSize[4];	//2*4 //	8
 	BOOLEAN fInvalidDest[4];					//	4
 	UINT8	ubNumExitGridDests;				//		1
@@ -93,13 +94,62 @@ typedef struct SUMMARYFILE
 	UINT8 ubPadding[164];							//	164
 	//																//-----
 	//																		400 total bytes
-}SUMMARYFILE;
+}_OLD_SUMMARYFILE;//dnl ch28 240909
+
+class SUMMARYFILE//dnl ch28 260909
+{
+public:
+	UINT8 ubSummaryVersion;//This byte in all versions must be first
+	UINT8 ubSpecial;
+	UINT16 ubNumRooms;
+	UINT32 usNumItems;
+	UINT32 usNumLights;
+	UINT16 ubNumDoors;
+	UINT16 ubNumDoorsLocked;
+	UINT16 ubNumDoorsTrapped;
+	UINT16 ubNumDoorsLockedAndTrapped;
+	UINT16 ubNumElites;
+	UINT16 ubNumAdmins;
+	UINT16 ubNumTroops;
+	UINT16 ubEliteDetailed;
+	UINT16 ubAdminDetailed;
+	UINT16 ubTroopDetailed;
+	UINT16 ubEliteProfile;
+	UINT16 ubAdminProfile;
+	UINT16 ubTroopProfile;
+	UINT16 ubEliteExistance;
+	UINT16 ubAdminExistance;
+	UINT16 ubTroopExistance;
+	UINT16 ubCivSchedules;
+	UINT16 ubCivCows;
+	UINT16 ubCivBloodcats;
+	UINT16 ubEnemiesReqWaypoints;
+	UINT16 usWarningRoomNums;
+	UINT16 ubEnemiesHaveWaypoints;
+	UINT32 ubTilesetID;
+	UINT32 uiNumItemsPosition;
+	UINT32 uiEnemyPlacementPosition;
+	FLOAT dMajorMapVersion;
+	TEAMSUMMARY EnemyTeam;
+	TEAMSUMMARY CreatureTeam;
+	TEAMSUMMARY RebelTeam;
+	TEAMSUMMARY CivTeam;
+	MAPCREATE_STRUCT MapInfo;
+	EXITGRID ExitGrid[4];
+	BOOLEAN fInvalidDest[4];
+	UINT16 usExitGridSize[4];
+	UINT16 ubNumExitGridDests;
+	BOOLEAN fTooManyExitGridDests;
+public:
+	SUMMARYFILE& operator=(const _OLD_SUMMARYFILE& src);
+	BOOLEAN Load(STR sFileName);
+	BOOLEAN Save(STR sFileName);
+};
 
 extern BOOLEAN gfAutoLoadA9;
 
-extern BOOLEAN EvaluateWorld( STR8 pSector, UINT8 ubLevel );
-
-extern void WriteSectorSummaryUpdate( STR8 puiFilename, UINT8 ubLevel, SUMMARYFILE *pSummaryFileInfo );
+BOOLEAN EvaluateWorld(STR8 pSector, UINT8 ubLevel);//dnl ch42 260909
+void WriteSectorSummaryUpdate(STR8 sFileName, UINT8 ubLevel, SUMMARYFILE* pSummaryFileInfo);//dnl ch28 260909
 
 extern BOOLEAN gfMustForceUpdateAllMaps;
 extern BOOLEAN gfMajorUpdate;

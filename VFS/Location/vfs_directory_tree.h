@@ -15,55 +15,48 @@ namespace vfs
 	/**
 	 *  IDirectory<read,write>
 	 */
-	class CDirectoryTree : public vfs::IDirectory<vfs::IWriteable>
+	template<typename WriteType>
+	class TDirectoryTree : public vfs::TDirectory<WriteType>
 	{
-		typedef std::map<vfs::Path, vfs::IDirectory<CDirectoryTree::tWriteType>*, vfs::Path::Less> tDirCatalogue;
+		typedef std::map<vfs::Path, vfs::TDirectory<typename TDirectoryTree<WriteType>::tWriteType>*, vfs::Path::Less> tDirCatalogue;
 
-		class IterImpl : public tClassType::Iterator::IImplemetation
-		{
-		public:
-			IterImpl(CDirectoryTree& tree);
-			virtual ~IterImpl();
-			virtual tFileType* value();
-			virtual void next();
-		private:
-			CDirectoryTree&			_tree;
-			tDirCatalogue::iterator _subdir_iter;
-			tClassType::Iterator	_file_iter;
-		};
-	public: 
-		CDirectoryTree(vfs::Path const& sMountPoint, vfs::Path const& sRealPath)
-			: vfs::IDirectory<vfs::IWriteable>(sMountPoint,sRealPath)
-		{};
-		virtual ~CDirectoryTree();
+		class IterImpl;
+	public:
+		typedef vfs::TDirectory<WriteType> tBaseClass;
+		typedef typename tBaseClass::tWriteType tWriteType;
+		typedef typename tBaseClass::tFileType tFileType;
 
-		bool Init();
+		typedef TIterator<vfs::IBaseFile> Iterator;
+		TDirectoryTree(vfs::Path const& sMountPoint, vfs::Path const& sRealPath);
+		virtual ~TDirectoryTree();
+
+		bool					init();
 
 		/** 
-		 *  IDirectory interface
+		 *  TDirectory interface
 		 */
-		virtual tFileType*		AddFile(vfs::Path const& sFilename, bool bDeleteOldFile=false);
-		virtual bool			AddFile(tFileType* pFile, bool bDeleteOldFile=false);
+		virtual tFileType*		addFile(vfs::Path const& sFilename, bool bDeleteOldFile=false);
+		virtual bool			addFile(tFileType* pFile, bool bDeleteOldFile=false);
 
-		virtual bool			CreateSubDirectory(vfs::Path const& sSubDirPath);
-		virtual bool			DeleteDirectory(vfs::Path const& sDirPath);
-		virtual bool			DeleteFileFromDirectory(vfs::Path const& sFileName);
+		virtual bool			createSubDirectory(vfs::Path const& sSubDirPath);
+		virtual bool			deleteDirectory(vfs::Path const& sDirPath);
+		virtual bool			deleteFileFromDirectory(vfs::Path const& sFileName);
 
 		/** 
-		 *  IVFSLocation interface
+		 *  TVFSLocation interface
 		 */
-		virtual bool			FileExists(vfs::Path const& sFileName);
-		virtual vfs::IBaseFile*	GetFile(vfs::Path const& sFileName);
-		virtual tFileType*		GetFileTyped(vfs::Path const& sFileName);
-		virtual void			GetSubDirList(std::list<vfs::Path>& rlSubDirs);
+		virtual bool			fileExists(vfs::Path const& sFileName);
+		virtual vfs::IBaseFile*	getFile(vfs::Path const& sFileName);
+		virtual tFileType*		getFileTyped(vfs::Path const& sFileName);
+		virtual void			getSubDirList(std::list<vfs::Path>& rlSubDirs);
 
 		virtual Iterator begin();
 	protected:
 		tDirCatalogue m_catDirs;
 	};
 
-
-
+	typedef TDirectoryTree<vfs::IWritable>		CDirectoryTree;
+	typedef TDirectoryTree<vfs::IWriteType>		CReadOnlyDirectoryTree;
 
 } // end namespace
 

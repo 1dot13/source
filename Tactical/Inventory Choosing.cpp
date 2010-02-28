@@ -2070,11 +2070,14 @@ void ChooseLocationSpecificGearForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp 
 	// but somewhere on their person, not in their face positions
 	if ( gWorldSectorX == TIXA_SECTOR_X && gWorldSectorY == TIXA_SECTOR_Y && StrategicMap[ TIXA_SECTOR_X + TIXA_SECTOR_Y * MAP_WORLD_X ].fEnemyControlled )
 	{
+		//dnl ch40 041009
 		usItem = PickARandomItem(GASMASKS);
-		if ( usItem > 0 )
+		if(Random(100) > 80)
+			usItem = NOTHING;
+		if(usItem > 0)
 		{
-			CreateItem( usItem, (INT8) (95+Random(6)), &gTempObject );
-			PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+			CreateItem(usItem, (INT8)(90+Random(10)), &gTempObject);
+			PlaceObjectInSoldierCreateStruct(pp, &gTempObject);
 		}
 	}
 }
@@ -2745,10 +2748,10 @@ else
 						uiItemClass == IC_THROWING_KNIFE || uiItemClass == IC_LAUNCHER ||
 						uiItemClass == IC_APPLIABLE || uiItemClass == IC_FACE || uiItemClass == IC_TENTACLES ||
 						uiItemClass == IC_THROWN || uiItemClass == IC_PUNCH || uiItemClass == IC_KEY ||
-						uiItemClass == IC_MISC || uiItemClass == IC_MONEY 
+						uiItemClass == IC_MISC || uiItemClass == IC_MONEY
 						
 						// WANNE: Fix by Roadkill: Also drop LBE Gear
-						|| uiItemClass == IC_LBEGEAR || uiItemClass == IC_BELTCLIP
+						|| uiItemClass == IC_LBEGEAR || uiItemClass == IC_BELTCLIP						
 						)
 					{
 						// Find matching armour in the XML

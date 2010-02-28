@@ -200,8 +200,8 @@ void RTHandleAI( SOLDIERTYPE * pSoldier )
 					// the item pool index was stored in the special data field
 					pSoldier->aiData.uiPendingActionData1 = pSoldier->iNextActionSpecialData;
 				}
-			}
-			else if ( pSoldier->sAbsoluteFinalDestination != NOWHERE )
+			}			
+			else if (!TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination))
 			{
 				if ( ACTING_ON_SCHEDULE( pSoldier ) )
 				{

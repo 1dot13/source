@@ -64,7 +64,6 @@
 #define DIR_SOUTH 2
 #define DIR_WEST 3
 
-
 INT32	iRestrictedSectorArraySize;
 UINT32 gRestrictMilitia[256];
 // HEADROCK HAM B1: Alternate array keeps track of dynamically unrestricted sectors
@@ -144,7 +143,6 @@ UINT8 CountMilitia(SECTORINFO *pSectorInfo)
 	pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA]+
 	pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
 }
-
 
 // Creates militia at destination sector. The type and amount of militia depends on current sector's miltia type and amount
 // HEADROCK HAM 3.4: Added Leadership argument.

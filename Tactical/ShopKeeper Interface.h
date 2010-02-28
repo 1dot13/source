@@ -143,7 +143,7 @@ void			DealerGetsBribed( UINT8 ubProfileId, UINT32 uiMoneyAmount );
 
 
 #ifdef JA2TESTVERSION
-void AddShopkeeperToGridNo( UINT8 ubProfile, INT16 sGridNo );
+void AddShopkeeperToGridNo( UINT8 ubProfile, INT32 sGridNo );
 #endif
 
 void			RestrictSkiMouseCursor();

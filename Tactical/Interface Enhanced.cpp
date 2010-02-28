@@ -2107,9 +2107,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			// Non-Launcher Guns Only
 			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher )
 			{
-				if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject) > 0 )
+				if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject)> 0 )
 				{
-					// AUTO/BURST PENALTY TOOLTIP activated
+					// BURST PENALTY
 					MSYS_EnableRegion( &gStatsFasthelpRegions[ 2 ] );
 
 					if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 && GetShotsPerBurst(gpItemDescObject) <= 0 )
@@ -2898,9 +2898,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			// Non-Launcher Guns Only
 			if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_GUN && !Item[ gpItemDescObject->usItem].rocketlauncher )
 			{
-				if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject) > 0 )
+				if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 || GetShotsPerBurst(gpItemDescObject)> 0 )
 				{
-					// AUTO/BURST PENALTY TOOLTIP activated
+					// BURST PENALTY
 					MSYS_EnableRegion( &gStatsFasthelpRegions[ 2 ] );
 
 					if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 && GetShotsPerBurst(gpItemDescObject) <= 0 )
@@ -5104,7 +5104,7 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 		// AMMO NOISE SUPPRESSION
 		// equals
 		SetFontForeground( 6 );
-		//mprintf( gWeaponStats[ 43 ].sX + gsInvDescX, gWeaponStats[ 43 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
+		//mprintf( gWeaponStats[ 41 ].sX + gsInvDescX, gWeaponStats[ 41 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
 
 		// determine value
 		INT16 iNoiseSuppression = 0;
@@ -5988,10 +5988,10 @@ void DrawMiscValues( OBJECTTYPE * gpItemDescObject )
 	// HIDE MUZZLE FLASH
 	// NO DATA SHOWN, icon either appears or does not appear.
 	// HEADROCK HAM 3.5 - Fixed this, because the count needs to be increased to skip a line!
-	if ( Item[ gpItemDescObject->usItem ].hidemuzzleflash > 0 && cnt<=27 )
-	{
-		cnt++;
-	}
+    if ( Item[ gpItemDescObject->usItem ].hidemuzzleflash > 0 && cnt<=27 )
+    {
+        cnt++;
+    }
 
 	// BIPOD
 	if ( Item[ gpItemDescObject->usItem ].bipod != 0 && cnt<=27 )

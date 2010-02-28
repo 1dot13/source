@@ -330,10 +330,10 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 
 		}
 
-		// the trainer announces to player that he's finished his assignment.	Make his sector flash!
-		AssignmentDone( pTrainer, TRUE, FALSE );
+	// the trainer announces to player that he's finished his assignment.	Make his sector flash!
+	AssignmentDone( pTrainer, TRUE, FALSE );
 
-		// handle completion of town by training group
+	// handle completion of town by training group
 		HandleCompletionOfTownTrainingByGroupWithTrainer( pTrainer, TOWN_MILITIA );
 	}
 }
@@ -673,7 +673,6 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia2");
 		ubMilitiaType = MOBILE_MILITIA;
 	else
 		return;
-	
 	// grab total number of sectors
 	iNumberOfSectors = GetNumberOfUnpaidTrainableSectors( ubMilitiaType );
 	Assert( iNumberOfSectors > 0 );
@@ -687,25 +686,24 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia2");
 	{
 		// If Regulars are maxed, and Elites are allowed, calculate cost to upgrade Regular->Elite
 		if (IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, REGULAR_MILITIA )
-			&& (gGameExternalOptions.gfTrainVeteranMilitia)
-			&& (GetWorldDay( ) >= gGameExternalOptions.guiTrainVeteranMilitiaDelay))
-		{
-			giTotalCostOfTraining = (iMilitiaTrainingCost*gGameExternalOptions.iVeteranCostModifier) * iNumberOfSectors;
-			Assert( giTotalCostOfTraining > 0 );
-			gfAreWePromotingRegular = TRUE;
-		}
-		// If Greens are maxed, calculate cost to upgrade Green->Regular
-		else if (IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, GREEN_MILITIA ))
-		{
-			giTotalCostOfTraining = (iMilitiaTrainingCost*gGameExternalOptions.iRegularCostModifier) * iNumberOfSectors;
-			Assert( giTotalCostOfTraining > 0 );
-			gfAreWePromotingGreen = TRUE;
-		}
+		&& (gGameExternalOptions.gfTrainVeteranMilitia)
+		&& (GetWorldDay( ) >= gGameExternalOptions.guiTrainVeteranMilitiaDelay))
+	{
+		giTotalCostOfTraining = (iMilitiaTrainingCost*gGameExternalOptions.iVeteranCostModifier) * iNumberOfSectors;
+		Assert( giTotalCostOfTraining > 0 );
+		gfAreWePromotingRegular = TRUE;
+	}
+	else if (IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, GREEN_MILITIA ))
+	{
+		giTotalCostOfTraining = (iMilitiaTrainingCost*gGameExternalOptions.iRegularCostModifier) * iNumberOfSectors;
+		Assert( giTotalCostOfTraining > 0 );
+		gfAreWePromotingGreen = TRUE;
+	}
 		// Normal training.
-		else
-		{
-			giTotalCostOfTraining = iMilitiaTrainingCost * iNumberOfSectors;
-			Assert( giTotalCostOfTraining > 0 );
+	else
+	{
+		giTotalCostOfTraining = iMilitiaTrainingCost * iNumberOfSectors;
+		Assert( giTotalCostOfTraining > 0 );
 		}
 	}
 
@@ -1084,7 +1082,6 @@ void PayMilitiaTrainingYesNoBoxCallback( UINT8 bExitValue )
 
 #ifdef JA2BETAVERSION
 			// put this BEFORE training gets handled to avoid detecting an error everytime a sector completes training
-			// HEADROCK HAM 3.6: Checks both Mobiles and Garrisons.
 			VerifyTownTrainingIsPaidFor();
 #endif
 
@@ -1518,9 +1515,9 @@ void HandleContinueOfTownTraining( void )
 
 		//If the militia view isn't currently active, then turn it on when prompting to continue training.
 		if ( !fShowMilitia )
-		{
-			ToggleShowMilitiaMode();
-		}
+	{
+		ToggleShowMilitiaMode();
+	}
 	}
 
 	return;
@@ -1872,8 +1869,6 @@ void BuildMilitiaPromotionsString( STR16 str )
 	gbRegToElitePromotions = 0;
 	gbMilitiaPromotions = 0;
 }
-
-
 // HEADROCK HAM 3.3: This function finds the best Militia Trainer in the target sector. It may also take into account
 // mercs' TEACHING skill, if told to. The function returns the calculated "Effective Leadership" of the selected
 // trainer.

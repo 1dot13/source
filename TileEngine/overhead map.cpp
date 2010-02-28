@@ -49,18 +49,6 @@
 extern SOLDIERINITNODE *gpSelected;
 #endif
 
-// OK, these are values that are calculated in InitRenderParams( ) with normal view settings.
-// These would be different if we change ANYTHING about the game worlkd map sizes...
-#define	NORMAL_MAP_SCREEN_WIDTH			3160
-#define	NORMAL_MAP_SCREEN_HEIGHT		1540
-#define	NORMAL_MAP_SCREEN_X					1580
-#define	NORMAL_MAP_SCREEN_BY				2400
-#define	NORMAL_MAP_SCREEN_TY				860
-
-
-#define FASTMAPROWCOLTOPOS( r, c )									( (r) * WORLD_COLS + (c) )
-
-
 
 typedef struct
 {
@@ -91,17 +79,24 @@ BOOLEAN						gfOverheadMapDirty = FALSE;
 extern BOOLEAN		gfRadarCurrentGuyFlash;
 INT16							gsStartRestrictedX, gsStartRestrictedY;
 BOOLEAN						gfOverItemPool = FALSE;
-INT16							gsOveritemPoolGridNo;
+INT32							gsOveritemPoolGridNo;
 
 UINT16 iOffsetHorizontal;	// Horizontal start postion of the overview map
 UINT16 iOffsetVertical;	// Vertical start position of the overview map	
 
+//dnl ch45 021009 Current position of map displayed in overhead map, (A=TopLeft, B=BottomLeft, C=TopRight)
+#define MAXSCROLL 4
+INT32 giXA = 0, giYA = WORLD_ROWS/2;
+INT32 giXB = (0 + OLD_WORLD_COLS/2), giYB = (WORLD_ROWS/2 + OLD_WORLD_ROWS/2);
+INT32 giXC = (0 + OLD_WORLD_COLS/2), giYC = (WORLD_ROWS/2 - OLD_WORLD_ROWS/2);
+
+extern BOOLEAN gfValidLocationsChanged;//dnl ch45 051009
 
 void HandleOverheadUI( );
 void ClickOverheadRegionCallback(MOUSE_REGION *reg,INT32 reason);
 void MoveOverheadRegionCallback(MOUSE_REGION *reg,INT32 reason);
 void DeleteOverheadDB( );
-BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT16 *psGridNo );
+BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT32 *psGridNo );
 
 
 extern BOOLEAN AnyItemsVisibleOnLevel( ITEM_POOL *pItemPool, INT8 bZLevel );
@@ -109,8 +104,8 @@ extern void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *p
 
 
 //Isometric utilities (for overhead stuff only)
-BOOLEAN GetOverheadMouseGridNo( INT16 *psGridNo );
-void GetOverheadScreenXYFromGridNo( INT16 sGridNo, INT16 *psScreenX, INT16 *psScreenY );
+BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo );
+BOOLEAN GetOverheadScreenXYFromGridNo(INT32 sGridNo, INT16* psScreenX, INT16* psScreenY);//dnl ch45 041009
 void CopyOverheadDBShadetablesFromTileset( );
 
 void RenderOverheadOverlays();
@@ -217,7 +212,7 @@ void InitNewOverheadDB( UINT8 ubTilesetID )
 		INT16 sX1, sY1, sX2, sY2;
 
 		CalculateRestrictedMapCoords( NORTH, &sX1, &sY1, &sX2, &gsStartRestrictedY, iOffsetHorizontal + 640, iOffsetVertical + 320 );
-		CalculateRestrictedMapCoords( EAST,	&sX1, &sY1, &gsStartRestrictedX, &sY2, iOffsetHorizontal + 640, iOffsetVertical + 320 );
+		CalculateRestrictedMapCoords( WEST,	&sX1, &sY1, &gsStartRestrictedX, &sY2, iOffsetHorizontal + 640, iOffsetVertical + 320 );//dnl ch49 061009
 	}
 
 	// Copy over shade tables from main tileset
@@ -237,12 +232,12 @@ void DeleteOverheadDB( )
 }
 
 
-BOOLEAN GetClosestItemPool( INT16 sSweetGridNo, ITEM_POOL **ppReturnedItemPool, UINT8 ubRadius, INT8 bLevel )
+BOOLEAN GetClosestItemPool( INT32 sSweetGridNo, ITEM_POOL **ppReturnedItemPool, UINT8 ubRadius, INT8 bLevel )
 {
 	INT16	sTop, sBottom;
 	INT16	sLeft, sRight;
 	INT16	cnt1, cnt2;
-	INT16		sGridNo;
+	INT32 sGridNo;
 	INT32		uiRange, uiLowestRange = 999999;
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
@@ -286,12 +281,12 @@ BOOLEAN GetClosestItemPool( INT16 sSweetGridNo, ITEM_POOL **ppReturnedItemPool, 
 	return( fFound );
 }
 
-BOOLEAN GetClosestMercInOverheadMap( INT16 sSweetGridNo, SOLDIERTYPE **ppReturnedSoldier, UINT8 ubRadius )
+BOOLEAN GetClosestMercInOverheadMap( INT32 sSweetGridNo, SOLDIERTYPE **ppReturnedSoldier, UINT8 ubRadius )
 {
 	INT16	sTop, sBottom;
 	INT16	sLeft, sRight;
 	INT16	cnt1, cnt2;
-	INT16		sGridNo;
+	INT32 sGridNo;
 	INT32		uiRange, uiLowestRange = 999999;
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
@@ -335,45 +330,47 @@ BOOLEAN GetClosestMercInOverheadMap( INT16 sSweetGridNo, SOLDIERTYPE **ppReturne
 	return( fFound );
 }
 
-
-void DisplayMercNameInOverhead( SOLDIERTYPE *pSoldier )
+//dnl ch45 041009
+void DisplayMercNameInOverhead(SOLDIERTYPE* pSoldier)
 {
-	INT16		sWorldScreenX, sX;
-	INT16		sWorldScreenY, sY;
+	INT16 sWorldScreenX, sX;
+	INT16 sWorldScreenY, sY;
 
 	// Get Screen position of guy.....
-	GetWorldXYAbsoluteScreenXY( ( pSoldier->sX / CELL_X_SIZE ), ( pSoldier->sY / CELL_Y_SIZE ), &sWorldScreenX, &sWorldScreenY );
+	sX = pSoldier->sX;
+	sY = pSoldier->sY;
 
-	sWorldScreenX = gsStartRestrictedX + ( sWorldScreenX / 5 ) + 5;
-	sWorldScreenY = gsStartRestrictedY + ( sWorldScreenY / 5 ) + ( pSoldier->sHeightAdjustment / 5 ) + (gpWorldLevelData[ pSoldier->sGridNo ].sHeight/5) - 8;
+	sX -= ((giXA - 0) * CELL_X_SIZE);
+	sY -= ((giYA - WORLD_ROWS/2) * CELL_Y_SIZE);
+	GetWorldXYAbsoluteScreenXY((sX/CELL_X_SIZE), (sY/CELL_Y_SIZE), &sWorldScreenX, &sWorldScreenY);
+	if(sWorldScreenX < 0 || sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH || sWorldScreenY < 0 || sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT)
+		return;
 
-	sWorldScreenY += ( gsRenderHeight / 5 );
+	sWorldScreenX = gsStartRestrictedX + (sWorldScreenX/5) + 5;
+	sWorldScreenY = gsStartRestrictedY + (sWorldScreenY/5) + (pSoldier->sHeightAdjustment/5) + (gpWorldLevelData[pSoldier->sGridNo].sHeight/5) - 8;
+
+	sWorldScreenY += (gsRenderHeight/5);
 
 	// Display name
-	SetFont( TINYFONT1 );
-	SetFontBackground( FONT_MCOLOR_BLACK );
-	SetFontForeground( FONT_MCOLOR_WHITE );
+	SetFont(TINYFONT1);
+	SetFontBackground(FONT_MCOLOR_BLACK);
+	SetFontForeground(FONT_MCOLOR_WHITE);
 
 	// Center here....
-	FindFontCenterCoordinates( sWorldScreenX, sWorldScreenY, (INT16)( 1 ), 1, pSoldier->name, TINYFONT1, &sX, &sY );
+	FindFontCenterCoordinates(sWorldScreenX, sWorldScreenY, (INT16)(1), 1, pSoldier->name, TINYFONT1, &sX, &sY);
 
 	// Full size maps
-	if (gsStartRestrictedX == 0)
-	{
+	if(gsStartRestrictedX == 0)
 		sX += iOffsetHorizontal;
-	}
 
 	// Full size maps
-	if (gsStartRestrictedY == 0)
-	{
+	if(gsStartRestrictedY == 0)
 		sY += iOffsetVertical;
-	}
 
 	// OK, selected guy is here...
-	gprintfdirty( sX, sY, pSoldier->name );
-	mprintf( sX, sY, pSoldier->name );
+	gprintfdirty(sX, sY, pSoldier->name);
+	mprintf(sX, sY, pSoldier->name);
 }
-
 
 void HandleOverheadMap( )
 {
@@ -417,8 +414,7 @@ void HandleOverheadMap( )
 	RestoreBackgroundRects( );
 
 	// Render the overhead map
-	RenderOverheadMap( 0, (WORLD_COLS / 2), iOffsetHorizontal,
-		iOffsetVertical, 640 + iOffsetHorizontal, 320 + iOffsetVertical, FALSE );
+	RenderOverheadMap(giXA, giYA, iOffsetHorizontal, iOffsetVertical, 640+iOffsetHorizontal, 320+iOffsetVertical, FALSE);//dnl ch45 011009
 
 	HandleTalkingAutoFaces( );
 
@@ -456,22 +452,22 @@ void HandleOverheadMap( )
 
 	if( !gfEditMode && !gfTacticalPlacementGUIActive )
 	{
-		INT16 sMapPos;
+		INT32 usMapPos;
 		ITEM_POOL	*pItemPool;
 
 		gfUIHandleSelectionAboveGuy			= FALSE;
 
 		HandleAnyMercInSquadHasCompatibleStuff( (INT8) CurrentSquad( ), NULL, TRUE );
 
-		if ( GetOverheadMouseGridNo( &sMapPos ) )
+		if ( GetOverheadMouseGridNo( &usMapPos ) )
 		{
 			// ATE: Find the closest item pool within 5 tiles....
-			if ( GetClosestItemPool( sMapPos, &pItemPool, 1, 0 ) )
+			if ( GetClosestItemPool( usMapPos, &pItemPool, 1, 0 ) )
 			{
 				STRUCTURE					*pStructure = NULL;
-				INT16							sIntTileGridNo;
+				INT32 sIntTileGridNo;
 				INT8							bZLevel = 0;
-				INT16							sActionGridNo = sMapPos;
+				INT32 sActionGridNo = usMapPos;
 
 				// Get interactive tile...
 				if ( ConditionalGetCurInteractiveTileGridNoAndStructure( &sIntTileGridNo , &pStructure, FALSE ) )
@@ -483,43 +479,42 @@ void HandleOverheadMap( )
 
 				if ( AnyItemsVisibleOnLevel( pItemPool, bZLevel ) )
 				{
-					DrawItemPoolList( pItemPool, sMapPos	, ITEMLIST_DISPLAY, bZLevel, gusMouseXPos, gusMouseYPos );
+					DrawItemPoolList( pItemPool, usMapPos	, ITEMLIST_DISPLAY, bZLevel, gusMouseXPos, gusMouseYPos );
 
 					gfOverItemPool = TRUE;
 					gsOveritemPoolGridNo = pItemPool->sGridNo;
 				}
 			}
 
-			if ( GetClosestItemPool( sMapPos, &pItemPool, 1, 1 ) )
+			if ( GetClosestItemPool( usMapPos, &pItemPool, 1, 1 ) )
 			{
 				INT8							bZLevel = 0;
 
 				if ( AnyItemsVisibleOnLevel( pItemPool, bZLevel ) )
 				{
-					DrawItemPoolList( pItemPool, sMapPos	, ITEMLIST_DISPLAY, bZLevel, gusMouseXPos, (UINT16)( gusMouseYPos - 5 ) );
+					DrawItemPoolList( pItemPool, usMapPos	, ITEMLIST_DISPLAY, bZLevel, gusMouseXPos, (UINT16)( gusMouseYPos - 5 ) );
 
 					gfOverItemPool = TRUE;
 					gsOveritemPoolGridNo = pItemPool->sGridNo;
 				}
 			}
 
-		}
+	}
 
-		if ( GetOverheadMouseGridNoForFullSoldiersGridNo( &sMapPos ) )
+    if ( GetOverheadMouseGridNoForFullSoldiersGridNo( &usMapPos ) )
+	{
+		if ( GetClosestMercInOverheadMap( usMapPos, &pSoldier, 1 ) )
 		{
-			if ( GetClosestMercInOverheadMap( sMapPos, &pSoldier, 1 ) )
+			if ( pSoldier->bTeam == gbPlayerNum )
 			{
-				if ( pSoldier->bTeam == gbPlayerNum )
-				{
-					gfUIHandleSelectionAboveGuy			= TRUE;
-					gsSelectedGuy					= pSoldier->ubID;
-				}
-
-				DisplayMercNameInOverhead( pSoldier );
+				gfUIHandleSelectionAboveGuy = TRUE;
+				gsSelectedGuy = pSoldier->ubID;
 			}
+			DisplayMercNameInOverhead( pSoldier );
 		}
 	}
 
+	}
 
 	// Soldier dummy and items ...
 	RenderOverheadOverlays();
@@ -529,7 +524,7 @@ void HandleOverheadMap( )
 	{
 		pSoldier = MercPtrs[ gusSelectedSoldier ];
 
-		DisplayMercNameInOverhead( pSoldier );
+	DisplayMercNameInOverhead( pSoldier );
 	}
 
 	RenderButtons( );
@@ -558,6 +553,8 @@ void GoIntoOverheadMap( )
 	HVOBJECT				hVObject;
 
 	gfInOverheadMap = TRUE;
+
+	//dnl??? ch45 021009 Add here moving overhead map cords to your current position on big map
 
 	//RestoreExternBackgroundRect( INTERFACE_START_X, INTERFACE_START_Y, SCREEN_WIDTH, INTERFACE_HEIGHT );
 
@@ -636,50 +633,133 @@ void GoIntoOverheadMap( )
 
 }
 
-void HandleOverheadUI( )
+//dnl ch45 021009
+void HandleOverheadUI(void)
 {
-	InputAtom					InputEvent;
-	INT16							sMousePos=0;
-	UINT8							ubID;
+	INT32 sMousePos = 0;
+	InputAtom InputEvent;
+	UINT8 ubID;
 
 	// CHECK FOR MOUSE OVER REGIONS...
-	if ( GetOverheadMouseGridNo( &sMousePos ) )
+	if(GetOverheadMouseGridNo(&sMousePos))
 	{
 		// Look quickly for a soldier....
-		ubID =	QuickFindSoldier( sMousePos );
-
-		if ( ubID != NOBODY )
+		ubID = QuickFindSoldier(sMousePos);
+		if(ubID != NOBODY)
 		{
 			// OK, selected guy is here...
 
 			// WANNE: Commented these lines out.
 			//gprintfdirty( gusMouseXPos, gusMouseYPos, MercPtrs[ ubID ]->name );
 			//mprintf( gusMouseXPos, gusMouseYPos, MercPtrs[ ubID ]->name );
-
 		}
 	}
 
-	while (DequeueEvent(&InputEvent) == TRUE)
+	ScrollOverheadMap();
+
+	while(DequeueEvent(&InputEvent) == TRUE)
 	{
-	if( ( InputEvent.usEvent == KEY_DOWN ) )
-	{
-			switch( InputEvent.usParam )
+		if(InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT)
+		{
+			INT32 i = 1;
+			switch(InputEvent.usParam)
 			{
-				case( ESC ):
-				case( INSERT ):
-
-					KillOverheadMap();
+			case ESC:
+			case INSERT:
+				KillOverheadMap();
 				break;
-
-				case( 'x' ):
-					if( ( InputEvent.usKeyState & ALT_DOWN ) )
-					{
-						HandleShortCutExitState( );
-					}
+			case 'x':
+				if(InputEvent.usKeyState & ALT_DOWN)
+					HandleShortCutExitState();
 				break;
 			}
+		}
 	}
+}
+
+void ScrollOverheadMap(void)
+{
+	if(WORLD_MAX == OLD_WORLD_MAX)
+		return;
+	UINT32 uiFlags = 0;
+	INT32 i;
+	if(_KeyDown(UPARROW))
+		uiFlags |= SCROLL_UP;
+	if(_KeyDown(DNARROW))
+		uiFlags |= SCROLL_DOWN;
+	if(_KeyDown(RIGHTARROW))
+		uiFlags |= SCROLL_RIGHT;
+	if(_KeyDown(LEFTARROW))
+		uiFlags |= SCROLL_LEFT;
+	if(uiFlags)
+	{
+		gfOverheadMapDirty = TRUE;
+		gfValidLocationsChanged = TRUE;
+		gfTacticalPlacementGUIDirty  = TRUE;
 	}
+	if(uiFlags & SCROLL_LEFT)// Scroll Left  { Y = X + (3*WORLD_ROWS-WORLD_COLS)/4; --> p3 }
+	{
+		i = 1;
+		if(_KeyDown(SHIFT))
+			i = MAXSCROLL;
+		while(i--)
+		{
+			if(giYA == (giXA + (3*WORLD_ROWS-WORLD_COLS)/4))
+				break;
+			--giXA, ++giYA;
+			--giXB, ++giYB;
+			--giXC, ++giYC;
+		}
+	}
+	if(uiFlags & SCROLL_RIGHT)// Scroll Right  { Y = X + (WORLD_ROWS-3*WORLD_COLS)/4; --> p3 }
+	{
+		i = 1;
+		if(_KeyDown(SHIFT))
+			i = MAXSCROLL;
+		while(i--)
+		{
+			if(giYC == (giXC + (WORLD_ROWS-3*WORLD_COLS)/4))
+				break;
+			++giXA, --giYA;
+			++giXB, --giYB;
+			++giXC, --giYC;
+		}
+	}
+	if(uiFlags & SCROLL_UP)// Scroll Up  { Y = -X + (WORLD_ROWS+WORLD_COLS)/4; --> p4 }
+	{
+		i = 1;
+		if(_KeyDown(SHIFT))
+			i = MAXSCROLL;
+		while(i--)
+		{
+			if(giYA == (-giXA + (WORLD_ROWS+WORLD_COLS)/4))
+				break;
+			--giXA, --giYA;
+			--giXB, --giYB;
+			--giXC, --giYC;
+		}
+	}
+	if(uiFlags & SCROLL_DOWN)// Scroll Down  { Y = -X + 3*(WORLD_ROWS+WORLD_COLS)/4; --> p2 }
+	{
+		i = 1;
+		if(_KeyDown(SHIFT))
+			i = MAXSCROLL;
+		while(i--)
+		{
+			if(giYB == (-giXB + 3*(WORLD_ROWS+WORLD_COLS)/4))
+				break;
+			++giXA, ++giYA;
+			++giXB, ++giYB;
+			++giXC, ++giYC;
+		}
+	}
+}
+
+void ResetScrollOverheadMap(void)
+{
+	giXA = 0, giYA = WORLD_ROWS/2;
+	giXB = (0 + OLD_WORLD_COLS/2), giYB = (WORLD_ROWS/2 + OLD_WORLD_ROWS/2);
+	giXC = (0 + OLD_WORLD_COLS/2), giYC = (WORLD_ROWS/2 - OLD_WORLD_ROWS/2);
 }
 
 void KillOverheadMap()
@@ -736,7 +816,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 	INT16				sTempPosX_M, sTempPosY_M;
 	INT16				sTempPosX_S, sTempPosY_S;
 	BOOLEAN			fEndRenderRow = FALSE, fEndRenderCol = FALSE;
-	UINT32			usTileIndex;
+	INT32			usTileIndex;
 	INT16				sX, sY;
 	UINT32			uiDestPitchBYTES;
 	UINT8				*pDestBuf;
@@ -760,10 +840,13 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 		// Black color for the background!
 		//ColorFillVideoSurfaceArea( FRAME_BUFFER, sStartPointX_S, sStartPointY_S, sEndXS,	sEndYS, 0 );
 
-		ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
+		if(gfTacticalPlacementGUIActive)//dnl ch45 021009 Skip overwrite buttons area which is not refresh during scroll
+			ColorFillVideoSurfaceArea(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-160, 0);
+		else
+			ColorFillVideoSurfaceArea(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-120, 0);
 		fInterfacePanelDirty = DIRTYLEVEL2;
 
-		InvalidateScreen( );
+		InvalidateScreen();
 		gfOverheadMapDirty = FALSE;
 
 		// Begin Render Loop
@@ -818,7 +901,6 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 						//BltVideoObjectFromIndex(	FRAME_BUFFER, SGR1, gSmallTileDatabase[ gpWorldLevelData[ usTileIndex ].pLandHead->usIndex ], sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 						//BltVideoObjectFromIndex(	FRAME_BUFFER, SGR1, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 						Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, pTile->vo, sX, sY, pTile->usSubIndex );
-
 						pNode = pNode->pPrevNode;
 					}
 
@@ -1122,37 +1204,22 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, sX1, sY1, sX2, sY2, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 		}
 
-		if ( !fFromMapUtility )
-		{
-			// Render border!
-			BltVideoObjectFromIndex( FRAME_BUFFER, uiOVERMAP, 0, 0, 0, VO_BLT_SRCTRANSPARENCY, NULL );
-		}
+		if(!fFromMapUtility)
+			BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, 0, 0, VO_BLT_SRCTRANSPARENCY, NULL);// Render border!
 
-	// Update the save buffer
-	{
-	 UINT32 uiDestPitchBYTES, uiSrcPitchBYTES;
-	 UINT8	*pDestBuf, *pSrcBuf;
-	 UINT16 usWidth, usHeight;
-	 UINT8	ubBitDepth;
-
-	 // Update saved buffer - do for the viewport size ony!
-	 GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
-
-	 pSrcBuf = LockVideoSurface(guiRENDERBUFFER, &uiSrcPitchBYTES);
-	 pDestBuf = LockVideoSurface(guiSAVEBUFFER, &uiDestPitchBYTES);
-
-	 if(gbPixelDepth==16)
-	 {
-		 // BLIT HERE
-		 Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES,
-					 (UINT16 *)pSrcBuf, uiSrcPitchBYTES,
-					 0, 0, 0, 0, usWidth, usHeight );
-	 }
-
-	 UnLockVideoSurface(guiRENDERBUFFER);
-	 UnLockVideoSurface(guiSAVEBUFFER);
-
-	}
+		// Update the save buffer
+		UINT32 uiDestPitchBYTES, uiSrcPitchBYTES;
+		UINT8	*pDestBuf, *pSrcBuf;
+		UINT16 usWidth, usHeight;
+		UINT8	ubBitDepth;
+		// Update saved buffer - do for the viewport size ony!
+		GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
+		pSrcBuf = LockVideoSurface(guiRENDERBUFFER, &uiSrcPitchBYTES);
+		pDestBuf = LockVideoSurface(guiSAVEBUFFER, &uiDestPitchBYTES);
+		if(gbPixelDepth == 16)// BLIT HERE
+			Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, (UINT16 *)pSrcBuf, uiSrcPitchBYTES, 0, 0, 0, 0, usWidth, usHeight );
+		UnLockVideoSurface(guiRENDERBUFFER);
+		UnLockVideoSurface(guiSAVEBUFFER);
 	}
 }
 
@@ -1192,8 +1259,9 @@ void RenderOverheadOverlays()
 			continue;
 		//Soldier is here.	Calculate his screen position based on his current gridno.
 
+		if(!GetOverheadScreenXYFromGridNo(pSoldier->sGridNo, &sX, &sY))//dnl ch45 041009
+			continue;
 
-		GetOverheadScreenXYFromGridNo( pSoldier->sGridNo, &sX, &sY );
 		//Now, draw his "doll"
 
 		//adjust for position.
@@ -1212,8 +1280,8 @@ void RenderOverheadOverlays()
 					continue;// ie dont render
 					}
 		}
-
-		if ( pSoldier->sGridNo == NOWHERE )
+		
+		if (TileIsOutOfBounds(pSoldier->sGridNo))
 		{
 			continue;
 		}
@@ -1272,8 +1340,7 @@ void RenderOverheadOverlays()
 		else
 		#endif
 		if( !gfTacticalPlacementGUIActive )
-		{ 
-			//normal
+		{ //normal
 			if(is_networked)
 			{
 				if(pSoldier->bTeam!=0)
@@ -1301,15 +1368,12 @@ void RenderOverheadOverlays()
 					// Color depends on the bTeam
 					Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
 			}
-			// Color depends on the bTeam
 			else
-				Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
-
+			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 3), (INT16)(sY + 9));
 		}
 		else if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
-		{ 
-			//vehicle
+		{ //vehicle
 			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 9 );
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, (INT16)(sX-6), (INT16)(sY), (INT16)(sX + 9), (INT16)(sY + 10));
 		}
@@ -1318,20 +1382,17 @@ void RenderOverheadOverlays()
 		//	ubPassengers++;
 		//}
 		else if( gpTacticalPlacementSelectedSoldier == pSoldier )
-		{ 
-			//tactical placement selected merc
+		{ //tactical placement selected merc
 			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 7 );
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, (INT16)(sX-2), (INT16)(sY-2), (INT16)(sX + 5), (INT16)(sY + 11));
 		}
 		else if( gpTacticalPlacementHilightedSoldier == pSoldier && pSoldier->flags.uiStatusFlags )
-		{ 
-			//tactical placement hilighted merc
+		{ //tactical placement hilighted merc
 			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 8 );
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, (INT16)(sX-2), (INT16)(sY-2), (INT16)(sX + 5), (INT16)(sY + 11));
 		}
 		else
-		{ 
-			//normal
+		{ //normal
 			if(is_networked)
 			{
 				if(pSoldier->bTeam!=0)
@@ -1355,12 +1416,9 @@ void RenderOverheadOverlays()
 					Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
 			}
 			else
-				// Color depends on the bTeam
-				Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
-			
+			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 3), (INT16)(sY + 9));
 		}
-
 		if( ubPassengers )
 		{
 			SetFont( SMALLCOMPFONT );
@@ -1382,7 +1440,8 @@ void RenderOverheadOverlays()
 				continue;
 			}
 
-			GetOverheadScreenXYFromGridNo( pWorldItem->sGridNo, &sX, &sY );
+			if(!GetOverheadScreenXYFromGridNo(pWorldItem->sGridNo, &sX, &sY))//dnl ch45 041009
+				continue;
 
 			//adjust for position.
 			//sX += 2;
@@ -1677,6 +1736,10 @@ void ClickOverheadRegionCallback(MOUSE_REGION *reg,INT32 reason)
 		// Get new proposed center location.
 		GetFromAbsoluteScreenXYWorldXY( (INT32 *)&uiCellX, (INT32 *)&uiCellY, sWorldScreenX, sWorldScreenY );
 
+		//dnl ch45 021009
+		uiCellX += ((giXA - 0) * CELL_X_SIZE);
+		uiCellY += ((giYA - WORLD_ROWS/2) * CELL_Y_SIZE);
+
 		SetRenderCenter( (INT16)uiCellX, (INT16)uiCellY );
 
 		KillOverheadMap();
@@ -1691,27 +1754,44 @@ void ClickOverheadRegionCallback(MOUSE_REGION *reg,INT32 reason)
 
 void MoveOverheadRegionCallback(MOUSE_REGION *reg,INT32 reason)
 {
+	;
 }
 
 
-
-void GetOverheadScreenXYFromGridNo( INT16 sGridNo, INT16 *psScreenX, INT16 *psScreenY )
+//dnl ch45 041009
+BOOLEAN GetOverheadScreenXYFromGridNo(INT32 sGridNo, INT16* psScreenX, INT16* psScreenY)
 {
-	GetWorldXYAbsoluteScreenXY( (INT16)(CenterX( sGridNo ) / CELL_X_SIZE ), (INT16)( CenterY( sGridNo ) / CELL_Y_SIZE ), psScreenX, psScreenY );
+	INT16 sWorldScreenX, sX;
+	INT16 sWorldScreenY, sY;
+
+	ConvertGridNoToXY(sGridNo, &sX, &sY);
+	sX *= CELL_X_SIZE;
+	sY *= CELL_Y_SIZE;
+
+	sX -= ((giXA - 0) * CELL_X_SIZE);
+	sY -= ((giYA - WORLD_ROWS/2) * CELL_Y_SIZE);
+	GetWorldXYAbsoluteScreenXY((sX/CELL_X_SIZE), (sY/CELL_Y_SIZE), &sWorldScreenX, &sWorldScreenY);
+	if(sWorldScreenX < 0 || sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH || sWorldScreenY < 0 || sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT)
+		return(FALSE);
+
+	*psScreenX = sWorldScreenX;
+	*psScreenY = sWorldScreenY;
+
 	*psScreenX /= 5;
 	*psScreenY /= 5;
-
 	*psScreenX += 5;
 	*psScreenY += 5;
 
 	//Subtract the height....
-	//*psScreenY -= gpWorldLevelData[ sGridNo ].sHeight / 5;
+	//*psScreenY -= gpWorldLevelData[sGridNo].sHeight / 5;
+
+	return(TRUE);
 }
 
 // WANNE: Fixed bug from sir tech, which occured on smaller maps ;-)
-BOOLEAN GetOverheadMouseGridNo( INT16 *psGridNo )
+BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo )
 {
-	UINT32 uiCellX, uiCellY;
+	INT32 uiCellX, uiCellY;
 	INT16	sWorldScreenX, sWorldScreenY;
 
 	if ( ( OverheadRegion.uiFlags & MSYS_MOUSE_IN_AREA ) )
@@ -1743,16 +1823,19 @@ BOOLEAN GetOverheadMouseGridNo( INT16 *psGridNo )
 		GetFromAbsoluteScreenXYWorldXY( (INT32 *)&uiCellX, (INT32 *)&uiCellY, sWorldScreenX, sWorldScreenY );
 
 		// Get gridNo
-		(*psGridNo ) = (INT16)MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
+		(*psGridNo ) = MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
 
 		// Adjust for height.....
-		sWorldScreenY =sWorldScreenY + gpWorldLevelData[ (*psGridNo) ].sHeight;
+		sWorldScreenY = sWorldScreenY + gpWorldLevelData[ (*psGridNo) ].sHeight;
 
 		GetFromAbsoluteScreenXYWorldXY( (INT32 *)&uiCellX, (INT32 *)&uiCellY, sWorldScreenX, sWorldScreenY );
 
-		// Get gridNo
-		(*psGridNo ) = (INT16)MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
+		//dnl ch45 021009
+		uiCellX += ((giXA - 0) * CELL_X_SIZE);
+		uiCellY += ((giYA - WORLD_ROWS/2) * CELL_Y_SIZE);
 
+		// Get gridNo
+		(*psGridNo ) = MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
 
 		return( TRUE );
 	}
@@ -1764,9 +1847,9 @@ BOOLEAN GetOverheadMouseGridNo( INT16 *psGridNo )
 
 
 // WANNE: Fixed bug from sir tech which occured on smaller maps ;-)
-BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT16 *psGridNo )
+BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT32 *psGridNo )
 {
-	UINT32 uiCellX, uiCellY;
+	INT32 uiCellX, uiCellY;
 	INT16	sWorldScreenX, sWorldScreenY;
 
 	if ( ( OverheadRegion.uiFlags & MSYS_MOUSE_IN_AREA ) )
@@ -1798,16 +1881,19 @@ BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT16 *psGridNo )
 		GetFromAbsoluteScreenXYWorldXY( (INT32 *)&uiCellX, (INT32 *)&uiCellY, sWorldScreenX, sWorldScreenY );
 
 		// Get gridNo
-		(*psGridNo ) = (INT16)MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
+		(*psGridNo ) = MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
 
 		// Adjust for height.....
-		sWorldScreenY =sWorldScreenY + gpWorldLevelData[ (*psGridNo) ].sHeight;
+		sWorldScreenY = sWorldScreenY + gpWorldLevelData[ (*psGridNo) ].sHeight;
 
 		GetFromAbsoluteScreenXYWorldXY( (INT32 *)&uiCellX, (INT32 *)&uiCellY, sWorldScreenX, sWorldScreenY );
 
-		// Get gridNo
-		(*psGridNo ) = (INT16)MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
+		//dnl ch45 021009
+		uiCellX += ((giXA - 0) * CELL_X_SIZE);
+		uiCellY += ((giYA - WORLD_ROWS/2) * CELL_Y_SIZE);
 
+		// Get gridNo
+		(*psGridNo ) = MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
 
 		return( TRUE );
 	}
@@ -1820,37 +1906,34 @@ BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT16 *psGridNo )
 
 // This method is used for smaller overhead maps, to calculate the non visible borders to make them black
 // It is also used to get the starting (x and y coordinate)
-void CalculateRestrictedMapCoords( INT8 bDirection, INT16 *psX1, INT16 *psY1, INT16 *psX2, INT16 *psY2, INT16 sEndXS, INT16 sEndYS )
+void CalculateRestrictedMapCoords(INT8 bDirection, INT16 *psX1, INT16 *psY1, INT16 *psX2, INT16 *psY2, INT16 sEndXS, INT16 sEndYS)//dnl ch49 061009
 {
-	switch( bDirection )
+	switch(bDirection)
 	{
-		case NORTH:
-			*psX1 = iOffsetHorizontal;
-			*psX2 = sEndXS;
-			*psY1 = iOffsetVertical;
-			*psY2 = ( abs( NORMAL_MAP_SCREEN_TY - gsTLY ) / 5) + iOffsetVertical;
-			break;
-
-		case EAST:
-			*psX1 = iOffsetHorizontal;
-			*psX2 = ( abs( -NORMAL_MAP_SCREEN_X - gsTLX ) / 5 ) + iOffsetHorizontal;
-			*psY1 = iOffsetVertical;
-			*psY2 = sEndYS;
-			break;
-
-		case SOUTH:
-			*psX1 = iOffsetHorizontal;
-			*psX2 = sEndXS;
-			*psY1 = ( NORMAL_MAP_SCREEN_HEIGHT - abs( NORMAL_MAP_SCREEN_BY - gsBLY )) / 5 + iOffsetVertical ;
-			*psY2 = sEndYS;
-			break;
-
-		case WEST:
-			*psX1 = ( NORMAL_MAP_SCREEN_WIDTH - abs( NORMAL_MAP_SCREEN_X - gsTRX )) / 5 + iOffsetHorizontal;
-			*psX2 = sEndXS;
-			*psY1 = iOffsetVertical;
-			*psY2 = sEndYS;
-			break;
+	case NORTH:
+		*psX1 = iOffsetHorizontal;
+		*psX2 = sEndXS;
+		*psY1 = iOffsetVertical;
+		*psY2 = (abs(NORMAL_MAP_SCREEN_TY - gsTLY) / 5) + iOffsetVertical;
+		break;
+	case WEST:
+		*psX1 = iOffsetHorizontal;
+		*psX2 = (abs(-NORMAL_MAP_SCREEN_X - gsTLX) / 5) + iOffsetHorizontal;
+		*psY1 = iOffsetVertical;
+		*psY2 = sEndYS;
+		break;
+	case SOUTH:
+		*psX1 = iOffsetHorizontal;
+		*psX2 = sEndXS;
+		*psY1 = ((NORMAL_MAP_SCREEN_HEIGHT - abs(NORMAL_MAP_SCREEN_BY - gsBLY)) / 5) + iOffsetVertical;
+		*psY2 = sEndYS;
+		break;
+	case EAST:
+		*psX1 = ((NORMAL_MAP_SCREEN_WIDTH - abs(NORMAL_MAP_SCREEN_X - gsTRX)) / 5) + iOffsetHorizontal;
+		*psX2 = sEndXS;
+		*psY1 = iOffsetVertical;
+		*psY2 = sEndYS;
+		break;
 	}
 }
 

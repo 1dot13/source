@@ -13,6 +13,8 @@ enum //for use with MAPCREATE_STRUCT.ubEditorSmoothingType
 	SMOOTHING_CAVES
 };
 
+//dnl ch42 250909
+// WANNE - BMP: DONE!
 typedef struct
 {
 	//These are the mandatory entry points for a map.	If any of the values are -1, then that means that
@@ -33,14 +35,34 @@ typedef struct
 	INT16 sCenterGridNo;
 	INT16 sIsolatedGridNo;
 	INT8 bPadding[83];	//I'm sure lots of map info will be added
-}MAPCREATE_STRUCT; //99 bytes
+}_OLD_MAPCREATE_STRUCT; //99 bytes
+
+class MAPCREATE_STRUCT
+{
+public:
+	INT32 sNorthGridNo;
+	INT32 sEastGridNo;
+	INT32 sSouthGridNo;
+	INT32 sWestGridNo;
+	INT32 sCenterGridNo;
+	INT32 sIsolatedGridNo;
+	UINT16 ubNumIndividuals;
+	UINT8 ubMapVersion;
+	UINT8 ubRestrictedScrollID;
+	UINT8 ubEditorSmoothingType;
+public:
+	MAPCREATE_STRUCT& operator=(const _OLD_MAPCREATE_STRUCT& src);
+	BOOLEAN Load(INT8** hBuffer, FLOAT dMajorMapVersion);
+	BOOLEAN Save(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion);
+};
 
 extern MAPCREATE_STRUCT gMapInformation;
 
-void SaveMapInformation( HWFILE fp );
-void LoadMapInformation( INT8 **hBuffer );
+void LoadMapInformation(INT8** hBuffer, FLOAT dMajorMapVersion);
+void SaveMapInformation(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion);
+
 void ValidateAndUpdateMapVersionIfNecessary();
-BOOLEAN ValidateEntryPointGridNo( INT16 *sGridNo );
+BOOLEAN ValidateEntryPointGridNo( INT32 *sGridNo );
 
 extern BOOLEAN gfWorldLoaded;
 

@@ -118,7 +118,7 @@ typedef	struct
 	FLOAT					dYPos;
 	INT16					sX;
 	INT16					sY;
-	INT16					sGridNo;
+	INT32 sGridNo;
 
 
 	UINT8					ubFiller[ 32 ];
@@ -308,7 +308,7 @@ BOOLEAN BeginAirRaid( )
 }
 
 
-INT16 PickLocationNearAnyMercInSector( )
+INT32 PickLocationNearAnyMercInSector( )
 {
 	UINT8	ubMercsInSector[ 20 ] = { 0 };
 	UINT8	ubNumMercs = 0;
@@ -349,18 +349,18 @@ INT16 PickLocationNearAnyMercInSector( )
 	return( NOWHERE );
 }
 
-INT16 PickRandomLocationAtMinSpacesAway( INT16 sGridNo, INT16 sMinValue, INT16 sRandomVar )
+INT32 PickRandomLocationAtMinSpacesAway( INT32 sGridNo, INT16 sMinValue, INT16 sRandomVar )
 {
-	INT16 sNewGridNo = NOWHERE;
+	INT32 sNewGridNo = NOWHERE;
 	INT16 sX, sY, sNewX, sNewY;
-	INT16 cnt = 0;
+	INT32 cnt = 0;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"PickRandomLocationAtMinSpacesAway");
 
 	sX = CenterX( sGridNo );
 	sY = CenterY( sGridNo );
-
-	while( sNewGridNo == NOWHERE )
+	
+	while(TileIsOutOfBounds(sNewGridNo))
 	{
 		sNewX = sX + sMinValue + (INT16)Random( sRandomVar );
 		sNewY = sY + sMinValue + (INT16)Random( sRandomVar );
@@ -379,10 +379,8 @@ INT16 PickRandomLocationAtMinSpacesAway( INT16 sGridNo, INT16 sMinValue, INT16 s
 		sNewGridNo = GETWORLDINDEXFROMWORLDCOORDS( sNewY, sNewX );
 
 		// Check if visible on screen....
-		if ( cnt < 50 && !GridNoOnVisibleWorldTile( sNewGridNo ) )
-		{
+		if(!GridNoOnVisibleWorldTile(sNewGridNo))//dnl ch56 141009
 			sNewGridNo = NOWHERE;
-		}
 		cnt++;
 	}
 
@@ -575,7 +573,7 @@ void 	AirRaidStartEnding( )
 
 void BeginBombing( )
 {
-	INT16 sGridNo;
+	INT32 sGridNo;
 	UINT32	iSoundStartDelay;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("BeginBombing"));
@@ -590,9 +588,10 @@ void BeginBombing( )
 
 	// Pick location...
 	gsDiveTargetLocation = PickLocationNearAnyMercInSector( );
-
-	if ( gsDiveTargetLocation == NOWHERE )
+	
+	if (TileIsOutOfBounds(gsDiveTargetLocation))
 	{
+		// TODO.WANNE: Hardcoded grid number
 		gsDiveTargetLocation = 10234;
 	}
 
@@ -632,7 +631,7 @@ void BeginBombing( )
 
 void BeginDive( )
 {
-	INT16 sGridNo;
+	INT32 sGridNo;
 	UINT32	iSoundStartDelay;
 
 
@@ -650,9 +649,10 @@ void BeginDive( )
 	// Pick location...
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("BeginDive: pick location"));
 	gsDiveTargetLocation = PickLocationNearAnyMercInSector( );
-
-	if ( gsDiveTargetLocation == NOWHERE )
+	
+	if (TileIsOutOfBounds(gsDiveTargetLocation))
 	{
+		// TODO.WANNE: Hardcoded grid number
 		gsDiveTargetLocation = 10234;
 	}
 
@@ -711,7 +711,7 @@ void MoveDiveAirplane( FLOAT dAngle )
 void DoDive(	)
 {
 	INT16		sRange;
-	INT16		sGridNo, sOldGridNo;
+	INT32 sGridNo, sOldGridNo;
 
 	INT16		sTargetX, sTargetY;
 	INT16		sStrafeX, sStrafeY;
@@ -810,7 +810,7 @@ void DoDive(	)
 				}
 
 				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"DoDive: Fire bullets");
-				if ( GridNoOnVisibleWorldTile( (INT16)( GETWORLDINDEXFROMWORLDCOORDS( sStrafeY, sStrafeX ) ) ) )
+				if ( GridNoOnVisibleWorldTile( GETWORLDINDEXFROMWORLDCOORDS( sStrafeY, sStrafeX ) ) )
 				{
 					//if ( gsNotLocatedYet && !( gTacticalStatus.uiFlags & INCOMBAT ) )
 				//	{
@@ -851,7 +851,7 @@ void DoDive(	)
 				// Find delta Movement for Y pos
 				sStrafeY = (INT16)( sY + dDeltaYPos );
 
-				if ( GridNoOnVisibleWorldTile( (INT16)( GETWORLDINDEXFROMWORLDCOORDS( sStrafeY, sStrafeX ) ) ) )
+				if ( GridNoOnVisibleWorldTile( GETWORLDINDEXFROMWORLDCOORDS( sStrafeY, sStrafeX ) ) )
 				{
 					//if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
 					{
@@ -888,7 +888,7 @@ void DoDive(	)
 void DoBombing(	)
 {
 	INT16		sRange;
-	INT16		sGridNo, sOldGridNo, sBombGridNo;
+	INT32		sGridNo, sOldGridNo, sBombGridNo;
 
 	INT16		sTargetX, sTargetY;
 	UINT16	usItem;
@@ -975,7 +975,7 @@ void DoBombing(	)
 					dDeltaYPos = BOMB_DIST * (FLOAT)cos( dAngle );
 					sStrafeY = (INT16)( gsDiveY + dDeltaYPos );
 
-					if ( GridNoOnVisibleWorldTile( (INT16)( GETWORLDINDEXFROMWORLDCOORDS( sStrafeY, sStrafeX ) ) ) )
+					if ( GridNoOnVisibleWorldTile( GETWORLDINDEXFROMWORLDCOORDS( sStrafeY, sStrafeX ) ) )
 					{
 						//if ( gsNotLocatedYet && !( gTacticalStatus.uiFlags & INCOMBAT ) )
 						//{
@@ -994,7 +994,7 @@ void DoBombing(	)
 						}
 
 						// Pick random gridno....
-						sBombGridNo = PickRandomLocationAtMinSpacesAway( (INT16)( GETWORLDINDEXFROMWORLDCOORDS( sStrafeY, sStrafeX ) ) , 40, 40 );
+						sBombGridNo = PickRandomLocationAtMinSpacesAway( GETWORLDINDEXFROMWORLDCOORDS( sStrafeY, sStrafeX ), 40, 40 );
 
 						if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
 						{
@@ -1006,7 +1006,7 @@ void DoBombing(	)
 						}
 
 						// Drop bombs...
-						InternalIgniteExplosion( NOBODY, CenterX( sBombGridNo ), CenterY( sBombGridNo ), 0, sBombGridNo, usItem, fLocate , (UINT8)IsRoofPresentAtGridno( sBombGridNo ) );
+						InternalIgniteExplosion( NOBODY, CenterX( sBombGridNo ), CenterY( sBombGridNo ), 0, sBombGridNo, usItem, fLocate , (UINT8)IsRoofPresentAtGridNo( sBombGridNo ) );
 
 					}
 

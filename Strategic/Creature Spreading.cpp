@@ -134,7 +134,7 @@ INT32 giDestroyedLairID = 0;
 //various information required for keeping track of the battle sector involved for
 //prebattle interface, autoresolve, etc.
 INT16 gsCreatureInsertionCode = 0;
-INT16 gsCreatureInsertionGridNo = 0;
+INT32 gsCreatureInsertionGridNo = 0;
 UINT8 gubNumCreaturesAttackingTown = 0;
 UINT8 gubYoungMalesAttackingTown = 0;
 UINT8 gubYoungFemalesAttackingTown = 0;
@@ -1580,7 +1580,7 @@ BOOLEAN PlayerGroupIsInACreatureInfestedMine()
 }
 
 //Returns TRUE if valid and creature quest over, FALSE if creature quest active or not yet started
-BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSectorZ, INT16 *psInsertionGridNo )
+BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSectorZ, INT32 *psInsertionGridNo )
 {
 	INT32 iSwitchValue;
 
@@ -1621,7 +1621,7 @@ BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSecto
 				*psSectorX = 13;
 				*psSectorY = 4;
 				*pbSectorZ = 0;
-				*psInsertionGridNo = 20700;
+				*psInsertionGridNo = 20700;//dnl!!!
 				return TRUE;
 			}
 			break;
@@ -1636,7 +1636,7 @@ BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSecto
 				*psSectorX = 8;
 				*psSectorY = 8;
 				*pbSectorZ = 0;
-				*psInsertionGridNo = 13002;
+				*psInsertionGridNo = 13002;//dnl!!!
 				return TRUE;
 			}
 			break;
@@ -1651,7 +1651,7 @@ BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSecto
 				*psSectorX = 14;
 				*psSectorY = 9;
 				*pbSectorZ = 0;
-				*psInsertionGridNo = 9085;
+				*psInsertionGridNo = 9085;//dnl!!!
 				return TRUE;
 			}
 			break;
@@ -1667,7 +1667,7 @@ BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSecto
 				*psSectorX = 3;
 				*psSectorY = 8;
 				*pbSectorZ = 0;
-				*psInsertionGridNo = 9822;
+				*psInsertionGridNo = 9822;//dnl!!!
 				return TRUE;
 			}
 			break;

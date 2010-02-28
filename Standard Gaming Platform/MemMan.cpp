@@ -232,15 +232,15 @@ void ShutdownMemoryManager( void )
 				fclose( fp );
 #else
 				CLog memLeak( L"MemLeakInfo.txt", true);
-				memLeak.Endl().Endl();
-				memLeak << ">>>>> MEMORY LEAK DETECTED!!! <<<<<" << CLog::endl;
-				memLeak << "	" << guiMemAlloced << " bytes memory total was allocated" << CLog::endl;
-				memLeak << "- " << guiMemFreed << " bytes memory total was freed" << CLog::endl;
-				memLeak << "_______________________________________________" << CLog::endl;
-				memLeak << guiMemTotal << " bytes memory total STILL allocated" << CLog::endl;
-				memLeak << MemDebugCounter << " memory blocks still allocated" << CLog::endl;
-				memLeak << "guiScreenExitedFrom = " << gzJA2ScreenNames[ gMsgBox.uiExitScreen ] << CLog::endl;
-				memLeak.Endl().Endl();
+				memLeak.endl().endl();
+				memLeak << ">>>>> MEMORY LEAK DETECTED!!! <<<<<" << CLog::ENDL;
+				memLeak << "	" << guiMemAlloced << " bytes memory total was allocated" << CLog::ENDL;
+				memLeak << "- " << guiMemFreed << " bytes memory total was freed" << CLog::ENDL;
+				memLeak << "_______________________________________________" << CLog::ENDL;
+				memLeak << guiMemTotal << " bytes memory total STILL allocated" << CLog::ENDL;
+				memLeak << MemDebugCounter << " memory blocks still allocated" << CLog::ENDL;
+				memLeak << "guiScreenExitedFrom = " << gzJA2ScreenNames[ gMsgBox.uiExitScreen ] << CLog::ENDL;
+				memLeak.endl().endl();
 #endif
 			}
 			#endif

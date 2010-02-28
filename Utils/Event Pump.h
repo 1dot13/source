@@ -68,7 +68,7 @@ typedef struct
 	UINT16	usStartingAniCode;
 	BOOLEAN	fForce;
 	UINT8	usNewDirection;//hayden
-	UINT16	usTargetGridNo; // WANNE - MP: Used for manipulating the target grid no
+	UINT32	usTargetGridNo; // WANNE - MP: Used for manipulating the target grid no
 
 } EV_S_CHANGESTATE;
 
@@ -77,7 +77,7 @@ typedef struct
 {
 	UINT16	usSoldierID;
 	UINT32	uiUniqueId;
-	UINT16	usNewDestination;
+	INT32	usNewDestination;
 
 } EV_S_CHANGEDEST;
 
@@ -94,7 +94,7 @@ typedef struct
 {
 	UINT16	usSoldierID;
 	UINT32	uiUniqueId;
-	INT16		sDestGridNo;
+	INT32 sDestGridNo;
 	UINT16		usMovementAnim;		
 
 } EV_S_GETNEWPATH;
@@ -136,7 +136,7 @@ typedef struct
 {
 	UINT16	usSoldierID;
 	UINT32	uiUniqueId;
-	INT16		sTargetGridNo;
+	INT32 sTargetGridNo;
 	INT8		bTargetLevel;
 	INT8		bTargetCubeLevel;
 } EV_S_BEGINFIREWEAPON;
@@ -146,7 +146,7 @@ typedef struct
 {
 	UINT16	usSoldierID;
 	UINT32	uiUniqueId;
-	INT16		sTargetGridNo;
+	INT32 sTargetGridNo;
 	INT8		bTargetLevel;
 	INT8		bTargetCubeLevel;
 } EV_S_FIREWEAPON;
@@ -189,11 +189,11 @@ typedef struct
 
 typedef struct
 {
-	INT16		sGridNo;
+	INT32 sGridNo;
 	UINT16	usStructureID;
 	BOOLEAN	fBlowWindowSouth;
 	BOOLEAN	fLargeForce;
-	INT8 ubAttackerID;
+	UINT8 ubAttackerID;
 	INT32 iBullet;
 } EV_S_WINDOWHIT;
 
@@ -206,7 +206,7 @@ typedef struct
 typedef struct
 {
 	UINT8 ubNoiseMaker;
-	INT16 sGridNo;
+	INT32 sGridNo;
 	UINT8 bLevel;
 	UINT8 ubTerrType;
 	UINT8 ubVolume;
@@ -219,7 +219,7 @@ typedef struct
 	UINT16	usSoldierID;
 	UINT32	uiUniqueId;
 	UINT8		ubDirection;
-	INT16		sGridNo;
+	INT32 sGridNo;
 	INT16		sXPos;
 	INT16		sYPos;
 	BOOLEAN fset;
@@ -233,11 +233,11 @@ typedef struct
 	UINT8		usSoldierID;
 //	UINT32  uiUniqueId;
 	UINT16		usPathDataSize;			// Size of Path
-	INT16		sAtGridNo;					// Owner merc is at this tile when sending packet
+	INT32 sAtGridNo;					// Owner merc is at this tile when sending packet
 	UINT16		usCurrentPathIndex;	// Index the owner of the merc is at when sending packet
 	UINT16		usPathData[ MAX_PATH_LIST_SIZE ];		// make define  // Next X tile to go to
 	UINT16		ubNewState;			// new movment Anim
-	INT16		 sDestGridNo;
+	INT32		 sDestGridNo;
 //	INT8		bActionPoints;
 //	INT8		bBreath;			// current breath value
 //	INT8		bDesiredDirection;
@@ -250,7 +250,7 @@ typedef struct
 {
 	UINT8		usSoldierID;	
 	//UINT32  uiUniqueId;
-	INT16		sAtGridNo;					// Owner merc is at this tile when sending packet
+	INT32 sAtGridNo;					// Owner merc is at this tile when sending packet
 	INT8		bActionPoints;			// current A.P. value
 	INT8		bBreath;						// current breath value
 	//hayden

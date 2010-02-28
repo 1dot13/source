@@ -43,12 +43,12 @@ void HandleFlashForHighLightedItem( void );
 extern std::vector<WORLDITEM> pInventoryPoolList;
 
 // autoplace down object
-BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT16 sGridNo=0 );
+BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo=0 );
 
 // the current inventory item
 extern INT32 iCurrentlyHighLightedItem;
 extern BOOLEAN fFlashHighLightInventoryItemOnradarMap;
-extern INT16 sObjectSourceGridNo;
+extern INT32 sObjectSourceGridNo;
 extern INT32 iCurrentInventoryPoolPage;
 extern BOOLEAN fMapInventoryItemCompatable[ ];
 extern INT32 MAP_INVENTORY_POOL_SLOT_COUNT; 
@@ -56,5 +56,15 @@ extern INT32 MAP_INVENTORY_POOL_SLOT_COUNT;
 BOOLEAN IsMapScreenWorldItemInvisibleInMapInventory( WORLDITEM *pWorldItem );
 BOOLEAN IsMapScreenWorldItemVisibleInMapInventory( WORLDITEM *pWorldItem );
 
+//dnl ch51 081009
+#define INVPOOLLISTNUM 10
+BOOLEAN	CopySectorInventoryToInventoryPoolQ(UINT8 idx);
+BOOLEAN CopySectorInventoryToInventoryPoolQs(UINT8 idx);
+BOOLEAN	DisplaySectorItemsInfo(void);
+BOOLEAN	LoadInventoryPoolQ(UINT8 ubSaveGameID);
+BOOLEAN	MemFreeInventoryPoolQ(void);
+BOOLEAN	SaveInventoryPoolQ(UINT8 ubSaveGameID);
+BOOLEAN	SortInventoryPoolQ(void);
+BOOLEAN	SwitchToInventoryPoolQ(UINT8 newidx);
 
 #endif

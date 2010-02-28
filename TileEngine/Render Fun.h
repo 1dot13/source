@@ -9,22 +9,22 @@
 
 
 extern UINT8	gubWorldRoomHidden[ MAX_ROOMS ];
-extern UINT8	gubWorldRoomInfo[ WORLD_MAX ];
+extern UINT8*						gubWorldRoomInfo;
 
 
 BOOLEAN InitRoomDatabase( );
 void ShutdownRoomDatabase( );
 
-void SetTileRoomNum( INT16 sGridNo, UINT8 ubRoomNum );
+void SetTileRoomNum( INT32 sGridNo, UINT8 ubRoomNum );
 void SetTileRangeRoomNum( SGPRect *pSelectRegion, UINT8 ubRoomNum );
 
-void RemoveRoomRoof( INT16 sGridNo, UINT8 bRoomNum, SOLDIERTYPE *pSoldier );
-BOOLEAN InARoom( INT16 sGridNo, UINT8 *pubRoomNo );
-BOOLEAN InAHiddenRoom( INT16 sGridNo, UINT8 *pubRoomNo );
+void RemoveRoomRoof( INT32 sGridNo, UINT8 bRoomNum, SOLDIERTYPE *pSoldier );
+BOOLEAN InARoom( INT32 sGridNo, UINT8 *pubRoomNo );
+BOOLEAN InAHiddenRoom( INT32 sGridNo, UINT8 *pubRoomNo );
 
-void SetGridNoRevealedFlag( INT16 sGridNo );
+void SetGridNoRevealedFlag( INT32 sGridNo );
 
-void ExamineGridNoForSlantRoofExtraGraphic( INT16 sCheckGridNo );
+void ExamineGridNoForSlantRoofExtraGraphic( INT32 sCheckGridNo );
 
 void SetRecalculateWireFrameFlagRadius(INT16 sX, INT16 sY, INT16 sRadius);
 

@@ -1,3 +1,4 @@
+#include "vfs_settings.h"
 #include "vfs_init.h"
 #include "vfs.h"
 #include "File/vfs_file.h"
@@ -17,39 +18,39 @@
 #define LOG(x)
 #endif
 
-extern bool g_VFS_NO_UNICODE;
+
 /********************************************************************/
 /********************************************************************/
 
-bool InitVirtualFileSystem(vfs::Path const& vfs_ini)
+bool initVirtualFileSystem(vfs::Path const& vfs_ini)
 {
 	std::list<vfs::Path> li;
 	li.push_back(vfs_ini);
-	return InitVirtualFileSystem(li);
+	return initVirtualFileSystem(li);
 }
-bool InitVirtualFileSystem(std::list<vfs::Path> const& vfs_ini_list)
+bool initVirtualFileSystem(std::list<vfs::Path> const& vfs_ini_list)
 {
 	CPropertyContainer oVFSProps;
 	std::list<vfs::Path>::const_iterator clit = vfs_ini_list.begin();
 	for(; clit != vfs_ini_list.end(); ++clit)
 	{
-		oVFSProps.InitFromIniFile(*clit);
+		oVFSProps.initFromIniFile(*clit);
 	}
-	return InitVirtualFileSystem(oVFSProps);
+	return initVirtualFileSystem(oVFSProps);
 }
-bool InitVirtualFileSystem(CPropertyContainer& oVFSProps)
+bool initVirtualFileSystem(CPropertyContainer& oVFSProps)
 {
 	LOG(CLog _LOG(vfs::Path(L"vfs_init.log")));
 
-	vfs::CVirtualFileSystem *pVirtFileSys = GetVFS();
+	vfs::CVirtualFileSystem *pVirtFileSys = getVFS();
 
-	LOG(_LOG << "Initializing Virtual File System" << CLog::endl);
+	LOG(_LOG << "Initializing Virtual File System" << CLog::ENDL);
 
-	if(g_VFS_NO_UNICODE){ LOG(_LOG.Endl() << "UNICODE disabled" << CLog::endl); }
+	if(!vfs::Settings::getUseUnicode()){ LOG(_LOG.endl() << "UNICODE disabled" << CLog::ENDL); }
 
-	LOG(_LOG.Endl() << "reading profiles .. ");
+	LOG(_LOG.endl() << "reading profiles .. ");
 	std::list<utf8string> lProfiles, lLocSections;
-	oVFSProps.GetStringListProperty(L"vfs_config",L"PROFILES",lProfiles,L"");
+	oVFSProps.getStringListProperty(L"vfs_config",L"PROFILES",lProfiles,L"");
 	if(lProfiles.empty())
 	{
 		LOG(_LOG << " ERROR");
@@ -59,38 +60,38 @@ bool InitVirtualFileSystem(CPropertyContainer& oVFSProps)
 	{
 		LOG(_LOG << " OK");
 	}
-	LOG(_LOG.Endl() << "  profiles to read : ");
+	LOG(_LOG.endl() << "  profiles to read : ");
 	std::list<utf8string>::const_iterator cit_profiles = lProfiles.begin();
 	for(; cit_profiles != lProfiles.end(); ++cit_profiles)
 	{
 		LOG(_LOG << (*cit_profiles) << ", ");
 	}
-	LOG(_LOG.Endl());
+	LOG(_LOG.endl());
 	
 	std::list<utf8string>::const_iterator prof_cit = lProfiles.begin();
 	for(; prof_cit != lProfiles.end(); ++prof_cit)
 	{
-		LOG(_LOG.Endl() << "  reading profile [");
+		LOG(_LOG.endl() << "  reading profile [");
 		utf8string sProfSection = utf8string("PROFILE_") + utf8string(*prof_cit);
-		utf8string sProfName = oVFSProps.GetStringProperty(sProfSection,L"NAME",L"");
+		utf8string sProfName = oVFSProps.getStringProperty(sProfSection,L"NAME",L"");
 		LOG(_LOG << sProfName << "] .. ");
 
-		vfs::Path profileRoot = oVFSProps.GetStringProperty(sProfSection,L"PROFILE_ROOT",L"");
+		vfs::Path profileRoot = oVFSProps.getStringProperty(sProfSection,L"PROFILE_ROOT",L"");
 		
 		lLocSections.clear();
-		oVFSProps.GetStringListProperty(sProfSection,L"LOCATIONS",lLocSections,L"");
+		oVFSProps.getStringListProperty(sProfSection,L"LOCATIONS",lLocSections,L"");
 
 		LOG(_LOG << "OK");
-		LOG(_LOG.Endl() << "  locations to read : ");
+		LOG(_LOG.endl() << "  locations to read : ");
 		std::list<utf8string>::const_iterator cit_locations = lLocSections.begin();
 		for(; cit_locations != lLocSections.end(); ++cit_locations)
 		{
 			LOG(_LOG << (*cit_locations) << ", ");
 		}
-		LOG(_LOG.Endl().Endl());
+		LOG(_LOG.endl().endl());
 
 		std::list<utf8string>::iterator loc_it = lLocSections.begin();
-		bool bIsWriteable = oVFSProps.GetBoolProperty(sProfSection,L"WRITE",false);
+		bool bIsWritable = oVFSProps.getBoolProperty(sProfSection,L"WRITE",false);
 		for(; loc_it != lLocSections.end(); ++loc_it)
 		{
 			LOG(_LOG << "    reading location [ ");
@@ -98,10 +99,10 @@ bool InitVirtualFileSystem(CPropertyContainer& oVFSProps)
 			vfs::Path sLocPath, sLocMountPoint;
 			utf8string sLocType;
 			
-			sLocPath = oVFSProps.GetStringProperty(sLocSection,"PATH","");
-			sLocMountPoint = oVFSProps.GetStringProperty(sLocSection,L"MOUNT_POINT",L"");
-			sLocType = oVFSProps.GetStringProperty(sLocSection,L"TYPE",L"NOT_FOUND");
-			bool bOptional = oVFSProps.GetBoolProperty(sLocSection,L"OPTIONAL",false);
+			sLocPath = oVFSProps.getStringProperty(sLocSection,"PATH","");
+			sLocMountPoint = oVFSProps.getStringProperty(sLocSection,L"MOUNT_POINT",L"");
+			sLocType = oVFSProps.getStringProperty(sLocSection,L"TYPE",L"NOT_FOUND");
+			bool bOptional = oVFSProps.getBoolProperty(sLocSection,L"OPTIONAL",false);
 			if(StrCmp::Equal(sLocType,L"LIBRARY"))
 			{
 				LOG(_LOG << sLocType << " | " << (*loc_it) << " ] .. ");
@@ -109,20 +110,20 @@ bool InitVirtualFileSystem(CPropertyContainer& oVFSProps)
 				bool bOwnFile = false;
 				if(!sLocPath.empty())
 				{
-					pLibFile = vfs::tReadableFile::Cast( new vfs::CFile(profileRoot + sLocPath) );
+					pLibFile = vfs::tReadableFile::cast( new vfs::CFile(profileRoot + sLocPath) );
 					bOwnFile = true;
 				}
 				if(!pLibFile)
 				{
-					sLocPath = oVFSProps.GetStringProperty(sLocSection,L"VFS_PATH",L"");
+					sLocPath = oVFSProps.getStringProperty(sLocSection,L"VFS_PATH",L"");
 					if(!sLocPath.empty())
 					{
-						pLibFile = pVirtFileSys->GetRFile(profileRoot + sLocPath);
+						pLibFile = pVirtFileSys->getReadFile(profileRoot + sLocPath);
 					}
 				}
 				if(pLibFile)
 				{
-					utf8string full_str = pLibFile->GetFileName()();
+					utf8string full_str = pLibFile->getName()();
 					utf8string ext = full_str.c_wcs().substr(full_str.length()-3,3);
 					vfs::ILibrary *pLib = NULL;
 					if(StrCmp::Equal(ext,L"slf"))
@@ -135,58 +136,68 @@ bool InitVirtualFileSystem(CPropertyContainer& oVFSProps)
 					}
 					else
 					{
-						LOG(_LOG << "ERROR" << CLog::endl);
-						utf8string::str_t s = L"File [" + utf8string(sLocPath()).c_wcs() + L"] in not an SLF or 7z library";
-						THROWEXCEPTION(s.c_str());
-						return false;
+						LOG(_LOG << "ERROR" << CLog::ENDL);
+						THROWEXCEPTION(BuildString().add(L"File [").add(sLocPath).add(L"] in not an SLF or 7z library").get());
 					}
-					if(!pLib->Init())
+					if(!pLib->init())
 					{
 						if(!bOptional)
 						{
-							LOG(_LOG << "ERROR" << CLog::endl);
-							//std::cout << "ERROR : library initialization failed [ " << full_str << " ]" << std::endl;
-							std::wstring s = L"Could not initialize library [ " + sLocPath().c_wcs()
-								+ L" ] in : profile [ " + utf8string(sProfName).c_wcs()
-								+ L" ], location [ " + (*loc_it).c_wcs()
-								+ L" ], path [ " + (profileRoot + sLocPath)().c_wcs() + L" ]";
-							THROWEXCEPTION(s.c_str());
-							return false;
+							LOG(_LOG << "ERROR" << CLog::ENDL);
+							BuildString bs;
+							bs.add(L"Could not initialize library [").add(sLocPath).add(L" ]").add(
+								L" in : profile [ ").add(sProfName).add(L" ],").add(
+								L" location [ ").add((*loc_it)).add(L" ],").add(
+								L" path [ ").add((profileRoot + sLocPath)).add(L" ]");
+							THROWEXCEPTION(bs.get());
 						}
-						LOG(_LOG << "optional library ignored" << CLog::endl);
+						LOG(_LOG << "optional library ignored" << CLog::ENDL);
 					}
 					else
 					{
-						LOG(_LOG << "OK" << CLog::endl);
+						LOG(_LOG << "OK" << CLog::ENDL);
 					}
-					pVirtFileSys->AddLocation(vfs::tReadLocation::Cast(pLib), sProfName, bIsWriteable);
+					pVirtFileSys->addLocation(vfs::tReadLocation::cast(pLib), sProfName, bIsWritable);
 				}
 				else
 				{
-					LOG(_LOG << "ERROR" << CLog::endl);
+					LOG(_LOG << "ERROR" << CLog::ENDL);
 					THROWEXCEPTION(L"File not found");
 				}
 			}
 			else if(StrCmp::Equal(sLocType,L"DIRECTORY"))
 			{
 				LOG(_LOG << sLocType << " | " << (*loc_it) << " ] .. ");
-				vfs::CDirectoryTree *pDirTree = new vfs::CDirectoryTree(sLocMountPoint,profileRoot + sLocPath);
-				if(!pDirTree->Init())
+				vfs::IBaseLocation *pDirLocation = NULL;
+				bool init_success = false;
+				if(bIsWritable)
 				{
-					LOG(_LOG << "ERROR" << CLog::endl);
-					std::wstring s = L"Could not initialize directory [\"" + sLocPath().c_wcs()
-						+ L"\"] in : profile [\"" + utf8string(sProfName).c_wcs()
-						+ L"\"], location [\"" + (*loc_it).c_wcs()
-						+ L"\"], path [\"" + (profileRoot + sLocPath)().c_wcs() + L"\"]";
-					THROWEXCEPTION(s.c_str());
-					return false;
+					vfs::CDirectoryTree *pDirTree = new vfs::CDirectoryTree(sLocMountPoint,profileRoot + sLocPath);
+					init_success = pDirTree->init();
+					pDirLocation = pDirTree;
 				}
-				pVirtFileSys->AddLocation(vfs::tReadLocation::Cast(pDirTree),sProfName,bIsWriteable);
-				LOG(_LOG << "OK" << CLog::endl);
+				else
+				{
+					vfs::CReadOnlyDirectoryTree *pDirTree = new vfs::CReadOnlyDirectoryTree(sLocMountPoint,profileRoot + sLocPath);
+					init_success = pDirTree->init();
+					pDirLocation = pDirTree;
+				}
+				if(!init_success)
+				{
+					LOG(_LOG << "ERROR" << CLog::ENDL);
+					BuildString bs;
+					bs.add(L"Could not initialize directory [\"").add(sLocPath).add(L"\"]").add(
+						L" in : profile [\"").add(sProfName).add(L"\"],").add(
+						L" location [\"").add((*loc_it)).add(L"\"],").add(
+						L" path [\"").add(profileRoot + sLocPath).add(L"\"]");
+					THROWEXCEPTION(bs.get());
+				}
+				pVirtFileSys->addLocation(pDirLocation,sProfName,bIsWritable);
+				LOG(_LOG << "OK" << CLog::ENDL);
 			}
 			else
 			{
-				LOG(_LOG << "]" << CLog::endl);
+				LOG(_LOG << "]" << CLog::ENDL);
 			}
 			//else if( sLocType == "NOT_FOUND")
 			//{
@@ -195,35 +206,33 @@ bool InitVirtualFileSystem(CPropertyContainer& oVFSProps)
 			//	THROWEXCEPTION(wss.str().c_str());
 			//}
 		}
-		if(bIsWriteable)
+		if(bIsWritable)
 		{
-			vfs::CProfileStack *pPS = pVirtFileSys->GetProfileStack();
-			vfs::CVirtualProfile *pProf = pPS->GetProfile(sProfName);
+			vfs::CProfileStack *pPS = pVirtFileSys->getProfileStack();
+			vfs::CVirtualProfile *pProf = pPS->getProfile(sProfName);
 			if(!pProf)
 			{
 				pProf = new vfs::CVirtualProfile(sProfName,true);
-				pPS->PushProfile(pProf);
+				pPS->pushProfile(pProf);
 			}
-			else if(!pProf->Writeable)
+			else if(!pProf->cWritable)
 			{
 				std::wstringstream wss;
-				wss << L"Profile [" << sProfName << L"] is supposed to be writeable!";
+				wss << L"Profile [" << sProfName << L"] is supposed to be writable!";
 				THROWEXCEPTION(wss.str().c_str());
 			}
-			InitWriteProfile(*pProf, profileRoot);
+			initWriteProfile(*pProf, profileRoot);
 		}
 	}
-	LOG(_LOG.Endl() << "VFS successfully initialized" << CLog::endl);
-
+	LOG(_LOG.endl() << "VFS successfully initialized" << CLog::ENDL);
 	return true;
 }
 
-bool InitWriteProfile(vfs::CVirtualProfile &rProf, vfs::Path const& profileRoot)
+bool initWriteProfile(vfs::CVirtualProfile &rProf, vfs::Path const& profileRoot)
 {
-	typedef vfs::IDirectory<vfs::IWriteable> tWDir;
+	typedef vfs::TDirectory<vfs::IWritable> tWDir;
 	tWDir *pDir = NULL;
-	vfs::CDirectoryTree *pDirTree = NULL;
-	vfs::IBaseLocation *pLoc = rProf.GetLocation(vfs::Path(vfs::Const::EMPTY()));
+	vfs::IBaseLocation *pLoc = rProf.getLocation(vfs::Path(vfs::Const::EMPTY()));
 	if(pLoc)
 	{
 		pDir = dynamic_cast<tWDir*>(pLoc);
@@ -232,11 +241,11 @@ bool InitWriteProfile(vfs::CVirtualProfile &rProf, vfs::Path const& profileRoot)
 	{
 		vfs::CDirectoryTree *pDirTree = NULL;
 		pDirTree = new vfs::CDirectoryTree(vfs::Path(vfs::Const::EMPTY()),profileRoot);
-		if(!pDirTree->Init())
+		if(!pDirTree->init())
 		{
 			return false;
 		}
-		GetVFS()->AddLocation(pDirTree,rProf.Name,true);
+		getVFS()->addLocation(pDirTree,rProf.cName,true);
 		pDir = pDirTree;
 	}
 	return pDir != NULL;

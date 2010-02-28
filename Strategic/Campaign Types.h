@@ -422,8 +422,8 @@ typedef struct SECTORINFO
 										//throught the sector without entering it.
 	INT8	bNameId;
 	INT8	bUSUSED;	
-	INT8	bBloodCats;					// Actual number of bloodcats existing on this map.
-	INT8	bBloodCatPlacements;		// "Maximum" potential bloodcats that can appear on this map.
+	INT8	bBloodCats;
+	INT8	bBloodCatPlacements;
 	INT8	UNUSEDbSAMCondition;
 
 	UINT8	ubTravelRating;				//Represents how travelled a sector is.	Typically, the higher the travel rating,

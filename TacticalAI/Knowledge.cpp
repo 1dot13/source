@@ -12,7 +12,7 @@
 	#include "Soldier macros.h"
 #endif
 
-void CallAvailableEnemiesTo( INT16 sGridNo )
+void CallAvailableEnemiesTo( INT32 sGridNo )
 {
 	INT32	iLoop;
 	INT32	iLoop2;
@@ -28,7 +28,7 @@ void CallAvailableEnemiesTo( INT16 sGridNo )
 			if (!(gTacticalStatus.Team[iLoop].bHuman) && (iLoop != CIV_TEAM))
 			{
 				// make this team (publicly) aware of the "noise"
-				gsPublicNoiseGridno[iLoop] = sGridNo;
+				gsPublicNoiseGridNo[iLoop] = sGridNo;
 				gubPublicNoiseVolume[iLoop] = MAX_MISC_NOISE_DURATION;
 
 				// new situation for everyone;
@@ -49,7 +49,7 @@ void CallAvailableEnemiesTo( INT16 sGridNo )
 	}
 }
 
-void CallAvailableTeamEnemiesTo( INT16 sGridno, INT8 bTeam )
+void CallAvailableTeamEnemiesTo( INT32 sGridNo, INT8 bTeam )
 {
 	INT32	iLoop2;
 	SOLDIERTYPE * pSoldier;
@@ -62,7 +62,7 @@ void CallAvailableTeamEnemiesTo( INT16 sGridno, INT8 bTeam )
 		if (!(gTacticalStatus.Team[bTeam].bHuman) && (bTeam != CIV_TEAM))
 		{
 			// make this team (publicly) aware of the "noise"
-			gsPublicNoiseGridno[bTeam] = sGridno;
+			gsPublicNoiseGridNo[bTeam] = sGridNo;
 			gubPublicNoiseVolume[bTeam] = MAX_MISC_NOISE_DURATION;
 
 			// new situation for everyone;
@@ -80,7 +80,7 @@ void CallAvailableTeamEnemiesTo( INT16 sGridno, INT8 bTeam )
 	}
 }
 
-void CallAvailableKingpinMenTo( INT16 sGridNo )
+void CallAvailableKingpinMenTo( INT32 sGridNo )
 {
 	// like call all enemies, but only affects civgroup KINGPIN guys with
 	// NO PROFILE
@@ -93,7 +93,7 @@ void CallAvailableKingpinMenTo( INT16 sGridNo )
 	if (gTacticalStatus.Team[CIV_TEAM].bTeamActive)
 	{
 		// make this team (publicly) aware of the "noise"
-		gsPublicNoiseGridno[CIV_TEAM] = sGridNo;
+		gsPublicNoiseGridNo[CIV_TEAM] = sGridNo;
 		gubPublicNoiseVolume[CIV_TEAM] = MAX_MISC_NOISE_DURATION;
 
 		// new situation for everyone...
@@ -109,7 +109,7 @@ void CallAvailableKingpinMenTo( INT16 sGridNo )
 	}
 }
 
-void CallEldinTo( INT16 sGridNo )
+void CallEldinTo( INT32 sGridNo )
 {
 	// like call all enemies, but only affects Eldin
 	SOLDIERTYPE * pSoldier;
@@ -150,24 +150,24 @@ void CallEldinTo( INT16 sGridNo )
 }
 
 
-INT16 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN * pfClimbingNecessary, BOOLEAN * pfReachable )
+INT32 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN * pfClimbingNecessary, BOOLEAN * pfReachable )
 {
 	UINT32 uiLoop;
 	INT8 * pbPersOL, * pbPublOL;
-	INT16 *psLastLoc,*psNoiseGridNo;
+	INT32 *psLastLoc,*psNoiseGridNo;
 	INT8 * pbNoiseLevel;
 	INT8 *pbLastLevel;
 	UINT8 *pubNoiseVolume;
 	INT32 iDistAway;
 	INT32	iNoiseValue, iBestValue = -10000;
-	INT16 sBestGridNo = NOWHERE;
+	INT32 sBestGridNo = NOWHERE;
 	INT8	bBestLevel = 0;
-	INT16 sClimbingGridNo;
+	INT32 sClimbingGridNo;
 	BOOLEAN fClimbingNecessary = FALSE;
 	SOLDIERTYPE * pTemp;
 
 	pubNoiseVolume = &gubPublicNoiseVolume[pSoldier->bTeam];
-	psNoiseGridNo = &gsPublicNoiseGridno[pSoldier->bTeam];
+	psNoiseGridNo = &gsPublicNoiseGridNo[pSoldier->bTeam];
 	pbNoiseLevel = &gbPublicNoiseLevel[pSoldier->bTeam];
 
 	psLastLoc = gsLastKnownOppLoc[pSoldier->ubID];
@@ -226,8 +226,8 @@ INT16 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 
 	}
 
-	// if any "misc. noise" was also heard recently
-	if (pSoldier->aiData.sNoiseGridno != NOWHERE)
+	// if any "misc. noise" was also heard recently	
+	if (!TileIsOutOfBounds(pSoldier->aiData.sNoiseGridno))
 	{
 		if ( pSoldier->bNoiseLevel != pSoldier->pathing.bLevel || PythSpacesAway( pSoldier->sGridNo, pSoldier->aiData.sNoiseGridno ) >= 6 || SoldierTo3DLocationLineOfSightTest( pSoldier, pSoldier->aiData.sNoiseGridno, pSoldier->bNoiseLevel, 0, FALSE, NO_DISTANCE_LIMIT ) == 0 )
 		{
@@ -253,9 +253,8 @@ INT16 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 
 	// if any recent PUBLIC "misc. noise" is also known
 	if ( (pSoldier->bTeam != CIV_TEAM) || ( pSoldier->ubCivilianGroup == KINGPIN_CIV_GROUP ) )
-	{
-
-		if (*psNoiseGridNo != NOWHERE)
+	{		
+		if (!TileIsOutOfBounds(*psNoiseGridNo))
 		{
 			// if we are NOT there (at the noise gridno)
 			if ( *pbNoiseLevel != pSoldier->pathing.bLevel || PythSpacesAway( pSoldier->sGridNo, *psNoiseGridNo ) >= 6 || SoldierTo3DLocationLineOfSightTest( pSoldier, *psNoiseGridNo, *pbNoiseLevel, 0, FALSE, NO_DISTANCE_LIMIT ) == 0 )
@@ -274,8 +273,8 @@ INT16 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 		}
 
 	}
-
-	if (sBestGridNo != NOWHERE && pfReachable )
+	
+	if (!TileIsOutOfBounds(sBestGridNo) && pfReachable )
 	{
 		*pfReachable = TRUE;
 
@@ -300,8 +299,8 @@ INT16 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 			// of where we have to climb to instead
 			sClimbingGridNo = GetInterveningClimbingLocation( pSoldier, sBestGridNo, bBestLevel, &fClimbingNecessary );
 			if ( fClimbingNecessary )
-			{
-				if ( sClimbingGridNo == NOWHERE )
+			{				
+				if (TileIsOutOfBounds(sClimbingGridNo))
 				{
 					// can't investigate!
 					*pfReachable = FALSE;
@@ -329,8 +328,8 @@ INT16 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 		*pfClimbingNecessary = fClimbingNecessary;
 	}
 
-#ifdef DEBUGDECISIONS
-	if (sBestGridNo != NOWHERE)
+#ifdef DEBUGDECISIONS	
+	if (!TileIsOutOfBounds(sBestGridNo))
 		AINumMessage("MOST IMPORTANT NOISE HEARD FROM GRID #",sBestGridNo);
 #endif
 

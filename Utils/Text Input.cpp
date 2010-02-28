@@ -281,7 +281,7 @@ void AddTextInputField( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, IN
 	if( szInitText )
 	{
 		pNode->ubStrLen = (UINT8)wcslen( szInitText );
-		Assert( pNode->ubStrLen <= ubMaxChars );//dnl Warning if filename is longer this will throw assertion, need to be consider in future!!!
+		Assert( pNode->ubStrLen <= ubMaxChars );
 		swprintf( pNode->szString, szInitText );
 	}
 	else
@@ -1093,37 +1093,33 @@ void HandleExclusiveInput( UINT32 uiKey )
 	}
 }
 
-void AddChar( UINT32 uiKey )
+//dnl ch39 180909
+void AddChar(UINT32 uiKey)
 {
-	PlayJA2Sample( ENTERING_TEXT, RATE_11025, BTNVOLUME, 1, MIDDLEPAN );
-	if( gpActive->ubStrLen >= gpActive->ubMaxChars )
-	{	//max length reached.	Just replace the last character with new one.
-/*dnl this part has no sense and is wrong escpecially when you insert characters then last was always replace
-		gpActive->ubStrLen = gpActive->ubMaxChars;
-		gpActive->szString[ gpActive->ubStrLen-1 ] = (UINT16)uiKey;
-		gpActive->szString[ gpActive->ubStrLen ] = '\0';
-*/
+	PlayJA2Sample(ENTERING_TEXT, RATE_11025, BTNVOLUME, 1, MIDDLEPAN);
+	if(gpActive->ubStrLen >= gpActive->ubMaxChars)
 		return;
-	}
-	else if( gubCursorPos == gpActive->ubStrLen )
-	{ //add character to end
-		gpActive->szString[ gpActive->ubStrLen ] = (UINT16)uiKey;
-		gpActive->szString[ gpActive->ubStrLen + 1 ] = '\0';
+	else if(gubCursorPos == gpActive->ubStrLen)
+	{
+		// Add character to end
+		gpActive->szString[gpActive->ubStrLen] = (UINT16)uiKey;
+		gpActive->szString[gpActive->ubStrLen+1] = L'\0';
 		gpActive->ubStrLen++;
 		gubCursorPos = gpActive->ubStrLen;
 	}
 	else
-	{ //insert character after cursor
+	{
+		// Insert character after cursor
 		INT16 sChar;
-		sChar = (INT16)gpActive->ubStrLen;//dnl sChar = (INT16)(gpActive->ubStrLen + 1); disbanded because was lead into heap breach detected by debugger because gpActive->szString[ sChar + 1 ] was always overlap 2 bytes out of allocation region
-		while( sChar >= gubCursorPos )
+		sChar = (INT16)gpActive->ubStrLen;
+		while(sChar >= gubCursorPos)
 		{
-			gpActive->szString[ sChar + 1 ] = gpActive->szString[ sChar ];
+			gpActive->szString[sChar+1] = gpActive->szString[sChar];
 			sChar--;
 		}
-		gpActive->szString[ gubCursorPos ] = (UINT16)uiKey;
+		gpActive->szString[gubCursorPos] = (UINT16)uiKey;
 		gpActive->ubStrLen++;
-		gpActive->szString[ gpActive->ubStrLen ] = '\0';//dnl
+		gpActive->szString[gpActive->ubStrLen] = L'\0';
 		gubCursorPos++;
 	}
 }
@@ -1328,10 +1324,14 @@ void RenderActiveTextField()
 	if ( strPixLen > regionXLen )
 	{
 		// if the cursor is left of the visible position
-		if (gubCursorPos < gubParkingPos)
+		if (gubCursorPos <= gubParkingPos)
 		{
 			// shift the visible string left
 			gubParkingPos = gubCursorPos;
+			//dnl ch39 190909
+			UINT16 visPixLengthToCursor = 0;
+			while(visPixLengthToCursor < (3*regionXLen/4) && gubParkingPos > 0)
+				visPixLengthToCursor = SubstringPixLength(gpActive->szString, --gubParkingPos, gubCursorPos, pColors->usFont);
 		}
 		// if the cursor is right of the visible position
 		else if (gubCursorPos > gubParkingPos)
@@ -1353,13 +1353,19 @@ void RenderActiveTextField()
 				gubParkingPos += j + 1;
 			}
 		}
-		
 		scrollCursorPos = gubCursorPos - gubParkingPos; // set the relative cursor position (for drawing only)
-		scrollStrLen = gpActive->ubStrLen - gubParkingPos;
+		//dnl ch39 190909
+		scrollStrLen = gpActive->ubStrLen;
+		while(scrollStrLen > gubParkingPos && SubstringPixLength(gpActive->szString, gubParkingPos, scrollStrLen, pColors->usFont) > (gpActive->region.RegionBottomRightX-gpActive->region.RegionTopLeftX))
+			--scrollStrLen;
+		scrollStrLen -= gubParkingPos;
+		while(gubCursorPos > (gubParkingPos + scrollStrLen))
+			++scrollStrLen;
 		memcpy(scrollStr,&gpActive->szString[gubParkingPos], scrollStrLen*sizeof(CHAR16));
 	}
 	else
 	{
+		gubParkingPos = 0;//dnl ch39 190909
 		scrollCursorPos = gubCursorPos;
 		scrollStrLen = gpActive->ubStrLen;
 		memcpy(scrollStr,gpActive->szString, scrollStrLen*sizeof(CHAR16));
@@ -1374,6 +1380,8 @@ void RenderActiveTextField()
 		if( gubStartHilite < gubEndHilite )
 		{
 			// translate hilite positions into the shifted string
+			if(gubStartHilite < gubParkingPos)//dnl ch39 190909
+				gubStartHilite = gubParkingPos;
 			usStart = gubStartHilite - gubParkingPos;
 			usEnd = gubEndHilite - gubParkingPos;
 		}

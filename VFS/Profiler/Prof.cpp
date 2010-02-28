@@ -5,25 +5,20 @@
 #include "../File/vfs_file.h"
 #include <sstream>
 
-CProf* g_Profiler = NULL;
-
 class CProfileStarter
 {
 public:
 	CProfileStarter()
 	{
-		CProf::GetProf();
+		CProf::getProf();
 	}
 };
 static CProfileStarter starter;
 
-CProf* CProf::GetProf()
+CProf& CProf::getProf()
 {
-	if(!g_Profiler)
-	{
-		g_Profiler = new CProf();
-	}
-	return g_Profiler;
+	static CProf* _prof = new CProf;
+	return *_prof;
 }
 
 CProf::CProf()
@@ -32,7 +27,7 @@ CProf::CProf()
 	_nextMarker = 0;
 }
 
-void CProf::Clear()
+void CProf::clear()
 {
 	for(unsigned int i = 0; i < _nextMarker; ++i)
 	{
@@ -46,27 +41,27 @@ void CProf::Clear()
 }
 
 
-CProf::tMarkerID CProf::RegisterMarker(const char *marker)
+CProf::tMarkerID CProf::registerMarker(const char *marker)
 {
 	m_vMarker[_nextMarker].markername = marker;
 	return _nextMarker++;
 }
 
-void CProf::StartMarker(tMarkerID id)
+void CProf::startMarker(tMarkerID id)
 {
-	m_vMarker[id].timer.StartTimer();
+	m_vMarker[id].timer.startTimer();
 }
 
-void CProf::StopMarker(tMarkerID id, bool success)
+void CProf::stopMarker(tMarkerID id, bool success)
 {
-	m_vMarker[id].timer.StopTimer();
-	m_vMarker[id].time += m_vMarker[id].timer.GetElapsedTimeInSeconds();
+	m_vMarker[id].timer.stopTimer();
+	m_vMarker[id].time += m_vMarker[id].timer.getElapsedTimeInSeconds();
 	m_vMarker[id].call_count++;
 	if(success) m_vMarker[id].success_count++;
 	else m_vMarker[id].fail_count++;
 }
 
-inline std::string MultChar(std::string::value_type c, unsigned int multiplicity)
+inline std::string multChar(std::string::value_type c, unsigned int multiplicity)
 {
 	std::string s;
 	s.resize(multiplicity);
@@ -88,16 +83,16 @@ inline long double oneDigit(long double number)
 	return (temp / 10.0);
 }
 
-bool CProf::PrintProfilerState(vfs::Path const& file)
+bool CProf::printProfilerState(vfs::Path const& file)
 {
 	vfs::CFile oFile(file);
-	if(!oFile.OpenWrite(true,true))
+	if(!oFile.openWrite(true,true))
 	{
 		return false;
 	}
 	// get largest value
 	long double max_time = 0;
-	unsigned int max_prefix = 0;
+	std::string::size_type max_prefix = 0;
 	for(unsigned int i=0; i<m_vMarker.size(); ++i)
 	{
 		if(m_vMarker[i].time > max_time)
@@ -122,7 +117,7 @@ bool CProf::PrintProfilerState(vfs::Path const& file)
 		if(m_vMarker[i].markername.length() < WIDTH)
 		{
 			unsigned int space = WIDTH - m_vMarker[i].markername.length();
-			line << m_vMarker[i].markername << MultChar(' ',space) << " | ";
+			line << m_vMarker[i].markername << multChar(' ',space) << " | ";
 		}
 		else
 		{
@@ -134,15 +129,19 @@ bool CProf::PrintProfilerState(vfs::Path const& file)
 			ld_success = perCent(m_vMarker[i].success_count,m_vMarker[i].call_count);
 			ld_failure = perCent(m_vMarker[i].fail_count,m_vMarker[i].call_count);
 			line << "[" << oneDigit(ld_success)	 << "|" << oneDigit(ld_failure) << "] " 
-				 << MultChar('*', num_stars) << MultChar(' ', WIDTH - num_stars) << " | ";
+				 << multChar('*', num_stars) << multChar(' ', WIDTH - num_stars) << " | ";
 		}
 		line << "C: " << m_vMarker[i].call_count << ", T: " << m_vMarker[i].time << std::endl;
 		//line << std::endl;
 	}
-	vfs::UInt32 written;
 	std::string useless_copy = line.str();
-	oFile.Write(useless_copy.c_str(), useless_copy.length()*sizeof(std::string::value_type),written);
-	oFile.Close();
+	oFile.write(useless_copy.c_str(), (vfs::size_t)(useless_copy.length()*sizeof(std::string::value_type)));
+	oFile.close();
 	return true;
+}
+
+void DumpProfileState(vfs::Path const& path)
+{
+	CProf::getProf().printProfilerState(path);
 }
 

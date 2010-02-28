@@ -44,7 +44,7 @@ extern BOOLEAN IsValidSecondHandShot( SOLDIERTYPE *pSoldier );
 
 INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState );
 
-INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT16 sGridno, INT8 bDir, INT8 bLevel )
+INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8 bLevel )
 {
 		INT16	sAPCost = 0;
 	INT16	sSwitchValue;
@@ -60,26 +60,26 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT16 sGridno, INT8 bDir, INT8
  //	switchValue = BackupGridCost[gridno];
  //else
 
-	sSwitchValue = gubWorldMovementCosts[sGridno][bDir][ bLevel ];
+  sSwitchValue = gubWorldMovementCosts[sGridNo][bDir][ bLevel ];
 
 	// Check reality vs what the player knows....
 	if ( pSoldier->bTeam == gbPlayerNum )
 	{
 		// Is this obstcale a hidden tile that has not been revealed yet?
-		if( DoesGridnoContainHiddenStruct( (INT16)sGridno, &fHiddenStructVisible ) )
+		if( DoesGridNoContainHiddenStruct( sGridNo, &fHiddenStructVisible ) )
 		{
 			// Are we not visible, if so use terrain costs!
 			if ( !fHiddenStructVisible )
 			{
 				// Set cost of terrain!
-				sSwitchValue = gTileTypeMovementCost[ gpWorldLevelData[ sGridno ].ubTerrainID ];
+				sSwitchValue = gTileTypeMovementCost[ gpWorldLevelData[ sGridNo ].ubTerrainID ];			
 			}
 		}
 	}
 	if ( sSwitchValue == TRAVELCOST_NOT_STANDING )
 	{
 		// use the cost of the terrain!
-		sSwitchValue = gTileTypeMovementCost[ gpWorldLevelData[ sGridno ].ubTerrainID ];
+		sSwitchValue = gTileTypeMovementCost[ gpWorldLevelData[ sGridNo ].ubTerrainID ];
 	}
 	else if (IS_TRAVELCOST_DOOR( sSwitchValue ))
 	{
@@ -88,11 +88,11 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT16 sGridno, INT8 bDir, INT8
 		{
 			return -1;
 		}
-		sSwitchValue = DoorTravelCost( pSoldier, sGridno, (UINT8) sSwitchValue, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), NULL );
+		sSwitchValue = DoorTravelCost( pSoldier, sGridNo, (UINT8) sSwitchValue, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), NULL );
 	}
 	else if (gfPlotPathToExitGrid && sSwitchValue == TRAVELCOST_EXITGRID)
 	{
-		sSwitchValue = gTileTypeMovementCost[ gpWorldLevelData[ sGridno ].ubTerrainID ];
+		sSwitchValue = gTileTypeMovementCost[ gpWorldLevelData[ sGridNo ].ubTerrainID ];
 	}
 
 	if (sSwitchValue >= TRAVELCOST_BLOCKED && sSwitchValue != TRAVELCOST_DOOR )
@@ -219,12 +219,12 @@ INT16 BreathPointAdjustmentForCarriedWeight( SOLDIERTYPE * pSoldier )
 }
 
 
-INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT16 sGridno,INT8 bDir, UINT16 usMovementMode)
+INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode)
 {
  INT32 iPoints=0;
  UINT8 ubMovementCost;
 
-	ubMovementCost = gubWorldMovementCosts[sGridno][bDir][0];
+	ubMovementCost = gubWorldMovementCosts[sGridNo][bDir][0];
 
  switch( ubMovementCost )
  {
@@ -257,9 +257,9 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT16 sGridno,INT8 bDir, UINT1
 	iPoints = iPoints * BreathPointAdjustmentForCarriedWeight( pSoldier ) / 100;
 
 	// ATE - MAKE MOVEMENT ALWAYS WALK IF IN WATER
-	if ( TERRAIN_IS_WATER( gpWorldLevelData[ sGridno ].ubTerrainID) )
+	if ( TERRAIN_IS_WATER( gpWorldLevelData[ sGridNo ].ubTerrainID) )
 	{
-	usMovementMode = WALKING;
+		usMovementMode = WALKING;
 	}
 
 	// so, then we must modify it for other movement styles and accumulate
@@ -298,7 +298,7 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT16 sGridno,INT8 bDir, UINT1
 }
 
 
-INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, UINT16 usMovementMode )
+INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode )
 {
 	INT16 sTileCost, sPoints, sSwitchValue;
 
@@ -310,6 +310,8 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, UINT16 u
 	{
 		return 100;
 	}
+
+
 
 	// Get switch value...
 	sSwitchValue = gubWorldMovementCosts[ sGridNo ][ bDir ][ pSoldier->pathing.bLevel ];
@@ -398,7 +400,7 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, UINT16 u
 	return( sPoints );
 }
 
-INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, UINT16 usMovementMode, INT8 bPathIndex, INT8 bPathLength )
+INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode, INT8 bPathIndex, INT8 bPathLength )
 {
 	// This action point cost code includes the penalty for having to change
 	// stance after jumping a fence IF our path continues...
@@ -1101,13 +1103,13 @@ INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAu
 }
 
 
-INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost, INT16 bAimTime )
+INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, INT16 bAimTime )
 {
 	UINT16						sAPCost = 0;
 	UINT16						usItemNum;
-	INT16							sActionGridNo;
+	INT32 sActionGridNo;
 	UINT8							ubDirection;
-	INT16							sAdjustedGridNo;
+	INT32 sAdjustedGridNo;
 	UINT32						uiItemClass;
 	BOOLEAN	fAddingTurningCost = FALSE;
 	BOOLEAN	fAddingRaiseGunCost = FALSE;
@@ -1132,7 +1134,6 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 			if (gGameExternalOptions.fIncreasedAimingCost )
 			{
 				// HEADROCK HAM B2.6: Changed the number of APs to attack when aiming.
-				// HEADROCK HAM 3.1: Externalized the entire function to allow customization of each detail.
 				if (bAimTime > 0)
 				{
 					GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sGridNo, ubAddTurningCost, &fAddingTurningCost, &fAddingRaiseGunCost );
@@ -1141,7 +1142,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 						// HEADROCK HAM 3: No idea what should come here... For now I've put my extra gun-raise costs
 						// outside this IF (see below).
 					}
-
+					
 					// HEADROCK HAM 3: One-time penalty: Add part of the weapon's Ready AP cost. Reinstated because
 					// it's now externalized.
 					if (gGameExternalOptions.ubFirstAimReadyCostDivisor > 0)
@@ -1222,7 +1223,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 				//INT32		cnt;
 				//INT16		sSpot;
 				UINT8		ubGuyThere;
-				INT16		sGotLocation = NOWHERE;
+				INT32		sGotLocation = NOWHERE;
 				BOOLEAN	fGotAdjacent = FALSE;
 				SOLDIERTYPE	*pTarget;
 
@@ -1246,8 +1247,8 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 						sGotLocation = FindAdjacentPunchTarget( pSoldier, pTarget, &sAdjustedGridNo, &ubDirection );
 					}
 				}
-
-				if ( sGotLocation == NOWHERE && pSoldier->ubBodyType != BLOODCAT )
+				
+				if (TileIsOutOfBounds(sGotLocation) && pSoldier->ubBodyType != BLOODCAT )
 				{
 					sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 
@@ -1261,8 +1262,8 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 					}
 					fGotAdjacent = TRUE;
 				}
-
-				if ( sGotLocation != NOWHERE )
+				
+				if (!TileIsOutOfBounds(sGotLocation))
 				{
 					if (pSoldier->sGridNo == sGotLocation || !fGotAdjacent )
 					{
@@ -1308,7 +1309,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 	return( sAPCost );
 }
 
-INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT16 sGridno, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
+INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridno, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
 {
 	INT16						sAPCost = 0;
 	UINT32						uiItemClass;
@@ -1421,6 +1422,7 @@ INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj )
 	//{
 	//	Top *= 100;
 	//}
+
 	// WANNE : Fixed CTD that occurs when trowing item (grenade, throwing knife, ...)
 	// with open description box in tactical
 	INT16 baseAPsToShootOrStab = -1;
@@ -1434,15 +1436,15 @@ INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj )
 	return baseAPsToShootOrStab;
 }
 
-void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost, BOOLEAN *pfChargeTurning, BOOLEAN *pfChargeRaise )
+void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, BOOLEAN *pfChargeTurning, BOOLEAN *pfChargeRaise )
 {
 	UINT8 ubDirection;
 	UINT32	uiMercFlags;
 	UINT16	usTargID;
 	BOOLEAN	fAddingTurningCost = FALSE;
 	BOOLEAN	fAddingRaiseGunCost = FALSE;
-
-	if ( sGridNo != NOWHERE )
+	
+	if (!TileIsOutOfBounds(sGridNo))
 	{
 		// OK, get a direction and see if we need to turn...
 		if (ubAddTurningCost)
@@ -1532,7 +1534,7 @@ UINT16 CalculateRaiseGunCost(SOLDIERTYPE *pSoldier, BOOLEAN fAddingRaiseGunCost)
 	return usRaiseGunCost;
 }
 
-INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
+INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
 {
 	UINT32	uiMercFlags;
 	UINT16	usTargID;
@@ -1583,8 +1585,8 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurni
 	//charge for turn and/or raise based on the results of fAddingTurningCost & fAddingRaiseGunCost
 	bAPCost += (usTurningCost + usRaiseGunCost);
 
-
-	if ( sGridNo != NOWHERE )
+	
+	if (!TileIsOutOfBounds(sGridNo))
 	{
 		// Given a gridno here, check if we are on a guy - if so - get his gridno
 		if ( FindSoldier( sGridNo, &usTargID, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
@@ -1658,14 +1660,14 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurni
 }
 
 
-INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost)
+INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost)
 {
 	UINT8	bAPCost = 0;
 	UINT16 usTargID;
 	UINT8	ubDirection;
 
-	//	bAimSkill = ( pSoldier->stats.bDexterity + pSoldier->stats.bAgility) / 2;
-	if ( sGridNo != NOWHERE )
+	//	bAimSkill = ( pSoldier->stats.bDexterity + pSoldier->stats.bAgility) / 2;	
+	if (!TileIsOutOfBounds(sGridNo))
 	{
 		usTargID = WhoIsThere2( sGridNo, pSoldier->bTargetLevel );
 
@@ -1718,19 +1720,22 @@ INT16 MinPtsToMove(SOLDIERTYPE *pSoldier)
 	// look around all 8 directions and return lowest terrain cost
 	UINT8	cnt;
 	INT16	sLowest=127;
-	INT16	sGridno,sCost;
+	INT16	sCost;
+	INT32	sGridNo;
 
 	if ( TANK( pSoldier ) )
 	{
 		return( (INT8)sLowest);
 	}
 
-	for (cnt=0; cnt <= 8; cnt++)
+	// WANNE - BMP: FIX: Valid directions are only from 0-7!!
+	//for (cnt=0; cnt <= 8; cnt++)
+	for (cnt=0; cnt < 8; cnt++)
 	{
-		sGridno = NewGridNo(pSoldier->sGridNo,DirectionInc(cnt));
-		if (sGridno != pSoldier->sGridNo)
+    sGridNo = NewGridNo(pSoldier->sGridNo,DirectionInc(cnt));
+    if (sGridNo != pSoldier->sGridNo)
 			{
-			if ( (sCost=ActionPointCost( pSoldier, sGridno, cnt , pSoldier->usUIMovementMode ) ) < sLowest )
+       if ( (sCost=ActionPointCost( pSoldier, sGridNo, cnt , pSoldier->usUIMovementMode ) ) < sLowest )
 			{
 					sLowest = sCost;
 			}
@@ -1741,25 +1746,26 @@ INT16 MinPtsToMove(SOLDIERTYPE *pSoldier)
 
 INT8	PtsToMoveDirection(SOLDIERTYPE *pSoldier, INT8 bDirection )
 {
-	INT16	sGridno,sCost;
+	INT16	sCost;
+	INT32	sGridNo;
 	INT8	bOverTerrainType;
 	UINT16	usMoveModeToUse;
 
-	sGridno = NewGridNo( pSoldier->sGridNo, DirectionInc( bDirection ) );
+	sGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( bDirection ) );
 
 	usMoveModeToUse = pSoldier->usUIMovementMode;
 
 	// ATE: Check if the new place is watter and we were tying to run....
-	bOverTerrainType = GetTerrainType( sGridno );
+	bOverTerrainType = GetTerrainType( sGridNo );
 
 	if ( TERRAIN_IS_WATER( bOverTerrainType) )
 	{
 		usMoveModeToUse = WALKING;
 	}
 
-	sCost = ActionPointCost( pSoldier, sGridno, bDirection , usMoveModeToUse );
+  sCost = ActionPointCost( pSoldier, sGridNo, bDirection , usMoveModeToUse );
 
-	if ( gubWorldMovementCosts[ sGridno ][ bDirection ][ pSoldier->pathing.bLevel ] != TRAVELCOST_FENCE )
+	if ( gubWorldMovementCosts[ sGridNo ][ bDirection ][ pSoldier->pathing.bLevel ] != TRAVELCOST_FENCE )
 	{
 		if ( usMoveModeToUse == RUNNING && pSoldier->usAnimState != RUNNING )
 		{
@@ -1975,17 +1981,17 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, INT8 bInvPos )
 }
 
 
-INT16 GetAPsToPickupItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
+UINT16 GetAPsToPickupItem( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 {
 	ITEM_POOL					*pItemPool;
 	UINT16						sAPCost = 0;
-	INT16							sActionGridNo;
+	INT32 sActionGridNo;
 
 	// Check if we are over an item pool
-	if ( GetItemPool( sMapPos, &pItemPool, pSoldier->pathing.bLevel ) )
+	if ( GetItemPool( usMapPos, &pItemPool, pSoldier->pathing.bLevel ) )
 	{
 		// If we are in the same tile, just return pickup cost
-		sActionGridNo = AdjustGridNoForItemPlacement( pSoldier, sMapPos );
+		sActionGridNo = AdjustGridNoForItemPlacement( pSoldier, usMapPos );
 
 		if ( pSoldier->sGridNo != sActionGridNo )
 		{
@@ -2008,14 +2014,14 @@ INT16 GetAPsToPickupItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 }
 
 
-INT16 GetAPsToGiveItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
+UINT16 GetAPsToGiveItem( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 {
 	UINT16						sAPCost = 0;
 
-	sAPCost = PlotPath( pSoldier, sMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+	sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
 
 	// If point cost is zero, return 0
-	if ( sAPCost != 0 || pSoldier->sGridNo == sMapPos )
+	if ( sAPCost != 0 || pSoldier->sGridNo == usMapPos )
 	{
 		// ADD APS TO PICKUP
 		sAPCost += APBPConstants[AP_GIVE_ITEM];
@@ -2139,9 +2145,9 @@ INT16 GetAPsToAutoReload( SOLDIERTYPE * pSoldier )
 UINT16 GetAPsToReloadRobot( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pRobot )
 {
 	UINT16						sAPCost = 0;
-	INT16			 sActionGridNo;
+	INT32 sActionGridNo;
 	UINT8			 ubDirection;
-	INT16			 sAdjustedGridNo;
+	INT32 sAdjustedGridNo;
 
 	sActionGridNo = FindAdjacentGridEx( pSoldier, pRobot->sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 
@@ -2273,7 +2279,7 @@ INT16 GetAPsToLook( SOLDIERTYPE *pSoldier )
 BOOLEAN CheckForMercContMove( SOLDIERTYPE *pSoldier )
 {
 	INT16 sAPCost;
-	INT16	sGridNo;
+	INT32 sGridNo;
 
 	if ( !( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
@@ -2435,7 +2441,7 @@ INT16 GetAPsToRefuelVehicle( SOLDIERTYPE *pSoldier )
 //#define APBPConstants[AP_MAX_AIM_ATTACK]		4		// maximum permitted extra aiming
 
 
-INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost )
+INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost )
 {
 	INT32 iTop, iBottom;
 	INT32	iFullAPs;
@@ -2465,8 +2471,8 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCos
 			return(0);
 		}
 	}
-
-	if ( sGridNo != NOWHERE )
+	
+	if (!TileIsOutOfBounds(sGridNo))
 	{
 		// Given a gridno here, check if we are on a guy - if so - get his gridno
 		if ( FindSoldier( sGridNo, &usTargID, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
@@ -2548,7 +2554,7 @@ INT16 GetAPsToPlantMine( SOLDIERTYPE *pSoldier )
 	return( APBPConstants[AP_BURY_MINE] );
 }
 
-INT16 GetTotalAPsToDropBomb( SOLDIERTYPE *pSoldier, INT16 sGridNo )
+UINT16 GetTotalAPsToDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
 	INT16 sAPs = 0;
 
@@ -2573,13 +2579,13 @@ INT16 GetAPsToUseRemote( SOLDIERTYPE *pSoldier )
 }
 
 
-INT16 GetAPsToStealItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
+INT16 GetAPsToStealItem( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 {
 	INT16	sAPCost = 0;
 
-	if (sMapPos != -1)
+	if (usMapPos != -1)
 	{
-		sAPCost = PlotPath( pSoldier, sMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+		sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
 	}
 
 	// ADD APS TO PICKUP
@@ -2601,11 +2607,11 @@ INT16 GetBPsToStealItem( SOLDIERTYPE *pSoldier )
 }
 
 
-INT16 GetAPsToUseJar( SOLDIERTYPE *pSoldier, INT16 sMapPos )
+INT16 GetAPsToUseJar( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 {
 	INT16						sAPCost = 0;
 
-	sAPCost = PlotPath( pSoldier, sMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+	sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
 
 	// If point cost is zero, return 0
 	if ( sAPCost != 0 )
@@ -2618,11 +2624,11 @@ INT16 GetAPsToUseJar( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 
 }
 
-INT16 GetAPsToUseCan( SOLDIERTYPE *pSoldier, INT16 sMapPos )
+INT16 GetAPsToUseCan( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 {
 	INT16	sAPCost = 0;
 
-	sAPCost = PlotPath( pSoldier, sMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+	sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
 
 	// If point cost is zero, return 0
 	if ( sAPCost != 0 )

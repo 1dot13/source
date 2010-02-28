@@ -208,7 +208,7 @@ BOOLEAN DrawUICursor( );
 BOOLEAN HideUICursor( );
 
 
-extern UINT16	gusCurMousePos;
+extern UINT32	gusCurMousePos;
 
 UINT16 GetSnapCursorIndex( UINT16 usAdditionalData );
 

@@ -6,8 +6,8 @@
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="..\Utils;..\TileEngine;..\TacticalAI;..\Tactical;..\Strategic;&quot;..\Standard Gaming Platform&quot;;..\Res;..\lua;..\Laptop;..\Editor;..\;..\Console;$(NOINHERIT)"
-		PreprocessorDefinitions="JA2;CINTERFACE;XML_STATIC"
+		AdditionalIncludeDirectories="..\.;.\.;..\VFS;..\Utils;.\Utils;..\TileEngine;.\TileEngine;..\TacticalAI;.\TacticalAI;..\Tactical;.\Tactical;..\Strategic;.\Strategic;&quot;..\Standard Gaming Platform&quot;;&quot;.\Standard Gaming Platform&quot;;..\Res;.\Res;..\lua;.\lua;..\Laptop;.\Laptop;..\Multiplayer;.\Multiplayer;..\Multiplayer\raknet;.\Multiplayer\raknet;..\Editor;.\Editor;..\Console;.\Console;.\ext\7z;..\ext\7z;.\ext\libpng;..\ext\libpng;.\ext\zlib;..\ext\zlib;.\ext\utf8\source;..\ext\utf8\source;$(NOINHERIT)"
+		PreprocessorDefinitions="JA2;CINTERFACE;XML_STATIC;VFS_STATIC;USE_VFS;_CRT_SECURE_NO_DEPRECATE"
 		Detect64BitPortabilityProblems="false"
 	/>
 </VisualStudioPropertySheet>

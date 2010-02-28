@@ -11,30 +11,30 @@ CHPTimer::~CHPTimer()
 {
 }
 
-void CHPTimer::StartTimer()
+void CHPTimer::startTimer()
 {
 #ifdef WIN32
 	QueryPerformanceCounter(&tick);
-#elif LINUX
+#elif __linux__
 	gettimeofday(&t1,0);
 #endif
 
 }
 
-void CHPTimer::StopTimer()
+void CHPTimer::stopTimer()
 {
 #ifdef WIN32
 	QueryPerformanceCounter(&tick2);
-#elif LINUX
+#elif __linux__
 	gettimeofday(&t2,0);
 #endif
 }
 
-double CHPTimer::GetElapsedTimeInSeconds()
+double CHPTimer::getElapsedTimeInSeconds()
 {
 #ifdef WIN32
 	return (double)(tick2.QuadPart - tick.QuadPart)/(double)ticksPerSecond.QuadPart;
-#elif LINUX
+#elif __linux__
 	return (double)(t2.tv_usec - t1.tv_usec)/1000000.0;
 #endif
 }

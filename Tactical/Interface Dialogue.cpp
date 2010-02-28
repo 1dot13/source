@@ -86,8 +86,8 @@ class OBJECTTYPE;
 class SOLDIERTYPE;
 
 
-INT16	sBasementEnterGridNos[ ] = { 13362, 13363, 13364, 13365, 13525, 13524 };
-INT16	sBasementExitGridNos[ ] = { 8047, 8207, 8208, 8048, 7888, 7728, 7727, 7567 };
+INT32	sBasementEnterGridNos[ ] = { 13362, 13363, 13364, 13365, 13525, 13524 };
+INT32	sBasementExitGridNos[ ] = { 8047, 8207, 8208, 8048, 7888, 7728, 7727, 7567 };
 
 extern	UINT8		gubWaitingForAllMercsToExitCode;
 extern BOOLEAN fFoundTixa;
@@ -164,7 +164,7 @@ BOOLEAN InternalInitiateConversation( SOLDIERTYPE *pDestSoldier, SOLDIERTYPE *pS
 
 
 extern void EndGameMessageBoxCallBack( UINT8 ubExitValue );
-extern INT16 FindNearestOpenableNonDoor( INT16 sStartGridNo );
+extern INT32 FindNearestOpenableNonDoor( INT32 sStartGridNo );
 extern void RecalculateOppCntsDueToBecomingNeutral( SOLDIERTYPE * pSoldier );
 
 UINT8	ubTalkMenuApproachIDs[] =
@@ -347,7 +347,7 @@ BOOLEAN InternalInitiateConversation( SOLDIERTYPE *pDestSoldier, SOLDIERTYPE *pS
 }
 
 
-BOOLEAN InitTalkingMenu( UINT8 ubCharacterNum, INT16 sGridNo )
+BOOLEAN InitTalkingMenu( UINT8 ubCharacterNum, INT32 sGridNo )
 {
 	INT16							sXMapPos, sYMapPos, sScreenX, sScreenY;
 	INT16							sX, sY;
@@ -1358,9 +1358,9 @@ BOOLEAN	NPCTriggerNPC( UINT8 ubTargetNPC, UINT8 ubTargetRecord, UINT8 ubTargetAp
 }
 
 
-BOOLEAN	NPCGotoGridNo( UINT8 ubTargetNPC, INT16 sGridNo, UINT8 ubRecordNum )
+BOOLEAN	NPCGotoGridNo( UINT8 ubTargetNPC, INT32 usGridNo, UINT8 ubRecordNum )
 {
-	CHECKF( SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_GOTO_GRIDNO, ubTargetNPC, sGridNo, ubRecordNum, gTalkPanel.iFaceIndex, DIALOGUE_NPC_UI ) != FALSE );
+	CHECKF( SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_GOTO_GRIDNO, ubTargetNPC, usGridNo, ubRecordNum, gTalkPanel.iFaceIndex, DIALOGUE_NPC_UI ) != FALSE );
 
 	return( TRUE );
 }
@@ -1382,7 +1382,7 @@ BOOLEAN	NPCClosePanel( )
 
 BOOLEAN SourceSoldierPointerIsValidAndReachableForGive( SOLDIERTYPE * pGiver )
 {
-	INT16		sAdjGridNo;
+	INT32		sAdjGridNo;
 
 	if ( !gpSrcSoldier )
 	{
@@ -1529,7 +1529,7 @@ void HandleNPCTriggerNPC( UINT8 ubTargetNPC, UINT8 ubTargetRecord, BOOLEAN fShow
 void HandleNPCTrigger( )
 {
 	SOLDIERTYPE *pSoldier;
-	INT16				sPlayerGridNo;
+	INT32				sPlayerGridNo;
 	UINT8				ubPlayerID;
 
 	pSoldier = FindSoldierByProfileID( gubTargetNPC, FALSE );
@@ -1570,7 +1570,8 @@ void HandleNPCTrigger( )
 			else
 			{
 				sPlayerGridNo = ClosestPC( pSoldier, NULL );
-				if (sPlayerGridNo != NOWHERE )
+				
+				if (!TileIsOutOfBounds(sPlayerGridNo))
 				{
 					ubPlayerID = WhoIsThere2( sPlayerGridNo, 0 );
 					if (ubPlayerID != NOBODY)
@@ -1614,7 +1615,7 @@ void HandleWaitTimerForNPCTrigger( )
 
 
 
-void HandleNPCGotoGridNo( UINT8 ubTargetNPC, INT16 sGridNo, UINT8 ubQuoteNum )
+void HandleNPCGotoGridNo( UINT8 ubTargetNPC, INT32 usGridNo, UINT8 ubQuoteNum )
 {
 	SOLDIERTYPE			 *pSoldier;
 	// OK, Move to gridNo!
@@ -1647,7 +1648,7 @@ void HandleNPCGotoGridNo( UINT8 ubTargetNPC, INT16 sGridNo, UINT8 ubQuoteNum )
 	pSoldier->aiData.bNextAction = AI_ACTION_WALK;
 
 	// Set dest!
-	pSoldier->aiData.usNextActionData = sGridNo;
+	pSoldier->aiData.usNextActionData = usGridNo;
 
 	// UNless he's has a pending action, delete what he was doing!
 	// Cancel anything he was doing
@@ -1662,7 +1663,7 @@ void HandleNPCGotoGridNo( UINT8 ubTargetNPC, INT16 sGridNo, UINT8 ubQuoteNum )
 	pSoldier->ubQuoteActionID = ActionIDForMovementRecord( ubTargetNPC, ubQuoteNum );
 
 	// Set absolute dest
-	pSoldier->sAbsoluteFinalDestination = sGridNo;
+	pSoldier->sAbsoluteFinalDestination = usGridNo;
 
 	// handle this guy's AI right away so that we can get him moving
 	pSoldier->aiData.fAIFlags |= AI_HANDLE_EVERY_FRAME;
@@ -1755,7 +1756,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 	INT32										cnt;
 	SOLDIERTYPE			 *pSoldier, *pSoldier2;
 	INT8										bNumDone = 0;
-	INT16										sGridNo = NOWHERE, sAdjustedGridNo;
+	INT32 sGridNo = NOWHERE, sAdjustedGridNo;
 	INT8										bItemIn;
 	UINT8										ubDesiredMercDir;
 	EXITGRID								ExitGrid;
@@ -1799,7 +1800,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				ExitGrid.ubGotoSectorX = 10;
 				ExitGrid.ubGotoSectorY = 1;
 				ExitGrid.ubGotoSectorZ = 1;
-				ExitGrid.sGridNo = 12722;
+				ExitGrid.usGridNo = 12722;
 
 				ApplyMapChangesToMapTempFile( TRUE );
 				AddExitGridToWorld( 7887, &ExitGrid );
@@ -2243,7 +2244,8 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if (pSoldier)
 				{
 					sGridNo = ClosestPC( pSoldier, NULL );
-					if (sGridNo != NOWHERE)
+					
+					if (!TileIsOutOfBounds(sGridNo))
 					{
 						// see if we are facing this person
 						ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sGridNo),CenterY(sGridNo));
@@ -2371,7 +2373,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				// add a money item with $10000 to the tile in front of Kyle
 				// and then have him pick it up
 				{
-					INT16				sGridNo = 14952;
+					INT32 sGridNo = 14952;
 					INT32				iWorldItem;
 
 					pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
@@ -3090,14 +3092,14 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 
 				if ( pSoldier )
 				{
-					INT16		sNearestPC;
+					INT32		sNearestPC;
 					UINT8		ubID;
 					INT8		bMoneySlot;
 					INT8		bEmptySlot;
 
 					sNearestPC = ClosestPC( pSoldier, NULL );
-
-					if ( sNearestPC != NOWHERE )
+					
+					if (!TileIsOutOfBounds(sNearestPC))
 					{
 						ubID = WhoIsThere2( sNearestPC, 0 );
 						if (ubID != NOBODY)
@@ -3757,7 +3759,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 			case NPC_ACTION_INVOKE_CONVERSATION_MODE:
 				if ( !gfInTalkPanel )
 				{
-					INT16		sNearestPC;
+					INT32		sNearestPC;
 					UINT8		ubID;
 
 					pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
@@ -3765,8 +3767,8 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					{
 						pSoldier2 = NULL;
 
-						sNearestPC = ClosestPC( pSoldier, NULL );
-						if ( sNearestPC != NOWHERE )
+						sNearestPC = ClosestPC( pSoldier, NULL );						
+						if (!TileIsOutOfBounds(sNearestPC))
 						{
 							ubID = WhoIsThere2( sNearestPC, 0 );
 							if (ubID != NOBODY)
@@ -4210,8 +4212,8 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				pSoldier = FindSoldierByProfileID( BREWSTER, FALSE );
 				if ( pSoldier )
 				{
-					sGridNo = GetGridNoOfCorpseGivenProfileID( WARDEN );
-					if ( sGridNo != NOWHERE && PythSpacesAway( pSoldier->sGridNo, sGridNo ) <= 10 )
+					sGridNo = GetGridNoOfCorpseGivenProfileID( WARDEN );					
+					if (!TileIsOutOfBounds(sGridNo) && PythSpacesAway( pSoldier->sGridNo, sGridNo ) <= 10 )
 					{
 						TriggerNPCRecord( BREWSTER, 16 );
 					}
@@ -4329,7 +4331,7 @@ UINT32 CalcMedicalCost( UINT8 ubId )
 {
 	INT32		cnt;
 	UINT32	uiCostSoFar;
-	INT16		sGridNo = 0;
+	INT32 sGridNo = 0;
 	SOLDIERTYPE * pSoldier, *pNPC;
 
 	uiCostSoFar = 0;
@@ -4820,18 +4822,18 @@ void	DoneFadeInActionLeaveBasement( )
 BOOLEAN NPCOpenThing( SOLDIERTYPE *pSoldier, BOOLEAN fDoor )
 {
 	STRUCTURE					*pStructure;
-	INT16							sStructGridNo;
-	INT16							sActionGridNo;
+	INT32							sStructGridNo;
+	INT32 sActionGridNo;
 	UINT8							ubDirection;
-	INT16							sGridNo;
+	INT32 sGridNo;
 	DOOR *						pDoor;
 
 	// Find closest door and get struct data for it!
 	if ( fDoor )
 	{
 		sStructGridNo = FindClosestDoor( pSoldier );
-
-		if ( sStructGridNo == NOWHERE )
+		
+		if (TileIsOutOfBounds(sStructGridNo))
 		{
 			return( FALSE );
 		}
@@ -4849,8 +4851,8 @@ BOOLEAN NPCOpenThing( SOLDIERTYPE *pSoldier, BOOLEAN fDoor )
 		{
 			sStructGridNo = FindNearestOpenableNonDoor( pSoldier->sGridNo );
 		}
-
-		if ( sStructGridNo == NOWHERE )
+		
+		if (TileIsOutOfBounds(sStructGridNo))
 		{
 			return( FALSE );
 		}

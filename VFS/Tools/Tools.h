@@ -5,7 +5,7 @@
 #include <list>
 
 template<typename CharType, typename ValueType>
-std::basic_string<CharType> ToString(ValueType const& rVal) 
+std::basic_string<CharType> toString(ValueType const& rVal) 
 {
 	std::basic_stringstream<CharType> tss;
 	if( !(tss << rVal))
@@ -16,7 +16,7 @@ std::basic_string<CharType> ToString(ValueType const& rVal)
 }
 
 template<typename T_>
-bool ConvertTo(utf8string const& sStr, T_ &rVal)
+bool convertTo(utf8string const& sStr, T_ &rVal)
 {
 	std::wstringstream ss;
 	ss.str(sStr.c_wcs());
@@ -28,7 +28,7 @@ bool ConvertTo(utf8string const& sStr, T_ &rVal)
 }
 
 template<typename T_>
-utf8string ToStringList(std::list<T_> const& rValList)
+utf8string toStringList(std::list<T_> const& rValList)
 {
 	std::wstringstream ss;
 	typename std::list<T_>::const_iterator cit = rValList.begin();
@@ -49,6 +49,6 @@ utf8string ToStringList(std::list<T_> const& rValList)
 }
 
 template<>
-utf8string ToStringList<utf8string>(std::list<utf8string> const& rValList);
+utf8string toStringList<utf8string>(std::list<utf8string> const& rValList);
 
 #endif // _TOOLS_H_

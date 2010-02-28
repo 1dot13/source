@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\VFS"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\ext\7z"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -105,7 +105,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\VFS"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\ext\7z"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -166,7 +166,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\VFS"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\ext\7z"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"
@@ -228,7 +228,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\VFS"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\ext\7z"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -238,6 +238,68 @@
 				WarningLevel="3"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4100"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_WithDebugInfo|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\ja2_2005Express.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\Multiplayer;..\ext\libpng;..\ext\utf8\source;..\ext\7z"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

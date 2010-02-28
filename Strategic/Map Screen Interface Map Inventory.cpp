@@ -37,12 +37,19 @@
 #include "ShopKeeper Interface.h"
 #include "ArmsDealerInvInit.h"
 #include <algorithm>
-
+#include "InterfaceItemImages.h"
+#include "SaveLoadGame.h"//dnl ch51 081009
+#include "Map Information.h"//dnl ch51 091009
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
+//dnl ch51 081009
+UINT8 gInventoryPoolIndex = '0';
+std::vector<WORLDITEM> pInventoryPoolListQ[INVPOOLLISTNUM];
+INT32 iCurrentInventoryPoolPageQ[INVPOOLLISTNUM]={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+INT32 iLastInventoryPoolPageQ[INVPOOLLISTNUM]={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 extern BOOLEAN SaveWorldItemsToTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ, UINT32 uiNumberOfItems, WORLDITEM* pData );
 #define MAP_INV_X_OFFSET							(((SCREEN_WIDTH - 261) - 380) / 2)
@@ -122,7 +129,7 @@ std::vector<WORLDITEM> pInventoryPoolList;
 INT32 iCurrentInventoryPoolPage = 0;
 INT32 iLastInventoryPoolPage = 0;
 
-INT16 sObjectSourceGridNo = 0;
+INT32 sObjectSourceGridNo = 0;
 INT8  sObjectSourseSoldierID = -1;
 
 // number of unseen items in sector
@@ -350,7 +357,8 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 
 	GetVideoObject( &hHandle, GetInterfaceGraphicForItem( &(Item[ pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.usItem ] ) ) );
 
-	pTrav = &( hHandle->pETRLEObject[ Item[pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.usItem ].ubGraphicNum] );
+	UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : Item[pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.usItem ].ubGraphicNum;
+	pTrav = &( hHandle->pETRLEObject[ usGraphicNum ] );
 	usHeight				= (UINT16)pTrav->usHeight;
 	usWidth					= (UINT16)pTrav->usWidth;
 
@@ -552,6 +560,8 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
 	}
 	else if( ( fShowMapInventoryPool == FALSE ) && ( fCreated == TRUE ) )
 	{
+		if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 081009
+			SwitchToInventoryPoolQ(0);
 
 		// check fi we are in fact leaving mapscreen
 		if( fExitFromMapScreen == FALSE )
@@ -1001,6 +1011,13 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			// Else, try to place here
 			if ( PlaceObjectInInventoryStash( &( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object ), gpItemPointer ) )
 			{
+				if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 091009
+				{
+					pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT)+iCounter].bVisible = TRUE;
+					pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT)+iCounter].fExists = TRUE;
+					if(!GridNoOnVisibleWorldTile(sObjectSourceGridNo))
+						sObjectSourceGridNo = gMapInformation.sCenterGridNo;
+				}
 
 				// set as reachable and set gridno
 				pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_REACHABLE;
@@ -1011,7 +1028,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 					// nothing here before, then place here
 					if( iOldNumberOfObjects == 0 )
 					{
-						if( sObjectSourceGridNo == NOWHERE )
+						if(TileIsOutOfBounds(sObjectSourceGridNo))
 						{
 							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
 							pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].sGridNo = sObjectSourceGridNo;
@@ -1035,7 +1052,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 					// update ptr
 					// now set the cursor
 					guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-					gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+					gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 					fMapInventoryItem = TRUE;
 					MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
@@ -1473,6 +1490,8 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 			{
 				for( UINT32 iNumber = 0 ; iNumber <  pInventoryPoolList.size() ; ++iNumber)
 				{
+					// WANNE: Fix by Headrock
+					//if ( pInventoryPoolList[ iNumber ].object.usItem == gItemPointer.usItem )
 					if ( pInventoryPoolList[ iNumber ].object.usItem == gItemPointer.usItem && pInventoryPoolList[ iNumber ].usFlags & WORLD_ITEM_REACHABLE)
 					{
 						iPrice += SellItem( pInventoryPoolList[ iNumber ].object );
@@ -1505,7 +1524,7 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 
 			// now set the cursor
 			guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-			gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+			gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 			fMapInventoryItem = TRUE;
 			MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
@@ -1544,7 +1563,7 @@ BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pIt
 }
 
 
-BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT16 sGridNo )
+BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo )
 {
 	OBJECTTYPE *pInventorySlot;
 	INT32		cnt = 0;
@@ -1932,6 +1951,9 @@ void DrawTextOnSectorInventory( void )
 	// parse the string
 	swprintf( sString, zMarksMapScreenText[ 11 ] );
 
+	if(gGameExternalOptions.fEnableInventoryPoolQ && gInventoryPoolIndex != '0')//dnl ch51 081009
+		swprintf(sString, L"Inventory Pool %c", gInventoryPoolIndex);
+
 	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 	//FindFontCenterCoordinates( MAP_INV_X_OFFSET + MAP_INVENTORY_POOL_SLOT_START_X, MAP_INVENTORY_POOL_SLOT_START_Y - 20,  630 - MAP_INVENTORY_POOL_SLOT_START_X, GetFontHeight( FONT14ARIAL ), sString, FONT14ARIAL, &sX, &sY );
@@ -2145,7 +2167,7 @@ void CheckGridNoOfItemsInMapScreenMapInventory()
 
 	for( iCnt=0; iCnt<iTotalNumberItems; iCnt++)
 	{
-		if( pInventoryPoolList[ iCnt ].sGridNo == NOWHERE && !( pInventoryPoolList[ iCnt ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
+		if( ( TileIsOutOfBounds(pInventoryPoolList[ iCnt ].sGridNo) )&& !( pInventoryPoolList[ iCnt ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )		
 		{
 			//set the flag
 			pInventoryPoolList[ iCnt ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
@@ -2158,8 +2180,8 @@ void CheckGridNoOfItemsInMapScreenMapInventory()
 
 	//loop through all the UNSEEN items
 	for( iCnt=0; iCnt<(INT32)uiNumberOfUnSeenItems; iCnt++)
-	{
-		if( pUnSeenItems[ iCnt ].sGridNo == NOWHERE && !( pUnSeenItems[ iCnt ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
+	{		
+		if (TileIsOutOfBounds(pUnSeenItems[ iCnt ].sGridNo) && !( pUnSeenItems[ iCnt ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
 		{
 			//set the flag
 			pUnSeenItems[ iCnt ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
@@ -2256,7 +2278,15 @@ INT32 MapScreenSectorInventoryCompare( const void *pNum1, const void *pNum2)
 	UINT16	usItem2Index;
 	UINT16		ubItem1Quality;
 	UINT16		ubItem2Quality;
-
+/*
+	if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl??? ch51 081009
+	{
+		if(pFirst->object.usItem == 0)
+			return(1);
+		else if(pSecond->object.usItem == 0)
+			return(-1);
+	}
+*/
 	usItem1Index = pFirst->object.usItem;
 	usItem2Index = pSecond->object.usItem;
 
@@ -2289,6 +2319,271 @@ BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier )
 
 	return( TRUE );
 }
+
+//dnl ch51 081009 start
+BOOLEAN	LoadInventoryPoolQ (UINT8 ubSaveGameID)
+{
+	BOOLEAN ret;
+	INT32 i, j, iTotNumSlots;
+	CHAR8 tmpbuf[1024];
+	UINT32 uiNumBytesRead;
+	HWFILE hFile;
+
+	if(MAP_INVENTORY_POOL_SLOT_COUNT <= 0)
+	{
+		switch(iResolution)
+		{
+		case 0:
+			MAP_INVENTORY_POOL_SLOT_COUNT = 40;
+			break;
+		case 1:
+			MAP_INVENTORY_POOL_SLOT_COUNT = 77;
+			break;
+		case 2:
+			MAP_INVENTORY_POOL_SLOT_COUNT = 170;//MAP_INVENTORY_POOL_MAX_SLOTS;
+			break;
+		default:
+			Assert(0);
+			break;
+		}
+	}
+	ret = FALSE;
+	CreateSavedGameFileNameFromNumber(ubSaveGameID, tmpbuf);
+	strcat(tmpbuf, ".IPQ");
+	hFile = FileOpen(tmpbuf, FILE_ACCESS_READ|FILE_OPEN_EXISTING, FALSE);
+	if(hFile == 0)
+		return(TRUE);
+	MemFreeInventoryPoolQ();
+	FileRead(hFile, iCurrentInventoryPoolPageQ+1, (INVPOOLLISTNUM-1)*sizeof(INT32), &uiNumBytesRead);
+	if(uiNumBytesRead != (INVPOOLLISTNUM-1)*sizeof(INT32))
+		goto ERR;
+	FileRead(hFile, iLastInventoryPoolPageQ+1, (INVPOOLLISTNUM-1)*sizeof(INT32), &uiNumBytesRead);
+	if(uiNumBytesRead != (INVPOOLLISTNUM-1)*sizeof(INT32))
+		goto ERR;
+	for(i=1; i<INVPOOLLISTNUM; i++)
+	{
+		FileRead(hFile, &j, sizeof(INT32), &uiNumBytesRead);
+		if(uiNumBytesRead != sizeof(INT32))
+			goto ERR;
+		if(j == 0)
+			continue;
+		iTotNumSlots = j;
+		if(MAP_INVENTORY_POOL_SLOT_COUNT != (j/(iLastInventoryPoolPageQ[i]+1)))
+		{
+			iLastInventoryPoolPageQ[i] = j / MAP_INVENTORY_POOL_SLOT_COUNT + 1;
+			j = iLastInventoryPoolPageQ[i] * MAP_INVENTORY_POOL_SLOT_COUNT;
+			iCurrentInventoryPoolPageQ[i] = 0;
+		}
+		pInventoryPoolListQ[i].resize(j);
+		for(j=0; j<iTotNumSlots; j++)
+			if(!pInventoryPoolListQ[i][j].Load(hFile))
+				goto ERR;
+	}
+	ret = TRUE;
+ERR:
+	if(ret == FALSE)
+		MemFreeInventoryPoolQ();
+	FileClose(hFile);
+	return(ret);
+}
+
+BOOLEAN MemFreeInventoryPoolQ(void)
+{
+	INT32 i;
+
+	for(i=1; i<INVPOOLLISTNUM; i++)
+	{
+		pInventoryPoolListQ[i].clear();
+		iCurrentInventoryPoolPageQ[i] = 0;
+		iLastInventoryPoolPageQ[i] = 0;
+	}
+	return(TRUE);
+}
+
+BOOLEAN SaveInventoryPoolQ(UINT8 ubSaveGameID)
+{
+	BOOLEAN ret;
+	INT32 i, j;
+	CHAR8 tmpbuf[1024];
+	UINT32 uiNumBytesWritten;
+	HWFILE hFile;
+
+	if(MAP_INVENTORY_POOL_SLOT_COUNT <= 0)
+	{
+		switch(iResolution)
+		{
+		case 0:
+			MAP_INVENTORY_POOL_SLOT_COUNT = 40;
+			break;
+		case 1:
+			MAP_INVENTORY_POOL_SLOT_COUNT = 77;
+		case 2:
+			MAP_INVENTORY_POOL_SLOT_COUNT = 170;//MAP_INVENTORY_POOL_MAX_SLOTS;
+			break;
+		default:
+			Assert(0);
+			break;
+		}
+	}
+	ret = FALSE;
+	CreateSavedGameFileNameFromNumber(ubSaveGameID, tmpbuf);
+	strcat(tmpbuf, ".IPQ");
+	hFile = FileOpen(tmpbuf, FILE_ACCESS_WRITE|FILE_OPEN_ALWAYS, FALSE);
+	if(hFile == 0)
+		goto ERR;
+	FileWrite(hFile, iCurrentInventoryPoolPageQ+1, (INVPOOLLISTNUM-1)*sizeof(INT32), &uiNumBytesWritten);
+	if(uiNumBytesWritten != (INVPOOLLISTNUM-1)*sizeof(INT32))
+		goto ERR;
+	FileWrite(hFile, iLastInventoryPoolPageQ+1, (INVPOOLLISTNUM-1)*sizeof(INT32), &uiNumBytesWritten);
+	if(uiNumBytesWritten != (INVPOOLLISTNUM-1)*sizeof(INT32))
+		goto ERR;
+	for(i=1; i<INVPOOLLISTNUM; i++)
+	{
+		j = pInventoryPoolListQ[i].size();
+		FileWrite(hFile, &j, sizeof(INT32), &uiNumBytesWritten);
+		if(uiNumBytesWritten != sizeof(INT32))
+			goto ERR;
+		for(j=0; j<(INT32)pInventoryPoolListQ[i].size(); j++)
+			if(!pInventoryPoolListQ[i][j].Save(hFile, TRUE))
+				goto ERR;
+	}
+	ret = TRUE;
+ERR:
+	FileClose(hFile);
+	return(ret);
+}
+
+BOOLEAN SortInventoryPoolQ(void)
+{
+	if(pInventoryPoolList.size() > 0)
+	{
+		for(INT32 iSlotCounter=0; iSlotCounter<(INT32)pInventoryPoolList.size(); iSlotCounter++)
+			if(pInventoryPoolList[iSlotCounter].object.usItem == NOTHING && pInventoryPoolList[iSlotCounter].object.exists() == false)
+			{
+				pInventoryPoolList[iSlotCounter].fExists = FALSE;
+				pInventoryPoolList[iSlotCounter].bVisible = FALSE;
+			}
+		SortSectorInventory(pInventoryPoolList, pInventoryPoolList.size());
+		iLastInventoryPoolPage = (pInventoryPoolList.size() - 1) / MAP_INVENTORY_POOL_SLOT_COUNT;
+		if(iCurrentInventoryPoolPage > iLastInventoryPoolPage)
+			iCurrentInventoryPoolPage = iLastInventoryPoolPage;
+	}
+	fMapPanelDirty = TRUE;
+	return(TRUE);
+}
+
+BOOLEAN SwitchToInventoryPoolQ(UINT8 newidx)
+{
+	UINT8 curidx;
+
+	curidx = gInventoryPoolIndex & 0x0F;
+	pInventoryPoolListQ[curidx] = pInventoryPoolList;
+	iCurrentInventoryPoolPageQ[curidx] = iCurrentInventoryPoolPage;
+	iLastInventoryPoolPageQ[curidx] = iLastInventoryPoolPage;
+
+	newidx &= 0x0F;
+	if (pInventoryPoolListQ[newidx].empty() == true)
+		pInventoryPoolListQ[newidx].resize(MAP_INVENTORY_POOL_SLOT_COUNT);
+	pInventoryPoolList = pInventoryPoolListQ[newidx];
+	iCurrentInventoryPoolPage = iCurrentInventoryPoolPageQ[newidx];
+	iLastInventoryPoolPage = iLastInventoryPoolPageQ[newidx];
+
+	gInventoryPoolIndex = newidx | 0x30;
+	fMapPanelDirty = TRUE;
+
+	return(TRUE);
+}
+
+BOOLEAN CopySectorInventoryToInventoryPoolQ(UINT8 idx)
+{
+	INT32 iSlotCounter, iSlotCounterQ;
+
+	idx = gInventoryPoolIndex & 0x0F;
+	if(idx <= 0 || idx >= INVPOOLLISTNUM)
+		return(FALSE);
+	SwitchToInventoryPoolQ('0');
+	iSlotCounterQ = 0;
+	for(iSlotCounter=0; iSlotCounter<(INT32)pInventoryPoolList.size(); iSlotCounter++)
+	{
+		if(pInventoryPoolList[iSlotCounter].bVisible==1 && pInventoryPoolList[iSlotCounter].fExists && pInventoryPoolList[iSlotCounter].usFlags&WORLD_ITEM_REACHABLE && pInventoryPoolList[iSlotCounter].object.usItem != NOTHING)
+		{
+			while(1)
+			{
+				if(iSlotCounterQ >= (INT32)pInventoryPoolListQ[idx].size())
+				{
+					pInventoryPoolListQ[idx].resize(pInventoryPoolListQ[idx].size() + MAP_INVENTORY_POOL_SLOT_COUNT);
+					iLastInventoryPoolPageQ[idx] = (pInventoryPoolListQ[idx].size() - 1) / MAP_INVENTORY_POOL_SLOT_COUNT;
+				}
+				if(pInventoryPoolListQ[idx][iSlotCounterQ].object.usItem == NOTHING)
+				{
+					pInventoryPoolListQ[idx][iSlotCounterQ] = pInventoryPoolList[iSlotCounter];
+					DeleteObj(&pInventoryPoolList[iSlotCounter].object);
+					iSlotCounterQ++;
+					break;
+				}
+				iSlotCounterQ++;
+			}
+		}
+	}
+	SwitchToInventoryPoolQ(idx|'0');
+	return(TRUE);
+}
+
+BOOLEAN CopySectorInventoryToInventoryPoolQs(UINT8 idx)
+{
+	UINT8 defaultidx;
+	INT32 iSlotCounter, iSlotCounterQ[INVPOOLLISTNUM];
+
+	idx = gInventoryPoolIndex & 0x0F;
+	if(!(idx == 0 || idx == 8 || idx == 9))// Only from these inventories items could be separate to 1-7
+		return(FALSE);
+	defaultidx = idx;
+	memset(iSlotCounterQ, 0, sizeof(iSlotCounterQ));
+	for(iSlotCounter=0; iSlotCounter<(INT32)pInventoryPoolList.size(); iSlotCounter++)
+	{
+		if(pInventoryPoolList[iSlotCounter].bVisible==1 && pInventoryPoolList[iSlotCounter].fExists && pInventoryPoolList[iSlotCounter].usFlags&WORLD_ITEM_REACHABLE && pInventoryPoolList[iSlotCounter].object.usItem != NOTHING)
+		{
+			UINT32 usItemClass = Item[pInventoryPoolList[iSlotCounter].object.usItem].usItemClass;
+			if(usItemClass == IC_GUN || usItemClass == IC_LAUNCHER)
+				idx = 1;
+			else if(usItemClass == IC_AMMO || usItemClass == IC_BELTCLIP)
+				idx = 2;
+			else if(usItemClass == IC_BOMB || usItemClass == IC_GRENADE)
+				idx = 3;
+			else if(usItemClass == IC_BLADE || usItemClass == IC_THROWING_KNIFE || usItemClass == IC_THROWN || usItemClass == IC_PUNCH)
+				idx = 4;
+			else if(usItemClass == IC_ARMOUR || usItemClass == IC_LBEGEAR)
+				idx = 5;
+			else if(usItemClass == IC_MEDKIT || usItemClass == IC_KIT || usItemClass == IC_APPLIABLE)
+				idx = 6;
+			else if(usItemClass == IC_NONE || usItemClass == IC_FACE || usItemClass == IC_KEY || usItemClass == IC_MISC || usItemClass == IC_MONEY || usItemClass == IC_TENTACLES)
+				idx = 7;
+			else
+				idx = defaultidx;
+			while(1)
+			{
+				if(iSlotCounterQ[idx] >= (INT32)pInventoryPoolListQ[idx].size())
+				{
+					pInventoryPoolListQ[idx].resize(pInventoryPoolListQ[idx].size() + MAP_INVENTORY_POOL_SLOT_COUNT);
+					iLastInventoryPoolPageQ[idx] = (pInventoryPoolListQ[idx].size() - 1) / MAP_INVENTORY_POOL_SLOT_COUNT;
+				}
+				if(pInventoryPoolListQ[idx][iSlotCounterQ[idx]].object.usItem == NOTHING)
+				{
+					pInventoryPoolListQ[idx][iSlotCounterQ[idx]] = pInventoryPoolList[iSlotCounter];
+					DeleteObj(&pInventoryPoolList[iSlotCounter].object);
+					pInventoryPoolList[iSlotCounter].fExists = FALSE;
+					pInventoryPoolList[iSlotCounter].bVisible = FALSE;
+					iSlotCounterQ[idx]++;
+					break;
+				}
+				iSlotCounterQ[idx]++;
+			}
+		}
+	}
+	fMapPanelDirty = TRUE;
+	return(TRUE);
+}
+//dnl ch51 081009 finish
 
 void DeleteAllItemsInInventoryPool()
 {

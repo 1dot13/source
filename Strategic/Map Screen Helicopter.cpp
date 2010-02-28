@@ -117,7 +117,7 @@ UINT8 ubRefuelList[ NUMBER_OF_REFUEL_SITES ][ 2 ] =
 };
 
 
-INT16 sRefuelStartGridNo[ NUMBER_OF_REFUEL_SITES ] ={
+INT32 sRefuelStartGridNo[ NUMBER_OF_REFUEL_SITES ] ={
 	9001, // drassen
 	13067, // estoni
 };
@@ -1924,7 +1924,7 @@ BOOLEAN CanHelicopterTakeOff( void )
 	return( FALSE );
 }
 
-void AddHeliPeice( INT16 sGridNo, UINT16 sOStruct )
+void AddHeliPeice( INT32 sGridNo, UINT16 sOStruct )
 {
 	UINT16 usDummy;
 
@@ -1939,7 +1939,7 @@ void AddHeliPeice( INT16 sGridNo, UINT16 sOStruct )
 
 void AddHelicopterToMaps( BOOLEAN fAdd, UINT8 ubSite )
 {
- 	INT16 sGridNo = sRefuelStartGridNo[ ubSite ];
+ 	INT32 sGridNo = sRefuelStartGridNo[ ubSite ];
 	INT16 sOStruct = 0;
 	INT16	sGridX, sGridY;
 	INT16	sCentreGridX, sCentreGridY;
@@ -1962,10 +1962,10 @@ void AddHelicopterToMaps( BOOLEAN fAdd, UINT8 ubSite )
 	{
 		AddHeliPeice( sGridNo, sOStruct );
 		AddHeliPeice( sGridNo, ( UINT16 )( sOStruct + 1));
-		AddHeliPeice( (INT16)( sGridNo - 800 ), ( UINT16 )( sOStruct + 2 ));
+		AddHeliPeice( ( sGridNo - 800 ), ( UINT16 )( sOStruct + 2 ));
 		AddHeliPeice( sGridNo, ( UINT16 )(sOStruct + 3 ));
 		AddHeliPeice( sGridNo, ( UINT16 )(sOStruct + 4));
-		AddHeliPeice( (INT16)( sGridNo - 800 ), ( UINT16 )(sOStruct + 5));
+		AddHeliPeice( ( sGridNo - 800 ), ( UINT16 )(sOStruct + 5));
 
 		InvalidateWorldRedundency();
 		SetRenderFlags( RENDER_FLAG_FULL );
@@ -1979,7 +1979,7 @@ void AddHelicopterToMaps( BOOLEAN fAdd, UINT8 ubSite )
 		{
 			sGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
 
-		 BumpAnyExistingMerc( sGridNo );
+		 	BumpAnyExistingMerc( sGridNo );
 		}
 	}
 	}

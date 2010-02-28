@@ -16,41 +16,41 @@ public:
 	/**
 	 *  Interface
 	 */
-	static void OnStartCallback(void *userData, const XML_Char* name, const XML_Char** atts)
+	static void onStartCallback(void *userData, const XML_Char* name, const XML_Char** atts)
 	{
-		((IXMLParser*)userData)->OnStartElement(name,atts);
+		((IXMLParser*)userData)->onStartElement(name,atts);
 	}
-	static void OnEndCallback(void *userData, const XML_Char* name)
+	static void onEndCallback(void *userData, const XML_Char* name)
 	{
-		((IXMLParser*)userData)->OnEndElement(name);
+		((IXMLParser*)userData)->onEndElement(name);
 		// test if we are done here
 		if( ((IXMLParser*)userData)->_caller && (strcmp(name, ((IXMLParser*)userData)->ElementName) == 0) )
 		{
-			((IXMLParser*)userData)->_caller->GrabParser();
+			((IXMLParser*)userData)->_caller->grabParser();
 		}
 	}
-	static void OnTextCallback(void *userData, const XML_Char *str, int len)
+	static void onTextCallback(void *userData, const XML_Char *str, int len)
 	{
-		((IXMLParser*)userData)->OnTextElement(str,len);
+		((IXMLParser*)userData)->onTextElement(str,len);
 	}
-	void GrabParser()
+	void grabParser()
 	{
 		XML_SetUserData(_parser,this);
-		XML_SetElementHandler(_parser, IXMLParser::OnStartCallback, IXMLParser::OnEndCallback);
-		XML_SetCharacterDataHandler(_parser, IXMLParser::OnTextCallback);
+		XML_SetElementHandler(_parser, IXMLParser::onStartCallback, IXMLParser::onEndCallback);
+		XML_SetCharacterDataHandler(_parser, IXMLParser::onTextCallback);
 	}
 
 	/**
 	 *  Override these methods in your parser
 	 */
-	virtual void OnStartElement(const XML_Char* name, const XML_Char** atts)
+	virtual void onStartElement(const XML_Char* name, const XML_Char** atts)
 	{};
-	virtual void OnEndElement(const XML_Char* name)
+	virtual void onEndElement(const XML_Char* name)
 	{};
-	virtual void OnTextElement(const XML_Char *str, int len)
+	virtual void onTextElement(const XML_Char *str, int len)
 	{};
 protected:
-	XML_Char const* GetAttribute(const XML_Char* attr_name, const XML_Char** atts)
+	XML_Char const* getAttribute(const XML_Char* attr_name, const XML_Char** atts)
 	{
 		while(*atts)
 		{
@@ -62,9 +62,9 @@ protected:
 		}
 		return "";
 	}
-	bool GetAttributeAsInt(const XML_Char* attr_name, const XML_Char** attr, int &value)
+	bool getAttributeAsInt(const XML_Char* attr_name, const XML_Char** attr, int &value)
 	{
-		XML_Char const* result = GetAttribute(attr_name,attr);
+		XML_Char const* result = getAttribute(attr_name,attr);
 		if( strcmp(result,"") != 0)
 		{
 			value = (int)atol(result);
@@ -72,9 +72,9 @@ protected:
 		}
 		return false;
 	}
-	bool GetAttributeAsFloat(const XML_Char* attr_name, const XML_Char** attr, float &value)
+	bool getAttributeAsFloat(const XML_Char* attr_name, const XML_Char** attr, float &value)
 	{
-		XML_Char const* result = GetAttribute(attr_name,attr);
+		XML_Char const* result = getAttribute(attr_name,attr);
 		if( strcmp(result,"") != 0)
 		{
 			value = (float)atof(result);
@@ -83,7 +83,7 @@ protected:
 		return false;
 	}
 
-	int GetCurrentLineNumber()
+	int getCurrentLineNumber()
 	{
 		return XML_GetCurrentLineNumber(this->_parser);
 	}

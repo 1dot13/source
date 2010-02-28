@@ -17,10 +17,11 @@ enum
 #define SMOKE_EFFECT_ON_ROOF			0x02
 #define SMOKE_EFFECT_MARK_FOR_UPDATE	0x04
 
+#define		NUM_SMOKE_EFFECT_SLOTS					25 // OJW - 20091027 - moved here to allow global access
 
 typedef struct TAG_SMOKE_EFFECT
 {
-	INT16		sGridNo;			// gridno at which the tear gas cloud is centered
+	INT32 sGridNo;          // gridno at which the tear gas cloud is centered
 
 	UINT8		ubDuration;		// the number of turns gas will remain effective
 	UINT8		ubRadius;			// the current radius of the cloud in map tiles
@@ -32,24 +33,26 @@ typedef struct TAG_SMOKE_EFFECT
 	UINT8	ubOwner;
 	UINT8	ubPadding;
 	UINT32	uiTimeOfLastUpdate;
-
+	INT8	iMPTeamIndex;
+	INT32	iMPSmokeEffectID;
 } SMOKEEFFECT;
 
-
+extern SMOKEEFFECT				gSmokeEffectData[ NUM_SMOKE_EFFECT_SLOTS ];
+extern UINT32					guiNumSmokeEffects;
 
 // Returns NO_SMOKE_EFFECT if none there...
-INT8 GetSmokeEffectOnTile( INT16 sGridNo, INT8 bLevel );
+INT8 GetSmokeEffectOnTile( INT32 sGridNo, INT8 bLevel );
 
 // Decays all smoke effects...
 void DecaySmokeEffects( UINT32 uiTime );
 
 // Add smoke to gridno
 // ( Replacement algorithm uses distance away )
-void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT16 sGridNo, INT8 bLevel );
+void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT32 sGridNo, INT8 bLevel );
 
-void RemoveSmokeEffectFromTile( INT16 sGridNo, INT8 bLevel );
+void RemoveSmokeEffectFromTile( INT32 sGridNo, INT8 bLevel );
 
-INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner );
+INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, BOOL fFromRemoteClient = 0 );
 
 
 BOOLEAN SaveSmokeEffectsToSaveGameFile( HWFILE hFile );

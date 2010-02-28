@@ -4,6 +4,8 @@
 #include "../File/vfs_file.h"
 #include "../vfs_file_raii.h"
 
+#include <cstring>
+
 /*************************************************************************************/
 /*************************************************************************************/
 
@@ -11,41 +13,63 @@ CReadLine::CReadLine(vfs::tReadableFile& rFile)
 : _file(rFile), _buffer_pos(0), _eof(false)
 {
 	memset(_buffer,0,sizeof(_buffer));
-	FillBuffer();
+
+	vfs::COpenReadFile rfile(&_file);
+	_bytes_left = rfile.file().getSize();
+	fillBuffer();
 	vfs::UByte utf8bom[3] = {0xef,0xbb,0xbf};
 	if(memcmp(utf8bom, &_buffer[0],3) == 0)
 	{
 		_buffer_pos += 3;
 	}
+	rfile.release();
 };
 
-bool CReadLine::FillBuffer()
+CReadLine::~CReadLine()
 {
-	if(!_eof)
+	if(_file.isOpenRead())
 	{
-		// reading can be done byte-wise or line-wise.
-		// we have no control over this here, so we have to account for both cases.
-
-		vfs::UInt32 read = 0;
-		// fill the buffer from the start, BUFFER_SIZE charactes at max (_buffer has BUFFER_SIZE+1 elements)
-		_eof = !_file.Read(&_buffer[0],BUFFER_SIZE,read);
-		// if read() fails, it means that we are at the end of the file,
-		// but we probably have read a couple of valid bytes, so we need to do one last 'correct' run
-
-		// bite-wise read files usually terminate a line with \n (or \r\n on WIN32)
-		// line-wise read files just returns 0-terminated string
-		
-		// always terminate the string with 0
-		_buffer[read] = 0;
-
-		_buffer_pos = 0;
-		_buffer_last = read;
-		return true;
+		_file.close();
 	}
-	return false;
 }
 
-bool CReadLine::FromBuffer(std::string& line)
+bool CReadLine::fillBuffer()
+{
+	if(_eof)
+	{
+		return false;
+	}
+	vfs::size_t bytesRead = BUFFER_SIZE < _bytes_left ? BUFFER_SIZE : _bytes_left;
+	try
+	{
+		vfs::COpenReadFile rfile(&_file);
+
+		// fill the buffer from the start, BUFFER_SIZE charactes at max (_buffer has BUFFER_SIZE+1 elements)
+		THROWIFFALSE(bytesRead == _file.read(&_buffer[0], bytesRead), L"");
+		rfile.release();
+	}
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(L"", &ex);
+	}
+
+	_bytes_left -= bytesRead;
+	_eof = (_bytes_left == 0);
+
+
+	// bite-wise read files usually terminate a line with \n (or \r\n on WIN32)
+	// line-wise read files just returns 0-terminated string
+
+	// always terminate the string with 0
+	_buffer[bytesRead] = 0;
+
+	_buffer_pos = 0;
+	_buffer_last = bytesRead;
+
+	return true;
+}
+
+bool CReadLine::fromBuffer(std::string& line)
 {
 	bool done = false;
 	while(!done)
@@ -54,7 +78,7 @@ bool CReadLine::FromBuffer(std::string& line)
 		{
 			// start where we left last time
 			vfs::Byte *temp = &_buffer[_buffer_pos];
-			vfs::UInt32 start_pos = _buffer_pos;
+			vfs::size_t start_pos = _buffer_pos;
 			// go until we hit 0. since our buffer is always 0 terminated, the second test should be redundant.
 			while(*temp && (_buffer_pos < _buffer_last))
 			{
@@ -87,7 +111,7 @@ bool CReadLine::FromBuffer(std::string& line)
 					}
 					else
 					{
-						done = !FillBuffer();
+						done = !fillBuffer();
 					}
 				}
 				else if(*temp == '\n' || *temp == 0)
@@ -99,47 +123,47 @@ bool CReadLine::FromBuffer(std::string& line)
 			}
 			else
 			{
-				done = !FillBuffer();
+				done = !fillBuffer();
 			}
 		}
 		else
 		{
-			done = !FillBuffer();
+			done = !fillBuffer();
 		}
 	}
 	return false;
 }
 
-bool CReadLine::GetLine(std::string& line)
+bool CReadLine::getLine(std::string& line)
 {
 	line.clear();
-	return FromBuffer(line);
+	return fromBuffer(line);
 }
 
 /*************************************************************************************/
 /*************************************************************************************/
 
 CSplitStringList::CSplitStringList(utf8string const& sList)
-: m_sList(sList), iCurrent(0),iNext(0)
+: m_list(sList), current(0), next(0)
 {};
 
 CSplitStringList::~CSplitStringList()
 {};
 
-bool CSplitStringList::NextListEntry(utf8string &sEntry)
+bool CSplitStringList::nextListEntry(utf8string &sEntry)
 {
-if(iNext >= 0)
+	if(next != utf8string::str_t::npos)
 	{
-		iNext = m_sList.c_wcs().find_first_of(L",",iCurrent+1);
-		if(iNext > iCurrent)
+		next = m_list.c_wcs().find_first_of(L",", current+1);
+		if(next != utf8string::str_t::npos)
 		{
-			sEntry.r_wcs().assign(vfs::TrimString(m_sList,iCurrent,iNext-1).c_wcs());
-			iCurrent = iNext+1;
+			sEntry.r_wcs().assign(vfs::trimString(m_list,current,next-1).c_wcs());
+			current = next+1;
 		}
 		else
 		{
 			// last or only entry
-			sEntry.r_wcs().assign(vfs::TrimString(m_sList,iCurrent,m_sList.length()).c_wcs());
+			sEntry.r_wcs().assign(vfs::trimString(m_list,current,m_list.length()).c_wcs());
 		}
 		return true;
 	}
@@ -154,20 +178,20 @@ CTransferRules::CTransferRules()
 {};
 
 
-bool CTransferRules::InitFromTxtFile(vfs::Path const& sPath)
+bool CTransferRules::initFromTxtFile(vfs::Path const& sPath)
 {
 	// try to open via VirtualFileSystem
-	if(GetVFS()->FileExists(sPath))
+	if(getVFS()->fileExists(sPath))
 	{
-		return InitFromTxtFile(GetVFS()->GetRFile(sPath));
+		return initFromTxtFile(getVFS()->getReadFile(sPath));
 	}
 	else
 	{
 		// file doesn't exist or VFS not initialized yet
-		vfs::IBaseFile* pFile = new vfs::CTextFile(sPath);
+		vfs::IBaseFile* pFile = new vfs::CFile(sPath);
 		if(pFile)
 		{
-			bool success = InitFromTxtFile(vfs::tReadableFile::Cast(pFile));
+			bool success = initFromTxtFile(vfs::tReadableFile::cast(pFile));
 			delete pFile;
 			return success;
 		}
@@ -175,22 +199,22 @@ bool CTransferRules::InitFromTxtFile(vfs::Path const& sPath)
 	return false;
 }
 
-bool CTransferRules::InitFromTxtFile(vfs::tReadableFile* pFile)
+bool CTransferRules::initFromTxtFile(vfs::tReadableFile* pFile)
 {
-	if(pFile && pFile->OpenRead())
+	if(pFile && pFile->openRead())
 	{
 		vfs::COpenReadFile rfile(pFile);
 		std::string sBuffer;
 		vfs::UInt32 line_counter = 0;
 		CReadLine rl(*pFile);
-		while(rl.GetLine(sBuffer))
+		while(rl.getLine(sBuffer))
 		{
 			line_counter++;
 			// very simple parsing : key = value
 			if(!sBuffer.empty())
 			{
 				// remove leading white spaces
-				int iStart = sBuffer.find_first_not_of(" \t",0);
+				::size_t iStart = sBuffer.find_first_not_of(" \t",0);
 				char first = sBuffer.at(iStart);
 				switch(first)
 				{
@@ -200,7 +224,7 @@ bool CTransferRules::InitFromTxtFile(vfs::tReadableFile* pFile)
 					// comment -> do nothing
 					break;
 				default:
-					int iEnd = sBuffer.find_first_of(" \t", iStart);
+					::size_t iEnd = sBuffer.find_first_of(" \t", iStart);
 					if(iEnd != std::string::npos)
 					{
 						SRule rule;
@@ -218,18 +242,18 @@ bool CTransferRules::InitFromTxtFile(vfs::tReadableFile* pFile)
 							std::wstring trybuffer = L"Invalid UTF-8 character in string";
 							IGNOREEXCEPTION( trybuffer = utf8string(sBuffer).c_wcs() ); /* just make sure we don't break off when string conversion fails */
 							std::wstringstream wss;
-							wss << L"Unknown action in file \"" << pFile->GetFullPath()().c_wcs()
+							wss << L"Unknown action in file \"" << pFile->getPath().c_wcs()
 								<< L", line " << line_counter << " : " << utf8string(sBuffer).c_wcs();
 							THROWEXCEPTION(wss.str().c_str());
 						}
 						try
 						{
-							rule.pattern = vfs::Path(vfs::TrimString(sBuffer, iEnd, sBuffer.length()));
+							rule.pattern = vfs::Path(vfs::trimString(sBuffer, iEnd, sBuffer.length()));
 						}
 						catch(CBasicException& ex)
 						{
 							std::wstringstream wss;
-							wss << L"Could not convert string, invalid utf8 encoding in file \"" << pFile->GetFullPath()().c_wcs()
+							wss << L"Could not convert string, invalid utf8 encoding in file \"" << pFile->getPath().c_wcs()
 								<< L"\", line "  << line_counter;
 							RETHROWEXCEPTION(wss.str().c_str(),&ex);
 						}
@@ -244,22 +268,22 @@ bool CTransferRules::InitFromTxtFile(vfs::tReadableFile* pFile)
 	return false;
 }
 
-void CTransferRules::SetDefaultAction(CTransferRules::EAction act)
+void CTransferRules::setDefaultAction(CTransferRules::EAction act)
 {
 	m_eDefaultAction = act;
 }
 
-CTransferRules::EAction	CTransferRules::GetDefaultAction()
+CTransferRules::EAction	CTransferRules::getDefaultAction()
 {
 	return m_eDefaultAction;
 }
 
-CTransferRules::EAction CTransferRules::ApplyRule(utf8string const& sStr)
+CTransferRules::EAction CTransferRules::applyRule(utf8string const& sStr)
 {
 	tPatternList::iterator sit = m_listRules.begin();
 	for(; sit != m_listRules.end(); ++sit)
 	{
-		if(MatchPattern(sit->pattern(), sStr))
+		if(matchPattern(sit->pattern(), sStr))
 		{
 			return sit->action;
 		}
@@ -275,7 +299,7 @@ CTransferRules::EAction CTransferRules::ApplyRule(utf8string const& sStr)
 typedef vfs::UInt16 UINT16;
 extern UINT16 gsKeyTranslationTable[1024];
 
-CodePageReader::EMode CodePageReader::ExtractMode(std::string const &readStr, size_t startPos)
+CodePageReader::EMode CodePageReader::extractMode(std::string const &readStr, size_t startPos)
 {
 	vfs::Int32 iEqual = readStr.find_first_of("=",startPos);
 	if(iEqual < 0)
@@ -283,14 +307,14 @@ CodePageReader::EMode CodePageReader::ExtractMode(std::string const &readStr, si
 		return Error;
 	}
 	// extract keyword
-	std::string key = vfs::TrimString(readStr,0,iEqual-1);
+	std::string key = vfs::trimString(readStr,0,iEqual-1);
 	if(!StrCmp::Equal(key, "mode"))
 	{
 		return Error;
 	}
 	// extract mode
 	EMode mode = Error;
-	std::string sMode = vfs::TrimString(readStr,iEqual+1,readStr.size());
+	std::string sMode = vfs::trimString(readStr,iEqual+1,readStr.size());
 	if(StrCmp::Equal(sMode, "normal"))
 	{
 		mode = Normal;
@@ -310,7 +334,7 @@ CodePageReader::EMode CodePageReader::ExtractMode(std::string const &readStr, si
 	return mode;
 }
 
-bool CodePageReader::ExtractCode(std::string const& str, int iStart, vfs::UInt32& rInsertPoint, utf8string::str_t& u8s)
+bool CodePageReader::extractCode(std::string const& str, int iStart, vfs::UInt32& rInsertPoint, utf8string::str_t& u8s)
 {
 	vfs::Int32 iEqual = str.find_first_of("=",iStart);
 	if(iEqual < 0)
@@ -341,9 +365,9 @@ bool CodePageReader::ExtractCode(std::string const& str, int iStart, vfs::UInt32
 	return true;
 }
 
-void CodePageReader::ReadCodePage(vfs::Path const& codepagefile)
+void CodePageReader::readCodePage(vfs::Path const& codepagefile)
 {
-	if(!GetVFS()->FileExists(codepagefile))
+	if(!GetVFS()->fileExists(codepagefile))
 	{
 		return;
 	}
@@ -416,7 +440,7 @@ namespace charSet
 	static std::map<ECharSet,std::set<wchar_t> > _sets;
 };
 
-inline bool TestSet(int char_set, charSet::ECharSet es, wchar_t wc)
+inline bool testSet(int char_set, charSet::ECharSet es, wchar_t wc)
 {
 	if(char_set & es)
 	{
@@ -426,20 +450,20 @@ inline bool TestSet(int char_set, charSet::ECharSet es, wchar_t wc)
 	return false;
 }
 
-bool charSet::IsFromSet(char wc, unsigned int char_set)
+bool charSet::isFromSet(char wc, unsigned int char_set)
+{
+	return charSet::isFromSet((wchar_t)wc, char_set);
+}
+bool charSet::isFromSet(int wc, unsigned int char_set)
 {
 	return charSet::IsFromSet((wchar_t)wc, char_set);
 }
-bool charSet::IsFromSet(int wc, unsigned int char_set)
-{
-	return charSet::IsFromSet((wchar_t)wc, char_set);
-}
-bool charSet::IsFromSet(unsigned int wc, unsigned int char_set)
+bool charSet::isFromSet(unsigned int wc, unsigned int char_set)
 {
 	return charSet::IsFromSet((wchar_t)wc, char_set);
 }
 
-bool charSet::IsFromSet(wchar_t wc, unsigned int char_set)
+bool charSet::isFromSet(wchar_t wc, unsigned int char_set)
 {
 	bool inSet = false;
 	if( inSet |= TestSet(char_set, charSet::CS_SPACE, wc)) return true; 
@@ -452,7 +476,7 @@ bool charSet::IsFromSet(wchar_t wc, unsigned int char_set)
 	return false;
 }
 
-void charSet::AddToCharSet(ECharSet eset, std::wstring cset)
+void charSet::addToCharSet(ECharSet eset, std::wstring cset)
 {
 	std::set<wchar_t>& wcset = charSet::_sets[eset];
 	for(unsigned int i = 0; i < cset.length(); ++i)
@@ -461,7 +485,7 @@ void charSet::AddToCharSet(ECharSet eset, std::wstring cset)
 	}
 }
 
-void charSet::InitializeCharSets()
+void charSet::initializeCharSets()
 {
 	charSet::AddToCharSet(charSet::CS_SPACE,			L" ");
 	charSet::AddToCharSet(charSet::CS_ALPHA_LC,			L"abcdefghijklmnopqrstuvwxyz");

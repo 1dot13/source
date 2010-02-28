@@ -22,7 +22,7 @@ void MakeClosestEnemyChosenOne()
 	UINT8					ubClosestEnemy = NOBODY;
 	SOLDIERTYPE *	pSoldier;
 	INT8					bPanicTrigger;
-	INT16					sPanicTriggerGridNo;
+	INT32					sPanicTriggerGridNo;
 
 	if ( ! (gTacticalStatus.fPanicFlags & PANIC_TRIGGERS_HERE) )
 	{
@@ -101,8 +101,8 @@ void MakeClosestEnemyChosenOne()
 			continue; // next soldier
 		}
 
-		sPanicTriggerGridNo = gTacticalStatus.sPanicTriggerGridNo[ bPanicTrigger ];
-		if (sPanicTriggerGridNo == NOWHERE)
+		sPanicTriggerGridNo = gTacticalStatus.sPanicTriggerGridNo[ bPanicTrigger ];		
+		if (TileIsOutOfBounds(sPanicTriggerGridNo))
 		{
 			// this should never happen!
 			continue;
@@ -186,7 +186,7 @@ void PossiblyMakeThisEnemyChosenOne( SOLDIERTYPE * pSoldier )
 	INT32		iAPCost, iPathCost;
 	//INT8		bOldKeys;
 	INT8		bPanicTrigger;
-	INT16		sPanicTriggerGridNo;
+	INT32		sPanicTriggerGridNo;
 	UINT32	uiPercentEnemiesKilled;
 
 	if ( ! (gTacticalStatus.fPanicFlags & PANIC_TRIGGERS_HERE) )
@@ -252,7 +252,7 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 	INT8			bSlot;
 	INT32			iPathCost;
 	INT8			bPanicTrigger;
-	INT16			sPanicTriggerGridNo;
+	INT32			sPanicTriggerGridNo;
 	#ifdef DEBUGDECISIONS
 		STR16 tempstr;
 	#endif
@@ -431,8 +431,8 @@ INT8 ClosestPanicTrigger( SOLDIERTYPE * pSoldier )
 	uiPercentEnemiesKilled = (UINT32)( 100 * (UINT32)(gTacticalStatus.ubArmyGuysKilled) / (UINT32)( gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector + gTacticalStatus.ubArmyGuysKilled ) );
 
 	for ( bLoop = 0; bLoop < NUM_PANIC_TRIGGERS; bLoop++ )
-	{
-		if ( gTacticalStatus.sPanicTriggerGridNo[ bLoop ] != NOWHERE )
+	{		
+		if (!TileIsOutOfBounds(gTacticalStatus.sPanicTriggerGridNo[ bLoop ]))
 		{
 
 			if ( gTacticalStatus.ubPanicTolerance[ bLoop ] > uiPercentEnemiesKilled )
@@ -450,8 +450,8 @@ INT8 ClosestPanicTrigger( SOLDIERTYPE * pSoldier )
 					break;
 				}
 
-				// screen out the second/later panic trigger if the first one hasn't been triggered
-				if ( bLoop > 0 && gTacticalStatus.sPanicTriggerGridNo[ bLoop - 1 ] != NOWHERE )
+				// screen out the second/later panic trigger if the first one hasn't been triggered				
+				if ( bLoop > 0 && !TileIsOutOfBounds(gTacticalStatus.sPanicTriggerGridNo[ bLoop - 1 ]) )
 				{
 					break;
 				}
@@ -500,8 +500,8 @@ BOOLEAN NeedToRadioAboutPanicTrigger( void )
 
 	for ( bLoop = 0; bLoop < NUM_PANIC_TRIGGERS; bLoop++ )
 	{
-		// if the bomb exists and its tolerance has been exceeded
-		if ( (gTacticalStatus.sPanicTriggerGridNo[ bLoop ] != NOWHERE) && ( uiPercentEnemiesKilled >= gTacticalStatus.ubPanicTolerance[ bLoop ] ) )
+		// if the bomb exists and its tolerance has been exceeded		
+		if ( (!TileIsOutOfBounds(gTacticalStatus.sPanicTriggerGridNo[ bLoop ])) && ( uiPercentEnemiesKilled >= gTacticalStatus.ubPanicTolerance[ bLoop ] ) )
 		{
 			return( TRUE );
 		}

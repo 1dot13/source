@@ -10,7 +10,8 @@
 #define _PATHAI_H
 #include "isometric utils.h"
 
-
+// WANNE: Please do not use ASTAR pathing,
+// because it is a HUGH PERFORMANCE KILLER on big maps!!
 //#define USE_ASTAR_PATHS
 
 #ifdef USE_ASTAR_PATHS
@@ -42,7 +43,7 @@ public:
 	//int			f;//F is also calculated on the fly
 	//int			APCost;//the APs spent to get here // Isn't this the same as "cost"?
 	int			extraGCoverCost;//an extra cost that makes stopping in midpath at a node with little cover worse
-	INT16		parent;
+	INT32		parent;
 	eAStar		status;
 	//int			prevCost;
 	bool		wasBackwards;
@@ -56,7 +57,7 @@ public:
 	AStarPathfinder			();
 	static AStarPathfinder&	GetInstance();
 	int				GetPath	(SOLDIERTYPE *s ,
-							INT16 dest,
+							INT32 dest,
 							INT8 ubLevel,
 							INT16 usMovementMode,
 							INT8 bCopy,
@@ -64,7 +65,7 @@ public:
 
 private:
 	static	AStarPathfinder* pThis;
-	CBinaryHeap<int, INT16>	OpenHeap;
+	CBinaryHeap<int, INT32>	OpenHeap;
 
 	// The "closed list" is the AStarData array below which is also the path backtrace when a path is found.
 
@@ -115,12 +116,14 @@ private:
 	//#endif
 
 	// member variables to prevent passing them around
-	INT16		StartNode;
-	INT16		DestNode;
-	INT16		CurrentNode;
-	INT16		ParentNode;
+	INT32		StartNode;
+	INT32		DestNode;
+	INT32		CurrentNode;
+	INT32		ParentNode;
 
-	AStar_Data	AStarData[WORLD_MAX];
+	// WANNE - BMP: DONE!
+	//AStar_Data	AStarData[WORLD_MAX];
+	AStar_Data	AStarData[MAX_ALLOWED_WORLD_MAX];
 
 
 
@@ -141,36 +144,36 @@ private:
 	INT16	CalcStartingAP	();
 
 			//including THREATTYPE was a pain, so pass by value
-	int		CalcCoverValue	(INT16 sMyGridNo, INT32 iMyThreat, INT32 iMyAPsLeft,
-							INT32 myThreatsiOrigRange, INT16 myThreatssGridNo, SOLDIERTYPE* myThreatspOpponent,
+	int		CalcCoverValue	(INT32 sMyGridNo, INT32 iMyThreat, INT32 iMyAPsLeft,
+							INT32 myThreatsiOrigRange, INT32 myThreatssGridNo, SOLDIERTYPE* myThreatspOpponent,
 							INT32 myThreatsiValue, INT32 myThreatsiAPs, INT32 myThreatsiCertainty);
 
-	eAStar	GetAStarStatus	(const INT16 node) const {return AStarData[node].status;};
-	INT16	GetAStarParent	(const INT16 node) const {return AStarData[node].parent;};
-	INT16	GetAStarG		(INT16 node) const {return AStarData[node].cost;};
-	int		GetExtraGCover	(const INT16 node) const {return AStarData[node].extraGCoverCost;};
+	eAStar	GetAStarStatus	(const INT32 node) const {return AStarData[node].status;};
+	INT32	GetAStarParent	(const INT32 node) const {return AStarData[node].parent;};
+	INT16	GetAStarG		(INT32 node) const {return AStarData[node].cost;};
+	int		GetExtraGCover	(const INT32 node) const {return AStarData[node].extraGCoverCost;};
 	//int		GetAStarF		(const INT16 node) const {return AStarData[node].f;};
 	//int		GetActionPoints	(const INT16 node) const {return AStarData[node].APCost;};
-	bool	GetLoopState	(const INT16 node) const {return AStarData[node].wasBackwards;};
+	bool	GetLoopState	(const INT32 node) const {return AStarData[node].wasBackwards;};
 	//int		GetPrevCost		(const INT16 node) const {return AStarData[node].prevCost;};
-	UINT8	GetDirection	(const INT16 node) const {return AStarData[node].directionFromPrev;};
-	int		GetNumSteps		(const INT16 node) const {return AStarData[node].numSteps;};
+	UINT8	GetDirection	(const INT32 node) const {return AStarData[node].directionFromPrev;};
+	int		GetNumSteps		(const INT32 node) const {return AStarData[node].numSteps;};
 
-	void	SetAStarStatus	(const INT16 node, const eAStar status) {AStarData[node].status = status;};
-	void	SetAStarParent	(const INT16 node, const INT16 parent) {AStarData[node].parent = parent;};
-	void	SetAStarG		(const INT16 node, const INT16 cost) {AStarData[node].cost = cost;};
-	void	SetExtraGCover	(const INT16 node, const int extraGCoverCost) {AStarData[node].extraGCoverCost = extraGCoverCost;};
+	void	SetAStarStatus	(const INT32 node, const eAStar status) {AStarData[node].status = status;};
+	void	SetAStarParent	(const INT32 node, const INT32 parent) {AStarData[node].parent = parent;};
+	void	SetAStarG		(const INT32 node, const INT16 cost) {AStarData[node].cost = cost;};
+	void	SetExtraGCover	(const INT32 node, const int extraGCoverCost) {AStarData[node].extraGCoverCost = extraGCoverCost;};
 	//void	SetAStarF		(const INT16 node, const int f) {AStarData[node].f = f;};
 	//void	SetActionPoints	(const INT16 node, const int APCost) {AStarData[node].APCost = APCost;};
-	void	SetLoopState	(const INT16 node, const int loopState);
+	void	SetLoopState	(const INT32 node, const int loopState);
 	//void	SetPrevCost		(const INT16 node, const int prevCost) {AStarData[node].prevCost = prevCost;};
-	void	SetDirection	(const INT16 node, const UINT8 direction) {AStarData[node].directionFromPrev = direction;};
-	void	SetNumSteps		(const INT16 node, const int steps) {AStarData[node].numSteps = steps;};
+	void	SetDirection	(const INT32 node, const UINT8 direction) {AStarData[node].directionFromPrev = direction;};
+	void	SetNumSteps		(const INT32 node, const int steps) {AStarData[node].numSteps = steps;};
 
-	int		PythSpacesAway	(const INT16 node1,
-							const INT16 node2);
-	INT16	SpacesAway		(const INT16 node1,
-							const INT16 node2);
+	int		PythSpacesAway	(const INT32 node1,
+							const INT32 node2);
+	INT16	SpacesAway		(const INT32 node1,
+							const INT32 node2);
 	//bool	IsDiagonal		(const INT16 node1,
 	//						const INT16 node2) {return (abs(node1.x - node2.x) && abs(node1.y - node2.y));};
 	bool	IsDiagonal		(int const direction) {return (direction & 1);};
@@ -190,27 +193,37 @@ private:
 
 BOOLEAN InitPathAI( void );
 void ShutDownPathAI( void );
-INT16 PlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPlot, INT8 bStayOn, UINT16 usMovementMode, INT8 bStealth, INT8 bReverse , INT16 sAPBudget);
-INT16 UIPlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPlot, INT8 bStayOn, UINT16 usMovementMode, INT8 bStealth, INT8 bReverse , INT16 sAPBudget);
-INT16 EstimatePlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPlot, INT8 bStayOn, UINT16 usMovementMode, INT8 bStealth, INT8 bReverse , INT16 sAPBudget);
+INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPlot, INT8 bStayOn, UINT16 usMovementMode, INT8 bStealth, INT8 bReverse , INT16 sAPBudget);
+INT32 UIPlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPlot, INT8 bStayOn, UINT16 usMovementMode, INT8 bStealth, INT8 bReverse , INT16 sAPBudget);
+INT32 EstimatePlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPlot, INT8 bStayOn, UINT16 usMovementMode, INT8 bStealth, INT8 bReverse , INT16 sAPBudget);
 
 void ErasePath(char bEraseOldOne);
-INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMovementMode, INT8 bCopy, UINT8 fFlags );
-void GlobalReachableTest( INT16 sStartGridNo );
-void GlobalItemsReachableTest( INT16 sStartGridNo1, INT16 sStartGridNo2 );
-void RoofReachableTest( INT16 sStartGridNo, UINT8 ubBuildingID );
-void LocalReachableTest( INT16 sStartGridNo, INT8 bRadius );
+INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 ubLevel, INT16 usMovementMode, INT8 bCopy, UINT8 fFlags );
+void GlobalReachableTest( INT32 sStartGridNo );
+void GlobalItemsReachableTest( INT32 sStartGridNo1, INT32 sStartGridNo2 );
+void RoofReachableTest( INT32 sStartGridNo, UINT8 ubBuildingID );
+void LocalReachableTest( INT32 sStartGridNo, INT8 bRadius );
 
 UINT8 DoorTravelCost( SOLDIERTYPE * pSoldier, INT32 iGridNo, UINT8 ubMovementCost, BOOLEAN fReturnPerceivedValue, INT32 * piDoorGridNo );
 UINT8 InternalDoorTravelCost( SOLDIERTYPE * pSoldier, INT32 iGridNo, UINT8 ubMovementCost, BOOLEAN fReturnPerceivedValue, INT32 * piDoorGridNo, BOOLEAN fReturnDoorCost );
 
 INT16 RecalculatePathCost( SOLDIERTYPE *pSoldier, UINT16 usMovementMode );
 
+//dnl ch50 071009
+// ABSOLUTE maximums
+#define ABSMAX_SKIPLIST_LEVEL 10				// was 5
+#define ABSMAX_TRAIL_TREE (WORLD_MAX)			// was 16384
+#define ABSMAX_PATHQ (ABSMAX_TRAIL_TREE/16)		// was 512
+// STANDARD maximums... configurable!
+#define MAX_SKIPLIST_LEVEL ABSMAX_SKIPLIST_LEVEL// was 5
+#define MAX_TRAIL_TREE ABSMAX_TRAIL_TREE		// was 16384
+#define MAX_PATHQ ABSMAX_PATHQ					// was 512
 // Lesh: setup max length of path
-#define MAX_PATH_DATA_LENGTH 512
+#define MAX_PATH_DATA_LENGTH MAX_PATHQ			// was 512
 
+#define TRAILCELLTYPE UINT16 //Lalien: moved form pathai.cpp
 // Exporting these global variables
-extern UINT32 guiPathingData[MAX_PATH_DATA_LENGTH];
+extern UINT32* guiPathingData;
 extern INT16 gubNPCAPBudget;
 extern UINT16 gusNPCMovementMode;
 extern UINT8 gubNPCDistLimit;

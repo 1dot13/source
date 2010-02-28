@@ -26,7 +26,7 @@
 
 #define	VEHICLE_REPAIR_POINTS_DIVISOR		10
 
-// HEADROCK HAM 3.6: Added separate Mobile Militia training assignment.
+
 // Assignments Defines
 enum{
  SQUAD_1 =0,
@@ -86,16 +86,6 @@ enum{
 	// NOTE: Wisdom isn't trainable!
 };
 
-// HEADROCK HAM 3.2: Set bitwise flags for locating facilities in current sector (for training/otherwise)
-// facilities flags
-// HEADROCK HAM 3.4: Removed due to facility externalization.
-/*#define AT_HOSPITAL		0x00000001
-#define AT_INDUSTRY		0x00000002
-#define AT_PRISON		0x00000004
-#define AT_MILITARY		0x00000008
-#define AT_AIRPORT		0x00000010
-#define AT_GUN_RANGE	0x00000020*/
-
 
 typedef struct TOWN_TRAINER_TYPE
 {
@@ -129,8 +119,6 @@ BOOLEAN CanCharacterPractise( SOLDIERTYPE *pCharacter );
 
 // can this character train others?
 BOOLEAN CanCharacterTrainTeammates( SOLDIERTYPE *pSoldier );
-
-// HEADROCK HAM 3.6: Can character use a specific facility?
 BOOLEAN CanCharacterFacility( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType, UINT8 ubAssignmentType );
 
 // put character on duty?
@@ -284,7 +272,6 @@ void VehicleMenuBtnCallback(MOUSE_REGION * pRegion, INT32 iReason );
 void CreateDestroyMouseRegionForRepairMenu( void );
 void RepairMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason );
 void RepairMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
-
 // HEADROCK HAM 3.6: Facility Menu
 void CreateDestroyMouseRegionForFacilityMenu( void );
 void FacilityMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason );

@@ -3,46 +3,32 @@
 
 #include "vfs_location_interface.h"
 
-
 namespace vfs
 {
-
-	class ILibrary : public vfs::IVFSLocation<vfs::IReadable,vfs::IWriteType>
+	class VFS_API ILibrary : public vfs::TLocationTemplate<vfs::IReadable,vfs::IWriteType>
 	{
+		typedef vfs::TLocationTemplate<vfs::IReadable,vfs::IWriteType> tBaseClass;
 	public:
-		ILibrary(tReadableFile *pLibraryFile, vfs::Path const& sMountPoint, bool bOwnFile = false)
-			: vfs::IVFSLocation<vfs::IReadable,vfs::IWriteType>(sMountPoint), m_pLibraryFile(pLibraryFile), m_bOwnLibFile(bOwnFile)
-		{};
-		virtual ~ILibrary()
-		{
-			if(m_pLibraryFile && m_bOwnLibFile)
-			{
-				m_pLibraryFile->Close();
-				delete m_pLibraryFile;
-				m_pLibraryFile = NULL;
-			}
-		};
+		ILibrary(vfs::tReadableFile *libraryFile, vfs::Path const& mountPoint, bool ownFile = false);
+		virtual ~ILibrary();
 	
-		virtual bool	Init() = 0;
-		virtual bool	CloseLibrary() = 0;
+		virtual bool		init() = 0;
+		virtual void		closeLibrary() = 0;
 	
-		virtual bool	Close(tFileType *pFileHandle) = 0;
-		virtual bool	OpenRead(tFileType *pFileHandle) = 0;
-		virtual bool	Read(tFileType *pFileHandle, Byte* pData, UInt32 uiBytesToRead, UInt32& uiBytesRead) = 0;
+		virtual void		close(tFileType *fileHandle) = 0;
+		virtual bool		openRead(tFileType *fileHandle) = 0;
+		virtual vfs::size_t	read(tFileType *fileHandle, vfs::Byte* data, vfs::size_t bytesToRead) = 0;
 		
-		virtual UInt32	GetReadLocation(tFileType *pFileHandle) = 0;
-		virtual bool	SetReadLocation(tFileType *pFileHandle, UInt32 uiPositionInBytes) = 0;
-		virtual bool	SetReadLocation(tFileType *pFileHandle, Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir) = 0;
+		virtual vfs::size_t	getReadPosition(tFileType *fileHandle) = 0;
+		virtual void		setReadPosition(tFileType *fileHandle, vfs::size_t positionInBytes) = 0;
+		virtual void		setReadPosition(tFileType *fileHandle, vfs::offset_t offsetInBytes, IBaseFile::ESeekDir seekDir) = 0;
 	
-		virtual bool	GetFileSize(tFileType *pFileHandle, UInt32& uiFileSize) = 0;
+		virtual vfs::size_t	getSize(tFileType *pFileHandle) = 0;
 
-		vfs::Path const&	GetLibName()
-		{
-			return m_pLibraryFile->GetFileName();
-		}
+		vfs::Path const&	getName();
 	protected:
-		vfs::tReadableFile*	m_pLibraryFile;
-		bool				m_bOwnLibFile;
+		bool				m_ownLibFile;
+		vfs::tReadableFile*	m_libraryFile;
 	};	
 
 }

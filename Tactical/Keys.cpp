@@ -641,7 +641,7 @@ void HandleDoorTrap( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	{
 		case EXPLOSION:
 			// cause damage as a regular hand grenade
-			IgniteExplosion( NOBODY, CenterX( pSoldier->sGridNo ), (INT16)CenterY( pSoldier->sGridNo ), 25, pSoldier->sGridNo, HAND_GRENADE, 0 );
+			IgniteExplosion( NOBODY, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 25, pSoldier->sGridNo, HAND_GRENADE, 0 );
 			break;
 
  		case SIREN:
@@ -716,7 +716,7 @@ BOOLEAN AttemptToBlowUpLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 		// Do explosive graphic....
 		{
 			ANITILE_PARAMS	AniParams;
-			INT16						sGridNo;
+			INT32 sGridNo;
 			INT16						sX, sY, sZ;
 
 			// Get gridno
@@ -779,45 +779,92 @@ BOOLEAN AttemptToBlowUpLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	return( FALSE );
 }
 
-//File I/O for loading the door information from the map.	This automatically allocates
-//the exact number of slots when loading.
-void LoadDoorTableFromMap( INT8 **hBuffer )
+//dnl ch42 250909
+DOOR& DOOR::operator=(const _OLD_DOOR& src)
 {
-	INT32 cnt;
-
-	TrashDoorTable();
-	LOADDATA( &gubNumDoors, *hBuffer, 1 );
-
-	gubMaxDoors = gubNumDoors;
-	DoorTable = (DOOR *)MemAlloc( sizeof( DOOR ) * gubMaxDoors );
-
-	LOADDATA( DoorTable, *hBuffer, sizeof( DOOR )*gubMaxDoors );
-
-	// OK, reset perceived values to nothing...
-	for ( cnt = 0; cnt < gubNumDoors; cnt++ )
+	if((void*)this != (void*)&src)
 	{
-		DoorTable[ cnt ].bPerceivedLocked = DOOR_PERCEIVED_UNKNOWN;
-		DoorTable[ cnt ].bPerceivedTrapped = DOOR_PERCEIVED_UNKNOWN;
+		sGridNo = src.sGridNo;
+		fLocked = src.fLocked;
+		ubTrapLevel = src.ubTrapLevel;
+		ubTrapID = src.ubTrapID;
+		ubLockID = src.ubLockID;
+		bPerceivedLocked = src.bPerceivedLocked;
+		bPerceivedTrapped = src.bPerceivedTrapped;
+		bLockDamage = src.bLockDamage;
+	}
+	return(*this);
+}
+
+BOOLEAN DOOR::Load(INT8** hBuffer, FLOAT dMajorMapVersion)
+{
+	if(dMajorMapVersion < 7.0)
+	{
+		_OLD_DOOR OldDoorTable;
+		LOADDATA(&OldDoorTable, *hBuffer, sizeof(_OLD_DOOR));
+		*this = OldDoorTable;
+	}
+	else
+		LOADDATA(this, *hBuffer, sizeof(DOOR));
+	return(TRUE);
+}
+
+BOOLEAN DOOR::Save(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)
+{
+	PTR pData = this;
+	UINT32 uiBytesToWrite = sizeof(DOOR);
+	_OLD_DOOR OldDoor;
+	if(dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION)
+	{
+		memset(&OldDoor, 0, sizeof(_OLD_DOOR));
+		OldDoor.sGridNo = sGridNo;
+		OldDoor.fLocked = fLocked;
+		OldDoor.ubTrapLevel = ubTrapLevel;
+		OldDoor.ubTrapID = ubTrapID;
+		OldDoor.ubLockID = ubLockID;
+		OldDoor.bPerceivedLocked = bPerceivedLocked;
+		OldDoor.bPerceivedTrapped = bPerceivedTrapped;
+		OldDoor.bLockDamage = bLockDamage;
+		pData = &OldDoor;
+		uiBytesToWrite = sizeof(_OLD_DOOR);
+	}
+	UINT32 uiBytesWritten = 0;
+	FileWrite(hFile, pData, uiBytesToWrite, &uiBytesWritten);
+	if(uiBytesToWrite == uiBytesWritten)
+		return(TRUE);
+	return(FALSE);
+}
+
+void LoadDoorTableFromMap(INT8** hBuffer, FLOAT dMajorMapVersion)
+{
+	TrashDoorTable();
+	LOADDATA(&gubNumDoors, *hBuffer, sizeof(gubNumDoors));
+	gubMaxDoors = gubNumDoors;
+	DoorTable = (DOOR*)MemAlloc(gubMaxDoors*sizeof(DOOR));
+	for(int cnt=0; cnt<gubNumDoors; cnt++)
+	{
+		DoorTable[cnt].Load(hBuffer, dMajorMapVersion);
+		gMapTrn.GetTrnCnt(DoorTable[cnt].sGridNo);//dnl ch44 290909 DOOR translation
+		// OK, reset perceived values to nothing...
+		DoorTable[cnt].bPerceivedLocked = DOOR_PERCEIVED_UNKNOWN;
+		DoorTable[cnt].bPerceivedTrapped = DOOR_PERCEIVED_UNKNOWN;
 	}
 }
 
-//Saves the existing door information to the map.	Before it actually saves, it'll verify that the
-//door still exists.	Otherwise, it'll ignore it.	It is possible in the editor to delete doors in
-//many different ways, so I opted to put it in the saving routine.
-void SaveDoorTableToMap( HWFILE fp )
+void SaveDoorTableToMap(HWFILE fp, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)
 {
 	INT32 i = 0;
-	UINT32	uiBytesWritten;
-
-	while( i < gubNumDoors )
+	while(i < gubNumDoors)
 	{
-		if( !OpenableAtGridNo( DoorTable[ i ].sGridNo ) )
-			RemoveDoorInfoFromTable( DoorTable[ i ].sGridNo );
+		if(!OpenableAtGridNo(DoorTable[i].sGridNo))
+			RemoveDoorInfoFromTable(DoorTable[i].sGridNo);
 		else
 			i++;
 	}
-	FileWrite( fp, &gubNumDoors, 1, &uiBytesWritten );
-	FileWrite( fp, DoorTable, sizeof( DOOR )*gubNumDoors, &uiBytesWritten );
+	UINT32 uiBytesWritten;
+	FileWrite(fp, &gubNumDoors, sizeof(gubNumDoors), &uiBytesWritten);
+	for(i=0; i<gubNumDoors; i++)
+		DoorTable[i].Save(fp, dMajorMapVersion, ubMinorMapVersion);
 }
 
 //The editor adds locks to the world.	If the gridno already exists, then the currently existing door
@@ -1077,7 +1124,7 @@ BOOLEAN LoadDoorTableFromDoorTableTempFile( )
 
 
 // fOpen is True if the door is open, false if it is closed
-BOOLEAN ModifyDoorStatus( INT16 sGridNo, BOOLEAN fOpen, BOOLEAN fPerceivedOpen )
+BOOLEAN ModifyDoorStatus( INT32 sGridNo, BOOLEAN fOpen, BOOLEAN fPerceivedOpen )
 {
 	UINT8	ubCnt;
 	STRUCTURE * pStructure;
@@ -1203,7 +1250,7 @@ void TrashDoorStatusArray( )
 }
 
 
-BOOLEAN	IsDoorOpen( INT16 sGridNo )
+BOOLEAN	IsDoorOpen( INT32 sGridNo )
 {
 	UINT8	ubCnt;
 	STRUCTURE * pStructure;
@@ -1253,7 +1300,7 @@ BOOLEAN	IsDoorOpen( INT16 sGridNo )
 }
 
 // Returns a doors status value, NULL if not found
-DOOR_STATUS	*GetDoorStatus( INT16 sGridNo )
+DOOR_STATUS	*GetDoorStatus( INT32 sGridNo )
 {
 	UINT8	ubCnt;
 	STRUCTURE * pStructure;
@@ -1293,13 +1340,13 @@ DOOR_STATUS	*GetDoorStatus( INT16 sGridNo )
 }
 
 
-BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
+BOOLEAN AllMercsLookForDoor( INT32 sGridNo, BOOLEAN fUpdateValue )
 {
 	INT32					cnt, cnt2;
 	INT8										bDirs[ 8 ] = { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
 	SOLDIERTYPE							*pSoldier;
 	DOOR_STATUS							*pDoorStatus;
-	INT16											sNewGridNo;
+	INT32											usNewGridNo;
 
 	// Get door
 	pDoorStatus = GetDoorStatus( sGridNo );
@@ -1315,8 +1362,8 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 	// look for all mercs on the same team,
 	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++ )
 	{
-		// ATE: Ok, lets check for some basic things here!
-		if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->sGridNo != NOWHERE && pSoldier->bActive && pSoldier->bInSector )
+		// ATE: Ok, lets check for some basic things here!		
+		if ( pSoldier->stats.bLife >= OKLIFE && !TileIsOutOfBounds(pSoldier->sGridNo) && pSoldier->bActive && pSoldier->bInSector )
 		{
 			// and we can trace a line of sight to his x,y coordinates?
 			// (taking into account we are definitely aware of this guy now)
@@ -1333,10 +1380,10 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 			// Now try other adjacent gridnos...
 			for ( cnt2 = 0; cnt2 < 8; cnt2++ )
 			{
-				sNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
+				usNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
 				// and we can trace a line of sight to his x,y coordinates?
 				// (taking into account we are definitely aware of this guy now)
-				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sNewGridNo, 0, 0, TRUE, CALC_FROM_ALL_DIRS ) )
+				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, usNewGridNo, 0, 0, TRUE, CALC_FROM_ALL_DIRS ) )
 				{
 					// Update status...
 					if ( fUpdateValue )
@@ -1356,10 +1403,10 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 BOOLEAN MercLooksForDoors( SOLDIERTYPE *pSoldier, BOOLEAN fUpdateValue )
 {
 	INT32					cnt, cnt2;
-	INT16										sGridNo;
+	INT32 sGridNo;
 	DOOR_STATUS							*pDoorStatus;
 	INT8										bDirs[ 8 ] = { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
-	INT16										sNewGridNo;
+	INT32										 usNewGridNo;
 
 
 
@@ -1392,10 +1439,10 @@ BOOLEAN MercLooksForDoors( SOLDIERTYPE *pSoldier, BOOLEAN fUpdateValue )
 		// Now try other adjacent gridnos...
 		for ( cnt2 = 0; cnt2 < 8; cnt2++ )
 		{
-			sNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
+			usNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
 			// and we can trace a line of sight to his x,y coordinates?
 			// (taking into account we are definitely aware of this guy now)
-			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sNewGridNo, 0, 0, TRUE, CALC_FROM_ALL_DIRS ) )
+			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, usNewGridNo, 0, 0, TRUE, CALC_FROM_ALL_DIRS ) )
 			{
 				// Update status...
 				if ( fUpdateValue )
@@ -1418,7 +1465,7 @@ void SyncronizeDoorStatusToStructureData( DOOR_STATUS *pDoorStatus )
 {
 	STRUCTURE *pStructure, *pBaseStructure;
 	LEVELNODE * pNode;
-	INT16 sBaseGridNo				= NOWHERE;
+	INT32 sBaseGridNo				 = NOWHERE;
 
 	// First look for a door structure here...
 	pStructure = FindStructure( pDoorStatus->sGridNo, STRUCTURE_ANYDOOR );
@@ -1500,7 +1547,7 @@ void InternalUpdateDoorGraphicFromStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fUse
 	LEVELNODE * pNode;
 	BOOLEAN		fWantToBeOpen	= FALSE;
 	BOOLEAN		fDifferent	 = FALSE;
-	INT16 sBaseGridNo				= NOWHERE;
+	INT32 sBaseGridNo				 = NOWHERE;
 
 
 	// OK, look at perceived status and adjust graphic
@@ -1708,7 +1755,7 @@ void InternalUpdateDoorsPerceivedValue( DOOR_STATUS *pDoorStatus )
 	}
 }
 
-BOOLEAN UpdateDoorStatusPerceivedValue( INT16 sGridNo )
+BOOLEAN UpdateDoorStatusPerceivedValue( INT32 sGridNo )
 {
 	DOOR_STATUS	*pDoorStatus = NULL;
 
@@ -1721,7 +1768,7 @@ BOOLEAN UpdateDoorStatusPerceivedValue( INT16 sGridNo )
 }
 
 
-BOOLEAN	IsDoorPerceivedOpen( INT16 sGridNo )
+BOOLEAN	IsDoorPerceivedOpen( INT32 sGridNo )
 {
 	DOOR_STATUS	* pDoorStatus;
 
@@ -1759,7 +1806,7 @@ BOOLEAN	InternalSetDoorPerceivedOpenStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fP
 }
 
 
-BOOLEAN	SetDoorPerceivedOpenStatus( INT16 sGridNo, BOOLEAN fPerceivedOpen )
+BOOLEAN	SetDoorPerceivedOpenStatus( INT32 sGridNo, BOOLEAN fPerceivedOpen )
 {
 	DOOR_STATUS	*pDoorStatus = NULL;
 
@@ -1772,7 +1819,7 @@ BOOLEAN	SetDoorPerceivedOpenStatus( INT16 sGridNo, BOOLEAN fPerceivedOpen )
 }
 
 
-BOOLEAN	SetDoorOpenStatus( INT16 sGridNo, BOOLEAN fOpen )
+BOOLEAN	SetDoorOpenStatus( INT32 sGridNo, BOOLEAN fOpen )
 {
 	DOOR_STATUS * pDoorStatus;
 
@@ -2104,7 +2151,7 @@ void HandleDoorsChangeWhenEnteringSectorCurrentlyLoaded( )
 }
 
 
-void DropKeysInKeyRing( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, INT8 bVisible, BOOLEAN fAddToDropList, INT32 iDropListSlot, BOOLEAN fUseUnLoaded )
+void DropKeysInKeyRing( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, INT8 bVisible, BOOLEAN fAddToDropList, INT32 iDropListSlot, BOOLEAN fUseUnLoaded )
 {
 	if (!(pSoldier->pKeyRing))
 	{

@@ -9,18 +9,13 @@ namespace vfs
 	class CUncompressed7zLibrary : public vfs::CUncompressedLibraryBase
 	{
 	public:
-		CUncompressed7zLibrary(tReadableFile *pLibraryFile,
-			vfs::Path const& sMountPoint,
-			bool bOwnFile = false,
-			ObjBlockAllocator<vfs::CLibFile>* allocator=NULL)
-			: vfs::CUncompressedLibraryBase(pLibraryFile,sMountPoint,bOwnFile), _allocator(allocator)
-		{};
-		virtual ~CUncompressed7zLibrary()
-		{};
-		/**
-		 *  ILibrary interface
-		 */
-		virtual bool Init();
+		CUncompressed7zLibrary(tReadableFile *libraryFile,
+			vfs::Path const& mountPoint,
+			bool ownFile = false,
+			ObjBlockAllocator<vfs::CLibFile>* allocator=NULL);		
+		virtual ~CUncompressed7zLibrary();
+
+		virtual bool init();
 	private:
 		ObjBlockAllocator<vfs::CLibFile>* _allocator;
 	};

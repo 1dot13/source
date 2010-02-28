@@ -62,6 +62,7 @@
 	#include "Scheduling.h"
 	#include "Timer Control.h"
 	#include "message.h"
+	#include "InterfaceItemImages.h"
 #endif
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -195,7 +196,7 @@ BASIC_SOLDIERCREATE_STRUCT gTempBasicPlacement;
 SOLDIERCREATE_STRUCT gTempDetailedPlacement;
 
 INT16						gsSelectedMercID;
-INT16						gsSelectedMercGridNo;
+INT32						gsSelectedMercGridNo;
 SOLDIERINITNODE *gpSelected;
 
 UINT8						gubCurrMercMode									= MERC_TEAMMODE;
@@ -320,8 +321,8 @@ void GameInitEditorMercsInfo()
 	for( i = 0; i < 4; i++ )
 	{
 		gCurrSchedule.usTime[i] = 0xffff;
-		gCurrSchedule.usData1[i] = 0xffff;
-		gCurrSchedule.usData2[i] = 0xffff;
+		gCurrSchedule.usData1[i] = 0xffffffff;
+		gCurrSchedule.usData2[i] = 0xffffffff;
 	}
 }
 
@@ -525,7 +526,7 @@ void AddMercToWorld( INT32 iMapIndex )
 		//Set up some general information.
 		gTempBasicPlacement.fDetailedPlacement = FALSE;
 		gTempBasicPlacement.fPriorityExistance = FALSE;
-		gTempBasicPlacement.sStartingGridNo = (INT16)iMapIndex;
+		gTempBasicPlacement.usStartingGridNo = iMapIndex;
 		gTempBasicPlacement.bOrders = gbDefaultOrders;
 		gTempBasicPlacement.bAttitude = gbDefaultAttitude;
 		gTempBasicPlacement.bRelativeAttributeLevel = gbDefaultRelativeAttributeLevel;
@@ -577,7 +578,7 @@ void HandleRightClickOnMerc( INT32 iMapIndex )
 	INT16 sThisMercID;
 	INT16 sCellX, sCellY;
 
-	ConvertGridNoToCellXY( (INT16)iMapIndex, &sCellX, &sCellY );
+	ConvertGridNoToCellXY( iMapIndex, &sCellX, &sCellY );
 
 	sThisMercID = (INT16)IsMercHere( iMapIndex );
 
@@ -610,8 +611,8 @@ void HandleRightClickOnMerc( INT32 iMapIndex )
 				gpSelected->pDetailedPlacement->fOnRoof = FALSE;
 			gpSelected->pSoldier->SetSoldierHeight(	0.0 );
 		}
-		gsSelectedMercGridNo = (INT16)iMapIndex;
-		gpSelected->pBasicPlacement->sStartingGridNo = gsSelectedMercGridNo;
+		gsSelectedMercGridNo = iMapIndex;
+		gpSelected->pBasicPlacement->usStartingGridNo = gsSelectedMercGridNo;
 		if( gpSelected->pDetailedPlacement )
 			gpSelected->pDetailedPlacement->sInsertionGridNo = gsSelectedMercGridNo;
 		AddObjectToHead( gsSelectedMercGridNo, CONFIRMMOVE1 );
@@ -640,7 +641,7 @@ void ResetAllMercPositions()
 			TacticalRemoveSoldier( curr->pSoldier->ubID );
 			curr->pSoldier = NULL;
 		}
-		//sMapIndex = gpSelected->pBasicPlacement->sStartingGridNo;
+		//usMapIndex = gpSelected->pBasicPlacement->usStartingGridNo;
 		//ConvertGridNoToCellXY( sMapIndex, &sCellX, &sCellY );
 		//if( gpSelected->pSoldier )
 		//{
@@ -659,7 +660,7 @@ void ResetAllMercPositions()
 	gsSelectedMercID = -1;
 }
 
-void AddMercWaypoint( UINT32 iMapIndex )
+void AddMercWaypoint( INT32 iMapIndex )
 {
 	INT32 iNum;
 	// index 0 isn't used
@@ -674,10 +675,10 @@ void AddMercWaypoint( UINT32 iMapIndex )
 		// Fill up missing waypoints with same value as new one
 		for(iNum = gpSelected->pSoldier->aiData.bPatrolCnt + 1; iNum <= iActionParam; iNum++)
 		{
-			gpSelected->pBasicPlacement->sPatrolGrid[iNum] = (INT16)iMapIndex;
+			gpSelected->pBasicPlacement->sPatrolGrid[iNum] = iMapIndex;
 			if( gpSelected->pDetailedPlacement )
-				gpSelected->pDetailedPlacement->sPatrolGrid[iNum] = (INT16)iMapIndex;
-			gpSelected->pSoldier->aiData.sPatrolGrid[iNum] = (INT16)iMapIndex;
+				gpSelected->pDetailedPlacement->sPatrolGrid[iNum] = iMapIndex;
+			gpSelected->pSoldier->aiData.sPatrolGrid[iNum] = iMapIndex;
 		}
 
 		gpSelected->pBasicPlacement->bPatrolCnt = (INT8)iActionParam;
@@ -689,10 +690,10 @@ void AddMercWaypoint( UINT32 iMapIndex )
 	else
 	{
 		// Set this way point
-		gpSelected->pBasicPlacement->sPatrolGrid[iActionParam] = (INT16)iMapIndex;
+		gpSelected->pBasicPlacement->sPatrolGrid[iActionParam] = iMapIndex;
 		if( gpSelected->pDetailedPlacement )
-			gpSelected->pDetailedPlacement->sPatrolGrid[iActionParam] = (INT16)iMapIndex;
-		gpSelected->pSoldier->aiData.sPatrolGrid[iActionParam] = (INT16)iMapIndex;
+			gpSelected->pDetailedPlacement->sPatrolGrid[iActionParam] = iMapIndex;
+		gpSelected->pSoldier->aiData.sPatrolGrid[iActionParam] = iMapIndex;
 	}
 	gfRenderWorld = TRUE;
 }
@@ -881,7 +882,7 @@ INT32 IsMercHere( INT32 iMapIndex )
 	{
 		if ( GetSoldier( &pSoldier, (INT16)IDNumber ) )
 		{
-			if ( pSoldier->sGridNo == (INT16)iMapIndex )
+			if ( pSoldier->sGridNo == iMapIndex )
 			{
 				fSoldierFound = TRUE;
 				RetIDNumber = IDNumber;
@@ -1294,7 +1295,7 @@ void DisplayWayPoints(void)
 	FLOAT ScrnX,ScrnY,dOffsetX,dOffsetY;
 	INT8	bPoint;
 	SOLDIERTYPE *pSoldier;
-	INT16 sGridNo;
+	INT32 sGridNo;
 
 
 	if ( gsSelectedMercID == -1 || (gsSelectedMercID <= (INT32)gTacticalStatus.Team[ OUR_TEAM ].bLastID) || gsSelectedMercID >= MAXMERCS )
@@ -1308,7 +1309,7 @@ void DisplayWayPoints(void)
 	for ( bPoint = 1; bPoint <= pSoldier->aiData.bPatrolCnt; bPoint++ )
 	{
 		// Get the next point
-		sGridNo = (INT16)pSoldier->aiData.sPatrolGrid[bPoint];
+		sGridNo = pSoldier->aiData.sPatrolGrid[bPoint];
 
 		// Can we see it?
 		if ( !GridNoOnVisibleWorldTile( sGridNo ) )
@@ -1835,7 +1836,7 @@ void ExtractAndUpdateMercProfile()
 
 	//if the string is blank, returning -1, then set the value to NO_PROFILE
 	//because ubProfile is unsigned.
-	sNum = (INT16)min( GetNumericStrictValueFromField( 0 ), NUM_PROFILES );
+	sNum = (INT16)min( GetNumericStrictValueFromField( 0 ), NUM_PROFILES-1 );//dnl ch54 101009
 	if( sNum == -1 )
 	{
 		gpSelected->pDetailedPlacement->ubProfile = NO_PROFILE;
@@ -2119,48 +2120,41 @@ void SetMercEditability( BOOLEAN fEditable )
 //points together.	If one of the points is isolated, then the map will be rejected.	It
 //isn't necessary to specify all four points.	You wouldn't want to specify a north point if
 //there isn't going to be any traversing to adjacent maps from that side.
-void SpecifyEntryPoint( UINT32 iMapIndex )
+//dnl ch41 210909 undo is never implemented for entry points and deletion never work
+void SpecifyEntryPoint(INT32 iMapIndex)
 {
-	INT16 *psEntryGridNo;
-	BOOLEAN fErasing = FALSE;
-	if( iDrawMode >= DRAW_MODE_ERASE )
+	INT32 *psEntryGridNo;
+	switch((iDrawMode>=DRAW_MODE_ERASE ? iDrawMode-DRAW_MODE_ERASE : iDrawMode))
 	{
-		iDrawMode -= DRAW_MODE_ERASE;
-		fErasing = TRUE;
+		case DRAW_MODE_NORTHPOINT:
+			psEntryGridNo = &gMapInformation.sNorthGridNo;
+			break;
+		case DRAW_MODE_WESTPOINT:
+			psEntryGridNo = &gMapInformation.sWestGridNo;
+			break;
+		case DRAW_MODE_EASTPOINT:
+			psEntryGridNo = &gMapInformation.sEastGridNo;
+			break;
+		case DRAW_MODE_SOUTHPOINT:
+			psEntryGridNo = &gMapInformation.sSouthGridNo;
+			break;
+		case DRAW_MODE_CENTERPOINT:
+			psEntryGridNo = &gMapInformation.sCenterGridNo;
+			break;
+		case DRAW_MODE_ISOLATEDPOINT:
+			psEntryGridNo = &gMapInformation.sIsolatedGridNo;
+			break;
+		default:
+			return;
 	}
-	switch( iDrawMode )
+	if(iDrawMode >= DRAW_MODE_ERASE)
 	{
-		case DRAW_MODE_NORTHPOINT:		psEntryGridNo = &gMapInformation.sNorthGridNo;		break;
-		case DRAW_MODE_WESTPOINT:			psEntryGridNo = &gMapInformation.sWestGridNo;			break;
-		case DRAW_MODE_EASTPOINT:			psEntryGridNo = &gMapInformation.sEastGridNo;			break;
-		case DRAW_MODE_SOUTHPOINT:		psEntryGridNo = &gMapInformation.sSouthGridNo;		break;
-		case DRAW_MODE_CENTERPOINT:		psEntryGridNo = &gMapInformation.sCenterGridNo;		break;
-		case DRAW_MODE_ISOLATEDPOINT:	psEntryGridNo = &gMapInformation.sIsolatedGridNo;	break;
-		default:																																				return;
-	}
-	if( !fErasing )
-	{
-		if( *psEntryGridNo >= 0 )
-		{
-			AddToUndoList( *psEntryGridNo );
-			RemoveAllTopmostsOfTypeRange( *psEntryGridNo, FIRSTPOINTERS, FIRSTPOINTERS );
-		}
-		*psEntryGridNo = (INT16)iMapIndex;
-		ValidateEntryPointGridNo( psEntryGridNo );
-		AddToUndoList( *psEntryGridNo );
-		AddTopmostToTail( *psEntryGridNo, FIRSTPOINTERS2 );
+		*psEntryGridNo = -1;
 	}
 	else
 	{
-		UINT16 usDummy;
-		if( TypeExistsInTopmostLayer( iMapIndex, FIRSTPOINTERS, &usDummy ) )
-		{
-			AddToUndoList( iMapIndex );
-			RemoveAllTopmostsOfTypeRange( iMapIndex, FIRSTPOINTERS, FIRSTPOINTERS );
-			*psEntryGridNo = -1;
-		}
-		//restore the drawmode
-		iDrawMode += DRAW_MODE_ERASE;
+		*psEntryGridNo = iMapIndex;
+		ValidateEntryPointGridNo(psEntryGridNo);
 	}
 }
 
@@ -2816,10 +2810,12 @@ void AddNewItemToSelectedMercsInventory( BOOLEAN fCreate )
 	item = &Item[ gusMercsNewItemIndex ];
 	uiVideoObjectIndex = GetInterfaceGraphicForItem( item );
 	GetVideoObject( &hVObject, uiVideoObjectIndex );
-	BltVideoObjectOutlineFromIndex( uiSrcID, uiVideoObjectIndex, item->ubGraphicNum, 0, 0, 0, FALSE );
+
+	UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : item->ubGraphicNum;
+	BltVideoObjectOutlineFromIndex( uiSrcID, uiVideoObjectIndex, usGraphicNum, 0, 0, 0, FALSE );
 
 	//crop the source image
-	pObject = &hVObject->pETRLEObject[ item->ubGraphicNum ];
+	pObject = &hVObject->pETRLEObject[ usGraphicNum ];
 	iSrcWidth				=		pObject->usWidth;
 	iSrcHeight			=		pObject->usHeight;
 	SrcRect.iLeft	+=	pObject->sOffsetX;
@@ -3045,10 +3041,13 @@ void SetEnemyColorCode( UINT8 ubColorCode )
 			break;
 		case SOLDIER_CLASS_MINER:
 			//will probably never get called
-			gpSelected->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_ELITE;
+
+			// WANNE: Fix a vanilla bug in the editor: When selecting a miner, he was turned into an elite soldier.
+			// Fixed by Tron (Straciatella): Revision: 6650
+			gpSelected->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_MINER;
 			gubSoldierClass = SOLDIER_CLASS_MINER;
 			if( gpSelected->pDetailedPlacement )
-				gpSelected->pDetailedPlacement->ubSoldierClass = SOLDIER_CLASS_ELITE;
+				gpSelected->pDetailedPlacement->ubSoldierClass = SOLDIER_CLASS_MINER;
 			SET_PALETTEREP_ID( gpSelected->pSoldier->VestPal, "greyVEST"	);
 			SET_PALETTEREP_ID( gpSelected->pSoldier->PantsPal, "BEIGEPANTS"	);
 			break;
@@ -3311,7 +3310,7 @@ void RegisterCurrentScheduleAction( INT32 iMapIndex )
 		if( gfSingleAction )
 			return;
 		iDrawMode = DRAW_MODE_PLAYER + gpSelected->pBasicPlacement->bTeam;
-		gCurrSchedule.usData2[ gubCurrentScheduleActionIndex ] = (INT16)iMapIndex;
+		gCurrSchedule.usData2[ gubCurrentScheduleActionIndex ] = iMapIndex;
 		SpecifyButtonText( iEditorButton[ MERCS_SCHEDULE_DATA1B + gubCurrentScheduleActionIndex ], str );
 		DetermineScheduleEditability();
 		gubScheduleInstructions = SCHEDULE_INSTRUCTIONS_NONE;
@@ -3354,7 +3353,7 @@ void RegisterCurrentScheduleAction( INT32 iMapIndex )
 			case SCHEDULE_ACTION_NONE:
 				break;
 		}
-		gCurrSchedule.usData1[ gubCurrentScheduleActionIndex ] = (INT16)iMapIndex;
+		gCurrSchedule.usData1[ gubCurrentScheduleActionIndex ] = iMapIndex;
 		SpecifyButtonText( iEditorButton[ MERCS_SCHEDULE_DATA1A + gubCurrentScheduleActionIndex ], str );
 	}
 }
@@ -3368,8 +3367,8 @@ void StartScheduleAction()
 			EnableTextFields( 1, 4 );
 			gubScheduleInstructions = SCHEDULE_INSTRUCTIONS_NONE;
 			gfRenderTaskbar = TRUE;
-			gCurrSchedule.usData1[ gubCurrentScheduleActionIndex ] = 0xffff;
-			gCurrSchedule.usData2[ gubCurrentScheduleActionIndex ] = 0xffff;
+			gCurrSchedule.usData1[ gubCurrentScheduleActionIndex ] = 0xffffffff;
+			gCurrSchedule.usData2[ gubCurrentScheduleActionIndex ] = 0xffffffff;
 			break;
 		case SCHEDULE_ACTION_LOCKDOOR:
 		case SCHEDULE_ACTION_UNLOCKDOOR:
@@ -3398,14 +3397,14 @@ void StartScheduleAction()
 			iDrawMode = DRAW_MODE_SCHEDULEACTION;
 			gubScheduleInstructions = SCHEDULE_INSTRUCTIONS_GRIDNO;
 			gfRenderTaskbar = TRUE;
-			gCurrSchedule.usData2[ gubCurrentScheduleActionIndex ] = 0xffff;
+			gCurrSchedule.usData2[ gubCurrentScheduleActionIndex ] = 0xffffffff;
 			break;
 		case SCHEDULE_ACTION_LEAVESECTOR:
 		case SCHEDULE_ACTION_STAYINSECTOR:
 			gubScheduleInstructions = SCHEDULE_INSTRUCTIONS_NONE;
 			gfRenderTaskbar = TRUE;
-			gCurrSchedule.usData1[ gubCurrentScheduleActionIndex ] = 0xffff;
-			gCurrSchedule.usData2[ gubCurrentScheduleActionIndex ] = 0xffff;
+			gCurrSchedule.usData1[ gubCurrentScheduleActionIndex ] = 0xffffffff;
+			gCurrSchedule.usData2[ gubCurrentScheduleActionIndex ] = 0xffffffff;
 			break;
 	}
 	MarkWorldDirty();
@@ -3425,7 +3424,7 @@ void UpdateScheduleAction( UINT8 ubNewAction )
 // 0:1A, 1:1B, 2:2A, 3:2B, ...
 void FindScheduleGridNo( UINT8 ubScheduleData )
 {
-	INT32 iMapIndex;
+	INT32 iMapIndex = 0xffffffff;
 	switch( ubScheduleData )
 	{
 		case 0: //1a
@@ -3455,7 +3454,7 @@ void FindScheduleGridNo( UINT8 ubScheduleData )
 		default:
 			AssertMsg( 0, "FindScheduleGridNo passed incorrect dataID." );
 	}
-	if( iMapIndex != 0xffff )
+	if( iMapIndex != 0xffffffff )
 	{
 		CenterScreenAtMapIndex( iMapIndex );
 	}
@@ -3471,9 +3470,9 @@ void ClearCurrentSchedule()
 		SpecifyButtonText( iEditorButton[ MERCS_SCHEDULE_ACTION1 + i ], L"No action" );
 		gCurrSchedule.usTime[i] = 0xffff;
 		SetExclusive24HourTimeValue( (UINT8)(i+1), gCurrSchedule.usTime[ i ] ); //blanks the field
-		gCurrSchedule.usData1[i] = 0xffff;
+		gCurrSchedule.usData1[i] = 0xffffffff;
 		SpecifyButtonText( iEditorButton[ MERCS_SCHEDULE_DATA1A + i ], L"" );
-		gCurrSchedule.usData2[i] = 0xffff;
+		gCurrSchedule.usData2[i] = 0xffffffff;
 		SpecifyButtonText( iEditorButton[ MERCS_SCHEDULE_DATA1B + i ], L"" );
 	}
 	//Remove the variance stuff
@@ -3507,7 +3506,7 @@ void RenderCurrentSchedule()
 			continue;
 
 		// Convert it's location to screen coordinates
-		ConvertGridNoToXY( (INT16)iMapIndex, &sXMapPos, &sYMapPos );
+		ConvertGridNoToXY( iMapIndex, &sXMapPos, &sYMapPos );
 
 		dOffsetX = (FLOAT)(sXMapPos * CELL_X_SIZE) - gsRenderCenterX;
 		dOffsetY = (FLOAT)(sYMapPos * CELL_Y_SIZE) - gsRenderCenterY;
@@ -3552,11 +3551,11 @@ void UpdateScheduleInfo()
 			MSYS_SetBtnUserData( iEditorButton[ MERCS_SCHEDULE_ACTION1 + i ], 0, pSchedule->ubAction[i] );
 			SpecifyButtonText( iEditorButton[ MERCS_SCHEDULE_ACTION1 + i ], gszScheduleActions[ pSchedule->ubAction[i] ] );
 			swprintf( str, L"" );
-			if( pSchedule->usData1[i] != 0xffff )
+			if( pSchedule->usData1[i] != 0xffffffff )
 				swprintf( str, L"%d", pSchedule->usData1[i] );
 			SpecifyButtonText( iEditorButton[ MERCS_SCHEDULE_DATA1A + i ], str );
 			swprintf( str, L"" );
-			if( pSchedule->usData2[i] != 0xffff )
+			if( pSchedule->usData2[i] != 0xffffffff )
 				swprintf( str, L"%d", pSchedule->usData2[i] );
 			SpecifyButtonText( iEditorButton[ MERCS_SCHEDULE_DATA1B + i ], str );
 			if( gubCurrMercMode == MERC_SCHEDULEMODE )
@@ -3658,7 +3657,7 @@ void PasteMercPlacement( INT32 iMapIndex )
 
 		//Set up some general information.
 		//gTempBasicPlacement.fDetailedPlacement = TRUE;
-		gTempBasicPlacement.sStartingGridNo = (INT16)iMapIndex;
+		gTempBasicPlacement.usStartingGridNo = iMapIndex;
 
 		//Generate detailed placement information given the temp placement information.
 		if( gTempBasicPlacement.fDetailedPlacement )

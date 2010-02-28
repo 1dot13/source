@@ -69,8 +69,8 @@ void LiveMessage( CHAR8 *strMessage)
 		fclose(OutFile);
 	}
 #else
-	static CLog& liveMsg = *CLog::Create(L"LiveLog.txt",true);
-	liveMsg << strMessage << CLog::endl;
+	static CLog& liveMsg = *CLog::create(L"LiveLog.txt",true);
+	liveMsg << strMessage << CLog::ENDL;
 #endif
 }
 void MPDebugMsg( CHAR8 *strMessage)
@@ -84,7 +84,7 @@ void MPDebugMsg( CHAR8 *strMessage)
 		fclose(OutFile);
 	}
 #else
-	static CLog& mpMsg = *CLog::Create(L"MPDebug.txt", true);
-	mpMsg << strMessage << CLog::endl;
+	static CLog& mpMsg = *CLog::create(L"MPDebug.txt", true);
+	mpMsg << strMessage << CLog::ENDL;
 #endif
 }

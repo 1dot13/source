@@ -17,20 +17,20 @@ namespace vfs
 	/**
 	 *  ILocationAware
 	 */
-	template<typename ReadType, typename WriteType>
-	class ILocationAware
-	{
-	public:
-		typedef vfs::IVFSLocation<ReadType,WriteType> tLocationType;
-	public:
-		ILocationAware(vfs::IVFSLocation<ReadType,WriteType> *pLocation)
-			: _pLoc_(pLocation)
-		{};
-		virtual ~ILocationAware()
-		{};
-	protected:
-		tLocationType* _pLoc_;
-	};
+	//template<typename ReadType, typename WriteType>
+	//class ILocationAware
+	//{
+	//public:
+	//	typedef vfs::IVFSLocation<ReadType,WriteType> tLocationType;
+	//public:
+	//	ILocationAware(vfs::IVFSLocation<ReadType,WriteType> *pLocation)
+	//		: _pLoc_(pLocation)
+	//	{};
+	//	virtual ~ILocationAware()
+	//	{};
+	//protected:
+	//	tLocationType* _pLoc_;
+	//};
 
 	/******************************************************************/
 	/******************************************************************/

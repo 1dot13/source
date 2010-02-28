@@ -178,7 +178,7 @@ INT8 gbEditingMode = EDITING_NOTHING;
 
 OBJECTTYPE	*gpItem = NULL;
 BOOLEAN			gfShowItemStatsPanel;
-INT16				gsItemGridNo;
+INT32				gsItemGridNo;
 
 ITEM_POOL		*gpEditingItemPool = NULL;
 extern ITEM_POOL *gpItemPool;
@@ -355,7 +355,7 @@ void SpecifyItemToEdit( OBJECTTYPE *pItem, INT32 iMapIndex )
 		{
 			gpEditingItemPool = gpItemPool;
 		}
-		gsItemGridNo = (INT16)iMapIndex;
+		gsItemGridNo = iMapIndex;
 	}
 	else
 		RemoveItemGUI();

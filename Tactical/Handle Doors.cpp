@@ -42,9 +42,9 @@
 BOOLEAN gfSetPerceivedDoorState = FALSE;
 
 
-BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE * pStructure, BOOLEAN fNoAnimations );
+BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * pStructure, BOOLEAN fNoAnimations );
 
-void HandleDoorChangeFromGridNo( SOLDIERTYPE *pSoldier, INT16 sGridNo, BOOLEAN fNoAnimations )
+void HandleDoorChangeFromGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fNoAnimations )
 {
 	STRUCTURE *			pStructure;
 	DOOR_STATUS *		pDoorStatus;
@@ -452,7 +452,7 @@ void ProcessImplicationsOfPCMessingWithDoor( SOLDIERTYPE * pSoldier )
 
 
 
-BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *pStructure )
+BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE *pStructure )
 {
 	BOOLEAN fHandleDoor = FALSE;
 	INT16		sAPCost = 0, sBPCost = 0;
@@ -944,8 +944,30 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 	{
 		if ( fDoor )
 		{
-			HandleDoorChangeFromGridNo( pSoldier, sGridNo, FALSE );
-			if(is_client)send_door( pSoldier, sGridNo, FALSE );
+			if (is_networked)
+			{
+				// If we are the server, always handle the doors
+				if (is_server)
+					HandleDoorChangeFromGridNo( pSoldier, sGridNo, FALSE );
+				// if we are the pure client, only handle doors for MERC (and not for enemies)!!
+				// The reason for this is, because the method "receive_door" (client.cpp) handles the "HandleDoorChangeFromGridNo()"
+				else
+				{
+					if (pSoldier->ubID <= 19)
+						HandleDoorChangeFromGridNo( pSoldier, sGridNo, FALSE );
+				}
+				
+				// WANNE - MP: The "receive_door" method only gets called for the pure clients and not for the server!
+				// WANNE - MP: General Info!
+				// If pure client calls "send_door" also the method "receive_door" (client.cpp) gets called
+				// If server calls "send_door", the method "receive_door" on the server doest not get called.
+				if(is_client)
+					send_door( pSoldier, sGridNo, FALSE );
+			}
+			else
+			{
+				HandleDoorChangeFromGridNo( pSoldier, sGridNo, FALSE );
+			}
 		}
 		else
 		{
@@ -963,7 +985,7 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 }
 
 
-BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE * pStructure, BOOLEAN fNoAnimations	)
+BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * pStructure, BOOLEAN fNoAnimations  )
 {
 	LEVELNODE	* pShadowNode;
 	LEVELNODE * pNode;
@@ -1303,7 +1325,7 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE * 
 	return( fDoAnimation );
 }
 
-void SetDoorString( INT16 sGridNo )
+void SetDoorString( INT32 sGridNo )
 {
 	DOOR		*pDoor;
 	DOOR_STATUS *		pDoorStatus;

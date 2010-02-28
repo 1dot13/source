@@ -1554,6 +1554,7 @@ enum
 	MP_EDGE_SOUTH,
 	MP_EDGE_EAST,
 	MP_EDGE_WEST,
+	MP_EDGE_CENTER,
 	MAX_EDGES,
 };
 extern STR16	gszMPEdgesText[];

@@ -101,7 +101,7 @@ void KillSoldierInitList()
 		gAlternateSoldierInitListHead = NULL;
 }
 
-SOLDIERINITNODE* AddBasicPlacementToSoldierInitList( BASIC_SOLDIERCREATE_STRUCT *pBasicPlacement )
+SOLDIERINITNODE* AddBasicPlacementToSoldierInitList ( BASIC_SOLDIERCREATE_STRUCT *pBasicPlacement )
 {
 	SOLDIERINITNODE *curr;
 	//Allocate memory for node
@@ -207,132 +207,174 @@ void RemoveSoldierNodeFromInitList( SOLDIERINITNODE *pNode )
 //These serialization functions are assuming the passing of a valid file
 //pointer to the beginning of the save/load area, which is not necessarily at
 //the beginning of the file.	This is just a part of the whole map serialization.
-BOOLEAN SaveSoldiersToMap( HWFILE fp )
+//dnl ch42 250909
+BASIC_SOLDIERCREATE_STRUCT& BASIC_SOLDIERCREATE_STRUCT::operator=(const _OLD_BASIC_SOLDIERCREATE_STRUCT& src)
 {
-	UINT32 i;
-	UINT32 uiBytesWritten;
-	SOLDIERINITNODE *curr;
-
-	if( !fp )
-		return FALSE;
-
-	if( gMapInformation.ubNumIndividuals > MAX_INDIVIDUALS )
-		return FALSE;
-
-	//If we are perhaps in the alternate version of the editor, we don't want bad things to
-	//happen.	This is probably the only place I know where the user gets punished now.	If the
-	//person was in the alternate editor mode, then decided to save the game, the current mercs may
-	//not be there.	This would be bad.	What we do is override any merc editing done while in this
-	//mode, and kill them all, while replacing them with the proper ones.	Not only that, the alternate
-	//editing mode is turned off, and if intentions are to play the game, the user will be facing many
-	//enemies!
-#ifdef JA2EDITOR
-	if( !gfOriginalList )
-		ResetAllMercPositions();
-#endif
-
-	curr = gSoldierInitHead;
-	for( i=0; i < gMapInformation.ubNumIndividuals; i++ )
+	if((void*)this != (void*)&src)
 	{
-		if( !curr )
-			return FALSE;
-		curr->ubNodeID = (UINT8)i;
-		FileWrite( fp, curr->pBasicPlacement, sizeof( BASIC_SOLDIERCREATE_STRUCT ), &uiBytesWritten );
-
-		if( curr->pBasicPlacement->fDetailedPlacement )
-		{
-			if( !curr->pDetailedPlacement )
-				return FALSE;
-			if ( !curr->pDetailedPlacement->Save(fp, TRUE) )
-			{
-				return FALSE;
-			}
-		}
-		curr = curr->next;
+		fDetailedPlacement = src.fDetailedPlacement;
+		usStartingGridNo = src.sStartingGridNo;
+		bTeam = src.bTeam;
+		bRelativeAttributeLevel = src.bRelativeAttributeLevel;
+		bRelativeEquipmentLevel = src.bRelativeEquipmentLevel;
+		ubDirection = src.ubDirection;
+		bOrders = src.bOrders;
+		bAttitude = src.bAttitude;
+		bBodyType = src.bBodyType;
+		bPatrolCnt = src.bPatrolCnt;
+		fOnRoof = src.fOnRoof;
+		ubSoldierClass = src.ubSoldierClass;
+		ubCivilianGroup = src.ubCivilianGroup;
+		fPriorityExistance = src.fPriorityExistance;
+		fHasKeys = src.fHasKeys;
+		TranslateArrayFields(sPatrolGrid, src.sPatrolGrid, OLD_MAXPATROLGRIDS, INT16_INT32);
 	}
-	return TRUE;
+	return(*this);
 }
 
-
-
-BOOLEAN LoadSoldiersFromMap( INT8 **hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion )
+BOOLEAN BASIC_SOLDIERCREATE_STRUCT::Load(INT8** hBuffer, FLOAT dMajorMapVersion)
 {
-	UINT32 i;
-	UINT8 ubNumIndividuals;
+	if(dMajorMapVersion < 7.0)
+	{
+		_OLD_BASIC_SOLDIERCREATE_STRUCT OldBasicSoldierCreateStruct;
+		LOADDATA(&OldBasicSoldierCreateStruct, *hBuffer, sizeof(_OLD_BASIC_SOLDIERCREATE_STRUCT));
+		*this = OldBasicSoldierCreateStruct;
+	}
+	else
+		LOADDATA(this, *hBuffer, sizeof(BASIC_SOLDIERCREATE_STRUCT));
+	return(TRUE);
+}
+
+BOOLEAN BASIC_SOLDIERCREATE_STRUCT::Save(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)
+{
+	PTR pData = this;
+	UINT32 uiBytesToWrite = sizeof(BASIC_SOLDIERCREATE_STRUCT);
+	_OLD_BASIC_SOLDIERCREATE_STRUCT OldBasicSoldierCreateStruct;
+	if(dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION)
+	{
+		memset(&OldBasicSoldierCreateStruct, 0, sizeof(_OLD_BASIC_SOLDIERCREATE_STRUCT));
+		OldBasicSoldierCreateStruct.fDetailedPlacement = fDetailedPlacement;
+		OldBasicSoldierCreateStruct.sStartingGridNo = usStartingGridNo;
+		OldBasicSoldierCreateStruct.bTeam = bTeam;
+		OldBasicSoldierCreateStruct.bRelativeAttributeLevel = bRelativeAttributeLevel;
+		OldBasicSoldierCreateStruct.bRelativeEquipmentLevel = bRelativeEquipmentLevel;
+		OldBasicSoldierCreateStruct.ubDirection = ubDirection;
+		OldBasicSoldierCreateStruct.bOrders = bOrders;
+		OldBasicSoldierCreateStruct.bAttitude = bAttitude;
+		OldBasicSoldierCreateStruct.bBodyType = bBodyType;
+		OldBasicSoldierCreateStruct.bPatrolCnt = bPatrolCnt;
+		OldBasicSoldierCreateStruct.fOnRoof = fOnRoof;
+		OldBasicSoldierCreateStruct.ubSoldierClass = ubSoldierClass;
+		OldBasicSoldierCreateStruct.ubCivilianGroup = ubCivilianGroup;
+		OldBasicSoldierCreateStruct.fPriorityExistance = fPriorityExistance;
+		OldBasicSoldierCreateStruct.fHasKeys = fHasKeys;
+		TranslateArrayFields(OldBasicSoldierCreateStruct.sPatrolGrid, sPatrolGrid, OLD_MAXPATROLGRIDS, INT32_INT16);
+		pData = &OldBasicSoldierCreateStruct;
+		uiBytesToWrite = sizeof(_OLD_BASIC_SOLDIERCREATE_STRUCT);
+	}
+	UINT32 uiBytesWritten = 0;
+	FileWrite(hFile, pData, uiBytesToWrite, &uiBytesWritten);
+	if(uiBytesToWrite == uiBytesWritten)
+		return(TRUE);
+	return(FALSE);
+}
+
+BOOLEAN LoadSoldiersFromMap(INT8** hBuffer, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)
+{
 	BASIC_SOLDIERCREATE_STRUCT tempBasicPlacement;
+	SOLDIERCREATE_STRUCT tempDetailedPlacement;
 	SOLDIERINITNODE *pNode;
+	UINT16 ubNumIndividuals = gMapInformation.ubNumIndividuals;
 	BOOLEAN fCowInSector = FALSE;
-
-	ubNumIndividuals = gMapInformation.ubNumIndividuals;
-
 	UseEditorAlternateList();
 	KillSoldierInitList();
 	UseEditorOriginalList();
 	KillSoldierInitList();
-
 	InitSoldierInitList();
-
-	if( ubNumIndividuals > MAX_INDIVIDUALS )
+	if(ubNumIndividuals > MAX_INDIVIDUALS)
 	{
-		AssertMsg( 0, "Corrupt map check failed.	ubNumIndividuals is greater than MAX_INDIVIDUALS." );
-		return FALSE; //too many mercs
+		AssertMsg(0, "Corrupt map check failed.	ubNumIndividuals is greater than MAX_INDIVIDUALS.");
+		return(FALSE);// Too many mercs
 	}
-	if( !ubNumIndividuals )
+	if(!ubNumIndividuals)
+		return(TRUE);// No mercs
+	// Because we are loading the map, we needed to know how many guys are being loaded, but when we add them to the list here, it automatically increments that number, effectively doubling it, which would be a problem. Now that we know the number, we clear it here, so it gets built again.
+	gMapInformation.ubNumIndividuals = 0;// MUST BE CLEARED HERE!!!
+	for(UINT16 cnt=0; cnt<ubNumIndividuals; cnt++)
 	{
-		return TRUE; //no mercs
-	}
-
-	//Because we are loading the map, we needed to know how many
-	//guys are being loaded, but when we add them to the list here, it
-	//automatically increments that number, effectively doubling it, which
-	//would be a problem.	Now that we know the number, we clear it here, so
-	//it gets built again.
-	gMapInformation.ubNumIndividuals = 0;		//MUST BE CLEARED HERE!!!
-
-	SOLDIERCREATE_STRUCT tempDetailedPlacement;
-	for( i=0; i < ubNumIndividuals; i++ )
-	{
-		LOADDATA( &tempBasicPlacement, *hBuffer, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
-		pNode = AddBasicPlacementToSoldierInitList( &tempBasicPlacement );
-		if( !pNode )
+		tempBasicPlacement.Load(hBuffer, dMajorMapVersion);
+		for(int i=0; i<MAXPATROLGRIDS; i++)//dnl ch44 290909 BASIC_SOLDIERCREATE_STRUCT translation
+			gMapTrn.GetTrnCnt(tempBasicPlacement.sPatrolGrid[i]);
+		gMapTrn.GetTrnCnt(tempBasicPlacement.usStartingGridNo);
+		pNode = AddBasicPlacementToSoldierInitList(&tempBasicPlacement);
+		if(!pNode)
 		{
-			AssertMsg( 0, "Failed to allocate memory for new basic placement in LoadSoldiersFromMap." );
-			return FALSE;
+			AssertMsg(0, "Failed to allocate memory for new basic placement in LoadSoldiersFromMap.");
+			return(FALSE);
 		}
-		pNode->ubNodeID = (UINT8)i;
-		if( tempBasicPlacement.fDetailedPlacement )
-		{ //Add the static detailed placement information in the same newly created node as the basic placement.
-			//read static detailed placement from file
-			if ( !tempDetailedPlacement.Load(hBuffer, dMajorMapVersion, ubMinorMapVersion) )
+		Assert(cnt < 256);
+		pNode->ubNodeID = (UINT8)cnt;
+		if(tempBasicPlacement.fDetailedPlacement)
+		{
+			// Add the static detailed placement information in the same newly created node as the basic placement. Read static detailed placement from file.
+			if(!tempDetailedPlacement.Load(hBuffer, dMajorMapVersion, ubMinorMapVersion))
+				return(FALSE);
+			for(int i=0; i<MAXPATROLGRIDS; i++)//dnl ch44 290909 SOLDIERCREATE_STRUCT translation
+				gMapTrn.GetTrnCnt(tempDetailedPlacement.sPatrolGrid[i]);
+			gMapTrn.GetTrnCnt(tempDetailedPlacement.sInsertionGridNo);
+			// Allocate memory for new static detailed placement
+			pNode->pDetailedPlacement = new SOLDIERCREATE_STRUCT(tempDetailedPlacement);
+			if(!pNode->pDetailedPlacement)
 			{
-				return FALSE;
+				AssertMsg(0, "Failed to allocate memory for new detailed placement in LoadSoldiersFromMap.");
+				return(FALSE);
 			}
-			//allocate memory for new static detailed placement
-			pNode->pDetailedPlacement = new SOLDIERCREATE_STRUCT(tempDetailedPlacement);//(SOLDIERCREATE_STRUCT*)MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT );
-			if( !pNode->pDetailedPlacement )
+			if(tempDetailedPlacement.ubProfile != NO_PROFILE)
 			{
-				AssertMsg( 0, "Failed to allocate memory for new detailed placement in LoadSoldiersFromMap." );
-				return FALSE;
-			}
-
-			if( tempDetailedPlacement.ubProfile != NO_PROFILE )
-			{
-				pNode->pDetailedPlacement->ubCivilianGroup = gMercProfiles[ tempDetailedPlacement.ubProfile ].ubCivilianGroup;
-				pNode->pBasicPlacement->ubCivilianGroup = gMercProfiles[ tempDetailedPlacement.ubProfile ].ubCivilianGroup;
+				pNode->pDetailedPlacement->ubCivilianGroup = gMercProfiles[tempDetailedPlacement.ubProfile].ubCivilianGroup;
+				pNode->pBasicPlacement->ubCivilianGroup = gMercProfiles[tempDetailedPlacement.ubProfile].ubCivilianGroup;
 			}
 		}
-		if( tempBasicPlacement.bBodyType == COW )
-		{
+		if(tempBasicPlacement.bBodyType == COW)
 			fCowInSector = TRUE;
-		}
 	}
-	if( fCowInSector )
+	if(fCowInSector)
 	{
-		CHAR8 str[ 40 ];
-		sprintf( str, "Sounds\\\\cowmoo%d.wav", Random( 3 ) + 1 );
-		PlayJA2SampleFromFile(	str, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
+		CHAR8 str[40];
+		sprintf(str, "Sounds\\\\cowmoo%d.wav", Random(3)+1);
+		PlayJA2SampleFromFile(str, RATE_11025, MIDVOLUME, 1, MIDDLEPAN);
 	}
-	return TRUE;
+	return(TRUE);
+}
+
+BOOLEAN SaveSoldiersToMap(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)
+{
+	UINT32 i;
+	SOLDIERINITNODE *curr;
+	if(gMapInformation.ubNumIndividuals > MAX_INDIVIDUALS)
+		return(FALSE);
+	// If we are perhaps in the alternate version of the editor, we don't want bad things to happen. This is probably the only place I know where the user gets punished now. If the person was in the alternate editor mode, then decided to save the game, the current mercs may not be there. This would be bad.	What we do is override any merc editing done while in this mode, and kill them all, while replacing them with the proper ones. Not only that, the alternate editing mode is turned off, and if intentions are to play the game, the user will be facing many enemies!
+#ifdef JA2EDITOR
+	if(!gfOriginalList)
+		ResetAllMercPositions();
+#endif
+	curr = gSoldierInitHead;
+	for(i=0; i<gMapInformation.ubNumIndividuals; i++)
+	{
+		if(!curr)
+			return(FALSE);
+		curr->ubNodeID = (UINT8)i;
+		curr->pBasicPlacement->Save(hFile, dMajorMapVersion, ubMinorMapVersion);
+		if(curr->pBasicPlacement->fDetailedPlacement)
+		{
+			if(!curr->pDetailedPlacement)
+				return(FALSE);
+			if(!curr->pDetailedPlacement->Save(hFile, TRUE, dMajorMapVersion, ubMinorMapVersion))
+				return(FALSE);
+		}
+		curr = curr->next;
+	}
+	return(TRUE);
 }
 
 //Because soldiers, creatures, etc., maybe added to the game at anytime theoretically, the
@@ -544,7 +586,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 	{
 		while (1)
 		{
-			ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( curr->pBasicPlacement->sStartingGridNo, 0); // I assume we don't find tanks on the roof
+			ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( curr->pBasicPlacement->usStartingGridNo, 0); // I assume we don't find tanks on the roof
 			if (pCorpse)
 			{
 				// Assume this is a dead tank and have the replacement tank haul it away
@@ -623,7 +665,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 				if ( tempDetailedPlacement.ubCivilianGroup == KINGPIN_CIV_GROUP && ( gTacticalStatus.fCivGroupHostile[ KINGPIN_CIV_GROUP ] == CIV_GROUP_WILL_BECOME_HOSTILE || ( (gubQuest[ QUEST_KINGPIN_MONEY ] == QUESTINPROGRESS) && (CheckFact( FACT_KINGPIN_CAN_SEND_ASSASSINS, KINGPIN )) ) ) )
 				{
 					if (tempDetailedPlacement.ubProfile == NO_PROFILE)
-					{
+					{//dnl!!!
 						// these guys should be guarding Tony!
 						tempDetailedPlacement.sInsertionGridNo = 13531 +
 							(INT16) ( PreRandom( 8 ) * ( PreRandom( 1 ) ? -1 : 1)
@@ -644,7 +686,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 						}
 					}
 					else if (tempDetailedPlacement.ubProfile == BILLY )
-					{
+					{//dnl!!!
 						// billy should now be able to roam around
 						tempDetailedPlacement.sInsertionGridNo = 13531 +
 							(INT16) ( PreRandom( 30 ) * ( PreRandom( 1 ) ? -1 : 1)
@@ -676,7 +718,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 				{
 					if( gfUseAlternateQueenPosition && tempDetailedPlacement.ubProfile == QUEEN )
 					{
-						tempDetailedPlacement.sInsertionGridNo = 11448;
+						tempDetailedPlacement.sInsertionGridNo = 11448;//dnl!!!
 					}
 					if( tempDetailedPlacement.ubCivilianGroup != QUEENS_CIV_GROUP )
 					{ //The free civilians aren't added if queen is alive
@@ -2420,9 +2462,9 @@ void StripEnemyDetailedPlacementsIfSectorWasPlayerLiberated()
 ////////
 ////////	For militia squad attack!
 ////////
-
-#define CENTRAL_GRIDNO 13202
-#define CENTRAL_RADIUS 30
+//dnl ch56 141009
+//#define CENTRAL_GRIDNO 13202
+//#define CENTRAL_RADIUS 30
 
 void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNumGreen, UINT8 ubNumReg, UINT8 ubNumElites )
 {
@@ -2478,7 +2520,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			{
 				pSoldier->aiData.bOrders = ONGUARD;
 				pSoldier->aiData.bAlertStatus = STATUS_YELLOW;
-				pSoldier->aiData.sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+				pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
 				pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
 			}
 
@@ -2518,7 +2560,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			{
 				pSoldier->aiData.bOrders = ONGUARD;
 				pSoldier->aiData.bAlertStatus = STATUS_YELLOW;
-				pSoldier->aiData.sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+				pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
 				pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
 			}
 
@@ -2558,7 +2600,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			{
 				pSoldier->aiData.bOrders = ONGUARD;
 				pSoldier->aiData.bAlertStatus = STATUS_YELLOW;
-				pSoldier->aiData.sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+				pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
 				pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
 			}
 

@@ -16,6 +16,7 @@ UINT8 GetValidInsertionDirectionForMP(UINT8	currentInsertionPoint);
 
 extern BOOLEAN gfTacticalPlacementGUIActive;
 extern BOOLEAN gfEnterTacticalPlacementGUI;
+extern BOOLEAN gfTacticalPlacementGUIDirty;//dnl ch45 071009
 
 extern SOLDIERTYPE *gpTacticalPlacementSelectedSoldier;
 extern SOLDIERTYPE *gpTacticalPlacementHilightedSoldier;

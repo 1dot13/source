@@ -4,25 +4,38 @@
 #include "Fileman.h"
 #include "Worlddef.h"
 
-typedef struct //for exit grids (object level)
+//dnl ch42 250909
+typedef struct
 {
-	//if an item pool is also in same gridno, then this would be a separate levelnode
-	//in the object level list
-	INT16 sGridNo; //sweet spot for placing mercs in new sector.
+	INT16 usGridNo;
 	UINT8 ubGotoSectorX;
 	UINT8 ubGotoSectorY;
 	UINT8 ubGotoSectorZ;
-}EXITGRID;
+}_OLD_EXITGRID;
 
-BOOLEAN	ExitGridAtGridNo( INT16 sMapIndex );
-BOOLEAN	GetExitGridLevelNode( INT16 sMapIndex, LEVELNODE **ppLevelNode );
-BOOLEAN	GetExitGrid( INT16 sMapIndex, EXITGRID *pExitGrid );
+class EXITGRID// For exit grids (object level)
+{
+// If an item pool is also in same gridno, then this would be a separate levelnode in the object level list
+public:
+	INT32 usGridNo;// Sweet spot for placing mercs in new sector.
+	UINT8 ubGotoSectorX;
+	UINT8 ubGotoSectorY;
+	UINT8 ubGotoSectorZ;
+public:
+	EXITGRID& operator=(const _OLD_EXITGRID& src);
+	BOOLEAN Load(INT8** hBuffer, FLOAT dMajorMapVersion);
+	BOOLEAN Save(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion);
+};
+
+BOOLEAN	ExitGridAtGridNo( UINT32 usMapIndex );
+BOOLEAN	GetExitGridLevelNode( UINT32 usMapIndex, LEVELNODE **ppLevelNode );
+BOOLEAN	GetExitGrid( UINT32 usMapIndex, EXITGRID *pExitGrid );
 
 void AddExitGridToWorld( INT32 iMapIndex, EXITGRID *pExitGrid );
 void RemoveExitGridFromWorld( INT32 iMapIndex );
-
-void SaveExitGrids( HWFILE fp, UINT16 usNumExitGrids );
-void LoadExitGrids( INT8 **hBuffer );
+//dnl ch42 250909
+void SaveExitGrids(HWFILE hFile, UINT16 usNumExitGrids, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion);
+void LoadExitGrids(INT8** hBuffer, FLOAT dMajorMapVersion);
 
 void AttemptToChangeFloorLevel( INT8 bRelativeZLevel );
 
@@ -31,8 +44,8 @@ extern BOOLEAN gfOverrideInsertionWithExitGrid;
 
 // Finds closest ExitGrid of same type as is at gridno, within a radius.	Checks
 // valid paths, destinations, etc.
-INT16 FindGridNoFromSweetSpotCloseToExitGrid( SOLDIERTYPE *pSoldier, INT16 sSweetGridNo, INT8 ubRadius, UINT8 *pubDirection );
+INT32 FindGridNoFromSweetSpotCloseToExitGrid( SOLDIERTYPE *pSoldier, INT32 sSweetGridNo, INT8 ubRadius, UINT8 *pubDirection );
 
-INT16 FindClosestExitGrid( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 ubRadius );
+INT32 FindClosestExitGrid( SOLDIERTYPE *pSoldier, INT32 sSrcGridNo, INT8 ubRadius );
 
 #endif

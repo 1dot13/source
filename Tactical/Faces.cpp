@@ -1493,7 +1493,6 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					case( TRAIN_BY_OTHER ):
 						sPtsAvailable = GetSoldierStudentPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
 						break;
-					// HEADROCK HAM 3.6: New assignment. Works just like Town Training.
 					case( TRAIN_TOWN ):
 					case( TRAIN_MOBILE ):
 						sPtsAvailable = GetTownTrainPtsForCharacter( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts );
@@ -1851,8 +1850,8 @@ void HandleAutoFaces( )
 				{
 					pFace->uiFlags &= ( ~FACE_SHOW_WHITE_HILIGHT );
 				}
-
-				if ( pSoldier->sGridNo != pSoldier->pathing.sFinalDestination && pSoldier->sGridNo != NOWHERE )
+				
+				if ( pSoldier->sGridNo != pSoldier->pathing.sFinalDestination && !TileIsOutOfBounds(pSoldier->sGridNo))
 				{
 					pFace->uiFlags |= FACE_SHOW_MOVING_HILIGHT;
 				}

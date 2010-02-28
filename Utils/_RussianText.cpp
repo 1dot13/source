@@ -386,10 +386,10 @@ STR16 pAssignmentStrings[] =
 	L"В пути",	// in transit - abbreviated form
 	L"Ремонт",	// repairing
 	L"Практика",	// training themselves  
-	L"Ополчение",		// training a town to revolt
+  L"Ополчение",		// training a town to revolt 
 	L"M.Militia", //training moving militia units		// TODO.Translate
 	L"Тренер",	// training a teammate
-	L"Ученик",	// being trained by someone else
+	L"Ученик",	// being trained by someone else 
 	L"Staff", // operating a strategic facility			// TODO.Translate
 	L"Rest", // Resting at a facility					// TODO.Translate
 	L"Мертв",	// dead
@@ -693,7 +693,7 @@ STR16 pAttributeMenuStrings[] =
 STR16 pTrainingMenuStrings[] =
 {
  L"Практика", // train yourself 
- L"Ополчение", // train the town
+ L"Ополчение", // train the town 
  L"Mobile Militia",		// TODO.Translate
  L"Тренер", // train your teammates 
  L"Ученик",  // be trained by an instructor 
@@ -3897,14 +3897,14 @@ STR16	gzMPHScreenText[] =
 	L"Высадка со случайной стороны",		//Randomise Starting Edge
 	L"Впишите имя сервера",				//You must enter a server name
 	L"Количество игроков должно быть в диапазоне от 2 до 4",		//Max Players must be between 2 and 4
-	L"Количество бойцов в отряде должно быть от 1-го до 5-и",		//Squad size must be between 1 and 6
+	L"Количество бойцов в отряде должно быть от 1-го до 6-и",		//Squad size must be between 1 and 6
 	L"Время высадки",							//Time of Day
 	L"Время высадки должно быть в 24-х часовом формате (ЧЧ:ММ)",	//Time of Day must be a 24 hr time (HH:MM)\n\n eg. 13:30 = 1.30pm
 	L"Стартовый баланс должен быть целым числом",				//Starting Cash must be a valid dollar amount ( no cents )\n\n eg. 150000
 	L"Множитель урона",							//Damage Multiplier
 	L"Множитель урона должен находиться в промежутке от 0 до 5.",		//Damage Multiplier must be a number between 0 and 5
 	L"Множитель время хода",						//Turn Timer Multiplier
-	L"Множитель время хода должен быть числом в промежутке от 1 до 200.",	//Turn Timer multiplier must be a number between 1 and 200
+	L"Turn Timer multiplier must be a number between 0 (no timed turns) and 200 (short timed turns)",
 	L"Присутствуют гражданские в CO-OP",						//Enable Civilians in CO-OP
 	L"Реалистичная система инвентаря (NIV)",				//Use New Inventory (NIV)
 	L"Enforce Maximum AI Enemies",
@@ -4725,6 +4725,7 @@ STR16 MPClientMessage[] =
 	L"Нажмите 'Готов' для входа на тактическую карту.",	//Press 'Ready' to enter tactical screen.
 	L"Не удаётся подключиться. Версия вашего клиента (%S) отличается от версии сервера (%S).",	//Cannot connect because your version %S is different from the server version %S.
 	L"Вы убили вражеского солдата.",	//You killed an enemy soldier
+	L"Cannot start the game, because all teams are the same.",
 };
 
 STR16 MPHelp[] =
@@ -4757,7 +4758,8 @@ STR16 gszMPEdgesText[] =
 	L"С",	//N
 	L"Ю",	//S
 	L"В",	//E
-	L"З"	//W
+	L"З",	//W
+	L"C",	// "C"enter
 };
 
 STR16 gszMPTeamNames[] =
@@ -4765,7 +4767,8 @@ STR16 gszMPTeamNames[] =
 	L"Фокстрот",	//Foxtrot
 	L"Браво",	//Bravo
 	L"Дельта",	//Delta
-	L"Чарли"	//Charlie
+	L"Чарли",	//Charlie
+	L"Н/Д",		// Acronym of Not Applicable
 };
 
 STR16 gszMPMapscreenText[] =

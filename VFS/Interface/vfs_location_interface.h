@@ -4,231 +4,132 @@
 #include "../vfs_types.h"
 #include "../vfs_debug.h"
 #include "vfs_file_interface.h"
+#include "vfs_iterator_interface.h"
 
 #include <map>
 #include <list>
+#include <typeinfo>
 
 namespace vfs
 {
-
-	class IBaseLocation
+	class VFS_API IBaseLocation
 	{
 	public:
-		class Iterator
-		{
-		public:
-			class IImplemetation
-			{
-			public:
-				virtual ~IImplemetation() {};
-				virtual vfs::IBaseFile* value() = 0;
-				virtual void next() = 0;
-			};
-		public:
-			Iterator() : _iter_impl(NULL), _file(NULL) {};
-			Iterator(IImplemetation* impl) : _iter_impl(impl), _file(NULL)
-			{
-				THROWIFFALSE(_iter_impl, L"EXCEPTION");
-				_file = _iter_impl->value();
-			}
-			~Iterator()
-			{
-			}
-			//////////////////////////////
-			vfs::IBaseFile* value()
-			{
-				return _file;
-			};
-			void next()
-			{
-				if(_iter_impl)
-				{
-					_iter_impl->next();
-					_file = _iter_impl->value();
-					if(!_file)
-					{
-						delete _iter_impl;
-						_iter_impl = NULL;
-					}
-				}
-			}
-			bool end()
-			{
-				return _file == NULL;
-			}
-			//////////////////////////////
-		private:
-			IImplemetation*	_iter_impl;
-			vfs::IBaseFile*	_file;
-		};
-	public:
+		typedef TIterator<vfs::IBaseFile> Iterator;
+
 		virtual ~IBaseLocation()
 		{};
 
-		template<typename T>
-		T* Cast()
-		{
-			return dynamic_cast<T*>(this);
-		}
-		virtual bool			IsWriteable() = 0;
-		virtual	bool			IsReadable() = 0;
+		virtual bool				implementsWritable() = 0;
+		virtual	bool				implementsReadable() = 0;
 
-		virtual vfs::Path const&	GetFullPath() = 0;
-		virtual bool			FileExists(vfs::Path const& sFileName) = 0;
-		virtual vfs::IBaseFile*	GetFile(vfs::Path const& sFileName) = 0;
+		virtual vfs::Path const&	getPath() = 0;
+		virtual bool				fileExists(vfs::Path const& sFileName) = 0;
+		virtual vfs::IBaseFile*		getFile(vfs::Path const& sFileName) = 0;
 
-		virtual Iterator		begin() = 0;
-		virtual void			GetSubDirList(std::list<vfs::Path>& rlSubDirs) = 0;
+		virtual Iterator			begin() = 0;
+		virtual void				getSubDirList(std::list<vfs::Path>& rlSubDirs) = 0;
 	};
+
 	/**
-	 *  IVFSLocation
+	 *  TVFSLocation
 	 */
-	//template<typename ReadType=vfs::IReadType, typename WriteType=vfs::IWriteType>
 	template<typename ReadType, typename WriteType>
-	class IVFSLocation : public IBaseLocation
+	class VFS_API TLocationTemplate : public IBaseLocation
 	{
 	public:
-		typedef vfs::IVFSLocation<ReadType,WriteType>		tClassType;
-		typedef vfs::IFileTemplate<ReadType,WriteType>		tFileType;
+		typedef vfs::TLocationTemplate<ReadType,WriteType>	tLocationType;
+		typedef vfs::TFileTemplate<ReadType,WriteType>		tFileType;
 		typedef ReadType									tReadType;
 		typedef WriteType									tWriteType;
 		typedef std::list<std::pair<tFileType*,vfs::Path> >	tListFilesWithPath;
 	public:
-		IVFSLocation(vfs::Path const& sMountPoint)
-			: m_sMountPoint(sMountPoint)
+		TLocationTemplate(vfs::Path const& mountPoint)
+			: m_mountPoint(mountPoint)
 		{};
-		virtual ~IVFSLocation()
+		virtual ~TLocationTemplate()
 		{};
 
 		// has to be virtual , or the types of the caller (not the real object) will be tested
-		virtual bool IsWriteable()
+		virtual bool implementsWritable()
 		{
-			return typeid(tWriteType) == typeid(vfs::IWriteable);
+			return typeid(tWriteType) == typeid(vfs::IWritable);
 		}
-		virtual bool IsReadable()
+		virtual bool implementsReadable()
 		{
 			return typeid(tReadType) == typeid(vfs::IReadable);
 		}
-		virtual IVFSLocation<IReadType,IWriteable>* GetWriteable()
+
+		vfs::Path const&			getMountPoint()
 		{
-			//if(IsWriteable()) TODO: test how this affects compatibility
-			{
-				return reinterpret_cast<IVFSLocation<vfs::IReadType,vfs::IWriteable>*>(this);
-			}
-			return NULL;
+			return m_mountPoint;
 		}
-		vfs::Path const& GetMountPoint()
-		{
-			return m_sMountPoint;
-		};
 
 		/** 
-		 *  IVFSLocation interface
+		 *  TLocationTemplate interface
 		 */
-		virtual vfs::Path const&	GetFullPath()
+		virtual vfs::Path const&	getPath()
 		{
-			return m_sMountPoint;
+			return m_mountPoint;
 		}
-		virtual bool			FileExists(vfs::Path const& sFileName) = 0;
-		virtual vfs::IBaseFile*	GetFile(vfs::Path const& sFileName) = 0;
-		virtual tFileType*		GetFileTyped(vfs::Path const& rFileName) = 0;
+
+		virtual bool				fileExists(vfs::Path const& sFileName) = 0;
+		virtual vfs::IBaseFile*		getFile(vfs::Path const& sFileName) = 0;
+		virtual tFileType*			getFileTyped(vfs::Path const& rFileName) = 0;
 	protected:
-		vfs::Path m_sMountPoint;
+		vfs::Path m_mountPoint;
 	};
 
 /**************************************************************************************/
 /**************************************************************************************/
 
 	template<typename WriteType=vfs::IWriteType>
-	class IReadLocation : public IVFSLocation<IReadable,WriteType>
+	class TReadLocation : public TLocationTemplate<IReadable,WriteType>
 	{
 	public:
-		template<typename T>
-		static IReadLocation* Cast(T* t)
+		typedef TReadLocation<WriteType> tLocationType;
+
+		static tLocationType* cast(vfs::IBaseLocation* bl)
 		{
-			// which file type does the to tested location contain
-			typename T::tFileType* _F=NULL;
-			// is it readable?
-			vfs::IReadable *rf = _F;
-			// is the write type compatible (probably redundant)
-			WriteType *wf = _F;
-			// it is readable and the write type fits
-			return reinterpret_cast<IReadLocation*>(t);
-		}
-		template<>
-		static IReadLocation* Cast<IBaseLocation>(IBaseLocation* bl)
-		{
-			return dynamic_cast<IReadLocation*>(bl);
+			if(bl && bl->implementsReadable())
+			{
+				return static_cast<tLocationType*>(bl);
+			}
+			return NULL;
 		}
 	public:
-		IReadLocation(vfs::Path const& sLocalPath) 
-			: vfs::IVFSLocation<IReadable,WriteType>(sLocalPath)
+		TReadLocation(vfs::Path const& sLocalPath) 
+			: vfs::TLocationTemplate<IReadable,WriteType>(sLocalPath)
 		{};
-		virtual ~IReadLocation(){};
+		virtual ~TReadLocation(){};
 	};
-	typedef IReadLocation<vfs::IWriteType> tReadLocation;
-	
+
 	template<typename ReadType=vfs::IReadType>
-	class IWriteLocation : public vfs::IVFSLocation<ReadType,vfs::IWriteable>
+	class TWriteLocation : public vfs::TLocationTemplate<ReadType,vfs::IWritable>
 	{
 	public:
-		template<class T>
-		static IWriteLocation* Cast(T* t)
+		typedef TWriteLocation<ReadType> tLocationType;
+
+		static tLocationType* cast(vfs::IBaseLocation* bl)
 		{
-			// which file type does the to tested location contain
-			typename T::tFileType* _F=NULL;
-			// is it writeable?
-			vfs::IWriteable *wf = _F;
-			// is the read type compatible (probably redundant)
-			ReadType *rf = _F;
-			// is writeable and the read type fits
-			return reinterpret_cast<IWriteLocation*>(t);
-		}
-		template<>
-		static IWriteLocation* Cast<IBaseLocation>(IBaseLocation* bl)
-		{
-			return dynamic_cast<IWriteLocation*>(bl);
+			if(bl && bl->implementsWritable())
+			{
+				return static_cast<tLocationType*>(bl);
+			}
+			return NULL;
 		}
 	public:
-		IWriteLocation(vfs::Path const& sLocalPath) 
-			: vfs::IVFSLocation<ReadType,vfs::IWriteable>(sLocalPath)
+		TWriteLocation(vfs::Path const& sLocalPath) 
+			: vfs::TLocationTemplate<ReadType,vfs::IWritable>(sLocalPath)
 		{};
-		virtual ~IWriteLocation(){};
+		virtual ~TWriteLocation(){};
 	};
-	typedef IWriteLocation<vfs::IReadType> tWriteLocation;
-	
-	
+
 	/**************************************************************************************/
 	/**************************************************************************************/
 
-	template<class WriteType>
-	class IDirectory : public vfs::IVFSLocation<vfs::IReadable, WriteType>
-	{
-		typedef typename vfs::IVFSLocation<vfs::IReadable, WriteType> tBaseType;
-	public:
-		IDirectory(vfs::Path const& sMountPoint, vfs::Path const& sRealPath)
-			: vfs::IVFSLocation<vfs::IReadable, WriteType>(sMountPoint), m_sRealPath(sRealPath)
-		{};
-		virtual ~IDirectory()
-		{};
-	
-		vfs::Path const&					GetRealPath()
-		{
-			return m_sRealPath;
-		}
-	
-		virtual tBaseType::tFileType*	AddFile(vfs::Path const& sFilename, bool bDeleteOldFile=false) = 0;
-		virtual bool					AddFile( typename vfs::IVFSLocation<vfs::IReadable, WriteType>::tFileType* pFile, bool bDeleteOldFile=false) = 0;
-	
-		virtual bool					CreateSubDirectory(vfs::Path const& sSubDirPath) = 0;
-		virtual bool					DeleteDirectory(vfs::Path const& sDirPath) = 0;
-		virtual bool					DeleteFileFromDirectory(vfs::Path const& sFileName) = 0;
-	protected:
-		const vfs::Path m_sRealPath;
-	};
-	
-	/**************************************************************************************/
-	/**************************************************************************************/
+	typedef TReadLocation<vfs::IWriteType> tReadLocation;
+	typedef TWriteLocation<vfs::IReadType> tWriteLocation;
 	
 } // end namespace
 

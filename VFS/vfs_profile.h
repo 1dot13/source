@@ -8,86 +8,57 @@
 
 namespace vfs
 {
-	class CVirtualProfile
+	class VFS_API CVirtualProfile
 	{
 		typedef std::map<vfs::Path,vfs::IBaseLocation*, vfs::Path::Less> tLocations;
 		typedef std::set<vfs::IBaseLocation*> tUniqueLoc;
+
+		class IterImpl;
+		class FileIterImpl;
 	public:
-		//////////////////////////////////////////////
-		class Iterator
-		{
-			friend class CVirtualProfile;
-		private:
-			Iterator(CVirtualProfile& rProf);
-		public:
-			Iterator();
-			~Iterator();
-			//////
-			vfs::IBaseLocation*		value() const;
-			void					next();
-			bool					end() const;
-		private:
-			CVirtualProfile*		m_pProf;
-			tUniqueLoc::iterator	_loc_iter;
-		};
-		//////////////////////////////////////////////
-		friend class Iterator;
-	public:
-		CVirtualProfile(utf8string const& sProfileName, bool bWriteable = false);
+		typedef TIterator<vfs::IBaseLocation>	Iterator;
+		typedef TIterator<vfs::IBaseFile>		FileIterator;
+
+		CVirtualProfile(utf8string const& sProfileName, bool bWritable = false);
 		~CVirtualProfile();
 
-		const utf8string		Name;
-		const bool				Writeable;
+		const utf8string		cName;
+		const bool				cWritable;
 
 		Iterator				begin();
+		FileIterator			files(vfs::Path const& sPattern);
 		
-		void					AddLocation(vfs::IBaseLocation* pLoc);
-		vfs::IBaseLocation*		GetLocation(vfs::Path const& sPath) const;
-		vfs::IBaseFile*			GetFile(vfs::Path const& sPath) const;
+		void					addLocation(vfs::IBaseLocation* pLoc);
+		vfs::IBaseLocation*		getLocation(vfs::Path const& sPath) const;
+		vfs::IBaseFile*			getFile(vfs::Path const& sPath) const;
 	private:
+		void					operator=(vfs::CVirtualProfile const& vprof);
 		tLocations				m_mapLocations;
 		tUniqueLoc				m_setLocations;
 	};
 
-	class CProfileStack
+	class VFS_API CProfileStack
 	{
+		class IterImpl;
 	public:
-		//////////////////////////////////////////////
-		class Iterator
-		{
-			friend class CProfileStack;
-		private:
-			Iterator(CProfileStack& rPStack);
-		public:
-			Iterator();
-			~Iterator();
-			//////
-			CVirtualProfile*	value() const;
-			void				next();
-			bool				end() const;
-		private:
-			CProfileStack* m_pPStack;
-			std::list<CVirtualProfile*>::iterator _prof_iter;
-		};
-		//////////////////////////////////////////////
-		friend class Iterator;
-	public:
+		typedef vfs::TIterator<CVirtualProfile> Iterator;
+
 		CProfileStack();
 		~CProfileStack();
 
-		CVirtualProfile*	GetWriteProfile();
-		CVirtualProfile*	GetProfile(utf8string const& sName) const;
+		CVirtualProfile*	getWriteProfile();
+		CVirtualProfile*	getProfile(utf8string const& sName) const;
 
-		CVirtualProfile*	TopProfile() const;
+		CVirtualProfile*	topProfile() const;
 		/** 
 		 *  All files from the top profile will be removed from the VFS and the profile object will be deleted.
 		 */
-		bool				PopProfile();
-		void				PushProfile(CVirtualProfile* pProfile);
+		bool				popProfile();
+		void				pushProfile(CVirtualProfile* pProfile);
 
 		Iterator			begin();
 	private:
-		std::list<CVirtualProfile*> m_lProfiles;
+		std::list<vfs::CVirtualProfile*> m_profiles;
 	};
 
 } // end namespace

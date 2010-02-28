@@ -13,58 +13,66 @@ namespace vfs
 	/******************************************************************/
 	/******************************************************************/
 
-	class CFile : public vfs::IFileTemplate<IReadable,IWriteable>
+	template<typename WriteType=vfs::IWriteType>
+	class VFS_API TFile : public vfs::TFileTemplate<vfs::IReadable,WriteType>
 	{
+		typedef vfs::TFileTemplate<vfs::IReadable,WriteType> tBaseClass;
 	public :
-		CFile(vfs::Path const& sFileName);
+		TFile(vfs::Path const& filename);
+		virtual ~TFile();
+
+		virtual vfs::FileAttributes	getAttributes();
+
+		virtual void		close();
+		virtual vfs::size_t	getSize();
+
+		virtual bool		isOpenRead();
+		virtual bool		openRead();
+		virtual vfs::size_t	read(vfs::Byte* data, vfs::size_t bytesToRead);
+
+		virtual vfs::size_t	getReadPosition();
+		virtual void		setReadPosition(vfs::size_t positionInBytes);
+		virtual void		setReadPosition(vfs::offset_t offsetInBytes, vfs::IBaseFile::ESeekDir seekDir);
+
+	protected:
+		bool				_internalOpenRead(vfs::Path const& path);
+	protected:
+		bool				m_isOpen_read;
+		std::fstream		m_file;
+	};
+
+	/******************************************************************/
+	/******************************************************************/
+
+	// implements the IWritable interface for TFile
+	class VFS_API CFile : public vfs::TFile<vfs::IWritable>
+	{
+		typedef vfs::TFile<vfs::IWritable>	tBaseClass;
+	public :
+		CFile(vfs::Path const& filename);
 		virtual ~CFile();
 
-		virtual bool		Close();
-		virtual bool		GetFileSize(UInt32& uiFileSize);
+		virtual void		close();
 
-		virtual bool		IsOpenRead();
-		virtual bool		OpenRead();
-		virtual bool		Read(vfs::Byte* pData, vfs::UInt32 uiBytesToRead, vfs::UInt32& uiBytesRead);
+		virtual bool		isOpenWrite();
+		virtual bool		openWrite(bool createWhenNotExist = false, bool truncate = false);
+		virtual vfs::size_t	write(const vfs::Byte* data, vfs::size_t bytesToWrite);
 
-		virtual vfs::UInt32	GetReadLocation();
-		virtual bool		SetReadLocation(UInt32 uiPositionInBytes);
-		virtual bool		SetReadLocation(Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir);
+		virtual vfs::size_t	getWritePosition();
+		virtual void		setWritePosition(vfs::size_t positionInBytes);
+		virtual void		setWritePosition(vfs::offset_t offsetInBytes, vfs::IBaseFile::ESeekDir seekDir);
 
-		virtual bool		IsOpenWrite();
-		virtual bool		OpenWrite(bool bCreateWhenNotExist = false, bool bTruncate = false);
-		virtual bool		Write(const vfs::Byte* pData, vfs::UInt32 uiBytesToWrite, vfs::UInt32& uiBytesWritten);
-
-		virtual vfs::UInt32	GetWriteLocation();
-		virtual bool		SetWriteLocation(Int32 uiPositionInBytes);
-		virtual bool		SetWriteLocation(Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir);
-
-		virtual bool		Delete();
+		virtual bool		deleteFile();
 	protected:
-		std::fstream	m_oFile;
-		bool			m_bIsOpen_read, m_bIsOpen_write;
+		bool				_internalOpenWrite(vfs::Path const& path, bool createWhenNotExist = false, bool truncate = false);
+	protected:
+		bool				m_isOpen_write;
 	};
 
 	/******************************************************************/
 	/******************************************************************/
 
-	class CTextFile : public CFile
-	{
-	public:
-		CTextFile(vfs::Path const& sFileName)
-			: CFile(sFileName)
-		{};
-		virtual ~CTextFile()
-		{};
-
-		virtual bool OpenRead();
-		virtual bool OpenWrite(bool bCreateWhenNotExist = false, bool bTruncate = false);
-
-		virtual bool Read(Byte* pData, vfs::UInt32 uiBytesToRead, vfs::UInt32& uiBytesRead);
-		virtual bool ReadLine(std::string &sLine, vfs::UInt32 uiMaxNumChars);
-
-		virtual bool Write(const vfs::Byte* pData, vfs::UInt32 uiBytesToWrite, vfs::UInt32& uiBytesWritten);
-		virtual bool WriteLine(std::string const& sLine);
-	};
+	typedef vfs::TFile<vfs::IWriteType>		CReadOnlyFile; // needs explicit template instantiation
 
 } // end namespace
 

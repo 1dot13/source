@@ -33,8 +33,8 @@ extern UINT8	NUMBER_OF_SAMS;
 #define MAX_NUMBER_OF_SAMS	50 //4 //50
 
 extern INT16 pSamList[ MAX_NUMBER_OF_SAMS ];
-extern INT16 pSamGridNoAList[ MAX_NUMBER_OF_SAMS ];
-extern INT16 pSamGridNoBList[ MAX_NUMBER_OF_SAMS ];
+extern INT32 pSamGridNoAList[ MAX_NUMBER_OF_SAMS ];
+extern INT32 pSamGridNoBList[ MAX_NUMBER_OF_SAMS ];
 
 extern BOOLEAN fFoundOrta;
 extern BOOLEAN fSamSiteFound[ MAX_NUMBER_OF_SAMS ];
@@ -101,7 +101,7 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 void GetMapFileName(INT16 sMapX,INT16 sMapY, INT8 bSectorZ, STR8 bString, BOOLEAN fUsePlaceholder, BOOLEAN fAddAlternateMapLetter );
 
 // Called from within tactical.....
-void JumpIntoAdjacentSector( UINT8 ubDirection, UINT8 ubJumpCode, INT16 sAdditionalData );
+void JumpIntoAdjacentSector( UINT8 ubDirection, UINT8 ubJumpCode, INT32 sAdditionalData );//dnl ch56 151009
 
 
 
@@ -126,8 +126,8 @@ BOOLEAN SectorIsPartOfTown( INT8 bTownId, INT16 sSectorX, INT16 sSectorY );
 //BOOLEAN IsThereAnyOneInThisTown( UINT8 ubTownId );
 
 
-BOOLEAN SoldierOKForSectorExit( SOLDIERTYPE * pSoldier, INT8 bExitDirection, UINT16 usAdditionalData );
-BOOLEAN OKForSectorExit( INT8 bExitDirection, UINT16 usAdditionalData, UINT32 *puiTraverseTimeInMinutes );
+BOOLEAN SoldierOKForSectorExit( SOLDIERTYPE * pSoldier, INT8 bExitDirection, INT32 usAdditionalData );//dnl ch56 151009
+BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *puiTraverseTimeInMinutes );//dnl ch56 151009
 void SetupNewStrategicGame( );
 
 BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile );
@@ -135,7 +135,7 @@ BOOLEAN SaveStrategicInfoToSavedFile( HWFILE hFile );
 
 void AllMercsHaveWalkedOffSector( );
 
-void AdjustSoldierPathToGoOffEdge( SOLDIERTYPE *pSoldier, INT16 sEndGridNo, UINT8 ubTacticalDirection );
+void AdjustSoldierPathToGoOffEdge( SOLDIERTYPE *pSoldier, INT32 sEndGridNo, UINT8 ubTacticalDirection );
 
 void AllMercsWalkedToExitGrid();
 UINT8 GetMilitiaCountAtLevelAnywhereInTown( UINT8 ubTownValue, UINT8 ubLevelValue );
@@ -169,6 +169,9 @@ INT8 GetSAMIdFromSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 void SetupProfileInsertionDataForSoldier( SOLDIERTYPE *pSoldier );
 
 BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( int pSectorX, int pSectorY, int pSectorZ );
+
+// WANNE - BMP;
+BOOLEAN MapExists( UINT8 * szFilename );
 
 BOOLEAN EscapeDirectionIsValid( INT8 * pbDirection );
 //Used for determining the type of error message that comes up when you can't traverse to

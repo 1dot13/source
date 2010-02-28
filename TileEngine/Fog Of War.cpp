@@ -12,7 +12,7 @@
 
 //When line of sight reaches a gridno, and there is a light there, it turns it on.
 //This is only done in the cave levels.
-void RemoveFogFromGridNo( UINT32 uiGridNo )
+void RemoveFogFromGridNo( INT32 uiGridNo )
 {
 	INT32 i;
 	INT32 x, y;

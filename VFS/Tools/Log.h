@@ -7,8 +7,7 @@
 #include "../File/vfs_file.h"
 #include "../vfs_file_raii.h"
 
-//class CMemoryFile;
-class CLog
+class VFS_API CLog
 {
 public:
 	enum EFlushMode
@@ -19,12 +18,15 @@ public:
 	};
 public:
 
-	CLog(vfs::Path fileName, bool append = false, EFlushMode flushMode = FLUSH_ON_DELETE);
+	CLog(vfs::Path const& fileName, bool append = false, EFlushMode flushMode = FLUSH_ON_DELETE);
 	~CLog();
 
-	static CLog*	Create(vfs::Path fileName, bool append = false, EFlushMode flushMode = FLUSH_ON_DELETE);
-	static void		FlushAll();
-	static void		FlushFinally();
+	static CLog*	create(vfs::Path const& fileName, bool append = false, EFlushMode flushMode = FLUSH_ON_DELETE);
+	static void		flushAll();
+	static void		flushFinally();
+
+	static utf8string const&	getSharedString();
+	static void					setSharedString(utf8string const& str);
 
 	CLog& operator<<(unsigned int const& t);
 	CLog& operator<<(unsigned short const& t);
@@ -41,35 +43,36 @@ public:
 	CLog& operator<<(std::wstring const& t);
 	CLog& operator<<(utf8string const& t);
 
-	CLog& Endl();
-	static const char endl[];
+	CLog& endl();
+	static const char ENDL[];
 
-	void SetAppend(bool append = true);
-	void SetBufferSize(vfs::UInt32 bufferSize);
+	void setAppend(bool append = true);
+	void setBufferSize(vfs::UInt32 bufferSize);
 
-	void Flush();
+	void flush();
 private:
 	void _test_flush(bool force=false);
 
 	template<typename T_>
-	CLog& PushNumber(T_ const& t)
+	CLog& pushNumber(T_ const& t)
 	{
-		_buffer << ToString<char>(t);
+		_buffer << toString<char>(t);
 		_buffer_size += sizeof(T_);
 		_test_flush();
 		return *this;
 	}
 private:
 	vfs::Path				_filename;
-	vfs::tWriteableFile*	_file;
+	vfs::tWritableFile*		_file;
 	bool					_own_file;
 	bool					_first_write;
 	EFlushMode				_flush_mode;
 	bool					_append;
-	vfs::UInt32				_buffer_size, _buffer_test_size;
+	::size_t				_buffer_size, _buffer_test_size;
 	std::stringstream		_buffer;
 private:
 	static std::list<CLog*>& _logs();
+	static utf8string		_shared_id_str;
 };
 
 

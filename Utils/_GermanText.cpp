@@ -375,10 +375,10 @@ STR16 pAssignmentStrings[] =
 	L"Transit", // in transit - abbreviated form
 	L"Repar.", // repairing
 	L"Üben", // training themselves
-	L"Miliz", // training a town to revolt
+	L"Miliz", // training a town to revolt 
 	L"M.Militia", //training moving militia units		// TODO.Translate
 	L"Trainer", // training a teammate
-	L"Rekrut", // being trained by someone else
+	L"Rekrut", // being trained by someone else 
 	L"Staff", // operating a strategic facility			// TODO.Translate
 	L"Rest", // Resting at a facility					// TODO.Translate
 	L"Tot", // dead
@@ -671,7 +671,7 @@ STR16 pAttributeMenuStrings[] =
 STR16 pTrainingMenuStrings[] =
 {
  L"Üben", // train yourself 
- L"Miliz", // train the town
+ L"Miliz", // train the town 
  L"Mobile Militia",		// TODO.Translate
  L"Trainer", // train your teammates 
  L"Rekrut", // be trained by an instructor 
@@ -2396,7 +2396,7 @@ STR16 pHistoryStrings[] =
 
 STR16 pHistoryLocations[] =
 {
-	L"n.a",						// N/A is an acronym for Not Applicable
+	L"n.a.",						// N/A is an acronym for Not Applicable
 };
 
 // icon text strings that appear on the laptop
@@ -3461,7 +3461,7 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Milizen in %d Sektoren zu trainieren kostet $ %d. %s", // cost to train sveral sectors at once
 	L"Sie können sich keine $%d für die Miliz hier leisten.",
 	L"%s benötigt eine Loyalität von %d Prozent, um mit dem Milizen-Training fortzufahren.",
-	L"Sie können die Miliz in %s nicht mehr trainieren.",
+	L"Sie können die Miliz in %s nicht mehr trainieren.", 
 	L"You cannot afford the $%d to train mobile militia here.", // HEADROCK HAM 3.6: Mobile Militia		TODO.Translate
 	L"Continue training mobile militia in %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia				TODO.Translate
 	L"Training mobile militia in %d sectors will cost $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia	TODO.Translate
@@ -3706,14 +3706,14 @@ STR16	gzMPHScreenText[] =
 	L"Zufällige Startzone",
 	L"Sie müssen einen Server Namen eingeben.",
 	L"Max. Spieleranzahl muss zwischen 2 und 4 sein.",
-	L"Teamgröße muss zwischen 1 und 5 sein.",
+	L"Teamgröße muss zwischen 1 und 6 sein.",
 	L"Tageszeit",
 	L"Tageszeit muss eine 24h Zeit (SS:MM) sein.",
 	L"Startkapital muss ein gültiger Dollerwert (keine Cents) sein." ,
 	L"Schaden Multiplikator",
 	L"Schaden Multiplikator muss zwischen 0 and 5 sein.",
 	L"Zeit Multiplikator",
-	L"Zeit Multiplikator muss zwischen 1 and 200 sein.",
+	L"Zeit Multiplikator muss zwischen 0 (keine Zeitbegrenzung) and 200 (max. Zeitbegrenzung) sein.",
 	L"Erlaube Zivilisten in CO-OP",
 	L"Verwende neues Inventar (NIV)",
 	L"Erzwinge maximale AI Gegner",
@@ -3823,7 +3823,7 @@ STR16 pMessageStrings[] =
 	L"Pfd",					//Abbreviation for pounds (Imperial weight measurement unit)
 	L"Home",				//Home as in homepage on the internet.
 	L"US$",					//Abbreviation for US Dollars
-	L"n.a",					//Lowercase acronym for not applicable.
+	L"n.a.",					//Lowercase acronym for not applicable.
 	L"Inzwischen",		//Meanwhile
 	L"%s ist angekommen im Sektor %s%s", //30	Name/Squad has arrived in sector A9. Order must not change without notifying SirTech
 	L"Version", 
@@ -4522,6 +4522,7 @@ STR16 MPClientMessage[] =
 	L"Drücken Sie 'Bereit' um in den taktischen Bildschirm zu gelangen.",
 	L"Kann keine Verbindung herstellen, weil Ihre Version %S unterschiedlich zur Server Version %S ist.",
 	L"Sie haben einen gegnerischen Soldaten getötet.",
+	L"Spiel kann nicht gestartet werden, weil es keine unterschiedlichen Teams gibt.",
 };
 
 STR16 MPHelp[] =
@@ -4554,7 +4555,8 @@ STR16 gszMPEdgesText[] =
 	L"N",
 	L"S",
 	L"O",
-	L"W"
+	L"W",
+	L"M",	// "C"enter
 };
 
 STR16 gszMPTeamNames[] =
@@ -4562,7 +4564,8 @@ STR16 gszMPTeamNames[] =
 	L"Foxtrot",
 	L"Bravo",
 	L"Delta",
-	L"Charlie"
+	L"Charlie",
+	L"n.a.",		// Acronym of Not Applicable
 };
 
 STR16 gszMPMapscreenText[] =

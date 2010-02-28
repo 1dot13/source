@@ -363,47 +363,6 @@ void PrepareSchedulesForEditorExit()
 	PostSchedules();
 }
 
-void LoadSchedules( INT8 **hBuffer )
-{
-	SCHEDULENODE *pSchedule = NULL;
-	SCHEDULENODE temp;
-	UINT8 ubNum;
-
-	// delete all the schedules we might have loaded (though we shouldn't have any loaded!!)
-	if ( gpScheduleList )
-	{
-		DestroyAllSchedules();
-	}
-
-	LOADDATA( &ubNum, *hBuffer, sizeof( UINT8 ) );
-	gubScheduleID = 1;
-	while( ubNum )
-	{
-		LOADDATA( &temp, *hBuffer, sizeof( SCHEDULENODE ) );
-
-		if( gpScheduleList )
-		{
-			pSchedule->next = (SCHEDULENODE*)MemAlloc( sizeof( SCHEDULENODE ) );
-			Assert( pSchedule->next );
-			pSchedule = pSchedule->next;
-			memcpy( pSchedule, &temp, sizeof( SCHEDULENODE ) );
-		}
-		else
-		{
-			gpScheduleList = (SCHEDULENODE*)MemAlloc( sizeof( SCHEDULENODE ) );
-			Assert( gpScheduleList );
-			memcpy( gpScheduleList, &temp, sizeof( SCHEDULENODE ) );
-			pSchedule = gpScheduleList;
-		}
-		pSchedule->ubScheduleID = gubScheduleID;
-		pSchedule->ubSoldierID = NOBODY;
-		pSchedule->next = NULL;
-		gubScheduleID++;
-		ubNum--;
-	}
-	//Schedules are posted when the soldier is added...
-}
-
 extern BOOLEAN gfSchedulesHosed;
 BOOLEAN LoadSchedulesFromSave( HWFILE hFile )
 {
@@ -517,55 +476,137 @@ void ClearAllSchedules()
 	}
 }
 
-BOOLEAN SaveSchedules( HWFILE hFile )
+//dnl ch42 260909
+SCHEDULENODE& SCHEDULENODE::operator=(const _OLD_SCHEDULENODE& src)
 {
-	SCHEDULENODE *curr;
-	UINT32 uiBytesWritten;
-	UINT8 ubNum, ubNumFucker;
-	INT32 iNum;
-	//Now, count the number of schedules in the list
-	iNum = 0;
-	curr = gpScheduleList;
-	while( curr )
+	if((void*)this != (void*)&src)
 	{
-		// skip all default schedules
-		if ( !(curr->usFlags & SCHEDULE_FLAGS_TEMPORARY) )
+		next = NULL;
+		TranslateArrayFields(usTime, src.usTime, OLD_MAX_SCHEDULE_ACTIONS, UINT16_UINT16);
+		TranslateArrayFields(usData1, src.usData1, OLD_MAX_SCHEDULE_ACTIONS, INT16_INT32);
+		TranslateArrayFields(usData2, src.usData2, OLD_MAX_SCHEDULE_ACTIONS, INT16_INT32);
+		TranslateArrayFields(ubAction, src.ubAction, OLD_MAX_SCHEDULE_ACTIONS, UINT8_UINT8);
+		ubScheduleID = src.ubScheduleID;
+		ubSoldierID = src.ubSoldierID;
+		usFlags = src.usFlags;
+	}
+	return(*this);
+}
+
+BOOLEAN SCHEDULENODE::Load(INT8** hBuffer, FLOAT dMajorMapVersion)
+{
+	if(dMajorMapVersion < 7.0)
+	{
+		_OLD_SCHEDULENODE OldScheduleNode;
+		LOADDATA(&OldScheduleNode, *hBuffer, sizeof(_OLD_SCHEDULENODE));
+		*this = OldScheduleNode;
+	}
+	else
+		LOADDATA(this, *hBuffer, sizeof(SCHEDULENODE));
+	return(TRUE);
+}
+
+BOOLEAN SCHEDULENODE::Save(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)
+{
+	PTR pData = this;
+	UINT32 uiBytesToWrite = sizeof(SCHEDULENODE);
+	_OLD_SCHEDULENODE OldScheduleNode;
+	if(dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION)
+	{
+		OldScheduleNode.next = NULL;
+		TranslateArrayFields(OldScheduleNode.usTime, usTime, OLD_MAX_SCHEDULE_ACTIONS, UINT16_UINT16);
+		TranslateArrayFields(OldScheduleNode.usData1, usData1, OLD_MAX_SCHEDULE_ACTIONS, INT32_INT16);
+		TranslateArrayFields(OldScheduleNode.usData2, usData2, OLD_MAX_SCHEDULE_ACTIONS, INT32_INT16);
+		TranslateArrayFields(OldScheduleNode.ubAction, ubAction, OLD_MAX_SCHEDULE_ACTIONS, UINT8_UINT8);
+		OldScheduleNode.ubScheduleID = ubScheduleID;
+		OldScheduleNode.ubSoldierID = ubSoldierID;
+		OldScheduleNode.usFlags = usFlags;
+		pData = &OldScheduleNode;
+		uiBytesToWrite = sizeof(_OLD_SCHEDULENODE);
+	}
+	UINT32 uiBytesWritten = 0;
+	FileWrite(hFile, pData, uiBytesToWrite, &uiBytesWritten);
+	if(uiBytesToWrite == uiBytesWritten)
+		return(TRUE);
+	return(FALSE);
+}
+
+void LoadSchedules(INT8** hBuffer, FLOAT dMajorMapVersion)
+{
+	SCHEDULENODE* pSchedule = NULL;
+	SCHEDULENODE temp;
+
+	// Delete all the schedules we might have loaded (though we shouldn't have any loaded!!)
+	if(gpScheduleList)
+		DestroyAllSchedules();
+	UINT8 ubNum;
+	LOADDATA(&ubNum, *hBuffer, sizeof(ubNum));
+	gubScheduleID = 1;
+	while(ubNum)
+	{
+		temp.Load(hBuffer, dMajorMapVersion);
+		for(int i=0; i<MAX_SCHEDULE_ACTIONS; i++)//dnl ch44 280909 SCHEDULENODE translation
 		{
+			gMapTrn.GetTrnCnt((INT32&)temp.usData1[i]);
+			gMapTrn.GetTrnCnt((INT32&)temp.usData2[i]);
+		}
+		if(gpScheduleList)
+		{
+			pSchedule->next = (SCHEDULENODE*)MemAlloc(sizeof(SCHEDULENODE));
+			Assert(pSchedule->next);
+			pSchedule = pSchedule->next;
+			memcpy(pSchedule, &temp, sizeof(SCHEDULENODE));
+		}
+		else
+		{
+			gpScheduleList = (SCHEDULENODE*)MemAlloc(sizeof(SCHEDULENODE));
+			Assert(gpScheduleList);
+			memcpy(gpScheduleList, &temp, sizeof(SCHEDULENODE));
+			pSchedule = gpScheduleList;
+		}
+		pSchedule->ubScheduleID = gubScheduleID;
+		pSchedule->ubSoldierID = NOBODY;
+		pSchedule->next = NULL;
+		gubScheduleID++;
+		ubNum--;
+	}
+	// Schedules are posted when the soldier is added...
+}
+
+BOOLEAN SaveSchedules(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)
+{
+	// Now, count the number of schedules in the list
+	INT32 iNum = 0;
+	SCHEDULENODE* curr = gpScheduleList;
+	while(curr)
+	{
+		// Skip all default schedules
+		if(!(curr->usFlags & SCHEDULE_FLAGS_TEMPORARY))
 			iNum++;
-		}
 		curr = curr->next;
 	}
-	ubNum = (UINT8)(( iNum >= 32 ) ? 32 : iNum);
-
-	FileWrite( hFile, &ubNum, sizeof( UINT8 ), &uiBytesWritten );
-	if ( uiBytesWritten != sizeof( UINT8 ) )
-	{
-		return( FALSE );
-	}
-	//Now, save each schedule
+	UINT8 ubNum = (UINT8)((iNum >= 32) ? 32 : iNum);
+	UINT32 uiBytesWritten;
+	FileWrite(hFile, &ubNum, sizeof(ubNum), &uiBytesWritten);
+	if(uiBytesWritten != sizeof(ubNum))
+		return(FALSE);
+	// Now, save each schedule
 	curr = gpScheduleList;
-	ubNumFucker = 0;
-	while( curr )
+	UINT8 ubNumFucker = 0;
+	while(curr)
 	{
-		// skip all default schedules
-		if ( !(curr->usFlags & SCHEDULE_FLAGS_TEMPORARY) )
+		// Skip all default schedules
+		if(!(curr->usFlags & SCHEDULE_FLAGS_TEMPORARY))
 		{
-
 			ubNumFucker++;
-			if( ubNumFucker > ubNum )
-			{
-				return( TRUE );
-			}
-			FileWrite( hFile, curr, sizeof( SCHEDULENODE ), &uiBytesWritten );
-			if ( uiBytesWritten != sizeof( SCHEDULENODE ) )
-			{
-				return( FALSE );
-			}
-
+			if(ubNumFucker > ubNum)
+				return(TRUE);
+			if(!curr->Save(hFile, dMajorMapVersion, ubMinorMapVersion))
+				return(FALSE);
 		}
 		curr = curr->next;
 	}
-	return( TRUE );
+	return(TRUE);
 }
 
 //Each schedule has upto four parts to it, so sort them chronologically.
@@ -614,11 +655,11 @@ BOOLEAN SortSchedule( SCHEDULENODE *pSchedule )
 	return fSorted;
 }
 
-BOOLEAN BumpAnyExistingMerc( INT16 sGridNo )
+BOOLEAN BumpAnyExistingMerc( INT32 sGridNo ) 
 {
 	UINT8						ubID;
 	SOLDIERTYPE *		pSoldier; // NB this is the person already in the location,
-	INT16						sNewGridNo;
+	INT32 sNewGridNo;
 	UINT8						ubDir;
 	INT16						sCellX, sCellY;
 
@@ -644,7 +685,7 @@ BOOLEAN BumpAnyExistingMerc( INT16 sGridNo )
 	sNewGridNo = FindGridNoFromSweetSpotWithStructDataFromSoldier( pSoldier, STANDING, 5, &ubDir, 1, pSoldier );
 	//sNewGridNo = FindGridNoFromSweetSpotExcludingSweetSpot( pSoldier, sGridNo, 10, &ubDir );
 
-	if ( sNewGridNo == NOWHERE )
+	if (TileIsOutOfBounds(sNewGridNo))
 	{
 		return( FALSE );
 	}
@@ -657,7 +698,8 @@ BOOLEAN BumpAnyExistingMerc( INT16 sGridNo )
 
 void AutoProcessSchedule( SCHEDULENODE *pSchedule, INT32 index )
 {
-	INT16						sCellX, sCellY, sGridNo;
+	INT16						sCellX, sCellY;
+	INT32 sGridNo;
 	INT8						bDirection;
 	SOLDIERTYPE *		pSoldier;
 
@@ -711,7 +753,7 @@ void AutoProcessSchedule( SCHEDULENODE *pSchedule, INT32 index )
 		case SCHEDULE_ACTION_UNLOCKDOOR:
 		case SCHEDULE_ACTION_OPENDOOR:
 		case SCHEDULE_ACTION_CLOSEDOOR:
-			PerformActionOnDoorAdjacentToGridNo( pSchedule->ubAction[ index ], (INT16)pSchedule->usData1[ index ] );
+			PerformActionOnDoorAdjacentToGridNo( pSchedule->ubAction[ index ], pSchedule->usData1[ index ] );
 			BumpAnyExistingMerc( pSchedule->usData2[ index ] );
 			ConvertGridNoToCellXY( pSchedule->usData2[ index ], &sCellX, &sCellY );
 
@@ -987,8 +1029,8 @@ void PostDefaultSchedule( SOLDIERTYPE *pSoldier )
 	for( i = 0; i < MAX_SCHEDULE_ACTIONS; i++ )
 	{
 		gpScheduleList->usTime[i] = 0xffff;
-		gpScheduleList->usData1[i] = 0xffff;
-		gpScheduleList->usData2[i] = 0xffff;
+		gpScheduleList->usData1[i] = 0xffffffff;
+		gpScheduleList->usData2[i] = 0xffffffff;
 	}
 	//Have the default schedule enter between 7AM and 8AM
 	gpScheduleList->ubAction[0] = SCHEDULE_ACTION_ENTERSECTOR;
@@ -1055,13 +1097,13 @@ void PostSchedules()
 	}
 }
 
-void PerformActionOnDoorAdjacentToGridNo( UINT8 ubScheduleAction, INT16 sGridNo )
+void PerformActionOnDoorAdjacentToGridNo( UINT8 ubScheduleAction, INT32 usGridNo )
 {
-	INT16			sDoorGridNo;
+	INT32			sDoorGridNo;
 	DOOR *		pDoor;
 
-	sDoorGridNo = FindDoorAtGridNoOrAdjacent( (INT16) sGridNo );
-	if (sDoorGridNo != NOWHERE)
+	sDoorGridNo = FindDoorAtGridNoOrAdjacent( usGridNo );
+	if (!TileIsOutOfBounds(sDoorGridNo))
 	{
 		switch( ubScheduleAction )
 		{
@@ -1306,7 +1348,7 @@ void ReconnectSchedules( void )
 }
 */
 
-UINT16 FindSleepSpot( SCHEDULENODE * pSchedule )
+UINT32 FindSleepSpot( SCHEDULENODE * pSchedule )
 {
 	INT8			bLoop;
 
@@ -1336,10 +1378,10 @@ void ReplaceSleepSpot( SCHEDULENODE * pSchedule, UINT16 usNewSpot )
 }
 
 
-void SecureSleepSpot( SOLDIERTYPE * pSoldier, UINT16 usSleepSpot )
+void SecureSleepSpot( SOLDIERTYPE * pSoldier, UINT32 usSleepSpot )
 {
 	SOLDIERTYPE *			pSoldier2;
-	UINT16						usSleepSpot2, usNewSleepSpot;
+	UINT32						usSleepSpot2, usNewSleepSpot;
 	UINT32						uiLoop;
 	SCHEDULENODE *		pSchedule;
 	UINT8							ubDirection;
@@ -1359,7 +1401,7 @@ void SecureSleepSpot( SOLDIERTYPE * pSoldier, UINT16 usSleepSpot )
 					// conflict!
 					//usNewSleepSpot = (INT16) FindGridNoFromSweetSpotWithStructData( pSoldier2, pSoldier2->usAnimState, usSleepSpot2, 3, &ubDirection, FALSE );
 					usNewSleepSpot = FindGridNoFromSweetSpotExcludingSweetSpot( pSoldier2, usSleepSpot2, 3, &ubDirection );
-					if ( usNewSleepSpot != NOWHERE )
+					if (!TileIsOutOfBounds(usNewSleepSpot))
 					{
 						ReplaceSleepSpot( pSchedule, usNewSleepSpot );
 					}
@@ -1389,7 +1431,7 @@ void SecureSleepSpots( void )
 			if ( pSchedule )
 			{
 				usSleepSpot = FindSleepSpot( pSchedule );
-				if ( usSleepSpot != NOWHERE )
+				if (!TileIsOutOfBounds(usSleepSpot))
 				{
 					SecureSleepSpot( pSoldier, usSleepSpot );
 				}

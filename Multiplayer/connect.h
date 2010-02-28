@@ -5,6 +5,8 @@
 #include "Merc Hiring.h"
 #include "event pump.h"
 
+extern bool isOwnTeamWipedOut;
+
 extern bool is_connected;
 extern bool is_connecting;
 extern bool is_client;
@@ -52,7 +54,7 @@ extern STRING512 gCurrentTransferFilename;
 extern INT32 gCurrentTransferBytes;
 extern INT32 gTotalTransferBytes;
 
-extern UINT16 crate_usMapPos;
+extern UINT32 crate_usMapPos;
 
 //extern int INTERRUPTS;
 
@@ -90,13 +92,14 @@ void client_disconnect (void);
 void DialogRemoved( UINT8 ubResult );
 void manual_overide(void);
 
-void send_path (  SOLDIERTYPE *pSoldier, UINT16 sDestGridNo, UINT16 usMovementAnim, BOOLEAN fFromUI, BOOLEAN fForceRestartAnim  );
+void send_path (  SOLDIERTYPE *pSoldier, INT32 sDestGridNo, UINT16 usMovementAnim, BOOLEAN fFromUI, BOOLEAN fForceRestartAnim  );
 void send_stance ( SOLDIERTYPE *pSoldier, UINT8 ubDesiredStance );
 void send_dir ( SOLDIERTYPE *pSoldier, UINT16 usDesiredDirection );
-void send_fire( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo );
+void send_fire( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 void send_hit(  EV_S_WEAPONHIT *SWeaponHit  );
 
 void send_hire( UINT8 iNewIndex, UINT8 ubCurrentSoldier, INT16 iTotalContractLength, BOOLEAN fCopyProfileItemsOver);
+void send_dismiss( UINT8 ubCurrentSoldier);
 
 void send_gui_pos(SOLDIERTYPE *pSoldier,  FLOAT dNewXPos, FLOAT dNewYPos);
 void send_gui_dir(SOLDIERTYPE *pSoldier, UINT16	usNewDirection);
@@ -108,6 +111,17 @@ void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *pubID );
 void send_stop (EV_S_STOP_MERC *SStopMerc);
 
 void send_interrupt(SOLDIERTYPE *pSoldier);
+
+// OJW - 20091002 - explosives
+void send_grenade (OBJECTTYPE *pGameObj, float dLifeLength, float xPos, float yPos, float zPos, float xForce, float yForce, float zForce, UINT32 sTargetGridNo, UINT8 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, INT32 iRealObjectID , bool bIsThrownGrenade);
+void send_grenade_result (float xPos, float yPos, float zPos, INT32 sGridNo, UINT8 ubOwnerID, INT32 iRealObjectID, bool bIsDud);
+void send_plant_explosive (UINT8 ubID,UINT16 usItem,UINT8 ubItemStatus,UINT16 usFlags, UINT32 sGridNo,UINT8 ubLevel, UINT32 uiWorldIndex);
+void send_detonate_explosive (UINT32 uiWorldIndex, UINT8 ubID);
+void send_spreadeffect ( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectID );
+void send_newsmokeeffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, INT32 iSmokeEffectID);
+void send_gasdamage( SOLDIERTYPE * pSoldier, UINT16 usExplosiveClassID , INT16 sSubsequent, BOOLEAN fRecompileMovementCosts, INT16 sWoundAmt, INT16 sBreathAmt, UINT8 ubOwner );
+void send_explosivedamage( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo, INT16 sWoundAmt, INT16 sBreathAmt, UINT32 uiDist, UINT16 usItem, INT16 sSubsequent );
+void send_disarm_explosive(UINT32 sGridNo, UINT32 uiWorldIndex, UINT8 ubID);
 
 void OpenChatMsgBox(void);
 
@@ -122,7 +136,7 @@ extern char client_names[4][30];
 // changes to the codebase without talking to the other devs
 extern int  client_ready[4];
 extern int	client_teams[4];
-extern int	client_edges[4];
+extern int	client_edges[5];
 extern int  client_downloading[4];
 extern int  client_progress[4];
 
@@ -171,4 +185,36 @@ extern BOOLEAN		fClientReceivedAllFiles;
 // OJW - 20090507
 // Add basic version checking, will only work from now on
 // note: this cannot be longer than char[30]
-#define MPVERSION	"1.13MP-v1.2"
+#define MPVERSION	"1.13MP-v1.5"
+
+// OJW - 2009128 - inline funcs for working with soldiers and teams
+// sick of confusing myself :)
+
+// this one should be called before passing an ID off the client
+inline UINT8 MPEncodeSoldierID( UINT8 ubID )
+{
+	if ( ubID < 20 )
+		return ubID + ubID_prefix; // soldier is ours
+	else
+		return ubID; // soldier is another teams, dont touch its ID
+}
+
+// this one can be called anywhere, even if the ID was not "encoded"
+inline UINT8 MPDecodeSoldierID( UINT8 ubID )
+{
+	if ( ubID >= ubID_prefix && ubID < (ubID_prefix + 7) )
+		return ubID - ubID_prefix; // soldier is ours
+	else
+		return ubID; // soldier is another teams, dont touch its ID
+}
+
+inline bool IsOurSoldier (SOLDIERTYPE* pSoldier)
+{
+	return pSoldier->bTeam == netbTeam || pSoldier->bTeam == 0;
+}
+
+inline bool IsOurSoldier (UINT8 ubID)
+{
+	return (ubID >= ubID_prefix && ubID < (ubID_prefix + 7)) || ubID < 20;
+}
+

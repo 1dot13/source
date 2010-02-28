@@ -584,12 +584,15 @@ void RenderRoomInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPoi
 
 
 #ifdef _DEBUG
-extern UINT8 gubFOVDebugInfoInfo[ WORLD_MAX ];
-extern UINT8 gubGridNoMarkers[ WORLD_MAX ];
+//extern UINT8 gubFOVDebugInfoInfo[ WORLD_MAX ];
+//extern UINT8 gubGridNoMarkers[ WORLD_MAX ];
+extern UINT8 * gubFOVDebugInfoInfo;
+extern UINT8 * gubGridNoMarkers;
 extern UINT8 gubGridNoValue;
 extern BOOLEAN gfDisplayCoverValues;
 extern BOOLEAN gfDisplayGridNoVisibleValues = 0;
-extern INT16	gsCoverValue[ WORLD_MAX ];
+//extern INT16	gsCoverValue[ WORLD_MAX ];
+extern INT16 *	gsCoverValue;
 extern INT16	gsBestCover;
 void RenderFOVDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS );
 void RenderCoverDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS );
@@ -710,7 +713,7 @@ TILE_ELEMENT *TileElem;
 void ConcealAllWalls(void)
 {
 LEVELNODE *pStruct;
-UINT32 uiCount;
+INT32 uiCount;
 
 	for(uiCount=0; uiCount < WORLD_MAX; uiCount++)
 	{
@@ -790,7 +793,7 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 	INT32				iTempPosX_S, iTempPosY_S;
 	FLOAT				dOffsetX, dOffsetY;
 	FLOAT				dTempX_S, dTempY_S;
-	UINT32			uiTileIndex;
+	INT32			uiTileIndex;
 	UINT16			usImageIndex, *pShadeTable, *pDirtyBackPtr;
 	UINT32			uiBrushWidth, uiBrushHeight, uiDirtyFlags;
 	INT16				sTileHeight, sXPos, sYPos, sZLevel;
@@ -821,7 +824,7 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 	UINT16			usOutlineColor=0;
 
 	static			INT32				iTileMapPos[ 500 ];
-	UINT32			uiMapPosIndex;
+	INT32			uiMapPosIndex;
 	UINT8				bBlitClipVal;
 	INT8				bItemCount, bVisibleItemCount;
 	//UINT16			us16BPPIndex;
@@ -953,8 +956,8 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 					uiTileIndex = iTileMapPos[ uiMapPosIndex ];
 					uiMapPosIndex++;
 
-					//if ( 0 )
-					if ( uiTileIndex < GRIDSIZE	)
+					//if ( 0 )					
+					if (!TileIsOutOfBounds(uiTileIndex))
 					{
 						// OK, we're searching through this loop anyway, might as well check for mouse position
 						// over objects...
@@ -963,7 +966,7 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 						{
 							if ( fCheckForMouseDetections && gpWorldLevelData[uiTileIndex].pStructHead != NULL )
 							{
-								LogMouseOverInteractiveTile( (INT16)uiTileIndex );
+								LogMouseOverInteractiveTile( uiTileIndex );
 							}
 						}
 
@@ -2556,8 +2559,8 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 							{
 								if(!(uiFlags&TILES_DIRTY))
 									UnLockVideoSurface( FRAME_BUFFER );
-								ColorFillVideoSurfaceArea( FRAME_BUFFER, iTempPosX_S, iTempPosY_S, (INT16)(iTempPosX_S + 40),
-									(INT16)( min( iTempPosY_S + 20, INTERFACE_START_Y )), Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+								ColorFillVideoSurfaceArea( FRAME_BUFFER, iTempPosX_S, iTempPosY_S, (iTempPosX_S + 40), 
+									( min( iTempPosY_S + 20, INTERFACE_START_Y )), Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 								if(!(uiFlags&TILES_DIRTY))
 									pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 							}
@@ -3579,8 +3582,8 @@ void ScrollWorld( )
 
 		if ( gfIgnoreScrolling != 3 )
 		{
-			// Check for sliding
-			if ( gTacticalStatus.sSlideTarget != NOWHERE )
+			// Check for sliding			
+			if (!TileIsOutOfBounds(gTacticalStatus.sSlideTarget))
 			{
 				 // Ignore all input...
 				 // Check if we have reached out dest!
@@ -4295,7 +4298,7 @@ BOOLEAN ApplyScrolling( INT16 sTempRenderCenterX, INT16 sTempRenderCenterY, BOOL
 
 void ClearMarkedTiles(void)
 {
-UINT32 uiCount;
+	INT32 uiCount;
 
 	for(uiCount=0; uiCount < WORLD_MAX; uiCount++)
 		gpWorldLevelData[uiCount].uiFlags&=(~MAPELEMENT_REDRAW);
@@ -4325,7 +4328,7 @@ void InvalidateWorldRedundencyRadius(INT16 sX, INT16 sY, INT16 sRadius)
 
 void InvalidateWorldRedundency( )
 {
-	UINT32 uiCount;
+	INT32 uiCount;
 
 	SetRenderFlags( RENDER_FLAG_CHECKZ );
 
@@ -6434,8 +6437,8 @@ void RenderRoomInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPoi
 	INT16				sTempPosX_M, sTempPosY_M;
 	INT16				sTempPosX_S, sTempPosY_S;
 	BOOLEAN			fEndRenderRow = FALSE, fEndRenderCol = FALSE;
-	UINT16			usTileIndex;
 	INT16				sX, sY;
+	INT32			usTileIndex;//dnl ch56 141009
 	UINT32			uiDestPitchBYTES;
 	UINT8				*pDestBuf;
 
@@ -6757,8 +6760,8 @@ void RenderGridNoVisibleDebugInfo( INT16 sStartPointX_M, INT16 sStartPointY_M, I
 	INT16				sTempPosX_M, sTempPosY_M;
 	INT16				sTempPosX_S, sTempPosY_S;
 	BOOLEAN			fEndRenderRow = FALSE, fEndRenderCol = FALSE;
-	UINT16			usTileIndex;
 	INT16				sX, sY;
+	INT32			usTileIndex;//dnl ch56 141009
 	UINT32			uiDestPitchBYTES;
 	UINT8				*pDestBuf;
 

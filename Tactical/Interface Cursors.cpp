@@ -32,7 +32,7 @@
 
 #define LOOSE_CURSOR_DELAY 300
 static BOOLEAN gfLooseCursorOn		= FALSE;
-static INT16	gsLooseCursorGridNo = NOWHERE;
+static INT32	 gsLooseCursorGridNo = NOWHERE;
 static UINT32	guiLooseCursorID		= 0;
 static UINT32	guiLooseCursorTimeOfLastUpdate = 0;
 
@@ -217,8 +217,8 @@ UICursor	gUICursors[ NUM_UI_CURSORS ] =
 
 UINT32 guiCurUICursor = NO_UICURSOR;
 UINT32 guiOldUICursor = NO_UICURSOR;
-UINT16				gusCurMousePos;
-UINT16				gusTargetDropPos;
+UINT32				gusCurMousePos;
+UINT32				gusTargetDropPos;
 BOOLEAN				gfTargetDropPos = FALSE;
 
 // LOCAL FUNCTIONS
@@ -236,7 +236,7 @@ BOOLEAN SetUICursor( UINT32 uiNewCursor )
 
 BOOLEAN DrawUICursor( )
 {
-	INT16						sMapPos;
+	INT32 usMapPos;
 	static BOOLEAN						fHideCursor = FALSE;
 	LEVELNODE					*pNode;
 	UINT16						usTileCursor;
@@ -263,9 +263,9 @@ BOOLEAN DrawUICursor( )
 		return( TRUE );
 	}
 
-	if (GetMouseMapPos( &sMapPos) )
+	if (GetMouseMapPos( &usMapPos) )
 	{
-		gusCurMousePos = sMapPos;
+		gusCurMousePos = usMapPos;
 
 		if ( guiCurUICursor == NO_UICURSOR )
 		{
@@ -685,13 +685,9 @@ void EraseSnappingCursor( )
 	RemoveAllObjectsOfTypeRange( gusCurMousePos, FIRSTPOINTERS, LASTPOINTERS );
 	RemoveAllOnRoofsOfTypeRange( gusCurMousePos, FIRSTPOINTERS, LASTPOINTERS );
 	RemoveAllOnRoofsOfTypeRange( gusCurMousePos, MOCKFLOOR, MOCKFLOOR );
-
-
 }
 
-
-
-void StartLooseCursor( INT16 sGridNo, UINT32 uiCursorID )
+void StartLooseCursor( INT32 sGridNo, UINT32 uiCursorID )
 {
 	gfLooseCursorOn		= TRUE;
 

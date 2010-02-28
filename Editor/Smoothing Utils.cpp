@@ -24,7 +24,7 @@ extern UINT16 PickAWallPiece( UINT16 usWallPieceType );
 //This method isn't foolproof, but because erasing large areas of buildings could result in
 //multiple wall types for each building.	When processing the region, it is necessary to
 //calculate the roof type by searching for the nearest roof tile.
-UINT16 SearchForWallType( UINT32 iMapIndex )
+UINT16 SearchForWallType( INT32 iMapIndex )
 {
 	UINT32 uiTileType;
 	LEVELNODE *pWall;
@@ -47,7 +47,7 @@ UINT16 SearchForWallType( UINT32 iMapIndex )
 			if( abs(x) == abs(sRadius) || abs(y) == abs(sRadius) )
 			{
 				sOffset = y * WORLD_COLS + x;
-				if( !GridNoOnVisibleWorldTile( (INT16)(iMapIndex + sOffset) ) )
+				if( !GridNoOnVisibleWorldTile( iMapIndex + sOffset ) )
 				{
 					continue;
 				}
@@ -75,7 +75,7 @@ UINT16 SearchForWallType( UINT32 iMapIndex )
 //This method isn't foolproof, but because erasing large areas of buildings could result in
 //multiple roof types for each building.	When processing the region, it is necessary to
 //calculate the roof type by searching for the nearest roof tile.
-UINT16 SearchForRoofType( UINT32 iMapIndex )
+UINT16 SearchForRoofType( INT32 iMapIndex )
 {
 	UINT32 uiTileType;
 	LEVELNODE *pRoof;
@@ -88,7 +88,7 @@ UINT16 SearchForRoofType( UINT32 iMapIndex )
 			if( abs(x) == abs(sRadius) || abs(y) == abs(sRadius) )
 			{
 				sOffset = y * WORLD_COLS + x;
-				if( !GridNoOnVisibleWorldTile( (INT16)(iMapIndex + sOffset) ) )
+				if( !GridNoOnVisibleWorldTile( iMapIndex + sOffset ) )
 				{
 					continue;
 				}
@@ -109,7 +109,7 @@ UINT16 SearchForRoofType( UINT32 iMapIndex )
 	return 0xffff;
 }
 
-BOOLEAN RoofAtGridNo( UINT32 iMapIndex )
+BOOLEAN RoofAtGridNo( INT32 iMapIndex )
 {
 	LEVELNODE	*pRoof;
 	UINT32 uiTileType;
@@ -128,7 +128,7 @@ BOOLEAN RoofAtGridNo( UINT32 iMapIndex )
 	return FALSE;
 }
 
-BOOLEAN BuildingAtGridNo( UINT32 iMapIndex )
+BOOLEAN BuildingAtGridNo( INT32 iMapIndex )
 {
 	if( RoofAtGridNo( iMapIndex ) )
 		return TRUE;
@@ -137,7 +137,7 @@ BOOLEAN BuildingAtGridNo( UINT32 iMapIndex )
 	return FALSE;
 }
 
-BOOLEAN ValidDecalPlacement( UINT32 iMapIndex )
+BOOLEAN ValidDecalPlacement( INT32 iMapIndex )
 {
 	if( GetVerticalWall( iMapIndex ) || GetHorizontalWall( iMapIndex )
 			|| GetVerticalFence( iMapIndex ) || GetHorizontalFence( iMapIndex ) )
@@ -145,7 +145,7 @@ BOOLEAN ValidDecalPlacement( UINT32 iMapIndex )
 	return FALSE;
 }
 
-LEVELNODE* GetVerticalWall( UINT32 iMapIndex )
+LEVELNODE* GetVerticalWall( INT32 iMapIndex )
 {
 	LEVELNODE *pStruct;
 	UINT32 uiTileType;
@@ -171,7 +171,7 @@ LEVELNODE* GetVerticalWall( UINT32 iMapIndex )
 	return NULL;
 }
 
-LEVELNODE* GetHorizontalWall( UINT32 iMapIndex )
+LEVELNODE* GetHorizontalWall( INT32 iMapIndex )
 {
 	LEVELNODE *pStruct;
 	UINT32 uiTileType;
@@ -197,7 +197,7 @@ LEVELNODE* GetHorizontalWall( UINT32 iMapIndex )
 	return NULL;
 }
 
-UINT16 GetVerticalWallType( UINT32 iMapIndex )
+UINT16 GetVerticalWallType( INT32 iMapIndex )
 {
 	LEVELNODE *pWall;
 	UINT32 uiTileType;
@@ -212,7 +212,7 @@ UINT16 GetVerticalWallType( UINT32 iMapIndex )
 	return 0;
 }
 
-UINT16 GetHorizontalWallType( UINT32 iMapIndex )
+UINT16 GetHorizontalWallType( INT32 iMapIndex )
 {
 	LEVELNODE *pWall;
 	UINT32 uiTileType;
@@ -227,7 +227,7 @@ UINT16 GetHorizontalWallType( UINT32 iMapIndex )
 	return 0;
 }
 
-LEVELNODE* GetVerticalFence( UINT32 iMapIndex )
+LEVELNODE* GetVerticalFence( INT32 iMapIndex )
 {
 	LEVELNODE *pStruct;
 	UINT32 uiTileType;
@@ -252,7 +252,7 @@ LEVELNODE* GetVerticalFence( UINT32 iMapIndex )
 	return NULL;
 }
 
-LEVELNODE* GetHorizontalFence( UINT32 iMapIndex )
+LEVELNODE* GetHorizontalFence( INT32 iMapIndex )
 {
 	LEVELNODE *pStruct;
 	UINT32 uiTileType;
@@ -277,7 +277,7 @@ LEVELNODE* GetHorizontalFence( UINT32 iMapIndex )
 	return NULL;
 }
 
-void EraseHorizontalWall( UINT32 iMapIndex )
+void EraseHorizontalWall( INT32 iMapIndex )
 {
 	LEVELNODE *pWall;
 	pWall = GetHorizontalWall( iMapIndex );
@@ -289,7 +289,7 @@ void EraseHorizontalWall( UINT32 iMapIndex )
 	}
 }
 
-void EraseVerticalWall( UINT32 iMapIndex )
+void EraseVerticalWall( INT32 iMapIndex )
 {
 	LEVELNODE *pWall;
 	pWall = GetVerticalWall( iMapIndex );
@@ -301,7 +301,7 @@ void EraseVerticalWall( UINT32 iMapIndex )
 	}
 }
 
-void ChangeHorizontalWall( UINT32 iMapIndex, UINT16 usNewPiece )
+void ChangeHorizontalWall( INT32 iMapIndex, UINT16 usNewPiece )
 {
 	LEVELNODE *pWall;
 	UINT32 uiTileType;
@@ -321,7 +321,7 @@ void ChangeHorizontalWall( UINT32 iMapIndex, UINT16 usNewPiece )
 	}
 }
 
-void ChangeVerticalWall( UINT32 iMapIndex, UINT16 usNewPiece )
+void ChangeVerticalWall( INT32 iMapIndex, UINT16 usNewPiece )
 {
 	LEVELNODE *pWall;
 	UINT32 uiTileType;
@@ -341,7 +341,7 @@ void ChangeVerticalWall( UINT32 iMapIndex, UINT16 usNewPiece )
 	}
 }
 
-void RestoreWalls( UINT32 iMapIndex )
+void RestoreWalls( INT32 iMapIndex )
 {
 	LEVELNODE *pWall = NULL;
 	UINT32 uiTileType;
@@ -450,7 +450,7 @@ UINT16 GetWallClass( LEVELNODE *pWall )
 	return 0xffff;
 }
 
-UINT16 GetVerticalWallClass( UINT16 iMapIndex )
+UINT16 GetVerticalWallClass( INT32 iMapIndex )
 {
 	LEVELNODE *pWall;
 	if( pWall = GetVerticalWall( iMapIndex ) )
@@ -458,7 +458,7 @@ UINT16 GetVerticalWallClass( UINT16 iMapIndex )
 	return 0xffff;
 }
 
-UINT16 GetHorizontalWallClass( UINT16 iMapIndex )
+UINT16 GetHorizontalWallClass( INT32 iMapIndex )
 {
 	LEVELNODE *pWall;
 	if( pWall = GetVerticalWall( iMapIndex ) )

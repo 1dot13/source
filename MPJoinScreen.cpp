@@ -34,7 +34,7 @@
 #include "VFS/vfs.h"
 #include "VFS/vfs_init.h"
 #include "VFS/PropertyContainer.h"
-#include "VFS/iteratedir.h"
+#include "VFS/os_functions.h"
 
 #include "Random.h"
 
@@ -128,39 +128,45 @@ CHAR16		gzServerPortField[ 5+1 ] = {0} ;
 extern CHAR16 gzFileTransferDirectory[100];
 
 #ifdef USE_VFS
-utf8string const& CUniqueServerId::GetServerId(vfs::Path dir, CPropertyContainer* props)
+
+void CUniqueServerId::uniqueRandomString(utf8string& str)
+{
+	std::vector<wchar_t> _rand(30,0);
+	int pos = 0;
+	for(int block = 0; block < 5; ++block)
+	{
+		for(int i=0; i<5; ++i)
+		{
+			int r = Random(36);
+			if(r < 10)
+			{
+				r += L'0';
+			}
+			else
+			{
+				r += L'A' - 10;
+			}
+			_rand[pos++] = r;
+		}
+		_rand[pos++] = L'-';
+	}
+	str.r_wcs().assign(&_rand[0],29);
+}
+
+utf8string const& CUniqueServerId::getServerId(vfs::Path dir, CPropertyContainer* props)
 {
 	if(!props)
 	{
 		return _id;
 	}
-	utf8string key = L"\"" + dir().c_wcs() + L"\"";
-	utf8string id = props->GetStringProperty(L"SERVER",key);
+	utf8string key = L"\"" + dir.c_wcs() + L"\"";
+	utf8string id = props->getStringProperty(L"SERVER",key);
 	if(id.empty())
 	{
-		std::vector<wchar_t> _rand(30,0);
-		int pos = 0;
-		for(int block = 0; block < 5; ++block)
-		{
-			for(int i=0; i<5; ++i)
-			{
-				int r = Random(36);
-				if(r < 10)
-				{
-					r += L'0';
-				}
-				else
-				{
-					r += L'A' - 10;
-				}
-				_rand[pos++] = r;
-			}
-			_rand[pos++] = L'-';
-		}
-		id.r_wcs().assign(&_rand[0],29);
+		uniqueRandomString(id);
 	}
 	_id = id;
-	props->SetStringProperty(L"SERVER",key,_id);
+	props->setStringProperty(L"SERVER",key,_id);
 	return _id;
 }
 
@@ -221,10 +227,10 @@ UINT32	MPJoinScreenInit( void )
 	GetPrivateProfileStringW( L"Ja2_mp Settings",L"CLIENT_NAME", L"Player Name", gzPlayerHandleField, 12 , L"..\\Ja2_mp.ini" );
 #else
 	CPropertyContainer props;
-	props.InitFromIniFile( L"Ja2_mp.ini");
-	props.GetStringProperty( L"Ja2_mp Settings", L"SERVER_IP", gzServerIPField, 16, "127.0.0.1");
-	props.GetStringProperty( L"Ja2_mp Settings", L"SERVER_PORT", gzServerPortField, 6, "60005");
-	props.GetStringProperty( L"Ja2_mp Settings", L"CLIENT_NAME", gzPlayerHandleField, 12, L"Player Name");
+	props.initFromIniFile( L"Ja2_mp.ini");
+	props.getStringProperty( L"Ja2_mp Settings", L"SERVER_IP", gzServerIPField, 16, "127.0.0.1");
+	props.getStringProperty( L"Ja2_mp Settings", L"SERVER_PORT", gzServerPortField, 6, "60005");
+	props.getStringProperty( L"Ja2_mp Settings", L"CLIENT_NAME", gzPlayerHandleField, 12, L"Player Name");
 #endif
 	return( 1 );
 }
@@ -245,15 +251,15 @@ void		SaveJoinSettings(bool ReSaving)
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"CLIENT_NAME", gzPlayerHandleField , L"..\\Ja2_mp.ini" );
 #else
 	CPropertyContainer props;
-	props.InitFromIniFile("Ja2_mp.ini");
+	props.initFromIniFile("Ja2_mp.ini");
 
-	props.SetStringProperty(L"Ja2_mp Settings",L"SERVER_IP", gzServerIPField);
-	props.SetStringProperty(L"Ja2_mp Settings",L"SERVER_PORT", gzServerPortField);
-	props.SetStringProperty(L"Ja2_mp Settings",L"CLIENT_NAME", gzPlayerHandleField);
+	props.setStringProperty(L"Ja2_mp Settings",L"SERVER_IP", gzServerIPField);
+	props.setStringProperty(L"Ja2_mp Settings",L"SERVER_PORT", gzServerPortField);
+	props.setStringProperty(L"Ja2_mp Settings",L"CLIENT_NAME", gzPlayerHandleField);
 
-	s_ServerId.GetServerId(vfs::Path(gzFileTransferDirectory), &props);
+	s_ServerId.getServerId(vfs::Path(gzFileTransferDirectory), &props);
 
-	props.WriteToIniFile(L"ja2_mp.ini",true);
+	props.writeToIniFile(L"ja2_mp.ini",true);
 #endif
 }
 
@@ -339,9 +345,9 @@ bool	ValidateJoinSettings(bool bSkipServerAddress, bool bSkipSyncDir)
 			CreateDirectoryA(syncDir, NULL);
 		}
 #else
-		if(os::CreateRealDirecory(vfs::Path(L"Multiplayer")))
+		if(os::createRealDirectory(vfs::Path(L"Multiplayer")))
 		{
-			os::CreateRealDirecory(vfs::Path(L"Multiplayer/Servers"));
+			os::createRealDirectory(vfs::Path(L"Multiplayer/Servers"));
 		}
 #endif
 	}

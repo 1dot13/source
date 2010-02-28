@@ -2,13 +2,58 @@
 #define _VFS_FILE_INTERFACE_H_
 
 #include "../vfs_types.h"
+#include "../vfs_path.h"
+
+#include <typeinfo>
 
 namespace vfs
 {
 	/**
+	 *  FileAttributes
+	 */
+	class FileAttributes
+	{
+	public:
+		enum Attributes {
+			ATTRIB_INVALID			= 0,
+			ATTRIB_ARCHIVE			= 1,
+			ATTRIB_DIRECTORY		= 2,
+			ATTRIB_HIDDEN			= 4,
+			ATTRIB_NORMAL			= 8,
+			ATTRIB_READONLY			= 16,
+			ATTRIB_SYSTEM			= 32,
+			ATTRIB_TEMPORARY		= 64,
+			ATTRIB_COMPRESSED		= 128,
+			ATTRIB_OFFLINE			= 256,
+		};
+		enum LocationType {
+			LT_NONE					= 0,
+			LT_LIBRARY				= 1,
+			LT_DIRECTORY			= 2,
+			LT_READONLY_DIRECTORY	= 4,
+		};
+	public:
+		FileAttributes();
+		FileAttributes(vfs::UInt32 attribs, LocationType location);
+
+		vfs::UInt32	getAttrib() const;
+		vfs::UInt32	getLocation() const;
+
+		bool		isAttribSet(vfs::UInt32 attribs) const;
+		bool		isAttribNotSet(vfs::UInt32 attribs) const;
+
+		bool		isLocation(vfs::UInt32 location) const;
+	private:
+		void		operator=(vfs::FileAttributes const& attr);
+
+		const vfs::UInt32	_attribs;
+		const vfs::UInt32	_location;
+	};
+
+	/**
 	 *  IBaseFile
 	 */
-	class IBaseFile
+	class VFS_API IBaseFile
 	{
 	public:
 		enum ESeekDir
@@ -18,42 +63,23 @@ namespace vfs
 			SD_END,
 		};
 	public:
-		IBaseFile(vfs::Path const& sFileName)
-			: m_sFileName(sFileName)
-		{};
-		virtual ~IBaseFile()
-		{};
+		IBaseFile(vfs::Path const& filename);
+		virtual ~IBaseFile();
 
-		vfs::Path const&	GetFileName()
-		{
-			return m_sFileName;
-		};
-		virtual vfs::Path	GetFullPath()
-		{
-			return GetFileName();
-		};
+		virtual vfs::FileAttributes	getAttributes() = 0;
 
-		virtual bool	IsWriteable() = 0;
-		virtual bool	IsReadable() = 0;
+		vfs::Path const&	getName();
+		virtual vfs::Path	getPath();
 
-		virtual bool	Close() = 0;
-		virtual bool	GetFileSize(UInt32& uiFileSize) = 0;
-		UInt32			GetFileSize()
-		{
-			UInt32 size;
-			if(GetFileSize(size))
-			{
-				return size;
-			}
-			return 0;
-		};
+		virtual bool		implementsWritable() = 0;
+		virtual bool		implementsReadable() = 0;
 
-		virtual bool _getRealPath(vfs::Path& rPath)
-		{
-			return false;
-		}
+		virtual void		close() = 0;
+		virtual vfs::size_t	getSize() = 0;
+
+		virtual bool		_getRealPath(vfs::Path& path);
 	protected:
-		vfs::Path		m_sFileName;
+		vfs::Path			m_filename;
 	};
 
 	/**
@@ -63,34 +89,34 @@ namespace vfs
 	class IReadable : public vfs::IReadType
 	{
 	public:
-		virtual bool	IsOpenRead() = 0;
-		virtual bool	OpenRead() = 0;
-		virtual bool	Read(Byte* pData, UInt32 uiBytesToRead, UInt32& uiBytesRead) = 0;	
+		virtual bool		isOpenRead() = 0;
+		virtual bool		openRead() = 0;
+		virtual vfs::size_t	read(vfs::Byte* data, vfs::size_t bytesToRead) = 0;	
 
-		virtual UInt32	GetReadLocation() = 0;
-		virtual bool	SetReadLocation(UInt32 uiPositionInBytes) = 0;
-		virtual bool	SetReadLocation(Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir) = 0;
+		virtual vfs::size_t	getReadPosition() = 0;
+		virtual void		setReadPosition(vfs::size_t positionInBytes) = 0;
+		virtual void		setReadPosition(vfs::offset_t offsetInBytes, vfs::IBaseFile::ESeekDir seekDir) = 0;
 	};
 	//class NonReadable : public IReadType{};
 
 	/**
-	 *  IWriteType , IWriteable
+	 *  IWriteType , IWritable
 	 */
 	class IWriteType{};
-	class IWriteable : public vfs::IWriteType
+	class IWritable : public vfs::IWriteType
 	{
 	public:
-		virtual bool	IsOpenWrite() = 0;
-		virtual bool	OpenWrite(bool bCreateWhenNotExist = false, bool bTruncate = false) = 0;
-		virtual bool	Write(const Byte* pData, UInt32 uiBytesToWrite, UInt32& uiBytesWritten) = 0;	
+		virtual bool		isOpenWrite() = 0;
+		virtual bool		openWrite(bool createWhenNotExist = false, bool truncate = false) = 0;
+		virtual vfs::size_t	write(const vfs::Byte* data, vfs::size_t bytesToWrite) = 0;	
 
-		virtual UInt32	GetWriteLocation() = 0;
-		virtual bool	SetWriteLocation(Int32 uiPositionInBytes) = 0;
-		virtual bool	SetWriteLocation(Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir) = 0;
+		virtual vfs::size_t	getWritePosition() = 0;
+		virtual void		setWritePosition(vfs::size_t positionInBytes) = 0;
+		virtual void		setWritePosition(vfs::offset_t offsetInBytes, vfs::IBaseFile::ESeekDir seekDir) = 0;
 
-		virtual bool	Delete() = 0;
+		virtual bool		deleteFile() = 0;
 	};
-	//class NonWriteable: public IWriteType{};
+	//class NonWritable: public IWriteType{};
 
 	/******************************************************************/
 	/******************************************************************/
@@ -99,116 +125,100 @@ namespace vfs
 	 *  IFileTemplate 
 	 */
 	template<typename ReadType=vfs::IReadType, typename WriteType=vfs::IWriteType>
-	class IFileTemplate : public vfs::IBaseFile, public ReadType, public WriteType
+	class VFS_API TFileTemplate : public vfs::IBaseFile, public ReadType, public WriteType
 	{
 	public:
 		typedef ReadType read_type;
 		typedef WriteType write_type;
-	public:
-		IFileTemplate(vfs::Path const& sFileName) 
-			: vfs::IBaseFile(sFileName), ReadType(), WriteType()
-		{};
-		virtual ~IFileTemplate()
-		{};
 
-		virtual bool	IsWriteable()
+		typedef vfs::TFileTemplate<read_type,vfs::IWritable> write_file_type;
+		typedef vfs::TFileTemplate<vfs::IReadable,write_type> read_file_type;
+	public:
+		TFileTemplate(vfs::Path const& fileName) 
+			: vfs::IBaseFile(fileName), ReadType(), WriteType()
+		{};
+		virtual ~TFileTemplate()
+		{};
+		virtual bool	implementsWritable()
 		{
-			return typeid(write_type) == typeid(vfs::IWriteable);
+			return typeid(write_type) == typeid(vfs::IWritable);
 		}
-		virtual bool	IsReadable()
+		virtual bool	implementsReadable()
 		{
 			return typeid(read_type) == typeid(vfs::IReadable);
 		}
-		virtual vfs::IFileTemplate<read_type,vfs::IWriteable>* GetWriteable()
-		{
-			//if(IsWriteable()) TODO: test how this affects compatibility
-			{
-				return reinterpret_cast<vfs::IFileTemplate<read_type,vfs::IWriteable>*>(this);
-			}
-			return NULL;
-		}
-		virtual vfs::IFileTemplate<vfs::IReadable,write_type>* GetReadable()
-		{
-			if(IsReadable())
-			{
-				return reinterpret_cast<vfs::IFileTemplate<vfs::IReadable,write_type>*>(this);
-			}
-			return NULL;
-		}
 	};
 
 	/**
-	 *  IReadableFile 
+	 *  TReadableFile 
 	 */
 	template<class WriteType=vfs::IWriteType>
-	class IReadableFile : public vfs::IFileTemplate<IReadable,WriteType>
+	class TReadableFile : public vfs::TFileTemplate<vfs::IReadable,WriteType>
 	{
+		typedef vfs::TFileTemplate<vfs::IReadable,WriteType> tBaseClass;
 	public:
-		template<typename T>
-		static IReadableFile* Cast(T* t)
+		typedef vfs::TReadableFile<WriteType> read_file_type;
+
+		/////////////////////////////////////////
+		TReadableFile(vfs::Path const& sFilename)
+			: tBaseClass(sFilename)
+		{};
+		virtual ~TReadableFile(){};
+
+		/////////////////////////////////////////
+		read_file_type* operator=(vfs::IBaseFile const& t)
 		{
-			vfs::IBaseFile* bf = t;
-			return Cast<IBaseFile>(bf);
+			return read_file_type::cast(t);
 		}
-		template<>
-		static IReadableFile* Cast<IBaseFile>(IBaseFile* bf)
+
+		/////////////////////////////////////////
+		static read_file_type* cast(vfs::IBaseFile* bf)
 		{
-			if(bf && bf->IsReadable())
+			if(bf && bf->implementsReadable())
 			{
-				return static_cast<IReadableFile*>(bf);
+				return static_cast<read_file_type*>(bf);
 			}
 			return NULL;
 		}
-
-		template<class T>
-		IReadableFile* operator=(T const& t)
-		{
-			return IReadableFile::Cast(t);
-		}
-	public:
-		IReadableFile(vfs::Path const& sFileName)
-			: vfs::IFileTemplate<vfs::IReadable,WriteType>(sFileName)
-		{};
-		virtual ~IReadableFile(){};
 	protected:
-		IReadableFile();
+		TReadableFile();
 	};
 
 	/**
-	 *  IWriteableFile 
+	 *  TWritableFile 
 	 */
-	template<class ReadType=IReadType>
-	class IWriteableFile : public vfs::IFileTemplate<ReadType,vfs::IWriteable>
+	template<class ReadType=vfs::IReadType>
+	class TWritableFile : public vfs::TFileTemplate<ReadType,vfs::IWritable>
 	{
+		typedef vfs::TFileTemplate<ReadType,vfs::IWritable> tBaseClass;
 	public:
-		template<class T>
-		static IWriteableFile* Cast(T* t)
+		typedef vfs::TWritableFile<ReadType> write_file_type;
+
+		/////////////////////////////////////////
+		TWritableFile(vfs::Path const& sFilename)
+			: tBaseClass(sFilename)
+		{};
+		virtual ~TWritableFile(){};
+
+		/////////////////////////////////////////
+		write_file_type& operator=(vfs::IBaseFile const& t)
 		{
-			vfs::IBaseFile* bf = t;
-			return Cast<IBaseFile>(bf);
+			return *write_file_type::cast(t);
 		}
-		template<>
-		static IWriteableFile* Cast<IBaseFile>(IBaseFile* bf)
+
+		/////////////////////////////////////////
+		static write_file_type* cast(IBaseFile* bf)
 		{
-			if(bf && bf->IsWriteable())
+			if(bf && bf->implementsWritable())
 			{
-				return static_cast<IWriteableFile*>(bf);
+				return static_cast<write_file_type*>(bf);
 			}
 			return NULL;
 		}
-		template<class T>
-		IWriteableFile& operator=(T const& t)
-		{
-			return *IWriteableFile::Cast(t);
-		}
-	public:
-		IWriteableFile(vfs::Path const& sFileName)
-			: vfs::IFileTemplate<ReadType,vfs::IWriteable>(sFileName)
-		{};
-		virtual ~IWriteableFile(){};
 	protected:
-		IWriteableFile();
+		TWritableFile();
 	};
+
 
 	/******************************************************************/
 	/******************************************************************/
@@ -216,10 +226,8 @@ namespace vfs
 	/**
 	 *  typedef's
 	 */
-	typedef vfs::IReadableFile<vfs::IWriteType> tReadableFile;
-	typedef vfs::IWriteableFile<vfs::IReadable> tWriteableFile;
-	//typedef vfs::IWriteableFile<vfs::IReadType> tWriteableFile;
-	
+	typedef vfs::TReadableFile<vfs::IWriteType> tReadableFile;
+	typedef vfs::TWritableFile<vfs::IReadable>	tWritableFile;
 
 } // end namespace
 

@@ -657,16 +657,16 @@ int x,dif,absDif;
 #endif
 
 // == Lesh slightly changed this function ============
-INT32 SoundDir( INT16 sGridNo )
+INT32 SoundDir( INT32 sGridNo )
 {
 	INT16 sWorldX, sWorldY;
 	INT16 sScreenX, sScreenY;
 	INT16 sMiddleX;
 	INT16 sDif, sAbsDif;
-
-	if ( sGridNo == NOWHERE )
+	
+	if (TileIsOutOfBounds(sGridNo))
 	{
-	return( MIDDLEPAN );
+		return( MIDDLEPAN );
 	}
 
 	// OK, get screen position of gridno.....
@@ -680,7 +680,7 @@ INT32 SoundDir( INT16 sGridNo )
 
 	sDif = sMiddleX - sScreenX;
 
-	if ( ( sAbsDif = (INT16) abs( sDif ) ) > 64 )
+	if ( ( sAbsDif = abs( sDif ) ) > 64 )
 	{
 		// OK, NOT the middle.
 		// Is it outside the screen?
@@ -709,15 +709,15 @@ INT32 SoundDir( INT16 sGridNo )
 }
 
 
-INT32 SoundVolume( INT8 bInitialVolume, INT16 sGridNo )
+INT32 SoundVolume( INT8 bInitialVolume, INT32 sGridNo )
 {
 	INT16 sWorldX, sWorldY;
 	INT16 sScreenX, sScreenY;
 	INT16	sMiddleX, sMiddleY;
 	INT16	sDifX, sAbsDifX;
 	INT16	sDifY, sAbsDifY;
-
-	if ( sGridNo == NOWHERE )
+	
+	if (TileIsOutOfBounds(sGridNo))
 	{
 		return( bInitialVolume );
 	}
@@ -735,8 +735,8 @@ INT32 SoundVolume( INT8 bInitialVolume, INT16 sGridNo )
 	sDifX = sMiddleX - sScreenX;
 	sDifY = sMiddleY - sScreenY;
 
-	sAbsDifX = (INT16) abs( sDifX );
-	sAbsDifY = (INT16) abs( sDifY );
+	sAbsDifX = abs( sDifX );
+	sAbsDifY = abs( sDifY );
 
 	if ( sAbsDifX	> 64 || sAbsDifY > 64 )
 	{
@@ -792,7 +792,7 @@ void DelayedSoundTimerCallback( void )
 typedef struct
 {
 	UINT32		uiFlags;
-	INT16		 sGridNo;
+  INT32 sGridNo;
 	INT32		 iSoundSampleID;
 	INT32		 iSoundToPlay;
 	UINT32		uiData;
@@ -844,7 +844,7 @@ void RecountPositionSnds( void )
 }
 
 
-INT32 NewPositionSnd( INT16 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoundToPlay )
+INT32 NewPositionSnd( INT32 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoundToPlay )
 {
 	POSITIONSND *pPositionSnd;
 	INT32				iPositionSndIndex;
@@ -902,7 +902,7 @@ void DeletePositionSnd( INT32 iPositionSndIndex )
 	}
 }
 
-void SetPositionSndGridNo( INT32 iPositionSndIndex, INT16 sGridNo )
+void SetPositionSndGridNo( INT32 iPositionSndIndex, INT32 sGridNo )
 {
 	POSITIONSND *pPositionSnd;
 
@@ -968,16 +968,16 @@ void SetPositionSndsInActive( )
 }
 
 // == Lesh slightly changed this function ============
-UINT8 PositionSoundDir( INT16 sGridNo )
+UINT8 PositionSoundDir( INT32 sGridNo )
 {
 	INT16 sWorldX, sWorldY;
 	INT16 sScreenX, sScreenY;
 	INT16	sMiddleX;
 	INT16	sDif, sAbsDif;
-
-	if ( sGridNo == NOWHERE )
+	
+	if (TileIsOutOfBounds(sGridNo))
 	{
-	return( MIDDLEPAN );
+		return( MIDDLEPAN );
 	}
 
 	// OK, get screen position of gridno.....
@@ -991,7 +991,7 @@ UINT8 PositionSoundDir( INT16 sGridNo )
 
 	sDif = sMiddleX - sScreenX;
 
-	if ( ( sAbsDif = (INT16) abs( sDif ) ) > 64 )
+	if ( ( sAbsDif = abs( sDif ) ) > 64 )
 	{
 		// OK, NOT the middle.
 
@@ -1022,7 +1022,7 @@ UINT8 PositionSoundDir( INT16 sGridNo )
 }
 
 
-INT8 PositionSoundVolume( INT8 bInitialVolume, INT16 sGridNo )
+INT8 PositionSoundVolume( INT8 bInitialVolume, INT32 sGridNo )
 {
 	INT16 sWorldX, sWorldY;
 	INT16 sScreenX, sScreenY;
@@ -1031,10 +1031,10 @@ INT8 PositionSoundVolume( INT8 bInitialVolume, INT16 sGridNo )
 	INT16	sDifY, sAbsDifY;
 	INT16 sMaxDistX, sMaxDistY;
 	double sMaxSoundDist, sSoundDist;
-
-	if ( sGridNo == NOWHERE )
+	
+	if (TileIsOutOfBounds(sGridNo))
 	{
-	return( bInitialVolume );
+		return( bInitialVolume );
 	}
 
 	// OK, get screen position of gridno.....
@@ -1050,8 +1050,8 @@ INT8 PositionSoundVolume( INT8 bInitialVolume, INT16 sGridNo )
 	sDifX = sMiddleX - sScreenX;
 	sDifY = sMiddleY - sScreenY;
 
-	sAbsDifX = (INT16) abs( sDifX );
-	sAbsDifY = (INT16) abs( sDifY );
+	sAbsDifX = abs( sDifX );
+	sAbsDifY = abs( sDifY );
 
 	sMaxDistX = (INT16)( ( gsBottomRightWorldX - gsTopLeftWorldX ) * 1.5 );
 	sMaxDistY = (INT16)( ( gsBottomRightWorldY - gsTopLeftWorldY ) * 1.5 );

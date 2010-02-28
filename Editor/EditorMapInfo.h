@@ -4,6 +4,12 @@
 #ifndef __EDITORMAPINFO_H
 #define __EDITORMAPINFO_H
 
+extern INT32 iNewMapWorldRows;
+extern INT32 iNewMapWorldCols;
+
+void SetupTextInputForOptions();
+void UpdateOptions();
+void ExtractAndUpdateOptions();
 void SetupTextInputForMapInfo();
 void UpdateMapInfo();
 void ExtractAndUpdateMapInfo();

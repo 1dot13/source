@@ -131,7 +131,7 @@ extern UINT32	guiCurrentEvent;
 extern UINT8	gubIntTileCheckFlags;
 extern UINT32	guiCurrentUICursor;
 extern SOLDIERTYPE *gpSMCurrentMerc;
-extern INT16 gsOverItemsGridNo;
+extern INT32 gsOverItemsGridNo;
 extern INT16 gsOverItemsLevel;
 extern BOOLEAN	gfUIShowExitSouth;
 
@@ -182,7 +182,7 @@ SOLDIERTYPE *gpExchangeSoldier1;
 SOLDIERTYPE *gpExchangeSoldier2;
 
 
-BOOLEAN ConfirmActionCancel( INT16 sMapPos, UINT16 usOldMapPos );
+BOOLEAN ConfirmActionCancel( INT32 usMapPos, INT32 usOldMapPos );
 
 BOOLEAN	gfNextFireJam = FALSE;
 
@@ -258,16 +258,16 @@ void	GetTBMouseButtonInput( UINT32 *puiNewEvent )
 void	QueryTBLeftButton( UINT32 *puiNewEvent )
 {
 	SOLDIERTYPE								*pSoldier;
-	INT16						sMapPos;
+	INT32 usMapPos;
 	static BOOLEAN	fClickHoldIntercepted = FALSE;
 	static BOOLEAN	fCanCheckForSpeechAdvance = FALSE;
-	static INT16		sMoveClickGridNo					= 0;
+	static INT32		sMoveClickGridNo					= 0;
 
 
 	// LEFT MOUSE BUTTON
 	if ( gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA )
 	{
-		if (!GetMouseMapPos( &sMapPos ) && !gfUIShowExitSouth )
+		if (!GetMouseMapPos( &usMapPos ) && !gfUIShowExitSouth )
 		{
 			return;
 		}
@@ -286,7 +286,7 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 
 						if(	GetSoldier( &pSoldier, gusSelectedSoldier ) )
 						{
-							pSoldier->sStartGridNo = sMapPos;
+							pSoldier->sStartGridNo = usMapPos;
 						}
 						break;
 
@@ -330,7 +330,7 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 								{
 									if ( InUIPlanMode( ) )
 									{
-										AddUIPlan( sMapPos, UIPLAN_ACTION_MOVETO );
+										AddUIPlan( usMapPos, UIPLAN_ACTION_MOVETO );
 									}
 									else
 									{
@@ -342,7 +342,7 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 
 											GetSoldier( &pSoldier, gusSelectedSoldier );
 
-											bReturnVal = HandleMoveModeInteractiveClick( sMapPos, puiNewEvent );
+											bReturnVal = HandleMoveModeInteractiveClick( usMapPos, puiNewEvent );
 
 											// All's OK for interactive tile?
 											if ( bReturnVal == -2 )
@@ -369,7 +369,7 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 													{
 														BOOLEAN fResult;
 
-														if ( ( fResult = UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], sMapPos ) ) == 1 )
+														if ( ( fResult = UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], usMapPos ) ) == 1 )
 														{
 															// ATE: CHECK IF WE CAN GET TO POSITION
 															// Check if we are not in combat
@@ -502,7 +502,7 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 							{
 								if ( pSoldier->bDoBurst )
 								{
-									pSoldier->sEndGridNo = sMapPos;
+									pSoldier->sEndGridNo = usMapPos;
 
 									gfBeginBurstSpreadTracking = FALSE;
 
@@ -544,7 +544,7 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 								{
 									if ( gpItemPointer != NULL )
 									{
-										if ( HandleItemPointerClick( sMapPos ) )
+										if ( HandleItemPointerClick( usMapPos ) )
 										{
 											// getout of mode
 											EndItemPointer( );
@@ -608,7 +608,7 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 
 											case HANDCURSOR_MODE:
 
-												HandleHandCursorClick( sMapPos, puiNewEvent );
+												HandleHandCursorClick( usMapPos, puiNewEvent );
 												break;
 
 											case JUMPOVER_MODE:
@@ -626,7 +626,7 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 
 												if ( InUIPlanMode( ) )
 												{
-													AddUIPlan( sMapPos, UIPLAN_ACTION_FIRE );
+													AddUIPlan( usMapPos, UIPLAN_ACTION_FIRE );
 												}
 												else
 												{
@@ -645,7 +645,7 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 															else if ( UIMouseOnValidAttackLocation( pSoldier ) && SelectedMercCanAffordAttack( ) )
 															{
 																*puiNewEvent = A_CHANGE_TO_CONFIM_ACTION;
-																pSoldier->sStartGridNo = sMapPos;
+																pSoldier->sStartGridNo = usMapPos;
 															}
 														}
 
@@ -742,9 +742,9 @@ void	QueryTBRightButton( UINT32 *puiNewEvent )
 	static BOOLEAN	fClickHoldIntercepted = FALSE;
 	static BOOLEAN	fClickIntercepted = FALSE;
 	SOLDIERTYPE		*pSoldier;
-	INT16				sMapPos;
+	INT32 usMapPos;
 	BOOLEAN				fDone = FALSE;
-	if (!GetMouseMapPos( &sMapPos ) )
+	if (!GetMouseMapPos( &usMapPos ) )
 	{
 		return;
 	}
@@ -942,7 +942,7 @@ void	QueryTBRightButton( UINT32 *puiNewEvent )
 
 									if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
 									{
-										HandleRightClickAdjustCursor( pSoldier, sMapPos );
+										HandleRightClickAdjustCursor( pSoldier, usMapPos );
 									}
 									fClickIntercepted = TRUE;
 									break;
@@ -985,15 +985,15 @@ extern BOOLEAN	gUIActionModeChangeDueToMouseOver;
 
 void GetTBMousePositionInput( UINT32 *puiNewEvent )
 {
-	INT16						sMapPos;
-	static UINT16			usOldMapPos = 0;
+	INT32 usMapPos;
+	static INT32			usOldMapPos = 0;
 	SOLDIERTYPE		*pSoldier;
 	BOOLEAN						bHandleCode;
 	static BOOLEAN		fOnValidGuy = FALSE;
 	static UINT32			uiMoveTargetSoldierId = NOBODY;
 
 
-	if (!GetMouseMapPos( &sMapPos ) )
+	if (!GetMouseMapPos( &usMapPos ) )
 	{
 		return;
 	}
@@ -1060,9 +1060,9 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 			// Check for being on terrain
 			if(	GetSoldier( &pSoldier, gusSelectedSoldier ) )
 			{
-				if ( IsValidJumpLocation( pSoldier, sMapPos, TRUE ) )
+				if ( IsValidJumpLocation( pSoldier, usMapPos, TRUE ) )
 				{
-					gsJumpOverGridNo = sMapPos;
+					gsJumpOverGridNo = usMapPos;
 					*puiNewEvent = JP_ON_TERRAIN;
 					return;
 				}
@@ -1164,7 +1164,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 		case JUMPOVER_MODE:
 
 			// ATE: Make sure!
-			if ( gsJumpOverGridNo != sMapPos )
+			if ( gsJumpOverGridNo != usMapPos )
 			{
 				*puiNewEvent = A_CHANGE_TO_MOVE;
 			}
@@ -1176,7 +1176,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 
 		case CONFIRM_MOVE_MODE:
 
-			if ( sMapPos != usOldMapPos )
+			if ( usMapPos != usOldMapPos )
 			{
 				// Switch event out of confirm mode
 				*puiNewEvent = A_CHANGE_TO_MOVE;
@@ -1196,7 +1196,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 			{
 				if ( pSoldier->bDoBurst )
 				{
-					pSoldier->sEndGridNo = sMapPos;
+					pSoldier->sEndGridNo = usMapPos;
 
 					if ( pSoldier->sEndGridNo != pSoldier->sStartGridNo && fLeftButtonDown )
 					{
@@ -1207,7 +1207,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 					if ( pSoldier->flags.fDoSpread )
 					{
 						// Accumulate gridno
-						AccumulateBurstLocation( sMapPos );
+						AccumulateBurstLocation( usMapPos );
 
 						*puiNewEvent = CA_ON_TERRAIN;
 						break;
@@ -1238,7 +1238,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-					if ( ConfirmActionCancel( sMapPos, usOldMapPos ) )
+					if ( ConfirmActionCancel( usMapPos, usOldMapPos ) )
 					{
 						// Switch event out of confirm mode
 						*puiNewEvent = CA_END_CONFIRM_ACTION;
@@ -1258,7 +1258,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 
 		}
 
-		usOldMapPos = sMapPos;
+		usOldMapPos = usMapPos;
 
 	}
 }
@@ -1408,7 +1408,6 @@ void GetPolledKeyboardInput( UINT32 *puiNewEvent )
 
 		fEndDown = FALSE;
 	}
-
 }
 
 
@@ -1424,13 +1423,13 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 	static BOOLEAN	fShifted = FALSE;
 	static BOOLEAN	fShifted2 = FALSE;
 	static BOOLEAN	fAltDown = FALSE;
-	INT16						sMapPos;
+	INT32 usMapPos;
 	BOOLEAN						fGoodCheatLevelKey = FALSE;
 
 	GetCursorPos(&MousePos);
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
-	GetMouseMapPos( &sMapPos );
+	GetMouseMapPos( &usMapPos );
 
 	while (DequeueEvent(&InputEvent) == TRUE)
 	{
@@ -1893,13 +1892,13 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 		if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == '0') && ( InputEvent.usKeyState & ALT_DOWN ))
 		{
 			INT32 i = 0;
-			INT16	sGridNo;
+			INT32 sGridNo;
 			INT32 iTime = GetJA2Clock( );
 			UINT8	ubLevel;
 
 			for ( i = 0; i < 1000; i++ )
 			{
-				CalculateLaunchItemChanceToGetThrough( MercPtrs[ gusSelectedSoldier ], &(MercPtrs[ gusSelectedSoldier ]->inv[ HANDPOS ] ), sMapPos, 0, 0, &sGridNo, TRUE, (INT8 *)&ubLevel, TRUE );
+				CalculateLaunchItemChanceToGetThrough( MercPtrs[ gusSelectedSoldier ], &(MercPtrs[ gusSelectedSoldier ]->inv[ HANDPOS ] ), usMapPos, 0, 0, &sGridNo, TRUE, (INT8 *)&ubLevel, TRUE );
 			}
 
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Physics 100 times: %d", ( GetJA2Clock( ) - iTime )	);
@@ -2863,13 +2862,13 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-					INT16 sGridNo;
+					INT32 usGridNo;
 
 					//Get the gridno the cursor is at
-					GetMouseMapPos( &sGridNo );
+					GetMouseMapPos( &usGridNo );
 
-					//if there is a selected soldier, and the cursor location is valid
-					if( gusSelectedSoldier != NOBODY && sGridNo != NOWHERE )
+					//if there is a selected soldier, and the cursor location is valid					
+					if( gusSelectedSoldier != NOBODY && !TileIsOutOfBounds(usGridNo))
 					{
 						//if the cursor is over someone
 						if( gfUIFullTargetFound )
@@ -2880,12 +2879,12 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						else
 						{
 							//Display the range to the target
-							DisplayRangeToTarget( MercPtrs[ gusSelectedSoldier ], sGridNo );
+							DisplayRangeToTarget( MercPtrs[ gusSelectedSoldier ], usGridNo );
 						}
 
 						#ifdef JA2TESTVERSION
 							CHAR16	zOutputString[512];
-							swprintf( zOutputString, L"gridno: %d", sGridNo);
+							swprintf( zOutputString, L"gridno: %d", usGridNo);
 							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
 						#endif
 					}
@@ -3020,7 +3019,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				//CHRISL: This will create a large number of objects for checking overloading
 				if( fAlt && fCtrl )
 				{
-					INT16	tempMapPos = sMapPos;
+					INT32	tempMapPos = usMapPos;
 					if( CHEATER_CHEAT_LEVEL( ) )
 					{
 						for(UINT16 i = 1; i < 1300; i++)
@@ -3486,8 +3485,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 #endif
 				}
 				else
-					if( !CycleSoldierFindStack( sMapPos ) )// Are we over a merc stack?
-						CycleIntTileFindStack( sMapPos ); // If not, now check if we are over a struct stack
+					if( !CycleSoldierFindStack( usMapPos ) )// Are we over a merc stack?
+						CycleIntTileFindStack( usMapPos ); // If not, now check if we are over a struct stack
 				break;
 
 			case 'o':
@@ -3797,11 +3796,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				//if the display cover or line of sight is being displayed
 				if( _KeyDown( END ) || _KeyDown( DEL ) )
 				{
-					//if( _KeyDown( DEL ) )
-					//	ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover + 1 );
+					//f( _KeyDown( DEL ) )
+						//ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover + 1 );
 
 					//if( _KeyDown( END ) )
-					//	ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS + 1 );
+						//ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS + 1 );
 				}
 				else
 				{
@@ -4044,10 +4043,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				if( _KeyDown( END ) || _KeyDown( DEL ) )
 				{
 					//if( _KeyDown( DEL ) )
-					//	ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover - 1 );
+						//ChangeSizeOfDisplayCover( gGameSettings.ubSizeOfDisplayCover - 1 );
 
 					//if( _KeyDown( END ) )
-					//	ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS - 1 );
+						//ChangeSizeOfLOS( gGameSettings.ubSizeOfLOS - 1 );
 				}
 				else
 				{
@@ -4210,7 +4209,7 @@ void HandleItemMenuKeys( InputAtom *pInputEvent, UINT32 *puiNewEvent )
 
 BOOLEAN HandleCheckForExitArrowsInput( BOOLEAN fAdjustConfirm )
 {
-	INT16 sMapPos;
+	INT32 usMapPos;
 
 	// If not in move mode, return!
 	if ( gCurrentUIMode != MOVE_MODE )
@@ -4298,14 +4297,14 @@ BOOLEAN HandleCheckForExitArrowsInput( BOOLEAN fAdjustConfirm )
 			}
 			else
 			{
-				if ( !GetMouseMapPos( &sMapPos ) )
+				if ( !GetMouseMapPos( &usMapPos ) )
 				{
 					return( FALSE );
 				}
 
 				// Goto next sector
 				//SimulateMouseMovement( gusMouseXPos - 5, gusMouseYPos );
-				InitSectorExitMenu( DIRECTION_EXITGRID, sMapPos );
+				InitSectorExitMenu( DIRECTION_EXITGRID, usMapPos );
 			}
 		}
 		return( TRUE );
@@ -4388,11 +4387,11 @@ BOOLEAN HandleCheckForExitArrowsInput( BOOLEAN fAdjustConfirm )
 
 void CreateRandomItem()
 {
-	INT16 sMapPos;
-	if ( GetMouseMapPos( &sMapPos ) )
+	INT32 usMapPos;
+	if ( GetMouseMapPos( &usMapPos ) )
 	{
 		CreateItem( (UINT16) (Random( 35 ) + 1), 100, &gTempObject );
-		AddItemToPool( sMapPos, &gTempObject, -1 , 0, 0, 0 );
+		AddItemToPool( usMapPos, &gTempObject, -1 , 0, 0, 0 );
 	}
 }
 
@@ -4400,11 +4399,11 @@ void MakeSelectedSoldierTired()
 {
 	// Key to make guy get tired!
 	SOLDIERTYPE				*pSoldier;
-	INT16 sMapPos;
-	if ( GetMouseMapPos( &sMapPos ) )
+	INT32 usMapPos;
+	if ( GetMouseMapPos( &usMapPos ) )
 	{
 		CreateItem( (UINT16)TNT, 100, &gTempObject );
-		AddItemToPool( sMapPos, &gTempObject, -1, 0, 0, 0 );
+		AddItemToPool( usMapPos, &gTempObject, -1, 0, 0, 0 );
 	}
 
 	// CHECK IF WE'RE ON A GUY ( EITHER SELECTED, OURS, OR THEIRS
@@ -4487,14 +4486,14 @@ void ToggleViewAllItems()
 
 void TestExplosion()
 {
-	INT16 sMapPos;
-	if ( GetMouseMapPos( &sMapPos ) )
+	INT32 usMapPos;
+	if ( GetMouseMapPos( &usMapPos ) )
 	{
 		EXPLOSION_PARAMS	ExpParams ;
 		ExpParams.uiFlags			= 0;
 		ExpParams.ubOwner			= NOBODY;
 		ExpParams.ubTypeID		= STUN_BLAST;
-		ExpParams.sGridNo			= sMapPos;
+		ExpParams.sGridNo			= usMapPos;
 
 		GenerateExplosion( &ExpParams );
 
@@ -4544,7 +4543,7 @@ void ToggleWireFrame()
 void RefreshSoldier()
 {
 	SOLDIERTYPE *pSoldier;
-	INT16 sMapPos;
+	INT32 usMapPos;
 	// CHECK IF WE'RE ON A GUY ( EITHER SELECTED, OURS, OR THEIRS
 	if ( gfUIFullTargetFound )
 	{
@@ -4555,16 +4554,16 @@ void RefreshSoldier()
 
 	}
 
-	if ( GetMouseMapPos( &sMapPos ) )
+	if ( GetMouseMapPos( &usMapPos ) )
 		sprintf( gDebugStr, "%d %d %d %d %d %d %d %d",
-		gubWorldMovementCosts[ sMapPos ][ 0 ][gsInterfaceLevel],
-		gubWorldMovementCosts[ sMapPos ][ 1 ][gsInterfaceLevel],
-		gubWorldMovementCosts[ sMapPos ][ 2 ][gsInterfaceLevel],
-		gubWorldMovementCosts[ sMapPos ][ 3 ][gsInterfaceLevel],
-		gubWorldMovementCosts[ sMapPos ][ 4 ][gsInterfaceLevel],
-		gubWorldMovementCosts[ sMapPos ][ 5 ][gsInterfaceLevel],
-		gubWorldMovementCosts[ sMapPos ][ 6 ][gsInterfaceLevel],
-		gubWorldMovementCosts[ sMapPos ][ 7 ][gsInterfaceLevel] );
+		gubWorldMovementCosts[ usMapPos ][ 0 ][gsInterfaceLevel],
+		gubWorldMovementCosts[ usMapPos ][ 1 ][gsInterfaceLevel],
+		gubWorldMovementCosts[ usMapPos ][ 2 ][gsInterfaceLevel],
+		gubWorldMovementCosts[ usMapPos ][ 3 ][gsInterfaceLevel],
+		gubWorldMovementCosts[ usMapPos ][ 4 ][gsInterfaceLevel],
+		gubWorldMovementCosts[ usMapPos ][ 5 ][gsInterfaceLevel],
+		gubWorldMovementCosts[ usMapPos ][ 6 ][gsInterfaceLevel],
+		gubWorldMovementCosts[ usMapPos ][ 7 ][gsInterfaceLevel] );
 }
 
 void ChangeSoldiersBodyType( UINT8 ubBodyType, BOOLEAN fCreateNewPalette )
@@ -4617,27 +4616,27 @@ void ChangeSoldiersBodyType( UINT8 ubBodyType, BOOLEAN fCreateNewPalette )
 void TeleportSelectedSoldier()
 {
 	SOLDIERTYPE *pSoldier;
-	INT16 sMapPos;
+	INT32 usMapPos;
 	// CHECK IF WE'RE ON A GUY ( EITHER SELECTED, OURS, OR THEIRS
 	if( GetSoldier( &pSoldier, gusSelectedSoldier ) )
 	{
-		if ( GetMouseMapPos( &sMapPos ) )
+		if ( GetMouseMapPos( &usMapPos ) )
 		{
 			// Check level first....
 			if ( gsInterfaceLevel == 0 )
 			{
 				pSoldier->SetSoldierHeight( 0 );
-				TeleportSoldier( pSoldier, sMapPos, FALSE );
+				TeleportSoldier( pSoldier, usMapPos, FALSE );
 				pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
 			}
 			else
 			{
 				// Is there a roof?
-				if ( FindStructure( sMapPos, STRUCTURE_ROOF ) != NULL )
+				if ( FindStructure( usMapPos, STRUCTURE_ROOF ) != NULL )
 				{
 					pSoldier->SetSoldierHeight( 50.0 );
 
-					TeleportSoldier( pSoldier, sMapPos, TRUE );
+					TeleportSoldier( pSoldier, usMapPos, TRUE );
 					pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
 				}
 			}
@@ -4697,7 +4696,7 @@ void ToggleZBuffer()
 void TogglePlanningMode()
 {
 	SOLDIERTYPE *pSoldier;
-	INT16 sMapPos;
+	INT32 usMapPos;
 	// DO ONLY IN TURNED BASED!
 	if ( gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT) )
 	{
@@ -4706,7 +4705,7 @@ void TogglePlanningMode()
 		{
 			EndUIPlan( );
 		}
-		else if ( GetMouseMapPos( &sMapPos ) )
+		else if ( GetMouseMapPos( &usMapPos ) )
 		{
 			switch( gCurrentUIMode )
 			{
@@ -4715,7 +4714,7 @@ void TogglePlanningMode()
 				{
 					GetSoldier( &pSoldier, gusSelectedSoldier );
 					BeginUIPlan( pSoldier );
-					AddUIPlan( sMapPos, UIPLAN_ACTION_MOVETO );
+					AddUIPlan( usMapPos, UIPLAN_ACTION_MOVETO );
 				}
 				break;
 			case ACTION_MODE:
@@ -4723,7 +4722,7 @@ void TogglePlanningMode()
 				{
 					GetSoldier( &pSoldier, gusSelectedSoldier );
 					BeginUIPlan( pSoldier );
-					AddUIPlan( sMapPos, UIPLAN_ACTION_FIRE );
+					AddUIPlan( usMapPos, UIPLAN_ACTION_FIRE );
 				}
 				break;
 			}
@@ -4804,10 +4803,10 @@ void CreateNextCivType()
 {
 	INT16							sWorldX, sWorldY;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	INT16 sMapPos;
+	INT32 usMapPos;
 	static						INT8 bBodyType = FATCIV;
 	// Get Grid Corrdinates of mouse
-	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &sMapPos ) )
+	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &usMapPos ) )
 	{
 		INT8							iNewIndex;
 
@@ -4826,7 +4825,7 @@ void CreateNextCivType()
 		}
 
 		MercCreateStruct.bTeam					= CIV_TEAM;
-		MercCreateStruct.sInsertionGridNo		= sMapPos;
+		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
 		if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
@@ -4862,9 +4861,9 @@ void CreateCow()
 {
 	INT16							sWorldX, sWorldY;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	INT16 sMapPos;
+	INT32 usMapPos;
 	// Get Grid Corrdinates of mouse
-	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &sMapPos ) )
+	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &usMapPos ) )
 	{
 		INT8							iNewIndex;
 
@@ -4875,7 +4874,7 @@ void CreateCow()
 		MercCreateStruct.bBodyType		= COW;
 		//MercCreateStruct.bTeam				= SOLDIER_CREATE_AUTO_TEAM;
 		MercCreateStruct.bTeam				= CIV_TEAM;
-		MercCreateStruct.sInsertionGridNo		= sMapPos;
+		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
 		if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
@@ -4893,9 +4892,9 @@ void CreatePlayerControlledCow()
 {
 	INT16							sWorldX, sWorldY;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	INT16 sMapPos;
+	INT32 usMapPos;
 	// Get Grid Corrdinates of mouse
-	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &sMapPos ) )
+	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &usMapPos ) )
 	{
 		INT8							iNewIndex;
 
@@ -4904,7 +4903,7 @@ void CreatePlayerControlledCow()
 		MercCreateStruct.sSectorY			= gWorldSectorY;
 		MercCreateStruct.bSectorZ			= gbWorldSectorZ;
 		MercCreateStruct.bBodyType		= COW;
-		MercCreateStruct.sInsertionGridNo		= sMapPos;
+		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		MercCreateStruct.bTeam					= SOLDIER_CREATE_AUTO_TEAM;
 		MercCreateStruct.fPlayerMerc		= TRUE;
 
@@ -4971,8 +4970,8 @@ void GrenadeTest3()
 void CreatePlayerControlledMonster()
 {
 	INT16							sWorldX, sWorldY;
-	INT16 sMapPos;
-	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &sMapPos ) )
+	INT32 usMapPos;
+	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &usMapPos ) )
 	{
 		SOLDIERCREATE_STRUCT		MercCreateStruct;
 		INT8							iNewIndex;
@@ -4989,7 +4988,7 @@ void CreatePlayerControlledMonster()
 		else
 			MercCreateStruct.bBodyType		= ADULTFEMALEMONSTER;
 		MercCreateStruct.bTeam				= SOLDIER_CREATE_AUTO_TEAM;
-		MercCreateStruct.sInsertionGridNo		= sMapPos;
+		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
 		if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
@@ -5000,10 +4999,10 @@ void CreatePlayerControlledMonster()
 }
 
 
-INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, INT16 sMapPos, BOOLEAN fMovementMode )
+INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLEAN fMovementMode )
 {
 	// Look for an item pool
-	INT16							sActionGridNo;
+	INT32 sActionGridNo;
 	UINT8							ubDirection;
 	SOLDIERTYPE		*pTSoldier;
 	INT16							sAPCost = 0;
@@ -5018,8 +5017,8 @@ INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, INT1
 			{
 				// Find a gridno closest to sweetspot...
 				sActionGridNo = FindGridNoFromSweetSpotWithStructDataFromSoldier( pSoldier, pSoldier->usUIMovementMode, 5, &ubDirection, 0, pTSoldier );
-
-				if ( sActionGridNo != NOWHERE )
+				
+				if (!TileIsOutOfBounds(sActionGridNo))
 				{
 					// Calculate AP costs...
 					//sAPCost = GetAPsToBeginFirstAid( pSoldier );
@@ -5060,15 +5059,15 @@ INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, INT1
 	return( 0 );
 }
 
-void HandleHandCursorClick( INT16 sMapPos, UINT32 *puiNewEvent )
+void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent )
 {
 	SOLDIERTYPE *pSoldier;
 	LEVELNODE					*pIntTile;
-	INT16							sIntTileGridNo;
-	INT16							sActionGridNo;
+	INT32 sIntTileGridNo;
+	INT32 sActionGridNo;
 	UINT8							ubDirection;
 	INT16							sAPCost;
-	INT16							sAdjustedGridNo;
+	INT32 sAdjustedGridNo;
 	STRUCTURE					*pStructure = NULL;
 	ITEM_POOL					*pItemPool;
 	BOOLEAN						fIgnoreItems = FALSE;
@@ -5082,7 +5081,7 @@ void HandleHandCursorClick( INT16 sMapPos, UINT32 *puiNewEvent )
 			return;
 		}
 
-		if ( CheckForAndHandleHandleVehicleInteractiveClick( pSoldier, sMapPos, FALSE ) == -1 )
+		if ( CheckForAndHandleHandleVehicleInteractiveClick( pSoldier, usMapPos, FALSE ) == -1 )
 		{
 			return;
 		}
@@ -5118,7 +5117,7 @@ void HandleHandCursorClick( INT16 sMapPos, UINT32 *puiNewEvent )
 		}
 
 		// Default action gridno to mouse....
-		sActionGridNo = sMapPos;
+		sActionGridNo = usMapPos;
 
 		// If we are over an interactive struct, adjust gridno to this....
 		pIntTile = ConditionalGetCurInteractiveTileGridNoAndStructure( &sIntTileGridNo , &pStructure, FALSE );
@@ -5132,7 +5131,7 @@ void HandleHandCursorClick( INT16 sMapPos, UINT32 *puiNewEvent )
 				fIgnoreItems = TRUE;
 			}
 
-			if ( pStructure->fFlags & ( STRUCTURE_ANYDOOR ) && sActionGridNo != sMapPos )
+			if ( pStructure->fFlags & ( STRUCTURE_ANYDOOR ) && sActionGridNo != usMapPos )
 			{
 				fIgnoreItems = TRUE;
 			}
@@ -5231,15 +5230,15 @@ void ExchangeMessageBoxCallBack( UINT8 bExitValue )
 }
 
 
-INT8 HandleMoveModeInteractiveClick( INT16 sMapPos, UINT32 *puiNewEvent )
+INT8 HandleMoveModeInteractiveClick( INT32 usMapPos, UINT32 *puiNewEvent )
 {
 	// Look for an item pool
 	ITEM_POOL					*pItemPool;
 	BOOLEAN						fContinue = TRUE;
 	SOLDIERTYPE				*pSoldier;
 	LEVELNODE					*pIntTile;
-	INT16							sIntTileGridNo;
-	INT16							sActionGridNo;
+	INT32 sIntTileGridNo;
+	INT32 sActionGridNo;
 	UINT8							ubDirection;
 	INT8							bReturnCode = 0;
 	INT8							bZLevel;
@@ -5261,14 +5260,14 @@ INT8 HandleMoveModeInteractiveClick( INT16 sMapPos, UINT32 *puiNewEvent )
 		}
 
 		// OK, check for height differences.....
-		if ( gpWorldLevelData[ sMapPos ].sHeight != gpWorldLevelData[ pSoldier->sGridNo ].sHeight )
+		if ( gpWorldLevelData[ usMapPos ].sHeight != gpWorldLevelData[ pSoldier->sGridNo ].sHeight )
 		{
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANT_GET_THERE ] );
 			return( -1 );
 		}
 
 		// See if we are over a vehicle, and walk up to it and enter....
-		if ( CheckForAndHandleHandleVehicleInteractiveClick( pSoldier, sMapPos, TRUE ) == -1 )
+		if ( CheckForAndHandleHandleVehicleInteractiveClick( pSoldier, usMapPos, TRUE ) == -1 )
 		{
 			return( -1 );
 		}
@@ -5401,7 +5400,7 @@ BOOLEAN HandleUIReloading( SOLDIERTYPE *pSoldier )
 }
 
 
-BOOLEAN ConfirmActionCancel( INT16 sMapPos, UINT16 usOldMapPos )
+BOOLEAN ConfirmActionCancel( INT32 usMapPos, INT32 usOldMapPos )
 {
 	// OK, most times we want to leave confirm mode if our
 	// gridno is different... but if we are in the grenade throw
@@ -5417,7 +5416,7 @@ BOOLEAN ConfirmActionCancel( INT16 sMapPos, UINT16 usOldMapPos )
 	//
 	//else
 	{
-		if ( sMapPos != usOldMapPos )
+		if ( usMapPos != usOldMapPos )
 		{
 			return( TRUE );
 		}

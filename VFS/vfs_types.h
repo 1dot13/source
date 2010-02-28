@@ -8,17 +8,36 @@
 
 namespace vfs
 {
-	typedef unsigned long	UInt64;
-	typedef unsigned int	UInt32;
-	typedef unsigned short	UInt16;
-	typedef unsigned char	UInt8;
-	typedef unsigned char	UByte;
+#ifdef WIN32
+	typedef unsigned __int64	UInt64;
+	typedef unsigned __int32	UInt32;
+	typedef unsigned __int16	UInt16;
+	typedef unsigned __int8		UInt8;
+	typedef unsigned __int8		UByte;
 
-	typedef long			Int64;
-	typedef int				Int32;
-	typedef short			Int16;
-	typedef char			Int8;
-	typedef char			Byte;
+	typedef __int64				Int64;
+	typedef __int32				Int32;
+	typedef __int16				Int16;
+	typedef __int8				Int8;
+	typedef __int8				Byte;
+#elif __linux__
+	typedef uint64_t			UInt64;
+	typedef uint32_t  			UInt32;
+	typedef uint16_t			UInt16;
+	typedef uint8_t				UInt8;
+	typedef uint8_t				UByte;
+
+	typedef int64_t				Int64;
+	typedef int32_t				Int32;
+	typedef int16_t				Int16;
+	typedef int8_t				Int8;
+	typedef char				Byte;
+#endif
+
+	typedef ::size_t			size_t;
+	typedef ::off_t				offset_t;
+
+	extern const vfs::size_t	npos;
 }
 
 namespace vfs
@@ -26,7 +45,7 @@ namespace vfs
 	namespace Const
 	{
 		inline const utf8string::str_t		EMPTY()				{ return L""; };
-		inline const utf8string::char_t		EMPTY_CHAR()		{ return L''; };
+		//inline const utf8string::char_t	EMPTY_CHAR()		{ return L''; };
 
 		inline const utf8string::str_t		DOT()				{ return L"."; };
 		inline const utf8string::char_t		DOT_CHAR()			{ return L'.'; };
@@ -42,7 +61,7 @@ namespace vfs
 		inline const utf8string::char_t		SEPARATOR_CHAR()	{ return L'\\'; };
 #else
 		inline const utf8string::str_t		SEPARATOR()			{ return L"/"; };
-		inline const utf8string::char_type	SEPARATOR_CHAR()	{ return L'/'; };
+		inline const utf8string::char_t		SEPARATOR_CHAR()	{ return L'/'; };
 #endif
 	}
 }
@@ -53,77 +72,43 @@ namespace vfs
 {
 	// remove leading and trailing white characters;
 	template<typename StringType>
-	StringType TrimString(StringType const& sStr, Int32 iMinPos, Int32 iMaxPos);
+	StringType trimString(StringType const& sStr, vfs::size_t iMinPos, vfs::size_t iMaxPos);
 
 	template<>
-	std::string TrimString<std::string>(std::string const& sStr, Int32 iMinPos, Int32 iMaxPos);
+	std::string trimString<std::string>(std::string const& sStr, vfs::size_t iMinPos, vfs::size_t iMaxPos);
 
 	template<>
-	std::wstring TrimString<std::wstring>(std::wstring const& sStr, Int32 iMinPos, Int32 iMaxPos);
+	std::wstring trimString<std::wstring>(std::wstring const& sStr, vfs::size_t iMinPos, vfs::size_t iMaxPos);
 
 	template<>
-	utf8string TrimString<utf8string>(utf8string const& sStr, Int32 iMinPos, Int32 iMaxPos);
+	utf8string trimString<utf8string>(utf8string const& sStr, vfs::size_t iMinPos, vfs::size_t iMaxPos);
 }
 
-class PathAccess;
-namespace vfs
+class VFS_API BuildString
 {
-	class Path
+public:
+	template<typename T>
+	BuildString&				add(T const& value)
 	{
-		friend class PathAccess;
-	public:
-		class Less{
-		public:
-			bool operator()(vfs::Path const& s1, vfs::Path const& s2) const;
-		};
-		class Equal{
-		public:
-			bool operator()(vfs::Path const& s1, vfs::Path const& s2) const;
-		};
-	public:
-		Path() : _first(-1), _last(-1) {};
-		Path(const char* sPath);
-		Path(const wchar_t* sPath);
-		Path(utf8string const& sPath);
+		_strstr << value;
+		return *this;
+	}
 
-		const utf8string&		operator()() const;	
-		Path&					operator+=(Path const& p);
+	utf8string::str_t			get()
+	{
+		return _strstr.str();
+	}
+private:
+	std::basic_stringstream<utf8string::char_t> _strstr;
+};
 
-		bool					empty() const;
-
-		utf8string::size_t		length() const;
-
-		void					DoCheck();
-
-		bool					SplitLast(utf8string& rsHead, utf8string& rsLast) const;
-		bool					SplitLast(Path &rsHead, Path &rsLast) const;
-
-		bool					SplitFirst(utf8string& rsFirst, utf8string& rsTail) const;
-		bool					SplitFirst(Path &rsFirst, Path &rsTail) const;
-
-		bool					Extension(utf8string &sExt) const;
-
-		bool					operator==(vfs::Path const& p2);
-	private:
-		utf8string	_path;
-		vfs::Int32	_first,_last;
-	};
-}
-
-// add only valid Path objects
-vfs::Path	operator+(vfs::Path const& p1, vfs::Path const& p2);
-
-// compare path to string (that can be an invalid path)
-bool		operator==(vfs::Path const& p1, vfs::Path const& p2);
-// use with care as these string can be different from the internal representation although they seem to be equal
-bool		operator==(vfs::Path const& p1, utf8string const& p2);
-bool		operator==(vfs::Path const& p1, utf8string::str_t const& p2);
-bool		operator==(vfs::Path const& p1, const utf8string::char_t* p2);
+template<>
+BuildString& BuildString::add<utf8string>(utf8string const& value);
 
 /*************************************************************************/
 
-bool MatchPattern(utf8string const& sPattern, utf8string const& sStr);
-bool MatchPattern(utf8string const& sPattern, utf8string::str_t const& sStr);
+bool matchPattern(utf8string const& sPattern, utf8string const& sStr);
+bool matchPattern(utf8string const& sPattern, utf8string::str_t const& sStr);
 
 /*************************************************************************/
 
@@ -169,6 +154,8 @@ public:
 		}
 	}
 private:
+	void operator=(ObjBlockAllocator<T> const& t);
+
 	typedef std::vector<T>	tBlock;
 	std::vector<tBlock*>	_ObjPool;
 	unsigned int			_ObjNew;

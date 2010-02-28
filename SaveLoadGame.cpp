@@ -126,12 +126,12 @@
 #include "INIReader.h"
 
 #include "VFS/vfs.h"
-
 //rain
 #include "Rain.h"
 //end rain
 
 #include "connect.h"
+#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 
 /////////////////////////////////////////////////////
 //
@@ -148,6 +148,7 @@ extern void ResetJA2ClockGlobalTimers( void );
 
 extern void BeginLoadScreen( void );
 extern void EndLoadScreen();
+
 extern		CPostalService		gPostalService;
 
 //Global variable used
@@ -291,7 +292,7 @@ typedef struct
 
 	BOOLEAN fDisableMapInterfaceDueToBattle;
 
-	INT16		sBoxerGridNo[ NUM_BOXERS ];
+	INT32 sBoxerGridNo[ NUM_BOXERS ];
 	UINT8		ubBoxerID[ NUM_BOXERS ];
 	BOOLEAN	fBoxerFought[ NUM_BOXERS ];
 
@@ -1004,46 +1005,53 @@ BOOLEAN ITEM_CURSOR_SAVE_INFO::Save(HWFILE hFile)
 	return TRUE;
 }
 
-
-BOOLEAN SOLDIERCREATE_STRUCT::Save(HWFILE hFile, bool fSavingMap)
+//dnl ch42 250909
+BOOLEAN SOLDIERCREATE_STRUCT::Save(HWFILE hFile, bool fSavingMap, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)
 {
-	UINT32 uiNumBytesWritten;
-	if ( !FileWrite( hFile, this, SIZEOF_SOLDIERCREATE_STRUCT_POD, &uiNumBytesWritten ) )
+	PTR pData = this;
+	UINT32 uiBytesToWrite = SIZEOF_SOLDIERCREATE_STRUCT_POD;
+	OLD_SOLDIERCREATE_STRUCT_101 OldSoldierCreateStruct;
+	if(dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION)
 	{
-		return FALSE;
+		OldSoldierCreateStruct = *this;
+		pData = &OldSoldierCreateStruct;
+		uiBytesToWrite = SIZEOF_OLD_SOLDIERCREATE_STRUCT_101_POD;
 	}
-	if ( !this->Inv.Save(hFile, fSavingMap) )
+	UINT32 uiBytesWritten = 0;
+	FileWrite(hFile, pData, uiBytesToWrite, &uiBytesWritten);
+	if(uiBytesToWrite == uiBytesWritten)
 	{
-		return FALSE;
+		if(dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION)
+			return(TRUE);
+		if(Inv.Save(hFile, fSavingMap))
+			return(TRUE);
 	}
-
-	//ADB screw checksums, they suck, also, checksums aren't always saved
-	/*
-	if (fSavingMap == false) {
-		UINT16 usCheckSum = GetChecksum();
-		if ( !FileWrite( hFile, &usCheckSum, 2, &uiNumBytesWritten ) )
-		{
-			return FALSE;
-		}
-	}
-	*/
-	return TRUE;
+	return(FALSE);
 }
 
-BOOLEAN SOLDIERCREATE_STRUCT::Load(INT8 **hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion)
+BOOLEAN SOLDIERCREATE_STRUCT::Load(INT8 **hBuffer, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)
 {
-	if (dMajorMapVersion >= 6.0 && ubMinorMapVersion > 26 ) {
-		LOADDATA( this, *hBuffer, SIZEOF_SOLDIERCREATE_STRUCT_POD );
+	if(dMajorMapVersion >= 6.0 && ubMinorMapVersion > 26)
+	{
+		if(dMajorMapVersion < 7.0)
+		{
+			_OLD_SOLDIERCREATE_STRUCT OldSoldierCreateStruct;
+			LOADDATA(&OldSoldierCreateStruct, *hBuffer, _OLD_SIZEOF_SOLDIERCREATE_STRUCT_POD);
+			*this = OldSoldierCreateStruct;
+		}
+		else
+			LOADDATA(this, *hBuffer, SIZEOF_SOLDIERCREATE_STRUCT_POD);
 		this->Inv.Load(hBuffer, dMajorMapVersion, ubMinorMapVersion);
 	}
-	else {
+	else 
+	{
 		//ADB checksum was not saved under these circumstances!
 		OLD_SOLDIERCREATE_STRUCT_101 OldSavedSoldierInfo101;
-		LOADDATA( &OldSavedSoldierInfo101, *hBuffer, SIZEOF_OLD_SOLDIERCREATE_STRUCT_101_POD );
+		LOADDATA(&OldSavedSoldierInfo101, *hBuffer, SIZEOF_OLD_SOLDIERCREATE_STRUCT_101_POD);
 		OldSavedSoldierInfo101.CopyOldInventoryToNew();
 		*this = OldSavedSoldierInfo101;
 	}
-	return TRUE;
+	return(TRUE);
 }
 
 BOOLEAN SOLDIERCREATE_STRUCT::Load(HWFILE hFile, int versionToLoad, bool loadChecksum)
@@ -1145,6 +1153,7 @@ BOOLEAN SOLDIERCREATE_STRUCT::Load(HWFILE hFile, int versionToLoad, bool loadChe
 	return TRUE;
 }
 
+// WANNE - BMP: DONE!
 // Changed by ADB, rev 1513
 //BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion)
 BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool forceLoadOldEncryption, bool wasSavedWithEncryption)
@@ -1155,6 +1164,7 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 	//if we are at the most current version, then fine
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE && forceLoadOldVersion == false)
 	{
+		// WANNE - BMP: DONE!
 		if ( !FileRead( hFile, this, SIZEOF_MERCPROFILESTRUCT_POD, &uiNumBytesRead ) )
 		{
 			return(FALSE);
@@ -1379,15 +1389,16 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			return(FALSE);
 		}
 
+		// WANNE - BMP: TODO! Struktur prüfen
 		//load some structs, atm just POD but could change
 		//Load STRUCT_AIData
 		numBytesRead = 0;
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bOppList, sizeof(aiData.bOppList), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bLastAction, sizeof(aiData.bLastAction), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bAction, sizeof(aiData.bAction), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->aiData.usActionData, sizeof(aiData.usActionData), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.usActionData, sizeof(aiData.usActionData), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bNextAction, sizeof(aiData.bNextAction), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->aiData.usNextActionData, sizeof(aiData.usNextActionData), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.usNextActionData, sizeof(aiData.usNextActionData), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bActionInProgress, sizeof(aiData.bActionInProgress), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bAlertStatus, sizeof(aiData.bAlertStatus), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bOppCnt, sizeof(aiData.bOppCnt), sizeof(INT8), numBytesRead);
@@ -1404,8 +1415,8 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bDominantDir, sizeof(aiData.bDominantDir), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bPatrolCnt, sizeof(aiData.bPatrolCnt), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bNextPatrolPnt, sizeof(aiData.bNextPatrolPnt), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->aiData.sPatrolGrid, sizeof(aiData.sPatrolGrid), sizeof(INT16), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->aiData.sNoiseGridno, sizeof(aiData.sNoiseGridno), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.sPatrolGrid, sizeof(aiData.sPatrolGrid), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.sNoiseGridno, sizeof(aiData.sNoiseGridno), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubNoiseVolume, sizeof(aiData.ubNoiseVolume), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bLastAttackHit, sizeof(aiData.bLastAttackHit), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubXRayedBy, sizeof(aiData.ubXRayedBy), sizeof(UINT8), numBytesRead);
@@ -1418,7 +1429,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubPendingAction, sizeof(aiData.ubPendingAction), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubPendingActionAnimCount, sizeof(aiData.ubPendingActionAnimCount), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.uiPendingActionData1, sizeof(aiData.uiPendingActionData1), sizeof(UINT32), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->aiData.sPendingActionData2, sizeof(aiData.sPendingActionData2), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.sPendingActionData2, sizeof(aiData.sPendingActionData2), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bPendingActionData3, sizeof(aiData.bPendingActionData3), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubDoorHandleCode, sizeof(aiData.ubDoorHandleCode), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.uiPendingActionData4, sizeof(aiData.uiPendingActionData4), sizeof(UINT32), numBytesRead);
@@ -1432,7 +1443,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bHunting, sizeof(aiData.bHunting), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubLastCall, sizeof(aiData.ubLastCall), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubCaller, sizeof(aiData.ubCaller), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->aiData.sCallerGridNo, sizeof(aiData.sCallerGridNo), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.sCallerGridNo, sizeof(aiData.sCallerGridNo), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bCallPriority, sizeof(aiData.bCallPriority), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bCallActedUpon, sizeof(aiData.bCallActedUpon), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bFrenzied, sizeof(aiData.bFrenzied), sizeof(INT8), numBytesRead);
@@ -1560,25 +1571,30 @@ BOOLEAN WORLDITEM::Save(HWFILE hFile, bool fSavingMap)
 	return TRUE;
 }
 
-BOOLEAN WORLDITEM::Load(INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion)
+// WANNE - BMP: DONE!
+BOOLEAN WORLDITEM::Load(INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion)//dnl ch42 271009
 {
-	//if we are at the most current MAP version, 5.0 and 27, then fine
-	if (dMajorMapVersion >= 6.0 && ubMinorMapVersion > 26 )
+	if(dMajorMapVersion >= 6.0 && ubMinorMapVersion > 26)
 	{
-		//load the POD
-		LOADDATA( this, *hBuffer, SIZEOF_WORLDITEM_POD );
-
-		//now load the OO OBJECTTYPE
+		if(dMajorMapVersion < 7.0)
+		{
+			_OLD_WORLDITEM oldWorldItem;
+			LOADDATA(&oldWorldItem, *hBuffer, _OLD_SIZEOF_WORLDITEM_POD);
+			*this = oldWorldItem;
+		}
+		else
+			LOADDATA(this, *hBuffer, SIZEOF_WORLDITEM_POD);
+		// Load the OO OBJECTTYPE
 		this->object.Load(hBuffer, dMajorMapVersion, ubMinorMapVersion);
 	}
-	//if we need to load an older save
-	else {
-		//load the old data into a suitable structure, it's just POD
+	else
+	{
+		// Load the old data into a suitable structure, it's just POD
 		OLD_WORLDITEM_101 oldWorldItem;
-		LOADDATA( &oldWorldItem, *hBuffer, sizeof( OLD_WORLDITEM_101 ) );
+		LOADDATA(&oldWorldItem, *hBuffer, sizeof(OLD_WORLDITEM_101));
 		*this = oldWorldItem;
 	}
-	return TRUE;
+	return(TRUE);
 }
 
 BOOLEAN WORLDITEM::Load(HWFILE hFile)
@@ -2185,6 +2201,10 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 			goto FAILED_TO_SAVE;
 		}
 	}
+
+	if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 081009
+		if(!SaveInventoryPoolQ(ubSaveGameID))
+			return(FALSE);
 
 	// create the save game file
 	hFile = FileOpen( zSaveGameName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
@@ -4407,6 +4427,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		UpdateMercMercContractInfo();
 	}
 
+
 	if ( guiCurrentSaveGameVersion <= 89 )
 	{
 		// ARM: A change was made in version 89 where refuel site availability now also depends on whether the player has
@@ -4471,6 +4492,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//The above function LightSetBaseLevel adjusts ALL the level node light values including the merc node,
 	//we must reset the values
 	HandlePlayerTogglingLightEffects( FALSE );
+
+	if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 081009
+		if(!LoadInventoryPoolQ(ubSavedGameID))
+			return(FALSE);
 
 	//now change the savegame format so that temp files are saved and loaded correctly
 	guiCurrentSaveGameVersion = SAVE_GAME_VERSION;
@@ -4716,6 +4741,7 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 
 			if( ubOne )
 			{
+				// WANNE - BMP: Check -> We get an assert here!
 				// Now Load the ....
 				FileRead( hFile, Menptr[ cnt ].pKeyRing, NUM_KEYS * sizeof( KEY_ON_RING ), &uiNumBytesRead );
 				if( uiNumBytesRead != NUM_KEYS * sizeof( KEY_ON_RING ) )
@@ -4891,16 +4917,26 @@ BOOLEAN SaveFilesToSavedGame( STR pSrcFileName, HWFILE hFile )
 {
 	UINT32	uiFileSize;
 	UINT32	uiNumBytesWritten=0;
-	HWFILE	hSrcFile;
-	UINT8		*pData;
+	HWFILE	hSrcFile=NULL;
+	UINT8	*pData;
 	UINT32	uiNumBytesRead;
 
 
-	//open the file
-	hSrcFile = FileOpen( pSrcFileName, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+	if(FileExists(pSrcFileName))
+	{
+		//open the file
+		hSrcFile = FileOpen( pSrcFileName, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+	}
 	if( !hSrcFile )
 	{
-		return( FALSE );
+		// Write the the size of the file to the saved game file
+		uiFileSize = 0;
+		FileWrite( hFile, &uiFileSize, sizeof( UINT32 ), &uiNumBytesWritten );
+		if( uiNumBytesWritten != sizeof( UINT32 ) )
+		{
+			return(FALSE);
+		}
+		return( TRUE );
 	}
 
 	#ifdef JA2BETAVERSION
@@ -5330,49 +5366,54 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 
 	// WDS - make number of mercenaries, etc. be configurable
 	// Check that the team lists match what we expect given the .ini settings
-	int cntFromFile = gTacticalStatus.Team[ OUR_TEAM ].bLastID - gTacticalStatus.Team[ OUR_TEAM ].bFirstID + 1;
-	int cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles;
-	if (cntFromFile != cntFromIni) {
-		CHAR16 errorMessage[512];
-		swprintf(errorMessage, L"Internal error in reading mercenary/vehicle slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
-		DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
-		return FALSE;
-	}
 
-	cntFromFile = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID - gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID + 1;
-	cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
-	if (cntFromFile != cntFromIni) {
-		CHAR16 errorMessage[512];
-		swprintf(errorMessage, L"Internal error in reading enemy slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
-		DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
-		return FALSE;
-	}
+	// WANNE: In a MP game the merc counts are different than in a SP game, so disable check in a MP game
+	if (!is_networked)
+	{
+		int cntFromFile = gTacticalStatus.Team[ OUR_TEAM ].bLastID - gTacticalStatus.Team[ OUR_TEAM ].bFirstID + 1;
+		int cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles;
+		if (cntFromFile != cntFromIni) {
+			CHAR16 errorMessage[512];
+			swprintf(errorMessage, L"Internal error in reading mercenary/vehicle slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
+			DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
+			return FALSE;
+		}
 
-	cntFromFile = gTacticalStatus.Team[ CREATURE_TEAM ].bLastID - gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID + 1;
-	cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfCreatures;
-	if (cntFromFile != cntFromIni) {
-		CHAR16 errorMessage[512];
-		swprintf(errorMessage, L"Internal error in reading creature slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
-		DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
-		return FALSE;
-	}
+		cntFromFile = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID - gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID + 1;
+		cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
+		if (cntFromFile != cntFromIni) {
+			CHAR16 errorMessage[512];
+			swprintf(errorMessage, L"Internal error in reading enemy slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
+			DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
+			return FALSE;
+		}
 
-	cntFromFile = gTacticalStatus.Team[ MILITIA_TEAM ].bLastID - gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID + 1;
-	cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfRebels;
-	if (cntFromFile != cntFromIni) {
-		CHAR16 errorMessage[512];
-		swprintf(errorMessage, L"Internal error in reading militia slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
-		DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
-		return FALSE;
-	}
+		cntFromFile = gTacticalStatus.Team[ CREATURE_TEAM ].bLastID - gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID + 1;
+		cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfCreatures;
+		if (cntFromFile != cntFromIni) {
+			CHAR16 errorMessage[512];
+			swprintf(errorMessage, L"Internal error in reading creature slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
+			DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
+			return FALSE;
+		}
 
-	cntFromFile = gTacticalStatus.Team[ CIV_TEAM ].bLastID - gTacticalStatus.Team[ CIV_TEAM ].bFirstID + 1;
-	cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfCivilians;
-	if (cntFromFile != cntFromIni) {
-		CHAR16 errorMessage[512];
-		swprintf(errorMessage, L"Internal error in reading civilian slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
-		DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
-		return FALSE;
+		cntFromFile = gTacticalStatus.Team[ MILITIA_TEAM ].bLastID - gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID + 1;
+		cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfRebels;
+		if (cntFromFile != cntFromIni) {
+			CHAR16 errorMessage[512];
+			swprintf(errorMessage, L"Internal error in reading militia slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
+			DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
+			return FALSE;
+		}
+
+		cntFromFile = gTacticalStatus.Team[ CIV_TEAM ].bLastID - gTacticalStatus.Team[ CIV_TEAM ].bFirstID + 1;
+		cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfCivilians;
+		if (cntFromFile != cntFromIni) {
+			CHAR16 errorMessage[512];
+			swprintf(errorMessage, L"Internal error in reading civilian slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
+			DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
+			return FALSE;
+		}
 	}
 
 	//
@@ -5424,8 +5465,7 @@ BOOLEAN SetMercsInsertionGridNo( )
 		//if the soldier is active
 		if( Menptr[ cnt ].bActive )
 		{
-
-			if( Menptr[ cnt ].sGridNo != NOWHERE )
+			if( !TileIsOutOfBounds(Menptr[ cnt ].sGridNo))
 			{
 				//set the insertion type to gridno
 				Menptr[ cnt ].ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
@@ -5511,7 +5551,7 @@ BOOLEAN SaveOppListInfoToSavedGame( HWFILE hFile )
 
 	// Save the Public Last Noise Gridno
 	uiSaveSize = MAXTEAMS;
-	FileWrite( hFile, gsPublicNoiseGridno, uiSaveSize, &uiNumBytesWritten );
+	FileWrite( hFile, gsPublicNoiseGridNo, uiSaveSize, &uiNumBytesWritten );
 	if( uiNumBytesWritten != uiSaveSize )
 	{
 		return( FALSE );
@@ -5590,7 +5630,7 @@ BOOLEAN LoadOppListInfoFromSavedGame( HWFILE hFile )
 
 	// Load the Public Last Noise Gridno
 	uiLoadSize = MAXTEAMS;
-	FileRead( hFile, gsPublicNoiseGridno, uiLoadSize, &uiNumBytesRead );
+	FileRead( hFile, gsPublicNoiseGridNo, uiLoadSize, &uiNumBytesRead );
 	if( uiNumBytesRead != uiLoadSize )
 	{
 		return( FALSE );
@@ -6023,14 +6063,13 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 		sGeneralInfo.sContractRehireSoldierID = -1;
 
 	memcpy( &sGeneralInfo.GameOptions, &gGameOptions, sizeof( GAME_OPTIONS ) );
-
-
+#ifndef BMP_RANDOM//dnl ch55 111009
 	#ifdef JA2BETAVERSION
 	//Everytime we save get, and set a seed value, when reload, seed again
 	sGeneralInfo.uiSeedNumber = GetJA2Clock();
 	srand( sGeneralInfo.uiSeedNumber );
 	#endif
-
+#endif
 	//Save the Ja2Clock()
 	sGeneralInfo.uiBaseJA2Clock = guiBaseJA2Clock;
 
@@ -6051,7 +6090,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	sGeneralInfo.fDisableMapInterfaceDueToBattle = fDisableMapInterfaceDueToBattle;
 
 	// Save boxing info
-	memcpy( &sGeneralInfo.sBoxerGridNo, &gsBoxerGridNo, NUM_BOXERS * sizeof( INT16 ) );
+	memcpy( &sGeneralInfo.sBoxerGridNo, &gsBoxerGridNo, NUM_BOXERS * sizeof( INT32 ) );
 	memcpy( &sGeneralInfo.ubBoxerID, &gubBoxerID, NUM_BOXERS * sizeof( INT8 ) );
 	memcpy( &sGeneralInfo.fBoxerFought, &gfBoxerFought, NUM_BOXERS * sizeof( BOOLEAN ) );
 
@@ -6189,8 +6228,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 
 	GENERAL_SAVE_INFO sGeneralInfo;
 	memset( &sGeneralInfo, 0, sizeof( GENERAL_SAVE_INFO ) );
-	// HEADROCK HAM 3.6: Hi. If you can see this comment, please delete the next line. Sorry! :)
-	INT32 blah = sizeof( GENERAL_SAVE_INFO );
+
 
 	//Load the current music mode
 	FileRead( hFile, &sGeneralInfo, sizeof( GENERAL_SAVE_INFO ), &uiNumBytesRead );
@@ -6287,12 +6325,12 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 		pContractReHireSoldier = &Menptr[ sGeneralInfo.sContractRehireSoldierID ];
 
 	memcpy( &gGameOptions, &sGeneralInfo.GameOptions, sizeof( GAME_OPTIONS ) );
-
+#ifndef BMP_RANDOM//dnl ch55 111009
 	#ifdef JA2BETAVERSION
 	//Reset the random 'seed' number
 	srand( sGeneralInfo.uiSeedNumber );
 	#endif
-
+#endif
 	//Restore the JA2 Clock
 	guiBaseJA2Clock = sGeneralInfo.uiBaseJA2Clock;
 
@@ -6331,7 +6369,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	fDisableDueToBattleRoster = sGeneralInfo.fDisableDueToBattleRoster;
 	fDisableMapInterfaceDueToBattle = sGeneralInfo.fDisableMapInterfaceDueToBattle;
 
-	memcpy( &gsBoxerGridNo, &sGeneralInfo.sBoxerGridNo, NUM_BOXERS * sizeof( INT16 ) );
+	memcpy( &gsBoxerGridNo, &sGeneralInfo.sBoxerGridNo, NUM_BOXERS * sizeof( INT32 ) );
 	memcpy( &gubBoxerID, &sGeneralInfo.ubBoxerID, NUM_BOXERS * sizeof( INT8 ) );
 	memcpy( &gfBoxerFought, &sGeneralInfo.fBoxerFought, NUM_BOXERS * sizeof( BOOLEAN ) );
 
@@ -6465,7 +6503,7 @@ BOOLEAN SavePreRandomNumbersToSaveGameFile( HWFILE hFile )
 	{
 		return( FALSE );
 	}
-
+#ifndef BMP_RANDOM//dnl ch55 111009
 	//Save the Prerandom number index
 	for (std::vector<UINT32>::iterator iter = guiPreRandomNums.begin();
 			iter != guiPreRandomNums.end(); ++iter) {
@@ -6475,12 +6513,13 @@ BOOLEAN SavePreRandomNumbersToSaveGameFile( HWFILE hFile )
 		return( FALSE );
 	}
 	}
-	//FileWrite( hFile, guiPreRandomNums, sizeof( UINT32 ) * MAX_PREGENERATED_NUMS, &uiNumBytesWritten );
-	//if( uiNumBytesWritten != sizeof( UINT32 ) * MAX_PREGENERATED_NUMS )
-	//{
-	//	return( FALSE );
-	//}
-
+#else
+	FileWrite( hFile, guiPreRandomNums, sizeof( UINT32 ) * MAX_PREGENERATED_NUMS, &uiNumBytesWritten );
+	if( uiNumBytesWritten != sizeof( UINT32 ) * MAX_PREGENERATED_NUMS )
+	{
+		return( FALSE );
+	}
+#endif
 	return( TRUE );
 }
 
@@ -6494,7 +6533,7 @@ BOOLEAN LoadPreRandomNumbersFromSaveGameFile( HWFILE hFile )
 	{
 		return( FALSE );
 	}
-
+#ifndef BMP_RANDOM//dnl ch55 111009
 	//Load the Prerandom number index
 	for (std::vector<UINT32>::iterator iter = guiPreRandomNums.begin();
 			iter != guiPreRandomNums.end(); ++iter) {
@@ -6504,12 +6543,13 @@ BOOLEAN LoadPreRandomNumbersFromSaveGameFile( HWFILE hFile )
 		return( FALSE );
 	}
 	}
-//	FileRead( hFile, guiPreRandomNums, sizeof( UINT32 ) * MAX_PREGENERATED_NUMS, &uiNumBytesRead );
-//	if( uiNumBytesRead != sizeof( UINT32 ) * MAX_PREGENERATED_NUMS )
-//	{
-//		return( FALSE );
-//	}
-
+#else
+	FileRead( hFile, guiPreRandomNums, sizeof( UINT32 ) * MAX_PREGENERATED_NUMS, &uiNumBytesRead );
+	if( uiNumBytesRead != sizeof( UINT32 ) * MAX_PREGENERATED_NUMS )
+	{
+		return( FALSE );
+	}
+#endif
 	return( TRUE );
 }
 

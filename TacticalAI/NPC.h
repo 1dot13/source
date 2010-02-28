@@ -33,6 +33,8 @@
 #define ACCEPT_ANY_ITEM 1000
 #define ANY_RIFLE 1001
 
+
+//WANNE - BMP: DONE!
 typedef struct
 {
 //SB: unify structure for all versions
@@ -76,7 +78,45 @@ typedef struct
 	UINT8		ubUnused[4];
 //#endif
 
-} NPCQuoteInfo;																									// 32 bytes
+} _old_NPCQuoteInfo;																										// 32 bytes
+
+//dnl ch46 021009
+class NPCQuoteInfo
+{
+public:
+	//UINT8		ubIdentifier[4];
+
+	UINT16		fFlags;
+
+	// conditions
+	INT16		sRequiredItem;		// item NPC must have to say quote
+	INT32		sRequiredGridNo;	// location for NPC req'd to say quote
+
+	UINT16		usFactMustBeTrue;	// ...before saying quote
+	UINT16		usFactMustBeFalse;	// ...before saying quote
+	UINT8		ubQuest;			// quest must be current to say quote
+	UINT8		ubFirstDay;			// first day quote can be said
+	UINT8		ubLastDay;			// last day quote can be said
+	UINT8		ubApproachRequired;	// must use this approach to generate quote
+	UINT8		ubOpinionRequired;	// opinion needed for this quote
+	UINT8		ubUnused;
+
+	// quote to say (if any)
+	UINT8		ubQuoteNum;			// this is the quote to say
+	UINT8		ubNumQuotes;		// total # of quotes to say
+
+	// actions
+	UINT8		ubStartQuest;
+	UINT8		ubEndQuest;
+	UINT8		ubTriggerNPC;
+	UINT8		ubTriggerNPCRec;
+	UINT16		usSetFactTrue;
+	UINT16		usGiftItem;			// item NPC gives to merc after saying quote
+	INT16		sActionData;		// special action value	
+	INT32		usGoToGridNo;
+public:
+	NPCQuoteInfo& operator=(const _old_NPCQuoteInfo& src);
+};
 
 typedef enum
 {
@@ -169,7 +209,7 @@ BOOLEAN LoadNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion );
 
 extern void TriggerFriendWithHostileQuote( UINT8 ubNPC );
 
-extern void ReplaceLocationInNPCDataFromProfileID( UINT8 ubNPC, INT16 sOldGridNo, INT16 sNewGridNo );
+extern void ReplaceLocationInNPCDataFromProfileID( UINT8 ubNPC, INT32 sOldGridNo, INT32 sNewGridNo );
 
 extern UINT8 ActionIDForMovementRecord( UINT8 ubNPC, UINT8 ubRecord );
 

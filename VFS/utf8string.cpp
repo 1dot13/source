@@ -1,13 +1,12 @@
 #include "utf8string.h"
 #include "utf8.h"
 #include <vector>
+#include <cstdlib>
+#include <cstring>
 
 #include "vfs_debug.h"
 ////////////////////////////////////////////////////////////////////
 
-bool g_VFS_NO_UNICODE = false;
-
-////////////////////////////////////////////////////////////////////
 namespace _StrCmp
 {
 	////////////////////////////////////////////////////////////////
@@ -68,55 +67,29 @@ namespace _StrCmp
 
 ////////////////////////////////////////////////////////////////////
 
-bool utf8string::lessCase(utf8string const& s1, utf8string const& s2)
+bool utf8string::lessCase(const utf8string::char_t* s1, const utf8string::char_t* s2)
 {
-	const utf8string::char_t *p1 = s1._str.c_str();
-	const utf8string::char_t *p2 = s2._str.c_str();
-	_StrCmp::AdvanceCase(p1,p2);
-	return _StrCmp::LessCase(p1,p2);
+	_StrCmp::AdvanceCase(s1,s2);
+	return _StrCmp::LessCase(s1,s2);
 
 }
 
-bool utf8string::less(utf8string const& s1, utf8string const& s2)
+bool utf8string::less(const utf8string::char_t* s1, const utf8string::char_t* s2)
 {
-	const utf8string::char_t *p1 = s1._str.c_str();
-	const utf8string::char_t *p2 = s2._str.c_str();
-	_StrCmp::Advance(p1,p2);
-	return _StrCmp::Less(p1,p2);
-
+	_StrCmp::Advance(s1,s2);
+	return _StrCmp::Less(s1,s2);
 }
 
-bool utf8string::equalCase(utf8string const& s1, const utf8string& s2)
+bool utf8string::equalCase(const utf8string::char_t* s1, const utf8string::char_t* s2)
 {
-	const utf8string::char_t *p1 = s1._str.c_str();
-	const utf8string::char_t *p2 = s2._str.c_str();
-	_StrCmp::AdvanceCase(p1,p2);
-	return _StrCmp::Equal(p1,p2);
-
-}
-bool utf8string::equalCase(utf8string const& s1, const utf8string::str_t& s2)
-{
-	const utf8string::char_t *p1 = s1._str.c_str();
-	const utf8string::char_t *p2 = s2.c_str();
-	_StrCmp::AdvanceCase(p1,p2);
-	return _StrCmp::Equal(p1,p2);
-
-}
-bool utf8string::equalCase(utf8string const& s1, const utf8string::char_t* s2)
-{
-	const utf8string::char_t *p1 = s1._str.c_str();
-	_StrCmp::AdvanceCase(p1,s2);
-	return _StrCmp::Equal(p1,s2);
-
+	_StrCmp::AdvanceCase(s1,s2);
+	return _StrCmp::Equal(s1,s2);
 }
 
-bool utf8string::equal(utf8string const& s1, utf8string const& s2)
+bool utf8string::equal(const utf8string::char_t* s1, const utf8string::char_t* s2)
 {
-	const utf8string::char_t *p1 = s1._str.c_str();
-	const utf8string::char_t *p2 = s2._str.c_str();
-	_StrCmp::Advance(p1,p2);
-	return _StrCmp::Equal(p1,p2);
-
+	_StrCmp::Advance(s1,s2);
+	return _StrCmp::Equal(s1,s2);
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -155,20 +128,20 @@ void utf8string::as_utf16(std::string const& str, utf8string::str_t &str16)
 {
 	try
 	{
-		int d = utf8::distance(str.begin(), str.end());
+		::size_t d = utf8::distance(str.begin(), str.end());
 		str16.resize(d);
 		utf8::utf8to16(str.begin(), str.end(), &str16[0]);
 	}
 	catch(utf8::invalid_utf8& ex)
 	{
-		std::wstringstream wss;
 		utf8::uint8_t c = ex.utf8_octet();
-		wss << L"Invalid UTF8 character '" << (wchar_t)c << L"'=" << (unsigned char)c;
-		THROWEXCEPTION(wss.str().c_str());
+		THROWEXCEPTION(BuildString().add(L"Invalid UTF8 character '").add((wchar_t)c).add(L"'=").add((unsigned char)c).get());
 	}
 	catch(utf8::not_enough_room &ex)
 	{
-		THROWEXCEPTION(L"Incomplete UTF8 string");
+		std::wstring err;
+		IGNOREEXCEPTION(utf8string::as_utf16(ex.what(),err));
+		THROWEXCEPTION(BuildString().add(L"Incomplete UTF8 string [").add(err).add(L"]").get());
 	}
 }
 
@@ -180,23 +153,27 @@ utf8string::str_t utf8string::as_utf16(const char* str)
 }
 void utf8string::as_utf16(const char* str, utf8string::str_t &str16)
 {
+	if(str == NULL)
+	{
+		return;
+	}
 	try
 	{
-		int len = strlen(str);
-		int d = utf8::distance(str,str+len);
+		::size_t len = strlen(str);
+		::size_t d = utf8::distance(str,str+len);
 		str16.resize(d);
 		utf8::utf8to16(str, str+len, &str16[0]);
 	}
 	catch(utf8::invalid_utf8& ex)
 	{
-		std::wstringstream wss;
 		utf8::uint8_t c = ex.utf8_octet();
-		wss << L"Invalid UTF8 character '" << (wchar_t)c << L"'=" << (unsigned char)c;
-		THROWEXCEPTION(wss.str().c_str());
+		THROWEXCEPTION(BuildString().add(L"Invalid UTF8 character '").add((wchar_t)c).add(L"'=").add((unsigned char)c).get());
 	}
 	catch(utf8::not_enough_room &ex)
 	{
-		THROWEXCEPTION(L"Incomplete UTF8 string");
+		std::wstring err;
+		IGNOREEXCEPTION(utf8string::as_utf16(ex.what(), err));
+		THROWEXCEPTION(BuildString().add(L"Incomplete UTF8 string [").add(err).add(L"]").get());
 	}
 }
 
@@ -206,7 +183,7 @@ std::string utf8string::as_utf8(utf8string const& str)
 }
 std::string utf8string::as_utf8(std::wstring const& str)
 {
-	if(str.length() == 0)
+	if(str.empty())
 	{
 		return "";
 	}
@@ -215,27 +192,29 @@ std::string utf8string::as_utf8(std::wstring const& str)
 	utf8::utf16to8(str.begin(), str.end(), std::back_inserter(s));
 #else
 	static std::vector<char> buffer;
-	buffer.resize(std::max<int>(buffer.size(), str.length()*3));
+	buffer.resize(std::max< ::size_t>(buffer.size(), str.length()*3));
 	char* end = utf8::utf16to8(str.begin(), str.end(), &buffer[0]);
 	std::string s(&buffer[0],end);
 #endif
 	return s;
 }
 
-// if 'strlen' is 0, length is determined automatically
-std::string	utf8string::as_utf8(const wchar_t* str, unsigned int strlength)
+// if 'strlength' is 0, length is determined automatically
+std::string utf8string::as_utf8(const wchar_t* str, utf8string::size_t strlength)
 {
 	std::string s;
-	size_t len = strlength;
-	if(len == 0)
+	if(str != NULL)
 	{
-		len = wcslen(str);
+		::size_t len = strlength;
+		if(len == 0)
+		{
+			len = wcslen(str);
+		}
+		if(len != 0)
+		{
+			utf8::utf16to8(str,str+len,std::back_inserter(s));
+		}
 	}
-	if(len == 0)
-	{
-		return "";
-	}
-	utf8::utf16to8(str,str+len,std::back_inserter(s));
 	return s;
 }
 
@@ -245,21 +224,21 @@ std::string utf8string::as_utf8(std::string const& str)
 	return str;
 }
 
-size_t utf8string::narrow(std::wstring const& src, std::string& dst)
+utf8string::size_t utf8string::narrow(std::wstring const& src, std::string& dst)
 {
-	size_t len = utf8string::narrow(src.c_str(),src.length(),NULL,0);
+	utf8string::size_t len = utf8string::narrow(src.c_str(),src.length(),NULL,0);
 	dst.resize(len);
 	return utf8string::narrow(src.c_str(),src.length(),&dst[0],len);
 }
-std::string utf8string::narrow(wchar_t const* str, size_t length)
+std::string utf8string::narrow(wchar_t const* str, utf8string::size_t length)
 {
-	size_t len = utf8string::narrow(str,length,NULL,0);
+	utf8string::size_t len = utf8string::narrow(str,length,NULL,0);
 	std::string s;
 	s.resize(len);
 	utf8string::narrow(str,length,&s[0],len);
 	return s;
 }
-size_t utf8string::narrow(wchar_t const* src_str, size_t src_len, char* dst_str, size_t dst_len)
+utf8string::size_t utf8string::narrow(wchar_t const* src_str, utf8string::size_t src_len, char* dst_str, utf8string::size_t dst_len)
 {
 	if(src_str && src_len>0)
 	{
@@ -267,26 +246,26 @@ size_t utf8string::narrow(wchar_t const* src_str, size_t src_len, char* dst_str,
 		{
 			return wcstombs(NULL, src_str, src_len);
 		}
-		return wcstombs(dst_str, src_str, std::min<size_t>(src_len,dst_len));
+		return wcstombs(dst_str, src_str, std::min<utf8string::size_t>(src_len,dst_len));
 	}
 	return 0;
 }
 // 
-std::wstring utf8string::widen(char const* str, size_t length)
+std::wstring utf8string::widen(char const* str, utf8string::size_t length)
 {
-	size_t len = utf8string::widen(str,length,NULL,0);
+	utf8string::size_t len = utf8string::widen(str,length,NULL,0);
 	std::wstring ws;
 	ws.resize(len);
 	utf8string::widen(str,length,&ws[0],len);
 	return ws;
 }
-size_t utf8string::widen(std::string const& src, std::wstring& dst)
+utf8string::size_t utf8string::widen(std::string const& src, std::wstring& dst)
 {
-	size_t len = utf8string::widen(src.c_str(),src.length(),NULL,0);
+	utf8string::size_t len = utf8string::widen(src.c_str(),src.length(),NULL,0);
 	dst.resize(len);
 	return utf8string::widen(src.c_str(),src.length(),&dst[0],len);
 }
-size_t utf8string::widen(char const* src_str, size_t src_len, wchar_t* dst_str, size_t dst_len)
+utf8string::size_t utf8string::widen(char const* src_str, size_t src_len, wchar_t* dst_str, size_t dst_len)
 {
 	if(src_str && src_len>0)
 	{
@@ -299,24 +278,6 @@ size_t utf8string::widen(char const* src_str, size_t src_len, wchar_t* dst_str, 
 	return 0;
 }
 
-
-////////////////////////////////////////////////////////////////////
-///                     get string methods
-////////////////////////////////////////////////////////////////////
-std::string	utf8string::utf8() const
-{
-	return as_utf8(_str);
-}
-
-std::wstring const& utf8string::c_wcs() const
-{
-	return _str;
-}
-
-std::wstring& utf8string::r_wcs()
-{
-	return _str;
-}
 
 ////////////////////////////////////////////////////////////////////
 bool utf8string::empty() const
@@ -347,30 +308,24 @@ bool operator<(utf8string const& s1, utf8string const& s2)
 
 std::wstringstream& operator<<(std::wstringstream& out, utf8string const& str)
 {
-	out.write(str.c_wcs().c_str(), str.length());
+	out.write(str.c_str(), (std::streamsize)str.length());
 	return out;
 }
 
 std::wstringstream& operator<<(std::wstringstream& out, utf8string::str_t const& str)
 {
-	out.write(str.c_str(), str.length());
+	out.write(str.c_str(), (std::streamsize)str.length());
 	return out;
 }
 
 std::wstringstream& operator<<(std::wstringstream& out, const utf8string::char_t* str)
 {
-	out.write(str, wcslen(str));
+	out.write(str, (std::streamsize)wcslen(str));
 	return out;
 }
 
 /*****************************************************************************************/
 /*****************************************************************************************/
-class StrAccess
-{
-public:
-	StrAccess(utf8string const& s) : str(s._str) {};
-	std::wstring const& str;
-};
 
 // case IN-sensitive
 bool StrCmp::Equal(const char* s1, const char* s2)
@@ -425,14 +380,14 @@ bool StrCmp::Equal(const wchar_t* s1, std::wstring const& s2)
 //
 bool StrCmp::Equal(utf8string const& s1, utf8string const& s2)
 {
-	const wchar_t* p1 = StrAccess(s1).str.c_str();
-	const wchar_t* p2 = StrAccess(s2).str.c_str();
+	const wchar_t* p1 = s1.c_str();
+	const wchar_t* p2 = s2.c_str();
 	_StrCmp::Advance(p1,p2);
 	return _StrCmp::Equal(p1,p2);
 }
 bool StrCmp::Equal(utf8string const& s1, std::wstring const& s2)
 {
-	const wchar_t* p1 = StrAccess(s1).str.c_str();
+	const wchar_t* p1 = s1.c_str();
 	const wchar_t* p2 = s2.c_str();
 	_StrCmp::Advance(p1,p2);
 	return _StrCmp::Equal(p1,p2);
@@ -440,19 +395,19 @@ bool StrCmp::Equal(utf8string const& s1, std::wstring const& s2)
 bool StrCmp::Equal(std::wstring const& s1, utf8string const& s2)
 {
 	const wchar_t* p1 = s1.c_str();
-	const wchar_t* p2 = StrAccess(s2).str.c_str();
+	const wchar_t* p2 = s2.c_str();
 	_StrCmp::Advance(p1,p2);
 	return _StrCmp::Equal(p1,p2);
 }
 bool StrCmp::Equal(utf8string const& s1, const wchar_t* s2)
 {
-	const wchar_t* p1 = StrAccess(s1).str.c_str();
+	const wchar_t* p1 = s1.c_str();
 	_StrCmp::Advance(p1,s2);
 	return _StrCmp::Equal(p1,s2);
 }
 bool StrCmp::Equal(const wchar_t* s1, utf8string const& s2)
 {
-	const wchar_t* p2 = StrAccess(s2).str.c_str();
+	const wchar_t* p2 = s2.c_str();
 	_StrCmp::Advance(s1,p2);
 	return _StrCmp::Equal(s1,p2);
 }
@@ -509,14 +464,14 @@ bool StrCmp::EqualCase(const wchar_t* s1, std::wstring const& s2)
 //
 bool StrCmp::EqualCase(utf8string const& s1, utf8string const& s2)
 {
-	const wchar_t* p1 = StrAccess(s1).str.c_str();
-	const wchar_t* p2 = StrAccess(s2).str.c_str();
+	const wchar_t* p1 = s1.c_str();
+	const wchar_t* p2 = s2.c_str();
 	_StrCmp::AdvanceCase(p1,p2);
 	return _StrCmp::Equal(p1,p2);
 }
 bool StrCmp::EqualCase(utf8string const& s1, std::wstring const& s2)
 {
-	const wchar_t* p1 = StrAccess(s1).str.c_str();
+	const wchar_t* p1 = s1.c_str();
 	const wchar_t* p2 = s2.c_str();
 	_StrCmp::AdvanceCase(p1,p2);
 	return _StrCmp::Equal(p1,p2);
@@ -524,19 +479,19 @@ bool StrCmp::EqualCase(utf8string const& s1, std::wstring const& s2)
 bool StrCmp::EqualCase(std::wstring const& s1, utf8string const& s2)
 {
 	const wchar_t* p1 = s1.c_str();
-	const wchar_t* p2 = StrAccess(s2).str.c_str();
+	const wchar_t* p2 = s2.c_str();
 	_StrCmp::AdvanceCase(p1,p2);
 	return _StrCmp::Equal(p1,p2);
 }
 bool StrCmp::EqualCase(utf8string const& s1, const wchar_t* s2)
 {
-	const wchar_t* p1 = StrAccess(s1).str.c_str();
+	const wchar_t* p1 = s1.c_str();
 	_StrCmp::AdvanceCase(p1,s2);
 	return _StrCmp::Equal(p1,s2);
 }
 bool StrCmp::EqualCase(const wchar_t* s1, utf8string const& s2)
 {
-	const wchar_t* p2 = StrAccess(s2).str.c_str();
+	const wchar_t* p2 = s2.c_str();
 	_StrCmp::AdvanceCase(s1,p2);
 	return _StrCmp::Equal(s1,p2);
 }

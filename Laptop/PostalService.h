@@ -35,8 +35,8 @@ typedef struct
 	UINT32	uiIndex;	// uiIndex is used as an ID number in external game data
 	UINT8	ubMapY;
 	UINT8	ubMapX;
-	UINT8	ubMapZ;
-	INT16	sGridNo;
+	UINT8	ubMapZ;	
+	UINT32	sGridNo;
 	wstring wstrName;
 } DestinationStruct;
 
@@ -218,11 +218,11 @@ public:
 
 	
 	// Destination management
-	UINT16 AddDestination(UINT32 uiIndex, UINT8 ubMapX, UINT8 ubMapY, UINT8 ubMapZ, INT16 sGridNo, STR16 pszName );
+	UINT16 AddDestination(UINT32 uiIndex, UINT8 ubMapX, UINT8 ubMapY, UINT8 ubMapZ, UINT32 sGridNo, STR16 pszName );
 	UINT16 RemoveDestination(UINT16 usDestinationID);
 	RefToDestinationStruct GetDestination(UINT16 usDestinationID) const;
 	RefToDestinationList LookupDestinationList(void) const;
-
+	
 	// WANNE: 
 	BOOLEAN IsSectorAShipmentSector(UINT8 ubMapX, UINT8 ubMapY, UINT8 ubMapZ);
 

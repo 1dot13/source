@@ -361,7 +361,7 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 	// display slider on the scroll bar
 	DisplayScrollBarSlider( );
 
-	
+		
 	// handle auto scroll
 	//CheckForAndHandleAutoMessageScroll( );
 

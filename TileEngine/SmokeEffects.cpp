@@ -29,6 +29,9 @@
 #endif
 
 #include "SaveLoadGame.h"
+#include "debug control.h"
+
+#include "connect.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -39,9 +42,6 @@ class SOLDIERTYPE;
 INT8 FromWorldFlagsToSmokeType( UINT16 ubWorldFlags );
 UINT16 FromSmokeTypeToWorldFlags( INT8 bType );
 
-
-
-#define		NUM_SMOKE_EFFECT_SLOTS					25
 
 
 // GLOBAL FOR SMOKE LISTING
@@ -88,7 +88,7 @@ void RecountSmokeEffects( void )
 
 
 // Returns NO_SMOKE_EFFECT if none there...
-INT8 GetSmokeEffectOnTile( INT16 sGridNo, INT8 bLevel )
+INT8 GetSmokeEffectOnTile( INT32 sGridNo, INT8 bLevel )
 {
 	UINT16		ubExtFlags;
 
@@ -171,7 +171,7 @@ UINT16 FromSmokeTypeToWorldFlags( INT8 bType )
 
 
 
-INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner )
+INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, BOOL fFromRemoteClient )
 {
 	SMOKEEFFECT *pSmoke;
 	INT32				iSmokeIndex;
@@ -179,6 +179,33 @@ INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner )
 
 	if( ( iSmokeIndex = GetFreeSmokeEffect() )==(-1) )
 		return(-1);
+
+	// OJW - 20091027 - Syncronising smoke effect start for multiplayer
+	if (is_networked && is_client)
+	{
+		SOLDIERTYPE* pSoldier = MercPtrs[ubOwner];
+		if (pSoldier != NULL)
+		{
+			if (pSoldier->bTeam == 0 || (pSoldier->bTeam == 1 && is_server))
+			{
+				// let all the other clients know we are spawning this effect
+				// and align them with our random number generator
+				send_newsmokeeffect(sGridNo,usItem,ubOwner,bLevel,iSmokeIndex);
+			}
+			else if (!fFromRemoteClient)
+			{
+				// skip executing locally because we want the random number generator to be aligned
+				// with the client that spawns set off the smoke effect
+				return -1;
+			}
+		}
+#ifdef JA2BETAVERSION
+		CHAR tmpMPDbgString[512];
+		sprintf(tmpMPDbgString,"NewSmokeEffect ( sGridNo : %i ,  usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i )\n",sGridNo, usItem , ubOwner , bLevel , iSmokeIndex );
+		MPDebugMsg(tmpMPDbgString);
+		gfMPDebugOutputRandoms = true;
+#endif
+	}
 
 	memset( &gSmokeEffectData[ iSmokeIndex ], 0, sizeof( SMOKEEFFECT ) );
 
@@ -257,7 +284,7 @@ INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner )
 	}
 
 	// ATE: FALSE into subsequent-- it's the first one!
-	SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, FALSE, bLevel, iSmokeIndex );
+	SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, FALSE, bLevel, iSmokeIndex , fFromRemoteClient , TRUE );
 
 	return( iSmokeIndex );
 }
@@ -265,8 +292,14 @@ INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner )
 
 // Add smoke to gridno
 // ( Replacement algorithm uses distance away )
-void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT16 sGridNo, INT8 bLevel )
+void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT32 sGridNo, INT8 bLevel )
 {
+#ifdef JA2BETAVERSION
+	CHAR tmpMPDbgString[512];
+	sprintf(tmpMPDbgString,"AddSmokeEffectToTile ( iSmokeEffectID : %i , bType : %i , sGridNo : %i , bLevel : %i )\n", iSmokeEffectID, bType , sGridNo , bLevel );
+	MPDebugMsg(tmpMPDbgString);
+#endif
+
 	ANITILE_PARAMS	AniParams;
 	ANITILE					*pAniTile;
 	SMOKEEFFECT	 *pSmoke;
@@ -444,8 +477,14 @@ void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT16 sGridNo, INT8
 	SetRenderFlags(RENDER_FLAG_FULL);
 }
 
-void RemoveSmokeEffectFromTile( INT16 sGridNo, INT8 bLevel )
+void RemoveSmokeEffectFromTile( INT32 sGridNo, INT8 bLevel )
 {
+#ifdef JA2BETAVERSION
+	CHAR tmpMPDbgString[512];
+	sprintf(tmpMPDbgString,"RemoveSmokeEffectFromTile ( sGridNo : %i , bLevel : %i  )\n", sGridNo, bLevel );
+	MPDebugMsg(tmpMPDbgString);
+#endif
+
 	ANITILE *pAniTile;
 	UINT8		ubLevelID;
 

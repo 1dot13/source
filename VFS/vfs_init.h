@@ -5,9 +5,9 @@
 #include "vfs_profile.h"
 #include "PropertyContainer.h"
 
-bool InitWriteProfile(vfs::CVirtualProfile &rProf, vfs::Path const& profileRoot);
-bool InitVirtualFileSystem(vfs::Path const& vfs_ini);
-bool InitVirtualFileSystem(std::list<vfs::Path> const& vfs_ini_list);
-bool InitVirtualFileSystem(CPropertyContainer& props);
+VFS_API bool initWriteProfile(vfs::CVirtualProfile &rProf, vfs::Path const& profileRoot);
+VFS_API bool initVirtualFileSystem(vfs::Path const& vfs_ini);
+VFS_API bool initVirtualFileSystem(std::list<vfs::Path> const& vfs_ini_list);
+VFS_API bool initVirtualFileSystem(CPropertyContainer& props);
 
 #endif // _VFS_INIT_H_

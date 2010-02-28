@@ -14,33 +14,31 @@ namespace vfs
 		enum ESearchFile
 		{
 			SF_TOP,
-			SF_FIRST_WRITEABLE,
-			SF_STOP_ON_WRITEABLE_PROFILE,
+			SF_FIRST_WRITABLE,
+			SF_STOP_ON_WRITABLE_PROFILE,
 		};
 	public:
-		~CVirtualFile();
-		void Destroy();
-		static CVirtualFile* Create(vfs::Path const& sFilePath, CProfileStack& rPStack);
-
-		vfs::Path const&	Path();
-		void				Add(vfs::IBaseFile *pFile, utf8string sProfileName, bool bReplace = false);
-		bool				Remove(vfs::IBaseFile *pFile);
-		//////////////////////////////////////////////////
-		vfs::IBaseFile*		File(ESearchFile eSearch);
-		vfs::IBaseFile*		File(utf8string const& sProfileName);
-		//////////////////////////////////////////////////
-	private:
-		friend class std::vector<vfs::CVirtualFile>;
 		CVirtualFile();
+		~CVirtualFile();
+		void destroy();
+		static CVirtualFile* create(vfs::Path const& sFilePath, vfs::CProfileStack& rPStack);
+
+		vfs::Path const&	path();
+		void				add(vfs::IBaseFile *pFile, utf8string sProfileName, bool bReplace = false);
+		bool				remove(vfs::IBaseFile *pFile);
+		//////////////////////////////////////////////////
+		vfs::IBaseFile*		file(ESearchFile eSearch);
+		vfs::IBaseFile*		file(utf8string const& sProfileName);
+		//////////////////////////////////////////////////
 	private:
 		vfs::Path			_path;
 		utf8string			_top_pname;
 		vfs::IBaseFile*		_top_file;
 		CProfileStack*		_pstack;
 	private:
-		unsigned int		_myID;
+		vfs::UInt32			_myID;
 #ifdef VFILE_BLOCK_CREATE
-		static ObjBlockAllocator<CVirtualFile>* _vfile_pool;
+		static ObjBlockAllocator<vfs::CVirtualFile>* _vfile_pool;
 #endif
 	};
 } // end namspace

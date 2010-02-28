@@ -1,104 +1,172 @@
 #include "vfs_lib_dir.h"
+#include "../Tools/Log.h"
+
+class vfs::CLibDirectory::IterImpl : public vfs::IBaseLocation::Iterator::IImplementation
+{
+	typedef vfs::IBaseLocation::Iterator::IImplementation tBaseClass;
+public:
+	IterImpl(CLibDirectory& lib);
+	virtual ~IterImpl();
+	virtual vfs::CLibDirectory::tFileType*			value();
+	virtual void									next();
+protected:
+	virtual tBaseClass*								clone();
+private:
+	void operator=(vfs::CLibDirectory::IterImpl const& iter);
+
+	vfs::CLibDirectory&								_lib;
+	vfs::CLibDirectory::tFileCatalogue::iterator	_iter;
+};
+
+vfs::CLibDirectory::IterImpl::IterImpl(CLibDirectory& lib)
+: tBaseClass(), _lib(lib)
+{
+	_iter = _lib.m_files.begin();
+}
+
+vfs::CLibDirectory::IterImpl::~IterImpl()
+{
+}
+
+vfs::CLibDirectory::tFileType* vfs::CLibDirectory::IterImpl::value()
+{
+	if(_iter != _lib.m_files.end())
+	{
+		return _iter->second;
+	}
+	return NULL;
+}
+
+void vfs::CLibDirectory::IterImpl::next()
+{
+	if(_iter != _lib.m_files.end())
+	{
+		_iter++;
+	}
+}
+
+vfs::CLibDirectory::IterImpl::tBaseClass* vfs::CLibDirectory::IterImpl::clone()
+{
+	IterImpl* iter = new IterImpl(_lib);
+	iter->_iter = _iter;
+	return iter;
+}
+
+/***************************************************************************/
+/***************************************************************************/
+
+vfs::CLibDirectory::CLibDirectory(vfs::Path const& sLocalPath, vfs::Path const& sRealPath)
+: tBaseClass(sLocalPath,sRealPath)
+{
+}
 
 vfs::CLibDirectory::~CLibDirectory()
 {
-	tFileCatalogue::iterator it = m_mapFiles.begin();
-	for(; it != m_mapFiles.end(); ++it)
+	tFileCatalogue::iterator it = m_files.begin();
+	for(; it != m_files.end(); ++it)
 	{
 		// don't delete objects here
 		//delete it->second;
 	}
-	m_mapFiles.clear();
+	m_files.clear();
 }
 
-vfs::CLibDirectory::tFileType* vfs::CLibDirectory::AddFile(vfs::Path const& sFilename, bool bDeleteOldFile)
+vfs::CLibDirectory::tFileType* vfs::CLibDirectory::addFile(vfs::Path const& filename, bool deleteOldFile)
 {
 	return NULL;
 }
 
-bool vfs::CLibDirectory::AddFile(tFileType* pFile, bool bDeleteOldFile)
+bool vfs::CLibDirectory::addFile(tFileType* file, bool deleteOldFile)
 {
-	if(!pFile)
+	if(!file)
 	{
 		return false;
 	}
-	vfs::Path const& sName = pFile->GetFileName();
-	tFileType* pFileOld = m_mapFiles[sName];
-	if(pFileOld && (pFileOld != pFile) )
+	vfs::Path const& name = file->getName();
+	tFileType* oldFile = m_files[name];
+	if(oldFile && (oldFile != file) )
 	{
-		if(bDeleteOldFile)
+		if(deleteOldFile)
 		{
-			delete pFileOld;
-			m_mapFiles[sName] = pFile;
+			delete oldFile;
+			m_files[name] = file;
 		}
 		else
 		{
 			return false;
 		}
 	}
-	m_mapFiles[sName] = pFile;
+	m_files[name] = file;
 	return true;
 }
 
-bool vfs::CLibDirectory::DeleteDirectory(vfs::Path const& sDirPath)
+bool vfs::CLibDirectory::deleteDirectory(vfs::Path const& dirPath)
 {
-	if( !(m_sMountPoint == sDirPath) )
-	{
-		return false;
-	}
-	if(IsWriteable())
-	{
-		tFileCatalogue::iterator it = m_mapFiles.begin();
-		for(; it != m_mapFiles.end(); ++it)
-		{
-			delete it->second;
-		}
-		m_mapFiles.clear();
-		return true;
-	}
+	//if( !(m_mountPoint == dirPath) )
+	//{
+	//	return false;
+	//}
+	//if(implementsWritable())
+	//{
+	//	tFileCatalogue::iterator it = m_files.begin();
+	//	for(; it != m_files.end(); ++it)
+	//	{
+	//		//delete it->second;
+	//	}
+	//	m_files.clear();
+	//	return true;
+	//}
+	CLog log(L"errors.log");
+	log << "called 'vfs::CLibDirectory::deleteDirectory' which doesn't implement the IWritable interface" << CLog::ENDL;
 	return false;
 }
 
-bool vfs::CLibDirectory::DeleteFileFromDirectory(vfs::Path const& sFileName)
+bool vfs::CLibDirectory::deleteFileFromDirectory(vfs::Path const& filename)
 {
-	if(IsWriteable())
-	{
-		tFileCatalogue::iterator it = m_mapFiles.find(sFileName);
-		if(it != m_mapFiles.end())
-		{
-			delete it->second;
-			m_mapFiles.erase(it);
-			return true;
-		}
-	}
+	//if(implementsWritable())
+	//{
+	//	tFileCatalogue::iterator it = m_files.find(filename);
+	//	if(it != m_files.end())
+	//	{
+	//		delete it->second;
+	//		m_files.erase(it);
+	//		return true;
+	//	}
+	//}
+	CLog log(L"errors.log");
+	log << "called 'vfs::CLibDirectory::deleteFileFromDirectory' which doesn't implement the IWritable interface" << CLog::ENDL;
 	return false;
 }
 
-bool vfs::CLibDirectory::FileExists(vfs::Path const& sFileName)
+bool vfs::CLibDirectory::fileExists(vfs::Path const& filename)
 {
-	bool success = (m_mapFiles[sFileName] != NULL);
-	return success;
+	return (m_files[filename] != NULL);
 }
 
-vfs::IBaseFile*	vfs::CLibDirectory::GetFile(vfs::Path const& sFileName)
+vfs::IBaseFile*	vfs::CLibDirectory::getFile(vfs::Path const& filename)
 {
-	return GetFileTyped(sFileName);
+	return getFileTyped(filename);
 }
 
-vfs::CLibDirectory::tFileType* vfs::CLibDirectory::GetFileTyped(vfs::Path const& sFileName)
+vfs::CLibDirectory::tFileType* vfs::CLibDirectory::getFileTyped(vfs::Path const& filename)
 {
-	CLibDirectory::tFileType* file = m_mapFiles[sFileName];
-	return file;
+	tFileCatalogue::iterator it =  m_files.find(filename);
+	if(it != m_files.end())
+	{
+		return it->second;
+	}
+	return NULL;
 }
 
-bool vfs::CLibDirectory::CreateSubDirectory(vfs::Path const& sSubDirPath)
+bool vfs::CLibDirectory::createSubDirectory(vfs::Path const& subDirPath)
 {
 	// libraries are readonly
 	return false;
 }
 
-void vfs::CLibDirectory::GetSubDirList(std::list<vfs::Path>& rlSubDirs)
+void vfs::CLibDirectory::getSubDirList(std::list<vfs::Path>& rlSubDirs)
 {
+	// nothing
 }
 
 vfs::CLibDirectory::Iterator vfs::CLibDirectory::begin()
@@ -108,44 +176,3 @@ vfs::CLibDirectory::Iterator vfs::CLibDirectory::begin()
 
 /***************************************************************************/
 /***************************************************************************/
-
-vfs::CLibDirectory::IterImpl::IterImpl(CLibDirectory& lib)
-: _lib(lib)
-{
-	_iter = _lib.m_mapFiles.begin();
-}
-
-vfs::CLibDirectory::IterImpl::~IterImpl()
-{
-}
-
-vfs::CLibDirectory::tFileType* vfs::CLibDirectory::IterImpl::value()
-{
-	if(_iter != _lib.m_mapFiles.end())
-	{
-		return _iter->second;
-	}
-	return NULL;
-}
-
-void vfs::CLibDirectory::IterImpl::next()
-{
-	if(_iter != _lib.m_mapFiles.end())
-	{
-		_iter++;
-	}
-}
-
-/***************************************************************************/
-/***************************************************************************/
-
-static void tesst()
-{
-	vfs::CLibDirectory *dir = new vfs::CLibDirectory(vfs::Path("test"), vfs::Path("test2"));
-	vfs::CLibDirectory::Iterator it = dir->begin();
-	while(!it.end())
-	{
-		vfs::CLibDirectory::tFileType* file = static_cast<vfs::CLibDirectory::tFileType*>(it.value());
-		it.next();
-	}
-}

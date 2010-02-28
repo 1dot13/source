@@ -244,6 +244,7 @@ BOOLEAN		EnterMPCScreen()
 	{
 		FilenameForBPP("INTERFACE\\MPConnect_1024x768.sti",VObjectDesc.ImageFile);
 	}
+
 	CHECKF(AddVideoObject(&VObjectDesc, &guiMPCMainBackGroundImage ));
 
 

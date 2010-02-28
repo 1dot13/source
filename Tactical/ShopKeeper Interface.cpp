@@ -53,6 +53,7 @@
 	#include "Soldier Create.h"
 	#include "PATHAI.h"
 	#include "Points.h"
+#include "InterfaceItemImages.h"
 #endif
 
 #include "BuildDefines.h"
@@ -623,7 +624,7 @@ void			InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT8 ubPocket, UINT8	ubF
 void			StartSKIDescriptionBox( void );
 
 BOOLEAN		ShopkeeperAutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fNewItem );
-void			ShopkeeperAddItemToPool( INT16 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel );
+void			ShopkeeperAddItemToPool( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel );
 
 void			IfMercOwnedCopyItemToMercInv( INVENTORY_IN_SLOT *pInv );
 void			IfMercOwnedRemoveItemFromMercInv( INVENTORY_IN_SLOT *pInv );
@@ -881,7 +882,7 @@ BOOLEAN EnterShopKeeperInterface()
 
 			// First get an adjacent gridno....
 			UINT8 ubDirection;
-			INT16 sActionGridNo =  FindAdjacentGridEx( pSoldier, pShopkeeper->sGridNo, &ubDirection, NULL, FALSE, TRUE );
+			INT32 sActionGridNo =  FindAdjacentGridEx( pSoldier, pShopkeeper->sGridNo, &ubDirection, NULL, FALSE, TRUE );
 
 			if ( sActionGridNo == -1 )
 			{
@@ -889,7 +890,7 @@ BOOLEAN EnterShopKeeperInterface()
 				return( FALSE );
 			}
 
-			if ( UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints ) == 0 )
+			if ( UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints ) == 0 )
 			{
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ NO_PATH ] );
 				return( FALSE );
@@ -897,7 +898,7 @@ BOOLEAN EnterShopKeeperInterface()
 
 			// Walk up and talk to buddy....
 			gfNPCCircularDistLimit = TRUE;
-			INT16 sGoodGridNo = FindGridNoFromSweetSpotWithStructData( pSoldier, pSoldier->usUIMovementMode, pShopkeeper->sGridNo, (NPC_TALK_RADIUS-1), &ubDirection, TRUE );
+			INT32 sGoodGridNo = FindGridNoFromSweetSpotWithStructData( pSoldier, pSoldier->usUIMovementMode, pShopkeeper->sGridNo, (NPC_TALK_RADIUS-1), &ubDirection, TRUE );
 			gfNPCCircularDistLimit = FALSE;
 
 			// Now walkup to talk....
@@ -2724,7 +2725,8 @@ UINT32 DisplayInvSlot( UINT8 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT1
 	//Display the item graphic, and price
 	pItem = &Item[ usItemIndex ];
 	GetVideoObject( &hVObject, GetInterfaceGraphicForItem( pItem ) );
-	pTrav = &(hVObject->pETRLEObject[ pItem->ubGraphicNum ] );
+	UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : pItem->ubGraphicNum;
+	pTrav = &(hVObject->pETRLEObject[ usGraphicNum ] );
 
 	usHeight				= (UINT32)pTrav->usHeight;
 	usWidth					= (UINT32)pTrav->usWidth;
@@ -2738,10 +2740,10 @@ UINT32 DisplayInvSlot( UINT8 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT1
 
 
 	//blt the shadow of the item
-	if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX-2, sCenY+2);
+	if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), g_bUsePngItemImages ? 0 : pItem->ubGraphicNum, sCenX-2, sCenY+2);
 
 	//blt the item
-	BltVideoObjectOutlineFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX, sCenY, Get16BPPColor( FROMRGB( 255, 255, 255 ) ), fHighlighted );
+	BltVideoObjectOutlineFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), g_bUsePngItemImages ? 0 : pItem->ubGraphicNum, sCenX, sCenY, Get16BPPColor( FROMRGB( 255, 255, 255 ) ), fHighlighted );
 
 	//Display the status of the item
 	DrawItemUIBarEx( pItemObject, 0, (INT16)(usPosX+2), (INT16)(usPosY+2+20), 2, 20, 	Get16BPPColor( FROMRGB( 140, 136, 119 ) ), Get16BPPColor( FROMRGB( 140, 136, 119 ) ), TRUE, guiRENDERBUFFER );//guiSAVEBUFFER
@@ -4304,7 +4306,7 @@ void SetSkiCursor( UINT16	usCursor )
 
 		// Set mouse
 		guiExternVo = GetInterfaceGraphicForItem( &(Item[ gMoveingItem.sItemIndex ]) );
-		gusExternVoSubIndex = Item[ gMoveingItem.sItemIndex ].ubGraphicNum;
+		gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gMoveingItem.sItemIndex ].ubGraphicNum;
 		SetCurrentCursorFromDatabase( EXTERN_CURSOR );
 
 		MSYS_ChangeRegionCursor( &gSMPanelRegion, usCursor );
@@ -6798,7 +6800,7 @@ BOOLEAN ShopkeeperAutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObject,
 
 // The Shopkeeper interface *MUST* use this intermediary function instead of calling AddItemToPool() directly!
 // This is because the OBJECTTYPEs used within Shopkeeper may contain an illegal ubNumberOfObjects
-void ShopkeeperAddItemToPool( INT16 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel )
+void ShopkeeperAddItemToPool( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel )
 {
 	// the entire pObj will get memset to 0 by RemoveObjs() if all the items are successfully placed,
 	// so we have to keep a copy to retrieve with every iteration of the loop
@@ -6963,7 +6965,7 @@ BOOLEAN SKITryToAddInvToMercsInventory( INVENTORY_IN_SLOT *pInv, SOLDIERTYPE *pS
 BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 {
 	SOLDIERTYPE *pShopkeeper;
-	INT16			sDestGridNo;
+	INT32 sDestGridNo;
 	INT8			bDestLevel;
 	UINT32		uiRange;
 
@@ -7007,7 +7009,7 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 
 #ifdef JA2TESTVERSION
 
-void AddShopkeeperToGridNo( UINT8 ubProfile, INT16 sGridNo )
+void AddShopkeeperToGridNo( UINT8 ubProfile, INT32 sGridNo )
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	INT16										sSectorX, sSectorY;

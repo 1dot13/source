@@ -527,7 +527,7 @@ STRUCTURE * CreateStructureFromDB( DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubT
 	return( pStructure );
 }
 
-BOOLEAN OkayToAddStructureToTile( INT16 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fIgnorePeople )
+BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fIgnorePeople )
 {
 	// Verifies whether a structure is blocked from being added to the map at a particular point
 	DB_STRUCTURE *	pDBStructure;
@@ -535,8 +535,8 @@ BOOLEAN OkayToAddStructureToTile( INT16 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 	STRUCTURE *			pExistingStructure;
 	STRUCTURE *			pOtherExistingStructure;
 	INT8						bLoop, bLoop2;
-	INT16						sGridNo;
-	INT16						sOtherGridNo;
+	INT32 sGridNo;
+	INT32						sOtherGridNo;
 
 	ppTile = pDBStructureRef->ppTile;
 	sGridNo = sBaseGridNo + ppTile[ubTileIndex]->sPosRelToBase;
@@ -761,7 +761,7 @@ BOOLEAN OkayToAddStructureToTile( INT16 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 	return( TRUE );
 }
 
-BOOLEAN InternalOkayToAddStructureToWorld( INT16 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fIgnorePeople )
+BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fIgnorePeople )
 {
 	UINT8 ubLoop;
 	INT16									sCubeOffset;
@@ -804,7 +804,7 @@ BOOLEAN InternalOkayToAddStructureToWorld( INT16 sBaseGridNo, INT8 bLevel, DB_ST
 	return( TRUE );
 }
 
-BOOLEAN OkayToAddStructureToWorld( INT16 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID )
+BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID )
 {
 	return( InternalOkayToAddStructureToWorld( sBaseGridNo, bLevel, pDBStructureRef, sExclusionID, (BOOLEAN)(sExclusionID == IGNORE_PEOPLE_STRUCTURE_ID) ) );
 }
@@ -836,10 +836,10 @@ BOOLEAN AddStructureToTile( MAP_ELEMENT * pMapElement, STRUCTURE * pStructure, U
 }
 
 
-STRUCTURE * InternalAddStructureToWorld( INT16 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, LEVELNODE * pLevelNode )
+STRUCTURE * InternalAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, LEVELNODE * pLevelNode )
 {
 	// Adds a complete structure to the world at a location plus all other locations covered by the structure
-	INT16									sGridNo;
+	INT32 sGridNo;
 	STRUCTURE **					ppStructure;
 	STRUCTURE *						pBaseStructure;
 	DB_STRUCTURE *				pDBStructure;
@@ -1002,7 +1002,7 @@ STRUCTURE * InternalAddStructureToWorld( INT16 sBaseGridNo, INT8 bLevel, DB_STRU
 	return( pBaseStructure );
 }
 
-BOOLEAN AddStructureToWorld( INT16 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, PTR pLevelN )
+BOOLEAN AddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, PTR pLevelN )
 {
 	STRUCTURE * pStructure;
 
@@ -1068,12 +1068,12 @@ BOOLEAN DeleteStructureFromWorld( STRUCTURE * pStructure )
 	STRUCTURE *						pCurrent;
 	UINT8 ubLoop, ubLoop2;
 	UINT8									ubNumberOfTiles;
-	INT16									sBaseGridNo, sGridNo;
+	INT32 sBaseGridNo, sGridNo;
 	UINT16								usStructureID;
 	BOOLEAN								fMultiStructure;
 	BOOLEAN								fRecompileMPs;
 	BOOLEAN								fRecompileExtraRadius; // for doors... yuck
-	INT16									sCheckGridNo;
+	INT32									sCheckGridNo;
 
 	CHECKF( pStructure );
 
@@ -1131,7 +1131,7 @@ BOOLEAN DeleteStructureFromWorld( STRUCTURE * pStructure )
 	return( TRUE );
 }
 
-STRUCTURE * InternalSwapStructureForPartner( INT16 sGridNo, STRUCTURE * pStructure, BOOLEAN fFlipSwitches, BOOLEAN fStoreInMap )
+STRUCTURE * InternalSwapStructureForPartner( INT32 sGridNo, STRUCTURE * pStructure, BOOLEAN fFlipSwitches, BOOLEAN fStoreInMap )
 {
 	// switch structure
 	LEVELNODE *				pLevelNode;
@@ -1218,28 +1218,31 @@ STRUCTURE * InternalSwapStructureForPartner( INT16 sGridNo, STRUCTURE * pStructu
 	return( pNewBaseStructure );
 }
 
-STRUCTURE * SwapStructureForPartner( INT16 sGridNo, STRUCTURE * pStructure )
+STRUCTURE * SwapStructureForPartner( INT32 sGridNo, STRUCTURE * pStructure )
 {
 	return( InternalSwapStructureForPartner( sGridNo, pStructure, TRUE, FALSE ) );
 }
 
-STRUCTURE * SwapStructureForPartnerWithoutTriggeringSwitches( INT16 sGridNo, STRUCTURE * pStructure )
+STRUCTURE * SwapStructureForPartnerWithoutTriggeringSwitches( INT32 sGridNo, STRUCTURE * pStructure )
 {
 	return( InternalSwapStructureForPartner( sGridNo, pStructure, FALSE, FALSE ) );
 }
 
-STRUCTURE * SwapStructureForPartnerAndStoreChangeInMap( INT16 sGridNo, STRUCTURE * pStructure )
+STRUCTURE * SwapStructureForPartnerAndStoreChangeInMap( INT32 sGridNo, STRUCTURE * pStructure )
 {
 	return( InternalSwapStructureForPartner( sGridNo, pStructure, TRUE, TRUE ) );
 }
 
-STRUCTURE * FindStructure( INT16 sGridNo, UINT32 fFlags )
+STRUCTURE * FindStructure( INT32 sGridNo, UINT32 fFlags )
 {
 	// finds a structure that matches any of the given flags
 	STRUCTURE * pCurrent;
-
-	if( sGridNo > WORLD_MAX-1 ) //bug fix for win98 crash when traveling between sectors
+	
+	//bug fix for win98 crash when traveling between sectors
+	if ( TileIsOutOfBounds( sGridNo ) )
+	{
 		return( NULL );
+	}
 
 	pCurrent =	gpWorldLevelData[sGridNo].pStructureHead;
 	while (pCurrent != NULL)
@@ -1270,7 +1273,7 @@ STRUCTURE * FindNextStructure( STRUCTURE * pStructure, UINT32 fFlags )
 	return( NULL );
 }
 
-STRUCTURE * FindStructureByID( INT16 sGridNo, UINT16 usStructureID )
+STRUCTURE * FindStructureByID( INT32 sGridNo, UINT16 usStructureID )
 {
 	// finds a structure that matches any of the given flags
 	STRUCTURE * pCurrent;
@@ -1298,7 +1301,7 @@ STRUCTURE * FindBaseStructure( STRUCTURE * pStructure )
 	return( FindStructureByID( pStructure->sBaseGridNo, pStructure->usStructureID ) );
 }
 
-STRUCTURE * FindNonBaseStructure( INT16 sGridNo, STRUCTURE * pStructure )
+STRUCTURE * FindNonBaseStructure( INT32 sGridNo, STRUCTURE * pStructure )
 {
 	// finds a non-base structure in a location
 	CHECKF( pStructure );
@@ -1376,7 +1379,7 @@ INT8 StructureHeight( STRUCTURE * pStructure )
 	return( bGreatestHeight + 1);
 }
 
-INT8 GetTallestStructureHeight( INT16 sGridNo, BOOLEAN fOnRoof )
+INT8 GetTallestStructureHeight( INT32 sGridNo, BOOLEAN fOnRoof )
 {
 	STRUCTURE *		pCurrent;
 	INT8					iHeight;
@@ -1408,7 +1411,7 @@ INT8 GetTallestStructureHeight( INT16 sGridNo, BOOLEAN fOnRoof )
 }
 
 
-INT8 GetStructureTargetHeight( INT16 sGridNo, BOOLEAN fOnRoof )
+INT8 GetStructureTargetHeight( INT32 sGridNo, BOOLEAN fOnRoof )
 {
 	STRUCTURE *		pCurrent;
 	INT8					iHeight;
@@ -1550,7 +1553,7 @@ BOOLEAN StructureDensity( STRUCTURE * pStructure, UINT8 * pubLevel0, UINT8 * pub
 	return( TRUE );
 }
 
-BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT16 sGridNo, INT16 sX, INT16 sY, UINT8 ubOwner )
+BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT32 sGridNo, INT16 sX, INT16 sY, UINT8 ubOwner )
 {
 	// do damage to a structure; returns TRUE if the structure should be removed
 
@@ -1673,8 +1676,7 @@ void DebugStructurePage1( void )
 	STRUCTURE *		pStructure;
 	STRUCTURE *		pBase;
 	//LEVELNODE *		pLand;
-	INT16					sGridNo;
-	INT16					sDesiredLevel;
+	INT32					sGridNo, sDesiredLevel;
 	INT8					bHeight, bDens0, bDens1, bDens2, bDens3;
 	INT8					bStructures;
 
@@ -2179,7 +2181,7 @@ BOOLEAN FiniStructureDB( void )
 }
 
 
-INT8 GetBlockingStructureInfo( INT16 sGridNo, INT8 bDir, INT8 bNextDir, INT8 bLevel, INT8 *pStructHeight, STRUCTURE ** ppTallestStructure, BOOLEAN fWallsBlock )
+INT8 GetBlockingStructureInfo( INT32 sGridNo, INT8 bDir, INT8 bNextDir, INT8 bLevel, INT8 *pStructHeight, STRUCTURE ** ppTallestStructure, BOOLEAN fWallsBlock )
 {
 	STRUCTURE * pCurrent, *pStructure = 0;
 	INT16				sDesiredLevel;
@@ -2366,7 +2368,7 @@ UINT32 StructureTypeToFlag( UINT8 ubType )
 	return( uiFlag );
 }
 
-STRUCTURE * FindStructureBySavedInfo( INT16 sGridNo, UINT8 ubType, UINT8 ubWallOrientation, INT8 bLevel )
+STRUCTURE * FindStructureBySavedInfo( INT32 sGridNo, UINT8 ubType, UINT8 ubWallOrientation, INT8 bLevel )
 {
 	STRUCTURE *	pCurrent;
 	UINT32		uiTypeFlag;

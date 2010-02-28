@@ -44,6 +44,8 @@
 #include "VFS/Tools/Log.h"
 #include "VFS/Tools/ParserTools.h"
 #include "Text.h"
+#include "VFS/os_functions.h"
+#include "VFS/vfs_settings.h"
 
 #define USE_CONSOLE 0
 
@@ -83,7 +85,7 @@ void SHOWEXCEPTION(CBasicException& ex)
 		_ExceptionMessage(ex);
 	}
 	catch(CBasicException &ex2) {
-		LogException(ex2);
+		logException(ex2);
 		exit(0);
 	}
 }
@@ -599,7 +601,7 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	}
 	catch(CBasicException& ex)
 	{
-		LogException(ex);
+		logException(ex);
 		// nothing is set up, no vfs, no video manager
 		// regular error processing wouldn't work here
 		// set default values and continue as if nothing has happened
@@ -696,20 +698,20 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	//InitializeJA2TimerID();
 
 #ifdef USE_VFS
-	STRING512 sExecutableDir;
-	GetExecutableDirectory( sExecutableDir );
+	vfs::Path exe_dir, exe_file;
+	os::getExecutablePath(exe_dir, exe_file);
 
 	// set current directory to exe's directory 
-	SetCurrentDirectory(sExecutableDir);
+	os::setCurrectDirectory(exe_dir);
 
-	THROWIFFALSE( InitVirtualFileSystem( vfs_config_ini ), L"Initializing Virtual File System failed");
+	THROWIFFALSE( initVirtualFileSystem( vfs_config_ini ), L"Initializing Virtual File System failed");
 
 	s_VfsIsInitialized = true;
 
-	GetVFS()->GetVirtualLocation(vfs::Path("Temp"),true)->SetIsExclusive(true);
-	GetVFS()->GetVirtualLocation(vfs::Path("ShadeTables"),true)->SetIsExclusive(true);
-	GetVFS()->GetVirtualLocation(vfs::Path(pMessageStrings[MSG_SAVEDIRECTORY]+3),true)->SetIsExclusive(true);
-	GetVFS()->GetVirtualLocation(vfs::Path(pMessageStrings[MSG_MPSAVEDIRECTORY]+3),true)->SetIsExclusive(true);
+	getVFS()->getVirtualLocation(vfs::Path("Temp"),true)->setIsExclusive(true);
+	getVFS()->getVirtualLocation(vfs::Path("ShadeTables"),true)->setIsExclusive(true);
+	getVFS()->getVirtualLocation(vfs::Path(pMessageStrings[MSG_SAVEDIRECTORY]+3),true)->setIsExclusive(true);
+	getVFS()->getVirtualLocation(vfs::Path(pMessageStrings[MSG_MPSAVEDIRECTORY]+3),true)->setIsExclusive(true);
 
 #ifdef USE_CODE_PAGE
 	charSet::InitializeCharSets();
@@ -796,10 +798,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		return FALSE;
 	}
 #endif
-
-	FastDebugMsg("Initializing Random");
-	// Initialize random number generator
-	InitializeRandom(); // no Shutdown
 
 	FastDebugMsg("Initializing Game Manager");
 	// Initialize the Game
@@ -895,11 +893,26 @@ void ShutdownStandardGamingPlatform(void)
 
 	ShutdownDebugManager();
 
-	CLog::FlushFinally();
-	vfs::CVirtualFileSystem::ShutdownVFS();
-	CFileAllocator::Clear();
+	CLog::flushFinally();
+	vfs::CVirtualFileSystem::shutdownVFS();
+	CFileAllocator::clear();
 }
 
+#ifdef USE_VFS
+#include "MPJoinScreen.h"
+
+utf8string getGameID()
+{
+	static utf8string _id;
+	static bool has_id = false;
+	if(!has_id)
+	{
+		CUniqueServerId::uniqueRandomString(_id);
+		has_id = true;
+	}
+	return _id;
+}
+#endif
 
 int PASCAL WinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow)
 {
@@ -949,6 +962,14 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 		ShowWindow( hPrevInstanceWindow, SW_RESTORE );
 		return( 0 );
 	}
+
+	FastDebugMsg("Initializing Random");
+	// Initialize random number generator
+	InitializeRandom(); // no Shutdown
+
+#ifdef USE_VFS
+	CLog::setSharedString( getGameID() );
+#endif
 
 	//rain
 	//NSLoadSettings();
@@ -1008,6 +1029,10 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 //	ShowCursor(FALSE);
 
 #ifdef USE_VFS
+	vfs::Path exe_dir, exe_file;
+	os::getExecutablePath(exe_dir, exe_file);
+	os::setCurrectDirectory(exe_dir);
+#else
 	STRING512 sExecutableDir;
 	GetExecutableDirectory( sExecutableDir );
 	SetCurrentDirectory(sExecutableDir);
@@ -1026,10 +1051,10 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 		if(!s_VfsIsInitialized)
 		{
 			vfs::CFile* fonts = new vfs::CFile("Data/Fonts.slf");
-			vfs::CSLFLibrary* slfLib = new vfs::CSLFLibrary(vfs::tReadableFile::Cast(fonts),"");
-			if(slfLib->Init())
+			vfs::CSLFLibrary* slfLib = new vfs::CSLFLibrary(vfs::tReadableFile::cast(fonts),"");
+			if(slfLib->init())
 			{
-				GetVFS()->AddLocation(slfLib,"doesn't matter");
+				getVFS()->addLocation(slfLib,"doesn't matter");
 			}
 			// fonts not initialized 
 			FontTranslationTable *pFontTable = CreateEnglishTransTable( );
@@ -1056,28 +1081,28 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 			}
 		}
 		gfProgramIsRunning = 1;
-		LogException(ex);
+		logException(ex);
 		SHOWEXCEPTION(ex);
 	}
 	catch(std::exception &ex)
 	{
 		gfProgramIsRunning = 1;
 		CBasicException nex(ex.what(),_FUNCTION_FORMAT_,__LINE__,__FILE__);
-		LogException(nex);
+		logException(nex);
 		SHOWEXCEPTION(nex);
 	}
 	catch(const char* msg)
 	{
 		gfProgramIsRunning = 1;
 		CBasicException ex(msg,_FUNCTION_FORMAT_,__LINE__,__FILE__);
-		LogException(ex);
+		logException(ex);
 		SHOWEXCEPTION(ex);
 	}
 	catch(...)
 	{
 		gfProgramIsRunning = 1;
 		CBasicException ex("Caught undefined exception", _FUNCTION_FORMAT_, __LINE__, __FILE__);
-		LogException( ex );
+		logException( ex );
 		SHOWEXCEPTION(ex);
 	}
 
@@ -1123,25 +1148,25 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	}
 	catch(CBasicException &ex)
 	{
-		LogException(ex);
+		logException(ex);
 		SHOWEXCEPTION(ex);
 	}
 	catch(std::exception &ex)
 	{
 		CBasicException nex(ex.what(),_FUNCTION_FORMAT_,__LINE__,__FILE__);
-		LogException(nex);
+		logException(nex);
 		SHOWEXCEPTION(nex);
 	}
 	catch(const char* msg)
 	{
 		CBasicException ex(msg,_FUNCTION_FORMAT_,__LINE__,__FILE__);
-		LogException(ex);
+		logException(ex);
 		SHOWEXCEPTION(ex);
 	}
 	catch(...)
 	{
 		CBasicException ex("Caught undefined exception", _FUNCTION_FORMAT_, __LINE__, __FILE__);
-		LogException( ex );
+		logException( ex );
 		SHOWEXCEPTION(ex);
 	}
 
@@ -1225,7 +1250,6 @@ void SGPExit(void)
 
 }
 
-extern bool g_VFS_NO_UNICODE;
 void GetRuntimeSettings( )
 {
 #ifndef USE_VFS
@@ -1239,7 +1263,7 @@ void GetRuntimeSettings( )
 	strcat(INIFile, "\\Ja2.ini");
 #else
 	CPropertyContainer oProps;
-	oProps.InitFromIniFile("Ja2.ini");
+	oProps.initFromIniFile("Ja2.ini");
 #endif
 	iResolution = -1;
 #ifndef USE_VFS
@@ -1248,12 +1272,30 @@ void GetRuntimeSettings( )
 		iResolution = atoi(zScreenResolution);
 	}
 #else
-	iResolution = oProps.GetIntProperty(L"Ja2 Settings", L"SCREEN_RESOLUTION", -1);
+	utf8string loc = oProps.getStringProperty("Ja2 Settings", L"LOCALE");
+	if(!loc.empty())
+	{
+		THROWIFFALSE( setlocale(LC_ALL, loc.utf8().c_str()), BuildString().add(L"invalid locale : ").add(loc).get());
+	}
 
-	g_VFS_NO_UNICODE = oProps.GetBoolProperty(L"Ja2 Settings", L"VFS_NO_UNICODE", false);
+	iResolution = (int)oProps.getIntProperty(L"Ja2 Settings", L"SCREEN_RESOLUTION", -1);
+
+	vfs::Settings::setUseUnicode( !oProps.getBoolProperty(L"Ja2 Settings", L"VFS_NO_UNICODE", false) );
 
 	std::list<utf8string> ini_list;
-	if(oProps.GetStringListProperty(L"Ja2 Settings", L"VFS_CONFIG_INI", ini_list, L""))
+
+	utf8string vfs_config_file;
+	if(oProps.getStringProperty(L"Ja2 Settings", L"VFS_CONFIG", vfs_config_file))
+	{
+		CPropertyContainer temp_cont;
+		temp_cont.initFromIniFile(vfs_config_file);
+		utf8string temp_str;
+		if(temp_cont.getStringProperty(L"vfs_config", L"VFS_CONFIG_INI", temp_str))
+		{
+			oProps.setStringProperty(L"Ja2 Settings", L"VFS_CONFIG_INI", temp_str);
+		}
+	}
+	if(oProps.getStringListProperty(L"Ja2 Settings", L"VFS_CONFIG_INI", ini_list, L""))
 	{
 		vfs_config_ini.clear();
 		for(std::list<utf8string>::iterator it = ini_list.begin(); it != ini_list.end(); ++it)
@@ -1269,15 +1311,19 @@ void GetRuntimeSettings( )
 
 #ifdef JA2EDITOR
 #ifndef USE_VFS
-		if (GetPrivateProfileString( "Ja2 Settings","EDITOR_SCREEN_RESOLUTION", "", zScreenResolution, 50, INIFile ))
-		{
-			iResolution = atoi(zScreenResolution);
-		}
+	if (GetPrivateProfileString( "Ja2 Settings","EDITOR_SCREEN_RESOLUTION", "", zScreenResolution, 50, INIFile ))
+	{
+		iResolution = atoi(zScreenResolution);
+	}
 #else
-		iResolution = oProps.GetIntProperty("Ja2 Settings","EDITOR_SCREEN_RESOLUTION", -1); 
+	iResolution = (int)oProps.getIntProperty("Ja2 Settings","EDITOR_SCREEN_RESOLUTION", -1); 
 #endif
 #endif
 
+#ifdef USE_VFS
+	extern bool g_bUsePngItemImages;
+	g_bUsePngItemImages = oProps.getBoolProperty(L"Ja2 Settings", "USE_PNG_ITEM_IMAGES", false);
+#endif
 
 	int	iResX;
 	int iResY;
@@ -1318,10 +1364,10 @@ void GetRuntimeSettings( )
 	// WANNE: Should we play the intro?
 	iPlayIntro = (int) GetPrivateProfileInt( "Ja2 Settings","PLAY_INTRO", iPlayIntro, INIFile );
 #else
-	gbPixelDepth = (UINT8)oProps.GetIntProperty(L"SGP", L"PIXEL_DEPTH", PIXEL_DEPTH);
+	gbPixelDepth = (UINT8)oProps.getIntProperty(L"SGP", L"PIXEL_DEPTH", PIXEL_DEPTH);
 
-	SCREEN_WIDTH = (UINT16)oProps.GetIntProperty(L"SGP", L"WIDTH", iResX);
-	SCREEN_HEIGHT = (UINT16)oProps.GetIntProperty(L"SGP", L"HEIGHT", iResY);
+	SCREEN_WIDTH = (UINT16)oProps.getIntProperty(L"SGP", L"WIDTH", iResX);
+	SCREEN_HEIGHT = (UINT16)oProps.getIntProperty(L"SGP", L"HEIGHT", iResY);
 
 	iScreenWidthOffset = (SCREEN_WIDTH - 640) / 2;
 	iScreenHeightOffset = (SCREEN_HEIGHT - 480) / 2;
@@ -1330,15 +1376,15 @@ void GetRuntimeSettings( )
 	/* 1 for Windowed, 0 for Fullscreen */
 	if( !bScreenModeCmdLine )
 	{
-		iScreenMode = oProps.GetIntProperty("Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode);
+		iScreenMode = (int)oProps.getIntProperty("Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode);
 	}
 
 	// WANNE: Should we play the intro?
-	iPlayIntro = oProps.GetIntProperty("Ja2 Settings","PLAY_INTRO", iPlayIntro);
+	iPlayIntro = (int)oProps.getIntProperty("Ja2 Settings","PLAY_INTRO", iPlayIntro);
 
 #ifdef USE_CODE_PAGE
-	s_DebugKeyboardInput = oProps.GetBoolProperty(L"Ja2 Settings", L"DEBUG_KEYS", false);
-	s_CodePage = oProps.GetStringProperty(L"Ja2 Settings", L"CODE_PAGE");
+	s_DebugKeyboardInput = oProps.getBoolProperty(L"Ja2 Settings", L"DEBUG_KEYS", false);
+	s_CodePage = oProps.getStringProperty(L"Ja2 Settings", L"CODE_PAGE");
 #endif // USE_CODE_PAGE
 #endif
 }

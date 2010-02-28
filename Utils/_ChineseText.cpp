@@ -3905,14 +3905,14 @@ STR16	gzMPHScreenText[] =
 	L"随机选择起始位置",//L"Randomise Starting Edge",
 	L"必须输入服务器名",//L"You must enter a server name",
 	L"最大玩家数必须在2-4之间",//L"Max Players must be between 2 and 4",
-	L"队伍大小必须在1-5之间",//L"Squad size must be between 1 and 5",
+	L"队伍大小必须在1-6之间",//L"Squad size must be between 1 and 6",
 	L"当日时间",//L"Time of Day",
 	L"当日时间必须是24小时制 (HH:MM)",//L"Time of Day must be a 24 hr time (HH:MM)\n\n eg. 13:30 = 1.30pm",
 	L"开始资金必须是整数（最小单位为1美元）" ,//L"Starting Cash must be a valid dollar amount ( no cents )\n\n eg. 150000" ,
 	L"伤害系数",//L"Damage Multiplier",
 	L"伤害系数必须于0-5之间",//L"Damage Multiplier must be a number between 0 and 5",
 	L"回合计时器",//L"Turn Timer Multiplier",
-	L"计时器必须设定在1-200之间",//L"Turn Timer multiplier must be a number between 1 and 200",
+	L"计时器必须设定在0-200之间",//L"Turn Timer multiplier must be a number between 0 (no timed turns) and 200 (short timed turns)",
 	L"合作模式中允许平民",//L"Enable Civilians in CO-OP",
 	L"使用新携行模式(NIV)",//L"Use New Inventory (NIV)",
 	L"强制执行最大AI敌人数量",//L"Enforce Maximum AI Enemies",
@@ -4731,6 +4731,7 @@ STR16 MPClientMessage[] =
 	L"点击 '准备' 进入战术画面。",//	L"Press 'Ready' to enter tactical screen.",
 	L"不能连接到服务器，因为你的版本 %S 和服务器端的版本 %S 不同。",
 	L"你击毙了一个敌人。",
+	L"Cannot start the game, because all teams are the same.",    // TODO.Translate
 };
 
 STR16 MPHelp[] =
@@ -4758,12 +4759,14 @@ STR16 MPHelp[] =
 	L"'F1' - 显示基本帮助",
 };
 
+// TODO.Translate
 STR16 gszMPEdgesText[] =
 {
 	L"N",
 	L"S",
 	L"E",
-	L"W"
+	L"W",
+	L"C",	// "C"enter
 };
 
 STR16 gszMPTeamNames[] =
@@ -4771,7 +4774,8 @@ STR16 gszMPTeamNames[] =
 	L"Foxtrot",
 	L"Bravo",
 	L"Delta",
-	L"Charlie"
+	L"Charlie",
+	L"N/A",		// Acronym of Not Applicable
 };
 
 STR16 gszMPMapscreenText[] =
@@ -5009,7 +5013,6 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"训练领导",
 	L"训练爆破",
 };
-
 STR16 Additional113Text[]=
 {
 	L"Jagged Alliance 2 v1.13 窗口模式需要一个16bpp或更少的颜色深度。",

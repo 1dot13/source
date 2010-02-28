@@ -23,7 +23,7 @@
 	#include "lighting.h"
 	#include "structure.h"
 	#include "vobject.h"
-
+	#include "Soldier Control.h"
 	#include "isometric utils.h"
 	#include "Interactive Tiles.h"
 	#include "utilities.h"
@@ -65,33 +65,49 @@
 	#include "SmokeEffects.h"
 	#include "LightEffects.h"
 	#include "meanwhile.h"
+	#include "LoadScreen.h"//dnl ch30 150909
+	#include "Interface Cursors.h"
+	#include "Simple Render Utils.h"//dnl ch54 111009
 #endif
-
-//forward declarations of common classes to eliminate includes
-class OBJECTTYPE;
-class SOLDIERTYPE;
-
 
 #define	SET_MOVEMENTCOST( a, b, c, d )				( ( gubWorldMovementCosts[ a ][ b ][ c ] < d ) ? ( gubWorldMovementCosts[ a ][ b ][ c ] = d ) : 0 );
 #define	FORCE_SET_MOVEMENTCOST( a, b, c, d )	( gubWorldMovementCosts[ a ][ b ][ c ] = d )
-#define	SET_CURRMOVEMENTCOST( a, b )					SET_MOVEMENTCOST( sGridNo, a, 0, b )
+#define  SET_CURRMOVEMENTCOST( a, b )			SET_MOVEMENTCOST( usGridNo, a, 0, b ) 
 
 #define	TEMP_FILE_FOR_TILESET_CHANGE				"jatileS34.dat"
 
 #define	MAP_FULLSOLDIER_SAVED				0x00000001
 #define	MAP_WORLDONLY_SAVED					0x00000002
 #define	MAP_WORLDLIGHTS_SAVED				0x00000004
-#define	MAP_WORLDITEMS_SAVED					0x00000008
+#define	MAP_WORLDITEMS_SAVED				0x00000008
 #define	MAP_EXITGRIDS_SAVED					0x00000010
 #define	MAP_DOORTABLE_SAVED					0x00000020
-#define	MAP_EDGEPOINTS_SAVED					0x00000040
-#define	MAP_AMBIENTLIGHTLEVEL_SAVED	0x00000080
+#define	MAP_EDGEPOINTS_SAVED				0x00000040
+#define	MAP_AMBIENTLIGHTLEVEL_SAVED			0x00000080
 #define	MAP_NPCSCHEDULES_SAVED				0x00000100
 
 #ifdef JA2EDITOR
 	extern BOOLEAN gfErrorCatch;
 	extern CHAR16 gzErrorCatchString[256];
 #endif
+
+//dnl ch43 290909
+//<SB> variable map size
+INT32 guiWorldCols = OLD_WORLD_COLS;
+INT32 guiWorldRows = OLD_WORLD_ROWS;
+// размеры должны быть произведением 8
+// size must be multiple of 8
+//SB: resize all service array due to tactical map size change
+extern UINT8 *gubGridNoMarkers;
+extern UINT8 *gubFOVDebugInfoInfo;
+extern INT16 gsFullTileDirections[MAX_FULLTILE_DIRECTIONS];
+extern INT32 dirDelta[8];
+extern INT16 DirIncrementer[8];
+extern INT16 *gsCoverValue;
+extern INT32 gsTempActionGridNo;
+extern INT32 gsOverItemsGridNo;
+extern INT32 gsOutOfRangeGridNo;
+//</SB>
 
 CHAR8 gubFilename[200];
 
@@ -126,10 +142,10 @@ BOOLEAN LoadTileSurfaces( char pTileSurfaceFilenames[][32], UINT8 ubTilesetID );
 BOOLEAN AddTileSurface( SGPFILENAME cFilename, UINT32 ubType, UINT8 ubTilesetID, BOOLEAN fGetFromRoot );
 void DestroyTileSurfaces( void );
 void ProcessTilesetNamesForBPP(void);
-BOOLEAN IsRoofVisibleForWireframe( INT16 sMapPos );
+BOOLEAN IsRoofVisibleForWireframe( INT32 sMapPos );
 
 
-INT8 IsHiddenTileMarkerThere( INT16 sGridNo );
+INT8 IsHiddenTileMarkerThere( INT32 sGridNo );
 extern void SetInterfaceHeightLevel( );
 extern void GetRootName( STR8 pDestStr, const STR8 pSrcStr );
 
@@ -141,7 +157,8 @@ void LoadMapLights( INT8 **hBuffer );
 MAP_ELEMENT			*gpWorldLevelData;
 INT32						*gpDirtyData;
 UINT32					gSurfaceMemUsage;
-UINT8						gubWorldMovementCosts[ WORLD_MAX ][MAXDIR][2];
+//UINT8						gubWorldMovementCosts[ WORLD_MAX ][MAXDIR][2];
+UINT8 (*gubWorldMovementCosts)[MAXDIR][2] = NULL;//dnl ch43 260909
 
 // set to nonzero (locs of base gridno of structure are good) to have it defined by structure code
 INT16		gsRecompileAreaTop = 0;
@@ -161,7 +178,7 @@ INT16		gsRecompileAreaBottom = 0;
 	extern UINT32 uiNumImagesReloaded;
 #endif
 
-BOOLEAN DoorAtGridNo( UINT32 iMapIndex )
+BOOLEAN DoorAtGridNo( INT32 iMapIndex )
 {
 	STRUCTURE *pStruct;
 	pStruct = gpWorldLevelData[ iMapIndex ].pStructureHead;
@@ -174,7 +191,7 @@ BOOLEAN DoorAtGridNo( UINT32 iMapIndex )
 	return FALSE;
 }
 
-BOOLEAN OpenableAtGridNo( UINT32 iMapIndex )
+BOOLEAN OpenableAtGridNo( INT32 iMapIndex )
 {
 	STRUCTURE *pStruct;
 	pStruct = gpWorldLevelData[ iMapIndex ].pStructureHead;
@@ -187,7 +204,7 @@ BOOLEAN OpenableAtGridNo( UINT32 iMapIndex )
 	return FALSE;
 }
 
-BOOLEAN FloorAtGridNo( UINT32 iMapIndex )
+BOOLEAN FloorAtGridNo( INT32 iMapIndex )
 {
 	LEVELNODE	*pLand;
 	UINT32 uiTileType;
@@ -208,7 +225,7 @@ BOOLEAN FloorAtGridNo( UINT32 iMapIndex )
 	return FALSE;
 }
 
-BOOLEAN GridNoIndoors( UINT32 iMapIndex )
+BOOLEAN GridNoIndoors( INT32 iMapIndex )
 {
 	if( gfBasement || gfCaves )
 		return TRUE;
@@ -223,7 +240,7 @@ void DOIT( )
 	//LEVELNODE *			pObject;
 	LEVELNODE	*			pStruct, *pNewStruct;
 	//LEVELNODE	*			pShadow;
-	UINT32 uiLoop;
+	INT32 uiLoop;
 
 	// first level
  	for( uiLoop = 0; uiLoop < WORLD_MAX; uiLoop++ )
@@ -300,28 +317,32 @@ BOOLEAN InitializeWorld( )
 
 }
 
-
-void DeinitializeWorld( )
+//dnl ch43 290909
+void DeinitializeWorld()
 {
 	TrashWorld();
-
-	if ( gpWorldLevelData != NULL )
-	{
-		MemFree( gpWorldLevelData );
-	}
-
-	if ( gpDirtyData != NULL )
-	{
-		MemFree( gpDirtyData );
-	}
-
-	DestroyTileSurfaces( );
-	FreeAllStructureFiles( );
-
-	// Shutdown tile database data
-	DeallocateTileDatabase( );
-
-	ShutdownRoomDatabase( );
+	if(gubGridNoMarkers)
+		MemFree(gubGridNoMarkers);
+	if(gsCoverValue)
+		MemFree(gsCoverValue);
+	if(gubBuildingInfo)
+		MemFree(gubBuildingInfo);
+	if(gubWorldRoomInfo)
+		MemFree(gubWorldRoomInfo);
+	if(gubWorldMovementCosts)
+		MemFree(gubWorldMovementCosts);
+	if(gpWorldLevelData)
+		MemFree(gpWorldLevelData);
+#ifdef _DEBUG
+	if(gubFOVDebugInfoInfo)
+		MemFree(gubFOVDebugInfoInfo);
+#endif
+	if(gpDirtyData)
+		MemFree(gpDirtyData);
+	DestroyTileSurfaces();
+	FreeAllStructureFiles();
+	DeallocateTileDatabase();
+	ShutdownRoomDatabase();
 }
 
 
@@ -461,7 +482,7 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 	return( TRUE );
 }
 
-BOOLEAN AddTileSurface( STR8	cFilename, UINT32 ubType, UINT8 ubTilesetID, BOOLEAN fGetFromRoot )
+BOOLEAN AddTileSurface( STR8  cFilename, UINT32 ubType, UINT8 ubTilesetID, BOOLEAN fGetFromRoot )
 {
 	// Add tile surface
 	PTILE_IMAGERY	TileSurf;
@@ -519,14 +540,14 @@ BOOLEAN AddTileSurface( STR8	cFilename, UINT32 ubType, UINT8 ubTilesetID, BOOLEA
 
 extern BOOLEAN gfLoadShadeTablesFromTextFile;
 
-void BuildTileShadeTables(	)
+void BuildTileShadeTables(  )
 {
 	// BF
 	//STRING512			DataDir;
 	//STRING512			ShadeTableDir;
-	UINT32					uiLoop;
-	CHAR8 		cRootFile[ 128 ];
-	BOOLEAN		fForceRebuildForSlot = FALSE;
+	UINT32				uiLoop;
+	CHAR8 				cRootFile[ 128 ];
+	BOOLEAN				fForceRebuildForSlot = FALSE;
 
 #ifdef JA2TESTVERSION
 	UINT32				uiStartTime;
@@ -589,27 +610,27 @@ void BuildTileShadeTables(	)
 		if ( gTileSurfaceArray[ uiLoop ] != NULL )
 		{
 			// Don't Create shade tables if default were already used once!
-#ifdef JA2EDITOR
-			if( gbNewTileSurfaceLoaded[ uiLoop ] || gfEditorForceShadeTableRebuild )
-#else
-			if( gbNewTileSurfaceLoaded[ uiLoop ]	)
-#endif
-			{
-				fForceRebuildForSlot = FALSE;
-
-				GetRootName( cRootFile, TileSurfaceFilenames[ uiLoop ] );
-
-				if ( strcmp( cRootFile, "grass2" ) == 0 )
+			#ifdef JA2EDITOR
+				if( gbNewTileSurfaceLoaded[ uiLoop ] || gfEditorForceShadeTableRebuild )
+			#else
+				if( gbNewTileSurfaceLoaded[ uiLoop ]  )
+			#endif
 				{
-					fForceRebuildForSlot = TRUE;
-				}
+					fForceRebuildForSlot = FALSE;
 
-#ifdef JA2TESTVERSION
-				uiNumImagesReloaded++;
-#endif
-				RenderProgressBar( 0, uiLoop * 100 / NUMBEROFTILETYPES );
-				CreateTilePaletteTables( gTileSurfaceArray[ uiLoop ]->vo, uiLoop, fForceRebuildForSlot );
-			}
+					GetRootName( cRootFile, TileSurfaceFilenames[ uiLoop ] );
+
+					if ( strcmp( cRootFile, "grass2" ) == 0 )
+					{
+						fForceRebuildForSlot = TRUE;
+					}
+
+					#ifdef JA2TESTVERSION
+						uiNumImagesReloaded++;
+					#endif
+					RenderProgressBar( 0, uiLoop * 100 / NUMBEROFTILETYPES );
+					CreateTilePaletteTables( gTileSurfaceArray[ uiLoop ]->vo, uiLoop, fForceRebuildForSlot );
+				}
 		}
 	}
 
@@ -621,9 +642,9 @@ void BuildTileShadeTables(	)
 	ubLastGreen = gpLightColors[0].peGreen;
 	ubLastBlue = gpLightColors[0].peBlue;
 
-#ifdef JA2TESTVERSION
-	uiBuildShadeTableTime = GetJA2Clock() - uiStartTime;
-#endif
+	#ifdef JA2TESTVERSION
+		uiBuildShadeTableTime = GetJA2Clock() - uiStartTime;
+	#endif
 }
 
 void DestroyTileShadeTables( )
@@ -666,11 +687,11 @@ void DestroyTileSurfaces( )
 
 void CompileWorldTerrainIDs( void )
 {
-	INT16						sGridNo;
-	INT16						sTempGridNo;
-	LEVELNODE	*			pNode;
-	TILE_ELEMENT *	pTileElement;
-	UINT8 ubLoop;
+	INT32			sGridNo;
+	INT32			sTempGridNo;
+	LEVELNODE		*pNode;
+	TILE_ELEMENT	*pTileElement;
+	UINT8			ubLoop;
 
  	for( sGridNo = 0; sGridNo < WORLD_MAX; sGridNo++ )
 	{
@@ -714,7 +735,7 @@ void CompileWorldTerrainIDs( void )
 	}
 }
 
-void CompileTileMovementCosts( INT16 sGridNo )
+void CompileTileMovementCosts( INT32 usGridNo )
 {
 	UINT8						ubTerrainID;
 	TILE_ELEMENT		TileElem;
@@ -728,20 +749,20 @@ void CompileTileMovementCosts( INT16 sGridNo )
 /*
 */
 
-	if ( GridNoOnVisibleWorldTile( sGridNo ) )
+	if ( GridNoOnVisibleWorldTile( usGridNo ) )
 	{
 		// check for land of a different height in adjacent locations
 		for ( ubDirLoop = 0; ubDirLoop < 8; ubDirLoop++ )
 		{
-			if ( gpWorldLevelData[ sGridNo ].sHeight !=
-					gpWorldLevelData[ sGridNo + DirectionInc( ubDirLoop ) ].sHeight )
+			if ( gpWorldLevelData[ usGridNo ].sHeight !=
+					 gpWorldLevelData[ usGridNo + DirectionInc( ubDirLoop ) ].sHeight )
 			{
 				SET_CURRMOVEMENTCOST( ubDirLoop, TRAVELCOST_OBSTACLE );
 			}
 		}
 
 		// check for exit grids
-		if ( ExitGridAtGridNo( sGridNo ) )
+		if ( ExitGridAtGridNo( usGridNo ) )
 		{
 			for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
 			{
@@ -755,19 +776,19 @@ void CompileTileMovementCosts( INT16 sGridNo )
 	{
 		for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
 		{
-			SET_MOVEMENTCOST( sGridNo, ubDirLoop,	0, TRAVELCOST_OFF_MAP );
-			SET_MOVEMENTCOST( sGridNo, ubDirLoop,	1, TRAVELCOST_OFF_MAP );
+			SET_MOVEMENTCOST( usGridNo, ubDirLoop,  0, TRAVELCOST_OFF_MAP );
+			SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_OFF_MAP );
 		}
-		if (gpWorldLevelData[sGridNo].pStructureHead == NULL)
+		if (gpWorldLevelData[usGridNo].pStructureHead == NULL)
 		{
 			return;
 		}
 	}
 
-	if (gpWorldLevelData[sGridNo].pStructureHead != NULL)
+	if (gpWorldLevelData[usGridNo].pStructureHead != NULL)
 	{ // structures in tile
 		// consider the land
-		pLand = gpWorldLevelData[ sGridNo ].pLandHead;
+		pLand = gpWorldLevelData[ usGridNo ].pLandHead;
 		if ( pLand != NULL )
 		{
 			// Set TEMPORARY cost here
@@ -775,7 +796,7 @@ void CompileTileMovementCosts( INT16 sGridNo )
 			TileElem = gTileDatabase[ pLand->usIndex ];
 
 			// Get terrain type
-			ubTerrainID =	gpWorldLevelData[sGridNo].ubTerrainID; // = GetTerrainType( (INT16)sGridNo );
+			ubTerrainID =	gpWorldLevelData[usGridNo].ubTerrainID; // = GetTerrainType( (INT16)usGridNo );
 
 			for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ubDirLoop++)
 			{
@@ -784,7 +805,7 @@ void CompileTileMovementCosts( INT16 sGridNo )
 		}
 
 		// now consider all structures
-		pStructure = gpWorldLevelData[sGridNo].pStructureHead;
+		pStructure = gpWorldLevelData[usGridNo].pStructureHead;
 		fStructuresOnRoof = FALSE;
 		do
 		{
@@ -843,14 +864,14 @@ void CompileTileMovementCosts( INT16 sGridNo )
 								SET_CURRMOVEMENTCOST( WEST, TRAVELCOST_OBSTACLE );
 								SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_OBSTACLE );
 								// set values for the tiles EXITED from this location
-								FORCE_SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTH, 0, TRAVELCOST_NONE );
-								SET_MOVEMENTCOST( sGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + 1, EAST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-								FORCE_SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_NONE );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo - 1, WEST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo - WORLD_COLS - 1, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
+								FORCE_SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTH, 0, TRAVELCOST_NONE );
+								SET_MOVEMENTCOST( usGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + 1, EAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+								FORCE_SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_NONE );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo - 1, WEST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo - WORLD_COLS - 1, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
 								break;
 
 							case OUTSIDE_TOP_RIGHT:
@@ -865,21 +886,21 @@ void CompileTileMovementCosts( INT16 sGridNo )
 								SET_CURRMOVEMENTCOST( WEST, TRAVELCOST_FENCE );
 								SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_OBSTACLE );
 								// set values for the tiles EXITED from this location
-								SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTH, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTH, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
 								// make sure no obstacle costs exists before changing path cost to 0
-								if ( gubWorldMovementCosts[ sGridNo + 1 ][ EAST ][ 0 ] < TRAVELCOST_BLOCKED )
+								if ( gubWorldMovementCosts[ usGridNo + 1 ][ EAST ][ 0 ] < TRAVELCOST_BLOCKED )
 								{
-									FORCE_SET_MOVEMENTCOST( sGridNo + 1, EAST, 0, TRAVELCOST_NONE );
+									FORCE_SET_MOVEMENTCOST( usGridNo + 1, EAST, 0, TRAVELCOST_NONE );
 								}
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
-								if ( gubWorldMovementCosts[ sGridNo - 1 ][ WEST ][ 0 ] < TRAVELCOST_BLOCKED )
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
+								if ( gubWorldMovementCosts[ usGridNo - 1 ][ WEST ][ 0 ] < TRAVELCOST_BLOCKED )
 								{
-									FORCE_SET_MOVEMENTCOST( sGridNo - 1, WEST, 0, TRAVELCOST_NONE );
+									FORCE_SET_MOVEMENTCOST( usGridNo - 1, WEST, 0, TRAVELCOST_NONE );
 								}
-								SET_MOVEMENTCOST( sGridNo - WORLD_COLS - 1, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo - WORLD_COLS - 1, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
 								break;
 
 							default:
@@ -898,25 +919,25 @@ void CompileTileMovementCosts( INT16 sGridNo )
 							SET_CURRMOVEMENTCOST( ubDirLoop, TRAVELCOST_OBSTACLE );
 						}
 
-						if ( FindStructure( (INT16) (sGridNo - WORLD_COLS), STRUCTURE_OBSTACLE ) == FALSE && FindStructure( (INT16)(sGridNo + WORLD_COLS), STRUCTURE_OBSTACLE ) == FALSE )
+						if ( FindStructure( (usGridNo - WORLD_COLS), STRUCTURE_OBSTACLE ) == FALSE && FindStructure( (usGridNo + WORLD_COLS), STRUCTURE_OBSTACLE ) == FALSE )
 						{
-							FORCE_SET_MOVEMENTCOST( sGridNo, NORTH, 0, TRAVELCOST_FENCE );
-							FORCE_SET_MOVEMENTCOST( sGridNo, SOUTH, 0, TRAVELCOST_FENCE );
+							FORCE_SET_MOVEMENTCOST( usGridNo, NORTH, 0, TRAVELCOST_FENCE );
+							FORCE_SET_MOVEMENTCOST( usGridNo, SOUTH, 0, TRAVELCOST_FENCE );
 						}
 
-						if ( FindStructure( (INT16)(sGridNo - 1), STRUCTURE_OBSTACLE ) == FALSE && FindStructure( (INT16)(sGridNo + 1), STRUCTURE_OBSTACLE ) == FALSE )
+						if ( FindStructure( (usGridNo - 1), STRUCTURE_OBSTACLE ) == FALSE && FindStructure( (usGridNo + 1), STRUCTURE_OBSTACLE ) == FALSE )
 						{
-							FORCE_SET_MOVEMENTCOST( sGridNo, EAST, 0, TRAVELCOST_FENCE );
-							FORCE_SET_MOVEMENTCOST( sGridNo, WEST, 0, TRAVELCOST_FENCE );
+							FORCE_SET_MOVEMENTCOST( usGridNo, EAST, 0, TRAVELCOST_FENCE );
+							FORCE_SET_MOVEMENTCOST( usGridNo, WEST, 0, TRAVELCOST_FENCE );
 						}
 					}
 					else if ( (pStructure->fFlags & STRUCTURE_CAVEWALL ) )
-			{
+					{
 						for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ubDirLoop++)
 						{
 							SET_CURRMOVEMENTCOST( ubDirLoop, TRAVELCOST_CAVEWALL );
 						}
-			}
+					}
 					else
 					{
 						for (ubDirLoop=0; ubDirLoop < NUM_WORLD_DIRECTIONS; ubDirLoop++)
@@ -939,34 +960,34 @@ void CompileTileMovementCosts( INT16 sGridNo )
 									SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_WALL );
 									SET_CURRMOVEMENTCOST( WEST, TRAVELCOST_DOOR_CLOSED_HERE );
 									SET_CURRMOVEMENTCOST( SOUTHWEST, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
-									SET_MOVEMENTCOST( sGridNo + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
+									SET_MOVEMENTCOST( usGridNo + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
 									// corner
-									SET_MOVEMENTCOST( sGridNo + 1 + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + 1 + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_WALL );
 								}
 								else
 								{	// door
 									SET_CURRMOVEMENTCOST( NORTH, TRAVELCOST_DOOR_OPEN_W );
 									SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_DOOR_OPEN_W );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_OPEN_NW );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_NW );
-									SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_W_W );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_NW_W );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_OPEN_NW );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_NW );
+									SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_W_W );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_NW_W );
 								}
 								break;
 
 							case INSIDE_TOP_RIGHT:
 								// doorpost
 								SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_WALL );
-								SET_MOVEMENTCOST( sGridNo + 1,NORTHEAST, 0, TRAVELCOST_WALL );
+								SET_MOVEMENTCOST( usGridNo + 1,NORTHEAST, 0, TRAVELCOST_WALL );
 								// door
 								SET_CURRMOVEMENTCOST( NORTH, TRAVELCOST_DOOR_OPEN_HERE );
 								SET_CURRMOVEMENTCOST( NORTHEAST, TRAVELCOST_DOOR_OPEN_HERE );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_OPEN_N );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_N );
-								SET_MOVEMENTCOST( sGridNo - 1, NORTHWEST, 0, TRAVELCOST_DOOR_OPEN_E );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_NE );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_OPEN_N );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_N );
+								SET_MOVEMENTCOST( usGridNo - 1, NORTHWEST, 0, TRAVELCOST_DOOR_OPEN_E );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_NE );
 								break;
 
 							default:
@@ -985,36 +1006,36 @@ void CompileTileMovementCosts( INT16 sGridNo )
 									SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_WALL );
 									SET_CURRMOVEMENTCOST( NORTH, TRAVELCOST_DOOR_CLOSED_HERE );
 									SET_CURRMOVEMENTCOST( NORTHEAST, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N )
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_WALL );									;
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N )
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_WALL );									;
 									// corner
-									SET_MOVEMENTCOST( sGridNo + 1 ,NORTHEAST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + 1 ,NORTHEAST, 0, TRAVELCOST_WALL );
 								}
 								else
 								{ // door
 									SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_DOOR_OPEN_N );
 									SET_CURRMOVEMENTCOST( WEST, TRAVELCOST_DOOR_OPEN_N );
-									SET_MOVEMENTCOST( sGridNo + 1, EAST, 0, TRAVELCOST_DOOR_OPEN_NW );
-									SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_NW );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_N_N );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_NW_N );
+									SET_MOVEMENTCOST( usGridNo + 1, EAST, 0, TRAVELCOST_DOOR_OPEN_NW );
+									SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_NW );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_N_N );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_NW_N );
 								}
 								break;
 
 							case INSIDE_TOP_LEFT:
 								// doorpost
 								SET_CURRMOVEMENTCOST( NORTHEAST, TRAVELCOST_WALL );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
 								// corner
-								SET_MOVEMENTCOST( sGridNo + 1 ,NORTHEAST, 0, TRAVELCOST_WALL );
+								SET_MOVEMENTCOST( usGridNo + 1 ,NORTHEAST, 0, TRAVELCOST_WALL );
 								// door
 								SET_CURRMOVEMENTCOST( WEST, TRAVELCOST_DOOR_OPEN_HERE );
 								SET_CURRMOVEMENTCOST( SOUTHWEST, TRAVELCOST_DOOR_OPEN_HERE );
-								SET_MOVEMENTCOST( sGridNo + 1, EAST, 0, TRAVELCOST_DOOR_OPEN_W );
-								SET_MOVEMENTCOST( sGridNo + 1, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_W );
-								SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_DOOR_OPEN_S );
-								SET_MOVEMENTCOST( sGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_SW );
+								SET_MOVEMENTCOST( usGridNo + 1, EAST, 0, TRAVELCOST_DOOR_OPEN_W );
+								SET_MOVEMENTCOST( usGridNo + 1, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_W );
+								SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_DOOR_OPEN_S );
+								SET_MOVEMENTCOST( usGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_SW );
 								break;
 							default:
 								// door with no orientation specified!?
@@ -1033,9 +1054,9 @@ void CompileTileMovementCosts( INT16 sGridNo )
 									SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_WALL );
 									SET_CURRMOVEMENTCOST( NORTH, TRAVELCOST_DOOR_CLOSED_HERE );
 									SET_CURRMOVEMENTCOST( NORTHEAST, TRAVELCOST_DOOR_CLOSED_HERE );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_DOOR_CLOSED_N );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_DOOR_CLOSED_N );
 
 								}
 								else
@@ -1043,9 +1064,9 @@ void CompileTileMovementCosts( INT16 sGridNo )
 									SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_DOOR_CLOSED_HERE );
 									SET_CURRMOVEMENTCOST( NORTH, TRAVELCOST_DOOR_CLOSED_HERE );
 									SET_CURRMOVEMENTCOST( NORTHEAST, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_DOOR_CLOSED_N);
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N);
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_DOOR_CLOSED_N);
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N);
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_WALL );
 
 								}
 								break;
@@ -1058,9 +1079,9 @@ void CompileTileMovementCosts( INT16 sGridNo )
 									SET_CURRMOVEMENTCOST( WEST, TRAVELCOST_DOOR_CLOSED_HERE );
 									SET_CURRMOVEMENTCOST( SOUTHWEST, TRAVELCOST_DOOR_CLOSED_HERE );
 
-									SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
-									SET_MOVEMENTCOST( sGridNo + 1, SOUTHEAST, 0, TRAVELCOST_DOOR_CLOSED_W );
+									SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
+									SET_MOVEMENTCOST( usGridNo + 1, SOUTHEAST, 0, TRAVELCOST_DOOR_CLOSED_W );
 								}
 								else
 								{
@@ -1068,9 +1089,9 @@ void CompileTileMovementCosts( INT16 sGridNo )
 									SET_CURRMOVEMENTCOST( WEST, TRAVELCOST_DOOR_CLOSED_HERE );
 									SET_CURRMOVEMENTCOST( SOUTHWEST, TRAVELCOST_WALL );
 
-									SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_DOOR_CLOSED_W );
-									SET_MOVEMENTCOST( sGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
-									SET_MOVEMENTCOST( sGridNo + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_DOOR_CLOSED_W );
+									SET_MOVEMENTCOST( usGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
+									SET_MOVEMENTCOST( usGridNo + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
 								}
 								break;
 						}
@@ -1087,32 +1108,32 @@ void CompileTileMovementCosts( INT16 sGridNo )
 									SET_CURRMOVEMENTCOST( NORTH, TRAVELCOST_DOOR_CLOSED_HERE );
 									SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_WALL );
 
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
 
 									// DO CORNERS
-									SET_MOVEMENTCOST( sGridNo - 1, NORTHWEST, 0, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo - 1, NORTHWEST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
 
 
 									//SET_CURRMOVEMENTCOST( NORTHEAST, TRAVELCOST_OBSTACLE );
 									//SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_OBSTACLE );
-									//SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-									//SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
+									//SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+									//SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
 									// corner
-									//SET_MOVEMENTCOST( sGridNo + 1 ,NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+									//SET_MOVEMENTCOST( usGridNo + 1 ,NORTHEAST, 0, TRAVELCOST_OBSTACLE );
 								}
 								else if (!(pStructure->fFlags & STRUCTURE_SLIDINGDOOR))
 								{ // door
 									SET_CURRMOVEMENTCOST( NORTHEAST, TRAVELCOST_WALL );
 									SET_CURRMOVEMENTCOST( EAST, TRAVELCOST_DOOR_OPEN_N );
-									SET_MOVEMENTCOST( sGridNo - 1, WEST, 0, TRAVELCOST_DOOR_OPEN_NE );
-									SET_MOVEMENTCOST( sGridNo - 1, NORTHWEST, 0, TRAVELCOST_WALL );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_N_N );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_NE_N );
+									SET_MOVEMENTCOST( usGridNo - 1, WEST, 0, TRAVELCOST_DOOR_OPEN_NE );
+									SET_MOVEMENTCOST( usGridNo - 1, NORTHWEST, 0, TRAVELCOST_WALL );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_N_N );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_NE_N );
 								}
 								break;
 
@@ -1121,32 +1142,32 @@ void CompileTileMovementCosts( INT16 sGridNo )
 								SET_CURRMOVEMENTCOST( NORTH, TRAVELCOST_DOOR_CLOSED_HERE );
 								SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_WALL );
 
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
 
 								// DO CORNERS
-								SET_MOVEMENTCOST( sGridNo - 1, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo - 1, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
 
 								// doorframe
 								//SET_CURRMOVEMENTCOST( NORTHEAST, TRAVELCOST_OBSTACLE );
 								//SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_OBSTACLE );
-								//SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-								//SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
+								//SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+								//SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
 								// corner
-								//SET_MOVEMENTCOST( sGridNo + 1 ,NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+								//SET_MOVEMENTCOST( usGridNo + 1 ,NORTHEAST, 0, TRAVELCOST_OBSTACLE );
 								// door
 								if (!(pStructure->fFlags & STRUCTURE_SLIDINGDOOR))
 								{
 									SET_CURRMOVEMENTCOST( EAST, TRAVELCOST_DOOR_OPEN_HERE );
 									SET_CURRMOVEMENTCOST( SOUTHEAST, TRAVELCOST_DOOR_OPEN_HERE );
-									SET_MOVEMENTCOST( sGridNo - 1, WEST, 0, TRAVELCOST_DOOR_OPEN_E );
-									SET_MOVEMENTCOST( sGridNo - 1, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_E );
-									SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_S );
-									SET_MOVEMENTCOST( sGridNo - WORLD_COLS - 1, NORTHWEST, 0, TRAVELCOST_DOOR_OPEN_SE );
+									SET_MOVEMENTCOST( usGridNo - 1, WEST, 0, TRAVELCOST_DOOR_OPEN_E );
+									SET_MOVEMENTCOST( usGridNo - 1, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_E );
+									SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_S );
+									SET_MOVEMENTCOST( usGridNo - WORLD_COLS - 1, NORTHWEST, 0, TRAVELCOST_DOOR_OPEN_SE );
 								}
 								break;
 
@@ -1157,31 +1178,31 @@ void CompileTileMovementCosts( INT16 sGridNo )
 									SET_CURRMOVEMENTCOST( WEST, TRAVELCOST_DOOR_CLOSED_HERE );
 									SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_OBSTACLE );
 
-									SET_MOVEMENTCOST( sGridNo + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-									SET_MOVEMENTCOST( sGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
-									SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+									SET_MOVEMENTCOST( usGridNo + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+									SET_MOVEMENTCOST( usGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
+									SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
 
 									// DO CORNERS
-									SET_MOVEMENTCOST( sGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
-									SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-									SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
+									SET_MOVEMENTCOST( usGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+									SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+									SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
 
 									//SET_CURRMOVEMENTCOST( SOUTHWEST, TRAVELCOST_OBSTACLE );
 									//SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_OBSTACLE );
-									//SET_MOVEMENTCOST( sGridNo + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-									//SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+									//SET_MOVEMENTCOST( usGridNo + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+									//SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
 									// corner
-									//SET_MOVEMENTCOST( sGridNo + 1 + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+									//SET_MOVEMENTCOST( usGridNo + 1 + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
 								}
 								else if (!(pStructure->fFlags & STRUCTURE_SLIDINGDOOR))
 								{	// door
 									SET_CURRMOVEMENTCOST( SOUTH, TRAVELCOST_DOOR_OPEN_W );
 									SET_CURRMOVEMENTCOST( SOUTHWEST, TRAVELCOST_DOOR_OPEN_W );
-									SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTH, 0, TRAVELCOST_DOOR_OPEN_SW );
-									SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_DOOR_OPEN_SW );
-									SET_MOVEMENTCOST( sGridNo + 1, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_W_W );
-									SET_MOVEMENTCOST( sGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_SW_W );
+									SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTH, 0, TRAVELCOST_DOOR_OPEN_SW );
+									SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_DOOR_OPEN_SW );
+									SET_MOVEMENTCOST( usGridNo + 1, SOUTHEAST, 0, TRAVELCOST_DOOR_OPEN_W_W );
+									SET_MOVEMENTCOST( usGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_SW_W );
 								}
 								break;
 
@@ -1190,34 +1211,34 @@ void CompileTileMovementCosts( INT16 sGridNo )
 								SET_CURRMOVEMENTCOST( WEST, TRAVELCOST_DOOR_CLOSED_HERE );
 								SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_OBSTACLE );
 
-								SET_MOVEMENTCOST( sGridNo + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
-								SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
+								SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
 
 								// DO CORNERS
-								SET_MOVEMENTCOST( sGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
 
 								// doorframe
 								/*
 								SET_CURRMOVEMENTCOST( SOUTHWEST, TRAVELCOST_OBSTACLE );
 								SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + 1,SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-								SET_MOVEMENTCOST( sGridNo + 1,NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + 1,SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo + 1,NORTHEAST, 0, TRAVELCOST_OBSTACLE );
 								// corner
-								SET_MOVEMENTCOST( sGridNo - WORLD_COLS,	NORTHWEST, 0, TRAVELCOST_OBSTACLE );
+								SET_MOVEMENTCOST( usGridNo - WORLD_COLS,  NORTHWEST, 0, TRAVELCOST_OBSTACLE );
 								*/
 								if (!(pStructure->fFlags & STRUCTURE_SLIDINGDOOR))
 								{
 									// door
 									SET_CURRMOVEMENTCOST( SOUTH, TRAVELCOST_DOOR_OPEN_HERE );
 									SET_CURRMOVEMENTCOST( SOUTHEAST, TRAVELCOST_DOOR_OPEN_HERE );
-									SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTH, 0, TRAVELCOST_DOOR_OPEN_S );
-									SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_S );
-									SET_MOVEMENTCOST( sGridNo - 1, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_E );
-									SET_MOVEMENTCOST( sGridNo - WORLD_COLS - 1, NORTHWEST, 0, TRAVELCOST_DOOR_OPEN_SE );
+									SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTH, 0, TRAVELCOST_DOOR_OPEN_S );
+									SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTHEAST, 0, TRAVELCOST_DOOR_OPEN_S );
+									SET_MOVEMENTCOST( usGridNo - 1, SOUTHWEST, 0, TRAVELCOST_DOOR_OPEN_E );
+									SET_MOVEMENTCOST( usGridNo - WORLD_COLS - 1, NORTHWEST, 0, TRAVELCOST_DOOR_OPEN_SE );
 								}
 								break;
 
@@ -1236,15 +1257,15 @@ void CompileTileMovementCosts( INT16 sGridNo )
 							SET_CURRMOVEMENTCOST( NORTH, TRAVELCOST_DOOR_CLOSED_HERE );
 							SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_OBSTACLE );
 
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_DOOR_CLOSED_N );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
 
 							// DO CORNERS
-							SET_MOVEMENTCOST( sGridNo - 1, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
-							SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo - 1, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
 							break;
 
 						case OUTSIDE_TOP_RIGHT:
@@ -1253,15 +1274,15 @@ void CompileTileMovementCosts( INT16 sGridNo )
 							SET_CURRMOVEMENTCOST( WEST, TRAVELCOST_DOOR_CLOSED_HERE );
 							SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_OBSTACLE );
 
-							SET_MOVEMENTCOST( sGridNo + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-							SET_MOVEMENTCOST( sGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
-							SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo + 1, EAST, 0, TRAVELCOST_DOOR_CLOSED_W );
+							SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
 
 							// DO CORNERS
-							SET_MOVEMENTCOST( sGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
-							SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_OBSTACLE );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_OBSTACLE );
 							break;
 
 						default:
@@ -1282,15 +1303,15 @@ void CompileTileMovementCosts( INT16 sGridNo )
 							SET_CURRMOVEMENTCOST( NORTHEAST, TRAVELCOST_WALL );
 							SET_CURRMOVEMENTCOST( NORTH, TRAVELCOST_WALL );
 							SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHEAST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTH, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
 
 							// DO CORNERS
-							SET_MOVEMENTCOST( sGridNo - 1, NORTHWEST, 0, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo - 1, NORTHWEST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS - 1, SOUTHWEST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
 							break;
 
 						case OUTSIDE_TOP_RIGHT:
@@ -1298,15 +1319,15 @@ void CompileTileMovementCosts( INT16 sGridNo )
 							SET_CURRMOVEMENTCOST( SOUTHWEST, TRAVELCOST_WALL );
 							SET_CURRMOVEMENTCOST( WEST, TRAVELCOST_WALL );
 							SET_CURRMOVEMENTCOST( NORTHWEST, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo + 1, EAST, 0, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo + 1, NORTHEAST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo + 1, EAST, 0, TRAVELCOST_WALL );								
+							SET_MOVEMENTCOST( usGridNo + 1, NORTHEAST, 0, TRAVELCOST_WALL );
 
 							// DO CORNERS
-							SET_MOVEMENTCOST( sGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
-							SET_MOVEMENTCOST( sGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo - WORLD_COLS + 1, NORTHEAST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo - WORLD_COLS, NORTHWEST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS + 1, SOUTHEAST, 0, TRAVELCOST_WALL );
+							SET_MOVEMENTCOST( usGridNo + WORLD_COLS, SOUTHWEST, 0, TRAVELCOST_WALL );
 							break;
 
 						default:
@@ -1319,7 +1340,7 @@ void CompileTileMovementCosts( INT16 sGridNo )
 			{
 				if (!(pStructure->fFlags & STRUCTURE_PASSABLE || pStructure->fFlags & STRUCTURE_NORMAL_ROOF))
 				{
-					// DNS:	Try a fix to prevent people from "permanently" blocking the roof
+					// DNS:  Try a fix to prevent people from "permanently" blocking the roof
 					if (!(pStructure->fFlags & STRUCTURE_PERSON))
 					{
 						fStructuresOnRoof = TRUE;
@@ -1330,20 +1351,20 @@ void CompileTileMovementCosts( INT16 sGridNo )
 		} while (pStructure != NULL);
 
 		// HIGHEST LAYER
-		if ((gpWorldLevelData[ sGridNo ].pRoofHead != NULL))
+		if ((gpWorldLevelData[ usGridNo ].pRoofHead != NULL))
 		{
 			if (!fStructuresOnRoof)
 			{
 				for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
 				{
-					SET_MOVEMENTCOST( sGridNo, ubDirLoop,	1, TRAVELCOST_FLAT );
+					SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_FLAT );
 				}
 			}
 			else
 			{
 				for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
 				{
-					SET_MOVEMENTCOST( sGridNo, ubDirLoop,	1, TRAVELCOST_OBSTACLE );
+					SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_OBSTACLE );
 				}
 			}
 		}
@@ -1351,7 +1372,7 @@ void CompileTileMovementCosts( INT16 sGridNo )
 		{
 			for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
 			{
-				SET_MOVEMENTCOST( sGridNo, ubDirLoop,	1, TRAVELCOST_OBSTACLE );
+				SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_OBSTACLE );
 			}
 		}
 	}
@@ -1360,14 +1381,14 @@ void CompileTileMovementCosts( INT16 sGridNo )
 		// consider just the land
 
 		// Get terrain type
-		ubTerrainID =	gpWorldLevelData[sGridNo].ubTerrainID; // = GetTerrainType( (INT16)sGridNo );
+		ubTerrainID =	gpWorldLevelData[usGridNo].ubTerrainID; // = GetTerrainType( (INT16)usGridNo );
 		for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
 		{
-			SET_MOVEMENTCOST( sGridNo ,ubDirLoop, 0, gTileTypeMovementCost[ ubTerrainID ] );
+			SET_MOVEMENTCOST( usGridNo ,ubDirLoop, 0, gTileTypeMovementCost[ ubTerrainID ] );
 		}
 
 /*
-		pLand = gpWorldLevelData[ sGridNo ].pLandHead;
+		pLand = gpWorldLevelData[ usGridNo ].pLandHead;
 		if ( pLand != NULL )
 		{
 			// Set cost here
@@ -1375,27 +1396,27 @@ void CompileTileMovementCosts( INT16 sGridNo )
 			TileElem = gTileDatabase[ pLand->usIndex ];
 
 			// Get terrain type
-			ubTerrainID =	GetTerrainType( (INT16)sGridNo );
+			ubTerrainID =	GetTerrainType( (INT16)usGridNo );
 
 			for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
 			{
-				SET_MOVEMENTCOST( sGridNo ,ubDirLoop, 0, gTileTypeMovementCost[ ubTerrainID ] );
+				SET_MOVEMENTCOST( usGridNo ,ubDirLoop, 0, gTileTypeMovementCost[ ubTerrainID ] );
 			}
 		}
 */
 		// HIGHEST LEVEL
-		if (gpWorldLevelData[ sGridNo ].pRoofHead != NULL)
+		if (gpWorldLevelData[ usGridNo ].pRoofHead != NULL)
 		{
 			for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
 			{
-				SET_MOVEMENTCOST( sGridNo, ubDirLoop,	1, TRAVELCOST_FLAT );
+				SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_FLAT );
 			}
 		}
 		else
 		{
 			for (ubDirLoop=0; ubDirLoop < 8; ubDirLoop++)
 			{
-				SET_MOVEMENTCOST( sGridNo, ubDirLoop,	1, TRAVELCOST_OBSTACLE );
+				SET_MOVEMENTCOST( usGridNo, ubDirLoop,  1, TRAVELCOST_OBSTACLE );
 			}
 		}
 	}
@@ -1403,9 +1424,9 @@ void CompileTileMovementCosts( INT16 sGridNo )
 
 #define LOCAL_RADIUS 4
 
-void RecompileLocalMovementCosts( INT16 sCentreGridNo )
+void RecompileLocalMovementCosts( INT32 sCentreGridNo )
 {
-	INT16		sGridNo;
+	INT32		usGridNo;
 	INT16		sGridX, sGridY;
 	INT16		sCentreGridX, sCentreGridY;
 	INT8		bDirLoop;
@@ -1415,15 +1436,15 @@ void RecompileLocalMovementCosts( INT16 sCentreGridNo )
 	{
 		for( sGridX = sCentreGridX - LOCAL_RADIUS; sGridX < sCentreGridX + LOCAL_RADIUS; sGridX++ )
 		{
-			sGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
+			usGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
 			// times 2 for 2 levels, times 2 for UINT16s
-//			memset( &(gubWorldMovementCosts[sGridNo]), 0, MAXDIR * 2 * 2 );
-			if (sGridNo < WORLD_MAX)
+//			memset( &(gubWorldMovementCosts[usGridNo]), 0, MAXDIR * 2 * 2 );
+			if (usGridNo < WORLD_MAX)
 			{
 				for( bDirLoop = 0; bDirLoop < MAXDIR; bDirLoop++)
 				{
-					gubWorldMovementCosts[sGridNo][bDirLoop][0] = 0;
-					gubWorldMovementCosts[sGridNo][bDirLoop][1] = 0;
+					gubWorldMovementCosts[usGridNo][bDirLoop][0] = 0;
+					gubWorldMovementCosts[usGridNo][bDirLoop][1] = 0;
 				}
 			}
 		}
@@ -1435,19 +1456,19 @@ void RecompileLocalMovementCosts( INT16 sCentreGridNo )
 	{
 		for( sGridX = sCentreGridX - LOCAL_RADIUS - 1; sGridX < sCentreGridX + LOCAL_RADIUS + 1; sGridX++ )
 		{
-			sGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
-			if (sGridNo < WORLD_MAX)
+			usGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
+			if (usGridNo < WORLD_MAX)
 			{
-				CompileTileMovementCosts( sGridNo );
+				CompileTileMovementCosts( usGridNo );
 			}
 		}
 	}
 }
 
 
-void RecompileLocalMovementCostsFromRadius( INT16 sCentreGridNo, INT8 bRadius )
+void RecompileLocalMovementCostsFromRadius( INT32 sCentreGridNo, INT8 bRadius )
 {
-	INT16		sGridNo;
+	INT32		usGridNo;
 	INT16		sGridX, sGridY;
 	INT16		sCentreGridX, sCentreGridY;
 	INT8		bDirLoop;
@@ -1469,15 +1490,15 @@ void RecompileLocalMovementCostsFromRadius( INT16 sCentreGridNo, INT8 bRadius )
 		{
 			for( sGridX = sCentreGridX - bRadius; sGridX < sCentreGridX + bRadius; sGridX++ )
 			{
-				sGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
+				usGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
 				// times 2 for 2 levels, times 2 for UINT16s
-	//			memset( &(gubWorldMovementCosts[sGridNo]), 0, MAXDIR * 2 * 2 );
-				if (sGridNo < WORLD_MAX)
+	//			memset( &(gubWorldMovementCosts[usGridNo]), 0, MAXDIR * 2 * 2 );
+				if (usGridNo < WORLD_MAX)
 				{
 					for( bDirLoop = 0; bDirLoop < MAXDIR; bDirLoop++)
 					{
-						gubWorldMovementCosts[sGridNo][bDirLoop][0] = 0;
-						gubWorldMovementCosts[sGridNo][bDirLoop][1] = 0;
+						gubWorldMovementCosts[usGridNo][bDirLoop][0] = 0;
+						gubWorldMovementCosts[usGridNo][bDirLoop][1] = 0;
 					}
 				}
 			}
@@ -1489,19 +1510,19 @@ void RecompileLocalMovementCostsFromRadius( INT16 sCentreGridNo, INT8 bRadius )
 		{
 			for( sGridX = sCentreGridX - bRadius - 1; sGridX < sCentreGridX + bRadius + 1; sGridX++ )
 			{
-				sGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
-				if (sGridNo < WORLD_MAX)
+				usGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
+				if (usGridNo < WORLD_MAX)
 				{
-					CompileTileMovementCosts( sGridNo );
+					CompileTileMovementCosts( usGridNo );
 				}
 			}
 		}
 	}
 }
 
-void AddTileToRecompileArea( INT16 sGridNo )
+void AddTileToRecompileArea( INT32 sGridNo )
 {
-	INT16	sCheckGridNo;
+	INT32	sCheckGridNo;
 	INT16	sCheckX;
 	INT16 sCheckY;
 
@@ -1542,7 +1563,7 @@ void AddTileToRecompileArea( INT16 sGridNo )
 
 void RecompileLocalMovementCostsInAreaWithFlags( void )
 {
-	INT16		sGridNo;
+	INT32		usGridNo;
 	INT16		sGridX, sGridY;
 	INT8		bDirLoop;
 
@@ -1550,17 +1571,17 @@ void RecompileLocalMovementCostsInAreaWithFlags( void )
 	{
 		for( sGridX = gsRecompileAreaLeft; sGridX < gsRecompileAreaRight; sGridX++ )
 		{
-			sGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
-			if ( sGridNo < WORLD_MAX && gpWorldLevelData[ sGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_RECALCULATE_MOVEMENT )
+			usGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
+			if ( usGridNo < WORLD_MAX && gpWorldLevelData[ usGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_RECALCULATE_MOVEMENT )
 			{
 				// wipe MPs in this tile!
 				for( bDirLoop = 0; bDirLoop < MAXDIR; bDirLoop++)
 				{
-					gubWorldMovementCosts[sGridNo][bDirLoop][0] = 0;
-					gubWorldMovementCosts[sGridNo][bDirLoop][1] = 0;
+					gubWorldMovementCosts[usGridNo][bDirLoop][0] = 0;
+					gubWorldMovementCosts[usGridNo][bDirLoop][1] = 0;
 				}
 				// reset flag
-				gpWorldLevelData[ sGridNo ].ubExtFlags[0] &= (~MAPELEMENT_EXT_RECALCULATE_MOVEMENT);
+				gpWorldLevelData[ usGridNo ].ubExtFlags[0] &= (~MAPELEMENT_EXT_RECALCULATE_MOVEMENT); 
 			}
 		}
 	}
@@ -1569,20 +1590,21 @@ void RecompileLocalMovementCostsInAreaWithFlags( void )
 	{
 		for( sGridX = gsRecompileAreaLeft; sGridX <= gsRecompileAreaRight; sGridX++ )
 		{
-			sGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
-			if (sGridNo < WORLD_MAX)
+			usGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
+			if (usGridNo < WORLD_MAX)
 			{
-				CompileTileMovementCosts( sGridNo );
+				CompileTileMovementCosts( usGridNo );
 			}
 		}
 	}
 }
 
-void RecompileLocalMovementCostsForWall( INT16 sGridNo, UINT8 ubOrientation )
+void RecompileLocalMovementCostsForWall( INT32 sGridNo, UINT8 ubOrientation )
 {
 	INT8		bDirLoop;
 	INT16		sUp, sDown, sLeft, sRight;
-	INT16		sX, sY, sTempGridNo;
+	INT16		sX, sY;
+	INT32		sTempGridNo;
 
 	switch( ubOrientation )
 	{
@@ -1620,43 +1642,35 @@ void RecompileLocalMovementCostsForWall( INT16 sGridNo, UINT8 ubOrientation )
 	}
 }
 
-
-
 // GLOBAL WORLD MANIPULATION FUNCTIONS
-void CompileWorldMovementCosts( )
+void CompileWorldMovementCosts(void)//dnl ch56 151009
 {
-	INT16					sGridNo;
-
-	memset( gubWorldMovementCosts, 0, sizeof( gubWorldMovementCosts ) );
-
+	memset(gubWorldMovementCosts, 0, sizeof(UINT8)*WORLD_MAX*MAXDIR*2);
 	CompileWorldTerrainIDs();
- 	for( sGridNo = 0; sGridNo < WORLD_MAX; sGridNo++ )
-	{
-		CompileTileMovementCosts( sGridNo );
-	}
+ 	for(INT32 usGridNo=0; usGridNo<WORLD_MAX; usGridNo++)
+		CompileTileMovementCosts(usGridNo);
 }
 
-
 // SAVING CODE
-BOOLEAN SaveWorld( const STR8 puiFilename )
+BOOLEAN SaveWorld(const STR8 puiFilename, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)//dnl ch33 150909
 {
 #ifdef JA2EDITOR
 	INT32			cnt;
-	UINT32		uiSoldierSize;
-	UINT32		uiType;
-	UINT32		uiFlags;
-	UINT32		uiBytesWritten;
-	UINT32		uiNumWarningsCaught = 0;
-	HWFILE		hfile;
-	LEVELNODE	*pLand;
-	LEVELNODE	*pObject;
-	LEVELNODE	*pStruct;
-	LEVELNODE	*pShadow;
-	LEVELNODE	*pRoof;
-	LEVELNODE	*pOnRoof;
-	LEVELNODE	*pTailLand=NULL;
-	UINT16		usNumExitGrids = 0;
-	UINT16	usTypeSubIndex;
+	UINT32			uiSoldierSize;
+	UINT32			uiType;
+	UINT32			uiFlags;
+	UINT32			uiBytesWritten;
+	UINT32			uiNumWarningsCaught = 0;
+	HWFILE			hfile;
+	LEVELNODE		*pLand;
+	LEVELNODE		*pObject;
+	LEVELNODE		*pStruct;
+	LEVELNODE		*pShadow;
+	LEVELNODE		*pRoof;
+	LEVELNODE		*pOnRoof;
+	LEVELNODE		*pTailLand=NULL;
+	UINT16			usNumExitGrids = 0;
+	UINT16			usTypeSubIndex;
 	UINT8			LayerCount;
 	UINT8			ObjectCount;
 	UINT8			StructCount;
@@ -1668,10 +1682,17 @@ BOOLEAN SaveWorld( const STR8 puiFilename )
 	UINT8			ubTest = 1;
 	CHAR8			aFilename[ 255 ];
 	UINT8			ubCombine;
-	UINT8			bCounts[ WORLD_MAX ][8];
+//	UINT8			bCounts[ WORLD_MAX ][8];
+	UINT8**			bCounts = NULL;
+	INT32			i;
+
+	bCounts = (UINT8**)MemAlloc(WORLD_MAX*sizeof(UINT8*));
+	for(i = 0; i<WORLD_MAX; i++)
+		bCounts[i] = (UINT8*)MemAlloc(8);
+	
 
 	sprintf( aFilename, "MAPS\\%s", puiFilename );
-
+	FileDelete(aFilename);// If file exist FileOpen will not truncate, so delete.
 	// Open file
 	hfile = FileOpen( aFilename, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 
@@ -1679,12 +1700,14 @@ BOOLEAN SaveWorld( const STR8 puiFilename )
 	{
 		return( FALSE );
 	}
-
-	// Write JA2 Version ID
-	FileWrite( hfile, &gdMajorMapVersion, sizeof( FLOAT ), &uiBytesWritten );
-	if( gdMajorMapVersion >= 4.00 )
+	//dnl ch33 150909
+	FileWrite(hfile, &dMajorMapVersion, sizeof(FLOAT), &uiBytesWritten);
+	if(dMajorMapVersion >= 4.00)
+		FileWrite(hfile, &ubMinorMapVersion, sizeof(UINT8), &uiBytesWritten);
+	if(!(dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION))
 	{
-		FileWrite( hfile, &gubMinorMapVersion, sizeof( UINT8 ), &uiBytesWritten );
+		FileWrite(hfile, &WORLD_ROWS, sizeof(INT32), &uiBytesWritten);
+		FileWrite(hfile, &WORLD_COLS, sizeof(INT32), &uiBytesWritten);
 	}
 
 	// Write FLAGS FOR WORLD
@@ -1705,6 +1728,7 @@ BOOLEAN SaveWorld( const STR8 puiFilename )
 	// Write tileset ID
 	FileWrite( hfile, &giCurrentTilesetID, sizeof( INT32 ), &uiBytesWritten );
 
+	// WDS - Clean up inventory handling
 	// Write SOLDIER CONTROL SIZE
 	uiSoldierSize = SIZEOF_SOLDIERTYPE_POD; //SIZEOF_SOLDIERTYPE;
 	FileWrite( hfile, &uiSoldierSize, sizeof( INT32 ), &uiBytesWritten );
@@ -2089,7 +2113,7 @@ BOOLEAN SaveWorld( const STR8 puiFilename )
 	if ( uiFlags & MAP_WORLDITEMS_SAVED )
 	{
 		// Write out item information
-		SaveWorldItemsToMap( hfile );
+		SaveWorldItemsToMap(hfile, dMajorMapVersion, ubMinorMapVersion);//dnl ch33 150909
 	}
 
 	if( uiFlags & MAP_AMBIENTLIGHTLEVEL_SAVED )
@@ -2105,42 +2129,47 @@ BOOLEAN SaveWorld( const STR8 puiFilename )
 		SaveMapLights( hfile );
 	}
 
-	if(gMapInformation.sCenterGridNo == -1 || (gMapInformation.sNorthGridNo == -1 && gMapInformation.sEastGridNo == -1 && gMapInformation.sSouthGridNo == -1 && gMapInformation.sWestGridNo == -1))//dnl
+	if(gMapInformation.sCenterGridNo == -1 || gMapInformation.ubEditorSmoothingType == SMOOTHING_NORMAL && (gMapInformation.sNorthGridNo == -1 && gMapInformation.sEastGridNo == -1 && gMapInformation.sSouthGridNo == -1 && gMapInformation.sWestGridNo == -1))//dnl ch17 290909
 	{
-		swprintf(gzErrorCatchString, L"SAVE ABORTED! Center entry point and at least one entry point (N,S,E,W) should be set.");
+		swprintf(gzErrorCatchString, L"SAVE ABORTED! Center and at least one of (N,S,E,W) entry point should be set.");
 		gfErrorCatch = TRUE;
 		FileClose(hfile);
 		return(FALSE);
 	}
-
-	SaveMapInformation( hfile );
+	SaveMapInformation(hfile, dMajorMapVersion, ubMinorMapVersion);//dnl ch33 150909
 
 	if( uiFlags & MAP_FULLSOLDIER_SAVED )
 	{
-		SaveSoldiersToMap( hfile );
+		SaveSoldiersToMap(hfile, dMajorMapVersion, ubMinorMapVersion);//dnl ch33 150909
 	}
 	if( uiFlags & MAP_EXITGRIDS_SAVED )
 	{
-		SaveExitGrids( hfile, usNumExitGrids );
+		SaveExitGrids(hfile, usNumExitGrids, dMajorMapVersion, ubMinorMapVersion);//dnl ch33 240909
 	}
 	if( uiFlags & MAP_DOORTABLE_SAVED )
 	{
-		SaveDoorTableToMap( hfile );
+		SaveDoorTableToMap(hfile, dMajorMapVersion, ubMinorMapVersion);//dnl ch33 240909
 	}
 	if( uiFlags & MAP_EDGEPOINTS_SAVED )
 	{
 		CompileWorldMovementCosts();
-		GenerateMapEdgepoints();
-		SaveMapEdgepoints( hfile );
+		GenerateMapEdgepoints(TRUE);//dnl ch43 290909
+		SaveMapEdgepoints(hfile, dMajorMapVersion, ubMinorMapVersion);//dnl ch33 240909
 	}
 	if( uiFlags & MAP_NPCSCHEDULES_SAVED )
 	{
-		SaveSchedules( hfile );
+		SaveSchedules(hfile, dMajorMapVersion, ubMinorMapVersion);//dnl ch33 240909
 	}
 
 	FileClose( hfile );
 
 	sprintf( gubFilename, puiFilename );
+
+
+	for(i = 0; i<WORLD_MAX; i++)
+		MemFree(bCounts[i]);
+	MemFree(bCounts);
+
 #endif //JA2EDITOR
 
 	return( TRUE );
@@ -2160,16 +2189,16 @@ INT8	bDirectionsForShadowSearch[ NUM_DIR_SEARCHES ] =
 void OptimizeMapForShadows( )
 {
 	INT32 cnt, dir;
-	INT16 sNewGridNo;
+	INT32 sNewGridNo;
 	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
 	{
 		// CHECK IF WE ARE A TREE HERE
-		if ( IsTreePresentAtGridno( (INT16)cnt ) )
+		if ( IsTreePresentAtGridNo( cnt ) )
 		{
 			// CHECK FOR A STRUCTURE A FOOTPRINT AWAY
 			for ( dir = 0; dir < NUM_DIR_SEARCHES; dir++ )
 			{
-				sNewGridNo = NewGridNo( (INT16)cnt, (UINT16)DirectionInc( bDirectionsForShadowSearch[ dir ] ) );
+				sNewGridNo = NewGridNo( cnt, (UINT16)DirectionInc( bDirectionsForShadowSearch[ dir ] ) );
 
 				if ( gpWorldLevelData[ sNewGridNo ].pStructureHead == NULL )
 				{
@@ -2239,432 +2268,392 @@ void InitLoadedWorld( )
 #ifdef JA2EDITOR
 //This is a specialty function that is very similar to LoadWorld, except that it
 //doesn't actually load the world, it instead evaluates the map and generates summary
-//information for use within the summary editor.	The header is defined in Summary Info.h,
+//information for use within the summary editor.  The header is defined in Summary Info.h,
 //not worlddef.h -- though it's not likely this is going to be used anywhere where it would
 //matter.
 extern double MasterStart, MasterEnd;
 extern BOOLEAN gfUpdatingNow;
-
-BOOLEAN EvaluateWorld( STR8 pSector, UINT8 ubLevel )
+//dnl ch28 250909
+BOOLEAN EvaluateWorld(STR8 pSector, UINT8 ubLevel)
 {
-	FLOAT	dMajorMapVersion;
+	FLOAT dMajorMapVersion;
 	SUMMARYFILE *pSummary;
-	HWFILE	hfile;
-	MAPCREATE_STRUCT mapInfo;
+	HWFILE hfile;
 	INT8 *pBuffer, *pBufferHead;
-	UINT32					uiFileSize;
-	UINT32 uiFlags;
-	UINT32 uiBytesRead;
-	INT32 cnt;
-	INT32 i;
-	INT32 iTilesetID;
-	CHAR16 str[40];
-	UINT8	bCounts[ WORLD_MAX ][8];
-	UINT8 ubCombine;
-	CHAR8 szDirFilename[ 50 ];
-	CHAR8 szFilename[ 40 ];
-	UINT8 ubMinorMapVersion;
-
-	float oldMajorMapVersion;
-	UINT8 oldMinorMapVersion;
-
-
-	//Make sure the file exists... if not, then return false
-	sprintf( szFilename, pSector );
-	if( ubLevel % 4	)
-	{
-		CHAR8 str[4];
-		sprintf( str, "_b%d", ubLevel % 4 );
-		strcat( szFilename, str );
-	}
-	if( ubLevel >= 4 )
-	{
-		strcat( szFilename, "_a" );
-	}
-	strcat( szFilename, ".dat" );
-	sprintf( szDirFilename, "MAPS\\%s", szFilename );
-
-	if( gfMajorUpdate )
-	{
-		if( !LoadWorld( szFilename, &oldMajorMapVersion, &oldMinorMapVersion ) ) //error
-			return FALSE;
-		FileClearAttributes( szDirFilename );
-		SaveWorld( szFilename );
-	}
-
-	hfile = FileOpen( szDirFilename, FILE_ACCESS_READ, FALSE );
-	if( !hfile )
-		return FALSE;
-
-	uiFileSize = FileGetSize( hfile );
-	pBuffer = (INT8*)MemAlloc( uiFileSize );
+	UINT32 uiFlags, uiFileSize, uiBytesRead;
+	INT32 i, cnt, iTilesetID;
+	CHAR16 str[2*FILENAME_BUFLEN];
+	CHAR8 szDirFilename[2*FILENAME_BUFLEN], szFilename[FILENAME_BUFLEN];
+	UINT8 ubCombine, ubMinorMapVersion;
+	UINT8 (*bCounts)[8] = NULL;
+	// Make sure the file exists... if not, then return false
+	sprintf(szFilename, pSector);
+	if(ubLevel % 4)
+		sprintf(szFilename+strlen(szFilename), "_b%d", ubLevel%4);
+	if(ubLevel >= 4)
+		strcat(szFilename, "_a");
+	strcat(szFilename, ".dat");
+	CHAR16 szFileName[40];
+	swprintf(szFileName, L"%S", pSector);
+	if(ValidMapFileName(szFileName))
+		strcpy(szFilename, pSector);
+	sprintf(szDirFilename, "MAPS\\%s", szFilename);
+	hfile = FileOpen(szDirFilename, FILE_ACCESS_READ, FALSE);
+	if(!hfile)
+		return(FALSE);
+	uiFileSize = FileGetSize(hfile);
+	pBuffer = (INT8*)MemAlloc(uiFileSize);
 	pBufferHead = pBuffer;
-	FileRead( hfile, pBuffer, uiFileSize, &uiBytesRead );
-	FileClose( hfile );
-
-	swprintf( str, L"Analyzing map %S", szFilename );
-	if( !gfUpdatingNow )
-		SetRelativeStartAndEndPercentage( 0, 0, 100, str );
+	FileRead(hfile, pBuffer, uiFileSize, &uiBytesRead);
+	FileClose(hfile);
+	swprintf(str, L"Analyzing map %S", szFilename);
+	if(!gfUpdatingNow)
+		SetRelativeStartAndEndPercentage(0, 0, 100, str);
 	else
-		SetRelativeStartAndEndPercentage( 0, (UINT16)MasterStart, (UINT16)MasterEnd, str );
-
-	RenderProgressBar( 0, 0 );
-	//RenderProgressBar( 1, 0 );
-
+		SetRelativeStartAndEndPercentage(0, (UINT16)MasterStart, (UINT16)MasterEnd, str);
+	RenderProgressBar(0, 0);
 	//clear the summary file info
-	pSummary = (SUMMARYFILE*)MemAlloc( sizeof( SUMMARYFILE ) );
-	Assert( pSummary );
-	memset( pSummary, 0, sizeof( SUMMARYFILE ) );
+	pSummary = (SUMMARYFILE*)MemAlloc(sizeof(SUMMARYFILE));
+	Assert(pSummary);
+	memset(pSummary, 0, sizeof(SUMMARYFILE));
 	pSummary->ubSummaryVersion = GLOBAL_SUMMARY_VERSION;
-	pSummary->dMajorMapVersion = gdMajorMapVersion;
-
-	//skip JA2 Version ID
-	LOADDATA( &dMajorMapVersion, pBuffer, sizeof( FLOAT ) );
-	if( dMajorMapVersion >= 4.00 )
+	LOADDATA(&dMajorMapVersion, pBuffer, sizeof(FLOAT));
+	pSummary->dMajorMapVersion = dMajorMapVersion;
+	if(dMajorMapVersion >= 4.00)
+		LOADDATA(&ubMinorMapVersion, pBuffer, sizeof(UINT8));
+	INT32 iCurRowSize = WORLD_ROWS;
+	INT32 iCurColSize = WORLD_COLS;
+	if(dMajorMapVersion < 7.00)
 	{
-		LOADDATA( &ubMinorMapVersion, pBuffer, sizeof( UINT8 ) );
+		WORLD_ROWS = OLD_WORLD_ROWS;
+		WORLD_COLS = OLD_WORLD_COLS;
 	}
-
-	//Read FLAGS FOR WORLD
-	LOADDATA( &uiFlags, pBuffer, sizeof( INT32 ) );
-
-	//Read tilesetID
-	LOADDATA( &iTilesetID, pBuffer, sizeof( INT32 ) );
-	pSummary->ubTilesetID = (UINT8)iTilesetID;
-
-	//skip soldier size
-	pBuffer += sizeof( INT32 );
-
-	//skip height values
-	pBuffer += sizeof( INT16 ) * WORLD_MAX;
-
-	//read layer counts
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	else
 	{
-		if( !( cnt % 2560 ) )
-		{
-			RenderProgressBar( 0, (cnt / 2560)+1 ); //1 - 10
-			//RenderProgressBar( 1, (cnt / 2560)+1 ); //1 - 10
-		}
+		INT32 iRowSize, iColSize;
+		LOADDATA(&iRowSize, pBuffer, sizeof(INT32));
+		LOADDATA(&iColSize, pBuffer, sizeof(INT32));
+		WORLD_ROWS = iRowSize;
+		WORLD_COLS = iColSize;
+	}
+	gMapTrn.DisableTrn();//dnl ch44 290909
+	// Read FLAGS FOR WORLD
+	LOADDATA(&uiFlags, pBuffer, sizeof(INT32));
+	// Read tilesetID
+	LOADDATA(&iTilesetID, pBuffer, sizeof(INT32));
+	pSummary->ubTilesetID = iTilesetID;
+	// Skip soldier size
+	pBuffer += sizeof(INT32);
+	// Skip height values
+	pBuffer += sizeof(INT16) * WORLD_MAX;
+	bCounts = (UINT8(*)[8])MemAlloc(WORLD_MAX*8);
+	memset(bCounts, 0, sizeof(UINT8)*WORLD_MAX*8);
+	// Read layer counts
+	for(cnt=0; cnt<WORLD_MAX; cnt++)
+	{
+		if(!(cnt % 2560))
+			RenderProgressBar(0, (cnt/2560)+1);// 1 - 10
 		// Read combination of land/world flags
-		LOADDATA( &ubCombine, pBuffer, sizeof( UINT8 ) );
-		// split
-		bCounts[ cnt ][0] = (UINT8)(ubCombine&0xf);
-		gpWorldLevelData[ cnt ].uiFlags |= (UINT8)((ubCombine&0xf0)>>4);
+		LOADDATA(&ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][0] = (UINT8)(ubCombine & 0x0F);
+		UINT16 uiFlags = (UINT8)((ubCombine & 0xF0) >> 4);//gpWorldLevelData[cnt].uiFlags |= (UINT8)((ubCombine & 0xF0) >> 4);
 		// Read #objects, structs
-		LOADDATA( &ubCombine, pBuffer, sizeof( UINT8 ) );
-		// split
-		bCounts[ cnt ][1] = (UINT8)(ubCombine&0xf);
-		bCounts[ cnt ][2] = (UINT8)((ubCombine&0xf0)>>4);
+		LOADDATA( &ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][1] = (UINT8)(ubCombine & 0x0F);
+		bCounts[cnt][2] = (UINT8)((ubCombine & 0xF0) >> 4);
 		// Read shadows, roof
-		LOADDATA( &ubCombine, pBuffer, sizeof( UINT8 ) );
-		// split
-		bCounts[ cnt ][3] = (UINT8)(ubCombine&0xf);
-		bCounts[ cnt ][4] = (UINT8)((ubCombine&0xf0)>>4);
+		LOADDATA(&ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][3] = (UINT8)(ubCombine & 0x0F);
+		bCounts[cnt][4] = (UINT8)((ubCombine & 0xF0) >> 4);
 		// Read OnRoof, nothing
-		LOADDATA( &ubCombine, pBuffer, sizeof( UINT8 ) );
-		// split
-		bCounts[ cnt ][5] = (UINT8)(ubCombine&0xf);
-		//bCounts[ cnt ][4] = (UINT8)((ubCombine&0xf0)>>4);
-		bCounts[ cnt ][6] = bCounts[cnt][0] + bCounts[cnt][1] +
-												bCounts[cnt][2] + bCounts[cnt][3] +
-												bCounts[cnt][4] + bCounts[cnt][5];
+		LOADDATA(&ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][5] = (UINT8)(ubCombine & 0x0F);
+		bCounts[cnt][6] = bCounts[cnt][0] + bCounts[cnt][1] + bCounts[cnt][2] + bCounts[cnt][3] + bCounts[cnt][4] + bCounts[cnt][5];
 	}
-	//skip all layers
-	for( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	// Skip all layers
+	for(cnt = 0; cnt<WORLD_MAX; cnt++)
 	{
-		if( !( cnt % 320 ) )
-		{
-			RenderProgressBar( 0, (cnt / 320)+11 ); //11 - 90
-			//RenderProgressBar( 1, (cnt / 320)+11 ); //11 - 90
-		}
-		pBuffer += sizeof( UINT16 ) * bCounts[cnt][6];
+		if(!(cnt % 320))
+			RenderProgressBar(0, (cnt/320)+11);// 11 - 90
+		pBuffer += sizeof(UINT16) * bCounts[cnt][6];
 		pBuffer += bCounts[cnt][1];
 	}
-
-	//extract highest room number
+	// Extract highest room number
+	UINT8 ubRoomNum;
+	for(cnt=0; cnt<WORLD_MAX; cnt++)
 	{
-		UINT8 ubRoomNum;
-		for( cnt = 0; cnt < WORLD_MAX; cnt++ )
-		{
-			LOADDATA( &ubRoomNum, pBuffer, 1 );
-			if( ubRoomNum > pSummary->ubNumRooms )
-			{
-				pSummary->ubNumRooms = ubRoomNum;
-			}
-		}
+		LOADDATA(&ubRoomNum, pBuffer, sizeof(ubRoomNum));
+		if(ubRoomNum > pSummary->ubNumRooms)
+			pSummary->ubNumRooms = ubRoomNum;
 	}
 
-	if( uiFlags & MAP_WORLDITEMS_SAVED )
+	if(uiFlags & MAP_WORLDITEMS_SAVED)
 	{
+		RenderProgressBar(0, 91);
+		// Get number of items
 		UINT32 temp;
-		RenderProgressBar( 0, 91 );
-		//RenderProgressBar( 1, 91 );
-		//get number of items (for now)
-		LOADDATA( &temp, pBuffer, 4 );
-		pSummary->usNumItems = (UINT16)temp;
-		//Important:	Saves the file position (byte offset) of the position where the numitems
-		//			resides.	Checking this value and comparing to usNumItems will ensure validity.
-		//ADB warning, even if the number of items is 0 we still need to store the position!!!
-		//if( pSummary->usNumItems )
-		//{
-			pSummary->uiNumItemsPosition = pBuffer - pBufferHead - 4;
-		//}
-
-		//the size of WORLDITEM has changed at 6.27, 5.26 or earlier are outdated
-		if (dMajorMapVersion >= 6.0 && ubMinorMapVersion > 26) {
-			//Skip the contents of the world items.
-			WORLDITEM dummyItem;
-			for (int x = 0; x < pSummary->usNumItems; ++x) {
-				dummyItem.Load(&pBuffer, dMajorMapVersion, ubMinorMapVersion);
-			}
-		}
-		else {
-			//ADB Shouldn't happen, we just saved as newest version
-			//Skip the contents of the world items.
-			pBuffer += sizeof( OLD_WORLDITEM_101 ) * pSummary->usNumItems;
-		}
+		LOADDATA(&temp, pBuffer, 4);
+		pSummary->usNumItems = temp;
+		pSummary->uiNumItemsPosition = pBuffer - pBufferHead - 4;
+		// Skip the contents of the world items
+		WORLDITEM dummyItem;
+		for(i=0; i<(INT32)pSummary->usNumItems; i++)
+			dummyItem.Load(&pBuffer, dMajorMapVersion, ubMinorMapVersion);
 	}
 
-	if( uiFlags & MAP_AMBIENTLIGHTLEVEL_SAVED )
-	{
+	if(uiFlags & MAP_AMBIENTLIGHTLEVEL_SAVED)
 		pBuffer += 3;
-	}
 
-	if( uiFlags & MAP_WORLDLIGHTS_SAVED )
+	if(uiFlags & MAP_WORLDLIGHTS_SAVED)
 	{
+		RenderProgressBar(0, 92);
+		// Skip number of light palette entries
 		UINT8 ubTemp;
-		RenderProgressBar( 0, 92 );
-		//RenderProgressBar( 1, 92 );
-		//skip number of light palette entries
-		LOADDATA( &ubTemp, pBuffer, 1 );
-		pBuffer += sizeof( SGPPaletteEntry ) * ubTemp;
-		//get number of lights
-		LOADDATA( &pSummary->usNumLights, pBuffer, 2 );
-		//skip the light loading
-		for( cnt = 0; cnt < pSummary->usNumLights; cnt++ )
+		LOADDATA(&ubTemp, pBuffer, sizeof(UINT8));
+		pBuffer += sizeof(SGPPaletteEntry) * ubTemp;
+		// Get number of lights
+		UINT16 usNumLights;
+		LOADDATA(&usNumLights, pBuffer, sizeof(UINT16));
+		pSummary->usNumLights = usNumLights;
+		// Skip the light loading
+		for(cnt=0; cnt<(INT32)pSummary->usNumLights; cnt++)
 		{
 			UINT8 ubStrLen;
-			pBuffer += sizeof( LIGHT_SPRITE );
-			LOADDATA( &ubStrLen, pBuffer, 1 );
-			if( ubStrLen )
-			{
+			pBuffer += sizeof(LIGHT_SPRITE);
+			LOADDATA(&ubStrLen, pBuffer, sizeof(UINT8));
+			if(ubStrLen)
 				pBuffer += ubStrLen;
-			}
 		}
 	}
 
-	//read the mapinformation
-	LOADDATA( &mapInfo, pBuffer, sizeof( MAPCREATE_STRUCT ) );
+	// Read Map Information
+	pSummary->MapInfo.Load(&pBuffer, dMajorMapVersion);
 
-	memcpy( &pSummary->MapInfo, &mapInfo, sizeof( MAPCREATE_STRUCT ) );
-	pSummary->MapInfo.ubMapVersion = gubMinorMapVersion;
-
-	if( uiFlags & MAP_FULLSOLDIER_SAVED )
+	if(uiFlags & MAP_FULLSOLDIER_SAVED)
 	{
-		TEAMSUMMARY *pTeam=NULL;
+		RenderProgressBar(0, 94);
 		BASIC_SOLDIERCREATE_STRUCT basic;
 		SOLDIERCREATE_STRUCT priority;
-		RenderProgressBar( 0, 94 );
-		//RenderProgressBar( 1, 94 );
-
+		TEAMSUMMARY *pTeam = NULL;
 		pSummary->uiEnemyPlacementPosition = pBuffer - pBufferHead;
-
-		for( i=0; i < pSummary->MapInfo.ubNumIndividuals ; i++ )
+		for(i=0; i<pSummary->MapInfo.ubNumIndividuals ; i++)
 		{
-			LOADDATA( &basic, pBuffer, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
-
-			switch( basic.bTeam )
+			basic.Load(&pBuffer, dMajorMapVersion);
+			switch(basic.bTeam)
 			{
-				case ENEMY_TEAM:		pTeam = &pSummary->EnemyTeam;			break;
-				case CREATURE_TEAM:	pTeam = &pSummary->CreatureTeam;	break;
-				case MILITIA_TEAM:	pTeam = &pSummary->RebelTeam;			break;
-				case CIV_TEAM:			pTeam = &pSummary->CivTeam;				break;
+			case ENEMY_TEAM:
+				pTeam = &pSummary->EnemyTeam;
+				break;
+			case CREATURE_TEAM:
+				pTeam = &pSummary->CreatureTeam;
+				break;
+			case MILITIA_TEAM:
+				pTeam = &pSummary->RebelTeam;
+				break;
+			case CIV_TEAM:
+				pTeam = &pSummary->CivTeam;
+				break;
 			}
-			if( basic.bOrders == RNDPTPATROL || basic.bOrders == POINTPATROL )
-			{ //make sure the placement has at least one waypoint.
-				if( !basic.bPatrolCnt )
-				{
+			if(basic.bOrders == RNDPTPATROL || basic.bOrders == POINTPATROL)
+			{
+				//make sure the placement has at least one waypoint.
+				if(!basic.bPatrolCnt)
 					pSummary->ubEnemiesReqWaypoints++;
-				}
 			}
-			else if( basic.bPatrolCnt )
-			{
+			else if(basic.bPatrolCnt)
 				pSummary->ubEnemiesHaveWaypoints++;
-			}
-			if( basic.fPriorityExistance )
+			if(basic.fPriorityExistance)
 				pTeam->ubExistance++;
-			switch( basic.bRelativeAttributeLevel )
+			switch(basic.bRelativeAttributeLevel)
 			{
-				case 0:	pTeam->ubBadA++;		break;
-				case 1:	pTeam->ubPoorA++;		break;
-				case 2:	pTeam->ubAvgA++;		break;
-				case 3:	pTeam->ubGoodA++;		break;
-				case 4:	pTeam->ubGreatA++;	break;
+			case 0:
+				pTeam->ubBadA++;
+				break;
+			case 1:
+				pTeam->ubPoorA++;
+				break;
+			case 2:
+				pTeam->ubAvgA++;
+				break;
+			case 3:
+				pTeam->ubGoodA++;
+				break;
+			case 4:
+				pTeam->ubGreatA++;
+				break;
 			}
-			switch( basic.bRelativeEquipmentLevel )
+			switch(basic.bRelativeEquipmentLevel)
 			{
-				case 0:	pTeam->ubBadE++;		break;
-				case 1:	pTeam->ubPoorE++;		break;
-				case 2:	pTeam->ubAvgE++;		break;
-				case 3:	pTeam->ubGoodE++;		break;
-				case 4:	pTeam->ubGreatE++;	break;
+			case 0:
+				pTeam->ubBadE++;
+				break;
+			case 1:
+				pTeam->ubPoorE++;
+				break;
+			case 2:
+				pTeam->ubAvgE++;	
+				break;
+			case 3:
+				pTeam->ubGoodE++;
+				break;
+			case 4:
+				pTeam->ubGreatE++;	
+				break;
 			}
-			if( basic.fDetailedPlacement )
-			{ //skip static priority placement
+			if(basic.fDetailedPlacement)
+			{
+				// Skip static priority placement, Clean up inventory handling
 				priority.Load(&pBuffer, dMajorMapVersion, ubMinorMapVersion);
-				if( priority.ubProfile != NO_PROFILE )
+				if(priority.ubProfile != NO_PROFILE)
 					pTeam->ubProfile++;
 				else
 					pTeam->ubDetailed++;
-				if( basic.bTeam == CIV_TEAM )
+				if(basic.bTeam == CIV_TEAM)
 				{
-					if( priority.ubScheduleID )
+					if(priority.ubScheduleID)
 						pSummary->ubCivSchedules++;
-					if( priority.bBodyType == COW )
+					if(priority.bBodyType == COW)
 						pSummary->ubCivCows++;
-					else if( priority.bBodyType == BLOODCAT )
+					else if(priority.bBodyType == BLOODCAT)
 						pSummary->ubCivBloodcats++;
 				}
 			}
-			if( basic.bTeam == ENEMY_TEAM )
+			if(basic.bTeam == ENEMY_TEAM)
 			{
-				switch( basic.ubSoldierClass )
+				switch(basic.ubSoldierClass)
 				{
-					case SOLDIER_CLASS_ADMINISTRATOR:
-						pSummary->ubNumAdmins++;
-						if( basic.fPriorityExistance )
-							pSummary->ubAdminExistance++;
-						if( basic.fDetailedPlacement )
-						{
-							if( priority.ubProfile != NO_PROFILE )
-								pSummary->ubAdminProfile++;
-							else
-								pSummary->ubAdminDetailed++;
-						}
-						break;
-					case SOLDIER_CLASS_ELITE:
-						pSummary->ubNumElites++;
-						if( basic.fPriorityExistance )
-							pSummary->ubEliteExistance++;
-						if( basic.fDetailedPlacement )
-						{
-							if( priority.ubProfile != NO_PROFILE )
-								pSummary->ubEliteProfile++;
-							else
-								pSummary->ubEliteDetailed++;
-						}
-						break;
-					case SOLDIER_CLASS_ARMY:
-						pSummary->ubNumTroops++;
-						if( basic.fPriorityExistance )
-							pSummary->ubTroopExistance++;
-						if( basic.fDetailedPlacement )
-						{
-							if( priority.ubProfile != NO_PROFILE )
-								pSummary->ubTroopProfile++;
-							else
-								pSummary->ubTroopDetailed++;
-						}
-						break;
+				case SOLDIER_CLASS_ADMINISTRATOR:
+					pSummary->ubNumAdmins++;
+					if(basic.fPriorityExistance)
+						pSummary->ubAdminExistance++;
+					if(basic.fDetailedPlacement)
+					{
+						if(priority.ubProfile != NO_PROFILE)
+							pSummary->ubAdminProfile++;
+						else
+							pSummary->ubAdminDetailed++;
+					}
+					break;
+				case SOLDIER_CLASS_ELITE:
+					pSummary->ubNumElites++;
+					if(basic.fPriorityExistance)
+						pSummary->ubEliteExistance++;
+					if(basic.fDetailedPlacement)
+					{
+						if(priority.ubProfile != NO_PROFILE)
+							pSummary->ubEliteProfile++;
+						else
+							pSummary->ubEliteDetailed++;
+					}
+					break;
+				case SOLDIER_CLASS_ARMY:
+					pSummary->ubNumTroops++;
+					if(basic.fPriorityExistance)
+						pSummary->ubTroopExistance++;
+					if(basic.fDetailedPlacement)
+					{
+						if(priority.ubProfile != NO_PROFILE)
+							pSummary->ubTroopProfile++;
+						else
+							pSummary->ubTroopDetailed++;
+					}
+					break;
 				}
 			}
-			else if( basic.bTeam == CREATURE_TEAM )
+			else if(basic.bTeam == CREATURE_TEAM)
 			{
-				if( basic.bBodyType == BLOODCAT )
+				if(basic.bBodyType == BLOODCAT)
 					pTeam->ubNumAnimals++;
 			}
 			pTeam->ubTotal++;
 		}
-		RenderProgressBar( 0, 96 );
-		//RenderProgressBar( 1, 96 );
+		RenderProgressBar(0, 96);
 	}
 
-	if( uiFlags & MAP_EXITGRIDS_SAVED )
+	if(uiFlags & MAP_EXITGRIDS_SAVED)
 	{
-		EXITGRID exitGrid;
-		INT32 loop;
-		INT16 sMapIndex;
+		RenderProgressBar(0, 98);
 		BOOLEAN fExitGridFound;
-		RenderProgressBar( 0, 98 );
-		//RenderProgressBar( 1, 98 );
-
-		LOADDATA( &cnt, pBuffer, 2 );
-
-		for( i = 0; i < cnt; i++ )
+		UINT16 usNumExitGrids;
+		UINT32 usMapIndex;
+		EXITGRID ExitGrid;
+		LOADDATA(&usNumExitGrids, pBuffer, sizeof(usNumExitGrids));
+		for(i=0; i<usNumExitGrids; i++)
 		{
-			LOADDATA( &sMapIndex, pBuffer, 2 );
-			LOADDATA( &exitGrid, pBuffer, 5 );
-			fExitGridFound = FALSE;
-			for( loop = 0; loop < pSummary->ubNumExitGridDests; loop++ )
+			if(dMajorMapVersion < 7.0)
 			{
-				if( pSummary->ExitGrid[ loop ].sGridNo == exitGrid.sGridNo &&
-						pSummary->ExitGrid[ loop ].ubGotoSectorX == exitGrid.ubGotoSectorX &&
-						pSummary->ExitGrid[ loop ].ubGotoSectorY == exitGrid.ubGotoSectorY &&
-						pSummary->ExitGrid[ loop ].ubGotoSectorZ == exitGrid.ubGotoSectorZ )
-				{ //same destination.
-					pSummary->usExitGridSize[ loop ]++;
+				UINT16 usOldMapIndex;
+				LOADDATA(&usOldMapIndex, pBuffer, sizeof(usOldMapIndex));
+				usMapIndex = usOldMapIndex;
+			}
+			else
+				LOADDATA(&usMapIndex, pBuffer, sizeof(usMapIndex));
+			ExitGrid.Load(&pBuffer, dMajorMapVersion);
+			fExitGridFound = FALSE;
+			for(cnt=0; cnt<pSummary->ubNumExitGridDests; cnt++)
+			{
+				if(pSummary->ExitGrid[cnt].usGridNo == ExitGrid.usGridNo && pSummary->ExitGrid[cnt].ubGotoSectorX == ExitGrid.ubGotoSectorX && pSummary->ExitGrid[cnt].ubGotoSectorY == ExitGrid.ubGotoSectorY && pSummary->ExitGrid[cnt].ubGotoSectorZ == ExitGrid.ubGotoSectorZ)
+				{
+					// Same destination
+					pSummary->usExitGridSize[cnt]++;
 					fExitGridFound = TRUE;
 					break;
 				}
 			}
-			if( !fExitGridFound )
+			if(!fExitGridFound)
 			{
-				if( loop >= 4 )
-				{
+				if(cnt >= 4)
 					pSummary->fTooManyExitGridDests = TRUE;
-				}
 				else
 				{
 					pSummary->ubNumExitGridDests++;
-					pSummary->usExitGridSize[ loop ]++;
-					pSummary->ExitGrid[ loop ].sGridNo = exitGrid.sGridNo;
-					pSummary->ExitGrid[ loop ].ubGotoSectorX = exitGrid.ubGotoSectorX;
-					pSummary->ExitGrid[ loop ].ubGotoSectorY = exitGrid.ubGotoSectorY;
-					pSummary->ExitGrid[ loop ].ubGotoSectorZ = exitGrid.ubGotoSectorZ;
-					if( pSummary->ExitGrid[ loop ].ubGotoSectorX != exitGrid.ubGotoSectorX ||
-							pSummary->ExitGrid[ loop ].ubGotoSectorY != exitGrid.ubGotoSectorY )
-					{
-						pSummary->fInvalidDest[ loop ] = TRUE;
-					}
+					pSummary->usExitGridSize[cnt]++;
+					pSummary->ExitGrid[cnt].usGridNo = ExitGrid.usGridNo;
+					pSummary->ExitGrid[cnt].ubGotoSectorX = ExitGrid.ubGotoSectorX;
+					pSummary->ExitGrid[cnt].ubGotoSectorY = ExitGrid.ubGotoSectorY;
+					pSummary->ExitGrid[cnt].ubGotoSectorZ = ExitGrid.ubGotoSectorZ;
+					if(pSummary->ExitGrid[cnt].ubGotoSectorX != ExitGrid.ubGotoSectorX || pSummary->ExitGrid[cnt].ubGotoSectorY != ExitGrid.ubGotoSectorY)
+						pSummary->fInvalidDest[cnt] = TRUE;
 				}
 			}
 		}
 	}
 
-	if( uiFlags & MAP_DOORTABLE_SAVED )
+	if(uiFlags & MAP_DOORTABLE_SAVED)
 	{
 		DOOR Door;
-
-		LOADDATA( &pSummary->ubNumDoors, pBuffer, 1 );
-
-		for( cnt = 0; cnt < pSummary->ubNumDoors; cnt++ )
+		UINT8 ubNumDoors;
+		LOADDATA(&ubNumDoors, pBuffer, sizeof(gubNumDoors));
+		pSummary->ubNumDoors = ubNumDoors;
+		for(cnt=0; cnt<pSummary->ubNumDoors; cnt++)
 		{
-			LOADDATA( &Door, pBuffer, sizeof( DOOR ) );
-
-			if( Door.ubTrapID && Door.ubLockID )
+			Door.Load(&pBuffer, dMajorMapVersion);
+			if(Door.ubTrapID && Door.ubLockID)
 				pSummary->ubNumDoorsLockedAndTrapped++;
-			else if( Door.ubLockID )
+			else if(Door.ubLockID)
 				pSummary->ubNumDoorsLocked++;
-			else if( Door.ubTrapID )
+			else if(Door.ubTrapID)
 				pSummary->ubNumDoorsTrapped++;
 		}
 	}
 
-	RenderProgressBar( 0, 100 );
-	//RenderProgressBar( 1, 100 );
-
-	MemFree( pBufferHead );
-
-	WriteSectorSummaryUpdate( szFilename, ubLevel, pSummary );
-	return TRUE;
+	RenderProgressBar(0, 100);
+	MemFree(pBufferHead);
+	MemFree(bCounts);
+	WriteSectorSummaryUpdate(szFilename, ubLevel, pSummary);
+	WORLD_ROWS = iCurRowSize;
+	WORLD_COLS = iCurColSize;
+	return(TRUE);
 }
 #endif
 
 extern UINT8 GetCurrentSummaryVersion();
 extern void LoadShadeTablesFromTextFile();
-
-BOOLEAN LoadWorld( const STR8	puiFilename, float* pMajorMapVersion, UINT8* pMinorMapVersion)
+BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinorMapVersion)//dnl ch44 290909
 {
 	HWFILE					hfile;
 	FLOAT					dMajorMapVersion;
@@ -2672,24 +2661,25 @@ BOOLEAN LoadWorld( const STR8	puiFilename, float* pMajorMapVersion, UINT8* pMino
 	UINT32					uiBytesRead;
 	UINT32					uiSoldierSize;
 	UINT32					uiFileSize;
-	UINT32					fp, offset;
 #ifdef JA2TESTVERSION
 	UINT32					uiStartTime;
 	UINT32					uiLoadWorldStartTime;
 #endif
-	INT32						cnt, cnt2;
-	INT32						iTilesetID;
+	INT32					cnt, cnt2;
+	INT32					iTilesetID;
 	UINT16					usTileIndex;
 	UINT16					usTypeSubIndex;
-	UINT8						ubType;
-	UINT8						ubSubIndex;
-	CHAR8						aFilename[ 50 ];
-	UINT8						ubCombine;
-	UINT8							bCounts[ WORLD_MAX ][8];
-	INT8						*pBuffer;
-	INT8						*pBufferHead;
+	UINT8					ubType;
+	UINT8					ubSubIndex;
+	CHAR8					aFilename[50];
+	UINT8					ubCombine;
+	UINT8					(*bCounts)[8] = NULL;
+	INT8					*pBuffer;
+	INT8					*pBufferHead;
 	BOOLEAN					fGenerateEdgePoints = FALSE;
-	UINT8						ubMinorMapVersion;
+	UINT8					ubMinorMapVersion;
+	INT32					i;
+
 #ifdef JA2TESTVERSION
 	uiLoadWorldStartTime = GetJA2Clock();
 #endif
@@ -2697,572 +2687,419 @@ BOOLEAN LoadWorld( const STR8	puiFilename, float* pMajorMapVersion, UINT8* pMino
 	LoadShadeTablesFromTextFile();
 
 	// Append exension to filename!
-	if ( gfForceLoad )
-	{
-		sprintf( aFilename, "MAPS\\%s", gzForceLoadFile );
-	}
+	if(gfForceLoad)
+		sprintf(aFilename, "MAPS\\%s", gzForceLoadFile);
 	else
+		sprintf(aFilename, "MAPS\\%s", puiFilename);
+	// Open file
+	hfile = FileOpen(aFilename, FILE_ACCESS_READ, FALSE);
+	if(!hfile)
 	{
-		sprintf( aFilename, "MAPS\\%s", puiFilename );
+#ifndef JA2EDITOR
+		SET_ERROR("Could not load map file %S", aFilename);
+#endif
+		return(FALSE);
 	}
+	// Get the file size and alloc one huge buffer for it. We will use this buffer to transfer all of the data from.
+	uiFileSize = FileGetSize(hfile);
+	pBuffer = (INT8*)MemAlloc(uiFileSize);
+	pBufferHead = pBuffer;
+	FileRead(hfile, pBuffer, uiFileSize, &uiBytesRead);
+	FileClose(hfile);
 
 	// RESET FLAGS FOR OUTDOORS/INDOORS
 	gfBasement = FALSE;
 	gfCaves = FALSE;
 
-	// Open file
-	hfile = FileOpen( aFilename, FILE_ACCESS_READ, FALSE );
-
-	if ( !hfile )
-	{
-		SET_ERROR(	"Could not load map file %S", aFilename );
-		return( FALSE );
-	}
-
-	SetRelativeStartAndEndPercentage( 0, 0, 1, L"Trashing world..." );
+	SetRelativeStartAndEndPercentage(0, 0, 1, L"Trashing world...");
 #ifdef JA2TESTVERSION
 	uiStartTime = GetJA2Clock();
 #endif
-
 	TrashWorld();
-
 #ifdef JA2TESTVERSION
 	uiTrashWorldTime = GetJA2Clock() - uiStartTime;
 #endif
-
 	LightReset();
 
-	//Get the file size and alloc one huge buffer for it.
-	//We will use this buffer to transfer all of the data from.
-	uiFileSize = FileGetSize( hfile );
-	pBuffer = (INT8*)MemAlloc( uiFileSize );
-	pBufferHead = pBuffer;
-	FileRead( hfile, pBuffer, uiFileSize, &uiBytesRead );
-	FileClose( hfile );
-
 	// Read JA2 Version ID
-	LOADDATA( &dMajorMapVersion, pBuffer, sizeof( FLOAT ) );
-	if ( pMajorMapVersion ) {
-		*pMajorMapVersion = dMajorMapVersion;
-	}
+	LOADDATA(&dMajorMapVersion, pBuffer, sizeof(FLOAT));
+	LOADDATA(&ubMinorMapVersion, pBuffer, sizeof(UINT8));
 
-	// Lesh: disable this because now we accept any version map
-	//#ifdef RUSSIAN
-	//	if( dMajorMapVersion != 6.00 )
-	//	{
-	//		return FALSE;
-	//	}
-	//#endif
-
-	LOADDATA( &ubMinorMapVersion, pBuffer, sizeof( UINT8 ) );
-	if (pMinorMapVersion) {
-		*pMinorMapVersion = ubMinorMapVersion;
+	INT32 iRowSize = OLD_WORLD_ROWS;
+	INT32 iColSize = OLD_WORLD_COLS;
+	if(dMajorMapVersion >= 7.00)
+	{
+		LOADDATA(&iRowSize, pBuffer, sizeof(INT32));
+		LOADDATA(&iColSize, pBuffer, sizeof(INT32));
 	}
-	// CHECK FOR NON-COMPATIBLE VERSIONS!
-	// CHECK FOR MAJOR MAP VERSION INCOMPATIBLITIES
-	//if ( dMajorMapVersion < gdMajorMapVersion )
-	//{
-		//AssertMsg( 0, "Major version conflict.	Should have force updated this map already!!!" );
-		//SET_ERROR(	"Incompatible JA2 map version: %f, map version is now at %f", gdLoadedMapVersion, gdMapVersion );
-		//return( FALSE );
-	//}
+	INT32 iWorldSize = iRowSize * iColSize;
+#ifdef JA2EDITOR
+	if(gMapTrn.SetTrnPar(iRowSize, iColSize, iNewMapWorldRows, iNewMapWorldCols))
+		SetWorldSize(iNewMapWorldRows, iNewMapWorldCols);
+	else
+		SetWorldSize(iRowSize, iColSize);
+#else
+	SetWorldSize(iRowSize, iColSize);
+#endif
+
+	bCounts = (UINT8(*)[8])MemAlloc(WORLD_MAX*8);
+	memset(bCounts, 0, sizeof(UINT8)*WORLD_MAX*8);
 
 	// Read FLAGS FOR WORLD
-	LOADDATA( &uiFlags, pBuffer, sizeof( INT32 ) );
+	LOADDATA(&uiFlags, pBuffer, sizeof(INT32));
 
-	LOADDATA( &iTilesetID, pBuffer, sizeof( INT32 ) );
+	LOADDATA(&iTilesetID, pBuffer, sizeof(INT32));
 
 #ifdef JA2TESTVERSION
 	uiStartTime = GetJA2Clock();
 #endif
-	CHECKF( LoadMapTileset( iTilesetID ) != FALSE );
+	Assert(LoadMapTileset(iTilesetID));
 #ifdef JA2TESTVERSION
 	uiLoadMapTilesetTime = GetJA2Clock() - uiStartTime;
 #endif
 
-	//ADB thankfully this isn't used, because the size has changed
 	// Load soldier size
-	LOADDATA( &uiSoldierSize, pBuffer, sizeof( INT32 ) );
-
-	//FP 0x000010
-
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	LOADDATA(&uiSoldierSize, pBuffer, sizeof(INT32));
+	// Set land index
+	for(cnt=0; cnt<WORLD_MAX; cnt++)
 	{
-		// Read height values
-		LOADDATA( &gpWorldLevelData[ cnt ].sHeight, pBuffer, sizeof( INT16 ) );
+		if(!gMapTrn.IsTrn())
+			break;
+		if(GetTerrainType(cnt) == NO_TERRAIN)
+			AddLandToHead(cnt, (UINT16)(rand()%10));
 	}
 
-	//FP 0x00c810
+	// Read height values
+	for(i=0; i<iWorldSize; i++)
+	{
+		gMapTrn.GetTrnCnt(cnt=i);
+		LOADDATA(&gpWorldLevelData[cnt].sHeight, pBuffer, sizeof(INT16));
+		// Remove all land from position where old map will be loaded
+		if(gMapTrn.IsTrn())
+			RemoveAllLandsOfTypeRange(cnt, FIRSTTEXTURE, DEEPWATERTEXTURE);
+	}
 
-	SetRelativeStartAndEndPercentage( 0, 35, 40, L"Counting layers..." );
-	RenderProgressBar( 0, 100 );
-
+	SetRelativeStartAndEndPercentage(0, 35, 40, L"Counting layers...");
+	RenderProgressBar(0, 100);
 	// Read layer counts
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	for(i=0; i<iWorldSize; i++)
 	{
+		gMapTrn.GetTrnCnt(cnt=i);
 		// Read combination of land/world flags
-		LOADDATA( &ubCombine, pBuffer, sizeof( UINT8 ) );
-
-		// split
-		bCounts[ cnt ][0] = (UINT8)(ubCombine&0xf);
-		gpWorldLevelData[ cnt ].uiFlags |= (UINT8)((ubCombine&0xf0)>>4);
-
+		LOADDATA(&ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][0] = (UINT8)(ubCombine & 0x0F);
+		gpWorldLevelData[cnt].uiFlags |= (UINT8)((ubCombine & 0xF0) >> 4);
 		// Read #objects, structs
-		LOADDATA( &ubCombine, pBuffer, sizeof( UINT8 ) );
-
-		// split
-		bCounts[ cnt ][1] = (UINT8)(ubCombine&0xf);
-		bCounts[ cnt ][2] = (UINT8)((ubCombine&0xf0)>>4);
-
+		LOADDATA( &ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][1] = (UINT8)(ubCombine & 0x0F);
+		bCounts[cnt][2] = (UINT8)((ubCombine & 0xF0) >> 4);
 		// Read shadows, roof
-		LOADDATA( &ubCombine, pBuffer, sizeof( UINT8 ) );
-
-		// split
-		bCounts[ cnt ][3] = (UINT8)(ubCombine&0xf);
-		bCounts[ cnt ][4] = (UINT8)((ubCombine&0xf0)>>4);
-
+		LOADDATA( &ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][3] = (UINT8)(ubCombine & 0x0F);
+		bCounts[cnt][4] = (UINT8)((ubCombine & 0xF0) >> 4);
 		// Read OnRoof, nothing
-		LOADDATA( &ubCombine, pBuffer, sizeof( UINT8 ) );
-
-		// split
-		bCounts[ cnt ][5] = (UINT8)(ubCombine&0xf);
+		LOADDATA(&ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][5] = (UINT8)(ubCombine & 0x0F);
 	}
 
-	//FP 0x025810
-	fp = 0x025810;
-	offset = 0;
-
-	SetRelativeStartAndEndPercentage( 0, 40, 43, L"Loading land layers...");
-	RenderProgressBar( 0, 100 );
-
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	SetRelativeStartAndEndPercentage(0, 40, 43, L"Loading land layers...");
+	RenderProgressBar(0, 100);
+	for(i=0; i<iWorldSize; i++)
 	{
+		gMapTrn.GetTrnCnt(cnt=i);
  		// Read new values
-		if( bCounts[ cnt ][ 0 ] > 10 )
+		for(cnt2=0; cnt2<bCounts[cnt][0]; cnt2++)
 		{
-			cnt = cnt;
-		}
-		for( cnt2 = 0; cnt2 < bCounts[ cnt ][ 0 ]; cnt2++ )
-		{
-			LOADDATA( &ubType, pBuffer, sizeof( UINT8 ) );
-			LOADDATA( &ubSubIndex, pBuffer, sizeof( UINT8 ) );
-
+			LOADDATA(&ubType, pBuffer, sizeof(UINT8));
+			LOADDATA(&ubSubIndex, pBuffer, sizeof(UINT8));
 			// Get tile index
-			GetTileIndexFromTypeSubIndex( ubType, ubSubIndex, &usTileIndex );
-
+			GetTileIndexFromTypeSubIndex(ubType, ubSubIndex, &usTileIndex);
 			// Add layer
-			AddLandToHead( cnt, usTileIndex );
-
-			offset += 2;
+			AddLandToHead(cnt, usTileIndex);
 		}
 	}
 
-	fp += offset;
-	offset = 0;
-
-	SetRelativeStartAndEndPercentage( 0, 43, 46, L"Loading object layer...");
-	RenderProgressBar( 0, 100 );
-
-	if( 0 )
-	{ //Old loads
-		for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
-		{
-			// Set objects
-			for( cnt2 = 0; cnt2 < bCounts[ cnt ][ 1 ]; cnt2++ )
-			{
-
-				LOADDATA( &ubType, pBuffer, sizeof( UINT8 ) );
-				LOADDATA( &ubSubIndex, pBuffer, sizeof( UINT8 ) );
-				if ( ubType >= FIRSTPOINTERS )
-				{
-					continue;
-				}
-				// Get tile index
-				GetTileIndexFromTypeSubIndex( ubType, ubSubIndex, &usTileIndex );
-				// Add layer
-				AddObjectToTail( cnt, usTileIndex );
-			}
-		}
-	}
-	else
-	{ //New load require UINT16 for the type subindex due to the fact that ROADPIECES
-		//contain over 300 type subindices.
-		for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
-		{
-			// Set objects
-			/*
-			if( bCounts[ cnt ][ 1 ] > 10 )
-			{
-				//ADB what's this here for? commented out
-				cnt = cnt;
-			}
-			*/
-			for( cnt2 = 0; cnt2 < bCounts[ cnt ][ 1 ]; cnt2++ )
-			{
-
-				LOADDATA( &ubType, pBuffer, sizeof( UINT8 ) );
-				LOADDATA( &usTypeSubIndex, pBuffer, sizeof( UINT16 ) );
-				if ( ubType >= FIRSTPOINTERS )
-				{
-					continue;
-				}
-				// Get tile index
-				GetTileIndexFromTypeSubIndex( ubType, usTypeSubIndex, &usTileIndex );
-				// Add layer
-				AddObjectToTail( cnt, usTileIndex );
-
-				offset += 3;
-			}
-		}
-	}
-
-	fp += offset;
-	offset = 0;
-
-	SetRelativeStartAndEndPercentage( 0, 46, 49, L"Loading struct layer..." );
-	RenderProgressBar( 0, 100 );
-
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	SetRelativeStartAndEndPercentage(0, 43, 46, L"Loading object layer...");
+	RenderProgressBar(0, 100);
+	// New load require UINT16 for the type subindex due to the fact that ROADPIECES contain over 300 type subindices.
+	for(i=0; i<iWorldSize; i++)
 	{
+		gMapTrn.GetTrnCnt(cnt=i);
+		// Set objects
+		for(cnt2=0; cnt2<bCounts[cnt][1]; cnt2++)
+		{
+			LOADDATA(&ubType, pBuffer, sizeof(UINT8));
+			LOADDATA(&usTypeSubIndex, pBuffer, sizeof(UINT16));
+			if(ubType >= FIRSTPOINTERS)
+				continue;
+			// Get tile index
+			GetTileIndexFromTypeSubIndex(ubType, usTypeSubIndex, &usTileIndex);
+			// Add layer
+			AddObjectToTail(cnt, usTileIndex);
+		}
+	}
+
+	SetRelativeStartAndEndPercentage(0, 46, 49, L"Loading struct layer...");
+	RenderProgressBar(0, 100);
+	for(i=0; i<iWorldSize; i++)
+	{
+		gMapTrn.GetTrnCnt(cnt=i);
 		// Set structs
-		if( bCounts[ cnt ][ 2 ] > 10 )
+		for(cnt2=0; cnt2<bCounts[cnt][2]; cnt2++)
 		{
-			cnt = cnt;
-		}
-		for( cnt2 = 0; cnt2 < bCounts[ cnt ][ 2 ]; cnt2++ )
-		{
-			LOADDATA( &ubType, pBuffer, sizeof( UINT8 ) );
-			LOADDATA( &ubSubIndex, pBuffer, sizeof( UINT8 ) );
-
+			LOADDATA(&ubType, pBuffer, sizeof(UINT8));
+			LOADDATA(&ubSubIndex, pBuffer, sizeof(UINT8));
 			// Get tile index
-			GetTileIndexFromTypeSubIndex( ubType, ubSubIndex, &usTileIndex );
-
-		if ( ubMinorMapVersion <= 25 )
-		{
-		// Check patching for phantom menace struct data...
-		if ( gTileDatabase[ usTileIndex ].uiFlags & UNDERFLOW_FILLER )
-		{
-			 GetTileIndexFromTypeSubIndex( ubType, 1, &usTileIndex );
-		}
-		}
-
+			GetTileIndexFromTypeSubIndex(ubType, ubSubIndex, &usTileIndex);
+			if(ubMinorMapVersion <= 25)
+			{
+				// Check patching for phantom menace struct data...
+				if(gTileDatabase[usTileIndex].uiFlags & UNDERFLOW_FILLER)
+					GetTileIndexFromTypeSubIndex(ubType, 1, &usTileIndex);
+			}
 			// Add layer
-			AddStructToTail( cnt, usTileIndex );
-
-			offset += 2;
+			AddStructToTail(cnt, usTileIndex);
 		}
 	}
 
-	fp += offset;
-	offset = 0;
-
-	SetRelativeStartAndEndPercentage( 0, 49, 52, L"Loading shadow layer..." );
-	RenderProgressBar( 0, 100 );
-
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	SetRelativeStartAndEndPercentage(0, 49, 52, L"Loading shadow layer...");
+	RenderProgressBar(0, 100);
+	for(i=0; i<iWorldSize; i++)
 	{
-		if( bCounts[ cnt ][ 3 ] > 10 )
+		gMapTrn.GetTrnCnt(cnt=i);
+		for(cnt2=0; cnt2<bCounts[cnt][3]; cnt2++)
 		{
-			cnt = cnt;
-		}
-		for( cnt2 = 0; cnt2 < bCounts[ cnt ][ 3 ]; cnt2++ )
-		{
-			LOADDATA( &ubType, pBuffer, sizeof( UINT8 ) );
-			LOADDATA( &ubSubIndex, pBuffer, sizeof( UINT8 ) );
-
+			LOADDATA(&ubType, pBuffer, sizeof(UINT8));
+			LOADDATA(&ubSubIndex, pBuffer, sizeof(UINT8));
 			// Get tile index
-			GetTileIndexFromTypeSubIndex( ubType, ubSubIndex, &usTileIndex );
-
+			GetTileIndexFromTypeSubIndex(ubType, ubSubIndex, &usTileIndex);
 			// Add layer
-			AddShadowToTail( cnt, usTileIndex );
-
-			offset += 2;
+			AddShadowToTail(cnt, usTileIndex);
 		}
 	}
 
-	fp += offset;
-	offset = 0;
-
-	SetRelativeStartAndEndPercentage( 0, 52, 55, L"Loading roof layer..." );
-	RenderProgressBar( 0, 100 );
-
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	SetRelativeStartAndEndPercentage(0, 52, 55, L"Loading roof layer...");
+	RenderProgressBar(0, 100);
+	for(i=0; i<iWorldSize; i++)
 	{
-		if( bCounts[ cnt ][ 4 ] > 10 )
+		gMapTrn.GetTrnCnt(cnt=i);
+		for(cnt2=0; cnt2<bCounts[cnt][4]; cnt2++)
 		{
-			cnt = cnt;
-		}
-		for( cnt2 = 0; cnt2 < bCounts[ cnt ][ 4 ]; cnt2++ )
-		{
-			LOADDATA( &ubType, pBuffer, sizeof( UINT8 ) );
-			LOADDATA( &ubSubIndex, pBuffer, sizeof( UINT8 ) );
-
+			LOADDATA(&ubType, pBuffer, sizeof(UINT8));
+			LOADDATA(&ubSubIndex, pBuffer, sizeof(UINT8));
 			// Get tile index
-			GetTileIndexFromTypeSubIndex( ubType, ubSubIndex, &usTileIndex );
-
+			GetTileIndexFromTypeSubIndex(ubType, ubSubIndex, &usTileIndex);
 			// Add layer
-			AddRoofToTail( cnt, usTileIndex );
-
-			offset += 2;
+			AddRoofToTail(cnt, usTileIndex);
 		}
 	}
 
-	fp += offset;
-	offset = 0;
-
-	SetRelativeStartAndEndPercentage( 0, 55, 58, L"Loading on roof layer..." );
-	RenderProgressBar( 0, 100 );
-
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	SetRelativeStartAndEndPercentage(0, 55, 58, L"Loading on roof layer...");
+	RenderProgressBar(0, 100);
+	for(i=0; i<iWorldSize; i++)
 	{
-		if( bCounts[ cnt ][ 5 ] > 10 )
+		gMapTrn.GetTrnCnt(cnt=i);
+		for(cnt2=0; cnt2<bCounts[cnt][5]; cnt2++)
 		{
-			cnt = cnt;
-		}
-		for( cnt2 = 0; cnt2 < bCounts[ cnt ][ 5 ]; cnt2++ )
-		{
-			LOADDATA( &ubType, pBuffer, sizeof( UINT8 ) );
-			LOADDATA( &ubSubIndex, pBuffer, sizeof( UINT8 ) );
-
+			LOADDATA(&ubType, pBuffer, sizeof(UINT8));
+			LOADDATA(&ubSubIndex, pBuffer, sizeof(UINT8));
 			// Get tile index
-			GetTileIndexFromTypeSubIndex( ubType, ubSubIndex, &usTileIndex );
-
+			GetTileIndexFromTypeSubIndex(ubType, ubSubIndex, &usTileIndex);
 			// Add layer
-			AddOnRoofToTail( cnt, usTileIndex );
-
-			offset += 2;
+			AddOnRoofToTail(cnt, usTileIndex);
 		}
 	}
 
-	fp += offset;
-	offset = 0;
-
-	// Lesh: read additional bytes for map major version 6.00
-
-	//ADB Russian version of the game has some maps at version 6.0 while all others are 5.0
-	//so let's update!
-	//if we are loading a 5.26 map (6.26 Russian) AND we are currently at 6.27
-	//( what would be 7.27 Russian except that we are about to fix this)
-	//then read the data.
-	if( dMajorMapVersion == 6.00 && ubMinorMapVersion < 27 && MAJOR_MAP_VERSION == 6.00)
+	// For old Russian Maps which have version 6.0
+	if(dMajorMapVersion == 6.00 && ubMinorMapVersion < 27)
 	{
 		UINT32 uiNums[37];
-		LOADDATA( uiNums, pBuffer, 37 * sizeof( UINT32 ) );
+		LOADDATA(uiNums, pBuffer, sizeof(INT32)*37);
+		dMajorMapVersion = 5.00;
+	}
+	// For new maps
+	else if(dMajorMapVersion == 6.00 && ubMinorMapVersion < 27 && MAJOR_MAP_VERSION == 6.00)
+	{
+		UINT32 uiNums[37];
+		LOADDATA(uiNums, pBuffer, sizeof(UINT32)*37);
 	}
 	//now the data is discarded and when saved, as 6.27, you won't have this problem!
 
-	SetRelativeStartAndEndPercentage( 0, 58, 59, L"Loading room information..." );
-	RenderProgressBar( 0, 100 );
-
-	#ifdef JA2EDITOR
-		gubMaxRoomNumber = 0;
-		for( cnt = 0; cnt < WORLD_MAX; cnt++ )
-		{
-			// Read room information
-			LOADDATA( &gubWorldRoomInfo[ cnt ], pBuffer, sizeof( INT8 ) );
-				//Got to set the max room number
-				if( gubWorldRoomInfo[ cnt ] > gubMaxRoomNumber )
-					gubMaxRoomNumber = gubWorldRoomInfo[ cnt ];
-		}
-		if( gubMaxRoomNumber < 255 )
-			gubMaxRoomNumber++;
-	#else
-		LOADDATA( gubWorldRoomInfo, pBuffer, sizeof( INT8 ) * WORLD_MAX );
-	#endif
-
-	// ATE; Memset this array!
-	if( 0 )
-	{ //for debugging purposes
-		memset( gubWorldRoomInfo, 0, sizeof( gubWorldRoomInfo ) );
+	SetRelativeStartAndEndPercentage(0, 58, 59, L"Loading room information...");
+	RenderProgressBar(0, 100);
+#ifdef JA2EDITOR
+	gubMaxRoomNumber = 0;
+	for(i=0; i<iWorldSize; i++)
+	{
+		gMapTrn.GetTrnCnt(cnt=i);
+		// Read room information
+		LOADDATA(&gubWorldRoomInfo[cnt], pBuffer, sizeof(INT8));
+		// Got to set the max room number
+		if(gubWorldRoomInfo[cnt] > gubMaxRoomNumber)
+			gubMaxRoomNumber = gubWorldRoomInfo[cnt];
 	}
+	if(gubMaxRoomNumber < 255)
+		gubMaxRoomNumber++;
+#else
+	LOADDATA(gubWorldRoomInfo, pBuffer, sizeof(INT8)*WORLD_MAX);
+#endif
+	memset(gubWorldRoomHidden, TRUE, sizeof(gubWorldRoomHidden));
 
-	memset( gubWorldRoomHidden, TRUE, sizeof( gubWorldRoomHidden ) );
-
-	SetRelativeStartAndEndPercentage( 0, 59, 61, L"Loading items..." );
-	RenderProgressBar( 0, 100 );
-
-	if( uiFlags & MAP_WORLDITEMS_SAVED )
+	SetRelativeStartAndEndPercentage(0, 59, 61, L"Loading items...");
+	RenderProgressBar(0, 100);
+	if(uiFlags & MAP_WORLDITEMS_SAVED)
 	{
 		// Load out item information
 		gfLoadPitsWithoutArming = TRUE;
-		LoadWorldItemsFromMap( &pBuffer, dMajorMapVersion, ubMinorMapVersion );
+		LoadWorldItemsFromMap(&pBuffer, dMajorMapVersion, ubMinorMapVersion);
 		gfLoadPitsWithoutArming = FALSE;
 	}
 
-	SetRelativeStartAndEndPercentage( 0, 62, 85, L"Loading lights..." );
-	RenderProgressBar( 0, 0 );
-
-	if( uiFlags & MAP_AMBIENTLIGHTLEVEL_SAVED )
-	{ //Ambient light levels are only saved in underground levels
-		LOADDATA( &gfBasement, pBuffer, 1 );
-		LOADDATA( &gfCaves, pBuffer, 1 );
-		LOADDATA( &ubAmbientLightLevel, pBuffer, 1 );
+	SetRelativeStartAndEndPercentage(0, 62, 85, L"Loading lights...");
+	RenderProgressBar(0, 0);
+	if(uiFlags & MAP_AMBIENTLIGHTLEVEL_SAVED)
+	{
+		//Ambient light levels are only saved in underground levels
+		LOADDATA(&gfBasement, pBuffer, sizeof(BOOLEAN));
+		LOADDATA(&gfCaves, pBuffer, sizeof(BOOLEAN));
+		LOADDATA(&ubAmbientLightLevel, pBuffer, sizeof(UINT8));
 	}
 	else
-	{ //We are above ground.
+	{
+		//We are above ground.
 		gfBasement = FALSE;
 		gfCaves = FALSE;
-		if( !gfEditMode && guiCurrentScreen != MAPUTILITY_SCREEN )
-		{
+		if(!gfEditMode && guiCurrentScreen != MAPUTILITY_SCREEN)
 			ubAmbientLightLevel = GetTimeOfDayAmbientLightLevel();
-		}
 		else
-		{
 			ubAmbientLightLevel = 4;
-		}
 	}
 #ifdef JA2TESTVERSION
 	uiStartTime = GetJA2Clock();
 #endif
-	if( uiFlags & MAP_WORLDLIGHTS_SAVED )
-	{
-		LoadMapLights( &pBuffer );
-	}
+	if(uiFlags & MAP_WORLDLIGHTS_SAVED)
+		LoadMapLights(&pBuffer);
 	else
 	{
 		// Set some default value for lighting
-		SetDefaultWorldLightingColors( );
+		SetDefaultWorldLightingColors();
 	}
-	LightSetBaseLevel( ubAmbientLightLevel );
+	LightSetBaseLevel(ubAmbientLightLevel);
 #ifdef JA2TESTVERSION
 	uiLoadMapLightsTime = GetJA2Clock() - uiStartTime;
 #endif
 
+	SetRelativeStartAndEndPercentage(0, 85, 86, L"Loading map information...");
+	RenderProgressBar(0, 0);
+	LoadMapInformation(&pBuffer, dMajorMapVersion);
+	// Translation routine for map grid numbers
+	gMapTrn.GetTrnCnt(gMapInformation.sCenterGridNo);
+	gMapTrn.GetTrnCnt(gMapInformation.sIsolatedGridNo);
+	gMapTrn.GetTrnCnt(gMapInformation.sNorthGridNo);
+	gMapTrn.GetTrnCnt(gMapInformation.sEastGridNo);
+	gMapTrn.GetTrnCnt(gMapInformation.sWestGridNo);
+	gMapTrn.GetTrnCnt(gMapInformation.sSouthGridNo);
 
-	SetRelativeStartAndEndPercentage( 0, 85, 86, L"Loading map information..." );
-	RenderProgressBar( 0, 0 );
-
-	LoadMapInformation( &pBuffer );
-
-	if( uiFlags & MAP_FULLSOLDIER_SAVED )
+	if(uiFlags & MAP_FULLSOLDIER_SAVED)
 	{
-		SetRelativeStartAndEndPercentage( 0, 86, 87, L"Loading placements..." );
-		RenderProgressBar( 0, 0 );
-		LoadSoldiersFromMap( &pBuffer, dMajorMapVersion, ubMinorMapVersion	);
+		SetRelativeStartAndEndPercentage(0, 86, 87, L"Loading placements...");
+		RenderProgressBar(0, 0);
+		LoadSoldiersFromMap(&pBuffer, dMajorMapVersion, ubMinorMapVersion);
 	}
-	if( uiFlags & MAP_EXITGRIDS_SAVED )
+	if(uiFlags & MAP_EXITGRIDS_SAVED)
 	{
-		SetRelativeStartAndEndPercentage( 0, 87, 88, L"Loading exit grids..." );
-		RenderProgressBar( 0, 0 );
-		LoadExitGrids( &pBuffer );
+		SetRelativeStartAndEndPercentage(0, 87, 88, L"Loading exit grids...");
+		RenderProgressBar(0, 0);
+		LoadExitGrids(&pBuffer, dMajorMapVersion);
 	}
-	if( uiFlags & MAP_DOORTABLE_SAVED )
+	if(uiFlags & MAP_DOORTABLE_SAVED)
 	{
-		SetRelativeStartAndEndPercentage( 0, 89, 90, L"Loading door tables..." );
-		RenderProgressBar( 0, 0 );
-		LoadDoorTableFromMap( &pBuffer );
+		SetRelativeStartAndEndPercentage(0, 89, 90, L"Loading door tables...");
+		RenderProgressBar(0, 0);
+		LoadDoorTableFromMap(&pBuffer, dMajorMapVersion);
 	}
-	if( uiFlags & MAP_EDGEPOINTS_SAVED )
+	if(uiFlags & MAP_EDGEPOINTS_SAVED)
 	{
-		SetRelativeStartAndEndPercentage( 0, 90, 91, L"Loading edgepoints..." );
-		RenderProgressBar( 0, 0 );
-		if( !LoadMapEdgepoints( &pBuffer ) )
-			fGenerateEdgePoints = TRUE; //only if the map had the older edgepoint system
+		SetRelativeStartAndEndPercentage(0, 90, 91, L"Loading edgepoints...");
+		RenderProgressBar(0, 0);
+		if(!LoadMapEdgepoints(&pBuffer, dMajorMapVersion))
+			fGenerateEdgePoints = TRUE;// Only if the map had the older edgepoint system
+		//dnl ch44 290909 Map Edge points must be recreated they cannot be translated, so trash them.
+		if(gMapTrn.IsTrn())
+		{
+			TrashMapEdgepoints();
+			fGenerateEdgePoints = TRUE;
+		}
 	}
 	else
-	{
 		fGenerateEdgePoints = TRUE;
-	}
-	if( uiFlags & MAP_NPCSCHEDULES_SAVED )
+	if(uiFlags & MAP_NPCSCHEDULES_SAVED)
 	{
-		SetRelativeStartAndEndPercentage( 0, 91, 92, L"Loading NPC schedules..." );
-		RenderProgressBar( 0, 0 );
-		LoadSchedules( &pBuffer );
+		SetRelativeStartAndEndPercentage(0, 91, 92, L"Loading NPC schedules...");
+		RenderProgressBar(0, 0);
+		LoadSchedules(&pBuffer, dMajorMapVersion);
 	}
 
 	ValidateAndUpdateMapVersionIfNecessary();
+	SetRelativeStartAndEndPercentage(0, 93, 94, L"Init Loaded World...");
+	RenderProgressBar(0, 0);
+	InitLoadedWorld();
 
-	//if we arent loading a saved game
-//	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
+	if(fGenerateEdgePoints)
 	{
-		SetRelativeStartAndEndPercentage( 0, 93, 94, L"Init Loaded World..." );
-		RenderProgressBar( 0, 0 );
-		if(!(gMapInformation.sNorthGridNo == -1 && gMapInformation.sEastGridNo == -1 && gMapInformation.sSouthGridNo == -1 && gMapInformation.sWestGridNo == -1))//dnl just rough solution for skiping InitLoadedWorld if loaded map doesn't contain any entry point which lead into assertion
-			InitLoadedWorld();
-	}
-
-	if( fGenerateEdgePoints )
-	{
-		SetRelativeStartAndEndPercentage( 0, 94, 95, L"Generating map edgepoints..." );
-		RenderProgressBar( 0, 0 );
+		SetRelativeStartAndEndPercentage(0, 94, 95, L"Generating map edgepoints...");
+		RenderProgressBar(0, 0);
 		CompileWorldMovementCosts();
 		GenerateMapEdgepoints();
 	}
 
-	RenderProgressBar( 0, 20 );
-
-	SetRelativeStartAndEndPercentage( 0, 95, 100, L"General initialization..." );
+	RenderProgressBar(0, 20);
+	SetRelativeStartAndEndPercentage(0, 95, 100, L"General initialization...");
 	// RESET AI!
 	InitOpponentKnowledgeSystem();
-
-	RenderProgressBar( 0, 30 );
-
-	//AllTeamsLookForAll(NO_INTERRUPTS);
-
-	RenderProgressBar( 0, 40 );
-
-	//Reset some override flags
+	RenderProgressBar(0, 40);
+	// Reset some override flags
 	gfForceLoadPlayers = FALSE;
-	gfForceLoad				= FALSE;
-
+	gfForceLoad = FALSE;
 	// CHECK IF OUR SELECTED GUY IS GONE!
-	if ( gusSelectedSoldier != NOBODY )
+	if(gusSelectedSoldier != NOBODY)
 	{
-		if ( MercPtrs[ gusSelectedSoldier ]->bActive == FALSE )
-		{
+		if(MercPtrs[gusSelectedSoldier]->bActive == FALSE)
 			gusSelectedSoldier = NOBODY;
-		}
 	}
-
-	AdjustSoldierCreationStartValues( );
-
-	RenderProgressBar( 0, 60 );
-
-	InvalidateWorldRedundency( );
-
+	AdjustSoldierCreationStartValues();
+	RenderProgressBar(0, 60);
+	InvalidateWorldRedundency();
 	// SAVE FILENAME
-	strcpy( gzLastLoadedFile, puiFilename	);
-	LoadRadarScreenBitmap( puiFilename );
-
-	RenderProgressBar( 0, 80 );
-
+	strcpy(gzLastLoadedFile, puiFilename);
+	LoadRadarScreenBitmap(puiFilename);
+	RenderProgressBar(0, 80);
+	sprintf(gubFilename, puiFilename);
 	gfWorldLoaded = TRUE;
-
-	sprintf( gubFilename, puiFilename );
-
-	//Remove this rather large chunk of memory from the system now!
-	MemFree( pBufferHead );
-
 #ifdef JA2TESTVERSION
 	uiLoadWorldTime = GetJA2Clock() - uiLoadWorldStartTime;
 #endif
-
-//#ifdef JA2TESTVERSION
-
 	// ATE: Not while updating maps!
-	if ( guiCurrentScreen != MAPUTILITY_SCREEN )
-	{
+	if(guiCurrentScreen != MAPUTILITY_SCREEN)
 		GenerateBuildings();
-	}
-
-//#endif
-
-	RenderProgressBar( 0, 100 );
-
-
+	RenderProgressBar(0, 100);
 	DequeueAllKeyBoardEvents();
-
-
-	return( TRUE );
+	// Remove this rather large chunk of memory from the system now!
+	MemFree(pBufferHead);
+	MemFree(bCounts);
+	return(TRUE);
 }
-
 
 //****************************************************************************************
 //
 //	Deletes everything then re-creates the world with simple ground tiles
 //
 //****************************************************************************************
-BOOLEAN NewWorld( void )
+BOOLEAN NewWorld( INT32 nMapRows,  INT32 nMapCols )
 {
 	UINT16				NewIndex;
 	INT32					cnt;
@@ -3272,6 +3109,9 @@ BOOLEAN NewWorld( void )
 	AdjustSoldierCreationStartValues( );
 
 	TrashWorld();
+
+	//SB
+	SetWorldSize(nMapRows, nMapCols);
 
 	// Create world randomly from tiles
 	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
@@ -3310,7 +3150,7 @@ void TrashWorld( void )
 
 
 	// REMOVE ALL ITEMS FROM WORLD
-	TrashWorldItems(	);
+	TrashWorldItems(  );
 
 	// Trash the overhead map
 	TrashOverheadMap( );
@@ -3541,7 +3381,7 @@ void TrashMapTile(INT16 MapTile)
 		MemFree( pOnRoofNode );
 		pOnRoofNode = pMapTile->pOnRoofHead;
 	}
-	pMapTile->pOnRoofHead =	NULL;
+	pMapTile->pOnRoofHead =		NULL;
 
 	pTopmostNode = pMapTile->pTopmostHead;
 	while ( pTopmostNode != NULL )
@@ -3639,7 +3479,7 @@ BOOLEAN SaveMapTileset( INT32 iTilesetID )
 
 void SetLoadOverrideParams( BOOLEAN fForceLoad, BOOLEAN fForceFile, CHAR8 *zLoadName )
 {
-	gfForceLoadPlayers = fForceLoad;
+	gfForceLoadPlayers 		= fForceLoad;
 	gfForceLoad				= fForceFile;
 
 	if ( zLoadName != NULL )
@@ -3649,7 +3489,7 @@ void SetLoadOverrideParams( BOOLEAN fForceLoad, BOOLEAN fForceFile, CHAR8 *zLoad
 }
 
 
-void AddWireFrame( INT16 sGridNo, UINT16 usIndex, BOOLEAN fForced )
+void AddWireFrame( INT32 sGridNo, UINT16 usIndex, BOOLEAN fForced )
 {
 	LEVELNODE			*pTopmost, *pTopmostTail;
 
@@ -3676,10 +3516,10 @@ void AddWireFrame( INT16 sGridNo, UINT16 usIndex, BOOLEAN fForced )
 }
 
 
-UINT16 GetWireframeGraphicNumToUseForWall( INT16 sGridNo, STRUCTURE *pStructure )
+UINT16 GetWireframeGraphicNumToUseForWall( INT32 sGridNo, STRUCTURE *pStructure )
 {
-	LEVELNODE	 *pNode = NULL;
-	UINT8					ubWallOrientation;
+	LEVELNODE	*pNode = NULL;
+	UINT8		ubWallOrientation;
 	UINT16		usValue = 0;
 	UINT16		usSubIndex;
 	STRUCTURE	 *pBaseStructure;
@@ -3690,40 +3530,40 @@ UINT16 GetWireframeGraphicNumToUseForWall( INT16 sGridNo, STRUCTURE *pStructure 
 
 	if ( pBaseStructure )
 	{
-	// Find levelnode...
-	pNode = gpWorldLevelData[sGridNo].pStructHead;
-	while( pNode != NULL )
-	{
-		if (pNode->pStructureData == pBaseStructure)
+		// Find levelnode...
+		pNode = gpWorldLevelData[sGridNo].pStructHead;
+		while( pNode != NULL )
 		{
-			break;
+			if (pNode->pStructureData == pBaseStructure)
+			{
+				break;
+			}
+			pNode = pNode->pNext;
 		}
-		pNode = pNode->pNext;
-	}
 
-	if ( pNode != NULL )
-	{
-		// Get Subindex for this wall...
-		GetSubIndexFromTileIndex( pNode->usIndex, &usSubIndex );
+		if ( pNode != NULL )
+		{
+			// Get Subindex for this wall...
+			GetSubIndexFromTileIndex( pNode->usIndex, &usSubIndex );
 
-		// Check for broken peices...
-		if ( usSubIndex == 48 || usSubIndex == 52 )
-		{
-		return( WIREFRAMES12 );
+			// Check for broken peices...
+			if ( usSubIndex == 48 || usSubIndex == 52 )
+			{
+				return( WIREFRAMES12 );
+			}
+			else if ( usSubIndex == 49 || usSubIndex == 53 )
+			{
+				return( WIREFRAMES13 );
+			}
+			else if ( usSubIndex == 50 || usSubIndex == 54 )
+			{
+				return( WIREFRAMES10 );
+			}
+			else if ( usSubIndex == 51 || usSubIndex == 55 )
+			{
+				return( WIREFRAMES11 );
+			}
 		}
-		else if ( usSubIndex == 49 || usSubIndex == 53 )
-		{
-		return( WIREFRAMES13 );
-		}
-		else if ( usSubIndex == 50 || usSubIndex == 54 )
-		{
-		return( WIREFRAMES10 );
-		}
-		else if ( usSubIndex == 51 || usSubIndex == 55 )
-		{
-		return( WIREFRAMES11 );
-		}
-	}
 	}
 
 	switch( ubWallOrientation )
@@ -3736,8 +3576,8 @@ UINT16 GetWireframeGraphicNumToUseForWall( INT16 sGridNo, STRUCTURE *pStructure 
 
 		case OUTSIDE_TOP_RIGHT:
 		case INSIDE_TOP_RIGHT:
-		usValue = WIREFRAMES5;
-		break;
+			usValue = WIREFRAMES5;
+			break;
 
 	}
 
@@ -3746,34 +3586,34 @@ UINT16 GetWireframeGraphicNumToUseForWall( INT16 sGridNo, STRUCTURE *pStructure 
 
 void CalculateWorldWireFrameTiles( BOOLEAN fForce )
 {
-	INT32					cnt;
+	INT32			cnt;
 	STRUCTURE		*pStructure;
-	INT16					sGridNo;
-	UINT8					ubWallOrientation;
-	INT8					bHiddenVal;
-	INT8					bNumWallsSameGridNo;
-	UINT16		usWireFrameIndex;
+	INT32			sGridNo;
+	UINT8			ubWallOrientation;
+	INT8			bHiddenVal;
+	INT8			bNumWallsSameGridNo;
+	INT32			usWireFrameIndex;
 
 	// Create world randomly from tiles
 	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
 	{
 		if ( gpWorldLevelData[ cnt ].uiFlags & MAPELEMENT_RECALCULATE_WIREFRAMES || fForce )
 		{
-      if ( cnt == 8377 )
-      {
-        int i = 0;
-      }
+			if ( cnt == 8377 )
+			{
+				int i = 0;
+			}
 
 			// Turn off flag
 			gpWorldLevelData[ cnt ].uiFlags &= (~MAPELEMENT_RECALCULATE_WIREFRAMES );
 
 			// Remove old ones
-			RemoveWireFrameTiles( (INT16)cnt );
+			RemoveWireFrameTiles( cnt );
 
 			bNumWallsSameGridNo = 0;
 
 			// Check our gridno, if we have a roof over us that has not beenr evealed, no need for a wiereframe
-			if ( IsRoofVisibleForWireframe( (INT16)cnt ) && !( gpWorldLevelData[ cnt ].uiFlags & MAPELEMENT_REVEALED ) )
+			if ( IsRoofVisibleForWireframe( cnt ) && !( gpWorldLevelData[ cnt ].uiFlags & MAPELEMENT_REVEALED ) )
 			{
 				continue;
 			}
@@ -3798,11 +3638,11 @@ void CalculateWorldWireFrameTiles( BOOLEAN fForce )
 							case INSIDE_TOP_LEFT:
 
 								// Get gridno
-								sGridNo = NewGridNo( (INT16)cnt, DirectionInc( SOUTH ) );
+								sGridNo = NewGridNo( cnt, DirectionInc( SOUTH ) );
 
 								if ( IsRoofVisibleForWireframe( sGridNo ) && !( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) )
 								{
-									AddWireFrame( (INT16)cnt, WIREFRAMES4, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
+									AddWireFrame( cnt, WIREFRAMES4, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
 								}
 								break;
 
@@ -3810,11 +3650,11 @@ void CalculateWorldWireFrameTiles( BOOLEAN fForce )
 							case INSIDE_TOP_RIGHT:
 
 								// Get gridno
-								sGridNo = NewGridNo( (INT16)cnt, DirectionInc( EAST ) );
+								sGridNo = NewGridNo( cnt, DirectionInc( EAST ) );
 
 								if ( IsRoofVisibleForWireframe( sGridNo ) && !( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) )
 								{
-									AddWireFrame( (INT16)cnt, WIREFRAMES3 , (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
+									AddWireFrame( cnt, WIREFRAMES3 , (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
 								}
 								break;
 
@@ -3823,113 +3663,113 @@ void CalculateWorldWireFrameTiles( BOOLEAN fForce )
 				}
 				// Check for windows
 				else
-		{
-			if ( pStructure->fFlags & STRUCTURE_WALLNWINDOW )
 				{
-					// Does the gridno we are over have a non-visible tile?
-					// Based on orientation
-					ubWallOrientation = pStructure->ubWallOrientation;
-
-					switch( ubWallOrientation )
+					if ( pStructure->fFlags & STRUCTURE_WALLNWINDOW )
 					{
-						case OUTSIDE_TOP_LEFT:
-						case INSIDE_TOP_LEFT:
+						// Does the gridno we are over have a non-visible tile?
+						// Based on orientation
+						ubWallOrientation = pStructure->ubWallOrientation;
+
+						switch( ubWallOrientation )
+						{
+							case OUTSIDE_TOP_LEFT:
+							case INSIDE_TOP_LEFT:
 
 							// Get gridno
-							sGridNo = NewGridNo( (INT16)cnt, DirectionInc( SOUTH ) );
+							  sGridNo = NewGridNo( cnt, DirectionInc( SOUTH ) );
 
 							if ( IsRoofVisibleForWireframe( sGridNo ) && !( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) )
 							{
-								AddWireFrame( (INT16)cnt, WIREFRAMES2, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
+								  AddWireFrame( cnt, WIREFRAMES2, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
 							}
 							break;
 
-						case OUTSIDE_TOP_RIGHT:
-						case INSIDE_TOP_RIGHT:
+							case OUTSIDE_TOP_RIGHT:
+							case INSIDE_TOP_RIGHT:
 
 							// Get gridno
-							sGridNo = NewGridNo( (INT16)cnt, DirectionInc( EAST ) );
+							sGridNo = NewGridNo( cnt, DirectionInc( EAST ) );
 
 							if ( IsRoofVisibleForWireframe( sGridNo ) && !( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) )
 							{
-								AddWireFrame( (INT16)cnt, WIREFRAMES1, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
+								AddWireFrame( cnt, WIREFRAMES1, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
 							}
 							break;
 
+						}
+
 					}
 
-				}
-
-				// Check for walls
-				if ( pStructure->fFlags & STRUCTURE_WALLSTUFF )
-				{
-					// Does the gridno we are over have a non-visible tile?
-					// Based on orientation
-					ubWallOrientation = pStructure->ubWallOrientation;
-
-			usWireFrameIndex = GetWireframeGraphicNumToUseForWall( (UINT16)cnt, pStructure );
-
-					switch( ubWallOrientation )
+					// Check for walls
+					if ( pStructure->fFlags & STRUCTURE_WALLSTUFF )
 					{
-						case OUTSIDE_TOP_LEFT:
-						case INSIDE_TOP_LEFT:
+						// Does the gridno we are over have a non-visible tile?
+						// Based on orientation
+						ubWallOrientation = pStructure->ubWallOrientation;
 
-							// Get gridno
-							sGridNo = NewGridNo( (INT16)cnt, DirectionInc( SOUTH ) );
+						usWireFrameIndex = GetWireframeGraphicNumToUseForWall( cnt, pStructure );
 
-							if ( IsRoofVisibleForWireframe( sGridNo ) )
-							{
-								bNumWallsSameGridNo++;
+						switch( ubWallOrientation )
+						{
+							case OUTSIDE_TOP_LEFT:
+							case INSIDE_TOP_LEFT:
 
-								AddWireFrame( (INT16)cnt, usWireFrameIndex, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
+								// Get gridno
+								sGridNo = NewGridNo( cnt, DirectionInc( SOUTH ) );
 
-								// Check along our direction to see if we are a corner
-								sGridNo = NewGridNo( (INT16)cnt, DirectionInc( WEST ) );
-								sGridNo = NewGridNo( sGridNo, DirectionInc( SOUTH ) );
-								bHiddenVal = IsHiddenTileMarkerThere( sGridNo );
-								// If we do not exist ( -1 ) or are revealed ( 1 )
-								if ( bHiddenVal == -1 || bHiddenVal == 1 )
+								if ( IsRoofVisibleForWireframe( sGridNo ) )
 								{
-									// Place corner!
-									AddWireFrame( (INT16)cnt, WIREFRAMES9, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
+									bNumWallsSameGridNo++;
+
+									AddWireFrame( cnt, usWireFrameIndex, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
+
+									// Check along our direction to see if we are a corner
+									sGridNo = NewGridNo( cnt, DirectionInc( WEST ) );
+									sGridNo = NewGridNo( sGridNo, DirectionInc( SOUTH ) );
+									bHiddenVal = IsHiddenTileMarkerThere( sGridNo );
+									// If we do not exist ( -1 ) or are revealed ( 1 )
+									if ( bHiddenVal == -1 || bHiddenVal == 1 )
+									{
+										// Place corner!
+										   AddWireFrame( cnt, WIREFRAMES9, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
+									}
 								}
-							}
-							break;
+								break;
 
-						case OUTSIDE_TOP_RIGHT:
-						case INSIDE_TOP_RIGHT:
+							case OUTSIDE_TOP_RIGHT:
+							case INSIDE_TOP_RIGHT:
 
-							// Get gridno
-							sGridNo = NewGridNo( (INT16)cnt, DirectionInc( EAST ) );
+								// Get gridno
+								sGridNo = NewGridNo( cnt, DirectionInc( EAST ) );
 
-							if ( IsRoofVisibleForWireframe( sGridNo ) )
-							{
-								bNumWallsSameGridNo++;
-
-								AddWireFrame( (INT16)cnt, usWireFrameIndex, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
-
-								// Check along our direction to see if we are a corner
-								sGridNo = NewGridNo( (INT16)cnt, DirectionInc( NORTH ) );
-								sGridNo = NewGridNo( sGridNo, DirectionInc( EAST ) );
-								bHiddenVal = IsHiddenTileMarkerThere( sGridNo );
-								// If we do not exist ( -1 ) or are revealed ( 1 )
-								if ( bHiddenVal == -1 || bHiddenVal == 1 )
+								if ( IsRoofVisibleForWireframe( sGridNo ) )
 								{
-									// Place corner!
-									AddWireFrame( (INT16)cnt, WIREFRAMES8, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
+									bNumWallsSameGridNo++;
+
+									AddWireFrame( cnt, usWireFrameIndex, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
+
+									// Check along our direction to see if we are a corner
+									sGridNo = NewGridNo( cnt, DirectionInc( NORTH ) );
+									sGridNo = NewGridNo( sGridNo, DirectionInc( EAST ) );
+									bHiddenVal = IsHiddenTileMarkerThere( sGridNo );
+									// If we do not exist ( -1 ) or are revealed ( 1 )
+									if ( bHiddenVal == -1 || bHiddenVal == 1 )
+									{
+										// Place corner!
+										AddWireFrame( cnt, WIREFRAMES8, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 ) );
+									}
+
 								}
+								break;
 
-							}
-							break;
-
-					}
+						}
 
 					// Check for both walls
 					if ( bNumWallsSameGridNo == 2 )
 					{
-						sGridNo = NewGridNo( (INT16)cnt, DirectionInc( EAST ) );
+						sGridNo = NewGridNo( cnt, DirectionInc( EAST ) );
 						sGridNo = NewGridNo( sGridNo, DirectionInc( SOUTH ) );
-						AddWireFrame( (INT16)cnt, WIREFRAMES7, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 )	);
+						AddWireFrame( cnt, WIREFRAMES7, (BOOLEAN)( ( gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) != 0 )  );
 					}
 			}
 				}
@@ -3948,13 +3788,13 @@ void RemoveWorldWireFrameTiles( )
 	// Create world randomly from tiles
 	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
 	{
-		RemoveWireFrameTiles( (INT16)cnt );
+		RemoveWireFrameTiles( cnt );
 	}
 
 }
 
 
-void RemoveWireFrameTiles( INT16 sGridNo )
+void RemoveWireFrameTiles( INT32 sGridNo )
 {
 	LEVELNODE			*pTopmost, *pNewTopmost;
 	TILE_ELEMENT *	pTileElement;
@@ -3982,7 +3822,7 @@ void RemoveWireFrameTiles( INT16 sGridNo )
 
 
 
-INT8 IsHiddenTileMarkerThere( INT16 sGridNo )
+INT8 IsHiddenTileMarkerThere( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
 
@@ -4029,12 +3869,12 @@ void ReloadTileset( UINT8 ubID )
 	// Save Map
 	SaveWorld( TEMP_FILE_FOR_TILESET_CHANGE );
 
-	//IMPORTANT:	If this is not set, the LoadTileset() will assume that
+	//IMPORTANT:  If this is not set, the LoadTileset() will assume that
 	//it is loading the same tileset and ignore it...
 	giCurrentTilesetID = iCurrTilesetID;
 
 	// Load Map with new tileset
-	LoadWorld( TEMP_FILE_FOR_TILESET_CHANGE);
+	LoadWorld( TEMP_FILE_FOR_TILESET_CHANGE );
 
 	// Delete file
 	sprintf( aFilename, "MAPS\\%s", TEMP_FILE_FOR_TILESET_CHANGE );
@@ -4066,7 +3906,7 @@ void SaveMapLights( HWFILE hfile )
 	for( cnt = 0; cnt < MAX_LIGHT_SPRITES; cnt++ )
 	{
 		if( LightSprites[ cnt ].uiFlags & LIGHT_SPR_ACTIVE )
-		{ //found an active light.	Check to make sure it doesn't belong to a merc.
+		{ //found an active light.  Check to make sure it doesn't belong to a merc.
 			fSoldierLight = FALSE;
 			for ( cnt2 = 0; cnt2 < MAX_NUM_SOLDIERS && !fSoldierLight; cnt2++ )
 			{
@@ -4088,7 +3928,7 @@ void SaveMapLights( HWFILE hfile )
 	for( cnt = 0; cnt < MAX_LIGHT_SPRITES; cnt++ )
 	{
 		if( LightSprites[ cnt ].uiFlags & LIGHT_SPR_ACTIVE )
-		{ //found an active light.	Check to make sure it doesn't belong to a merc.
+		{ //found an active light.  Check to make sure it doesn't belong to a merc.
 			fSoldierLight = FALSE;
 			for ( cnt2 = 0; cnt2 < MAX_NUM_SOLDIERS && !fSoldierLight; cnt2++ )
 			{
@@ -4162,6 +4002,10 @@ void LoadMapLights( INT8 **hBuffer )
 		LOADDATA( &TmpLight, *hBuffer, sizeof( LIGHT_SPRITE ) );
 		LOADDATA( &ubStrLen, *hBuffer, 1 );
 
+		//dnl ch44 280909 LIGHT_SPRITE translation
+		gMapTrn.GetTrnXY(TmpLight.iOldX, TmpLight.iOldY);
+		gMapTrn.GetTrnXY(TmpLight.iX, TmpLight.iY);
+
 		if( ubStrLen )
 		{
 			LOADDATA( str, *hBuffer, ubStrLen );
@@ -4177,10 +4021,11 @@ void LoadMapLights( INT8 **hBuffer )
 			if( !gfCaves || gfEditMode )
 			{
 				if( gfEditMode ||
-						TmpLight.uiFlags & LIGHT_PRIMETIME && fPrimeTime ||
+					TmpLight.uiFlags & LIGHT_PRIMETIME && fPrimeTime ||
 					TmpLight.uiFlags & LIGHT_NIGHTTIME && fNightTime ||
-						!(TmpLight.uiFlags & (LIGHT_PRIMETIME | LIGHT_NIGHTTIME)) )
-				{ //power only valid lights.
+					!(TmpLight.uiFlags & (LIGHT_PRIMETIME | LIGHT_NIGHTTIME)) )
+				{
+					//power only valid lights.
 					LightSpritePower( iLSprite, TRUE );
 				}
 			}
@@ -4194,7 +4039,7 @@ void LoadMapLights( INT8 **hBuffer )
 }
 
 
-BOOLEAN IsRoofVisibleForWireframe( INT16 sMapPos )
+BOOLEAN IsRoofVisibleForWireframe( INT32 sMapPos )
 {
 	STRUCTURE * pStructure;
 
@@ -4220,3 +4065,150 @@ BOOLEAN IsRoofVisibleForWireframe( INT16 sMapPos )
 
 	return( FALSE );
 }
+
+//dnl ch43 260909
+void SetWorldSize(INT32 nWorldRows, INT32 nWorldCols)
+{
+	gMapTrn.ResizeTrnCfg(WORLD_ROWS, WORLD_COLS, nWorldRows, nWorldCols);//dnl ch45 011009
+
+	INT32 o_WORLD_MAX = WORLD_MAX;
+	WORLD_ROWS = nWorldRows;
+	WORLD_COLS = nWorldCols;
+
+	ResetScrollOverheadMap();//dnl ch45 031009
+	CenterScreenAtMapIndex(MAPROWCOLTOPOS(WORLD_ROWS/2, WORLD_COLS/2));//dnl ch54 111009
+
+	if(gubGridNoMarkers)
+		MemFree(gubGridNoMarkers);
+	gubGridNoMarkers = (UINT8*)MemAlloc(WORLD_MAX);
+	memset(gubGridNoMarkers, 0, sizeof(UINT8)*WORLD_MAX);
+
+	if(gsCoverValue)
+		MemFree(gsCoverValue);
+	gsCoverValue = (INT16*)MemAlloc(sizeof(INT16)*WORLD_MAX);
+	memset(gsCoverValue, 0x7F, sizeof(INT16)*WORLD_MAX);
+
+	// Init building structures and variables
+	if(gubBuildingInfo)
+		MemFree(gubBuildingInfo);
+	gubBuildingInfo = (UINT8*)MemAlloc(WORLD_MAX);
+	memset(gubBuildingInfo, 0, sizeof(UINT8)*WORLD_MAX);
+
+	// Init room numbers
+	if(gubWorldRoomInfo)
+		MemFree(gubWorldRoomInfo);
+	gubWorldRoomInfo = (UINT8*)MemAlloc(WORLD_MAX);
+	memset(gubWorldRoomInfo, 0, sizeof(UINT8)*WORLD_MAX);
+
+	if(gubWorldMovementCosts)
+		MemFree(gubWorldMovementCosts);
+	gubWorldMovementCosts = (UINT8(*)[MAXDIR][2])MemAlloc(WORLD_MAX*MAXDIR*2);
+	memset(gubWorldMovementCosts, 0, sizeof(UINT8)*WORLD_MAX*MAXDIR*2);
+
+	if(gpWorldLevelData != NULL)
+		MemFree(gpWorldLevelData);
+	// Initialize world data
+	gpWorldLevelData = (MAP_ELEMENT*)MemAlloc(sizeof(MAP_ELEMENT)*WORLD_MAX);
+	// Zero world
+	memset(gpWorldLevelData, 0, sizeof(MAP_ELEMENT)*WORLD_MAX);
+
+	ShutDownPathAI();
+	InitPathAI();
+
+#ifdef _DEBUG
+	if(gubFOVDebugInfoInfo)
+		MemFree(gubFOVDebugInfoInfo);
+	gubFOVDebugInfoInfo = (UINT8*)MemAlloc(WORLD_MAX);
+#endif
+
+	dirDelta[0]= -WORLD_COLS;
+	dirDelta[1]= 1-WORLD_COLS;
+	dirDelta[3]= 1+WORLD_COLS;
+	dirDelta[4]= WORLD_ROWS;
+	dirDelta[5]= WORLD_ROWS-1;
+	dirDelta[7]= -WORLD_ROWS-1;
+
+	DirIncrementer[0] = -WORLD_ROWS;
+	DirIncrementer[1] = 1-WORLD_ROWS;
+	DirIncrementer[3] = 1+WORLD_ROWS;
+	DirIncrementer[4] = WORLD_ROWS;
+	DirIncrementer[5] = WORLD_ROWS-1;
+	DirIncrementer[6] = -1;
+	DirIncrementer[7] = -WORLD_ROWS-1;
+
+	gsTempActionGridNo = NOWHERE;
+	gsOverItemsGridNo = NOWHERE;
+	gsOutOfRangeGridNo = NOWHERE;
+	gsUITargetShotGridNo = NOWHERE;
+	gsUIHandleShowMoveGridLocation = NOWHERE;	
+	gusCurMousePos = 0;
+}
+
+//dnl ch44 290909 Translation routine
+MAPTRANSLATION gMapTrn;
+
+MAPTRANSLATION::MAPTRANSLATION()
+{
+	fTrn = FALSE;
+	iTrnFromRows = OLD_WORLD_ROWS;
+	iTrnFromCols = OLD_WORLD_COLS;
+	iTrnToRows = OLD_WORLD_ROWS;
+	iTrnToCols = OLD_WORLD_COLS;
+	iResizeTrnFromRows = OLD_WORLD_ROWS;
+	iResizeTrnFromCols = OLD_WORLD_COLS;
+	iResizeTrnToRows = OLD_WORLD_ROWS;
+	iResizeTrnToCols = OLD_WORLD_COLS;
+}
+
+MAPTRANSLATION::~MAPTRANSLATION()
+{
+	;
+}
+
+void MAPTRANSLATION::GetTrnCnt(INT32& cnt)
+{
+	if(!fTrn || cnt < 0)
+		return;
+	INT32 y = cnt / iTrnFromCols;
+	INT32 x = cnt - y * iTrnFromCols;
+	cnt = (x + (iTrnToCols - iTrnFromCols) / 2) + (y + (iTrnToRows - iTrnFromRows) / 2) * iTrnToCols;
+}
+
+void MAPTRANSLATION::GetTrnXY(INT16& x, INT16& y)
+{
+	if(!fTrn || x < 0 || y < 0)
+		return;
+	x += (iTrnToCols - iTrnFromCols) / 2;
+	y += (iTrnToRows - iTrnFromRows) / 2;
+}
+
+void MAPTRANSLATION::ResizeTrnCfg(INT32 iFromRows, INT32 iFromCols, INT32 iToRows, INT32 iToCols)
+{
+	iResizeTrnFromRows = iFromRows;
+	iResizeTrnFromCols = iFromCols;
+	iResizeTrnToRows = iToRows;
+	iResizeTrnToCols = iToCols;
+}
+
+void MAPTRANSLATION::ResizeTrnCnt(INT32& cnt)
+{
+	INT32 y = cnt / iResizeTrnFromCols;
+	INT32 x = cnt - y * iResizeTrnFromCols;
+	cnt = (x * iResizeTrnToCols / iResizeTrnFromCols) + (y * iResizeTrnToRows / iResizeTrnFromRows) * iResizeTrnToCols;
+}
+
+BOOLEAN MAPTRANSLATION::SetTrnPar(INT32 iFromRows, INT32 iFromCols, INT32 iToRows, INT32 iToCols)
+{
+	if(iFromRows < iToRows && iFromCols < iToCols)
+	{
+		fTrn = TRUE;
+		iTrnFromRows = iFromRows;
+		iTrnFromCols = iFromCols;
+		iTrnToRows = iToRows;
+		iTrnToCols = iToCols;
+	}
+	else
+		fTrn = FALSE;
+	return(fTrn);
+}
+

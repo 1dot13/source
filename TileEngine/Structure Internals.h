@@ -160,33 +160,31 @@ typedef struct TAG_DB_STRUCTURE_REF
 	DB_STRUCTURE_TILE **									ppTile; // dynamic array
 } DB_STRUCTURE_REF; 		// 8 bytes
 
-typedef struct TAG_STRUCTURE 
+//dnl ch46 031009
+typedef struct TAG_STRUCTURE
 {
-	struct TAG_STRUCTURE *				pPrev;
-	struct TAG_STRUCTURE *				pNext;
-	INT16													sGridNo;
-	UINT16												usStructureID;
-	DB_STRUCTURE_REF *						pDBStructureRef;
+	struct TAG_STRUCTURE* pPrev;
+	struct TAG_STRUCTURE* pNext;
+	DB_STRUCTURE_REF* pDBStructureRef;
+	PROFILE* pShape;
+	UINT32 fFlags;// need to have something to indicate base tile/not
+	INT32 sGridNo;
 	union
 	{
 		struct
 		{
-			UINT8											ubHitPoints;
-			UINT8											ubLockStrength;
+			UINT8 ubHitPoints;
+			UINT8 ubLockStrength;
 		};
-		//struct
-		//{
-			INT16											sBaseGridNo;
-		//};
-	}; // 2 bytes
-	INT16													sCubeOffset;// height of bottom of object in profile "cubes"
-	UINT32												fFlags; // need to have something to indicate base tile/not
-	PROFILE *											pShape;
-	UINT8													ubWallOrientation;
-	UINT8													ubVehicleHitLocation;
-	UINT8													ubStructureHeight; // if 0, then unset; otherwise stores height of structure when last calculated
-	UINT8													ubUnused[1];
-} STRUCTURE; // 32 bytes
+		INT32 sBaseGridNo;
+	};
+	UINT16 usStructureID;
+	INT16 sCubeOffset;// height of bottom of object in profile "cubes"
+	UINT8 ubWallOrientation;
+	UINT8 ubVehicleHitLocation;
+	UINT8 ubStructureHeight;// if 0, then unset; otherwise stores height of structure when last calculated
+	UINT8 ubUnused;
+}STRUCTURE;// 36 bytes
 
 typedef struct TAG_STRUCTURE_FILE_REF
 {

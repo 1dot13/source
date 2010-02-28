@@ -33,6 +33,7 @@
 
 #if defined( JA2 ) || defined( UTILS )
 typedef unsigned int	UINT32;
+typedef __int64		 INT64;		// WANNE - BMP: Used for Big Maps
 typedef signed int	 INT32;
 #else
 typedef unsigned int	UINT32;

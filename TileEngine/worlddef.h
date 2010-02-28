@@ -9,36 +9,59 @@
 
 #define WORLD_TILE_X		40
 #define WORLD_TILE_Y		20
-#define WORLD_COLS			160
-#define WORLD_ROWS			160
-#define WORLD_COORD_COLS			1600
-#define WORLD_COORD_ROWS			1600
-#define WORLD_MAX					25600
+//#define WORLD_COLS			160
+//#define WORLD_ROWS			160
+//#define WORLD_COORD_COLS			1600
+//#define WORLD_COORD_ROWS			1600
+//#define WORLD_MAX					25600
 #define CELL_X_SIZE					10
 #define CELL_Y_SIZE					10
+//<SB> variable map size
+extern INT32 guiWorldCols;
+extern INT32 guiWorldRows;
+
+#define OLD_WORLD_COLS			160
+#define OLD_WORLD_ROWS			160
+#define OLD_WORLD_COORD_COLS			1600
+#define OLD_WORLD_COORD_ROWS			1600
+#define OLD_WORLD_MAX					25600
+
+#define WORLD_COLS			guiWorldCols
+#define WORLD_ROWS			guiWorldRows
+#define WORLD_COORD_COLS			(WORLD_COLS*CELL_X_SIZE)
+#define WORLD_COORD_ROWS			(WORLD_ROWS*CELL_Y_SIZE)
+#define WORLD_MAX					(WORLD_COLS*WORLD_ROWS)
+
+// WANNE - BMP: The maximum value WORLD_MAX can have. DONE!
+#define MAX_ALLOWED_WORLD_MAX		4000000 // (1000 cols x 1000 rows)
+
+
+//</SB>
+
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-//Don't mess with this value, unless you want to force update all maps in the game!
-// Lesh: fix the sad situation with the different major map versions
-//#ifdef RUSSIAN
-	//#define MAJOR_MAP_VERSION		6.00
-//#else
-	#define MAJOR_MAP_VERSION		6.00
-//#endif
+// SB: new map version, with map dimensions added
+#define MAJOR_MAP_VERSION		7.0
 //Current minor map version updater.
 #define MINOR_MAP_VERSION		27
+
+//dnl ch33 230909
+#define VANILLA_MAJOR_MAP_VERSION 5.00
+#define VANILLA_MINOR_MAP_VERSION 25
 
 #define WORLD_BASE_HEIGHT			0
 #define WORLD_CLIFF_HEIGHT		80
  
 //A macro that actually memcpy's over data and increments the pointer automatically
-//based on the size.	Works like a FileRead except with a buffer instead of a file pointer.
+//based on the size.  Works like a FileRead except with a buffer instead of a file pointer.
 //Used by LoadWorld() and child functions.
 #include <memory.h>
-#define	LOADDATA( dst, src, size ) memcpy( dst, src, size ); src += size
+//SB: fix macro syntax flaw
+//#define  LOADDATA( dst, src, size ) memcpy( dst, src, size ); src += size
+#define  LOADDATA( dst, src, size ) { memcpy( dst, src, size ); src += size; }
 
 
 #define LANDHEAD							0
@@ -119,6 +142,7 @@ class SOLDIERTYPE;
 #define ANY_SMOKE_EFFECT		( MAPELEMENT_EXT_CREATUREGAS | MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS | MAPELEMENT_EXT_BURNABLEGAS )
 
 
+// WDS - Clean up inventory handling
 struct LEVELNODE
 {
 	struct LEVELNODE				*pNext;
@@ -133,7 +157,9 @@ struct LEVELNODE
 		STRUCTURE										*pStructureData;		// STRUCTURE DATA
 		INT32												iPhysicsObjectID;		// ID FOR PHYSICS ITEM
 		INT32												uiAPCost;						// FOR AP DISPLAY
-		INT32												iExitGridInfo;			
+//SB: change packed exitgrid for EXITGRID *
+//		INT32												iExitGridInfo;
+		void *											pExitGridInfo;
 	}; // ( 4 byte union )
 
 	union 
@@ -237,12 +263,12 @@ typedef struct
 		LEVELNODE									*pLevelNodes[ 9 ];
 	//};
 
-	STRUCTURE								*pStructureHead;				
-	STRUCTURE								*pStructureTail;
+	STRUCTURE									*pStructureHead;				
+	STRUCTURE									*pStructureTail;
 
-	UINT16									uiFlags;
+	UINT16										uiFlags;
 	UINT16										ubExtFlags[2];
-	UINT16									sSumRealLights[1];
+	UINT16										sSumRealLights[1];
 	UINT8										sHeight;
 	UINT8										ubAdjacentSoldierCnt;
 	UINT8										ubTerrainID;
@@ -257,14 +283,43 @@ typedef struct
 extern MAP_ELEMENT			*gpWorldLevelData;
 
 // World Movement Costs
-extern UINT8						gubWorldMovementCosts[ WORLD_MAX ][MAXDIR][2];
+//UINT8						gubWorldMovementCosts[ WORLD_MAX ][MAXDIR][2];
+extern UINT8 (*gubWorldMovementCosts)[MAXDIR][2];//dnl ch43 260909
 
+//dnl ch44 290909 Translation routine
+class MAPTRANSLATION
+{
+private:
+	BOOLEAN fTrn;
+	INT32 iTrnFromRows;
+	INT32 iTrnFromCols;
+	INT32 iTrnToRows;
+	INT32 iTrnToCols;
+	INT32 iResizeTrnFromRows;
+	INT32 iResizeTrnFromCols;
+	INT32 iResizeTrnToRows;
+	INT32 iResizeTrnToCols;
+
+public:
+	MAPTRANSLATION();
+	~MAPTRANSLATION();
+
+	void DisableTrn(void){ fTrn = FALSE; }
+	void GetTrnCnt(INT32& cnt);
+	void GetTrnXY(INT16& x, INT16& y);
+	BOOLEAN IsTrn(void){ return(fTrn); }
+	BOOLEAN SetTrnPar(INT32 iFromRows, INT32 iFromCols, INT32 iToRows, INT32 iToCols);
+	//dnl ch45 011009
+	void ResizeTrnCfg(INT32 iFromRows, INT32 iFromCols, INT32 iToRows, INT32 iToCols);
+	void ResizeTrnCnt(INT32& cnt);
+};
+extern MAPTRANSLATION gMapTrn;
 
 extern UINT8		gubCurrentLevel;
 extern INT32		giCurrentTilesetID;
 
-extern HVOBJECT			hRenderVObject;
-extern UINT32				gSurfaceMemUsage;
+extern HVOBJECT		hRenderVObject;
+extern UINT32		gSurfaceMemUsage;
 
 extern CHAR8		gzLastLoadedFile[ 260 ];
 
@@ -282,15 +337,15 @@ void DestroyTileShadeTables( );
 
 
 void TrashWorld(void);
-void TrashMapTile(INT16 MapTile);
-BOOLEAN NewWorld( void );
+void TrashMapTile(INT32 MapTile);
+BOOLEAN NewWorld( INT32 nMapRows,  INT32 nMapCols );
 
-BOOLEAN SaveWorld( const STR8 puiFilename );
-BOOLEAN LoadWorld( const STR8 puiFilename, float* pMajorMapVersion = NULL, UINT8* pMinorMapVersion = NULL );
+BOOLEAN SaveWorld(const STR8 puiFilename, FLOAT dMajorMapVersion=MAJOR_MAP_VERSION, UINT8 ubMinorMapVersion=MINOR_MAP_VERSION);//dnl ch33 150909
+BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion=NULL, UINT8* pMinorMapVersion=NULL);//dnl ch44 290909
 
-void CompileWorldMovementCosts( );
-void RecompileLocalMovementCosts( INT16 sCentreGridNo );
-void RecompileLocalMovementCostsFromRadius( INT16 sCentreGridNo, INT8 bRadius );
+void CompileWorldMovementCosts(void);//dnl ch56 151009
+void RecompileLocalMovementCosts( INT32 sCentreGridNo );
+void RecompileLocalMovementCostsFromRadius( INT32 sCentreGridNo, INT8 bRadius );
 
 
 BOOLEAN LoadMapTileset( INT32 iTilesetID );
@@ -300,22 +355,23 @@ void SetLoadOverrideParams( BOOLEAN fForceLoad, BOOLEAN fForceFile, CHAR8 *zLoad
 
 void CalculateWorldWireFrameTiles( BOOLEAN fForce );
 void RemoveWorldWireFrameTiles( );
-void RemoveWireFrameTiles( INT16 sGridNo );
+void RemoveWireFrameTiles( INT32 sGridNo );
 
 
-LEVELNODE *GetAnimProfileFlags( INT16 sGridNo, UINT16 *usFlags, SOLDIERTYPE **ppTargSoldier, LEVELNODE *pGivenNode );
+LEVELNODE *GetAnimProfileFlags( INT32 sGridNo, UINT16 *usFlags, SOLDIERTYPE **ppTargSoldier, LEVELNODE *pGivenNode );
 
 void ReloadTileset( UINT8 ubID );
 
-BOOLEAN FloorAtGridNo( UINT32 iMapIndex );
-BOOLEAN DoorAtGridNo( UINT32 iMapIndex );
-BOOLEAN GridNoIndoors( UINT32 iMapIndex );
+BOOLEAN FloorAtGridNo( INT32 iMapIndex );
+BOOLEAN DoorAtGridNo( INT32 iMapIndex );
+BOOLEAN GridNoIndoors( INT32 iMapIndex );
 
 
-BOOLEAN OpenableAtGridNo( UINT32 iMapIndex );
+BOOLEAN OpenableAtGridNo( INT32 iMapIndex );
 
 void RecompileLocalMovementCostsInAreaWithFlags( void );
-void AddTileToRecompileArea( INT16 sGridNo );
+void AddTileToRecompileArea( INT32 sGridNo );
 
+void SetWorldSize(INT32 nWorldRows, INT32 nWorldCols);
 
 #endif

@@ -3,7 +3,7 @@
 
 #ifdef WIN32
 	#include <Windows.h>
-#elif LINUX
+#elif __linux__
   #include <sys/time.h>
 #endif
 
@@ -13,15 +13,15 @@ public:
 	CHPTimer();
 	~CHPTimer();
 
-	void StartTimer();
-	void StopTimer();
+	void startTimer();
+	void stopTimer();
 
-	double GetElapsedTimeInSeconds();
+	double getElapsedTimeInSeconds();
 protected:
 #ifdef WIN32
 	LARGE_INTEGER ticksPerSecond;
 	LARGE_INTEGER tick,tick2;
-#elif LINUX
+#elif __linux__
 	timeval t1,t2;
 #endif
 };

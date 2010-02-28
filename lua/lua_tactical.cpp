@@ -67,7 +67,7 @@ static int LuaSetSoldierGrid( lua_State *L )
 	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) lua_touserdata( L, 1 );
 	SOLDIERTYPE *pSoldier = *ppSoldier;
 	int newgrid = luaL_checkinteger( L, 3);
-	luaL_argcheck( L, newgrid > 0 && newgrid <= NOWHERE, 2, "The grid number must be on map" );
+	luaL_argcheck( L, newgrid > 0 && newgrid < MAX_MAP_POS, 2, "The grid number must be on map" );
 	TeleportSoldier( pSoldier, (INT16) newgrid, TRUE);
 	return 0;
 }
@@ -129,7 +129,7 @@ static int LuaSoldierWalkTo( lua_State *L )
 	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) luaL_checkudata( L, 1, SOLDIER_CLASS );
 	SOLDIERTYPE *pSoldier = *ppSoldier;
 	int newgrid = luaL_checkinteger( L, 2);
-	luaL_argcheck( L, newgrid > 0 && newgrid <= NOWHERE, 2, "The grid number must be on screen!" );
+	luaL_argcheck( L, newgrid > 0 && newgrid < MAX_MAP_POS, 2, "The grid number must be on screen!" );
 	pSoldier->aiData.bAction = AI_ACTION_WALK;
 	pSoldier->aiData.usActionData = (INT16) newgrid;
 	pSoldier->pathing.bPathStored = FALSE;
@@ -142,7 +142,7 @@ static int LuaSoldierRunTo( lua_State *L )
 	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) luaL_checkudata( L, 1, SOLDIER_CLASS );
 	SOLDIERTYPE *pSoldier = *ppSoldier;
 	int newgrid = luaL_checkinteger( L, 2);
-	luaL_argcheck( L, newgrid > 0 && newgrid <= NOWHERE, 2, "The grid number must be on screen!" );
+	luaL_argcheck( L, newgrid > 0 && newgrid < MAX_MAP_POS, 2, "The grid number must be on screen!" );
 	pSoldier->aiData.bAction = AI_ACTION_RUN;
 	pSoldier->aiData.usActionData = (INT16) newgrid;
 	pSoldier->pathing.bPathStored = FALSE;

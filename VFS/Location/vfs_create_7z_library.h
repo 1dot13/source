@@ -1,8 +1,6 @@
 #ifndef _VFS_CREATE_7Z_LIBRARY_H_
 #define _VFS_CREATE_7Z_LIBRARY_H_
 
-//#include "Interface/vfs_library_interface.h"
-//#include "Interface/vfs_directory_interface.h"
 #include "../Interface/vfs_file_interface.h"
 #include <sstream>
 #include <map>
@@ -10,30 +8,30 @@
 
 namespace vfs
 {
-	class CCreateUncompressed7zLibrary
+	class VFS_API CCreateUncompressed7zLibrary
 	{
 	public:
 		CCreateUncompressed7zLibrary();
 		virtual ~CCreateUncompressed7zLibrary();
 
-		bool AddFile(vfs::tReadableFile* pFile);
+		bool addFile(vfs::tReadableFile* pFile);
 
-		bool WriteLibrary(vfs::Path const& sLibName);
-		bool WriteLibrary(vfs::tWriteableFile* pFile);
+		bool writeLibrary(vfs::Path const& sLibName);
+		bool writeLibrary(vfs::tWritableFile* pFile);
 	protected:
-		bool WriteSignatureHeader(std::ostream& out);
-		bool WriteNextHeader(std::ostream& out);
-		bool WriteMainStreamsInfo(std::ostream &out);
-		bool WritePackInfo(std::ostream& out);
-		bool WriteUnPackInfo(std::ostream& out);
-		bool WriteSubStreamsInfo(std::ostream& out);
-		bool WriteFolder(std::ostream& out);
-		bool WriteFilesInfo(std::ostream& out);
+		bool writeSignatureHeader(std::ostream& out);
+		bool writeNextHeader(std::ostream& out);
+		bool writeMainStreamsInfo(std::ostream &out);
+		bool writePackInfo(std::ostream& out);
+		bool writeUnPackInfo(std::ostream& out);
+		bool writeSubStreamsInfo(std::ostream& out);
+		bool writeFolder(std::ostream& out);
+		bool writeFilesInfo(std::ostream& out);
 	private:
-		unsigned int WriteFileName(std::ostream& out, utf8string const& filename);
+		vfs::size_t writeFileName(std::ostream& out, utf8string const& filename);
 
 	protected:
-		vfs::tWriteableFile*	m_pLibFile;
+		vfs::tWritableFile*	m_pLibFile;
 		
 		struct SFileInfo
 		{
@@ -42,10 +40,10 @@ namespace vfs
 			{};
 			//////
 			utf8string::str_t name;
-			UInt32		CRC;
-			UInt64		offset;
-			UInt64		size;
-			UInt64		time_creation,time_last_access,time_write;
+			vfs::UInt32		CRC;
+			vfs::UInt64		offset;
+			vfs::UInt64		size;
+			vfs::UInt64		time_creation,time_last_access,time_write;
 		};
 		typedef std::map<utf8string::str_t,SFileInfo> tDirInfo;
 

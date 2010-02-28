@@ -6,41 +6,48 @@
 #include "../Interface/vfs_file_interface.h"
 #include "../Interface/vfs_location_aware_file_interface.h"
 #include "../Interface/vfs_location_interface.h"
+#include "../Interface/vfs_directory_interface.h"
 
 namespace vfs
 {
-
-	class CVFSFile : public vfs::CFile, public vfs::ILocationAware<vfs::IReadable, vfs::IWriteable>
+	class VFS_API CReadOnlyDirFile : public vfs::CReadOnlyFile
 	{
+	protected:
+		typedef vfs::TDirectory<vfs::CReadOnlyDirFile::write_type> tLocation;
 	public:
-		CVFSFile(vfs::Path const& sFileName, vfs::IDirectory<vfs::CFile::write_type> *pDirectory)
-			: vfs::CFile(sFileName), vfs::ILocationAware<vfs::IReadable, vfs::IWriteable>(pDirectory)
-		{};
-		virtual ~CVFSFile()
-		{};
+		CReadOnlyDirFile(vfs::Path const& filename, tLocation *directory);
+		virtual ~CReadOnlyDirFile();
 
-		virtual vfs::Path	GetFullPath();
-		virtual bool		Delete();
+		virtual vfs::FileAttributes	getAttributes();
 
-		virtual bool		OpenRead();
-		virtual bool		OpenWrite(bool bCreateWhenNotExist = false, bool bTruncate = false);
+		virtual vfs::Path	getPath();
 
-		virtual bool		_getRealPath(vfs::Path& rPath);
+		virtual bool		openRead();
+
+		virtual bool		_getRealPath(vfs::Path& path);
+	private:
+		tLocation*			_location;
 	};
 
-	class CVFSTextFile : public vfs::CTextFile, public vfs::ILocationAware<vfs::CFile::read_type, vfs::CFile::write_type>
+	class VFS_API CDirFile : public vfs::CFile
 	{
+		typedef vfs::TDirectory<vfs::CFile::write_type> tLocation;
 	public:
-		CVFSTextFile(vfs::Path const& sFileName, vfs::IDirectory<vfs::CFile::write_type> *pDirectory)
-			: vfs::CTextFile(sFileName), vfs::ILocationAware<vfs::CFile::read_type, vfs::CFile::write_type>(pDirectory)
-		{};
-		virtual ~CVFSTextFile()
-		{};
+		CDirFile(vfs::Path const& filename, tLocation *directory);
+		virtual ~CDirFile();
 
-		virtual vfs::Path	GetFullPath();
-		virtual bool		OpenRead();
+		virtual vfs::FileAttributes	getAttributes();
+
+		virtual vfs::Path	getPath();
+		virtual bool		deleteFile();
+
+		virtual bool		openRead();
+		virtual bool		openWrite(bool createWhenNotExist = false, bool truncate = false);
+
+		virtual bool		_getRealPath(vfs::Path& path);
+	private:
+		tLocation*			_location;
 	};
-
 } // end namespace
 
 #endif // _VFS_DIR_FILE_H_

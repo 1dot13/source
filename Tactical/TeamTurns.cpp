@@ -344,7 +344,6 @@ void EndTurn( UINT8 ubNextTeam )
 		gTacticalStatus.ubCurrentTeam	= ubNextTeam;
 
 		if(is_server || !is_client) BeginTeamTurn( gTacticalStatus.ubCurrentTeam );
-
 		// HEADROCK HAM 3.2: Experimental fix to force reinforcements enter battle with 0 APs.
 		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 1 || gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 2)
 		{
@@ -1796,14 +1795,13 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 	#ifdef DEBUG_INTERRUPTS
 		DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("Calculating int pts for %d vs %d, number is %d", pSoldier->ubID, ubOpponentID, iPoints ) );
 	#endif
-	if(is_networked)
-	{
-		SOLDIERTYPE	*pOpp = &Menptr[ubOpponentID];
-
+if(is_networked)
+{
+	SOLDIERTYPE	*pOpp = &Menptr[ubOpponentID];
 		#ifdef JA2BETAVERSION
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_MPSYSTEM, L"Interrupt: '%s' vs '%s' = %d points.",pSoldier->name,pOpp->name, iPoints );
 		#endif
-	}
+}
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"CalcInterruptDuelPts done");
 	return( (INT8)iPoints );
 }
@@ -2071,15 +2069,21 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 				nubFirstInterrupter = LATEST_INTERRUPT_GUY;
 				npSoldier = MercPtrs[nubFirstInterrupter];
 				nbTeam = npSoldier->bTeam;
-				
-				
+								
+				// INTERRUPT is calculated on the server
 				if ((nbTeam > 0) && (nbTeam <6 ) && is_server) //is for AI and are server
 					{
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for AI team");
+						
+						// Only display the top message if we (the server) got interrupted
+						if (pSoldier->bTeam == 0)
+							AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ nbTeam ] );
+
 						send_interrupt( npSoldier );
 						StartInterrupt();
 
 					}
+				// INTERRUPT is calculated on the server
 				else if(is_server && gTacticalStatus.ubCurrentTeam == 1)//  against ai
 					{
 
@@ -2090,27 +2094,22 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 						//requestAIint( npSoldier );
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"AI is interrupted");
 					}
+				// INTERRUPT is calculated on the pure client
 				else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn (we are moving)
 				{
-					//StartInterrupt();
-					send_interrupt( npSoldier ); //
+					// Only send interrupt if we (the client) got interrupted
+					send_interrupt( npSoldier );
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for another team");
-								{
-							//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupted" );
-								//stop moving merc who was interrupted and init UI bar
-								SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
-								//AdjustNoAPToFinishMove( pMerc, TRUE );	
-								pMerc->HaultSoldierFromSighting(TRUE);
-								//pMerc->fTurningFromPronePosition = FALSE;// hmmm ??
-								FreezeInterfaceForEnemyTurn();
-								InitEnemyUIBar( 0, 0 );
-								fInterfacePanelDirty = DIRTYLEVEL2;
-								AddTopMessage( COMPUTER_TURN_MESSAGE, TeamTurnString[ nbTeam ] );
-								gTacticalStatus.fInterruptOccurred = TRUE;
-								
-								}
-					//ClearIntList();
 
+					SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
+					//AdjustNoAPToFinishMove( pMerc, TRUE );	
+					pMerc->HaultSoldierFromSighting(TRUE);
+					//pMerc->fTurningFromPronePosition = FALSE;// hmmm ??
+					FreezeInterfaceForEnemyTurn();
+					InitEnemyUIBar( 0, 0 );
+					fInterfacePanelDirty = DIRTYLEVEL2;
+					AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ nbTeam ] );
+					gTacticalStatus.fInterruptOccurred = TRUE;	
 				}
 				else
 				{

@@ -27,6 +27,8 @@
 
 //CHRISL: MAJOR_MAP_VERSION information moved to worlddef.h by ADB.  We're using these values elsewhere and need them
 //	in the header file
+// SB: new map version, with map dimensions added
+//#define MAJOR_MAP_VERSION		7.0
 
 FLOAT gdMajorMapVersion = MAJOR_MAP_VERSION;
 
@@ -83,14 +85,14 @@ Version 11 -- Kris -- obsolete May 2, 1998
 
 //EntryPoints can't be placed on the top two gridnos in a map.	So all we do in this case
 //is return the closest gridno.	Returns TRUE if the mapindex changes.
-BOOLEAN ValidateEntryPointGridNo( INT16 *sGridNo )
+BOOLEAN ValidateEntryPointGridNo( INT32 *sGridNo )
 {
 	INT16 sXMapPos, sYMapPos;
 	INT16 sWorldX, sWorldY;
 	INT32 iNewMapX, iNewMapY;
-	INT16 sTopLimit, sBottomLimit;
-
-	if( *sGridNo < 0 )
+	INT32 sTopLimit, sBottomLimit;
+	
+	if ( TileIsOutOfBounds( *sGridNo ) )
 		return FALSE; //entry point is non-existant
 
 	ConvertGridNoToXY( *sGridNo, &sXMapPos, &sYMapPos );
@@ -114,27 +116,82 @@ BOOLEAN ValidateEntryPointGridNo( INT16 *sGridNo )
 		return FALSE; //already valid
 	}
 
-	*sGridNo = (INT16)MAPROWCOLTOPOS( iNewMapY/10, iNewMapX/10 );
+	*sGridNo = MAPROWCOLTOPOS( iNewMapY/10, iNewMapX/10 );
 
 	return TRUE; //modified
 }
 
-void SaveMapInformation( HWFILE fp )
+//dnl ch42 250909
+MAPCREATE_STRUCT& MAPCREATE_STRUCT::operator=(const _OLD_MAPCREATE_STRUCT& src)
 {
-	UINT32 uiBytesWritten;
-
-	gMapInformation.ubMapVersion = MINOR_MAP_VERSION;
-	FileWrite( fp, &gMapInformation, sizeof( MAPCREATE_STRUCT ), &uiBytesWritten );
+	if((void*)this != (void*)&src)
+	{
+		sNorthGridNo = src.sNorthGridNo;
+		sEastGridNo = src.sEastGridNo;
+		sSouthGridNo = src.sSouthGridNo;
+		sWestGridNo = src.sWestGridNo;
+		ubNumIndividuals = src.ubNumIndividuals;
+		ubMapVersion = src.ubMapVersion;
+		ubRestrictedScrollID = src.ubRestrictedScrollID;
+		ubEditorSmoothingType = src.ubEditorSmoothingType;
+		sCenterGridNo = src.sCenterGridNo;
+		sIsolatedGridNo = src.sIsolatedGridNo;
+	}
+	return(*this);
 }
 
-void LoadMapInformation( INT8 **hBuffer )
+BOOLEAN MAPCREATE_STRUCT::Load(INT8** hBuffer, FLOAT dMajorMapVersion)
 {
-	LOADDATA( &gMapInformation, *hBuffer, sizeof( MAPCREATE_STRUCT ) );
-	//FileRead( hfile, &gMapInformation, sizeof( MAPCREATE_STRUCT ), &uiBytesRead);
+	if(dMajorMapVersion < 7.0)
+	{
+		_OLD_MAPCREATE_STRUCT OldMapInformation;
+		LOADDATA(&OldMapInformation, *hBuffer, sizeof(_OLD_MAPCREATE_STRUCT));
+		*this = OldMapInformation;
+	}
+	else
+		LOADDATA(this, *hBuffer, sizeof(MAPCREATE_STRUCT));
+	return(TRUE);
+}
 
+BOOLEAN MAPCREATE_STRUCT::Save(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)
+{
+	PTR pData = this;
+	UINT32 uiBytesToWrite = sizeof(MAPCREATE_STRUCT);
+	_OLD_MAPCREATE_STRUCT OldMapCreateStruct;
+	if(dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION)
+	{
+		memset(&OldMapCreateStruct, 0, sizeof(_OLD_MAPCREATE_STRUCT));
+		OldMapCreateStruct.sNorthGridNo = sNorthGridNo;
+		OldMapCreateStruct.sEastGridNo = sEastGridNo;
+		OldMapCreateStruct.sSouthGridNo = sSouthGridNo;
+		OldMapCreateStruct.sWestGridNo = sWestGridNo;
+		OldMapCreateStruct.ubNumIndividuals = (UINT8)ubNumIndividuals;
+		OldMapCreateStruct.ubMapVersion = ubMinorMapVersion;
+		OldMapCreateStruct.ubRestrictedScrollID = ubRestrictedScrollID;
+		OldMapCreateStruct.ubEditorSmoothingType = ubEditorSmoothingType;
+		OldMapCreateStruct.sCenterGridNo = sCenterGridNo;
+		OldMapCreateStruct.sIsolatedGridNo = sIsolatedGridNo;
+		pData = &OldMapCreateStruct;
+		uiBytesToWrite = sizeof(_OLD_MAPCREATE_STRUCT);
+	}
+	UINT32 uiBytesWritten = 0;
+	FileWrite(hFile, pData, uiBytesToWrite, &uiBytesWritten);
+	if(uiBytesToWrite == uiBytesWritten)
+		return(TRUE);
+	return(FALSE);
+}
+
+void LoadMapInformation(INT8** hBuffer, FLOAT dMajorMapVersion)
+{
+	gMapInformation.Load(hBuffer, dMajorMapVersion);
 	// ATE: OK, do some handling here for basement level scroll restrictions
 	// Calcuate world scrolling restrictions
-	InitRenderParams( gMapInformation.ubRestrictedScrollID );
+	InitRenderParams(gMapInformation.ubRestrictedScrollID);
+}
+
+void SaveMapInformation(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion)
+{
+	gMapInformation.Save(hFile, dMajorMapVersion, ubMinorMapVersion);
 }
 
 //This will automatically update obsolete map versions to the new ones.	This will even

@@ -14,7 +14,8 @@
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-
+class SOLDIERCREATE_STRUCT;//dnl ch33 130909
+class _OLD_SOLDIERCREATE_STRUCT;//dnl ch42 250909
 
 #define		SOLDIER_CREATE_AUTO_TEAM			-1
 
@@ -39,6 +40,8 @@ class SOLDIERTYPE;
 //These are the placement slots used by the editor to define where characters are in a map, what 
 //they are, what team they are on, personality traits, etc.	The Merc section of the editor is 
 //what is used to define these values.
+//dnl ch42 250909
+// WANNE - BMP: DONE!
 typedef struct
 {
 	BOOLEAN fDetailedPlacement;			//Specialized information.	Has a counterpart containing all info.
@@ -50,7 +53,7 @@ typedef struct
 	INT8 bOrders;										
 	INT8 bAttitude;									
 	INT8 bBodyType;									//up to 128 body types, -1 means random
-	INT16 sPatrolGrid[ MAXPATROLGRIDS ]; //possible locations to visit, patrol, etc.
+	INT16 sPatrolGrid[OLD_MAXPATROLGRIDS];//dnl ch27 230909 Possible locations to visit, patrol, etc.
 	INT8 bPatrolCnt;
 	BOOLEAN fOnRoof;
 	UINT8	ubSoldierClass;							//army, administrator, elite
@@ -58,7 +61,32 @@ typedef struct
 	BOOLEAN fPriorityExistance;			//These slots are used first
 	BOOLEAN fHasKeys;
 	INT8 PADDINGSLOTS[ 14 ];
-} BASIC_SOLDIERCREATE_STRUCT; //50 bytes
+} _OLD_BASIC_SOLDIERCREATE_STRUCT; //50 bytes
+
+class BASIC_SOLDIERCREATE_STRUCT
+{
+public:
+	BOOLEAN fDetailedPlacement;			// Specialized information, has a counterpart containing all info
+	INT32 usStartingGridNo;				// Where the placement position is
+	INT8 bTeam;							// The team this individual is part of
+	INT8 bRelativeAttributeLevel;
+	INT8 bRelativeEquipmentLevel;
+	UINT8 ubDirection;					// 1 of 8 values (always mandatory)
+	INT8 bOrders;
+	INT8 bAttitude;
+	INT8 bBodyType;						// Up to 128 body types, -1 means random
+	INT32 sPatrolGrid[MAXPATROLGRIDS];	// Possible locations to visit, patrol, etc.
+	INT8 bPatrolCnt;
+	BOOLEAN fOnRoof;
+	UINT8 ubSoldierClass;				// Army, administrator, elite
+	UINT8 ubCivilianGroup;
+	BOOLEAN fPriorityExistance;			// These slots are used first
+	BOOLEAN fHasKeys;
+public:
+	BASIC_SOLDIERCREATE_STRUCT& operator=(const _OLD_BASIC_SOLDIERCREATE_STRUCT& src);
+	BOOLEAN Load(INT8** hBuffer, FLOAT dMajorMapVersion);
+	BOOLEAN Save(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion);
+};
 
 class OLD_SOLDIERCREATE_STRUCT_101
 {
@@ -69,6 +97,7 @@ public:
 	OLD_SOLDIERCREATE_STRUCT_101(const OLD_SOLDIERCREATE_STRUCT_101&);
 	// Assignment operator
 	OLD_SOLDIERCREATE_STRUCT_101& operator=(const OLD_SOLDIERCREATE_STRUCT_101&);
+	OLD_SOLDIERCREATE_STRUCT_101& operator=(SOLDIERCREATE_STRUCT&);//dnl ch33 130909
 	// Destructor
 	~OLD_SOLDIERCREATE_STRUCT_101();
 
@@ -135,7 +164,7 @@ public:
 	PaletteRepID			MiscPal;
 	
 	//Waypoint information for patrolling
-	INT16 sPatrolGrid[ MAXPATROLGRIDS ];
+	INT16 sPatrolGrid[OLD_MAXPATROLGRIDS];//dnl ch33 200909
 	INT8 bPatrolCnt;
 	
 	//Kris:	Additions November 16, 1997 (padding down to 129 from 150)
@@ -171,7 +200,7 @@ public:
 	Inventory				Inv;
 }; // OLD_SOLDIERCREATE_STRUCT_101;
 
-
+// WANNE - BMP: DONE!
 class SOLDIERCREATE_STRUCT
 {
 public:
@@ -190,6 +219,8 @@ public:
 
 	UINT16 GetChecksum();
 
+	SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const _OLD_SOLDIERCREATE_STRUCT& src);//dnl ch42 250909
+
 	// Initialize the soldier.	
 	//	Use this instead of the old method of calling memset!
 	//	Note that the constructor does this automatically.
@@ -197,8 +228,94 @@ public:
 
 	BOOLEAN Load(HWFILE hFile, int versionToLoad, bool loadChecksum);
 	BOOLEAN Load(INT8 **hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion);
-	BOOLEAN Save(HWFILE hFile, bool fSavingMap);
+	BOOLEAN Save(HWFILE hFile, bool fSavingMap, FLOAT dMajorMapVersion=MAJOR_MAP_VERSION, UINT8 ubMinorMapVersion=MINOR_MAP_VERSION);//dnl ch42 250909
 
+public:
+	//Bulletproofing so static detailed placements aren't used to tactically create soldiers.
+	//Used by editor for validation purposes.
+	BOOLEAN						fStatic;	
+	
+	//Profile information used for special NPCs and player mercs.
+	UINT8							ubProfile;
+	BOOLEAN						fPlayerMerc;
+	BOOLEAN						fPlayerPlan;
+	BOOLEAN						fCopyProfileItemsOver;
+
+	//Location information
+	INT16							sSectorX;
+	INT16							sSectorY;
+	UINT8							ubDirection;
+	INT32							sInsertionGridNo;//dnl ch42 290909
+
+	// Can force a team, but needs flag set
+	INT8							bTeam;
+	INT8							bBodyType;
+
+	//Orders and attitude settings
+	INT8							bAttitude;
+	INT8							bOrders;
+
+	//Attributes
+	INT8							bLifeMax;	
+	INT8							bLife;
+	INT8							bAgility;
+	INT8							bDexterity;
+	INT8							bExpLevel;
+	INT8							bMarksmanship;
+	INT8							bMedical;
+	INT8							bMechanical;
+	INT8							bExplosive;
+	INT8							bLeadership;
+	INT8							bStrength;
+	INT8							bWisdom;
+	INT8							bMorale;
+	INT8							bAIMorale;
+
+public:
+	
+	//Palette information for soldiers.
+	PaletteRepID			HeadPal;	
+	PaletteRepID			PantsPal;	
+	PaletteRepID			VestPal;	
+	PaletteRepID			SkinPal;	
+	PaletteRepID			MiscPal;
+	
+	//Waypoint information for patrolling
+	INT32 sPatrolGrid[MAXPATROLGRIDS];//dnl ch42 290909
+	INT8					bPatrolCnt;
+	
+	//Kris:	Additions November 16, 1997 (padding down to 129 from 150)
+	BOOLEAN						fVisible;
+	CHAR16						name[ 10 ];
+
+	UINT8						ubSoldierClass;	//army, administrator, elite
+
+	BOOLEAN						fOnRoof;
+
+	INT8						bSectorZ;
+
+	SOLDIERTYPE					*pExistingSoldier;
+	BOOLEAN						fUseExistingSoldier;
+	UINT8						ubCivilianGroup;
+
+	BOOLEAN						fKillSlotIfOwnerDies;
+	UINT8						ubScheduleID;
+
+	BOOLEAN						fUseGivenVehicle;				
+	INT8						bUseGivenVehicleID;				
+	BOOLEAN						fHasKeys;
+
+	//
+	// New and OO stuff goes after here.	Above this point any changes will goof up reading from files.
+	//
+	char endOfPOD;	// marker for end of POD (plain old data)
+
+	Inventory				Inv;
+}; // SOLDIERCREATE_STRUCT;
+
+// WANNE - BMP: DONE!
+class _OLD_SOLDIERCREATE_STRUCT
+{
 public:
 	//Bulletproofing so static detailed placements aren't used to tactically create soldiers.
 	//Used by editor for validation purposes.
@@ -250,7 +367,7 @@ public:
 	PaletteRepID			MiscPal;
 	
 	//Waypoint information for patrolling
-	INT16					sPatrolGrid[ MAXPATROLGRIDS ];
+	INT16					sPatrolGrid[OLD_MAXPATROLGRIDS];//dnl ch27 230909
 	INT8					bPatrolCnt;
 	
 	//Kris:	Additions November 16, 1997 (padding down to 129 from 150)
@@ -280,10 +397,11 @@ public:
 	char endOfPOD;	// marker for end of POD (plain old data)
 
 	Inventory				Inv;
-}; // SOLDIERCREATE_STRUCT;
+}; // _OLD_SOLDIERCREATE_STRUCT;
 
 #define SIZEOF_OLD_SOLDIERCREATE_STRUCT_101_POD offsetof( OLD_SOLDIERCREATE_STRUCT_101, endOfPOD )
 #define SIZEOF_SOLDIERCREATE_STRUCT_POD offsetof( SOLDIERCREATE_STRUCT, endOfPOD )
+#define _OLD_SIZEOF_SOLDIERCREATE_STRUCT_POD offsetof( _OLD_SOLDIERCREATE_STRUCT, endOfPOD )
 
 
 //Original functions currently used throughout the game.
@@ -381,5 +499,22 @@ BOOLEAN InternalTacticalRemoveSoldier( UINT16 usSoldierIndex, BOOLEAN fRemoveVeh
 //NOTE:	We don't want to add Mike or Iggy if this is being called from autoresolve!
 void OkayToUpgradeEliteToSpecialProfiledEnemy( SOLDIERCREATE_STRUCT *pp );
 extern BOOLEAN gfProfiledEnemyAdded; //needs to be saved (used by the above function)
+
+//dnl ch27 240909
+typedef enum
+{
+	UINT8_UINT8,
+	UINT16_UINT16,
+	UINT32_UINT32,
+	UINT8_UINT16,
+	UINT16_UINT8,
+	INT16_INT32,
+	INT32_INT16,
+}TranslateArrayFieldsCommands;
+BOOLEAN TranslateArrayFields(void* out, const void* inp, int len, int cmd);
+
+//dnl ch56 141009
+#define CENTRAL_GRIDNO (MAPROWCOLTOPOS(WORLD_ROWS/2,WORLD_COLS/2))
+#define CENTRAL_RADIUS (min(WORLD_ROWS,WORLD_COLS)/5)
 
 #endif

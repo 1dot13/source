@@ -45,11 +45,13 @@
 	#include "Soldier Find.h"
 	#include "lighting.h"
 	#include "Keys.h"
+
+	#include "InterfaceItemImages.h"
 #endif
 
 void RenderEditorInfo();
 
-extern ITEM_POOL *gpItemPool;
+//extern ITEM_POOL *gpItemPool;//dnl ch26 210909
 
 //editor icon storage vars
 INT32	giEditMercDirectionIcons[2];
@@ -324,6 +326,7 @@ void DoTaskbar(void)
 			break;
 		case TASK_OPTIONS:
 			UnclickEditorButton( TAB_OPTIONS );
+			KillTextInputMode();
 			break;
 	}
 
@@ -392,8 +395,12 @@ void DoTaskbar(void)
 			SetupTextInputForMapInfo();
 			break;
 		case TASK_OPTIONS:
+			iDrawMode = DRAW_MODE_NOTHING;//dnl ch22 210909
 			ClickEditorButton( TAB_OPTIONS );
 			TerrainTileDrawMode = TERRAIN_TILES_NODRAW;
+			if(gfVanillaMode)//dnl ch33 160909
+				ClickEditorButton(OPTIONS_VANILLA_MODE);
+			SetupTextInputForOptions();
 			break;
 	}
 }
@@ -609,7 +616,7 @@ void EnableEditorButtons( INT32 iFirstEditorButtonID, INT32 iLastEditorButtonID 
 
 void RenderMapEntryPointsAndLights()
 {
-	INT16 sGridNo;
+	INT32 sGridNo;
 	INT16 sScreenX, sScreenY;
 	INT32 i;
 	if( gfSummaryWindowActive )
@@ -767,7 +774,11 @@ void RenderDoorLockInfo()
 				case SUPER_ELECTRIC:
 					swprintf( str, L"Super Electric Trap" );
 					break;
-
+				// WANNE: Fix a vanilla glitch in the editor: The text for the brothel siren trap was missing.
+				// Fixed by Tron (Stracciatella): Revision: 6253
+				case BROTHEL_SIREN:
+					swprintf( str, L"Brothel Siren Trap" );
+					break;
 			}
 			xp = sScreenX + 20 - StringPixLength( str, FONT10ARIAL ) / 2;
 			yp = sScreenY;
@@ -798,15 +809,16 @@ void RenderSelectedItemBlownUp()
 	uiVideoObjectIndex = GetInterfaceGraphicForItem( &Item[ gpItem->usItem ] );
 	GetVideoObject( &hVObject, uiVideoObjectIndex );
 
-	sWidth = hVObject->pETRLEObject[ Item[ gpItem->usItem ].ubGraphicNum ].usWidth;
-	sOffsetX = hVObject->pETRLEObject[ Item[ gpItem->usItem ].ubGraphicNum ].sOffsetX;
+	UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : Item[ gpItem->usItem ].ubGraphicNum;
+	sWidth = hVObject->pETRLEObject[ usGraphicNum ].usWidth;
+	sOffsetX = hVObject->pETRLEObject[ usGraphicNum ].sOffsetX;
 	xp = sScreenX + (40 - sWidth - sOffsetX*2) / 2;
 
-	sHeight = hVObject->pETRLEObject[ Item[ gpItem->usItem ].ubGraphicNum ].usHeight;
-	sOffsetY = hVObject->pETRLEObject[ Item[ gpItem->usItem ].ubGraphicNum ].sOffsetY;
+	sHeight = hVObject->pETRLEObject[ usGraphicNum ].usHeight;
+	sOffsetY = hVObject->pETRLEObject[ usGraphicNum ].sOffsetY;
 	yp = sScreenY + (20 - sHeight - sOffsetY*2) / 2;
 
-	BltVideoObjectOutlineFromIndex( FRAME_BUFFER, uiVideoObjectIndex, Item[ gpItem->usItem ].ubGraphicNum, xp, yp, Get16BPPColor(FROMRGB(0, 140, 170)), TRUE );
+	BltVideoObjectOutlineFromIndex( FRAME_BUFFER, uiVideoObjectIndex, usGraphicNum, xp, yp, Get16BPPColor(FROMRGB(0, 140, 170)), TRUE );
 
 	//Display the item name above it
 	SetFont( FONT10ARIAL );
@@ -871,27 +883,36 @@ void RenderEditorInfo( )
 {
 	CHAR16					FPSText[ 50 ];
 	static INT32		iSpewWarning = 0;
-	INT16						iMapIndex;
+	INT32				iMapIndexD;
 
-	SetFont( FONT12POINT1 );
-	SetFontForeground( FONT_BLACK );
-	SetFontBackground( FONT_BLACK );
+	//dnl ch52 091009
+	SetFont(FONT12ARIAL);
+	SetFontShadow(NO_SHADOW);
+	SetFontForeground(FONT_BLACK);
+	SetFontBackground(FONT_BLACK);
 
-	//Display the mapindex position
-	if( GetMouseMapPos( &iMapIndex ) )
-		swprintf( FPSText, L" (%d) ", iMapIndex );
+	//dnl ch1 101009 Display the mapindex position
+	if(GetMouseMapPos(&iMapIndexD))
+	{
+		INT16 sGridX, sGridY;
+		GetMouseXY(&sGridX, &sGridY);
+		swprintf(FPSText, L"%4d %4d %6d", sGridX, sGridY, iMapIndexD);
+	}
 	else
-		swprintf( FPSText, L"      " );
+		swprintf(FPSText, L"                  ");
+
 	mprintfEditor( (UINT16)(iScreenWidthOffset + 50-StringPixLength( FPSText, FONT12POINT1 )/2), 2 * iScreenHeightOffset + 463, FPSText );
 
 	switch( iCurrentTaskbar )
 	{
 		case TASK_OPTIONS:
+			mprintf(iScreenWidthOffset+71+15, SCREEN_HEIGHT-117, L"v1.12");//dnl ch33 160909
 			if( !gfWorldLoaded || giCurrentTilesetID < 0 )
 				mprintf( iScreenWidthOffset + 260, 2 * iScreenHeightOffset + 445, L"No map currently loaded." );
 			else
 				mprintf( iScreenWidthOffset + 260, 2 * iScreenHeightOffset + 445, L"File:  %S, Current Tileset:  %s",
 					gubFilename, gTilesets[ giCurrentTilesetID ].zName );
+			UpdateOptions();
 			break;
 		case TASK_TERRAIN:
 
@@ -941,6 +962,15 @@ void ProcessEditorRendering()
 	BOOLEAN fSaveBuffer = FALSE;
 	if( gfRenderTaskbar ) //do a full taskbar render.
 	{
+		if(iCurrentTaskbar == TASK_OPTIONS && !gfSummaryWindowActive)//dnl ch52 091009
+		{
+			CHAR8 szNewText[4+1];
+			sprintf(szNewText, "%d", iNewMapWorldRows=WORLD_ROWS);
+			SetInputFieldStringWith8BitString(1, szNewText);
+			sprintf(szNewText, "%d", iNewMapWorldCols=WORLD_COLS);
+			SetInputFieldStringWith8BitString(2, szNewText);
+			DisableTextField(2);
+		}
 		ClearTaskbarRegion( 0, SCREEN_HEIGHT - 120, SCREEN_WIDTH, SCREEN_HEIGHT );
 		RenderTerrainTileButtons();
 		MarkButtonsDirty();
@@ -952,7 +982,7 @@ void ProcessEditorRendering()
 	}
 	if( gfRenderDrawingMode )
 	{
-	if( iCurrentTaskbar == TASK_BUILDINGS || iCurrentTaskbar == TASK_TERRAIN || iCurrentTaskbar == TASK_ITEMS )
+		if( iCurrentTaskbar == TASK_BUILDINGS || iCurrentTaskbar == TASK_TERRAIN || iCurrentTaskbar == TASK_ITEMS )
 		{
 			ShowCurrentDrawingMode();
 			gfRenderDrawingMode = FALSE;

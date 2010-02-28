@@ -49,7 +49,6 @@
 #endif
 
 #include "VFS/vfs.h"
-
 BOOLEAN gfWasInMeanwhile = FALSE;
 
 
@@ -64,29 +63,18 @@ class SOLDIERTYPE;
 ///////////////////////////////////////////////////////////////
 
 
-
-
-// This struct is used to save info from the NPCQuoteInfo struct that can change.
-typedef struct
+//dnl ch46 031009
+// It's used for save info from the NPCQuoteInfo class that can change.
+class TempNPCQuoteInfoSave
 {
-	UINT16	usFlags;
-
-	union
-	{
-		INT16		sRequiredItem;			// item NPC must have to say quote
-		INT16		sRequiredGridno;		// location for NPC req'd to say quote
-	};
-
-	UINT16	usGoToGridno;
-
-} TempNPCQuoteInfoSave;
-
-
+public:
+	UINT16 usFlags;
+	INT16 sRequiredItem;
+	INT32 sRequiredGridNo;
+	INT32 usGoToGridNo;
+};
 
 #define		NPC_TEMP_QUOTE_FILE			"Temp\\NpcQuote.tmp"
-
-
-
 
 
 ///////////////////////////////////////////////////////////////
@@ -824,7 +812,7 @@ BOOLEAN GetNumberOfWorldItemsFromTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bM
 }
 
 
-BOOLEAN AddItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT16 sGridNo, UINT32 uiNumberOfItemsToAdd, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, BOOLEAN fReplaceEntireFile )
+BOOLEAN AddItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT32 sGridNo, UINT32 uiNumberOfItemsToAdd, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, BOOLEAN fReplaceEntireFile )
 {
 	UINT32	uiNumberOfItems=0;
 	WORLDITEM *pWorldItems;
@@ -909,8 +897,8 @@ BOOLEAN AddItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT16 sG
 		pWorldItems[ cnt ].bRenderZHeightAboveLevel = bRenderZHeightAboveLevel;
 
 
-		//Check
-		if( sGridNo == NOWHERE && !( pWorldItems[ cnt ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
+		//Check		
+		if(TileIsOutOfBounds(sGridNo) && !( pWorldItems[ cnt ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
 		{
 			pWorldItems[ cnt ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
 
@@ -1054,8 +1042,8 @@ void HandleAllReachAbleItemsInTheSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	UINT32 uiCounter = 0;
 	UINT8	ubDir, ubMovementCost;
 	BOOLEAN fReachable = FALSE;
-	INT16 sGridNo = NOWHERE, sGridNo2 = NOWHERE;
-	INT16	sNewLoc;
+	INT32 sGridNo = NOWHERE, sGridNo2 = NOWHERE;
+	INT32	sNewLoc;
 
 	SOLDIERTYPE * pSoldier;
 	BOOLEAN	fSecondary = FALSE;
@@ -1413,7 +1401,7 @@ BOOLEAN LoadAndAddWorldItemsFromTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	UINT32	uiNumberOfItems=0;
 	WORLDITEM *pWorldItems = NULL;
 	UINT32	cnt;
-  INT16   sNewGridNo;
+  INT32 sNewGridNo;
 
 	//Get the number of items from the file
 	if( !GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, bMapZ, &uiNumberOfItems, TRUE ) )
@@ -1485,14 +1473,15 @@ BOOLEAN LoadAndAddWorldItemsFromTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			//Check the flags to see if we have to find a gridno to place the items at
 			if( pWorldItems[cnt].usFlags & WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO )
 			{
-			  sNewGridNo = FindNearestAvailableGridNoForItem( pWorldItems[cnt].sGridNo, 5 );
-			  if( sNewGridNo == NOWHERE )
+				sNewGridNo = FindNearestAvailableGridNoForItem( pWorldItems[cnt].sGridNo, 5 );
+								
+				if(TileIsOutOfBounds(sNewGridNo))
 				  sNewGridNo = FindNearestAvailableGridNoForItem( pWorldItems[cnt].sGridNo, 15 );
-
-        if ( sNewGridNo != NOWHERE )
-        {
-          pWorldItems[cnt].sGridNo = sNewGridNo;
-        }
+				
+				if (!TileIsOutOfBounds(sNewGridNo))
+				{
+					pWorldItems[cnt].sGridNo = sNewGridNo;
+				}
 			}
 
 			//If the item has an invalid gridno, use the maps entry point
@@ -1756,7 +1745,8 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 		if( def.usFlags & ROTTING_CORPSE_FIND_SWEETSPOT_FROM_GRIDNO )
 		{
 			def.sGridNo = FindNearestAvailableGridNoForCorpse( &def, 5 );
-			if( def.sGridNo == NOWHERE )
+			
+			if(TileIsOutOfBounds(def.sGridNo))
 				def.sGridNo = FindNearestAvailableGridNoForCorpse( &def, 15 );
 
       // ATE: Here we still could have a bad location, but send in NOWHERE
@@ -1833,7 +1823,7 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 // Rewritten to load the temp file once, update with the list, and then write it.  This was getting insane as items piled up in sectors.
 // A few dozen read, update, writes was okay but a few hundred is pushing it.
 
-BOOLEAN AddWorldItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT16 sGridNo, UINT32 uiNumberOfItemsToAdd, WORLDITEM *pWorldItem, BOOLEAN fOverWrite )
+BOOLEAN AddWorldItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT32 sGridNo, UINT32 uiNumberOfItemsToAdd, WORLDITEM *pWorldItem, BOOLEAN fOverWrite )
 {
 	UINT32 uiLoop;
 	UINT32 uiLastItemPos;
@@ -1917,8 +1907,8 @@ BOOLEAN AddWorldItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT
 		pWorldItems[ uiLastItemPos ].bRenderZHeightAboveLevel = pWorldItem[ uiLoop ].bRenderZHeightAboveLevel;
 
 
-		//Check
-		if( pWorldItem[ uiLoop ].sGridNo == NOWHERE && !( pWorldItems[ uiLastItemPos ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
+		//Check		
+		if(TileIsOutOfBounds(pWorldItem[ uiLoop ].sGridNo) && !( pWorldItems[ uiLastItemPos ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
 		{
 			pWorldItems[ uiLastItemPos ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
 
@@ -2125,7 +2115,8 @@ void LoadNPCInformationFromProfileStruct()
 			}
 
 			//If the NPC's gridno is not nowhere, set him to that position
-			if( gMercProfiles[ cnt ].sGridNo != NOWHERE )
+			//if( !TileIsOutOfBounds(gMercProfiles[ cnt ].sGridNo) )
+			if(!TileIsOutOfBounds(gMercProfiles[ cnt ].sGridNo))
 			{
 				if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 				{
@@ -2320,7 +2311,7 @@ BOOLEAN InitTempNpcQuoteInfoForNPCFromTempFile()
 			{
 				TempNpcQuote[ ubCnt ].usFlags		= gpNPCQuoteInfoArray[ usCnt1 ][ ubCnt ].fFlags;
 				TempNpcQuote[ ubCnt ].sRequiredItem = gpNPCQuoteInfoArray[ usCnt1 ][ ubCnt ].sRequiredItem;
-				TempNpcQuote[ ubCnt ].usGoToGridno	= gpNPCQuoteInfoArray[ usCnt1 ][ ubCnt ].usGoToGridno;
+				TempNpcQuote[ ubCnt ].usGoToGridNo	= gpNPCQuoteInfoArray[ usCnt1 ][ ubCnt ].usGoToGridNo;
 			}
 		}
 
@@ -2366,7 +2357,7 @@ BOOLEAN SaveTempNpcQuoteInfoForNPCToTempFile( UINT8 ubNpcId )
 		{
 			TempNpcQuote[ ubCnt ].usFlags		= gpNPCQuoteInfoArray[ ubNpcId ][ ubCnt ].fFlags;
 			TempNpcQuote[ ubCnt ].sRequiredItem = gpNPCQuoteInfoArray[ ubNpcId ][ ubCnt ].sRequiredItem;
-			TempNpcQuote[ ubCnt ].usGoToGridno	= gpNPCQuoteInfoArray[ ubNpcId ][ ubCnt ].usGoToGridno;
+			TempNpcQuote[ ubCnt ].usGoToGridNo	= gpNPCQuoteInfoArray[ ubNpcId ][ ubCnt ].usGoToGridNo;
 		}
 
 		//Seek to the correct spot in the file
@@ -2441,7 +2432,7 @@ BOOLEAN LoadTempNpcQuoteInfoForNPCFromTempFile( UINT8 ubNpcId )
 	{
 		gpNPCQuoteInfoArray[ ubNpcId ][ ubCnt ].fFlags				= TempNpcQuote[ ubCnt ].usFlags;
 		gpNPCQuoteInfoArray[ ubNpcId ][ ubCnt ].sRequiredItem		= TempNpcQuote[ ubCnt ].sRequiredItem;
-		gpNPCQuoteInfoArray[ ubNpcId ][ ubCnt ].usGoToGridno		= TempNpcQuote[ ubCnt ].usGoToGridno;
+		gpNPCQuoteInfoArray[ ubNpcId ][ ubCnt ].usGoToGridNo		= TempNpcQuote[ ubCnt ].usGoToGridNo;
 	}
 
 	FileClose( hFile );
@@ -2726,7 +2717,7 @@ BOOLEAN GetSectorFlagStatus( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFla
 
 
 
-BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, SOLDIERTYPE *pSoldier, INT16  sGridNo, UINT32 uiFlags )
+BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiFlags )
 {
 	UINT32			uiNumberOfItems;
 	WORLDITEM		*pWorldItems=NULL;

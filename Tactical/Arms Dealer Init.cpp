@@ -225,11 +225,12 @@ BOOLEAN SaveArmsDealerInventoryToSaveGameFile( HWFILE hFile )
 	//loop through all the dealers inventories
 	for( ubArmsDealer=0; ubArmsDealer<NUM_ARMS_DEALERS; ubArmsDealer++ )
 	{
-		int size = gArmsDealersInventory[ubArmsDealer].size();
+		int size = gArmsDealersInventory.empty() ? 0 : gArmsDealersInventory[ubArmsDealer].size();
 		if (!FileWrite( hFile, &size, sizeof( int ), &uiNumBytesWritten ))
 		{
 			return( FALSE );
 		}
+		if(gArmsDealersInventory.empty()) continue;
 		//loop through this dealer's individual items
 		for (DealerItemList::iterator iter = gArmsDealersInventory[ubArmsDealer].begin();
 			iter != gArmsDealersInventory[ubArmsDealer].end(); ++iter) {

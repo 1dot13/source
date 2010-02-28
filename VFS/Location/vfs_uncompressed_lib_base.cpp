@@ -1,246 +1,43 @@
 #include "vfs_uncompressed_lib_base.h"
 
 /********************************************************************************************/
+vfs::CUncompressedLibraryBase::SFileData& vfs::CUncompressedLibraryBase::_fileDataFromHandle(tFileType* handle)
+{
+	tFileData::iterator it = m_fileData.find(handle);
+	if(it != m_fileData.end())
+	{
+		return it->second;
+	}
+	THROWEXCEPTION(L"Invalid file handle");
+}
 /********************************************************************************************/
 /********************************************************************************************/
 
-vfs::CUncompressedLibraryBase::~CUncompressedLibraryBase() 
+class vfs::CUncompressedLibraryBase::IterImpl : public vfs::IBaseLocation::Iterator::IImplementation
 {
-	this->CloseLibrary();
-	// delete sub dirs from catalogue
-	tDirCatalogue::iterator it = m_catDirs.begin();
-	for(; it != m_catDirs.end(); ++it)
+	typedef vfs::IBaseLocation::Iterator::IImplementation tBaseClass;
+public:
+	IterImpl(CUncompressedLibraryBase& lib);
+	virtual ~IterImpl();
+	virtual tFileType*									value();
+	virtual void										next();
+protected:
+	virtual tBaseClass* clone()
 	{
-		delete it->second;
+		IterImpl* iter = new IterImpl(*_lib);
+		iter->_iter = _iter;
+		return iter;
 	}
-	// LibData is invalid 
-	// just clear it, since the file handles were deleted before
-	m_mapLibData.clear(); 
-	m_catDirs.clear();
-}
+private:
+	vfs::CUncompressedLibraryBase*						_lib;
+	vfs::CUncompressedLibraryBase::tFileData::iterator	_iter;
+};
 
-bool vfs::CUncompressedLibraryBase::CloseLibrary()
-{
-	bool success = true;
-	tLibData::iterator it = m_mapLibData.begin();
-	for(; it != m_mapLibData .end(); ++it)
-	{
-		success &= it->first->Close();
-		// what if closing of (at least) one file fails?? continue or not??
-		// in the end, these are not real files!
-	}
-	return success;
-}
-
-bool vfs::CUncompressedLibraryBase::FileExists(vfs::Path const& sFileName)
-{
-	vfs::Path sDir,sFile;
-	sFileName.SplitLast(sDir,sFile);
-	tDirCatalogue::iterator it = m_catDirs.find(sDir);
-	if(it != m_catDirs.end())
-	{
-		return it->second->FileExists(sFile);
-	}
-	return false;
-}
-
-vfs::IBaseFile*	vfs::CUncompressedLibraryBase::GetFile(vfs::Path const& sFileName)
-{
-	return GetFileTyped(sFileName);
-}
-
-vfs::CUncompressedLibraryBase::tFileType* vfs::CUncompressedLibraryBase::GetFileTyped(vfs::Path const& sFileName)
-{
-	vfs::Path sDir,sFile;
-	sFileName.SplitLast(sDir,sFile);
-	tDirCatalogue::iterator it = m_catDirs.find(sDir);
-	if(it != m_catDirs.end())
-	{
-		return it->second->GetFileTyped(sFile);
-	}
-	return NULL;
-}
-
-bool vfs::CUncompressedLibraryBase::Close(tFileType *pFileHandle)
-{
-	tLibData::iterator it = m_mapLibData.find(pFileHandle);
-	if(it == m_mapLibData.end())
-	{
-		// wrong file handle
-		return false;
-	}
-	// reset read position 
-	// can't do this when opening file, 
-	// because you could try to open a file when it is already open and would so reset the read position
-	it->second.uiCurrentReadPosition = 0;
-	if(m_uiNumberOfOpenedFiles > 0)
-	{
-		m_uiNumberOfOpenedFiles--;
-		if(m_uiNumberOfOpenedFiles == 0)
-		{
-			m_pLibraryFile->Close();
-		}
-	}
-	return true;
-}
-bool vfs::CUncompressedLibraryBase::OpenRead(tFileType *pFileHandle)
-{
-	tLibData::iterator it = m_mapLibData.find(pFileHandle);
-	if(it == m_mapLibData.end())
-	{
-		// wrong file handle
-		return false;
-	}
-	m_uiNumberOfOpenedFiles++;
-	if(m_uiNumberOfOpenedFiles == 1)
-	{
-		if(!m_pLibraryFile->IsOpenRead() && !m_pLibraryFile->OpenRead())
-		{
-			return false;
-		}
-	}
-	// already open
-	return true;
-}
-
-bool vfs::CUncompressedLibraryBase::Read(tFileType *pFileHandle, Byte* pData, UInt32 uiBytesToRead, UInt32& uiBytesRead)
-{
-	tLibData::iterator it = m_mapLibData.find(pFileHandle);
-	if(it == m_mapLibData.end())
-	{
-		// wrong file handle
-		return false;
-	}
-	// if(m_pLibraryFile->IsOpen()) ... we could check it (*AGAIN*), 
-	//                                  but the file implementation does it already,
-	//                                  and the user probably called 'OpenRead' too,
-	//                                  so why do it over and over again
-	if( (it->second.uiCurrentReadPosition + uiBytesToRead) > it->second.uiFileSize )
-	{
-		// original implementation
-		uiBytesRead = 0;
-		return false;
-		// or you could adjust the number of bytes to read
-		uiBytesToRead = it->second.uiFileSize - it->second.uiCurrentReadPosition; // +-1 ???
-	}
-	// set lib-file's read-location to match location of virtual-file
-	m_pLibraryFile->SetReadLocation(it->second.uiFileOffset + it->second.uiCurrentReadPosition,IBaseFile::SD_BEGIN);
-	bool success = m_pLibraryFile->Read(pData,uiBytesToRead,uiBytesRead) 
-		&& (uiBytesToRead == uiBytesRead);
-	if(success)
-	{
-		it->second.uiCurrentReadPosition += uiBytesRead;
-	}
-	// false if read operation failed
-	return success;
-}
-
-vfs::UInt32 vfs::CUncompressedLibraryBase::GetReadLocation(tFileType *pFileHandle)
-{
-	tLibData::iterator it = m_mapLibData.find(pFileHandle);
-	if(it == m_mapLibData.end())
-	{
-		// wrong file handle
-		return -1;
-	}
-	return it->second.uiCurrentReadPosition;
-}
-
-bool vfs::CUncompressedLibraryBase::SetReadLocation(tFileType *pFileHandle, vfs::UInt32 uiPositionInBytes)
-{
-	tLibData::iterator it = m_mapLibData.find(pFileHandle);
-	if(it == m_mapLibData.end())
-	{
-		// wrong file handle
-		return false;
-	}
-	if( (uiPositionInBytes < 0) || (uiPositionInBytes >= (vfs::Int32)(it->second.uiFileSize)) )
-	{
-		return false;
-	}
-	// uiCurrentReadPosition is offset to file-offset
-	it->second.uiCurrentReadPosition = uiPositionInBytes;
-	return true;
-}
-
-bool vfs::CUncompressedLibraryBase::SetReadLocation(tFileType *pFileHandle, Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir)
-{
-	tLibData::iterator it = m_mapLibData.find(pFileHandle);
-	if(it == m_mapLibData.end())
-	{
-		// wrong file handle
-		return false;
-	}
-	if( abs(uiOffsetInBytes) > (Int32)(it->second.uiFileSize) ) 
-	{
-		// cannot be corrent in any case
-		return false;
-	}
-	if(eSeekDir == IBaseFile::SD_BEGIN)
-	{
-		if(uiOffsetInBytes < 0)
-		{
-			return false;
-		}
-		it->second.uiCurrentReadPosition = uiOffsetInBytes;
-		return true;
-	}
-	else if(eSeekDir == IBaseFile::SD_CURRENT)
-	{
-		vfs::Int32 temp = it->second.uiCurrentReadPosition + uiOffsetInBytes;
-		if( (temp < 0) || (temp > (Int32)(it->second.uiFileSize)) )
-		{
-			return false;
-		}
-		it->second.uiCurrentReadPosition = temp;
-		return true;
-	}
-	else if(eSeekDir == IBaseFile::SD_END)
-	{
-		if(uiOffsetInBytes > 0)
-		{
-			return false;
-		}
-		it->second.uiCurrentReadPosition = it->second.uiFileSize - uiOffsetInBytes;
-		return true;
-	}
-	return false;
-}
-
-bool vfs::CUncompressedLibraryBase::GetFileSize(tFileType *pFileHandle, UInt32& uiFileSize)
-{
-	tLibData::iterator it = m_mapLibData.find(pFileHandle);
-	if(it == m_mapLibData.end())
-	{
-		// wrong file handle
-		uiFileSize = 0;
-		return false;
-	}
-	uiFileSize = it->second.uiFileSize;
-	return true;
-}
-
-void vfs::CUncompressedLibraryBase::GetSubDirList(std::list<vfs::Path>& rlSubDirs)
-{
-	tDirCatalogue::iterator it = m_catDirs.begin();
-	for(;it != m_catDirs.end(); ++it)
-	{
-		rlSubDirs.push_back(it->first);
-	}
-}
-
-vfs::CUncompressedLibraryBase::Iterator vfs::CUncompressedLibraryBase::begin()
-{
-	return Iterator(new IterImpl(*this));
-}
-
-/************************************************************************/
-/************************************************************************/
 
 vfs::CUncompressedLibraryBase::IterImpl::IterImpl(vfs::CUncompressedLibraryBase &lib)
-: _lib(&lib)
+: tBaseClass(), _lib(&lib)
 {
-	_iter = _lib->m_mapLibData.begin();
+	_iter = _lib->m_fileData.begin();
 }
 vfs::CUncompressedLibraryBase::IterImpl::~IterImpl()
 {
@@ -248,7 +45,7 @@ vfs::CUncompressedLibraryBase::IterImpl::~IterImpl()
 
 vfs::CUncompressedLibraryBase::tFileType* vfs::CUncompressedLibraryBase::IterImpl::value()
 {
-	if(_iter != _lib->m_mapLibData.end())
+	if(_iter != _lib->m_fileData.end())
 	{
 		return _iter->first;
 	}
@@ -257,10 +54,240 @@ vfs::CUncompressedLibraryBase::tFileType* vfs::CUncompressedLibraryBase::IterImp
 
 void vfs::CUncompressedLibraryBase::IterImpl::next()
 {
-	if(_iter != _lib->m_mapLibData.end())
+	if(_iter != _lib->m_fileData.end())
 	{
 		_iter++;
 	}
+}
+
+/************************************************************************/
+/************************************************************************/
+
+vfs::CUncompressedLibraryBase::CUncompressedLibraryBase(vfs::tReadableFile *libraryFile, vfs::Path const& mountPoint, bool ownFile) 
+: vfs::ILibrary(libraryFile,mountPoint,ownFile), m_numberOfOpenedFiles(0)
+{
+}
+
+vfs::CUncompressedLibraryBase::~CUncompressedLibraryBase() 
+{
+	this->closeLibrary();
+	// delete sub dirs from catalogue
+	tDirCatalogue::iterator it = m_dirs.begin();
+	for(; it != m_dirs.end(); ++it)
+	{
+		delete it->second;
+	}
+	// LibData is invalid 
+	// just clear it, since the file handles were deleted before
+	m_fileData.clear(); 
+	m_dirs.clear();
+}
+
+void vfs::CUncompressedLibraryBase::closeLibrary()
+{
+	tFileData::iterator it = m_fileData.begin();
+	for(; it != m_fileData .end(); ++it)
+	{
+		// what if closing of (at least) one file fails?? continue or not??
+		// in the end, these are not real files!
+		IGNOREEXCEPTION(it->first->close());
+	}
+}
+
+bool vfs::CUncompressedLibraryBase::fileExists(vfs::Path const& filename)
+{
+	vfs::Path sDir,sFile;
+	filename.splitLast(sDir,sFile);
+	tDirCatalogue::iterator it = m_dirs.find(sDir);
+	if(it != m_dirs.end())
+	{
+		return it->second->fileExists(sFile);
+	}
+	return false;
+}
+
+vfs::IBaseFile*	vfs::CUncompressedLibraryBase::getFile(vfs::Path const& filename)
+{
+	return getFileTyped(filename);
+}
+
+vfs::CUncompressedLibraryBase::tFileType* vfs::CUncompressedLibraryBase::getFileTyped(vfs::Path const& filename)
+{
+	vfs::Path sDir,sFile;
+	filename.splitLast(sDir,sFile);
+	tDirCatalogue::iterator it = m_dirs.find(sDir);
+	if(it != m_dirs.end())
+	{
+		return it->second->getFileTyped(sFile);
+	}
+	return NULL;
+}
+
+void vfs::CUncompressedLibraryBase::close(tFileType *fileHandle)
+{
+	try
+	{
+		SFileData& file = _fileDataFromHandle(fileHandle);
+
+		// reset read position 
+		// can't do this when opening file, 
+		// because you could try to open a file when it is already open and would so reset the read position
+		file._currentReadPosition = 0;
+		if(m_numberOfOpenedFiles > 0)
+		{
+			m_numberOfOpenedFiles--;
+			if(m_numberOfOpenedFiles == 0)
+			{
+				m_libraryFile->close();
+			}
+		}
+	}
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(L"", &ex);
+	}
+}
+bool vfs::CUncompressedLibraryBase::openRead(tFileType *fileHandle)
+{
+	try
+	{
+		_fileDataFromHandle(fileHandle);
+	}
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(L"", &ex);
+	}
+
+	m_numberOfOpenedFiles++;
+	if(m_numberOfOpenedFiles == 1)
+	{
+		if(!m_libraryFile->isOpenRead() && !m_libraryFile->openRead())
+		{
+			return false;
+		}
+	}
+	// already open
+	return true;
+}
+
+vfs::size_t vfs::CUncompressedLibraryBase::read(tFileType *fileHandle, vfs::Byte* data, vfs::size_t bytesToRead)
+{
+	try
+	{
+		SFileData& file = _fileDataFromHandle(fileHandle);
+
+		if( (file._currentReadPosition + bytesToRead) > file._fileSize )
+		{
+			bytesToRead = file._fileSize - file._currentReadPosition;
+		}
+		if(bytesToRead == 0)
+		{
+			// eof
+			return 0;
+		}
+		// set lib-file's read-location to match location of lib-file
+		m_libraryFile->setReadPosition(file._fileOffset + file._currentReadPosition, IBaseFile::SD_BEGIN);
+
+		vfs::size_t bytesRead = m_libraryFile->read(data, bytesToRead);
+		THROWIFFALSE( bytesToRead == bytesRead, L"Number of bytes doesn't match" );
+		file._currentReadPosition += bytesRead;
+		return bytesRead;
+	}
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(L"", &ex);
+	}
+}
+
+vfs::size_t vfs::CUncompressedLibraryBase::getReadPosition(tFileType *fileHandle)
+{
+	try
+	{
+		return _fileDataFromHandle(fileHandle)._currentReadPosition;
+	}
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(L"", &ex);
+	}
+}
+
+void vfs::CUncompressedLibraryBase::setReadPosition(tFileType *fileHandle, vfs::size_t positionInBytes)
+{
+	try
+	{
+		SFileData& file = _fileDataFromHandle(fileHandle);
+		THROWIFFALSE( positionInBytes < file._fileSize, L"" );
+
+		// uiCurrentReadPosition is offset to file-offset
+		file._currentReadPosition = positionInBytes;
+	}
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(L"", &ex);
+	}
+}
+
+void vfs::CUncompressedLibraryBase::setReadPosition(tFileType *fileHandle, vfs::offset_t offsetInBytes, IBaseFile::ESeekDir seekDir)
+{
+	try
+	{
+		SFileData& file = _fileDataFromHandle(fileHandle);
+
+		vfs::size_t pos = (vfs::size_t) (offsetInBytes < 0 ? -offsetInBytes : offsetInBytes);
+		THROWIFFALSE( pos < file._fileSize, L"" );
+
+		if(seekDir == IBaseFile::SD_BEGIN)
+		{
+			THROWIFFALSE(offsetInBytes >= 0, L"");
+			file._currentReadPosition = offsetInBytes;
+		}
+		else if(seekDir == IBaseFile::SD_CURRENT)
+		{
+			vfs::offset_t pos = file._currentReadPosition + offsetInBytes;
+			THROWIFFALSE( (pos >= 0) && (pos <= (vfs::offset_t)file._fileSize), L"" );
+			
+			file._currentReadPosition = (vfs::size_t) pos;
+		}
+		else if(seekDir == IBaseFile::SD_END)
+		{
+			THROWIFFALSE(offsetInBytes <= 0, L"");
+			file._currentReadPosition = file._fileSize + offsetInBytes;
+		}
+		else
+		{
+			THROWEXCEPTION(L"Unknown seek direction");
+		}
+	}
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(L"", &ex);
+	}
+}
+
+vfs::size_t vfs::CUncompressedLibraryBase::getSize(tFileType *fileHandle)
+{
+	try
+	{
+		return _fileDataFromHandle(fileHandle)._fileSize;
+	}
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(L"", &ex);
+	}
+}
+
+void vfs::CUncompressedLibraryBase::getSubDirList(std::list<vfs::Path>& rlSubDirs)
+{
+	tDirCatalogue::iterator it = m_dirs.begin();
+	for(;it != m_dirs.end(); ++it)
+	{
+		rlSubDirs.push_back(it->first);
+	}
+}
+
+vfs::CUncompressedLibraryBase::Iterator vfs::CUncompressedLibraryBase::begin()
+{
+	return Iterator(new IterImpl(*this));
 }
 
 

@@ -2,7 +2,7 @@
 
 #include "utf8string.h"
 #include "vfs_file_raii.h"
-#include "FILE/vfs_file.h"
+#include "File/vfs_file.h"
 
 #include "Tools/Log.h"
 
@@ -10,7 +10,7 @@
 #include <ctime>
 
 CBasicException::CBasicException(const wchar_t* text, const char* function, int line, const char* file, CBasicException* ex)
-: std::exception(utf8string::as_utf8(text).c_str())
+: std::exception() //(utf8string::as_utf8(text).c_str())
 {
 	if(ex)
 	{
@@ -35,7 +35,7 @@ CBasicException::CBasicException(const wchar_t* text, const char* function, int 
 };
 
 CBasicException::CBasicException(utf8string const& text, utf8string const& function, int line, const char* file, CBasicException* ex)
-: std::exception(text.utf8().c_str())
+: std::exception() //(text.utf8().c_str())
 {
 	if(ex)
 	{
@@ -59,19 +59,41 @@ CBasicException::CBasicException(utf8string const& text, utf8string const& funct
 	m_CallStack.push_back(en);
 };
 
-utf8string CBasicException::GetLastEntryString() const
+CBasicException::~CBasicException() throw()
+{
+}
+
+utf8string CBasicException::getLastEntryString() const
 {
 	if(!m_CallStack.empty())
 	{
 		CALLSTACK::const_reverse_iterator rit = m_CallStack.rbegin();
-		std::wstringstream ss;
-		ss << rit->file.c_wcs() << L" (l. " << rit->line<< ") : [" << rit->function.c_wcs() << L"] - " << rit->message.c_wcs();
-		return ss.str();
+		std::wstringstream wss;
+		wss << rit->file.c_wcs()
+			<< L" (l. "
+			<< rit->line
+			<< ") : ["
+			<< rit->function.c_wcs()
+			<< L"] - "
+			<< rit->message.c_wcs();
+		return wss.str();
 	}
 	return "";
 }
 
-utf8string CBasicException::GetExceptionString() const
+const char* CBasicException::what() const throw()
+{
+	static std::string msg;
+	if(!m_CallStack.empty())
+	{
+		//msg = m_CallStack.front().message.utf8();
+		msg = this->getExceptionString().utf8();
+	}
+	return msg.c_str();
+}
+
+
+utf8string CBasicException::getExceptionString() const
 {
 	if(!m_CallStack.empty())
 	{
@@ -83,43 +105,41 @@ utf8string CBasicException::GetExceptionString() const
 			wss << L"File     :  "	<< rit->file		<< L"\r\n";
 			wss << L"Line     :  "	<< rit->line		<< L"\r\n";
 			wss << L"Location :  "	<< rit->function	<< L"\r\n\r\n";
-			wss << L"   "			<< rit->message		<< L"\r\n\r\n";
+			wss << L"   "			<< rit->message		<< L"\r\n";
 		}
 		return wss.str();
 	}
 	return L"";
 }
 
-void CBasicException::WriteFile(vfs::Path const& sPath)
+void CBasicException::writeFile(vfs::Path const& sPath)
 {
 	try
 	{
 		vfs::COpenWriteFile oFile(sPath,true,true);
-		utf8string s = this->GetExceptionString();
-		vfs::UInt32 written;
-		oFile.file().Write(s.utf8().c_str(),s.length(),written);
-		oFile.file().Close();
+		utf8string s = this->getExceptionString();
+		oFile.file().write(s.utf8().c_str(), s.length());
+		oFile.file().close();
 	}
 	catch(CBasicException &ex)
 	{
 		CBasicException ex2(L"Could not write exception file into VFS",
 			_FUNCTION_FORMAT_,__LINE__,__FILE__, &ex);
-		CBasicException out("Writing exception to disc failed : is there no writeable profile?",
+		CBasicException out("Writing exception to disc failed : is there no writable profile?",
 			_FUNCTION_FORMAT_,__LINE__,__FILE__, this);
 
 		out.m_CallStack.insert(out.m_CallStack.begin(),ex.m_CallStack.begin(),ex.m_CallStack.end());
 
 		vfs::Path sDir,sFile;
-		sPath.SplitLast(sDir,sFile);
+		sPath.splitLast(sDir,sFile);
 		vfs::CFile oFile(sFile);
 
 		try
 		{
 			// can also fail, but there is only so much we can do
-			vfs::COpenWriteFile file( vfs::tWriteableFile::Cast(&oFile) );
-			utf8string s = out.GetExceptionString();
-			vfs::UInt32 written;
-			file.file().Write(s.utf8().c_str(),s.length(),written);
+			vfs::COpenWriteFile file( vfs::tWritableFile::cast(&oFile) );
+			utf8string s = out.getExceptionString();
+			file.file().write(s.utf8().c_str(), s.length());
 		}
 		catch(CBasicException &fex)
 		{
@@ -128,18 +148,32 @@ void CBasicException::WriteFile(vfs::Path const& sPath)
 	}
 }
 
-void LogException(CBasicException const& ex)
+void logException(CBasicException const& ex)
 {
-	static CLog& exlog = *CLog::Create(L"game_exceptions.log");
+	static bool is_logging = false;
+	if(is_logging)
+	{
+		// drop message
+		return;
+	}
+	//////////////////
+	is_logging = true;
+	//////////////////
+
+	static CLog& exlog = *CLog::create(L"game_exceptions.log", false, CLog::FLUSH_IMMEDIATELY);
 	try
 	{
-		exlog << ">>>>>>>>>>>>>>>>>>>>>" << CLog::endl;
-		exlog << ex.GetExceptionString();
-		exlog << "<<<<<<<<<<<<<<<<<<<<<" << CLog::endl << CLog::endl;
+		exlog << ">>>>>>>>>>>>>>>>>>>>>" << CLog::ENDL;
+		exlog << ex.getExceptionString();
+		exlog << "<<<<<<<<<<<<<<<<<<<<<" << CLog::ENDL << CLog::ENDL;
 	}
 	catch(...)
 	{
 		// don't throw at all
 	}
+
+	//////////////////
+	is_logging = false;
+	//////////////////
 }
 

@@ -81,7 +81,7 @@ extern UINT32 guiCurrentUICursor;
 extern void DetermineWhichAssignmentMenusCanBeShown( void );
 extern void DetermineWhichMilitiaControlMenusCanBeShown( void );
 extern BOOLEAN gfIgnoreOnSelectedGuy;
-extern INT16 gsOverItemsGridNo;
+extern INT32 gsOverItemsGridNo;
 extern INT16 gsOverItemsLevel;
 extern UINT32	guiUITargetSoldierId;
 extern BOOLEAN	gfUIShowExitSouth;
@@ -112,17 +112,17 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 	SOLDIERTYPE *pSoldier;
 	UINT32	uiMercFlags;
 	static	UINT32 uiSingleClickTime;
-	INT16	sMapPos;
+	INT32 usMapPos;
 	static BOOLEAN	fDoubleClickIntercepted = FALSE;
 	static BOOLEAN	fValidDoubleClickPossible = FALSE;
 	static BOOLEAN	fCanCheckForSpeechAdvance = FALSE;
-	static INT16		sMoveClickGridNo					= 0;
+	static INT32		sMoveClickGridNo					= 0;
 
 
 	// LEFT MOUSE BUTTON
 	if ( gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA )
 	{
-		if (!GetMouseMapPos( &sMapPos ) && !gfUIShowExitSouth )
+		if (!GetMouseMapPos( &usMapPos ) && !gfUIShowExitSouth )
 		{
 			return;
 		}
@@ -166,7 +166,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 									{
 										if ( pSoldier->bDoBurst )
 										{
-											pSoldier->sStartGridNo = sMapPos;
+											pSoldier->sStartGridNo = usMapPos;
 											ResetBurstLocations( );
 											*puiNewEvent = A_CHANGE_TO_CONFIM_ACTION;
 										}
@@ -207,7 +207,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 								{
 									INT8 bReturnCode;
 
-									bReturnCode = HandleMoveModeInteractiveClick( sMapPos, puiNewEvent );
+									bReturnCode = HandleMoveModeInteractiveClick( usMapPos, puiNewEvent );
 
 									if ( bReturnCode == -1 )
 									{
@@ -234,7 +234,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 												if ( gusSelectedSoldier != NOBODY )
 												{
-													if ( ( fResult = UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], sMapPos ) ) == 1 )
+													if ( ( fResult = UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], usMapPos ) ) == 1 )
 													{
 														if ( gsCurrentActionPoints != 0 )
 														{
@@ -412,7 +412,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 								{
 									if ( pSoldier->bDoBurst )
 									{
-										pSoldier->sEndGridNo = sMapPos;
+										pSoldier->sEndGridNo = usMapPos;
 
 										gfBeginBurstSpreadTracking = FALSE;
 
@@ -451,7 +451,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 									{
 										if ( gpItemPointer != NULL )
 										{
-											if ( HandleItemPointerClick( sMapPos ) )
+											if ( HandleItemPointerClick( usMapPos ) )
 											{
 												// getout of mode
 												EndItemPointer( );
@@ -495,7 +495,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 												case HANDCURSOR_MODE:
 
-													HandleHandCursorClick( sMapPos, puiNewEvent );
+													HandleHandCursorClick( usMapPos, puiNewEvent );
 													break;
 
 												case ACTION_MODE:
@@ -643,7 +643,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 														{
 															INT8 bReturnCode;
 
-															bReturnCode = HandleMoveModeInteractiveClick( sMapPos, puiNewEvent );
+															bReturnCode = HandleMoveModeInteractiveClick( usMapPos, puiNewEvent );
 
 															if ( bReturnCode == -1 )
 															{
@@ -658,7 +658,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 																//}/
 																//else
 																{
-																	INT16							sIntTileGridNo;
+																			  INT32 sIntTileGridNo;
 
 																	if(	GetSoldier( &pSoldier, gusSelectedSoldier ) )
 																	{
@@ -705,7 +705,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 																			if ( gusSelectedSoldier != NOBODY )
 																			{
-																				if ( ( fResult = UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], sMapPos ) ) == 1 )
+																				if ( ( fResult = UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], usMapPos ) ) == 1 )
 																				{
 																					if ( gfUIAllMoveOn )
 																					{
@@ -939,11 +939,11 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 	static BOOLEAN	fValidDoubleClickPossible = FALSE;
 
 	SOLDIERTYPE *pSoldier;
-	INT16	sMapPos;
+	INT32 usMapPos;
 
 	if ( gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA )
 	{
-		if (!GetMouseMapPos( &sMapPos ) )
+		if (!GetMouseMapPos( &usMapPos ) )
 		{
 			return;
 		}
@@ -982,7 +982,7 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 								if ( gfUICanBeginAllMoveCycle )
 								{
 									// ATE: Here, check if we can do this....
-									if ( !UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], sMapPos ) )
+									if ( !UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], usMapPos ) )
 									{
 										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANT_MOVE_THERE_STR ] );
 										gfRTClickLeftHoldIntercepted = TRUE;
@@ -1189,7 +1189,7 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 
 										if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
 										{
-											HandleRightClickAdjustCursor( pSoldier, sMapPos );
+											HandleRightClickAdjustCursor( pSoldier, usMapPos );
 										}
 										fClickIntercepted = TRUE;
 										break;
@@ -1244,21 +1244,21 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 }
 
 
-extern BOOLEAN ConfirmActionCancel( INT16 sMapPos, UINT16 usOldMapPos );
+extern BOOLEAN ConfirmActionCancel( INT32 usMapPos, INT32 usOldMapPos );
 
 extern BOOLEAN	gUIActionModeChangeDueToMouseOver;
 
 
 void GetRTMousePositionInput( UINT32 *puiNewEvent )
 {
-	INT16						sMapPos;
-	static UINT16			usOldMapPos = 0;
+	INT32 usMapPos;
+	static INT32			usOldMapPos = 0;
 	static UINT32			uiMoveTargetSoldierId = NOBODY;
 	SOLDIERTYPE								*pSoldier;
 	static BOOLEAN		fOnValidGuy = FALSE;
 
 
-	if (!GetMouseMapPos( &sMapPos ) )
+	if (!GetMouseMapPos( &usMapPos ) )
 	{
 		return;
 	}
@@ -1294,7 +1294,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 		case JUMPOVER_MODE:
 
 			// ATE: Make sure!
-			if ( gsJumpOverGridNo != sMapPos )
+			if ( gsJumpOverGridNo != usMapPos )
 			{
 				*puiNewEvent = A_CHANGE_TO_MOVE;
 			}
@@ -1376,7 +1376,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 
 		case MOVE_MODE:
 
-			if ( sMapPos != usOldMapPos )
+			if ( usMapPos != usOldMapPos )
 			{
 				// Set off ALL move....
 				gfUIAllMoveOn = FALSE;
@@ -1397,10 +1397,10 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 				ubItemCursor	=	GetActionModeCursor( pSoldier );
 
 				//
-				if ( IsValidJumpLocation( pSoldier, sMapPos, TRUE ) )
+				if ( IsValidJumpLocation( pSoldier, usMapPos, TRUE ) )
 				{
 					*puiNewEvent = JP_ON_TERRAIN;
-					gsJumpOverGridNo = sMapPos;
+					gsJumpOverGridNo = usMapPos;
 					return;
 				}
 				else
@@ -1481,7 +1481,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 
 		case CONFIRM_MOVE_MODE:
 
-			if ( sMapPos != usOldMapPos )
+			if ( usMapPos != usOldMapPos )
 			{
 				// Switch event out of confirm mode
 				// Set off ALL move....
@@ -1498,7 +1498,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 			{
 				if ( pSoldier->bDoBurst )
 				{
-					pSoldier->sEndGridNo = sMapPos;
+					pSoldier->sEndGridNo = usMapPos;
 
 
 					if ( pSoldier->sEndGridNo != pSoldier->sStartGridNo && fLeftButtonDown )
@@ -1510,7 +1510,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 					if ( pSoldier->flags.fDoSpread )
 					{
 						// Accumulate gridno
-						AccumulateBurstLocation( sMapPos );
+						AccumulateBurstLocation( usMapPos );
 
 						*puiNewEvent = CA_ON_TERRAIN;
 						break;
@@ -1533,7 +1533,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 			}
 			else
 			{
-				if ( ConfirmActionCancel( sMapPos, usOldMapPos ) )
+				if ( ConfirmActionCancel( usMapPos, usOldMapPos ) )
 				{
 					// Switch event out of confirm mode
 					*puiNewEvent = CA_END_CONFIRM_ACTION;
@@ -1557,7 +1557,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 		//	}
 		//}
 
-		usOldMapPos = sMapPos;
+		usOldMapPos = usMapPos;
 
 	}
 }

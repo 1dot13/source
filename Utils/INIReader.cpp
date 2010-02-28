@@ -43,7 +43,7 @@ CIniReader::CIniReader(const STR8	szFileName)
 	}
 #else
 	strncpy(m_szFileName,szFileName, std::min<int>(strlen(szFileName), sizeof(m_szFileName)-1));
-	m_oProps.InitFromIniFile(vfs::Path(szFileName));
+	m_oProps.initFromIniFile(vfs::Path(szFileName));
 #endif
 }
 
@@ -79,7 +79,7 @@ CIniReader::CIniReader(const STR8	szFileName, BOOLEAN Force_Custom_Data_Path)
 	}
 #else
 	strncpy(m_szFileName,szFileName, std::min<int>(strlen(szFileName), sizeof(m_szFileName)-1));
-	CIniReader_File_Found = m_oProps.InitFromIniFile(vfs::Path(szFileName));
+	CIniReader_File_Found = m_oProps.initFromIniFile(vfs::Path(szFileName));
 #endif
 }
 
@@ -89,7 +89,7 @@ void CIniReader::Clear()
 	memset(m_szFileName, 0, MAX_PATH);
 #else
 	memset(m_szFileName, 0, MAX_PATH);
-	m_oProps.ClearContainer();
+	m_oProps.clearContainer();
 #endif
 }
 
@@ -99,7 +99,7 @@ int CIniReader::ReadInteger(const STR8	szSection, const STR8	szKey, int iDefault
 #ifndef USE_VFS
 	return GetPrivateProfileInt(szSection,	szKey, iDefaultValue, m_szFileName);
 #else
-	return m_oProps.GetIntProperty(szSection, szKey, iDefaultValue);
+	return m_oProps.getIntProperty(szSection, szKey, iDefaultValue);
 #endif
 }
 
@@ -109,7 +109,7 @@ int CIniReader::ReadInteger(const STR8 szSection, const STR8 szKey, int defaultV
 #ifndef USE_VFS
 	int iniValueReadFromFile = GetPrivateProfileInt(szSection,	szKey, defaultValue, m_szFileName);
 #else
-	int iniValueReadFromFile = m_oProps.GetIntProperty(szSection, szKey, defaultValue);
+	int iniValueReadFromFile = m_oProps.getIntProperty(szSection, szKey, defaultValue);
 #endif
 	//AssertGE(iniValueReadFromFile, minValue);
 	//AssertLE(iniValueReadFromFile, maxValue);
@@ -149,7 +149,7 @@ double CIniReader::ReadDouble(const STR8 szSection, const STR8 szKey, double def
 	GetPrivateProfileString(szSection,	szKey, szDefault, szResult, 255, m_szFileName);
 	iniValueReadFromFile = (float) atof(szResult);
 #else
-	iniValueReadFromFile = m_oProps.GetFloatProperty(szSection, szKey, defaultValue);
+	iniValueReadFromFile = m_oProps.getFloatProperty(szSection, szKey, defaultValue);
 #endif
 	//AssertGE(iniValueReadFromFile, minValue);
 	//AssertLE(iniValueReadFromFile, maxValue);
@@ -176,7 +176,7 @@ FLOAT CIniReader::ReadFloat(const STR8 szSection, const STR8 szKey, FLOAT defaul
 	GetPrivateProfileString(szSection,	szKey, szDefault, szResult, 255, m_szFileName);
 	iniValueReadFromFile = (FLOAT) atof(szResult);
 #else
-	iniValueReadFromFile = (FLOAT) m_oProps.GetFloatProperty(szSection, szKey, (float)defaultValue);
+	iniValueReadFromFile = (FLOAT) m_oProps.getFloatProperty(szSection, szKey, (float)defaultValue);
 #endif
 
 	//AssertGE(iniValueReadFromFile, minValue);
@@ -209,7 +209,7 @@ BOOLEAN CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, bool def
 	else if (strcmp(szResult, "FALSE") == 0)
 		return FALSE;
 #else
-	utf8string str = m_oProps.GetStringProperty(szSection, szKey, L"");
+	utf8string str = m_oProps.getStringProperty(szSection, szKey, L"");
 	if( StrCmp::Equal(str, L"true") )
 	{
 		return TRUE;
@@ -239,7 +239,7 @@ void CIniReader::ReadString(const STR8 szSection, const STR8 szKey, const STR8 s
 #ifndef USE_VFS
 	GetPrivateProfileString(szSection,	szKey, szDefaultValue, input_buffer, buffer_size, m_szFileName);
 #else
-	std::string s = m_oProps.GetStringProperty(szSection, szKey, szDefaultValue).utf8();
+	std::string s = m_oProps.getStringProperty(szSection, szKey, szDefaultValue).utf8();
 	int len = std::min<unsigned int>(s.length(),buffer_size-1);
 	strncpy(input_buffer, s.c_str(), len);
 	input_buffer[len] = 0;
@@ -255,7 +255,7 @@ STR8	CIniReader::ReadString(const STR8	szSection, const STR8	szKey, const STR8	s
 #ifndef USE_VFS
 	GetPrivateProfileString(szSection,	szKey, szDefaultValue, szResult, 255, m_szFileName);
 #else
-	std::string s = m_oProps.GetStringProperty(szSection, szKey, szDefaultValue).utf8();
+	std::string s = m_oProps.getStringProperty(szSection, szKey, szDefaultValue).utf8();
 	strncpy(szResult, s.c_str(), std::min<int>(s.length(),254));
 #endif
 	return szResult;
@@ -307,7 +307,7 @@ UINT32 CIniReader::ReadUINT(const STR8 szSection, const STR8 szKey, UINT32 defau
 	this->ReadString (szSection , szKey , szDefault, szResult, (size_t) 255 );
 	iniValueReadFromFile = (UINT32) strtoul(szResult,NULL,0);
 #else
-	iniValueReadFromFile = (UINT32) m_oProps.GetUIntProperty(szSection, szKey, defaultValue);
+	iniValueReadFromFile = (UINT32) m_oProps.getUIntProperty(szSection, szKey, defaultValue);
 #endif
 	//AssertGE(iniValueReadFromFile, minValue);
 	//AssertLE(iniValueReadFromFile, maxValue);

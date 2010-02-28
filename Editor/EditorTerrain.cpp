@@ -231,7 +231,7 @@ void Fill( INT32 x, INT32 y )
 		maxCount = Count;
 
 	iMapIndex = y * WORLD_COLS + x;
-	if( !GridNoOnVisibleWorldTile( (INT16)iMapIndex ) )
+	if( !GridNoOnVisibleWorldTile( iMapIndex ) )
 	{
 		Count--;
 		return;
@@ -266,7 +266,7 @@ void Fill( INT32 x, INT32 y )
 }
 
 
-void TerrainFill( UINT32 iMapIndex )
+void TerrainFill( INT32 iMapIndex )
 {
 	INT16 sX, sY;
 	//determine what we should be looking for to replace...
@@ -276,7 +276,7 @@ void TerrainFill( UINT32 iMapIndex )
 	if( guiSearchType == CurrentPaste )
 		return;
 
-	ConvertGridNoToXY( (INT16)iMapIndex, &sX, &sY );
+	ConvertGridNoToXY( iMapIndex, &sX, &sY );
 
 	Count = 0;
 

@@ -74,6 +74,7 @@
 	#include "los.h"
 	#include "Map Screen Interface Map.h"
 	#include "Interface Enhanced.h"
+	#include "InterfaceItemImages.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -2413,7 +2414,8 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 	{
 		// TAKE A LOOK AT THE VIDEO OBJECT SIZE ( ONE OF TWO SIZES ) AND CENTER!
 		GetVideoObject( &hVObject, GetInterfaceGraphicForItem( pItem ) );
-		pTrav = &(hVObject->pETRLEObject[ pItem->ubGraphicNum ] );
+		UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : pItem->ubGraphicNum;
+		pTrav = &(hVObject->pETRLEObject[ usGraphicNum ] );
 		usHeight				= (UINT32)pTrav->usHeight;
 		usWidth					= (UINT32)pTrav->usWidth;
 
@@ -2425,9 +2427,9 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 		sCenY =  sY + (INT16)( abs( sHeight - (double)usHeight ) / 2 ) - pTrav->sOffsetY;
 
 		// Shadow area
-		if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX - 2, sCenY + 2 );
+		if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), usGraphicNum, sCenX - 2, sCenY + 2 );
 
-		BltVideoObjectOutlineFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX, sCenY, sOutlineColor, fOutline );
+		BltVideoObjectOutlineFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), usGraphicNum, sCenX, sCenY, sOutlineColor, fOutline );
 
 
 		if ( uiBuffer == FRAME_BUFFER )
@@ -3539,7 +3541,7 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 			if(gpItemPointer->exists() == true)
 			{
 				guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-				gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+				gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 				MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
 				MSYS_SetCurrentCursor( EXTERN_CURSOR );
@@ -3744,7 +3746,7 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					{
 						// Set mouse
 						guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-						gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+						gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 						MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
 						MSYS_SetCurrentCursor( EXTERN_CURSOR );
@@ -4241,7 +4243,7 @@ void RenderItemDescriptionBox( )
 				ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
 
 				// WANNE: Fixed CTD when trowing an item with open description box
-				if (ubAttackAPs != -1)
+				if (ubAttackAPs != -1 )
 				{
 					if (ubAttackAPs <= EXCEPTIONAL_AP_COST)
 					{
@@ -4285,7 +4287,7 @@ void RenderItemDescriptionBox( )
 				else
 				{
 					// WANNE: Close the description box after we threw the item.
-					DeleteItemDescriptionBox();
+					DeleteItemDescriptionBox( );
 				}
 			}
 		}
@@ -4925,7 +4927,7 @@ void BeginKeyRingItemPointer( SOLDIERTYPE *pSoldier, UINT8 ubKeyRingPosition )
 		if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 		{
 			guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-			gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+			gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 			fMapInventoryItem=TRUE;
 			MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
@@ -4975,7 +4977,7 @@ void DrawItemFreeCursor( )
 
 	// Get usIndex and then graphic for item
 	guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-	gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+	gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 	MSYS_ChangeRegionCursor( &gSMPanelRegion , EXTERN_CURSOR );
 	MSYS_SetCurrentCursor( EXTERN_CURSOR );
@@ -4987,7 +4989,7 @@ void HideItemTileCursor( )
 
 }
 
-BOOLEAN SoldierCanSeeCatchComing( SOLDIERTYPE *pSoldier, INT16 sSrcGridNo )
+BOOLEAN SoldierCanSeeCatchComing( SOLDIERTYPE *pSoldier, INT32 sSrcGridNo )
 {
 	return( TRUE );
 /*-
@@ -5030,17 +5032,17 @@ BOOLEAN SoldierCanSeeCatchComing( SOLDIERTYPE *pSoldier, INT16 sSrcGridNo )
 
 void DrawItemTileCursor( )
 {
-	INT16						sMapPos;
+	INT32 usMapPos;
 	UINT16						usIndex;
 	UINT8							ubSoldierID;
 	INT16							sAPCost;
 	BOOLEAN						fRecalc;
 	UINT32						uiCursorFlags;
-	INT16							sFinalGridNo;
+	INT32 sFinalGridNo;
 	UINT32						uiCursorId = CURSOR_ITEM_GOOD_THROW;
 	SOLDIERTYPE				*pSoldier;
 	BOOLEAN						fGiveItem = FALSE;
-	INT16							sActionGridNo;
+	INT32 sActionGridNo;
 	UINT8							ubDirection;
 	static UINT32			uiOldCursorId = 0;
 	static UINT16			usOldMousePos = 0;
@@ -5048,15 +5050,15 @@ void DrawItemTileCursor( )
 	INT16							sDist;
 	INT8							bLevel;
 
-	if (GetMouseMapPos( &sMapPos) )
+	if (GetMouseMapPos( &usMapPos) )
 	{
 		if ( gfUIFullTargetFound )
 		{
 			// Force mouse position to guy...
-			sMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+			usMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
 		}
 
-		gusCurMousePos = sMapPos;
+		gusCurMousePos = usMapPos;
 
 		if( gusCurMousePos != usOldMousePos )
 		{
@@ -5119,7 +5121,7 @@ void DrawItemTileCursor( )
 
 		if ( !fGiveItem )
 		{
-			if ( UIHandleOnMerc( FALSE ) && sMapPos != gpItemPointerSoldier->sGridNo )
+			if ( UIHandleOnMerc( FALSE ) && usMapPos != gpItemPointerSoldier->sGridNo )
 			{
 				// We are on a guy.. check if they can catch or not....
 				if ( gfUIFullTargetFound )
@@ -5241,7 +5243,7 @@ void DrawItemTileCursor( )
 			}
 			else
 			{
-				if ( sMapPos == gpItemPointerSoldier->sGridNo )
+				if ( usMapPos == gpItemPointerSoldier->sGridNo )
 				{
 					EndPhysicsTrajectoryUI( );
 				}
@@ -5261,7 +5263,7 @@ void DrawItemTileCursor( )
 
 					gfUIHandlePhysicsTrajectory = TRUE;
 
-					if ( fRecalc && sMapPos != gpItemPointerSoldier->sGridNo )
+					if ( fRecalc && usMapPos != gpItemPointerSoldier->sGridNo )
 					{
 						if ( gfUIMouseOnValidCatcher )
 						{
@@ -5290,7 +5292,7 @@ void DrawItemTileCursor( )
 						}
 
 						// Calculate chance to throw here.....
-						if ( !CalculateLaunchItemChanceToGetThrough( gpItemPointerSoldier, gpItemPointer, sMapPos, (INT8)gsInterfaceLevel, (INT16)( ( gsInterfaceLevel * 256 ) + sEndZ ), &sFinalGridNo, FALSE, &bLevel, TRUE ) )
+						if ( !CalculateLaunchItemChanceToGetThrough( gpItemPointerSoldier, gpItemPointer, usMapPos, (INT8)gsInterfaceLevel, (INT16)( ( gsInterfaceLevel * 256 ) + sEndZ ), &sFinalGridNo, FALSE, &bLevel, TRUE ) )
 						{
 							gfBadThrowItemCTGH = TRUE;
 						}
@@ -5346,7 +5348,7 @@ BOOLEAN IsValidAmmoToReloadRobot( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 }
 
 
-BOOLEAN HandleItemPointerClick( INT16 sMapPos )
+BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 {
 	// Determine what to do
 	if ( SelectedGuyInBusyAnimation( ) )
@@ -5383,13 +5385,13 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 	UINT32		uiThrowActionData=0;
 	INT16			sEndZ = 0;
 	BOOLEAN		fGiveItem = FALSE;
-	INT16			sGridNo;
+	INT32			sGridNo;
 	INT16			sDist;
 
 	if ( gfUIFullTargetFound )
 	{
 		// Force mouse position to guy...
-		sMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+		usMapPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
 
 		if ( gAnimControl[ MercPtrs[ gusUIFullTargetID ]->usAnimState ].uiFlags & ANIM_MOVING )
 		{
@@ -5447,7 +5449,7 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 		else
 		{
 			// Calculate action point costs!
-			sAPCost = GetAPsToGiveItem( gpItemPointerSoldier, sMapPos );
+			sAPCost = GetAPsToGiveItem( gpItemPointerSoldier, usMapPos );
 		}
 
 		// Place it back in our hands!
@@ -5483,9 +5485,9 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 				// Check if we can reload robot....
 				if ( IsValidAmmoToReloadRobot( MercPtrs[ ubSoldierID ], &gTempObject ) )
 				{
-					 INT16	sActionGridNo;
+					 INT32 sActionGridNo;
 					 UINT8	ubDirection;
-					 INT16	sAdjustedGridNo;
+					 INT32 sAdjustedGridNo;
 
 					 // Walk up to him and reload!
 					 // See if we can get there to stab
@@ -5558,7 +5560,7 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 	{
 		// Check some things here....
 		// 1 ) are we at the exact gridno that we stand on?
-		if ( sMapPos == gpItemPointerSoldier->sGridNo )
+		if ( usMapPos == gpItemPointerSoldier->sGridNo )
 		{
 			// Drop
 			if ( !gfDontChargeAPsToPickup )
@@ -5574,7 +5576,7 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 			// Try to drop in an adjacent area....
 			// 1 ) is this not a good OK destination
 			// this will sound strange, but this is OK......
-			if ( !NewOKDestination( gpItemPointerSoldier, sMapPos, FALSE, gpItemPointerSoldier->pathing.bLevel ) || FindBestPath( gpItemPointerSoldier, sMapPos, gpItemPointerSoldier->pathing.bLevel, WALKING, NO_COPYROUTE, 0 ) == 1 )
+			if ( !NewOKDestination( gpItemPointerSoldier, usMapPos, FALSE, gpItemPointerSoldier->pathing.bLevel ) || FindBestPath( gpItemPointerSoldier, usMapPos, gpItemPointerSoldier->pathing.bLevel, WALKING, NO_COPYROUTE, 0 ) == 1 )
 			{
 				// Drop
 				if ( !gfDontChargeAPsToPickup )
@@ -5595,10 +5597,10 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 						OBJECTTYPE::CopyToOrCreateAt( &gpItemPointerSoldier->pTempObject, gpItemPointer);
 						if (gpItemPointerSoldier->pTempObject != NULL)
 						{
-							gpItemPointerSoldier->aiData.sPendingActionData2 = sMapPos;
+							gpItemPointerSoldier->aiData.sPendingActionData2 = usMapPos;
 
 	 						// Turn towards.....gridno
-							gpItemPointerSoldier->EVENT_SetSoldierDesiredDirection( (INT8)GetDirectionFromGridNo( sMapPos, gpItemPointerSoldier ) );
+							gpItemPointerSoldier->EVENT_SetSoldierDesiredDirection( (INT8)GetDirectionFromGridNo( usMapPos, gpItemPointerSoldier ) );
 
 							gpItemPointerSoldier->EVENT_InitNewSoldierAnim( DROP_ADJACENT_OBJECT, 0 , FALSE );
 						}
@@ -5607,7 +5609,7 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 					case ANIM_CROUCH:
 					case ANIM_PRONE:
 
-						AddItemToPool( sMapPos, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0 , -1 );
+						AddItemToPool( usMapPos, gpItemPointer, 1, gpItemPointerSoldier->pathing.bLevel, 0 , -1 );
 						NotifySoldiersToLookforItems( );
 						break;
 				}
@@ -5627,7 +5629,7 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 	}
 	else
 	{
-		sGridNo = sMapPos;
+		sGridNo = usMapPos;
 
 		// Kaiden: Vehicle Inventory change - Commented the following If test:
 		//if ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && MercPtrs[ gusUIFullTargetID ]->bTeam == gbPlayerNum && !AM_AN_EPC( MercPtrs[ gusUIFullTargetID ] ) && !( MercPtrs[ gusUIFullTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
@@ -5810,7 +5812,7 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 			CalculateLaunchItemParamsForThrow( gpItemPointerSoldier, sGridNo, gpItemPointerSoldier->pathing.bLevel, (INT16)( ( gsInterfaceLevel * 256 ) + sEndZ ), gpItemPointer, 0, ubThrowActionCode, uiThrowActionData );
 
 			// OK, goto throw animation
-			HandleSoldierThrowItem( gpItemPointerSoldier, sMapPos );
+			HandleSoldierThrowItem( gpItemPointerSoldier, usMapPos );
 		}
 	}
 
@@ -5821,10 +5823,10 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 	return( TRUE );
 }
 
-BOOLEAN ItemCursorInLobRange( INT16 sMapPos )
+BOOLEAN ItemCursorInLobRange( INT32 usMapPos )
 {
 	// Draw item depending on distance from buddy
-	if ( GetRangeFromGridNoDiff( sMapPos, gpItemPointerSoldier->sGridNo ) > MIN_LOB_RANGE )
+	if ( GetRangeFromGridNoDiff( usMapPos, gpItemPointerSoldier->sGridNo ) > MIN_LOB_RANGE )
 	{
 		return( FALSE );
 	}
@@ -6520,24 +6522,29 @@ void DeleteKeyRingPopup( )
 
 UINT32 GetInterfaceGraphicForItem( INVTYPE *pItem )
 {
+	UINT32 id;
 	// CHECK SUBCLASS
 	if ( pItem->ubGraphicType == 0 )
 	{
-		return( guiGUNSM );
+		TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oGUNSM.getVObjectForItem(pItem->ubGraphicNum) : guiGUNSM,
+			L"Failed to retrieve gun image" );
 	}
 	else if ( pItem->ubGraphicType == 1 )
 	{
-		return( guiP1ITEMS );
+		TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP1ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP1ITEMS,
+			L"Failed to retrieve P1 item image" );
 	}
 	else if ( pItem->ubGraphicType == 2 )
 	{
-		return( guiP2ITEMS );
+		TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP2ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP2ITEMS,
+			L"Failed to retrieve P2 item image" );
 	}
 	else
 	{
-		return( guiP3ITEMS );
+		TRYCATCH_RETHROW( id = g_bUsePngItemImages ? g_oP3ITEMS.getVObjectForItem(pItem->ubGraphicNum) : guiP3ITEMS,
+			L"Failed to retrieve P3 item image" );
 	}
-
+	return id;
 }
 
 
@@ -6793,7 +6800,7 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			else
 			{
 				guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-				gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+				gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 				MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
 				MSYS_SetCurrentCursor( EXTERN_CURSOR );
@@ -6956,7 +6963,7 @@ public:
 	BOOLEAN				fDirtyLevel;
 	INT32					iDirtyRect;
 	BOOLEAN				fHandled;
-	INT16					sGridNo;
+	INT32 sGridNo;
 	INT8					bZLevel;
 	INT16					sButtomPanelStartY;
 	SOLDIERTYPE		*pSoldier;
@@ -7020,7 +7027,7 @@ void SetItemPickupMenuDirty( BOOLEAN fDirtyLevel )
 }
 
 
-BOOLEAN InitializeItemPickupMenu( SOLDIERTYPE *pSoldier, INT16 sGridNo, ITEM_POOL *pItemPool, INT16 sScreenX, INT16 sScreenY, INT8 bZLevel )
+BOOLEAN InitializeItemPickupMenu( SOLDIERTYPE *pSoldier, INT32 sGridNo, ITEM_POOL *pItemPool, INT16 sScreenX, INT16 sScreenY, INT8 bZLevel )
 {
   VOBJECT_DESC    VObjectDesc;
 	CHAR8						ubString[48];
@@ -7096,8 +7103,8 @@ BOOLEAN InitializeItemPickupMenu( SOLDIERTYPE *pSoldier, INT16 sGridNo, ITEM_POO
 
 	// Get XY
 	{
-		// First get mouse xy screen location
-		if( sGridNo != NOWHERE )
+		// First get mouse xy screen location		
+		if(!TileIsOutOfBounds(sGridNo))
 		{
 			sX = gusMouseXPos;
 			sY = gusMouseYPos;
@@ -8242,7 +8249,7 @@ void RemoveMoney()
 			{
 				// Set mouse
 				guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-				gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+				gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 				MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
 				MSYS_SetCurrentCursor( EXTERN_CURSOR );
@@ -8806,7 +8813,7 @@ BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOppo
 	CHAR8			ubString[48];
 	INT16			sCenX, sCenY, sX, sY, sCenterYVal;
 	INT8 bZLevel	=pOpponent->pathing.bLevel;
-	INT16 sGridNo	=pOpponent->sGridNo;
+	INT32 sGridNo	=pOpponent->sGridNo;
 	INT32			cnt;
 	gpOpponent		=pOpponent;
 	gfStealing		=TRUE;
@@ -8862,8 +8869,8 @@ BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOppo
 
 	// Get XY
 	{
-		// First get mouse xy screen location
-		if( sGridNo != NOWHERE )
+		// First get mouse xy screen location		
+		if(!TileIsOutOfBounds(sGridNo))
 		{
 			sX = gusMouseXPos;
 			sY = gusMouseYPos;

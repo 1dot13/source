@@ -1117,7 +1117,8 @@ INT32 AnyFreeBigEnoughPocket(MERCPROFILESTRUCT *pProfile, INVNODE *tInv)
 	return(-1);
 }
 
-
+#include "VFS/vfs.h"
+#include "VFS/vfs_settings.h"
 void WriteOutCurrentImpCharacter( INT32 iProfileId )
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("WriteOutCurrentImpCharacter: IMP.dat"));
@@ -1131,6 +1132,7 @@ void WriteOutCurrentImpCharacter( INT32 iProfileId )
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("WriteOutCurrentImpCharacter: Nickname.dat"));
 
+#ifndef USE_VFS
 	char zFileName[13];
 	char temp;
 
@@ -1139,6 +1141,17 @@ void WriteOutCurrentImpCharacter( INT32 iProfileId )
 		temp = (char) gMercProfiles[iProfileId].zNickname[i];
 		zFileName[i] = temp;
 	}
+#else
+	char zFileName[32];
+	if(vfs::Settings::getUseUnicode())
+	{
+		strncpy(zFileName, utf8string::as_utf8(gMercProfiles[iProfileId].zNickname,10).c_str(), 32);
+	}
+	else
+	{
+		utf8string::narrow(gMercProfiles[iProfileId].zNickname, 10, zFileName, 32);
+	}
+#endif
 
 	// Changed by ADB, rev 1513
 	//strcat(zFileName,IMP_FILENAME_SUFFIX);

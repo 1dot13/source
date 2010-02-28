@@ -63,7 +63,7 @@ INT8 gzMeanwhileStr[][30] =
 
 
 // the snap to grid nos for meanwhile scenes
-INT16 gsMeanWhileGridNo[]=
+INT32 gusMeanWhileGridNo[]=
 {
 	12248,
 	12248,
@@ -91,7 +91,7 @@ typedef struct
 	INT16		sX;
 	INT16		sY;
 	INT16		sZ;
-	INT16		sGridNo;
+	INT32 sGridNo;
 
 } NPC_SAVE_INFO;
 
@@ -145,7 +145,7 @@ UINT32 uiMeanWhileFlags = 0;
 #define INTERROGATION_FLAG										0x00008000
 #define BALIME_LIBERATED_FLAG									0x00010000
 
-extern void InternalLocateGridNo( INT16 sGridNo, BOOLEAN fForce );
+extern void InternalLocateGridNo( INT32 sGridNo, BOOLEAN fForce );
 
 
 void ProcessImplicationsOfMeanwhile( void );
@@ -916,10 +916,10 @@ void DoneFadeInMeanwhileOnceDone( )
 
 void LocateMeanWhileGrid( void )
 {
-	INT16 sGridNo = 0;
+	INT32 sGridNo = 0;
 
 	// go to the approp. gridno
-	sGridNo = gsMeanWhileGridNo[ ubCurrentMeanWhileId ];
+	sGridNo = gusMeanWhileGridNo[ ubCurrentMeanWhileId ];
 
 	InternalLocateGridNo( sGridNo, TRUE );
 

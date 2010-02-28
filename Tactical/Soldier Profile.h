@@ -195,9 +195,8 @@ void MakeRemainingTerroristsTougher( void );
 void MakeRemainingAssassinsTougher( void );
 SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier );
 
-BOOLEAN DoesNPCOwnBuilding( SOLDIERTYPE *pSoldier, INT16 sGridNo );
+BOOLEAN DoesNPCOwnBuilding( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 
-// HEADROCK PROFEX: Temporary array for merc profile data, read from XML
 typedef struct
 {
 	CHAR16 zName[NAME_LENGTH];

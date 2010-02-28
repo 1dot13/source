@@ -124,7 +124,7 @@ INT8 OKToAttack(SOLDIERTYPE * pSoldier, int target)
 
 BOOLEAN ConsiderProne( SOLDIERTYPE * pSoldier )
 {
-	INT16		sOpponentGridNo;
+	INT32		sOpponentGridNo;
 	INT8		bOpponentLevel;
 	INT32		iRange;
 
@@ -366,7 +366,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 	}
 }
 
-void NewDest(SOLDIERTYPE *pSoldier, UINT16 usGridNo)
+void NewDest(SOLDIERTYPE *pSoldier, INT32 usGridNo)
 {
 	// ATE: Setting sDestination? Tis does not make sense...
 	//pSoldier->pathing.sDestination = usGridNo;
@@ -411,8 +411,8 @@ void NewDest(SOLDIERTYPE *pSoldier, UINT16 usGridNo)
 				default:
 /*					if ( PreRandom( 5 - SoldierDifficultyLevel( pSoldier ) ) == 0 )
 					{
-						INT16 sClosestNoise = (INT16) MostImportantNoiseHeard( pSoldier, NULL, NULL, NULL );
-						if ( sClosestNoise != NOWHERE && PythSpacesAway( pSoldier->sGridNo, sClosestNoise ) < MaxDistanceVisible() + 10 )
+						INT32 sClosestNoise = (INT16) MostImportantNoiseHeard( pSoldier, NULL, NULL, NULL );						
+						if ( !TileIsOutOfBounds(sClosestNoise) && PythSpacesAway( pSoldier->sGridNo, sClosestNoise ) < MaxDistanceVisible() + 10 )
 						{
 							pSoldier->usUIMovementMode = SWATTING;
 							fSet = TRUE;
@@ -591,12 +591,12 @@ INT16 RandomFriendWithin(SOLDIERTYPE *pSoldier)
 	UINT8					ubDirsLeft;
 	BOOLEAN				fDirChecked[8];
 	BOOLEAN				fRangeRestricted = FALSE, fFound = FALSE;
-	UINT16				usDest, usOrigin;
+	INT32				usDest, usOrigin;
 	SOLDIERTYPE *	pFriend;
 
 
 	// obtain maximum roaming distance from soldier's origin
-	usMaxDist = RoamingRange(pSoldier, (INT16 *)&usOrigin);
+	usMaxDist = RoamingRange(pSoldier,&usOrigin);
 
 	// if our movement range is restricted
 
@@ -726,10 +726,10 @@ INT16 RandomFriendWithin(SOLDIERTYPE *pSoldier)
 }
 
 
-INT16 RandDestWithinRange(SOLDIERTYPE *pSoldier)
+INT32 RandDestWithinRange(SOLDIERTYPE *pSoldier)
 {
-	INT16 sRandDest = NOWHERE;
-	UINT16 usOrigin, usMaxDist;
+	INT32 sRandDest = NOWHERE;
+	INT32 usOrigin, usMaxDist;
 	UINT8	ubTriesLeft;
 	BOOLEAN fLimited = FALSE, fFound = FALSE;
 	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXRange, sYRange, sXOffset, sYOffset;
@@ -752,7 +752,7 @@ INT16 RandDestWithinRange(SOLDIERTYPE *pSoldier)
 		ubTriesLeft = 1;
 	}
 
-	usMaxDist = RoamingRange(pSoldier, (INT16 *)&usOrigin);
+	usMaxDist = RoamingRange(pSoldier,&usOrigin);
 
 	if ( pSoldier->aiData.bOrders <= CLOSEPATROL && (pSoldier->bTeam == CIV_TEAM || pSoldier->ubProfile != NO_PROFILE ) )
 	{
@@ -828,11 +828,12 @@ INT16 RandDestWithinRange(SOLDIERTYPE *pSoldier)
 		{
 			if (fLimited)
 			{
-				sXOffset = ((INT16)Random(sXRange)) - sMaxLeft;
-				sYOffset = ((INT16)Random(sYRange)) - sMaxUp;
-
-				sRandDest = usOrigin + sXOffset + (MAXCOL * sYOffset);
-
+				do//dnl ch53 111009 This loop should increase search performance, but probably need some counter to prevent eventual endless loop
+				{
+					sXOffset = ((INT16)Random(sXRange)) - sMaxLeft;
+					sYOffset = ((INT16)Random(sYRange)) - sMaxUp;
+					sRandDest = usOrigin + sXOffset + (MAXCOL * sYOffset);
+				}while(!GridNoOnVisibleWorldTile(sRandDest));
 	#ifdef BETAVERSION
 				if ((sRandDest < 0) || (sRandDest >= GRIDSIZE))
 				{
@@ -843,7 +844,10 @@ INT16 RandDestWithinRange(SOLDIERTYPE *pSoldier)
 			}
 			else
 			{
-				sRandDest = (INT16) PreRandom(GRIDSIZE);
+				do//dnl ch53 111009 This loop should increase search performance, but probably need some counter to prevent eventual endless loop
+				{
+					sRandDest = PreRandom(GRIDSIZE);
+				}while(!GridNoOnVisibleWorldTile(sRandDest));
 			}
 
 			if ( ubRoom && InARoom( sRandDest, &ubTempRoom ) && ubTempRoom != ubRoom )
@@ -868,33 +872,33 @@ INT16 RandDestWithinRange(SOLDIERTYPE *pSoldier)
 	return(sRandDest); // defaults to NOWHERE
 }
 
-INT16 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, BOOLEAN * pfChangeLevel )
+INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, BOOLEAN * pfChangeLevel )
 {
-	INT16		*psLastLoc, *pusNoiseGridNo;
+	INT32		*psLastLoc, *pusNoiseGridNo;
 	INT8		*pbLastLevel;
-	INT16		sGridNo=-1;
+	INT32 sGridNo=-1;
 	INT8		bLevel, bClosestLevel = -1;
 	BOOLEAN	fClimbingNecessary, fClosestClimbingNecessary = FALSE;
 	INT32		iPathCost;
-	INT16		sClosestDisturbance = NOWHERE;
+	INT32		sClosestDisturbance = NOWHERE;
 	UINT32	uiLoop;
-	UINT16	closestConscious = NOWHERE,closestUnconscious = NOWHERE;
+	UINT32	closestConscious = NOWHERE,closestUnconscious = NOWHERE;
 	INT32		iShortestPath = 1000;
 	INT32		iShortestPathConscious = 1000,iShortestPathUnconscious = 1000;
 	UINT8		*pubNoiseVolume;
 	INT8		*pbNoiseLevel;
 	INT8		*pbPersOL,*pbPublOL;
-	INT16		sClimbGridNo;
+	INT32		sClimbGridNo;
 	SOLDIERTYPE * pOpp;
 
 	// CJC: can't trace a path to every known disturbance!
 	// for starters, try the closest one as the crow flies
-	INT16		sClosestEnemy = NOWHERE, sDistToClosestEnemy = 1000, sDistToEnemy;
+	INT32		sClosestEnemy = NOWHERE, sDistToClosestEnemy = 1000, sDistToEnemy;
 
 	*pfChangeLevel = FALSE;
 
 	pubNoiseVolume = &gubPublicNoiseVolume[pSoldier->bTeam];
-	pusNoiseGridNo = &gsPublicNoiseGridno[pSoldier->bTeam];
+	pusNoiseGridNo = &gsPublicNoiseGridNo[pSoldier->bTeam];
 	pbNoiseLevel = &gbPublicNoiseLevel[pSoldier->bTeam];
 
 	// hang pointers at start of this guy's personal and public opponent opplists
@@ -959,8 +963,8 @@ INT16 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 		{
 			continue;			// next merc
 		}
-
-		if (sGridNo == NOWHERE)
+		
+		if (TileIsOutOfBounds(sGridNo))
 		{
 			// huh?
 			continue;
@@ -975,8 +979,8 @@ INT16 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 		}
 
 	}
-
-	if (sClosestEnemy != NOWHERE)
+	
+	if (!TileIsOutOfBounds(sClosestEnemy))
 	{
 		iPathCost = EstimatePathCostToLocation( pSoldier, sClosestEnemy, bClosestLevel, FALSE, &fClimbingNecessary, &sClimbGridNo );
 		// if we can get there
@@ -995,8 +999,8 @@ INT16 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 		}
 	}
 
-	// if any "misc. noise" was also heard recently
-	if (pSoldier->aiData.sNoiseGridno != NOWHERE && pSoldier->aiData.sNoiseGridno != sClosestDisturbance)
+	// if any "misc. noise" was also heard recently	
+	if (!TileIsOutOfBounds(pSoldier->aiData.sNoiseGridno) && pSoldier->aiData.sNoiseGridno != sClosestDisturbance)
 	{
 		// test this gridno, too
 		sGridNo = pSoldier->aiData.sNoiseGridno;
@@ -1030,8 +1034,8 @@ INT16 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 	}
 
 
-	// if any PUBLIC "misc. noise" was also heard recently
-	if (*pusNoiseGridNo != NOWHERE && *pusNoiseGridNo != sClosestDisturbance )
+	// if any PUBLIC "misc. noise" was also heard recently	
+	if (!TileIsOutOfBounds(*pusNoiseGridNo) && *pusNoiseGridNo != sClosestDisturbance )
 	{
 		// test this gridno, too
 		sGridNo = *pusNoiseGridNo;
@@ -1066,8 +1070,8 @@ INT16 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 		}
 	}
 
-#ifdef DEBUGDECISIONS
-	if (sClosestDisturbance != NOWHERE)
+#ifdef DEBUGDECISIONS	
+	if (!TileIsOutOfBounds(sClosestDisturbance))
 	{
 		AINumMessage("CLOSEST DISTURBANCE is at gridno ",sClosestDisturbance);
 	}
@@ -1078,9 +1082,9 @@ INT16 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 }
 
 
-INT16 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT16 * psGridNo, INT8 * pbLevel)
+INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel)
 {
-	INT16 *psLastLoc,sGridNo, sClosestOpponent = NOWHERE;
+	INT32 *psLastLoc,sGridNo, sClosestOpponent = NOWHERE;
 	UINT32 uiLoop;
 	INT32 iRange, iClosestRange = 1500;
 	INT8	*pbPersOL,*pbPublOL;
@@ -1171,8 +1175,8 @@ INT16 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT16 * psGridNo, INT8 * pbLev
 		}
 	}
 
-#ifdef DEBUGDECISIONS
-	if (sClosestOpponent != NOWHERE)
+#ifdef DEBUGDECISIONS	
+	if (!TileIsOutOfBounds(sClosestOpponent))
 	{
 		AINumMessage("CLOSEST OPPONENT is at gridno ",sClosestOpponent);
 	}
@@ -1189,9 +1193,9 @@ INT16 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT16 * psGridNo, INT8 * pbLev
 	return( sClosestOpponent );
 }
 
-INT16 ClosestSeenOpponent(SOLDIERTYPE *pSoldier, INT16 * psGridNo, INT8 * pbLevel)
+INT32 ClosestSeenOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel)
 {
-	INT16 sGridNo, sClosestOpponent = NOWHERE;
+	INT32 sGridNo, sClosestOpponent = NOWHERE;
 	UINT32 uiLoop;
 	INT32 iRange, iClosestRange = 1500;
 	INT8	*pbPersOL;
@@ -1261,8 +1265,8 @@ INT16 ClosestSeenOpponent(SOLDIERTYPE *pSoldier, INT16 * psGridNo, INT8 * pbLeve
 		}
 	}
 
-#ifdef DEBUGDECISIONS
-	if (sClosestOpponent != NOWHERE)
+#ifdef DEBUGDECISIONS	
+	if (!TileIsOutOfBounds(sClosestOpponent))
 	{
 		AINumMessage("CLOSEST OPPONENT is at gridno ",sClosestOpponent);
 	}
@@ -1280,7 +1284,7 @@ INT16 ClosestSeenOpponent(SOLDIERTYPE *pSoldier, INT16 * psGridNo, INT8 * pbLeve
 }
 
 
-INT16 ClosestPC( SOLDIERTYPE *pSoldier, INT16 * psDistance )
+INT32 ClosestPC( SOLDIERTYPE *pSoldier, INT32 * psDistance )
 {
 	// used by NPCs... find the closest PC
 
@@ -1288,9 +1292,9 @@ INT16 ClosestPC( SOLDIERTYPE *pSoldier, INT16 * psDistance )
 
 	UINT8 ubLoop;
 	SOLDIERTYPE		*pTargetSoldier;
-	INT16					sMinDist = (INT16)WORLD_MAX;
-	INT16					sDist;
-	INT16					sGridNo = NOWHERE;
+	INT32					sMinDist = WORLD_MAX;
+	INT32					sDist;
+	INT32					sGridNo = NOWHERE;
 
 	// Loop through all mercs on player team
 	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -1339,10 +1343,10 @@ INT16 ClosestPC( SOLDIERTYPE *pSoldier, INT16 * psDistance )
 	return( sGridNo );
 }
 
-INT16 FindClosestClimbPointAvailableToAI( SOLDIERTYPE * pSoldier, INT16 sStartGridNo, INT16 sDesiredGridNo, BOOLEAN fClimbUp )
+INT32 FindClosestClimbPointAvailableToAI( SOLDIERTYPE * pSoldier, INT32 sStartGridNo, INT32 sDesiredGridNo, BOOLEAN fClimbUp )
 {
-	INT16	sGridNo;
-	INT16	sRoamingOrigin;
+	INT32 sGridNo;
+	INT32	sRoamingOrigin;
 	INT16	sRoamingRange;
 
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_PC )
@@ -1371,7 +1375,7 @@ INT16 FindClosestClimbPointAvailableToAI( SOLDIERTYPE * pSoldier, INT16 sStartGr
 	}
 }
 
-BOOLEAN ClimbingNecessary( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT8 bDestLevel )
+BOOLEAN ClimbingNecessary( SOLDIERTYPE * pSoldier, INT32 sDestGridNo, INT8 bDestLevel )
 {
 	if (pSoldier->pathing.bLevel == bDestLevel)
 	{
@@ -1390,7 +1394,7 @@ BOOLEAN ClimbingNecessary( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT8 bDest
 	}
 }
 
-INT16 GetInterveningClimbingLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT8 bDestLevel, BOOLEAN * pfClimbingNecessary )
+INT32 GetInterveningClimbingLocation( SOLDIERTYPE * pSoldier, INT32 sDestGridNo, INT8 bDestLevel, BOOLEAN * pfClimbingNecessary )
 {
 	if (pSoldier->pathing.bLevel == bDestLevel)
 	{
@@ -1425,10 +1429,10 @@ INT16 GetInterveningClimbingLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo,
 	}
 }
 
-INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT8 bDestLevel, BOOLEAN fAddCostAfterClimbingUp, BOOLEAN * pfClimbingNecessary, INT16 * psClimbGridNo )
+INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT32 sDestGridNo, INT8 bDestLevel, BOOLEAN fAddCostAfterClimbingUp, BOOLEAN * pfClimbingNecessary, INT32 * psClimbGridNo )
 {
 	INT16	sPathCost;
-	INT16 sClimbGridNo;
+	INT32 sClimbGridNo;
 
 	if (pSoldier->pathing.bLevel == bDestLevel)
 	{
@@ -1443,8 +1447,8 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT
 		{
 			// different buildings!
 			// yes, pass in same gridno twice... want closest climb-down spot for building we are on!
-			sClimbGridNo = FindClosestClimbPointAvailableToAI( pSoldier, sDestGridNo, pSoldier->sGridNo, FALSE );
-			if (sClimbGridNo == NOWHERE)
+			sClimbGridNo = FindClosestClimbPointAvailableToAI( pSoldier, sDestGridNo, pSoldier->sGridNo, FALSE );			
+			if (TileIsOutOfBounds(sClimbGridNo))
 			{
 				sPathCost = 0;
 			}
@@ -1486,8 +1490,8 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT
 			// got to go DOWN off building
 			sClimbGridNo = FindClosestClimbPointAvailableToAI( pSoldier, sDestGridNo, pSoldier->sGridNo, FALSE );
 		}
-
-		if (sClimbGridNo == NOWHERE)
+		
+		if (TileIsOutOfBounds(sClimbGridNo))
 		{
 			sPathCost = 0;
 		}
@@ -1549,10 +1553,10 @@ BOOLEAN GuySawEnemyThisTurnOrBefore( SOLDIERTYPE * pSoldier )
 	return( FALSE );
 }
 
-INT16 ClosestReachableFriendInTrouble(SOLDIERTYPE *pSoldier, BOOLEAN * pfClimbingNecessary)
+INT32 ClosestReachableFriendInTrouble(SOLDIERTYPE *pSoldier, BOOLEAN * pfClimbingNecessary)
 {
 	UINT32 uiLoop;
-	INT16 sPathCost, sClosestFriend = NOWHERE, sShortestPath = 1000, sClimbGridNo;
+	INT32 sPathCost, sClosestFriend = NOWHERE, sShortestPath = 1000, sClimbGridNo;
 	BOOLEAN fClimbingNecessary, fClosestClimbingNecessary = FALSE;
 	SOLDIERTYPE *pFriend;
 
@@ -1626,8 +1630,8 @@ INT16 ClosestReachableFriendInTrouble(SOLDIERTYPE *pSoldier, BOOLEAN * pfClimbin
 	}
 
 
-#ifdef DEBUGDECISIONS
-	if (sClosestFriend != NOWHERE)
+#ifdef DEBUGDECISIONS	
+	if (!TileIsOutOfBounds(sClosestFriend))
 	{
 		AINumMessage("CLOSEST FRIEND is at gridno ",sClosestFriend);
 	}
@@ -1701,7 +1705,7 @@ INT16 DistanceToClosestFriend( SOLDIERTYPE * pSoldier )
 	return( sMinDist );
 }
 
-BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT16 sGridNo )
+BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
 	if (WaterTooDeepForAttacks( sGridNo ))
 	{
@@ -1715,13 +1719,8 @@ BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 	}
 
 	// tear/mustard gas
-	//if ( (gpWorldLevelData[sGridNo].ubExtFlags[ pSoldier->pathing.bLevel ] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
-	//			(pSoldier->inv[HEAD1POS].usItem != GASMASK && pSoldier->inv[HEAD2POS].usItem != GASMASK) )
-	if ( (gpWorldLevelData[sGridNo].ubExtFlags[ pSoldier->pathing.bLevel ] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
-				FindGasMask(pSoldier) == NO_SLOT )
-	{
-		return( TRUE );
-	}
+	if((gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS|MAPELEMENT_EXT_MUSTARDGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
+		return(TRUE);
 	if ( gpWorldLevelData[sGridNo].ubExtFlags[ pSoldier->pathing.bLevel ] & MAPELEMENT_EXT_BURNABLEGAS )
 	{
 		return( TRUE );
@@ -1730,22 +1729,11 @@ BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 	return(FALSE);
 }
 
-BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT16 sGridNo )
+BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
-	// smoke
-	if (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_SMOKE)
-	{
-		return( TRUE );
-	}
-
-	// tear/mustard gas
-	//if ( (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
-	//			(pSoldier->inv[HEAD1POS].usItem != GASMASK && pSoldier->inv[HEAD2POS].usItem != GASMASK) )
-	if ( (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
-				FindGasMask(pSoldier) == NO_SLOT	)
-	{
-		return( TRUE );
-	}
+	// smoke/tear/mustard gas
+	if((gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_SMOKE|MAPELEMENT_EXT_TEARGAS|MAPELEMENT_EXT_MUSTARDGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 230909
+		return(TRUE);
 	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
 	{
 		return( TRUE );
@@ -1755,7 +1743,7 @@ BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 }
 
 
-INT16 InWaterOrGas(SOLDIERTYPE *pSoldier, INT16 sGridNo)
+INT16 InWaterOrGas(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 {
 	if (WaterTooDeepForAttacks( sGridNo ))
 	{
@@ -1763,11 +1751,8 @@ INT16 InWaterOrGas(SOLDIERTYPE *pSoldier, INT16 sGridNo)
 	}
 
 	// tear/mustard gas
-	if ( (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
-				FindGasMask(pSoldier) == NO_SLOT )
-	{
-		return( TRUE );
-	}
+	if((gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS|MAPELEMENT_EXT_MUSTARDGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
+		return(TRUE);
 	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
 	{
 		return( TRUE );
@@ -1776,14 +1761,11 @@ INT16 InWaterOrGas(SOLDIERTYPE *pSoldier, INT16 sGridNo)
 	return(FALSE);
 }
 
-BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT16 sGridNo )
+BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
 	// tear/mustard gas
-	if ( (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
-				FindGasMask(pSoldier) == NO_SLOT )
-	{
-		return( TRUE );
-	}
+	if((gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS|MAPELEMENT_EXT_MUSTARDGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
+		return(TRUE);
 	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
 	{
 		return( TRUE );
@@ -1823,7 +1805,7 @@ BOOLEAN WearGasMaskIfAvailable( SOLDIERTYPE * pSoldier )
 	return( TRUE );
 }
 
-BOOLEAN InLightAtNight( INT16 sGridNo, INT8 bLevel )
+BOOLEAN InLightAtNight( INT32 sGridNo, INT8 bLevel )
 {
 	UINT8 ubBackgroundLightLevel;
 
@@ -2113,7 +2095,7 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
  return(bMoraleCategory);
 }
 
-INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT16 sMyGrid, UINT8 ubReduceForCover, SOLDIERTYPE * pMe )
+INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT32 sMyGrid, UINT8 ubReduceForCover, SOLDIERTYPE * pMe )
 {
 	INT32	iThreatValue = 0;
 	BOOLEAN fForCreature = CREATURE_OR_BLOODCAT( pMe );
@@ -2182,8 +2164,8 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT16 sMyGrid, UINT8 ubReduceForC
 		iThreatValue -= pEnemy->aiData.bShock;
 	}
 
-	// if I have a specifically defined spot where I'm at (sometime I don't!)
-	if (sMyGrid != NOWHERE)
+	// if I have a specifically defined spot where I'm at (sometime I don't!)	
+	if (!TileIsOutOfBounds(sMyGrid))
 	{
 		// ADD 10% if man's already been shooting at me
 		if (pEnemy->sLastTarget == sMyGrid)
@@ -2203,8 +2185,8 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT16 sMyGrid, UINT8 ubReduceForC
 	// if this man is conscious
 	if (pEnemy->stats.bLife >= OKLIFE)
 	{
-		// and we were told to reduce threat for my cover
-		if (ubReduceForCover && (sMyGrid != NOWHERE))
+		// and we were told to reduce threat for my cover		
+		if (ubReduceForCover && (!TileIsOutOfBounds(sMyGrid)))
 		{
 			// Reduce iThreatValue to same % as the chance HE has shoot through at ME
 			//iThreatValue = (iThreatValue * ChanceToGetThrough( pEnemy, myGrid, FAKE, ACTUAL, TESTWALLS, 9999, M9PISTOL, NOT_FOR_LOS)) / 100;
@@ -2251,7 +2233,7 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT16 sMyGrid, UINT8 ubReduceForC
 	return(iThreatValue);
 }
 
-INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT16 * pusFromGridNo)
+INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT32 * pusFromGridNo)
 {
 	if ( CREATURE_OR_BLOODCAT( pSoldier ) )
 	{

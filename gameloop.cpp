@@ -29,6 +29,8 @@
 	#include "text.h"
 	#include "HelpScreen.h"
 	#include "PreBattle Interface.h"
+	#include "Tactical Placement GUI.h"//dnl ch45 071009
+	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 #endif
 
 #include "Lua Interpreter.h"
@@ -55,8 +57,6 @@ UINT8		gubCheckForFreeSpaceOnHardDriveCount=DONT_CHECK_FOR_FREE_SPACE;
 extern	BOOLEAN	DoSkiMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
 
 extern void NotEnoughHardDriveSpaceForQuickSaveMessageBoxCallBack( UINT8 bExitValue );
-extern BOOLEAN gfTacticalPlacementGUIActive;
-extern BOOLEAN gfTacticalPlacementGUIDirty;
 extern BOOLEAN gfValidLocationsChanged;
 extern BOOLEAN	gfInMsgBox;
 extern BOOLEAN gfInChatBox; // OJW - 20090314 - new chatbox
@@ -183,6 +183,8 @@ void ShutdownGame(void)
 	//shutdown the file database manager
 	ShutDownFileDatabase( );
 
+	if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 081009
+		MemFreeInventoryPoolQ();
 
 	//Deletes all the Temp files in the Maps\Temp directory
 	InitTacticalSave( FALSE );

@@ -373,11 +373,14 @@ UINT8 DoReinforcementAsPendingMilitia( INT16 sMapX, INT16 sMapY, UINT8 *pubRank 
 
 void AddPossiblePendingMilitiaToBattle()
 {
-
 	UINT8 ubSlots;
 	UINT8 ubNumElites, ubNumRegulars, ubNumGreens;
 	static UINT8 ubPredefinedInsertionCode = 255;
 	static UINT8 ubPredefinedRank = 255;
+
+	// Check if no world is loaded, and is not underground level
+	if(!(gWorldSectorX > 0 && gWorldSectorY > 0 && gbWorldSectorZ == 0))//dnl ch57 161009
+		return;
 
 	// Haydent
 	if (is_networked)

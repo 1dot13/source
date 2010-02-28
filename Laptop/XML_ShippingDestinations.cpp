@@ -19,7 +19,7 @@ typedef struct
 	UINT8	ubMapX;
 	UINT8	ubMapZ;
 	UINT32	uiIndex;
-	INT16	sGridNo;
+	UINT32	sGridNo;
 	CHAR16	szName[MAX_DEST_NAME_LENGTH+1];
 } DestinationReadInStruct;
 

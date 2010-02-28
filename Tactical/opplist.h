@@ -60,12 +60,12 @@ enum
 
 extern INT8 gbPublicOpplist[MAXTEAMS][ TOTAL_SOLDIERS ];
 extern INT8 gbSeenOpponents[TOTAL_SOLDIERS][TOTAL_SOLDIERS];
-extern INT16 gsLastKnownOppLoc[TOTAL_SOLDIERS][TOTAL_SOLDIERS];		// merc vs. merc
+extern INT32 gsLastKnownOppLoc[TOTAL_SOLDIERS][TOTAL_SOLDIERS];		// merc vs. merc
 extern INT8 gbLastKnownOppLevel[TOTAL_SOLDIERS][TOTAL_SOLDIERS];
-extern INT16 gsPublicLastKnownOppLoc[MAXTEAMS][TOTAL_SOLDIERS];	// team vs. merc
+extern INT32 gsPublicLastKnownOppLoc[MAXTEAMS][TOTAL_SOLDIERS];	// team vs. merc
 extern INT8 gbPublicLastKnownOppLevel[MAXTEAMS][TOTAL_SOLDIERS];
 extern UINT8 gubPublicNoiseVolume[MAXTEAMS];
-extern INT16 gsPublicNoiseGridno[MAXTEAMS];
+extern INT32 gsPublicNoiseGridNo[MAXTEAMS];
 extern INT8 gbPublicNoiseLevel[MAXTEAMS];
 extern UINT8 gubKnowledgeValue[10][10];
 extern INT8 gbLookDistance[8][8];
@@ -75,7 +75,7 @@ extern BOOLEAN	gfPlayerTeamSawJoey;
 extern BOOLEAN	gfMikeShouldSayHi;
 
 
-extern INT16			gsWatchedLoc[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
+extern INT32			gsWatchedLoc[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
 extern INT8				gbWatchedLocLevel[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
 extern UINT8			gubWatchedLocPoints[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
 extern BOOLEAN		gfWatchedLocReset[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
@@ -94,13 +94,13 @@ void GloballyDecideWhoSeesWho(void);
 UINT16 GetClosestMerc( UINT16 usSoldierIndex );
 void ManLooksForOtherTeams(SOLDIERTYPE *pSoldier);
 void OtherTeamsLookForMan(SOLDIERTYPE *pOpponent);
-void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT16 sOppGridno, INT8 bOppLevel, UINT8 ubCaller, UINT8 ubCaller2);
+void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo, INT8 bOppLevel, UINT8 ubCaller, UINT8 ubCaller2);
 void DecideTrueVisibility(SOLDIERTYPE *pSoldier, UINT8 ubLocate);
 void AddOneOpponent(SOLDIERTYPE *pSoldier);
 void RemoveOneOpponent(SOLDIERTYPE *pSoldier);
-void UpdatePersonal(SOLDIERTYPE *pSoldier, UINT8 ubID, INT8 bNewOpplist, INT16 sGridno, INT8 bLevel);
+void UpdatePersonal(SOLDIERTYPE *pSoldier, UINT8 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel);
 INT16 MaxNormalDistanceVisible( void );
-INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, INT16 sSubjectGridNo, INT8 bLevel );
+INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, INT32 sSubjectGridNo, INT8 bLevel );
 void ResetLastKnownLocs(SOLDIERTYPE *ptr);
 void RecalculateOppCntsDueToNoLongerNeutral( SOLDIERTYPE * pSoldier );
 void ReevaluateBestSightingPosition( SOLDIERTYPE * pSoldier, INT8 bInterruptDuelPts );
@@ -110,7 +110,7 @@ void InitOpponentKnowledgeSystem(void);
 void InitSoldierOppList(SOLDIERTYPE *pSoldier);
 void BetweenTurnsVisibilityAdjustments(void);
 void RemoveManAsTarget(SOLDIERTYPE *pSoldier);
-void UpdatePublic(UINT8 ubTeam, UINT8 ubID, INT8 bNewOpplist, INT16 sGridno, INT8 bLevel );
+void UpdatePublic(UINT8 ubTeam, UINT8 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel );
 void RadioSightings(SOLDIERTYPE *pSoldier, UINT8 ubAbout, UINT8 ubTeamToRadioTo );
 void OurTeamRadiosRandomlyAbout(UINT8 ubAbout);
 void DebugSoldierPage1( );
@@ -120,8 +120,8 @@ void DebugSoldierPage4( );
 
 UINT8 MovementNoise( SOLDIERTYPE *pSoldier );
 UINT8 DoorOpeningNoise( SOLDIERTYPE *pSoldier );
-void MakeNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType );
-void OurNoise( UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType );
+void MakeNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType );
+void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType );
 
 void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType);
 
@@ -132,7 +132,7 @@ void NoticeUnseenAttacker( SOLDIERTYPE * pAttacker, SOLDIERTYPE * pDefender, INT
 
 BOOLEAN MercSeesCreature( SOLDIERTYPE * pSoldier );
 
-INT8 GetWatchedLocPoints( UINT8 ubID, INT16 sGridNo, INT8 bLevel );
+INT8 GetWatchedLocPoints( UINT8 ubID, INT32 sGridNo, INT8 bLevel );
 INT8 GetHighestVisibleWatchedLoc( UINT8 ubID );
 INT8 GetHighestWatchedLocPoints( UINT8 ubID );
 

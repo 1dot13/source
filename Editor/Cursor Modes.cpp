@@ -34,7 +34,7 @@ UINT16 gusSavedSelectionType = SMALLSELECTION;
 UINT16 gusSavedBuildingSelectionType = AREASELECTION;
 extern INT16 sGridX; // symbol already declared globally in editscreen.cpp (jonathanl)
 extern INT16 sGridY; // symbol already declared globally in editscreen.cpp (jonathanl)
-INT16 sBadMarker = -1;
+INT32 sBadMarker = -1;
 
 STR16 wszSelType[6]= { L"Small", L"Medium", L"Large", L"XLarge", L"Width: xx", L"Area" };
 
@@ -90,6 +90,8 @@ void DecreaseSelectionDensity()
 
 void RemoveCursors()
 {
+	if((gSelectRegion.iRight + gSelectRegion.iBottom * WORLD_COLS) >= WORLD_MAX)//dnl ch43 280909 Prevent CTD when world size is changed
+		return;
 	INT32 x, y, iMapIndex;
 	if( gpBuildingLayoutList )
 	{
@@ -203,12 +205,12 @@ void UpdateCursorAreas()
 					if( gfRoofPlacement && FlatRoofAboveGridNo( iMapIndex ) )
 					{
 						AddTopmostToTail( iMapIndex + ROOF_OFFSET, BADMARKER1 );
-						sBadMarker = (INT16)(iMapIndex + ROOF_OFFSET );
+						sBadMarker = iMapIndex + ROOF_OFFSET ;
 					}
 					else
 					{
 						AddTopmostToTail( (iMapIndex), BADMARKER1 );
-						sBadMarker = (INT16)(iMapIndex);
+						sBadMarker = iMapIndex;
 					}
 				}
 			}
@@ -338,12 +340,13 @@ BOOLEAN HandleAreaSelection()
 	return TRUE;
 }
 
+//dnl ch43 280909
 void ValidateSelectionRegionBoundaries()
 {
-	gSelectRegion.iLeft		= max( min( 159, gSelectRegion.iLeft )	, 0 );
-	gSelectRegion.iRight	= max( min( 159, gSelectRegion.iRight	), 0 );
-	gSelectRegion.iTop		= max( min( 159, gSelectRegion.iTop	)	, 0 );
-	gSelectRegion.iBottom	= max( min( 159, gSelectRegion.iBottom ), 0 );
+	gSelectRegion.iLeft = max(min(WORLD_COLS-1, gSelectRegion.iLeft), 0);
+	gSelectRegion.iRight = max(min(WORLD_COLS-1, gSelectRegion.iRight), 0);
+	gSelectRegion.iTop = max(min(WORLD_ROWS-1, gSelectRegion.iTop), 0);
+	gSelectRegion.iBottom = max(min(WORLD_ROWS-1, gSelectRegion.iBottom), 0);
 }
 
 void EnsureSelectionType()

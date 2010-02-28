@@ -372,10 +372,10 @@ STR16 pAssignmentStrings[] =
 	L"Transito", // in transit - abbreviated form
 	L"Riparare", // repairing
 	L"Esercit.", // training themselves  
-	L"Esercit.", // training a town to revolt
+  L"Esercit.", // training a town to revolt 
 	L"M.Militia", //training moving militia units		// TODO.Translate
 	L"Istrutt.", // training a teammate
-	L"Studente", // being trained by someone else
+	L"Studente", // being trained by someone else 
 	L"Staff", // operating a strategic facility			// TODO.Translate
 	L"Rest", // Resting at a facility					// TODO.Translate
 	L"Morto", // dead
@@ -679,7 +679,7 @@ STR16 pAttributeMenuStrings[] =
 STR16 pTrainingMenuStrings[] =
 {
  L"Allenati", // train yourself 
- L"Esercito", // train the town
+ L"Esercito", // train the town 
  L"Mobile Militia",		// TODO.Translate
  L"Allenatore", // train your teammates 
  L"Studente",  // be trained by an instructor 
@@ -3883,14 +3883,14 @@ STR16	gzMPHScreenText[] =
 	L"Randomise Starting Edge",
 	L"You must enter a server name",
 	L"Max Players must be between 2 and 4",
-	L"Squad size must be between 1 and 5",
+	L"Squad size must be between 1 and 6",
 	L"Time of Day",
 	L"Time of Day must be a 24 hour time (HH:MM)",
 	L"Starting Cash must be a valid dollar amount (no cents)" ,
 	L"Damage Multiplier",
 	L"Damage Multiplier must be a number between 0 and 5",
 	L"Turn Timer Multiplier",
-	L"Turn Timer multiplier must be a number between 1 and 200",
+	L"Turn Timer multiplier must be a number between 0 (no timed turns) and 200 (short timed turns)",
 	L"Enable Civilians in CO-OP",
 	L"Use New Inventory (NIV)",
 	L"Enforce Maximum AI Enemies",
@@ -4715,6 +4715,7 @@ STR16 MPClientMessage[] =
 	L"Press 'Ready' to enter tactical screen.",
 	L"Cannot connect because your version %S is different from the server version %S.",
 	L"You killed an enemy soldier.",
+	L"Cannot start the game, because all teams are the same.",
 };
 
 STR16 MPHelp[] =
@@ -4747,7 +4748,8 @@ STR16 gszMPEdgesText[] =
 	L"N",
 	L"S",
 	L"E",
-	L"W"
+	L"W",
+	L"C",	// "C"enter
 };
 
 STR16 gszMPTeamNames[] =
@@ -4755,7 +4757,8 @@ STR16 gszMPTeamNames[] =
 	L"Foxtrot",
 	L"Bravo",
 	L"Delta",
-	L"Charlie"
+	L"Charlie",
+	L"N/A",		// Acronym of Not Applicable
 };
 
 STR16 gszMPMapscreenText[] =

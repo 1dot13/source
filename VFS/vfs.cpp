@@ -1,6 +1,7 @@
 #include "vfs_types.h"
 #include "vfs.h"
 
+#include "Interface/vfs_directory_interface.h"
 #include "Interface/vfs_file_interface.h"
 #include "File/vfs_file.h"
 #include "File/vfs_dir_file.h"
@@ -15,11 +16,11 @@
 
 std::vector<BasicAllocator*> CFileAllocator::_valloc;
 
-void CFileAllocator::RegisterAllocator(BasicAllocator* allocator)
+void CFileAllocator::registerAllocator(BasicAllocator* allocator)
 {
 	_valloc.push_back(allocator);
 }
-void CFileAllocator::Clear()
+void CFileAllocator::clear()
 {
 	std::vector<BasicAllocator*>::iterator it = _valloc.begin();
 	for(; it != _valloc.end(); ++it)
@@ -34,26 +35,51 @@ void CFileAllocator::Clear()
 /********************************************************************/
 /********************************************************************/
 
-vfs::CVirtualFileSystem::CRegularIterator::CRegularIterator(vfs::CVirtualFileSystem& rVFS)
-: vfs::CVirtualFileSystem::Iterator::IImplemetation(), m_rVFS(rVFS)
+class vfs::CVirtualFileSystem::CRegularIterator : public vfs::CVirtualFileSystem::Iterator::IImplementation
 {
-	_vloc_iter = m_rVFS.m_mapFS.begin();
-	if(_vloc_iter != m_rVFS.m_mapFS.end())
+	friend class vfs::CVirtualFileSystem;
+	typedef vfs::CVirtualFileSystem::Iterator::IImplementation tBaseClass;
+
+	CRegularIterator(vfs::CVirtualFileSystem* pVFS);
+public:
+	CRegularIterator() : tBaseClass(), m_VFS(NULL)
+	{};
+	virtual ~CRegularIterator()
+	{};
+
+	virtual vfs::tReadableFile*				value();
+	virtual void							next();
+protected:
+	virtual tBaseClass* clone()
+	{
+		CRegularIterator* iter = new CRegularIterator();
+		iter->m_VFS = m_VFS;
+		iter->_vloc_iter = _vloc_iter;
+		iter->_vfile_iter = _vfile_iter;
+		return iter;
+	}
+private:
+	vfs::CVirtualFileSystem*				m_VFS;
+	vfs::CVirtualFileSystem::tVFS::iterator	_vloc_iter;
+	vfs::CVirtualLocation::Iterator			_vfile_iter;
+};
+
+vfs::CVirtualFileSystem::CRegularIterator::CRegularIterator(vfs::CVirtualFileSystem* pVFS)
+: tBaseClass(), m_VFS(pVFS)
+{
+	_vloc_iter = m_VFS->m_mapFS.begin();
+	if(_vloc_iter != m_VFS->m_mapFS.end())
 	{
 		_vfile_iter = _vloc_iter->second->iterate();
 	}
 }
 
-vfs::CVirtualFileSystem::CRegularIterator::~CRegularIterator()
-{
-}
-
 vfs::tReadableFile* vfs::CVirtualFileSystem::CRegularIterator::value()
 {
 	bool bExclusiveVLoc = false;
-	if(_vloc_iter != m_rVFS.m_mapFS.end())
+	if(_vloc_iter != m_VFS->m_mapFS.end())
 	{
-		bExclusiveVLoc = _vloc_iter->second->GetIsExclusive();
+		bExclusiveVLoc = _vloc_iter->second->getIsExclusive();
 	}
 	if(!_vfile_iter.end())
 	{
@@ -62,11 +88,11 @@ vfs::tReadableFile* vfs::CVirtualFileSystem::CRegularIterator::value()
 		{
 			if(bExclusiveVLoc)
 			{
-				return vfs::tReadableFile::Cast(pVFile->File(vfs::CVirtualFile::SF_STOP_ON_WRITEABLE_PROFILE));
+				return vfs::tReadableFile::cast(pVFile->file(vfs::CVirtualFile::SF_STOP_ON_WRITABLE_PROFILE));
 			}
 			else
 			{
-				return vfs::tReadableFile::Cast(pVFile->File(vfs::CVirtualFile::SF_TOP));
+				return vfs::tReadableFile::cast(pVFile->file(vfs::CVirtualFile::SF_TOP));
 			}
 		}
 	}
@@ -80,10 +106,10 @@ void vfs::CVirtualFileSystem::CRegularIterator::next()
 	}
 	while(_vfile_iter.end())
 	{
-		if(_vloc_iter != m_rVFS.m_mapFS.end())
+		if(_vloc_iter != m_VFS->m_mapFS.end())
 		{
 			_vloc_iter++;
-			if(_vloc_iter != m_rVFS.m_mapFS.end())
+			if(_vloc_iter != m_VFS->m_mapFS.end())
 			{
 				_vfile_iter = _vloc_iter->second->iterate();
 			}
@@ -95,12 +121,46 @@ void vfs::CVirtualFileSystem::CRegularIterator::next()
 	}
 }
 
-
 /********************************************************************/
 /********************************************************************/
 
-vfs::CVirtualFileSystem::CMatchingIterator::CMatchingIterator(vfs::Path const& sPattern, vfs::CVirtualFileSystem& rVFS)
-: vfs::CVirtualFileSystem::Iterator::IImplemetation(), m_rVFS(rVFS)
+class vfs::CVirtualFileSystem::CMatchingIterator : public vfs::CVirtualFileSystem::Iterator::IImplementation
+{
+	friend class vfs::CVirtualFileSystem;
+	typedef vfs::CVirtualFileSystem::Iterator::IImplementation tBaseClass;
+
+	CMatchingIterator(vfs::Path const& sPattern, vfs::CVirtualFileSystem* pVFS);
+public:
+	CMatchingIterator() : tBaseClass(), m_VFS(NULL)
+	{};
+	virtual ~CMatchingIterator()
+	{};
+
+	virtual vfs::tReadableFile*				value();
+	virtual void							next();
+protected:
+	virtual tBaseClass* clone()
+	{
+		CMatchingIterator* iter = new CMatchingIterator();
+		iter->m_sLocPattern = m_sLocPattern;
+		iter->m_sFilePattern = m_sFilePattern;
+		iter->m_VFS = m_VFS;
+		iter->_vloc_iter = _vloc_iter;
+		iter->_vfile_iter = _vfile_iter;
+		return iter;
+	}
+private:
+	bool									nextLocationMatch();
+	bool									nextFileMatch();
+private:
+	vfs::Path								m_sLocPattern, m_sFilePattern;
+	vfs::CVirtualFileSystem*				m_VFS;
+	vfs::CVirtualFileSystem::tVFS::iterator	_vloc_iter;
+	vfs::CVirtualLocation::Iterator			_vfile_iter;
+};
+
+vfs::CVirtualFileSystem::CMatchingIterator::CMatchingIterator(vfs::Path const& sPattern, vfs::CVirtualFileSystem* pVFS)
+: tBaseClass(), m_VFS(pVFS)
 {
 	if(sPattern() == vfs::Const::STAR())
 	{
@@ -109,31 +169,31 @@ vfs::CVirtualFileSystem::CMatchingIterator::CMatchingIterator(vfs::Path const& s
 	}
 	else
 	{
-		sPattern.SplitLast(m_sLocPattern,m_sFilePattern);
+		sPattern.splitLast(m_sLocPattern,m_sFilePattern);
 	}
 
-	_vloc_iter = m_rVFS.m_mapFS.begin();
-	while(_vloc_iter != m_rVFS.m_mapFS.end())
+	_vloc_iter = m_VFS->m_mapFS.begin();
+	while(_vloc_iter != m_VFS->m_mapFS.end())
 	{
-		if( MatchPattern(m_sLocPattern(),_vloc_iter->second->Path()) )
+		if( matchPattern(m_sLocPattern(),_vloc_iter->second->cPath()) )
 		{
-			bool bExclusiveVLoc = _vloc_iter->second->GetIsExclusive();
+			bool bExclusiveVLoc = _vloc_iter->second->getIsExclusive();
 			_vfile_iter = _vloc_iter->second->iterate();
 			while(!_vfile_iter.end())
 			{
 				vfs::IBaseFile* pFile = NULL;
 				if(bExclusiveVLoc)
 				{
-					pFile = _vfile_iter.value()->File(vfs::CVirtualFile::SF_STOP_ON_WRITEABLE_PROFILE);
+					pFile = _vfile_iter.value()->file(vfs::CVirtualFile::SF_STOP_ON_WRITABLE_PROFILE);
 				}
 				else
 				{
-					pFile = _vfile_iter.value()->File(vfs::CVirtualFile::SF_TOP);
+					pFile = _vfile_iter.value()->file(vfs::CVirtualFile::SF_TOP);
 				}
 				if(pFile)
 				{
-					vfs::Path const& filename = pFile->GetFileName();
-					if( MatchPattern(m_sFilePattern(),filename()) )
+					vfs::Path const& filename = pFile->getName();
+					if( matchPattern(m_sFilePattern(),filename()) )
 					{
 						return;
 					}
@@ -145,16 +205,12 @@ vfs::CVirtualFileSystem::CMatchingIterator::CMatchingIterator(vfs::Path const& s
 	}
 }
 
-vfs::CVirtualFileSystem::CMatchingIterator::~CMatchingIterator()
-{
-}
-
 vfs::tReadableFile* vfs::CVirtualFileSystem::CMatchingIterator::value()
 {
 	bool bExclusiveVLoc = false;
-	if( _vloc_iter != m_rVFS.m_mapFS.end() )
+	if( _vloc_iter != m_VFS->m_mapFS.end() )
 	{
-		bExclusiveVLoc = _vloc_iter->second->GetIsExclusive();
+		bExclusiveVLoc = _vloc_iter->second->getIsExclusive();
 	}
 	if(!_vfile_iter.end())
 	{
@@ -164,13 +220,13 @@ vfs::tReadableFile* vfs::CVirtualFileSystem::CMatchingIterator::value()
 			vfs::IBaseFile* pFile = NULL;
 			if(bExclusiveVLoc)
 			{
-				pFile = _vfile_iter.value()->File(vfs::CVirtualFile::SF_STOP_ON_WRITEABLE_PROFILE);
+				pFile = _vfile_iter.value()->file(vfs::CVirtualFile::SF_STOP_ON_WRITABLE_PROFILE);
 			}
 			else
 			{
-				pFile = _vfile_iter.value()->File(vfs::CVirtualFile::SF_TOP);
+				pFile = _vfile_iter.value()->file(vfs::CVirtualFile::SF_TOP);
 			}
-			return vfs::tReadableFile::Cast(pFile);
+			return vfs::tReadableFile::cast(pFile);
 		}
 	}
 	return NULL;
@@ -178,12 +234,12 @@ vfs::tReadableFile* vfs::CVirtualFileSystem::CMatchingIterator::value()
 
 bool vfs::CVirtualFileSystem::CMatchingIterator::nextLocationMatch()
 {
-	while(_vloc_iter != m_rVFS.m_mapFS.end())
+	while(_vloc_iter != m_VFS->m_mapFS.end())
 	{
 		_vloc_iter++;
-		if(_vloc_iter != m_rVFS.m_mapFS.end())
+		if(_vloc_iter != m_VFS->m_mapFS.end())
 		{
-			if(MatchPattern(m_sLocPattern(),_vloc_iter->second->Path()))
+			if(matchPattern(m_sLocPattern(),_vloc_iter->second->cPath()))
 			{
 				return true;
 			}
@@ -194,9 +250,9 @@ bool vfs::CVirtualFileSystem::CMatchingIterator::nextLocationMatch()
 bool vfs::CVirtualFileSystem::CMatchingIterator::nextFileMatch()
 {
 	bool bExclusiveVLoc = false;
-	if( _vloc_iter != m_rVFS.m_mapFS.end() )
+	if( _vloc_iter != m_VFS->m_mapFS.end() )
 	{
-		bExclusiveVLoc = _vloc_iter->second->GetIsExclusive();
+		bExclusiveVLoc = _vloc_iter->second->getIsExclusive();
 	}
 	while(!_vfile_iter.end())
 	{
@@ -206,16 +262,16 @@ bool vfs::CVirtualFileSystem::CMatchingIterator::nextFileMatch()
 			vfs::IBaseFile* pFile = NULL;
 			if(bExclusiveVLoc)
 			{
-				pFile = _vfile_iter.value()->File(vfs::CVirtualFile::SF_STOP_ON_WRITEABLE_PROFILE);
+				pFile = _vfile_iter.value()->file(vfs::CVirtualFile::SF_STOP_ON_WRITABLE_PROFILE);
 			}
 			else
 			{
-				pFile = _vfile_iter.value()->File(vfs::CVirtualFile::SF_TOP);
+				pFile = _vfile_iter.value()->file(vfs::CVirtualFile::SF_TOP);
 			}
 			if(pFile)
 			{
-				vfs::Path const& filename = pFile->GetFileName();
-				if(MatchPattern(m_sFilePattern(),filename()))
+				vfs::Path const& filename = pFile->getName();
+				if(matchPattern(m_sFilePattern(),filename()))
 				{
 					return true;
 				}
@@ -236,17 +292,17 @@ void vfs::CVirtualFileSystem::CMatchingIterator::next()
 		_vfile_iter = _vloc_iter->second->iterate();
 		if(!_vfile_iter.end())
 		{
-			bool bExclusiveVLoc = _vloc_iter->second->GetIsExclusive();
+			bool bExclusiveVLoc = _vloc_iter->second->getIsExclusive();
 			vfs::IBaseFile* pFile = NULL;
 			if(bExclusiveVLoc)
 			{
-				pFile = _vfile_iter.value()->File(vfs::CVirtualFile::SF_STOP_ON_WRITEABLE_PROFILE);
+				pFile = _vfile_iter.value()->file(vfs::CVirtualFile::SF_STOP_ON_WRITABLE_PROFILE);
 			}
 			else
 			{
-				pFile = _vfile_iter.value()->File(vfs::CVirtualFile::SF_TOP);
+				pFile = _vfile_iter.value()->file(vfs::CVirtualFile::SF_TOP);
 			}
-			if(pFile && MatchPattern(m_sFilePattern(),pFile->GetFileName()()))
+			if(pFile && matchPattern(m_sFilePattern(),pFile->getName()()))
 			{
 				return;
 			}
@@ -261,54 +317,14 @@ void vfs::CVirtualFileSystem::CMatchingIterator::next()
 /********************************************************************/
 /********************************************************************/
 
-vfs::CVirtualFileSystem::Iterator::Iterator()
-: _iter_impl(NULL), _file(NULL)
-{};
-
-vfs::CVirtualFileSystem::Iterator::Iterator(vfs::CVirtualFileSystem::Iterator::IImplemetation* impl)
-: _iter_impl(impl), _file(NULL)
+vfs::CVirtualFileSystem* getVFS()
 {
-	THROWIFFALSE(_iter_impl, L"EXCEPTION");
-	_file = _iter_impl->value();
-}
-
-vfs::CVirtualFileSystem::Iterator::~Iterator()
-{
-}
-
-vfs::tReadableFile* vfs::CVirtualFileSystem::Iterator::value()
-{
-	return _file;
-};
-void vfs::CVirtualFileSystem::Iterator::next()
-{
-	if(_iter_impl)
-	{
-		_iter_impl->next();
-		_file = _iter_impl->value();
-		if(!_file)
-		{
-			delete _iter_impl;
-			_iter_impl = NULL;
-		}
-	}
-}
-bool vfs::CVirtualFileSystem::Iterator::end()
-{
-	return _file == NULL;
-}
-
-/********************************************************************/
-/********************************************************************/
-
-vfs::CVirtualFileSystem* GetVFS()
-{
-	return vfs::CVirtualFileSystem::GetVFS();
+	return vfs::CVirtualFileSystem::getVFS();
 }
 
 vfs::CVirtualFileSystem* vfs::CVirtualFileSystem::m_pSingleton = NULL;
 
-vfs::CVirtualFileSystem* vfs::CVirtualFileSystem::GetVFS()
+vfs::CVirtualFileSystem* vfs::CVirtualFileSystem::getVFS()
 {
 	if(!m_pSingleton)
 	{
@@ -317,7 +333,7 @@ vfs::CVirtualFileSystem* vfs::CVirtualFileSystem::GetVFS()
 	return m_pSingleton;
 }
 
-void vfs::CVirtualFileSystem::ShutdownVFS()
+void vfs::CVirtualFileSystem::shutdownVFS()
 {
 	if(m_pSingleton)
 	{
@@ -341,98 +357,98 @@ vfs::CVirtualFileSystem::~CVirtualFileSystem()
 	m_mapFS.clear();
 }
 
-vfs::CProfileStack* vfs::CVirtualFileSystem::GetProfileStack()
+vfs::CProfileStack* vfs::CVirtualFileSystem::getProfileStack()
 {
 	return &m_oProfileStack;
 }
 
 vfs::CVirtualFileSystem::Iterator vfs::CVirtualFileSystem::begin()
 {
-	return Iterator(new vfs::CVirtualFileSystem::CRegularIterator(*this));
+	return Iterator(new vfs::CVirtualFileSystem::CRegularIterator(this));
 }
 
 vfs::CVirtualFileSystem::Iterator vfs::CVirtualFileSystem::begin(vfs::Path const& sPattern)
 {
-	return Iterator(new vfs::CVirtualFileSystem::CMatchingIterator(sPattern,*this));
+	return Iterator(new vfs::CVirtualFileSystem::CMatchingIterator(sPattern,this));
 }
 
-bool vfs::CVirtualFileSystem::AddLocation(vfs::IBaseLocation* pLocation, utf8string const& sProfileName, bool bIsWriteable)
+bool vfs::CVirtualFileSystem::addLocation(vfs::IBaseLocation* pLocation, utf8string const& sProfileName, bool bIsWritable)
 {
-	vfs::CVirtualProfile *pProf = m_oProfileStack.GetProfile(sProfileName);
+	vfs::CVirtualProfile *pProf = m_oProfileStack.getProfile(sProfileName);
 	if(!pProf)
 	{
-		pProf = new vfs::CVirtualProfile(sProfileName, bIsWriteable);
-		m_oProfileStack.PushProfile(pProf);
+		pProf = new vfs::CVirtualProfile(sProfileName, bIsWritable);
+		m_oProfileStack.pushProfile(pProf);
 	}
-	pProf->AddLocation(pLocation);
+	pProf->addLocation(pLocation);
 
 	std::list<vfs::Path> lSubDirs;
-	pLocation->GetSubDirList(lSubDirs);
+	pLocation->getSubDirList(lSubDirs);
 	std::list<vfs::Path>::const_iterator sd_cit = lSubDirs.begin();
 	for(;sd_cit != lSubDirs.end(); ++sd_cit)
 	{
-		this->GetVirtualLocation(*sd_cit, true);
+		this->getVirtualLocation(*sd_cit, true);
 	}
 
 	vfs::IBaseLocation::Iterator it = pLocation->begin();
 	for(; !it.end(); it.next())
 	{
 		vfs::IBaseFile *pFile = it.value();
-		vfs::Path const& sPath = pFile->GetFullPath();
+		vfs::Path const& sPath = pFile->getPath();
 		vfs::Path dir,file;
-		sPath.SplitLast(dir,file);
+		sPath.splitLast(dir,file);
 		
-		CVirtualLocation* pLoc = this->GetVirtualLocation(dir,true);
-		pLoc->AddFile(pFile,sProfileName);
+		CVirtualLocation* pLoc = this->getVirtualLocation(dir,true);
+		pLoc->addFile(pFile,sProfileName);
 	}
 	return true;
 }
 
-vfs::tReadableFile* vfs::CVirtualFileSystem::GetRFile(vfs::Path const& rLocalFilePath, vfs::CVirtualFile::ESearchFile eSF)
+vfs::tReadableFile* vfs::CVirtualFileSystem::getReadFile(vfs::Path const& rLocalFilePath, vfs::CVirtualFile::ESearchFile eSF)
 {
-	return vfs::tReadableFile::Cast(this->GetFile(rLocalFilePath,eSF));
+	return vfs::tReadableFile::cast(this->getFile(rLocalFilePath,eSF));
 }
 
-vfs::tWriteableFile* vfs::CVirtualFileSystem::GetWFile(vfs::Path const& rLocalFilePath, vfs::CVirtualFile::ESearchFile eSF)
+vfs::tWritableFile* vfs::CVirtualFileSystem::getWriteFile(vfs::Path const& rLocalFilePath, vfs::CVirtualFile::ESearchFile eSF)
 {
-	return vfs::tWriteableFile::Cast(this->GetFile(rLocalFilePath,eSF));
+	return vfs::tWritableFile::cast(this->getFile(rLocalFilePath,eSF));
 }
 
-vfs::IBaseFile* vfs::CVirtualFileSystem::GetFile(vfs::Path const& rLocalFilePath, vfs::CVirtualFile::ESearchFile eSF)
+vfs::IBaseFile* vfs::CVirtualFileSystem::getFile(vfs::Path const& rLocalFilePath, vfs::CVirtualFile::ESearchFile eSF)
 {
 	vfs::Path sDir,sFile;
-	rLocalFilePath.SplitLast(sDir,sFile);
+	rLocalFilePath.splitLast(sDir,sFile);
 
-	vfs::CVirtualLocation* pVLoc = this->GetVirtualLocation(sDir);
+	vfs::CVirtualLocation* pVLoc = this->getVirtualLocation(sDir);
 	if(pVLoc)
 	{
-		vfs::CVirtualFile *pVFile = pVLoc->GetVFile(sFile);
+		vfs::CVirtualFile *pVFile = pVLoc->getVirtualFile(sFile);
 		if(pVFile)
 		{
-			if(pVLoc->GetIsExclusive())
+			if(pVLoc->getIsExclusive())
 			{
-				return pVFile->File(vfs::CVirtualFile::SF_STOP_ON_WRITEABLE_PROFILE);
+				return pVFile->file(vfs::CVirtualFile::SF_STOP_ON_WRITABLE_PROFILE);
 			}
-			return pVFile->File(eSF);
+			return pVFile->file(eSF);
 		}
 	}
 	return NULL;
 }
 
-vfs::tReadableFile* vfs::CVirtualFileSystem::GetRFile(vfs::Path const& rLocalFilePath, utf8string const& sProfileName)
+vfs::tReadableFile* vfs::CVirtualFileSystem::getReadFile(vfs::Path const& rLocalFilePath, utf8string const& sProfileName)
 {
-	return vfs::tReadableFile::Cast(this->GetFile(rLocalFilePath, sProfileName));
+	return vfs::tReadableFile::cast(this->getFile(rLocalFilePath, sProfileName));
 }
 
-vfs::tWriteableFile* vfs::CVirtualFileSystem::GetWFile(vfs::Path const& rLocalFilePath, utf8string const& sProfileName)
+vfs::tWritableFile* vfs::CVirtualFileSystem::getWriteFile(vfs::Path const& rLocalFilePath, utf8string const& sProfileName)
 {
-	return vfs::tWriteableFile::Cast(this->GetFile(rLocalFilePath, sProfileName));
+	return vfs::tWritableFile::cast(this->getFile(rLocalFilePath, sProfileName));
 }
 
-vfs::IBaseFile* vfs::CVirtualFileSystem::GetFile(vfs::Path const& rLocalFilePath, utf8string const& sProfileName)
+vfs::IBaseFile* vfs::CVirtualFileSystem::getFile(vfs::Path const& rLocalFilePath, utf8string const& sProfileName)
 {
 	vfs::Path sDir,sFile;
-	rLocalFilePath.SplitLast(sDir,sFile);
+	rLocalFilePath.splitLast(sDir,sFile);
 
 	tVFS::iterator it_loc = m_mapFS.find(sDir);
 	if(it_loc == m_mapFS.end())
@@ -442,22 +458,22 @@ vfs::IBaseFile* vfs::CVirtualFileSystem::GetFile(vfs::Path const& rLocalFilePath
 	vfs::CVirtualLocation* pVLoc = it_loc->second;
 	if(pVLoc)
 	{
-		return pVLoc->GetFile(sFile,sProfileName);
+		return pVLoc->getFile(sFile,sProfileName);
 	}
 	return NULL;
 }
 
-bool vfs::CVirtualFileSystem::FileExists(vfs::Path const& rLocalFilePath, std::string const& sProfileName)
+bool vfs::CVirtualFileSystem::fileExists(vfs::Path const& rLocalFilePath, std::string const& sProfileName)
 {
-	return GetFile(rLocalFilePath, sProfileName) != NULL;
+	return this->getFile(rLocalFilePath, sProfileName) != NULL;
 }
 
-bool vfs::CVirtualFileSystem::FileExists(vfs::Path const& rLocalFilePath, vfs::CVirtualFile::ESearchFile eSF)
+bool vfs::CVirtualFileSystem::fileExists(vfs::Path const& rLocalFilePath, vfs::CVirtualFile::ESearchFile eSF)
 {
-	return GetFile(rLocalFilePath, eSF) != NULL;
+	return this->getFile(rLocalFilePath, eSF) != NULL;
 }
 
-vfs::CVirtualLocation* vfs::CVirtualFileSystem::GetVirtualLocation(vfs::Path const& sPath, bool bCreate)
+vfs::CVirtualLocation* vfs::CVirtualFileSystem::getVirtualLocation(vfs::Path const& sPath, bool bCreate)
 {
 	tVFS::iterator it = m_mapFS.find(sPath);
 	if(it == m_mapFS.end())
@@ -473,7 +489,7 @@ vfs::CVirtualLocation* vfs::CVirtualFileSystem::GetVirtualLocation(vfs::Path con
 	return it->second;
 }
 
-bool vfs::CVirtualFileSystem::RemoveDirectoryFromFS(vfs::Path const& sDir)
+bool vfs::CVirtualFileSystem::removeDirectoryFromFS(vfs::Path const& sDir)
 {
 	vfs::Path pattern = sDir + "*";
 	std::list<vfs::Path> files;
@@ -481,80 +497,81 @@ bool vfs::CVirtualFileSystem::RemoveDirectoryFromFS(vfs::Path const& sDir)
 	Iterator it = this->begin(pattern);
 	for(; !it.end(); it.next())
 	{
-		if(it.value()->IsWriteable())
+		if(it.value()->implementsWritable())
 		{
-			files.push_back(it.value()->GetFullPath());
+			files.push_back(it.value()->getPath());
 		}
 	}
 	bool success = true;
 	std::list<vfs::Path>::iterator fit = files.begin();
 	for(; fit != files.end(); ++fit)
 	{
-		success &= this->RemoveFileFromFS(*fit);
+		success &= this->removeFileFromFS(*fit);
 	}
 	return success;
 }
 
-bool vfs::CVirtualFileSystem::RemoveFileFromFS(vfs::Path const& sFilePath)
+bool vfs::CVirtualFileSystem::removeFileFromFS(vfs::Path const& sFilePath)
 {
 	vfs::Path sPath,sFile;
-	sFilePath.SplitLast(sPath,sFile);
-	vfs::CVirtualProfile *pProf = m_oProfileStack.GetWriteProfile();
+	sFilePath.splitLast(sPath,sFile);
+	vfs::CVirtualProfile *pProf = m_oProfileStack.getWriteProfile();
 	if(pProf)
 	{
-		vfs::IBaseLocation *pBL = pProf->GetLocation(sPath);
-		if(pBL && pBL->IsWriteable())
+		vfs::IBaseLocation *pBL = pProf->getLocation(sPath);
+		if(pBL && pBL->implementsWritable())
 		{
-			vfs::IDirectory<vfs::IWriteable> *pDir = pBL->Cast<vfs::IDirectory<vfs::IWriteable> >();
+			vfs::TDirectory<vfs::IWritable> *pDir = dynamic_cast<vfs::TDirectory<vfs::IWritable>*>(pBL);
 			if(pDir)
 			{
 				bool bSuccess = false;
 				// remove file from virtual structures first
-				vfs::IBaseFile* file = pDir->GetFile(sFilePath);
+				vfs::IBaseFile* file = pDir->getFile(sFilePath);
 				if(file)
 				{
 					vfs::Path sDir,sFile;
-					sFilePath.SplitLast(sDir,sFile);
-					vfs::CVirtualLocation *pVLoc = this->GetVirtualLocation(sDir);
+					sFilePath.splitLast(sDir,sFile);
+					vfs::CVirtualLocation *pVLoc = this->getVirtualLocation(sDir);
 					if(pVLoc)
 					{
-						bSuccess = pVLoc->RemoveFile(file);
+						bSuccess = pVLoc->removeFile(file);
 					}
 				}
 				// delete actual file
-				return bSuccess && pDir->DeleteFileFromDirectory(sFilePath);
+				return bSuccess && pDir->deleteFileFromDirectory(sFilePath);
 			}
 		}
 	}
 	return false;
 }
 
-bool vfs::CVirtualFileSystem::CreateNewFile(vfs::Path const& sFileName)
+bool vfs::CVirtualFileSystem::createNewFile(vfs::Path const& sFilename)
 {
 	vfs::Path sPath,sFile;
-	sFileName.SplitLast(sPath,sFile);
-	vfs::CVirtualProfile *pProf = m_oProfileStack.GetWriteProfile();
+	sFilename.splitLast(sPath,sFile);
+	vfs::CVirtualProfile *pProf = m_oProfileStack.getWriteProfile();
 	if(pProf)
 	{
 		bool bIsExclusive = false;
 		bool bNewLocation = false;
-		vfs::IBaseLocation *pProfLoc = pProf->GetLocation(sPath);
+		vfs::IBaseLocation *pProfLoc = pProf->getLocation(sPath);
 		if(!pProfLoc)
 		{
 			// try to find closest match
 			vfs::Path sTemp, sCreateDir, sRight, sLeft = sPath;
-			while(!pProfLoc && sLeft.SplitLast(sTemp,sRight))
+			while(!pProfLoc && !sLeft.empty())
 			{
+				sLeft.splitLast(sTemp,sRight);
 				sLeft = sTemp;
 				sCreateDir = sRight + sCreateDir;
-				pProfLoc = pProf->GetLocation(sLeft);
+				pProfLoc = pProf->getLocation(sLeft);
 			}
 			// see if the closest match is exclusive
 			// if yes, then the the new path is a subdirectory and has to be exclusive too
-			vfs::CVirtualLocation *pVLoc = this->GetVirtualLocation(sLeft,true);
+			vfs::CVirtualLocation *pVLoc = this->getVirtualLocation(sLeft,true);
 			if(pVLoc)
 			{
-				bIsExclusive = pVLoc->GetIsExclusive();
+				bIsExclusive = pVLoc->getIsExclusive();
 			}
 			//else
 			//{
@@ -562,23 +579,23 @@ bool vfs::CVirtualFileSystem::CreateNewFile(vfs::Path const& sFileName)
 			//}
 			bNewLocation = true;
 		}
-		if(pProfLoc && pProfLoc->IsWriteable())
+		if(pProfLoc && pProfLoc->implementsWritable())
 		{
 			// create file and add to location
-			vfs::IDirectory<vfs::IWriteable> *pDir = pProfLoc->Cast<vfs::IDirectory<vfs::IWriteable> >();
-			vfs::IBaseFile* pFile = pDir->AddFile(sFileName);
+			vfs::TDirectory<vfs::IWritable> *pDir = dynamic_cast<vfs::TDirectory<vfs::IWritable>*>(pProfLoc);
+			vfs::IBaseFile* pFile = pDir->addFile(sFilename);
 			if(bNewLocation)
 			{
-				pProf->AddLocation(pProfLoc);
+				pProf->addLocation(pProfLoc);
 			}
 			if(pFile)
 			{
-				CVirtualLocation* pLoc = this->GetVirtualLocation(sPath,true);
+				CVirtualLocation* pLoc = this->getVirtualLocation(sPath,true);
 				if(bIsExclusive)
 				{
-					pLoc->SetIsExclusive(bIsExclusive);
+					pLoc->setIsExclusive(bIsExclusive);
 				}
-				pLoc->AddFile(pFile,pProf->Name);
+				pLoc->addFile(pFile,pProf->cName);
 				return true;
 			}
 		}

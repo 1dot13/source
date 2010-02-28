@@ -3,6 +3,7 @@
 
 #include "vfs_types.h"
 #include "Interface/vfs_file_interface.h"
+#include "Interface/vfs_iterator_interface.h"
 
 #include <map>
 
@@ -12,42 +13,31 @@ namespace vfs
 
 	class CVirtualLocation
 	{
+		class VFileIterator;
 		typedef std::map<vfs::Path, CVirtualFile*, vfs::Path::Less> tVFiles;
 	public:
-		class Iterator
-		{
-			friend class CVirtualLocation;
-			Iterator(CVirtualLocation* pLoc);
-		public:
-			Iterator();
-			~Iterator();
+		typedef vfs::TIterator<CVirtualFile> Iterator;
 
-			CVirtualFile*		value();
-			void				next();
-			bool				end();
-		private:
-			CVirtualLocation*	m_pLoc;
-			tVFiles::iterator	_vfile_iter;
-		};
-	public:
 		CVirtualLocation(vfs::Path const& sPath);
 		~CVirtualLocation();
 
-		const vfs::Path		Path;
+		const vfs::Path		cPath;
 
-		void				SetIsExclusive(bool bExclusive);
-		bool				GetIsExclusive();
+		void				setIsExclusive(bool exclusive);
+		bool				getIsExclusive();
 
-		void				AddFile(vfs::IBaseFile* pFile, utf8string const& sProfileName);
-		vfs::IBaseFile*		GetFile(vfs::Path const& sFilename, utf8string const& sProfileName = "") const;
-		vfs::CVirtualFile*	GetVFile(vfs::Path const& sFilename);
+		void				addFile(vfs::IBaseFile* pile, utf8string const& profileName);
+		vfs::IBaseFile*		getFile(vfs::Path const& filename, utf8string const& profileName = "") const;
+		vfs::CVirtualFile*	getVirtualFile(vfs::Path const& filename);
 
-		bool				RemoveFile(vfs::IBaseFile* pFile);
+		bool				removeFile(vfs::IBaseFile* file);
 		
 		Iterator			iterate();
 	private:
-		bool				m_bExclusive;
-		tVFiles				m_mapVFiles;
+		void				operator=(vfs::CVirtualLocation const& vloc);
+
+		bool				m_exclusive;
+		tVFiles				m_VFiles;
 	};
 } // end namespace
 

@@ -342,7 +342,7 @@ void ClearDisplayedListOfTacticalStrings( void )
 {
 	// this function will go through list of display strings and clear them all out
 	UINT32 cnt;
-	
+
 	// HEADROCK HAM 3.6: Number of messages to display now depends on external options.
 	//for ( cnt = 0; cnt < MAX_LINE_COUNT; cnt++ )
 	for ( cnt = 0; cnt < gGameExternalOptions.ubMaxMessagesTactical; cnt++ )
@@ -376,6 +376,7 @@ void ScrollString( )
 	BOOLEAN fDitchLastMessage = FALSE;
 
 	INT16 iMsgYStart = ((UsingNewInventorySystem() == false)) ? SCREEN_HEIGHT - 150 : SCREEN_HEIGHT - 210;
+
 
 	// UPDATE TIMER
 	suiTimer=GetJA2Clock();
@@ -1530,8 +1531,8 @@ void WriteMessageToFile( const STR16 pString )
 	fprintf( fp, "%S\n", pString );
 	fclose( fp );
 #else
-	static CLog& debugMessage = *CLog::Create(L"DebugMessage.txt", true, CLog::FLUSH_IMMEDIATELY);
-	debugMessage << pString << CLog::endl;
+	static CLog& debugMessage = *CLog::create(L"DebugMessage.txt", true, CLog::FLUSH_IMMEDIATELY);
+	debugMessage << pString << CLog::ENDL;
 #endif
 #endif
 }

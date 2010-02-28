@@ -1807,7 +1807,7 @@ UINT32 uiCount;
 // Lesh modifications
 // Sound debug
 #ifdef USE_VFS
-static CLog& s_SoundLog = *CLog::Create(SndDebugFileName,true);
+static CLog& s_SoundLog = *CLog::create(SndDebugFileName,true);
 #endif
 //*****************************************************************************************
 // SoundLog
@@ -1826,7 +1826,7 @@ void SoundLog(CHAR8 *strMessage)
 		fclose(SndDebug);
 	}
 #else
-	s_SoundLog << strMessage << CLog::endl;
+	s_SoundLog << strMessage << CLog::ENDL;
 #endif
 }
 

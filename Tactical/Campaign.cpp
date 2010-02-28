@@ -1299,7 +1299,6 @@ UINT8 CurrentPlayerProgressPercentage(void)
 {
 	UINT32 uiCurrentIncome;
 	UINT32 uiPossibleIncome;
-	// HEADROCK HAM 3: Changed to UINT16 to avoid overflow
 	UINT16 usCurrentProgress;
  	UINT16 ubKillsPerPoint;
  	UINT16 usKillsProgress;
@@ -1458,7 +1457,6 @@ UINT8 CurrentPlayerProgressPercentage(void)
 
 	return((UINT8)usCurrentProgress);
 }
-
 UINT8 HighestPlayerProgressPercentage(void)
 {
 	if( gfEditMode )
@@ -1466,6 +1464,7 @@ UINT8 HighestPlayerProgressPercentage(void)
 
 	return(gStrategicStatus.ubHighestProgress);
 }
+
 
 // monitors the highest level of progress that player has achieved so far (checking hourly),
 // as opposed to his immediate situation (which may be worse if he's suffered a setback).

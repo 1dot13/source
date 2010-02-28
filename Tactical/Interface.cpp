@@ -56,7 +56,10 @@
 	#include "gamesettings.h"
 	#include "Squads.h"
 	#include "message.h"
+
 #endif
+
+#include "InterfaceItemImages.h"
 
 #include "connect.h"
 //const UINT32 INTERFACE_START_X			= 0;
@@ -152,7 +155,6 @@ extern BOOLEAN gfUserTurnRegionActive;
 extern UINT8 gubSelectSMPanelToMerc;
 extern BOOLEAN gfIgnoreOnSelectedGuy;
 
-
 typedef enum
 {
 	WALK_IMAGES = 0,
@@ -221,10 +223,7 @@ UINT32					guiINTEXT;
 UINT32					guiCLOSE;
 UINT32					guiDEAD;
 UINT32					guiHATCH;
-UINT32					guiGUNSM;
-UINT32					guiP1ITEMS;
-UINT32					guiP2ITEMS;
-UINT32					guiP3ITEMS;
+
 UINT32					guiBUTTONBORDER;
 UINT32					guiSILHOUETTE;
 UINT32					guiRADIO;
@@ -258,7 +257,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor );
 BOOLEAN fFirstTimeInGameScreen	= TRUE;
 BOOLEAN	fInterfacePanelDirty	= DIRTYLEVEL2;
 INT16		gsInterfaceLevel			= I_GROUND_LEVEL;
-INT16		gsCurrentSoldierGridNo	= 0;
+INT32		gsCurrentSoldierGridNo	= 0;
 INT16		gsCurInterfacePanel			= TEAM_PANEL;
 
 // LOCAL FUCTIONS
@@ -361,29 +360,7 @@ BOOLEAN InitializeTacticalInterface(	)
 	if( !AddVideoObject( &VObjectDesc, &guiHATCH ) )
 		AssertMsg(0, "Missing INTERFACE\\hatch.sti" );
 
-	// LOAD INTERFACE GUN PICTURES
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\mdguns.sti", VObjectDesc.ImageFile);
-	if( !AddVideoObject( &VObjectDesc, &guiGUNSM ) )
-		AssertMsg(0, "Missing INTERFACE\\mdguns.sti" );
-
-	// LOAD INTERFACE ITEM PICTURES
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\mdp1items.sti", VObjectDesc.ImageFile);
-	if( !AddVideoObject( &VObjectDesc, &guiP1ITEMS ) )
-		AssertMsg(0, "Missing INTERFACE\\mdplitems.sti" );
-
-	// LOAD INTERFACE ITEM PICTURES
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\mdp2items.sti", VObjectDesc.ImageFile);
-	if( !AddVideoObject( &VObjectDesc, &guiP2ITEMS ) )
-		AssertMsg(0, "Missing INTERFACE\\mdp2items.sti" );
-
-	// LOAD INTERFACE ITEM PICTURES
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\mdp3items.sti", VObjectDesc.ImageFile);
-	if( !AddVideoObject( &VObjectDesc, &guiP3ITEMS ) )
-		AssertMsg(0, "Missing INTERFACE\\mdp3items.sti" );
+	THROWIFFALSE( RegisterItemImages(), L"Registering Item Images failed" );
 
 	// CHRISL:
 	// LOAD INTERFACE POCKET SILHOUETTES
@@ -1508,8 +1485,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	{
 		return;
 	}
-
-	if ( pSoldier->sGridNo == NOWHERE )
+	
+	if (TileIsOutOfBounds(pSoldier->sGridNo))
 	{
 		return;
 	}
@@ -3651,7 +3628,7 @@ typedef struct
 {
 	INT8				bHeight;
 	INT8				bPower;
-	INT16				sGridNo;
+	INT32 sGridNo;
 	UINT8				ubLevel;
 	SOLDIERTYPE	*pSoldier;
 	BOOLEAN			fShowHeight;
@@ -3659,7 +3636,7 @@ typedef struct
 	BOOLEAN			fActiveHeightBar;
 	BOOLEAN			fActivePowerBar;
 	BOOLEAN			fAtEndHeight;
-	INT16				sTargetGridNo;
+	INT32 sTargetGridNo;
 	FLOAT				dInitialForce;
 	FLOAT				dForce;
 	FLOAT				dDegrees;
@@ -3706,7 +3683,7 @@ void CalculateAimCubeUIPhysics( )
 }
 
 
-INT16 GetInAimCubeUIGridNo( )
+INT32 GetInAimCubeUIGridNo( )
 {
 	return( gCubeUIData.sGridNo );
 }
@@ -3738,7 +3715,7 @@ BOOLEAN AimCubeUIClick( )
 	}
 }
 
-void BeginAimCubeUI( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 ubLevel, UINT8 bStartPower, INT8 bStartHeight )
+void BeginAimCubeUI( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 ubLevel, UINT8 bStartPower, INT8 bStartHeight )
 {
 	gfInAimCubeUI = TRUE;
 
@@ -3915,11 +3892,11 @@ void GetLaunchItemParamsFromUI( )
 
 
 static BOOLEAN gfDisplayPhysicsUI = FALSE;
-static INT16	gsPhysicsImpactPointGridNo;
+static INT32	 gsPhysicsImpactPointGridNo;
 static INT8		gbPhysicsImpactPointLevel;
 static BOOLEAN gfBadPhysicsCTGT = FALSE;
 
-void BeginPhysicsTrajectoryUI( INT16 sGridNo, INT8 bLevel, BOOLEAN fBadCTGT )
+void BeginPhysicsTrajectoryUI( INT32 sGridNo, INT8 bLevel, BOOLEAN fBadCTGT )
 {
 	gfDisplayPhysicsUI					= TRUE;
 	gsPhysicsImpactPointGridNo	= sGridNo;
@@ -3996,11 +3973,11 @@ UINT32 CalcUIMessageDuration( STR16 wString )
 BOOLEAN	gfMultipurposeLocatorOn = FALSE;
 UINT32	guiMultiPurposeLocatorLastUpdate;
 INT8		gbMultiPurposeLocatorFrame;
-INT16	 gsMultiPurposeLocatorGridNo;
+INT32     gsMultiPurposeLocatorGridNo;
 INT8		gbMultiPurposeLocatorLevel;
 INT8		gbMultiPurposeLocatorCycles;
 
-void BeginMultiPurposeLocator( INT16 sGridNo, INT8 bLevel, BOOLEAN fSlideTo )
+void BeginMultiPurposeLocator( INT32 sGridNo, INT8 bLevel, BOOLEAN fSlideTo )
 {
 	guiMultiPurposeLocatorLastUpdate = 0;
 	gbMultiPurposeLocatorCycles		= 0;

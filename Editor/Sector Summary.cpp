@@ -90,7 +90,8 @@ BOOLEAN gfMustForceUpdateAllMaps = FALSE;
 UINT16 gusNumberOfMapsToBeForceUpdated = 0;
 BOOLEAN gfMajorUpdate = FALSE;
 
-void LoadSummary( STR8 pSector, UINT8 ubLevel, FLOAT dMajorMapVersion );
+BOOLEAN LoadSummary(STR8 pSector, UINT8 ubLevel, FLOAT dMajorMapVersion);//dnl ch28 240909
+
 void RegenerateSummaryInfoForAllOutdatedMaps();
 
 void SetupItemDetailsMode( BOOLEAN fAllowRecursion );
@@ -102,6 +103,7 @@ BOOLEAN gfGlobalSummaryLoaded = FALSE;
 
 SUMMARYFILE *gpSectorSummary[16][16][8] = {};
 SUMMARYFILE *gpCurrentSectorSummary;
+SUMMARYFILE gCustomFileSectorSummary;//dnl ch30 150909
 
 MOUSE_REGION MapRegion;
 
@@ -219,9 +221,10 @@ extern INT16 gsSelSectorY; // symbol already declared globally in AI Viewer.cpp 
 //summary is going to be persistant or not.
 UINT32 giInitTimer;
 
-CHAR16 gszFilename[40];
-CHAR16 gszTempFilename[21];
-CHAR16 gszDisplayName[21];
+//dnl ch39 190909
+CHAR16 gszFilename[FILENAME_BUFLEN];
+CHAR16 gszTempFilename[FILENAME_BUFLEN];
+CHAR16 gszDisplayName[FILENAME_BUFLEN];
 
 void CalculateOverrideStatus();
 
@@ -286,9 +289,7 @@ void CreateSummaryWindow()
 	DisableButton( iSummaryButton[ SUMMARY_BACKGROUND ] );
 
 	iSummaryButton[ SUMMARY_OKAY ] = 
-		CreateTextButton(L"Okay", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 585, iScreenHeightOffset + 325, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, 
-		SummaryOkayCallback );
+		CreateTextButton(L"Okay", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT, MAP_LEFT+160, MAP_BOTTOM+99, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, SummaryOkayCallback);//dnl ch36 190909
 	//GiveButtonDefaultStatus( iSummaryButton[ SUMMARY_OKAY ], DEFAULT_STATUS_WINDOWS95 );
 
 	iSummaryButton[ SUMMARY_GRIDCHECKBOX ] = 
@@ -392,8 +393,7 @@ void CreateSummaryWindow()
 	//Init the textinput field.
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
 	AddUserInputField( NULL );  //just so we can use short cut keys while not typing.
-	AddTextInputField( MAP_LEFT+112, MAP_BOTTOM+75, 100, 18, MSYS_PRIORITY_HIGH, L"", 20, INPUTTYPE_EXCLUSIVE_DOSFILENAME );
-	
+	AddTextInputField(MAP_LEFT+110, MAP_BOTTOM+75, 100, 18, MSYS_PRIORITY_HIGH, L"", (FILENAME_BUFLEN-4-1), INPUTTYPE_EXCLUSIVE_DOSFILENAME);//dnl ch39 190909
 	for( i = 1; i < NUM_SUMMARY_BUTTONS; i++ )
 		HideButton( iSummaryButton[ i ] );
 
@@ -426,6 +426,7 @@ void CreateSummaryWindow()
 void AutoLoadMap()
 {
 	SummaryLoadMapCallback( ButtonList[ iSummaryButton[ SUMMARY_LOAD ] ], MSYS_CALLBACK_REASON_LBUTTON_UP );
+	ButtonList[ iSummaryButton[ SUMMARY_LOAD ] ]->uiFlags &= ~BUTTON_CLICKED_ON;//dnl ch36 210909
 	if( gfWorldLoaded )
 		DestroySummaryWindow();
 	gfAutoLoadA9 = FALSE;
@@ -470,7 +471,7 @@ void DestroySummaryWindow()
 	}
 
 	MSYS_RemoveRegion( &MapRegion );
-
+	gfRenderTaskbar = TRUE;//dnl ch52 091009
 	gfSummaryWindowActive = FALSE;
 	gfPersistantSummary = FALSE;
 	MarkWorldDirty();
@@ -534,7 +535,7 @@ void RenderSectorInformation()
 	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 32,		L"Tileset:  %s", gTilesets[ s->ubTilesetID ].zName ); 
 	if( m->ubMapVersion < 10 )
 		SetFontForeground( FONT_RED );
-	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 42,    L"Version Info:  Summary:  1.%02d,  Map:  %d.%02d", s->ubSummaryVersion, (INT32)s->dMajorMapVersion, m->ubMapVersion );
+	mprintf(iScreenWidthOffset+10, iScreenHeightOffset+42, L"Version Info:  Summary:  1.%02d,  Map:  %1.2f / %02d", s->ubSummaryVersion, s->dMajorMapVersion, m->ubMapVersion);//dnl ch30 240909
 	SetFontForeground( FONT_GRAY2 );
 	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 55,		L"Number of items:  %d", s->usNumItems );
 	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 65,		L"Number of lights:  %d", s->usNumLights );
@@ -1058,6 +1059,11 @@ void RenderSummaryWindow()
 					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, L"You need to either load an existing map or create a new map before being" );
 					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 40, L"able to enter the editor, or you can quit (ESC or Alt+x).");
 				}
+				else if(gCustomFileSectorSummary.ubSummaryVersion)//dnl ch30 150909
+				{
+					gpCurrentSectorSummary = &gCustomFileSectorSummary;
+					RenderSectorInformation();
+				}
 			}
 			else
 			{
@@ -1529,90 +1535,131 @@ void RenderSummaryWindow()
 	}
 }
 
+//dnl ch30 150909
+void ResetCustomFileSectorSummary(void)
+{
+	memset(&gCustomFileSectorSummary, 0, sizeof(SUMMARYFILE));
+}
+
+//dnl ch31 150909
+void GetSectorFromFileName(STR16 szFileName, INT16& sSectorX, INT16& sSectorY, INT8& bSectorZ, BOOLEAN& fAltMap)
+{
+	const int strsz = 16;
+	CHAR16 str[strsz] = L"";
+	if(szFileName[2] == L'.' || szFileName[2] == L'_')
+	{
+		str[0] = szFileName[0];
+		str[1] = L'0';
+		wmemcpy(str+2, szFileName+1, strsz-2);
+	}
+	else if(szFileName[1] == L'1')
+		wmemcpy(str, szFileName, strsz);
+	for(int i=0; i<strsz; i++)
+		str[i] = towupper(str[i]);
+	if((str[0] >= L'A'  && str[0] <= L'P') && (str[1] >= L'0' && str[1] <= L'9') && (str[2] >= L'0' && str[2] <= L'9'))
+	{
+		sSectorX = (str[1] - L'0') * 10 + str[2] - L'0';
+		sSectorY = str[0] - L'A' + 1;
+		bSectorZ = 0;
+		fAltMap = FALSE;
+		if(!(sSectorX < 1 || sSectorX > 16 || sSectorY < 1 || sSectorY > 16))
+		{
+			if(wcscmp(&str[3], L".DAT") == 0)
+				return;
+			else if(wcscmp(&str[3], L"_A.DAT") == 0)
+			{
+				fAltMap = TRUE;// Alternate Ground Map
+				return;
+			}
+			else if(str[3] == L'_' && str[4] == L'B' && str[5] >= L'1' && str[5] <= L'3')
+			{
+				bSectorZ = str[5] - L'0';
+				if(wcscmp(&str[6], L".DAT") == 0)
+					return;
+				else if(wcscmp(&str[6], L"_A.DAT") == 0)
+				{
+					fAltMap = TRUE;// Alternate Underground Map
+					return;
+				}
+			}
+		}
+	}
+	sSectorX = 0;
+	sSectorY = 0;
+	bSectorZ = 0;
+	fAltMap = FALSE;
+}
+
 void UpdateSectorSummary( STR16 gszFilename, BOOLEAN fUpdate )
 {
 	CHAR16 str[50];
 	CHAR8 szCoord[40];
-	STR16 ptr;
-	INT16 x, y;
-
+	//dnl ch31 130909
+	INT8 bSectorZ;
+	BOOLEAN fAltMap;
+	GetSectorFromFileName(gszFilename, gsSelSectorX, gsSelSectorY, bSectorZ, fAltMap);
 	gfRenderSummary = TRUE;
-	//Extract the sector
-	if( gszFilename[2] < L'0' || gszFilename[2] > L'9' )
-		x = gszFilename[1] - L'0';
-	else
-		x = (gszFilename[1] - L'0') * 10 + gszFilename[2] - L'0';
-	if( gszFilename[0] >= 'a' )
-		y = gszFilename[0] - L'a' + 1;
-	else
-		y = gszFilename[0] - L'A' + 1;
 	gfMapFileDirty = FALSE;
-	
-	//Validate that the values extracted are in fact a sector
-	if( x < 1 || x > 16 || y < 1 || y > 16 )
-		return;
-	gsSectorX = gsSelSectorX = x;
-	gsSectorY = gsSelSectorY = y;
-
-	//The idea here is to get a pointer to the filename's period, then
-	//focus on the character previous to it.  If it is a 1, 2, or 3, then
-	//the filename was in a basement level.  Otherwise, it is a ground level.
-	ptr = wcsstr( gszFilename, L"_a.dat" );
-	if( ptr )
+	gsSectorX = gsSelSectorX;
+	gsSectorY = gsSelSectorY;
+	if(!gsSectorX)
 	{
-		ptr = wcsstr( gszFilename, L"_b" );
-		if( ptr && ptr[2] >= '1' && ptr[2] <= '3' && ptr[5] == '.' )
-		{ //it's a alternate basement map
-			switch( ptr[2] )
-			{
-				case '1':		
-					gsSectorLayer = ALTERNATE_B1_MASK;
-					giCurrLevel = 5;
-					break;
-				case '2':		
-					gsSectorLayer = ALTERNATE_B2_MASK;
-					giCurrLevel = 6;
-					break;
-				case '3':		
-					gsSectorLayer = ALTERNATE_B3_MASK;
-					giCurrLevel = 7;
-					break;
-			}
-		}
-		else
+		CHAR8 ubNewFilename[50];
+		sprintf(ubNewFilename, "%S", gszFilename);
+		ReEvaluateWorld(ubNewFilename);//dnl ch30 150909
+		return;
+	}
+	switch(bSectorZ)
+	{
+	case 0:
+		if(fAltMap)
 		{
 			gsSectorLayer = ALTERNATE_GROUND_MASK;
 			giCurrLevel = 4;
-		}
-	}
-	else
-	{
-		ptr = wcsstr( gszFilename, L"_b" );
-		if( ptr && ptr[2] >= '1' && ptr[2] <= '3' && ptr[3] == '.' )
-		{ //it's a alternate basement map
-			switch( ptr[2] )
-			{
-				case '1':		
-					gsSectorLayer = BASEMENT1_LEVEL_MASK;
-					giCurrLevel = 1;
-					break;
-				case '2':		
-					gsSectorLayer = BASEMENT2_LEVEL_MASK;
-					giCurrLevel = 2;
-					break;
-				case '3':		
-					gsSectorLayer = BASEMENT3_LEVEL_MASK;
-					giCurrLevel = 3;
-					break;
-			}
 		}
 		else
 		{
 			gsSectorLayer = GROUND_LEVEL_MASK;
 			giCurrLevel = 0;
 		}
+		break;
+	case 1:
+		if(fAltMap)
+		{
+			gsSectorLayer = ALTERNATE_B1_MASK;
+			giCurrLevel = 5;
+		}
+		else
+		{
+			gsSectorLayer = BASEMENT1_LEVEL_MASK;
+			giCurrLevel = 1;
+		}
+		break;
+	case 2:
+		if(fAltMap)
+		{
+			gsSectorLayer = ALTERNATE_B2_MASK;
+			giCurrLevel = 6;
+		}
+		else
+		{
+			gsSectorLayer = BASEMENT2_LEVEL_MASK;
+			giCurrLevel = 2;
+		}
+		break;
+	case 3:
+		if(fAltMap)
+		{
+			gsSectorLayer = ALTERNATE_B3_MASK;
+			giCurrLevel = 7;
+		}
+		else
+		{
+			gsSectorLayer = BASEMENT3_LEVEL_MASK;
+			giCurrLevel = 3;
+		}
+		break;
 	}
-
 	giCurrentViewLevel = gsSectorLayer;
 	if( !(gbSectorLevels[gsSectorX-1][gsSectorY-1] & gsSectorLayer) )
 	{
@@ -1918,8 +1965,7 @@ void CreateGlobalSummary()
 	vfs::COpenWriteFile wfile(L"DevInfo\\readme.txt",true,true);
 	std::string str = "This information is used in conjunction with the editor.\n";
 	str += "This directory or it's contents shouldn't be included with final release.\n";
-	vfs::UInt32 io;
-	wfile.file().Write(str.c_str(), str.length(), io);
+	TRYCATCH_RETHROW( wfile.file().write(str.c_str(), str.length()), L"" );
 #endif
 
 	// Snap: Restore the data directory once we are finished.
@@ -2301,7 +2347,11 @@ void LoadGlobalSummary()
 			SetFileManCurrentDirectory( DevInfoDir );
 #else
 			sprintf( szFilename, "Maps\\%c%d.dat", 'A' + y, x + 1 );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = NULL;
+			if(FileExists(szFilename))
+			{
+				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			}
 #endif
 			if( hfile )
 			{
@@ -2327,7 +2377,11 @@ void LoadGlobalSummary()
 			SetFileManCurrentDirectory( DevInfoDir );
 #else
 			sprintf( szFilename, "Maps\\%c%d_b1.dat", 'A' + y, x + 1 );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = NULL;
+			if(FileExists(szFilename))
+			{
+				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			}
 #endif
 			if( hfile )
 			{
@@ -2353,7 +2407,11 @@ void LoadGlobalSummary()
 			SetFileManCurrentDirectory( DevInfoDir );
 #else
 			sprintf( szFilename, "Maps\\%c%d_b2.dat", 'A' + y, x + 1 );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = NULL;
+			if(FileExists(szFilename))
+			{
+				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			}
 #endif
 			if( hfile )
 			{
@@ -2379,7 +2437,11 @@ void LoadGlobalSummary()
 			SetFileManCurrentDirectory( DevInfoDir );
 #else
 			sprintf( szFilename, "Maps\\%c%d_b3.dat", 'A' + y, x + 1 );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = NULL;
+			if(FileExists(szFilename))
+			{
+				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			}
 #endif
 			if( hfile )
 			{
@@ -2405,7 +2467,11 @@ void LoadGlobalSummary()
 			SetFileManCurrentDirectory( DevInfoDir );
 #else
 			sprintf( szFilename, "Maps\\%c%d_a.dat", 'A' + y, x + 1 );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = NULL;
+			if(FileExists(szFilename))
+			{
+				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			}
 #endif
 			if( hfile )
 			{
@@ -2431,7 +2497,11 @@ void LoadGlobalSummary()
 			SetFileManCurrentDirectory( DevInfoDir );
 #else
 			sprintf( szFilename, "Maps\\%c%d_b1_a.dat", 'A' + y, x + 1 );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = NULL;
+			if(FileExists(szFilename))
+			{
+				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			}
 #endif
 			if( hfile )
 			{
@@ -2457,7 +2527,11 @@ void LoadGlobalSummary()
 			SetFileManCurrentDirectory( DevInfoDir );
 #else
 			sprintf( szFilename, "Maps\\%c%d_b2_a.dat", 'A' + y, x + 1 );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = NULL;
+			if(FileExists(szFilename))
+			{
+				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			}
 #endif
 			if( hfile )
 			{
@@ -2483,7 +2557,11 @@ void LoadGlobalSummary()
 			SetFileManCurrentDirectory( DevInfoDir );
 #else
 			sprintf( szFilename, "Maps\\%c%d_b3_a.dat", 'A' + y, x + 1 );
-			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = NULL;
+			if(FileExists(szFilename))
+			{
+				hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			}
 #endif
 			if( hfile )
 			{
@@ -2562,8 +2640,7 @@ void GenerateSummaryList()
 		vfs::COpenWriteFile wfile(L"DevInfo/readme.txt",true,true);
 		std::string str = "This information is used in conjunction with the editor.\n";
 		str += "This directory or it's contents shouldn't be included with final release.\n";
-		vfs::UInt32 io;
-		wfile.file().Write(str.c_str(), str.length(),io);
+		TRYCATCH_RETHROW( wfile.file().write(str.c_str(), str.length()), L"");
 	}
 	catch(CBasicException &ex)
 	{
@@ -2572,79 +2649,37 @@ void GenerateSummaryList()
 #endif
 }
 
-void WriteSectorSummaryUpdate( STR8 puiFilename, UINT8 ubLevel, SUMMARYFILE *pSummaryFileInfo )
+//dnl ch28 260909
+void WriteSectorSummaryUpdate(STR8 sFileName, UINT8 ubLevel, SUMMARYFILE* pSummaryFileInfo)
 {
-#ifndef USE_VFS
-	FILE *fp;
-	STRING512			DataDir;
-	STRING512			ExecDir;
-	STRING512			Dir;
-	CHAR8					*ptr;
-#endif
-	INT8 x, y;
-#ifndef USE_VFS
-	// Snap: save current directory
-	GetFileManCurrentDirectory( DataDir );
-
-	//Set current directory to JA2\DevInfo which contains all of the summary data
-	GetExecutableDirectory( ExecDir );
-	sprintf( Dir, "%s\\DevInfo", ExecDir );
-	if( !SetFileManCurrentDirectory( Dir ) )
-		//AssertMsg( 0, "JA2\\DevInfo folder not found and should exist!");//dnl lead to assertion if you don't have Dir and never create summary info
-	{//dnl
-		//Directory doesn't exist, so create it, and continue.
-		if( !MakeFileManDirectory( Dir ) )
-			AssertMsg( 0, "Can't create new directory, JA2\\DevInfo for summary information update." );
-		if( !SetFileManCurrentDirectory( Dir ) )
-			AssertMsg( 0, "JA2\\DevInfo folder not found and should exist!");
-	}
-	ptr = strstr( (CHAR8 *)puiFilename, ".dat" );
-	if( !ptr )
-		AssertMsg( 0, "Illegal sector summary filename.");
-	sprintf( ptr, ".sum" );
-
-	//write the summary information
-	fp = fopen( puiFilename, "wb" );
-	Assert( fp );
-	fwrite( pSummaryFileInfo, 1, sizeof( SUMMARYFILE ), fp );
-	fclose( fp );
-#else
-	vfs::Path fname(puiFilename);
-	THROWIFFALSE(MatchPattern(L"*.dat", fname()), L"Illegal sector summary filename");
-	vfs::COpenWriteFile wfile(vfs::Path(L"DevInfo")+vfs::Path(puiFilename),true,true);
-	vfs::UInt32 io;
-	wfile.file().Write((vfs::Byte*)pSummaryFileInfo,sizeof(SUMMARYFILE), io);
-	wfile.file().Close();
-#endif
-
-	//CHRISL:
-	if(gusNumEntriesWithOutdatedOrNoSummaryInfo > 0)
-		gusNumEntriesWithOutdatedOrNoSummaryInfo--;
+	CHAR8 cFileName[2*FILENAME_BUFLEN];
+	sprintf(cFileName, "DevInfo\\%s", sFileName);
+	// Presumption is that file came with dat extension
+	strcpy(cFileName+strlen(cFileName)-4, ".sum");
+	if(!pSummaryFileInfo->Save(cFileName))
+		return;
 	UpdateMasterProgress();
-
-	//extract the sector information out of the filename.
-	if( puiFilename[0] >= 'a' )
-		y = puiFilename[0] - 'a';
+	INT16 sSectorX, sSectorY;
+	INT8 x, y, bSectorZ;
+	BOOLEAN fAltMap;
+	CHAR16 szFileName[FILENAME_BUFLEN];
+	swprintf(szFileName, L"%S", sFileName);
+	GetSectorFromFileName(szFileName, sSectorX, sSectorY, bSectorZ, fAltMap);
+	if(!sSectorX)
+		gCustomFileSectorSummary = *pSummaryFileInfo;//dnl ch30 150909
 	else
-		y = puiFilename[0] - 'A';
-	if( puiFilename[2] < '0' || puiFilename[2] > '9' )
-		x = puiFilename[ 1 ] - '0' - 1;
-	else
-		x = (puiFilename[ 1 ] - '0') * 10 + puiFilename[ 2 ] - '0' - 1;
-
-	if( gpSectorSummary[x][y][ubLevel] )
 	{
-		MemFree( gpSectorSummary[x][y][ubLevel] );
-		gpSectorSummary[x][y][ubLevel] = NULL;
+		if(gusNumEntriesWithOutdatedOrNoSummaryInfo > 0)
+			gusNumEntriesWithOutdatedOrNoSummaryInfo--;
+		x = sSectorX - 1;
+		y = sSectorY - 1;
+		if(gpSectorSummary[x][y][ubLevel])
+		{
+			MemFree(gpSectorSummary[x][y][ubLevel]);
+			gpSectorSummary[x][y][ubLevel] = NULL;
+		}
+		gpSectorSummary[x][y][ubLevel] = pSummaryFileInfo;
 	}
-	gpSectorSummary[x][y][ubLevel] = pSummaryFileInfo;
-#ifndef USE_VFS
-	// Snap: Restore the data directory once we are finished.
-	SetFileManCurrentDirectory( DataDir );
-	//Set current directory back to data directory!
-	//sprintf( Dir, "%s\\Data", ExecDir );
-	//SetFileManCurrentDirectory( Dir );
-#endif
 }
 
 void SummaryNewGroundLevelCallback( GUI_BUTTON *btn, INT32 reason )
@@ -2680,87 +2715,142 @@ void SummaryNewCaveLevelCallback( GUI_BUTTON *btn, INT32 reason )
 	}
 }
 
-void LoadSummary( STR8 pSector, UINT8 ubLevel, FLOAT dMajorMapVersion )
+//dnl ch28 260909
+SUMMARYFILE& SUMMARYFILE::operator=(const _OLD_SUMMARYFILE& src)
 {
-	CHAR8 filename[40];
-	SUMMARYFILE temp;
+	if((void*)this != (void*)&src)
+	{
+		ubSummaryVersion = src.ubSummaryVersion;
+		ubSpecial = src.ubSpecial;
+		ubNumRooms = src.ubNumRooms;
+		dMajorMapVersion = src.dMajorMapVersion;
+		ubTilesetID = src.ubTilesetID;
+		usNumItems = src.usNumItems;
+		usNumLights = src.usNumLights;
+		ubNumDoors = src.ubNumDoors;
+		ubNumDoorsLocked = src.ubNumDoorsLocked;
+		ubNumDoorsTrapped = src.ubNumDoorsTrapped;
+		ubNumDoorsLockedAndTrapped = src.ubNumDoorsLockedAndTrapped;
+		ubNumElites = src.ubNumElites;
+		ubNumAdmins = src.ubNumAdmins;
+		ubNumTroops = src.ubNumTroops;
+		ubEliteDetailed = src.ubEliteDetailed;
+		ubAdminDetailed = src.ubAdminDetailed;
+		ubTroopDetailed = src.ubTroopDetailed;
+		ubEliteProfile = src.ubEliteProfile;
+		ubAdminProfile = src.ubAdminProfile;
+		ubTroopProfile = src.ubTroopProfile;
+		ubEliteExistance = src.ubEliteExistance;
+		ubAdminExistance = src.ubAdminExistance;
+		ubTroopExistance = src.ubTroopExistance;
+		ubCivSchedules = src.ubCivSchedules;
+		ubCivCows = src.ubCivCows;
+		ubCivBloodcats = src.ubCivBloodcats;
+		ubEnemiesReqWaypoints = src.ubEnemiesReqWaypoints;
+		usWarningRoomNums = src.usWarningRoomNums;
+		ubEnemiesHaveWaypoints = src.ubEnemiesHaveWaypoints;
+		uiNumItemsPosition = src.uiNumItemsPosition;
+		uiEnemyPlacementPosition = src.uiEnemyPlacementPosition;
+		EnemyTeam = src.EnemyTeam;
+		CreatureTeam = src.CreatureTeam;
+		RebelTeam = src.RebelTeam;
+		CivTeam = src.CivTeam;
+		MapInfo = src.MapInfo;
+		for(int i=0; i<4; i++)
+			ExitGrid[i] = src.ExitGrid[i];
+		TranslateArrayFields(usExitGridSize, src.usExitGridSize, 4, UINT16_UINT16);
+		TranslateArrayFields(fInvalidDest, src.fInvalidDest, 4, UINT8_UINT8);
+		ubNumExitGridDests = src.ubNumExitGridDests;
+		fTooManyExitGridDests = src.fTooManyExitGridDests;
+	}
+	return(*this);
+}
+
+BOOLEAN SUMMARYFILE::Load(STR sFileName)
+{
+	if(!FileExists(sFileName))
+	{
+		return FALSE;
+	}
+	HWFILE hFile = FileOpen(sFileName, FILE_ACCESS_READ, FALSE);
+	if(!hFile)
+	{
+		return(FALSE);
+	}
+	UINT8 ubSummaryVersion = 0;
+	UINT32 uiBytesRead = 0;
+	FileRead(hFile, &ubSummaryVersion, sizeof(ubSummaryVersion), &uiBytesRead);
+	if(ubSummaryVersion < 14 || ubSummaryVersion > GLOBAL_SUMMARY_VERSION)
+	{
+		FileClose(hFile);
+		return(FALSE);
+	}
+	FileSeek(hFile, 0L, FILE_SEEK_FROM_START);
+	if(ubSummaryVersion == 14)
+	{
+		_OLD_SUMMARYFILE OldSummaryFile;
+		FileRead(hFile, &OldSummaryFile, sizeof(_OLD_SUMMARYFILE), &uiBytesRead);
+		*this = OldSummaryFile;
+	}
+	else
+	{
+		FileRead(hFile, this, sizeof(SUMMARYFILE), &uiBytesRead);
+	}
+	FileClose(hFile);
+	if(uiBytesRead == sizeof(_OLD_SUMMARYFILE) || uiBytesRead == sizeof(SUMMARYFILE))
+	{
+		return(TRUE);
+	}
+	return(FALSE);
+}
+
+BOOLEAN SUMMARYFILE::Save(STR sFileName)
+{
+	HWFILE hFile = FileOpen(sFileName, FILE_ACCESS_WRITE|FILE_CREATE_ALWAYS, FALSE);
+	if(!hFile)
+		return(FALSE);
+	UINT32 uiBytesWritten = 0;
+	FileWrite(hFile, this, sizeof(SUMMARYFILE), &uiBytesWritten);
+	FileClose(hFile);
+	if(uiBytesWritten != sizeof(SUMMARYFILE))
+		return(FALSE);
+	return(TRUE);
+}
+
+BOOLEAN LoadSummary(STR8 pSector, UINT8 ubLevel, FLOAT dMajorMapVersion)
+{
 	INT32 x, y;
-#ifndef USE_VFS
-	FILE *fp;
-	sprintf( filename, pSector );
-#else
-	sprintf( filename, "DevInfo\\%s", pSector );
-#endif
-	if( ubLevel % 4 )
+	CHAR8 sFileName[2*FILENAME_BUFLEN];
+	SUMMARYFILE SummaryFile;
+	sprintf(sFileName, "DevInfo\\%s", pSector);
+	if(ubLevel % 4)
 	{
 		CHAR8 str[4];
-		sprintf( str, "_b%d", ubLevel % 4 );
-		strcat( filename, str );
+		sprintf(str, "_b%d", ubLevel%4);
+		strcat(sFileName, str);
 	}
-	if( ubLevel >= 4 )
-	{
-		strcat( filename, "_a" );
-	}
-	strcat( filename, ".sum" );
-#ifndef USE_VFS
-	fp = fopen( filename, "rb" );
-	if( !fp )
-	{
-		gusNumEntriesWithOutdatedOrNoSummaryInfo++;
-		//CHRISL: Maybe take things a step further.  Rather then doing a version update, why not wait to do the update until
-		//	we actually try to access the map?  After all, there is really no need to update the maps if we don't make any
-		//	changes to them.
-		//CHRISL:  These will force an update basically every time the editor is loaded.  What's the point of that?
-		//	instead, we should look at the dMajorMapVersion for this map and only load if we need to
-		//ADB don't forget that these might need to be updated!!!
-/*		if(dMajorMapVersion < gdMajorMapVersion)
-		{
-			gusNumberOfMapsToBeForceUpdated++;
-			gfMustForceUpdateAllMaps = TRUE;
-		}*/
-		return;
-	}
-	fread( &temp, 1, sizeof( SUMMARYFILE ), fp );
-#else
-	if(!GetVFS()->FileExists(filename))
-	{
-		return;
-	}
-	vfs::COpenReadFile rfile(filename);
-	vfs::UInt32 io;
-	rfile.file().Read((vfs::Byte*)&temp,sizeof(SUMMARYFILE),io);
-#endif
-	//CHRISL: Again, this basically forces the maps to be updated whether we actually access the map or not.  Why don't we just
-	//	update the map when the map actually needs to be loaded?
-/*	if( temp.ubSummaryVersion < MINIMUMVERSION || dMajorMapVersion < gdMajorMapVersion )
-	{
-		gusNumberOfMapsToBeForceUpdated++;
-		gfMustForceUpdateAllMaps = TRUE;
-	}*/
-	temp.dMajorMapVersion = dMajorMapVersion;
-	UpdateSummaryInfo( &temp );
-	//even if the info is outdated (but existing), allocate the structure, but indicate that the info
-	//is bad.
+	if(ubLevel >= 4)
+		strcat(sFileName, "_a");
+	strcat(sFileName, ".sum");
+	if(!SummaryFile.Load(sFileName))
+		return(FALSE);
 	y = pSector[0] - 'A';
-	if( pSector[2] >= '0' && pSector[2] <= '9' )
+	if(pSector[2] >= '0' && pSector[2] <= '9')
 		x = (pSector[1] - '0') * 10 + pSector[2] - '0' - 1;
 	else
 		x = pSector[1] - '0' - 1;
-	if( gpSectorSummary[x][y][ubLevel] )
+	if(gpSectorSummary[x][y][ubLevel])
 	{
-		MemFree( gpSectorSummary[x][y][ubLevel] );
+		MemFree(gpSectorSummary[x][y][ubLevel]);
 		gpSectorSummary[x][y][ubLevel] = NULL;
 	}
-	gpSectorSummary[x][y][ubLevel] = (SUMMARYFILE*)MemAlloc( sizeof( SUMMARYFILE ) );	
-	if( gpSectorSummary[x][y][ubLevel] )
-		memcpy( gpSectorSummary[x][y][ubLevel], &temp, sizeof( SUMMARYFILE ) );
-	if( gpSectorSummary[x][y][ubLevel]->ubSummaryVersion < GLOBAL_SUMMARY_VERSION )
+	gpSectorSummary[x][y][ubLevel] = (SUMMARYFILE*)MemAlloc(sizeof(SUMMARYFILE));
+	if(gpSectorSummary[x][y][ubLevel])
+		memcpy(gpSectorSummary[x][y][ubLevel], &SummaryFile, sizeof(SUMMARYFILE));
+	if(gpSectorSummary[x][y][ubLevel]->ubSummaryVersion < GLOBAL_SUMMARY_VERSION)
 		gusNumEntriesWithOutdatedOrNoSummaryInfo++;
-#ifndef USE_VFS	
-	fclose( fp );
-#endif
+	return(TRUE);
 }
-
 
 double MasterStart, MasterEnd;
 
@@ -2919,8 +3009,9 @@ void SummaryUpdateCallback( GUI_BUTTON *btn, INT32 reason )
 
 void ExtractTempFilename()
 {
-	CHAR16 str[40];
-	Get16BitStringFromField( 1, str, 40 );
+	//dnl ch39 190909
+	CHAR16 str[FILENAME_BUFLEN-4];
+	Get16BitStringFromField(1, str, FILENAME_BUFLEN-4);
 	if( wcscmp( gszTempFilename, str ) )
 	{
 		wcscpy( gszTempFilename, str );
@@ -2931,75 +3022,52 @@ void ExtractTempFilename()
 		swprintf( gszDisplayName, L"test.dat" );
 }
 
-BOOLEAN ReEvaluateWorld( const STR8	puiFilename )
+//dnl ch30 170909
+BOOLEAN ReEvaluateWorld(const STR8 puiFilename)
 {
-#ifndef USE_VFS
-	STRING512		DataDir;
-#endif
-	STRING512		MapsDir;
-	FLOAT			dMajorVersion;
-	UINT8			dMinorVersion;
-	UINT8			ubLevel = 0;
-	CHAR8			name[50];
-	HWFILE			hfile;
-	UINT32			uiNumBytesRead;
-#ifndef USE_VFS
-	GetFileManCurrentDirectory( DataDir );
-	sprintf( MapsDir, "%s\\Maps", DataDir );
-#endif
-
-	if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & GROUND_LEVEL_MASK )
-		ubLevel = 0;
-	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & BASEMENT1_LEVEL_MASK )
+	UINT8 ubLevel;
+	CHAR8 name[50];
+	INT16 sSectorX, sSectorY;
+	INT8 bSectorZ;
+	BOOLEAN fAltMap;
+	CHAR16 szFileName[50];
+	swprintf(szFileName, L"%S", puiFilename);
+	GetSectorFromFileName(szFileName, sSectorX, sSectorY, bSectorZ, fAltMap);
+/*
+	switch(bSector)
+	{
+	case 1:
 		ubLevel = 1;
-	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & BASEMENT2_LEVEL_MASK )
+		if(fAltMap)
+			ubLevel = 5;
+		break;
+	case 2:
 		ubLevel = 2;
-	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & BASEMENT3_LEVEL_MASK )
+		if(fAltMap)
+			ubLevel = 6;
+		break;
+	case 3:
 		ubLevel = 3;
-	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & ALTERNATE_GROUND_MASK )
-		ubLevel = 4;
-	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & ALTERNATE_B1_MASK )
-		ubLevel = 5;
-	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & ALTERNATE_B2_MASK )
-		ubLevel = 6;
-	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & ALTERNATE_B3_MASK )
-		ubLevel = 7;
-#ifndef	USE_VFS
-	SetFileManCurrentDirectory( MapsDir );
-	hfile = FileOpen( puiFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-#else
-	sprintf( MapsDir, "Maps\\%s", puiFilename );
-	hfile = FileOpen( MapsDir, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-#endif
-	if( hfile )
-	{
-		FileRead( hfile, &dMajorVersion, sizeof( FLOAT ), &uiNumBytesRead );
-		FileRead( hfile, &dMinorVersion, sizeof( UINT8 ), &uiNumBytesRead );
-		FileClose( hfile );
+		if(fAltMap)
+			ubLevel = 7;
+		break;
+	default:
+		ubLevel = 0;
+		if(fAltMap)
+			ubLevel = 4;
+		break;
 	}
-#ifndef USE_VFS
-	SetFileManCurrentDirectory( DataDir );
-#endif
-
-	if(dMajorVersion < gdMajorMapVersion || dMinorVersion < gubMinorMapVersion)
-		gfMajorUpdate = TRUE;
+*/
+	ubLevel = bSectorZ;
+	if(fAltMap)
+		ubLevel += 4;
+	if(sSectorX)
+		sprintf(name, "%c%d", (sSectorY-1+'A'), sSectorX);
 	else
-		gfMajorUpdate = FALSE;
-
-	//CHRISL: If gfMajorUpdate is ever set TRUE, the code will load a map, update it, then save the map... THEN it will
-	//	reload the map so you can look at it.  But I'm thinking the only time we should actually update the actual map
-	//	file is when we intentionally save the file.  So, for now, make sure this flag is always FALSE.
-	gfMajorUpdate = FALSE;
-
-	sprintf( name, "%c%d", (gsSelSectorY-1) + 'A', gsSelSectorX );
-	if( !EvaluateWorld( name, ubLevel ) )
-	{
-		gfMajorUpdate = FALSE;
-		return FALSE;
-	}
-
-	gfMajorUpdate = FALSE;
-	return TRUE;
+		strcpy(name, puiFilename);
+	if(!EvaluateWorld(name, ubLevel))
+		return(FALSE);
+	return(TRUE);
 }
 
 void ApologizeOverrideAndForceUpdateEverything()

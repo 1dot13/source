@@ -33,8 +33,9 @@
 
 #include "PathAIDebug.h"
 
+	INT16 * gsCoverValue = NULL;
 #ifdef _DEBUG
-	INT16 gsCoverValue[WORLD_MAX];
+
 	INT16	gsBestCover;
 	#ifndef PATHAI_VISIBLE_DEBUG
 		// NB Change this to true to get visible cover debug -- CJC
@@ -105,7 +106,7 @@ INT32 CalcPercentBetter(INT32 iOldValue, INT32 iNewValue, INT32 iOldScale, INT32
  return(iPercentBetter);
 }
 
-void AICenterXY( INT16 sGridNo, FLOAT * pdX, FLOAT * pdY )
+void AICenterXY( INT32 sGridNo, FLOAT * pdX, FLOAT * pdY )
 {
 	INT16		sXPos, sYPos;
 
@@ -116,7 +117,7 @@ void AICenterXY( INT16 sGridNo, FLOAT * pdX, FLOAT * pdY )
 	*pdY = (FLOAT) (sYPos * CELL_Y_SIZE + CELL_Y_SIZE / 2);
 }
 
-INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT16 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
+INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
 {
 	// When considering a gridno for cover, we want to take into account cover if we
 	// lie down, so we return the LOWEST chance to get through for that location.
@@ -155,7 +156,7 @@ INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT16 sOpp
 	return( bWorstCTGT );
 }
 
-INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT16 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
+INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
 {
 	// When considering a gridno for cover, we want to take into account cover if we
 	// lie down, so we return the LOWEST chance to get through for that location.
@@ -189,13 +190,13 @@ INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT16 sO
 }
 
 
-INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT8 ubOppID, INT16 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
+INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 bLevel, INT32 iMyAPsLeft )
 {
 	// NOTE: CTGT stands for "ChanceToGetThrough..."
 
 	// using only ints for maximum execution speed here
 	// CJC: Well, so much for THAT idea!
-	INT16 sCentralGridNo, sAdjSpot, sNorthGridNo, sSouthGridNo, sCheckSpot, sOKTest;
+	INT32 sCentralGridNo, sAdjSpot, sNorthGridNo, sSouthGridNo, sCheckSpot, sOKTest;
 
 	INT8 bThisCTGT, bBestCTGT = 0;
 
@@ -270,7 +271,7 @@ INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT8 ubOppID, INT16 sOppGridNo, INT8 
 }
 
 
-INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 iMyAPsLeft,
+INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 iMyAPsLeft,
 					UINT32 uiThreatIndex, INT32 iRange, INT32 morale, INT32 *iTotalScale)
 {
 	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("CalcCoverValue"));
@@ -278,7 +279,7 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 	// all 32-bit integers for max. speed
 	INT32	iMyPosValue, iHisPosValue, iCoverValue;
 	INT32	iReductionFactor, iThisScale;
-	INT16	sHisGridNo, sMyRealGridNo = NOWHERE, sHisRealGridNo = NOWHERE;
+	INT32	sHisGridNo, sMyRealGridNo = NOWHERE, sHisRealGridNo = NOWHERE;
 	INT16 sTempX, sTempY;
 	FLOAT dMyX, dMyY, dHisX, dHisY;
 	INT8	bHisBestCTGT, bHisActualCTGT, bHisCTGT, bMyCTGT;
@@ -339,8 +340,8 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 	if (bHisActualCTGT < 100)
 	{
 		// if we didn't remember his real gridno earlier up above, we got to now,
-		// because calculating worst case is about to play with it in a big way!
-		if (sHisRealGridNo == NOWHERE)
+		// because calculating worst case is about to play with it in a big way!		
+		if (TileIsOutOfBounds(sHisRealGridNo))
 		{
 			sHisRealGridNo = pHim->sGridNo;		// remember where he REALLY is
 			dHisX = pHim->dXPos;
@@ -390,15 +391,15 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 		}
 	}
 
-	// UNDO ANY TEMPORARY "DAMAGE" DONE ABOVE
-	if (sMyRealGridNo != NOWHERE)
+	// UNDO ANY TEMPORARY "DAMAGE" DONE ABOVE	
+	if (!TileIsOutOfBounds(sMyRealGridNo))
 	{
 		pMe->sGridNo = sMyRealGridNo;		// put me back where I belong!
 		pMe->dXPos = dMyX;						// also change the 'x'
 		pMe->dYPos = dMyY;						// and the 'y'
 	}
-
-	if (sHisRealGridNo != NOWHERE)
+	
+	if (!TileIsOutOfBounds(sHisRealGridNo))
 	{
 		pHim->sGridNo = sHisRealGridNo;		// put HIM back where HE belongs!
 		pHim->dXPos = dHisX;					// also change the 'x'
@@ -507,10 +508,10 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 }
 
 
-UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT16 sGridNo )
+UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 {
-	UINT8 ubLoop, ubCount, ubWhoIsThere;
-	INT16	sTempGridNo;
+	UINT8	ubLoop, ubCount, ubWhoIsThere;
+	INT32	sTempGridNo;
 
 	ubCount = 0;
 
@@ -530,7 +531,7 @@ UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT16 sGridNo )
 	return( ubCount );
 }
 
-INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentBetter)
+INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentBetter)
 {
 	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("FindBestNearbyCover"));
 
@@ -539,18 +540,18 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	INT32 iCurrentCoverValue, iCoverValue, iBestCoverValue;
 	INT32	iCurrentScale = -1, iCoverScale = -1, iBestCoverScale = -1;
 	INT32	iDistFromOrigin, iDistCoverFromOrigin, iThreatCertainty;
-	INT16	sGridNo, sBestCover = NOWHERE;
+	INT32 sGridNo, sBestCover = NOWHERE;
 	INT32 iPathCost;
 	INT32	iThreatRange, iClosestThreatRange = 1500;
 //	INT16 sClosestThreatGridno = NOWHERE;
 	INT32	iMyThreatValue;
-	INT16	sThreatLoc;
+	INT32	sThreatLoc;
 	INT32 iMaxThreatRange;
 	UINT32	uiThreatCnt = 0;
 	INT32 iMaxMoveTilesLeft, iSearchRange, iRoamRange;
 	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
-	INT16	sOrigin;	// has to be a short, need a pointer
-	INT16	*		pusLastLoc;
+	INT32	sOrigin;	// has to be a short, need a pointer
+	INT32	*		pusLastLoc;
 	INT8 *		pbPersOL;
 	INT8 *		pbPublOL;
 	SOLDIERTYPE *pOpponent;
@@ -795,22 +796,22 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 #endif
 
 	// determine maximum horizontal limits
-	sMaxLeft  = (INT16) min(iSearchRange,(pSoldier->sGridNo % MAXCOL));
+	sMaxLeft  = min(iSearchRange,(pSoldier->sGridNo % MAXCOL));
 	//NumMessage("sMaxLeft = ",sMaxLeft);
-	sMaxRight = (INT16) min(iSearchRange,MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+	sMaxRight = min(iSearchRange,MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 	//NumMessage("sMaxRight = ",sMaxRight);
 
 	// determine maximum vertical limits
-	sMaxUp   = (INT16) min(iSearchRange,(pSoldier->sGridNo / MAXROW));
+	sMaxUp   = min(iSearchRange,(pSoldier->sGridNo / MAXROW));
 	//NumMessage("sMaxUp = ",sMaxUp);
-	sMaxDown = (INT16) min(iSearchRange,MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+	sMaxDown = min(iSearchRange,MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 	//NumMessage("sMaxDown = ",sMaxDown);
 
 	iRoamRange = RoamingRange(pSoldier,&sOrigin);
 
-	// if status isn't black (life & death combat), and roaming range is limited
+	// if status isn't black (life & death combat), and roaming range is limited	
 	if ((pSoldier->aiData.bAlertStatus != STATUS_BLACK) && (iRoamRange < MAX_ROAMING_RANGE) &&
-		(sOrigin != NOWHERE))
+		(!TileIsOutOfBounds(sOrigin)))
 	{
 		// must try to stay within or return to the point of origin
 		iDistFromOrigin = SpacesAway(sOrigin,pSoldier->sGridNo);
@@ -869,7 +870,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		}
 	}
 
-	FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_TAKE_COVER ), COPYREACHABLE_AND_APS, 0 );
+	FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_TAKE_COVER ), COPYREACHABLE_AND_APS, 0 );//dnl ch50 071009
 
 	// Turn off the "reachable" flag for his current location
 	// so we don't consider it
@@ -1072,8 +1073,8 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	}
 	#endif
 
-	// if a better cover location was found
-	if (sBestCover != NOWHERE)
+	// if a better cover location was found	
+	if (!TileIsOutOfBounds(sBestCover))
 	{
 		#if defined( _DEBUG ) && !defined( PATHAI_VISIBLE_DEBUG )
 		gsBestCover = sBestCover;
@@ -1096,25 +1097,25 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			SnuggleDebug(pSoldier,"Found Cover");
 #endif
 
-			return((INT16)sBestCover);		// return the gridno of that cover
+			return(sBestCover);       // return the gridno of that cover
 		}
 	}
 	return(NOWHERE);		// return that no suitable cover was found
 }
 
-INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
+INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 {
-	INT16 sGridNo;
-	INT16 sBestSpot = NOWHERE;
+	INT32 sGridNo;
+	INT32 sBestSpot = NOWHERE;
 	UINT32 uiLoop;
 	INT32 iThreatRange,iClosestThreatRange = 1500, iSpotClosestThreatRange;
-	INT16 sThreatLoc, sThreatGridNo[MAXMERCS];
+	INT32 sThreatLoc, sThreatGridNo[MAXMERCS];
 	UINT32 uiThreatCnt = 0;
 	INT32 iSearchRange;
 	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 	INT8 * pbPersOL,*pbPublOL, bEscapeDirection, bBestEscapeDirection = -1;
 	SOLDIERTYPE *pOpponent;
-	INT16	sOrigin;
+	INT32	sOrigin;
 	INT32	iRoamRange;
 
 	// BUILD A LIST OF THREATENING GRID #s FROM PERSONAL & PUBLIC opplistS
@@ -1250,15 +1251,15 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 	//NumMessage("gubNPCAPBudget = ",gubNPCAPBudget);
 
 	// determine maximum horizontal limits
-	sMaxLeft  = (INT16) min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
+	sMaxLeft  = min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
 	//NumMessage("sMaxLeft = ",sMaxLeft);
-	sMaxRight = (INT16) min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+	sMaxRight = min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 	//NumMessage("sMaxRight = ",sMaxRight);
 
 	// determine maximum vertical limits
-	sMaxUp   = (INT16) min( iSearchRange, (pSoldier->sGridNo / MAXROW));
+	sMaxUp   = min( iSearchRange, (pSoldier->sGridNo / MAXROW));
 	//NumMessage("sMaxUp = ",sMaxUp);
-	sMaxDown = (INT16) min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+	sMaxDown = min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 	//NumMessage("sMaxDown = ",sMaxDown);
 
 	// Call FindBestPath to set flags in all locations that we can
@@ -1282,7 +1283,7 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 		}
 	}
 
-	FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_RUN_AWAY ), COPYREACHABLE, 0 );
+	FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_RUN_AWAY ), COPYREACHABLE, 0 );//dnl ch50 121009
 
 	// Turn off the "reachable" flag for his current location
 	// so we don't consider it
@@ -1390,9 +1391,9 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 	return( sBestSpot );
 }
 
-INT16 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
+INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 {
-	INT16 sGridNo,sClosestLand = NOWHERE,sPathCost,sShortestPath = 1000;
+	INT32 sGridNo,sClosestLand = NOWHERE,sPathCost,sShortestPath = 1000;
 	INT16 sMaxLeft,sMaxRight,sMaxUp,sMaxDown,sXOffset,sYOffset;
 	INT32 iSearchRange;
 
@@ -1405,15 +1406,15 @@ INT16 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 		//NumMessage("Trying iSearchRange = ", iSearchRange);
 
 		// determine maximum horizontal limits
-		sMaxLeft  = (INT16) min(iSearchRange,(pSoldier->sGridNo % MAXCOL));
+		sMaxLeft  = min(iSearchRange,(pSoldier->sGridNo % MAXCOL));
 		//NumMessage("sMaxLeft = ",sMaxLeft);
-		sMaxRight = (INT16) min(iSearchRange,MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+		sMaxRight = min(iSearchRange,MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 		//NumMessage("sMaxRight = ",sMaxRight);
 
 		// determine maximum vertical limits
-		sMaxUp   = (INT16) min(iSearchRange,(pSoldier->sGridNo / MAXROW));
+		sMaxUp   = min(iSearchRange,(pSoldier->sGridNo / MAXROW));
 		//NumMessage("sMaxUp = ",sMaxUp);
-		sMaxDown = (INT16) min(iSearchRange,MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+		sMaxDown = min(iSearchRange,MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 		//NumMessage("sMaxDown = ",sMaxDown);
 
 		// Call FindBestPath to set flags in all locations that we can
@@ -1437,7 +1438,7 @@ INT16 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 			}
 		}
 
-		FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_LEAVE_WATER_GAS ), COPYREACHABLE, 0 );
+		FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_LEAVE_WATER_GAS ), COPYREACHABLE, 0 );//dnl ch50 071009
 
 		// Turn off the "reachable" flag for his current location
 		// so we don't consider it
@@ -1470,7 +1471,7 @@ INT16 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 				// CJC: here, unfortunately, we must calculate a path so we have an AP cost
 
 				// obviously, we're looking for LAND, so water is out!
-				sPathCost = (INT16) LegalNPCDestination(pSoldier,sGridNo,ENSURE_PATH_COST,NOWATER,0);
+				sPathCost = LegalNPCDestination(pSoldier,sGridNo,ENSURE_PATH_COST,NOWATER,0);
 
 				if (!sPathCost)
 				{
@@ -1490,8 +1491,8 @@ INT16 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 			}
 		}
 
-		// if we found a piece of land in this search area
-		if (sClosestLand != NOWHERE)	// quit now, no need to look any farther
+		// if we found a piece of land in this search area		
+		if (!TileIsOutOfBounds(sClosestLand))	// quit now, no need to look any farther
 			break;
 	}
 
@@ -1501,13 +1502,13 @@ INT16 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 
 INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 {
-	INT16 sGridNo, sClosestSpot = NOWHERE, sPathCost;
+	INT32 sGridNo, sClosestSpot = NOWHERE, sPathCost;
 	INT32	iSpotValue, iBestSpotValue = 1000;
 	INT16 sMaxLeft,sMaxRight,sMaxUp,sMaxDown,sXOffset,sYOffset;
 	INT32 iSearchRange;
 	INT8 bLightLevel, bCurrLightLevel, bLightDiff;
 	INT32 iRoamRange;
-	INT16 sOrigin;
+	INT32 sOrigin;
 
 	bCurrLightLevel = LightTrueLevel( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 
@@ -1518,15 +1519,15 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 	for (iSearchRange = 5; iSearchRange <= 15; iSearchRange += 5)
 	{
 		// determine maximum horizontal limits
-		sMaxLeft  = (INT16) min(iSearchRange,(pSoldier->sGridNo % MAXCOL));
+		sMaxLeft  = min(iSearchRange,(pSoldier->sGridNo % MAXCOL));
 		//NumMessage("sMaxLeft = ",sMaxLeft);
-		sMaxRight = (INT16) min(iSearchRange,MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+		sMaxRight = min(iSearchRange,MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 		//NumMessage("sMaxRight = ",sMaxRight);
 
 		// determine maximum vertical limits
-		sMaxUp   = (INT16) min(iSearchRange,(pSoldier->sGridNo / MAXROW));
+		sMaxUp   = min(iSearchRange,(pSoldier->sGridNo / MAXROW));
 		//NumMessage("sMaxUp = ",sMaxUp);
-		sMaxDown = (INT16) min(iSearchRange,MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+		sMaxDown = min(iSearchRange,MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 		//NumMessage("sMaxDown = ",sMaxDown);
 
 		// Call FindBestPath to set flags in all locations that we can
@@ -1550,7 +1551,7 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 			}
 		}
 
-		FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_LEAVE_WATER_GAS ), COPYREACHABLE, 0 );
+		FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_LEAVE_WATER_GAS ), COPYREACHABLE, 0 );//dnl ch50 071009
 
 		// Turn off the "reachable" flag for his current location
 		// so we don't consider it
@@ -1600,7 +1601,7 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 
 				// CJC: here, unfortunately, we must calculate a path so we have an AP cost
 
-				sPathCost = (INT16) LegalNPCDestination(pSoldier,sGridNo,ENSURE_PATH_COST,NOWATER,0);
+				sPathCost = LegalNPCDestination(pSoldier,sGridNo,ENSURE_PATH_COST,NOWATER,0);
 
 				if (!sPathCost)
 				{
@@ -1622,8 +1623,8 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 			}
 		}
 
-		// if we found a piece of land in this search area
-		if (sClosestSpot != NOWHERE)	// quit now, no need to look any farther
+		// if we found a piece of land in this search area		
+		if (!TileIsOutOfBounds(sClosestSpot))	// quit now, no need to look any farther
 		{
 			break;
 		}
@@ -1640,8 +1641,8 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 
 	INT32					iSearchRange;
 	INT16					sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
-	INT16					sGridNo;
-	INT16					sBestSpot = NOWHERE;
+	INT32 sGridNo;
+	INT32					sBestSpot = NOWHERE;
 	INT32					iTempValue, iValue, iBestValue = 0;
 	ITEM_POOL *		pItemPool;
 	OBJECTTYPE *	pObj;
@@ -1695,15 +1696,15 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 	iSearchRange /= 2;
 
 	// determine maximum horizontal limits
-	sMaxLeft  = (INT16) min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
+	sMaxLeft  = min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
 	//NumMessage("sMaxLeft = ",sMaxLeft);
-	sMaxRight = (INT16) min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+	sMaxRight = min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 	//NumMessage("sMaxRight = ",sMaxRight);
 
 	// determine maximum vertical limits
-	sMaxUp   = (INT16) min( iSearchRange, (pSoldier->sGridNo / MAXROW));
+	sMaxUp   = min( iSearchRange, (pSoldier->sGridNo / MAXROW));
 	//NumMessage("sMaxUp = ",sMaxUp);
-	sMaxDown = (INT16) min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+	sMaxDown = min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 	//NumMessage("sMaxDown = ",sMaxDown);
 
 	// Call FindBestPath to set flags in all locations that we can
@@ -1731,7 +1732,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 		}
 	}
 
-	FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_PICKUP_ITEM ), COPYREACHABLE, 0 );
+	FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_PICKUP_ITEM ), COPYREACHABLE, 0 );//dnl ch50 071009
 
 	// SET UP DOUBLE-LOOP TO STEP THROUGH POTENTIAL GRID #s
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
@@ -1914,7 +1915,10 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 										}
 										break;
 									default:
-										break;
+										// WANNE: Fix a vanilla bug: When an enemy soldier is looking for items and finds a non-helmet/vest/leggings piece of armour it was incorrectly considered for pickup.
+										// Fixed by Tron (Stracciatella): Revision: 5719
+										// break;
+										continue;
 								}
 							}
 							else
@@ -1941,8 +1945,8 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 			}
 		}
 	}
-
-	if (sBestSpot != NOWHERE)
+	
+	if (!TileIsOutOfBounds(sBestSpot))
 	{
 		DebugAI( String( "%d decides to pick up %S", pSoldier->ubID, ItemNames[ gWorldItems[ iBestItemIndex ].object.usItem ] ) );
 		if (Item[gWorldItems[ iBestItemIndex ].object.usItem].usItemClass == IC_GUN)
@@ -1982,26 +1986,26 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 	return( AI_ACTION_NONE );
 }
 
-INT16 FindClosestDoor( SOLDIERTYPE * pSoldier )
+INT32 FindClosestDoor( SOLDIERTYPE * pSoldier )
 {
-	INT16		sClosestDoor = NOWHERE;
+	INT32		sClosestDoor = NOWHERE;
 	INT32		iSearchRange;
 	INT16		sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
-	INT16		sGridNo;
+	INT32 sGridNo;
 	INT32		iDist, iClosestDist = 10;
 
 	iSearchRange = 5;
 
 	// determine maximum horizontal limits
-	sMaxLeft  = (INT16) min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
+	sMaxLeft  = min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
 	//NumMessage("sMaxLeft = ",sMaxLeft);
-	sMaxRight = (INT16) min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+	sMaxRight = min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 	//NumMessage("sMaxRight = ",sMaxRight);
 
 	// determine maximum vertical limits
-	sMaxUp   = (INT16) min( iSearchRange, (pSoldier->sGridNo / MAXROW));
+	sMaxUp   = min( iSearchRange, (pSoldier->sGridNo / MAXROW));
 	//NumMessage("sMaxUp = ",sMaxUp);
-	sMaxDown = (INT16) min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+	sMaxDown = min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 	//NumMessage("sMaxDown = ",sMaxDown);
 	// SET UP DOUBLE-LOOP TO STEP THROUGH POTENTIAL GRID #s
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
@@ -2025,12 +2029,12 @@ INT16 FindClosestDoor( SOLDIERTYPE * pSoldier )
 	return( sClosestDoor );
 }
 
-INT16 FindNearestEdgepointOnSpecifiedEdge( INT16 sGridNo, INT8 bEdgeCode )
+INT32 FindNearestEdgepointOnSpecifiedEdge( INT32 sGridNo, INT8 bEdgeCode )
 {
 	INT32			iLoop;
-	INT16			*psEdgepointArray;
+	INT32			*psEdgepointArray;
 	INT32			iEdgepointArraySize;
-	INT16			sClosestSpot = NOWHERE, sClosestDist = 0x7FFF, sTempDist;
+	INT32			sClosestSpot = NOWHERE, sClosestDist = 0x7FFF, sTempDist;
 
 	switch( bEdgeCode )
 	{
@@ -2071,16 +2075,16 @@ INT16 FindNearestEdgepointOnSpecifiedEdge( INT16 sGridNo, INT8 bEdgeCode )
 	return( sClosestSpot );
 }
 
-INT16 FindNearestEdgePoint( INT16 sGridNo )
+INT32 FindNearestEdgePoint( INT32 sGridNo )
 {
 	INT16			sGridX, sGridY;
 	INT16			sScreenX, sScreenY, sMaxScreenX, sMaxScreenY;
 	INT16			sDist[5], sMinDist;
 	INT32			iLoop;
 	INT8			bMinIndex;
-	INT16 *		psEdgepointArray;
+	INT32 *		psEdgepointArray;
 	INT32			iEdgepointArraySize;
-	INT16			sClosestSpot = NOWHERE, sClosestDist = 0x7FFF, sTempDist;
+	INT32			sClosestSpot = NOWHERE, sClosestDist = 0x7FFF, sTempDist;
 
 	ConvertGridNoToXY( sGridNo, &sGridX, &sGridY );
 	GetWorldXYAbsoluteScreenXY( sGridX, sGridY, &sScreenX, &sScreenY );
@@ -2146,12 +2150,12 @@ INT16 FindNearestEdgePoint( INT16 sGridNo )
 
 #define EDGE_OF_MAP_SEARCH 5
 
-INT16 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection )
+INT32 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection )
 {
 	INT32		iSearchRange;
 	INT16		sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 
-	INT16 sGridNo, sClosestSpot = NOWHERE;
+	INT32 sGridNo, sClosestSpot = NOWHERE;
 	INT8	bDirection, bClosestDirection;
 	INT32 iPathCost, iClosestPathCost = 1000;
 
@@ -2166,15 +2170,15 @@ INT16 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection )
 	iSearchRange = EDGE_OF_MAP_SEARCH;
 
 	// determine maximum horizontal limits
-	sMaxLeft  = (INT16) min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
+	sMaxLeft  = min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
 	//NumMessage("sMaxLeft = ",sMaxLeft);
-	sMaxRight = (INT16) min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+	sMaxRight = min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 	//NumMessage("sMaxRight = ",sMaxRight);
 
 	// determine maximum vertical limits
-	sMaxUp   = (INT16) min( iSearchRange, (pSoldier->sGridNo / MAXROW));
+	sMaxUp   = min( iSearchRange, (pSoldier->sGridNo / MAXROW));
 	//NumMessage("sMaxUp = ",sMaxUp);
-	sMaxDown = (INT16) min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+	sMaxDown = min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 
 	// reset the "reachable" flags in the region we're looking at
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
@@ -2191,7 +2195,7 @@ INT16 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection )
 		}
 	}
 
-	FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, WALKING, COPYREACHABLE, 0 );
+	FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, WALKING, COPYREACHABLE, 0 );//dnl ch50 071009
 
 	// Turn off the "reachable" flag for his current location
 	// so we don't consider it
@@ -2233,7 +2237,7 @@ INT16 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection )
 	return( sClosestSpot );
 }
 
-INT16 FindRouteBackOntoMap( SOLDIERTYPE * pSoldier, INT16 sDestGridNo )
+INT32 FindRouteBackOntoMap( SOLDIERTYPE * pSoldier, INT32 sDestGridNo )
 {
 	// the first thing to do is restore the soldier's gridno from the X and Y
 	// values
@@ -2251,12 +2255,12 @@ INT16 FindRouteBackOntoMap( SOLDIERTYPE * pSoldier, INT16 sDestGridNo )
 
 }
 
-INT16 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
+INT32 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
 {
 	INT32		iSearchRange;
 	INT16		sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 
-	INT16 sGridNo, sClosestSpot = NOWHERE;
+	INT32 sGridNo, sClosestSpot = NOWHERE;
 	INT32 iDistance, iClosestDistance = 9999;
 	UINT8	ubRoom;
 
@@ -2264,9 +2268,9 @@ INT16 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
 	iSearchRange = 7;
 
 	// determine maximum horizontal limits
-	sMaxLeft  = (INT16) min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
+	sMaxLeft  = min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
 	//NumMessage("sMaxLeft = ",sMaxLeft);
-	sMaxRight = (INT16) min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+	sMaxRight = min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 	//NumMessage("sMaxRight = ",sMaxRight);
 
 	if ( (pSoldier->bTeam == gbPlayerNum) && (fInRing == FALSE) )
@@ -2276,9 +2280,9 @@ INT16 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
 	}
 
 	// determine maximum vertical limits
-	sMaxUp   = (INT16) min( iSearchRange, (pSoldier->sGridNo / MAXROW));
+	sMaxUp   = min( iSearchRange, (pSoldier->sGridNo / MAXROW));
 	//NumMessage("sMaxUp = ",sMaxUp);
-	sMaxDown = (INT16) min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+	sMaxDown = min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
 	{
@@ -2305,12 +2309,12 @@ INT16 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
 	return( sClosestSpot );
 }
 
-INT16 FindNearestOpenableNonDoor( INT16 sStartGridNo )
+INT32 FindNearestOpenableNonDoor( INT32 sStartGridNo )
 {
 	INT32		iSearchRange;
 	INT16		sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 
-	INT16		sGridNo, sClosestSpot = NOWHERE;
+	INT32 sGridNo, sClosestSpot = NOWHERE;
 	INT32		iDistance, iClosestDistance = 9999;
 	STRUCTURE * pStructure;
 
@@ -2318,15 +2322,15 @@ INT16 FindNearestOpenableNonDoor( INT16 sStartGridNo )
 	iSearchRange = 7;
 
 	// determine maximum horizontal limits
-	sMaxLeft  = (INT16) min( iSearchRange, (sStartGridNo % MAXCOL));
+	sMaxLeft  = min( iSearchRange, (sStartGridNo % MAXCOL));
 	//NumMessage("sMaxLeft = ",sMaxLeft);
-	sMaxRight = (INT16) min( iSearchRange, MAXCOL - ((sStartGridNo % MAXCOL) + 1));
+	sMaxRight = min( iSearchRange, MAXCOL - ((sStartGridNo % MAXCOL) + 1));
 	//NumMessage("sMaxRight = ",sMaxRight);
 
 	// determine maximum vertical limits
-	sMaxUp   = (INT16) min( iSearchRange, (sStartGridNo / MAXROW));
+	sMaxUp   = min( iSearchRange, (sStartGridNo / MAXROW));
 	//NumMessage("sMaxUp = ",sMaxUp);
-	sMaxDown = (INT16) min( iSearchRange, MAXROW - ((sStartGridNo / MAXROW) + 1));
+	sMaxDown = min( iSearchRange, MAXROW - ((sStartGridNo / MAXROW) + 1));
 
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
 	{
@@ -2367,10 +2371,10 @@ INT16 FindNearestOpenableNonDoor( INT16 sStartGridNo )
 
 
 
-INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
+INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 {
-	INT16 sGridNo;
-	INT16 sBestSpot = NOWHERE;
+	INT32 sGridNo;
+	INT32 sBestSpot = NOWHERE;
 	INT32 iSearchRange = 4;
 	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 
@@ -2425,15 +2429,15 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 	// stay away from the edges
 
 	// determine maximum horizontal limits
-	sMaxLeft  = (INT16) min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
+	sMaxLeft  = min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
 	//NumMessage("sMaxLeft = ",sMaxLeft);
-	sMaxRight = (INT16) min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+	sMaxRight = min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 	//NumMessage("sMaxRight = ",sMaxRight);
 
 	// determine maximum vertical limits
-	sMaxUp   = (INT16) min( iSearchRange, (pSoldier->sGridNo / MAXROW));
+	sMaxUp   = min( iSearchRange, (pSoldier->sGridNo / MAXROW));
 	//NumMessage("sMaxUp = ",sMaxUp);
-	sMaxDown = (INT16) min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+	sMaxDown = min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 	//NumMessage("sMaxDown = ",sMaxDown);
 
 	// Call FindBestPath to set flags in all locations that we can
@@ -2457,7 +2461,7 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 		}
 	}
 
-	FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, bAction ), COPYREACHABLE, 0 );
+	FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, bAction ), COPYREACHABLE, 0 );//dnl ch50 071009
 
 	// Turn off the "reachable" flag for his current location
 	// so we don't consider it
@@ -2500,7 +2504,7 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 			// calculate the next potential gridno
 			sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
 			sTempDir = GetDirectionFromGridNo ( sGridNo, pSoldier );
-			sTempDist = (INT16) GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo , sGridNo );
+			sTempDist = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo , sGridNo );
 
 			//NumMessage("Testing gridno #",gridno);
 			if ( !(sGridNo >=0 && sGridNo < WORLD_MAX) )
@@ -2566,9 +2570,9 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 
 
 
-INT16 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
+INT32 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 {
-	INT16 sBestSpot = NOWHERE;
+	INT32 sBestSpot = NOWHERE;
 
 	//DebugMsg( TOPIC_JA2AI , DBG_LEVEL_3 , "FindClosestClimbPoint");
 
@@ -2581,7 +2585,7 @@ INT16 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 	if (fClimbUp)
 	{
 		// For the climb up case, search the nearby limits for a climb up point and take the closest.
-		INT16 sGridNo;
+		INT32 sGridNo;
 		static const INT32 iSearchRange = 20;
 		INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 		UINT8 ubTestDir;
@@ -2631,7 +2635,7 @@ INT16 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 					// Search for the destination climb point on the roof
 					for (ubTestDir=0; ubTestDir < 8; ubTestDir += 2)
 					{
-						INT16 sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
+						INT32 sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
 						// And see if it or the ground location is occupied
 						if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT &&
 							(WhoIsThere2( sTestGridNo, 1 ) == NOBODY) &&
@@ -2668,7 +2672,7 @@ BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp )
 	return FindDirectionForClimbing( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel) != DIRECTION_IRRELEVANT;
 #else
 	BUILDING * pBuilding;
-	INT16 i;
+	INT32 i;
 	INT32 iSearchRange = 1;
 	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 
@@ -2676,14 +2680,14 @@ BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp )
 
 
 	// determine maximum horizontal limits
-	sMaxLeft  = (INT16) min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
-	sMaxRight = (INT16) min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+	sMaxLeft  = min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
+	sMaxRight = min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 
 	// determine maximum vertical limits
-	sMaxUp   = (INT16) min( iSearchRange, (pSoldier->sGridNo / MAXROW));
-	sMaxDown = (INT16) min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+	sMaxUp   = min( iSearchRange, (pSoldier->sGridNo / MAXROW));
+	sMaxDown = min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 
-	INT16 sGridNo=NOWHERE;
+	INT32 sGridNo=NOWHERE;
 
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
 	{
@@ -2783,7 +2787,7 @@ extern BUILDING gBuildings[ MAX_BUILDINGS ];
 extern UINT8 gubNumberOfBuildings;
 
 
-INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubSearchRadius )
+INT32 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubSearchRadius )
 {
 	INT32 iPercentBetter;
 //	INT16 sTrueGridNo;
@@ -2798,18 +2802,18 @@ INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubS
 
 	pSoldier->stats.bWisdom = bRealWisdom;
 //	pSoldier->sGridNo = sTrueGridNo;
-
-	if( sResultGridNo != NOWHERE )
+	
+	if(!TileIsOutOfBounds(sResultGridNo))
 		return sResultGridNo;
 	else
 		return sGridNo;
 
 }
 
-INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel )
+INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	UINT8 ubClimbDir;
-	INT16 sClimbSpot;
+	INT32 sClimbSpot;
 
 	if (bLevel == 0)
 	{

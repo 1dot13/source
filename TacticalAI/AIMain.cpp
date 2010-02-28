@@ -558,8 +558,8 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		if (pSoldier->aiData.bAction >= FIRST_MOVEMENT_ACTION && pSoldier->aiData.bAction <= LAST_MOVEMENT_ACTION && !pSoldier->flags.fDelayedMovement)
 		{
 			if (pSoldier->pathing.usPathIndex == pSoldier->pathing.usPathDataSize)
-			{
-				if (pSoldier->sAbsoluteFinalDestination != NOWHERE)
+			{				
+				if (!TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination))
 				{
 					if ( !ACTING_ON_SCHEDULE( pSoldier ) &&  SpacesAway( pSoldier->sGridNo, pSoldier->sAbsoluteFinalDestination ) < 4 )
 					{
@@ -897,7 +897,7 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 
 
 
-BOOLEAN DestNotSpokenFor(SOLDIERTYPE *pSoldier, INT16 sGridno)
+BOOLEAN DestNotSpokenFor(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 {
 	INT32 cnt;
 	SOLDIERTYPE *pOurTeam;
@@ -909,7 +909,7 @@ BOOLEAN DestNotSpokenFor(SOLDIERTYPE *pSoldier, INT16 sGridno)
 	{
 		if ( pOurTeam->bActive )
 		{
-			if (pOurTeam->sGridNo == sGridno || pOurTeam->aiData.usActionData == sGridno)
+			if (pOurTeam->sGridNo == sGridNo || pOurTeam->aiData.usActionData == sGridNo)
 				return(FALSE);
 		}
 	}
@@ -918,25 +918,25 @@ BOOLEAN DestNotSpokenFor(SOLDIERTYPE *pSoldier, INT16 sGridno)
 }
 
 
-INT16 FindAdjacentSpotBeside(SOLDIERTYPE *pSoldier, INT16 sGridno)
+INT32 FindAdjacentSpotBeside(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 {
 	INT32 cnt;
-	INT16 mods[4] = {-1,-MAPWIDTH,1,MAPWIDTH};
-	INT16 sTempGridno,sCheapestCost=500,sMovementCost,sCheapestDest=NOWHERE;
-
+	INT16 mods[4] = {-1,-WORLD_COLS,1,WORLD_COLS};
+	INT32 sTempGridNo = NOWHERE, sCheapestDest = MAX_MAP_POS;
+	INT16 sCheapestCost=500, sMovementCost;
 
 	for (cnt=0; cnt < 4; cnt++)
 	{
-		sTempGridno = sGridno + mods[cnt];
-		if (!OutOfBounds(sGridno,sTempGridno))
+		sTempGridNo = sGridNo + mods[cnt];
+		if (!OutOfBounds(sGridNo,sTempGridNo))
 		{
-			if (NewOKDestination(pSoldier,sTempGridno,PEOPLETOO, pSoldier->pathing.bLevel ) && DestNotSpokenFor(pSoldier,sTempGridno))
+			if (NewOKDestination(pSoldier,sTempGridNo,PEOPLETOO, pSoldier->pathing.bLevel ) && DestNotSpokenFor(pSoldier,sTempGridNo))
 			{
-				sMovementCost = PlotPath(pSoldier,sTempGridno,FALSE,FALSE,FALSE,WALKING,FALSE,FALSE,0);
+				sMovementCost = PlotPath(pSoldier,sTempGridNo,FALSE,FALSE,FALSE,WALKING,FALSE,FALSE,0);
 				if (sMovementCost < sCheapestCost)
 				{
 					sCheapestCost	= sMovementCost;
-					sCheapestDest = sTempGridno;
+					sCheapestDest = sTempGridNo;
 				}
 
 			}
@@ -1486,8 +1486,8 @@ pSoldier->aiData.bActionTimeout = 0;
 
 INT16 ActionInProgress(SOLDIERTYPE *pSoldier)
 {
-	// if NPC has a desired destination, but isn't currently going there
-	if ((pSoldier->pathing.sFinalDestination != NOWHERE) && (pSoldier->pathing.sDestination != pSoldier->pathing.sFinalDestination))
+	// if NPC has a desired destination, but isn't currently going there	
+	if ((!TileIsOutOfBounds(pSoldier->pathing.sFinalDestination)) && (pSoldier->pathing.sDestination != pSoldier->pathing.sFinalDestination))
 	{
 		// return success (TRUE) if we successfully resume the movement
 		return(TryToResumeMovement(pSoldier,pSoldier->pathing.sFinalDestination));
@@ -1870,8 +1870,8 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 				// the item pool index was stored in the special data field
 				pSoldier->aiData.uiPendingActionData1 = pSoldier->iNextActionSpecialData;
 			}
-		}
-		else if ( pSoldier->sAbsoluteFinalDestination != NOWHERE )
+		}		
+		else if (!TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination))
 		{
 			if ( ACTING_ON_SCHEDULE( pSoldier ) )
 			{
@@ -1948,8 +1948,8 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 
 			// perform the chosen action
 			pSoldier->aiData.bActionInProgress = ExecuteAction(pSoldier); // if started, mark us as busy
-
-			if ( !pSoldier->aiData.bActionInProgress && pSoldier->sAbsoluteFinalDestination != NOWHERE )
+			
+			if ( !pSoldier->aiData.bActionInProgress && !TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination))
 			{
 				// turn based... abort this guy's turn
 				EndAIGuysTurn( pSoldier );
@@ -2201,12 +2201,12 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		}
 
 		if ( gfTurnBasedAI && pSoldier->aiData.bAlertStatus < STATUS_BLACK )
-		{
-			if ( pSoldier->sLastTwoLocations[0] == NOWHERE )
+		{			
+			if (TileIsOutOfBounds(pSoldier->sLastTwoLocations[0]))
 			{
 				pSoldier->sLastTwoLocations[0] = pSoldier->sGridNo;
-			}
-			else if ( pSoldier->sLastTwoLocations[1] == NOWHERE )
+			}			
+			else if (TileIsOutOfBounds(pSoldier->sLastTwoLocations[1]))
 			{
 				pSoldier->sLastTwoLocations[1] = pSoldier->sGridNo;
 			}
@@ -2246,8 +2246,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 		// optimization - Ian (if up-to-date path is known, do not check again)
 		if (!pSoldier->pathing.bPathStored)
-		{
-			if ( (pSoldier->sAbsoluteFinalDestination != NOWHERE || gTacticalStatus.fAutoBandageMode) && !(gTacticalStatus.uiFlags & INCOMBAT) )
+		{			
+			if ( (!TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination) || gTacticalStatus.fAutoBandageMode) && !(gTacticalStatus.uiFlags & INCOMBAT) )
 			{
 				// NPC system move, allow path through
 				if (LegalNPCDestination(pSoldier,pSoldier->aiData.usActionData,ENSURE_PATH,WATEROK, PATH_THROUGH_PEOPLE ))
@@ -2268,8 +2268,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			// if we STILL don't have a path
 			if ( !pSoldier->pathing.bPathStored )
 			{
-				// Check if we were told to move by NPC stuff
-				if ( pSoldier->sAbsoluteFinalDestination != NOWHERE && !(gTacticalStatus.uiFlags & INCOMBAT) )
+				// Check if we were told to move by NPC stuff				
+				if ( !TileIsOutOfBounds(pSoldier->sAbsoluteFinalDestination) && !(gTacticalStatus.uiFlags & INCOMBAT) )
 				{
 					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"AI %s failed to get path for dialogue-related move!", pSoldier->name );
 
@@ -2586,9 +2586,9 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		{
 			STRUCTURE *		pStructure;
 			UINT8					ubDirection;
-			INT16					sDoorGridNo;
+				INT32					sDoorGridNo;
 
-			ubDirection = GetDirectionFromGridNo( (INT16)pSoldier->aiData.usActionData, pSoldier );
+			ubDirection = GetDirectionFromGridNo( pSoldier->aiData.usActionData, pSoldier );
 			if (ubDirection == EAST || ubDirection == SOUTH)
 			{
 				sDoorGridNo = pSoldier->sGridNo;
@@ -2697,8 +2697,8 @@ void CheckForChangingOrders(SOLDIERTYPE *pSoldier)
 	{
 	case STATUS_GREEN:
 		if ( !CREATURE_OR_BLOODCAT( pSoldier ) )
-		{
-			if ( pSoldier->bTeam == CIV_TEAM && pSoldier->ubProfile != NO_PROFILE && pSoldier->aiData.bNeutral && gMercProfiles[ pSoldier->ubProfile ].sPreCombatGridNo != NOWHERE && pSoldier->ubCivilianGroup != QUEENS_CIV_GROUP )
+		{			
+			if ( pSoldier->bTeam == CIV_TEAM && pSoldier->ubProfile != NO_PROFILE && pSoldier->aiData.bNeutral && !TileIsOutOfBounds(gMercProfiles[ pSoldier->ubProfile ].sPreCombatGridNo) && pSoldier->ubCivilianGroup != QUEENS_CIV_GROUP )
 			{
 				// must make them uncower first, then return to start location
 				pSoldier->aiData.bNextAction = AI_ACTION_END_COWER_AND_MOVE;

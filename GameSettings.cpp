@@ -103,7 +103,7 @@ BOOLEAN IsNIVModeValid(bool checkRes)
 	return( TRUE );
 #else
 	// Check if the Profile with the NAME = "v1.13" is found in the specificed vfs_config.*.ini
-	if(GetVFS()->GetProfileStack()->GetProfile(L"v1.13") != NULL)
+	if(getVFS()->getProfileStack()->getProfile(L"v1.13") != NULL)
 	{
 		return TRUE;
 	}
@@ -369,19 +369,19 @@ BOOLEAN	SaveGameSettings()
 	fprintf_s (file_pointer , settings.str().c_str());
 	fclose( file_pointer );
 #else
-	vfs::UInt32 written;
 	try
 	{
 		vfs::COpenWriteFile wfile(GAME_SETTINGS_FILE,true,true);
-		wfile.file().Write(settings.str().c_str(), settings.str().length(),written);
+		wfile.file().write(settings.str().c_str(), settings.str().length());
 	}
 	catch(CBasicException& ex)
 	{
-		vfs::CFile wfile(GAME_SETTINGS_FILE);
-		if(wfile.OpenWrite(true,true))
+		logException(ex);
+		vfs::CFile file(GAME_SETTINGS_FILE);
+		if(file.openWrite(true,true))
 		{
-			wfile.Write(settings.str().c_str(), settings.str().length(),written);
-			wfile.Close();
+			vfs::COpenWriteFile wfile( vfs::tWritableFile::cast(&file));
+			TRYCATCH_RETHROW(file.write(settings.str().c_str(), settings.str().length()),L"");
 		}
 	}
 #endif
@@ -743,15 +743,14 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fQuietRealTimeSneak		= iniReader.ReadBoolean("JA2 Tactical Settings","QUIET_REAL_TIME_SNEAK", FALSE);
 
 	// CPT: Cover System Settings
-	gGameExternalOptions.ubStealthTraitCoverValue	= iniReader.ReadInteger("JA2 Tactical Settings", "STEALTH_TRAIT_COVER_VALUE", 15, 0, 100);
-	gGameExternalOptions.ubStealthEffectiveness		= iniReader.ReadInteger("JA2 Tactical Settings", "STEALTH_EFFECTIVENESS", 50, 0, 100);
-	gGameExternalOptions.ubTreeCoverEffectiveness	= iniReader.ReadInteger("JA2 Tactical Settings", "TREE_COVER_EFFECTIVENESS", 50, 0, 100);
-	gGameExternalOptions.ubCamouflageEffectiveness	= iniReader.ReadInteger("JA2 Tactical Settings", "CAMOUFLAGE_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubStealthTraitCoverValue = iniReader.ReadInteger("JA2 Tactical Settings","STEALTH_TRAIT_COVER_VALUE", 15, 0, 100);
+	gGameExternalOptions.ubStealthEffectiveness = iniReader.ReadInteger("JA2 Tactical Settings", "STEALTH_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubTreeCoverEffectiveness = iniReader.ReadInteger("JA2 Tactical Settings","TREE_COVER_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubCamouflageEffectiveness = iniReader.ReadInteger("JA2 Tactical Settings", "CAMOUFLAGE_EFFECTIVENESS", 50, 0, 100);
 	gGameExternalOptions.ubStanceEffectiveness		= iniReader.ReadInteger("JA2 Tactical Settings", "STANCE_EFFECTIVENESS", 10, 0, 100);
 	gGameExternalOptions.ubLBEEffectiveness			= iniReader.ReadInteger("JA2 Tactical Settings", "LBE_EFFECTIVENESS", 50, 0, 100);
 	gGameExternalOptions.ubMovementEffectiveness	= iniReader.ReadInteger("JA2 Tactical Settings", "MOVEMENT_EFFECTIVENESS", 50, 0, 100);
-	gGameExternalOptions.ubCoverDisplayUpdateWait	= iniReader.ReadInteger("JA2 Tactical Settings", "COVER_DISPLAY_UPDATE_WAIT", 500, -1, 10000);
-
+	gGameExternalOptions.ubCoverDisplayUpdateWait = iniReader.ReadInteger("JA2 Tactical Settings", "COVER_DISPLAY_UPDATE_WAIT", 500, -1, 10000);
 
 	//################# Rain Settings ##################
 
@@ -1127,7 +1126,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.usMaxShooterCoweringPenalty		= iniReader.ReadInteger("JA2 HAM Settings","MAX_SHOOTER_COWERING_PENALTY", 0, 0, 250 );
 	gGameExternalOptions.usMaxTargetCoweringPenalty		= iniReader.ReadInteger("JA2 HAM Settings","MAX_TARGET_COWERING_PENALTY", 0, 0, 250 );
 
-	// HEADROCK HAM B2.8: At "1", Militia will drop their equipment similar to enemies, IF killed by non-player character. At "2" they drop whenever killed.
+	// HEADROCK HAM B2.8: If this is turned on, Militia will drop their equipment similar to enemies, IF killed by non-player character.
 	gGameExternalOptions.ubMilitiaDropEquipment					= iniReader.ReadInteger("JA2 HAM Settings","MILITIA_DROP_EQUIPMENT", 0, 0, 2 );
 
 	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will go to sleep when their trainer goes to sleep. 3 = Trainer will go to sleep if all trainees are asleep. 1 = Both. 0 = Neither.
@@ -1316,6 +1315,14 @@ void LoadGameExternalOptions()
 
 	// HEADROCK HAM 3.6: If activated, the game does not switch focus to a merc who spots an enemy in real-time mode. This fixes issues with Real-Time Sneak.
 	gGameExternalOptions.fNoAutoFocusChangeInRealtimeSneak		= iniReader.ReadBoolean("JA2 HAM Settings","NO_AUTO_FOCUS_CHANGE_IN_REALTIME_SNEAK", FALSE);
+
+	// WANNE: This is just a debug setting. Only in debug version we should check if propert is set in the ja2_options.ini,
+	// In Release version this should always be set to FALSE
+	//dnl ch51 081009 JA2 Debug Settings
+#ifdef _DEBUG
+	gGameExternalOptions.fEnableInventoryPoolQ				= iniReader.ReadBoolean("JA2 Debug Settings", "ENABLE_INVENTORY_POOL_Q", FALSE);
+#endif
+	gGameExternalOptions.fEnableInventoryPoolQ = FALSE;
 }
 
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)
@@ -1844,10 +1851,10 @@ void DisplayGameSettings( )
 	if (!is_networked)
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[58], CurrentPlayerProgressPercentage(), HighestPlayerProgressPercentage() );
 
-#ifdef _DEBUG
-	// WDS - Add debug output here
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[58], CurrentPlayerProgressPercentage(), HighestPlayerProgressPercentage() );
-#endif
+//#ifdef _DEBUG
+//	// WDS - Add debug output here
+//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[58], CurrentPlayerProgressPercentage(), HighestPlayerProgressPercentage() );
+//#endif
 
 	////if( CHEATER_CHEAT_LEVEL() )
 	//{

@@ -133,12 +133,12 @@ void DecSmartBrokenWallUIValue()
 	gubBrokenWallUIValue -= gubBrokenWallUIValue > 0 ? 1 : -4;
 }
 
-BOOLEAN CalcWallInfoUsingSmartMethod( UINT32 iMapIndex, UINT16 *pusWallType, UINT16 *pusIndex )
+BOOLEAN CalcWallInfoUsingSmartMethod( INT32 iMapIndex, UINT16 *pusWallType, UINT16 *pusIndex )
 {
 	return FALSE;
 }
 
-BOOLEAN CalcDoorInfoUsingSmartMethod( UINT32 iMapIndex, UINT16 *pusDoorType, UINT16 *pusIndex )
+BOOLEAN CalcDoorInfoUsingSmartMethod( INT32 iMapIndex, UINT16 *pusDoorType, UINT16 *pusIndex )
 {
 	LEVELNODE *pWall = NULL;
 	UINT16 usWallOrientation;
@@ -161,7 +161,7 @@ BOOLEAN CalcDoorInfoUsingSmartMethod( UINT32 iMapIndex, UINT16 *pusDoorType, UIN
 	return FALSE;
 }
 
-BOOLEAN CalcWindowInfoUsingSmartMethod( UINT32 iMapIndex, UINT16 *pusWallType, UINT16 *pusIndex )
+BOOLEAN CalcWindowInfoUsingSmartMethod( INT32 iMapIndex, UINT16 *pusWallType, UINT16 *pusIndex )
 {
 	LEVELNODE *pWall = NULL;
 	UINT32 uiTileType;
@@ -200,7 +200,7 @@ BOOLEAN CalcWindowInfoUsingSmartMethod( UINT32 iMapIndex, UINT16 *pusWallType, U
 	return FALSE;
 }
 
-BOOLEAN CalcBrokenWallInfoUsingSmartMethod( UINT32 iMapIndex, UINT16 *pusWallType, UINT16 *pusIndex )
+BOOLEAN CalcBrokenWallInfoUsingSmartMethod( INT32 iMapIndex, UINT16 *pusWallType, UINT16 *pusIndex )
 {
 	LEVELNODE *pWall = NULL;
 	UINT32 uiTileType;
@@ -267,10 +267,10 @@ BOOLEAN CalcBrokenWallInfoUsingSmartMethod( UINT32 iMapIndex, UINT16 *pusWallTyp
 //		type, there are two more cases.	When there is a bottom wall in the y+1 position or a right wall in
 //		the x+1 position.	If there are matching walls, there, then we draw two pieces to connect the current
 //		gridno with the respective position.
-void PasteSmartWall( UINT32 iMapIndex )
+void PasteSmartWall( INT32 iMapIndex )
 {
 	static BOOLEAN fWallAlone = FALSE;
-	static UINT32 iAloneMapIndex = 0x8000;
+	static UINT32 iAloneMapIndex = 0x80000000;
 	UINT16 usWallType;
 
 	//These are the counters for the walls of each type
@@ -481,7 +481,7 @@ void PasteSmartWall( UINT32 iMapIndex )
 	//Check for the highest weight value.
 }
 
-void PasteSmartDoor( UINT32 iMapIndex )
+void PasteSmartDoor( INT32 iMapIndex )
 {
 	LEVELNODE *pWall = NULL;
 	UINT16 usTileIndex;
@@ -509,7 +509,7 @@ void PasteSmartDoor( UINT32 iMapIndex )
 	}
 }
 
-void PasteSmartWindow( UINT32 iMapIndex )
+void PasteSmartWindow( INT32 iMapIndex )
 {
 	UINT16 usNewWallIndex;
 
@@ -558,7 +558,7 @@ void PasteSmartWindow( UINT32 iMapIndex )
 	}
 }
 
-void PasteSmartBrokenWall( UINT32 iMapIndex )
+void PasteSmartBrokenWall( INT32 iMapIndex )
 {
 	UINT16 usNewWallIndex;
 

@@ -5,134 +5,135 @@
 
 /************************************************************************/
 
-vfs::CVirtualLocation::Iterator::Iterator(CVirtualLocation* pLoc)
-: m_pLoc(pLoc)
+class vfs::CVirtualLocation::VFileIterator : public vfs::CVirtualLocation::Iterator::IImplementation
 {
-	_vfile_iter = m_pLoc->m_mapVFiles.begin();
-}
+	friend class vfs::CVirtualLocation;
+	typedef vfs::CVirtualLocation::Iterator::IImplementation tBaseClass;
 
-vfs::CVirtualLocation::Iterator::Iterator()
-: m_pLoc(NULL)
-{
-}
-
-vfs::CVirtualLocation::Iterator::~Iterator()
-{
-}
-
-vfs::CVirtualFile* vfs::CVirtualLocation::Iterator::value()
-{
-	if(m_pLoc && _vfile_iter != m_pLoc->m_mapVFiles.end())
+	VFileIterator(vfs::CVirtualLocation* pLoc): tBaseClass(), m_pLoc(pLoc)
 	{
-		return _vfile_iter->second;
+		THROWIFFALSE(pLoc, L"");
+		_vfile_iter = m_pLoc->m_VFiles.begin();
 	}
-	return NULL;
-}
-
-void vfs::CVirtualLocation::Iterator::next()
-{
-	if(m_pLoc && _vfile_iter != m_pLoc->m_mapVFiles.end())
+public:
+	VFileIterator() : tBaseClass(), m_pLoc(NULL)
+	{};
+	virtual ~VFileIterator()
+	{};
+	virtual vfs::CVirtualFile*	value()
 	{
-		_vfile_iter++;
+		if(m_pLoc && _vfile_iter != m_pLoc->m_VFiles.end())
+		{
+			return _vfile_iter->second;
+		}
+		return NULL;
 	}
-}
-
-bool vfs::CVirtualLocation::Iterator::end()
-{
-	if(m_pLoc)
+	virtual void				next()
 	{
-		return _vfile_iter == m_pLoc->m_mapVFiles.end();
+		if(m_pLoc && _vfile_iter != m_pLoc->m_VFiles.end())
+		{
+			_vfile_iter++;
+		}
 	}
-	return true;
-}
+protected:
+	virtual tBaseClass* clone()
+	{
+		VFileIterator* iter = new VFileIterator(m_pLoc);
+		iter->_vfile_iter = _vfile_iter;
+		return iter;
+	}
+private:
+	vfs::CVirtualLocation*						m_pLoc;
+	vfs::CVirtualLocation::tVFiles::iterator	_vfile_iter;
+};
 
 /************************************************************************/
 
-vfs::CVirtualLocation::CVirtualLocation(vfs::Path const& sPath)
-: Path(sPath), m_bExclusive(false)
+vfs::CVirtualLocation::CVirtualLocation(vfs::Path const& path)
+: cPath(path), m_exclusive(false)
 {};
 
 vfs::CVirtualLocation::~CVirtualLocation()
 {
-	tVFiles::iterator it = m_mapVFiles.begin();
-	for(; it != m_mapVFiles.end(); ++it)
+	tVFiles::iterator it = m_VFiles.begin();
+	for(; it != m_VFiles.end(); ++it)
 	{
-		it->second->Destroy();
+		it->second->destroy();
 	}
-	m_mapVFiles.clear();
+	m_VFiles.clear();
 }
 
-void vfs::CVirtualLocation::SetIsExclusive(bool bExclusive)
+void vfs::CVirtualLocation::setIsExclusive(bool exclusive)
 {
-	m_bExclusive = bExclusive;
+	m_exclusive = exclusive;
 }
-bool vfs::CVirtualLocation::GetIsExclusive()
+bool vfs::CVirtualLocation::getIsExclusive()
 {
-	return m_bExclusive;
+	return m_exclusive;
 }
 
-void vfs::CVirtualLocation::AddFile(vfs::IBaseFile* pFile, utf8string const& sProfileName)
+void vfs::CVirtualLocation::addFile(vfs::IBaseFile* file, utf8string const& profileName)
 {
-	tVFiles::iterator it = m_mapVFiles.find(pFile->GetFileName());
-	CVirtualFile *pVFile = NULL;
-	if(it == m_mapVFiles.end())
+	tVFiles::iterator it = m_VFiles.find(file->getName());
+	vfs::CVirtualFile *pVFile = NULL;
+	if(it == m_VFiles.end())
 	{
-		vfs::Path& fp = pFile->GetFullPath();
-		vfs::CProfileStack& stack = *(GetVFS()->GetProfileStack());
-		pVFile = vfs::CVirtualFile::Create(fp,stack);
-		it = m_mapVFiles.insert(m_mapVFiles.end(), std::pair<vfs::Path,vfs::CVirtualFile*>(pFile->GetFileName(),pVFile));
+		vfs::Path fp = file->getPath();
+		vfs::CProfileStack& stack = *(getVFS()->getProfileStack());
+		pVFile = vfs::CVirtualFile::create(fp,stack);
+		it = m_VFiles.insert(m_VFiles.end(), std::pair<vfs::Path,vfs::CVirtualFile*>(file->getName(),pVFile));
 	}
-	it->second->Add(pFile,sProfileName,true);
+	it->second->add(file,profileName,true);
 }
 
-vfs::IBaseFile* vfs::CVirtualLocation::GetFile(vfs::Path const& sFilename, utf8string const& sProfileName) const
+vfs::IBaseFile* vfs::CVirtualLocation::getFile(vfs::Path const& filename, utf8string const& profileName) const
 {
-	tVFiles::const_iterator cit = m_mapVFiles.find(sFilename);
-	if(cit != m_mapVFiles.end() && cit->second)
+	tVFiles::const_iterator cit = m_VFiles.find(filename);
+	if(cit != m_VFiles.end() && cit->second)
 	{
-		if(sProfileName.empty())
+		if(profileName.empty())
 		{
-			if(m_bExclusive)
+			if(m_exclusive)
 			{
-				return cit->second->File(vfs::CVirtualFile::SF_STOP_ON_WRITEABLE_PROFILE);
+				return cit->second->file(vfs::CVirtualFile::SF_STOP_ON_WRITABLE_PROFILE);
 			}
 			else
 			{
-				return cit->second->File(vfs::CVirtualFile::SF_TOP);
+				return cit->second->file(vfs::CVirtualFile::SF_TOP);
 			}
 		}
 		else
 		{
 			// you know what you are doing
-			return cit->second->File(sProfileName);
+			return cit->second->file(profileName);
 		}
 	}
 	return NULL;
 }
-vfs::CVirtualFile* vfs::CVirtualLocation::GetVFile(vfs::Path const& sFilename)
+vfs::CVirtualFile* vfs::CVirtualLocation::getVirtualFile(vfs::Path const& filename)
 {
-	tVFiles::const_iterator cit = m_mapVFiles.find(sFilename);
-	if(cit != m_mapVFiles.end())
+	tVFiles::const_iterator cit = m_VFiles.find(filename);
+	if(cit != m_VFiles.end())
 	{
 		return cit->second;
 	}
 	return NULL;
 }
 
-bool vfs::CVirtualLocation::RemoveFile(vfs::IBaseFile* pFile)
+bool vfs::CVirtualLocation::removeFile(vfs::IBaseFile* file)
 {
-	if(pFile)
+	if(file)
 	{
 		vfs::Path sDir,sFile;
-		pFile->GetFullPath().SplitLast(sDir,sFile);
-		tVFiles::iterator it = m_mapVFiles.find(sFile);
-		if(it != m_mapVFiles.end())
+		file->getPath().splitLast(sDir,sFile);
+		tVFiles::iterator it = m_VFiles.find(sFile);
+		if(it != m_VFiles.end())
 		{
-			if(!it->second->Remove(pFile))
+			if(!it->second->remove(file))
 			{
-				CVirtualFile* vfile = it->second;
+				//CVirtualFile* vfile = it->second;
 				//delete vfile;
-				m_mapVFiles.erase(it);
+				m_VFiles.erase(it);
 			}
 			return true;
 		}
@@ -143,6 +144,6 @@ bool vfs::CVirtualLocation::RemoveFile(vfs::IBaseFile* pFile)
 
 vfs::CVirtualLocation::Iterator vfs::CVirtualLocation::iterate()
 {
-	return Iterator(this);
+	return Iterator(new VFileIterator(this));
 }
 

@@ -206,7 +206,7 @@ void SetVehicleValuesIntoSoldierType( SOLDIERTYPE *pVehicle )
 	pVehicle->ubWhatKindOfMercAmI = MERC_TYPE__VEHICLE;
 }
 
-INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT16 sGridNo, UINT8 ubType )
+INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT32 sGridNo, UINT8 ubType )
 {
 	// insert this vehicle into the list
 	// how many vehicles are there?
@@ -310,7 +310,6 @@ INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT16 sGridNo, UINT8 ubType )
 		Assert( 0 );
 	}
 
-	
 	// HEADROCK HAM 3.1: An INI setting allows us to turn the Hummer into a true offroad vehicle. It will use the
 	// "TRUCK" type movement, which allows it to go into mild non-road terrain. I wish I could come with a more
 	// subtle method than this crude override, but this is what I've got at the moment.
@@ -1521,7 +1520,7 @@ BOOLEAN ExitVehicle( SOLDIERTYPE *pSoldier )
 {
 	SOLDIERTYPE		*pVehicle;
 	UINT8					ubDirection;
-	INT16					sGridNo;
+	INT32 sGridNo;
 
 	// Get vehicle from soldier...
 	pVehicle = GetVehicleSoldierPointerFromPassenger( pSoldier );
@@ -1535,8 +1534,8 @@ BOOLEAN ExitVehicle( SOLDIERTYPE *pSoldier )
 	if ( pVehicle->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		sGridNo = FindGridNoFromSweetSpotWithStructDataFromSoldier( pSoldier, pSoldier->usUIMovementMode, 5, &ubDirection, 3, pVehicle );
-
-		if ( sGridNo == NOWHERE )
+		
+		if (TileIsOutOfBounds(sGridNo))
 		{
 			// ATE: BUT we need a place, widen the search
 			sGridNo = FindGridNoFromSweetSpotWithStructDataFromSoldier( pSoldier, pSoldier->usUIMovementMode, 20, &ubDirection, 3, pVehicle );
@@ -1594,7 +1593,7 @@ void AddPassangersToTeamPanel( INT32 iId )
 }
 
 
-void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT16 sGridNo, UINT8 ubAttackerID )
+void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo, UINT8 ubAttackerID )
 {
 	if ( ubReason != TAKE_DAMAGE_GAS )
 	{
@@ -1623,7 +1622,7 @@ void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT16 sGridNo
 }
 
 
-void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT16 sGridNo, UINT8 ubAttackerID )
+void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT32 sGridNo, UINT8 ubAttackerID )
 {
 	// check state the armor was s'posed to be in vs. the current state..the difference / orig state is % chance
 	// that a critical hit will occur

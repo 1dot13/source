@@ -84,6 +84,8 @@
 	#include "Arms Dealer Init.h"
 #endif
 
+#include "connect.h"
+
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -996,7 +998,10 @@ INT32 EnterLaptop()
 
 	gfShowBookmarks=FALSE;
 	LoadBookmark( );
-	SetBookMark(AIM_BOOKMARK);
+
+	if (!is_networked)
+		SetBookMark(AIM_BOOKMARK);
+	
 	LoadLoadPending( );
 
 	DrawDeskTopBackground( );

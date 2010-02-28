@@ -307,6 +307,7 @@ namespace Version101
 class OLD_OBJECTTYPE_101
 {
 public:
+	OLD_OBJECTTYPE_101& operator=(OBJECTTYPE& src);//dnl ch33 120909
 	UINT16		usItem;
 	UINT8		ubNumberOfObjects;
 
@@ -355,7 +356,7 @@ namespace ObjectDataStructs {
 		{
 			UINT8 ubTolerance;			// tolerance value for panic triggers
 			UINT8 ubLocationID;			// location value for remote non-bomb (special!) triggers
-		};	
+		};
 	};
 	struct OBJECT_KEY
 	{

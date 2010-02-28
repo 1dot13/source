@@ -241,7 +241,7 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 	static UINT8 ubShipmentsSinceNoBribes = 0;
 	BOOLEAN		fPablosStoleLastItem = FALSE;
 	UINT32	uiStolenCount = 0;
-	INT16 sMapPos;
+	UINT32 sMapPos;
 	BOOLEAN		fPablosStoleSomething = FALSE;
 
 	if(	usShipmentID > _UsedShipmentIDList.size() ||
@@ -878,7 +878,7 @@ BOOLEAN CPostalService::SaveShipmentListToSaveGameFile(HWFILE hFile)
 	return TRUE;
 }
 
-UINT16 CPostalService::AddDestination(UINT32 uiIndex, UINT8 ubMapX, UINT8 ubMapY, UINT8 ubMapZ, INT16 sGridNo, STR16 pszName)
+UINT16 CPostalService::AddDestination(UINT32 uiIndex, UINT8 ubMapX, UINT8 ubMapY, UINT8 ubMapZ, UINT32 sGridNo, STR16 pszName)
 {
 	UINT16	usNewID=1;
 	// We need to find an ID first

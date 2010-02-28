@@ -389,9 +389,9 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 }
 
 // JA2Gold: added
-BOOLEAN CloseEnoughForGrenadeToss( INT16 sGridNo, INT16 sGridNo2 )
+BOOLEAN CloseEnoughForGrenadeToss( INT32 sGridNo, INT32 sGridNo2 )
 {
-	INT16	sTempGridNo;
+	INT32	sTempGridNo;
 	UINT8	ubDirection;
 	INT16	sXPos, sYPos, sXPos2, sYPos2;
 	UINT8	ubMovementCost;
@@ -459,7 +459,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	UINT8 ubLoop, ubLoop2;
 	INT32 iAttackValue;
 	INT32 iHitRate, iThreatValue, iTotalThreatValue,iOppThreatValue[MAXMERCS];
-	INT16 sGridNo, sEndGridNo, sFriendTile[MAXMERCS], sOpponentTile[MAXMERCS];
+	INT32 sGridNo, sEndGridNo, sFriendTile[MAXMERCS], sOpponentTile[MAXMERCS];
 	INT8	bFriendLevel[MAXMERCS], bOpponentLevel[MAXMERCS];
 	INT32 iEstDamage;
 	UINT8 ubFriendCnt = 0,ubOpponentCnt = 0, ubOpponentID[MAXMERCS];
@@ -1544,7 +1544,7 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 	}
 }
 
-UINT8 NumMercsCloseTo( INT16 sGridNo, UINT8 ubMaxDist )
+UINT8 NumMercsCloseTo( INT32 sGridNo, UINT8 ubMaxDist )
 {
 	INT8						bNumber = 0;
 	UINT32					uiLoop;
@@ -1705,14 +1705,14 @@ INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT16 ub
 	return( iDamage );
 }
 
-INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *pOpponent, INT16 sGridno )
+INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *pOpponent, INT32 sGridNo )
 {
 	UINT16	ubExplosiveIndex;
 	INT32	iExplosDamage, iBreathDamage, iArmourAmount, iDamage = 0;
 	INT8	bSlot;
 
 
-	if( pSoldier == NULL || pOpponent == NULL || ubItemPos > pSoldier->inv.size() || sGridno > NUMBEROFTILES )
+	if( pSoldier == NULL || pOpponent == NULL || ubItemPos > pSoldier->inv.size() || sGridNo > NUMBEROFTILES )
 		return 0;
 
 	if( pSoldier->inv[ubItemPos].exists() == false )
@@ -1762,7 +1762,7 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 	if ( Explosive[ ubExplosiveIndex ].ubType == EXPLOSV_TEARGAS || Explosive[ ubExplosiveIndex ].ubType == EXPLOSV_MUSTGAS )
 	{
 		// if target gridno is outdoors (where tear gas lasts only 1-2 turns)
-		if (gpWorldLevelData[sGridno].ubTerrainID != FLAT_FLOOR)
+		if (gpWorldLevelData[sGridNo].ubTerrainID != FLAT_FLOOR)
 			iBreathDamage /= 2;		// reduce effective breath damage by 1/2
 
 		bSlot = FindObj( pOpponent, GASMASK );
@@ -1777,7 +1777,7 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 	if ( Explosive[ ubExplosiveIndex ].ubType == EXPLOSV_BURNABLEGAS )
 	{
 		// if target gridno is outdoors (where tear gas lasts only 1-2 turns)
-		if (gpWorldLevelData[sGridno].ubTerrainID != FLAT_FLOOR)
+		if (gpWorldLevelData[sGridNo].ubTerrainID != FLAT_FLOOR)
 			iBreathDamage /= 2;		// reduce effective breath damage by 1/2
 	}
 	else if (iExplosDamage)

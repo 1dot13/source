@@ -147,7 +147,7 @@ BOOLEAN	guiTacticalLeaveScreen		= FALSE;
 
 void HandleModalTactical( );
 extern void CheckForDisabledRegionRemove( );
-extern void InternalLocateGridNo( INT16 sGridNo, BOOLEAN fForce );
+extern void InternalLocateGridNo( INT32 sGridNo, BOOLEAN fForce );
 
 
 
@@ -214,6 +214,9 @@ UINT32 MainGameScreenShutdown(void)
 	// Remove video Overlays
 	RemoveVideoOverlay( giFPSOverlay );
 
+	// WANNE: Plug a vanilla one-time memory leak.
+	// Fixed by Tron (Stracciatella): Revision: 6933
+	RemoveVideoOverlay( giCounterPeriodOverlay );
 
 	return TRUE;
 }
@@ -428,13 +431,16 @@ UINT32	MainGameScreenHandle(void)
 	//DO NOT MOVE THIS FUNCTION CALL!!!
 	//This determines if the help screen should be active
 //	if( ( !gfTacticalDoHeliRun && !gfFirstHeliRun ) && ShouldTheHelpScreenComeUp( HELP_SCREEN_TACTICAL, FALSE ) )
+
+// WANNE: Never show the helpscreen when leaving editor and going to the tactical game
+#ifndef JA2EDITOR
 	if( !gfPreBattleInterfaceActive && ShouldTheHelpScreenComeUp( HELP_SCREEN_TACTICAL, FALSE ) )
 	{
 		// handle the help screen
 		HelpScreenHandler();
 		return( GAME_SCREEN );
 	}
-
+#endif
 
 
 #ifdef JA2BETAVERSION
@@ -1118,7 +1124,6 @@ void InitHelicopterEntranceByMercs( void )
 		if( (gGameExternalOptions.iGameStartingTime + gGameExternalOptions.	iFirstArrivalDelay) < 111600 ||
 			(gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay >= 162000))
 		{ 
-			// Default: Night
 			gubEnvLightValue = 12; 
 		}
 		else

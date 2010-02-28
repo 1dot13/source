@@ -193,6 +193,7 @@ SMKFLIC *pSmack;
 SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
 {
 	SMKFLIC *pSmack;
+	
 
 	// Get an available flic slot from the list
 	if(!(pSmack=SmkGetFreeFlic()))
@@ -216,30 +217,29 @@ SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
 #else
 	vfs::Path introname(cFilename);
 	vfs::Path dir,filename;
-	introname.SplitLast(dir,filename);
+	introname.splitLast(dir,filename);
 	vfs::Path tempfile = vfs::Path(L"Temp") + filename;
-	if(!GetVFS()->FileExists(tempfile))
+	if(!getVFS()->fileExists(tempfile))
 	{
 		try
 		{
-			if(!GetVFS()->FileExists(introname))
+			if(!getVFS()->fileExists(introname))
 			{
 				return NULL;
 			}
 			vfs::COpenReadFile rfile(introname);
-			vfs::UInt32 size = rfile.file().GetFileSize();
+			vfs::size_t size = rfile.file().getSize();
 			std::vector<vfs::Byte> data(size);
-			vfs::UInt32 io;
-			rfile.file().Read(&data[0],size,io);
+			rfile.file().read(&data[0],size);
 
 			vfs::COpenWriteFile wfile(tempfile,true);
-			wfile.file().Write(&data[0],size,io);
+			wfile.file().write(&data[0],size);
 		}
 		catch(CBasicException& ex)
 		{
-			std::wstringstream wss;
-			wss << L"Intro file \"" << filename() << L"\" could not be extracted";
-			RETHROWEXCEPTION(wss.str().c_str(),&ex);
+			BuildString bs;
+			bs.add(L"Intro file \"").add(filename()).add(L"\" could not be extracted");
+			RETHROWEXCEPTION(bs.get(), &ex);
 		}
 	}
 #endif
@@ -267,7 +267,7 @@ SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
 	{
 		RETHROWEXCEPTION(L"Temporary intro file could not be read", &ex);
 	}
-	if(!(pSmack->SmackHandle=SmackOpen(tempfilename().utf8().c_str(), SMACKTRACKS, SMACKAUTOEXTRA)))
+	if(!(pSmack->SmackHandle=SmackOpen(tempfilename.to_string().c_str(), SMACKTRACKS, SMACKAUTOEXTRA)))
 #endif
 	{
 		ErrorMsg("SMK ERROR: Smacker won't open the SMK file");

@@ -20,7 +20,7 @@ int gLastLBEUniqueID = 0;
 
 extern UINT32			guiCurrentItemDescriptionScreen;
 extern BOOLEAN			fShowMapInventoryPool;
-extern BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT16 sGridNo );
+extern BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo );
 
 bool IsSlotAnLBESlot(int slot)
 {
@@ -1013,6 +1013,80 @@ void ObjectData::DuplicateLBE()
 	}
 }
 
+//dnl ch33 120909
+OLD_OBJECTTYPE_101& OLD_OBJECTTYPE_101::operator=(OBJECTTYPE& src)
+{
+	if((void*)this != (void*)&src)
+	{
+		memset(this, 0, sizeof(OLD_OBJECTTYPE_101));
+		this->usItem = src.usItem;
+		this->ubNumberOfObjects = src.ubNumberOfObjects;
+		this->ubWeight = (UINT8)CalculateObjectWeight(&src);//dnl??? need test, probably this should be calculated after you create old object
+		this->fFlags = src.fFlags;
+		this->ubMission = src.ubMission;
+		this->ubNumberOfObjects = src.ubNumberOfObjects;
+		this->usItem = src.usItem;
+		if(ubNumberOfObjects == 1)
+		{
+			this->ugYucky.bGunStatus = (INT8)src[0]->data.gun.bGunStatus;
+			switch(Item[src.usItem].usItemClass)
+			{
+			case IC_MONEY:
+				this->ugYucky.uiMoneyAmount = src[0]->data.money.uiMoneyAmount;
+				break;
+			case IC_KEY:
+				ugYucky.ubKeyID = src[0]->data.key.ubKeyID;
+				break;
+			case IC_GRENADE:
+			case IC_BOMB:
+				this->ugYucky.bDetonatorType = src[0]->data.misc.bDetonatorType;
+				this->ugYucky.usBombItem = src[0]->data.misc.usBombItem;
+				this->ugYucky.bDelay = src[0]->data.misc.bDelay;
+				this->ugYucky.ubBombOwner = src[0]->data.misc.ubBombOwner;
+				this->ugYucky.bActionValue = src[0]->data.misc.bActionValue;
+				this->ugYucky.ubTolerance = src[0]->data.misc.ubTolerance;
+				break;
+			default:
+				this->ugYucky.ubGunAmmoType = src[0]->data.gun.ubGunAmmoType;
+				this->ugYucky.ubGunShotsLeft = (UINT8)src[0]->data.gun.ubGunShotsLeft;
+				this->ugYucky.usGunAmmoItem = src[0]->data.gun.usGunAmmoItem;
+				this->ugYucky.bGunAmmoStatus = (INT8)src[0]->data.gun.bGunAmmoStatus;
+				this->ugYucky.ubGunState = src[0]->data.gun.ubGunState;
+				break;
+			}
+			this->bTrap = src[0]->data.bTrap;
+			this->ubImprintID = src[0]->data.ubImprintID;
+			this->fUsed = src[0]->data.fUsed;
+			if(src.usItem == OWNERSHIP)
+			{
+				this->ugYucky.ubOwnerProfile = (UINT8)src[0]->data.owner.ubOwnerProfile;
+				this->ugYucky.ubOwnerCivGroup = src[0]->data.owner.ubOwnerCivGroup;
+			}
+			int i = 0;
+			for(attachmentList::iterator iter=src[0]->attachments.begin(); iter!=src[0]->attachments.end(); ++iter)
+			{
+				//dnl??? this part should check if attachment is valid for 1.12, but then means you will lost some stuff from NIV, and if you wnat play map in older 1.13 versions this is not good
+				//if(iter->usItem)
+				//	;
+				this->usAttachItem[i] = iter->usItem;
+				this->bAttachStatus[i] = (INT8)(*iter)[0]->data.objectStatus;
+				if(++i >= OLD_MAX_ATTACHMENTS_101)
+					break;
+			}
+		}
+		else
+		{
+			memset(&this->ugYucky, 0, sizeof(Version101::OLD_OBJECTTYPE_101_UNION));
+			for(int i=0; i<ubNumberOfObjects; i++)
+				this->ugYucky.bStatus[i] = (INT8)src[i]->data.objectStatus;
+			this->bTrap = src[0]->data.bTrap;
+			this->ubImprintID = src[0]->data.ubImprintID;
+			this->fUsed = src[0]->data.fUsed;
+		}
+	}
+	return(*this);
+}
+
 // Constructor
 OBJECTTYPE::OBJECTTYPE()
 {
@@ -1151,6 +1225,12 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 			(*this)[0]->data.bTrap = src.bTrap;		// 1-10 exp_lvl to detect
 			(*this)[0]->data.ubImprintID = src.ubImprintID;	// ID of merc that item is imprinted on
 			(*this)[0]->data.fUsed = src.fUsed;				// flags for whether the item is used or not
+
+			if(src.usItem == OWNERSHIP)//dnl ch29 120909
+			{
+				(*this)[0]->data.owner.ubOwnerProfile = src.ugYucky.ubOwnerProfile;
+				(*this)[0]->data.owner.ubOwnerCivGroup = src.ugYucky.ubOwnerCivGroup;
+			}
 
 			//it's unlikely max will get less over the versions, but still, check the min
 			for (int x = 0; x < OLD_MAX_ATTACHMENTS_101; ++x)

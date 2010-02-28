@@ -7020,7 +7020,7 @@ UINT32 uiLineSkipDest, uiLineSkipSrc;
 	}
 	catch(CBasicException& ex)
 	{
-		LogException(ex);
+		logException(ex);
 		return false;
 	}
 

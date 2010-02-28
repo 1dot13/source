@@ -1,7 +1,11 @@
 #include "vfs_slf_library.h"
-#include "../Interface/vfs_directory_interface.h"
 #include "vfs_lib_dir.h"
+#include "../vfs_config.h"
+#include "../Interface/vfs_directory_interface.h"
 #include "../File/vfs_lib_file.h"
+#include "../vfs_file_raii.h"
+
+#include <cstring>
 
 namespace slf
 {
@@ -50,35 +54,31 @@ namespace slf
 /********************************************************************************************/
 /********************************************************************************************/
 
+vfs::CSLFLibrary::CSLFLibrary(tReadableFile *pLibraryFile, vfs::Path const& sMountPoint, bool bOwnFile)
+: vfs::CUncompressedLibraryBase(pLibraryFile,sMountPoint,bOwnFile)
+{};
+
 vfs::CSLFLibrary::~CSLFLibrary() 
 {
 }
 
-bool vfs::CSLFLibrary::Init()
+bool vfs::CSLFLibrary::init()
 {
-	if(m_pLibraryFile)
+	if(!m_libraryFile)
 	{
-		if(!m_pLibraryFile->OpenRead())
-		{
-			return false;
-		}
+		return false;
+	}
+	try
+	{
+		vfs::COpenReadFile rfile(m_libraryFile);
+
 		slf::LIBHEADER LibFileHeader;
-		UInt32 uiNumBytesRead;
-		if(!m_pLibraryFile->Read((Byte*)&LibFileHeader,sizeof( slf::LIBHEADER ), uiNumBytesRead))
-		{
-			m_pLibraryFile->Close();
-			return false;
-		}
-		if( uiNumBytesRead != sizeof( slf::LIBHEADER ) )
-		{
-			//Error Reading the file database header.
-			m_pLibraryFile->Close();
-			return false;
-		}
+		vfs::size_t bytesRead = m_libraryFile->read((vfs::Byte*)&LibFileHeader, sizeof( slf::LIBHEADER ));
+		THROWIFFALSE(bytesRead == sizeof( slf::LIBHEADER ), L"");
 
 		vfs::Path oLibPath;
 		//if the library has a path
-		if( strlen( LibFileHeader.sPathToLibrary ) != 0 )
+		if( strlen( (char*)LibFileHeader.sPathToLibrary ) != 0 )
 		{
 			oLibPath = vfs::Path( LibFileHeader.sPathToLibrary );
 		}
@@ -87,70 +87,66 @@ bool vfs::CSLFLibrary::Init()
 			//else the library name does not contain a path ( most likely either an error or it is the default path )
 			oLibPath = vfs::Path( vfs::Const::EMPTY() );
 		}
-		if(m_sMountPoint.empty())
+		if(m_mountPoint.empty())
 		{
-			m_sMountPoint = oLibPath;
+			m_mountPoint = oLibPath;
 		}
 		else
 		{
-			m_sMountPoint += oLibPath;
+			m_mountPoint += oLibPath;
 		}
 
 		//place the file pointer at the begining of the file headers ( they are at the end of the file )
-		m_pLibraryFile->SetReadLocation(-( LibFileHeader.iEntries * (Int32)sizeof(slf::DIRENTRY) ), vfs::IBaseFile::SD_END); 
+		m_libraryFile->setReadPosition(-( LibFileHeader.iEntries * (vfs::Int32)sizeof(slf::DIRENTRY) ), vfs::IBaseFile::SD_END); 
 
 		//loop through the library and determine the number of files that are FILE_OK
 		//ie.  so we dont load the old or deleted files
 		slf::DIRENTRY DirEntry;
 		vfs::Path oDir, oFile;
 		vfs::Path oDirPath;
-		for(UInt32 uiLoop=0; uiLoop < (UInt32)LibFileHeader.iEntries; uiLoop++ )
+		for(vfs::UInt32 uiLoop=0; uiLoop < (vfs::UInt32)LibFileHeader.iEntries; uiLoop++ )
 		{
 			//read in the file header
-			if(!m_pLibraryFile->Read((Byte*)&DirEntry, sizeof( slf::DIRENTRY ), uiNumBytesRead))
-			{
-				m_pLibraryFile->Close();
-				return false;
-			}
+			bytesRead = m_libraryFile->read((Byte*)&DirEntry, sizeof( slf::DIRENTRY ));
+			THROWIFFALSE(bytesRead == sizeof( slf::DIRENTRY ), L"");
 
 			if( DirEntry.ubState == slf::FILE_OK )
 			{
 				vfs::Path sPath(utf8string::as_utf16(DirEntry.sFileName));
-				sPath.SplitLast(oDir,oFile);
-				oDirPath = m_sMountPoint;
+				sPath.splitLast(oDir,oFile);
+				oDirPath = m_mountPoint;
 				if(!oDir.empty())
 				{
 					oDirPath += oDir;
 				}
 
 				// get or create according directory object
-				vfs::IDirectory<ILibrary::tWriteType>* pLD = NULL;
-				tDirCatalogue::iterator it = m_catDirs.find(oDirPath);
-				if(it != m_catDirs.end())
+				vfs::TDirectory<ILibrary::tWriteType>* pLD = NULL;
+				tDirCatalogue::iterator it = m_dirs.find(oDirPath);
+				if(it != m_dirs.end())
 				{
 					pLD = it->second;
 				}
 				else
 				{
 					pLD = new vfs::CLibDirectory(oDirPath,oDirPath);
-					m_catDirs.insert(std::make_pair(oDirPath,pLD));
+					m_dirs.insert(std::make_pair(oDirPath,pLD));
 				}
 				// create file
-				vfs::CLibFile *pFile = vfs::CLibFile::Create(oFile,pLD,this);
+				vfs::CLibFile *pFile = vfs::CLibFile::create(oFile,pLD,this);
 				// add file to directory
-				if(!pLD->AddFile(pFile))
-				{
-					m_pLibraryFile->Close();
-					return false;
-				}
+				THROWIFFALSE(pLD->addFile(pFile), L"");
+
 				// link file data struct to file object
-				m_mapLibData.insert(std::make_pair(pFile,sFileData(DirEntry.uiLength, DirEntry.uiOffset)));
+				m_fileData.insert(std::make_pair(pFile, SFileData(DirEntry.uiLength, DirEntry.uiOffset)));
 			} // end if
 		} // end for
-		m_pLibraryFile->Close();
 		return true;
-	} // end if
-	// no library file
-	return false;
+	}
+	catch(CBasicException& ex)
+	{
+		logException(ex);
+		return false;
+	}
 }
 

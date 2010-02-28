@@ -1,9 +1,10 @@
 #include "Log.h"
+#include <cstring>
 
 #ifdef WIN32
-const char CLog::endl[] = "\r\n";
+const char CLog::ENDL[] = "\r\n";
 #else
-const char CLog::endl[] = "\n";
+const char CLog::ENDL[] = "\n";
 #endif
 
 std::list<CLog*>& CLog::_logs()
@@ -12,12 +13,12 @@ std::list<CLog*>& CLog::_logs()
 	return logs;
 }
 
-CLog* CLog::Create(vfs::Path fileName, bool append, EFlushMode flushMode)
+CLog* CLog::create(vfs::Path const& fileName, bool append, EFlushMode flushMode)
 {
 	_logs().push_back(new CLog(fileName, append, flushMode));
 	return _logs().back();
 }
-void CLog::FlushFinally()
+void CLog::flushFinally()
 {
 	std::list<CLog*>::iterator it = _logs().begin();
 	for(; it != _logs().end(); ++it)
@@ -27,18 +28,30 @@ void CLog::FlushFinally()
 	_logs().clear();
 }
 
-void CLog::FlushAll()
+void CLog::flushAll()
 {
 	std::list<CLog*>::iterator it = _logs().begin();
 	for(; it != _logs().end(); ++it)
 	{
-		(*it)->Flush();
+		(*it)->flush();
 		(*it)->_file = NULL;
 	}
 }
 
+utf8string CLog::_shared_id_str;
 
-CLog::CLog(vfs::Path fileName, bool append, EFlushMode flushMode)
+utf8string const& CLog::getSharedString()
+{
+	return _shared_id_str;
+}
+
+void CLog::setSharedString(utf8string const& str)
+{
+	_shared_id_str = str;
+}
+
+
+CLog::CLog(vfs::Path const& fileName, bool append, EFlushMode flushMode)
 :	_filename(fileName), _file(NULL), _own_file(false),
 	_first_write(true), _flush_mode(flushMode), _append(append),
 	_buffer_size(0), _buffer_test_size(512)
@@ -55,35 +68,35 @@ CLog::~CLog()
 
 CLog& CLog::operator<<(unsigned int const& t)
 {
-	return PushNumber(t);
+	return pushNumber(t);
 }
 CLog& CLog::operator<<(unsigned short const& t)
 {
-	return PushNumber(t);
+	return pushNumber(t);
 }
 CLog& CLog::operator<<(unsigned char const& t)
 {
-	return PushNumber(t);
+	return pushNumber(t);
 }
 CLog& CLog::operator<<(int const& t)
 {
-	return PushNumber(t);
+	return pushNumber(t);
 }
 CLog& CLog::operator<<(short const& t)
 {
-	return PushNumber(t);
+	return pushNumber(t);
 }
 CLog& CLog::operator<<(char const& t)
 {
-	return PushNumber(t);
+	return pushNumber(t);
 }
 CLog& CLog::operator<<(float const& t)
 {
-	return PushNumber(t);
+	return pushNumber(t);
 }
 CLog& CLog::operator<<(double const& t)
 {
-	return PushNumber(t);
+	return pushNumber(t);
 }
 
 CLog& CLog::operator<<(const char* t)
@@ -125,20 +138,20 @@ CLog& CLog::operator<<(utf8string const& t)
 	return *this;
 }
 
-CLog& CLog::Endl()
+CLog& CLog::endl()
 {
-	_buffer << CLog::endl;
-	_buffer_size += sizeof(CLog::endl)-1;
+	_buffer << CLog::ENDL;
+	_buffer_size += sizeof(CLog::ENDL)-1;
 	_test_flush();
 	return *this;
 }
 
-void CLog::SetAppend(bool append)
+void CLog::setAppend(bool append)
 {
 	_append = append;
 }
 
-void CLog::SetBufferSize(vfs::UInt32 bufferSize)
+void CLog::setBufferSize(vfs::UInt32 bufferSize)
 {
 	_buffer_test_size = bufferSize;
 }
@@ -149,14 +162,14 @@ void CLog::_test_flush(bool force)
 		(_flush_mode == FLUSH_BUFFER && _buffer_size > _buffer_test_size) || 
 		(/*_flush_mode == FLUSH_ON_DELETE &&*/ force == true) )
 	{
-		Flush();
+		flush();
 	}
 }
 
 #include <ctime>
-void CLog::Flush()
+void CLog::flush()
 {
-	vfs::UInt32 buflen = _buffer.str().length();
+	::size_t buflen = _buffer.str().length();
 	if(buflen == 0)
 	{
 		return;
@@ -172,21 +185,26 @@ void CLog::Flush()
 		}
 		catch(CBasicException& ex)
 		{
-			LogException(ex);
-			// write file anyway 
-			_file = vfs::tWriteableFile::Cast(new vfs::CFile(_filename));
-			_file->OpenWrite(true,!_append);
-			_own_file = true;
+			try
+			{
+				logException(ex);
+				// write file anyway 
+				_file = vfs::tWritableFile::cast(new vfs::CFile(_filename));
+				_file->openWrite(true,!_append);
+				_own_file = true;
+			}
+			catch(...)
+			{
+			}
 		}
 	}
 
 	vfs::COpenWriteFile wfile(_file);
 	if(_append)
 	{
-		wfile.file().SetWriteLocation(0,vfs::IBaseFile::SD_END);
+		wfile.file().setWritePosition(0,vfs::IBaseFile::SD_END);
 	}
 
-	vfs::UInt32 io;
 	if(_first_write)
 	{
 		time_t rawtime;
@@ -194,21 +212,26 @@ void CLog::Flush()
 		std::string datetime(ctime(&rawtime));
 		std::string s_out;
 	
-		vfs::UInt32 wloc = wfile.file().GetWriteLocation();
+		vfs::size_t wloc = wfile.file().getWritePosition();
 		if(wloc > 0)
 		{
-			s_out = CLog::endl;
+			s_out = CLog::ENDL;
 		}
 		s_out += " *** ";
 		s_out += datetime.substr(0,datetime.length()-1);
 		s_out += " *** ";
-		s_out += CLog::endl;
-		s_out += CLog::endl;
-		wfile.file().Write(s_out.c_str(), s_out.length(), io);
+		s_out += CLog::ENDL;
+		s_out += "[ ";
+		s_out += _shared_id_str.utf8();
+		s_out += " ]";
+		s_out += CLog::ENDL;
+		s_out += CLog::ENDL;
+
+		wfile.file().write(s_out.c_str(), s_out.length());
 		_first_write = false;
 	}
 
-	wfile.file().Write(_buffer.str().c_str(), buflen, io);
+	wfile.file().write(_buffer.str().c_str(), buflen);
 	_buffer.str("");
 	_buffer.clear();
 	_buffer_size = 0;

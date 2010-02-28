@@ -13,6 +13,7 @@
 	#include "Map Information.h"
 	#include "Game Clock.h"
 	#include "Overhead.h"
+	#include "debug control.h"
 #endif
 
 /*
@@ -140,7 +141,7 @@ UINT8 ubBloodGraphicLUT [ ] = {	3, 3,	2,	2,	1,	1,	0, 0 };
 	(s) = BLOOD_ROOF_TYPE( ntr ) | (s & 0xFD); \
 }
 
-void RemoveBlood( INT16 sGridNo, INT8 bLevel )
+void RemoveBlood( INT32 sGridNo, INT8 bLevel )
 {
 	gpWorldLevelData[ sGridNo ].ubBloodInfo = 0;
 
@@ -152,7 +153,7 @@ void RemoveBlood( INT16 sGridNo, INT8 bLevel )
 
 void DecaySmells( void )
 {
-	UINT32					uiLoop;
+	INT32					uiLoop;
 	MAP_ELEMENT *		pMapElement;
 
 	//return;
@@ -176,7 +177,7 @@ void DecaySmells( void )
 
 void DecayBlood()
 {
-	UINT32					uiLoop;
+	INT32					uiLoop;
 	MAP_ELEMENT *		pMapElement;
 
 	for (uiLoop = 0, pMapElement = gpWorldLevelData; uiLoop < WORLD_MAX; uiLoop++, pMapElement++)
@@ -354,8 +355,12 @@ void DropSmell( SOLDIERTYPE * pSoldier )
 }
 
 
-void InternalDropBlood( INT16 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStrength, INT8 bVisible )
+void InternalDropBlood( INT32 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStrength, INT8 bVisible )
 {
+	CHAR tmpMPDbgString[512];
+	sprintf(tmpMPDbgString,"InternalDropBlood ( %i , %i , %i , %i , %i )\n",sGridNo, bLevel , ubType , ubStrength , bVisible );
+	MPDebugMsg(tmpMPDbgString);
+
 	MAP_ELEMENT *		pMapElement;
 	UINT8						ubOldStrength=0;
 	UINT8						ubNewStrength=0;
@@ -373,8 +378,8 @@ void InternalDropBlood( INT16 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStreng
 		return;
 	}
 
-	// ATE: Send warning if dropping blood nowhere....
-	if ( sGridNo == NOWHERE )
+	// ATE: Send warning if dropping blood nowhere....	
+	if (TileIsOutOfBounds(sGridNo))
 	{
 		#ifdef JA2BETAVERSION
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Attempting to drop blood NOWHERE" );
@@ -499,7 +504,7 @@ void DropBlood( SOLDIERTYPE * pSoldier, UINT8 ubStrength, INT8 bVisible )
 
 
 
-void UpdateBloodGraphics( INT16 sGridNo, INT8 bLevel )
+void UpdateBloodGraphics( INT32 sGridNo, INT8 bLevel )
 {
 	MAP_ELEMENT *		pMapElement;
 	INT8						bValue;

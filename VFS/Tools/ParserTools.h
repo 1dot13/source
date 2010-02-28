@@ -8,22 +8,26 @@
 
 /**************************************************************/
 /**************************************************************/
-const vfs::UInt32 BUFFER_SIZE = 1024;
+const vfs::size_t BUFFER_SIZE = 1024;
 
 class CReadLine
 {
 public:
 	CReadLine(vfs::tReadableFile& rFile);
+	~CReadLine();
 
-	bool FillBuffer();
-	bool FromBuffer(std::string& line);
-	bool GetLine(std::string& line);
+	bool fillBuffer();
+	bool fromBuffer(std::string& line);
+	bool getLine(std::string& line);
 private:
 	vfs::Byte			_buffer[BUFFER_SIZE+1];
 	vfs::tReadableFile& _file;
-	vfs::UInt32			_buffer_pos;
-	vfs::UInt32			_buffer_last;
+	vfs::size_t			_bytes_left;
+	vfs::size_t			_buffer_pos;
+	vfs::size_t			_buffer_last;
 	bool				_eof;
+
+	void operator=(CReadLine const& rl);
 };
 
 /**************************************************************/
@@ -35,10 +39,12 @@ public:
 	CSplitStringList(utf8string const& sList);
 	~CSplitStringList();
 
-	bool NextListEntry(utf8string &sEntry);
+	bool nextListEntry(utf8string &sEntry);
 private:
-	const utf8string	m_sList;
-	int					iCurrent,iNext;
+	const utf8string	m_list;
+	utf8string::size_t	current,next;
+
+	void operator=(CSplitStringList const& strlist);
 };
 
 
@@ -56,13 +62,13 @@ public:
 public:
 	CTransferRules();
 
-	bool	InitFromTxtFile(vfs::Path const& sPath);
-	bool	InitFromTxtFile(vfs::tReadableFile* pFile);
+	bool	initFromTxtFile(vfs::Path const& sPath);
+	bool	initFromTxtFile(vfs::tReadableFile* pFile);
 
-	void	SetDefaultAction(EAction act);
-	EAction	GetDefaultAction();
+	void	setDefaultAction(EAction act);
+	EAction	getDefaultAction();
 
-	EAction	ApplyRule(utf8string const& sStr);
+	EAction	applyRule(utf8string const& sStr);
 private:
 	struct SRule
 	{

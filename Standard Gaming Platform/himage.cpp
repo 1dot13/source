@@ -95,11 +95,11 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents )
 		{
 #ifdef USE_VFS
 			// see if there is a .jpc file first and when that fails, try .sti
-			utf8string str(ImageFile);
+			vfs::Path str(ImageFile);
 			utf8string::str_t const& findext = str.c_wcs();
 			utf8string::size_t dot = findext.find_last_of(vfs::Const::DOT());
 			utf8string fname = findext.substr(0,dot).append(CONST_DOTJPC);
-			if(GetVFS()->FileExists(fname))
+			if(getVFS()->fileExists(fname))
 			{
 				iFileLoader = JPC_FILE_READER;
 				strncpy(ImageFile, fname.utf8().c_str(), fname.length());

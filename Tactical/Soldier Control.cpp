@@ -95,6 +95,7 @@
 #include "Strategic Status.h"
 #include "civ quotes.h"
 #include "Strategic Pathing.h"
+#include "Debug Control.h"
 #endif
 
 #include "fresh_header.h"
@@ -402,7 +403,7 @@ void STRUCT_Flags::ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src)
 	this->fSoldierUpdatedFromNetwork = src.fSoldierUpdatedFromNetwork;
 	this->fChangingStanceDueToSuppression = src.fChangingStanceDueToSuppression;
 	this->fCheckForNewlyAddedItems = src.fCheckForNewlyAddedItems;
-	this->fCheckForNewlyAddedItems = src.bEndDoorOpenCode;
+	//this->fCheckForNewlyAddedItems = src.bEndDoorOpenCode;//dnl ch33 130909
 	this->fMuzzleFlash = src.fMuzzleFlash;
 	this->fSoldierWasMoving = src.fSoldierWasMoving;
 	this->fSayAmmoQuotePending = src.fSayAmmoQuotePending;
@@ -501,7 +502,7 @@ void STRUCT_Statistics::ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src)
 void STRUCT_AIData::ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src)
 {
 	memcpy( &(this->bOppList), &(src.bOppList), sizeof(INT8) * MAX_NUM_SOLDIERS ); // AI knowledge database
-	memcpy( &(this->sPatrolGrid), &(src.usPatrolGrid), sizeof(INT16) * MAXPATROLGRIDS );// AI list for ptr->orders==PATROL
+	TranslateArrayFields(this->sPatrolGrid, src.usPatrolGrid, OLD_MAXPATROLGRIDS, INT16_INT32);//dnl ch27 200909 AI list for ptr->orders==PATROL
 	this->bLastAction = src.bLastAction;
 	this->bAction = src.bAction;
 	this->usActionData = src.usActionData;
@@ -523,7 +524,7 @@ void STRUCT_AIData::ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src)
 	this->bDominantDir = src.bDominantDir;				// AI main direction to face...
 	this->bPatrolCnt = src.bPatrolCnt;					// number of patrol gridnos
 	this->bNextPatrolPnt = src.bNextPatrolPnt;			// index to next patrol gridno
-	this->sNoiseGridno = src.sNoiseGridno;
+	this->sNoiseGridno = src.sNoiseGridNo;
 	this->ubNoiseVolume = src.ubNoiseVolume;
 	this->bLastAttackHit = src.bLastAttackHit;
 	this->ubXRayedBy = src.ubXRayedBy;
@@ -800,7 +801,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 
 		this->sStartGridNo = src.sStartGridNo;
 		this->sEndGridNo = src.sEndGridNo;
-		this->sForcastGridno = src.sForcastGridno;
+		this->sForcastGridno = src.sForcastGridNo;
 		this->sZLevelOverride = src.sZLevelOverride;
 		this->bMovedPriorToInterrupt = src.bMovedPriorToInterrupt;
 		this->iEndofContractTime = src.iEndofContractTime;				// time, in global time(resolution, minutes) that merc will leave, or if its a M.E.R.C. merc it will be set to -1.  -2 for NPC and player generated
@@ -959,7 +960,6 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 
 		this->snowCamo = src.snowCamo;
 		this->wornSnowCamo = src.wornSnowCamo;
-
     }
     return *this;
 }
@@ -1563,7 +1563,7 @@ BOOLEAN	gfGetNewPathThroughPeople = FALSE;
 // LOCAL FUNCTIONS
 // DO NOT CALL UNLESS THROUGH EVENT_SetSoldierPosition
 UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady );
-BOOLEAN CheckForFullStruct( INT16 sGridNo, UINT16 *pusIndex  );
+BOOLEAN CheckForFullStruct( INT32 sGridNo, UINT16 *pusIndex  );
 void SetSoldierLocatorOffsets( SOLDIERTYPE *pSoldier );
 void CheckForFullStructures( SOLDIERTYPE *pSoldier );
 BOOLEAN InitNewSoldierState( SOLDIERTYPE *pSoldier, UINT8 ubNewState, UINT16 usStartingAniCode );
@@ -1572,7 +1572,7 @@ void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
 void AdjustForFastTurnAnimation( SOLDIERTYPE *pSoldier );
 UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight );
 void SelectFallAnimation( SOLDIERTYPE *pSoldier );
-BOOLEAN FullStructAlone( INT16 sGridNo, UINT8 ubRadius );
+BOOLEAN FullStructAlone( INT32 sGridNo, UINT8 ubRadius );
 void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial , UINT8 ubHitLocation);
 void SoldierGotHitBlade( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
 void SoldierGotHitPunch( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation );
@@ -1722,12 +1722,12 @@ void HandleCrowShadowNewGridNo( SOLDIERTYPE *pSoldier )
 			DeleteAniTile( pSoldier->pAniTile );
 			pSoldier->pAniTile = NULL;
 		}
-
-		if ( pSoldier->sGridNo != NOWHERE )
+		
+		if (!TileIsOutOfBounds(pSoldier->sGridNo))
 		{
 			if ( pSoldier->usAnimState == CROW_FLY )
 			{
-				AniParams.sGridNo							= (INT16)pSoldier->sGridNo;
+				AniParams.sGridNo							= pSoldier->sGridNo;
 				AniParams.ubLevelID						= ANI_SHADOW_LEVEL;
 				AniParams.sDelay							= pSoldier->sAniDelay;
 				AniParams.sStartFrame					= 0;
@@ -1795,9 +1795,6 @@ void HandleCrowShadowNewPosition( SOLDIERTYPE *pSoldier )
 
 extern INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse);
 
-// This function calculates how many APs are added to a character's pool at the start of the round. The normal maximum
-// amount that can be added is 80% of the Maximum AP value, with the remaining 20% coming from APs reserved in the
-// previous round. See also CalcNewActionPoints()
 INT16 SOLDIERTYPE::CalcActionPoints( void )
 {
 	INT16 ubPoints,ubMaxAPs;
@@ -2306,8 +2303,8 @@ BOOLEAN SOLDIERTYPE::DeleteSoldier( void )
 
 		//if(this->pZBackground!=NULL)
 		//MemFree(this->pZBackground);
-
-		if( this->sGridNo != NOWHERE )
+		
+		if(!TileIsOutOfBounds(this->sGridNo))
 		{
 			// Remove adjacency records
 			for (bDir = 0; bDir < NUM_WORLD_DIRECTIONS; bDir++)
@@ -2684,7 +2681,7 @@ void CheckForFreeupFromHit( SOLDIERTYPE *pSoldier, UINT32 uiOldAnimFlags, UINT32
 BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStartingAniCode, BOOLEAN fForce )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"EVENT_InitNewSoldierAnim");
-	INT16  sNewGridNo = 0;
+	INT32  usNewGridNo = 0;
 	INT16		sAPCost = 0;
 	INT16		sBPCost = 0;
 	UINT32	uiOldAnimFlags;
@@ -3190,7 +3187,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	uiOldAnimFlags = gAnimControl[ this->usAnimState ].uiFlags;
 	uiNewAnimFlags = gAnimControl[ usNewState ].uiFlags;
 
-	sNewGridNo = NewGridNo( this->sGridNo, DirectionInc( (UINT8) this->pathing.usPathingData[ this->pathing.usPathIndex ] ) );
+	usNewGridNo = NewGridNo( this->sGridNo, DirectionInc( (UINT8) this->pathing.usPathingData[ this->pathing.usPathIndex ] ) );
 
 
 	// CHECKING IF WE HAVE A HIT FINISH BUT NO DEATH IS DONE WITH A SPECIAL ANI CODE
@@ -3523,12 +3520,12 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 			// Set path....
 			{
-				INT16 sNewGridNo;
+					INT32 usNewGridNo;
 
 				DeductPoints( this, APBPConstants[AP_JUMP_OVER], APBPConstants[BP_JUMP_OVER] );
 
-				sNewGridNo = NewGridNo( (INT16)this->sGridNo, DirectionInc( this->ubDirection ) );
-				sNewGridNo = NewGridNo( (INT16)sNewGridNo, DirectionInc( this->ubDirection ) );
+				usNewGridNo = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
+				usNewGridNo = NewGridNo( usNewGridNo, DirectionInc( this->ubDirection ) );
 
 				this->sPlotSrcGrid = this->sGridNo;
 				this->flags.fPastXDest = FALSE;
@@ -3539,7 +3536,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 				this->pathing.usPathDataSize++;
 				this->pathing.usPathingData[ this->pathing.usPathDataSize ] = this->ubDirection;
 				this->pathing.usPathDataSize++;
-				this->pathing.sFinalDestination = sNewGridNo;
+				this->pathing.sFinalDestination = usNewGridNo;
 				// Set direction
 				this->EVENT_InternalSetSoldierDestination( (UINT8) this->pathing.usPathingData[ this->pathing.usPathIndex ], FALSE, JUMP_OVER_BLOCKING_PERSON );
 			}
@@ -3757,8 +3754,8 @@ void SOLDIERTYPE::InternalRemoveSoldierFromGridNo( BOOLEAN fForce )
 {
 	INT8 bDir;
 	INT32 iGridNo;
-
-	if((this->sGridNo!=NOWHERE) )
+	
+	if(!TileIsOutOfBounds(this->sGridNo))
 	{
 		if ( this->bInSector || fForce )
 		{
@@ -3797,7 +3794,7 @@ void SOLDIERTYPE::RemoveSoldierFromGridNo( void )
 
 void SOLDIERTYPE::EVENT_InternalSetSoldierPosition( FLOAT dNewXPos, FLOAT dNewYPos ,BOOLEAN fUpdateDest, BOOLEAN fUpdateFinalDest, BOOLEAN fForceRemove )
 {
-	INT16 sNewGridNo;
+	INT32 sNewGridNo;
 
 	// Not if we're dead!
 	if ( ( this->flags.uiStatusFlags & SOLDIER_DEAD ) )
@@ -3927,7 +3924,7 @@ void SOLDIERTYPE::SetSoldierHeight( FLOAT dNewHeight )
 }
 
 
-void SOLDIERTYPE::SetSoldierGridNo( INT16 sNewGridNo, BOOLEAN fForceRemove )
+void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 {
 	BOOLEAN	fInWaterValue;
 	INT8		bDir;
@@ -4041,7 +4038,7 @@ void SOLDIERTYPE::SetSoldierGridNo( INT16 sNewGridNo, BOOLEAN fForceRemove )
 		this->sZLevelOverride = -1;
 		// If we are over a fence ( hopping ), make us higher!
 
-		if ( IsJumpableFencePresentAtGridno( sNewGridNo ) )
+		if ( IsJumpableFencePresentAtGridNo( sNewGridNo ) )
 		{
 			//sX = MapX( sNewGridNo );
 			//sY = MapY( sNewGridNo );
@@ -4179,19 +4176,8 @@ void SOLDIERTYPE::SetSoldierGridNo( INT16 sNewGridNo, BOOLEAN fForceRemove )
 			BOOLEAN fSetGassed = TRUE;
 
 			// If we have a functioning gas mask...
-			if ( FindGasMask ( this ) != NO_SLOT && this->inv[ HEAD1POS ][0]->data.objectStatus >= GASMASK_MIN_STATUS )
-			{
+			if(DoesSoldierWearGasMask(this) && this->inv[FindGasMask(this)][0]->data.objectStatus >= GASMASK_MIN_STATUS)//dnl ch40 200909
 				fSetGassed = FALSE;
-			}
-			//   if ( this->inv[ HEAD1POS ].usItem == GASMASK && this->inv[ HEAD1POS ][0]->data.objectStatus >= GASMASK_MIN_STATUS )
-			//{
-			//	fSetGassed = FALSE;
-			//}
-			//   if ( this->inv[ HEAD2POS ].usItem == GASMASK && this->inv[ HEAD2POS ][0]->data.objectStatus >= GASMASK_MIN_STATUS )
-			//{
-			//	fSetGassed = FALSE;
-			//}
-
 			if ( fSetGassed )
 			{
 				this->flags.uiStatusFlags |= SOLDIER_GASSED;
@@ -4241,7 +4227,7 @@ void SOLDIERTYPE::SetSoldierGridNo( INT16 sNewGridNo, BOOLEAN fForceRemove )
 }
 
 
-void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT16 sTargetGridNo )
+void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 {
 	INT16 sTargetXPos, sTargetYPos;
 	BOOLEAN		fDoFireRightAway = FALSE;
@@ -4901,7 +4887,7 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady )
 
 
 // ATE: THIS FUNCTION IS USED FOR ALL SOLDIER TAKE DAMAGE FUNCTIONS!
-void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation, INT16 sSubsequent, INT16 sLocationGrid )
+void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation, INT16 sSubsequent, INT32 sLocationGrid )
 {
 	UINT8		ubCombinedLoss, ubVolume, ubReason;
 //	SOLDIERTYPE * pNewSoldier;
@@ -5507,7 +5493,7 @@ void DoGenericHit( SOLDIERTYPE *pSoldier, UINT8 ubSpecial, INT16 bDirection )
 
 void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
-	INT16	sNewGridNo;
+	INT32	usNewGridNo;
 	BOOLEAN	fBlownAway = FALSE;
 	BOOLEAN	fHeadHit = FALSE;
 	BOOLEAN	fFallenOver = FALSE;
@@ -5526,14 +5512,14 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 					//if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= Weapon[usWeaponIndex].maxdistformessydeath || (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && usWeaponIndex == BARRETT ))
 					if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= Weapon[usWeaponIndex].maxdistformessydeath)
 					{
-						sNewGridNo = NewGridNo( (INT16)pSoldier->sGridNo, (INT8)( DirectionInc( pSoldier->ubDirection ) ) );
+						usNewGridNo = NewGridNo( pSoldier->sGridNo, (INT8)( DirectionInc( pSoldier->ubDirection ) ) );
 
 						// CHECK OK DESTINATION!
-						if ( OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, pSoldier->ubDirection, JFK_HITDEATH ) )
+						if ( OKFallDirection( pSoldier, usNewGridNo, pSoldier->pathing.bLevel, pSoldier->ubDirection, JFK_HITDEATH ) )
 						{
-							sNewGridNo = NewGridNo( (INT16)sNewGridNo, (INT8)( DirectionInc( pSoldier->ubDirection ) ) );
+							usNewGridNo = NewGridNo( usNewGridNo, (INT8)( DirectionInc( pSoldier->ubDirection ) ) );
 
-							if ( OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, pSoldier->ubDirection, pSoldier->usAnimState ) )
+							if ( OKFallDirection( pSoldier, usNewGridNo, pSoldier->pathing.bLevel, pSoldier->ubDirection, pSoldier->usAnimState ) )
 							{
 								fHeadHit = TRUE;
 							}
@@ -5553,13 +5539,13 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 						// possibly play torso explosion anim!
 						if (pSoldier->ubDirection == bDirection)
 						{
-							sNewGridNo = NewGridNo( (INT16)pSoldier->sGridNo, DirectionInc( gOppositeDirection[ pSoldier->ubDirection ] ) );
+							usNewGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( gOppositeDirection[ pSoldier->ubDirection ] ) );
 
-							if ( OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ bDirection ], FLYBACK_HIT ) )
+							if ( OKFallDirection( pSoldier, usNewGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ bDirection ], FLYBACK_HIT ) )
 							{
-								sNewGridNo = NewGridNo( (INT16)sNewGridNo, DirectionInc( gOppositeDirection[ bDirection ] ) );
+								usNewGridNo = NewGridNo( usNewGridNo, DirectionInc( gOppositeDirection[ bDirection ] ) );
 
-								if ( OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ bDirection ], pSoldier->usAnimState ) )
+								if ( OKFallDirection( pSoldier, usNewGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ bDirection ], pSoldier->usAnimState ) )
 								{
 									fBlownAway = TRUE;
 								}
@@ -5631,7 +5617,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 
 void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDamage, UINT16 bDirection, UINT16 sRange, UINT8 ubAttackerID, UINT8 ubSpecial, UINT8 ubHitLocation )
 {
-	INT16 sNewGridNo;
+	INT32 sNewGridNo;
 
 	// IF HERE AND GUY IS DEAD, RETURN!
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )
@@ -5730,7 +5716,7 @@ void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 
 			case 8:
 				// 4 of 10 - fall backward (if possible) either forward
 				// Check behind us!
-				sNewGridNo = NewGridNo( (INT16)pSoldier->sGridNo, DirectionInc( gOppositeDirection[ bDirection ] ) );
+				sNewGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( gOppositeDirection[ bDirection ] ) );
 				if ( OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ bDirection ], FLYBACK_HIT ) )
 				{
 					pSoldier->EVENT_SetSoldierDirection( (INT8)bDirection );
@@ -5768,7 +5754,7 @@ void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 
 		pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
 
 		// Check behind us!
-		sNewGridNo = NewGridNo( (INT16)pSoldier->sGridNo, DirectionInc( gOppositeDirection[ bDirection ] ) );
+			sNewGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( gOppositeDirection[ bDirection ] ) );
 
 		if ( OKFallDirection( pSoldier, sNewGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ bDirection ], FLYBACK_HIT ) )
 		{
@@ -5872,15 +5858,15 @@ void SoldierGotHitPunch( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDam
 }
 
 
-BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT16 sDestGridNo, UINT16 usMovementAnim, BOOLEAN fFromUI, BOOLEAN fForceRestartAnim )
+BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 usMovementAnim, BOOLEAN fFromUI, BOOLEAN fForceRestartAnim )
 {
 	INT32	iDest;
-	INT16	sNewGridNo;
+	INT32 sNewGridNo;
 	BOOLEAN fContinue;
 	UINT32	uiDist;
 	UINT16	usAnimState;
 	UINT16	usMoveAnimState = usMovementAnim;
-	INT16							sMercGridNo;
+	INT32							sMercGridNo;
 	UINT16						usPathingData[ MAX_PATH_LIST_SIZE ];
 	UINT8							ubPathingMaxDirection;
 	BOOLEAN						fAdvancePath = TRUE;
@@ -6028,7 +6014,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT16 sDestGridNo, UINT16 
 
 
 		// CHECK IF FIRST TILE IS FREE
-		sNewGridNo = NewGridNo( (INT16)this->sGridNo, DirectionInc( (UINT8)this->pathing.usPathingData[ this->pathing.usPathIndex ] ) );
+		sNewGridNo = NewGridNo( this->sGridNo, DirectionInc( (UINT8)this->pathing.usPathingData[ this->pathing.usPathIndex ] ) );
 
 		// If true, we're OK, if not, WAIT for a guy to pass!
 		// If we are in deep water, we can only swim!
@@ -6072,7 +6058,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT16 sDestGridNo, UINT16 
 	return( FALSE );
 }
 
-void SOLDIERTYPE::EVENT_GetNewSoldierPath( INT16 sDestGridNo, UINT16 usMovementAnim )
+void SOLDIERTYPE::EVENT_GetNewSoldierPath( INT32 sDestGridNo, UINT16 usMovementAnim )
 {
 	// ATE: Default restart of animation to TRUE
 	this->EVENT_InternalGetNewSoldierPath( sDestGridNo, usMovementAnim, FALSE, TRUE );
@@ -6218,11 +6204,11 @@ void SOLDIERTYPE::ChangeSoldierStance( UINT8 ubDesiredStance )
 
 void SOLDIERTYPE::EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BOOLEAN fFromMove, UINT16 usAnimState )
 {
-	INT16	sNewGridNo;
+	INT32	sNewGridNo;
 	INT16		sXPos, sYPos;
 
 	// Get dest gridno, convert to center coords
-	sNewGridNo = NewGridNo( (INT16)this->sGridNo, DirectionInc( (UINT8)usNewDirection ) );
+	sNewGridNo = NewGridNo( this->sGridNo, DirectionInc( (UINT8)usNewDirection ) );
 
 	ConvertMapPosToWorldTileCenter( sNewGridNo, &sXPos, &sYPos );
 
@@ -6574,12 +6560,8 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		if ( this->flags.uiStatusFlags & SOLDIER_GASSED )
 		{
 			// then must get a gas mask or leave the gassed area to get over it
-			//			 if ( ( this->inv[ HEAD1POS ].usItem == GASMASK || this->inv[ HEAD2POS ].usItem == GASMASK ) || !( GetSmokeEffectOnTile( this->sGridNo, this->pathing.bLevel ) ) )
-			if ( FindGasMask( this ) != NO_SLOT || !( GetSmokeEffectOnTile( this->sGridNo, this->pathing.bLevel ) ) )
-			{
-				// Turn off gassed flag....
-				this->flags.uiStatusFlags &= (~SOLDIER_GASSED );
-			}
+			if(DoesSoldierWearGasMask(this) && this->inv[FindGasMask(this)][0]->data.objectStatus >= GASMASK_MIN_STATUS || !(GetSmokeEffectOnTile(this->sGridNo, this->pathing.bLevel)))//dnl ch40 200909
+				this->flags.uiStatusFlags &= (~SOLDIER_GASSED);
 		}
 
 		if ( this->bBlindedCounter > 0 )
@@ -6633,24 +6615,25 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		this->CalcNewActionPoints( );
 
 		// HEADROCK HAM 3.6: If this soldier is in a "moving" animation, but has not moved any tiles
-		// in the previous turn, then the player has apparently forgotten that he was moving.
-		// In this case, abort the character's action.
-
+        // in the previous turn, then the player has apparently forgotten that he was moving.
+        // In this case, abort the character's action.
+        
 		// If hasn't moved since the start of last round
-		// AND this function is being executed in Turn Based mode
-		// AND character is a player-controlled merc
-		if (!fFromRealTime && !this->bTilesMoved && this->bTeam == OUR_TEAM )
-		{
-			// but is doing a movement animation
-			if ( !( gAnimControl[ this->usAnimState ].uiFlags & ANIM_STATIONARY ) )
-			{
-				// Stop the merc
-				this->EVENT_StopMerc( this->sGridNo, this->ubDirection );
-				// Reset destination
-				//this->pathing.sFinalDestination = this->sGridNo;
+        // AND this function is being executed in Turn Based mode
+        // AND character is a player-controlled merc
+        if (!fFromRealTime && !this->bTilesMoved && this->bTeam == OUR_TEAM )
+        {
+            // but are doing a movement animation
+            if ( !( gAnimControl[ this->usAnimState ].uiFlags & ANIM_STATIONARY ) )
+            {
+                // Stop the merc
+                this->EVENT_StopMerc( this->sGridNo, this->ubDirection );
 				this->pathing.sFinalDestination = NOWHERE;
-			}
-		}
+            }
+
+            // Reset destination
+            //this->pathing.sFinalDestination = this->sGridNo;
+        }
 
 		this->bTilesMoved						= 0;
 
@@ -8011,7 +7994,7 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 		if ( EnoughPoints( this, GetAPsToClimbRoof( this, FALSE ), 0, TRUE ) )
 		{
 			//Kaiden: Helps if we look where we are going before we try to climb on top of someone
-			ubWhoIsThere = WhoIsThere2( NewGridNo( (INT16)this->sGridNo, (UINT16)DirectionInc(bNewDirection ) ), 1 );
+			ubWhoIsThere = WhoIsThere2( NewGridNo( this->sGridNo, (UINT16)DirectionInc(bNewDirection ) ), 1 );
 			if ( ubWhoIsThere != NOBODY && ubWhoIsThere != this->ubID )
 		 {
 			 return;
@@ -8025,7 +8008,7 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 				 SetUIBusy( this->ubID );
 			 }
 
-			 this->sTempNewGridNo = NewGridNo( (INT16)this->sGridNo, (UINT16)DirectionInc(bNewDirection ) );
+			 this->sTempNewGridNo = NewGridNo( this->sGridNo, (UINT16)DirectionInc(bNewDirection ) );
 
 			 this->ubPendingDirection = bNewDirection;
 			 //this->usPendingAnimation = CLIMBUPROOF;
@@ -8061,7 +8044,7 @@ void SOLDIERTYPE::BeginSoldierClimbFence( void )
 
 	if ( FindFenceJumpDirection( this, this->sGridNo, bDirection, &bDirection ) )
 	{
-		this->sTempNewGridNo = NewGridNo( (INT16)this->sGridNo, (UINT16)DirectionInc(bDirection ) );
+		this->sTempNewGridNo = NewGridNo( this->sGridNo, (UINT16)DirectionInc(bDirection ) );
 		this->flags.fDontChargeTurningAPs = TRUE;
 		EVENT_InternalSetSoldierDesiredDirection( this, bDirection, FALSE, this->usAnimState );
 		this->flags.fTurningUntilDone = TRUE;
@@ -8269,8 +8252,16 @@ void HandleTakeDamageDeath( SOLDIERTYPE *pSoldier, UINT8 bOldLife, UINT8 ubReaso
 }
 
 
-UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathLoss, UINT8 ubReason, UINT8 ubAttacker, INT16 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage )
+UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBreathLoss, UINT8 ubReason, UINT8 ubAttacker, INT32 sSourceGrid, INT16 sSubsequent, BOOLEAN fShowDamage )
 {
+#ifdef JA2BETAVERSION
+	if (is_networked) {
+	CHAR tmpMPDbgString[512];
+	sprintf(tmpMPDbgString,"SoldierTakeDamage ( bHeight : %i , sLifeDeduct : %i , sBreathLoss : %i , ubReason : %i , ubAttacker : %i , sSourceGrid : %i , sSubsequent : %i , fShowDamage : %i )\n", bHeight , sLifeDeduct , sBreathLoss , ubReason , ubAttacker , sSourceGrid , sSubsequent , fShowDamage );
+	MPDebugMsg(tmpMPDbgString);
+	}
+#endif
+
 	INT8		bOldLife;
 	UINT8		ubCombinedLoss;
 	INT8		bBandage;
@@ -9195,7 +9186,7 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 	// Check if we are near a lower level
 	INT8							bNewDirection;
 	BOOLEAN						fReturnVal = FALSE;
-	INT16							sNewGridNo;
+	INT32							sNewGridNo;
 	// Default to true
 	BOOLEAN						fDoForwards = TRUE;
 
@@ -9214,12 +9205,12 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 			bNewDirection = gOppositeDirection[ bNewDirection ];
 
 			// Alrighty, let's not blindly change here, look at whether the dest gridno is good!
-			sNewGridNo = NewGridNo( (INT16)this->sGridNo, DirectionInc( gOppositeDirection[ bNewDirection ] ) );
+			sNewGridNo = NewGridNo( this->sGridNo, DirectionInc( gOppositeDirection[ bNewDirection ] ) );
 			if ( !NewOKDestination( this, sNewGridNo, TRUE, 0 ) )
 			{
 				return( FALSE );
 			}
-			sNewGridNo = NewGridNo( (INT16)sNewGridNo, DirectionInc( gOppositeDirection[ bNewDirection ] ) );
+			sNewGridNo = NewGridNo( sNewGridNo, DirectionInc( gOppositeDirection[ bNewDirection ] ) );
 			if ( !NewOKDestination( this, sNewGridNo, TRUE, 0 ) )
 			{
 				return( FALSE );
@@ -9240,8 +9231,8 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 			// ATE: Make this more usefull...
 			if ( fDoForwards )
 			{
-				this->sTempNewGridNo = NewGridNo( (INT16)this->sGridNo, (INT16)( -1 * DirectionInc(bNewDirection ) ) );
-				this->sTempNewGridNo = NewGridNo( (INT16)this->sTempNewGridNo, (INT16)( -1 * DirectionInc( bNewDirection ) ) );
+				this->sTempNewGridNo = NewGridNo( this->sGridNo, (INT16)( -1 * DirectionInc(bNewDirection ) ) );
+				this->sTempNewGridNo = NewGridNo( this->sTempNewGridNo, (INT16)( -1 * DirectionInc( bNewDirection ) ) );
 				this->EVENT_SetSoldierDesiredDirection( gOppositeDirection[ bNewDirection ] );
 				this->flags.fTurningUntilDone = TRUE;
 				this->usPendingAnimation = FALLFORWARD_ROOF;
@@ -9256,8 +9247,8 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 			else
 			{
 
-				this->sTempNewGridNo = NewGridNo( (INT16)this->sGridNo, (INT16)( -1 * DirectionInc( bNewDirection ) ) );
-				this->sTempNewGridNo = NewGridNo( (INT16)this->sTempNewGridNo, (INT16)( -1 * DirectionInc( bNewDirection ) ) );
+				this->sTempNewGridNo = NewGridNo( this->sGridNo, (INT16)( -1 * DirectionInc( bNewDirection ) ) );
+				this->sTempNewGridNo = NewGridNo( this->sTempNewGridNo, (INT16)( -1 * DirectionInc( bNewDirection ) ) );
 				this->EVENT_SetSoldierDesiredDirection( bNewDirection );
 				this->flags.fTurningUntilDone = TRUE;
 				this->usPendingAnimation = FALLOFF;
@@ -9284,7 +9275,7 @@ void SOLDIERTYPE::BeginSoldierClimbDownRoof( void )
 		if ( EnoughPoints( this, GetAPsToClimbRoof( this, TRUE ), 0, TRUE ) )
 		{
 			//Kaiden: Helps if we look where we are going before we try to climb on top of someone
-			ubWhoIsThere = WhoIsThere2( NewGridNo( (INT16)this->sGridNo, (UINT16)DirectionInc(bNewDirection ) ), 0 );
+			ubWhoIsThere = WhoIsThere2( NewGridNo( this->sGridNo, (UINT16)DirectionInc(bNewDirection ) ), 0 );
 			if ( ubWhoIsThere != NOBODY && ubWhoIsThere != this->ubID )
 		 {
 			 return;
@@ -9301,7 +9292,7 @@ void SOLDIERTYPE::BeginSoldierClimbDownRoof( void )
 
 
 
-			 this->sTempNewGridNo = NewGridNo( (INT16)this->sGridNo, (UINT16)DirectionInc(bNewDirection ) );
+			 this->sTempNewGridNo = NewGridNo( this->sGridNo, (UINT16)DirectionInc(bNewDirection ) );
 
 			 bNewDirection = gTwoCDirection[ bNewDirection ];
 
@@ -9476,7 +9467,7 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 
 }
 
-BOOLEAN GetDirectionChangeAmount( INT16 sGridNo, SOLDIERTYPE *pSoldier, UINT8 uiTurnAmount)
+BOOLEAN GetDirectionChangeAmount( INT32 sGridNo, SOLDIERTYPE *pSoldier, UINT8 uiTurnAmount)
 {
 	//CHRISL: This function should return TRUE if the difference between our current facing and the facing needed to put
 	//	the indicated sGrinNo into our facing is greater then uiTurnAmount
@@ -9511,7 +9502,7 @@ BOOLEAN GetDirectionChangeAmount( INT16 sGridNo, SOLDIERTYPE *pSoldier, UINT8 ui
 	return TRUE;
 }
 
-UINT8 GetDirectionFromGridNo( INT16 sGridNo, SOLDIERTYPE *pSoldier )
+UINT8 GetDirectionFromGridNo( INT32 sGridNo, SOLDIERTYPE *pSoldier )
 {
 	INT16 sXPos, sYPos;
 
@@ -9520,7 +9511,7 @@ UINT8 GetDirectionFromGridNo( INT16 sGridNo, SOLDIERTYPE *pSoldier )
 	return( GetDirectionFromXY( sXPos, sYPos, pSoldier ) );
 }
 
-INT16 GetDirectionToGridNoFromGridNo( INT16 sGridNoDest, INT16 sGridNoSrc )
+INT16 GetDirectionToGridNoFromGridNo( INT32 sGridNoDest, INT32 sGridNoSrc )
 {
 	INT16 sXPos2, sYPos2;
 	INT16 sXPos, sYPos;
@@ -9699,7 +9690,7 @@ void CheckForFullStructures( SOLDIERTYPE *pSoldier )
 {
 	// This function checks to see if we are near a specific structure type which requires us to blit a
 	// small obscuring peice
-	INT16 sGridNo;
+	INT32 sGridNo;
 	UINT16 usFullTileIndex;
 	INT32		cnt;
 
@@ -9730,7 +9721,7 @@ void CheckForFullStructures( SOLDIERTYPE *pSoldier )
 }
 
 
-BOOLEAN CheckForFullStruct( INT16 sGridNo, UINT16 *pusIndex  )
+BOOLEAN CheckForFullStruct( INT32 sGridNo, UINT16 *pusIndex  )
 {
 	LEVELNODE	*pStruct		 = NULL;
 	LEVELNODE	*pOldStruct		 = NULL;
@@ -9785,12 +9776,12 @@ BOOLEAN CheckForFullStruct( INT16 sGridNo, UINT16 *pusIndex  )
 }
 
 
-BOOLEAN FullStructAlone( INT16 sGridNo, UINT8 ubRadius )
+BOOLEAN FullStructAlone( INT32 sGridNo, UINT8 ubRadius )
 {
-	INT16  sTop, sBottom;
-	INT16  sLeft, sRight;
-	INT16  cnt1, cnt2;
-	INT16	 iNewIndex;
+	INT32  sTop, sBottom;
+	INT32  sLeft, sRight;
+	INT32  cnt1, cnt2;
+	INT32	 iNewIndex;
 	INT32	 leftmost;
 
 
@@ -9874,7 +9865,7 @@ void SendSoldierPositionEvent( SOLDIERTYPE *pSoldier, FLOAT dNewXPos, FLOAT dNew
 
 }
 
-void SendSoldierDestinationEvent( SOLDIERTYPE *pSoldier, UINT16 usNewDestination )
+void SendSoldierDestinationEvent( SOLDIERTYPE *pSoldier, UINT32 usNewDestination )
 {
 	// Sent event for position update
 	EV_S_CHANGEDEST	SChangeDest;
@@ -9914,7 +9905,7 @@ void SendSoldierSetDesiredDirectionEvent( SOLDIERTYPE *pSoldier, UINT16 usDesire
 
 }
 
-void SendGetNewSoldierPathEvent( SOLDIERTYPE *pSoldier, INT16 sDestGridNo, UINT16 usMovementAnim )
+void SendGetNewSoldierPathEvent( SOLDIERTYPE *pSoldier, INT32 sDestGridNo, UINT16 usMovementAnim )
 {
 	EV_S_GETNEWPATH	SGetNewPath;
 
@@ -9953,7 +9944,7 @@ void SendChangeSoldierStanceEvent( SOLDIERTYPE *pSoldier, UINT8 ubNewStance )
 }
 
 
-void SendBeginFireWeaponEvent( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
+void SendBeginFireWeaponEvent( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SendBeginFireWeaponEvent"));
 	EV_S_BEGINFIREWEAPON		SBeginFireWeapon;
@@ -10133,7 +10124,7 @@ void SOLDIERTYPE::HandleAnimationProfile( UINT16	usAnimState, BOOLEAN fRemove )
 	ANIM_PROF_TILE		*pProfileTile;
 	INT8							bProfileID;
 	UINT32						iTileCount;
-	INT16							sGridNo;
+	INT32 sGridNo;
 	UINT16						usAnimSurface;
 
 	// ATE
@@ -10189,7 +10180,7 @@ void SOLDIERTYPE::HandleAnimationProfile( UINT16	usAnimState, BOOLEAN fRemove )
 }
 
 
-LEVELNODE *GetAnimProfileFlags( INT16 sGridNo, UINT16 *usFlags, SOLDIERTYPE **ppTargSoldier, LEVELNODE *pGivenNode )
+LEVELNODE *GetAnimProfileFlags( INT32 sGridNo, UINT16 *usFlags, SOLDIERTYPE **ppTargSoldier, LEVELNODE *pGivenNode )
 {
 	LEVELNODE				*pNode;
 
@@ -10223,14 +10214,14 @@ LEVELNODE *GetAnimProfileFlags( INT16 sGridNo, UINT16 *usFlags, SOLDIERTYPE **pp
 }
 
 
-BOOLEAN SOLDIERTYPE::GetProfileFlagsFromGridno( UINT16 usAnimState, UINT16 sTestGridNo, UINT16 *usFlags )
+BOOLEAN SOLDIERTYPE::GetProfileFlagsFromGridno( UINT16 usAnimState, INT32 sTestGridNo, UINT16 *usFlags )
 {
 	ANIM_PROF					*pProfile;
 	ANIM_PROF_DIR			*pProfileDir;
 	ANIM_PROF_TILE		*pProfileTile;
 	INT8							bProfileID;
 	UINT32						iTileCount;
-	INT16							sGridNo;
+	INT32 sGridNo;
 	UINT16						usAnimSurface;
 
 	// Get Surface Index
@@ -10298,7 +10289,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginGiveItem( void )
 }
 
 
-void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT16 sGridNo, UINT8 ubDirection )
+void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirection )
 {
 	SOLDIERTYPE *pTSoldier;
 	//UINT32 uiMercFlags;
@@ -10468,7 +10459,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT16 sGridNo, UINT8 ubDirectio
 }
 
 
-void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT16 sGridNo, UINT8 ubDirection )
+void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirection )
 {
 	BOOLEAN			fMartialArtist = FALSE;
 	SOLDIERTYPE *pTSoldier;
@@ -10603,7 +10594,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT16 sGridNo, UINT8 ubDirectio
 }
 
 
-void SOLDIERTYPE::EVENT_SoldierBeginKnifeThrowAttack( INT16 sGridNo, UINT8 ubDirection )
+void SOLDIERTYPE::EVENT_SoldierBeginKnifeThrowAttack( INT32 sGridNo, UINT8 ubDirection )
 {
 	// Increment the number of people busy doing stuff because of an attack
 	//if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
@@ -10623,7 +10614,11 @@ void SOLDIERTYPE::EVENT_SoldierBeginKnifeThrowAttack( INT16 sGridNo, UINT8 ubDir
 
 	// SET TARGET GRIDNO
 	this->sTargetGridNo = sGridNo;
-	this->sLastTarget		= sGridNo;
+	
+	// WANNE: Fix a vanilla bug: Throwing a knife costed one point less than it should.
+	// Fixed by Tron (Stracciatella): Revision: 5787
+	//this->sLastTarget		= sGridNo;
+	
 	this->flags.bTurningFromPronePosition	= 0;
 	// NB target level must be set by functions outside of here... but I think it
 	// is already set in HandleItem or in the AI code - CJC
@@ -10670,7 +10665,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginUseDetonator( void )
 	}
 }
 
-void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT16 sGridNo, UINT8 ubDirection )
+void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 {
 	SOLDIERTYPE *pTSoldier;
 	//UINT32 uiMercFlags;
@@ -10756,7 +10751,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT16 sGridNo, UINT8 ubDirection )
 }
 
 
-void SOLDIERTYPE::EVENT_SoldierEnterVehicle( INT16 sGridNo, UINT8 ubDirection )
+void SOLDIERTYPE::EVENT_SoldierEnterVehicle( INT32 sGridNo, UINT8 ubDirection )
 {
 	SOLDIERTYPE *pTSoldier;
 	UINT32 uiMercFlags;
@@ -11208,7 +11203,7 @@ void SOLDIERTYPE::HaultSoldierFromSighting( BOOLEAN fFromSightingEnemy )
 
 
 // HUALT EVENT IS USED TO STOP A MERC - NETWORKING SHOULD CHECK / ADJUST TO GRIDNO?
-void SOLDIERTYPE::EVENT_StopMerc( INT16 sGridNo, INT8 bDirection )
+void SOLDIERTYPE::EVENT_StopMerc( INT32 sGridNo, INT8 bDirection )
 {
 	INT16 sX, sY;
 
@@ -11480,7 +11475,7 @@ UINT16 *CreateEnemyGreyGlow16BPPPalette( SGPPaletteEntry *pPalette, UINT32 rscal
 void ContinueMercMovement( SOLDIERTYPE *pSoldier )
 {
 	INT16		sAPCost;
-	INT16		sGridNo;
+	INT32 sGridNo;
 
 	sGridNo = pSoldier->pathing.sFinalDestination;
 
@@ -12116,7 +12111,7 @@ FLOAT CalcSoldierNextUnmovingBleed( SOLDIERTYPE *pSoldier )
 	return( (FLOAT)1 + (FLOAT)( (pSoldier->stats.bLife + bBandaged / 2) / 10 ) );  // min = 1
 }
 
-void HandlePlacingRoofMarker( SOLDIERTYPE *pSoldier, INT16 sGridNo, BOOLEAN fSet, BOOLEAN fForce )
+void HandlePlacingRoofMarker( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fSet, BOOLEAN fForce )
 {
 	LEVELNODE *pRoofNode;
 	LEVELNODE *pNode;
@@ -12235,7 +12230,7 @@ void SOLDIERTYPE::SetCheckSoldierLightFlag( )
 }
 
 
-void PickPickupAnimation( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT16 sGridNo, INT8 bZLevel )
+void PickPickupAnimation( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGridNo, INT8 bZLevel )
 {
 	INT8				bDirection;
 	STRUCTURE		*pStructure;
@@ -12288,7 +12283,7 @@ void PickPickupAnimation( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT16 sGridNo
 				{
 					//#if 0
 					// Get direction to face....
-					if ( ( pStructure = FindStructure( (INT16)sGridNo, ( STRUCTURE_HASITEMONTOP | STRUCTURE_OPENABLE ) ) ) != NULL )
+					if ( ( pStructure = FindStructure( sGridNo, ( STRUCTURE_HASITEMONTOP | STRUCTURE_OPENABLE ) ) ) != NULL )
 					{
 						fDoNormalPickup = FALSE;
 
@@ -12374,7 +12369,7 @@ void SOLDIERTYPE::PickDropItemAnimation( void )
 }
 
 
-void SOLDIERTYPE::EVENT_SoldierBeginCutFence( INT16 sGridNo, UINT8 ubDirection )
+void SOLDIERTYPE::EVENT_SoldierBeginCutFence( INT32 sGridNo, UINT8 ubDirection )
 {
 	// Make sure we have a structure here....
 	if ( IsCuttableWireFenceAtGridNo( sGridNo ) )
@@ -12397,7 +12392,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginCutFence( INT16 sGridNo, UINT8 ubDirection )
 }
 
 
-void SOLDIERTYPE::EVENT_SoldierBeginRepair( INT16 sGridNo, UINT8 ubDirection )
+void SOLDIERTYPE::EVENT_SoldierBeginRepair( INT32 sGridNo, UINT8 ubDirection )
 {
 	INT8 bRepairItem;
 	UINT8	ubID;
@@ -12433,7 +12428,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginRepair( INT16 sGridNo, UINT8 ubDirection )
 	}
 }
 
-void SOLDIERTYPE::EVENT_SoldierBeginRefuel( INT16 sGridNo, UINT8 ubDirection )
+void SOLDIERTYPE::EVENT_SoldierBeginRefuel( INT32 sGridNo, UINT8 ubDirection )
 {
 	INT8 bRefuelItem;
 	UINT8	ubID;
@@ -12459,7 +12454,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginRefuel( INT16 sGridNo, UINT8 ubDirection )
 }
 
 
-void SOLDIERTYPE::EVENT_SoldierBeginTakeBlood( INT16 sGridNo, UINT8 ubDirection )
+void SOLDIERTYPE::EVENT_SoldierBeginTakeBlood( INT32 sGridNo, UINT8 ubDirection )
 {
 	ROTTING_CORPSE *pCorpse;
 
@@ -12485,7 +12480,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginTakeBlood( INT16 sGridNo, UINT8 ubDirection 
 }
 
 
-void SOLDIERTYPE::EVENT_SoldierBeginAttachCan( INT16 sGridNo, UINT8 ubDirection )
+void SOLDIERTYPE::EVENT_SoldierBeginAttachCan( INT32 sGridNo, UINT8 ubDirection )
 {
 	STRUCTURE *			pStructure;
 	DOOR_STATUS *		pDoorStatus;
@@ -12540,7 +12535,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginAttachCan( INT16 sGridNo, UINT8 ubDirection 
 }
 
 
-void SOLDIERTYPE::EVENT_SoldierBeginReloadRobot( INT16 sGridNo, UINT8 ubDirection, UINT8 ubMercSlot )
+void SOLDIERTYPE::EVENT_SoldierBeginReloadRobot( INT32 sGridNo, UINT8 ubDirection, UINT8 ubMercSlot )
 {
 	UINT8 ubPerson;
 
@@ -12582,9 +12577,9 @@ void SOLDIERTYPE::ResetSoldierChangeStatTimer( void )
 
 void SOLDIERTYPE::ChangeToFlybackAnimation( UINT8 flyBackDirection )
 {
+	INT32 sNewGridNo;
 	UINT8 ubOppositeDir;
 	INT16 sDirectionInc;
-	INT16 sNewGridNo;
 
 	ubOppositeDir = gOppositeDirection[ flyBackDirection ];
 	sDirectionInc = DirectionInc( ubOppositeDir);
@@ -12634,7 +12629,7 @@ void SOLDIERTYPE::ChangeToFlybackAnimation( UINT8 flyBackDirection )
 
 void SOLDIERTYPE::ChangeToFallbackAnimation( UINT8 fallBackDirection )
 {
-	INT16 sNewGridNo;
+	INT32 sNewGridNo;
 	UINT8 ubOppositeDir;
 	INT16 sDirection;
 
@@ -12714,7 +12709,7 @@ void SOLDIERTYPE::SetSoldierCowerState( BOOLEAN fOn )
 
 void MercStealFromMerc( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTarget )
 {
-	INT16 sActionGridNo, sGridNo, sAdjustedGridNo;
+	INT32 sActionGridNo, sGridNo, sAdjustedGridNo;
 	UINT8	ubDirection;
 
 
@@ -13450,8 +13445,8 @@ void SetSoldierPersonalLightLevel( SOLDIERTYPE *pSoldier )
 	{
 		return;
 	}
-
-	if( pSoldier->sGridNo == NOWHERE )
+	
+	if(TileIsOutOfBounds(pSoldier->sGridNo))
 	{
 		return;
 	}
@@ -13461,4 +13456,13 @@ void SetSoldierPersonalLightLevel( SOLDIERTYPE *pSoldier )
 	gpWorldLevelData[pSoldier->sGridNo].pMercHead->ubSumLights = 5;
 	gpWorldLevelData[pSoldier->sGridNo].pMercHead->ubMaxLights = 5;
 	gpWorldLevelData[pSoldier->sGridNo].pMercHead->ubNaturalShadeLevel = 5;
+}
+
+BOOLEAN DoesSoldierWearGasMask(SOLDIERTYPE *pSoldier)//dnl ch40 200909
+{
+	INT8 bPosOfMask = FindGasMask(pSoldier);
+
+	if((bPosOfMask == HEAD1POS || bPosOfMask == HEAD2POS) && pSoldier->inv[bPosOfMask][0]->data.objectStatus >= USABLE)
+		return(TRUE);
+	return(FALSE);
 }

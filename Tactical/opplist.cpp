@@ -49,6 +49,7 @@
 	#include "Sound Control.h"
 	#include "drugs and alcohol.h"
 	#include "Interface.h"
+	#include "Explosion Control.h"//dnl ch40 200909
 #endif
 
 //rain
@@ -61,16 +62,16 @@ extern void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
 // HEADROCK HAM 3.6: Moved to header
 //void MakeBloodcatsHostile( void );
 
-void OurNoise( UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,	UINT8 ubNoiseType );
-void TheirNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType );
-void ProcessNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType);
-UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT8 ubNoiseType, UINT8 ubBaseVolume, UINT8 bCheckTerrain, UINT8 ubTerrType1, UINT8 ubTerrType2);
-void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 *ubSeen);
-void TellPlayerAboutNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir );
+void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,	UINT8 ubNoiseType );
+void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType );
+void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType);
+UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubNoiseType, UINT8 ubBaseVolume, UINT8 bCheckTerrain, UINT8 ubTerrType1, UINT8 ubTerrType2);
+void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 *ubSeen);
+void TellPlayerAboutNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir );
 void OurTeamSeesSomeone( SOLDIERTYPE * pSoldier, INT8 bNumReRevealed, INT8 bNumNewEnemies );
 
-void IncrementWatchedLoc( UINT8 ubID, INT16 sGridNo, INT8 bLevel );
-void SetWatchedLocAsUsed( UINT8 ubID, INT16 sGridNo, INT8 bLevel );
+void IncrementWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel );
+void SetWatchedLocAsUsed( UINT8 ubID, INT32 sGridNo, INT8 bLevel );
 void DecayWatchedLocs( INT8 bTeam );
 
 void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT8 * pPersOL, INT8 * pbPublOL );
@@ -117,12 +118,12 @@ UINT8			gubInterruptProvoker = NOBODY;
 
 INT8 gbPublicOpplist[MAXTEAMS][TOTAL_SOLDIERS];
 INT8 gbSeenOpponents[TOTAL_SOLDIERS][TOTAL_SOLDIERS];
-INT16 gsLastKnownOppLoc[TOTAL_SOLDIERS][TOTAL_SOLDIERS];		// merc vs. merc
+INT32 gsLastKnownOppLoc[TOTAL_SOLDIERS][TOTAL_SOLDIERS];		// merc vs. merc
 INT8 gbLastKnownOppLevel[TOTAL_SOLDIERS][TOTAL_SOLDIERS];
-INT16 gsPublicLastKnownOppLoc[MAXTEAMS][TOTAL_SOLDIERS];	// team vs. merc
+INT32 gsPublicLastKnownOppLoc[MAXTEAMS][TOTAL_SOLDIERS];	// team vs. merc
 INT8 gbPublicLastKnownOppLevel[MAXTEAMS][TOTAL_SOLDIERS];
 UINT8 gubPublicNoiseVolume[MAXTEAMS];
-INT16 gsPublicNoiseGridno[MAXTEAMS];
+INT32 gsPublicNoiseGridNo[MAXTEAMS];
 INT8	gbPublicNoiseLevel[MAXTEAMS];
 
 UINT8 gubKnowledgeValue[10][10] =
@@ -157,7 +158,7 @@ UINT8 gubKnowledgeValue[10][10] =
 #define MAX_WATCHED_LOC_POINTS 4
 #define WATCHED_LOC_RADIUS 1
 
-INT16			gsWatchedLoc[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
+INT32			gsWatchedLoc[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
 INT8			gbWatchedLocLevel[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
 UINT8			gubWatchedLocPoints[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
 BOOLEAN		gfWatchedLocReset[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
@@ -1106,7 +1107,7 @@ INT16 MaxNormalDistanceVisible( void )
 	return( STRAIGHT * 2 );
 }
 
-INT16 SOLDIERTYPE::GetMaxDistanceVisible(INT16 sGridNo, INT8 bLevel, int calcAsType)
+INT16 SOLDIERTYPE::GetMaxDistanceVisible(INT32 sGridNo, INT8 bLevel, int calcAsType)
 {
 	if (sGridNo == -1) {
 		return MaxNormalDistanceVisible();
@@ -1123,7 +1124,7 @@ INT16 SOLDIERTYPE::GetMaxDistanceVisible(INT16 sGridNo, INT8 bLevel, int calcAsT
 	}
 }
 
-INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, INT16 sSubjectGridNo, INT8 bLevel )
+INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, INT32 sSubjectGridNo, INT8 bLevel )
 {
 	INT16	sDistVisible;
 	INT8	bLightLevel;
@@ -1226,8 +1227,8 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 	// highest number the light can be
 
 	// If we're about to ask for a light level for a location outside of our
-	// valid map references then use the ambient light level instead.
-	if(0 > sSubjectGridNo || sSubjectGridNo > WORLD_MAX)
+	// valid map references then use the ambient light level instead.	
+	if ( TileIsOutOfBounds( sSubjectGridNo ) )
 	{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("113/UC Warning! Tried to detect the light level when character %ls[%d] looks at a location outside of the valid map (gridno %d). Assigning default %d",
 				pSoldier->name, pSoldier->ubID, pSoldier->sGridNo, ubAmbientLightLevel));
@@ -1305,12 +1306,15 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 
 	if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[ bLevel ] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS) )
 	{
-//		if ( pSoldier->inv[HEAD1POS].usItem != GASMASK && pSoldier->inv[HEAD2POS].usItem != GASMASK )
-		if ( FindGasMask (pSoldier) == NO_SLOT )
+		//dnl ch40 200909
+		INT8 bPosOfMask = FindGasMask(pSoldier);
+		if(bPosOfMask == HEAD1POS || bPosOfMask == HEAD2POS)
 		{
-			// in gas without a gas mask; reduce max distance visible to 2 tiles at most
-			sDistVisible = __min( sDistVisible, 2 );
+			if(pSoldier->inv[bPosOfMask][0]->data.objectStatus < GASMASK_MIN_STATUS)
+				sDistVisible = __min(sDistVisible, 2+pSoldier->inv[bPosOfMask][0]->data.objectStatus/15);
 		}
+		else
+			sDistVisible = __min(sDistVisible, 2);
 	}
 	if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[ bLevel ] & MAPELEMENT_EXT_BURNABLEGAS )
 	{
@@ -1348,8 +1352,8 @@ void EndMuzzleFlash( SOLDIERTYPE * pSoldier )
 		if ( pOtherSoldier != NULL )
 		{
 			if ( pOtherSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
-			{
-				if ( pOtherSoldier->sGridNo != NOWHERE )
+			{				
+				if (!TileIsOutOfBounds(pOtherSoldier->sGridNo))
 				{
 					if ( PythSpacesAway( pOtherSoldier->sGridNo, pSoldier->sGridNo ) > pOtherSoldier->GetMaxDistanceVisible(pSoldier->sGridNo, pSoldier->pathing.bLevel, CALC_FROM_WANTED_DIR ) )
 					{
@@ -1555,7 +1559,7 @@ void AllTeamsLookForAll(UINT8 ubAllowInterrupts)
  // if a door was recently opened/closed (doesn't matter if we could see it)
  // this is done here so we can first handle everyone looking through the
  // door, and deal with the resulting opplist changes, interrupts, etc.
- if (Status.doorCreakedGridno != NOWHERE)
+ if ( !TileIsOutOfBounds(Status.doorCreakedGridno))
 	{
 	// opening/closing a door makes a bit of noise (constant volume)
 	MakeNoise(Status.doorCreakedGuynum,Status.doorCreakedGridno,TTypeList[Grid[Status.doorCreakedGridno].land],DOOR_NOISE_VOLUME,NOISE_CREAKING,EXPECTED_NOSEND);
@@ -1780,8 +1784,8 @@ INT16 ManLooksForMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ubCall
 
 
 
- // if we're somehow looking for a guy who is inactive, at base, or already dead
- if (!pOpponent->bActive || !pOpponent->bInSector || pOpponent->stats.bLife <= 0 || pOpponent->sGridNo == NOWHERE )
+ // if we're somehow looking for a guy who is inactive, at base, or already dead 
+ if (!pOpponent->bActive || !pOpponent->bInSector || pOpponent->stats.bLife <= 0 || TileIsOutOfBounds(pOpponent->sGridNo))
  {
 /*
 #ifdef BETAVERSION
@@ -1992,7 +1996,7 @@ INT16 ManLooksForMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ubCall
 
 
 
-void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT16 sOppGridno, INT8 bOppLevel, UINT8 ubCaller, UINT8 ubCaller2)
+void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo, INT8 bOppLevel, UINT8 ubCaller, UINT8 ubCaller2)
 {
 	INT8 bDoLocate = FALSE;
 	BOOLEAN fNewOpponent = FALSE;
@@ -2375,7 +2379,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT16 sOppGridno,
 			// if the looker hasn't seen this opponent at all earlier this turn, OR
 			// if the opponent is not where the looker last thought him to be
 			if ((pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_THIS_TURN) ||
-				(gsLastKnownOppLoc[pSoldier->ubID][pOpponent->ubID] != sOppGridno))
+         (gsLastKnownOppLoc[pSoldier->ubID][pOpponent->ubID] != sOppGridNo))
 			{
 				SetNewSituation( pSoldier );  // force the looker to re-evaluate
 			}
@@ -2406,7 +2410,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT16 sOppGridno,
 #endif
 	//bOldOppValue = pSoldier->aiData.bOppList[ pOpponent->ubID ];
 	// remember that the soldier is currently seen and his new location
-	UpdatePersonal(pSoldier,pOpponent->ubID,SEEN_CURRENTLY,sOppGridno,bOppLevel);
+ UpdatePersonal(pSoldier,pOpponent->ubID,SEEN_CURRENTLY,sOppGridNo,bOppLevel);
 
 	if ( ubCaller2 == MANLOOKSFOROTHERTEAMS || ubCaller2 == OTHERTEAMSLOOKFORMAN || ubCaller2 == CALLER_UNKNOWN ) // unknown->hearing
 	{
@@ -2822,7 +2826,7 @@ IAN COMMENTED THIS OUT MAY 1997 - DO WE NEED THIS?
 
 
 
-void UpdatePublic(UINT8 ubTeam, UINT8 ubID, INT8 bNewOpplist, INT16 sGridno, INT8 bLevel)
+void UpdatePublic(UINT8 ubTeam, UINT8 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel)
 {
  INT32 cnt;
  INT8 *pbPublOL;
@@ -2846,7 +2850,7 @@ void UpdatePublic(UINT8 ubTeam, UINT8 ubID, INT8 bNewOpplist, INT16 sGridno, INT
 
 
  // always update the gridno, no matter what
- gsPublicLastKnownOppLoc[ubTeam][ubID] = sGridno;
+ gsPublicLastKnownOppLoc[ubTeam][ubID] = sGridNo;
  gbPublicLastKnownOppLevel[ubTeam][ubID] = bLevel;
 
  // if team has been told about a guy the team was completely unaware of
@@ -2883,7 +2887,7 @@ void UpdatePublic(UINT8 ubTeam, UINT8 ubID, INT8 bNewOpplist, INT16 sGridno, INT
 
 
 
-void UpdatePersonal(SOLDIERTYPE *pSoldier, UINT8 ubID, INT8 bNewOpplist, INT16 sGridno, INT8 bLevel)
+void UpdatePersonal(SOLDIERTYPE *pSoldier, UINT8 ubID, INT8 bNewOpplist, INT32 sGridNo, INT8 bLevel)
 {
 	/*
 #ifdef RECORDOPPLIST
@@ -2903,7 +2907,7 @@ void UpdatePersonal(SOLDIERTYPE *pSoldier, UINT8 ubID, INT8 bNewOpplist, INT16 s
 	}
 
  // always update the gridno, no matter what
- gsLastKnownOppLoc[pSoldier->ubID][ubID] = sGridno;
+ gsLastKnownOppLoc[pSoldier->ubID][ubID] = sGridNo;
  gbLastKnownOppLevel[pSoldier->ubID][ubID] = bLevel;
 }
 
@@ -3052,7 +3056,7 @@ void InitOpponentKnowledgeSystem(void)
 	for (iTeam=0; iTeam < MAXTEAMS; iTeam++)
 	{
 		gubPublicNoiseVolume[iTeam] = 0;
-		gsPublicNoiseGridno[iTeam] = NOWHERE;
+		gsPublicNoiseGridNo[iTeam] = NOWHERE;
 		gbPublicNoiseLevel[iTeam] = 0;
 		for (cnt = 0; cnt < MAX_NUM_SOLDIERS; cnt++)
 		{
@@ -3610,7 +3614,7 @@ DebugMsg( TOPIC_JA2OPPLIST, DBG_LEVEL_3,
  if (pSoldier->aiData.ubNoiseVolume > gubPublicNoiseVolume[ubTeamToRadioTo])
 	{
 	// replace the soldier's team's public noise with his
-	gsPublicNoiseGridno[ubTeamToRadioTo] 	= pSoldier->aiData.sNoiseGridno;
+	gsPublicNoiseGridNo[ubTeamToRadioTo] 	= pSoldier->aiData.sNoiseGridno;
 	gbPublicNoiseLevel[ubTeamToRadioTo] 	= pSoldier->bNoiseLevel;
 	gubPublicNoiseVolume[ubTeamToRadioTo] 	= pSoldier->aiData.ubNoiseVolume;
 	}
@@ -3655,7 +3659,7 @@ void DebugSoldierPage1( )
 	SOLDIERTYPE				*pSoldier;
 	UINT16						usSoldierIndex;
 	UINT32						uiMercFlags;
-	INT16						sMapPos;
+	INT32 usMapPos;
 	UINT8							ubLine=0;
 
 	if ( FindSoldierFromMouse( &usSoldierIndex, &uiMercFlags ) )
@@ -3815,7 +3819,7 @@ void DebugSoldierPage1( )
 		gprintf( 400, LINE_HEIGHT * ubLine, L"%d", pSoldier->flags.bHasKeys );
 		ubLine++;
 	}
-	else if ( GetMouseMapPos( &sMapPos ) )
+	else if ( GetMouseMapPos( &usMapPos ) )
 	{
 		SetFont( LARGEFONT1 );
 		gprintf( 0,0,L"DEBUG LAND PAGE ONE" );
@@ -3838,7 +3842,7 @@ void DebugSoldierPage2( )
 	SOLDIERTYPE				*pSoldier;
 	UINT16						usSoldierIndex;
 	UINT32						uiMercFlags;
-	INT16						sMapPos;
+	INT32 usMapPos;
 	TILE_ELEMENT							TileElem;
 	LEVELNODE					*pNode;
 	UINT8							ubLine;
@@ -3974,17 +3978,17 @@ void DebugSoldierPage2( )
 		gprintf( 150, LINE_HEIGHT * ubLine, L"%s", ShortItemNames[pSoldier->inv[SECONDHANDPOS].usItem] );
 		ubLine++;
 
-		if ( GetMouseMapPos( &sMapPos ) )
+		if ( GetMouseMapPos( &usMapPos ) )
 		{
 			SetFontShade(LARGEFONT1, FONT_SHADE_GREEN);
 			gprintf( 0, LINE_HEIGHT * ubLine, L"CurrGridNo:");
 			SetFontShade(LARGEFONT1, FONT_SHADE_NEUTRAL);
-			gprintf( 150, LINE_HEIGHT * ubLine, L"%d", sMapPos );
+			gprintf( 150, LINE_HEIGHT * ubLine, L"%d", usMapPos );
 			ubLine++;
 		}
 
 	}
-	else if ( GetMouseMapPos( &sMapPos ) )
+	else if ( GetMouseMapPos( &usMapPos ) )
 	{
 		SetFont( LARGEFONT1 );
 		gprintf( 0,0,L"DEBUG LAND PAGE TWO" );
@@ -3995,24 +3999,24 @@ void DebugSoldierPage2( )
 		SetFontColors(COLOR1);
 		mprintf( 0, LINE_HEIGHT * ubLine, L"Land Raised:");
 		SetFontColors(COLOR2);
-		mprintf( 150, LINE_HEIGHT * ubLine, L"%d", gpWorldLevelData[ sMapPos ].sHeight );
+		mprintf( 150, LINE_HEIGHT * ubLine, L"%d", gpWorldLevelData[ usMapPos ].sHeight );
 		ubLine++;
 
 		SetFontColors(COLOR1);
 		mprintf( 0, LINE_HEIGHT * ubLine, L"Land Node:");
 		SetFontColors(COLOR2);
-		mprintf( 150, LINE_HEIGHT * ubLine, L"%x", gpWorldLevelData[ sMapPos ].pLandHead );
+		mprintf( 150, LINE_HEIGHT * ubLine, L"%x", gpWorldLevelData[ usMapPos ].pLandHead );
 		ubLine++;
 
-		if ( gpWorldLevelData[ sMapPos ].pLandHead != NULL )
+		if ( gpWorldLevelData[ usMapPos ].pLandHead != NULL )
 		{
 			SetFontColors(COLOR1);
 			mprintf( 0, LINE_HEIGHT * ubLine, L"Land Node:");
 			SetFontColors(COLOR2);
-			mprintf( 150, LINE_HEIGHT * ubLine, L"%d", gpWorldLevelData[ sMapPos ].pLandHead->usIndex );
+			mprintf( 150, LINE_HEIGHT * ubLine, L"%d", gpWorldLevelData[ usMapPos ].pLandHead->usIndex );
 			ubLine++;
 
-			TileElem = gTileDatabase[ gpWorldLevelData[ sMapPos ].pLandHead->usIndex	];
+			TileElem = gTileDatabase[ gpWorldLevelData[ usMapPos ].pLandHead->usIndex	];
 
 			// Check for full tile
 			SetFontColors(COLOR1);
@@ -4025,19 +4029,19 @@ void DebugSoldierPage2( )
 		SetFontColors(COLOR1);
 		mprintf( 0, LINE_HEIGHT * ubLine, L"Land St Node:");
 		SetFontColors(COLOR2);
-		mprintf( 150, LINE_HEIGHT * ubLine, L"%x", gpWorldLevelData[ sMapPos ].pLandStart );
+		mprintf( 150, LINE_HEIGHT * ubLine, L"%x", gpWorldLevelData[ usMapPos ].pLandStart );
 		ubLine++;
 
 		SetFontColors(COLOR1);
 		mprintf( 0, LINE_HEIGHT * ubLine, L"GRIDNO:");
 		SetFontColors(COLOR2);
-		mprintf( 150, LINE_HEIGHT * ubLine, L"%d", sMapPos );
+		mprintf( 150, LINE_HEIGHT * ubLine, L"%d", usMapPos );
 		ubLine++;
 
-		if ( gpWorldLevelData[ sMapPos ].uiFlags & MAPELEMENT_MOVEMENT_RESERVED )
+		if ( gpWorldLevelData[ usMapPos ].uiFlags & MAPELEMENT_MOVEMENT_RESERVED )
 		{
 			SetFontColors(COLOR2);
-			mprintf( 0, LINE_HEIGHT * ubLine, L"Merc: %d",	gpWorldLevelData[ sMapPos ].ubReservedSoldierID );
+			mprintf( 0, LINE_HEIGHT * ubLine, L"Merc: %d",	gpWorldLevelData[ usMapPos ].ubReservedSoldierID );
 			SetFontColors(COLOR2);
 			mprintf( 150, LINE_HEIGHT * ubLine, L"RESERVED MOVEMENT FLAG ON:" );
 			ubLine++;
@@ -4056,7 +4060,7 @@ void DebugSoldierPage2( )
 		}
 
 
-		if ( gpWorldLevelData[ sMapPos ].uiFlags & MAPELEMENT_REVEALED )
+		if ( gpWorldLevelData[ usMapPos ].uiFlags & MAPELEMENT_REVEALED )
 		{
 			SetFontColors(COLOR2);
 			//mprintf( 0, LINE_HEIGHT * 9, L"Merc: %d",	gpWorldLevelData[ sMapPos ].ubReservedSoldierID );
@@ -4065,7 +4069,7 @@ void DebugSoldierPage2( )
 			ubLine++;
 		}
 
-		if ( gpWorldLevelData[ sMapPos ].uiFlags & MAPELEMENT_RAISE_LAND_START )
+		if ( gpWorldLevelData[ usMapPos ].uiFlags & MAPELEMENT_RAISE_LAND_START )
 		{
 			SetFontColors(COLOR2);
 			//mprintf( 0, LINE_HEIGHT * 9, L"Merc: %d",	gpWorldLevelData[ sMapPos ].ubReservedSoldierID );
@@ -4074,25 +4078,25 @@ void DebugSoldierPage2( )
 			ubLine++;
 		}
 
-		if ( gpWorldLevelData[ sMapPos ].uiFlags & MAPELEMENT_RAISE_LAND_END )
+		if ( gpWorldLevelData[ usMapPos ].uiFlags & MAPELEMENT_RAISE_LAND_END )
 		{
 			SetFontColors(COLOR2);
-			//mprintf( 0, LINE_HEIGHT * 9, L"Merc: %d",	gpWorldLevelData[ sMapPos ].ubReservedSoldierID );
+			//mprintf( 0, LINE_HEIGHT * 9, L"Merc: %d",	gpWorldLevelData[ usMapPos ].ubReservedSoldierID );
 			SetFontColors(COLOR2);
 			mprintf( 150, LINE_HEIGHT * ubLine, L"Raise Land End" );
 			ubLine++;
 		}
 
-		if (gubWorldRoomInfo[ sMapPos ] != NO_ROOM )
+		if (gubWorldRoomInfo[ usMapPos ] != NO_ROOM )
 		{
 			SetFontColors(COLOR2);
 			mprintf( 0, LINE_HEIGHT * ubLine, L"Room Number" );
 			SetFontColors(COLOR2);
-			mprintf( 150, LINE_HEIGHT * ubLine, L"%d", gubWorldRoomInfo[ sMapPos ] );
+			mprintf( 150, LINE_HEIGHT * ubLine, L"%d", gubWorldRoomInfo[ usMapPos ] );
 			ubLine++;
 		}
 
-		if ( gpWorldLevelData[ sMapPos ].ubExtFlags[0] & MAPELEMENT_EXT_NOBURN_STRUCT )
+		if ( gpWorldLevelData[ usMapPos ].ubExtFlags[0] & MAPELEMENT_EXT_NOBURN_STRUCT )
 		{
 			SetFontColors(COLOR2);
 			mprintf( 0, LINE_HEIGHT * ubLine, L"Don't Use Burn Through For Soldier" );
@@ -4109,7 +4113,7 @@ void DebugSoldierPage3( )
 	SOLDIERTYPE				*pSoldier;
 	UINT16						usSoldierIndex;
 	UINT32						uiMercFlags;
-	INT16						sMapPos;
+	INT32 usMapPos;
 	UINT8							ubLine;
 
 	if ( FindSoldierFromMouse( &usSoldierIndex, &uiMercFlags ) )
@@ -4311,12 +4315,12 @@ void DebugSoldierPage3( )
 			gprintf( 0, LINE_HEIGHT * ubLine, L"NPC Opinion:");
 			SetFontShade(LARGEFONT1, FONT_SHADE_NEUTRAL);
 			if (OKToCheckOpinion(MercPtrs[ gusSelectedSoldier ]->ubProfile))
-			        gprintf( 150, LINE_HEIGHT * ubLine, L"%d", gMercProfiles[ pSoldier->ubProfile ].bMercOpinion[ MercPtrs[ gusSelectedSoldier ]->ubProfile ] );
+				gprintf( 150, LINE_HEIGHT * ubLine, L"%d", gMercProfiles[ pSoldier->ubProfile ].bMercOpinion[ MercPtrs[ gusSelectedSoldier ]->ubProfile ] );
 			ubLine++;
 		}
 
 	}
-	else if ( GetMouseMapPos( &sMapPos ) )
+	else if ( GetMouseMapPos( &usMapPos ) )
 	{
 		DOOR_STATUS	*pDoorStatus;
 		STRUCTURE *pStructure;
@@ -4326,7 +4330,7 @@ void DebugSoldierPage3( )
 		SetFont( LARGEFONT1 );
 
 		// OK, display door information here.....
-		pDoorStatus = GetDoorStatus( sMapPos );
+		pDoorStatus = GetDoorStatus( usMapPos );
 
 		ubLine = 1;
 
@@ -4343,7 +4347,7 @@ void DebugSoldierPage3( )
 			SetFontColors(COLOR1);
 			mprintf( 0, LINE_HEIGHT * ubLine, L"Door Status Found:");
 			SetFontColors(COLOR2);
-			mprintf( 150, LINE_HEIGHT * ubLine, L" %d", sMapPos );
+			mprintf( 150, LINE_HEIGHT * ubLine, L" %d", usMapPos );
 			ubLine++;
 
 			SetFontColors(COLOR1);
@@ -4384,7 +4388,7 @@ void DebugSoldierPage3( )
 		}
 
 		//Find struct data and se what it says......
-		pStructure = FindStructure( sMapPos, STRUCTURE_ANYDOOR );
+		pStructure = FindStructure( usMapPos, STRUCTURE_ANYDOOR );
 
 		if ( pStructure == NULL )
 		{
@@ -5134,7 +5138,7 @@ UINT8 MovementNoise( SOLDIERTYPE *pSoldier )
 
 UINT8 DoorOpeningNoise( SOLDIERTYPE *pSoldier )
 {
-	INT16						sGridNo;
+	INT32 sGridNo;
 	DOOR_STATUS	*		pDoorStatus;
 	UINT8						ubDoorNoise;
 
@@ -5163,7 +5167,7 @@ UINT8 DoorOpeningNoise( SOLDIERTYPE *pSoldier )
 	}
 }
 
-void MakeNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType )
+void MakeNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType )
 {
 	EV_S_NOISE	SNoise;
 
@@ -5259,7 +5263,7 @@ void MakeNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType,
 }
 
 
-void OurNoise( UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType )
+void OurNoise( UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType )
 {
 	SOLDIERTYPE *pSoldier;
 
@@ -5297,7 +5301,7 @@ void OurNoise( UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType,
 
 
 
-void TheirNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,
+void TheirNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume,
 	UINT8 ubNoiseType )
 {
 //	SOLDIERTYPE *pSoldier;
@@ -5359,7 +5363,7 @@ void TheirNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType
 
 
 
-void ProcessNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType)
+void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubBaseVolume, UINT8 ubNoiseType)
 {
 	SOLDIERTYPE *pSoldier;
 	UINT8 bLoop, bTeam;
@@ -5812,7 +5816,7 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 
 
 
-UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT8 ubNoiseType, UINT8 ubBaseVolume,
+UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubNoiseType, UINT8 ubBaseVolume,
 			UINT8 bCheckTerrain, UINT8 ubTerrType1, UINT8 ubTerrType2)
 {
 	INT32 iEffVolume, iDistance;
@@ -5959,7 +5963,7 @@ UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT8 ubN
 
 
 
-void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubVolume,
+void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume,
 		UINT8 ubNoiseType, UINT8 *ubSeen)
 {
 	INT16		sNoiseX, sNoiseY;
@@ -6286,7 +6290,7 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bL
 	}
 }
 
-void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir )
+void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubVolume, UINT8 ubNoiseType, UINT8 ubNoiseDir )
 {
 	UINT8 ubVolumeIndex;
 
@@ -6657,7 +6661,7 @@ void DecayPublicOpplist(INT8 bTeam)
 
 		if (gubPublicNoiseVolume[bTeam] <= 0)
 		{
-			gsPublicNoiseGridno[bTeam] = NOWHERE;
+			gsPublicNoiseGridNo[bTeam] = NOWHERE;
 		}
 	}
 
@@ -7031,7 +7035,10 @@ INT8 FindUnusedWatchedLoc( UINT8 ubID )
 
 	for ( bLoop = 0; bLoop < NUM_WATCHED_LOCS; bLoop++ )
 	{
-		if ( gsWatchedLoc[ ubID ][ bLoop ] == NOWHERE )
+		// WANNE: I think this was a bug, should be != NOWHERE!
+		//if ( gsWatchedLoc[ ubID ][ bLoop ] == NOWHERE )
+
+		if (!TileIsOutOfBounds(gsWatchedLoc[ ubID ][ bLoop ]))
 		{
 			return( bLoop );
 		}
@@ -7044,8 +7051,8 @@ INT8 FindWatchedLocWithLessThanXPointsLeft( UINT8 ubID, UINT8 ubPointLimit )
 	INT8 bLoop;
 
 	for ( bLoop = 0; bLoop < NUM_WATCHED_LOCS; bLoop++ )
-	{
-		if ( gsWatchedLoc[ ubID ][ bLoop ] != NOWHERE && gubWatchedLocPoints[ ubID ][ bLoop ] <= ubPointLimit )
+	{		
+		if (!TileIsOutOfBounds(gsWatchedLoc[ ubID ][ bLoop ]) && gubWatchedLocPoints[ ubID ][ bLoop ] <= ubPointLimit )
 		{
 			return( bLoop );
 		}
@@ -7053,13 +7060,13 @@ INT8 FindWatchedLocWithLessThanXPointsLeft( UINT8 ubID, UINT8 ubPointLimit )
 	return( -1 );
 }
 
-INT8 FindWatchedLoc( UINT8 ubID, INT16 sGridNo, INT8 bLevel )
+INT8 FindWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
 {
 	INT8	bLoop;
 
 	for ( bLoop = 0; bLoop < NUM_WATCHED_LOCS; bLoop++ )
-	{
-		if ( gsWatchedLoc[ ubID ][ bLoop ] != NOWHERE &&	gbWatchedLocLevel[ ubID ][ bLoop ] == bLevel )
+	{		
+		if (!TileIsOutOfBounds(gsWatchedLoc[ ubID ][ bLoop ]) &&	gbWatchedLocLevel[ ubID ][ bLoop ] == bLevel )
 		{
 			if ( SpacesAway( gsWatchedLoc[ ubID ][ bLoop ], sGridNo ) <= WATCHED_LOC_RADIUS )
 			{
@@ -7070,7 +7077,7 @@ INT8 FindWatchedLoc( UINT8 ubID, INT16 sGridNo, INT8 bLevel )
 	return( -1 );
 }
 
-INT8 GetWatchedLocPoints( UINT8 ubID, INT16 sGridNo, INT8 bLevel )
+INT8 GetWatchedLocPoints( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
 {
 	INT8	bLoc;
 
@@ -7102,8 +7109,8 @@ INT8 GetHighestVisibleWatchedLoc( UINT8 ubID )
 	INT8	bHighestPoints = 0;
 
 	for ( bLoop = 0; bLoop < NUM_WATCHED_LOCS; bLoop++ )
-	{
-		if ( gsWatchedLoc[ ubID ][ bLoop ] != NOWHERE && gubWatchedLocPoints[ ubID ][ bLoop ] > bHighestPoints )
+	{		
+		if (!TileIsOutOfBounds(gsWatchedLoc[ ubID ][ bLoop ]) && gubWatchedLocPoints[ ubID ][ bLoop ] > bHighestPoints )
 		{
 			// look at standing height
 			if ( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubID ], gsWatchedLoc[ ubID ][ bLoop ], gbWatchedLocLevel[ ubID ][ bLoop ], 3, TRUE, CALC_FROM_WANTED_DIR ) )
@@ -7122,8 +7129,8 @@ INT8 GetHighestWatchedLocPoints( UINT8 ubID )
 	INT8	bHighestPoints = 0;
 
 	for ( bLoop = 0; bLoop < NUM_WATCHED_LOCS; bLoop++ )
-	{
-		if ( gsWatchedLoc[ ubID ][ bLoop ] != NOWHERE && gubWatchedLocPoints[ ubID ][ bLoop ] > bHighestPoints )
+	{		
+		if (!TileIsOutOfBounds(gsWatchedLoc[ ubID ][ bLoop ]) && gubWatchedLocPoints[ ubID ][ bLoop ] > bHighestPoints )
 		{
 			bHighestPoints = gubWatchedLocPoints[ ubID ][ bLoop ];
 		}
@@ -7132,7 +7139,7 @@ INT8 GetHighestWatchedLocPoints( UINT8 ubID )
 }
 
 
-void CommunicateWatchedLoc( UINT8 ubID, INT16 sGridNo, INT8 bLevel, UINT8 ubPoints )
+void CommunicateWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UINT8 ubPoints )
 {
 	UINT8 ubLoop;
 	INT8		bTeam, bLoopPoint, bPoint;
@@ -7177,7 +7184,7 @@ void CommunicateWatchedLoc( UINT8 ubID, INT16 sGridNo, INT8 bLevel, UINT8 ubPoin
 }
 
 
-void IncrementWatchedLoc( UINT8 ubID, INT16 sGridNo, INT8 bLevel )
+void IncrementWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
 {
 	INT8	bPoint;
 
@@ -7216,7 +7223,7 @@ void IncrementWatchedLoc( UINT8 ubID, INT16 sGridNo, INT8 bLevel )
 	}
 }
 
-void SetWatchedLocAsUsed( UINT8 ubID, INT16 sGridNo, INT8 bLevel )
+void SetWatchedLocAsUsed( UINT8 ubID, INT32 sGridNo, INT8 bLevel )
 {
 	INT8	bPoint;
 
@@ -7227,11 +7234,12 @@ void SetWatchedLocAsUsed( UINT8 ubID, INT16 sGridNo, INT8 bLevel )
 	}
 }
 
-BOOLEAN WatchedLocLocationIsEmpty( INT16 sGridNo, INT8 bLevel, INT8 bTeam )
+BOOLEAN WatchedLocLocationIsEmpty( INT32 sGridNo, INT8 bLevel, INT8 bTeam )
 {
 	// look to see if there is anyone near the watched loc who is not on this team
 	UINT8	ubID;
-	INT16	sTempGridNo, sX, sY;
+	INT32	sTempGridNo;
+	INT16	sX, sY;
 
 	for ( sY = -WATCHED_LOC_RADIUS; sY <= WATCHED_LOC_RADIUS; sY++ )
 	{
@@ -7261,8 +7269,8 @@ void DecayWatchedLocs( INT8 bTeam )
 	{
 		// for each watched location
 		for ( cnt2 = 0; cnt2 < NUM_WATCHED_LOCS; cnt2++ )
-		{
-			if ( gsWatchedLoc[ cnt ][ cnt2 ] != NOWHERE && WatchedLocLocationIsEmpty( gsWatchedLoc[ cnt ][ cnt2 ], gbWatchedLocLevel[ cnt ][ cnt2 ], bTeam ) )
+		{			
+			if (!TileIsOutOfBounds(gsWatchedLoc[ cnt ][ cnt2 ]) && WatchedLocLocationIsEmpty( gsWatchedLoc[ cnt ][ cnt2 ], gbWatchedLocLevel[ cnt ][ cnt2 ], bTeam ) )
 			{
 				// if the reset flag is still set, then we should decay this point
 				if (gfWatchedLocReset[ cnt ][ cnt2 ])
@@ -7299,12 +7307,12 @@ void MakeBloodcatsHostile( void )
 	{
 		if ( pSoldier->ubBodyType == BLOODCAT && pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
 		{
-			SetSoldierNonNeutral( pSoldier );
-			RecalculateOppCntsDueToNoLongerNeutral( pSoldier );
-			if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
-			{
-				CheckForPotentialAddToBattleIncrement( pSoldier );
-			}
+		SetSoldierNonNeutral( pSoldier );
+		RecalculateOppCntsDueToNoLongerNeutral( pSoldier );
+		if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
+		{
+			CheckForPotentialAddToBattleIncrement( pSoldier );
+		}
 		}
 	}
 

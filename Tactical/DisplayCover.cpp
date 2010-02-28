@@ -42,7 +42,7 @@ class SOLDIERTYPE;
 
 struct CoverCell
 {
-	INT16	sGridNo;
+	INT32	sGridNo;
 	INT8	bCover;
 	BOOLEAN fInverseColor;
 
@@ -81,7 +81,11 @@ const UINT8 animArr[3] = {
 
 INT16 gsMinCellX, gsMinCellY, gsMaxCellX, gsMaxCellY = -1;
 
-CoverCell gCoverViewArea[ COVER_X_CELLS ][ COVER_Y_CELLS ][ COVER_Z_CELLS ];
+// WANNE - BMP: COVER_X_CELLS, COVER_Y_CELLS, have to be constants,
+// so I set them to 2000 (for rows and cols). In normal map it is 160
+
+//CoverCell gCoverViewArea[ COVER_X_CELLS ][ COVER_Y_CELLS ][ COVER_Z_CELLS ];
+CoverCell gCoverViewArea[ 2000 ][ 2000 ][ COVER_Z_CELLS ];
 
 DWORD guiCoverNextUpdateTime = 0;
 
@@ -93,22 +97,22 @@ CHAR16* GetTerrainName( const UINT8& ubTerrainType );
 
 TileDefines GetTileCoverIndex( const INT8& bCover );
 
-void	AddCoverObjectToWorld( const INT16& sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof );
-void	RemoveCoverObjectFromWorld( const INT16 sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof );
+void	AddCoverObjectToWorld( const INT32& sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof );
+void	RemoveCoverObjectFromWorld( const INT32 sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof );
 
 void	AddCoverObjectsToViewArea();
 void	RemoveCoverObjectsFromViewArea();
 
 void	CalculateCover();
-void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT16& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
-void	CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT16& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover, SOLDIERTYPE* pToSoldier=NULL );
+void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
+void	CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover, SOLDIERTYPE* pToSoldier=NULL );
 
-void	GetGridNoForViewPort( const UINT8& ubX, const UINT8& ubY, INT16& sGridNo );
+void	GetGridNoForViewPort( const INT32& ubX, const INT32& ubY, INT32& sGridNo );
 
-BOOLEAN GridNoOnScreenAndAround( const INT16& sGridNo, const UINT8& ubRadius=2 );
+BOOLEAN GridNoOnScreenAndAround( const INT32& sGridNo, const UINT8& ubRadius=2 );
 
-BOOLEAN IsTheRoofVisible( const INT16& sGridNo );
-BOOLEAN HasAdjTile( const UINT8& ubX, const UINT8& ubY );
+BOOLEAN IsTheRoofVisible( const INT32& sGridNo );
+BOOLEAN HasAdjTile( const INT32& ubX, const INT32& ubY );
 
 //*******	Functions **************************************************
 
@@ -137,7 +141,7 @@ void SwitchCoverDrawMode()
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zDebugString );
 }
 
-void GetGridNoForViewPort( const UINT8& ubX, const UINT8& ubY, INT16& sGridNo )
+void GetGridNoForViewPort( const INT32& ubX, const INT32& ubY, INT32& sGridNo )
 {
 	sGridNo = MAPROWCOLTOPOS( ubY, ubX );
 }
@@ -177,7 +181,7 @@ TileDefines GetTileCoverIndex( const INT8& bCover )
 	}
 }
 
-void AddCoverObjectToWorld( const INT16& sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof )
+void AddCoverObjectToWorld( const INT32& sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof )
 {
 	LEVELNODE *pNode;
 
@@ -201,7 +205,7 @@ void AddCoverObjectToWorld( const INT16& sGridNo, const UINT16& usGraphic, const
 	}
 }
 
-void RemoveCoverObjectFromWorld( const INT16 sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof )
+void RemoveCoverObjectFromWorld( const INT32 sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof )
 {
 	if( fRoof )
 	{
@@ -213,9 +217,9 @@ void RemoveCoverObjectFromWorld( const INT16 sGridNo, const UINT16& usGraphic, c
 	}
 }
 
-BOOLEAN HasAdjTile( const UINT8& ubX, const UINT8& ubY, const UINT8& ubZ )
+BOOLEAN HasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
 {
-	UINT8 ubTX, ubTY;
+	INT32 ubTX, ubTY;
 
 	for ( ubTX = ubX-1; ubTX <= ubX+1; ++ubTX )
 	{
@@ -249,17 +253,16 @@ void AddCoverObjectsToViewArea()
 	{
 		return;
 	}
-
-	UINT8 ubX, ubY, ubZ;
+	INT32 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
-	for ( ubX=(UINT8)gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
-		for ( ubY=(UINT8)gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
-				INT16& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
 				INT8& bCover = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bCover;
 				BOOLEAN& fInverseColor = gCoverViewArea[ ubX ][ ubY ][ ubZ ].fInverseColor;
 
@@ -286,17 +289,16 @@ void RemoveCoverObjectsFromViewArea()
 	{
 		return;
 	}
-
-	UINT8 ubX, ubY, ubZ;
+	INT32 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
-	for ( ubX=(UINT8)gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
-		for ( ubY=(UINT8)gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
-				INT16& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
 				INT8& bCover = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bCover;
 				BOOLEAN& fInverseColor = gCoverViewArea[ ubX ][ ubY ][ ubZ ].fInverseColor;
 
@@ -319,7 +321,7 @@ void RemoveCoverObjectsFromViewArea()
 }
 
 // ubRadius in times of y or x cell sizes
-BOOLEAN GridNoOnScreenAndAround( const INT16& sGridNo, const UINT8& ubRadius )
+BOOLEAN GridNoOnScreenAndAround( const INT32& sGridNo, const UINT8& ubRadius )
 {
 	INT16 sNewCenterWorldX, sNewCenterWorldY;
 	INT16 sWorldX;
@@ -359,7 +361,7 @@ void DisplayCover( const BOOLEAN& forceUpdate )
 
 void CalculateCover()
 {
-	UINT8 ubX, ubY, ubZ;
+	INT32 ubX, ubY, ubZ;
 	SOLDIERTYPE* pSoldier;
 
 	RemoveCoverObjectsFromViewArea();
@@ -376,7 +378,7 @@ void CalculateCover()
 
 	GetSoldier( &pSoldier, gusSelectedSoldier );
 
-	const INT16& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
+	const INT32& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
 
 	INT16 usTmp;
 	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp );
@@ -384,14 +386,13 @@ void CalculateCover()
 
 	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY );
 	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY );
-
-	for ( ubX=(UINT8)gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
-		for ( ubY=(UINT8)gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
-				INT16& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
 				INT8& bCover = gCoverViewArea[ ubX ][ ubY ][ ubZ ].bCover;
 				BOOLEAN& fInverseColor = gCoverViewArea[ ubX ][ ubY ][ ubZ ].fInverseColor;
 
@@ -443,7 +444,7 @@ void CalculateCover()
 	AddCoverObjectsToViewArea();
 }
 
-void CalculateCoverForSoldier( SOLDIERTYPE* pSoldier, const INT16& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover )
+void CalculateCoverForSoldier( SOLDIERTYPE* pSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover )
 {
 	UINT32		uiLoop;
 	SOLDIERTYPE *pOpponent;
@@ -489,7 +490,7 @@ void CalculateCoverForSoldier( SOLDIERTYPE* pSoldier, const INT16& sTargetGridNo
 	}
 }
 
-void CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT16& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover, SOLDIERTYPE* pToSoldier )
+void CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover, SOLDIERTYPE* pToSoldier )
 {
 	UINT16 usSightLimit = pFromSoldier->GetMaxDistanceVisible(sTargetGridNo, (INT8)fRoof, CALC_FROM_WANTED_DIR);
 
@@ -497,7 +498,7 @@ void CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT16& sTargetG
 	{
 		const UINT8& ubStance = animArr[i];
 
-		UINT16 usAdjustedSight;
+		INT32 usAdjustedSight;
 
 		if (pToSoldier == NULL) {
 			usAdjustedSight = usSightLimit;
@@ -513,7 +514,7 @@ void CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT16& sTargetG
 	}
 }
 
-void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
+void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 {
 	UINT16 usRange=0;
 	CHAR16	zOutputString[512];
@@ -575,7 +576,7 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
 	//gJa25SaveStruct.uiDisplayGunRangeCounter++;
 }
 
-BOOLEAN IsTheRoofVisible( const INT16& sGridNo )
+BOOLEAN IsTheRoofVisible( const INT32& sGridNo )
 {
 	if( FlatRoofAboveGridNo( sGridNo ) )
 	{

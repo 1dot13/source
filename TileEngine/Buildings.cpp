@@ -16,19 +16,241 @@
 
 #include "AIInternals.h"
 
-
-
 #define ROOF_LOCATION_CHANCE 8
 
-UINT8						gubBuildingInfo[ WORLD_MAX ];
+UINT8*					gubBuildingInfo = NULL;
 BUILDING				gBuildings[ MAX_BUILDINGS ];
-UINT8						gubNumberOfBuildings;
+UINT8					gubNumberOfBuildings;
 
 #ifdef ROOF_DEBUG
-extern INT16 gsCoverValue[WORLD_MAX];
-#include "video.h"
-#include "renderworld.h"
+	extern INT16 gsCoverValue[WORLD_MAX];
+	#include "video.h"
+	#include "renderworld.h"
 #endif
+
+// WANNE: Overhauls new building climbing only works with A* enabled
+// -------------------------
+// A* building climbing - BEGIN
+// -------------------------
+#ifdef USE_ASTAR_PATHS
+
+BUILDING * CreateNewBuilding( UINT8 * pubBuilding )
+{
+	if (gubNumberOfBuildings + 1 >= MAX_BUILDINGS)
+	{
+		return( NULL );
+	}
+	
+	// increment # of buildings
+	gubNumberOfBuildings++;
+	
+	// clear entry
+	gBuildings[ gubNumberOfBuildings ].ubNumClimbSpots = 0;
+	*pubBuilding = gubNumberOfBuildings;
+	
+	// return pointer (have to subtract 1 since we just added 1
+	return( &(gBuildings[ gubNumberOfBuildings ]) );
+}
+
+BUILDING * FindBuilding( INT32 sGridNo )
+{
+	UINT8					ubBuildingID;
+	
+	if ( TileIsOutOfBounds( sGridNo ) )
+	{
+		return( NULL );
+	}
+
+	// id 0 indicates no building
+	ubBuildingID = gubBuildingInfo[ sGridNo ];
+
+	if ( ubBuildingID == NO_BUILDING )
+	{
+		return( NULL );
+
+		/*
+		// need extra checks to see if is valid spot...
+		// must have valid room information and be a flat-roofed
+		// building
+		if ( InARoom( sGridNo, &ubRoomNo ) && (FindStructure( sGridNo, STRUCTURE_NORMAL_ROOF ) != NULL) )
+		{
+			return( GenerateBuilding( sGridNo ) );
+		}
+		else
+		{
+			return( NULL );
+		}
+		*/
+	}
+	else if ( ubBuildingID > gubNumberOfBuildings ) // huh?
+	{
+		return( NULL );
+	}
+
+	return( &(gBuildings[ ubBuildingID ]) );
+}
+
+BOOLEAN InBuilding( INT32 sGridNo )
+{
+	if ( FindBuilding( sGridNo ) == NULL )
+	{
+		return( FALSE );
+	}
+	return( TRUE );
+}
+
+BOOLEAN SameBuilding( INT32 sGridNo1, INT32 sGridNo2 )
+{
+	if ( gubBuildingInfo[ sGridNo1 ] == NO_BUILDING )
+	{
+		return( FALSE );
+	}
+	if ( gubBuildingInfo[ sGridNo2 ] == NO_BUILDING )
+	{
+		return( FALSE );
+	}
+	return( (BOOLEAN) (gubBuildingInfo[ sGridNo1] == gubBuildingInfo[ sGridNo2 ]) );
+}
+
+BUILDING * GenerateBuilding( INT32 sDesiredSpot )
+{
+	BUILDING *		pBuilding;
+	UINT8					ubBuildingID = 0;
+
+	pBuilding = CreateNewBuilding( &ubBuildingID );
+	if (!pBuilding)
+	{
+		return( NULL );
+	}
+	
+	// Set reachable
+	RoofReachableTest( sDesiredSpot, ubBuildingID );
+
+	// 0verhaul:  The RoofReachableTest now finds ALL of the climb points for each climbable building, instead of a max of
+	// 21 climb points (and a min of 0) for each building.  It claims an extended map flag to mark a tile as a climb point.
+	// So the array of up-climbs and down-climbs is now obsolete.  FindClosestClimbPoint is now updated to search the map
+	// for these flags.
+	return( pBuilding );
+}
+
+void GenerateBuildings( void )
+{
+	INT32	uiLoop;
+
+	// init building structures and variables
+	memset( gubBuildingInfo, 0, WORLD_MAX * sizeof( UINT8 ) );
+	memset( &gBuildings, 0, MAX_BUILDINGS * sizeof( BUILDING ) );
+	gubNumberOfBuildings = 0;
+
+	if ( (gbWorldSectorZ > 0) || gfEditMode)
+	{
+		return;
+	}
+
+#ifdef ROOF_DEBUG
+	memset( gsCoverValue, 0x7F, sizeof( INT16 ) * WORLD_MAX );
+#endif
+
+	// reset ALL reachable flags
+	// do once before we start building generation for
+	// whole map
+	for ( uiLoop = 0; uiLoop < WORLD_MAX; uiLoop++ )
+	{
+		gpWorldLevelData[ uiLoop ].uiFlags &= ~(MAPELEMENT_REACHABLE);
+		gpWorldLevelData[ uiLoop ].ubExtFlags[0] &= ~(MAPELEMENT_EXT_ROOFCODE_VISITED);
+	}
+
+	// search through world
+	// for each location in a room try to find building info
+	for ( uiLoop = 0; uiLoop < WORLD_MAX; uiLoop++ )
+	{
+		if ( (gubWorldRoomInfo[ uiLoop ] != NO_ROOM) && (gubBuildingInfo[ uiLoop ] == NO_BUILDING) && (FindStructure( uiLoop, STRUCTURE_NORMAL_ROOF ) != NULL) )
+		{
+			GenerateBuilding( uiLoop );
+		}
+	}
+}
+
+INT32 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT32 sStartGridNo, INT32 sDesiredGridNo, BOOLEAN fClimbUp )
+{
+	BUILDING *		pBuilding;
+	INT32			sGridNo;
+	INT32			sTestGridNo;
+	UINT8			ubTestDir;
+	INT32			sDistance, sClosestDistance = 1000, sClosestSpot= NOWHERE;
+
+	pBuilding = FindBuilding( sDesiredGridNo );
+	if (!pBuilding)
+	{
+		return( NOWHERE );
+	}
+
+	for (sGridNo = 0; sGridNo < WORLD_MAX; sGridNo++)
+	{
+		if (gubBuildingInfo[ sGridNo ] == gubBuildingInfo[ sDesiredGridNo ] &&
+			gpWorldLevelData[ sGridNo ].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT)
+		{
+			// Found a climb point for this building
+			if (fClimbUp)
+			{
+				for (ubTestDir = 0; ubTestDir < 8; ubTestDir += 2)
+				{
+					sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
+					if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
+					{
+						// Found a matching climb point
+						if ( (WhoIsThere2( sTestGridNo, 0 ) == NOBODY || sTestGridNo == pSoldier->sGridNo)
+							&& (WhoIsThere2( sGridNo, 1 ) == NOBODY) &&
+							(!pSoldier || !InGas( pSoldier, sTestGridNo ) ) )
+						{
+							// And it's open
+							sDistance = PythSpacesAway( sStartGridNo, sTestGridNo );
+							if (sDistance < sClosestDistance )
+							{
+								sClosestDistance = sDistance;
+								sClosestSpot = sTestGridNo;
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				for (ubTestDir = 0; ubTestDir < 8; ubTestDir += 2)
+				{
+					sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
+					if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
+					{
+						// Found a matching climb point
+						if ( (WhoIsThere2( sTestGridNo, 0 ) == NOBODY) &&
+							(WhoIsThere2( sGridNo, 1 ) == NOBODY || sGridNo == pSoldier->sGridNo) &&
+							(!pSoldier || !InGas( pSoldier, sTestGridNo ) ) )
+						{
+							// And it's open
+							sDistance = PythSpacesAway( sStartGridNo, sGridNo );
+							if (sDistance < sClosestDistance )
+							{
+								sClosestDistance = sDistance;
+								sClosestSpot = sGridNo;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return( sClosestSpot );
+}
+
+// -------------------------
+// A* building climbing - END
+// -------------------------
+
+// -------------------------
+// JA2 vanilla building climbing - BEGIN
+// -------------------------
+#else
 
 BUILDING * CreateNewBuilding( UINT8 * pubBuilding )
 {
@@ -38,33 +260,31 @@ BUILDING * CreateNewBuilding( UINT8 * pubBuilding )
 	}
 	// increment # of buildings
 	gubNumberOfBuildings++;
+	
 	// clear entry
 	gBuildings[ gubNumberOfBuildings ].ubNumClimbSpots = 0;
 	*pubBuilding = gubNumberOfBuildings;
+
 	// return pointer (have to subtract 1 since we just added 1
 	return( &(gBuildings[ gubNumberOfBuildings ]) );
 }
 
-BUILDING * GenerateBuilding( INT16 sDesiredSpot )
+BUILDING * GenerateBuilding( INT32 sDesiredSpot )
 {
-
-#ifdef VANILLA_BUILDING_CLIMBING
-	UINT32	uiLoop;
-	UINT32	uiLoop2;
-	INT16		sTempGridNo, sNextTempGridNo, sVeryTemporaryGridNo;
-	INT16		sStartGridNo, sCurrGridNo, sPrevGridNo = NOWHERE, sRightGridNo;
-	UINT8		ubDirection, ubTempDirection;
-	BOOLEAN	fFoundDir, fFoundWall;
-	UINT32	uiChanceIn = ROOF_LOCATION_CHANCE; // chance of a location being considered
-	INT16		sWallGridNo;
-	INT8		bDesiredOrientation;
-	INT8		bSkipSpots = 0;
+	INT32			uiLoop;
+	INT32			uiLoop2;
+	INT32			sTempGridNo, sNextTempGridNo, sVeryTemporaryGridNo;
+	INT32			sStartGridNo, sCurrGridNo, sPrevGridNo = NOWHERE, sRightGridNo;
+	UINT8			ubDirection, ubTempDirection;
+	BOOLEAN			fFoundDir, fFoundWall;
+	UINT32			uiChanceIn = ROOF_LOCATION_CHANCE; // chance of a location being considered
+	INT32			sWallGridNo;
+	INT8			bDesiredOrientation;
+	INT8			bSkipSpots = 0;
 	SOLDIERTYPE 	FakeSoldier;
-INT32					iLoopCount = 0;
-#endif
 	BUILDING *		pBuilding;
-	UINT8					ubBuildingID = 0;
-	//INT32					iLoopCount = 0;
+	UINT8			ubBuildingID = 0;
+	INT32			iLoopCount = 0;
 
 	pBuilding = CreateNewBuilding( &ubBuildingID );
 	if (!pBuilding)
@@ -72,24 +292,13 @@ INT32					iLoopCount = 0;
 		return( NULL );
 	}
 
-	// WDS - Clean up inventory handling
-	// set up fake soldier for location testing
-//	memset( &FakeSoldier, 0, SIZEOF_SOLDIERTYPE );
-#ifdef VANILLA_BUILDING_CLIMBING
-	FakeSoldier.initialize();
 	FakeSoldier.sGridNo = sDesiredSpot;
 	FakeSoldier.pathing.bLevel = 1;
 	FakeSoldier.bTeam = 1;
-#endif
 
 	// Set reachable
 	RoofReachableTest( sDesiredSpot, ubBuildingID );
 
-	// 0verhaul:  The RoofReachableTest now finds ALL of the climb points for each climbable building, instead of a max of
-	// 21 climb points (and a min of 0) for each building.  It claims an extended map flag to mark a tile as a climb point.
-	// So the array of up-climbs and down-climbs is now obsolete.  FindClosestClimbPoint is now updated to search the map
-	// for these flags.
-#ifdef VANILLA_BUILDING_CLIMBING
 	// From sGridNo, search until we find a spot that isn't part of the building
 	ubDirection = NORTHWEST;
 	sTempGridNo = sDesiredSpot;
@@ -210,7 +419,7 @@ INT32					iLoopCount = 0;
 			gsCoverValue[sCurrGridNo]++;
 		}
 
-		//DebugAI( String( "Roof code visits %d", sCurrGridNo ) );
+		DebugAI( String( "Roof code visits %d", sCurrGridNo ) );
 #endif
 
 		if (sCurrGridNo == sStartGridNo)
@@ -232,13 +441,12 @@ INT32					iLoopCount = 0;
 			// if the direction is east or north, the wall would be in our gridno;
 			// if south or west, the wall would be in the gridno two clockwise
 			fFoundWall = FALSE;
-#ifndef VANILLA_BUILDING_CLIMBING
+
 			// There must not be roof here either.  There are places where a pitched roof butts up against a flat roof.
 			// Don't mark such a border as a climb point.  Otherwise AI units will get stuck.
 			if (FindStructure( sCurrGridNo, STRUCTURE_ROOF ) == NULL &&
 				NewOKDestination( &FakeSoldier, sCurrGridNo, FALSE, 0 ) )
 			{
-#endif
 				switch( ubDirection )
 				{
 				case NORTH:
@@ -250,11 +458,11 @@ INT32					iLoopCount = 0;
 					bDesiredOrientation = OUTSIDE_TOP_LEFT;
 					break;
 				case SOUTH:
-					sWallGridNo = (INT16) ( sCurrGridNo + DirectionInc( gTwoCDirection[ ubDirection ] ) );
+					sWallGridNo = ( sCurrGridNo + DirectionInc( gTwoCDirection[ ubDirection ] ) );
 					bDesiredOrientation = OUTSIDE_TOP_RIGHT;
 					break;
 				case WEST:
-					sWallGridNo = (INT16) ( sCurrGridNo + DirectionInc( gTwoCDirection[ ubDirection ] ) );
+					sWallGridNo = ( sCurrGridNo + DirectionInc( gTwoCDirection[ ubDirection ] ) );
 					bDesiredOrientation = OUTSIDE_TOP_LEFT;
 					break;
 				default:
@@ -276,9 +484,7 @@ INT32					iLoopCount = 0;
 						fFoundWall = TRUE;
 					}
 				}
-#ifndef VANILLA_BUILDING_CLIMBING
 			}
-#endif
 			if (fFoundWall)
 			{
 #ifdef ROOF_DEBUG
@@ -289,7 +495,7 @@ INT32					iLoopCount = 0;
 					bSkipSpots--;
 				}
 				else if ( Random( uiChanceIn ) == 0 )
-				{
+				{					
 					pBuilding->sUpClimbSpots[ pBuilding->ubNumClimbSpots ] = sCurrGridNo;
 					pBuilding->sDownClimbSpots[ pBuilding->ubNumClimbSpots ] = sRightGridNo;
 					pBuilding->ubNumClimbSpots++;
@@ -307,7 +513,7 @@ INT32					iLoopCount = 0;
 #endif
 					// skip the next spot
 					bSkipSpots = 1;					
-				}				
+				}
 				else
 				{
 					// didn't pick this location, so increase chance that next location
@@ -316,12 +522,12 @@ INT32					iLoopCount = 0;
 					{
 						uiChanceIn--;
 					}
-				}				
+				}
 			}
 			else
 			{
-				// can't select this spot
-				if ( (sPrevGridNo != NOWHERE) && (pBuilding->ubNumClimbSpots > 0) )
+				// can't select this spot				
+				if ( ( !TileIsOutOfBounds(sPrevGridNo)) && (pBuilding->ubNumClimbSpots > 0) )
 				{
 					if ( pBuilding->sDownClimbSpots[ pBuilding->ubNumClimbSpots - 1 ] == sCurrGridNo )
 					{
@@ -348,37 +554,24 @@ INT32					iLoopCount = 0;
 	{
 		UINT8 x = 0;
 		UINT8 y = 0;
-		while((sDesiredSpot - ((y + 1) * 160)) >= 0)
+		while((sDesiredSpot - ((y + 1) * WORLD_COLS)) >= 0)
 		{
 			y++;
 		}
-		x = sDesiredSpot - (y * 160);
+		x = sDesiredSpot - (y * WORLD_COLS);
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_2,String( "113/UC Warning! Building Walk Algorithm has covered the entire map! Building %d located at [%d,%d] must be bogus.", ubBuildingID, x, y ));
 	}
 
-
 	// at end could prune # of locations if there are too many
 
-/*
-#ifdef ROOF_DEBUG
-	SetRenderFlags( RENDER_FLAG_FULL );
-	RenderWorld();
-	//RenderCoverDebug( );
-	InvalidateScreen( );
-	EndFrameBufferRender();
-	RefreshScreen( NULL );
-#endif
-*/
-#endif
 	return( pBuilding );
 }
 
-BUILDING * FindBuilding( INT16 sGridNo )
+BUILDING * FindBuilding( INT32 sGridNo )
 {
 	UINT8					ubBuildingID;
-	//UINT8					ubRoomNo;
-
-	if (sGridNo <= 0 || sGridNo > WORLD_MAX)
+	
+	if ( TileIsOutOfBounds( sGridNo ) )
 	{
 		return( NULL );
 	}
@@ -389,6 +582,7 @@ BUILDING * FindBuilding( INT16 sGridNo )
 	if ( ubBuildingID == NO_BUILDING )
 	{
 		return( NULL );
+
 		/*
 		// need extra checks to see if is valid spot...
 		// must have valid room information and be a flat-roofed
@@ -411,7 +605,7 @@ BUILDING * FindBuilding( INT16 sGridNo )
 	return( &(gBuildings[ ubBuildingID ]) );
 }
 
-BOOLEAN InBuilding( INT16 sGridNo )
+BOOLEAN InBuilding( INT32 sGridNo )
 {
 	if ( FindBuilding( sGridNo ) == NULL )
 	{
@@ -423,7 +617,7 @@ BOOLEAN InBuilding( INT16 sGridNo )
 
 void GenerateBuildings( void )
 {
-	UINT32	uiLoop;
+	INT32	uiLoop;
 
 	// init building structures and variables
 	memset( gubBuildingInfo, 0, WORLD_MAX * sizeof( UINT8 ) );
@@ -452,26 +646,17 @@ void GenerateBuildings( void )
 	// for each location in a room try to find building info
 	for ( uiLoop = 0; uiLoop < WORLD_MAX; uiLoop++ )
 	{
-		if ( (gubWorldRoomInfo[ uiLoop ] != NO_ROOM) && (gubBuildingInfo[ uiLoop ] == NO_BUILDING) && (FindStructure( (INT16) uiLoop, STRUCTURE_NORMAL_ROOF ) != NULL) )
+		if ( (gubWorldRoomInfo[ uiLoop ] != NO_ROOM) && (gubBuildingInfo[ uiLoop ] == NO_BUILDING) && (FindStructure( uiLoop, STRUCTURE_NORMAL_ROOF ) != NULL) )
 		{
-			GenerateBuilding( (INT16) uiLoop );
+			GenerateBuilding( uiLoop );
 		}
 	}
 }
 
-INT16 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT16 sStartGridNo, INT16 sDesiredGridNo, BOOLEAN fClimbUp )
+INT32 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT32 sStartGridNo, INT32 sDesiredGridNo, BOOLEAN fClimbUp )
 {
-	BUILDING *	pBuilding;
-#ifndef VANILLA_BUILDING_CLIMBING
-	INT16			sGridNo;
-	INT16			sTestGridNo;
-	UINT8			ubTestDir;
-#else
-	UINT8				ubNumClimbSpots;
-	INT16 *			psClimbSpots;
-	UINT8 ubLoop;
-#endif
-	INT16				sDistance, sClosestDistance = 1000, sClosestSpot= NOWHERE;
+	BUILDING *		pBuilding;
+	INT32			sDistance, sClosestDistance = 1000, sClosestSpot= NOWHERE;
 
 	pBuilding = FindBuilding( sDesiredGridNo );
 	if (!pBuilding)
@@ -479,11 +664,16 @@ INT16 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT16 sStartGridNo, INT16 sD
 		return( NOWHERE );
 	}
 
-#ifndef VANILLA_BUILDING_CLIMBING
+	// WANNE: This code is from Overhauls A* climbing building, but also works here.
+	/*
+	INT32			sTestGridNo;
+	UINT8			ubTestDir;
+	INT32			sGridNo;
+
 	for (sGridNo = 0; sGridNo < WORLD_MAX; sGridNo++)
 	{
-		if (gubBuildingInfo[ sGridNo ] == gubBuildingInfo[ sDesiredGridNo ] &&
-			gpWorldLevelData[ sGridNo ].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT)
+		if (gubBuildingInfo[ sGridNo ] == gubBuildingInfo[ sDesiredGridNo ]) //&&
+			//gpWorldLevelData[ sGridNo ].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT)
 		{
 			// Found a climb point for this building
 			if (fClimbUp)
@@ -491,7 +681,7 @@ INT16 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT16 sStartGridNo, INT16 sD
 				for (ubTestDir = 0; ubTestDir < 8; ubTestDir += 2)
 				{
 					sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
-					if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
+					//if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
 					{
 						// Found a matching climb point
 						if ( (WhoIsThere2( sTestGridNo, 0 ) == NOBODY || sTestGridNo == pSoldier->sGridNo)
@@ -514,7 +704,7 @@ INT16 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT16 sStartGridNo, INT16 sD
 				for (ubTestDir = 0; ubTestDir < 8; ubTestDir += 2)
 				{
 					sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
-					if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
+					//if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
 					{
 						// Found a matching climb point
 						if ( (WhoIsThere2( sTestGridNo, 0 ) == NOBODY) &&
@@ -534,7 +724,15 @@ INT16 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT16 sStartGridNo, INT16 sD
 			}
 		}
 	}
-#else
+
+	return( sClosestSpot );
+	*/
+
+	// WANNE: This code is from "vanilla" climbing
+	UINT8			ubNumClimbSpots;
+	INT32 *			psClimbSpots;
+	UINT8			ubLoop;
+
 	ubNumClimbSpots = pBuilding->ubNumClimbSpots;
 
 	if (fClimbUp)
@@ -560,12 +758,11 @@ INT16 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT16 sStartGridNo, INT16 sD
 			}
 		}
 	}
-#endif
-
+	
 	return( sClosestSpot );
 }
 
-BOOLEAN SameBuilding( INT16 sGridNo1, INT16 sGridNo2 )
+BOOLEAN SameBuilding( INT32 sGridNo1, INT32 sGridNo2 )
 {
 	if ( gubBuildingInfo[ sGridNo1 ] == NO_BUILDING )
 	{
@@ -577,3 +774,8 @@ BOOLEAN SameBuilding( INT16 sGridNo1, INT16 sGridNo2 )
 	}
 	return( (BOOLEAN) (gubBuildingInfo[ sGridNo1] == gubBuildingInfo[ sGridNo2 ]) );
 }
+
+#endif
+// -------------------------
+// JA2 vanilla building climbing - END
+// -------------------------

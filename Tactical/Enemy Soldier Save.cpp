@@ -305,11 +305,11 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 						curr->pBasicPlacement->ubSoldierClass			= curr->pDetailedPlacement->ubSoldierClass;
 						curr->pBasicPlacement->ubCivilianGroup		= curr->pDetailedPlacement->ubCivilianGroup;
 						curr->pBasicPlacement->fHasKeys						= curr->pDetailedPlacement->fHasKeys;
-						curr->pBasicPlacement->sStartingGridNo		= curr->pDetailedPlacement->sInsertionGridNo;
+						curr->pBasicPlacement->usStartingGridNo		= curr->pDetailedPlacement->sInsertionGridNo;
 
 						curr->pBasicPlacement->bPatrolCnt			= curr->pDetailedPlacement->bPatrolCnt;
 						memcpy( curr->pBasicPlacement->sPatrolGrid, curr->pDetailedPlacement->sPatrolGrid,
-							sizeof( INT16 ) * curr->pBasicPlacement->bPatrolCnt );
+							sizeof( INT32 ) * curr->pBasicPlacement->bPatrolCnt );
 
 						if( curr->pBasicPlacement->bTeam == CIV_TEAM )
 						{
@@ -907,11 +907,11 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 					curr->pBasicPlacement->ubSoldierClass			= curr->pDetailedPlacement->ubSoldierClass;
 					curr->pBasicPlacement->ubCivilianGroup		= curr->pDetailedPlacement->ubCivilianGroup;
 					curr->pBasicPlacement->fHasKeys						= curr->pDetailedPlacement->fHasKeys;
-					curr->pBasicPlacement->sStartingGridNo		= curr->pDetailedPlacement->sInsertionGridNo;
+					curr->pBasicPlacement->usStartingGridNo		= curr->pDetailedPlacement->sInsertionGridNo;
 
 					curr->pBasicPlacement->bPatrolCnt			= curr->pDetailedPlacement->bPatrolCnt;
 					memcpy( curr->pBasicPlacement->sPatrolGrid, curr->pDetailedPlacement->sPatrolGrid,
-						sizeof( INT16 ) * curr->pBasicPlacement->bPatrolCnt );
+						sizeof( INT32 ) * curr->pBasicPlacement->bPatrolCnt );
 
 
 					//Add preserved placements as long as they don't exceed the actual population.
@@ -1222,11 +1222,11 @@ BOOLEAN NewWayOfLoadingCiviliansFromTempFile()
 						curr->pBasicPlacement->ubSoldierClass			= curr->pDetailedPlacement->ubSoldierClass;
 						curr->pBasicPlacement->ubCivilianGroup		= curr->pDetailedPlacement->ubCivilianGroup;
 						curr->pBasicPlacement->fHasKeys						= curr->pDetailedPlacement->fHasKeys;
-						curr->pBasicPlacement->sStartingGridNo		= curr->pDetailedPlacement->sInsertionGridNo;
+						curr->pBasicPlacement->usStartingGridNo		= curr->pDetailedPlacement->sInsertionGridNo;
 
 						curr->pBasicPlacement->bPatrolCnt			= curr->pDetailedPlacement->bPatrolCnt;
 						memcpy( curr->pBasicPlacement->sPatrolGrid, curr->pDetailedPlacement->sPatrolGrid,
-							sizeof( INT16 ) * curr->pBasicPlacement->bPatrolCnt );
+							sizeof( INT32 ) * curr->pBasicPlacement->bPatrolCnt );
 
 
 						if( curr->pDetailedPlacement->bLife < curr->pDetailedPlacement->bLifeMax )
@@ -1391,7 +1391,7 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 						{
 							//use original position
 							curr->pDetailedPlacement->fOnRoof				= curr->pBasicPlacement->fOnRoof;
-							curr->pDetailedPlacement->sInsertionGridNo		= curr->pBasicPlacement->sStartingGridNo;
+							curr->pDetailedPlacement->sInsertionGridNo		= curr->pBasicPlacement->usStartingGridNo;
 						}
 					}
 				}
@@ -1785,7 +1785,7 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 
 					curr->pBasicPlacement->bPatrolCnt			= curr->pDetailedPlacement->bPatrolCnt;
 					memcpy( curr->pBasicPlacement->sPatrolGrid, curr->pDetailedPlacement->sPatrolGrid,
-						sizeof( INT16 ) * curr->pBasicPlacement->bPatrolCnt );
+						sizeof( INT32 ) * curr->pBasicPlacement->bPatrolCnt );
 
 
 					//Add preserved placements as long as they don't exceed the actual population.

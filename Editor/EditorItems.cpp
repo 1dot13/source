@@ -42,6 +42,7 @@
 	#include "random.h"
 	#include "Pits.h"
 	#include "keys.h"
+	#include "InterfaceItemImages.h"
 #endif
 
 #include "VFS/Tools/Log.h"
@@ -70,7 +71,7 @@ INT32 giDefaultExistChance = 100;
 
 typedef struct IPListNode
 {
-	INT16 sGridNo;
+	INT32 sGridNo;
 	struct IPListNode *next;
 }IPListNode;
 
@@ -83,7 +84,7 @@ void BuildItemPoolList()
 {
 	ITEM_POOL *temp;
 	IPListNode *tail = NULL;
-	UINT16 i;
+	INT32 i;
 	KillItemPoolList();
 	for( i = 0; i < WORLD_MAX; i++ )
 	{
@@ -116,7 +117,8 @@ void KillItemPoolList()
 	pIPCurr = pIPHead;
 	while( pIPCurr )
 	{
-		HideItemCursor( pIPCurr->sGridNo );
+		if(pIPCurr->sGridNo < WORLD_MAX)//dnl ch43 280909 Prevent CTD when world size is changed
+			HideItemCursor(pIPCurr->sGridNo);
 		pIPHead = pIPHead->next;
 		MemFree( pIPCurr );
 		pIPCurr = pIPHead;
@@ -379,14 +381,15 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 			swprintf( pStr, L"%S", LockTable[ i ].ubEditorName );
 			DisplayWrappedString(x, (UINT16)(y+25), 60, 2, SMALLCOMPFONT, FONT_WHITE,	pStr, FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 
+			UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : item->ubGraphicNum;
 			//Calculate the center position of the graphic in a 60 pixel wide area.
-			sWidth = hVObject->pETRLEObject[item->ubGraphicNum].usWidth;
-			sOffset = hVObject->pETRLEObject[item->ubGraphicNum].sOffsetX;
+			sWidth = hVObject->pETRLEObject[usGraphicNum].usWidth;
+			sOffset = hVObject->pETRLEObject[usGraphicNum].sOffsetX;
 			sStart = x + (60 - sWidth - sOffset*2) / 2;
 
-			BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, item->ubGraphicNum, sStart, y+2, 0, FALSE );
-			//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
+			BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, usGraphicNum, sStart, y+2, 0, FALSE );
 
+			//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
 			if( y == 0 )
 			{
 				y = 40;
@@ -528,16 +531,17 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 
 				DisplayWrappedString(x, (UINT16)(y+25), 60, 2, SMALLCOMPFONT, FONT_WHITE, pStr, FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 
-				if(item->ubGraphicNum < hVObject->usNumberOfObjects)
+				UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : item->ubGraphicNum;
+				if(usGraphicNum < hVObject->usNumberOfObjects)
 				{
 					//Calculate the center position of the graphic in a 60 pixel wide area.
-					sWidth = hVObject->pETRLEObject[item->ubGraphicNum].usWidth;
-					sOffset = hVObject->pETRLEObject[item->ubGraphicNum].sOffsetX;
+					sWidth = hVObject->pETRLEObject[usGraphicNum].usWidth;
+					sOffset = hVObject->pETRLEObject[usGraphicNum].sOffsetX;
 					sStart = x + (60 - sWidth - sOffset*2) / 2;
 
 					if( sWidth && sWidth > 0 )
 					{
-						BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, item->ubGraphicNum, sStart, y+2, 0, FALSE );
+						BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, usGraphicNum, sStart, y+2, 0, FALSE );
 					}
 
 					//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
@@ -553,10 +557,10 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 				}
 				else
 				{
-					static CLog& editorLog = *CLog::Create(L"EditorItems.log");
+					static CLog& editorLog = *CLog::create(L"EditorItems.log");
 					editorLog	<< L"Tried to access item [" 
 								<< item->ubGraphicNum << L"/" << hVObject->usNumberOfObjects 
-								<< L"]" << CLog::endl;
+								<< L"]" << CLog::ENDL;
 				}
 			}
 			usCounter++;
@@ -629,12 +633,14 @@ void RenderEditorItemsInfo()
 
 			x = iScreenWidthOffset + (eInfo.sHilitedItemIndex/2 - eInfo.sScrollIndex)*60 + 110;
 			y = 2 * iScreenHeightOffset + 360 + (eInfo.sHilitedItemIndex % 2) * 40;
-			sWidth = hVObject->pETRLEObject[item->ubGraphicNum].usWidth;
-			sOffset = hVObject->pETRLEObject[item->ubGraphicNum].sOffsetX;
+
+			UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : item->ubGraphicNum;
+			sWidth = hVObject->pETRLEObject[usGraphicNum].usWidth;
+			sOffset = hVObject->pETRLEObject[usGraphicNum].sOffsetX;
 			sStart = x + (60 - sWidth - sOffset*2) / 2;
 			if( sWidth )
 			{
-				BltVideoObjectOutlineFromIndex( FRAME_BUFFER, uiVideoObjectIndex, item->ubGraphicNum, sStart, y+2, Get16BPPColor(FROMRGB(250, 250, 0)), TRUE );
+				BltVideoObjectOutlineFromIndex( FRAME_BUFFER, uiVideoObjectIndex, usGraphicNum, sStart, y+2, Get16BPPColor(FROMRGB(250, 250, 0)), TRUE );
 			}
 		}
 	}
@@ -649,12 +655,14 @@ void RenderEditorItemsInfo()
 
 			x = iScreenWidthOffset + (eInfo.sSelItemIndex/2 - eInfo.sScrollIndex)*60 + 110;
 			y = 2 * iScreenHeightOffset + 360 + (eInfo.sSelItemIndex % 2) * 40;
-			sWidth = hVObject->pETRLEObject[item->ubGraphicNum].usWidth;
-			sOffset = hVObject->pETRLEObject[item->ubGraphicNum].sOffsetX;
+
+			UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : item->ubGraphicNum;
+			sWidth = hVObject->pETRLEObject[usGraphicNum].usWidth;
+			sOffset = hVObject->pETRLEObject[usGraphicNum].sOffsetX;
 			sStart = x + (60 - sWidth - sOffset*2) / 2;
 			if( sWidth )
 			{
-				BltVideoObjectOutlineFromIndex( FRAME_BUFFER, uiVideoObjectIndex, item->ubGraphicNum, sStart, y+2, Get16BPPColor(FROMRGB(250, 0, 0)), TRUE );
+				BltVideoObjectOutlineFromIndex( FRAME_BUFFER, uiVideoObjectIndex, usGraphicNum, sStart, y+2, Get16BPPColor(FROMRGB(250, 0, 0)), TRUE );
 			}
 		}
 	}
@@ -821,7 +829,7 @@ void HideItemCursor( INT32 iMapIndex )
 	RemoveTopmost( iMapIndex, SELRING1 );
 }
 
-BOOLEAN TriggerAtGridNo( INT16 sGridNo )
+BOOLEAN TriggerAtGridNo( INT32 sGridNo )
 {
 	ITEM_POOL *pItemPool;
 	if( !GetItemPoolFromGround( sGridNo, &pItemPool ) )
@@ -840,7 +848,7 @@ BOOLEAN TriggerAtGridNo( INT16 sGridNo )
 }
 
 
-void AddSelectedItemToWorld( INT16 sGridNo )
+void AddSelectedItemToWorld( INT32 sGridNo )
 {
 	OBJECTTYPE *pObject;
 	INVTYPE		*pItem;
@@ -955,7 +963,8 @@ void AddSelectedItemToWorld( INT16 sGridNo )
 	}
 	else
 	{
-		(*pObject)[0]->data.objectStatus = (INT8)(70 + Random( 26 ));
+		if(gTempObject.usItem != OWNERSHIP)//dnl ch35 110909
+			(*pObject)[0]->data.objectStatus = (INT8)(70 + Random( 26 ));
 	}
 	if( pItem->usItemClass & IC_GUN )
 	{
@@ -1023,7 +1032,7 @@ void AddSelectedItemToWorld( INT16 sGridNo )
 	}
 }
 
-void HandleRightClickOnItem( INT16 sGridNo )
+void HandleRightClickOnItem( INT32 sGridNo )
 {
 	ITEM_POOL *pItemPool;
 	IPListNode *pIPCurr;
@@ -1074,7 +1083,7 @@ void DeleteSelectedItem()
 	}
 	if( gpItemPool )
 	{ //Okay, we have a selected item...
-		INT16 sGridNo;
+		INT32 sGridNo;
 		//save the mapindex
 		if( gpItemPool->pNext )
 		{

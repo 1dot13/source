@@ -865,7 +865,14 @@ BOOLEAN BeginStrategicRemoveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fAddRehireButto
 	}
 	else
 	{
-	NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( pSoldier, fAddRehireButton );
+		if (!is_networked)
+			NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( pSoldier, fAddRehireButton );
+		else
+		{
+			// WANNE - MP: Skip all the dialog boxes that appear. Just dismiss the merc
+			StrategicRemoveMerc( pSoldier );
+			pLeaveSoldier = NULL;
+		}
 	}
 
 	return( TRUE );
@@ -1003,6 +1010,10 @@ BOOLEAN StrategicRemoveMerc( SOLDIERTYPE *pSoldier )
 	// And unpause the @#$@#$ interface
 	UnLockPauseState();
 	UnPauseGame();
+
+
+	if (is_client)
+		send_dismiss(pSoldier->ubID);
 
 	return( TRUE );
 }
@@ -1486,17 +1497,20 @@ void ExtendMercInsuranceContractCallBack( UINT8 bExitValue )
 
 void HandleUniqueEventWhenPlayerLeavesTeam( SOLDIERTYPE *pSoldier )
 {
-	switch( pSoldier->ubProfile )
+	if (!is_networked)
 	{
-		//When iggy leaves the players team,
-		case IGGY:
-			//if he is owed money ( ie the player didnt pay him )
-			if( gMercProfiles[ pSoldier->ubProfile ].iBalance < 0 )
-			{
-				//iggy is now available to be handled by the enemy
-				gubFact[ FACT_IGGY_AVAILABLE_TO_ARMY ] = TRUE;
-			}
-		break;
+		switch( pSoldier->ubProfile )
+		{
+			//When iggy leaves the players team,
+			case IGGY:
+				//if he is owed money ( ie the player didnt pay him )
+				if( gMercProfiles[ pSoldier->ubProfile ].iBalance < 0 )
+				{
+					//iggy is now available to be handled by the enemy
+					gubFact[ FACT_IGGY_AVAILABLE_TO_ARMY ] = TRUE;
+				}
+			break;
+		}
 	}
 }
 

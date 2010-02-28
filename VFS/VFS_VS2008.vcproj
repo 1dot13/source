@@ -21,7 +21,6 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -42,7 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories="..\ext\7z;..\ext\utf8\source"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;VFS_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -83,7 +83,6 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -106,7 +105,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="..\ext\7z;..\ext\utf8\source"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;VFS_STATIC"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="false"
@@ -148,7 +148,6 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -169,7 +168,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories="..\ext\7z;..\ext\utf8\source"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;VFS_STATIC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -210,7 +210,6 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -233,7 +232,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="..\ext\7z;..\ext\utf8\source"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;VFS_STATIC"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="false"
@@ -241,6 +241,71 @@
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_WithDebugInfo|Win32"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="0"
+			WholeProgramOptimization="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="..\ext\7z;..\ext\utf8\source"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;VFS_STATIC"
+				StringPooling="true"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="false"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -283,6 +348,14 @@
 			</File>
 			<File
 				RelativePath=".\Interface\vfs_file_interface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Interface\vfs_interface_members.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Interface\vfs_iterator_interface.h"
 				>
 			</File>
 			<File
@@ -434,12 +507,32 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="utfcpp"
+			>
+			<File
+				RelativePath="..\ext\utf8\source\utf8\checked.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ext\utf8\source\utf8\core.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ext\utf8\source\utf8\unchecked.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ext\utf8\source\utf8.h"
+				>
+			</File>
+		</Filter>
 		<File
-			RelativePath=".\iteratedir.cpp"
+			RelativePath=".\os_functions.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\iteratedir.h"
+			RelativePath=".\os_functions.h"
 			>
 		</File>
 		<File
@@ -467,6 +560,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\vfs_config.h"
+			>
+		</File>
+		<File
 			RelativePath=".\vfs_debug.cpp"
 			>
 		</File>
@@ -491,11 +588,27 @@
 			>
 		</File>
 		<File
+			RelativePath=".\vfs_path.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\vfs_path.h"
+			>
+		</File>
+		<File
 			RelativePath=".\vfs_profile.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\vfs_profile.h"
+			>
+		</File>
+		<File
+			RelativePath=".\vfs_settings.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\vfs_settings.h"
 			>
 		</File>
 		<File

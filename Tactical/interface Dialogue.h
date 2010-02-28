@@ -52,7 +52,7 @@ extern NPC_DIALOGUE_TYPE		gTalkPanel;
 BOOLEAN InitiateConversation( SOLDIERTYPE *pDestSoldier, SOLDIERTYPE *pSrcSoldier, INT8 bApproach, UINT32 uiApproachData );
 
 // THis fuction will allocate and setup an NPCDiaogue structure. Loads the face for the character..
-BOOLEAN InitTalkingMenu( UINT8 ubCharacterNum, INT16 sGridNo );
+BOOLEAN InitTalkingMenu( UINT8 ubCharacterNum, INT32 sGridNo );
 
 // Begins quote of NPC Dialogue
 BOOLEAN TalkingMenuDialogue( UINT16 usQuoteNum );
@@ -75,7 +75,7 @@ BOOLEAN	TalkingMenuGiveItem( UINT8 ubNPC, OBJECTTYPE *pObject, INT8 bInvPos );
 // Triggers an NPC record
 BOOLEAN	NPCTriggerNPC( UINT8 ubTargetNPC, UINT8 ubTargetRecord, UINT8 ubTargetApproach, BOOLEAN fShowDialogueMenu );
 // NPC goto gridno
-BOOLEAN	NPCGotoGridNo( UINT8 ubTargetNPC, INT16 sGridNo, UINT8 ubQuoteNum );
+BOOLEAN	NPCGotoGridNo( UINT8 ubTargetNPC, INT32 usGridNo, UINT8 ubQuoteNum );
 // NPC Do action
 BOOLEAN	NPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum );
 
@@ -87,7 +87,7 @@ void HandleWaitTimerForNPCTrigger( );
 void HandleNPCClosePanel( );
 void HandleNPCItemGiven( UINT8 ubNPC, OBJECTTYPE *pObject, INT8 bInvPos );
 void HandleNPCTriggerNPC( UINT8 ubTargetNPC, UINT8 ubTargetRecord, BOOLEAN fShowDialogueMenu, UINT8 ubTargetApproach );
-void HandleNPCGotoGridNo( UINT8 ubTargetNPC, INT16 sGridNo, UINT8 ubRecordNum );
+void HandleNPCGotoGridNo( UINT8 ubTargetNPC, INT32 usGridNo, UINT8 ubRecordNum );
 void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum );
 
 BOOLEAN ProfileCurrentlyTalkingInDialoguePanel( UINT8 ubProfile );

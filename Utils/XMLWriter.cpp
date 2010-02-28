@@ -3,29 +3,29 @@
 #include "VFS/vfs_file_raii.h"
 #include "VFS/File/vfs_file.h"
 
-void XMLWriter::AddValue(utf8string const& key)
+void XMLWriter::addValue(utf8string const& key)
 {
-	m_ssBuffer << Indent() <<  "<" << key.utf8();
-	InsertAttributesIntoBuffer();
+	m_ssBuffer << indent() <<  "<" << key.utf8();
+	insertAttributesIntoBuffer();
 	m_ssBuffer << " />\n";
 }
 
-void XMLWriter::AddComment(utf8string const& comment)
+void XMLWriter::addComment(utf8string const& comment)
 {
-	m_ssBuffer << Indent() << "<!-- " << comment.utf8() << " -->\n"; 
+	m_ssBuffer << indent() << "<!-- " << comment.utf8() << " -->\n"; 
 }
 
-void XMLWriter::OpenNode(utf8string const& key)
+void XMLWriter::openNode(utf8string const& key)
 {
 	std::string utf8key = key.utf8();
-	m_ssBuffer << Indent() << "<" << utf8key;
-	InsertAttributesIntoBuffer();
+	m_ssBuffer << indent() << "<" << utf8key;
+	insertAttributesIntoBuffer();
 	m_ssBuffer << ">\n";
 	m_iIndentLevel += 1;
 	m_stOpenNodes.push(utf8key);
 }
 
-bool XMLWriter::CloseNode()
+bool XMLWriter::closeNode()
 {
 	if(m_iIndentLevel < 1)
 	{
@@ -37,42 +37,47 @@ bool XMLWriter::CloseNode()
 		return false;
 	}
 	m_iIndentLevel -= 1;
-	m_ssBuffer << Indent() << "</" << m_stOpenNodes.top() << ">\n";
+	m_ssBuffer << indent() << "</" << m_stOpenNodes.top() << ">\n";
 	m_stOpenNodes.pop();
 	return true;
 }
 
-bool XMLWriter::WriteToFile(vfs::Path const& sFileName)
+bool XMLWriter::writeToFile(vfs::Path const& sFileName)
 {
 	try
 	{
 		vfs::COpenWriteFile file(sFileName,true,true);
-		return WriteToFile( &file.file() );
+		return writeToFile( &file.file() );
 	}
 	catch(CBasicException& ex)
 	{
+		logException(ex);
 		vfs::CFile file(sFileName);
-		if(file.OpenWrite(true,true))
+		if(file.openWrite(true,true))
 		{
-			return WriteToFile(vfs::tWriteableFile::Cast(&file));
+			return writeToFile(vfs::tWritableFile::cast(&file));
 		}
 	}
 	return false;
 }
 
-bool XMLWriter::WriteToFile(vfs::tWriteableFile* pFile)
+bool XMLWriter::writeToFile(vfs::tWritableFile* pFile)
 {
-	vfs::COpenWriteFile file(pFile);
-	vfs::UInt32 written;
-	std::string &str = m_ssBuffer.str();
-	if(!pFile->Write(str.c_str(), str.length() * sizeof(std::string::value_type), written))
+	try
 	{
+		vfs::COpenWriteFile file(pFile);
+		std::string &str = m_ssBuffer.str();
+		pFile->write(str.c_str(), str.length() * sizeof(std::string::value_type));
+		return true;
+	}
+	catch(CBasicException& ex)
+	{
+		logException(ex);
 		return false;
 	}
-	return true;
 }
 
-std::string XMLWriter::Indent()
+std::string XMLWriter::indent()
 {
 	std::string indent_string;
 	for(int i=0; i < m_iIndentLevel; ++i)
@@ -82,7 +87,7 @@ std::string XMLWriter::Indent()
 	return indent_string;
 }
 
-void XMLWriter::InsertAttributesIntoBuffer()
+void XMLWriter::insertAttributesIntoBuffer()
 {
 	if(!m_stNextValAttributes.empty())
 	{
@@ -95,7 +100,7 @@ void XMLWriter::InsertAttributesIntoBuffer()
 	m_stNextValAttributes.clear();
 }
 
-std::string XMLWriter::HandleSpecialCharacters(std::string const& str)
+std::string XMLWriter::handleSpecialCharacters(std::string const& str)
 {
 	std::stringstream ss;
 	unsigned int current = 0, old = 0;
@@ -141,20 +146,20 @@ void testMXLWriter()
 {
 	//XMLWriter<char> xmlw;
 	XMLWriter xmlw;
-	//xmlw.OpenNode(L"root");
-	xmlw.OpenNode("root");
-	xmlw.AddAttributeToNextValue("attr1",10);
-	xmlw.AddAttributeToNextValue("attr2","string");
+	//xmlw.openNode(L"root");
+	xmlw.openNode("root");
+	xmlw.addAttributeToNextValue("attr1",10);
+	xmlw.addAttributeToNextValue("attr2","string");
 	//xmlw.AddValue(L"val1",10);
-	xmlw.AddValue("val1",10);
+	xmlw.addValue("val1",10);
 
-	xmlw.AddAttributeToNextValue("node_attr",17);
-	xmlw.AddComment("bbb -->\n <a> comment</a> <!-- aaa");
-	xmlw.OpenNode("test");
-	//xmlw.AddValue(L"val2",10.5);
-	xmlw.AddValue("val2",10.5);
-	xmlw.CloseNode();
-	xmlw.CloseNode();
+	xmlw.addAttributeToNextValue("node_attr",17);
+	xmlw.addComment("bbb -->\n <a> comment</a> <!-- aaa");
+	xmlw.openNode("test");
+	//xmlw.addValue(L"val2",10.5);
+	xmlw.addValue("val2",10.5);
+	xmlw.closeNode();
+	xmlw.closeNode();
 	//xmlw.WriteToFile(WideString("xml_output/test.xml")());
-	xmlw.WriteToFile("xml_output/test.xml");
+	xmlw.writeToFile("xml_output/test.xml");
 }

@@ -6,7 +6,12 @@
 
 // fixed-point arithmetic definitions start here
 
-typedef INT32 FIXEDPT;
+// WANNE - BMP: BUGFIX: Replaced INT32 with INT64, because otherwise we would get an overflow on big maps!
+//typedef INT32 FIXEDPT;
+typedef INT64 FIXEDPT;			
+
+
+
 // rem 1 signed bit at the top
 #define FIXEDPT_WHOLE_BITS 11
 #define FIXEDPT_FRACTIONAL_BITS 20
@@ -66,15 +71,15 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 #define NO_DISTANCE_LIMIT -3
 
 INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS, UINT8 ubAimLocation = LOS_POS, bool adjustForSight = true );
-INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bCubeLevel, INT8 bAware, int ubSightLimit = CALC_FROM_ALL_DIRS, bool adjustForSight = true );
-INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bStance, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS );
+INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, INT8 bAware, int ubSightLimit = CALC_FROM_ALL_DIRS, bool adjustForSight = true );
+INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bStance, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS );
 UINT8 SoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier );
 UINT8 SoldierToSoldierBodyPartChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, UINT8 ubAimLocation );
 UINT8 AISoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier );
-UINT8 AISoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bCubeLevel );
-UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bCubeLevel, UINT8 ubTargetID );
-INT16 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT16 sEndGridNo );
-INT32 LocationToLocationLineOfSightTest( INT16 sStartGridNo, INT8 bStartLevel, INT16 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS );
+UINT8 AISoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel );
+UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, UINT8 ubTargetID );
+INT32 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT32 sEndGridNo );
+INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, INT32 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS );
 
 BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * pdZPos );
 
@@ -167,14 +172,14 @@ void MoveBullet( INT32 iBullet );
 
 // TODO: public but at the wrong place, the original function deletes the important parts, not sure what it could brake
 // to be used in conjunction with the camo thing and the "F" key
-INT8 GetTerrainTypeForGrid( const UINT16& uGridNo );
+INT8 GetTerrainTypeForGrid( const INT32& uGridNo );
 
 // check the flat distance adjustment based on your stance
 // use this to test your view on your surroundings based on your stance
 INT8 GetSightAdjustmentThroughStance( const UINT8& ubStance );
 
 // quick way to get all. should be used for all sight line tests with target soldier known
-INT16 GetSightAdjustment( SOLDIERTYPE* pSoldier, INT16 sGridNo = -1, INT8 bStance = -1 );
+INT16 GetSightAdjustment( SOLDIERTYPE* pSoldier, INT32 sGridNo = -1, INT8 bStance = -1 );
 
 //zilpin: pellet spread patterns externalized in XML
 #define SPREADPATTERN_NAME_SIZE 32

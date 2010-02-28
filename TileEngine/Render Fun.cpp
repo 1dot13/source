@@ -24,13 +24,14 @@
 #endif
 
 // Room Information
-UINT8						gubWorldRoomInfo[ WORLD_MAX ];
+//UINT8						gubWorldRoomInfo[ WORLD_MAX ];
+UINT8*						gubWorldRoomInfo = NULL;
 UINT8						gubWorldRoomHidden[ MAX_ROOMS ];
 
 
 BOOLEAN InitRoomDatabase( )
 {
-	memset( gubWorldRoomInfo, NO_ROOM, sizeof( gubWorldRoomInfo ) );
+	//memset( gubWorldRoomInfo, NO_ROOM, sizeof( gubWorldRoomInfo ) );
 	memset( gubWorldRoomHidden, TRUE, sizeof( gubWorldRoomHidden ) );
 	return( TRUE );
 }
@@ -40,7 +41,7 @@ void ShutdownRoomDatabase( )
 
 }
 
-void SetTileRoomNum( INT16 sGridNo, UINT8 ubRoomNum )
+void SetTileRoomNum( INT32 sGridNo, UINT8 ubRoomNum )
 {
 	// Add to global room list
 	gubWorldRoomInfo[ sGridNo ] = ubRoomNum;
@@ -54,13 +55,13 @@ void SetTileRangeRoomNum( SGPRect *pSelectRegion, UINT8 ubRoomNum )
 	{
 		for ( cnt2 = pSelectRegion->iLeft; cnt2 <= pSelectRegion->iRight; cnt2++ )
 		{
-			gubWorldRoomInfo[	(INT16)MAPROWCOLTOPOS( cnt1, cnt2 ) ] = ubRoomNum;
+			gubWorldRoomInfo[ MAPROWCOLTOPOS( cnt1, cnt2 ) ] = ubRoomNum;
 		}
 	}
 
 }
 
-BOOLEAN InARoom( INT16 sGridNo, UINT8 *pubRoomNo )
+BOOLEAN InARoom( INT32 sGridNo, UINT8 *pubRoomNo )
 {
 	if ( gubWorldRoomInfo[ sGridNo ] != NO_ROOM )
 	{
@@ -75,7 +76,7 @@ BOOLEAN InARoom( INT16 sGridNo, UINT8 *pubRoomNo )
 }
 
 
-BOOLEAN InAHiddenRoom( INT16 sGridNo, UINT8 *pubRoomNo )
+BOOLEAN InAHiddenRoom( INT32 sGridNo, UINT8 *pubRoomNo )
 {
 	if ( gubWorldRoomInfo[ sGridNo ] != NO_ROOM )
 	{
@@ -109,7 +110,7 @@ void SetRecalculateWireFrameFlagRadius(INT16 sX, INT16 sY, INT16 sRadius)
 }
 
 
-void SetGridNoRevealedFlag( INT16 sGridNo )
+void SetGridNoRevealedFlag( INT32 sGridNo )
 {
 //	UINT32 cnt;
 //	ITEM_POOL					*pItemPool;
@@ -125,13 +126,13 @@ void SetGridNoRevealedFlag( INT16 sGridNo )
 	{
 		SetStructAframeFlags(	sGridNo, LEVELNODE_HIDDEN );
 		// Find gridno one east as well...
-
-		if ( ( sGridNo + WORLD_COLS ) < NOWHERE )
+		
+		if ( ( sGridNo + WORLD_COLS ) < MAX_MAP_POS )
 		{
 			SetStructAframeFlags(	sGridNo + WORLD_COLS, LEVELNODE_HIDDEN );
 		}
 
-		if ( ( sGridNo + 1 ) < NOWHERE )
+		if ( ( sGridNo + 1 ) < MAX_MAP_POS )
 		{
 			SetStructAframeFlags(	sGridNo + 1, LEVELNODE_HIDDEN );
 		}
@@ -146,7 +147,7 @@ void SetGridNoRevealedFlag( INT16 sGridNo )
 
 	// ATE: If there are any structs here, we can render them with the obscured flag!
 	// Look for anything but walls pn this gridno!
-	pStructure	=	gpWorldLevelData[ (INT16)sGridNo ].pStructureHead;
+	pStructure	=  gpWorldLevelData[ sGridNo ].pStructureHead;
 
 	while ( pStructure != NULL )
 	{
@@ -188,13 +189,13 @@ void SetGridNoRevealedFlag( INT16 sGridNo )
 }
 
 
-void ExamineGridNoForSlantRoofExtraGraphic( INT16 sCheckGridNo )
+void ExamineGridNoForSlantRoofExtraGraphic( INT32 sCheckGridNo )
 {
 	LEVELNODE					*pNode = NULL;
 	STRUCTURE					*pStructure, *pBase;
 	UINT8 ubLoop;
 	DB_STRUCTURE_TILE	**	ppTile;
-	INT16							sGridNo;
+	INT32 sGridNo;
 	UINT16						usIndex;
 	BOOLEAN						fChanged = FALSE;
 
@@ -257,9 +258,9 @@ void ExamineGridNoForSlantRoofExtraGraphic( INT16 sCheckGridNo )
 }
 
 
-void RemoveRoomRoof( INT16 sGridNo, UINT8 bRoomNum, SOLDIERTYPE *pSoldier )
+void RemoveRoomRoof( INT32 sGridNo, UINT8 bRoomNum, SOLDIERTYPE *pSoldier )
 {
-	UINT32 cnt;
+	INT32			cnt;
 	ITEM_POOL					*pItemPool;
 	INT16							sX, sY;
 	BOOLEAN						fSaidItemSeenQuote = FALSE;
@@ -272,12 +273,12 @@ void RemoveRoomRoof( INT16 sGridNo, UINT8 bRoomNum, SOLDIERTYPE *pSoldier )
 		if ( gubWorldRoomInfo[ cnt ] == bRoomNum )
 		{
 
-			SetGridNoRevealedFlag( (INT16)cnt );
+			SetGridNoRevealedFlag( cnt );//dnl ch56 141009
 
-			RemoveRoofIndexFlagsFromTypeRange( cnt, FIRSTROOF, SECONDSLANTROOF, LEVELNODE_REVEAL	);
+			RemoveRoofIndexFlagsFromTypeRange( cnt, FIRSTROOF, SECONDSLANTROOF, LEVELNODE_REVEAL );
 
 			// Reveal any items if here!
-			if ( GetItemPoolFromGround( (INT16)cnt, &pItemPool ) )
+			if ( GetItemPoolFromGround( cnt, &pItemPool ) )
 			{
 				// Set visible! ( only if invisible... )
 				if ( SetItemPoolVisibilityOn( pItemPool, INVISIBLE, TRUE ) )
@@ -296,7 +297,7 @@ void RemoveRoomRoof( INT16 sGridNo, UINT8 bRoomNum, SOLDIERTYPE *pSoldier )
 
 			// OK, re-set writeframes ( in a radius )
 			// Get XY
-			ConvertGridNoToXY( (INT16)cnt, &sX, &sY );
+			ConvertGridNoToXY( cnt, &sX, &sY );
 			SetRecalculateWireFrameFlagRadius( sX, sY, 2 );
 
 		}
@@ -329,7 +330,7 @@ BOOLEAN AddSpecialTileRange( SGPRect *pSelectRegion	)
 	{
 		for ( cnt2 = pSelectRegion->iLeft; cnt2 <= pSelectRegion->iRight; cnt2++ )
 		{
-			AddObjectToHead( (INT16)MAPROWCOLTOPOS( cnt1, cnt2 ), SPECIALTILE_MAPEXIT );
+			AddObjectToHead( MAPROWCOLTOPOS( cnt1, cnt2 ), SPECIALTILE_MAPEXIT ); 
 		}
 	}
 
@@ -345,7 +346,7 @@ BOOLEAN RemoveSpecialTileRange( SGPRect *pSelectRegion	)
 	{
 		for ( cnt2 = pSelectRegion->iLeft; cnt2 <= pSelectRegion->iRight; cnt2++ )
 		{
-			RemoveObject( (INT16)MAPROWCOLTOPOS( cnt1, cnt2 ), SPECIALTILE_MAPEXIT );
+			RemoveObject( MAPROWCOLTOPOS( cnt1, cnt2 ), SPECIALTILE_MAPEXIT ); 
 		}
 	}
 

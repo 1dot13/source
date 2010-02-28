@@ -10,7 +10,9 @@ class CPropertyContainer;
 class CUniqueServerId
 {
 public:
-	utf8string const& GetServerId(vfs::Path dir, CPropertyContainer* props = NULL);
+	utf8string const& getServerId(vfs::Path dir, CPropertyContainer* props = NULL);
+
+	static void uniqueRandomString(utf8string& str);
 private:
 	utf8string _id;
 };

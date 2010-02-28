@@ -33,7 +33,7 @@
 #include "VFS/vfs.h"
 #include "VFS/vfs_init.h"
 #include "VFS/PropertyContainer.h"
-#include "VFS/iteratedir.h"
+#include "VFS/os_functions.h"
 #include "MPJoinScreen.h"
 #include "MainMenuScreen.h"
 #include "Init.h"
@@ -407,70 +407,70 @@ void		SaveMPSettings()
 	WritePrivateProfileStringW( L"Ja2_mp Settings",L"DIFFICULT_LEVEL", tmpDiffStr, L"..\\Ja2_mp.ini" );
 #else
 	CPropertyContainer props;
-	props.InitFromIniFile("Ja2_mp.ini");
+	props.initFromIniFile("Ja2_mp.ini");
 
-	props.SetStringProperty(L"Ja2_mp Settings",L"SERVER_NAME", gzServerNameField);
-	props.SetStringProperty(L"Ja2_mp Settings",L"MAX_CLIENTS", gzMaxPlayersField);
-	props.SetStringProperty(L"Ja2_mp Settings",L"MAX_MERCS", gzSquadSizeField);
-	props.SetStringProperty(L"Ja2_mp Settings",L"STARTING_BALANCE", gzStartingBalanceField);
-	props.SetStringProperty(L"Ja2_mp Settings",L"DAMAGE_MULTIPLIER", gzDmgMultiplierField);
-	props.SetStringProperty(L"Ja2_mp Settings",L"TIMED_TURN_SECS_PER_TICK", gzTimerField);
-	props.SetStringProperty(L"Ja2_mp Settings",L"FILE_TRANSFER_DIRECTORY", gzFileTransferDirectory);
-	props.SetStringProperty(L"Ja2_mp Settings",L"KIT_BAG", gzKitBag);
+	props.setStringProperty(L"Ja2_mp Settings",L"SERVER_NAME", gzServerNameField);
+	props.setStringProperty(L"Ja2_mp Settings",L"MAX_CLIENTS", gzMaxPlayersField);
+	props.setStringProperty(L"Ja2_mp Settings",L"MAX_MERCS", gzSquadSizeField);
+	props.setStringProperty(L"Ja2_mp Settings",L"STARTING_BALANCE", gzStartingBalanceField);
+	props.setStringProperty(L"Ja2_mp Settings",L"DAMAGE_MULTIPLIER", gzDmgMultiplierField);
+	props.setStringProperty(L"Ja2_mp Settings",L"TIMED_TURN_SECS_PER_TICK", gzTimerField);
+	props.setStringProperty(L"Ja2_mp Settings",L"FILE_TRANSFER_DIRECTORY", gzFileTransferDirectory);
+	props.setStringProperty(L"Ja2_mp Settings",L"KIT_BAG", gzKitBag);
 
 
 	guiMPHGameType = GetMPHGameTypeButtonSetting();
 	CHAR16 tmpGTStr[2];
 	_itow(guiMPHGameType,tmpGTStr,10);
-	props.SetStringProperty(L"Ja2_mp Settings",L"GAME_MODE", tmpGTStr);
+	props.setStringProperty(L"Ja2_mp Settings",L"GAME_MODE", tmpGTStr);
 
 	CHAR16 tmpTimeStr[6];
 	swprintf(tmpTimeStr,L"%i.%i",giMPHTimeHours,giMPHTimeMins);
-	props.SetStringProperty(L"Ja2_mp Settings",L"TIME", tmpTimeStr);
+	props.setStringProperty(L"Ja2_mp Settings",L"TIME", tmpTimeStr);
 
 	CHAR16 tmpVal[2];
 
 	giMPHOverrideMaxAI = ( ButtonList[ guiMPHOverrideMaxAIToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
 	_itow(giMPHOverrideMaxAI,tmpVal,10);
-	props.SetStringProperty(L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", tmpVal);
+	props.setStringProperty(L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", tmpVal);
 
 	giMPHRandomMercs = ( ButtonList[ guiMPHRandomMercsToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
 	_itow(giMPHRandomMercs,tmpVal,10);
-	props.SetStringProperty(L"Ja2_mp Settings",L"RANDOM_MERCS", tmpVal);
+	props.setStringProperty(L"Ja2_mp Settings",L"RANDOM_MERCS", tmpVal);
 
 	giMPHSameMercs = ( ButtonList[ guiMPHSameMercToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
 	_itow(giMPHSameMercs,tmpVal,10);
-	props.SetStringProperty(L"Ja2_mp Settings",L"SAME_MERC", tmpVal);
+	props.setStringProperty(L"Ja2_mp Settings",L"SAME_MERC", tmpVal);
 
 	giMPHBobbyRays = ( ButtonList[ guiMPHBobbyRayToggle ]->uiFlags & BUTTON_CLICKED_ON  ? 0 : 1 );  // This setting is reversed
 	_itow(giMPHBobbyRays,tmpVal,10);
-	props.SetStringProperty(L"Ja2_mp Settings",L"DISABLE_BOBBY_RAYS", tmpVal);
+	props.setStringProperty(L"Ja2_mp Settings",L"DISABLE_BOBBY_RAYS", tmpVal);
 
 	giMPHReportMercs = ( ButtonList[ guiMPHReportMercToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
 	_itow(giMPHReportMercs,tmpVal,10);
-	props.SetStringProperty(L"Ja2_mp Settings",L"REPORT_NAME", tmpVal);
+	props.setStringProperty(L"Ja2_mp Settings",L"REPORT_NAME", tmpVal);
 
 	giMPHRandomSpawn = ( ButtonList[ guiMPHRandomSpawnToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
 	_itow(giMPHRandomSpawn,tmpVal,10);
-	props.SetStringProperty(L"Ja2_mp Settings",L"RANDOM_EDGES", tmpVal);
+	props.setStringProperty(L"Ja2_mp Settings",L"RANDOM_EDGES", tmpVal);
 
 	giMPHEnableCivilians = ( ButtonList[ guiMPHCivsToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
 	_itow(giMPHEnableCivilians,tmpVal,10);
-	props.SetStringProperty(L"Ja2_mp Settings",L"CIV_ENABLED", tmpVal);
+	props.setStringProperty(L"Ja2_mp Settings",L"CIV_ENABLED", tmpVal);
 
 	giMPHUseNIV = ( ButtonList[ guiMPHUseNIVToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
 	_itow(giMPHUseNIV,tmpVal,10);
-	props.SetStringProperty(L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", tmpVal);
+	props.setStringProperty(L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", tmpVal);
 
 	giMPHSendFiles = ( ButtonList[ guiMPHSendFiles ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
 	_itow(giMPHSendFiles,tmpVal,10);
-	props.SetStringProperty(L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", tmpVal);
+	props.setStringProperty(L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", tmpVal);
 
 	guiMPHDifficultLevel = GetMPHCurrentDifficultyButtonSetting();
 	CHAR16 tmpDiffStr[2];
 	_itow(guiMPHDifficultLevel,tmpDiffStr,10);
-	props.SetStringProperty(L"Ja2_mp Settings",L"DIFFICULT_LEVEL", tmpDiffStr);
-	props.WriteToIniFile(L"Ja2_mp.ini",true);	// This writes to the Profiles/UserProfile/ja2_mp.ini
+	props.setStringProperty(L"Ja2_mp Settings",L"DIFFICULT_LEVEL", tmpDiffStr);
+	props.writeToIniFile(L"Ja2_mp.ini",true);	// This writes to the Profiles/UserProfile/ja2_mp.ini
 #endif
 
 
@@ -499,7 +499,7 @@ bool	ValidateMPSettings()
 	// Verify the Squad Size
 	Get16BitStringFromField( 2, gzSquadSizeField, 2 );
 	UINT8 squadSize = _wtoi(gzSquadSizeField);
-	if (squadSize < 1 || squadSize > 5)
+	if (squadSize < 1 || squadSize > 6)
 	{
 		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_SQUADSIZE_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
 		return false;
@@ -602,7 +602,7 @@ bool	ValidateMPSettings()
 
 	Get16BitStringFromField( 6, gzTimerField, 6 );
 	UINT32 iTimer = _wtoi(gzTimerField);
-	if (iTimer < 1 || iTimer > 200)
+	if (iTimer < 0 || iTimer > 200)
 	{
 		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_TIMER_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
 		return false;
@@ -618,7 +618,7 @@ bool	ValidateMPSettings()
 
 #ifdef USE_VFS
 	vfs::Path sUserDir(gzFileTransferDirectory);
-	if(!os::CreateRealDirecory(sUserDir,true))
+	if(!os::createRealDirectory(sUserDir,true))
 	{
 		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_FILE_TRANSFER_DIR_NOT_EXIST], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
 		return false;
@@ -677,28 +677,28 @@ UINT32	MPHostScreenInit( void )
 #else
 	// read settings from JA2_mp.ini
 	CPropertyContainer props;
-	props.InitFromIniFile("Ja2_mp.ini");
-	props.GetStringProperty( L"Ja2_mp Settings", L"SERVER_NAME", gzServerNameField, 30, L"Server Name");
-	props.GetStringProperty( L"Ja2_mp Settings", L"MAX_CLIENTS", gzMaxPlayersField, 4, L"4");
-	props.GetStringProperty( L"Ja2_mp Settings", L"MAX_MERCS", gzSquadSizeField, 5, L"5");
-	props.GetStringProperty( L"Ja2_mp Settings", L"STARTING_BALANCE", gzStartingBalanceField, 10, L"25000");
-	props.GetStringProperty( L"Ja2_mp Settings", L"DAMAGE_MULTIPLIER", gzDmgMultiplierField, 5, L"0.7");
-	props.GetStringProperty( L"Ja2_mp Settings", L"TIMED_TURN_SECS_PER_TICK", gzTimerField, 5, L"25");
-	props.GetStringProperty( L"Ja2_mp Settings", L"FILE_TRANSFER_DIRECTORY", gzFileTransferDirectory, 100, L"MULTIPLAYER/Servers/My Server");
-	props.GetStringProperty( L"Ja2_mp Settings", L"KIT_BAG", gzKitBag, 100, L"[201,214,243]");
-	props.GetStringProperty(L"Ja2_mp Settings", L"TIME", &szTime[0], 6, L"13.50");
+	props.initFromIniFile("Ja2_mp.ini");
+	props.getStringProperty( L"Ja2_mp Settings", L"SERVER_NAME", gzServerNameField, 30, L"Server Name");
+	props.getStringProperty( L"Ja2_mp Settings", L"MAX_CLIENTS", gzMaxPlayersField, 4, L"4");
+	props.getStringProperty( L"Ja2_mp Settings", L"MAX_MERCS", gzSquadSizeField, 5, L"5");
+	props.getStringProperty( L"Ja2_mp Settings", L"STARTING_BALANCE", gzStartingBalanceField, 10, L"25000");
+	props.getStringProperty( L"Ja2_mp Settings", L"DAMAGE_MULTIPLIER", gzDmgMultiplierField, 5, L"0.7");
+	props.getStringProperty( L"Ja2_mp Settings", L"TIMED_TURN_SECS_PER_TICK", gzTimerField, 5, L"25");
+	props.getStringProperty( L"Ja2_mp Settings", L"FILE_TRANSFER_DIRECTORY", gzFileTransferDirectory, 100, L"MULTIPLAYER/Servers/My Server");
+	props.getStringProperty( L"Ja2_mp Settings", L"KIT_BAG", gzKitBag, 100, L"[201,214,243]");
+	props.getStringProperty(L"Ja2_mp Settings", L"TIME", &szTime[0], 6, L"13.50");
 
-	giMPHOverrideMaxAI =			props.GetIntProperty( L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", 0);
-	giMPHRandomMercs =				props.GetIntProperty( L"Ja2_mp Settings",L"RANDOM_MERCS", 0);
-	giMPHSameMercs =				props.GetIntProperty( L"Ja2_mp Settings",L"SAME_MERC", 1);
-	giMPHReportMercs =				props.GetIntProperty( L"Ja2_mp Settings",L"REPORT_NAME", 1);
-	giMPHBobbyRays =				props.GetIntProperty( L"Ja2_mp Settings",L"DISABLE_BOBBY_RAYS", 0);
-	giMPHRandomSpawn =				props.GetIntProperty( L"Ja2_mp Settings",L"RANDOM_EDGES", 0);
-	giMPHEnableCivilians =			props.GetIntProperty( L"Ja2_mp Settings",L"CIV_ENABLED", 0);
-	giMPHUseNIV =					props.GetIntProperty( L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", 0);
-	giMPHSendFiles =				props.GetIntProperty( L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", 1);
-	guiMPHGameType =				(UINT8)props.GetIntProperty( L"Ja2_mp Settings",L"GAME_MODE", MP_TYPE_DEATHMATCH);
-	guiMPHDifficultLevel =			(UINT8)props.GetIntProperty( L"Ja2_mp Settings",L"DIFFICULT_LEVEL", 3);	// Expert
+	giMPHOverrideMaxAI =			(INT32)props.getIntProperty( L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", 0);
+	giMPHRandomMercs =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"RANDOM_MERCS", 0);
+	giMPHSameMercs =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"SAME_MERC", 1);
+	giMPHReportMercs =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"REPORT_NAME", 1);
+	giMPHBobbyRays =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"DISABLE_BOBBY_RAYS", 0);
+	giMPHRandomSpawn =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"RANDOM_EDGES", 0);
+	giMPHEnableCivilians =			(INT32)props.getIntProperty( L"Ja2_mp Settings",L"CIV_ENABLED", 0);
+	giMPHUseNIV =					(INT32)props.getIntProperty( L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", 0);
+	giMPHSendFiles =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", 1);
+	guiMPHGameType =				(UINT8)props.getIntProperty( L"Ja2_mp Settings",L"GAME_MODE", MP_TYPE_DEATHMATCH);
+	guiMPHDifficultLevel =			(UINT8)props.getIntProperty( L"Ja2_mp Settings",L"DIFFICULT_LEVEL", 3);	// Expert
 #endif
 	
 	wchar_t* tok;
@@ -1330,21 +1330,21 @@ void			GetMPHScreenUserInput()
 						SaveMPSettings(); // Update Profiles/UserProfile/ja2_mp.ini
 #ifdef USE_VFS	
 						// "gzFileTransferDirectory" is the new multiplayer profile root
-						vfs::CProfileStack *PS = GetVFS()->GetProfileStack();
+						vfs::CProfileStack *PS = getVFS()->getProfileStack();
 
 						// remove Multiplayer profile if it exists
-						vfs::CVirtualProfile *pProf = PS->GetProfile("_MULTIPLAYER");
-						if( pProf && (pProf == PS->TopProfile()) )
+						vfs::CVirtualProfile *pProf = PS->getProfile("_MULTIPLAYER");
+						if( pProf && (pProf == PS->topProfile()) )
 						{
-							THROWIFFALSE(PS->PopProfile(), "Could not remove old \"_MULTIPLAYER\" profile");
+							THROWIFFALSE(PS->popProfile(), "Could not remove old \"_MULTIPLAYER\" profile");
 							// careful, pProf is not valid anymore
 						}
 						// create and initialize a new Multiplayer profile
 						pProf = new vfs::CVirtualProfile("_MULTIPLAYER",true);
-						PS->PushProfile(pProf);
-						if(!InitWriteProfile(*pProf, vfs::Path(gzFileTransferDirectory)))
+						PS->pushProfile(pProf);
+						if(!initWriteProfile(*pProf, vfs::Path(gzFileTransferDirectory)))
 						{
-							THROWIFFALSE(PS->PopProfile(), L"Could not remove \"_MULTIPLAYER\" profile");			
+							THROWIFFALSE(PS->popProfile(), L"Could not remove \"_MULTIPLAYER\" profile");			
 							THROWEXCEPTION(L"Directory exists, but Multiplayer profile could not be iniitalized");
 						}
 #endif
@@ -1376,21 +1376,21 @@ void BtnMPHStartCallback(GUI_BUTTON *btn,INT32 reason)
 			SaveMPSettings(); // Update the Profiles/UserProfile/ja2_mp.ini
 #ifdef USE_VFS	
 			// "gzFileTransferDirectory" is the new multiplayer profile root
-			vfs::CProfileStack *PS = GetVFS()->GetProfileStack();
+			vfs::CProfileStack *PS = getVFS()->getProfileStack();
 
 			// remove Multiplayer profile if it exists
-			vfs::CVirtualProfile *pProf = PS->GetProfile("_MULTIPLAYER");
-			if( pProf && (pProf == PS->TopProfile()) )
+			vfs::CVirtualProfile *pProf = PS->getProfile("_MULTIPLAYER");
+			if( pProf && (pProf == PS->topProfile()) )
 			{
-				THROWIFFALSE(PS->PopProfile(), "Could not remove old \"_MULTIPLAYER\" profile");
+				THROWIFFALSE(PS->popProfile(), "Could not remove old \"_MULTIPLAYER\" profile");
 				// careful, pProf is not valid anymore
 			}
 			// create and initialize a new Multiplayer profile
 			pProf = new vfs::CVirtualProfile("_MULTIPLAYER",true);
-			PS->PushProfile(pProf);
-			if(!InitWriteProfile(*pProf, vfs::Path(gzFileTransferDirectory)))
+			PS->pushProfile(pProf);
+			if(!initWriteProfile(*pProf, vfs::Path(gzFileTransferDirectory)))
 			{
-				THROWIFFALSE(PS->PopProfile(), L"Could not remove \"_MULTIPLAYER\" profile");			
+				THROWIFFALSE(PS->popProfile(), L"Could not remove \"_MULTIPLAYER\" profile");			
 				THROWEXCEPTION(L"Directory exists, but Multiplayer profile could not be iniitalized");
 			}
 #endif

@@ -655,14 +655,14 @@ void HandleDialogue( )
 		if ( gfMikeShouldSayHi == TRUE )
 		{
 			SOLDIERTYPE * pMike;
-			INT16	sPlayerGridNo;
+			INT32	sPlayerGridNo;
 			UINT8	ubPlayerID;
 
 			pMike = FindSoldierByProfileID( MIKE, FALSE );
 			if ( pMike )
 			{
-				sPlayerGridNo = ClosestPC( pMike, NULL );
-				if (sPlayerGridNo != NOWHERE )
+				sPlayerGridNo = ClosestPC( pMike, NULL );				
+				if (!TileIsOutOfBounds(sPlayerGridNo))
 				{
 					ubPlayerID = WhoIsThere2( sPlayerGridNo, 0 );
 					if (ubPlayerID != NOBODY)
@@ -896,7 +896,7 @@ void HandleDialogue( )
 			gTacticalStatus.fLockItemLocators = FALSE;
 
 			// Slide to location!
-			SlideToLocation( 0,	(INT16)QItem->uiSpecialEventData );
+			SlideToLocation( 0,  QItem->uiSpecialEventData );
 
 			gpCurrentTalkingFace = &gFacesData[ QItem->iFaceIndex ];
 			gubCurrentTalkingID	= QItem->ubCharacterNum;
@@ -1086,7 +1086,7 @@ void HandleDialogue( )
 		{
 			if ( QItem->bUIHandlerID == DIALOGUE_NPC_UI )
 			{
-				HandleNPCGotoGridNo( (UINT8)QItem->uiSpecialEventData, (INT16)QItem->uiSpecialEventData2, (UINT8)QItem->uiSpecialEventData3 );
+				HandleNPCGotoGridNo( (UINT8)QItem->uiSpecialEventData, (UINT16)QItem->uiSpecialEventData2, (UINT8)QItem->uiSpecialEventData3 );//dnl!!!
 			}
 		}
 		else if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_DO_ACTION )
@@ -2569,7 +2569,7 @@ void SayQuoteFromAnyBodyInThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSect
 	}
 }
 
-void SayQuoteFromNearbyMercInSector( INT16 sGridNo, INT8 bDistance, UINT16 usQuoteNum )
+void SayQuoteFromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQuoteNum )
 {
 // WDS - make number of mercenaries, etc. be configurable
 	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0 );
@@ -2614,7 +2614,7 @@ void SayQuoteFromNearbyMercInSector( INT16 sGridNo, INT8 bDistance, UINT16 usQuo
 
 }
 
-void SayQuote58FromNearbyMercInSector( INT16 sGridNo, INT8 bDistance, UINT16 usQuoteNum, INT8 bSex )
+void SayQuote58FromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQuoteNum, INT8 bSex )
 {
 // WDS - make number of mercenaries, etc. be configurable
 	std::vector<UINT8> ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);

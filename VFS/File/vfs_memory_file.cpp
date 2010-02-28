@@ -3,220 +3,236 @@
 
 #include <vector>
 
-vfs::CMemoryFile::CMemoryFile()
-: vfs::IFileTemplate<vfs::IReadable,vfs::IWriteable>(vfs::Path()), m_bIsOpen_read(false), m_bIsOpen_write(false)
+#define ERROR_FILE(msg)			BuildString().add(L"[").add(this->getPath()).add(L"] - ").add(msg).get()
+
+#ifdef _DEBUG
+	#define IS_FILE_VALID()		THROWIFFALSE( m_buffer.good(), ERROR_FILE(L"invalid file object") );
+#else
+	#define IS_FILE_VALID()		THROWIFFALSE( m_buffer.good(), ERROR_FILE(L"invalid file object") );
+#endif
+
+static inline std::ios::seekdir _seekDir(vfs::IBaseFile::ESeekDir seekDir)
 {
-	m_ssBuffer.str("");
+	if(seekDir == vfs::IBaseFile::SD_BEGIN)
+	{
+		return std::ios::beg;
+	}
+	else if(seekDir == vfs::IBaseFile::SD_CURRENT)
+	{
+		return std::ios::cur;
+	}
+	else if(seekDir == vfs::IBaseFile::SD_END)
+	{
+		return std::ios::end;
+	}
+	THROWEXCEPTION(BuildString().add(L"Unknown seek direction [").add(seekDir).add(L"]").get());
 }
 
-vfs::CMemoryFile::CMemoryFile(vfs::Path const& sFileName)
-: vfs::IFileTemplate<vfs::IReadable,vfs::IWriteable>(sFileName), m_bIsOpen_read(false), m_bIsOpen_write(false)
+///////////////////////////////////////////////////
+
+vfs::CMemoryFile::CMemoryFile()
+: tBaseClass(vfs::Path()), m_isOpen_read(false), m_isOpen_write(false)
 {
-	m_ssBuffer.str("");
+	m_buffer.str("");
+}
+
+vfs::CMemoryFile::CMemoryFile(vfs::Path const& fileName)
+: tBaseClass(fileName), m_isOpen_read(false), m_isOpen_write(false)
+{
+	m_buffer.str("");
 }
 
 vfs::CMemoryFile::~CMemoryFile()
 {
-	m_ssBuffer.str("");
-	m_ssBuffer.clear();
+	m_buffer.str("");
+	m_buffer.clear();
 }
 
-bool vfs::CMemoryFile::Close()
+vfs::FileAttributes vfs::CMemoryFile::getAttributes()
 {
-	m_ssBuffer.clear();
-	m_bIsOpen_read = false;
-	m_bIsOpen_write = false;
-	return m_ssBuffer.good();
+	return vfs::FileAttributes(vfs::FileAttributes::ATTRIB_NORMAL, vfs::FileAttributes::LT_NONE);
 }
-bool vfs::CMemoryFile::GetFileSize(UInt32& uiFileSize)
+
+void vfs::CMemoryFile::close()
 {
-	uiFileSize = 0;
-	if(!m_ssBuffer.good())
+	m_buffer.clear();
+	m_isOpen_read = false;
+	m_isOpen_write = false;
+	IS_FILE_VALID();
+}
+vfs::size_t vfs::CMemoryFile::getSize()
+{
+	IS_FILE_VALID();
+
+	std::streampos size = 0;
+	if(!m_buffer.str().empty())
+	{
+		std::streampos current_position = m_buffer.tellg();
+		m_buffer.seekg(0,std::ios::end);
+		size = m_buffer.tellg();
+		m_buffer.seekg(current_position,std::ios::beg);
+	}
+
+	IS_FILE_VALID();
+	return (vfs::size_t)size;
+}
+
+bool vfs::CMemoryFile::isOpenRead()
+{
+	return m_isOpen_read;
+}
+
+bool vfs::CMemoryFile::openRead()
+{
+	if(!m_buffer.good())
 	{
 		return false;
 	}
-	std::ios::pos_type current_position = 0;
-	if(!m_ssBuffer.str().empty())
+	return m_isOpen_read = true;
+}
+vfs::size_t vfs::CMemoryFile::read(vfs::Byte* data, vfs::size_t bytesToRead)
+{
+	if(!m_buffer.eof())
 	{
-		current_position = m_ssBuffer.tellg();
-		m_ssBuffer.seekg(0,std::ios::end);
-		uiFileSize = m_ssBuffer.tellg();
-		m_ssBuffer.seekg(current_position,std::ios::beg);
+		IS_FILE_VALID();
+		THROWIFFALSE(m_isOpen_read || this->openRead(), ERROR_FILE(L"open error"));
+
+		m_buffer.read(static_cast<Byte*>(data), bytesToRead);
+		std::streamsize bytesRead = m_buffer.gcount();
+
+		THROWIFFALSE( m_buffer.good() || m_buffer.eof(), ERROR_FILE(L"read error") );
+		return (vfs::size_t)bytesRead;
 	}
-	return m_ssBuffer.good();
+	return 0;
 }
 
-bool vfs::CMemoryFile::IsOpenRead()
+vfs::size_t vfs::CMemoryFile::getReadPosition()
 {
-	return m_bIsOpen_read;
+	IS_FILE_VALID();
+	THROWIFFALSE(m_isOpen_read || this->openRead(), ERROR_FILE(L"open error"));
+
+	return (vfs::size_t)m_buffer.tellg();
 }
 
-bool vfs::CMemoryFile::OpenRead()
+void vfs::CMemoryFile::setReadPosition(vfs::size_t positionInBytes)
 {
-	m_bIsOpen_read = m_ssBuffer.good();
-	return m_bIsOpen_read;
-}
-bool vfs::CMemoryFile::Read(Byte* pData, UInt32 uiBytesToRead, UInt32& uiBytesRead)
-{
-	if(!m_bIsOpen_read && !this->OpenRead())
-	{
-		return false;
-	}
-	m_ssBuffer.read(static_cast<Byte*>(pData),uiBytesToRead);
-	uiBytesRead = m_ssBuffer.gcount();
-	return m_ssBuffer.good();
-}
+	IS_FILE_VALID();
+	THROWIFFALSE( m_isOpen_read || this->openRead(), ERROR_FILE(L"open error") );
 
-vfs::UInt32 vfs::CMemoryFile::GetReadLocation()
-{
-	if(!m_bIsOpen_read && this->OpenRead())
-	{
-		return false;
-	}
-	return m_ssBuffer.tellg();
-}
+	m_buffer.seekg((std::streamoff)positionInBytes);
 
-bool vfs::CMemoryFile::SetReadLocation(UInt32 uiPositionInBytes)
-{
-	if(!m_ssBuffer.good())
-	{
-		return false;
-	}
-	m_ssBuffer.seekg(uiPositionInBytes);
-	return m_ssBuffer.good();
+	IS_FILE_VALID();
 }
-bool vfs::CMemoryFile::SetReadLocation(Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir)
+void vfs::CMemoryFile::setReadPosition(vfs::offset_t offsetInBytes, IBaseFile::ESeekDir seekDir)
 {
-	if(!m_bIsOpen_read && !this->OpenRead())
-	{
-		return false;
-	}
+	IS_FILE_VALID();
+	THROWIFFALSE( m_isOpen_read || this->openRead(), ERROR_FILE(L"open error") );
+
 	std::ios::seekdir ioSeekDir;
-	if(eSeekDir == IBaseFile::SD_BEGIN)
-	{
-		ioSeekDir = std::ios::beg;
-	}
-	else if(eSeekDir == IBaseFile::SD_CURRENT)
-	{
-		ioSeekDir = std::ios::cur;
-	}
-	else if(eSeekDir == IBaseFile::SD_END)
-	{
-		ioSeekDir = std::ios::end;
-	}
-	else
-	{
+	TRYCATCH_RETHROW(ioSeekDir = _seekDir(seekDir), ERROR_FILE(L"seek error"));
+	m_buffer.seekg(offsetInBytes, ioSeekDir);
+
+	IS_FILE_VALID();
+}
+
+bool vfs::CMemoryFile::isOpenWrite()
+{
+	return m_isOpen_write;
+}
+
+bool vfs::CMemoryFile::openWrite(bool bCreateWhenNotExist, bool bTruncate)
+{
+	if( !m_buffer.good() )
 		return false;
-	}
-	m_ssBuffer.seekg(uiOffsetInBytes,ioSeekDir);
-	return m_ssBuffer.good();
-}
+	if( m_isOpen_write )
+		return true;
 
-bool vfs::CMemoryFile::IsOpenWrite()
-{
-	return m_bIsOpen_write;
-}
-
-bool vfs::CMemoryFile::OpenWrite(bool bCreateWhenNotExist, bool bTruncate)
-{
 	if(bTruncate)
 	{
-		m_ssBuffer.str("");
-		m_ssBuffer.clear();
+		m_buffer.str("");
+		m_buffer.clear();
 	}
-	m_bIsOpen_write = m_ssBuffer.good();
-	return m_bIsOpen_write;
+	m_isOpen_write = m_buffer.good();
+	return m_isOpen_write;
 }
 
-bool vfs::CMemoryFile::Write(const Byte* pData, UInt32 uiBytesToWrite, UInt32& uiBytesWritten)
+vfs::size_t vfs::CMemoryFile::write(const vfs::Byte* data, vfs::size_t bytesToWrite)
 {
-	if(!m_bIsOpen_write && !this->OpenWrite())
+	IS_FILE_VALID();
+	THROWIFFALSE( m_isOpen_write || this->openWrite(), ERROR_FILE(L"open error") );
+
+	std::streampos start = 0;
+	if(!m_buffer.str().empty())
 	{
-		return false;
+		start = m_buffer.tellp();
 	}
-	vfs::UInt64 start = 0;
-	if(!m_ssBuffer.str().empty())
-	{
-		start = m_ssBuffer.tellp();
-	}
-	m_ssBuffer.write(pData,uiBytesToWrite);
-	vfs::UInt64 end = m_ssBuffer.tellp();
-	uiBytesWritten = end-start;
-	if(uiBytesWritten != uiBytesToWrite)
-	{
-		return false;
-	}
-	return m_ssBuffer.good();
+	THROWIFFALSE( m_buffer.write(data, bytesToWrite), ERROR_FILE(L"write error") );
+	std::streampos bytesWritten = m_buffer.tellp() - start;
+
+	IS_FILE_VALID();
+
+	return (vfs::size_t)bytesWritten;
 }
 
-vfs::UInt32 vfs::CMemoryFile::GetWriteLocation()
+vfs::size_t vfs::CMemoryFile::getWritePosition()
 {
-	return m_ssBuffer.tellp();
+	IS_FILE_VALID();
+	THROWIFFALSE( m_isOpen_write || this->openWrite(), ERROR_FILE(L"open error") );
+
+	return (vfs::size_t)m_buffer.tellp();
 }
 
-bool vfs::CMemoryFile::SetWriteLocation(Int32 uiPositionInBytes)
+void vfs::CMemoryFile::setWritePosition(vfs::size_t positionInBytes)
 {
-	if(!m_bIsOpen_write && !this->OpenWrite())
-	{
-		return false;
-	}
-	m_ssBuffer.seekp(uiPositionInBytes);
-	return m_ssBuffer.good();
+	IS_FILE_VALID();
+	THROWIFFALSE( m_isOpen_write || this->openWrite(), ERROR_FILE(L"open error") );
+
+	m_buffer.seekp((std::streamoff)positionInBytes);
+
+	IS_FILE_VALID();
 }
 
-bool vfs::CMemoryFile::SetWriteLocation(Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir)
+void vfs::CMemoryFile::setWritePosition(vfs::offset_t offsetInBytes, IBaseFile::ESeekDir seekDir)
 {
-	if(!m_bIsOpen_write && !this->OpenWrite())
-	{
-		return false;
-	}
+	IS_FILE_VALID();
+	THROWIFFALSE( m_isOpen_write || this->openWrite(), ERROR_FILE(L"open error") );
+
 	std::ios::seekdir ioSeekDir;
-	if(eSeekDir == IBaseFile::SD_BEGIN)
-	{
-		ioSeekDir = std::ios::beg;
-	}
-	else if(eSeekDir == IBaseFile::SD_CURRENT)
-	{
-		ioSeekDir = std::ios::cur;
-	}
-	else if(eSeekDir == IBaseFile::SD_END)
-	{
-		ioSeekDir = std::ios::end;
-	}
-	else
-	{
-		return false;
-	}
-	m_ssBuffer.seekp(uiOffsetInBytes,ioSeekDir);
-	return m_ssBuffer.good();
+	TRYCATCH_RETHROW( ioSeekDir = _seekDir(seekDir), ERROR_FILE(L"seek error") );
+	m_buffer.seekp(offsetInBytes, ioSeekDir);
+
+	IS_FILE_VALID();
 }
 
-bool vfs::CMemoryFile::CopyToBuffer(vfs::tReadableFile& rFile)
+void vfs::CMemoryFile::copyToBuffer(vfs::tReadableFile& rFile)
 {
-	bool needToClose = !rFile.IsOpenRead();
-	vfs::COpenReadFile readfile(&rFile);
-	if(!needToClose)
+	try
 	{
-		readfile.release();
-	}
-	vfs::UInt32 uiSize,uiIO;
-
-	uiSize = rFile.GetFileSize();
-	std::vector<Byte> vBuffer(uiSize);
-	if( rFile.Read(&vBuffer[0],uiSize,uiIO) && (uiSize == uiIO) )
-	{
-		if( this->Write(&vBuffer[0],uiSize,uiIO) && (uiSize == uiIO) )
+		bool needToClose = !rFile.isOpenRead();
+		vfs::COpenReadFile readfile(&rFile);
+		if(!needToClose)
 		{
-			return true;
+			readfile.release();
 		}
+
+		typedef std::vector<vfs::Byte> tByteVector;
+
+		vfs::size_t size = rFile.getSize();
+		tByteVector vBuffer(size);
+
+		rFile.read(&vBuffer[0], size);
+		this->write(&vBuffer[0], size);
 	}
-	return false;
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(ERROR_FILE(L""), &ex);
+	}
 }
 
 
-bool vfs::CMemoryFile::Delete()
+bool vfs::CMemoryFile::deleteFile()
 {
-	m_ssBuffer.clear();
-	m_ssBuffer.str("");
-	return m_ssBuffer.good();
+	m_buffer.clear();
+	m_buffer.str("");
+	return m_buffer.good();
 }

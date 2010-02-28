@@ -46,14 +46,14 @@
 
 typedef struct
 {
-	INT16					sGridNo;
+	INT32 sGridNo;
 	UINT8					ubFlags;
 	INT16					sTileIndex;
 	INT16					sMaxScreenY;
 	INT16					sHeighestScreenY;
 	BOOLEAN				fFound;
 	LEVELNODE			*pFoundNode;
-	INT16					sFoundGridNo;
+	INT32					sFoundGridNo;
 	UINT16				usStructureID;
 	BOOLEAN				fStructure;
 
@@ -83,9 +83,9 @@ UINT16	gusINTOldMousePosX = 0;
 UINT16	gusINTOldMousePosY = 0;
 
 
-BOOLEAN RefinePointCollisionOnStruct( INT16 sGridNo, INT16 sTestX, INT16 sTestY, INT16 sSrcX, INT16 sSrcY, LEVELNODE *pNode );
+BOOLEAN RefinePointCollisionOnStruct( INT32 sGridNo, INT16 sTestX, INT16 sTestY, INT16 sSrcX, INT16 sSrcY, LEVELNODE *pNode );
 BOOLEAN CheckVideoObjectScreenCoordinateInData( HVOBJECT hSrcVObject, UINT16 usIndex, INT32 iTextX, INT32 iTestY );
-BOOLEAN RefineLogicOnStruct( INT16 sGridNo, LEVELNODE *pNode );
+BOOLEAN RefineLogicOnStruct( INT32 sGridNo, LEVELNODE *pNode );
 
 
 BOOLEAN InitInteractiveTileManagement( )
@@ -97,12 +97,12 @@ void ShutdownInteractiveTileManagement( )
 {
 }
 
-BOOLEAN AddInteractiveTile( INT16 sGridNo, LEVELNODE *pLevelNode, UINT32 uiFlags, UINT16 usType )
+BOOLEAN AddInteractiveTile( INT32 sGridNo, LEVELNODE *pLevelNode, UINT32 uiFlags, UINT16 usType )
 {
 	return( TRUE );
 }
 
-BOOLEAN StartInteractiveObject( INT16 sGridNo, UINT16 usStructureID, SOLDIERTYPE *pSoldier, UINT8 ubDirection )
+BOOLEAN StartInteractiveObject( INT32 sGridNo, UINT16 usStructureID, SOLDIERTYPE *pSoldier, UINT8 ubDirection )
 {
 	STRUCTURE * pStructure;
 
@@ -144,7 +144,7 @@ BOOLEAN StartInteractiveObject( INT16 sGridNo, UINT16 usStructureID, SOLDIERTYPE
 }
 
 
-BOOLEAN CalcInteractiveObjectAPs( INT16 sGridNo, STRUCTURE * pStructure, INT16 *psAPCost, INT16 *psBPCost )
+BOOLEAN CalcInteractiveObjectAPs( INT32 sGridNo, STRUCTURE * pStructure, INT16 *psAPCost, INT16 *psBPCost )
 {
 	if (pStructure == NULL)
 	{
@@ -199,7 +199,7 @@ BOOLEAN SoldierHandleInteractiveObject( SOLDIERTYPE *pSoldier )
 {
 	STRUCTURE			*pStructure;
 	UINT16				usStructureID;
-	INT16					sGridNo;
+	INT32 sGridNo;
 
 
 	sGridNo					= pSoldier->aiData.sPendingActionData2;
@@ -216,7 +216,7 @@ BOOLEAN SoldierHandleInteractiveObject( SOLDIERTYPE *pSoldier )
 	return( HandleOpenableStruct( pSoldier, sGridNo, pStructure ) );
 }
 
-void HandleStructChangeFromGridNo( SOLDIERTYPE *pSoldier, INT16 sGridNo )
+void HandleStructChangeFromGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
 	STRUCTURE			*pStructure, *pNewStructure;
 	ITEM_POOL			*pItemPool;
@@ -267,7 +267,7 @@ void HandleStructChangeFromGridNo( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 
 
 		// LOOK for item pool here...
-		if ( GetItemPool( (INT16)sGridNo, &pItemPool, pSoldier->pathing.bLevel ) )
+		if ( GetItemPool( sGridNo, &pItemPool, pSoldier->pathing.bLevel ) )
 		{
 			// Update visiblity....
 			if ( !( pStructure->fFlags & STRUCTURE_OPEN ) )
@@ -354,7 +354,7 @@ UINT32 GetInteractiveTileCursor( UINT32 uiOldCursor, BOOLEAN fConfirm )
 {
 	LEVELNODE	*pIntNode;
 	STRUCTURE	*pStructure;
-	INT16			sGridNo;
+	INT32 sGridNo;
 
 	// OK, first see if we have an in tile...
 	pIntNode = GetCurInteractiveTileGridNoAndStructure( &sGridNo, &pStructure );
@@ -403,7 +403,7 @@ void SetActionModeDoorCursorText( )
 {
 	LEVELNODE	*pIntNode;
 	STRUCTURE	*pStructure;
-	INT16			sGridNo;
+	INT32 sGridNo;
 
 	// If we are over a merc, don't
 	if ( gfUIFullTargetFound )
@@ -424,7 +424,7 @@ void SetActionModeDoorCursorText( )
 }
 
 
-void GetLevelNodeScreenRect( LEVELNODE *pNode, SGPRect *pRect, INT16 sXPos, INT16 sYPos, INT16 sGridNo )
+void GetLevelNodeScreenRect( LEVELNODE *pNode, SGPRect *pRect, INT16 sXPos, INT16 sYPos, INT32 sGridNo )
 {
 		INT16 sScreenX, sScreenY;
 		INT16 sOffsetX, sOffsetY;
@@ -511,7 +511,7 @@ void CompileInteractiveTiles( )
 }
 
 
-void LogMouseOverInteractiveTile( INT16 sGridNo )
+void LogMouseOverInteractiveTile( INT32 sGridNo )
 {
 	SGPRect				aRect;
 	INT16					sXMapPos, sYMapPos, sScreenX, sScreenY;
@@ -649,7 +649,7 @@ LEVELNODE *GetCurInteractiveTile( )
 }
 
 
-LEVELNODE *GetCurInteractiveTileGridNo( INT16 *psGridNo )
+LEVELNODE *GetCurInteractiveTileGridNo( INT32 *psGridNo )
 {
 	LEVELNODE *pNode;
 
@@ -669,7 +669,7 @@ LEVELNODE *GetCurInteractiveTileGridNo( INT16 *psGridNo )
 
 
 
-LEVELNODE *ConditionalGetCurInteractiveTileGridNoAndStructure( INT16 *psGridNo, STRUCTURE **ppStructure, BOOLEAN fRejectOnTopItems )
+LEVELNODE *ConditionalGetCurInteractiveTileGridNoAndStructure( INT32 *psGridNo, STRUCTURE **ppStructure, BOOLEAN fRejectOnTopItems )
 {
 	LEVELNODE *pNode;
 	STRUCTURE	*pStructure;
@@ -708,7 +708,7 @@ LEVELNODE *ConditionalGetCurInteractiveTileGridNoAndStructure( INT16 *psGridNo, 
 }
 
 
-LEVELNODE *GetCurInteractiveTileGridNoAndStructure( INT16 *psGridNo, STRUCTURE **ppStructure )
+LEVELNODE *GetCurInteractiveTileGridNoAndStructure( INT32 *psGridNo, STRUCTURE **ppStructure )
 {
 	return( ConditionalGetCurInteractiveTileGridNoAndStructure( psGridNo, ppStructure, TRUE ) );
 }
@@ -777,7 +777,7 @@ void EndCurInteractiveTileCheck( )
 }
 
 
-BOOLEAN RefineLogicOnStruct( INT16 sGridNo, LEVELNODE *pNode )
+BOOLEAN RefineLogicOnStruct( INT32 sGridNo, LEVELNODE *pNode )
 {
 	TILE_ELEMENT *TileElem;
 	STRUCTURE		*pStructure;
@@ -845,8 +845,8 @@ BOOLEAN RefineLogicOnStruct( INT16 sGridNo, LEVELNODE *pNode )
 			// IF we are a switch, reject in another direction...
 			if ( pStructure->fFlags & STRUCTURE_SWITCH )
 			{
-				// Find a new gridno based on switch's orientation...
-				INT16 sNewGridNo = NOWHERE;
+				// Find a new gridno based on switch's orientation...				
+				INT32 sNewGridNo = NOWHERE;
 
 				switch( pStructure->pDBStructureRef->pDBStructure->ubWallOrientation )
 				{
@@ -865,8 +865,8 @@ BOOLEAN RefineLogicOnStruct( INT16 sGridNo, LEVELNODE *pNode )
 						break;
 
 				}
-
-				if ( sNewGridNo != NOWHERE )
+				
+				if (!TileIsOutOfBounds(sNewGridNo))
 				{
 					// If we are hidden by a roof, reject it!
 					if ( !gfBasement && IsRoofVisible2( sNewGridNo ) && !( gTacticalStatus.uiFlags&SHOW_ALL_ITEMS ) )
@@ -900,7 +900,7 @@ BOOLEAN RefineLogicOnStruct( INT16 sGridNo, LEVELNODE *pNode )
 }
 
 
-BOOLEAN RefinePointCollisionOnStruct( INT16 sGridNo, INT16 sTestX, INT16 sTestY, INT16 sSrcX, INT16 sSrcY, LEVELNODE *pNode )
+BOOLEAN RefinePointCollisionOnStruct( INT32 sGridNo, INT16 sTestX, INT16 sTestY, INT16 sSrcX, INT16 sSrcY, LEVELNODE *pNode )
 {
 	TILE_ELEMENT *TileElem;
 
@@ -1102,7 +1102,7 @@ BOOLEAN ShouldCheckForMouseDetections( )
 }
 
 
-void CycleIntTileFindStack( INT16 sMapPos )
+void CycleIntTileFindStack( INT32 usMapPos )
 {
 	gfCycleIntTile = TRUE;
 

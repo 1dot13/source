@@ -135,7 +135,7 @@ void HandleBulletSpecialFlags( INT32 iBulletIndex )
 		// Create ani tile if this is a spit!
 		if ( pBullet->usFlags & ( BULLET_FLAG_KNIFE ) )
 		{
-			AniParams.sGridNo							= (INT16)pBullet->sGridNo;
+			AniParams.sGridNo							= pBullet->sGridNo;
 			AniParams.ubLevelID						= ANI_STRUCT_LEVEL;
 			AniParams.sDelay							= 100;
 			AniParams.sStartFrame					= 3;
@@ -249,7 +249,7 @@ void LocateBullet( INT32 iBulletIndex )
 				//Only if we are in turnbased and noncombat
 				if ( gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT) )
 				{
-					LocateGridNo( (INT16)gBullets[ iBulletIndex ].sGridNo );
+					  LocateGridNo( gBullets[ iBulletIndex ].sGridNo );
 				}
 			}
 		}
@@ -493,7 +493,7 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 
 
 	memset( &AniParams, 0, sizeof( ANITILE_PARAMS ) );
-	AniParams.sGridNo							= (INT16)pBullet->sGridNo;
+	AniParams.sGridNo							= pBullet->sGridNo;
 	AniParams.ubLevelID						= ANI_STRUCT_LEVEL;
 	AniParams.sDelay							= (INT16)( 100 + Random( 100 ) );
 	AniParams.sStartFrame					= 0;

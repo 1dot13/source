@@ -16,7 +16,6 @@
 
 #include "VFS/vfs.h"
 #include "XMLWriter.h"
-
 // THIS FILE CONTAINS DEFINITIONS FOR TILESET FILES
 
 void SetTilesetThreeTerrainValues();
@@ -48,7 +47,7 @@ void InitEngineTilesets( )
 		return;
 	}
 
-	xmlw.OpenNode("JA2SET");
+	xmlw.openNode("JA2SET");
 
 	// READ # TILESETS and compare
 //	fread( &gubNumSets, sizeof( gubNumSets ), 1, hfile );
@@ -60,7 +59,7 @@ void InitEngineTilesets( )
 		SET_ERROR( "Too many tilesets in the data file" );
 		return;
 	}
-	xmlw.AddAttributeToNextValue("numTilesets",(int)gubNumSets);
+	xmlw.addAttributeToNextValue("numTilesets",(int)gubNumSets);
 
 	// READ #files
 //	fread( &uiNumFiles, sizeof( uiNumFiles ), 1, hfile );
@@ -73,27 +72,27 @@ void InitEngineTilesets( )
 		SET_ERROR( "Number of tilesets slots in code does not match data file" );
 		return;
 	}
-	xmlw.AddAttributeToNextValue("numFiles",(int)uiNumFiles);
-	xmlw.OpenNode("tilesets");
+	xmlw.addAttributeToNextValue("numFiles",(int)uiNumFiles);
+	xmlw.openNode("tilesets");
 	// Loop through each tileset, load name then files
 	for ( cnt = 0; cnt < gubNumSets; cnt++ )
 	{
-		xmlw.AddAttributeToNextValue("index",(int)cnt);
-		xmlw.OpenNode("Tileset");
+		xmlw.addAttributeToNextValue("index",(int)cnt);
+		xmlw.openNode("Tileset");
 		//Read name
 //		fread( &zName, sizeof( zName ), 1, hfile );
 		FileRead( hfile, &zName, sizeof( zName ), &uiNumBytesRead );
-		xmlw.AddValue("Name",std::string(zName));
+		xmlw.addValue("Name",std::string(zName));
 
 		// Read ambience value
 //		fread( &(gTilesets[ cnt ].ubAmbientID), sizeof( UINT8), 1, hfile );
 		FileRead( hfile, &(gTilesets[ cnt ].ubAmbientID), sizeof( UINT8 ), &uiNumBytesRead );
-		xmlw.AddValue("AmbientID",(int)gTilesets[ cnt ].ubAmbientID);
+		xmlw.addValue("AmbientID",(int)gTilesets[ cnt ].ubAmbientID);
 
 		// Set into tileset
 		swprintf( gTilesets[ cnt ].zName, L"%S", zName );
 
-		xmlw.OpenNode("Files");
+		xmlw.openNode("Files");
 		// Loop for files
 		for ( cnt2 = 0; cnt2 < uiNumFiles; cnt2++ )
 		{
@@ -102,25 +101,25 @@ void InitEngineTilesets( )
 			FileRead( hfile, &zName, sizeof( zName ), &uiNumBytesRead );
 			if(!std::string(zName).empty())
 			{
-				xmlw.AddAttributeToNextValue("index",(int)cnt2);
-				xmlw.AddValue("file",std::string(zName));
+				xmlw.addAttributeToNextValue("index",(int)cnt2);
+				xmlw.addValue("file",std::string(zName));
 			}
 
 			// Set into database
 			strcpy( gTilesets[ cnt ].TileSurfaceFilenames[ cnt2 ], zName );
 
 		}
-		xmlw.CloseNode(); // Files
-		xmlw.CloseNode(); // tileset
+		xmlw.closeNode(); // Files
+		xmlw.closeNode(); // tileset
 	}
-	xmlw.CloseNode();
+	xmlw.closeNode();
 
 //	fclose( hfile );
 	FileClose( hfile );
 
-	xmlw.CloseNode();
+	xmlw.closeNode();
 #ifdef USE_VFS
-	xmlw.WriteToFile("Ja2Set.dat.xml");
+	xmlw.writeToFile("Ja2Set.dat.xml");
 #endif
 	// SET CALLBACK FUNTIONS!!!!!!!!!!!!!
 	gTilesets[ TLS_CAVES_1 ].MovementCostFnc				= (TILESET_CALLBACK)SetTilesetTwoTerrainValues;

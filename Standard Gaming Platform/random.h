@@ -1,13 +1,51 @@
 #ifndef __RANDOM_
 #define __RANDOM_
 
+#define BMP_RANDOM
+
 #include "Types.h"
 #include "Debug.h"
-#include <stdlib.h>
 
-//IMPORTANT:	Changing this define will invalidate the JA2 save.	If this
-//						is necessary, please ifdef your own value.
-#define MAX_PREGENERATED_NUMS			256		
+//IMPORTANT: Changing this define will invalidate the JA2 save.	If this is necessary, please ifdef your own value.
+#define MAX_PREGENERATED_NUMS 256		
+
+
+#ifdef BMP_RANDOM//dnl ch55 111009 !!!Do not undefine this if plan play Big maps, old random generator not work properly and return only 2^15 different values although seems that should return all posible INT32 values
+
+extern UINT32 guiPreRandomIndex;
+extern UINT32 guiPreRandomNums[MAX_PREGENERATED_NUMS];
+extern void InitializeRandom(void);
+extern UINT32 GetRndNum(UINT32 maxnum);
+extern bool gfMPDebugOutputRandoms;
+
+inline UINT32 Random(UINT32 uiRange)
+{
+	return(GetRndNum(uiRange));
+}
+
+inline INT32 iRandom(UINT32 uiRange)
+{
+	return(GetRndNum(uiRange));
+}
+
+inline BOOLEAN Chance( UINT32 uiChance )
+{
+	return((BOOLEAN)(Random(100) < uiChance));
+}
+
+inline UINT32 PreRandom(UINT32 uiRange)
+{
+	return(GetRndNum(uiRange));
+}
+
+inline BOOLEAN PreChance( UINT32 uiChance )
+{
+	return((BOOLEAN)(PreRandom(100) < uiChance));
+}
+
+#else
+
+#include <stdlib.h>
 
 extern UINT32 guiPreRandomIndex;
 extern std::vector<UINT32> guiPreRandomNums;
@@ -91,5 +129,6 @@ inline BOOLEAN PreChance( UINT32 uiChance )
 	return (BOOLEAN)(PreRandom( 100 ) < uiChance);
 }
 
+#endif
 
 #endif

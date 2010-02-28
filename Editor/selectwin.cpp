@@ -1211,7 +1211,7 @@ INT32 GetRandomSelection( void )
 
 	if ( fDontUseRandom )
 	{
-		fDontUseRandom = FALSE;
+		//fDontUseRandom = FALSE;//dnl ch8 210909 this was old way when random was almost always selected, new way is enable/disable through switching with key 'R'
 		return( iCurBank );
 	}
 

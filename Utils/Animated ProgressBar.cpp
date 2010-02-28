@@ -221,7 +221,7 @@ void RemoveProgressBar( UINT8 ubID )
 //As the process animates using UpdateProgressBar( 0 to 100 ), the total progress bar will only reach 30%
 //at the 100% mark within UpdateProgressBar.	At that time, you would go onto the next step, resetting the
 //relative start and end percentage from 30 to whatever, until your done.
-void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT32 uiRelStartPerc, UINT32 uiRelEndPerc, STR16 str)
+void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT16 uiRelStartPerc, UINT16 uiRelEndPerc, STR16 str)
 {
 	PROGRESSBAR *pCurr;
 	UINT16 usStartX, usStartY;

@@ -23,7 +23,7 @@ public:
 	{};
 	
 	template<typename ValueType>
-	void AddAttributeToNextValue(utf8string const& attribute, ValueType const& value)
+	void addAttributeToNextValue(utf8string const& attribute, ValueType const& value)
 	{
 		std::stringstream temp_buffer;
 		temp_buffer << value;
@@ -31,36 +31,36 @@ public:
 	}
 
 	template<typename ValueType>
-	void AddValue(utf8string const& key, ValueType const& value)
+	void addValue(utf8string const& key, ValueType const& value)
 	{
 		std::string utf8key = key.utf8();
-		m_ssBuffer << Indent() <<  "<" << utf8key;
-		InsertAttributesIntoBuffer();
+		m_ssBuffer << indent() <<  "<" << utf8key;
+		insertAttributesIntoBuffer();
 		m_ssBuffer << "> " << value << " </" << utf8key << ">\n";
 	}
 
 	template<>
-	void AddValue<std::string >(utf8string const& key, std::string const& value)
+	void addValue<std::string >(utf8string const& key, std::string const& value)
 	{
 		std::string utf8key = key.utf8();
-		m_ssBuffer << Indent() <<  "<" << utf8key;
-		InsertAttributesIntoBuffer();
-		m_ssBuffer << "> " << HandleSpecialCharacters(value) << " </" << utf8key << ">\n";
+		m_ssBuffer << indent() <<  "<" << utf8key;
+		insertAttributesIntoBuffer();
+		m_ssBuffer << "> " << handleSpecialCharacters(value) << " </" << utf8key << ">\n";
 	}
 
-	void		AddValue(utf8string const& key);
-	void		AddComment(utf8string const& comment);
+	void		addValue(utf8string const& key);
+	void		addComment(utf8string const& comment);
 
-	void		OpenNode(utf8string const& key);
-	bool		CloseNode();
+	void		openNode(utf8string const& key);
+	bool		closeNode();
 	
-	bool		WriteToFile(vfs::Path const& sFileName);
-	bool		WriteToFile(vfs::tWriteableFile* pFile);
+	bool		writeToFile(vfs::Path const& sFileName);
+	bool		writeToFile(vfs::tWritableFile* pFile);
 
 private:
-	std::string	Indent();
-	std::string HandleSpecialCharacters(std::string const& str);
-	void		InsertAttributesIntoBuffer();
+	std::string	indent();
+	std::string handleSpecialCharacters(std::string const& str);
+	void		insertAttributesIntoBuffer();
 private:
 	std::stringstream				m_ssBuffer;
 	std::stack<std::string>			m_stOpenNodes;

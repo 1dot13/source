@@ -20,15 +20,13 @@ extern	CHAR16		zTrackingNumber[16];
 //
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
-#define			SAVE_GAME_VERSION					106	//104	//103	//102	//101	//100 // 99
+#define			SAVE_GAME_VERSION								107	//106	//105	//104	//103	//102	//101	//100 // 99
 
-
-//these I don't so much need here
-#define			CURRENT_SAVEGAME_DATATYPE_VERSION				106
+#define			CURRENT_SAVEGAME_DATATYPE_VERSION				107
+#define			BIG_MAPS_PROJECT_SAVEGAME_DATATYPE_CHANGE		107	// Before this, we did not had big maps project 
 #define			AIRPORT_SAVEGAME_DATATYPE_CHANGE				106	// Before this, we did not have airport externalized
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
-//#define			SECOND_SAVEGAME_DATATYPE_CHANGE				999, #define	CURRENT_SAVEGAME_DATATYPE_VERSION	999
 
 
 //#define RUSSIANGOLD

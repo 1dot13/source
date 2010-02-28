@@ -12,7 +12,7 @@ typedef struct{
 	UINT16 *pusItemIndex;		//a dynamic array of Item indices
 	UINT32	uiBuffer;		//index of buffer
 	UINT32	uiItemType; //Weapons, ammo, armour, explosives, equipment
-	INT32		sWidth, sHeight;	//width and height of buffer
+	INT16		sWidth, sHeight;	//width and height of buffer
 	//Kaiden: was previously INT16 - Fix for number of items capped by class
 	INT16	sNumItems;	//total number of items in the current class of item.
 	INT16		sSelItemIndex;	//currently selected item index.
@@ -39,8 +39,8 @@ void DisplayItemStatistics();
 void DetermineItemsScrolling();
 
 //User actions
-void AddSelectedItemToWorld( INT16 sGridNo );
-void HandleRightClickOnItem( INT16 sGridNo );
+void AddSelectedItemToWorld( INT32 sGridNo );
+void HandleRightClickOnItem( INT32 sGridNo );
 void DeleteSelectedItem();
 void ShowSelectedItem();
 void HideSelectedItem();

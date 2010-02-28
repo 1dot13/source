@@ -439,8 +439,8 @@ UINT32 CalculateSpeechVolume( UINT32 uiVolume );
 //Calculates a volume based on the current Sound Effects Volume level
 UINT32 CalculateSoundEffectsVolume( UINT32 uiVolume );
 
-INT32 SoundDir( INT16 sGridNo );
-INT32 SoundVolume( INT8 bInitialVolume, INT16 sGridNo );
+INT32 SoundDir( INT32 sGridNo );
+INT32 SoundVolume( INT8 bInitialVolume, INT32 sGridNo );
 
 // ATE: Warning! Use this sparingly! NOT very robust - can
 // have only 1 delayed sound at a time, and uses the global custom
@@ -451,12 +451,12 @@ void PlayDelayedJA2Sample( UINT32 uiDelay, UINT32 usNum, UINT32 usRate, UINT32 u
 #define POSITION_SOUND_FROM_SOLDIER	0x00000001
 #define POSITION_SOUND_STATIONATY_OBJECT	0x00000002
 
-INT32 NewPositionSnd( INT16 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoundToPlay );
+INT32 NewPositionSnd( INT32 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoundToPlay );
 void DeletePositionSnd( INT32 iPositionSndIndex );
 void SetPositionSndsActive( );
 void SetPositionSndsInActive( );
 void SetPositionSndsVolumeAndPanning( );
-void SetPositionSndGridNo( INT32 iPositionSndIndex, INT16 sGridNo );
+void SetPositionSndGridNo( INT32 iPositionSndIndex, INT32 sGridNo );
 
 
 

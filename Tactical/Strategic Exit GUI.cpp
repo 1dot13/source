@@ -73,7 +73,7 @@ typedef struct
 	UINT16						usHeight;
 	INT16							sX;
 	INT16							sY;
-	INT16							sAdditionalData;
+	INT32							sAdditionalData;//dnl ch56 151009
 	UINT8							ubFlags;
 	UINT8							ubLeaveSectorType;
 	UINT8							ubLeaveSectorCode;
@@ -106,23 +106,23 @@ EXIT_DIALOG_STRUCT	gExitDialog;
 
 
 UINT8	gubExitGUIDirection;
-INT16	gsExitGUIAdditionalData;
+INT32	gsExitGUIAdditionalData;//dnl ch56 151009
 INT16	gsWarpWorldX;
 INT16	gsWarpWorldY;
 INT8	gbWarpWorldZ;
-INT16	gsWarpGridNo;
+INT32   gsWarpGridNo;
 
 
 //KM:	New method is coded for more sophistocated rules.	All the information is stored within the gExitDialog struct
 //		and calculated upon entry to this function instead of passing in multiple arguments and calculating it prior.
-BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT16 sAdditionalData )
+BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//dnl ch56 151009
 {
 	UINT32 uiTraverseTimeInMinutes;
 	SOLDIERTYPE *pSoldier;
 	INT32 i;
 	SGPRect	aRect;
 	UINT16	usTextBoxWidth, usTextBoxHeight;
-	INT16	sMapPos = 0;
+	INT32 usMapPos = 0;
 	INT8		bExitCode = -1;
 	BOOLEAN	OkExitCode;
 
@@ -147,11 +147,11 @@ BOOLEAN InternalInitSectorExitMenu( UINT8 ubDirection, INT16 sAdditionalData )
 			break;
 		case DIRECTION_EXITGRID:
 			bExitCode = -1;
-			sMapPos = sAdditionalData;
+			usMapPos = sAdditionalData;
 			break;
 	}
 
-	OkExitCode = OKForSectorExit( bExitCode, sMapPos, &uiTraverseTimeInMinutes );
+	OkExitCode = OKForSectorExit( bExitCode, usMapPos, &uiTraverseTimeInMinutes );
 
 	if( uiTraverseTimeInMinutes <= 5 )
 	{ //if the traverse time is short, then traversal is percieved to be instantaneous.
@@ -441,7 +441,7 @@ void WarpToSurfaceCallback( UINT8 bExitValue )
 }
 
 
-BOOLEAN InitSectorExitMenu( UINT8 ubDirection, INT16 sAdditionalData )
+BOOLEAN InitSectorExitMenu( UINT8 ubDirection, INT32 sAdditionalData )//dnl ch56 151009
 {
 	gubExitGUIDirection	 = ubDirection;
 	gsExitGUIAdditionalData = sAdditionalData;

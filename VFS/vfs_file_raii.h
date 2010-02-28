@@ -6,7 +6,7 @@
 
 namespace vfs
 {
-	class COpenReadFile
+	class VFS_API COpenReadFile
 	{
 	public:
 		COpenReadFile(vfs::Path const& sPath, vfs::CVirtualFile::ESearchFile eSF = vfs::CVirtualFile::SF_TOP);
@@ -19,20 +19,20 @@ namespace vfs
 		vfs::tReadableFile*		m_pFile;
 	};
 
-	class COpenWriteFile
+	class VFS_API COpenWriteFile
 	{
 	public:
 		COpenWriteFile(	vfs::Path const& sPath,
 						bool bCreate = false,
 						bool bTruncate = false,
-						vfs::CVirtualFile::ESearchFile eSF = vfs::CVirtualFile::SF_STOP_ON_WRITEABLE_PROFILE);
-		COpenWriteFile(vfs::tWriteableFile *pFile);
+						vfs::CVirtualFile::ESearchFile eSF = vfs::CVirtualFile::SF_STOP_ON_WRITABLE_PROFILE);
+		COpenWriteFile(vfs::tWritableFile *pFile);
 		~COpenWriteFile();
 
-		vfs::tWriteableFile&	file();
+		vfs::tWritableFile&	file();
 		void					release();
 	private:
-		vfs::tWriteableFile*	m_pFile;
+		vfs::tWritableFile*	m_pFile;
 	};
 
 } // end namespace

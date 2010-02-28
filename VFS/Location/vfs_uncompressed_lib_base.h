@@ -8,65 +8,55 @@
 namespace vfs
 {
 
-	class CUncompressedLibraryBase : public vfs::ILibrary
+	class VFS_API CUncompressedLibraryBase : public vfs::ILibrary
 	{
 	protected:
-		typedef std::map<vfs::Path, vfs::IDirectory<ILibrary::tWriteType>*, vfs::Path::Less> tDirCatalogue;
-		struct sFileData
+		typedef std::map<vfs::Path, vfs::TDirectory<vfs::ILibrary::tWriteType>*, vfs::Path::Less> tDirCatalogue;
+		struct SFileData
 		{
-			sFileData(UInt32 const& fileSize, UInt32 const& fileOffset)
-				: uiFileSize(fileSize), uiFileOffset(fileOffset), uiCurrentReadPosition(0)
+			SFileData(vfs::size_t const& fileSize, vfs::size_t const& fileOffset)
+				: _fileSize(fileSize), _fileOffset(fileOffset), _currentReadPosition(0)
 			{};
-			UInt32 uiFileSize,uiFileOffset,uiCurrentReadPosition;
+			vfs::size_t _fileSize, _fileOffset, _currentReadPosition;
 		};
-		typedef std::map<tFileType*, sFileData> tLibData;
+		typedef std::map<tFileType*, SFileData> tFileData;
 		
-		class IterImpl : public tClassType::Iterator::IImplemetation
-		{
-		public:
-			IterImpl(CUncompressedLibraryBase& lib);
-			virtual ~IterImpl();
-			virtual tFileType*			value();
-			virtual void				next();
-		private:
-			CUncompressedLibraryBase*	_lib;
-			tLibData::iterator			_iter;
-		};
+		class IterImpl;
 	public:
-		CUncompressedLibraryBase(tReadableFile *pLibraryFile, vfs::Path const& sMountPoint, bool bOwnFile = false) 
-			: vfs::ILibrary(pLibraryFile,sMountPoint,bOwnFile), m_uiNumberOfOpenedFiles(0)
-		{};
+		CUncompressedLibraryBase(vfs::tReadableFile *libraryFile, vfs::Path const& mountPoint, bool ownFile = false);
 		virtual ~CUncompressedLibraryBase();
 
 		/**
-		 *  IVFSLocation interface
+		 *  TVFSLocation interface
 		 */
-		virtual bool			FileExists(vfs::Path const& sFileName);
-		virtual vfs::IBaseFile*	GetFile(vfs::Path const& sFileName);
-		virtual tFileType*		GetFileTyped(vfs::Path const& sFileName);
-		virtual void			GetSubDirList(std::list<vfs::Path>& rlSubDirs);
+		virtual bool			fileExists(vfs::Path const& filename);
+		virtual vfs::IBaseFile*	getFile(vfs::Path const& filename);
+		virtual tFileType*		getFileTyped(vfs::Path const& filename);
+		virtual void			getSubDirList(std::list<vfs::Path>& rlSubDirs);
 
 		/**
 		 *  ILibrary interface
 		 */
-		virtual bool			Init() = 0;
-		virtual bool			CloseLibrary();
+		virtual bool		init() = 0;
+		virtual void		closeLibrary();
 
-		virtual bool			Close(tFileType *pFileHandle);
-		virtual bool			OpenRead(tFileType *pFileHandle);
-		virtual bool			Read(tFileType *pFileHandle, Byte* pData, UInt32 uiBytesToRead, UInt32& uiBytesRead);
+		virtual void		close(tFileType *fileHandle);
+		virtual bool		openRead(tFileType *fileHandle);
+		virtual vfs::size_t	read(tFileType *fileHandle, vfs::Byte* data, vfs::size_t bytesToRead);
 
-		virtual UInt32			GetReadLocation(tFileType *pFileHandle);
-		virtual bool			SetReadLocation(tFileType *pFileHandle, UInt32 uiPositionInBytes);
-		virtual bool			SetReadLocation(tFileType *pFileHandle, Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir);
+		virtual vfs::size_t	getReadPosition(tFileType *fileHandle);
+		virtual void		setReadPosition(tFileType *fileHandle, vfs::size_t positionInBytes);
+		virtual void		setReadPosition(tFileType *fileHandle, vfs::offset_t offsetInBytes, IBaseFile::ESeekDir seekDir);
 
-		virtual bool			GetFileSize(tFileType *pFileHandle, UInt32& uiFileSize);
+		virtual vfs::size_t	getSize(tFileType *fileHandle);
 
-		virtual Iterator		begin();
+		virtual Iterator	begin();
 	protected:
-		tDirCatalogue			m_catDirs;
-		tLibData				m_mapLibData;
-		UInt32					m_uiNumberOfOpenedFiles;
+		tDirCatalogue		m_dirs;
+		tFileData			m_fileData;
+		vfs::UInt32			m_numberOfOpenedFiles;
+	private:
+		SFileData&			_fileDataFromHandle(tFileType* handle);
 	};
 } // end namespace
 

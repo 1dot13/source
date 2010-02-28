@@ -9,7 +9,7 @@
 
 
 BOOLEAN BeginUIPlan( SOLDIERTYPE *pSoldier );
-BOOLEAN AddUIPlan( INT16 sGridNo, UINT8 ubPlanID );
+BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID );
 void EndUIPlan(	);
 BOOLEAN InUIPlanMode( );
 

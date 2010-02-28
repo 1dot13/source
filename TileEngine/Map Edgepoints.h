@@ -10,21 +10,26 @@ typedef struct MAPEDGEPOINTINFO
 {
 	UINT8 ubNumPoints;
 	UINT8 ubStrategicInsertionCode;
-	INT16 sGridNo[ LARGEST_NUMBER_IN_ANY_GROUP ];
+	INT32 sGridNo[ LARGEST_NUMBER_IN_ANY_GROUP ];
 }MAPEDGEPOINTINFO;
 
-UINT16 ChooseMapEdgepoint( UINT8 *ubStrategicInsertionCode, UINT8 lastValidICode );
+INT32 ChooseMapEdgepoint( UINT8 *ubStrategicInsertionCode, UINT8 lastValidICode );
 void ChooseMapEdgepoints( MAPEDGEPOINTINFO *pMapEdgepointInfo, UINT8 ubStrategicInsertionCode, UINT8 ubNumDesiredPoints );
-void GenerateMapEdgepoints();
-void SaveMapEdgepoints( HWFILE fp );
-BOOLEAN LoadMapEdgepoints( INT8 **hBuffer );
+void GenerateMapEdgepoints(BOOLEAN fValidate=FALSE);
+void SaveMapEdgepoints(HWFILE fp, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion);//dnl ch33 240909
+BOOLEAN LoadMapEdgepoints( INT8 **hBuffer, FLOAT dMajorMapVersion );
 void TrashMapEdgepoints();
 
 //dynamic arrays that contain the valid gridno's for each edge
-extern INT16 *gps1stNorthEdgepointArray;
-extern INT16 *gps1stEastEdgepointArray;
-extern INT16 *gps1stSouthEdgepointArray;
-extern INT16 *gps1stWestEdgepointArray;
+extern INT32 *gps1stNorthEdgepointArray;
+extern INT32 *gps1stEastEdgepointArray;
+extern INT32 *gps1stSouthEdgepointArray;
+extern INT32 *gps1stWestEdgepointArray;
+
+// WANNE - MP: Center
+extern INT32 *gps1stCenterEdgepointArray;
+extern UINT16 gus1stCenterEdgepointArraySize;
+
 //contains the size for each array
 extern UINT16 gus1stNorthEdgepointArraySize;
 extern UINT16 gus1stEastEdgepointArraySize;
@@ -39,10 +44,10 @@ extern UINT16 gus1stSouthEdgepointMiddleIndex;
 extern UINT16 gus1stWestEdgepointMiddleIndex;
 
 //dynamic arrays that contain the valid gridno's for each edge
-extern INT16 *gps2ndNorthEdgepointArray;
-extern INT16 *gps2ndEastEdgepointArray;
-extern INT16 *gps2ndSouthEdgepointArray;
-extern INT16 *gps2ndWestEdgepointArray;
+extern INT32 *gps2ndNorthEdgepointArray;
+extern INT32 *gps2ndEastEdgepointArray;
+extern INT32 *gps2ndSouthEdgepointArray;
+extern INT32 *gps2ndWestEdgepointArray;
 //contains the size for each array
 extern UINT16 gus2ndNorthEdgepointArraySize;
 extern UINT16 gus2ndEastEdgepointArraySize;
@@ -64,8 +69,8 @@ extern UINT16 gus2ndWestEdgepointMiddleIndex;
 //code shouldn't be used for enemies or anybody else.
 void BeginMapEdgepointSearch();
 void EndMapEdgepointSearch();
-INT16 SearchForClosestPrimaryMapEdgepoint( INT16 sGridNo, UINT8 ubInsertionCode, UINT8 defaultICode = INSERTION_CODE_GRIDNO, UINT8 *storedICode = NULL );
-INT16 SearchForClosestSecondaryMapEdgepoint( INT16 sGridNo, UINT8 ubInsertionCode );
+INT32 SearchForClosestPrimaryMapEdgepoint( INT32 sGridNo, UINT8 ubInsertionCode, UINT8 defaultICode = INSERTION_CODE_GRIDNO, UINT8 *storedICode = NULL );
+INT32 SearchForClosestSecondaryMapEdgepoint( INT32 sGridNo, UINT8 ubInsertionCode );
 
 //There are two classes of edgepoints.
 //PRIMARY		: The default list of edgepoints.	This list includes edgepoints that are easily accessible from the 
@@ -74,7 +79,7 @@ INT16 SearchForClosestSecondaryMapEdgepoint( INT16 sGridNo, UINT8 ubInsertionCod
 //						to these areas is possible.	Examples would be isolated sections of Grumm or Alma, which you can't 
 //						immediately
 //		
-UINT8 CalcMapEdgepointClassInsertionCode( INT16 sGridNo );
+UINT8 CalcMapEdgepointClassInsertionCode( INT32 sGridNo );
 
 #ifdef JA2EDITOR
 void ShowMapEdgepoints();

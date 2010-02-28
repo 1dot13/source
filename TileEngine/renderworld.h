@@ -150,6 +150,10 @@ extern BOOLEAN fLandLayerDirty;
 
 extern BOOLEAN	gfIgnoreScrollDueToCenterAdjust;
 
+//dnl ch45 051009
+#define MAPWIDTH (gsTRX - gsTLX)// World Screen Width
+#define MAPHEIGHT (gsBRY - gsTRY)// World Screen Height
+
 
 // FUNCTIONS
 void ScrollWorld( );

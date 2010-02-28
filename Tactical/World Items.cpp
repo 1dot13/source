@@ -28,6 +28,7 @@
 	#include "Quests.h"
 	#include "Soldier Profile.h"
 	#include "message.h"
+#include "connect.h"
 #endif
 
 //Global dynamic array of all of the items in a loaded map.
@@ -42,6 +43,24 @@ void DeleteWorldItemsBelongingToQueenIfThere( void );
 
 extern UINT16 StandardGunListAmmoReplacement( UINT16 usAmmo );
 extern UINT8 GetDealerItemCategoryNumber( UINT16 usItemIndex );
+
+//dnl ch33 120909
+OLD_WORLDITEM_101& OLD_WORLDITEM_101::operator=(WORLDITEM& src)
+{
+	if((void*)this != (void*)&src)
+	{
+		memset(this, 0, sizeof(OLD_WORLDITEM_101));
+		this->fExists = src.fExists;
+		this->sGridNo = src.sGridNo;
+		this->ubLevel = src.ubLevel;
+		this->usFlags = src.usFlags;
+		this->bRenderZHeightAboveLevel = src.bRenderZHeightAboveLevel;
+		this->bVisible = src.bVisible;
+		this->ubNonExistChance = src.ubNonExistChance;
+		this->oldObject = src.object;
+	}
+	return(*this);
+}
 
 bool WORLDITEM::operator<(WORLDITEM& compare)
 {
@@ -130,6 +149,23 @@ WORLDITEM& WORLDITEM::operator=(OLD_WORLDITEM_101& src)
 	//convert the OBJECTTYPE
 	this->object = src.oldObject;
 	return *this;
+}
+
+WORLDITEM& WORLDITEM::operator=(_OLD_WORLDITEM& src)//dnl ch42 280909
+{
+	if((void*)this != (void*)&src)
+	{
+		fExists = src.fExists;
+		sGridNo = src.sGridNo;
+		ubLevel = src.ubLevel;
+		usFlags = src.usFlags;
+		bRenderZHeightAboveLevel = src.bRenderZHeightAboveLevel;
+		bVisible = src.bVisible;
+		ubNonExistChance = src.ubNonExistChance;
+		soldierID = -1;
+		object = src.object;
+	}
+	return(*this);
 }
 
 WORLDITEM& WORLDITEM::operator=(const WORLDITEM& src)
@@ -236,7 +272,7 @@ void RemoveBombFromWorldByItemIndex( INT32 iItemIndex )
 	}
 }
 
-INT32 FindWorldItemForBombInGridNo( INT16 sGridNo, INT8 bLevel )
+INT32 FindWorldItemForBombInGridNo( INT32 sGridNo, INT8 bLevel )
 {
 	UINT32					uiBombIndex;
 
@@ -258,7 +294,7 @@ void FindPanicBombsAndTriggers( void )
 	UINT32			uiBombIndex;
 	OBJECTTYPE *	pObj;
 	STRUCTURE *		pSwitch;
-	INT16			sGridNo = NOWHERE;
+	INT32 sGridNo = NOWHERE;
 	INT8			bPanicIndex;
 	for (uiBombIndex = 0; uiBombIndex < guiNumWorldBombs; uiBombIndex++)
 	{
@@ -383,13 +419,13 @@ UINT32 GetNumUsedWorldItems( void )
 
 
 
-INT32 AddItemToWorld( INT16 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, INT8 soldierID )
+INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, INT8 soldierID )
 {
 	UINT32	iItemIndex;
 	INT32		iReturn;
 
-	// ATE: Check if the gridno is OK
-	if ( (sGridNo) == NOWHERE )
+	// ATE: Check if the gridno is OK	
+	if ( TileIsOutOfBounds(sGridNo))
 	{
 		// Display warning.....
 		#ifdef JA2BETAVERSION
@@ -418,6 +454,30 @@ INT32 AddItemToWorld( INT16 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 
 		if (iReturn == -1)
 		{
 			return( -1 );
+		}
+		else
+		{
+			// OJW - 20091002 - Explosives
+			if (is_networked && is_client)
+			{
+				if (soldierID == -1)
+					soldierID = gWorldItems[ iItemIndex ].object[0]->data.misc.ubBombOwner - 2; // undo the hack
+
+				SOLDIERTYPE* pSoldier = MercPtrs[ soldierID ];
+				if (pSoldier != NULL)
+				{
+					// if soldier is on our team, or is AI and we are the server
+					if (pSoldier->bTeam == 0 || (pSoldier->bTeam == 1 && is_server))
+					{
+						// this is a local bomb, so init it that way
+						gWorldBombs[iReturn].iMPWorldItemIndex = 0;
+						gWorldBombs[iReturn].ubMPTeamIndex = pSoldier->bTeam;
+						gWorldBombs[iReturn].bIsFromRemotePlayer = false;
+						// <TODO> the 99 is a hack..though probably doesnt matter
+						send_plant_explosive(soldierID , pObject->usItem , 99 , usFlags , sGridNo , ubLevel , iItemIndex );
+					}
+				}
+			}
 		}
 	}
 
@@ -462,25 +522,30 @@ void TrashWorldItems()
 	}
 }
 
-
-void SaveWorldItemsToMap( HWFILE fp )
+//dnl ch33 150909
+void SaveWorldItemsToMap(HWFILE fp, float dMajorMapVersion, UINT8 ubMinorMapVersion)
 {
-	UINT32 i, uiBytesWritten;
-	UINT32		uiActualNumWorldItems;
+	UINT32 i, uiBytesWritten, uiActualNumWorldItems;
+	OLD_WORLDITEM_101 oldWorldItem;
 
-
-	uiActualNumWorldItems = GetNumUsedWorldItems( );
-
-	FileWrite( fp, &uiActualNumWorldItems, 4, &uiBytesWritten );
-
-	for( i = 0; i < guiNumWorldItems; i++ )
+	uiActualNumWorldItems = GetNumUsedWorldItems();
+	FileWrite(fp, &uiActualNumWorldItems, sizeof(UINT32), &uiBytesWritten);
+	for(i=0; i<guiNumWorldItems; i++)
 	{
-		if( gWorldItems[ i ].fExists )
-			gWorldItems[ i ].Save(fp, TRUE);
+		if(gWorldItems[i].fExists)
+		{
+			if(dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION)
+			{
+				oldWorldItem = gWorldItems[i];
+				FileWrite(fp, &oldWorldItem, sizeof(OLD_WORLDITEM_101), &uiBytesWritten);
+			}
+			else
+				gWorldItems[i].Save(fp, TRUE);
+		}
 	}
 }
 
-
+// WANNE - BMP: DONE!
 void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorMapVersion )
 {
 	// Start loading itmes...
@@ -505,7 +570,8 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 				dummyItem.Load(hBuffer, dMajorMapVersion, ubMinorMapVersion);
 			}
 		}
-		else {
+		else 
+		{
 			*hBuffer += sizeof ( OLD_WORLDITEM_101 ) * uiNumWorldItems;
 		}
 		return;
@@ -514,6 +580,8 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 	{	//Add all of the items to the world indirectly through AddItemToPool, but only if the chance
 		//associated with them succeed.
 		dummyItem.Load(hBuffer, dMajorMapVersion, ubMinorMapVersion);
+		gMapTrn.GetTrnCnt(dummyItem.sGridNo);//dnl ch44 270909 WORLDITEM translation
+
 		if( dummyItem.object.usItem == OWNERSHIP )
 		{
 			dummyItem.ubNonExistChance = 0;
@@ -617,7 +685,7 @@ void DeleteWorldItemsBelongingToTerroristsWhoAreNotThere( void )
 {
 	UINT32	uiLoop;
 	UINT32	uiLoop2;
-	INT16		sGridNo;
+	INT32 sGridNo;
 	UINT8		ubLevel;
 
 	// only do this after Carmen has talked to player and terrorists have been placed
@@ -659,7 +727,7 @@ void DeleteWorldItemsBelongingToQueenIfThere( void )
 {
 	UINT32	uiLoop;
 	UINT32	uiLoop2;
-	INT16		sGridNo;
+	INT32 sGridNo;
 	UINT8		ubLevel;
 	INT8		bSlot;
 

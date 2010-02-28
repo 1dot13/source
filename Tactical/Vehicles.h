@@ -61,7 +61,7 @@ typedef struct
  INT16	 sSectorY;	// Y position on the Stategic Map
  INT16	 sSectorZ;
  BOOLEAN fBetweenSectors;	// between sectors?
- INT16		sGridNo;	// location in tactical
+ INT32 sGridNo;   // location in tactical
  SOLDIERTYPE *pPassengers[ MAXPASSENGERS ];
  UINT8		ubDriver;
  INT16		sInternalHitLocations[ NUMBER_OF_EXTERNAL_HIT_LOCATIONS_ON_VEHICLE ];
@@ -94,7 +94,7 @@ extern INT32 iMvtTypes[];
 void SetVehicleValuesIntoSoldierType( SOLDIERTYPE *pVehicle );
 
 // add vehicle to list and return id value
-INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT16 sGridNo, UINT8 ubType );
+INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT32 sGridNo, UINT8 ubType );
 
 // remove this vehicle from the list
 BOOLEAN RemoveVehicleFromList( INT32 iId );
@@ -169,7 +169,7 @@ BOOLEAN ExitVehicle( SOLDIERTYPE *pSoldier );
 void AddPassangersToTeamPanel( INT32 iId );
 
 
-void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT16 sGridNo , UINT8 ubAttackerID );
+void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo , UINT8 ubAttackerID );
 
 // the soldiertype containing this tactical incarnation of this vehicle
 SOLDIERTYPE * GetSoldierStructureForVehicle( INT32 iId );
@@ -180,7 +180,7 @@ void AdjustVehicleAPs( SOLDIERTYPE *pSoldier, INT16 *pubPoints );
 //INT16 GetOrigInternalArmorValueForVehicleInLocation( UINT8 ubID, UINT8 ubLocation );
 
 // handle crit hit to vehicle in this location
-void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT16 sGridNo, UINT8 ubAttackerID );
+void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT32 sGridNo, UINT8 ubAttackerID );
 
 // ste up armor values for this vehicle
 void SetUpArmorForVehicle( UINT8 ubID );

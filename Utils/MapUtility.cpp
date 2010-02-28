@@ -1,214 +1,178 @@
 #ifdef PRECOMPILEDHEADERS
-	#include "Utils All.h"
+#include "Utils All.h"
 #else
-	#include "sgp.h"
-	#ifdef JA2EDITOR
-		#include "Screens.h"
-		#include "Maputility.h"
-		#include "worlddef.h"
-		#include "overhead.h"
-		#include "fileman.h"
-		#include "loadscreen.h"
-		#include "overhead map.h"
-		#include "radar screen.h"
-		#include "vobject_blitters.h"
-		#include "sticonvert.h"
-		#include "font control.h"
-		#include "worlddat.h"
-		#include "english.h"
-		#include "map information.h"
-		#include "line.h"
-	#endif
+#include "sgp.h"
 #endif
 
 #ifdef JA2EDITOR
-
+#include "Screens.h"
+#include "Maputility.h"
+#include "worlddef.h"
+#include "overhead.h"
+#include "fileman.h"
+#include "loadscreen.h"
+#include "overhead map.h"
+#include "radar screen.h"
+#include "vobject_blitters.h"
+#include "sticonvert.h"
+#include "font control.h"
+#include "worlddat.h"
+#include "english.h"
+#include "map information.h"
+#include "line.h"
 #include "quantize wrap.h"
 
-#define		MINIMAP_X_SIZE			88
-#define		MINIMAP_Y_SIZE			44
+#define MINIMAP_X_SIZE	88//RADAR_WINDOW_WIDTH
+#define MINIMAP_Y_SIZE	44//RADAR_WINDOW_HEIGHT
+#define WINDOW_SIZE		2
 
-#define		WINDOW_SIZE					2
-
-FLOAT			gdXStep, gdYStep;
-INT32			giMiniMap, gi8BitMiniMap;
-HVSURFACE	ghvSurface;
-
+extern BOOLEAN fEditModeFirstTime;
 extern BOOLEAN gfOverheadMapDirty;
-
 extern UINT16 iOffsetHorizontal;
 extern UINT16 iOffsetVertical;
-
-// Utililty file for sub-sampling/creating our radar screen maps
-// Loops though our maps directory and reads all .map files, subsamples an area, color
-// quantizes it into an 8-bit image ans writes it to an sti file in radarmaps.
-
+extern FDLG_LIST* FileList;
 
 typedef struct
 {
-	INT8	r;
-	INT8	g;
-	INT8	b;
+	INT8 r;
+	INT8 g;
+	INT8 b;
+}RGBValues;
 
-} RGBValues;
+FLOAT gdXStep, gdYStep;
+INT32 giMiniMap, gi8BitMiniMap;
+HVSURFACE ghVSurface = NULL;
+RGBValues* p24BitValues = NULL;
+FDLG_LIST* FListNode = NULL;
 
-UINT32	MapUtilScreenInit( )
+
+void GenerateAllMapsInit(void)
 {
-	return( TRUE );
+	GETFILESTRUCT FileInfo;
+	TrashFDlgList(FileList);
+	if(GetFileFirst("MAPS\\*.dat", &FileInfo))
+	{
+		FileList = AddToFDlgList(FileList, &FileInfo);
+		while(GetFileNext(&FileInfo))
+			FileList = AddToFDlgList(FileList, &FileInfo);
+		GetFileClose(&FileInfo);
+	}
+	FListNode = FileList;
 }
 
-UINT32	MapUtilScreenHandle( )
+// Utililty file for sub-sampling/creating our radar screen maps.
+// Loops through our maps directory and reads all *.map files, subsamples an area, color quantizes into an 8-bit image and writes to sti file in radarmaps.
+// From editor will create radar map for you current map.
+UINT32 MapUtilScreenInit(void)
 {
-	static INT16		fNewMap = TRUE;
-	static INT16		sFileNum = 0;
-	InputAtom	InputEvent;
-	GETFILESTRUCT FileInfo;
-	static FDLG_LIST *FListNode;
-	static INT16 sFiles = 0, sCurFile = 0;
-	static FDLG_LIST *FileList = NULL;
-	CHAR8		zFilename[ 260 ], zFilename2[ 260 ];
-	VSURFACE_DESC		vs_desc;
-	UINT16					usWidth;
-	UINT16					usHeight;
-	UINT8						ubBitDepth;
-	UINT32					uiDestPitchBYTES, uiSrcPitchBYTES;
-	UINT16						*pDestBuf, *pSrcBuf;
-	UINT8						*pDataPtr;
+	UINT8 ubBitDepth;
+	UINT16 usWidth, usHeight;
+	VSURFACE_DESC vs_desc;
+	// Create render buffer
+	GetCurrentVideoSettings(&usWidth, &usHeight, &ubBitDepth);
+	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
+	vs_desc.usWidth = MINIMAP_X_SIZE;
+	vs_desc.usHeight = MINIMAP_Y_SIZE;
+	vs_desc.ubBitDepth = ubBitDepth;
+	if(AddVideoSurface(&vs_desc, (UINT32*)&giMiniMap) == FALSE)
+		return(ERROR_SCREEN);
+	// Allocate 24 bit Surface
+	p24BitValues = (RGBValues*)MemAlloc(MINIMAP_X_SIZE * MINIMAP_Y_SIZE * sizeof(RGBValues));
+	//Allocate 8-bit surface
+	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
+	vs_desc.usWidth = MINIMAP_X_SIZE;
+	vs_desc.usHeight = MINIMAP_Y_SIZE;
+	vs_desc.ubBitDepth = 8;
+	if(AddVideoSurface(&vs_desc, (UINT32*)&gi8BitMiniMap) == FALSE)
+		return(ERROR_SCREEN);
+	GetVideoSurface(&ghVSurface, gi8BitMiniMap);
+	return(TRUE);
+}
 
-	static	UINT8						*p24BitDest = NULL;
-	static	RGBValues				*p24BitValues=NULL;
+UINT32 MapUtilScreenHandle(void)
+{
+	InputAtom InputEvent;
+	SGPPaletteEntry pPalette[256];
+	CHAR8 zFilename[260], zFilename2[260];
+	UINT8 *pDataPtr;
+	UINT16 *pDestBuf, *pSrcBuf;
+	UINT32 uiDestPitchBYTES, uiSrcPitchBYTES, uiRGBColor, bR, bG, bB, bAvR, bAvG, bAvB;
+	INT16 s16BPPSrc, sDest16BPPColor, sX1, sX2, sY1, sY2, sTop, sBottom, sLeft, sRight;
+	INT32 cnt, iX, iY, iSubX1, iSubY1, iSubX2, iSubY2, iWindowX, iWindowY, iCount;
+	FLOAT dX, dY, dStartX, dStartY;
 
-	UINT32					uiRGBColor;
-
-	UINT32					bR, bG, bB, bAvR, bAvG, bAvB;
-	INT16						s16BPPSrc, sDest16BPPColor;
-	INT32						cnt;
-
-	INT16 sX1, sX2, sY1, sY2, sTop, sBottom, sLeft, sRight;
-
-
-	FLOAT		dX, dY, dStartX, dStartY;
-	INT32		iX, iY, iSubX1, iSubY1, iSubX2, iSubY2, iWindowX, iWindowY, iCount;
-	SGPPaletteEntry pPalette[ 256 ];
-
-
+	while(DequeueEvent(&InputEvent) == TRUE)
+	{
+		if(InputEvent.usParam == ESC)
+		{
+			// Exit the program
+			if(fEditModeFirstTime == FALSE)
+			{
+				TrashFDlgList(FileList);
+				FileList = FListNode = NULL;
+				return(EDIT_SCREEN);
+			}
+			else
+			{
+				gfProgramIsRunning = FALSE;
+				return(MAPUTILITY_SCREEN);
+			}
+		}
+	}
 	sDest16BPPColor = -1;
 	bAvR = bAvG = bAvB = 0;
-
 	// Zero out area!
-	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, (INT16)(SCREEN_WIDTH), (INT16)(SCREEN_HEIGHT), Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
-
-
-	if ( fNewMap )
+	ColorFillVideoSurfaceArea(FRAME_BUFFER, 0, 0, (INT16)(SCREEN_WIDTH), (INT16)(SCREEN_HEIGHT), Get16BPPColor(FROMRGB(0, 0, 0)));
+	if(fEditModeFirstTime == FALSE && gfWorldLoaded && FListNode == NULL)// Just create radarmap for current loaded world
+		sprintf(zFilename, "%s", gubFilename);
+	else
 	{
-		fNewMap = FALSE;
-
-		// Create render buffer
-		GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
-		vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
-		vs_desc.usWidth = 88;
-		vs_desc.usHeight = 44;
-		vs_desc.ubBitDepth = ubBitDepth;
-
-		if ( AddVideoSurface( &vs_desc, (UINT32 *)&giMiniMap ) == FALSE )
+		// OK, we are here, now loop through files
+		if(FListNode == NULL)
 		{
-			return( ERROR_SCREEN );
+			gfProgramIsRunning = FALSE;
+			return(MAPUTILITY_SCREEN);
 		}
-
-		// USING BRET's STUFF FOR LOOPING FILES/CREATING LIST, hence AddToFDlgList.....
-		if( GetFileFirst("MAPS\\*.dat", &FileInfo) )
-		{
-			FileList = AddToFDlgList( FileList, &FileInfo );
-			sFiles++;
-			while( GetFileNext(&FileInfo) )
-			{
-				FileList = AddToFDlgList( FileList, &FileInfo );
-				sFiles++;
-			}
-			GetFileClose(&FileInfo);
-		}
-
-		FListNode = FileList;
-
-		//Allocate 24 bit Surface
-		p24BitValues = (RGBValues *) MemAlloc( MINIMAP_X_SIZE * MINIMAP_Y_SIZE * sizeof( RGBValues ) );
-		p24BitDest	= (UINT8*)p24BitValues;
-
-
-		//Allocate 8-bit surface
-		vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
-		vs_desc.usWidth = 88;
-		vs_desc.usHeight = 44;
-		vs_desc.ubBitDepth = 8;
-
-		if ( AddVideoSurface( &vs_desc, (UINT32 *)&gi8BitMiniMap ) == FALSE )
-		{
-			return( ERROR_SCREEN );
-		}
-		GetVideoSurface( &ghvSurface, gi8BitMiniMap );
-
-
+		sprintf(zFilename, "%s", FListNode->FileInfo.zFileName);
+		// OK, load maps and do overhead shrinkage of them...
+		if(!LoadWorld(zFilename))
+			return(ERROR_SCREEN);
 	}
-
-	//OK, we are here, now loop through files
-	if ( sCurFile == sFiles || FListNode== NULL )
-	{
-	gfProgramIsRunning = FALSE;
-		return( MAPUTILITY_SCREEN );
-	}
-
-	sprintf( zFilename, "%s", FListNode->FileInfo.zFileName );
-
-	// OK, load maps and do overhead shrinkage of them...
-	if ( !LoadWorld( zFilename ) )
-	{
-		return( ERROR_SCREEN );
-	}
-
 	// Render small map
-	InitNewOverheadDB( (UINT8)giCurrentTilesetID );
-
+	iOffsetHorizontal = (SCREEN_WIDTH / 2) - (640 / 2);// Horizontal start postion of the overview map
+	iOffsetVertical = (SCREEN_HEIGHT - 160) / 2 - 160;// Vertical start position of the overview map
+	InitNewOverheadDB((UINT8)giCurrentTilesetID);
 	gfOverheadMapDirty = TRUE;
-
-	RenderOverheadMap( 0, (WORLD_COLS / 2), iOffsetHorizontal,
-		iOffsetVertical, 640 + iOffsetHorizontal, 320 + iOffsetVertical, FALSE );
-
-	TrashOverheadMap( );
-
+	RenderOverheadMap(0, (WORLD_COLS/2), iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal+640, iOffsetVertical+320, TRUE);
+	TrashOverheadMap();
 	// OK, NOW PROCESS OVERHEAD MAP ( SHOUIDL BE ON THE FRAMEBUFFER )
-	gdXStep	= (float)640/(float)88;
-	gdYStep	= (float)320/(float)44;
-	dStartX = dStartY = 0;
-
+	gdXStep	= (FLOAT)640 / (FLOAT)MINIMAP_X_SIZE;
+	gdYStep	= (FLOAT)320 / (FLOAT)MINIMAP_Y_SIZE;
+	dStartX = iOffsetHorizontal;
+	dStartY = iOffsetVertical;
 	// Adjust if we are using a restricted map...
-	if ( gMapInformation.ubRestrictedScrollID != 0 )
+	if(gMapInformation.ubRestrictedScrollID != 0)
 	{
-		CalculateRestrictedMapCoords( NORTH, &sX1, &sY1, &sX2, &sTop, iOffsetHorizontal + 640, iOffsetVertical + 320 );
-		CalculateRestrictedMapCoords( SOUTH, &sX1, &sBottom, &sX2, &sY2, iOffsetHorizontal + 640, iOffsetVertical + 320 );
-		CalculateRestrictedMapCoords( WEST,	&sX1, &sY1, &sLeft, &sY2, iOffsetHorizontal + 640, iOffsetVertical + 320 );
-		CalculateRestrictedMapCoords( EAST, &sRight, &sY1, &sX2, &sY2, iOffsetHorizontal + 640, iOffsetVertical + 320 );
-
-		gdXStep	= (float)( sRight - sLeft )/(float)88;
-		gdYStep	= (float)( sBottom - sTop )/(float)44;
-
+		CalculateRestrictedMapCoords(NORTH, &sX1, &sY1, &sX2, &sTop, iOffsetHorizontal+640, iOffsetVertical+320);
+		CalculateRestrictedMapCoords(SOUTH, &sX1, &sBottom, &sX2, &sY2, iOffsetHorizontal+640, iOffsetVertical+320);
+		CalculateRestrictedMapCoords(WEST,	&sX1, &sY1, &sLeft, &sY2, iOffsetHorizontal+640, iOffsetVertical+320);
+		CalculateRestrictedMapCoords(EAST, &sRight, &sY1, &sX2, &sY2, iOffsetHorizontal+640, iOffsetVertical+320);
+		gdXStep	= (FLOAT)(sRight - sLeft) / (FLOAT)MINIMAP_X_SIZE;
+		gdYStep	= (FLOAT)(sBottom - sTop) / (FLOAT)MINIMAP_Y_SIZE;
 		dStartX = sLeft;
 		dStartY = sTop;
 	}
-
 	//LOCK BUFFERS
-
 	dX = dStartX;
 	dY = dStartY;
-
-
 	pDestBuf = (UINT16*)LockVideoSurface(giMiniMap, &uiDestPitchBYTES);
 	pSrcBuf = (UINT16*)LockVideoSurface(FRAME_BUFFER, &uiSrcPitchBYTES);
 
-	for ( iX = 0; iX < 88; iX++ )
+	for ( iX = 0; iX < MINIMAP_X_SIZE; iX++ )
 	{
 		dY = dStartY;
 
-		for ( iY = 0; iY < 44; iY++ )
+		for ( iY = 0; iY < MINIMAP_Y_SIZE; iY++ )
 		{
 			//OK, AVERAGE PIXELS
 			iSubX1 = (INT32)dX - WINDOW_SIZE;
@@ -226,7 +190,7 @@ UINT32	MapUtilScreenHandle( )
 			{
 				for ( iWindowY = iSubY1; iWindowY < iSubY2; iWindowY++ )
 				{
-					if ( iWindowX >=0 && iWindowX < 640 && iWindowY >=0 && iWindowY < 320 )
+					if ( iWindowX >= iOffsetHorizontal && iWindowX < (iOffsetHorizontal+640) && iWindowY >= iOffsetVertical && iWindowY < (iOffsetVertical+320) )
 					{
 						s16BPPSrc = pSrcBuf[ ( iWindowY * (uiSrcPitchBYTES/2) ) + iWindowX ];
 
@@ -240,7 +204,6 @@ UINT32	MapUtilScreenHandle( )
 						iCount++;
 					}
 				}
-
 			}
 
 			if ( iCount > 0 )
@@ -261,91 +224,62 @@ UINT32	MapUtilScreenHandle( )
 
 			//Increment
 			dY += gdYStep;
-
 		}
 
 		//Increment
 		dX += gdXStep;
-
 	}
 
 	UnLockVideoSurface(giMiniMap);
 	UnLockVideoSurface(FRAME_BUFFER);
-
 	// RENDER!
-	BltVideoSurface( FRAME_BUFFER, giMiniMap, 0, 20, 360, VS_BLT_FAST | VS_BLT_USECOLORKEY, NULL );
-
-
+	BltVideoSurface(FRAME_BUFFER, giMiniMap, 0, iOffsetHorizontal+10, iOffsetVertical+360, VS_BLT_FAST|VS_BLT_USECOLORKEY, NULL);
 	//QUantize!
 	pDataPtr = (UINT8*)LockVideoSurface(gi8BitMiniMap, &uiSrcPitchBYTES);
 	pDestBuf = (UINT16*)LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
-	QuantizeImage( pDataPtr, p24BitDest, MINIMAP_X_SIZE, MINIMAP_Y_SIZE, pPalette );
-	SetVideoSurfacePalette( ghvSurface, pPalette );
+	QuantizeImage(pDataPtr, (UINT8*)p24BitValues, MINIMAP_X_SIZE, MINIMAP_Y_SIZE, pPalette);
+	SetVideoSurfacePalette(ghVSurface, pPalette);
 	// Blit!
-	Blt8BPPDataTo16BPPBuffer( pDestBuf, uiDestPitchBYTES, ghvSurface, pDataPtr, 300, 360);
-
+	Blt8BPPDataTo16BPPBuffer(pDestBuf, uiDestPitchBYTES, ghVSurface, pDataPtr, iOffsetHorizontal+10+MINIMAP_X_SIZE+20, iOffsetVertical+360);
 	// Write palette!
+	iX = iOffsetHorizontal + 10;
+	iY = iOffsetVertical + 420;
+	SetClippingRegionAndImageWidth(uiDestPitchBYTES, 0, 0, iOffsetHorizontal+640, iOffsetVertical+480);
+	for(cnt=0; cnt<256; cnt++)
 	{
-		INT32 cnt;
-		INT32 sX = 0, sY = 420;
-		UINT16 usLineColor;
-
-		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
-
-		for ( cnt = 0; cnt < 256; cnt++ )
-		{
-			usLineColor = Get16BPPColor( FROMRGB( pPalette[ cnt ].peRed, pPalette[ cnt ].peGreen, pPalette[ cnt ].peBlue ) );
-			RectangleDraw( TRUE, sX, sY, sX, (INT16)( sY+10 ), usLineColor, (UINT8*)pDestBuf );
-			sX++;
-			RectangleDraw( TRUE, sX, sY, sX, (INT16)( sY+10 ), usLineColor, (UINT8*)pDestBuf );
-			sX++;
-		}
+		UINT16 usLineColor = Get16BPPColor(FROMRGB(pPalette[cnt].peRed, pPalette[cnt].peGreen, pPalette[cnt].peBlue));
+		RectangleDraw(TRUE, iX, iY, iX, (INT16)(iY+10), usLineColor, (UINT8*)pDestBuf);
+		iX++;
+		RectangleDraw(TRUE, iX, iY, iX, (INT16)(iY+10), usLineColor, (UINT8*)pDestBuf);
+		iX++;
 	}
-
 	UnLockVideoSurface(FRAME_BUFFER);
-
 	// Remove extension
-	for ( cnt = strlen( zFilename )-1; cnt >=0; cnt-- )
-	{
-		if ( zFilename[ cnt ] == '.' )
-		{
-			zFilename[ cnt ] = '\0';
-		}
-	}
-
-	sprintf( zFilename2, "RADARMAPS\\%s.STI", zFilename );
-	WriteSTIFile( (INT8 *)pDataPtr, pPalette, MINIMAP_X_SIZE, MINIMAP_Y_SIZE, (STR) zFilename2, CONVERT_ETRLE_COMPRESS, 0 );
-
+	for(cnt=strlen(zFilename)-1; cnt>=0; cnt--)
+		if(zFilename[cnt] == '.')
+			zFilename[cnt] = '\0';
+	sprintf(zFilename2, "RADARMAPS\\%s.STI", zFilename);
+	WriteSTIFile((INT8*)pDataPtr, pPalette, MINIMAP_X_SIZE, MINIMAP_Y_SIZE, (STR)zFilename2, CONVERT_ETRLE_COMPRESS, 0);
 	UnLockVideoSurface(gi8BitMiniMap);
-
-	SetFont( TINYFONT1 );
-	SetFontBackground( FONT_MCOLOR_BLACK );
-	SetFontForeground( FONT_MCOLOR_DKGRAY );
-	mprintf( 10, 340, L"Writing radar image %S", zFilename2 );
-
-	mprintf( 10, 350, L"Using tileset %s", gTilesets[ giCurrentTilesetID ].zName );
-
-	InvalidateScreen( );
-
-	while (DequeueEvent(&InputEvent) == TRUE)
-	{
-		if ((InputEvent.usEvent == KEY_DOWN)&&(InputEvent.usParam == ESC))
-		{ // Exit the program
-		gfProgramIsRunning = FALSE;
-		}
-	}
-
+	SetFont(TINYFONT1);
+	SetFontBackground(FONT_MCOLOR_BLACK);
+	SetFontForeground(FONT_MCOLOR_DKGRAY);
+	mprintf(iOffsetHorizontal+10, iOffsetVertical+330, L"Writing radar image %S", zFilename2);
+	mprintf(iOffsetHorizontal+10, iOffsetVertical+340, L"Using tileset %s", gTilesets[giCurrentTilesetID].zName);
+	InvalidateScreen();
 	// Set next
-	FListNode = FListNode->pNext;
-	sCurFile++;
-
-	return( MAPUTILITY_SCREEN );
+	if(FListNode)
+		FListNode = FListNode->pNext;
+	if(fEditModeFirstTime == FALSE && FListNode == NULL)
+		return(EDIT_SCREEN);
+	return(MAPUTILITY_SCREEN);
 }
 
-
-UINT32 MapUtilScreenShutdown( )
+UINT32 MapUtilScreenShutdown(void)
 {
-	return( TRUE );
+	TrashFDlgList(FileList);
+	MemFree(p24BitValues);
+	return(TRUE);
 }
 
 #else //non-editor version

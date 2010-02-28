@@ -51,6 +51,7 @@
 	#include "lighting.h"
 	#include "utilities.h"
 	#include "english.h"
+	#include "debug control.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -64,7 +65,7 @@ void SetNewItem( SOLDIERTYPE *pSoldier, UINT8 ubInvPos, BOOLEAN fNewItem );
 
 extern	SOLDIERTYPE *gpItemDescSoldier;
 extern BOOLEAN			fShowMapInventoryPool;
-extern BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT16 sGridNo );
+extern BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo );
 
 // weight units are 100g each
 
@@ -2680,7 +2681,9 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 		//ADB the weight of the object is already counting stacked objects, attachments, et al
 		uiTotalWeight += CalculateObjectWeight(&pSoldier->inv[ubLoop]);
 	}
-	// Every point over 80 counts double.
+	// for now, assume soldiers can carry 1/2 their strength in KGs without penalty.
+	// instead of multiplying by 100 for percent, and then dividing by 10 to account
+	// for weight units being in 10ths of kilos, not kilos... we just start with 10 instead of 100!
 	ubStrengthForCarrying = EffectiveStrength( pSoldier );
 	if ( ubStrengthForCarrying > 80 )
 	{
@@ -3158,8 +3161,8 @@ BOOLEAN EmptyWeaponMagazine( OBJECTTYPE * pWeapon, OBJECTTYPE *pAmmo, UINT32 sub
 	{
 		CreateAmmo((*pWeapon)[subObject]->data.gun.usGunAmmoItem, pAmmo, (*pWeapon)[subObject]->data.gun.ubGunShotsLeft);
 
-		(*pWeapon)[subObject]->data.gun.ubGunShotsLeft = 0;
-		(*pWeapon)[subObject]->data.gun.ubGunAmmoType = 0;
+		(*pWeapon)[subObject]->data.gun.ubGunShotsLeft		= 0;
+		(*pWeapon)[subObject]->data.gun.ubGunAmmoType	  = 0;
 		// HEADROCK HAM 3.5: Leaving the ammo inside the gun causes EDB stats to display values as though the magazine
 		// still gives some effects (like autopen reduction, range bonus, etcetera). I'm going to try to work around
 		// this issue.
@@ -6349,8 +6352,14 @@ void CheckEquipmentForFragileItemDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 }
 
 
-BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT16 sGridNo, INT8 bLevel, INT32 iDamage, UINT8 ubOwner )
+BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, UINT8 ubOwner )
 {
+#ifdef JA2BETAVERSION
+	CHAR tmpMPDbgString[512];
+	sprintf(tmpMPDbgString,"DamageItemOnGround ( usItem : %i , sGridNo : %i , bLevel : %i , iDamage : %i , ubOwner : %i )\n",pObject->usItem, sGridNo , bLevel , iDamage , ubOwner );
+	MPDebugMsg(tmpMPDbgString);
+#endif
+
 	BOOLEAN			fBlowsUp;
 
 	fBlowsUp = DamageItem( pObject, iDamage, TRUE );
@@ -7811,7 +7820,7 @@ INT8 FindGasMask( SOLDIERTYPE * pSoldier )
 {
 	INT8 bLoop;
 
-	for (bLoop = 0; bLoop < HANDPOS; bLoop++)
+	for (bLoop = 0; bLoop < NUM_INV_SLOTS; bLoop++)//dnl ch40 041009
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
 			if ( Item[pSoldier->inv[bLoop].usItem].gasmask )
@@ -8544,62 +8553,62 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier)
 	{
 		// HEADROCK HAM B2.6: Dynamic aiming level restrictions based on gun type and attachments.
 		// HEADROCK HAM 3.5: Revamped this - it was illogically constructed.
-		if ( gGameExternalOptions.fDynamicAimingTime )
-		{
-			UINT16 weaponRange;
-			UINT8 weaponType, maxAimForType, maxAimWithoutBipod;
-			BOOLEAN fTwoHanded, fUsingBipod;
-			
-			// Read weapon data
-			fTwoHanded = Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded;
-			weaponRange = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usRange + GetRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]);
-			weaponType = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType;
-			fUsingBipod = FALSE;
+	if ( gGameExternalOptions.fDynamicAimingTime )
+	{
+		UINT16 weaponRange;
+		UINT8 weaponType, maxAimForType, maxAimWithoutBipod;
+		BOOLEAN fTwoHanded, fUsingBipod;
+		
+		// Read weapon data
+		fTwoHanded = Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded;
+		weaponRange = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usRange + GetRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]);
+		weaponType = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType;
+		fUsingBipod = FALSE;
 
-			maxAimWithoutBipod = 4;
-			
-			// Define basic (no attachments), and absolute maximums
+		maxAimWithoutBipod = 4;
+		
+		// Define basic (no attachments), and absolute maximums
 			if (weaponType == GUN_PISTOL || weaponType == GUN_M_PISTOL || fTwoHanded == 0)
-			{
-				maxAimForType = 2;
-				aimLevels = 1;
-				maxAimWithoutBipod = 2;
-			}
+		{
+			maxAimForType = 2;
+			aimLevels = 1;
+			maxAimWithoutBipod = 2;
+		}
 			else if (weaponType == GUN_SHOTGUN || weaponType == GUN_LMG || weaponType == GUN_SMG)
-			{
-				maxAimForType = 3;
-				aimLevels = 2;
-				maxAimWithoutBipod = 3;
-			}
+		{
+			maxAimForType = 3;
+			aimLevels = 2;
+			maxAimWithoutBipod = 3;
+		}
 			else if ((weaponType == GUN_AS_RIFLE || weaponType == GUN_RIFLE ) && weaponRange <= 500)
-			{
-				maxAimForType = 4;
-				aimLevels = 2;
-				maxAimWithoutBipod = 3;
-			}
+		{
+			maxAimForType = 4;
+			aimLevels = 2;
+			maxAimWithoutBipod = 3;
+		}
 			else if (((weaponType == GUN_AS_RIFLE || weaponType == GUN_RIFLE) && weaponRange > 500) || 
 						(weaponType == GUN_SN_RIFLE && weaponRange <= 500))
-			{
+		{
 				maxAimForType = 6;
-				aimLevels = 3;
-				maxAimWithoutBipod = 4;
-			}
+			aimLevels = 3;
+			maxAimWithoutBipod = 4;
+		}
 			else if (weaponType == GUN_SN_RIFLE && weaponRange > 500)
 			{
 				maxAimForType = 8;
 				aimLevels = 4;
 				maxAimWithoutBipod = 3;
 			}
-			else
-			{
-				return 4;
-			}
+		else
+		{
+			return 4;
+		}
 
-			// Determine whether a bipod is being used (prone)
-			if (GetBipodBonus(&pSoldier->inv[pSoldier->ubAttackingHand])>0 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
-			{
-				fUsingBipod = TRUE;
-			}
+		// Determine whether a bipod is being used (prone)
+		if (GetBipodBonus(&pSoldier->inv[pSoldier->ubAttackingHand])>0 && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+		{
+			fUsingBipod = TRUE;
+		}
 
 			usScopeBonus = ( GetMinRangeForAimBonus(&pSoldier->inv[pSoldier->ubAttackingHand]) * 10 ) / gGameExternalOptions.ubStraightSightRange;
 
@@ -8624,19 +8633,19 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier)
 				aimLevels++;
 			}
 
-			// Make sure not over maximum allowed for weapon type.
-			if (aimLevels > maxAimForType)
-			{
-				aimLevels = maxAimForType;
-			}
-			// Make sure not over maximum allowed without a bipod.
-			if (!fUsingBipod)
-			{
-				aimLevels = __min(aimLevels, maxAimWithoutBipod);
-			}
-		}
-		else // JA2 1.13 Basic aiming restrictions (8 levels for 10x scope, 6 levels for 7x scope)
+		// Make sure not over maximum allowed for weapon type.
+		if (aimLevels > maxAimForType)
 		{
+			aimLevels = maxAimForType;
+		}
+		// Make sure not over maximum allowed without a bipod.
+		if (!fUsingBipod)
+		{
+			aimLevels = __min(aimLevels, maxAimWithoutBipod);
+		}
+	}
+	else // JA2 1.13 Basic aiming restrictions (8 levels for 10x scope, 6 levels for 7x scope)
+	{
 			if ( !IsScoped( &pSoldier->inv[pSoldier->ubAttackingHand] ) )
 			{
 				// No scope. 4 Allowed.

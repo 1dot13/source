@@ -6,47 +6,36 @@
 namespace vfs
 {
 
-	class CLibDirectory : public vfs::IDirectory<vfs::IWriteType>
+	class CLibDirectory : public vfs::TDirectory<vfs::IWriteType>
 	{
+		typedef vfs::TDirectory<vfs::IWriteType> tBaseClass;
 		typedef std::map<vfs::Path, tFileType*, vfs::Path::Less> tFileCatalogue;
 
-		class IterImpl : public tClassType::Iterator::IImplemetation
-		{
-		public:
-			IterImpl(CLibDirectory& lib);
-			virtual ~IterImpl();
-			virtual tFileType* value();
-			virtual void next();
-		private:
-			CLibDirectory& _lib;
-			tFileCatalogue::iterator _iter;
-		};
+		class IterImpl;
 	public:
-		CLibDirectory(vfs::Path const& sLocalPath, vfs::Path const& sRealPath)
-			: vfs::IDirectory<vfs::IWriteType>(sLocalPath,sRealPath)
-		{};
+		CLibDirectory(vfs::Path const& sLocalPath, vfs::Path const& sRealPath);
 		virtual ~CLibDirectory();
 
 		/** 
-		 *  IDirectory interface
+		 *  TDirectory interface
 		 */
-		virtual tFileType*		AddFile(vfs::Path const& sFilename, bool bDeleteOldFile=false);
-		virtual bool			AddFile(tFileType* pFile, bool bDeleteOldFile=false);
-		virtual bool			DeleteFileFromDirectory(vfs::Path const& sFileName);
-		virtual bool			CreateSubDirectory(vfs::Path const& sSubDirPath);
-		virtual bool			DeleteDirectory(vfs::Path const& sDirPath);
+		virtual tFileType*		addFile(vfs::Path const& filename, bool deleteOldFile=false);
+		virtual bool			addFile(tFileType* file, bool deleteOldFile=false);
+		virtual bool			deleteFileFromDirectory(vfs::Path const& filename);
+		virtual bool			createSubDirectory(vfs::Path const& subDirPath);
+		virtual bool			deleteDirectory(vfs::Path const& dirPath);
 
 		/** 
-		 *  IVFSLocation interface
+		 *  TVFSLocation interface
 		 */
-		virtual bool			FileExists(vfs::Path const& sFileName);
-		virtual vfs::IBaseFile*	GetFile(vfs::Path const& sFileName);
-		virtual tFileType*		GetFileTyped(vfs::Path const& sFileName);
-		virtual void			GetSubDirList(std::list<vfs::Path>& rlSubDirs);
+		virtual bool			fileExists(vfs::Path const& filename);
+		virtual vfs::IBaseFile*	getFile(vfs::Path const& filename);
+		virtual tFileType*		getFileTyped(vfs::Path const& filename);
+		virtual void			getSubDirList(std::list<vfs::Path>& rlSubDirs);
 
 		virtual Iterator begin();
 	protected:
-		tFileCatalogue m_mapFiles;
+		tFileCatalogue m_files;
 	};
 
 } // -end- namespace

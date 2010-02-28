@@ -39,7 +39,7 @@ public:
 	vector_3		CollisionVelocity;
 	real				CollisionElasticity;
 
-	INT16				sGridNo;
+	INT32 sGridNo;
 	INT32				iID;
 	LEVELNODE		*pNode;
 	LEVELNODE		*pShadow;
@@ -52,7 +52,7 @@ public:
 	FLOAT				dLifeSpan;
 	OLD_OBJECTTYPE_101		oldObj;
 	BOOLEAN			fFirstTimeMoved;
-	INT16				sFirstGridNo;
+	INT32				sFirstGridNo;
 	UINT8				ubOwner;
 	UINT8				ubActionCode;
 	UINT32			uiActionData;
@@ -66,7 +66,7 @@ public:
 	vector_3		EndedWithCollisionPosition;
 	BOOLEAN			fHaveHitGround;
 	BOOLEAN	 fPotentialForDebug;
-	INT16		sLevelNodeGridNo;
+  INT32       sLevelNodeGridNo;
 	INT32		iSoundID;
 	UINT8		ubLastTargetTakenDamage;
 	UINT8				ubPadding[1];
@@ -108,7 +108,7 @@ public:
 	vector_3		CollisionVelocity;
 	real				CollisionElasticity;
 
-	INT16				sGridNo;
+	INT32				sGridNo;
 	INT32				iID;
 	LEVELNODE		*pNode;
 	LEVELNODE		*pShadow;
@@ -120,7 +120,7 @@ public:
 	FLOAT				dLifeLength;
 	FLOAT				dLifeSpan;
 	BOOLEAN			fFirstTimeMoved;
-	INT16				sFirstGridNo;
+	INT32				sFirstGridNo;
 	UINT8				ubOwner;
 	UINT8				ubActionCode;
 	UINT32			uiActionData;
@@ -134,9 +134,15 @@ public:
 	vector_3		EndedWithCollisionPosition;
 	BOOLEAN			fHaveHitGround;
 	BOOLEAN	 fPotentialForDebug;
-	INT16		sLevelNodeGridNo;
+	INT32		sLevelNodeGridNo;
 	INT32		iSoundID;
 	UINT8		ubLastTargetTakenDamage;
+	// OJW - 20091002 - mp explosives
+	UINT8			mpTeam; // the intiating clients team
+	INT32			mpRealObjectID; // ID from the initiating client
+	bool			mpIsFromRemoteClient;
+	bool			mpHaveClientResult;
+	bool			mpWasDud;
 
 	char				endOfPod;
 	OBJECTTYPE		Obj;
@@ -153,13 +159,15 @@ extern	REAL_OBJECT			ObjectSlots[ NUM_OBJECT_SLOTS ];
 INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, real yPos, real zPos, real xForce, real yForce, real zForce, UINT8 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, BOOLEAN fTestObject );
 BOOLEAN		RemoveObjectSlot( INT32 iObject );
 void RemoveAllPhysicsObjects( );
+// OJW - 20091002 - mp explosives
+extern void HandleArmedObjectImpact( REAL_OBJECT *pObject );
 
 
-FLOAT CalculateLaunchItemAngle( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubHeight, real dForce, OBJECTTYPE *pItem, INT16 *psGridNo );
+FLOAT CalculateLaunchItemAngle( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubHeight, real dForce, OBJECTTYPE *pItem, INT32 *psGridNo );
 
-BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, INT16 sGridNo, UINT8 ubLevel, INT16 sEndZ, INT16 *psFinalGridNo, BOOLEAN fArmed, INT8 *pbLevel, BOOLEAN fFromUI );
+BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, INT32 sGridNo, UINT8 ubLevel, INT16 sEndZ, INT32 *psFinalGridNo, BOOLEAN fArmed, INT8 *pbLevel, BOOLEAN fFromUI );
 
-void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubLevel, INT16 sZPos, OBJECTTYPE *pItem, INT8 bMissBy, UINT8 ubActionCode, UINT32 uiActionData );
+void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubLevel, INT16 sZPos, OBJECTTYPE *pItem, INT8 bMissBy, UINT8 ubActionCode, UINT32 uiActionData );
 
 
 

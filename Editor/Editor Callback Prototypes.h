@@ -16,6 +16,8 @@ void BtnLoadCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnSaveCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnCancelCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnQuitCallback( GUI_BUTTON *btn, INT32 reason );
+void BtnRadarMapCallback( GUI_BUTTON *btn, INT32 reason );//dnl ch9 071009
+void VanillaModeCallback(GUI_BUTTON *btn, INT32 reason);//dnl ch33 160909
 void BtnNewMapCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnNewBasementCallback( GUI_BUTTON *btn, INT32 reason );
 void BtnNewCavesCallback( GUI_BUTTON *btn, INT32 reason );

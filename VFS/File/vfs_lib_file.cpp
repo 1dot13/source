@@ -1,11 +1,14 @@
 #include "vfs_lib_file.h"
 #include "../vfs.h"
 
+
+#define ERROR_FILE(msg)		BuildString().add(L"[").add(this->getPath()).add(L"] - ").add(msg).get()
+
 ObjBlockAllocator<vfs::CLibFile>* vfs::CLibFile::_lfile_pool = NULL;
 
-vfs::CLibFile* vfs::CLibFile::Create(vfs::Path const& sFileName, 
-									 vfs::IVFSLocation<vfs::IReadable,vfs::IWriteType> *pLocation, 
-									 ILibrary *pLibrary,
+vfs::CLibFile* vfs::CLibFile::create(vfs::Path const& filename, 
+									 tLocation *location, 
+									 ILibrary *library,
 									 ObjBlockAllocator<vfs::CLibFile>* allocator)
 {
 #if 0
@@ -21,22 +24,22 @@ vfs::CLibFile* vfs::CLibFile::Create(vfs::Path const& sFileName,
 		if(!_lfile_pool)
 		{
 			_lfile_pool = new ObjBlockAllocator<vfs::CLibFile>();
-			CFileAllocator::RegisterAllocator(_lfile_pool);
+			CFileAllocator::registerAllocator(_lfile_pool);
 		}
 		pFile = _lfile_pool->New();
 	}
 #endif
-	pFile->m_sFileName = sFileName;
-	pFile->_pLoc_ = pLocation;
-	pFile->m_pLibrary = pLibrary;
+	pFile->m_filename = filename;
+	pFile->m_location = location;
+	pFile->m_library = library;
 	return pFile;
 }
 
 vfs::CLibFile::CLibFile()
-: vfs::IFileTemplate<IReadable,IWriteType>(L""), 
-	vfs::ILocationAware<vfs::IReadable,vfs::IWriteType>(NULL),
-	m_bIsOpen_read(false),
-	m_pLibrary(NULL)
+: tBaseClass(L""), 
+	m_isOpen_read(false),
+	m_library(NULL),
+	m_location(NULL)
 {
 };
 
@@ -44,88 +47,94 @@ vfs::CLibFile::~CLibFile()
 {
 }
 
-bool vfs::CLibFile::Close()
+void vfs::CLibFile::close()
 {
-	if(m_bIsOpen_read)
+	if(m_isOpen_read)
 	{
-		m_bIsOpen_read = !m_pLibrary->Close(this);
-		return m_bIsOpen_read;
+		m_library->close(this);
+		m_isOpen_read = false;
 	}
-	return false;
 }
 
-vfs::Path vfs::CLibFile::GetFullPath()
+vfs::FileAttributes vfs::CLibFile::getAttributes()
 {
-	if(_pLoc_)
+	return vfs::FileAttributes(vfs::FileAttributes::ATTRIB_NORMAL | vfs::FileAttributes::ATTRIB_READONLY,
+		vfs::FileAttributes::LT_LIBRARY);
+}
+
+vfs::Path vfs::CLibFile::getPath()
+{
+	if(m_location)
 	{
-		return _pLoc_->GetFullPath() + m_sFileName;
+		return m_location->getPath() + m_filename;
 	}
 	else
 	{
-		return m_sFileName;
+		return m_filename;
 	}
 }
-bool vfs::CLibFile::IsOpenRead()
+bool vfs::CLibFile::isOpenRead()
 {
-	return m_bIsOpen_read;
-}
-
-bool vfs::CLibFile::OpenRead()
-{
-	if(!m_bIsOpen_read)
-	{
-		if(!(m_bIsOpen_read = m_pLibrary->OpenRead(this)))
-		{
-			return false;
-		}
-	}
-	return true;
+	return m_isOpen_read;
 }
 
-bool vfs::CLibFile::Read(Byte* pData, UInt32 uiBytesToRead, UInt32& uiBytesRead)
+bool vfs::CLibFile::openRead()
 {
-	if(!m_bIsOpen_read && !this->OpenRead())
+	if(!m_isOpen_read)
 	{
-		return false;
+		TRYCATCH_RETHROW(m_isOpen_read = m_library->openRead(this), ERROR_FILE(L"read open error"));
 	}
-	bool success = m_pLibrary->Read(this,pData,uiBytesToRead,uiBytesRead);
-	return success;
+	return m_isOpen_read;
+}
+
+vfs::size_t vfs::CLibFile::read(vfs::Byte* data, vfs::size_t bytesToRead)
+{
+	THROWIFFALSE( m_isOpen_read, ERROR_FILE(L"file not opened") );
+	try
+	{
+		return m_library->read(this, data, bytesToRead);
+	}
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(ERROR_FILE(L"read error"), &ex);
+	}
 }	
 
-vfs::UInt32 vfs::CLibFile::GetReadLocation()
+vfs::size_t vfs::CLibFile::getReadPosition()
 {
-	if(!m_bIsOpen_read && !this->OpenRead())
+	THROWIFFALSE( m_isOpen_read, ERROR_FILE(L"file not opened") );
+	try
 	{
-		return -1;
+		return m_library->getReadPosition(this);
 	}
-	return m_pLibrary->GetReadLocation(this);
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(ERROR_FILE(L"library error"), &ex);
+	}
 }
 
 
-bool vfs::CLibFile::SetReadLocation(vfs::UInt32 uiPositionInBytes)
+void vfs::CLibFile::setReadPosition(vfs::size_t uiPositionInBytes)
 {
-	if(!m_bIsOpen_read && !this->OpenRead())
-	{
-		return false;
-	}
-	bool success = m_pLibrary->SetReadLocation(this,uiPositionInBytes);
-	return success;
+	THROWIFFALSE( m_isOpen_read, ERROR_FILE(L"file not opened") );
+	TRYCATCH_RETHROW(m_library->setReadPosition(this,uiPositionInBytes), ERROR_FILE(L"library error") );
 }
 
-bool vfs::CLibFile::SetReadLocation(Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir)
+void vfs::CLibFile::setReadPosition(vfs::offset_t offsetInBytes, IBaseFile::ESeekDir seekDir)
 {
-	if(!m_bIsOpen_read && !this->OpenRead())
-	{
-		return false;
-	}
-	return m_pLibrary->SetReadLocation(this,uiOffsetInBytes,eSeekDir);
+	THROWIFFALSE( m_isOpen_read, ERROR_FILE(L"file not opened") );
+	TRYCATCH_RETHROW(m_library->setReadPosition(this, offsetInBytes, seekDir), ERROR_FILE(L"library error"));
 }
 
-bool vfs::CLibFile::GetFileSize(vfs::UInt32& uiFileSize)
+vfs::size_t vfs::CLibFile::getSize()
 {
-	if(!m_bIsOpen_read && !this->OpenRead())
+	THROWIFFALSE( m_isOpen_read || this->openRead(), ERROR_FILE(L"could not open file") );
+	try
 	{
-		return false;
+		return m_library->getSize(this);
 	}
-	return m_pLibrary->GetFileSize(this,uiFileSize);
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(ERROR_FILE(L"library error"), &ex);
+	}
 }

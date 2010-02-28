@@ -1,213 +1,132 @@
 #include "vfs_dir_file.h"
 #include "../Interface/vfs_directory_interface.h"
-#include "../iteratedir.h"
+#include "../vfs_settings.h"
+#include "../os_functions.h"
 
-extern bool g_VFS_NO_UNICODE;
-
-vfs::Path vfs::CVFSFile::GetFullPath()
+vfs::CReadOnlyDirFile::CReadOnlyDirFile(vfs::Path const& filename, tLocation *directory)
+: vfs::CReadOnlyFile(filename), _location(directory)
 {
-	if(_pLoc_)
+}
+
+vfs::CReadOnlyDirFile::~CReadOnlyDirFile()
+{
+}
+
+vfs::Path vfs::CReadOnlyDirFile::getPath()
+{
+	if(_location)
 	{
-		return _pLoc_->GetFullPath() + m_sFileName;
+		return _location->getPath() + m_filename;
 	}
 	else
 	{
-		return m_sFileName;
+		return m_filename;
 	}
 }
 
-bool vfs::CVFSFile::_getRealPath(vfs::Path& rPath)
+bool vfs::CReadOnlyDirFile::_getRealPath(vfs::Path& path)
 {
-	if(_pLoc_)
+	if(_location)
 	{
-		rPath = static_cast<IDirectory<CVFSFile::write_type>*>(_pLoc_)->GetRealPath() + m_sFileName;
+		path = _location->getRealPath() + m_filename;
 		return true;
 	}
 	return false;
 }
 
 
-bool vfs::CVFSFile::Delete()
+vfs::FileAttributes vfs::CReadOnlyDirFile::getAttributes()
 {
-	Close();
+	vfs::FileAttributes _attribs = vfs::CReadOnlyFile::getAttributes();
+
+	vfs::UInt32 attr = _attribs.getAttrib();
+	attr |= vfs::FileAttributes::ATTRIB_READONLY;
+
+	return vfs::FileAttributes(attr, vfs::FileAttributes::LT_READONLY_DIRECTORY);
+}
+
+bool vfs::CReadOnlyDirFile::openRead()
+{
+	vfs::Path filename;
+	if(!_getRealPath(filename))
+	{
+		return false;
+	}
+	return _internalOpenRead(filename);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+
+vfs::CDirFile::CDirFile(vfs::Path const& filename, tLocation *directory)
+: CFile(filename), _location(directory)
+{
+}
+
+vfs::CDirFile::~CDirFile()
+{
+}
+
+vfs::Path vfs::CDirFile::getPath()
+{
+	if(_location)
+	{
+		return _location->getPath() + m_filename;
+	}
+	else
+	{
+		return m_filename;
+	}
+}
+
+bool vfs::CDirFile::deleteFile()
+{
+	this->close();
 	vfs::Path fname;
-	if(_pLoc_)
+	if(_getRealPath(fname))
 	{
-		fname = static_cast<IDirectory<CVFSFile::write_type>*>(_pLoc_)->GetRealPath() + m_sFileName;
+		return os::deleteRealFile(fname);
 	}
-	else
-	{
-		fname = m_sFileName;
-	}
-	return os::DeleteRealFile(fname);
-}
-
-bool vfs::CVFSFile::OpenRead()
-{
-//	std::cout << "[CVFSFile::OpenRead] open file <" << m_sFileName() << ">\n" ;
-	if( !m_oFile.good() )
-	{
-		std::cout << "ERROR" << std::endl;
-		return false;
-	}
-	if(m_bIsOpen_read)
-	{
-		return true;
-	}	
-	std::ios::openmode Mode;
-	vfs::Path sFileName;
-	if(_pLoc_)
-	{
-		sFileName = static_cast<IDirectory<CFile::write_type>*>(_pLoc_)->GetRealPath() + m_sFileName;
-	}
-	else
-	{
-		sFileName = m_sFileName;
-	}
-	// try to open 
-	Mode = std::ios::in|std::ios::binary;
-#ifdef WIN32
-	utf8string::str_t const& fname = sFileName().c_wcs();
-	g_VFS_NO_UNICODE ? 
-		m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
-		m_oFile.open(fname.c_str(),Mode);
-#else
-	m_oFile.open(sFileName().utf8().c_str(),Mode);
-#endif
-	if( !(m_bIsOpen_read = m_oFile.is_open()) )
-	{
-		m_oFile.clear();
-		return false;
-	}
-	return m_oFile.good();
-}
-
-bool vfs::CVFSFile::OpenWrite(bool bCreateWhenNotExist, bool bTruncate)
-{
-//	std::cout << "[CVFSFile::OpenWrite] opening file <" << m_sFileName << "> .. ";
-	if(!m_oFile.good())
-	{
-//		std::cout << "ERROR" << std::endl;
-		return false;
-	}
-	if(m_bIsOpen_write)
-	{
-//		std::cout << "already open" << std::endl;
-		return m_oFile.good();
-	}	
-	vfs::Path sFileName;
-	if(_pLoc_)
-	{
-		sFileName = static_cast<IDirectory<CFile::write_type>*>(_pLoc_)->GetRealPath() + m_sFileName;
-	}
-	else
-	{
-		sFileName = m_sFileName;
-	}
-	std::ios::openmode Mode;
-	Mode = std::ios::in|std::ios::out|std::ios::binary;
-	if(bTruncate)
-	{
-		Mode |= std::ios::trunc;
-	}
-#ifdef WIN32
-	utf8string::str_t const& fname = sFileName().c_wcs();
-	g_VFS_NO_UNICODE ?
-		m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
-		m_oFile.open(fname.c_str(),Mode);
-#else
-	m_oFile.open(sFileName().utf8().c_str(),Mode);
-#endif
-	if( !(m_bIsOpen_write = m_oFile.is_open()) )
-	{
-		m_oFile.clear();
-		if(bCreateWhenNotExist)
-		{
-			// create file 
-			Mode = std::ios::out|std::ios::binary;
-			if(bTruncate)
-			{
-				Mode |= std::ios::trunc;
-			}
-#ifdef WIN32
-			g_VFS_NO_UNICODE ?
-				m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
-				m_oFile.open(fname.c_str(),Mode);
-#else
-			m_oFile.open(sFileName().utf8().c_str(),Mode);
-#endif
-			if( !(m_bIsOpen_write = m_oFile.is_open()) )
-			{
-				return false;
-			}
-			m_oFile.close();
-			Mode |= std::ios::in;
-#ifdef WIN32
-			g_VFS_NO_UNICODE ?
-				m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
-				m_oFile.open(fname.c_str(),Mode);
-#else
-			m_oFile.open(sFileName().utf8().c_str(),Mode);
-#endif
-			if( !(m_bIsOpen_write = m_oFile.is_open()) )
-			{
-				return false;
-			}
-		}
-		else
-		{
-			return false;
-		}
-	}
-	return m_oFile.good();
+	return false;
 }
 
 
-vfs::Path vfs::CVFSTextFile::GetFullPath()
+bool vfs::CDirFile::_getRealPath(vfs::Path& path)
 {
-	if(_pLoc_)
+	if(_location)
 	{
-		return static_cast<IDirectory<CFile::write_type>*>(_pLoc_)->GetRealPath() + m_sFileName;
-	}
-	else
-	{
-		return m_sFileName;
-	}
-}
-
-bool vfs::CVFSTextFile::OpenRead()
-{
-	if( !m_oFile.good() )
-	{
-		return false;
-	}
-	if(m_bIsOpen_read)
-	{
+		path = _location->getRealPath() + m_filename;
 		return true;
 	}
-	vfs::Path sFileName;
-	if(_pLoc_)
+	return false;
+}
+
+
+vfs::FileAttributes vfs::CDirFile::getAttributes()
+{
+	vfs::FileAttributes _attribs = vfs::CFile::getAttributes();
+
+	return vfs::FileAttributes(_attribs.getAttrib(), vfs::FileAttributes::LT_DIRECTORY);
+}
+
+bool vfs::CDirFile::openRead()
+{
+	vfs::Path filename;
+	if(!_getRealPath(filename))
 	{
-		sFileName = static_cast<IDirectory<CFile::write_type>*>(_pLoc_)->GetRealPath() + m_sFileName;
-	}
-	else
-	{
-		sFileName = m_sFileName;
-	}
-	std::ios::openmode Mode;
-	Mode = std::ios::in;
-#ifdef WIN32
-	utf8string::str_t const& fname = sFileName().c_wcs();
-	g_VFS_NO_UNICODE ?
-		m_oFile.open(utf8string::narrow(fname.c_str(),fname.length()).c_str(),Mode) :
-		m_oFile.open(fname.c_str(),Mode);
-#else
-	m_oFile.open(sFileName().utf8().c_str(),Mode);
-#endif
-	if( !(m_bIsOpen_read = m_oFile.is_open()) )
-	{
-		m_oFile.clear();
 		return false;
 	}
-	return m_oFile.good();
+	return _internalOpenRead(filename);
 }
+
+bool vfs::CDirFile::openWrite(bool createWhenNotExist, bool truncate)
+{
+	vfs::Path filename;
+	if(!_getRealPath(filename))
+	{
+		return false;
+	}
+	return _internalOpenWrite(filename, createWhenNotExist, truncate);
+}
+
+

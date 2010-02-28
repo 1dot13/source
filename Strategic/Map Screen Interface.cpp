@@ -926,7 +926,6 @@ void RestoreBackgroundForAssignmentGlowRegionList( void )
 		// restore background
 		RestoreExternBackgroundRect( 66, Y_START - 1, 118 + 1 - 67, yHeight );
 
-
 		// ARM: not good enough! must reblit the whole panel to erase glow chunk restored by help text disappearing!!!
 		fTeamPanelDirty = TRUE;
 
@@ -1581,39 +1580,39 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 {
 	// just drop the stuff in the current sector
 	//INT32 iCounter = 0;
-	INT16 sGridNo, sTempGridNo;
+	INT32 sGridNo, sTempGridNo;
 
 	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || Menptr[ uiMercId ].bSectorZ != gbWorldSectorZ )
 	{
-	// ATE: Use insertion gridno if not nowhere and insertion is gridno
-	if ( Menptr[ uiMercId ].ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && Menptr[ uiMercId ].usStrategicInsertionData != NOWHERE )
-	{
-		sGridNo = Menptr[ uiMercId ].usStrategicInsertionData;
-	}
-	else
-	{
-		// Set flag for item...
-		sGridNo = RandomGridNo();
-	}
-	}
-	else
-	{
-	// ATE: Mercs can have a gridno of NOWHERE.....
-	sGridNo = Menptr[ uiMercId ].sGridNo;
-
-	if ( sGridNo == NOWHERE )
-	{
-		sGridNo = RandomGridNo();
-
-			sTempGridNo = FindNearestAvailableGridNoForItem( sGridNo, 5 );
-			if( sTempGridNo == NOWHERE )
-				sTempGridNo = FindNearestAvailableGridNoForItem( sGridNo, 15 );
-
-		if ( sTempGridNo != NOWHERE )
+		// ATE: Use insertion gridno if not nowhere and insertion is gridno		
+		if ( Menptr[ uiMercId ].ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && !TileIsOutOfBounds(Menptr[ uiMercId ].usStrategicInsertionData) )
 		{
-		sGridNo = sTempGridNo;
+			sGridNo = Menptr[ uiMercId ].usStrategicInsertionData;
+		}
+		else
+		{
+			// Set flag for item...
+			sGridNo = RandomGridNo();
 		}
 	}
+	else
+	{
+		// ATE: Mercs can have a gridno of NOWHERE.....
+		sGridNo = Menptr[ uiMercId ].sGridNo;
+
+		if (TileIsOutOfBounds(sGridNo))	
+		{
+			sGridNo = RandomGridNo();
+
+			sTempGridNo = FindNearestAvailableGridNoForItem( sGridNo, 5 );
+							
+			if(TileIsOutOfBounds(sTempGridNo))
+				sTempGridNo = FindNearestAvailableGridNoForItem( sGridNo, 15 );
+			else
+			{		
+				sGridNo = sTempGridNo;
+			}
+		}
 	}
 
 	for( UINT32 iCounter = 0; iCounter < Menptr[ uiMercId ].inv.size(); iCounter++ )
@@ -1622,11 +1621,11 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 		// check if actual item
 		if(	Menptr[ uiMercId ].inv[ iCounter ].exists() == true )
 		{
-	 if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || Menptr[ uiMercId ].bSectorZ != gbWorldSectorZ )
-	 {
-		// Set flag for item...
+			if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || Menptr[ uiMercId ].bSectorZ != gbWorldSectorZ )
+			{
+				// Set flag for item...
 				AddItemsToUnLoadedSector( Menptr[ uiMercId ].sSectorX,	Menptr[ uiMercId ].sSectorY, Menptr[ uiMercId ].bSectorZ , sGridNo, 1, &( Menptr[ uiMercId ].inv[ iCounter ]) , Menptr[ uiMercId ].pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE );
-		}
+			}
 			else
 			{
 				AddItemToPool( sGridNo, &( Menptr[ uiMercId ].inv[ iCounter ] ) , 1, Menptr[ uiMercId ].pathing.bLevel, WORLD_ITEM_REACHABLE, 0 );

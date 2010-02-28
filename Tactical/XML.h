@@ -115,7 +115,6 @@ typedef PARSE_STAGE;
 // Dealtar: Shipping destinations and delivery methods
 #define SHIPPINGDESTINATIONSFILENAME			"Map\\ShippingDestinations.xml"
 #define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"
-
 // Gotthard: Laptop Text files [2007-10-16]
 #define LAPTOPFLORISTTEXTFILENAME				"Laptop\\Florist.xml"
 #define LAPTOPFUNERALTEXTFILENAME				"Laptop\\Funeral.xml"
@@ -124,6 +123,8 @@ typedef PARSE_STAGE;
 // Gotthard: Website Picture/Text Locations [2007-11-04]
 #define LAPTOPFLORISTLOCATIONFILENAME			"Laptop\\FloristPositions.xml"
 #define LAPTOPFUNERALLOCATIONFILENAME			"Laptop\\FuneralPositions.xml"
+
+#define MULTIPLAYERTEAMSFILENAME				"Multiplayer\\RandomTeams.xml"
 
 // HEADROCK HAM 3.4: Facility Locations [2009-05-19]
 #define SECTORFACILITIESFILENAME				"Map\\Facilities.xml"

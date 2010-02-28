@@ -653,7 +653,7 @@ void CheckForValidArrivalSector( )
 	INT16	cnt1, cnt2, sGoodX, sGoodY;
 	UINT8	ubRadius = 4;
 	INT32	leftmost;
-	INT16	sSectorGridNo, sSectorGridNo2;
+	INT32	 sSectorGridNo, sSectorGridNo2;
 	INT32	uiRange, uiLowestRange = 999999;
 	BOOLEAN	fFound = FALSE;
 	CHAR16 sString[ 1024 ];

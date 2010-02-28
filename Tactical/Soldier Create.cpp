@@ -88,6 +88,85 @@ OLD_SOLDIERCREATE_STRUCT_101& OLD_SOLDIERCREATE_STRUCT_101::operator=(const OLD_
 	return *this;
 }
 
+//dnl ch33 130909
+OLD_SOLDIERCREATE_STRUCT_101& OLD_SOLDIERCREATE_STRUCT_101::operator=(SOLDIERCREATE_STRUCT& src)
+{
+	if((void*)this != (void*)&src)
+	{
+		this->Inv = src.Inv;//had no meaning for 1.12 but let it be
+
+		this->DO_NOT_USE_Inv[OldInventory::HELMETPOS] = src.Inv[HELMETPOS];
+		this->DO_NOT_USE_Inv[OldInventory::VESTPOS] = src.Inv[VESTPOS];
+		this->DO_NOT_USE_Inv[OldInventory::LEGPOS] = src.Inv[LEGPOS];
+		this->DO_NOT_USE_Inv[OldInventory::HEAD1POS] = src.Inv[HEAD1POS];
+		this->DO_NOT_USE_Inv[OldInventory::HEAD2POS] = src.Inv[HEAD2POS];
+		this->DO_NOT_USE_Inv[OldInventory::HANDPOS] = src.Inv[HANDPOS];
+		this->DO_NOT_USE_Inv[OldInventory::SECONDHANDPOS] = src.Inv[SECONDHANDPOS];
+		this->DO_NOT_USE_Inv[OldInventory::BIGPOCK1POS] = src.Inv[BIGPOCK1POS];
+		this->DO_NOT_USE_Inv[OldInventory::BIGPOCK2POS] = src.Inv[BIGPOCK2POS];
+		this->DO_NOT_USE_Inv[OldInventory::BIGPOCK3POS] = src.Inv[BIGPOCK3POS];
+		this->DO_NOT_USE_Inv[OldInventory::BIGPOCK4POS] = src.Inv[BIGPOCK4POS];
+		this->DO_NOT_USE_Inv[OldInventory::SMALLPOCK1POS] = src.Inv[SMALLPOCK1POS];
+		this->DO_NOT_USE_Inv[OldInventory::SMALLPOCK2POS] = src.Inv[SMALLPOCK2POS];
+		this->DO_NOT_USE_Inv[OldInventory::SMALLPOCK3POS] = src.Inv[SMALLPOCK3POS];
+		this->DO_NOT_USE_Inv[OldInventory::SMALLPOCK4POS] = src.Inv[SMALLPOCK4POS];
+		this->DO_NOT_USE_Inv[OldInventory::SMALLPOCK5POS] = src.Inv[SMALLPOCK5POS];
+		this->DO_NOT_USE_Inv[OldInventory::SMALLPOCK6POS] = src.Inv[SMALLPOCK6POS];
+		this->DO_NOT_USE_Inv[OldInventory::SMALLPOCK7POS] = src.Inv[SMALLPOCK7POS];
+		this->DO_NOT_USE_Inv[OldInventory::SMALLPOCK8POS] = src.Inv[SMALLPOCK8POS];
+
+		memcpy(&(this->name), &(src.name), sizeof(CHAR16)*10);
+		memcpy(&(this->HeadPal), &(src.HeadPal), sizeof(PaletteRepID));
+		memcpy(&(this->PantsPal), &(src.PantsPal), sizeof(PaletteRepID));
+		memcpy(&(this->VestPal), &(src.VestPal), sizeof(PaletteRepID));
+		memcpy(&(this->SkinPal), &(src.SkinPal), sizeof(PaletteRepID));
+		memcpy(&(this->MiscPal), &(src.MiscPal), sizeof(PaletteRepID));
+		TranslateArrayFields(this->sPatrolGrid, src.sPatrolGrid, OLD_MAXPATROLGRIDS, INT32_INT16);
+
+		this->bAgility = src.bAgility;
+		this->bAIMorale = src.bAIMorale;
+		this->bAttitude = src.bAttitude;
+		this->bBodyType = src.bBodyType;
+		this->bDexterity = src.bDexterity;
+		this->ubDirection = src.ubDirection;
+		this->bExpLevel = src.bExpLevel;
+		this->bExplosive = src.bExplosive;
+		this->bLeadership = src.bLeadership;
+		this->bLife = src.bLife;
+		this->bLifeMax = src.bLifeMax;
+		this->bMarksmanship = src.bMarksmanship;
+		this->bMechanical = src.bMechanical;
+		this->bMedical = src.bMedical;
+		this->bMorale = src.bMorale;
+		this->bOrders = src.bOrders;
+		this->bPatrolCnt = src.bPatrolCnt;
+		this->bSectorZ = src.bSectorZ;
+		this->bStrength = src.bStrength;
+		this->bTeam = src.bTeam;
+		this->bUseGivenVehicleID = src.bUseGivenVehicleID;
+		this->bWisdom = src.bWisdom;
+		this->fCopyProfileItemsOver = src.fCopyProfileItemsOver;
+		this->fHasKeys = src.fHasKeys;
+		this->fKillSlotIfOwnerDies = src.fKillSlotIfOwnerDies;
+		this->fOnRoof = src.fOnRoof;
+		this->fPlayerMerc = src.fPlayerMerc;
+		this->fPlayerPlan = src.fPlayerPlan;
+		this->fStatic = src.fStatic;
+		this->fUseExistingSoldier = src.fUseExistingSoldier;
+		this->fUseGivenVehicle = src.fUseGivenVehicle;
+		this->fVisible = src.fVisible;
+		this->pExistingSoldier = src.pExistingSoldier;
+		this->sInsertionGridNo = src.sInsertionGridNo;
+		this->sSectorX = src.sSectorX;
+		this->sSectorY = src.sSectorY;
+		this->ubCivilianGroup = src.ubCivilianGroup;
+		this->ubProfile = src.ubProfile;
+		this->ubScheduleID = src.ubScheduleID;
+		this->ubSoldierClass = src.ubSoldierClass;
+	}
+	return(*this);
+}
+
 // Destructor
 OLD_SOLDIERCREATE_STRUCT_101::~OLD_SOLDIERCREATE_STRUCT_101() {
 }
@@ -116,8 +195,7 @@ SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const OLD_SOLDIERCREATE_ST
 		memcpy( &(this->VestPal), &(src.VestPal), sizeof(PaletteRepID) );	// 30
 		memcpy( &(this->SkinPal), &(src.SkinPal), sizeof(PaletteRepID) );	// 30
 		memcpy( &(this->MiscPal), &(src.MiscPal), sizeof(PaletteRepID) );	// 30
-		memcpy( &(this->sPatrolGrid), &(src.sPatrolGrid), sizeof(INT16) * MAXPATROLGRIDS );
-
+		TranslateArrayFields(this->sPatrolGrid, src.sPatrolGrid, OLD_MAXPATROLGRIDS, INT16_INT32);//dnl ch27 230909
 		this->bAgility = src.bAgility;
 		this->bAIMorale = src.bAIMorale;
 		this->bAttitude = src.bAttitude;
@@ -203,7 +281,7 @@ SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const SOLDIERTYPE& Soldier
 
 	//Copy patrol points
 	this->bPatrolCnt						= Soldier.aiData.bPatrolCnt;
-	memcpy( this->sPatrolGrid, Soldier.aiData.sPatrolGrid, sizeof( INT16 ) * MAXPATROLGRIDS );
+	memcpy( this->sPatrolGrid, Soldier.aiData.sPatrolGrid, sizeof( INT32 ) * MAXPATROLGRIDS );
 
 	//copy colors for soldier based on the body type.
 	sprintf( this->HeadPal,		Soldier.HeadPal );
@@ -264,6 +342,63 @@ SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const SOLDIERCREATE_STRUCT
 		this->Inv = src.Inv;
 	}
 	return *this;
+}
+
+//dnl ch42 290909
+SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const _OLD_SOLDIERCREATE_STRUCT& src)
+{
+	if((void*)this != (void*)&src)
+	{
+		Inv = src.Inv;
+		memcpy(name, src.name, sizeof(CHAR16)*10);
+		memcpy(&HeadPal, &src.HeadPal, sizeof(PaletteRepID));
+		memcpy(&PantsPal, &src.PantsPal, sizeof(PaletteRepID));
+		memcpy(&VestPal, &src.VestPal, sizeof(PaletteRepID));
+		memcpy(&SkinPal, &src.SkinPal, sizeof(PaletteRepID));
+		memcpy(&MiscPal, &src.MiscPal, sizeof(PaletteRepID));
+		TranslateArrayFields(sPatrolGrid, src.sPatrolGrid, OLD_MAXPATROLGRIDS, INT16_INT32);
+		bAgility = src.bAgility;
+		bAIMorale = src.bAIMorale;
+		bAttitude = src.bAttitude;
+		bBodyType = src.bBodyType;
+		bDexterity = src.bDexterity;
+		ubDirection = src.ubDirection;
+		bExpLevel = src.bExpLevel;
+		bExplosive = src.bExplosive;
+		bLeadership = src.bLeadership;
+		bLife = src.bLife;
+		bLifeMax = src.bLifeMax;
+		bMarksmanship = src.bMarksmanship;
+		bMechanical = src.bMechanical;
+		bMedical = src.bMedical;
+		bMorale = src.bMorale;
+		bOrders = src.bOrders;
+		bPatrolCnt = src.bPatrolCnt;
+		bSectorZ = src.bSectorZ;
+		bStrength = src.bStrength;
+		bTeam = src.bTeam;
+		bUseGivenVehicleID = src.bUseGivenVehicleID;
+		bWisdom = src.bWisdom;
+		fCopyProfileItemsOver = src.fCopyProfileItemsOver;
+		fHasKeys = src.fHasKeys;
+		fKillSlotIfOwnerDies = src.fKillSlotIfOwnerDies;
+		fOnRoof = src.fOnRoof;
+		fPlayerMerc = src.fPlayerMerc;
+		fPlayerPlan = src.fPlayerPlan;
+		fStatic = src.fStatic;
+		fUseExistingSoldier = src.fUseExistingSoldier;
+		fUseGivenVehicle = src.fUseGivenVehicle;
+		fVisible = src.fVisible;
+		pExistingSoldier = src.pExistingSoldier;
+		sInsertionGridNo = src.sInsertionGridNo;
+		sSectorX = src.sSectorX;
+		sSectorY = src.sSectorY;
+		ubCivilianGroup = src.ubCivilianGroup;
+		ubProfile = src.ubProfile;
+		ubScheduleID = src.ubScheduleID;
+		ubSoldierClass = src.ubSoldierClass;
+	}
+	return(*this);
 }
 
 // Destructor
@@ -1053,7 +1188,7 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 	pSoldier->aiData.bAttitude							= pCreateStruct->bAttitude;
 	pSoldier->ubDirection						= pCreateStruct->ubDirection;
 	pSoldier->aiData.bPatrolCnt						= pCreateStruct->bPatrolCnt;
-	memcpy( pSoldier->aiData.sPatrolGrid, pCreateStruct->sPatrolGrid, sizeof( INT16 ) * MAXPATROLGRIDS );
+	memcpy( pSoldier->aiData.sPatrolGrid, pCreateStruct->sPatrolGrid, sizeof( INT32 ) * MAXPATROLGRIDS );
 
 	if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED ) )
 	{
@@ -1487,7 +1622,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	//Adding patrol points
 	//CAUTION:	CONVERTING SIGNED TO UNSIGNED though the values should never be negative.
 	pSoldier->aiData.bPatrolCnt						= pCreateStruct->bPatrolCnt;
-	memcpy( pSoldier->aiData.sPatrolGrid, pCreateStruct->sPatrolGrid, sizeof( INT16 ) * MAXPATROLGRIDS );
+	memcpy( pSoldier->aiData.sPatrolGrid, pCreateStruct->sPatrolGrid, sizeof( INT32 ) * MAXPATROLGRIDS );
 
 	//Kris:	November 10, 1997
 	//Expanded the default names based on team.
@@ -1811,7 +1946,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 		return;
 	pp->fStatic								= FALSE;
 	pp->ubProfile							= NO_PROFILE;
-	pp->sInsertionGridNo			= bp->sStartingGridNo;
+	pp->sInsertionGridNo			= bp->usStartingGridNo;
 	pp->fPlayerMerc						= FALSE;
 	pp->fPlayerPlan						= FALSE;
 	pp->fCopyProfileItemsOver = FALSE;
@@ -2065,7 +2200,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 
 	//Transfer over the patrol points.
 	pp->bPatrolCnt		= bp->bPatrolCnt;
-	memcpy( pp->sPatrolGrid, bp->sPatrolGrid, sizeof( INT16 ) * MAXPATROLGRIDS );
+	memcpy( pp->sPatrolGrid, bp->sPatrolGrid, sizeof( INT32 ) * MAXPATROLGRIDS );
 
 	//If it is a detailed placement, don't do this yet, as detailed placements may have their
 	//own equipment.
@@ -2094,7 +2229,7 @@ void CreateStaticDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT 
 	spp->initialize();
 	spp->fStatic								= TRUE;
 	spp->ubProfile							= NO_PROFILE;
-	spp->sInsertionGridNo				= bp->sStartingGridNo;
+	spp->sInsertionGridNo				= bp->usStartingGridNo;
 	spp->fPlayerMerc						= FALSE;
 	spp->fPlayerPlan						= FALSE;
 	spp->fCopyProfileItemsOver	= FALSE;
@@ -2141,7 +2276,7 @@ void CreateStaticDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT 
 
 	//Transfer over the patrol points.
 	spp->bPatrolCnt			= bp->bPatrolCnt;
-	memcpy( spp->sPatrolGrid, bp->sPatrolGrid, sizeof( INT16 ) * MAXPATROLGRIDS );
+	memcpy( spp->sPatrolGrid, bp->sPatrolGrid, sizeof( INT32 ) * MAXPATROLGRIDS );
 
 	//Starts with nothing
 	for( i = 0; i < spp->Inv.size(); i++ )
@@ -2176,7 +2311,7 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 		pp->bTeam = bp->bTeam;
 
 		pp->ubDirection						= bp->ubDirection;
-		pp->sInsertionGridNo			= bp->sStartingGridNo;
+		pp->sInsertionGridNo			= bp->usStartingGridNo;
 
 		//ATE: Copy over sector coordinates from profile to create struct
 		pp->sSectorX							= gMercProfiles[ pp->ubProfile ].sSectorX;
@@ -2189,7 +2324,7 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 		pp->bAttitude							= bp->bAttitude;
 		pp->ubDirection						= bp->ubDirection;
 		pp->bPatrolCnt						= bp->bPatrolCnt;
-		memcpy( pp->sPatrolGrid, bp->sPatrolGrid, sizeof( INT16 ) * MAXPATROLGRIDS );
+		memcpy( pp->sPatrolGrid, bp->sPatrolGrid, sizeof( INT32 ) * MAXPATROLGRIDS );
 		pp->fHasKeys							= bp->fHasKeys;
 		pp->ubCivilianGroup				= bp->ubCivilianGroup;
 
@@ -2414,8 +2549,9 @@ void ForceSoldierProfileID( SOLDIERTYPE *pSoldier, UINT8 ubProfileID )
 
 }
 
-#define CENTRAL_GRIDNO 13202
-#define CENTRAL_RADIUS 30
+//dnl ch56 141009
+//#define CENTRAL_GRIDNO 13202
+//#define CENTRAL_RADIUS 30
 
 SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 {
@@ -2436,8 +2572,8 @@ SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 		iEnd = gTacticalStatus.Team[ CREATURE_TEAM ].bLastID;
 	}
 	for( i = iStart; i <= iEnd; i++ )
-	{
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bInSector && MercPtrs[ i ]->stats.bLife && MercPtrs[ i ]->sGridNo != NOWHERE )
+	{		
+		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bInSector && MercPtrs[ i ]->stats.bLife && !TileIsOutOfBounds(MercPtrs[ i ]->sGridNo))
 		{
 			if( MercPtrs[ i ]->ubSoldierClass == ubSoldierClass )
 			{
@@ -2485,7 +2621,7 @@ SOLDIERTYPE* TacticalCreateAdministrator()
 	if ( pSoldier )
 	{
 		// send soldier to centre of map, roughly
-		pSoldier->aiData.sNoiseGridno = (INT16) (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
 		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
 	}
 	return( pSoldier );
@@ -2518,7 +2654,7 @@ SOLDIERTYPE* TacticalCreateArmyTroop()
 	if ( pSoldier )
 	{
 		// send soldier to centre of map, roughly
-		pSoldier->aiData.sNoiseGridno = (INT16) (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
 		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
 	}
 
@@ -2560,7 +2696,7 @@ SOLDIERTYPE* TacticalCreateEliteEnemy()
 	if ( pSoldier )
 	{
 		// send soldier to centre of map, roughly
-		pSoldier->aiData.sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
 		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
 	}
 
@@ -2578,8 +2714,8 @@ SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
 	iEnd = gTacticalStatus.Team[ MILITIA_TEAM ].bLastID;
 
 	for( i = iStart; i <= iEnd; i++ )
-	{
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bInSector && MercPtrs[ i ]->stats.bLife && MercPtrs[ i ]->sGridNo != NOWHERE )
+	{		
+		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bInSector && MercPtrs[ i ]->stats.bLife && !TileIsOutOfBounds(MercPtrs[ i ]->sGridNo))
 		{
 			if( MercPtrs[ i ]->ubSoldierClass == ubSoldierClass )
 			{
@@ -2763,11 +2899,11 @@ void QuickCreateProfileMerc( INT8 bTeam, UINT8 ubProfileID )
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	INT16										sWorldX, sWorldY, sSectorX, sSectorY, sGridX, sGridY;
 	UINT8									ubID;
-	INT16 sMapPos;
+	INT32 usMapPos;
 
 	if ( GetMouseXY( &sGridX, &sGridY ) )
 	{
-		sMapPos = MAPROWCOLTOPOS( sGridY, sGridX );
+		usMapPos = MAPROWCOLTOPOS( sGridY, sGridX );
 		// Get Grid Coordinates of mouse
 		if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) )
 		{
@@ -2780,7 +2916,7 @@ void QuickCreateProfileMerc( INT8 bTeam, UINT8 ubProfileID )
 			MercCreateStruct.sSectorX			= sSectorX;
 			MercCreateStruct.sSectorY			= sSectorY;
 			MercCreateStruct.bSectorZ			= gbWorldSectorZ;
-			MercCreateStruct.sInsertionGridNo		= sMapPos;
+			MercCreateStruct.sInsertionGridNo		= usMapPos;
 
 			RandomizeNewSoldierStats( &MercCreateStruct );
 
@@ -3161,4 +3297,45 @@ void ReduceHighExpLevels( INT8 *pbExpLevel )
 		*pbExpLevel	= 5;
 	// else leave it alone
 
+}
+
+BOOLEAN TranslateArrayFields(void* out, const void* inp, int len, int cmd)//dnl ch27 240909
+{
+	switch(cmd)
+	{
+	case UINT8_UINT8:
+		memcpy(out, inp, len);
+		//for(int i=0; i<len; i++)
+		//	((UINT8*)out)[i] = ((UINT8*)inp)[i];
+		break;
+	case UINT16_UINT16:
+		memcpy(out, inp, sizeof(UINT16)*len);
+		//for(int i=0; i<len; i++)
+		//	((UINT16*)out)[i] = ((UINT16*)inp)[i];
+		break;
+	case UINT32_UINT32:
+		memcpy(out, inp, sizeof(UINT32)*len);
+		//for(int i=0; i<len; i++)
+		//	((UINT32*)out)[i] = ((UINT32*)inp)[i];
+		break;
+	case UINT8_UINT16:
+		for(int i=0; i<len; i++)
+			((UINT16*)out)[i] = ((UINT8*)inp)[i];
+		break;
+	case UINT16_UINT8:
+		for(int i=0; i<len; i++)
+			((UINT8*)out)[i] = (UINT8)((UINT16*)inp)[i];
+		break;
+	case INT16_INT32:
+		for(int i=0; i<len; i++)
+			((INT32*)out)[i] = ((INT16*)inp)[i];
+		break;
+	case INT32_INT16:
+		for(int i=0; i<len; i++)
+			((INT16*)out)[i] = ((INT32*)inp)[i];
+		break;
+	default:
+		return(FALSE);
+	}
+	return(TRUE);
 }

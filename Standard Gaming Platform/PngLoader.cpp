@@ -26,8 +26,8 @@ void LoadPalettedPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop in
 
 void user_read_data(png::png_structp png_ptr, png::png_bytep data, png::png_size_t length)
 {
-	vfs::UInt32 read;
-	THROWIFFALSE( static_cast<vfs::tReadableFile*>(png_ptr->io_ptr)->Read((vfs::Byte*)data,length, read),"error during png file reading");
+	TRYCATCH_RETHROW( static_cast<vfs::tReadableFile*>(png_ptr->io_ptr)->read((vfs::Byte*)data,length),
+		L"error during png file reading");
 }
 
 /*******************************************************************************/
@@ -39,22 +39,22 @@ public:
 	IndexedSTIImage();
 	~IndexedSTIImage();
 	
-	bool SetPalette(SGPPaletteEntry *pPal, int iSize);
-	bool SetPalette(png::png_colorp pPal, int iSize);
-	bool AddImage(UINT8 *data, UINT32 data_size, UINT32 image_width, UINT32 image_height, INT32 image_offset_x, INT32 image_offset_y, UINT8 *original_compressed=NULL, UINT32 original_compressed_size=0);
+	bool setPalette(SGPPaletteEntry *pPal, int iSize);
+	bool setPalette(png::png_colorp pPal, int iSize);
+	bool addImage(UINT8 *data, UINT32 data_size, UINT32 image_width, UINT32 image_height, INT32 image_offset_x, INT32 image_offset_y, UINT8 *original_compressed=NULL, UINT32 original_compressed_size=0);
 
-	bool AddCompressedImage(UINT8 *data, UINT32 data_size, UINT32 image_width, UINT32 image_height, INT32 image_offset_x, INT32 image_offset_y);
+	bool addCompressedImage(UINT8 *data, UINT32 data_size, UINT32 image_width, UINT32 image_height, INT32 image_offset_x, INT32 image_offset_y);
 
-	bool ReadAppDataFromXMLFile(HIMAGE hImage, vfs::tReadableFile* pFile);
+	bool readAppDataFromXMLFile(HIMAGE hImage, vfs::tReadableFile* pFile);
 
-	bool WriteImage(vfs::tWriteableFile* pFile);
-	bool WriteToHIMAGE(HIMAGE pImage);
+	bool writeImage(vfs::tWritableFile* pFile);
+	bool writeToHIMAGE(HIMAGE pImage);
 private:
-	STCIHeader _header;
-	STCIPaletteElement *_palette;
-	int _pal_size;
-	std::vector<STCISubImage> _images;
-	std::vector<std::vector<UINT8> > _compressed_images;
+	STCIHeader							_header;
+	STCIPaletteElement*					_palette;
+	int									_pal_size;
+	std::vector<STCISubImage>			_images;
+	std::vector<std::vector<UINT8> >	_compressed_images;
 };
 
 IndexedSTIImage::IndexedSTIImage()
@@ -75,7 +75,7 @@ IndexedSTIImage::~IndexedSTIImage()
 	}
 }
 
-bool IndexedSTIImage::SetPalette(SGPPaletteEntry *pPal, int iSize)
+bool IndexedSTIImage::setPalette(SGPPaletteEntry *pPal, int iSize)
 {
 	if(iSize < 0 ||iSize > 1024)
 	{
@@ -92,7 +92,7 @@ bool IndexedSTIImage::SetPalette(SGPPaletteEntry *pPal, int iSize)
 
 	return true;
 }
-bool IndexedSTIImage::SetPalette(png::png_colorp pPal, int iSize)
+bool IndexedSTIImage::setPalette(png::png_colorp pPal, int iSize)
 {
 	if(iSize < 0 ||iSize > 1024)
 	{
@@ -109,7 +109,7 @@ bool IndexedSTIImage::SetPalette(png::png_colorp pPal, int iSize)
 	return true;
 }
 
-bool IndexedSTIImage::AddCompressedImage(UINT8 *data, UINT32 data_size, UINT32 image_width, UINT32 image_height, INT32 image_offset_x, INT32 image_offset_y)
+bool IndexedSTIImage::addCompressedImage(UINT8 *data, UINT32 data_size, UINT32 image_width, UINT32 image_height, INT32 image_offset_x, INT32 image_offset_y)
 {
 	if(!data || (data_size < 0) )
 	{
@@ -135,7 +135,7 @@ bool IndexedSTIImage::AddCompressedImage(UINT8 *data, UINT32 data_size, UINT32 i
 }
 
 
-bool IndexedSTIImage::AddImage(UINT8 *data, UINT32 data_size, UINT32 image_width, UINT32 image_height, INT32 image_offset_x, INT32 image_offset_y, UINT8 *original_compressed, UINT32 original_compressed_size)
+bool IndexedSTIImage::addImage(UINT8 *data, UINT32 data_size, UINT32 image_width, UINT32 image_height, INT32 image_offset_x, INT32 image_offset_y, UINT8 *original_compressed, UINT32 original_compressed_size)
 {
 	if(!data || (data_size != image_width*image_height) )
 	{
@@ -236,7 +236,7 @@ bool IndexedSTIImage::AddImage(UINT8 *data, UINT32 data_size, UINT32 image_width
 
 
 
-inline void SetFlag(UINT8 &flags, char const* sFlag)
+static inline void setFlag(UINT8 &flags, char const* sFlag)
 {
 	/*0x01*/ if     (strcmp(sFlag, "AUX_FULL_TILE") == 0)			flags |= AUX_FULL_TILE;
 	/*0x02*/ else if(strcmp(sFlag, "AUX_ANIMATED_TILE") == 0)		flags |= AUX_ANIMATED_TILE;
@@ -274,11 +274,11 @@ public:
 	}
 	virtual ~CAppDataParser() {};
 
-	virtual void OnStartElement(const XML_Char* name, const XML_Char** atts);
-	virtual void OnEndElement(const XML_Char* name);
-	virtual void OnTextElement(const XML_Char *str, int len);
+	virtual void onStartElement(const XML_Char* name, const XML_Char** atts);
+	virtual void onEndElement(const XML_Char* name);
+	virtual void onTextElement(const XML_Char *str, int len);
 
-	void SetImage(HIMAGE hImage)
+	void setImage(HIMAGE hImage)
 	{
 		m_hImage = hImage;
 		if(m_hImage)
@@ -307,7 +307,7 @@ private:
 	int							m_iCurrentIndex;			
 };
 
-void CAppDataParser::OnStartElement(const XML_Char* name, const XML_Char** atts)
+void CAppDataParser::onStartElement(const XML_Char* name, const XML_Char** atts)
 {
 	if( current_state == DO_ELEMENT_NONE && strcmp(name, this->ElementName) == 0 )
 	{
@@ -316,7 +316,7 @@ void CAppDataParser::OnStartElement(const XML_Char* name, const XML_Char** atts)
 	else if(current_state == DO_ELEMENT_ImageData && strcmp(name, "SubImage") == 0)
 	{
 		int index = -1;
-		THROWIFFALSE(GetAttributeAsInt("index",atts,index), L"could not read attribute \"index\"");
+		THROWIFFALSE(getAttributeAsInt("index",atts,index), L"could not read attribute \"index\"");
 		m_iCurrentIndex = index;
 		if(index >= (int)m_vAppData.size())
 		{
@@ -327,12 +327,12 @@ void CAppDataParser::OnStartElement(const XML_Char* name, const XML_Char** atts)
 	else if(current_state == DO_ELEMENT_SubImage && strcmp(name, "offset") == 0)
 	{
 		int offset_x = 0, offset_y = 0;
-		if(GetAttributeAsInt("x",atts,offset_x))
+		if(getAttributeAsInt("x",atts,offset_x))
 		{
 			m_vAppData[m_iCurrentIndex].offset.x = offset_x;
 			m_vAppData[m_iCurrentIndex].offset._override = true;
 		}
-		if(GetAttributeAsInt("y",atts,offset_y))
+		if(getAttributeAsInt("y",atts,offset_y))
 		{
 			m_vAppData[m_iCurrentIndex].offset.y = offset_y;
 			m_vAppData[m_iCurrentIndex].offset._override = true;
@@ -349,7 +349,7 @@ void CAppDataParser::OnStartElement(const XML_Char* name, const XML_Char** atts)
 	}
 	else if(current_state == DO_ELEMENT_flags)
 	{
-		SetFlag(m_vAppData[m_iCurrentIndex].aux.fFlags, name);
+		setFlag(m_vAppData[m_iCurrentIndex].aux.fFlags, name);
 	}
 	else if(current_state == DO_ELEMENT_AuxData && 
 				(	strcmp(name, "ubCurrentFrame") == 0 || 
@@ -363,7 +363,7 @@ void CAppDataParser::OnStartElement(const XML_Char* name, const XML_Char** atts)
 	}
 	sCharData = "";
 }
-void CAppDataParser::OnEndElement(const XML_Char* name)
+void CAppDataParser::onEndElement(const XML_Char* name)
 {
 	char *p;
 	if( strcmp(name, "usTileLocIndex") == 0 && current_state == DO_ELEMENT_properties)
@@ -434,7 +434,7 @@ void CAppDataParser::OnEndElement(const XML_Char* name)
 		current_state = DO_ELEMENT_NONE;
 	}
 }
-void CAppDataParser::OnTextElement(const XML_Char *str, int len)
+void CAppDataParser::onTextElement(const XML_Char *str, int len)
 {
 	// handle only this special case; everything else does not matter for now
 	if(current_state == DO_ELEMENT_properties)
@@ -445,26 +445,34 @@ void CAppDataParser::OnTextElement(const XML_Char *str, int len)
 }
 
 
-bool IndexedSTIImage::ReadAppDataFromXMLFile(HIMAGE hImage, vfs::tReadableFile* pFile)
+bool IndexedSTIImage::readAppDataFromXMLFile(HIMAGE hImage, vfs::tReadableFile* pFile)
 {
 	if(!pFile)
 	{
 		return false;
 	}
-	vfs::COpenReadFile oFile(pFile);
-	UINT32 uiSize = oFile.file().GetFileSize();
-	std::vector<char> vBuffer(uiSize+1);
+	std::vector<char> vBuffer;
+	UINT32 uiSize = 0;
+	try
+	{
+		vfs::COpenReadFile oFile(pFile);
+		uiSize = oFile.file().getSize();
+		vBuffer.resize(uiSize+1);
 
-	UINT32 uiHasRead;
-	THROWIFFALSE( oFile.file().Read(&vBuffer[0],uiSize,uiHasRead) || (uiSize != uiHasRead), L"Could not read XML file");
-	vBuffer[uiSize] = 0;
-	oFile.file().Close();
-	
+		THROWIFFALSE(uiSize == oFile.file().read(&vBuffer[0],uiSize), L"Could not read XML file");
+		vBuffer[uiSize] = 0;
+		oFile.file().close();
+	}
+	catch(CBasicException& ex)
+	{
+		RETHROWEXCEPTION(L"", &ex);
+	}
+
 	XML_Parser	parser = XML_ParserCreate(NULL);
 
 	CAppDataParser adp(parser);
-	adp.GrabParser();
-	adp.SetImage(hImage);
+	adp.grabParser();
+	adp.setImage(hImage);
 
 	try
 	{
@@ -472,7 +480,7 @@ bool IndexedSTIImage::ReadAppDataFromXMLFile(HIMAGE hImage, vfs::tReadableFile* 
 		{
 			std::wstringstream wss;
 			wss << L"XML Parser Error in Groups.xml: " 
-				<< utf8string(XML_ErrorString(XML_GetErrorCode(parser))).c_wcs().c_str() 
+				<< utf8string(XML_ErrorString(XML_GetErrorCode(parser))).c_wcs()
 				<< L" at line " 
 				<< XML_GetCurrentLineNumber(parser);
 			THROWEXCEPTION(wss.str().c_str());
@@ -486,7 +494,7 @@ bool IndexedSTIImage::ReadAppDataFromXMLFile(HIMAGE hImage, vfs::tReadableFile* 
 }
 
 
-bool IndexedSTIImage::WriteToHIMAGE(HIMAGE pImage)
+bool IndexedSTIImage::writeToHIMAGE(HIMAGE pImage)
 {
 	if(!pImage)
 	{
@@ -617,7 +625,7 @@ public:
 	{
 		if(_file)
 		{
-			_file->Close();
+			_file->close();
 		}
 		if(_struct && _info)
 		{
@@ -686,36 +694,21 @@ bool LoadPNGFileToImage(HIMAGE hImage, UINT16 fContents)
 
 bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 {
-	if(!GetVFS()->FileExists(hImage->ImageFile))
+	if(!getVFS()->fileExists(hImage->ImageFile))
 	{
 		return false;
 	}
-	vfs::COpenReadFile oFile(hImage->ImageFile);
-
 	vfs::CMemoryFile oBuffer("");
-	THROWIFFALSE( oBuffer.CopyToBuffer(oFile.file()), L"Could not copy file to buffer");
 
-	//UINT32 uiSize = oFile.file().GetFileSize();
-	//std::vector<UINT8> vBuffer(uiSize);
-
-	//UINT uiHasRead, uiHasWritten;
-	//if( !oFile.file().Read(&vBuffer[0],uiSize,&uiHasRead) || uiHasRead != uiSize)
-	//{
-	//	THROWEXCEPTION(L"could not load file content to buffer");
-	//}
-
-	//oBuffer.OpenWrite();
-	//if( !oBuffer.Write(&vBuffer[0],uiSize,&uiHasWritten) || uiSize != uiHasWritten)
-	//{
-	//	THROWEXCEPTION(L"cound not write buffer content into memory file");
-	//}
-	oBuffer.Close();
+	vfs::COpenReadFile oFile(hImage->ImageFile);
+	TRYCATCH_RETHROW(oBuffer.copyToBuffer(oFile.file()), L"Could not copy file to buffer");
+	oBuffer.close();
 
 	//vfs::CUncompressed7zLibrary oLib(&oFile.file(),"");
 	ObjBlockAllocator<vfs::CLibFile> allocator(128);
-	vfs::CUncompressed7zLibrary oLib(vfs::tReadableFile::Cast(&oBuffer),"",false, &allocator);
+	vfs::CUncompressed7zLibrary oLib(vfs::tReadableFile::cast(&oBuffer),"",false, &allocator);
 
-	if(!oLib.Init())
+	if(!oLib.init())
 	{
 		return false;
 	}
@@ -735,7 +728,7 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 	for(; !it.end(); it.next())
 	{
 		// check extension
-		utf8string::str_t const& fname = it.value()->GetFileName()().c_wcs();
+		utf8string::str_t const& fname = it.value()->getName().c_wcs();
 		utf8string::size_t dot = fname.find_last_of(vfs::Const::DOT());
 		if(dot != utf8string::str_t::npos)
 		{
@@ -756,7 +749,7 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 			}
 			else if (StrCmp::Equal(fname.substr(dot,fname.length()-dot), CONST_DOTXML) )
 			{
-				appdata_file = vfs::tReadableFile::Cast(it.value());
+				appdata_file = vfs::tReadableFile::cast(it.value());
 			}
 		}
 	}
@@ -767,7 +760,7 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 	{
 		try
 		{
-			LoadPngFile lpng( vfs::tReadableFile::Cast(vFiles[0]) );
+			LoadPngFile lpng( vfs::tReadableFile::cast(vFiles[0]) );
 
 			bool bLoadS = lpng.Load();
 	
@@ -799,7 +792,7 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 		{
 			std::wstringstream wss;
 			wss << L"Loading PNG image from file '"
-				<< oFile.file().GetFullPath()().c_wcs()
+				<< oFile.file().getPath().c_wcs()
 				<< L"' failed";
 			RETHROWEXCEPTION(wss.str().c_str(),&ex);
 		}
@@ -817,10 +810,10 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 			try
 			{
 				vfs::CMemoryFile oTempFile("");
-				oTempFile.CopyToBuffer( *vfs::tReadableFile::Cast(*fit) );
+				oTempFile.copyToBuffer( *vfs::tReadableFile::cast(*fit) );
 
-//				LoadPngFile lpng( vfs::tReadableFile::Cast(*fit) );
-				LoadPngFile lpng( vfs::tReadableFile::Cast(&oTempFile) );
+//				LoadPngFile lpng( vfs::tReadableFile::cast(*fit) );
+				LoadPngFile lpng( vfs::tReadableFile::cast(&oTempFile) );
 	
 				bool bLoadS = lpng.Load();
 				if(bLoadS)
@@ -830,7 +823,7 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 						if(!bHasPalette)
 						{
 							THROWIFFALSE(lpng.Info()->num_palette == 256, L"size of palette is not 256");
-							image.SetPalette(lpng.Info()->palette, lpng.Info()->num_palette);
+							image.setPalette(lpng.Info()->palette, lpng.Info()->num_palette);
 							bHasPalette = true;
 						}
 						UINT32 SIZE = lpng.Info()->height * lpng.Info()->width;
@@ -839,12 +832,12 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 						{
 							memcpy(&data[i*lpng.Info()->width],lpng.Rows()[i],lpng.Info()->width);
 						}
-						image.AddImage(&data[0], SIZE, lpng.Info()->width, lpng.Info()->height, lpng.Info()->x_offset, lpng.Info()->y_offset);
+						image.addImage(&data[0], SIZE, lpng.Info()->width, lpng.Info()->height, lpng.Info()->x_offset, lpng.Info()->y_offset);
 					}
 					else
 					{
 						std::wstringstream wss;
-						wss << L"PNG file '" << (*fit)->GetFileName()() << L" @ " << oFile.file().GetFullPath()() << L"' is not a paletted image";
+						wss << L"PNG file '" << (*fit)->getName()() << L" @ " << oFile.file().getPath()() << L"' is not a paletted image";
 						THROWEXCEPTION(wss.str().c_str());
 					}
 				}
@@ -852,15 +845,15 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 			catch(CBasicException& ex)
 			{
 				std::wstringstream wss;
-				wss << L"Loading PNG image [" << findex << L"] from file '"	<< oFile.file().GetFullPath()().c_wcs() << L"' failed";
+				wss << L"Loading PNG image [" << findex << L"] from file '"	<< oFile.file().getPath().c_wcs() << L"' failed";
 				RETHROWEXCEPTION(wss.str().c_str(),&ex);
 			}
 		}
 	}
-	bool success = image.WriteToHIMAGE(hImage);
+	bool success = image.writeToHIMAGE(hImage);
 	if(appdata_file)
 	{
-		success &= image.ReadAppDataFromXMLFile(hImage, appdata_file);
+		success &= image.readAppDataFromXMLFile(hImage, appdata_file);
 	}
 	return success;
 }

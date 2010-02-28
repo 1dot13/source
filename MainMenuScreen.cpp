@@ -290,11 +290,11 @@ BOOLEAN InitMainMenu( )
 		is_networked = FALSE;
 #ifdef USE_VFS
 		// remove Multiplayer profile if it exists
-		vfs::CProfileStack *PS = GetVFS()->GetProfileStack();
-		vfs::CVirtualProfile *pProf = PS->GetProfile("_MULTIPLAYER");
-		if( pProf && (pProf == PS->TopProfile()) )
+		vfs::CProfileStack *PS = getVFS()->getProfileStack();
+		vfs::CVirtualProfile *pProf = PS->getProfile("_MULTIPLAYER");
+		if( pProf && (pProf == PS->topProfile()) )
 		{
-			THROWIFFALSE(PS->PopProfile(), "Leaving Multiplayer mode : Could not remove \"_MULTIPLAYER\" profile");
+			THROWIFFALSE(PS->popProfile(), "Leaving Multiplayer mode : Could not remove \"_MULTIPLAYER\" profile");
 		}
 #endif
 
@@ -443,49 +443,52 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 		if( gbHandledMainMenu == NEW_GAME )
 		{
-				if(is_networked)
-				{
-					is_networked = FALSE;
-					giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
-						// Snap: UN-Init MP save game directory
+			giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+			if(is_networked)
+			{
+				is_networked = FALSE;
+				// Snap: UN-Init MP save game directory
 				if ( !InitSaveDir() )
 				{
 
 					//if something didnt work, dont even know how to make error code...//hayden
 				}
-				}
-		;
+			};
 
 			SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
 		}
 		else if (gbHandledMainMenu == NEW_MP_GAME)
 		{
 			is_networked = TRUE;
+
+			// WANNE - MP: Only reset this here, because otherwise after a MP game ends and a new starts, we would receive the files again.
+			fClientReceivedAllFiles = FALSE;
+
 			giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = 7;
 
-				// Snap: Re-Init MP save game directory
-				if ( !InitSaveDir() )
-				{
+			// Snap: Re-Init MP save game directory
+			if ( !InitSaveDir() )
+			{
 
-					//if something didnt work, dont even know how to make error code...//hayden
-				}
+				//if something didnt work, dont even know how to make error code...//hayden
+			}
 
 			SetMainMenuExitScreen( MP_JOIN_SCREEN ); // OJW - 20081129
 			//SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
 		}
 		else if( gbHandledMainMenu == LOAD_GAME )
 		{
-				if(is_networked)
-				{	
-					is_networked = FALSE;
-					// Snap: UN-Init MP save game directory
+			giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+			if(is_networked)
+			{	
+				is_networked = FALSE;
+				// Snap: UN-Init MP save game directory
 				if ( !InitSaveDir() )
 				{
 
 					//if something didnt work, dont even know how to make error code...//hayden
 				}
-				}
-				
+			}
 
 			if( gfKeyState[ ALT ] )
 				gfLoadGameUponEntry = TRUE;

@@ -63,6 +63,7 @@
 	#include "Interface Panels.h"
 	// HEADROCK HAM 3.6: Include for adding facility debt reset
 	#include "Facilities.h"
+	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 #endif
 
 #include "Vehicles.h"
@@ -89,88 +90,120 @@ void InitNPCs( void )
 
 	// add the pilot at a random location!
 	pProfile = &(gMercProfiles[ SKYRIDER ]);
-	switch( Random( 4 ) )
+
+	if (!is_networked)
 	{
-		case 0:
-			pProfile->sSectorX = 15;
-			pProfile->sSectorY = MAP_ROW_B;
-			pProfile->bSectorZ = 0;
-			break;
-		case 1:
-			pProfile->sSectorX = 14;
-			pProfile->sSectorY = MAP_ROW_E;
-			pProfile->bSectorZ = 0;
-			break;
-		case 2:
-			pProfile->sSectorX = 12;
-			pProfile->sSectorY = MAP_ROW_D;
-			pProfile->bSectorZ = 0;
-			break;
-		case 3:
-			pProfile->sSectorX = 16;
-			pProfile->sSectorY = MAP_ROW_C;
-			pProfile->bSectorZ = 0;
-			break;
-		default:
-			AssertMsg(false, "Skyrider was not set up properly");
+		switch( Random( 4 ) )
+		{
+			case 0:
+				pProfile->sSectorX = 15;
+				pProfile->sSectorY = MAP_ROW_B;
+				pProfile->bSectorZ = 0;
+				break;
+			case 1:
+				pProfile->sSectorX = 14;
+				pProfile->sSectorY = MAP_ROW_E;
+				pProfile->bSectorZ = 0;
+				break;
+			case 2:
+				pProfile->sSectorX = 12;
+				pProfile->sSectorY = MAP_ROW_D;
+				pProfile->bSectorZ = 0;
+				break;
+			case 3:
+				pProfile->sSectorX = 16;
+				pProfile->sSectorY = MAP_ROW_C;
+				pProfile->bSectorZ = 0;
+				break;
+			default:
+				AssertMsg(false, "Skyrider was not set up properly");
+		}
 	}
+	// WANNE - MP: Set Skyrider in a MP game hardcoded to 15/B
+	else
+	{
+		pProfile->sSectorX = 15;
+		pProfile->sSectorY = MAP_ROW_B;
+		pProfile->bSectorZ = 0;
+	}
+
 
 	#ifdef JA2TESTVERSION
 		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Skyrider in %c %d", 'A' + pProfile->sSectorY - 1, pProfile->sSectorX );
 	#endif
+
 	// use alternate map, with Skyrider's shack, in this sector
 	SectorInfo[ SECTOR( pProfile->sSectorX, pProfile->sSectorY ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
 
 
 	// set up Madlab's secret lab (he'll be added when the meanwhile scene occurs)
 
-	switch( Random( 4 ) )
+	if (!is_networked)
 	{
-		case 0:
-			// use alternate map in this sector
-			SectorInfo[ SECTOR( 7, MAP_ROW_H ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
-			break;
-		case 1:
-			SectorInfo[ SECTOR( 16, MAP_ROW_H ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
-			break;
-		case 2:
-			SectorInfo[ SECTOR( 11, MAP_ROW_I ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
-			break;
-		case 3:
-			SectorInfo[ SECTOR( 4, MAP_ROW_E ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
-			break;
+		switch( Random( 4 ) )
+		{
+			case 0:
+				// use alternate map in this sector
+				SectorInfo[ SECTOR( 7, MAP_ROW_H ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
+				break;
+			case 1:
+				SectorInfo[ SECTOR( 16, MAP_ROW_H ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
+				break;
+			case 2:
+				SectorInfo[ SECTOR( 11, MAP_ROW_I ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
+				break;
+			case 3:
+				SectorInfo[ SECTOR( 4, MAP_ROW_E ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
+				break;
+		}
+	}
+	// WANNE - MP: Set Madlab in a MP game hardcoded to 7/H
+	else
+	{
+		SectorInfo[ SECTOR( 7, MAP_ROW_H ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
 	}
 
 	// add Micky in random location
 
 	pProfile = &(gMercProfiles[MICKY]);
-	switch( Random( 5 ) )
+
+	if (!is_networked)
 	{
-		case 0:
-			pProfile->sSectorX = 9;
-			pProfile->sSectorY = MAP_ROW_G;
-			pProfile->bSectorZ = 0;
-			break;
-		case 1:
-			pProfile->sSectorX = 13;
-			pProfile->sSectorY = MAP_ROW_D;
-			pProfile->bSectorZ = 0;
-			break;
-		case 2:
-			pProfile->sSectorX = 5;
-			pProfile->sSectorY = MAP_ROW_C;
-			pProfile->bSectorZ = 0;
-			break;
-		case 3:
-			pProfile->sSectorX = 2;
-			pProfile->sSectorY = MAP_ROW_H;
-			pProfile->bSectorZ = 0;
-			break;
-		case 4:
-			pProfile->sSectorX = 6;
-			pProfile->sSectorY = MAP_ROW_C;
-			pProfile->bSectorZ = 0;
-			break;
+		switch( Random( 5 ) )
+		{
+			case 0:
+				pProfile->sSectorX = 9;
+				pProfile->sSectorY = MAP_ROW_G;
+				pProfile->bSectorZ = 0;
+				break;
+			case 1:
+				pProfile->sSectorX = 13;
+				pProfile->sSectorY = MAP_ROW_D;
+				pProfile->bSectorZ = 0;
+				break;
+			case 2:
+				pProfile->sSectorX = 5;
+				pProfile->sSectorY = MAP_ROW_C;
+				pProfile->bSectorZ = 0;
+				break;
+			case 3:
+				pProfile->sSectorX = 2;
+				pProfile->sSectorY = MAP_ROW_H;
+				pProfile->bSectorZ = 0;
+				break;
+			case 4:
+				pProfile->sSectorX = 6;
+				pProfile->sSectorY = MAP_ROW_C;
+				pProfile->bSectorZ = 0;
+				break;
+		}
+	}
+	// WANNE - MP: Set Micky in a MP game hardcoded to 9/G
+	else
+	{
+		pProfile->sSectorX = 9;
+		pProfile->sSectorY = MAP_ROW_G;
+		pProfile->bSectorZ = 0;
 	}
 
 	#ifdef JA2TESTVERSION
@@ -463,6 +496,9 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		}
 	}
 
+	if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 081009
+		MemFreeInventoryPoolQ();
+
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame: loading merc profiles");
 	if( gubScreenCount == 0 )
 	{
@@ -586,7 +622,6 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		{
 			SetLaptopExitScreen( MAP_SCREEN ); //hayden
 			SetPendingNewScreen( MAP_SCREEN );
-			
 			// WANNE: No more used
 			/*
 			ScreenMsg( MSG_FONT_WHITE, MSG_MPSYSTEM, L"------------------------------------------------------");
@@ -769,7 +804,7 @@ void QuickSetupOfMercProfileItems( UINT32 uiCount, UINT8 ubProfileIndex )
 		// TEMP!
 		// make carman's opinion of us high!
 		if (OKToCheckOpinion(ubProfileIndex))
-		gMercProfiles[ 78 ].bMercOpinion[ ubProfileIndex ] = 25;
+			gMercProfiles[ 78 ].bMercOpinion[ ubProfileIndex ] = 25;
 
 	}
 	else if ( uiCount == 1 )

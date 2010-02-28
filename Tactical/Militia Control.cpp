@@ -227,7 +227,7 @@ void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 	for (int i=0; i<TOTAL_SOLDIERS; i++)
 	{
 		//CHRISL: What's this assert for?
-		//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE);
+		//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || !TileIsOutOfBounds(MercPtrs[i]->sGridNo));
 	}
 
 	pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
@@ -284,7 +284,7 @@ void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 	for (int i=0; i<TOTAL_SOLDIERS; i++)
 	{
 		//CHRISL: What's this assert for?
-		//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE);
+		//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || !TileIsOutOfBounds(MercPtrs[i]->sGridNo));
 	}
 }
 
@@ -1342,8 +1342,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							sActionGridNo =  FindSpotMaxDistFromOpponents( pTMilitiaSoldier );
 
 							pTMilitiaSoldier->aiData.usNextActionData = sActionGridNo;
-
-							if ( pTMilitiaSoldier->aiData.usNextActionData != NOWHERE )
+							
+							if (!TileIsOutOfBounds(pTMilitiaSoldier->aiData.usNextActionData))
 							{
 								pTMilitiaSoldier->aiData.bNextAction = AI_ACTION_RUN_AWAY;
 								pTMilitiaSoldier->aiData.usActionData = ANIM_STAND;
@@ -1379,7 +1379,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					{	
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
-							INT16 sActionGridNo, sGridNo, sAdjustedGridNo;
+							INT32 sActionGridNo, sGridNo, sAdjustedGridNo;
 							UINT8	ubDirection;
 
 							if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
@@ -1460,8 +1460,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							INT32 iDummy;						
 
 							sActionGridNo =  FindBestNearbyCover(pTMilitiaSoldier,pTMilitiaSoldier->aiData.bAIMorale,&iDummy);
-
-							if ( sActionGridNo != NOWHERE )
+							
+							if (!TileIsOutOfBounds(sActionGridNo))
 							{
 								// SEND PENDING ACTION
 								pTMilitiaSoldier->aiData.sPendingActionData2  = sActionGridNo;
@@ -1577,7 +1577,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 								//// set up next action to run away
 								//pTeamSoldier->usNextActionData = FindSpotMaxDistFromOpponents( pTeamSoldier );
 
-								//if ( pTeamSoldier->usNextActionData != NOWHERE )
+								//if ( !TileIsOutOfBounds(pTeamSoldier->usNextActionData) )
 								//{
 								//	pTeamSoldier->bNextAction = AI_ACTION_RUN_AWAY;
 								//	pTeamSoldier->usActionData = ANIM_STAND;									
@@ -1588,7 +1588,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 								pTeamSoldier->aiData.usNextActionData = sActionGridNo;
 
-								if ( pTeamSoldier->aiData.usNextActionData != NOWHERE )
+								if ( !TileIsOutOfBounds(pTeamSoldier->aiData.usNextActionData) )
 								{
 									pTeamSoldier->aiData.bNextAction = AI_ACTION_RUN_AWAY;
 									pTeamSoldier->aiData.usActionData = ANIM_STAND;									
@@ -1624,7 +1624,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				case( MILCON_MENU_ALL_COMETOME ):
 					{
 						UINT8 cnt, ubDirection;
-						INT16 sActionGridNo, sGridNo, sAdjustedGridNo;
+						INT32 sActionGridNo, sGridNo, sAdjustedGridNo;
 						SOLDIERTYPE *pTeamSoldier;
 						
 						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
@@ -1679,7 +1679,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				case( MILCON_MENU_ALL_SPREAD ):
 					{
 						UINT8 cnt;
-						INT16 sActionGridNo;
+						INT32 sActionGridNo;
 						SOLDIERTYPE *pTeamSoldier;
 
 						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
@@ -1781,7 +1781,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						//								
 						//		pTeamSoldier->usNextActionData = FindBestNearbyCover(pTeamSoldier,pTeamSoldier->bAIMorale,&iDummy);
 						//		
-						//		//if ( pTeamSoldier->usNextActionData != NOWHERE )
+						//		//if ( !TileIsOutOfBounds(pTeamSoldier->usNextActionData) )
 						//		{
 						//			pTeamSoldier->bNextAction = AI_ACTION_TAKE_COVER;
 						//			pTeamSoldier->usActionData = ANIM_STAND;									
@@ -1803,8 +1803,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							{
 								// See if we can get there
 								sActionGridNo =  FindBestNearbyCover(pTeamSoldier,pTeamSoldier->aiData.bAIMorale,&iDummy);
-								
-								if ( sActionGridNo != NOWHERE )
+																
+								if (!TileIsOutOfBounds(sActionGridNo))
 								{
 									// SEND PENDING ACTION
 									pTeamSoldier->aiData.sPendingActionData2  = sActionGridNo;
@@ -1861,7 +1861,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					//				pTeamSoldier->usNextActionData = SearchForItems( pTeamSoldier, 0, pTeamSoldier->inv[HANDPOS].usItem );
 
 
-					//				//if ( pTeamSoldier->usNextActionData != NOWHERE )
+					//				//if ( !TileIsOutOfBounds(pTeamSoldier->usNextActionData) )
 					//				{
 					//					pTeamSoldier->bNextAction = AI_ACTION_PICKUP_ITEM;
 					//					//pTeamSoldier->usActionData = ANIM_STAND;									
@@ -2227,7 +2227,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 //
 //				// set up next action to run away
 //				pTMilitiaSoldier->usNextActionData = FindSpotMaxDistFromOpponents( pTMilitiaSoldier );
-//				if ( pTMilitiaSoldier->usNextActionData != NOWHERE )
+//				if ( !TileIsOutOfBounds(pTMilitiaSoldier->usNextActionData) )
 //				{
 //					pTMilitiaSoldier->bNextAction = AI_ACTION_RUN_AWAY;
 //					pTMilitiaSoldier->usActionData = ANIM_STAND;

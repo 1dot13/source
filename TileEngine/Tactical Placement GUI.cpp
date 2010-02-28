@@ -48,7 +48,7 @@
 #include "connect.h"
 #include "saveloadscreen.h"
 #include "Map Edgepoints.h"
-
+#include "renderworld.h"//dnl ch45 051009
 
 typedef struct MERCPLACEMENT
 {
@@ -71,8 +71,12 @@ enum
 };
 UINT32 iTPButtons[ NUM_TP_BUTTONS ];
 
+//dnl ch45 051009
+#define PLACEMENT_OFFSET 150
+extern INT32 giXA, giYA;
+
 extern BOOLEAN gfOverheadMapDirty;
-extern BOOLEAN GetOverheadMouseGridNo( INT16 *psGridNo );
+extern BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo );
 
 extern UINT16 iOffsetHorizontal;
 extern UINT16 iOffsetVertical;
@@ -90,6 +94,13 @@ INT32 giPlacements = 0;
 BOOLEAN gfTacticalPlacementGUIDirty = FALSE;
 BOOLEAN gfValidLocationsChanged = FALSE;
 SGPRect gTPClipRect = {0,0,0,0};
+
+// WANNE - MP: Center
+SGPRect gTPClipRectCenterLeft = {0,0,0,0};
+SGPRect gTPClipRectCenterTop = {0,0,0,0};
+SGPRect gTPClipRectCenterRight = {0,0,0,0};
+SGPRect gTPClipRectCenterBottom = {0,0,0,0};
+
 BOOLEAN gfValidCursor = FALSE;
 BOOLEAN gfEveryonePlaced = FALSE;
 
@@ -103,6 +114,9 @@ SOLDIERTYPE *gpTacticalPlacementSelectedSoldier = NULL;
 SOLDIERTYPE *gpTacticalPlacementHilightedSoldier = NULL;
 
 BOOLEAN gfNorth, gfEast, gfSouth, gfWest;
+
+// WANNE - MP: Center
+BOOLEAN gfCenter;
 
 void DoneOverheadPlacementClickCallback( GUI_BUTTON *btn, INT32 reason );
 void SpreadPlacementsCallback ( GUI_BUTTON *btn, INT32 reason );
@@ -150,7 +164,7 @@ void FindValidInsertionCode( UINT8 *pubStrategicInsertionCode )
 			iOffsetHorizontal + 30, iOffsetVertical + 160, 600, FONT10ARIALBOLD, FONT_YELLOW, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
 
 		RefreshScreen( NULL );
-		GenerateMapEdgepoints();
+		GenerateMapEdgepoints(TRUE);//dnl ch43 290909
 		switch( *pubStrategicInsertionCode )
 		{
 			case INSERTION_CODE_NORTH:
@@ -234,7 +248,9 @@ void InitTacticalPlacementGUI()
 	gfTacticalPlacementGUIDirty = TRUE;
 	gfValidLocationsChanged = TRUE;
 	gfTacticalPlacementFirstTime = TRUE;
-	gfNorth = gfEast = gfSouth = gfWest = FALSE;
+
+	// WANNE - MP: Center
+	gfNorth = gfEast = gfSouth = gfWest = gfCenter = FALSE;
 	#ifdef JA2BETAVERSION
 		gfNorthValid = gfEastValid = gfSouthValid = gfWestValid = FALSE;
 		gfChangedEntrySide = FALSE;
@@ -318,7 +334,6 @@ void InitTacticalPlacementGUI()
 	SpecifyButtonHilitedTextColors( iTPButtons[ GROUP_BUTTON ], FONT_WHITE, FONT_NEARBLACK );
 	SpecifyButtonHilitedTextColors( iTPButtons[ DONE_BUTTON ], FONT_WHITE, FONT_NEARBLACK );
 
-
 	//First pass:	Count the number of mercs that are going to be placed by the player.
 	//			 This determines the size of the array we will allocate.
 	giPlacements = 0;
@@ -357,7 +372,6 @@ void InitTacticalPlacementGUI()
 			{
 				MercPtrs[ i ]->ubStrategicInsertionCode = GetValidInsertionDirectionForMP(MercPtrs[ i ]->ubStrategicInsertionCode);
 			}
-
 			// ATE: If we are in a vehicle - remove ourselves from it!
 			//if ( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 			//{
@@ -372,7 +386,6 @@ void InitTacticalPlacementGUI()
 			gMercPlacement[ giPlacements ].pSoldier = MercPtrs[ i ];
 			gMercPlacement[ giPlacements ].ubStrategicInsertionCode = MercPtrs[ i ]->ubStrategicInsertionCode;
 			gMercPlacement[ giPlacements ].fPlaced = FALSE;
-
 			#ifdef JA2BETAVERSION
 				CheckForValidMapEdge( &MercPtrs[ i ]->ubStrategicInsertionCode );
 			#else
@@ -380,7 +393,6 @@ void InitTacticalPlacementGUI()
 				 if (is_networked)
 					CheckForValidMapEdge( &MercPtrs[ i ]->ubStrategicInsertionCode );
 			#endif
-
 			switch( MercPtrs[ i ]->ubStrategicInsertionCode )
 			{
 				case INSERTION_CODE_NORTH:
@@ -396,6 +408,13 @@ void InitTacticalPlacementGUI()
 					gfWest	= TRUE;
 					break;
 			}
+
+			// WANNE - MP: Center
+			if (is_networked && MercPtrs[ i ]->ubStrategicInsertionCode == INSERTION_CODE_CENTER)
+			{
+				gfCenter = TRUE;
+			}	
+
 			giPlacements++;
 		}
 	}
@@ -497,7 +516,12 @@ UINT8 GetValidInsertionDirectionForMP(UINT8	currentInsertionPoint)
 				validInsertionDirection = INSERTION_CODE_WEST;
 			}
 			break;
-	}
+		// WANNE - MP: Center
+		case INSERTION_CODE_CENTER:
+			foundValidDirection = true;
+			validInsertionDirection = INSERTION_CODE_CENTER;
+			break;
+	}		
 
 	// Find alternate insertion direction by looping through all directions (N, S, E, W)
 	if (!foundValidDirection)
@@ -560,7 +584,6 @@ UINT8 GetValidInsertionDirectionForMP(UINT8	currentInsertionPoint)
 
 	return validInsertionDirection;
 }
-
 void RenderTacticalPlacementGUI()
 {
 	INT32 i, xp, yp, width, height;
@@ -681,12 +704,42 @@ void RenderTacticalPlacementGUI()
 		gfValidLocationsChanged--;
 		BlitBufferToBuffer( guiSAVEBUFFER, FRAME_BUFFER, iOffsetHorizontal, iOffsetVertical, 640, 320 );
 		InvalidateRegion( iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal + 640, iOffsetVertical + 320 );
+
+		//dnl ch45 051009
+		gTPClipRect.iLeft = iOffsetHorizontal + 1;
+		gTPClipRect.iTop = iOffsetVertical + 1;
+		gTPClipRect.iBottom = iOffsetVertical + 318;
+		gTPClipRect.iRight = iOffsetHorizontal + 634;
+
 		if( gbCursorMercID == -1 )
 		{
-			gTPClipRect.iLeft	= gfWest	? iOffsetHorizontal + 30	: iOffsetHorizontal;
-			gTPClipRect.iTop	= gfNorth	? iOffsetVertical + 30 + 3		: iOffsetVertical + 3;
-			gTPClipRect.iRight	= gfEast	? iOffsetHorizontal + 610	: iOffsetHorizontal + 634; // 636
-			gTPClipRect.iBottom	= gfSouth	? iOffsetVertical + 290	: iOffsetVertical + 320;
+			// WANNE - MP: Center
+			if (is_networked && gfCenter)
+			{
+				// Left black border
+				gTPClipRectCenterLeft.iLeft = iOffsetHorizontal;
+				gTPClipRectCenterLeft.iTop = iOffsetVertical + 3;
+				gTPClipRectCenterLeft.iBottom = iOffsetVertical + 320;
+				gTPClipRectCenterLeft.iRight = iOffsetHorizontal + 250;
+
+				// Top black border
+				gTPClipRectCenterTop.iLeft = iOffsetHorizontal;
+				gTPClipRectCenterTop.iTop = iOffsetVertical + 3;
+				gTPClipRectCenterTop.iBottom = iOffsetVertical + 130;
+				gTPClipRectCenterTop.iRight = iOffsetHorizontal + 634;
+
+				// Right black border
+				gTPClipRectCenterRight.iLeft = iOffsetHorizontal + 634 - 250;
+				gTPClipRectCenterRight.iTop = iOffsetVertical + 3;
+				gTPClipRectCenterRight.iBottom = iOffsetVertical + 320;
+				gTPClipRectCenterRight.iRight = iOffsetHorizontal + 634;
+
+				// Bottom black border
+				gTPClipRectCenterBottom.iLeft = iOffsetHorizontal;
+				gTPClipRectCenterBottom.iTop = iOffsetVertical + 320 - 130;
+				gTPClipRectCenterBottom.iBottom = iOffsetVertical + 320;
+				gTPClipRectCenterBottom.iRight = iOffsetHorizontal + 634;
+			}
 		}
 		else
 		{
@@ -696,33 +749,101 @@ void RenderTacticalPlacementGUI()
 				gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode = GetValidInsertionDirectionForMP(gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode);
 			}
 
-			gTPClipRect.iLeft		= iOffsetHorizontal;
-			gTPClipRect.iTop		= iOffsetVertical + 3;
-			//gTPClipRect.iRight		= iOffsetHorizontal + 640;
-			gTPClipRect.iRight		= iOffsetHorizontal + 634;	// 635
-			gTPClipRect.iBottom		= iOffsetVertical + 320;
-
-			
-			switch( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode )
+			//dnl ch45 051009
+			INT16 sWorldScreenX, sX;
+			INT16 sWorldScreenY, sY;
+			sX = giXA;
+			sY = giYA;
+			GetWorldXYAbsoluteScreenXY(sX, sY, &sWorldScreenX, &sWorldScreenY);
+			sWorldScreenX += 20;// Correction from invisible area X
+			sWorldScreenY += 35;// Correction from invisible area Y
+			switch(gMercPlacement[gbCursorMercID].ubStrategicInsertionCode)
 			{
-				case INSERTION_CODE_NORTH:	
-					gTPClipRect.iTop	= iOffsetVertical + 30 + 3;			
-					break;
-				case INSERTION_CODE_EAST:	
-					gTPClipRect.iRight	= iOffsetHorizontal + 610;		
-					break;
-				case INSERTION_CODE_SOUTH:	
-					gTPClipRect.iBottom	= iOffsetVertical + 290;		
-					break;
-				case INSERTION_CODE_WEST:	
-					gTPClipRect.iLeft	= iOffsetHorizontal + 30;		
-					break;
+			case INSERTION_CODE_NORTH:
+				if(sWorldScreenY <= PLACEMENT_OFFSET)
+				{
+					sY = (PLACEMENT_OFFSET - sWorldScreenY) / 5;
+					gTPClipRect.iTop += sY;
+				}
+				break;
+			case INSERTION_CODE_EAST:
+				if((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) >= (MAPWIDTH - PLACEMENT_OFFSET))
+				{
+					sX = ((sWorldScreenX + NORMAL_MAP_SCREEN_WIDTH) - (MAPWIDTH - PLACEMENT_OFFSET)) / 5;
+					gTPClipRect.iRight -= sX;
+				}
+				break;
+			case INSERTION_CODE_SOUTH:
+				if((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) >= (MAPHEIGHT - PLACEMENT_OFFSET))
+				{
+					sY = ((sWorldScreenY + NORMAL_MAP_SCREEN_HEIGHT) - (MAPHEIGHT - PLACEMENT_OFFSET)) / 5;
+					gTPClipRect.iBottom -= sY;
+				}
+				break;
+			case INSERTION_CODE_WEST:
+				if(sWorldScreenX <= PLACEMENT_OFFSET)
+				{
+					sX = (PLACEMENT_OFFSET - sWorldScreenX) / 5;
+					gTPClipRect.iLeft += sX;
+				}
+				break;
+			}
+
+			// WANNE - MP: Center
+			if (is_networked && gfCenter)
+			{
+				// Left black border
+				gTPClipRectCenterLeft.iLeft = iOffsetHorizontal;
+				gTPClipRectCenterLeft.iTop = iOffsetVertical + 3;
+				gTPClipRectCenterLeft.iBottom = iOffsetVertical + 320;
+				gTPClipRectCenterLeft.iRight = iOffsetHorizontal + 250;
+
+				// Top black border
+				gTPClipRectCenterTop.iLeft = iOffsetHorizontal;
+				gTPClipRectCenterTop.iTop = iOffsetVertical + 3;
+				gTPClipRectCenterTop.iBottom = iOffsetVertical + 130;
+				gTPClipRectCenterTop.iRight = iOffsetHorizontal + 634;
+
+				// Right black border
+				gTPClipRectCenterRight.iLeft = iOffsetHorizontal + 634 - 250;
+				gTPClipRectCenterRight.iTop = iOffsetVertical + 3;
+				gTPClipRectCenterRight.iBottom = iOffsetVertical + 320;
+				gTPClipRectCenterRight.iRight = iOffsetHorizontal + 634;
+
+				// Bottom black border
+				gTPClipRectCenterBottom.iLeft = iOffsetHorizontal;
+				gTPClipRectCenterBottom.iTop = iOffsetVertical + 320 - 130;
+				gTPClipRectCenterBottom.iBottom = iOffsetVertical + 320;
+				gTPClipRectCenterBottom.iRight = iOffsetHorizontal + 634;
 			}
 		}
+
 		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
-		Blt16BPPBufferLooseHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &gTPClipRect, usHatchColor );
+		
+		if (!gfCenter)
+			Blt16BPPBufferLooseHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &gTPClipRect, usHatchColor );
+		// WANNE - MP: Center
+		else
+		{
+			Blt16BPPBufferLooseHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &gTPClipRectCenterLeft, usHatchColor );
+			Blt16BPPBufferLooseHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &gTPClipRectCenterTop, usHatchColor );
+			Blt16BPPBufferLooseHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &gTPClipRectCenterRight, usHatchColor );
+			Blt16BPPBufferLooseHatchRectWithColor( (UINT16*)pDestBuf, uiDestPitchBYTES, &gTPClipRectCenterBottom, usHatchColor );
+		}
+
+
 		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-		RectangleDraw( TRUE, gTPClipRect.iLeft, gTPClipRect.iTop, gTPClipRect.iRight, gTPClipRect.iBottom, usHatchColor, pDestBuf );
+
+		if (!gfCenter)
+			RectangleDraw( TRUE, gTPClipRect.iLeft, gTPClipRect.iTop, gTPClipRect.iRight, gTPClipRect.iBottom, usHatchColor, pDestBuf );
+		else
+		{
+			RectangleDraw( TRUE, gTPClipRectCenterLeft.iLeft, gTPClipRectCenterLeft.iTop, gTPClipRectCenterLeft.iRight, gTPClipRectCenterLeft.iBottom, usHatchColor, pDestBuf );
+			RectangleDraw( TRUE, gTPClipRectCenterTop.iLeft, gTPClipRectCenterTop.iTop, gTPClipRectCenterTop.iRight, gTPClipRectCenterTop.iBottom, usHatchColor, pDestBuf );
+			RectangleDraw( TRUE, gTPClipRectCenterRight.iLeft, gTPClipRectCenterRight.iTop, gTPClipRectCenterRight.iRight, gTPClipRectCenterRight.iBottom, usHatchColor, pDestBuf );
+			RectangleDraw( TRUE, gTPClipRectCenterBottom.iLeft, gTPClipRectCenterBottom.iTop, gTPClipRectCenterBottom.iRight, gTPClipRectCenterBottom.iBottom, usHatchColor, pDestBuf );
+		}
+		
 		UnLockVideoSurface( FRAME_BUFFER );
 	}
 	for( i = 0; i < giPlacements; i++ )
@@ -844,7 +965,7 @@ void TacticalPlacementHandle()
 	EnsureDoneButtonStatus();
 
 	RenderTacticalPlacementGUI();
-	
+
 	if (is_networked)
 		lockui(0);//lockui before placement while clients loading //hayden
 
@@ -863,13 +984,14 @@ void TacticalPlacementHandle()
 			{
 				#ifdef JA2TESTVERSION
 				case ESC:
-					KillTacticalPlacementGUI();
+					//if (!is_networked)
+						KillTacticalPlacementGUI();
 					break;
 				#endif
 				case ENTER:
 					if( ButtonList[ iTPButtons[ DONE_BUTTON ] ]->uiFlags & BUTTON_ENABLED )
 					{
-									if(!is_client)KillTacticalPlacementGUI();
+									/*if(!is_client)KillTacticalPlacementGUI();*/
 									//if(is_client)send_donegui(0); only by mouse //hayden
 					}
 					break;
@@ -891,11 +1013,13 @@ void TacticalPlacementHandle()
 				case 'l'://hayden
 				if( InputEvent.usKeyState & ALT_DOWN )
 				{
+					/*
 					if (is_networked)
 					{
 						KillTacticalPlacementGUI();
 						DoQuickLoad();
 					}
+					*/
 				}
 				break;
 				case '7':
@@ -910,28 +1034,51 @@ void TacticalPlacementHandle()
 	}
 	gfValidCursor = FALSE;
 
-	if( gbSelectedMercID != -1 && gusMouseYPos < (iOffsetVertical + 320) && gusMouseYPos > iOffsetVertical
-		&& gusMouseXPos > iOffsetHorizontal && gusMouseXPos < (iOffsetHorizontal + 640))
+	if(gbSelectedMercID != -1 && gusMouseYPos < (iOffsetVertical + 320) && gusMouseYPos > iOffsetVertical && gusMouseXPos > iOffsetHorizontal && gusMouseXPos < (iOffsetHorizontal + 640))
 	{
-		switch( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode )
+		//dnl ch45 051009
+		INT16 sWorldScreenX = (gusMouseXPos - iOffsetHorizontal) * 5;
+		INT16 sWorldScreenY = (gusMouseYPos - iOffsetVertical) * 5;
+		INT32 iCellX, iCellY;
+		GetFromAbsoluteScreenXYWorldXY(&iCellX, &iCellY, sWorldScreenX, sWorldScreenY);
+		iCellX = (iCellX / CELL_X_SIZE) + (giXA - 0);
+		iCellY = (iCellY / CELL_Y_SIZE) + (giYA - WORLD_ROWS/2);
+		GetWorldXYAbsoluteScreenXY(iCellX, iCellY, &sWorldScreenX, &sWorldScreenY);
+		switch(gMercPlacement[gbCursorMercID].ubStrategicInsertionCode)
 		{
-			case INSERTION_CODE_NORTH:
-				if( gusMouseYPos <= (iOffsetVertical + 30) )	// 40
-					gfValidCursor = TRUE;
-				break;
-			case INSERTION_CODE_EAST:
-				if( gusMouseXPos >= (iOffsetHorizontal + 610) )	// 600
-					gfValidCursor = TRUE;
-				break;
-			case INSERTION_CODE_SOUTH:
-				if( gusMouseYPos >= (iOffsetVertical + 290) )	// 280
-					gfValidCursor = TRUE;
-				break;
-			case INSERTION_CODE_WEST:
-				if( gusMouseXPos <= (iOffsetHorizontal + 30) )	// 40
-					gfValidCursor = TRUE;
-				break;
+		case INSERTION_CODE_NORTH:
+			if(sWorldScreenY <= PLACEMENT_OFFSET)
+				gfValidCursor = TRUE;
+			break;
+		case INSERTION_CODE_EAST:
+			if(sWorldScreenX >= (MAPWIDTH - PLACEMENT_OFFSET))
+				gfValidCursor = TRUE;
+			break;
+		case INSERTION_CODE_SOUTH:
+			if(sWorldScreenY >= (MAPHEIGHT - PLACEMENT_OFFSET))
+				gfValidCursor = TRUE;
+			break;
+		case INSERTION_CODE_WEST:
+			if(sWorldScreenX <= PLACEMENT_OFFSET)
+				gfValidCursor = TRUE;
+			break;
 		}
+
+		// WANNE - MP: Center
+		if (is_networked && gfCenter)
+		{
+			if (gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode == INSERTION_CODE_CENTER )
+			{
+				if (gusMouseYPos >= (iOffsetVertical + 130) &&			// N
+					gusMouseYPos <= (iOffsetVertical + 320 - 130) &&	// S
+					gusMouseXPos >= (iOffsetHorizontal + 250) &&		// W
+					gusMouseXPos <= (iOffsetHorizontal + 634 - 250))	// E
+				{
+					gfValidCursor = TRUE;
+				}
+			}
+		}
+
 		if( gubDefaultButton == GROUP_BUTTON )
 		{
 			if( gfValidCursor )
@@ -972,6 +1119,8 @@ void TacticalPlacementHandle()
 	{
 		gfKillTacticalGUI = 1;
 	}
+
+	ScrollOverheadMap();//dnl ch45 021009
 }
 
 void KillTacticalPlacementGUI()
@@ -1045,7 +1194,8 @@ void ChooseRandomEdgepoints()
 		if ( !( gMercPlacement[ i ].pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
 			gMercPlacement[ i ].pSoldier->usStrategicInsertionData = ChooseMapEdgepoint( &gMercPlacement[ i ].ubStrategicInsertionCode, lastValidICode );
-			if( gMercPlacement[ i ].pSoldier->usStrategicInsertionData != NOWHERE )
+			
+			if( !TileIsOutOfBounds(gMercPlacement[ i ].pSoldier->usStrategicInsertionData))
 			{
 				gMercPlacement[ i ].pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 				lastValidICode = gMercPlacement[ i ].ubStrategicInsertionCode;
@@ -1241,7 +1391,7 @@ void SelectNextUnplacedUnit()
 void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason )
 {
 	INT32 i;
-	INT16 sGridNo;
+	INT32 sGridNo;
 	BOOLEAN fInvalidArea = FALSE;
 	UINT8	lastValidICode = INSERTION_CODE_GRIDNO;
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
@@ -1263,7 +1413,8 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 							if( gMercPlacement[ i ].pSoldier->ubGroupID == gubSelectedGroupID )
 							{
 								gMercPlacement[ i ].pSoldier->usStrategicInsertionData = SearchForClosestPrimaryMapEdgepoint( sGridNo, gMercPlacement[ i ].ubStrategicInsertionCode, lastValidICode, &gMercPlacement[ i ].ubStrategicInsertionCode );
-								if( gMercPlacement[ i ].pSoldier->usStrategicInsertionData == NOWHERE )
+								
+								if(TileIsOutOfBounds(gMercPlacement[ i ].pSoldier->usStrategicInsertionData))
 								{
 									fInvalidArea = TRUE;
 									break;
@@ -1288,7 +1439,8 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 					else
 					{ //This is a single merc placement.	If valid, then place him, else report error.
 						gMercPlacement[ gbSelectedMercID ].pSoldier->usStrategicInsertionData = SearchForClosestPrimaryMapEdgepoint( sGridNo, gMercPlacement[ gbSelectedMercID ].ubStrategicInsertionCode );
-						if( gMercPlacement[ gbSelectedMercID ].pSoldier->usStrategicInsertionData != NOWHERE )
+						
+						if( !TileIsOutOfBounds(gMercPlacement[ gbSelectedMercID ].pSoldier->usStrategicInsertionData))
 						{
 							gMercPlacement[ gbSelectedMercID ].pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 							PutDownMercPiece( gbSelectedMercID );
@@ -1355,7 +1507,8 @@ void SetCursorMerc( INT8 bPlacementID )
 
 void PutDownMercPiece( INT32 iPlacement )
 {
-	INT16 sGridNo, sCellX, sCellY;
+	INT32 sGridNo;
+	INT16 sCellX, sCellY;
 	UINT8 ubDirection;
 
 	SOLDIERTYPE *pSoldier;
@@ -1384,7 +1537,8 @@ void PutDownMercPiece( INT32 iPlacement )
 	if( gMercPlacement[ iPlacement ].fPlaced )
 		PickUpMercPiece( iPlacement );
 	sGridNo = FindGridNoFromSweetSpot( pSoldier, pSoldier->sInsertionGridNo, 4, &ubDirection );
-	if( sGridNo != NOWHERE )
+	
+	if(!TileIsOutOfBounds(sGridNo))
 	{
 		ConvertGridNoToCellXY( sGridNo, &sCellX, &sCellY );
 		

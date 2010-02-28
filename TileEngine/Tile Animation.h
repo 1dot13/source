@@ -55,7 +55,7 @@ typedef struct TAG_anitile
 	INT16												sRelativeX;							
 	INT16												sRelativeY;							
 	INT16												sRelativeZ;	
-	INT16												sGridNo;
+	INT32 sGridNo;
 	UINT16											usTileIndex;
 
 	UINT16											usCachedTileSubIndex;		// sub Index 
@@ -87,7 +87,7 @@ typedef struct TAG_anitile_params
 	INT16												sX;										// World X ( optional )
 	INT16												sY;										// World Y ( optional )
 	INT16												sZ;										// World Z ( optional )
-	INT16												sGridNo;							// World GridNo
+	INT32 sGridNo;							// World GridNo
 
 	LEVELNODE										*pGivenLevelNode;			// Levelnode for existing tile ( optional )
 	CHAR8												zCachedFile[ 100 ];		// Filename for cached tile name ( optional )
@@ -133,7 +133,7 @@ void DeleteAniTiles( );
 void HideAniTile( ANITILE *pAniTile, BOOLEAN fHide );
 void PauseAniTile( ANITILE *pAniTile, BOOLEAN fPause );
 
-ANITILE *GetCachedAniTileOfType( INT16 sGridNo, UINT8 ubLevelID, UINT32 uiFlags );
+ANITILE *GetCachedAniTileOfType( INT32 sGridNo, UINT8 ubLevelID, UINT32 uiFlags );
 
 void PauseAllAniTilesOfType( UINT32 uiType, BOOLEAN fPause );
 

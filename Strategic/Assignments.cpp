@@ -166,6 +166,7 @@ MOUSE_REGION	gContractMenuRegion[ MAX_CONTRACT_MENU_STRING_COUNT ];
 MOUSE_REGION	gRemoveMercAssignRegion[ MAX_REMOVE_MERC_COUNT ];
 MOUSE_REGION	gEpcMenuRegion[ MAX_EPC_MENU_STRING_COUNT ];
 MOUSE_REGION	gRepairMenuRegion[ 20 ];
+
 // mouse region for vehicle menu
 MOUSE_REGION		gVehicleMenuRegion[ 20 ];
 // HEADROCK HAM 3.6: Facility Menu
@@ -512,7 +513,6 @@ BOOLEAN IsSoldierCloseEnoughToADoctor( SOLDIERTYPE *pPatient );
 */
 
 #ifdef JA2BETAVERSION
-// HEADROCK HAM 3.6: Added argument for separation of Mobile/Town Militia
 void VerifyTownTrainingIsPaidFor( void );
 #endif
 
@@ -1067,8 +1067,7 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 }
 
 
-// This function tests whether this sector EVER allows Militia Training, and whether the character is at all capable
-// of taking an assignment.
+
 BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 {
 	/////////////////////////////////////////////////////
@@ -1081,17 +1080,16 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
-	// Is character dead or unconscious?
+	// make sure character is alive and conscious
 	if( pSoldier->stats.bLife < OKLIFE )
 	{
 		// dead or unconscious...
 		return ( FALSE );
 	}
 
-	// Is character underground?
+	// underground training is not allowed (code doesn't support and it's a reasonable enough limitation)
 	if( pSoldier->bSectorZ != 0 )
 	{
-		// underground training is not allowed (code doesn't support and it's a reasonable enough limitation)
 		return( FALSE );
 	}
 
@@ -1120,7 +1118,7 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
-	// IS character inside a helicopter over a hostile sector?
+	// check in helicopter in hostile sector
 	if( pSoldier->bAssignment == VEHICLE )
 	{
 		if( ( iHelicopterVehicleId != -1 ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
@@ -1183,7 +1181,6 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 
 	return ( TRUE );
 }
-
 // Determines whether the character has the required condition to train Militia at this time.
 // The conditions tested in this function might change WHILE THE CHARACTER IS ALREADY TRAINING MILITIA, which is
 // how this function is normally different from "BasicCan...".
@@ -2193,7 +2190,6 @@ void VerifyTownTrainingIsPaidFor( void )
 
 		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
 
-		// HEADROCK HAM 3.6: New argument controls testing for Mobiles/Garrisons separately.
 		if( pSoldier->bActive && ( pSoldier->bAssignment == TRAIN_TOWN ) )
 		{
 			// make sure that sector is paid up!
@@ -4530,32 +4526,31 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 
 
 	// increase town's training completed percentage
-	// HEADROCK HAM 3.6: New town data for training Mobile Militia.
 	if (pTrainer->bAssignment == TRAIN_TOWN)
 	{	
-		pSectorInfo->ubMilitiaTrainingPercentDone += (sTrainingPts / 100);
-		pSectorInfo->ubMilitiaTrainingHundredths	+= (sTrainingPts % 100);
+	pSectorInfo->ubMilitiaTrainingPercentDone += (sTrainingPts / 100);
+	pSectorInfo->ubMilitiaTrainingHundredths	+= (sTrainingPts % 100);
 
-		if (pSectorInfo->ubMilitiaTrainingHundredths >= 100)
-		{
-			pSectorInfo->ubMilitiaTrainingPercentDone++;
-			pSectorInfo->ubMilitiaTrainingHundredths -= 100;
-		}
+	if (pSectorInfo->ubMilitiaTrainingHundredths >= 100)
+	{
+		pSectorInfo->ubMilitiaTrainingPercentDone++;
+		pSectorInfo->ubMilitiaTrainingHundredths -= 100;
+	}
 
-		// NOTE: Leave this at 100, change TOWN_TRAINING_RATE if necessary.	This value gets reported to player as a %age!
-		if( pSectorInfo->ubMilitiaTrainingPercentDone >= 100 )
-		{
-			// zero out training completion - there's no carryover to the next training session
-			pSectorInfo->ubMilitiaTrainingPercentDone = 0;
-			pSectorInfo->ubMilitiaTrainingHundredths	= 0;
+	// NOTE: Leave this at 100, change TOWN_TRAINING_RATE if necessary.	This value gets reported to player as a %age!
+	if( pSectorInfo->ubMilitiaTrainingPercentDone >= 100 )
+	{
+		// zero out training completion - there's no carryover to the next training session
+		pSectorInfo->ubMilitiaTrainingPercentDone = 0;
+		pSectorInfo->ubMilitiaTrainingHundredths	= 0;
 
-			// make the player pay again next time he wants to train here
-			pSectorInfo->fMilitiaTrainingPaid = FALSE;
+		// make the player pay again next time he wants to train here
+		pSectorInfo->fMilitiaTrainingPaid = FALSE;
 
-			TownMilitiaTrainingCompleted( pTrainer, sMapX, sMapY );
+		TownMilitiaTrainingCompleted( pTrainer, sMapX, sMapY );
 
-			// training done
-			return( TRUE );
+		// training done
+		return( TRUE );
 		}
 	}
 	else if (pTrainer->bAssignment == TRAIN_MOBILE)
@@ -4637,7 +4632,6 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 			}
 		}
 	}
-
 	// adjust for teaching bonus (a percentage)
 	sTotalTrainingPts += ( ( sTrainingBonus * sTotalTrainingPts ) / 100 );
 	// teach bonus is considered "normal" - it's always there
@@ -6163,7 +6157,6 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 				// shade vehicle line
 				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_VEHICLE );
 			}
-
 			if (BasicCanCharacterFacility( pSoldier ))
 			{
 				// unshade facility line
@@ -6190,7 +6183,6 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 
 	// training attributes submenu
 	HandleShadingOfLinesForAttributeMenus( );
-
 	// HEADROCK HAM 3.6: Facility Menu
 	HandleShadingOfLinesForFacilityMenu( );
 
@@ -6442,8 +6434,8 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		//	SetRenderFlags(RENDER_FLAG_FULL);
 		}
 	}
-	CreateDestroyMouseRegionForVehicleMenu( );
 
+	CreateDestroyMouseRegionForVehicleMenu( );
 	// HEADROCK HAM 3.6: FACILITY menu
 	if( fShowFacilityMenu == TRUE )
 	{
@@ -6541,11 +6533,6 @@ void AssignmentScreenMaskBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 		fShowVehicleMenu = FALSE;
 
 		fShowContractMenu = FALSE;
-
-		// HEADROCK HAM 3.6: Facility Menu.
-		//fShowFacilityMenu = FALSE;
-		// And facility Submenu
-		//fShowFacilityAssignmentMenu = FALSE;
 
 		// stop showing town mine info
 		fShowTownInfo = FALSE;
@@ -7530,10 +7517,10 @@ void MercDismissConfirmCallBack( UINT8 bExitValue )
 {
 	if ( bExitValue == MSG_BOX_RETURN_YES )
 	{
-	// Setup history code
-	gpDismissSoldier->ubLeaveHistoryCode = HISTORY_MERC_FIRED;
+		// Setup history code
+		gpDismissSoldier->ubLeaveHistoryCode = HISTORY_MERC_FIRED;
 
-	BeginRemoveMercFromContract( gpDismissSoldier );
+		BeginRemoveMercFromContract( gpDismissSoldier );
 	}
 }
 
@@ -7920,7 +7907,6 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				DetermineBoxPositions( );
 
 			break;
-			// HEADROCK HAM 3.6: This is revamped for separating Mobile and Garrison training.
 			case( TRAIN_MENU_TOWN):
 
 				// Full test of Character and Sector to see if this training is possible at the moment.
@@ -7939,42 +7925,42 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					break;
 				}
 
-				// PASSED BOTH TESTS - ALLOW SOLDIER TO TRAIN MILITIA HERE
+					// PASSED ALL THE TESTS - ALLOW SOLDIER TO TRAIN MILITIA HERE
 
-				pSoldier->bOldAssignment = pSoldier->bAssignment;
+					pSoldier->bOldAssignment = pSoldier->bAssignment;
 
-				if( ( pSoldier->bAssignment != TRAIN_TOWN ) )
-				{
-					SetTimeOfAssignmentChangeForMerc( pSoldier );
-				}
+					if( ( pSoldier->bAssignment != TRAIN_TOWN ) )
+					{
+						SetTimeOfAssignmentChangeForMerc( pSoldier );
+					}
 
-				MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+					MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
 
-				// stop showing menu
+					// stop showing menu
 				fShowAssignmentMenu = FALSE;
-				giAssignHighLine = -1;
+					giAssignHighLine = -1;
 
-				// remove from squad
+					// remove from squad
 
-				if( pSoldier->bOldAssignment == VEHICLE )
-				{
-					TakeSoldierOutOfVehicle( pSoldier );
-				}
-				RemoveCharacterFromSquads(	pSoldier );
+					if( pSoldier->bOldAssignment == VEHICLE )
+					{
+						TakeSoldierOutOfVehicle( pSoldier );
+					}
+					RemoveCharacterFromSquads(	pSoldier );
 
-				ChangeSoldiersAssignment( pSoldier, TRAIN_TOWN );
+					ChangeSoldiersAssignment( pSoldier, TRAIN_TOWN );
 
-				// assign to a movement group
-				AssignMercToAMovementGroup( pSoldier );
-				if( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMilitiaTrainingPaid == FALSE )
-				{
-					// show a message to confirm player wants to charge cost
-					HandleInterfaceMessageForCostOfTrainingMilitia( pSoldier );
-				}
-				else
-				{
-					SetAssignmentForList( TRAIN_TOWN, 0 );
-				}
+					// assign to a movement group
+					AssignMercToAMovementGroup( pSoldier );
+					if( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMilitiaTrainingPaid == FALSE )
+					{
+						// show a message to confirm player wants to charge cost
+						HandleInterfaceMessageForCostOfTrainingMilitia( pSoldier );
+					}
+					else
+					{
+						SetAssignmentForList( TRAIN_TOWN, 0 );
+					}
 				gfRenderPBInterface = TRUE;
 				break;
 
@@ -8035,7 +8021,6 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				}
 				gfRenderPBInterface = TRUE;
 				break;
-
 			case( TRAIN_MENU_TEAMMATES):
 
 				if( CanCharacterTrainTeammates( pSoldier ) == TRUE )
@@ -9373,15 +9358,6 @@ void DetermineBoxPositions( void )
 		}
 	}
 
-	/*// HEADROCK HAM 3.6: Facility Menu
-	if( ( fShowFacilityMenu == TRUE ) && ( ghFacilityBox != -1 ) )
-	{
-		CreateDestroyMouseRegionForFacilityMenu( );
-		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
-
-		SetBoxPosition( ghFacilityBox, pNewPoint );
-	}*/
-
 	// HEADROCK HAM 3.6: Facility Sub-menu
 	if( ( fShowFacilityMenu == TRUE ) && ( ghFacilityBox != -1 ) )
 	{
@@ -9406,7 +9382,6 @@ void DetermineBoxPositions( void )
 			SetBoxPosition( ghFacilityAssignmentBox, pNewPoint );
 		}
 	}
-
 	return;
 }
 
@@ -9630,7 +9605,6 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 
 		SetBoxPosition( ghTrainingBox, pPoint );
 	}
-
 	// HEADROCK HAM 3.6: Facility Sub-menu
 	else if( fShowFacilityAssignmentMenu == TRUE )
 	{
@@ -9696,7 +9670,6 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 
 		SetBoxPosition( ghFacilityBox, pPoint );
 	}
-
 	else
 	{
 		// just the assignment box
@@ -9811,7 +9784,6 @@ void HandleRestFatigueAndSleepStatus( void )
 					}
 				}
 			}
-
 
 			// CHECK FOR MERCS GOING TO SLEEP
 
@@ -11738,7 +11710,6 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 						fItWorked = TRUE;
 					}
 					break;
-				// HEADROCK HAM 3.6: Mobile Militia Training.
 				case( TRAIN_MOBILE ):
 					if( CanCharacterTrainMobileMilitia( pSoldier ) )
 					{
@@ -12082,7 +12053,6 @@ BOOLEAN CharacterIsTakingItEasy( SOLDIERTYPE *pSoldier )
 	{
 		// on duty, but able to catch naps (either not traveling, or not the driver of the vehicle)
 		// The actual checks for this are in the "can he sleep" check above
-
 		if ( ( pSoldier->bAssignment < ON_DUTY ) || ( pSoldier->bAssignment == VEHICLE ) )
 		{
 			return( TRUE );
@@ -12152,7 +12122,6 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 	{
 		ubNeedForSleep = 6;
 	}
-
 	// HEADROCK HAM 3.5: WTF! This calculation is NOT correct!
 	//ubPercentHealth = pSoldier->stats.bLife / pSoldier->stats.bLifeMax;
 	ubPercentHealth = (pSoldier->stats.bLife*100) / pSoldier->stats.bLifeMax;
@@ -12839,7 +12808,6 @@ BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer )
 
 	return(!fAllTraineesAsleep);
 }
-
 // HEADROCK HAM 3.6: A new set of functions (this & next) to determine whether a character can train Mobile Militia.
 // This function tests character statistics.
 

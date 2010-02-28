@@ -52,7 +52,7 @@ extern UINT8 gubCurrMercMode, gubPrevMercMode;
 extern STR16 zDiffNames[NUM_DIFF_LVLS];
 extern INT16 sCurBaseDiff;
 extern INT16 gsSelectedMercID;
-extern INT16 gsSelectedMercGridNo;
+extern INT32 gsSelectedMercGridNo;
 extern UINT8 gubCurrMercMode;
 
 enum _ForUseWithIndicateSelectedMerc
@@ -82,11 +82,11 @@ void SetMercEditingMode( UINT8 ubNewMode );
 void ResetAllMercPositions();
 
 void EraseMercWaypoint();
-void AddMercWaypoint( UINT32 iMapIndex );
+void AddMercWaypoint( INT32 iMapIndex );
 
 void SetEnemyColorCode( UINT8 ubColorCode );
 
-void SpecifyEntryPoint( UINT32 iMapIndex );
+void SpecifyEntryPoint(INT32 iMapIndex);//dnl ch41 290909
 
 //Modify stats of current soldiers
 void SetMercOrders( INT8 bOrders );

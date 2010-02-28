@@ -53,6 +53,9 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
+// WANNE - BMP: DONE!
+//SB: new .npc format
+#define NPCEX_SIGNATURE 0x00070000
 
 #define NUM_CIVQUOTE_SECTORS 20
 #define MINERS_CIV_QUOTE_INDEX  16
@@ -82,13 +85,13 @@ INT16	gsCivQuoteSector[NUM_CIVQUOTE_SECTORS][2] =
 	 0,		0,
 };
 
-#define NO_FACT									(MAX_FACTS - 1)
-#define NO_QUEST								255
+#define NO_FACT					(MAX_FACTS - 1)
+#define NO_QUEST				255
 #define QUEST_NOT_STARTED_NUM   100
-#define QUEST_DONE_NUM					200
-#define NO_QUOTE								255
-#define IRRELEVANT							255
-#define NO_MOVE									65535
+#define QUEST_DONE_NUM			200
+#define NO_QUOTE				255
+#define IRRELEVANT				255
+#define NO_MOVE					NOWHERE//dnl ch46 031009
 
 NPCQuoteInfo *	gpNPCQuoteInfoArray[NUM_PROFILES] = { NULL };
 NPCQuoteInfo *	gpBackupNPCQuoteInfoArray[NUM_PROFILES] = { NULL };
@@ -125,6 +128,7 @@ extern void PayOffSkyriderDebtIfAny( );
 // NPC QUOTE LOW LEVEL ROUTINES
 //
 
+// WANNE - BMP: DONE!
 NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 {
 	CHAR8						zFileName[255];
@@ -132,6 +136,7 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 	NPCQuoteInfo	* pFileData;
 	UINT32					uiBytesRead;
 	UINT32					uiFileSize;
+	DWORD					uiSignature = 0; // SB // WANNE - BMP: DONE!
 
 	if ( ubNPC == PETER || ubNPC == ALBERTO || ubNPC == CARLO )
 	{
@@ -169,29 +174,105 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 	hFile = FileOpen( zFileName, FILE_ACCESS_READ, FALSE );
 	CHECKN( hFile );
 
-	uiFileSize = sizeof( NPCQuoteInfo ) * NUM_NPC_QUOTE_RECORDS;
-	pFileData = (NPCQuoteInfo *)MemAlloc( uiFileSize );
-	if (pFileData)
+	// WANNE - BMP: DONE!
+	//<SB> new script format
+	if (!FileRead( hFile, &uiSignature, sizeof(uiSignature), &uiBytesRead ) || uiBytesRead != sizeof(uiSignature) )
+		return NULL;
+
+	if(uiSignature == NPCEX_SIGNATURE)//new fmt
 	{
-		if (!FileRead( hFile, pFileData, uiFileSize, &uiBytesRead ) || uiBytesRead != uiFileSize )
+		uiFileSize = sizeof( NPCQuoteInfo ) * NUM_NPC_QUOTE_RECORDS;
+		pFileData = (NPCQuoteInfo *)MemAlloc( uiFileSize );
+		if (pFileData)
 		{
-			MemFree( pFileData );
-			pFileData = NULL;
+			if (!FileRead( hFile, pFileData, uiFileSize, &uiBytesRead ) || uiBytesRead != uiFileSize )
+			{
+				MemFree( pFileData );
+				pFileData = NULL;
+			}
 		}
+
+		FileClose( hFile );
+	}
+	else //old fmt - make conversion
+	{
+		int iRecord;
+		_old_NPCQuoteInfo * pFileData_old_;
+		uiFileSize = sizeof( _old_NPCQuoteInfo ) * NUM_NPC_QUOTE_RECORDS;
+		pFileData_old_ = ( _old_NPCQuoteInfo * )MemAlloc( uiFileSize );
+		FileSeek(hFile, 0, FILE_SEEK_FROM_START);
+		if (pFileData_old_)
+		{
+			if (!FileRead( hFile, pFileData_old_, uiFileSize, &uiBytesRead ) || uiBytesRead != uiFileSize )
+			{
+				MemFree( pFileData_old_ );
+				pFileData_old_ = NULL;
+			}
+		}
+		
+		FileClose( hFile );
+		//check for Russian script & make a runtime conversion of it to International
+		if( *(DWORD*)pFileData_old_ == 0x00350039 )
+		{
+			//just offset records 4 bytes backward
+			_old_NPCQuoteInfo * pEnglishScript = ( _old_NPCQuoteInfo * )MemAlloc( uiFileSize );
+			memcpy( pEnglishScript, ((char*)pFileData_old_)+4, uiFileSize-4 );
+			MemFree( pFileData_old_ );
+			pFileData_old_ = pEnglishScript;
+		}
+
+		// Now it's time for conversion
+		uiFileSize = sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS;
+		pFileData = (NPCQuoteInfo*)MemAlloc(uiFileSize);
+		for(iRecord=0; iRecord<NUM_NPC_QUOTE_RECORDS; iRecord++)
+			pFileData[iRecord] = pFileData_old_[iRecord];//dnl ch46 021009
+		MemFree(pFileData_old_);
 	}
 
-	FileClose( hFile );
-//<SB> check for Russian script & make a runtime conversion of it to International :D
-// just offset ptr 4 bytes backward
-	if( *(DWORD*)pFileData == 0x00350039 )
-	{
-		NPCQuoteInfo * pEnglishScript = (NPCQuoteInfo *) MemAlloc( uiFileSize );
-		memcpy( pEnglishScript, ((char*)pFileData)+4, uiFileSize-4 );
-		MemFree( pFileData );
-		return( pEnglishScript );
-	}
-//</SB>
+	// 
+	//</SB> new script format
 	return( pFileData );
+}
+
+//dnl ch46 021009
+NPCQuoteInfo& NPCQuoteInfo::operator=(const _old_NPCQuoteInfo& src)
+{
+	if((void*)this != (void*)&src)
+	{
+		fFlags = src.fFlags;
+		if(src.sRequiredGridno < 0)
+		{
+			sRequiredItem = NOTHING;
+			sRequiredGridNo = -src.sRequiredGridno;
+		}
+		else
+		{
+			sRequiredItem = src.sRequiredItem;
+			sRequiredGridNo = NOWHERE;
+		}
+		usFactMustBeTrue = src.usFactMustBeTrue;
+		usFactMustBeFalse = src.usFactMustBeFalse;
+		ubQuest = src.ubQuest;
+		ubFirstDay = src.ubFirstDay;
+		ubLastDay = src.ubLastDay;
+		ubApproachRequired = src.ubApproachRequired;
+		ubOpinionRequired = src.ubOpinionRequired;
+		ubUnused = 0;
+		ubQuoteNum = src.ubQuoteNum;
+		ubNumQuotes = src.ubNumQuotes;
+		ubStartQuest = src.ubStartQuest;
+		ubEndQuest = src.ubEndQuest;
+		ubTriggerNPC = src.ubTriggerNPC;
+		ubTriggerNPCRec = src.ubTriggerNPCRec;
+		usSetFactTrue = src.usSetFactTrue;
+		usGiftItem = src.usGiftItem;
+		sActionData = src.sActionData;
+		if(src.usGoToGridno >= OLD_WORLD_MAX)
+			usGoToGridNo = NOWHERE;
+		else
+			usGoToGridNo = src.usGoToGridno;
+	}
+	return(*this);
 }
 
 void RevertToOriginalQuoteFile( UINT8 ubNPC )
@@ -718,13 +799,11 @@ UINT8 NPCConsiderTalking( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT8 ubRec
 			{
 				continue;
 			}
-		}
-		else if ( pNPCQuoteInfo->sRequiredGridno < 0 )
+		}		
+		else if(!TileIsOutOfBounds(pNPCQuoteInfo->sRequiredGridNo))//dnl ch46 031009
 		{
-			if ( pSoldier->sGridNo != -(pNPCQuoteInfo->sRequiredGridno) )
-			{
+			if(pSoldier->sGridNo != pNPCQuoteInfo->sRequiredGridNo)
 				continue;
-			}
 		}
 
 		if ( NPCConsiderQuote( ubNPC, ubMerc, bApproach, ubLoop, ubTalkDesire, pNPCQuoteInfoArray ) )
@@ -1462,7 +1541,7 @@ UINT8 NPCConsiderQuote( UINT8 ubNPC, UINT8 ubMerc, UINT8 ubApproach, UINT8 ubQuo
 }
 
 
-void ReplaceLocationInNPCData( NPCQuoteInfo * pNPCQuoteInfoArray, INT16 sOldGridNo, INT16 sNewGridNo )
+void ReplaceLocationInNPCData( NPCQuoteInfo * pNPCQuoteInfoArray, INT32 sOldGridNo, INT32 sNewGridNo )
 {
 	UINT8							ubFirstQuoteRecord, ubLastQuoteRecord, ubLoop;
 	NPCQuoteInfo *		pNPCQuoteInfo;
@@ -1472,18 +1551,16 @@ void ReplaceLocationInNPCData( NPCQuoteInfo * pNPCQuoteInfoArray, INT16 sOldGrid
 	for (ubLoop = ubFirstQuoteRecord; ubLoop <= ubLastQuoteRecord; ubLoop++)
 	{
 		pNPCQuoteInfo = &(pNPCQuoteInfoArray[ ubLoop ]);
-		if (sOldGridNo == -pNPCQuoteInfo->sRequiredGridno)
+		if(sOldGridNo == pNPCQuoteInfo->sRequiredGridNo)//dnl ch46 031009
+			pNPCQuoteInfo->sRequiredGridNo = sNewGridNo;
+		if (sOldGridNo == pNPCQuoteInfo->usGoToGridNo)
 		{
-			pNPCQuoteInfo->sRequiredGridno = -sNewGridNo;
-		}
-		if (sOldGridNo == pNPCQuoteInfo->usGoToGridno)
-		{
-			pNPCQuoteInfo->usGoToGridno = sNewGridNo;
+			pNPCQuoteInfo->usGoToGridNo = sNewGridNo;
 		}
 	}
 }
 
-void ReplaceLocationInNPCDataFromProfileID( UINT8 ubNPC, INT16 sOldGridNo, INT16 sNewGridNo )
+void ReplaceLocationInNPCDataFromProfileID( UINT8 ubNPC, INT32 sOldGridNo, INT32 sNewGridNo )
 {
 	NPCQuoteInfo *				pNPCQuoteInfoArray;
 
@@ -2066,7 +2143,7 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 					}
 					NPCDoAction( ubNPC, (UINT16) -(pQuotePtr->sActionData), ubRecordNum );
 				}
-				else if ( pQuotePtr->usGoToGridno == NO_MOVE && pQuotePtr->sActionData > 0 )
+				else if ( pQuotePtr->usGoToGridNo == NO_MOVE && pQuotePtr->sActionData > 0 )
 				{
 					pSoldier = FindSoldierByProfileID( ubNPC, FALSE );
 					ZEROTIMECOUNTER( pSoldier->timeCounters.AICounter );
@@ -2079,7 +2156,7 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 				}
 
 				// Movement?
-				if ( pQuotePtr->usGoToGridno != NO_MOVE )
+				if ( pQuotePtr->usGoToGridNo != NO_MOVE )
 				{
 					pSoldier = FindSoldierByProfileID( ubNPC, FALSE );
 
@@ -2089,7 +2166,7 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 						// make sure he has keys
 						pSoldier->flags.bHasKeys = TRUE;
 					}
-					if (pSoldier && pSoldier->sGridNo == pQuotePtr->usGoToGridno )
+					if (pSoldier && pSoldier->sGridNo == pQuotePtr->usGoToGridNo )
 					{
 						// search for quotes to trigger immediately!
 						pSoldier->ubQuoteRecord = ubRecordNum + 1; // add 1 so that the value is guaranteed nonzero
@@ -2108,14 +2185,14 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 
 						if (pQuotePtr->sActionData == NPC_ACTION_TELEPORT_NPC)
 						{
-							BumpAnyExistingMerc( pQuotePtr->usGoToGridno );
-							TeleportSoldier( pSoldier, pQuotePtr->usGoToGridno, FALSE );
+							BumpAnyExistingMerc( pQuotePtr->usGoToGridNo );
+							TeleportSoldier( pSoldier, pQuotePtr->usGoToGridNo, FALSE );
 							// search for quotes to trigger immediately!
 							NPCReachedDestination( pSoldier, FALSE );
 						}
 						else
 						{
-							NPCGotoGridNo( ubNPC, pQuotePtr->usGoToGridno, ubRecordNum );
+							NPCGotoGridNo( ubNPC, pQuotePtr->usGoToGridNo, ubRecordNum );
 						}
 					}
 				}
@@ -2178,9 +2255,9 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 	}
 }
 
-INT16 NPCConsiderInitiatingConv( SOLDIERTYPE * pNPC, UINT8 * pubDesiredMerc )
+INT32 NPCConsiderInitiatingConv( SOLDIERTYPE * pNPC, UINT8 * pubDesiredMerc )
 {
-	INT16						sMyGridNo, sDist, sDesiredMercDist = 100;
+	INT32						sMyGridNo, sDist, sDesiredMercDist = 100;
 	UINT8						ubNPC, ubMerc, ubDesiredMerc = NOBODY;
 	UINT8						ubTalkDesire, ubHighestTalkDesire = 0;
 	SOLDIERTYPE *		pMerc;
@@ -2352,7 +2429,7 @@ void NPCReachedDestination( SOLDIERTYPE * pNPC, BOOLEAN fAlreadyThere )
 	// (indicated by a negative gridno in the has-item field)
 	// or an action to perform once we reached this gridno
 
-	if ( pNPC->sGridNo == pQuotePtr->usGoToGridno )
+	if ( pNPC->sGridNo == pQuotePtr->usGoToGridNo )
 	{
 		// check for an after-move action
 		if ( pQuotePtr->sActionData > 0)
@@ -2364,7 +2441,7 @@ void NPCReachedDestination( SOLDIERTYPE * pNPC, BOOLEAN fAlreadyThere )
 	for ( ubLoop = 0; ubLoop < NUM_NPC_QUOTE_RECORDS; ubLoop++ )
 	{
 		pQuotePtr = &(pNPCQuoteInfoArray[ubLoop]);
-		if ( pNPC->sGridNo == -(pQuotePtr->sRequiredGridno ) )
+		if ( pNPC->sGridNo == pQuotePtr->sRequiredGridNo )//dnl ch46 031009
 		{
 			if ( NPCConsiderQuote( ubNPC, 0, TRIGGER_NPC, ubLoop, 0, pNPCQuoteInfoArray ) )
 			{
@@ -2468,7 +2545,7 @@ void PCsNearNPC( UINT8 ubNPC )
 	for ( ubLoop = 0; ubLoop < NUM_NPC_QUOTE_RECORDS; ubLoop++ )
 	{
 		pQuotePtr = &(pNPCQuoteInfoArray[ubLoop]);
-		if ( pSoldier->sGridNo == -(pQuotePtr->sRequiredGridno ) )
+		if ( pSoldier->sGridNo == pQuotePtr->sRequiredGridNo )//dnl ch46 031009
 		{
 			if ( NPCConsiderQuote( ubNPC, 0, TRIGGER_NPC, ubLoop, 0, pNPCQuoteInfoArray ) )
 			{
@@ -3337,7 +3414,7 @@ void UpdateDarrelScriptToGoTo( SOLDIERTYPE * pSoldier )
 {
 	// change destination in Darrel record 10 to go to a gridno adjacent to the
 	// soldier's gridno, and destination in record 11
-	INT16 sAdjustedGridNo;
+	INT32 sAdjustedGridNo;
 	UINT8 ubDummyDirection;
 	SOLDIERTYPE *		pDarrel;
 
@@ -3348,12 +3425,12 @@ void UpdateDarrelScriptToGoTo( SOLDIERTYPE * pSoldier )
 	}
 
 	// find a spot to an alternate location nearby
-	sAdjustedGridNo = FindGridNoFromSweetSpotExcludingSweetSpot( pDarrel, pSoldier->sGridNo, 5, &ubDummyDirection );
-	if (sAdjustedGridNo == NOWHERE)
+	sAdjustedGridNo = FindGridNoFromSweetSpotExcludingSweetSpot( pDarrel, pSoldier->sGridNo, 5, &ubDummyDirection );	
+	if (TileIsOutOfBounds(sAdjustedGridNo))
 	{
 		// yikes! try again with a bigger radius!
-		sAdjustedGridNo = FindGridNoFromSweetSpotExcludingSweetSpot( pDarrel, pSoldier->sGridNo, 10, &ubDummyDirection );
-		if (sAdjustedGridNo == NOWHERE)
+		sAdjustedGridNo = FindGridNoFromSweetSpotExcludingSweetSpot( pDarrel, pSoldier->sGridNo, 10, &ubDummyDirection );		
+		if (TileIsOutOfBounds(sAdjustedGridNo))
 		{
 			// ok, now we're completely foobar
 			return;
@@ -3361,8 +3438,8 @@ void UpdateDarrelScriptToGoTo( SOLDIERTYPE * pSoldier )
 	}
 
 	EnsureQuoteFileLoaded( DARREL );
-	gpNPCQuoteInfoArray[ DARREL ][ 10 ].usGoToGridno = sAdjustedGridNo;
-	gpNPCQuoteInfoArray[ DARREL ][ 11 ].sRequiredGridno = -(sAdjustedGridNo);
+	gpNPCQuoteInfoArray[ DARREL ][ 10 ].usGoToGridNo = sAdjustedGridNo;
+	gpNPCQuoteInfoArray[ DARREL ][ 11 ].sRequiredGridNo = sAdjustedGridNo;//dnl ch46 031009
 	gpNPCQuoteInfoArray[ DARREL ][ 11 ].ubTriggerNPC = pSoldier->ubProfile;
 }
 

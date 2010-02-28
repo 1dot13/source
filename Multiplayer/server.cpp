@@ -46,6 +46,8 @@
 #include "fresh_header.h"
 #include "Debug Control.h"
 
+#include "MPXmlTeams.hpp"
+
 extern CHAR16 gzFileTransferDirectory[100];
 
 // WANNE: FILE TRANSFER
@@ -151,6 +153,8 @@ client_data client_d[4];
 // OJW - 20081223
 // Random Merc teams
 // First attempt at "balanced" teams
+// moved to mpxmlteams.cpp
+/*
 int random_merc_teams[4][7] =
 {
 	{ 16, 10, 19, 25, 4 , 11, 39 } ,	// Gus , Shadow, Spider , Raven , Vicki , Red , Meltdown
@@ -158,6 +162,7 @@ int random_merc_teams[4][7] =
 	{ 12, 5 , 20, 23, 48, 34, 17 } ,	// Reaper , Trevor, Cliff , Buzz , Cougar , Nails , Buns
 	{ 31, 7 , 33, 35, 27, 37, 1 }		// Scully , Ivan , Dr Q  , Thor , Len , Wolf , Blood
 };
+*/
 
 int client_mercteam[4] = { 0 , 1 , 2 , 3 }; // random index of random_merc_teams per player
 
@@ -276,6 +281,11 @@ void sendHIT(RPCParameters *rpcParameters)
 	server->RPC("recieveHIT",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
 
+void sendDISMISS(RPCParameters *rpcParameters)
+{
+	server->RPC("recieveDISMISS",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
 void sendHIRE(RPCParameters *rpcParameters)
 {
 	server->RPC("recieveHIRE",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
@@ -324,10 +334,51 @@ void sendBULLET(RPCParameters *rpcParameters)
 	server->RPC("recieveBULLET",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
 
+void sendGRENADE(RPCParameters *rpcParameters)
+{
+	server->RPC("recieveGRENADE",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+void sendGRENADERESULT(RPCParameters *rpcParameters)
+{
+	server->RPC("recieveGRENADERESULT",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+void sendPLANTEXPLOSIVE(RPCParameters *rpcParameters)
+{
+	server->RPC("recievePLANTEXPLOSIVE",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+void sendDETONATEEXPLOSIVE(RPCParameters *rpcParameters)
+{
+	server->RPC("recieveDETONATEEXPLOSIVE",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+void sendDISARMEXPLOSIVE(RPCParameters *rpcParameters)
+{
+	server->RPC("recieveDISARMEXPLOSIVE",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+void sendSPREADEFFECT(RPCParameters *rpcParameters)
+{
+	server->RPC("recieveSPREADEFFECT",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+void sendNEWSMOKEEFFECT(RPCParameters *rpcParameters)
+{
+	server->RPC("recieveNEWSMOKEEFFECT",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+void sendEXPLOSIONDAMAGE(RPCParameters *rpcParameters)
+{
+	server->RPC("recieveEXPLOSIONDAMAGE",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
 void sendSTATE(RPCParameters *rpcParameters)
 {
 	server->RPC("recieveSTATE",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
+
 void sendDEATH(RPCParameters *rpcParameters)
 {
 	// the master copy of the scoreboard is kept on the server
@@ -654,11 +705,12 @@ void requestFILE_TRANSFER_SETTINGS(RPCParameters *rpcParameters)
 	filetransfersettings_struct fts;
 
 	fts.syncClientsDirectory = gsSYNC_CLIENTS_MP_DIR;
-	strcpy(fts.fileTransferDirectory, s_ServerId.GetServerId(vfs::Path(gzFileTransferDirectory)).utf8().c_str());
+	strcpy(fts.fileTransferDirectory, s_ServerId.getServerId(vfs::Path(gzFileTransferDirectory)).utf8().c_str());
 	strcpy(fts.serverName, SERVER_NAME);
 	fts.totalTransferBytes = fileListTotalBytes;
 #endif
-	server->RPC("recieveFILE_TRANSFER_SETTINGS",(const char*)&fts, (int)sizeof(filetransfersettings_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+	// OJW - 200907819 - Only send to the client that asked for it
+	server->RPC("recieveFILE_TRANSFER_SETTINGS",(const char*)&fts, (int)sizeof(filetransfersettings_struct)*8, HIGH_PRIORITY, RELIABLE, 0, sender, false, 0, UNASSIGNED_NETWORK_ID,0);
 }
 
 
@@ -764,14 +816,33 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 
 		// OJW - 20081218
 		if (RANDOM_SPAWN)
+		{
+			// Get the edge from the randomized "client_edges"
 			lan.cl_edge = client_edges[lan.client_num-1];
+		}
 		else
-			lan.cl_edge=clinf->cl_edge;
+		{
+			// WANNE: on DM, each client should get a unique starting edge per default
+			if (gsPLAYER_BSIDE == MP_TYPE_DEATHMATCH || gsPLAYER_BSIDE == MP_TYPE_TEAMDEATMATCH)
+			{
+				client_edges[0] = MP_EDGE_NORTH;	// client 1
+				client_edges[1] = MP_EDGE_SOUTH;	// client 2
+				client_edges[2] = MP_EDGE_EAST;		// client 3
+				client_edges[3] = MP_EDGE_WEST;		// client 4
+
+				lan.cl_edge = client_edges[lan.client_num-1];
+			}
+			else
+			{
+				lan.cl_edge=clinf->cl_edge;
+			}
+		}
 
 		// OJW - 20081223
 		if (RANDOM_MERCS)
 		{
-			memcpy(lan.random_mercs, random_merc_teams[client_mercteam[lan.client_num - 1]], sizeof(int) * 7);
+			//memcpy(lan.random_mercs, random_merc_teams[client_mercteam[lan.client_num - 1]], sizeof(int) * 7);
+			mpTeams.SerializeProfiles(lan.random_mercs);
 		}
 
 		lan.TIME=TIME;
@@ -781,8 +852,11 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 
 		// OJW - 20081204
 		strcpy(lan.server_name , SERVER_NAME);
-		memcpy(lan.client_edges,client_edges,sizeof(int)*4);
+		memcpy(lan.client_edges,client_edges,sizeof(int)*5);
 		memcpy(lan.client_teams,client_teams,sizeof(int)*4);
+
+		// OJW - 20091024 - send servers random table
+		memcpy(lan.random_table,guiPreRandomNums,sizeof(UINT32)*MAX_PREGENERATED_NUMS);
 
 		// OJW - 20090507
 		// send server version to client
@@ -884,40 +958,39 @@ void AddFilesToSendList()
 #else
 	// we cannot just iterate over "*/*" as we would get ALL files and we don't want to send all files
 	// instead we only iterate over the files in the "_MULTIPLAYER" profile
-	vfs::CProfileStack *PS = GetVFS()->GetProfileStack();
-	vfs::CVirtualProfile *prof = PS->GetProfile("_MULTIPLAYER");
-	if(prof != PS->TopProfile())
+	vfs::CProfileStack *PS = getVFS()->getProfileStack();
+	vfs::CVirtualProfile *prof = PS->getProfile("_MULTIPLAYER");
+	if(prof != PS->topProfile())
 	{
 		// there is not supposed to be another profile?
 		// output error message
 		return;
 	}
 	CTransferRules transferRules;
-	transferRules.InitFromTxtFile("transfer_rules.txt");
-	vfs::IBaseLocation* loc = prof->GetLocation("");
+	transferRules.initFromTxtFile("transfer_rules.txt");
+	vfs::IBaseLocation* loc = prof->getLocation("");
 	THROWIFFALSE(loc != NULL, "MP profile was successfully created, but the root directory is not included");
 	vfs::IBaseLocation::Iterator it = loc->begin();
 	int i=0;
 	for(; !it.end(); it.next(), i++)
 	{
-		vfs::Path const& valid_path = it.value()->GetFullPath();
-		if(transferRules.ApplyRule(valid_path()) == CTransferRules::ACCEPT)
+		vfs::Path const& valid_path = it.value()->getPath();
+		if(transferRules.applyRule(valid_path()) == CTransferRules::ACCEPT)
 		{
 			// transfer only those files that are not on the ignore list
-			vfs::tReadableFile* rfile = vfs::tReadableFile::Cast(it.value());
+			vfs::tReadableFile* rfile = vfs::tReadableFile::cast(it.value());
 			if(!rfile)
 			{
 				continue;
 			}
-			vfs::UInt32 fsize = rfile->GetFileSize();
+			vfs::size_t fsize = rfile->getSize();
 			fileListTotalBytes += (long)fsize;
-			if( (fsize>0) && rfile->OpenRead())
+			if( (fsize>0) && rfile->openRead())
 			{
 				std::vector<vfs::Byte> data(fsize,0);
-				vfs::UInt32 has_read=0;
-				rfile->Read(&data[0], fsize, has_read);
-				rfile->Close();
-				fileList.AddFile(valid_path().utf8().c_str(),&data[0], fsize,fsize,FileListNodeContext(0,0), false);
+				rfile->read(&data[0], fsize);
+				rfile->close();
+				fileList.AddFile(utf8string::as_utf8(valid_path()).c_str(),&data[0], fsize,fsize,FileListNodeContext(0,0), false);
 			}
 		}
 	}
@@ -947,13 +1020,13 @@ void start_server (void)
 			char SERVER_PORT[30];
 			//char MAX_CLIENTS[30] ;
 #ifndef USE_VFS
-		//	GetPrivateProfileString( "Ja2_mp Settings","MAX_CLIENTS", "", maxclients, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","SERVER_PORT", "", port, MAX_PATH, "..\\Ja2_mp.ini" );
+		//	GetPrivateProfileString( "Ja2_mp Settings","MAX_CLIENTS", "4", maxclients, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","SERVER_PORT", "60005", port, MAX_PATH, "..\\Ja2_mp.ini" );
 		//	strcpy( MAX_CLIENTS , maxclients );
 			strcpy( SERVER_PORT, port );
 #else
 		//	GetPrivateProfileString( "Ja2_mp Settings","MAX_CLIENTS", "", maxclients, MAX_PATH, "..\\Ja2_mp.ini" );
-			strcpy(port, iniReader.ReadString("Ja2_mp Settings","SERVER_PORT", ""));
+			strcpy(port, iniReader.ReadString("Ja2_mp Settings","SERVER_PORT", "60005"));
 		//	strcpy( MAX_CLIENTS , maxclients );
 			strcpy( SERVER_PORT, port );
 #endif
@@ -979,62 +1052,62 @@ void start_server (void)
 
 			// OJW - 20081204
 #ifndef USE_VFS
-			GetPrivateProfileString( "Ja2_mp Settings","SERVER_NAME", "", SERVER_NAME, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","SERVER_NAME", "Server Name", SERVER_NAME, MAX_PATH, "..\\Ja2_mp.ini" );
 
-			GetPrivateProfileString( "Ja2_mp Settings","SAME_MERC", "", hire_same_merc, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","DISABLE_MORALE", "", mor, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","MAX_CLIENTS", "", maxclients, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","DAMAGE_MULTIPLIER", "", net_div, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","RANDOM_MERCS", "", sRandomMercs, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","RANDOM_EDGES", "", sRandomEdges, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","SAME_MERC", "1", hire_same_merc, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","DISABLE_MORALE", "0", mor, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","MAX_CLIENTS", "4", maxclients, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","DAMAGE_MULTIPLIER", "0.7", net_div, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","RANDOM_MERCS", "0", sRandomMercs, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","RANDOM_EDGES", "0", sRandomEdges, MAX_PATH, "..\\Ja2_mp.ini" );
 			
-			GetPrivateProfileString( "Ja2_mp Settings","ENEMY_ENABLED", "", bteam1_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
-			//GetPrivateProfileString( "Ja2_mp Settings","CREATURE_ENABLED", "", bteam2_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","MILITIA_ENABLED", "", bteam3_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","CIV_ENABLED", "", bteam4_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","ENEMY_ENABLED", "0", bteam1_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
+			//GetPrivateProfileString( "Ja2_mp Settings","CREATURE_ENABLED", "0", bteam2_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","MILITIA_ENABLED", "0", bteam3_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","CIV_ENABLED", "0", bteam4_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
 
-			GetPrivateProfileString( "Ja2_mp Settings","GAME_MODE", "", player_bside, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","DIFFICULT_LEVEL", "", difficult_level, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","GAME_MODE", "0", player_bside, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","DIFFICULT_LEVEL", "3", difficult_level, MAX_PATH, "..\\Ja2_mp.ini" );
 
 			// OJW - 20090304 - override max number of ai's in co-op
 			char sOverrideMaxAI[30];
 			OVERRIDE_MAX_AI = 0;
-			GetPrivateProfileString( "Ja2_mp Settings","OVERRIDE_MAX_AI", "", sOverrideMaxAI, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","OVERRIDE_MAX_AI", "0", sOverrideMaxAI, MAX_PATH, "..\\Ja2_mp.ini" );
 			
 			// WANNE: FILE TRANSFER
 			GetPrivateProfileString( "Ja2_mp Settings", "FILE_TRANSFER_DIRECTORY", "Data-MP", gsFILE_TRANSFER_DIRECTORY_SERVER, MAX_PATH, "..\\Ja2_mp.ini" ); 
 
 			char sendFiles[30];
-			GetPrivateProfileString( "Ja2_mp Settings", "SYNC_CLIENTS_MP_DIR", "", sendFiles, MAX_PATH, "..\\Ja2_mp.ini" ); 
+			GetPrivateProfileString( "Ja2_mp Settings", "SYNC_CLIENTS_MP_DIR", "1", sendFiles, MAX_PATH, "..\\Ja2_mp.ini" ); 
 			gsSYNC_CLIENTS_MP_DIR = atoi(sendFiles);
 #else
-			strncpy(SERVER_NAME, iniReader.ReadString("Ja2_mp Settings","SERVER_NAME", ""), 30);
+			strncpy(SERVER_NAME, iniReader.ReadString("Ja2_mp Settings","SERVER_NAME", "Server Name"), 30);
 
-			strncpy(hire_same_merc, iniReader.ReadString("Ja2_mp Settings","SAME_MERC", ""), 30);
-			strncpy(mor, iniReader.ReadString("Ja2_mp Settings","DISABLE_MORALE", ""), 30);
-			strncpy(maxclients, iniReader.ReadString("Ja2_mp Settings","MAX_CLIENTS", ""), 30);
-			strncpy(net_div, iniReader.ReadString("Ja2_mp Settings","DAMAGE_MULTIPLIER", ""), 30);
-			strncpy(sRandomMercs, iniReader.ReadString("Ja2_mp Settings","RANDOM_MERCS", ""), 30);
-			strncpy(sRandomEdges, iniReader.ReadString("Ja2_mp Settings","RANDOM_EDGES", ""), 30);
+			strncpy(hire_same_merc, iniReader.ReadString("Ja2_mp Settings","SAME_MERC", "1"), 30);
+			strncpy(mor, iniReader.ReadString("Ja2_mp Settings","DISABLE_MORALE", "0"), 30);
+			strncpy(maxclients, iniReader.ReadString("Ja2_mp Settings","MAX_CLIENTS", "4"), 30);
+			strncpy(net_div, iniReader.ReadString("Ja2_mp Settings","DAMAGE_MULTIPLIER", "0.7"), 30);
+			strncpy(sRandomMercs, iniReader.ReadString("Ja2_mp Settings","RANDOM_MERCS", "0"), 30);
+			strncpy(sRandomEdges, iniReader.ReadString("Ja2_mp Settings","RANDOM_EDGES", "0"), 30);
 			
-			strncpy(bteam1_enabled, iniReader.ReadString("Ja2_mp Settings","ENEMY_ENABLED", ""), 30);
+			strncpy(bteam1_enabled, iniReader.ReadString("Ja2_mp Settings","ENEMY_ENABLED", "0"), 30);
 			//GetPrivateProfileString( "Ja2_mp Settings","CREATURE_ENABLED", "", bteam2_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
-			strncpy(bteam3_enabled, iniReader.ReadString("Ja2_mp Settings","MILITIA_ENABLED", ""), 30);
-			strncpy(bteam4_enabled, iniReader.ReadString("Ja2_mp Settings","CIV_ENABLED", ""), 30);
+			strncpy(bteam3_enabled, iniReader.ReadString("Ja2_mp Settings","MILITIA_ENABLED", "0"), 30);
+			strncpy(bteam4_enabled, iniReader.ReadString("Ja2_mp Settings","CIV_ENABLED", "0"), 30);
 
-			strncpy(player_bside, iniReader.ReadString( "Ja2_mp Settings","GAME_MODE", ""), 30);
-			strncpy(difficult_level, iniReader.ReadString( "Ja2_mp Settings", "DIFFICULT_LEVEL", ""), 30);
+			strncpy(player_bside, iniReader.ReadString( "Ja2_mp Settings","GAME_MODE", "0"), 30);
+			strncpy(difficult_level, iniReader.ReadString( "Ja2_mp Settings", "DIFFICULT_LEVEL", "3"), 30);
 			
 			// OJW - 20090304 - override max number of ai's in co-op
 			char sOverrideMaxAI[30];
 			OVERRIDE_MAX_AI = 0;
-			strncpy(sOverrideMaxAI, iniReader.ReadString("Ja2_mp Settings","OVERRIDE_MAX_AI", ""), 30);
+			strncpy(sOverrideMaxAI, iniReader.ReadString("Ja2_mp Settings","OVERRIDE_MAX_AI", "0"), 30);
 			
 			// WANNE: FILE TRANSFER
 			strncpy(gsFILE_TRANSFER_DIRECTORY_SERVER, iniReader.ReadString("Ja2_mp Settings", "FILE_TRANSFER_DIRECTORY", "Data-MP"), 100 ); 
 
 			char sendFiles[30];
-			strncpy(sendFiles, iniReader.ReadString( "Ja2_mp Settings", "SYNC_CLIENTS_MP_DIR", ""), 30 ); 
+			strncpy(sendFiles, iniReader.ReadString( "Ja2_mp Settings", "SYNC_CLIENTS_MP_DIR", "1"), 30 ); 
 			gsSYNC_CLIENTS_MP_DIR = atoi(sendFiles);
 			
 #endif
@@ -1045,14 +1118,14 @@ void start_server (void)
 			if(atoi(mor)==1)gsMORALE=1;
 
 #ifndef USE_VFS
-			GetPrivateProfileString( "Ja2_mp Settings","KIT_BAG", "", kbag, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","KIT_BAG", "[201,214,243]", kbag, MAX_PATH, "..\\Ja2_mp.ini" );
 
 			char rpn[30];
-			GetPrivateProfileString( "Ja2_mp Settings","REPORT_NAME", "", rpn, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","REPORT_NAME", "1", rpn, MAX_PATH, "..\\Ja2_mp.ini" );
 			gsREPORT_NAME=atoi(rpn);
 
-			GetPrivateProfileString( "Ja2_mp Settings","STARTING_BALANCE", "", sBalance, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","TIMED_TURN_SECS_PER_TICK", "", time_div, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","STARTING_BALANCE", "25000", sBalance, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","TIMED_TURN_SECS_PER_TICK", "13.50", time_div, MAX_PATH, "..\\Ja2_mp.ini" );
 
 			char dis_bob[30];
 			char dis_equip[30];
@@ -1060,28 +1133,28 @@ void start_server (void)
 			char test[30];
 			GetPrivateProfileString( "Ja2_mp Settings","DISABLE_BOBBY_RAYS", "", dis_bob, MAX_PATH, "..\\Ja2_mp.ini" );
 			GetPrivateProfileString( "Ja2_mp Settings","DISABLE_AIM_AND_MERC_EQUIP", "", dis_equip, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","MAX_MERCS", "", max_merc, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","TESTING", "", test, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","MAX_MERCS", "5", max_merc, MAX_PATH, "..\\Ja2_mp.ini" );
+			GetPrivateProfileString( "Ja2_mp Settings","TESTING", "0", test, MAX_PATH, "..\\Ja2_mp.ini" );
 			gsDis_Bobby=false;
 			gsDis_Equip=false;
 #else
-			strncpy(kbag, iniReader.ReadString("Ja2_mp Settings","KIT_BAG", ""), 100);
+			strncpy(kbag, iniReader.ReadString("Ja2_mp Settings","KIT_BAG", "[201,214,243]"), 100);
 
 			char rpn[30];
-			strncpy(rpn, iniReader.ReadString("Ja2_mp Settings","REPORT_NAME", ""), 30);
+			strncpy(rpn, iniReader.ReadString("Ja2_mp Settings","REPORT_NAME", "1"), 30);
 			gsREPORT_NAME=atoi(rpn);
 
-			strncpy(sBalance, iniReader.ReadString("Ja2_mp Settings","STARTING_BALANCE", ""), 30);
-			strncpy(time_div, iniReader.ReadString("Ja2_mp Settings","TIMED_TURN_SECS_PER_TICK", ""), 30);
+			strncpy(sBalance, iniReader.ReadString("Ja2_mp Settings","STARTING_BALANCE", "25000"), 30);
+			strncpy(time_div, iniReader.ReadString("Ja2_mp Settings","TIMED_TURN_SECS_PER_TICK", "25"), 30);
 			
 			char dis_bob[30];
 			char dis_equip[30];
 			char max_merc[30];
 			char test[30];
-			strncpy(dis_bob, iniReader.ReadString("Ja2_mp Settings","DISABLE_BOBBY_RAYS", ""), 30);
-			strncpy(dis_equip, iniReader.ReadString("Ja2_mp Settings","DISABLE_AIM_AND_MERC_EQUIP", ""), 30);
-			strncpy(max_merc, iniReader.ReadString("Ja2_mp Settings","MAX_MERCS", ""), 30);
-			strncpy(test, iniReader.ReadString("Ja2_mp Settings","TESTING", ""), 30);
+			strncpy(dis_bob, iniReader.ReadString("Ja2_mp Settings","DISABLE_BOBBY_RAYS", "0"), 30);
+			strncpy(dis_equip, iniReader.ReadString("Ja2_mp Settings","DISABLE_AIM_AND_MERC_EQUIP", "0"), 30);
+			strncpy(max_merc, iniReader.ReadString("Ja2_mp Settings","MAX_MERCS", "5"), 30);
+			strncpy(test, iniReader.ReadString("Ja2_mp Settings","TESTING", "0"), 30);
 			gsDis_Bobby=false;
 			gsDis_Equip=false;
 #endif
@@ -1106,9 +1179,11 @@ void start_server (void)
 			if (RANDOM_SPAWN)
 			{
 				// create random starting edges
-				int spawns[4] = { 0 , 1 , 2 , 3 };
-				rSortArray(spawns,4);
-				memcpy(client_edges,spawns,sizeof(int)*4);
+				int spawns[5] = { 0 , 1 , 2 , 3, 9 };
+				
+				// Randomize spawns
+				rSortArray(spawns,5);
+				memcpy(client_edges,spawns,sizeof(int)*5);
 			}
 
 			if (RANDOM_MERCS)
@@ -1116,6 +1191,7 @@ void start_server (void)
 				// randomly sort team indexes to give client
 				// one of four random merc teams
 				rSortArray(client_mercteam,4);
+				mpTeams.HandleServerStarted();
 			}
 
 			if(gsPLAYER_BSIDE==2)//only enable ai during coop
@@ -1128,7 +1204,8 @@ void start_server (void)
 					OVERRIDE_MAX_AI = 1;
 			}
 
-			gsSAME_MERC = atoi(hire_same_merc);
+			// random_mercs implies same_merc
+			gsSAME_MERC = RANDOM_MERCS ? 1 : atoi(hire_same_merc);
 			gsDAMAGE_MULTIPLIER =(FLOAT)atof(net_div);
 			gsINTERRUPTS = atoi(ints);
 			gsMAX_CLIENTS = atoi(maxclients);
@@ -1153,19 +1230,19 @@ void start_server (void)
 			sDISABLE_SPEC_MODE=atoi(dspec);
 #else
 			char time[30];
-			strncpy(time, iniReader.ReadString("Ja2_mp Settings","TIME", ""), 30);
+			strncpy(time, iniReader.ReadString("Ja2_mp Settings","TIME", "0"), 30);
 			TIME=(FLOAT)atof(time);
 
 			char wpr[30];
-			strncpy(wpr, iniReader.ReadString("Ja2_mp Settings","WEAPON_READIED_BONUS", ""), 30);
+			strncpy(wpr, iniReader.ReadString("Ja2_mp Settings","WEAPON_READIED_BONUS", "0"), 30);
 			sWEAPON_READIED_BONUS=atoi(wpr);
 
 			char acniv[30];
-			strncpy(acniv, iniReader.ReadString("Ja2_mp Settings","ALLOW_CUSTOM_NIV", ""), 30);
+			strncpy(acniv, iniReader.ReadString("Ja2_mp Settings","ALLOW_CUSTOM_NIV", "0"), 30);
 			sALLOW_CUSTOM_NIV=atoi(acniv);
 
 			char dspec[30];
-			strncpy(dspec, iniReader.ReadString("Ja2_mp Settings","DISABLE_SPEC_MODE", ""), 30);
+			strncpy(dspec, iniReader.ReadString("Ja2_mp Settings","DISABLE_SPEC_MODE", "0"), 30);
 			sDISABLE_SPEC_MODE=atoi(dspec);
 #endif
 			//**********************
@@ -1185,6 +1262,7 @@ void start_server (void)
 		REGISTER_STATIC_RPC(server, sendFIRE);
 		REGISTER_STATIC_RPC(server, sendHIT);
 		REGISTER_STATIC_RPC(server, sendHIRE);
+		REGISTER_STATIC_RPC(server, sendDISMISS);
 		REGISTER_STATIC_RPC(server, sendguiPOS);
 		REGISTER_STATIC_RPC(server, sendguiDIR);
 		REGISTER_STATIC_RPC(server, sendEndTurn);
@@ -1194,6 +1272,14 @@ void start_server (void)
 		REGISTER_STATIC_RPC(server, sendREADY);
 		REGISTER_STATIC_RPC(server, sendGUI);
 		REGISTER_STATIC_RPC(server, sendBULLET);
+		REGISTER_STATIC_RPC(server, sendGRENADE);
+		REGISTER_STATIC_RPC(server, sendGRENADERESULT);
+		REGISTER_STATIC_RPC(server, sendPLANTEXPLOSIVE);
+		REGISTER_STATIC_RPC(server, sendDETONATEEXPLOSIVE);
+		REGISTER_STATIC_RPC(server, sendDISARMEXPLOSIVE);
+		REGISTER_STATIC_RPC(server, sendSPREADEFFECT);
+		REGISTER_STATIC_RPC(server, sendNEWSMOKEEFFECT);
+		REGISTER_STATIC_RPC(server, sendEXPLOSIONDAMAGE);
 		REGISTER_STATIC_RPC(server, requestSETTINGS);
 		REGISTER_STATIC_RPC(server, requestFILE_TRANSFER_SETTINGS);
 		REGISTER_STATIC_RPC(server, sendSTATE);

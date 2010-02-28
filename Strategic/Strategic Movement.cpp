@@ -1554,10 +1554,6 @@ void AwardExperienceForTravelling( GROUP * pGroup )
 
 void AddCorpsesToBloodcatLair( INT16 sSectorX, INT16 sSectorY )
 {
-	// HEADROCK HAM 3.6: Note, lair location externalized, but may cause issues because the GridNos here are
-	// hardcoded... Maybe there will be a better way to solve this in the future, with externalized GridNos.
-	// At the moment, no changes.
-
 	ROTTING_CORPSE_DEFINITION		Corpse;
 	INT16							 sXPos, sYPos;
 
@@ -4716,9 +4712,6 @@ void RandomizePatrolGroupLocation( GROUP *pGroup )
 //roll the dice to see if this will become an ambush random encounter.
 BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 {
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// HEADROCK HAM 3.6: Ambush locations, min/max strength and chance of ambush have all been externalized to XML.
-
 	SECTORINFO *pSector;
 	INT32 iHoursElapsed;
 	UINT8 ubSectorID;

@@ -34,6 +34,7 @@
 #endif
 
 #include "Soldier Macros.h"
+#include "InterfaceItemImages.h"
 
 // WDS - make number of mercenaries, etc. be configurable
 #define MAX_MERCS_ON_SCREEN 20
@@ -2190,7 +2191,8 @@ void RenderInventoryForCharacter( INT32 iId, INT32 iSlot )
 				pItem = &Item[ sIndex ];
 
 				GetVideoObject( &hHandle, GetInterfaceGraphicForItem( pItem ) );
-				pTrav = &(hHandle->pETRLEObject[ pItem->ubGraphicNum ] );
+				UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : pItem->ubGraphicNum;
+				pTrav = &(hHandle->pETRLEObject[ usGraphicNum ] );
 
 				usHeight				= (UINT32)pTrav->usHeight;
 				usWidth					= (UINT32)pTrav->usWidth;
@@ -2199,10 +2201,10 @@ void RenderInventoryForCharacter( INT32 iId, INT32 iSlot )
 				sCenY = PosY + ( abs( 22 - usHeight ) / 2 ) - pTrav->sOffsetY;
 
 				// shadow
-				if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX-2, sCenY+2);
+				if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), usGraphicNum, sCenX-2, sCenY+2);
 
 				//blt the item
-				BltVideoObjectOutlineFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX, sCenY, 0, FALSE );
+				BltVideoObjectOutlineFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), usGraphicNum, sCenX, sCenY, 0, FALSE );
 
 				SetFont( FONT10ARIAL );
 				SetFontForeground( FONT_WHITE );

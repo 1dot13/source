@@ -188,7 +188,7 @@ extern BOOLEAN		gfUIDoNotHighlightSelMerc;
 extern UINT32		guiShowUPDownArrows;
 extern BOOLEAN		gfUIHandleSelection;
 extern BOOLEAN		gfUIHandleSelectionAboveGuy;
-extern INT16		gsSelectedGridNo;
+extern INT32		gsSelectedGridNo;
 extern INT16		gsSelectedGuy;
 extern BOOLEAN		gfUIInDeadlock;
 extern UINT8		gUIDeadlockedSoldier;
@@ -199,17 +199,17 @@ extern BOOLEAN		gUIUseReverse;
 
 
 extern BOOLEAN		gfUIHandleShowMoveGrid;
-extern UINT16		gsUIHandleShowMoveGridLocation;
+extern INT32		gsUIHandleShowMoveGridLocation;
 
 extern BOOLEAN		gfUIDisplayDamage;
 extern INT8			gbDamage;
-extern INT16		gsDamageGridNo;
+extern INT32		gsDamageGridNo;
 
 extern BOOLEAN		gfFontPopupDo;
 
 extern BOOLEAN		gUITargetReady;
 extern BOOLEAN		gUITargetShotWaiting;
-extern INT16		gsUITargetShotGridNo;
+extern INT32		gsUITargetShotGridNo;
 
 extern CHAR16		gzLocation[ 20 ];
 extern BOOLEAN		gfUIBodyHitLocation;
@@ -253,7 +253,7 @@ extern UINT16	gusUIFullTargetID;
 extern UINT32	guiUIFullTargetFlags;
 
 extern BOOLEAN	gfUIConfirmExitArrows;
-extern INT16	gsJumpOverGridNo;
+extern INT32	gsJumpOverGridNo;
 
 extern UINT32	HandleTacticalUI(void);
 extern UINT32	UIHandleEndTurn( UI_EVENT *pUIEvent );
@@ -273,7 +273,7 @@ extern INT16	guiCreateGuyIndex;
 extern INT16	guiCreateBadGuyIndex;
 
 // WANNE: Calculate the APs to turn around
-INT16 APsToTurnAround(SOLDIERTYPE *pSoldier, INT16 sAdjustedGridNo);
+INT16 APsToTurnAround(SOLDIERTYPE *pSoldier, INT32 sAdjustedGridNo);
 
 // FUNCTIONS IN INPUT MODULES
 void GetKeyboardInput( UINT32 *puiNewEvent );
@@ -305,10 +305,10 @@ void ToggleLookCursorMode( UINT32 *puiNewEvent );
 void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance );
 void GetCursorMovementFlags( UINT32 *puiCursorFlags );
 
-BOOLEAN HandleUIMovementCursor( SOLDIERTYPE *pSoldier, UINT32 uiCursorFlags, INT16 sMapPos, UINT32 uiFlags );
+BOOLEAN HandleUIMovementCursor( SOLDIERTYPE *pSoldier, UINT32 uiCursorFlags, INT32 usMapPos, UINT32 uiFlags );
 BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier );
 
-BOOLEAN UIOkForItemPickup( SOLDIERTYPE *pSoldier, INT16 sGridNo );
+BOOLEAN UIOkForItemPickup( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 
 BOOLEAN IsValidTalkableNPCFromMouse( UINT8 *pubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed );
 BOOLEAN IsValidTalkableNPC( UINT8 ubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed );
@@ -324,8 +324,8 @@ UINT32 UIHandleLUIEndLock( UI_EVENT *pUIEvent );
 
 void BeginDisplayTimedCursor( UINT32 uiCursorID, UINT32 uiDelay );
 
-void HandleHandCursorClick( INT16 sMapPos, UINT32 *puiNewEvent );
-INT8 HandleMoveModeInteractiveClick( INT16 sMapPos, UINT32 *puiNewEvent );
+void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent );
+INT8 HandleMoveModeInteractiveClick( INT32 usMapPos, UINT32 *puiNewEvent );
 
 BOOLEAN HandleUIReloading( SOLDIERTYPE *pSoldier );
 
@@ -344,13 +344,13 @@ BOOLEAN SelectedGuyInBusyAnimation( );
 void GotoLowerStance( SOLDIERTYPE *pSoldier );
 void GotoHeigherStance( SOLDIERTYPE *pSoldier );
 
-BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT16 sGridNo , BOOLEAN fCheckForPath);
+BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo , BOOLEAN fCheckForPath);
 
 void PopupAssignmentMenuInTactical( SOLDIERTYPE *pSoldier );
 void PopupMilitiaControlMenu( SOLDIERTYPE *pSoldier ); //lal
 
 void PreventFromTheFreezingBug(SOLDIERTYPE* pSoldier);
 
-void GetGridNoScreenXY( INT16 sGridNo, INT16 *pScreenX, INT16 *pScreenY );
+void GetGridNoScreenXY( INT32 sGridNo, INT16 *pScreenX, INT16 *pScreenY );
 
 #endif

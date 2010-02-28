@@ -7,47 +7,144 @@
 
 #include <sstream>
 
-vfs::CVirtualProfile::Iterator::Iterator(vfs::CVirtualProfile& rProf)
-: m_pProf(&rProf)
+
+class vfs::CVirtualProfile::IterImpl : public vfs::CVirtualProfile::Iterator::IImplementation
 {
-	// only unique locations
-	_loc_iter = m_pProf->m_setLocations.begin();
-}
+	friend class vfs::CVirtualProfile;
+	typedef vfs::CVirtualProfile::Iterator::IImplementation tBaseClass;
 
-vfs::CVirtualProfile::Iterator::Iterator()
-: m_pProf(NULL)
-{}
-
-vfs::CVirtualProfile::Iterator::~Iterator()
-{}
-
-vfs::IBaseLocation* vfs::CVirtualProfile::Iterator::value() const
-{
-	if(_loc_iter != m_pProf->m_setLocations.end())
+	IterImpl(CVirtualProfile* profile) : tBaseClass(), m_profile(profile)
 	{
-		return *_loc_iter;
+		THROWIFFALSE(profile, L"");
+		// only unique locations
+		_loc_iter = m_profile->m_setLocations.begin();
 	}
-	THROWEXCEPTION(L"End of map");
+public:
+	IterImpl() : tBaseClass(), m_profile(NULL)
+	{};
+	virtual ~IterImpl()
+	{};
+	//////
+	virtual vfs::IBaseLocation*		value()
+	{
+		if(_loc_iter != m_profile->m_setLocations.end())
+		{
+			return *_loc_iter;
+		}
+		return NULL;
+	}
+	virtual void					next()
+	{
+		if(_loc_iter != m_profile->m_setLocations.end())
+		{
+			_loc_iter++;
+		}
+	}
+protected:
+	virtual tBaseClass* clone()
+	{
+		IterImpl* iter = new IterImpl();
+		iter->m_profile = m_profile;
+		iter->_loc_iter = _loc_iter;
+		return iter;
+	}
+private:
+	vfs::CVirtualProfile*						m_profile;
+	vfs::CVirtualProfile::tUniqueLoc::iterator	_loc_iter;
+};
+
+/***************************************************************************/
+/***************************************************************************/
+
+class vfs::CVirtualProfile::FileIterImpl : public vfs::CVirtualProfile::FileIterator::IImplementation
+{
+	friend class vfs::CVirtualProfile;
+	typedef vfs::CVirtualProfile::FileIterator::IImplementation tBaseClass;
+	FileIterImpl(vfs::Path const& sPattern, CVirtualProfile* profile);
+
+public:
+	FileIterImpl() : tBaseClass(), m_profile(NULL)
+	{};
+	virtual ~FileIterImpl()
+	{};
+	/////
+	virtual vfs::IBaseFile*			value()
+	{
+		return file;
+	}
+	virtual void					next();
+protected:
+	virtual tBaseClass* clone()
+	{
+		FileIterImpl* iter2 = new FileIterImpl();
+		iter2->m_pattern = m_pattern;
+		iter2->m_profile = m_profile;
+		iter2->iter = iter;
+		iter2->fiter = fiter;
+		iter2->file = file;
+		return iter2;
+	}
+private:
+	vfs::Path						m_pattern;
+	vfs::CVirtualProfile*			m_profile;
+	vfs::CVirtualProfile::Iterator	iter;
+	vfs::IBaseLocation::Iterator	fiter;
+	vfs::IBaseFile*					file;
+};
+
+vfs::CVirtualProfile::FileIterImpl::FileIterImpl(vfs::Path const& sPattern, CVirtualProfile* profile)
+: tBaseClass(), m_pattern(sPattern), m_profile(profile)
+{
+	THROWIFFALSE(profile, L"");
+	iter = m_profile->begin();
+	while(!iter.end())
+	{
+		fiter = iter.value()->begin();
+		while(!fiter.end())
+		{
+			file = fiter.value();
+			if( matchPattern(m_pattern(), file->getPath()()) )
+			{
+				return;
+			}
+			fiter.next();
+		}
+		iter.next();
+	}
+	file = NULL;
 }
 
-void vfs::CVirtualProfile::Iterator::next()
+void vfs::CVirtualProfile::FileIterImpl::next()
 {
-	if(_loc_iter != m_pProf->m_setLocations.end())
+	if(!fiter.end())
 	{
-		_loc_iter++;
+		fiter.next();
 	}
-	// silently ignore error
-}
-bool vfs::CVirtualProfile::Iterator::end() const
-{
-	return _loc_iter == m_pProf->m_setLocations.end();
+	while(!iter.end())
+	{
+		while(!fiter.end())
+		{
+			file = fiter.value();
+			if( matchPattern(m_pattern(), file->getPath()()) )
+			{
+				return;
+			}
+			fiter.next();
+		}
+		iter.next();
+		if(!iter.end())
+		{
+			fiter = iter.value()->begin();
+		}
+	}
+	file = NULL;
 }
 
 /***************************************************************************/
 /***************************************************************************/
 
-vfs::CVirtualProfile::CVirtualProfile(utf8string const& sProfileName, bool bWriteable)
-: Name(sProfileName), Writeable(bWriteable)
+vfs::CVirtualProfile::CVirtualProfile(utf8string const& sProfileName, bool bWritable)
+: cName(sProfileName), cWritable(bWritable)
 {};
 
 vfs::CVirtualProfile::~CVirtualProfile()
@@ -56,7 +153,7 @@ vfs::CVirtualProfile::~CVirtualProfile()
 	for(; it != m_setLocations.end(); ++it)
 	{
 		delete (*it);
-		(*it) = NULL;
+		//(*it) = NULL;
 	}
 	m_setLocations.clear();
 	m_mapLocations.clear();
@@ -64,16 +161,21 @@ vfs::CVirtualProfile::~CVirtualProfile()
 
 vfs::CVirtualProfile::Iterator vfs::CVirtualProfile::begin()
 {
-	return Iterator(*this);
+	return Iterator(new IterImpl(this));
 }
-		
-void vfs::CVirtualProfile::AddLocation(vfs::IBaseLocation* pLoc)
+
+vfs::CVirtualProfile::FileIterator vfs::CVirtualProfile::files(vfs::Path const& sPattern)
+{
+	return FileIterator( new FileIterImpl(sPattern, this));
+}
+
+void vfs::CVirtualProfile::addLocation(vfs::IBaseLocation* pLoc)
 {
 	if(pLoc)
 	{
 		m_setLocations.insert(pLoc);
 		std::list<vfs::Path> lDirs;
-		pLoc->GetSubDirList(lDirs);
+		pLoc->getSubDirList(lDirs);
 		std::list<vfs::Path>::const_iterator cit = lDirs.begin();
 		for(;cit != lDirs.end(); ++cit)
 		{
@@ -82,7 +184,7 @@ void vfs::CVirtualProfile::AddLocation(vfs::IBaseLocation* pLoc)
 			{
 				m_mapLocations[*cit] = pLoc;
 			}
-			else if(pNewLoc = pLoc)
+			else if(pNewLoc == pLoc)
 			{
 				// seems to be an update. do nothing
 			}
@@ -94,7 +196,7 @@ void vfs::CVirtualProfile::AddLocation(vfs::IBaseLocation* pLoc)
 	}
 }
 
-vfs::IBaseLocation* vfs::CVirtualProfile::GetLocation(vfs::Path const& sPath) const
+vfs::IBaseLocation* vfs::CVirtualProfile::getLocation(vfs::Path const& sPath) const
 {
 	tLocations::const_iterator it = m_mapLocations.find(sPath);
 	if(it != m_mapLocations.end())
@@ -104,14 +206,14 @@ vfs::IBaseLocation* vfs::CVirtualProfile::GetLocation(vfs::Path const& sPath) co
 	return NULL;
 }
 
-vfs::IBaseFile* vfs::CVirtualProfile::GetFile(vfs::Path const& sPath) const
+vfs::IBaseFile* vfs::CVirtualProfile::getFile(vfs::Path const& sPath) const
 {
 	vfs::Path sDir,sFile;
-	sPath.SplitLast(sDir,sFile);
+	sPath.splitLast(sDir,sFile);
 	tLocations::const_iterator it = m_mapLocations.find(sDir);
 	if(it != m_mapLocations.end())
 	{
-		return it->second->GetFile(sPath);
+		return it->second->getFile(sPath);
 	}
 	return NULL;
 }
@@ -120,40 +222,49 @@ vfs::IBaseFile* vfs::CVirtualProfile::GetFile(vfs::Path const& sPath) const
 /***************************************************************************/
 /***************************************************************************/
 
-vfs::CProfileStack::Iterator::Iterator(CProfileStack& rPStack)
-: m_pPStack(&rPStack)
+class vfs::CProfileStack::IterImpl : public vfs::CProfileStack::Iterator::IImplementation
 {
-	_prof_iter = m_pPStack->m_lProfiles.begin();
+	friend class CProfileStack;
+	typedef CProfileStack::Iterator::IImplementation tBaseClass;
+
+	IterImpl(CProfileStack* pPStack) : tBaseClass(), m_pPStack(pPStack)
+	{
+		THROWIFFALSE(m_pPStack, L"");
+		_prof_iter = m_pPStack->m_profiles.begin();
+	}
+public:
+	IterImpl() : tBaseClass(), m_pPStack(NULL)
+	{};
+	~IterImpl()
+	{};
+	//////
+	virtual vfs::CVirtualProfile*	value()
+	{
+		if(_prof_iter != m_pPStack->m_profiles.end())
+		{
+			return *_prof_iter;
+		}
+		return NULL;
+	}
+	virtual void					next()
+	{
+		if(_prof_iter != m_pPStack->m_profiles.end())
+		{
+			_prof_iter++;
+		}
+	}
+protected:
+	virtual tBaseClass* clone()
+	{
+		IterImpl* iter = new IterImpl();
+		iter->m_pPStack = m_pPStack;
+		iter->_prof_iter = _prof_iter;
+		return iter;
+	}
+private:
+	vfs::CProfileStack*							m_pPStack;
+	std::list<vfs::CVirtualProfile*>::iterator	_prof_iter;
 };
-
-vfs::CProfileStack::Iterator::Iterator()
-: m_pPStack(NULL)
-{};
-
-vfs::CProfileStack::Iterator::~Iterator()
-{};
-
-vfs::CVirtualProfile* vfs::CProfileStack::Iterator::value() const
-{
-	if(_prof_iter != m_pPStack->m_lProfiles.end())
-	{
-		return *_prof_iter;
-	}
-	THROWEXCEPTION(L"end of container");
-}
-
-void vfs::CProfileStack::Iterator::next()
-{
-	if(_prof_iter != m_pPStack->m_lProfiles.end())
-	{
-		_prof_iter++;
-	}
-	// silently ignore that we already are at the end of the list
-}
-bool vfs::CProfileStack::Iterator::end() const
-{
-	return _prof_iter == m_pPStack->m_lProfiles.end();
-}
 
 /***************************************************************************/
 /***************************************************************************/
@@ -163,21 +274,21 @@ vfs::CProfileStack::CProfileStack()
 
 vfs::CProfileStack::~CProfileStack()
 {
-	std::list<CVirtualProfile*>::iterator it = m_lProfiles.begin();
-	for(; it != m_lProfiles.end(); ++it)
+	std::list<CVirtualProfile*>::iterator it = m_profiles.begin();
+	for(; it != m_profiles.end(); ++it)
 	{
 		delete (*it);
 		(*it) = NULL;
 	}
-	m_lProfiles.clear();
+	m_profiles.clear();
 }
 
-vfs::CVirtualProfile* vfs::CProfileStack::GetProfile(utf8string const& sName) const
+vfs::CVirtualProfile* vfs::CProfileStack::getProfile(utf8string const& sName) const
 {
-	std::list<CVirtualProfile*>::const_iterator it = m_lProfiles.begin();
-	for(;it != m_lProfiles.end(); ++it)
+	std::list<CVirtualProfile*>::const_iterator it = m_profiles.begin();
+	for(;it != m_profiles.end(); ++it)
 	{
-		if( StrCmp::EqualCase((*it)->Name, sName) )
+		if( StrCmp::EqualCase((*it)->cName, sName) )
 		{
 			return *it;
 		}
@@ -185,12 +296,12 @@ vfs::CVirtualProfile* vfs::CProfileStack::GetProfile(utf8string const& sName) co
 	return NULL;
 }
 
-vfs::CVirtualProfile* vfs::CProfileStack::GetWriteProfile()
+vfs::CVirtualProfile* vfs::CProfileStack::getWriteProfile()
 {
-	std::list<CVirtualProfile*>::const_iterator it = m_lProfiles.begin();
-	for(;it != m_lProfiles.end(); ++it)
+	std::list<vfs::CVirtualProfile*>::const_iterator it = m_profiles.begin();
+	for(;it != m_profiles.end(); ++it)
 	{
-		if((*it)->Writeable)
+		if((*it)->cWritable)
 		{
 			return *it;
 		}
@@ -198,25 +309,24 @@ vfs::CVirtualProfile* vfs::CProfileStack::GetWriteProfile()
 	return NULL;
 }
 
-vfs::CVirtualProfile* vfs::CProfileStack::TopProfile() const
+vfs::CVirtualProfile* vfs::CProfileStack::topProfile() const
 {
-	if(!m_lProfiles.empty())
+	if(!m_profiles.empty())
 	{
-		return m_lProfiles.front();
+		return m_profiles.front();
 	}
 	return NULL;
 }
 
-bool vfs::CProfileStack::PopProfile()
+bool vfs::CProfileStack::popProfile()
 {
 	// there might be some files in this profile that are referenced in a CLog object
 	// we need to it to release the file
-	CLog::FlushAll();
+	CLog::flushAll();
 	// an observer pattern would probably be the better solution,
 	// but for now lets do it this way 
 
-	bool bSuccess = true;
-	vfs::CVirtualProfile* prof = this->TopProfile();
+	vfs::CVirtualProfile* prof = this->topProfile();
 	if(prof)
 	{
 		vfs::CVirtualProfile::Iterator loc_it = prof->begin();
@@ -230,17 +340,17 @@ bool vfs::CProfileStack::PopProfile()
 				vfs::Path sDir, sFile;
 				if(file)
 				{
-					file->GetFullPath().SplitLast(sDir,sFile);
-					vfs::CVirtualLocation* vloc = GetVFS()->GetVirtualLocation(sDir);
+					file->getPath().splitLast(sDir,sFile);
+					vfs::CVirtualLocation* vloc = getVFS()->getVirtualLocation(sDir);
 					if(vloc)
 					{
-						if( !(bSuccess &= vloc->RemoveFile(file)) )
+						if( !vloc->removeFile(file) )
 						{
 							std::wstringstream wss;
 							wss << L"Could not remove file ["
-								<< file->GetFullPath()()
+								<< file->getPath()()
 								<< L"] in Profile ["
-								<< prof->Name << L"]";
+								<< prof->cName << L"]";
 							THROWEXCEPTION(wss.str().c_str());
 						}
 					}
@@ -254,26 +364,23 @@ bool vfs::CProfileStack::PopProfile()
 				else
 				{
 					std::wstringstream wss;
-					wss << L"File is NULL during iteration over files in location [" << loc->GetFullPath()() << L"]";
+					wss << L"File is NULL during iteration over files in location [" << loc->getPath()() << L"]";
 					THROWEXCEPTION(wss.str().c_str());
 				}
 			}
 		}
-		if(bSuccess)
-		{
-			// delete only when nothing went wrong
-			this->m_lProfiles.pop_front();
-			delete prof;
-		}
+		// delete only when nothing went wrong
+		this->m_profiles.pop_front();
+		delete prof;
 	}
-	return bSuccess;
+	return true;
 }
 
-void vfs::CProfileStack::PushProfile(CVirtualProfile* pProfile)
+void vfs::CProfileStack::pushProfile(CVirtualProfile* pProfile)
 {
-	if(!GetProfile(pProfile->Name))
+	if(!getProfile(pProfile->cName))
 	{
-		m_lProfiles.push_front(pProfile);
+		m_profiles.push_front(pProfile);
 		return;
 	}
 	THROWEXCEPTION(L"A profile with this name already exists");
@@ -281,6 +388,6 @@ void vfs::CProfileStack::PushProfile(CVirtualProfile* pProfile)
 
 vfs::CProfileStack::Iterator vfs::CProfileStack::begin()
 {
-	return Iterator(*this);
+	return Iterator(new IterImpl(this));
 }
 

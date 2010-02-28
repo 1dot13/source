@@ -117,6 +117,7 @@
 
 #include "connect.h" //hayden
 #include "fresh_header.h"
+#include "InterfaceItemImages.h"
 // DEFINES
 
 
@@ -2864,7 +2865,6 @@ void DrawCharacterInfo(INT16 sCharNumber)
 	{
 		wcscpy(sString,pTownNames[GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
 	}
-
 	// repairing?
 	else if( pSoldier->bAssignment == REPAIR )
 	{
@@ -3989,10 +3989,9 @@ void DrawMPPlayerList ()
 					SetBackgroundRectFilled( iBack );
 					//DrawString( (STR16)szPlayerName , usX,usY, MAP_SCREEN_FONT);
 
-					// <TODO> check for gametype here
-					//wcscpy(szTeam,L"N/A");
-					if (PLAYER_BSIDE==MP_TYPE_DEATHMATCH)
-						wcscpy(szTeam,L"N/A");
+					// WANNE: No team selection in DM or COOP
+					if (PLAYER_BSIDE == MP_TYPE_DEATHMATCH || PLAYER_BSIDE == MP_TYPE_COOP)
+						wcscpy(szTeam, gszMPTeamNames[4]);
 					else
 						wcscpy(szTeam,gszMPTeamNames[client_teams[i]]);
 					FindFontCenterCoordinates((short)MP_TEAM_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_TEAM_W, (short)Y_SIZE, szTeam, (long)MAP_SCREEN_FONT, &usX, &usY);
@@ -4342,7 +4341,6 @@ void CreateDestroyMouseRegionsForTeamBox()
 
 	if (!is_team_box_open)
 	{
-
 		// grab height of font
 		iFontHeight = GetLineSpace( ghMPTeamBox ) + GetFontHeight( GetBoxFont( ghMPTeamBox ) );
 
@@ -4362,7 +4360,7 @@ void CreateDestroyMouseRegionsForTeamBox()
 		SetCurrentBox( ghMPTeamBox );
 
 		// define regions
-		for( iCounter = 0; iCounter < MAX_EDGES; iCounter++ )
+		for( iCounter = 0; iCounter < MAX_MP_TEAMS; iCounter++ )
 		{
 			// add mouse region for each line of text..and set user data
 			MSYS_DefineRegion( &gTeamMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghMPTeamBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghMPTeamBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
@@ -6425,7 +6423,10 @@ UINT32 HandleMapUI( )
 								// <TODO> OJW - 20081201 - change this state away from allowlaptop to its own field
 								// or something more seperate from that concept
 								if (is_server && !allowlaptop)
+								{
+									InitializeWorldSize(sMapX, sMapY, 0);
 									send_mapchange();
+								}
 							}
 						}
 						else
@@ -6558,6 +6559,65 @@ UINT32 HandleMapUI( )
 	}
 
 	return( uiNewScreen );
+}
+
+
+// WANNE - BMP: This method is used only for multiplayer
+void InitializeWorldSize(INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ)
+{
+	CHAR8 datFilename[ 50 ];
+	CHAR8 mapFilename[ 50 ];
+	UINT32					uiFileSize;
+	INT8					*pBuffer;
+	INT8					*pBufferHead;
+	UINT32					uiBytesRead;
+	UINT8					ubMinorMapVersion;
+	FLOAT					dMajorMapVersion;
+	HWFILE					hfile;
+
+	GetMapFileName( sSectorX, sSectorY, bSectorZ,  datFilename, TRUE, TRUE );
+
+	//Load the placeholder map if the real map doesn't exist.
+	if( !MapExists((UINT8 *) datFilename ) )
+	{
+		AssertMsg( 0, "Failed to load map file." );
+	}
+
+	sprintf( mapFilename, "MAPS\\%s", datFilename );
+
+	// Open file
+	hfile = FileOpen( mapFilename, FILE_ACCESS_READ, FALSE );
+
+	if ( !hfile )
+	{
+		// Initialize with default "normal" map size
+		SetWorldSize(OLD_WORLD_ROWS, OLD_WORLD_COLS);
+	}
+	else
+	{
+		//Get the file size and alloc one huge buffer for it.
+		//We will use this buffer to transfer all of the data from.
+		uiFileSize = FileGetSize( hfile );
+		pBuffer = (INT8*)MemAlloc( uiFileSize );
+		pBufferHead = pBuffer;
+		FileRead( hfile, pBuffer, uiFileSize, &uiBytesRead );
+		FileClose( hfile );
+
+		// Read JA2 Version ID
+		LOADDATA( &dMajorMapVersion, pBuffer, sizeof( FLOAT ) );
+		LOADDATA( &ubMinorMapVersion, pBuffer, sizeof( UINT8 ) );
+		
+		if(dMajorMapVersion < 7.00)
+			// old map - always 160x160
+			SetWorldSize(OLD_WORLD_ROWS, OLD_WORLD_COLS);
+		else
+		{
+			INT32 iRowSize = 0, iColSize = 0;
+			LOADDATA( &iRowSize, pBuffer, sizeof( INT32 ) );
+			LOADDATA( &iColSize, pBuffer, sizeof( INT32 ) );
+			SetWorldSize(iRowSize, iColSize);
+		}
+	}
 }
 
 
@@ -6844,7 +6904,8 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 				case BACKSPACE:
 					StopAnyCurrentlyTalkingSpeech( );
 					break;
-				
+
+				// multiplayer: Roman: Should be changed, because the keys are already bount to another feature
 				case F1:
 					// WANNE: No more needed
 					/*
@@ -7091,12 +7152,22 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					}*/
 				case '8':
 				case '9':
+					if(gGameExternalOptions.fEnableInventoryPoolQ && fShowMapInventoryPool == TRUE)//dnl ch51 081009
+					{
+						SwitchToInventoryPoolQ((UINT8)InputEvent.usParam);
+						break;
+					}
 					// multi-selects all characters in that squad.	SHIFT key and 1-0 for squads 11-20
 					bSquadNumber = ( INT8 ) ( InputEvent.usParam - '1' );	// internal squad #s start at 0
 					SelectAllCharactersInSquad( bSquadNumber );
 					break;
 
 				case '0':
+					if(gGameExternalOptions.fEnableInventoryPoolQ && fShowMapInventoryPool == TRUE)//dnl ch51 081009
+					{
+						SwitchToInventoryPoolQ('0');
+						break;
+					}
 					SelectAllCharactersInSquad( 9 ); // internal squad #s start at 0
 					if(is_networked)test_func2();
 					break;
@@ -7202,6 +7273,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 				case 'c':
+					if(gGameExternalOptions.fEnableInventoryPoolQ && fShowMapInventoryPool == TRUE)//dnl ch51 081009
+					{
+						CopySectorInventoryToInventoryPoolQ(0);
+						break;
+					}
 					RequestContractMenu();
 					break;
 
@@ -7423,6 +7499,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						if (is_networked)
 							kick_player();
 					}
+					else if(gGameExternalOptions.fEnableInventoryPoolQ && fShowMapInventoryPool == TRUE)//dnl ch51 081009
+					{
+						CopySectorInventoryToInventoryPoolQs(0);
+						//break;
+					}
 					break;
 
 				case 'l':
@@ -7569,6 +7650,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						// go to SAVE screen
 						gfSaveGame = TRUE;
 						RequestTriggerExitFromMapscreen( MAP_EXIT_TO_SAVE );
+					}
+					else if(gGameExternalOptions.fEnableInventoryPoolQ && fShowMapInventoryPool == TRUE)//dnl ch51 081009
+					{
+						SortInventoryPoolQ();
+						//break;
 					}
 					break;
 				case 'S':
@@ -9103,7 +9189,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 				{
 					// Update mouse cursor
 					guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-					gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+					gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 					MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
 					MSYS_SetCurrentCursor( EXTERN_CURSOR );
@@ -9202,7 +9288,7 @@ void InternalMAPBeginItemPointer( SOLDIERTYPE *pSoldier )
 
 	// Set mouse
 	guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-	gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+	gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 	MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
 	MSYS_SetCurrentCursor( EXTERN_CURSOR );
@@ -9287,7 +9373,7 @@ void MAPBeginKeyRingItemPointer( SOLDIERTYPE *pSoldier, UINT8 uiKeySlot )
 
 	// Set mouse
 	guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-	gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+	gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 	MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
 	MSYS_SetCurrentCursor( EXTERN_CURSOR );
@@ -9806,10 +9892,12 @@ void MPReadyButtonCallback( GUI_BUTTON *btn, INT32 reason )
 							// warn the user that cannot change once buying has commenced
 							ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, gszMPMapscreenText[4]);
 						}
+						/*
 						else if (RANDOM_SPAWN)
 						{
 							ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, L"Cannot change edge, the game is set to random spawn");
 						}
+						*/
 					}
 					else
 					{
@@ -11315,34 +11403,44 @@ void HandleShadingOfLinesForContractMenu( void )
 	{
 		pProfile = &( gMercProfiles[ pSoldier->ubProfile ] );
 
-		// one day
-		if( pProfile->sSalary > LaptopSaveInfo.iCurrentBalance )
+		if (is_networked)
 		{
+			// WANNE - MP: Shade all contract renewals, because it is not needed in a MP game
 			ShadeStringInBox( ghContractBox, CONTRACT_MENU_DAY );
-		}
-		else
-		{
-			UnShadeStringInBox( ghContractBox, CONTRACT_MENU_DAY );
-		}
-
-		// one week
-		if( ( INT32 )( pProfile->uiWeeklySalary ) > LaptopSaveInfo.iCurrentBalance )
-		{
 			ShadeStringInBox( ghContractBox, CONTRACT_MENU_WEEK );
-		}
-		else
-		{
-			UnShadeStringInBox( ghContractBox, CONTRACT_MENU_WEEK );
-		}
-
-		// two weeks
-		if( ( INT32 )( pProfile->uiBiWeeklySalary ) > LaptopSaveInfo.iCurrentBalance )
-		{
 			ShadeStringInBox( ghContractBox, CONTRACT_MENU_TWO_WEEKS );
 		}
 		else
 		{
-			UnShadeStringInBox( ghContractBox, CONTRACT_MENU_TWO_WEEKS );
+			// one day
+			if( pProfile->sSalary > LaptopSaveInfo.iCurrentBalance )
+			{
+				ShadeStringInBox( ghContractBox, CONTRACT_MENU_DAY );
+			}
+			else
+			{
+				UnShadeStringInBox( ghContractBox, CONTRACT_MENU_DAY );
+			}
+
+			// one week
+			if( ( INT32 )( pProfile->uiWeeklySalary ) > LaptopSaveInfo.iCurrentBalance )
+			{
+				ShadeStringInBox( ghContractBox, CONTRACT_MENU_WEEK );
+			}
+			else
+			{
+				UnShadeStringInBox( ghContractBox, CONTRACT_MENU_WEEK );
+			}
+
+			// two weeks
+			if( ( INT32 )( pProfile->uiBiWeeklySalary ) > LaptopSaveInfo.iCurrentBalance )
+			{
+				ShadeStringInBox( ghContractBox, CONTRACT_MENU_TWO_WEEKS );
+			}
+			else
+			{
+				UnShadeStringInBox( ghContractBox, CONTRACT_MENU_TWO_WEEKS );
+			}
 		}
 	}
 	else
@@ -11361,6 +11459,12 @@ void HandleShadingOfLinesForContractMenu( void )
 	else
 	{
 		UnShadeStringInBox( ghContractBox, CONTRACT_MENU_TERMINATE );
+	}
+
+	// WANNE - MP: Disable "Dismiss" button when Random merc was selected, because we cannot hire any new merc
+	if (is_networked && RANDOM_MERCS)
+	{
+		ShadeStringInBox( ghContractBox, CONTRACT_MENU_TERMINATE );
 	}
 }
 
@@ -15822,7 +15926,6 @@ void MapscreenMarkButtonsDirty()
 		}
 	}
 }
-
 // HEADROCK HAM 3.6: Get a total of all merc salaries. Used for the new Daily Expenses display.
 INT32 GetTotalContractExpenses ( void )
 {

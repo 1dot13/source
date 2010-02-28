@@ -231,9 +231,7 @@ void InitPopupMenu( INT32 iButtonID, UINT8 ubPopupMenuID, UINT8 ubDirection )
 			gPopup.usBottom = usY + usMenuHeight + 1;
 			break;
 	}
-	MSYS_DefineRegion( &popupRegion, 0, 0, 640, 480, MSYS_PRIORITY_HIGHEST,
-						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
-
+	MSYS_DefineRegion(&popupRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST, CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK);//dnl ch34 090909
 	RenderPopupMenu();
 }
 

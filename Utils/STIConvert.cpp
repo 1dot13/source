@@ -16,9 +16,6 @@
 	#include "wcheck.h"
 #endif
 
-#include "VFS/vfs.h"
-#include "VFS/vfs_file_raii.h"
-
 //CONVERT_TO_16_BIT
 BOOLEAN ConvertToETRLE( UINT8 ** ppDest, UINT32 * puiDestLen, UINT8 ** ppSubImageBuffer, UINT16 * pusNumberOfSubImages, UINT8 * p8BPPBuffer, UINT16 usWidth, UINT16 usHeight, UINT32 fFlags );
 
@@ -104,7 +101,6 @@ void ConvertRGBDistribution555To565( UINT16 * p16BPPData, UINT32 uiNumberOfPixel
 
 void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 sHeight,	STR cOutputName, UINT32 fFlags, UINT32 uiAppDataSize )
 {
-
 	UINT32							uiOriginalSize;
 	UINT8 *							pOutputBuffer = NULL;
 	UINT32							uiCompressedSize;
@@ -153,6 +149,7 @@ void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 s
 	{
 		if( !ConvertToETRLE( &pOutputBuffer, &uiCompressedSize, (UINT8 **) &pSubImageBuffer, &usNumberOfSubImages, (UINT8 *)pData, sWidth, sHeight, fFlags ) )
 		{
+			pOutputBuffer = NULL;//dnl ch49 061009 pOutputBuffer already MemFree this buffer
 		}
 		uiSubImageBufferSize = (UINT32) usNumberOfSubImages * STCI_SUBIMAGE_SIZE;
 
@@ -161,108 +158,47 @@ void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 s
 		Header.fFlags |= STCI_ETRLE_COMPRESSED;
 	}
 
-	//
-	// save file
-	//
-#ifndef USE_VFS
-	FILE *							pOutput;
-
-	pOutput = fopen( cOutputName, "wb" );
-	if (pOutput == NULL )
-	{
+	//dnl ch49 061009
+	FileDelete(cOutputName);// If file exist FileOpen will not truncate, so delete.
+	HWFILE hFile = FileOpen(cOutputName, FILE_ACCESS_WRITE|FILE_CREATE_ALWAYS, FALSE);
+	if(!hFile)
 		return;
-	}
-	// write header
-	fwrite( &Header, STCI_HEADER_SIZE, 1, pOutput );
-#else
-	vfs::COpenWriteFile wfile(cOutputName,true,true);
-	// write header
-	vfs::UInt32 io;
-	wfile.file().Write( (vfs::Byte*)&Header, STCI_HEADER_SIZE, io );
-#endif
-	// write palette and subimage structs, if any
-	if (Header.fFlags & STCI_INDEXED)
+	FileWrite(hFile, &Header, STCI_HEADER_SIZE, NULL);
+	// Write palette and subimage structs, if any
+	if(Header.fFlags & STCI_INDEXED)
 	{
-		if (pPalette != NULL)
+		if(pPalette != NULL)
 		{
-			// have to convert palette to STCI format!
+			// Have to convert palette to STCI format!
 			pSGPPaletteEntry = pPalette;
-			for (uiLoop = 0; uiLoop < 256; uiLoop++)
+			for(uiLoop = 0; uiLoop < 256; uiLoop++)
 			{
 				STCIPaletteEntry.ubRed = pSGPPaletteEntry[uiLoop].peRed;
 				STCIPaletteEntry.ubGreen = pSGPPaletteEntry[uiLoop].peGreen;
 				STCIPaletteEntry.ubBlue = pSGPPaletteEntry[uiLoop].peBlue;
-#ifndef USE_VFS
-				fwrite( &STCIPaletteEntry, STCI_PALETTE_ELEMENT_SIZE, 1, pOutput );
-#else
-				wfile.file().Write( (vfs::Byte*)&STCIPaletteEntry, STCI_PALETTE_ELEMENT_SIZE, io );
-#endif
+				FileWrite(hFile, &STCIPaletteEntry, STCI_PALETTE_ELEMENT_SIZE, NULL);
 			}
 		}
-		if (Header.fFlags & STCI_ETRLE_COMPRESSED)
-		{
-#ifndef USE_VFS
-			fwrite( pSubImageBuffer, uiSubImageBufferSize, 1, pOutput );
-#else
-			wfile.file().Write( (vfs::Byte*)pSubImageBuffer, uiSubImageBufferSize, io );
-#endif
-		}
+		if(Header.fFlags & STCI_ETRLE_COMPRESSED)
+			FileWrite(hFile, pSubImageBuffer, uiSubImageBufferSize, NULL);
 	}
-
-#ifndef USE_VFS
-	// write file data
-	if (Header.fFlags & STCI_ZLIB_COMPRESSED || Header.fFlags & STCI_ETRLE_COMPRESSED)
+	// Write file data
+	if(Header.fFlags & STCI_ZLIB_COMPRESSED || Header.fFlags & STCI_ETRLE_COMPRESSED)
+		FileWrite(hFile, pOutputBuffer, Header.uiStoredSize, NULL);
+	else
+		FileWrite(hFile, Image.pImageData, Header.uiStoredSize, NULL);
+	// Write app-specific data (blanked to 0)
+	if(Image.pAppData == NULL)
 	{
-		fwrite( pOutputBuffer, Header.uiStoredSize, 1, pOutput );
+		if(Header.uiAppDataSize > 0)
+			for(uiLoop=0; uiLoop<Header.uiAppDataSize; uiLoop++)
+				FileWrite(hFile, "", 1, NULL);
 	}
 	else
-	{
-		fwrite( Image.pImageData, Header.uiStoredSize, 1, pOutput );
-	}
-#else
-	// write file data
-	if (Header.fFlags & STCI_ZLIB_COMPRESSED || Header.fFlags & STCI_ETRLE_COMPRESSED)
-	{
-		wfile.file().Write( (vfs::Byte*)pOutputBuffer, Header.uiStoredSize, io );
-	}
-	else
-	{
-		wfile.file().Write( (vfs::Byte*)Image.pImageData, Header.uiStoredSize, io );
-	}
-#endif
-
-	// write app-specific data (blanked to 0)
-	if (Image.pAppData == NULL )
-	{
-		if (Header.uiAppDataSize > 0)
-		{
-			for (uiLoop = 0; uiLoop < Header.uiAppDataSize; uiLoop++)
-			{
-#ifndef USE_VFS
-				fputc( 0, pOutput );
-#else
-				vfs::Byte c = 0;
-				wfile.file().Write( &c, sizeof(c), io );
-#endif
-			}
-		}
-	}
-	else
-	{
-#ifndef USE_VFS
-		fwrite( Image.pAppData, Header.uiAppDataSize, 1, pOutput );
-#else
-		wfile.file().Write( (vfs::Byte*)Image.pAppData, Header.uiAppDataSize, io );
-#endif
-	}
-#ifndef USE_VFS
-	fclose( pOutput );
-
-	if( pOutputBuffer != NULL )
-	{
-		MemFree( pOutputBuffer );
-	}
-#endif
+		FileWrite(hFile, Image.pAppData, Header.uiAppDataSize, NULL);
+	FileClose(hFile);
+	if(pOutputBuffer != NULL)
+		MemFree(pOutputBuffer);
 }
 
 

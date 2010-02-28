@@ -38,7 +38,7 @@ BOOLEAN BeginUIPlan( SOLDIERTYPE *pSoldier )
 	return( TRUE );
 }
 
-BOOLEAN AddUIPlan( INT16 sGridNo, UINT8 ubPlanID )
+BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 {
 	SOLDIERTYPE				*pPlanSoldier;
 	INT16							sXPos, sYPos;

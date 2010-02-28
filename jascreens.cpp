@@ -63,7 +63,6 @@
 
 #include "VFS/vfs.h"
 #include "VFS/Tools/Log.h"
-
 #define _UNICODE
 // Networking Stuff
 #ifdef NETWORKED
@@ -121,7 +120,7 @@ void DisplayFrameRate( )
 {
 	static UINT32		uiFPS = 0;
 	static UINT32		uiFrameCount = 0;
-	INT16 sMapPos;
+	INT32 usMapPos;
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
 
 	// Increment frame count
@@ -166,7 +165,7 @@ void DisplayFrameRate( )
 		UpdateVideoOverlay( &VideoOverlayDesc, giCounterPeriodOverlay, FALSE );
 
 
-		if( GetMouseMapPos( &sMapPos) )
+		if( GetMouseMapPos( &usMapPos) )
 		{
 			//gprintfdirty( 0, 315, L"(%d)",sMapPos);
 			//mprintf( 0,315,L"(%d)",sMapPos);
@@ -335,7 +334,6 @@ UINT32 ErrorScreenHandle(void)
 				}
 			}
 	}
-
 	// there is no need to create 100 % cpu load in this stage of the game
 	Sleep(50);
 
@@ -461,7 +459,7 @@ UINT32 InitScreenHandle(void)
 			fprintf_s (file_pointer , "%S\n"  , str );
 			fclose( file_pointer );
 #else
-			logger << iniErrorMessage << CLog::endl;
+			logger << iniErrorMessage << CLog::ENDL;
 #endif
 		    DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 			iniErrorMessages.pop();
@@ -1084,7 +1082,6 @@ UINT32 EditScreenShutdown()
 
 
 #endif
-
 void PrintExceptionList()
 {
 	UINT8*		pDestBuf;
@@ -1124,16 +1121,15 @@ void PrintExceptionList()
 		SetFontForeground( FONT_YELLOW );
 		SetFontShadow( 60 );		//60 is near black
 		mprintf( 50, iStartY+(i*iDiffY)   , L"File");
-		mprintf( 100, iStartY+(i*iDiffY)   , L":  %s", it->file.c_wcs().c_str() );
+		mprintf( 100, iStartY+(i*iDiffY)   , L":  %s", it->file.c_str() );
 
 		mprintf( 50, iStartY+(i*iDiffY)+14, L"Line");
 		mprintf( 100, iStartY+(i*iDiffY)+14, L":  %i", it->line );
 
 		mprintf( 50, iStartY+(i*iDiffY)+28, L"Function");
-		mprintf( 100, iStartY+(i*iDiffY)+28, L":  %s", it->function.c_wcs().c_str() );
+		mprintf( 100, iStartY+(i*iDiffY)+28, L":  %s", it->function.c_str() );
 
 		SetFontForeground( FONT_LTRED );
-		DisplayWrappedString( 60, iStartY+(i*iDiffY) + 44, SCREEN_WIDTH - 100, 2, FONT12ARIAL, FONT_RED, const_cast<wchar_t*>(it->message.c_wcs().c_str()), FONT_BLACK, TRUE, LEFT_JUSTIFIED );
+		DisplayWrappedString( 60, iStartY+(i*iDiffY) + 44, SCREEN_WIDTH - 100, 2, FONT12ARIAL, FONT_RED, const_cast<wchar_t*>(it->message.c_str()), FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 	}
 }
-

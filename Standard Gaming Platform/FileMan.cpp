@@ -51,6 +51,8 @@
 using namespace std;
 
 #include "VFS/vfs.h"
+#include "VFS/os_functions.h"
+#include "VFS/vfs_settings.h"
 
 #ifdef USE_VFS
 
@@ -256,7 +258,7 @@ void FileDebug( BOOLEAN f )
 BOOLEAN	FileExists( STR strFilename )
 {
 #ifdef USE_VFS
-	return GetVFS()->FileExists(vfs::Path(strFilename));
+	return getVFS()->fileExists(vfs::Path(strFilename));
 #else
 	// First check to see if it's in a library (most files should be there)
 	if ( gFileDataBase.fInitialized &&
@@ -302,7 +304,7 @@ BOOLEAN	FileExists( STR strFilename )
 extern BOOLEAN	FileExistsNoDB( STR strFilename )
 {
 #ifdef USE_VFS
-	return GetVFS()->FileExists(vfs::Path(strFilename));
+	return getVFS()->fileExists(vfs::Path(strFilename));
 #else
 	// First check if it's in the custom Data directory
 	if ( gCustomDataCat.FindFile(strFilename) ) return TRUE;
@@ -342,7 +344,7 @@ extern BOOLEAN	FileExistsNoDB( STR strFilename )
 BOOLEAN	FileDelete( STR strFilename )
 {
 #ifdef USE_VFS
-	return GetVFS()->RemoveFileFromFS(vfs::Path(strFilename));
+	return getVFS()->removeFileFromFS(vfs::Path(strFilename));
 #else
 	// Snap: delete the file from the default Data catalogue (if it is there)
 	// Since the path can be either relative or absolute, try both methods
@@ -388,9 +390,9 @@ HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose )
 		if(uiOptions & FILE_ACCESS_WRITE)
 		{
 			// 'vfs::CVirtualFile::SF_TOP' should be enough, but if for some strange reason
-			// file creation fails, we will stop at a writeable profile 
+			// file creation fails, we will stop at a writable profile 
 			// and won't unintentionally mess up a file from another profile
-			vfs::COpenWriteFile open_w( path, true, false, vfs::CVirtualFile::SF_STOP_ON_WRITEABLE_PROFILE);
+			vfs::COpenWriteFile open_w( path, true, false, vfs::CVirtualFile::SF_STOP_ON_WRITABLE_PROFILE);
 			pFile = &open_w.file();
 			open_w.release();
 			s_mapFiles[pFile].op = SOperation::WRITE;
@@ -408,10 +410,10 @@ HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose )
 	// sometimes a file is supposed to opened that does not exist (not tested with FileExists())
 	// this operation can fail with an exception that the calling code doesn't catch
 	// instead we catch it (any exception, not just CBasicException) here and return 0
-	catch(CBasicException& ex) { LogException(ex); }
+	catch(CBasicException& ex) { logException(ex); }
 	catch(...)
 	{ 
-		LogException( CBasicException("Caught undefined exception", _FUNCTION_FORMAT_, __LINE__, __FILE__) );
+		logException( CBasicException("Caught undefined exception", _FUNCTION_FORMAT_, __LINE__, __FILE__) );
 	}
 	return 0;
 #else
@@ -584,7 +586,7 @@ void FileClose( HWFILE hFile )
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
 	if(pFile)
 	{
-		pFile->Close();
+		pFile->close();
 		s_mapFiles.erase(pFile);
 	}
 #else
@@ -650,24 +652,45 @@ void FileClose( HWFILE hFile )
 	extern UINT32 uiTotalFileReadTime;
 	extern UINT32 uiTotalFileReadCalls;
 	#include "Timer Control.h"
-#endif
 
+class TimeCounter
+{
+public:
+	TimeCounter() : start_time(GetJA2Clock()) {}
+	~TimeCounter()
+	{
+		uiTotalFileReadTime += GetJA2Clock() - start_time;
+		uiTotalFileReadCalls++;
+	}
+private:
+	UINT32 start_time;
+};
+
+#endif
 
 BOOLEAN FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead )
 {
 #ifdef USE_VFS
 #ifdef JA2TESTVERSION
-	UINT32 uiStartTime = GetJA2Clock();
+	TimeCounter timer;
 #endif
-	bool bSuccess = false;
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
 	if(pFile && (s_mapFiles[pFile].op == SOperation::READ))
 	{
-		vfs::tReadableFile *pRF = vfs::tReadableFile::Cast(pFile);
+		vfs::tReadableFile *pRF = vfs::tReadableFile::cast(pFile);
 		if(pRF)
 		{
 			UINT32 uiBytesRead;
-			bSuccess = pRF->Read((vfs::Byte*)pDest, uiBytesToRead, uiBytesRead);			
+			try
+			{
+				uiBytesRead = pRF->read((vfs::Byte*)pDest, uiBytesToRead);
+			}
+			catch(CBasicException& ex)
+			{
+				pRF->close();
+				RETHROWEXCEPTION(L"", &ex);
+			}
+
 			if(uiBytesToRead != uiBytesRead)
 			{
 				return FALSE;
@@ -676,14 +699,10 @@ BOOLEAN FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiByte
 			{
 				*puiBytesRead = uiBytesRead;
 			}
+			return TRUE;
 		}
 	}
-#ifdef JA2TESTVERSION
-	//Add the time that we spent in this function to the total.
-	uiTotalFileReadTime += GetJA2Clock() - uiStartTime;
-	uiTotalFileReadCalls++;
-#endif
-	return bSuccess;
+	return FALSE;
 #else
 	HANDLE	hRealFile;
 	DWORD		dwNumBytesToRead, dwNumBytesRead;
@@ -785,14 +804,27 @@ BOOLEAN FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiByte
 BOOLEAN FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBytesWritten )
 {
 #ifdef USE_VFS
+	if(uiBytesToWrite == 0)//dnl ch38 110909
+	{
+		*puiBytesWritten = 0;
+		return(TRUE);
+	}
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
 	if(pFile && (s_mapFiles[pFile].op == SOperation::WRITE))
 	{
-		vfs::tWriteableFile *pWF = vfs::tWriteableFile::Cast(pFile);
+		vfs::tWritableFile *pWF = vfs::tWritableFile::cast(pFile);
 		if(pWF)
 		{
 			UINT32 uiBytesWritten;
-			bool bSuccess = pWF->Write((vfs::Byte*)pDest, uiBytesToWrite, uiBytesWritten);			
+			try
+			{
+				uiBytesWritten = pWF->write((vfs::Byte*)pDest, uiBytesToWrite);
+			}
+			catch(CBasicException& ex)
+			{
+				pWF->close();
+				RETHROWEXCEPTION(L"", &ex);
+			}
 
 			if (uiBytesToWrite != uiBytesWritten)
 			{
@@ -802,7 +834,7 @@ BOOLEAN FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBy
 			{
 				*puiBytesWritten = uiBytesWritten;
 			}
-			return bSuccess;
+			return TRUE;
 		}
 	}
 	return FALSE;
@@ -868,12 +900,12 @@ BOOLEAN FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBy
 BOOLEAN FileLoad( STR strFilename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead )
 {
 #ifdef USE_VFS
-	vfs::tReadableFile *pFile = GetVFS()->GetRFile(vfs::Path(strFilename));
+	vfs::tReadableFile *pFile = getVFS()->getReadFile(vfs::Path(strFilename));
+	vfs::COpenReadFile rfile(pFile);
 	if(pFile)
 	{
-		UINT32	uiNumBytesRead;
-		bool bSuccess = pFile->Read((vfs::Byte*)pDest,uiBytesToRead, uiNumBytesRead);
-		pFile->Close();
+		UINT32 uiNumBytesRead;
+		TRYCATCH_RETHROW(uiNumBytesRead = pFile->read((vfs::Byte*)pDest,uiBytesToRead), L"");
 
 		if (uiBytesToRead != uiNumBytesRead)
 		{
@@ -884,7 +916,7 @@ BOOLEAN FileLoad( STR strFilename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiB
 			*puiBytesRead = uiNumBytesRead;
 		}
 		CHECKF( uiNumBytesRead == uiBytesToRead );
-		return bSuccess;
+		return TRUE;
 	}
 	return FALSE;
 #else
@@ -1038,18 +1070,20 @@ BOOLEAN FileSeek( HWFILE hFile, UINT32 uiDistance, UINT8 uiHow )
 
 		if(s_mapFiles[pFile].op == SOperation::WRITE)
 		{
-			vfs::tWriteableFile *pWF = vfs::tWriteableFile::Cast(pFile);
+			vfs::tWritableFile *pWF = vfs::tWritableFile::cast(pFile);
 			if(pWF)
 			{
-				return pWF->SetWriteLocation(iDistance, eSD);
+				TRYCATCH_RETHROW(pWF->setWritePosition(iDistance, eSD), L"");
+				return TRUE;
 			}
 		}
 		else if(s_mapFiles[pFile].op == SOperation::READ)
 		{
-			vfs::tReadableFile *pRF = vfs::tReadableFile::Cast(pFile);
+			vfs::tReadableFile *pRF = vfs::tReadableFile::cast(pFile);
 			if(pRF)
 			{
-				return pRF->SetReadLocation(iDistance, eSD);
+				TRYCATCH_RETHROW(pRF->setReadPosition(iDistance, eSD), L"");
+				return TRUE;
 			}
 		}
 		else
@@ -1131,23 +1165,20 @@ INT32 FileGetPos( HWFILE hFile )
 {
 #ifdef USE_VFS
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
-	if(pFile)
+	if(pFile && (s_mapFiles[pFile].op == SOperation::WRITE))
 	{
-		if(pFile->IsWriteable())
+		vfs::tWritableFile *pWF = vfs::tWritableFile::cast(pFile);
+		if(pWF)
 		{
-			vfs::tWriteableFile *pWF = vfs::tWriteableFile::Cast(pFile);
-			if(pWF)
-			{
-				return pWF->GetWriteLocation();
-			}
+			return pWF->getWritePosition();
 		}
-		else if(pFile->IsReadable())
+	}
+	else if(pFile && (s_mapFiles[pFile].op == SOperation::READ))
+	{
+		vfs::tReadableFile *pRF = vfs::tReadableFile::cast(pFile);
+		if(pRF)
 		{
-			vfs::tReadableFile *pRF = vfs::tReadableFile::Cast(pFile);
-			if(pRF)
-			{
-				return pRF->GetReadLocation();
-			}
+			return pRF->getReadPosition();
 		}
 	}
 
@@ -1221,7 +1252,7 @@ UINT32 FileGetSize( HWFILE hFile )
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
 	if(pFile)
 	{
-		return pFile->GetFileSize();
+		return pFile->getSize();
 	}
 	return 0;
 #else
@@ -1568,17 +1599,45 @@ INT32 GetFilesInDirectory( HCONTAINER hStack, CHAR *pcDir, HANDLE hFile, WIN32_F
 
 BOOLEAN SetFileManCurrentDirectory( STR pcDirectory )
 {
+#ifndef USE_VFS
 	return( SetCurrentDirectory( pcDirectory ) );
+#else
+	try
+	{
+		os::setCurrectDirectory(pcDirectory);
+	}
+	catch(CBasicException& ex)
+	{
+		logException(ex);
+		return FALSE;
+	}
+	return TRUE;
+#endif
 }
 
 
 BOOLEAN GetFileManCurrentDirectory( STRING512 pcDirectory )
 {
+#ifndef USE_VFS
 	if (GetCurrentDirectory( 512, pcDirectory ) == 0)
 	{
 		return( FALSE );
 	}
 	return( TRUE );
+#else
+	try
+	{
+		vfs::Path sDir;
+		os::getCurrentDirectory(sDir);
+		strncpy(pcDirectory, sDir.to_string().c_str(), 512);
+	}
+	catch(CBasicException& ex)
+	{
+		logException(ex);
+		return FALSE;
+	}
+	return TRUE;
+#endif
 }
 
 
@@ -1631,7 +1690,7 @@ BOOLEAN RemoveFileManDirectory( STRING512 pcDirectory, BOOLEAN fRecursive )
 {
 #ifdef USE_VFS
 	// ignore 'recursive' flag, just delete every file in that subtree (but leave the directories)
-	return GetVFS()->RemoveDirectoryFromFS(pcDirectory);
+	return getVFS()->removeDirectoryFromFS(pcDirectory);
 #else
 	WIN32_FIND_DATA sFindData;
 	HANDLE		SearchHandle;
@@ -1721,7 +1780,7 @@ BOOLEAN EraseDirectory( STRING512 pcDirectory)
 {
 #ifdef USE_VFS
 	// ignore 'recursive' flag, just delete every file in that subtree (but leave the directories)
-	return GetVFS()->RemoveDirectoryFromFS(pcDirectory);
+	return getVFS()->removeDirectoryFromFS(pcDirectory);
 #else
 	WIN32_FIND_DATA sFindData;
 	HANDLE		SearchHandle;
@@ -1780,6 +1839,12 @@ BOOLEAN EraseDirectory( STRING512 pcDirectory)
 
 BOOLEAN GetExecutableDirectory( STRING512 pcDirectory )
 {
+#ifdef USE_VFS
+	vfs::Path exe_dir, exe_file;
+	os::getExecutablePath(exe_dir, exe_file);
+	strncpy(pcDirectory, exe_dir.to_string().c_str(), 512);
+	return true;
+#else
 	SGPFILENAME	ModuleFilename;
 	UINT32 cnt;
 
@@ -1799,7 +1864,7 @@ BOOLEAN GetExecutableDirectory( STRING512 pcDirectory )
 			break;
 		}
 	}
-
+#endif
 	return( TRUE );
 }
 
@@ -1812,20 +1877,19 @@ BOOLEAN GetFileFirst( CHAR8 * pSpec, GETFILESTRUCT *pGFStruct )
 	CHECKF( pSpec != NULL );
 	CHECKF( pGFStruct != NULL );
 
-	file_iter = GetVFS()->begin(pSpec);
+	file_iter = getVFS()->begin(pSpec);
 	if(!file_iter.end())
 	{
-		//vfs::Path const& path = file_iter.value()->GetFullPath();
-		vfs::Path const& path = file_iter.value()->GetFileName();
-		std::string s = path().utf8();
-		utf8string::size_t size = s.length();
-		size = std::min<unsigned int>(size,260-1);
+		vfs::Path const& path = file_iter.value()->getName();
+		std::string s = path.to_string();
+		::size_t size = s.length();
+		size = std::min< ::size_t>(size,260-1);
 		sprintf( pGFStruct->zFileName, s.c_str());
 		pGFStruct->zFileName[size] = 0;
 		
 		pGFStruct->iFindHandle = 0;
-		pGFStruct->uiFileSize = file_iter.value()->GetFileSize();
-		pGFStruct->uiFileAttribs = ( file_iter.value()->IsWriteable() ? FILE_IS_NORMAL : FILE_IS_READONLY );
+		pGFStruct->uiFileSize = file_iter.value()->getSize();
+		pGFStruct->uiFileAttribs = ( file_iter.value()->implementsWritable() ? FILE_IS_NORMAL : FILE_IS_READONLY );
 
 		return TRUE;
 	}
@@ -1873,17 +1937,16 @@ BOOLEAN GetFileNext( GETFILESTRUCT *pGFStruct )
 	}
 	if(!file_iter.end())
 	{
-		//vfs::Path const& path = file_iter.value()->GetFullPath();
-		vfs::Path const& path = file_iter.value()->GetFileName();
-		std::string s = path().utf8();
-		utf8string::size_t size = s.length();
-		size = std::min<unsigned int>(size,260-1);
+		vfs::Path const& path = file_iter.value()->getName();
+		std::string s = path.to_string();
+		::size_t size = s.length();
+		size = std::min< ::size_t>(size,260-1);
 		sprintf( pGFStruct->zFileName, s.c_str());
 		pGFStruct->zFileName[size] = 0;
 
 		pGFStruct->iFindHandle = 0;
-		pGFStruct->uiFileSize = file_iter.value()->GetFileSize();
-		pGFStruct->uiFileAttribs = ( file_iter.value()->IsWriteable() ? FILE_IS_NORMAL : FILE_IS_READONLY );
+		pGFStruct->uiFileSize = file_iter.value()->getSize();
+		pGFStruct->uiFileAttribs = ( file_iter.value()->implementsWritable() ? FILE_IS_NORMAL : FILE_IS_READONLY );
 
 		return TRUE;
 	}
@@ -2142,29 +2205,27 @@ BOOLEAN FileClearAttributes( STR strFilename )
 BOOLEAN	FileCheckEndOfFile( HWFILE hFile )
 {
 #ifdef USE_VFS
-	UINT32 uiCurrentLocation, uiMaxLocation;
+	vfs::size_t current_position, max_position;
 	vfs::IBaseFile *pFile = (vfs::IBaseFile*)hFile;
-	if(pFile)
+
+	if(pFile && (s_mapFiles[pFile].op == SOperation::WRITE))
 	{
-		if(pFile->IsWriteable())
+		vfs::tWritableFile *pWF = vfs::tWritableFile::cast(pFile);
+		if(pWF)
 		{
-			vfs::tWriteableFile *pWF = vfs::tWriteableFile::Cast(pFile);
-			if(pWF)
-			{
-				uiCurrentLocation = pWF->GetWriteLocation();
-				uiMaxLocation = pWF->GetFileSize();
-				return uiCurrentLocation < uiMaxLocation;
-			}
+			current_position = pWF->getWritePosition();
+			max_position = pWF->getSize();
+			return current_position < max_position;
 		}
-		else if(pFile->IsReadable())
+	}
+	else if(pFile && (s_mapFiles[pFile].op == SOperation::READ))
+	{
+		vfs::tReadableFile *pRF = vfs::tReadableFile::cast(pFile);
+		if(pRF)
 		{
-			vfs::tReadableFile *pRF = vfs::tReadableFile::Cast(pFile);
-			if(pRF)
-			{
-				uiCurrentLocation = pRF->GetReadLocation();
-				uiMaxLocation = pRF->GetFileSize();
-				return uiCurrentLocation < uiMaxLocation;
-			}
+			current_position = pRF->getReadPosition();
+			max_position = pRF->getSize();
+			return current_position < max_position;
 		}
 	}
 	return FALSE;
@@ -2306,10 +2367,10 @@ INT32	CompareSGPFileTimes( SGP_FILETIME	*pFirstFileTime, SGP_FILETIME *pSecondFi
 UINT32 FileSize(STR strFilename)
 {
 #ifdef USE_VFS
-	vfs::IBaseFile *pFile = GetVFS()->GetFile(vfs::Path(strFilename));
+	vfs::IBaseFile *pFile = getVFS()->getFile(vfs::Path(strFilename));
 	if(pFile)
 	{
-		return pFile->GetFileSize();
+		return pFile->getSize();
 	}
 	return 0;
 #else

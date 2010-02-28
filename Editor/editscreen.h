@@ -73,6 +73,11 @@ extern BOOLEAN			gfConfirmExitFirst;
 extern BOOLEAN			gfConfirmExitPending;
 extern BOOLEAN			gfIntendOnEnteringEditor;
 
+extern BOOLEAN gfVanillaMode;//dnl ch33 160909
+extern BOOLEAN fRaiseWorld;//dnl ch3 210909
+extern BOOLEAN fShowHighGround;//dnl ch2 210909
+void ShowHighGround(INT32 iShowHighGroundCommand);//dnl ch2 210909
+
 #endif
 #endif
 

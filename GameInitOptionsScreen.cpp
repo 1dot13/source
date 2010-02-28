@@ -1469,6 +1469,7 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 		gGameOptions.fTurnTimeLimit = TRUE;
 	else
 		gGameOptions.fTurnTimeLimit = FALSE;
+
 	
 	// JA2Gold: iron man
 	gGameOptions.fIronManMode = GetCurrentGameSaveButtonSetting();

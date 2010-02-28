@@ -359,7 +359,6 @@ STR16 sTimeStrings[] =
 // Assignment Strings: what assignment does the merc  have right now? For example, are they on a squad, training, 
 // administering medical aid (doctor) or training a town. All are abbreviated. 8 letters is the longest it can be.
 
-// HEADROCK HAM 3.6: Added string for Mobile Militia Training ("M.Militia"), string for Facility Staffing ("Facility")
 STR16 pAssignmentStrings[] =
 {
 	L"Squad 1",
@@ -389,7 +388,7 @@ STR16 pAssignmentStrings[] =
 	L"In Trans", // in transit - abbreviated form
 	L"Repair", // repairing
 	L"Practice", // training themselves  
-	L"Militia", // training a town to revolt
+  L"Militia", // training a town to revolt 
 	L"M.Militia", //training moving militia units
 	L"Trainer", // training a teammate
 	L"Student", // being trained by someone else 
@@ -693,7 +692,6 @@ STR16 pAttributeMenuStrings[] =
 	L"Cancel",
 };
 
-// HEADROCK HAM 3.6: Splitting Garrison and Mobile training.
 STR16 pTrainingMenuStrings[] =
 {
  L"Practice", // train yourself 
@@ -1156,7 +1154,7 @@ STR16		gzWeaponStatsFasthelp[ 29 ] =
 	L"No Auto Mode!",
 	L"APs to Bash",
 	L"Autofire Penalty (Lower is better)",
-	L"Burst Penalty (Lower is better)"
+    L"Burst Penalty (Lower is better)",
 };
 
 STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
@@ -1189,7 +1187,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 29 ] =
 	L"No Auto Mode!",
 	L"APs to Bash",
 	L"Autofire Penalty (Lower is better)",
-	L"Burst Penalty (Lower is better)"
+    L"Burst Penalty (Lower is better)",
 };
 
 STR16			gzAmmoStatsFasthelp[ 20 ] =
@@ -1742,7 +1740,6 @@ STR16 gsTimeStrings[] =
 
 // text for the various facilities in the sector
 
-// HEADROCK HAM 3.4: Changed "Industry" into "Factory"
 STR16 sFacilitiesStrings[] =
 {
 	L"None",
@@ -3908,14 +3905,14 @@ STR16	gzMPHScreenText[] =
 	L"Randomise Starting Edge",
 	L"You must enter a server name",
 	L"Max Players must be between 2 and 4",
-	L"Squad size must be between 1 and 5",
+	L"Squad size must be between 1 and 6",
 	L"Time of Day",
 	L"Time of Day must be a 24 hour time (HH:MM)",
 	L"Starting Cash must be a valid dollar amount (no cents)" ,
 	L"Damage Multiplier",
 	L"Damage Multiplier must be a number between 0 and 5",
 	L"Turn Timer Multiplier",
-	L"Turn Timer multiplier must be a number between 1 and 200",
+	L"Turn Timer multiplier must be a number between 0 (no timed turns) and 200 (short timed turns)",
 	L"Enable Civilians in CO-OP",
 	L"Use New Inventory (NIV)",
 	L"Enforce Maximum AI Enemies",
@@ -4738,6 +4735,7 @@ STR16 MPClientMessage[] =
 	L"Press 'Ready' to enter tactical screen.",
 	L"Cannot connect because your version %S is different from the server version %S.",
 	L"You killed an enemy soldier.",
+	L"Cannot start the game, because all teams are the same.",
 };
 
 STR16 MPHelp[] =
@@ -4770,7 +4768,8 @@ STR16 gszMPEdgesText[] =
 	L"N",
 	L"S",
 	L"E",
-	L"W"
+	L"W",
+	L"C",	// "C"enter
 };
 
 STR16 gszMPTeamNames[] =
@@ -4778,7 +4777,8 @@ STR16 gszMPTeamNames[] =
 	L"Foxtrot",
 	L"Bravo",
 	L"Delta",
-	L"Charlie"
+	L"Charlie",
+	L"N/A",		// Acronym of Not Applicable
 };
 
 STR16 gszMPMapscreenText[] =
@@ -5007,7 +5007,6 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Trainer Leadership",
 	L"Trainer Explosives",
 };
-
 STR16 Additional113Text[]=
 {
 	L"Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp or less.",

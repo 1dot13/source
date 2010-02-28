@@ -118,7 +118,7 @@ enum {
 	MAX_ASSIGN_STRING_COUNT,
 };
 
-// HEADROCK HAM 3.6: Added new option to train Mobile Militia separately.
+
 // training assignment menu defines
 enum {
 	TRAIN_MENU_SELF,

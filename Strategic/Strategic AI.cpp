@@ -249,7 +249,7 @@ void ValidateWeights( INT32 iID );
 void ValidateGroup( GROUP *pGroup );
 void ValidateLargeGroup( GROUP *pGroup );
 
-extern BOOLEAN TeleportSoldier( SOLDIERTYPE *pSoldier, INT16 sGridNo, BOOLEAN fForce );
+extern BOOLEAN TeleportSoldier( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fForce );
 
 
 //The army composition defines attributes for the various garrisons.	The priority reflects how important the sector is
@@ -900,7 +900,7 @@ void ValidatePlayersAreInOneGroupOnly()
 
 		pSoldier = MercPtrs[ i ];
 
-		if( !pSoldier->bActive || !pSoldier->stats.bLife || !pSoldier->ubGroupID )
+		if( !pSoldier || !pSoldier->bActive || !pSoldier->stats.bLife || !pSoldier->ubGroupID )
 		{ //non-existant, dead, or in no group (don't care, skip to next merc)
 			continue;
 		}
@@ -4570,7 +4570,7 @@ void HourlyCheckStrategicAI()
 #include "VFS/vfs.h"
 #include "VFS/Tools/Log.h"
 
-static CLog& s_stratD = *CLog::Create(L"Strategic Decisions.txt", true);
+static CLog& s_stratD = *CLog::create(L"Strategic Decisions.txt", true);
 
 void LogStrategicMsg( STR8	str, ... )
 {
@@ -4590,7 +4590,7 @@ void LogStrategicMsg( STR8	str, ... )
 #ifndef USE_VFS
 	fprintf( fp, "%s\n", string );
 #else
-	s_stratD << string << CLog::endl;
+	s_stratD << string << CLog::ENDL;
 #endif
 
 	if( gfDisplayStrategicAILogs )
@@ -4626,7 +4626,7 @@ void LogStrategicEvent( STR8	str, ... )
 	fprintf( fp, "\n%S:\n", WORLDTIMESTR );
 	fprintf( fp, "%s\n", string );
 #else
-	s_stratD.Endl() << WORLDTIMESTR << ":" << CLog::endl << string << CLog::endl;
+	s_stratD.endl() << WORLDTIMESTR << ":" << CLog::ENDL << string << CLog::ENDL;
 #endif
 	if( gfDisplayStrategicAILogs )
 	{
@@ -4653,7 +4653,7 @@ void ClearStrategicLog()
 
 	fclose( fp );
 #else
-	s_stratD.Flush();
+	s_stratD.flush();
 #endif
 }
 #endif

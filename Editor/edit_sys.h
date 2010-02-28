@@ -27,45 +27,47 @@ extern UINT16	CurrentStruct;
 extern UINT32	gDoBanks;
 extern UINT32	gDoCliffs;
 
-void EraseMapTile( UINT32 iMapIndex );
-void QuickEraseMapTile( UINT32 iMapIndex );
-void DeleteStuffFromMapTile( UINT32 iMapIndex );
+void EraseMapTile( INT32 iMapIndex );
+void QuickEraseMapTile( INT32 iMapIndex );
+void DeleteStuffFromMapTile( INT32 iMapIndex );
 
-void PasteDebris( UINT32 iMapIndex );
+void PasteDebris( INT32 iMapIndex );
 
-void PasteStructure( UINT32 iMapIndex );
-void PasteStructure1( UINT32 iMapIndex );
-void PasteStructure2( UINT32 iMapIndex );
-void PasteStructureCommon( UINT32 iMapIndex );
+void PasteStructure( INT32 iMapIndex );
+void PasteStructure1( INT32 iMapIndex );
+void PasteStructure2( INT32 iMapIndex );
+void PasteStructureCommon( INT32 iMapIndex );
 
-void PasteSingleWall( UINT32 iMapIndex );
-void PasteSingleDoor( UINT32 iMapIndex );
-void PasteSingleWindow( UINT32 iMapIndex );
-void PasteSingleRoof( UINT32 iMapIndex );
-void PasteSingleBrokenWall( UINT32 iMapIndex );
-void PasteSingleDecoration( UINT32 iMapIndex );
-void PasteSingleDecal( UINT32 iMapIndex );
-void PasteSingleFloor( UINT32 iMapIndex );
-void PasteSingleToilet( UINT32 iMapIndex );
-void PasteRoomNumber( UINT32 iMapIndex, UINT8 ubRoomNumber );
+void PasteSingleWall( INT32 iMapIndex );
+void PasteSingleDoor( INT32 iMapIndex );
+void PasteSingleWindow( INT32 iMapIndex );
+void PasteSingleRoof( INT32 iMapIndex );
+void PasteSingleBrokenWall( INT32 iMapIndex );
+void PasteSingleDecoration( INT32 iMapIndex );
+void PasteSingleDecal( INT32 iMapIndex );
+void PasteSingleFloor( INT32 iMapIndex );
+void PasteSingleToilet( INT32 iMapIndex );
+void PasteRoomNumber( INT32 iMapIndex, UINT8 ubRoomNumber );
 
-void PasteSingleWallCommon( UINT32 iMapIndex );
+void PasteSingleWallCommon( INT32 iMapIndex );
 
 UINT16 GetRandomIndexByRange( UINT16 usRangeStart, UINT16 usRangeEnd );
 UINT16 GetRandomTypeByRange( UINT16 usRangeStart, UINT16 usRangeEnd );
 
-void PasteFloor( UINT32 iMapIndex, UINT16 usFloorIndex , BOOLEAN fReplace);
+void PasteFloor( INT32 iMapIndex, UINT16 usFloorIndex , BOOLEAN fReplace);
 
-void PasteBanks( UINT32 iMapIndex, UINT16 usStructIndex, BOOLEAN fReplace );
-void PasteRoads( UINT32 iMapIndex );
-void PasteCliffs( UINT32 iMapIndex, UINT16 usStructIndex , BOOLEAN fReplace);
+void PasteBanks( INT32 iMapIndex, UINT16 usStructIndex, BOOLEAN fReplace );
+void PasteRoads( INT32 iMapIndex );
+void PasteCliffs( INT32 iMapIndex, UINT16 usStructIndex , BOOLEAN fReplace);
 
-void PasteTexture( UINT32 iMapIndex );
-void PasteTextureCommon( UINT32 iMapIndex );
+void PasteTexture( INT32 iMapIndex );
+void PasteTextureCommon( INT32 iMapIndex );
 
-void PasteHigherTexture( UINT32 iMapIndex, UINT32 fNewType );
+void PasteHigherTexture( INT32 iMapIndex, UINT32 fNewType );
 
-void RaiseWorldLand();
+//dnl ch3 230909
+void RaiseWorldLand(void);
+void RaiseWorldLandOld(void);
 
 void EliminateObjectLayerRedundancy();
 

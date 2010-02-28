@@ -74,16 +74,12 @@ extern UINT8		gbNewPanel;
 extern UINT8		gubNewPanelParam;
 extern INT16		gsCurInterfacePanel;
 
-
 extern UINT32		guiRENDERBUFFER;
 extern UINT32		guiCLOSE;
 extern UINT32		guiDEAD;
 extern UINT32		guiHATCH;
 extern UINT32		guiINTEXT;
-extern UINT32		guiGUNSM;
-extern UINT32		guiP1ITEMS;
-extern UINT32		guiP2ITEMS;
-extern UINT32		guiP3ITEMS;
+
 extern UINT32		guiSILHOUETTE;
 extern UINT32		guiCOMPANEL;
 extern UINT32		guiCOMPANELB;
@@ -223,13 +219,13 @@ void ResetAimCubeAI( );
 void SetupAimCubeAI( );
 void IncrementAimCubeUI( );
 void EndAimCubeUI( );
-void BeginAimCubeUI( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 ubLevel, UINT8 bStartPower, INT8 bStartHeight );
+void BeginAimCubeUI( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 ubLevel, UINT8 bStartPower, INT8 bStartHeight );
 BOOLEAN AimCubeUIClick( );
 
 void ResetPhysicsTrajectoryUI( );
 void SetupPhysicsTrajectoryUI( );
 void EndPhysicsTrajectoryUI( );
-void BeginPhysicsTrajectoryUI( INT16 sGridNo, INT8 bLevel, BOOLEAN fBadCTGT );
+void BeginPhysicsTrajectoryUI( INT32 sGridNo, INT8 bLevel, BOOLEAN fBadCTGT );
 
 void InitPlayerUIBar( BOOLEAN fInterrupt );
 
@@ -237,7 +233,7 @@ void ToggleTacticalPanels( );
 
 void DirtyTopMessage( );
 
-void BeginMultiPurposeLocator( INT16 sGridNo, INT8 bLevel, BOOLEAN fSlideTo );
+void BeginMultiPurposeLocator( INT32 sGridNo, INT8 bLevel, BOOLEAN fSlideTo );
 void HandleMultiPurposeLocator( );
 void RenderTopmostMultiPurposeLocator( );
 

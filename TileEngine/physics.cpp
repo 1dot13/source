@@ -37,6 +37,8 @@
 #include "Campaign.h"
 #include "SkillCheck.h"
 
+#include "connect.h"
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -107,16 +109,16 @@ void						PhysicsDeleteObject( REAL_OBJECT *pObject );
 BOOLEAN					PhysicsHandleCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID, real DeltaTime );
 FLOAT						CalculateForceFromRange( INT16 sRange, FLOAT dDegrees );
 
-INT16			RandomGridFromRadius( INT16 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadius );
+INT32          RandomGridFromRadius( INT32 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadius );
 
 // Lesh: needed to fix item throwing through window
 extern INT16 DirIncrementer[8];
 
 void						HandleArmedObjectImpact( REAL_OBJECT *pObject );
-void ObjectHitWindow( INT16 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce );
-FLOAT CalculateObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vPosition, vector_3 *vForce, INT16 *psFinalGridNo );
-vector_3 FindBestForceForTrajectory( INT16 sSrcGridNo, INT16 sGridNo,INT16 sStartZ, INT16 sEndZ, real dzDegrees, OBJECTTYPE *pItem, INT16 *psGridNo, FLOAT *pzMagForce );
-INT32 ChanceToGetThroughObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vPosition, vector_3 *vForce, INT16 *psFinalGridNo, INT8 *pbLevel, BOOLEAN fFromUI );
+void ObjectHitWindow( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce );
+FLOAT CalculateObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vPosition, vector_3 *vForce, INT32 *psFinalGridNo );
+vector_3 FindBestForceForTrajectory( INT32 sSrcGridNo, INT32 sGridNo,INT16 sStartZ, INT16 sEndZ, real dzDegrees, OBJECTTYPE *pItem, INT32 *psGridNo, FLOAT *pzMagForce );
+INT32 ChanceToGetThroughObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vPosition, vector_3 *vForce, INT32 *psFinalGridNo, INT8 *pbLevel, BOOLEAN fFromUI );
 FLOAT CalculateSoldierMaxForce( SOLDIERTYPE *pSoldier,	FLOAT dDegrees, OBJECTTYPE *pObject, BOOLEAN fArmed );
 BOOLEAN AttemptToCatchObject( REAL_OBJECT *pObject );
 BOOLEAN CheckForCatchObject( REAL_OBJECT *pObject );
@@ -293,8 +295,8 @@ INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, r
 	pObject->pNode = NULL;
 	pObject->pShadow = NULL;
 
-	// If gridno not equal to NOWHERE, use sHeight of alnd....
-	if ( pObject->sGridNo != NOWHERE )
+	// If gridno not equal to NOWHERE, use sHeight of alnd....	
+	if (!TileIsOutOfBounds(pObject->sGridNo))
 	{
 		pObject->Position.z += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ pObject->sGridNo ].sHeight );
 		pObject->EndedWithCollisionPosition.z += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ pObject->sGridNo ].sHeight );
@@ -793,7 +795,7 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 	FLOAT					dElasity = 1;
 	UINT16				usStructureID = -1;
 	FLOAT					dNormalX = 0.0, dNormalY = 0.0, dNormalZ = 1.0;
-	INT16					sGridNo = NOWHERE;
+	INT32					sGridNo = NOWHERE;
 
 	// Checkf for collisions
 	dX = pObject->Position.x;
@@ -1244,7 +1246,7 @@ void PhysicsResolveCollision( REAL_OBJECT *pObject, vector_3 *pVelocity, vector_
 BOOLEAN PhysicsMoveObject( REAL_OBJECT *pObject )
 {
 	LEVELNODE *pNode;
-	INT16			sNewGridNo, sTileIndex;
+	INT32 sNewGridNo, sTileIndex;
 	ETRLEObject		*pTrav;
 	HVOBJECT			hVObject;
 
@@ -1288,7 +1290,7 @@ BOOLEAN PhysicsMoveObject( REAL_OBJECT *pObject )
 				{
 					ANITILE_PARAMS	AniParams;
 
-					AniParams.sGridNo							= (INT16)sNewGridNo;
+					AniParams.sGridNo							= sNewGridNo;
 					AniParams.ubLevelID						= ANI_STRUCT_LEVEL;
 					AniParams.sDelay							= (INT16)( 100 + PreRandom( 100 ) );
 					AniParams.sStartFrame					= 0;
@@ -1411,7 +1413,7 @@ BOOLEAN PhysicsMoveObject( REAL_OBJECT *pObject )
 #if 0
 {
 	LEVELNODE *pNode;
-	INT16			sNewGridNo;
+	INT32 sNewGridNo;
 
 	//Determine new gridno
 	sNewGridNo = MAPROWCOLTOPOS( ( pObject->Position.y / CELL_Y_SIZE ), ( pObject->Position.x / CELL_X_SIZE ) );
@@ -1446,7 +1448,7 @@ BOOLEAN PhysicsMoveObject( REAL_OBJECT *pObject )
 }
 #endif
 
-void ObjectHitWindow( INT16 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce )
+void ObjectHitWindow( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce )
 {
 	EV_S_WINDOWHIT	SWindowHit;
 	SWindowHit.sGridNo = sGridNo;
@@ -1460,7 +1462,7 @@ void ObjectHitWindow( INT16 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSo
 }
 
 
-vector_3 FindBestForceForTrajectory( INT16 sSrcGridNo, INT16 sGridNo,INT16 sStartZ, INT16 sEndZ, real dzDegrees, OBJECTTYPE *pItem, INT16 *psGridNo, real *pdMagForce )
+vector_3 FindBestForceForTrajectory( INT32 sSrcGridNo, INT32 sGridNo,INT16 sStartZ, INT16 sEndZ, real dzDegrees, OBJECTTYPE *pItem, INT32 *psGridNo, real *pdMagForce )
 {
 	vector_3		vDirNormal, vPosition, vForce;
 	INT16				sDestX, sDestY, sSrcX, sSrcY;
@@ -1554,12 +1556,12 @@ vector_3 FindBestForceForTrajectory( INT16 sSrcGridNo, INT16 sGridNo,INT16 sStar
 }
 
 
-INT16 FindFinalGridNoGivenDirectionGridNoForceAngle( INT16 sSrcGridNo, INT16 sGridNo, INT16 sStartZ, INT16 sEndZ, real dForce, real dzDegrees, OBJECTTYPE *pItem )
+INT32 FindFinalGridNoGivenDirectionGridNoForceAngle( INT32 sSrcGridNo, INT32 sGridNo, INT16 sStartZ, INT16 sEndZ, real dForce, real dzDegrees, OBJECTTYPE *pItem )
 {
 	vector_3		vDirNormal, vPosition, vForce;
 	INT16				sDestX, sDestY, sSrcX, sSrcY;
 	real				dRange;
-	INT16				sEndGridNo;
+	INT32				sEndGridNo;
 
 
 	// Get XY from gridno
@@ -1596,7 +1598,7 @@ INT16 FindFinalGridNoGivenDirectionGridNoForceAngle( INT16 sSrcGridNo, INT16 sGr
 }
 
 
-real FindBestAngleForTrajectory( INT16 sSrcGridNo, INT16 sGridNo,INT16 sStartZ, INT16 sEndZ, real dForce, OBJECTTYPE *pItem, INT16 *psGridNo )
+real FindBestAngleForTrajectory( INT32 sSrcGridNo, INT32 sGridNo,INT16 sStartZ, INT16 sEndZ, real dForce, OBJECTTYPE *pItem, INT32 *psGridNo )
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"FindBestAngleForTrajectory");
 
@@ -1705,7 +1707,7 @@ real FindBestAngleForTrajectory( INT16 sSrcGridNo, INT16 sGridNo,INT16 sStartZ, 
 }
 
 
-void FindTrajectory( INT16 sSrcGridNo, INT16 sGridNo, INT16 sStartZ, INT16 sEndZ, real dForce, real dzDegrees, OBJECTTYPE *pItem, INT16 *psGridNo )
+void FindTrajectory( INT32 sSrcGridNo, INT32 sGridNo, INT16 sStartZ, INT16 sEndZ, real dForce, real dzDegrees, OBJECTTYPE *pItem, INT32 *psGridNo )
 {
 	vector_3		vDirNormal, vPosition, vForce;
 	INT16				sDestX, sDestY, sSrcX, sSrcY;
@@ -1743,13 +1745,13 @@ void FindTrajectory( INT16 sSrcGridNo, INT16 sGridNo, INT16 sStartZ, INT16 sEndZ
 // OK, this will, given a target Z, INVTYPE, source, target gridnos, initial force vector, will
 // return range
 
-FLOAT CalculateObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vPosition, vector_3 *vForce, INT16 *psFinalGridNo )
+FLOAT CalculateObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vPosition, vector_3 *vForce, INT32 *psFinalGridNo )
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateObjectTrajectory");
 	INT32 iID;
 	REAL_OBJECT *pObject;
 	FLOAT	dDiffX, dDiffY;
-	INT16	sGridNo;
+	INT32 sGridNo;
 	//int cnt=0;
 
 	if ( psFinalGridNo )
@@ -1805,7 +1807,7 @@ FLOAT CalculateObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vP
 }
 
 
-INT32 ChanceToGetThroughObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vPosition, vector_3 *vForce, INT16 *psNewGridNo, INT8 *pbLevel, BOOLEAN fFromUI )
+INT32 ChanceToGetThroughObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vPosition, vector_3 *vForce, INT32 *psNewGridNo, INT8 *pbLevel, BOOLEAN fFromUI )
 {
 	INT32 iID;
 	REAL_OBJECT *pObject;
@@ -1868,7 +1870,7 @@ INT32 ChanceToGetThroughObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vec
 
 
 
-FLOAT CalculateLaunchItemAngle( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubHeight, real dForce, OBJECTTYPE *pItem, INT16 *psGridNo )
+FLOAT CalculateLaunchItemAngle( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubHeight, real dForce, OBJECTTYPE *pItem, INT32 *psGridNo )
 {
 	real				dAngle;
 	INT16				sSrcX, sSrcY;
@@ -1883,9 +1885,9 @@ FLOAT CalculateLaunchItemAngle( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubHe
 
 
 
-void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, INT16 sGridNo, UINT8 ubLevel, INT16 sEndZ,	FLOAT *pdMagForce, FLOAT *pdDegrees, INT16 *psFinalGridNo, BOOLEAN fArmed )
+void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, INT32 sGridNo, UINT8 ubLevel, INT16 sEndZ,  FLOAT *pdMagForce, FLOAT *pdDegrees, INT32 *psFinalGridNo, BOOLEAN fArmed )
 {
-	INT16		sInterGridNo;
+	INT32		sInterGridNo = NOWHERE;
 	INT16		sStartZ;
 	FLOAT		dMagForce, dMaxForce, dMinForce;
 	FLOAT		dDegrees, dNewDegrees;
@@ -1944,7 +1946,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 		fIndoors = TRUE;
 	}
 
-	if ( ( IsRoofPresentAtGridno( pSoldier->sGridNo ) ) && pSoldier->pathing.bLevel == 0 )
+	if ( ( IsRoofPresentAtGridNo( pSoldier->sGridNo ) ) && pSoldier->pathing.bLevel == 0 )
 	{
 		// Adjust angle....
 		dDegrees = INDOORS_START_ANGLE;
@@ -1952,7 +1954,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 	}
 
 	// IS OUR TARGET INSIDE?
-	if ( IsRoofPresentAtGridno( sGridNo ) && ubLevel == 0 )
+	if ( IsRoofPresentAtGridNo( sGridNo ) && ubLevel == 0 )
 	{
 		// Adjust angle....
 		dDegrees = INDOORS_START_ANGLE;
@@ -1981,8 +1983,8 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 	{
 		sInterGridNo = NOWHERE;
 	}
-
-	if ( sInterGridNo != NOWHERE )
+	
+	if (!TileIsOutOfBounds(sInterGridNo))
 	{
 		// IF so, adjust target height, gridno....
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Through a window!" );
@@ -2067,7 +2069,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 }
 
 
-BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, INT16 sGridNo, UINT8 ubLevel, INT16 sEndZ,	INT16 *psFinalGridNo, BOOLEAN fArmed, INT8 *pbLevel, BOOLEAN fFromUI )
+BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, INT32 sGridNo, UINT8 ubLevel, INT16 sEndZ,	INT32 *psFinalGridNo, BOOLEAN fArmed, INT8 *pbLevel, BOOLEAN fFromUI )
 {
 	FLOAT				dForce, dDegrees;
 	INT16				sDestX, sDestY, sSrcX, sSrcY;
@@ -2132,8 +2134,8 @@ BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE
 FLOAT CalculateForceFromRange( INT16 sRange, FLOAT dDegrees )
 {
 	FLOAT				dMagForce;
-	INT16				sSrcGridNo, sDestGridNo;
-	INT16				sFinalGridNo;
+	INT32 sSrcGridNo, sDestGridNo;
+	INT32 sFinalGridNo;
 
 	// OK, use a fake gridno, find the new gridno based on range, use height of merc, end height of ground,
 	// 45 degrees
@@ -2171,12 +2173,12 @@ FLOAT CalculateSoldierMaxForce( SOLDIERTYPE *pSoldier, FLOAT dDegrees , OBJECTTY
 #define MIN_MISS_BY		 1
 #define MAX_MISS_RADIUS	5
 
-void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubLevel, INT16 sEndZ, OBJECTTYPE *pItem, INT8 bMissBy, UINT8 ubActionCode, UINT32 uiActionData )
+void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubLevel, INT16 sEndZ, OBJECTTYPE *pItem, INT8 bMissBy, UINT8 ubActionCode, UINT32 uiActionData )
 {
 	FLOAT				dForce, dDegrees;
 	INT16				sDestX, sDestY, sSrcX, sSrcY;
 	vector_3		vForce, vDirNormal;
-	INT16				sFinalGridNo;
+	INT32 sFinalGridNo;
 	BOOLEAN			fArmed = FALSE;
 	UINT16			usLauncher;
 	INT16				sStartZ;
@@ -2507,10 +2509,19 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 	INT16				sZ;
 	BOOLEAN			fDoImpact = FALSE;
 	BOOLEAN			fCheckForDuds = FALSE;
+	bool			fIsDud = FALSE;
 	OBJECTTYPE	*pObj;
 	INT32				iTrapped = 0;
 	UINT16			usFlags = 0;
 	INT8				bLevel = 0;
+
+	if (is_networked && is_client)
+	{
+		if (pObject->mpIsFromRemoteClient && !pObject->mpHaveClientResult)
+		{
+			return;
+		}
+	}
 
 	// Calculate pixel position of z
 	sZ = (INT16)CONVERT_HEIGHTUNITS_TO_PIXELS( (INT16)( pObject->Position.z ) ) - gpWorldLevelData[ pObject->sGridNo ].sHeight;
@@ -2541,16 +2552,31 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 
 	if ( fCheckForDuds )
 	{
-		// If we landed on anything other than the floor, always! go off...
-#ifdef TESTDUDEXPLOSIVES
-		if ( sZ != 0 || pObject->fInWater )
-#else
-		if ( sZ != 0 || pObject->fInWater || ( (*pObj)[0]->data.objectStatus >= USABLE && ( PreRandom( 100 ) < (UINT32) (*pObj)[0]->data.objectStatus + PreRandom( 50 ) ) ) )
-#endif
+		// OJW - 20021002 - MP Explosives
+		if (is_networked && is_client && pObject->mpIsFromRemoteClient && pObject->mpHaveClientResult)
 		{
-			fDoImpact = TRUE;
+			fIsDud = pObject->mpWasDud;
 		}
-		else	// didn't go off!
+		else
+		{
+
+			// If we landed on anything other than the floor, always! go off...
+#ifdef TESTDUDEXPLOSIVES
+			if ( sZ != 0 || pObject->fInWater )
+#else
+			if ( sZ != 0 || pObject->fInWater || ( (*pObj)[0]->data.objectStatus >= USABLE && ( PreRandom( 100 ) < (UINT32) (*pObj)[0]->data.objectStatus + PreRandom( 50 ) ) ) )
+#endif
+			{
+				fDoImpact = TRUE;
+				fIsDud = false;
+			}
+			else	// didn't go off!
+			{
+				fIsDud = true;
+			}
+		}
+
+		if (fIsDud)
 		{
 #ifdef TESTDUDEXPLOSIVES
 			if ( 1 )
@@ -2632,6 +2658,13 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 
 			IgniteExplosion( pObject->ubOwner, (INT16)pObject->Position.x, (INT16)pObject->Position.y, sZ, pObject->sGridNo, pObject->Obj.usItem, GET_OBJECT_LEVEL( pObject->Position.z - CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ pObject->sGridNo ].sHeight ) ) );
 		}
+	}
+
+	// OJW - 20021002 - MP Explosives
+	if (is_networked && is_client && !pObject->mpIsFromRemoteClient)
+	{
+		// send results to other clients
+		send_grenade_result( (INT16)pObject->Position.x, (INT16)pObject->Position.y, sZ , pObject->sGridNo , pObject->ubOwner, pObject->iID, fIsDud);
 	}
 
 }
@@ -2717,10 +2750,10 @@ BOOLEAN	LoadPhysicsTableFromSavedGameFile( HWFILE hFile )
 }
 
 
-INT16 RandomGridFromRadius( INT16 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadius )
+INT32 RandomGridFromRadius( INT32 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadius )
 {
 	INT16		sX, sY;
-	INT16		sGridNo = NOWHERE;
+	INT32		sGridNo = NOWHERE;
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
 	UINT32		cnt = 0;

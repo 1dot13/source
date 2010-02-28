@@ -11,37 +11,41 @@ namespace vfs
 
 	class ILibrary;
 
-	class CLibFile : public vfs::IFileTemplate<vfs::IReadable,vfs::IWriteType>, public vfs::ILocationAware<vfs::IReadable,vfs::IWriteType>
+	class CLibFile : public vfs::TFileTemplate<vfs::IReadable,vfs::IWriteType>
 	{
-		typedef vfs::IFileTemplate<vfs::IReadable,vfs::IWriteType> tBaseType;
+		typedef vfs::TFileTemplate<vfs::IReadable,vfs::IWriteType> tBaseClass;
+		typedef vfs::TLocationTemplate<vfs::IReadable,vfs::IWriteType> tLocation;
 	public:
-		static CLibFile* Create(vfs::Path const& sFileName, 
-			vfs::IVFSLocation<vfs::IReadable,vfs::IWriteType> *pLocation, 
-			ILibrary *pLibrary,
+		CLibFile();
+		static CLibFile* create(vfs::Path const& filename, 
+			tLocation *location, 
+			vfs::ILibrary *library,
 			ObjBlockAllocator<CLibFile>* allocator = NULL);
+
 		// don't delete objects that YOU have not created with 'new'
 		// dtor has to remain public to be usable at all
 		virtual ~CLibFile();
 
-		virtual bool Close();
+		virtual vfs::FileAttributes getAttributes();
 
-		virtual vfs::Path	GetFullPath();
+		virtual void		close();
 
-		virtual bool		IsOpenRead();
-		virtual bool		OpenRead();
-		virtual bool		Read(Byte* pData, UInt32 uiBytesToRead, UInt32& uiBytesRead);
+		virtual vfs::Path	getPath();
 
-		virtual UInt32		GetReadLocation();
-		virtual bool		SetReadLocation(UInt32 uiPositionInBytes);
-		virtual bool		SetReadLocation(Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir);
+		virtual bool		isOpenRead();
+		virtual bool		openRead();
+		virtual vfs::size_t	read(vfs::Byte* pData, vfs::size_t bytesToRead);
 
-		virtual bool		GetFileSize(UInt32& uiFileSize);
+		virtual vfs::size_t	getReadPosition();
+		virtual void		setReadPosition(vfs::size_t positionInBytes);
+		virtual void		setReadPosition(vfs::offset_t offsetInBytes, vfs::IBaseFile::ESeekDir seekDir);
+
+		virtual vfs::size_t	getSize();
 	protected:
-		bool		m_bIsOpen_read;
-		ILibrary*	m_pLibrary;
+		bool				m_isOpen_read;
+		ILibrary*			m_library;
+		tLocation*			m_location;
 	private:
-		friend class std::vector<CLibFile>;
-		CLibFile();
 		static ObjBlockAllocator<CLibFile>*	_lfile_pool;
 	};
 

@@ -699,6 +699,16 @@ void InitEditorOptionsToolbar()
 	iEditorButton[OPTIONS_QUIT_GAME] =
 		CreateEasyNoToggleButton( iScreenWidthOffset + 281,SCREEN_HEIGHT - 79,"EDITOR//cancel.sti", BtnQuitCallback);
 	SetButtonFastHelpText(iEditorButton[OPTIONS_QUIT_GAME],L"Exit game.");
+
+	//dnl ch9 071009
+	iEditorButton[OPTIONS_RADAR_MAP] =
+		CreateEasyNoToggleButton( iScreenWidthOffset + 311,SCREEN_HEIGHT - 79,"EDITOR//tileset.sti", BtnRadarMapCallback);
+	SetButtonFastHelpText(iEditorButton[OPTIONS_RADAR_MAP],L"Create radar map");
+
+	//dnl ch33 160909
+	iEditorButton[OPTIONS_VANILLA_MODE] =
+		CreateCheckBoxButton(iScreenWidthOffset+71, SCREEN_HEIGHT-119, "EDITOR//smcheckbox.sti", MSYS_PRIORITY_NORMAL, VanillaModeCallback);
+	SetButtonFastHelpText(iEditorButton[OPTIONS_VANILLA_MODE],L"Set save map as v1.12");
 }
 
 void InitEditorTerrainToolbar()

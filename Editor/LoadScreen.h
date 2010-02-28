@@ -33,15 +33,19 @@ void SelectFileDialogYPos( UINT16 usRelativeYPos );
 
 void BuildFilenameWithCoordinate();
 void BuildCoordinateWithFilename();
-BOOLEAN ExtractFilenameFromFields();
-BOOLEAN ValidCoordinate();
-BOOLEAN ValidFilename();
-
-BOOLEAN ExternalLoadMap( STR16 szFilename );
-BOOLEAN ExternalSaveMap( STR16 szFilename );
+//dnl ch36 200909
+BOOLEAN ExtractFilenameFromFields(void);
+//dnl ch31 150909
+#define ValidFilename() ValidMapFileName(gzFilename)
+BOOLEAN ValidMapFileName(STR16 szFilename);
+//dnl ch37 200909
+BOOLEAN ExternalLoadMap(STR16 szFilename);
+BOOLEAN ExternalSaveMap(STR16 szFilename);
 
 extern BOOLEAN gfErrorCatch;
 extern CHAR16 gzErrorCatchString[ 256 ];
+
+#define FILENAME_BUFLEN (20 + 4 + 1)//dnl ch39 190909 +4 is for ".dat", +1 is for '\0'
 
 #endif
 #endif

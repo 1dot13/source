@@ -26,7 +26,7 @@
 	#include "message.h"
 #endif
 
-INT16	gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
+INT32	gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
 UINT8 gubBoxerID[ NUM_BOXERS ] = { NOBODY, NOBODY, NOBODY };
 BOOLEAN gfBoxerFought[ NUM_BOXERS ] = { FALSE, FALSE, FALSE };
 BOOLEAN	gfLastBoxingMatchWonByPlayer = FALSE;
@@ -82,13 +82,14 @@ void ExitBoxing( void )
 					CancelAIAction( pSoldier, TRUE );
 					pSoldier->aiData.bAlertStatus = STATUS_GREEN;
 					pSoldier->aiData.bUnderFire = 0;
+
 					// HEADROCK HAM 3.6: Make sure all boxers' APs have been reset to a reasonable number. Otherwise,
-					// the AI combatant may fail several conditions in subsequent functions, and fail to leave the ring
-					// as a result.
-					if (pSoldier->bActionPoints < (APBPConstants[AP_MAXIMUM]*6)/10)
-					{
-						pSoldier->bActionPoints = (APBPConstants[AP_MAXIMUM]*6)/10;
-					}
+                    // the AI combatant may fail several conditions in subsequent functions, and fail to leave the ring
+                    // as a result.
+                    if (pSoldier->bActionPoints < (APBPConstants[AP_MAXIMUM]*6)/10)
+                    {
+                        pSoldier->bActionPoints = (APBPConstants[AP_MAXIMUM]*6)/10;
+                    }
 
 					// if necessary, revive boxer so he can leave ring
 					if (pSoldier->stats.bLife > 0 && (pSoldier->stats.bLife < OKLIFE || pSoldier->bBreath < OKBREATH ) )
@@ -151,7 +152,6 @@ void BoxingPlayerDisqualified( SOLDIERTYPE * pOffender, INT8 bReason )
 
 void TriggerEndOfBoxingRecord( SOLDIERTYPE * pSoldier )
 {
-	// This trigger runs once for each boxer, so only when the SECOND boxer gets out will this function run in its entirely.
 	// unlock UI
 	guiPendingOverrideEvent = LU_ENDUILOCK;
 

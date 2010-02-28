@@ -42,7 +42,7 @@ STRUCTURE_FILE_REF *GetCachedTileStructureRefFromFilename( const STR8 cFilename 
 
 HVOBJECT						GetCachedTileVideoObject( INT32 iIndex );
 STRUCTURE_FILE_REF *GetCachedTileStructureRef( INT32 iIndex );
-void CheckForAndAddTileCacheStructInfo( LEVELNODE *pNode, INT16 sGridNo, UINT16 usIndex, UINT16 usSubIndex );
+void CheckForAndAddTileCacheStructInfo( LEVELNODE *pNode, INT32 sGridNo, UINT16 usIndex, UINT16 usSubIndex );
 void CheckForAndDeleteTileCacheStructInfo( LEVELNODE *pNode, UINT16 usIndex );
 
 void GetRootName( STR8 pDestStr, const STR8 pSrcStr );

@@ -73,7 +73,7 @@ extern INT32 giGarrisonArraySize;
 extern BOOLEAN gfOverrideSector;
 #endif
 
-INT16 gsInterrogationGridNo[3] = { 7756, 7757, 7758 };
+INT32 gsInterrogationGridNo[3] = { 7756, 7757, 7758 };
 
 
 extern void Ensure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pGarraySize );
@@ -210,15 +210,15 @@ UINT8 NumEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	GROUP *pGroup;
 	UINT8 ubNumTroops;
 
-	// HEADROCK HAM 3.5: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
-	// probably isn't. But I need this bit to work.
-	if (sSectorX < MINIMUM_VALID_X_COORDINATE ||
-		sSectorX > MAXIMUM_VALID_X_COORDINATE ||
-		sSectorY < MINIMUM_VALID_Y_COORDINATE ||
-		sSectorY > MAXIMUM_VALID_Y_COORDINATE)
-	{
-		return (0);
-	}
+	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
+    // probably isn't. But I need this bit to work.
+    if (sSectorX < MINIMUM_VALID_X_COORDINATE ||
+        sSectorX > MAXIMUM_VALID_X_COORDINATE ||
+        sSectorY < MINIMUM_VALID_Y_COORDINATE ||
+        sSectorY > MAXIMUM_VALID_Y_COORDINATE)
+    {
+        return (0);
+    }
 
 	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
 	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
@@ -587,35 +587,35 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	else
 	{
 
-		if( pSector->uiFlags & SF_USE_MAP_SETTINGS )
-		{ //count the number of enemy placements in a map and use those
-			SOLDIERINITNODE *curr = gSoldierInitHead;
-			ubTotalAdmins = ubTotalTroops = ubTotalElites = 0;
-			while( curr )
-			{
-				if( curr->pBasicPlacement->bTeam == ENEMY_TEAM )
-				{
-					switch( curr->pBasicPlacement->ubSoldierClass )
-					{
-						case SOLDIER_CLASS_ADMINISTRATOR:		ubTotalAdmins++;	break;
-						case SOLDIER_CLASS_ARMY:				ubTotalTroops++;	break;
-						case SOLDIER_CLASS_ELITE:				ubTotalElites++;	break;
-					}
-				}
-				curr = curr->next;
-			}
-			pSector->ubNumAdmins = ubTotalAdmins;
-			pSector->ubNumTroops = ubTotalTroops;
-			pSector->ubNumElites = ubTotalElites;
-			pSector->ubAdminsInBattle = 0;
-			pSector->ubTroopsInBattle = 0;
-			pSector->ubElitesInBattle = 0;
-		}
-		else
+	if( pSector->uiFlags & SF_USE_MAP_SETTINGS )
+	{ //count the number of enemy placements in a map and use those
+		SOLDIERINITNODE *curr = gSoldierInitHead;
+		ubTotalAdmins = ubTotalTroops = ubTotalElites = 0;
+		while( curr )
 		{
-			ubTotalAdmins = pSector->ubNumAdmins - pSector->ubAdminsInBattle;
-			ubTotalTroops = pSector->ubNumTroops - pSector->ubTroopsInBattle;
-			ubTotalElites = pSector->ubNumElites - pSector->ubElitesInBattle;
+			if( curr->pBasicPlacement->bTeam == ENEMY_TEAM )
+			{
+				switch( curr->pBasicPlacement->ubSoldierClass )
+				{
+					case SOLDIER_CLASS_ADMINISTRATOR:		ubTotalAdmins++;	break;
+					case SOLDIER_CLASS_ARMY:				ubTotalTroops++;	break;
+					case SOLDIER_CLASS_ELITE:				ubTotalElites++;	break;
+				}
+			}
+			curr = curr->next;
+		}
+		pSector->ubNumAdmins = ubTotalAdmins;
+		pSector->ubNumTroops = ubTotalTroops;
+		pSector->ubNumElites = ubTotalElites;
+		pSector->ubAdminsInBattle = 0;
+		pSector->ubTroopsInBattle = 0;
+		pSector->ubElitesInBattle = 0;
+	}
+	else
+	{
+		ubTotalAdmins = pSector->ubNumAdmins - pSector->ubAdminsInBattle;
+		ubTotalTroops = pSector->ubNumTroops - pSector->ubTroopsInBattle;
+		ubTotalElites = pSector->ubNumElites - pSector->ubElitesInBattle;
 		}
 	}
 
@@ -787,6 +787,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 					continue;
 				}
 
+				// At this point we should not have added more soldiers than are in slots
 				AssertGT( sNumSlots, 0 );
 
 				switch( pSoldier->ubSoldierClass )
@@ -1289,8 +1290,8 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 //identical, though it is highly likely that they will all be successfully added on the first call.
 void AddPossiblePendingEnemiesToBattle()
 {
-	// check if no world is loaded
-	if ( !gWorldSectorX && !gWorldSectorY && (gbWorldSectorZ == -1) )
+	// Check if no world is loaded, and is not underground level
+	if(!(gWorldSectorX > 0 && gWorldSectorY > 0 && gbWorldSectorZ == 0))//dnl ch57 161009
 		return;
 
 	UINT8 ubSlots, ubNumAvailable;
@@ -1392,7 +1393,6 @@ void AddPossiblePendingEnemiesToBattle()
 
 			if( ubStrategicInsertionCode == 255 )
 			{
-				// HEADROCK HAM 3.5: This runs into assertion errors along the map's edge! Should be fixed!
 				if( NumEnemiesInSector( gWorldSectorX + 1, gWorldSectorY ) )
 					ubStrategicInsertionCode = INSERTION_CODE_EAST;
 				else if( NumEnemiesInSector( gWorldSectorX - 1, gWorldSectorY ) )
@@ -1905,10 +1905,11 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
   INT32         iNumEnemiesInSector;
 
 
-	static INT16 sAlmaCaptureGridNos[] = { 9208, 9688, 9215 };
-	static INT16 sAlmaCaptureItemsGridNo[] = { 12246, 12406, 13046 };
+// TODO.WANNE: Hardcoded grid number
+	static INT32 sAlmaCaptureGridNos[] = { 9208, 9688, 9215 };
+	static INT32 sAlmaCaptureItemsGridNo[] = { 12246, 12406, 13046 };
 
-	static INT16 sInterrogationItemGridNo[] = { 12089, 12089, 12089 };
+	static INT32 sInterrogationItemGridNo[] = { 12089, 12089, 12089 };
 
 	AssertNotNIL(pSoldier);
 

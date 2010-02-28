@@ -17,7 +17,7 @@ typedef struct
 typedef struct
 {
 	UINT16 ubID;
-	INT16 sGridNo;
+	INT32 sGridNo;
 	BOOLEAN fNoAnimations;
 }doors;
 
@@ -36,7 +36,7 @@ typedef struct
 }AIint;
 
 BOOLEAN DisplayMercsInventory(UINT8 ubMercID);
-void send_door ( SOLDIERTYPE *pSoldier, INT16 sGridNo, BOOLEAN fNoAnimations );
+void send_door ( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fNoAnimations );
 
 void send_changestate (EV_S_CHANGESTATE * SChangeState);
 

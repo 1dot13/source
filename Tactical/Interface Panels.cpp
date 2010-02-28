@@ -594,7 +594,7 @@ INT16 GetUIApsToDisplay( SOLDIERTYPE *pSoldier )
 void CheckForDisabledForGiveItem( )
 {
 	INT16			sDist;
-	INT16			sDestGridNo;
+	INT32 sDestGridNo;
 	INT8			bDestLevel;
 	INT32			cnt;
 	SOLDIERTYPE		*pSoldier;
@@ -794,8 +794,8 @@ void UpdateSMPanel( )
 	BOOLEAN						fNearLowerLevel;
 	INT8							bDirection;
 	UINT8							ubStanceState;
-
-	if ( gpSMCurrentMerc->sGridNo == NOWHERE )
+	
+	if (TileIsOutOfBounds(gpSMCurrentMerc->sGridNo))
 	{
 		return;
 	}
@@ -3851,7 +3851,7 @@ void MergeMessageBoxCallBack( UINT8 ubExitValue )
 void HandleMouseOverSoldierFaceForContMove( SOLDIERTYPE *pSoldier, BOOLEAN fOn )
 {
 	FACETYPE *pFace;
-	INT16			sGridNo;
+	INT32 sGridNo = NOWHERE;
 
 	if ( pSoldier == NULL )
 	{
@@ -5296,6 +5296,10 @@ void UpdateTEAMPanel( )
 {
 	INT32		cnt;
 
+// WANNE: In editor mode, always disable the Done button, because we dont have any merc!
+#ifdef JA2EDITOR
+	DisableButton( iTEAMPanelButtons[ TEAM_DONE_BUTTON ] );
+#else
 	if ( (gTacticalStatus.ubCurrentTeam != gbPlayerNum) || (gTacticalStatus.uiFlags & REALTIME ) || !(gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
 		DisableButton( iTEAMPanelButtons[ TEAM_DONE_BUTTON ] );
@@ -5304,6 +5308,12 @@ void UpdateTEAMPanel( )
 	{
 		EnableButton( iTEAMPanelButtons[ TEAM_DONE_BUTTON ] );
 	}
+#endif
+
+// WANNE: In editor mode, always disable the strategy map button, because we dont have any merc!
+#ifdef JA2EDITOR
+	DisableButton( iTEAMPanelButtons[ TEAM_MAP_SCREEN_BUTTON ] );
+#else
 
 	if ( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )
 	{
@@ -5313,6 +5323,7 @@ void UpdateTEAMPanel( )
 	{
 		EnableButton( iTEAMPanelButtons[ TEAM_MAP_SCREEN_BUTTON ] );
 	}
+#endif
 
 
 	if ( gfDisableTacticalPanelButtons )
@@ -5341,7 +5352,13 @@ void UpdateTEAMPanel( )
 	}
 	else
 	{
+
+// WANNE: In editor mode, always disable the squad button, because we dont have any merc!
+#ifdef JA2EDITOR
+		DisableButton( iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] );
+#else
 		EnableButton( iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] );
+#endif
 
 		for ( cnt = 0; cnt < NUMBER_OF_SOLDIERS_PER_SQUAD; cnt++ )
 		{

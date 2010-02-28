@@ -54,9 +54,9 @@ enum
 	TOPTION_SILENT_SKYRIDER,
 	TOPTION_LOW_CPU_USAGE,
 	TOPTION_ENHANCED_DESC_BOX,
-
+	
 	// arynn
-	TOPTION_TOGGLE_TURN_MODE,
+	TOPTION_TOGGLE_TURN_MODE,					
 
 	// HEADROCK HAM 3.6:
 	TOPTION_STAT_PROGRESS_BARS,
@@ -84,6 +84,7 @@ enum
 
 	TOPTION_HIDE_BULLETS,
 	TOPTION_TRACKING_MODE,
+
 
 	NUM_ALL_GAME_OPTIONS,
 };	
@@ -807,6 +808,9 @@ BOOLEAN gbBulletTracer;
 	// Suport disabling/silencing real time sneaking via external .ini file
 	BOOLEAN fAllowRealTimeSneak;
 	BOOLEAN fQuietRealTimeSneak;
+
+//dnl ch51 081009 JA2 Debug Settings
+	BOOLEAN fEnableInventoryPoolQ;
 } GAME_EXTERNAL_OPTIONS;
 
 //This structure will contain general Ja2 settings	NOT individual game settings.

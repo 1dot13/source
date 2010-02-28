@@ -67,6 +67,45 @@ INT8 gbDefaultLightType = PRIMETIME_LIGHT;
 SGPPaletteEntry	gEditorLightColor;
 
 BOOLEAN gfEditorForceShadeTableRebuild = FALSE;
+//dnl ch43 290909
+INT32 iNewMapWorldRows = OLD_WORLD_ROWS;
+INT32 iNewMapWorldCols = OLD_WORLD_COLS;
+
+void SetupTextInputForOptions(void)//dnl ch52 091009
+{
+	CHAR16 str[10];
+	InitTextInputModeWithScheme(DEFAULT_SCHEME);
+	AddUserInputField(NULL); // Just so we can use short cut keys while not typing.
+	swprintf(str, L"%d", WORLD_ROWS);
+	AddTextInputField( iScreenWidthOffset+5, 2*iScreenHeightOffset+394, 30, 18, MSYS_PRIORITY_NORMAL, str, 4, INPUTTYPE_NUMERICSTRICT);
+	swprintf(str, L"%d", WORLD_COLS);
+	AddTextInputField(iScreenWidthOffset+5, 2*iScreenHeightOffset+414, 30, 18, MSYS_PRIORITY_NORMAL, str, 4, INPUTTYPE_NUMERICSTRICT);
+	DisableTextField(2);
+}
+
+void UpdateOptions()
+{
+	SetFont( FONT10ARIAL );
+	SetFontShadow( FONT_NEARBLACK );
+
+	SetFontForeground( FONT_YELLOW );
+	mprintf( iScreenWidthOffset + 38, 2 * iScreenHeightOffset + 399, L"Rows");
+	SetFontForeground( FONT_YELLOW );
+	mprintf( iScreenWidthOffset + 38, 2 * iScreenHeightOffset + 419, L"Cols");
+
+	SetFontForeground( FONT_RED );
+}
+
+void ExtractAndUpdateOptions(void)//dnl ch52 091009
+{
+	iNewMapWorldRows = max(min(GetNumericStrictValueFromField(1), 9600), OLD_WORLD_ROWS);
+	iNewMapWorldRows /= 4;
+	iNewMapWorldRows *= 4;
+	iNewMapWorldCols = iNewMapWorldRows;
+	//iNewMapWorldCols = max(min(GetNumericStrictValueFromField(2), 9600), OLD_WORLD_COLS);
+	//iNewMapWorldCols /= 4;
+	//iNewMapWorldCols *= 4;
+}
 
 void SetupTextInputForMapInfo()
 {
@@ -101,7 +140,7 @@ void SetupTextInputForMapInfo()
 	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 363, 30, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_EXCLUSIVE_COORDINATE );
 	swprintf( str, L"%d", gExitGrid.ubGotoSectorZ );
 	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 383, 30, 18, MSYS_PRIORITY_NORMAL, str, 1, INPUTTYPE_NUMERICSTRICT );
-	swprintf( str, L"%d", gExitGrid.sGridNo );
+	swprintf( str, L"%d", gExitGrid.usGridNo );
 	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 403, 40, 18, MSYS_PRIORITY_NORMAL, str, 5, INPUTTYPE_NUMERICSTRICT );
 }
 
@@ -241,7 +280,7 @@ void ExtractAndUpdateMapInfo()
 		gExitGrid.ubGotoSectorY = (UINT8)max( min( gExitGrid.ubGotoSectorY, 16 ), 1 );
 	}
 	gExitGrid.ubGotoSectorZ	= (UINT8)max( min( GetNumericStrictValueFromField( 8 ), 3 ), 0 );
-	gExitGrid.sGridNo					= (INT16)max( min( GetNumericStrictValueFromField( 9 ), 25600 ), 0 );
+	gExitGrid.usGridNo					 = max( min( GetNumericStrictValueFromField( 9 ), 25600 ), 0 );
 
 	UpdateMapInfoFields();
 }
@@ -256,17 +295,17 @@ BOOLEAN ApplyNewExitGridValuesToTextFields()
 	SetInputFieldStringWith16BitString( 7, str );
 	swprintf( str, L"%d", gExitGrid.ubGotoSectorZ );
 	SetInputFieldStringWith16BitString( 8, str );
-	swprintf( str, L"%d", gExitGrid.sGridNo );
+	swprintf( str, L"%d", gExitGrid.usGridNo );
 	SetInputFieldStringWith16BitString( 9, str );
 	SetActiveField( 0 );
 	return TRUE;
 }
 
-INT16 usCurrentExitGridNo = 0;
+INT32 usCurrentExitGridNo = 0;
 void LocateNextExitGrid()
 {
 	EXITGRID ExitGrid;
-	UINT16 i;
+	INT32 i;
 	for( i = usCurrentExitGridNo + 1; i < WORLD_MAX; i++ )
 	{
 		if( GetExitGrid( i, &ExitGrid ) )

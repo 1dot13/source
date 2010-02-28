@@ -184,7 +184,7 @@ INT16	gsTerroristSector[NUM_TERRORISTS][NUM_TERRORIST_POSSIBLE_LOCATIONS][2] =
 	}
 };
 
-INT16 gsRobotGridNo;
+INT32 gsRobotGridNo;
 
 #define NUM_ASSASSINS 6
 
@@ -225,6 +225,7 @@ extern SOLDIERTYPE			*gpSMCurrentMerc;
 extern BOOLEAN	gfRerenderInterfaceFromHelpText;
 
 
+// WANNE - BMP: DONE!
 BOOLEAN LoadMercProfiles(void)
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"LoadMercProfiles");
@@ -300,6 +301,13 @@ BOOLEAN LoadMercProfiles(void)
 			FileClose( fptr );
 			return(FALSE);
 		}
+
+		// WANNE - BMP: NEED TESTING!
+		// WANNE - BMP: DONE!
+		//<SB> convert old MERCPROFILESTRUCT to new MERCPROFILESTRUCT
+		gMercProfiles[uiLoop].sGridNo = gMercProfiles[uiLoop]._old_sGridNo;
+		gMercProfiles[uiLoop].sPreCombatGridNo = gMercProfiles[uiLoop]._old_sGridNo;
+		//</SB>
 
 		/* CHRISL: For now, we should only overwrite prof.dat in the new inventory system.  Old system should still use
 		prof.dat until we're sure we want to replace it with the xml file.*/
@@ -560,13 +568,15 @@ void DecideActiveTerrorists( void )
 			// random 40% chance of adding this terrorist if not yet placed
 			if ( ( gMercProfiles[ ubTerrorist ].sSectorX == 0 ) && (( Random( 100 ) < 40 ) || gGameExternalOptions.fEnableAllTerrorists ) ) // also added the check because it makes no sense to choose randomly which terrorist will be in game, all of them should
 			{
-				fFoundSpot = FALSE;
+				//fFoundSpot = FALSE;
 				// Since there are 5 spots per terrorist and a maximum of 5 terrorists, we
 				// are guaranteed to be able to find a spot for each terrorist since there
 				// aren't enough other terrorists to use up all the spots for any one
 				// terrorist
 				do
 				{
+					fFoundSpot = TRUE;
+
 					// pick a random spot, see if it's already been used by another terrorist
 					uiLocationChoice = Random( NUM_TERRORIST_POSSIBLE_LOCATIONS );
 					for (ubLoop2 = 0; ubLoop2 < ubNumTerroristsAdded; ubLoop2++)
@@ -575,11 +585,15 @@ void DecideActiveTerrorists( void )
 						{
 							if (sTerroristPlacement[ubLoop2][1] == gsTerroristSector[ubLoop][uiLocationChoice][1] )
 							{
-								continue;
+								// WANNE: Fix a vanilla bug: Due to a logic bug multiple terrorists could end up in the same sector.
+								// Fixed by Tron (Straciatella): Revision: 6932
+								fFoundSpot = FALSE;
+								break;
+								//continue;
 							}
 						}
 					}
-					fFoundSpot = TRUE;
+					//fFoundSpot = TRUE;
 				} while( !fFoundSpot );
 
 				// place terrorist!
@@ -943,7 +957,7 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 	SOLDIERTYPE							*pNewSoldier = NULL;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	UINT32									cnt;
-	INT16										sOldGridNo;
+	INT32										sOldGridNo;
 
 	UINT8										ubOldID;
 	UINT32									uiOldUniqueId;
@@ -1013,6 +1027,15 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 		pNewSoldier->stats.bScientific										= pSoldier->stats.bScientific;
 		pNewSoldier->bLastRenderVisibleValue				= pSoldier->bLastRenderVisibleValue;
 		pNewSoldier->bVisible												= pSoldier->bVisible;
+		
+		// WANNE: Fix a vanilla bug: When a soldier changed team (e.g. getting hostile), he lost his camouflage.
+		// Fixed by Tron (Stracciatella): Revision: 7055
+		pNewSoldier->bCamo													= pSoldier->bCamo;
+		if (pNewSoldier->bCamo != 0)
+		{
+			pNewSoldier->CreateSoldierPalettes();
+		}
+
 		// 0verhaul:  Need to pass certain flags over.  COWERING is one of them.  Others to be determined.
 		
 		// copy uiStatusFlags, etc. - hayden :)
@@ -1625,7 +1648,7 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 }
 
 
-BOOLEAN DoesNPCOwnBuilding( SOLDIERTYPE *pSoldier, INT16 sGridNo )
+BOOLEAN DoesNPCOwnBuilding( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
 	UINT8 ubRoomInfo;
 

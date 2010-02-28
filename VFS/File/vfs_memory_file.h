@@ -6,39 +6,42 @@
 
 namespace vfs
 {
-	class CMemoryFile : public vfs::IFileTemplate<vfs::IReadable,vfs::IWriteable>
+	class VFS_API CMemoryFile : public vfs::TFileTemplate<vfs::IReadable,vfs::IWritable>
 	{
+		typedef vfs::TFileTemplate<vfs::IReadable,vfs::IWritable> tBaseClass;
 	public :
 		CMemoryFile();
-		CMemoryFile(vfs::Path const& sFileName);
+		CMemoryFile(vfs::Path const& filename);
 		virtual ~CMemoryFile();
 
-		virtual bool	Close();
-		virtual bool	GetFileSize(UInt32& uiFileSize);
+		virtual vfs::FileAttributes	getAttributes();
 
-		virtual bool	IsOpenRead();
-		virtual bool	OpenRead();
-		virtual bool	Read(Byte* pData, UInt32 uiBytesToRead, UInt32& uiBytesRead);
+		virtual void		close();
+		virtual vfs::size_t	getSize();
 
-		virtual UInt32	GetReadLocation();
-		virtual bool	SetReadLocation(UInt32 uiPositionInBytes);
-		virtual bool	SetReadLocation(Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir);
+		virtual bool		isOpenRead();
+		virtual bool		openRead();
+		virtual vfs::size_t	read(vfs::Byte* data, vfs::size_t bytesToRead);
 
-		virtual bool	IsOpenWrite();
-		virtual bool	OpenWrite(bool bCreateWhenNotExist = false, bool bTruncate = false);
-		virtual bool	Write(const Byte* pData, UInt32 uiBytesToWrite, UInt32& uiBytesWritten);
+		virtual vfs::size_t	getReadPosition();
+		virtual void		setReadPosition(vfs::size_t positionInBytes);
+		virtual void		setReadPosition(vfs::offset_t offsetInBytes, vfs::IBaseFile::ESeekDir seekDir);
 
-		virtual UInt32	GetWriteLocation();
-		virtual bool	SetWriteLocation(Int32 uiPositionInBytes);
-		virtual bool	SetWriteLocation(Int32 uiOffsetInBytes, IBaseFile::ESeekDir eSeekDir);
+		virtual bool		isOpenWrite();
+		virtual bool		openWrite(bool bCreateWhenNotExist = false, bool bTruncate = false);
+		virtual vfs::size_t	write(const vfs::Byte* data, vfs::size_t bytesToWrite);
 
-		virtual bool	Delete();
+		virtual vfs::size_t	getWritePosition();
+		virtual void		setWritePosition(vfs::size_t positionInBytes);
+		virtual void		setWritePosition(vfs::offset_t	offsetInBytes, vfs::IBaseFile::ESeekDir seekDir);
+
+		virtual bool		deleteFile();
 
 		// convenience method
-		bool			CopyToBuffer(vfs::tReadableFile& rFile);
+		void				copyToBuffer(vfs::tReadableFile& rFile);
 	protected:
-		std::stringstream	m_ssBuffer;
-		bool				m_bIsOpen_read, m_bIsOpen_write;
+		std::stringstream	m_buffer;
+		bool				m_isOpen_read, m_isOpen_write;
 	};
 
 } // end namespace

@@ -60,7 +60,7 @@ SGPRect				gOldClippingRect, gOldDirtyClippingRect;
 UINT32		guiTacticalInterfaceFlags;
 
 UINT16		gusUICurIntTileEffectIndex;
-INT16			gsUICurIntTileEffectGridNo;
+INT32			gsUICurIntTileEffectGridNo;
 UINT8			gsUICurIntTileOldShade;
 
 BOOLEAN		gfRerenderInterfaceFromHelpText = FALSE;
@@ -70,7 +70,7 @@ MOUSE_REGION		gLockPanelOverlayRegion;
 // CHRISL: Change function definition to allow passing of X,Y coords to control placement of TownID string
 extern void			RenderTownIDString( INT16 sX, INT16 sY );
 extern BOOLEAN	gfUIOverItemPool;
-extern INT16		gfUIOverItemPoolGridNo;
+extern INT32		gfUIOverItemPoolGridNo;
 extern BOOLEAN	gfInMovementMenu;
 extern BOOLEAN	gfInItemPickupMenu;
 extern BOOLEAN	gfInOpenDoorMenu;
@@ -394,8 +394,8 @@ void ResetInterface( )
 
 	// Reset int tile cursor stuff
 	if ( gfUIShowCurIntTile )
-	{
-		if ( gsUICurIntTileEffectGridNo != NOWHERE )
+	{		
+		if (!TileIsOutOfBounds(gsUICurIntTileEffectGridNo))
 		{
 			//Find our tile!
 			pNode = gpWorldLevelData[ gsUICurIntTileEffectGridNo].pStructHead;
@@ -563,7 +563,7 @@ void RenderTopmostTacticalInterface( )
 	VOBJECT_DESC	VObjectDesc;
 	INT16			sX, sY;
 	INT16			sOffsetX, sOffsetY, sTempY_S, sTempX_S;
-	INT16						sMapPos;
+	INT32 usMapPos;
 	ITEM_POOL					*pItemPool;
 
 
@@ -637,7 +637,7 @@ void RenderTopmostTacticalInterface( )
 						AddVideoObject( &VObjectDesc, &uiBogTarget );
 					}
 
-					if ( GridNoOnScreen( (INT16)MAPROWCOLTOPOS( ( MercPtrs[ cnt ]->sPlannedTargetY/CELL_Y_SIZE), ( MercPtrs[ cnt ]->sPlannedTargetX / CELL_X_SIZE ) ) ) )
+					if ( GridNoOnScreen( MAPROWCOLTOPOS( ( MercPtrs[ cnt ]->sPlannedTargetY/CELL_Y_SIZE), ( MercPtrs[ cnt ]->sPlannedTargetX / CELL_X_SIZE ) ) ) )
 					{
 						// GET SCREEN COORDINATES
 						sOffsetX = (MercPtrs[ cnt ]->sPlannedTargetX - gsRenderCenterX);
@@ -711,8 +711,8 @@ void RenderTopmostTacticalInterface( )
 
 				// Use world coordinates!
 				INT16 sMercScreenX, sMercScreenY, sOffsetX, sOffsetY, sDamageX, sDamageY;
-
-				if ( pSoldier->sGridNo != NOWHERE && pSoldier->bVisible != -1 )
+				
+				if (!TileIsOutOfBounds(pSoldier->sGridNo) && pSoldier->bVisible != -1 )
 				{
 					GetSoldierScreenPos( pSoldier, &sMercScreenX, &sMercScreenY );
 					GetSoldierAnimOffsets( pSoldier, &sOffsetX, &sOffsetY );
@@ -779,7 +779,7 @@ void RenderTopmostTacticalInterface( )
 	}
 
 	// CHECK IF OUR CURSOR IS OVER AN INV POOL
-	if( GetMouseMapPos( &sMapPos) )
+	if( GetMouseMapPos( &usMapPos) )
 	{
 		if ( gfUIOverItemPool )
 		{
@@ -789,9 +789,9 @@ void RenderTopmostTacticalInterface( )
 				if ( GetItemPool( gfUIOverItemPoolGridNo, &pItemPool, pSoldier->pathing.bLevel ) )
 				{
 					STRUCTURE					*pStructure = NULL;
-					INT16							sIntTileGridNo;
+					INT32 sIntTileGridNo;
 					INT8							bZLevel = 0;
-					INT16							sActionGridNo = sMapPos;
+					INT32 sActionGridNo = usMapPos;
 
 					// Get interactive tile...
 					if ( ConditionalGetCurInteractiveTileGridNoAndStructure( &sIntTileGridNo , &pStructure, FALSE ) )
@@ -828,9 +828,9 @@ void RenderTopmostTacticalInterface( )
 				if ( GetItemPool( gfUIOverItemPoolGridNo, &pItemPool, bCheckLevel ) )
 				{
 					STRUCTURE					*pStructure = NULL;
-					INT16							sIntTileGridNo;
+					  INT32 sIntTileGridNo;
 					INT8							bZLevel = 0;
-					INT16							sActionGridNo = sMapPos;
+					  INT32 sActionGridNo = usMapPos;
 
 					// Get interactive tile...
 					if ( ConditionalGetCurInteractiveTileGridNoAndStructure( &sIntTileGridNo , &pStructure, FALSE ) )

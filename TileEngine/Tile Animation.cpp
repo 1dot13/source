@@ -41,7 +41,7 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 	ANITILE		*pNewAniNode;
 	LEVELNODE	*pNode;
 	INT32			iCachedTile=-1;
-	INT16			sGridNo;
+	INT32 sGridNo;
 	UINT8			ubLevel;
 	INT16			usTileType;
 	INT16			usTileIndex;
@@ -803,7 +803,7 @@ void SetAniTileFrame( ANITILE *pAniTile, INT16 sFrame )
 }
 
 
-ANITILE *GetCachedAniTileOfType( INT16 sGridNo, UINT8 ubLevelID, UINT32 uiFlags )
+ANITILE *GetCachedAniTileOfType( INT32 sGridNo, UINT8 ubLevelID, UINT32 uiFlags )
 {
 	LEVELNODE *pNode = NULL;
 

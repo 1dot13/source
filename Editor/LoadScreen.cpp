@@ -43,6 +43,7 @@
 	#include "Item Statistics.h"
 	#include "Scheduling.h"
 	#include "MessageBoxScreen.h"
+	#include "VFS/vfs.h"//dnl ch37 110909
 #endif
 
 //===========================================================================
@@ -77,7 +78,8 @@ UINT32 ProcessLoadSaveScreenMessageBoxResult();
 BOOLEAN RemoveFromFDlgList( FDLG_LIST **head, FDLG_LIST *node );
 
 void DrawFileDialog();
-void HandleMainKeyEvents( InputAtom *pEvent ); 
+void HandleMainKeyEvents( InputAtom *pEvent );
+void HandleMouseWheelEvents(void);//dnl ch36 150909
 void SetTopFileToLetter( UINT16 usLetter );
 
 INT32 iTotalFiles;
@@ -86,7 +88,7 @@ INT32 iCurrFileShown;
 INT32	iLastFileClicked;
 INT32 iLastClickTime;
 
-CHAR16 gzFilename[31];
+CHAR16 gzFilename[FILENAME_BUFLEN];//dnl ch39 190909
 extern INT16 gsSelSectorX;
 extern INT16 gsSelSectorY;
 
@@ -102,6 +104,7 @@ BOOLEAN gfFileExists;
 BOOLEAN gfIllegalName;
 BOOLEAN gfDeleteFile;
 BOOLEAN gfNoFiles;
+BOOLEAN gfSaveError;//dnl ch37 200909
 
 CHAR16 zOrigName[60];
 GETFILESTRUCT FileInfo;
@@ -148,6 +151,7 @@ void LoadSaveScreenEntry()
 	gfIllegalName = FALSE;
 	gfDeleteFile = FALSE;
 	gfNoFiles = FALSE;
+	gfSaveError = FALSE;//dnl ch37 200909
 
 	// setup filename dialog box
 	// (*.dat and *.map) as file filter
@@ -155,22 +159,86 @@ void LoadSaveScreenEntry()
 	// If user clicks on a filename in the window, then turn off string focus and re-init the string with the new name.
 	// If user hits ENTER or presses OK, then continue with the file loading/saving
 
-	if( FileList )
-		TrashFDlgList( FileList );
+	if(FileList)
+	{
+		TrashFDlgList(FileList);
+		FileList = NULL;
+	}
 
 	iTopFileShown = iTotalFiles = 0;
-	if( GetFileFirst("MAPS\\*.dat", &FileInfo) )
+#ifdef USE_VFS//dnl ch37 300909
+	FDLG_LIST* TempFileList = NULL;
+	vfs::CProfileStack* st = getVFS()->getProfileStack();
+	vfs::CProfileStack::Iterator it = st->begin();
+	while(!it.end())
 	{
-		FileList = AddToFDlgList( FileList, &FileInfo );
-		iTotalFiles++;
-		while( GetFileNext(&FileInfo) )
+		TempFileList = NULL;
+		vfs::CVirtualProfile* prof = it.value();
+		memset(&FileInfo, 0, sizeof(GETFILESTRUCT));
+		strcpy(FileInfo.zFileName, "< ");
+		strcat(FileInfo.zFileName, prof->cName.utf8().c_str());
+		strcat(FileInfo.zFileName, " >");
+		FileInfo.zFileName[FILENAME_BUFLEN] = 0;
+		FileInfo.uiFileAttribs = FILE_IS_DIRECTORY;
+		if(iCurrentAction == ACTION_SAVE_MAP && prof->cWritable == false)
 		{
-			FileList = AddToFDlgList( FileList, &FileInfo );
+			it.next();
+			continue;
+		}
+		TempFileList = AddToFDlgList(TempFileList, &FileInfo);
+		iTotalFiles++;
+		vfs::CVirtualProfile::FileIterator fit = prof->files(L"MAPS/*");
+		while(!fit.end())
+		{
+			utf8string fname = fit.value()->getName().c_str();
+			memset(&FileInfo, 0, sizeof(GETFILESTRUCT));
+			strcpy(FileInfo.zFileName, fname.utf8().c_str());
+			FileInfo.uiFileSize = fname.length();
+			FileInfo.uiFileAttribs = (fit.value()->implementsWritable() ? FILE_IS_NORMAL : FILE_IS_READONLY);
+			if(strlen(FileInfo.zFileName) < FILENAME_BUFLEN)
+			{
+				TempFileList = AddToFDlgList(TempFileList, &FileInfo);
+				iTotalFiles++;
+			}
+			fit.next();
+		}
+		if(TempFileList)
+		{
+			while(TempFileList->pPrev)
+				TempFileList = TempFileList->pPrev;
+			if(FileList)
+			{
+				while(FileList->pNext)
+					FileList = FileList->pNext;
+				FileList->pNext = TempFileList;
+				TempFileList->pPrev = FileList;
+			}
+			else
+				FileList = TempFileList;
+		}
+		it.next();
+	}
+	while(FileList->pPrev)
+		FileList = FileList->pPrev;
+#else
+	if(GetFileFirst("MAPS\\*.dat", &FileInfo))
+	{
+		if(strlen(FileInfo.zFileName) < FILENAME_BUFLEN)
+		{
+			FileList = AddToFDlgList(FileList, &FileInfo);
 			iTotalFiles++;
+		}
+		while(GetFileNext(&FileInfo))
+		{
+			if(strlen(FileInfo.zFileName) < FILENAME_BUFLEN)
+			{
+				FileList = AddToFDlgList(FileList, &FileInfo);
+				iTotalFiles++;
+			}
 		}
 		GetFileClose(&FileInfo);
 	}
-
+#endif
 	swprintf( zOrigName, L"%s Map (*.dat)", iCurrentAction == ACTION_SAVE_MAP ? L"Save" : L"Load" );
 
 	swprintf( gzFilename, L"%S", gubFilename );
@@ -260,10 +328,12 @@ UINT32 ProcessLoadSaveScreenMessageBoxResult()
 		iFDlgState = DIALOG_NONE;
 		return LOADSAVE_SCREEN;
 	}
-	if( gfLoadError )
+	if(gfLoadError || gfSaveError)//dnl ch37 200909
 	{
+		MarkWorldDirty();
+		RenderWorld();
 		fEnteringLoadSaveScreen = TRUE;
-		return gfMessageBoxResult ? LOADSAVE_SCREEN : EDIT_SCREEN;
+		return(gfMessageBoxResult ? LOADSAVE_SCREEN : EDIT_SCREEN);
 	}
 	if( gfReadOnly )
 	{ //file is readonly.  Result will determine if the file dialog stays up.
@@ -281,7 +351,7 @@ UINT32 ProcessLoadSaveScreenMessageBoxResult()
 		}
 		fEnteringLoadSaveScreen = TRUE;
 		RemoveFileDialog();
-		return EDIT_SCREEN ;
+		return(LOADSAVE_SCREEN);//dnl ch36 210909
 	}
 //	Assert( 0 );
 	return LOADSAVE_SCREEN;
@@ -313,16 +383,18 @@ UINT32 LoadSaveScreenHandle(void)
 			return ProcessLoadSaveScreenMessageBoxResult();
 		return LOADSAVE_SCREEN;
 	}
-	
+
 	//handle all key input.
 	while( DequeueEvent(&DialogEvent) )
 	{
 		if( !HandleTextInput(&DialogEvent) && (DialogEvent.usEvent == KEY_DOWN || DialogEvent.usEvent == KEY_REPEAT) )
-		{ 
+		{
 			HandleMainKeyEvents( &DialogEvent );
 		}
 	}
-	
+
+	HandleMouseWheelEvents();//dnl ch36 150909
+
 	DrawFileDialog();
 
 	// Skip to first filename to show
@@ -385,34 +457,66 @@ UINT32 LoadSaveScreenHandle(void)
 				CreateMessageBox( str );
 			}
 			return LOADSAVE_SCREEN;
-		case DIALOG_SAVE:
-			if( !ExtractFilenameFromFields() )
+		case DIALOG_SAVE://dnl ch37 230909
+		{
+			if(!ExtractFilenameFromFields())
 			{
-				CreateMessageBox( L" Illegal filename.  Try another filename? " );
+				CreateMessageBox(L" Illegal filename.  Try another filename? ");
 				gfIllegalName = TRUE;
 				iFDlgState = DIALOG_NONE;
-				return LOADSAVE_SCREEN;
+				return(LOADSAVE_SCREEN);
 			}
-			sprintf( gszCurrFilename, "MAPS\\%S", gzFilename );
-			if ( FileExists( gszCurrFilename ) ) 
+			sprintf(gszCurrFilename, "MAPS\\%S", gzFilename);
+			gfFileExists = FALSE;
+#ifndef USE_VFS
+			gfReadOnly = FALSE;
+			if(FileExists(gszCurrFilename))
 			{
 				gfFileExists = TRUE;
-				gfReadOnly = FALSE;
-				if( GetFileFirst(gszCurrFilename, &FileInfo) )
+				if(GetFileFirst(gszCurrFilename, &FileInfo))
 				{
-					if( FileInfo.uiFileAttribs & (FILE_IS_READONLY|FILE_IS_DIRECTORY|FILE_IS_HIDDEN|FILE_IS_SYSTEM|FILE_IS_OFFLINE|FILE_IS_TEMPORARY) )
+					if(FileInfo.uiFileAttribs & (FILE_IS_READONLY|FILE_IS_DIRECTORY|FILE_IS_HIDDEN|FILE_IS_SYSTEM|FILE_IS_OFFLINE|FILE_IS_TEMPORARY))
 						gfReadOnly = TRUE;
 					GetFileClose(&FileInfo);
 				}
-				if( gfReadOnly )
-					CreateMessageBox( L" File is read only!  Choose a different name? " );
-				else
-					CreateMessageBox( L" File exists, Overwrite? " );
-				return( LOADSAVE_SCREEN );
-			}	
+			}
+#else
+			gfReadOnly = TRUE;
+			vfs::CProfileStack* st = getVFS()->getProfileStack();
+			vfs::CProfileStack::Iterator it = st->begin();
+			while(!it.end())
+			{
+				vfs::CVirtualProfile* prof = it.value();
+				if(prof->cWritable == true)
+				{
+					gfReadOnly = FALSE;
+					vfs::Path const& path = gszCurrFilename;
+					vfs::IBaseFile *file = prof->getFile(path);
+					if(file)
+					{
+						gfFileExists = TRUE;
+						if(file->implementsWritable() == false)
+							gfReadOnly = TRUE;
+					}
+					break;
+				}
+				it.next();
+			}
+#endif
+			if(gfReadOnly)
+			{
+				CreateMessageBox(L" File is read only!  Choose a different name? ");
+				return( LOADSAVE_SCREEN);
+			}
+			else if(gfFileExists)
+			{
+				CreateMessageBox(L" File exists, Overwrite? ");
+				return(LOADSAVE_SCREEN);
+			}
 			RemoveFileDialog();
 			gbCurrentFileIOStatus = INITIATE_MAP_SAVE;
-			return LOADSAVE_SCREEN ;
+			return(LOADSAVE_SCREEN);
+		}
 		case DIALOG_LOAD:
 			if( !ExtractFilenameFromFields() )
 			{
@@ -451,14 +555,11 @@ void CreateFileDialog( STR16 zTitle )
 	iFileDlgButtons[1] = CreateTextButton( L"Cancel", FONT12POINT1, FONT_BLACK, FONT_BLACK,
 		BUTTON_USE_DEFAULT, iScreenWidthOffset + 406, iScreenHeightOffset + 225, 50, 30, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, FDlgCancelCallback );
 
-	//Scroll buttons
-	iFileDlgButtons[2] = CreateSimpleButton( iScreenWidthOffset + 426, iScreenHeightOffset + 92,"EDITOR//uparrow.sti", BUTTON_NO_TOGGLE,
-																MSYS_PRIORITY_HIGH, FDlgUpCallback );
-	iFileDlgButtons[3] = CreateSimpleButton( iScreenWidthOffset + 426, iScreenHeightOffset + 182,"EDITOR//downarrow.sti", BUTTON_NO_TOGGLE,
-																MSYS_PRIORITY_HIGH, FDlgDwnCallback );
+	//dnl ch36 150909 Scroll buttons
+	iFileDlgButtons[2] = CreateSimpleButton(iScreenWidthOffset+426, iScreenHeightOffset+92-19, "EDITOR//uparrow.sti", BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH, FDlgUpCallback);
+	iFileDlgButtons[3] = CreateSimpleButton(iScreenWidthOffset+426, iScreenHeightOffset+182-19, "EDITOR//downarrow.sti", BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH, FDlgDwnCallback);
 
 	//File list window
-
 	iFileDlgButtons[4] = CreateHotSpot( (iScreenWidthOffset + 179+4), (iScreenHeightOffset + 69+3), (179+4+240), (69+120+3), MSYS_PRIORITY_HIGH-1, BUTTON_NO_CALLBACK, FDlgNamesCallback);	
 	//Title button
 	iFileDlgButtons[5] = CreateTextButton(zTitle, HUGEFONT, FONT_LTKHAKI, FONT_DKKHAKI,
@@ -478,8 +579,8 @@ void CreateFileDialog( STR16 zTitle )
 
 	//Add the text input fields
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
-	//field 1 (filename) 
-	AddTextInputField( /*233*/iScreenWidthOffset + 183, iScreenHeightOffset + 195, 190, 20, MSYS_PRIORITY_HIGH, gzFilename, 30, INPUTTYPE_EXCLUSIVE_DOSFILENAME );
+	//dnl ch36 150909 field 1 (filename)
+	AddTextInputField(iScreenWidthOffset+183, iScreenHeightOffset+195, 240, 20, MSYS_PRIORITY_HIGH, gzFilename, (FILENAME_BUFLEN-1), INPUTTYPE_EXCLUSIVE_DOSFILENAME);
 	//field 2 -- user field that allows mouse/key interaction with the filename list
 	AddUserInputField( FileDialogModeCallback );
 
@@ -537,6 +638,7 @@ void RemoveFileDialog(void)
 	}
 
 	TrashFDlgList( FileList );
+
 	FileList = NULL;
 
 	InvalidateScreen( );
@@ -550,13 +652,13 @@ void RemoveFileDialog(void)
 
 void DrawFileDialog(void)
 {
-	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset + 179, iScreenHeightOffset + 69, (iScreenWidthOffset + 179+281), iScreenHeightOffset + 261, Get16BPPColor(FROMRGB(136, 138, 135)) );
-	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset + 180, 70, (iScreenWidthOffset + 179+281), iScreenHeightOffset + 261, Get16BPPColor(FROMRGB(24, 61, 81)) );
-	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset + 180, 70, (iScreenWidthOffset + 179+280), iScreenHeightOffset + 260, Get16BPPColor(FROMRGB(65, 79, 94)) );
-
-	ColorFillVideoSurfaceArea(FRAME_BUFFER, (iScreenWidthOffset + 179+4), (iScreenHeightOffset + 69+3), (iScreenWidthOffset + 179+4+240), (iScreenHeightOffset + 69+123), Get16BPPColor(FROMRGB(24, 61, 81)) );
-	ColorFillVideoSurfaceArea(FRAME_BUFFER, (iScreenWidthOffset + 179+5), (iScreenHeightOffset + 69+4), (iScreenWidthOffset + 179+4+240), (iScreenHeightOffset + 69+123), Get16BPPColor(FROMRGB(136, 138, 135)) );
-	ColorFillVideoSurfaceArea(FRAME_BUFFER, (iScreenWidthOffset + 179+5), (iScreenHeightOffset + 69+4), (iScreenWidthOffset + 179+3+240), (iScreenHeightOffset + 69+122), Get16BPPColor(FROMRGB(250, 240, 188)) );
+	//dnl ch36 150909
+	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset+179, iScreenHeightOffset+69, iScreenWidthOffset+179+281, iScreenHeightOffset+261, Get16BPPColor(FROMRGB(136, 138, 135)));
+	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset+180, iScreenHeightOffset+70, iScreenWidthOffset+179+281, iScreenHeightOffset+261, Get16BPPColor(FROMRGB(24, 61, 81)));
+	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset+180, iScreenHeightOffset+70, iScreenWidthOffset+179+280, iScreenHeightOffset+260, Get16BPPColor(FROMRGB(65, 79, 94)));
+	ColorFillVideoSurfaceArea(FRAME_BUFFER, iScreenWidthOffset+179+4, iScreenHeightOffset+69+3, iScreenWidthOffset+179+4+240, iScreenHeightOffset+69+123, Get16BPPColor(FROMRGB(24, 61, 81)));
+	ColorFillVideoSurfaceArea(FRAME_BUFFER, iScreenWidthOffset+179+5, iScreenHeightOffset+69+4, iScreenWidthOffset+179+4+240, iScreenHeightOffset+69+123, Get16BPPColor(FROMRGB(136, 138, 135)));
+	ColorFillVideoSurfaceArea(FRAME_BUFFER, iScreenWidthOffset+179+5, iScreenHeightOffset+69+4, iScreenWidthOffset+179+3+240, iScreenHeightOffset+69+122, Get16BPPColor(FROMRGB(250, 240, 188)));
 
 	MarkButtonsDirty();
 	RenderButtons();
@@ -687,6 +789,13 @@ void TrashFDlgList(FDLG_LIST *pList)
 {
 	FDLG_LIST *pNode;
 
+	while(pList)//dnl ch49 061009 Rewind, just to be sure
+	{
+		if(pList->pPrev)
+			pList = pList->pPrev;
+		else
+			break;
+	}
 	while(pList != NULL)
 	{
 		pNode = pList;
@@ -821,36 +930,25 @@ void HandleMainKeyEvents( InputAtom *pEvent )
 	}
 }
 
-//editor doesn't care about the z value.  It uses it's own methods.
-void SetGlobalSectorValues( STR16 szFilename )
+void HandleMouseWheelEvents(void)//dnl ch36 150909
 {
-	STR16 pStr;
-	if( ValidCoordinate() )
+	if(_WheelValue > 0)
 	{
-		//convert the coordinate string into into the actual global sector coordinates.
-		if( gzFilename[0] >= 'A' && gzFilename[0] <= 'P' )
-			gWorldSectorY = gzFilename[0] - 'A' + 1;
-		else 
-			gWorldSectorY = gzFilename[0] - 'a' + 1;
-		if( gzFilename[1] == '1' && gzFilename[2] >= '0' && gzFilename[2] <= '6' )
-			gWorldSectorX = ( gzFilename[1] - 0x30 ) * 10 + ( gzFilename[2] - 0x30 );
-		else 
-			gWorldSectorX = ( gzFilename[1] - 0x30 );
-		pStr = wcsstr( gzFilename, L"_b" );
-		if( pStr )
+		while(_WheelValue--)
 		{
-			if( pStr[ 2 ] >= '1' && pStr[ 2 ] <= '3' )
-			{
-				gbWorldSectorZ = (INT8)(pStr[ 2 ] - 0x30);
-			}
+			if(iTopFileShown > 0)
+				iTopFileShown--;
 		}
 	}
-	else
+	else if(_WheelValue < 0)
 	{
-		gWorldSectorX = -1;
-		gWorldSectorY = -1;
-		gbWorldSectorZ = 0;
+		while(_WheelValue++)
+		{
+			if((iTopFileShown+7) < iTotalFiles)
+				iTopFileShown++;
+		}
 	}
+	_WheelValue = 0;
 }
 
 void InitErrorCatchDialog()
@@ -873,6 +971,7 @@ UINT32 ProcessFileIO()
 {
 	INT16 usStartX, usStartY;
 	CHAR8 ubNewFilename[50];
+	BOOLEAN fAltMap;//dnl ch31 150909
 	switch( gbCurrentFileIOStatus )
 	{
 		case INITIATE_MAP_SAVE:	//draw save message 
@@ -897,23 +996,34 @@ UINT32 ProcessFileIO()
 			if( gfShowPits )
 				RemoveAllPits();
 			OptimizeSchedules();
-			if ( !SaveWorld( ubNewFilename ) )
+			ShowHighGround(4);//dnl ch41 210909
+			//dnl ch33 091009
+			BOOLEAN fRet;
+			if(gfVanillaMode && iNewMapWorldRows == OLD_WORLD_ROWS && iNewMapWorldCols == OLD_WORLD_COLS)
+				fRet = SaveWorld(ubNewFilename, VANILLA_MAJOR_MAP_VERSION, VANILLA_MINOR_MAP_VERSION);
+			else
+				fRet = SaveWorld(ubNewFilename);
+			if(!fRet)
 			{
-				if( gfErrorCatch )
+				//dnl ch37 150909
+				gfSaveError = TRUE;
+				if(gfErrorCatch)
 				{
 					InitErrorCatchDialog();
-					return EDIT_SCREEN;
+					return(EDIT_SCREEN);
 				}
-				return ERROR_SCREEN;
+				gbCurrentFileIOStatus = IOSTATUS_NONE;
+				utf8string msg = utf8string(" Error saving ") + ubNewFilename + utf8string(" file. Try another filename? ");
+				CreateMessageBox((STR16)msg.c_wcs().c_str());
+				return(guiCurrentScreen);
 			}
 			if( gfShowPits )
 				AddAllPits();
-
-			SetGlobalSectorValues( gzFilename );
-
+			GetSectorFromFileName(gzFilename, gWorldSectorX, gWorldSectorY, gbWorldSectorZ, fAltMap);//dnl ch31 140909
 			if( gfGlobalSummaryExists )
 				UpdateSectorSummary( gzFilename, gfUpdateSummaryInfo );
-			
+			else//dnl ch30 150909
+				ReEvaluateWorld(ubNewFilename);
 			iCurrentAction = ACTION_NULL;
 			gbCurrentFileIOStatus = IOSTATUS_NONE;
 			gfRenderWorld = TRUE;
@@ -925,8 +1035,6 @@ UINT32 ProcessFileIO()
 				InitErrorCatchDialog();
 				return EDIT_SCREEN;
 			}
-			if( gMapInformation.ubMapVersion != gubMinorMapVersion )
-				ScreenMsg( FONT_MCOLOR_RED, MSG_ERROR, L"Map data has just been corrupted!!!  What did you just do?  KM : 0" );
 			return EDIT_SCREEN;
 		case INITIATE_MAP_LOAD: //draw load message
 			SaveFontSettings();
@@ -941,22 +1049,20 @@ UINT32 ProcessFileIO()
 			
 			RemoveMercsInSector( );
 
-			//CHRISL: What happens if we EvaluateWorld at this point?
-			if( !ReEvaluateWorld( ubNewFilename ) || !LoadWorld( ubNewFilename ) )
-			{ //Want to override crash, so user can do something else.
+			 // Want to override crash, so user can do something else.
+			if(!ReEvaluateWorld(ubNewFilename) || !LoadWorld(ubNewFilename))//dnl ch36 140909
+			{
 				EnableUndo();
-				SetPendingNewScreen( LOADSAVE_SCREEN );
 				gbCurrentFileIOStatus = IOSTATUS_NONE;
 				gfGlobalError = FALSE;
 				gfLoadError = TRUE;
-				//RemoveButton( iTempButton );
-				CreateMessageBox( L" Error loading file.  Try another filename?" );
-				return LOADSAVE_SCREEN;
+				utf8string msg = utf8string(" Error loading ") + ubNewFilename + utf8string(" file. Try another filename? ");
+				CreateMessageBox((STR16)msg.c_wcs().c_str());
+				return(guiCurrentScreen);
 			}
 			//ADB these are NOT set yet! but they need to be, duh
 			CompileWorldMovementCosts();
-			SetGlobalSectorValues( gzFilename );
-
+			GetSectorFromFileName(gzFilename, gWorldSectorX, gWorldSectorY, gbWorldSectorZ, fAltMap);//dnl ch31 140909
 			RestoreFontSettings();
 
 			//Load successful, update necessary information.
@@ -1003,6 +1109,11 @@ UINT32 ProcessFileIO()
 			SetMercTeamVisibility( MILITIA_TEAM, gfShowRebels );
 			SetMercTeamVisibility( CIV_TEAM, gfShowCivilians );
 			BuildItemPoolList();
+			gpItemPool = NULL;//dnl ch26 210909
+			fShowHighGround = FALSE;//dnl ch2 210909
+			fRaiseWorld = FALSE;//dnl ch3 210909
+			ShowHighGround(4);//dnl ch41 210909
+			SetRenderCenter(WORLD_COLS/2, WORLD_ROWS/2);//dnl ch43 280909
 			if( gfShowPits )
 				AddAllPits();
 
@@ -1066,72 +1177,73 @@ void FDlgDwnCallback( GUI_BUTTON *butn, INT32 reason )
 	}
 }
 
-BOOLEAN ExtractFilenameFromFields()
+//dnl ch36 200909
+BOOLEAN ExtractFilenameFromFields(void)
 {
-	Get16BitStringFromField( 0, gzFilename, 31 );
-	return ValidFilename();
+	Get16BitStringFromField(0, gzFilename, FILENAME_BUFLEN);
+	size_t len = wcslen(gzFilename);
+	if(gzFilename[len-4] != L'.' && len < (FILENAME_BUFLEN-4))
+		wcscat(gzFilename, L".dat");
+	return(ValidFilename());
 }
 
-BOOLEAN ValidCoordinate()
+//dnl ch31 140909
+BOOLEAN ValidMapFileName(STR16 szFileName)
 {
-    CHAR16 sectorY = 0; 
-	UINT16 sectorX = 0;
-	swscanf( gzFilename, L"%c%2hd", &sectorY, &sectorX);
-
-	sectorY = towupper( sectorY);
-	return ( sectorY >= 'A' && sectorY <= 'P' &&
-		sectorX >= 1 && sectorX <= 16);
-}
-
-BOOLEAN ValidFilename()
-{
-	STR16 pDest;
-	if( gzFilename[0] != '\0' )// ; <----- I really think they didn't mean this!! (jonathanl)
+	CHAR16 szFileExt[4+1];
+	size_t len = wcslen(szFileName);
+	if(len >= 5)
 	{
-		pDest = wcsstr( gzFilename, L".dat" );
-		if( !pDest )
-			pDest = wcsstr( gzFilename, L".DAT" );
-		if( pDest && pDest != gzFilename && pDest[4] == '\0' )
-			return TRUE;
+		wcscpy(szFileExt, szFileName+len-4);
+		for(int i=0; i<4; i++)
+			szFileExt[i] = towupper(szFileExt[i]);
+		if(wcscmp(szFileExt, L".DAT") == 0)
+			return(TRUE);
 	}
-	return FALSE;
+	return(FALSE);
 }
 
-BOOLEAN ExternalLoadMap( STR16 szFilename )
+//dnl ch37 200909
+BOOLEAN ExternalLoadMap(STR16 szFilename)
 {
-	Assert( szFilename );
-	if( !wcslen( szFilename ) )
-		return FALSE;
-	wcscpy( gzFilename, szFilename );
-	if( !ValidFilename() )
-		return FALSE;
+	gfLoadError = FALSE;
+	Assert(szFilename);
+	if(!wcslen( szFilename))
+		return(FALSE);
+	wcscpy(gzFilename, szFilename);
+	if(!ValidFilename())
+		return(FALSE);
 	gbCurrentFileIOStatus = INITIATE_MAP_LOAD;
-	ProcessFileIO(); //always returns loadsave_screen and changes iostatus to loading_map.
+	ProcessFileIO();
 	ExecuteBaseDirtyRectQueue();
 	EndFrameBufferRender();
-	RefreshScreen( NULL );
-	if( ProcessFileIO() == EDIT_SCREEN )
-		return TRUE;
-	return FALSE;
+	RefreshScreen(NULL);
+	ProcessFileIO();
+	if(gfLoadError)
+		return(FALSE);
+	return(TRUE);
 }
 
-BOOLEAN ExternalSaveMap( STR16 szFilename )
+BOOLEAN ExternalSaveMap(STR16 szFilename)
 {
-	Assert( szFilename );
-	if( !wcslen( szFilename ) )
-		return FALSE;
-	wcscpy( gzFilename, szFilename );
-	if( !ValidFilename() )
-		return FALSE;
+	gfSaveError = FALSE;
+	Assert(szFilename);
+	if(!wcslen(szFilename))
+		return(FALSE);
+	wcscpy(gzFilename, szFilename);
+	if(!ValidFilename())
+		return(FALSE);
 	gbCurrentFileIOStatus = INITIATE_MAP_SAVE;
-	if( ProcessFileIO() == ERROR_SCREEN )
-		return FALSE;
+	ProcessFileIO();
+	if(gfSaveError)
+		return(FALSE);
 	ExecuteBaseDirtyRectQueue();
 	EndFrameBufferRender();
-	RefreshScreen( NULL );
-	if( ProcessFileIO() == EDIT_SCREEN )
-		return TRUE;
-	return FALSE;
+	RefreshScreen(NULL);
+	ProcessFileIO();
+	if(gfSaveError)
+		return(FALSE);
+	return(TRUE);
 }
 
 #else //non-editor version

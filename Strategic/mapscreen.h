@@ -59,6 +59,8 @@ BOOLEAN SetInfoChar(UINT8 ubSolId);
 void EndMapScreen( BOOLEAN fDuringFade );
 void ReBuildCharactersList( void );
 
+// WANNE - BMP: Initialize world size for a multiplayer game
+void InitializeWorldSize( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ );
 
 BOOLEAN HandlePreloadOfMapGraphics( void );
 void HandleRemovalOfPreLoadedMapGraphics( void );

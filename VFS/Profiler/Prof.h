@@ -3,16 +3,17 @@
 
 #include "HPTimer.h"
 #include "../vfs_types.h"
+#include "../vfs_path.h"
 #include <string>
 #include <vector>
 
 #define DO_PROFILE 1
 #if DO_PROFILE
-	#define REGISTERMARKER(id,name) static CProf::tMarkerID id = g_Profiler->RegisterMarker(name) 
-	#define STARTMARKER(id) (g_Profiler->StartMarker(id))
-	#define STOPMARKER(id,success) (g_Profiler->StopMarker(id,success))
+	#define REGISTERMARKER(id,name) static CProf::tMarkerID id = CProf::getProf().registerMarker(name) 
+	#define STARTMARKER(id) (CProf::getProf().startMarker(id))
+	#define STOPMARKER(id,success) (CProf::getProf().stopMarker(id,success))
 
-	#define DUMPPROFILERSTATSTOFILE(file) if(g_Profiler){g_Profiler->PrintProfilerState(file);}
+	#define DUMPPROFILERSTATSTOFILE(file) CProf::getProf().printProfilerState(file)
 #else
 	#define REGISTERMARKER(id,name)
 	#define STARTMARKER(id)
@@ -22,20 +23,20 @@
 #endif
 
 
-class CProf
+class VFS_API CProf
 {
 public:
 	typedef unsigned int tMarkerID;
-	static CProf* GetProf();
+	static CProf& getProf();
 
-	void Clear();
+	void clear();
 
-	tMarkerID RegisterMarker(const char *marker);
+	tMarkerID registerMarker(const char *marker);
 
-	void StartMarker(tMarkerID id);
-	void StopMarker(tMarkerID id, bool success);
+	void startMarker(tMarkerID id);
+	void stopMarker(tMarkerID id, bool success);
 
-	bool PrintProfilerState(vfs::Path const& file);
+	bool printProfilerState(vfs::Path const& file);
 private:
 	CProf();
 
@@ -43,16 +44,37 @@ private:
 	{
 		MARKER() : call_count(0), success_count(0), fail_count(0), time(0.0) {};
 		std::string markername;
-		long double time;
 		unsigned long call_count;
 		unsigned long success_count;
 		unsigned long fail_count;
+		long double time;
 		CHPTimer timer;
 	};
 	std::vector<MARKER> m_vMarker;
 	unsigned int _nextMarker;
 };
 
-extern CProf* g_Profiler;
+class ProfileMarker
+{
+public:
+	ProfileMarker(CProf::tMarkerID id, bool default_exit=true)
+		: _id(id), _exit_success(default_exit)
+	{
+		STARTMARKER(_id);
+	}
+	~ProfileMarker()
+	{
+		STOPMARKER(_id,_exit_success);
+	}
+	void exit(bool success)
+	{
+		_exit_success = success;
+	}
+private:
+	CProf::tMarkerID _id;
+	bool _exit_success;
+};
+
+VFS_API void DumpProfileState(vfs::Path const& path);
 
 #endif // _PROF_H_

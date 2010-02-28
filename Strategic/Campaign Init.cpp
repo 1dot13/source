@@ -228,20 +228,20 @@ BOOLEAN WriteInAltSectors(STR fileName)
 	fclose(outfile);
 #else
 	XMLWriter xmlw;
-	xmlw.OpenNode(L"ALT_SECTORS_LIST");
+	xmlw.openNode(L"ALT_SECTORS_LIST");
 	UINT32 x, y;
 	for(y = 1;y <= 16;y++)
 	{
-		xmlw.AddAttributeToNextValue(L"y",(char)(y+0x40));
+		xmlw.addAttributeToNextValue(L"y",(char)(y+0x40));
 		std::stringstream ss;
 		for(x = 1;x <= 16; x++)
 		{
 			ss << " " << RandomSector[ ((y - 1) * 16) + (x - 1) ];
 		}
-		xmlw.AddValue(L"ROW", ss.str());
+		xmlw.addValue(L"ROW", ss.str());
 	}
-	xmlw.CloseNode();
-	xmlw.WriteToFile(fileName);
+	xmlw.closeNode();
+	xmlw.writeToFile(fileName);
 #endif
 	return (TRUE);
 }
@@ -599,10 +599,14 @@ void InitWorld()
 
 	for (sSectorCounter = 0; sSectorCounter < 256; sSectorCounter++)
 	{
-		if ( RandomSector[ sSectorCounter ] )
+		// WANNE - MP: Disable "random sectors" in a multiplayer game
+		if (!is_networked)
 		{
-			if ( Random(100) >= 50 )
-				SectorInfo[ sSectorCounter ].uiFlags |= SF_USE_ALTERNATE_MAP;
+			if ( RandomSector[ sSectorCounter ] )
+			{
+				if ( Random(100) >= 50 )
+					SectorInfo[ sSectorCounter ].uiFlags |= SF_USE_ALTERNATE_MAP;
+			}
 		}
 	}
 }

@@ -38,19 +38,38 @@ enum
 // combo flag for turning active flags off
 #define SCHEDULE_FLAGS_ACTIVE_ALL		0x00F0
 
-#define MAX_SCHEDULE_ACTIONS 4
-
-typedef struct SCHEDULENODE
+//dnl ch42 260909
+#define MAX_SCHEDULE_ACTIONS 4//dnl Now is possible to extend beyond 4 and old maps should be correctly load, but didn't test behaviour in game
+#define OLD_MAX_SCHEDULE_ACTIONS 4
+// WANNE - BMP: DONE!
+typedef struct _OLD_SCHEDULENODE
 {
-	struct SCHEDULENODE *next;
-	UINT16 usTime[MAX_SCHEDULE_ACTIONS];	//converted to minutes 12:30PM would be 12*60 + 30 = 750
-	UINT16 usData1[MAX_SCHEDULE_ACTIONS]; //typically the gridno, but depends on the action
-	UINT16 usData2[MAX_SCHEDULE_ACTIONS]; //secondary information, not used by most actions
+	struct _OLD_SCHEDULENODE *next;
+	UINT16 usTime[OLD_MAX_SCHEDULE_ACTIONS];	//converted to minutes 12:30PM would be 12*60 + 30 = 750
+	UINT16 usData1[OLD_MAX_SCHEDULE_ACTIONS]; //typically the gridno, but depends on the action
+	UINT16 usData2[OLD_MAX_SCHEDULE_ACTIONS]; //secondary information, not used by most actions
+	UINT8 ubAction[OLD_MAX_SCHEDULE_ACTIONS];
+	UINT8 ubScheduleID;
+	UINT8 ubSoldierID;
+	UINT16 usFlags;
+}_OLD_SCHEDULENODE;
+
+class SCHEDULENODE
+{
+public:
+	SCHEDULENODE *next;
+	UINT16 usTime[MAX_SCHEDULE_ACTIONS];	// Converted to minutes 12:30PM would be 12*60 + 30 = 750
+	UINT32 usData1[MAX_SCHEDULE_ACTIONS];	// Typically the gridno, but depends on the action
+	UINT32 usData2[MAX_SCHEDULE_ACTIONS];	// Secondary information, not used by most actions
 	UINT8 ubAction[MAX_SCHEDULE_ACTIONS];
 	UINT8 ubScheduleID;
 	UINT8 ubSoldierID;
 	UINT16 usFlags;
-}SCHEDULENODE;
+public:
+	SCHEDULENODE& operator=(const _OLD_SCHEDULENODE& src);
+	BOOLEAN Load(INT8** hBuffer, FLOAT dMajorMapVersion);
+	BOOLEAN Save(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion);
+};
 
 extern UINT8				gubScheduleID;
 extern SCHEDULENODE *gpScheduleList;
@@ -67,9 +86,9 @@ void ProcessTacticalSchedule( UINT8 ubScheduleID );
 
 void DeleteSchedule( UINT8 ubScheduleID );
 
-void LoadSchedules( INT8 **hBuffer );
+void LoadSchedules( INT8 **hBuffer, FLOAT dMajorMapVersion );
 BOOLEAN LoadSchedulesFromSave( HWFILE hFile );
-BOOLEAN SaveSchedules( HWFILE hFile );
+BOOLEAN SaveSchedules(HWFILE hFile, FLOAT dMajorMapVersion=MAJOR_MAP_VERSION, UINT8 ubMinorMapVersion=MINOR_MAP_VERSION);//dnl ch33 240909
 
 void PostSchedule( SOLDIERTYPE *pSoldier );
 void PostDefaultSchedule( SOLDIERTYPE *pSoldier );
@@ -91,16 +110,16 @@ void PrepareSchedulesForEditorExit();
 //before saving the map, as this forces the IDs to align with the SOLDIERINITNODE->ubScheduleID's.
 void OptimizeSchedules();
 
-void PerformActionOnDoorAdjacentToGridNo( UINT8 ubScheduleAction, INT16 sMapIndex );
+void PerformActionOnDoorAdjacentToGridNo( UINT8 ubScheduleAction, INT32 usMapIndex );
 
 BOOLEAN ExtractScheduleEntryAndExitInfo( SOLDIERTYPE * pSoldier, UINT32 * puiEntryTime, UINT32 * puiExitTime );
 BOOLEAN ExtractScheduleDoorLockAndUnlockInfo( SOLDIERTYPE * pSoldier, UINT32 * puiOpeningTime, UINT32 * puiClosingTime );
 
 void ReconnectSchedules( void );
 
-void SecureSleepSpot( SOLDIERTYPE * pSoldier, UINT16 usSleepSpot );
+void SecureSleepSpot( SOLDIERTYPE * pSoldier, UINT32 usSleepSpot );
 
-BOOLEAN BumpAnyExistingMerc( INT16 sGridNo );
+BOOLEAN BumpAnyExistingMerc( INT32 sGridNo );
 
 #endif
 

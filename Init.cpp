@@ -61,6 +61,7 @@
 	#include "Multilingual Text Code Generator.h"
 	#include "editscreen.h"
 #endif
+#include "MPXmlTeams.hpp"
 
 #include "Sector Summary.h"
 extern INT16 APBPConstants[TOTAL_APBP_VALUES] = {0};
@@ -575,6 +576,11 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	THROWIFFALSE(ReadInUniforms(fileName), UNIFORMCOLORSFILENAME);
 
+    strcpy(fileName, directoryName);
+	strcat(fileName, MULTIPLAYERTEAMSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	mpTeams.ReadInMPTeams(fileName);
+
 	return TRUE;
 }
 
@@ -603,9 +609,9 @@ UINT32 InitializeJA2(void)
 	// Init JA2 sounds
 	InitJA2Sound( );
 
-	gsRenderCenterX = 805;
-	gsRenderCenterY = 805;
-
+	//dnl ch54 111009
+	//gsRenderCenterX = 805;
+	//gsRenderCenterY = 805;
 
 	// Init data
 	InitializeSystemVideoObjects( );
@@ -702,11 +708,14 @@ UINT32 InitializeJA2(void)
 #endif
 
 #ifdef JA2BETAVERSION
+#ifdef JA2EDITOR
 	// CHECK COMMANDLINE FOR SPECIAL UTILITY
 	if ( strcmp( gzCommandLine, "-DOMAPS" ) == 0 )
 	{
+		GenerateAllMapsInit();//dnl ch49 061009
 		return( MAPUTILITY_SCREEN );
 	}
+#endif
 #endif
 
 #ifdef JA2BETAVERSION

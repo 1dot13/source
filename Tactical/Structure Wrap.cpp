@@ -15,11 +15,11 @@
 	#include "rotting corpses.h"
 #endif
 
-extern BOOLEAN DoesSAMExistHere( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, INT16 sGridNo );
+extern BOOLEAN DoesSAMExistHere( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, INT32 sGridNo );
 
 
 
-BOOLEAN	IsFencePresentAtGridno( INT16 sGridNo )
+BOOLEAN	IsFencePresentAtGridNo( INT32 sGridNo )
 {
 	if ( FindStructure( sGridNo, STRUCTURE_ANYFENCE ) != NULL )
 	{
@@ -29,7 +29,7 @@ BOOLEAN	IsFencePresentAtGridno( INT16 sGridNo )
 	return( FALSE );
 }
 
-BOOLEAN	IsRoofPresentAtGridno( INT16 sGridNo )
+BOOLEAN	IsRoofPresentAtGridNo( INT32 sGridNo )
 {
 	if ( FindStructure( sGridNo, STRUCTURE_ROOF ) != NULL )
 	{
@@ -40,7 +40,7 @@ BOOLEAN	IsRoofPresentAtGridno( INT16 sGridNo )
 }
 
 
-BOOLEAN	IsJumpableFencePresentAtGridno( INT16 sGridNo )
+BOOLEAN	IsJumpableFencePresentAtGridNo( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
 
@@ -62,7 +62,7 @@ BOOLEAN	IsJumpableFencePresentAtGridno( INT16 sGridNo )
 }
 
 
-BOOLEAN	IsDoorPresentAtGridno( INT16 sGridNo )
+BOOLEAN	IsDoorPresentAtGridNo( INT32 sGridNo )
 {
 	if ( FindStructure( sGridNo, STRUCTURE_ANYDOOR ) != NULL )
 	{
@@ -73,7 +73,7 @@ BOOLEAN	IsDoorPresentAtGridno( INT16 sGridNo )
 }
 
 
-BOOLEAN	IsTreePresentAtGridno( INT16 sGridNo )
+BOOLEAN	IsTreePresentAtGridNo( INT32 sGridNo )
 {
 	if ( FindStructure( sGridNo, STRUCTURE_TREE ) != NULL )
 	{
@@ -84,7 +84,7 @@ BOOLEAN	IsTreePresentAtGridno( INT16 sGridNo )
 }
 
 
-LEVELNODE *IsWallPresentAtGridno( INT16 sGridNo )
+LEVELNODE *IsWallPresentAtGridNo( INT32 sGridNo )
 {
 	LEVELNODE *pNode = NULL;
 	STRUCTURE * pStructure;
@@ -99,7 +99,7 @@ LEVELNODE *IsWallPresentAtGridno( INT16 sGridNo )
 	return( pNode );
 }
 
-LEVELNODE	*GetWallLevelNodeOfSameOrientationAtGridno( INT16 sGridNo, INT8 ubOrientation )
+LEVELNODE	*GetWallLevelNodeOfSameOrientationAtGridNo( INT32 sGridNo, INT8 ubOrientation )
 {
 	LEVELNODE *pNode = NULL;
 	STRUCTURE * pStructure;
@@ -121,7 +121,7 @@ LEVELNODE	*GetWallLevelNodeOfSameOrientationAtGridno( INT16 sGridNo, INT8 ubOrie
 }
 
 
-LEVELNODE	*GetWallLevelNodeAndStructOfSameOrientationAtGridno( INT16 sGridNo, INT8 ubOrientation, STRUCTURE **ppStructure )
+LEVELNODE	*GetWallLevelNodeAndStructOfSameOrientationAtGridNo( INT32 sGridNo, INT8 ubOrientation, STRUCTURE **ppStructure )
 {
 	LEVELNODE *pNode = NULL;
 	STRUCTURE * pStructure, * pBaseStructure;
@@ -150,10 +150,10 @@ LEVELNODE	*GetWallLevelNodeAndStructOfSameOrientationAtGridno( INT16 sGridNo, IN
 }
 
 
-BOOLEAN IsDoorVisibleAtGridNo( INT16 sGridNo )
+BOOLEAN IsDoorVisibleAtGridNo( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
-	INT16				sNewGridNo;
+	INT32 sNewGridNo;
 
 	pStructure = FindStructure( sGridNo, STRUCTURE_ANYDOOR );
 
@@ -207,7 +207,7 @@ BOOLEAN IsDoorVisibleAtGridNo( INT16 sGridNo )
 }
 
 
-BOOLEAN DoesGridnoContainHiddenStruct( INT16 sGridNo, BOOLEAN *pfVisible )
+BOOLEAN DoesGridNoContainHiddenStruct( INT32 sGridNo, BOOLEAN *pfVisible )
 {
 	// ATE: These are ignored now - always return false
 
@@ -233,7 +233,7 @@ BOOLEAN DoesGridnoContainHiddenStruct( INT16 sGridNo, BOOLEAN *pfVisible )
 }
 
 
-BOOLEAN IsHiddenStructureVisible( INT16 sGridNo, UINT16 usIndex )
+BOOLEAN IsHiddenStructureVisible( INT32 sGridNo, UINT16 usIndex )
 {
 	// Check if it's a hidden struct and we have not revealed anything!
 	if ( gTileDatabase[ usIndex ].uiFlags & HIDDEN_TILE )
@@ -249,7 +249,7 @@ BOOLEAN IsHiddenStructureVisible( INT16 sGridNo, UINT16 usIndex )
 }
 
 
-BOOLEAN	WallExistsOfTopLeftOrientation( INT16 sGridNo )
+BOOLEAN	WallExistsOfTopLeftOrientation( INT32 sGridNo )
 {
 	// CJC: changing to search only for normal walls, July 16, 1998
 	STRUCTURE * pStructure;
@@ -271,7 +271,7 @@ BOOLEAN	WallExistsOfTopLeftOrientation( INT16 sGridNo )
 	return( FALSE );
 }
 
-BOOLEAN	WallExistsOfTopRightOrientation( INT16 sGridNo )
+BOOLEAN	WallExistsOfTopRightOrientation( INT32 sGridNo )
 {
 	// CJC: changing to search only for normal walls, July 16, 1998
 	STRUCTURE * pStructure;
@@ -293,7 +293,7 @@ BOOLEAN	WallExistsOfTopRightOrientation( INT16 sGridNo )
 	return( FALSE );
 }
 
-BOOLEAN WallOrClosedDoorExistsOfTopLeftOrientation( INT16 sGridNo )
+BOOLEAN WallOrClosedDoorExistsOfTopLeftOrientation( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
 
@@ -318,7 +318,7 @@ BOOLEAN WallOrClosedDoorExistsOfTopLeftOrientation( INT16 sGridNo )
 	return( FALSE );
 }
 
-BOOLEAN WallOrClosedDoorExistsOfTopRightOrientation( INT16 sGridNo )
+BOOLEAN WallOrClosedDoorExistsOfTopRightOrientation( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
 
@@ -343,7 +343,7 @@ BOOLEAN WallOrClosedDoorExistsOfTopRightOrientation( INT16 sGridNo )
 	return( FALSE );
 }
 
-BOOLEAN OpenRightOrientedDoorWithDoorOnRightOfEdgeExists( INT16 sGridNo )
+BOOLEAN OpenRightOrientedDoorWithDoorOnRightOfEdgeExists( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
 
@@ -367,7 +367,7 @@ BOOLEAN OpenRightOrientedDoorWithDoorOnRightOfEdgeExists( INT16 sGridNo )
 	return( FALSE );
 }
 
-BOOLEAN OpenLeftOrientedDoorWithDoorOnLeftOfEdgeExists( INT16 sGridNo )
+BOOLEAN OpenLeftOrientedDoorWithDoorOnLeftOfEdgeExists( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
 
@@ -391,7 +391,7 @@ BOOLEAN OpenLeftOrientedDoorWithDoorOnLeftOfEdgeExists( INT16 sGridNo )
 	return( FALSE );
 }
 
-STRUCTURE	* FindCuttableWireFenceAtGridNo( INT16 sGridNo )
+STRUCTURE	* FindCuttableWireFenceAtGridNo( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
 
@@ -403,7 +403,7 @@ STRUCTURE	* FindCuttableWireFenceAtGridNo( INT16 sGridNo )
 	return( NULL );
 }
 
-BOOLEAN CutWireFence( INT16 sGridNo )
+BOOLEAN CutWireFence( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
 
@@ -421,13 +421,13 @@ BOOLEAN CutWireFence( INT16 sGridNo )
 	return( FALSE );
 }
 
-BOOLEAN IsCuttableWireFenceAtGridNo( INT16 sGridNo )
+BOOLEAN IsCuttableWireFenceAtGridNo( INT32 sGridNo )
 {
 	return( FindCuttableWireFenceAtGridNo( sGridNo ) != NULL );
 }
 
 
-BOOLEAN IsRepairableStructAtGridNo( INT16 sGridNo, UINT8 *pubID )
+BOOLEAN IsRepairableStructAtGridNo( INT32 sGridNo, UINT8 *pubID )
 {
 	UINT8 ubMerc;
 
@@ -459,7 +459,7 @@ BOOLEAN IsRepairableStructAtGridNo( INT16 sGridNo, UINT8 *pubID )
 }
 
 
-BOOLEAN IsRefuelableStructAtGridNo( INT16 sGridNo, UINT8 *pubID )
+BOOLEAN IsRefuelableStructAtGridNo( INT32 sGridNo, UINT8 *pubID )
 {
 	UINT8 ubMerc;
 
@@ -483,7 +483,7 @@ BOOLEAN IsRefuelableStructAtGridNo( INT16 sGridNo, UINT8 *pubID )
 
 
 
-BOOLEAN IsCutWireFenceAtGridNo( INT16 sGridNo )
+BOOLEAN IsCutWireFenceAtGridNo( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
 
@@ -497,11 +497,11 @@ BOOLEAN IsCutWireFenceAtGridNo( INT16 sGridNo )
 
 
 
-INT16 FindDoorAtGridNoOrAdjacent( INT16 sGridNo )
+INT32 FindDoorAtGridNoOrAdjacent( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
 	STRUCTURE * pBaseStructure;
-	INT16				sTestGridNo;
+	INT32				sTestGridNo;
 
 	sTestGridNo = sGridNo;
 	pStructure = FindStructure( sTestGridNo, STRUCTURE_ANYDOOR );
@@ -532,7 +532,7 @@ INT16 FindDoorAtGridNoOrAdjacent( INT16 sGridNo )
 
 
 
-BOOLEAN IsCorpseAtGridNo( INT16 sGridNo, UINT8 ubLevel )
+BOOLEAN IsCorpseAtGridNo( INT32 sGridNo, UINT8 ubLevel )
 {
 	if ( GetCorpseAtGridNo( sGridNo , ubLevel ) != NULL )
 	{
@@ -545,7 +545,7 @@ BOOLEAN IsCorpseAtGridNo( INT16 sGridNo, UINT8 ubLevel )
 }
 
 
-BOOLEAN SetOpenableStructureToClosed( INT16 sGridNo, UINT8 ubLevel )
+BOOLEAN SetOpenableStructureToClosed( INT32 sGridNo, UINT8 ubLevel )
 {
 	STRUCTURE *		pStructure;
 	STRUCTURE *		pNewStructure;
