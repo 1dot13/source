@@ -1,4 +1,74 @@
 *****************************************************
+** JA2 1.13 Multiplayer - Version 1.5 - 01/11/2009 **
+*****************************************************
+
+Bugs Fixed
+==========
+In a Deathmatch and Team-Deathmatch game each client should start per Default in a separate map edge, if not RANDOMISE STARTING EDGE is choosen by the server
+In a CO-OP game, no teams should be selectable ("N/A")
+In a Team-Deathmatch game there must be at least 2 different teams, before the server can start on “START GAME”
+Fixed checking of "Sync folder". On some PCs, the game reported that the "Sync folder" is missing, even if it exists
+Fixed CTD when throwing item (grenade, rock, throwing knife, ...) in tactical when item description box is open
+Fixed synchronisation of doors
+Removed the buggy sync of the turnbar on an interrupt on the remote clients
+Client receives files again from server after restarting a new game (from the scoreboard)
+
+New Features
+============
+Synced Explosives (Grenades, Mortars, Mines, ...) and destruction of objects
+Disarming and stealing of Explosives placed in world
+Reenabled AI use of explosives / mortars etc in MP game
+Reenabled 6 merc / team in MP game
+Reenabled old pathing for AI instead of A*
+Increased MAX_GARRSION_GROUPS from 100 to 200
+Added customizable Multiplayer Teams (TableData\Multiplayer\RandomTeams.xml) if choosen "RANDOM MERCS". If xml file does not exists, "hardcoded" mercs will be taken
+
+
+
+*****************************************************
+** JA2 1.13 Multiplayer - Version 1.4 - 30/08/2009 **
+*****************************************************
+
+Bugs Fixed
+==========
+Fixed randomly occuring CTD after hiring a merc
+Fixed download progress bar bugging out when another client connects and starts downloading
+
+
+
+*****************************************************
+** JA2 1.13 Multiplayer - Version 1.3 - 17/08/2009 **
+*****************************************************
+
+Bugs Fixed
+==========
+Assertion Error, if user clicks in an empty Textbox field in the Host or Join screen
+Reset "fast loading of WWW pages in laptop" when quitting a MP game and then start a SP game
+Fixed saving/loading of MP games
+If server selected NIV, still OIV was initialized on the other clients, so merc starting gear was read from prof.dat instead of mercstartinggear.xml
+Game ends (goes to scoreboard), after a team is wiped out in a COOP game and another team is still present
+Fixed CTD that could occur when killing an enemy (merc) with fallback animation
+Fixed CTD on server when bullet hits window
+
+New Features
+============
+Synchronized "Cutting Fences"
+New starting "Center" position for a team
+Synchronized dismiss of mercs
+Instead of random sectors set fixed sectors in a MP game:
+o Skyrider: 15/B
+o Madlab: 7/H
+o Micky: 9/G
+o Bob & Gabby: They do not show up, because MP game is always REALISITIC game mode!
+Disable "AIM" and "MERC" Bookmark if server selected "Random Mercs"
+Disabled "Bobby Ray" Bookmark if server has not selected "Allow Bobby Ray"
+Disabled the chance of alternate sectors no matter what is defined in the file "TableData/Map/AltSectors.xml"
+Disabled "Dismiss" button in the menu, if server has chosen RANDOM MERC (because hiring new mercs is not allowed with RANDOM MERC)
+Disabled all the "Contracts" renew button in the menu in a MP game
+
+
+
+*****************************************************
 ** JA2 1.13 Multiplayer - Version 1.2 - 05/06/2009 **
 *****************************************************
 
