@@ -3709,14 +3709,14 @@ STR16		zOptionsToggleText[] =
 	L"Низкая загрузка процессора",
 	L"Подробное описание предметов", //Enhanced Description Box
 	L"Только пошаговый режим",				// add forced turn mode
-	L"Stat Progress Bars",					// Show progress towards stat increase		// TODO.Translate
+	L"Статистика продвижения навыков",	//Stat Progress Bars	// Show progress towards stat increase		// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
-	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
+	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--Настройки отладочной версии--",		// an example options screen options header (pure text)
 	L"Сброс всех игровых настроек",			// failsafe show/hide option to reset all options
 	L"В самом деле хотите этого?",			// a do once and reset self option (button like effect)
-	L"Debug Options in other builds",		// allow debugging in release or mapeditor
+	L"Отладочные настройки везде",	//Debug Options in other builds		// allow debugging in release or mapeditor
 	L"DEBUG Render Option group",			// an example option that will show/hide other options
 	L"Render Mouse Regions",				// an example of a DEBUG build option
 	L"-----------------",					// an example options screen options divider (pure text)
@@ -3805,13 +3805,14 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, игра будет использовать\nменьше процессорного времени.",
 	L"Если включено, будет задействовано\nподробное описание предметов.", //EDB description
 	L"Если включено и в секторе присутствует враг, \nпошаговый режим будет задействован \nдо полной зачистки сектора (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).", //When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T). // add forced turn mode
+	L"Если включено, \nто будет показан прогресс персонажа \nк получению следующего уровня.",	//When ON, shows character progress towards gaining levels
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
-	L"Ускорить доставку заказанного груза у Бобби Рэя",	//Force all pending Bobby Ray shipments
+	L"Если включено, \nзаказанный груз у Бобби Рэя \nприбудет немедленно.",	//Force all pending Bobby Ray shipments
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",	// an example options screen options header (pure text)
 	L"Если включить, \nповреждённые игровые настройки будут восстановлены.",	// failsafe show/hide option to reset all options
 	L"Отметьте строку для подтверждения сброса игровых настроек.",	// a do once and reset self option (button like effect)
-	L"Allows debug options in release or mapeditor builds",	// allow debugging in release or mapeditor
+	L"Если включено, \nотладочные настройки будут доступны как в игре, \nтак и в редакторе карт.",	// Allows debug options in release or mapeditor builds
 	L"Toggle to display debugging render options",	//Toggle to display debugging render options					// an example option that will show/hide other options
 	L"Attempts to display slash-rects around mouse regions",	// an example of a DEBUG build option
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_END",	// an example options screen options divider (pure text)
@@ -4938,20 +4939,19 @@ STR16 gzFacilityErrorMessage[]=
 
 };
 
-// TODO.Translate
 STR16 gzFacilityRiskResultStrings[]=
 {
-	L"Strength",
-	L"Agility",
-	L"Dexterity",
-	L"Wisdom",
-	L"Health",
-	L"Marksmanship",
+	L"Сила",	//Strength
+	L"Ловкость",	//Agility
+	L"Проворность",	//Dexterity
+	L"Интеллект",	//Wisdom
+	L"Здоровье",	//Health
+	L"Меткость",	//Marksmanship
 	// 5-10
-	L"Leadership",
-	L"Mechanical skill",
-	L"Medical skill",
-	L"Explosives skill",
+	L"Лидерство",	//Leadership
+	L"Механика",	//Mechanical skill
+	L"Медицина",	//Medical skill
+	L"Взрывчатка",	//Explosives skill
 };
 
 // TODO.Translate
