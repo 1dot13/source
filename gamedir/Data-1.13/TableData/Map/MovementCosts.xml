@@ -102,6 +102,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="A" x="5">
 			<TravelRating>0</TravelRating>
@@ -110,6 +111,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="A" x="6">
 			<TravelRating>5</TravelRating>
@@ -198,6 +200,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="B" x="1">
 			<TravelRating>10</TravelRating>
@@ -710,6 +713,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="F" x="1">
 			<TravelRating>0</TravelRating>
@@ -838,6 +842,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="G" x="1">
 			<TravelRating>60</TravelRating>
@@ -1350,6 +1355,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="K" x="1">
 			<TravelRating>0</TravelRating>
@@ -1478,6 +1484,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="L" x="1">
 			<TravelRating>4</TravelRating>
@@ -1606,6 +1613,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="M" x="1">
 			<TravelRating>0</TravelRating>
@@ -1726,6 +1734,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="M" x="16">
 			<TravelRating>0</TravelRating>
@@ -1734,6 +1743,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="N" x="1">
 			<TravelRating>0</TravelRating>
@@ -1838,6 +1848,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="N" x="14">
 			<TravelRating>0</TravelRating>
@@ -1846,6 +1857,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="N" x="15">
 			<TravelRating>0</TravelRating>
@@ -1854,6 +1866,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="N" x="16">
 			<TravelRating>0</TravelRating>
@@ -1862,6 +1875,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="O" x="1">
 			<TravelRating>0</TravelRating>
@@ -1974,6 +1988,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="O" x="15">
 			<TravelRating>0</TravelRating>
@@ -1982,6 +1997,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="O" x="16">
 			<TravelRating>0</TravelRating>
@@ -1990,6 +2006,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="P" x="1">
 			<TravelRating>0</TravelRating>
@@ -2102,6 +2119,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="P" x="15">
 			<TravelRating>0</TravelRating>
@@ -2110,6 +2128,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 		<Sector y="P" x="16">
 			<TravelRating>0</TravelRating>
@@ -2118,6 +2137,7 @@ Possible values for Here tag:
 			<South>EDGEOFWORLD</South>
 			<West>EDGEOFWORLD</West>
 			<Here>EDGEOFWORLD</Here>
+			<BadSector>1</BadSector>
 		</Sector>
 	</SectorTraversal>
 </StrategicMovementCosts>
