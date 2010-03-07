@@ -50,8 +50,9 @@
 #endif
 
 #include "connect.h"
-
 #include "Map Edgepoints.h"
+#include "Queen Command.h"
+
 BOOLEAN gfOriginalList = TRUE;
 
 SOLDIERINITNODE *gSoldierInitHead = NULL;
@@ -1942,16 +1943,30 @@ void AddSoldierInitListBloodcats()
 {
 	SECTORINFO *pSector;
 	SOLDIERINITNODE *curr;
-	UINT8 ubSectorID;
+	UINT8 ubSectorID = 0;
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierInitListBloodcats"));
+
+	SECTORINFO dummy;
 
 	if( gbWorldSectorZ )
 	{
-		return; //no bloodcats underground.
-	}
+		// This function can only cope with regular SECTORINFO objects.
+		// So let's fake a sector above ground and copy over data from UNDERGROUND_SECTORINFO.
+		UNDERGROUND_SECTORINFO *pUndergroundSector
+			= FindUnderGroundSector(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 
-	ubSectorID = (UINT8)SECTOR( gWorldSectorX, gWorldSectorY );
-	pSector = &SectorInfo[ ubSectorID ];
+		if (!pUndergroundSector)
+			return;
+
+		pSector = &dummy;
+		pSector->bBloodCats = pUndergroundSector->ubNumBloodcats;
+		pSector->bBloodCatPlacements = pUndergroundSector->ubNumBloodcats;
+	}
+	else
+	{
+		ubSectorID = (UINT8)SECTOR( gWorldSectorX, gWorldSectorY );
+		pSector = &SectorInfo[ ubSectorID ];
+	}
 
 	if( !pSector->bBloodCatPlacements )
 	{ //This map has no bloodcat placements, so don't waste CPU time.

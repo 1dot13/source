@@ -4448,8 +4448,6 @@ UINT32 MapScreenInit(void)
 {
 	VOBJECT_DESC VObjectDesc;
 
-	SetUpBadSectorsList( );
-
 	// setup message box system
 	InitGlobalMessageList( );
 

@@ -1901,11 +1901,15 @@ UINT16 DisplayDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 
 	if ( Item[ usIndex ].usItemClass == IC_GUN || Item[ usIndex ].usItemClass == IC_LAUNCHER )
 	{
-		gunDamage = (UINT16)( Weapon[ usIndex ].ubImpact + ( (double) Weapon[ usIndex ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+		// HEADROCK HAM 3.6: Can now take a negative modifier
+		gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ usIndex ].ubImpact );
+		//gunDamage = (UINT16)( Weapon[ usIndex ].ubImpact + ( (double) Weapon[ usIndex ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 	}
 	else
 	{
-		gunDamage = (UINT16)( Weapon[ usIndex ].ubImpact + ( (double) Weapon[ usIndex ].ubImpact / 100) * gGameExternalOptions.ubMeleeDamageMultiplier );
+		// HEADROCK HAM 3.6: Can now take a negative modifier
+		gunDamage = (UINT16)GetModifiedMeleeDamage( Weapon[ usIndex ].ubImpact );
+		//gunDamage = (UINT16)( Weapon[ usIndex ].ubImpact + ( (double) Weapon[ usIndex ].ubImpact / 100) * gGameExternalOptions.ubMeleeDamageMultiplier );
 	}
 
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_DAMAGE], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
@@ -2409,7 +2413,9 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			//Info for weapons
 			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
 			{
-				UINT16		gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+				// HEADROCK HAM 3.6: Can now take a negative modifier.
+				//UINT16	gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+				UINT16		gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ pItemNumbers[ i ] ].ubImpact );
 				UINT16		readyAPs = (UINT16)(( Weapon[ pItemNumbers[ i ] ].ubReadyTime * (100 - Item[ pItemNumbers[ i ] ].percentreadytimeapreduction)) / 100);
 
 				//Calculate AP's
@@ -2563,7 +2569,9 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			//Info for weapons
 			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
 			{
-				UINT16 gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+				// HEADROCK HAM 3.6: Can now take a negative modifier.
+				UINT16 gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ pItemNumbers[ i ] ].ubImpact );
+				//UINT16 gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 
 				swprintf( pStr, L"%s\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s",
 					ItemNames[ pItemNumbers[ i ] ],
@@ -2587,7 +2595,9 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 		case IC_THROWING_KNIFE:
 		case IC_PUNCH:
 			{
-				UINT16 meleeDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubMeleeDamageMultiplier );
+				// HEADROCK HAM 3.6: Can now take a negative modifier 
+				//UINT16 meleeDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubMeleeDamageMultiplier );
+				UINT16 meleeDamage = (UINT16)GetModifiedMeleeDamage( Weapon[ pItemNumbers[ i ] ].ubImpact );
 
 				swprintf( pStr, L"%s\n%s %d\n%s %s\n%s %1.1f %s",
 					ItemNames[ pItemNumbers[ i ] ],
@@ -2640,8 +2650,12 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			// explosives
 			//if ( (Item[ pItemNumbers[ i ] ].usItemClass == IC_GRENADE)||(Item[ pItemNumbers[ i ] ].usItemClass == IC_BOMB) )
 			{
-				UINT16 explDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
-				UINT16 explStunDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+				// HEADROCK HAM 3.6: Can now use negative modifier.
+				//UINT16 explDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.bExplosivesDamageModifier );
+				//UINT16 explStunDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+				UINT16 explDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage );
+				UINT16 explStunDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage );
+
 
 				swprintf( pStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s",
 					ItemNames[ pItemNumbers[ i ] ],

@@ -7611,23 +7611,23 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 
 }
 
-UINT8 GetSpeedUpFactor( )
+FLOAT GetSpeedUpFactor( )
 {
 	switch(  gTacticalStatus.ubCurrentTeam )
 	{
 	case OUR_TEAM:
-		return gGameExternalOptions.gubPlayerTurnSpeedUpFactor;
+		return gGameExternalOptions.giPlayerTurnSpeedUpFactor;
 	case ENEMY_TEAM:
-		return gGameExternalOptions.gubEnemyTurnSpeedUpFactor;
+		return gGameExternalOptions.giEnemyTurnSpeedUpFactor;
 	case CREATURE_TEAM:
-		return gGameExternalOptions.gubCreatureTurnSpeedUpFactor;
+		return gGameExternalOptions.giCreatureTurnSpeedUpFactor;
 	case MILITIA_TEAM:
-		return gGameExternalOptions.gubMilitiaTurnSpeedUpFactor;
+		return gGameExternalOptions.giMilitiaTurnSpeedUpFactor;
 	case CIV_TEAM:
-		return gGameExternalOptions.gubCivilianTurnSpeedUpFactor;
+		return gGameExternalOptions.giCivilianTurnSpeedUpFactor;
 	}
 
-	return 1;
+	return 1.0;
 }
 
 void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier )
@@ -7681,7 +7681,7 @@ void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier )
 
 	if ( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT )
 		if( GetSpeedUpFactor() )
-			pSoldier->sAniDelay /= GetSpeedUpFactor();
+			pSoldier->sAniDelay = (INT16)((FLOAT)pSoldier->sAniDelay * GetSpeedUpFactor());
 		else
 			pSoldier->sAniDelay = 0;
 }

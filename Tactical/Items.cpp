@@ -8967,3 +8967,33 @@ INT8 FindBackpackOnSoldier( SOLDIERTYPE * pSoldier )
 	}
 	return( ITEM_NOT_FOUND );
 }
+
+// HEADROCK HAM 3.6: This applies the INI modifier to explosives
+UINT8 GetModifiedExplosiveDamage( UINT16 sDamage )
+{
+	sDamage = (INT16)(( sDamage * gGameExternalOptions.iExplosivesDamageModifier ) / 100);
+	sDamage = __max(1, sDamage);
+	sDamage = __min(255, sDamage);
+
+	return (UINT8)sDamage;
+}
+
+UINT8 GetModifiedMeleeDamage( UINT16 sDamage )
+{
+	sDamage = (INT16)(( sDamage * gGameExternalOptions.iMeleeDamageModifier ) / 100);
+	sDamage = __max(1, sDamage);
+	sDamage = __min(255, sDamage);
+
+	return (UINT8)sDamage;
+}
+
+UINT8 GetModifiedGunDamage( UINT16 sDamage )
+{
+	sDamage = (INT16)(( sDamage * gGameExternalOptions.iGunDamageModifier ) / 100);
+	sDamage = __max(1, sDamage);
+	sDamage = __min(255, sDamage);
+
+	return (UINT8)sDamage;
+}
+
+

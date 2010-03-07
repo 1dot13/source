@@ -246,7 +246,7 @@ BOOLEAN LoadMercProfiles(void)
 	UINT32 uiLoop, uiLoop2;//, uiLoop3;
 	UINT16 usItem;//, usNewGun, usAmmo, usNewAmmo;
 
-	if (gGameExternalOptions.fAlwaysUseProfDat == FALSE)
+	if (gGameExternalOptions.fUseDifficultyBasedProfDat == TRUE)
 	{
 		switch ( gGameOptions.ubDifficultyLevel)
 		{

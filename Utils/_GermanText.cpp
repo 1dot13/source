@@ -376,11 +376,11 @@ STR16 pAssignmentStrings[] =
 	L"Repar.", // repairing
 	L"Üben", // training themselves
 	L"Miliz", // training a town to revolt 
-	L"M.Militia", //training moving militia units		// TODO.Translate
+	L"M.Miliz", //training moving militia units		
 	L"Trainer", // training a teammate
 	L"Rekrut", // being trained by someone else 
-	L"Staff", // operating a strategic facility			// TODO.Translate
-	L"Rest", // Resting at a facility					// TODO.Translate
+	L"Betrieb", // operating a strategic facility
+	L"Pause", // Resting at a facility
 	L"Tot", // dead
 	L"Unfähig", // abbreviation for incapacitated
 	L"Gefangen", // Prisoner of war - captured
@@ -393,14 +393,14 @@ STR16 pMilitiaString[] =
 	L"Miliz", // the title of the militia box
 	L"Ohne Aufgabe", //the number of unassigned militia troops
 	L"Mit Feinden im Sektor können Sie keine Miliz einsetzen!",
-	L"Some militia were not assigned to a sector. Would you like to disband them?", // TODO.Translate
+	L"Einige Milizen wurden keinem Sektor zugewiesen. Möchten Sie diese Einheiten auflösen?",
 };
 
 STR16 pMilitiaButtonString[] = 
 {
 	L"Autom.", // auto place the militia troops for the player
 	L"Fertig", // done placing militia troops
-	L"Disband", // HEADROCK HAM 3.6: Disband militia	// TODO.Translate
+	L"Auflösen", // HEADROCK HAM 3.6: Disband militia
 };
 
 STR16 pConditionStrings[] = 
@@ -615,7 +615,7 @@ STR16 pAssignMenuStrings[] =
 	L"Fahrzeug", // the merc is in a vehicle
 	L"Repar.", // the merc is repairing items 
 	L"Training", // the merc is training
-	L"Facility", // the merc is using/staffing a facility	// TODO.Translate
+	L"Betrieb", // the merc is using/staffing a facility
 	L"Abbrechen", // cancel this menu
 };
 
@@ -672,7 +672,7 @@ STR16 pTrainingMenuStrings[] =
 {
  L"Üben", // train yourself 
  L"Miliz", // train the town 
- L"Mobile Militia",		// TODO.Translate
+ L"Mobile Miliz",
  L"Trainer", // train your teammates 
  L"Rekrut", // be trained by an instructor 
  L"Abbrechen", // cancel this menu
@@ -1082,7 +1082,7 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 	L"Gewicht:",		//12
 	L"Bet. Schaden:",	//13
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
-	L"Attachments:",	//14	// TODO.Translate
+	L"Zubehör:",	//14	// Attachments
 	L"AUTO/5:",		//15
 	L"Menge:",		//16
 
@@ -1701,7 +1701,7 @@ STR16 sFacilitiesStrings[] =
 {
 	L"Keine",
 	L"Hospital",
-	L"Factory",	// TODO.Translate
+	L"Fabrik",	// Factory
 	L"Gefängnis",
 	L"Militär",
 	L"Flughafen",
@@ -1730,7 +1730,7 @@ STR16 pwTownInfoStrings[] =
 	L"Level", 					// the training level of civilians in this town
 	L"Zivilistentraining",				// 10 // state of civilian training in town
 	L"Miliz", 					// the state of the trained civilians in the town
-	L"Mobile Training",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town	// TODO.Translate
+	L"Mobile. M. Training",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town
 };
 
 // Mine strings
@@ -1990,7 +1990,7 @@ STR16 pTransactionText[] =
 	L"Kauf bei Bobby Rays",	 		// Bobby Ray is the name of an arms dealer
 	L"Ausgeglichene Konten bei M.E.R.C.",
 	L"Krankenversicherung für %s", 		// medical deposit for merc 
-	L"B.S.E-Profilanalyse", 		// IMP is the acronym for International Mercenary Profiling
+	L"B.S.E.-Profilanalyse", 		// IMP is the acronym for International Mercenary Profiling
 	L"Versicherung für %s abgeschlossen", 
 	L"Versicherung für %s verringert",
 	L"Versicherung für %s verlängert", 				// johnny contract extended
@@ -2011,8 +2011,8 @@ STR16 pTransactionText[] =
 	L"Miliz in %s ausbilden", // initial cost to equip a town's militia
 	L"Gegenstände von %s gekauft.",	//is used for the Shop keeper interface. The dealers name will be appended to the end of the string.
 	L"%s hat Geld angelegt.",
-	L"Facility Use", // HEADROCK HAM 3.6		// TODO.Translate
-	L"Militia upkeep", // HEADROCK HAM 3.6		// TODO.Translate
+	L"Betriebskosten", // HEADROCK HAM 3.6
+	L"Unterhaltskosten für Miliz", // HEADROCK HAM 3.6
 };
 
 STR16 pTransactionAlternateText[] =
@@ -2216,7 +2216,7 @@ STR16 pImpPopUpStrings[] =
 	L"Fehler beim Laden des B.S.E. Charakters.",
 	L"Sie haben bereits die maximale Anzahl an B.S.E. Charakteren.",
 	L"Sie haben bereits drei B.S.E. Charaktere mit dem gleichen Geschlecht.",
-	L"Sie können sich den I.M.P. Charakter nicht leisten.",
+	L"Sie können sich den B.S.E. Charakter nicht leisten.",
 	L"Der neue B.S.E. Charakter ist nun in ihrem Team.",
 };
 
@@ -2268,12 +2268,12 @@ STR16 pFilesTitle[] =
 STR16 pFilesSenderList[] =
 {
 	L"Aufklärungsbericht", 		// the recon report sent to the player. Recon is an abbreviation for reconissance
-	L"Intercept #1", 		// first intercept file .. Intercept is the title of the organization sending the file...similar in function to INTERPOL/CIA/KGB..refer to fist record in files.txt for the translated title
-	L"Intercept #2",		// second intercept file
-	L"Intercept #3",		// third intercept file
-	L"Intercept #4",		// fourth intercept file
-	L"Intercept #5",		// fifth intercept file
-	L"Intercept #6",		// sixth intercept file
+	L"Abschnitt #1", 		// first intercept file .. Intercept is the title of the organization sending the file...similar in function to INTERPOL/CIA/KGB..refer to fist record in files.txt for the translated title
+	L"Abschnitt #2",		// second intercept file
+	L"Abschnitt #3",		// third intercept file
+	L"Abschnitt #4",		// fourth intercept file
+	L"Abschnitt #5",		// fifth intercept file
+	L"Abschnitt #6",		// sixth intercept file
 };
 
 // Text having to do with the History Log
@@ -2307,7 +2307,7 @@ STR16 pHistoryStrings[] =
 	L"Rechnung an M.E.R.C. bezahlt",								// paid outstanding bills at MERC
 	L"Enrico Chivaldoris Auftrag akzeptiert",	
 	//6-10
-	L"B.S.E-Profil erstellt",
+	L"B.S.E.-Profil erstellt",
 	L"Versicherung abgeschlossen für %s.", 				// insurance contract purchased
 	L"Versicherung gekündigt für %s.", 				// insurance contract canceled
 	L"Versicherung ausgezahlt für %s.", 							// insurance claim payout for merc
@@ -2418,7 +2418,7 @@ STR16 pBookMarkStrings[] =
 {
 	L"A.I.M.",
 	L"Bobby Rays",
-	L"B.S.E",
+	L"B.S.E.",
 	L"M.E.R.C.",
 	L"Bestattungsinst.",	
 	L"Florist",
@@ -2511,8 +2511,8 @@ STR16 pWebPagesTitles[] =
 	L"Bobby Rays - Sonst.",							//misc is an abbreviation for miscellaneous				
 	L"Bobby Rays - Gebraucht",
 	L"Bobby Rays - Versandauftrag",
-	L"B.S.E",
-	L"B.S.E",
+	L"B.S.E.",
+	L"B.S.E.",
 	L"Fleuropa",
 	L"Fleuropa - Gestecke",
 	L"Fleuropa - Bestellformular",
@@ -3196,7 +3196,7 @@ STR16 AimFiText[] =
 
 	// The title of the page, the above text gets added at the end of this text
 	L"A.I.M.-Mitglieder ansteigend sortiert nach %s",
-	L"A.I.M. Mitglieder absteigend sortiert nach %s",
+	L"A.I.M.-Mitglieder absteigend sortiert nach %s",
 
 	// Instructions to the players on what to do
 
@@ -3462,10 +3462,10 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Sie können sich keine $%d für die Miliz hier leisten.",
 	L"%s benötigt eine Loyalität von %d Prozent, um mit dem Milizen-Training fortzufahren.",
 	L"Sie können die Miliz in %s nicht mehr trainieren.", 
-	L"You cannot afford the $%d to train mobile militia here.", // HEADROCK HAM 3.6: Mobile Militia		TODO.Translate
-	L"Continue training mobile militia in %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia				TODO.Translate
-	L"Training mobile militia in %d sectors will cost $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia	TODO.Translate
-	L"Training a squad of mobile militia will cost $", // HEADROCK HAM 3.6: Mobile Militia				TODO.Translate
+	L"Sie können sich keine $%d für mobile Miliz hier leisten.", // HEADROCK HAM 3.6: Mobile Militia
+	L"Mobile Milizen in %s (%s %d) weitertrainieren?", // HEADROCK HAM 3.6: Mobile Militia
+	L"Mobile Milizen in %d Sektoren zu trainieren kostet $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia
+	L"Eine mobile Milizeinheit für diese Stadt zu trainieren kostet $", // HEADROCK HAM 3.6: Mobile Militia
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
@@ -3520,7 +3520,7 @@ STR16 zOptionsToggleText[] =
 	L"Niedrige CPU Belastung",
 	L"Erw. Gegenstandsinfo (EDB)",
 	L"Erzwungener Runden-Modus",			// add forced turn mode
-	L"Stat Progress Bars",					// Show progress towards stat increase
+	L"Status Trainingsfortschritt",					// Show progress towards stat increase
 	L"--Cheat Mode Optionen--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge Bobby Ray Lieferungen",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -3616,7 +3616,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird das Spiel mit viel geringerer CPU Belastung laufen.",
 	L"Wenn diese Funktion aktiviert ist, werden erweiterte Beschreibungen zu den Waffen und Gegenständen angezeigt.",
 	L"Wenn diese Funktion aktiviert ist und noch Gegner im Sektor sind, bleibt das Spiel im Runden-Modus, bis alle Feinde tot sind (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",
-	L"When ON, shows character progress towards gaining levels.",
+	L"Wenn diese Funktion aktiviert ist, wird der Trainingsfortschritt für die Söldner angezeigt.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -4234,7 +4234,7 @@ STR16 gzLateLocalizedString[] =
 
 	//46-48
 	L"%ss Gewehrlauf-Verlängerung fällt ab!",
-	L"No more than %d militia trainers are permitted in this sector.",		// TODO.Translate
+	L"Es sind nicht mehr als %d Milizenausbilder in diesem Sektor erlaubt.",
   L"Sind Sie sicher?", // 
 
 	//49-50
@@ -4274,7 +4274,7 @@ STR16 gzLateLocalizedString[] =
 
 STR16 gzCWStrings[] = 
 {
-	L"Call reinforcements to %s from adjacent sectors?",		// TODO.Translate
+	L"Verstärkung aus benachbarten Sektoren nach %s rufen?",
 };
 
 // WANNE: Tooltips
@@ -4351,36 +4351,36 @@ STR16 New113Message[] =
 	L"Gegner gesichtet! (Ctrl + x für Rundenmodus)",
 };
 
-// TODO.Translate
 STR16 New113HAMMessage[] = 
 {
 	// 0 - 5
-	L"%s cowers in fear!",
-	L"%s is pinned down!",
-	L"%s fires more rounds than intended!",
-	L"You cannot train militia in this sector.",
-	L"Militia picks up %s.",
-	L"Cannot train militia with enemies present!", 
+	L"%s zittert vor Angst!",
+	L"%s is festgenagelt!",
+	L"%s feuert mehr Schüsse mehr als beabsichtigt!",
+	L"Sie können keine Miliz in diesem Sektor ausbilden.",
+	L"Miliz hebt %s auf.",
+	L"Wenn Feinde im Sektor sind können Sie keine Miliz ausbilden!",
 	// 6 - 10
-	L"%s lacks sufficient Leadership score to train militia.",
-	L"No more than %d Mobile Militia trainers are permitted in this sector.",
-	L"No room in %s or around it for new Mobile Militia!",
-	L"You need to have %d Town Militia in each of %s's liberated sectors before you can train Mobile Militia here.",
-	L"Can't staff a facility while enemies are present!",
+	L"%s hat nicht genug Führungsqualität um Milizen auszubilden.",	
+	L"Pro Sektor sind nicht mehr als %d Milizausbilder erlaubt.",	
+	L"Kein Platz für mobile Milizen in oder rund um %s!",
+	L"Sie benötigen %d Stadtmilizen in jedem von %ss befreiten Sektoren bevor Sie hier mobile Milizen ausbilden können.",
+	L"Anlage nicht nutzbar wenn Feinde in der Gegend sind!",
 	// 11 - 15
-	L"%s lacks sufficient Wisdom to staff this facility.",
-	L"The %s is already fully-staffed.",
-	L"It will cost $%d per hour to staff this facility. Do you wish to continue?",
-	L"You have insufficient funds to pay for all Facility work today. $%d have been paid, but you still owe $%d. The locals are not pleased.",
-	L"You have insufficient funds to pay for all Facility work today. You owe $%d. The locals are not pleased.",
+	L"%s hat nicht genügend Weisheit um diese Anlage betreiben zu können.",
+	L"%s ist schon voll besetzt.",
+	L"Diese Anlage zu betreiben kostet $%d pro Stunde. Weitermachen?",
+	L"Sie haben nicht genug Geld um alle heutigen Betriebskosten zu zahlen. $%d wurden bezahlt, Sie schulden weiterhin $%d. Die Einwohner sind nicht erfreut.",
+	L"Sie haben nicht genug Geld um alle heutigen Betriebskosten zu zahlen. Sie schulden $%d. Die Einwohner sind nicht erfreut.",
 	// 16 - 20
-	L"You have an outstanding debt of $%d for Facility Operation, and no money to pay it off!",
-	L"You have an outstanding debt of $%d for Facility Operation. You can't assign this merc to facility duty until you have enough money to pay off the entire debt.",
-	L"You have an outstanding debt of $%d for Facility Operation. Would you like to pay it all back?",
-	L"N/A in this sector",
-	L"Daily Expenses",
+	L"Sie haben eine ausstehende Forderung von $%d für Betriebskosen und kein Geld um zu bezahlen!",
+	L"Sie haben eine ausstehende Forderung von $%d für Betriebskosen. Dieser Anlage können Sie keinen Söldner zuweisen bis Sie Ihre gesamten Schulden beglichen haben.",
+	L"Sie haben eine ausstehende Forderung von $%d für Betriebskosen. Möchten Sie diese Schuld begleichen?",
+	L"Nicht möglich in diesem Sektor",
+	L"Tagesausgaben",
 	// 21 - 25
-	L"Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.",
+	L"Nicht genug Geld für alle angeworbenen Milzen! %d Milzen wurden entlassen und sind heimgekehrt.",
+
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
@@ -4693,112 +4693,110 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Ihre größte Schwäche",
 };
 
-// TODO.Translate
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
 STR16 gzFacilityErrorMessage[]=
 {
-	L"%s lacks sufficient Strength to perform this task.",
-	L"%s lacks sufficient Dexterity to perform this task.",
-	L"%s lacks sufficient Agility to perform this task.",
-	L"%s is not Healthy enough to perform this task.",
-	L"%s lacks sufficient Wisdom to perform this task.",
-	L"%s lacks sufficient Marksmanship to perform this task.",
+	L"%s hat nicht genug Kraft um diese Aufgabe zu erledigen.",
+	L"%s ist nicht geschickt genug um diese Aufgabe zu erledigen.",
+	L"%s ist nicht beweglich genug um diese Aufgabe zu erledigen.",
+	L"%s hat keine ausreichende Gesundheit um diese Aufgabe zu erledigen.",
+	L"%s mangelt es an ausreichender Weisheit um diese Aufgabe zu erledigen.",
+	L"%s mangelt es an ausreichender Treffsicherheit um diese Aufgabe zu erledigen.",
 	// 6 - 10
-	L"%s lacks sufficient Medical Skill to perform this task.",
-	L"%s lacks sufficient Mechanical Skill to perform this task.",
-	L"%s lacks sufficient Leadership to perform this task.",
-	L"%s lacks sufficient Explosives Skill to perform this task.",
-	L"%s lacks sufficient Experience to perform this task.",
+	L"%s hat nicht genug Medizinkenntnis um diese Aufgabe zu erledigen.",
+	L"%s hat zu wenig technisches Verständnis um diese Aufgabe zu erledigen.",
+	L"%s mangelt es an ausreichender Führungsqualität um diese Aufgabe zu erledigen.",
+	L"%s hat nicht genug Sprengstoffkenntnis um diese Aufgabe zu erledigen.",
+	L"%s mangelt es an ausreichender Erfahrung um diese Aufgabe zu erledigen.",
 	// 11 - 15
-	L"%s lacks sufficient Morale to perform this task.",
-	L"%s is too exhausted to perform this task.",
-	L"Insufficient loyalty in %s. The locals refuse to allow you to perform this task.",
-	L"Too many people are already working at the %s.",
-	L"Too many people are already performing this task at the %s.",
+	L"%s hat nicht genug Moral um diese Aufgabe zu erledigen.",
+	L"%s ist zu erschöpft um diese Aufgabe zu erledigen.",
+	L"Zu wenig Loyalität in %s. Die Einwohner lassen Sie diese Aufgabe nicht verrichten.",
+	L"Es arbeiten bereits zu viele Personen in %s.",
+	L"Zu viele Personen verrichten diese Aufgabe schon in %s.",
 	// 16 - 20
-	L"%s can find no items to repair.",
-	L"%s has lost some %s while working in sector %s!",
-	L"%s has lost some %s while working at the %s in %s!",
-	L"%s was injured while working in sector %s, and requires immediate medical attention!",
-	L"%s was injured while working at the %s in %s, and requires immediate medical attention!",
+	L"%s findet nichts mehr zum Reparieren.",
+	L"%s verliert %s beim Arbeiten in %s.",
+	L"%s hat ein paar %s verloren beim Arbeiten in der %s in %s !",
+	L"%s wurde verletzt beim Arbeiten in Sektor %s und benötigt dringend medizinische Versorgung!",
+	L"%s wurde verletzt beim Arbeiten in der %s in %s und benötigt dringend medizinische Versorgung!",
 	// 21 - 25
-	L"%s was injured while working in sector %s. It doesn't seem too bad though.",
-	L"%s was injured while working at the %s in %s. It doesn't seem too bad though.",
-	L"The residents of %s seem upset about %s's presence.",
-	L"The residents of %s seem upset about %s's work at the %s.",
-	L"%s's actions in sector %s have caused loyalty loss throughout the region!",
+	L"%s wurde verletzt beim Arbeiten in Sektor %s. Es scheint aber nichts Ernstes zu sein.",
+	L"%s wurde verletzt beim Arbeiten in der %s in %s. Es scheint aber nichts Ernstes zu sein.",
+	L"Die Einwohner von %s scheinen sich über die Anwesenheit von %s aufzuregen."
+	L"Die Einwohner von %s scheinen sich über die Arbeit von %s in der %s aufzuregen."
+	L"%ss Handeln im Sektor %s hat einen Loyalitätsverlust in der gesamten Region bewirkt!",
 	// 26 - 30
-	L"%s's actions at the %s in %s have caused loyalty loss throughout the region!",
-	L"%s is drunk.", // <--- This is a log message string.
-	L"%s has become severely ill in sector %s, and has been taken off duty.",
-	L"%s has become severely ill and cannot continue his work at the %s in %s.",
-	L"%s was injured in sector %s.", // <--- This is a log message string.
+	L"%ss Handeln in der %s in %s hat einen Loyalitätsverlust in der gesamten Region bewirkt!",
+	L"%s ist betrunken.", // <--- This is a log message string.
+	L"%s ist ernsthaft krank geworden in Sektor %s und wurde vom Dienst freigestellt.",
+	L"%s ist ernsthaft krank geworden und kann keine seine Arbeiten in der %s in %s fortsetzen.",
+	L"%s wurde veletzt in Sektor %s.", // <--- This is a log message string.
 	// 31 - 35
-	L"%s was severely injured in sector %s.", //<--- This is a log message string.
+	L"%s wurde ernsthaft im Sektor %s verletzt.", //<--- This is a log message string.
 
 
 };
 
-// TODO.Translate
 STR16 gzFacilityRiskResultStrings[]=
 {
-	L"Strength",
-	L"Agility",
-	L"Dexterity",
-	L"Wisdom",
-	L"Health",
-	L"Marksmanship",
+	L"Kraft",
+	L"Beweglichkeit", 
+	L"Geschicklichkeit",
+	L"Weisheit", 
+	L"Gesundheit",
+	L"Treffsicherheit",
 	// 5-10
-	L"Leadership",
-	L"Mechanical skill",
-	L"Medical skill",
-	L"Explosives skill",
+	L"Führungsqualität",
+	L"Technik",
+	L"Medizin",
+	L"Sprengstoffe",
 };
 
-// TODO.Translate
 STR16 gzFacilityAssignmentStrings[]=
 {
-	L"AMBIENT",
-	L"Staff",
-	L"Rest",
-	L"Repair Items",
-	L"Repair %s", // Vehicle name inserted here
-	L"Repair Robot",
+
+	L"UMGEBUNG",
+	L"Betrieb",
+	L"Pause",
+	L"Repariere Gegenstände",
+	L"Repariere %s",
+	L"Repariere Roboter",
 	// 6-10
-	L"Doctor",
+	L"Arzt",
 	L"Patient",
-	L"Practice Strength",
-	L"Practice Dexterity",
-	L"Practice Agility",
-	L"Practice Health",
+	L"Üben Kraft",
+	L"Üben Geschicklichkeit",
+	L"Üben Beweglichkeit",
+	L"Üben Gesundheit",
 	// 11-15
-	L"Practice Marksmanship",
-	L"Practice Medical",
-	L"Practice Mechanical",
-	L"Practice Leadership",
-	L"Practice Explosives",
+	L"Üben Treffsicherheit",
+	L"Üben Medizin",
+	L"Üben Technik",
+	L"Üben Führungsqualität",
+	L"Üben Sprengstoff",
 	// 16-20
-	L"Student Strength",
-	L"Student Dexterity",
-	L"Student Agility",
-	L"Student Health",
-	L"Student Marksmanship",
+	L"Rekrut Kraft",
+	L"Rekrut Geschicklichkeit",
+	L"Rekrut Beweglichkeit",
+	L"Rekrut Gesundheit",
+	L"Rekrut Treffsicherheit",
 	// 21-25
-	L"Student Medical",
-	L"Student Mechanical",
-	L"Student Leadership",
-	L"Student Explosives",
-	L"Trainer Strength",
+	L"Rekrut Medizin",
+	L"Rekrut Technik",
+	L"Rekrut Führungsqualität.",
+	L"Rekrut Sprengstoff",
+	L"Trainer Kraft",
 	// 26-30
-	L"Trainer Dexterity",
-	L"Trainer Agility",
-	L"Trainer Health",
-	L"Trainer Marksmanship",
-	L"Trainer Medical",
+	L"Trainer Geschicklichkeit",
+	L"Trainer Beweglichkeit",
+	L"Trainer Gesundheit",
+	L"Trainer Treffsicherheit",
+	L"Trainer Medizin",
 	// 30-35
-	L"Trainer Mechanical",
-	L"Trainer Leadership",
-	L"Trainer Explosives",
+	L"Trainer Technik",
+	L"Trainer Führungsqualität",
+	L"Trainer Sprengstoff",
 };
 
 STR16 Additional113Text[]=

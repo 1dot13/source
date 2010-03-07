@@ -642,7 +642,11 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		// must be able to reach the cover, so it can't possibly be more than
 		// action points left (rounded down) tiles away, since minimum
 		// cost to move per tile is 1 points.
-		iMaxMoveTilesLeft = __max( 0, pSoldier->bActionPoints - MinAPsToStartMovement( pSoldier, usMovementMode ) );
+		// HEADROCK HAM 3.6: This doesn't take into account the 100AP system. Adjusting.
+		// Please note, I used a calculation that may have a better representation in some global variable.
+		//iMaxMoveTilesLeft = __max( 0, pSoldier->bActionPoints - MinAPsToStartMovement( pSoldier, usMovementMode ) );
+		iMaxMoveTilesLeft = __max( 0, (pSoldier->bActionPoints - MinAPsToStartMovement( pSoldier, usMovementMode ) / (APBPConstants[AP_MAXIMUM]/25)) );
+
 		//NumMessage("In BLACK, maximum tiles to move left = ",maxMoveTilesLeft);
 
 		// if we can't go as far as the usual full search range

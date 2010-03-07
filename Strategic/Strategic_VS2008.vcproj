@@ -511,6 +511,10 @@
 				RelativePath="Town Militia.h"
 				>
 			</File>
+			<File
+				RelativePath=".\UndergroundInit.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Source Files"
@@ -689,6 +693,10 @@
 			</File>
 			<File
 				RelativePath="Town Militia.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UndergroundInit.cpp"
 				>
 			</File>
 			<File

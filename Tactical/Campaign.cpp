@@ -1447,7 +1447,8 @@ UINT8 CurrentPlayerProgressPercentage(void)
 	}
 
 	// Add a static amount of points, as declared in the INI file.
-	usCurrentProgress += gGameExternalOptions.ubGameProgressIncrement;
+	// HEADROCK HAM 3.6: Allow negative modifiers!
+	usCurrentProgress = __max(0, (INT16)(usCurrentProgress + gGameExternalOptions.bGameProgressModifier));
 
 	// And failsafes here. I'm not 100% sure about these though: I've never personally seen progress 
 	// values go over 100, and I don't think they SHOULD... Can the game handle values > 100? Should it?
@@ -1457,6 +1458,7 @@ UINT8 CurrentPlayerProgressPercentage(void)
 
 	return((UINT8)usCurrentProgress);
 }
+
 UINT8 HighestPlayerProgressPercentage(void)
 {
 	if( gfEditMode )
@@ -1464,7 +1466,6 @@ UINT8 HighestPlayerProgressPercentage(void)
 
 	return(gStrategicStatus.ubHighestProgress);
 }
-
 
 // monitors the highest level of progress that player has achieved so far (checking hourly),
 // as opposed to his immediate situation (which may be worse if he's suffered a setback).

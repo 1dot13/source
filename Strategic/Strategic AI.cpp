@@ -3673,20 +3673,6 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 			pSector->ubNumTroops -= 2;
 		}
 	}
-	if( ubSAIVersion < 16 )
-	{
-		UNDERGROUND_SECTORINFO *pSector;
-		pSector = FindUnderGroundSector( 3, 15, 1 );
-		if( pSector )
-		{
-			pSector->ubAdjacentSectors |= SOUTH_ADJACENT_SECTOR;
-		}
-		pSector = FindUnderGroundSector( 3, 16, 1 );
-		if( pSector )
-		{
-			pSector->ubAdjacentSectors |= NORTH_ADJACENT_SECTOR;
-		}
-	}
 	if( ubSAIVersion < 17 )
 	{ //Patch all groups that have this flag set
 		gubNumGroupsArrivedSimultaneously = 0;

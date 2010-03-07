@@ -2646,3 +2646,96 @@ INT16 GetAPsToJumpOver( SOLDIERTYPE *pSoldier )
 {
 	return(	GetAPsToChangeStance( pSoldier, ANIM_STAND ) + APBPConstants[AP_JUMP_OVER] );
 }
+
+// HEADROCK HAM 3.6: Calculate the actual AP cost to add this many Extra Aiming levels, taking into account
+// APBP Constants and extra game features.
+INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAimTime )
+{
+	INT16 sAPCost = 0;
+	UINT16 usItemNum = pSoldier->inv[HANDPOS].usItem;
+
+	Assert(pSoldier != NULL);
+	Assert(&pSoldier->inv[HANDPOS] != NULL);
+
+	if (gGameExternalOptions.fIncreasedAimingCost )
+	{
+		// HEADROCK HAM B2.6: Changed the number of APs to attack when aiming.
+		// HEADROCK HAM 3.1: Externalized the entire function to allow customization of each detail.
+		if (bAimTime > 0)
+		{
+			// HEADROCK HAM 3: One-time penalty: Add part of the weapon's Ready AP cost. Reinstated because
+			// it's now externalized.
+			if (gGameExternalOptions.ubFirstAimReadyCostDivisor > 0)
+			{
+				UINT16 usWeaponReadyTime;
+				UINT8 ubReadyTimeDivisor;
+
+				usWeaponReadyTime = Weapon[ usItemNum ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[HANDPOS])) / 100;
+				ubReadyTimeDivisor = gGameExternalOptions.ubFirstAimReadyCostDivisor;
+				sAPCost += usWeaponReadyTime / ubReadyTimeDivisor;
+			}
+			
+			// If the weapon has a scope, and the target is within eligible range for scope use
+			
+			if ( IsScoped(&pSoldier->inv[HANDPOS]) 
+				&& GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo ) >= GetMinRangeForAimBonus(&pSoldier->inv[HANDPOS]) )
+			{
+				// Add an individual cost for EACH click, as necessary.
+
+				sAPCost += APBPConstants[AP_FIRST_CLICK_AIM_SCOPE];
+
+				if (bAimTime > 1)
+					sAPCost += APBPConstants[AP_SECOND_CLICK_AIM_SCOPE];
+				if (bAimTime > 2)
+					sAPCost += APBPConstants[AP_THIRD_CLICK_AIM_SCOPE];
+				if (bAimTime > 3)
+					sAPCost += APBPConstants[AP_FOURTH_CLICK_AIM_SCOPE];
+				if (bAimTime > 4)
+					sAPCost += APBPConstants[AP_FIFTH_CLICK_AIM_SCOPE];
+				if (bAimTime > 5)
+					sAPCost += APBPConstants[AP_SIXTH_CLICK_AIM_SCOPE];
+				if (bAimTime > 6)
+					sAPCost += APBPConstants[AP_SEVENTH_CLICK_AIM_SCOPE];
+				if (bAimTime > 7)
+					sAPCost += APBPConstants[AP_EIGHTTH_CLICK_AIM_SCOPE];
+			}
+			
+			// Weapon has no scope or not within requried range. Apply regular AP costs.
+			else
+			{
+				sAPCost += bAimTime * APBPConstants[AP_CLICK_AIM];
+			}
+		}
+		else
+		{
+			return(0);
+		}
+	}
+
+	// Regular cost system
+	else
+	{
+		sAPCost += bAimTime * APBPConstants[AP_CLICK_AIM];
+	}
+
+	return sAPCost;
+}
+
+// HEADROCK HAM 3.6: Calculate how many Aiming Levels we can get with a given amount of APs.
+INT8 CalcAimingLevelsAvailableWithAP( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAPsLeft )
+{
+	INT8 bAllowedLevels = 0;
+
+	for (INT16 x = APBPConstants[AP_MIN_AIM_ATTACK]; x <= AllowedAimingLevels(pSoldier); x++)
+	{
+		if (CalcAPCostForAiming( pSoldier, sTargetGridNo, x ) <= (INT16)bAPsLeft)
+		{
+			bAllowedLevels = x;
+		}
+		else
+		{
+			break;
+		}
+	}
+	return (bAllowedLevels);
+}

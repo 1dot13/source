@@ -4377,6 +4377,9 @@ INT16 ubMinAPCost;
 		pSoldier->aiData.bAimTime = BestAttack.ubAimTime;
 		pSoldier->bDoBurst			= 0;
 
+		// HEADROCK HAM 3.6: bAimTime represents how MANY aiming levels are used, not how much APs they cost necessarily.
+		INT16 sActualAimTime = CalcAPCostForAiming( pSoldier, BestAttack.sTarget, (INT8)pSoldier->aiData.bAimTime );
+
 		if (ubBestAttackAction == AI_ACTION_FIRE_GUN)
 		{
 			// Do we need to change stance?  NB We'll have to ready our gun again
@@ -4438,10 +4441,12 @@ INT16 ubMinAPCost;
 						BestAttack.ubAPCost = MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST, 1) + ubStanceCost;
 
 						// Clip the aim time if necessary
-						if ( BestAttack.ubAPCost + BestAttack.ubAimTime > pSoldier->bActionPoints )
+						// HEADROCK HAM 3.6: Use Actual Aiming Costs, without assuming that each aim level = 1 AP.
+						if ( BestAttack.ubAPCost + sActualAimTime > pSoldier->bActionPoints )
 						{
 							// AP cost would balance (plus X, minus X) but aim time is reduced
-							BestAttack.ubAimTime = pSoldier->bActionPoints - BestAttack.ubAPCost - ubStanceCost;
+							// HEADROCK HAM 3.6: Use actual Aiming Costs.
+							BestAttack.ubAimTime = CalcAimingLevelsAvailableWithAP( pSoldier, BestAttack.sTarget, (pSoldier->bActionPoints - BestAttack.ubAPCost - ubStanceCost) );
 							if (BestAttack.ubAimTime < 0 )
 							{
 								// This is actually a logic error situation.  The ChangeStance section is supposed
@@ -4466,7 +4471,8 @@ INT16 ubMinAPCost;
 
 				ubBurstAPs = CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]) );
 
-				if (pSoldier->bActionPoints >= BestAttack.ubAPCost + BestAttack.ubAimTime + ubBurstAPs )
+				// HEADROCK HAM 3.6: Use Actual Aiming Time.
+				if (pSoldier->bActionPoints >= BestAttack.ubAPCost + sActualAimTime + ubBurstAPs )
 				{
 					// Base chance of bursting is 25% if best shot was +0 aim, down to 8% at +4
 					if ( TANK( pSoldier ) )
@@ -4504,7 +4510,10 @@ INT16 ubMinAPCost;
 								iChance += 5 * ( 15 - PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) );
 							}
 						}
-						else if (PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) < 10 && gGameOptions.ubDifficultyLevel > DIF_LEVEL_EASY )
+						// HEADROCK HAM 3.6: due to the "else", this part of the formula is NEVER hit. Removing.
+						//else if (PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) < 10 && gGameOptions.ubDifficultyLevel > DIF_LEVEL_EASY )
+						if (PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) < 10 && gGameOptions.ubDifficultyLevel > DIF_LEVEL_EASY )
+
 						{
 							iChance += 100;
 						}
@@ -4588,6 +4597,11 @@ INT16 ubMinAPCost;
 									iChance += 5 * ( 15 - PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) );
 								}
 							}
+							// HEADROCK HAM 3.6: Forcing enemies to autofire at close range if possible, similar to forced burst (see above)
+							if (PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) < 10 && gGameOptions.ubDifficultyLevel > DIF_LEVEL_EASY )
+							{
+								iChance += 100;
+							}
 						}
 
 						if ((INT32) PreRandom( 100 ) < iChance || Weapon[pSoldier->inv[BestAttack.bWeaponIn].usItem].NoSemiAuto)
@@ -4599,7 +4613,9 @@ INT16 ubMinAPCost;
 				}
 				else
 				{
-					pSoldier->aiData.bAimTime			= 0;
+					// HEADROCK HAM 3.6: No no no! This line removes all aiming from a potentially deadly single-shot! Commenting out.
+					//pSoldier->aiData.bAimTime			= 0;
+					pSoldier->aiData.bAimTime			= BestAttack.ubAimTime;
 					pSoldier->bDoBurst			= 0;
 					pSoldier->bDoAutofire		= 0;
 					// not enough aps - do somthing else

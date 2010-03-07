@@ -475,7 +475,8 @@ typedef struct UNDERGROUND_SECTORINFO
 										//a sector.
 	UINT32	uiTimeCurrentSectorWasLastLoaded;		//Specifies the last time the player was in the sector
 	struct	UNDERGROUND_SECTORINFO *next;
-	UINT8	ubAdjacentSectors;			//mask containing which sectors are adjacent
+
+	UINT8	ubNumBloodcats;				// Bloodcat population
 	UINT8	ubCreatureHabitat;			//determines how creatures live in this sector (see creature spreading.c)
 	UINT8	ubElitesInBattle, ubTroopsInBattle, ubAdminsInBattle, ubCreaturesInBattle;
 

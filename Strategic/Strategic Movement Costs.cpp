@@ -11,6 +11,9 @@
 	#include "Debug Control.h"
 	#include "Tactical Save.h"
 #endif
+#include "Map Screen Interface Map.h"
+
+extern BOOLEAN sBadSectorsList[ WORLD_MAP_X ][ WORLD_MAP_X ];
 
 typedef enum
 {
@@ -114,6 +117,11 @@ smctableStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 			pData->curElement = SMCTABLE_ELEMENT_SHORTNAME;
 			pData->maxReadDepth++; //we are not skipping this element
 			//fprintf (outfile, "Entering Traversal Rating\n");
+		}
+		else if(strcmp(name, "BadSector") == 0 && pData->curElement == SMCTABLE_ELEMENT_SECTOR)
+		{
+			pData->curElement = SMCTABLE_ELEMENT_TRAVELTYPE;
+			pData->maxReadDepth++; //we are not skipping this element
 		}
 		pData->szCharData[0] = '\0';
 	}
@@ -316,6 +324,11 @@ smctableEndElementHandle(void *userData, const XML_Char *name)
 			else if(strcmp(name, "Here") == 0)
 			{
 				pData->travHere = trav_type;
+			}
+			else if(strcmp(name, "BadSector") == 0)
+			{
+				bool fBadSector = atoi(pData->szCharData) > 0;
+				sBadSectorsList[pData->uiColNumber][pData->uiRowNumber] = fBadSector;
 			}
 			else
 			{

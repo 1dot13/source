@@ -8528,8 +8528,11 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 		case IC_BOMB:
 			// explosives
 			{
-				UINT16 explDamage = (UINT16)( Explosive[Item[ usItem ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ usItem ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
-				UINT16 explStunDamage = (UINT16)( Explosive[Item[ usItem ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ usItem ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+				// HEADROCK HAM 3.6: Can now use negative modifier.
+				//UINT16 explDamage = (UINT16)( Explosive[Item[ usItem ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ usItem ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+				//UINT16 explStunDamage = (UINT16)( Explosive[Item[ usItem ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ usItem ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+				UINT16 explDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usItem ].ubClassIndex].ubDamage );
+				UINT16 explStunDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ usItem ].ubClassIndex].ubStunDamage );
 
 				#ifdef CHINESE
 					swprintf( pStr, ChineseSpecString5,

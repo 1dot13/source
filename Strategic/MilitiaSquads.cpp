@@ -167,7 +167,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 	// Upgrade points for replacing militia with better ones.
 	UINT8 ubUpgradePoints;
 	// Calculate default number of militia to place in Target Sector.
-	UINT8 ubMilitiaToTrain = gGameExternalOptions.iMaxMilitiaPerSector / gGameExternalOptions.guiDivOfOriginalMilitia;
+	UINT8 ubMilitiaToTrain = gGameExternalOptions.guiNumMobileMilitiaTrained;
 	// Percentage of troops that should be of any one type:
 	UINT8 ubTargetElitePercent = 0;
 	UINT8 ubTargetRegularPercent = 0;

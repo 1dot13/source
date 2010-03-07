@@ -3035,7 +3035,10 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 					swprintf( zString, L"P3: %s", pLandTypeStrings[ SHELTER ] );
 					break;
 				default:
-					swprintf( zString, L"%c%d: %s", 'A' + sSectorY - 1, sSectorX, pLandTypeStrings[ CREATURE_LAIR ] );
+					if (pUnderground->ubNumCreatures)
+						swprintf( zString, L"%c%d: %s", 'A' + sSectorY - 1, sSectorX, pLandTypeStrings[ CREATURE_LAIR ] );
+					else
+						swprintf( zString, L"%c%d-%d", 'A' + sSectorY - 1, sSectorX, bSectorZ );
 					break;
 			}
 		}

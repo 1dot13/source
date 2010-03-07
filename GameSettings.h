@@ -54,9 +54,9 @@ enum
 	TOPTION_SILENT_SKYRIDER,
 	TOPTION_LOW_CPU_USAGE,
 	TOPTION_ENHANCED_DESC_BOX,
-	
+
 	// arynn
-	TOPTION_TOGGLE_TURN_MODE,					
+	TOPTION_TOGGLE_TURN_MODE,
 
 	// HEADROCK HAM 3.6:
 	TOPTION_STAT_PROGRESS_BARS,
@@ -84,7 +84,6 @@ enum
 
 	TOPTION_HIDE_BULLETS,
 	TOPTION_TRACKING_MODE,
-
 
 	NUM_ALL_GAME_OPTIONS,
 };	
@@ -252,11 +251,11 @@ typedef struct
 	BOOLEAN gfVSync;
 
 	//Animation settings
-	UINT32 gubPlayerTurnSpeedUpFactor;
-	UINT32 gubEnemyTurnSpeedUpFactor;
-	UINT32 gubCreatureTurnSpeedUpFactor;
-	UINT32 gubMilitiaTurnSpeedUpFactor;
-	UINT32 gubCivilianTurnSpeedUpFactor;
+	FLOAT giPlayerTurnSpeedUpFactor;
+	FLOAT giEnemyTurnSpeedUpFactor;
+	FLOAT giCreatureTurnSpeedUpFactor;
+	FLOAT giMilitiaTurnSpeedUpFactor;
+	FLOAT giCivilianTurnSpeedUpFactor;
 
 	//Sound settings
 	UINT32 guiWeaponSoundEffectsVolume;
@@ -280,7 +279,7 @@ typedef struct
 	UINT32	guiAllowMilitiaGroupsDelay;
 	UINT32	guiTrainVeteranMilitiaDelay;
 	UINT32	guiCreateEachNHours;
-	UINT32	guiDivOfOriginalMilitia;
+	UINT32	guiNumMobileMilitiaTrained;
 	// HEADROCK HAM 3.6: These settings are REDUNDANT.
 	//UINT32	guiMinMilitiaSquadSize;
 	//UINT32	guiMaxMilitiaSquadSize;
@@ -334,7 +333,7 @@ typedef struct
 	UINT32 ubGameProgressPortionIncome;
 	UINT32 ubGameProgressPortionVisited;
 	UINT32 ubGameProgressMinimum;
-	UINT32 ubGameProgressIncrement;
+	INT32 bGameProgressModifier;
 
 	// WDS - Advanced start 
 	//UINT32 ubIMPStartingLevel; // removed - SANDRO
@@ -356,9 +355,9 @@ typedef struct
 
 	//Gameplay settings
 
-	UINT32 ubExplosivesDamageMultiplier;
-	UINT32 ubGunDamageMultiplier;
-	UINT32 ubMeleeDamageMultiplier;
+	INT32 iExplosivesDamageModifier;
+	INT32 iGunDamageModifier;
+	INT32 iMeleeDamageModifier;
 
 	UINT32 ubEasyEnemyStartingAlertLevel;
 	UINT32 ubNormalEnemyStartingAlertLevel;
@@ -513,7 +512,7 @@ BOOLEAN gbBulletTracer;
 	INT32 iEnhancedDescriptionBox;
 
 	// WANNE: Always use "prof.dat".
-	BOOLEAN fAlwaysUseProfDat;
+	BOOLEAN fUseDifficultyBasedProfDat;
 
 	// CPT: Cover System Settings
 	UINT8 ubStealthTraitCoverValue;
@@ -556,7 +555,7 @@ BOOLEAN gbBulletTracer;
 	UINT8 ubAimPenaltyPerTargetShock;
 
 	// HEADROCK HAM B2.3: It is now possible for "cowering" to increase a target's suppression.
-	UINT16 usCowerEffectOnSuppression;
+	UINT8 ubCowerEffectOnSuppression;
 
 	// HEADROCK HAM B2.5: Turn on Realistic Tracers. 0 = off (regular tracers). 1 = Fully realistic tracers. 2 = Tracer Bump + 1.13 Autofire Penalty Reduction
 	UINT8 ubRealisticTracers;
@@ -668,11 +667,8 @@ BOOLEAN gbBulletTracer;
 	// HEADROCK HAM 3.1: This is a suppression tool that not everyone will like. It gives an on-screen message when any character has been suppressed so much he's lost his next turn completely!
 	BOOLEAN fShowSuppressionShutdown;
 
-	// HEADROCK HAM 3.1: Set whether you'd like to determine yourself which mine (if any) will shut down during the campaign.
-	BOOLEAN fManuallySelectMineShutdown;
-
-	// HEADROCK HAM 3.1: Select which mine will run out. 0 = no mine. 1 = San Mona (unused), 2 = Drassen, 3 = Alma, 4 = Cambria, 5 = Chitzena, 6 = Grumm.
-	UINT8 ubWhichMineRunsOut;
+	// HEADROCK HAM 3.1: Select which mine will run out. -1 = Random selection. 0 = no mine. 1 = San Mona (unused), 2 = Drassen, 3 = Alma, 4 = Cambria, 5 = Chitzena, 6 = Grumm.
+	INT8 bWhichMineRunsOut;
 
 	// HEADROCK HAM 3.1: Can the Humvee go off-road?
 	BOOLEAN fHumveeOffroad;

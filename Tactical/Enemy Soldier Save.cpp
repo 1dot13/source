@@ -822,8 +822,9 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 		return TRUE;
 	}
 
-
-	if( slots < 0 || slots >= (int)gGameExternalOptions.ubGameMaximumNumberOfEnemies )
+//	// WANNE: Fix by Headrock:
+	// Turns out that the program is saving the number of used Placement Slots to the temp file fine, but if that number is equal to the limit of how many enemies/civvies are allowed in a sector by the INI settings, it leads to an assertion error instead when trying to re-load that sector.
+	if( slots < 0 || slots > (int)gGameExternalOptions.ubGameMaximumNumberOfEnemies )
 	{ //bad IO!
 		#ifdef JA2TESTVERSION
 			sprintf( zReason, "EnemySoldier -- illegal slot value of %d.	KM", slots );
@@ -1161,7 +1162,10 @@ BOOLEAN NewWayOfLoadingCiviliansFromTempFile()
 		FileClose( hfile );
 		return TRUE;
 	}
-	if( slots < 0 || slots >= (int)gGameExternalOptions.ubGameMaximumNumberOfCivilians )
+
+	// WANNE: Fix by Headrock:
+	// Turns out that the program is saving the number of used Placement Slots to the temp file fine, but if that number is equal to the limit of how many enemies/civvies are allowed in a sector by the INI settings, it leads to an assertion error instead when trying to re-load that sector.
+	if( slots < 0 || slots > (int)gGameExternalOptions.ubGameMaximumNumberOfCivilians )
 	{
 		//bad IO!
 		#ifdef JA2TESTVERSION

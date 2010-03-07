@@ -3709,7 +3709,7 @@ STR16		zOptionsToggleText[] =
 	L"Низкая загрузка процессора",
 	L"Подробное описание предметов", //Enhanced Description Box
 	L"Только пошаговый режим",				// add forced turn mode
-	L"Статистика продвижения навыков",	//Stat Progress Bars	// Show progress towards stat increase		// TODO.Translate
+	L"Статистика продвижения навыков",	//Stat Progress Bars	// Show progress towards stat increase
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END

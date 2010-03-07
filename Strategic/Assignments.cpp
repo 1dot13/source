@@ -14828,7 +14828,8 @@ void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void )
 					}
 					if (!fFoundVehicle)
 					{
-						uiMenuLine++; // Skip this line, it'll always be shaded anyway.
+						// WANNE: This is a fix by Headrock
+						//uiMenuLine++; // Skip this line, it'll always be shaded anyway.
 					}
 				}
 				else if ( iCounter == FAC_REPAIR_ROBOT )
@@ -15032,21 +15033,21 @@ void FacilityAssignmentMenuBtnCallback ( MOUSE_REGION * pRegion, INT32 iReason )
 					break;
 				case FAC_REPAIR_ITEMS:
 					MakeSureToolKitIsInHand( pSoldier );
+					ChangeSoldiersAssignment( pSoldier, REPAIR );
 					pSoldier->flags.fFixingRobot = FALSE;
 					pSoldier->bVehicleUnderRepairID = -1;
-					ChangeSoldiersAssignment( pSoldier, REPAIR );
 					break;
 				case FAC_REPAIR_VEHICLE:
 					MakeSureToolKitIsInHand( pSoldier );
+					ChangeSoldiersAssignment( pSoldier, REPAIR );
 					pSoldier->flags.fFixingRobot = FALSE;
 					pSoldier->bVehicleUnderRepairID = (INT8)ubVehicleID;
-					ChangeSoldiersAssignment( pSoldier, REPAIR );
 					break;
 				case FAC_REPAIR_ROBOT:
 					MakeSureToolKitIsInHand( pSoldier );
+					ChangeSoldiersAssignment( pSoldier, REPAIR );
 					pSoldier->flags.fFixingRobot = TRUE;
 					pSoldier->bVehicleUnderRepairID = -1;
-					ChangeSoldiersAssignment( pSoldier, REPAIR );
 					break;
 				case FAC_DOCTOR:
 					MakeSureMedKitIsInHand( pSoldier );

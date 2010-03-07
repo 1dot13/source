@@ -3871,49 +3871,6 @@ BOOLEAN IsTheCursorAllowedToHighLightThisSector( INT16 sSectorX, INT16 sSectorY 
 	}
 }
 
-void SetUpBadSectorsList( void )
-{
-	// initalizes all sectors to highlighable and then the ones non highlightable are marked as such
-	INT8 bY;
-
-	memset( &sBadSectorsList, 0, sizeof( sBadSectorsList ) );
-
-	// the border regions
-	for( bY = 0; bY < WORLD_MAP_X; bY++ )
-	{
-	sBadSectorsList[ 0 ][ bY ] = sBadSectorsList[ WORLD_MAP_X - 1 ][ bY ] = sBadSectorsList[ bY ][ 0 ] = sBadSectorsList[ bY ][ WORLD_MAP_X - 1 ] = TRUE;
-	}
-
-
-	sBadSectorsList[ 4 ][ 1 ] = TRUE;
-	sBadSectorsList[ 5 ][ 1 ] = TRUE;
-	sBadSectorsList[ 16 ][ 1 ] = TRUE;
-	sBadSectorsList[ 16 ][ 5 ] = TRUE;
-	sBadSectorsList[ 16 ][ 6 ] = TRUE;
-
-
-	sBadSectorsList[ 16 ][ 10 ] = TRUE;
-	sBadSectorsList[ 16 ][ 11 ] = TRUE;
-	sBadSectorsList[ 16 ][ 12 ] = TRUE;
-	sBadSectorsList[ 16 ][ 13 ] = TRUE;
-	sBadSectorsList[ 16 ][ 14 ] = TRUE;
-	sBadSectorsList[ 16 ][ 15 ] = TRUE;
-	sBadSectorsList[ 16 ][ 16 ] = TRUE;
-
-	sBadSectorsList[ 15 ][ 13 ] = TRUE;
-	sBadSectorsList[ 15 ][ 14 ] = TRUE;
-	sBadSectorsList[ 15 ][ 15 ] = TRUE;
-	sBadSectorsList[ 15 ][ 16 ] = TRUE;
-
-	sBadSectorsList[ 14 ][ 14 ] = TRUE;
-	sBadSectorsList[ 14 ][ 15 ] = TRUE;
-	sBadSectorsList[ 14 ][ 16 ] = TRUE;
-
-	sBadSectorsList[ 13 ][ 14 ] = TRUE;
-	return;
-}
-
-
 
 void RestoreBackgroundForMapGrid( INT16 sMapX, INT16 sMapY )
 {

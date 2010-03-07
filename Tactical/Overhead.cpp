@@ -7281,6 +7281,14 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
 	{
 		bTolerance += pSoldier->bTilesMoved / gGameExternalOptions.ubTilesMovedPerBonusTolerancePoint;
 	}
+	// HEADROCK HAM 3.6: This value has moved here. It reduces tolerance if the character is massively shocked.
+	if (gGameExternalOptions.ubCowerEffectOnSuppression != 0)
+	{
+		if (pSoldier->aiData.bShock > bTolerance)
+		{
+			bTolerance -= gGameExternalOptions.ubCowerEffectOnSuppression;
+		}
+	}
 	
 	bTolerance = __max(bTolerance, gGameExternalOptions.ubSuppressionToleranceMin);
 	bTolerance = __min(bTolerance, gGameExternalOptions.ubSuppressionToleranceMax);
@@ -7427,11 +7435,6 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 				if (pSoldier->aiData.bShock >= bTolerance)
 				{ 
 					fCower = true; 
-
-					// If cowering, increase suppression effectiveness by external percentage. If the setting is
-					// over 100%, then the condition of cowering makes the character even MORE susceptible to suppression.
-					if (gGameExternalOptions.usCowerEffectOnSuppression > 0)
-						ubPointsLost = (ubPointsLost * gGameExternalOptions.usCowerEffectOnSuppression) / 100;
 
 					// If soldier is visible on-screen, report to player that they are cowering.
 					if ( pSoldier->bVisible != -1 )

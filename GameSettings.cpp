@@ -558,13 +558,40 @@ void LoadGameExternalOptions()
 #endif
 	}
 
-	//################# Laptop Settings #################
+	//################# System Limit Settings #################
+
+	// WDS - make number of mercenaries, etc. be configurable. Note: Changing one of these can render savegames unloadable.
+	gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs			= iniReader.ReadInteger("System Limit Settings","MAX_NUMBER_PLAYER_MERCS", 24, 1, CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS);
+	gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles		= iniReader.ReadInteger("System Limit Settings","MAX_NUMBER_PLAYER_VEHICLES", 2, 2, CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES);
+
+	gGameExternalOptions.ubGameMaximumNumberOfEnemies				= iniReader.ReadInteger("System Limit Settings","MAX_NUMBER_ENEMIES_IN_TACTICAL", 32, 16, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
+	gGameExternalOptions.ubGameMaximumNumberOfCreatures				= iniReader.ReadInteger("System Limit Settings","MAX_NUMBER_CREATURES_IN_TACTICAL", 32, 0, CODE_MAXIMUM_NUMBER_OF_CREATURES);
+	gGameExternalOptions.ubGameMaximumNumberOfRebels				= iniReader.ReadInteger("System Limit Settings","MAX_NUMBER_MILITIA_IN_TACTICAL", 32, 16, CODE_MAXIMUM_NUMBER_OF_REBELS);
+	gGameExternalOptions.ubGameMaximumNumberOfCivilians				= iniReader.ReadInteger("System Limit Settings","MAX_NUMBER_CIVS_IN_TACTICAL", 32, 16, CODE_MAXIMUM_NUMBER_OF_CIVS);
+
+	gGameExternalOptions.iMaxEnemyGroupSize							= iniReader.ReadInteger("System Limit Settings","MAX_STRATEGIC_ENEMY_GROUP_SIZE",20, 10, 100);
+
+	//################# Data File Settings #################
+
+	// WANNE: Always use prof.dat??
+	gGameExternalOptions.fUseDifficultyBasedProfDat		= iniReader.ReadBoolean("Data File Settings", "USE_DIFFICULTY_BASED_PROF_DAT", TRUE);
+
+	// HEADROCK PROFEX/3.6: Activate this to read Profile data from MercProfiles.XML and MercOpinions.XML
+	gGameExternalOptions.fReadProfileDataFromXML		= iniReader.ReadBoolean("Data File Settings","READ_PROFILE_DATA_FROM_XML", FALSE);
+
+	// HEADROCK PROFEX/3.6: Activate this to write Profile data to MercProfiles Out.XML and MercOpinions Out.XML. This can be used to convert PROF.DAT to XML format.
+	gGameExternalOptions.fWriteProfileDataToXML			= iniReader.ReadBoolean("Data File Settings","WRITE_PROFILE_DATA_TO_XML", FALSE);
+
+	// Use "EnemyWeaponDrop.XML" etc. for determining which items are dropped?
+	gGameExternalOptions.ubEnemiesItemDrop				= iniReader.ReadInteger("Data File Settings","USE_EXTERNALIZED_ENEMY_ITEM_DROPS", 0, 0, 1);
+
+	//################# Merc Recruitment Settings #################
 
 	// WDS: Allow flexible numbers of IMPs of each sex
-	gGameExternalOptions.iMaxIMPCharacters		= iniReader.ReadInteger("JA2 Laptop Settings","MAX_IMP_CHARACTERS",1, 1, NUM_PROFILES);
+	gGameExternalOptions.iMaxIMPCharacters		= iniReader.ReadInteger("Recruitment Settings","MAX_IMP_CHARACTERS",1, 1, NUM_PROFILES);
 
-	gGameExternalOptions.iIMPMaleCharacterCount	= iniReader.ReadInteger("JA2 Laptop Settings","IMP_MALE_CHARACTER_COUNT", COUNT_STANDARD_MALE_SLOTS, 1, NUM_PROFILES);
-	gGameExternalOptions.iIMPFemaleCharacterCount = iniReader.ReadInteger("JA2 Laptop Settings","IMP_FEMALE_CHARACTER_COUNT", COUNT_STANDARD_FEMALE_SLOTS, 1, NUM_PROFILES);
+	gGameExternalOptions.iIMPMaleCharacterCount	= iniReader.ReadInteger("Recruitment Settings","IMP_MALE_CHARACTER_COUNT", COUNT_STANDARD_MALE_SLOTS, 1, NUM_PROFILES);
+	gGameExternalOptions.iIMPFemaleCharacterCount = iniReader.ReadInteger("Recruitment Settings","IMP_FEMALE_CHARACTER_COUNT", COUNT_STANDARD_FEMALE_SLOTS, 1, NUM_PROFILES);
 	if (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount > NUM_PROFILES)
 	{
 		gGameExternalOptions.iIMPMaleCharacterCount	= COUNT_STANDARD_MALE_SLOTS;
@@ -588,7 +615,7 @@ void LoadGameExternalOptions()
 	for (idx = 0; idx < gGameExternalOptions.iIMPMaleCharacterCount; ++idx)
 	{
 		sprintf( caCountStr, caMaleCountStr, idx+1);
-		gGameExternalOptions.iaIMPSlots[idx] = iniReader.ReadInteger("JA2 Laptop Settings",caCountStr, -1, -1, NUM_PROFILES-1);
+		gGameExternalOptions.iaIMPSlots[idx] = iniReader.ReadInteger("Recruitment Settings",caCountStr, -1, -1, NUM_PROFILES-1);
 		if (gGameExternalOptions.iaIMPSlots[idx] < 0)
 		{
 			if (idx < COUNT_STANDARD_MALE_SLOTS)
@@ -606,7 +633,7 @@ void LoadGameExternalOptions()
 	for (idx = 0; idx < gGameExternalOptions.iIMPFemaleCharacterCount; ++idx)
 	{
 		sprintf( caCountStr, caFemaleCountStr, idx+1);
-		gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] = iniReader.ReadInteger("JA2 Laptop Settings",caCountStr, -1, -1, NUM_PROFILES-1);
+		gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] = iniReader.ReadInteger("Recruitment Settings",caCountStr, -1, -1, NUM_PROFILES-1);
 		if (gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] < 0)
 		{
 			if (idx < COUNT_STANDARD_FEMALE_SLOTS)
@@ -622,194 +649,412 @@ void LoadGameExternalOptions()
 	}
 	gGameExternalOptions.iaIMPSlots[gGameExternalOptions.iIMPFemaleCharacterCount+gGameExternalOptions.iIMPMaleCharacterCount+1] = -1;
 
-	//Character generation
-	gGameExternalOptions.iMinAttribute			= iniReader.ReadInteger("JA2 Laptop Settings","MIN_ATTRIBUTE_POINT",35, 1, 99);
-	gGameExternalOptions.iMaxAttribute			= iniReader.ReadInteger("JA2 Laptop Settings","MAX_ATTRIBUTE_POINT",90, gGameExternalOptions.iMinAttribute+1, 100);
-	gGameExternalOptions.iImpAttributePoints	= iniReader.ReadInteger("JA2 Laptop Settings","IMPATTRIBUTEPOINTS",40, 1, 100);
-	gGameExternalOptions.iMaxZeroBonus			= iniReader.ReadInteger("JA2 Laptop Settings","MAX_ZERO_BONUS",15, 0, 100);
-	gGameExternalOptions.iStartAttribute		= iniReader.ReadInteger("JA2 Laptop Settings","START_ATTRIBUTE",55, 1, 100);
-
-	//gGameExternalOptions.fPers_att				= iniReader.ReadBoolean("JA2 Laptop Settings","USE_RANDOM_PERSONALITY",FALSE);
-	// These two removed - SANDRO
-	//gGameExternalOptions.iCustomPersonality		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_PERSONALITY",0, 0, NUM_PERSONALITYTRAIT-1);
-	//gGameExternalOptions.iCustomAttitude		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_ATTITUDE",0, 0, NUM_ATTITUDES-1);
-	// These three added - SANDRO
-	gGameExternalOptions.iIMPStartingLevelCostMultiplier = iniReader.ReadInteger("JA2 Laptop Settings","IMP_STARTING_LEVEL_COST_MULTIPLIER", 5, 0, 100);
-	gGameExternalOptions.iBonusPointsForDisability		 = iniReader.ReadInteger("JA2 Laptop Settings","IMP_BONUS_POINTS_FOR_DISABILITY",20, 0, 500);
-	gGameExternalOptions.iBonusPointsPerSkillNotTaken	 = iniReader.ReadInteger("JA2 Laptop Settings","IMP_BONUS_POINTS_PER_SKILL_NOT_TAKEN",25, 0, 500);
+	//I.M.P Character generation
+	gGameExternalOptions.iStartAttribute					= iniReader.ReadInteger("Recruitment Settings","IMP_INITIAL_ATTRIBUTES",55, 1, 100);
+	gGameExternalOptions.iImpAttributePoints				= iniReader.ReadInteger("Recruitment Settings","IMP_INITIAL_POINTS",40, 1, 100);
+	gGameExternalOptions.iMinAttribute						= iniReader.ReadInteger("Recruitment Settings","IMP_MIN_ATTRIBUTE",35, 1, 99);
+	gGameExternalOptions.iMaxZeroBonus						= iniReader.ReadInteger("Recruitment Settings","IMP_BONUS_POINTS_FOR_ZERO_ATTRIBUTE",15, 0, 100);
+	gGameExternalOptions.iMaxAttribute						= iniReader.ReadInteger("Recruitment Settings","IMP_MAX_ATTRIBUTE",90, gGameExternalOptions.iMinAttribute+1, 100);
+	gGameExternalOptions.iIMPStartingLevelCostMultiplier	= iniReader.ReadInteger("Recruitment Settings","IMP_STARTING_LEVEL_COST_MULTIPLIER", 5, 0, 100);
+	gGameExternalOptions.iBonusPointsForDisability			= iniReader.ReadInteger("Recruitment Settings","IMP_BONUS_POINTS_FOR_DISABILITY",20, 0, 500);
+	gGameExternalOptions.iBonusPointsPerSkillNotTaken		= iniReader.ReadInteger("Recruitment Settings","IMP_BONUS_POINTS_PER_SKILL_NOT_TAKEN",25, 0, 500);
 
 	//Merc settings
-	gGameExternalOptions.fMercDayOne			= iniReader.ReadBoolean("JA2 Laptop Settings","MERC_AVAILABLE_DAY_ONE",FALSE);
-	gGameExternalOptions.fAllMercsAvailable		= iniReader.ReadBoolean("JA2 Laptop Settings","ALL_MERCS_AT_MERC",FALSE);
+	gGameExternalOptions.fMercDayOne			= iniReader.ReadBoolean("Recruitment Settings","MERC_WEBSITE_IMMEDIATELY_AVAILABLE",FALSE);
+	gGameExternalOptions.fAllMercsAvailable		= iniReader.ReadBoolean("Recruitment Settings","MERC_WEBSITE_ALL_MERCS_AVAILABLE",FALSE);
 
 	//Merc Death Settings:
-	gGameExternalOptions.gfMercsDieOnAssignment			= iniReader.ReadBoolean("JA2 Laptop Settings","MERCS_DIE_ON_ASSIGNMENT",TRUE);
-	gGameExternalOptions.giEasyMercDeaths				= iniReader.ReadInteger("JA2 Laptop Settings","EASY_MERC_DEATHS",1, 0, 10);
-	gGameExternalOptions.giExperiencedMercDeaths		= iniReader.ReadInteger("JA2 Laptop Settings","EXPERIENCED_MERC_DEATHS",2, 0, 10);
-	gGameExternalOptions.giExpertMercDeaths				= iniReader.ReadInteger("JA2 Laptop Settings","EXPERT_MERC_DEATHS",3, 0, 10);
-	gGameExternalOptions.giInsaneMercDeaths				= iniReader.ReadInteger("JA2 Laptop Settings","INSANE_MERC_DEATHS",4, 0, 10);
+	gGameExternalOptions.gfMercsDieOnAssignment			= iniReader.ReadBoolean("Recruitment Settings","MERCS_CAN_DIE_ON_ASSIGNMENT",TRUE);
+	gGameExternalOptions.giEasyMercDeaths				= iniReader.ReadInteger("Recruitment Settings","MAX_MERC_DEATHS_EASY",1, 0, 10);
+	gGameExternalOptions.giExperiencedMercDeaths		= iniReader.ReadInteger("Recruitment Settings","MAX_MERC_DEATHS_EXPERIENCED",2, 0, 10);
+	gGameExternalOptions.giExpertMercDeaths				= iniReader.ReadInteger("Recruitment Settings","MAX_MERC_DEATHS_EXPERT",3, 0, 10);
+	gGameExternalOptions.giInsaneMercDeaths				= iniReader.ReadInteger("Recruitment Settings","MAX_MERC_DEATHS_INSANE",4, 0, 10);
 
-	//################# System Settings #################
-	gGameExternalOptions.gubDeadLockDelay = (UINT8) iniReader.ReadInteger("JA2 System Settings","DEAD_LOCK_DELAY",15, 5, 50);
-	gGameExternalOptions.gfEnableEmergencyButton_SkipStrategicEvents = iniReader.ReadBoolean("JA2 System Settings","ENABLE_EMERGENCY_BUTTON_NUMLOCK_TO_SKIP_STRATEGIC_EVENTS",0);
+	// CHRISL: New setting to allow Slay to remain as a hired PC
+	gGameExternalOptions.fEnableSlayForever					= iniReader.ReadBoolean("Recruitment Settings", "SLAY_STAYS_FOREVER", FALSE);
+
+	//################# Financial Settings #################
+
+	gGameExternalOptions.iStartingCashNovice		= iniReader.ReadInteger("Financial Settings", "STARTING_CASH_NOVICE",45000, 2000, 0x0FFFFFFF);
+	gGameExternalOptions.iStartingCashExperienced	= iniReader.ReadInteger("Financial Settings", "STARTING_CASH_EXPERIENCED",35000, 2000, 0x0FFFFFFF);
+	gGameExternalOptions.iStartingCashExpert		= iniReader.ReadInteger("Financial Settings", "STARTING_CASH_EXPERT",30000, 2000, 0x0FFFFFFF);
+	gGameExternalOptions.iStartingCashInsane		= iniReader.ReadInteger("Financial Settings", "STARTING_CASH_INSANE",15000, 2000, 0x0FFFFFFF);
+
+	// HEADROCK HAM B1: Set % of mine income, where 100% = normal
+	gGameExternalOptions.usMineIncomePercentage		= iniReader.ReadInteger("Financial Settings","MINE_INCOME_PERCENTAGE", 100, 1, 1000);
+
+	// ALT+LMB item selling
+	gGameExternalOptions.fSellAll					= iniReader.ReadBoolean("Financial Settings","SELL_ITEMS_WITH_ALT_LMB",FALSE);
+	gGameExternalOptions.iPriceModifier				= iniReader.ReadInteger("Financial Settings","SELL_ITEMS_PRICE_MODIFIER",10, -1, 100);
+
+	gGameExternalOptions.iMilitiaTrainingCost			= iniReader.ReadInteger("Financial Settings","MILITIA_BASE_TRAINING_COST",750, 10, 10000);
+	gGameExternalOptions.iRegularCostModifier			= iniReader.ReadInteger("Financial Settings","MILITIA_COST_MULTIPLIER_REGULAR",1, 1, 10);
+	gGameExternalOptions.iVeteranCostModifier			= iniReader.ReadInteger("Financial Settings","MILITIA_COST_MULTIPLIER_ELITE",2, 1, 10);
+	gGameExternalOptions.iMilitiaCostModifier			= iniReader.ReadInteger("Financial Settings","MILITIA_COST_MULTIPLIER_MOBILE",3, 1, 10);
+
+	// HEADROCK HAM 3.6: Daily upkeep costs for militia
+	gGameExternalOptions.usDailyCostTownGreen			= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_TOWN_GREEN", 0, 0, 10000);
+	gGameExternalOptions.usDailyCostTownRegular			= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_TOWN_REGULAR", 0, 0, 10000);
+	gGameExternalOptions.usDailyCostTownElite			= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_TOWN_ELITE", 0, 0, 10000);
+	gGameExternalOptions.usDailyCostMobileGreen			= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_MOBILE_GREEN", 0, 0, 10000);
+	gGameExternalOptions.usDailyCostMobileRegular		= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_MOBILE_REGULAR", 0, 0, 10000);
+	gGameExternalOptions.usDailyCostMobileElite			= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_MOBILE_ELITE", 0, 0, 10000);
+
+	// HEADROCK HAM 3.5: Helicopter - Base cost per sector. GREEN = Free airspace, RED = Enemy-controlled airspace.
+	gGameExternalOptions.usHelicopterBaseCostPerGreenTile				= iniReader.ReadInteger("Financial Settings","HELICOPTER_BASE_COST_PER_GREEN_TILE", 100, 0, 60000);
+	gGameExternalOptions.usHelicopterBaseCostPerRedTile					= iniReader.ReadInteger("Financial Settings","HELICOPTER_BASE_COST_PER_RED_TILE", 1000, 0, 60000);
+
+	//################# Troubleshooting Settings #################
+
+	gGameExternalOptions.gubDeadLockDelay = (UINT8) iniReader.ReadInteger("Troubleshooting Settings","DEAD_LOCK_DELAY",15, 5, 50);
+	gGameExternalOptions.gfEnableEmergencyButton_SkipStrategicEvents = iniReader.ReadBoolean("Troubleshooting Settings","ENABLE_EMERGENCY_BUTTON_NUMLOCK_TO_SKIP_STRATEGIC_EVENTS",0);
 
 	// WDS - Automatically try to save when an assertion failure occurs
-	gGameExternalOptions.autoSaveOnAssertionFailure		= iniReader.ReadBoolean("JA2 System Settings","AUTO_SAVE_ON_ASSERTION_FAILURE", FALSE);
-	gGameExternalOptions.autoSaveTime 					= iniReader.ReadInteger("JA2 System Settings","AUTO_SAVE_TIME", 6, 0, 24);
+	gGameExternalOptions.autoSaveOnAssertionFailure		= iniReader.ReadBoolean("Troubleshooting Settings","AUTO_SAVE_ON_ASSERTION_FAILURE", FALSE);
+	gGameExternalOptions.autoSaveTime 					= iniReader.ReadInteger("Troubleshooting Settings","AUTO_SAVE_EVERY_N_HOURS", 6, 0, 24);
 
-	//################# Video Settings #################
-	gGameExternalOptions.gfVSync = iniReader.ReadBoolean("JA2 Video Settings","VERTICAL_SYNC",0);
+	//################# Graphics Settings #################
+	gGameExternalOptions.gfVSync = iniReader.ReadBoolean("Graphics Settings","VERTICAL_SYNC",0);
 
+	gGameExternalOptions.giPlayerTurnSpeedUpFactor		= iniReader.ReadFloat("Graphics Settings","PLAYER_TURN_SPEED_UP_FACTOR",1.0, 0, 1.0);
+	gGameExternalOptions.giEnemyTurnSpeedUpFactor		= iniReader.ReadFloat("Graphics Settings","ENEMY_TURN_SPEED_UP_FACTOR",1.0, 0, 1.0);
+	gGameExternalOptions.giCreatureTurnSpeedUpFactor	= iniReader.ReadFloat("Graphics Settings","CREATURE_TURN_SPEED_UP_FACTOR",1.0, 0, 1.0);
+	gGameExternalOptions.giMilitiaTurnSpeedUpFactor		= iniReader.ReadFloat("Graphics Settings","MILITIA_TURN_SPEED_UP_FACTOR",1.0, 0, 1.0);
+	gGameExternalOptions.giCivilianTurnSpeedUpFactor	= iniReader.ReadFloat("Graphics Settings","CIVILIAN_TURN_SPEED_UP_FACTOR",1.0, 0, 1.0);
 
-	//################# Animation Settings #################
-	gGameExternalOptions.gubPlayerTurnSpeedUpFactor		= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","PLAYER_TURN_SPEED_UP_FACTOR",1, 0, 100);
-	gGameExternalOptions.gubEnemyTurnSpeedUpFactor		= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","ENEMY_TURN_SPEED_UP_FACTOR",1, 0, 100);
-	gGameExternalOptions.gubCreatureTurnSpeedUpFactor	= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","CREATURE_TURN_SPEED_UP_FACTOR",1, 0, 100);
-	gGameExternalOptions.gubMilitiaTurnSpeedUpFactor	= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","MILITIA_TURN_SPEED_UP_FACTOR",1, 0, 100);
-	gGameExternalOptions.gubCivilianTurnSpeedUpFactor	= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","CIVILIAN_TURN_SPEED_UP_FACTOR",1, 0, 100);
+	gGameExternalOptions.gfUseExternalLoadscreens		= iniReader.ReadBoolean("Graphics Settings","USE_EXTERNALIZED_LOADSCREENS", FALSE);
 
+	//afp - use a different graphic for bullets?
+	gGameExternalOptions.gbBulletTracer					= iniReader.ReadBoolean("Graphics Settings","ALTERNATE_BULLET_GRAPHICS",FALSE);
 
+	// Are enemy females restricted to Blackshirts only?
+	gGameExternalOptions.fRestrictFemaleEnemiesExceptElite	= iniReader.ReadBoolean("Graphics Settings","RESTRICT_FEMALE_ENEMIES_EXCEPT_ELITE",FALSE);
+
+	
 	//################# Sound Settings #################
-	gGameExternalOptions.guiWeaponSoundEffectsVolume	= iniReader.ReadInteger("JA2 Sound Settings","WEAPON_SOUND_EFFECTS_VOLUME",0, 0, 1000 /*1000 = 10x?*/);
+	
+	gGameExternalOptions.guiWeaponSoundEffectsVolume	= iniReader.ReadInteger("Sound Settings","WEAPON_SOUND_EFFECTS_VOLUME",0, 0, 1000 /*1000 = 10x?*/);
 
 
 
-	//################# Tactical Settings #################
+	//################# Tactical Interface Settings #################
 
-	gGameExternalOptions.gfRevealItems	= iniReader.ReadBoolean("JA2 Tactical Settings","REVEAL_ITEMS_AFTER_COMBAT",TRUE);
-
-	// Militia Settings	
-	gGameExternalOptions.fAllowTacticalMilitiaCommand	= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_TACTICAL_MILITIA_COMMAND",0);
-
-	// Enemy AP settings
-	gGameExternalOptions.iEasyAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","NOVICE_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
-	gGameExternalOptions.iExperiencedAPBonus			= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","EXPERIENCED_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
-	gGameExternalOptions.iExpertAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","EXPERT_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
-	gGameExternalOptions.iInsaneAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","INSANE_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
-	gGameExternalOptions.iPlayerAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","PLAYER_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
-
-	// Sight range
-	gGameExternalOptions.ubStraightSightRange				= iniReader.ReadInteger("JA2 Tactical Settings","BASE_SIGHT_RANGE",13, 5, 100);
-	gGameExternalOptions.ubVisDistDecreasePerRainIntensity	= iniReader.ReadInteger("JA2 Tactical Settings","VISUAL_DISTANCE_DECREASE_PER_RAIN_INTENSITY",30, 0, 100);
-	gGameExternalOptions.gfAllowLimitedVision				= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_LIMITED_VISION",0);
-
-	// Maximal search distance for grenades
-	//gGameExternalOptions.guiMaxTossSearchDist				= iniReader.ReadInteger("JA2 Tactical Settings","MaxTossSearchDist",3);
-
-	// Soldier tool tips - removed from here, placed into preferences - SANDRO
-	//gGameExternalOptions.gfAllowSoldierToolTips		= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_SOLDIER_TOOL_TIPS",0);
-	//SCORE: Settings for UDT
-	gGameExternalOptions.gfAllowUDTRange					= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_UDT_RANGE",0);
-	gGameExternalOptions.gfAllowUDTDetail					= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_UDT_DETAIL",0);
-	gGameExternalOptions.ubUDTModifier						= (UINT8) iniReader.ReadInteger("JA2 Tactical Settings", "UDT_MODIFIER", 50);
-
-	// ShadoWarrior: Tooltip changes (start)
-	gGameExternalOptions.ubSoldierTooltipDetailLevel		= (UINT8) iniReader.ReadInteger("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DETAIL_LEVEL", 1, 0, 4);
-
-	gGameExternalOptions.fEnableDynamicSoldierTooltips		= iniReader.ReadBoolean("JA2 Tactical Settings", "DYNAMIC_SOLDIER_TOOLTIPS", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipLocation		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_LOCATION", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipBrightness	= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_BRIGHTNESS", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipRangeToTarget	= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_RANGE_TO_TARGET", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipID			= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_ID", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipOrders		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_ORDERS", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipAttitude		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_ATTITUDE", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipActionPoints	= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_ACTIONPOINTS", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipHealth		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_HEALTH", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipHelmet		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_HELMET", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipVest			= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_VEST", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipLeggings		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_LEGGINGS", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipHeadItem1		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_HEAD_SLOT_1", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipHeadItem2		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_HEAD_SLOT_2", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipWeapon		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_WEAPON", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipSecondHand	= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_OFF_HAND", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipBigSlot1		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_1", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipBigSlot2		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_2", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipBigSlot3		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_3", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipBigSlot4		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_4", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipBigSlot5		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_5", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipBigSlot6		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_6", TRUE);
-	gGameExternalOptions.fEnableSoldierTooltipBigSlot7		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_7", TRUE);
-	// ShadoWarrior: Tooltip changes (end)
+	gGameExternalOptions.gfRevealItems						= iniReader.ReadBoolean("Tactical Interface Settings","REVEAL_DROPPED_ENEMY_ITEMS_AFTER_COMBAT",TRUE);
 
 	// Unload weapons & remove attachments
-	gGameExternalOptions.gfShiftFUnloadWeapons				= iniReader.ReadBoolean("JA2 Tactical Settings","SHIFT_F_UNLOAD_WEAPONS",1);
-	gGameExternalOptions.gfShiftFRemoveAttachments			= iniReader.ReadBoolean("JA2 Tactical Settings","SHIFT_F_REMOVE_ATTACHMENTS",1);
+	gGameExternalOptions.gfShiftFUnloadWeapons				= iniReader.ReadBoolean("Tactical Interface Settings","SHIFT_F_UNLOAD_WEAPONS",1);
+	gGameExternalOptions.gfShiftFRemoveAttachments			= iniReader.ReadBoolean("Tactical Interface Settings","SHIFT_F_REMOVE_ATTACHMENTS",1);
 
-	gGameExternalOptions.fEnableArmorCoverage				= iniReader.ReadBoolean("JA2 Tactical Settings", "ENABLE_ARMOR_COVERAGE", FALSE); // ShadoWarrior for Captain J's armor coverage
+	// WDS - Smart goggle switching
+	gGameExternalOptions.smartGoggleSwitch					= iniReader.ReadBoolean("Tactical Interface Settings","SMART_GOGGLE_SWAP", FALSE);
+
+	// HEADROCK HAM 3.5: When enabled, goggle-switching affects every merc in the sector, not just those belonging to the current squad.
+	gGameExternalOptions.fGoggleSwapAffectsAllMercsInSector	= iniReader.ReadBoolean("Tactical Interface Settings","GOGGLE_SWAP_AFFECTS_ALL_MERCS_IN_SECTOR", FALSE);
+
+	// WDS - Automatically flag mines
+	gGameExternalOptions.automaticallyFlagMines				= iniReader.ReadBoolean("Tactical Interface Settings","AUTOMATICALLY_FLAG_MINES_WHEN_SPOTTED", FALSE);
+
+	// Tactical militia command	
+	gGameExternalOptions.fAllowTacticalMilitiaCommand		= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_TACTICAL_MILITIA_COMMAND",0);
+
+	// Determines where to use the Enhanced Description Box. Turn on/off via in-game options menu.
+	gGameExternalOptions.iEnhancedDescriptionBox			= iniReader.ReadInteger("Tactical Interface Settings","USE_ENHANCED_DESCRIPTION_BOX",0, 0, 2);
+
+	// HEADROCK HAM B2.6/2/1: Toggle new Burst/Auto Targeting Cursors: 0=neither, 1=both, 2=Burst, 3=Auto
+	gGameExternalOptions.ubNewCTHBars						= iniReader.ReadInteger("Tactical Interface Settings","USE_NEW_BURST-AUTO_TARGETING_CURSORS", 0, 0, 3);
+
+	// HEADROCK HAM B2.7: When turned on, this will give a CTH approximation instead of an exact value, on CTH Bars and "F" key feedback.
+	gGameExternalOptions.fApproximateCTH					= iniReader.ReadBoolean("Tactical Interface Settings","INACCURATE_CTH_READOUT", FALSE);
+
+	// HEADROCK HAM 3.4: This controls the intensity of Hiding the Bullet Count during combat. The higher it is, the more intense the effect. Negative values reduce the effect.
+	gGameExternalOptions.usBulletHideIntensity				= iniReader.ReadInteger("Tactical Interface Settings","HIDE_BULLET_COUNT_INTENSITY", 100, 0, 1000);
+
+	// HEADROCK HAM 3.6: Maximum number of messages displayed in Tactical view
+	gGameExternalOptions.ubMaxMessagesTactical				= iniReader.ReadInteger("Tactical Interface Settings","MAXIMUM_MESSAGES_IN_TACTICAL", 6, 1, 36);
+	// Apply a resolution-based limit.
+	switch (iResolution)
+	{
+		case 0:
+			// Max 20 lines in 640x480
+			gGameExternalOptions.ubMaxMessagesTactical = __max(20, gGameExternalOptions.ubMaxMessagesTactical);
+			break;
+		case 1:
+			// Max 26 lines in 800x600
+			gGameExternalOptions.ubMaxMessagesTactical = __max(26, gGameExternalOptions.ubMaxMessagesTactical);
+			break;
+	}
+
+	// HEADROCK HAM 3.6: If activated, the game does not switch focus to a merc who spots an enemy in real-time mode. This fixes issues with Real-Time Sneak.
+	gGameExternalOptions.fNoAutoFocusChangeInRealtimeSneak		= iniReader.ReadBoolean("Tactical Interface Settings","NO_AUTO_FOCUS_CHANGE_IN_REALTIME_SNEAK", FALSE);
+
+	//################# Tactical Difficulty Settings #################
+
+	// Enemy AP settings
+	gGameExternalOptions.iEasyAPBonus					= (INT8) iniReader.ReadInteger("Tactical Difficulty Settings","ENEMY_AP_BONUS_NOVICE",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
+	gGameExternalOptions.iExperiencedAPBonus			= (INT8) iniReader.ReadInteger("Tactical Difficulty Settings","ENEMY_AP_BONUS_EXPERIENCED",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
+	gGameExternalOptions.iExpertAPBonus					= (INT8) iniReader.ReadInteger("Tactical Difficulty Settings","ENEMY_AP_BONUS_EXPERT",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
+	gGameExternalOptions.iInsaneAPBonus					= (INT8) iniReader.ReadInteger("Tactical Difficulty Settings","ENEMY_AP_BONUS_INSANE",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
+
+	gGameExternalOptions.iPlayerAPBonus					= (INT8) iniReader.ReadInteger("Tactical Difficulty Settings","PLAYER_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
+
+	// HEADROCK HAM B2.8: At "1", Militia will drop their equipment similar to enemies, IF killed by non-player character. At "2" they drop whenever killed.
+	gGameExternalOptions.ubMilitiaDropEquipment			= iniReader.ReadInteger("Tactical Difficulty Settings","MILITIA_DROP_EQUIPMENT", 0, 0, 2 );
+
+	// HEADROCK HAM B2.7: Change the speed of skill progression. (defaults set to JA2 normal)
+	gGameExternalOptions.usHealthSubpointsToImprove			= iniReader.ReadInteger("Tactical Difficulty Settings","HEALTH_SUBPOINTS_TO_IMPROVE", 50, 1, 1000 );
+	gGameExternalOptions.usStrengthSubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","STRENGTH_SUBPOINTS_TO_IMPROVE", 50, 1, 1000 );
+	gGameExternalOptions.usDexteritySubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","DEXTERITY_SUBPOINTS_TO_IMPROVE", 50, 1, 1000 );
+	gGameExternalOptions.usAgilitySubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","AGILITY_SUBPOINTS_TO_IMPROVE", 50, 1, 1000 );
+	gGameExternalOptions.usWisdomSubpointsToImprove			= iniReader.ReadInteger("Tactical Difficulty Settings","WISDOM_SUBPOINTS_TO_IMPROVE", 50, 1, 1000 );
+	gGameExternalOptions.usMarksmanshipSubpointsToImprove	= iniReader.ReadInteger("Tactical Difficulty Settings","MARKSMANSHIP_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
+	gGameExternalOptions.usMedicalSubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","MEDICAL_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
+	gGameExternalOptions.usMechanicalSubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","MECHANICAL_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
+	gGameExternalOptions.usExplosivesSubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","EXPLOSIVES_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
+	gGameExternalOptions.usLeadershipSubpointsToImprove		= iniReader.ReadInteger("Tactical Difficulty Settings","LEADERSHIP_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
+	gGameExternalOptions.usLevelSubpointsToImprove			= iniReader.ReadInteger("Tactical Difficulty Settings","LEVEL_SUBPOINTS_TO_IMPROVE", 350, 1, 6500);
+
+	// Alternate algorithm for choosing equipment level. Mostly disregards soldier's class and puts less emphasis on distance from Sector P3.
+	gGameExternalOptions.fSlowProgressForEnemyItemsChoice	= iniReader.ReadBoolean("Tactical Difficulty Settings", "SLOW_PROGRESS_FOR_ENEMY_ITEMS_CHOICE", TRUE);
+
 	// The_Bob - real time sneaking code 01/06/09
 	// Suport disabling real time sneaking via external .ini file
-	gGameExternalOptions.fAllowRealTimeSneak		= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_REAL_TIME_SNEAK", FALSE);
+	gGameExternalOptions.fAllowRealTimeSneak				= iniReader.ReadBoolean("Tactical Difficulty Settings","ALLOW_REAL_TIME_SNEAK", FALSE);
 	// Silence the RT sneaking messages
-	gGameExternalOptions.fQuietRealTimeSneak		= iniReader.ReadBoolean("JA2 Tactical Settings","QUIET_REAL_TIME_SNEAK", FALSE);
+	gGameExternalOptions.fQuietRealTimeSneak				= iniReader.ReadBoolean("Tactical Difficulty Settings","QUIET_REAL_TIME_SNEAK", FALSE);
+
+	// HEADROCK HAM 3.2: If activated, reinforcements (militia/enemy) arrive in the battle with 0 APs. This makes them less of a diablo-ex-machina. 0 = Diabled. 2 = Enemies. 3 = Militia. 1 = both
+	gGameExternalOptions.ubReinforcementsFirstTurnFreeze	= iniReader.ReadInteger("Tactical Difficulty Settings","REINFORCEMENTS_ARRIVE_WITH_ZERO_AP", 0, 0, 3);
+
+	// HEADROCK HAM 3.6: Militia can now place blue flags when they spot a landmine.
+	gGameExternalOptions.fMilitiaPlaceBlueFlags				= iniReader.ReadBoolean("Tactical Difficulty Settings","MILITIA_CAN_PLACE_FLAGS_ON_MINES", FALSE);
+
+	// WANNE: Added INI file Option for enemy ambushes, so we also have the option to play vanilla ja2 ambush settings
+	gGameExternalOptions.fEnableChanceOfEnemyAmbushesOnInsaneDifficult = iniReader.ReadBoolean("Tactical Difficulty Settings", "ENABLE_CHANCE_OF_ENEMY_AMBUSHES_ON_INSANE_DIFFICULT", TRUE);
+
+	// HEADROCK HAM 3.6: Non-Combat Bodytypes shouldn't become hostile
+	gGameExternalOptions.fCanTrueCiviliansBecomeHostile		= iniReader.ReadBoolean("Tactical Difficulty Settings","CAN_TRUE_CIVILIANS_BECOME_HOSTILE", TRUE);
+
+	// HEADROCK HAM 3.6: Militia become hostile when attacked. 0 = No. 1 = If killed. 2 = If attacked (JA2 Default)
+	gGameExternalOptions.ubCanMilitiaBecomeHostile			= iniReader.ReadInteger("Tactical Difficulty Settings","CAN_MILITIA_BECOME_HOSTILE", 2, 0, 2);
+
+
+	//################# Tactical Vision Settings #################
+
+	// Sight range
+	gGameExternalOptions.ubStraightSightRange				= iniReader.ReadInteger("Tactical Vision Settings","BASE_SIGHT_RANGE",13, 5, 100);
+
+	// Tunnel Vision
+	gGameExternalOptions.gfAllowLimitedVision				= iniReader.ReadBoolean("Tactical Vision Settings","ALLOW_TUNNEL_VISION",0);
+
+
+
+	//################# Tactical Tooltip Settings #################
+
+	// ShadoWarrior: Tooltip changes (start)
+	gGameExternalOptions.ubSoldierTooltipDetailLevel		= (UINT8) iniReader.ReadInteger("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DETAIL_LEVEL", 1, 0, 4);
+
+	gGameExternalOptions.fEnableDynamicSoldierTooltips		= iniReader.ReadBoolean("Tactical Tooltip Settings", "DYNAMIC_SOLDIER_TOOLTIPS", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipLocation		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_LOCATION", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipBrightness	= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_BRIGHTNESS", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipRangeToTarget	= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_RANGE_TO_TARGET", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipID			= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_ID", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipOrders		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_ORDERS", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipAttitude		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_ATTITUDE", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipActionPoints	= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_ACTIONPOINTS", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipHealth		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_HEALTH", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipHelmet		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_HELMET", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipVest			= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_VEST", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipLeggings		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_LEGGINGS", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipHeadItem1		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_HEAD_SLOT_1", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipHeadItem2		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_HEAD_SLOT_2", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipWeapon		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_WEAPON", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipSecondHand	= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_OFF_HAND", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipBigSlot1		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_1", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipBigSlot2		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_2", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipBigSlot3		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_3", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipBigSlot4		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_4", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipBigSlot5		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_5", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipBigSlot6		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_6", TRUE);
+	gGameExternalOptions.fEnableSoldierTooltipBigSlot7		= iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DISPLAY_BIG_SLOT_7", TRUE);
+	// ShadoWarrior: Tooltip changes (end)
+
+	//SCORE: Settings for UDT
+	gGameExternalOptions.gfAllowUDTRange					= iniReader.ReadBoolean("Tactical Tooltip Settings","ALLOW_DYNAMIC_TOOLTIP_RANGE",0);
+	gGameExternalOptions.ubUDTModifier						= (UINT8) iniReader.ReadInteger("Tactical Tooltip Settings", "DYNAMIC_TOOLTIP_RANGE_MODIFIER", 50);
+	gGameExternalOptions.gfAllowUDTDetail					= iniReader.ReadBoolean("Tactical Tooltip Settings","ALLOW_DYNAMIC_TOOLTIP_DETAIL_LEVEL",0);
+
+	//################# Tactical Gameplay Settings ##################
+
+	// HEADROCK HAM B1: Set minimum and maximum CTH
+	gGameExternalOptions.ubMaximumCTH						= iniReader.ReadInteger("Tactical Gameplay Settings","MAXIMUM_POSSIBLE_CTH", 99, 1, 100);
+
+	gGameExternalOptions.ubMinimumCTH						= iniReader.ReadInteger("Tactical Gameplay Settings","MINIMUM_POSSIBLE_CTH", 1, 0, 99);
+
+	// HEADROCK HAM B1: Set minimum CTH at fraction between 0 and 1 ( MINCTH = 1/(100*divisor) ) Note Minimum above must be 0.
+	gGameExternalOptions.usMinimumCTHDivisor				= iniReader.ReadInteger("Tactical Gameplay Settings","MINIMUM_CTH_DIVISOR", 100, 1, 250);
+
+	// HEADROCK HAM B2.5: Turn on Realistic Tracers. 0 = off (regular tracers). 1 = Fully realistic tracers. 2 = Tracer Bump + 1.13 Autofire Penalty Reduction
+	gGameExternalOptions.ubRealisticTracers					= iniReader.ReadInteger("Tactical Gameplay Settings","REALISTIC_TRACERS", 0, 0, 2);
+
+	// HEADROCK HAM B2.5: Realistic tracers - one of every X bullets in a tracer magazines will be a tracer bullet. 0 = off (JA2 normal)
+	gGameExternalOptions.ubNumBulletsPerTracer				= __max(iniReader.ReadInteger("Tactical Gameplay Settings","NUM_BULLETS_PER_TRACER", 5, 1, 255),1);
+
+	// HEADROCK HAM B2.5: Realistic tracers - CTH increased by this amount whenever a tracer is fired. 0 = off.
+	gGameExternalOptions.ubCTHBumpPerTracer					= iniReader.ReadInteger("Tactical Gameplay Settings","CTH_BUMP_PER_TRACER", 30, 0, 100 );
+
+	// HEADROCK HAM 3.5: Limit bonus from tracers based on range to target. This is a multiplier factor - higher means harder to aim with tracers.
+	gGameExternalOptions.ubRangeDifficultyAimingWithTracers	= iniReader.ReadInteger("Tactical Gameplay Settings","RANGE_EFFECT_ON_MAX_TRACER_CTH_BONUS", 3, 1, 10);
+
+	// HEADROCK HAM B2.6: Increased aiming costs?
+	gGameExternalOptions.fIncreasedAimingCost				= iniReader.ReadBoolean("Tactical Gameplay Settings","INCREASE_AIMING_COSTS", FALSE);
+
+	// HEADROCK HAM 3.1: Divisor for the AP-to-Ready cost charge on first aiming click, when extra aiming costs are enabled. 0 = No ready-time-based charge.
+	gGameExternalOptions.ubFirstAimReadyCostDivisor			= iniReader.ReadInteger("Tactical Gameplay Settings","FIRST_AIM_READY_COST_DIVISOR", 0, 0, 255);
+
+	// HEADROCK HAM B2.6: Dynamically determine Max-Aiming based also on weapon, bipod, etc?
+	gGameExternalOptions.fDynamicAimingTime					= iniReader.ReadBoolean("Tactical Gameplay Settings","DYNAMIC_AIMING_LIMITS", FALSE);
+
+	// HEADROCK HAM B2.6: Controls how much effect target movement has on aiming
+	gGameExternalOptions.iMovementEffectOnAiming			= (float)iniReader.ReadDouble("Tactical Gameplay Settings","CTH_PENALTY_FOR_TARGET_MOVEMENT", 1.5, 0.0, 255.0);
+
+	// HEADROCK HAM 3.3: Externalized maximum possible penalty for hitting a moving target. JA2 Default = 30.
+	gGameExternalOptions.usMaxCTHPenaltyForMovingTarget		= iniReader.ReadInteger("Tactical Gameplay Settings","MAX_CTH_PENALTY_FOR_TARGET_MOVEMENT", 30, 0, 300);
+
+	// HEADROCK HAM 3.2: Critical Headshots may cause blindness. Rolls 1 to X change of being blinded. 0 = disabled.
+	gGameExternalOptions.ubChanceBlindedByHeadshot			= iniReader.ReadInteger("Tactical Gameplay Settings","CHANCE_BLINDED_BY_HEADSHOT", 0, 0, 10);
+
+	// HEADROCK HAM 3.2: Critical Legshots cause additional AP loss
+	gGameExternalOptions.fCriticalLegshotCausesAPLoss		= iniReader.ReadBoolean("Tactical Gameplay Settings","CRITICAL_LEGSHOT_CAUSES_AP_LOSS", FALSE);
+
+	//################# Tactical Cover System Settings ##################
 
 	// CPT: Cover System Settings
-	gGameExternalOptions.ubStealthTraitCoverValue = iniReader.ReadInteger("JA2 Tactical Settings","STEALTH_TRAIT_COVER_VALUE", 15, 0, 100);
-	gGameExternalOptions.ubStealthEffectiveness = iniReader.ReadInteger("JA2 Tactical Settings", "STEALTH_EFFECTIVENESS", 50, 0, 100);
-	gGameExternalOptions.ubTreeCoverEffectiveness = iniReader.ReadInteger("JA2 Tactical Settings","TREE_COVER_EFFECTIVENESS", 50, 0, 100);
-	gGameExternalOptions.ubCamouflageEffectiveness = iniReader.ReadInteger("JA2 Tactical Settings", "CAMOUFLAGE_EFFECTIVENESS", 50, 0, 100);
-	gGameExternalOptions.ubStanceEffectiveness		= iniReader.ReadInteger("JA2 Tactical Settings", "STANCE_EFFECTIVENESS", 10, 0, 100);
-	gGameExternalOptions.ubLBEEffectiveness			= iniReader.ReadInteger("JA2 Tactical Settings", "LBE_EFFECTIVENESS", 50, 0, 100);
-	gGameExternalOptions.ubMovementEffectiveness	= iniReader.ReadInteger("JA2 Tactical Settings", "MOVEMENT_EFFECTIVENESS", 50, 0, 100);
-	gGameExternalOptions.ubCoverDisplayUpdateWait = iniReader.ReadInteger("JA2 Tactical Settings", "COVER_DISPLAY_UPDATE_WAIT", 500, -1, 10000);
+	gGameExternalOptions.ubStealthTraitCoverValue	= iniReader.ReadInteger("Tactical Cover System Settings", "COVER_SYSTEM_STEALTH_TRAIT_VALUE", 15, 0, 100);
+	gGameExternalOptions.ubStealthEffectiveness		= iniReader.ReadInteger("Tactical Cover System Settings", "COVER_SYSTEM_STEALTH_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubCamouflageEffectiveness	= iniReader.ReadInteger("Tactical Cover System Settings", "COVER_SYSTEM_CAMOUFLAGE_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubStanceEffectiveness		= iniReader.ReadInteger("Tactical Cover System Settings", "COVER_SYSTEM_STANCE_EFFECTIVENESS", 10, 0, 100);
+	gGameExternalOptions.ubLBEEffectiveness			= iniReader.ReadInteger("Tactical Cover System Settings", "COVER_SYSTEM_LBE_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubMovementEffectiveness	= iniReader.ReadInteger("Tactical Cover System Settings", "COVER_SYSTEM_MOVEMENT_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubTreeCoverEffectiveness	= iniReader.ReadInteger("Tactical Cover System Settings", "COVER_SYSTEM_TREE_EFFECTIVENESS", 50, 0, 100);
+	gGameExternalOptions.ubCoverDisplayUpdateWait	= iniReader.ReadInteger("Tactical Cover System Settings", "COVER_SYSTEM_UPDATE_DELAY", 500, -1, 10000);
 
-	//################# Rain Settings ##################
+	//################# Tactical Suppression Fire Settings ##################
+	// These settings control the behavior of Suppression Fire, its severity, and its side-effects.
+
+	// HEADROCK HAM B2.1: This controls how effective suppression is, by increasing the number of ubSuppressionPoints accumulated by combatants (percentage);
+	gGameExternalOptions.sSuppressionEffectiveness				= iniReader.ReadInteger("Tactical Suppression Fire Settings","SUPPRESSION_EFFECTIVENESS", 0, 0, 1000);
+
+	// Min/max Suppression Tolerance values. Maximum system limit is 24!
+	gGameExternalOptions.ubSuppressionToleranceMax				= iniReader.ReadInteger("Tactical Suppression Fire Settings","SUPPRESSION_TOLERANCE_MAX", 18, 1, 24);
+	gGameExternalOptions.ubSuppressionToleranceMin				= iniReader.ReadInteger("Tactical Suppression Fire Settings","SUPPRESSION_TOLERANCE_MIN", 1, 0, 24);
+
+	// HEADROCK HAM 3.2: This feature allows the status, leadership and experience of nearby friendlies help/hinder a character's tolerance, based on their distance from him.
+	gGameExternalOptions.fFriendliesAffectTolerance				= iniReader.ReadBoolean("Tactical Suppression Fire Settings","NEARBY_FRIENDLIES_AFFECT_TOLERANCE", FALSE);
+
+	// HEADROCK HAM 3.3: Increases tolerance while moving.
+	gGameExternalOptions.ubTilesMovedPerBonusTolerancePoint		= iniReader.ReadInteger("Tactical Suppression Fire Settings","TILES_MOVED_PER_BONUS_TOLERANCE_POINT", 5, 0, 20);
+
+	// HEADROCK HAM B2: Suppression Shock effectiveness (percentage, 100 = "normal", 0 = deactivated. Range 0-65535)
+	gGameExternalOptions.usSuppressionShockEffect				= iniReader.ReadInteger("Tactical Suppression Fire Settings","SUPPRESSION_SHOCK_INTENSITY", 100, 0, 1000);
+
+	// HEADROCK HAM B2.6: Adjustable maximum for Suppression Shock effect. This has the added effect of reducing overall susceptibility to shock and may render some enemies unshockable.
+	gGameExternalOptions.ubMaxSuppressionShock					= iniReader.ReadInteger("Tactical Suppression Fire Settings","MAX_SUPPRESSION_SHOCK", 30, 0, 200 );
+
+	// HEADROCK HAM B2.1: CTH penalty given by a "Cowering" target to any enemy shooter.
+	gGameExternalOptions.ubAimPenaltyPerTargetShock				= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_PER_TARGET_SHOCK", 5, 0, 100 );
+
+	// HEADROCK HAM B2.8: Absolute maximum CTH penalty from target's shock value.
+	gGameExternalOptions.usMaxShooterCoweringPenalty			= iniReader.ReadInteger("Tactical Suppression Fire Settings","MAX_CTH_PENALTY_FOR_TARGET_SHOCK", 0, 0, 250 );
+
+	// HEADROCK HAM B2.8: These are new cowering penalty divisors that help us determine how effective cowering is in different stances and when the shooter is targetting different bodyparts
+	gGameExternalOptions.ubCoweringPenaltyDivisorProne			= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_DIVISOR_FOR_PRONE_SHOCKED_TARGET", 1, 1, 100 );
+	gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedHead	= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_DIVISOR_FOR_CROUCHED_SHOCKED_TARGET_HEAD", 3, 1, 100);
+	gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedTorso	= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_DIVISOR_FOR_CROUCHED_SHOCKED_TARGET_TORSO", 4, 1, 100);
+	gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedLegs	= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_DIVISOR_FOR_CROUCHED_SHOCKED_TARGET_LEGS_DIVISOR", 5, 1, 100);
+
+	// HEADROCK HAM B2.8: This is the maximum range at which a target gives out the full CTH penalty for cowering. At lower range, it'll give proportionally less penalty.
+	gGameExternalOptions.usMinRangeForFullCoweringPenalty		= iniReader.ReadInteger("Tactical Suppression Fire Settings","MIN_RANGE_FOR_FULL_TARGET_SHOCK_PENALTY", 300, 10, 10000 );
+
+	gGameExternalOptions.usMaxTargetCoweringPenalty				= iniReader.ReadInteger("Tactical Suppression Fire Settings","MAX_CTH_PENALTY_FROM_SHOCK", 0, 0, 250 );
+
+	// HEADROCK HAM 3.2: This enabled reduced sight for cowering characters. 0 = disabled. 2 = Reduced Sightrange. 3 = Tunnel-vision. 1 = Both.
+	gGameExternalOptions.ubCoweringReducesSightRange			= iniReader.ReadInteger("Tactical Suppression Fire Settings","SHOCK_REDUCES_SIGHTRANGE", 0, 0, 3); 
+
+	// HEADROCK HAM B2.3: A "cowering" soldier is twice as susceptible to suppression.
+	gGameExternalOptions.ubCowerEffectOnSuppression				= iniReader.ReadInteger("Tactical Suppression Fire Settings","COWERING_PENALTY_TO_SUPPRESSION_TOLERANCE", 4, 0, 24 );
+
+	// HEADROCK HAM B2.6: Toggle whether AI checks for larger magazine when wanting to use burst/auto or suppress from beyond sight range. Also makes enemies less prone to fleeing.
+	gGameExternalOptions.fIncreaseAISuppressionFire				= iniReader.ReadBoolean("Tactical Suppression Fire Settings","INCREASE_AI_WILLINGNESS_TO_SUPPRESS", FALSE);
+
+	// HEADROCK HAM 3.5: Explosive Suppression Effectiveness alters the amount of Suppression Points you get from nearby blasts.
+	gGameExternalOptions.usExplosionSuppressionEffect			= iniReader.ReadInteger("Tactical Suppression Fire Settings","EXPLOSIVE_SUPPRESSION_EFFECTIVENESS", 100, 0, 1000);
+
+	// HEADROCK HAM 3.1: This is a suppression tool that not everyone will like. It gives an on-screen message when any character has been suppressed so much he's lost his next turn completely!
+	gGameExternalOptions.fShowSuppressionShutdown				= iniReader.ReadBoolean("Tactical Suppression Fire Settings","NOTIFY_WHEN_PINNED_DOWN", FALSE);
+
+	// HEADROCK HAM 3.3: Minimum distance (in METERS) at which character suffer from friendly suppression.
+	gGameExternalOptions.usMinDistanceFriendlySuppression		= iniReader.ReadInteger("Tactical Suppression Fire Settings","MIN_DISTANCE_FRIENDLY_SUPPRESSION", 30, 0, 65000);
+
+
+	//################# Tactical Weather Settings ##################
+
+	gGameExternalOptions.ubVisDistDecreasePerRainIntensity				= iniReader.ReadInteger("Tactical Weather Settings","VISUAL_DISTANCE_DECREASE_PER_RAIN_INTENSITY",30, 0, 100);
 
 	// Rain settings
-	gGameExternalOptions.gfAllowRain									= iniReader.ReadBoolean("JA2 Rain Settings","ALLOW_RAIN",0);
-	gGameExternalOptions.gusRainChancePerDay							= iniReader.ReadInteger("JA2 Rain Settings","RAIN_CHANCE_PER_DAY",100, 0, 100);
-	gGameExternalOptions.gusRainMinLength								= iniReader.ReadInteger("JA2 Rain Settings","RAIN_MIN_LENGTH_IN_MINUTES",60, 1, 1438 /* 24 hrs - 2 minutes */);
-	gGameExternalOptions.gusRainMaxLength								= iniReader.ReadInteger("JA2 Rain Settings","RAIN_MAX_LENGTH_IN_MINUTES",300, gGameExternalOptions.gusRainMinLength+1, 1439);
-	gGameExternalOptions.guiMaxRainDrops								= iniReader.ReadInteger("JA2 Rain Settings","MAX_RAIN_DROPS",80, 1, 800);
-	gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity	= iniReader.ReadInteger("JA2 Rain Settings","WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY",0, 0, 10);
-	gGameExternalOptions.ubBreathGainReductionPerRainIntensity			= iniReader.ReadDouble("JA2 Rain Settings","BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY",25, 1, 100);
+	gGameExternalOptions.gfAllowRain									= iniReader.ReadBoolean("Tactical Weather Settings","ALLOW_RAIN",0);
+	gGameExternalOptions.gusRainChancePerDay							= iniReader.ReadInteger("Tactical Weather Settings","RAIN_CHANCE_PER_DAY",100, 0, 100);
+	gGameExternalOptions.gusRainMinLength								= iniReader.ReadInteger("Tactical Weather Settings","RAIN_MIN_LENGTH_IN_MINUTES",60, 1, 1438 /* 24 hrs - 2 minutes */);
+	gGameExternalOptions.gusRainMaxLength								= iniReader.ReadInteger("Tactical Weather Settings","RAIN_MAX_LENGTH_IN_MINUTES",300, gGameExternalOptions.gusRainMinLength+1, 1439);
+	gGameExternalOptions.guiMaxRainDrops								= iniReader.ReadInteger("Tactical Weather Settings","MAX_RAIN_DROPS",80, 1, 800);
+	gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity	= iniReader.ReadInteger("Tactical Weather Settings","WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY",0, 0, 10);
+	gGameExternalOptions.ubBreathGainReductionPerRainIntensity			= iniReader.ReadDouble("Tactical Weather Settings","BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY",25, 1, 100);
 
 	// Thunder settings
-	gGameExternalOptions.gfAllowLightning					= iniReader.ReadBoolean("JA2 Thunder Settings","ALLOW_LIGHTNING",TRUE);
-	gGameExternalOptions.guiMinLightningInterval			= iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",5, 1, 100);
-	gGameExternalOptions.guiMaxLightningInterval			= iniReader.ReadInteger("JA2 Thunder Settings","MAX_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",15, 2, 600);
-	gGameExternalOptions.guiMinDLInterval					= iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",1, 1, 100);
-	gGameExternalOptions.guiMaxDLInterval					= iniReader.ReadInteger("JA2 Thunder Settings","MAX_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",5, 2, 600);
-	gGameExternalOptions.guiProlongLightningIfSeenSomeone	= iniReader.ReadInteger("JA2 Thunder Settings","PROLOGNE_DELAY_IF_SEEN_SOMEONE_DURING_LIGHTNING_IN_TURNBASED_IN_SECONDS",5, 1, 60);
-	gGameExternalOptions.guiChanceToDoLightningBetweenTurns = iniReader.ReadInteger("JA2 Thunder Settings","CHANCE_TO_DO_LIGHTNING_BETWEEN_TURNS",35, 0, 100);
+	gGameExternalOptions.gfAllowLightning								= iniReader.ReadBoolean("Tactical Weather Settings","ALLOW_LIGHTNING",TRUE);
+	gGameExternalOptions.guiMinLightningInterval						= iniReader.ReadInteger("Tactical Weather Settings","MIN_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",5, 1, 100);
+	gGameExternalOptions.guiMaxLightningInterval						= iniReader.ReadInteger("Tactical Weather Settings","MAX_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",15, 2, 600);
+	gGameExternalOptions.guiMinDLInterval								= iniReader.ReadInteger("Tactical Weather Settings","MIN_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",1, 1, 100);
+	gGameExternalOptions.guiMaxDLInterval								= iniReader.ReadInteger("Tactical Weather Settings","MAX_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",5, 2, 600);
+	gGameExternalOptions.guiProlongLightningIfSeenSomeone				= iniReader.ReadInteger("Tactical Weather Settings","DELAY_IN_SECONDS_IF_SEEN_SOMEONE_DURING_LIGHTNING_IN_TURNBASED",5, 1, 60);
+	gGameExternalOptions.guiChanceToDoLightningBetweenTurns				= iniReader.ReadInteger("Tactical Weather Settings","CHANCE_TO_DO_LIGHTNING_BETWEEN_TURNS",35, 0, 100);
 
 
 
-	//################# Gameplay Settings ##################
 
-	//################# Settings valid on game start only ##################
-	//Money settings
-	gGameExternalOptions.iStartingCashNovice		= iniReader.ReadInteger("JA2 Gameplay Settings", "NOVICE_CASH",45000, 2000, 0x0FFFFFFF);
-	gGameExternalOptions.iStartingCashExperienced	= iniReader.ReadInteger("JA2 Gameplay Settings", "EXPERIENCED_CASH",35000, 2000, 0x0FFFFFFF);
-	gGameExternalOptions.iStartingCashExpert		= iniReader.ReadInteger("JA2 Gameplay Settings", "EXPERT_CASH",30000, 2000, 0x0FFFFFFF);
-	gGameExternalOptions.iStartingCashInsane		= iniReader.ReadInteger("JA2 Gameplay Settings", "INSANE_CASH",15000, 2000, 0x0FFFFFFF);
+	//################# Strategic Gamestart Settings ##################
 
-	
 	//Lalien: Game starting time
-	gGameExternalOptions.iGameStartingTime			= iniReader.ReadInteger("JA2 Gameplay Settings", "GAME_STARTING_TIME", NUM_SEC_IN_HOUR, 0, NUM_SEC_IN_DAY-1);
+	gGameExternalOptions.iGameStartingTime			= iniReader.ReadInteger("Strategic Gamestart Settings", "GAME_STARTING_TIME", NUM_SEC_IN_HOUR, 0, NUM_SEC_IN_DAY-1);
 	gGameExternalOptions.iGameStartingTime += NUM_SEC_IN_DAY;
 	
-	gGameExternalOptions.iFirstArrivalDelay			= iniReader.ReadInteger("JA2 Gameplay Settings", "FIRST_ARRIVAL_DELAY", 6 * NUM_SEC_IN_HOUR, 0, NUM_SEC_IN_DAY);
+	gGameExternalOptions.iFirstArrivalDelay			= iniReader.ReadInteger("Strategic Gamestart Settings", "FIRST_ARRIVAL_DELAY", 6 * NUM_SEC_IN_HOUR, 0, NUM_SEC_IN_DAY);
 
-	//################# Settings valid on game start only end ##################
-
-
-	gGameExternalOptions.fSellAll					= iniReader.ReadBoolean("JA2 Gameplay Settings","CAN_SELL_ALT_LMB",FALSE);
-	gGameExternalOptions.iPriceModifier				= (INT16) iniReader.ReadInteger("JA2 Gameplay Settings","PRICE_MODIFIER",10, -1, 100);
+	// HEADROCK HAM 3.5: Arrival sectorX/Y.
+	gGameExternalOptions.ubDefaultArrivalSectorX	= iniReader.ReadInteger("Strategic Gamestart Settings","DEFAULT_ARRIVAL_SECTOR_X", 9, 1, 16);
+	gGameExternalOptions.ubDefaultArrivalSectorY	= iniReader.ReadInteger("Strategic Gamestart Settings","DEFAULT_ARRIVAL_SECTOR_Y", 1, 1, 16);
 
 
-	// WDS - Option to turn off stealing
-	gGameExternalOptions.fStealingDisabled			= iniReader.ReadBoolean("JA2 Gameplay Settings","STEALING_FROM_SHIPMENTS_DISABLED",FALSE);
+	//################# Strategic Interface Settings ##################
 
-	// WANNE - Chance of shipment lost
-	gGameExternalOptions.gubChanceOfShipmentLost	= iniReader.ReadInteger("JA2 Gameplay Settings","CHANCE_OF_SHIPMENT_LOST", 10);
+	// CHRISL: Setting to turn off the description and stack popup options from the sector inventory panel
+	gGameExternalOptions.fSectorDesc							= iniReader.ReadBoolean("Strategic Interface Settings","ALLOW_DESCRIPTION_BOX_FOR_ITEMS_IN_SECTOR_INVENTORY",TRUE);
+
+	// HEADROCK HAM 3.6: Progress bars for each stat, displayed behind the stat value on the merc panel. INI settings give RGB color, Menu setting toggles on/off.
+	gGameExternalOptions.ubStatProgressBarsRed					= iniReader.ReadInteger("Strategic Interface Settings","STAT_PROGRESS_BARS_RED", 200, 0, 255);
+	gGameExternalOptions.ubStatProgressBarsGreen				= iniReader.ReadInteger("Strategic Interface Settings","STAT_PROGRESS_BARS_GREEN", 0, 0, 255);
+	gGameExternalOptions.ubStatProgressBarsBlue					= iniReader.ReadInteger("Strategic Interface Settings","STAT_PROGRESS_BARS_BLUE", 0, 0, 255);
+
+	// HEADROCK HAM 3.6: Determines whether the extrapolated daily costs of mercs are figured into the "Daily Expenses" display. 0 = No, just facility costs. 1 = Only mercs with a fixed daily rate. 2 = All mercs, including AIM contracts.
+	gGameExternalOptions.ubIncludeContractsInExpenses			= iniReader.ReadInteger("Strategic Interface Settings","INCLUDE_CONTRACTS_IN_PROJECTED_EXPENSES_WINDOW", 1, 0, 2);
+
+
+	//################# Strategic Progress Settings ##################
 
 	// WDS: Game progress 
-	gGameExternalOptions.ubGameProgressPortionKills		= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_KILLS", 25, 0, 100);
-	gGameExternalOptions.ubGameProgressPortionControl	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_CONTROL", 25, 0, 100);
-	gGameExternalOptions.ubGameProgressPortionIncome	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_INCOME", 50, 0, 100);
-	gGameExternalOptions.ubGameProgressPortionVisited	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_VISITED", 0, 0, 100);
-	gGameExternalOptions.ubGameProgressMinimum			= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_MINIMUM", 0, 0, 100);
-	gGameExternalOptions.ubGameProgressIncrement		= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_INCREMENT", 0, 0, 100);
+	gGameExternalOptions.ubGameProgressPortionKills				= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MAX_POINTS_FROM_KILLS", 25, 0, 100);
+	gGameExternalOptions.ubGameProgressPortionControl			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MAX_POINTS_FROM_SECTOR_CONTROL", 25, 0, 100);
+	gGameExternalOptions.ubGameProgressPortionIncome			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MAX_POINTS_FROM_MINE_INCOME", 50, 0, 100);
+	gGameExternalOptions.ubGameProgressPortionVisited			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MAX_POINTS_FROM_EXPLORED_SECTORS", 0, 0, 100);
 
 	// Any way to warn on this?
 	if (gGameExternalOptions.ubGameProgressPortionKills + 
@@ -821,508 +1066,320 @@ void LoadGameExternalOptions()
 		gGameExternalOptions.ubGameProgressPortionControl	= 25;
 		gGameExternalOptions.ubGameProgressPortionIncome	= 50;
 		gGameExternalOptions.ubGameProgressPortionVisited	= 0;
+
+		// Yes, there is!
+		std::stringstream errMessage;
+		errMessage << "The values of the four ''MAX_PROGRESS_POINTS'' INI settings do not add up to 100! Using default values instead...";
+		iniErrorMessages.push(errMessage.str());
 	}
-
-	// WDS: Advanced start - removed - SANDRO
-	//gGameExternalOptions.ubIMPStartingLevel = iniReader.ReadInteger("JA2 Gameplay Settings","IMP_STARTING_LEVEL", 1, 1, 7);
-
-	// WDS - make number of mercenaries, etc. be configurable
-	gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs		= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_PLAYER_MERCS", 24, 1, CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS);
-	gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles	= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_PLAYER_VEHICLES", 2, 2, CODE_MAXIMUM_NUMBER_OF_PLAYER_VEHICLES);
-	gGameExternalOptions.ubGameMaximumNumberOfEnemies	= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_ENEMIES", 32, 16, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
-	gGameExternalOptions.ubGameMaximumNumberOfCreatures	= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_CREATURES", 32, 0, CODE_MAXIMUM_NUMBER_OF_CREATURES);
-	gGameExternalOptions.ubGameMaximumNumberOfRebels	= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_REBELS", 32, 16, CODE_MAXIMUM_NUMBER_OF_REBELS);
-	gGameExternalOptions.ubGameMaximumNumberOfCivilians	= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_NUMBER_CIVS", 32, 16, CODE_MAXIMUM_NUMBER_OF_CIVS);
-
-	//Global game events 
-	gGameExternalOptions.ubGameProgressStartMadlabQuest = iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_START_MADLAB_QUEST",35, 1, 100);
-	gGameExternalOptions.ubGameProgressMikeAvailable	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_MIKE_AVAILABLE",50, 1, 100);
-	gGameExternalOptions.ubGameProgressIggyAvaliable	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_IGGY_AVAILABLE",70, 1, 100);
-	gGameExternalOptions.ubSendTroopsToDrassen			= iniReader.ReadBoolean("JA2 Gameplay Settings","STRATEGIC_EVENT_SEND_TROOPS_TO_DRASSEN",TRUE);
-
-	//Weapons modification
-	gGameExternalOptions.ubExplosivesDamageMultiplier	= iniReader.ReadInteger("JA2 Gameplay Settings","EXPLOSIVES_DAMAGE_MULTIPLIER",0, 0, 100);
-	gGameExternalOptions.ubMeleeDamageMultiplier		= iniReader.ReadInteger("JA2 Gameplay Settings","MELEE_DAMAGE_MULTIPLIER",0, 0, 100);
-	gGameExternalOptions.ubGunDamageMultiplier			= iniReader.ReadInteger("JA2 Gameplay Settings","GUN_DAMAGE_MULTIPLIER",0, 0, 100);
-
-
-	//Strategic AI settings
-	gGameExternalOptions.iMaxEnemyGroupSize					= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_STRATEGIC_TEAM_SIZE",20, 10, 100);
-
-	gGameExternalOptions.iReinforcementPoolNovice			= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_QUEENS_POOL_OF_TROOPS",150, 25, 1000000);
-	gGameExternalOptions.iReinforcementPoolExperienced		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_QUEENS_POOL_OF_TROOPS",200, 25, 1000000);
-	gGameExternalOptions.iReinforcementPoolExpert			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_QUEENS_POOL_OF_TROOPS",400, 25, 1000000);
-	gGameExternalOptions.iReinforcementPoolInsane			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_QUEENS_POOL_OF_TROOPS",8000, 25, 1000000);
-
-	gGameExternalOptions.iForcePercentageNovice				= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_INITIAL_GARRISON_PERCENTAGES",70, 1, 200);
-	gGameExternalOptions.iForcePercentageExperienced		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_INITIAL_GARRISON_PERCENTAGES",100, 1, 300);
-	gGameExternalOptions.iForcePercentageExpert				= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_INITIAL_GARRISON_PERCENTAGES",150, 1, 400);
-	gGameExternalOptions.iForcePercentageInsane				= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_INITIAL_GARRISON_PERCENTAGES",200, 1, 600);
-
-	gGameExternalOptions.iPercentElitesBonusExperienced		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_ELITE_BONUS",0, 0, 100);
-	gGameExternalOptions.iPercentElitesBonusExpert			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_ELITE_BONUS",25, 0, 100);
-	gGameExternalOptions.iPercentElitesBonusInsane			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_ELITE_BONUS",50, 0, 100);
-
-	gGameExternalOptions.ubMinEnemyGroupSizeNovice			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_MIN_ENEMY_GROUP_SIZE",3, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
-	gGameExternalOptions.ubMinEnemyGroupSizeExperienced		= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_MIN_ENEMY_GROUP_SIZE",4, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
-	gGameExternalOptions.ubMinEnemyGroupSizeExpert			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_MIN_ENEMY_GROUP_SIZE",6, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
-	gGameExternalOptions.ubMinEnemyGroupSizeInsane			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_MIN_ENEMY_GROUP_SIZE",12, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
-
-	gGameExternalOptions.ubEasyEnemyStartingAlertLevel		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_ENEMY_STARTING_ALERT_LEVEL", 5, 1, 100);
-	gGameExternalOptions.ubNormalEnemyStartingAlertLevel	= iniReader.ReadInteger("JA2 Gameplay Settings","NORMAL_ENEMY_STARTING_ALERT_LEVEL", 20, 1, 100);
-	gGameExternalOptions.ubHardEnemyStartingAlertLevel		= iniReader.ReadInteger("JA2 Gameplay Settings","HARD_ENEMY_STARTING_ALERT_LEVEL", 60, 1, 100);
-	gGameExternalOptions.ubInsaneEnemyStartingAlertLevel	= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_ENEMY_STARTING_ALERT_LEVEL", 80, 1, 100);
-
-	gGameExternalOptions.ubEasyEnemyStartingAlertDecay		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_ENEMY_STARTING_ALERT_DECAY", 75, 1, 100);
-	gGameExternalOptions.ubNormalEnemyStartingAlertDecay	= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_ENEMY_STARTING_ALERT_DECAY", 50, 1, 100);
-	gGameExternalOptions.ubHardEnemyStartingAlertDecay		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_ENEMY_STARTING_ALERT_DECAY", 25, 1, 100);
-	gGameExternalOptions.ubInsaneEnemyStartingAlertDecay	= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_ENEMY_STARTING_ALERT_DECAY", 10, 1, 100);
-
-	gGameExternalOptions.ubEasyTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_TIME_EVALUATE_IN_MINUTES", 480, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubNormalTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_TIME_EVALUATE_IN_MINUTES", 360, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubHardTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_TIME_EVALUATE_IN_MINUTES", 180, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubInsaneTimeEvaluateInMinutes		= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_TIME_EVALUATE_IN_MINUTES", 90, 10, NUM_MIN_IN_DAY);
-
-	gGameExternalOptions.ubEasyTimeEvaluateVariance			= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_TIME_EVALUATE_VARIANCE", 240, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubNormalTimeEvaluateVariance		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_TIME_EVALUATE_VARIANCE", 180, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubHardTimeEvaluateVariance			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_TIME_EVALUATE_VARIANCE", 120, 10, NUM_MIN_IN_DAY);
-	gGameExternalOptions.ubInsaneTimeEvaluateVariance		= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_TIME_EVALUATE_VARIANCE", 60, 10, NUM_MIN_IN_DAY);
-
-	gGameExternalOptions.ubEasyGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","EASY_GRACE_PERIOD_IN_HOURS", 144, 1, 288);
-	gGameExternalOptions.ubNormalGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","NORMAL_GRACE_PERIOD_IN_HOURS", 96, 1, 288);
-	gGameExternalOptions.ubHardGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","HARD_GRACE_PERIOD_IN_HOURS", 48, 1, 288);
-	gGameExternalOptions.ubInsaneGracePeriodInHours			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_GRACE_PERIOD_IN_HOURS", 6, 1, 288);
-
-	gGameExternalOptions.ubEasyPatrolGracePeriodInDays		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_PATROL_GRACE_PERIOD_IN_DAYS", 16, 1, 100);
-	gGameExternalOptions.ubNormalPatrolGracePeriodInDays	= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_PATROL_GRACE_PERIOD_IN_DAYS", 12, 1, 100);
-	gGameExternalOptions.ubHardPatrolGracePeriodInDays		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_PATROL_GRACE_PERIOD_IN_DAYS", 8, 1, 100);
-	gGameExternalOptions.ubInsanePatrolGracePeriodInDays	= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_PATROL_GRACE_PERIOD_IN_DAYS", 2, 1, 100);
-
-	gGameExternalOptions.ubEasyNumAwareBattles				= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_NUM_AWARE_BATTLES", 1, 1, 10);
-	gGameExternalOptions.ubNormalNumAwareBattles			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_NUM_AWARE_BATTLES", 2, 1, 10);
-	gGameExternalOptions.ubHardNumAwareBattles				= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_NUM_AWARE_BATTLES", 3, 1, 10);
-	gGameExternalOptions.ubInsaneNumAwareBattles			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_NUM_AWARE_BATTLES", 4, 1, 10);
-
-	//New v1.13 settings
-	gGameExternalOptions.gfEasyUnlimitedTroops				= iniReader.ReadBoolean("JA2 Gameplay Settings","NOVICE_UNLIMITED_POOL_OF_TROOPS",FALSE);
-	gGameExternalOptions.gfNormalUnlimitedTroops			= iniReader.ReadBoolean("JA2 Gameplay Settings","EXPERIENCED_UNLIMITED_POOL_OF_TROOPS",FALSE);
-	gGameExternalOptions.gfHardUnlimitedTroops				= iniReader.ReadBoolean("JA2 Gameplay Settings","EXPERT_UNLIMITED_POOL_OF_TROOPS",FALSE);
-	gGameExternalOptions.gfInsaneUnlimitedTroops			= iniReader.ReadBoolean("JA2 Gameplay Settings","INSANE_UNLIMITED_POOL_OF_TROOPS",TRUE);
-
-	gGameExternalOptions.gfEasyAggressiveQueen				= iniReader.ReadBoolean("JA2 Gameplay Settings","NOVICE_QUEEN_AGGRESSIVE",FALSE);
-	gGameExternalOptions.gfNormalAggressiveQueen			= iniReader.ReadBoolean("JA2 Gameplay Settings","EXPERIENCED_QUEEN_AGGRESSIVE",FALSE);
-	gGameExternalOptions.gfHardAggressiveQueen				= iniReader.ReadBoolean("JA2 Gameplay Settings","EXPERT_QUEEN_AGGRESSIVE",FALSE);
-	gGameExternalOptions.gfInsaneAggressiveQueen			= iniReader.ReadBoolean("JA2 Gameplay Settings","INSANE_QUEEN_AGGRESSIVE",TRUE);
-
-	// WDS - New AI
-	gGameExternalOptions.useNewAI							= iniReader.ReadBoolean("JA2 Gameplay Settings","NEW_AGGRESSIVE_AI",FALSE);
-
-	gGameExternalOptions.gfInvestigateSector				= iniReader.ReadBoolean("JA2 Gameplay Settings","ENEMY_INVESTIGATE_SECTOR",FALSE);
-	gGameExternalOptions.gfReassignPendingReinforcements	= iniReader.ReadBoolean("JA2 Gameplay Settings","REASSIGN_PENDING_REINFORCEMENTS",TRUE);
-
-	gGameExternalOptions.ubEnemiesItemDrop					= iniReader.ReadInteger("JA2 Gameplay Settings","ENEMIES_ITEM_DROP", 0, 0, 1);
-
-	gGameExternalOptions.gfUseExternalLoadscreens			= iniReader.ReadBoolean("JA2 Gameplay Settings","USE_EXTERNALIZED_LOADSCREENS", FALSE);
-
-	// Militia settings
-	gGameExternalOptions.guiAllowMilitiaGroupsDelay			= iniReader.ReadInteger("JA2 Gameplay Settings","ALLOW_MILITIA_MOBILE_DELAY",1, 0, 30);
-	gGameExternalOptions.guiTrainVeteranMilitiaDelay		= iniReader.ReadInteger("JA2 Gameplay Settings","TRAIN_VETERAN_MILITIA_DELAY",1, 0, 30);
-	gGameExternalOptions.gfTrainVeteranMilitia				= iniReader.ReadBoolean("JA2 Gameplay Settings","TRAIN_VETERAN_MILITIA",FALSE);
-	gGameExternalOptions.gfAllowMilitiaGroups				= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_MILITIA_MOBILE_GROUPS",FALSE);
-	gGameExternalOptions.gfmusttrainroaming					= iniReader.ReadBoolean("JA2 Gameplay Settings","MUST_TRAIN_MOBILE_MILITIA",FALSE);
-	gGameExternalOptions.gfAllowReinforcements				= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_REINFORCEMENTS",FALSE);
-	gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_REINFORCEMENTS_ONLY_IN_CITIES",FALSE);
-	gGameExternalOptions.guiBaseQueenPoolIncrement			= iniReader.ReadInteger("JA2 Gameplay Settings","QUEEN_POOL_INCREMENT_PER_DIFFICULTY_LEVEL",60, 1, 100);
-
-	gGameExternalOptions.guiCreateEachNHours				= iniReader.ReadInteger("JA2 Gameplay Settings","CREATE_EACH_N_HOURS",24, 1, 96);
-	gGameExternalOptions.guiDivOfOriginalMilitia			= iniReader.ReadInteger("JA2 Gameplay Settings","DIV_OF_ORIGINAL_MILITIA",4, 1, 100);
-	// HEADROCK HAM 3.6: These settings are REDUNDANT.
-	//gGameExternalOptions.guiMinMilitiaSquadSize				= iniReader.ReadInteger("JA2 Gameplay Settings","MINIMUM_MILITIA_SQUAD_SIZE",5, 1, CODE_MAXIMUM_NUMBER_OF_REBELS);
-	//gGameExternalOptions.guiMaxMilitiaSquadSize				= iniReader.ReadInteger("JA2 Gameplay Settings","MAXIMUM_MILITIA_SQUAD_SIZE",20, gGameExternalOptions.guiMinMilitiaSquadSize, CODE_MAXIMUM_NUMBER_OF_REBELS);
-	//gGameExternalOptions.guiMaxMilitiaSquadSizeBattle		= gGameExternalOptions.guiMaxMilitiaSquadSize;
-
-	gGameExternalOptions.iMaxMilitiaPerSector				= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_MILITIA_PER_SECTOR",20, 1, CODE_MAXIMUM_NUMBER_OF_REBELS);
-	gGameExternalOptions.iTrainingSquadSize					= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_TRAINING_SQUAD_SIZE",10, 1, CODE_MAXIMUM_NUMBER_OF_REBELS);
-	gGameExternalOptions.iMilitiaTrainingCost				= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_TRAINING_COST",750, 10, 10000);
-	gGameExternalOptions.iMilitiaCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_COST_MODIFIER",3, 1, 10);
-	gGameExternalOptions.iRegularCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","REGULAR_COST_MODIFIER",1, 1, 10);
-	gGameExternalOptions.iVeteranCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","VETERAN_COST_MODIFIER",2, 1, 10);
-	gGameExternalOptions.iMinLoyaltyToTrain					= iniReader.ReadInteger("JA2 Gameplay Settings","MIN_LOYALTY_TO_TRAIN",20, 0, 100);
-	gGameExternalOptions.gflimitedRoaming					= iniReader.ReadBoolean("JA2 Gameplay Settings","RESTRICT_ROAMING",FALSE);
-
-	// WDS - Improve Tony's and Devin's inventory like BR's
-	gGameExternalOptions.tonyUsesBRSetting					= iniReader.ReadBoolean("JA2 Gameplay Settings","TONY_USES_BR_SETTING", FALSE);
-	gGameExternalOptions.devinUsesBRSetting					= iniReader.ReadBoolean("JA2 Gameplay Settings","DEVIN_USES_BR_SETTING", FALSE);
-
-	// WDS - Smart goggle switching
-	gGameExternalOptions.smartGoggleSwitch					= iniReader.ReadBoolean("JA2 Gameplay Settings","SMART_GOGGLE_SWITCH", FALSE);
-
-	// WDS - Automatically flag mines
-	gGameExternalOptions.automaticallyFlagMines				= iniReader.ReadBoolean("JA2 Gameplay Settings","AUTOMATICALLY_FLAG_MINES", FALSE);
-
-	//Assignment Settings (training, repairing, doctoring, etc)
-	gGameExternalOptions.ubAssignmentUnitsPerDay			= iniReader.ReadInteger("JA2 Gameplay Settings","ASSIGNMENT_UNITS_PER_DAY",24, 1, 96);
-	gGameExternalOptions.ubMinutesForAssignmentToCount		= iniReader.ReadInteger("JA2 Gameplay Settings","MINUTES_FOR_ASSIGNMENT_TO_COUNT",45, 1, NUM_MIN_IN_DAY);
-
-
-	gGameExternalOptions.ubTrainingSkillMin					= iniReader.ReadInteger("JA2 Gameplay Settings","TRAINING_SKILL_MIN",0, 0, 100);
-	gGameExternalOptions.ubTrainingSkillMax					= iniReader.ReadInteger("JA2 Gameplay Settings","TRAINING_SKILL_MAX",100, 0, 100);
-	gGameExternalOptions.ubSelfTrainingDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","SELF_TRAINING_DIVISOR",1000, 1, 10000);
-	gGameExternalOptions.ubInstructedTrainingDivisor		= iniReader.ReadInteger("JA2 Gameplay Settings","INSTRUCTED_TRAINING_DIVISOR",3000, 1, 10000);
-	// HEADROCK HAM 3.5: No longer necessary
-	//gGameExternalOptions.ubGunRangeTrainingBonus			= iniReader.ReadInteger("JA2 Gameplay Settings","GUN_RANGE_TRAINING_BONUS",25, 0, 100);
-	gGameExternalOptions.ubTownMilitiaTrainingRate			= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_TRAINING_RATE",4, 1, 10);
-	// HEADROCK HAM 3.5: No longer necessary
-	//gGameExternalOptions.ubMaxMilitiaTrainersPerSector		= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_MILITIA_TRAINERS_PER_SECTOR",2, 1, gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs);
-	gGameExternalOptions.ubTeachBonusToTrain				= iniReader.ReadInteger("JA2 Gameplay Settings","TEACH_BONUS_TO_TRAIN",30, 0, 100);
-	gGameExternalOptions.ubRpcBonusToTrainMilitia			= iniReader.ReadInteger("JA2 Gameplay Settings","RPC_BONUS_TO_TRAIN_MILITIA",10, 0, 100);
-	gGameExternalOptions.ubMinSkillToTeach					= iniReader.ReadInteger("JA2 Gameplay Settings","MIN_RATING_TO_TEACH",25, 0, 100);
-
-	gGameExternalOptions.ubLowActivityLevel					= iniReader.ReadInteger("JA2 Gameplay Settings","LOW_ACTIVITY_LEVEL",1, 1, 100);
-	gGameExternalOptions.ubMediumActivityLevel				= iniReader.ReadInteger("JA2 Gameplay Settings","MEDIUM_ACTIVITY_LEVEL",4, 1, 100);
-	gGameExternalOptions.ubHighActivityLevel				= iniReader.ReadInteger("JA2 Gameplay Settings","HIGH_ACTIVITY_LEVEL",12, 1, 100);
-	gGameExternalOptions.ubDoctoringRateDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","DOCTORING_RATE_DIVISOR",2400, 1200, 24000);
-	gGameExternalOptions.ubHospitalHealingRate				= iniReader.ReadInteger("JA2 Gameplay Settings","HOSPITAL_HEALING_RATE",5, 1, 10);
-	gGameExternalOptions.ubBaseMedicalSkillToDealWithEmergency				= iniReader.ReadInteger("JA2 Gameplay Settings","BASE_MEDICAL_SKILL_TO_DEAL_WITH_EMERGENCY",20, 0, 100);
-	gGameExternalOptions.ubMultiplierForDifferenceInLifeValueForEmergency	= iniReader.ReadInteger("JA2 Gameplay Settings","MULTIPLIER_FOR_DIFFERENCE_IN_LIFE_VALUE_FOR_EMERGENCY",4, 1, 10);
-	gGameExternalOptions.ubPointCostPerHealthBelowOkLife	= iniReader.ReadInteger("JA2 Gameplay Settings","POINT_COST_PER_HEALTH_BELOW_OKLIFE",2, 1, 5);//OKLIFE = 15
-
-	gGameExternalOptions.ubRepairCostPerJam					= iniReader.ReadInteger("JA2 Gameplay Settings","REPAIR_COST_PER_JAM",2, 1, 10);
-	gGameExternalOptions.ubRepairRateDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","REPAIR_RATE_DIVISOR",2500, 1250, 25000);
-
-
-	//Misc
-	gGameExternalOptions.fAmmoDynamicWeight					= iniReader.ReadBoolean("JA2 Gameplay Settings", "DYNAMIC_AMMO_WEIGHT", TRUE); //Pulmu
-	gGameExternalOptions.fEnableCrepitus					= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_CREPITUS", TRUE);
-
-	gGameExternalOptions.fEnableAllTerrorists				= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_ALL_TERRORISTS", FALSE);
-	gGameExternalOptions.fEnableAllWeaponCaches				= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_ALL_WEAPON_CACHES", FALSE);
-
-	gGameExternalOptions.fSlowProgressForEnemyItemsChoice	= iniReader.ReadBoolean("JA2 Gameplay Settings", "SLOW_PROGRESS_FOR_ENEMY_ITEMS_CHOICE", TRUE);
-
-	// Kaiden: Vehicle Inventory change - Added INI file Option VEHICLE_INVENTORY
-	gGameExternalOptions.fVehicleInventory					= iniReader.ReadBoolean("JA2 Gameplay Settings", "VEHICLE_INVENTORY", TRUE);
-
-	// WANNE: Added INI file Option for enemy ambushes, so we also have the option to play vanilla ja2 ambush settings
-	gGameExternalOptions.fEnableChanceOfEnemyAmbushesOnInsaneDifficult = iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_CHANCE_OF_ENEMY_AMBUSHES_ON_INSANE_DIFFICULT", TRUE);
-
-	// CHRISL: New setting to allow Slay to remain as a hired PC
-	gGameExternalOptions.fEnableSlayForever					= iniReader.ReadBoolean("JA2 Gameplay Settings", "SLAY_FOREVER", FALSE);
-
-	// CHRISL: Setting to turn off the description and stack popup options from the sector inventory panel
-	gGameExternalOptions.fSectorDesc						= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_SECTOR_DESCRIPTION_WINDOW",TRUE);
-
-	//afp - use bullet tracers?
-	gGameExternalOptions.gbBulletTracer						= iniReader.ReadBoolean("JA2 Gameplay Settings","USE_BULLET_TRACERS",FALSE);
-
-	gGameExternalOptions.fRestrictFemaleEnemiesExceptElite	= iniReader.ReadBoolean("JA2 Gameplay Settings","RESTRICT_FEMALE_ENEMIES_EXCEPT_ELITE",FALSE);
-
-	// HEADROCK: Use Enhanced Item Description Box?
-	gGameExternalOptions.iEnhancedDescriptionBox	= iniReader.ReadInteger("JA2 Gameplay Settings","USE_ENHANCED_DESCRIPTION_BOX",0, 0, 2);
-
-	// WANNE: Always use prof.dat??
-	gGameExternalOptions.fAlwaysUseProfDat					= iniReader.ReadBoolean("JA2 Gameplay Settings", "ALWAYS_USE_PROF_DAT", FALSE);
-
-	/////////////////////////////////////////////////////////////////////////
-	// JA2 HAM Settings
-	/////////////////////////////////////////////////////////////////////////
-
-	// HEADROCK HAM B1: Set % of mine income, where 100% = normal
-	gGameExternalOptions.usMineIncomePercentage		= iniReader.ReadInteger("JA2 HAM Settings","MINE_INCOME_PERCENTAGE", 100, 1, 1000);
-
-	// HEADROCK HAM B1: Set minimum and maximum CTH
-	gGameExternalOptions.ubMaximumCTH				= iniReader.ReadInteger("JA2 HAM Settings","MAXIMUM_POSSIBLE_CTH", 99, 1, 100);
-
-	gGameExternalOptions.ubMinimumCTH				= iniReader.ReadInteger("JA2 HAM Settings","MINIMUM_POSSIBLE_CTH", 1, 0, 99);
-
-	// HEADROCK HAM B1: Set minimum CTH at fraction between 0 and 1 ( MINCTH = 1/(100*divisor) ) Note Minimum above must be 0.
-	gGameExternalOptions.usMinimumCTHDivisor			= iniReader.ReadInteger("JA2 HAM Settings","MINIMUM_CTH_DIVISOR", 100, 1, 250);
-
-	// HEADROCK HAM B1: Allow restricted militia to move through visited sectors?
-	gGameExternalOptions.fUnrestrictVisited			= iniReader.ReadBoolean("JA2 HAM Settings","ALLOW_RESTRICTED_MILITIA_THROUGH_VISITED_SECTORS", FALSE);
-
-	// HEADROCK HAM B1: Allow dynamic restrictions?
-	gGameExternalOptions.fDynamicRestrictRoaming	= iniReader.ReadBoolean("JA2 HAM Settings","ALLOW_DYNAMIC_RESTRICTED_ROAMING", TRUE);
-
-	// HEADROCK HAM B2.1: This controls how effective suppression is, by increasing the number of ubSuppressionPoints accumulated by combatants (percentage);
-	gGameExternalOptions.sSuppressionEffectiveness	= iniReader.ReadInteger("JA2 HAM Settings","SUPPRESSION_EFFECTIVENESS", 0, 0, 1000);
-
-	gGameExternalOptions.ubSuppressionToleranceMax			= iniReader.ReadInteger("JA2 HAM Settings","SUPPRESSION_TOLERANCE_MAX", 18, 1, 24);
-	gGameExternalOptions.ubSuppressionToleranceMin			= iniReader.ReadInteger("JA2 HAM Settings","SUPPRESSION_TOLERANCE_MIN", 1, 0, 24);
-
-	// HEADROCK HAM B2: Suppression Shock effectiveness (percentage, 100 = "normal", 0 = deactivated. Range 0-65535)
-	gGameExternalOptions.usSuppressionShockEffect	= iniReader.ReadInteger("JA2 HAM Settings","SUPPRESSION_SHOCK_EFFECTIVENESS", 100, 0, 1000);
-
-	// HEADROCK HAM B2.1: CTH penalty given by a "Cowering" target to any enemy shooter.
-	gGameExternalOptions.ubAimPenaltyPerTargetShock		= iniReader.ReadInteger("JA2 HAM Settings","AIM_PENALTY_PER_TARGET_SHOCK", 5, 0, 100 );
-
-	// HEADROCK HAM B2.3: A "cowering" soldier is twice as susceptible to suppression.
-	gGameExternalOptions.usCowerEffectOnSuppression		= iniReader.ReadInteger("JA2 HAM Settings","COWER_EFFECT_ON_SUPPRESSION", 150, 0, 1000 );
-
-	// HEADROCK HAM B2.5: Turn on Realistic Tracers. 0 = off (regular tracers). 1 = Fully realistic tracers. 2 = Tracer Bump + 1.13 Autofire Penalty Reduction
-	gGameExternalOptions.ubRealisticTracers				= iniReader.ReadInteger("JA2 HAM Settings","REALISTIC_TRACERS", 0, 0, 2);
-
-	// HEADROCK HAM B2.5: Realistic tracers - one of every X bullets in a tracer magazines will be a tracer bullet. 0 = off (JA2 normal)
-	gGameExternalOptions.ubNumBulletsPerTracer			= __max(iniReader.ReadInteger("JA2 HAM Settings","NUM_BULLETS_PER_TRACER", 5, 1, 255),1);
-
-	// HEADROCK HAM B2.5: Realistic tracers - CTH increased by this amount whenever a tracer is fired. 0 = off.
-	gGameExternalOptions.ubCTHBumpPerTracer				= iniReader.ReadInteger("JA2 HAM Settings","CTH_BUMP_PER_TRACER", 30, 0, 100 );
-
-	// HEADROCK HAM B2.6: Increased aiming costs?
-	gGameExternalOptions.fIncreasedAimingCost				= iniReader.ReadBoolean("JA2 HAM Settings","INCREASED_AIM_COST", FALSE);
-
-	// HEADROCK HAM B2.6: Dynamically determine Max-Aiming based also on weapon, bipod, etc?
-	gGameExternalOptions.fDynamicAimingTime					= iniReader.ReadBoolean("JA2 HAM Settings","DYNAMIC_AIM_LIMITS", FALSE);
-
-	// HEADROCK HAM B2.6: Controls how much effect target movement has on aiming
-	//gGameExternalOptions.iMovementEffectOnAiming			= iniReader.ReadFloat("JA2 HAM Settings","MOVEMENT_EFFECT_ON_AIMING", 1.5);
-	gGameExternalOptions.iMovementEffectOnAiming			= (float)iniReader.ReadDouble("JA2 HAM Settings","MOVEMENT_EFFECT_ON_AIMING", 1.5, 0.0, 255.0);
-
-	// HEADROCK HAM B2.6: Autofire Bullets/5AP modifier
-	gGameExternalOptions.bAutofireBulletsPer5APModifier		= iniReader.ReadInteger("JA2 HAM Settings","AUTOFIRE_BULLETS_PER_5AP_MODIFIER", 0, -100, 100 );
-
-	// HEADROCK HAM B2.6/B1: Adjustable "luck" factor in Auto-Resolve
-	//gGameExternalOptions.iAutoResolveLuckFactor			= (float)(__max(iniReader.ReadFloat("JA2 HAM Settings","AUTORESOLVE_LUCK_FACTOR", 2.0),1.0));
-	gGameExternalOptions.iAutoResolveLuckFactor				= (float)(__max(iniReader.ReadDouble("JA2 HAM Settings","AUTORESOLVE_LUCK_FACTOR", 2.0, 0.0, 255.0),1.0));
-
-	// HEADROCK HAM B2.6: Adjustable maximum for Suppression Shock effect. This has the added effect of reducing overall susceptibility to shock and may render some enemies unshockable.
-	gGameExternalOptions.ubMaxSuppressionShock			= iniReader.ReadInteger("JA2 HAM Settings","MAXIMUM_SUPPRESSION_SHOCK", 30, 0, 200 );
-
-	// HEADROCK HAM B2.6/2/1: Toggle new Burst/Auto CTH bars: 0=neither, 1=both, 2=Burst, 3=Auto
-	gGameExternalOptions.ubNewCTHBars					= iniReader.ReadInteger("JA2 HAM Settings","NEW_BURST-AUTO_CTH_BARS", 0, 0, 3);
-
-	// HEADROCK HAM B2.6: Toggle whether AI checks for larger magazine when wanting to suppress at a distance
-	gGameExternalOptions.fIncreaseAISuppressionFire			= iniReader.ReadBoolean("JA2 HAM Settings","INCREASE_AI_WILLINGNESS_TO_SUPPRESS", FALSE);
-
-	// HEADROCK HAM B2.7: Change the speed of skill progression. (defaults set to JA2 normal)
-	gGameExternalOptions.usHealthSubpointsToImprove		= iniReader.ReadInteger("JA2 HAM Settings","HEALTH_SUBPOINTS_TO_IMPROVE", 50, 1, 1000 );
-	gGameExternalOptions.usStrengthSubpointsToImprove		= iniReader.ReadInteger("JA2 HAM Settings","STRENGTH_SUBPOINTS_TO_IMPROVE", 50, 1, 1000 );
-	gGameExternalOptions.usDexteritySubpointsToImprove		= iniReader.ReadInteger("JA2 HAM Settings","DEXTERITY_SUBPOINTS_TO_IMPROVE", 50, 1, 1000 );
-	gGameExternalOptions.usAgilitySubpointsToImprove		= iniReader.ReadInteger("JA2 HAM Settings","AGILITY_SUBPOINTS_TO_IMPROVE", 50, 1, 1000 );
-	gGameExternalOptions.usWisdomSubpointsToImprove		= iniReader.ReadInteger("JA2 HAM Settings","WISDOM_SUBPOINTS_TO_IMPROVE", 50, 1, 1000 );
-	gGameExternalOptions.usMarksmanshipSubpointsToImprove		= iniReader.ReadInteger("JA2 HAM Settings","MARKSMANSHIP_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
-	gGameExternalOptions.usMedicalSubpointsToImprove		= iniReader.ReadInteger("JA2 HAM Settings","MEDICAL_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
-	gGameExternalOptions.usMechanicalSubpointsToImprove		= iniReader.ReadInteger("JA2 HAM Settings","MECHANICAL_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
-	gGameExternalOptions.usExplosivesSubpointsToImprove		= iniReader.ReadInteger("JA2 HAM Settings","EXPLOSIVES_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
-	gGameExternalOptions.usLeadershipSubpointsToImprove		= iniReader.ReadInteger("JA2 HAM Settings","LEADERSHIP_SUBPOINTS_TO_IMPROVE", 25, 1, 1000 );
-	gGameExternalOptions.usLevelSubpointsToImprove		= iniReader.ReadInteger("JA2 HAM Settings","LEVEL_SUBPOINTS_TO_IMPROVE", 350, 1, 6500);
-
-	// HEADROCK HAM B2.7: When turned on, this will give a CTH approximation instead of an exact value, on CTH Bars and "F" key feedback.
-	gGameExternalOptions.fApproximateCTH					= iniReader.ReadBoolean("JA2 HAM Settings","APPROXIMATE_CTH", FALSE);
-
-	// HEADROCK HAM B2.7: Augmented Roaming Militia code - turn this to TRUE to allow militia free travel through San Mona, Tixa, Orta, Omerta, and Estoni.
-	gGameExternalOptions.fAllowMilitiaMoveThroughMinorCities		= iniReader.ReadBoolean("JA2 HAM Settings","ALLOW_MILITIA_MOVE_THROUGH_MINOR_CITIES", FALSE);
-
-	// HEADROCK HAM B2.8: These are new cowering penalty divisors that help us determine how effective cowering is in different stances and when the shooter is targetting different bodyparts
-	gGameExternalOptions.ubCoweringPenaltyDivisorProne		= iniReader.ReadInteger("JA2 HAM Settings","CTH_PENALTY_FOR_COWERING_PRONE_TARGET_DIVISOR", 1, 1, 100 );
-	gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedHead		= iniReader.ReadInteger("JA2 HAM Settings","CTH_PENALTY_FOR_COWERING_CROUCHED_TARGET_HEAD_DIVISOR", 3, 1, 100);
-	gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedTorso		= iniReader.ReadInteger("JA2 HAM Settings","CTH_PENALTY_FOR_COWERING_CROUCHED_TARGET_TORSO_DIVISOR", 4, 1, 100);
-	gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedLegs		= iniReader.ReadInteger("JA2 HAM Settings","CTH_PENALTY_FOR_COWERING_CROUCHED_TARGET_LEGS_DIVISOR", 5, 1, 100);
-
-	// HEADROCK HAM B2.8: This is the maximum range at which a target gives out the full CTH penalty for cowering. At lower range, it'll give proportionally less penalty.
-	gGameExternalOptions.usMinRangeForFullCoweringPenalty		= iniReader.ReadInteger("JA2 HAM Settings","MIN_RANGE_FOR_FULL_COWERING_TARGET_PENALTY", 300, 10, 10000 );
-
-	// HEADROCK HAM B2.8: Absolute maximum CTH penalty from target/shooter cowering
-	gGameExternalOptions.usMaxShooterCoweringPenalty		= iniReader.ReadInteger("JA2 HAM Settings","MAX_SHOOTER_COWERING_PENALTY", 0, 0, 250 );
-	gGameExternalOptions.usMaxTargetCoweringPenalty		= iniReader.ReadInteger("JA2 HAM Settings","MAX_TARGET_COWERING_PENALTY", 0, 0, 250 );
-
-	// HEADROCK HAM B2.8: If this is turned on, Militia will drop their equipment similar to enemies, IF killed by non-player character.
-	gGameExternalOptions.ubMilitiaDropEquipment					= iniReader.ReadInteger("JA2 HAM Settings","MILITIA_DROP_EQUIPMENT", 0, 0, 2 );
-
-	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will go to sleep when their trainer goes to sleep. 3 = Trainer will go to sleep if all trainees are asleep. 1 = Both. 0 = Neither.
-	gGameExternalOptions.ubSmartTrainingSleep					= iniReader.ReadInteger("JA2 HAM Settings","SMART_TRAINING-SLEEP_HANDLER", 0, 0, 3);
-
-	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will wake up when their trainer wakes up. 3 = Trainer will wake up if all trainees wake up. 1 = Both. 0 = Neither.
-	gGameExternalOptions.ubSmartTrainingWake					= iniReader.ReadInteger("JA2 HAM Settings","SMART_TRAINING-WAKE_HANDLER", 0, 0, 3);
-
-	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainers will rest if no trainees available. 3 = Trainees will rest if no trainers available (not recommended). 1 = Both. 0 = Neither.
-	gGameExternalOptions.ubSmartTrainingRest					= iniReader.ReadInteger("JA2 HAM Settings","SMART_TRAINING_REST", 0, 0, 3);
-
-	// HEADROCK HAM 3: Externalized ratio between Weight and Strength. This value determines how many strength points we need to lift 0.5kg with no encumberance.
-	gGameExternalOptions.iStrengthToLiftHalfKilo				= (float)iniReader.ReadDouble("JA2 HAM Settings","STRENGTH_TO_LIFT_HALF_KILO", 1.0, 0.1, 100.0);
-
-	// HEADROCK HAM 3: Define minimum leadership required for training militia. Set to 0 for "no limit".
-	gGameExternalOptions.ubMinimumLeadershipToTrainMilitia		= iniReader.ReadInteger("JA2 HAM Settings","MINIMUM_LEADERSHIP_TO_TRAIN_MILITIA", 0, 0, 99);
-
-	// HEADROCK HAM 3: Define effect of "TEACHER" trait in increasing effective leadership, for purposes of eligibility for training militia. This is a percentage value. HAM Default would be 200 = double effective leadership for each TEACHING level.
-	gGameExternalOptions.usTeacherTraitEffectOnLeadership		= iniReader.ReadInteger("JA2 HAM Settings","TEACHER_TRAIT_EFFECT_ON_LEADERSHIP", 100, 1, 10000);
-
-	// HEADROCK HAM 3: If enabled, the trainer's "effective" leadership skill determines HOW MANY militia he/she creates per session.
-	gGameExternalOptions.fLeadershipAffectsMilitiaQuantity		= iniReader.ReadBoolean("JA2 HAM Settings","LEADERSHIP_AFFECTS_MILITIA_QUANTITY", FALSE);
-
-	// HEADROCK HAM 3: If "LEADERSHIP_AFFECTS_MILITIA_QUANTITY" is true, this value determines the lowest leadership required to train a full (default size 10) squad of town militia in one training session.
-	gGameExternalOptions.ubReqLeadershipForFullTraining			= iniReader.ReadInteger("JA2 HAM Settings","REQ_LEADERSHIP_FOR_MAX_MILITIA", 100, 1, 100);
-
-	// HEADROCK HAM 3: Four INI settings to control the number of kills you must accumulate to win one progress point, one setting per difficulty level
-	gGameExternalOptions.usNumKillsPerProgressPointNovice		= iniReader.ReadInteger("JA2 HAM Settings","NUM_KILLS_PER_PROGRESS_POINT_NOVICE", 7, 1, 1000);
-	gGameExternalOptions.usNumKillsPerProgressPointExperienced	= iniReader.ReadInteger("JA2 HAM Settings","NUM_KILLS_PER_PROGRESS_POINT_EXPERIENCED", 10, 1, 1000);
-	gGameExternalOptions.usNumKillsPerProgressPointExpert		= iniReader.ReadInteger("JA2 HAM Settings","NUM_KILLS_PER_PROGRESS_POINT_EXPERT", 15, 1, 1000);
-	gGameExternalOptions.usNumKillsPerProgressPointInsane		= iniReader.ReadInteger("JA2 HAM Settings","NUM_KILLS_PER_PROGRESS_POINT_INSANE", 60, 1, 1000);
 
 	// HEADROCK HAM 3: If enabled, changes the way the game calculates progress. It will look at each progress control separately (Kills/Income/Control/Visited) and set the progress to the HIGHEST scoring control.
-	gGameExternalOptions.fAlternateProgressCalculation			= iniReader.ReadBoolean("JA2 HAM Settings","ALTERNATE_PROGRESS_CALCULATION", FALSE);
+	gGameExternalOptions.fAlternateProgressCalculation			= iniReader.ReadBoolean("Strategic Progress Settings","ALTERNATE_PROGRESS_CALCULATION", FALSE);
 
-	// HEADROCK HAM 3: If enabled, tooltipping over Bobby Ray's weapons will show a list of possible attachments to those weapons.
-	gGameExternalOptions.fBobbyRayTooltipsShowAttachments		= iniReader.ReadBoolean("JA2 HAM Settings","BOBBY_RAY_TOOLTIPS_SHOW_POSSIBLE_ATTACHMENTS", FALSE);
+	// Minimum progress value.
+	gGameExternalOptions.ubGameProgressMinimum					= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MINIMUM", 0, 0, 100);
+	// Flat modifier to Current Progress.
+	gGameExternalOptions.bGameProgressModifier					= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MODIFIER", 0, -100, 100);
 
-	// HEADROCK HAM 3.1: Divisor for the AP-to-Ready cost charge on first aiming click, when extra aiming costs are enabled. 0 = No ready-time-based charge.
-	gGameExternalOptions.ubFirstAimReadyCostDivisor				= iniReader.ReadInteger("JA2 HAM Settings","FIRST_AIM_READY_COST_DIVISOR", 0, 0, 255);
+	// HEADROCK HAM 3: Four INI settings to control the number of kills you must accumulate to win one progress point, one setting per difficulty level
+	gGameExternalOptions.usNumKillsPerProgressPointNovice		= iniReader.ReadInteger("Strategic Progress Settings","NUM_KILLS_PER_PROGRESS_POINT_NOVICE", 7, 1, 1000);
+	gGameExternalOptions.usNumKillsPerProgressPointExperienced	= iniReader.ReadInteger("Strategic Progress Settings","NUM_KILLS_PER_PROGRESS_POINT_EXPERIENCED", 10, 1, 1000);
+	gGameExternalOptions.usNumKillsPerProgressPointExpert		= iniReader.ReadInteger("Strategic Progress Settings","NUM_KILLS_PER_PROGRESS_POINT_EXPERT", 15, 1, 1000);
+	gGameExternalOptions.usNumKillsPerProgressPointInsane		= iniReader.ReadInteger("Strategic Progress Settings","NUM_KILLS_PER_PROGRESS_POINT_INSANE", 60, 1, 1000);
 
-	// HEADROCK HAM 3.1: This is a suppression tool that not everyone will like. It gives an on-screen message when any character has been suppressed so much he's lost his next turn completely!
-	gGameExternalOptions.fShowSuppressionShutdown				= iniReader.ReadBoolean("JA2 HAM Settings","SHOW_MSG_FULLY_SUPPRESSED", FALSE);
+	//Global game events 
+	gGameExternalOptions.ubGameProgressStartMadlabQuest			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_START_MADLAB_QUEST",35, 1, 100);
+	gGameExternalOptions.ubGameProgressMikeAvailable			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MIKE_AVAILABLE",50, 1, 100);
+	gGameExternalOptions.ubGameProgressIggyAvaliable			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_IGGY_AVAILABLE",70, 1, 100);
 
-	// HEADROCK HAM 3.1: Set whether you'd like to determine yourself which mine (if any) will shut down during the campaign.
-	gGameExternalOptions.fManuallySelectMineShutdown			= iniReader.ReadBoolean("JA2 HAM Settings","MANUALLY_SELECT_MINE_TO_RUN_OUT", FALSE);
+
+	//################# Strategic Event Settings ##################
+
+	// Drassen counterattack
+	gGameExternalOptions.ubSendTroopsToDrassen			= iniReader.ReadBoolean("Strategic Event Settings","TRIGGER_MASSIVE_ENEMY_COUNTERATTACK_AT_DRASSEN",TRUE);
+
+	// Enable/Disable crepitus completely in SCI-FI mode.
+	gGameExternalOptions.fEnableCrepitus				= iniReader.ReadBoolean("Strategic Event Settings", "ENABLE_CREPITUS", TRUE);
 
 	// HEADROCK HAM 3.1: Select which mine will run out. 0 = no mine. 1 = San Mona (unused), 2 = Drassen, 3 = Alma, 4 = Cambria, 5 = Chitzena, 6 = Grumm.
-	gGameExternalOptions.ubWhichMineRunsOut				= iniReader.ReadInteger("JA2 HAM Settings","WHICH_MINE_RUNS_OUT", 0, 0, 6);
+	gGameExternalOptions.bWhichMineRunsOut				= iniReader.ReadInteger("Strategic Event Settings","WHICH_MINE_SHUTS_DOWN", -1, -1, 6);
+
+
+	//################# Strategic Gameplay Settings ##################
+
+	// Allow enemy and militia Strategic Groups to reinforce one another for battles?
+	gGameExternalOptions.gfAllowReinforcements				= iniReader.ReadBoolean("Strategic Gameplay Settings","ALLOW_REINFORCEMENTS",FALSE);
+	// Allow reinforcements only between City sectors?
+	gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= iniReader.ReadBoolean("Strategic Gameplay Settings","ALLOW_REINFORCEMENTS_ONLY_IN_CITIES",FALSE);
+
+	gGameExternalOptions.fEnableAllTerrorists				= iniReader.ReadBoolean("Strategic Gameplay Settings", "ENABLE_ALL_TERRORISTS", FALSE);
+	gGameExternalOptions.fEnableAllWeaponCaches				= iniReader.ReadBoolean("Strategic Gameplay Settings", "ENABLE_ALL_WEAPON_CACHES", FALSE);
+
+	// Kaiden: Vehicle Inventory change - Added INI file Option VEHICLE_INVENTORY
+	gGameExternalOptions.fVehicleInventory					= iniReader.ReadBoolean("Strategic Gameplay Settings", "VEHICLE_INVENTORY", TRUE);
 
 	// HEADROCK HAM 3.1: Can the Humvee go off-road?
-	gGameExternalOptions.fHumveeOffroad							= iniReader.ReadBoolean("JA2 HAM Settings","HUMVEE_OFFROAD", FALSE);
+	gGameExternalOptions.fHumveeOffroad						= iniReader.ReadBoolean("Strategic Gameplay Settings","HUMVEE_OFFROAD", FALSE);
 
-	// HEADROCK HAM 3.2: If activated, reinforcements (militia/enemy) arrive in the battle with 0 APs. This makes them less of a diablo-ex-machina. 0 = Diabled. 2 = Enemies. 3 = Militia. 1 = both
-	gGameExternalOptions.ubReinforcementsFirstTurnFreeze			= iniReader.ReadInteger("JA2 HAM Settings","REINFORCEMENTS_ARRIVE_WITH_NO_AP", 0, 0, 3);
-
-	// HEADROCK HAM 3.2: This feature allows the status, leadership and experience of nearby friendlies help/hinder a character's tolerance, based on their distance from him.
-	gGameExternalOptions.fFriendliesAffectTolerance				= iniReader.ReadBoolean("JA2 HAM Settings","FRIENDLIES_AFFECT_TOLERANCE", FALSE);
-
-	// HEADROCK HAM 3.2: Set a divisor for the CtH of Mortar weapons.
-	gGameExternalOptions.ubMortarCTHDivisor						= iniReader.ReadInteger("JA2 HAM Settings","MORTAR_CTH_DIVISOR", 1, 1, 255);
-
-	// HEADROCK HAM 3.2: This enabled reduced sight for cowering characters. 0 = disabled. 2 = Reduced Sightrange. 3 = Tunnel-vision. 1 = Both.
-	gGameExternalOptions.ubCoweringReducesSightRange			= iniReader.ReadInteger("JA2 HAM Settings","COWERING_REDUCES_SIGHTRANGE", 0, 0, 3); 
-
-	// HEADROCK HAM 3.2: Critical Headshots may cause blindness. Rolls 1 to X change of being blinded. 0 = disabled.
-	gGameExternalOptions.ubChanceBlindedByHeadshot				= iniReader.ReadInteger("JA2 HAM Settings","CHANCE_BLINDED_BY_HEADSHOT", 0, 0, 10);
-
-	// HEADROCK HAM 3.2: Critical Legshots cause additional AP loss
-	gGameExternalOptions.fCriticalLegshotCausesAPLoss			= iniReader.ReadBoolean("JA2 HAM Settings","CRITICAL_LEGSHOT_CAUSES_AP_LOSS", FALSE);
+	// HEADROCK HAM B2.6/B1: Adjustable "luck" factor in Auto-Resolve
+	gGameExternalOptions.iAutoResolveLuckFactor				= (float)(__max(iniReader.ReadDouble("Strategic Gameplay Settings","AUTORESOLVE_LUCK_FACTOR", 2.0, 0.0, 255.0),1.0));
 
 	// HEADROCK HAM 3.2: When enabled, this setting removes the player's omniscience inside his own sectors. The player will no longer see the movement of enemy groups unless someone is nearby to scout them.
-	gGameExternalOptions.fNoEnemyDetectionWithoutRecon			= iniReader.ReadBoolean("JA2 HAM Settings","NO_ENEMY_DETECTION_WITHOUT_RECON", FALSE);
-
-	// HEADROCK HAM 3.2: Determines the training bonus for the Medical skill, when training in "hospital" sectors
-	gGameExternalOptions.ubHospitalTrainingBonus			= iniReader.ReadInteger("JA2 HAM Settings","HOSPITAL_TRAINING_BONUS", 0, 0, 100);
-
-	// HEADROCK HAM 3.2: Determines the repaid bonus when training in factory ("industrial") sectors - in percentage of the character's original repair points!
-	gGameExternalOptions.ubFactoryRepairBonus			= iniReader.ReadInteger("JA2 HAM Settings","FACTORY_REPAIR_BONUS", 0, 0, 100);
-
-	// HEADROCK HAM 3.2: How much MECHANICAL skill do we need to gain a repair bonus from a factory?
-	gGameExternalOptions.ubMinMechanicalForFactoryRepairBonus			= iniReader.ReadInteger("JA2 HAM Settings","MIN_MECHANICAL_FOR_FACTORY_REPAIR_BONUS", 0, 0, 100);
-
-	// HEADROCK HAM 3.3: Externalized maximum possible penalty for hitting a moving target. JA2 Default = 30.
-	gGameExternalOptions.usMaxCTHPenaltyForMovingTarget			= iniReader.ReadInteger("JA2 HAM Settings","MAX_CTH_PENALTY_FOR_MOVING_TARGET", 30, 0, 300);
-
-	// HEADROCK HAM 3.3: Increases tolerance while moving.
-	gGameExternalOptions.ubTilesMovedPerBonusTolerancePoint			= iniReader.ReadInteger("JA2 HAM Settings","TILES_MOVED_PER_BONUS_TOLERANCE_POINT", 5, 0, 20);
-
-	// HEADROCK HAM 3.3: New militia feature, Minimum Leadership required to train Roaming Militia
-	gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia			= iniReader.ReadInteger("JA2 HAM Settings","MIN_LEADERSHIP_TO_TRAIN_MOBILE_MILITIA", 0, 0, 100);
-
-	// HEADROCK HAM 3.3: If enabled, the trainer's "effective" leadership skill determines HOW MANY Mobile Militia he/she creates per session.
-	gGameExternalOptions.fLeadershipAffectsMobileMilitiaQuantity		= iniReader.ReadBoolean("JA2 HAM Settings","LEADERSHIP_AFFECTS_MOBILE_MILITIA_QUANTITY", FALSE);
-
-	// HEADROCK HAM 3.3: If "LEADERSHIP_AFFECTS_MILITIA_QUANTITY" is true, this value determines the lowest leadership required to train a full (default size 5) squad of Mobile Militia in one training session.
-	gGameExternalOptions.ubReqLeadershipForFullMobileTraining			= iniReader.ReadInteger("JA2 HAM Settings","REQ_LEADERSHIP_FOR_MAX_MOBILE_MILITIA", 1, 1, 100);
-
-	// HEADROCK HAM 3.3: Minimum distance (in METERS) at which character suffer from friendly suppression.
-	gGameExternalOptions.usMinDistanceFriendlySuppression				= iniReader.ReadInteger("JA2 HAM Settings","MIN_DISTANCE_FRIENDLY_SUPPRESSION", 30, 0, 65000);
-
-	// HEADROCK HAM 3.3: If enabled, Roaming Militia can automatically reinforce city garrisons. 
-	gGameExternalOptions.fAllowMobileReinforceCities					= iniReader.ReadBoolean("JA2 HAM Settings","ALLOW_MOBILE_MILITIA_REINFORCE_TOWN_GARRISONS", FALSE);
-
-	// HEADROCK HAM 3.3: If enabled, Roaming Militia can automatically reinforce city garrisons. 
-	gGameExternalOptions.fAllowMobileReinforceSAM						= iniReader.ReadBoolean("JA2 HAM Settings","ALLOW_MOBILE_MILITIA_REINFORCE_SAM_GARRISONS", FALSE);
-
-	// HEADROCK HAM 3.4: This controls the intensity of Hiding the Bullet Count during combat. The higher it is, the more intense the effect. Negative values reduce the effect.
-	gGameExternalOptions.usBulletHideIntensity							= iniReader.ReadInteger("JA2 HAM Settings","BULLET_HIDE_INTENSITY", 100, 0, 1000);
-
-	// HEADROCK HAM 3.4: What percentage of a new Mobile Militia group will be made of Elites? If >0, then at least one of every new group will be an Elite. 100 = All Elites.
-	gGameExternalOptions.ubPercentRoamingMilitiaElites					= iniReader.ReadInteger("JA2 HAM Settings","PERCENT_ROAMING_MILITIA_ELITES", 100, 0, 100);
-
-	// HEADROCK HAM 3.4: What percentage of a new Mobile Militia group will be made of Regulars? If >0, then at least one of every new group will be a Regular. 100 = All Regulars.
-	gGameExternalOptions.ubPercentRoamingMilitiaRegulars					= iniReader.ReadInteger("JA2 HAM Settings","PERCENT_ROAMING_MILITIA_REGULARS", 0, 0, 100);
-
-	// HEADROCK HAM 3.5: Does leadership affect the Quality of new Mobile Militia groups?
-	gGameExternalOptions.fLeadershipAffectsMobileMilitiaQuality			= iniReader.ReadBoolean("JA2 HAM Settings","LEADERSHIP_AFFECTS_MOBILE_MILITIA_QUALITY", FALSE);
-
-	// HEADROCK HAM 3.5: Explosive Suppression Effectiveness alters the amount of Suppression Points you get from nearby blasts.
-	gGameExternalOptions.usExplosionSuppressionEffect					= iniReader.ReadInteger("JA2 HAM Settings","EXPLOSIVE_SUPPRESSION_EFFECTIVENESS", 100, 0, 1000);
-
-	// HEADROCK HAM 3.5: When enabled, goggle-switching affects every merc in the sector, not just those belonging to the current squad.
-	gGameExternalOptions.fGoggleSwapAffectsAllMercsInSector					= iniReader.ReadBoolean("JA2 HAM Settings","GOGGLE_SWAP_AFFECTS_ALL_MERCS_IN_SECTOR", FALSE);
-
-	// HEADROCK HAM 3.5: Helicopter - Base cost per tile in "GREEN" airspace
-	gGameExternalOptions.usHelicopterBaseCostPerGreenTile				= iniReader.ReadInteger("JA2 HAM Settings","HELICOPTER_BASE_COST_PER_GREEN_TILE", 100, 0, 60000);
-
-	// HEADROCK HAM 3.5: Helicopter - Base cost per tile in "RED" airspace
-	gGameExternalOptions.usHelicopterBaseCostPerRedTile					= iniReader.ReadInteger("JA2 HAM Settings","HELICOPTER_BASE_COST_PER_RED_TILE", 1000, 0, 60000);
-
-	// HEADROCK HAM 3.5: Experimental, arrival sectorX/Y.
-	gGameExternalOptions.ubDefaultArrivalSectorX						= iniReader.ReadInteger("JA2 HAM Settings","DEFAULT_ARRIVAL_SECTOR_X", 9, 1, 16);
-	gGameExternalOptions.ubDefaultArrivalSectorY						= iniReader.ReadInteger("JA2 HAM Settings","DEFAULT_ARRIVAL_SECTOR_Y", 1, 1, 16);
-
-	// HEADROCK HAM 3.5: Limit bonus from tracers based on range to target. This is a multiplier factor - higher means harder to aim with tracers.
-	gGameExternalOptions.ubRangeDifficultyAimingWithTracers					= iniReader.ReadInteger("JA2 HAM Settings","RANGE_EFFECT_ON_MAX_TRACER_CTH_BONUS", 3, 1, 10);
-
-	// HEADROCK HAM 3.6: Militia can now place blue flags when they spot a landmine.
-	gGameExternalOptions.fMilitiaPlaceBlueFlags							= iniReader.ReadBoolean("JA2 HAM Settings","MILITIA_PLACE_FLAGS_ON_MINES", FALSE);
-
-	// HEADROCK PROFEX/3.6: Activate this to read Profile data from MercProfiles.XML and MercOpinions.XML
-	gGameExternalOptions.fReadProfileDataFromXML				= iniReader.ReadBoolean("JA2 HAM Settings","READ_PROFILE_DATA_FROM_XML", FALSE);
-
-	// HEADROCK PROFEX/3.6: Activate this to write Profile data to MercProfiles Out.XML and MercOpinions Out.XML. This can be used to convert PROF.DAT to XML format.
-	gGameExternalOptions.fWriteProfileDataToXML					= iniReader.ReadBoolean("JA2 HAM Settings","WRITE_PROFILE_DATA_TO_XML", FALSE);
-
-	// HEADROCK HAM 3.6: Progress bars for each stat, displayed behind the stat value on the merc panel. INI settings give RGB color, Menu setting toggles on/off.
-	gGameExternalOptions.ubStatProgressBarsRed						= iniReader.ReadInteger("JA2 HAM Settings","STAT_PROGRESS_BARS_RED", 200, 0, 255);
-	gGameExternalOptions.ubStatProgressBarsGreen						= iniReader.ReadInteger("JA2 HAM Settings","STAT_PROGRESS_BARS_GREEN", 0, 0, 255);
-	gGameExternalOptions.ubStatProgressBarsBlue						= iniReader.ReadInteger("JA2 HAM Settings","STAT_PROGRESS_BARS_BLUE", 0, 0, 255);
+	gGameExternalOptions.fNoEnemyDetectionWithoutRecon		= iniReader.ReadBoolean("Strategic Gameplay Settings","NO_ENEMY_DETECTION_WITHOUT_RECON", FALSE);
 
 	// HEADROCK HAM 3.6: Determines how likely a character is, every hour, to trigger a facility event. The actual chance is X in every Y attempts, where X is facility-specific, and Y is the value adjusted here.
-	gGameExternalOptions.usFacilityEventRarity						= iniReader.ReadInteger("JA2 HAM Settings","FACILITY_EVENT_RARITY", 1000, 0, 50000);
+	gGameExternalOptions.usFacilityEventRarity				= iniReader.ReadInteger("Strategic Gameplay Settings","FACILITY_EVENT_RARITY", 1000, 0, 50000);
 	// HEADROCK HAM 3.6: Controls how important the character's stats are, in insuring he/she gets better results (or smaller damage) from using facilities. The higher this is, the more dangerous all facilities are.
-	gGameExternalOptions.ubFacilityDangerRate						= iniReader.ReadInteger("JA2 HAM Settings","FACILITY_DANGER_RATE", 50, 0, 100);
+	gGameExternalOptions.ubFacilityDangerRate				= iniReader.ReadInteger("Strategic Gameplay Settings","FACILITY_DANGER_RATE", 50, 0, 100);
 
-	// HEADROCK HAM 3.6: Determines whether the extrapolated daily costs of mercs are figured into the "Daily Expenses" display. 0 = No, just facility costs. 1 = Only mercs with a fixed daily rate. 2 = All mercs, including AIM contracts.
-	gGameExternalOptions.ubIncludeContractsInExpenses				= iniReader.ReadInteger("JA2 HAM Settings","INCLUDE_CONTRACTS_IN_EXPENSES_DISPLAY", 1, 0, 2);
 
-	// HEADROCK HAM 3.6: Maximum number of messages displayed in Tactical view
-	gGameExternalOptions.ubMaxMessagesTactical						= iniReader.ReadInteger("JA2 HAM Settings","MAXIMUM_MESSAGES_IN_TACTICAL", 6, 1, 36);
-	switch (iResolution)
-	{
-		case 0:
-			gGameExternalOptions.ubMaxMessagesTactical = __max(20, gGameExternalOptions.ubMaxMessagesTactical);
-			break;
-		case 1:
-			gGameExternalOptions.ubMaxMessagesTactical = __max(26, gGameExternalOptions.ubMaxMessagesTactical);
-			break;
-	}
+	//################# Bobby Ray Settings ##################
 
-	// HEADROCK HAM 3.6: Daily upkeep costs for militia
-	gGameExternalOptions.usDailyCostTownGreen			= iniReader.ReadInteger("JA2 HAM Settings","DAILY_MILITIA_UPKEEP_TOWN_GREEN", 0, 0, 10000);
-	gGameExternalOptions.usDailyCostTownRegular			= iniReader.ReadInteger("JA2 HAM Settings","DAILY_MILITIA_UPKEEP_TOWN_REGULAR", 0, 0, 10000);
-	gGameExternalOptions.usDailyCostTownElite			= iniReader.ReadInteger("JA2 HAM Settings","DAILY_MILITIA_UPKEEP_TOWN_ELITE", 0, 0, 10000);
-	gGameExternalOptions.usDailyCostMobileGreen			= iniReader.ReadInteger("JA2 HAM Settings","DAILY_MILITIA_UPKEEP_MOBILE_GREEN", 0, 0, 10000);
-	gGameExternalOptions.usDailyCostMobileRegular		= iniReader.ReadInteger("JA2 HAM Settings","DAILY_MILITIA_UPKEEP_MOBILE_REGULAR", 0, 0, 10000);
-	gGameExternalOptions.usDailyCostMobileElite			= iniReader.ReadInteger("JA2 HAM Settings","DAILY_MILITIA_UPKEEP_MOBILE_ELITE", 0, 0, 10000);
 
-	// HEADROCK HAM 3.6: Non-Combat Bodytypes shouldn't become hostile
-	gGameExternalOptions.fCanTrueCiviliansBecomeHostile			= iniReader.ReadBoolean("JA2 HAM Settings","CAN_TRUE_CIVILIANS_BECOME_HOSTILE", TRUE);
+	// HEADROCK HAM 3: If enabled, tooltipping over Bobby Ray's weapons will show a list of possible attachments to those weapons.
+	gGameExternalOptions.fBobbyRayTooltipsShowAttachments	= iniReader.ReadBoolean("Bobby Ray Settings","BOBBY_RAY_TOOLTIPS_SHOW_POSSIBLE_ATTACHMENTS", FALSE);
 
-	// HEADROCK HAM 3.6: Militia become hostile when attacked. 0 = No. 1 = If killed. 2 = If attacked (JA2 Default)
-	gGameExternalOptions.ubCanMilitiaBecomeHostile		= iniReader.ReadInteger("JA2 HAM Settings","CAN_MILITIA_BECOME_HOSTILE", 2, 0, 2);
+	// WDS - Option to turn off stealing
+	gGameExternalOptions.fStealingDisabled					= iniReader.ReadBoolean("Bobby Ray Settings","STEALING_FROM_SHIPMENTS_DISABLED",FALSE);
 
-	// HEADROCK HAM 3.6: If activated, the game does not switch focus to a merc who spots an enemy in real-time mode. This fixes issues with Real-Time Sneak.
-	gGameExternalOptions.fNoAutoFocusChangeInRealtimeSneak		= iniReader.ReadBoolean("JA2 HAM Settings","NO_AUTO_FOCUS_CHANGE_IN_REALTIME_SNEAK", FALSE);
+	// WANNE - Chance of shipment lost
+	gGameExternalOptions.gubChanceOfShipmentLost			= iniReader.ReadInteger("Bobby Ray Settings","CHANCE_OF_SHIPMENT_LOSS", 10);
+
+
+	//################# Item Property Settings ##################
+
+	//Weapons modification
+	gGameExternalOptions.iExplosivesDamageModifier			= iniReader.ReadInteger("Item Property Settings","EXPLOSIVES_DAMAGE_MODIFIER",100, 0, 1000);
+	gGameExternalOptions.iMeleeDamageModifier				= iniReader.ReadInteger("Item Property Settings","MELEE_DAMAGE_MODIFIER",100, 0, 1000);
+	gGameExternalOptions.iGunDamageModifier					= iniReader.ReadInteger("Item Property Settings","GUN_DAMAGE_MODIFIER",100, 0, 1000);
+
+	// Enables the "Coverage" value of armor items.
+	gGameExternalOptions.fEnableArmorCoverage				= iniReader.ReadBoolean("Item Property Settings", "ENABLE_ARMOR_COVERAGE", FALSE); // ShadoWarrior for Captain J's armor coverage
+	
+	gGameExternalOptions.fAmmoDynamicWeight					= iniReader.ReadBoolean("Item Property Settings", "DYNAMIC_AMMO_WEIGHT", TRUE); //Pulmu
+
+	// HEADROCK HAM B2.6: Autofire Bullets/5AP modifier
+	gGameExternalOptions.bAutofireBulletsPer5APModifier		= iniReader.ReadInteger("Item Property Settings","AUTOFIRE_BULLETS_PER_5AP_MODIFIER", 0, -100, 100 );
+
+	// HEADROCK HAM 3: Externalized ratio between Weight and Strength. This value determines how many strength points we need to lift 0.5kg with no encumberance.
+	gGameExternalOptions.iStrengthToLiftHalfKilo			= (float)iniReader.ReadDouble("Item Property Settings","STRENGTH_TO_LIFT_HALF_KILO", 1.0, 0.1, 100.0);
+
+	// HEADROCK HAM 3.2: Set a divisor for the CtH of Mortar weapons.
+	gGameExternalOptions.ubMortarCTHDivisor					= iniReader.ReadInteger("Item Property Settings","MORTAR_CTH_DIVISOR", 1, 1, 255);
+
+
+
+	//################# Strategic Enemy AI Settings ##################
+
+	// WDS - New AI
+	gGameExternalOptions.useNewAI							= iniReader.ReadBoolean("Strategic Enemy AI Settings","NEW_AGGRESSIVE_AI",FALSE);
+
+	gGameExternalOptions.iForcePercentageNovice				= iniReader.ReadInteger("Strategic Enemy AI Settings","INITIAL_GARRISON_PERCENTAGES_NOVICE",70, 1, 200);
+	gGameExternalOptions.iForcePercentageExperienced		= iniReader.ReadInteger("Strategic Enemy AI Settings","INITIAL_GARRISON_PERCENTAGES_EXPERIENCED",100, 1, 300);
+	gGameExternalOptions.iForcePercentageExpert				= iniReader.ReadInteger("Strategic Enemy AI Settings","INITIAL_GARRISON_PERCENTAGES_EXPERT",150, 1, 400);
+	gGameExternalOptions.iForcePercentageInsane				= iniReader.ReadInteger("Strategic Enemy AI Settings","INITIAL_GARRISON_PERCENTAGES_INSANE",200, 1, 600);
+
+	gGameExternalOptions.ubMinEnemyGroupSizeNovice			= (UINT8) iniReader.ReadInteger("Strategic Enemy AI Settings","MIN_ENEMY_GROUP_SIZE_NOVICE",3, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
+	gGameExternalOptions.ubMinEnemyGroupSizeExperienced		= (UINT8) iniReader.ReadInteger("Strategic Enemy AI Settings","MIN_ENEMY_GROUP_SIZE_EXPERIENCED",4, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
+	gGameExternalOptions.ubMinEnemyGroupSizeExpert			= (UINT8) iniReader.ReadInteger("Strategic Enemy AI Settings","MIN_ENEMY_GROUP_SIZE_EXPERT",6, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
+	gGameExternalOptions.ubMinEnemyGroupSizeInsane			= (UINT8) iniReader.ReadInteger("Strategic Enemy AI Settings","MIN_ENEMY_GROUP_SIZE_INSANE",12, 1, CODE_MAXIMUM_NUMBER_OF_ENEMIES);
+
+	gGameExternalOptions.iPercentElitesBonusExperienced		= iniReader.ReadInteger("Strategic Enemy AI Settings","PERCENT_EXTRA_ELITES_EXPERIENCED",0, 0, 100);
+	gGameExternalOptions.iPercentElitesBonusExpert			= iniReader.ReadInteger("Strategic Enemy AI Settings","PERCENT_EXTRA_ELITES_EXPERT",25, 0, 100);
+	gGameExternalOptions.iPercentElitesBonusInsane			= iniReader.ReadInteger("Strategic Enemy AI Settings","PERCENT_EXTRA_ELITES_INSANE",50, 0, 100);
+
+	gGameExternalOptions.gfEasyUnlimitedTroops				= iniReader.ReadBoolean("Strategic Enemy AI Settings","UNLIMITED_POOL_OF_TROOPS_NOVICE",FALSE);
+	gGameExternalOptions.gfNormalUnlimitedTroops			= iniReader.ReadBoolean("Strategic Enemy AI Settings","UNLIMITED_POOL_OF_TROOPS_EXPERIENCED",FALSE);
+	gGameExternalOptions.gfHardUnlimitedTroops				= iniReader.ReadBoolean("Strategic Enemy AI Settings","UNLIMITED_POOL_OF_TROOPS_EXPERT",FALSE);
+	gGameExternalOptions.gfInsaneUnlimitedTroops			= iniReader.ReadBoolean("Strategic Enemy AI Settings","UNLIMITED_POOL_OF_TROOPS_INSANE",TRUE);
+
+	gGameExternalOptions.iReinforcementPoolNovice			= iniReader.ReadInteger("Strategic Enemy AI Settings","QUEENS_INITIAL_POOL_OF_TROOPS_NOVICE",150, 25, 1000000);
+	gGameExternalOptions.iReinforcementPoolExperienced		= iniReader.ReadInteger("Strategic Enemy AI Settings","QUEENS_INITIAL_POOL_OF_TROOPS_EXPERIENCED",200, 25, 1000000);
+	gGameExternalOptions.iReinforcementPoolExpert			= iniReader.ReadInteger("Strategic Enemy AI Settings","QUEENS_INITIAL_POOL_OF_TROOPS_EXPERT",400, 25, 1000000);
+	gGameExternalOptions.iReinforcementPoolInsane			= iniReader.ReadInteger("Strategic Enemy AI Settings","QUEENS_INITIAL_POOL_OF_TROOPS_INSANE",8000, 25, 1000000);
+
+	gGameExternalOptions.guiBaseQueenPoolIncrement			= iniReader.ReadInteger("Strategic Enemy AI Settings","QUEEN_POOL_INCREMENT_PER_DIFFICULTY_LEVEL",60, 1, 100);
+
+	gGameExternalOptions.ubEasyEnemyStartingAlertLevel		= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_STARTING_ALERT_LEVEL_NOVICE", 5, 1, 100);
+	gGameExternalOptions.ubNormalEnemyStartingAlertLevel	= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_STARTING_ALERT_LEVEL_EXPERIENCED", 20, 1, 100);
+	gGameExternalOptions.ubHardEnemyStartingAlertLevel		= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_STARTING_ALERT_LEVEL_EXPERT", 60, 1, 100);
+	gGameExternalOptions.ubInsaneEnemyStartingAlertLevel	= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_STARTING_ALERT_LEVEL_INSANE", 80, 1, 100);
+
+	gGameExternalOptions.ubEasyEnemyStartingAlertDecay		= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_ALERT_DECAY_NOVICE", 75, 1, 100);
+	gGameExternalOptions.ubNormalEnemyStartingAlertDecay	= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_ALERT_DECAY_EXPERIENCED", 50, 1, 100);
+	gGameExternalOptions.ubHardEnemyStartingAlertDecay		= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_ALERT_DECAY_EXPERT", 25, 1, 100);
+	gGameExternalOptions.ubInsaneEnemyStartingAlertDecay	= iniReader.ReadInteger("Strategic Enemy AI Settings","ENEMY_ALERT_DECAY_INSANE", 10, 1, 100);
+
+	gGameExternalOptions.ubEasyNumAwareBattles				= iniReader.ReadInteger("Strategic Enemy AI Settings","NUM_AWARE_BATTLES_NOVICE", 1, 1, 10);
+	gGameExternalOptions.ubNormalNumAwareBattles			= iniReader.ReadInteger("Strategic Enemy AI Settings","NUM_AWARE_BATTLES_EXPERIENCED", 2, 1, 10);
+	gGameExternalOptions.ubHardNumAwareBattles				= iniReader.ReadInteger("Strategic Enemy AI Settings","NUM_AWARE_BATTLES_EXPERT", 3, 1, 10);
+	gGameExternalOptions.ubInsaneNumAwareBattles			= iniReader.ReadInteger("Strategic Enemy AI Settings","NUM_AWARE_BATTLES_INSANE", 4, 1, 10);
+
+	gGameExternalOptions.ubEasyTimeEvaluateInMinutes		= iniReader.ReadInteger("Strategic Enemy AI Settings","BASE_DELAY_IN_MINUTES_BETWEEN_EVALUATIONS_NOVICE", 480, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubNormalTimeEvaluateInMinutes		= iniReader.ReadInteger("Strategic Enemy AI Settings","BASE_DELAY_IN_MINUTES_BETWEEN_EVALUATIONS_EXPERIENCED", 360, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubHardTimeEvaluateInMinutes		= iniReader.ReadInteger("Strategic Enemy AI Settings","BASE_DELAY_IN_MINUTES_BETWEEN_EVALUATIONS_EXPERT", 180, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubInsaneTimeEvaluateInMinutes		= iniReader.ReadInteger("Strategic Enemy AI Settings","BASE_DELAY_IN_MINUTES_BETWEEN_EVALUATIONS_INSANE", 90, 10, NUM_MIN_IN_DAY);
+
+	gGameExternalOptions.ubEasyTimeEvaluateVariance			= iniReader.ReadInteger("Strategic Enemy AI Settings","EVALUATION_DELAY_VARIANCE_NOVICE", 240, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubNormalTimeEvaluateVariance		= iniReader.ReadInteger("Strategic Enemy AI Settings","EXPERIENCED_TIME_EVALUATE_VARIANCE", 180, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubHardTimeEvaluateVariance			= iniReader.ReadInteger("Strategic Enemy AI Settings","EXPERT_TIME_EVALUATE_VARIANCE", 120, 10, NUM_MIN_IN_DAY);
+	gGameExternalOptions.ubInsaneTimeEvaluateVariance		= iniReader.ReadInteger("Strategic Enemy AI Settings","INSANE_TIME_EVALUATE_VARIANCE", 60, 10, NUM_MIN_IN_DAY);
+
+	gGameExternalOptions.ubEasyGracePeriodInHours			= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_HOURS_AFTER_SECTOR_LIBERATION_NOVICE", 144, 1, 288);
+	gGameExternalOptions.ubNormalGracePeriodInHours			= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_HOURS_AFTER_SECTOR_LIBERATION_EXPERIENCED", 96, 1, 288);
+	gGameExternalOptions.ubHardGracePeriodInHours			= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_HOURS_AFTER_SECTOR_LIBERATION_EXPERT", 48, 1, 288);
+	gGameExternalOptions.ubInsaneGracePeriodInHours			= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_HOURS_AFTER_SECTOR_LIBERATION_INSANE", 6, 1, 288);
+
+	gGameExternalOptions.ubEasyPatrolGracePeriodInDays		= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_DAYS_AFTER_PATROL_DESTROYED_NOVICE", 16, 1, 100);
+	gGameExternalOptions.ubNormalPatrolGracePeriodInDays	= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_DAYS_AFTER_PATROL_DESTROYED_EXPERIENCED", 12, 1, 100);
+	gGameExternalOptions.ubHardPatrolGracePeriodInDays		= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_DAYS_AFTER_PATROL_DESTROYED_EXPERT", 8, 1, 100);
+	gGameExternalOptions.ubInsanePatrolGracePeriodInDays	= iniReader.ReadInteger("Strategic Enemy AI Settings","GRACE_PERIOD_IN_DAYS_AFTER_PATROL_DESTROYED_INSANE", 2, 1, 100);
+
+	gGameExternalOptions.gfEasyAggressiveQueen				= iniReader.ReadBoolean("Strategic Enemy AI Settings","AGGRESSIVE_QUEEN_AI_NOVICE",FALSE);
+	gGameExternalOptions.gfNormalAggressiveQueen			= iniReader.ReadBoolean("Strategic Enemy AI Settings","AGGRESSIVE_QUEEN_AI_EXPERIENCED",FALSE);
+	gGameExternalOptions.gfHardAggressiveQueen				= iniReader.ReadBoolean("Strategic Enemy AI Settings","AGGRESSIVE_QUEEN_AI_EXPERT",FALSE);
+	gGameExternalOptions.gfInsaneAggressiveQueen			= iniReader.ReadBoolean("Strategic Enemy AI Settings","AGGRESSIVE_QUEEN_AI_INSANE",TRUE);
+
+	gGameExternalOptions.gfInvestigateSector				= iniReader.ReadBoolean("Strategic Enemy AI Settings","ENEMY_INVESTIGATE_SECTOR",FALSE);
+	gGameExternalOptions.gfReassignPendingReinforcements	= iniReader.ReadBoolean("Strategic Enemy AI Settings","REASSIGN_PENDING_REINFORCEMENTS",TRUE);
+
+	
+	//################# Militia Training Settings ##################
+
+	gGameExternalOptions.iMaxMilitiaPerSector				= iniReader.ReadInteger("Militia Training Settings","MAX_MILITIA_PER_SECTOR",20, 1, CODE_MAXIMUM_NUMBER_OF_REBELS);
+
+	gGameExternalOptions.iTrainingSquadSize					= iniReader.ReadInteger("Militia Training Settings","NUM_MILITIA_TRAINED_PER_SESSION",10, 1, CODE_MAXIMUM_NUMBER_OF_REBELS);
+
+	gGameExternalOptions.iMinLoyaltyToTrain					= iniReader.ReadInteger("Militia Training Settings","MIN_LOYALTY_TO_TRAIN_MILITIA",20, 0, 100);
+
+	gGameExternalOptions.ubTownMilitiaTrainingRate			= iniReader.ReadInteger("Militia Training Settings","MILITIA_TRAINING_RATE",4, 1, 10);
+
+	gGameExternalOptions.gfTrainVeteranMilitia				= iniReader.ReadBoolean("Militia Training Settings","ALLOW_TRAINING_ELITE_MILITIA",FALSE);
+	gGameExternalOptions.guiTrainVeteranMilitiaDelay		= iniReader.ReadInteger("Militia Training Settings","ELITE_MILITIA_TRAINING_DELAY",1, 0, 30);
+
+	gGameExternalOptions.ubRpcBonusToTrainMilitia			= iniReader.ReadInteger("Militia Training Settings","RPC_BONUS_TO_MILITIA_TRAINING_RATE",10, 0, 100);
+
+	// HEADROCK HAM 3: Define minimum leadership required for training militia. Set to 0 for "no limit".
+	gGameExternalOptions.ubMinimumLeadershipToTrainMilitia	= iniReader.ReadInteger("Militia Training Settings","MINIMUM_LEADERSHIP_TO_TRAIN_MILITIA", 0, 0, 99);
+
+	// HEADROCK HAM 3: If enabled, the trainer's "effective" leadership skill determines HOW MANY militia he/she creates per session.
+	gGameExternalOptions.fLeadershipAffectsMilitiaQuantity	= iniReader.ReadBoolean("Militia Training Settings","LEADERSHIP_AFFECTS_MILITIA_QUANTITY", FALSE);
+
+	// HEADROCK HAM 3: If "LEADERSHIP_AFFECTS_MILITIA_QUANTITY" is true, this value determines the lowest leadership required to train a full (default size 10) squad of town militia in one training session.
+	gGameExternalOptions.ubReqLeadershipForFullTraining		= iniReader.ReadInteger("Militia Training Settings","REQ_LEADERSHIP_FOR_MAX_MILITIA", 100, 1, 100);
+
+	// HEADROCK HAM 3: Define effect of "TEACHER" trait in increasing effective leadership, for purposes of eligibility for training militia. This is a percentage value. HAM Default would be 200 = double effective leadership for each TEACHING level.
+	gGameExternalOptions.usTeacherTraitEffectOnLeadership	= iniReader.ReadInteger("Militia Training Settings","TEACHER_TRAIT_EFFECT_ON_LEADERSHIP", 100, 1, 10000);
+
+
+	//################# Mobile Militia Training Settings ##################
+
+	gGameExternalOptions.gfAllowMilitiaGroups						= iniReader.ReadBoolean("Mobile Militia Training Settings","ALLOW_MOBILE_MILITIA",FALSE);
+	gGameExternalOptions.guiAllowMilitiaGroupsDelay					= iniReader.ReadInteger("Mobile Militia Training Settings","MOBILE_MILITIA_TRAINING_DELAY",1, 0, 30);
+
+	gGameExternalOptions.guiNumMobileMilitiaTrained					= iniReader.ReadInteger("Mobile Militia Training Settings","NUM_MOBILE_MILITIA_TRAINED_PER_SESSION",4, 1, 100);
+
+	gGameExternalOptions.gfmusttrainroaming							= iniReader.ReadBoolean("Mobile Militia Training Settings","MUST_TRAIN_MOBILE_MILITIA",FALSE);
+
+	gGameExternalOptions.guiCreateEachNHours						= iniReader.ReadInteger("Mobile Militia Training Settings","CREATE_MOBILE_MILITIA_SQUAD_EACH_N_HOURS",24, 1, 96);
+
+	// HEADROCK HAM 3.3: New militia feature, Minimum Leadership required to train Roaming Militia
+	gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia	= iniReader.ReadInteger("Mobile Militia Training Settings","MIN_LEADERSHIP_TO_TRAIN_MOBILE_MILITIA", 0, 0, 100);
+
+	// HEADROCK HAM 3.3: If enabled, the trainer's "effective" leadership skill determines HOW MANY Mobile Militia he/she creates per session.
+	gGameExternalOptions.fLeadershipAffectsMobileMilitiaQuantity	= iniReader.ReadBoolean("Mobile Militia Training Settings","LEADERSHIP_AFFECTS_MOBILE_MILITIA_QUANTITY", FALSE);
+
+	// HEADROCK HAM 3.3: If "LEADERSHIP_AFFECTS_MILITIA_QUANTITY" is true, this value determines the lowest leadership required to train a full (default size 5) squad of Mobile Militia in one training session.
+	gGameExternalOptions.ubReqLeadershipForFullMobileTraining		= iniReader.ReadInteger("Mobile Militia Training Settings","REQ_LEADERSHIP_FOR_MAX_MOBILE_MILITIA", 1, 1, 100);
+
+	// HEADROCK HAM 3.5: Does leadership affect the Quality of new Mobile Militia groups?
+	gGameExternalOptions.fLeadershipAffectsMobileMilitiaQuality		= iniReader.ReadBoolean("Mobile Militia Training Settings","LEADERSHIP_AFFECTS_MOBILE_MILITIA_QUALITY", FALSE);
+
+	// HEADROCK HAM 3.4: What percentage of a new Mobile Militia group will be made of Elites? If >0, then at least one of every new group will be an Elite. 100 = All Elites.
+	gGameExternalOptions.ubPercentRoamingMilitiaElites				= iniReader.ReadInteger("Mobile Militia Training Settings","PERCENT_MOBILE_MILITIA_ELITES", 100, 0, 100);
+
+	// HEADROCK HAM 3.4: What percentage of a new Mobile Militia group will be made of Regulars? If >0, then at least one of every new group will be a Regular. 100 = All Regulars.
+	gGameExternalOptions.ubPercentRoamingMilitiaRegulars			= iniReader.ReadInteger("Mobile Militia Training Settings","PERCENT_MOBILE_MILITIA_REGULARS", 0, 0, 100);
+
+
+	//################# Mobile Militia Movement Settings ##################
+
+	gGameExternalOptions.gflimitedRoaming						= iniReader.ReadBoolean("Mobile Militia Movement Settings","RESTRICT_ROAMING",FALSE);
+
+	// HEADROCK HAM B1: Allow restricted militia to move through visited sectors?
+	gGameExternalOptions.fUnrestrictVisited						= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MILITIA_MOVEMENT_THROUGH_EXPLORED_SECTORS", FALSE);
+
+	// HEADROCK HAM B1: Allow dynamic restrictions?
+	gGameExternalOptions.fDynamicRestrictRoaming				= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_DYNAMIC_RESTRICTED_ROAMING", TRUE);
+
+	// HEADROCK HAM B2.7: Augmented Roaming Militia code - turn this to TRUE to allow militia free travel through San Mona, Tixa, Orta, Omerta, and Estoni.
+	gGameExternalOptions.fAllowMilitiaMoveThroughMinorCities	= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MILITIA_MOVEMENT_THROUGH_MINOR_CITIES", FALSE);	
+
+	// HEADROCK HAM 3.3: If enabled, Roaming Militia can automatically reinforce city garrisons. 
+	gGameExternalOptions.fAllowMobileReinforceCities			= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MOBILE_MILITIA_REINFORCE_TOWN_GARRISONS", FALSE);
+
+	// HEADROCK HAM 3.3: If enabled, Roaming Militia can automatically reinforce city garrisons. 
+	gGameExternalOptions.fAllowMobileReinforceSAM				= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MOBILE_MILITIA_REINFORCE_SAM_GARRISONS", FALSE);
+
+	
+	//################# Shopkeeper Inventory Settings ##################
+
+	// WDS - Improve Tony's and Devin's inventory like BR's
+	gGameExternalOptions.tonyUsesBRSetting		= iniReader.ReadBoolean("Shopkeeper Inventory Settings","TONY_USES_BOBBY_RAYS_SETTING", FALSE);
+	gGameExternalOptions.devinUsesBRSetting		= iniReader.ReadBoolean("Shopkeeper Inventory Settings","DEVIN_USES_BOBBY_RAYS_SETTING", FALSE);
+
+
+	//################# Strategic Assignment Settings ##################
+
+	////////// ALL ASSIGNMENTS //////////
+
+	gGameExternalOptions.ubMinutesForAssignmentToCount		= iniReader.ReadInteger("Strategic Assignment Settings","MINUTES_FOR_ASSIGNMENT_TO_COUNT",45, 1, NUM_MIN_IN_DAY);
+
+	////////// PRACTICE/TRAIN/STUDY //////////
+
+	gGameExternalOptions.ubTrainingSkillMin					= iniReader.ReadInteger("Strategic Assignment Settings","MIN_REQUIRED_SKILL_TO_BEGIN_TRAINING",0, 0, 100);
+	gGameExternalOptions.ubTrainingSkillMax					= iniReader.ReadInteger("Strategic Assignment Settings","MAX_SKILL_ACHIEVABLE_BY_TRAINING",100, 0, 100);
+	gGameExternalOptions.ubSelfTrainingDivisor				= iniReader.ReadInteger("Strategic Assignment Settings","TRAINING_RATE_DIVISOR",1000, 1, 10000);
+	gGameExternalOptions.ubInstructedTrainingDivisor		= iniReader.ReadInteger("Strategic Assignment Settings","INSTRUCTED_TRAINING_BONUS_DIVISOR",3000, 1, 10000);
+
+	gGameExternalOptions.ubTeachBonusToTrain				= iniReader.ReadInteger("Strategic Assignment Settings","TEACHER_TRAIT_BONUS_TO_TEACHING_EFFICIENCY",30, 0, 100);
+	gGameExternalOptions.ubMinSkillToTeach					= iniReader.ReadInteger("Strategic Assignment Settings","MIN_SKILL_REQUIRED_TO_TEACH_OTHER",25, 0, 100);
+
+	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will go to sleep when their trainer goes to sleep. 3 = Trainer will go to sleep if all trainees are asleep. 1 = Both. 0 = Neither.
+	gGameExternalOptions.ubSmartTrainingSleep				= iniReader.ReadInteger("Strategic Assignment Settings","SYNCHRONIZED_SLEEPING_HOURS_WHEN_TRAINING_TOGETHER", 0, 0, 3);
+
+	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will wake up when their trainer wakes up. 3 = Trainer will wake up if all trainees wake up. 1 = Both. 0 = Neither.
+	gGameExternalOptions.ubSmartTrainingWake				= iniReader.ReadInteger("Strategic Assignment Settings","SYNCHRONIZED_WAKING_HOURS_WHEN_TRAINING_TOGETHER", 0, 0, 3);
+
+	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainers will rest if no trainees available. 3 = Trainees will rest if no trainers available (not recommended). 1 = Both. 0 = Neither.
+	gGameExternalOptions.ubSmartTrainingRest				= iniReader.ReadInteger("Strategic Assignment Settings","REST_IF_NO_TRAINING_PARTNER_AVAILABLE", 0, 0, 3);
+
+	////////// DOCTOR //////////
+
+	gGameExternalOptions.ubLowActivityLevel					= iniReader.ReadInteger("Strategic Assignment Settings","NATURAL_HEALING_SPEED_DIVISOR_AT_LOW_ACTIVITY_LEVEL",1, 1, 100);
+	gGameExternalOptions.ubMediumActivityLevel				= iniReader.ReadInteger("Strategic Assignment Settings","NATURAL_HEALING_SPEED_DIVISOR_AT_MEDIUM_ACTIVITY_LEVEL",4, 1, 100);
+	gGameExternalOptions.ubHighActivityLevel				= iniReader.ReadInteger("Strategic Assignment Settings","NATURAL_HEALING_SPEED_DIVISOR_AT_HIGH_ACTIVITY_LEVEL",12, 1, 100);
+
+	gGameExternalOptions.ubDoctoringRateDivisor				= iniReader.ReadInteger("Strategic Assignment Settings","DOCTORING_RATE_DIVISOR",2400, 1200, 24000);
+	gGameExternalOptions.ubHospitalHealingRate				= iniReader.ReadInteger("Strategic Assignment Settings","HOSPITAL_HEALING_RATE",5, 1, 10);
+	gGameExternalOptions.ubBaseMedicalSkillToDealWithEmergency				= iniReader.ReadInteger("Strategic Assignment Settings","BASE_MEDICAL_SKILL_TO_DEAL_WITH_EMERGENCY",20, 0, 100);
+	gGameExternalOptions.ubMultiplierForDifferenceInLifeValueForEmergency	= iniReader.ReadInteger("Strategic Assignment Settings","MULTIPLIER_FOR_DIFFERENCE_IN_LIFE_VALUE_FOR_EMERGENCY",4, 1, 10);
+	gGameExternalOptions.ubPointCostPerHealthBelowOkLife	= iniReader.ReadInteger("Strategic Assignment Settings","POINT_COST_PER_HEALTH_BELOW_OKLIFE",2, 1, 5);//OKLIFE = 15
+
+	////////// REPAIR //////////
+
+	gGameExternalOptions.ubRepairCostPerJam					= iniReader.ReadInteger("Strategic Assignment Settings","REPAIR_POINT_COST_TO_FIX_WEAPON_JAM",2, 1, 10);
+	gGameExternalOptions.ubRepairRateDivisor				= iniReader.ReadInteger("Strategic Assignment Settings","REPAIR_RATE_DIVISOR",2500, 1250, 25000);
+	gGameExternalOptions.ubAssignmentUnitsPerDay			= iniReader.ReadInteger("Strategic Assignment Settings","REPAIR_SESSIONS_PER_DAY",24, 1, 96);
 
 	// WANNE: This is just a debug setting. Only in debug version we should check if propert is set in the ja2_options.ini,
 	// In Release version this should always be set to FALSE
 	//dnl ch51 081009 JA2 Debug Settings
 #ifdef _DEBUG
-	gGameExternalOptions.fEnableInventoryPoolQ				= iniReader.ReadBoolean("JA2 Debug Settings", "ENABLE_INVENTORY_POOL_Q", FALSE);
-#endif
+	gGameExternalOptions.fEnableInventoryPoolQ				= TRUE;
+#else
 	gGameExternalOptions.fEnableInventoryPoolQ = FALSE;
+#endif
 }
 
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)

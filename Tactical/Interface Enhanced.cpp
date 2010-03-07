@@ -5161,7 +5161,12 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 
 		// print value
 		SetFontForeground( 5 );
-		swprintf( pStr, L"%2d", Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDamage + ( (Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDamage * gGameExternalOptions.ubExplosivesDamageMultiplier ) / 100 ));
+				
+		// HEADROCK HAM 3.6: Can now use negative modifier.
+		UINT16 explDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDamage );
+
+		//swprintf( pStr, L"%2d", Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDamage + ( (Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubDamage * gGameExternalOptions.ubExplosivesDamageMultiplier ) / 100 ));
+		swprintf( pStr, L"%2d", explDamage );
 		uiStringLength=StringPixLength(pStr, ITEMDESC_FONT );
 		FindFontRightCoordinates( (INT16)(gWeaponStats[ 2 ].sX + gsInvDescX + gWeaponStats[ 2 ].sValDx), (INT16)(gWeaponStats[ 2 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
 		mprintf( sStrX, gWeaponStats[ 2 ].sY + gsInvDescY, pStr );
@@ -5176,7 +5181,12 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 
 		// print value
 		SetFontForeground( 5 );
-		swprintf( pStr, L"%2d", Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubStunDamage  + ( (Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubStunDamage * gGameExternalOptions.ubExplosivesDamageMultiplier ) / 100 ));
+		
+		// HEADROCK HAM 3.6: Can now use negative modifier.
+		UINT16 explStunDamage = (UINT16) GetModifiedExplosiveDamage( Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubStunDamage );		
+		
+		//swprintf( pStr, L"%2d", Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubStunDamage  + ( (Explosive[Item[ gpItemDescObject->usItem ].ubClassIndex ].ubStunDamage * gGameExternalOptions.ubExplosivesDamageMultiplier ) / 100 ));
+		swprintf( pStr, L"%2d", explStunDamage );
 		uiStringLength=StringPixLength(pStr, ITEMDESC_FONT );
 		FindFontRightCoordinates( (INT16)(gWeaponStats[ 3 ].sX + gsInvDescX + gWeaponStats[ 3 ].sValDx), (INT16)(gWeaponStats[ 3 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
 		mprintf( sStrX, gWeaponStats[ 3 ].sY + gsInvDescY, pStr );

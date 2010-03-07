@@ -204,17 +204,14 @@ void InitializeMines( void )
 	} while (gMineStatus[ubDepletedMineIndex].fEmpty || (ubDepletedMineIndex == MINE_ALMA));
 
 	// HEADROCK HAM 3.1: We can now select which mine runs out, or disable mine shutdown.
-	if (gGameExternalOptions.fManuallySelectMineShutdown)
+	// Make sure selection isn't 0 (no mine runs out) or invalid (San Mona, Alma)
+	if (gGameExternalOptions.bWhichMineRunsOut > 0 && 
+		gGameExternalOptions.bWhichMineRunsOut < MAX_NUMBER_OF_MINES &&
+		gGameExternalOptions.bWhichMineRunsOut-1 != MINE_SAN_MONA &&
+		gGameExternalOptions.bWhichMineRunsOut-1 != MINE_ALMA )
 	{
-		// Make sure selection isn't 0 (no mine runs out) or invalid (San Mona, Alma)
-		if (gGameExternalOptions.ubWhichMineRunsOut > 0 && 
-			gGameExternalOptions.ubWhichMineRunsOut < MAX_NUMBER_OF_MINES &&
-			gGameExternalOptions.ubWhichMineRunsOut-1 != MINE_SAN_MONA &&
-			gGameExternalOptions.ubWhichMineRunsOut-1 != MINE_ALMA )
-		{
-			// Set depleted mine index.
-			ubDepletedMineIndex = (gGameExternalOptions.ubWhichMineRunsOut-1);
-		}
+		// Set depleted mine index.
+		ubDepletedMineIndex = (gGameExternalOptions.bWhichMineRunsOut-1);
 	}
 
 	for( ubMineIndex = 0; ubMineIndex < MAX_NUMBER_OF_MINES; ubMineIndex++ )
@@ -222,8 +219,7 @@ void InitializeMines( void )
 		pMineStatus = &(gMineStatus[ ubMineIndex ]);
 
 		// HEADROCK HAM 3.1: We can disable mine shutdown, so make sure the settings aren't telling us to do so.
-		if (!(gGameExternalOptions.fManuallySelectMineShutdown && gGameExternalOptions.ubWhichMineRunsOut == 0) &&
-			(ubMineIndex == ubDepletedMineIndex))
+		if (gGameExternalOptions.bWhichMineRunsOut != 0 && ubMineIndex == ubDepletedMineIndex)
 		{
 			if ( ubDepletedMineIndex == MINE_DRASSEN )
 			{

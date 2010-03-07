@@ -1813,14 +1813,15 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 	uiRoll = PreRandom( 100 );
 
 	// Calculate wound amount
-	INT16 newDamage = pExplosive->ubDamage + (INT16)(( pExplosive->ubDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100); //lal
+	// HEADROCK HAM 3.6: Can now use negative modifier.
+	INT16 newDamage = (INT16)GetModifiedExplosiveDamage( pExplosive->ubDamage );
+	//INT16 newDamage = pExplosive->ubDamage + (INT16)(( pExplosive->ubDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100); //lal
 
 	sWoundAmt = newDamage + (INT16) ( (newDamage * uiRoll) / 100 );
 
-
-
 	// Calculate breath amount ( if stun damage applicable )
-	INT16 newBreath = pExplosive->ubStunDamage + (INT16)(( pExplosive->ubStunDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100); //lal
+	INT16 newBreath = (INT16)GetModifiedExplosiveDamage( pExplosive->ubStunDamage );
+	//INT16 newBreath = pExplosive->ubStunDamage + (INT16)(( pExplosive->ubStunDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100); //lal
 
 	sBreathAmt = ( newBreath * 100 ) + (INT16) ( ( ( newBreath / 2 ) * 100 * uiRoll ) / 100 ) ;
 

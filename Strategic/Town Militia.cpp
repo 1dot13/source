@@ -1965,7 +1965,7 @@ UINT8 CalcNumMilitiaTrained(UINT8 ubBestLeadership, BOOLEAN fMobile)
 	else
 	{
 		// Default Squad Size for Mobiles, read from INI.
-		ubMilitiaToTrain = (gGameExternalOptions.iMaxMilitiaPerSector / gGameExternalOptions.guiDivOfOriginalMilitia);
+		ubMilitiaToTrain = gGameExternalOptions.guiNumMobileMilitiaTrained;
 
 		// Is affected by Leadership?
 		if (gGameExternalOptions.fLeadershipAffectsMobileMilitiaQuantity && 
@@ -1993,7 +1993,7 @@ UINT8 CalcNumMilitiaTrained(UINT8 ubBestLeadership, BOOLEAN fMobile)
 			// exceeding the range (latter shouldn't happen) will train a full squad. Others will train less. If
 			// leadership was the minimum required, only 3 militia are trained.
 			ubMilitiaToTrain = ((ubBestLeadership * ubMilitiaToTrain) / ubLeadershipRange) + 1;
-			ubMilitiaToTrain = __min(ubMilitiaToTrain, gGameExternalOptions.iMaxMilitiaPerSector / gGameExternalOptions.guiDivOfOriginalMilitia);
+			ubMilitiaToTrain = __min(ubMilitiaToTrain, gGameExternalOptions.guiNumMobileMilitiaTrained);
 			ubMilitiaToTrain = __max(3, ubMilitiaToTrain);
 		}
 	}

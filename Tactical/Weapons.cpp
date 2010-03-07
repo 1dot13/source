@@ -4976,7 +4976,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocat
 						// HEADROCK HAM 3.2: Critical headshots may now cause blindness, based on shot damage.
 						if (gGameExternalOptions.ubChanceBlindedByHeadshot)
 						{
-							if (PreRandom(gGameExternalOptions.ubChanceBlindedByHeadshot) == 0)
+							if (__min(100,(PreRandom(100)+1 + iImpact)) <= gGameExternalOptions.ubChanceBlindedByHeadshot)
 							{
 								if (pTarget->bBlindedCounter < iImpact / 10 )
 									pTarget->bBlindedCounter = iImpact / 10;
@@ -6181,17 +6181,23 @@ UINT8 GetDamage ( OBJECTTYPE *pObj )
 
 	if ( Item[pObj->usItem].usItemClass == IC_BLADE || Item[pObj->usItem].usItemClass == IC_PUNCH || Item[pObj->usItem].usItemClass == IC_TENTACLES )
 	{
-		UINT8 ubDamage = Weapon[ pObj->usItem ].ubImpact + GetMeleeDamageBonus(pObj);
-		return min(255, (UINT8)( (ubDamage) + ( (double)ubDamage / 100) * gGameExternalOptions.ubMeleeDamageMultiplier ) );
+		// HEADROCK HAM 3.6: Can now take a negative modifier 
+		UINT8 ubDamage = (UINT8)GetModifiedMeleeDamage( Weapon[ pObj->usItem ].ubImpact );
+		ubDamage += GetMeleeDamageBonus(pObj);
+		//return min(255, (UINT8)( (ubDamage) + ( (double)ubDamage / 100) * gGameExternalOptions.ubMeleeDamageMultiplier ) );
+		return min(255, (UINT8)ubDamage);
 	}
 	else
 	{
-		UINT8 ubDamage = Weapon[ pObj->usItem ].ubImpact;
+		// HEADROCK HAM 3.6: Can now take a negative modifier 
+		UINT8 ubDamage = (UINT8)GetModifiedMeleeDamage( Weapon[ pObj->usItem ].ubImpact );
+
+		// WTF? Why do only small weapons get their damage bonus?!
 		if (FitsInSmallPocket(pObj) == true)
 		{
 			ubDamage += GetDamageBonus(pObj);
 		}
-		return min(255, (UINT8)( (ubDamage) + ( (double)ubDamage / 100) * gGameExternalOptions.ubGunDamageMultiplier ) );
+		return min(255, (UINT8)ubDamage );
 	}
 }
 
