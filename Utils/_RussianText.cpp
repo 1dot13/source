@@ -387,11 +387,11 @@ STR16 pAssignmentStrings[] =
 	L"Ремонт",	// repairing
 	L"Практика",	// training themselves  
   L"Ополчение",		// training a town to revolt 
-	L"M.Militia", //training moving militia units		// TODO.Translate
+	L"Мобили", //training moving militia units		//M.Militia
 	L"Тренер",	// training a teammate
 	L"Ученик",	// being trained by someone else 
-	L"Staff", // operating a strategic facility			// TODO.Translate
-	L"Rest", // Resting at a facility					// TODO.Translate
+	L"Штат", // operating a strategic facility			//Staff
+	L"Отдых", // Resting at a facility					//Rest
 	L"Мертв",	// dead
 	L"Недеесп.",	// abbreviation for incapacitated
 	L"В плену",	// Prisoner of war - captured
@@ -405,7 +405,7 @@ STR16 pMilitiaString[] =
 	L"Ополчение", // the title of the militia box
 	L"Запас", //the number of unassigned militia troops
 	L"Нельзя перераспределять ополчение, когда враг находится в этом районе!",
-	L"Some militia were not assigned to a sector. Would you like to disband them?", // TODO.Translate
+	L"Здесь присутствуют ополченцы из других секторов. Распустить их по своим прежним позициям?", //Some militia were not assigned to a sector. Would you like to disband them?
 };
 
 
@@ -413,7 +413,7 @@ STR16 pMilitiaButtonString[] =
 {
 	L"Авто", // auto place the militia troops for the player
 	L"Готово", // done placing militia troops
-	L"Disband", // HEADROCK HAM 3.6: Disband militia	// TODO.Translate
+	L"Распустить", // HEADROCK HAM 3.6: Disband militia	//Disband
 };
 
 STR16 pConditionStrings[] = 
@@ -636,7 +636,7 @@ STR16 pAssignMenuStrings[] =
 	L"Машина", // the merc is in a vehicle
 	L"Ремонт", // the merc is repairing items 
 	L"Обучение", // the merc is training //обучение
-	L"Facility", // the merc is using/staffing a facility	// TODO.Translate
+	L"Укомплектация", // the merc is using/staffing a facility	//Facility
 	L"Отмена", // cancel this menu
 };
 
@@ -694,7 +694,7 @@ STR16 pTrainingMenuStrings[] =
 {
  L"Практика", // train yourself 
  L"Ополчение", // train the town 
- L"Mobile Militia",		// TODO.Translate
+ L"Мобильная группа",		//Mobile Militia
  L"Тренер", // train your teammates 
  L"Ученик",  // be trained by an instructor 
  L"Отмена", // cancel this menu
@@ -1111,7 +1111,7 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 	L"Вес:",		//12
 	L"Оглушение:",//13
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
-	L"Attachments:",	//14	// TODO.Translate
+	L"Навеска:",	//14	//Attachments
 	L"AUTO/5:",		//15
 	L"Всего:",		//16
 
@@ -1200,7 +1200,7 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 	L"Модификатор урона",					//Damage Modifier
 	L"Модификатор точности",				//To-Hit Modifier
 	L"Модификатор штрафа\nза отдачу при стрельбе\nв автоматическом режиме\n(чем больше, тем лучше)",	//Autofire Penalty Modifier (Higher is better)
-	L"Burst Penalty Modifier (Higher is better)",	// TODO.Translate
+	L"Модификатор штрафа при очереди \n(чем больше, тем лучше)",	//Burst Penalty Modifier (Higher is better)
 	L"Модификатор надёжности",				//Reliability Modifier
 	L"Модификатор шумности\n(чем меньше, тем лучше)",	//Loudness Modifier (Lower is better)
 	L"",
@@ -1740,7 +1740,7 @@ STR16 sFacilitiesStrings[] =
 {
 	L"Нет",	//важные объекты сектора
 	L"Госпиталь",
-	L"Factory",	// TODO.Translate
+	L"Завод",	//Factory
 	L"Тюрьма",
 	L"Военная база",
 	L"Аэропорт",
@@ -1771,7 +1771,7 @@ STR16 pwTownInfoStrings[] =
 	L"Уровень", 					// the training level of civilians in this town
 	L"Тренировка ополчения",				// 10 // state of civilian training in town
 	L"Ополчение", 					// the state of the trained civilians in the town
-	L"Mobile Training",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town	// TODO.Translate
+	L"Тренинг мобильных групп",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town	//Mobile Training
 };
 
 // Mine strings
@@ -2075,8 +2075,8 @@ STR16 pTransactionText[] =
 	L"%s продал вам вещи.",	//is used for the Shop keeper interface.  The dealers name will be appended to the end of the string.
 	L"%s кладет наличные на счет.",
 	L"Снаряжение продано населению",
-	L"Facility Use", // HEADROCK HAM 3.6		// TODO.Translate
-	L"Militia upkeep", // HEADROCK HAM 3.6		// TODO.Translate
+	L"Оснащение персонала", // HEADROCK HAM 3.6		//Facility Use
+	L"Содержание ополчения", // HEADROCK HAM 3.6		//Militia upkeep
 };
 
 STR16 pTransactionAlternateText[] =
@@ -3651,10 +3651,10 @@ STR16 pMilitiaConfirmStrings[] =
 	L"У вас нет $%d, чтобы приступить к тренировке ополчения.",
 	L"%s: Требуется не менее %d процентов лояльности, чтобы продолжить тренировку ополчения.",
 	L"Больше вы не можете тренировать ополчение в %s.",
-	L"You cannot afford the $%d to train mobile militia here.", // HEADROCK HAM 3.6: Mobile Militia		// TODO.Translate
-	L"Continue training mobile militia in %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia				// TODO.Translate
-	L"Training mobile militia in %d sectors will cost $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia	// TODO.Translate
-	L"Training a squad of mobile militia will cost $", // HEADROCK HAM 3.6: Mobile Militia				// TODO.Translate
+	L"У вас нет $%d чтобы натренировать здесь мобильное подразделение.", // HEADROCK HAM 3.6: Mobile Militia		//You cannot afford the $%d to train mobile militia here.
+	L"Продолжить тренировку мобильного подразделения в %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia	//Continue training mobile militia in %s (%s %d)?
+	L"Тренировка мобильного подразделения в секторе %d обойдётся в $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia	//Training mobile militia in %d sectors will cost $ %d. %s
+	L"Тренировка мобильного подразделения ополченцев обойдётся в $", // HEADROCK HAM 3.6: Mobile Militia	//Training a squad of mobile militia will cost $
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
@@ -4435,7 +4435,7 @@ STR16 gzLateLocalizedString[] =
 
 	//46-48
 	L"%s: отвалилась ствольная насадка!",
-	L"No more than %d militia trainers are permitted in this sector.",		// TODO.Translate
+	L"В этом секторе ополченцев могут тренировать не более %d человек.",	//No more than %d militia trainers are permitted in this sector.
   L"Вы уверены?",
 
 	//49-50
@@ -4474,7 +4474,7 @@ STR16 gzLateLocalizedString[] =
 
 STR16 gzCWStrings[] = 
 {
-	L"Call reinforcements to %s from adjacent sectors?",		// TODO.Translate
+	L"Вызвать подкрепление из соседних секторов для %s?",
 };
 
 // WANNE: Tooltips
@@ -4555,12 +4555,12 @@ STR16 New113Message[] =
 STR16 New113HAMMessage[] = 
 {
 	// 0 - 5
-	L"%s cowers in fear!",
-	L"%s is pinned down!",
-	L"%s fires more rounds than intended!",
-	L"You cannot train militia in this sector.",
-	L"Militia picks up %s.",
-	L"Cannot train militia with enemies present!", 
+	L"%s приседает от испуга!",	//%s cowers in fear!
+	L"%s в оцепенении!",	//%s is pinned down!
+	L"%s выпускает больше пуль, чем собирался!",	//%s fires more rounds than intended!
+	L"Вы не можете тренировать ополчение в этом секторе.",	//You cannot train militia in this sector.
+	L"Ополченец подобрал %s.",	//Militia picks up %s.
+	L"Невозможно тренировать ополчение когда в секторе враг!",	//Cannot train militia with enemies present!
 	// 6 - 10
 	L"%s lacks sufficient Leadership score to train militia.",
 	L"No more than %d Mobile Militia trainers are permitted in this sector.",
@@ -4726,7 +4726,7 @@ STR16 MPClientMessage[] =
 	L"Нажмите 'Готов' для входа на тактическую карту.",	//Press 'Ready' to enter tactical screen.
 	L"Не удаётся подключиться. Версия вашего клиента (%S) отличается от версии сервера (%S).",	//Cannot connect because your version %S is different from the server version %S.
 	L"Вы убили вражеского солдата.",	//You killed an enemy soldier
-	L"Cannot start the game, because all teams are the same.",
+	L"Нельзя запустить игру потому что все команды одинаковые.",	//Cannot start the game, because all teams are the same.
 };
 
 STR16 MPHelp[] =
@@ -4867,7 +4867,7 @@ STR16 gzIMPColorChoosingText[] =
 	L"I.M.P. Расцветка",	//I.M.P. Colors
 	L"Выберите соответствующие цвета вашей кожи, волос и одежды, а так же укажите ваше телосложение.",	//Please select the respective colors of your skin, hair and clothing. And select what body type you have.
 	L"Выберите соответствующие цвета вашей кожи, волос и одежды.",	//Please select the respective colors of your skin, hair and clothing.
-	L"Поставьте крестик здесь чтобы ваш \nперсонаж не держал автомат одной рукой.",	//Toggle this to use alternative rifle holding
+	L"Отметьте здесь чтобы ваш персонаж \nдержал автомат одной рукой.",	//Toggle this to use alternative rifle holding
 };
 
 STR16 sColorChoiceExplanationTexts[]=
