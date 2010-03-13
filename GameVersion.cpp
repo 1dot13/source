@@ -32,7 +32,7 @@ CHAR16 zVersionLabel[256]		= { L"Beta v. 0.98" };
 
 #endif
 										
-CHAR8		czVersionNumber[16]	= { "Build 10.03.07" };		//YY.MM.DD
+CHAR8		czVersionNumber[16]	= { "Build 10.03.13" };		//YY.MM.DD
 CHAR16		zTrackingNumber[16]	= { L"Z" };
 	
 

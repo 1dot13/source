@@ -57,11 +57,18 @@ void InitJA2SplashScreen()
 			memset( &VSurfaceDesc, 0, sizeof( VSURFACE_DESC ) );
 			VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
 			GetMLGFilename( VSurfaceDesc.ImageFile, MLG_SPLASH );
-			if( !AddVideoSurface( &VSurfaceDesc, &uiLogoID ) )
-			{
-				AssertMsg( 0, String( "Failed to load %s", VSurfaceDesc.ImageFile ) );
-				return;
-			}
+	try
+	{
+		if( !AddVideoSurface( &VSurfaceDesc, &uiLogoID ) )
+		{
+			AssertMsg( 0, String( "Failed to load %s", VSurfaceDesc.ImageFile ) );
+			return;
+		}
+	}
+	catch(CBasicException &ex)
+	{
+		RETHROWEXCEPTION(L"Failed loading splash screen", &ex);
+	}
 
 			GetVideoSurface( &hVSurface, uiLogoID );
 			BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, iScreenWidthOffset, iScreenHeightOffset, 0, NULL );
