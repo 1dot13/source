@@ -4499,6 +4499,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	//now change the savegame format so that temp files are saved and loaded correctly
 	guiCurrentSaveGameVersion = SAVE_GAME_VERSION;
+
 	return( TRUE );
 }
 
@@ -5368,51 +5369,60 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 	// Check that the team lists match what we expect given the .ini settings
 
 	// WANNE: In a MP game the merc counts are different than in a SP game, so disable check in a MP game
-	if (!is_networked)
-	{
-		int cntFromFile = gTacticalStatus.Team[ OUR_TEAM ].bLastID - gTacticalStatus.Team[ OUR_TEAM ].bFirstID + 1;
-		int cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles;
-		if (cntFromFile != cntFromIni) {
-			CHAR16 errorMessage[512];
-			swprintf(errorMessage, L"Internal error in reading mercenary/vehicle slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
-			DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
-			return FALSE;
-		}
+	if (!is_networked) {
+		AssertEQ(OUR_TEAM,0);
+		AssertEQ(OUR_TEAM+1,ENEMY_TEAM);
+		AssertEQ(ENEMY_TEAM+1,CREATURE_TEAM);
+		AssertEQ(CREATURE_TEAM+1,MILITIA_TEAM);
+		AssertEQ(MILITIA_TEAM+1,CIV_TEAM);
 
-		cntFromFile = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID - gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID + 1;
-		cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
-		if (cntFromFile != cntFromIni) {
-			CHAR16 errorMessage[512];
-			swprintf(errorMessage, L"Internal error in reading enemy slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
-			DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
-			return FALSE;
+		int cntFromFile[CIV_TEAM+1];
+		for (int idx = OUR_TEAM; idx <= CIV_TEAM; ++idx) {
+			cntFromFile[ idx ] = gTacticalStatus.Team[ idx ].bLastID - gTacticalStatus.Team[ idx ].bFirstID + 1;
 		}
+		int cntFromIni[] = {gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles,
+									  gGameExternalOptions.ubGameMaximumNumberOfEnemies, gGameExternalOptions.ubGameMaximumNumberOfCreatures,
+									  gGameExternalOptions.ubGameMaximumNumberOfRebels, gGameExternalOptions.ubGameMaximumNumberOfCivilians};
+		CHAR16 *errMsgTxt[] = {L"mercenary/vehicle", L"enemy", L"creature", L"militia", L"civilian"};
 
-		cntFromFile = gTacticalStatus.Team[ CREATURE_TEAM ].bLastID - gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID + 1;
-		cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfCreatures;
-		if (cntFromFile != cntFromIni) {
+		bool needToRejigger = false;
+		for (int idx = OUR_TEAM; idx <= CIV_TEAM; ++idx) {
+			if ((cntFromFile[ idx ] > cntFromIni[ idx ]) || ((cntFromFile[ idx ] < cntFromIni[ idx ]) && (idx == OUR_TEAM))) {
 			CHAR16 errorMessage[512];
-			swprintf(errorMessage, L"Internal error in reading creature slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
+				swprintf(errorMessage, L"Internal error in reading %s slots from save file: number of slots in save file (%d) differs from .ini setting (%d)", errMsgTxt [ idx ], cntFromFile[ idx ], cntFromIni[ idx ]);
 			DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
 			return FALSE;
+			} else if (cntFromFile[ idx ] < cntFromIni[ idx ]) {
+				needToRejigger = true;
 		}
-
-		cntFromFile = gTacticalStatus.Team[ MILITIA_TEAM ].bLastID - gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID + 1;
-		cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfRebels;
-		if (cntFromFile != cntFromIni) {
-			CHAR16 errorMessage[512];
-			swprintf(errorMessage, L"Internal error in reading militia slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
-			DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
-			return FALSE;
 		}
-
-		cntFromFile = gTacticalStatus.Team[ CIV_TEAM ].bLastID - gTacticalStatus.Team[ CIV_TEAM ].bFirstID + 1;
-		cntFromIni = gGameExternalOptions.ubGameMaximumNumberOfCivilians;
-		if (cntFromFile != cntFromIni) {
-			CHAR16 errorMessage[512];
-			swprintf(errorMessage, L"Internal error in reading civilian slots from save file: number of slots in save file (%d) differs from number of slots in .ini (%d)", cntFromFile, cntFromIni);
-			DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
-			return FALSE;
+		if (needToRejigger) {
+			// The .ini file asked for more slots than were in the save file, so expand the slots
+			for (int teamIdx = OUR_TEAM; teamIdx <= CIV_TEAM; ++teamIdx) {
+				unsigned max = 0;
+				switch (teamIdx) {
+					case OUR_TEAM:
+						max = gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles;
+						break;
+					case ENEMY_TEAM:
+						max = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
+						break;
+					case CREATURE_TEAM:
+						max = gGameExternalOptions.ubGameMaximumNumberOfCreatures;
+						break;
+					case MILITIA_TEAM:
+						max = gGameExternalOptions.ubGameMaximumNumberOfRebels;
+						break;
+					case CIV_TEAM:
+						max = gGameExternalOptions.ubGameMaximumNumberOfCivilians;
+						break;
+					// Don't worry about the others
+					default:
+						//
+						break;
+				}
+				gTacticalStatus.Team[ teamIdx ].bLastID = gTacticalStatus.Team[ teamIdx ].bFirstID + max - 1;
+			}
 		}
 	}
 
