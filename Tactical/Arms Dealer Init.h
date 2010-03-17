@@ -145,6 +145,18 @@ typedef struct
 	UINT8		ubTypeOfArmsDealer;			// Whether he buys/sells, sells, buys, or repairs
 	INT32		iInitialCash;						// How much cash dealer starts with (we now reset to this amount once / day)
 	UINT32	uiFlags;								// various flags which control the dealer's operations
+
+	UINT32		dailyIncrement;
+	UINT32		dailyMaximum;
+	UINT32		dailyRetained;			// %
+	UINT32		minCoolness;			// 0-10
+	UINT32		maxCoolness;			// 0-10
+	UINT32		addToCoolness;			// 0-10
+	UINT32		coolnessProgressRate;	// %
+	UINT32		daysDelayMin;			// 1-10
+	UINT32		daysDelayMax;			// 1-10
+	bool		useBRSetting;
+	bool		allInventoryAlwaysAvailable;
 } ARMS_DEALER_INFO;
 
 
@@ -287,7 +299,8 @@ typedef std::list<DEALER_SPECIAL_ITEM> DealerItemList;
 extern std::vector<DealerItemList>	gArmsDealersInventory;
 void OrderDealerItems(int armsDealer, int usItem, int numItems, int arrivalDay);
 
-extern ARMS_DEALER_INFO			ArmsDealerInfo[ NUM_ARMS_DEALERS ];
+extern const ARMS_DEALER_INFO	DefaultarmsDealerInfo[ NUM_ARMS_DEALERS ];
+extern std::vector<ARMS_DEALER_INFO>	armsDealerInfo;
 extern ARMS_DEALER_STATUS		gArmsDealerStatus[ NUM_ARMS_DEALERS ];
 
 

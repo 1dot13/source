@@ -35,40 +35,41 @@ UINT8 gubLastSpecialItemAddedAtElement = 255;
 
 // THIS STRUCTURE HAS UNCHANGING INFO THAT DOESN'T GET SAVED/RESTORED/RESET
 // TODO: externalize
-ARMS_DEALER_INFO	ArmsDealerInfo[ NUM_ARMS_DEALERS ] =
+const ARMS_DEALER_INFO	DefaultarmsDealerInfo[ NUM_ARMS_DEALERS ] =
 {
 									//Buying		Selling	Merc ID#	Type									Initial						Flags
 									//Price			Price							Of											Cash
 									//Modifier	Modifier					Dealer
 
-/* Tony	*/					{ 0.75f,	1.25f,	TONY,			ARMS_DEALER_BUYS_SELLS, 15000,	ARMS_DEALER_SOME_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE	},
-/* Franz Hinkle */	{ 1.0f,		1.5f,		FRANZ,		ARMS_DEALER_BUYS_SELLS,	5000,	ARMS_DEALER_SOME_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE	},
-/* Keith Hemps */		{ 0.75f,	1.0f,		KEITH,		ARMS_DEALER_BUYS_SELLS,	1500,	ARMS_DEALER_ONLY_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE	},
-/* Jake Cameron */	{ 0.8f,		1.1f,		JAKE,			ARMS_DEALER_BUYS_SELLS,	2500,	ARMS_DEALER_ONLY_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE	},
-/* Gabby Mulnick*/	{ 1.0f,		1.0f,		GABBY,		ARMS_DEALER_BUYS_SELLS,	3000,	ARMS_DEALER_GIVES_CHANGE																},
+/* Tony	*/			{ 0.75f,	1.25f,	TONY,		ARMS_DEALER_BUYS_SELLS, 15000,	ARMS_DEALER_SOME_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE, 15000, 15000, 0, 1, 10, 1, 10, 2, 3, false, false },
+/* Franz Hinkle */	{ 1.0f,		1.5f,	FRANZ,		ARMS_DEALER_BUYS_SELLS,	5000,	ARMS_DEALER_SOME_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE, 5000,  5000,  0, 1, 10, 0, 100, 1, 2, false, true },
+/* Keith Hemps */	{ 0.75f,	1.0f,	KEITH,		ARMS_DEALER_BUYS_SELLS,	1500,	ARMS_DEALER_ONLY_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE, 1500,  1500,  0, 1, 10, 0, 100, 1, 2, false, true },
+/* Jake Cameron */	{ 0.8f,		1.1f,	JAKE,		ARMS_DEALER_BUYS_SELLS,	2500,	ARMS_DEALER_ONLY_USED_ITEMS | ARMS_DEALER_GIVES_CHANGE, 2500,  2500,  0, 1, 10, 0, 100, 1, 2, false, true },
+/* Gabby Mulnick*/	{ 1.0f,		1.0f,	GABBY,		ARMS_DEALER_BUYS_SELLS,	3000,	ARMS_DEALER_GIVES_CHANGE							,	3000,  3000,  0, 1, 10, 0, 100, 1, 2, false, true },
 
-/* Devin Connell*/	{ 0.75f,	1.25f,	DEVIN,		ARMS_DEALER_SELLS_ONLY,	5000,	ARMS_DEALER_GIVES_CHANGE																},
-/* Howard Filmore*/	{ 1.0f,		1.0f,		HOWARD,		ARMS_DEALER_SELLS_ONLY,	3000,	ARMS_DEALER_GIVES_CHANGE																},
-/* Sam Rozen */			{ 1.0f,		1.0f,		SAM,			ARMS_DEALER_SELLS_ONLY,	3000,	ARMS_DEALER_GIVES_CHANGE																},
-/* Frank */					{ 1.0f,		1.0f,		FRANK,		ARMS_DEALER_SELLS_ONLY,	500,	ARMS_DEALER_ACCEPTS_GIFTS																},
+/* Devin Connell*/	{ 0.75f,	1.25f,	DEVIN,		ARMS_DEALER_SELLS_ONLY,	5000,	ARMS_DEALER_GIVES_CHANGE							,	5000,  5000,  0, 3, 10, 0, 10, 2, 3, false, false },
+/* Howard Filmore*/	{ 1.0f,		1.0f,	HOWARD,		ARMS_DEALER_SELLS_ONLY,	3000,	ARMS_DEALER_GIVES_CHANGE							,	3000,  3000,  0, 1, 10, 0, 100, 1, 2, false, true },
+/* Sam Rozen */		{ 1.0f,		1.0f,	SAM,		ARMS_DEALER_SELLS_ONLY,	3000,	ARMS_DEALER_GIVES_CHANGE							,	3000,  3000,  0, 1, 10, 0, 100, 1, 2, false, true },
+/* Frank */			{ 1.0f,		1.0f,	FRANK,		ARMS_DEALER_SELLS_ONLY,	500,	ARMS_DEALER_ACCEPTS_GIFTS							,	500,   500,   0, 1, 10, 0, 100, 1, 2, false, true },
 
-/* Bar Bro 1 */			{ 1.0f,		1.0f,		HERVE,		ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS																},
-/* Bar Bro 2 */			{ 1.0f,		1.0f,		PETER,		ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS																},
-/* Bar Bro 3 */			{ 1.0f,		1.0f,		ALBERTO,	ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS																},
-/* Bar Bro 4 */			{ 1.0f,		1.0f,		CARLO,		ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS																},
+/* Bar Bro 1 */		{ 1.0f,		1.0f,	HERVE,		ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS							,	250,   250,   0, 1, 10, 0, 100, 1, 2, false, true },
+/* Bar Bro 2 */		{ 1.0f,		1.0f,	PETER,		ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS							,	250,   250,   0, 1, 10, 0, 100, 1, 2, false, true },
+/* Bar Bro 3 */		{ 1.0f,		1.0f,	ALBERTO,	ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS							,	250,   250,   0, 1, 10, 0, 100, 1, 2, false, true },
+/* Bar Bro 4 */		{ 1.0f,		1.0f,	CARLO,		ARMS_DEALER_SELLS_ONLY,	250,	ARMS_DEALER_ACCEPTS_GIFTS							,	250,   250,   0, 1, 10, 0, 100, 1, 2, false, true },
 
-/* Micky O'Brien*/	{ 1.0f,		1.4f,		MICKY,		ARMS_DEALER_BUYS_ONLY, 10000,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE },
+/* Micky O'Brien*/	{ 1.0f,		1.4f,	MICKY,		ARMS_DEALER_BUYS_ONLY, 10000,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE,	10000, 10000, 0, 1, 10, 1, 10, 1, 2, false, true },
 
 										//Repair	Repair
 										//Speed		Cost
-/* Arnie Brunzwell*/{ 0.1f,		0.8f,		ARNIE,		ARMS_DEALER_REPAIRS,		1500,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE	},
-/* Fredo */					{ 0.6f,		0.6f,		FREDO,		ARMS_DEALER_REPAIRS,		1000,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE },
-/* Perko */					{ 1.0f,		0.4f,	PERKO,		ARMS_DEALER_REPAIRS,		1000,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE },
+/* Arnie Brunzwell*/{ 0.1f,		0.8f,	ARNIE,		ARMS_DEALER_REPAIRS,	1500,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE,	1500, 1500, 0, 1, 10, 1, 10, 1, 2, false, true },
+/* Fredo */			{ 0.6f,		0.6f,	FREDO,		ARMS_DEALER_REPAIRS,	1000,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE,	1000, 1000, 0, 1, 10, 1, 10, 1, 2, false, true },
+/* Perko */			{ 1.0f,		0.4f,	PERKO,		ARMS_DEALER_REPAIRS,	1000,	ARMS_DEALER_HAS_NO_INVENTORY | ARMS_DEALER_GIVES_CHANGE,	1000, 1000, 0, 1, 10, 1, 10, 1, 2, false, true },
 
-/* Elgin */					{ 1.0f,		1.0f,	DRUGGIST,	ARMS_DEALER_SELLS_ONLY,	500,	ARMS_DEALER_ACCEPTS_GIFTS																},
-/* Manny */					{ 1.0f,		1.0f,	MANNY,		ARMS_DEALER_SELLS_ONLY,	500,	ARMS_DEALER_ACCEPTS_GIFTS																},
+/* Elgin */			{ 1.0f,		1.0f,	DRUGGIST,	ARMS_DEALER_SELLS_ONLY,	500,	ARMS_DEALER_ACCEPTS_GIFTS							,	500,   500,   0, 1, 10, 1, 10, 1, 2, false, true },
+/* Manny */			{ 1.0f,		1.0f,	MANNY,		ARMS_DEALER_SELLS_ONLY,	500,	ARMS_DEALER_ACCEPTS_GIFTS							,	500,   500,   0, 1, 10, 1, 10, 1, 2, false, true },
 
 };
+std::vector<ARMS_DEALER_INFO>	armsDealerInfo (NUM_ARMS_DEALERS);
 
 
 // THESE GET SAVED/RESTORED/RESET
@@ -146,6 +147,7 @@ void InitAllArmsDealers()
 	UINT8		ubArmsDealer;
 
 	ShutDownArmsDealers();
+
 	//Initialize the initial status & inventory for each of the arms dealers
 	for( ubArmsDealer = 0; ubArmsDealer < NUM_ARMS_DEALERS; ubArmsDealer++ )
 	{
@@ -167,10 +169,10 @@ void InitializeOneArmsDealer( UINT8 ubArmsDealer )
 	gArmsDealersInventory.resize(gArmsDealersInventory.size() + 1);
 
 	//Reset the arms dealers cash on hand to the default initial value
-	gArmsDealerStatus[ ubArmsDealer ].uiArmsDealersCash = ArmsDealerInfo[ ubArmsDealer ].iInitialCash;
+	gArmsDealerStatus[ ubArmsDealer ].uiArmsDealersCash = armsDealerInfo[ ubArmsDealer ].iInitialCash;
 
 	//if the arms dealer isn't supposed to have any items (includes all repairmen)
-	if( ArmsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_HAS_NO_INVENTORY )
+	if( armsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_HAS_NO_INVENTORY )
 	{
 		return;
 	}
@@ -305,7 +307,7 @@ void SimulateArmsDealerCustomer()
 			continue;
 
 		//if the arms dealer isn't supposed to have any items (includes all repairmen)
-		if( ArmsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_HAS_NO_INVENTORY )
+		if( armsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_HAS_NO_INVENTORY )
 			continue;
 
 		memset (&numPerfectItems, 0, sizeof(numPerfectItems));
@@ -380,10 +382,13 @@ void DailyCheckOnItemQuantities()
 			continue;
 
 		//Reset the arms dealers cash on hand to the default initial value
-		gArmsDealerStatus[ ubArmsDealer ].uiArmsDealersCash = ArmsDealerInfo[ ubArmsDealer ].iInitialCash;
+		gArmsDealerStatus[ ubArmsDealer ].uiArmsDealersCash = gArmsDealerStatus[ ubArmsDealer ].uiArmsDealersCash * armsDealerInfo[ ubArmsDealer ].dailyRetained / 100 +
+															  armsDealerInfo[ ubArmsDealer ].dailyIncrement;
+		if (gArmsDealerStatus[ ubArmsDealer ].uiArmsDealersCash > armsDealerInfo[ ubArmsDealer ].dailyMaximum)
+			gArmsDealerStatus[ ubArmsDealer ].uiArmsDealersCash = armsDealerInfo[ ubArmsDealer ].dailyMaximum;
 
 		//if the arms dealer isn't supposed to have any items (includes all repairmen)
-		if( ArmsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_HAS_NO_INVENTORY )
+		if( armsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_HAS_NO_INVENTORY )
 			continue;
 
 		int numTotalItems[MAXITEMS] = { 0 };
@@ -437,15 +442,7 @@ void DailyCheckOnItemQuantities()
 							}
 							else
 							{
-								if ( ( ubArmsDealer == ARMS_DEALER_TONY ) || ( ubArmsDealer == ARMS_DEALER_DEVIN ) )
-								{
-									// the stuff Tony and Devin sell is imported, so it takes longer to arrive (for game balance)
-									ubReorderDays = ( UINT8) ( 2 + Random( 2 ) );	// 2-3 days
-								}
-								else
-								{
-									ubReorderDays = ( UINT8) ( 1 + Random( 2 ) );	// 1-2 days
-								}
+								ubReorderDays = ( UINT8) ( armsDealerInfo[ ubArmsDealer ].daysDelayMin + Random( armsDealerInfo[ ubArmsDealer ].daysDelayMax - armsDealerInfo[ ubArmsDealer ].daysDelayMin ) );
 
 								//Determine when the inventory should arrive
 								uiArrivalDay = GetWorldDay() + ubReorderDays;	// consider changing this to minutes
@@ -1018,7 +1015,7 @@ BOOLEAN IsMercADealer( UINT8 ubMercID )
 	//loop through the list of arms dealers
 	for( cnt=0; cnt<NUM_ARMS_DEALERS; cnt++ )
 	{
-		if( ArmsDealerInfo[ cnt ].ubShopKeeperID == ubMercID )
+		if( armsDealerInfo[ cnt ].ubShopKeeperID == ubMercID )
 			return( TRUE );
 	}
 	return( FALSE );
@@ -1033,7 +1030,7 @@ INT8 GetArmsDealerIDFromMercID( UINT8 ubMercID )
 	//loop through the list of arms dealers
 	for( cnt=0; cnt<NUM_ARMS_DEALERS; cnt++ )
 	{
-		if( ArmsDealerInfo[ cnt ].ubShopKeeperID == ubMercID )
+		if( armsDealerInfo[ cnt ].ubShopKeeperID == ubMercID )
 			return( cnt );
 	}
 
@@ -1044,13 +1041,13 @@ INT8 GetArmsDealerIDFromMercID( UINT8 ubMercID )
 
 UINT8 GetTypeOfArmsDealer( UINT8	ubDealerID )
 {
-	return( ArmsDealerInfo[ ubDealerID ].ubTypeOfArmsDealer );
+	return( armsDealerInfo[ ubDealerID ].ubTypeOfArmsDealer );
 }
 
 
 BOOLEAN	DoesDealerDoRepairs( UINT8 ubArmsDealer )
 {
-	if( ArmsDealerInfo[ ubArmsDealer ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+	if( armsDealerInfo[ ubArmsDealer ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		return( TRUE );
 	else
 		return( FALSE );
@@ -1099,7 +1096,7 @@ BOOLEAN RepairmanIsFixingItemsButNoneAreDoneYet( UINT8 ubProfileID )
 
 BOOLEAN CanDealerTransactItem( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN fPurchaseFromPlayer )
 {
-	switch ( ArmsDealerInfo[ ubArmsDealer ].ubTypeOfArmsDealer )
+	switch ( armsDealerInfo[ ubArmsDealer ].ubTypeOfArmsDealer )
 	{
 		case ARMS_DEALER_SELLS_ONLY:
 			if ( fPurchaseFromPlayer )
@@ -1143,7 +1140,7 @@ BOOLEAN CanDealerTransactItem( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN f
 			return( CanDealerRepairItem( ubArmsDealer, usItemIndex ) );
 
 		default:
-			AssertMsg( FALSE, String( "CanDealerTransactItem(), type of dealer %d.	AM 0.", ArmsDealerInfo[ ubArmsDealer ].ubTypeOfArmsDealer ) );
+			AssertMsg( FALSE, String( "CanDealerTransactItem(), type of dealer %d.	AM 0.", armsDealerInfo[ ubArmsDealer ].ubTypeOfArmsDealer ) );
 			return(FALSE);
 	}
 
@@ -1237,8 +1234,8 @@ UINT8 DetermineDealerItemCondition( UINT8 ubArmsDealer, UINT16 usItemIndex )
 	if ( ( Item[ usItemIndex ].damageable ) && !ItemContainsLiquid( usItemIndex ) )
 	{
 		// if he ONLY has used items, or 50% of the time if he carries both used & new items
-		if ( ( ArmsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_ONLY_USED_ITEMS ) ||
-			( ( ArmsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_SOME_USED_ITEMS ) && ( Random( 100 ) < 50 ) ) )
+		if ( ( armsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_ONLY_USED_ITEMS ) ||
+			( ( armsDealerInfo[ ubArmsDealer ].uiFlags & ARMS_DEALER_SOME_USED_ITEMS ) && ( Random( 100 ) < 50 ) ) )
 		{
 			// make the item a used one
 			ubCondition = (UINT8)(20 + Random( 60 ));
@@ -1861,7 +1858,7 @@ UINT32 CalculateSimpleItemRepairTime( UINT8 ubArmsDealer, UINT16 usItemIndex, IN
 	// For a repairman, his BUY modifier controls his REPAIR SPEED (1.0 means minutes to repair = price in $)
 	// with a REPAIR SPEED of 1.0, typical gun price of $2000, and a REPAIR COST of 0.5 this works out to 16.6 hrs
 	//		for a full 100% status repair...	Not bad.
-	uiTimeToRepair = (UINT32)( uiRepairCost * ArmsDealerInfo[ ubArmsDealer ].dRepairSpeed );
+	uiTimeToRepair = (UINT32)( uiRepairCost * armsDealerInfo[ ubArmsDealer ].dRepairSpeed );
 
 	// repairs on electronic items take twice as long if the guy doesn't have the skill
 	// for dealers, this means anyone but Fredo the Electronics guy takes twice as long (but doesn't charge double)
@@ -1913,7 +1910,7 @@ UINT32 CalculateSimpleItemRepairCost( UINT8 ubArmsDealer, UINT16 usItemIndex, IN
 
 	// figure out the full value of the item, modified by this dealer's personal Sell (i.e. repair cost) modifier
 	// don't use CalcShopKeeperItemPrice - we want FULL value!!!
-	uiItemCost = (UINT32)(( Item[ usItemIndex ].usPrice * ArmsDealerInfo[ ubArmsDealer ].dRepairCost ) );
+	uiItemCost = (UINT32)(( Item[ usItemIndex ].usPrice * armsDealerInfo[ ubArmsDealer ].dRepairCost ) );
 
 	// get item's repair ease, for each + point is 10% easier, each - point is 10% harder to repair
 	sRepairCostAdj = 100 - ( 10 * Item[ usItemIndex ].bRepairEase );
@@ -2132,7 +2129,7 @@ BOOLEAN GetArmsDealerShopHours( UINT8 ubArmsDealer, UINT32 *puiOpeningTime, UINT
 {
 	SOLDIERTYPE *pSoldier;
 
-	pSoldier = FindSoldierByProfileID( ArmsDealerInfo[ ubArmsDealer ].ubShopKeeperID, FALSE );
+	pSoldier = FindSoldierByProfileID( armsDealerInfo[ ubArmsDealer ].ubShopKeeperID, FALSE );
 	if ( pSoldier == NULL )
 	{
 		return( FALSE );

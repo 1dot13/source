@@ -885,8 +885,10 @@ DEALER_POSSIBLE_INV *GetPointerToDealersPossibleInventory( UINT8 ubArmsDealerID 
 //Madd: added boolean fUsed
 UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEAN fUsed )
 {
-	UINT8 ubItemCoolness;
-	UINT8 ubMinCoolness, ubMaxCoolness;
+	unsigned ubItemCoolness;
+	unsigned ubMinCoolness, ubMaxCoolness;
+
+	const int bobbyRaysID = -1;
 
 
 	// item suitability varies with the player's maximum progress through the game.  The farther he gets, the better items
@@ -899,7 +901,6 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	}
 
 	// items normally not sold at shops are unsuitable
-//	if ( Item[ usItemIndex ].fFlags & ITEM_NOT_BUYABLE )
 	if ( Item[ usItemIndex ].notbuyable  )
 	{
 		return(ITEM_SUITABILITY_NONE);
@@ -915,25 +916,12 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	}
 
 	// the following staple items are always deemed highly suitable regardless of player's progress:
-	//switch (usItemIndex)
-	//{
-	//	case FIRSTAIDKIT:
-	//	case MEDICKIT:
-	//	case TOOLKIT:
-	//	case LOCKSMITHKIT:
-
-	//	case CANTEEN:
-	//	case CROWBAR:
-	//	case JAR:
-	//	case JAR_ELIXIR:
-	//	case JAR_CREATURE_BLOOD:
 		if ( Item[usItemIndex].medical || Item[usItemIndex].canteen || Item[usItemIndex].medicalkit || Item[usItemIndex].locksmithkit || Item[usItemIndex].toolkit || Item[usItemIndex].crowbar || Item[usItemIndex].jar )
 			return(ITEM_SUITABILITY_ALWAYS);
-	//}
 
 
 	// If it's not BobbyRay, Tony, or Devin
-	if ((bArmsDealer != -1) && (bArmsDealer != ARMS_DEALER_TONY) && (bArmsDealer != ARMS_DEALER_DEVIN))
+	if (bArmsDealer != bobbyRaysID && armsDealerInfo[bArmsDealer].allInventoryAlwaysAvailable)
 	{
 		// all the other dealers have very limited inventories, so their suitability remains constant at all times in game
 		return(ITEM_SUITABILITY_HIGH);
@@ -942,14 +930,15 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 
 	// figure out the appropriate range of coolness based on player's maximum progress so far
 
-	ubMinCoolness = HighestPlayerProgressPercentage() / 10;
-	ubMaxCoolness = ( HighestPlayerProgressPercentage() / 10 ) + 1;
 
-	if ( bArmsDealer == -1 )
+	if ( bArmsDealer == bobbyRaysID )
 		ubMinCoolness = 1;
+	else
+		ubMinCoolness = HighestPlayerProgressPercentage() * armsDealerInfo[bArmsDealer].coolnessProgressRate / 100;
+	ubMaxCoolness = ubMinCoolness + 1;
 
 	//Madd:  Bobby Ray's will sell higher coolness stuff if it's used, and may also have a better selection at the start of the game, depending on selection
-	if ( bArmsDealer == -1 && gGameOptions.ubBobbyRay > BR_GOOD )
+	if ( (bArmsDealer == bobbyRaysID || armsDealerInfo[bArmsDealer].useBRSetting) && gGameOptions.ubBobbyRay > BR_GOOD )
 	{
 		ubMaxCoolness += gGameOptions.ubBobbyRay - 1;
 		if (fUsed )
@@ -960,6 +949,13 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 
 	// WDS - Improve Tony's and Devin's inventory like BR's
 	// Tony has the better stuff sooner (than Bobby R's)
+	if (bArmsDealer >= 0) {
+		ubMinCoolness += armsDealerInfo[bArmsDealer].addToCoolness;
+		ubMaxCoolness += armsDealerInfo[bArmsDealer].addToCoolness;
+		ubMinCoolness = max( armsDealerInfo[bArmsDealer].minCoolness, min( 9, ubMinCoolness ) );
+		ubMaxCoolness = max( 2, min( armsDealerInfo[bArmsDealer].maxCoolness, ubMaxCoolness ) );
+	}
+	/*
 	if (bArmsDealer == ARMS_DEALER_TONY)
 	{
 		ubMinCoolness += 1;
@@ -984,12 +980,12 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 			ubMaxCoolness += gGameOptions.ubBobbyRay;
 		}
 	}
-
+    */
 
 	ubMinCoolness = max( 1, min( 9, ubMinCoolness ) );
 	ubMaxCoolness = max( 2, min( 10, ubMaxCoolness ) );
 
-	if ( bArmsDealer == -1 )
+	if ( bArmsDealer == bobbyRaysID )
 	{
 		//Madd: BR's always sells ammo for its guns
 		if (Item[usItemIndex].usItemClass == IC_AMMO && ubItemCoolness <= ubMaxCoolness )

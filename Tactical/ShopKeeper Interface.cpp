@@ -861,7 +861,7 @@ BOOLEAN EnterShopKeeperInterface()
 	//but if we are physically too far away, we don't have extended arms!
 
 	SOLDIERTYPE* pSoldier = MercPtrs[ gusSelectedSoldier ];
-	SOLDIERTYPE* pShopkeeper = FindSoldierByProfileID( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, FALSE );
+	SOLDIERTYPE* pShopkeeper = FindSoldierByProfileID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, FALSE );
 	if ( GetRangeFromGridNoDiff( pSoldier->sGridNo, pShopkeeper->sGridNo ) > NPC_TALK_RADIUS )
 	{
 		//so now we know we are too far away to trade, so instead of just quitting,
@@ -1069,7 +1069,7 @@ ATM:
 	SpecifyDisabledButtonStyle( guiSKI_TransactionButton, DISABLED_STYLE_HATCHED );
 
 	//if the dealer repairs, use the repair fast help text for the transaction button
-	if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+	if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		SetButtonFastHelpText( guiSKI_TransactionButton, SkiMessageBoxText[ SKI_REPAIR_TRANSACTION_BUTTON_HELP_TEXT ] );
 	else
 		SetButtonFastHelpText( guiSKI_TransactionButton, SkiMessageBoxText[ SKI_TRANSACTION_BUTTON_HELP_TEXT ] );
@@ -1132,7 +1132,7 @@ ATM:
 		PlayersOfferArea[x].initialize();
 	}
 
-	if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+	if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 	{
 		HandlePossibleRepairDelays();
 	}
@@ -1152,7 +1152,7 @@ ATM:
 	memset( &gfCommonQuoteUsedThisSession, FALSE, sizeof( gfCommonQuoteUsedThisSession ) );
 
 	//Init the shopkeepers face
-	InitShopKeepersFace( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID );
+	InitShopKeepersFace( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID );
 
 	gfDoneBusinessThisSession = FALSE;
 
@@ -1180,7 +1180,7 @@ ATM:
 		bool fAddedOK = false;
 		//if this is NOT a repair dealer or he is is but there is enough space in the player's offer area
 		// (you can't be out of space if it isn't a repairman, only they can fill it up with repaired items!)
-		if( ( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS ) ||
+		if( ( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS ) ||
 				( CountNumberOfItemsInThePlayersOfferArea( ) < SKI_NUM_ARMS_DEALERS_INV_SLOTS ) )
 		{
 			if ( OfferObjectToDealer( &(gItemToAdd.ItemObject), gpSMCurrentMerc->ubProfile, NO_SLOT ) )
@@ -1232,7 +1232,7 @@ ATM:
 
 BOOLEAN InitShopKeepersFace( UINT8 ubMercID )
 {
-	SOLDIERTYPE *pSoldier = FindSoldierByProfileID( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, FALSE );
+	SOLDIERTYPE *pSoldier = FindSoldierByProfileID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, FALSE );
 
 	if( pSoldier == NULL )
 	{
@@ -1505,7 +1505,7 @@ BOOLEAN RenderShopKeeperInterface()
 	DrawTextToScreen( SKI_Text[ SKI_TEXT_MERCHADISE_IN_STOCK ], SKI_MAIN_TITLE_X, SKI_MAIN_TITLE_Y, SKI_MAIN_TITLE_WIDTH, SKI_TITLE_FONT, SKI_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	//if the dealer repairs
-	if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+	if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 	{
 		//Display the Repair cost text
 		DisplayWrappedString( SKI_TOTAL_COST_X, SKI_TOTAL_COST_Y, SKI_TOTAL_COST_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_REPAIR_COST ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
@@ -1735,7 +1735,7 @@ void DisplayAllDealersCash()
 	for( bArmsDealer=0; bArmsDealer<NUM_ARMS_DEALERS; bArmsDealer++ )
 	{
 		//Display the shopkeeper's name
-		DrawTextToScreen( gMercProfiles[ ArmsDealerInfo[ bArmsDealer ].ubShopKeeperID ].zNickname, SCREEN_X_OFFSET + 540, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, SKI_TITLE_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
+		DrawTextToScreen( gMercProfiles[ armsDealerInfo[ bArmsDealer ].ubShopKeeperID ].zNickname, SCREEN_X_OFFSET + 540, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, SKI_TITLE_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
 
 		//Display the arms dealer cash on hand
 		swprintf( zTemp, L"%d", gArmsDealerStatus[ bArmsDealer ].uiArmsDealersCash );
@@ -1876,7 +1876,7 @@ void CreateSkiInventorySlotMouseRegions( )
 			MSYS_SetRegionUserData( &gDealersInventoryMouseRegions[ ubCnt ], 1, ARMS_DEALER_INVENTORY );
 
 			//if the dealer repairs
-			if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 			{
 				//Small Faces
 				MSYS_DefineRegion( &gRepairmanInventorySmallFaceMouseRegions[ ubCnt ], (UINT16)(usPosX+SKI_SMALL_FACE_OFFSET_X), (UINT16)(usPosY), (INT16)(usPosX + SKI_SMALL_FACE_OFFSET_X + SKI_SMALL_FACE_WIDTH), (INT16)(usPosY+ SKI_SMALL_FACE_HEIGHT), MSYS_PRIORITY_HIGH+1,
@@ -1908,7 +1908,7 @@ void CreateSkiInventorySlotMouseRegions( )
 
 
 			//if the dealer repairs
-			if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 			{
 				//Small Faces
 				MSYS_DefineRegion( &gDealersOfferSlotsSmallFaceMouseRegions[ ubCnt ], (UINT16)(usPosX+SKI_SMALL_FACE_OFFSET_X), (UINT16)(usPosY), (INT16)(usPosX + SKI_SMALL_FACE_OFFSET_X + SKI_SMALL_FACE_WIDTH), (INT16)(usPosY+ SKI_SMALL_FACE_HEIGHT), MSYS_PRIORITY_HIGH+1,
@@ -1941,7 +1941,7 @@ void CreateSkiInventorySlotMouseRegions( )
 			MSYS_SetRegionUserData( &gPlayersOfferSlotsMouseRegions[ ubCnt ], 0, ubCnt);
 /*
 			//if the dealer repairs
-			if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 			{
 				MSYS_SetRegionUserData( &gPlayersOfferSlotsSmallFaceMouseRegions[ ubCnt ], 1, PLAYERS_OFFER_AREA );
 			}
@@ -1972,7 +1972,7 @@ void DestroySkiInventorySlotMouseRegions( )
 		MSYS_RemoveRegion( &gDealersInventoryMouseRegions[ i ] );
 
 		//if the dealer repairs
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			MSYS_RemoveRegion( &gRepairmanInventorySmallFaceMouseRegions[ i ] );
 		}
@@ -1983,7 +1983,7 @@ void DestroySkiInventorySlotMouseRegions( )
 		MSYS_RemoveRegion( &gDealersOfferSlotsMouseRegions[ i ] );
 
 		//if the dealer repairs
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			MSYS_RemoveRegion( &gDealersOfferSlotsSmallFaceMouseRegions[ i ] );
 		}
@@ -2022,7 +2022,7 @@ void SelectDealersInventoryRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason 
 			if( !( gpTempDealersInventory[ ubSelectedInvSlot ].uiFlags & ARMS_INV_ITEM_SELECTED ) )
 			{
 				//if the dealer repairs
-				if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+				if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 				{
 					// ignore left clicks on items under repair.  Fully repaired items are moved out to player's slots automatically
 				}
@@ -2238,7 +2238,7 @@ void SelectDealersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 		if( ArmsDealerOfferArea[ ubSelectedInvSlot ].fActive )
 		{
 			//if the dealer repairs
-			if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 			{
 				// return item to player
 				RemoveRepairItemFromDealersOfferArea( ubSelectedInvSlot );
@@ -2269,13 +2269,13 @@ void SelectDealersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 		if( ArmsDealerOfferArea[ ubSelectedInvSlot ].fActive )
 		{
 			//if this is a repair dealer
-			if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 			{
 				//if we don't have an item, pick one up
 				if( gMoveingItem.sItemIndex == 0 )
 				{
 					//if the dealer is a repair dealer, allow the player to pick up the item
-					if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+					if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 					{
 						BeginSkiItemPointer( ARMS_DEALER_OFFER_AREA, ubSelectedInvSlot, FALSE );
 					}
@@ -2331,7 +2331,7 @@ void SelectDealersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 			if( gMoveingItem.sItemIndex > 0 )
 			{
 				// we'd better talking to a repairman, cursor is locked out of this area while full for non-repairmen!
-				Assert( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS );
+				Assert( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS );
 
 				//Drop the item into the current slot
 				AddInventoryToSkiLocation( &gMoveingItem, ubSelectedInvSlot, ARMS_DEALER_OFFER_AREA );
@@ -2610,10 +2610,10 @@ void DisplayArmsDealerCurrentInventoryPage( )
 					fDisplayHatchOnItem = TRUE;
 				}
 				//if the dealer repairs
-				else if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+				else if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 				{
 					//if the item is damaged
-					if( ArmsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_INV_ITEM_NOT_REPAIRED_YET )
+					if( armsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_INV_ITEM_NOT_REPAIRED_YET )
 						fDisplayHatchOnItem = TRUE;
 					else
 						fDisplayHatchOnItem = FALSE;
@@ -2644,7 +2644,7 @@ void DisplayArmsDealerCurrentInventoryPage( )
 					SetSkiRegionHelpText( &gpTempDealersInventory[ usCnt ], &gDealersInventoryMouseRegions[sItemCount], ARMS_DEALER_INVENTORY );
 
 					//if the dealer repairs
-					if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+					if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 					{
 						SetSkiFaceRegionHelpText( &gpTempDealersInventory[ usCnt ], &gRepairmanInventorySmallFaceMouseRegions[sItemCount], ARMS_DEALER_INVENTORY );
 					}
@@ -2672,7 +2672,7 @@ void DisplayArmsDealerCurrentInventoryPage( )
 			SetSkiRegionHelpText( NULL, &gDealersInventoryMouseRegions[ sItemCount ], ARMS_DEALER_INVENTORY );
 
 			//if the dealer repairs
-			if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 			{
 				SetSkiFaceRegionHelpText( NULL, &gRepairmanInventorySmallFaceMouseRegions[ sItemCount ], ARMS_DEALER_INVENTORY );
 			}
@@ -2774,7 +2774,7 @@ UINT32 DisplayInvSlot( UINT8 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT1
 	}
 	else if( ubItemArea == ARMS_DEALER_INVENTORY )
 	{
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
 		{
 			if( fHatchedOut && pItemObject->exists() == false )
 			{
@@ -2783,7 +2783,7 @@ UINT32 DisplayInvSlot( UINT8 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT1
 			else
 			{
 				// show the UNIT price, not the total value of all if stacked
-				uiItemCost = CalcShopKeeperItemPrice( DEALER_SELLING, TRUE, usItemIndex, ArmsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier, pItemObject );
+				uiItemCost = CalcShopKeeperItemPrice( DEALER_SELLING, TRUE, usItemIndex, armsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier, pItemObject );
 			}
 		}
 		else // UNDER REPAIR
@@ -2806,7 +2806,7 @@ UINT32 DisplayInvSlot( UINT8 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT1
 	}
 	else		// DEALER'S OFFER AREA
 	{
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			//if the dealer repairs, there is an item here, therefore display the items owner's face
 			fDisplayMercFace = TRUE;
@@ -2815,7 +2815,7 @@ UINT32 DisplayInvSlot( UINT8 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT1
 			uiItemCost = CalculateObjectItemRepairCost( gbSelectedArmsDealerID, pItemObject );
 		}
 		else
-			uiItemCost = CalcShopKeeperItemPrice( DEALER_SELLING, FALSE, usItemIndex, ArmsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier, pItemObject );
+			uiItemCost = CalcShopKeeperItemPrice( DEALER_SELLING, FALSE, usItemIndex, armsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier, pItemObject );
 
 	}
 
@@ -2951,7 +2951,7 @@ BOOLEAN DetermineArmsDealersSellingInventory( )
 			if ( fAddSpecialItem == true )
 			{
 				UINT8 ubOwner;
-				if ( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
+				if ( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
 				{
 					// no merc is the owner
 					ubOwner = NO_PROFILE;
@@ -2980,7 +2980,7 @@ BOOLEAN DetermineArmsDealersSellingInventory( )
 
 	// repairmen sort differently from merchants
 	// sort this list by object category, and by ascending price within each category
-	if ( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+	if ( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 	{
 		std::sort(gpTempDealersInventory.begin(), gpTempDealersInventory.end(), RepairmanItemQsortCompare);//RepairmanItemQsortCompare
 	}
@@ -3608,7 +3608,7 @@ void DisplayPlayersOfferArea()
 			else	// not money
 			{
 				//if non-repairman
-				if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
+				if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
 				{
 					// don't evaluate anything he wouldn't buy!
 					if( WillShopKeeperRejectObjectsFromPlayer( gbSelectedArmsDealerID, ( INT8 ) sCnt ) == FALSE )
@@ -3718,10 +3718,10 @@ UINT32 CalculateTotalArmsDealerCost()
 		if( ArmsDealerOfferArea[ uiCnt ].fActive )
 		{
 			//if the dealer repairs
-			if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 				uiTotal += CalculateObjectItemRepairCost( gbSelectedArmsDealerID, &( ArmsDealerOfferArea[ uiCnt ].ItemObject ) );
 			else
-				uiTotal += CalcShopKeeperItemPrice( DEALER_SELLING, FALSE, ArmsDealerOfferArea[ uiCnt ].sItemIndex, ArmsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier, &ArmsDealerOfferArea[uiCnt].ItemObject );
+				uiTotal += CalcShopKeeperItemPrice( DEALER_SELLING, FALSE, ArmsDealerOfferArea[ uiCnt ].sItemIndex, armsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier, &ArmsDealerOfferArea[uiCnt].ItemObject );
 		}
 	}
 	return( uiTotal );
@@ -3770,18 +3770,18 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 		StartShopKeeperTalking( SK_QUOTES_DEALER_OFFERED_MONEY_AS_A_GIFT );
 
 		// if the arms dealer is the kind of person who accepts gifts
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_DEALER_ACCEPTS_GIFTS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_DEALER_ACCEPTS_GIFTS )
 		{
 			//Move all the players evaluated items to the dealer (also adds it to dealer's cash)
 			MovePlayerOfferedItemsOfValueToArmsDealersInventory();
 
-			DealerGetsBribed( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, uiMoneyInPlayersOfferArea );
+			DealerGetsBribed( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, uiMoneyInPlayersOfferArea );
 		}
 	}
 	else	// not a bribe
 	{
 		//if the dealer is not a repairman
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
 		{
 			uiAvailablePlayerOfferSlots = ( SKI_NUM_TRADING_INV_SLOTS - CountNumberOfValuelessItemsInThePlayersOfferArea( ) );
 
@@ -3842,7 +3842,7 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 
 
 		//if the dealer repairs
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			//Make sure there is enough money in the Player's offer area to cover the repair charge
 			if( ( uiMoneyFromPlayersAccount + uiMoneyInPlayersOfferArea ) >= uiArmsDealersItemsCost )
@@ -3851,7 +3851,7 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 				MovePlayerOfferedItemsOfValueToArmsDealersInventory();
 
 				//if the arms dealer is the type of person to give change
-				if( ArmsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_DEALER_GIVES_CHANGE )
+				if( armsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_DEALER_GIVES_CHANGE )
 				{
 					//determine the amount of change to give
 					iChangeToGiveToPlayer = ( uiMoneyFromPlayersAccount + uiMoneyInPlayersOfferArea ) - uiArmsDealersItemsCost;
@@ -3889,8 +3889,8 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 
 
 			//if the arms dealer buys stuff
-			if( ( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_BUYS_ONLY ) ||
-					( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_BUYS_SELLS ) )
+			if( ( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_BUYS_ONLY ) ||
+					( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_BUYS_SELLS ) )
 			{
 				// but the dealer can't afford this transaction
 				if( iChangeToGiveToPlayer > ( INT32 ) gArmsDealerStatus[ gbSelectedArmsDealerID ].uiArmsDealersCash )
@@ -3916,7 +3916,7 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 
 
 			//if the arms dealer is the type of person to give change
-			if( ArmsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_DEALER_GIVES_CHANGE )
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_DEALER_GIVES_CHANGE )
 			{
 				if( iChangeToGiveToPlayer > 0 )
 				{
@@ -4064,7 +4064,7 @@ void MovePlayerOfferedItemsOfValueToArmsDealersInventory()
 				else
 				{
 					//if the dealer doesn't strictly buy items from the player, give the item to the dealer
-					if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_BUYS_ONLY )
+					if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_BUYS_ONLY )
 					{
 						// item cease to be merc-owned during this operation
 						AddObjectToArmsDealerInventory( gbSelectedArmsDealerID, &( PlayersOfferArea[ uiCnt ].ItemObject ) );
@@ -4335,7 +4335,7 @@ void SetSkiCursor( UINT16	usCursor )
 			MSYS_ChangeRegionCursor( &gDealersOfferSlotsMouseRegions[ ubCnt], usCursor );
 
 			//if the dealer repairs
-			if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 			{
 				MSYS_ChangeRegionCursor( &gDealersOfferSlotsSmallFaceMouseRegions[ ubCnt], usCursor );
 			}
@@ -4378,7 +4378,7 @@ void SetSkiCursor( UINT16	usCursor )
 			MSYS_ChangeRegionCursor( &gDealersOfferSlotsMouseRegions[ ubCnt ], usCursor );
 
 			//if the dealer repairs
-			if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 			{
 				MSYS_ChangeRegionCursor( &gDealersOfferSlotsSmallFaceMouseRegions[ ubCnt ], usCursor );
 			}
@@ -4615,7 +4615,7 @@ void HandleShopKeeperDialog( UINT8 ubInit )
 				// first check if one of the situation warrants one of the more precise quotes
 
 				//if the dealer repairs
-				if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+				if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 				{
 					// if there are items in the arms dealer's offer area (must be awaiting repairs)
 					if ( CountNumberOfItemsInTheArmsDealersOfferArea() > 0)
@@ -4684,7 +4684,7 @@ BOOLEAN StartShopKeeperTalking( UINT16 usQuoteNum )
 	SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 3, usQuoteNum, 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
 
 	// post quote dialogue
-	fSuccess = CharacterDialogue( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, usQuoteNum, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI, FALSE, FALSE );
+	fSuccess = CharacterDialogue( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, usQuoteNum, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI, FALSE, FALSE );
 
 	// post event to mark shopkeeper dialogue as ended
 	SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 4, usQuoteNum, 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
@@ -5570,13 +5570,13 @@ void EnableDisableEvaluateAndTransactionButtons()
 					fItemEvaluated = TRUE;
 
 				//else if it is not a repair dealer, and the item is money
-				else if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS && Item[ PlayersOfferArea[ ubCnt ].sItemIndex ].usItemClass == IC_MONEY )
+				else if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS && Item[ PlayersOfferArea[ ubCnt ].sItemIndex ].usItemClass == IC_MONEY )
 					fItemEvaluated = TRUE;
 			}
 		}
 
 		//if the dealer is a repair dealer
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			//if there is an item here, the item has to have been evaluated
 			if( ArmsDealerOfferArea[ ubCnt ].fActive )
@@ -5616,7 +5616,7 @@ void EnableDisableEvaluateAndTransactionButtons()
 */
 
 		//If its a repair dealer, and there is no items in the Dealer Offer area,
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS &&
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS &&
 				CountNumberOfItemsInTheArmsDealersOfferArea( ) == 0 &&
 				uiPlayersOfferAreaTotalMoney < uiArmsDealerTotalCost
 			)
@@ -5665,7 +5665,7 @@ void EnableDisableEvaluateAndTransactionButtons()
 
 //ARM: Always permit trying bribes, even if they don't work on a given dealer!
 	// if the arms dealer is the kind of person who accepts gifts, and there is stuff to take
-//	if( ArmsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_DEALER_ACCEPTS_GIFTS )
+//	if( armsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_DEALER_ACCEPTS_GIFTS )
 	{
 		//if the player is giving the dealer money, without buying anything
 		if( IsMoneyTheOnlyItemInThePlayersOfferArea( ) && CountNumberOfItemsInTheArmsDealersOfferArea( ) == 0 )
@@ -5850,7 +5850,7 @@ void ClearArmsDealerOfferSlot( INT32 ubSlotToClear )
 	SetRegionFastHelpText( &gDealersOfferSlotsMouseRegions[ ubSlotToClear ], L"" );
 
 	//if the dealer repairs
-	if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+	if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 	{
 		SetRegionFastHelpText( &gDealersOfferSlotsSmallFaceMouseRegions[ ubSlotToClear ], L"" );
 	}
@@ -5906,7 +5906,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 	if( WillShopKeeperRejectObjectsFromPlayer( gbSelectedArmsDealerID, bSlotID ) == FALSE )
 	{
 		//if the dealer repairs
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			UINT32	uiNumberOfItemsInForRepairs = CountTotalItemsRepairDealerHasInForRepairs( gbSelectedArmsDealerID );
 			UINT32	uiNumberOfItemsAlreadyEvaluated = CountNumberOfItemsInTheArmsDealersOfferArea();
@@ -5997,7 +5997,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 	}
 	else	// dealer doesn't handle this type of object
 	{
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			// only otherwise repairable items count as actual rejections
 //			if ( Item[ PlayersOfferArea[ bSlotID ].sItemIndex ].fFlags & ITEM_REPAIRABLE )
@@ -6032,7 +6032,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 		switch ( uiEvalResult )
 		{
 			case EVAL_RESULT_DONT_HANDLE:
-				if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_SELLS_ONLY )
+				if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_SELLS_ONLY )
 				{
 					// then he doesn't have quotes 17, 19, or 20, always use 4.  Devin doesn't have 18 either,
 					// while the text of 18 seems wrong for Sam & Howard if offered something they should consider valuable.
@@ -6162,7 +6162,7 @@ void ConfirmToDeductMoneyFromPlayersAccountMessageBoxCallBack( UINT8 bExitValue 
 		//Perform the transaction with the extra money from the players account
 		PerformTransaction( iMoneyToDeduct );
 
-		AddTransactionToPlayersBook( PURCHASED_ITEM_FROM_DEALER, ArmsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, GetWorldTotalMin(), -iMoneyToDeduct );
+		AddTransactionToPlayersBook( PURCHASED_ITEM_FROM_DEALER, armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, GetWorldTotalMin(), -iMoneyToDeduct );
 	}
 
 	// done, re-enable calls to PerformTransaction()
@@ -6545,7 +6545,7 @@ BOOLEAN OfferObjectToDealer( OBJECTTYPE *pComplexObject, UINT8 ubOwnerProfileId,
 	BOOLEAN fSuccess = FALSE;
 
 
-	if ( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
+	if ( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
 	{
 		// if not actually doing repairs, there's no need to split objects up at all
 		if ( !AddObjectForEvaluation( pComplexObject, ubOwnerProfileId, bOwnerSlotId, TRUE ) )
@@ -6973,7 +6973,7 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 	Assert( pSoldier!= NULL );
 	Assert( gbSelectedArmsDealerID != -1 );
 
-	pShopkeeper = FindSoldierByProfileID( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, FALSE );
+	pShopkeeper = FindSoldierByProfileID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, FALSE );
 	Assert( pShopkeeper != NULL );
 	Assert( pShopkeeper->bActive );
 	Assert( pShopkeeper->bInSector );
@@ -7051,7 +7051,7 @@ void ExitSKIRequested()
 			fPlayerOwnedStuffOnTable = TRUE;
 		}
 
-		if( ( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS ) &&
+		if( ( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS ) &&
 				AreThereItemsInTheArmsDealersOfferArea( ) )
 		{
 			fPlayerOwnedStuffOnTable = TRUE;
@@ -7148,7 +7148,7 @@ void DealWithItemsStillOnTheTable()
 
 
 	//if the dealer repairs
-	if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+	if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 	{
 		//loop through the arms dealers' offer area and return any items there to the player
 		for( ubCnt = 0; ubCnt < SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
@@ -7462,21 +7462,21 @@ UINT32 EvaluateInvSlot( INVENTORY_IN_SLOT *pInvSlot )
 	if( gbSelectedArmsDealerID == ARMS_DEALER_MICKY )
 	{
 		INT16	sSoldierID;
-		sSoldierID = GetSoldierIDFromMercID( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID );
+		sSoldierID = GetSoldierIDFromMercID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID );
 		if( ( sSoldierID != -1 ) && ( GetDrunkLevel( &Menptr[ sSoldierID ] ) == DRUNK ) )
 		{
 			//Micky is DRUNK, pays more!
-			dPriceModifier = ArmsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier;
+			dPriceModifier = armsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier;
 		}
 		else
 		{
 			// Micky isn't drunk, charge regular price
-			dPriceModifier = ArmsDealerInfo[ gbSelectedArmsDealerID ].dBuyModifier;
+			dPriceModifier = armsDealerInfo[ gbSelectedArmsDealerID ].dBuyModifier;
 		}
 	}
 	else
 	{
-		dPriceModifier = ArmsDealerInfo[ gbSelectedArmsDealerID ].dBuyModifier;
+		dPriceModifier = armsDealerInfo[ gbSelectedArmsDealerID ].dBuyModifier;
 	}
 
 
@@ -7629,7 +7629,7 @@ void BuildItemHelpTextString( CHAR16 sString[], INVENTORY_IN_SLOT *pInv, UINT8 u
 
 		// add repair time for items in a repairman's offer area
 		if ( ( ubScreenArea == ARMS_DEALER_OFFER_AREA ) &&
-				 ( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS ) )
+				 ( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS ) )
 		{
 			BuildRepairTimeString( zRepairTime, CalculateObjectItemRepairTime( gbSelectedArmsDealerID, &( pInv->ItemObject ) ) );
 			swprintf( sString, L"%s\n(%s: %s)", zHelpText, gzLateLocalizedString[ 44 ], zRepairTime );
@@ -7656,7 +7656,7 @@ void DisableAllDealersInventorySlots( void )
 		MSYS_DisableRegion( &gDealersInventoryMouseRegions[ iCnt ] );
 
 		//if the dealer repairs
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			MSYS_DisableRegion( &gRepairmanInventorySmallFaceMouseRegions[ iCnt ] );
 		}
@@ -7673,7 +7673,7 @@ void EnableAllDealersInventorySlots( void )
 		MSYS_EnableRegion( &gDealersInventoryMouseRegions[ iCnt ] );
 
 		//if the dealer repairs
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			MSYS_EnableRegion( &gRepairmanInventorySmallFaceMouseRegions[ iCnt ] );
 		}
@@ -7691,7 +7691,7 @@ void DisableAllDealersOfferSlots( void )
 		MSYS_DisableRegion( &gDealersOfferSlotsMouseRegions[ iCnt ] );
 
 		//if the dealer repairs
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			MSYS_DisableRegion( &gDealersOfferSlotsSmallFaceMouseRegions[ iCnt ] );
 		}
@@ -7708,7 +7708,7 @@ void EnableAllDealersOfferSlots( void )
 		MSYS_EnableRegion( &gDealersOfferSlotsMouseRegions[ iCnt ] );
 
 		//if the dealer repairs
-		if( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			MSYS_EnableRegion( &gDealersOfferSlotsSmallFaceMouseRegions[ iCnt ] );
 		}
