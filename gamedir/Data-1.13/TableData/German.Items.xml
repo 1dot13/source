@@ -5140,7 +5140,7 @@
 		<szLongItemName>FN Browning HP-35 .40</szLongItemName>
 		<szItemDesc>Ursprünglich 1925 entworfen, wurde diese Pistole erst 1935 von Belgiens Armee in Dienst gestellt. Diese Version hat das Kaliber .40S&amp;W.</szItemDesc>
 		<szBRName>FN Browning HP-35 .40</szBRName>
-		<szBRDesc>Ursprünglich 1925 entworfen, wurde diese Pistole erst 1935 von Belgiens Armee in Dienst gestellt. Sie war die einzige Seitenwaffe die von beiden Seiten im 2. Weltkrieg eingesetzt wurde. Die neueste Variante der HP-35 wird heute vom belgischen Militär verwendet. Diese Version hat das Kaliber .40S&amp;W.</szBRDesc>
+		<szBRDesc>Ursprünglich 1925 entworfen, wurde diese Pistole erst 1935 von Belgiens Armee in Dienst gestellt. Die neueste Variante der HP-35 wird heute vom belgischen Militär verwendet. Diese Version hat das Kaliber .40S&amp;W.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>645</uiIndex>
@@ -8604,6 +8604,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1078</uiIndex>
+		<szItemName>Cx4 Storm</szItemName>
+		<szLongItemName>Beretta Cx4 Storm</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Beretta Cx4 Storm</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1079</uiIndex>

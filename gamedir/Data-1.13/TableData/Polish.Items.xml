@@ -8626,11 +8626,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1078</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1078</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Cx4 Storm</szItemName>
+		<szLongItemName>Beretta Cx4 Storm</szLongItemName>
+		<szItemDesc>The action of Beretta's Storm pistol inside a rifle stock.</szItemDesc>
+		<szBRName>Beretta Cx4 Storm</szBRName>
+		<szBRDesc>A futuristic looking rifle firing an unsurpassed pistol round, the .45ACP. This version has a magazine well that accepts hi-cap magazines.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1079</uiIndex>

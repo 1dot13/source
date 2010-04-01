@@ -4382,7 +4382,7 @@
 		<szLongItemName>.50 Action Express Mag</szLongItemName>
 		<szItemDesc>If you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szItemDesc>
 		<szBRName>.50 Action Express Mag</szBRName>
-		<szBRDesc>Magzine size, accuracy and controlability are a fair trade off for stopping power and coolness, right?  Because if you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
+		<szBRDesc>Magazine size, accuracy and controlability are a fair trade off for stopping power and coolness, right?  Because if you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>548</uiIndex>
@@ -4934,7 +4934,7 @@
 		<szLongItemName>AN-94 "Abakan"</szLongItemName>
 		<szItemDesc>The new AN-94 Abakan design enables the gun to "pulse", firing a very fast two bullet burst before the recoil affects the user.</szItemDesc>
 		<szBRName>AN-94 "Abakan"</szBRName>
-		<szBRDesc>Like father like son. This weapon was designed by the offspring of the immortal Mikhail Kalashnikov. Another leap forward in gun making, you can be sure to see it soon on a hijacked airliner near you.</szBRDesc>
+		<szBRDesc>This weapon was designed by Gennadiy Nikonov. Another leap forward in gun making, you can be sure to see it soon on a hijacked airliner near you.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>617</uiIndex>
@@ -5158,7 +5158,7 @@
 		<szLongItemName>FN Browning HP-35 .40</szLongItemName>
 		<szItemDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2. This one is chambered in .40S&amp;W.</szItemDesc>
 		<szBRName>FN Browning HP-35 .40</szBRName>
-		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.  The latest incarnation, the HP-35, is in use today in the Belgian Military. This one is chambered in .40S&amp;W.</szBRDesc>
+		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935. The latest incarnation, the HP-35, is in use today in the Belgian Military. This one is chambered in .40S&amp;W.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>645</uiIndex>
@@ -7318,7 +7318,7 @@
 		<szLongItemName>RPG-7</szLongItemName>
 		<szItemDesc>The Rocket Propelled Grenade, or RPG, is a cheap, single-shot weapon. It's main purpose to to provide an inexpensive albeit devastating weapon against soft targets.</szItemDesc>
 		<szBRName>RPG-7</szBRName>
-		<szBRDesc>The Rocket Propelled Grenade, or RPG, is a cheap, single-shot weapon. It's main purpose to to provide an inexpensive albeit devastating weapon against soft targets.</szBRDesc>
+		<szBRDesc>The Rocket Propelled Grenade, or RPG, is a cheap, single-shot weapon. It's main purpose is to provide an inexpensive albeit devastating weapon against soft targets.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>915</uiIndex>
@@ -8626,11 +8626,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1078</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1078</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Cx4 Storm</szItemName>
+		<szLongItemName>Beretta Cx4 Storm</szLongItemName>
+		<szItemDesc>The action of Beretta's Storm pistol inside a rifle stock.</szItemDesc>
+		<szBRName>Beretta Cx4 Storm</szBRName>
+		<szBRDesc>A futuristic looking rifle firing an unsurpassed pistol round, the .45ACP. This version has a magazine well that accepts hi-cap magazines.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1079</uiIndex>
@@ -9508,7 +9508,7 @@
 		<uiIndex>1188</uiIndex>
 		<szItemName>Ameli</szItemName>
 		<szLongItemName>CETME Ameli</szLongItemName>
-		<szItemDesc>Designed by the Compania de Estudios Tecnicus de Materiales Especiales, the Ameli looks as if it was derived from the MG42, but its mechanism is quite different.</szItemDesc>
+		<szItemDesc>Designed by the Compania de Estudios Técnicos de Materiales Especiales, the Ameli looks as if it was derived from the MG42, but its mechanism is quite different.</szItemDesc>
 		<szBRName>CETME Ameli</szBRName>
 		<szBRDesc>The Ameli we have in stock are the 'light-bolt'-versions with a higher rate of fire than the 'heavy-bolt'-model. Comes with bipod.</szBRDesc>
 	</ITEM>

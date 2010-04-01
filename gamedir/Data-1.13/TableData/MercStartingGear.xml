@@ -4962,25 +4962,25 @@
 		<mLeg>174</mLeg>
 		<mLegDrop>1</mLegDrop>
 		<mLegStatus>100</mLegStatus>
-		<mWeapon>55</mWeapon>
-		<mWeaponDrop>1</mWeaponDrop>
-		<mWeaponStatus>100</mWeaponStatus>
-		<mBig0>111</mBig0>
+		<mWeapon>0</mWeapon>
+		<mWeaponDrop>0</mWeaponDrop>
+		<mWeaponStatus>0</mWeaponStatus>
+		<mBig0>55</mBig0>
 		<mBig0Status>100</mBig0Status>
-		<mBig0Quantity>2</mBig0Quantity>
+		<mBig0Quantity>1</mBig0Quantity>
 		<mBig0Drop>1</mBig0Drop>
-		<mBig1>112</mBig1>
+		<mBig1>111</mBig1>
 		<mBig1Status>100</mBig1Status>
 		<mBig1Quantity>2</mBig1Quantity>
 		<mBig1Drop>1</mBig1Drop>
-		<mBig2>113</mBig2>
+		<mBig2>112</mBig2>
 		<mBig2Status>100</mBig2Status>
 		<mBig2Quantity>2</mBig2Quantity>
 		<mBig2Drop>1</mBig2Drop>
-		<mBig3>0</mBig3>
-		<mBig3Status>0</mBig3Status>
-		<mBig3Quantity>0</mBig3Quantity>
-		<mBig3Drop>0</mBig3Drop>
+		<mBig3>113</mBig3>
+		<mBig3Status>100</mBig3Status>
+		<mBig3Quantity>2</mBig3Quantity>
+		<mBig3Drop>1</mBig3Drop>
 		<mSmall0>0</mSmall0>
 		<mSmall0Status>0</mSmall0Status>
 		<mSmall0Quantity>0</mSmall0Quantity>
@@ -5226,17 +5226,17 @@
 		<mLeg>0</mLeg>
 		<mLegDrop>0</mLegDrop>
 		<mLegStatus>0</mLegStatus>
-		<mWeapon>36</mWeapon>
-		<mWeaponDrop>1</mWeaponDrop>
-		<mWeaponStatus>94</mWeaponStatus>
-		<mBig0>101</mBig0>
-		<mBig0Status>100</mBig0Status>
-		<mBig0Quantity>2</mBig0Quantity>
+		<mWeapon>0</mWeapon>
+		<mWeaponDrop>0</mWeaponDrop>
+		<mWeaponStatus>0</mWeaponStatus>
+		<mBig0>36</mBig0>
+		<mBig0Status>94</mBig0Status>
+		<mBig0Quantity>1</mBig0Quantity>
 		<mBig0Drop>1</mBig0Drop>
-		<mBig1>0</mBig1>
-		<mBig1Status>0</mBig1Status>
-		<mBig1Quantity>0</mBig1Quantity>
-		<mBig1Drop>0</mBig1Drop>
+		<mBig1>101</mBig1>
+		<mBig1Status>100</mBig1Status>
+		<mBig1Quantity>2</mBig1Quantity>
+		<mBig1Drop>1</mBig1Drop>
 		<mBig2>0</mBig2>
 		<mBig2Status>0</mBig2Status>
 		<mBig2Quantity>0</mBig2Quantity>
@@ -6018,17 +6018,17 @@
 		<mLeg>170</mLeg>
 		<mLegDrop>1</mLegDrop>
 		<mLegStatus>100</mLegStatus>
-		<mWeapon>20</mWeapon>
-		<mWeaponDrop>1</mWeaponDrop>
-		<mWeaponStatus>90</mWeaponStatus>
-		<mBig0>95</mBig0>
-		<mBig0Status>100</mBig0Status>
-		<mBig0Quantity>2</mBig0Quantity>
+		<mWeapon>0</mWeapon>
+		<mWeaponDrop>0</mWeaponDrop>
+		<mWeaponStatus>0</mWeaponStatus>
+		<mBig0>20</mBig0>
+		<mBig0Status>90</mBig0Status>
+		<mBig0Quantity>1</mBig0Quantity>
 		<mBig0Drop>1</mBig0Drop>
-		<mBig1>0</mBig1>
-		<mBig1Status>0</mBig1Status>
-		<mBig1Quantity>0</mBig1Quantity>
-		<mBig1Drop>0</mBig1Drop>
+		<mBig1>95</mBig1>
+		<mBig1Status>100</mBig1Status>
+		<mBig1Quantity>2</mBig1Quantity>
+		<mBig1Drop>1</mBig1Drop>
 		<mBig2>0</mBig2>
 		<mBig2Status>0</mBig2Status>
 		<mBig2Quantity>0</mBig2Quantity>
@@ -7734,17 +7734,17 @@
 		<mLeg>0</mLeg>
 		<mLegDrop>0</mLegDrop>
 		<mLegStatus>0</mLegStatus>
-		<mWeapon>12</mWeapon>
-		<mWeaponDrop>1</mWeaponDrop>
-		<mWeaponStatus>80</mWeaponStatus>
-		<mBig0>94</mBig0>
-		<mBig0Status>100</mBig0Status>
+		<mWeapon>0</mWeapon>
+		<mWeaponDrop>0</mWeaponDrop>
+		<mWeaponStatus>0</mWeaponStatus>
+		<mBig0>12</mBig0>
+		<mBig0Status>80</mBig0Status>
 		<mBig0Quantity>1</mBig0Quantity>
 		<mBig0Drop>1</mBig0Drop>
-		<mBig1>0</mBig1>
-		<mBig1Status>0</mBig1Status>
-		<mBig1Quantity>0</mBig1Quantity>
-		<mBig1Drop>0</mBig1Drop>
+		<mBig1>94</mBig1>
+		<mBig1Status>100</mBig1Status>
+		<mBig1Quantity>1</mBig1Quantity>
+		<mBig1Drop>1</mBig1Drop>
 		<mBig2>0</mBig2>
 		<mBig2Status>0</mBig2Status>
 		<mBig2Quantity>0</mBig2Quantity>
