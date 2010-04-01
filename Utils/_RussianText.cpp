@@ -635,8 +635,8 @@ STR16 pAssignMenuStrings[] =
 	L"Пациент", // the merc is receiving medical attention
 	L"Машина", // the merc is in a vehicle
 	L"Ремонт", // the merc is repairing items 
-	L"Обучение", // the merc is training //обучение
-	L"Укомплектация", // the merc is using/staffing a facility	//Facility
+	L"Обучение", // the merc is training
+	L"Удобства", // the merc is using/staffing a facility	//Facility
 	L"Отмена", // cancel this menu
 };
 
@@ -694,7 +694,7 @@ STR16 pTrainingMenuStrings[] =
 {
  L"Практика", // train yourself 
  L"Ополчение", // train the town 
- L"Мобильная группа",		//Mobile Militia
+ L"Мобил. группа",		//Mobile Militia
  L"Тренер", // train your teammates 
  L"Ученик",  // be trained by an instructor 
  L"Отмена", // cancel this menu
@@ -1759,17 +1759,17 @@ STR16 pMapPopUpInventoryText[] =
 
 STR16 pwTownInfoStrings[] =
 {
-	L"Размер",					// 0 // size of the town in sectors
+	L"Размер",					// size of the town in sectors
 	L"", 						// blank line, required
 	L"Контроль", 					// how much of town is controlled
 	L"Нет", 					// none of this town
 	L"Шахта города", 				// mine associated with this town
-	L"Лояльность",					// 5 // the loyalty level of this town
+	L"Лояльность",					// the loyalty level of this town
 	L"Готовы", 					// the forces in the town trained by the player
 	L"",
 	L"Важные объекты", 				// main facilities in this town
 	L"Уровень", 					// the training level of civilians in this town
-	L"Тренировка ополчения",				// 10 // state of civilian training in town
+	L"Тренировка ополчения",			// state of civilian training in town
 	L"Ополчение", 					// the state of the trained civilians in the town
 	L"Тренинг мобильных групп",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town	//Mobile Training
 };
@@ -4555,30 +4555,30 @@ STR16 New113Message[] =
 STR16 New113HAMMessage[] = 
 {
 	// 0 - 5
-	L"%s приседает от испуга!",	//%s cowers in fear!
+	L"%s съёжился от испуга!",	//%s cowers in fear!
 	L"%s в оцепенении!",	//%s is pinned down!
 	L"%s выпускает больше пуль, чем собирался!",	//%s fires more rounds than intended!
 	L"Вы не можете тренировать ополчение в этом секторе.",	//You cannot train militia in this sector.
 	L"Ополченец подобрал %s.",	//Militia picks up %s.
 	L"Невозможно тренировать ополчение когда в секторе враг!",	//Cannot train militia with enemies present!
 	// 6 - 10
-	L"%s lacks sufficient Leadership score to train militia.",
-	L"No more than %d Mobile Militia trainers are permitted in this sector.",
+	L"У %s недостаточно развито лидерство чтобы тренировать ополченцев.",	//%s lacks sufficient Leadership score to train militia.
+	L"В этом секторе не может быть тренеров мобильных групп больше %d.",	//No more than %d Mobile Militia trainers are permitted in this sector.
 	L"No room in %s or around it for new Mobile Militia!",
 	L"You need to have %d Town Militia in each of %s's liberated sectors before you can train Mobile Militia here.",
 	L"Can't staff a facility while enemies are present!",
 	// 11 - 15
 	L"%s lacks sufficient Wisdom to staff this facility.",
 	L"The %s is already fully-staffed.",
-	L"It will cost $%d per hour to staff this facility. Do you wish to continue?",
+	L"Один час услуг этого заведения обойдётся вам в $%d. Согласны оплачивать?",	//It will cost $%d per hour to staff this facility. Do you wish to continue?
 	L"You have insufficient funds to pay for all Facility work today. $%d have been paid, but you still owe $%d. The locals are not pleased.",
 	L"You have insufficient funds to pay for all Facility work today. You owe $%d. The locals are not pleased.",
 	// 16 - 20
 	L"You have an outstanding debt of $%d for Facility Operation, and no money to pay it off!",
 	L"You have an outstanding debt of $%d for Facility Operation. You can't assign this merc to facility duty until you have enough money to pay off the entire debt.",
 	L"You have an outstanding debt of $%d for Facility Operation. Would you like to pay it all back?",
-	L"N/A in this sector",
-	L"Daily Expenses",
+	L"Н/Д в этом секторе",	//N/A in this sector
+	L"Дневной расход",
 	// 21 - 25
 	L"Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.",
 };
@@ -4760,7 +4760,7 @@ STR16 gszMPEdgesText[] =
 	L"Ю",	//S
 	L"В",	//E
 	L"З",	//W
-	L"C",	// "C"enter
+	L"Ц",	// "C"enter
 };
 
 STR16 gszMPTeamNames[] =
