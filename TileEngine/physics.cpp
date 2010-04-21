@@ -1497,7 +1497,7 @@ vector_3 FindBestForceForTrajectory( INT32 sSrcGridNo, INT32 sGridNo,INT16 sStar
 
 	//calculate force needed
 	{
-		dForce = (float)( 12 * ( sqrt( ( GRAVITY * dRange ) / sin( 2 * dzDegrees ) ) ) );
+		dForce = (float)( 12.0 * ( sqrt( ( GRAVITY * dRange ) / sin( 2.0 * dzDegrees ) ) ) );
 	}
 
 	do
@@ -2139,8 +2139,8 @@ FLOAT CalculateForceFromRange( INT16 sRange, FLOAT dDegrees )
 
 	// OK, use a fake gridno, find the new gridno based on range, use height of merc, end height of ground,
 	// 45 degrees
-	sSrcGridNo	= 4408;
-	sDestGridNo = 4408 + ( sRange * WORLD_COLS );
+	sSrcGridNo	= WORLD_COLS/2+WORLD_COLS*WORLD_ROWS/6;
+	sDestGridNo = sSrcGridNo + ( sRange * WORLD_COLS );
 
 	// Use a grenade objecttype
 	CreateItem( HAND_GRENADE, 100, &gTempObject );

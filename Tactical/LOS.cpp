@@ -5323,7 +5323,7 @@ INT32	CheckForCollision( FLOAT dX, FLOAT dY, FLOAT dZ, FLOAT dDeltaX, FLOAT dDel
 	FLOAT						dTargetZMax;
 	BOOLEAN					fIntended;
 
-	INT16						sX, sY, sZ;
+	INT32						sX, sY, sZ;
 
 	FLOAT						dOldZUnits, dZUnits;
 
@@ -5331,9 +5331,9 @@ INT32	CheckForCollision( FLOAT dX, FLOAT dY, FLOAT dZ, FLOAT dDeltaX, FLOAT dDel
 	INT32						iCurrCubesZ;
 
 
-	sX = (INT16)( dX / CELL_X_SIZE );
-	sY = (INT16)( dY / CELL_Y_SIZE );
-	sZ = (INT16)dZ;
+	sX = (INT32)( dX / CELL_X_SIZE );
+	sY = (INT32)( dY / CELL_Y_SIZE );
+	sZ = (INT32)dZ;
 
 	// Check if gridno is in bounds....
 	if ( !GridNoOnVisibleWorldTile( sX + sY * WORLD_COLS ) )
