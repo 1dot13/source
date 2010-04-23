@@ -558,7 +558,7 @@ BOOLEAN		EnterCreditsScreen()
 	giCurrentlySelectedFace = -1;
 	gfPauseCreditScreen = FALSE;
 
-	//InitCreditEyeBlinking();
+	InitCreditEyeBlinking();
 
 
 	return( TRUE );
@@ -612,7 +612,7 @@ void			HandleCreditScreen()
 	HandleCreditNodes();
 
 	//Handle the blinkng eyes
-	//HandleCreditEyeBlinking();
+	HandleCreditEyeBlinking();
 
 
 	//is it time to get a new node
@@ -1464,8 +1464,6 @@ UINT32	GetAndHandleCreditCodeFromCodeString( STR16 pzCode )
 {
 //new codes:
 
-	// WANNE: BUGFIX: Set the credit texts always to white
-	gubCreditScreenActiveColor = FONT_MCOLOR_DKWHITE;
 	
 
 	//if the code is to change the delay between strings
@@ -1538,7 +1536,11 @@ UINT32	GetAndHandleCreditCodeFromCodeString( STR16 pzCode )
 	else if( pzCode[0] == CRDT_TITLE_FONT_COLOR )
 	{
 		//Get the new color for the title
-		swscanf( &pzCode[1], L"%d%*s", &gubCreditScreenTitleColor );
+//SB: memory corruption fix
+//		swscanf( &pzCode[1], L"%d%*s", &gubCreditScreenTitleColor );
+		UINT uiBuffer = 0;
+		swscanf( &pzCode[1], L"%d%*s", &uiBuffer );
+		gubCreditScreenTitleColor = (UINT8)uiBuffer;
 
 		return( CRDT_NODE_NONE );
 	}
@@ -1546,10 +1548,11 @@ UINT32	GetAndHandleCreditCodeFromCodeString( STR16 pzCode )
 	else if( pzCode[0] == CRDT_ACTIVE_FONT_COLOR )
 	{
 		//Get the new color for the active text
-		// WANNE: BUGFIX: We set the active font color at the beginning of this method. It is always "white"
-		//swscanf( &pzCode[1], L"%d%*s", &gubCreditScreenActiveColor );
-
-		//gubCreditScreenActiveColor = FONT_MCOLOR_LTBLUE;
+//SB: memory corruption fix
+//		swscanf( &pzCode[1], L"%d%*s", &gubCreditScreenActiveColor );
+		UINT uiBuffer = 0;
+		swscanf( &pzCode[1], L"%d%*s", &uiBuffer );
+		gubCreditScreenActiveColor = (UINT8)uiBuffer;
 
 		return( CRDT_NODE_NONE );
 	}
@@ -1699,7 +1702,6 @@ void HandleCreditEyeBlinking()
 	{
 		if( ( GetJA2Clock() - gCreditFaces[ubCnt].uiLastBlinkTime ) > (UINT32)gCreditFaces[ubCnt].sBlinkFreq )
 		{
-			// EXCEPTION IS THROWN HERE!
 			BltVideoObject( FRAME_BUFFER, hPixHandle, (UINT8)(ubCnt*3), gCreditFaces[ubCnt].sEyeX, gCreditFaces[ubCnt].sEyeY, VO_BLT_SRCTRANSPARENCY, NULL);
 
 			InvalidateRegion( gCreditFaces[ubCnt].sEyeX, gCreditFaces[ubCnt].sEyeY, gCreditFaces[ubCnt].sEyeX + CRDT_EYE_WIDTH, gCreditFaces[ubCnt].sEyeY + CRDT_EYE_HEIGHT );
