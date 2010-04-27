@@ -78,7 +78,7 @@ STR16 gzDisplayCoverText[]=
 	L"Видимые зоны наёмнка",					//Showing mercenary view
 	L"Опасные зоны для наёмника",				//Showing danger zones for mercenary
 	L"Джунгли", //Wood //wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
-	L"Постройка",	//Urban
+	L"Город",	//Urban
 	L"Пустыня",	//Desert
 	L"Снег", //Snow //NOT USED!!!
 	L"Лес и пустыня",	//Wood and Desert

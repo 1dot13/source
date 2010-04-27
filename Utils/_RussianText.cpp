@@ -387,7 +387,7 @@ STR16 pAssignmentStrings[] =
 	L"Ремонт",	// repairing
 	L"Практика",	// training themselves  
   L"Ополчение",		// training a town to revolt 
-	L"Мобили", //training moving militia units		//M.Militia
+	L"Мобил.гр.", //training moving militia units		//M.Militia
 	L"Тренер",	// training a teammate
 	L"Ученик",	// being trained by someone else 
 	L"Штат", // operating a strategic facility			//Staff
@@ -1605,7 +1605,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Кто-то с другой стороны пытается открыть эту дверь.",
 	L"Состояние: %d/%d\nТопливо: %d/%d",
 	L"%s не видит %s.",  // Cannot see person trying to talk to
-	L"Принадлежность отсоединена",
+	L"Навеска снята",
 	L"Вы не можете содержать еще одну машину, довольствуйтесь уже имеющимися двумя.",
 };
 
@@ -2171,7 +2171,7 @@ STR16 pMapErrorString[] =
 //11-15
 	L"Выступить на марш? Да у нас тут бой идет!",
 	L"Вы попали в засаду кошек-убийц в секторе %s!",
-	L"Вы только что попали в логово кошек-убийц, сектор %s!", 
+	L"Вы только что вошли в сектор %s... И наткнулись на логово кошек-убийц!", 
 	L"", 
 	L"База ПВО в %s была захвачена.",
 //16-20
@@ -3628,7 +3628,7 @@ STR16		zMarksMapScreenText[] =
 	L"В %s максимальное количество ополченцев.",
 	L"У наемника ограниченный контракт.", 
   L"Контракт наемника не застрахован",
-	L"Карта Арулько",		// 24
+	L"Стратегическая Карта",		// 24
 };
 
 
@@ -3709,7 +3709,7 @@ STR16		zOptionsToggleText[] =
 	L"Низкая загрузка процессора",
 	L"Подробное описание предметов", //Enhanced Description Box
 	L"Только пошаговый режим",				// add forced turn mode
-	L"Статистика продвижения навыков",	//Stat Progress Bars	// Show progress towards stat increase
+	L"Подсветить навык к повышению",	//Stat Progress Bars	// Show progress towards stat increase
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -3805,7 +3805,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, игра будет использовать\nменьше процессорного времени.",
 	L"Если включено, будет задействовано\nподробное описание предметов.", //EDB description
 	L"Если включено и в секторе присутствует враг, \nпошаговый режим будет задействован \nдо полной зачистки сектора (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).", //When ON and enemy present, Turn Base mode persists untill sector is free (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T). // add forced turn mode
-	L"Если включено, \nто будет показан прогресс персонажа \nк получению следующего уровня.",	//When ON, shows character progress towards gaining levels
+	L"Если включено, навык, \nкоторый вскоре повысится будет подсвечен.",	//When ON, shows character progress towards gaining levels
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Если включено, \nзаказанный груз у Бобби Рэя \nприбудет немедленно.",	//Force all pending Bobby Ray shipments
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -4564,7 +4564,7 @@ STR16 New113HAMMessage[] =
 	// 6 - 10
 	L"У %s недостаточно развито лидерство чтобы тренировать ополченцев.",	//%s lacks sufficient Leadership score to train militia.
 	L"В этом секторе не может быть тренеров мобильных групп больше %d.",	//No more than %d Mobile Militia trainers are permitted in this sector.
-	L"No room in %s or around it for new Mobile Militia!",
+	L"Нет свободных мест в %s или вокруг него для новой мобильной группы!",	//No room in %s or around it for new Mobile Militia!
 	L"You need to have %d Town Militia in each of %s's liberated sectors before you can train Mobile Militia here.",
 	L"Can't staff a facility while enemies are present!",
 	// 11 - 15
@@ -4929,12 +4929,12 @@ STR16 gzFacilityErrorMessage[]=
 	L"%s's actions in sector %s have caused loyalty loss throughout the region!",
 	// 26 - 30
 	L"%s's actions at the %s in %s have caused loyalty loss throughout the region!",
-	L"%s is drunk.", // <--- This is a log message string.
+	L"%s пьян(а).", // <--- This is a log message string.	//%s is drunk.
 	L"%s has become severely ill in sector %s, and has been taken off duty.",
 	L"%s has become severely ill and cannot continue his work at the %s in %s.",
-	L"%s was injured in sector %s.", // <--- This is a log message string.
+	L"%s был ранен в секторе %s.", // <--- This is a log message string. //%s was injured in sector %s.
 	// 31 - 35
-	L"%s was severely injured in sector %s.", //<--- This is a log message string.
+	L"%s был серьезно ранен в секторе %s.", //<--- This is a log message string. //%s was severely injured in sector %s.
 
 
 };
