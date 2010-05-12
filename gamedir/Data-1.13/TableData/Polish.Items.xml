@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -5300,7 +5300,7 @@
 		<uiIndex>662</uiIndex>
 		<szItemName>HK 416 14"</szItemName>
 		<szLongItemName>HK 416 14"</szLongItemName>
-		<szItemDesc>Kombinacja najlepszych cech G36 i M4 w karabinku Hecker &amp; Koch's HK416.</szItemDesc>
+		<szItemDesc>Kombinacja najlepszych cech G36 i M4 w karabinku Heckler &amp; Koch's HK416.</szItemDesc>
 		<szBRName>HK 416 14"</szBRName>
 		<szBRDesc>Po poprawieniu angielskiego SA80, firma Heckler &amp; Koch wzięła się za amerykański M4. HK416 jest dostępny jako zestaw do modyfikacji M4, albo kompletny karabinek.</szBRDesc>
 	</ITEM>

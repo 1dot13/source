@@ -2961,6 +2961,7 @@
 		<ubCalibre>7</ubCalibre>
 		<ubReadyTime>15</ubReadyTime>
 		<ubShotsPer4Turns>14.22</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
 		<ubBurstPenalty>5</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -2994,6 +2995,7 @@
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>15</ubReadyTime>
 		<ubShotsPer4Turns>14.22</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
 		<ubBurstPenalty>6</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
