@@ -408,10 +408,15 @@ void PlaceRoadMacroAtGridNo( INT32 iMapIndex, INT32 iMacroID )
 	i = gsRoadMacroStartIndex[ iMacroID ];
 	while( gRoadMacros[ i ].sMacroID == iMacroID )
 	{
-		AddToUndoList( iMapIndex + gRoadMacros[ i ].sOffset );
-		RemoveAllObjectsOfTypeRange( iMapIndex + gRoadMacros[ i ].sOffset, ROADPIECES, ROADPIECES );//dnl this was but is very wrong and leading to stacking tilesets, RemoveAllObjectsOfTypeRange( i, ROADPIECES, ROADPIECES );
+		// need to recalc MACROSTRUCT::sOffset 'cause it sticked to 160*160 old map size
+		INT32 sdX = gRoadMacros[ i ].sOffset % OLD_WORLD_COLS;
+		INT32 sdY = gRoadMacros[ i ].sOffset / OLD_WORLD_COLS;
+		INT32 sOffset = sdY*WORLD_COLS + sdX;
+		//
+		AddToUndoList( iMapIndex + sOffset );
+		RemoveAllObjectsOfTypeRange( iMapIndex + sOffset, ROADPIECES, ROADPIECES );//dnl this was but is very wrong and leading to stacking tilesets, RemoveAllObjectsOfTypeRange( i, ROADPIECES, ROADPIECES );
 		GetTileIndexFromTypeSubIndex( ROADPIECES, (UINT16)(i+1) , &usTileIndex );
-		AddObjectToHead( iMapIndex + gRoadMacros[ i ].sOffset, usTileIndex );
+		AddObjectToHead( iMapIndex + sOffset, usTileIndex );
 		i++;
 	}
 }

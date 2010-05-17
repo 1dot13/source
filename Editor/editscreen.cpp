@@ -4336,7 +4336,7 @@ UINT32	EditScreenHandle( void )
 
 	//Calculate general mouse information
 	GetMouseXY( &sGridX, &sGridY );
-	iMapIndex = sGridY * WORLD_COLS + sGridX;
+	iMapIndex = (INT32)sGridY * WORLD_COLS + sGridX;
 
 	DetermineUndoState();
 
