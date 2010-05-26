@@ -7980,9 +7980,9 @@
 		<uiIndex>997</uiIndex>
 		<szItemName>7,62WP adapter</szItemName>
 		<szLongItemName>Adapter dla bębna 7,62x39mm</szLongItemName>
-		<szItemDesc>To urządzenie pozwoli Ci zasilać niektóre modele AK z magazynków bębnowych na 100 naboi.</szItemDesc>
+		<szItemDesc>To urządzenie pozwoli Ci zasilać niektóre modele AK z magazynków bębnowych na 75 naboi.</szItemDesc>
 		<szBRName>Adapter dla bębna 7,62x39mm</szBRName>
-		<szBRDesc>To urządzenie pozwoli Ci zasilać niektóre modele AK z magazynków bębnowych na 100 naboi. Instaluje się je w miejsce standardowego gniazda magazynka.</szBRDesc>
+		<szBRDesc>To urządzenie pozwoli Ci zasilać niektóre modele AK z magazynków bębnowych na 75 naboi. Instaluje się je w miejsce standardowego gniazda magazynka.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>998</uiIndex>

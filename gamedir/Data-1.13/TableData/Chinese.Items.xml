@@ -7980,9 +7980,9 @@
 		<uiIndex>997</uiIndex>
 		<szItemName>7.62WP Adapter</szItemName>
 		<szLongItemName>7.62x39mm弹鼓适配器</szLongItemName>
-		<szItemDesc>金属制品，可以把100发7.62x39mm弹鼓安装到AK步枪上。</szItemDesc>
+		<szItemDesc>金属制品，可以把75发7.62x39mm弹鼓安装到AK步枪上。</szItemDesc>
 		<szBRName>7.62x39mm Drum Adapter</szBRName>
-		<szBRDesc>用一小片金属，让你的AK步枪使用100发弹鼓，永久性结构。</szBRDesc>
+		<szBRDesc>用一小片金属，让你的AK步枪使用75发弹鼓，永久性结构。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>998</uiIndex>

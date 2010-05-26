@@ -7980,9 +7980,9 @@
 		<uiIndex>997</uiIndex>
 		<szItemName>7.62WP Adapter</szItemName>
 		<szLongItemName>7.62x39mm Drum Adapter</szLongItemName>
-		<szItemDesc>This piece of metal lets you fit a 100rnd drum onto several AK-rifles.</szItemDesc>
+		<szItemDesc>This piece of metal lets you fit a 75rnd drum onto several AK-rifles.</szItemDesc>
 		<szBRName>7.62x39mm Drum Adapter</szBRName>
-		<szBRDesc>This piece of metal lets you fit a 100rnd drum onto several AK-rifles. Permanent installing required.</szBRDesc>
+		<szBRDesc>This piece of metal lets you fit a 75rnd drum onto several AK-rifles. Permanent installing required.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>998</uiIndex>
