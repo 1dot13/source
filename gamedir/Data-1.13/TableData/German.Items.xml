@@ -7082,9 +7082,9 @@
 		<uiIndex>887</uiIndex>
 		<szItemName>Anaconda</szItemName>
 		<szLongItemName>Colt Anaconda</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Der Anaconda war das Konkurenzprodukt zum S&amp;W M-29. Er ist aufgrund seines Griffdesigns und schweren, ventilierten Laufs eine relativ komfortable Handfeuerwaffe.</szItemDesc>
 		<szBRName>Colt Anaconda</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Ich sage es nur ungern, aber Dirty Harry hätte mit dem Anaconda viel cooler ausgeschaut als mit einem S&amp;W Model 29. ;-)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>888</uiIndex>
@@ -8606,7 +8606,7 @@
 		<uiIndex>1078</uiIndex>
 		<szItemName>Cx4 Storm</szItemName>
 		<szLongItemName>Beretta Cx4 Storm</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Der neue halbautomat. Karabiner Cx4 Storm ist futuristisch designt und leicht zu bedienen. Als PDW ist er für den professionellen Einsatz bei Polizei und Sicherheitskräften gleichermaßen geeignet.</szItemDesc>
 		<szBRName>Beretta Cx4 Storm</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
@@ -10289,26 +10289,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1332</uiIndex>
-		<szItemName>AR57 16"</szItemName>
-		<szLongItemName>AR57 16"</szLongItemName>
-		<szItemDesc>A new upper receiver for the 5.7x28mm round, placed onto a M16 lower receiver. This configuration uses standard P90-magazines. The longer barrel gets more range out of this round than the P90 does, however.</szItemDesc>
-		<szBRName>AR57 16"</szBRName>
+		<szItemName>AR-57 16"</szItemName>
+		<szLongItemName>AR-57 16"</szLongItemName>
+		<szItemDesc>Dieses M16 wurde durch die Montage eines neuen oberen Verschlussgehäuses im Kaliber 5.7x28mm modifiziert. Diese Konfiguration verwendet Standard P90-Magazine. Der längere Lauf rmöglicht eine größere Reichweite.</szItemDesc>
+		<szBRName>AR-57 16"</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1333</uiIndex>
-		<szItemName>AR57 11"</szItemName>
-		<szLongItemName>AR57 11"</szLongItemName>
-		<szItemDesc>A new upper receiver for the 5.7x28mm round, placed onto a M16 lower receiver. This configuration uses standard P90-magazines.</szItemDesc>
-		<szBRName>AR57 11"</szBRName>
+		<szItemName>AR-57 11"</szItemName>
+		<szLongItemName>AR-57 11"</szLongItemName>
+		<szItemDesc>Dieses M16 wurde durch die Montage eines neuen oberen Verschlussgehäuses im Kaliber 5.7x28mm modifiziert. Diese Konfiguration verwendet Standard P90-Magazine.</szItemDesc>
+		<szBRName>AR-57 11"</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1334</uiIndex>
-		<szItemName>AR57 6"-S</szItemName>
-		<szLongItemName>AR57 6"-Silenced</szLongItemName>
-		<szItemDesc>A new upper receiver for the 5.7x28mm round, placed onto a M16 lower receiver. This configuration uses standard P90-magazines. As the barrel is just 6" long, range is just a bit more than most pistols.</szItemDesc>
-		<szBRName>AR57 6"-Silenced</szBRName>
+		<szItemName>AR-57 6"-S</szItemName>
+		<szLongItemName>AR-57 6"-Silenced</szLongItemName>
+		<szItemDesc>Dieses M16 wurde durch die Montage eines neuen oberen Verschlussgehäuses im Kaliber 5.7x28mm modifiziert. Der 6"-Lauf wurde mit einem Schalldämpfer kombiniert.</szItemDesc>
+		<szBRName>AR-57 6"-S</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
