@@ -2138,13 +2138,14 @@ FLOAT CalculateForceFromRange( INT16 sRange, FLOAT dDegrees )
 	INT32 sFinalGridNo;
 
 	// WANNE: This does not work, so I reverted back!
+	// SB: Now this works on all map sizes, I've tested it!
 	// OK, use a fake gridno, find the new gridno based on range, use height of merc, end height of ground,
 	// 45 degrees
-	//sSrcGridNo	= WORLD_COLS/2+WORLD_COLS*WORLD_ROWS/6;
-	//sDestGridNo = sSrcGridNo + ( sRange * WORLD_COLS );
+	sSrcGridNo	= INT32(WORLD_COLS/2+double(WORLD_COLS)*WORLD_ROWS/5.914);
+	sDestGridNo = sSrcGridNo + ( sRange * WORLD_COLS );
 
-	sSrcGridNo	= 4408;
-	sDestGridNo = 4408 + ( sRange * WORLD_COLS );
+//	sSrcGridNo	= 4408;
+//	sDestGridNo = 4408 + ( sRange * WORLD_COLS );
 
 	// Use a grenade objecttype
 	CreateItem( HAND_GRENADE, 100, &gTempObject );
