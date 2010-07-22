@@ -1038,7 +1038,7 @@
 		<uiIndex>33</uiIndex>
 		<szItemName>CAWS</szItemName>
 		<szLongItemName>HK CAWS</szLongItemName>
-		<szItemDesc>The experimental Close Assault Weapons System from HK. It fires special 12 gauge belted brass-case ammunition developed by Olin/Winchester that delivers superior range to conventional shotguns. It is capable of semi and fully-automatic operation.</szItemDesc>
+		<szItemDesc>The experimental Close Assault Weapons System from HK. It fires special 12 gauge belted brass-case ammunition developed by Olin/Winchester that delivers superior range to conventional shotguns.</szItemDesc>
 		<szBRName>HK CAWS</szBRName>
 		<szBRDesc>Though canceled by the US Military, we're sure you'll love the CAWS! We've just received a limited shipment of these experimental fully automatic shotguns, and their special ammo. Turn your enemies into a gory mess at 240RPM. Comes with built-in scope.</szBRDesc>
 		<usItemClass>2</usItemClass>
