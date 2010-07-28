@@ -187,9 +187,9 @@
 	<ITEM>
 		<uiIndex>23</uiIndex>
 		<szItemName>C7A2</szItemName>
-		<szLongItemName>Diemaco C7A2</szLongItemName>
+		<szLongItemName>Colt Canada C7A2</szLongItemName>
 		<szItemDesc>Dieses Sturmgewehr ist eine verbesserte Version des M16 und wird von DIEMACO/ COLT CANADA hergestellt.</szItemDesc>
-		<szBRName>Diemaco C7A2</szBRName>
+		<szBRName>Colt Canada C7A2</szBRName>
 		<szBRDesc>Dieses Sturmgewehr ist eine verbesserte Version des M16 und wird von DIEMACO/ COLT CANADA hergestellt. Diese Version des M16-Systems ist der Traum eines jeden Söldners. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -268,9 +268,9 @@
 		<uiIndex>33</uiIndex>
 		<szItemName>CAWS</szItemName>
 		<szLongItemName>HK CAWS</szLongItemName>
-		<szItemDesc>Diese dt.-amerik. Flinte im Bullpup-Design entstand in Kooperation zwischen den Firmen H&amp;K und WINCHESTER.</szItemDesc>
+		<szItemDesc>Das 'Close Assault Weapon System' im Bullpup-Design wurde von HK entwickelt. Es verschießt spezielle Kal. 12 Patronen die von WINCHESTER/ OLIN entwickelt wurden.</szItemDesc>
 		<szBRName>HK CAWS</szBRName>
-		<szBRDesc>Diese dt.-amerik. Flinte im Bullpup-Design hat das Kaliber 18.5x76mm und entstand in Kooperation zwischen den Firmen HECKLER &amp; KOCH und WINCHESTER. Feuermodus: S-3</szBRDesc>
+		<szBRDesc>Auch wenn diese Waffe vom US-Militär gecancelt wurde, wir sind uns sicher, Sie werden sie lieben! Wir konnten kurzfristig eine begrenzte Stückzahl an CAWS auftreiben - greifen Sie zu und verwandeln Sie Ihre Feinde zu Hackfleisch! Feuermodus: S-3</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>34</uiIndex>
@@ -5468,7 +5468,7 @@
 		<szLongItemName>Remington M40A1</szLongItemName>
 		<szItemDesc>Dieses Gewehr basiert auf dem Modell 700 M40 und wird von REMINGTON in Gedenken an die U.S.M.C. Scharfschützen, die in Vietnam dienten, gefertigt.</szItemDesc>
 		<szBRName>Remington M40A1</szBRName>
-		<szBRDesc>Dieses Gewehr basiert auf dem Modell 700 M40 und wurde früher von U.S.M.C. Force Recon Personal benutzt. Dieses Modell wird von REMINGTON in Gedenken an die U.S.M.C. Scharfschützen, die in Vietnam dienten, gefertigt.</szBRDesc>
+		<szBRDesc>Dieses Gewehr basiert auf dem Modell 700 M40 und wurde früher vom Recon Force Personal in Vietnam benutzt. Dieses Modell wird von REMINGTON in Gedenken an die U.S.M.C. Scharfschützen gefertigt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>686</uiIndex>
@@ -6074,9 +6074,9 @@
 		<uiIndex>761</uiIndex>
 		<szItemName>Walther MPL</szItemName>
 		<szLongItemName>Walther MPL</szLongItemName>
-		<szItemDesc>Diese MP wurde lange Zeit von der deutschen Polizei verwendet. In 1985 entschied man sich jedoch für neue Waffen von HECKLER &amp; KOCH.</szItemDesc>
+		<szItemDesc>Diese MP wurde lange Zeit von der deutschen Polizei verwendet. Im Jahre 1985 entschied man sich jedoch für neue Waffen von HECKLER &amp; KOCH.</szItemDesc>
 		<szBRName>Walther MPL</szBRName>
-		<szBRDesc>Diese MP wurde lange Zeit von der deutschen Polizei verwendet. In 1985 entschied man sich jedoch für neue Waffen von HECKLER &amp; KOCH. Sie besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Diese MP wurde lange Zeit von der deutschen Polizei verwendet. Im Jahre 1985 entschied man sich jedoch für neue Waffen von HECKLER &amp; KOCH. Sie besitzt eine S-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>762</uiIndex>
@@ -7090,9 +7090,9 @@
 		<uiIndex>888</uiIndex>
 		<szItemName>MR-96</szItemName>
 		<szLongItemName>Manurhin MR-96</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Das patentierte MR-96 Design stellt eine Revolution in der Revolver-Entwicklung dar. Der Griff, aus langlebigem Kunststoff gefertigt, erlaubt ein kontinuierliches und ermüdungsfreies Schießen.</szItemDesc>
 		<szBRName>Manurhin MR-96</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Das patentierte MR-96 Design stellt eine Revolution in der Revolver-Entwicklung dar. Der Griff, aus langlebigem Kunststoff gefertigt, erlaubt ein kontinuierliches und ermüdungsfreies Schießen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>889</uiIndex>
@@ -7122,25 +7122,25 @@
 		<uiIndex>892</uiIndex>
 		<szItemName>S&amp;W M29</szItemName>
 		<szLongItemName>Smith &amp; Wesson M29</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Der S&amp;W M29 Revolver ist unverwüstlich und sehr effektiv.</szItemDesc>
 		<szBRName>Smith &amp; Wesson M29</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieser Magnum Revolver erlangte aufgrund der Dirty-Harry-Filme große Berühmtheit.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>893</uiIndex>
 		<szItemName>M29 SATAN</szItemName>
 		<szLongItemName>M29 SATAN</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Da war wohl jemand vom Spielzeug- Revolver so beeindruckt, das er einen echten gebaut hat ... finde es heraus ...</szItemDesc>
 		<szBRName>M29 SATAN</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Ursprünglich nur als Spielzeug-Waffe erhältlich, bieten wir ab sofort die scharfe Version dieses stylischen Revolvers an. Lassen Sie sich nicht von Ebay Angeboten täuschen, nur wir haben das Original!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>894</uiIndex>
 		<szItemName>MR-73</szItemName>
 		<szLongItemName>Manurhin MR-73</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Der MR-73 basiert auf S&amp;W Revolver und hat besondere Ausstattungsmerkmale. Er wird auf 25 m eingeschossen und ist äußerst treffsicher.</szItemDesc>
 		<szBRName>Manurhin MR-73</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieser französische Revolver ist u.a. bei der GIGN, Frankreichs Anti-Terror Einheit, im Einsatz. Das sagt schon eine Menge über die Qualität der Waffe aus.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>895</uiIndex>
@@ -7186,9 +7186,9 @@
 		<uiIndex>900</uiIndex>
 		<szItemName>Pro II</szItemName>
 		<szLongItemName>Kimber Eclipse Pro II</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht.</szItemDesc>
+		<szItemDesc>Diese 10 mm Pistole basiert auf dem Design der Colt Commander. Sie hat einen kürzeren Lauf als das Modell 'Government'.</szItemDesc>
 		<szBRName>Kimber Eclipse Pro II</szBRName>
-		<szBRDesc>Beschreibung erwünscht.</szBRDesc>
+		<szBRDesc>Die Kimber Eclipse ist eine erstklassige Pistole, sie wird mit sehr geringen Toleranzen aus rostfreiem Edelstahl gefertigt. Die Pro II ist die mittlere Version zwischen der Ultra II und der Custom II.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>901</uiIndex>
