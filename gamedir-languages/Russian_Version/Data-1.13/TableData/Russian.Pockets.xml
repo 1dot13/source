@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<POCKETLIST>
+	<POCKET>
+		<pIndex>0</pIndex>
+		<pName>Ничего</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>1</pIndex>
+		<pName>Ружейный ремень</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>2</pIndex>
+		<pName>Нож </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>3</pIndex>
+		<pName>Автомобиль</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>4</pIndex>
+		<pName>Большой слот</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>5</pIndex>
+		<pName>Combat Pack</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>6</pIndex>
+		<pName>Патрон. лента </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>7</pIndex>
+		<pName>Кобура ПП </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>8</pIndex>
+		<pName>Средний слот</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>9</pIndex>
+		<pName>Подс. маг. </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>10</pIndex>
+		<pName>Шт. маг. </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>11</pIndex>
+		<pName>Пист. кобура </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>12</pIndex>
+		<pName>ПП маг. </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>13</pIndex>
+		<pName>Ружейная гр. </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>14</pIndex>
+		<pName>Граната </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>15</pIndex>
+		<pName>Пист. маг. </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>16</pIndex>
+		<pName>Мелкий слот </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>17</pIndex>
+		<pName>Малый слот </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>18</pIndex>
+		<pName>Доп. подсумок</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>19</pIndex>
+		<pName>Б. обойма </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>20</pIndex>
+		<pName>Мед. карман </pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>21</pIndex>
+		<pName>Карман шприца</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>22</pIndex>
+		<pName>Двойная лента</pName>
+	</POCKET>
+</POCKETLIST>

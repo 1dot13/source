@@ -1,0 +1,2691 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ITEMLIST>
+	<ITEM>
+		<uiIndex>0</uiIndex>
+		<szItemName>Ничто</szItemName>
+		<szLongItemName>Ничто</szLongItemName>
+		<szItemDesc>Программисты Jagged Alliance 2 - лучшие... Ох... ну, может и нет, так как этот текст вам не должен был попасться на глаза...</szItemDesc>
+		<szBRName>Ничто</szBRName>
+		<szBRDesc>Программисты JA 2 - лучшие... Ой... ну, может и нет, так как этот текст вам не должен был попасться на глаза...</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1</uiIndex>
+		<szItemName>Глок 17</szItemName>
+		<szLongItemName>Глок 17</szLongItemName>
+		<szItemDesc>Этот австрийский полуавтоматический пистолет предпочитают многие офицеры, что делает его стандартом де-факто во всем мире.</szItemDesc>
+		<szBRName>Glock 17</szBRName>
+		<szBRDesc>Хотя почти все части этого австрийского пистолета сделаны из пластика, он определяется детекторами в аэропорту. Спусковой механизм двойного действия. Конструкция содержит 32 компонента.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>2</uiIndex>
+		<szItemName>Глок 18</szItemName>
+		<szLongItemName>Глок 18</szLongItemName>
+		<szItemDesc>Эта модель австрийского пистолета Глок-17 с режимом ведения автоматического огня была разработана специально для армии.</szItemDesc>
+		<szBRName>Glock 18</szBRName>
+		<szBRDesc>Австрийский Глок 18 попадает под классификацию автоматических пистолетов. Как и Глок 17, сконструирован для ведения автоматической стрельбы. Части Глок 17 и Глок 18 не взаимозаменяемы.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>3</uiIndex>
+		<szItemName>Беретта 92F</szItemName>
+		<szLongItemName>Беретта 92F</szLongItemName>
+		<szItemDesc>Этот итальянский пистолет двойного действия быстро сделает из любого стрелка настоящее Смертельное Оружие.</szItemDesc>
+		<szBRName>Beretta 92F</szBRName>
+		<szBRDesc>Находится на вооружении армии США. Беретта 92F - стандартный пистолет из семьи 9-мм Парабеллумов. Передвижной предохранитель позволяет стрелять как из левой, так и из правой руки. Очень эффективное оружие.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>4</uiIndex>
+		<szItemName>Беретта 93R</szItemName>
+		<szLongItemName>Беретта 93R</szLongItemName>
+		<szItemDesc>Этот образец - младший брат модели 92F. Этот автоматический пистолет может здорово выручить вас в бою на малых дистанциях.</szItemDesc>
+		<szBRName>Beretta 93R</szBRName>
+		<szBRDesc>Кроме этого пистолета Вам ничего не понадобится. Его называют пистолетом- автоматом. Рукоять можно сложить, а раздвижной металлический приклад, который присоединяется к задней части, позволяет вести стрельбу очередями по три патрона.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>5</uiIndex>
+		<szItemName>.38 Special</szItemName>
+		<szLongItemName>.38 Special</szLongItemName>
+		<szItemDesc>Любимое оружие "парней в синем". Это самый распространенный среди полицейских всего мира американский револьвер.</szItemDesc>
+		<szBRName>.38 Special</szBRName>
+		<szBRDesc>Стандартный военный и полицейский 'Смит и Вессон' револьвер со спусковым механизмом двойного действия идеально подходит как для самообороны, так и для нападения. Однако когда главная пружина уже несколько изношена, у пистолета могут возникнуть осечки.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>6</uiIndex>
+		<szItemName>Барракуда</szItemName>
+		<szLongItemName>Барракуда</szLongItemName>
+		<szItemDesc>Любимое оружие младшего братца Грязного Гарри. Этот бельгийский револьвер уютно устроился в кобурах многих американских полицейских.</szItemDesc>
+		<szBRName>Barracuda</szBRName>
+		<szBRDesc>Бельгийский револьвер 'Магнум Барракуда .357' - отличный пистолет как для обороны, так и для нападения. Испытания показали, что из пистолета значительно удобнее стрелять чем из другого оружия как мужчинам, так и женщинам.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>7</uiIndex>
+		<szItemName>Десерт Игл .357</szItemName>
+		<szLongItemName>Десерт Игл .357</szLongItemName>
+		<szItemDesc>Этот пистолет, разработанный в Израиле, "аккуратен", как портативная ядерная бомба. В настоящее время производится в старушке-Америке.</szItemDesc>
+		<szBRName>Desert Eagle .357</szBRName>
+		<szBRDesc>Этот пистолет со спусковым механизмом одиночного действия делается исключительно в США. Среди особенностей: вращающийся затвор, передвижной предохранитель под обе руки, стальная конструкция, никелевая или хромовая насадка.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>8</uiIndex>
+		<szItemName>M1911A1</szItemName>
+		<szLongItemName>Кольт M1911A1</szLongItemName>
+		<szItemDesc>Может, Всевышний и создал людей, но за последнее столетие именно "Кольт" помог навести среди них порядок.</szItemDesc>
+		<szBRName>Colt M1911A1</szBRName>
+		<szBRDesc>Этот классический американский автоматический пистолет - один из самых удачных боевых пистолетов. Доказал себя в бою. Пуля создает рваную рану, серьезно повреждая нервные окончания.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>9</uiIndex>
+		<szItemName>MP5KA4</szItemName>
+		<szLongItemName>HK MP5KA4</szLongItemName>
+		<szItemDesc>Этот пистолет-пулемет немецкого производства - оружие номер один для "Неистребимых" террористов и мелких латиноамериканских наркоторговцев.</szItemDesc>
+		<szBRName>HK MP5KA4</szBRName>
+		<szBRDesc>MP5K Хеклера и Коха - один из самых компактных и смертоносных немецких автоматов. Группы захвата предпочитают этот автомат, потому что он незаметен под одеждой и легок в обращении.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>10</uiIndex>
+		<szItemName>МЭК-10</szItemName>
+		<szLongItemName>Ингрэм M10</szLongItemName>
+		<szItemDesc>Американский аналог "Узи". Оружие появилось во времена диско и было весьма популярно в стране "розовых фламинго" и "снега".</szItemDesc>
+		<szBRName>Ingram M10</szBRName>
+		<szBRDesc>Модель-10: автомат для настоящих мужчин. Его устойчивость позволяет стрелять с одной руки, а к стволу можно присоединить "шумоподавитель", который схож с обычным глушителем, однако не снижает скорость пули.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>11</uiIndex>
+		<szItemName>Томпсон M1A1</szItemName>
+		<szLongItemName>Томпсон M1A1</szLongItemName>
+		<szItemDesc>Придя на смену "Томми-гану", это оружие стало очень популярным на улицах Чикаго времен сухого закона и на побережье Нормандии.</szItemDesc>
+		<szBRName>Thompson M1A1</szBRName>
+		<szBRDesc>Будучи тяжелее, чем большинство автоматов, 'Томми' по-прежнему ценится среди Коммандос и Рейнджеров. Их уже не выпускают с 1960 года, однако они часто встречаются и несомненно прошли проверку временем.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>12</uiIndex>
+		<szItemName>Коммандо</szItemName>
+		<szLongItemName>Кольт M4 Коммандо</szLongItemName>
+		<szItemDesc>Эта укороченная версия М16 незаменима, если захочется избавиться от шумных соседей или мелких диктаторов.</szItemDesc>
+		<szBRName>Colt M4 Commando</szBRName>
+		<szBRDesc>Кольт 733 Коммандо - небольшая, но смертельная винтовка, которую легко можно спрятать. Сделана на базе M16. Чрезвычайно популярна в Вооруженных Силах США, в том числе и в частях быстрого реагирования.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>13</uiIndex>
+		<szItemName>HK 53A3</szItemName>
+		<szLongItemName>HK 53A3</szLongItemName>
+		<szItemDesc>Последняя модель в семействе пистолетов-пулеметов концерна "Хеклер и Кох" "задирает" ствол вверх при стрельбе, что очень неудобно при бое в помещении.</szItemDesc>
+		<szBRName>HK 53A3</szBRName>
+		<szBRDesc>Этот немецкий автомат обладает убойной силой, которая совсем не соотносится с его размером. Специальная насадка на дуло, которая устраняет вспышку при стрельбе, что является недостатком многих короткоствольных автоматов.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>14</uiIndex>
+		<szItemName>АКС-74У</szItemName>
+		<szLongItemName>АКС-74У</szLongItemName>
+		<szItemDesc>Это оружие чаще всего используется русским спецназом. Вспышки от выстрелов из этого короткоствольного автомата спалили немало бровей.</szItemDesc>
+		<szBRName>АКС-74У</szBRName>
+		<szBRDesc>Автомат русского происхождения. Является укороченным вариантом АК-74. Это боевое оружие с насадкой для стрельбы патронами 5,45mm из более короткого ствола.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>15</uiIndex>
+		<szItemName>FN P90</szItemName>
+		<szLongItemName>FN P90</szLongItemName>
+		<szItemDesc>Этот бельгийский пистолет-пулемет - одна из самых современных разработок. Многие спецподразделения стремятся заполучить его в свои руки.</szItemDesc>
+		<szBRName>FN P90</szBRName>
+		<szBRDesc>Пробивает кевлар как лист бумаги. FN-P90 - это очень мощный автомат с отличными баллистическими характеристиками. Легко стрелять из обеих рук. Снабжен рукоятью с обеих сторон и двумя прицелами.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>16</uiIndex>
+		<szItemName>Тип-85</szItemName>
+		<szLongItemName>Тип-85</szLongItemName>
+		<szItemDesc>Дешевый, простой, износоустойчивый. Оружие массового выпуска. Конструкция создана на основе советского ППС43 и системы "Брен".</szItemDesc>
+		<szBRName>Type 85</szBRName>
+		<szBRDesc>Разработан в Китае. Тип-85 - типичное автоматическое оружие, замечательное своим небольшим весом, компактностью, вращающимся затвором. По словам изготовителей, автомат стреляет дозвуковыми патронами типа-64.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>17</uiIndex>
+		<szItemName>СКС</szItemName>
+		<szLongItemName>СКС</szLongItemName>
+		<szItemDesc>Самозарядный карабин Симонова. Очень распространенное в странах Варшавского Договора и их союзников оружие.</szItemDesc>
+		<szBRName>СКС</szBRName>
+		<szBRDesc>Самозарядный карабин Симонова (СКС), имеет простую и надежную конструкцию. Разработан в конце Великой Отечественной войны. Вскоре был заменен АК47. Впоследствии распространился по всем странам Варшавского договора. Тяжел для своего класса.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>18</uiIndex>
+		<szItemName>СВД</szItemName>
+		<szLongItemName>Драгунов СВД</szLongItemName>
+		<szItemDesc>Взяв ее, вы ощутите дух русской армии. Эта снайперская винтовка внушает страх в сердца офицеров многих стран.</szItemDesc>
+		<szBRName>Драгунов СВД</szBRName>
+		<szBRDesc>Эта русская снайперская винтовка известна своей точностью. В комплекте с винтовкой поставляются оптический прицел ПСО-1 и прибор ночного видения НСПУ-3.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>19</uiIndex>
+		<szItemName>M24</szItemName>
+		<szLongItemName>M24</szLongItemName>
+		<szItemDesc>Возьмите М24, если хотите чтобы ваша пуля, калибра 7,62мм НАТО, за две секунды поразила цель на расстоянии мили.</szItemDesc>
+		<szBRName>M24</szBRName>
+		<szBRDesc>Ремингтон M24 - стандартная снайперская винтовка на вооружении армии США. Регулируемый приклад этой винтовки с ручным затвором изготовлен из синтетического материала с алюминиевыми насадками.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>20</uiIndex>
+		<szItemName>AUG-A2</szItemName>
+		<szLongItemName>Штейр AUG-A2</szLongItemName>
+		<szItemDesc>Эта "Злобная штурмовая винтовка" футуристического дизайна с плакатов в США о законе по контролю вооружения находится на вооружении в Австрии.</szItemDesc>
+		<szBRName>Steyr AUG-A2</szBRName>
+		<szBRDesc>Эта австрийская автоматическая винтовка имеет уникальную модульную конструкцию со множеством сменных частей. Это первая винтовка, имеющая пластиковый спусковой механизм и пластиковый корпус.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>21</uiIndex>
+		<szItemName>G41A2</szItemName>
+		<szLongItemName>HK G41A2</szLongItemName>
+		<szItemDesc>Этот автомат хуже ночного похмелья после бочонка немецкого темного, G41 быстро станет для ваших врагов большой головной болью.</szItemDesc>
+		<szBRName>HK G41A2</szBRName>
+		<szBRDesc>Сконструированная по заказу НАТО, эта винтовка отличный представитель немецкой военной техники. Стоит отметить особенный механизм удаления стреляных гильз винтовки.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>22</uiIndex>
+		<szItemName>Мини-14</szItemName>
+		<szLongItemName>Ругер Мини-14</szLongItemName>
+		<szItemDesc>Этот "Штурм Ругер" - реплика 70-х годов винтовки "Гаранд" времен Второй Мировой. Идеальный подарок знакомому борцу за выживание.</szItemDesc>
+		<szBRName>Ruger Mini-14</szBRName>
+		<szBRDesc>Считается одним из лучших охотничьих ружей, превосходное оружие для полувоенных целей. С этим ружьем Ваши шансы попасть в цель значительно увеличиваются из-за его малой отдачи.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>23</uiIndex>
+		<szItemName>C7A2</szItemName>
+		<szLongItemName>Diemaco C7A2</szLongItemName>
+		<szItemDesc>Эта винтовка как бы воплощает собой девиз франко - канадцев: "Что бы ни сделали янки, мы сделаем лучше!" Данная версия М16 - голубая мечта любого наемника.</szItemDesc>
+		<szBRName>Diemaco C7A2</szBRName>
+		<szBRDesc>Это канадский вариант американской винтовки M16A2. Сумасшедшие франко-канадцы добавили в конструкцию дополнительный отражатель, чтобы стреляные гильзы не попадали в лицо стрелков-левшей.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>24</uiIndex>
+		<szItemName>FAMAS</szItemName>
+		<szLongItemName>FAMAS G2</szLongItemName>
+		<szItemDesc>Эта винтовка, прозванная французскими солдатами "рожком", выполнена по схеме "буллпап" и воплощает все достоинства М16 при длине меньше метра.</szItemDesc>
+		<szBRName>FAMAS G2</szBRName>
+		<szBRDesc>Французская армейская винтовка FA-MAS была первой винтовкой в компоновке "буллпап", которую поставили на вооружение армии. Хорошая управляемость, точная стрельба. Для лучшей устойчивости при стрельбе, укомплектована сошками.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>25</uiIndex>
+		<szItemName>АК-74</szItemName>
+		<szLongItemName>АК-74</szLongItemName>
+		<szItemDesc>Автомат конструкции Калашникова, АК74 поступил на вооружение взамен морально устаревших автоматов АК47 и АКМ, как более точный и легкий.</szItemDesc>
+		<szBRName>АК-74</szBRName>
+		<szBRDesc>Используется пехотой российской армии как основное оружие. АK-74 мелкокалиберный вариант AKM. Автомат чрезвычайно эффективен и надежен, минимальная отдача, но он опасен для соседей стрелка, т.к. газы отводятся в стороны.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>26</uiIndex>
+		<szItemName>АКМ</szItemName>
+		<szLongItemName>АКМ</szLongItemName>
+		<szItemDesc>Новейшая разработка на базе печально известного АК-47. Использовался во Вьетнаме, Афганистане и множестве пассажирских самолетов.</szItemDesc>
+		<szBRName>АКМ</szBRName>
+		<szBRDesc>Модернизированная модель автомата AK-47. Один из самых лучших и наиболее широко используемых автоматов. Проверенный в бою, этот автомат популярен среди военных, и каждый наемник не прочь заполучить AKM в свой арсенал.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>27</uiIndex>
+		<szItemName>M14</szItemName>
+		<szLongItemName>M14</szLongItemName>
+		<szItemDesc>Визитная карточка Америки - наряду с яблочным пирогом и Днем Независимости. Любая ударная группа, вооруженная М-14, обречена на победу.</szItemDesc>
+		<szBRName>M14</szBRName>
+		<szBRDesc>Эта легкая автоматическая винтовка позволяет вести огонь в разных режимах, однако лучше всего использовать полуавтоматический. К сожалению, у винтовки нет возможности оперативной замены ствола, а ствол винтовки часто перегревается.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>28</uiIndex>
+		<szItemName>FN-FAL</szItemName>
+		<szLongItemName>FN-FAL</szLongItemName>
+		<szItemDesc>Если у вас в руках это оружие, каламбур: "Я сФАЛен с ног - и мне уже не подняться" обретает новый смысл.</szItemDesc>
+		<szBRName>FN FAL</szBRName>
+		<szBRDesc>Эта автоматическая бельгийская винтовка установила моду в оружейном деле еще в начале 1950-х. Надежная и простая конструкция облегчила ее эксплуатацию, несмотря на неполадки в режиме автоматической стрельбы.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>29</uiIndex>
+		<szItemName>G3A3</szItemName>
+		<szLongItemName>HK G3A3</szLongItemName>
+		<szItemDesc>Винтовка из штамповочного металла с пластиковой фурнитурой выглядит отвратительно, но наносит противнику не менее отвратительные ранения.</szItemDesc>
+		<szBRName>HK G3A3</szBRName>
+		<szBRDesc>Изготовленная из листового металла и пластмассы, эта автоматическая винтовка Хеклера и Коха не поражает своей красотой, однако очень эффективна, надежна и в бою не подведет.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>30</uiIndex>
+		<szItemName>G11</szItemName>
+		<szLongItemName>HK G11</szLongItemName>
+		<szItemDesc>Настоящий Порше среди штурмовых винтовок. Обеспечивает скорострельность до 3 выстрелов в секунду. Прошивает кевлар как папиросную бумагу.</szItemDesc>
+		<szBRName>HK G11</szBRName>
+		<szBRDesc>Немцы Хеклер и Кох изобрели это оружие, самую скорострельную автоматическую винтовку в мире. Ее выстрелы пробивают броню. Несмотря на ее необычный внешний вид, она проста в обращении и чрезвычайно точно стреляет.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>31</uiIndex>
+		<szItemName>М870</szItemName>
+		<szLongItemName>Ремингтон М870</szLongItemName>
+		<szItemDesc>Помповое ружье. Универсальное оружие! Хочешь поохотиться - пожалуйста, дом от врагов защитить - ради бога, замок вскрыть - без проблем.</szItemDesc>
+		<szBRName>Remington M870</szBRName>
+		<szBRDesc>Популярный из-за особой перезарядки патрона, этот винчестер калибра 12 является любимцем полицейских по всему миру. Изначально используемый для охоты, Ремингтон и его модификации продаются в любых охотничьих магазинах.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>32</uiIndex>
+		<szItemName>SPAS-15</szItemName>
+		<szLongItemName>SPAS-15</szLongItemName>
+		<szItemDesc>Полуавтоматическая штурмовая винтовка итальянского производства. Серьезное оружие. В некоторых странах находится под запретом.</szItemDesc>
+		<szBRName>SPAS-15</szBRName>
+		<szBRDesc>Этот винчестер калибра 12 (конструктор - итальянец Франчи) - самое выдающееся итальянское оружие. Перезарядка производится при помощи газа, в полуавтоматическом режиме - вручную.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>33</uiIndex>
+		<szItemName>CAWS</szItemName>
+		<szLongItemName>HK CAWS</szLongItemName>
+		<szItemDesc>Итог военной программы США Система Оружия Ближнего Боя. Экспериментальное ружье совместной работы Хеклер и Кох и Винчестер (подразделение корпорации Олин).</szItemDesc>
+		<szBRName>HK CAWS</szBRName>
+		<szBRDesc>Это экспериментальное автоматическое ружье дитя Хеклер-Кох и Винчестер/Олин. Заряжается специальными патронами 12 калибра. Пускай МО США заморозило программу CAWS, и ружье так и не было принято на вооружение, но мы уверены что оно вам понравится! </szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>34</uiIndex>
+		<szItemName>Миними</szItemName>
+		<szLongItemName>FN Миними</szLongItemName>
+		<szItemDesc>Ручной пулемет, известный также как С-9 и М-249. Иногда используется и в качестве штурмовой винтовки повышенной убойной силы.</szItemDesc>
+		<szBRName>FN Minimi</szBRName>
+		<szBRDesc>Известный своей надежностью, этот бельгийский пулемет работает на принципе отвода газов из ствола и снабжен простым цилиндрическим затвором. В США этот пулемет получил маркировку M249.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>35</uiIndex>
+		<szItemName>РПК-74</szItemName>
+		<szLongItemName>РПК-74</szLongItemName>
+		<szItemDesc>Ручной пулемёт, последнее пополнение в коллекции русского оружия огневой поддержки, добавляет ещё одно значение глаголу "поливать".</szItemDesc>
+		<szBRName>РПК-74</szBRName>
+		<szBRDesc>Этот русский пулемёт представляет собой модификацию АК-47 с утяжелённым стволом. Единственным недостатком данного пулемёта является то, что нарезка ствола может сойти на нет уже на 5000-м выстреле.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>36</uiIndex>
+		<szItemName>HK 21E</szItemName>
+		<szLongItemName>HK 21E</szLongItemName>
+		<szItemDesc>Ручной пулемёт поддержки пехоты немецкого производства. Тяжеловат, зато, расстреливая врагов, вы неплохо накачаете мышцы.</szItemDesc>
+		<szBRName>HK 21E</szBRName>
+		<szBRDesc>Достоинством немецкого пулемета 'Хеклер и Кох 21' является сменный, несколько утяжелённый ствол. Треногу можно установить на 3 высотах. Пулемет на треноге может отклоняться на 30 градусов в любую сторону.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>37</uiIndex>
+		<szItemName>Боевой нож</szItemName>
+		<szLongItemName>Боевой нож</szLongItemName>
+		<szItemDesc>Этот боевой нож превратит владельца в быструю, неуловимую и бесшумную машину смерти. Обух этого ножа проходит через всю рукоятку, исполнение клинка типа "боуи". Ножи с клинками такого типа особенно популярны в США.</szItemDesc>
+		<szBRName>Боевой нож</szBRName>
+		<szBRDesc>Клинок типа "боуи". На обухе выполнен скос "щучка", приближающий острие к линии прило- жения силы при уколе. Этим клинок похож на тип drop-point, но с более тонким, шилообразным острием. У ножа зазубренное 23-х см. лезвие и деревянная рукоять с тяжелой головкой.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>38</uiIndex>
+		<szItemName>Мет. нож</szItemName>
+		<szLongItemName>Метательный нож</szLongItemName>
+		<szItemDesc>Небольшой и легкий хорошо сбалансированный стальной метательный нож, привносит новое значение в выражение - "легкая смерть", а точнее бесшумная.</szItemDesc>
+		<szBRName>Метательный нож</szBRName>
+		<szBRDesc>Оттачивайте свои метательные навыки вместе с обоюдоострым, твердым как камень хромированным клинком из высокоуглеродистой стали. Этот малыш - лучший выбор как для новичка, так и для опытного мастера.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>39</uiIndex>
+		<szItemName>Камень</szItemName>
+		<szLongItemName>Камень</szLongItemName>
+		<szItemDesc>Обычный камень. Никогда не видели камней?</szItemDesc>
+		<szBRName>Камень</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>40</uiIndex>
+		<szItemName>M79</szItemName>
+		<szLongItemName>Гранатомет М79</szLongItemName>
+		<szItemDesc>Вам необходимо быстро пройти сквозь кирпичную стену или толпу врага? Нет проблем, если в руках американский 40мм гранатомет М79, прошедший Вьетнам.</szItemDesc>
+		<szBRName>Гранатомет М79</szBRName>
+		<szBRDesc>Гранатомет М79 калибра 40 мм славится своей точностью на больших дистанциях, в отличие от своего аналога - подствольного гранатомета. Это казнозарядное, однозарядное, переломное оружие обычно используется для стрельбы с плеча. Имеется прицел передний и задний.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>41</uiIndex>
+		<szItemName>Миномет</szItemName>
+		<szLongItemName>Миномет M224</szLongItemName>
+		<szItemDesc>M224 - легкий миномет калибра 60мм с охлаждаемым стволом и прицелом. В комплект входят сошка и опорная плита от М7. Заряжается фугасными минами.</szItemDesc>
+		<szBRName>Миномет M224</szBRName>
+		<szBRDesc>Основное оружие любого артиллеристского дивизиона, миномет M224 должен быть у каждого уважающего себя командира. Легкий миномет калибра 60 мм, снабжен нарезным стволом, прицелом. Миномет приспособлен для фугасных снарядов.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>42</uiIndex>
+		<szItemName>Камень</szItemName>
+		<szLongItemName>Еще один камень</szLongItemName>
+		<szItemDesc>На английском языке слово камень звучит как "рок". А слово "рок" в англии больше ассоциируется с современным стилем музыки, очень популярным среди подростков.</szItemDesc>
+		<szBRName>Еще один камень</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>43</uiIndex>
+		<szItemName>YM Claws</szItemName>
+		<szLongItemName>Young Male Claws</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Young Male Claws</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>44</uiIndex>
+		<szItemName>AM Claws</szItemName>
+		<szLongItemName>Adult Male Claws</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Adult Male Claws</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>45</uiIndex>
+		<szItemName>YF Claws</szItemName>
+		<szLongItemName>Young Female Claws</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Young Female Claws</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>46</uiIndex>
+		<szItemName>AF Claws</szItemName>
+		<szLongItemName>Adult Female Creature Claws</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Adult Female Creature Claws</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>47</uiIndex>
+		<szItemName>Щупальце Королевы</szItemName>
+		<szLongItemName>Щупальце Королевы</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Щупальце Королевы</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>48</uiIndex>
+		<szItemName>Queen Spit</szItemName>
+		<szLongItemName>Queen Creature Spit</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Queen Creature Spit</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>49</uiIndex>
+		<szItemName>Кастет</szItemName>
+		<szLongItemName>Кастет</szLongItemName>
+		<szItemDesc>Этим кастетом можно выбить не один ряд зубов. Крепкий и долговечный, запросто влазит в задний карман джинсов. По размеру этот латунный кастет подойдет к любой руке. После удара такой рукой оправиться будет непросто.</szItemDesc>
+		<szBRName>Кастет</szBRName>
+		<szBRDesc>Кастет (от фр. casse-tete, букв. "головоломка", "ломающий голову") - холодное оружие ударно-раздробляющего действия, зажимаемое кистью руки перед ударом. Кастет классической формы, с упором и стойкой упора.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>50</uiIndex>
+		<szItemName>"Талон"</szItemName>
+		<szLongItemName>Подствольный гранатомет</szLongItemName>
+		<szItemDesc>Подствольный армейский гранатомет "Талон" производства США. Отправит противника прямиком в объятия смерти.</szItemDesc>
+		<szBRName>Подствольный гранатомет</szBRName>
+		<szBRDesc>Гранатомет может быть присоединен к разнообразным штурмовым винтовкам и пулеметам. Оборудован легким съемным прикладом и рукояткой, что позволяет вести из него огонь как из пистолета. Неплохое оружие для боя на средней дистанции.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>51</uiIndex>
+		<szItemName>M72A4</szItemName>
+		<szLongItemName>ЛПТГ M72A4</szLongItemName>
+		<szItemDesc>Всего один выстрел из ручного противотанкового гранатомета устроит вашим врагам судный день. Ни судей, ни присяжных, вы - и судья и палач.</szItemDesc>
+		<szBRName>ЛПТГ M72A4</szBRName>
+		<szBRDesc>М72А4 - легкий противотанковый гранатомет для стрельбы с плеча. Граната, выпущенная из этого оружия, с легкостью пробивает 30-и сантиметровую танковую броню, а также небольшие полевые укрепления. Оружие огромной разрушительной силы.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>52</uiIndex>
+		<szItemName>Bloodcat Claws</szItemName>
+		<szLongItemName>Bloodcat Claws</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Bloodcat Claws</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>53</uiIndex>
+		<szItemName>Bloodcat Bite</szItemName>
+		<szLongItemName>Bloodcat Bite</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Bloodcat Bite</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>54</uiIndex>
+		<szItemName>Мачете</szItemName>
+		<szLongItemName>Мачете</szLongItemName>
+		<szItemDesc>Порежет врага на мелкие кусочки. Универсальное средство для приготовления сотэ из людей, растений и животных.</szItemDesc>
+		<szBRName>Мачете</szBRName>
+		<szBRDesc>Мачете (исп. machete) - длинный 50-и сантиметровый, тонкий и широкий нож для уборки сахарного тростника и прорубания троп в густых зарослях. Мачете может использоваться в качестве оружия. Во многих странах мачете приняты на вооружение в армиях.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>55</uiIndex>
+		<szItemName>Ракетница</szItemName>
+		<szLongItemName>Ракетная винтовка</szLongItemName>
+		<szItemDesc>Ракетная винтовка со встроенным лазерным прицелом и компьютерной системой безопасности. Новейшая технология уничтожения противника.</szItemDesc>
+		<szBRName>Ракетная винтовка</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>56</uiIndex>
+		<szItemName>Автомаг III</szItemName>
+		<szLongItemName>Автомаг III</szLongItemName>
+		<szItemDesc>Автомаг, модифицированный для стрельбы патронами убойных винтовок калибра .50 Беовульф. По бокам этого кошмара гравировка: "Большая Берта".</szItemDesc>
+		<szBRName>Automag III Custom</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>57</uiIndex>
+		<szItemName>Infant Spit</szItemName>
+		<szLongItemName>Infant Spit</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Infant Spit</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>58</uiIndex>
+		<szItemName>Young Male Spit</szItemName>
+		<szLongItemName>Young Male Spit</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Young Male Spit</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>59</uiIndex>
+		<szItemName>Old Male Spit</szItemName>
+		<szLongItemName>Old Male Spit</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Old Male Spit</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>60</uiIndex>
+		<szItemName>Орудие</szItemName>
+		<szLongItemName>Танковое орудие</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Танковое орудие</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>61</uiIndex>
+		<szItemName>Пневмо пистолет</szItemName>
+		<szLongItemName>Пистолет, стреляющий дротиками</szLongItemName>
+		<szItemDesc>Безмолвный убийца средь шумного сборища огнестрельных собратьев. Действует тише, чем сама Смерть. (Только усыпляет)</szItemDesc>
+		<szBRName>Пневмо пистолет</szBRName>
+		<szBRDesc>Немой в стране шумных пороховых орудий убийства. Используйте этот пневмо-пистолет чтобы обезвредить врага без помощи "старухи с косой".</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>62</uiIndex>
+		<szItemName>Нож в крови</szItemName>
+		<szLongItemName>Окровавленный метательный нож</szLongItemName>
+		<szItemDesc>Небольшой и легкий хорошо сбалансированный стальной метательный нож. Кажется, его уже применяли, на нем чья-то кровь!</szItemDesc>
+		<szBRName>Окровавленный метательный нож</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>63</uiIndex>
+		<szItemName>Огнемет</szItemName>
+		<szLongItemName>Огнемет</szLongItemName>
+		<szItemDesc>Звиняйте, парни, в этой игре мы решили обойтись без него!</szItemDesc>
+		<szBRName>Огнемет</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>64</uiIndex>
+		<szItemName>Лом</szItemName>
+		<szLongItemName>Лом</szLongItemName>
+		<szItemDesc>Лом отлично характеризует русская пословица - "Против лома нет приема". Сделан из титана. Тверже, прочнее и легче стального. Да и ржавчина ему не страшна.</szItemDesc>
+		<szBRName>Лом</szBRName>
+		<szBRDesc>Лом - ручной ударный и рычажный инструмент, наиболее древний вид инструмента из известных человечеству, наряду с молотком, зубилом, топором, лопатой. Сделан из титана, по физическим свойствам превосходит сталь и не поддается коррозии.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>65</uiIndex>
+		<szItemName>Авт.ракетница</szItemName>
+		<szLongItemName>Автоматическая ракетница</szLongItemName>
+		<szItemDesc>Новое кровавое слово военных технологий. Эта экспериментальная модель способна выпустить всю обойму одним убийственным залпом.</szItemDesc>
+		<szBRName>А. Р. винтовка</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>66</uiIndex>
+		<szItemName>Хартфорд 6</szItemName>
+		<szLongItemName>EMF Hartford 6 зарядов</szLongItemName>
+		<szItemDesc>Шестизарядный револьвер .357 калибра, модификация для Текса Колберна. Длина ствола 20 см, резная рукоятка из слоновой кости с золотой гравировкой "ТЕКС".</szItemDesc>
+		<szBRName>Modified EMF Hartford 6 Shooter</szBRName>
+		<szBRDesc>Шестизарядный револьвер .357 калибра, модификация для Текса Колберна. Длина ствола 20 см, резная рукоятка из слоновой кости с золотой гравировкой "ТЕКС".</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>67</uiIndex>
+		<szItemName>M-950</szItemName>
+		<szLongItemName>Калико M-950</szLongItemName>
+		<szItemDesc>Американская версия M960. Из-за полуавтоматической системы ведения огня и 50-зарядного магазина только в США его способны классифицировать как пистолет.</szItemDesc>
+		<szBRName>Calico M-950</szBRName>
+		<szBRDesc>Американская версия M960. Из-за полуавтоматической системы ведения огня и 50-зарядного магазина только в США его способны классифицировать как пистолет.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>68</uiIndex>
+		<szItemName>M-900</szItemName>
+		<szLongItemName>Калико M-900</szLongItemName>
+		<szItemDesc>Очередная реинкарнация M960 с необычно длинным для 9 мм оружия стволом, полуавтоматической системой ведения огня и аналогичным 50-зарядным магазином.</szItemDesc>
+		<szBRName>Calico M-900</szBRName>
+		<szBRDesc>Очередная реинкарнация M960 с необычно длинным для 9 мм оружия стволом, полуавтоматической системой ведения огня и аналогичным 50-зарядным магазином.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>69</uiIndex>
+		<szItemName>M-960A</szItemName>
+		<szLongItemName>Калико M-960A</szLongItemName>
+		<szItemDesc>В этом американском "мини-пулемете" использован 50-зарядный магазин со спиральной подачей под патрон 9 мм. Вершит суд над противником с 1990 года.</szItemDesc>
+		<szBRName>Calico M-960A</szBRName>
+		<szBRDesc>В этом американском "мини-пулемете" использован 50-зарядный магазин со спиральной подачей под патрон 9 мм. Вершит суд над противником с 1990 года.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>70</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Using this slot will cause the game to crash.</szLongItemName>
+		<szItemDesc>Использование этого слота приведет к падению игры.</szItemDesc>
+		<szBRName>Using this slot will cause the game to crash.</szBRName>
+		<szBRDesc>Использование этого слота приведет к падению игры.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>71</uiIndex>
+		<szItemName>9x19мм, 15</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 15</szLongItemName>
+		<szItemDesc>Магазин на 15 пистолетных патронов калибра 9 мм. Небольшая масса пули сочетается с высокой начальной скоростью. Любимые патроны военных и стражей правопорядка.</szItemDesc>
+		<szBRName>9x19мм, 15</szBRName>
+		<szBRDesc>Эти 15 первоклассных патронов Фиоччи весом в 7.5 граммов идеально подходят для тех, кто жаждет личной безопасности.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>72</uiIndex>
+		<szItemName>9x19мм, 30</szItemName>
+		<szLongItemName>9x19мм магазин для ПП, 30</szLongItemName>
+		<szItemDesc>Магазин на 30 патронов для пистолета-пулемета калибра 9 мм. Благодаря оболочке, пуля гораздо меньше засоряет ствол при стрельбе, чем безоболочечные аналоги.</szItemDesc>
+		<szBRName>9x19мм ПП, 30</szBRName>
+		<szBRDesc>В этом магазине для пистолет-пулемета 30 патронов Фиоччи. Патроны очень популярны среди  закаленных профессионалов и новичков - солдатов удачи.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>73</uiIndex>
+		<szItemName>9x19мм, 15 AP</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 15 AP</szLongItemName>
+		<szItemDesc>Обойма на 15 патронов калибра 9 мм. Пуля со стальным сердечником. Пробивает легкую броню, но причиняет меньше повреждений, чем стандартные оболочечные или разрывные пули.</szItemDesc>
+		<szBRName>9x19мм, 15 AP</szBRName>
+		<szBRDesc>Враги одеты в бронежилеты? С этой обоймой не стоит волноваться; Она забита патронами из стали, покрытыми тефлоном. 15 доводов в обойме против кевлара.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>74</uiIndex>
+		<szItemName>9x19мм, 30 AP</szItemName>
+		<szLongItemName>9x19мм магазин для ПП, 30 AP</szLongItemName>
+		<szItemDesc>Магазин на 30  патронов для пистолета-пулемета калибра 9 мм. Лучшие бронебойные  патроны в своей категории.</szItemDesc>
+		<szBRName>9x19мм ПП, 30 AP</szBRName>
+		<szBRDesc>Эти патроны - редчайшая вещь; Бронебойность этой 30-ти зарядной обоймы  отравит жизнь не одному врагу.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>75</uiIndex>
+		<szItemName>9x19мм, 15 HP</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 15 HP</szLongItemName>
+		<szItemDesc>Обойма на 15 патронов калибра 9 мм. Стандартная экспансивная девятиграммовая пуля. Относительно слабая пробивная мощь более чем компенсируется разрывным действием пули.</szItemDesc>
+		<szBRName>9x19мм, 15 HP</szBRName>
+		<szBRDesc>Эти 15 полуоболочечных пуль с экспансивной выемкой - просто высший класс! Никакой враг без бронежилета перед ними не устоит.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>76</uiIndex>
+		<szItemName>9x19мм, 30 HP</szItemName>
+		<szLongItemName>9x19мм магазин для ПП, 30 HP</szLongItemName>
+		<szItemDesc>Магазин на 30 патронов федерального образца с полуоболочечной пулей с экспансивной выемкой. Совмещает в себе характеристики ранения экспансивной пули с неплохой пробивной способностью.</szItemDesc>
+		<szBRName>9x19мм ПП, 30 HP</szBRName>
+		<szBRDesc>Эти 30 первоклассных патронов весом в 7.5 граммов лучшее, что можно приобрести у COR-BON. Мы гарантируем, что с ними ваш MP5 станет предметом зависти для любой группы S.W.A.T.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>77</uiIndex>
+		<szItemName>.38 S-Load</szItemName>
+		<szLongItemName>.38 быстрая обойма</szLongItemName>
+		<szItemDesc>Быстрозарядный магазин на 6 патронов "Спешиал". Среднее поражающее и пробивное действие пули. Совмещенные характеристики разрывных и бронебойных пуль.</szItemDesc>
+		<szBRName>.38 S-Load</szBRName>
+		<szBRDesc>Эта шестизарядная обойма содержит 10-грамовые стандартные патроны .38 калибра для винчестеров. Уже долгие годы в полиции именно на эти  обоймы полагались стражи порядка.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>78</uiIndex>
+		<szItemName>.38 S-Load AP</szItemName>
+		<szLongItemName>.38 быстрая обойма, AP</szLongItemName>
+		<szItemDesc>Эта шестизарядная обойма имеет  6 бронебойных патронов калибра .38. В то время как бронебойность достигается стальными добавками, такие пули уступают свинцовым пулям в размере ран.</szItemDesc>
+		<szBRName>.38 S-Load AP</szBRName>
+		<szBRDesc>Превратите Ваш .38 в силу, с которой будут считаться. Ваш пистолет, заряженный бронебойными патронами калибра .38, оставит любого лежать в своем дырявом бронежилете.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>79</uiIndex>
+		<szItemName>.38 S-Load HP</szItemName>
+		<szLongItemName>.38 быстрая обойма, HP</szLongItemName>
+		<szItemDesc>Хотя эти патроны (по 6 в каждой обойме) менее эффективны, чем бронебойные, однако такой недостаток замещается более тяжелыми ранениями у тех врагов, кто пренебрег пуленепробиваемым жилетом.</szItemDesc>
+		<szBRName>.38 S-Load HP</szBRName>
+		<szBRDesc>Самые новые обоймы от Cor-Bon содержат особые 10-грамовые патроны с усиленной навеской пороха калибра .38. Предостережение: не стоит часто использовать эти патроны в револьверах из алюминиевых сплавов.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>80</uiIndex>
+		<szItemName>.45 маг, 7</szItemName>
+		<szLongItemName>.45 магазин к пистолету, 7</szLongItemName>
+		<szItemDesc>В такой обойме семь патронов калибра .45 системы Кольт. Обычные патроны калибра .45ACP создают раны, схожие с ранами, которые производят патроны СЦ калибра 9мм и .38.</szItemDesc>
+		<szBRName>.45 маг, 7</szBRName>
+		<szBRDesc>Уважающий себя коллекционер не успокоится пока не раздобудет эти патроны: обойма из семи патронов весом 14 грамм (UMC .45 APC).</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>81</uiIndex>
+		<szItemName>.45 ПП, 30</szItemName>
+		<szLongItemName>.45 магазин для ПП, 30</szLongItemName>
+		<szItemDesc>Обойма из 30 стандартных патронов калибра .45 предлагает компромисс между хаотичным движением пули со смещенным центром и проникающей способностью бронебойных патронов.</szItemDesc>
+		<szBRName>.45 ПП маг, 30</szBRName>
+		<szBRDesc>Наша обойма из 30 патронов (Идет вместе с UMC .45 ACP).</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>82</uiIndex>
+		<szItemName>.45 маг, 7 AP</szItemName>
+		<szLongItemName>.45 магазин к пистолету, 7 AP</szLongItemName>
+		<szItemDesc>Эта обойма имеет 7 бронебойных патронов калибра .45. Хотя стальные пули могут пробить большинство видов брони, они наносят меньше вреда тканям тела.</szItemDesc>
+		<szBRName>.45 маг, 7 AP</szBRName>
+		<szBRDesc>Эти бронебойные тефлоновые патроны пробивают Кевлар как лист бумаги. Они оставляют опасные рваные раны.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>83</uiIndex>
+		<szItemName>.45 ПП, 30 AP</szItemName>
+		<szLongItemName>.45 магазин для ПП, 30 бронебойные</szLongItemName>
+		<szItemDesc>Такая обойма имеет 30 бронебойных патронов калибра .45. Патроны  пробивают бронежилет, но наносят меньше повреждений, чем обычные или патроны с полуоболочечной пулей с экспансивной выемкой.</szItemDesc>
+		<szBRName>.45 ПП маг, 30 AP</szBRName>
+		<szBRDesc>Самые лучшие обоймы по тридцать патронов каждая. Такие мощные боеприпасы быстрехонько отправят бронежилет с его содержимым на свалку.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>84</uiIndex>
+		<szItemName>.45 маг, 7 HP</szItemName>
+		<szLongItemName>.45 магазин к пистолету, 7 HP</szLongItemName>
+		<szItemDesc>Семь патронов калибра .45 ACP c экспансивной пулей. Экспансивная выемка пули  позволяет создавать широкое отверстие в теле при столкновении.</szItemDesc>
+		<szBRName>.45 маг, 7 HP</szBRName>
+		<szBRDesc>Если вы серьезно относитесь к своей амуниции .45 калибра, то выбор вами этой 7-ми зарядная обоймы верный способ доказать это.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>85</uiIndex>
+		<szItemName>.45 ПП, 30 HP</szItemName>
+		<szLongItemName>.45 магазин для ПП, 30 экспансивные</szLongItemName>
+		<szItemDesc>Магазин на 30 патронов .45 калибра. Экспансивная пуля разрушается при попадании в мягкие ткани, вызывая обильное кровотечение и повреждение нервов.</szItemDesc>
+		<szBRName>.45 ПП маг, 30 HP</szBRName>
+		<szBRDesc>Превратит ваш пистолет-пулемет в машину для убийства. Эта обойма заполнена 30 патронами с экспансивной пулей Ремингтон калибра .45.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>86</uiIndex>
+		<szItemName>.357 S-Load</szItemName>
+		<szLongItemName>.357 быстрая обойма</szLongItemName>
+		<szItemDesc>Быстрозарядный магазин на 6 патронов калибра .357 "Магнум". Пуля наносит более значительные повреждения, чем .38, .45 и 9мм калибр. Один из лучших патронов для ручного стрелкового оружия.</szItemDesc>
+		<szBRName>.357 S-Load</szBRName>
+		<szBRDesc>Пригвоздите своих врагов к стене при помощи 6 патронов Магнум калибра .357 'Гидра-Шок'.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>87</uiIndex>
+		<szItemName>.357 маг, 9</szItemName>
+		<szLongItemName>.357 магазин, 9</szLongItemName>
+		<szItemDesc>Магазин на 9 стандартных патронов калибра .357 "Магнум". Превосходные патроны, лучшие в игре.</szItemDesc>
+		<szBRName>.357 маг, 9</szBRName>
+		<szBRDesc>Мы предлагаем вам первоклассные патроны из нержавеющей стали. Поставляются  по 9 патронов в обойме. Патрон весит 10 грамм, его калибр .357. С  неразрешимыми проблемами эти пули расправляются за секунду.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>88</uiIndex>
+		<szItemName>.357 S-Load AP</szItemName>
+		<szLongItemName>.357 быстрая обойма, AP</szLongItemName>
+		<szItemDesc>Съемный магазин на 6 патронов калибра .357 "Магнум". Бронебойная пуля с сердечником из закаленной стали прошивает броню, как бумагу, Однако не разрушается при попадании, поэтому повреждения не так значительны.</szItemDesc>
+		<szBRName>.357 S-Load AP</szBRName>
+		<szBRDesc>Говорят, те, что поставлялись Белым Бегемотом, были подделкой, но вот у Бобби Рэя самые настоящие. Эта обойма набита 6-тью патронами, изготовленными по самой последней бронебойной технологии.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>89</uiIndex>
+		<szItemName>.357 маг, 9 AP</szItemName>
+		<szLongItemName>.357 магазин, 9 AP</szLongItemName>
+		<szItemDesc>Магазин на 9 патронов .357 калибра. Пробивает стены и любые виды персональной брони, но из-за небольшого диаметра пулевого отверстия кровопотери бывают невысокими.</szItemDesc>
+		<szBRName>.357 маг, 9 AP</szBRName>
+		<szBRDesc>Утоли свою жгучую жажду проделать дырки в бронежилете врага. Возьми  эти патроны, по 9 в обойме. Сделаны Белым Бегемотом. То, что доктор прописал... твоему врагу.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>90</uiIndex>
+		<szItemName>.357 S-Load HP</szItemName>
+		<szLongItemName>.357 быстрая обойма, HP</szLongItemName>
+		<szItemDesc>Съемный магазин на 6 патронов .357 калибра. Мощное поражающее действие с лихвой компенсирует недостаточную пробивную способность.</szItemDesc>
+		<szBRName>.357 S-Load HP</szBRName>
+		<szBRDesc>Прибавьте к этой обойме из 6 патронов Гидро-Шок еще одну и обе - Ваши по цене одной. Только у нас.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>91</uiIndex>
+		<szItemName>.357 маг, 9 HP</szItemName>
+		<szLongItemName>.357 магазин, 9 HP</szLongItemName>
+		<szItemDesc>Магазин на 9 патронов .357 калибра. При попадании пуля разрушается, нанося неглубокие раны большого диаметра.</szItemDesc>
+		<szBRName>.357 маг, 9 HP</szBRName>
+		<szBRDesc>Хотите, чтобы патрон взорвался у врага в голове? Тогда мы предлагаем вам патроны со смещенным центром калибра .357 Гидро-Шок. Они - решение ваших проблем.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>92</uiIndex>
+		<szItemName>5,45x39мм, 30AP</szItemName>
+		<szLongItemName>5,45x39мм магазин, 30 бронебойные</szLongItemName>
+		<szItemDesc>Обойма на 30 патронов калибра 5,45 мм. Противопехотная пуля способна пробить легкую броню, а благодаря металлической оболочке даже стену и (что самое удобное) нескольких врагов кряду.</szItemDesc>
+		<szBRName>5,45x39мм, 30 AP</szBRName>
+		<szBRDesc>Самый дефицитный товар – обойма на 30 бронебойных патронов русского образца калибра 5,45 мм. От такой обоймы ваши враги перепугаются до смерти. В прямом смысле.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>93</uiIndex>
+		<szItemName>5,45x39мм, 30HP</szItemName>
+		<szLongItemName>5,45x39мм магазин, 30 экспансивные</szLongItemName>
+		<szItemDesc>Магазин на 30 патронов калибра 5,45 мм с полуоболочечной пулей с экспансивной выемкой. При ударе пуля сплющивается и начинает кувыркаться в мягких тканях, нанося значительные внутренние повреждения.</szItemDesc>
+		<szBRName>5,45x39мм, 30 HP</szBRName>
+		<szBRDesc>Ищете быстрый и верный путь заработать на страховке? Эти 30 патронов с полуоболочечной экспансивной пулей помогут вам в максимально сжатые сроки.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>94</uiIndex>
+		<szItemName>5,56мм, 30 AP</szItemName>
+		<szLongItemName>5,56x45мм магазин, 30 бронебойные</szLongItemName>
+		<szItemDesc>Эти 30 стандартных НАТОвских патрона имеют бронебойную пулю, которая запросто пробивает легкую броню и разворачиваясь в тканях наносит необычно сильные для такого мелкого калибра повреждения.</szItemDesc>
+		<szBRName>5,56x45мм, 30 AP</szBRName>
+		<szBRDesc>Магазин на 30 стандартных патронов калибра 5,56мм НАТО. Стальной сердечник пули пробивает любую, ну, почти любую броню на сегодняшний день.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>95</uiIndex>
+		<szItemName>5,56мм, 30 HP</szItemName>
+		<szLongItemName>5,56x45мм магазин, 30 экспансивные</szLongItemName>
+		<szItemDesc>Магазин на 30 патронов 5,56мм Ремингтон с экспансивной пулей. Вариант патронов .223 калибра к охотничьему ружью. Как и более мирный собрат, предназначен для нанесения максимальных повреждений тканей и нервных окончаний.</szItemDesc>
+		<szBRName>5,56x45мм, 30 HP</szBRName>
+		<szBRDesc>Экономичный выбор для стрельбы по мишеням, охоты или предотвращения потенциальных нападений на расстоянии. Такой магазин с патроном калибра .223 JHP, и весом пули в 3,24 грамма может спасти вашу жизнь и кошелек.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>96</uiIndex>
+		<szItemName>7,62x39мм, 10AP</szItemName>
+		<szLongItemName>7,62x39мм магазин, 10 бронебойные</szLongItemName>
+		<szItemDesc>Магазин на 10 патронов калибра 7,62мм советского образца. Пробивают все виды персональной брони и наносят серьезные повреждения упрямому врагу.</szItemDesc>
+		<szBRName>7,62x39мм, 10 AP</szBRName>
+		<szBRDesc>Благодаря этим десяти бронебойным патронам калибра 7,62x39мм китайского производства, созданным специально для целеустремленных снайперов, все газеты мира напишут о вас "Один выстрел = один труп".</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>97</uiIndex>
+		<szItemName>7,62x39мм, 30AP</szItemName>
+		<szLongItemName>7,62x39мм магазин, 30 бронебойные</szLongItemName>
+		<szItemDesc>Магазин на 30 противопехотных патронов калибра 7,62мм советского образца. При столкновении с целью бронебойная пуля сохраняет форму, что увеличивает ее пробивную способность, однако при этом пуля наносит менее тяжелые ранения.</szItemDesc>
+		<szBRName>7,62x39мм, 30 AP</szBRName>
+		<szBRDesc>Ищете что подарить террористу, у которого есть все на свете? Возьмите обойму наших бронебойных патронов калибра 7,62мм. Подарок, который для кого-то окажется последним.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>98</uiIndex>
+		<szItemName>7,62x39мм, 10HP</szItemName>
+		<szLongItemName>7,62x39мм магазин, 10 экспансивные</szLongItemName>
+		<szItemDesc>Магазин на 10 патронов калибра 7,62мм советского образца. Полуоболочечная пуля с экспансивной выемкой обладает меньшей пробивной мощью, чем бронебойный вариант, но зато наносит сильные повреждения и разрушение ударом.</szItemDesc>
+		<szBRName>7,62x39мм, 10 HP</szBRName>
+		<szBRDesc>Когда просто убить уже не интересно. Небольшая обойма 10 патронов калибра 7,62мм с полуоболочечной пулей с экспансивной выемкой отправляют врага на тот свет театрально, красочно, с разбрызгиванием мозгов.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>99</uiIndex>
+		<szItemName>7,62x39мм, 30HP</szItemName>
+		<szLongItemName>7,62x39мм магазин, 30 экспансивные</szLongItemName>
+		<szItemDesc>Магазин на 30 патронов калибра 7,62мм JHP советского образца. Полуоболочечные пули с экспансивной выемкой хороши в применении против легкой брони, но против тяжелой брони почти бессильны.</szItemDesc>
+		<szBRName>7,62x39мм, 30 HP</szBRName>
+		<szBRDesc>Вы никогда не мечтали о том, чтобы превратить врага в ходячий бифштекс с кровью? Наш совет прост – зарядите эту обойму из 30-и патронов с экспансивной полуоболочечной пулей.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>100</uiIndex>
+		<szItemName>7,62x51мм, 5 AP</szItemName>
+		<szLongItemName>7,62x51мм магазин, 5 бронебойные</szLongItemName>
+		<szItemDesc>Магазин на 5 патронов калибра 7,62мм натовского образца. Бронебойные пули сохраняют высокую пробивную способность даже при большой дальности стрельбы, поэтому прекрасно подходят для снайперской винтовки.</szItemDesc>
+		<szBRName>7,62x51мм, 5 AP</szBRName>
+		<szBRDesc>Эти бронебойные снаряды 7,62мм НАТО сочетают в себе отличные показатели  по дальности, глубине проникновения и степени повреждения. Что как раз и  нужно профи.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>101</uiIndex>
+		<szItemName>7,62x51мм, 20AP</szItemName>
+		<szLongItemName>7,62x51мм магазин, 20 бронебойные</szLongItemName>
+		<szItemDesc>Магазин на 20 стандартных натовских патронов калибра 7,62мм. Широко используется войсками всех стран благодаря способности бронебойной пули пробить стальную каску с огромного расстояния.</szItemDesc>
+		<szBRName>7,62x51мм, 20 AP</szBRName>
+		<szBRDesc>Эта обойма патронов калибра 7,62мм НАТО просто дышит смертью, особенно если патроны с оболочечной пулей. Этот магазин патронов ставит под сомнение крепость любой брони.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>102</uiIndex>
+		<szItemName>7,62x51мм, 5 HP</szItemName>
+		<szLongItemName>7,62x51мм магазин, 5 экспансивные</szLongItemName>
+		<szItemDesc>Магазин на 5 патронов "Винчестер" .308. Патроны обладают ограниченной пробивной способностью, что компенсируется способностью наносить тяжелые ранения незащищенному противнику.</szItemDesc>
+		<szBRName>7,62x51мм, 5 HP</szBRName>
+		<szBRDesc>Воспользуйтесь нашим краткосрочным предложением и купите обойму из 5 патронов Винчестер калибра .308. На охоте или на войне эта обойма всегда продемонстрирует свою эффективность.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>103</uiIndex>
+		<szItemName>7,62x51мм, 20HP</szItemName>
+		<szLongItemName>7,62x51мм магазин, 20 экспансивные</szLongItemName>
+		<szItemDesc>Магазин большого объема на 20 патронов "Винчестер" .308 (коммерческий вариант патрона НАТО калибра 7,62мм). Идеален для охоты на незащищенного противника.</szItemDesc>
+		<szBRName>7,62x51мм, 20 HP</szBRName>
+		<szBRDesc>Если вам нужна мощь, то вы станете еще мощнее с этой обоймой Cor-Bon тактических патронов Винчестер калибра .308, гражданским вариантом обоймы 7,62мм НАТО. Любая неразрешимая проблема сама ляжет в гроб.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>104</uiIndex>
+		<szItemName>4,7мм, 45</szItemName>
+		<szLongItemName>4,7x33мм магазин, 45</szLongItemName>
+		<szItemDesc>Магазин на 45 патронов калибра 4,7 мм с безоболочечной пулей. Сила и радиус поражения этих патронов сравнимы с патронами 5,56 мм НАТО, при этом их вес ниже на 40 процентов.</szItemDesc>
+		<szBRName>4,7x33мм маг, 45</szBRName>
+		<szBRDesc>Эти обоймы по 45 пуль в каждой вывезли из секретных немецких складов. Особенностью этих патронов является то, что они безгильзовые.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>105</uiIndex>
+		<szItemName>5,7мм, 50 AP</szItemName>
+		<szLongItemName>5,7х28мм магазин, 50 AP</szLongItemName>
+		<szItemDesc>Магазин на 50 патронов калибра 5,7 мм. Пуля выполнена из полимерных материалов и пригодна для поражения как незащищенного, так и защищенного броней противника.</szItemDesc>
+		<szBRName>5,7х28мм маг, 50 AP</szBRName>
+		<szBRDesc>Вы злитесь когда ваши оппоненты надевают бронежилеты? С этим магазином в 50 патронов калибра 5,7мм вы можете сказать "аста ла виста" любой броней, которая помешает отправить вашего врага на тот свет.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>106</uiIndex>
+		<szItemName>5,7мм, 50 HP</szItemName>
+		<szLongItemName>5,7х28мм магазин, 50 HP</szLongItemName>
+		<szItemDesc>Магазин на 50 патронов, пуля с экспансивной выемкой калибра 5,7 мм. Улучшенные поражающие характеристики по сравнению с обычным патроном без значительного снижения бронебойной способности.</szItemDesc>
+		<szBRName>5,7х28мм маг, 50 HP</szBRName>
+		<szBRDesc>Выполните задание быстро и качественно. Ваш счет убитых будет самым большим, если вы воспользуетесь магазином в 50 патронов с экспансивной пулей калибра 5,7мм. Шансы врага на выживание: никаких. Ну, может, минус один процент.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>107</uiIndex>
+		<szItemName>12 кал, 7</szItemName>
+		<szLongItemName>12-й калибр, 7</szLongItemName>
+		<szItemDesc>Магазин на 7 патронов 12-го калибра. Пуля с полимерной оболочкой прошивает броню как папиросную бумагу.</szItemDesc>
+		<szBRName>12-й кал, 7</szBRName>
+		<szBRDesc>Эти патроны для настоящих мужчин. Обойма из 7 патронов 12 калибра Поликор. Каждая пуля прорывает броню как лист бумаги.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>108</uiIndex>
+		<szItemName>12 кал, 7 BS</szItemName>
+		<szLongItemName>12-й калибр, картечь</szLongItemName>
+		<szItemDesc>Магазин на 7 патронов 12-го калибра, заряженных картечью "00". Незаменим в городских перестрелках (если противник не защищен броней), что делает его излюбленным оружием стражей правопорядка.</szItemDesc>
+		<szBRName>12-й кал, 7 картечь</szBRName>
+		<szBRDesc>Идеальные патроны для ближнего боя. Такая обойма 12 калибра вмещает 7 патронов "00" SSG. Блюстители правопорядка по всему миру выбирают эти патроны из-за их эффективности в уличных боях против преступников без бронежилетов.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>109</uiIndex>
+		<szItemName>CAWS маг, 10</szItemName>
+		<szLongItemName>Магазин к CAWS, 10</szLongItemName>
+		<szItemDesc>Магазин на 10 патронов к CAWS. Превращает оружие в орудие смерти: композитная пуля из вольфрама и стали насквозь пробьет любую броню или двигатель автомобиля.</szItemDesc>
+		<szBRName>CAWS маг, 10</szBRName>
+		<szBRDesc>Такие 10 патронов CAWS несут разрушение и смерть врагу. В каждом патроне вольфрамовая пуля, способная пробить броню, железные преграды и т.д. Уважающий себя наемник не выйдет с базы не взяв с собой такой обоймы.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>110</uiIndex>
+		<szItemName>CAWS маг, 10BS</szItemName>
+		<szLongItemName>Магазин к CAWS, 10 картечь</szLongItemName>
+		<szItemDesc>Магазин на 10 патронов к CAWS, заряженных вольфрамовой картечью размера "00". Совмещают характеристики бронебойных и разрывных патронов, но без их отрицательных моментов.</szItemDesc>
+		<szBRName>CAWS маг, 10 картечь</szBRName>
+		<szBRDesc>Вам никогда не хотелось прикончить непрошенного гостя, а заодно снести и стену дома от злости? Наша обойма с 10 патронами из вольфрама набитыми картечью позволяет сделать это и даже больше.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>111</uiIndex>
+		<szItemName>Ракеты, AP</szItemName>
+		<szLongItemName>Мини-ракеты бронебойные</szLongItemName>
+		<szItemDesc>Супер-технологии - супер-убийство. Смерть от бронебойной ракеты выглядит так живописно, что голливудские мастера спецэффектов умрут от зависти.</szItemDesc>
+		<szBRName>Мини-ракеты, AP</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>112</uiIndex>
+		<szItemName>Ракеты, НЕ</szItemName>
+		<szLongItemName>Мини-ракеты разрывные</szLongItemName>
+		<szItemDesc>Идеальный выбор для библейских Четырех Всадников Апокалипсиса. Эти 5 ракет повышенной взрывной мощности устроят Армагеддон быстрее, чем любой метеорит.</szItemDesc>
+		<szBRName>Мини-ракеты, НЕ</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>113</uiIndex>
+		<szItemName>Ракеты HE-AP</szItemName>
+		<szLongItemName>Мини-ракеты, фугасно-бронебойные</szLongItemName>
+		<szItemDesc>Выпустит кишки любому противнику... а затем поджарит их.</szItemDesc>
+		<szBRName>Ракеты HE-AP</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>114</uiIndex>
+		<szItemName>Дротик</szItemName>
+		<szLongItemName>Усыпляющий дротик</szLongItemName>
+		<szItemDesc>Предназначен для крупной дичи. Противник не успеет и зевнуть, прежде чем свалится с ног.</szItemDesc>
+		<szBRName>Дротик</szBRName>
+		<szBRDesc>Предназначен для крупной дичи. Противник не успеет и зевнуть, прежде чем свалится с ног.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>115</uiIndex>
+		<szItemName>Баллон с газом</szItemName>
+		<szLongItemName>Баллон с горючей смесью для огнемета</szLongItemName>
+		<szItemDesc>Нет огнемета в игре - нет и боеприпасов к нему!</szItemDesc>
+		<szBRName>Баллон с газом</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>116</uiIndex>
+		<szItemName>.50 маг, 11</szItemName>
+		<szLongItemName>.50 магазин, 11</szLongItemName>
+		<szItemDesc>Магазин на 11 патронов калибра .50 (12,7x99мм Браунинг) к винтовке Барретт M82A2.</szItemDesc>
+		<szBRName>.50 магазин, 11</szBRName>
+		<szBRDesc>Магазин на 11 патронов калибра .50 (12,7x99мм Браунинг) к винтовке Барретт M82A2.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>117</uiIndex>
+		<szItemName>9x39мм, 20</szItemName>
+		<szLongItemName>9x39мм магазин, 20 СП-6</szLongItemName>
+		<szItemDesc>Этот 20-зарядный пластиковый магазин с шахматным расположением патронов был разработан специально для АС "ВАЛ". Дозвуковой бронебойный патрон СП-6 разработан на основе снайперского патрона СП-5.</szItemDesc>
+		<szBRName>9x39мм маг, 20 СП-6</szBRName>
+		<szBRDesc>Этот 20-зарядный пластиковый магазин был разработан специально для АС "ВАЛ". Дозвуковой бронебойный патрон СП-6 разработан на основе СП-5, имеет пулю с сердечником из карбида вольфрама и пробивает 6-мм стальную плиту на дистанции 100 м.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>118</uiIndex>
+		<szItemName>9x19мм, 50</szItemName>
+		<szLongItemName>9x19мм магазин для ПП, 50 50</szLongItemName>
+		<szItemDesc>Магазин 9 мм патронов к "Calico". Когда впереди длинная ночь, 50-зарядный магазин весьма кстати.</szItemDesc>
+		<szBRName>9x19мм ПП, 50</szBRName>
+		<szBRDesc>Магазин 9 мм патронов к "Calico". Когда впереди длинная ночь, 50-зарядный магазин весьма кстати.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>119</uiIndex>
+		<szItemName>9x19мм, 50 AP</szItemName>
+		<szLongItemName>9x19мм магазин для ПП, 50 AP</szLongItemName>
+		<szItemDesc>Магазин на 50 бронебойных патронов калибра 9x19 мм к "Calico".</szItemDesc>
+		<szBRName>9x19мм ПП, 50 AP</szBRName>
+		<szBRDesc>Магазин на 50 бронебойных патронов калибра 9x19 мм к "Calico".</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>120</uiIndex>
+		<szItemName>9x19мм, 50 HP</szItemName>
+		<szLongItemName>9x19мм магазин для ПП, 50 HP</szLongItemName>
+		<szItemDesc>Магазин на 50 патронов калибра 9 мм к "Calico" с экспансивной пулей.</szItemDesc>
+		<szBRName>9x19мм ПП, 50 HP</szBRName>
+		<szBRDesc>Магазин на 50 патронов калибра 9 мм к "Calico" с экспансивной пулей.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>121</uiIndex>
+		<szItemName>5,45x39мм, 45AP</szItemName>
+		<szLongItemName>5,45x39мм магазин для РПК, 45 бронебойные</szLongItemName>
+		<szItemDesc>Обойма на 45 патронов калибра 5,45 мм. Противопехотная пуля способна пробить легкую броню, а благодаря металлической оболочке даже стену и (что самое удобное) нескольких врагов кряду.</szItemDesc>
+		<szBRName>5,45x39мм, 45 AP</szBRName>
+		<szBRDesc>Самый дефицитный товар – обойма на 30 бронебойных патронов русского образца калибра 5,45 мм. При помощи этой обоймы вы сможете накормить своих врагов до смерти.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>122</uiIndex>
+		<szItemName>5,45x39мм, 45HP</szItemName>
+		<szLongItemName>5,45x39мм магазин для РПК, экспансивные</szLongItemName>
+		<szItemDesc>Магазин на 45 патронов калибра 5,45 мм с полуоболочечной пулей с экспансивной выемкой. При ударе пуля сплющивается и начинает кувыркаться в мягких тканях, нанося значительные внутренние повреждения.</szItemDesc>
+		<szBRName>5,45x39мм, 45 HP</szBRName>
+		<szBRDesc>Ищете быстрый и верный путь заработать на страховке? Эти 30 патронов с полуоболочечной экспансивной пулей помогут вам в максимально сжатые сроки.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>123</uiIndex>
+		<szItemName>5,56мм,200AP</szItemName>
+		<szLongItemName>5,56x45мм лента, 200 бронебойные</szLongItemName>
+		<szItemDesc>Лента на 200 стандартных патронов калибра 5,56мм НАТО. Пуля пробивает легкую броню и разворачивается в тканях, что обеспечивает необычные для такого мелкого калибра повреждения.</szItemDesc>
+		<szBRName>5,56x45мм, 200 AP</szBRName>
+		<szBRDesc>Эта лента набита 200 патронами калибра 5,56мм НАТО. Оболочечная пуля гарантирует поражение любой брони, ну, по крайней мере, на сегодняшний день любой.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>124</uiIndex>
+		<szItemName>5,56мм,200HP</szItemName>
+		<szLongItemName>5,56x45мм лента, 200 экспансивные</szLongItemName>
+		<szItemDesc>Эта лента содержит 200 патронов калибра 5,56мм Ремингтон с экспансивной пулей (вариант охотничьих патронов калибра .223). Как и патроны .223, предназначены для нанесения максимальных повреждений тканей и нервных окончаний.</szItemDesc>
+		<szBRName>5,56x45мм, 200 HP</szBRName>
+		<szBRDesc>Самый дешевый вариант для стрельбы по мишеням, охоты, отражения группового нападения. Такой патрон калибра .223 с весом пули в 3,24 грамма может спасти вашу жизнь и кошелек.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>125</uiIndex>
+		<szItemName>7,62x51мм,100AP</szItemName>
+		<szLongItemName>7,62x51мм лента, 100 бронебойные</szLongItemName>
+		<szItemDesc>Лента на 100 стандартных бронебойных патронов калибра 7,62мм НАТО. Широко используется войсками всех стран из-за способности пробивать стальную каску с больших расстояний.</szItemDesc>
+		<szBRName>7,62x51мм, 100 AP</szBRName>
+		<szBRDesc>Эта лента патронов калибра 7,62мм НАТО просто дышит смертью, особенно если патроны с оболочечной пулей. Эта лента патронов ставит под сомнение крепость любой брони.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>126</uiIndex>
+		<szItemName>7,62x51мм,100HP</szItemName>
+		<szLongItemName>7,62x51мм лента, 100 экспансивные</szLongItemName>
+		<szItemDesc>Эта пулеметная лента содержит 100 патронов калибра .308 "Винчестер" (коммерческий вариант патрона калибра 7,62мм НАТО). Патроны идеальны для охоты на незащищенного противника.</szItemDesc>
+		<szBRName>7,62x51мм, 100 HP</szBRName>
+		<szBRDesc>Если вам нужна мощь, то вы станете еще мощнее с этой обоймой Cor-Bon тактических патронов калибра .308 "Винчестер" (гражданский вариант патрона 7,62мм НАТО). Любая неразрешимая проблема сама ляжет в гроб.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>127</uiIndex>
+		<szItemName>7,62x54R, 10</szItemName>
+		<szLongItemName>7,62x54R магазин, 10 AP</szLongItemName>
+		<szItemDesc>Эти 10 бронебойных патронов для стрельбы по целям с больших расстояний подойдут для ваших коллекционных винтовок, рассчитанных на русский патрон калибра 7,62х54мм.</szItemDesc>
+		<szBRName>7,62x54R маг, 10</szBRName>
+		<szBRDesc>Эти 10 бронебойных патронов для стрельбы по целям с больших расстояний подойдут для ваших коллекционных винтовок, рассчитанных на русский патрон калибра 7,62х54мм.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>128</uiIndex>
+		<szItemName>Ранец A.L.I.C.E.</szItemName>
+		<szLongItemName>Полевой ранец A.L.I.C.E.</szLongItemName>
+		<szItemDesc>Американский нейлоновый полевой ранец ALICE PACK, MEDIUM позволит вам переносить дополнительно 4 разных вещи. Экземпляр выпуска начала 1980-х годов прошлого века.</szItemDesc>
+		<szBRName>Полевой ранец A.L.I.C.E.</szBRName>
+		<szBRDesc>Не хватает места под обмундирование? Американский нейлоновый полевой ранец ALICE PACK выпуска начала 1980-х годов решит эту проблему. Внутренний объем регулируется тремя шнурками и D-кольцами, пришитыми внутри к стенкам и днищу.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>129</uiIndex>
+		<szItemName>7,62x25мм, 30</szItemName>
+		<szLongItemName>7,62x25мм магазин для ПП, 30</szLongItemName>
+		<szItemDesc>Бронебойность пули становится не столь важным показателем, когда вы можете расстрелять свою цель. Будьте уверены, этот магазин на 30 патронов калибра 7,62x25мм не даст возможности врагу подняться с земли.</szItemDesc>
+		<szBRName>7,62x25мм ПП, 30</szBRName>
+		<szBRDesc>Бронебойность пули становится не столь важным показателем, когда вы можете расстрелять свою цель. Будьте уверены, этот магазин на 30 патронов калибра 7,62x25мм не даст возможности врагу подняться с земли.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>130</uiIndex>
+		<szItemName>7,62x25мм, 30HP</szItemName>
+		<szLongItemName>7,62x25мм магазин для ПП, 30 HP</szLongItemName>
+		<szItemDesc>Обойма на 30 патронов калибра 7,62x25мм с экспансивной пулей. Отличный выбор для борьбы с противником в легкой броне и с надоедливыми соседями.</szItemDesc>
+		<szBRName>7,62x25мм ПП, 30 HP</szBRName>
+		<szBRDesc>Обойма на 30 патронов калибра 7,62x25мм с экспансивной пулей. Отличный выбор для борьбы с противником в легкой броне и с надоедливыми соседями.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>131</uiIndex>
+		<szItemName>Шоковая граната</szItemName>
+		<szLongItemName>Граната ударно-шокового действия</szLongItemName>
+		<szItemDesc>При взрыве образуется обширная зона вакуума, в которую устремляется воздух, создавая вокруг область с пониженным содержанием кислорода.</szItemDesc>
+		<szBRName>Граната ударно-шоковая</szBRName>
+		<szBRDesc>Эта граната создает сильный вакуум, который засасывает в себя кислород. Люди, попавшие в эпицентр взрыва, дезориентируются, поскольку будут тщетно пытаться набрать воздуха в легкие.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>132</uiIndex>
+		<szItemName>Слезоточ. газ</szItemName>
+		<szLongItemName>Граната со слезоточивым газом</szLongItemName>
+		<szItemDesc>При взрыве распыляет в воздух слезоточивый газ. Берегите глаза и кожу!</szItemDesc>
+		<szBRName>Газ слезоточивый</szBRName>
+		<szBRDesc>Враги будут плакать как первоклассники, кем, впрочем, они и являются. При взрыве такая граната выпускает газ, который режет и щиплет глаза, кусает кожу. Враг мгновенно разбегается во все стороны.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>133</uiIndex>
+		<szItemName>Горчичный газ</szItemName>
+		<szLongItemName>Граната с горчичным газом</szLongItemName>
+		<szItemDesc>При взрыве распыляет в воздух газ без вкуса, запаха и цвета, вызывающий сильный ожог и нарывы легких. Если вовремя не оказать медицинскую помощь, пострадавший может умереть.</szItemDesc>
+		<szBRName>Газ горчичный</szBRName>
+		<szBRDesc>Да, это не горчица для хот-дога. Граната выпускает газ без цвета, без запаха, без вкуса, который вызывает раздражение и ожог легких. Пострадавшие могут умереть, если им не оказать срочной медицинской помощи.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>134</uiIndex>
+		<szItemName>Граната M67</szItemName>
+		<szLongItemName>Наступательная граната М67</szLongItemName>
+		<szItemDesc>Небольшая граната с зарядом тротила. Обладает хорошей дальностью броска и разлета осколков. Смертельные ранения противнику обеспечены.</szItemDesc>
+		<szBRName>Граната М67</szBRName>
+		<szBRDesc>Эта небольшая граната была разработана, чтобы обеспечить максимальную дальность броска и эффективный взрыв. В гранате заложен TNT. Размер гранаты позволяет женщинам бросать гранаты наравне с мужчинами.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>135</uiIndex>
+		<szItemName>Граната F-1</szItemName>
+		<szLongItemName>Ручная оборонительная граната F-1</szLongItemName>
+		<szItemDesc>Стандартная армейская осколочная граната с зарядом тротила. После выдергивания чеки срабатывания капсюля не происходит до тех пор, пока спусковой рычаг остается прижатым к корпусу гранаты.</szItemDesc>
+		<szBRName>Граната F-1</szBRName>
+		<szBRDesc>Стандартная разрывная ручная граната. С TNT в корпусе, это взрывное устройство с кольцом-чекой, чрезвычайно эффективно на поле боя. Не подпускает врагов и останавливает их на полпути.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>136</uiIndex>
+		<szItemName>Гексоген</szItemName>
+		<szLongItemName>Сосуд с кристаллами гексогена</szLongItemName>
+		<szItemDesc>Эта штука помощнее тротила и куда более легко взрывающаяся. Единственный минус заключается в нестабильности кристаллов: достаточно малейшего сотрясения, чтобы прогремел взрыв.</szItemDesc>
+		<szBRName>Кристаллы гексогена</szBRName>
+		<szBRDesc>Гексоген (циклотриметилентринитрамин, RDX, T4) - мощное вторичное взрывчатое вещество. Чувствительность к удару занимает среднее положение между тетрилом и ТЭНом. ВНИМАНИЕ: вещество очень неустойчиво и одним легким испугом не отделаетесь.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>137</uiIndex>
+		<szItemName>Тротил</szItemName>
+		<szLongItemName>Тротил</szLongItemName>
+		<szItemDesc>По частоте и продолжительности использования тринитротолуол стоит на почетном втором месте среди взрывчаток (на первом - динамит). Тротиловые шашки плотно завернуты в соломенный картон. Каждая содержит около 100 г тротила.</szItemDesc>
+		<szBRName>Тротил</szBRName>
+		<szBRDesc>Старый добрый тринитротолуол считается второй по счету традиционной взрывчаткой - первой был динамит. Эта взрывчатка очень надежна, один заряд сделан из прессованной бумаги и из 100 граммов динамита.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>138</uiIndex>
+		<szItemName>Октоген</szItemName>
+		<szLongItemName>Октоген</szLongItemName>
+		<szItemDesc>Смесь тротила и гексогена в весовом соотношении 1:1. Обладает более слабой, по сравнению с гексогеном взрывной мощью, зато гораздо более стабильна.</szItemDesc>
+		<szBRName>Октоген</szBRName>
+		<szBRDesc>В этой взрывчатке скрыта значительная сила. HMX является смесью TNT и RDX в весовой пропорции 50/50. Хотя HMX не мощнее чем RDX без добавок, он значительно устойчивее.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>139</uiIndex>
+		<szItemName>C1</szItemName>
+		<szLongItemName>C1</szLongItemName>
+		<szItemDesc>Соединение С1 получено путем синтеза гексогенового раствора с добавлением нефтепродуктов. Соединение получается стабильным без потери мощности взрыва.</szItemDesc>
+		<szBRName>C1</szBRName>
+		<szBRDesc>Состав C1 является высоковзрывчатой смесью RDX и минеральной соли. Такая смесь равна RDX по эффективности, но она не взорвется хозяину в лицо в самый неподходящий момент.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>140</uiIndex>
+		<szItemName>60мм выстрел</szItemName>
+		<szLongItemName>60 мм выстрел</szLongItemName>
+		<szItemDesc>60 мм фугасный выстрел, снабженный дополнительным водонепроницаемым зарядом взрывчатки. Запал М734 можно установить в следующие режимы взрыва: с задержкой, в воздухе, при попадании, при сближении с целью или при сближении с поверхностью.</szItemDesc>
+		<szBRName>60 мм выстрел</szBRName>
+		<szBRDesc>Для миномета настоящего мужчины. Фугасный выстрел включает в себя "подкову" крыла и многофункциональный детонатор M734. Такой детонатор может быть активирован вручную, при столкновении, по приближении к цели, и т.д.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>141</uiIndex>
+		<szItemName>Мина</szItemName>
+		<szLongItemName>Противопехотная мина</szLongItemName>
+		<szItemDesc>Противопехотная осколочная мина нажимного действия. Снабжена устройством предупреждения случайного срабатывания и датчиком дезактивации мины после некоторого промежутка времени.</szItemDesc>
+		<szBRName>Противопехотная мина</szBRName>
+		<szBRDesc>Эта противопехотная мина - осколочное оружие, которое взрывается, когда на него наступают. В мину встроено устройство против саперов, и сенсор, который через некоторое время нейтрализует мину.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>142</uiIndex>
+		<szItemName>C4</szItemName>
+		<szLongItemName>C4</szLongItemName>
+		<szItemDesc>Соединение С4 представляет собой белую пластиковую взрывчатку, по взрывной мощности превосходящую тротил. На каждой стороне пластикового контейнера имеется отверстие с резьбой. В отличие от С1 не имеет явного запаха.</szItemDesc>
+		<szBRName>C4</szBRName>
+		<szBRDesc>В этом заряде заложена большая мощь, чем в TNT. Смесь C4 поставляется в пластиковом корпусе, герметично закрытом с обоих концов крышкой. В отличии от C1, родной сестры C4, C4 не имеет запаха.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>143</uiIndex>
+		<szItemName>Сигнальная мина</szItemName>
+		<szLongItemName>Сигнальная мина</szLongItemName>
+		<szItemDesc>Световая сигнальная мина, снабженная растяжкой. Натяжение или обрыв провода приведет к появлению сигнального огня, и противник обнаружит себя.</szItemDesc>
+		<szBRName>Сигнальная мина</szBRName>
+		<szBRDesc>От этой осветительной мины с подсоединенным проводом становится светло как днем. От касания или разрыва провода загорается осветительная ракета, которая и сообщает о том, что враг подошел близко.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>144</uiIndex>
+		<szItemName>Звуковая мина</szItemName>
+		<szLongItemName>Звуковая сигнальная мина</szLongItemName>
+		<szItemDesc>Сигнальная светозвуковая мина, снабженная растяжкой. Натяжение или обрыв провода приведет к появлению сигнального огня и громкого звукового сигнала.</szItemDesc>
+		<szBRName>Звуковая мина</szBRName>
+		<szBRDesc>От этой звуковой осветительной мины с подсоединенным проводом становится светло как днем. В придачу еще раздается оглушительный рев сирены. От касания или разрыва провода срабатывает сирена и загорается осветительная ракета.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>145</uiIndex>
+		<szItemName>Формовой заряд</szItemName>
+		<szLongItemName>Формовой заряд</szLongItemName>
+		<szItemDesc>Небольшая пластиковая взрывчатка с вольфрамовой оболочкой легко сорвет дверной замок.</szItemDesc>
+		<szBRName>Формовой заряд</szBRName>
+		<szBRDesc>Незачем мерзнуть на улице просто потому, что вы забыли ключ. Этот надежный заряд взрывчатки решит все ваши проблемы. Поместите эту пластиковую взрывчатку на дверь, и замок отлетит к чертовой матери.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>146</uiIndex>
+		<szItemName>Осветитель</szItemName>
+		<szLongItemName>Химический осветитель</szLongItemName>
+		<szItemDesc>Одноразовый, но очень удобный портативный источник света. Переломите пакет и бросьте его на землю, чтобы осветить путь.</szItemDesc>
+		<szBRName>Хим. осветитель</szBRName>
+		<szBRDesc>Эти одноразовые химические осветители незаменимые помощники в ночных заданиях. Закупайте их с запасом, поскольку, кто знает, когда и сколько их Вам понадобится. Чтобы зажечь, просто надломите и потрясите.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>147</uiIndex>
+		<szItemName>40мм ОГ</szItemName>
+		<szLongItemName>40мм осколочная граната</szLongItemName>
+		<szItemDesc>40мм выстрел с осколочной гранатой для гранатомета. Начинена тротилом.</szItemDesc>
+		<szBRName>40мм ОГ</szBRName>
+		<szBRDesc>Эта стандартная осколочная граната способна взрывать находящийся внутри нее TNT с небольшой задержкой времени. Ее заряжают в подствольный гранатомет и выстреливают, чтобы обеспечить более высокую точность попадания.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>148</uiIndex>
+		<szItemName>40мм ГСГ</szItemName>
+		<szLongItemName>40мм граната со слезоточивым газом</szLongItemName>
+		<szItemDesc>В результате взрыва начнет выделять слезоточивый газ. Предназначена для гранатомета калибра 40мм.</szItemDesc>
+		<szBRName>40мм ГСГ</szBRName>
+		<szBRDesc>Корпус гранаты сделан из прорезиненного пластика, чтобы предотвратить повреждения от удара и чтобы граната не была брошена обратно. Задержки хватает, чтобы без суеты выстрелить в толпу.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>149</uiIndex>
+		<szItemName>40мм ГУ-Ш</szItemName>
+		<szLongItemName>40мм граната ударно-шокового действия</szLongItemName>
+		<szItemDesc>В результате взрыва этой гранаты, выпущенной из сорокамиллиметрового гранатомета, образуется зона вакуума, которая буквально перекрывает противнику кислород.</szItemDesc>
+		<szBRName>40мм ГУ-Ш</szBRName>
+		<szBRDesc>Такая граната при взрыве создает вакуум, который забирает весь кислород поблизости. Люди, попавшие в эпицентр взрыва, мгновенно дезориентируются, поскольку тщетно будут пытаться набрать воздуха в легкие.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>150</uiIndex>
+		<szItemName>40мм ДГ</szItemName>
+		<szLongItemName>40мм дымовая граната</szLongItemName>
+		<szItemDesc>При правильном использовании эта 40-миллиметровая дымовая граната заставляет ваших противников думать, что они связались с самим великим Гуддини.</szItemDesc>
+		<szBRName>40мм ДГ</szBRName>
+		<szBRDesc>Такая граната при взрыве создает облако дыма, что помогает вступить в битву или покинуть ее незаметно.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>151</uiIndex>
+		<szItemName>Граната М18</szItemName>
+		<szLongItemName>Дымовая граната М18</szLongItemName>
+		<szItemDesc>Если нужно обеспечить другу прикрытие, дымовая фосфорная шашка лучше любого оружия.</szItemDesc>
+		<szBRName>Граната М18</szBRName>
+		<szBRDesc>Эта ручная граната служит многим целям: скрытое проникновение в тыл врага, разметка мест высадки.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>152</uiIndex>
+		<szItemName>Tank Shell</szItemName>
+		<szLongItemName>Tank Shell</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY</szItemDesc>
+		<szBRName>Tank Shell</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>153</uiIndex>
+		<szItemName>Struct Ignite</szItemName>
+		<szLongItemName>Struct Ignite</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Struct Ignite</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>154</uiIndex>
+		<szItemName>Коктейль</szItemName>
+		<szLongItemName>Коктейль из твари</szLongItemName>
+		<szItemDesc>Удален из игры. Временно?</szItemDesc>
+		<szBRName>Коктейль из твари</szBRName>
+		<szBRDesc>Удален из игры. Временно?</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>155</uiIndex>
+		<szItemName>Structure Explosion</szItemName>
+		<szLongItemName>Structure Explosion</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Structure Explosion</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>156</uiIndex>
+		<szItemName>Great big explosion</szItemName>
+		<szLongItemName>Great big explosion</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Great big explosion</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>157</uiIndex>
+		<szItemName>Big Tear Gas</szItemName>
+		<szLongItemName>Big Tear Gas</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Big Tear Gas</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>158</uiIndex>
+		<szItemName>Small Creature Gas</szItemName>
+		<szLongItemName>Small Creature Gas</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Small Creature Gas</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>159</uiIndex>
+		<szItemName>Large Creature Gas</szItemName>
+		<szLongItemName>Large Creature Gas</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Large Creature Gas</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>160</uiIndex>
+		<szItemName>Гр. подсумок</szItemName>
+		<szLongItemName>Гранатный подсумок</szLongItemName>
+		<szItemDesc>Четыре кармана, каждый для одной гранаты, установлены в модульную группу которая может быть присоединена к вашей разгрузочной системе.</szItemDesc>
+		<szBRName>Гранатный подсумок</szBRName>
+		<szBRDesc>Больше никаких гранат висящих на D-кольцах, никаких случайных срывов во время передвижения ползком. Наш гранатный подсумок имеет 4 кармана для безопасной переноски гранат.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>161</uiIndex>
+		<szItemName>Жилет легкий</szItemName>
+		<szLongItemName>Легкий бронежилет</szLongItemName>
+		<szItemDesc>Сверхлегкий безрукавный бронежилет производства "Арморшилд". Дополнен шейно-воротниковой защитной секцией и дополнительной защитой паховой области. По бокам бронежилета расположены застежки велкро.</szItemDesc>
+		<szBRName>Жилет легкий</szBRName>
+		<szBRDesc>Сверхлегкий бронежилет "Флак" сконструирован таким образом, чтобы обеспечить максимальную защиту при минимальном весе. Из себя представляет жилет без рукавов с шейной пластиной и защищенным пахом. Открывается по бокам.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>162</uiIndex>
+		<szItemName>Жилет Л-18</szItemName>
+		<szLongItemName>Легкий бронежилет, С-18</szLongItemName>
+		<szItemDesc>Сверхлегкий безрукавный бронежилет производства "Арморшилд", пропитанный Составом-18. Повышенная пулестойкость. Дополнен шейно-воротниковой защитной секцией и дополнительной защитой паховой области.</szItemDesc>
+		<szBRName>Жилет Легкий, С-18</szBRName>
+		<szBRDesc>Более надежный бронежилет чем обычный "Флак", что достигается добавлением состава-18. Из себя представляет жилет без рукавов с шейной пластиной и и защищенным пахом. Открывается по бокам.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>163</uiIndex>
+		<szItemName>Жилет Л-Ж</szItemName>
+		<szLongItemName>Легкий бронежилет, желе</szLongItemName>
+		<szItemDesc>Сверхлегкий бронежилет производства "Арморшилд", покрытый слоем желе из королевы рептионов. Повышенный класс защиты. Дополнен шейно-воротниковой защитной секцией и дополнительной защитой паховой области.</szItemDesc>
+		<szBRName>Жилет Легкий, желе</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>164</uiIndex>
+		<szItemName>Жилет Кевлар</szItemName>
+		<szLongItemName>Бронежилет из волокна Кевлар</szLongItemName>
+		<szItemDesc>Бронежилет выполнен из 28-слойного кевлара. Дополнен плечевой, шейно-воротниковой, боковыми и паховой защитными секциями. Подгоночные ремни на талии и груди обеспечат правильное положение бронежилета.</szItemDesc>
+		<szBRName>Жилет, Кевлар</szBRName>
+		<szBRDesc>Этот бронежилет сделан из 28 слоев Кевлара для лучшей защиты, чем та, которую предлагает обычный бронежилет. Жилет обеспечивает полную защиту плечам, шее, имеется съемная пластина для паха. Крепления регулируются по желанию.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>165</uiIndex>
+		<szItemName>Жилет К-18</szItemName>
+		<szLongItemName>Бронежилет из волокна Кевлар, С-18</szLongItemName>
+		<szItemDesc>Бронежилет выполнен из 28-слойного кевлара и обработан Составом-18. Повышенная пулестойкость.</szItemDesc>
+		<szBRName>Жилет, Кевлар-18</szBRName>
+		<szBRDesc>Если кевларовый бронежилет пришелся Вам по вкусу, значит, этот с добавкой состава-18 понравится Вам еще больше. Пластины этого бронежилета собраны из 28 слоев кевлара. Надежность конструкции значительно повысилась из-за новых добавок.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>166</uiIndex>
+		<szItemName>Жилет К-Ж</szItemName>
+		<szLongItemName>Бронежилет из волокна Кевлар, желе</szLongItemName>
+		<szItemDesc>Бронежилет выполнен из 28-слойного кевлара и покрыт слоем желе королевы рептионов. Дает повышенный класс защиты.</szItemDesc>
+		<szBRName>Жилет, Кевлар-желе</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>167</uiIndex>
+		<szItemName>Жилет Спектра</szItemName>
+		<szLongItemName>Бронежилет из волокна Спектра</szLongItemName>
+		<szItemDesc>Бронепластины выполнены из высокопрочного материала "Спектра шилд", поглощающего энергию выстрела и тем самым защищающего от динамических повреждений. Есть отсек для дополнительной пластины, которая еще больше снизит повреждение.</szItemDesc>
+		<szBRName>Жилет, Спектра</szBRName>
+		<szBRDesc>Самая совершенная технология в изготовлении брони. Этот бронежилет сделан из металла "Спектра", значительно снижает эффект пуль и осколков гранаты. В бронежилет можно вставить еще одну пластину.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>168</uiIndex>
+		<szItemName>Жилет С-18</szItemName>
+		<szLongItemName>Бронежилет из волокна Спектра, С 18</szLongItemName>
+		<szItemDesc>Бронепластины выполнены из высокопрочного материала "Спектра шилд", поглощающего энергию выстрела и тем самым защищающего от динамических повреждений. Бронежилет обработан Составом-18 для еще большего повышения пулестойкости.</szItemDesc>
+		<szBRName>Жилет, Спектра-18</szBRName>
+		<szBRDesc>Современные технологии и достижения химической науки позволили создать бронежилет "Спектра-18". Броня "Спектра" значительно снижает убойную силу пуль и осколков гранаты. Добавьте состав-18 и вы станете неуязвимы.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>169</uiIndex>
+		<szItemName>Жилет С-Ж</szItemName>
+		<szLongItemName>Бронежилет из волокна Спектра, желе</szLongItemName>
+		<szItemDesc>Бронепластины выполнены из высокопрочного материала Спектра, поглощающего энергию выстрела и тем самым защищающего от динамических повреждений. Бронежилет покрыт слоем желе из королевы рептионов, что повышает класс защиты.</szItemDesc>
+		<szBRName>Жилет, Спектра-желе</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>170</uiIndex>
+		<szItemName>Брюки Кевлар</szItemName>
+		<szLongItemName>Брюки из волокна Кевлар</szLongItemName>
+		<szItemDesc>Брюки выполнены из 28-слойного кевлара. Подгоночные ремни на талии и лодыжках позволяют идеально подогнать брюки.</szItemDesc>
+		<szBRName>Брюки, Кевлар</szBRName>
+		<szBRDesc>Кевларовые поножи сделаны из 28 слоев кевлара. Имеется шнуровка, чтобы укрепить броню на ногах, не стесняя при этом свободы движения. Подобные поножи должен использовать любой осторожный наемник.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>171</uiIndex>
+		<szItemName>Брюки К-18</szItemName>
+		<szLongItemName>Брюки из волокна Кевлар, С-18</szLongItemName>
+		<szItemDesc>Брюки выполнены из 28-слойного кевлара и обработаны Составом-18 для повышения пулестойкости.</szItemDesc>
+		<szBRName>Брюки, Кевлар-18</szBRName>
+		<szBRDesc>Улучшенные бронированные поножи - пластины на них сделаны из 28 слоев кевлара, и обработаны составом-18 для дополнительной защиты.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>172</uiIndex>
+		<szItemName>Брюки К-Ж</szItemName>
+		<szLongItemName>Брюки из волокна Кевлар, желе</szLongItemName>
+		<szItemDesc>Брюки выполнены из 28-слойного кевлара и покрыты желе из королевы рептионов для повышения класса защиты.</szItemDesc>
+		<szBRName>Брюки, Кевлар-желе</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>173</uiIndex>
+		<szItemName>Брюки Спектра</szItemName>
+		<szLongItemName>Брюки из волокна Спектра</szLongItemName>
+		<szItemDesc>Защитные брюки с бронепластинами из высокопрочного материала "Спектра шилд", поглощающего энергию выстрела и тем самым защищающего от динамических повреждений. Благодаря подгоночным ремням на талии и лодыжках, брюки не стесняют движений.</szItemDesc>
+		<szBRName>Брюки, Спектра</szBRName>
+		<szBRDesc>Поножи "Спектра" предлагают максимальную защиту на рынке брони. Имеется шнуровка, чтобы укрепить броню на теле, не снижая при этом свободы движения. Подобные поножи должен использовать любой осторожный наемник.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>174</uiIndex>
+		<szItemName>Брюки С-18</szItemName>
+		<szLongItemName>Брюки из волокна Спектра, С-18</szLongItemName>
+		<szItemDesc>Защитные брюки с бронепластинами из высокопрочного материала "Спектра шилд", обработанные Составом-18. Обеспечивают еще лучшую защиту от динамических повреждений.</szItemDesc>
+		<szBRName>Брюки, Спектра-18</szBRName>
+		<szBRDesc>Возьмите самую лучшую броню, имеющуюся в наличии, и улучшите ее - и Вы получите поножи "Спектра-18", сделанные из брони "Спектра" и покрытые составом-18, прекрасно защищающие от выстрелов, осколков гранаты, и т.д.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>175</uiIndex>
+		<szItemName>Брюки С-Ж</szItemName>
+		<szLongItemName>Брюки из волокна Спектра, желе</szLongItemName>
+		<szItemDesc>Защитные брюки с бронепластинами из высокопрочного материала Спектра, поглощающего энергию выстрела и тем самым защищающего от динамических повреждений. Покрыты слоем желе из королевы рептионов, что дает повышенный уровень защиты.</szItemDesc>
+		<szBRName>Брюки, Спектра-желе</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>176</uiIndex>
+		<szItemName>Стальная каска</szItemName>
+		<szLongItemName>Стальная каска</szLongItemName>
+		<szItemDesc>Стальная каска защитит голову от осколков снарядов, шрапнели и выстрелов из оружия невысокой мощности. Внутри кожаный подшлемник на нейлоновой подкладке. Имеется подбородочный ремень.</szItemDesc>
+		<szBRName>Шлем стальной</szBRName>
+		<szBRDesc>Удобная и чрезвычайно практичная, эта стальная каска обеспечивает защиту от пистолетных пуль, дроби, мелких снарядов. Обделка выполнена кожей, нейлоном, имеется ремешок.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>177</uiIndex>
+		<szItemName>Шлем Кевлар</szItemName>
+		<szLongItemName>Шлем из волокна Кевлар</szLongItemName>
+		<szItemDesc>Личный Шлем Пехотинца выполнен из кевлара, имеет удобный подшлемник, внутреннюю ленту и подбородочный ремень. Защищает шею и уши лучше, чем стандартные каски.</szItemDesc>
+		<szBRName>Шлем, Кевлар</szBRName>
+		<szBRDesc>Обеспечивает защиту выше среднего. Умный наемник никогда не расстается со своей пехотной каской. Сделана из кевлара, обделка выполнена нейлоном, имеется ремешок. Броня закрывает ухо и шею в отличии от стандартных касок.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>178</uiIndex>
+		<szItemName>Шлем К-18</szItemName>
+		<szLongItemName>Шлем из волокна Кевлар, С-18</szLongItemName>
+		<szItemDesc>Кевларовый Личный Шлем Пехотинца, обработанный Составом-18, обладает повышенным уровнем защиты.</szItemDesc>
+		<szBRName>Шлем, Кевлар-18</szBRName>
+		<szBRDesc>Сделанная из кевлара и обработанная специальным составом-18, эта каска обеспечивает защиту выше среднего.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>179</uiIndex>
+		<szItemName>Шлем К-Ж</szItemName>
+		<szLongItemName>Шлем из волокна Кевлар, желе</szLongItemName>
+		<szItemDesc>Этот кевларовый Личный Шлем Пехотинца покрыт желе из королевы рептионов, чтобы еще сильнее защитить вашу черепушку.</szItemDesc>
+		<szBRName>Шлем, Кевлар-желе</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>180</uiIndex>
+		<szItemName>Шлем Спектра</szItemName>
+		<szLongItemName>Шлем из волокна Спектра</szLongItemName>
+		<szItemDesc>Легкий шлем из композита "Спектра шилд" повышенной пулестойкости с черным покрытием, поглощающим инфракрасные лучи. Имеет удобный подшлемник и подгоночные ремни, состоящие из внутренней ленты и резинового подбородочного ремня.</szItemDesc>
+		<szBRName>Шлем, Спектра</szBRName>
+		<szBRDesc>Эта каска сделана из сплава "Спектра", известного своим высоким качеством. Отделка состоит из поглощающего инфракрасное излучение черного материала, мягкого пластика и системы кожаных и резиновых ремешков.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>181</uiIndex>
+		<szItemName>Шлем С-18</szItemName>
+		<szLongItemName>Шлем из волокна Спектра, С-18</szLongItemName>
+		<szItemDesc>Легкий шлем из композита "Спектра шилд", пропитанный Составом-18, обладает великолепной пулестойкостью.</szItemDesc>
+		<szBRName>Шлем, Спектра-18</szBRName>
+		<szBRDesc>Покрытый специальном составом-18, легкий сплав "Спектра" предлагает самую высокую степень защиты. Ходят слухи, что подобная каска спасла жизнь одному наемнику, который вернулся живым и с тех пор ее вообще не снимает.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>182</uiIndex>
+		<szItemName>Шлем С-Ж</szItemName>
+		<szLongItemName>Шлем из волокна Спектра, желе</szLongItemName>
+		<szItemDesc>Легкий шлем из волокна Спектра, покрытый слоем желе из королевы рептионов, обладает непревзойденной пулестойкостью.</szItemDesc>
+		<szBRName>Шлем, Спектра-желе</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>183</uiIndex>
+		<szItemName>Пластины</szItemName>
+		<szLongItemName>Керамические пластины</szLongItemName>
+		<szItemDesc>Прочные керамические бронепластины для переднего и заднего отделений бронежилета. Обеспечивают дополнительную динамическую защиту от большинства видов патронов, гася ударный эффект.</szItemDesc>
+		<szBRName>Керамические пластины</szBRName>
+		<szBRDesc>Любой наемник, желающий остаться в живых, всегда берет несколько таких пластин с собой. Изготовленную из керамики, такую пластину можно вставить в грудной карман многих бронежилетов, чтобы улучшить их крепость.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>184</uiIndex>
+		<szItemName>Панцирь детеныша</szItemName>
+		<szLongItemName>Панцирь детеныша насекомого</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Панцирь детеныша насекомого</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>185</uiIndex>
+		<szItemName>Панцирь МН</szItemName>
+		<szLongItemName>Панцирь молодого насекомого</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Young Adult Creature Hide</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>186</uiIndex>
+		<szItemName>Панцирь насекомого</szItemName>
+		<szLongItemName>Панцирь взрослого насекомого</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Панцирь взрослого насекомого</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>187</uiIndex>
+		<szItemName>Панцирь королевы</szItemName>
+		<szLongItemName>Панцирь королевы тварей</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Панцирь королевы тварей</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>188</uiIndex>
+		<szItemName>Кожаная куртка</szItemName>
+		<szLongItemName>Кожаная куртка</szLongItemName>
+		<szItemDesc>Кожаная пилотская куртка - "бомбер".</szItemDesc>
+		<szBRName>Кожаная куртка</szBRName>
+		<szBRDesc>Кожаная пилотская куртка - "бомбер".</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>189</uiIndex>
+		<szItemName>Кож-кевл. куртка</szItemName>
+		<szLongItemName>Кожано-кевларовая куртка</szLongItemName>
+		<szItemDesc>Кожаная пилотская куртка-"бомбер" с кевларовой подкладкой. Обеспечивает минимальную степень защиты.</szItemDesc>
+		<szBRName>Кожано-кевларовая куртка</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>190</uiIndex>
+		<szItemName>ККК, С-18</szItemName>
+		<szLongItemName>Кожано-кевларовая куртка, С-18</szLongItemName>
+		<szItemDesc>Кожаная пилотская куртка-"бомбер" с подкладкой из кевлара, обработанного Составом-18. дляулучшения защитных характеристик.</szItemDesc>
+		<szBRName>Кож-кевлар, С-18</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>191</uiIndex>
+		<szItemName>Кож-кевлар, желе</szItemName>
+		<szLongItemName>Кожано-кевларовая куртка, желе</szLongItemName>
+		<szItemDesc>Кожаная пилотская куртка "бомбер" с подкладкой из кевлара, покрытая слоем желе из королевы рептионов для улучшения защитных характеристик.</szItemDesc>
+		<szBRName>Кож-кевлар, желе</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>192</uiIndex>
+		<szItemName>Шкура МС</szItemName>
+		<szLongItemName>Шкура молодой самки</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Шкура молодой самки</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>193</uiIndex>
+		<szItemName>Шкура ВС</szItemName>
+		<szLongItemName>Шкура взрослой самки</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Шкура взрослой самки</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>194</uiIndex>
+		<szItemName>Футболка</szItemName>
+		<szLongItemName>Футболка с символикой Арулько</szLongItemName>
+		<szItemDesc>Ни один турист не пройдет мимо стильной футболки с надписью "Я люблю Арулько". 100 процентный хлопок, не садится при стирке. Пока к власти не пришла Дейдрана, этот дизайн был очень популярен.</szItemDesc>
+		<szBRName>Футболка</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>195</uiIndex>
+		<szItemName>Футболка</szItemName>
+		<szLongItemName>Футболка "Да здравствует Дейдрана!"</szLongItemName>
+		<szItemDesc>Не просто докажите, что вы сторонник режима, но сделайте это со вкусом. С тех пор, как к власти пришла Дейдрана, людей в таких футболках всегда можно встретить на мероприятиях, спонсируемых правительством.</szItemDesc>
+		<szBRName>Футболка</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>196</uiIndex>
+		<szItemName>Жилет Охранник</szItemName>
+		<szLongItemName>Бронежилет Кевларовый "Охранник" </szLongItemName>
+		<szItemDesc>Этот высококачественный бронежилет производства "Гуардиан Арморс, Инкорпорейтед." выполнен из 36 слоев кевлара. Легко подгоняется по размеру. Имеется отделение для защитной вставной пластины.</szItemDesc>
+		<szBRName>Жилет "Охранник"</szBRName>
+		<szBRDesc>Бронежилет прекрасного качества, изготовлен из 36 слоев Кевлара, компанией Guardian Armories, Inc. Продается также усиленный вариант для особо опасных случаев.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>197</uiIndex>
+		<szItemName>Жилет О-18</szItemName>
+		<szLongItemName>Бронежилет охранника Кевларовый, С-18</szLongItemName>
+		<szItemDesc>Этот высококачественный бронежилет производства "Гуардиан Арморс, Инкорпорейтед." выполнен из 36 слоев кевлара. Легко подгоняется по размеру. Обработан Составом-18 для повышения защитных характеристик.</szItemDesc>
+		<szBRName>Жилет О-18</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>198</uiIndex>
+		<szItemName>Жилет О-Ж</szItemName>
+		<szLongItemName>Бронежилет охранника, желе</szLongItemName>
+		<szItemDesc>Высококачественный бронежилет охранника, покрытый слоем желе из королевы рептионов, обеспечивает непревзойденную степень защиты!</szItemDesc>
+		<szBRName>Жилет О-Ж</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>199</uiIndex>
+		<szItemName>Бинокль, 10х30</szItemName>
+		<szLongItemName>Компактный бинокль 10х30</szLongItemName>
+		<szItemDesc>Компактный, легкий и дешевый бинокль 10x30, самой простой конструкции. Предназначен для использования на улице в дневное время суток.</szItemDesc>
+		<szBRName>10x30 Бинокль</szBRName>
+		<szBRDesc>Компактный бинокль будет приятным дополнением к вашему багажу во время путешествий или похода на природу. Легкий и дешевый, предназначен для использования на улице в дневное время суток.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>200</uiIndex>
+		<szItemName>Бинокль, 7x50</szItemName>
+		<szLongItemName>Профессиональный бинокль 7x50</szLongItemName>
+		<szItemDesc>7x50 Бинокль в классическом корпусе с дальномерной шкалой. Многослойное smc-просветление сводит к минимуму внутренние отражения, улучшая изображение. Обрезиненный пыле-влагозащищенный азотозаполненный корпус бинокля. Пригоден для использования в сумерках.</szItemDesc>
+		<szBRName>Бинокль, 7x50</szBRName>
+		<szBRDesc>Бинокль профессионала. Многослойное smc- просветление сводит к минимуму внутренние отражения, улучшая четкость, цветопередачу и контраст изображения. Обрезиненный пыле- влагозащищенный азотозаполненный корпус. Бинокль можно использовать в сумерках.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>201</uiIndex>
+		<szItemName>Аптечка</szItemName>
+		<szLongItemName>Аптечка первой помощи</szLongItemName>
+		<szItemDesc>Содержимое аптечки: антисептики, вата, градусник, пузырек с йодом, бандажи, английские булавки, ножницы, пинцет, бинты и мини-справочник по оказанию первой помощи.</szItemDesc>
+		<szBRName>Аптечка первой помощи</szBRName>
+		<szBRDesc>От порезов до глубоких ран, любой ране можно помочь при помощи этой походной аптечки. В ней находятся бинты, спирт, вата, градусник, йод, жгуты, английские булавки, ножницы и инструкция по оказанию первой помощи.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>202</uiIndex>
+		<szItemName>Аптечка</szItemName>
+		<szLongItemName>Докторская аптечка</szLongItemName>
+		<szItemDesc>Помимо средств оказания первой помощи, сюда входят нитки и иглы для зашивания ран, специальные ножницы, прокладочные салфетки, скальпель, пинцет, щипчики, болеутоляющее, анестетик, антибиотики, маленький фонарик и справочник хирурга.</szItemDesc>
+		<szBRName>Докторская аптечка</szBRName>
+		<szBRDesc>Аптечка медицинской помощи. В ней находятся: набор для наложения швов, подушечки, ножницы для наложения швов, скальпель, щипцы Келли, щипчики, обезболивающее, болеутолители, антибиотики, фонарик, и инструкция "Полевая хирургия".</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>203</uiIndex>
+		<szItemName>Инструмент</szItemName>
+		<szLongItemName>Набор инструментов</szLongItemName>
+		<szItemDesc>В комплект входят различные отвертки, плоскогубцы, клещи, гаечные ключи, молоток и швейный набор.</szItemDesc>
+		<szBRName>Набор инструментов</szBRName>
+		<szBRDesc>В этом комплекте есть все инструменты, которыми Вы сможете чинить снаряжение. Разнообразные отвертки, храповики, кусачки, прилагаются скобки, зажимы, имеется молоток и набор принадлежностей для починки обмундирования.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>204</uiIndex>
+		<szItemName>Отмычки</szItemName>
+		<szLongItemName>Набор взломщика</szLongItemName>
+		<szItemDesc>В дорогом кожаном чемоданчике на молнии находится все необходимое взломщику: отмычки, клинья, гаечные ключи, мастер-ключи с различными типами бородок, прибор для извлечения сломанных ключей из замков и мини-пресс для изготовления слепков.</szItemDesc>
+		<szBRName>Набор взломщика</szBRName>
+		<szBRDesc>Идеально подходит для того, чтобы открывать запертые двери и взламывать сейфы. В комплект входит слесарный инструмент: отмычки, шайбы, разводные ключи, спецотмычки, спецскобы, формы. Комплект поставляется в кожаной сумке.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>205</uiIndex>
+		<szItemName>Камуфляж</szItemName>
+		<szLongItemName>Камуфляжный набор "Лес"</szLongItemName>
+		<szItemDesc>Армейский камуфляжный набор "Лес" включает в себя: набор крем-красок для лица зеленого и коричневого оттенков, зеркальце и инструкцию по использованию и уходу за набором.</szItemDesc>
+		<szBRName>Камуфл. набор "Лес"</szBRName>
+		<szBRDesc>Набор камуфляжа "Лес" включает в себя набор крем-красок для лица зеленого и коричневого оттенков и зеркало. Прочная, качественная и безопасная краска легко смывается водой с мылом. Прилагается инструкция по использованию и уходу за красками.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>206</uiIndex>
+		<szItemName>Комплект ловушек</szItemName>
+		<szLongItemName>Комплект ловушек</szLongItemName>
+		<szItemDesc>В этом наборе есть все необходимое для сооружения ловушек: силки, взрывчатка и взрыватели.</szItemDesc>
+		<szBRName>Комплект ловушек</szBRName>
+		<szBRDesc>При помощи этого комплекта можно собрать любую ловушку для ничего не подозревающего прохожего. От чувствительных проводков до батареек, здесь есть все, чего душа не пожелает.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>207</uiIndex>
+		<szItemName>Глушитель</szItemName>
+		<szLongItemName>Глушитель</szLongItemName>
+		<szItemDesc>Легкий и компактный глушитель, подходящий к большинству пистолетов и пистолет-пулеметам.</szItemDesc>
+		<szBRName>Глушитель</szBRName>
+		<szBRDesc>Этот глушитель идеально подходит как для полевых заданий, так и для операций внутри зданий. Легкая и компактная конструкция глушителя подходит к большинству пистолетов и пистолет-пулеметам.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>208</uiIndex>
+		<szItemName>Прицел, 10х</szItemName>
+		<szLongItemName>Оптический прицел, 10х</szLongItemName>
+		<szItemDesc>Этот оптический прицел с десятикратным приближением подходит к большинству винтовок. Значительно повышается точность стрельбы благодаря просветленной оптике, дальномерной шкале и механизму ввода боковых поправок.</szItemDesc>
+		<szBRName>Оптический прицел, 10х</szBRName>
+		<szBRDesc>Этот оптический прицел с десятикратным приближением значительно повысит точность стрельбы благодаря просветленной оптике, дальномерной шкале и механизму ввода боковых поправок.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>209</uiIndex>
+		<szItemName>Сошка</szItemName>
+		<szLongItemName>Сошка</szLongItemName>
+		<szItemDesc>Универсальная сошка, подходящая к большинству снайперских и штурмовых винтовок, а также ручных пулеметов. Отлита из алюминия под давлением. Матовое покрытие. Для удобства хранения ножки сделаны складными.</szItemDesc>
+		<szBRName>Сошка</szBRName>
+		<szBRDesc>Подобное оборудование имеется у каждого уважающего себя наемника. Сошку можно установить на большинство снайперских, штурмовых винтовок и на легкие пулеметы. Имеет матовое покрытие, отлита из алюминия. Ее можно сложить, когда она не нужна.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>210</uiIndex>
+		<szItemName>Усилитель звука</szItemName>
+		<szLongItemName>Усилитель звука</szLongItemName>
+		<szItemDesc>"Супер аудио-разведчик" представляет собой высокоточный стерео усилитель с наушниками и двумя микрофонами, отсеивающими ветер и сильные шумы, усиливая при этом слабые звуки. Подгоночные ремни обеспечат удобное облегание головы.</szItemDesc>
+		<szBRName>Усилитель звука</szBRName>
+		<szBRDesc>Усилитель звука разведчика заранее предупреждает о приближающихся врагах. Этот высокоточный стерео усилитель обладает встроенной функцией ветронепроницаемости, микрофонами, которые усиливают тихие звуки и не пропускают громкие.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>211</uiIndex>
+		<szItemName>ПНВ I</szItemName>
+		<szLongItemName>Прибор ночного видения, поколение I</szLongItemName>
+		<szItemDesc>ПНВ поколения I. Изображение четкое лишь в центре, с искажением и меньшим разрешением по краю. Если в поле зрения попадают яркие источники света (фонари и др.), то они могут засветить все изображение и спалить прибор. В безлунную ночь нуждается в ИК подсветке.</szItemDesc>
+		<szBRName>ПНВ, I-е поколение</szBRName>
+		<szBRDesc>Прибор ночного видения первого поколения. Все еще доступен для людей, которые не могу позволить себе покупку дорогих вещей. ВНИМАНИЕ: не включать в дневное время суток, избегать попадание в поле зрения ярких световых источников.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>212</uiIndex>
+		<szItemName>Темные очки</szItemName>
+		<szLongItemName>Солнцезащитные очки</szLongItemName>
+		<szItemDesc>Защитные очки армейского образца с тройными линзами: ацетатными противотуманными, темными солнцезащитными и защищающими от повреждений стекла.</szItemDesc>
+		<szBRName>Солнцезащитные очки</szBRName>
+		<szBRDesc>Эти полувоенные солнечные очки с тройной защитой: внутренние ацетатные "незапотевающие" линзы, средние линзы против солнца и от физических повреждений - ударостойкие внешние линзы. Очки можно носить поверх очков с диоптриями.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>213</uiIndex>
+		<szItemName>Противогаз</szItemName>
+		<szLongItemName>Противогаз</szLongItemName>
+		<szItemDesc>Скопирован с русского противогаза М-17А1. Сделан из резины, имеет боковые фильтры, защищенные от повреждений стекла, подгоночные головные ремни и трубку для питья. В комплекте заплечная сумка для хранения и непромокаемая накидка.</szItemDesc>
+		<szBRName>Противогаз</szBRName>
+		<szBRDesc>Противогаз - точная копия русской модели M-17A1. В нем имеются фильтры, линзы с защитным покрытием, нейлоновые ремешки, и отделение для питьевой воды. В комплект входят сумка и пластиковая накидка для защиты от опасных жидкостей.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>214</uiIndex>
+		<szItemName>Фляжка</szItemName>
+		<szLongItemName>Фляжка</szLongItemName>
+		<szItemDesc>Весьма практичная пластиковая фляжка. Когда запас живительной влаги на 5 глотков в ней истощится, ее можно будет снова наполнить свежей водой из родника.</szItemDesc>
+		<szBRName>Фляжка</szBRName>
+		<szBRDesc>С этой полиэтиленовой фляжкой вы не умрете от жажды. В нее умещается до 1 литра жидкости. К фляжке прилагается чашка и подставка для чашки, и все это переносится в коробке фляжки.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>215</uiIndex>
+		<szItemName>Металлоискатель</szItemName>
+		<szLongItemName>Металлоискатель</szLongItemName>
+		<szItemDesc>Сверхлегкий и мощный транзисторный металлоискатель с акустическим сигналом. Просто возьмите его в руки, и звуковой сигнал в нужный момент подскажет, что вы наткнулись на металлический предмет.</szItemDesc>
+		<szBRName>Металлоискатель</szBRName>
+		<szBRDesc>Ручной металлоискатель - очень мощный прибор, найдет не только монеты в песке. Этот легкий металлоискатель на транзисторах и с аудиосигналом наиболее эффективен для саперных работ.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>216</uiIndex>
+		<szItemName>Состав-18</szItemName>
+		<szLongItemName>Состав-18</szLongItemName>
+		<szItemDesc>Быстро застывающая на воздухе жидкость. Защитные характеристики брони повысятся, если обработать ее Составом-18.</szItemDesc>
+		<szBRName>Состав-18</szBRName>
+		<szBRDesc>Этим составом обрабатывают броню, чтобы сделать ее прочнее. Быстро засыхающая жидкость увеличивает защитные свойства брони.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>217</uiIndex>
+		<szItemName>Желе</szItemName>
+		<szLongItemName>Желе королевы рептионов</szLongItemName>
+		<szItemDesc>Это свернувшаяся кровь королевы рептионов.</szItemDesc>
+		<szBRName>Желе королевы рептионов</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>218</uiIndex>
+		<szItemName>Эликсир</szItemName>
+		<szLongItemName>Сосуд с эликсиром</szLongItemName>
+		<szItemDesc>Стеклянная банка наполнена эликсиром из крови твари и секретной формулы из одиннадцати растений и специй по рецепту Габби.</szItemDesc>
+		<szBRName>Сосуд с эликсиром</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>219</uiIndex>
+		<szItemName>Деньги</szItemName>
+		<szLongItemName>Деньги</szLongItemName>
+		<szItemDesc>Рубли, гривны, зайчики, баксы, бабло, нал, лавэ, капуста... Как ни называй, суть не меняется. Пригодятся для покупки всякого хлама.</szItemDesc>
+		<szBRName>Деньги</szBRName>
+		<szBRDesc>Рубли, гривны, зайчики, баксы, бабло, нал, лавэ, капуста... Как ни называй, суть не меняется. Пригодятся для покупки всякого хлама.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>220</uiIndex>
+		<szItemName>Сосуд</szItemName>
+		<szLongItemName>Стеклянный сосуд</szLongItemName>
+		<szItemDesc>В стеклянной банке можно хранить что угодно, к примеру, бабушкину челюсть... словом, все, что заблагорассудится.</szItemDesc>
+		<szBRName>Стеклянный сосуд</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>221</uiIndex>
+		<szItemName>Полный сосуд</szItemName>
+		<szLongItemName>Сосуд с кровью твари</szLongItemName>
+		<szItemDesc>Сосуд наполнен кровью твари.</szItemDesc>
+		<szBRName>Сосуд с кровью твари</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>222</uiIndex>
+		<szItemName>Стимулятор</szItemName>
+		<szLongItemName>Стимулятор сил</szLongItemName>
+		<szItemDesc>Шприц для подкожного впрыскивания с химическим веществом, временно укрепляющим силы. Внимание: многократное употребление может привести к остановке сердца.</szItemDesc>
+		<szBRName>Стимулятор сил</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>223</uiIndex>
+		<szItemName>Детонатор</szItemName>
+		<szLongItemName>Детонатор</szLongItemName>
+		<szItemDesc>Таймер устанавливается в промежутке от 5 секунд до 10 минут, давая вам возможность спрятаться от взрыва.</szItemDesc>
+		<szBRName>Детонатор</szBRName>
+		<szBRDesc>Присоедините эту малютку к взрывчатке. Это устройство с задержкой времени дает Вам от 5 секунд до 10 минут на то, чтобы отойти на безопасное расстояние перед тем, как рванет.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>224</uiIndex>
+		<szItemName>Радио детонатор</szItemName>
+		<szLongItemName>Детонатор дистанционного срабатывания</szLongItemName>
+		<szItemDesc>Установите детонатор на пакет со взрывчаткой и спокойно отойдите в укрытие. Детонатор не сработает, пока вы не нажмете на кнопку пульта управления.</szItemDesc>
+		<szBRName>Радио детонатор</szBRName>
+		<szBRDesc>Обязательное оборудование любого сапера. Установите это устройство на любой тип взрывчатки и произведите взрыв в удобное для вас время, с удобного расстояния. Детонатор не сработает, пока вы не надавите на кнопку пульта управления.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>225</uiIndex>
+		<szItemName>Видеокассета</szItemName>
+		<szLongItemName>Видеокассета</szLongItemName>
+		<szItemDesc>Фильм под названием "Лоретта в Шортах 6: Когда нет Мужика". Крутое порно. На усмотрение родителей... и самого извращенца.</szItemDesc>
+		<szBRName>Видеокассета</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>226</uiIndex>
+		<szItemName>Купчая</szItemName>
+		<szLongItemName>Купчая</szLongItemName>
+		<szItemDesc>Купчая на магазин кожаных изделий Энжела.</szItemDesc>
+		<szBRName>Купчая</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>227</uiIndex>
+		<szItemName>Письмо</szItemName>
+		<szLongItemName>Письмо Энрико</szLongItemName>
+		<szItemDesc>Энрико просил передать это письмо Мигелю, лидеру повстанцев.</szItemDesc>
+		<szBRName>Письмо Энрико</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>228</uiIndex>
+		<szItemName>Дискета</szItemName>
+		<szLongItemName>Компьютерная дискета</szLongItemName>
+		<szItemDesc>На дискете надпись: "Их разыскивает "Интерсепт". Здесь содержится конфиденциальная информация обо всех известных международных террористах. Для удобства информация с дискеты была скопирована на ваш лэптоп.</szItemDesc>
+		<szBRName>Компьютерная дискета</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>229</uiIndex>
+		<szItemName>Кубок</szItemName>
+		<szLongItemName>Кубок удачи</szLongItemName>
+		<szItemDesc>Типа, бочка благосостояния, стакан счастья, рюмка роскоши. Но не смейтесь: эта чаша - национальное достояние Арулько. Не обижайте его жителей.</szItemDesc>
+		<szBRName>Кубок удачи</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>230</uiIndex>
+		<szItemName>Когти</szItemName>
+		<szLongItemName>Когти Кошки-Убийцы</szLongItemName>
+		<szItemDesc>Или вы их, или они вас. На этот раз победа была за вами, и теперь когти можно выгодно продать, если знать нужного покупателя.</szItemDesc>
+		<szBRName>Когти Кошки-Убийцы</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>231</uiIndex>
+		<szItemName>Зубы</szItemName>
+		<szLongItemName>Зубы Кошки-Убийцы</szLongItemName>
+		<szItemDesc>Такой трофей легко не достается. Зубы кошки-убийцы считаются ценным сокровищем во многих странах мира.</szItemDesc>
+		<szBRName>Зубы Кошки-Убийцы</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>232</uiIndex>
+		<szItemName>Шкура</szItemName>
+		<szLongItemName>Шкура Кошки-Убийцы</szLongItemName>
+		<szItemDesc>Не так-то просто освежевать кошку! Мех этого экзотического животного принесет хорошую прибыль.</szItemDesc>
+		<szBRName>Шкура Кошки-Убийцы</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>233</uiIndex>
+		<szItemName>Выключатель</szItemName>
+		<szLongItemName>Выключатель</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Выключатель</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>234</uiIndex>
+		<szItemName>Триггер</szItemName>
+		<szLongItemName>Триггер</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Триггер</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>235</uiIndex>
+		<szItemName>Регенератор</szItemName>
+		<szLongItemName>Стимулятор регенерации здоровья</szLongItemName>
+		<szItemDesc>Шприц подкожного впрыскивания, содержит 10 кубиков вещества, стимулирующего заживление поврежденных тканей. Есть надпись: "Внимание! Не принимать более 4 доз в день".</szItemDesc>
+		<szBRName>Регенератор</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>236</uiIndex>
+		<szItemName>Шприц</szItemName>
+		<szLongItemName>Шприц</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Шприц</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>237</uiIndex>
+		<szItemName>Шприц</szItemName>
+		<szLongItemName>Шприц</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Шприц</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>238</uiIndex>
+		<szItemName>Шприц</szItemName>
+		<szLongItemName>Шприц</szLongItemName>
+		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Шприц</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>239</uiIndex>
+		<szItemName>Полный сосуд</szItemName>
+		<szLongItemName>Сосуд с человеческой кровью</szLongItemName>
+		<szItemDesc>Стеклянный сосуд, наполненный человеческой кровью. И какому психу ее понадобилось хранить?!</szItemDesc>
+		<szBRName>Сосуд с человеческой кровью</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>240</uiIndex>
+		<szItemName>Право собственности</szItemName>
+		<szLongItemName>Право собственности</szLongItemName>
+		<szItemDesc>Если вы читаете это описание, значит программисты ja2 опять напортачили. А ВООБЩЕ, ЭТО НЕ ПРЕДМЕТ! И В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
+		<szBRName>Право собственности</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>241</uiIndex>
+		<szItemName>Лазерный прицел</szItemName>
+		<szLongItemName>Лазерный прицел</szLongItemName>
+		<szItemDesc>Универсальный дневной лазерный прицел. Проектирует хорошо заметную красную точку на значительное расстояние. Корпус выполнен из нержавеющей стали. Подходит к большинству пистолетов и автоматов.</szItemDesc>
+		<szBRName>Лазерный прицел</szBRName>
+		<szBRDesc>Цель всегда будет как на ладони. Луч лазера проектирует заметную красную точку на расстояние до 30 метров днем и более 300 метров ночью. Устройство из нержавеющей стали подходит почти для любой марки оружия.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>242</uiIndex>
+		<szItemName>Пульт ДУ</szItemName>
+		<szLongItemName>Пульт управления запалом</szLongItemName>
+		<szItemDesc>Если на пакет со взрывчаткой установить детонатор дистанционного срабатывания, он не взорвется, пока вы не нажмете на кнопку этого пульта управления.</szItemDesc>
+		<szBRName>Пульт ДУ</szBRName>
+		<szBRDesc>Обязательное оборудование любого сапера. Если вы установили на взрывчатку детонатор дистанционного срабатывания, будьте уверены, взрыв произойдет лишь когда вы этого захотите. Все, что нужно - это нажать кнопку пульта дистанционного управления.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>243</uiIndex>
+		<szItemName>Кусачки</szItemName>
+		<szLongItemName>Кусачки</szLongItemName>
+		<szItemDesc>Обычные кусачки для перекусывания проволоки.</szItemDesc>
+		<szBRName>Кусачки</szBRName>
+		<szBRDesc>Обыкновенные кусачки для того, чтобы откусить провод. Удобные, полезные - всегда берите их с собой!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>244</uiIndex>
+		<szItemName>Утконос</szItemName>
+		<szLongItemName>Утконос</szLongItemName>
+		<szItemDesc>Эта металлическая насадка на ствол дробовика заставляет дробь при выстреле разлетаться в горизонтальной плоскости, а не конусом, как обычно.</szItemDesc>
+		<szBRName>Утконос</szBRName>
+		<szBRDesc>Присоедините этот металлический предмет к концу ствола Вашего винчестера. Теперь дробь во время выстрела будет лететь по горизонтальной линии вместо своей обычной траектории. Попрощайтесь с врагом, если он не нагнулся.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>245</uiIndex>
+		<szItemName>Выпивка</szItemName>
+		<szLongItemName>Бутылка спиртного</szLongItemName>
+		<szItemDesc>Огненная вода, чернило, спиртное, бухло, "Танец смерти", "Крыжачок" - как ни назови, содержимое бутылки не изменится. Шанс отравления этой гадостью около 80-и процентов.</szItemDesc>
+		<szBRName>Бутылка спиртного</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>246</uiIndex>
+		<szItemName>ПНВ II</szItemName>
+		<szLongItemName>Прибор ночного видения, поколение II</szLongItemName>
+		<szItemDesc>Второе поколение ПНВ имеет большой коэффициент усиления яркости, но и большую длину из-за наличия разгонной камеры для электронов. Поэтому ЭОП II-го поколения называется инверторным. Качество изображения чуть лучше чем у ПНВ I.</szItemDesc>
+		<szBRName>ПНВ, II-е поколение</szBRName>
+		<szBRDesc>Наиболее распространенный ПНВ среди населения. Охотник вы или просто искатель приключений - никто не сможет спрятаться от вас в темноте. Ресурс 1000-3000 часов.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>247</uiIndex>
+		<szItemName>Останки М72А4</szItemName>
+		<szLongItemName>Использованный М72А4</szLongItemName>
+		<szItemDesc>Когда-то этот гранатомет вершил суд над противником, а теперь годен лишь для работы оригинальным пресс-папье.</szItemDesc>
+		<szBRName>Останки М72А4</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>248</uiIndex>
+		<szItemName>Голова</szItemName>
+		<szLongItemName>Голова</szLongItemName>
+		<szItemDesc>Немного подгнившая человеческая голова. И зачем она вам?.. Хотя, некоторые собирают марки.</szItemDesc>
+		<szBRName>Голова</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>249</uiIndex>
+		<szItemName>Голова</szItemName>
+		<szLongItemName>Голова Имитатора</szLongItemName>
+		<szItemDesc>Этому человеку уже ни за кого себя не выдать. Теперь его голова, уже начинающая неприятно попахивать, принадлежит вам.</szItemDesc>
+		<szBRName>Голова Имитатора</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>250</uiIndex>
+		<szItemName>Голова</szItemName>
+		<szLongItemName>Голова Ти-Рекса</szLongItemName>
+		<szItemDesc>Может, Ти-Рекс и присоединился к давно вымершим тезкам-динозаврам, но голову его следует сохранить для потомков.</szItemDesc>
+		<szBRName>Голова Ти-Рекса</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>251</uiIndex>
+		<szItemName>Голова</szItemName>
+		<szLongItemName>Голова Убийцы</szLongItemName>
+		<szItemDesc>Одолели Убийцу злые люди. Разлагающаяся голова - все, что от него осталось.</szItemDesc>
+		<szBRName>Голова Убийцы</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>252</uiIndex>
+		<szItemName>Голова</szItemName>
+		<szLongItemName>Голова Аптекаря</szLongItemName>
+		<szItemDesc>Этому аптекарю уже никогда не выписать рецепт. Его голова пополнила вашу коллекцию.</szItemDesc>
+		<szBRName>Голова Аптекаря</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>253</uiIndex>
+		<szItemName>Голова</szItemName>
+		<szLongItemName>Голова Мамаши</szLongItemName>
+		<szItemDesc>Потерю Мамаши, точнее, ее головы, никто не будет оплакивать. Берите, не стесняйтесь.</szItemDesc>
+		<szBRName>Голова Мамаши</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>254</uiIndex>
+		<szItemName>Голова</szItemName>
+		<szLongItemName>Голова Тиффани</szLongItemName>
+		<szItemDesc>Тиффани Эдди не заработал собственной головой ни цента. Зато вы сможете на ней заработать, и неплохо.</szItemDesc>
+		<szBRName>Голова Тиффани</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>255</uiIndex>
+		<szItemName>Вино</szItemName>
+		<szLongItemName>Вино</szLongItemName>
+		<szItemDesc>Своим необычным вкусом красное вино марки "Родник у лесопилки" обязано сочетанию перебродившего виноградного сока и ароматизатора со вкусом целлюлозы.</szItemDesc>
+		<szBRName>Вино</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>256</uiIndex>
+		<szItemName>Пиво</szItemName>
+		<szLongItemName>Пиво</szLongItemName>
+		<szItemDesc>Крепость 6,9 градусов! Одна бутылка ледяного пива свалит под стол кого угодно, но не русского. И не все ли нам равно, из чего оно?</szItemDesc>
+		<szBRName>Пиво</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>257</uiIndex>
+		<szItemName>Порно</szItemName>
+		<szLongItemName>Порнографический журнал</szLongItemName>
+		<szItemDesc>Журнал "Медвед", июльский номер. Прямо из типографии Бабруйска! Откровенная фотосессия Жанны Вискас с медведом на поляне и куча статей, которые никто никогда не прочитает.</szItemDesc>
+		<szBRName>Порно</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>258</uiIndex>
+		<szItemName>Видеокамера</szItemName>
+		<szLongItemName>Видеокамера</szLongItemName>
+		<szItemDesc>Видеокамера позволит вновь и вновь переживать записанные однажды памятные события: вот вы оплошали в момент произнесения брачной клятвы... а вот компрометирующие местных чиновников материалы.</szItemDesc>
+		<szBRName>Видеокамера</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>259</uiIndex>
+		<szItemName>Пульт упр. роботом</szItemName>
+		<szLongItemName>Дистанционный пульт управления роботом</szLongItemName>
+		<szItemDesc>С помощью пульта управления вы сможете заставить робота выполнить всю грязную работу за вас, пока вы наблюдаете за этим с безопасного расстояния.</szItemDesc>
+		<szBRName>Пульт управления роботом</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>260</uiIndex>
+		<szItemName>Коготь</szItemName>
+		<szLongItemName>Коготь твари</szLongItemName>
+		<szItemDesc>Острый, как бритва, коготь одной из этих отвратительных тварей. Слава богу, уже мертвой.</szItemDesc>
+		<szBRName>Коготь твари</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>261</uiIndex>
+		<szItemName>Плоть</szItemName>
+		<szLongItemName>Плоть насекомого</szLongItemName>
+		<szItemDesc>Гниющий кусок вонючей плоти твари. Наконец-то она мертва.</szItemDesc>
+		<szBRName>Плоть насекомого</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>262</uiIndex>
+		<szItemName>Орган твари</szItemName>
+		<szLongItemName>Непонятный внутренний орган твари</szLongItemName>
+		<szItemDesc>Что это у нас на завтрак? Внутренности дохлых тварей?</szItemDesc>
+		<szBRName>Орган твари</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>263</uiIndex>
+		<szItemName>Пульт</szItemName>
+		<szLongItemName>Пульт управления</szLongItemName>
+		<szItemDesc>Служит для управления неким прибором на расстоянии. Странно: на нем только одна кнопка.</szItemDesc>
+		<szBRName>Пульт управления</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>264</uiIndex>
+		<szItemName>Платиновые часы</szItemName>
+		<szLongItemName>Платиновые часы</szLongItemName>
+		<szItemDesc>Стильные дизайнерские часы: внутри швейцарский механизм, снаружи кварцевое стекло и великолепное четырехмикронное платиновое покрытие.</szItemDesc>
+		<szBRName>Платиновые часы</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>265</uiIndex>
+		<szItemName>Клюшки</szItemName>
+		<szLongItemName>Клюшки для гольфа</szLongItemName>
+		<szItemDesc>Старенький, видавший виды набор деревянных и металлических клюшек для гольфа. Но не стоит судить по внешнему виду: с ними еще вполне можно победить.</szItemDesc>
+		<szBRName>Клюшки для гольфа</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>266</uiIndex>
+		<szItemName>Плеер</szItemName>
+		<szLongItemName>Плеер</szLongItemName>
+		<szItemDesc>Чтобы не скучать в пути, возьмите с собой кассетный аудио плеер с наушниками!</szItemDesc>
+		<szBRName>Плеер</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>267</uiIndex>
+		<szItemName>Телевизор</szItemName>
+		<szLongItemName>Переносной телевизор</szLongItemName>
+		<szItemDesc>Боитесь пропустить любимый мультфильм или объявление футбольных турнирных таблиц? Выходя из дому, возьмите телевизор с собой!</szItemDesc>
+		<szBRName>Переносной телевизор</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>268</uiIndex>
+		<szItemName>ТекБал</szItemName>
+		<szLongItemName>Текущий баланс:</szLongItemName>
+		<szItemDesc>Здесь вы сможете снимать деньги с основного "банковского счета". Нажимая на кнопки задайте нужную вам сумму, а затем нажмите на кнопку "Снять". Наличные всегда пригодятся.</szItemDesc>
+		<szBRName>Текущий баланс:</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>269</uiIndex>
+		<szItemName>Сигары</szItemName>
+		<szLongItemName>Сигары</szLongItemName>
+		<szItemDesc>Большая коробка крепких сигар. С такой сигарой в зубах вы будете стильно смотреться на поле боя. Впрочем, такой не стыдно и насладиться за стаканчиком портвейна в шикарном клубе ценителей сигар.</szItemDesc>
+		<szBRName>Сигары</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>270</uiIndex>
+		<szItemName>Very Small Creature Gas</szItemName>
+		<szLongItemName>Very Small Creature Gas</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Very Small Creature Gas</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>271</uiIndex>
+		<szItemName>Ключик</szItemName>
+		<szLongItemName>Ключик</szLongItemName>
+		<szItemDesc>Маленький золотистый ключик. Скорее всего от тумбочки или шкафчика.</szItemDesc>
+		<szBRName>Ключик</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>272</uiIndex>
+		<szItemName>Ключ</szItemName>
+		<szLongItemName>Ключ от камеры</szLongItemName>
+		<szItemDesc>Ключ от камеры заключения, сделан из нержавеющей стали.</szItemDesc>
+		<szBRName>Ключ от камеры</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>273</uiIndex>
+		<szItemName>Ключ</szItemName>
+		<szLongItemName>Обычный ключ</szLongItemName>
+		<szItemDesc>Самый простой ключ от самого примитивного замка... Обычно такие замки открываются с первого пинка ногой.</szItemDesc>
+		<szBRName>Обычный ключ</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>274</uiIndex>
+		<szItemName>Ключ</szItemName>
+		<szLongItemName>Потемневший ключ</szLongItemName>
+		<szItemDesc>Потемневший ключ. Похоже, пользуются им редко.</szItemDesc>
+		<szBRName>Потемневший ключ</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>275</uiIndex>
+		<szItemName>Ключ</szItemName>
+		<szLongItemName>Блестящий ключ</szLongItemName>
+		<szItemDesc>Блестящий ключ. Похоже, от какого-то особого замка.</szItemDesc>
+		<szBRName>Блестящий ключ</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>276</uiIndex>
+		<szItemName>Ключ</szItemName>
+		<szLongItemName>Ключ от амбарного замка</szLongItemName>
+		<szItemDesc>Ключ от амбарного замка.</szItemDesc>
+		<szBRName>Ключ от амбарного замка</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>277</uiIndex>
+		<szItemName>Ключ</szItemName>
+		<szLongItemName>Электронный ключ</szLongItemName>
+		<szItemDesc>Вместо бородки у этого ключа магнитная полоса.</szItemDesc>
+		<szBRName>Электронный ключ</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>278</uiIndex>
+		<szItemName>Ключ-карта</szItemName>
+		<szLongItemName>Магнитная карточка</szLongItemName>
+		<szItemDesc>Магнитная карточка от электронного замка.</szItemDesc>
+		<szBRName>Магнитная карточка</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>279</uiIndex>
+		<szItemName>5,7мм, 20</szItemName>
+		<szLongItemName>5,7x28мм магазин, 20</szLongItemName>
+		<szItemDesc>Обойма на 20 патронов калибра 5,7х28мм. Этот полимерный пистолетный патрон необычайно хорош для поражения как защищенных, так и незащищенных целей.</szItemDesc>
+		<szBRName>5,7x28мм маг, 20</szBRName>
+		<szBRDesc>Патроны 5,7мм разворачиваются в теле и костных тканях, оставляя полости от обширных ранений.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>280</uiIndex>
+		<szItemName>5,7мм, 20 HP</szItemName>
+		<szLongItemName>5,7x28мм магазин, 20 HP</szLongItemName>
+		<szItemDesc>Этот магазин вмещает 20 экспансивных патронов калибра 5,7х28мм, которые наносят более серьезные ранения по сравнению с базовыми боеприпасами данного калибра, сохранив при этом его бронебойные свойства.</szItemDesc>
+		<szBRName>5,7x28мм маг, 20 HP</szBRName>
+		<szBRDesc>Этот магазин вмещает 20 экспансивных патронов калибра 5,7х28мм, которые наносят более серьезные ранения по сравнению с базовыми боеприпасами данного калибра, сохранив при этом его бронебойные свойства.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>281</uiIndex>
+		<szItemName>Маска-шапка</szItemName>
+		<szLongItemName>Маска-шапка</szLongItemName>
+		<szItemDesc>Черная вязаная шапочка подразделения "коммандос".</szItemDesc>
+		<szBRName>Маска-шапка</szBRName>
+		<szBRDesc>Спешите, распродажа! Всего за пол цены вы можете приобрести эту стильную вязаную шапочку для подразделений "коммандос", сделанную из высококачественного хлопка!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>282</uiIndex>
+		<szItemName>Брюки Зилон</szItemName>
+		<szLongItemName>Брюки из волокна Зилон</szLongItemName>
+		<szItemDesc>Это стандартные бронированные боевые брюки солдата армии США. И о чем думали их создатели? Брюки слишком быстро изнашиваются.</szItemDesc>
+		<szBRName>Зилоновые брюки</szBRName>
+		<szBRDesc>Легкие и удобные бронированные камуфляжные брюки из запатентованного японской фирмой материала Зилон. Зилон очень быстро вытеснили конкурентов, которые были гораздо тяжелее. Но учтите, в шести из десяти случаев пули без особого труда пробивают броню.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>283</uiIndex>
+		<szItemName>Куртка Зилон</szItemName>
+		<szLongItemName>Куртка из волокна Зилон</szLongItemName>
+		<szItemDesc>Это штатная боевая куртка солдата армии США. И о чем думали ее создатели? Баллистическая экспертиза на 103 Зилоновых жилетах, дала допустимые результаты только в четырех случаях. В 6-и из 10-и случаев пули без особого труда пробили броню.</szItemDesc>
+		<szBRName>Зилоновая куртка</szBRName>
+		<szBRDesc>Легкая и удобная бронированная камуфляжная куртка из запатентованного японской фирмой материала Зилон. Зилоновые бронежилеты очень быстро вытеснили конкурентов, которые были гораздо тяжелее.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>284</uiIndex>
+		<szItemName>Китель</szItemName>
+		<szLongItemName>Китель</szLongItemName>
+		<szItemDesc>Офицерский китель. Это стандартный бронированный китель солдата армии США. И о чем думали его создатели? Китель слишком быстро изнашивается.</szItemDesc>
+		<szBRName>Китель</szBRName>
+		<szBRDesc>Офицерский китель. Прочнее кевлара, в эту форму были экипированы морские пехотинцы США для войны в Ираке. Китель защитного цвета.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>285</uiIndex>
+		<szItemName>Шляпа</szItemName>
+		<szLongItemName>Шляпа</szLongItemName>
+		<szItemDesc>Отличная шляпа защитной окраски, хорошая замена раскаленной на солнце каске.</szItemDesc>
+		<szBRName>Шляпа</szBRName>
+		<szBRDesc>Такая же, как вы видели по ТВ! Это та самая шляпа, которую Дикий Билл носил в субботних утренних комиксах "ДжиЭл Джо". Ну ладно, пускай не совсем такая, но все равно прикольная.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>286</uiIndex>
+		<szItemName>Мундир</szItemName>
+		<szLongItemName>Парадный мундир</szLongItemName>
+		<szItemDesc>Официальная форма морского пехотинца США. Внимание: это не бронежилет, обычный тряпичный мундир.</szItemDesc>
+		<szBRName>Парадный мундир</szBRName>
+		<szBRDesc>Официальная форма морского пехотинца США. Внимание: это не бронежилет, обычный тряпичный мундир. На складе доступен в двух вариантах: с целыми карманами, и за ту же цену с дырявыми карманами.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>287</uiIndex>
+		<szItemName>Фуражка</szItemName>
+		<szLongItemName>Офицерская фуражка</szLongItemName>
+		<szItemDesc>Это офицерская фуражка. Судя по идиотскому дизайну и кокарде - она американская.</szItemDesc>
+		<szBRName>Офицерская фуражка</szBRName>
+		<szBRDesc>Американская фуражка офицера морской пехоты. На складе имеется в двух вариантах: без блох, и за ту же цену с блохами.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>288</uiIndex>
+		<szItemName>Берет</szItemName>
+		<szLongItemName>Красный берет</szLongItemName>
+		<szItemDesc>Думаете он французский? Может и нет, но смотрится красиво.</szItemDesc>
+		<szBRName>Красный берет</szBRName>
+		<szBRDesc>Соберите свое собственное спецподразделение! В таких же беретах ходит вся армия Франции.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>289</uiIndex>
+		<szItemName>Пилотка</szItemName>
+		<szLongItemName>Пилотка солдата армии СССР</szLongItemName>
+		<szItemDesc>Пилотка рядового солдата красной армии.</szItemDesc>
+		<szBRName>Пилотка</szBRName>
+		<szBRDesc>Пилотка рядового солдата красной армии. Хорошее напоминание миру о силе, с которой лучше считаться и быть в хороших отношениях... Даже после развала СССР.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>290</uiIndex>
+		<szItemName>Шапка-ушанка</szItemName>
+		<szLongItemName>Армейская шапка-ушанка</szLongItemName>
+		<szItemDesc>Армейская шапка-ушанка, отличная защита от русских зимних холодов. Но зачем она в Арулько?</szItemDesc>
+		<szBRName>Шапка-ушанка</szBRName>
+		<szBRDesc>Армейская шапка-ушанка красной армии Советского Союза, отличная защита от русских зимних холодов.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>291</uiIndex>
+		<szItemName>Шинель</szItemName>
+		<szLongItemName>Офицерская шинель советской армии</szLongItemName>
+		<szItemDesc>Стильный офицерский мундир армии бывшего Советского Союза. Хорошее напоминание миру о силе, с которой лучше считаться и быть в хороших отношениях... Даже после развала СССР.</szItemDesc>
+		<szBRName>Офицерская шинель</szBRName>
+		<szBRDesc>Стильный офицерский мундир армии бывшего Советского Союза. Хорошее напоминание миру о силе, с которой лучше считаться и быть в хороших отношениях... Даже после развала СССР.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>292</uiIndex>
+		<szItemName>Фуражка</szItemName>
+		<szLongItemName>Фуражка офицера советской армии</szLongItemName>
+		<szItemDesc>Это офицерская фуражка. Судя по кокарде, ее носили офицеры бывшей советской армии. Хорошее напоминание миру о силе, с которой лучше считаться и быть в хороших отношениях... Даже после развала СССР.</szItemDesc>
+		<szBRName>Фуражка</szBRName>
+		<szBRDesc>Это офицерская фуражка. Судя по кокарде, она из бывшего Советского Союза. Отличный сувенир, напоминание о великой державе...</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>293</uiIndex>
+		<szItemName>Шлем SWAT</szItemName>
+		<szLongItemName>Шлем подразделения SWAT</szLongItemName>
+		<szItemDesc>Очень прочный шлем с защитным стеклом для глаз.</szItemDesc>
+		<szBRName>Шлем SWAT</szBRName>
+		<szBRDesc>Штатный бронированный шлем подразделения SWAT. Очень прочный шлем, имеется защитное стекло для глаз. Отличный выбор в ситуациях требующих легкую броню и высокую степень защиты.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>294</uiIndex>
+		<szItemName>Брюки SWAT</szItemName>
+		<szLongItemName>Брюки подразделения SWAT</szLongItemName>
+		<szItemDesc>Штатные бронированные брюки для подразделения SWAT. Прочнее обычных кевларовых брюк благодаря дополнительному бронированию. Но не смотря на это обеспечивают высокую подвижность.</szItemDesc>
+		<szBRName>Брюки SWAT</szBRName>
+		<szBRDesc>Штатные бронированные брюки для подразделения SWAT. Прочны, упруги и гибки. Отличный выбор в ситуациях требующих легкую броню и высокую подвижность.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>295</uiIndex>
+		<szItemName>Куртка SWAT</szItemName>
+		<szLongItemName>Куртка подразделения SWAT</szLongItemName>
+		<szItemDesc>Штатная бронированная куртка для подразделения SWAT. Прочнее обычной кевларовой куртки благодаря дополнительному бронированию. Но не смотря на это обеспечивают высокую подвижность.</szItemDesc>
+		<szBRName>Куртка SWAT</szBRName>
+		<szBRDesc>Штатная бронированная куртка для подразделения SWAT. Прочная, упругая и гибкая. Отличный выбор в ситуациях требующих легкую броню и высокую подвижность.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>296</uiIndex>
+		<szItemName>Футболка</szItemName>
+		<szLongItemName>Футболка</szLongItemName>
+		<szItemDesc>Мда?.. Тебе того же, мудила!</szItemDesc>
+		<szBRName>Футболка</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>297</uiIndex>
+		<szItemName>Дубинка</szItemName>
+		<szLongItemName>Телескопическая дубинка</szLongItemName>
+		<szItemDesc>Стандартное оружие охранников во многих странах. Ею очень удобно выбивать из рук предметы и просто бить.</szItemDesc>
+		<szBRName>Выдвижная дубинка</szBRName>
+		<szBRDesc>Стандартное оружие охранников во многих странах. Ею очень удобно выбивать из рук предметы и просто избивать кого-нибудь.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>298</uiIndex>
+		<szItemName>Тонфа</szItemName>
+		<szLongItemName>Тонфа</szLongItemName>
+		<szItemDesc>Длинная, утяжеленная дубинка - отличное оружие для нанесения серьезных повреждений.</szItemDesc>
+		<szBRName>Тонфа</szBRName>
+		<szBRDesc>Тонфа (или туй-фа или тонгва) - традиционное ударное оружие жителей острова Окинава. Его прототипом послужила рукоять для небольшой рисовой мельницы. Часто используется в парном варианте. Тонфа стала прообразом современной полицейской дубинки с поперечной рукоятью.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>299</uiIndex>
+		<szItemName>Универс. нож</szItemName>
+		<szLongItemName>Швейцарский армейский нож</szLongItemName>
+		<szItemDesc>Полезен как для вскрытия замков, так и для расправы над врагом. Рукоять выполнена из алюминия и пластиковых накладок красного цвета, на нее нанесена стилизованная эмблема Швейцарии - равносторонний белый кpecт.</szItemDesc>
+		<szBRName>Швейцарский нож</szBRName>
+		<szBRDesc>Швейцарский армейский нож - многофунк- циональный складной нож, оснащенный клинком и несколькими дополнительными инструментами, такими как отвертки, открывалки, штопор и т.д. В нерабочем положении инструменты находятся внутри рукояти ножа.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>300</uiIndex>
+		<szItemName>Малый нож</szItemName>
+		<szLongItemName>Малый нож</szLongItemName>
+		<szItemDesc>Небольшой, хорошо сбалансированный нож. Не такой серьезный как обычный боевой нож, зато благодаря меньшему размеру с ним легче управляться.</szItemDesc>
+		<szBRName>Малый нож</szBRName>
+		<szBRDesc>Небольшой, хорошо сбалансированный нож. Не такой серьезный как обычный боевой нож, зато благодаря меньшему размеру с ним легче управляться.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>301</uiIndex>
+		<szItemName>Канц. нож</szItemName>
+		<szLongItemName>Канцелярский нож</szLongItemName>
+		<szItemDesc>Представляет из себя тонкое сменное лезвие с прорезями для "ломания" внутри пластикового держателя. Очень хорош для резки бумаги, но абсолютно бесполезен в бою.</szItemDesc>
+		<szBRName>Канцелярский нож</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>302</uiIndex>
+		<szItemName>Камуфл. каска</szItemName>
+		<szLongItemName>Камуфляжная стальная каска</szLongItemName>
+		<szItemDesc>Камуфляжная стальная каска защитит голову от осколков снарядов, шрапнели и выстрелов из оружия невысокой мощности. Внутри кожаный подшлемник на нейлоновой подкладке. Имеется подбородочный ремень.</szItemDesc>
+		<szBRName>Шлем стальной "Хаки"</szBRName>
+		<szBRDesc>Удобная и чрезвычайно практичная, эта стальная каска обеспечивает защиту от пистолетных пуль, дроби, мелких снарядов, в придачу ко всем каска имеет камуфляжное покрытие. Отделка выполнена кожей, нейлоном, имеется ремешок.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>303</uiIndex>
+		<szItemName>Блюдо</szItemName>
+		<szLongItemName>Серебряное блюдо</szLongItemName>
+		<szItemDesc>На потускневшем серебряном блюде нет дарственной гравировки, и все же, скорее всего, владелец получил его в подарок.</szItemDesc>
+		<szBRName>Серебряное блюдо</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>304</uiIndex>
+		<szItemName>Изолента</szItemName>
+		<szLongItemName>Клейкая лента</szLongItemName>
+		<szItemDesc>Катушка плотной серой пятисантиметровой клейкой ленты. Такой лентой удобно заделывать дырки и прочно скреплять предметы.</szItemDesc>
+		<szBRName>Клейкая лента</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>305</uiIndex>
+		<szItemName>Карниз</szItemName>
+		<szLongItemName>Алюминиевый карниз</szLongItemName>
+		<szItemDesc>Оба конца узкого карниза для штор обломаны. Интересно, что же случилось со шторами?</szItemDesc>
+		<szBRName>Алюминиевый карниз</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>306</uiIndex>
+		<szItemName>Пружина</szItemName>
+		<szLongItemName>Пружина</szLongItemName>
+		<szItemDesc>Маленькая тугая металлическая пружина могла быть частью любого хозяйственного прибора.</szItemDesc>
+		<szBRName>Пружина</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>307</uiIndex>
+		<szItemName>Затвор</szItemName>
+		<szLongItemName>Самодельный затвор</szLongItemName>
+		<szItemDesc>Установите этот остроумный пружинный затвор на оружие, чтобы увеличить его скорострельность.</szItemDesc>
+		<szBRName>Самодельный затвор</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>308</uiIndex>
+		<szItemName>Труба</szItemName>
+		<szLongItemName>Стальная труба</szLongItemName>
+		<szItemDesc>Обычная бесхозная стальная труба. Ждет своего часа.</szItemDesc>
+		<szBRName>Стальная труба</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>309</uiIndex>
+		<szItemName>Суперклей</szItemName>
+		<szLongItemName>Суперклей</szLongItemName>
+		<szItemDesc>Намертво склеивает практически все менее чем за три минуты.</szItemDesc>
+		<szBRName>Суперклей</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>310</uiIndex>
+		<szItemName>Насадка</szItemName>
+		<szLongItemName>Насадка на ствол</szLongItemName>
+		<szItemDesc>Насадите эту симпатичную железяку на ствол оружия, и дальность стрельбы значительно возрастет.</szItemDesc>
+		<szBRName>Насадка на ствол</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>311</uiIndex>
+		<szItemName>Бечевка</szItemName>
+		<szLongItemName>Бечевка</szLongItemName>
+		<szItemDesc>Обычная белая шестиметровая бечевка.</szItemDesc>
+		<szBRName>Бечевка</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>312</uiIndex>
+		<szItemName>Банка</szItemName>
+		<szLongItemName>Банка из-под содовой</szLongItemName>
+		<szItemDesc>Похоже, эта старая банка из-под содовой послужила кому-то футбольным мячом.</szItemDesc>
+		<szBRName>Банка из-под содовой</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>313</uiIndex>
+		<szItemName>Банка на бечевке</szItemName>
+		<szLongItemName>Банка из-под содовой на бечевке</szLongItemName>
+		<szItemDesc>Если привязать такую банку к свадебному лимузину, она будет замечательно громыхать по асфальту всю дорогу!</szItemDesc>
+		<szBRName>Банка из-под содовой на бечевке</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>314</uiIndex>
+		<szItemName>Шарики</szItemName>
+		<szLongItemName>Стеклянные шарики</szLongItemName>
+		<szItemDesc>Мальчишки часто носят в карманах гладкие блестящие цветные шарики из стекла. Они на удивление тяжелые и годятся в основном на то, чтобы ими любоваться.</szItemDesc>
+		<szBRName>Стеклянные шарики</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>315</uiIndex>
+		<szItemName>ЛохБой</szItemName>
+		<szLongItemName>Дисплей ЛохБоя</szLongItemName>
+		<szItemDesc>Жидкокристаллический черно-белый дисплей от карманной электронной игры.</szItemDesc>
+		<szBRName>Дисплей от игры</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>316</uiIndex>
+		<szItemName>Медный провод</szItemName>
+		<szLongItemName>Медный провод</szLongItemName>
+		<szItemDesc>Обычный медный провод. Пригодится для работ с электроникой.</szItemDesc>
+		<szBRName>Медный провод</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>317</uiIndex>
+		<szItemName>Блок дисплея</szItemName>
+		<szLongItemName>Блок дисплея</szLongItemName>
+		<szItemDesc>Ни что иное, как жидкокристаллический дисплей "ЛохБоя", дополненный медным проводом.</szItemDesc>
+		<szBRName>Блок дисплея</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>318</uiIndex>
+		<szItemName>Вибратор</szItemName>
+		<szLongItemName>Приставка к джойстику</szLongItemName>
+		<szItemDesc>Устройство для приставок "Блин-тендо", отвечающее за вибрацию джойстика во время игры. Не теряйте бдительности: джойстик может тряхануть так, что он вырвется из рук.</szItemDesc>
+		<szBRName>Приставка к джойстику</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>319</uiIndex>
+		<szItemName>Рентген. трубка</szItemName>
+		<szLongItemName>Рентгеновская трубка</szLongItemName>
+		<szItemDesc>Трубка от больничного рентгеновского аппарата.</szItemDesc>
+		<szBRName>Рентгеновская трубка</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>320</uiIndex>
+		<szItemName>Жвачка</szItemName>
+		<szLongItemName>Пачка жвачки</szLongItemName>
+		<szItemDesc>Пачка мятной жвачки без сахара. Стоматологи рекомендуют жевать после каждого приема пищи, когда под рукой нет зубной щетки.</szItemDesc>
+		<szBRName>Пачка жвачки</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>321</uiIndex>
+		<szItemName>Рентген. прибор</szItemName>
+		<szLongItemName>Рентгеновский прибор</szLongItemName>
+		<szItemDesc>Симпатичный, но бесполезный прибор, собранный по кусочкам. Похоже, он может светиться и вибрировать.</szItemDesc>
+		<szBRName>Рентгеновский прибор</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>322</uiIndex>
+		<szItemName>Батарейки</szItemName>
+		<szLongItemName>Батарейки</szLongItemName>
+		<szItemDesc>Батарейки "NeverReady" размера "АА": никогда не готовы к работе. Похоже на вашу подружку? Более того: эти батарейки чисто по-женски подведут вас в самый ответственный момент.</szItemDesc>
+		<szBRName>Батарейки</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>323</uiIndex>
+		<szItemName>Резинка</szItemName>
+		<szLongItemName>Резинка</szLongItemName>
+		<szItemDesc>Если надо скрепить предметы, нет ничего лучше старой доброй эластичной резинки.</szItemDesc>
+		<szBRName>Резинка</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>324</uiIndex>
+		<szItemName>Детектор</szItemName>
+		<szLongItemName>Рентгеновский детектор</szLongItemName>
+		<szItemDesc>Похоже, наш самодельный рентгеновский прибор в состоянии направлять вибрирующий пучок рентгеновых лучей и сносно отображать полученную информацию на жидкокристаллическом дисплее. Нужно только вставить батарейки.</szItemDesc>
+		<szBRName>Рентгеновский детектор</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>325</uiIndex>
+		<szItemName>Серебро</szItemName>
+		<szLongItemName>Серебряный самородок</szLongItemName>
+		<szItemDesc>Самородок чистого серебра. Скорее всего, добыт в одной из серебряных шахт Арулько.</szItemDesc>
+		<szBRName>Серебряный самородок</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>326</uiIndex>
+		<szItemName>Золото</szItemName>
+		<szLongItemName>Золотой самородок</szLongItemName>
+		<szItemDesc>Те же наличные, разве что потяжелее. Блестящий внушительный кусок беспримесного золота. Вот это сюрприз: золотые шахты Арулько порядком истощены.</szItemDesc>
+		<szBRName>Золотой самородок</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>327</uiIndex>
+		<szItemName>Бензин</szItemName>
+		<szLongItemName>Канистра с бензином</szLongItemName>
+		<szItemDesc>Используйте эту канистру с умом: бензин в Арулько достать практически невозможно.</szItemDesc>
+		<szBRName>Канистра с бензином</szBRName>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>328</uiIndex>
+		<szItemName>5,56мм, 10 AP</szItemName>
+		<szLongItemName>5,56x45мм магазин, 10 бронебойные</szLongItemName>
+		<szItemDesc>Неважно, как вы их называете - калибр 5,56 или .223 Ремингтон, они неизменно оставляют в противнике аккуратные дырки и ужасные раневые каналы.</szItemDesc>
+		<szBRName>5,56x45мм, 10 AP</szBRName>
+		<szBRDesc>Неважно, как вы их называете - калибр 5,56 или .223 Ремингтон, они неизменно оставляют в противнике аккуратные дырки и ужасные раневые каналы.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>329</uiIndex>
+		<szItemName>5,56мм, 10 HP</szItemName>
+		<szLongItemName>5,56x45мм магазин, 10 экспансивные</szLongItemName>
+		<szItemDesc>На основании различных конвенций и соглашений, эти боеприпасы запрещены к использованию вооруженными силами (мы никому не скажем, если вы нарушите данный запрет).</szItemDesc>
+		<szBRName>5,56x45мм, 10 HP</szBRName>
+		<szBRDesc>На основании различных конвенций и соглашений, эти боеприпасы запрещены к использованию вооруженными силами (мы никому не скажем, если вы нарушите данный запрет).</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>330</uiIndex>
+		<szItemName>Микро-Узи</szItemName>
+		<szLongItemName>Микро-Узи</szLongItemName>
+		<szItemDesc>Название говорит само за себя: "Узи" есть "Узи". Сначала был мини-"Узи", теперь микро-"Узи". Похоже, однажды в Израиле выйдет и карманный "Узи".</szItemDesc>
+		<szBRName>Micro-Uzi</szBRName>
+		<szBRDesc>Название говорит само за себя: "Узи" есть "Узи". Сначала был мини-"Узи", теперь микро-"Узи". Похоже, однажды в Израиле выйдет и карманный "Узи".</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>331</uiIndex>
+		<szItemName>L85A2</szItemName>
+		<szLongItemName>Энфилд L85A2</szLongItemName>
+		<szItemDesc>На самом деле это английское оружие было изготовлено не в Энфилде, а Ноттингеме, где компьютерные системы наконец-то устранили все дефекты конструкции.</szItemDesc>
+		<szBRName>Энфилд L85A2</szBRName>
+		<szBRDesc>На самом деле это английское оружие было изготовлено не в Энфилде, а Ноттингеме, где компьютерные системы наконец-то устранили все дефекты конструкции.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>332</uiIndex>
+		<szItemName>TAR-21</szItemName>
+		<szLongItemName>Тавор TAR-21</szLongItemName>
+		<szItemDesc>Этот новый высокотехнологичный израильский автомат калибра 5,56 мм превратит врага в решето. Вес без магазина 2,5 кг, а скорострельность - 900 выстр/мин.</szItemDesc>
+		<szBRName>Tavor TAR 21</szBRName>
+		<szBRDesc>Этот новый высокотехнологичный израильский автомат калибра 5,56 мм превратит врага в решето. Вес без магазина 2,5 кг, а скорострельность - 900 выстр/мин.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>333</uiIndex>
+		<szItemName>ВСС</szItemName>
+		<szLongItemName>ВСС "Винторез"</szLongItemName>
+		<szItemDesc>Эта бесшумная снайперская винтовка российского производства стреляет 9х39 мм патронами с дозвуковой скоростью и пробивает любой бронежилет с 400 метров.</szItemDesc>
+		<szBRName>ВСС "Винторез"</szBRName>
+		<szBRDesc>Оснащена "интегрированным" прибором для бесшумно-беспламенной стрельбы, надетым на ствол. Конструкция глушителя, и патрон СП-5, позволят значительно снизить уровень звука и пламени выстрела. Состоит на вооружении спецподразделений ВС, МВД России и ФСБ.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>334</uiIndex>
+		<szItemName>H&amp;K PSG1</szItemName>
+		<szLongItemName>H&amp;K PSG1</szLongItemName>
+		<szItemDesc>Эта снайперская винтовка - отличный пример прославленной немецкой точности. Лучший выбор для снайпера.</szItemDesc>
+		<szBRName>HK PSG1</szBRName>
+		<szBRDesc>Эта снайперская винтовка - отличный пример прославленной немецкой точности. Лучший выбор для снайпера.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>335</uiIndex>
+		<szItemName>M82A2</szItemName>
+		<szLongItemName>Барретт M82A2</szLongItemName>
+		<szItemDesc>В этой модели M82A2 применена система "буллпап": ствол и затворная коробка сдвинуты назад, это уменьшило длину оружия, сохранив длину ствола.</szItemDesc>
+		<szBRName>Barrett M82A2</szBRName>
+		<szBRDesc>В этой модели M82A2 применена система "буллпап": ствол и затворная коробка сдвинуты назад, это уменьшило длину оружия, сохранив длину ствола.</szBRDesc>
+	</ITEM>
+</ITEMLIST>

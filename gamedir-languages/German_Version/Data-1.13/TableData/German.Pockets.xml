@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<POCKETLIST>
+	<POCKET>
+		<pIndex>0</pIndex>
+		<pName>Nichts</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>1</pIndex>
+		<pName>Schulterriemen</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>2</pIndex>
+		<pName>Messer</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>3</pIndex>
+		<pName>Fahrzeug</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>4</pIndex>
+		<pName>Allgemein, groß</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>5</pIndex>
+		<pName>Kampftasche</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>6</pIndex>
+		<pName>Munitionsgurt</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>7</pIndex>
+		<pName>Holster, MPi</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>8</pIndex>
+		<pName>Allgemein, mittel</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>9</pIndex>
+		<pName>Magazin, überlang</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>10</pIndex>
+		<pName>Magazin, Gewehr</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>11</pIndex>
+		<pName>Holster, Pistole</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>12</pIndex>
+		<pName>Magazin, MPi</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>13</pIndex>
+		<pName>Granatpatrone</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>14</pIndex>
+		<pName>Granate</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>15</pIndex>
+		<pName>Magazin, Pistole</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>16</pIndex>
+		<pName>Allgemein, winzig</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>17</pIndex>
+		<pName>Allgemein, klein</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>18</pIndex>
+		<pName>Gürtelklemme</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>19</pIndex>
+		<pName>Speedloader</pName>
+	</POCKET>
+</POCKETLIST>

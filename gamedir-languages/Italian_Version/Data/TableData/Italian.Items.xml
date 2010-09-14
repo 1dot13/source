@@ -1,0 +1,2691 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ITEMLIST>
+	<ITEM>
+		<uiIndex>0</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Niente</szLongItemName>
+		<szItemDesc>I programmatori di JA 2 sono i migliori che ci siano... oh.. beh forse no dato che questo messaggio non dovrebbe mai apparire...</szItemDesc>
+		<szBRName>Niente</szBRName>
+		<szBRDesc>I programmatori di JA 2 sono i migliori che ci siano... oh... beh forse no, dato che questo messaggio non dovrebbe mai apparire...</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1</uiIndex>
+		<szItemName>Glock 17</szItemName>
+		<szLongItemName>Glock 17</szLongItemName>
+		<szItemDesc>Preferita dagli ufficiali dell'esercito, questa pistola semi-automatica austriaca è considerata l'arma standard da fianco in tutto il mondo.</szItemDesc>
+		<szBRName>Glock 17</szBRName>
+		<szBRDesc>Anche se la maggior parte degli elementi di questa pistola austriaca è in plastica, verrà comunque rilevata dai raggi x degli aeroporti. Il semplice caricatore automatico a rinculo ha solo 32 componenti ed è in dotazione negli eserciti di tutto il mondo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>2</uiIndex>
+		<szItemName>Glock 18</szItemName>
+		<szLongItemName>Glock 18</szLongItemName>
+		<szItemDesc>Come versione completamente automatica della Glock 17, questa pistola austriaca è stata progettata specificatamente per uso militare.</szItemDesc>
+		<szBRName>Glock 18</szBRName>
+		<szBRDesc>Di origine austriaca, la Glock 18 sta meritando la prima posizione nella classifica di pistola mitragliatrice. Essendo successiva alla Glock 17, è stata costruita per offrire il fuoco automatico. Spiacenti, ma le parti della 17 e della 18 non sono intercambiabili.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>3</uiIndex>
+		<szItemName>Beretta 92F</szItemName>
+		<szLongItemName>Beretta 92F</szLongItemName>
+		<szItemDesc>Questa pistola italiana a doppia azione può rapidamente trasformare qualunque tiratore in un'Arma Letale.</szItemDesc>
+		<szBRName>Beretta 92F</szBRName>
+		<szBRDesc>Distribuita all'Esercito degli U.S.A., la Beretta 92F è una pistola Parabellum standard da 9mm, con para grilletto modificato per permettere la presa a due mani. È un'arma molto funzionale.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>4</uiIndex>
+		<szItemName>Beretta 93R</szItemName>
+		<szLongItemName>Beretta 93R</szLongItemName>
+		<szItemDesc>La velenosa cugina della 92F. Questa pistola mitragliatrice automatica potrebbe essere la tua migliore amica in uno scontro a breve distanza.</szItemDesc>
+		<szBRName>Beretta 93R</szBRName>
+		<szBRDesc>La miglior pistola che potrai mai avere. Classificata come mitragliatrice, ha una presa frontale piegata in giù e un calcio estensibile d'acciaio, che si attacca sul retro dell'impugnatura per facilitare lo sparo di raffiche da tre colpi.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>5</uiIndex>
+		<szItemName>.38 S&amp;W</szItemName>
+		<szLongItemName>.38 Special</szLongItemName>
+		<szItemDesc>Collaudata e fedele per i ragazzi in blu. Questa pistola americana è la pistola di servizio più usata dalle polizie del mondo.</szItemDesc>
+		<szBRName>.38 Special</szBRName>
+		<szBRDesc>Il revolver standard a doppia azione, militare e da polizia, della Smith and Wesson è ideale sia per la difesa che per l'attacco. Quando la molla principale invecchia l'arma tende, comunque, ad attutire il colpo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>6</uiIndex>
+		<szItemName>Barracuda</szItemName>
+		<szLongItemName>Barracuda</szLongItemName>
+		<szItemDesc>Arma preferita del fratellino dello Sporco Harry, questo revolver belga è stato adottato da molti poliziotti americani.</szItemDesc>
+		<szBRName>Barracuda</szBRName>
+		<szBRDesc>Il revolver belga Barracuda, 357 magnum, è un'ottima scelta sia per l'attacco che per la difesa. Numerose prove hanno dimostrato che sia gli uomini che le donne la trovano più maneggevole della maggior parte delle pistole.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>7</uiIndex>
+		<szItemName>Desert Eagle .357</szItemName>
+		<szLongItemName>Desert Eagle .357</szLongItemName>
+		<szItemDesc>Con la potenza di un revolver Barracuda e la velocità di una semi- automatica, questa pistola USA è delicata come una bomba atomica da tasca.</szItemDesc>
+		<szBRName>Desert Eagle .357</szBRName>
+		<szBRDesc>Questa potente pistola ad azione singola è interamente americana. Inizialmente prodotta in Israele, è un'arma funzionante a gas che monta un otturatore rotante per una chiusura precisa; ambidestra e dotata di struttura in acciaio e finitura in nickel o in cromo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>8</uiIndex>
+		<szItemName>M1911A1</szItemName>
+		<szLongItemName>Colt M1911A1</szLongItemName>
+		<szItemDesc>L'Onnipotente può aver creato gli uomini, ma negli ultimi cento anni  questa pistola ha più che aiutato a tenerli in riga.</szItemDesc>
+		<szBRName>Colt M1911A1</szBRName>
+		<szBRDesc>Questa pistola automatica di disegno classico e di fabbricazione americana è una delle pistole da guerra di maggior successo mai inventate. Collaudata ferma-uomini, provoca una ferita così larga che può causare tremendi traumi nervosi.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>9</uiIndex>
+		<szItemName>MP5KA4</szItemName>
+		<szLongItemName>HK MP5KA4</szLongItemName>
+		<szItemDesc>Questo mitra tedesco è l'arma obbligatoria per i terroristi arrabbiati e per i signori della droga da due soldi sudamericani.</szItemDesc>
+		<szBRName>HK MP5KA4</szBRName>
+		<szBRDesc>L'MP5K della Heckler and Koch è uno dei più compatti e mortali mitra tedeschi in circolazione. Gruppi antiterrorismo e spacciatori di droga la preferiscono perché è piccola e facile da usare. Può essere facilmente nascosta sotto i vestiti.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>10</uiIndex>
+		<szItemName>MAC-10</szItemName>
+		<szLongItemName>Ingram M10</szLongItemName>
+		<szItemDesc>L'Uzi americano. Nato nei giorni della discoteca, quest'arma è stata molto popolare nel paese dei flamingo rosa e della neve.</szItemDesc>
+		<szBRName>Ingram M10</szBRName>
+		<szBRDesc>Il Modello 10 dell'americana Military Armament Corp.: un vero mitra. La sua stabilità permette di sparare con una sola mano e sulla canna si può applicare un 'soppressore di suono', che è simile a un silenziatore, ma che non riduce la velocità.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>11</uiIndex>
+		<szItemName>Thompson M1A1</szItemName>
+		<szLongItemName>Thompson M1A1</szLongItemName>
+		<szItemDesc>Come successore del Tommy, questo mitra divenne molto popolare sulle strade della Chicago del proibizionismo e sulle spiagge di Normandia.</szItemDesc>
+		<szBRName>Thompson M1A1</szBRName>
+		<szBRDesc>Anche se è più pesante della maggior parte dei mitra, il 'Tommy' è ancora preferito dai Commando e dai Ranger. Non ne sono più stati fabbricati dopo il 1960, ma sono ancora molto comuni e hanno definitivamente superato il test del tempo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>12</uiIndex>
+		<szItemName>Commando</szItemName>
+		<szLongItemName>Colt M4 Commando</szLongItemName>
+		<szItemDesc>Questa mini versione dell'M-16 è uno strumento apprezzato per sbarazzarsi di vicini noiosi e dittatori insignificanti.</szItemDesc>
+		<szBRName>Colt M4 Commando</szBRName>
+		<szBRDesc>Piccolissima, eppure mortale. La Colt Commando è una carabina d'assalto, corta e occultabile in modo attraente, basata sul modello dell'M16. È estremamente popolare in diverse forze armate degli USA, compresa la DEA.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>13</uiIndex>
+		<szItemName>HK 53A3</szItemName>
+		<szLongItemName>HK 53A3</szLongItemName>
+		<szItemDesc>L'ultimo dei mitra della Heckler e Koch è noto per l'eccessivo innalzamento della bocca, che ne rende sconsigliabile l'uso all'interno.</szItemDesc>
+		<szBRName>HK 53A3</szBRName>
+		<szBRDesc>Questo mitra tedesco ha un potere d'arresto ed è letale in modo sproporzionato alle sue dimensioni. Se equipaggiato con uno speciale soppressore di lampo, l'eccessivo lampeggiamento della bocca viene eliminato.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>14</uiIndex>
+		<szItemName>AKS-74U</szItemName>
+		<szLongItemName>AKS-74U</szLongItemName>
+		<szItemDesc>Comunemente usato dallo Spetsnaz russo, il lampo dalla bocca della breve canna di questo SMG ha bruciacchiato più di un sopracciglio.</szItemDesc>
+		<szBRName>AKS-74U</szBRName>
+		<szBRDesc>D'origine russa, questo mitra è una versione più corta dell'AK-74. È un'arma da guerra intensa con un accessorio bulboso alla bocca per compensare l'utilizzo delle cartucce Sovietiche da 5,45mm in una canna molto più corta.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>15</uiIndex>
+		<szItemName>P90</szItemName>
+		<szLongItemName>FN P90</szLongItemName>
+		<szItemDesc>Quest'arma belga è uno dei mitra più avanzati del mondo ed è fortemente richiesto da diverse forze speciali.</szItemDesc>
+		<szBRName>FN P90</szBRName>
+		<szBRDesc>Fa buchi nel Kevlar come fosse burro. L'FN-P90 è una pistola mitraglitrice con capacità balistiche veramente potenti. Tutti i controlli sono ambidestri, con una maniglia di armamento su entrambi i lati e due mirini liberi.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>16</uiIndex>
+		<szItemName>Type 85</szItemName>
+		<szLongItemName>Type 85</szLongItemName>
+		<szItemDesc>A buon mercato, semplice e austero; il motto del progetto militare cinese si riflette fedelmente in quest'arma prodotta in massa.</szItemDesc>
+		<szBRName>Type 85</szBRName>
+		<szBRDesc>Nato da un progetto cinese, il mitra Type-85 è un'arma semplice a vampa di ritorno notevolmente leggera grazie al suo sistema rotante di otturatore. I fabbricanti d'armi pretendono che spari anche la cartuccia subsonica type-64.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>17</uiIndex>
+		<szItemName>SKS</szItemName>
+		<szLongItemName>SKS</szLongItemName>
+		<szItemDesc>Questa carabina semi-automatica estremamente comune è stata in azione in quasi tutti i paesi comunisti del mondo.</szItemDesc>
+		<szBRName>SKS</szBRName>
+		<szBRDesc>La carabina automatica SKS della Simonov ad autocaricamento ha un disegno semplice ed è facile da usare. Sviluppata durante la II Guerra Mondiale, venne poi data alla maggior parte dei membri del Patto di Varsavia. Il suo punto debole è il peso.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>18</uiIndex>
+		<szItemName>SVD</szItemName>
+		<szLongItemName>Dragunov SVD</szLongItemName>
+		<szItemDesc>Vai oltre e contatta in qualche modo l'Esercito Russo. Questa carabina ha colpito più che la paura nei cuori degli ufficiali di tutto il mondo.</szItemDesc>
+		<szBRName>Dragunov SVD</szBRName>
+		<szBRDesc>Questa carabina russa da cecchino è nota per la sua precisione. Suoi accessori standard sono il mirino telescopico PSO-1 e il mirino notturno intensificatore di immagine NSPU-3.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>19</uiIndex>
+		<szItemName>M24</szItemName>
+		<szLongItemName>M24</szLongItemName>
+		<szItemDesc>Chiama l'M-24 per consegnare il tuo pacchetto calibro 7,62mm a un miglio di distanza in due secondi netti. Garantisce sempre la consegna.</szItemDesc>
+		<szBRName>M24</szBRName>
+		<szBRDesc>L'M24 Remington è la carabina da cecchino standard dell'esercito americano. Il calcio di questa carabina è fatto di materiale sintetico con uno strato di alluminio a copertura. Viene fornito con la piastra regolabile.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>20</uiIndex>
+		<szItemName>AUG-A2</szItemName>
+		<szLongItemName>Steyr AUG-A2</szLongItemName>
+		<szItemDesc>La "Carabina d'Assalto del Diavolo", manifesto delle lobby delle armi USA, è la futuristica carabina standard dell'esercito austriaco.</szItemDesc>
+		<szBRName>Steyr AUG-A2</szBRName>
+		<szBRDesc>Questa carabina automatica austriaca ha un disegno modulare unico con molte parti intercambiabili. È stata una delle prime carabine a utilizzare un meccanismo in plastica di sparo così come attrezzatura in plastica.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>21</uiIndex>
+		<szItemName>G41A2</szItemName>
+		<szLongItemName>HK G41A2</szLongItemName>
+		<szItemDesc>Più feroce dei postumi di una sbronza notturna di birra chiara tedesca, questa G41 diventerà presto il mal di testa del tuo nemico.</szItemDesc>
+		<szBRName>HK G41A2</szBRName>
+		<szBRDesc>Costruita secondo gli standard NATO, questa carabina d'assalto è uno splendido prodotto della tecnologia tedesca. Presenta una copertura del foro di espulsione e un congegno che tiene aperto il caricatore durante lo svuotamento.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>22</uiIndex>
+		<szItemName>Mini-14</szItemName>
+		<szLongItemName>Ruger Mini-14</szLongItemName>
+		<szItemDesc>Questa carabina Sturm Ruger è la copia meccanica degli anni '70 del Garand della II Guerra Mondiale. È un ottimo regalo.</szItemDesc>
+		<szBRName>Ruger Mini-14</szBRName>
+		<szBRDesc>Considerato il grande fucile da caccia americano, è perfetto per usi para- militari. Naturalmente, migliora la tua mira grazie al suo basso rinculo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>23</uiIndex>
+		<szItemName>C7A2</szItemName>
+		<szLongItemName>Diemaco C7A2</szLongItemName>
+		<szItemDesc>Il motto della carabina: 'Qualunque cosa possano fare gli Yankee, noi la facciamo meglio.' Questa nuovo M-16 è il sogno di ogni mercenario.</szItemDesc>
+		<szBRName>Diemaco C7A2</szBRName>
+		<szBRDesc>È la versione canadese dell'americano M16A2. Fidati di quei pazzi canadesi per incorporare tanti congegni di sicurezza come un deflettore di bossolo: questo farà in modo che i bossoli vuoti arrivino in faccia a tiratori mancini.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>24</uiIndex>
+		<szItemName>FAMAS</szItemName>
+		<szLongItemName>FAMAS G2</szLongItemName>
+		<szItemDesc>Soprannominato 'La Tromba' dalle Truppe dell'Esercito Francese, questo tozzo fucile raccoglie l'utilità dell'M-16 in meno di due piedi e mezzo.</szItemDesc>
+		<szBRName>FAMAS G2</szBRName>
+		<szBRDesc>Il fucile FA-MAS dell'esercito francese fu il primo di questo tipo a entrare in servizio militare. Si maneggia bene, e spara in modo piuttosto preciso. Ci si può anche attaccare un bipode per sparare più stabilmente.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>25</uiIndex>
+		<szItemName>AK-74</szItemName>
+		<szLongItemName>AK-74</szLongItemName>
+		<szItemDesc>Questo fucile è destinato a diventare una delle voci maggiori delle esportazioni russe, secondo solo alle testate nucleari tattiche.</szItemDesc>
+		<szBRName>AK-74</szBRName>
+		<szBRDesc>Utilizzato come fucile automatico standard della fanteria sovietica, l'AK- 74 è una versione di calibro minore dell'A.K.M. Benché efficiente e sicuro (ha un rinculo minimo), può essere pericoloso per i vicini, dato che i gas di scarico sono deviati a lato.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>26</uiIndex>
+		<szItemName>AKM</szItemName>
+		<szLongItemName>AKM</szLongItemName>
+		<szItemDesc>L'AKM è la versione più recente dell'infame AK-47. Questa serie di fucili è stata usata in Vietnam, Afganistan, e su molti aerei di linea.</szItemDesc>
+		<szBRName>AKM</szBRName>
+		<szBRDesc>Come versione modernizzata del fucile automatico AK-47, è stata una delle migliori e più largamente diffuse armi sovietiche. Progettato per la produzione di massa, se ne troverà uno appeso alla spalla di ogni mercenario economo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>27</uiIndex>
+		<szItemName>M14</szItemName>
+		<szLongItemName>M14</szLongItemName>
+		<szItemDesc>L'M-14 è Tutto-Americano all'incirca come la torta di mele e il 4 Luglio. Ogni A-Team equipaggiato con questo fucile combatte per la vittoria.</szItemDesc>
+		<szBRName>M14</szBRName>
+		<szBRDesc>Veramente americano fino al midollo. Questo leggero fucile automatico offre opzioni di fuoco multiple, ma la migliore è quella semi automatica. Sfortunatamente, senza la possibilità di cambiare la canna, può scaldarsi durante un fuoco sostenuto.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>28</uiIndex>
+		<szItemName>FN FAL</szItemName>
+		<szLongItemName>FN FAL</szLongItemName>
+		<szItemDesc>La frase: "Aiuto, sono caduto e non posso alzarmi" assume un significato completamente nuovo quando questo fucile vi è coinvolto.</szItemDesc>
+		<szBRName>FN FAL</szBRName>
+		<szBRDesc>Questo fucile automatico belga stabilì un nuovo standard dell'armamento nei primi anni '50. Il suo modello robusto e affidabile lo rese di semplice uso e facile manutenzione, malgrado la sua tendenza a un innalzamento con l'automatico.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>29</uiIndex>
+		<szItemName>G3A3</szItemName>
+		<szLongItemName>HK G3A3</szLongItemName>
+		<szItemDesc>Fatto di fogli di metallo stampato e con accessori in plastica, questo brutto fucile procura ferite altrettanto gravi.</szItemDesc>
+		<szBRName>HK G3A3</szBRName>
+		<szBRDesc>Fatto di fogli di metallo stampato e con accessori in plastica, questo fucile automatico Heckler e Koch sicuramente non è bello, ma è indubbiamente robusto, affidabile e molto efficace.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>30</uiIndex>
+		<szItemName>G11</szItemName>
+		<szLongItemName>HK G11</szLongItemName>
+		<szItemDesc>La Porsche dei fucili d'assalto. Quest'arma spara da 0 a 3 colpi in meno di un secondo, e passa attraverso il Kevlar come fosse burro.</szItemDesc>
+		<szBRName>HK G11</szBRName>
+		<szBRDesc>La tedesca Heckler e Koch progettò quest'arma come il fucile automatico più veloce. Le sue pallottole ad alta velocità passano dritte attraverso il Kevlar. Malgrado l'aspetto, è molto maneggevole e spara con estrema precisione.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>31</uiIndex>
+		<szItemName>M870</szItemName>
+		<szLongItemName>Remington M870</szLongItemName>
+		<szItemDesc>Questo fucile a pompa è una delle armi più versatili che il denaro possa comprare. Può essere usato per la caccia, la difesa e l'apertura di porte.</szItemDesc>
+		<szBRName>Remington M870</szBRName>
+		<szBRDesc>Un fucile da caccia calibro 12 prediletto per la sua regolare azione a pompa, è preferito da molte forze di polizia nel mondo. Comunemente usato come fucile da caccia, si trova in vendita nella maggior parte dei negozi locali di ferramenta.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>32</uiIndex>
+		<szItemName>SPAS-15</szItemName>
+		<szLongItemName>SPAS-15</szLongItemName>
+		<szItemDesc>Questo fucile italiano semi automatico da caccia grossa, dall'aspetto terrificante, è stato proibito in diversi paesi.</szItemDesc>
+		<szBRName>SPAS-15</szBRName>
+		<szBRDesc>Il disegno del fucile da caccia calibro 12 Franchi SPAS-15 è frutto di un autentico genio Italiano. Fornisce le opzioni per azione a pompa a gas, automatica o manuale.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>33</uiIndex>
+		<szItemName>CAWS</szItemName>
+		<szLongItemName>HK CAWS</szLongItemName>
+		<szItemDesc>Questo Sistema di Arma per Assalto Ravvicinato sperimentale Tedesco/ Americano rende il concetto di tiro al piattello sugli uomini una sanguinosa realtà.</szItemDesc>
+		<szBRName>HK CAWS</szBRName>
+		<szBRDesc>Il Sistema di Arma per Assalto Ravvicinato della Olin/Heckler e Koch è l'ideale arma leggera di supporto per ogni aspirante mercenario. Progettato per cartucce da caccia calibro 12, spara anche granate in miniatura.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>34</uiIndex>
+		<szItemName>Minimi</szItemName>
+		<szLongItemName>FN Minimi</szLongItemName>
+		<szItemDesc>Questa mitragliatrice leggera, nota anche come C-9 e M-249, è stata vista fare anche del lavoro nero come fucile d'assalto rinforzato.</szItemDesc>
+		<szBRName>FN Minimi</szBRName>
+		<szBRDesc>Celebre per la sua affidabilità, questa mitragliatrice belga funziona a gas, con un semplice sistema di otturatore rotante. Il progetto venne adottato dall'esercito statunitense come mitragliatrice M249.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>35</uiIndex>
+		<szItemName>RPK-74</szItemName>
+		<szLongItemName>RPK-74</szLongItemName>
+		<szItemDesc>L'ultima arma russa di supporto al plotone è questa mitragliatrice leggera, che conferisce nuovo significato al concetto 'spara e spera.'</szItemDesc>
+		<szBRName>RPK-74</szBRName>
+		<szBRDesc>Questa leggera mitragliatrice automatica da plotone, di origine russa, è semplicemente una versione a canne appesantite del fucile AK74. Il suo inconveniente è di far fuori la rigatura della canna entro i 5.000 colpi.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>36</uiIndex>
+		<szItemName>HK 21E</szItemName>
+		<szLongItemName>HK 21E</szLongItemName>
+		<szItemDesc>Quest'arma di supporto da fanteria è una mitragliatrice (non tanto) leggera che ti aiuta a sparare a raffica falciando i nemici.</szItemDesc>
+		<szBRName>HK 21E</szBRName>
+		<szBRDesc>La tedesca Heckler e Koch 21 è una fantastica mitragliatrice multiuso, con una canna pesante, ma facile da cambiare. Il suo bipode offre 3 regolazioni d'altezza su cui l'arma può roteare di 30 gradi in ogni direzione.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>37</uiIndex>
+		<szItemName>Coltello</szItemName>
+		<szLongItemName>Coltello da combattimento</szLongItemName>
+		<szItemDesc>Questo coltello da combattimento, a pieno codolo, stile caccia, ti trasformerà in una roteante, piroettante macchina di morte silenziosa e delicata.</szItemDesc>
+		<szBRName>Coltello da Combattimento</szBRName>
+		<szBRDesc>Quando il nemico è troppo vicino, questo coltello da combattimento, a pieno codolo, stile caccia, servirà indubbiamente. Presenta una lama da 9" chiusa, e un'impugnatura di legno con guardia e pomo pesanti.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>38</uiIndex>
+		<szItemName>Colt. da lancio</szItemName>
+		<szLongItemName>Coltello da lancio</szLongItemName>
+		<szItemDesc>Questo coltello da lancio in acciaio finemente bilanciato dà nuovo valore all'espressione ucciderli dolcemente. O, in questo caso, silenziosamente.</szItemDesc>
+		<szBRName>Coltello da Lancio</szBRName>
+		<szBRDesc>Raffina la tua tecnica di lancio con questa lama cromata a doppio taglio in acciaio ad alto tenore di carbonio. Questo piccolo coltello sottile è una scelta perfetta sia per lanciatori novellini, sia per esperti.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>39</uiIndex>
+		<szItemName>Roccia</szItemName>
+		<szLongItemName>Una Roccia</szLongItemName>
+		<szItemDesc>Una roccia è quella che ti becchi in testa, se non sai cosa sia.</szItemDesc>
+		<szBRName>Una Roccia</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>40</uiIndex>
+		<szItemName>M79</szItemName>
+		<szLongItemName>M79 Lancia Granate</szLongItemName>
+		<szItemDesc>Se il passaggio rapido attraverso un muro di mattoni o in un gruppo di cattivi soggetti è ciò di cui hai bisogno, questo lanciagranate americano da 40mm dell'era del Vietnam, risolverà ogni volta i tuoi problemi.</szItemDesc>
+		<szBRName>M79 Lancia Granate</szBRName>
+		<szBRDesc>Conosciuto per la sua precisione, il Lancia Granate da 40 mm M79 non è il tuo lanciagranate medio. Con quest'arma da sfondamento a retrocarica a colpo singolo si spara dalla spalla. Dotata di mirino anteriore a lamina e di posteriore regolabile.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>41</uiIndex>
+		<szItemName>Mortaio</szItemName>
+		<szLongItemName>M224 Mortaio</szLongItemName>
+		<szItemDesc>L'M224 è un mortaio leggero da 60mm di calibro con una canna pinnata, mirino, piattaforma M7 e bipode, costruito apposta per usare proiettili HE.</szItemDesc>
+		<szBRName>M224 Mortaio</szBRName>
+		<szBRDesc>L'arma del comandante di battaglione, il mortaio M224 è obbligatorio per ogni comandante mercenario. È un mortaio leggero da 60mm di calibro con una canna pinnata, mirino, piattaforma M7 e bipode; costruita per usare proiettili HE.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>42</uiIndex>
+		<szItemName>Roccia</szItemName>
+		<szLongItemName>Un'altra Roccia</szLongItemName>
+		<szItemDesc>Una roccia solitamente associata con un rullo (rock and roll) è una forma di musica moderna che tende a essere forte e di scelta per gli adolescenti.</szItemDesc>
+		<szBRName>Un'altra Roccia</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>43</uiIndex>
+		<szItemName>Unghie di GCM</szItemName>
+		<szLongItemName>Unghie di giovane creatura maschile</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Unghie di Giovane Creatura Maschile</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>44</uiIndex>
+		<szItemName>Unghie di GCF</szItemName>
+		<szLongItemName>Unghie di giovane creatura femminile</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Unghie di Giovane Creatura Femminile</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>45</uiIndex>
+		<szItemName>Unghie di CMA</szItemName>
+		<szLongItemName>Unghie di creatura maschile adulta</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Unghie di Cretura Maschile Adulto</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>46</uiIndex>
+		<szItemName>Unghie di CFA</szItemName>
+		<szLongItemName>Unghie di creatura femminile adulta</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Unghie di Creatura Femminile Adulta</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>47</uiIndex>
+		<szItemName>Tentacolo</szItemName>
+		<szLongItemName>Tentacolo di regina</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Tentacolo di Regina</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>48</uiIndex>
+		<szItemName>Sputo di regina</szItemName>
+		<szLongItemName>Sputo di creatura regina</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Sputo di Creatura Regina</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>49</uiIndex>
+		<szItemName>Tira pugni</szItemName>
+		<szLongItemName>Tira pugni d'ottone</szLongItemName>
+		<szItemDesc>Questa solida serie di tira pugni d'ottone si adatta alla maggior parte delle mani. Aggiungeranno una certa potenza al tuo pugno.</szItemDesc>
+		<szBRName>Tira pugni d'ottone</szBRName>
+		<szBRDesc>Si confezionerà un vero pugno con questa serie di pratici tira pugni d'ottone. Benché robuste, sono abbastanza piccole da stare nella maggior parte delle tasche posteriori. Formato unico.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>50</uiIndex>
+		<szItemName>Artiglio</szItemName>
+		<szLongItemName>Lancia Granate Sostenuto Dall'Alto Artiglio</szLongItemName>
+		<szItemDesc>Questo lanciagranate militare americano è noto per sbattere i nemici fra gli artigli in attesa della morte.</szItemDesc>
+		<szBRName>Lancia Granate Sostenuto Dall'Alto Artiglio</szBRName>
+		<szBRDesc>Sviluppato dall'esercito U.S.A., questo lanciatore può essere adattato a un vasto assortimento di fucili d'assalto. Esce dotato di un calcio pieghevole e una speciale impugnatura che consente di usarlo come una pistola. È considerata una buona arma.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>51</uiIndex>
+		<szItemName>LAW</szItemName>
+		<szLongItemName>M72A4 LAW</szLongItemName>
+		<szItemDesc>Un colpo di questa Arma Leggera Anticarro è meglio di un biglietto di sola andata per il Giorno del Giudizio. Niente giudice, niente giuria, tutti esecutori.</szItemDesc>
+		<szBRName>M72A4 LAW</szBRName>
+		<szBRDesc>L'arma leggera anticarro M72A2 è un lanciarazzi in grado di superare la blindatura di un serbatoio o di distruggere piccole fortificazioni sul campo di battaglia. Un'arma a colpo singolo, terribilmente distruttiva.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>52</uiIndex>
+		<szItemName>Artigli di Bloodcat</szItemName>
+		<szLongItemName>Artigli di Bloodcat</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Artigli di Bloodcat</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>53</uiIndex>
+		<szItemName>Morso di Bloodcat</szItemName>
+		<szLongItemName>Morso di Bloodcat</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Morso di Bloodcat</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>54</uiIndex>
+		<szItemName>Machete</szItemName>
+		<szLongItemName>Machete</szLongItemName>
+		<szItemDesc>Tagliali a fette, tagliali a dadini, cuocili e puliscili. Che si tratti di uomo, pianta o bestia, questo machete multiuso taglierà ogni portata principale in prelibati bocconcini.</szItemDesc>
+		<szBRName>Machete</szBRName>
+		<szBRDesc>Tagliali a fette, tagliali a dadini, cuocili e puliscili. Che si tratti di uomo, pianta o bestia, questo machete multiuso taglierà ogni portata principale in prelibati bocconcini.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>55</uiIndex>
+		<szItemName>Carabina</szItemName>
+		<szLongItemName>Fucile lanciarazzi</szLongItemName>
+		<szItemDesc>Annichilisci i tuoi avversari con l'orlo tagliente della tecnologia delle armi. Questa carabina razzo è completa della sua mira a laser e sistema di sicurezza computerizzato.</szItemDesc>
+		<szBRName>Fucile lanciarazzi</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>56</uiIndex>
+		<szItemName>Automag III</szItemName>
+		<szLongItemName>Automag III Custom</szLongItemName>
+		<szItemDesc>Questo Automag è stato modificato in un mostro di pistola che spara proiettili NATO da carabina 7,62mm. Il nome "Grande Berta" è stato impresso sui suoi lati.</szItemDesc>
+		<szBRName>Automag III Custom</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>57</uiIndex>
+		<szItemName>Sputo I.</szItemName>
+		<szLongItemName>Sputo di creatura infantile</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Sputo di Creatura Bambino</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>58</uiIndex>
+		<szItemName>Sputo G.</szItemName>
+		<szLongItemName>Sputo di giovanotto</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Sputo di Giovane Creatura Maschile</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>59</uiIndex>
+		<szItemName>Sputo V.</szItemName>
+		<szLongItemName>Sputo di vecchio</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Sputo di Creatura Maschile Anziana</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>60</uiIndex>
+		<szItemName>Cannone</szItemName>
+		<szLongItemName>Cannone per carro armato</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Cannone di Carro Armato</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>61</uiIndex>
+		<szItemName>Pistola</szItemName>
+		<szLongItemName>Pistola a freccette</szLongItemName>
+		<szItemDesc>Un muto virtuale in una folla tumultuosa di aggeggi per uccidere a polvere da sparo. Usa questa pistola a freccette per far fuori il vecchio senza neppure svegliarlo.</szItemDesc>
+		<szBRName>Pistola Lanciadardi</szBRName>
+		<szBRDesc>Un muto virtuale in una folla tumultuosa di aggeggi per uccidere a polvere da sparo. Usa questa pistola a freccette per far fuori il vecchio senza neppure svegliarlo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>62</uiIndex>
+		<szItemName>Coltello</szItemName>
+		<szLongItemName>Coltello sanguinario da lancio</szLongItemName>
+		<szItemDesc>Un piccolo coltello da lancio, leggero, con una lama a doppio taglio, cromata, in acciaio ad alto tenore di carbonio, che è ricoperto di sangue.</szItemDesc>
+		<szBRName>Coltello Lanciasangue</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>63</uiIndex>
+		<szItemName>Lanciafiamme</szItemName>
+		<szLongItemName>Lanciafiamme</szLongItemName>
+		<szItemDesc>Mi dispiace, ragazzi, ma questa voce non è stata inclusa nel gioco!</szItemDesc>
+		<szBRName>Lanciafiamme</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>64</uiIndex>
+		<szItemName>Barra</szItemName>
+		<szLongItemName>Piede di porco</szLongItemName>
+		<szItemDesc>Quest'arnese ad ancora è una barra di titanio. Sebbene più duro e  resistente dell'acciaio, pesa di meno, e non s'arruginisce.</szItemDesc>
+		<szBRName>Barra in Titanio</szBRName>
+		<szBRDesc>Questa barra in titanio ti sarà utile, se ti trovi in difficoltà. È più resistente dell'acciaio e non subisce corrosione. Dal momento che è molto leggera, la puoi portare ovunque.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>65</uiIndex>
+		<szItemName>Fucile auto.</szItemName>
+		<szLongItemName>Fucile automatico a razzi</szLongItemName>
+		<szItemDesc>L'arma più sanguinaria della moderna tecnologia; questa versione  sperimentale del fucile a razzi è in grado di svuotare il suo intero caricatore in un singola e devastante raffica!</szItemDesc>
+		<szBRName>Fucile automatico a razzi</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>66</uiIndex>
+		<szItemName>Hartford 6</szItemName>
+		<szLongItemName>Modified EMF Hartford 6 Shooter</szLongItemName>
+		<szItemDesc>This is a .357 caliber, six shooter modified for Tex Colburn. It has a ten inch barrel and a sculptured ivory handle with TEX engraved in 14kt gold flake.</szItemDesc>
+		<szBRName>Modified EMF Hartford 6 Shooter</szBRName>
+		<szBRDesc>This is a .357 caliber, six shooter modified for Tex Colburn. It has a ten inch barrel and a sculptured ivory handle with TEX engraved in 14kt gold flake.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>67</uiIndex>
+		<szItemName>M-950</szItemName>
+		<szLongItemName>Calico M-950</szLongItemName>
+		<szItemDesc>An American made, pistol version of the M960. Using the same 50 round clip, it could probably only be classified a pistol in the U.S.A.</szItemDesc>
+		<szBRName>Calico M-950</szBRName>
+		<szBRDesc>An American made, pistol version of the M960. Using only semi-automatic and limited burst fire &amp; the same 50 round clip, it could probably only be classified a pistol in the U.S.A.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>68</uiIndex>
+		<szItemName>M-900</szItemName>
+		<szLongItemName>Calico M-900</szLongItemName>
+		<szItemDesc>Another reincarnation of the M960, this version has a unusually longer barrel for a 9mm weapon and semi auto-fires with the same 50 round clip.</szItemDesc>
+		<szBRName>Calico M-900</szBRName>
+		<szBRDesc>Another reincarnation of the M960, this version has a unusually longer barrel for a 9mm weapon and semi auto-fires with the same 50 round clip.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>69</uiIndex>
+		<szItemName>M-960A</szItemName>
+		<szLongItemName>Calico M-960A</szLongItemName>
+		<szItemDesc>Known as the "Mini Sub Machine Gun" this American model uses a helical-feed 50 round magazine of 9mm bullets, and has been making things right since 1990.</szItemDesc>
+		<szBRName>Calico M-960A</szBRName>
+		<szBRDesc>Known as the "Mini Sub Machine Gun" this American model uses a helical-feed 50 round magazine of 9mm bullets, and has been making things right since 1990.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>70</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Using this slot will cause the game to crash.</szLongItemName>
+		<szItemDesc>Using this slot will cause the game to crash.</szItemDesc>
+		<szBRName>Using this slot will cause the game to crash.</szBRName>
+		<szBRDesc>Using this slot will cause the game to crash.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>71</uiIndex>
+		<szItemName>9x19mm Car. 15</szItemName>
+		<szLongItemName>Caricatore per pistola da 9x19mm, 15</szLongItemName>
+		<szItemDesc>Questo caricatore contiene 15 pallottole da 9mm. Benché piccola, questa munizione viaggia a velocità piuttosto elevate, rendendola la preferita di molti militari e tutori dell'ordine.</szItemDesc>
+		<szBRName>9x19mm Mag 15</szBRName>
+		<szBRDesc>Queste 15 cartucce proiettili Fiocchi a punta rotonda da 115 grani sono ideali per chiunque cerchi un mezzo economico di difesa personale.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>72</uiIndex>
+		<szItemName>9x19mm SMG Mag</szItemName>
+		<szLongItemName>9x19mm SMG Mag</szLongItemName>
+		<szItemDesc>Questo caricatore per mitra contiene 15 pallottole da 9mm. Come proiettile incamiciato, ha una minor tendenza a incrostare le canne della sua controparte non incamiciata.</szItemDesc>
+		<szBRName>9x19mm SMG Mag</szBRName>
+		<szBRDesc>Questo caricatore SMG contiene 30 proiettili Fiocchi a punta rotonda. Questo proiettile è un acquisto comune sia fra mercenari stagionati, sia fra nuovi soldati di ventura.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>73</uiIndex>
+		<szItemName>9x19mm Mag 15 AP</szItemName>
+		<szLongItemName>9x19mm Pistol Mag, 15 AP</szLongItemName>
+		<szItemDesc>Questo caricatore contiene 15 proiettili di acciaio coperti in Teflon da 9 mm. Anche se perfora facilmente leggere corazze personali, non causa tanti danni quanto le normali versioni incamiciate a Punta Cava.</szItemDesc>
+		<szBRName>9x19mm Mag 15 AP</szBRName>
+		<szBRDesc>Hanno messo il Kevlar? Niente paura, con questo caricatore riempito con 15 pallottole di acciaio indurito. Questo proiettile da pistola a bassa potenza è la miglior scommessa contro il Kevlar.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>74</uiIndex>
+		<szItemName>9x19mm SMG Mag AP</szItemName>
+		<szLongItemName>9x19mm SMG Mag, AP</szLongItemName>
+		<szItemDesc>Questi 30 proiettili d'acciaio coperti in Teflon sono i migliori sconfiggi -armatura per mitra. La copertura in Teflon non aiuterà la penetrazione,  ma ridurrà il logorio dell'acciaio delle armi.</szItemDesc>
+		<szBRName>9x19mm SMG Mag AP</szBRName>
+		<szBRDesc>Abbiamo cercato questo proiettile in lungo e in largo; la capacità del caricatore Armor Piercing a 30 colpi ne fa la rovina di tutti i poliziotti indesiderati.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>75</uiIndex>
+		<szItemName>9x19mm Mag 15 HP</szItemName>
+		<szLongItemName>9x19mm Pistol Mag, 15 HP</szLongItemName>
+		<szItemDesc>Questo caricatore contiene 15 proiettili da 9mm 135 grani a Punta Cava. Mentre le sue capacità come Fora-Corazza sono discutibili, la sua tendenza a espandersi nei tessuti compensa abbondantemente le sue carenze.</szItemDesc>
+		<szBRName>9x19mm Mag 15 HP</szBRName>
+		<szBRDesc>Questo caricatore a 15 colpi COR-BON 9mm con proiettili a punta cava Incamiciata è veramente il massimo. È un preciso deterrente contro qualunque assalitore non corazzato.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>76</uiIndex>
+		<szItemName>9x19mm SMG Mag HP</szItemName>
+		<szLongItemName>9x19mm SMG Mag, HP</szLongItemName>
+		<szItemDesc>Questo caricatore contiene 30 proiettili Federal a Punta Cava Incamiciata. Combina le caratteristiche di ferita da Punta Cava con le capacità di penetrazione delle pallottole standard.</szItemDesc>
+		<szBRName>9x19mm SMG Mag HP</szBRName>
+		<szBRDesc>Questo caricatore a 30 colpi da 115 grani con proiettili a punta cava Incamiciata è un acquisto speciale diretto dalla COR-BON. Garantito che renderà il tuo MP-5 invidiato da qualunque squadra SWAT.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>77</uiIndex>
+		<szItemName>.38 S-Load</szItemName>
+		<szLongItemName>.38 Speed Loader</szLongItemName>
+		<szItemDesc>Questo caricatore rapido a 6 colpi di 38 Special a Palla offre medio danno e capacità di penetrazione combinando le caratteristiche sia delle pallottole a Punta Cava, sia di quelle Fora-Armatura.</szItemDesc>
+		<szBRName>.38 S-Load</szBRName>
+		<szBRDesc>Questo caricatore rapido a 6 colpi viene riempito con proiettili Winchester standard da 158 grani calibro 38 Special a punta rotonda, per innumerevoli anni il fidato e fedele proiettile delle forze dell'ordine.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>78</uiIndex>
+		<szItemName>.38 S-Load AP</szItemName>
+		<szLongItemName>.38 Speed Loader, AP</szLongItemName>
+		<szItemDesc>Quest'arma contiene 6 pallottole calibro 38 ricoperte in Teflon. Mentre le  loro capacità di Fora-Armatura sono dovute al fatto di essere d'acciaio,  provocano ferite più piccole di quelle inflitte da proiettili di piombo.</szItemDesc>
+		<szBRName>.38 S-Load AP</szBRName>
+		<szBRDesc>Trasforma la tua classica 38 in un portento da non sottovalutare. Il nostro colpo Full Metal Jacket calibro 38 caricato su ordinazione garantisce di far secco sui suoi piedi qualunque attaccante armato.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>79</uiIndex>
+		<szItemName>.38 S-Load HP</szItemName>
+		<szLongItemName>.38 Speed Loader, HP</szLongItemName>
+		<szItemDesc>Anche se questi 6 proiettili di 38 Special a Punta Cava tendono a rendere poco contro le armature, compensano producendo larghe ferite in avversari non corazzati.</szItemDesc>
+		<szBRName>.38 S-Load HP</szBRName>
+		<szBRDesc>Il più recente accordo con Cor-Bon ci ha dato questo caricatore a 6 colpi con proiettili 38 Special +P da 158 grani. Sferra un pugno che pochi potranno scordare. Avvertenza: il suo uso con revolver in lega è altamente sconsigliabile.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>80</uiIndex>
+		<szItemName>.45 Mag</szItemName>
+		<szLongItemName>.45 Pistol Magazine</szLongItemName>
+		<szItemDesc>Questo caricatore a 7 colpi contiene pallottole calibro 45 per la Colt Automatica. Il 45ACP standard provoca ferite paragonabili a quelle fatte dal 9mm e dal 38 a Punta Cava.</szItemDesc>
+		<szBRName>.45 Mag</szBRName>
+		<szBRDesc>Una collezione non sarebbe completa senza questo classico ferma-uomini: un caricatore a 7 colpi UMC .45 ACP da 230 grani.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>81</uiIndex>
+		<szItemName>.45 SMG Mag</szItemName>
+		<szLongItemName>.45 SMG Magazine</szLongItemName>
+		<szItemDesc>I proiettili calibro 45 standard a punta rotonda in questo caricatore da 30 colpi offrono un equilibrio fra le caratteristiche ferite dei Punta Cava e le capacità di penetrazione dei Fora-Armatura.</szItemDesc>
+		<szBRName>.45 SMG Mag</szBRName>
+		<szBRDesc>I nostri caricatori Pre-Ban da 30 colpi sono completi di un pieno di UMC .45 ACP.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>82</uiIndex>
+		<szItemName>.45 Mag AP</szItemName>
+		<szLongItemName>.45 Pistol Magazine, AP</szLongItemName>
+		<szItemDesc>Questi 7 colpi sono Fora-Armatura per 45 automatica. Benché questo proiettile d'acciaio ad alta velocità possa bucare la maggior parte delle armature leggere, causa meno danni nei tessuti di quelli in piombo.</szItemDesc>
+		<szBRName>.45 Mag AP</szBRName>
+		<szBRDesc>Questi colpi Fora-Armatura di acciaio indurito passano attraverso il Kevlar come fosse burro. Questo caricatore a 7 colpi è noto per fare grossi buchi.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>83</uiIndex>
+		<szItemName>.45 SMG Mag AP</szItemName>
+		<szLongItemName>.45 SMG Magazine, AP</szLongItemName>
+		<szItemDesc>Questo caricatore a 30 colpi contiene proiettili calibro 45 Fora- Armatura. Mentre questa munizione offre miglior penetrazione di quelle a palla o a Punta Cava, tende a produrre meno danni.</szItemDesc>
+		<szBRName>.45 SMG Mag AP</szBRName>
+		<szBRDesc>Uno dei migliori caricatori da pistola che il denaro possa comprare è il nostro da 30 colpi con proiettili Fora-Armatura caricati a mano. Spedirà rapidamente nella pattumiera un giubbetto in Kevlar.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>84</uiIndex>
+		<szItemName>.45 Mag HP</szItemName>
+		<szLongItemName>.45 Pistol Magazine, HP</szLongItemName>
+		<szItemDesc>Un caricatore di 7 proiettili ACP cal. 45 a Punta Cava. Questa forza la palla ad allargarsi rapidamente all'impatto, creando un canale di ferita più largo di quello fatto dalle varianti standard e Fora-Armatura.</szItemDesc>
+		<szBRName>.45 Mag HP</szBRName>
+		<szBRDesc>Se sei serio nei riguardi delle munizioni per la tua 45, questo caricatore a 7 colpi di munizioni Gold Sabre Incamiciate a punta cava è un modo sicuro per dimostrarlo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>85</uiIndex>
+		<szItemName>.45 SMG Mag HP</szItemName>
+		<szLongItemName>.45 SMG Magazine, HP</szLongItemName>
+		<szItemDesc>Questi 30 proiettili da 45 a Punta Cava all'impatto si espandono nei tessuti molli, causando una grande emorragia e traumi nervosi.</szItemDesc>
+		<szBRName>.45 SMG Mag HP</szBRName>
+		<szBRDesc>Trasforma il tuo mitra in una perfida macchina di morte. Questo caricatore è riempito con 30 colpi dei nostri proiettili di alta qualità Remington 45 Gold Sabre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>86</uiIndex>
+		<szItemName>.357 S-Load</szItemName>
+		<szLongItemName>.357 Speed Loader</szLongItemName>
+		<szItemDesc>Questo caricatore veloce contiene 6 proiettili di 357 Magnum. È uno dei più potenti proiettili per pistola esistenti e contiene più forza di quelli calibro 38, 45 o 9 mm.</szItemDesc>
+		<szBRName>.357 S-Load</szBRName>
+		<szBRDesc>Spiaccica i tuoi problemi contro un muro con un po' di aiuto dei nostri caricatori rapidi a 6 colpi con proiettili Federal Hydra-Shok calibro 357 Magnum.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>87</uiIndex>
+		<szItemName>.357 Mag</szItemName>
+		<szLongItemName>.357 Magazine</szLongItemName>
+		<szItemDesc>Questo caricatore contiene 9 proiettili 357 Magnum a Palla Standard. La loro potenza lascia pochi dubbi sulla loro superiorità come proiettili per pistola da guerra.</szItemDesc>
+		<szBRName>.357 Mag</szBRName>
+		<szBRDesc>Offriamo la migliore qualità di caricatori a 9 colpi a prova di ruggine, riempiti con proiettili Federal calibro 357 da 158 grani. Questi ultimi sono eccellenti per eliminare un problema recalcitrante.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>88</uiIndex>
+		<szItemName>.357 S-Load AP</szItemName>
+		<szLongItemName>.357 Speed Loader, AP</szLongItemName>
+		<szItemDesc>Anche se questi 6 proiettili da 357 Magnum in acciaio coperto in Teflon possono forare le armature come se fossero di carta, non si frammentano all'impatto, col risultato di produrre ferite meno gravi.</szItemDesc>
+		<szBRName>.357 S-Load AP</szBRName>
+		<szBRDesc>Dicevano che i White Rhino erano uno scherzo, ma per i Bobby Ray la realtà è che non vedono l'ora di essere colpiti da te. Questo caricatore rapido da 6 colpi è riempito col meglio della tecnologia Fora-Armatura.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>89</uiIndex>
+		<szItemName>.357 Mag AP</szItemName>
+		<szLongItemName>.357 Magazine, AP</szLongItemName>
+		<szItemDesc>Mentre questi 9 proiettili d'acciaio cal. 357 Fora-Armatura possono penetrare muri e armature personali, provocano solo piccoli canali di ferita con una minima perdita di sangue.</szItemDesc>
+		<szBRName>.357 Mag AP</szBRName>
+		<szBRDesc>Soddisfa il tuo insaziabile desiderio di far buchi attraverso un giubbetto antiproiettile con questi 9 colpi di munizioni White Hippo Fora-Armatura. È proprio quello che ha ordinato il dottore.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>90</uiIndex>
+		<szItemName>.357 S-Load HP</szItemName>
+		<szLongItemName>.357 Speed Loader, HP</szLongItemName>
+		<szItemDesc>Questo caricatore veloce contiene 6 proiettili da 357 a Punta Cava. Benché manchi in capacità Fora-Armatura, compensa a usura questo fatto con la sua potenzialità di danno.</szItemDesc>
+		<szBRName>.357 S-Load HP</szBRName>
+		<szBRDesc>Questo caricatore a 6 colpi Hydra-Shok Incamiciati a punta cava della Federal viene completato da un caricatore rapido, se acquistato qui.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>91</uiIndex>
+		<szItemName>.357 Mag HP</szItemName>
+		<szLongItemName>.357 Magazine, HP</szLongItemName>
+		<szItemDesc>Questo caricatore contiene 9 proiettili da 357 a Punta Cava. La Punta Cava tiene conto di un'espansione sostanziale all'impatto, creando così una ferita estesa, ma superficiale.</szItemDesc>
+		<szBRName>.357 Mag HP</szBRName>
+		<szBRDesc>Vuoi che l'ultimo duello termini con un botto? Allora abbiamo quello che fa per te. Il punta cava incamiciato Hydra-Shok calibro 357 della Federal lo garantisce.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>92</uiIndex>
+		<szItemName>5.45x39mm Mag</szItemName>
+		<szLongItemName>5.45x39mm Magazine</szLongItemName>
+		<szItemDesc>Questo caricatore a 30 colpi contiene proiettili da 5,45 Fora-Armatura anti-persona. Il suo rivestimento in metallo non solo migliora la sua capacità di forare muri, ma gli permette di passare attraverso più corpi.</szItemDesc>
+		<szBRName>5.45x39mm Mag</szBRName>
+		<szBRDesc>Uno dei nostri articoli più caldi è questo caricatore a 30 colpi di proiettili russi 'acquisiti' da 5,45mm Fora-Armatura. Questo proiettile ti garantisce di essere la fine di qualunque party.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>93</uiIndex>
+		<szItemName>5.45x39mm Mag HP</szItemName>
+		<szLongItemName>5.45x39mm Mag, HP</szLongItemName>
+		<szItemDesc>Questo caricatore a 30 colpi contiene proiettili calibro 5,45 Incamiciati a Punta Cava. Ha la caratteristica di combinare l'effetto di espandersi all'impatto, e volteggiare entro il bersaglio creando ferite enormi.</szItemDesc>
+		<szBRName>5.45x39mm Mag, HP</szBRName>
+		<szBRDesc>Serve un metodo rapido per incassare a colpo sicuro una polizza vita? Questi 30 colpi a punta cava da 5,45mm varranno i soldi che hai speso.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>94</uiIndex>
+		<szItemName>5.56mm Mag 30</szItemName>
+		<szLongItemName>5.56x45mm Mag, 30</szLongItemName>
+		<szItemDesc>Questi 30 proiettili standard NATO Fora-Armatura hanno la capacità di volteggiare all'interno del bersaglio per creare una ferita molto più estesa di quanto ci si aspetterebbe da una palla così piccola.</szItemDesc>
+		<szBRName>5.56x45mm Mag 30</szBRName>
+		<szBRDesc>Questo caricatore a 30 colpi è riempito con il nostro standard NATO da 5,56mm. Questo proiettile che penetra l'acciaio supera tutto, tranne il meglio delle armature personali di oggi.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>95</uiIndex>
+		<szItemName>5.56mm Mag 30 HP</szItemName>
+		<szLongItemName>5.56x45mm Mag, 30 HP</szLongItemName>
+		<szItemDesc>Questo caricatore da 30 cartucce Remington a Punta Cava da 5,56 è una variante della cartuccia da caccia civile calibro 223. Come la 223, è disegnata per massimizzare lo shock nervoso e l'emorragia.</szItemDesc>
+		<szBRName>5.56x45mm Mag 30 HP</szBRName>
+		<szBRDesc>Questa è la scelta più economica per il tiro al bersaglio, caccia o arresto di potenziali aggressioni per rapina. Questi 30 colpi JHP calibro 223 da 50 grani possono salvare la tua vita e il tuo portafoglio.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>96</uiIndex>
+		<szItemName>7.62x39mm 10</szItemName>
+		<szLongItemName>7.62x39mm Mag, 10</szLongItemName>
+		<szItemDesc>Questo caricatore a 10 proiettili FA da 7,62 distribuiti dal Patto di Varsavia è celebre per la sua capacità di sfondare quasi ogni tipo di armatura personale e causare danni importanti a destinatari involontari.</szItemDesc>
+		<szBRName>7.62x39mm 10</szBRName>
+		<szBRDesc>Confezionati specialmente per gli aspiranti cecchini, questi 10 colpi di munizioni cinesi Fora-Armatura da 7,62mm sicuramente ti forniranno il 'Un Morto a Ogni Colpo', che farà scalpore in tutto il mondo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>97</uiIndex>
+		<szItemName>7.62x39mm 30</szItemName>
+		<szLongItemName>7.62x39mm Mag, 30</szLongItemName>
+		<szItemDesc>Questi 30 proiettili FA e anti-persona da 7,62 distribuiti dal Patto di Varsavia mantengono la loro forma all'impatto. Questo può aumentarne la capacità di perforare armature leggere, ma riduce la gravità delle ferite.</szItemDesc>
+		<szBRName>7.62x39mm 30</szBRName>
+		<szBRDesc>Cerchi il regalo perfetto per il terrorista che ha già tutto? Prova un caricatore delle nostre eccedenze delle FA da 7,62mm del Patto di Varsavia. È il massimo dei regali.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>98</uiIndex>
+		<szItemName>7.62x39mm Mag 10 HP</szItemName>
+		<szLongItemName>7.62x39mm Mag, 10 HP</szLongItemName>
+		<szItemDesc>Questi 10 proiettili da 7,62 del Patto di Varsavia, a Punta Cava e Incamiciati non perforeranno le armature personali come le loro corrispondenti FA, ma compensano producendo ferite più grandi.</szItemDesc>
+		<szBRName>7.62x39mm Mag 10 HP</szBRName>
+		<szBRDesc>Quando ammazzarli semplicemente non è sufficiente. Un piccolo astuccio di punta cava da 7,62mm è un gran modo per mandare la punta nel cervello in autentico stile "spiaccicamento".</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>99</uiIndex>
+		<szItemName>7.62x39mm Mag 30 HP</szItemName>
+		<szLongItemName>7.62x39mm Mag, 30 HP</szLongItemName>
+		<szItemDesc>Questo caricatore contiene 30 proiettili a Punta Cava da 7,62 del Patto di Varsavia. L'uso di questo proiettile contro armature leggere può farti vincere una battaglia, ma è meno efficace su armature pesanti.</szItemDesc>
+		<szBRName>7.62x39mm Mag 30 HP</szBRName>
+		<szBRDesc>Questi 5 proiettili NATO Fora-Armatura sciolti da 7,62mm hanno la capacità di forare armature personali a lunghe distanze; ideali per il cecchino.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>100</uiIndex>
+		<szItemName>7.62x51mm 5</szItemName>
+		<szLongItemName>7.62x51mm Mag, 5</szLongItemName>
+		<szItemDesc>Questi 5 proiettili NATO Fora-Armatura sciolti da 7,62mm hanno la capacità di forare armature personali a lunghe distanze; ideali per il cecchino.</szItemDesc>
+		<szBRName>7.62x51mm 5</szBRName>
+		<szBRDesc>Questo proiettile Fora-Armatura NATO da 7.62mm offre una combinazione ideale di portata, penetrazione e danno che un cecchino professionista richiede.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>101</uiIndex>
+		<szItemName>7.62x51mm 20</szItemName>
+		<szLongItemName>7.62x51mm Mag, 20</szLongItemName>
+		<szItemDesc>Questo caricatore contiene 20 proiettili NATO standard da 7,62mm FA che hanno guadagnato l'attenzione delle forze armate di tutto il mondo per la loro capacità di perforare un elmetto d'acciaio da notevole distanza.</szItemDesc>
+		<szBRName>7.62x51mm 20</szBRName>
+		<szBRDesc>Questo caricatore a 20 colpi da 7,62mm sparge ovunque morte, soprattutto se caricato con un'eccedenza di colpi a Piena Incamiciatura Metallica. Questo caricatore rende le armature più o meno discutibili.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>102</uiIndex>
+		<szItemName>7.62x51mm 5 HP</szItemName>
+		<szLongItemName>7.62x51mm Mag, 5 HP</szLongItemName>
+		<szItemDesc>Quello che manca a questi proiettili civili da caccia Winchester .308 in capacità di penetrazione di armature è compensato dalla loro capacità di infliggere gravi ferite ad avversari non corazzati.</szItemDesc>
+		<szBRName>7.62x51mm 5 HP</szBRName>
+		<szBRDesc>Approfitta della nostra offerta limitata a prezzo ridotto di 5 caricatori campione da 5 colpi Winchester a punta cava da 308. Che si tratti di caccia o di "cecchinaggio", questo proiettile diventerà il tuo miglior alleato.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>103</uiIndex>
+		<szItemName>7.62x51mm 20 HP</szItemName>
+		<szLongItemName>7.62x51mm Mag, 20 HP</szLongItemName>
+		<szItemDesc>Questo caricatore ad alta capacità contiene 20 proiettili Winchester 308, la variante civile del proiettile NATO da 7,62. È il più adatto per la caccia a obiettivi non corazzati.</szItemDesc>
+		<szBRName>7.62x51mm 20 HP</szBRName>
+		<szBRDesc>Se la potenza è ciò che cerchi, la potrai avere con questi 20 proiettili Winchester, 308 Cor-Bon Tactical, la variante civile del proiettile NATO da 7,62mm. È abbastanza potente da mettere qualunque problema 6 piedi sotto terra.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>104</uiIndex>
+		<szItemName>4.7mm Mag 45</szItemName>
+		<szLongItemName>4.7x33mm Mag, 45</szLongItemName>
+		<szItemDesc>Questo caricatore da 45 colpi contiene proiettili senza custodia da 4,7 mm, che hanno portata e capacità di ferire paragonabili a quelle del 5,56mm NATO, ma sono più leggeri del 40 per cento.</szItemDesc>
+		<szBRName>4.7x33mm Mag 45</szBRName>
+		<szBRDesc>Cassette recuperate da un magazzino segreto tedesco ci hanno fornito questi caricatori da 45 colpi. Vengono completati con una carica completa delle leggendarie munizioni senza custodia da 4,7mm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>105</uiIndex>
+		<szItemName>5.7mm Mag 50</szItemName>
+		<szLongItemName>5.7x28mm Mag, 50</szLongItemName>
+		<szItemDesc>Questo caricatore contiene 50 proiettili da 5,7mm. Questo proiettile da pistola in polimero rende notevolmente bene contro avversari sia corazzati, sia non corazzati.</szItemDesc>
+		<szBRName>5.7x28mm Mag 50</szBRName>
+		<szBRDesc>Ti scoccia quando il tuo avversario indossa un'armatura? Dì hasta la vista a ogni forma di armatura che potrebbe porsi fra il tuo obiettivo e il giorno del Giudizio con il nostro caricatore da 50 colpi per pistole calibro 5,7mm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>106</uiIndex>
+		<szItemName>5.7mm Mag 50 HP</szItemName>
+		<szLongItemName>5.7x28mm Mag, 50 HP</szLongItemName>
+		<szItemDesc>Questi 50 proiettili da 5,7mm a Punta Cava hanno accresciute capacità di infliggere ferite rispetto alla versione base da 5,7, pur conservando la maggior parte delle loro capacità come Fora-Armatura.</szItemDesc>
+		<szBRName>5.7x28mm Mag 50 HP</szBRName>
+		<szBRDesc>Fai bene il lavoro al primo colpo. Il tuo tasso di uccisioni migliorerà usando questo caricatore da 50 colpi di munizioni a punta cava da 5,7mm. Probabilità di sopravvivenza della tua vittima: zero per cento, con una piccola approssimazione.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>107</uiIndex>
+		<szItemName>12g Shells 7</szItemName>
+		<szLongItemName>12 Gauge Shells, 7</szLongItemName>
+		<szItemDesc>Questo caricatore contiene 7 pallottole PolyCore calibro 12. Ogni pallottola passa attraverso un'armatura come se fosse di carta.</szItemDesc>
+		<szBRName>12g Shells 7</szBRName>
+		<szBRDesc>Questa, indubbiamente, è la munizione adatta a uomini veri. Questo caricatore contiene 7 pallottole PolyCore calibro 12. Ogni pallottola passa attraverso un'armatura come se fosse di carta.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>108</uiIndex>
+		<szItemName>12g Shells 7 BS</szItemName>
+		<szLongItemName>12 Gauge Buckshot Shells, 7</szLongItemName>
+		<szItemDesc>Questo caricatore calibro 12 contiene 7 pallottole SSG '00'. Preferite dai tutori dell'ordine, sono molto efficaci in scontri a fuoco urbani contro avversari non corazzati.</szItemDesc>
+		<szBRName>12g Shells 7 Buckshot</szBRName>
+		<szBRDesc>L'ideale pallottola anti uomo a breve gittata. Questo caricatore calibro 12 contiene 7 pallottole SSG '00'. I tutori dell'ordine di tutto il mondo amano questo proiettile per l'efficacia negli scontri a fuoco urbani con avversari non corazzati.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>109</uiIndex>
+		<szItemName>CAWS Mag</szItemName>
+		<szLongItemName>CAWS Magazine</szLongItemName>
+		<szItemDesc>Questo caricatore CAWS a 10 colpi trabocca semplicemente di distruzione. Ogni colpo contiene una singola palla di acciaio al tungsteno capace di forare quasi tutte le armature personali e i monoblocco di automobile.</szItemDesc>
+		<szBRName>CAWS Mag</szBRName>
+		<szBRDesc>Questo caricatore CAWS a 10 colpi distrugge qualsiasi cosa. Ogni colpo contiene una singola palla di acciaio al tungsteno capace di forare la maggior parte delle armature e dei veicoli. Nessun mercenario dovrebbe esserne sprovvisto.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>110</uiIndex>
+		<szItemName>CAWS Mag BS</szItemName>
+		<szLongItemName>CAWS Magazine, Buckshot</szLongItemName>
+		<szItemDesc>Le 10 cartucce a pallettoni al tungsteno formato "00" in questo caricatore possono penetrare come le Fora-Armatura e produrre vaste ferite come le Punta Cava senza le limitazioni di entrambe.</szItemDesc>
+		<szBRName>CAWS Mag Buckshot</szBRName>
+		<szBRDesc>Hai mai desiderato far fuori uno scomodo visitatore allargando nel contempo il tuo studio sull'abbattimento di una parete? Il nostro caricatore a 10 pallettoni al tungsteno ti permette proprio questo e molto di più.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>111</uiIndex>
+		<szItemName>Minirazzi AP</szItemName>
+		<szLongItemName>Minirazzi, AP</szLongItemName>
+		<szItemDesc>Tecnologia d'avanguardia significa uccisione d'avanguardia. Questi razzi fora-armatura infliggono ferite così spettacolari da fare invidia a un artista degli effetti speciali di Hollywood.</szItemDesc>
+		<szBRName>Minirazzi AP</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>112</uiIndex>
+		<szItemName>Minirazzi, HE</szItemName>
+		<szLongItemName>Minirazzi, HE</szLongItemName>
+		<szItemDesc>Se i Quattro Cavalieri portassero armi, questa sarebbe la loro munizione di scelta. Questi 5 minirazzi altamente esplosivi potrebbero scatenare un Armageddon più velocemente di qualsiasi meteorite.</szItemDesc>
+		<szBRName>Minirockets HE</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>113</uiIndex>
+		<szItemName>Minirazzi, HEAP</szItemName>
+		<szLongItemName>Minirazzi, HEAP</szLongItemName>
+		<szItemDesc>Prendi in pieno i tuoi avversari con i minirazzi Fora-Armatura ad Alto Esplosivo, e guardali friggere.</szItemDesc>
+		<szBRName>Minirockets HEAP</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>114</uiIndex>
+		<szItemName>Freccetta</szItemName>
+		<szLongItemName>Freccetta tranquillante</szLongItemName>
+		<szItemDesc>Normalmente usata per giocare, questa freccetta manderà qualcuno a terra prima ancora che possa dire, 'mi sento intontito.'</szItemDesc>
+		<szBRName>Freccetta tranquillante</szBRName>
+		<szBRDesc>Normalmente usata per giocare, questa freccetta manderà qualcuno a terra prima ancora che possa dire, 'mi sento intontito.'</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>115</uiIndex>
+		<szItemName>Flamethrower Clip</szItemName>
+		<szLongItemName>Flamethrower Clip</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Flamethrower Clip</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>116</uiIndex>
+		<szItemName>.50 Mag</szItemName>
+		<szLongItemName>.50 Magazine</szLongItemName>
+		<szItemDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szItemDesc>
+		<szBRName>.50 Mag</szBRName>
+		<szBRDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>117</uiIndex>
+		<szItemName>9x39mm Mag</szItemName>
+		<szLongItemName>9x39mm Magazine</szLongItemName>
+		<szItemDesc>Heavier than regular 9mm ammo, this 20 round magazine is manufactured for a unique set of Russian firearms.</szItemDesc>
+		<szBRName>9x39mm Mag</szBRName>
+		<szBRDesc>Heavier than regular 9mm ammo, this 20 round magazine is manufactured for a unique set of Russian firearms, including the ever popular VAL Silent Sniper rifle.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>118</uiIndex>
+		<szItemName>9x19mm Lrg Mag</szItemName>
+		<szLongItemName>9x19mm Large Mag</szLongItemName>
+		<szItemDesc>9mm bullets for a Calico model. A 50-pack for when you know it's gonna be a long night.</szItemDesc>
+		<szBRName>9x19mm Lrg Mag</szBRName>
+		<szBRDesc>9mm bullets for a Calico model. A 50-pack for when you know it's gonna be a long night.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>119</uiIndex>
+		<szItemName>9x19mm Lrg Mag AP</szItemName>
+		<szLongItemName>9x19mm Large Mag, AP</szLongItemName>
+		<szItemDesc>A 50 round magazine of 9mm AP. ammo for the Calico model.</szItemDesc>
+		<szBRName>9x19mm Lrg Mag AP</szBRName>
+		<szBRDesc>A 50 round magazine of 9mm AP. ammo for the Calico model.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>120</uiIndex>
+		<szItemName>9x19mm Lrg Mag HP</szItemName>
+		<szLongItemName>9x19mm Large Mag, HP</szLongItemName>
+		<szItemDesc>A 50 round magazine of 9mm HP. ammo for the Calico model.</szItemDesc>
+		<szBRName>9x19mm Lrg Mag HP</szBRName>
+		<szBRDesc>A 50 round magazine of 9mm HP. ammo for the Calico model.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>121</uiIndex>
+		<szItemName>5.45x39mm Mag</szItemName>
+		<szLongItemName>5.45x39mm RPK-Mag</szLongItemName>
+		<szItemDesc>This 45-round mag holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szItemDesc>
+		<szBRName>5.45x39mm Mag</szBRName>
+		<szBRDesc>This 45-round mag holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>122</uiIndex>
+		<szItemName>5.45x39mm Mag HP</szItemName>
+		<szLongItemName>5.45x39mm RPK-Mag, HP</szLongItemName>
+		<szItemDesc>This 45-round mag contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szItemDesc>
+		<szBRName>5.45x39mm Mag, HP</szBRName>
+		<szBRDesc>This 45-round mag contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>123</uiIndex>
+		<szItemName>5.56mm Belt</szItemName>
+		<szLongItemName>5.56x45mm Belt</szLongItemName>
+		<szItemDesc>These 200 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
+		<szBRName>5.56x45mm Belt</szBRName>
+		<szBRDesc>These 200 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>124</uiIndex>
+		<szItemName>5.56mm Belt HP</szItemName>
+		<szLongItemName>5.56x45mm Belt, HP</szLongItemName>
+		<szItemDesc>This 200-round belt of 5.56 Remington hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szItemDesc>
+		<szBRName>5.56x45mm Belt HP</szBRName>
+		<szBRDesc>This 200-round belt of 5.56 Remington hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>125</uiIndex>
+		<szItemName>7.62x51mm Belt</szItemName>
+		<szLongItemName>7.62x51mm Belt</szLongItemName>
+		<szItemDesc>This belt contains 100 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szItemDesc>
+		<szBRName>7.62x51mm Belt</szBRName>
+		<szBRDesc>This belt contains 100 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>126</uiIndex>
+		<szItemName>7.62x51mm Belt HP</szItemName>
+		<szLongItemName>7.62x51mm Belt, HP</szLongItemName>
+		<szItemDesc>This heavy machine gun belt holds 100 rounds of .308 Winchester ammunition, the civilian variant of the 7.62 NATO round. It is best suited for hunting unarmored targets.</szItemDesc>
+		<szBRName>7.62x51mm Belt HP</szBRName>
+		<szBRDesc>This heavy machine gun belt holds 100 rounds of .308 Winchester ammunition, the civilian variant of the 7.62 NATO round. It is best suited for hunting unarmored targets.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>127</uiIndex>
+		<szItemName>7.62x54R Mag 10</szItemName>
+		<szLongItemName>7.62x54R Mag, 10</szLongItemName>
+		<szItemDesc>10 rounds of long range penetrating power for the 7.62x54R chambered weapon in your collection. </szItemDesc>
+		<szBRName>7.62x54R Mag 10</szBRName>
+		<szBRDesc>10 rounds of long range penetrating power for the 7.62x54R chambered weapon in your collection. </szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>128</uiIndex>
+		<szItemName>A.L.I.C.E.</szItemName>
+		<szLongItemName>A.L.I.C.E. Pack</szLongItemName>
+		<szItemDesc>A buttpack for storing up to 4 different items.</szItemDesc>
+		<szBRName>A.L.I.C.E. Buttpack</szBRName>
+		<szBRDesc>Need more room to store things? This buttpack has enough pockets to carry several items</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>129</uiIndex>
+		<szItemName>7.62x25mm SMG Mag</szItemName>
+		<szLongItemName>7.62x25mm SMG Mag</szLongItemName>
+		<szItemDesc>Penetrating power isn't as important when you can shoot your target multiple times. 30-rounds of 7.62x25mm will make sure they stay down.</szItemDesc>
+		<szBRName>7.62x25mm SMG Mag</szBRName>
+		<szBRDesc>Penetrating power isn't as important when you can shoot your target multiple times. 30-rounds of 7.62x25mm will make sure they stay down.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>130</uiIndex>
+		<szItemName>7.62x25mm SMG Mag HP</szItemName>
+		<szLongItemName>7.62x25mm SMG Mag, HP</szLongItemName>
+		<szItemDesc>Great for use on unarmored foes and common household pests.</szItemDesc>
+		<szBRName>7.62x25mm SMG Mag HP</szBRName>
+		<szBRDesc>Great for use on unarmored foes and common household pests.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>131</uiIndex>
+		<szItemName>G. stordente</szItemName>
+		<szLongItemName>Granata per stordire</szLongItemName>
+		<szItemDesc>Questa granata crea un grosso vuoto che priva dell'ossigeno l'area d'impatto circostante mentre ondate d'aria vi si precipitano.</szItemDesc>
+		<szBRName>Granata per Stordire</szBRName>
+		<szBRDesc>Questa granata crea un grosso vuoto che priva dell'ossigeno l'area d'impatto mentre ondate d'aria lo sostituiranno. Chiunque si trovi entro l'area non capirà che cosa lo abbia colpito, mentre boccheggerà, per cercare di respirare.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>132</uiIndex>
+		<szItemName>Gas lacrimogeno</szItemName>
+		<szLongItemName>Granata a gas lacrimogeno</szLongItemName>
+		<szItemDesc>Questa granata rilascia gas a dispersione tattica che provoca guai agli occhi e alla pelle non protetti.</szItemDesc>
+		<szBRName>Granata a Gas Lacrimogeno</szBRName>
+		<szBRDesc>Garantita per far piangere le vittime come bambini. Questa granata a gas a dispersione tattica provoca guai agli occhi e alla pelle non protetti. Fa sì che tutti quelli che si trovano nel suo raggio vadano a cercare aria più pulita.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>133</uiIndex>
+		<szItemName>Iprite</szItemName>
+		<szLongItemName>Granata a Iprite (Mustard Gas)</szLongItemName>
+		<szItemDesc>Questa granata rilascia un gas incolore, inodore e insapore che causa intenso bruciore e vesciche nei polmoni. I colpiti possono morire senza un intervento medico immediato.</szItemDesc>
+		<szBRName>Granata a Iprite (Mustard Gas)</szBRName>
+		<szBRDesc>Non si tratta di condimento per hot dog. Questa granata rilascia un gas incolore, inodore e insapore che causa intenso bruciore e vesciche nei polmoni. I colpiti possono morire senza un intervento medico d'urgenza.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>134</uiIndex>
+		<szItemName>Mini bomba</szItemName>
+		<szLongItemName>Mini bomba a mano</szLongItemName>
+		<szItemDesc>Questa piccola granata caricata con TNT venne sviluppata per ottenere significativi lanci lunghi e un'efficace frammentazione. È stato dimostrato che fornisce un buon servizio letale.</szItemDesc>
+		<szBRName>Mini Bomba a Mano</szBRName>
+		<szBRDesc>Questa piccola granata venne sviluppata per ottenere la combinazione di lanci lunghi e una buona frammentazione. Il corpo è caricato con TNT e fornisce un buon servizio. Per le sue dimensioni anche le donne trovano questa granata facile da lanciare.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>135</uiIndex>
+		<szItemName>Bomba a mano</szItemName>
+		<szLongItemName>Bomba a mano reg</szLongItemName>
+		<szItemDesc>Questa granata militare standard a frammentazione distribuita è zeppa di TNT e ha un anello a strappo e grilletto a rilascio di pressione.</szItemDesc>
+		<szBRName>Bomba a Mano Reg</szBRName>
+		<szBRDesc>La tipica bomba a mano militare a frammentazione. Zeppo di TNT, questo arnese che esplode a rilascio di pressione, con anello a strappo, ha un grosso effetto letale. Li ammazza su due piedi, sempre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>136</uiIndex>
+		<szItemName>RDX</szItemName>
+		<szLongItemName>Un barattolo di cristalli di RDX</szLongItemName>
+		<szItemDesc>Un barattolo riempito di cristalli di RDX è più potente del TNT e più facile da far detonare. Il solo svantaggio dell'RDX è la sua instabilità; può saltare per aria con un moderato scuotimento.</szItemDesc>
+		<szBRName>Un barattolo di cristalli di RDX</szBRName>
+		<szBRDesc>Un barattolo di cristalli di RDX è più potente del TNT e più facile da far detonare. Meglio essere avvisati prima, questa roba non è troppo stabile e può saltare per aria con un moderato scuotimento.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>137</uiIndex>
+		<szItemName>TNT</szItemName>
+		<szLongItemName>TNT</szLongItemName>
+		<szItemDesc>Il trinitrotoluene è il secondo più antico e più comunemente usato esplosivo noto all'uomo - il primo è la dinamite. Questi tubi sono molto stabili, avvolti nella paglia, e contengono un quarto di libbra di carica.</szItemDesc>
+		<szBRName>TNT</szBRName>
+		<szBRDesc>Il buon vecchio affidabile trinitrotoluene è il secondo più antico e più comunemente usato esplosivo noto all'uomo - il primo è la dinamite. Questi tubi sono molto stabili, avvolti nella paglia e contengono un quarto di libbra di carica.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>138</uiIndex>
+		<szItemName>HMX</szItemName>
+		<szLongItemName>HMX</szLongItemName>
+		<szItemDesc>L'HMX è una miscela di TNT e RDX nel rapporto di 50/50, in peso. Benché non sia potente come l'RDX puro, certo è più stabile.</szItemDesc>
+		<szBRName>HMX</szBRName>
+		<szBRDesc>Questo esplosivo è una vera forza. L'HMX è una miscela composta per metà da TNT e per l'altra da RDX. Benché non sia potente come l'RDX puro, certo è più stabile.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>139</uiIndex>
+		<szItemName>C1</szItemName>
+		<szLongItemName>C1</szLongItemName>
+		<szItemDesc>La composizione C1 è una soluzione di RDX e di una piccola quantità di olio minerale. Questa combinazione conserva la potenza esplosiva dell'RDX incrementandone, però, la stabilità.</szItemDesc>
+		<szBRName>C1</szBRName>
+		<szBRDesc>La composizione C1 è una soluzione altamente esplosiva di RDX, mescolato con una piccola quantità di olio minerale. Questa composizione è tanto efficace quanto l'RDX puro, ma non ti scoppierà accidentalmente in faccia.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>140</uiIndex>
+		<szItemName>Proiettile mortaio</szItemName>
+		<szLongItemName>60mm Proiettile da Mortaio</szLongItemName>
+		<szItemDesc>Questa bomba HE presenta carica esplosiva impermeabile a "ferro di cavallo" e spoletta multi-opzione M734, che può essere regolata a mano per esplosioni ritardate, a impatto, vicino alla superficie o in prossimità.</szItemDesc>
+		<szBRName>60mm Proiettile da Mortaio</szBRName>
+		<szBRDesc>Un vero mortaio. Questa bomba HE presenta carica esplosiva impermeabile a "ferro di cavallo" e spoletta multi-opzione M734, che può essere regolata a mano per esplosioni ritardate, a impatto, vicino alla superficie o in prossimità.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>141</uiIndex>
+		<szItemName>Mina</szItemName>
+		<szLongItemName>Mina terrestre</szLongItemName>
+		<szItemDesc>Questa mina antiuomo è un'arma a frammentazione che si attiva se la si calpesta. Ha incorporati: congegno anti-disturbo per impedire la rimozione e sensore che neutralizza il campo minato dopo un certo tempo.</szItemDesc>
+		<szBRName>Mina terrestre</szBRName>
+		<szBRDesc>Progettata per ammazzare i nemici, o almeno per rallentarli. Questa mina è un'arma a frammentazione che esplode a contatto. Comprende un congegno anti-disturbo incorporato per impedirne la rimozione e un sensore che dopo un po' blocca il campo minato.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>142</uiIndex>
+		<szItemName>C4</szItemName>
+		<szLongItemName>C4</szLongItemName>
+		<szItemDesc>La composizione C4 è un esplosivo bianco al plastico molto più potente del TNT. Questo blocco coperto di plastica ha un cappuccio ad anello alle estremità. A differenza di C1, sua composizione sorella, questa è inodore.</szItemDesc>
+		<szBRName>C4</szBRName>
+		<szBRDesc>Questo esplosivo bianco al plastico è più potente del TNT. La composizione C4 è fornita in blocchi coperti di plastica con infilato un cappuccio ad anello a ogni estremità. A differenza del C1, suo simile, questa è inodore.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>143</uiIndex>
+		<szItemName>Razzo</szItemName>
+		<szLongItemName>Razzo a scatto</szLongItemName>
+		<szItemDesc>È un razzo illuminante con attaccato un cavo di accensione. Lo strappo o il taglio del cavo d'accensione innescherà il razzo, avvisando i mercenari dell'arrivo del nemico.</szItemDesc>
+		<szBRName>Razzo a Scatto</szBRName>
+		<szBRDesc>Questo razzo illuminante con attaccato un cavo di accensione illuminerà sempre la situazione. Lo strappo o il taglio del cavo d'accensione innescherà il razzo, annunciando visivamente l'arrivo del nemico.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>144</uiIndex>
+		<szItemName>Klaxon</szItemName>
+		<szLongItemName>Klaxon a Scatto</szLongItemName>
+		<szItemDesc>Questo razzo illuminante munito di un cavo di accensione avviserà i mercenari dai nemici vicini. Lo strappo o il taglio del cavo d'accensione innescherà il razzo, seguito da un lacerante urlo di sirena.</szItemDesc>
+		<szBRName>Klaxon a Scatto</szBRName>
+		<szBRDesc>Questo razzo illuminante dotato di cavo d'accensione illuminerà il posto con un assordante rombo. Lo strappo o il taglio del cavo d'accensione innescherà il razzo; seguirà un'acuta sirena, per avvisare i mercenari vicini dei movimenti del nemico.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>145</uiIndex>
+		<szItemName>Carica reg.</szItemName>
+		<szLongItemName>Carica regolata</szLongItemName>
+		<szItemDesc>Piazza questa piccola carica di esplosivo al plastico supportato di tungsteno contro qualunque porta per far saltare la serratura.</szItemDesc>
+		<szBRName>Carica Regolata</szBRName>
+		<szBRDesc>Non restare fuori al freddo solo perché hai dimenticato la chiave. Questa affidabile carica regolata risolverà ogni problema. Piazza questa carica di esplosivo al plastico, rinforzato in tungsteno, contro qualunque tipo di serratura.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>146</uiIndex>
+		<szItemName>Luce d'emergenza</szItemName>
+		<szLongItemName>Luce Chimica d'Emergenza</szLongItemName>
+		<szItemDesc>Le luci chimiche d'emergenza mono-uso sono sorgenti di luce portatili  estremamente convenienti. Basta semplicemente strappare e scuotere per  illuminare la via.</szItemDesc>
+		<szBRName>Luce Chimica d'Emergenza</szBRName>
+		<szBRDesc>Queste luci chimiche d'emergenza, da usare una sola volta, aiuteranno a illuminare le tetre missioni notturne. Tienile a portata di mano, perché non si sa mai quando se ne ha bisogno. Basta uno strappo e uno scossone per accenderle.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>147</uiIndex>
+		<szItemName>40mm HE</szItemName>
+		<szLongItemName>40mm HE Grenade</szLongItemName>
+		<szItemDesc>Questa granata a frammentazione, se sparata dal lanciagranate Talon farà detonare il TNT contenuto dopo un breve ritardo.</szItemDesc>
+		<szBRName>40mm HE Grenade</szBRName>
+		<szBRDesc>Questa granata a frammentazione standard presenta un meccanismo di sparo a ritardo per detonare il TNT contenuto. Sparata dal lancia-granate Talon, ha un notevole raggio letale.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>148</uiIndex>
+		<szItemName>40mm Tear Gas</szItemName>
+		<szLongItemName>40mm Tear Gas Grenade</szLongItemName>
+		<szItemDesc>Questo proiettile simile a gomma emetterà gas lacrimogeno dopo un breve intervallo. È destinato a essere sparato dal lanciagranate Talon.</szItemDesc>
+		<szBRName>40mm Tear Gas Grenade</szBRName>
+		<szBRDesc>Il corpo di questo proiettile è fatto di plastica gommosa per evitare danni da impatto. La gomma fonde rapidamente per il calore della combustione. Questo colpo per il lancia-granate Talon rilascia un gas irritante all'accensione.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>149</uiIndex>
+		<szItemName>40mm Stun</szItemName>
+		<szLongItemName>40mm Stun Grenade</szLongItemName>
+		<szItemDesc>Se sparati dal lanciagranate Talon, questi proiettili creano un vuoto enorme che lascerà i tuoi nemici a boccheggiare in cerca d'aria.</szItemDesc>
+		<szBRName>40mm Stun Grenade</szBRName>
+		<szBRDesc>Questi proiettili per lancia granate Talon creano un gran vuoto, privando l'area circostante dell'ossigeno. Chiunque si trovi nell'area della detonazione boccheggerà, mentre ondate d'aria si precipiteranno al suo interno.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>150</uiIndex>
+		<szItemName>40mm Smoke</szItemName>
+		<szLongItemName>40mm Smoke Grenade</szLongItemName>
+		<szItemDesc>Se sparato da un lanciagranate, questo proiettile rilascerà rapidamente  una nube di fumo che aiuterà a entrare in battaglia o a ritirarsi.</szItemDesc>
+		<szBRName>40mm Smoke Grenade</szBRName>
+		<szBRDesc>Se lanciata da un lancia-granate da 40mm, questa bomba rilascerà immediatamente una nube di fumo che faciliterà l'entrata in battaglia o la ritirata.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>151</uiIndex>
+		<szItemName>G. fumogena</szItemName>
+		<szLongItemName>Granata fumogena</szLongItemName>
+		<szItemDesc>Questa granata a mano risulterà utilissima in varie imprese, inclusi: avanzata coperta su posizioni nemiche, marcatura di possibili luoghi di atterraggio, seminare scompiglio tra i vigili del fuoco.</szItemDesc>
+		<szBRName>Smoke Grenade</szBRName>
+		<szBRDesc>Questa bomba a mano servirà a molti scopi, tra cui: avanzare verso le postazioni nemiche senza essere visti, marcare possibili luoghi di atteraggio, e seminare scompiglio tra i vigili del fuoco.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>152</uiIndex>
+		<szItemName>Corazza</szItemName>
+		<szLongItemName>Corazza da carro armato</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY</szItemDesc>
+		<szBRName>Corazza</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>153</uiIndex>
+		<szItemName>Struct Ignite</szItemName>
+		<szLongItemName>Struct Ignite</szLongItemName>
+		<szItemDesc>ARTICOLO INTERNO</szItemDesc>
+		<szBRName>Struct Ignite</szBRName>
+		<szBRDesc>ARTICOLO INTERNO</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>154</uiIndex>
+		<szItemName>Cocktail</szItemName>
+		<szLongItemName>Cocktail di creatura</szLongItemName>
+		<szItemDesc>CON ASCIA</szItemDesc>
+		<szBRName>Cocktail di creatura</szBRName>
+		<szBRDesc>CON ASCIA</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>155</uiIndex>
+		<szItemName>Dilatatore</szItemName>
+		<szLongItemName>Dilatatore strutturale</szLongItemName>
+		<szItemDesc>ARTICOLO INTERNO</szItemDesc>
+		<szBRName>Dilatatore strutturale</szBRName>
+		<szBRDesc>ARTICOLO INTERNO</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>156</uiIndex>
+		<szItemName>Dilatatore GB</szItemName>
+		<szLongItemName>Esplosione enorme</szLongItemName>
+		<szItemDesc>ARTICOLO INTERNO</szItemDesc>
+		<szBRName>Esplosione enorme</szBRName>
+		<szBRDesc>ARTICOLO INTERNO</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>157</uiIndex>
+		<szItemName>Gas lacrimogeno</szItemName>
+		<szLongItemName>Gas multilacrimogeno</szLongItemName>
+		<szItemDesc>ARTICOLO INTERNO</szItemDesc>
+		<szBRName>Gas multilacrimogeno</szBRName>
+		<szBRDesc>ARTICOLO INTERNO</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>158</uiIndex>
+		<szItemName>Gas P C</szItemName>
+		<szLongItemName>Gas della piccola creatura</szLongItemName>
+		<szItemDesc>ARTICOLO INTERNO</szItemDesc>
+		<szBRName>Gas della piccola creatura</szBRName>
+		<szBRDesc>ARTICOLO INTERNO</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>159</uiIndex>
+		<szItemName>Gas G C</szItemName>
+		<szLongItemName>Gas della grande creatura</szLongItemName>
+		<szItemDesc>ARTICOLO INTERNO</szItemDesc>
+		<szBRName>Gas della grande creatura</szBRName>
+		<szBRDesc>ARTICOLO INTERNO</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>160</uiIndex>
+		<szItemName>Grenade Panel</szItemName>
+		<szLongItemName>Grenade Panel</szLongItemName>
+		<szItemDesc>Four pouches, each for a single grenade, mounted onto a modular panel that can be attached to your load bearing equipment.</szItemDesc>
+		<szBRName>Grenade Panel</szBRName>
+		<szBRDesc>No more grenades dangling from D-rings and ripping off while crawling through the underbrush. Our grenade carrier panel has four individual pouches to carry your grenades safely.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>161</uiIndex>
+		<szItemName>Giubb. A-P</szItemName>
+		<szLongItemName>Giubbotto antiproiettile</szLongItemName>
+		<szItemDesc>Il giubbotto antiproiettile ultra leggero Armorshield è una canotta altamente protettiva con proteggi-collo e piastra pelvica. Le sue chiusure in Velcro sono nascoste sui lati.</szItemDesc>
+		<szBRName>Giubb. A-P</szBRName>
+		<szBRDesc>Il giubbotto antiproiettile ultra leggero Armorshield è stato progettato per essere il più leggero possibile, pur senza ridurre la protezione. È una canotta con un proteggi-collo, piastra pelvica e nessuna apertura anteriore; le chiusure in Velcro sono nascoste.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>162</uiIndex>
+		<szItemName>Giubb. A-P 18</szItemName>
+		<szLongItemName>Giubbotto antiproiettile in composto-18</szLongItemName>
+		<szItemDesc>Questo giubbotto antiproiettile ultra leggero Armorshield è stato bagnato nel Composto-18 per protezione di tipo anti-balistico. Questa canotta esce completa di proteggi-collo e piastra pelvica.</szItemDesc>
+		<szBRName>Giubb. A-P 18</szBRName>
+		<szBRDesc>Migliore della protezione media - il giubbotto antiproiettile ultra leggero Armorshield bagnato nel Composto-18 offre una vera protezione di tipo anti-balistico. Questa canotta esce completa di proteggi-collo e piastra pelvica.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>163</uiIndex>
+		<szItemName>Giubb. A-P R.</szItemName>
+		<szLongItemName>Giubbotto antiproiettile Ricoperto</szLongItemName>
+		<szItemDesc>Il giubbotto antiproiettile ultra leggero Armorshield con proteggi-collo e piastra pelvica è stato immerso nel sangue di creatura regina per migliorarne la resistenza.</szItemDesc>
+		<szBRName>Giubb. A-P R.</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>164</uiIndex>
+		<szItemName>Maglia in Kev</szItemName>
+		<szLongItemName>Maglia in Kevlar</szLongItemName>
+		<szItemDesc>I pannelli balistici su questa maglia sono fatti di 28 strati di Kevlar. Si avvolge sulle spalle, collo e fianchi e include un proteggi-inguine removibile. Le cinghie della vita e del petto sono regolabili.</szItemDesc>
+		<szBRName>Maglia in Kevlar</szBRName>
+		<szBRDesc>Questa maglia offre 28 strati di Kevlar per una protezione anti-balistica media. Fornisce una completa copertura avvolgendosi sulle spalle, collo e fianchi; include anche un proteggi-inguine. Le fasce della vita e del petto sono regolabili.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>165</uiIndex>
+		<szItemName>Kevlar-18 Vest</szItemName>
+		<szLongItemName>Maglia in Kevlar in composto-18</szLongItemName>
+		<szItemDesc>I pannelli balistici di questa maglia, fatti di 28 strati di Kevlar, offrono protezione anti-balistica di gran lunga migliore dato che sono  stati trattati con Composto-18.</szItemDesc>
+		<szBRName>Maglia in Kevlar-18</szBRName>
+		<szBRDesc>Se pensavi che il Kevlar fosse buono, sappi che è ancora meglio se è stato trattato col Composto 18. I pannelli balistici di questa maglia, fatti di 28 strati di Kevlar, offrono una migliore protezione anti-balistica se trattati con questa soluzione.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>166</uiIndex>
+		<szItemName>Maglia in Kev R.</szItemName>
+		<szLongItemName>Maglia in Kevlar ricoperta</szLongItemName>
+		<szItemDesc>I pannelli balistici di questa maglia, fatti di 28 strati di Kevlar, offrono protezione anti-balistica ancora migliore dato che sono stati trattati col sangue di creatura regina.</szItemDesc>
+		<szBRName>Maglia in Kevlar Ricoperta</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>167</uiIndex>
+		<szItemName>Maglia in Spec</szItemName>
+		<szLongItemName>Maglia in Spectra</szLongItemName>
+		<szItemDesc>Questa maglia è fatta di Spectra Shield, lamina a rendimento balistico più che elevato che riduce in modo spettacolare il brusco trauma da colpi multipli e spari angolati. Può avere in tasca un'altra piastra anti-trauma.</szItemDesc>
+		<szBRName>Maglia in Spectra</szBRName>
+		<szBRDesc>La tecnologia più avanzata nelle armature personali. Questa maglia è fatta di Spectra Shield, una lamina a rendimento balistico extra che riduce i traumi da colpi multipli e da proiettili vaganti. La sua tasca può tenere una piastra anti-trauma aggiuntiva.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>168</uiIndex>
+		<szItemName>Maglia in Spec-18</szItemName>
+		<szLongItemName>Maglia in Spectra in composto-18</szLongItemName>
+		<szItemDesc>Questa maglia in Spectra Shield, fatta con una lamina ad alto rendimento balistico per ridurre il brusco trauma da colpi multipli e spari angolati, è stata trattata col Composto-18 per aumentarne ancora l'impenetrabilità.</szItemDesc>
+		<szBRName>Maglia in Spectra-18</szBRName>
+		<szBRDesc>Tecnologia avanzata nelle armature personali e chimica hanno permesso le maglie in Spectra Shield. Fatte in lamine ad alto rendimento balistico, riducono il trauma da colpi multipli e da proiettili vaganti. Aggiungi il Composto-18 e diventi invincibile.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>169</uiIndex>
+		<szItemName>Maglia in Spec R.</szItemName>
+		<szLongItemName>Maglia in Spectra Ricoperta</szLongItemName>
+		<szItemDesc>Fatta di una lamina ad alto rendimento balistico che riduce il brusco trauma da colpi multipli e spari angolati, questa maglia in Spectra Shield offre più protezione con la sua copertura di sangue di creatura regina.</szItemDesc>
+		<szBRName>Maglia in Spectra Ricoperta</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>170</uiIndex>
+		<szItemName>Gambali Kev</szItemName>
+		<szLongItemName>Gambali in Kevlar</szLongItemName>
+		<szItemDesc>I pannelli balistici su questi gambali sono fatti di 28 strati di Kevlar protettivo. Vita e strisce per i fianchi completamente regolabili sono state progettate per mantenere un comodo attacco.</szItemDesc>
+		<szBRName>Gambali in Kevlar</szBRName>
+		<szBRDesc>I pannelli balistici su questi gambali sono fatti di 28 strati di Kevlar. Cintura e fasce per i fianchi completamente regolabili sono state pensate per dare aderenza senza ridurre la mobilità. Non dovrebbero mai mancare a un mercenario.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>171</uiIndex>
+		<szItemName>Gambali Kev-18</szItemName>
+		<szLongItemName>Gambali in Kevlar in composto-18</szLongItemName>
+		<szItemDesc>I pannelli balistici su questi gambali, fatti di 28 strati di Kevlar, sono stati trattati con il Composto-18 per protezione anti-balistica extra.</szItemDesc>
+		<szBRName>Gambali in Kevlar-18</szBRName>
+		<szBRDesc>Sopra la protezione standard delle armature personali - i pannelli balistici su questi gambali sono fatti di 28 strati di Kevlar e sono stati trattati con il Composto-18 per protezione anti-balistica extra.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>172</uiIndex>
+		<szItemName>Pantaloni in Kevlar R.</szItemName>
+		<szLongItemName>Gambali in Kevlar ricoperti</szLongItemName>
+		<szItemDesc>Fatti di 28 strati di Kevlar, questi gambali sono stati immersi nel sangue di creatura regina per ottenere maggiore resistenza.</szItemDesc>
+		<szBRName>Gambali in Kevlar ricoperti</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>173</uiIndex>
+		<szItemName>Gambali</szItemName>
+		<szLongItemName>Gambali in Spectra</szLongItemName>
+		<szItemDesc>Questi gambali in Spectra Shield riducono i bruschi traumi da colpi multipli e spari angolati. Vita e strisce per i fianchi completamente regolabili non impediranno la mobilità.</szItemDesc>
+		<szBRName>Gambali in Spectra</szBRName>
+		<szBRDesc>Questi gambali in Spectra Shield sono la miglior protezione disponibile. Riducono i traumi da colpi multipli e proiettili vaganti. Cintura e fasce per i fianchi completamente regolabili danno una buona aderenza senza impedire la mobilità.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>174</uiIndex>
+		<szItemName>Pantaloni Spec-18</szItemName>
+		<szLongItemName>Gambali in Spectra in composto-18</szLongItemName>
+		<szItemDesc>Questi gambali in Spectra Shield trattati con Composto-18 offrono ancora più protezione contro i bruschi traumi da colpi multipli e spari angolati rispetto ai gambali in Spectra standard.</szItemDesc>
+		<szBRName>Gambali in Spectra-18</szBRName>
+		<szBRDesc>La più avanzata armatura personale disponibile. Questi gambali in Spectra Shield trattati con Composto-18 offrono ancora più protezione contro i traumi da colpi multipli e proiettili vaganti rispetto ai gambali in Spectra standard.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>175</uiIndex>
+		<szItemName>Gambali Spec R.</szItemName>
+		<szLongItemName>Gambali in Spectra ricoperti</szLongItemName>
+		<szItemDesc>Questi gambali in Spectra Shield, fatti di materiale ad alta protezione per ridurre i traumi da colpi multipli e spari angolati, sono stati  inzuppati nel sangue di creatura regina per aumentarne l'efficacia.</szItemDesc>
+		<szBRName>Gambali in Spectra Ricoperti</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>176</uiIndex>
+		<szItemName>Elmo d'acciaio</szItemName>
+		<szLongItemName>Elmo d'Acciaio</szLongItemName>
+		<szItemDesc>Questo elmetto in acciaio protegge da piccole armi da fuoco, shrapnel e altri proiettili. Ha una sospensione imbottita in cuoio e nylon, con un sottogola regolabile.</szItemDesc>
+		<szBRName>Elmo d'Acciaio</szBRName>
+		<szBRDesc>Confortevole ed estremamente pratico. Questo elmetto in acciaio protegge da piccole armi da fuoco, granate a pallettoni e altri proiettili. Ha una sospensione imbottita in cuoio e nylon, con un sottogola regolabile.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>177</uiIndex>
+		<szItemName>Elmo in Kevlar</szItemName>
+		<szLongItemName>Elmo in Kevlar</szLongItemName>
+		<szItemDesc>L'Elmo Personale Corazzato delle Truppe di Terra è fatto di Kevlar, con un confortevole sistema di sospensione, fascia per sudore e sottogola. Si estende di più sopra orecchie e collo della media degli elmetti.</szItemDesc>
+		<szBRName>Elmo in Kevlar</szBRName>
+		<szBRDesc>Per una protezione extra, il saggio mercenario indossa sempre l'Elmo Personale Corazzato delle truppe di terra. È di Kevlar ed è dotato di un sistema di sospensione, fascia e sottogola. Protegge maggiormente collo e orecchie.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>178</uiIndex>
+		<szItemName>Elmo Kvlr-18</szItemName>
+		<szLongItemName>Elmo in Kevlar in composto-18</szLongItemName>
+		<szItemDesc>Fatto in Kevlar, questo Elmo Personale Corazzato delle Truppe di Terra è stato trattato con Composto-18 per accrescerne ulteriormente gli scopi difensivi.</szItemDesc>
+		<szBRName>Elmo in Kevlar-18</szBRName>
+		<szBRDesc>Realizzato in Kevlar, per protezione sopra la media, questo Elmo Personale Corazzato delle Truppe di Terra è stato trattato con Composto-18 per accrescerne ulteriormente gli scopi difensivi.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>179</uiIndex>
+		<szItemName>Elmo Kvlr R.</szItemName>
+		<szLongItemName>Elmo in Kevlar ricoperto</szLongItemName>
+		<szItemDesc>Questo Elmo Personale Corazzato delle Truppe di Terra è stato trattato con sangue di creatura regina per proteggere ulteriormente la tua zucca.</szItemDesc>
+		<szBRName>Elmo in Kevlar Ricoperto</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>180</uiIndex>
+		<szItemName>Elmo in Spectra</szItemName>
+		<szLongItemName>Elmo in Spectra</szLongItemName>
+		<szItemDesc>Questo elmetto in leggero Spectra composito, noto per le sue qualità anti- balistiche, ha finitura nera IR-assorbente, schiuma cuscinetto e sistema regolabile di bardatura con fermacapelli in cuoio e sottogola in gomma.</szItemDesc>
+		<szBRName>Elmo in Spectra</szBRName>
+		<szBRDesc>Questo elmetto è fatto di un leggero composito Spectra, famoso per le sue superiori qualità anti-proiettile. Presenta una finitura IR-assorbente, schiuma cuscinetto e un sistema regolabile di bardatura con una fascia fermacapelli in cuoio e un sottogola in gomma.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>181</uiIndex>
+		<szItemName>Elmo Spec-18</szItemName>
+		<szLongItemName>Elmo in Spectra in composto-18</szLongItemName>
+		<szItemDesc>Immerso nel composto-18, questo elmetto in leggero Spectra composito offre la massima quantità possibile di protezione anti-balistica.</szItemDesc>
+		<szBRName>Elmo in Spectra-18</szBRName>
+		<szBRDesc>Immerso nel Composto-18, questo elmetto in leggero composito Spectra offre la massima protezione anti-proiettile. Corre voce che questo tipo di protezione abbia aiutato molti dei mercenari che stanno tornando dal fronte.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>182</uiIndex>
+		<szItemName>Elmo Spec R.</szItemName>
+		<szLongItemName>Elmo in Spectra Ricoperto</szLongItemName>
+		<szItemDesc>Questo elmetto in leggero Spectra composito che è stato ricoperto di sangue di creatura regina offre una protezione anti-balistica ancora più avanzata.</szItemDesc>
+		<szBRName>Elmo in Spectra Ricoperto</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>183</uiIndex>
+		<szItemName>Piastre ceramiche</szItemName>
+		<szLongItemName>Piastre ceramiche</szLongItemName>
+		<szItemDesc>Queste dure piastre di ceramica possono essere inserite davanti e dietro nella maggior parte delle maglie per fornire extra protezione disperdendo l'impatto di molti proiettili standard.</szItemDesc>
+		<szBRName>Piastre ceramiche</szBRName>
+		<szBRDesc>Ogni mercenario che vuole uscirne vivo, non esce mai di casa senza un po' di queste piastre. Fatte di ceramica composita, possono essere inserite nel petto della maggior parte delle maglie per migliorarne la resistenza.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>184</uiIndex>
+		<szItemName>Pelle di bambino</szItemName>
+		<szLongItemName>Pelle di bambino</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Pelle Infantile</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>185</uiIndex>
+		<szItemName>Pelle di ragazzino</szItemName>
+		<szLongItemName>Pelle di ragazzino</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Pelle di Creatura Giovane Adulta</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>186</uiIndex>
+		<szItemName>Pelle di adulto</szItemName>
+		<szLongItemName>Pelle di adulto</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Pelle di Adulto</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>187</uiIndex>
+		<szItemName>Pelle regina</szItemName>
+		<szLongItemName>Pelle di creatura regina</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Pelle di Creatura Regina</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>188</uiIndex>
+		<szItemName>Giacca di cuoio</szItemName>
+		<szLongItemName>Giacca di cuoio</szLongItemName>
+		<szItemDesc>Giacca da aviazione in cuoio, stile dinamitardo.</szItemDesc>
+		<szBRName>Giacca di Cuoio</szBRName>
+		<szBRDesc>Giacca da aviazione in cuoio, stile dinamitardo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>189</uiIndex>
+		<szItemName>Cuoio Kvlr</szItemName>
+		<szLongItemName>Giacca in cuoio e Kevlar</szLongItemName>
+		<szItemDesc>Questa giacca da aviazione in cuoio, stile dinamitardo, è stata foderata in Kevlar per fornire una minima quantità di protezione.</szItemDesc>
+		<szBRName>Giacca in Cuoio e Kevlar</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>190</uiIndex>
+		<szItemName>Cuoio Kvlr-18</szItemName>
+		<szLongItemName>Giacca di cuoio in composto-18 e Kevlar</szLongItemName>
+		<szItemDesc>Questa giacca da aviazione in cuoio, stile dinamitardo, è stata foderata in Kevlar e trattata con Composto-18 per ottenere maggiore protezione.</szItemDesc>
+		<szBRName>Giacca di Cuoio in Composto-18 e Kevlar</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>191</uiIndex>
+		<szItemName>Cuoio Kvlr R.</szItemName>
+		<szLongItemName>Giacca in cuoio e Kevlar ricoperta</szLongItemName>
+		<szItemDesc>Questa giacca da aviazione in cuoio, stile dinamitardo, è stata foderata in Kevlar e ricoperta con sangue di creatura regina per migliorarne la protettività.</szItemDesc>
+		<szBRName>Giacca in Cuoio e Kevlar Ricoperta</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>192</uiIndex>
+		<szItemName>Pelle G F</szItemName>
+		<szLongItemName>Pelle di giovane femmina</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Pelle di Giovane Creatura Femminile</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>193</uiIndex>
+		<szItemName>Pelle V F</szItemName>
+		<szLongItemName>Pelle di vecchia femmina</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Pelle di Vecchia Creatura Femminile</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>194</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>T-shirt di Arulco</szLongItemName>
+		<szItemDesc>Nessun turista può resistere a una di queste t-shirt all'ultima moda "I love Arulco". Fatte al 100 per cento di cotone, erano un acquisto popolare  prima dei giorni di Deidranna.</szItemDesc>
+		<szBRName>T-shirt di Arulco</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>195</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>T-Shirt Deidranna</szLongItemName>
+		<szItemDesc>Mostra la vostra fedeltà alla regina con stile. Da quando ha acquisito  potere, sfoggiare una di queste magliette "Deidranna comanda" agli  eventi sponsorizzati dal governo è di moda tra gli abitanti di Arulco.</szItemDesc>
+		<szBRName>T-Shirt Deidranna</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>196</uiIndex>
+		<szItemName>Giubb. Guardiano</szItemName>
+		<szLongItemName>Giubbotto del Guardiano</szLongItemName>
+		<szItemDesc>Questo eccellente giubbotto è stato realizzato con 36 strati di Kevlar dall'Araldica dei Guardiani, Inc. È completamente regolabile e ha un  taschino per l'inserimento della corazza ceramica.</szItemDesc>
+		<szBRName>Maglia del Guardiano</szBRName>
+		<szBRDesc>I pannelli balistici di questa maglia sono fabbricati con 36 strati di Kevlar dagli Araldi dei Guardiani, Inc. Sono disponibili anche nella variante da sera per le occasioni formali particolarmente pericolose.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>197</uiIndex>
+		<szItemName>Giubb. T. Guardiano</szItemName>
+		<szLongItemName>Giubbotto del Trattato del Guardiano</szLongItemName>
+		<szItemDesc>Questo eccellente indumento d'alta qualità dell'Araldica dei Guardiani, è  stato migliorato grazie a un trattamento di Composto-18.</szItemDesc>
+		<szBRName>Maglia Trattata del Guardiano</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>198</uiIndex>
+		<szItemName>Giubb. I. Guardia</szItemName>
+		<szLongItemName>Giubbotto Involucro della Guardia</szLongItemName>
+		<szItemDesc>Questo eccellente giubbotto antiproiettili dell'Araldica delle Guardie  è stato realizzato con una sostanza gelatinosa dalla regina Crepitus e ora  fornisce una protezione strabiliante!</szItemDesc>
+		<szBRName>Giubbotto del Guardiano</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>199</uiIndex>
+		<szItemName>Comp. Binoc.</szItemName>
+		<szLongItemName>Compact Binoculars</szLongItemName>
+		<szItemDesc>Compact 10x30 Binoculars of simple construction.</szItemDesc>
+		<szBRName>10x30 Binoculars</szBRName>
+		<szBRDesc>Compact, light-weight, and inexpensive binoculars. For outdoors use during the day.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>200</uiIndex>
+		<szItemName>Binoculars</szItemName>
+		<szLongItemName>Quality Binoculars</szLongItemName>
+		<szItemDesc>7x50 High-Quality Binoculars.</szItemDesc>
+		<szBRName>7x50 Binoculars</szBRName>
+		<szBRDesc>Rugged binoculars for the serious hunter or soldier. Multi-coated lenses, nitrogen-filled, and rubber-armored. Usable under bad light conditions.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>201</uiIndex>
+		<szItemName>Kit pronto soc.</szItemName>
+		<szLongItemName>Kit pronto soccorso</szLongItemName>
+		<szItemDesc>Questo kit contiene: antisettico, rotoli di cotone, un termometro, iodio e fiale di mertiolato, bende da collo, spille di sicurezza, forbici, forcipe, vari bendaggi e un piccolo manuale di pronto soccorso.</szItemDesc>
+		<szBRName>Kit di Pronto Soccorso</szBRName>
+		<szBRDesc>Dalle fratture alle abrasioni, questo kit in tela include tutto ciò di cui puoi aver bisogno per curare le ferite minori. Contiene: bende, cotone, antisettico, termometro, iodio, bende, spille di sicurezza, forbici e un piccolo manuale di pronto soccorso.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>202</uiIndex>
+		<szItemName>Kit medico</szItemName>
+		<szLongItemName>Kit medico</szLongItemName>
+		<szItemDesc>Oltre agli oggetti standard di pronto soccorso questo kit include: un set di sutura e forbici, tamponi, uno scalpello, forcipe di Kelly, pinzette, analgesici, anestetico, antibiotici, lampada a stilo e manuale chirurgico.</szItemDesc>
+		<szBRName>Kit Medico</szBRName>
+		<szBRDesc>È un kit di pronto soccorso. Oltre agli oggetti standard include anche: un set da sutura, tamponi, forbici da sutura, uno scalpello, forcipe di Kelly, pinzette, anestetico, analgesici, antibiotici, lampada e il manuale 'Chirurgia bellica d'emergenza'.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>203</uiIndex>
+		<szItemName>Kit utensili</szItemName>
+		<szLongItemName>Kit di utensili</szLongItemName>
+		<szItemDesc>Questo kit include: un vasto assortimento di cacciaviti, fermi, pinze, morse, fermagli, un martello e un kit per cucito.</szItemDesc>
+		<szBRName>Kit di Utensili</szBRName>
+		<szBRDesc>Il kit offre gli utensili di cui avrai bisogno per riparare la maggior parte degli oggetti. Un vasto assortimento di cacciaviti, fermi, pinze, morse e fermagli è incluso, così come un martello e un kit per cucito.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>204</uiIndex>
+		<szItemName>Kit serrature</szItemName>
+		<szLongItemName>Kit da fabbro per serrature</szLongItemName>
+		<szItemDesc>Questa scatola di cuoio con cerniere lampo offre utensili da esperto scassinatore inclusi: picconi, zeppe, chiavi di tensione, passe-partout, un estrattore di chiave rotta e pressa per chiave a spatola.</szItemDesc>
+		<szBRName>Kit da Fabbro per Serrature</szBRName>
+		<szBRDesc>La soluzione perfetta per aprire porte e scassinare casseforti. Questo kit offre utensili da esperto scassinatore inclusi: picconi, zeppe, chiavi di tensione, passe-partout, estrattori di chiave rotta e pressa per chiave; tutto in una borsa di cuoio con cerniere lampo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>205</uiIndex>
+		<szItemName>Kit trucco</szItemName>
+		<szLongItemName>Kit per il trucco</szLongItemName>
+		<szItemDesc>Il Portacipria Militare include: grigio oliva, verde oliva, crema da viso per pelle abbronzata e chiara, uno specchio e un manuale che spiega l'uso  corretto e la cura del tuo portacipria.</szItemDesc>
+		<szBRName>Kit di Trucco - Wood</szBRName>
+		<szBRDesc>Il Portacipria Militare include grigio oliva, verde oliva, crema facciale abbronzante e uno specchio. Questa tintura di lunga durata che non cola, può essere rimossa facilmente. Il kit include anche un manuale che spiega il corretto impiego.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>206</uiIndex>
+		<szItemName>Kit trappole</szItemName>
+		<szLongItemName>Kit per trabocchetti</szLongItemName>
+		<szItemDesc>Questo kit contiene tutto quel che occorre per preparare trappole inclusi: cavo per lo scatto, esplosivi e grilletti.</szItemDesc>
+		<szBRName>Kit di Trabocchetti</szBRName>
+		<szBRDesc>Tutto quello che ti occorre per preparare la trappola più letale per passanti ignari è contenuto in questo kit. Dal cavo per farla scattare alle batterie; ti divertirai per ore.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>207</uiIndex>
+		<szItemName>Silenziatore</szItemName>
+		<szLongItemName>Silenziatore</szLongItemName>
+		<szItemDesc>Il lieve, compatto modello di questo silenziatore può essere adattato con facilità alla maggior parte delle pistole e dei mitra.</szItemDesc>
+		<szBRName>Silenziatore</szBRName>
+		<szBRDesc>Questo è il silenziatore ideale sia per missioni interne o esterne che devono essere silenziose. Il suo lieve, compatto modello può essere adattato con facilità alla maggior parte delle pistole e dei mitra.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>208</uiIndex>
+		<szItemName>Telescopio 10x</szItemName>
+		<szLongItemName>Telescopio da cecchino, 10x</szLongItemName>
+		<szItemDesc>Questo telescopio può essere attaccato alla maggior parte delle carabine, migliora significativamente la mira con la sua accurata regolazione dello spostamento laterale, la precisa scala della gittata, e l'ottica coperta.</szItemDesc>
+		<szBRName>Telescopio da Cecchino 10x</szBRName>
+		<szBRDesc>Migliora in modo spettacolare la precisione della tua mira con questo versatile telescopio. È adatto alla maggior parte dei fucili e ne apprezzerai ben presto l'accurata regolazione, la precisa scala della gittata e l'ottica coperta.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>209</uiIndex>
+		<szItemName>Bipode</szItemName>
+		<szLongItemName>Bipode</szLongItemName>
+		<szItemDesc>Il bipode universale si adatta alla maggior parte dei fucili d'assalto e da cecchino, e mitragliatrici leggere. È in pressofusione di alluminio, ha finitura opaca e le gambe si ripiegano per il magazzinaggio.</szItemDesc>
+		<szBRName>Bipode</szBRName>
+		<szBRDesc>Ogni mercenario sensibile mette in valigia uno di questi bipodi universali che si adattano alla maggior parte dei fucili d'assalto e da cecchino e mitragliatrici leggere. Pressofuso in alluminio, ha finitura opaca e gambe pieghevoli, per l'immagazzinamento.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>210</uiIndex>
+		<szItemName>Orecchio amp.</szItemName>
+		<szLongItemName>Orecchio amplificato</szLongItemName>
+		<szItemDesc>L'Orecchio Bionico Scout è una cuffia amplificatrice stereo ad alta fedeltà con doppi microfoni resistenti al vento che amplificano piccoli suoni escludendo quelli molto alti. È completamente adattabile alla testa.</szItemDesc>
+		<szBRName>Orecchio Amplificato</szBRName>
+		<szBRDesc>L'Orecchio Bionico Scout offre un migliore avvertimento su intrusi. Questa cuffia amplificatrice stereo ad alta fedeltà presenta doppi microfoni resistenti al vento che amplificano piccoli suoni escludendo quelli molto alti. È completamente adattabile alla testa.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>211</uiIndex>
+		<szItemName>NVG I</szItemName>
+		<szLongItemName>Occhiali per la visione notturna, Gen. I</szLongItemName>
+		<szItemDesc>Questi occhiali offrono doppio fuoco, unità ingrandimento, illuminatore a infrarossi inserito e messa a fuoco da 25 cm all'infinito. È completo di due batterie "AA", scatola da trasporto e banda in nylon per la testa.</szItemDesc>
+		<szBRName>Occhiali per la visione notturna I</szBRName>
+		<szBRDesc>Tecnologia di II generazione per la visione notturna. Questi occhiali offrono doppio fuoco, unità ingrandimento, un illuminatore a infrarossi e una messa a fuoco da 25 cm. È anche equipaggiato con due batterie "AA", una confezione e una banda in nylon.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>212</uiIndex>
+		<szItemName>Occhiali da sole</szItemName>
+		<szLongItemName>Occhiali da sole</szLongItemName>
+		<szItemDesc>Questi protettori d'occhio paramilitari hanno lenti triple: una lente interna in acetato antinebbia, una lente mediana colorata riduci riverbero e una lente esterna che protegge da urti e graffi.</szItemDesc>
+		<szBRName>Occhiali da Sole</szBRName>
+		<szBRDesc>Questi occhiali paramilitari presentano lenti a tripla protezione: una lente interna in acetato antinebbia, una lente mediana colorata riduci riverbero e una lente esterna anti graffio. Inoltre, possono essere portati sopra gli occhiali da vista.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>213</uiIndex>
+		<szItemName>Maschera antigas</szItemName>
+		<szLongItemName>Maschera antigas</szLongItemName>
+		<szItemDesc>Replicata dalla russa M-17A1, questa maschera di gomma ha filtri per le guance, lenti a prova di graffio, strisce per la testa regolabili, e un accessorio per bere. Tracolla in vinile e manto di plastica sono compresi.</szItemDesc>
+		<szBRName>Maschera antigas</szBRName>
+		<szBRDesc>Questa maschera russa di gomma è una copia dell'americana M-17A1. Ha filtri per le guance, lenti a prova di graffio, strisce regolabili per la testa, e un accessorio per bere. Sono compresi tracolla in vinile e poncho di plastica per aiutarti a proteggerti da agenti urticanti.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>214</uiIndex>
+		<szItemName>Borraccia</szItemName>
+		<szLongItemName>Borraccia</szLongItemName>
+		<szItemDesc>Questa borraccia in polietilene non intaccabile, inodore, tiene fino a un litro d'acqua.</szItemDesc>
+		<szBRName>Borraccia</szBRName>
+		<szBRDesc>Ogni mercenario ragionevole ne avrà sempre una bella scorta con sé. Questa borraccia in poliestere riempita di acqua non può essere riempita una seconda volta o riutilizzata. Fattene una buona provvista.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>215</uiIndex>
+		<szItemName>Cerca metalli</szItemName>
+		<szLongItemName>Rilevatore di metalli</szLongItemName>
+		<szItemDesc>Questo è un rilevatore di metalli transistorizzato estremamente leggero e potente con segnalazione acustica.</szItemDesc>
+		<szBRName>Rilevatore di Metalli</szBRName>
+		<szBRDesc>Questo rilevatore di metalli a mano è estremamente potente e troverà ben altro che monetine sulla spiaggia. È leggero, transistorizzato, con segnalazione acustica e viene usato dagli operativi della identificazione di esplosivi.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>216</uiIndex>
+		<szItemName>Composto-18</szItemName>
+		<szLongItemName>Composto-18</szLongItemName>
+		<szItemDesc>Questo liquido a rapido essiccamento, se somministrato alla maggior parte delle armature personali, pretende di aumentare ancora le proprietà protettive dei materiali anti-balistici standard.</szItemDesc>
+		<szBRName>Composto-18</szBRName>
+		<szBRDesc>Spargi un po' di questa roba per sentirti veramente invincibile. Questo liquido a rapido essiccamento pretende di aumentare le qualità protettive della tua armatura in Kevlar o Spectra Shield.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>217</uiIndex>
+		<szItemName>Barattolo pieno</szItemName>
+		<szLongItemName>Barattolo di sangue</szLongItemName>
+		<szItemDesc>Un barattolo di vetro contenente quello che appare come il sangue dell'orripilante creatura regina.</szItemDesc>
+		<szBRName>Vaso con Sangue di Creatura Regina</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>218</uiIndex>
+		<szItemName>Barra</szItemName>
+		<szLongItemName>Piede di porco</szLongItemName>
+		<szItemDesc>Questo resistente utensile a leva è una barra di titanio in un unico  pezzo. Mentre è più duro e forte dell'acciaio, pesa meno, e non  arrugginirà.</szItemDesc>
+		<szBRName>Piede di porco</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>219</uiIndex>
+		<szItemName>Denaro</szItemName>
+		<szLongItemName>Denaro</szLongItemName>
+		<szItemDesc>Soldi, denaro, moneta, grana. Comunque lo vuoi chiamare, ti comprerà tutto quello che vuoi.</szItemDesc>
+		<szBRName>Denaro</szBRName>
+		<szBRDesc>Soldi, denaro, moneta, grana. Comunque lo vuoi chiamare, ti permetterà di comprare della roba.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>220</uiIndex>
+		<szItemName>Barattolo</szItemName>
+		<szLongItemName>Barattolo di vetro</szLongItemName>
+		<szItemDesc>Un barattolo di vetro vuoto è utilissimo per conservare marmellata, denti della nonna, o qualunque altra cosa.</szItemDesc>
+		<szBRName>Barattolo di Vetro</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>221</uiIndex>
+		<szItemName>Barattolo pieno</szItemName>
+		<szLongItemName>Barattolo di sangue</szLongItemName>
+		<szItemDesc>Un barattolo di vetro contenente quello che appare come il sangue di creatura. Ewwwwwwww! Questo barattolo è pieno di sangue viscido di Creatura Regina!</szItemDesc>
+		<szBRName>Barattolo di Sangue di Creatura</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>222</uiIndex>
+		<szItemName>Energia</szItemName>
+		<szLongItemName>Richiamo di energia</szLongItemName>
+		<szItemDesc>Questa siringa ipodermica è riempita con uno stimolante chimico che incrementerà temporaneamente il tuo livello di energia. Attenzione: l'uso ripetuto può provocare arresto cardiaco.</szItemDesc>
+		<szBRName>Amplificatore di Energia</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>223</uiIndex>
+		<szItemName>Detonatore</szItemName>
+		<szLongItemName>Detonatore</szLongItemName>
+		<szItemDesc>Questo congegno da brillamento contiene un timer che può essere regolato dovunque fra cinque secondi e dieci minuti per permetterti di porti in salvo prima che l'esplosivo attaccato scoppi.</szItemDesc>
+		<szBRName>Detonatore</szBRName>
+		<szBRDesc>Attacca questo piccolino a un esplosivo per gestire un grande potere e un preciso controllo. Questo detonatore ritardato ti fornisce tra cinque secondi e dieci minuti di tempo, per trovare un riparo prima  dell'esplosione.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>224</uiIndex>
+		<szItemName>Det. a distanza</szItemName>
+		<szLongItemName>Detonatore a distanza</szLongItemName>
+		<szItemDesc>Piazza questo congegno a brillamento ritardato sopra qualunque esplosivo per poter fare saltare in aria un obiettivo da una posizione sicura. Il detonatore non funzionerà, se non colpirai il dispositivo a distanza.</szItemDesc>
+		<szBRName>Detonatore Remoto</szBRName>
+		<szBRDesc>Immancabile presso ogni serio agente di esplosivi. Piazza questo congegno a brillamento ritardato sopra qualunque esplosivo per poter far saltare in aria un obiettivo quando vuoi, da dove vuoi. Il detonatore non funzionerà se non colpirai il comando.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>225</uiIndex>
+		<szItemName>Videotape</szItemName>
+		<szLongItemName>Videotape</szLongItemName>
+		<szItemDesc>Questo nastro VHS intitolato 'Anela al Vestito Loretta 6: Gli Uomini Sono Via,' è un film per adulti XXX. È consigliata la discrezione di genitori e spettatori.</szItemDesc>
+		<szBRName>Videotape</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>226</uiIndex>
+		<szItemName>Impresa</szItemName>
+		<szLongItemName>Impresa</szLongItemName>
+		<szItemDesc>Questa è l'impresa al negozio di cuoio di Angel.</szItemDesc>
+		<szBRName>Impresa</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>227</uiIndex>
+		<szItemName>Lettera</szItemName>
+		<szLongItemName>Lettera da Enrico</szLongItemName>
+		<szItemDesc>Questa è la lettera che Enrico ti ha dato. Deliver it to Miguel, leader of the rebels.</szItemDesc>
+		<szBRName>Lettera da Enrico</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>228</uiIndex>
+		<szItemName>Dischetto</szItemName>
+		<szLongItemName>Dischetto per computer</szLongItemName>
+		<szItemDesc>Questo dischetto è etichettato 'Intercetta il più Ricercato'. Contiene informazioni confidenziali su noti terroristi internazionali.</szItemDesc>
+		<szBRName>Dischetto</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>229</uiIndex>
+		<szItemName>Calice</szItemName>
+		<szLongItemName>Calice del caso</szLongItemName>
+		<szItemDesc>Coppa di bontà, bicchiere di tesori, nappo di azzardi. Questa tazza per bere è un tesoro nazionale intorno ad Arulco, quindi non burlartene.</szItemDesc>
+		<szBRName>Calice del caso</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>230</uiIndex>
+		<szItemName>Artigli</szItemName>
+		<szLongItemName>Artigli di Bloodcat</szLongItemName>
+		<szItemDesc>Sottratti direttamente da questi, questi affilati artigli di Bloodcat  potrebbero portarti un buon penny nel giusto mercato.</szItemDesc>
+		<szBRName>Artigli di Bloodcat</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>231</uiIndex>
+		<szItemName>Denti</szItemName>
+		<szLongItemName>Denti di Bloodcat</szLongItemName>
+		<szItemDesc>È necessario un vero uomo per rubare questi denti di Bloodcat. Questi  costituiscono una merce rara e barattabile nel mondo intero.</szItemDesc>
+		<szBRName>Denti di Bloodcat</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>232</uiIndex>
+		<szItemName>Pelle</szItemName>
+		<szLongItemName>Pelle di Bloodcat</szLongItemName>
+		<szItemDesc>Scuoiare un gatto non è una cosa semplice. Il prezzo di questa pelle sarà consistente.</szItemDesc>
+		<szBRName>Pelle di Bloodcat</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>233</uiIndex>
+		<szItemName>Interruttore</szItemName>
+		<szLongItemName>Interruttore</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Interruttore</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>234</uiIndex>
+		<szItemName>Articolo da azione</szItemName>
+		<szLongItemName>Articolo da azione</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Articolo da azione</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>235</uiIndex>
+		<szItemName>Spinta Rigen.</szItemName>
+		<szLongItemName>Richiamo di rigenerazione</szLongItemName>
+		<szItemDesc>Questa siringa ipodermica è riempita con 10 cc di una droga guaritrice ad azione rapida. Le avvertenze dicono: "Non superare le 4 dosi giornaliere".</szItemDesc>
+		<szBRName>Amplificatore di Rigenerazione</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>236</uiIndex>
+		<szItemName>Siringa</szItemName>
+		<szLongItemName>Siringa</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Siringa</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>237</uiIndex>
+		<szItemName>Siringa</szItemName>
+		<szLongItemName>Siringa</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Siringa</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>238</uiIndex>
+		<szItemName>Siringa</szItemName>
+		<szLongItemName>Siringa</szLongItemName>
+		<szItemDesc>NESSUNA DESCRIZIONE NECESSARIA!</szItemDesc>
+		<szBRName>Siringa</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>239</uiIndex>
+		<szItemName>Barattolo pieno</szItemName>
+		<szLongItemName>Barattolo di sangue umano</szLongItemName>
+		<szItemDesc>Un barattolo di vetro contenente ciò che sembra sangue umano. Quale razza di pazzoide conserva sangue umano, in ogni modo???</szItemDesc>
+		<szBRName>Vaso con Sangue Umano</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>240</uiIndex>
+		<szItemName>Possesso</szItemName>
+		<szLongItemName>Possesso</szLongItemName>
+		<szItemDesc>Se puoi leggere questo, i programmatori JA2 hanno fatto un pasticcio!</szItemDesc>
+		<szBRName>Possesso</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>241</uiIndex>
+		<szItemName>Telescopio laser</szItemName>
+		<szLongItemName>Telescopio laser</szLongItemName>
+		<szItemDesc>Il Laser della Universal Daylight proietta una macchia rossa visibilissima a una distanza significativa. In un alloggiamento in acciaio inossidabile, si inserisce sul copri-grilletto della maggior parte di mitra e pistole.</szItemDesc>
+		<szBRName>Telescopio a Laser</szBRName>
+		<szBRDesc>Non perderai di vista il tuo bersaglio con un simile dispositivo. Il Laser Universal Daylight proietta un punto rosso visibilissimo fino a 4.30 m. di giorno e oltre 300 m. di notte. In un alloggiamento in acciaio inox, si monta sul copri-grilletto di quasi ogni arma.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>242</uiIndex>
+		<szItemName>Disp. a distanza</szItemName>
+		<szLongItemName>Dispositivo a distanza per bomba</szLongItemName>
+		<szItemDesc>Una volta che il detonatore remoto è stato piazzato su un esplosivo, questo non salterà finché non avrai attivato questo dispositivo.</szItemDesc>
+		<szBRName>Grilletto Remoto</szBRName>
+		<szBRDesc>Immancabile presso ogni serio agente di esplosivi. Piazza questo congegno a brillamento ritardato sopra qualunque esplosivo per poter far saltare in aria un obiettivo quando vuoi, da dove vuoi. Il detonatore non funzionerà se non colpirai il comando.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>243</uiIndex>
+		<szItemName>Tronchesi</szItemName>
+		<szLongItemName>Tronchesi</szLongItemName>
+		<szItemDesc>I tuoi tronchesi medi di uso corrente.</szItemDesc>
+		<szBRName>Tronchesi</szBRName>
+		<szBRDesc>I tuoi tronchesi medi di uso corrente. Estremamente utili e versatili - non uscire di casa senza!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>244</uiIndex>
+		<szItemName>Becco anatra</szItemName>
+		<szLongItemName>Becco d'anatra</szLongItemName>
+		<szItemDesc>Questo oggetto di metallo, se attaccato alla fine della canna di un fucile da caccia, fa sì che i pallettoni sparati dal fucile si sparpaglino lungo una linea orizzontale invece che secondo il consueto schema circolare.</szItemDesc>
+		<szBRName>Caricatrice a Becco d'Anatra</szBRName>
+		<szBRDesc>Attacca questo oggetto di metallo alla fine della canna di un fucile da caccia per un effetto micidiale. Esso fa sì che i pallettoni sparati si sparpaglino lungo una linea orizzontale invece del solito schema circolare. Dì addio a chi si trova sulla linea di fuoco.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>245</uiIndex>
+		<szItemName>Alcool</szItemName>
+		<szLongItemName>Bottiglia d'alcool</szLongItemName>
+		<szItemDesc>Bevanda alcolica, spirito, radice palustre, liquore scadente. A 80 gradi, bere questa roba porterà definitivamente all'intossicazione.</szItemDesc>
+		<szBRName>Bottiglia d'Alcool</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>246</uiIndex>
+		<szItemName>NVG II</szItemName>
+		<szLongItemName>Night Vision Goggles, Gen. II</szLongItemName>
+		<szItemDesc>Second generation nightvision gear has a better intensifier than earlier models. Picture is still somewhat grainy. This type is mostly available to the public.</szItemDesc>
+		<szBRName>Night Vision Goggles II</szBRName>
+		<szBRDesc>Questi occhialini a raggi UV sono l'ultima mania! Usando i raggi ultravioletti, tramutano la notte in giorno. Molto potenti, comodissimi e strafighi!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>247</uiIndex>
+		<szItemName>LEGGE abbandonata</szItemName>
+		<szLongItemName>LEGGE abbandonata</szLongItemName>
+		<szItemDesc>Avendo già abbattuto il martello della giustizia sul suo obiettivo, questo lanciarazzi LEGGE vuoto trascorrerà il resto della sua terribile (Dredd- ful) esistenza come un glorificato pezzo di carta.</szItemDesc>
+		<szBRName>LAW abbandonata</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>248</uiIndex>
+		<szItemName>Testa</szItemName>
+		<szLongItemName>Testa</szLongItemName>
+		<szItemDesc>Una testa umana non identificata, piuttosto in decomposizione.</szItemDesc>
+		<szBRName>Testa</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>249</uiIndex>
+		<szItemName>Testa</szItemName>
+		<szLongItemName>Testa di sfruttatore</szLongItemName>
+		<szItemDesc>Lo Sfruttatore non se ne approfitterà più della bontà di nessuno. Sei  l'orgoglioso possessore della sua testa leggermente in putrefazione.</szItemDesc>
+		<szBRName>Testa dell'Impostore</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>250</uiIndex>
+		<szItemName>Testa</szItemName>
+		<szLongItemName>Testa di T-Rex</szLongItemName>
+		<szItemDesc>Il T-Rex può essersi estinto come i dinosauri, ma assicurati di conservare la sua testa per i posteri.</szItemDesc>
+		<szBRName>Testa di Tirex</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>251</uiIndex>
+		<szItemName>Testa</szItemName>
+		<szLongItemName>Testa di Slay</szLongItemName>
+		<szItemDesc>Slay è stato ucciso e tutto quello che ne rimane è la sua testa in decomposizione.</szItemDesc>
+		<szBRName>Testa dell'Uccisore</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>252</uiIndex>
+		<szItemName>Testa</szItemName>
+		<szLongItemName>Testa di farmacista</szLongItemName>
+		<szItemDesc>Questo Farmacista non rinnoverà alcuna ricetta. Adesso la sua testa è sul tuo tagliere.</szItemDesc>
+		<szBRName>Testa del Farmacista</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>253</uiIndex>
+		<szItemName>Testa</szItemName>
+		<szLongItemName>Testa di Matrona</szLongItemName>
+		<szItemDesc>Nessuno sentirà la mancanza di MOM, o della sua testa. È tua per la cattura.</szItemDesc>
+		<szBRName>Testa della Matrona</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>254</uiIndex>
+		<szItemName>Testa</szItemName>
+		<szLongItemName>Testa di Tiffany</szLongItemName>
+		<szItemDesc>Tiffany Eddie può non aver tratto profitto dall'uso della sua testa, ma tu sì, adesso che è morto.</szItemDesc>
+		<szBRName>Testa di Tiffany</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>255</uiIndex>
+		<szItemName>Vino</szItemName>
+		<szLongItemName>Vino</szLongItemName>
+		<szItemDesc>Questa bottiglia del miglior vino rosso di Saw Mill Spring combina succo di pompelmo fermentato con il sapore di polpa di legno per un gusto veramente unico.</szItemDesc>
+		<szBRName>Vino</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>256</uiIndex>
+		<szItemName>Birra</szItemName>
+		<szLongItemName>Birra</szLongItemName>
+		<szItemDesc>Al 6,9 per cento di alcool, a chi cavolo interessa da dove venga questa roba? Questa birra gelata manderebbe sotto il tavolo anche un Russo.</szItemDesc>
+		<szBRName>Birra</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>257</uiIndex>
+		<szItemName>Porno</szItemName>
+		<szLongItemName>Rivista pornografica</szLongItemName>
+		<szItemDesc>Rivista da indaffarato, numero di Luglio. Presenta un interessante servizio fotografico su Demi Moon e vari articoli che nessuno leggerà mai.</szItemDesc>
+		<szBRName>Rivista Pornografica</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>258</uiIndex>
+		<szItemName>Videocamera</szItemName>
+		<szLongItemName>Videocamera</szLongItemName>
+		<szItemDesc>Questa telecamera VHS registrerà e riprodurrà tutti i tuoi ricordi preferiti, compresi imbarazzanti momenti del matrimonio o giudici locali in posizioni compromettenti.</szItemDesc>
+		<szBRName>Videocamera</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>259</uiIndex>
+		<szItemName>Robot remoto</szItemName>
+		<szLongItemName>Controllo remoto per robot</szLongItemName>
+		<szItemDesc>Manda fuori il tuo robot a fare il tuo sporco lavoro con questo fedele controllo remoto. Fagli eseguire i tuoi ordini mentre te ne stai abbastanza al sicuro.</szItemDesc>
+		<szBRName>Controllo Remoto del Robot</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>260</uiIndex>
+		<szItemName>Artiglio</szItemName>
+		<szLongItemName>Artiglio di creatura</szLongItemName>
+		<szItemDesc>Un artiglio affilato come un rasoio di una di quelle ripugnanti creature, grazie al cielo morta.</szItemDesc>
+		<szBRName>Unghie di Creatura</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>261</uiIndex>
+		<szItemName>Carne</szItemName>
+		<szLongItemName>Carne di creatura</szLongItemName>
+		<szItemDesc>Un pezzo in putrefazione di carne di creatura. Almeno questa è morta.</szItemDesc>
+		<szBRName>Carne di Creatura</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>262</uiIndex>
+		<szItemName>Organo</szItemName>
+		<szLongItemName>Organo di creatura non identificabile</szLongItemName>
+		<szItemDesc>Budella di creatura morta, giusto in tempo per il pranzo!</szItemDesc>
+		<szBRName>Organo di Creatura non identificata</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>263</uiIndex>
+		<szItemName>Remoto</szItemName>
+		<szLongItemName>Controllo remoto</szLongItemName>
+		<szItemDesc>Apri le porte al sicuro e in modo facile con questo aggeggino. Premi il bottone piccolo, e voilà, sei alla moda come una pescivendola in acqua sporca.</szItemDesc>
+		<szBRName>Controllo Remoto</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>264</uiIndex>
+		<szItemName>Orologio</szItemName>
+		<szLongItemName>Orologio di platino</szLongItemName>
+		<szItemDesc>Di' l'ora con stile con questo orologio di designer che presenta cristallo al quarzo, movimento svizzero e 4 micron di elegante platinatura.</szItemDesc>
+		<szBRName>Orologio di Platino</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>265</uiIndex>
+		<szItemName>Mazze</szItemName>
+		<szLongItemName>Mazze da golf</szLongItemName>
+		<szItemDesc>Questa sacca di legni e ferri è un completo d'annata che ha visto giorni migliori sul green. Anche se leggermente scassate, potresti ancora stare sotto al par con queste.</szItemDesc>
+		<szBRName>Mazze da golf</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>266</uiIndex>
+		<szItemName>Walkman</szItemName>
+		<szLongItemName>Walkman</szLongItemName>
+		<szItemDesc>Ascolta le tue arie preferite dovunque vai con questo riproduttore di cassette portatile e queste mini-cuffie. Renderanno un po' più allegra qualunque lunga marcia.</szItemDesc>
+		<szBRName>Walkman</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>267</uiIndex>
+		<szItemName>TV portatile</szItemName>
+		<szLongItemName>TV portatile</szLongItemName>
+		<szItemDesc>Non perderai il tuo cartone preferito o i punteggi del calcio con questo televisore portatile. Non uscire di casa senza!</szItemDesc>
+		<szBRName>TV portatile</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>268</uiIndex>
+		<szItemName>SalCor</szItemName>
+		<szLongItemName>Saldo corrente:</szLongItemName>
+		<szItemDesc>Ecco come puoi accedere al tuo principale 'conto bancario' dove puoi mettere le mani sul denaro cliccando sui diversi importi seguiti da 'Fatto'. Avere denaro è molto utile a volte.</szItemDesc>
+		<szBRName>Bilancia alla moda</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>269</uiIndex>
+		<szItemName>Sigari</szItemName>
+		<szLongItemName>Sigari</szLongItemName>
+		<szItemDesc>Una solida scatola di robustos. Adatti per essere stretti fra i denti  nell'ardore della battaglia o per ciondolare in una sala da fumo con un buon bicchiere di porto.</szItemDesc>
+		<szBRName>Sigari</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>270</uiIndex>
+		<szItemName>Very Small Creature Gas</szItemName>
+		<szLongItemName>Very Small Creature Gas</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Very Small Creature Gas</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>271</uiIndex>
+		<szItemName>Chiave</szItemName>
+		<szLongItemName>Chiave</szLongItemName>
+		<szItemDesc>Una piccola chiave colore oro che potrebbe andar bene per la serratura di  un armadietto.</szItemDesc>
+		<szBRName>Chiave</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>272</uiIndex>
+		<szItemName>Chiave</szItemName>
+		<szLongItemName>Chiave</szLongItemName>
+		<szItemDesc>Una chiave di prigione fatta d'acciaio inossidabile.</szItemDesc>
+		<szBRName>Chiave</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>273</uiIndex>
+		<szItemName>Chiave</szItemName>
+		<szLongItemName>Chiave</szLongItemName>
+		<szItemDesc>Una semplice chiave. Sembra essere adatta a una serratura scadente.</szItemDesc>
+		<szBRName>Chiave</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>274</uiIndex>
+		<szItemName>Chiave</szItemName>
+		<szLongItemName>Chiave</szLongItemName>
+		<szItemDesc>Una chiave opaca.</szItemDesc>
+		<szBRName>Chiave</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>275</uiIndex>
+		<szItemName>Chiave</szItemName>
+		<szLongItemName>Chiave luccicante</szLongItemName>
+		<szItemDesc>Una chiave luccicante, forse adatta a più di una comune serratura.</szItemDesc>
+		<szBRName>Chiave luccicante</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>276</uiIndex>
+		<szItemName>Chiave</szItemName>
+		<szLongItemName>Chiave per lucchetto</szLongItemName>
+		<szItemDesc>Una chiave per lucchetto.</szItemDesc>
+		<szBRName>Chiave per lucchetto</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>277</uiIndex>
+		<szItemName>Chiave</szItemName>
+		<szLongItemName>Chiave elettronica</szLongItemName>
+		<szItemDesc>Una chiave elettronica con una striscia magnetica al posto dei denti  metallici.</szItemDesc>
+		<szBRName>Chiave elettronica</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>278</uiIndex>
+		<szItemName>Chiave</szItemName>
+		<szLongItemName>Chiave a codice</szLongItemName>
+		<szItemDesc>Una chiave a codice elettronico.</szItemDesc>
+		<szBRName>Chiave a codice</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>279</uiIndex>
+		<szItemName>5.7mm Mag 20</szItemName>
+		<szLongItemName>5.7x28mm Mag, 20</szLongItemName>
+		<szItemDesc>This magazine contains 20 rounds of 5.7mm ammunition. This polymer pistol round performs remarkably well against both armored and unarmored opponents.</szItemDesc>
+		<szBRName>5.7x28mm Mag 20</szBRName>
+		<szBRDesc>5.7mm somersaults through flesh and bone leaving major wound cavities.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>280</uiIndex>
+		<szItemName>5.7mm Mag 20 HP</szItemName>
+		<szLongItemName>5.7x28mm Mag, 20 HP</szLongItemName>
+		<szItemDesc>These 20 rounds of 5.7mm hollow point ammunition have enhanced injury inflicting capabilities over the basic 5.7 and have retained most of its armor piercing capabilities.</szItemDesc>
+		<szBRName>5.7x28mm Mag 20 HP</szBRName>
+		<szBRDesc>These 20 rounds of 5.7mm hollow point ammunition have enhanced injury inflicting capabilities over the basic 5.7 and have retained most of its armor piercing capabilities.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>281</uiIndex>
+		<szItemName>Black Cap</szItemName>
+		<szLongItemName>Black Cap</szLongItemName>
+		<szItemDesc>A black commando-type tuque.</szItemDesc>
+		<szBRName>Black Cap</szBRName>
+		<szBRDesc>On Sale: 1/2 Price!  For a limited time only, you can purchase this fine Commando Tuque, made from the finest cotton, for 50 percent off!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>282</uiIndex>
+		<szItemName>Zylon Combat Pants</szItemName>
+		<szLongItemName>Zylon Combat Pants</szLongItemName>
+		<szItemDesc>This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
+		<szBRName>Zylon Combat Pants</szBRName>
+		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>283</uiIndex>
+		<szItemName>Zylon Combat Vest</szItemName>
+		<szLongItemName>Zylon Combat Vest</szLongItemName>
+		<szItemDesc>This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
+		<szBRName>Zylon Combat Vest</szBRName>
+		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>284</uiIndex>
+		<szItemName>Uniform</szItemName>
+		<szLongItemName>Field Uniform</szLongItemName>
+		<szItemDesc>Officer's fatigues. This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
+		<szBRName>Field Uniform</szBRName>
+		<szBRDesc>Officer's fatigues.  Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>285</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>Hat</szLongItemName>
+		<szItemDesc>A nice hat to wear when your helmet gets too hot.  Provides limited camouflage.</szItemDesc>
+		<szBRName>Hat</szBRName>
+		<szBRDesc>As seen on TV!  This is the same hat that "Wild Bill" wore on the GI Joe Saturday morning cartoon.  Ok, so it's not the same hat.  But's its still a nice hat.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>286</uiIndex>
+		<szItemName>Uniform</szItemName>
+		<szLongItemName>Dress Uniform</szLongItemName>
+		<szItemDesc>If you ever need to go to a formal dinner party while you're here in Arulco, you could wear this.  Or not.</szItemDesc>
+		<szBRName>Dress Uniform</szBRName>
+		<szBRDesc>Formal attire of the US Marine Corps.  Warning!  This is not a viable combat vestement.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>287</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>Officer's Hat</szLongItemName>
+		<szItemDesc>This is an officer's hat.  From the looks of it, it's probably from the US.</szItemDesc>
+		<szBRName>Officer's Hat</szBRName>
+		<szBRDesc>A marine officer's hat.  Comes with free beer-hat.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>288</uiIndex>
+		<szItemName>Beret</szItemName>
+		<szLongItemName>Red Beret</szLongItemName>
+		<szItemDesc>Parlay voo francais?  This beret may not be French, but it sure looks gay.</szItemDesc>
+		<szBRName>Red Beret</szBRName>
+		<szBRDesc>Start your own special forces team!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>289</uiIndex>
+		<szItemName>Cap</szItemName>
+		<szLongItemName>Russian Cap</szLongItemName>
+		<szItemDesc>Wow, nice hat!</szItemDesc>
+		<szBRName>Russian Cap</szBRName>
+		<szBRDesc>A Soviet guard's hat.  Available in brown and red.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>290</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>Fur Hat</szLongItemName>
+		<szItemDesc>For those cold Russian winters, you need the best in head warming fur hats.  So why would you need it in Arulco?</szItemDesc>
+		<szBRName>Fur Hat</szBRName>
+		<szBRDesc>For those cold Russian winters, you need the best in head warming fur hats.  Comes with free ear muffs.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>291</uiIndex>
+		<szItemName>Coat</szItemName>
+		<szLongItemName>Officer's Coat</szLongItemName>
+		<szItemDesc>While this coat looks like it'll hold up fine against the rain, it doesn't look like it'll do much against bullets.</szItemDesc>
+		<szBRName>Officer's Coat</szBRName>
+		<szBRDesc>A Soviet officer's coat.  Available with and without pocket lint.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>292</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>Officer's Hat</szLongItemName>
+		<szItemDesc>This is an officer's hat.  From the looks of it, it's probably from the former Soviet Union.</szItemDesc>
+		<szBRName>Officer's Hat</szBRName>
+		<szBRDesc>A Soviet officer's hat.  Available with and without lice.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>293</uiIndex>
+		<szItemName>SWAT Helmet</szItemName>
+		<szLongItemName>SWAT Helmet</szLongItemName>
+		<szItemDesc>This helmet comes with eye protection, and feels very sturdy.</szItemDesc>
+		<szBRName>SWAT Helmet</szBRName>
+		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>294</uiIndex>
+		<szItemName>SWAT Pants</szItemName>
+		<szLongItemName>SWAT Leggings</szLongItemName>
+		<szItemDesc>Standard issue SWAT armoured leggings.  Sturdier than standard kevlar due to extra integrated plating, but still provide excellent mobility.</szItemDesc>
+		<szBRName>SWAT Leggings</szBRName>
+		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>295</uiIndex>
+		<szItemName>SWAT Vest</szItemName>
+		<szLongItemName>SWAT Vest</szLongItemName>
+		<szItemDesc>Standard issue SWAT armoured vest.  Sturdier than standard kevlar due to extra integrated plating, but still provides excellent mobility.</szItemDesc>
+		<szBRName>SWAT Vest</szBRName>
+		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>296</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>T-Shirt</szLongItemName>
+		<szItemDesc>Oh Yeah?  Well, same to you buddy!</szItemDesc>
+		<szBRName>T-Shirt</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>297</uiIndex>
+		<szItemName>Retractable Baton</szItemName>
+		<szLongItemName>Retractable Baton</szLongItemName>
+		<szItemDesc>Standard issue for security guards in many countries, this retractable baton is greating for whipping out and beating.</szItemDesc>
+		<szBRName>Retractable Baton</szBRName>
+		<szBRDesc>Standard retractable baton.  Popular with security guards.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>298</uiIndex>
+		<szItemName>Nightstick</szItemName>
+		<szLongItemName>Nightstick</szLongItemName>
+		<szItemDesc>Long, hard and good for a serious beating.</szItemDesc>
+		<szBRName>Nightstick</szBRName>
+		<szBRDesc>Go Rodney-King on someone's ass with this police nightstick.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>299</uiIndex>
+		<szItemName>Utility Knife</szItemName>
+		<szLongItemName>Utility Knife</szLongItemName>
+		<szItemDesc>Pry open locks and stab your enemies with this all purpose utility knife.</szItemDesc>
+		<szBRName>Utility Knife</szBRName>
+		<szBRDesc>Pry open locks and stab your enemies with this all purpose utility knife.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>300</uiIndex>
+		<szItemName>Light Knife</szItemName>
+		<szLongItemName>Light Knife</szLongItemName>
+		<szItemDesc>A small, well-balanced knife.</szItemDesc>
+		<szBRName>Light Knife</szBRName>
+		<szBRDesc>A small, well-balanced blade that does a little less damage that our standard combat knife, but can be swung a bit faster.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>301</uiIndex>
+		<szItemName>Exacto Knife</szItemName>
+		<szLongItemName>Exacto Knife</szLongItemName>
+		<szItemDesc>Exactly what you'd need if you were going to cut through some cardboard.  Pretty much useless in combat though.</szItemDesc>
+		<szBRName>Exacto Knife</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>302</uiIndex>
+		<szItemName>Camo St. Helm</szItemName>
+		<szLongItemName>Camo Steel Helmet</szLongItemName>
+		<szItemDesc>This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has been painted with camouflage.</szItemDesc>
+		<szBRName>Camo Steel Helmet</szBRName>
+		<szBRDesc>Comfortable and extremely practical. This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has a padded leather and nylon suspension, with an adjustable chin strap.  Provides limited camouflage.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>303</uiIndex>
+		<szItemName>Vassoio</szItemName>
+		<szLongItemName>Vassoio d'argento</szLongItemName>
+		<szItemDesc>Questo vassoio d'argento piuttosto ossidato non porta alcuna inscrizione. Forse, un tempo, è stato un regalo importante.</szItemDesc>
+		<szBRName>Piatto d'Argento</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>304</uiIndex>
+		<szItemName>Nastro adesivo</szItemName>
+		<szLongItemName>Nastro adesivo per tubo</szLongItemName>
+		<szItemDesc>Questo pesante rullo di nastro grigio largo 2 pollici è molto utile per tappare buchi e tenere unite le cose.</szItemDesc>
+		<szBRName>Nastro del Condotto</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>305</uiIndex>
+		<szItemName>Asta</szItemName>
+		<szLongItemName>Asta d'alluminio</szLongItemName>
+		<szItemDesc>Quest'asta per tendine è rotta a entrambe le estremità. Mi chiedo cosa ne  sarà delle tendine.</szItemDesc>
+		<szBRName>Barra d'Alluminio</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>306</uiIndex>
+		<szItemName>Molla</szItemName>
+		<szLongItemName>Molla</szLongItemName>
+		<szItemDesc>Questa piccola e pesante molla metallica a spirale piatta è comune negli  elettrodomestici.</szItemDesc>
+		<szBRName>Molla</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>307</uiIndex>
+		<szItemName>Pistola</szItemName>
+		<szLongItemName>Pistola &amp; molla</szLongItemName>
+		<szItemDesc>Inserisci questa precisa molla e a scatto automatico nell'arma da fuoco per  aumentare la sua frequenza di fuoco!</szItemDesc>
+		<szBRName>Barra &amp; Molla</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>308</uiIndex>
+		<szItemName>Tubo</szItemName>
+		<szLongItemName>Tubo di acciaio</szLongItemName>
+		<szItemDesc>Un pezzo di acciaio grezzo, in cerca di una casa.</szItemDesc>
+		<szBRName>Tubo d'Acciaio</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>309</uiIndex>
+		<szItemName>Colla</szItemName>
+		<szLongItemName>Colla a presa rapida</szLongItemName>
+		<szItemDesc>Una volta che questa colla prende qualcosa, non la mollerà più. Incollerà  permanentemente la maggior parte delle cose in meno di tre minuti.</szItemDesc>
+		<szBRName>Colla a Presa Rapida</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>310</uiIndex>
+		<szItemName>Estensore</szItemName>
+		<szLongItemName>Estensore dell'arma</szLongItemName>
+		<szItemDesc>Monta questo elegante pezzo alla canna di una qualsiasi arma e sperimenta l'aumento della gittata.</szItemDesc>
+		<szBRName>Estensore della Canna</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>311</uiIndex>
+		<szItemName>Corda</szItemName>
+		<szLongItemName>Corda</szLongItemName>
+		<szItemDesc>Un pezzo di 19 piedi di una tipica corda bianca.</szItemDesc>
+		<szBRName>Corda</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>312</uiIndex>
+		<szItemName>Lattina</szItemName>
+		<szLongItemName>Lattina analcolica</szLongItemName>
+		<szItemDesc>Sembra che questa vecchia lattina di bevanda analcolica sia stata presa a  calci per un po' di tempo.</szItemDesc>
+		<szBRName>Lattina di Soda</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>313</uiIndex>
+		<szItemName>Corda con lattina</szItemName>
+		<szLongItemName>Corda con lattina</szLongItemName>
+		<szItemDesc>Un pezzo di corda con attaccate delle lattine di bevanda analcolica può  fare un gran rumore se legato al paraurti di un'auto di sposi.</szItemDesc>
+		<szBRName>Lattina di Soda con Corda</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>314</uiIndex>
+		<szItemName>Marmi</szItemName>
+		<szLongItemName>Marmi</szLongItemName>
+		<szItemDesc>Queste pesanti, luccicanti e colorate sfere di vetro di solito si trovano  nelle tasche dei ragazzini. Generalmente, vengono utilizzate per giocare.</szItemDesc>
+		<szBRName>Marmi</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>315</uiIndex>
+		<szItemName>Display</szItemName>
+		<szLongItemName>Display per videogioco</szLongItemName>
+		<szItemDesc>Un monitor a cristalli liquidi preso da un piccolo gioco portatile.</szItemDesc>
+		<szBRName>Esposizione dello Zoppo</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>316</uiIndex>
+		<szItemName>Conduttore</szItemName>
+		<szLongItemName>Conduttore in rame</szLongItemName>
+		<szItemDesc>Il tuo conduttore di rame quotidiano, eccezionale per gli elettricisti.</szItemDesc>
+		<szBRName>Conduttore di Rame</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>317</uiIndex>
+		<szItemName>Unità</szItemName>
+		<szLongItemName>Unità del display</szLongItemName>
+		<szItemDesc>Questa contrazione è essenzialmente un Lameboy LCD truccato con un  conduttore in rame.</szItemDesc>
+		<szBRName>Mostra Unità</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>318</uiIndex>
+		<szItemName>FumblePak</szItemName>
+		<szLongItemName>FumblePak</szLongItemName>
+		<szItemDesc>Questo dispositivo Fumble Pak fa vibrare il joystick durante il gioco. Attenzione: potrebbe far perdere la presa al giocatore.</szItemDesc>
+		<szBRName>FumblePak</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>319</uiIndex>
+		<szItemName>Tubo</szItemName>
+		<szLongItemName>Tubo a raggi X</szLongItemName>
+		<szItemDesc>Questo è un pezzo di un macchinario ospedaliero a raggi X.</szItemDesc>
+		<szBRName>Tubo a Raggi X</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>320</uiIndex>
+		<szItemName>Cicca</szItemName>
+		<szLongItemName>Pacchetto di gomme da masticare</szLongItemName>
+		<szItemDesc>Un pacchetto di gomme da masticare senza zucchero, alla menta. I dentisti  le raccomandano dopo ogni pasto e per la pulizia dei denti.</szItemDesc>
+		<szBRName>Pacco di Gomma</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>321</uiIndex>
+		<szItemName>Congegno</szItemName>
+		<szLongItemName>Congegno a raggi X</szLongItemName>
+		<szItemDesc>È splendido da vedersi, ma rigido; è composto da diverse parti. Pare che possa illuminare e vibrare.</szItemDesc>
+		<szBRName>Congegno a Raggi X</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>322</uiIndex>
+		<szItemName>Batterie</szItemName>
+		<szLongItemName>Batterie</szLongItemName>
+		<szItemDesc>Batterie NeverReady doppia 'A'. Potrebbe suonare come la descrizione di una donna che conosci e, proprio come una donna, queste batterie si guasteranno proprio nel momento di maggior bisogno.</szItemDesc>
+		<szBRName>Batterie</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>323</uiIndex>
+		<szItemName>Elastico</szItemName>
+		<szLongItemName>Elastico</szLongItemName>
+		<szItemDesc>Massima elasticità. Questa invenzione piuttosto vecchia risulta pur sempre  utile per tenere insieme diversi oggetti.</szItemDesc>
+		<szBRName>Elastico</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>324</uiIndex>
+		<szItemName>Rilevatore</szItemName>
+		<szLongItemName>Rilevatore a raggi X</szLongItemName>
+		<szItemDesc>Questo congegno trasmette un impulso a raggi X vibrante e mostra i  risultati sul suo LCD. Si richiedono le batterie.</szItemDesc>
+		<szBRName>Rivelatore a Raggi X</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>325</uiIndex>
+		<szItemName>Argento</szItemName>
+		<szLongItemName>Pepita d'argento</szLongItemName>
+		<szItemDesc>Una pepita di argento puro, forse estratta direttamente dalle miniere di Arulco.</szItemDesc>
+		<szBRName>Pepita d'argento</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>326</uiIndex>
+		<szItemName>Oro</szItemName>
+		<szLongItemName>Pepita d'oro</szLongItemName>
+		<szItemDesc>Dello stesso valore del denaro, solo più pesante. Questa è una luccicante  pepita d'oro puro, dono delle miniere di minerali di Arulco.</szItemDesc>
+		<szBRName>Pepita d'oro</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>327</uiIndex>
+		<szItemName>Benzina</szItemName>
+		<szLongItemName>Tanica di benzina</szLongItemName>
+		<szItemDesc>Usa questa tanica di benzina con attenzione. Sono estremamente difficili da trovare, qui ad Arulco.</szItemDesc>
+		<szBRName>Tanica di benzina</szBRName>
+		<szBRDesc>Non in vendita tramite BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>328</uiIndex>
+		<szItemName>5.56mm Mag 10</szItemName>
+		<szLongItemName>5.56x45mm Mag, 10</szLongItemName>
+		<szItemDesc>Call it 5.56 or .223, it still puts neat holes and ugly wound channels in the opposition.</szItemDesc>
+		<szBRName>5.56x45mm Mag 10</szBRName>
+		<szBRDesc>Call it 5.56 or .223, it still puts neat holes and ugly wound channels in the opposition.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>329</uiIndex>
+		<szItemName>5.56mm Mag 10 HP</szItemName>
+		<szLongItemName>5.56x45mm Mag, 10 HP</szLongItemName>
+		<szItemDesc>Banned for military use by conventions and agreements.  (We won't tell them if you won't.)</szItemDesc>
+		<szBRName>5.56x45mm Mag 10 HP</szBRName>
+		<szBRDesc>Banned for military use by conventions and agreements.  (We won't tell them if you won't.)</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>330</uiIndex>
+		<szItemName>Micro-Uzi</szItemName>
+		<szLongItemName>Micro-Uzi</szLongItemName>
+		<szItemDesc>The name says it all, it's an Uzi. First there was the Mini-Uzi, now the Micro-Uzi. One can only wonder when the Pocket-Uzi will roll-off the Israeli assembly line.</szItemDesc>
+		<szBRName>Micro-Uzi</szBRName>
+		<szBRDesc>The name says it all, it's an Uzi. First there was the Mini-Uzi, now the Micro-Uzi. One can only wonder when the Pocket-Uzi will roll-off the Israeli assembly line.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>331</uiIndex>
+		<szItemName>L85A2</szItemName>
+		<szLongItemName>Enfield L85A2</szLongItemName>
+		<szItemDesc>This British weapon was actually made in Nottingham, not Enfield, where computer controlled tools were finally able to eliminate all of its serious defects.</szItemDesc>
+		<szBRName>Enfield L85A2</szBRName>
+		<szBRDesc>This British weapon was actually made in Nottingham, not Enfield, where computer controlled tools were finally able to eliminate all of its serious defects.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>332</uiIndex>
+		<szItemName>TAR 21</szItemName>
+		<szLongItemName>Tavor TAR 21</szLongItemName>
+		<szItemDesc>This new Israeli high-tech machine gun will bullpup your socks off. Weighing only 5.5 pounds empty, this weapon of death can fire off 900 5.56mm bullets a minute.</szItemDesc>
+		<szBRName>Tavor TAR 21</szBRName>
+		<szBRDesc>This new Israeli high-tech machine gun will bullpup your socks off. Weighing only 5.5 pounds empty, this weapon of death can fire off 900 5.56mm bullets a minute.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>333</uiIndex>
+		<szItemName>VSS</szItemName>
+		<szLongItemName>VSS Vintorez</szLongItemName>
+		<szItemDesc>This silent sniper rifle from Russia fires heavy 9mm bullets at subsonic speeds and apparently can pierce all types of body armor at over 400 meters.</szItemDesc>
+		<szBRName>VSS Vintorez</szBRName>
+		<szBRDesc>This silent sniper rifle from Russia fires heavy 9mm bullets at subsonic speeds and apparently can pierce all types of body armor at over 400 meters.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>334</uiIndex>
+		<szItemName>PSG1</szItemName>
+		<szLongItemName>HK PSG1</szLongItemName>
+		<szItemDesc>This German made weapon exemplifies the country's reputation for precision and is a sniper's weapon of choice.</szItemDesc>
+		<szBRName>HK PSG1</szBRName>
+		<szBRDesc>This German made weapon exemplifies the country's reputation for precision and is a sniper's weapon of choice.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>335</uiIndex>
+		<szItemName>M82A2</szItemName>
+		<szLongItemName>Barrett M82A2</szLongItemName>
+		<szItemDesc>This modified M82A2's bullpup layout places the action and barrel further back in the stock, retaining its barrel length while shortening its overall size.</szItemDesc>
+		<szBRName>Barrett M82A2</szBRName>
+		<szBRDesc>This modified M82A2's bullpup layout places the action and barrel further back in the stock, retaining its barrel length while shortening its overall size.</szBRDesc>
+	</ITEM>
+</ITEMLIST>

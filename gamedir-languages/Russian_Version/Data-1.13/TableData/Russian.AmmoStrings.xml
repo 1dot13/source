@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AMMOLIST>
+	<AMMO>
+		<uiIndex>0</uiIndex>
+		<AmmoCaliber>0</AmmoCaliber>
+		<BRCaliber>0</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>1</uiIndex>
+		<AmmoCaliber>.38 Spc</AmmoCaliber>
+		<BRCaliber>.38 Spc</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>2</uiIndex>
+		<AmmoCaliber>9x19мм</AmmoCaliber>
+		<BRCaliber>9x19мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>3</uiIndex>
+		<AmmoCaliber>.45 ACP</AmmoCaliber>
+		<BRCaliber>.45 ACP</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>4</uiIndex>
+		<AmmoCaliber>.357 магнум</AmmoCaliber>
+		<BRCaliber>.357 Mag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>5</uiIndex>
+		<AmmoCaliber>12 калибр</AmmoCaliber>
+		<BRCaliber>12 калибр</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>6</uiIndex>
+		<AmmoCaliber>CAWS</AmmoCaliber>
+		<BRCaliber>CAWS</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>7</uiIndex>
+		<AmmoCaliber>5.45x39мм</AmmoCaliber>
+		<BRCaliber>5.45x39мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>8</uiIndex>
+		<AmmoCaliber>5.56x45мм</AmmoCaliber>
+		<BRCaliber>5.56x45мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>9</uiIndex>
+		<AmmoCaliber>7.62x51мм</AmmoCaliber>
+		<BRCaliber>7.62x51мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>10</uiIndex>
+		<AmmoCaliber>7.62x39мм</AmmoCaliber>
+		<BRCaliber>7.62x39мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>11</uiIndex>
+		<AmmoCaliber>4.7x33мм</AmmoCaliber>
+		<BRCaliber>4.7x33мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>12</uiIndex>
+		<AmmoCaliber>5.7x28мм</AmmoCaliber>
+		<BRCaliber>5.7x28мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>13</uiIndex>
+		<AmmoCaliber>Монстрооружие</AmmoCaliber>
+		<BRCaliber>Монстр</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>14</uiIndex>
+		<AmmoCaliber>Ракета</AmmoCaliber>
+		<BRCaliber>Ракета</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>15</uiIndex>
+		<AmmoCaliber>Дротик</AmmoCaliber>
+		<BRCaliber>Дротик</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>16</uiIndex>
+		<AmmoCaliber>Пламя</AmmoCaliber>
+		<BRCaliber>Пламя</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>17</uiIndex>
+		<AmmoCaliber>.50 BMG</AmmoCaliber>
+		<BRCaliber>.50 BMG</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>18</uiIndex>
+		<AmmoCaliber>9x39мм</AmmoCaliber>
+		<BRCaliber>9x39мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>19</uiIndex>
+		<AmmoCaliber>4.6x30мм</AmmoCaliber>
+		<BRCaliber>4.6x30мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>20</uiIndex>
+		<AmmoCaliber>7.62x25мм</AmmoCaliber>
+		<BRCaliber>7.62x25мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>21</uiIndex>
+		<AmmoCaliber>12.7мм</AmmoCaliber>
+		<BRCaliber>12.7мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>22</uiIndex>
+		<AmmoCaliber>9x18мм</AmmoCaliber>
+		<BRCaliber>9x18мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>23</uiIndex>
+		<AmmoCaliber>.40 S&amp;W</AmmoCaliber>
+		<BRCaliber>.40 S&amp;W</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>24</uiIndex>
+		<AmmoCaliber>7.62x54R</AmmoCaliber>
+		<BRCaliber>7.62x54R</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>25</uiIndex>
+		<AmmoCaliber>.338 Lapua</AmmoCaliber>
+		<BRCaliber>.338 LM</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>26</uiIndex>
+		<AmmoCaliber>.44 магнум</AmmoCaliber>
+		<BRCaliber>.44 Mag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>27</uiIndex>
+		<AmmoCaliber>10мм</AmmoCaliber>
+		<BRCaliber>10мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>28</uiIndex>
+		<AmmoCaliber>12.5x35мм</AmmoCaliber>
+		<BRCaliber>12.5x35мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>29</uiIndex>
+		<AmmoCaliber>9x21мм</AmmoCaliber>
+		<BRCaliber>9x21мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>30</uiIndex>
+		<AmmoCaliber>7.62x37мм</AmmoCaliber>
+		<BRCaliber>7.62x37мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>31</uiIndex>
+		<AmmoCaliber>9мм СП-5</AmmoCaliber>
+		<BRCaliber>9мм СП-5</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>32</uiIndex>
+		<AmmoCaliber>9мм СП-6</AmmoCaliber>
+		<BRCaliber>9мм СП-6</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>33</uiIndex>
+		<AmmoCaliber>5.45x18мм</AmmoCaliber>
+		<BRCaliber>5.45x18мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>34</uiIndex>
+		<AmmoCaliber>9мм MS</AmmoCaliber>
+		<BRCaliber>9мм MS</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>35</uiIndex>
+		<AmmoCaliber>.50 AE</AmmoCaliber>
+		<BRCaliber>.50 AE</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>36</uiIndex>
+		<AmmoCaliber>.454 Касулл</AmmoCaliber>
+		<BRCaliber>.454 Casull</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>37</uiIndex>
+		<AmmoCaliber>.45 WinMag</AmmoCaliber>
+		<BRCaliber>.45 WinMag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>38</uiIndex>
+		<AmmoCaliber>.50 Беовульф</AmmoCaliber>
+		<BRCaliber>.50 Beowulf</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>39</uiIndex>
+		<AmmoCaliber>.300 WinMag</AmmoCaliber>
+		<BRCaliber>.300WinMag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>40</uiIndex>
+		<AmmoCaliber>7.92x57мм</AmmoCaliber>
+		<BRCaliber>7.92x57мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>41</uiIndex>
+		<AmmoCaliber>12.7x97мм дозв.</AmmoCaliber>
+		<BRCaliber>12.7x97мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>42</uiIndex>
+		<AmmoCaliber>6.8x43мм SPC</AmmoCaliber>
+		<BRCaliber>6.8x43мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>43</uiIndex>
+		<AmmoCaliber>5.56x45мм SCF</AmmoCaliber>
+		<BRCaliber>5.56мм SCF</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>44</uiIndex>
+		<AmmoCaliber>.41 AE</AmmoCaliber>
+		<BRCaliber>.41 AE</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>45</uiIndex>
+		<AmmoCaliber>.30 car</AmmoCaliber>
+		<BRCaliber>.30 car</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>46</uiIndex>
+		<AmmoCaliber>.30-06</AmmoCaliber>
+		<BRCaliber>.30-06</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>47</uiIndex>
+		<AmmoCaliber>6x35мм</AmmoCaliber>
+		<BRCaliber>6x35мм</BRCaliber>
+	</AMMO>
+</AMMOLIST>

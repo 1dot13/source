@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AMMOLIST>
+	<AMMO>
+		<uiIndex>0</uiIndex>
+		<AmmoCaliber>0</AmmoCaliber>
+		<BRCaliber>0</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>1</uiIndex>
+		<AmmoCaliber>.38 Spc</AmmoCaliber>
+		<BRCaliber>.38 Spc</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>2</uiIndex>
+		<AmmoCaliber>9x19мм</AmmoCaliber>
+		<BRCaliber>9x19мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>3</uiIndex>
+		<AmmoCaliber>.45 ACP</AmmoCaliber>
+		<BRCaliber>.45 ACP</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>4</uiIndex>
+		<AmmoCaliber>.357 магнум</AmmoCaliber>
+		<BRCaliber>.357 Mag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>5</uiIndex>
+		<AmmoCaliber>12 калибр</AmmoCaliber>
+		<BRCaliber>12 калибр</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>6</uiIndex>
+		<AmmoCaliber>CAWS</AmmoCaliber>
+		<BRCaliber>CAWS</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>7</uiIndex>
+		<AmmoCaliber>5.45x39мм</AmmoCaliber>
+		<BRCaliber>5.45x39мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>8</uiIndex>
+		<AmmoCaliber>5.56x45мм</AmmoCaliber>
+		<BRCaliber>5.56x45мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>9</uiIndex>
+		<AmmoCaliber>7.62x51мм</AmmoCaliber>
+		<BRCaliber>7.62x51мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>10</uiIndex>
+		<AmmoCaliber>7.62x39мм</AmmoCaliber>
+		<BRCaliber>7.62x39мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>11</uiIndex>
+		<AmmoCaliber>4.7x33мм</AmmoCaliber>
+		<BRCaliber>4.7x33мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>12</uiIndex>
+		<AmmoCaliber>5.7x28мм</AmmoCaliber>
+		<BRCaliber>5.7x28мм</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>13</uiIndex>
+		<AmmoCaliber>Монстрооружие</AmmoCaliber>
+		<BRCaliber>Монстр</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>14</uiIndex>
+		<AmmoCaliber>Ракета</AmmoCaliber>
+		<BRCaliber>Ракета</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>15</uiIndex>
+		<AmmoCaliber>Дротик</AmmoCaliber>
+		<BRCaliber>Дротик</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>16</uiIndex>
+		<AmmoCaliber>Пламя</AmmoCaliber>
+		<BRCaliber>Пламя</BRCaliber>
+	</AMMO>
+</AMMOLIST>

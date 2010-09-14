@@ -1,0 +1,2673 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ITEMLIST>
+	<ITEM>
+		<uiIndex>0</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>JA2-Programmierer sind die besten, die es gibt ... oder ... vielleicht doch nicht, da diese Nachricht ja eigentlich nie erscheinen sollte.</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>JA2-Programmierer sind die besten, die es gibt ... oder ... vielleicht doch nicht, da diese Nachricht ja eigentlich nie erscheinen sollte.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1</uiIndex>
+		<szItemName>Glock 17</szItemName>
+		<szLongItemName>Glock 17</szLongItemName>
+		<szItemDesc>Diese österreichische, halbautomatische Pistole wird weltweit von vielen Sicherheitskräften und Offizieren bevorzugt und gilt daher als Standardseitenwaffe.</szItemDesc>
+		<szBRName>Glock 17</szBRName>
+		<szBRDesc>Die Glock 17 ist die weltweit meistbenutzte Behördenpistole. Wegen ihrer unübertroffenen Zuverlässigkeit, hohen Magazinkapazität sowie ihrem geringen Gewicht vertrauen ihr Beamte auf der ganzen Welt im täglichen Dienst.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>2</uiIndex>
+		<szItemName>Glock 18</szItemName>
+		<szLongItemName>Glock 18</szLongItemName>
+		<szItemDesc>Diese vollautomatische Variante der Glock 17 wurde speziell für eine militärische Verwendung entwickelt.</szItemDesc>
+		<szBRName>Glock 18</szBRName>
+		<szBRDesc>Die Glock 18 ist die vollautomatische Variante der Glock 17 und wird daher als leichte MP klassifiziert. Durch das revolutionäre 'Safe Action' Abzugssystem ist sie sicher, einfach und schnell bedienbar. Feuermodus: S-F</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>3</uiIndex>
+		<szItemName>Beretta 92F</szItemName>
+		<szLongItemName>Beretta 92F</szLongItemName>
+		<szItemDesc>Mit dieser italienischen Double-Action Pistole wird jeder Schütze zu einer tödlichen Waffe.</szItemDesc>
+		<szBRName>Beretta 92F</szBRName>
+		<szBRDesc>Seit 1984 wird die Beretta 92F als Dienstpistole M9 von der US-Army und ihren Teileinheiten verwendet. Das Griffstück wurde leicht geändert um ein beidhändiges Schießen zu ermöglichen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>4</uiIndex>
+		<szItemName>Beretta 93R</szItemName>
+		<szLongItemName>Beretta 93R</szLongItemName>
+		<szItemDesc>Die Schwester der 92F wird als leichte MP klassifiziert und könnte sich bei einem Schusswechsel als Ihre beste Freundin erweisen.</szItemDesc>
+		<szBRName>Beretta 93R</szBRName>
+		<szBRDesc>Die Schwester der 92F wird als leichte Maschinenpistole klassifiziert und könnte sich bei einem Schusswechsel als Ihre beste Freundin erweisen. Feuermodus: S-3</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>5</uiIndex>
+		<szItemName>S&amp;W .38 Special</szItemName>
+		<szLongItemName>S&amp;W .38 Special</szLongItemName>
+		<szItemDesc>Von der Polizei geprüft und für gut befunden. Dieser amerikanische Revolver ist die gängigste Polizeidienstwaffe der Welt.</szItemDesc>
+		<szBRName>S&amp;W .38 Special</szBRName>
+		<szBRDesc>Von der Polizei geprüft und für gut befunden. Dieser amerikanische Revolver ist die gängigste Polizeidienstwaffe der Welt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>6</uiIndex>
+		<szItemName>Barracuda</szItemName>
+		<szLongItemName>FN Barracuda</szLongItemName>
+		<szItemDesc>Dieser belgische Revolver, die Lieblingswaffe von Dirty Harrys kleinem Bruder, steckt im Halfter von vielen amerikanischen Polizisten.</szItemDesc>
+		<szBRName>FN Barracuda</szBRName>
+		<szBRDesc>Dieser .357 Magnum Revolver ist eine gute Wahl für Angriff &amp; Verteidigung. Bei zahlreichen Tests stellte sich heraus, dass sowohl Frauen als auch Männer mit diesem Revolver besser umgehen können als mit anderen Handfeuerwaffen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>7</uiIndex>
+		<szItemName>Desert Eagle .357</szItemName>
+		<szLongItemName>I.M.I. Desert Eagle Mark VII</szLongItemName>
+		<szItemDesc>Das Modell ist in den Kalibern .357Mag., .44Mag., .50AE und .440Cor-Bon erhältlich und wird von MAGNUM RESEARCH in den USA hergestellt.</szItemDesc>
+		<szBRName>Desert Eagle Mk. VII</szBRName>
+		<szBRDesc>Diese Pistole wurde 1980 von I.M.I. in Israel entwickelt. Ziel war es eine halbautomatische Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet ist. Seit 1985 wird sie von MAGNUM RESEARCH (USA) weiterentwickelt und hergestellt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>8</uiIndex>
+		<szItemName>M1911A1</szItemName>
+		<szLongItemName>Colt M1911A1 Government</szLongItemName>
+		<szItemDesc>Die Pistole M1911A1 war von 1911-85 die Seitenwaffe für Offiziere der US-Army. Sie wurde durch die Beretta 92FS im Kaliber 9mm ersetzt.</szItemDesc>
+		<szBRName>Colt M1911A1</szBRName>
+		<szBRDesc>Diese weltberühmte Pistole wurde nach zahl- reichen Tests 1911 von der US-Army übernommen. In 1985 wurde sie durch die Beretta 92FS ersetzt, jedoch änderte das nichts an ihrer Beliebtheit und so wird sie auch heute noch von Spezialeinheiten verwendet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>9</uiIndex>
+		<szItemName>MP5KA4</szItemName>
+		<szLongItemName>HK MP5KA4</szLongItemName>
+		<szItemDesc>Die MP5K ist eine der kleinsten und tödlichsten MPs weltweit. Sie ist bei Spezialeinheiten, Drogenkartellen und Terroristen gleichermaßen beliebt.</szItemDesc>
+		<szBRName>HK MP5KA4</szBRName>
+		<szBRDesc>Viele Sondereinheiten forderten eine sehr kompakte, vollautomatische Waffe. So reduzierte man die Länge der MP5 auf 325mm, in dem der Lauf auf drastische 115mm gekürzt wurde. Feuermodus: S-3-F</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>10</uiIndex>
+		<szItemName>MAC-10</szItemName>
+		<szLongItemName>Ingram MAC-10</szLongItemName>
+		<szItemDesc>Die MAC-10 kam 1970 auf den Markt. Sie schießt nur Dauerfeuer und war für den Einsatz in Spezialeinheiten gedacht. Ihr größter Konkurrent war die HK MP5.</szItemDesc>
+		<szBRName>Ingram MAC-10</szBRName>
+		<szBRDesc>Das 'Military Armament Corporation Model 10' wurde 1964 von G. Ingram entwickelt und schnell Standardwaffe bei Spezialeinheiten des U.S.M.C. Inzwischen wird sie von Ingrams eigener Firma gefertigt. Sie kann mit einem Geräuschunterdrücker ausgestattet werden.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>11</uiIndex>
+		<szItemName>M1A1</szItemName>
+		<szLongItemName>Thompson M1A1</szLongItemName>
+		<szItemDesc>Als Vorläufer der modernen Sturmgewehre wurde diese 'Thompson A1' am Strand der Normandie eingesetzt.</szItemDesc>
+		<szBRName>Thompson M1A1</szBRName>
+		<szBRDesc>Der Vorläufer dieser am Strand der Normandie eingesetzten, billigeren 'Thompson A1', war die in Chicago bekannt gewordene M1928A1. Die M1A1 ist zwar hässlicher und hat ein kleineres Magazin, aber dafür die selben Schussleistungen und ein geringeres Gewicht.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>12</uiIndex>
+		<szItemName>M4 Commando</szItemName>
+		<szLongItemName>Colt M4 Commando</szLongItemName>
+		<szItemDesc>Das M4 Commando mit 11.5" Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell.</szItemDesc>
+		<szBRName>Colt M4 Commando</szBRName>
+		<szBRDesc>Das M4 Commando mit 11.5" Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell. Seit 1997 wird es von den US Army Rangers verwendet. Feuermodus: S-F</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>13</uiIndex>
+		<szItemName>MP53A3</szItemName>
+		<szLongItemName>HK MP53A3</szLongItemName>
+		<szItemDesc>Diese Waffe kombiniert die Feuerkraft des 5.56mm Kalibers mit der Kompaktheit einer MP5. Beachten Sie den etwas stärkeren Rückstoß.</szItemDesc>
+		<szBRName>HK MP53A3</szBRName>
+		<szBRDesc>Diese Maschinenpistole ist nur 5cm länger als eine HK MP5, bietet aber die Feuerkraft des 5.56mm Kalibers. Beachten Sie den etwas stärkeren Rückstoß. Feuermodus: S-3-F</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>14</uiIndex>
+		<szItemName>AKS-74U</szItemName>
+		<szLongItemName>Kalaschnikow AKS-74U</szLongItemName>
+		<szItemDesc>Die Russen entwickelten diese schwere MP für Besatzungen von Panzern und anderen Fahrzeugen.</szItemDesc>
+		<szBRName>Kalaschnikow AKS-74U</szBRName>
+		<szBRDesc>Die Russen entwickelten diese schwere MP für Panzernbesatzungen. Sie musste kurz genug sein, um beim Ein- und Aussteigen nicht hinderlich zu sein. Feuermodus: S-F</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>15</uiIndex>
+		<szItemName>FN-P90</szItemName>
+		<szLongItemName>FN-P90</szLongItemName>
+		<szItemDesc>Die FN-P90 wurde Ende der 80er Jahre entwickelt. Sie kann als Vorläufer des PDW-Konzepts angesehen werden.</szItemDesc>
+		<szBRName>FN-P90</szBRName>
+		<szBRDesc>Die FN-P90 wurde Ende der 80er Jahre entwickelt. Sie ist eine Selbstverteidigungswaffe für Fahrzeug- oder Panzerbesatzungen. Sie kann als Vorläufer des PDW (Personal Defence Weapon) Konzepts angesehen werden.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>16</uiIndex>
+		<szItemName>Type-85</szItemName>
+		<szLongItemName>Type-85</szLongItemName>
+		<szItemDesc>Billig, einfach und robust - diese Waffe aus der Massenproduktion macht dem chinesischen Militärdesign alle Ehre.</szItemDesc>
+		<szBRName>Type-85</szBRName>
+		<szBRDesc>Billig, einfach und robust - diese Waffe aus der Massenproduktion macht dem chinesischen Militärdesign alle Ehre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>17</uiIndex>
+		<szItemName>SKS</szItemName>
+		<szLongItemName>Simonov SKS</szLongItemName>
+		<szItemDesc>Dieser sehr beliebte halbautomatische Karabiner ist in fast allen kommunistischen Ländern der Welt bereits in Aktion gewesen.</szItemDesc>
+		<szBRName>Simonov SKS</szBRName>
+		<szBRDesc>Dieser sehr beliebte halbautomatische Karabiner ist in fast allen kommunistischen Ländern der Welt bereits in Aktion gewesen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>18</uiIndex>
+		<szItemName>SVD</szItemName>
+		<szLongItemName>Dragunow SVD</szLongItemName>
+		<szItemDesc>Das SVD ist ein leichtes, sehr genaues Präzisionsgewehr. Es wurde im Jahre 1963 in der russischen Armee eingeführt.</szItemDesc>
+		<szBRName>Dragunow SVD</szBRName>
+		<szBRDesc>Das SVD (Snaiperskaja Vintowka Dragunova) ist ein Präzisionsgewehr. Es wurde erstmals 1963 an die russische Armee ausgeliefert. Heute noch wird es in modifizierter Form von IZHMASH hergestellt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>19</uiIndex>
+		<szItemName>M24 SWS</szItemName>
+		<szLongItemName>Remington M24 SWS</szLongItemName>
+		<szItemDesc>Das M24 SWS gilt aufgrund seiner hohen Präzision als Maßstab für Scharfschützengewehre.</szItemDesc>
+		<szBRName>Remington M24 SWS</szBRName>
+		<szBRDesc>Das M24 SWS gilt aufgrund seiner hohen Präzision als Maßstab für Scharfschützengewehre. Während eines Einsatzes im Irak, konnte ein Schütze mit diesem Gewehr ein Ziel auf 1.250m erfolgreich bekämpfen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>20</uiIndex>
+		<szItemName>AUG-A2</szItemName>
+		<szLongItemName>Steyr AUG-A2</szLongItemName>
+		<szItemDesc>Die Standardwaffe des österreichischen Bundesheeres. Das Steyr AUG ist ein futuristisch aussehendes Sturmgewehr im kompaktem Design.</szItemDesc>
+		<szBRName>Steyr AUG-A2</szBRName>
+		<szBRDesc>Das STEYR AUG-A2 ist ein gasbetriebenes vollautomatisches Sturmgewehr mit integriertem Zielfernrohr. Aufgrund des Bullpup-Designs entsteht eine kurze, handliche Waffe die hohe Zuverlässigkeit und Präzision bietet. Sie besitzt eine S-F Abzugsgruppe.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>21</uiIndex>
+		<szItemName>HK G41A2</szItemName>
+		<szLongItemName>HK G41A2</szLongItemName>
+		<szItemDesc>Das G41 sollte neben dem G11 zum Standardgewehr der Bundeswehr werden. Aufgrund der politischen Veränderungen 1989 kam es jedoch nicht dazu.</szItemDesc>
+		<szBRName>HK G41A2</szBRName>
+		<szBRDesc>Das G41 ist ein hervorragendes Sturmgewehr, es besitzt eine S-3-F Abzugsgruppe und sollte viele M16-Schützen abwerben. Aufgrund des hohen Preises ging es jedoch nie in Serie. Wir von BR konnten einige Exemplare auftreiben - greifen Sie zu!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>22</uiIndex>
+		<szItemName>Mini-14</szItemName>
+		<szLongItemName>Ruger Mini-14</szLongItemName>
+		<szItemDesc>Das Mini-14 wird als eines der besten amerik. Jagdgewehre betrachtet. Daher ist es auch perfekt für den paramilitärischen Einsatz geeignet.</szItemDesc>
+		<szBRName>Ruger Mini-14</szBRName>
+		<szBRDesc>Das Mini-14 wird als eines der besten amerik. Jagdgewehre betrachtet. Daher ist es auch perfekt für den paramilitärischen Einsatz geeignet. Aufgrund des geringen Rückstoßes, erhöht es die Zielgenauigkeit enorm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>23</uiIndex>
+		<szItemName>C7A2</szItemName>
+		<szLongItemName>Diemaco C7A2</szLongItemName>
+		<szItemDesc>Dieses Sturmgewehr ist eine verbesserte Version des M16 und wird von DIEMACO/ COLT CANADA hergestellt.</szItemDesc>
+		<szBRName>Diemaco C7A2</szBRName>
+		<szBRDesc>Dieses Sturmgewehr ist eine verbesserte Version des M16 und wird von DIEMACO/ COLT CANADA hergestellt. Diese Version des M16-Systems ist der Traum eines jeden Söldners. Feuermodus: S-F</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>24</uiIndex>
+		<szItemName>FAMAS</szItemName>
+		<szLongItemName>FAMAS G2</szLongItemName>
+		<szItemDesc>Das FAMAS ist Frankreichs neuestes Gewehr und hat sich seit seiner Einführung grundsätzlich bewährt. Es wurde erstmals 1973 vorgestellt.</szItemDesc>
+		<szBRName>FAMAS G2</szBRName>
+		<szBRDesc>Das FAMAS ist Frankreichs neuestes Gewehr und hat sich seit seiner Einführung grundsätzlich bewährt. Es besitzt eine S-3-F Abzugsgruppe.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>25</uiIndex>
+		<szItemName>AK-74</szItemName>
+		<szLongItemName>Kalaschnikow AK-74</szLongItemName>
+		<szItemDesc>Für die Weiterentwicklung der AK-Baureihe wurde eigens die Patrone M74 im neuen Kaliber 5.45x39mm entwickelt.</szItemDesc>
+		<szBRName>Kalaschnikow AK-74</szBRName>
+		<szBRDesc>Für die Weiterentwicklung der AK-Baureihe wurde eigens die Patrone M74 im neuen Kaliber 5.45x39mm entwickelt. Die etwas geringere Durchschlagskraft wird durch eine höhere Geschwindigkeit, welche größere Wunden verursacht, kompensiert. Feuermodus: S-F</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>26</uiIndex>
+		<szItemName>AKM</szItemName>
+		<szLongItemName>Kalaschnikow AKM</szLongItemName>
+		<szItemDesc>Die überarbeitete Variante des AK-47 wurde ab 1960 als AKM exportiert. Es ist weltweit sehr beliebt, besonders in Ländern der dritten Welt und bei einfachen Söldnern.</szItemDesc>
+		<szBRName>Kalaschnikow AKM</szBRName>
+		<szBRDesc>Die überarbeitete Variante des AK-47 wurde ab 1960 als AKM exportiert. Es ist weltweit sehr beliebt, besonders in Ländern der dritten Welt und bei einfachen Söldnern.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>27</uiIndex>
+		<szItemName>M14</szItemName>
+		<szLongItemName>Winchester M14</szLongItemName>
+		<szItemDesc>Das WINCHESTER M14 löste Ende der 50er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Es besitzt eine herausragende Schussgenauigkeit.</szItemDesc>
+		<szBRName>Winchester M14</szBRName>
+		<szBRDesc>Das WINCHESTER M14 löste Ende der 50er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Aufgrund seiner guten Schussleistung erfreut es sich großer Beliebheit bei Reservisten und Jägern. SPRINGFIELD ARMORY fertigt mit dem Modell M1A eine zivile Variante.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>28</uiIndex>
+		<szItemName>FN-FAL</szItemName>
+		<szLongItemName>FN-FAL</szLongItemName>
+		<szItemDesc>Dieses belgische Sturmgewehr ist weit verbreitet und für seinen starken Rückstoß bekannt.</szItemDesc>
+		<szBRName>FN-FAL</szBRName>
+		<szBRDesc>Dieses belgische Sturmgewehr ist weit verbreitet. Aufgrund des starken Rückstoßes im Dauerfeuer wird es oft nur im Halbautomatik Modus verwendet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>29</uiIndex>
+		<szItemName>HK G3A3</szItemName>
+		<szLongItemName>HK G3A3</szLongItemName>
+		<szItemDesc>Das G3A3 besitzt eine S-F Abzugsgruppe und war bis Ende der 90er Jahre das Sturmgewehr der Bundeswehr. Es wurde ab 1997 schrittweise durch das G36 ersetzt.</szItemDesc>
+		<szBRName>HK G3A3</szBRName>
+		<szBRDesc>Das G3A3 besitzt eine S-F Abzugsgruppe und war bis Ende der 90er Jahre das Sturmgewehr der Bundeswehr. Es wurde ab 1997 schrittweise durch das G36 ersetzt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>30</uiIndex>
+		<szItemName>HK G11</szItemName>
+		<szLongItemName>HK G11</szLongItemName>
+		<szItemDesc>Das G11 sollte neben dem G41 zum Standardgewehr der Bundeswehr werden. Aufgrund der polit. Veränderungen 1989 kam es jedoch nicht dazu.</szItemDesc>
+		<szBRName>HK G11</szBRName>
+		<szBRDesc>Das 1988 vorgestellte G11 von H&amp;K stellt eine recht außergewöhnliche zukunftsorientierte Waffe dar. Das Ziel bei dieser plump und eckig aussehenden Konstruktion ist einfach: Die Trefferquote bei Feuerstößen soll auch für mäßige Schützen drastisch erhöht werden.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>31</uiIndex>
+		<szItemName>M870P</szItemName>
+		<szLongItemName>Remington M870P</szLongItemName>
+		<szItemDesc>Diese traditionelle Polizeischrotflinte ist eine der vielseitigsten Waffen überhaupt. Sie eignet sich zum Jagen und zur Grundstücksverteidigung.</szItemDesc>
+		<szBRName>Remington M870P</szBRName>
+		<szBRDesc>Diese traditionelle Polizeischrotflinte ist eine der vielseitigsten Waffen überhaupt. Sie eignet sich zum Jagen, zur Grundstücksverteidigung und zum Schlösser knacken.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>32</uiIndex>
+		<szItemName>SPAS-15</szItemName>
+		<szLongItemName>Franchi SPAS-15</szLongItemName>
+		<szItemDesc>Die SPAS-15 erschien erstmals 1988 und wurde speziell für militärische Zwecke entwickelt.</szItemDesc>
+		<szBRName>Franchi SPAS-15</szBRName>
+		<szBRDesc>Die SPAS-15 erschien erstmals 1988 und wurde speziell für militärische Zwecke entwickelt. Die halbautomatische Flinte, kann durch drücken eines Knopfes auf manuellen Pump-Action Modus umgestellt werden.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>33</uiIndex>
+		<szItemName>CAWS</szItemName>
+		<szLongItemName>HK CAWS</szLongItemName>
+		<szItemDesc>Diese dt.-amerik. Flinte im Bullpup-Design entstand in Kooperation zwischen den Firmen H&amp;K und WINCHESTER.</szItemDesc>
+		<szBRName>HK CAWS</szBRName>
+		<szBRDesc>Diese dt.-amerik. Flinte im Bullpup-Design hat das Kaliber 18.5x76mm und entstand in Kooperation zwischen den Firmen HECKLER &amp; KOCH und WINCHESTER. Feuermodus: S-3</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>34</uiIndex>
+		<szItemName>M249 SAW</szItemName>
+		<szLongItemName>FN Minimi</szLongItemName>
+		<szItemDesc>Das M249 wurde Anfang der 80er Jahre entwickelt um den Teams eine präzise dauerfeuerfähige Waffe zu geben.</szItemDesc>
+		<szBRName>FN Minimi</szBRName>
+		<szBRDesc>Das M249 SAW wurde Anfang der 80er Jahre entwickelt, um den Teams auf Zugebene eine präzise dauerfeuerfähige Waffe zu geben - sie schießt nur Dauerfeuer. In 1982 wurde das MG offiziell bei der US-Army eingeführt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>35</uiIndex>
+		<szItemName>RPK-74</szItemName>
+		<szLongItemName>Kalaschnikow RPK-74</szLongItemName>
+		<szItemDesc>Dieses LMG basiert auf dem bewährten Kalaschnikow AK-74 Sturmgewehr.</szItemDesc>
+		<szBRName>Kalaschnikow RPK-74</szBRName>
+		<szBRDesc>Das AK-74 wurde mit einem schweren Lauf, Zweibein und großem Magazin zum LMG umgerüstet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>36</uiIndex>
+		<szItemName>HK21E</szItemName>
+		<szLongItemName>HK21E</szLongItemName>
+		<szItemDesc>Das Universal-Maschinengewehr HK21E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr G3.</szItemDesc>
+		<szBRName>HK21E</szBRName>
+		<szBRDesc>Das Universal-Maschinengewehr HK21E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr G3. Aufgrund der hohen Kadenz von 850 Schuss/min erzielt der Schütze mehr Trefferlagen im Ziel. Feuermodus: S-3-F</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>37</uiIndex>
+		<szItemName>Messer</szItemName>
+		<szLongItemName>Kampfmesser</szLongItemName>
+		<szItemDesc>Dieses Kampfmesser mit massivem Heft verwandelt Sie in eine rotierende Killer-Maschine, die den schnellen und leisen Tod bringt.</szItemDesc>
+		<szBRName>Kampfmesser</szBRName>
+		<szBRDesc>Dieses Kampfmesser mit massivem Heft verwandelt Sie in eine rotierende Killer-Maschine, die den schnellen und leisen Tod bringt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>38</uiIndex>
+		<szItemName>W-Messer</szItemName>
+		<szLongItemName>Wurfmesser</szLongItemName>
+		<szItemDesc>Das genau ausbalancierte Wurfmesser mit Stahlklinge gibt dem Ausdruck vom 'sanften Tod' eine neue Bedeutung.</szItemDesc>
+		<szBRName>Wurfmesser</szBRName>
+		<szBRDesc>Das genau ausbalancierte Wurfmesser mit Stahlklinge gibt dem Ausdruck vom 'sanften Tod' eine neue Bedeutung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>39</uiIndex>
+		<szItemName>Stein</szItemName>
+		<szLongItemName>Ein großer Kieselstein.</szLongItemName>
+		<szItemDesc>Damit kann man Lärm machen. Oder Beulen. Oder Scherben.</szItemDesc>
+		<szBRName>Stein</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>40</uiIndex>
+		<szItemName>M79</szItemName>
+		<szLongItemName>M79 Granatwerfer</szLongItemName>
+		<szItemDesc>Falls Sie eine Ziegelwand oder Feindlinie schnell durchbrechen müssen, wird dieser amerikanische 40mm-Granatwerfer das Problem lösen.</szItemDesc>
+		<szBRName>M79 Granatwerfer</szBRName>
+		<szBRDesc>Falls Sie eine Ziegelwand oder die Feindlinie schnell durchbrechen müssen, wird dieser amerikanische 40mm Granatwerfer aus der Vietnam-Ära das Problem lösen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>41</uiIndex>
+		<szItemName>Mörser</szItemName>
+		<szLongItemName>M224 Mörser</szLongItemName>
+		<szItemDesc>Der M224 ist ein leichter 60mm Mörser mit geriffeltem Geschützrohr, Visier, M7-Sockel und 2-beinigem Gestell.</szItemDesc>
+		<szBRName>M224 Mörser</szBRName>
+		<szBRDesc>Der M224 ist ein leichter 60mm Mörser mit geriffeltem Geschützrohr, Visier, M7-Sockel und 2-beinigem Gestell. Er wurde für hochexplosive Granaten konzipiert.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>42</uiIndex>
+		<szItemName>Stein</szItemName>
+		<szLongItemName>Ein weiterer Stein</szLongItemName>
+		<szItemDesc>Ein Stein aus Arulco, der sich gut werfen lässt.</szItemDesc>
+		<szBRName>Stein</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>43</uiIndex>
+		<szItemName>Klauen JM</szItemName>
+		<szLongItemName>Klauen jung/männlich</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Klauen jung/männlich</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>44</uiIndex>
+		<szItemName>Klauen AM</szItemName>
+		<szLongItemName>Klauen alt/männlich</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Klauen alt/männlich</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>45</uiIndex>
+		<szItemName>Klauen JW</szItemName>
+		<szLongItemName>Klauen jung/weiblich</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Klauen jung/weiblich</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>46</uiIndex>
+		<szItemName>Klauen AW</szItemName>
+		<szLongItemName>Klauen alt/weiblich</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Klauen alt/weiblich</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>47</uiIndex>
+		<szItemName>Queen Tentacle</szItemName>
+		<szLongItemName>Queen Tentacle</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Queen Tentacle</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>48</uiIndex>
+		<szItemName>Queen Spit</szItemName>
+		<szLongItemName>Queen Creature Spit</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Queen Creature Spit</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>49</uiIndex>
+		<szItemName>Schlagring</szItemName>
+		<szLongItemName>Schlagring</szLongItemName>
+		<szItemDesc>Dieser wuchtige Schlagring passt fast an jede Hand. Damit werden Sie noch kräftiger zuschlagen können.</szItemDesc>
+		<szBRName>Schlagring</szBRName>
+		<szBRDesc>Dieser wuchtige Schlagring passt fast an jede Hand. Damit werden Sie noch kräftiger zuschlagen können.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>50</uiIndex>
+		<szItemName>Talon</szItemName>
+		<szLongItemName>Talon Granatwerfer</szLongItemName>
+		<szItemDesc>Mit diesem amerikanischen Granatwerfer schleudern Sie Ihre Feinde direkt in die wartenden Klauen des Todes.</szItemDesc>
+		<szBRName>Talon</szBRName>
+		<szBRDesc>Mit diesem amerikanischen Granatwerfer schleudern Sie Ihre Feinde direkt in die wartenden Klauen des Todes.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>51</uiIndex>
+		<szItemName>LAW</szItemName>
+		<szLongItemName>M72A4 LAW</szLongItemName>
+		<szItemDesc>Diese leichte Panzerabwehrwaffe wird von der Schulter abgefeuert und kann bis zu 30cm Panzerung durchschlagen.</szItemDesc>
+		<szBRName>M72A4 LAW</szBRName>
+		<szBRDesc>Diese leichte Panzerabwehrwaffe wird von der Schulter abgefeuert und kann bis zu 30cm Panzerung durchschlagen. Eine Einwegwaffe mit unglaublicher Zerstörungskraft!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>52</uiIndex>
+		<szItemName>Bloodcat Klauen</szItemName>
+		<szLongItemName>Bloodcat Klauen</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Bloodcat Klauen</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>53</uiIndex>
+		<szItemName>Bloodcat Bite</szItemName>
+		<szLongItemName>Bloodcat Bite</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Bloodcat Bite</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>54</uiIndex>
+		<szItemName>Machete</szItemName>
+		<szLongItemName>Machete</szLongItemName>
+		<szItemDesc>Wie hätten Sie's denn gern? Ob Mensch oder Tier; mit dieser Machete schneiden Sie jedes Gericht in feinste Stücke.</szItemDesc>
+		<szBRName>Machete</szBRName>
+		<szBRDesc>Wie hätten Sie's denn gern? In Scheiben oder Würfel geschnitten? Ob Mensch oder Tier; mit dieser Machete schneiden Sie jedes Gericht in feinste Stücke.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>55</uiIndex>
+		<szItemName>Raketengewehr</szItemName>
+		<szLongItemName>Raketengewehr</szLongItemName>
+		<szItemDesc>Dieses Raketengewehr ist mit einem Laser- Zielfernrohr und eigenem Computer- Sicherheitssystem ausgestattet.</szItemDesc>
+		<szBRName>Raketengewehr</szBRName>
+		<szBRDesc>Dieses Raketengewehr ist mit einem Laser- Zielfernrohr und eigenem Computer- Sicherheitssystem ausgestattet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>56</uiIndex>
+		<szItemName>Automag III</szItemName>
+		<szLongItemName>AMT Automag III</szLongItemName>
+		<szItemDesc>Die Automag III wurde Anfang der 90er Jahre auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird ausschließlich in Edelstahl gefertigt.</szItemDesc>
+		<szBRName>AMT Automag III</szBRName>
+		<szBRDesc>Die Automag III wurde von Harry Sanford entwickelt und Anfang der 90er Jahre auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird ausschließlich in Edelstahl gefertigt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>57</uiIndex>
+		<szItemName>Infant-Spucke</szItemName>
+		<szLongItemName>Infant-Spucke</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Infant-Spucke</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>58</uiIndex>
+		<szItemName>Young Male Spit</szItemName>
+		<szLongItemName>Young Male Spit</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Young Male Spit</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>59</uiIndex>
+		<szItemName>Old Male Spit</szItemName>
+		<szLongItemName>Old Male Spit</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Old Male Spit</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>60</uiIndex>
+		<szItemName>Kanone</szItemName>
+		<szLongItemName>Panzerkanone</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Panzerkanone</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>61</uiIndex>
+		<szItemName>Pfeilpistole</szItemName>
+		<szLongItemName>Pfeilpistole</szLongItemName>
+		<szItemDesc>Mit dieser druckluftbetriebenen Pfeilpistole legen Sie Großwild jeder Art schlafen, ohne die ganze Herde in Aufruhr zu versetzen.</szItemDesc>
+		<szBRName>Pfeilpistole</szBRName>
+		<szBRDesc>Ein stummer Vertreter in der lärmenden Gruppe der Schusswaffen. Hiermit können Sie den Job erledigen, ohne den Sensenmann aufzuwecken. Mit Prüfsiegel verschiedener Veterinär-Vereinigungen und zoologischer Gärten.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>62</uiIndex>
+		<szItemName>bl. W-Messer</szItemName>
+		<szLongItemName>blutiges Wurfmesser</szLongItemName>
+		<szItemDesc>Ein kleines, leichtes Wurfmesser mit einer zweischneidigen, hartverchromten Karbonstahlklinge, die blutverklebt ist.</szItemDesc>
+		<szBRName>blutiges Wurfmesser</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>63</uiIndex>
+		<szItemName>Flammenwerfer</szItemName>
+		<szLongItemName>Flammenwerfer</szLongItemName>
+		<szItemDesc>Sorry Leute, leider hat es dieser Gegenstand nicht mehr in das Spiel geschafft!</szItemDesc>
+		<szBRName>Flammenwerfer</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>64</uiIndex>
+		<szItemName>Brechstange</szItemName>
+		<szLongItemName>Brechstange</szLongItemName>
+		<szItemDesc>Dieses strapazierfähige Hebelwerkzeug ist eine Stange aus Titan. Härter als Stahl, wiegt aber weniger und rostet nicht.</szItemDesc>
+		<szBRName>Brechstange</szBRName>
+		<szBRDesc>Dieses strapazierfähige Hebelwerkzeug ist eine Stange aus Titan. Härter als Stahl, wiegt aber weniger und rostet nicht.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>65</uiIndex>
+		<szItemName>AR-Gewehr</szItemName>
+		<szLongItemName>Auto-Raketengewehr</szLongItemName>
+		<szItemDesc>Dieser Prototyp neuester Waffentechnik leert sein Magazin in einem einzigen vernichtenden Feuerstoß!</szItemDesc>
+		<szBRName>Auto-Raketengewehr</szBRName>
+		<szBRDesc>Dieser Prototyp neuester Waffentechnik leert sein Magazin in einem einzigen vernichtenden Feuerstoß!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>66</uiIndex>
+		<szItemName>EMF Hartford</szItemName>
+		<szLongItemName>EMF Hartford 1873 Cavalry</szLongItemName>
+		<szItemDesc>Dieser 6-schüssige .357 Magnum Revolver besitzt einen modifizierten 7.5" Lauf sowie einen verzierten Griff.</szItemDesc>
+		<szBRName>EMF Hartford 1873</szBRName>
+		<szBRDesc>Dieser 6-schüssige .357 Magnum Revolver besitzt einen modifizierten 7.5" Lauf sowie einen verzierten Griff.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>67</uiIndex>
+		<szItemName>M-950</szItemName>
+		<szLongItemName>Calico M-950</szLongItemName>
+		<szItemDesc>Diese halb-automatische Pistole verfügt über das bekannte 50-schüssige Helix-Magazin.</szItemDesc>
+		<szBRName>Calico M-950</szBRName>
+		<szBRDesc>Das gigantische 50-schüssige Helix-Magazin verleiht dieser halb-automatischen und erstaunlich schlanken Pistole einen geringen Rückstoß.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>68</uiIndex>
+		<szItemName>M-900</szItemName>
+		<szLongItemName>Calico M-900 Karabiner</szLongItemName>
+		<szItemDesc>Ein halb-automatischer Karabiner mit riesigem 50-schüssigen Magazin der preiswerten 9mm Munition.</szItemDesc>
+		<szBRName>Calico M-900</szBRName>
+		<szBRDesc>Nahezu baugleich zur M-950 Pistole wurde mittels Kunststoffschaft und hartverchromten, extra langen Lauf ein Karabiner mit erstaunlicher Schussleistung geschaffen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>69</uiIndex>
+		<szItemName>M-960A</szItemName>
+		<szLongItemName>Calico M-960A</szLongItemName>
+		<szItemDesc>Erst der vollautomatische Betrieb würdigt die Kapazität des CALICO-Helix-Magazins.</szItemDesc>
+		<szBRName>Calico M-960A</szBRName>
+		<szBRDesc>Diese Maschinenpistole liegt aufgrund ihres gigantischen 50-Schuss-Magazins sehr ruhig in der Hand. Die MP-Version besitzt eine S-F Abzugsgruppe.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>70</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Das Benutzen dieses Slots führt zum Absturz des Spiels.</szLongItemName>
+		<szBRName>Das Benutzen dieses Slots führt zum Absturz des Spiels.</szBRName>
+	</ITEM>
+	<ITEM>
+		<uiIndex>71</uiIndex>
+		<szItemName>9x19 Mag</szItemName>
+		<szLongItemName>9x19mm Magazin</szLongItemName>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szBRName>9x19 Mag #15</szBRName>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>72</uiIndex>
+		<szItemName>9x19 Mag</szItemName>
+		<szLongItemName>9x19mm MP-Mag</szLongItemName>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szBRName>9x19 Mag</szBRName>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>73</uiIndex>
+		<szItemName>9x19 PB</szItemName>
+		<szLongItemName>9x19mm Magazin, PB</szLongItemName>
+		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szBRName>9x19 Mag PB #15</szBRName>
+		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>74</uiIndex>
+		<szItemName>9x19 PB</szItemName>
+		<szLongItemName>9x19mm MP-Mag, PB</szLongItemName>
+		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szBRName>9x19 Mag PB</szBRName>
+		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>75</uiIndex>
+		<szItemName>9x19 HS</szItemName>
+		<szLongItemName>9x19mm Magazin, HS</szLongItemName>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>9x19 Mag HS #15</szBRName>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>76</uiIndex>
+		<szItemName>9x19 HS</szItemName>
+		<szLongItemName>9x19mm MP-Mag, Hohlspitz</szLongItemName>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>9x19 Mag HS</szBRName>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>77</uiIndex>
+		<szItemName>.38 SL</szItemName>
+		<szLongItemName>.38 Spc Schnelllader</szLongItemName>
+		<szItemDesc>Diese FIOCCHI Blei-Rundkopf Projektile deformieren sich leicht und tendieren zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte als auch ungeschützte Gegner. </szItemDesc>
+		<szBRName>.38 Spc SL #6</szBRName>
+		<szBRDesc>Diese FIOCCHI Blei-Rundkopf Projektile deformieren sich leicht und tendieren zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte als auch ungeschützte Gegner. </szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>78</uiIndex>
+		<szItemName>.38 SL PB</szItemName>
+		<szLongItemName>.38 Spc Schnelllader, PB</szLongItemName>
+		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szBRName>.38 Spc SL PB #6</szBRName>
+		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>79</uiIndex>
+		<szItemName>.38 SL HS</szItemName>
+		<szLongItemName>.38 Spc Schnelllader, HS</szLongItemName>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>.38 Spc SL HS #6</szBRName>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>80</uiIndex>
+		<szItemName>.45 Mag</szItemName>
+		<szLongItemName>.45 Magazin</szLongItemName>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szBRName>.45 Mag #7</szBRName>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>81</uiIndex>
+		<szItemName>.45 Mag</szItemName>
+		<szLongItemName>.45 MP-Magazin</szLongItemName>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szBRName>.45 Mag</szBRName>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>82</uiIndex>
+		<szItemName>.45 Mag PB</szItemName>
+		<szLongItemName>.45 Magazin, PB</szLongItemName>
+		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szBRName>.45 Mag PB #7</szBRName>
+		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>83</uiIndex>
+		<szItemName>.45 Mag PB</szItemName>
+		<szLongItemName>.45 MP-Magazin, PB</szLongItemName>
+		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szBRName>.45 Mag PB</szBRName>
+		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>84</uiIndex>
+		<szItemName>.45 Mag HS</szItemName>
+		<szLongItemName>.45 Magazin, HS</szLongItemName>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>.45 Mag HS #7</szBRName>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>85</uiIndex>
+		<szItemName>.45 Mag HS</szItemName>
+		<szLongItemName>.45 MP-Magazin, HS</szLongItemName>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>.45 Mag HS</szBRName>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>86</uiIndex>
+		<szItemName>.357 SL</szItemName>
+		<szLongItemName>.357 Schnelllader</szLongItemName>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szBRName>.357 SL #6</szBRName>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>87</uiIndex>
+		<szItemName>.357 Mag</szItemName>
+		<szLongItemName>.357 Magazin</szLongItemName>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szBRName>.357 Mag #9</szBRName>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>88</uiIndex>
+		<szItemName>.357 SL PB</szItemName>
+		<szLongItemName>.357 Schnelllader, PB</szLongItemName>
+		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szBRName>.357 SL PB #6</szBRName>
+		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone war lange Zeit unbekannt, wurde jedoch auch von Kriminellen entdeckt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>89</uiIndex>
+		<szItemName>.357 Mag PB</szItemName>
+		<szLongItemName>.357 Magazin, PB</szLongItemName>
+		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szBRName>.357 Mag PB #9</szBRName>
+		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>90</uiIndex>
+		<szItemName>.357 SL HS</szItemName>
+		<szLongItemName>.357 Schnelllader, HS</szLongItemName>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>.357 SL HS #6</szBRName>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>91</uiIndex>
+		<szItemName>.357 Mag HS</szItemName>
+		<szLongItemName>.357 Magazin, HS</szLongItemName>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>.357 Mag HS #9</szBRName>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>92</uiIndex>
+		<szItemName>5.45x39 Mag</szItemName>
+		<szLongItemName>5.45x39mm Magazin</szLongItemName>
+		<szItemDesc>Diese PB-Patronen von WOLF 'Made in Russia' durchschlagen Dank ihrer Metallmantelung nicht nur Wände und Schutzwesten, sondern auch mehrere menschliche Körper hintereinander.</szItemDesc>
+		<szBRName>5.45x39 Mag</szBRName>
+		<szBRDesc>Diese PB-Patronen von WOLF 'Made in Russia' durchschlagen Dank ihrer Metallmantelung nicht nur Wände und Schutzwesten, sondern auch mehrere menschliche Körper hintereinander.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>93</uiIndex>
+		<szItemName>5.45x39 HS</szItemName>
+		<szLongItemName>5.45x39mm Magazin, Hohlspitz</szLongItemName>
+		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>5.45x39 Mag HS</szBRName>
+		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>94</uiIndex>
+		<szItemName>5.56x45 Mag</szItemName>
+		<szLongItemName>5.56x45mm Magazin</szLongItemName>
+		<szItemDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>5.56x45 Mag</szBRName>
+		<szBRDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>95</uiIndex>
+		<szItemName>5.56x45 HS</szItemName>
+		<szLongItemName>5.56x45mm Magazin, Hohlspitz</szLongItemName>
+		<szItemDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>5.56x45 Mag HS</szBRName>
+		<szBRDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>96</uiIndex>
+		<szItemName>7.62x39 Mag</szItemName>
+		<szLongItemName>7.62x39mm Magazin</szLongItemName>
+		<szItemDesc>Diese PB-Patronen von WOLF 'Made in Russia' durchschlagen Dank ihrer Metallmantelung nicht nur Wände und Schutzwesten, sondern auch mehrere menschliche Körper hintereinander.</szItemDesc>
+		<szBRName>7.62x39 Mag #10</szBRName>
+		<szBRDesc>Diese PB-Patronen von WOLF 'Made in Russia' durchschlagen Dank ihrer Metallmantelung nicht nur Wände und Schutzwesten, sondern auch mehrere menschliche Körper hintereinander.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>97</uiIndex>
+		<szItemName>7.62x39 Mag</szItemName>
+		<szLongItemName>7.62x39mm Magazin</szLongItemName>
+		<szItemDesc>Diese PB-Patronen von WOLF 'Made in Russia' durchschlagen Dank ihrer Metallmantelung nicht nur Wände und Schutzwesten, sondern auch mehrere menschliche Körper hintereinander.</szItemDesc>
+		<szBRName>7.62x39 Mag</szBRName>
+		<szBRDesc>Diese PB-Patronen von WOLF 'Made in Russia' durchschlagen Dank ihrer Metallmantelung nicht nur Wände und Schutzwesten, sondern auch mehrere menschliche Körper hintereinander.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>98</uiIndex>
+		<szItemName>7.62x39 HS</szItemName>
+		<szLongItemName>7.62x39mm Magazin, Hohlspitz</szLongItemName>
+		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>7.62x39 Mag HS #10</szBRName>
+		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>99</uiIndex>
+		<szItemName>7.62x39 HS</szItemName>
+		<szLongItemName>7.62x39mm Magazin, Hohlspitz</szLongItemName>
+		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>7.62x39 Mag HS</szBRName>
+		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>100</uiIndex>
+		<szItemName>7.62x51 Mag</szItemName>
+		<szLongItemName>7.62x51mm Magazin</szLongItemName>
+		<szItemDesc>Seit über 40 Jahren fertigt MEN (Dtl.) Munition im ehemaligen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>7.62x51 Mag #5</szBRName>
+		<szBRDesc>Seit über 40 Jahren fertigt MEN (Dtl.) Munition im ehemaligen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>101</uiIndex>
+		<szItemName>7.62x51 Mag</szItemName>
+		<szLongItemName>7.62x51mm Magazin</szLongItemName>
+		<szItemDesc>Seit über 40 Jahren fertigt MEN (Dtl.) Munition im ehemaligen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>7.62x51 Mag</szBRName>
+		<szBRDesc>Seit über 40 Jahren fertigt MEN (Dtl.) Munition im ehemaligen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>102</uiIndex>
+		<szItemName>7.62x51 HS</szItemName>
+		<szLongItemName>7.62x51mm Magazin, Hohlspitz</szLongItemName>
+		<szItemDesc>Die neu entwickelte RWS Evolution Patrone im Kaliber .308 Winchester kombiniert mit einer ausgefeilten Mantelkonstruktion und dem innovativen Rapid-X-Tip eine überzeugende Performance auf allen jagdüblichen Schuss-Distanzen.</szItemDesc>
+		<szBRName>7.62x51 Mag HS #5</szBRName>
+		<szBRDesc>Die neu entwickelte RWS Evolution Patrone im Kaliber .308 Winchester kombiniert mit einer ausgefeilten Mantelkonstruktion und dem innovativen Rapid-X-Tip eine überzeugende Performance auf allen jagdüblichen Schuss-Distanzen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>103</uiIndex>
+		<szItemName>7.62x51 HS</szItemName>
+		<szLongItemName>7.62x51mm Magazin, Hohlspitz</szLongItemName>
+		<szItemDesc>Seit über 40 Jahren fertigt MEN (Dtl.) Munition im ehemaligen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>7.62x51 Mag HS</szBRName>
+		<szBRDesc>Seit über 40 Jahren fertigt MEN (Dtl.) Munition im ehemaligen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>104</uiIndex>
+		<szItemName>4.73x33 Mag XPB</szItemName>
+		<szLongItemName>4.73x33mm Magazin, XPB</szLongItemName>
+		<szItemDesc>Die von DYNAMIT NOBEL entwickelte hülsenlose Munition durchschlägt Kevlarwesten ohne Probleme. Um eine hohe Zielwirkung und geringe Umfeldgefährdung zu erreichen, gibt das Projektil seine Energie schnell ab und taumelt im Zielmedium.</szItemDesc>
+		<szBRName>4.73x33 Mag XPB</szBRName>
+		<szBRDesc>Die von DYNAMIT NOBEL entwickelte hülsenlose Munition durchschlägt Kevlarwesten ohne Probleme. Um eine hohe Zielwirkung und geringe Umfeldgefährdung zu erreichen, gibt das Projektil seine Energie schnell ab und taumelt im Zielmedium.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>105</uiIndex>
+		<szItemName>5.7x28 XPB</szItemName>
+		<szLongItemName>5.7x28mm Magazin, XPB</szLongItemName>
+		<szItemDesc>Die SS190 Patronen durchschlagen Kevlarwesten wie sie von der Polizei verwendet werden. Für eine hohe Zielwirkung und geringe Umfeldgefährdung ist das Projektil so ausgelegt, dass es seine Energie schnell abgibt und im Zielmedium taumelt.</szItemDesc>
+		<szBRName>5.7x28 Mag XPB #50</szBRName>
+		<szBRDesc>Die SS190 Patronen durchschlagen Kevlarwesten wie sie von der Polizei verwendet werden. Für eine hohe Zielwirkung und geringe Umfeldgefährdung ist das Projektil so ausgelegt, dass es seine Energie schnell abgibt und im Zielmedium taumelt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>106</uiIndex>
+		<szItemName>5.7x28 HS</szItemName>
+		<szLongItemName>5.7x28mm Magazin, Hohlspitz</szLongItemName>
+		<szItemDesc>Die SS195LF Patronen kennzeichnet ein mit Kupfer ummanteltes Aluminiumkern-Projektil mit ähnlicher Ballistik zur SS192 Patrone (HS). Diese Patrone ist für Zivilisten erhältlich und wird von FIOCCHI in Lizenz gefertigt.</szItemDesc>
+		<szBRName>5.7x28 Mag HS #50</szBRName>
+		<szBRDesc>Die SS195LF Patronen kennzeichnet ein mit Kupfer ummanteltes Aluminiumkern-Projektil mit ähnlicher Ballistik zur SS192 Patrone (HS). Diese Patrone ist für Zivilisten erhältlich und wird von FIOCCHI in Lizenz gefertigt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>107</uiIndex>
+		<szItemName>12g FLG</szItemName>
+		<szLongItemName>Kaliber 12/70 Patrone, FLG</szLongItemName>
+		<szItemDesc>Mit seinen schräggestellten Rippen ist das BRENNEKE RubinSabot (Flintenlaufgeschoss) pfeilstabilisiert und kann aus allen Flintenläufen verschossen werden. Es besitzt eine sehr hohe Präzision und steigert die Reichweite Ihrer Waffe um 50m.</szItemDesc>
+		<szBRName>12g FLG #7</szBRName>
+		<szBRDesc>Mit seinen schräggestellten Rippen ist das BRENNEKE RubinSabot (Flintenlaufgeschoss) pfeilstabilisiert und kann aus allen Flintenläufen verschossen werden. Es besitzt eine sehr hohe Präzision und steigert die Reichweite Ihrer Waffe um 50m.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>108</uiIndex>
+		<szItemName>12g Schrot</szItemName>
+		<szLongItemName>Kaliber 12/70 Patronen, Schrot</szLongItemName>
+		<szItemDesc>Die ROTTWEIL Steel Game Weicheisen Patronen berücksichtigen Umweltaspekte und sind für die Jagd an Gewässern und in sensiblen Landschaftsbereichen, in denen kein Bleischrot zugelassen ist, hervorragend geeignet.</szItemDesc>
+		<szBRName>12g Schrot #7</szBRName>
+		<szBRDesc>Die ROTTWEIL Steel Game Weicheisen Patronen berücksichtigen Umweltaspekte und sind für die Jagd an Gewässern und in sensiblen Landschaftsbereichen, in denen kein Bleischrot zugelassen ist, hervorragend geeignet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>109</uiIndex>
+		<szItemName>18.5x76 Mag XPB</szItemName>
+		<szLongItemName>CAWS Magazin, XPB</szLongItemName>
+		<szItemDesc>Die REMINGTON Core-Lokt Ultra Slugs werden gern von Polizei und Militär verwendet. Ihre Geschosse durchlagen mehrschichtige Schutzwesten ohne Probleme, besitzen eine sehr hohe Präzision und steigern die Reichweite Ihrer Waffe um 50m.</szItemDesc>
+		<szBRName>18.5x76 Mag XPB #10</szBRName>
+		<szBRDesc>Die REMINGTON Core-Lokt Ultra Slugs werden gern von Polizei und Militär verwendet. Ihre Geschosse durchlagen mehrschichtige Schutzwesten ohne Probleme, besitzen eine sehr hohe Präzision und steigern die Reichweite Ihrer Waffe um 50m.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>110</uiIndex>
+		<szItemName>18.5x76 Schrot</szItemName>
+		<szLongItemName>CAWS Magazin, Schrot</szLongItemName>
+		<szItemDesc>Die REMINGTON Express Buckshot Patronen werden gern von Gesetzeshütern verwendet. Durch die Streuung der Schrote erleidet der Gegner einen tödlichen Nervenschock. Im Nahkampf haben Schrote eine verheerende, absolut tödliche Wirkung.</szItemDesc>
+		<szBRName>18.5x76 Mag Schrot #10</szBRName>
+		<szBRDesc>Die REMINGTON Express Buckshot Patronen werden gern von Gesetzeshütern verwendet. Durch die Streuung der Schrote erleidet der Gegner einen tödlichen Nervenschock. Im Nahkampf haben Schrote eine verheerende, absolut tödliche Wirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>111</uiIndex>
+		<szItemName>Miniraketen PB</szItemName>
+		<szLongItemName>Miniraketen, PB</szLongItemName>
+		<szItemDesc>Diese PB-Raketen verursachen solch spektakuläre Wunden, dass sie jeden Special-Effects-Mann in Hollywood neidisch machen würden.</szItemDesc>
+		<szBRName>Miniraketen PB</szBRName>
+		<szBRDesc>Diese PB-Raketen verursachen solch spektakuläre Wunden, dass sie jeden Special-Effects-Mann in Hollywood neidisch machen würden.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>112</uiIndex>
+		<szItemName>Miniraketen HE</szItemName>
+		<szLongItemName>Miniraketen, HE</szLongItemName>
+		<szItemDesc>Die hochexplosiven Miniraketen lassen das Armageddon schneller über uns hereinbrechen als irgendein alter Meteor.</szItemDesc>
+		<szBRName>Miniraketen HE</szBRName>
+		<szBRDesc>Hätten die vier apokalyptischen Reiter Waffen getragen, hätten sie sich für diese Raketen entschieden. Die hochexplosiven Miniraketen lassen das Armageddon schneller über uns hereinbrechen als irgendein alter Meteor.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>113</uiIndex>
+		<szItemName>Miniraketen HEPB</szItemName>
+		<szLongItemName>Miniraketen, HEPB</szLongItemName>
+		<szItemDesc>Blasen Sie Ihren Gegnern mit diesen hochexplosiven, panzerbrechenden Raketen den Marsch und sehen Sie zu, wie sie bei den heißen Rhythmen gegrillt werden.</szItemDesc>
+		<szBRName>Miniraketen HEPB</szBRName>
+		<szBRDesc>Blasen Sie Ihren Gegnern mit diesen hochexplosiven, panzerbrechenden Raketen den Marsch und sehen Sie zu, wie sie bei den heißen Rhythmen gegrillt werden.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>114</uiIndex>
+		<szItemName>Pfeil</szItemName>
+		<szLongItemName>Pfeil</szLongItemName>
+		<szItemDesc>Wird normalerweise benutzt, um Großwild zu betäuben. Macht jeden Gegner kampfunfähig, bevor er auch nur gähnen kann.</szItemDesc>
+		<szBRName>Pfeil</szBRName>
+		<szBRDesc>Wird normalerweise benutzt, um Großwild zu betäuben. Macht jeden Gegner kampfunfähig, bevor er auch nur gähnen kann.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>115</uiIndex>
+		<szItemName>FW-Clip</szItemName>
+		<szLongItemName>Flammenwerfer Clip</szLongItemName>
+		<szItemDesc>Das ist Munition für den Flammenwerfer.</szItemDesc>
+		<szBRName>FW-Clip</szBRName>
+		<szBRDesc>Das ist Munition für den Flammenwerfer.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>116</uiIndex>
+		<szItemName>.50 BMG Mag</szItemName>
+		<szLongItemName>.50 BMG Magazin, XPB</szLongItemName>
+		<szItemDesc>Dieses 11-schüssige Magazin enthält Patronen im Kaliber .50 BMG (12.7x99mm) und ist passend für das Barrett M82A2.</szItemDesc>
+		<szBRName>.50 BMG Magazin #11</szBRName>
+		<szBRDesc>Dieses 11-schüssige Magazin enthält Patronen im Kaliber .50 BMG (12.7x99mm) und ist passend für das Barrett M82A2.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>117</uiIndex>
+		<szItemName>9x39 Mag XPB</szItemName>
+		<szLongItemName>9x39mm Magazin, XPB</szLongItemName>
+		<szItemDesc>Diese Munition im stärkeren Kaliber 9x39mm wird von einer Reihe neuerer russischer Waffen verwendet. Darunter AS Val, VSS Vintorez und SR-3 Vikhr.</szItemDesc>
+		<szBRName>9x39 Mag, XPB #20</szBRName>
+		<szBRDesc>Diese Munition im stärkeren Kaliber 9x39mm wird von einer Reihe russischer Waffen verwendet. Darunter AS Val, VSS Vintorez und SR-3 Vikhr. Optimiert für Einsatz mit 9mm Schalldämpfern</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>118</uiIndex>
+		<szItemName>9x19 Mag</szItemName>
+		<szLongItemName>9x19mm Magazin</szLongItemName>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szBRName>9x19 Mag #50</szBRName>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Dieses 50-Schuss-Magazin ist für die CALICO-Modelle geeignet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>119</uiIndex>
+		<szItemName>9x19 PB</szItemName>
+		<szLongItemName>9x19mm Magazin, PB</szLongItemName>
+		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szBRName>9x19 Mag PB #50</szBRName>
+		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>120</uiIndex>
+		<szItemName>9x19 HS</szItemName>
+		<szLongItemName>9x19mm Magazin, HS</szLongItemName>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>9x19 Mag HS #50</szBRName>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>121</uiIndex>
+		<szItemName>5.45x39 Mag</szItemName>
+		<szLongItemName>5.45x39mm RPK-Magazin</szLongItemName>
+		<szItemDesc>Diese PB-Patronen von WOLF 'Made in Russia' durchschlagen Dank ihrer Metallmantelung nicht nur Wände und Schutzwesten, sondern auch mehrere menschliche Körper hintereinander.</szItemDesc>
+		<szBRName>5.45x39 Mag #75</szBRName>
+		<szBRDesc>Diese PB-Patronen von WOLF 'Made in Russia' durchschlagen Dank ihrer Metallmantelung nicht nur Wände und Schutzwesten, sondern auch mehrere menschliche Körper hintereinander.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>122</uiIndex>
+		<szItemName>5.45x39 HS</szItemName>
+		<szLongItemName>5.45x39mm RPK-Magazin, Hohlspitz</szLongItemName>
+		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>5.45x39 Mag HS #75</szBRName>
+		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>123</uiIndex>
+		<szItemName>5.56x45 Gurt</szItemName>
+		<szLongItemName>5.56x45mm Gurt</szLongItemName>
+		<szItemDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>5.56x45 Gurt #200</szBRName>
+		<szBRDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>124</uiIndex>
+		<szItemName>5.56x45 HS</szItemName>
+		<szLongItemName>5.56x45mm Gurt, Hohlspitz</szLongItemName>
+		<szItemDesc>Seit über 20 Jahren fertigt MEN (Dtl.) das neue NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>5.56x45 Gurt HS #200</szBRName>
+		<szBRDesc>Seit über 20 Jahren fertigt MEN (Dtl.) das neue NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>125</uiIndex>
+		<szItemName>7.62x51 Gurt</szItemName>
+		<szLongItemName>7.62x51mm Gurt</szLongItemName>
+		<szItemDesc>Seit über 40 Jahren fertigt MEN (Dtl.) Munition im ehemaligen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>7.62x51 Gurt #100</szBRName>
+		<szBRDesc>Seit über 40 Jahren fertigt MEN (Dtl.) Munition im ehemaligen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>126</uiIndex>
+		<szItemName>7.62x51 HS</szItemName>
+		<szLongItemName>7.62x51mm Gurt, Hohlspitz</szLongItemName>
+		<szItemDesc>Seit über 40 Jahren fertigt MEN (Dtl.) Munition im ehemaligen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>7.62x51 Gurt HS #100</szBRName>
+		<szBRDesc>Seit über 40 Jahren fertigt MEN (Dtl.) Munition im ehemaligen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>127</uiIndex>
+		<szItemName>7.62x54R Mag</szItemName>
+		<szLongItemName>7.62x54R Magazin</szLongItemName>
+		<szItemDesc>Diese PB-Patronen von WOLF 'Made in Russia' durchschlagen Dank ihrer Metallmantelung nicht nur Wände und Schutzwesten, sondern auch mehrere menschliche Körper hintereinander.</szItemDesc>
+		<szBRName>7.62x54R Mag #10</szBRName>
+		<szBRDesc>Diese PB-Patronen von WOLF 'Made in Russia' durchschlagen Dank ihrer Metallmantelung nicht nur Wände und Schutzwesten, sondern auch mehrere menschliche Körper hintereinander.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>128</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 128</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>129</uiIndex>
+		<szItemName>7.62x25 Mag</szItemName>
+		<szLongItemName>7.62x25mm MP-Magazin</szLongItemName>
+		<szItemDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szBRName>7.62x25 Mag #30</szBRName>
+		<szBRDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>130</uiIndex>
+		<szItemName>7.62x25 HS</szItemName>
+		<szLongItemName>7.62x25mm MP-Magazin, HS</szLongItemName>
+		<szItemDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>7.62x25 Mag HS</szBRName>
+		<szBRDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>131</uiIndex>
+		<szItemName>V-Granate</szItemName>
+		<szLongItemName>Vakuum-Handgranate</szLongItemName>
+		<szItemDesc>Mit dieser Granate nehmen Sie jeder Infanterie- Einheit den Wind aus den Segeln.</szItemDesc>
+		<szBRName>Vakuum-Granate</szBRName>
+		<szBRDesc>Mit dieser Granate nehmen Sie jeder Infanterie-Einheit den Wind aus den Segeln.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>132</uiIndex>
+		<szItemName>TG-Granate</szItemName>
+		<szLongItemName>Tränengas-Handgranate</szLongItemName>
+		<szItemDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szItemDesc>
+		<szBRName>Tränengas-Granate</szBRName>
+		<szBRDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>133</uiIndex>
+		<szItemName>SG-Granate</szItemName>
+		<szLongItemName>Senfgas-Handranate</szLongItemName>
+		<szItemDesc>Diese Granate setzt ein farb-, geruch- und geschmackloses Gas frei, das schwere Verätzungen in der Lunge verursacht.</szItemDesc>
+		<szBRName>Senfgas-Granate</szBRName>
+		<szBRDesc>Diese Granate setzt ein farb-, geruch- und geschmackloses Gas frei, das schwere Verätzungen in der Lunge verursacht. Ohne sofortige medizinische Hilfe stirbt das Opfer.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>134</uiIndex>
+		<szItemName>Mini-Granate</szItemName>
+		<szLongItemName>Mini-Handgranate</szLongItemName>
+		<szItemDesc>Diese kleine TNT-Granate wurde konzipiert, um sichere Wurfreichweite und wirkungsvolle Zersplitterung zu gewährleisten.</szItemDesc>
+		<szBRName>Mini-Granate</szBRName>
+		<szBRDesc>Diese kleine TNT-Granate wurde konzipiert, um sichere Wurfreichweite und wirkungsvolle Zersplitterung zu gewährleisten. Sie hat sich als gutes, tödliches Mittel erwiesen, um für Deckung zu sorgen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>135</uiIndex>
+		<szItemName>Handgranate</szItemName>
+		<szLongItemName>Handgranate Mk 2</szLongItemName>
+		<szItemDesc>Diese mit TNT gefüllte Splittergranate, auch als 'Ananas' bekannt, wurde von der US-Army im 2. Weltkrieg und in Vietnam eingesetzt. Mit der Zeit wurde sie durch die M61- und M67-Granaten ersetzt.</szItemDesc>
+		<szBRName>Handgranate Mk 2</szBRName>
+		<szBRDesc>Diese mit TNT gefüllte Splittergranate, auch als 'Ananas' bekannt, wurde von der US-Army im 2. Weltkrieg und in Vietnam eingesetzt. Mit der Zeit wurde sie durch die M61- und M67-Granaten ersetzt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>136</uiIndex>
+		<szItemName>RDX</szItemName>
+		<szLongItemName>Glas mit RDX Kristallen</szLongItemName>
+		<szItemDesc>Ein mit Cyklonitkristallen gefülltes Gefäß ist wirkungsvoller als TNT und leichter zur Detonation zu bringen. Der einzige Nachteil ist ihre Instabilität. Sie explodieren bei der kleinsten Erschütterung.</szItemDesc>
+		<szBRName>RDX Kristalle</szBRName>
+		<szBRDesc>Ein mit Cyklonitkristallen gefülltes Gefäß ist wirkungsvoller als TNT und leichter zur Detonation zu bringen. Der einzige Nachteil ist ihre Instabilität. Sie explodieren bei der kleinsten Erschütterung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>137</uiIndex>
+		<szItemName>TNT</szItemName>
+		<szLongItemName>TNT</szLongItemName>
+		<szItemDesc>Nach Dynamit ist Tri-Nitro-Toluol der älteste und meistgenutzte Sprengstoff der Welt. Die Stangen sind äußerst stabil, in Strohpappe eingerollt, und beinhalten eine Ladung von gut 100g Gewicht.</szItemDesc>
+		<szBRName>TNT</szBRName>
+		<szBRDesc>Nach Dynamit ist Tri-Nitro-Toluol der älteste und meistgenutzte Sprengstoff der Welt. Die Stangen sind äußerst stabil, in Strohpappe eingerollt, und beinhalten eine Ladung von gut 100g Gewicht.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>138</uiIndex>
+		<szItemName>HMX</szItemName>
+		<szLongItemName>HMX</szLongItemName>
+		<szItemDesc>HMX ist eine Mischung aus TNT und Cyklonit im Gewichtsverhältnis 50:50. Nicht so wirkungsvoll wie reines Cyklonit, aber viel stabiler.</szItemDesc>
+		<szBRName>HMX</szBRName>
+		<szBRDesc>HMX ist eine Mischung aus TNT und Cyklonit im Gewichtsverhältnis 50:50. Nicht so wirkungsvoll wie reines Cyklonit, aber viel stabiler.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>139</uiIndex>
+		<szItemName>C1</szItemName>
+		<szLongItemName>C1</szLongItemName>
+		<szItemDesc>C1 ist eine Lösung aus Cyklonit und einer kleinen Menge Mineralöl. Durch diese Mischung wird die Sprengkraft von Cyklonit beibehalten, während die Stabilität erhöht wird.</szItemDesc>
+		<szBRName>C1</szBRName>
+		<szBRDesc>C1 ist eine Lösung aus Cyklonit und einer kleinen Menge Mineralöl. Durch diese Mischung wird die Sprengkraft von Cyklonit beibehalten, während die Stabilität erhöht wird.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>140</uiIndex>
+		<szItemName>60mm Granate</szItemName>
+		<szLongItemName>60mm Mörsergranate</szLongItemName>
+		<szItemDesc>Dieses hochexplosive Geschoss besteht aus wasserdichten Treibladungen und einem M734-Zünder der manuell eingestellt werden kann.</szItemDesc>
+		<szBRName>60mm Mörser-Granate</szBRName>
+		<szBRDesc>Dieses hochexplosive Geschoss besteht aus wasserdichten Treibladungen und einem M734-Zünder der manuell so eingestellt werden kann, dass die Bombe verzögert, beim Aufprall, oberflächen- oder zielnah detoniert.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>141</uiIndex>
+		<szItemName>Mine</szItemName>
+		<szLongItemName>Landmine</szLongItemName>
+		<szItemDesc>Diese Mine ist eine Splittermine, die durch Auftreten aktiviert wird. Sie beinhaltet einen Störmelder, der das Räumen der Mine verhindert und einen Sensor, der die Mine nach einer bestimmten Zeit neutralisiert.</szItemDesc>
+		<szBRName>Landmine</szBRName>
+		<szBRDesc>Diese Mine ist eine Splittermine, die durch Auftreten aktiviert wird. Sie beinhaltet einen Störmelder, der das Räumen der Mine verhindert und einen Sensor, der die Mine nach einer bestimmten Zeit neutralisiert.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>142</uiIndex>
+		<szItemName>C4</szItemName>
+		<szLongItemName>C4</szLongItemName>
+		<szItemDesc>C4 ist ein weißer Plastiksprengstoff, wirkungsvoller als TNT. Dieser mit Plastik überzogene Block hat eine mit einer Gewindekappe versehene Vertiefung an beiden Enden. Im Gegensatz zu C1 ist C4 geruchlos.</szItemDesc>
+		<szBRName>C4</szBRName>
+		<szBRDesc>C4 ist ein weißer Plastiksprengstoff, wirkungsvoller als TNT. Dieser mit Plastik überzogene Block hat eine mit einer Gewindekappe versehene Vertiefung an beiden Enden. Im Gegensatz zu C1 ist C4 geruchlos.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>143</uiIndex>
+		<szItemName>SL-Mine</szItemName>
+		<szLongItemName>Stolperdraht-Leuchtmine</szLongItemName>
+		<szItemDesc>Diese Leuchtmine ist mit einem Stolperdraht versehen. Durch Ziehen oder Durchtrennen des Stolperdrahtes wird die Leuchtpatrone gezündet, und die Söldner werden auf den Gegner aufmerksam gemacht.</szItemDesc>
+		<szBRName>SL-Mine</szBRName>
+		<szBRDesc>Diese Leuchtmine ist mit einem Stolperdraht versehen. Durch Ziehen oder Durchtrennen des Stolperdrahtes wird die Leuchtpatrone gezündet, und die Söldner werden auf den Gegner aufmerksam gemacht.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>144</uiIndex>
+		<szItemName>SLA-Mine</szItemName>
+		<szLongItemName>SL-Alarm-Mine</szLongItemName>
+		<szItemDesc>Diese mit einem Stolperdraht versehene Leuchtmine macht Söldner auf Gegner aufmerksam, die sich in der Nähe befinden. Durch Ziehen oder Durchtrennen des Stolperdrahtes wird die Leuchtpatrone gezündet. Eine Alarmsirene ertönt.</szItemDesc>
+		<szBRName>SL-Alarm-Mine</szBRName>
+		<szBRDesc>Diese mit einem Stolperdraht versehene Leuchtmine macht Söldner auf Gegner aufmerksam, die sich in der Nähe befinden. Durch Ziehen oder Durchtrennen des Stolperdrahtes wird die Leuchtpatrone gezündet. Eine Alarmsirene ertönt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>145</uiIndex>
+		<szItemName>Plastik-Spr.</szItemName>
+		<szLongItemName>Plastik-Sprengladung</szLongItemName>
+		<szItemDesc>Heften Sie diese kleine Plastiksprengladung an eine Tür, und das Schloss wird einfach herausgesprengt.</szItemDesc>
+		<szBRName>Plastik-Spr.</szBRName>
+		<szBRDesc>Heften Sie diese kleine Plastiksprengladung an eine Tür, und das Schloss wird einfach herausgesprengt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>146</uiIndex>
+		<szItemName>Knicklicht</szItemName>
+		<szLongItemName>chemisches Knicklicht</szLongItemName>
+		<szItemDesc>Dieser chemische Leuchtstab für den einmaligen Gebrauch ist eine sehr handliche, tragbare Lichtquelle. Den Stab einfach abknicken und schütteln, und Ihr Weg wird beleuchtet.</szItemDesc>
+		<szBRName>chem. Knicklicht</szBRName>
+		<szBRDesc>Dieser chemische Leuchtstab für den einmaligen Gebrauch ist eine sehr handliche, tragbare Lichtquelle. Den Stab einfach abknicken und schütteln, und Ihr Weg wird beleuchtet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>147</uiIndex>
+		<szItemName>40mm HE</szItemName>
+		<szLongItemName>40mm HE Granate</szLongItemName>
+		<szItemDesc>Blasen Sie Ihren Gegnern mit diesen hochexplosiven Granaten den Marsch und sehen Sie zu, wie sie bei den heißen Rhythmen gegrillt werden.</szItemDesc>
+		<szBRName>40mm HE-Granate</szBRName>
+		<szBRDesc>Blasen Sie Ihren Gegnern mit diesen hochexplosiven Granaten den Marsch und sehen Sie zu, wie sie bei den heißen Rhythmen gegrillt werden.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>148</uiIndex>
+		<szItemName>40mm TG</szItemName>
+		<szLongItemName>40mm Tränengas-Granate</szLongItemName>
+		<szItemDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szItemDesc>
+		<szBRName>40mm TG-Granate</szBRName>
+		<szBRDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>149</uiIndex>
+		<szItemName>40mm V</szItemName>
+		<szLongItemName>40mm Vakuum-Granate</szLongItemName>
+		<szItemDesc>Wenn diese Granaten aufschlagen wird ein Vakuum erzeugt, das Ihre Gegner nach Luft ringen lässt.</szItemDesc>
+		<szBRName>40mm V-Granate</szBRName>
+		<szBRDesc>Wenn diese Granaten aufschlagen wird ein Vakuum erzeugt, das Ihre Gegner nach Luft ringen lässt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>150</uiIndex>
+		<szItemName>40mm Nebel</szItemName>
+		<szLongItemName>40mm Nebel-Granate</szLongItemName>
+		<szItemDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlachtfeldes oder beim Rückzug Deckung bietet.</szItemDesc>
+		<szBRName>40mm Nebel-Granate</szBRName>
+		<szBRDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlachtfeldes oder beim Rückzug Deckung bietet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>151</uiIndex>
+		<szItemName>Nebel-Granate</szItemName>
+		<szLongItemName>Nebel-Handgranate</szLongItemName>
+		<szItemDesc>Diese Handgranate erfüllt hunderte von Aufgaben wie zum Beispiel: Unbeobachtetes Herannahen an feindliche Stellungen.</szItemDesc>
+		<szBRName>Nebel-Granate</szBRName>
+		<szBRDesc>Diese Handgranate erfüllt hunderte von Aufgaben wie zum Beispiel: Unbeobachtetes Herannahen an feindliche Stellungen, Markieren möglicher Landeplätze und Feuerwehrmänner in Panik versetzen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>152</uiIndex>
+		<szItemName>Tank Shell</szItemName>
+		<szLongItemName>Tank Shell</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Tank Shell</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>153</uiIndex>
+		<szItemName>Struct Ignite</szItemName>
+		<szLongItemName>Struct Ignite</szLongItemName>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
+		<szBRName>Struct Ignite</szBRName>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>154</uiIndex>
+		<szItemName>Cocktail</szItemName>
+		<szLongItemName>Creature cocktail</szLongItemName>
+		<szBRName>Creature cocktail</szBRName>
+	</ITEM>
+	<ITEM>
+		<uiIndex>155</uiIndex>
+		<szItemName>Structure Explosion</szItemName>
+		<szLongItemName>Structure Explosion</szLongItemName>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
+		<szBRName>Structure Explosion</szBRName>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>156</uiIndex>
+		<szItemName>Great big explosion</szItemName>
+		<szLongItemName>Great big explosion</szLongItemName>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
+		<szBRName>Great big explosion</szBRName>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>157</uiIndex>
+		<szItemName>Big Tear Gas</szItemName>
+		<szLongItemName>Big Tear Gas</szLongItemName>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
+		<szBRName>Big Tear Gas</szBRName>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>158</uiIndex>
+		<szItemName>Small Creature Gas</szItemName>
+		<szLongItemName>Small Creature Gas</szLongItemName>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
+		<szBRName>Small Creature Gas</szBRName>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>159</uiIndex>
+		<szItemName>Large Creature Gas</szItemName>
+		<szLongItemName>Large Creature Gas</szLongItemName>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
+		<szBRName>Large Creature Gas</szBRName>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>160</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 160</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>161</uiIndex>
+		<szItemName>S-Weste</szItemName>
+		<szLongItemName>Schutzweste</szLongItemName>
+		<szItemDesc>Diese ultraleichte, ärmellose Schutzweste von ARMORSHIELD ist mit einem Nacken- und Tiefenschutz sowie Klettverschlüssen an beiden Seiten versehen. Schutzklasse: I (NIJ)</szItemDesc>
+		<szBRName>Schutzweste</szBRName>
+		<szBRDesc>Diese ultraleichte, ärmellose Schutzweste von ARMORSHIELD ist mit einem Nacken- und Tiefenschutz sowie Klettverschlüssen an beiden Seiten versehen. Schutzklasse: I (NIJ)</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>162</uiIndex>
+		<szItemName>C18-SS-Weste</szItemName>
+		<szLongItemName>C18-Schutzweste</szLongItemName>
+		<szItemDesc>Diese ultraleichte Armorshield-Jacke wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen. Die ärmellose Jacke wird zusammen mit Nacken- und Tiefenschutz geliefert.</szItemDesc>
+		<szBRName>C18-Schutzweste</szBRName>
+		<szBRDesc>Diese ultraleichte Armorshield-Jacke wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen. Die ärmellose Jacke wird zusammen mit Nacken- und Tiefenschutz geliefert.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>163</uiIndex>
+		<szItemName>beh. S-Weste</szItemName>
+		<szLongItemName>beh. Schutzweste</szLongItemName>
+		<szItemDesc>Diese Schutzweste bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
+		<szBRName>beh. Schutzweste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>164</uiIndex>
+		<szItemName>K-Weste</szItemName>
+		<szLongItemName>Kevlarweste</szLongItemName>
+		<szItemDesc>Diese Weste besteht aus 28 Schichten Kevlarfasern. Sie bedeckt Schultern, Nacken und Seiten. Ein einsetzbarer Tiefenschutz wird mitgeliefert. Die Brust- und Hüftgurte sind verstellbar. Schutzklasse: II-A (NIJ)</szItemDesc>
+		<szBRName>Kevlarweste</szBRName>
+		<szBRDesc>Diese Weste besteht aus 28 Schichten Kevlarfasern. Sie bedeckt Schultern, Nacken und Seiten. Ein einsetzbarer Tiefenschutz wird mitgeliefert. Die Brust- und Hüftgurte sind verstellbar. Schutzklasse: II-A (NIJ)</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>165</uiIndex>
+		<szItemName>C18-K-Weste</szItemName>
+		<szLongItemName>C18-Kevlarweste</szLongItemName>
+		<szItemDesc>Diese Kevlarweste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18-Kevlarweste</szBRName>
+		<szBRDesc>Diese Kevlarweste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>166</uiIndex>
+		<szItemName>beh. K-Weste</szItemName>
+		<szLongItemName>beh. Kevlarweste</szLongItemName>
+		<szItemDesc>Diese Kevlar-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
+		<szBRName>beh. Kevlarweste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>167</uiIndex>
+		<szItemName>SS-Weste</szItemName>
+		<szLongItemName>Spectra-Shield-Weste</szLongItemName>
+		<szItemDesc>Diese Weste besteht aus mehreren Folienlagen Spectra-Shield. Sie beugt Verletzungen durch Treffer aus verschiedenen Schusswinkeln vor. Zusätzlich kann eine Traumaplatte für den Brustbereich angebracht werden. Schutzklasse: III-A (NIJ)</szItemDesc>
+		<szBRName>Spectra-Shield-Weste</szBRName>
+		<szBRDesc>Diese Weste besteht aus mehreren Folienlagen Spectra-Shield. Sie beugt Verletzungen durch Treffer aus verschiedenen Schusswinkeln vor. Zusätzlich kann eine Traumaplatte für den Brustbereich angebracht werden. Schutzklasse: III-A (NIJ)</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>168</uiIndex>
+		<szItemName>C18-S-Weste</szItemName>
+		<szLongItemName>C18-Spectra-Shield-Weste</szLongItemName>
+		<szItemDesc>Diese Spectra-Shield-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18-Spectra-Shield-Weste</szBRName>
+		<szBRDesc>Diese Spectra-Shield-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>169</uiIndex>
+		<szItemName>beh. S-Weste</szItemName>
+		<szLongItemName>beh. Spectra-Shield-Weste</szLongItemName>
+		<szItemDesc>Diese Spectra-Shield-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
+		<szBRName>beh. Spectra-Shield-Weste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>170</uiIndex>
+		<szItemName>K-Hose</szItemName>
+		<szLongItemName>Kevlarhose</szLongItemName>
+		<szItemDesc>Diese Hose wurde aus 28 Schichten Kevlar, einer Aramidfaser hergestellt. Verstellbare Klettverschlüsse an Hüften und Knöcheln garantieren erstklassigen Sitz. Schutzklasse: II-A (NIJ)</szItemDesc>
+		<szBRName>Kevlarhose</szBRName>
+		<szBRDesc>Diese Hose wurde aus 28 Schichten Kevlar, einer Aramidfaser hergestellt. Verstellbare Klettverschlüsse an Hüften und Knöcheln garantieren erstklassigen Sitz. Schutzklasse: II-A (NIJ)</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>171</uiIndex>
+		<szItemName>C18-K-Hose</szItemName>
+		<szLongItemName>C18-Kevlarhose</szLongItemName>
+		<szItemDesc>Diese Kevlarhose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18-Kevlarhose</szBRName>
+		<szBRDesc>Diese Kevlarhose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>172</uiIndex>
+		<szItemName>beh. K-Hose</szItemName>
+		<szLongItemName>beh. Kevlarhose</szLongItemName>
+		<szItemDesc>Diese Kevlar-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
+		<szBRName>beh. Kevlarhose</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>173</uiIndex>
+		<szItemName>SS-Hose</szItemName>
+		<szLongItemName>Spectra-Shield-Hose</szLongItemName>
+		<szItemDesc>Diese Hose besteht aus mehreren Folienlagen Spectra-Shield. Sie beugt Verletzungen durch Treffer aus verschiedenen Schusswinkeln vor. Verstellbare Klettverschlüsse an Hüften und Knöcheln garantieren volle Bewegungsfreiheit. Schutzklasse: III-A (NIJ)</szItemDesc>
+		<szBRName>Spectra-Shield-Hose</szBRName>
+		<szBRDesc>Diese Hose besteht aus mehreren Folienlagen Spectra-Shield. Sie beugt Verletzungen durch Treffer aus verschiedenen Schusswinkeln vor. Verstellbare Klettverschlüsse an Hüften und Knöcheln garantieren volle Bewegungsfreiheit. Schutzklasse: III-A (NIJ)</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>174</uiIndex>
+		<szItemName>C18-S-Hose</szItemName>
+		<szLongItemName>C18-Spectra-Shield-Hose</szLongItemName>
+		<szItemDesc>Diese Spectra-Shield-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18-Spectra-Shield-Hose</szBRName>
+		<szBRDesc>Diese Spectra-Shield-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>175</uiIndex>
+		<szItemName>beh. S-Hose</szItemName>
+		<szLongItemName>beh. Spectra-Shield-Hose</szLongItemName>
+		<szItemDesc>Diese Spectra-Shield-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
+		<szBRName>beh. Spectra-Shield-Hose</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>176</uiIndex>
+		<szItemName>Stahlhelm</szItemName>
+		<szLongItemName>Stahlhelm</szLongItemName>
+		<szItemDesc>Dieser Stahlhelm bietet Schutz vor kleinen Feuerwaffen, Schrapnellen und anderen Projektilen. Er ist innen mit einem Leder-Nylon-Futter gepolstert und hat einen verstellbaren Kinnriemen.</szItemDesc>
+		<szBRName>Stahlhelm</szBRName>
+		<szBRDesc>Dieser Stahlhelm bietet Schutz vor kleinen Feuerwaffen, Schrapnellen und anderen Projektilen. Er ist innen mit einem Leder-Nylon-Futter gepolstert und hat einen verstellbaren Kinnriemen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>177</uiIndex>
+		<szItemName>K-Helm</szItemName>
+		<szLongItemName>Kevlarhelm</szLongItemName>
+		<szItemDesc>Dieser Helm wurde aus Kevlar, einer Aramidfaser hergestellt. Er verfügt über ein Komfortpolster, ein Schweißband und einen Kinnriemen. Zudem reicht er weiter über Ohren und Nacken als andere Helme. Schutzklasse: II-A (NIJ)</szItemDesc>
+		<szBRName>Kevlarhelm</szBRName>
+		<szBRDesc>Dieser Helm wurde aus Kevlar, einer Aramidfaser hergestellt. Er verfügt über ein Komfortpolster, ein Schweißband und einen Kinnriemen. Zudem reicht er weiter über Ohren und Nacken als andere Helme. Schutzklasse: II-A (NIJ)</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>178</uiIndex>
+		<szItemName>C18-K-Helm</szItemName>
+		<szLongItemName>C18-Kevlarhelm</szLongItemName>
+		<szItemDesc>Dieser Kevlarhelm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18-Kevlarhelm</szBRName>
+		<szBRDesc>Dieser Kevlarhelm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>179</uiIndex>
+		<szItemName>beh. K-Helm</szItemName>
+		<szLongItemName>beh. Kevlarhelm</szLongItemName>
+		<szItemDesc>Dieser Kevlarhelm bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
+		<szBRName>beh. Kevlarhelm</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>180</uiIndex>
+		<szItemName>SS-Helm</szItemName>
+		<szLongItemName>Spectra-Shield-Helm</szLongItemName>
+		<szItemDesc>Dieser leichte Spectra-Helm ist berühmt für seine antiballistischen Eigenschaften. Er ist mit IR-Licht absorbierendem Lack beschichtet, hat ein Schaumstoffpolster sowie ein Lederkopfband. Schutzklasse: III-A (NIJ)</szItemDesc>
+		<szBRName>Spectra-Shield-Helm</szBRName>
+		<szBRDesc>Dieser leichte Spectra-Helm ist berühmt für seine antiballistischen Eigenschaften. Er ist mit IR-Licht absorbierendem Lack beschichtet, hat ein Schaumstoffpolster sowie ein Lederkopfband. Schutzklasse: III-A (NIJ)</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>181</uiIndex>
+		<szItemName>C18-S-Helm</szItemName>
+		<szLongItemName>C18-Spectra-Shield-Helm</szLongItemName>
+		<szItemDesc>Dieser Spectra-Shield-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18-Spectra-Shield-Helm</szBRName>
+		<szBRDesc>Dieser Spectra-Shield-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>182</uiIndex>
+		<szItemName>beh. S-Helm</szItemName>
+		<szLongItemName>beh. Spectra-Shield-Helm</szLongItemName>
+		<szItemDesc>Dieser Spectra-Shield-Helm bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
+		<szBRName>beh. Spectra-Shield-Helm</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>183</uiIndex>
+		<szItemName>Traumaplatten</szItemName>
+		<szLongItemName>Traumaplatten Keramik, SK: IV (NIJ)</szLongItemName>
+		<szItemDesc>Diese harten Keramikplatten können in die Brust- und Rückenteile der meisten Westen eingesetzt werden. Sie nehmen den meisten Standardkalibern die Wucht des Aufpralls und bieten so zusätzlichen Schutz. Schutzklasse: IV (NIJ)</szItemDesc>
+		<szBRName>Traumaplatten, SK: IV</szBRName>
+		<szBRDesc>Diese harten Keramikplatten können in die Brust- und Rückenteile der meisten Westen eingesetzt werden. Sie nehmen den meisten Standardkalibern die Wucht des Aufpralls und bieten so zusätzlichen Schutz. Schutzklasse: IV (NIJ)</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>184</uiIndex>
+		<szItemName>Infant-Fell</szItemName>
+		<szLongItemName>Infant-Kreaturen-Fell</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Infant-Kreaturen-Fell</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>185</uiIndex>
+		<szItemName>Kiddy Hide</szItemName>
+		<szLongItemName>Young Adult Creature Hide</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Young Adult Creature Hide</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>186</uiIndex>
+		<szItemName>Adult Hide</szItemName>
+		<szLongItemName>Adult Creature Hide</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Adult Creature Hide</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>187</uiIndex>
+		<szItemName>Queen Hide</szItemName>
+		<szLongItemName>Queen Creature Hide</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Queen Creature Hide</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>188</uiIndex>
+		<szItemName>Pilotenjacke</szItemName>
+		<szLongItemName>Pilotenjacke</szLongItemName>
+		<szItemDesc>Eine Pilotenjacke aus Leder.</szItemDesc>
+		<szBRName>Pilotenjacke</szBRName>
+		<szBRDesc>Eine Pilotenjacke aus Leder.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>189</uiIndex>
+		<szItemName>K-Pilotenjacke</szItemName>
+		<szLongItemName>Kevlar-Pilotenjacke</szLongItemName>
+		<szItemDesc>Diese Fliegerjacke ist mit Kevlarfasern verstärkt, um ein Mindestmaß an Schutz zu gewährleisten.</szItemDesc>
+		<szBRName>Kevlar-Pilotenjacke</szBRName>
+		<szBRDesc>Diese lederne Fliegerjacke ist mit einem Innenfutter aus Kevlarfasern vernäht, um ein Mindestmaß an Schutz zu gewährleisten.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>190</uiIndex>
+		<szItemName>C18-K-Pilotenjacke</szItemName>
+		<szLongItemName>Comp.18-Kevlar-Pilotenjacke</szLongItemName>
+		<szItemDesc>Diese Fliegerjacke aus Leder mit Kevlar-Innenfutter ist mit Compound-18 behandelt worden, wodurch sie noch besser schützt.</szItemDesc>
+		<szBRName>C18-K-Pilotenjacke</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>191</uiIndex>
+		<szItemName>beh. K-Pilotenjacke</szItemName>
+		<szLongItemName>beh. Kevlar-Pilotenjacke</szLongItemName>
+		<szItemDesc>Diese Kevlar-Fliegerjacke bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
+		<szBRName>beh. Kevlar-Pilotenjacke</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>192</uiIndex>
+		<szItemName>YF Hide</szItemName>
+		<szLongItemName>Young Female Hide</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Young Female Hide</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>193</uiIndex>
+		<szItemName>OF Hide</szItemName>
+		<szLongItemName>Old Female Hide</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Old Female Hide</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>194</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>Arulco T-Shirt</szLongItemName>
+		<szItemDesc>Diese modischen "I love Arulco"-T-Shirts sind ein Muss für jeden Touristen. Sie bestehen aus 100 Prozent reiner, unbehandelter Baumwolle und waren vor Deidrannas Machtergreifung der Klassenschlager schlechthin.</szItemDesc>
+		<szBRName>Arulco T-Shirt</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>195</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>Deidranna T-Shirt</szLongItemName>
+		<szItemDesc>Das 'Deidranna Rulez!'-Shirt tragen zu müssen, ist eine weitere Erniedrigung der Arulcaner. In unbeobachtetet Momenten zerschneiden sie diese Shirts gerne zu Putzlappen.</szItemDesc>
+		<szBRName>Deidranna T-Shirt</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>196</uiIndex>
+		<szItemName>G-Weste</szItemName>
+		<szLongItemName>Guardian-Weste</szLongItemName>
+		<szItemDesc>Diese Qualitätsweste aus dem Hause GUARDIAN ARMORIES besteht aus 36 Schichten Kevlar, ist vollverstellbar und hat Taschen für zusätzliche Traumaplatten im Brust- und Rückenbereich. Schutzklasse: II (NIJ)</szItemDesc>
+		<szBRName>G-Weste</szBRName>
+		<szBRDesc>Diese Qualitätsweste aus dem Hause GUARDIAN ARMORIES besteht aus 36 Schichten Kevlar, ist vollverstellbar und hat Taschen für zusätzliche Traumaplatten im Brust- und Rückenbereich. Schutzklasse: II (NIJ)</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>197</uiIndex>
+		<szItemName>C18-G-Weste</szItemName>
+		<szLongItemName>C18-Guardian-Weste</szLongItemName>
+		<szItemDesc>Diese Guardian-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18-Guardian-Weste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>198</uiIndex>
+		<szItemName>beh. G-Weste</szItemName>
+		<szLongItemName>beh. Guardian-Weste</szLongItemName>
+		<szItemDesc>Diese Guardian-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
+		<szBRName>beh. Guardian-Weste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>199</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 199</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>200</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 200</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>201</uiIndex>
+		<szItemName>Medi-Pack</szItemName>
+		<szLongItemName>Verbandszeug</szLongItemName>
+		<szItemDesc>Dieses Medi-Pack wurde von erfahrenen Militärärzten entwickelt und enthält alles, um auch schwerste Verletzungen und Traumata zu behandeln. Es kann von jedem Soldaten angewendet werden.</szItemDesc>
+		<szBRName>Verbandszeug</szBRName>
+		<szBRDesc>Dieses Medi-Pack wurde von erfahrenen Militärärzten entwickelt und enthält alles, um auch schwerste Verletzungen und Traumata zu behandeln. Es kann von jedem Soldaten angewendet werden.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>202</uiIndex>
+		<szItemName>Sani-Tasche</szItemName>
+		<szLongItemName>Sanitäterausrüstung</szLongItemName>
+		<szItemDesc>Neben den Erste-Hilfe-Utensilien enthält dieser Kasten Nadel, Faden und Schere, Tupfer, Pinzette, Schmerzmittel, Skalpell, Wundhaken, Betäubungs- mittel, Antibiotika und ein Chirurgie-Handbuch.</szItemDesc>
+		<szBRName>Sani-Tasche</szBRName>
+		<szBRDesc>Neben den Erste-Hilfe-Utensilien enthält dieser Kasten Nadel, Faden und Schere, Tupfer, Pinzette, Schmerzmittel, Skalpell, Wundhaken, Betäubungs- mittel, Antibiotika und ein Chirurgie-Handbuch.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>203</uiIndex>
+		<szItemName>Werkzeug</szItemName>
+		<szLongItemName>Werkzeug</szLongItemName>
+		<szItemDesc>Dieser Kasten enthält: Ein Schraubenzieher- Sortiment, Schraubenschlüssel, Zange, Klemmen, Spangen, Hammer und ein Nähset.</szItemDesc>
+		<szBRName>Werkzeug</szBRName>
+		<szBRDesc>Dieser Kasten enthält: Ein Schraubenzieher- Sortiment, Schraubenschlüssel, Zange, Klemmen, Spangen, Hammer und ein Nähset.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>204</uiIndex>
+		<szItemName>Schlosserset</szItemName>
+		<szLongItemName>Schlosserset</szLongItemName>
+		<szItemDesc>Diese schön gemaserte Kunstledertasche mit Reißverschluss enthält Profiwerkzeug zum Öffnen von Türen und Schlössern.</szItemDesc>
+		<szBRName>Schlosserset</szBRName>
+		<szBRDesc>Diese schön gemaserte Kunstledertasche mit Reißverschluss enthält Profiwerkzeug zum Öffnen von Türen und Schlössern, z.B. Sägeblätter, Vorspannfedern, Öffnungsnadeln, ein Kernziehgerät und Rohlinge.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>205</uiIndex>
+		<szItemName>Tarnset</szItemName>
+		<szLongItemName>Tarnfarbe, Woodland</szLongItemName>
+		<szItemDesc>Das Tarn-Kompakt-Set enthält Gesichtsbemalung auf Fettbasis in den Farben olivgrün und braun.</szItemDesc>
+		<szBRName>Tarnset Woodland</szBRName>
+		<szBRDesc>Das Tarn-Kompakt-Set enthält Gesichtsbemalung auf Fettbasis in den Farben olivgrün und braun, einen Spiegel und ein Benutzerhandbuch.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>206</uiIndex>
+		<szItemName>Sprengfallen-Set</szItemName>
+		<szLongItemName>Sprengfallen-Set</szLongItemName>
+		<szItemDesc>Dieses Set enthält alles, was man zum Bau von Fallen benötigt: Stolperdrähte, Sprengstoff und Auslöser.</szItemDesc>
+		<szBRName>Sprengfallen-Set</szBRName>
+		<szBRDesc>Dieses Set enthält alles, was man zum Bau von Fallen benötigt: Stolperdrähte, Sprengstoff und Auslöser.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>207</uiIndex>
+		<szItemName>S-Dämpfer</szItemName>
+		<szLongItemName>Schalldämpfer</szLongItemName>
+		<szItemDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Bitte verwenden Sie speziele Unterschall-Munition.</szItemDesc>
+		<szBRName>KAC SD-1</szBRName>
+		<szBRDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Bitte vergessen Sie nicht die passende Unterschall-Munition mit zu bestellen!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>208</uiIndex>
+		<szItemName>ZF 10x</szItemName>
+		<szLongItemName>S&amp;B Police Marksman II, ZF 10x</szLongItemName>
+		<szItemDesc>Das SCHMIDT &amp; BENDER Police Marksman II ist ein hochmodernes Präzisions-ZF. Es bietet 10-fache Vergrößerung, mehrere Justiermöglichkeiten und ist bis 2.000m zielgenau. Es wird von Profis sehr geschätzt.</szItemDesc>
+		<szBRName>S&amp;B PM II</szBRName>
+		<szBRDesc>Das SCHMIDT &amp; BENDER Police Marksman II ist ein hochmodernes Präzisions-ZF. Es bietet 10-fache Vergrößerung, mehrere Justiermöglichkeiten und ist bis auf 2.000m zielgenau. Es wird von Profis sehr geschätzt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>209</uiIndex>
+		<szItemName>Zweibein</szItemName>
+		<szLongItemName>Zweibein</szLongItemName>
+		<szItemDesc>Dieser Universalständer passt an die meisten Sturm- und Präzisionsgewehre sowie einige leichte MPs.</szItemDesc>
+		<szBRName>Zweibein</szBRName>
+		<szBRDesc>Dieser Universalständer passt an die meisten Sturm- und Präzisionsgewehre sowie einige leichte MPs. Er besteht aus Druckgussaluminium und hat eine mattierte Lackierung. Seine Beine lassen sich zusammenklappen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>210</uiIndex>
+		<szItemName>Headset</szItemName>
+		<szLongItemName>PELTOR Headset</szLongItemName>
+		<szItemDesc>Der PELTOR XP Tactical ist ein HiFi-Stereo- Kopfhörer mit zwei windunempfindlichen Mikrofonen.</szItemDesc>
+		<szBRName>PELTOR Headset</szBRName>
+		<szBRDesc>Der PELTOR XP Tactical ist ein HiFi-Stereo-Kopfhörer mit zwei windunempfindlichen Mikrofonen, die leise Geräusche verstärken und sehr laute herausfiltern. Der justierbare Bügel garantiert perfekten Sitz.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>211</uiIndex>
+		<szItemName>NSG I</szItemName>
+		<szLongItemName>Night-Vision, NSG I</szLongItemName>
+		<szItemDesc>Wenn selbst die lichtstärksten Ferngläser versagen, sorgt das ATN Night-Vision Dank modernster elektronischer Restlichtverstärkung weiterhin für Durchblick.</szItemDesc>
+		<szBRName>Night-Vision, NSG I</szBRName>
+		<szBRDesc>Wenn selbst die lichtstärksten Ferngläser versagen, sorgt das ATN Night-Vision Dank modernster elektronischer Restlichtverstärkung weiterhin für Durchblick.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>212</uiIndex>
+		<szItemName>Sonnenbrille</szItemName>
+		<szLongItemName>Sonnenbrille</szLongItemName>
+		<szItemDesc>Dieser paramilitärische Augenschutz hat eine Dreifach-Linse: Eine innere Antibeschlag-Azetatlinse, eine getönte mittlere Linse als Blendschutz und eine bruchfeste äußere Linse.</szItemDesc>
+		<szBRName>Sonnenbrille</szBRName>
+		<szBRDesc>Dieser paramilitärische Augenschutz hat eine Dreifach-Linse: Eine innere Antibeschlag-Azetatlinse, eine getönte mittlere Linse als Blendschutz und eine bruchfeste äußere Linse.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>213</uiIndex>
+		<szItemName>Gasmaske</szItemName>
+		<szLongItemName>Gasmaske</szLongItemName>
+		<szItemDesc>Diese Gasmaske hatte das russische Modell M-17A1 zum Vorbild. Sie besitzt einen Wangenfilter, kratzfeste Linsen, verstellbare Halteriemen und einen Trinkaufsatz.</szItemDesc>
+		<szBRName>Gasmaske</szBRName>
+		<szBRDesc>Diese Gasmaske hatte das russische Modell M-17A1 zum Vorbild. Sie besitzt einen Wangenfilter, kratzfeste Linsen, verstellbare Halteriemen und einen Trinkaufsatz. Eine Schultertasche aus Vinyl und ein Plastikponcho werden mitgeliefert.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>214</uiIndex>
+		<szItemName>Feldflasche</szItemName>
+		<szLongItemName>Feldflasche</szLongItemName>
+		<szItemDesc>Diese robuste, geruchsfreie Feldflasche hat ein Fassungsvermögen von 0,25 Litern.</szItemDesc>
+		<szBRName>Feldflasche</szBRName>
+		<szBRDesc>Diese robuste, geruchsfreie Feldflasche hat ein Fassungsvermögen von 0,25 Litern.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>215</uiIndex>
+		<szItemName>Metalldetektor</szItemName>
+		<szLongItemName>Metalldetektor</szLongItemName>
+		<szItemDesc>Ein ultraleichter, extrem leistungsstarker, tragbarer Metalldetektor mit Audiosignal.</szItemDesc>
+		<szBRName>Metalldetektor</szBRName>
+		<szBRDesc>Ein ultraleichter, extrem leistungsstarker, tragbarer Metalldetektor mit Audiosignal.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>216</uiIndex>
+		<szItemName>C-18</szItemName>
+		<szLongItemName>Compound-18</szLongItemName>
+		<szItemDesc>Aufgetragen auf eine Rüstung verlängert diese schnell härtende Flüssigkeit die Nutzungsdauer aller herkömmlichen ballistischen Materialien.</szItemDesc>
+		<szBRName>Compound-18</szBRName>
+		<szBRDesc>Aufgetragen auf eine Rüstung verlängert diese schnell härtende Flüssigkeit die Nutzungsdauer aller herkömmlichen ballistischen Materialien.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>217</uiIndex>
+		<szItemName>Gelatine</szItemName>
+		<szLongItemName>Königliche Gelatine</szLongItemName>
+		<szBRName>Königliche Gelatine</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>218</uiIndex>
+		<szItemName>Elixier</szItemName>
+		<szLongItemName>Krug mit Heilmittel</szLongItemName>
+		<szBRName>Krug mit Heilmittel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>219</uiIndex>
+		<szItemName>Geld</szItemName>
+		<szLongItemName>Geld</szLongItemName>
+		<szBRName>Geld</szBRName>
+	</ITEM>
+	<ITEM>
+		<uiIndex>220</uiIndex>
+		<szItemName>Glas</szItemName>
+		<szLongItemName>Glas</szLongItemName>
+		<szBRName>Glas</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>221</uiIndex>
+		<szItemName>Volles Glas</szItemName>
+		<szLongItemName>Glas mit Blut</szLongItemName>
+		<szBRName>Glas mit Blut</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>222</uiIndex>
+		<szItemName>E-Booster</szItemName>
+		<szLongItemName>Energiebooster</szLongItemName>
+		<szItemDesc>Diese Spritze ist mit einer stimulierenden chemischen Substanz gefüllt, die einem Menschen kurzfristig einen Energieschub verleiht. Achtung: Mehr als vier Dosen pro Tag können zu Herzstillstand führen!</szItemDesc>
+		<szBRName>Energiebooster</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>223</uiIndex>
+		<szItemName>Zeitzünder</szItemName>
+		<szLongItemName>Zeitzünder</szLongItemName>
+		<szItemDesc>Dieser Zünder ist mit einem Timer versehen, der auf eine Zeit zwischen fünf Sekunden und zehn Minuten eingestellt werden kann, so dass Sie sich in Sicherheit bringen können, bevor der Sprengstoff explodiert.</szItemDesc>
+		<szBRName>Zeitzünder</szBRName>
+		<szBRDesc>Dieser Zünder ist mit einem Timer versehen, der auf eine Zeit zwischen fünf Sekunden und zehn Minuten eingestellt werden kann, so dass Sie sich in Sicherheit bringen können, bevor der Sprengstoff explodiert.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>224</uiIndex>
+		<szItemName>Zünder</szItemName>
+		<szLongItemName>Zünder</szLongItemName>
+		<szItemDesc>Bringen Sie diesen Zünder an einer Bombe an und Sie können sich in aller Ruhe in Sicherheit bringen, ehe Sie das Ziel in die Luft jagen. Die Ladung geht erst hoch, wenn sie den Auslöser drücken.</szItemDesc>
+		<szBRName>Zünder</szBRName>
+		<szBRDesc>Bringen Sie diesen Zünder an einer Bombe an und Sie können sich in aller Ruhe in Sicherheit bringen, ehe Sie das Ziel in die Luft jagen. Die Ladung geht erst hoch, wenn sie den Auslöser drücken.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>225</uiIndex>
+		<szItemName>Video</szItemName>
+		<szLongItemName>Video</szLongItemName>
+		<szItemDesc>Diese VHS-Videokassette mit dem Titel 'Lack-und-Leder-Loretta 6: Der unbelebte Mann' ist ein nicht jugendfreier Pornofilm. Eltern und andere Konsumenten sollten die Zimmertüre abschließen.</szItemDesc>
+		<szBRName>Video</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>226</uiIndex>
+		<szItemName>Urkunde</szItemName>
+		<szLongItemName>Urkunde</szLongItemName>
+		<szItemDesc>Die Besitzurkunde für Angels Biker-Shop.</szItemDesc>
+		<szBRName>Urkunde</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>227</uiIndex>
+		<szItemName>Brief</szItemName>
+		<szLongItemName>Brief von Enrico</szLongItemName>
+		<szItemDesc>Diesen Brief hat Ihnen Enrico gegeben.</szItemDesc>
+		<szBRName>Brief von Enrico</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>228</uiIndex>
+		<szItemName>Diskette</szItemName>
+		<szLongItemName>Computer Diskette</szLongItemName>
+		<szItemDesc>Auf dieser Diskette steht 'Von Intercept gesucht'. Sie enthält vertrauliche Informationen über international gesuchte Terroristen.</szItemDesc>
+		<szBRName>Computer Diskette</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>229</uiIndex>
+		<szItemName>Kelch</szItemName>
+		<szLongItemName>Kelch des Glücks</szLongItemName>
+		<szItemDesc>Gefäß des Guten, Becher der Besten, Glas der Götter. Dieser Kelch wird in Arulco verehrt, also machen Sie sich nicht darüber lustig!</szItemDesc>
+		<szBRName>Kelch des Glücks</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>230</uiIndex>
+		<szItemName>Klauen</szItemName>
+		<szLongItemName>Bloodcat Klauen</szLongItemName>
+		<szItemDesc>Diese rasiermesserscharfen Klauen können einen Batzen Geld einbringen, wenn man weiß, wo man sie am besten verkauft.</szItemDesc>
+		<szBRName>Bloodcat Klauen</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>231</uiIndex>
+		<szItemName>Zähne</szItemName>
+		<szLongItemName>Bloodcat Zähne</szLongItemName>
+		<szItemDesc>Man muss schon ein ganzer Kerl sein, um an diese Beißerchen heranzukommen! Daher sind Bloodcat-Zähne vielerorts eine heiß begehrte Rarität.</szItemDesc>
+		<szBRName>Bloodcat Zähne</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>232</uiIndex>
+		<szItemName>Pelz</szItemName>
+		<szLongItemName>Bloodcat Pelz</szLongItemName>
+		<szItemDesc>Eine Bloodcat zu häuten ist nicht einfach. Der Pelz bringt sicher eine Menge ein!</szItemDesc>
+		<szBRName>Bloodcat Pelz</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>233</uiIndex>
+		<szItemName>Schalter</szItemName>
+		<szLongItemName>Schalter</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Schalter</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>234</uiIndex>
+		<szItemName>Action Item</szItemName>
+		<szLongItemName>Action Item</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Action Item</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>235</uiIndex>
+		<szItemName>R-Booster</szItemName>
+		<szLongItemName>Regenerationsbooster</szLongItemName>
+		<szItemDesc>Diese Spritze ist mit 10 ml eines schnell wirkenden Heilmittels gefüllt. Auf dem Etikett steht: 'Nicht mehr als 4 Dosen pro Tag verwenden.'</szItemDesc>
+		<szBRName>Regenerationsbooster</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>236</uiIndex>
+		<szItemName>Spritze</szItemName>
+		<szLongItemName>Spritze</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Spritze</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>237</uiIndex>
+		<szItemName>Spritze</szItemName>
+		<szLongItemName>Spritze</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Spritze</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>238</uiIndex>
+		<szItemName>Spritze</szItemName>
+		<szLongItemName>Spritze</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Spritze</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>239</uiIndex>
+		<szItemName>volles Glas</szItemName>
+		<szLongItemName>Glas mit menschl. Blut</szLongItemName>
+		<szBRName>Glas mit menschl. Blut.</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>240</uiIndex>
+		<szItemName>Besitzurkunde</szItemName>
+		<szLongItemName>Besitzurkunde</szLongItemName>
+		<szBRName>Besitzurkunde</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>241</uiIndex>
+		<szItemName>Lasermodul</szItemName>
+		<szLongItemName>Lasermodul</szLongItemName>
+		<szItemDesc>Dieses IR-Lasermodul von ATN markiert Ziele mit einem gut sichtbaren roten Punkt (100m/Tag, 1.000m/Nacht). Er wurde entsprechend den Anforderungen von Polizei und Militär entwickelt.</szItemDesc>
+		<szBRName>Lasermodul</szBRName>
+		<szBRDesc>Dieses IR-Lasermodul von ATN markiert Ziele mit einem gut sichtbaren roten Punkt (100m/Tag, 1.000m/Nacht). Er wurde entsprechend den Anforderungen von Polizei und Militär entwickelt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>242</uiIndex>
+		<szItemName>Fernzündung</szItemName>
+		<szLongItemName>Fernzündung</szLongItemName>
+		<szItemDesc>An einer Sprengladung angebracht, geht dieser Zünder nicht hoch, bevor Sie den Auslöser betätigen.</szItemDesc>
+		<szBRName>Fernzündung</szBRName>
+		<szBRDesc>An einer Sprengladung angebracht, geht dieser Zünder nicht hoch, bevor Sie den Auslöser betätigen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>243</uiIndex>
+		<szItemName>Drahtschere</szItemName>
+		<szLongItemName>Drahtschere</szLongItemName>
+		<szItemDesc>Eine ganz normale Handwerksdrahtschere.</szItemDesc>
+		<szBRName>Drahtschere</szBRName>
+		<szBRDesc>Eine ganz normale Handwerksdrahtschere.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>244</uiIndex>
+		<szItemName>Duckbill</szItemName>
+		<szLongItemName>Duckbill</szLongItemName>
+		<szItemDesc>Dieser Metallaufsatz wird vor den Lauf einer Schrotflinte geschraubt. Dadurch verteilen sich die Schrotkugeln horizontal, anstatt wie gewöhnlich kreisförmig.</szItemDesc>
+		<szBRName>Duckbill</szBRName>
+		<szBRDesc>Dieser Metallaufsatz wird vor den Lauf einer Schrotflinte geschraubt. Dadurch verteilen sich die Schrotkugeln horizontal, anstatt wie gewöhnlich kreisförmig.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>245</uiIndex>
+		<szItemName>Vodka</szItemName>
+		<szLongItemName>Russian Standard</szLongItemName>
+		<szItemDesc>Dieser hochprozentige Vodka ist seit 2006 Marktführer im Premiumsegment in Russland. Wie kommt diese Flasche nur nach Arulco? Vielleicht ein Geschenk von Ivan &amp; Igor ...</szItemDesc>
+		<szBRName>Vodka</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>246</uiIndex>
+		<szItemName>NSG II</szItemName>
+		<szLongItemName>Night-Vision D-2MS, NSG II</szLongItemName>
+		<szItemDesc>Mit diesem Nachtsichgerät der zweiten Generation kann sich niemand in der Dunkelheit vor Ihnen verstecken.</szItemDesc>
+		<szBRName>Night-Vision D-2MS, NSG II</szBRName>
+		<szBRDesc>Mit diesem Nachtsichgerät der zweiten Generation kann sich niemand in der Dunkelheit vor Ihnen verstecken.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>247</uiIndex>
+		<szItemName>leere LAW</szItemName>
+		<szLongItemName>leere LAW</szLongItemName>
+		<szItemDesc>Diese Panzerfaust hat ihre Schuldigkeit getan und wird den Rest der Zeit als unnötigen Ballast verbringen.</szItemDesc>
+		<szBRName>leere LAW</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>248</uiIndex>
+		<szItemName>Kopf</szItemName>
+		<szLongItemName>Kopf</szLongItemName>
+		<szItemDesc>Ein nicht identifizierbarer, leicht verwester menschlicher Kopf.</szItemDesc>
+		<szBRName>Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>249</uiIndex>
+		<szItemName>Kopf</szItemName>
+		<szLongItemName>Impostors Kopf</szLongItemName>
+		<szItemDesc>Imposter wird keinem Menschen mehr Schaden zufügen. Sie sind stolzer Besitzer seines leicht angeschimmelten Kopfs.</szItemDesc>
+		<szBRName>Impostors Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>250</uiIndex>
+		<szItemName>Kopf</szItemName>
+		<szLongItemName>T-Rex' Kopf</szLongItemName>
+		<szItemDesc>T-Rex mag ja so ausgestorben sein wie ein Dinosaurier, aber seinen Kopf sollten Sie der Nachwelt erhalten.</szItemDesc>
+		<szBRName>T-Rex' Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>251</uiIndex>
+		<szItemName>Kopf</szItemName>
+		<szLongItemName>Slays Kopf</szLongItemName>
+		<szItemDesc>Slay ist abgeschlachtet worden und sein verfaulender Kopf ist alles, was noch an ihn erinnert.</szItemDesc>
+		<szBRName>Slays Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>252</uiIndex>
+		<szItemName>Kopf</szItemName>
+		<szLongItemName>Druggists Kopf</szLongItemName>
+		<szItemDesc>Elgin wird so schnell keine Rezepte mehr ausstellen. Sein Kopf liegt nämlich gerade auf Ihrem Hackblock.</szItemDesc>
+		<szBRName>Druggists Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>253</uiIndex>
+		<szItemName>Kopf</szItemName>
+		<szLongItemName>Matrons Kopf</szLongItemName>
+		<szItemDesc>Kein Mensch wird Mom oder ihren Kopf vermissen. Nehmen Sie ihn einfach mit.</szItemDesc>
+		<szBRName>Matrons Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>254</uiIndex>
+		<szItemName>Kopf</szItemName>
+		<szLongItemName>Tiffanys Kopf</szLongItemName>
+		<szItemDesc>Tiffany Eddie hat nicht viel Kapital aus seinem Kopf geschlagen - jetzt tun Sie's.</szItemDesc>
+		<szBRName>Tiffanys Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>255</uiIndex>
+		<szItemName>Wein</szItemName>
+		<szLongItemName>Wein</szLongItemName>
+		<szItemDesc>Diese Flasche Rotwein verbindet den exquisiten Geschmack von vergorenen Traubensaft und Sägespänen zu einem delikaten Tropfen.</szItemDesc>
+		<szBRName>Wein</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>256</uiIndex>
+		<szItemName>Bier</szItemName>
+		<szLongItemName>Radeberger Pilsner</szLongItemName>
+		<szItemDesc>Wen kümmert es bei 4.9 Prozent Alkohol noch, wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Arulcaner unter den Tisch saufen.</szItemDesc>
+		<szBRName>Bier</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>257</uiIndex>
+		<szItemName>Coupe</szItemName>
+		<szLongItemName>Coupe Magazin</szLongItemName>
+		<szItemDesc>Die COUPE 7/2007 enthält ein hochinteressantes Poster von den Darstellerinnen aus der 'Real Coyote Show' und diverse Artikel für die sich kein Schwein interessiert.</szItemDesc>
+		<szBRName>Coupe</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>258</uiIndex>
+		<szItemName>VHS-Kamera</szItemName>
+		<szLongItemName>VHS-Kamera</szLongItemName>
+		<szItemDesc>Mit dieser VHS-Kamera können Sie all Ihre Lieblingserinnerungen im Bild festhalten, einschließlich Ihres peinlichen Auftritts bei der Hochzeit oder lokale Würdenträger in kompromittierenden Stellungen.</szItemDesc>
+		<szBRName>VHS-Kamera</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>259</uiIndex>
+		<szItemName>Roboter FB</szItemName>
+		<szLongItemName>Roboter-Fernbedienung</szLongItemName>
+		<szItemDesc>Lassen Sie Ihren Roboter mit dieser zuverlässigen Fernbedienung die Drecksarbeit machen, während Sie aus sicherer Entfernung zusehen.</szItemDesc>
+		<szBRName>Roboter-Fernbedienung</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>260</uiIndex>
+		<szItemName>Klauen</szItemName>
+		<szLongItemName>Monsterklauen</szLongItemName>
+		<szBRName>Monsterklauen</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>261</uiIndex>
+		<szItemName>Fleisch</szItemName>
+		<szLongItemName>Monsterfleisch</szLongItemName>
+		<szBRName>Monsterfleisch</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>262</uiIndex>
+		<szItemName>Organ</szItemName>
+		<szLongItemName>Monsterorgan</szLongItemName>
+		<szBRName>Monsterorgan</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>263</uiIndex>
+		<szItemName>Fernbedienung</szItemName>
+		<szLongItemName>Fernbedienung</szLongItemName>
+		<szItemDesc>Mit diesem kleinen Gerät werden normalerweise Markisen, Springbrunnen oder Garagentore betätigt. Mal sehen, wer sich in Arulco sowas leisten kann...</szItemDesc>
+		<szBRName>Fernbedienung</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>264</uiIndex>
+		<szItemName>Platinuhr</szItemName>
+		<szLongItemName>Platinuhr</szLongItemName>
+		<szItemDesc>Ein stilvoller Designerchronograph mit automatischem Schweizer Uhrwerk, Quartzglas und vier Mikrometer-Platingehäuse.</szItemDesc>
+		<szBRName>Platinuhr</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>265</uiIndex>
+		<szItemName>Golfschläger</szItemName>
+		<szLongItemName>Golfschläger</szLongItemName>
+		<szItemDesc>Diese Tasche mit dem klassischen Satz an Hölzern und Eisen hat schon bessere Tage auf dem Grün gesehen. Obwohl schon leicht abgenutzt, können Sie mit diesen Schlägern noch immer locker unter par bleiben.</szItemDesc>
+		<szBRName>Golfschläger</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>266</uiIndex>
+		<szItemName>Walkman</szItemName>
+		<szLongItemName>Walkman</szLongItemName>
+		<szItemDesc>Mit diesem tragbaren Kassettenrekorder und den Minikopfhörern können Sie jederzeit Ihre Lieblingshits hören. Macht jede Reise noch ein bisschen schöner.</szItemDesc>
+		<szBRName>Walkman</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>267</uiIndex>
+		<szItemName>Portable TV</szItemName>
+		<szLongItemName>Portable TV</szLongItemName>
+		<szItemDesc>Mit diesem tragbaren Fernseher verpassen Sie keine Folge des A-Teams und sind immer über die politische Lage in der Hauptstadt informiert.</szItemDesc>
+		<szBRName>Portable TV</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>268</uiIndex>
+		<szItemName>Konto:</szItemName>
+		<szLongItemName>Kontostand:</szLongItemName>
+		<szItemDesc>So kommen Sie an Ihr Bankkonto heran. Klicken Sie einfach auf einen der verschiedenen Beträge und dann auf 'Fertig'. Etwas Bargeld dabei zu haben, kann manchmal recht nützlich sein.</szItemDesc>
+		<szBRName>Kontostand:</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>269</uiIndex>
+		<szItemName>Zigarren</szItemName>
+		<szLongItemName>Zigarren</szLongItemName>
+		<szItemDesc>Eine ganze Schachtel dicker Zigarren. Können auch im hitzigsten Gefecht zwischen die Zähne geklemmt werden und machen sich auch gut zu einem Glas Portwein in einem Nobelklub.</szItemDesc>
+		<szBRName>Zigarren</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>270</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 270</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>271</uiIndex>
+		<szItemName>Schlüssel</szItemName>
+		<szLongItemName>Kleiner Schlüssel</szLongItemName>
+		<szItemDesc>Ein kleiner, goldener Schlüssel, der vielleicht zu einem Schrank passt.</szItemDesc>
+		<szBRName>Kleiner Schlüssel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>272</uiIndex>
+		<szItemName>Schlüssel</szItemName>
+		<szLongItemName>Gefängnis-Schlüssel</szLongItemName>
+		<szItemDesc>Ein Gefängnisschlüssel aus rostfreiem Stahl.</szItemDesc>
+		<szBRName>Gefängnis-Schlüssel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>273</uiIndex>
+		<szItemName>Schlüssel</szItemName>
+		<szLongItemName>Einfacher Schlüssel</szLongItemName>
+		<szItemDesc>Ein einfacher Schlüssel. Passt wahrscheinlich in ein primitives Schloss.</szItemDesc>
+		<szBRName>Einfacher Schlüssel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>274</uiIndex>
+		<szItemName>Schlüssel</szItemName>
+		<szLongItemName>Matter Schlüssel</szLongItemName>
+		<szItemDesc>Ein Schlüssel ohne Glanz.</szItemDesc>
+		<szBRName>Matter Schlüssel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>275</uiIndex>
+		<szItemName>Schlüssel</szItemName>
+		<szLongItemName>Glänzender Schlüssel</szLongItemName>
+		<szItemDesc>Ein glänzender Schlüssel, der wohl für kein gewöhnliches Schloss bestimmt ist.</szItemDesc>
+		<szBRName>Glänzender Schlüssel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>276</uiIndex>
+		<szItemName>Schlüssel</szItemName>
+		<szLongItemName>Schlüssel für Vorhängeschloss</szLongItemName>
+		<szItemDesc>Ein Schlüssel für ein Vorhängeschloss.</szItemDesc>
+		<szBRName>Schlüssel für Vorhängeschloss</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>277</uiIndex>
+		<szItemName>Schlüssel</szItemName>
+		<szLongItemName>Elektronischer Schlüssel</szLongItemName>
+		<szItemDesc>Ein elektronischer Schlüssel mit Magnetstreifen.</szItemDesc>
+		<szBRName>Elektronischer Schlüssel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>278</uiIndex>
+		<szItemName>Codekarte</szItemName>
+		<szLongItemName>Codekarte</szLongItemName>
+		<szItemDesc>Eine elektronische Codekarte.</szItemDesc>
+		<szBRName>Codekarte</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>279</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 279</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>280</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 280</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>281</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 281</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>282</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 282</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>283</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 283</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>284</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 284</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>285</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 285</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>286</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 286</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>287</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 287</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>288</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 288</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>289</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 289</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>290</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 290</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>291</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 291</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>292</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 292</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>293</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 293</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>294</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 294</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>295</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Index 295</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>296</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>T-Shirt</szLongItemName>
+		<szItemDesc>Echt geile Aufschrift - du mich auch!</szItemDesc>
+		<szBRName>T-Shirt</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>297</uiIndex>
+		<szItemName>Tele-Schlagstock</szItemName>
+		<szLongItemName>Teleskop-Schlagstock</szLongItemName>
+		<szItemDesc>Ein Schlagstock gehört zur Grundausstattung von Sicherheitskräften.</szItemDesc>
+		<szBRName>Teleskop-Schlagstock</szBRName>
+		<szBRDesc>Dieser Teleskop-Schlagstock ist verdeckt zu tragen und schnell einsatzbereit. Wird auch gerne von radikalen Fußballfreunden gekauft!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>298</uiIndex>
+		<szItemName>Tonfa</szItemName>
+		<szLongItemName>Schlagstock</szLongItemName>
+		<szItemDesc>TONFA/RMS/PEMS, ein Schlagstock der zu Grundausstattung von Sicherheitskräften gehört.</szItemDesc>
+		<szBRName>Schlagstock</szBRName>
+		<szBRDesc>Diese aus dem japanischen Tonfa abgeleitete Waffe (RMS-Rettungsmehrzweckstock) ist ausschließlich der Militärpolizei (Feldjäger) vorbehalten.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>299</uiIndex>
+		<szItemName>Messer</szItemName>
+		<szLongItemName>Mehrzweck-Messer</szLongItemName>
+		<szItemDesc>Brechen Sie Schlösser auf oder stechen Sie Ihre Feinde mit diesem Mehrzweck-Messer nieder. Roter Griff mit Schweizer Wappen.</szItemDesc>
+		<szBRName>Mehrzweck-Messer</szBRName>
+		<szBRDesc>Mit dieser 'Schweizer Taschenarmee' brechen Sie Schlösser auf, öffnen Weinflaschen oder Halsaterien, entfernen Holzsplitter oder Lungenflügel.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>300</uiIndex>
+		<szItemName>Leichtes Kampfmesser</szItemName>
+		<szLongItemName>Leichtes Kampfmesser</szLongItemName>
+		<szItemDesc>Dieses Kampfmesser mit massivem Heft verwandelt Sie in eine rotierende Killer-Maschine, die den schnellen und leisen Tod bringt.</szItemDesc>
+		<szBRName>Leichtes Kampfmesser</szBRName>
+		<szBRDesc>Dieses Kampfmesser mit massivem Heft verwandelt Sie in eine rotierende Killer-Maschine, die den schnellen und leisen Tod bringt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>301</uiIndex>
+		<szItemName>Cuttermesser</szItemName>
+		<szLongItemName>Cuttermesser</szLongItemName>
+		<szItemDesc>Dieses Messer eignet sich hervorragend zum Teppich verlegen, im Kampf eher nutzlos.</szItemDesc>
+		<szBRName>Cuttermesser</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>302</uiIndex>
+		<szItemName>Stahlhelm</szItemName>
+		<szLongItemName>Stahlhelm</szLongItemName>
+		<szItemDesc>Dieser Stahlhelm ist eine Sonderanfertigung und in Tarnfarbe erhältlich.</szItemDesc>
+		<szBRName>Stahlhelm</szBRName>
+		<szBRDesc>Dieser Stahlhelm ist eine Sonderanfertigung und in Tarnfarbe erhältlich.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>303</uiIndex>
+		<szItemName>Servierplatte</szItemName>
+		<szLongItemName>Silberne Servierplatte</szLongItemName>
+		<szItemDesc>Dieses Silbertablett ist schon ziemlich angelaufen und hat keine Gravur. Aber es war früher wohl einmal ein sehr sinnvolles Geschenk.</szItemDesc>
+		<szBRName>Silberne Servierplatte</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>304</uiIndex>
+		<szItemName>Klebeband</szItemName>
+		<szLongItemName>Klebeband</szLongItemName>
+		<szItemDesc>Mit dieser Rolle 5cm breiten Klebebandes lassen sich wunderbar Löcher stopfen und Dinge zusammenhalten.</szItemDesc>
+		<szBRName>Klebeband</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>305</uiIndex>
+		<szItemName>Alu-Stange</szItemName>
+		<szLongItemName>Aluminiumstange</szLongItemName>
+		<szItemDesc>Eine an beiden Enden abgebrochene Gardinenstange aus Alu. Was wohl mit den Gardinen passiert ist?</szItemDesc>
+		<szBRName>Aluminiumstange</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>306</uiIndex>
+		<szItemName>Feder</szItemName>
+		<szLongItemName>Feder</szLongItemName>
+		<szItemDesc>Eine kleine, stählerne Spiralfeder, wie man sie in vielen Haushaltsgeräten und Küchenhilfen findet.</szItemDesc>
+		<szBRName>Feder</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>307</uiIndex>
+		<szItemName>B &amp; F</szItemName>
+		<szLongItemName>Bolzen &amp; Feder</szLongItemName>
+		<szItemDesc>Mit diesem Bolzen-Feder-System verleihen Sie Ihrer Waffe eine größere Schussrate!</szItemDesc>
+		<szBRName>Bolzen &amp; Feder</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>308</uiIndex>
+		<szItemName>Stahlrohr</szItemName>
+		<szLongItemName>Stahlrohr</szLongItemName>
+		<szItemDesc>Ein länglicher Stahlzylinder mit einer Bohrung zwischen 5,45 und 12,5 Millimetern. Müsste man mal nachmessen...</szItemDesc>
+		<szBRName>Stahlrohr</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>309</uiIndex>
+		<szItemName>Sekundenkleber</szItemName>
+		<szLongItemName>Sekundenkleber</szLongItemName>
+		<szItemDesc>Wenn dieser Kleber einmal anfängt zu wirken, dann hält er für immer. Die meisten Materialien haften nach weniger als drei Minuten.</szItemDesc>
+		<szBRName>Sekundenkleber</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>310</uiIndex>
+		<szItemName>Laufverl.</szItemName>
+		<szLongItemName>Laufverlängerung</szLongItemName>
+		<szItemDesc>Verlängern Sie mit diesem Zusatzgerät den Lauf Ihrer Waffe und Sie werden über ihre neue Reichweite staunen.</szItemDesc>
+		<szBRName>Laufverlängerung</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>311</uiIndex>
+		<szItemName>Schnur</szItemName>
+		<szLongItemName>Schnur</szLongItemName>
+		<szItemDesc>Ein Stück Schnur, ca. 5m lang.</szItemDesc>
+		<szBRName>Schnur</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>312</uiIndex>
+		<szItemName>Dose</szItemName>
+		<szLongItemName>Blechdose</szLongItemName>
+		<szItemDesc>Eine leere Cola-Dose.</szItemDesc>
+		<szBRName>Blechdose</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>313</uiIndex>
+		<szItemName>Dose mit Schnur</szItemName>
+		<szLongItemName>Blechdose mit Schnur</szLongItemName>
+		<szItemDesc>Ein Stück Schnur und eine Blechdose machen eine menge Krach, wenn Sie bei einer Hochzeit an die Stoßstange eines Autos gebunden werden.</szItemDesc>
+		<szBRName>Blechdose mit Schnur</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>314</uiIndex>
+		<szItemName>Murmeln</szItemName>
+		<szLongItemName>Murmeln</szLongItemName>
+		<szItemDesc>Besonders kleine Jungs mögen diese runden, glänzenden, bunten und erstaunlich schweren Glaskugeln. Man benutzt sie eigentlich nur zum Spielen.</szItemDesc>
+		<szBRName>Murmeln</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>315</uiIndex>
+		<szItemName>LameBoy</szItemName>
+		<szLongItemName>LameBoy Display</szLongItemName>
+		<szBRName>LameBoy Display</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>316</uiIndex>
+		<szItemName>Kupferdraht</szItemName>
+		<szLongItemName>Kupferdraht</szLongItemName>
+		<szItemDesc>Ganz normaler Kupferdraht, eignet sich hervorragend für elektrische Basteleien.</szItemDesc>
+		<szBRName>Kupferdraht</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>317</uiIndex>
+		<szItemName>Display</szItemName>
+		<szLongItemName>Display</szLongItemName>
+		<szItemDesc>Dieses komische Ding mit den Kupferdrähten war wohl mal das LC-Display von einem LameBoy.</szItemDesc>
+		<szBRName>Display</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>318</uiIndex>
+		<szItemName>FumblePak</szItemName>
+		<szLongItemName>FumblePak</szLongItemName>
+		<szBRName>FumblePak</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>319</uiIndex>
+		<szItemName>Röntgenröhre</szItemName>
+		<szLongItemName>Röntgenröhre</szLongItemName>
+		<szItemDesc>Dies ist ein Teil eines Röntgengerätes.</szItemDesc>
+		<szBRName>Röntgenröhre</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>320</uiIndex>
+		<szItemName>Kaugummi</szItemName>
+		<szLongItemName>Kaugummi</szLongItemName>
+		<szItemDesc>Eine Packung zuckerfreier Spearmint-Kaugummi. Zahnärzte empfehlen, nach jedem Essen einen zu kauen, wenn gerade keine Zahnbürste zur Hand ist.</szItemDesc>
+		<szBRName>Kaugummi</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>321</uiIndex>
+		<szItemName>Röntgengerät</szItemName>
+		<szLongItemName>Röntgengerät</szLongItemName>
+		<szItemDesc>Sieht fesch aus, ist aber schwierig zu bedienen. Der Apparat besteht aus verschiedenen Teilen. Sieht so aus, als würde er jeden Moment zu leuchten und zu vibrieren anfangen.</szItemDesc>
+		<szBRName>Röntgengerät</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>322</uiIndex>
+		<szItemName>Batterien</szItemName>
+		<szLongItemName>Batterien</szLongItemName>
+		<szBRName>Batterien</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>323</uiIndex>
+		<szItemName>Gummiband</szItemName>
+		<szLongItemName>Gummiband</szLongItemName>
+		<szItemDesc>Elastisch und gut. Diese altbekannte Erfindung eignet sich hervorragend, um ein paar Dinge zusammenzuhalten.</szItemDesc>
+		<szBRName>Gummiband</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>324</uiIndex>
+		<szItemName>Röntgenstrahlen-Detektor</szItemName>
+		<szLongItemName>Röntgenstrahlen-Detektor</szLongItemName>
+		<szItemDesc>Dieser Röntgenapparat Marke Eigenbau sieht so aus, als könnte er sogar funktionieren, einen vibrierenden Röntgenimpuls aussenden und das Ergebnis auf dem Display anzeigen. Batterien benötigt.</szItemDesc>
+		<szBRName>Röntgenstrahlen-Detektor</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>325</uiIndex>
+		<szItemName>Silber</szItemName>
+		<szLongItemName>Silber-Klumpen</szLongItemName>
+		<szItemDesc>Ein Klumpen aus purem Silber, wahrscheinlich direkt aus einer arulcanischen Mine.</szItemDesc>
+		<szBRName>Silber-Klumpen</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>326</uiIndex>
+		<szItemName>Gold</szItemName>
+		<szLongItemName>Gold-Klumpen</szLongItemName>
+		<szItemDesc>Fast so gut wie Cash, nur schwerer. Dies ist ein glänzender, beeindruckender Goldklumpen. Mit besten Grüßen aus Arulcos Minen.</szItemDesc>
+		<szBRName>Gold-Klumpen</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>327</uiIndex>
+		<szItemName>Kanister</szItemName>
+		<szLongItemName>Benzinkanister</szLongItemName>
+		<szItemDesc>Gehen Sie mit diesem Benzin sorgfältig um. Wir sind hier in Arulco!</szItemDesc>
+		<szBRName>Benzinkanister</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>328</uiIndex>
+		<szItemName>5.56x45 Mag</szItemName>
+		<szLongItemName>5.56x45mm Magazin</szLongItemName>
+		<szItemDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>5.56x45 Mag #10</szBRName>
+		<szBRDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>329</uiIndex>
+		<szItemName>5.56x45 HS</szItemName>
+		<szLongItemName>5.56x45 Magazin, Hohlspitz</szLongItemName>
+		<szItemDesc>Die neu entwickelte RWS Evolution Patrone im Kaliber .223 Remington kombiniert mit einer ausgefeilten Mantelkonstruktion und dem innovativen Rapid-X-Tip eine überzeugende Performance auf allen jagdüblichen Schuss-Distanzen.</szItemDesc>
+		<szBRName>5.56x45 Mag HS #10</szBRName>
+		<szBRDesc>Die neu entwickelte RWS Evolution Patrone im Kaliber .223 Remington kombiniert mit einer ausgefeilten Mantelkonstruktion und dem innovativen Rapid-X-Tip eine überzeugende Performance auf allen jagdüblichen Schuss-Distanzen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>330</uiIndex>
+		<szItemName>Micro-Uzi</szItemName>
+		<szLongItemName>I.M.I. Micro-Uzi</szLongItemName>
+		<szItemDesc>Der Name sagt alles, es ist eine Uzi. Zuerst gab es die Uzi, dann die Mini-Uzi und jetzt gibt es die Micro-Uzi.</szItemDesc>
+		<szBRName>I.M.I. Micro-Uzi</szBRName>
+		<szBRDesc>Der Name sagt alles, es ist eine Uzi. Zuerst gab es die Uzi, dann die Mini-Uzi und jetzt gibt es die Micro-Uzi.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>331</uiIndex>
+		<szItemName>L85A2</szItemName>
+		<szLongItemName>Enfield L85A2</szLongItemName>
+		<szItemDesc>Das Enfield L85A2 ist die Infanteriewaffe der britischen Armee. Diese Modell wurde von HK überarbeitet und weiter verbessert.</szItemDesc>
+		<szBRName>Enfield L85A2</szBRName>
+		<szBRDesc>Das Enfield L85A2 (auch als SA80 bekannt) ist die Infanteriewaffe der britischen Armee. Aufgrund der Überarbeitung durch HECKLER &amp; KOCH konnte die Zuverlässigkeit weiter erhöht werden. Feuermodus: S-F</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>332</uiIndex>
+		<szItemName>TAR-21</szItemName>
+		<szLongItemName>I.M.I. Tavor TAR-21</szLongItemName>
+		<szItemDesc>Dieses neue israelische Hightech-Sturmgewehr wird Ihnen die Schuhe ausziehen. Es kann bis zu 900 Schuss/min abfeuern.</szItemDesc>
+		<szBRName>I.M.I. Tavor TAR-21</szBRName>
+		<szBRDesc>Dieses neue israelische Hightech-Sturmgewehr wird Ihnen die Schuhe ausziehen. Es kann bis zu 900 Schuss/min abfeuern.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>333</uiIndex>
+		<szItemName>AS Val</szItemName>
+		<szLongItemName>AS Val</szLongItemName>
+		<szItemDesc>Das AS Val wurde Ende der 80er Jahre als schallgedämpfte Waffe für russische Spezialeinheiten entwickelt.</szItemDesc>
+		<szBRName>AS Val</szBRName>
+		<szBRDesc>Das AS Val wurde Ende der 80er Jahre als schallgedämpfte Waffe für russische Spezialeinheiten entwickelt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>334</uiIndex>
+		<szItemName>HK PSG1</szItemName>
+		<szLongItemName>HK PSG1</szLongItemName>
+		<szItemDesc>Das PSG1 ist ein halbautomatisches Polizei-Scharfschützengewehr. Es wird von Spezialeinheiten der Polizei verwendet.</szItemDesc>
+		<szBRName>HK PSG1</szBRName>
+		<szBRDesc>Das PSG1 ist ein halbautomatisches Polizei- Scharfschützengewehr. Es wird von Spezial- einheiten wie dem Los Angeles S.W.A.T., der deutschen GSG-9 und den SEKs verwendet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>335</uiIndex>
+		<szItemName>M82A2</szItemName>
+		<szLongItemName>Barrett M82A2</szLongItemName>
+		<szItemDesc>Das BARRETT 'Light Fifty' wurde 1983 als das erste großkalibrige Scharfschützengewehr vorgestellt und hat seitdem weltweite Beachtung gefunden.</szItemDesc>
+		<szBRName>Barrett M82A2</szBRName>
+		<szBRDesc>Das BARRETT 'Light Fifty' wurde 1983 als das erste großkalibrige Scharfschützengewehr vorgestellt. Nach erfolgreichen Einsätzen (Irak, Bosnien, Afghanistan) hat es die US-Army im August 2003 als neues Scharfschützengewehr M107 offiziell in Dienst gestellt.</szBRDesc>
+	</ITEM>
+</ITEMLIST>

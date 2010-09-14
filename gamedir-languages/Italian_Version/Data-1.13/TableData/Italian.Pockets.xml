@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<POCKETLIST>
+	<POCKET>
+		<pIndex>0</pIndex>
+		<pName>Nothing</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>1</pIndex>
+		<pName>Gun Sling</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>2</pIndex>
+		<pName>Knife</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>3</pIndex>
+		<pName>Vehicle</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>4</pIndex>
+		<pName>General Large</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>5</pIndex>
+		<pName>Combat Pack</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>6</pIndex>
+		<pName>Ammo Belt</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>7</pIndex>
+		<pName>SMG Holster</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>8</pIndex>
+		<pName>Medium General</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>9</pIndex>
+		<pName>LgMagPocket</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>10</pIndex>
+		<pName>AR Mag</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>11</pIndex>
+		<pName>Pistol Holster</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>12</pIndex>
+		<pName>SMG Mag</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>13</pIndex>
+		<pName>Rifle Grenade</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>14</pIndex>
+		<pName>Grenade</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>15</pIndex>
+		<pName>Pistol Mag</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>16</pIndex>
+		<pName>Tiny General</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>17</pIndex>
+		<pName>Small General</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>18</pIndex>
+		<pName>Belt Clip</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>19</pIndex>
+		<pName>Speedloader</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>20</pIndex>
+		<pName>Medical Pocket</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>21</pIndex>
+		<pName>Syringe Pocket</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>22</pIndex>
+		<pName>Double Belt</pName>
+	</POCKET>
+</POCKETLIST>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<POCKETLIST>
+	<POCKET>
+		<pIndex>0</pIndex>
+		<pName>Nothing</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>1</pIndex>
+		<pName>Geweer Schouderband</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>2</pIndex>
+		<pName>Mes</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>3</pIndex>
+		<pName>Voertuig</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>4</pIndex>
+		<pName>Algemeen Groot</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>5</pIndex>
+		<pName>Gevechts Rugzak</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>6</pIndex>
+		<pName>Munitie Band</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>7</pIndex>
+		<pName>SMG Holster</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>8</pIndex>
+		<pName>Midden Algemeen</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>9</pIndex>
+		<pName>Groot Magazijn</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>10</pIndex>
+		<pName>AR Magazijn</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>11</pIndex>
+		<pName>Pistool Holster</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>12</pIndex>
+		<pName>SMG Magazijn</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>13</pIndex>
+		<pName>Geweer Granaat</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>14</pIndex>
+		<pName>Granaat</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>15</pIndex>
+		<pName>Pistool Magazijn</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>16</pIndex>
+		<pName>Zeer Klein Algemeen</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>17</pIndex>
+		<pName>Klein Algemeen</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>18</pIndex>
+		<pName>Riem Clip</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>19</pIndex>
+		<pName>Snellader</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>20</pIndex>
+		<pName>Medisch Vak</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>21</pIndex>
+		<pName>Injectienaalden Vak</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>22</pIndex>
+		<pName>Dubbele Munitie Band</pName>
+	</POCKET>
+</POCKETLIST>

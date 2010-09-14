@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DESTINATIONLIST>
+	<DESTINATION>
+		<uiIndex>0</uiIndex>
+		<name>Austin</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>1</uiIndex>
+		<name>Bagdad</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>2</uiIndex>
+		<name>Drassen</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>3</uiIndex>
+		<name>Hong Kong</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>4</uiIndex>
+		<name>Beiroet</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>5</uiIndex>
+		<name>Londen</name>
+	</DESTINATION>	
+	<DESTINATION>
+		<uiIndex>6</uiIndex>
+		<name>Los Angeles</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>7</uiIndex>
+		<name>Meduna</name>	
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>8</uiIndex>
+		<name>Metavira</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>9</uiIndex>
+		<name>Miami</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>10</uiIndex>
+		<name>Moskou</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>11</uiIndex>
+		<name>New York</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>12</uiIndex>
+		<name>Ottawa</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>13</uiIndex>
+		<name>Parijs</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>14</uiIndex>
+		<name>Tripoli</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>15</uiIndex>
+		<name>Tokio</name>
+	</DESTINATION>
+	<DESTINATION>
+		<uiIndex>16</uiIndex>
+		<name>Vancouver</name>
+	</DESTINATION>
+</DESTINATIONLIST>
