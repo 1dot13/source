@@ -385,4 +385,14 @@
 		<sItemIndex>31</sItemIndex>
 		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>77</uiIndex>
+		<sItemIndex>1360</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>78</uiIndex>
+		<sItemIndex>1361</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
 </INVENTORYLIST>

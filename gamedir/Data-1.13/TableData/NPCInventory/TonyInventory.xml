@@ -4527,7 +4527,17 @@
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>905</uiIndex>
-		<sItemIndex>1078</sItemIndex>
+		<sItemIndex>1352</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>906</uiIndex>
+		<sItemIndex>1353</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>907</uiIndex>
+		<sItemIndex>1354</sItemIndex>
 		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
 </INVENTORYLIST>
