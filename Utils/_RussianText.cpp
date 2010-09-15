@@ -308,7 +308,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Сдаться?",
 	L"Человек отверг вашу помощь.",
 	L"Вам это надо?",
-  L"Чтобы воспользоваться вертолетом Небесного Всадника - выберите 'Машина/Вертолет'.",
+  L"Чтобы воспользоваться вертолётом Небесного Всадника - выберите 'Машина/Вертолёт'.",
 	L"%s успевает зарядить только одно оружие.", //%s only had enough time to reload ONE gun
 	L"Ход Кошек-Убийц", //Bloodcats' turn
 	L"автоматический", //full auto
@@ -508,18 +508,18 @@ STR16 pLongAssignmentStrings[] =
 	L"На службе",
 	L"Медик",
 	L"Пациент",
-	L"Транспорт",
+	L"В транспорте",
 	L"В пути",
-	L"Ремонт",
-	L"Практика", 
-  L"Ополчение",
-	L"Тренер",
-	L"Ученик", 
-	L"Мертв",
-	L"Недеесп.",
+	L"Ремонтирует",
+	L"Практикуется", 
+	L"Тренирует ополчение",
+	L"Тренирует",
+	L"Обучается",
+	L"Мёртв",
+	L"Недееспособен",
 	L"В плену",
-	L"Госпиталь", // patient in a hospital 
-	L"Пуст",	// Vehicle is empty
+	L"В госпитале", // patient in a hospital 
+	L"Без пассажиров",	// Vehicle is empty
 };
 
 
@@ -754,7 +754,7 @@ STR16 pPersonnelScreenStrings[] =
 	L"У вас на службе:",	// total service rendered by merc
 	L"Задолж. жалования:",	// amount left on MERC merc to be paid
 	L"Процент попаданий:",	// percentage of shots that hit target
-	L"Боев:", 		// number of battles fought
+	L"Боёв:", 		// number of battles fought
 	L"Ранений:",		// number of times merc has been wounded
 	L"Навыки:",
 	L"Нет навыков",
@@ -772,7 +772,7 @@ STR16 gzMercSkillText[] =
 	L"Метание",
 	L"Инструктор",
 	L"Тяжелое оружие",
-	L"Авт. оружие",
+	L"Автоматическое оружие",
 	L"Скрытность",
 	L"Стрельба с двух рук",
 	L"Воровство",
@@ -1922,7 +1922,7 @@ STR16 pSenderNameList[] =
 	L"Гризли",
 	L"Вики",			//10
 	L"Тревор",
-	L"Хряп",
+	L"Грунти (Хряп)",
 	L"Иван",
 	L"Анаболик",
 	L"Игорь",			//15
@@ -2053,7 +2053,7 @@ STR16 pTransactionText[] =
 	L"Покупки у Бобби Рэя", 		// Bobby Ray is the name of an arms dealer
 	L"Оплата счета M.E.R.C.",
 	L"%s: страховка.", 		// medical deposit for merc
-	L"I.M.P. анализ профиля", 		// IMP is the acronym for International Mercenary Profiling
+	L"I.M.P.: Анализ профиля", 		// IMP is the acronym for International Mercenary Profiling
 	L"%s: куплена страховка.", 
 	L"%s: Страховка уменьшена",
 	L"%s: Продление страховки", 				// johnny contract extended
@@ -2148,7 +2148,7 @@ STR16 pEtaString[] =
 STR16 pTrashItemText[] =
 {
 	L"Вы больше никогда не увидите этот предмет. Уверены?", 	// do you want to continue and lose the item forever
-	L"Этот предмет кажется ОЧЕНЬ важным. Вы ДЕЙСТВИТЕЛЬНО хотите выкинуть его?", // does the user REALLY want to trash this item
+	L"Этот предмет кажется ОЧЕНЬ важным. Вы ДЕЙСТВИТЕЛЬНО хотите выбросить его?", // does the user REALLY want to trash this item
 };
 
 
@@ -2335,7 +2335,7 @@ STR16 pImpButtonText[] =
 
 STR16 pExtraIMPStrings[] =
 {
-	// These texts have been also slightly changed - SANDRO
+	// These texts have been also slightly changed
 	L"Теперь, когда формирование внешности и личных качеств завершён, укажите ваши способности.",	//With your character traits chosen, it is time to select your skills.
 	L"Для завершения, выберите свои характеристики.",	//To complete the process, select your attributes.
 	L"Для начала, подберите наиболее подходящее вам лицо, голос, телосложение и соответствующую расцветку.",	//To commence actual profiling, select portrait, voice and colors.
@@ -2473,7 +2473,7 @@ STR16 pHistoryStrings[] =
 	L"Все кошки-убийцы убиты",
 	L"%s был убит(а).",
 	L"Отдали Кармену голову террориста.",
-	L"Убийца ушел.",
+	L"Убийца ушёл.",
 	L"%s убит(а) вашим отрядом.",
 };
 
@@ -2617,7 +2617,7 @@ STR16 pWebPagesTitles[] =
 	L"Похоронная служба Макгилликатти",
 	L"",
 	L"Адрес не найден.",
-	L"Бобби Рэй - последние поступления",//@@@3 Translate new text
+	L"Бобби Рэй - последние поступления",
 	L"",
 	L"",
 };
@@ -2643,7 +2643,7 @@ STR16 pPersonnelDepartedStateStrings[] =
 	L"Погиб в бою",
 	L"Уволен",
 	L"Другое",
-	L"Замужем",
+	L"Вышла замуж",
 	L"Контракт истек",
 	L"Выход",
 };
@@ -3114,7 +3114,7 @@ STR16			BobbyRText[] =
 
 	//Popup that tells the player that they can only order 10 items at a time
 	
-	L"Чёрт! Эта форма поддерживает не более 10 предметов в одном заказе. Если вы хотите заказать больше (а мы надеемся, вы хотите), то заполните еще один заказ и примите наши извинения за неудобства.", 
+	L"Чёрт! В эту форму можно внести не более 10 позиций для одного заказа. Если вы хотите заказать больше (а мы надеемся, вы хотите), то заполните еще один заказ и примите наши извинения за неудобства.", 
 
 	// A popup that tells the user that they are trying to order more items then the store has in stock
 
@@ -3488,7 +3488,7 @@ STR16	gzSkiAtmText[] =
 {	
 
 	// Text on the bank machine panel that....
-	L"Select Type",				//tells the user to select either to give or take from the merc
+	L"Выберите тип",			//tells the user to select either to give or take from the merc
 	L"Введите сумму",			//Enter the amount to transfer
 	L"Перевести деньги бойцу",		//Giving money to the merc
 	L"Забрать деньги у бойца",		//Taking money from the merc
@@ -3504,7 +3504,7 @@ STR16	SkiMessageBoxText[] =
 	L"Желаете снять со счета %s, чтобы оплатить полную стоимость?",
 	L"Попросить торговца сделать перевод",
 	L"Попросить торговца починить выбранные предметы",
-	L"Закончить беседу", //вспл. подсказка по нажатии кнопки кэнсэл при торговле\ремонте
+	L"Закончить беседу",
 	L"Текущий баланс",
 };
 
@@ -3651,7 +3651,7 @@ STR16 pMilitiaConfirmStrings[] =
 	L"У вас нет $%d, чтобы приступить к тренировке ополчения.",
 	L"%s: Требуется не менее %d процентов лояльности, чтобы продолжить тренировку ополчения.",
 	L"Больше вы не можете тренировать ополчение в %s.",
-	L"У вас нет $%d чтобы натренировать здесь мобильное подразделение.", // HEADROCK HAM 3.6: Mobile Militia		//You cannot afford the $%d to train mobile militia here.
+	L"У вас нет $%d чтобы тренировать здесь мобильное подразделение.", // HEADROCK HAM 3.6: Mobile Militia		//You cannot afford the $%d to train mobile militia here.
 	L"Продолжить тренировку мобильного подразделения в %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia	//Continue training mobile militia in %s (%s %d)?
 	L"Тренировка мобильного подразделения в секторе %d обойдётся в $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia	//Training mobile militia in %d sectors will cost $ %d. %s
 	L"Тренировка мобильного подразделения ополченцев обойдётся в $", // HEADROCK HAM 3.6: Mobile Militia	//Training a squad of mobile militia will cost $
@@ -3710,7 +3710,7 @@ STR16		zOptionsToggleText[] =
 	L"Подробное описание предметов", //Enhanced Description Box
 	L"Только пошаговый режим",				// add forced turn mode
 	L"Подсветить навык к повышению",	//Stat Progress Bars	// Show progress towards stat increase
-	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
+	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--Настройки отладочной версии--",		// an example options screen options header (pure text)
@@ -3788,13 +3788,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, то курсор передвижения\nотображается в 3D. (|Home )",
 
 	// Options for 1.13
-	L"Если включено, шанс поразить цель \nпоказывается над курсором.",
-	L"Если включено, то несколько залпов из гранатомёта \nиспользуют курсор стрельбы очередями.",
+	L"Если включено, шанс попадания\nпоказывается над курсором.",
+	L"Если включено, очередь из гранатомета\nиспользует курсор стрельбы очередями.",
 	L"Если включено, из убитых врагов\nвыпадает всё их снаряжение.",
 	L"Если включено, гранатомёты выстреливают \nзаряд под большим углом к горизонту (|Q).",
 	L"Если включено, то из винтовок можно \nцелиться больше 4-х щелчков.",
 	L"Если включено, |П|р|о|б|е|л выделяет следующий отряд.",
-	L"Если включено, то будут показаны \nтени предметов в инвентаре.",
+	L"Если включено, показываются тени предметов в инвентаре.",
 	L"Если включено, то дальность оружия \nпоказывается в игровых квадратах.",
 	L"Если включено, то трассирующий эффект \nсоздаётся и одиночным выстрелом.",	
 	L"Если включено, то будет шум дождя во время непогоды.",
@@ -3837,7 +3837,7 @@ STR16	gzGIOScreenText[] =
 	L"Лёгкий",
 	L"Средний",
 	L"Трудный",
-	L"БЕЗУМИЕ",
+	L"БЕЗУМЫЙ",
 	L"Начать игру",
 	L"Главное меню",
 	L"Дополнительная сложность",
@@ -3845,15 +3845,15 @@ STR16	gzGIOScreenText[] =
 	L"СТАЛЬНАЯ ВОЛЯ",
 	L"Отключено в демо-версии", 
 	L"Ассортимент Бобби Рэя",
-	L"Нормальный",
+	L"Хороший",
 	L"Большой",
 	L"Огромный",
 	L"Всё и сразу",
 	L"Система инвентаря",
-	L"Классическая",
-	L"Реалистичная",
+	L"старая",
+	L"новая",
 	L"Загрузить",
-	L"УСТАНОВКИ ИГРЫ (будут заменены настройками сервера)",
+	L"УСТАНОВКИ ИГРЫ (актуальны только настроки игры сервера)",
 };
 
 STR16	gzMPJScreenText[] =
@@ -3869,7 +3869,7 @@ STR16	gzMPJScreenText[] =
 	L"Имя сервера",	//Server Name
 	L"# Plrs",
 	L"Версия",	//Version
-	L"Game Type",
+	L"Тип игры",	//Game Type
 	L"Ping",
 	L"Впишите имя игрока.",	//You must enter a player name
 	L"Впишите корректный IP адрес. \n(пример 84.114.195.239).",	//You must enter a valid server IP address.\n (eg 192.168.0.1)
@@ -3907,13 +3907,13 @@ STR16	gzMPHScreenText[] =
 	L"Множитель время хода",						//Turn Timer Multiplier
 	L"Turn Timer multiplier must be a number between 0 (no timed turns) and 200 (short timed turns)",
 	L"Присутствуют гражданские в CO-OP",						//Enable Civilians in CO-OP
-	L"Реалистичная система инвентаря (NIV)",				//Use New Inventory (NIV)
+	L"Новая Система Инвентаря (NIV)",				//Use New Inventory (NIV)
 	L"Enforce Maximum AI Enemies",
 	L"Sync. MP Clients Directory",
 	L"MP Sync. Directory",
-	L"You must enter a file transfer directory.",
-	L"(Use '/' instead of '\\' for directory delimiters.)",
-	L"The specified synchronisation directory does not exist.",
+	L"Укажите директорию для синхронизации передаваемых файлов.",	//You must enter a file transfer directory
+	L"(Для разделения директорий используйте '/' вместо '\\'.)",
+	L"Указанная директория для синхронизации не существует.",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -4003,7 +4003,7 @@ STR16 pMessageStrings[] =
 	L"sav",				//The 3 character dos extension (represents sav)
 	L"..\\SavedGames", //The name of the directory where games are saved.
 	L"День",
-	L"Наемн",
+	L"Наёмн",
 	L"Свободное место", //An empty save game slot
 	L"Демо",				//Demo of JA2
 	L"Ловля Багов",				//State of development of a project (JA2) that is a debug build
@@ -4101,10 +4101,10 @@ STR16 pMessageStrings[] =
 	L"Выход из пошагового режима",	//Exit combat mode
 	L"Включен только пошаговый режим. Вступаем в бой!",	//Forced Turn Mode Active, Entering Combat
 #ifdef JA2BETAVERSION
-	L"Игра сохранена в ячейку авто-сохранения.",
+	L"Игра сохранена в поле авто-сохранения.",
 #endif
 	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.
-	L"Client",
+	L"Клиент",	//Client
 };
 
 
@@ -4320,10 +4320,10 @@ STR16 sRepairsDoneString[] =
 
 STR16 zGioDifConfirmText[]=
 {
-	L"Вы выбрали ЛЕГКИЙ режим. Этот режим предназначен для тех, кто не знаком с Jagged Alliance и стратегическими играми вообще. Ваш выбор определит ход всей игры, так что будьте осторожны. Вы действительно хотите начать игру в этом режиме?",
-	L"Вы выбрали СРЕДНИЙ режим. Этот режим предназначен для тех, кто знаком с Jagged Alliance или другими подобными играми. Ваш выбор определит ход всей игры, так что будьте осторожны. Вы действительно хотите начать игру в этом режиме?",
-	L"Вы выбрали ТРУДНЫЙ режим. Предупреждаем: не сетуйте на нас, если вас быстро разгромят. Ваш выбор определит ход всей игры, так что будьте осторожны. Вы действительно хотите начать игру в этом режиме?",
-	L"Вы выбрали режим БЕЗУМИЕ. Если игра уже пройдена на предыдущих трех уровнях сложности, то нужно подумать о смысле жизни, о происхождении вселенной и вообще... Но если вам все равно на что тратить время и нервы, то можете играть в этом режиме. Страшно?",
+	L"Вы выбрали ЛЁГКИЙ уровень сложности. Этот режим предназначен для первичного ознакомления с Jagged Alliance. Ваш выбор определит ход всей игры, так что будьте осторожны. Вы действительно хотите начать игру в этом режиме?", 
+	L"Вы выбрали СРЕДНИЙ уровень сложности. Этот режим предназначен для тех, кто знаком с Jagged Alliance и подобными играми. Ваш выбор определит ход всей игры, так что будьте осторожны. Вы действительно хотите начать игру в этом режиме?", 
+	L"Вы выбрали ТЯЖЁЛЫЙ уровень сложности. В этом режиме вам потребуется немалый опыт игры в Jagged Alliance. Ваш выбор определит ход всей игры, так что будьте осторожны. Вы действительно хотите начать игру в этом режиме?", 
+	L"Вы выбрали БЕЗУМНЫЙ уровень сложности. Имейте в виду - в этом режиме возможности Дейдраны воистину за пределами разумного! Но если с головой вы не в ладах, то вам даже понравится. Рискнете?",
 };
 
 STR16 gzLateLocalizedString[] =
@@ -4469,7 +4469,7 @@ STR16 gzLateLocalizedString[] =
 
 	L"%s чувствует что в бронежилете что-то треснуло!",
 	L"%s выпустил на %d больше пуль!",
-	L"%s выпустил на %d пулю больше!",
+	L"%s выпустил на одну пулю больше!",
 };
 
 STR16 gzCWStrings[] = 
@@ -4546,41 +4546,40 @@ STR16 New113Message[] =
 	// Real Time Mode messages
 	L"Уже в бою.",	//In combat already
 	L"В приделах видимости нет врагов.",	//No enemies in sight
-	L"Красться в режиме реального времени ВЫКЛ.",	//Real-time sneaking OFF
-	L"Красться в режиме реального времени ОТКЛ.",	//Real-time sneaking ON
-	L"Обнаружен враг! (Ctrl+x перейти в пошаговый режим).",	//Enemy spotted! (Ctrl + x to enter turn based)
+	L"Красться в режиме реального времени ОТКЛ.",	//Real-time sneaking OFF
+	L"Красться в режиме реального времени ВКЛ.",	//Real-time sneaking ON
+	L"Обнаружен враг!", // this should be enough - SANDRO
 };
 
-// TODO.Translate
 STR16 New113HAMMessage[] = 
 {
 	// 0 - 5
-	L"%s съёжился от испуга!",	//%s cowers in fear!
-	L"%s в оцепенении!",	//%s is pinned down!
-	L"%s выпускает больше пуль, чем собирался!",	//%s fires more rounds than intended!
+	L"%s в страхе пытается укрыться!",	//%s cowers in fear!	%s съёжился от испуга!
+	L"%s прижат(а) к земле вражеским огнём!",	//%s is pinned down!
+	L"%s выпускает больше пуль, чем запланировано!",	//%s fires more rounds than intended!
 	L"Вы не можете тренировать ополчение в этом секторе.",	//You cannot train militia in this sector.
 	L"Ополченец подобрал %s.",	//Militia picks up %s.
 	L"Невозможно тренировать ополчение когда в секторе враг!",	//Cannot train militia with enemies present!
 	// 6 - 10
-	L"У %s недостаточно развито лидерство чтобы тренировать ополченцев.",	//%s lacks sufficient Leadership score to train militia.
+	L"%s имеет низкий навык Лидерства, чтобы тренировать ополченцев.",	//%s lacks sufficient Leadership score to train militia.
 	L"В этом секторе не может быть тренеров мобильных групп больше %d.",	//No more than %d Mobile Militia trainers are permitted in this sector.
 	L"Нет свободных мест в %s или вокруг него для новой мобильной группы!",	//No room in %s or around it for new Mobile Militia!
-	L"You need to have %d Town Militia in each of %s's liberated sectors before you can train Mobile Militia here.",
-	L"Can't staff a facility while enemies are present!",
+	L"Нужно иметь по %d ополченцев в каждом освобождённом секторе города %s, прежде чем можно будет тренировать мобильные группы.",	//You need to have %d Town Militia in each of %s's liberated sectors before you can train Mobile Militia here.
+	L"Невозможно работать в городском учереждении пока враг в секторе!",	//Can't staff a facility while enemies are present!
 	// 11 - 15
-	L"%s lacks sufficient Wisdom to staff this facility.",
-	L"The %s is already fully-staffed.",
+	L"%s имеет мало Мудрости, чтобы работать в городском учереждении.",	//%s lacks sufficient Wisdom to staff this facility.
+	L"Учереждение %s полностью укомплектованно персоналом.",	//The %s is already fully-staffed.
 	L"Один час услуг этого заведения обойдётся вам в $%d. Согласны оплачивать?",	//It will cost $%d per hour to staff this facility. Do you wish to continue?
-	L"You have insufficient funds to pay for all Facility work today. $%d have been paid, but you still owe $%d. The locals are not pleased.",
-	L"You have insufficient funds to pay for all Facility work today. You owe $%d. The locals are not pleased.",
+        L"У вас недостаточно денег чтобы оплатить работу в учреждениии за сегодня. $%d выплачено, ещё нужно $%d. Местным это не понравилось.", //You have insufficient funds to pay for all Facility work today. $%d have been paid, but you still owe $%d. The locals are not pleased.",
+        L"У вас недостаточно денег чтобы выплатить заработную плату всем рабочим. Теперь долг составил $%d. Местным это не понравилось.",	//You have insufficient funds to pay for all Facility work today. You owe $%d. The locals are not pleased.
 	// 16 - 20
-	L"You have an outstanding debt of $%d for Facility Operation, and no money to pay it off!",
-	L"You have an outstanding debt of $%d for Facility Operation. You can't assign this merc to facility duty until you have enough money to pay off the entire debt.",
-	L"You have an outstanding debt of $%d for Facility Operation. Would you like to pay it all back?",
+	L"Непогашенный долг составляет $%d для работы учереждения, и нет денег чтобы его погасить!",	//You have an outstanding debt of $%d for Facility Operation, and no money to pay it off!
+	L"Непогашенный долг составляет $%d для работы учереждения. Вы не можете назначить бойца на работу в учереждении пока не погасите задолженность.",	//You have an outstanding debt of $%d for Facility Operation. You can't assign this merc to facility duty until you have enough money to pay off the entire debt.
+	L"Непогашенный долг составляет $%d для работы учереждения. Выплатить деньги по задолженности?",	//You have an outstanding debt of $%d for Facility Operation. Would you like to pay it all back?
 	L"Н/Д в этом секторе",	//N/A in this sector
 	L"Дневной расход",
 	// 21 - 25
-	L"Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.",
+	L"Недостаточно денег чтобы заплатить всему нанятому ополчению. %d ополченцев было распущенно и распущено домой.",	//Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
@@ -4747,7 +4746,7 @@ STR16 MPHelp[] =
 	L"'F2' - Показать дополнительную помощь.",
 	L"Более подробное описание вы найдете в файле readme_mp.html",
 	L"Советы: (считаем, что настройки в ja2_mp.ini верны)",
-	L"",	//unuse '* Make sure all clients have unique CLIENT_NUM *'
+	L"* Убедитесь что каждый клиент имеет уникальное значение CLIENT_NUM *",
 	L"* В сохраненной игре не записывается заказанное у Бобби Рэя *",
 	// 15
 	L"* Старайтесь не ставить бойцов ненавидящих друг-друга в прямой видимости *",
@@ -4799,6 +4798,7 @@ STR16 gzMPSScreenText[] =
 	L"Меткость",		//Accuracy
 	L"Нанесённый урон",	//Damage Dealt
 	L"Полученный урон",	//Damage Taken
+	L"Дождитесь, пожалуйста, пока сервер нажмёт кнопку 'Продолжить'."
 };
 
 STR16 gzMPCScreenText[] =
@@ -4849,25 +4849,25 @@ STR16 pCharacterTraitBeginIMPStrings[] =
 STR16 gzIMPCharacterTraitText[]=
 {
 	L"Адекватный",	//Normal
-	L"Дружелюбный",	//Friendly
+	L"Общительный",	//Friendly
 	L"Одиночка",	//Loner
 	L"Оптимист",	//Optimist
 	L"Пессимист",	//Pessimist
-	L"Отважный",	//Aggressive
-	L"Высокомерен",	//Arrogant
+	L"Агрессивный",	//Aggressive
+	L"Высокомерный",	//Arrogant
 	L"Крутой",	//Big Shot
 	L"Мудак",	//Asshole
 	L"Трус",	//Coward
-	L"I.M.P. Характер",	//I.M.P. Character Traits
+	L"I.M.P.: Жизненная позиция",	//I.M.P. Attitudes
 };
 
 STR16 gzIMPColorChoosingText[] = 
 {
-	L"I.M.P. Расцветака и телосложение",	//I.M.P. Colors and Body Type
-	L"I.M.P. Расцветка",	//I.M.P. Colors
-	L"Выберите соответствующие цвета вашей кожи, волос и одежды, а так же укажите ваше телосложение.",	//Please select the respective colors of your skin, hair and clothing. And select what body type you have.
-	L"Выберите соответствующие цвета вашей кожи, волос и одежды.",	//Please select the respective colors of your skin, hair and clothing.
-	L"Отметьте здесь чтобы ваш персонаж \nдержал автомат одной рукой.",	//Toggle this to use alternative rifle holding
+	L"I.M.P.: Расцветка и телосложение",
+	L"I.M.P.: Расцветка",
+	L"Выберите соответствующие цвета вашей кожи, волос и одежды, а так же укажите ваше телосложение.",
+	L"Выберите соответствующие цвета вашей кожи, волос и одежды.",
+	L"Отметьте здесь чтобы ваш персонаж \nдержал автомат одной рукой.",
 };
 
 STR16 sColorChoiceExplanationTexts[]=
@@ -4883,7 +4883,7 @@ STR16 sColorChoiceExplanationTexts[]=
 STR16 gzIMPDisabilityTraitText[]=
 {
 	L"Идеален",	//No Disability
-	L"Вспыльчивый",		//Heat Intolerant
+	L"Непереносимость жары",		//Heat Intolerant
 	L"Нервный",		//Nervous
 	L"Клаустрафоб",	//Claustrophobic
 	L"Не умеющий плавать",	//Nonswimmer
@@ -4893,48 +4893,47 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"I.M.P. Недостатки",	//I.M.P. Disabilities
 };
 
-// TODO.Translate
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
 STR16 gzFacilityErrorMessage[]=
 {
-	L"%s lacks sufficient Strength to perform this task.",
-	L"%s lacks sufficient Dexterity to perform this task.",
-	L"%s lacks sufficient Agility to perform this task.",
-	L"%s is not Healthy enough to perform this task.",
-	L"%s lacks sufficient Wisdom to perform this task.",
-	L"%s lacks sufficient Marksmanship to perform this task.",
+	L"%s не хватает Силы чтобы выполнить это действие.",
+	L"%s не хватает Ловкости чтобы выполнить это действие.",
+	L"%s не хватает Проворности чтобы выполнить это действие.",
+	L"%s не хватает Здоровья чтобы выполнить это действие..",
+	L"%s не хватает Мудрости чтобы выполнить это действие.",
+	L"%s не хватает Меткости чтобы выполнить это действие.",
 	// 6 - 10
-	L"%s lacks sufficient Medical Skill to perform this task.",
-	L"%s lacks sufficient Mechanical Skill to perform this task.",
-	L"%s lacks sufficient Leadership to perform this task.",
-	L"%s lacks sufficient Explosives Skill to perform this task.",
-	L"%s lacks sufficient Experience to perform this task.",
+	L"%s не достаточно развит Медицинский навык, чтобы выполнить это действие.",
+	L"%s не достаточно развит навык Механики, чтобы выполнить это действие.",
+	L"%s не достаточно развито Лидерство, чтобы выполнить это действие.",
+	L"%s не достаточно развит навык Взрывчатки, чтобы выполнить это действие.",
+	L"%s не достаточно Опыта, чтобы выполнить это действие.",
 	// 11 - 15
-	L"%s lacks sufficient Morale to perform this task.",
-	L"%s is too exhausted to perform this task.",
-	L"Insufficient loyalty in %s. The locals refuse to allow you to perform this task.",
-	L"Too many people are already working at the %s.",
-	L"Too many people are already performing this task at the %s.",
+	L"У %s слишком плохой Боевой дух, чтобы выполнить это действие",
+	L"%s слишком устал(а), чтобы выполнить это действие.",
+	L"В городе %s вам пока не доверяют. Местные отказываются выполнить этот приказ.",
+	L"Слишком много людей уже работают в %s.",
+	L"Слишком много людей уже выполняют эту задачу в %s.",
 	// 16 - 20
-	L"%s can find no items to repair.",
-	L"%s has lost some %s while working in sector %s!",
-	L"%s has lost some %s while working at the %s in %s!",
-	L"%s was injured while working in sector %s, and requires immediate medical attention!",
-	L"%s was injured while working at the %s in %s, and requires immediate medical attention!",
+	L"%s не может найти вещи, которые нуждаются в ремонте.",
+	L"%s потерял(а) часть %s пока работал в секторе %s!",
+	L"%s потерял(а) часть %s пока работал над %s в %s!",
+	L"%s получил(а) травму пока работал(а) в секторе %s, и требует незамедлительной медицинской помощи!",
+	L"%s получил(а) травму пока работал(а) над %s в %s, и требует незамедлительной медицинской помощи!",
 	// 21 - 25
-	L"%s was injured while working in sector %s. It doesn't seem too bad though.",
-	L"%s was injured while working at the %s in %s. It doesn't seem too bad though.",
-	L"The residents of %s seem upset about %s's presence.",
-	L"The residents of %s seem upset about %s's work at the %s.",
-	L"%s's actions in sector %s have caused loyalty loss throughout the region!",
+	L"%s получил(а) травму пока работал(а) в секторе %s. Травма незначительная.",
+	L"%s получил(а) травму пока работал(а) над %s в %s. Травма незначительная.",
+	L"Жители города %s расстроены тем, что %s пребывает в их городе.",
+	L"Жители города %s расстроены работой %s в %s.",
+	L"%s в секторе %s своими действиями понизил репутацию во всём регионе!",
 	// 26 - 30
-	L"%s's actions at the %s in %s have caused loyalty loss throughout the region!",
-	L"%s пьян(а).", // <--- This is a log message string.	//%s is drunk.
-	L"%s has become severely ill in sector %s, and has been taken off duty.",
-	L"%s has become severely ill and cannot continue his work at the %s in %s.",
-	L"%s был ранен в секторе %s.", // <--- This is a log message string. //%s was injured in sector %s.
+	L"%s работая над %s в %s привёл(а) к понижению репутации во всём регионе!",
+	L"%s пьян(а).",
+	L"%s заболел(а) в секторе %s, и вынужден(а) отложить текущую задачу.",
+	L"%s заболел(а) и не может продолжить работу над %s в %s.",
+	L"%s получил(а) травму в секторе %s.",
 	// 31 - 35
-	L"%s был серьезно ранен в секторе %s.", //<--- This is a log message string. //%s was severely injured in sector %s.
+	L"%s получил(а) серьёзную травму в секторе %s.",
 
 
 };
@@ -4942,8 +4941,8 @@ STR16 gzFacilityErrorMessage[]=
 STR16 gzFacilityRiskResultStrings[]=
 {
 	L"Сила",	//Strength
-	L"Ловкость",	//Agility
-	L"Проворность",	//Dexterity
+	L"Проворность",	//Agility
+	L"Ловкость",	//Dexterity
 	L"Интеллект",	//Wisdom
 	L"Здоровье",	//Health
 	L"Меткость",	//Marksmanship
@@ -4954,50 +4953,49 @@ STR16 gzFacilityRiskResultStrings[]=
 	L"Взрывчатка",	//Explosives skill
 };
 
-// TODO.Translate
 STR16 gzFacilityAssignmentStrings[]=
 {
-	L"AMBIENT",
-	L"Staff",
-	L"Rest",
-	L"Repair Items",
-	L"Repair %s", // Vehicle name inserted here
-	L"Repair Robot",
+	L"AMBIENT",	// TODO.Translate
+	L"Штат",	//Staff
+	L"Отдых",
+	L"Ремонт вещей",
+	L"Ремонт %s", // Vehicle name inserted here
+	L"Ремонт робота",
 	// 6-10
-	L"Doctor",
-	L"Patient",
-	L"Practice Strength",
-	L"Practice Dexterity",
-	L"Practice Agility",
-	L"Practice Health",
+	L"Доктор",
+	L"Пациент",
+	L"Тренинг Силы",
+	L"Тренинг Ловкости",
+	L"Тренинг Проворности",
+	L"Тренинг Здоровья",
 	// 11-15
-	L"Practice Marksmanship",
-	L"Practice Medical",
-	L"Practice Mechanical",
-	L"Practice Leadership",
-	L"Practice Explosives",
+	L"Тренинг Меткости",
+	L"Тренинг Медицины",
+	L"Тренинг Механики",
+	L"Тренинг Лидерства",
+	L"Тренинг Взрывчатки",
 	// 16-20
-	L"Student Strength",
-	L"Student Dexterity",
-	L"Student Agility",
-	L"Student Health",
-	L"Student Marksmanship",
+	L"Ученик на Силу",
+	L"Ученик на Ловкость",
+	L"Ученик на Проворность",
+	L"Ученик на Здоровье",
+	L"Ученик на Меткость",
 	// 21-25
-	L"Student Medical",
-	L"Student Mechanical",
-	L"Student Leadership",
-	L"Student Explosives",
-	L"Trainer Strength",
+	L"Ученик на Медицину",
+	L"Ученик на Механику",
+	L"Ученик на Лидерство",
+	L"Ученик на Взрывчатку",
+	L"Тренер на Силу",
 	// 26-30
-	L"Trainer Dexterity",
-	L"Trainer Agility",
-	L"Trainer Health",
-	L"Trainer Marksmanship",
-	L"Trainer Medical",
+	L"Тренер на Ловкость",
+	L"Тренер на Проворность",
+	L"Тренер на Здоровье",
+	L"Тренер на Меткость",
+	L"Тренер на Медицину",
 	// 30-35
-	L"Trainer Mechanical",
-	L"Trainer Leadership",
-	L"Trainer Explosives",
+	L"Тренер на Механику",
+	L"Тренер на Лидерство",
+	L"Тренер на Взрывчатку",
 };
 
 STR16 Additional113Text[]=
