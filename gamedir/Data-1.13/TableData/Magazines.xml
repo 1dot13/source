@@ -2706,4 +2706,10 @@
 		<ubMagSize>5000</ubMagSize>
 		<ubAmmoType>2</ubAmmoType>
 	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>451</uiIndex>
+		<ubCalibre>48</ubCalibre>
+		<ubMagSize>1</ubMagSize>
+		<ubAmmoType>0</ubAmmoType>
+	</MAGAZINE>
 </MAGAZINELIST>

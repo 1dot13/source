@@ -35,4 +35,11 @@
 		<usAttachment2>0</usAttachment2>
 		<usResult>223</usResult>
 	</ATTACHMENTCOMBOMERGE>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>5</uiIndex>
+		<usItem>1360</usItem>
+		<usAttachment1>1360</usAttachment1>
+		<usAttachment2>1360</usAttachment2>
+		<usResult>1360</usResult>
+	</ATTACHMENTCOMBOMERGE>
 </ATTACHMENTCOMBOMERGELIST>

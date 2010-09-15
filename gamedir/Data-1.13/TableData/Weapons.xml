@@ -10700,4 +10700,54 @@
 		<AutoPenalty>7</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
+	<WEAPON>
+		<uiIndex>1352</uiIndex>
+		<szWeaponName>Hand Mortar</szWeaponName>
+		<ubWeaponClass>5</ubWeaponClass>
+		<ubWeaponType>8</ubWeaponType>
+		<ubCalibre>48</ubCalibre>
+		<ubReadyTime>11</ubReadyTime>
+		<ubShotsPer4Turns>7.57</ubShotsPer4Turns>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>50</ubImpact>
+		<ubDeadliness>23</ubDeadliness>
+		<bAccuracy>4</bAccuracy>
+		<ubMagSize>1</ubMagSize>
+		<usRange>100</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>90</ubAttackVolume>
+		<ubHitVolume>30</ubHitVolume>
+		<sSound>146</sSound>
+		<sReloadSound>103</sReloadSound>
+		<sLocknLoadSound>109</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>20</bBurstAP>
+		<APsToReload>20</APsToReload>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>480</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1353</uiIndex>
+		<szWeaponName>Sam Garver Combat Knife</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
+		<ubImpact>20</ubImpact>
+		<ubDeadliness>7</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1361</uiIndex>
+		<szWeaponName>MERC Umbrella</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>10.46</ubShotsPer4Turns>
+		<ubImpact>12</ubImpact>
+		<ubDeadliness>5</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>5</ubAttackVolume>
+		<sSound>87</sSound>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
 </WEAPONLIST>
