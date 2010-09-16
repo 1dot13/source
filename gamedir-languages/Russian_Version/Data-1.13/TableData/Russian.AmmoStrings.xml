@@ -240,4 +240,9 @@
 		<AmmoCaliber>6x35мм</AmmoCaliber>
 		<BRCaliber>6x35мм</BRCaliber>
 	</AMMO>
+	<AMMO>
+		<uiIndex>48</uiIndex>
+		<AmmoCaliber>Пушечное ядро</AmmoCaliber>
+		<BRCaliber>Пушечное ядро</BRCaliber>
+	</AMMO>
 </AMMOLIST>

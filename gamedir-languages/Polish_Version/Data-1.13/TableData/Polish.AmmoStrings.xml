@@ -240,4 +240,9 @@
 		<AmmoCaliber>6x35mm</AmmoCaliber>
 		<BRCaliber>6x35mm</BRCaliber>
 	</AMMO>
+	<AMMO>
+		<uiIndex>48</uiIndex>
+		<AmmoCaliber>Kula moździerzowa</AmmoCaliber>
+		<BRCaliber>Kula moździerzowa</BRCaliber>
+	</AMMO>
 </AMMOLIST>
