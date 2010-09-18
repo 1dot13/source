@@ -1,4 +1,20 @@
 <XMLEditor>
+   <!-- The current Data folder used for the XML-Editor -->
 	<Data_Directory>Data-1.13</Data_Directory>
-  <AP_Maximum>100</AP_Maximum>
+	
+	<!-- The AP system used for displaying values in the XML-Editor -->
+	<AP_Maximum>100</AP_Maximum>
+	
+	<!-- In the following properties you can set the absolute root folder path of the language specific JA2 1.13 GameDir folder -->
+	<!-- The <Data_Directory> property value and the "TableData" folder is automatically appended to the specified path, so don't add this to the path -->
+	<!-- If your language specific XML files are in the same place then the English (non language specific) XML files, you can just clear the values of the properties, but don't delete the properties -->
+	<!-- If no language specific XML files can be found, the XML-Editor will start without any errors, but you cannot edit the missing file in the XML-Editor -->
+	<GameDir_Russian_Path>C:\stuff\1.13\Development\Game Data\GameDir_LanguageSpecific\Russian_Version</GameDir_Russian_Path>
+	<GameDir_German_Path>C:\stuff\1.13\Development\Game Data\GameDir_LanguageSpecific\German_Version</GameDir_German_Path>
+	<GameDir_Polish_Path>C:\stuff\1.13\Development\Game Data\GameDir_LanguageSpecific\Polish_Version</GameDir_Polish_Path>
+	<GameDir_French_Path>C:\stuff\1.13\Development\Game Data\GameDir_LanguageSpecific\French_Version</GameDir_French_Path>
+	<GameDir_Italian_Path>C:\stuff\1.13\Development\Game Data\GameDir_LanguageSpecific\Italian_Version</GameDir_Italian_Path>
+	<GameDir_Chinese_Path>C:\stuff\1.13\Development\Game Data\GameDir_LanguageSpecific\Chinese_Version</GameDir_Chinese_Path>
+	<GameDir_Dutch_Path>C:\stuff\1.13\Development\Game Data\GameDir_LanguageSpecific\Dutch_Version</GameDir_Dutch_Path>
+	<GameDir_Taiwanese_Path></GameDir_Taiwanese_Path>
 </XMLEditor>
