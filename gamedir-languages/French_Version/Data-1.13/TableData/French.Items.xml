@@ -150,7 +150,7 @@
 		<szLongItemName>Dragunov SVD</szLongItemName>
 		<szItemDesc>L'arme des tireurs d'élite russes est d'une précision redoutable. Ce fusil a insufflé plus que de la peur dans le coeur des officiers du monde entier.</szItemDesc>
 		<szBRName>Dragunov SVD</szBRName>
-		<szBRDesc>Ce fusil de précision russe a fort bonne réputation, et à juste titre. Il est livré avec une lunette PSO-1 et un système de vision nocturne  NSPU-3.</szBRDesc>
+		<szBRDesc>Ce fusil de précision russe a fort bonne réputation, et à juste titre. Il est livré avec une lunette PSO-1 et un système de vision nocturne	NSPU-3.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>19</uiIndex>
@@ -174,7 +174,7 @@
 		<szLongItemName>HK G41A2</szLongItemName>
 		<szItemDesc>La puissance d'arrêt du G41 est impressionnante. De quoi donner de sacrés maux de crâne à l'adversaire !</szItemDesc>
 		<szBRName>HK G41A2</szBRName>
-		<szBRDesc>Conforme aux standards OTAN, ce fusil d'assaut allemand est une arme de première qualité. Il est doté d'un système permettant de laisser la culasse ouverte pendant le tir et sa chambre d'éjection dispose d'un  cache-poussière.</szBRDesc>
+		<szBRDesc>Conforme aux standards OTAN, ce fusil d'assaut allemand est une arme de première qualité. Il est doté d'un système permettant de laisser la culasse ouverte pendant le tir et sa chambre d'éjection dispose d'un	cache-poussière.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>22</uiIndex>
@@ -269,7 +269,7 @@
 		<uiIndex>33</uiIndex>
 		<szItemName>CAWS</szItemName>
 		<szLongItemName>HK CAWS</szLongItemName>
-		<szItemDesc>Le fusil expérimental "Close Assault Weapons System" de chez HK. Il utilise une munition de calibre 12 speciale développée par  Olin/Winchester qui lui fourni une portée supérieure à celle des fusils à pompe conventionnels. Il dispose d'un tir semi et  auto.</szItemDesc>
+		<szItemDesc>Le fusil expérimental "Close Assault Weapons System" de chez HK. Il utilise une munition de calibre 12 speciale développée par	Olin/Winchester qui lui fourni une portée supérieure à celle des fusils à pompe conventionnels. Il dispose d'un tir semi et	auto.</szItemDesc>
 		<szBRName>HK CAWS</szBRName>
 		<szBRDesc>Nous sommes sûrs que vous adoreraient le CAWS! Nous venons juste de recevoir une cargaison limitée de ces fusils expérimentaux, et de leurs munitions spéciales. Transformez vos ennemis en pâté pour chien à 240 coups/minute. Fournis avec une visée intégrée.</szBRDesc>
 	</ITEM>
@@ -613,9 +613,9 @@
 		<uiIndex>76</uiIndex>
 		<szItemName>9x19mm TC, 30</szItemName>
 		<szLongItemName>9x19mm Têtes creuses, 30</szLongItemName>
-		<szItemDesc>Ce chargeur contient 30 cartouches de 9mm à têtes creuses. Elles causent autant de dégâts que des balles à tête creuse et ont une puissance  de pénétration identique à celle des munitions classiques.</szItemDesc>
+		<szItemDesc>Ce chargeur contient 30 cartouches de 9mm à têtes creuses. Elles causent autant de dégâts que des balles à tête creuse et ont une puissance	de pénétration identique à celle des munitions classiques.</szItemDesc>
 		<szBRName>9x19mm SMG Mag HP</szBRName>
-		<szBRDesc>Un chargeur de 30 cartouches 115 grains chemisées à têtes creuses. Ainsi garni, votre MP5 fera pâlir d'envie toutes les unités  spéciales du monde.</szBRDesc>
+		<szBRDesc>Un chargeur de 30 cartouches 115 grains chemisées à têtes creuses. Ainsi garni, votre MP5 fera pâlir d'envie toutes les unités	spéciales du monde.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>77</uiIndex>
@@ -645,7 +645,7 @@
 		<uiIndex>80</uiIndex>
 		<szItemName>.45, 7</szItemName>
 		<szLongItemName>.45, 7</szLongItemName>
-		<szItemDesc>Ce chargeur contient 7 cartouches de Colt .45. Les munitions .45ACP  standards causent des blessures similaires aux munitions de 9mm et de .38 à têtes creuses.</szItemDesc>
+		<szItemDesc>Ce chargeur contient 7 cartouches de Colt .45. Les munitions .45ACP	standards causent des blessures similaires aux munitions de 9mm et de .38 à têtes creuses.</szItemDesc>
 		<szBRName>.45</szBRName>
 		<szBRDesc>Un chargeur contenant 7 cartouche UMC 230 grains de .45 ACP. Un grand classique.</szBRDesc>
 	</ITEM>
@@ -661,7 +661,7 @@
 		<uiIndex>82</uiIndex>
 		<szItemName>.45 AP, 7</szItemName>
 		<szLongItemName>.45 Perçantes, 7</szLongItemName>
-		<szItemDesc>Ce chargeur contient 7 cartouches de .45 à grande vitesse initiale, conçues pour traverser les gilets pare-balles. Elles perdent en  contrepartie beaucoup de leur puissance d'arrêt.</szItemDesc>
+		<szItemDesc>Ce chargeur contient 7 cartouches de .45 à grande vitesse initiale, conçues pour traverser les gilets pare-balles. Elles perdent en	contrepartie beaucoup de leur puissance d'arrêt.</szItemDesc>
 		<szBRName>.45 Perçantes, 7</szBRName>
 		<szBRDesc>Les 7 cartouches de .45 perçantes contenues dans ce chargeur sont connues pour traverser le Kevlar comme du beurre.</szBRDesc>
 	</ITEM>
@@ -701,7 +701,7 @@
 		<uiIndex>87</uiIndex>
 		<szItemName>.357, 9</szItemName>
 		<szLongItemName>.357, 9</szLongItemName>
-		<szItemDesc>Ce chargeur contient 9 cartouches de .357 Magnum. Tant la puissance de pénétration que la puissance d'arrêt de ces munitions sont  impressionnantes.</szItemDesc>
+		<szItemDesc>Ce chargeur contient 9 cartouches de .357 Magnum. Tant la puissance de pénétration que la puissance d'arrêt de ces munitions sont	impressionnantes.</szItemDesc>
 		<szBRName>.357, 9</szBRName>
 		<szBRDesc>Si vous n'aimez pas les problèmes, nous vous apportons une solution avec ce chargeur de 9 cartouches Federal 158 grains de calibre .357.</szBRDesc>
 	</ITEM>
@@ -1973,7 +1973,7 @@
 		<uiIndex>246</uiIndex>
 		<szItemName>Lunettes VN II</szItemName>
 		<szLongItemName>Lunettes VN, Gen. II</szLongItemName>
-		<szItemDesc>Ces lunettes de vision nocturne seconde generation  ont une meilleure intensification que des modèles plus vieux. L'image demeure légèrement granuleuse. Ce modèle est assez facilement accessible.</szItemDesc>
+		<szItemDesc>Ces lunettes de vision nocturne seconde generation	ont une meilleure intensification que des modèles plus vieux. L'image demeure légèrement granuleuse. Ce modèle est assez facilement accessible.</szItemDesc>
 		<szBRName>Lunettes de vision nocturne II</szBRName>
 		<szBRDesc>Que vous soyez un chasseur, un rôdeur, ou LEO, avec celles-ci aucune proie ne se cachera de vous dans la pénombre.</szBRDesc>
 	</ITEM>
@@ -2255,61 +2255,61 @@
 		<szLongItemName>Black Cap</szLongItemName>
 		<szItemDesc>A black commando-type tuque.</szItemDesc>
 		<szBRName>Black Cap</szBRName>
-		<szBRDesc>On Sale: 1/2 Price!  For a limited time only, you can purchase this fine Commando Tuque, made from the finest cotton, for 50 percent off!</szBRDesc>
+		<szBRDesc>On Sale: 1/2 Price!	For a limited time only, you can purchase this fine Commando Tuque, made from the finest cotton, for 50 percent off!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>282</uiIndex>
 		<szItemName>Zylon Combat Pants</szItemName>
 		<szLongItemName>Zylon Combat Pants</szLongItemName>
-		<szItemDesc>This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
+		<szItemDesc>This is the standard issue body armour of the US military.	What were they thinking?	This stuff wears out way too fast.</szItemDesc>
 		<szBRName>Zylon Combat Pants</szBRName>
-		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.	Provides limited camouflage.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>283</uiIndex>
 		<szItemName>Zylon Combat Vest</szItemName>
 		<szLongItemName>Zylon Combat Vest</szLongItemName>
-		<szItemDesc>This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
+		<szItemDesc>This is the standard issue body armour of the US military.	What were they thinking?	This stuff wears out way too fast.</szItemDesc>
 		<szBRName>Zylon Combat Vest</szBRName>
-		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.	Provides limited camouflage.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>284</uiIndex>
 		<szItemName>Uniform</szItemName>
 		<szLongItemName>Field Uniform</szLongItemName>
-		<szItemDesc>Officer's fatigues. This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
+		<szItemDesc>Officer's fatigues. This is the standard issue body armour of the US military.	What were they thinking?	This stuff wears out way too fast.</szItemDesc>
 		<szBRName>Field Uniform</szBRName>
-		<szBRDesc>Officer's fatigues.  Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+		<szBRDesc>Officer's fatigues.	Stronger than kevlar, this is the body armour worn by US Marines in Iraq.	Provides limited camouflage.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>285</uiIndex>
 		<szItemName>Hat</szItemName>
 		<szLongItemName>Hat</szLongItemName>
-		<szItemDesc>A nice hat to wear when your helmet gets too hot.  Provides limited camouflage.</szItemDesc>
+		<szItemDesc>A nice hat to wear when your helmet gets too hot.	Provides limited camouflage.</szItemDesc>
 		<szBRName>Hat</szBRName>
-		<szBRDesc>As seen on TV!  This is the same hat that "Wild Bill" wore on the GI Joe Saturday morning cartoon.  Ok, so it's not the same hat.  But's its still a nice hat.</szBRDesc>
+		<szBRDesc>As seen on TV!	This is the same hat that "Wild Bill" wore on the GI Joe Saturday morning cartoon.	Ok, so it's not the same hat.	But's its still a nice hat.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>286</uiIndex>
 		<szItemName>Uniform</szItemName>
 		<szLongItemName>Dress Uniform</szLongItemName>
-		<szItemDesc>If you ever need to go to a formal dinner party while you're here in Arulco, you could wear this.  Or not.</szItemDesc>
+		<szItemDesc>If you ever need to go to a formal dinner party while you're here in Arulco, you could wear this.	Or not.</szItemDesc>
 		<szBRName>Dress Uniform</szBRName>
-		<szBRDesc>Formal attire of the US Marine Corps.  Warning!  This is not a viable combat vestement.</szBRDesc>
+		<szBRDesc>Formal attire of the US Marine Corps.	Warning!	This is not a viable combat vestement.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>287</uiIndex>
 		<szItemName>Hat</szItemName>
 		<szLongItemName>Officer's Hat</szLongItemName>
-		<szItemDesc>This is an officer's hat.  From the looks of it, it's probably from the US.</szItemDesc>
+		<szItemDesc>This is an officer's hat.	From the looks of it, it's probably from the US.</szItemDesc>
 		<szBRName>Officer's Hat</szBRName>
-		<szBRDesc>A marine officer's hat.  Comes with free beer-hat.</szBRDesc>
+		<szBRDesc>A marine officer's hat.	Comes with free beer-hat.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>288</uiIndex>
 		<szItemName>Beret</szItemName>
 		<szLongItemName>Red Beret</szLongItemName>
-		<szItemDesc>Parlay voo francais?  This beret may not be French, but it sure looks gay.</szItemDesc>
+		<szItemDesc>Parlay voo francais?	This beret may not be French, but it sure looks gay.</szItemDesc>
 		<szBRName>Red Beret</szBRName>
 		<szBRDesc>Start your own special forces team!</szBRDesc>
 	</ITEM>
@@ -2319,15 +2319,15 @@
 		<szLongItemName>Russian Cap</szLongItemName>
 		<szItemDesc>Wow, nice hat!</szItemDesc>
 		<szBRName>Russian Cap</szBRName>
-		<szBRDesc>A Soviet guard's hat.  Available in brown and red.</szBRDesc>
+		<szBRDesc>A Soviet guard's hat.	Available in brown and red.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>290</uiIndex>
 		<szItemName>Hat</szItemName>
 		<szLongItemName>Fur Hat</szLongItemName>
-		<szItemDesc>For those cold Russian winters, you need the best in head warming fur hats.  So why would you need it in Arulco?</szItemDesc>
+		<szItemDesc>For those cold Russian winters, you need the best in head warming fur hats.	So why would you need it in Arulco?</szItemDesc>
 		<szBRName>Fur Hat</szBRName>
-		<szBRDesc>For those cold Russian winters, you need the best in head warming fur hats.  Comes with free ear muffs.</szBRDesc>
+		<szBRDesc>For those cold Russian winters, you need the best in head warming fur hats.	Comes with free ear muffs.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>291</uiIndex>
@@ -2335,15 +2335,15 @@
 		<szLongItemName>Officer's Coat</szLongItemName>
 		<szItemDesc>While this coat looks like it'll hold up fine against the rain, it doesn't look like it'll do much against bullets.</szItemDesc>
 		<szBRName>Officer's Coat</szBRName>
-		<szBRDesc>A Soviet officer's coat.  Available with and without pocket lint.</szBRDesc>
+		<szBRDesc>A Soviet officer's coat.	Available with and without pocket lint.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>292</uiIndex>
 		<szItemName>Hat</szItemName>
 		<szLongItemName>Officer's Hat</szLongItemName>
-		<szItemDesc>This is an officer's hat.  From the looks of it, it's probably from the former Soviet Union.</szItemDesc>
+		<szItemDesc>This is an officer's hat.	From the looks of it, it's probably from the former Soviet Union.</szItemDesc>
 		<szBRName>Officer's Hat</szBRName>
-		<szBRDesc>A Soviet officer's hat.  Available with and without lice.</szBRDesc>
+		<szBRDesc>A Soviet officer's hat.	Available with and without lice.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>293</uiIndex>
@@ -2351,29 +2351,29 @@
 		<szLongItemName>SWAT Helmet</szLongItemName>
 		<szItemDesc>This helmet comes with eye protection, and feels very sturdy.</szItemDesc>
 		<szBRName>SWAT Helmet</szBRName>
-		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+		<szBRDesc>Standard issue SWAT armour.	Strong, resilient and flexible.	An excellent choice for situations which require light armour and high mobility.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>294</uiIndex>
 		<szItemName>SWAT Pants</szItemName>
 		<szLongItemName>SWAT Leggings</szLongItemName>
-		<szItemDesc>Standard issue SWAT armoured leggings.  Sturdier than standard kevlar due to extra integrated plating, but still provide excellent mobility.</szItemDesc>
+		<szItemDesc>Standard issue SWAT armoured leggings.	Sturdier than standard kevlar due to extra integrated plating, but still provide excellent mobility.</szItemDesc>
 		<szBRName>SWAT Leggings</szBRName>
-		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+		<szBRDesc>Standard issue SWAT armour.	Strong, resilient and flexible.	An excellent choice for situations which require light armour and high mobility.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>295</uiIndex>
 		<szItemName>SWAT Vest</szItemName>
 		<szLongItemName>SWAT Vest</szLongItemName>
-		<szItemDesc>Standard issue SWAT armoured vest.  Sturdier than standard kevlar due to extra integrated plating, but still provides excellent mobility.</szItemDesc>
+		<szItemDesc>Standard issue SWAT armoured vest.	Sturdier than standard kevlar due to extra integrated plating, but still provides excellent mobility.</szItemDesc>
 		<szBRName>SWAT Vest</szBRName>
-		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+		<szBRDesc>Standard issue SWAT armour.	Strong, resilient and flexible.	An excellent choice for situations which require light armour and high mobility.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>296</uiIndex>
 		<szItemName>T-Shirt</szItemName>
 		<szLongItemName>T-Shirt</szLongItemName>
-		<szItemDesc>Ah ouais?  Et bien toi-même d'abord!</szItemDesc>
+		<szItemDesc>Ah ouais?	Et bien toi-même d'abord!</szItemDesc>
 		<szBRName>T-Shirt</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
@@ -2383,7 +2383,7 @@
 		<szLongItemName>Retractable Baton</szLongItemName>
 		<szItemDesc>Standard issue for security guards in many countries, this retractable baton is greating for whipping out and beating.</szItemDesc>
 		<szBRName>Retractable Baton</szBRName>
-		<szBRDesc>Standard retractable baton.  Popular with security guards.</szBRDesc>
+		<szBRDesc>Standard retractable baton.	Popular with security guards.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>298</uiIndex>
@@ -2413,7 +2413,7 @@
 		<uiIndex>301</uiIndex>
 		<szItemName>Exacto Knife</szItemName>
 		<szLongItemName>Exacto Knife</szLongItemName>
-		<szItemDesc>Exactly what you'd need if you were going to cut through some cardboard.  Pretty much useless in combat though.</szItemDesc>
+		<szItemDesc>Exactly what you'd need if you were going to cut through some cardboard.	Pretty much useless in combat though.</szItemDesc>
 		<szBRName>Exacto Knife</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
@@ -2423,7 +2423,7 @@
 		<szLongItemName>Camo Steel Helmet</szLongItemName>
 		<szItemDesc>This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has been painted with camouflage.</szItemDesc>
 		<szBRName>Camo Steel Helmet</szBRName>
-		<szBRDesc>Comfortable and extremely practical. This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has a padded leather and nylon suspension, with an adjustable chin strap.  Provides limited camouflage.</szBRDesc>
+		<szBRDesc>Comfortable and extremely practical. This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has a padded leather and nylon suspension, with an adjustable chin strap.	Provides limited camouflage.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>303</uiIndex>
@@ -2661,9 +2661,9 @@
 		<uiIndex>332</uiIndex>
 		<szItemName>TAR 21</szItemName>
 		<szLongItemName>Tavor TAR 21</szLongItemName>
-		<szItemDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette  mitrailleuse légère israélienne high-tech de design Bullpup vous renversera.</szItemDesc>
+		<szItemDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette	mitrailleuse légère israélienne high-tech de design Bullpup vous renversera.</szItemDesc>
 		<szBRName>Tavor TAR 21</szBRName>
-		<szBRDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette  mitrailleuse légère israélienne high-tech de design Bullpup vous renversera.</szBRDesc>
+		<szBRDesc>Pesant seulement 2.45 kilos à vide et avec une cadence de tir de 900 coups/minute, cette	mitrailleuse légère israélienne high-tech de design Bullpup vous renversera.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>333</uiIndex>
@@ -2701,17 +2701,17 @@
 		<uiIndex>337</uiIndex>
 		<szItemName>Five-seveN</szItemName>
 		<szLongItemName>FN Five-seveN</szLongItemName>
-		<szItemDesc>Le pistolet Five-seveN a été crée comme arme secondaire complémentaire au P90. C'est  une arme à feu semi-automatique fonctionnant par emprunt des gaz retardé.</szItemDesc>
+		<szItemDesc>Le pistolet Five-seveN a été crée comme arme secondaire complémentaire au P90. C'est	une arme à feu semi-automatique fonctionnant par emprunt des gaz retardé.</szItemDesc>
 		<szBRName>FN Five-seveN</szBRName>
-		<szBRDesc>Le pistolet Five-seveN a été crée comme arme secondaire complémentaire au P90.  C'est une arme à feu semi-automatique fonctionnant par emprunt des gaz retardé. Le Five-seveN est construit autour d'une carcasse en polymère et possède un rail pour accessoires sous le canon.</szBRDesc>
+		<szBRDesc>Le pistolet Five-seveN a été crée comme arme secondaire complémentaire au P90.	C'est une arme à feu semi-automatique fonctionnant par emprunt des gaz retardé. Le Five-seveN est construit autour d'une carcasse en polymère et possède un rail pour accessoires sous le canon.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>338</uiIndex>
 		<szItemName>Grach</szItemName>
 		<szLongItemName>MP-443 Grach</szLongItemName>
-		<szItemDesc>Le PYa (Pistolet Yarygina - nom de code Grach) a été développé pour l'armée russe dans les années 90.  C'est une arme classique, certes, mais bien équilibrée et robuste.</szItemDesc>
+		<szItemDesc>Le PYa (Pistolet Yarygina - nom de code Grach) a été développé pour l'armée russe dans les années 90.	C'est une arme classique, certes, mais bien équilibrée et robuste.</szItemDesc>
 		<szBRName>MP-443 Grach</szBRName>
-		<szBRDesc>Le PYa (Pistolet Yarygina - nom de code Grach) a été développé pour l'armée russe dans les années 90.  C'est une arme classique, certes, mais bien équilibrée et robuste,  avec une puissance et une précision adéquats.</szBRDesc>
+		<szBRDesc>Le PYa (Pistolet Yarygina - nom de code Grach) a été développé pour l'armée russe dans les années 90.	C'est une arme classique, certes, mais bien équilibrée et robuste,	avec une puissance et une précision adéquats.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>339</uiIndex>
@@ -2719,7 +2719,7 @@
 		<szLongItemName>MP-446 Viking</szLongItemName>
 		<szItemDesc>Le MP-446 Viking est un dérivé déstiné au tir de compétition du MP-443 Grach.</szItemDesc>
 		<szBRName>MP-446 Viking</szBRName>
-		<szBRDesc>Le MP-446 Viking est un dérivé déstiné au tir de compétition du MP-443 Grach.  Il est de conception similaire mais utilise des matériaux composites pour augmenter sa durabilité.</szBRDesc>
+		<szBRDesc>Le MP-446 Viking est un dérivé déstiné au tir de compétition du MP-443 Grach.	Il est de conception similaire mais utilise des matériaux composites pour augmenter sa durabilité.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>340</uiIndex>
@@ -2751,7 +2751,7 @@
 		<szLongItemName>HK MP5N</szLongItemName>
 		<szItemDesc>The MP-5N était originallement développé pour les Navy SEALs.</szItemDesc>
 		<szBRName>HK MP5N</szBRName>
-		<szBRDesc>The MP-5N était originalement développé pour les Navy SEALs.  Le canon est fileté pour accepter les silencieux détachables .</szBRDesc>
+		<szBRDesc>The MP-5N était originalement développé pour les Navy SEALs.	Le canon est fileté pour accepter les silencieux détachables .</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>344</uiIndex>
@@ -2852,17 +2852,17 @@
 	<ITEM>
 		<uiIndex>356</uiIndex>
 		<szItemName>9x19mm G, 8</szItemName>
-		<szLongItemName>9x19mm  Glaser, 8</szLongItemName>
+		<szLongItemName>9x19mm	Glaser, 8</szLongItemName>
 		<szItemDesc>Les munitions glaser ont deux fois plus d'impact que les munitions à têtes creuses. Malheuresement, elles ont aussi deux fois moins de force de pénétration.</szItemDesc>
-		<szBRName>9x19mm  Glaser, 8</szBRName>
+		<szBRName>9x19mm	Glaser, 8</szBRName>
 		<szBRDesc>Six balles de pur plaisir. Toute la puissance d'arrêt, et plus aucune force de pénétration.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>357</uiIndex>
 		<szItemName>9x19mm T, 8</szItemName>
-		<szLongItemName>9x19mm  Traçantes, 8</szLongItemName>
+		<szLongItemName>9x19mm	Traçantes, 8</szLongItemName>
 		<szItemDesc>Balles traçantes de 9mm. En plus du spectacle de lumière, ces munitions facilitent le tir en rafales.</szItemDesc>
-		<szBRName>9x19mm  Traçantes, 8</szBRName>
+		<szBRName>9x19mm	Traçantes, 8</szBRName>
 		<szBRDesc>Balles traçantes de 9mm. En plus du spectacle de lumière, ces munitions facilitent le tir en rafales.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2907,10 +2907,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>363</uiIndex>
-		<szItemName>9x19mm  AET, 15</szItemName>
-		<szLongItemName>9x19mm  AET, 15</szLongItemName>
+		<szItemName>9x19mm	AET, 15</szItemName>
+		<szLongItemName>9x19mm	AET, 15</szLongItemName>
 		<szItemDesc>Munitions AET combinant la puissance d'arrêt des têtes creuses et la capacité de percer les blindages des munitions perçantes, l'utilisation prolongée de ces munitions dégrade l'arme beaucoup plus rapidement que la normale.</szItemDesc>
-		<szBRName>9x19mm  AET, 15</szBRName>
+		<szBRName>9x19mm	AET, 15</szBRName>
 		<szBRDesc>Vos perçantes n'ont pas assez de punch et vos têtes creuses ne passent pas les gilets pare-balles ennemis? Voici la solution, les munitions "Advanced Energy Transfer" aussi connues sous le nom de "THV" en France.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2974,7 +2974,7 @@
 		<szItemName>9x19mm AET, 30</szItemName>
 		<szLongItemName>9x19mm AET, 30</szLongItemName>
 		<szItemDesc>Munitions AET combinant la puissance d'arrêt des têtes creuses et la capacité de percer les blindages des munitions perçantes, l'utilisation prolongée de ces munitions dégrade l'arme beaucoup plus rapidement que la normale.</szItemDesc>
-		<szBRName>9x19mm  AET, 30</szBRName>
+		<szBRName>9x19mm	AET, 30</szBRName>
 		<szBRDesc>Vos perçantes n'ont pas assez de punch et vos têtes creuses ne passent pas les gilets pare-balles ennemis? Voici la solution, les munitions "Advanced Energy Transfer" aussi connues sous le nom de "THV" en France.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -3183,7 +3183,7 @@
 		<szLongItemName>FN Browning HP-35</szLongItemName>
 		<szItemDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.</szItemDesc>
 		<szBRName>FN Browning HP-35</szBRName>
-		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.  The latest incarnation, the HP-35, is in use today in the Belgian Military.</szBRDesc>
+		<szBRDesc>Originally designed in 1925, the High Power didn't see military service until 1935, and was the only sidearm that served for both sides in WW2.	The latest incarnation, the HP-35, is in use today in the Belgian Military.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
@@ -3269,7 +3269,7 @@
 		<uiIndex>408</uiIndex>
 		<szItemName>.45 SMG Mag G</szItemName>
 		<szLongItemName>.45 SMG Mag, Glaser</szLongItemName>
-		<szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo.  Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
+		<szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo.	Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
 		<szBRName>.45 SMG Mag Glaser</szBRName>
 		<szBRDesc>Six balles de pur plaisir. Toute la puissance d'arrêt, et plus aucune force de pénétration.</szBRDesc>
 	</ITEM>
@@ -3743,7 +3743,7 @@
 		<szLongItemName>7.62x51mm Mag, 20 Cold</szLongItemName>
 		<szItemDesc>20 reduced noise hollow point rounds.</szItemDesc>
 		<szBRName>7.62x51mm 20 Cold</szBRName>
-		<szBRDesc>Need to reduce a target to a bloody, amorphous mass? Is noise an issue?  This is the ammo for you.</szBRDesc>
+		<szBRDesc>Need to reduce a target to a bloody, amorphous mass? Is noise an issue?	This is the ammo for you.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>468</uiIndex>
@@ -3911,7 +3911,7 @@
 		<szLongItemName>4.6x30mm PDW Magazine</szLongItemName>
 		<szItemDesc>This 40-round magazine contains 4.6mm ammunition for the HK MP-7. This round possesses wound and range capabilites comparable to a rifle round.</szItemDesc>
 		<szBRName>4.6x30mm PDW Mag</szBRName>
-		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
+		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.	Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>489</uiIndex>
@@ -3933,7 +3933,7 @@
 		<uiIndex>491</uiIndex>
 		<szItemName>7.62x25mm Mag C</szItemName>
 		<szLongItemName>7.62x25mm Pistol Mag, Cold</szLongItemName>
-		<szItemDesc>8 rounds of 7.62mm cold load.  Shoots quieter than standard load ammo. </szItemDesc>
+		<szItemDesc>8 rounds of 7.62mm cold load.	Shoots quieter than standard load ammo. </szItemDesc>
 		<szBRName>7.62x25mm Mag Cold</szBRName>
 		<szBRDesc>This mag of cold loaded ammo will flow quiet as the Don.</szBRDesc>
 	</ITEM>
@@ -3983,7 +3983,7 @@
 		<szLongItemName>7.62x25mm S, PE, 45</szLongItemName>
 		<szItemDesc>Boîtier à mécanisme hélicoïdal de 45 munitions perçantes pour votre pistolet-mitrailleur Bizon 2-07. Version silencieuse de la munition.</szItemDesc>
 		<szBRName>7.62x25mm S, PE, 45</szBRName>
-		<szBRDesc>Originalement convertis à partir des chargeurs camenbert des PPSh-41/PPS-43,ces chargeurs 7.62 x 25 perçantes sont faits pour être utilisés avec un pistolet-mitrailleur Bizon.     Version de la munition à faible charge de poudre pour une discrétion accrue.</szBRDesc>
+		<szBRDesc>Originalement convertis à partir des chargeurs camenbert des PPSh-41/PPS-43,ces chargeurs 7.62 x 25 perçantes sont faits pour être utilisés avec un pistolet-mitrailleur Bizon.		 Version de la munition à faible charge de poudre pour une discrétion accrue.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>498</uiIndex>
@@ -3991,7 +3991,7 @@
 		<szLongItemName>7.62x25mm Bizon Mag, HP Cold</szLongItemName>
 		<szItemDesc>Boîtier à mécanisme hélicoïdal de 45 munitions tête creuse pour votre pistolet-mitrailleur Bizon 2-07. Version faible charge de poudre de la munition pour une discrétion accrue.</szItemDesc>
 		<szBRName>7.62x25mm Biz. Mag HP Cold</szBRName>
-		<szBRDesc>Originalement convertis à partir des chargeurs camenbert des PPSh-41/PPS-43,ces chargeurs 7.62 x 25 tête creuse sont faits pour être utilisés avec un pistolet-mitrailleur Bizon.   Version silencieuse de la munition pour une discrétion optimale.</szBRDesc>
+		<szBRDesc>Originalement convertis à partir des chargeurs camenbert des PPSh-41/PPS-43,ces chargeurs 7.62 x 25 tête creuse sont faits pour être utilisés avec un pistolet-mitrailleur Bizon.	 Version silencieuse de la munition pour une discrétion optimale.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>499</uiIndex>
@@ -4383,7 +4383,7 @@
 		<szLongItemName>.50 Action Express Mag</szLongItemName>
 		<szItemDesc>If you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szItemDesc>
 		<szBRName>.50 Action Express Mag</szBRName>
-		<szBRDesc>Magazine size, accuracy and controlability are a fair trade off for stopping power and coolness, right?  Because if you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
+		<szBRDesc>Magazine size, accuracy and controlability are a fair trade off for stopping power and coolness, right?	Because if you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>548</uiIndex>
@@ -4391,7 +4391,7 @@
 		<szLongItemName>4.6x30mm PDW Mag AET</szLongItemName>
 		<szItemDesc>This 40-round magazine contains 4.6mm ammunition for the HK MP-7. This round possesses wound and range capabilites comparable to a rifle round.</szItemDesc>
 		<szBRName>4.6x30mm PDW Mag AET</szBRName>
-		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.  Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
+		<szBRDesc>Specialized ammunition uniquely used by the HK MP-7.	Each bullet is about as large as a rifle round, and packs around the same punch.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>549</uiIndex>
@@ -4743,7 +4743,7 @@
 		<szLongItemName>Silencieux sniper</szLongItemName>
 		<szItemDesc>Un large silencieux qui peut être attaché à certains fusils de précision.</szItemDesc>
 		<szBRName>Silencieux sniper</szBRName>
-		<szBRDesc>Un large silencieux qui peut être attaché à certains fusils de précision. Rendre un sniper silencieux a comme  prix un poids supplémentaire conséquent</szBRDesc>
+		<szBRDesc>Un large silencieux qui peut être attaché à certains fusils de précision. Rendre un sniper silencieux a comme	prix un poids supplémentaire conséquent</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>593</uiIndex>
@@ -4775,7 +4775,7 @@
 		<szLongItemName>Heavy Throwing Knife</szLongItemName>
 		<szItemDesc>This heavy steel throwing knife brings new meaning to the expression killing them softly. Or, in this case, silently.</szItemDesc>
 		<szBRName>Heavy Throwing Knife</szBRName>
-		<szBRDesc>For experienced knife-throwers only!  This heavy blade is guaranteed to punch even the heaviest of armor, but its weight makes it a little awkward for newbies.</szBRDesc>
+		<szBRDesc>For experienced knife-throwers only!	This heavy blade is guaranteed to punch even the heaviest of armor, but its weight makes it a little awkward for newbies.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>597</uiIndex>
@@ -4789,7 +4789,7 @@
 		<uiIndex>598</uiIndex>
 		<szItemName>Steak Knife</szItemName>
 		<szLongItemName>Steak Knife</szLongItemName>
-		<szItemDesc>A poor man's substitute for a decent knife.  Looks like nobody bothered to wash it after eating with it either.</szItemDesc>
+		<szItemDesc>A poor man's substitute for a decent knife.	Looks like nobody bothered to wash it after eating with it either.</szItemDesc>
 		<szBRName>Steak Knife</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
@@ -4805,9 +4805,9 @@
 		<uiIndex>600</uiIndex>
 		<szItemName>Rambo Knife</szItemName>
 		<szLongItemName>Rambo Knife</szLongItemName>
-		<szItemDesc>A great big knife that looks like it came straight out of a Rambo movie.  This thing looks big enough to use as a makeshift crowbar.</szItemDesc>
+		<szItemDesc>A great big knife that looks like it came straight out of a Rambo movie.	This thing looks big enough to use as a makeshift crowbar.</szItemDesc>
 		<szBRName>Rambo Knife</szBRName>
-		<szBRDesc>A great big knife that looks like it came straight out of a Rambo movie.  Comes with "Entrail-Away" cleaning fluid.</szBRDesc>
+		<szBRDesc>A great big knife that looks like it came straight out of a Rambo movie.	Comes with "Entrail-Away" cleaning fluid.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>601</uiIndex>
@@ -4821,7 +4821,7 @@
 		<uiIndex>602</uiIndex>
 		<szItemName>AEK-971</szItemName>
 		<szLongItemName>AEK-971</szLongItemName>
-		<szItemDesc>Une variante d'AK relativement récente.  Ce modèle est chambré en 5.45mm.</szItemDesc>
+		<szItemDesc>Une variante d'AK relativement récente.	Ce modèle est chambré en 5.45mm.</szItemDesc>
 		<szBRName>AEK-971</szBRName>
 		<szBRDesc>Certains tireurs l'affirment plus précise qu'une Ak-74 de 15 à 20%. N'importe quel mercenaire raisonnable devrait essayer ce fusil. Modèle 5.45mm.</szBRDesc>
 	</ITEM>
@@ -4829,7 +4829,7 @@
 		<uiIndex>603</uiIndex>
 		<szItemName>AEK-973</szItemName>
 		<szLongItemName>AEK-973</szLongItemName>
-		<szItemDesc>Une variante d'AK relativement récente.  Ce modèle est chambré en 7.62mm Pacte de Varsovie.</szItemDesc>
+		<szItemDesc>Une variante d'AK relativement récente.	Ce modèle est chambré en 7.62mm Pacte de Varsovie.</szItemDesc>
 		<szBRName>AEK-973</szBRName>
 		<szBRDesc>Certains tireurs l'affirment plus précise qu'une Ak-74 de 15 à 20%. N'importe quel mercenaire raisonnable devrait essayer ce fusil. Modèle 7.62x39mm.</szBRDesc>
 	</ITEM>
@@ -4863,7 +4863,7 @@
 		<szLongItemName>AK-103</szLongItemName>
 		<szItemDesc>Chambrée en 7.62 WP, utilisant la plupart des nouvelles technologies actuelles, cette arme est plus puissant que l'AK-74. Longue vie aux Kalashnikovs!</szItemDesc>
 		<szBRName>AK-103</szBRName>
-		<szBRDesc>Retour vers le futur... Le retour du 7.62mm WP.  Plus puissante que l'AK-74, ce fusil utilise la plupart des nouvelles technologies actuelles. Longue vie aux Kalashnikovs!</szBRDesc>
+		<szBRDesc>Retour vers le futur... Le retour du 7.62mm WP.	Plus puissante que l'AK-74, ce fusil utilise la plupart des nouvelles technologies actuelles. Longue vie aux Kalashnikovs!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>608</uiIndex>
@@ -4983,7 +4983,7 @@
 		<szLongItemName>Beretta 92FS</szLongItemName>
 		<szItemDesc>The Beretta 92FS is a slightly modified version of the Beretta 92F used by the US military.</szItemDesc>
 		<szBRName>Beretta 92FS</szBRName>
-		<szBRDesc>The Beretta 92FS is a slightly modified version of the Beretta 92F used by the US military.  It features a chrome lined barrel, new grip panels and a lanyard ring.</szBRDesc>
+		<szBRDesc>The Beretta 92FS is a slightly modified version of the Beretta 92F used by the US military.	It features a chrome lined barrel, new grip panels and a lanyard ring.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>623</uiIndex>
@@ -4991,7 +4991,7 @@
 		<szLongItemName>Beretta 96FS Brigadier</szLongItemName>
 		<szItemDesc>A modified version of the Beretta 92, rechambered for the .40 S&amp;W caliber.</szItemDesc>
 		<szBRName>Beretta 96FS Brigadier</szBRName>
-		<szBRDesc>A modified version of the Beretta 92, rechambered for the .40 S&amp;W caliber.  Features a redesigned slide, and removable front sight blade.</szBRDesc>
+		<szBRDesc>A modified version of the Beretta 92, rechambered for the .40 S&amp;W caliber.	Features a redesigned slide, and removable front sight blade.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>624</uiIndex>
@@ -5063,7 +5063,7 @@
 		<szLongItemName>Colt M16A4</szLongItemName>
 		<szItemDesc>The latest in the M16 series, the M16A4 features "flat top" receivers and Picatinny rails for increased accessory compatibility.</szItemDesc>
 		<szBRName>Colt M16A4</szBRName>
-		<szBRDesc>The latest model M16 assault rifle has everything the A2 had and more.  With the built-in Picatinny rail system, it can be outfitted with all the accessories you ever wanted. </szBRDesc>
+		<szBRDesc>The latest model M16 assault rifle has everything the A2 had and more.	With the built-in Picatinny rail system, it can be outfitted with all the accessories you ever wanted. </szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>633</uiIndex>
@@ -5071,7 +5071,7 @@
 		<szLongItemName>Colt M4A1</szLongItemName>
 		<szItemDesc>As the mini version of the M16, this weapon is small but deadly. Used by many armed forces and law enforcement organizations.</szItemDesc>
 		<szBRName>Colt M4A1</szBRName>
-		<szBRDesc>Small, light and deadly, the M4A1 is extremely effective in close quarter battles.  If you like the M16, you'll love the M4.</szBRDesc>
+		<szBRDesc>Small, light and deadly, the M4A1 is extremely effective in close quarter battles.	If you like the M16, you'll love the M4.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>634</uiIndex>
@@ -5085,9 +5085,9 @@
 		<uiIndex>635</uiIndex>
 		<szItemName>CZ-52</szItemName>
 		<szLongItemName>CZ-52</szLongItemName>
-		<szItemDesc>A Czech handgun for the famous 7.62TT round.  Adopted in 1952, the CZ-52 is a powerful and accurate handgun.</szItemDesc>
+		<szItemDesc>A Czech handgun for the famous 7.62TT round.	Adopted in 1952, the CZ-52 is a powerful and accurate handgun.</szItemDesc>
 		<szBRName>CZ-52</szBRName>
-		<szBRDesc>A Czech handgun for the famous 7.62TT round.  Adopted in 1952, the CZ-52 is a powerful and accurate handgun.  This weapon has been retired from general military use.</szBRDesc>
+		<szBRDesc>A Czech handgun for the famous 7.62TT round.	Adopted in 1952, the CZ-52 is a powerful and accurate handgun.	This weapon has been retired from general military use.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>636</uiIndex>
@@ -5095,7 +5095,7 @@
 		<szLongItemName>CZ-75B</szLongItemName>
 		<szItemDesc>An aesthetically attractive, comfortable to handle, accurate and reliable sidearm made in the Czech Republic.</szItemDesc>
 		<szBRName>CZ-75B</szBRName>
-		<szBRDesc>This Czech-made full-size semiautomatic pistol first appeared in 1975, intended for the export market.  An aesthetically attractive, comfortable to handle, accurate and reliable sidearm.</szBRDesc>
+		<szBRDesc>This Czech-made full-size semiautomatic pistol first appeared in 1975, intended for the export market.	An aesthetically attractive, comfortable to handle, accurate and reliable sidearm.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>637</uiIndex>
@@ -5103,7 +5103,7 @@
 		<szLongItemName>Desert Eagle .44</szLongItemName>
 		<szItemDesc>A variant of the .357 Magnum Desert Eagle that packs the extra punch of a .44 caliber round.</szItemDesc>
 		<szBRName>Desert Eagle .44</szBRName>
-		<szBRDesc>A variant of the .357 Magnum Desert Eagle that packs the extra punch of a .44 caliber round.  Often used as protection from large animals and tourists.</szBRDesc>
+		<szBRDesc>A variant of the .357 Magnum Desert Eagle that packs the extra punch of a .44 caliber round.	Often used as protection from large animals and tourists.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>638</uiIndex>
@@ -5111,7 +5111,7 @@
 		<szLongItemName>Desert Eagle .50 AE</szLongItemName>
 		<szItemDesc>In 1991, the Desert Eagle earned overnight notoriety when this .50 AE variant was revealed.</szItemDesc>
 		<szBRName>Desert Eagle .50 AE</szBRName>
-		<szBRDesc>In 1991, the Desert Eagle earned overnight notoriety when this .50 AE variant was revealed.  Massive firepower in a massive pistol.</szBRDesc>
+		<szBRDesc>In 1991, the Desert Eagle earned overnight notoriety when this .50 AE variant was revealed.	Massive firepower in a massive pistol.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>639</uiIndex>
@@ -5239,7 +5239,7 @@
 		<szLongItemName>FR-F2</szLongItemName>
 		<szItemDesc>This ambitious sniper rifle fires 7.62mm NATO rounds very accurately due to its bolt action and thermal shielded barrel.</szItemDesc>
 		<szBRName>FR-F2</szBRName>
-		<szBRDesc>The deadliest French representative since Napoleon, albeit completely opposite in its stature.  This ambitious sniper rifle fires 7.62mm NATO rounds very accurately due to its bolt action and thermal shielded barrel.</szBRDesc>
+		<szBRDesc>The deadliest French representative since Napoleon, albeit completely opposite in its stature.	This ambitious sniper rifle fires 7.62mm NATO rounds very accurately due to its bolt action and thermal shielded barrel.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>655</uiIndex>
@@ -5277,9 +5277,9 @@
 		<uiIndex>659</uiIndex>
 		<szItemName>Groza OC-14</szItemName>
 		<szLongItemName>Groza OC-14</szLongItemName>
-		<szItemDesc>A bull-pup design of the AKS-74U in 7.62mm WP.  This particular variant has a built-in GP-25 grenade launcher.</szItemDesc>
+		<szItemDesc>A bull-pup design of the AKS-74U in 7.62mm WP.	This particular variant has a built-in GP-25 grenade launcher.</szItemDesc>
 		<szBRName>Groza OC-14</szBRName>
-		<szBRDesc>The Groza is a neat little weapon, but not recommended for lefties due the placement of its cocking handle, selector switch and ejection port.  This variant comes with an integral GP-25 40mm grenade launcher.</szBRDesc>
+		<szBRDesc>The Groza is a neat little weapon, but not recommended for lefties due the placement of its cocking handle, selector switch and ejection port.	This variant comes with an integral GP-25 40mm grenade launcher.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>660</uiIndex>
@@ -5295,7 +5295,7 @@
 		<szLongItemName>HK 23E</szLongItemName>
 		<szItemDesc>The HK 23E is a light 5.56mm NATO MG and is of the same quality one would expect from Heckler and Koch.</szItemDesc>
 		<szBRName>HK 23E</szBRName>
-		<szBRDesc>The manufacturer's name says it all.  We highly recommend the HK 23E. It's reliable and does the job effectively with 100-rounds in a Beta C-Mag.</szBRDesc>
+		<szBRDesc>The manufacturer's name says it all.	We highly recommend the HK 23E. It's reliable and does the job effectively with 100-rounds in a Beta C-Mag.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>662</uiIndex>
@@ -5311,15 +5311,15 @@
 		<szLongItemName>HK G11 PDW</szLongItemName>
 		<szItemDesc>A personal defence weapon designed to compliment the G11 rifle, the G11 PDW was rumored to only be in the prototype phase.</szItemDesc>
 		<szBRName>HK G11 PDW</szBRName>
-		<szBRDesc>SPECIAL!  Available for a limited time only: G11 sidearm prototypes with glow-in-the-dark keychain!</szBRDesc>
+		<szBRDesc>SPECIAL!	Available for a limited time only: G11 sidearm prototypes with glow-in-the-dark keychain!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>664</uiIndex>
 		<szItemName>G36C</szItemName>
 		<szLongItemName>HK G36C</szLongItemName>
-		<szItemDesc>The G36 is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.  The G36C is the compact version.</szItemDesc>
+		<szItemDesc>The G36 is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.	The G36C is the compact version.</szItemDesc>
 		<szBRName>HK G36C</szBRName>
-		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.  The G36C is the compact or commando version.</szBRDesc>
+		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.	The G36C is the compact or commando version.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>665</uiIndex>
@@ -5333,9 +5333,9 @@
 		<uiIndex>666</uiIndex>
 		<szItemName>G36K RAS</szItemName>
 		<szLongItemName>HK G36K RAS</szLongItemName>
-		<szItemDesc>The G36 RAS is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies.  The G36K RAS is the carbine version.</szItemDesc>
+		<szItemDesc>The G36 RAS is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies.	The G36K RAS is the carbine version.</szItemDesc>
 		<szBRName>HK G36K RAS</szBRName>
-		<szBRDesc>The G36 RAS is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies.  The G36K RAS is the carbine version.</szBRDesc>
+		<szBRDesc>The G36 RAS is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies.	The G36K RAS is the carbine version.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>667</uiIndex>
@@ -5357,7 +5357,7 @@
 		<uiIndex>669</uiIndex>
 		<szItemName>MG43</szItemName>
 		<szLongItemName>HK MG43</szLongItemName>
-		<szItemDesc>The latest LMG from HK is gas-operated, belt-fed, and air-cooled.  An integral bipod and RIS rails give you lots of room for addons.</szItemDesc>
+		<szItemDesc>The latest LMG from HK is gas-operated, belt-fed, and air-cooled.	An integral bipod and RIS rails give you lots of room for addons.</szItemDesc>
 		<szBRName>HK MG43</szBRName>
 		<szBRDesc>First shown in 2001 in London, the all-new MG43 continues HK's long standing tradition of fine weaponry. Comes standard with integral bipod. Since 2006 it's introduced in the Bundeswehr (German Army) as the MG4.</szBRDesc>
 	</ITEM>
@@ -5367,7 +5367,7 @@
 		<szLongItemName>HK Mark 23 SOCOM</szLongItemName>
 		<szItemDesc>A large pistol designed to meet the exacting requirements of the US Special Operations Command.</szItemDesc>
 		<szBRName>HK MK23 SOCOM</szBRName>
-		<szBRDesc>A large pistol designed to meet the exacting requirements of the US Special Operations Command.  If it's good enough for SOCOM, it's good enough for you!</szBRDesc>
+		<szBRDesc>A large pistol designed to meet the exacting requirements of the US Special Operations Command.	If it's good enough for SOCOM, it's good enough for you!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>671</uiIndex>
@@ -5399,7 +5399,7 @@
 		<szLongItemName>HK MSG90A1</szLongItemName>
 		<szItemDesc>The MSG-90 sniper rifle was made by Heckler-Koch as a "militarized" offspring of their PSG-1 police sniper rifle.</szItemDesc>
 		<szBRName>HK MSG90A1</szBRName>
-		<szBRDesc>The MSG-90 sniper rifle was made by Heckler-Koch as a "militarized" offspring of their PSG-1 police sniper rifle.  The MSG-90A1 is fitted with the barrel threaded on the muzzle to accept screw-on silencers.</szBRDesc>
+		<szBRDesc>The MSG-90 sniper rifle was made by Heckler-Koch as a "militarized" offspring of their PSG-1 police sniper rifle.	The MSG-90A1 is fitted with the barrel threaded on the muzzle to accept screw-on silencers.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>675</uiIndex>
@@ -5429,7 +5429,7 @@
 		<uiIndex>678</uiIndex>
 		<szItemName>USP</szItemName>
 		<szLongItemName>HK USP</szLongItemName>
-		<szItemDesc>The HK USP (Universal Self-loading Pistol) appeared in 1993.  It is a serious combat/self defence weapon.</szItemDesc>
+		<szItemDesc>The HK USP (Universal Self-loading Pistol) appeared in 1993.	It is a serious combat/self defence weapon.</szItemDesc>
 		<szBRName>HK USP</szBRName>
 		<szBRDesc>The HK USP (Universal Self-loading Pistol) appeared in 1993, designed to be a police and military sidearm. All USP pistols are built on the same modified Browning linkless locked breech action with patented recoil reduction system.</szBRDesc>
 	</ITEM>
@@ -5477,7 +5477,7 @@
 		<uiIndex>684</uiIndex>
 		<szItemName>M21</szItemName>
 		<szLongItemName>M21 Tactical</szLongItemName>
-		<szItemDesc>The M21 tactical rifle is the sniper version of the M14.  An accurate rifle with good stopping power.</szItemDesc>
+		<szItemDesc>The M21 tactical rifle is the sniper version of the M14.	An accurate rifle with good stopping power.</szItemDesc>
 		<szBRName>M21 Tactical</szBRName>
 		<szBRDesc>The M21 sniper rifle is a semi-automatic version of the M14, and is fitted with a longer barrel for increased range and accuracy.</szBRDesc>
 	</ITEM>
@@ -5485,9 +5485,9 @@
 		<uiIndex>685</uiIndex>
 		<szItemName>M40A1</szItemName>
 		<szLongItemName>M40A1</szLongItemName>
-		<szItemDesc>Standard issue sniper rifle with the US Marine Corps.  Highly accurate with good penetration and stopping power.</szItemDesc>
+		<szItemDesc>Standard issue sniper rifle with the US Marine Corps.	Highly accurate with good penetration and stopping power.</szItemDesc>
 		<szBRName>M40A1</szBRName>
-		<szBRDesc>SPECIAL PRICE!  The USMC standard issue M40A1 sniper rifle of the is being replaced by the M40A3, which means we are receiving more shipments of these babies than we can handle and they all must go!  Get one for yourself, one for your old lady and one for your kid!</szBRDesc>
+		<szBRDesc>SPECIAL PRICE!	The USMC standard issue M40A1 sniper rifle of the is being replaced by the M40A3, which means we are receiving more shipments of these babies than we can handle and they all must go!	Get one for yourself, one for your old lady and one for your kid!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>686</uiIndex>
@@ -5503,7 +5503,7 @@
 		<szLongItemName>M60E3</szLongItemName>
 		<szItemDesc>The M60E3 is a smaller, lighter and improved version of the legendary M60 light machinegun used by the US Armed Forces.</szItemDesc>
 		<szBRName>M60E3</szBRName>
-		<szBRDesc>Always wanted to be like Rambo?  Now you can!  With the M60E3, you'll always look good taking out a drug cartel, mowing down local mob bosses, and stopping an entire invasion force on your own. Comes with integral bipod and foregrip.</szBRDesc>
+		<szBRDesc>Always wanted to be like Rambo?	Now you can!	With the M60E3, you'll always look good taking out a drug cartel, mowing down local mob bosses, and stopping an entire invasion force on your own. Comes with integral bipod and foregrip.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>688</uiIndex>
@@ -5527,7 +5527,7 @@
 		<szLongItemName>Makarov PMM</szLongItemName>
 		<szItemDesc>A modified version of the Makarov PM, developed during the 1990's.</szItemDesc>
 		<szBRName>Makarov PMM</szBRName>
-		<szBRDesc>A modified version of the Makarov PM, developed during the 1990's.  This model attempts to address the original's deficiences: small clip size and low stopping power.</szBRDesc>
+		<szBRDesc>A modified version of the Makarov PM, developed during the 1990's.	This model attempts to address the original's deficiences: small clip size and low stopping power.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>691</uiIndex>
@@ -5581,9 +5581,9 @@
 		<uiIndex>697</uiIndex>
 		<szItemName>OSV-96</szItemName>
 		<szLongItemName>OSV-96</szLongItemName>
-		<szItemDesc>This Russian monstrosity is a counter-sniper/antimaterial rifle.  At nearly 2m in length, this rifle is also useful for polevaulting.</szItemDesc>
+		<szItemDesc>This Russian monstrosity is a counter-sniper/antimaterial rifle.	At nearly 2m in length, this rifle is also useful for polevaulting.</szItemDesc>
 		<szBRName>OSV-96</szBRName>
-		<szBRDesc>This Russian monstrosity is a counter-sniper/antimaterial rifle.  At nearly 2m in length, this rifle is also useful for polevaulting.</szBRDesc>
+		<szBRDesc>This Russian monstrosity is a counter-sniper/antimaterial rifle.	At nearly 2m in length, this rifle is also useful for polevaulting.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>698</uiIndex>
@@ -5597,7 +5597,7 @@
 		<uiIndex>699</uiIndex>
 		<szItemName>Pecheneg</szItemName>
 		<szLongItemName>Pecheneg</szLongItemName>
-		<szItemDesc>The Pecheneg machine gun is an upgraded PKM.  It's currently in limited production and has been issued on trial basis for some Russian troops in Chechnya.</szItemDesc>
+		<szItemDesc>The Pecheneg machine gun is an upgraded PKM.	It's currently in limited production and has been issued on trial basis for some Russian troops in Chechnya.</szItemDesc>
 		<szBRName>Pecheneg</szBRName>
 		<szBRDesc>An upgraded PKM, the Pecheneg is slightly lighter and has a higher rate of fire.</szBRDesc>
 	</ITEM>
@@ -5605,9 +5605,9 @@
 		<uiIndex>700</uiIndex>
 		<szItemName>PKM</szItemName>
 		<szLongItemName>PKM</szLongItemName>
-		<szItemDesc>The PKM is the Russian eqvivalent of the US M60.  It's a universal MG that fires the heavy Russian 7.62x54mm round instead of the 7.62x39mm WP.</szItemDesc>
+		<szItemDesc>The PKM is the Russian eqvivalent of the US M60.	It's a universal MG that fires the heavy Russian 7.62x54mm round instead of the 7.62x39mm WP.</szItemDesc>
 		<szBRName>PKM</szBRName>
-		<szBRDesc>Around since the 1960s, the PKM is one of the most famous Russian MGs and is used all over the world.  Now you have the chance to show your enemies that old school Soviet weapons are still superior!</szBRDesc>
+		<szBRDesc>Around since the 1960s, the PKM is one of the most famous Russian MGs and is used all over the world.	Now you have the chance to show your enemies that old school Soviet weapons are still superior!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>701</uiIndex>
@@ -5631,7 +5631,7 @@
 		<szLongItemName>PSM</szLongItemName>
 		<szItemDesc>Designed as a backup weapon for Soviet officers, the PSM is an ultra-light, ultra-fast weapon with low to moderate stopping power.</szItemDesc>
 		<szBRName>PSM</szBRName>
-		<szBRDesc>The PSM was designed in 1970s as a self-defence firearm for top commanders in the Soviet armed forces.  It is an ultra-light, ultra-fast weapon with good stopping power.</szBRDesc>
+		<szBRDesc>The PSM was designed in 1970s as a self-defence firearm for top commanders in the Soviet armed forces.	It is an ultra-light, ultra-fast weapon with good stopping power.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>704</uiIndex>
@@ -5661,9 +5661,9 @@
 		<uiIndex>707</uiIndex>
 		<szItemName>Redhawk</szItemName>
 		<szLongItemName>Ruger Redhawk Revolver</szLongItemName>
-		<szItemDesc>Please read the following out loud, in a gravelly voice:  A Ruger Redhawk revolver, in good condition, with six bullets left.</szItemDesc>
+		<szItemDesc>Please read the following out loud, in a gravelly voice:	A Ruger Redhawk revolver, in good condition, with six bullets left.</szItemDesc>
 		<szBRName>Ruger Redhawk Revolver</szBRName>
-		<szBRDesc>The Super Redhawk is ideal for sportsmen using a handgun to hunt big game, and is also popular among metallic silhouette shooters.  This revolver is world-renowned for strength, safety, and rugged reliability.</szBRDesc>
+		<szBRDesc>The Super Redhawk is ideal for sportsmen using a handgun to hunt big game, and is also popular among metallic silhouette shooters.	This revolver is world-renowned for strength, safety, and rugged reliability.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>708</uiIndex>
@@ -5727,7 +5727,7 @@
 		<szLongItemName>SIG SG552 Commando</szLongItemName>
 		<szItemDesc>The scaled down version of the SIG 550, this 5.56mm carbine is excellent for CQB, with integrated flash hider and removable bipod.</szItemDesc>
 		<szBRName>SIG SG552 Commando</szBRName>
-		<szBRDesc>The 552 is a extraordinarily well made carbine. Equipped with a side folding skeletonized stock and a flash suppressor.  Order one now and get a free folding bipod with purchase!</szBRDesc>
+		<szBRDesc>The 552 is a extraordinarily well made carbine. Equipped with a side folding skeletonized stock and a flash suppressor.	Order one now and get a free folding bipod with purchase!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>716</uiIndex>
@@ -5735,7 +5735,7 @@
 		<szLongItemName>SIG P210</szLongItemName>
 		<szItemDesc>The SIG P210 was developed by Schweizerische Industrie Gesellschaft (SIG) in 1938-1945, and was adopted by the Swiss Military in 1949</szItemDesc>
 		<szBRName>SIG P210</szBRName>
-		<szBRDesc>The SIG P210 was developed by Schweizerische Industrie Gesellschaft (SIG) in 1938-1945, and was adopted by the Swiss Military in 1949.  The P210 is a recoil-operated, locked breech handgun with slightly modified Browning HI-Power style barrel locking.</szBRDesc>
+		<szBRDesc>The SIG P210 was developed by Schweizerische Industrie Gesellschaft (SIG) in 1938-1945, and was adopted by the Swiss Military in 1949.	The P210 is a recoil-operated, locked breech handgun with slightly modified Browning HI-Power style barrel locking.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>717</uiIndex>
@@ -5759,7 +5759,7 @@
 		<szLongItemName>SIG Pro</szLongItemName>
 		<szItemDesc>The SIG Pro pistol represents the latest advances in modern handgun technology. It is one of the most reliable handguns available today.</szItemDesc>
 		<szBRName>SIG Pro</szBRName>
-		<szBRDesc>The SIG Pro pistol represents the latest advances in modern handgun technology.  Lightweight and requiring no maintenance, it is one of the most reliable pistols available.</szBRDesc>
+		<szBRDesc>The SIG Pro pistol represents the latest advances in modern handgun technology.	Lightweight and requiring no maintenance, it is one of the most reliable pistols available.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>720</uiIndex>
@@ -5791,7 +5791,7 @@
 		<szLongItemName>SR-1 Gyurza</szLongItemName>
 		<szItemDesc>The 9x21mm round used by this Makarov clone was specially designed to pierce Kevlar AND Titanium plates at 100 meters. </szItemDesc>
 		<szBRName>SR-1 Gyurza</szBRName>
-		<szBRDesc>The 9x21mm round used by this Makarov clone was specially designed to pierce Kevlar AND Titanium plates at 100 meters.  This long forgotten Russian Pistole is now the side arm of choice for the Russian Federation. </szBRDesc>
+		<szBRDesc>The 9x21mm round used by this Makarov clone was specially designed to pierce Kevlar AND Titanium plates at 100 meters.	This long forgotten Russian Pistole is now the side arm of choice for the Russian Federation. </szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>724</uiIndex>
@@ -5879,7 +5879,7 @@
 		<szLongItemName>Dragunov SVDS</szLongItemName>
 		<szItemDesc>This quintessential Russian sniper rifle has proven its worth on battlefields all over the globe.</szItemDesc>
 		<szBRName>Dragunov SVDS</szBRName>
-		<szBRDesc>The Dragunov has been deadly in the hands of snipers for nearly 40 years.  The SVDS is the smaller, but heavier, cousin of the SVD.</szBRDesc>
+		<szBRDesc>The Dragunov has been deadly in the hands of snipers for nearly 40 years.	The SVDS is the smaller, but heavier, cousin of the SVD.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>735</uiIndex>
@@ -5895,7 +5895,7 @@
 		<szLongItemName>Taurus Raging Bull 444</szLongItemName>
 		<szItemDesc>The features that tamed the world's most powerful revolver cartridge make shooting the popular .44 Magnum load a pleasure.</szItemDesc>
 		<szBRName>Taurus Raging Bull 444</szBRName>
-		<szBRDesc>The features that tamed the world's most powerful revolver cartridge make shooting the popular .44 Magnum load a pleasure.  Add Taurus' rock-steady scope mount base and your favorite rings and optics to make your Raging Bull a venerable hunter.</szBRDesc>
+		<szBRDesc>The features that tamed the world's most powerful revolver cartridge make shooting the popular .44 Magnum load a pleasure.	Add Taurus' rock-steady scope mount base and your favorite rings and optics to make your Raging Bull a venerable hunter.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>737</uiIndex>
@@ -5911,7 +5911,7 @@
 		<szLongItemName>Tokarev TT-33</szLongItemName>
 		<szItemDesc>Developed in the late 1920's, this pistol was the official side arm of the Red Army in WW2.</szItemDesc>
 		<szBRName>Tokarev TT-33</szBRName>
-		<szBRDesc>Developed in the late 1920's, this pistol was the official side arm of the Red Army in WW2.  For its time, the TT was a formidable weapon, with good penetration and range.</szBRDesc>
+		<szBRDesc>Developed in the late 1920's, this pistol was the official side arm of the Red Army in WW2.	For its time, the TT was a formidable weapon, with good penetration and range.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>739</uiIndex>
@@ -5957,9 +5957,9 @@
 		<uiIndex>744</uiIndex>
 		<szItemName>VIS-35</szItemName>
 		<szLongItemName>VIS-35</szLongItemName>
-		<szItemDesc>The VIS-35 was the standard issue sidearm of the Polish military in WW2.  It is still manufactured today in limited quantities for collectors.</szItemDesc>
+		<szItemDesc>The VIS-35 was the standard issue sidearm of the Polish military in WW2.	It is still manufactured today in limited quantities for collectors.</szItemDesc>
 		<szBRName>VIS-35</szBRName>
-		<szBRDesc>The VIS-35 was the standard issue sidearm of the Polish military in WW2.  It is still manufactured today in limited quantities for collectors.  According to some sources, it is one of the best handguns ever built.</szBRDesc>
+		<szBRDesc>The VIS-35 was the standard issue sidearm of the Polish military in WW2.	It is still manufactured today in limited quantities for collectors.	According to some sources, it is one of the best handguns ever built.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>745</uiIndex>
@@ -5973,9 +5973,9 @@
 		<uiIndex>746</uiIndex>
 		<szItemName>WA 2000</szItemName>
 		<szLongItemName>Walther WA 2000</szLongItemName>
-		<szItemDesc>Sometimes considered the Ferrari of sniper rifles, the WA 2000 combines high accuracy with great stopping power.  Too bad they're no longer in production.</szItemDesc>
+		<szItemDesc>Sometimes considered the Ferrari of sniper rifles, the WA 2000 combines high accuracy with great stopping power.	Too bad they're no longer in production.</szItemDesc>
 		<szBRName>Walther WA 2000</szBRName>
-		<szBRDesc>Now back in stock!  The WA 2000 is no longer in production, but we were able to locate a few, and they're on sale for the low, low price of only $7940! Get yours now while supplies last!</szBRDesc>
+		<szBRDesc>Now back in stock!	The WA 2000 is no longer in production, but we were able to locate a few, and they're on sale for the low, low price of only $7940! Get yours now while supplies last!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>747</uiIndex>
@@ -5991,7 +5991,7 @@
 		<szLongItemName>XM-29 OICW</szLongItemName>
 		<szItemDesc>The XM-29 is part 20mm magazine fed grenade launcher, part G36 5.56mm assault rifle, and all kinds of whoop-ass.</szItemDesc>
 		<szBRName>XM-29 OICW</szBRName>
-		<szBRDesc>The XM-29 is a combination weapon, part 20mm magazine fed grenade launcher and part 5.56mm assault rifle.  Both parts are assembled into the single one-man portable unit with a built-in target acquisition / fire control system (TA/FCS).</szBRDesc>
+		<szBRDesc>The XM-29 is a combination weapon, part 20mm magazine fed grenade launcher and part 5.56mm assault rifle.	Both parts are assembled into the single one-man portable unit with a built-in target acquisition / fire control system (TA/FCS).</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>749</uiIndex>
@@ -6045,17 +6045,17 @@
 		<uiIndex>755</uiIndex>
 		<szItemName>G36</szItemName>
 		<szLongItemName>HK G36</szLongItemName>
-		<szItemDesc>The G36 is a conventional gas operated, selective fire rifle.  This non-export model comes standard with a built-in reflex scope.</szItemDesc>
+		<szItemDesc>The G36 is a conventional gas operated, selective fire rifle.	This non-export model comes standard with a built-in reflex scope.</szItemDesc>
 		<szBRName>HK G36</szBRName>
-		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.  This non-export model comes standard with a built-in reflex scope.</szBRDesc>
+		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.	This non-export model comes standard with a built-in reflex scope.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>756</uiIndex>
 		<szItemName>G36K</szItemName>
 		<szLongItemName>HK G36K</szLongItemName>
-		<szItemDesc>The G36K is the carbine version of the G36.  This non-export comes standard with a built-in reflex scope.</szItemDesc>
+		<szItemDesc>The G36K is the carbine version of the G36.	This non-export comes standard with a built-in reflex scope.</szItemDesc>
 		<szBRName>HK G36K</szBRName>
-		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.  The G36K is the carbine version, and comes standard with a built-in reflex scope.</szBRDesc>
+		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.	The G36K is the carbine version, and comes standard with a built-in reflex scope.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>757</uiIndex>
@@ -6487,7 +6487,7 @@
 		<szLongItemName>Twaron Helmet</szLongItemName>
 		<szItemDesc>The most demanding ballistic requirements can be met by a helmet made from a specially formed Twaron laminate. Its low weight makes it much more comfortable to wear than the traditional steel helmet. </szItemDesc>
 		<szBRName>Twaron Helmet</szBRName>
-		<szBRDesc>One of the best helmets money can buy!  Contact us if you want them in blue for that genuine "UN-look".</szBRDesc>
+		<szBRDesc>One of the best helmets money can buy!	Contact us if you want them in blue for that genuine "UN-look".</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>811</uiIndex>
@@ -7181,7 +7181,7 @@
 		<uiIndex>897</uiIndex>
 		<szItemName>M21 EBR</szItemName>
 		<szLongItemName>M21 EBR</szLongItemName>
-		<szItemDesc>The M21 tactical rifle is the sniper version of the M14.  An accurate rifle with good stopping power. Somebody dropped this one into the EBR-stock that was originally meant for the M14 rifle.</szItemDesc>
+		<szItemDesc>The M21 tactical rifle is the sniper version of the M14.	An accurate rifle with good stopping power. Somebody dropped this one into the EBR-stock that was originally meant for the M14 rifle.</szItemDesc>
 		<szBRName>M21 EBR</szBRName>
 		<szBRDesc>Pas à vendre..</szBRDesc>
 	</ITEM>
@@ -7255,7 +7255,7 @@
 		<szLongItemName>Milkor MGL-140 Grenade Launcher</szLongItemName>
 		<szItemDesc>The Milkor MGL six-shot 40mm grenade launcher is the world's first mass-produced multi-shot, rapid-fire 40mm hand-held weapon.</szItemDesc>
 		<szBRName>Milkor MGL-140 Grenade Launcher</szBRName>
-		<szBRDesc>The Milkor MGL six-shot 40mm grenade launcher is the world's first mass-produced multi-shot, rapid-fire 40mm hand-held weapon.  The MGL can fire six shots in less than three seconds, making it essential in dealing with ambush situations and in urban warfare.</szBRDesc>
+		<szBRDesc>The Milkor MGL six-shot 40mm grenade launcher is the world's first mass-produced multi-shot, rapid-fire 40mm hand-held weapon.	The MGL can fire six shots in less than three seconds, making it essential in dealing with ambush situations and in urban warfare.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>907</uiIndex>
@@ -7327,7 +7327,7 @@
 		<szLongItemName>RPG-16 Grom</szLongItemName>
 		<szItemDesc>The RPG-16 was developed in the 1960s, and has better range than the RPG-7.</szItemDesc>
 		<szBRName>RPG-16 Grom</szBRName>
-		<szBRDesc>Once your enemy sees your packing the kind of firepower an RPG provides, have mercy on him and let him run away in fear.  Or not.</szBRDesc>
+		<szBRDesc>Once your enemy sees your packing the kind of firepower an RPG provides, have mercy on him and let him run away in fear.	Or not.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>916</uiIndex>
@@ -7349,15 +7349,15 @@
 		<uiIndex>918</uiIndex>
 		<szItemName>RPO-A</szItemName>
 		<szLongItemName>RPO-A Shmel</szLongItemName>
-		<szItemDesc>With this baby, you can turn a pool party into a BBQ.  Literally.</szItemDesc>
+		<szItemDesc>With this baby, you can turn a pool party into a BBQ.	Literally.</szItemDesc>
 		<szBRName>RPO-A Shmel</szBRName>
-		<szBRDesc>With the RPO-A Shmel thermobaric rocket launcher, you can turn a pool party into a BBQ.  Literally.</szBRDesc>
+		<szBRDesc>With the RPO-A Shmel thermobaric rocket launcher, you can turn a pool party into a BBQ.	Literally.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>919</uiIndex>
 		<szItemName>Discarded RPG</szItemName>
 		<szLongItemName>Discarded RPG</szLongItemName>
-		<szItemDesc>Sure, now that you're done with it, you're just going to throw it away.  Whatever happened to recycling?</szItemDesc>
+		<szItemDesc>Sure, now that you're done with it, you're just going to throw it away.	Whatever happened to recycling?</szItemDesc>
 		<szBRName>Discarded RPG</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
@@ -7623,7 +7623,7 @@
 		<szLongItemName>20mm HE Clip</szLongItemName>
 		<szItemDesc>A six-shot clip of 20mm high explosive grenades.</szItemDesc>
 		<szBRName>20mm HE Clip</szBRName>
-		<szBRDesc>A six-shot magazine of 20mm high explosive fragmentation grenades.  Fun for the whole family!</szBRDesc>
+		<szBRDesc>A six-shot magazine of 20mm high explosive fragmentation grenades.	Fun for the whole family!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>953</uiIndex>
@@ -7701,15 +7701,15 @@
 		<uiIndex>962</uiIndex>
 		<szItemName>25mm Tear Gas</szItemName>
 		<szLongItemName>25mm Tear Gas Clip</szLongItemName>
-		<szItemDesc>Nothing stops a riot or stifles enemy fire like a chemical irritant grenade.  Except maybe six of them.</szItemDesc>
+		<szItemDesc>Nothing stops a riot or stifles enemy fire like a chemical irritant grenade.	Except maybe six of them.</szItemDesc>
 		<szBRName>25mm Tear Gas Clip</szBRName>
-		<szBRDesc>Nothing stops a riot or stifles enemy fire like a chemical irritant.  Buy it by the clip-full in 25mm.</szBRDesc>
+		<szBRDesc>Nothing stops a riot or stifles enemy fire like a chemical irritant.	Buy it by the clip-full in 25mm.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>963</uiIndex>
 		<szItemName>25mm Thermobaric</szItemName>
 		<szLongItemName>25mm Thermobaric Clip</szLongItemName>
-		<szItemDesc>Turn the air in the surrounding atmospheric air into a lethal firestorm with themobaric ordinance.  Six rounds of superheated fun.</szItemDesc>
+		<szItemDesc>Turn the air in the surrounding atmospheric air into a lethal firestorm with themobaric ordinance.	Six rounds of superheated fun.</szItemDesc>
 		<szBRName>25mm Thermobaric Clip</szBRName>
 		<szBRDesc>Turn the air in the surrounding atmospheric air into a lethal firestorm with themobaric ordinance.</szBRDesc>
 	</ITEM>
@@ -7719,7 +7719,7 @@
 		<szLongItemName>40mm HE Cylinder</szLongItemName>
 		<szItemDesc>This is a six-shot grenade cylinder filled with fragmentation grenades. When fired from the 40mm grenade launcher each grenade will ignite its encased TNT after a short delay.</szItemDesc>
 		<szBRName>40mm HE Cylinder</szBRName>
-		<szBRDesc>This is a six-shot grenade cylinder filled with fragmentation grenades.  Each grenade features a time-delayed firing device to ignite its encased TNT. Fired from the MGL Mk.1 grenade launcher, this round can provide great lethal coverage.</szBRDesc>
+		<szBRDesc>This is a six-shot grenade cylinder filled with fragmentation grenades.	Each grenade features a time-delayed firing device to ignite its encased TNT. Fired from the MGL Mk.1 grenade launcher, this round can provide great lethal coverage.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>965</uiIndex>
@@ -7821,9 +7821,9 @@
 		<uiIndex>977</uiIndex>
 		<szItemName>PG-7VM Rocket</szItemName>
 		<szLongItemName>PG-7VM HEAT Rocket</szLongItemName>
-		<szItemDesc>Works exactly like a can opener, but on tanks.  Oh, and it's a bit louder.</szItemDesc>
+		<szItemDesc>Works exactly like a can opener, but on tanks.	Oh, and it's a bit louder.</szItemDesc>
 		<szBRName>PG-7VM HEAT Rocket</szBRName>
-		<szBRDesc>Works exactly like a can opener, but on tanks.  Oh, and it's a bit louder.</szBRDesc>
+		<szBRDesc>Works exactly like a can opener, but on tanks.	Oh, and it's a bit louder.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>978</uiIndex>
@@ -7925,9 +7925,9 @@
 		<uiIndex>990</uiIndex>
 		<szItemName>25mm Napalm</szItemName>
 		<szLongItemName>25mm Napalm Clip</szLongItemName>
-		<szItemDesc>Turn the surrounding area into a lethal firestorm with napalm ordinance.  Six rounds of superheated fun.</szItemDesc>
+		<szItemDesc>Turn the surrounding area into a lethal firestorm with napalm ordinance.	Six rounds of superheated fun.</szItemDesc>
 		<szBRName>25mm Napalm Clip</szBRName>
-		<szBRDesc>Turn the surrounding area into a lethal firestorm with napalm ordinance.  Six rounds of superheated fun.</szBRDesc>
+		<szBRDesc>Turn the surrounding area into a lethal firestorm with napalm ordinance.	Six rounds of superheated fun.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>991</uiIndex>
@@ -7957,7 +7957,7 @@
 		<uiIndex>994</uiIndex>
 		<szItemName>Flashbang</szItemName>
 		<szLongItemName>Flashbang Grenade</szLongItemName>
-		<szItemDesc>Flashbangs are used to confuse and disorient a potential threat for up to five seconds.  They work best indoors, and are only partially effective outdoors at night.</szItemDesc>
+		<szItemDesc>Flashbangs are used to confuse and disorient a potential threat for up to five seconds.	They work best indoors, and are only partially effective outdoors at night.</szItemDesc>
 		<szBRName>Flashbang Grenade</szBRName>
 		<szBRDesc>The flash of light from this grenade momentarily activates all sensory pigment in the retina, making vision impossible for approximately five seconds until the eye restores the pigment to its original, unstimulated state. </szBRDesc>
 	</ITEM>
@@ -8029,9 +8029,9 @@
 		<uiIndex>1003</uiIndex>
 		<szItemName>Flash Suppressor</szItemName>
 		<szLongItemName>Flash Suppressor</szLongItemName>
-		<szItemDesc>Standard equipment for keeping those  pesky muzzle flashes from giving away your position.</szItemDesc>
+		<szItemDesc>Standard equipment for keeping those	pesky muzzle flashes from giving away your position.</szItemDesc>
 		<szBRName>Flash Suppressor</szBRName>
-		<szBRDesc>Standard equipment for keeping those  pesky muzzle flashes from giving away your position.</szBRDesc>
+		<szBRDesc>Standard equipment for keeping those	pesky muzzle flashes from giving away your position.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1004</uiIndex>
@@ -8039,7 +8039,7 @@
 		<szLongItemName>ACOG Combo, 4x</szLongItemName>
 		<szItemDesc>Trijicon Advanced Combat Optical Gunscope with 4x magnification, an additional DOCTER Reflex Sight has been mounted atop the eyepiece for faster target acquisition.</szItemDesc>
 		<szBRName>ACOG-Combo, Mag.4x</szBRName>
-		<szBRDesc>Trijicon Advanced Combat Gunscope with 4x magnification, adapter-mounted rear holosight for close-combat sighting.  Includes flat top adapter, backup iron sights and dust cover.</szBRDesc>
+		<szBRDesc>Trijicon Advanced Combat Gunscope with 4x magnification, adapter-mounted rear holosight for close-combat sighting.	Includes flat top adapter, backup iron sights and dust cover.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1005</uiIndex>
@@ -8055,7 +8055,7 @@
 		<szLongItemName>Reflex Sight</szLongItemName>
 		<szItemDesc>This reflex dual-illuminated advanced combat gun sight is the new standard for instant any-light shooting accuracy.</szItemDesc>
 		<szBRName>Reflex Sight</szBRName>
-		<szBRDesc>This reflex dual-illuminated advanced combat gun sight is the new standard for instant any-light shooting accuracy.  It gives you maximum accuracy and true-to-life targeting, instantly.</szBRDesc>
+		<szBRDesc>This reflex dual-illuminated advanced combat gun sight is the new standard for instant any-light shooting accuracy.	It gives you maximum accuracy and true-to-life targeting, instantly.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1007</uiIndex>
@@ -8071,7 +8071,7 @@
 		<szLongItemName>Folding Stock</szLongItemName>
 		<szItemDesc>This new stock will allow you to raise your weapon faster, but you may have a slightly harder time hitting things.</szItemDesc>
 		<szBRName>Folding Stock</szBRName>
-		<szBRDesc>Get your weapon up before the other guy when you attach this new stock.  Usable with most fixed-stock firearms.</szBRDesc>
+		<szBRDesc>Get your weapon up before the other guy when you attach this new stock.	Usable with most fixed-stock firearms.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1009</uiIndex>
@@ -8079,7 +8079,7 @@
 		<szLongItemName>Retractable Stock</szLongItemName>
 		<szItemDesc>This new stock will allow you to raise your weapon faster, but you may have a slightly harder time hitting things.</szItemDesc>
 		<szBRName>Retractable Stock</szBRName>
-		<szBRDesc>Get your weapon up before the other guy when you attach this new stock.  Usable with most fixed-stock firearms.</szBRDesc>
+		<szBRDesc>Get your weapon up before the other guy when you attach this new stock.	Usable with most fixed-stock firearms.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1010</uiIndex>
@@ -8109,7 +8109,7 @@
 		<uiIndex>1013</uiIndex>
 		<szItemName>Wallet</szItemName>
 		<szLongItemName>Wallet</szLongItemName>
-		<szItemDesc>Whoops.  Somebody dropped their cash.  Bad for them, good for you.</szItemDesc>
+		<szItemDesc>Whoops.	Somebody dropped their cash.	Bad for them, good for you.</szItemDesc>
 		<szBRName>Wallet</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
@@ -8141,7 +8141,7 @@
 		<uiIndex>1017</uiIndex>
 		<szItemName>Camcorder</szItemName>
 		<szLongItemName>Camcorder</szLongItemName>
-		<szItemDesc>Looks like someone recorded some home movies on this thing.  They're actually fairly entertaining, if you like watching paint dry.</szItemDesc>
+		<szItemDesc>Looks like someone recorded some home movies on this thing.	They're actually fairly entertaining, if you like watching paint dry.</szItemDesc>
 		<szBRName>Camcorder</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
@@ -8157,7 +8157,7 @@
 		<uiIndex>1019</uiIndex>
 		<szItemName>Oil</szItemName>
 		<szLongItemName>Oil</szLongItemName>
-		<szItemDesc>A can of Esso brand oil.  Funny, you don't remember seeing any Esso stations around here.</szItemDesc>
+		<szItemDesc>A can of Esso brand oil.	Funny, you don't remember seeing any Esso stations around here.</szItemDesc>
 		<szBRName>Oil</szBRName>
 		<szBRDesc>We believe it is safe to say that this oil can is uncontestably the best oil can on the market today. (One year warranty, void if tampered with)</szBRDesc>
 	</ITEM>
@@ -8165,7 +8165,7 @@
 		<uiIndex>1020</uiIndex>
 		<szItemName>Medal</szItemName>
 		<szLongItemName>Medal</szLongItemName>
-		<szItemDesc>This medal seems to be what passes for a reward for service around here.  Maybe there's a chocolately centre?</szItemDesc>
+		<szItemDesc>This medal seems to be what passes for a reward for service around here.	Maybe there's a chocolately centre?</szItemDesc>
 		<szBRName>Medal</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
@@ -8173,7 +8173,7 @@
 		<uiIndex>1021</uiIndex>
 		<szItemName>Laptop</szItemName>
 		<szLongItemName>Laptop</szLongItemName>
-		<szItemDesc>This thing just crashes with a blue screen when you boot it up.  It might be the humidity.  It might just be Windows.</szItemDesc>
+		<szItemDesc>This thing just crashes with a blue screen when you boot it up.	It might be the humidity.	It might just be Windows.</szItemDesc>
 		<szBRName>Laptop</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
@@ -8181,7 +8181,7 @@
 		<uiIndex>1022</uiIndex>
 		<szItemName>Rag</szItemName>
 		<szLongItemName>Rag</szLongItemName>
-		<szItemDesc>A torn scrap of cloth.  Completely devoid of snot.</szItemDesc>
+		<szItemDesc>A torn scrap of cloth.	Completely devoid of snot.</szItemDesc>
 		<szBRName>Rag</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
@@ -8189,7 +8189,7 @@
 		<uiIndex>1023</uiIndex>
 		<szItemName>Cuban Cigars</szItemName>
 		<szLongItemName>Cuban Cigars</szLongItemName>
-		<szItemDesc>The finest in Central American cigars.  So how did they end up here?</szItemDesc>
+		<szItemDesc>The finest in Central American cigars.	So how did they end up here?</szItemDesc>
 		<szBRName>Cuban Cigars</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
@@ -8215,7 +8215,7 @@
 		<szLongItemName>Trigger Group</szLongItemName>
 		<szItemDesc>For the unhappy trigger-happy folks: Just attach the ACME Trigger Group to your favourite assault rifle and enjoy simple and effective 3-round burst fire.</szItemDesc>
 		<szBRName>Trigger Group</szBRName>
-		<szBRDesc>For the unhappy trigger-happy folks out there, we are proud to present the ACME Trigger Group!  Marksmanship skill too low?  Tired of firing too many bullets in autofire?  Simply attach the ACME Trigger Group to your favourite assault rifle and enjoy simple and effective 3-round burst fire.</szBRDesc>
+		<szBRDesc>For the unhappy trigger-happy folks out there, we are proud to present the ACME Trigger Group!	Marksmanship skill too low?	Tired of firing too many bullets in autofire?	Simply attach the ACME Trigger Group to your favourite assault rifle and enjoy simple and effective 3-round burst fire.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1027</uiIndex>
@@ -8805,7 +8805,7 @@
 		<uiIndex>1100</uiIndex>
 		<szItemName>SO-18 Helmet</szItemName>
 		<szLongItemName>Treated Stealth Ops Helmet</szLongItemName>
-		<szItemDesc>This helmet will protect you from small caliber rounds effectively, providing maximal stealth. For those really quiet operatives only.  Treated with C-18 for added protection.</szItemDesc>
+		<szItemDesc>This helmet will protect you from small caliber rounds effectively, providing maximal stealth. For those really quiet operatives only.	Treated with C-18 for added protection.</szItemDesc>
 		<szBRName>Treated Stealth Ops Helmet</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
 	</ITEM>
@@ -10645,15 +10645,15 @@
 		<uiIndex>1330</uiIndex>
 		<szItemName>Full Choke</szItemName>
 		<szLongItemName>Full Shotgun Choke</szLongItemName>
-		<szItemDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.  Not for use with slugs!</szItemDesc>
+		<szItemDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.	Not for use with slugs!</szItemDesc>
 		<szBRName>Full Shotgun Choke</szBRName>
-		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.  Not for use with slugs!</szBRDesc>
+		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.	Not for use with slugs!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1331</uiIndex>
 		<szItemName>Rifled Choke</szItemName>
 		<szLongItemName>Rifled Shotgun Choke</szLongItemName>
-		<szItemDesc>When attached to the end of a shotgun barrel, causes slugs to fire more accurately and farther.  However, shot will fire in a very wide, ineffective pattern.</szItemDesc>
+		<szItemDesc>When attached to the end of a shotgun barrel, causes slugs to fire more accurately and farther.	However, shot will fire in a very wide, ineffective pattern.</szItemDesc>
 		<szBRName>Rifled Shotgun Choke</szBRName>
 		<szBRDesc>Makes your slugs to fire long and straight, but throws shot all over tarnation!</szBRDesc>
 	</ITEM>
@@ -10816,5 +10816,93 @@
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>7.62x39mm HP C ammo crate</szBRName>
 		<szBRDesc>Pas à vendre.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1352</uiIndex>
+		<szItemName>Hand Mortar</szItemName>
+		<szLongItemName>Hand Mortar</szLongItemName>
+		<szItemDesc>Just your standard 18th century hand mortar with a stubby brass barrel and JOURSON engraved on the lock. Worth a fortune on the collector's market.</szItemDesc>
+		<szBRName>Hand Mortar</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1353</uiIndex>
+		<szItemName>Garver Knife</szItemName>
+		<szLongItemName>Sam Garver Combat Knife</szLongItemName>
+		<szItemDesc>This limited edition, Sam Garver combat knife, is authenticated with a serial number and signed by Sam himself. It's galvanized steel blade and gator-skinned elegance have made it a highly sought-after collectable.</szItemDesc>
+		<szBRName>Sam Garver Combat Knife</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1354</uiIndex>
+		<szItemName>Cannon Ball</szItemName>
+		<szLongItemName>Cannon Ball</szLongItemName>
+		<szItemDesc>A hand-crafted cast-iron projectile for a hand mortar.</szItemDesc>
+		<szBRName>Cannon Ball</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1355</uiIndex>
+		<szItemName>Transmitter</szItemName>
+		<szLongItemName>Laptop Transmitter</szLongItemName>
+		<szItemDesc>This satellite transmitter enables a laptop computer to connect to the Internet from anywhere in the world. N.B. Works with operating system other than Windows.</szItemDesc>
+		<szBRName>Laptop Transmitter</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1356</uiIndex>
+		<szItemName>Video</szItemName>
+		<szLongItemName>Attack of the Clydesdales</szLongItemName>
+		<szItemDesc>A sushi-western classic. All Hell breaks loose in a small mid-western town when a full-team of eight Clydesdales knock over the beer wagon and get into the suds.</szItemDesc>
+		<szBRName>Attack of the Clydesdales</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1357</uiIndex>
+		<szItemName>Video</szItemName>
+		<szLongItemName>Wild, Wild East</szLongItemName>
+		<szItemDesc>Not to be confused with the American film Wild, Wild West, which was a dud, this Sushi-western, starring Will Smithero and Tex Colburn, is a hilarious romp through time.</szItemDesc>
+		<szBRName>Wild, Wild East</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1358</uiIndex>
+		<szItemName>Video</szItemName>
+		<szLongItemName>Have Honda, Will Travel</szLongItemName>
+		<szItemDesc>Perhaps one of the greatest films ever directed by Francis Honda Copella, this sushi-western replaces the horse as a means of travel with raw sub-compact horsepower.</szItemDesc>
+		<szBRName>Have Honda, Will Travel</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1359</uiIndex>
+		<szItemName>Canteen</szItemName>
+		<szLongItemName>Che Guevara Canteen</szLongItemName>
+		<szItemDesc>This rebel essential is made from hand-crafted tin and enclosed in insulated Mayan wool. Filled to capacity with fresh spring water from the French Alps, no guerrilla campaign would be complete without one.</szItemDesc>
+		<szBRName>Che Guevara Canteen</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1360</uiIndex>
+		<szItemName>Wrist Watch</szItemName>
+		<szLongItemName>MERC Wrist Watch</szLongItemName>
+		<szItemDesc>This is a timepiece like no other. An official M.E.R.C. wristwatch with Flo, in the skimpiest of bikinis, showing you the exact time with her limbs. It's even water resistant, so she'll never fog up.</szItemDesc>
+		<szBRName>MERC Wrist Watch</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1361</uiIndex>
+		<szItemName>Umbrella</szItemName>
+		<szLongItemName>MERC Umbrella</szLongItemName>
+		<szItemDesc>From formal wear to fatigues, this highly versatile umbrella will accompany you anywhere in style. It is also extremely durable; boasting a teflon-treated cloth guaranteed to withstand hail and sleet.</szItemDesc>
+		<szBRName>MERC Umbrella</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1362</uiIndex>
+		<szItemName>Instructions</szItemName>
+		<szLongItemName>Morris' Launch Instructions</szLongItemName>
+		<szItemDesc>The note contains origin and destination coordinates as well as precise instructions to launch missiles. It includes a number of towns in Arulco and the launch facility in Tracona.</szItemDesc>
+		<szBRName>Morris' Launch Instructions</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 </ITEMLIST>
