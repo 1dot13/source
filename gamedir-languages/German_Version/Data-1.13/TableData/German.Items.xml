@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -10449,90 +10449,89 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1352</uiIndex>
-		<szItemName>Hand Mortar</szItemName>
-		<szLongItemName>Hand Mortar</szLongItemName>
-		<szItemDesc>Just your standard 18th century hand mortar with a stubby brass barrel and JOURSON engraved on the lock. Worth a fortune on the collector's market.</szItemDesc>
-		<szBRName>Hand Mortar</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Hand-Mörser</szItemName>
+		<szLongItemName>Hand-Mörser</szLongItemName>
+		<szItemDesc>Dieser Hand-Mörser ist wie der Standard Mörser aus dem 18. Jahrhundert gebaut, ist aber zusätzlich mit einem rauen Messinglauf ausgestattet.</szItemDesc>
+		<szBRName>Hand-Mörser</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1353</uiIndex>
-		<szItemName>Garver Knife</szItemName>
-		<szLongItemName>Sam Garver Combat Knife</szLongItemName>
-		<szItemDesc>This limited edition, Sam Garver combat knife, is authenticated with a serial number and signed by Sam himself. It's galvanized steel blade and gator-skinned elegance have made it a highly sought-after collectable.</szItemDesc>
-		<szBRName>Sam Garver Combat Knife</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Kampfmesser</szItemName>
+		<szLongItemName>Sam Garver Kampfmesser</szLongItemName>
+		<szItemDesc>Diese limitierte Edition des Sam Garver Kampfmessers ist mit einer Seriennummer authentifiziert und von Sam signiert. Seine galvanisierte Stahlklinge und sein Design machen es zu einem wertvollen Sammlerstück.</szItemDesc>
+		<szBRName>Sam Garver Kampfmesser</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1354</uiIndex>
-		<szItemName>Cannon Ball</szItemName>
-		<szLongItemName>Cannon Ball</szLongItemName>
-		<szItemDesc>A hand-crafted cast-iron projectile for a hand mortar.</szItemDesc>
-		<szBRName>Cannon Ball</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Kanonen-Kugel</szItemName>
+		<szLongItemName>Kanonen-Kugel</szLongItemName>
+		<szItemDesc>Ein handgefertigtes Gusseisen-Projektil für einen Handmörser.</szItemDesc>
+		<szBRName>Kanonen-Kugel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1355</uiIndex>
-		<szItemName>Transmitter</szItemName>
-		<szLongItemName>Laptop Transmitter</szLongItemName>
-		<szItemDesc>This satellite transmitter enables a laptop computer to connect to the Internet from anywhere in the world. N.B. Works with operating system other than Windows.</szItemDesc>
-		<szBRName>Laptop Transmitter</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Sender</szItemName>
+		<szLongItemName>Sender für den Laptop</szLongItemName>
+		<szItemDesc>Dieser Satelliten Transmitter ermöglicht einem Laptop, von überall auf dieser Welt, ins Internet zu gelangen. N.B. arbeitet mit einem anderen Betriebssystem als Windows.</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1356</uiIndex>
-		<szItemName>Video</szItemName>
-		<szLongItemName>Attack of the Clydesdales</szLongItemName>
-		<szItemDesc>A sushi-western classic. All Hell breaks loose in a small mid-western town when a full-team of eight Clydesdales knock over the beer wagon and get into the suds.</szItemDesc>
-		<szBRName>Attack of the Clydesdales</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Videokassette</szItemName>
+		<szLongItemName>Angriff der Clydesdales</szLongItemName>
+		<szItemDesc>Ein Sushi-Western Klassiker. Die Hölle bricht in einer kleinen Westernstadt aus, als ein Team aus acht Clydesdales den Bierwagen umkippt und sich in den Schaum stürzt.</szItemDesc>
+		<szBRName>Angriff der Clydesdales</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1357</uiIndex>
-		<szItemName>Video</szItemName>
+		<szItemName>Videokassette</szItemName>
 		<szLongItemName>Wild, Wild East</szLongItemName>
-		<szItemDesc>Not to be confused with the American film Wild, Wild West, which was a dud, this Sushi-western, starring Will Smithero and Tex Colburn, is a hilarious romp through time.</szItemDesc>
+		<szItemDesc>Nicht zu verwechseln mit dem amerikanischen Film Wild, Wild West, der war ein Flopp. Dieser Sushi-Western, in den Hauptrollen Will Smithero und Tex Colburn, ist ein fröhlicher Streifzug durch die Zeit.</szItemDesc>
 		<szBRName>Wild, Wild East</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1358</uiIndex>
-		<szItemName>Video</szItemName>
-		<szLongItemName>Have Honda, Will Travel</szLongItemName>
-		<szItemDesc>Perhaps one of the greatest films ever directed by Francis Honda Copella, this sushi-western replaces the horse as a means of travel with raw sub-compact horsepower.</szItemDesc>
-		<szBRName>Have Honda, Will Travel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Videokassette</szItemName>
+		<szLongItemName>Hab ne Honda, will Reisen</szLongItemName>
+		<szItemDesc>Vielleicht einer der größten Filme von Francis Honda Copella, dieser Sushi- Western ersetzt die Pferde durch rohe Pferdestärken.</szItemDesc>
+		<szBRName>Hab ne Honda, will Reisen</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1359</uiIndex>
-		<szItemName>Canteen</szItemName>
-		<szLongItemName>Che Guevara Canteen</szLongItemName>
-		<szItemDesc>This rebel essential is made from hand-crafted tin and enclosed in insulated Mayan wool. Filled to capacity with fresh spring water from the French Alps, no guerrilla campaign would be complete without one.</szItemDesc>
-		<szBRName>Che Guevara Canteen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Feldflasche</szItemName>
+		<szLongItemName>Che Guevara Feldflasche</szLongItemName>
+		<szItemDesc>Diese für Rebellen überlebenswichtige Feldflasche ist aus handgeschlagenem Weißblech. Sie ist mit mayanischer Wolle umwickelt und mit frischem Quellwasser aus den französischen Alpen gefüllt. Einfach unentbehrlich!</szItemDesc>
+		<szBRName>Che Guevara Feldflasche</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1360</uiIndex>
-		<szItemName>Wrist Watch</szItemName>
-		<szLongItemName>MERC Wrist Watch</szLongItemName>
-		<szItemDesc>This is a timepiece like no other. An official M.E.R.C. wristwatch with Flo, in the skimpiest of bikinis, showing you the exact time with her limbs. It's even water resistant, so she'll never fog up.</szItemDesc>
-		<szBRName>MERC Wrist Watch</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Armbanduhr</szItemName>
+		<szLongItemName>MERC Armbanduhr</szLongItemName>
+		<szItemDesc>Das ist eine Uhr wie keine andere. Eine offiziele M.E.R.C. Armbanduhr, mit Flo im knappsten aller Bikinis, zeigt Ihnen die exakte Uhrzeit. Sie ist sogar noch wasserdicht und beschlägt so gut wie nie.</szItemDesc>
+		<szBRName>MERC Armbanduhr</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1361</uiIndex>
-		<szItemName>Umbrella</szItemName>
-		<szLongItemName>MERC Umbrella</szLongItemName>
-		<szItemDesc>From formal wear to fatigues, this highly versatile umbrella will accompany you anywhere in style. It is also extremely durable; boasting a teflon-treated cloth guaranteed to withstand hail and sleet.</szItemDesc>
-		<szBRName>MERC Umbrella</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Regenschirm</szItemName>
+		<szLongItemName>MERC Regenschirm</szLongItemName>
+		<szItemDesc>Vom schicken- zum Arbeitsutensil. Dieser extrem vielseitige Regenschirm wird Sie stets gut kleiden. Außerdem ist er äußerst widerstandsfähig; der Teflonstoff garantiert sogar Schutz vor Hagel und Schneeregen.</szItemDesc>
+		<szBRName>MERC Regenschirm</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1362</uiIndex>
-		<szItemName>Instructions</szItemName>
-		<szLongItemName>Morris' Launch Instructions</szLongItemName>
-		<szItemDesc>The note contains origin and destination coordinates as well as precise instructions to launch missiles. It includes a number of towns in Arulco and the launch facility in Tracona.</szItemDesc>
-		<szBRName>Morris' Launch Instructions</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Anweisungen</szItemName>
+		<szLongItemName>Morris' Startanweisungen</szLongItemName>
+		<szItemDesc>Diese Aufzeichnungen beinhalten genau Zielkoordinaten sowie eine präzise Anleitung zum Starten von Raketen. Darüber hinaus eine Anzahl von Städten, in Arulco und ein eine Abschussanlage in Tracona.</szItemDesc>
+		<szBRName>Morris' Startanweisungen</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 </ITEMLIST>
