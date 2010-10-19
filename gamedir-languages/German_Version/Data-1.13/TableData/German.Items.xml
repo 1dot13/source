@@ -10475,7 +10475,8 @@
 		<uiIndex>1355</uiIndex>
 		<szItemName>Sender</szItemName>
 		<szLongItemName>Sender für den Laptop</szLongItemName>
-		<szItemDesc>Dieser Satelliten Transmitter ermöglicht einem Laptop, von überall auf dieser Welt, ins Internet zu gelangen. N.B. arbeitet mit einem anderen Betriebssystem als Windows.</szBRName>
+		<szItemDesc>Dieser Satelliten Transmitter ermöglicht einem Laptop, von überall auf dieser Welt, ins Internet zu gelangen. N.B. arbeitet mit einem anderen Betriebssystem als Windows.</szItemDesc>
+		<szBRName>Laptop Transmitter</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
