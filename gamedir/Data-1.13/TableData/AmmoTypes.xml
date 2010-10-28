@@ -924,4 +924,37 @@
 		<tracerEffect>0</tracerEffect>
 		<spreadPattern>DuplexSpread</spreadPattern>
 	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>28</uiIndex>
+		<name>HP Solid</name>
+		<fontColour>160</fontColour>
+		<grayed>8</grayed>
+		<offNormal>25</offNormal>
+		<onNormal>27</onNormal>
+		<structureImpactReductionMultiplier>9</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>10</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>9</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>10</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>15</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
+	</AMMOTYPE>
 </AMMOTYPELIST>
