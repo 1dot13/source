@@ -10535,4 +10535,20 @@
 		<szBRName>Morris' Startanweisungen</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1363</uiIndex>
+		<szItemName>.38er Kiste M</szItemName>
+		<szLongItemName>.38er Munitionskiste M</szLongItemName>
+		<szItemDesc>.38er Munitionskiste M</szItemDesc>
+		<szBRName>.38er Munitionskiste M</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1364</uiIndex>
+		<szItemName>.38 Kiste HPS</szItemName>
+		<szLongItemName>.38er Munitionskiste HPS</szLongItemName>
+		<szItemDesc>.38er Munitionskiste HPS</szItemDesc>
+		<szBRName>.38er Munitionskiste HPS</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
 </ITEMLIST>

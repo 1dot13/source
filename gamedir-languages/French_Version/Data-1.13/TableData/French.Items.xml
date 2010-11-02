@@ -10905,4 +10905,20 @@
 		<szBRName>Morris' Launch Instructions</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1363</uiIndex>
+		<szItemName>.38 crate M</szItemName>
+		<szLongItemName>.38 ammo crate M</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.38 ammo crate M</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1364</uiIndex>
+		<szItemName>.38 crate HPS</szItemName>
+		<szLongItemName>.38 ammo crate HPS</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.38 ammo crate HPS</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
 </ITEMLIST>
