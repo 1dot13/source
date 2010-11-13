@@ -6,11 +6,11 @@
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>1</uiIndex>
-		<name>Baghdad</name>
+		<name>Bagdad</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>2</uiIndex>
-		<name>Drassen</name>		
+		<name>Drassen</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>3</uiIndex>
@@ -18,11 +18,11 @@
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>4</uiIndex>
-		<name>Beirut</name>
+		<name>Bejrut</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>5</uiIndex>
-		<name>London</name>
+		<name>Londyn</name>
 	</DESTINATION>	
 	<DESTINATION>
 		<uiIndex>6</uiIndex>
@@ -30,7 +30,7 @@
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>7</uiIndex>
-		<name>Meduna</name>		
+		<name>Meduna</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>8</uiIndex>
@@ -42,11 +42,11 @@
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>10</uiIndex>
-		<name>Moscow</name>
+		<name>Moskwa</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>11</uiIndex>
-		<name>New York</name>
+		<name>Nowy Jork</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>12</uiIndex>
@@ -54,15 +54,15 @@
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>13</uiIndex>
-		<name>Paris</name>
+		<name>Paryż</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>14</uiIndex>
-		<name>Tripoli</name>
+		<name>Trypolis</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>15</uiIndex>
-		<name>Tokyo</name>
+		<name>Tokio</name>
 	</DESTINATION>
 	<DESTINATION>
 		<uiIndex>16</uiIndex>
