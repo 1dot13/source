@@ -240,4 +240,9 @@
 		<AmmoCaliber>6x35mm</AmmoCaliber>
 		<BRCaliber>6x35mm</BRCaliber>
 	</AMMO>
+	<AMMO>
+		<uiIndex>48</uiIndex>
+		<AmmoCaliber>Cannon Ball</AmmoCaliber>
+		<BRCaliber>Cannon Ball</BRCaliber>
+	</AMMO>
 </AMMOLIST>

@@ -7394,19 +7394,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>924</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 924</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.38 S-Load M</szItemName>
+		<szLongItemName>.38 Speed Loader Match</szLongItemName>
+		<szItemDesc>6 rounds of wadcutter ammo, designed to be used on the gunrange to shoot at paper targets. Still more precise than standard ball ammo, though.</szItemDesc>
+		<szBRName>.38 S-Load Match</szBRName>
+		<szBRDesc>Precisely loaded .38 Special match ammo with wadcutter bullets. When precision is more important than anything else!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>925</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 925</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SŁ .38 HPS</szItemName>
+		<szLongItemName>Szybki Ładowacz .38 HPS</szLongItemName>
+		<szItemDesc>These bullets promise to penetrate better than standard hollow points.</szItemDesc>
+		<szBRName>Szybki Ładowacz .38 HPS</szBRName>
+		<szBRDesc>New solid copper bullets of hollow point shape! They are better at penetrating than the usual lead-core/brass-jacket hollowpoints.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>926</uiIndex>
@@ -10919,5 +10919,45 @@
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>.38 ammo crate HPS</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1365</uiIndex>
+		<szItemName>9x18mm Mag 12 G</szItemName>
+		<szLongItemName>9x18mm Pistol Mag, 12 G</szLongItemName>
+		<szItemDesc>A pistol magazine filled with 12 Glaser rounds in the 9x18mm caliber.</szItemDesc>
+		<szBRName>9x18mm Mag 12 G</szBRName>
+		<szBRDesc>Glaser ammo in the 9x18mm caliber, to get more punch out of a small round.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1366</uiIndex>
+		<szItemName>9x18mm Mag 8 G</szItemName>
+		<szLongItemName>9x18mm Pistol Mag, 8 G</szLongItemName>
+		<szItemDesc>A pistol magazine filled with 8 Glaser rounds in the 9x18mm caliber.</szItemDesc>
+		<szBRName>9x18mm Mag 8 G</szBRName>
+		<szBRDesc>Glaser ammo in the 9x18mm caliber. You need the bigger punch, especially if you only have 8 rounds in your pistol...</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1367</uiIndex>
+		<szItemName>9x18mm Mag 20 G</szItemName>
+		<szLongItemName>9x18mm SMG Mag, 20 G</szLongItemName>
+		<szItemDesc>A SMG magazine filled with 20 Glaser rounds in the 9x18mm caliber.</szItemDesc>
+		<szBRName>9x18mm Mag 20 G</szBRName>
+		<szBRDesc>Now your little 9x18mm SMG can rip your enemy to shreds, with these Glaser bullets!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1368</uiIndex>
+		<szItemName>9x18mm Mag 30 G</szItemName>
+		<szLongItemName>9x18mm SMG Mag, 30 G</szLongItemName>
+		<szItemDesc>A SMG magazine filled with 30 Glaser rounds in the 9x18mm caliber.</szItemDesc>
+		<szBRName>9x18mm Mag 30 G</szBRName>
+		<szBRDesc>A hailstorm of Glaser bullets will terrify any unarmored enemy, even in this small caliber.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1369</uiIndex>
+		<szItemName>9x18 G crate</szItemName>
+		<szLongItemName>9x18mm G ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x18mm G ammo crate</szBRName>
+		<szBRDesc>BR nie ma tego w sprzedaży.</szBRDesc>
 	</ITEM>
 </ITEMLIST>
