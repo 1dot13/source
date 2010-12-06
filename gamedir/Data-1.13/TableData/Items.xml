@@ -23980,7 +23980,6 @@
 		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
 		<Flare>1</Flare>
 	</ITEM>
@@ -32499,5 +32498,164 @@
 		<Sinks>1</Sinks>
 		<TwoHanded>1</TwoHanded>
 		<AmmoCrate>1</AmmoCrate>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1370</uiIndex>
+		<szItemName>43mm Illumination</szItemName>
+		<szLongItemName>43mm Illumination Grenades, 4</szLongItemName>
+		<szItemDesc>43mm Illumination Grenades for the GM-94 grenade launcher.</szItemDesc>
+		<szBRName>43mm Illumination Grenades, 4</szBRName>
+		<szBRDesc>43mm Illumination Grenades for the GM-94 grenade launcher.</szBRDesc>
+		<usItemClass>256</usItemClass>
+		<ubClassIndex>78</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>357</ubGraphicNum>
+		<ubWeight>17</ubWeight>
+		<ItemSize>23</ItemSize>
+		<usPrice>800</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<GLGrenade>1</GLGrenade>
+		<Flare>1</Flare>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1371</uiIndex>
+		<szItemName>43mm HE</szItemName>
+		<szLongItemName>43mm HE Grenade</szLongItemName>
+		<szItemDesc>This 43mm High Explosive grenade will fit nicely in your GM-94 grenade launcher. [NOT usable w/0 NAS]</szItemDesc>
+		<szBRName>43mm HE Grenade</szBRName>
+		<szBRDesc>High Explosive grenade for the GM-94. [NOT usable w/0 NAS]</szBRDesc>
+		<usItemClass>256</usItemClass>
+		<ubClassIndex>79</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>776</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>400</usPrice>
+		<ubCoolness>7</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+		<GLGrenade>1</GLGrenade>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1372</uiIndex>
+		<szItemName>43mm Mustard Gas</szItemName>
+		<szLongItemName>43mm Mustard Gas Grenade</szLongItemName>
+		<szItemDesc>This 43mm Mustard Gas grenade will fit nicely in your GM-94 grenade launcher. Warning: Inhaling contents will cause a painful death. [NOT usable w/0 NAS]</szItemDesc>
+		<szBRName>43mm Mustard Gas Grenade</szBRName>
+		<szBRDesc>This product is classed as a chemical weapon and is banned by the Geneva convention. Sold for pest control purposes only! [NOT usable w/0 NAS]</szBRDesc>
+		<usItemClass>256</usItemClass>
+		<ubClassIndex>80</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>773</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>1200</usPrice>
+		<ubCoolness>7</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<GLGrenade>1</GLGrenade>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1373</uiIndex>
+		<szItemName>43mm Smoke</szItemName>
+		<szLongItemName>43mm Smoke Grenade</szLongItemName>
+		<szItemDesc>This 43mm Smoke grenade will fit nicely in your GM-94 grenade launcher. When you need cover, fire off a couple of these. [NOT usable w/0 NAS]</szItemDesc>
+		<szBRName>43mm Smoke Grenade</szBRName>
+		<szBRDesc>Smoke round for the GM-94. [NOT usable w/0 NAS]</szBRDesc>
+		<usItemClass>256</usItemClass>
+		<ubClassIndex>81</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>777</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>7</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<GLGrenade>1</GLGrenade>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1374</uiIndex>
+		<szItemName>43mm Stun</szItemName>
+		<szLongItemName>43mm Stun Grenade</szLongItemName>
+		<szItemDesc>43mm stun grenade for the GM-94 launcher. [NOT usable w/0 NAS]</szItemDesc>
+		<szBRName>43mm Stun Grenade</szBRName>
+		<szBRDesc>Crowd of rioters or room full of hyperactive children (we kid, of course), a stun grenade will take the wind and the fight right out of them. [NOT usable w/0 NAS]</szBRDesc>
+		<usItemClass>256</usItemClass>
+		<ubClassIndex>82</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>778</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>200</usPrice>
+		<ubCoolness>7</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<GLGrenade>1</GLGrenade>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1375</uiIndex>
+		<szItemName>43mm Tear Gas</szItemName>
+		<szLongItemName>43mm Tear Gas Grenade</szLongItemName>
+		<szItemDesc>Drop a CS gas grenade on your target and reduce them to blubbering wrecks. [NOT usable w/0 NAS]</szItemDesc>
+		<szBRName>43mm Tear Gas Grenade</szBRName>
+		<szBRDesc>Drop a CS gas grenade on your target and reduce them to blubbering wrecks. [NOT usable w/0 NAS]</szBRDesc>
+		<usItemClass>256</usItemClass>
+		<ubClassIndex>83</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>774</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>240</usPrice>
+		<ubCoolness>7</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<GLGrenade>1</GLGrenade>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1376</uiIndex>
+		<szItemName>43mm Illumination</szItemName>
+		<szLongItemName>43mm Illumination Grenade</szLongItemName>
+		<szItemDesc>43mm Illumination Grenade for the GM-94 grenade launcher. [NOT usable w/0 NAS]</szItemDesc>
+		<szBRName>43mm Illumination Grenade</szBRName>
+		<szBRDesc>43mm Illumination Grenade for the GM-94 grenade launcher. [NOT usable w/0 NAS]</szBRDesc>
+		<usItemClass>256</usItemClass>
+		<ubClassIndex>84</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>775</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>200</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<GLGrenade>1</GLGrenade>
+		<Flare>1</Flare>
 	</ITEM>
 </ITEMLIST>
