@@ -6,8 +6,7 @@
 	#include "stdio.h"
 #endif
 
-#include "VFS/vfs.h"
-#include "VFS/Tools/Log.h"
+#include "sgp_logger.h"
 
 #ifdef _ANIMSUBSYSTEM_DEBUG
 
@@ -57,6 +56,13 @@ void AiDbgMessage( CHAR8 *strMessage)
 
 #endif
 
+static struct LiveLog {
+	sgp::Logger_ID id;
+	LiveLog() {
+		id = sgp::Logger::instance().createLogger();
+		sgp::Logger::instance().connectFile(id, L"LiveLog.txt", false, sgp::Logger::FLUSH_ON_ENDL);
+	};
+} s_LiveLog;
 
 void LiveMessage( CHAR8 *strMessage)
 {
@@ -69,8 +75,7 @@ void LiveMessage( CHAR8 *strMessage)
 		fclose(OutFile);
 	}
 #else
-	static CLog& liveMsg = *CLog::create(L"LiveLog.txt",true);
-	liveMsg << strMessage << CLog::ENDL;
+	SGP_LOG(s_LiveLog.id, strMessage);
 #endif
 }
 void MPDebugMsg( CHAR8 *strMessage)
@@ -84,7 +89,7 @@ void MPDebugMsg( CHAR8 *strMessage)
 		fclose(OutFile);
 	}
 #else
-	static CLog& mpMsg = *CLog::create(L"MPDebug.txt", true);
-	mpMsg << strMessage << CLog::ENDL;
+	static vfs::Log& mpMsg = *vfs::Log::create(L"MPDebug.txt", true);
+	mpMsg << strMessage << vfs::Log::endl;
 #endif
 }

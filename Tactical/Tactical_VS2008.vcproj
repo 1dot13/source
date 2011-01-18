@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="Tactical"
 	ProjectGUID="{8E3BD72D-8791-497B-A38E-D71B255F0A66}"
 	RootNamespace="Tactical"
@@ -21,7 +21,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Debug.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -83,7 +83,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -147,7 +147,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -211,7 +211,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -273,7 +273,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -996,7 +996,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_AttachmentSlots.cpp"
+				>
+			</File>
+			<File
 				RelativePath="XML_BurstSounds.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_CivGroupNames.cpp"
 				>
 			</File>
 			<File
@@ -1028,6 +1036,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_EnemyNames.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_EnemyRank.cpp"
+				>
+			</File>
+			<File
 				RelativePath="XML_EnemyWeaponChoice.cpp"
 				>
 			</File>
@@ -1037,6 +1053,10 @@
 			</File>
 			<File
 				RelativePath="XML_Explosive.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_HiddenNames.cpp"
 				>
 			</File>
 			<File
@@ -1080,7 +1100,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Qarray.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_RandomStats.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_RPCFacesSmall.cpp"
+				>
+			</File>
+			<File
 				RelativePath="XML_SectorLoadscreens.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_SoundProfile.cpp"
 				>
 			</File>
 			<File

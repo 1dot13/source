@@ -4,6 +4,7 @@
 #include "Soldier Init List.h"
 #include "Merc Hiring.h"
 #include "event pump.h"
+#include "Bullets.h"
 
 extern bool isOwnTeamWipedOut;
 
@@ -20,34 +21,32 @@ extern bool recieved_transfer_settings;
 extern INT16 serverSyncClientsDirectory;
 
 extern int PLAYER_TEAM_TIMER_SEC_PER_TICKS;
-
-//extern char CLIENT_NUM[30];
 extern int CLIENT_NUM;
 
-extern int ENEMY_ENABLED;
-extern int CREATURE_ENABLED;
-extern int MILITIA_ENABLED;
-extern int CIV_ENABLED;
+extern UINT8 gEnemyEnabled;
+extern UINT8 gCreatureEnabled;
+extern UINT8 gMilitiaEnabled;
+extern UINT8 gCivEnabled;
 
-extern int MAX_CLIENTS;
-extern int SAME_MERC;
-extern int PLAYER_BSIDE;
+extern UINT8 cMaxClients;
+extern UINT8 cSameMercAllowed;
+extern UINT8 cGameType;
 
 extern bool allowlaptop;
 
 extern UINT8 netbTeam;
 extern UINT8 ubID_prefix;
-extern FLOAT DAMAGE_MULTIPLIER;
+extern FLOAT cDamageMultiplier;
 
 //OJW - 20081218
-extern int RANDOM_SPAWN;
-extern int RANDOM_MERCS;
+extern UINT8 gRandomStartingEdge;
+extern UINT8 gRandomMercs;
 
 //OJW - 20090317
 extern bool is_game_started;
 
 //OJW - 20090403
-extern int OVERRIDE_MAX_AI;
+extern UINT8 gMaxEnemiesEnabled;
 
 //OJW - 20090405
 extern STRING512 gCurrentTransferFilename;
@@ -58,16 +57,14 @@ extern UINT32 crate_usMapPos;
 
 //extern int INTERRUPTS;
 
-extern int ALLOW_EQUIP;
+extern UINT8 cAllowMercEquipment;
 
-extern INT32 MAX_MERCS;
+extern UINT8 cMaxMercs;
 
 void lockui (bool unlock);
 
 void start_battle ( void );
 void DropOffItemsInSector( UINT8 ubOrderNum );
-
-void test_func2 ( void );
 
 void mp_help (void);
 void mp_help2 (void);
@@ -97,7 +94,7 @@ void send_stance ( SOLDIERTYPE *pSoldier, UINT8 ubDesiredStance );
 void send_dir ( SOLDIERTYPE *pSoldier, UINT16 usDesiredDirection );
 void send_fire( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 void send_hit(  EV_S_WEAPONHIT *SWeaponHit  );
-
+void send_bullet(  BULLET * pBullet, UINT16 usHandItem); 
 void send_hire( UINT8 iNewIndex, UINT8 ubCurrentSoldier, INT16 iTotalContractLength, BOOLEAN fCopyProfileItemsOver);
 void send_dismiss( UINT8 ubCurrentSoldier);
 
@@ -125,6 +122,8 @@ void send_disarm_explosive(UINT32 sGridNo, UINT32 uiWorldIndex, UINT8 ubID);
 
 void OpenChatMsgBox(void);
 
+INT8 FireBullet( SOLDIERTYPE * pFirer, BULLET * pBullet, BOOLEAN fFake );
+
 void reapplySETTINGS();
 
 BOOLEAN CheckConditionsForBattle( GROUP *pGroup ); // this comes from strategic movement.cpp
@@ -140,10 +139,11 @@ extern int	client_edges[5];
 extern int  client_downloading[4];
 extern int  client_progress[4];
 
-extern char	SERVER_NAME[30];
+extern char	cServerName[30];
 
 //OJW - 20081224
 #define MAX_CONNECT_RETRIES	5
+#define ENABLE_COLLISION (is_server && pBullet->pFirer->ubID<120) || (!is_server && is_client && pBullet->pFirer->ubID<20) || (!is_server && !is_client) 
 extern bool auto_retry;
 extern int giNumTries;
 

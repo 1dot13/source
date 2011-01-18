@@ -21,7 +21,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Debug.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -83,7 +83,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -147,7 +147,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -211,7 +211,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -273,7 +273,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -380,6 +380,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Luaglobal.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LuaInitNPCs.h"
+				>
+			</File>
+			<File
 				RelativePath="Map Screen Helicopter.h"
 				>
 			</File>
@@ -469,6 +477,10 @@
 			</File>
 			<File
 				RelativePath="Strategic Merc Handler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Mines LUA.h"
 				>
 			</File>
 			<File
@@ -564,6 +576,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Luaglobal.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LuaInitNPCs.cpp"
+				>
+			</File>
+			<File
 				RelativePath="Map Screen Helicopter.cpp"
 				>
 			</File>
@@ -649,6 +669,10 @@
 			</File>
 			<File
 				RelativePath="Strategic Merc Handler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Mines LUA.cpp"
 				>
 			</File>
 			<File

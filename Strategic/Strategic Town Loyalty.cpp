@@ -39,6 +39,10 @@
 	#include "Facilities.h"
 #endif
 
+#include "Luaglobal.h"
+#include "LuaInitNPCs.h"
+#include "Interface.h"
+
 // the max loyalty rating for any given town
 #define MAX_LOYALTY_VALUE 100
 
@@ -678,6 +682,8 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 	UINT32 uiChanceFalseAccusal = 0;
 	INT8 bKillerTeam = 0;
 	BOOLEAN fIncrement = FALSE;
+	
+	UINT16 iCounter2;
 
 
 	// ubAttacker CAN be NOBODY...	Don't treat is as murder if NOBODY killed us...
@@ -705,6 +711,18 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 	// if civilian belongs to a civilian group
 	if ( pSoldier->ubCivilianGroup != NON_CIV_GROUP )
 	{
+		//New Group by Jazz
+		for( iCounter2 = REBEL_CIV_GROUP; iCounter2 < NUM_CIV_GROUPS; iCounter2++ )	
+			{	
+				if (zCivGroupName[iCounter2].Loyalty == FALSE)
+					return;					
+			}
+	}
+	
+	/*
+	// if civilian belongs to a civilian group
+	if ( pSoldier->ubCivilianGroup != NON_CIV_GROUP )
+	{
 		// and it's one that is hostile to the player's cause
 		switch ( pSoldier->ubCivilianGroup )
 		{
@@ -714,8 +732,17 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 			case WARDEN_CIV_GROUP:
 				return;
 		}
+		
+		//New Group by Jazz
+		for( iCounter2 = UNNAMED_CIV_GROUP_15; iCounter2 < NUM_CIV_GROUPS; iCounter2++ )	
+			{	
+			if (pSoldier->ubCivilianGroup == iCounter2)
+					return;		
+			}
+		
+		
 	}
-
+	*/
 	// set killer team
 	bKillerTeam = Menptr[ pSoldier->ubAttackerID ].bTeam;
 
@@ -1605,8 +1632,7 @@ void DecrementTownLoyaltyEverywhere( UINT32 uiLoyaltyDecrease )
 }
 // this applies the change to every town differently, depending on the distance from the event
 void HandleGlobalLoyaltyEvent( UINT8 ubEventType, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ)
-{
-	INT32 iLoyaltyChange;
+{	
 	INT8 bTownId = 0;
 
 	if( bSectorZ == 0 )
@@ -1620,6 +1646,12 @@ void HandleGlobalLoyaltyEvent( UINT8 ubEventType, INT16 sSectorX, INT16 sSectorY
 	{
 		return;
 	}
+			
+	//move to lua scripts StrategicTownLoyalty.lua
+#ifdef LUA_STRATEGY_TOWN_LOYALTY
+	LuaHandleGlobalLoyaltyEvent( ubEventType, sSectorX, sSectorY, bSectorZ, 0 );
+#else
+	INT32 iLoyaltyChange;
 
 	// determine what the base loyalty change of this event type is worth
 	// these are->hundredths<- of loyalty points, so choose appropriate values accordingly!
@@ -1677,6 +1709,8 @@ void HandleGlobalLoyaltyEvent( UINT8 ubEventType, INT16 sSectorX, INT16 sSectorY
 	}
 
 	AffectAllTownsLoyaltyByDistanceFrom( iLoyaltyChange, sSectorX, sSectorY, bSectorZ);
+	
+#endif
 }
 
 
@@ -1848,6 +1882,12 @@ void CheckIfEntireTownHasBeenLost( INT8 bTownId, INT16 sSectorX, INT16 sSectorY 
 
 void HandleLoyaltyChangeForNPCAction( UINT8 ubNPCProfileId )
 {
+	//move to lua scripts StrategicTownLoyalty.lua
+
+#ifdef LUA_STRATEGY_TOWN_LOYALTY
+		LetHandleLoyaltyChangeForNPCAction( ubNPCProfileId, 0 );
+#else
+
 	switch ( ubNPCProfileId )
 	{
 		case MIGUEL:
@@ -1891,6 +1931,7 @@ void HandleLoyaltyChangeForNPCAction( UINT8 ubNPCProfileId )
 			break;
 
 	}
+#endif
 }
 
 
@@ -1973,7 +2014,8 @@ void HandleLoyaltyImplicationsOfMercRetreat( INT8 bRetreatCode, INT16 sSectorX, 
 	if ( bRetreatCode == RETREAT_TACTICAL_TRAVERSAL )
 	{
 		// if not worse than 2:1 odds, then penalize morale
-		if ( gTacticalStatus.fEnemyInSector && ( PlayerStrength() * 2 >= EnemyStrength() ) )
+		// SANDRO - Set the odds based on difficulty level
+		if ( gTacticalStatus.fEnemyInSector && ( (PlayerStrength() * (2 + gGameOptions.ubDifficultyLevel)) >= EnemyStrength() ) )
 		{
 			HandleMoraleEvent( NULL, MORALE_RAN_AWAY, sSectorX, sSectorY, (INT8)sSectorZ );
 		}

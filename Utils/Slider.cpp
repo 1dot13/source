@@ -624,10 +624,10 @@ void CalculateNewSliderIncrement( UINT32 uiSliderID, UINT16 usPos )
 
 	if( pSlider->uiFlags & SLIDER_VERTICAL )
 	{
-		if( usPos >= (UINT16)(pSlider->usHeight * (FLOAT).99 ) )
+		if( usPos >= (UINT16)(pSlider->usHeight * 0.99f ) )
 			fLastSpot = TRUE;
 
-		if( usPos <= (UINT16)(pSlider->usHeight * (FLOAT).01 ) )
+		if( usPos <= (UINT16)(pSlider->usHeight * 0.01f ) )
 			fFirstSpot = TRUE;
 
 

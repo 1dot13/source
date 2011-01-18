@@ -21,7 +21,7 @@
 	#include "Sound Control.h"
 #endif
 
-#include "VFS/Tools/ParserTools.h"
+#include <vfs/Tools/vfs_parser_tools.h>
 
 STR16 szClipboard;
 BOOLEAN gfNoScroll = FALSE;

@@ -1,12 +1,16 @@
+#include <vfs/Core/vfs_types.h>
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_file_raii.h>
+#include <vfs/Core/File/vfs_file.h>
+
+#include <vfs/Tools/vfs_tools.h>
+#include <vfs/Tools/vfs_property_container.h>
+
 #include "XML_Parser.h"
-#include "vfs_types.h"
-#include "PropertyContainer.h"
 #include "XMLWriter.h"
+#include "Debug.h"
 
-#include "VFS/vfs_file_raii.h"
-#include "VFS/File/vfs_file.h"
-
-CPropertyContainer::TagMap::TagMap()
+vfs::PropertyContainer::TagMap::TagMap()
 {
 	// setup default map
 	_map[L"Container"] = L"Container";
@@ -15,7 +19,7 @@ CPropertyContainer::TagMap::TagMap()
 	_map[L"Key"] = L"Key";
 	_map[L"KeyID"] = L"name";
 }
-utf8string const& CPropertyContainer::TagMap::container(utf8string::char_t* container)
+vfs::String const& vfs::PropertyContainer::TagMap::container(vfs::String::char_t* container)
 {
 	if(container)
 	{
@@ -23,7 +27,7 @@ utf8string const& CPropertyContainer::TagMap::container(utf8string::char_t* cont
 	}
 	return _map[L"Container"];
 }
-utf8string const& CPropertyContainer::TagMap::section(utf8string::char_t* section)
+vfs::String const& vfs::PropertyContainer::TagMap::section(vfs::String::char_t* section)
 {
 	if(section)
 	{
@@ -31,7 +35,7 @@ utf8string const& CPropertyContainer::TagMap::section(utf8string::char_t* sectio
 	}
 	return _map[L"Section"];
 }
-utf8string const& CPropertyContainer::TagMap::sectionID(utf8string::char_t* section_id)
+vfs::String const& vfs::PropertyContainer::TagMap::sectionID(vfs::String::char_t* section_id)
 {
 	if(section_id)
 	{
@@ -39,7 +43,7 @@ utf8string const& CPropertyContainer::TagMap::sectionID(utf8string::char_t* sect
 	}
 	return _map[L"SectionID"];
 }
-utf8string const& CPropertyContainer::TagMap::key(utf8string::char_t* key)
+vfs::String const& vfs::PropertyContainer::TagMap::key(vfs::String::char_t* key)
 {
 	if(key)
 	{
@@ -47,7 +51,7 @@ utf8string const& CPropertyContainer::TagMap::key(utf8string::char_t* key)
 	}
 	return _map[L"Key"];
 }
-utf8string const& CPropertyContainer::TagMap::keyID(utf8string::char_t* key_id)
+vfs::String const& vfs::PropertyContainer::TagMap::keyID(vfs::String::char_t* key_id)
 {
 	if(key_id)
 	{
@@ -56,7 +60,7 @@ utf8string const& CPropertyContainer::TagMap::keyID(utf8string::char_t* key_id)
 	return _map[L"KeyID"];
 }
 
-bool CPropertyContainer::writeToXMLFile(vfs::Path const& sFileName, CPropertyContainer::TagMap& tagmap)
+bool vfs::PropertyContainer::writeToXMLFile(vfs::Path const& sFileName, vfs::PropertyContainer::TagMap& tagmap)
 {
 	XMLWriter xmlw;
 
@@ -68,8 +72,8 @@ bool CPropertyContainer::writeToXMLFile(vfs::Path const& sFileName, CPropertyCon
 		xmlw.addAttributeToNextValue(tagmap.sectionID(),sit->first.utf8());
 		xmlw.openNode(tagmap.section());
 
-		CPropertyContainer::CSection& section = sit->second;
-		CPropertyContainer::CSection::tProps::iterator kit = section.mapProps.begin();
+		vfs::PropertyContainer::Section& section = sit->second;
+		vfs::PropertyContainer::Section::tProps::iterator kit = section.mapProps.begin();
 		for(; kit != section.mapProps.end(); ++kit)
 		{
 			xmlw.addAttributeToNextValue(tagmap.keyID(), kit->first.utf8());
@@ -99,11 +103,11 @@ class CPropertyXMLParser : public IXMLParser
 	};
 public:
 	CPropertyXMLParser(
-			CPropertyContainer& container,
-			CPropertyContainer::TagMap& tagmap,
+			vfs::PropertyContainer& container,
+			vfs::PropertyContainer::TagMap& tagmap,
 			XML_Parser &parser,
 			IXMLParser* caller = NULL)
-		: IXMLParser("",parser,caller), 
+		: IXMLParser("",&parser,caller), 
 		_container(container),
 		_tagmap(tagmap),
 		current_state(DO_ELEMENT_NONE) // doesn't matter where we come from, we start fresh
@@ -112,27 +116,27 @@ public:
 	virtual void onEndElement(const XML_Char* name);
 	virtual void onTextElement(const XML_Char *str, int len);
 private:
-	CPropertyContainer&				_container;
-	CPropertyContainer::TagMap&		_tagmap;
+	vfs::PropertyContainer&				_container;
+	vfs::PropertyContainer::TagMap&		_tagmap;
 	DOM_OBJECT						current_state;
-	utf8string						current_section;
-	utf8string						current_key;
+	vfs::String						current_section;
+	vfs::String						current_key;
 };
 
 
 void CPropertyXMLParser::onStartElement(const XML_Char *name, const XML_Char **atts)
 {
-	utf8string utf8_name(name);
-	if(current_state == DO_ELEMENT_NONE && StrCmp::Equal(utf8_name,_tagmap.container()))
+	vfs::String utf8_name(name);
+	if(current_state == DO_ELEMENT_NONE && vfs::StrCmp::Equal(utf8_name,_tagmap.container()))
 	{
 		current_state = DO_ELEMENT_Container;
 	}
-	else if(current_state == DO_ELEMENT_Container && StrCmp::Equal(utf8_name, _tagmap.section()))
+	else if(current_state == DO_ELEMENT_Container && vfs::StrCmp::Equal(utf8_name, _tagmap.section()))
 	{
 		current_state = DO_ELEMENT_Section;
 		current_section = this->getAttribute(_tagmap.sectionID().utf8().c_str(),atts);
 	}
-	else if(current_state == DO_ELEMENT_Section && StrCmp::Equal(utf8_name, _tagmap.key()))
+	else if(current_state == DO_ELEMENT_Section && vfs::StrCmp::Equal(utf8_name, _tagmap.key()))
 	{
 		current_state = DO_ELEMENT_Key;
 		current_key = this->getAttribute(_tagmap.keyID().utf8().c_str(),atts);
@@ -142,17 +146,17 @@ void CPropertyXMLParser::onStartElement(const XML_Char *name, const XML_Char **a
 
 void CPropertyXMLParser::onEndElement(const XML_Char* name)
 {
-	utf8string utf8_name(name);
-	if(current_state == DO_ELEMENT_Key && StrCmp::Equal(utf8_name, _tagmap.key()))
+	vfs::String utf8_name(name);
+	if(current_state == DO_ELEMENT_Key && vfs::StrCmp::Equal(utf8_name, _tagmap.key()))
 	{
 		_container.setStringProperty(current_section, current_key, vfs::trimString(sCharData,0,sCharData.length()));
 		current_state = DO_ELEMENT_Section;
 	}
-	else if(current_state == DO_ELEMENT_Section && StrCmp::Equal(utf8_name, _tagmap.section()))
+	else if(current_state == DO_ELEMENT_Section && vfs::StrCmp::Equal(utf8_name, _tagmap.section()))
 	{
 		current_state = DO_ELEMENT_Container;
 	}
-	else if(current_state == DO_ELEMENT_Container && StrCmp::Equal(utf8_name, _tagmap.container()))
+	else if(current_state == DO_ELEMENT_Container && vfs::StrCmp::Equal(utf8_name, _tagmap.container()))
 	{
 		current_state = DO_ELEMENT_NONE;
 	}
@@ -166,25 +170,23 @@ void CPropertyXMLParser::onTextElement(const XML_Char *str, int len)
 	}
 }
 
-bool CPropertyContainer::initFromXMLFile(vfs::Path const& sFileName, CPropertyContainer::TagMap& tagmap)
+bool vfs::PropertyContainer::initFromXMLFile(vfs::Path const& sFileName, vfs::PropertyContainer::TagMap& tagmap)
 {
 	vfs::tReadableFile *file = NULL;
 	bool delete_file = false;
-	try
+	if(getVFS()->fileExists(sFileName))
 	{
 		vfs::COpenReadFile rfile(sFileName);
 		file = &rfile.file();
 		rfile.release();
 	}
-	catch(CBasicException& ex)
+	else
 	{
-		logException(ex);
 		vfs::CFile* rfile = new vfs::CFile(sFileName);
 		delete_file = true;
 		file = vfs::tReadableFile::cast(rfile);
 		if(!file->openRead())
 		{
-			file->close();
 			delete file;
 			return false;
 		}
@@ -198,7 +200,7 @@ bool CPropertyContainer::initFromXMLFile(vfs::Path const& sFileName, CPropertyCo
 
 	std::vector<vfs::Byte> buffer(size+1);
 
-	TRYCATCH_RETHROW( file->read(&buffer[0],size), L"" );
+	SGP_TRYCATCH_RETHROW( file->read(&buffer[0],size), L"" );
 	buffer[size] = 0;
 
 	file->close();
@@ -213,10 +215,10 @@ bool CPropertyContainer::initFromXMLFile(vfs::Path const& sFileName, CPropertyCo
 	{
 		std::wstringstream wss;
 		wss << L"XML Parser Error in Groups.xml: "
-			<< utf8string::as_utf16(XML_ErrorString(XML_GetErrorCode(parser))) 
+			<< vfs::String::as_utf16(XML_ErrorString(XML_GetErrorCode(parser))) 
 			<< L" at line "
 			<< XML_GetCurrentLineNumber(parser);
-		THROWEXCEPTION(wss.str().c_str());
+		SGP_THROW(wss.str().c_str());
 		//return false;
 	}
 

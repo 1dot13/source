@@ -11,7 +11,7 @@
 	#include "Text.h"
 #endif
 
-
+#include "LocalizedStrings.h"
 
 // Defines
 
@@ -171,7 +171,6 @@ void HandleAimHistory()
 void RenderAimHistory()
 {
 	CHAR16	sText[400];
-	UINT32	uiStartLoc=0;
 	UINT16	usPosY;
 
 	DrawAimDefaults();
@@ -210,8 +209,15 @@ void RenderAimHistory()
 
 			// display coloniel Mohanned...
 			usPosY = AIM_HISTORY_PARAGRAPH_Y + (GetFontHeight(AIM_HISTORY_TEXT_FONT) + 2)* 5 + LAPTOP_SCREEN_WEB_DELTA_Y;
-			uiStartLoc = AIM_HISTORY_LINE_SIZE * COLONEL_MOHANNED;
-			LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+			if(!g_bUseXML_Strings)
+			{
+				UINT32 uiStartLoc = AIM_HISTORY_LINE_SIZE * COLONEL_MOHANNED;
+				LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+			}
+			else
+			{
+				Loc::GetString(Loc::AIM_HISTORY, L"Line", COLONEL_MOHANNED, sText, 400);
+			}
 			DisplayWrappedString(AIM_HISTORY_PARAGRAPH_X, iScreenHeightOffset + 210+LAPTOP_SCREEN_WEB_DELTA_Y, AIM_HISTORY_PARAGRAPH_WIDTH, 2, AIM_HISTORY_TEXT_FONT, AIM_HISTORY_TEXT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 			break;
 
@@ -220,13 +226,27 @@ void RenderAimHistory()
 			DisplayAimHistoryParagraph(INCORPORATION, 2);
 
 			// display dunn and bradbord...
-			uiStartLoc = AIM_HISTORY_LINE_SIZE * DUNN_AND_BRADROAD;
-			LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+			if(!g_bUseXML_Strings)
+			{
+				UINT32 uiStartLoc = AIM_HISTORY_LINE_SIZE * DUNN_AND_BRADROAD;
+				LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+			}
+			else
+			{
+				Loc::GetString(Loc::AIM_HISTORY, L"Line", DUNN_AND_BRADROAD, sText, 400);
+			}
 			DisplayWrappedString(AIM_HISTORY_PARAGRAPH_X, iScreenHeightOffset + 270+LAPTOP_SCREEN_WEB_DELTA_Y, AIM_HISTORY_PARAGRAPH_WIDTH, 2, AIM_HISTORY_TEXT_FONT, AIM_HISTORY_TEXT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 			//AIM_HISTORY_PARAGRAPH_Y
-			uiStartLoc = AIM_HISTORY_LINE_SIZE * INCORPORATION_3;
-			LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+			if(!g_bUseXML_Strings)
+			{
+				UINT32 uiStartLoc = AIM_HISTORY_LINE_SIZE * INCORPORATION_3;
+				LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+			}
+			else
+			{
+				Loc::GetString(Loc::AIM_HISTORY, L"Line", INCORPORATION_3, sText, 400);
+			}
 			DisplayWrappedString(AIM_HISTORY_PARAGRAPH_X, iScreenHeightOffset + 290+LAPTOP_SCREEN_WEB_DELTA_Y, AIM_HISTORY_PARAGRAPH_WIDTH, 2, AIM_HISTORY_TEXT_FONT, AIM_HISTORY_TEXT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 			break;
 	}
@@ -360,21 +380,34 @@ void SelectHistoryMenuButtonsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReaso
 BOOLEAN DisplayAimHistoryParagraph(UINT8	ubPageNum, UINT8 ubNumParagraphs)
 {
 	CHAR16	sText[400];
-	UINT32	uiStartLoc=0;
 	UINT16	usPosY=0;
 	UINT16	usNumPixels=0;
 
 	//title
-	uiStartLoc = AIM_HISTORY_LINE_SIZE * ubPageNum;
-	LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+	if(!g_bUseXML_Strings)
+	{
+		UINT32 uiStartLoc = AIM_HISTORY_LINE_SIZE * ubPageNum;
+		LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+	}
+	else
+	{
+		Loc::GetString(Loc::AIM_HISTORY, L"Line", ubPageNum, sText, 400);
+	}
 	DrawTextToScreen(sText, AIM_HISTORY_PARAGRAPH_X, AIM_HISTORY_SUBTITLE_Y, 0, AIM_HISTORY_PARAGRAPH_TITLE_FONT, AIM_HISTORY_PARAGRAPH_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 	if(ubNumParagraphs >= 1)
 	{
 		usPosY = AIM_HISTORY_PARAGRAPH_Y;
 		//1st paragraph
-		uiStartLoc = AIM_HISTORY_LINE_SIZE * (ubPageNum + 1 );
-		LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		if(!g_bUseXML_Strings)
+		{
+			UINT32 uiStartLoc = AIM_HISTORY_LINE_SIZE * (ubPageNum + 1 );
+			LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		}
+		else
+		{
+			Loc::GetString(Loc::AIM_HISTORY, L"Line", ubPageNum+1, sText, 400);
+		}
 		usNumPixels = DisplayWrappedString(AIM_HISTORY_PARAGRAPH_X, usPosY, AIM_HISTORY_PARAGRAPH_WIDTH, 2, AIM_HISTORY_TEXT_FONT, AIM_HISTORY_TEXT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	}
 
@@ -382,8 +415,15 @@ BOOLEAN DisplayAimHistoryParagraph(UINT8	ubPageNum, UINT8 ubNumParagraphs)
 	{
 		//2nd paragraph
 		usPosY += usNumPixels + AIM_HISTORY_SPACE_BETWEEN_PARAGRAPHS;
-		uiStartLoc = AIM_HISTORY_LINE_SIZE * (ubPageNum + 2 );
-		LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		if(!g_bUseXML_Strings)
+		{
+			UINT32 uiStartLoc = AIM_HISTORY_LINE_SIZE * (ubPageNum + 2 );
+			LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		}
+		else
+		{
+			Loc::GetString(Loc::AIM_HISTORY, L"Line", ubPageNum+2, sText, 400);
+		}
 		DisplayWrappedString(AIM_HISTORY_PARAGRAPH_X, usPosY, AIM_HISTORY_PARAGRAPH_WIDTH, 2, AIM_HISTORY_TEXT_FONT, AIM_HISTORY_TEXT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	}
 
@@ -391,9 +431,15 @@ BOOLEAN DisplayAimHistoryParagraph(UINT8	ubPageNum, UINT8 ubNumParagraphs)
 	{
 		//3rd paragraph
 		usPosY += usNumPixels + AIM_HISTORY_SPACE_BETWEEN_PARAGRAPHS;
-
-		uiStartLoc = AIM_HISTORY_LINE_SIZE * (ubPageNum + 3 );
-		LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		if(!g_bUseXML_Strings)
+		{
+			UINT32 uiStartLoc = AIM_HISTORY_LINE_SIZE * (ubPageNum + 3 );
+			LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		}
+		else
+		{
+			Loc::GetString(Loc::AIM_HISTORY, L"Line", ubPageNum+3, sText, 400);
+		}
 		DisplayWrappedString(AIM_HISTORY_PARAGRAPH_X, usPosY, AIM_HISTORY_PARAGRAPH_WIDTH, 2, AIM_HISTORY_TEXT_FONT, AIM_HISTORY_TEXT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	}
 
@@ -404,19 +450,18 @@ BOOLEAN DisplayAimHistoryParagraph(UINT8	ubPageNum, UINT8 ubNumParagraphs)
 
 BOOLEAN InitTocMenu()
 {
-	UINT16			i, usPosY;
-	UINT16			usHeight;
-	UINT16			usWidth=0;
-	UINT32			uiStartLoc=0;
-	CHAR16			sText[400];
-	UINT8				ubLocInFile[]=
-								{IN_THE_BEGINNING,
-								THE_ISLAND_METAVIRA,
-								GUS_TARBALLS,
-								WORD_FROM_FOUNDER,
-								INCORPORATION};
+	UINT16		i, usPosY;
+	UINT16		usHeight;
+	UINT16		usWidth=0;
+	CHAR16		sText[400];
+	UINT8		ubLocInFile[] = {
+					IN_THE_BEGINNING,
+					THE_ISLAND_METAVIRA,
+					GUS_TARBALLS,
+					WORD_FROM_FOUNDER,
+					INCORPORATION};
 
-	HVOBJECT		hContentButtonHandle;
+	HVOBJECT	hContentButtonHandle;
 
 	GetVideoObject(&hContentButtonHandle, guiContentButton);
 
@@ -424,9 +469,15 @@ BOOLEAN InitTocMenu()
 	usPosY = AIM_HISTORY_CONTENTBUTTON_Y;
 	for(i=0; i<NUM_AIM_HISTORY_PAGES; i++)
 	{
-		uiStartLoc = AIM_HISTORY_LINE_SIZE * ubLocInFile[i];
-		LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
-
+		if(!g_bUseXML_Strings)
+		{
+			UINT32 uiStartLoc = AIM_HISTORY_LINE_SIZE * ubLocInFile[i];
+			LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		}
+		else
+		{
+			Loc::GetString(Loc::AIM_HISTORY, L"Line", ubLocInFile[i], sText, 400);
+		}
 		usWidth = StringPixLength(sText, AIM_HISTORY_TOC_TEXT_FONT);
 
 		//if the mouse regions havent been inited, init them
@@ -439,7 +490,7 @@ BOOLEAN InitTocMenu()
 			MSYS_SetRegionUserData( &gSelectedHistoryTocMenuRegion[i], 0, i+1);
 		}
 
-	BltVideoObject(FRAME_BUFFER, hContentButtonHandle, 0,AIM_HISTORY_TOC_X, usPosY, VO_BLT_SRCTRANSPARENCY,NULL);
+		BltVideoObject(FRAME_BUFFER, hContentButtonHandle, 0,AIM_HISTORY_TOC_X, usPosY, VO_BLT_SRCTRANSPARENCY,NULL);
 		DrawTextToScreen(sText, AIM_HISTORY_TOC_X, (UINT16)(usPosY + AIM_HISTORY_TOC_Y), AIM_CONTENTBUTTON_WIDTH, AIM_HISTORY_TOC_TEXT_FONT, AIM_HISTORY_TOC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
 

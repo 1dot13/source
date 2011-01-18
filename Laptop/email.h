@@ -144,11 +144,11 @@
 //#define MERC_UP_LEVEL_BIGGENS			(MERC_UP_LEVEL_TEX + MERC_UP_LEVEL_TEX_LENGTH)
 //#define MERC_UP_LEVEL_BIGGENS_LENGTH	2
 
+
 #define	MERC_UP_LEVEL_GASTON			165
 #define MERC_UP_LEVEL_STOGIE			166
 #define MERC_UP_LEVEL_TEX				167
 #define MERC_UP_LEVEL_BIGGENS			168
-
 
 struct message{
 	STR16 pString;
@@ -299,6 +299,10 @@ void RemoveEmailMessage(INT32 iId);
 EmailPtr GetEmailMessage(INT32 iId);
 void LookForUnread();
 void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition);
+
+// WANNE: For the new WF merc
+void AddEmailWFMercLevelUp(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition);
+
 void AddPreReadEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate);
 BOOLEAN DisplayNewMailBox();
 void CreateDestroyNewMailButton();

@@ -4,6 +4,11 @@
 #define	AIM_FI_LEFT_CLICK_TEXT_X					(SCREEN_WIDTH - 640) / 2 + 116
 #define	AIM_FI_LEFT_CLICK_TEXT_Y					(SCREEN_HEIGHT - 480) / 2 + 35 + LAPTOP_SCREEN_WEB_DELTA_Y
 
+//tais: nsgi, left click text moved a bit to create space for small logo
+#define	AIM_FI_LEFT_CLICK_TEXT_X_NSGI				(SCREEN_WIDTH - 640) / 2 + 200
+#define	AIM_FI_LEFT_CLICK_TEXT_Y_NSGI				(SCREEN_HEIGHT - 480) / 2 + 35 + LAPTOP_SCREEN_WEB_DELTA_Y
+
+
 #define		AIM_FI_CLICK_DESC_TEXT_Y_OFFSET		16
 
 #define	AIM_FI_RIGHT_CLICK_TEXT_X					(SCREEN_WIDTH - 640) / 2 + 500
@@ -21,6 +26,8 @@ void HandleAimFacialIndex();
 BOOLEAN RenderAimFacialIndex();
 
 BOOLEAN DisplayAimFIMugShot();
+
+extern UINT8 START_MERC;
 
 #endif
 

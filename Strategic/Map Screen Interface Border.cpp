@@ -23,6 +23,12 @@
 	#include "Strategic Town Loyalty.h"
 	#include "strategicmap.h"
 	#include "Assignments.h"
+	// HEADROCK HAM 4: Now accepts INI settings
+	#include "GameSettings.h"
+	// Also include Town Militia for checks regarding Mobile Militia Restrictions
+	#include "Town Militia.h"
+	// Also include Quests, for checking whether a fact is true.
+	#include "Quests.h"
 #endif
 
 
@@ -31,6 +37,27 @@
 
 //#define MAP_BORDER_CORNER_X 584
 //#define MAP_BORDER_CORNER_Y 279
+
+// HEADROCK HAM 4: Now defining X/Y coordinates for Map Bottom buttons. Some day perhaps variable coordinates?
+UINT16 MAP_BORDER_TOWN_BTN_X;
+UINT16 MAP_BORDER_TOWN_BTN_Y;
+UINT16	MAP_BORDER_MINE_BTN_X;
+UINT16 MAP_BORDER_MINE_BTN_Y;
+UINT16 MAP_BORDER_TEAMS_BTN_X;
+UINT16	MAP_BORDER_TEAMS_BTN_Y;
+UINT16	MAP_BORDER_AIRSPACE_BTN_X;
+UINT16 MAP_BORDER_AIRSPACE_BTN_Y;
+UINT16	MAP_BORDER_ITEM_BTN_X;
+UINT16 MAP_BORDER_ITEM_BTN_Y;
+UINT16	MAP_BORDER_MILITIA_BTN_X;
+UINT16 MAP_BORDER_MILITIA_BTN_Y;
+UINT16 MAP_BORDER_MOBILE_BTN_X;
+UINT16 MAP_BORDER_MOBILE_BTN_Y;
+
+UINT16 MAP_LEVEL_MARKER_X;
+UINT16 MAP_LEVEL_MARKER_Y;
+UINT16 MAP_LEVEL_MARKER_DELTA;
+UINT16 MAP_LEVEL_MARKER_WIDTH;
 
 // extern to anchored button in winbart97
 extern GUI_BUTTON *gpAnchoredButton;
@@ -54,6 +81,7 @@ BOOLEAN fShowTeamFlag = FALSE;
 BOOLEAN fShowMilitia = FALSE;
 BOOLEAN fShowAircraftFlag = FALSE;
 BOOLEAN fShowItemsFlag = FALSE;
+BOOLEAN fShowMobileRestrictionsFlag = FALSE; // HEADROCK HAM 4
 
 BOOLEAN fZoomFlag = FALSE;
 //BOOLEAN fShowVehicleFlag = FALSE;
@@ -64,8 +92,9 @@ BOOLEAN fZoomFlag = FALSE;
 
 
 // buttons & button images
-INT32 giMapBorderButtons[ 6 ] = { -1, -1, -1, -1, -1, -1 };
-INT32 giMapBorderButtonsImage[ 6 ] = { -1, -1, -1, -1, -1, -1 };
+// HEADROCK HAM 4: Increase both arrays by one to accomodate new Mobile Restrictions button
+INT32 giMapBorderButtons[ 7 ] = { -1, -1, -1, -1, -1, -1, -1 };
+INT32 giMapBorderButtonsImage[ 7 ] = { -1, -1, -1, -1, -1, -1, -1 };
 
 //UINT32 guiMapBorderScrollButtons[ 4 ] = { -1, -1, -1, -1 };
 //UINT32 guiMapBorderScrollButtonsImage[ 4 ];
@@ -101,6 +130,8 @@ void BtnItemCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnAircraftCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnTeamCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnMilitiaCallback(GUI_BUTTON *btn,INT32 reason);
+// HEADROCK HAM 4: Mobile Restrictions Button callback
+void BtnMobileCallback(GUI_BUTTON *btn,INT32 reason);
 //void BtnZoomCallback(GUI_BUTTON *btn,INT32 reason);
 
 void BtnGenericMouseMoveButtonCallbackForMapBorder(GUI_BUTTON *btn,INT32 reason);
@@ -215,7 +246,15 @@ void RenderMapBorder( void )
 
 	// get and blt border
 	GetVideoObject(&hHandle, guiMapBorder );
-	BltVideoObject( guiSAVEBUFFER , hHandle, 0, MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+	// HEADROCK HAM 4: Load different map border depending on whether we want to display the mobile militia button or not.
+	if (gGameExternalOptions.gfAllowMilitiaGroups)
+	{
+		BltVideoObject( guiSAVEBUFFER , hHandle, 1, MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+	}
+	else
+	{
+		BltVideoObject( guiSAVEBUFFER , hHandle, 0, MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+	}
 
 	if (iResolution == 1 || iResolution == 2)
 	{
@@ -301,6 +340,8 @@ BOOLEAN CreateButtonsForMapBorder( void )
 {
 	// will create the buttons needed for the map screen border region
 
+	// HEADROCK HAM 4: Call to initiate coordinates for all buttons.
+	InitMapBorderButtonCoordinates();
 /*
 	// up button
 	guiMapBorderScrollButtonsImage[ ZOOM_MAP_SCROLL_UP ] = LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,11,4,-1,6,-1 );
@@ -333,42 +374,55 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	SetButtonFastHelpText( guiMapBorderScrollButtons[ 3 ], pMapScreenBorderButtonHelpText[ 9 ] );
 */
 
+	// HEADROCK HAM 4: Button X/Y coordinates are now INIT'ed separately.
+
 	// towns
 	giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,5,-1,14,-1 );
-	giMapBorderButtons[ MAP_BORDER_TOWN_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 152), (SCREEN_HEIGHT - 160),
+	giMapBorderButtons[ MAP_BORDER_TOWN_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ], MAP_BORDER_TOWN_BTN_X, MAP_BORDER_TOWN_BTN_Y,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnTownCallback);
 
 
 	// mines
 	giMapBorderButtonsImage[ MAP_BORDER_MINE_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,4,-1,13,-1 );
-	giMapBorderButtons[ MAP_BORDER_MINE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MINE_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 109), (SCREEN_HEIGHT - 160),
+	giMapBorderButtons[ MAP_BORDER_MINE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MINE_BTN ], MAP_BORDER_MINE_BTN_X, MAP_BORDER_MINE_BTN_Y,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnMineCallback);
 
 	// people
 	giMapBorderButtonsImage[ MAP_BORDER_TEAMS_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,3,-1,12,-1 );
-	giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TEAMS_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 66), (SCREEN_HEIGHT - 160),
+	giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TEAMS_BTN ], MAP_BORDER_TEAMS_BTN_X, MAP_BORDER_TEAMS_BTN_Y,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnTeamCallback);
 
 	// militia
 	giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,8,-1,17,-1 );
-	giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 23), (SCREEN_HEIGHT - 160),
+	giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ], MAP_BORDER_MILITIA_BTN_X, MAP_BORDER_MILITIA_BTN_Y,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnMilitiaCallback);
 
 	// airspace
 	giMapBorderButtonsImage[ MAP_BORDER_AIRSPACE_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,2,-1,11,-1 );
-	giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_AIRSPACE_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 20), (SCREEN_HEIGHT - 160),
+	giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_AIRSPACE_BTN ], MAP_BORDER_AIRSPACE_BTN_X, MAP_BORDER_AIRSPACE_BTN_Y,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnAircraftCallback);
 
 	// items
 	giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,1,-1,10,-1 );
-	giMapBorderButtons[ MAP_BORDER_ITEM_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 63), (SCREEN_HEIGHT - 160),
+	giMapBorderButtons[ MAP_BORDER_ITEM_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ], MAP_BORDER_ITEM_BTN_X, MAP_BORDER_ITEM_BTN_Y,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnItemCallback);
+
+	// WANNE: Only display the buton when mobile militia is allowed!
+	// HEADROCK HAM 4: Mobile Restrictions Button
+	if (gGameExternalOptions.gfAllowMilitiaGroups)
+	{
+		giMapBorderButtonsImage[ MAP_BORDER_MOBILE_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,20,-1,21,-1 );
+		giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MOBILE_BTN ], MAP_BORDER_MOBILE_BTN_X, MAP_BORDER_MOBILE_BTN_Y,
+											BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
+											(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnMobileCallback);
+	}
+
 
 
 	// raise and lower view level
@@ -395,6 +449,9 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	SetButtonFastHelpText( giMapBorderButtons[ 4 ], pMapScreenBorderButtonHelpText[ 4 ] );
 	SetButtonFastHelpText( giMapBorderButtons[ 5 ], pMapScreenBorderButtonHelpText[ 5 ] );
 
+	if (gGameExternalOptions.gfAllowMilitiaGroups)
+		SetButtonFastHelpText( giMapBorderButtons[ 6 ], pMapScreenBorderButtonHelpText[ 6 ] ); // HEADROCK HAM 4: Mobile Militia button
+
 	//SetButtonFastHelpText( guiMapBorderLandRaiseButtons[ 0 ], pMapScreenBorderButtonHelpText[ 10 ] );
 	//SetButtonFastHelpText( guiMapBorderLandRaiseButtons[ 1 ], pMapScreenBorderButtonHelpText[ 11 ] );
 
@@ -404,6 +461,9 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	SetButtonCursor(giMapBorderButtons[ 3 ], MSYS_NO_CURSOR );
 	SetButtonCursor(giMapBorderButtons[ 4 ], MSYS_NO_CURSOR );
 	SetButtonCursor(giMapBorderButtons[ 5 ], MSYS_NO_CURSOR );
+
+	if (gGameExternalOptions.gfAllowMilitiaGroups)
+		SetButtonCursor(giMapBorderButtons[ 6 ], MSYS_NO_CURSOR ); // HEADROCK HAM 4: Mobile Militia button
 
 //	SetButtonCursor(guiMapBorderLandRaiseButtons[ 0 ], MSYS_NO_CURSOR );
 //	SetButtonCursor(guiMapBorderLandRaiseButtons[ 1 ], MSYS_NO_CURSOR );
@@ -432,6 +492,10 @@ void DeleteMapBorderButtons( void )
 	RemoveButton( giMapBorderButtons[ 4 ]);
 	RemoveButton( giMapBorderButtons[ 5 ]);
 
+	// WANNE: Only remove if we added the button
+	if (gGameExternalOptions.gfAllowMilitiaGroups)
+		RemoveButton( giMapBorderButtons[ 6 ]); // HEADROCK HAM 4
+
 	//RemoveButton( guiMapBorderLandRaiseButtons[ 0 ]);
 	//RemoveButton( guiMapBorderLandRaiseButtons[ 1 ]);
 
@@ -451,11 +515,17 @@ void DeleteMapBorderButtons( void )
 	UnloadButtonImage( giMapBorderButtonsImage[ 4 ] );
 	UnloadButtonImage( giMapBorderButtonsImage[ 5 ] );
 
+	// WANNE: Only unload if we added the button
+	if (gGameExternalOptions.gfAllowMilitiaGroups)
+		UnloadButtonImage( giMapBorderButtonsImage[ 6 ] ); // HEADROCK HAM 4
+
+
 	//UnloadButtonImage( guiMapBorderLandRaiseButtonsImage[ 0 ] );
 	//UnloadButtonImage( guiMapBorderLandRaiseButtonsImage[ 1 ] );
 
 
-	for ( ubCnt = 0; ubCnt < 6; ubCnt++ )
+	// HEADROCK HAM 4: Increased number of buttons by one.
+	for ( ubCnt = 0; ubCnt < NUM_MAP_BORDER_BTNS; ubCnt++ )
 	{
 		giMapBorderButtons[ ubCnt ] = -1;
 		giMapBorderButtonsImage[ ubCnt ] = -1;
@@ -608,6 +678,21 @@ void BtnItemCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
+// HEADROCK HAM 4: Callback for Mobile Restrictions Button
+void BtnMobileCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		CommonBtnCallbackBtnDownChecks();
+
+		ToggleMobileFilter();
+	}
+	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
+	{
+		CommonBtnCallbackBtnDownChecks();
+	}
+}
+
 
 /*
 void BtnZoomCallback(GUI_BUTTON *btn,INT32 reason)
@@ -722,6 +807,12 @@ void ToggleShowMinesMode( void )
 		{
 			fShowItemsFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
+		}
+		// HEADROCK HAM 4: Mobile Militia Restrictions
+		if( fShowMobileRestrictionsFlag == TRUE )
+		{
+			fShowMobileRestrictionsFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		}
 	}
 
@@ -859,6 +950,26 @@ void ToggleItemsFilter( void )
 	}
 }
 
+// HEADROCK HAM 4: Toggle Mobile Restrictions Button
+void ToggleMobileFilter( void )
+{
+	if( fShowMobileRestrictionsFlag == TRUE )
+	{
+		// turn items OFF
+		fShowMobileRestrictionsFlag = FALSE;
+		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
+
+		// dirty regions
+		fMapPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fCharacterInfoPanelDirty = TRUE;
+	}
+	else
+	{
+		// turn items ON
+		TurnOnMobileFilterMode();
+	}
+}
 
 /*
 void ShowDestinationOfPlottedPath( STR16 pLoc )
@@ -1279,6 +1390,12 @@ void TurnOnShowTeamsMode( void )
 			fShowMilitia = FALSE;
 			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 		}
+		// HEADROCK HAM 4: Turn off Show Militia Restrictions
+		if (fShowMobileRestrictionsFlag == TRUE)
+		{
+			fShowMobileRestrictionsFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
+		}
 
 /*
 		if( fShowAircraftFlag == TRUE )
@@ -1340,6 +1457,12 @@ void TurnOnAirSpaceMode( void )
 			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 		}
 */
+		// HEADROCK HAM 4: Turn off Militia Restrictions
+		if (fShowMobileRestrictionsFlag == TRUE)
+		{
+			fShowMobileRestrictionsFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
+		}
 
 		// Turn off items
 		if( fShowItemsFlag == TRUE )
@@ -1403,6 +1526,12 @@ void TurnOnItemFilterMode( void )
 			fShowMilitia = FALSE;
 			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 		}
+		// HEADROCK HAM 4: Turn off Militia Restrictions
+		if (fShowMobileRestrictionsFlag == TRUE)
+		{
+			fShowMobileRestrictionsFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
+		}
 
 		if( fShowAircraftFlag == TRUE )
 		{
@@ -1422,6 +1551,77 @@ void TurnOnItemFilterMode( void )
 	}
 }
 
+// HEADROCK HAM 4: Activate "View Mobile Restrictions" mode.
+void TurnOnMobileFilterMode( void )
+{
+	// if mode already on, leave, else set and redraw
+
+	if( fShowMobileRestrictionsFlag == FALSE )
+	{
+		fShowMobileRestrictionsFlag = TRUE;
+		MapBorderButtonOn( MAP_BORDER_MOBILE_BTN );
+		// Also turn on Militia mode
+		fShowMilitia = FALSE; // Fool the function so that it always turns militia ON.
+		ToggleShowMilitiaMode();
+
+
+		if( fShowMineFlag == TRUE )
+		{
+			fShowMineFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_MINE_BTN );
+		}
+
+		if( fShowTeamFlag == TRUE )
+		{
+			fShowTeamFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_TEAMS_BTN );
+		}
+
+		if( fShowAircraftFlag == TRUE )
+		{
+			fShowAircraftFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
+		}
+
+		// Turn off items
+		if( fShowItemsFlag == TRUE )
+		{
+			fShowItemsFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
+		}
+
+		if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+		{
+			AbortMovementPlottingMode( );
+		}
+
+		STR16 pwString = NULL;
+
+		// check if player has any Mobile militia
+		if ( DoesPlayerHaveAnyMobileMilitia( ) == 1 )
+		{
+			// say you need to train mobiles first
+			pwString = zMarksMapScreenText[ 25 ];
+
+			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, pwString );
+		}
+
+		if ( !gubFact[ FACT_MOBILE_RESTRICTIONS_VIEWED ] )
+		{
+			// say you need to train mobiles first
+			pwString = zMarksMapScreenText[ 26 ];
+
+			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, pwString );
+
+			SetFactTrue( FACT_MOBILE_RESTRICTIONS_VIEWED );
+		}
+
+		// dirty regions
+		fMapPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fCharacterInfoPanelDirty = TRUE;
+	}
+}
 
 /*
 void UpdateLevelButtonStates( void )
@@ -1536,6 +1736,15 @@ void InitializeMapBorderButtonStates( void )
 	{
 		MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 	}
+
+	if( fShowMobileRestrictionsFlag )
+	{
+		MapBorderButtonOn( MAP_BORDER_MOBILE_BTN );
+	}
+	else
+	{
+		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
+	}
 }
 
 
@@ -1562,6 +1771,39 @@ BOOLEAN DoesPlayerHaveAnyMilitia( void )
 	return( FALSE );
 }
 
+// HEADROCK HAM 4: Check for Mobile Militia
+UINT8 DoesPlayerHaveAnyMobileMilitia( void )
+{
+	INT16 sX, sY;
+
+	if (!gGameExternalOptions.gfAllowMilitiaGroups)
+	{
+		// Mobile Militia not allowed at all.
+		return (0);
+	}
+
+	// run through list of towns that might have militia..if any return TRUE..else return FALSE
+	for( sX = 1; sX < MAP_WORLD_X - 1; sX++ )
+	{
+		for( sY = 1; sY < MAP_WORLD_Y - 1; sY++ )
+		{
+			// Look only in sectors where Militia Training is not allowed at all. If any militia are found there,
+			// it means that they had to MOVE there, hence mobile militia.
+			if (!MilitiaTrainingAllowedInSector( sX, sY, 0 ))
+			{
+				if( ( SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] +	SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]
+						+ SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] ) > 0 )
+				{
+					// found at least one
+					return( 2 );
+				}
+			}
+		}
+	}
+
+	// Militia are allowed, but none have been found.
+	return( 1 );
+}
 
 
 void CommonBtnCallbackBtnDownChecks( void )
@@ -1591,13 +1833,16 @@ void InitMapScreenFlags( void )
 
 	fShowAircraftFlag = FALSE;
 	fShowItemsFlag = FALSE;
+
+	// HEADROCK HAM 4: Militia Restrictions
+	fShowMobileRestrictionsFlag = FALSE;
 }
 
 
 
 void MapBorderButtonOff( UINT8 ubBorderButtonIndex )
 {
-	Assert( ubBorderButtonIndex < 6 );
+	Assert( ubBorderButtonIndex < NUM_MAP_BORDER_BTNS );
 
 	if( fShowMapInventoryPool )
 	{
@@ -1618,7 +1863,7 @@ void MapBorderButtonOff( UINT8 ubBorderButtonIndex )
 
 void MapBorderButtonOn( UINT8 ubBorderButtonIndex )
 {
-	Assert( ubBorderButtonIndex < 6 );
+	Assert( ubBorderButtonIndex < NUM_MAP_BORDER_BTNS );
 
 	if( fShowMapInventoryPool )
 	{
@@ -1634,4 +1879,41 @@ void MapBorderButtonOn( UINT8 ubBorderButtonIndex )
 	Assert( giMapBorderButtons[ ubBorderButtonIndex ] < MAX_BUTTONS );
 
 	ButtonList[ giMapBorderButtons[ ubBorderButtonIndex ] ]->uiFlags |= BUTTON_CLICKED_ON;
+}
+
+// HEADROCK HAM 4: Init the coordinates for all Map Border buttons
+void InitMapBorderButtonCoordinates()
+{
+	MAP_BORDER_TOWN_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 152);
+	MAP_BORDER_TOWN_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_MINE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 109);
+	MAP_BORDER_MINE_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_TEAMS_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 66);
+	MAP_BORDER_TEAMS_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_AIRSPACE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 20);
+	MAP_BORDER_AIRSPACE_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_ITEM_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 63);
+	MAP_BORDER_ITEM_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_MILITIA_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 23);
+	MAP_BORDER_MILITIA_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_MOBILE_BTN_X = 0;
+	MAP_BORDER_MOBILE_BTN_Y = 0;
+
+	MAP_LEVEL_MARKER_X = (MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 114));
+	MAP_LEVEL_MARKER_Y = (SCREEN_HEIGHT - 160);						//(SCREEN_HEIGHT - 157)		//323
+	MAP_LEVEL_MARKER_DELTA = 8;
+	MAP_LEVEL_MARKER_WIDTH = 55;	//( (SCREEN_WIDTH - 20) - MAP_LEVEL_MARKER_X )
+
+	if (gGameExternalOptions.gfAllowMilitiaGroups)
+	{
+		// Mobile button appears next to Militia button.
+		MAP_BORDER_MOBILE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 16);
+		MAP_BORDER_MOBILE_BTN_Y = (SCREEN_HEIGHT - 160);
+
+		// Airspace, Items, ZLevel buttons all moved to the right (+22px, +22px, +10px).
+		MAP_BORDER_AIRSPACE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 42);
+		MAP_BORDER_ITEM_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 85);
+
+		MAP_LEVEL_MARKER_X = (MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 124));
+	}
 }

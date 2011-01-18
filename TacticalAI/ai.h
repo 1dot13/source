@@ -97,6 +97,7 @@ typedef enum
 	AI_ACTION_TRAVERSE_DOWN,			// move down a level
 	AI_ACTION_OFFER_SURRENDER,		// offer surrender to the player
 	AI_ACTION_RAISE_GUN,
+	AI_ACTION_STEAL_MOVE, // added by SANDRO
 } ActionType;
 
 

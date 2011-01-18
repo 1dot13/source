@@ -32,7 +32,7 @@
 	#include "LaptopSave.h"
 #endif
 
-#include "VFS/Tools/ParserTools.h"
+#include <vfs/Tools/vfs_parser_tools.h>
 
 #define FULL_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 138
 #define NICK_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 195
@@ -1299,9 +1299,9 @@ BOOLEAN CheckCharacterInputForEgg( void )
 	iMechanical = 0;
 		iExplosives = 99;
 		iMedical = 0;
-		iSkillA = AMBIDEXT;
-		iSkillB = AUTO_WEAPS;
-	iPersonality = NO_PERSONALITYTRAIT;
+		iSkillA = AMBIDEXT_OT;
+		iSkillB = AUTO_WEAPS_OT;
+	iPersonality = NO_DISABILITY;
 		iAttitude = ATT_ASSHOLE;
 		iCurrentImpPage = IMP_FINISH;
 //		LaptopSaveInfo.iCurrentVoice = 1;
@@ -1324,9 +1324,9 @@ BOOLEAN CheckCharacterInputForEgg( void )
 	iMechanical = 40;
 		iExplosives = 25;
 		iMedical = 60;
-		iSkillA = MARTIALARTS;
-		iSkillB = AUTO_WEAPS;
-	iPersonality = NO_PERSONALITYTRAIT;
+		iSkillA = MARTIALARTS_OT;
+		iSkillB = AUTO_WEAPS_OT;
+	iPersonality = NO_DISABILITY;
 		iAttitude = ATT_FRIENDLY;
 		iCurrentImpPage = IMP_FINISH;
 //		LaptopSaveInfo.iCurrentVoice = 1;
@@ -1349,9 +1349,9 @@ BOOLEAN CheckCharacterInputForEgg( void )
 	iMechanical = 100;
 		iExplosives = 100;
 		iMedical = 100;
-		iSkillA = MARTIALARTS;
-		iSkillB = AUTO_WEAPS;
-	iPersonality = NO_PERSONALITYTRAIT;
+		iSkillA = MARTIALARTS_OT;
+		iSkillB = AUTO_WEAPS_OT;
+	iPersonality = NO_DISABILITY;
 		iAttitude = ATT_FRIENDLY;
 		iCurrentImpPage = IMP_FINISH;
 //		LaptopSaveInfo.iCurrentVoice = 2;
@@ -1376,10 +1376,10 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iExplosives = 99;
 		iMedical = 75;
 
-		iSkillA = STEALTHY;
-		iSkillB = MARTIALARTS;
+		iSkillA = STEALTHY_OT;
+		iSkillB = MARTIALARTS_OT;
 
-		iPersonality = NO_PERSONALITYTRAIT;
+		iPersonality = NO_DISABILITY;
 		iAttitude = ATT_AGGRESSIVE;
 		iCurrentImpPage = IMP_FINISH;
 //		LaptopSaveInfo.iCurrentVoice = 1;
@@ -1404,10 +1404,10 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iExplosives = 0;
 		iMedical = 99;
 
-		iSkillA = AUTO_WEAPS;
-		iSkillB = AMBIDEXT;
+		iSkillA = AUTO_WEAPS_OT;
+		iSkillB = AMBIDEXT_OT;
 
-		iPersonality = NO_PERSONALITYTRAIT;
+		iPersonality = NO_DISABILITY;
 		iAttitude = ATT_ARROGANT;
 		iCurrentImpPage = IMP_FINISH;
 //		LaptopSaveInfo.iCurrentVoice = 1;
@@ -1432,10 +1432,10 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iExplosives = 99;
 		iMedical = 35;
 
-		iSkillA = AUTO_WEAPS;
-		iSkillB = MARTIALARTS;
+		iSkillA = AUTO_WEAPS_OT;
+		iSkillB = MARTIALARTS_OT;
 
-		iPersonality = NO_PERSONALITYTRAIT;
+		iPersonality = NO_DISABILITY;
 		iAttitude = ATT_AGGRESSIVE;
 		iCurrentImpPage = IMP_FINISH;
 //		LaptopSaveInfo.iCurrentVoice = 1;
@@ -1460,10 +1460,10 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iExplosives = 99;
 		iMedical = 0;
 
-		iSkillA = AUTO_WEAPS;
-		iSkillB = MARTIALARTS;
+		iSkillA = AUTO_WEAPS_OT;
+		iSkillB = MARTIALARTS_OT;
 
-		iPersonality = NO_PERSONALITYTRAIT;
+		iPersonality = NO_DISABILITY;
 		iAttitude = ATT_LONER;
 		iCurrentImpPage = IMP_FINISH;
 //		LaptopSaveInfo.iCurrentVoice = 1;
@@ -1486,8 +1486,8 @@ BOOLEAN CheckCharacterInputForEgg( void )
 	iMechanical = 0;
 		iExplosives = 99;
 		iMedical = 0;
-		iSkillA = AMBIDEXT;
-		iSkillB = AUTO_WEAPS;
+		iSkillA = AMBIDEXT_OT;
+		iSkillB = AUTO_WEAPS_OT;
 	iPersonality = PSYCHO;
 		iAttitude = ATT_ASSHOLE;
 		iCurrentImpPage = IMP_FINISH;
@@ -1542,10 +1542,10 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iExplosives = 99;
 		iMedical = 60;
 
-		iSkillA = ELECTRONICS;
-		iSkillB = LOCKPICKING;
+		iSkillA = ELECTRONICS_OT;
+		iSkillB = LOCKPICKING_OT;
 
-		iPersonality = NO_PERSONALITYTRAIT;
+		iPersonality = NO_DISABILITY;
 		iAttitude = ATT_LONER;
 		iCurrentImpPage = IMP_FINISH;
 //		LaptopSaveInfo.iCurrentVoice = 1;
@@ -1575,7 +1575,7 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iSkillA = 0;
 		iSkillB = 0;
 
-		iPersonality = NO_PERSONALITYTRAIT;
+		iPersonality = NO_DISABILITY;
 		iAttitude = ATT_LONER;
 		iCurrentImpPage = IMP_FINISH;
 		LaptopSaveInfo.iIMPIndex = 54;

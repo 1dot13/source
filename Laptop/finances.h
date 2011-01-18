@@ -53,6 +53,7 @@ enum
 	SOLD_ITEMS,
 	FACILITY_OPERATIONS, // HEADROCK HAM 3.6: Facility costs (daily payment)
 	MILITIA_UPKEEP, // HEADROCK HAM 3.6: Militia Upkeep Costs (daily payment)
+	TEXT_NUM_FINCANCES
 };
 
 

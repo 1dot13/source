@@ -21,6 +21,7 @@
 	#include "environment.h"
 	#include "dialogue control.h"
 	#include "Random.h"
+	#include "gamesettings.h"
 #endif
 
 // Room Information
@@ -289,7 +290,11 @@ void RemoveRoomRoof( INT32 sGridNo, UINT8 bRoomNum, SOLDIERTYPE *pSoldier )
 
 						if ( pSoldier != NULL )
 						{
-							TacticalCharacterDialogue( pSoldier, (UINT16)( QUOTE_SPOTTED_SOMETHING_ONE + Random( 2 ) ) );
+						//ddd
+							//TacticalCharacterDialogue( pSoldier, (UINT16)( QUOTE_SPOTTED_SOMETHING_ONE + Random( 2 ) ) );
+							if(Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) )
+								TacticalCharacterDialogue( pSoldier, (UINT16)( QUOTE_SPOTTED_SOMETHING_ONE + Random( 2 ) ) );
+								//ddd
 						}
 					}
 				}

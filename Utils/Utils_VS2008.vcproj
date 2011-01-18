@@ -21,7 +21,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Debug.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -83,7 +83,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -148,7 +148,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -213,7 +213,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -275,7 +275,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -379,6 +379,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\bink.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Cinematics Bink.h"
+				>
+			</File>
+			<File
 				RelativePath="Cinematics.h"
 				>
 			</File>
@@ -407,11 +415,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ExportStrings.h"
+				>
+			</File>
+			<File
 				RelativePath="Font Control.h"
 				>
 			</File>
 			<File
+				RelativePath=".\ImportStrings.h"
+				>
+			</File>
+			<File
 				RelativePath="INIReader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LocalizedStrings.h"
 				>
 			</File>
 			<File
@@ -491,7 +511,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_auto_parse.h"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_Parser.h"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_SenderNameList.h"
 				>
 			</File>
 			<File
@@ -579,6 +607,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Cinematics Bink.cpp"
+				>
+			</File>
+			<File
 				RelativePath="Cinematics.cpp"
 				>
 			</File>
@@ -607,11 +639,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ExportStrings.cpp"
+				>
+			</File>
+			<File
 				RelativePath="Font Control.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\ImportStrings.cpp"
+				>
+			</File>
+			<File
 				RelativePath="INIReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LocalizedStrings.cpp"
 				>
 			</File>
 			<File
@@ -688,6 +732,10 @@
 			</File>
 			<File
 				RelativePath="XML_Items.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_SenderNameList.cpp"
 				>
 			</File>
 			<File

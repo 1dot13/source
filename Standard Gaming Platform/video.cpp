@@ -18,11 +18,12 @@
 #include "Fileman.h"
 #include "Input.h"
 #include "GameSettings.h"
+#include "sgp_logger.h"
 #endif
 
 #include "resource.h"
-#include "VFS/vfs.h"
-#include "VFS/vfs_file_raii.h"
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_file_raii.h>
 
 #include "Local.h"
 #include "text.h"
@@ -665,15 +666,39 @@ void ShutdownVideoManager(void)
 	// down
 	//
 
-	IDirectDrawSurface2_Release(gpMouseCursorOriginal);
-	IDirectDrawSurface2_Release(gpMouseCursor);
-	IDirectDrawSurface2_Release(gMouseCursorBackground[0].pSurface);
-	IDirectDrawSurface2_Release(gpBackBuffer);
-	IDirectDrawSurface2_Release(gpPrimarySurface);
+	if(gpMouseCursorOriginal)
+	{
+		IDirectDrawSurface2_Release(gpMouseCursorOriginal);
+		gpMouseCursorOriginal = NULL;
+	}
+	if(gpMouseCursor)
+	{
+		IDirectDrawSurface2_Release(gpMouseCursor);
+		gpMouseCursor = NULL;
+	}
+	if(gMouseCursorBackground[0].pSurface)
+	{
+		IDirectDrawSurface2_Release(gMouseCursorBackground[0].pSurface);
+		gMouseCursorBackground[0].pSurface = NULL;
+	}
+	if(gpBackBuffer)
+	{
+		IDirectDrawSurface2_Release(gpBackBuffer);
+		gpBackBuffer = NULL;
+	}
+	if(gpPrimarySurface)
+	{
+		IDirectDrawSurface2_Release(gpPrimarySurface);
+		gpPrimarySurface = NULL;
+	}
 
-	IDirectDraw2_RestoreDisplayMode( gpDirectDrawObject );
-	IDirectDraw2_SetCooperativeLevel(gpDirectDrawObject, ghWindow, DDSCL_NORMAL );
-	IDirectDraw2_Release( gpDirectDrawObject );
+	if(gpDirectDrawObject)
+	{
+		IDirectDraw2_RestoreDisplayMode( gpDirectDrawObject );
+		IDirectDraw2_SetCooperativeLevel(gpDirectDrawObject, ghWindow, DDSCL_NORMAL );
+		IDirectDraw2_Release( gpDirectDrawObject );
+		gpDirectDrawObject = NULL;
+	}
 
 	// destroy the window
 	// DestroyWindow( ghWindow );
@@ -1993,7 +2018,7 @@ void RefreshScreen(void *DummyVariable)
 		{
 			vfs::COpenWriteFile wfile(FileName,true,true);
 			char head[] = {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, LOBYTE(SCREEN_WIDTH), HIBYTE(SCREEN_WIDTH), LOBYTE(SCREEN_HEIGHT), HIBYTE(SCREEN_HEIGHT), 0x10, 0};
-			TRYCATCH_RETHROW(wfile.file().write(head,18), L"");
+			SGP_TRYCATCH_RETHROW(wfile->write(head,18), L"");
 #endif
 
 			//
@@ -2034,7 +2059,7 @@ void RefreshScreen(void *DummyVariable)
 #ifndef USE_VFS
 					fwrite( p16BPPData, SCREEN_WIDTH * 2, 1, OutputFile);
 #else
-					TRYCATCH_RETHROW(wfile.file().write((vfs::Byte*)p16BPPData, SCREEN_WIDTH * 2), L"");
+					SGP_TRYCATCH_RETHROW(wfile->write((vfs::Byte*)p16BPPData, SCREEN_WIDTH * 2), L"");
 #endif
 				}
 				else
@@ -2042,7 +2067,7 @@ void RefreshScreen(void *DummyVariable)
 #ifndef USE_VFS
 					fwrite((void *)(((UINT8 *)SurfaceDescription.lpSurface) + (iIndex * SCREEN_WIDTH * 2)), SCREEN_WIDTH * 2, 1, OutputFile);
 #else
-					TRYCATCH_RETHROW(wfile.file().write((vfs::Byte*)(((UINT8 *)SurfaceDescription.lpSurface) + (iIndex * SCREEN_WIDTH * 2)), SCREEN_WIDTH * 2), L"");
+					SGP_TRYCATCH_RETHROW(wfile->write((vfs::Byte*)(((UINT8 *)SurfaceDescription.lpSurface) + (iIndex * SCREEN_WIDTH * 2)), SCREEN_WIDTH * 2), L"");
 #endif
 				}
 			}
@@ -2069,9 +2094,9 @@ void RefreshScreen(void *DummyVariable)
 		}
 
 #ifdef USE_VFS
-		catch(CBasicException& ex)
+		catch(std::exception& ex)
 		{
-			RETHROWEXCEPTION(L"",&ex);
+			SGP_RETHROW(L"", ex);
 		}
 #endif
 
@@ -3177,8 +3202,12 @@ void FatalError( const STR8 pError, ...)
 	gfFatalError = TRUE;
 
 	// Release DDraw
-	IDirectDraw2_RestoreDisplayMode( gpDirectDrawObject );
-	IDirectDraw2_Release( gpDirectDrawObject );
+	if(gpDirectDrawObject)
+	{
+		IDirectDraw2_RestoreDisplayMode( gpDirectDrawObject );
+		IDirectDraw2_Release( gpDirectDrawObject );
+		gpDirectDrawObject = NULL;
+	}
 	ShowWindow( ghWindow, SW_HIDE );
 
 	// destroy the window
@@ -3186,8 +3215,8 @@ void FatalError( const STR8 pError, ...)
 
 	gfProgramIsRunning = FALSE;
 
-	MessageBox( ghWindow, gFatalErrorString, "JA2 Fatal Error", MB_OK | MB_TASKMODAL );
-
+	//MessageBox( ghWindow, gFatalErrorString, "JA2 Fatal Error", MB_OK | MB_TASKMODAL );
+	MessageBoxW( ghWindow, vfs::String::as_utf16(gFatalErrorString).c_str(), L"JA2 Fatal Error", MB_OK | MB_TASKMODAL );
 }
 
 
@@ -3383,7 +3412,7 @@ void RefreshMovieCache( )
 #ifndef USE_VFS
 		fwrite(&Header, sizeof(TARGA_HEADER), 1, disk);
 #else
-		TRYCATCH_RETHROW(wfile.file().write((vfs::Byte*)&Header, sizeof(TARGA_HEADER)), L"");
+		SGP_TRYCATCH_RETHROW(wfile->write((vfs::Byte*)&Header, sizeof(TARGA_HEADER)), L"");
 #endif
 		pDest = gpFrameData[ cnt ];
 
@@ -3394,7 +3423,7 @@ void RefreshMovieCache( )
 #ifndef USE_VFS
 				fwrite( ( pDest + ( iCountY * SCREEN_WIDTH ) + iCountX ), sizeof(UINT16), 1, disk);
 #else
-				TRYCATCH_RETHROW(wfile.file().write( (vfs::Byte*)( pDest + ( iCountY * SCREEN_WIDTH ) + iCountX ), sizeof(UINT16)), L"");
+				SGP_TRYCATCH_RETHROW(wfile->write( (vfs::Byte*)( pDest + ( iCountY * SCREEN_WIDTH ) + iCountX ), sizeof(UINT16)), L"");
 #endif
 			}
 
@@ -3414,9 +3443,9 @@ void RefreshMovieCache( )
 	//SetFileManCurrentDirectory( ExecDir );
 #else
 	}
-	catch(CBasicException& ex)
+	catch(std::exception& ex)
 	{
-		logException(ex);
+		SGP_ERROR(ex.what());
 	}
 #endif
 }

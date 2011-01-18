@@ -1,7 +1,8 @@
 #ifndef _MUSIC_CONTROL_H_
 #define _MUSIC_CONTROL_H_
 
-enum MusicList {
+enum MusicList
+{
 	MARIMBAD2_MUSIC,
 	MENUMIX_MUSIC,
 	NOTHING_A_MUSIC,
@@ -20,8 +21,8 @@ enum MusicList {
 	NUM_MUSIC
 };
 
-enum MusicMode {
-
+enum MusicMode
+{
 	MUSIC_NONE,
 	MUSIC_RESTORE,
 	MUSIC_MAIN_MENU,
@@ -33,23 +34,34 @@ enum MusicMode {
 	MUSIC_LAPTOP,
 };
 
-extern UINT32		uiMusicHandle;
-extern BOOLEAN	fMusicPlaying;
-extern UINT8		gubMusicMode;
-extern BOOLEAN	gfForceMusicToTense;
+//extern UINT32 uiMusicHandle;
+//extern BOOLEAN fMusicPlaying;
+//extern UINT8 gubMusicMode;
+//extern BOOLEAN gfForceMusicToTense;
 
+UINT8 GetMusicMode(void);
+BOOLEAN SetMusicMode(UINT8 ubMusicMode);
 
-BOOLEAN SetMusicMode( UINT8 ubMusicMode );
+// only for editor (editscreen.cpp)
 BOOLEAN MusicPlay(UINT32 uiNum);
-BOOLEAN MusicSetVolume(UINT32 uiVolume);
+
 UINT32 MusicGetVolume(void);
-BOOLEAN MusicStop(void);
-BOOLEAN MusicFadeOut(void);
-BOOLEAN MusicFadeIn(void);
-BOOLEAN MusicPoll( BOOLEAN fForce );
+BOOLEAN MusicSetVolume(UINT32 uiVolume);
 
-void SetMusicFadeSpeed( INT8 bFadeSpeed );
+BOOLEAN MusicPoll(BOOLEAN fForce);
 
-void FadeMusicForXSeconds( UINT32 uiDelay );
+void SetMusicFadeSpeed(INT8 bFadeSpeed);
+
+BOOLEAN UsingCreatureMusic(void);
+void UseCreatureMusic(BOOLEAN fUseCreatureMusic);
+
+// only for luaglobal.cpp
+BOOLEAN IsMusicPlaying(void);
+UINT32 GetMusicHandle(void);
+
+//BOOLEAN MusicStop(void);
+//BOOLEAN MusicFadeOut(void);
+//BOOLEAN MusicFadeIn(void);
+//void FadeMusicForXSeconds( UINT32 uiDelay );
 
 #endif

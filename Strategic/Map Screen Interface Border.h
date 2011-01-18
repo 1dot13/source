@@ -30,6 +30,8 @@ enum{
 	MAP_BORDER_AIRSPACE_BTN,
 	MAP_BORDER_ITEM_BTN,
 	MAP_BORDER_MILITIA_BTN,
+	MAP_BORDER_MOBILE_BTN, // HEADROCK HAM 4: Mobile Militia Restrictions button
+	NUM_MAP_BORDER_BTNS, // end enumeration marker
 };
 
 
@@ -41,10 +43,12 @@ enum{
 */
 
 
-#define MAP_LEVEL_MARKER_X			(MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 114))	//MAP_BORDER_X + MAP_BORDER_X_OFFSET + 384		//(SCREEN_WIDTH - 75)			//565
-#define MAP_LEVEL_MARKER_Y			(SCREEN_HEIGHT - 160)						//(SCREEN_HEIGHT - 157)		//323
-#define MAP_LEVEL_MARKER_DELTA		8
-#define MAP_LEVEL_MARKER_WIDTH		55	//( (SCREEN_WIDTH - 20) - MAP_LEVEL_MARKER_X )
+// HEADROCK HAM 4: Turned these into EXTERNS to allow dynamic modification
+//#define MAP_LEVEL_MARKER_X			(MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 114))	//MAP_BORDER_X + MAP_BORDER_X_OFFSET + 384		//(SCREEN_WIDTH - 75)			//565
+extern UINT16 MAP_LEVEL_MARKER_X;
+extern UINT16 MAP_LEVEL_MARKER_Y;
+extern UINT16 MAP_LEVEL_MARKER_DELTA;
+extern UINT16 MAP_LEVEL_MARKER_WIDTH;
 
 
 extern BOOLEAN fShowTownFlag;
@@ -54,6 +58,7 @@ extern BOOLEAN fShowMilitia;
 extern BOOLEAN fShowAircraftFlag;
 extern BOOLEAN fShowItemsFlag;
 extern BOOLEAN fZoomFlag;
+extern BOOLEAN fShowMobileRestrictionsFlag; // HEADROCK HAM 4: Manual Mobile Militia mode
 //extern BOOLEAN fShowVehicleFlag;
 
 //extern BOOLEAN fMapScrollDueToPanelButton;
@@ -77,10 +82,14 @@ void ToggleShowMilitiaMode( void );
 void ToggleShowTeamsMode( void );
 void ToggleAirspaceMode( void );
 void ToggleItemsFilter( void );
+// HEADROCK HAM 4: Toggle Mobile Militia Restrictions Filter
+void ToggleMobileFilter( void );
 
 void TurnOnShowTeamsMode( void );
 void TurnOnAirSpaceMode( void );
 void TurnOnItemFilterMode( void );
+// HEADROCK HAM 4: Turn on Mobile Militia Restrictions Filter
+void TurnOnMobileFilterMode( void );
 
 /*
 // enable disable map border
@@ -95,6 +104,8 @@ BOOLEAN CreateButtonsForMapBorder( void );
 // render the pop up for eta	in path plotting in map screen
 void RenderMapBorderEtaPopUp( void );
 BOOLEAN DoesPlayerHaveAnyMilitia( void );
+// HEADROCK HAM 4: Same with Mobiles.
+UINT8 DoesPlayerHaveAnyMobileMilitia( void );
 
 //void UpdateLevelButtonStates( void );
 
@@ -107,6 +118,7 @@ void InitMapScreenFlags( void );
 void MapBorderButtonOff( UINT8 ubBorderButtonIndex );
 void MapBorderButtonOn( UINT8 ubBorderButtonIndex );
 
-
+// HEADROCK HAM 4: Initialize coordinates for Map Border buttons
+void InitMapBorderButtonCoordinates();
 
 #endif

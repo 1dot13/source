@@ -15,6 +15,9 @@
 	#include "Buildings.h"
 	#include "worldman.h"
 	#include "Assignments.h"
+	// added by SANDRO
+	#include "Soldier Profile.h"
+	#include "GameSettings.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -464,4 +467,48 @@ INT8 DecideAutoBandage( SOLDIERTYPE * pSoldier )
 
 	// do nothing
 	return( AI_ACTION_NONE );
+}
+
+// SANDRO - added a function
+BOOLEAN DoctorIsPresent( SOLDIERTYPE * pPatient, BOOLEAN fOnDoctorAssignmentCheck )
+{
+	SOLDIERTYPE *	pMedic = NULL;
+	UINT8			cnt;
+	INT8			bSlot;
+	BOOLEAN			fDoctorHasBeenFound = FALSE;
+
+	cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	for ( pMedic = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pMedic++)
+	{
+		if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
+		{
+			// is nowhere around!
+			continue; // NEXT!!!
+		}
+
+		if ( pPatient->ubID == pMedic->ubID )
+		{
+			// cannot make surgery on self!
+			continue; // NEXT!!!		
+		}
+		if ( fOnDoctorAssignmentCheck && pMedic->bAssignment != DOCTOR )
+		{
+			// not on the right assignment!
+			continue; // NEXT!!!
+		}
+
+		bSlot = FindMedKit( pMedic );
+		if (bSlot == NO_SLOT)
+		{
+			// no medical kit!
+			continue; // NEXT!!!
+		}
+
+		if (pMedic->stats.bLife > OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && (NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery))
+		{
+			fDoctorHasBeenFound = TRUE;
+		}
+	}
+
+	return( fDoctorHasBeenFound );
 }

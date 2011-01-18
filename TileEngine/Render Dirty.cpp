@@ -1154,7 +1154,7 @@ void AllocateVideoOverlayArea( UINT32 uiCount )
 		// Allocate
 		if( ( gVideoOverlays[ uiCount ].pSaveArea = (INT16 *) MemAlloc( uiBufSize ) ) == NULL )
 		{
-			THROWEXCEPTION(L"Memory allocation failed");
+			SGP_THROW(L"Memory allocation failed");
 		}
 		BYTE* data = (BYTE*)gVideoOverlays[ uiCount ].pSaveArea;
 		SurfaceData::SetApplicationData(data);

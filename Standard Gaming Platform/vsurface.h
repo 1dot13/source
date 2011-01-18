@@ -54,18 +54,23 @@ typedef struct
 // Used to describe the memory usage of a video Surface
 //
 
-#define	VSURFACE_DEFAULT_MEM_USAGE		0x00000001			// Default mem usage is same as DD, try video and then try system. Will usually work
-#define	VSURFACE_VIDEO_MEM_USAGE			0x00000002			// Will force surface into video memory and will fail if it can't
-#define	VSURFACE_SYSTEM_MEM_USAGE			0x00000004			// Will force surface into system memory and will fail if it can't
-#define VSURFACE_RESERVED_SURFACE			0x00000100			// Reserved for special purposes, like a primary surface
+#define VSURFACE_DEFAULT_MEM_USAGE        0x00000001		// Default mem usage is same as DD, try video and then try system. Will usually work
+#define VSURFACE_VIDEO_MEM_USAGE          0x00000002		// Will force surface into video memory and will fail if it can't
+#define VSURFACE_SYSTEM_MEM_USAGE         0x00000004		// Will force surface into system memory and will fail if it can't
+#define VSURFACE_RESERVED_SURFACE         0x00000100		// Reserved for special purposes, like a primary surface
 
 //
 // Video Surface creation flags
 // Used in the VSurface_DESC structure to describe creation flags
 //
 
-#define VSURFACE_CREATE_DEFAULT			0x00000020		// Creates and empty Surface of given width, height and BPP
-#define VSURFACE_CREATE_FROMFILE			0x00000040		// Creates a video Surface from a file ( using HIMAGE )
+#define VSURFACE_CREATE_DEFAULT           0x00000020		// Creates and empty Surface of given width, height and BPP
+#define VSURFACE_CREATE_FROMFILE          0x00000040		// Creates a video Surface from a file ( using HIMAGE )
+
+#define VSURFACE_CREATE_FROMJPC           0x00010000		// replace file extension : sti -> jpc.7z
+#define VSURFACE_CREATE_FROMPNG           0x00020000		// replace file extension : sti -> png
+#define VSURFACE_CREATE_FROMJPC_FALLBACK  0x00100000		// replace file extension : sti -> jpc.7z, fall back to sti when it doesn't exist
+#define VSURFACE_CREATE_FROMPNG_FALLBACK  0x00200000		// replace file extension : sti -> png, fall back to sti when it doesn't exist
 
 //
 // The following structure is used to define a region of the video Surface

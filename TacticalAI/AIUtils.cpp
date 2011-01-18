@@ -23,7 +23,13 @@
 	#include "environment.h"
 	#include "lighting.h"
 	#include "Soldier Create.h"
+	#include "SkillCheck.h" // added by SANDRO
 #endif
+
+//////////////////////////////////////////////////////////////////////////////
+// SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
+//			On the bottom here, there are these functions made
+//////////////////////////////////////////////////////////////////////
 
 //
 // CJC's DG->JA2 conversion notes
@@ -151,9 +157,9 @@ UINT8 StanceChange( SOLDIERTYPE * pSoldier, INT16 ubAttackAPCost )
 
 	if (PTR_STANDING)
 	{
-		if (pSoldier->bActionPoints - ubAttackAPCost >= APBPConstants[AP_CROUCH])
+		if (pSoldier->bActionPoints - ubAttackAPCost >= GetAPsCrouch(pSoldier, TRUE))
 		{
-			if ( (pSoldier->bActionPoints - ubAttackAPCost >= APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE]) && IsValidStance( pSoldier, ANIM_PRONE ) && ConsiderProne( pSoldier ) )
+			if ( (pSoldier->bActionPoints - ubAttackAPCost >= GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE)) && IsValidStance( pSoldier, ANIM_PRONE ) && ConsiderProne( pSoldier ) )
 			{
 				return( ANIM_PRONE );
 			}
@@ -165,7 +171,7 @@ UINT8 StanceChange( SOLDIERTYPE * pSoldier, INT16 ubAttackAPCost )
 	}
 	else if (PTR_CROUCHED)
 	{
-		if ( (pSoldier->bActionPoints - ubAttackAPCost >= APBPConstants[AP_PRONE]) && IsValidStance( pSoldier, ANIM_PRONE ) && ConsiderProne( pSoldier ) )
+		if ( (pSoldier->bActionPoints - ubAttackAPCost >= GetAPsProne(pSoldier, TRUE)) && IsValidStance( pSoldier, ANIM_PRONE ) && ConsiderProne( pSoldier ) )
 		{
 			return( ANIM_PRONE );
 		}
@@ -192,7 +198,7 @@ UINT8 ShootingStanceChange( SOLDIERTYPE * pSoldier, ATTACKTYPE * pAttack, INT8 b
 	uiCurrChanceOfDamage = 0;
 
 	bAPsAfterAttack = pSoldier->bActionPoints - MinAPsToAttack( pSoldier, pAttack->sTarget, ADDTURNCOST, 1);
-	if (bAPsAfterAttack < APBPConstants[AP_CROUCH])
+	if (bAPsAfterAttack < GetAPsCrouch(pSoldier, TRUE))
 	{
 		return( 0 );
 	}
@@ -220,7 +226,7 @@ UINT8 ShootingStanceChange( SOLDIERTYPE * pSoldier, ATTACKTYPE * pAttack, INT8 b
 	for (bLoop = 0; bLoop < 3; bLoop++)
 	{
 		bStanceDiff = abs( bLoop - bStanceNum );
-		if (bStanceDiff == 2 && bAPsAfterAttack < APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE])
+		if (bStanceDiff == 2 && bAPsAfterAttack < GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE))
 		{
 			// can't consider this!
 			continue;
@@ -487,7 +493,7 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			break;
 
 		case AI_ACTION_PICKUP_ITEM:           // grab things lying on the ground
-			bMinPointsNeeded = __max( MinPtsToMove( pSoldier ), APBPConstants[AP_PICKUP_ITEM] );
+			bMinPointsNeeded = __max( MinPtsToMove( pSoldier ), GetBasicAPsToPickupItem( pSoldier ) ); // SANDRO
 			break;
 
 		case AI_ACTION_OPEN_OR_CLOSE_DOOR:
@@ -497,7 +503,7 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			break;
 
 		case AI_ACTION_DROP_ITEM:
-			bMinPointsNeeded = APBPConstants[AP_PICKUP_ITEM];
+			bMinPointsNeeded = GetBasicAPsToPickupItem( pSoldier ); // SANDRO
 			break;
 
 		case AI_ACTION_FIRE_GUN:              // shoot at nearby opponent
@@ -534,7 +540,7 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			break;
 
 		case AI_ACTION_CHANGE_STANCE:                // crouch
-			bMinPointsNeeded = APBPConstants[AP_CROUCH];
+			bMinPointsNeeded = GetAPsCrouch(pSoldier, TRUE);
 			break;
 
 		case AI_ACTION_GIVE_AID:              // help injured/dying friend
@@ -542,16 +548,17 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			break;
 
 		case AI_ACTION_CLIMB_ROOF:
+			// SANDRO - improved this a bit
 			if (pSoldier->pathing.bLevel == 0)
 			{
-				if( PTR_CROUCHED ) bAPForStandUp = 2;
-				if( PTR_PRONE ) bAPForStandUp = 4;
-				bMinPointsNeeded = APBPConstants[AP_CLIMBROOF] + bAPForStandUp + bAPToLookAtWall;
+				if( PTR_CROUCHED ) bAPForStandUp = (INT8)(GetAPsCrouch(pSoldier, TRUE));
+				if( PTR_PRONE ) bAPForStandUp = GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE);
+				bMinPointsNeeded = GetAPsToClimbRoof( pSoldier, FALSE ) + bAPForStandUp + bAPToLookAtWall;
 			}
 			else
 			{
-				if( !PTR_CROUCHED ) bAPForStandUp = 2;
-				bMinPointsNeeded = APBPConstants[AP_CLIMBOFFROOF] + bAPForStandUp + bAPToLookAtWall;
+				if( !PTR_CROUCHED ) bAPForStandUp = (INT8)(GetAPsCrouch(pSoldier, TRUE));
+				bMinPointsNeeded = GetAPsToClimbRoof( pSoldier, TRUE ) + bAPForStandUp + bAPToLookAtWall;
 			}
 			break;
 
@@ -562,6 +569,10 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 		case AI_ACTION_TRAVERSE_DOWN:
 		case AI_ACTION_OFFER_SURRENDER:
 			bMinPointsNeeded = 0;
+			break;
+
+		case AI_ACTION_STEAL_MOVE: // added by SANDRO
+			//bMinPointsNeeded = GetAPsToStealItem( pSoldier, NULL, pSoldier->aiData.usActionData );;
 			break;
 
 		default:
@@ -2084,6 +2095,9 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
 	 (pSoldier->aiData.bAttitude == BRAVESOLO || pSoldier->aiData.bAttitude == BRAVEAID))
 	bMoraleCategory = MORALE_WORRIED;
 
+ // SANDRO - on Insane difficulty enemy morale cannot go below worried
+ if (bMoraleCategory == MORALE_HOPELESS && gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+	bMoraleCategory = MORALE_WORRIED;
 
 #ifdef DEBUGDECISIONS
 		STR tempstr;
@@ -2128,7 +2142,7 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT32 sMyGrid, UINT8 ubReduceForC
 	else
 	{
 		// ADD twice the man's level (2-20)
-		iThreatValue += pEnemy->stats.bExpLevel;
+		iThreatValue += EffectiveExpLevel(pEnemy); // SANDRO - find precise effective exp level
 
 		// ADD man's total action points (10-35)
 		iThreatValue += pEnemy->CalcActionPoints();
@@ -2725,7 +2739,7 @@ INT32 CalcStraightThreatValue( SOLDIERTYPE *pEnemy )
 	else
 	{
 		// ADD twice the man's level (2-20)
-		iThreatValue += pEnemy->stats.bExpLevel;
+		iThreatValue += EffectiveExpLevel(pEnemy); // SANDRO - find precise effective exp level
 
 		// ADD man's total action points (10-35)
 		iThreatValue += pEnemy->CalcActionPoints();

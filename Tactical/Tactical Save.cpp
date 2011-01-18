@@ -48,7 +48,7 @@
 	#include "Map Screen Interface Map Inventory.h"
 #endif
 
-#include "VFS/vfs.h"
+#include <vfs/Core/vfs.h>
 BOOLEAN gfWasInMeanwhile = FALSE;
 
 
@@ -2299,7 +2299,9 @@ BOOLEAN InitTempNpcQuoteInfoForNPCFromTempFile()
 
 
 	//loop through all the npc accounts and write the temp array to disk
-	for( usCnt1=0; usCnt1< ( GASTON-FIRST_RPC ); usCnt1++)
+	//for( usCnt1=0; usCnt1< ( GASTON-FIRST_RPC ); usCnt1++)
+	//new profiles by Jazz
+	for( usCnt1=0; usCnt1< NUM_PROFILES; usCnt1++)
 	{
 
 		memset( TempNpcQuote, 0, uiSizeOfTempArray );
@@ -2685,6 +2687,16 @@ BOOLEAN SetSectorFlag( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet
 			{
 				// visited enough to count as an active day
 				UpdateLastDayOfPlayerActivity( (UINT16) GetWorldDay() );
+			}
+
+			for ( UINT8 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
+			{
+				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && MercPtrs[ i ]->ubProfile != NO_PROFILE &&
+					MercPtrs[ i ]->sSectorX == sMapX && MercPtrs[ i ]->sSectorY == sMapY && MercPtrs[ i ]->bSectorZ == bMapZ && !MercPtrs[ i ]->flags.fBetweenSectors &&
+					MercPtrs[ i ]->bAssignment != IN_TRANSIT && MercPtrs[ i ]->bAssignment != ASSIGNMENT_DEAD )
+				{
+					gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usSectorsDiscovered++;
+				}
 			}
 		}
 	}

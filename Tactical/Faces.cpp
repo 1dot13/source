@@ -61,90 +61,10 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 extern BOOLEAN	gfInItemPickupMenu;
 
+RPC_SMALL_FACE_VALUES gRPCSmallFaceValues[200];
+UINT8	ubRPCNumSmallFaceValues = 200;
 
-
-typedef struct
-{
-	INT8		bEyesX;
-	INT8		bEyesY;
-	INT8		bMouthX;
-	INT8		bMouthY;
-
-} RPC_SMALL_FACE_VALUES;
-
-
-RPC_SMALL_FACE_VALUES gRPCSmallFaceValues[ ] =
-{
-	9,	8,	8,	24,		// MIGUEL		( 57 )
-	8,	8,	7,	24,		// CARLOS		( 58 )
-	10,	8,	8,	26,		// IRA			( 59 )
-	7, 8,	7,	26,		// DIMITRI	( 60 )
-	6,	7,	7,	23,		// DEVIN		( 61 )
-	0,	0,	0,	0,		// THE RAT	( 62 )
-	8,	7,	8,	23,		//					( 63 )
-	8,	8,	8,	22,		// SLAY			( 64 )
-	0,	0,	0,	0,		//					( 65 )
-	9,	4,	7,	22,		// DYNAMO		( 66 )
-	8,	8,	8,	25,		// SHANK		( 67 )
-	4,	6,	5,	22,		// IGGY			( 68 )
-	8,	9,	7,	25,		// VINCE		( 69 )
-	4,	7,	5,	25,		// CONRAD		( 70 )
-	9,	7,	8,	22,		// CARL			( 71 )
-	9,	7,	9,	25,		// MADDOG		( 72 )
-	0,	0,	0,	0,		//					( 73 )
-	0,	0,	0,	0,		//					( 74 )
-
-	9,	3,	8,	23,		// MARIA		( 88 )
-
-	9,	3,	8,	25,		// JOEY			( 90 )
-
-	11,	7,	9,	24,		// SKYRIDER	( 97 )
-	9,	5,	7,	23,		// Miner	( 106 )
-
-	6,	4,	6,	24,		// JOHN					( 118 )
-	12,4,	10,	24,			//					( 119 )
-	8,	6,	8,	23,		// Miner	( 148 )
-	6,	5,	6,	23,		// Miner	( 156 )
-	13,	7,	11,	24,		// Miner	( 157 )
-	9,	7,	8,	22,		// Miner	( 158 )
-
-};
-
-UINT8	gubRPCSmallFaceProfileNum[] =
-{
-	57, // entry 0
-	58,
-	59,
-	60,
-	61,
-	62,
-	63,
-	64,
-	65,
-	66, // entry 9
-	67,
-	68,
-	69,
-	70,
-	71,
-	72,
-	73,
-	74,
-	88,
-	90, // entry 19
-	97,
-	106,
-	118,
-	119,
-	148, // entry 24
-	156,
-	157,
-	158,
-
-};
-
-UINT8	ubRPCNumSmallFaceValues = 28;
-
+CAMO_FACE gCamoFace[255];
 
 extern BOOLEAN	gfSMDisableForItems;
 extern INT16		gsCurInterfacePanel;
@@ -293,24 +213,91 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 	}
 	else if ( usMercProfileID == TEX )
 	{
-		if( gMercProfiles[ TEX ].bSkillTrait2 == CAMOUFLAGED )
+		// SANDRO - old/new traits check (I am not sure if this is used at all)
+		if ( gGameOptions.fNewTraitSystem )
 		{
-			sprintf( VObjectDesc.ImageFile, "FACES\\B167c.sti" );
+			if ( ProfileHasSkillTrait( TEX, RANGER_NT ) > 0 )
+			{
+				sprintf( VObjectDesc.ImageFile, "FACES\\B167c.sti" );
+			}
+		}
+		else
+		{
+			if ( ProfileHasSkillTrait( TEX, CAMOUFLAGED_OT ) > 0 )
+			{
+				sprintf( VObjectDesc.ImageFile, "FACES\\B167c.sti" );
+			}
 		}
 		}
-
 	}
 	else
 	{
 
-		if( iFaceFileID < 100 )
+		if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 		{
-			// The filename is the profile ID!
-			sprintf( VObjectDesc.ImageFile, "FACES\\%02d.sti", iFaceFileID );
+			if( iFaceFileID < 100 )
+			{
+				// The filename is the profile ID!
+					sprintf( VObjectDesc.ImageFile, "FACES\\%02d.sti", iFaceFileID );	
+				
+				if ( gCamoFace[usMercProfileID].gCamoface == TRUE )
+				{
+					sprintf( VObjectDesc.ImageFile, "FACES\\WoodCamo\\%02d.sti", iFaceFileID );
+				}
+				else if ( gCamoFace[usMercProfileID].gUrbanCamoface == TRUE )
+				{
+					sprintf( VObjectDesc.ImageFile, "FACES\\UrbanCamo\\%02d.sti", iFaceFileID );
+				}	
+				else if ( gCamoFace[usMercProfileID].gDesertCamoface == TRUE )
+				{
+					sprintf( VObjectDesc.ImageFile, "FACES\\DesertCamo\\%02d.sti", iFaceFileID );
+				}
+				else if ( gCamoFace[usMercProfileID].gSnowCamoface == TRUE )
+				{
+					sprintf( VObjectDesc.ImageFile, "FACES\\SnowCamo\\%02d.sti", iFaceFileID );
+				}
+
+					if (!FileExists(VObjectDesc.ImageFile))
+						sprintf( VObjectDesc.ImageFile, "FACES\\%02d.sti", iFaceFileID );								
+			}
+			else
+			{
+			
+					sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );
+					
+				if ( gCamoFace[usMercProfileID].gCamoface == TRUE )
+				{
+					sprintf( VObjectDesc.ImageFile, "FACES\\Woodcamo\\%03d.sti", iFaceFileID );
+				}
+				else if ( gCamoFace[usMercProfileID].gUrbanCamoface == TRUE )
+				{
+					sprintf( VObjectDesc.ImageFile, "FACES\\UrbanCamo\\%03d.sti", iFaceFileID );
+				}	
+				else if ( gCamoFace[usMercProfileID].gDesertCamoface == TRUE )
+				{
+					sprintf( VObjectDesc.ImageFile, "FACES\\DesertCamo\\%03d.sti", iFaceFileID );
+				}
+				else if ( gCamoFace[usMercProfileID].gSnowCamoface == TRUE )
+				{
+					sprintf( VObjectDesc.ImageFile, "FACES\\SnowCamo\\%03d.sti", iFaceFileID );
+				}
+				
+					if (!FileExists(VObjectDesc.ImageFile))
+						sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );	
+				
+			}
 		}
-		else
+		else if (gGameExternalOptions.fShowCamouflageFaces == FALSE )
 		{
-			sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );
+			if( iFaceFileID < 100 )
+			{
+				// The filename is the profile ID!
+				sprintf( VObjectDesc.ImageFile, "FACES\\%02d.sti", iFaceFileID );
+			}
+			else
+			{
+				sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );
+			}
 		}
 	}
 
@@ -507,50 +494,21 @@ void GetFaceRelativeCoordinates( FACETYPE *pFace, UINT16 *pusEyesX, UINT16 *pusE
 	usMouthY			=	gMercProfiles[ usMercProfileID ].usMouthY;
 	usMouthX			= gMercProfiles[ usMercProfileID ].usMouthX;
 
-	//if( usMercProfileID == TEX && gMercProfiles[ TEX ].bSkillTrait2 == CAMOUFLAGED )
-	//{
-	//	usEyesX				= 13;
-	//	usEyesY				= 34;
-	//	usMouthX			= 13;
-	//	usMouthY			= 55;
-	//}
-
 	// Use some other values for x,y, base on if we are a RPC!
 	if ( !( pFace->uiFlags & FACE_BIGFACE ) ||( pFace->uiFlags & FACE_FORCE_SMALL ))
 	{
-		if (usMercProfileID == TEX)
-		{
-			//	3,	6,	3,	23,		// Tex			( 64 )
-			usEyesX				= 3;
-			usEyesY				= 6;
-			usMouthX			= 3;
-			usMouthY			= 23;
-		}
-		else if (usMercProfileID == BIGGENS)
-		{
-			//	5, 6,	5,	25,		// Biggens	( 61 )
-			usEyesX				= 5;
-			usEyesY				= 6;
-			usMouthX			= 5;
-			usMouthY			= 25;
-
-		}
-		// Are we a recruited merc? .. or small?
-		else if( ( gMercProfiles[ usMercProfileID ].ubMiscFlags & ( PROFILE_MISC_FLAG_RECRUITED | PROFILE_MISC_FLAG_EPCACTIVE ) ) ||( pFace->uiFlags & FACE_FORCE_SMALL ) )
-		{
-			// Loop through all values of availible merc IDs to find ours!
-			for ( cnt = 0; cnt < ubRPCNumSmallFaceValues; cnt++ )
-			{
-				// We've found one!
-				if ( gubRPCSmallFaceProfileNum[ cnt ] == usMercProfileID )
-				{
-					usEyesX				= gRPCSmallFaceValues[ cnt ].bEyesX;
-					usEyesY				= gRPCSmallFaceValues[ cnt ].bEyesY;
-					usMouthY			=	gRPCSmallFaceValues[ cnt ].bMouthY;
-					usMouthX			= gRPCSmallFaceValues[ cnt ].bMouthX;
-				}
-			}
-
+		// Loop through all values of availible merc IDs to find ours!
+		for ( cnt = 0; cnt < ubRPCNumSmallFaceValues; cnt++ )
+		{			
+			// We've found one!
+			if (gRPCSmallFaceValues[ cnt ].FaceIndex == usMercProfileID &&
+				gRPCSmallFaceValues[ cnt ].uiIndex != 65535)
+			{					
+				usEyesX				= gRPCSmallFaceValues[ cnt ].bEyesX;
+				usEyesY				= gRPCSmallFaceValues[ cnt ].bEyesY;
+				usMouthY			= gRPCSmallFaceValues[ cnt ].bMouthY;
+				usMouthX			= gRPCSmallFaceValues[ cnt ].bMouthX;				
+			}						
 		}
 	}
 
@@ -558,7 +516,6 @@ void GetFaceRelativeCoordinates( FACETYPE *pFace, UINT16 *pusEyesX, UINT16 *pusE
 	(*pusEyesY)		= usEyesY;
 	(*pusMouthX)	= usMouthX;
 	(*pusMouthY)	= usMouthY;
-
 }
 
 
@@ -1195,6 +1152,88 @@ BOOLEAN RenderAutoFaceFromSoldier( UINT8 ubSoldierID )
 	return( RenderAutoFace( MercPtrs[ ubSoldierID ]->iFaceIndex ) );
 }
 
+//---------------------------------------LEGION-------------------------------
+
+void GetXYForIconPlacement_legion( FACETYPE *pFace, UINT16 ubIndex, INT16 sFaceX, INT16 sFaceY, INT16 *psX, INT16 *psY )
+{
+	INT16 sX, sY;
+	UINT16 usWidth, usHeight;
+	ETRLEObject						*pTrav;
+	HVOBJECT							hVObject;
+
+	// Get height, width of icon...
+	GetVideoObject( &hVObject, guiPORTRAITICONS_NV );
+	pTrav = &(hVObject->pETRLEObject[ ubIndex ] );
+	usHeight				= pTrav->usHeight;
+	usWidth					= pTrav->usWidth;
+
+	sX = sFaceX + pFace->usFaceWidth - usWidth - 1;
+	sY = sFaceY + pFace->usFaceHeight - usHeight - 1;
+	
+	*psX = sX;
+	*psY = sY;
+}
+
+void GetXYForRightIconPlacement_legion_NV( FACETYPE *pFace, UINT16 ubIndex, INT16 sFaceX, INT16 sFaceY, INT16 *psX, INT16 *psY, INT8 bNumIcons )
+{
+	INT16 sX, sY;
+	UINT16 usWidth, usHeight;
+	ETRLEObject						*pTrav;
+	HVOBJECT							hVObject;
+	
+	// Get height, width of icon...
+	GetVideoObject( &hVObject, guiPORTRAITICONS_NV );
+	pTrav = &(hVObject->pETRLEObject[ ubIndex ] );
+	usHeight				= pTrav->usHeight;
+	usWidth					= pTrav->usWidth;
+
+	sX = sFaceX + ( usWidth * bNumIcons ) + 1;
+	sY = sFaceY + pFace->usFaceHeight - usHeight - 1;
+
+	*psX = sX;
+	*psY = sY;
+}
+void DoRightIcon_legion_NV( UINT32 uiRenderBuffer, FACETYPE *pFace, INT16 sFaceX, INT16 sFaceY, INT8 bNumIcons, UINT8 sIconIndex )
+{
+	INT16						sIconX, sIconY;	
+
+	GetXYForRightIconPlacement_legion_NV( pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, bNumIcons );
+	BltVideoObjectFromIndex( uiRenderBuffer, guiPORTRAITICONS_NV, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
+
+}
+
+void GetXYForRightIconPlacement_legion_GAS_MASK( FACETYPE *pFace, UINT16 ubIndex, INT16 sFaceX, INT16 sFaceY, INT16 *psX, INT16 *psY, INT8 bNumIcons )
+{
+	INT16 sX, sY;
+	UINT16 usWidth, usHeight;
+	ETRLEObject						*pTrav;
+	HVOBJECT							hVObject;
+	
+	// Get height, width of icon...
+	GetVideoObject( &hVObject, guiPORTRAITICONS_GAS_MASK );
+	pTrav = &(hVObject->pETRLEObject[ ubIndex ] );
+	usHeight				= pTrav->usHeight;
+	usWidth					= pTrav->usWidth;
+
+	sX = sFaceX + ( usWidth * bNumIcons ) + 1;
+	sY = sFaceY + pFace->usFaceHeight - usHeight - 1;
+
+	*psX = sX;
+	*psY = sY;
+}
+void DoRightIcon_legion_GAS_MASK( UINT32 uiRenderBuffer, FACETYPE *pFace, INT16 sFaceX, INT16 sFaceY, INT8 bNumIcons, UINT8 sIconIndex )
+{
+	INT16						sIconX, sIconY;
+
+	// Find X, y for placement	
+
+	GetXYForRightIconPlacement_legion_GAS_MASK( pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, bNumIcons );
+	BltVideoObjectFromIndex( uiRenderBuffer, guiPORTRAITICONS_GAS_MASK, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
+
+}
+//----------------------------------------------------------------
+
+
 void GetXYForIconPlacement( FACETYPE *pFace, UINT16 ubIndex, INT16 sFaceX, INT16 sFaceY, INT16 *psX, INT16 *psY )
 {
 	INT16 sX, sY;
@@ -1268,6 +1307,14 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 	UINT8						*pDestBuf;
 	UINT16					usLineColor;
 	INT8			bNumRightIcons = 0;
+	
+	BOOLEAN			fDoIcon_legion = FALSE; //legion
+	INT16			sIconIndex_legion =-1; //legion
+	INT8			bNumRightIcons_legion = 0;
+	BOOLEAN	MASK = FALSE; //legion
+	UINT32 uiFaceItemOne=0;
+	UINT32 uiFaceItemTwo=0;
+	UINT8  ubFaceItemsCombined=0;
 
 	// If we are using an extern buffer...
 	if ( fUseExternBuffer )
@@ -1427,6 +1474,310 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			sIconIndex = 4;
 			fDoIcon		= TRUE;
 	}
+
+
+
+//------------------------------------Legion 2 by jazz--------------------------------
+	// rewritten by silversurfer
+	// this section chooses the icons for face gear if the ini setting "SHOW_TACTICAL_FACE_ICONS" is TRUE 
+	// and the merc actually wears something to be shown
+	if (gGameExternalOptions.fShowTacticalFaceIcons == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
+		( MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem + MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem ) > 0 ) 
+	{
+		uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
+		uiFaceItemTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;
+	
+		// check first face slot
+		if ( uiFaceItemOne != NONE )
+		{
+			switch( uiFaceItemOne )
+			{
+				// gas mask
+				case GASMASK:
+					uiFaceItemOne = 1;
+					break;
+				// NV goggles
+				case 211:
+				case 246:
+				case 1024:
+				case 1025:
+					uiFaceItemOne = 2;
+					break;
+				// sun goggles
+				case 212:
+					uiFaceItemOne = 3;
+					break;
+				// extended ear
+				case 210:
+					uiFaceItemOne = 4;
+					break;
+				default:
+					uiFaceItemOne = 0;
+					break;
+			}
+		}
+		
+		// check second face slot
+		if ( uiFaceItemTwo != NONE )
+		{
+			switch( uiFaceItemTwo )
+			{
+				// gas mask
+				case GASMASK:
+					uiFaceItemTwo = 21;
+					break;
+				// NV goggles
+				case 211:
+				case 246:
+				case 1024:
+				case 1025:
+					uiFaceItemTwo = 42;
+					break;
+				// sun goggles
+				case 212:
+					uiFaceItemTwo = 63;
+					break;
+				// extended ear
+				case 210:
+					uiFaceItemTwo = 84;
+					break;
+				default:
+					uiFaceItemTwo = 0;
+					break;
+			}
+		}
+
+		// Now select the correct icon. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
+		// the numbers on the outer border are used if that is the only item worn in that slot
+		//
+		//								21			42			63				84	
+		//	 face slot 1 \ slot 2	gas mask | NV goggles | sun goggles | extended ear
+		// 1	gas mask				--			43			64				85
+		// 2	NV goggles				23			--			--				86
+		// 3	sun goggles				24			--			--				87
+		// 4	extended ear			25			46			67				--
+		//
+		// this matrix leaves room for expansion
+		ubFaceItemsCombined = uiFaceItemOne + uiFaceItemTwo;
+		
+		switch( ubFaceItemsCombined )
+		{
+			// gas mask only
+			case 1:
+			case 21:
+				sIconIndex = 9;
+				fDoIcon		 = TRUE;
+				break;
+			// NV goggles only
+			case 2:
+			case 42:
+				sIconIndex = 10;
+				fDoIcon		 = TRUE;
+				break;
+			// sun goggles only
+			case 3:
+			case 63:
+				sIconIndex = 15;
+				fDoIcon		 = TRUE;
+				break;
+			// extended ear only
+			case 4:
+			case 84:
+				sIconIndex = 12;
+				fDoIcon		 = TRUE;
+				break;
+			// gas mask + NV goggles
+			case 23:
+			case 43:
+				sIconIndex = 11;
+				fDoIcon		 = TRUE;
+				break;
+			// gas mask + sun goggles
+			case 24:
+			case 64:
+				sIconIndex = 16;
+				fDoIcon		 = TRUE;
+				break;
+			// gas mask + extended ear
+			case 25:
+			case 85:
+				sIconIndex = 13;
+				fDoIcon		 = TRUE;
+				break;
+			// NV goggles + extended ear
+			case 46:
+			case 86:
+				sIconIndex = 14;
+				fDoIcon		 = TRUE;
+				break;
+			// sun goggles + extended ear
+			case 67:
+			case 87:
+				sIconIndex = 18;
+				fDoIcon		 = TRUE;
+				break;
+			default:
+				break;
+		}
+    }
+    
+	// this section chooses the pictures for gas mask and NV goggles if the ini setting "SHOW_TACTICAL_FACE_GEAR" is TRUE
+	// and the merc actually wears something to be shown
+	if (gGameExternalOptions.fShowTacticalFaceGear == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
+		( MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem + MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem ) > 0 &&
+		// dirty hack for IMPs because they don't have pictures for face gear
+		( MercPtrs[ pFace->ubSoldierID ]->ubProfile < 51 || MercPtrs[ pFace->ubSoldierID ]->ubProfile > 56 )) 
+	{
+		// WANNE: Removed the limitation
+		// silversurfer: don't overwrite icons if they shall be shown!
+		//if ( !gGameExternalOptions.fShowTacticalFaceIcons )
+		{
+			uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
+			uiFaceItemTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;
+		
+			// check first face slot
+			if ( uiFaceItemOne != NONE )
+			{
+				switch( uiFaceItemOne )
+				{
+					// gas mask
+					case GASMASK:
+						uiFaceItemOne = 1;
+						break;
+					// NV goggles
+					case 211:
+					case 246:
+					case 1024:
+					case 1025:
+						uiFaceItemOne = 2;
+						break;
+					default:
+						uiFaceItemOne = 0;
+						break;
+				}
+			}
+			
+			// check second face slot
+			if ( uiFaceItemTwo != NONE )
+			{
+				switch( uiFaceItemTwo )
+				{
+					// gas mask
+					case GASMASK:
+						uiFaceItemTwo = 21;
+						break;
+					// NV goggles
+					case 211:
+					case 246:
+					case 1024:
+					case 1025:
+						uiFaceItemTwo = 42;
+						break;
+					default:
+						uiFaceItemTwo = 0;
+						break;
+				}
+			}
+
+			// Now select the correct picture. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
+			// the numbers on the outer border are used if that is the only item worn in that slot
+			//
+			//								21			42			63				84	
+			//	 face slot 1 \ slot 2	gas mask | NV goggles | sun goggles | extended ear
+			// 1	gas mask				--			43			64				85
+			// 2	NV goggles				23			--			--				86
+			// 3	sun goggles				24			--			--				87
+			// 4	extended ear			25			46			67				--
+			//
+			// this matrix leaves room for expansion
+			// we only need a few of the matrix' values this time because we only show gas mask or NV goggles pictures
+			ubFaceItemsCombined = uiFaceItemOne + uiFaceItemTwo;
+		}
+
+		// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
+		// silversurfer: we don't want to display icons for gas mask or NV goggles because you can actually see the merc wearing the gear
+		// in case of gas mask together with NV we display the picture of the item in face slot 1 and the icon of the item
+		// in face slot 2 (if icons are allowed)
+		switch( ubFaceItemsCombined )
+		{
+			// gas mask only
+			case 1:
+			case 21:
+				DoRightIcon_legion_GAS_MASK( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  MercPtrs[ pFace->ubSoldierID ]->ubProfile );
+				
+				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
+				//fDoIcon		 = FALSE;				
+
+				break;
+			// NV goggles only
+			case 2:
+			case 42:
+				DoRightIcon_legion_NV( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, MercPtrs[ pFace->ubSoldierID ]->ubProfile );
+				
+				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
+				//fDoIcon		 = FALSE;				
+
+				break;
+			// NV goggles + gas mask
+			case 23:
+				DoRightIcon_legion_NV( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, MercPtrs[ pFace->ubSoldierID ]->ubProfile );
+				
+				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
+				/*if ( gGameExternalOptions.fShowTacticalFaceIcons )
+				{
+					sIconIndex = 9;
+					fDoIcon		 = TRUE;
+				}*/
+
+				break;
+			// gas mask + NV goggles
+			case 43:
+				DoRightIcon_legion_GAS_MASK( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  MercPtrs[ pFace->ubSoldierID ]->ubProfile );
+				
+				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
+				/*if ( gGameExternalOptions.fShowTacticalFaceIcons )
+				{
+					sIconIndex = 10;
+					fDoIcon		 = TRUE;
+				}*/
+
+				break;
+			// gas mask + sun goggles
+			case 24:
+			case 64:
+				DoRightIcon_legion_GAS_MASK( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  MercPtrs[ pFace->ubSoldierID ]->ubProfile );
+				
+				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
+				//sIconIndex = 15;
+				//fDoIcon		 = TRUE;
+
+				break;
+			// gas mask + extended ear
+			case 25:
+			case 85:
+				DoRightIcon_legion_GAS_MASK( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  MercPtrs[ pFace->ubSoldierID ]->ubProfile );
+				
+				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
+				//sIconIndex = 12;
+				//fDoIcon		 = TRUE;
+
+				break;
+			// NV goggles + extended ear
+			case 46:
+			case 86:
+				DoRightIcon_legion_NV( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, MercPtrs[ pFace->ubSoldierID ]->ubProfile );
+				
+				// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
+				//sIconIndex = 12;
+				//fDoIcon		 = TRUE;
+
+				break;
+			default:
+				break;
+		}
+	}
+
+	//------------------------------------end of tactical face gear-----------------------------
 
 	// If blind...
 	if ( MercPtrs[ pFace->ubSoldierID ]->bBlindedCounter > 0 )

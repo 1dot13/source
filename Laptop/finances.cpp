@@ -409,7 +409,7 @@ INT32 GetProjectedTotalDailyIncome( void )
 	// HEADROCK HAM 3.6: Facilities can make you money, and this is figured into your daily income.
 	
 	INT32 iRate = 0;
-	iRate = PredictIncomeFromPlayerMines() + (15 * GetTotalFacilityHourlyCosts( TRUE )); // 15 hours is the average time a merc can work per day
+	iRate = PredictIncomeFromPlayerMines(TRUE) + (15 * GetTotalFacilityHourlyCosts( TRUE )); // 15 hours is the average time a merc can work per day
 
 	return( iRate );
 }
@@ -1167,21 +1167,23 @@ void OpenAndReadFinancesFile( void )
 	// file exists, read in data, continue until file end
 	while( FileGetSize( hFileHandle ) > uiByteCount)
 	{
-
 		// read in other data
-	FileRead( hFileHandle, &ubCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &ubCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &ubSecondCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &uiDate, sizeof(UINT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
 
 		AssertMsg( iBytesRead, "Failed To Read Data Entry");
 
+		// WANNE: Fix uiDate (add 1 day!)!
+		uiDate += 1500;
+
 		// add transaction
-	ProcessAndEnterAFinacialRecord(ubCode, uiDate, iAmount, ubSecondCode, iBalanceToDate);
+		ProcessAndEnterAFinacialRecord(ubCode, uiDate, iAmount, ubSecondCode, iBalanceToDate);
 
 		// increment byte counter
-	uiByteCount += sizeof( INT32 ) + sizeof( UINT32 ) + sizeof( UINT8 )+ sizeof(UINT8) + sizeof( INT32 );
+		uiByteCount += sizeof( INT32 ) + sizeof( UINT32 ) + sizeof( UINT8 )+ sizeof(UINT8) + sizeof( INT32 );
 	}
 
 	// close file
@@ -1906,19 +1908,23 @@ BOOLEAN LoadInRecords( UINT32 uiPage )
 	{
 
 		// read in data
-	FileRead( hFileHandle, &ubCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &ubCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &ubSecondCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &uiDate, sizeof(UINT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
 
 		AssertMsg( iBytesRead, "Failed To Read Data Entry");
 
+		// WANNE: Do not add the fix + 1 day here, because otherwise we have a day + 1 offset 
+		// WANNE: Fix uiDate (add 1 day!)!
+		//uiDate += 1500;
+
 		// add transaction
-	ProcessAndEnterAFinacialRecord(ubCode, uiDate, iAmount, ubSecondCode, iBalanceToDate);
+		ProcessAndEnterAFinacialRecord(ubCode, uiDate, iAmount, ubSecondCode, iBalanceToDate);
 
 		// increment byte counter
-	uiByteCount += sizeof( INT32 ) + sizeof( UINT32 ) + sizeof( UINT8 )+ sizeof(UINT8) + sizeof( INT32 );
+		uiByteCount += sizeof( INT32 ) + sizeof( UINT32 ) + sizeof( UINT8 )+ sizeof(UINT8) + sizeof( INT32 );
 
 		// we've overextended our welcome, and bypassed end of file, get out
 		if( uiByteCount >=	FileGetSize( hFileHandle ) )
@@ -2127,8 +2133,11 @@ INT32 GetPreviousDaysBalance( void )
 		FileRead( hFileHandle, &ubCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &ubSecondCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &uiDate, sizeof(UINT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
+
+		// WANNE: Fix uiDate (add 1 day!)!
+		uiDate += 1500;
 
 		// check to see if we are far enough
 		if( ( uiDate / ( 24 * 60 ) ) == ( iDateInMinutes / ( 24 * 60 ) ) - 2 )
@@ -2221,10 +2230,14 @@ INT32 GetTodaysBalance( void )
 		FileRead( hFileHandle, &ubCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &ubSecondCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &uiDate, sizeof(UINT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
 
 		AssertMsg( iBytesRead, "Failed To Read Data Entry");
+
+		// WANNE: Fix uiDate (add 1 day!)!
+		uiDate += 1500;
+
 		// check to see if we are far enough
 		if( ( uiDate / ( 24 * 60 ) ) == ( iDateInMinutes / ( 24 * 60 ) ) - 1 )
 		{
@@ -2301,15 +2314,19 @@ INT32 GetPreviousDaysIncome( void )
 	// incrment byte count
 	iByteCount += RECORD_SIZE;
 
-	FileGetPos( hFileHandle );
+		FileGetPos( hFileHandle );
 
 		FileRead( hFileHandle, &ubCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &ubSecondCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &uiDate, sizeof(UINT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
 
 		AssertMsg( iBytesRead, "Failed To Read Data Entry");
+
+		// WANNE: Fix uiDate (add 1 day!)!
+		uiDate += 1500;
+
 		// check to see if we are far enough
 		if( ( uiDate / ( 24 * 60 ) )== ( iDateInMinutes / ( 24 * 60 ) ) - 2 )
 		{
@@ -2318,7 +2335,7 @@ INT32 GetPreviousDaysIncome( void )
 
 			// there are no entries for the previous day
 		if(	( uiDate / ( 24 * 60 ) ) < ( iDateInMinutes / ( 24 * 60 ) ) - 2 )
-	{
+		{
 			fGoneTooFar = TRUE;
 
 		}
@@ -2402,10 +2419,14 @@ INT32 GetTodaysDaysIncome( void )
 		FileRead( hFileHandle, &ubCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &ubSecondCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &uiDate, sizeof(UINT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
 
 		AssertMsg( iBytesRead, "Failed To Read Data Entry");
+
+		// WANNE: Fix uiDate (add 1 day!)!
+		uiDate += 1500;
+
 		// check to see if we are far enough
 		if( ( uiDate / ( 24 * 60 ) ) == ( iDateInMinutes / ( 24 * 60 ) ) - 1 )
 		{
@@ -2527,16 +2548,20 @@ INT32 GetTodaysOtherDeposits( void )
 	{
 		FileSeek( hFileHandle,	RECORD_SIZE * iCounter , FILE_SEEK_FROM_END );
 
-	// incrment byte count
-	iByteCount += RECORD_SIZE;
+		// incrment byte count
+		iByteCount += RECORD_SIZE;
 
 		FileRead( hFileHandle, &ubCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &ubSecondCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &uiDate, sizeof(UINT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
 
 		AssertMsg( iBytesRead, "Failed To Read Data Entry");
+
+		// WANNE: Fix uiDate (add 1 day!)!
+		uiDate += 1500;
+
 		// check to see if we are far enough
 		if( ( uiDate / ( 24 * 60 ) ) == ( iDateInMinutes / ( 24 * 60 ) ) - 1 )
 		{
@@ -2629,10 +2654,14 @@ INT32 GetYesterdaysOtherDeposits( void )
 		FileRead( hFileHandle, &ubCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &ubSecondCode, sizeof(UINT8), (UINT32 *)&iBytesRead );
 		FileRead( hFileHandle, &uiDate, sizeof(UINT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
-	FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iAmount, sizeof(INT32), (UINT32 *)&iBytesRead );
+		FileRead( hFileHandle, &iBalanceToDate, sizeof(INT32), (UINT32 *)&iBytesRead );
 
 		AssertMsg( iBytesRead, "Failed To Read Data Entry");
+
+		// WANNE: Fix uiDate (add 1 day!)!
+		uiDate += 1500;
+
 		// check to see if we are far enough
 		if( ( uiDate / ( 24 * 60 ) )== ( iDateInMinutes / ( 24 * 60 ) ) - 2 )
 		{

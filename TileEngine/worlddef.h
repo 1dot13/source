@@ -33,8 +33,10 @@ extern INT32 guiWorldRows;
 #define WORLD_MAX					(WORLD_COLS*WORLD_ROWS)
 
 // WANNE - BMP: The maximum value WORLD_MAX can have. DONE!
-#define MAX_ALLOWED_WORLD_MAX		4000000 // (1000 cols x 1000 rows)
-
+// CptMoore - DC: added MAX values here so it is known that display cover depends on them
+#define WORLD_COLS_MAX			2000
+#define WORLD_ROWS_MAX			2000
+#define MAX_ALLOWED_WORLD_MAX		WORLD_COLS_MAX*WORLD_ROWS_MAX // (2000 cols x 2000 rows)
 
 //</SB>
 
@@ -284,6 +286,12 @@ extern MAP_ELEMENT			*gpWorldLevelData;
 
 // World Movement Costs
 //UINT8						gubWorldMovementCosts[ WORLD_MAX ][MAXDIR][2];
+//ddd для убыстрения поиска освещенных участков в патхаи.
+extern BOOLEAN						gubWorldTileInLight[ MAX_ALLOWED_WORLD_MAX ];
+extern BOOLEAN						gubIsCorpseThere[ MAX_ALLOWED_WORLD_MAX ]; //надо бы учитывать крыша\земля ;)
+extern INT32						gubMerkCanSeeThisTile[ MAX_ALLOWED_WORLD_MAX ]; //положение драника не учитываем, крыша\земля тож?
+//ddd
+
 extern UINT8 (*gubWorldMovementCosts)[MAXDIR][2];//dnl ch43 260909
 
 //dnl ch44 290909 Translation routine

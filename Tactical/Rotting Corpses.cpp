@@ -362,6 +362,7 @@ BOOLEAN CreateCorpsePalette( ROTTING_CORPSE *pCorpse );
 BOOLEAN				CreateCorpseShadedPalette( ROTTING_CORPSE *pCorpse, UINT32 uiBase, SGPPaletteEntry *pShadePal);
 
 void ReduceAmmoDroppedByNonPlayerSoldiers( SOLDIERTYPE *pSoldier, INT32 iInvSlot );
+void ReduceAttachmentsOnGunForNonPlayerChars(SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj);
 
 
 
@@ -811,7 +812,12 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	Corpse.dYPos									= pSoldier->dYPos;
 	Corpse.bLevel									= pSoldier->pathing.bLevel;
 	Corpse.ubProfile							= pSoldier->ubProfile;
-
+///ddd{ для обнаружения трупов драниками.
+	if ( pSoldier->bTeam != gbPlayerNum )
+	Corpse.ubAIWarningValue = 1;
+		//def.ubAIWarningValue = 1; //not used value!
+///ddd}
+	
 	if ( Corpse.bLevel > 0 )
 	{
 		Corpse.sHeightAdjustment			= (INT16)( pSoldier->sHeightAdjustment - WALL_HEIGHT );
@@ -949,6 +955,9 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 							}
 						}
 
+						if(UsingNewAttachmentSystem()==true){
+							ReduceAttachmentsOnGunForNonPlayerChars(pSoldier, pObj);
+						}
 					// HEADROCK HAM B2.8: Militia will drop items only if allowed.
 					if (!(gGameExternalOptions.ubMilitiaDropEquipment == 0 && pSoldier->bTeam == MILITIA_TEAM ) &&
 						!(gGameExternalOptions.ubMilitiaDropEquipment == 1 && pSoldier->bTeam == MILITIA_TEAM && Menptr[ pSoldier->ubAttackerID ].bTeam == OUR_TEAM ))
@@ -1314,7 +1323,7 @@ void MercLooksForCorpses( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	if ( QuoteExp_HeadShotOnly[ pSoldier->ubProfile ] == 1 )
+	if ( QuoteExp[ pSoldier->ubProfile ].QuoteExpHeadShotOnly == 1 )
 	{
 		return;
 	}
@@ -1879,7 +1888,37 @@ void ReduceAmmoDroppedByNonPlayerSoldiers( SOLDIERTYPE *pSoldier, INT32 iInvSlot
 	}
 }
 
+void ReduceAttachmentsOnGunForNonPlayerChars(SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj){
+	
+	//Not meant for use in OAS.
+	Assert(UsingNewAttachmentSystem()==true);
+	
+	//OBJECTTYPE * pObj = &(pSoldier->inv[ invSlot ]);
+	
+	//If this item has any attachments, is not from a player, and is overwriteable. It's also only for guns.
+	if((*pObj)[0]->AttachmentListSize() > 0 && pSoldier->bTeam != gbPlayerNum && !((*pObj).fFlags & OBJECT_NO_OVERWRITE) && Item[pObj->usItem].usItemClass == IC_GUN && !gGameOptions.fEnemiesDropAllItems){
+		UINT8 slotCount = 0;
+		for(std::list<OBJECTTYPE>::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter, ++slotCount){
+			//A few conditions under which we will not delete this attachment
+			if(!iter->exists())
+				continue;
 
+			//Loop to find out if this attachment is a default one, if so, we don't want to remove it.
+			int i;
+			for(i = 0; i < MAX_DEFAULT_ATTACHMENTS && Item[pObj->usItem].defaultattachments[i] != iter->usItem; i++){}
+
+			if(Item[pObj->usItem].defaultattachments[i] != iter->usItem)
+				continue;
+
+			//Erase this attachment or not?
+			if(!Chance(gGameExternalOptions.usAttachmentDropRate)){
+				(*pObj).RemoveAttachment(&(*iter), 0, 0, pSoldier, 0, 1);
+				iter = (*pObj)[0]->attachments.begin();
+				advance(iter, slotCount);
+			}
+		}
+	}
+}
 void LookForAndMayCommentOnSeeingCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubLevel )
 {
 	ROTTING_CORPSE *pCorpse;

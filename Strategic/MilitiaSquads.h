@@ -26,6 +26,8 @@ void MilitiaFollowPlayer( INT16 sMapX, INT16 sMapY, INT16 sDMapX, INT16 sDMapY )
 
 // HEADROCK HAM B1: Changes the allowed militia sectors
 extern void AdjustRoamingRestrictions();
+// HEADROCK HAM 4: Yet ANOTHER array, this one holds player-set restrictions. It interacts with the dynamic one below.
+extern UINT8 gubManualRestrictMilitia[ 256 ];
 // HEADROCK HAM B1: Alternate array keeps track of dynamically unrestricted sectors
 extern BOOLEAN gDynamicRestrictMilitia[ 256 ];
 // HEADROCK HAM B2.7: Wonder why this function wasn't declared here. It is now, to allow Town Militia.cpp to
@@ -40,7 +42,7 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 // HEADROCK HAM 3.4: Stores restriction data from XML, including required cities for each sector to be allowed.
 typedef struct DYNAMICRESTRICTIONS
 {
-	INT8 bSectorID;
+	INT16 sSectorID;
 	UINT32 uiReqTownFlags;
 } DYNAMICRESTRICTIONS;
 
@@ -55,5 +57,11 @@ UINT16 MilitiaUpgradeSlotsCheck( SECTORINFO * pSectorInfo );
 void AddToBlockMoveList(INT16 sMapX, INT16 sMapY);
 // And this:
 UINT8 CountMilitia(SECTORINFO *pSectorInfo);
+
+// HEADROCK HAM 4: Returns whether sector is allowed for militia roaming, taking into account player-set restrictions.
+UINT8 ManualMobileMovementAllowed( UINT8 ubSector );
+
+// HEADROCK HAM 4: Initialize all manual restrictions;
+void InitManualMobileRestrictions();
 
 #endif

@@ -1223,7 +1223,11 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 		else
 			AddSoldierToSectorGridNo( pSoldier, sGridNo, ubDirection, fUseAnimation, usAnimState, usAnimCode );
 
-		CheckForPotentialAddToBattleIncrement( pSoldier );
+		// SANDRO - only do this if we are not loading the game (we keep this value saved)
+		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
+		{
+			CheckForPotentialAddToBattleIncrement( pSoldier );
+		}
 
 		return( TRUE );
 	}

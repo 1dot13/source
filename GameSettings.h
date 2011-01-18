@@ -38,9 +38,9 @@ enum
 
 	//Madd:
 	TOPTION_GL_BURST_CURSOR,
-	TOPTION_DROP_ALL,
+	TOPTION_ALLOW_TAUNTS, // changed from drop all - SANDRO
 	TOPTION_GL_HIGH_ANGLE,
-	TOPTION_AIM_LEVEL_RESTRICTION,
+	TOPTION_ALLOW_REAL_TIME_SNEAK, // changed from aim levels restriction - SANDRO
 
 	//lalien
 	TOPTION_SPACE_SELECTS_NEXT_SQUAD,
@@ -49,7 +49,7 @@ enum
 	TOPTION_TRACERS_FOR_SINGLE_FIRE,
 	TOPTION_RAIN_SOUND,
 	TOPTION_ALLOW_CROWS,
-	TOPTION_ALLOW_SOLDIER_TOOLTIPS, // Changed from TOPTION_USE_RANDOM_PERSONALITY - SANDRO
+	TOPTION_ALLOW_SOLDIER_TOOLTIPS,
 	TOPTION_USE_AUTO_SAVE,
 	TOPTION_SILENT_SKYRIDER,
 	TOPTION_LOW_CPU_USAGE,
@@ -60,6 +60,15 @@ enum
 
 	// HEADROCK HAM 3.6:
 	TOPTION_STAT_PROGRESS_BARS,
+
+	// HEADROCK HAM 4:
+	TOPTION_REPORT_MISS_MARGIN,
+
+	// HEADROCK HAM 4:
+	TOPTION_ALT_MAP_COLOR,
+
+	// WANNE: Moved alternate bullets graphics (tracers) to options
+	TOPTION_ALTERNATE_BULLET_GRAPHICS,
 
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
@@ -113,7 +122,13 @@ typedef struct
 enum
 {
 	INVENTORY_OLD = 0,
-	INVENTORY_NEW = 1
+	INVENTORY_NEW = 1,
+};
+
+enum
+{
+	ATTACHMENT_OLD = 0,
+	ATTACHMENT_NEW = 1,
 };
 
 
@@ -144,6 +159,16 @@ enum
 	BR_AWESOME = 10,
 };
 
+// Added by SANDRO
+enum
+{
+	ITEM_PROGRESS_VERY_SLOW = 0,
+	ITEM_PROGRESS_SLOW,
+	ITEM_PROGRESS_NORMAL,
+	ITEM_PROGRESS_FAST,
+	ITEM_PROGRESS_VERY_FAST,
+};
+
 typedef struct
 {
 	BOOLEAN fGunNut;
@@ -154,11 +179,21 @@ typedef struct
 	BOOLEAN	fIronManMode;
 	UINT8	ubBobbyRay;
 	UINT8	ubInventorySystem;
-	UINT8	ubFiller[6];
+	UINT8	ubAttachmentSystem;
+	// SANDRO - added variables
+	UINT8	ubMaxIMPCharacters;
+	BOOLEAN	fNewTraitSystem;
+	BOOLEAN fEnableAllTerrorists;
+	BOOLEAN	fEnemiesDropAllItems;
+	UINT8   ubProgressSpeedOfItemsChoices;
+	BOOLEAN fEnableAllWeaponCaches;
+	//UINT8	ubFiller[];
 
 } GAME_OPTIONS;
 
 bool UsingNewInventorySystem();
+bool UsingNewAttachmentSystem();
+bool UsingNewCTHSystem();
 BOOLEAN IsNIVModeValid(bool checkRes = true);
 
 // Snap: Options read from an INI file in the default of custom Data directory
@@ -178,19 +213,20 @@ typedef struct
 	// WDS: Allow flexible numbers of IMPs of each sex
 	INT32 iIMPMaleCharacterCount;	// Count of how many there are
 	INT32 iIMPFemaleCharacterCount;
-	INT32 iMaxIMPCharacters;		// Limit of how many to allow
+	//INT32 iMaxIMPCharacters;		// Limit of how many to allow
 	//
 	// iaIMPSlots is an array of the slots (in prof.dat) to use for IMPs.
 	//
 	INT32 *iaIMPSlots;
 
+	// SANDRO was here - some changes done
+	INT32 iIMPProfileCost;
+	BOOLEAN fDynamicIMPProfileCost;
 	INT32 iMinAttribute;
 	INT32 iMaxAttribute;
 	INT32 iImpAttributePoints;
 	INT32 iMaxZeroBonus;
-	INT32 iStartAttribute;
 
-	// These 3 added - SANDRO
 	INT32 iIMPStartingLevelCostMultiplier;
 	INT32 iBonusPointsForDisability;
 	INT32 iBonusPointsPerSkillNotTaken;
@@ -225,22 +261,49 @@ typedef struct
 
 	BOOLEAN fMercDayOne;
 	BOOLEAN fAllMercsAvailable;
-
-	//BOOLEAN fPers_att;
-
-	// These 2 removed - SANDRO
-	//INT8 iCustomPersonality;
-	//INT8 iCustomAttitude;
+	
+	// tais: Any AIM merc on assignment?
+	UINT8 fMercsOnAssignment;
+	// tais: Soldiers wear any armour
+	UINT8 fSoldiersWearAnyArmour;
 
 	INT8 iEasyAPBonus;
 	INT8 iExperiencedAPBonus;
 	INT8 iExpertAPBonus;
 	INT8 iInsaneAPBonus;
 	INT8 iPlayerAPBonus;
+
+	////////////////////////////////////
+	// added by SANDRO
+	INT16 sEnemyAdminCtHBonusPercent;
+	INT16 sEnemyRegularCtHBonusPercent;
+	INT16 sEnemyEliteCtHBonusPercent;
+
+	INT8 sEnemyAdminDamageResistance;	
+	INT8 sEnemyRegularDamageResistance;
+	INT8 sEnemyEliteDamageResistance;
+
+	BOOLEAN fAssignTraitsToEnemy;
+	BOOLEAN fAssignTraitsToMilitia;
+	INT8 bAssignedTraitsRarity;
+
+	BOOLEAN fCamoRemoving;
+	BOOLEAN fEnhancedCloseCombatSystem;
+
+	UINT16 usAwardSpecialExpForQuests;
+	////////////////////////////////////
+
 	// Kaiden: Vehicle Inventory change - Added for INI Option
 	BOOLEAN fVehicleInventory;
 
-	BOOLEAN fEnableChanceOfEnemyAmbushesOnInsaneDifficult;
+	///////////////////////////////////////
+	// changed/added these - SANDRO
+	UINT8 sMercsAutoresolveOffenseBonus;
+	UINT8 sMercsAutoresolveDeffenseBonus;
+	BOOLEAN fEnableChanceOfEnemyAmbushes; 
+	INT8 bChanceModifierEnemyAmbushes;
+	UINT8 usSpecialNPCStronger;
+	///////////////////////////////////////
 
 	// System settings
 	UINT8 gubDeadLockDelay;
@@ -285,7 +348,22 @@ typedef struct
 	//UINT32	guiMaxMilitiaSquadSize;
 	//UINT32	guiMaxMilitiaSquadSizeBattle;
 
-	//BOOLEAN gfAllowSoldierToolTips; // moved to prefereces - SANDRO
+	// SANDRO - added some variables
+	INT16	sGreenMilitiaAutoresolveStrength;
+	INT16	sRegularMilitiaAutoresolveStrength;
+	INT16	sVeteranMilitiaAutoresolveStrength;
+	INT8	bGreenMilitiaAPsBonus;
+	INT8	bRegularMilitiaAPsBonus;
+	INT8	bVeteranMilitiaAPsBonus;
+	INT16	sGreenMilitiaCtHBonusPercent;	
+	INT16	sRegularMilitiaCtHBonusPercent;
+	INT16	sVeteranMilitiaCtHBonusPercent;
+	INT8	bGreenMilitiaDamageResistance;
+	INT8	bRegularMilitiaDamageResistance;
+	INT8	bVeteranMilitiaDamageResistance;
+	INT8	bGreenMilitiaEquipmentQualityModifier;
+	INT8	bRegularMilitiaEquipmentQualityModifier;
+	INT8	bVeteranMilitiaEquipmentQualityModifier;
 
 	// WDS - Improve Tony's and Devin's inventory like BR's
 	BOOLEAN tonyUsesBRSetting;
@@ -335,9 +413,6 @@ typedef struct
 	UINT32 ubGameProgressMinimum;
 	INT32 bGameProgressModifier;
 
-	// WDS - Advanced start 
-	//UINT32 ubIMPStartingLevel; // removed - SANDRO
-
 	// Event settings
 	UINT32 ubGameProgressStartMadlabQuest;
 	UINT32 ubGameProgressMikeAvailable;
@@ -357,6 +432,7 @@ typedef struct
 
 	INT32 iExplosivesDamageModifier;
 	INT32 iGunDamageModifier;
+	INT32 iGunRangeModifier;
 	INT32 iMeleeDamageModifier;
 
 	UINT32 ubEasyEnemyStartingAlertLevel;
@@ -414,6 +490,10 @@ typedef struct
 
 	BOOLEAN	gfUseExternalLoadscreens;
 
+	//tais: nsgi
+	BOOLEAN gfUseNewStartingGearInterface;
+	// DBrot: Seperate Starting items for Experts
+	BOOLEAN fExpertsGetDifferentChoices;
 	BOOLEAN gfUseAutoSave;
 
 	//Merc Assignment settings
@@ -448,8 +528,9 @@ typedef struct
 	//Misc settings
 	BOOLEAN fAmmoDynamicWeight; //Pulmu
 	BOOLEAN fEnableCrepitus;
-	BOOLEAN fEnableAllWeaponCaches;
-	BOOLEAN fEnableAllTerrorists;
+	// SANDRO was here - removed these two
+	//BOOLEAN fEnableAllWeaponCaches;
+	//BOOLEAN fEnableAllTerrorists;
 	BOOLEAN gfRevealItems;
 	BOOLEAN fEnableArmorCoverage; // ShadoWarrior for Captain J's armor coverage
 
@@ -465,6 +546,7 @@ typedef struct
 	BOOLEAN fEnableSoldierTooltipAttitude;
 	BOOLEAN fEnableSoldierTooltipActionPoints;
 	BOOLEAN fEnableSoldierTooltipHealth;
+	BOOLEAN fEnableSoldierTooltipTraits; // added by SANDRO
 	BOOLEAN fEnableSoldierTooltipHelmet;
 	BOOLEAN fEnableSoldierTooltipVest;
 	BOOLEAN fEnableSoldierTooltipLeggings;
@@ -495,8 +577,8 @@ typedef struct
 	// Lesh: slow enemy items choice progress
 	BOOLEAN fSlowProgressForEnemyItemsChoice;
 
-//afp - use bullet tracers
-BOOLEAN gbBulletTracer;
+	//afp - use bullet tracers
+	BOOLEAN gbBulletTracer;
 
 	// CHRISL: option to allow Slay to remain as a hired PC
 	BOOLEAN fEnableSlayForever;
@@ -510,9 +592,41 @@ BOOLEAN gbBulletTracer;
 	// HEADROCK: Enhanced Item Description Box ON/OFF
 	// WANNE: Changed from BOOLEAN to INT32!
 	INT32 iEnhancedDescriptionBox;
+	
+	//WarmSteel - New Attachment System?	
+	BOOLEAN fUseDefaultSlots;
+	UINT32	usAttachmentDropRate;
+	INT16   iMaxEnemyAttachments;
 
+	//** ddd
+	//enable ext mouse key
+	BOOLEAN fExtMouseKeyEnabled;
+	// for small progress bar
+	BOOLEAN fSmallSizeProgressbar;
+	// stamina multiplier (for all weapons eg knife fist gun
+	INT32 uStaminaHit;
+	//enable ext mouse key
+	BOOLEAN bAltAimEnabled;	
+	BOOLEAN bAimedBurstEnabled;	
+	INT16 uAimedBurstPenalty;
+	BOOLEAN	bWeSeeWhatMilitiaSeesAndViceVersa;
+	BOOLEAN	bAllowWearSuppressor;
+	BOOLEAN	bLazyCivilians;
+	INT16 iChanceSayAnnoyingPhrase;
+	BOOLEAN	bNewTacticalAIBehavior;
+	FLOAT uShotHeadPenalty;
+	FLOAT fShotHeadDivisor;
+	INT16 iPenaltyShootUnSeen;
+
+	FLOAT fOutOfGunRangeOrSight;
 	// WANNE: Always use "prof.dat".
 	BOOLEAN fUseDifficultyBasedProfDat;
+
+	// 2Points: Use new repair algorithm
+	BOOLEAN fAdditionalRepairMode;
+
+	// CHRISL: Skyrider and enemy occupied sectors
+	UINT8 ubSkyriderHotLZ;
 
 	// CPT: Cover System Settings
 	UINT8 ubStealthTraitCoverValue;
@@ -566,11 +680,25 @@ BOOLEAN gbBulletTracer;
 	// HEADROCK HAM B2.5: Realistic tracers - CTH increased by this amount whenever a tracer is fired. 0 = off.
 	UINT8 ubCTHBumpPerTracer;
 
+	// CHRISL: Exeternalize the minimum range at which tracers can improve autofire hit chance
+	UINT16 ubMinRangeTracerEffect;
+
 	// HEADROCK HAM B2.6: Increased aiming costs?
 	BOOLEAN fIncreasedAimingCost;
 
+	// added by SANDRO
+	BOOLEAN fAimLevelRestriction;
+
 	// HEADROCK HAM B2.6: Dynamically determine Max-Aiming based also on weapon, bipod, etc?
 	BOOLEAN fDynamicAimingTime;
+
+	// allow old behaviour
+	BOOLEAN fAimLevelsDependOnDistance;
+
+	//WarmSteel - These determine in which group each scope belongs. Needed for dynamic aiming limits.
+	INT16 sVeryHighPowerScope;
+	INT16 sHighPowerScope;
+	INT16 sMediumPowerScope;
 
 	// HEADROCK HAM B2.6: Controls how much effect target movement has on aiming
 	FLOAT iMovementEffectOnAiming;
@@ -661,6 +789,9 @@ BOOLEAN gbBulletTracer;
 	// HEADROCK HAM 3: If enabled, tooltipping over Bobby Ray's weapons will show a list of possible attachments to those weapons.
 	BOOLEAN fBobbyRayTooltipsShowAttachments;
 
+	// CHRISL: Converts the AutoFireToHitBonus value to a percentage for CTH calculations
+	UINT8 ubFlatAFTHBtoPrecentMultiplier;
+
 	// HEADROCK HAM 3.1: Divisor for the AP-to-Ready cost charge on first aiming click, when extra aiming costs are enabled. 0 = No ready-time-based charge.
 	UINT8 ubFirstAimReadyCostDivisor;
 
@@ -705,6 +836,9 @@ BOOLEAN gbBulletTracer;
 
 	// HEADROCK HAM 3.3: Externalized maximum possible penalty for hitting a moving target. JA2 Default = 30.
 	UINT16 usMaxCTHPenaltyForMovingTarget;
+
+	// CHRISL: HAM4-NCTH
+	BOOLEAN fUseNCTH;
 
 	// HEADROCK HAM 3.3: Increases tolerance while moving.
 	UINT8 ubTilesMovedPerBonusTolerancePoint;
@@ -800,14 +934,387 @@ BOOLEAN gbBulletTracer;
 	// HEADROCK HAM 3.6: If activated, the game does not switch focus to a merc who spots an enemy in real-time mode. This fixes issues with Real-Time Sneak.
 	BOOLEAN fNoAutoFocusChangeInRealtimeSneak;
 
+	UINT8 ubEarlyRebelsRecruitment[4];	// early recruitment of Miguel and Carlos
+	// silversurfer: don't play quote when merc spots a mine? TRUE = shut up! FALSE = tell me that you found a mine!
+	BOOLEAN fMineSpottedNoTalk;
+
 	// The_Bob - real time sneaking code 01/06/09
 	// Suport disabling/silencing real time sneaking via external .ini file
-	BOOLEAN fAllowRealTimeSneak;
+	//BOOLEAN fAllowRealTimeSneak; // SANDRO - moved to preferences
 	BOOLEAN fQuietRealTimeSneak;
 
-//dnl ch51 081009 JA2 Debug Settings
-	BOOLEAN fEnableInventoryPoolQ;
+	//legion by Jazz
+	BOOLEAN fCanJumpThroughWindows;
+	BOOLEAN fCanClimbOnWalls;
+
+	//legion by Jazz
+	BOOLEAN fIndividualHiddenPersonNames;
+	
+	//SAveGame Slot by Jazz
+	BOOLEAN fSaveGameSlot;
+
+	//dnl ch51 081009 JA2 Debug Settings
+	BOOLEAN fEnableInventoryPoolQ;		
+	
+	//legion by Jazz
+	BOOLEAN fShowTacticalFaceGear; //legion 2
+	BOOLEAN fShowTacticalFaceIcons; //legion 2
+	INT8 bTacticalFaceIconStyle;
+	
+	//Enemy Names Group Legion 2 by Jazz
+	BOOLEAN fEnemyNames;
+	
+	//Civ Names Group Legion 2 by Jazz
+	BOOLEAN fCivGroupName;
+	
+	//Enemy Rank Legion 2 by Jazz
+	BOOLEAN fEnemyRank;
+	
+	BOOLEAN fShowCamouflageFaces;
+
+	FLOAT gMercLevelUpSalaryIncreasePercentage;
+
+	UINT8 ubChanceTonyAvailable; // silversurfer/SANDRO
+	
+	BOOLEAN fStandUpAfterBattle;
 } GAME_EXTERNAL_OPTIONS;
+
+typedef struct
+{
+	UINT8 ubMaxNumberOfTraits;
+	UINT8 ubNumberOfMajorTraitsAllowed;
+
+	// GENERIC SETTINGS
+	INT8 bCtHModifierAssaultRifles;
+	INT8 bCtHModifierSniperRifles;
+	INT8 bCtHModifierRifles;
+	INT8 bCtHModifierSMGs;
+	INT8 bCtHModifierLMGs;
+	INT8 bCtHModifierShotguns;
+	INT8 bCtHModifierPistols;
+	INT8 bCtHModifierMachinePistols;
+	INT8 bCtHModifierRocketLaunchers;
+	INT8 bCtHModifierGrenadeLaunchers;
+	INT16 sCtHModifierMortar;
+	INT8 bCtHModifierThrowingKnives;
+	INT8 bCtHModifierThrowingGrenades;
+	INT8 bCtHModifierHtHAttack;
+	INT8 bModifierDodgeHtHChance;
+	INT8 bCtHModifierKnifeAttack;
+	INT8 bModifierDodgeKnifeChance;
+	INT8 bCtHModifierRobot;
+	UINT8 ubCtHPenaltyDualShot;
+	INT8 bPercentModifierHtHBreathLoss;
+	INT8 bPercentModifierBladesBreathLoss;
+	INT8 bPercentModifierBluntBreathLoss;
+	UINT8 ubModifierForAPsAddedOnAimedPunches;
+	UINT8 ubModifierForAPsAddedOnAimedBladedAttackes;
+	INT8 bSpeedModifierDoctoring;
+	INT8 bSpeedModifierBandaging;
+	INT8 bSpeedModifierRepairing;
+	INT8 bSpeedModifierTrainingMilitia;
+	INT8 bSpeedModifierTeachingOthers;
+	INT8 bCheckModifierLockpicking;
+	INT8 bCheckModifierAttachDetonators;
+	INT8 bCheckModifierSetExplosives;
+	INT8 bCheckModifierDisarmExplosiveTraps;
+	INT8 bCheckModifierDisarmElectronicTraps;
+	INT8 bCheckModifierAttachSpecialItems;
+	INT8 bTanksDamageResistanceModifier;
+	UINT8 ubDamageNeededToLoseStats;
+
+	// AUTO WEAPONS
+	UINT8 ubAWBonusCtHAssaultRifles;
+	UINT8 ubAWBonusCtHSMGs;
+	UINT8 ubAWBonusCtHLMGs;
+	UINT8 ubAWAutoFirePenaltyReduction;
+	UINT8 ubAWUnwantedBulletsReduction;
+	UINT8 ubAWFiringSpeedBonusLMGs;
+	UINT8 ubAWPercentReadyLMGReduction;
+
+	// HEAVY WEAPONS
+	UINT8 ubHWGrenadeLaunchersAPsReduction;
+	UINT8 ubHWRocketLaunchersAPsReduction;
+	UINT8 ubHWBonusCtHGrenadeLaunchers;
+	UINT8 ubHWBonusCtHRocketLaunchers;
+	UINT8 ubHWMortarAPsReduction;
+	UINT8 ubHWMortarCtHPenaltyReduction;
+	UINT8 ubHWDamageTanksBonusPercent;
+	UINT8 ubHWDamageBonusPercentForHW;
+
+	// SNIPER
+	UINT8 ubSNBonusCtHRifles;
+	UINT8 ubSNBonusCtHSniperRifles;
+	UINT8 ubSNEffRangeToTargetReduction;
+	UINT8 ubSNAimingBonusPerClick;
+	UINT8 ubSNDamageBonusPerClick;
+	UINT8 ubSNDamageBonusFromNumClicks;
+	UINT8 ubSNChamberRoundAPsReduction;
+	UINT8 ubSNAimClicksAdded;
+	
+	// RANGER
+	UINT8 ubRABonusCtHRifles;
+	UINT8 ubRABonusCtHShotguns;
+	UINT8 ubRAPumpShotgunsAPsReduction;
+	UINT8 ubRAGroupTimeSpentForTravellingFoot;
+	UINT8 ubRAGroupTimeSpentForTravellingVehicle;
+	UINT8 ubRAMaxBonusesToTravelSpeed;
+	UINT8 ubRABreathForTravellingReduction;
+	UINT8 ubRAWeatherPenaltiesReduction;
+	//UINT8 ubRACamoEffectivenessBonus;
+	UINT8 ubRACamoWornountSpeedReduction;
+
+	// GUNSLINGER
+	UINT8 ubGSFiringSpeedBonusPistols;
+	UINT8 ubGSEffectiveRangeBonusPistols;
+	UINT8 ubGSBonusCtHPistols;
+	UINT8 ubGSBonusCtHMachinePistols;
+	UINT8 ubGSCtHMPExcludeAuto;
+	UINT8 ubGSAimingBonusPerClick;
+	UINT8 ubGSPercentReadyPistolsReduction;
+	UINT8 ubGSRealoadSpeedHandgunsBonus;
+	UINT8 ubGSAimClicksAdded;
+
+	// MARTIAL ARTS
+	UINT8 ubMABonusCtHBareHands;
+	UINT8 ubMABonusCtHBrassKnuckles;
+	UINT8 ubMAPunchAPsReduction;
+	UINT8 ubMABonusDamageHandToHand;
+	UINT8 ubMABonusBreathDamageHandToHand;
+	UINT16 usMALostBreathRegainPenalty;
+	UINT16 usMAAimedPunchDamageBonus;
+	INT8 bMAAimedPunchCtHModifier;
+	UINT8 ubMAChanceToDodgeHtH;
+	UINT8 ubMAOnTopCTDHtHBareHanded;
+	UINT8 ubMAOnTopCTDHtHBrassKnuckles;
+	UINT8 ubMAChanceToDodgeMelee;
+	UINT8 ubMAReducedAPsToSteal;
+	UINT8 ubMAAPsChangeStanceReduction;
+	UINT8 ubMAApsTurnAroundReduction;
+	UINT8 ubMAAPsClimbOrJumpReduction;
+	UINT8 ubMAChanceToCkickDoors;
+	BOOLEAN fPermitExtraAnimationsOnlyToMA;
+
+	// SQUADLEADER
+	UINT16 usSLRadiusNormal;
+	UINT16 usSLRadiusExtendedEar;
+	UINT8 ubSLMaxBonuses;
+	UINT8 ubSLBonusAPsPercent;
+	UINT8 ubSLEffectiveLevelInRadius;
+	UINT8 ubSLEffectiveLevelAsStandby;
+	UINT8 ubSLOverallSuppresionBonusPercent;
+	UINT8 ubSLMoraleGainBonus;
+	UINT8 ubSLMoraleLossReduction;
+	UINT8 ubSLFearResistance;
+	UINT8 ubSLDeathMoralelossMultiplier;
+
+	// TECHNICIAN
+	UINT16 usTERepairSpeedBonus;
+	UINT16 usTELockpickingBonus;
+	UINT16 usTEDisarmElTrapBonus;
+	UINT16 usTEAttachingItemsBonus;
+	UINT8 ubTEUnjamGunBonus;
+	UINT8 ubTERepairElectronicsPenaltyReduction;
+	UINT8 ubTEChanceToDetectTrapsBonus;
+	UINT8 ubTECtHControlledRobotBonus;
+	UINT8 ubTERepairRobotPenaltyReduction;
+	UINT8 ubTETraitsNumToRepairRobot;
+
+	// DOCTOR
+	UINT8 ubDONumberTraitsNeededForSurgery;
+	UINT8 ubDOSurgeryHealPercentBase;
+	UINT8 ubDOSurgeryHealPercentOnTop;
+	UINT16 usDOSurgeryMedBagConsumption;
+	UINT16 usDOSurgeryMaxBreathLoss;
+	UINT16 usDORepairStatsRateBasic;
+	UINT16 usDORepairStatsRateOnTop;
+	UINT8 ubDORepStPenaltyIfAlsoHealing;
+	UINT8 ubDOHealingPenaltyIfAlsoStatRepair;
+	BOOLEAN fDORepStShouldThrowMessage;
+	UINT8 ubDOBandagingSpeedPercent;
+	UINT16 usDODoctorAssignmentBonus;
+	UINT8 ubDONaturalRegenBonus;
+	UINT8 ubDOMaxRegenBonuses;
+
+	// AMBIDEXTROUS
+	UINT8 ubAMPenaltyDoubleReduction;
+	UINT8 ubAMReloadSpeedMagazines;
+	UINT8 ubAMReloadSpeedLoose;
+	UINT8 ubAMPickItemsAPsReduction;
+	UINT8 ubAMWorkBackpackAPsReduction;
+	UINT8 ubAMHandleDoorsAPsReduction;
+	UINT8 ubAMHandleBombsAPsReduction;
+	UINT8 ubAMAttachingItemsAPsReduction;
+
+	// MELEE
+	UINT8 ubMEBladesAPsReduction;
+	UINT8 ubMECtHBladesBonus;
+	UINT8 ubMECtHBluntBonus;
+	UINT8 ubMEDamageBonusBlades;
+	UINT8 ubMEDamageBonusBlunt;
+	UINT16 usMEAimedMeleeAttackDamageBonus;
+	UINT8 ubMEDodgeBladesBonus;
+	UINT8 ubMECtDBladesOnTopWithBladeInHands;
+	UINT8 ubMEDodgeBluntBonus;
+	UINT8 ubMECtDBluntOnTopWithBladeInHands;
+
+	// THROWING
+	UINT8 ubTHBladesAPsReduction;
+	UINT8 ubTHBladesMaxRange;
+	UINT8 ubTHBladesCtHBonus;
+	UINT8 ubTHBladesCtHBonusPerClick;
+	UINT8 ubTHBladesDamageBonus;
+	UINT8 ubTHBladesDamageBonusPerClick;
+	UINT8 ubTHBladesSilentCriticalHitChance;
+	UINT8 ubTHBladesCriticalHitMultiplierBonus;
+	UINT8 ubTHBladesAimClicksAdded;
+
+	// NIGHT OPS
+	UINT8 ubNOeSightRangeBonusInDark;
+	UINT8 ubNOHearingRangeBonus;
+	UINT8 ubNOHearingRangeBonusInDark;
+	UINT8 ubNOIterruptsBonusInDark;
+	UINT8 ubNONeedForSleepReduction;
+
+	// STEALTHY
+	UINT8 ubSTStealthModeSpeedBonus;
+	UINT8 ubSTBonusToMoveQuietly;
+	UINT8 ubSTStealthBonus;
+	UINT8 ubSTStealthPenaltyForMovingReduction;
+
+	// ATHLETICS
+	UINT8 ubATAPsMovementReduction;
+	UINT8 ubATBPsMovementReduction;
+
+	// BODYBUILDING
+	UINT8 ubBBDamageResistance;
+	UINT8 ubBBCarryWeightBonus;
+	UINT8 ubBBBreathLossForHtHImpactReduction;
+	UINT16 usBBIncreasedNeededDamageToFallDown;
+
+	// DEMOLITIONS
+	UINT8 ubDEAPsNeededToThrowGrenadesReduction;
+	UINT8 ubDEMaxRangeToThrowGrenades;
+	UINT8 ubDECtHWhenThrowingGrenades;
+	UINT8 ubDEDamageOfBombsAndMines;
+	UINT8 ubDEAttachDetonatorCheckBonus;
+	UINT8 ubDEPlantAndRemoveBombCheckBonus;
+	UINT8 ubDEPlacedBombLevelBonus;
+	UINT8 ubDEShapedChargeDamageMultiplier;
+
+	// TEACHING
+	UINT8 ubTGBonusToTrainMilitia;
+	UINT8 ubTGEffectiveLDRToTrainMilitia;
+	UINT8 ubTGBonusToTeachOtherMercs;
+	UINT8 ubTGEffectiveSkillValueForTeaching;
+	UINT8 ubTGBonusOnPractising;
+
+	// SCOUTING
+	UINT8 ubSCSightRangebonusWithScopes;
+	UINT16 usSCSightRangebonusWithBinoculars;
+	UINT8 ubSCTunnelVisionReducedWithBinoculars;
+	BOOLEAN fSCCanDetectEnemyPresenseAround;
+	BOOLEAN fSCCanDetermineEnemyNumbersAround;
+	BOOLEAN fSCDetectionInDiagonalSectors;
+	BOOLEAN fSCPreventsTheEnemyToAmbushMercs;
+	BOOLEAN fSCPreventsBloodcatsAmbushes;
+	BOOLEAN fSCThrowMessageIfAmbushPrevented;
+
+} SKILL_TRAIT_VALUES;
+
+// HEADROCK HAM 4: Constants used as coefficients by the various parts of the new CTH system.
+typedef struct
+{
+	UINT32 NORMAL_SHOOTING_DISTANCE;		// Distance at which 1x magnification is 100% effective. This is a major component of the entire shooting mechanism.
+	FLOAT DEGREES_MAXIMUM_APERTURE;			// Maximum possible aperture for a 100% muzzle sway shot. Decrease to make all shots more accurate.
+	FLOAT GRAVITY_COEFFICIENT;				// Changes the way gravity works in the game. Higher values mean bullets don't drop as quickly after reaching max range.
+	FLOAT VERTICAL_BIAS;					// This float can be used to reduce the chance of missing too far upwards or downwards (compared to left/right).
+	FLOAT SCOPE_RANGE_MULTIPLIER;			// Adjusts the minimum effective range of scopes
+
+	FLOAT BASE_EXP;				// Importance of Experience for BASE CTH
+	FLOAT BASE_MARKS;				// Importance of Marksmanship for BASE CTH
+	FLOAT BASE_WIS;				// Importance of Wisdom for BASE CTH
+	FLOAT BASE_DEX;				// Importance of Dexterity for BASE CTH
+
+	FLOAT BASE_LOW_MORALE;		// Applied gradually when morale is below 50.
+	FLOAT BASE_HIGH_MORALE;		// Applied gradually when morale is above 50.
+	FLOAT BASE_PSYCHO;			// Applied for each level of PSYCHO trait
+	FLOAT BASE_SHOOTING_UPWARDS;	// Applied gradually for shooting at a higher target. Decreases with distance.
+	FLOAT BASE_INJURY;			// Applied gradually for injuries
+	FLOAT BASE_DRUNK[4];			// Applied for drunkness levels
+	FLOAT BASE_FATIGUE;			// Applied gradually for fatigue
+	FLOAT BASE_SAME_TARGET;		// Applied for shooting at the same target again
+	FLOAT BASE_GASSED;			// Applied for shooting while breathing gas
+	FLOAT BASE_BEING_BANDAGED;	// Applied for shooting while being bandaged
+	FLOAT BASE_SHOCK;				// Applied gradually for shock points
+	FLOAT BASE_AGILE_TARGET;		// Applied gradually for agile or experienced target
+	FLOAT BASE_TARGET_INVISIBLE;	// Applied for shooting at a target you can't see
+	FLOAT BASE_DRAW_COST;			// Applied per 1 AP of the weapon's Ready Cost, under 100AP.
+	FLOAT BASE_TWO_GUNS;			// Gun Difficulty Multiplier for shooting two guns
+	FLOAT BASE_ONE_HANDED;		// Gun Difficulty Multiplier for shooting a pistol with one hand.
+	FLOAT BASE_CROUCHING_STANCE;	// Gun Difficulty Multiplier for shooting from a crouched stance
+	FLOAT BASE_PRONE_STANCE;		// Gun Difficulty Multiplier for shooting from a prone stance
+	FLOAT BASE_HEAVY_WEAPON;		// Gun Difficulty Multiplier for shooting a launcher
+	FLOAT BASE_DIFFICULTY[6];		// Applied for game difficulty
+
+	FLOAT AIM_EXP;				// Importance of Experience for AIMING CTH
+	FLOAT AIM_MARKS;				// Importance of Marksmanship for AIMING CTH
+	FLOAT AIM_WIS;				// Importance of Wisdom for AIMING CTH
+	FLOAT AIM_DEX;				// Importance of Dexterity for AIMING CTH
+
+	FLOAT AIM_TOO_CLOSE_SCOPE;	// Applied per tile closer than the scope's minimum range.
+	FLOAT AIM_GUN_CONDITION;		// Applied per point of condition below 50.
+	FLOAT AIM_LOW_MORALE;			// Applied gradually when morale is below 50.
+	FLOAT AIM_HIGH_MORALE;		// Applied gradually when morale is above 50.
+	FLOAT AIM_PSYCHO;				// Applied for each level of PSYCHO trait
+	FLOAT AIM_VISIBILITY;			// Applied for bad visibility
+	FLOAT AIM_SHOOTING_UPWARDS;	// Applied gradually for shooting at a higher target. Decreases with distance.
+	FLOAT AIM_INJURY;				// Applied gradually for injuries
+	FLOAT AIM_DRUNK[4];			// Applied for drunkness levels
+	FLOAT AIM_FATIGUE;			// Applied gradually for fatigue
+	FLOAT AIM_GASSED;				// Applied for shooting while breathing gas
+	FLOAT AIM_BEING_BANDAGED;		// Applied for shooting while being bandaged
+	FLOAT AIM_SHOCK;				// Applied gradually for shock points
+	FLOAT AIM_TARGET_INVISIBLE;	// Applied for shooting at a target you can't see
+	FLOAT AIM_SNIPER_SKILL;		// Applied as percentage bonus to CTH cap, once per each level.
+	FLOAT AIM_DRAW_COST;			// Applied per 1 AP of the weapon's Ready Cost, under 100AP.
+	FLOAT AIM_STANDING_STANCE;	// Gun Difficulty multiplier for shooting a heavy gun when standing
+	FLOAT AIM_CROUCHING_STANCE;	// Gun Difficulty multiplier for shooting a heavy gun from a crouched stance
+	FLOAT AIM_PRONE_STANCE;		// Gun Difficulty multiplier for shooting a heavy gun when prone, before bipod bonuses
+	FLOAT AIM_TWO_GUNS;			// Gun Difficulty multiplier for shooting two guns (halved for each Ambidextrous level)
+	FLOAT AIM_ONE_HANDED;			// Gun Difficulty multiplier for firing a pistol with one hand.
+	FLOAT AIM_HEAVY_WEAPON;		// Gun Difficulty multiplier for shooting a launcher (halved for each Heavy Weapons level)
+	FLOAT AIM_DIFFICULTY[6];		// Applied for game difficulty
+
+	FLOAT MOVEMENT_MRK;
+	FLOAT MOVEMENT_WIS;
+	FLOAT MOVEMENT_DEX;
+	FLOAT MOVEMENT_EXP_LEVEL;
+	UINT32 MOVEMENT_TRACKING_DIFFICULTY;
+	FLOAT MOVEMENT_PENALTY_PER_TILE;
+
+	FLOAT PRE_RECOIL_WIS;
+	FLOAT PRE_RECOIL_EXP_LEVEL;
+	FLOAT PRE_RECOIL_AUTO_WEAPONS_SKILL;
+
+	FLOAT RECOIL_MAX_COUNTER_STR;
+	FLOAT RECOIL_MAX_COUNTER_AGI;
+	FLOAT RECOIL_MAX_COUNTER_EXP_LEVEL;
+	FLOAT RECOIL_MAX_COUNTER_FORCE;
+	FLOAT RECOIL_COUNTER_ACCURACY_MIN_ERROR;
+	FLOAT RECOIL_COUNTER_ACCURACY_DEX;
+	FLOAT RECOIL_COUNTER_ACCURACY_WIS;
+	FLOAT RECOIL_COUNTER_ACCURACY_AGI;
+	FLOAT RECOIL_COUNTER_ACCURACY_EXP_LEVEL;
+	FLOAT RECOIL_COUNTER_ACCURACY_AUTO_WEAPONS_DIVISOR;
+	FLOAT RECOIL_COUNTER_ACCURACY_TRACER_BONUS;
+	FLOAT RECOIL_COUNTER_FREQUENCY_AGI;
+	FLOAT RECOIL_COUNTER_FREQUENCY_EXP_LEVEL;
+	FLOAT RECOIL_COUNTER_FREQUENCY_AUTO_WEAPONS_DIVISOR;
+
+	FLOAT MAX_BULLET_DEV;
+
+} CTH_CONSTANTS;
 
 //This structure will contain general Ja2 settings	NOT individual game settings.
 extern GAME_SETTINGS		gGameSettings;
@@ -818,6 +1325,11 @@ extern GAME_OPTIONS		gGameOptions;
 // Snap: Options read from an INI file in the default of custom Data directory
 extern GAME_EXTERNAL_OPTIONS gGameExternalOptions; 
 
+extern SKILL_TRAIT_VALUES gSkillTraitValues;  // SANDRO - added this one
+
+// HEADROCK HAM 4: CTH constants read from a separate INI file
+extern CTH_CONSTANTS gGameCTHConstants;
+
 // WDS - Automatically try to save when an assertion failure occurs
 extern bool alreadySaving;
 
@@ -825,7 +1337,10 @@ BOOLEAN	SaveGameSettings();
 BOOLEAN LoadGameSettings();
 // Snap: Read options from an INI file in the default of custom Data directory
 void LoadGameExternalOptions();
+void LoadSkillTraitsExternalSettings(); // SANDRO - added this one
 void LoadGameAPBPConstants();
+// HEADROCK HAM 4: Read CTH/Shooting coefficients from file
+void LoadCTHConstants();
 void FreeGameExternalOptions();
 
 void InitGameOptions();

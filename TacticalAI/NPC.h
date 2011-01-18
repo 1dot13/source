@@ -90,8 +90,6 @@ public:
 
 	// conditions
 	INT16		sRequiredItem;		// item NPC must have to say quote
-	INT32		sRequiredGridNo;	// location for NPC req'd to say quote
-
 	UINT16		usFactMustBeTrue;	// ...before saying quote
 	UINT16		usFactMustBeFalse;	// ...before saying quote
 	UINT8		ubQuest;			// quest must be current to say quote
@@ -99,7 +97,6 @@ public:
 	UINT8		ubLastDay;			// last day quote can be said
 	UINT8		ubApproachRequired;	// must use this approach to generate quote
 	UINT8		ubOpinionRequired;	// opinion needed for this quote
-	UINT8		ubUnused;
 
 	// quote to say (if any)
 	UINT8		ubQuoteNum;			// this is the quote to say
@@ -110,10 +107,17 @@ public:
 	UINT8		ubEndQuest;
 	UINT8		ubTriggerNPC;
 	UINT8		ubTriggerNPCRec;
+	UINT8		ubFiller;
 	UINT16		usSetFactTrue;
 	UINT16		usGiftItem;			// item NPC gives to merc after saying quote
+	UINT16		usUnused;
 	INT16		sActionData;		// special action value	
+
+	INT32		sRequiredGridNo;		// location for NPC req'd to say quote
 	INT32		usGoToGridNo;
+	UINT16		usSourceDialogueLevel;	// reserved for future use
+	UINT16		usDestDialogueLevel;	// reserved for future use
+
 public:
 	NPCQuoteInfo& operator=(const _old_NPCQuoteInfo& src);
 };

@@ -161,7 +161,7 @@ UniformEndElementHandle(void *userData, const XML_Char *name)
 				{
 					CHAR16 sString[256];
 					swprintf( sString, L"Error in UniformColors.XML: Uniform color for %s not found or not properly defined!", szUniformErrorStrings[ cnt ] );
-					THROWEXCEPTION( sString );
+					SGP_THROW( sString );
 				}
 			}
 

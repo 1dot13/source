@@ -33,8 +33,14 @@
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 #endif
 
-#include "Lua Interpreter.h"
+#include "SaveLoadScreen.h"
 
+#include "Lua Interpreter.h"
+//**ddd direct link libraries
+#pragma comment (lib, "user32.lib")
+#pragma comment (lib, "gdi32.lib")
+#pragma comment (lib, "advapi32.lib")
+#pragma comment (lib, "shell32.lib")
 // rain
 #include "Rain.h"
 // end rain
@@ -57,6 +63,8 @@ UINT8		gubCheckForFreeSpaceOnHardDriveCount=DONT_CHECK_FOR_FREE_SPACE;
 extern	BOOLEAN	DoSkiMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
 
 extern void NotEnoughHardDriveSpaceForQuickSaveMessageBoxCallBack( UINT8 bExitValue );
+extern BOOLEAN gfTacticalPlacementGUIActive;
+extern BOOLEAN gfTacticalPlacementGUIDirty;
 extern BOOLEAN gfValidLocationsChanged;
 extern BOOLEAN	gfInMsgBox;
 extern BOOLEAN gfInChatBox; // OJW - 20090314 - new chatbox
@@ -116,6 +124,12 @@ BOOLEAN InitializeGame(void)
 	// Moved this up because some settings are used during other inits
 	LoadGameAPBPConstants();
 	LoadGameExternalOptions();
+	// Load new ini - SANDRO
+	LoadSkillTraitsExternalSettings();
+
+	// HEADROCK HAM 4: Read CTH values
+	LoadCTHConstants();
+
 	InitSightRange(); //lal
 
 	// Initlaize mouse subsystems
@@ -145,21 +159,12 @@ BOOLEAN InitializeGame(void)
 
 	//Init the help screen system
 	InitHelpScreenSystem();
+	
+	//LoadSavegame Slot 
+	LoadSaveGameOldOrNew();
 
 	//Loads the saved (if any) general JA2 game settings
 	LoadGameSettings();
-
-	//Initialize the Game options ( Gun nut, scifi and dif. levels
-
-	// WANNE - MP: Moved InitGameOptions() to MainMenuScreen::MenuButtonCallback()
-	// because in this function "is_networked" is not set, so it is too early!
-	//InitGameOptions();
-
-	// preload mapscreen graphics
-	// OJW - Temporarily disabliing this as is_networked is not set up yet
-	// <TODO> see if there is a better place we can pre-load the gfx if nessesary
-	// or perhaps just reload the bits that will change
-	//HandlePreloadOfMapGraphics( );
 
 	guiCurrentScreen = INIT_SCREEN;
 
@@ -209,7 +214,7 @@ void GameLoop(void)
 	InputAtom	InputEvent;
 	POINT		MousePos;
 	UINT32		uiOldScreen=guiCurrentScreen;
-	//clock_t		startTime = clock(); // decrease CPU load patch from defrog
+	clock_t		startTime = clock(); // decrease CPU load patch from defrog
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: get mouse position");
 	GetCursorPos(&MousePos);
@@ -222,11 +227,20 @@ void GameLoop(void)
 	MusicPoll( FALSE );
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: check for mouse events");
-	while (DequeueSpecificEvent(&InputEvent, LEFT_BUTTON_REPEAT|RIGHT_BUTTON_REPEAT|LEFT_BUTTON_DOWN|LEFT_BUTTON_UP|RIGHT_BUTTON_DOWN|RIGHT_BUTTON_UP ) == TRUE )
+	//*** dddd
+	//while (DequeueSpecificEvent(&InputEvent, LEFT_BUTTON_REPEAT|RIGHT_BUTTON_REPEAT|LEFT_BUTTON_DOWN|LEFT_BUTTON_UP|RIGHT_BUTTON_DOWN|RIGHT_BUTTON_UP ) == TRUE )
+	while (DequeueSpecificEvent(&InputEvent, 
+		LEFT_BUTTON_REPEAT|RIGHT_BUTTON_REPEAT|
+		LEFT_BUTTON_DOWN|LEFT_BUTTON_UP|MIDDLE_BUTTON_UP|X1_BUTTON_UP|X2_BUTTON_UP|
+		RIGHT_BUTTON_DOWN|RIGHT_BUTTON_UP|MIDDLE_BUTTON_DOWN|X1_BUTTON_DOWN|X2_BUTTON_DOWN|
+		MOUSE_WHEEL_UP|MOUSE_WHEEL_DOWN) == TRUE )
 	{
 		// HOOK INTO MOUSE HOOKS
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GameLoop: mouse event %d", InputEvent.usEvent ));
-		switch(InputEvent.usEvent)
+		MouseSystemHook(InputEvent.usEvent, (UINT16)MousePos.x ,(UINT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
+		
+
+	/*	switch(InputEvent.usEvent)
 	{
 			case LEFT_BUTTON_DOWN:
 				MouseSystemHook(LEFT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
@@ -246,7 +260,8 @@ void GameLoop(void)
 			case RIGHT_BUTTON_REPEAT:
 				MouseSystemHook(RIGHT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
-	}
+	}*/
+
 	}
 
 
@@ -354,6 +369,7 @@ void GameLoop(void)
 	if( uiOldScreen != guiCurrentScreen )
 	{
 		HandleNewScreenChange( uiOldScreen, guiCurrentScreen );
+		guiPreviousScreen = guiCurrentScreen;
 		guiCurrentScreen = uiOldScreen;
 	}
 
@@ -415,7 +431,6 @@ void GameLoop(void)
 	}
 #endif
 
-#if 0
 	if( gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ] == TRUE )
 	{
 		// decrease CPU load patch from MTX (http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/102405/page/1#Post102405)
@@ -431,11 +446,11 @@ void GameLoop(void)
 		if( sleeptime > 0 )
 			Sleep(sleeptime);
 	}
-#endif
-if ( is_networked )
+
+	if ( is_networked )
 	{
-	client_packet();
-	server_packet();
+		client_packet();
+		server_packet();
 	}
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop done");
 }

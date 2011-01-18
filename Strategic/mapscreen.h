@@ -8,6 +8,8 @@
 #define			MAP_WORLD_X						18
 #define			MAP_WORLD_Y						18
 
+extern int MAP_ITEMDESC_START_Y;
+extern int MAP_ITEMDESC_START_X;
 #define MAX_TOWN_NAME_LENGHT	32
 #define MAX_SECTOR_NAME_LENGTH	128
 
@@ -98,5 +100,15 @@ BOOLEAN InitializeInvPanelCoordsVehicle( );
 
 // HEADROCK HAM 3.6: Calculate daily cost for all mercs who have one.
 INT32 GetTotalContractExpenses ( void );
+
+// HEADROCK HAM 4: enumarate Manual Militia Restriction states
+enum
+{
+	MANUAL_MOBILE_RESTRICTED,
+	MANUAL_MOBILE_NO_ENTER,
+	MANUAL_MOBILE_NO_LEAVE,
+	MANUAL_MOBILE_NO_RESTRICTION,
+	NUM_MANUAL_MOBILE_STATES,
+};
 
 #endif

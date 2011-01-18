@@ -37,15 +37,20 @@
 #include "input.h"
 #include "zmouse.h"
 
-#include "VFS/vfs.h"
-#include "VFS/vfs_init.h"
-#include "VFS/File/vfs_file.h"
-#include "VFS/Location/vfs_slf_library.h"
-#include "VFS/Tools/Log.h"
-#include "VFS/Tools/ParserTools.h"
+#include <vfs/Aspects/vfs_settings.h>
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_init.h>
+#include <vfs/Core/vfs_os_functions.h>
+#include <vfs/Core/File/vfs_file.h>
+#include <vfs/Tools/vfs_log.h>
+#include <vfs/Tools/vfs_parser_tools.h>
+#include <vfs/Tools/vfs_file_logger.h>
+
+#include "sgp_logger.h"
 #include "Text.h"
-#include "VFS/os_functions.h"
-#include "VFS/vfs_settings.h"
+#include "LocalizedStrings.h"
+#include "ExportStrings.h"
+#include "ImportStrings.h"
 
 #define USE_CONSOLE 0
 
@@ -79,16 +84,52 @@ static std::list<vfs::Path> vfs_config_ini;
 static bool			s_DebugKeyboardInput = false;
 static vfs::Path	s_CodePage;
 
-void SHOWEXCEPTION(CBasicException& ex)
+static vfs::FileLogger *vfslog = NULL;
+
+void SHOWEXCEPTION(sgp::Exception& ex)
 {
 	try {
 		_ExceptionMessage(ex);
 	}
-	catch(CBasicException &ex2) {
-		logException(ex2);
+	catch(sgp::Exception &ex2) {
+		SGP_ERROR(ex2.what());
 		exit(0);
 	}
 }
+
+void SHOWEXCEPTION(vfs::Exception& ex)
+{
+	try {
+		_ExceptionMessage(ex);
+	}
+	catch(vfs::Exception &ex2) {
+		SGP_ERROR(ex2.what());
+		exit(0);
+	}
+}
+
+#define HANDLE_FATAL_ERROR \
+	catch(sgp::Exception &ex){ \
+		SGP_ERROR(ex.what()); \
+		FatalError((const STR8)ex.what()); \
+		exit(0); } \
+	catch(vfs::Exception &ex){ \
+		SGP_ERROR(ex.what()); \
+		FatalError((const STR8)ex.getExceptionString().utf8().c_str()); \
+		exit(0); } \
+	catch(std::exception &ex){ \
+		SGP_ERROR(ex.what()); \
+		FatalError((const STR8)ex.what()); \
+		exit(0); } \
+	catch(const char* msg){ \
+		SGP_ERROR(msg); \
+		FatalError((const STR8)msg); \
+		exit(0); } \
+	catch(...){ \
+		SGP_ERROR("Caught undefined exception"); \
+		FatalError("Caught undefined exception"); \
+		exit(0); }
+
 
 extern UINT32		MemDebugCounter;
 #ifdef JA2
@@ -159,6 +200,15 @@ BOOLEAN				gfIgnoreMessages=FALSE;
 // GLOBAL VARIBLE, SET TO DEFAULT BUT CAN BE CHANGED BY THE GAME IF INIT FILE READ
 UINT8				gbPixelDepth = PIXEL_DEPTH;
 
+bool				s_bExportStrings		= false;
+extern bool			g_bUseXML_Strings;//	= false;
+bool				g_bUseXML_Structures	= false;
+bool				g_bUseXML_Tilesets		= false;
+
+#ifdef USE_VFS
+static vfs::Path	sp_force_load_jsd_xml_file;
+#endif
+
 INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam)
 {
 	static BOOLEAN fRestore = FALSE;
@@ -174,11 +224,14 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 		return(DefWindowProc(hWindow, Message, wParam, lParam));
 
 	// ATE: This is for older win95 or NT 3.51 to get MOUSE_WHEEL Messages
-	if ( Message == guiMouseWheelMsg )
-	{
-		QueueEvent(MOUSE_WHEEL, wParam, lParam);
-		return( 0L );
-	}
+	//if ( Message == guiMouseWheelMsg )
+	//{
+	//	QueueEvent(MOUSE_WHEEL, wParam, lParam);
+	//	return( 0L );
+	//}
+
+
+
  
 	switch(Message)
 	{
@@ -186,11 +239,11 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 		PostQuitMessage(0);
 		break;
 /*dnl kick this out, because in input.sgp MouseHandler() hook has priority so it will process same event twice, someone force MouseHandler() hook to always return unhandled events status so what ever mouse event you process in WindowProcedure() be aware that this event is already occur in MouseHandler() (mouse clicks, move etc.) Probably this is done because when you lost focus even if you click back on window region this will not restore them, so need condition in MouseHandler to restore window focus
-		case WM_MOUSEWHEEL:
-			{
-				QueueEvent(MOUSE_WHEEL, wParam, lParam);
-				break;
-			}
+//		case WM_MOUSEWHEEL:
+//			{
+//				QueueEvent(MOUSE_WHEEL, wParam, lParam);
+//				break;
+//			}
 */		
 #ifdef JA2
 	case WM_MOVE:
@@ -526,9 +579,9 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 #ifdef USE_CODE_PAGE
 			if(s_DebugKeyboardInput)
 			{
-				static CLog& debugKeys = *CLog::Create(L"DebugKeys.txt");
+				static vfs::Log& debugKeys = *vfs::Log::Create(L"DebugKeys.txt");
 				static int input_counter = 1;
-				debugKeys << (input_counter++) << " : " << (int)wParam << CLog::endl;
+				debugKeys << (input_counter++) << " : " << (int)wParam << vfs::Log::endl;
 			}
 #endif // USE_CODE_PAGE
 			KeyDown(wParam, lParam);
@@ -594,32 +647,7 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 #endif
 
 	// Second, read in settings
-	std::list<CBasicException> exlist;
-	try
-	{
-		GetRuntimeSettings( );
-	}
-	catch(CBasicException& ex)
-	{
-		logException(ex);
-		// nothing is set up, no vfs, no video manager
-		// regular error processing wouldn't work here
-		// set default values and continue as if nothing has happened
-		iResolution = 1;
-
-		gbPixelDepth = PIXEL_DEPTH;
-
-		SCREEN_WIDTH = 800;
-		SCREEN_HEIGHT = 600;
-
-		iScreenWidthOffset = (SCREEN_WIDTH - 640) / 2;
-		iScreenHeightOffset = (SCREEN_HEIGHT - 480) / 2;
-
-		iScreenMode = 1;
-		iPlayIntro = 0;
-		// rethrow exception after full setup
-		exlist.push_back(ex);
-	}
+	GetRuntimeSettings( );
 
 	// Initialize the Debug Manager - success doesn't matter
 	InitializeDebugManager();
@@ -698,13 +726,14 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	//InitializeJA2TimerID();
 
 #ifdef USE_VFS
-	vfs::Path exe_dir, exe_file;
-	os::getExecutablePath(exe_dir, exe_file);
+	//vfs::Path exe_dir, exe_file;
+	//os::getExecutablePath(exe_dir, exe_file);
 
-	// set current directory to exe's directory 
-	os::setCurrectDirectory(exe_dir);
+	//// set current directory to exe's directory 
+	//os::setCurrectDirectory(exe_dir);
 
-	THROWIFFALSE( initVirtualFileSystem( vfs_config_ini ), L"Initializing Virtual File System failed");
+	SGP_THROW_IFFALSE( vfs_init::initVirtualFileSystem( vfs_config_ini ), L"Initializing Virtual File System failed");
+
 
 	s_VfsIsInitialized = true;
 
@@ -712,6 +741,19 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	getVFS()->getVirtualLocation(vfs::Path("ShadeTables"),true)->setIsExclusive(true);
 	getVFS()->getVirtualLocation(vfs::Path(pMessageStrings[MSG_SAVEDIRECTORY]+3),true)->setIsExclusive(true);
 	getVFS()->getVirtualLocation(vfs::Path(pMessageStrings[MSG_MPSAVEDIRECTORY]+3),true)->setIsExclusive(true);
+
+	if(!sp_force_load_jsd_xml_file.empty())
+	{
+		try
+		{
+			std::string filename = vfs::String::as_utf8(sp_force_load_jsd_xml_file());
+			STRUCTURE_FILE_REF *pStructureFileRef = LoadStructureFile((STR8)filename.c_str());
+		}
+		catch(std::exception &ex)
+		{
+			SGP_RETHROW(_BS(L"failed to load and/or process file : ") << sp_force_load_jsd_xml_file << _BS::wget, ex);
+		}
+	}
 
 #ifdef USE_CODE_PAGE
 	charSet::InitializeCharSets();
@@ -723,11 +765,11 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 			CodePageReader cpr;
 			cpr.ReadCodePage(s_CodePage);
 		}
-		catch(CBasicException& ex)
+		catch(std::exception& ex)
 		{
 			std::wstringstream wss;
 			wss << L"Could not process codepage file \"" << s_CodePage() << L"\"";
-			RETHROWEXCEPTION(wss.str().c_str(), &ex);
+			SGP_RETHROW(wss.str().c_str(), ex);
 		}
 	}
 #endif // USE_CODE_PAGE
@@ -762,6 +804,16 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		gCustomDataCat.NewCat(std::string(CurrentDir) + '\\' + customDataPath);
 	}
 #endif
+
+	if(g_bUseXML_Strings)
+	{
+		if(s_bExportStrings)
+		{
+			Loc::ExportStrings();
+		}
+		Loc::ImportStrings();
+	}
+
 //#ifdef JA2
 	InitJA2SplashScreen();
 //#endif
@@ -813,10 +865,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 
 	gfGameInitialized = TRUE;
 
-	if(!exlist.empty())
-	{
-		RETHROWEXCEPTION(L"Error during reading runtime settings", &exlist.front());
-	}
 	return TRUE;
 }
 
@@ -893,17 +941,19 @@ void ShutdownStandardGamingPlatform(void)
 
 	ShutdownDebugManager();
 
-	CLog::flushFinally();
+	sgp::Logger::instance().shutdown();
+	vfs::Log::flushDeleteAll();
+	if(vfslog) delete vfslog;
 	vfs::CVirtualFileSystem::shutdownVFS();
-	CFileAllocator::clear();
+	vfs::ObjectAllocator::clear();
 }
 
 #ifdef USE_VFS
 #include "MPJoinScreen.h"
 
-utf8string getGameID()
+vfs::String getGameID()
 {
-	static utf8string _id;
+	static vfs::String _id;
 	static bool has_id = false;
 	if(!has_id)
 	{
@@ -913,6 +963,58 @@ utf8string getGameID()
 	return _id;
 }
 #endif
+
+#include "debug_util.h"
+#include <vfs/Aspects/vfs_logging.h>
+
+class VfsLogAdapter : public vfs::Aspects::ILogger
+{
+public:
+	VfsLogAdapter(sgp::Logger_ID ID, bool stacktrace = false) : _id(ID), _trace(stacktrace) {};
+
+	virtual void Msg(const wchar_t* msg)
+	{
+		SGP_LOG(_id, msg);
+		if(_trace)
+		{
+			sgp::dumpStackTrace(msg);
+		}
+	}
+	virtual void Msg(const char* msg)
+	{
+		SGP_LOG(_id, msg);
+		if(_trace)
+		{
+			sgp::dumpStackTrace(msg);
+		}
+	}
+private:
+	sgp::Logger_ID	_id;
+	bool			_trace;
+};
+
+//#include <vfs/Aspects/vfs_synchronization.h>
+//#include "sgp_mutex.h"
+//class VfsMutex : public vfs::Aspects::IMutex
+//{
+//public:
+//	virtual void lock(){
+//		_mutex.lock();
+//	}
+//	virtual void unlock(){
+//		_mutex.unlock();
+//	}
+//private:
+//	sgp::Mutex _mutex;
+//};
+//class VfsMutexFactory : public vfs::Aspects::IMutexFactory
+//{
+//public:
+//	virtual vfs::Aspects::IMutex* createMutex()
+//	{
+//		return new VfsMutex();
+//	}
+//};
 
 int PASCAL WinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow)
 {
@@ -951,6 +1053,22 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	HWND			hPrevInstanceWindow;
 	UINT32			uiTimer = 0;
 
+#ifdef USE_VFS
+	vfs::Log::setSharedString( getGameID() );
+#endif
+	//if(!vfs::Aspects::getMutexFactory())
+	//{
+	//	vfs::Aspects::setMutexFactory( new VfsMutexFactory() );
+	//}
+	sgp::Logger_ID VFS_LOG = sgp::Logger::instance().createLogger();
+
+	sgp::Logger::instance().connectFile(VFS_LOG, L"vfs.log", false, sgp::Logger::FLUSH_ON_DELETE);
+
+	VfsLogAdapter* vfslog = new VfsLogAdapter(VFS_LOG, false);
+	VfsLogAdapter* vfslog_error = new VfsLogAdapter(VFS_LOG, true);
+
+	vfs::Aspects::setLogger(vfslog, vfslog, vfslog_error, NULL /* vfslog */);
+
 	// Make sure that only one instance of this application is running at once
 	// // Look for prev instance by searching for the window
 	hPrevInstanceWindow = FindWindowEx( NULL, NULL, APPLICATION_NAME, APPLICATION_NAME );
@@ -966,10 +1084,6 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	FastDebugMsg("Initializing Random");
 	// Initialize random number generator
 	InitializeRandom(); // no Shutdown
-
-#ifdef USE_VFS
-	CLog::setSharedString( getGameID() );
-#endif
 
 	//rain
 	//NSLoadSettings();
@@ -1029,9 +1143,9 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 //	ShowCursor(FALSE);
 
 #ifdef USE_VFS
-	vfs::Path exe_dir, exe_file;
-	os::getExecutablePath(exe_dir, exe_file);
-	os::setCurrectDirectory(exe_dir);
+	//vfs::Path exe_dir, exe_file;
+	//os::getExecutablePath(exe_dir, exe_file);
+	//os::setCurrectDirectory(exe_dir);
 #else
 	STRING512 sExecutableDir;
 	GetExecutableDirectory( sExecutableDir );
@@ -1046,65 +1160,11 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 			return 0;
 		}
 	}
-	catch(CBasicException &ex)
-	{
-		if(!s_VfsIsInitialized)
-		{
-			vfs::CFile* fonts = new vfs::CFile("Data/Fonts.slf");
-			vfs::CSLFLibrary* slfLib = new vfs::CSLFLibrary(vfs::tReadableFile::cast(fonts),"");
-			if(slfLib->init())
-			{
-				getVFS()->addLocation(slfLib,"doesn't matter");
-			}
-			// fonts not initialized 
-			FontTranslationTable *pFontTable = CreateEnglishTransTable( );
-			if ( pFontTable == NULL )
-			{
-				return( FALSE );
-			}
+	HANDLE_FATAL_ERROR;
 
-			// Initialize Font Manager
-			FastDebugMsg("Initializing the Font Manager");
-			// Init the manager and copy the TransTable stuff into it.
-			if ( !InitializeFontManager( 8, pFontTable ) )
-			{
-				FastDebugMsg("FAILED : Initializing Font Manager");
-				return FALSE;
-			}
-			// Don't need this thing anymore, so get rid of it (but don't de-alloc the contents)
-			MemFree( pFontTable );
-			if ( !InitializeFonts( ) )
-			{
-				// Send debug message and quit
-				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "COULD NOT INUT FONT SYSTEM...");
-				return( ERROR_SCREEN );
-			}
-		}
-		gfProgramIsRunning = 1;
-		logException(ex);
-		SHOWEXCEPTION(ex);
-	}
-	catch(std::exception &ex)
-	{
-		gfProgramIsRunning = 1;
-		CBasicException nex(ex.what(),_FUNCTION_FORMAT_,__LINE__,__FILE__);
-		logException(nex);
-		SHOWEXCEPTION(nex);
-	}
-	catch(const char* msg)
-	{
-		gfProgramIsRunning = 1;
-		CBasicException ex(msg,_FUNCTION_FORMAT_,__LINE__,__FILE__);
-		logException(ex);
-		SHOWEXCEPTION(ex);
-	}
-	catch(...)
-	{
-		gfProgramIsRunning = 1;
-		CBasicException ex("Caught undefined exception", _FUNCTION_FORMAT_, __LINE__, __FILE__);
-		logException( ex );
-		SHOWEXCEPTION(ex);
-	}
+#ifdef USE_VFS
+	vfs::Log::flushReleaseAll();
+#endif
 
 #ifdef LUACONSOLE
 	if (1==iScreenMode)
@@ -1114,9 +1174,13 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 #endif
 
 #ifdef JA2
-	#ifdef ENGLISH
+#	ifdef ENGLISH
+	try
+	{
 		SetIntroType( INTRO_SPLASH );
-	#endif
+	}
+	HANDLE_FATAL_ERROR;
+#	endif
 #endif
 
 	gfApplicationActive = TRUE;
@@ -1146,27 +1210,32 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 			DispatchMessage(&Message);
 		}
 	}
-	catch(CBasicException &ex)
+	catch(sgp::Exception &ex)
 	{
-		logException(ex);
+		SGP_ERROR(ex.what());
+		SHOWEXCEPTION(ex);
+	}
+	catch(vfs::Exception &ex)
+	{
+		SGP_ERROR(ex.what());
 		SHOWEXCEPTION(ex);
 	}
 	catch(std::exception &ex)
 	{
-		CBasicException nex(ex.what(),_FUNCTION_FORMAT_,__LINE__,__FILE__);
-		logException(nex);
+		sgp::Exception nex(ex.what());
+		SGP_ERROR(nex.what());
 		SHOWEXCEPTION(nex);
 	}
 	catch(const char* msg)
 	{
-		CBasicException ex(msg,_FUNCTION_FORMAT_,__LINE__,__FILE__);
-		logException(ex);
+		sgp::Exception ex(msg);
+		SGP_ERROR(ex.what());
 		SHOWEXCEPTION(ex);
 	}
 	catch(...)
 	{
-		CBasicException ex("Caught undefined exception", _FUNCTION_FORMAT_, __LINE__, __FILE__);
-		logException( ex );
+		sgp::Exception ex("Caught undefined exception");
+		SGP_ERROR( ex.what() );
 		SHOWEXCEPTION(ex);
 	}
 
@@ -1262,7 +1331,7 @@ void GetRuntimeSettings( )
 
 	strcat(INIFile, "\\Ja2.ini");
 #else
-	CPropertyContainer oProps;
+	vfs::PropertyContainer oProps;
 	oProps.initFromIniFile("Ja2.ini");
 #endif
 	iResolution = -1;
@@ -1272,24 +1341,24 @@ void GetRuntimeSettings( )
 		iResolution = atoi(zScreenResolution);
 	}
 #else
-	utf8string loc = oProps.getStringProperty("Ja2 Settings", L"LOCALE");
+	vfs::String loc = oProps.getStringProperty("Ja2 Settings", L"LOCALE");
 	if(!loc.empty())
 	{
-		THROWIFFALSE( setlocale(LC_ALL, loc.utf8().c_str()), BuildString().add(L"invalid locale : ").add(loc).get());
+		SGP_THROW_IFFALSE( setlocale(LC_ALL, loc.utf8().c_str()), _BS(L"invalid locale : ") << loc << _BS::wget );
 	}
 
 	iResolution = (int)oProps.getIntProperty(L"Ja2 Settings", L"SCREEN_RESOLUTION", -1);
 
 	vfs::Settings::setUseUnicode( !oProps.getBoolProperty(L"Ja2 Settings", L"VFS_NO_UNICODE", false) );
 
-	std::list<utf8string> ini_list;
+	std::list<vfs::String> ini_list;
 
-	utf8string vfs_config_file;
+	vfs::String vfs_config_file;
 	if(oProps.getStringProperty(L"Ja2 Settings", L"VFS_CONFIG", vfs_config_file))
 	{
-		CPropertyContainer temp_cont;
+		vfs::PropertyContainer temp_cont;
 		temp_cont.initFromIniFile(vfs_config_file);
-		utf8string temp_str;
+		vfs::String temp_str;
 		if(temp_cont.getStringProperty(L"vfs_config", L"VFS_CONFIG_INI", temp_str))
 		{
 			oProps.setStringProperty(L"Ja2 Settings", L"VFS_CONFIG_INI", temp_str);
@@ -1298,7 +1367,7 @@ void GetRuntimeSettings( )
 	if(oProps.getStringListProperty(L"Ja2 Settings", L"VFS_CONFIG_INI", ini_list, L""))
 	{
 		vfs_config_ini.clear();
-		for(std::list<utf8string>::iterator it = ini_list.begin(); it != ini_list.end(); ++it)
+		for(std::list<vfs::String>::iterator it = ini_list.begin(); it != ini_list.end(); ++it)
 		{
 			vfs_config_ini.push_back(*it);
 		}
@@ -1307,6 +1376,25 @@ void GetRuntimeSettings( )
 	{
 		vfs_config_ini.push_back(L"vfs_config.ini");
 	}
+	std::list<vfs::String> merge_list;
+	if(oProps.getStringListProperty(L"Ja2 Settings", L"MERGE_INI_FILES", merge_list, L""))
+	{
+		for(std::list<vfs::String>::iterator it = merge_list.begin(); it != merge_list.end(); ++it)
+		{
+			CIniReader::RegisterFileForMerging(*it);
+		}
+	}
+#endif
+
+#ifdef USE_VFS
+	extern bool g_bUsePngItemImages;
+	g_bUsePngItemImages		= oProps.getBoolProperty(L"Ja2 Settings", L"USE_PNG_ITEM_IMAGES", false);
+	g_bUseXML_Structures	= oProps.getBoolProperty(L"Ja2 Settings", L"USE_XML_STRUCTURES", false);
+	g_bUseXML_Tilesets		= oProps.getBoolProperty(L"Ja2 Settings", L"USE_XML_TILESETS", false);
+	g_bUseXML_Strings		= oProps.getBoolProperty(L"Ja2 Settings", L"USE_XML_STRINGS", false);
+	s_bExportStrings		= oProps.getBoolProperty(L"Ja2 Settings", L"EXPORT_STRINGS", false);
+
+	sp_force_load_jsd_xml_file = oProps.getStringProperty(L"Ja2 Settings", L"FORCE_LOAD_JSD_XML_FILE", L"");
 #endif
 
 #ifdef JA2EDITOR
@@ -1318,11 +1406,6 @@ void GetRuntimeSettings( )
 #else
 	iResolution = (int)oProps.getIntProperty("Ja2 Settings","EDITOR_SCREEN_RESOLUTION", -1); 
 #endif
-#endif
-
-#ifdef USE_VFS
-	extern bool g_bUsePngItemImages;
-	g_bUsePngItemImages = oProps.getBoolProperty(L"Ja2 Settings", "USE_PNG_ITEM_IMAGES", false);
 #endif
 
 	int	iResX;

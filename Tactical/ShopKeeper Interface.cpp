@@ -322,7 +322,7 @@ typedef struct
 	UINT8		ubCurrentPage;
 	UINT8		ubNumberOfPages;
 
-	UINT8		ubFirstItemIndexOnPage;
+	UINT16		ubFirstItemIndexOnPage;
 
 } SELECTED_ARMS_DEALERS_STATS;
 
@@ -396,6 +396,8 @@ extern		MOUSE_REGION		gItemDescAttachmentRegions[MAX_ATTACHMENTS];
 extern		MOUSE_REGION		gInvDesc;
 extern		BOOLEAN					gfSMDisableForItems;
 extern		OBJECTTYPE			*gpItemDescObject;
+extern		OBJECTTYPE			*gpItemDescPrevObject;
+extern		OBJECTTYPE			*gpItemDescPrevObject;
 extern		void						HandleShortCutExitState( void );
 extern		UINT8						gubSelectSMPanelToMerc;
 extern		INT32						giItemDescAmmoButton;
@@ -451,12 +453,12 @@ ITEM_TO_ADD_AFTER_SKI_OPEN gItemToAdd;
 
 //Page up buttons for the merchants
 void		BtnSKI_InvPageUpButtonCallback(GUI_BUTTON *btn,INT32 reason);
-UINT32	guiSKI_InvPageUpButton;
+UINT32		guiSKI_InvPageUpButton;
 INT32		guiSKI_InvPageUpButtonImage;
 
 //Page down buttons for the merchants
 void		BtnSKI_InvPageDownButtonCallback(GUI_BUTTON *btn,INT32 reason);
-UINT32	guiSKI_InvPageDownButton;
+UINT32		guiSKI_InvPageDownButton;
 INT32		guiSKI_InvPageDownButtonImage;
 
 
@@ -470,17 +472,17 @@ INT32		guiSKI_EvaluateButtonImage;
 
 //Transaction buttons
 void		BtnSKI_TransactionButtonCallback(GUI_BUTTON *btn,INT32 reason);
-UINT32	guiSKI_TransactionButton;
+UINT32		guiSKI_TransactionButton;
 INT32		guiSKI_TransactionButtonImage;
 
 //Done buttons
 void		BtnSKI_DoneButtonCallback(GUI_BUTTON *btn,INT32 reason);
-UINT32	guiSKI_DoneButton;
+UINT32		guiSKI_DoneButton;
 INT32		guiSKI_DoneButtonImage;
 
 //Atm buttons
 void		BtnSKI_AtmButtonCallback(GUI_BUTTON *btn,INT32 reason);
-UINT32	guiSKI_AtmButton[ NUM_SKI_ATM_BUTTONS ];
+UINT32		guiSKI_AtmButton[ NUM_SKI_ATM_BUTTONS ];
 INT32		guiSKI_AtmNumButtonImage;
 INT32		guiSKI_AtmOkButtonImage;
 INT32		guiSKI_AtmSideMenuButtonImage;
@@ -552,9 +554,9 @@ BOOLEAN		DetermineArmsDealersSellingInventory( );
 void			StoreObjectsInNextFreeDealerInvSlot( DEALER_SPECIAL_ITEM* pSpecial, std::vector<INVENTORY_IN_SLOT>& pInventory, UINT8 ubOwner );
 BOOLEAN		RepairIsDone(DEALER_SPECIAL_ITEM* pSpecial);
 
-UINT32		DisplayInvSlot( UINT8 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT16 usPosY, OBJECTTYPE	*ItemObject, BOOLEAN fHatchedOut, UINT8	ubItemArea );
+UINT32		DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT16 usPosY, OBJECTTYPE	*ItemObject, BOOLEAN fHatchedOut, UINT8	ubItemArea );
 void			DisplayArmsDealerOfferArea();
-INT8			AddItemToArmsDealerOfferArea( INVENTORY_IN_SLOT* pInvSlot, INT16	bSlotIdInOtherLocation );
+INT16			AddItemToArmsDealerOfferArea( INVENTORY_IN_SLOT* pInvSlot, INT16	bSlotIdInOtherLocation );
 BOOLEAN		RemoveItemFromArmsDealerOfferArea( INT16	bSlotId, BOOLEAN fKeepItem );
 void			SetSkiRegionHelpText( INVENTORY_IN_SLOT *pInv, MOUSE_REGION* pRegion, UINT8 ubScreenArea );
 void			SetSkiFaceRegionHelpText( INVENTORY_IN_SLOT *pInv, MOUSE_REGION* pRegion, UINT8 ubScreenArea );
@@ -562,7 +564,7 @@ void			RestoreTacticalBackGround();
 void			DisplayPlayersOfferArea();
 UINT32		CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, UINT16 usItemID, FLOAT dModifier, OBJECTTYPE	*pItemObject );
 FLOAT			ItemConditionModifier(UINT16 usItemIndex, INT16 bStatus);
-BOOLEAN		RemoveItemFromPlayersOfferArea( INT8 bSlotIdInOtherLocation );
+BOOLEAN		RemoveItemFromPlayersOfferArea( INT16 bSlotIdInOtherLocation );
 
 //Evaluate:
 //void			EvaluateAllItemsInPlayersOfferArea( );
@@ -572,8 +574,8 @@ UINT32		CalculateTotalPlayersValue();
 void			MoveAllArmsDealersItemsInOfferAreaToPlayersOfferArea( );
 void			PerformTransaction( UINT32 uiMoneyFromPlayersAccount );
 void			MovePlayerOfferedItemsOfValueToArmsDealersInventory( );
-INT8			AddInventoryToSkiLocation( INVENTORY_IN_SLOT *pInv, UINT8 ubSpotLocation, UINT8 ubWhere );
-BOOLEAN		RemoveItemFromDealersInventory( INVENTORY_IN_SLOT* pInvSlot, UINT8 ubSlot );
+INT16			AddInventoryToSkiLocation( INVENTORY_IN_SLOT *pInv, UINT16 ubSpotLocation, UINT8 ubWhere );
+BOOLEAN		RemoveItemFromDealersInventory( INVENTORY_IN_SLOT* pInvSlot, UINT16 ubSlot );
 BOOLEAN		InitShopKeepersFace( UINT8 ubMercID );
 void			DisplayTalkingArmsDealer();
 BOOLEAN		StartShopKeeperTalking( UINT16 usQuoteNum );
@@ -605,7 +607,7 @@ BOOLEAN		IsMoneyTheOnlyItemInThePlayersOfferArea( );
 
 UINT32		CalculateHowMuchMoneyIsInPlayersOfferArea( );
 void			MovePlayersItemsToBeRepairedToArmsDealersInventory();
-BOOLEAN		RemoveRepairItemFromDealersOfferArea( INT8	bSlot );
+BOOLEAN		RemoveRepairItemFromDealersOfferArea( INT16	bSlot );
 
 INT8			GetInvSlotOfUnfullMoneyInMercInventory( SOLDIERTYPE *pSoldier );
 void			ClearPlayersOfferSlot( INT32 ubSlotToClear );
@@ -620,7 +622,7 @@ void			CrossOutUnwantedItems( void );
 BOOLEAN		CanShopkeeperOverrideDialogue( void );
 INT16			GetNumberOfItemsInPlayerOfferArea( void );
 void			HandleCheckIfEnoughOnTheTable( void );
-void			InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT8 ubPocket, UINT8	ubFromLocation );
+void			InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT16 ubPocket, UINT8	ubFromLocation );
 void			StartSKIDescriptionBox( void );
 
 BOOLEAN		ShopkeeperAutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fNewItem );
@@ -791,14 +793,17 @@ UINT32	ShopKeeperScreenHandle()
 //ATM:
 	DisableSMPpanelButtonsWhenInShopKeeperInterface( FALSE );
 	//Heinz: 22.02.09 BUGFIX: buttons should not render upon shopkeeper's message
-	if( gfIsTheShopKeeperTalking && !gfInItemDescBox ) 
+	if( gfIsTheShopKeeperTalking && !gfInItemDescBox )
 	{
 		ButtonList[ guiSKI_TransactionButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
 		ButtonList[ guiSKI_DoneButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
 	}
+
 	RenderButtons( );
+	
 	//CHRISL: If we put this function call here, we overwrite the bullet graphic.  I don't know why.  I just know it happens.
-//	RenderItemDescriptionBox( );
+	//RenderItemDescriptionBox( );
+	
 	// render help
 	SaveBackgroundRects( );
 	RenderButtonsFastHelp( );
@@ -2003,8 +2008,8 @@ void SelectDealersInventoryRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason 
 	}
 	else if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-		UINT8	ubSelectedInvSlot = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
-		INT8	ubLocation;
+		UINT16	ubSelectedInvSlot = MSYS_GetRegionUserData( pRegion, 0 );
+		INT16	ubLocation;
 
 		if( gpTempDealersInventory.empty() == true )
 			return;
@@ -2078,7 +2083,7 @@ void SelectDealersInventoryRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason 
 
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
-		UINT8	ubSelectedInvSlot = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+		UINT16	ubSelectedInvSlot = MSYS_GetRegionUserData( pRegion, 0 );
 
 		if( gpTempDealersInventory.empty() == true )
 			return;
@@ -2132,7 +2137,7 @@ void SelectDealersInventoryRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason 
 
 void SelectDealersInventoryMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT8	ubSelectedInvSlot = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+	UINT16	ubSelectedInvSlot = MSYS_GetRegionUserData( pRegion, 0 );
 	ubSelectedInvSlot += gSelectArmsDealerInfo.ubFirstItemIndexOnPage;
 
 	if( gpTempDealersInventory.empty() == true )
@@ -2168,7 +2173,7 @@ void SelectDealersInventoryMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 
 
 void SelectDealersOfferSlotsMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT8	ubSelectedInvSlot = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+	UINT16	ubSelectedInvSlot = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
@@ -2196,7 +2201,7 @@ void SelectDealersOfferSlotsMovementRegionCallBack(MOUSE_REGION * pRegion, INT32
 
 void SelectPlayersOfferSlotsMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT8	ubSelectedInvSlot = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+	UINT16	ubSelectedInvSlot = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
@@ -2227,7 +2232,7 @@ void SelectPlayersOfferSlotsMovementRegionCallBack(MOUSE_REGION * pRegion, INT32
 //Mouse Call back for the dealer's OFFER slot
 void SelectDealersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT8	ubSelectedInvSlot = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+	UINT16	ubSelectedInvSlot = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
@@ -2350,8 +2355,8 @@ void SelectDealersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 //Mouse Call back for the Players OFFER slot
 void SelectPlayersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT8	ubSelectedInvSlot = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
-	INT8 bAddedToSlotID = -1;
+	UINT16	ubSelectedInvSlot = MSYS_GetRegionUserData( pRegion, 0 );
+	INT16 bAddedToSlotID = -1;
 
 
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
@@ -2633,7 +2638,7 @@ void DisplayArmsDealerCurrentInventoryPage( )
 
 
 				// Display the inventory slot
-				DisplayInvSlot( (UINT8)usCnt, gpTempDealersInventory[ usCnt ].sItemIndex, usPosX, usPosY,
+				DisplayInvSlot( usCnt, gpTempDealersInventory[ usCnt ].sItemIndex, usPosX, usPosY,
 												&gpTempDealersInventory[ usCnt ].ItemObject,
 												fDisplayHatchOnItem,
 												ARMS_DEALER_INVENTORY );
@@ -2698,7 +2703,7 @@ void DisplayArmsDealerCurrentInventoryPage( )
 }
 
 
-UINT32 DisplayInvSlot( UINT8 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT16 usPosY, OBJECTTYPE	*pItemObject, BOOLEAN fHatchedOut, UINT8 ubItemArea )
+UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT16 usPosY, OBJECTTYPE	*pItemObject, BOOLEAN fHatchedOut, UINT8 ubItemArea )
 {
 	CHAR16			zTemp[64];
 	HVOBJECT		hVObject;
@@ -3070,7 +3075,7 @@ BOOLEAN RepairIsDone(DEALER_SPECIAL_ITEM* pSpecial)
 
 	// max condition of all permanent attachments on it
 	for (attachmentList::iterator iter = RepairItem.ItemObject[0]->attachments.begin(); iter != RepairItem.ItemObject[0]->attachments.end(); ++iter) {
-		if ( CanDealerRepairItem( gbSelectedArmsDealerID, iter->usItem ) )
+		if ( CanDealerRepairItem( gbSelectedArmsDealerID, iter->usItem ) && iter->exists())
 		{
 			// fix it up
 			(*iter)[0]->data.objectStatus = 100;
@@ -3197,7 +3202,8 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 		// loop through any attachments and add in their price
 		for (attachmentList::iterator iter = (*pItemObject)[ubCnt]->attachments.begin(); iter != (*pItemObject)[ubCnt]->attachments.end(); ++iter) {
 			// add value of this particular attachment
-			uiItemPrice[ubCnt] += CalcShopKeeperItemPrice( fDealerSelling, fUnitPriceOnly, iter->usItem, dModifier, &(*iter)) ;
+			if(iter->exists())
+				uiItemPrice[ubCnt] += CalcShopKeeperItemPrice( fDealerSelling, fUnitPriceOnly, iter->usItem, dModifier, &(*iter)) ;
 		}
 
 		// if Flo is doing the dealin' and wheelin'
@@ -3337,7 +3343,7 @@ void DisplayArmsDealerOfferArea()
 				fDisplayHatchOnItem = FALSE;
 
 			// Display the inventory slot
-			uiTotalCost += DisplayInvSlot( (UINT8)sCnt, ArmsDealerOfferArea[ sCnt ].sItemIndex, usPosX, usPosY,
+			uiTotalCost += DisplayInvSlot( (UINT16)sCnt, ArmsDealerOfferArea[ sCnt ].sItemIndex, usPosX, usPosY,
 											&ArmsDealerOfferArea[ sCnt ].ItemObject,
 											fDisplayHatchOnItem,
 											ARMS_DEALER_OFFER_AREA );
@@ -3381,9 +3387,9 @@ void DisplayArmsDealerOfferArea()
 }
 
 
-INT8 AddItemToArmsDealerOfferArea( INVENTORY_IN_SLOT* pInvSlot, INT16 bSlotIdInOtherLocation )
+INT16 AddItemToArmsDealerOfferArea( INVENTORY_IN_SLOT* pInvSlot, INT16 bSlotIdInOtherLocation )
 {
-	INT8	bCnt;
+	INT16	bCnt;
 
 	for( bCnt=0; bCnt<SKI_NUM_TRADING_INV_SLOTS; bCnt++)
 	{
@@ -3491,7 +3497,6 @@ void SkiHelpTextDoneCallBack( void )
 }
 
 
-
 INT8 AddItemToPlayersOfferArea( UINT8 ubProfileID, INVENTORY_IN_SLOT* pInvSlot, INT16 bSlotIdInOtherLocation )
 {
 	INT8	bCnt;
@@ -3541,7 +3546,7 @@ INT8 AddItemToPlayersOfferArea( UINT8 ubProfileID, INVENTORY_IN_SLOT* pInvSlot, 
 	return( -1 );
 }
 
-BOOLEAN RemoveItemFromPlayersOfferArea( INT8 bSlot )
+BOOLEAN RemoveItemFromPlayersOfferArea( INT16 bSlot )
 {
 	//if the item doesn't have a duplicate copy in its owner merc's inventory slot
 	if( PlayersOfferArea[ bSlot ].bSlotIdInOtherLocation == -1 )
@@ -3627,7 +3632,7 @@ void DisplayPlayersOfferArea()
 //			fDisplayHatchOnItem = ( PlayersOfferArea[ sCnt ].uiFlags & ( ARMS_INV_PLAYERS_ITEM_HAS_BEEN_EVALUATED | ARMS_INV_JUST_PURCHASED ) ) == 0;
 
 			// Display the inventory slot
-			DisplayInvSlot( (UINT8)sCnt, PlayersOfferArea[ sCnt ].sItemIndex, usPosX, usPosY,
+			DisplayInvSlot( (UINT16)sCnt, PlayersOfferArea[ sCnt ].sItemIndex, usPosX, usPosY,
 											&PlayersOfferArea[ sCnt ].ItemObject,
 											fDisplayHatchOnItem,
 											PLAYERS_OFFER_AREA );
@@ -3697,7 +3702,7 @@ BOOLEAN ShouldSoldierDisplayHatchOnItem( UINT8 ubProfileID, INT16 sSlotNum )
 {
 	INVENTORY_IN_SLOT	*pInvSlot = NULL;
 
-	pInvSlot = GetPtrToOfferSlotWhereThisItemIs( ubProfileID, ( INT8 ) sSlotNum );
+	pInvSlot = GetPtrToOfferSlotWhereThisItemIs( ubProfileID, sSlotNum );
 
 	if( pInvSlot == NULL )
 		// not found in either offer area
@@ -3980,7 +3985,7 @@ void MoveAllArmsDealersItemsInOfferAreaToPlayersOfferArea( )
 {
 	//for all items in the dealers items offer area
 	UINT32	uiCnt;
-	INT8		bSlotID=0;
+	INT16		bSlotID=0;
 
 	//loop through all the slots in the shopkeeper's offer area
 	for( uiCnt=0; uiCnt<SKI_NUM_TRADING_INV_SLOTS; uiCnt++)
@@ -4004,10 +4009,10 @@ void MoveAllArmsDealersItemsInOfferAreaToPlayersOfferArea( )
 
 
 			//Remove the items out of the dealers inventory
-			RemoveItemFromDealersInventory( &ArmsDealerOfferArea[ uiCnt ], (UINT8)ArmsDealerOfferArea[ uiCnt ].bSlotIdInOtherLocation );
+			RemoveItemFromDealersInventory( &ArmsDealerOfferArea[ uiCnt ], (UINT16)ArmsDealerOfferArea[ uiCnt ].bSlotIdInOtherLocation );
 
 			//Remove the items from the Shopkeepers Offer area
-			if( !RemoveItemFromArmsDealerOfferArea( (UINT8)uiCnt, FALSE ) )//ArmsDealerOfferArea[uiCnt].bSlotIdInOtherLocation
+			if( !RemoveItemFromArmsDealerOfferArea( (UINT16)uiCnt, FALSE ) )//ArmsDealerOfferArea[uiCnt].bSlotIdInOtherLocation
 				Assert( 0 );
 
 			if( ArmsDealerOfferArea[uiCnt].fActive )
@@ -4024,7 +4029,7 @@ void MoveAllArmsDealersItemsInOfferAreaToPlayersOfferArea( )
 
 }
 
-BOOLEAN RemoveItemFromDealersInventory( INVENTORY_IN_SLOT* pInvSlot, UINT8 ubSlot )
+BOOLEAN RemoveItemFromDealersInventory( INVENTORY_IN_SLOT* pInvSlot, UINT16 ubSlot )
 {
 	INT16		sInvSlot;
 	INT16		sItemID;
@@ -4083,7 +4088,7 @@ void MovePlayerOfferedItemsOfValueToArmsDealersInventory()
 
 
 
-void BeginSkiItemPointer( UINT8 ubSource, INT8 bSlotNum, BOOLEAN fOfferToDealerFirst )
+void BeginSkiItemPointer( UINT8 ubSource, INT16 bSlotNum, BOOLEAN fOfferToDealerFirst )
 {
 	SGPRect			Rect;
 
@@ -4321,7 +4326,7 @@ void SetSkiCursor( UINT16	usCursor )
 		if( gInvDesc.uiFlags & MSYS_REGION_EXISTS )
 			MSYS_ChangeRegionCursor( &gInvDesc, usCursor );
 
-		for( ubCnt = 0; ubCnt < MAX_ATTACHMENTS; ubCnt++)
+		for( ubCnt = 0; ubCnt < gMoveingItem.ItemObject[0]->attachments.size(); ubCnt++)
 		{
 			if( gItemDescAttachmentRegions[ubCnt].uiFlags & MSYS_REGION_EXISTS )
 				MSYS_ChangeRegionCursor( &gItemDescAttachmentRegions[ubCnt], usCursor );
@@ -4388,7 +4393,7 @@ void SetSkiCursor( UINT16	usCursor )
 		if( gInvDesc.uiFlags & MSYS_REGION_EXISTS )
 			MSYS_ChangeRegionCursor( &gInvDesc, usCursor );
 
-		for( ubCnt = 0; ubCnt < MAX_ATTACHMENTS; ubCnt++)
+		for( ubCnt = 0; ubCnt < gMoveingItem.ItemObject[0]->attachments.size(); ubCnt++)
 		{
 			if( gItemDescAttachmentRegions[ubCnt].uiFlags & MSYS_REGION_EXISTS )
 				MSYS_ChangeRegionCursor( &gItemDescAttachmentRegions[ubCnt], usCursor );
@@ -4417,9 +4422,9 @@ void SetSkiCursor( UINT16	usCursor )
 }
 
 
-INT8 AddInventoryToSkiLocation( INVENTORY_IN_SLOT *pInv, UINT8 ubSpotLocation, UINT8 ubWhere )
+INT16 AddInventoryToSkiLocation( INVENTORY_IN_SLOT *pInv, UINT16 ubSpotLocation, UINT8 ubWhere )
 {
-	INT8 bSlotAddedTo = -1;
+	INT16 bSlotAddedTo = -1;
 
 
 	switch( ubWhere )
@@ -4739,12 +4744,12 @@ BOOLEAN IsGunOrAmmoOfSameTypeSelected( OBJECTTYPE	*pItemObject )
 //	if( Item[ pItemObject->usItem ].fFlags & ITEM_ATTACHMENT )
 	if( Item[ pItemObject->usItem ].attachment  )
 	{
-		if( ValidAttachment( pItemObject->usItem, gpHighLightedItemObject->usItem ) )
+		if( ValidAttachment( pItemObject->usItem, gpHighLightedItemObject ) )
 			return( TRUE );
 	}
 	else
 	{
-		if( ValidAttachment( gpHighLightedItemObject->usItem, pItemObject->usItem ) )
+		if( ValidAttachment( gpHighLightedItemObject->usItem, pItemObject ) )
 			return( TRUE );
 	}
 
@@ -5802,7 +5807,7 @@ void MovePlayersItemsToBeRepairedToArmsDealersInventory()
 
 
 
-BOOLEAN RemoveRepairItemFromDealersOfferArea( INT8	bSlot )
+BOOLEAN RemoveRepairItemFromDealersOfferArea( INT16	bSlot )
 {
 	//if the item doesn't have a duplicate copy in its owner merc's inventory slot
 	if( ArmsDealerOfferArea[ bSlot ].bSlotIdInOtherLocation == -1 )
@@ -5936,7 +5941,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 			//if the item is damaged, or is a rocket rifle (which always "need repairing" even at 100%, to reset imprinting)
 			if( ( PlayersOfferArea[ bSlotID ].ItemObject[0]->data.objectStatus < 100 ) || fRocketRifleWasEvaluated )
 			{
-				INT8	bSlotAddedTo;
+				INT16	bSlotAddedTo;
 
 				// Move the item to the Dealer's Offer Area
 				bSlotAddedTo = AddItemToArmsDealerOfferArea( &PlayersOfferArea[ bSlotID ], PlayersOfferArea[ bSlotID ].bSlotIdInOtherLocation );
@@ -6344,16 +6349,19 @@ void HandleCheckIfEnoughOnTheTable( void )
 
 
 
-void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT8 ubPocket, UINT8 ubFromLocation )
+void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT16 ubPocket, UINT8 ubFromLocation )
 {
 	INT16	sPosX, sPosY;
 
 
+	bool showItemDescriptionBox = false;
 	switch( ubFromLocation )
 	{
 		case ARMS_DEALER_INVENTORY:
 		{
-			UINT8	ubSelectedInvSlot = ubPocket - gSelectArmsDealerInfo.ubFirstItemIndexOnPage;
+			showItemDescriptionBox = true;
+
+			UINT16	ubSelectedInvSlot = ubPocket - gSelectArmsDealerInfo.ubFirstItemIndexOnPage;
 
 			sPosX = SKI_ARMS_DEALERS_INV_START_X; // + ( SKI_INV_OFFSET_X * ( ubSelectedInvSlot % SKI_NUM_ARMS_DEALERS_INV_COLS ) - ( 358 / 2 ) ) + SKI_INV_SLOT_WIDTH / 2;
 
@@ -6382,6 +6390,8 @@ void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT8 ubPocket, UINT8 ubFro
 
 		case ARMS_DEALER_OFFER_AREA:
 		{
+			showItemDescriptionBox = false;
+
 			sPosX = SKI_ARMS_DEALERS_TRADING_INV_X; // + ( SKI_INV_OFFSET_X * ( ubPocket % ( SKI_NUM_TRADING_INV_SLOTS/2) ) - ( 358 / 2 ) ) + SKI_INV_SLOT_WIDTH / 2;
 
 			sPosY = SKI_ARMS_DEALERS_TRADING_INV_Y; // + ( ( SKI_INV_OFFSET_Y * ubPocket / ( SKI_NUM_TRADING_INV_SLOTS/2) ) + 1 ) - ( 128 / 2 ) + SKI_INV_SLOT_HEIGHT / 2;
@@ -6410,13 +6420,16 @@ void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT8 ubPocket, UINT8 ubFro
 			Assert( 0 );
 			return;
 	}
+	
+	// WANNE: Only allow right click (item desription box) in the arms dealer inventory
+	if (showItemDescriptionBox)
+	{
+		pShopKeeperItemDescObject = pObject;
 
+		InitItemDescriptionBox( gpSMCurrentMerc, 255, sPosX, sPosY, 0 );
 
-	pShopKeeperItemDescObject = pObject;
-
-	InitItemDescriptionBox( gpSMCurrentMerc, 255, sPosX, sPosY, 0 );
-
-	StartSKIDescriptionBox( );
+		StartSKIDescriptionBox( );
+	}
 }
 
 

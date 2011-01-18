@@ -206,7 +206,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			DailyUpdateOfMercSite( (UINT16)GetWorldDay() );
 			break;
 	case EVENT_DAY3_ADD_EMAIL_FROM_SPECK:
-			if(!bMercDayOne)
+			if ( gGameExternalOptions.fMercDayOne == FALSE && gGameExternalOptions.fAllMercsAvailable == FALSE )
 			{
 				AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1 );
 			}

@@ -901,6 +901,7 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	}
 
 	// items normally not sold at shops are unsuitable
+//	if ( Item[ usItemIndex ].fFlags & ITEM_NOT_BUYABLE )
 	if ( Item[ usItemIndex ].notbuyable  )
 	{
 		return(ITEM_SUITABILITY_NONE);
@@ -916,8 +917,21 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	}
 
 	// the following staple items are always deemed highly suitable regardless of player's progress:
+	//switch (usItemIndex)
+	//{
+	//	case FIRSTAIDKIT:
+	//	case MEDICKIT:
+	//	case TOOLKIT:
+	//	case LOCKSMITHKIT:
+
+	//	case CANTEEN:
+	//	case CROWBAR:
+	//	case JAR:
+	//	case JAR_ELIXIR:
+	//	case JAR_CREATURE_BLOOD:
 		if ( Item[usItemIndex].medical || Item[usItemIndex].canteen || Item[usItemIndex].medicalkit || Item[usItemIndex].locksmithkit || Item[usItemIndex].toolkit || Item[usItemIndex].crowbar || Item[usItemIndex].jar )
 			return(ITEM_SUITABILITY_ALWAYS);
+	//}
 
 
 	// If it's not BobbyRay, Tony, or Devin
@@ -931,11 +945,13 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	// figure out the appropriate range of coolness based on player's maximum progress so far
 
 
-	if ( bArmsDealer == bobbyRaysID )
+	if ( bArmsDealer == bobbyRaysID ) {
 		ubMinCoolness = 1;
-	else
+	    ubMaxCoolness = HighestPlayerProgressPercentage() / 10 + 1;
+	} else {
 		ubMinCoolness = HighestPlayerProgressPercentage() * armsDealerInfo[bArmsDealer].coolnessProgressRate / 100;
-	ubMaxCoolness = ubMinCoolness + 1;
+	    ubMaxCoolness = HighestPlayerProgressPercentage() * armsDealerInfo[bArmsDealer].coolnessProgressRate / 100 + 1;
+	}
 
 	//Madd:  Bobby Ray's will sell higher coolness stuff if it's used, and may also have a better selection at the start of the game, depending on selection
 	if ( (bArmsDealer == bobbyRaysID || armsDealerInfo[bArmsDealer].useBRSetting) && gGameOptions.ubBobbyRay > BR_GOOD )

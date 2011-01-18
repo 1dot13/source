@@ -108,9 +108,11 @@
 
 #include "connect.h" //hayden added alot ""'s to get around client spawing random/different placed AI
 #include "SaveLoadGame.h"
+#include "Strategic Mines.h"
+#include "Strategic Mines LUA.h"
+#include "UndergroundInit.h"
 
-#include "VFS/vfs.h"
-#include "VFS/Tools/Log.h"
+#include "sgp_logger.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -136,7 +138,9 @@ BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode );
 extern INT32		gsRobotGridNo;
 extern BOOLEAN	gfUndergroundTacticalTraversal;
 
-extern MINE_LOCATION_TYPE gMineLocation[MAX_NUMBER_OF_MINES];
+//extern MINE_LOCATION_TYPE gMineLocation[MAX_NUMBER_OF_MINES];
+//extern MINE_STATUS_TYPE gMineStatus[MAX_NUMBER_OF_MINES];
+
 
 extern void CalculateNonPersistantPBIInfo();
 
@@ -298,6 +302,11 @@ STR8 pHortStrings[]={
 
 // HEADROCK HAM 3.6: Array to hold user-defined sector names
 CHAR16 gzSectorNames[256][4][MAX_SECTOR_NAME_LENGTH];
+
+// moved to lua
+//CHAR16 gzSectorUndergroundNames1[256][4][MAX_SECTOR_NAME_LENGTH]; 
+//CHAR16 gzSectorUndergroundNames2[256][4][MAX_SECTOR_NAME_LENGTH]; 
+//CHAR16 gzSectorUndergroundNames3[256][4][MAX_SECTOR_NAME_LENGTH]; 
 
 BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName, BOOLEAN localizedVersion);
 
@@ -623,7 +632,7 @@ samsiteEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = SAMSITE_ELEMENT_SAM;
 
-			pData->curSamInfo.samGridNoA = (INT16)atol(pData->szCharData);
+			pData->curSamInfo.samGridNoA = atol(pData->szCharData);
 			if ( pData->curSamInfo.samGridNoA >= WORLD_MAX )
 			{
 				pData->curSamInfo.samGridNoA = 0;
@@ -633,7 +642,7 @@ samsiteEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = SAMSITE_ELEMENT_SAM;
 
-			pData->curSamInfo.samGridNoB = (INT16)atol(pData->szCharData);
+			pData->curSamInfo.samGridNoB = atol(pData->szCharData);
 			if ( pData->curSamInfo.samGridNoB >= WORLD_MAX )
 			{
 				pData->curSamInfo.samGridNoB = 1;
@@ -1456,40 +1465,43 @@ void EndLoadScreen( )
 		fclose( fp );
 	}
 #else
-	CLog timeResults(L"TimeResults.txt", true);
+	sgp::Logger_ID time_log_id = sgp::Logger::instance().createLogger();
+	sgp::Logger::instance().connectFile(time_log_id, L"TimeResults.txt", true, sgp::Logger::FLUSH_ON_ENDL);
+	sgp::Logger::LogInstance timeResults = SGP_LOG(time_log_id);
+
 	ScreenMsg( FONT_YELLOW, MSG_TESTVERSION, L"See JA2\\Data\\TimeResults.txt for more detailed timings." );
 
 	//Record all of the timings.
-	timeResults << str << CLog::ENDL;
-	timeResults << "EnterSector() supersets LoadWorld().  This includes other external sections." << CLog::ENDL;
+	timeResults << str << sgp::endl;
+	timeResults << "EnterSector() supersets LoadWorld().  This includes other external sections." << vfs::Log::endl;
 		//FileRead()
-	timeResults << 	CLog::ENDL << CLog::ENDL << "VARIOUS FUNCTION TIMINGS (exclusive of actual function timings in second heading)" << CLog::ENDL;
+	timeResults << sgp::endl << vfs::Log::endl << "VARIOUS FUNCTION TIMINGS (exclusive of actual function timings in second heading)" << sgp::endl;
 	uiSeconds = uiTotalFileReadTime / 1000;
 	uiHundreths = (uiTotalFileReadTime / 10) % 100;
 	//fprintf( fp, "FileRead:  %d.%02d (called %d times)\n", uiSeconds, uiHundreths, uiTotalFileReadCalls );
-	timeResults << "FileRead:  " <<uiSeconds<< "." << uiHundreths << " (called " << uiTotalFileReadCalls << " times)" << CLog::ENDL;
+	timeResults << "FileRead:  " <<uiSeconds<< "." << uiHundreths << " (called " << uiTotalFileReadCalls << " times)" << sgp::endl;
 
-	timeResults.endl().endl() << "SECTIONS OF LOADWORLD (all parts should add up to 100%)" << CLog::ENDL;
+	timeResults << sgp::endl << sgp::endl << "SECTIONS OF LOADWORLD (all parts should add up to 100%)" << sgp::endl;
 
 	//TrashWorld()
 	uiSeconds = uiTrashWorldTime / 1000;
 	uiHundreths = (uiTrashWorldTime / 10) % 100;
-	timeResults << "TrashWorld: " << uiSeconds << "." << uiHundreths << CLog::ENDL;
+	timeResults << "TrashWorld: " << uiSeconds << "." << uiHundreths << sgp::endl;
 	//LoadMapTilesets()
 	uiSeconds = uiLoadMapTilesetTime / 1000;
 	uiHundreths = (uiLoadMapTilesetTime / 10) % 100;
-	timeResults << "LoadMapTileset: " << uiSeconds << "." << uiHundreths << CLog::ENDL;
+	timeResults << "LoadMapTileset: " << uiSeconds << "." << uiHundreths << sgp::endl;
 	//LoadMapLights()
 	uiSeconds = uiLoadMapLightsTime / 1000;
 	uiHundreths = (uiLoadMapLightsTime / 10) % 100;
-	timeResults << "LoadMapLights: " << uiSeconds << "." << uiHundreths << CLog::ENDL;
+	timeResults << "LoadMapLights: " << uiSeconds << "." << uiHundreths << sgp::endl;
 
 	uiSeconds = uiBuildShadeTableTime / 1000;
 	uiHundreths = (uiBuildShadeTableTime / 10) % 100;
-	timeResults << "  1)  BuildShadeTables: " << uiSeconds << "." << uiHundreths << CLog::ENDL;
+	timeResults << "  1)  BuildShadeTables: " << uiSeconds << "." << uiHundreths << sgp::endl;
 
 	uiPercentage = uiNumImagesReloaded * 100 / NUMBEROFTILETYPES;
-	timeResults << "  2)  " << uiPercentage << "% of the tileset images were actually reloaded." << CLog::ENDL;
+	timeResults << "  2)  " << uiPercentage << "% of the tileset images were actually reloaded." << sgp::endl;
 	if ( ( uiNumTablesSaved+uiNumTablesLoaded ) != 0 )
 	{
 		uiPercentage = uiNumTablesSaved * 100 / (uiNumTablesSaved+uiNumTablesLoaded);
@@ -1498,21 +1510,21 @@ void EndLoadScreen( )
 	{
 		uiPercentage = 0;
 	}
-	timeResults << "  3)  Of that, " << uiPercentage << "% of the shade tables were generated (not loaded)." << CLog::ENDL;
+	timeResults << "  3)  Of that, " << uiPercentage << "% of the shade tables were generated (not loaded)." << sgp::endl;
 	if( gfForceBuildShadeTables )
 	{
-		timeResults << "  NOTE:  Force building of shadetables enabled on this local computer." << CLog::ENDL;
+		timeResults << "  NOTE:  Force building of shadetables enabled on this local computer." << sgp::endl;
 	}
 
 	//Unaccounted
 	uiUnaccounted = uiLoadWorldTime - uiTrashWorldTime - uiLoadMapTilesetTime - uiLoadMapLightsTime;
 	uiSeconds = uiUnaccounted / 1000;
 	uiHundreths = (uiUnaccounted / 10) % 100;
-	timeResults << "Unaccounted: " << uiSeconds << "." << uiHundreths << CLog::ENDL;
+	timeResults << "Unaccounted: " << uiSeconds << "." << uiHundreths << sgp::endl;
 	//LoadWorld()
 	uiSeconds = uiLoadWorldTime / 1000;
 	uiHundreths = (uiLoadWorldTime / 10) % 100;
-	timeResults.endl() << "Total: " << uiSeconds << "." << uiHundreths << CLog::ENDL;
+	timeResults << vfs::Log::endl << "Total: " << uiSeconds << "." << uiHundreths << sgp::endl;
 #endif // USE_VFS
 #endif
 }
@@ -1818,6 +1830,8 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	}
 	else
 #endif
+		// reset goggle warning
+		gogglewarning = FALSE;
 		// is the sector already loaded?
 		if( ( gWorldSectorX == sMapX ) && ( sMapY == gWorldSectorY) && ( bMapZ == gbWorldSectorZ) )
 		{
@@ -1832,7 +1846,7 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			{
 				if (is_networked)
 				{
-					if(is_server && ENEMY_ENABLED==1)
+					if(is_server && gEnemyEnabled == 1)
 						PrepareEnemyForSectorBattle();
 				}
 				else
@@ -1859,7 +1873,7 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			{
 				if (is_networked)
 				{
-					if(is_server && CREATURE_ENABLED==1)
+					if(is_server && gCreatureEnabled == 1)
 						PrepareCreaturesForBattle();
 				}
 				else
@@ -2024,8 +2038,8 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 		{
-			if( (gubMusicMode != MUSIC_TACTICAL_ENEMYPRESENT && gubMusicMode != MUSIC_TACTICAL_BATTLE) ||
-				(!NumHostilesInSector( sMapX, sMapY, bMapZ ) && gubMusicMode == MUSIC_TACTICAL_ENEMYPRESENT) )
+			if( (GetMusicMode() != MUSIC_TACTICAL_ENEMYPRESENT && GetMusicMode() != MUSIC_TACTICAL_BATTLE) ||
+				(!NumHostilesInSector( sMapX, sMapY, bMapZ ) && GetMusicMode() == MUSIC_TACTICAL_ENEMYPRESENT) )
 			{
 				// ATE; Fade FA.T....
 				SetMusicFadeSpeed( 5 );
@@ -2173,19 +2187,19 @@ void PrepareLoadedSector()
 
 		if (is_networked)
 		{
-			if( is_server && fAddCivs && CIV_ENABLED==1)//hayden its around here we apply .ini choices for Ai
+			if( is_server && fAddCivs && gCivEnabled == 1)//hayden its around here we apply .ini choices for Ai
 			{
 				AddSoldierInitListTeamToWorld( CIV_TEAM, 255 );
 			}
 		}
-		else
+		else if (fAddCivs)
 		{
 			AddSoldierInitListTeamToWorld( CIV_TEAM, 255 );
 		}
 
 		if (is_networked)
 		{
-			if(is_server && MILITIA_ENABLED==1)
+			if(is_server && gMilitiaEnabled == 1)
 				AddSoldierInitListTeamToWorld( MILITIA_TEAM, 255 );
 		}
 		else
@@ -2195,7 +2209,7 @@ void PrepareLoadedSector()
 		
 		if (is_networked)
 		{
-			if(is_server && CREATURE_ENABLED==1)
+			if(is_server && gCreatureEnabled == 1)
 				AddSoldierInitListBloodcats();
 		}
 		else
@@ -2235,11 +2249,11 @@ void PrepareLoadedSector()
 		// Haydent
 		if (is_networked)
 		{
-			if(is_server && CREATURE_ENABLED==1)
+			if(is_server && gCreatureEnabled == 1)
 				PrepareCreaturesForBattle();
 
 			// Haydent
-			if(is_server && MILITIA_ENABLED==1)
+			if(is_server && gMilitiaEnabled == 1)
 				PrepareMilitiaForTactical(FALSE);
 		}
 		else
@@ -2262,7 +2276,7 @@ void PrepareLoadedSector()
 		
 		if (is_networked)
 		{
-			if(is_server && CIV_ENABLED==1)
+			if(is_server && gCivEnabled == 1)
 				AddProfilesNotUsingProfileInsertionData(); //hayden: is just for civ's
 		}
 		else
@@ -2274,7 +2288,7 @@ void PrepareLoadedSector()
 		{
 			if (is_networked)
 			{
-				if(is_server && ENEMY_ENABLED==1)
+				if(is_server && gEnemyEnabled == 1)
 					fEnemyPresenceInThisSector = PrepareEnemyForSectorBattle();
 			}
 			else
@@ -2344,16 +2358,17 @@ void PrepareLoadedSector()
 #define RANDOM_HEAD_MINERS 4
 void HandleQuestCodeOnSectorEntry( INT16 sNewSectorX, INT16 sNewSectorY, INT8 bNewSectorZ )
 {
-	UINT8		ubRandomMiner[RANDOM_HEAD_MINERS] = { 106, 156, 157, 158 };
-	UINT8		ubMiner, ubMinersPlaced;
-	UINT8		ubMine, ubThisMine;
+	//UINT8		ubRandomMiner[RANDOM_HEAD_MINERS] = { 106, 156, 157, 158 };
+	//UINT8		ubMiner, ubMinersPlaced, ubMine;
+	UINT8		ubThisMine;
 	UINT8		cnt;
 	SOLDIERTYPE * pSoldier;
 
 	if ( CheckFact( FACT_ALL_TERRORISTS_KILLED, 0 ) )
 	{
 		// end terrorist quest
-		EndQuest( QUEST_KILL_TERRORISTS, gMercProfiles[ CARMEN ].sSectorX, gMercProfiles[ CARMEN ].sSectorY );
+		// SANDRO - removed ending quest from here, placed to Interface Dialogue
+		//EndQuest( QUEST_KILL_TERRORISTS, gMercProfiles[ CARMEN ].sSectorX, gMercProfiles[ CARMEN ].sSectorY );
 		// remove Carmen
 		gMercProfiles[ CARMEN ].sSectorX = 0;
 		gMercProfiles[ CARMEN ].sSectorY = 0;
@@ -2368,8 +2383,12 @@ void HandleQuestCodeOnSectorEntry( INT16 sNewSectorX, INT16 sNewSectorY, INT8 bN
 			// SET HEAD MINER LOCATIONS
 
 			ubThisMine = GetMineIndexForSector( sNewSectorX, sNewSectorY );
-
-			if (ubThisMine != MINE_SAN_MONA) // San Mona is abandoned
+			// hardcoded logic has been moved to Lua script
+			if (g_luaMines.InitializeHeadMiners(ubThisMine))
+				SetFactTrue( FACT_MINERS_PLACED );
+#if 0
+			//if (ubThisMine != MINE_SAN_MONA) // San Mona is abandoned
+			if (!gMineStatus[ubThisMine].fEmpty)
 			{
 				ubMinersPlaced = 0;
 
@@ -2379,7 +2398,8 @@ void HandleQuestCodeOnSectorEntry( INT16 sNewSectorX, INT16 sNewSectorY, INT8 bN
 					gMercProfiles[ 106 ].sSectorX = sNewSectorX;
 					gMercProfiles[ 106 ].sSectorY = sNewSectorY;
 					gMercProfiles[ 106 ].bSectorZ = 0;
-					gMercProfiles[ 106 ].bTown = gMineLocation[ ubThisMine ].bAssociatedTown;
+					//gMercProfiles[ 106 ].bTown = gMineLocation[ ubThisMine ].bAssociatedTown;
+					gMercProfiles[ 106 ].bTown = gMineStatus[ ubThisMine ].bAssociatedTown;
 
 					// mark miner as placed
 					ubRandomMiner[ 0 ] = 0;
@@ -2405,7 +2425,8 @@ void HandleQuestCodeOnSectorEntry( INT16 sNewSectorX, INT16 sNewSectorY, INT8 bN
 					GetMineSector( ubMine, (INT16 *)&(gMercProfiles[ ubRandomMiner[ ubMiner ] ].sSectorX),
 											(INT16 *)&(gMercProfiles[ ubRandomMiner[ ubMiner ] ].sSectorY) );
 					gMercProfiles[ ubRandomMiner[ ubMiner ] ].bSectorZ = 0;
-					gMercProfiles[ ubRandomMiner[ ubMiner ] ].bTown = gMineLocation[ ubMine ].bAssociatedTown;
+					//gMercProfiles[ ubRandomMiner[ ubMiner ] ].bTown = gMineLocation[ ubMine ].bAssociatedTown;
+					gMercProfiles[ ubRandomMiner[ ubMiner ] ].bTown = gMineStatus[ ubMine ].bAssociatedTown;
 
 					// mark miner as placed
 					ubRandomMiner[ ubMiner ] = 0;
@@ -2419,6 +2440,7 @@ void HandleQuestCodeOnSectorEntry( INT16 sNewSectorX, INT16 sNewSectorY, INT8 bN
 
 				SetFactTrue( FACT_MINERS_PLACED );
 			}
+#endif
 		}
 	}
 
@@ -2551,6 +2573,12 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ )
 
 	// This has tobe done before loadworld, as it will remmove old gridnos if present
 	RemoveMercsInSector( );
+
+	// SANDRO - reset number of enemies here
+	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
+	{	
+		memset( &(gTacticalStatus.bNumFoughtInBattle), 0, MAXTEAMS ); 
+	}
 
 	if( AreInMeanwhile() == FALSE )
 	{
@@ -2999,7 +3027,6 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 	SECTORINFO *pSector = NULL;
 	UNDERGROUND_SECTORINFO *pUnderground;
 	INT8		bTownNameID;
-	INT8		bMineIndex;
 	UINT8 ubSectorID = 0;
 	UINT8 ubLandType = 0;
 
@@ -3007,47 +3034,144 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 	{
 		//swprintf( zString, L"%s", pErrorStrings[0] );
 	}
-	else if( bSectorZ != 0 )
+	else if( bSectorZ != 0 ) // UNDERGROUND SECTORS
 	{
 		pUnderground = FindUnderGroundSector( sSectorX, sSectorY, bSectorZ );
-		if( pUnderground && ( pUnderground->fVisited || gfGettingNameFromSaveLoadScreen ) )
+
+		#if 0 // reading sector names from lua now
+		////////////////////////////////////
+		// Read and verify XML sector names
+		
+		INT8		bMineIndex;
+		ubSectorID = (UINT8)SECTOR( sSectorX, sSectorY );
+		AssertGE(ubSectorID, 0);
+		AssertLT(ubSectorID,256);
+		pSector = &SectorInfo[ ubSectorID ];
+		ubLandType = pSector->ubTraversability[ 4 ];
+		swprintf( zString, L"%c%d: ", 'A' + sSectorY - 1, sSectorX );
+		
+		BOOLEAN fSectorHasXMLNames = TRUE;
+		CHAR16 zUnexploredUnderground[MAX_SECTOR_NAME_LENGTH];
+		CHAR16 zDetailedUnexploredUnderground[MAX_SECTOR_NAME_LENGTH];
+		CHAR16 zExploredUnderground[MAX_SECTOR_NAME_LENGTH];
+		CHAR16 zDetailedExploredUnderground[MAX_SECTOR_NAME_LENGTH];	
+	
+		if ( bSectorZ == 1 )
+		{		
+			wcscpy( zUnexploredUnderground, gzSectorUndergroundNames1[ ubSectorID ][0] );
+			wcscpy( zDetailedUnexploredUnderground, gzSectorUndergroundNames1[ ubSectorID ][1] );
+			wcscpy( zExploredUnderground, gzSectorUndergroundNames1[ ubSectorID ][2] );
+			wcscpy( zDetailedExploredUnderground, gzSectorUndergroundNames1[ ubSectorID ][3] );
+		}
+		else if ( bSectorZ == 2 )
 		{
-			bMineIndex = GetIdOfMineForSector( sSectorX, sSectorY, bSectorZ );
-			if( bMineIndex != -1 )
+			wcscpy( zUnexploredUnderground, gzSectorUndergroundNames2[ ubSectorID ][0] );
+			wcscpy( zDetailedUnexploredUnderground, gzSectorUndergroundNames2[ ubSectorID ][1] );
+			wcscpy( zExploredUnderground, gzSectorUndergroundNames2[ ubSectorID ][2] );
+			wcscpy( zDetailedExploredUnderground, gzSectorUndergroundNames2[ ubSectorID ][3] );
+		}
+		else if ( bSectorZ == 3 )
+		{
+			wcscpy( zUnexploredUnderground, gzSectorUndergroundNames3[ ubSectorID ][0] );
+			wcscpy( zDetailedUnexploredUnderground, gzSectorUndergroundNames3[ ubSectorID ][1] );
+			wcscpy( zExploredUnderground, gzSectorUndergroundNames3[ ubSectorID ][2] );
+			wcscpy( zDetailedExploredUnderground, gzSectorUndergroundNames3[ ubSectorID ][3] );
+		}
+	
+		if (zUnexploredUnderground[0] == 0 || zDetailedUnexploredUnderground[0] == 0 || zExploredUnderground[0] == 0 || zDetailedExploredUnderground[0] == 0)
+		{
+			fSectorHasXMLNames = FALSE;
+		}
+
+		if (fSectorHasXMLNames) // UNDERGROUND XML
+		{
+			if ( pUnderground )
 			{
-				swprintf( zString, L"%c%d: %s %s", 'A' + sSectorY - 1, sSectorX, pTownNames[ GetTownAssociatedWithMine( bMineIndex ) ], pwMineStrings[ 0 ] );
-			}
-			else switch( SECTOR( sSectorX, sSectorY ) )
-			{
-				case SEC_A10:
-					swprintf( zString, L"A10: %s", pLandTypeStrings[ REBEL_HIDEOUT ] );
-					break;
-				case SEC_J9:
-					swprintf( zString, L"J9: %s", pLandTypeStrings[ TIXA_DUNGEON ] );
-					break;
-				case SEC_K4:
-					swprintf( zString, L"K4: %s", pLandTypeStrings[ ORTA_BASEMENT ] );
-					break;
-				case SEC_O3:
-					swprintf( zString, L"O3: %s", pLandTypeStrings[ TUNNEL ] );
-					break;
-				case SEC_P3:
-					swprintf( zString, L"P3: %s", pLandTypeStrings[ SHELTER ] );
-					break;
-				default:
-					if (pUnderground->ubNumCreatures)
-						swprintf( zString, L"%c%d: %s", 'A' + sSectorY - 1, sSectorX, pLandTypeStrings[ CREATURE_LAIR ] );
+				bMineIndex = GetIdOfMineForSector( sSectorX, sSectorY, bSectorZ );
+				if( bMineIndex != -1 )
+				{
+					swprintf( zString, L"%c%d: %s %s", 'A' + sSectorY - 1, sSectorX, pTownNames[ GetTownAssociatedWithMine( bMineIndex ) ], pwMineStrings[ 0 ] );
+				}	
+				else if ( pUnderground->fVisited )
+				{
+					if (fDetailed)
+					{			
+						wcscat( zString, zDetailedExploredUnderground );	
+					}
 					else
-						swprintf( zString, L"%c%d-%d", 'A' + sSectorY - 1, sSectorX, bSectorZ );
-					break;
+					{
+						wcscat( zString, zExploredUnderground );
+					}
+				}
+				else
+				{
+					if (fDetailed)
+					{
+						wcscat( zString, zDetailedUnexploredUnderground );
+					}
+					else
+					{
+						wcscat( zString, zUnexploredUnderground );
+					}
+				}
+
+				if (pUnderground->ubNumCreatures)
+					swprintf( zString, L"%c%d: %s", 'A' + sSectorY - 1, sSectorX, pLandTypeStrings[ CREATURE_LAIR ] );
+				//else
+				//	swprintf( zString, L"%c%d-%d", 'A' + sSectorY - 1, sSectorX, bSectorZ );
+			}		
+		}
+		else // UNDERGROUND HARDCODED
+		{	
+			pUnderground = FindUnderGroundSector( sSectorX, sSectorY, bSectorZ );
+			if( pUnderground && ( pUnderground->fVisited || gfGettingNameFromSaveLoadScreen ) )
+			{
+				bMineIndex = GetIdOfMineForSector( sSectorX, sSectorY, bSectorZ );
+				if( bMineIndex != -1 )
+				{
+					swprintf( zString, L"%c%d: %s %s", 'A' + sSectorY - 1, sSectorX, pTownNames[ GetTownAssociatedWithMine( bMineIndex ) ], pwMineStrings[ 0 ] );
+				}
+				else switch( SECTOR( sSectorX, sSectorY ) )
+				{
+					case SEC_A10:
+						swprintf( zString, L"A10: %s", pLandTypeStrings[ REBEL_HIDEOUT ] );
+						break;
+					case SEC_J9:
+						swprintf( zString, L"J9: %s", pLandTypeStrings[ TIXA_DUNGEON ] );
+						break;
+					case SEC_K4:
+						swprintf( zString, L"K4: %s", pLandTypeStrings[ ORTA_BASEMENT ] );
+						break;
+					case SEC_O3:
+						swprintf( zString, L"O3: %s", pLandTypeStrings[ TUNNEL ] );
+						break;
+					case SEC_P3:
+						swprintf( zString, L"P3: %s", pLandTypeStrings[ SHELTER ] );
+						break;
+					default:
+						if (pUnderground->ubNumCreatures)
+							swprintf( zString, L"%c%d: %s", 'A' + sSectorY - 1, sSectorX, pLandTypeStrings[ CREATURE_LAIR ] );
+						else
+							swprintf( zString, L"%c%d-%d", 'A' + sSectorY - 1, sSectorX, bSectorZ );
+						break;
+				}
+			}
+			else
+			{ //Display nothing
+				wcscpy( zString, L"" );
 			}
 		}
-		else
-		{ //Display nothing
-			wcscpy( zString, L"" );
-		}
+	#else
+
+		// TODO: the code is riddled with (potential) buffer overruns
+		// this totally needs to be fixed sometime
+		// anyway, only trying to not create another one here
+		// found calls to this function with buffers as small as 50 elements
+		g_luaUnderground.GetSectorName(sSectorX, sSectorY, bSectorZ, pUnderground, zString, 50, fDetailed);
+
+	#endif
 	}
-	else
+	else // SECTORS ABOVE GROUND
 	{
 
 		bTownNameID = StrategicMap[ CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].bNameId;
@@ -3076,7 +3200,7 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 			fSectorHasXMLNames = FALSE;
 		}
 
-		if (fSectorHasXMLNames)
+		if (fSectorHasXMLNames) // ABOVE GROUND XML
 		{
 			// HEADROCK HAM 3.6: The program can now read custom names from XML for all above-ground sectors.
 			// In the event that a specific name or set of names is missing, the program generates a default
@@ -3121,110 +3245,110 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zS
 				}
 			}
 		}
-		else
+		else // ABOVE GROUND HARDCODED
 		{
 			// Default JA2 Name selection
-		if ( bTownNameID == BLANK_SECTOR )
-		{
-			// OK, build string id like J11
-			// are we dealing with the unfound towns?
-			switch( ubSectorID )
+			if ( bTownNameID == BLANK_SECTOR )
 			{
-				case SEC_D2: //Chitzena SAM
-					if( !fSamSiteFound[ SAM_SITE_ONE ] )
-						wcscat( zString, pLandTypeStrings[ TROPICS ] );
-					else if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ TROPICS_SAM_SITE ] );
-					else
-						wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
-					break;
-				case SEC_D15: //Drassen SAM
-					if( !fSamSiteFound[ SAM_SITE_TWO ] )
-						wcscat( zString, pLandTypeStrings[ SPARSE ] );
-					else if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ SPARSE_SAM_SITE ] );
-					else
-						wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
-					break;
-				case SEC_I8: //Cambria SAM
-					if( !fSamSiteFound[ SAM_SITE_THREE ] )
-						wcscat( zString, pLandTypeStrings[ SAND ] );
-					else if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ SAND_SAM_SITE ] );
-					else
-						wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
-					break;
-				default:
-					wcscat( zString, pLandTypeStrings[ ubLandType ] );
-					break;
-			}
-		}
-		else
-		{
-			switch( ubSectorID )
-			{
-				case SEC_B13:
-					if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ DRASSEN_AIRPORT_SITE ] );
-					else
-						wcscat( zString, pTownNames[ DRASSEN ] );
-					break;
-				case SEC_F8:
-					if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ CAMBRIA_HOSPITAL_SITE ] );
-					else
-						wcscat( zString, pTownNames[ CAMBRIA ] );
-					break;
-				case SEC_J9: //Tixa
-					if( !fFoundTixa )
-						wcscat( zString, pLandTypeStrings[ SAND ] );
-					else
-						wcscat( zString, pTownNames[ TIXA ] );
-					break;
-				case SEC_K4: //Orta
-					if( !fFoundOrta )
-						wcscat( zString, pLandTypeStrings[ SWAMP ] );
-					else
-						wcscat( zString, pTownNames[ ORTA ] );
-					break;
-				case SEC_N3:
-					if( fDetailed )
-						wcscat( zString, pLandTypeStrings[ MEDUNA_AIRPORT_SITE ] );
-					else
-						wcscat( zString, pTownNames[ MEDUNA ] );
-					break;
-				default:
-					if( ubSectorID == SEC_N4 && fSamSiteFound[ SAM_SITE_FOUR ] )
-					{	//Meduna's SAM site
-						if( fDetailed )
-							wcscat( zString, pLandTypeStrings[ MEDUNA_SAM_SITE ] );
+				// OK, build string id like J11
+				// are we dealing with the unfound towns?
+				switch( ubSectorID )
+				{
+					case SEC_D2: //Chitzena SAM
+						if( !fSamSiteFound[ SAM_SITE_ONE ] )
+							wcscat( zString, pLandTypeStrings[ TROPICS ] );
+						else if( fDetailed )
+							wcscat( zString, pLandTypeStrings[ TROPICS_SAM_SITE ] );
 						else
 							wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
-					}
-					else
-					{	//All other towns that are known since beginning of the game.
-						wcscat( zString, pTownNames[ bTownNameID ] );
+						break;
+					case SEC_D15: //Drassen SAM
+						if( !fSamSiteFound[ SAM_SITE_TWO ] )
+							wcscat( zString, pLandTypeStrings[ SPARSE ] );
+						else if( fDetailed )
+							wcscat( zString, pLandTypeStrings[ SPARSE_SAM_SITE ] );
+						else
+							wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
+						break;
+					case SEC_I8: //Cambria SAM
+						if( !fSamSiteFound[ SAM_SITE_THREE ] )
+							wcscat( zString, pLandTypeStrings[ SAND ] );
+						else if( fDetailed )
+							wcscat( zString, pLandTypeStrings[ SAND_SAM_SITE ] );
+						else
+							wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
+						break;
+					default:
+						wcscat( zString, pLandTypeStrings[ ubLandType ] );
+						break;
+				}
+			}
+			else
+			{
+				switch( ubSectorID )
+				{
+					case SEC_B13:
 						if( fDetailed )
-						{
-							switch( ubSectorID )
-							{ //Append the word, "mine" for town sectors containing a mine.
-								case SEC_B2:
-								case SEC_D4:
-								case SEC_D13:
-								case SEC_H3:
-								case SEC_H8:
-								case SEC_I14:
-									wcscat( zString, L" " ); //space
-									wcscat( zString, pwMineStrings[ 0 ] ); //then "Mine"
-									break;
+							wcscat( zString, pLandTypeStrings[ DRASSEN_AIRPORT_SITE ] );
+						else
+							wcscat( zString, pTownNames[ DRASSEN ] );
+						break;
+					case SEC_F8:
+						if( fDetailed )
+							wcscat( zString, pLandTypeStrings[ CAMBRIA_HOSPITAL_SITE ] );
+						else
+							wcscat( zString, pTownNames[ CAMBRIA ] );
+						break;
+					case SEC_J9: //Tixa
+						if( !fFoundTixa )
+							wcscat( zString, pLandTypeStrings[ SAND ] );
+						else
+							wcscat( zString, pTownNames[ TIXA ] );
+						break;
+					case SEC_K4: //Orta
+						if( !fFoundOrta )
+							wcscat( zString, pLandTypeStrings[ SWAMP ] );
+						else
+							wcscat( zString, pTownNames[ ORTA ] );
+						break;
+					case SEC_N3:
+						if( fDetailed )
+							wcscat( zString, pLandTypeStrings[ MEDUNA_AIRPORT_SITE ] );
+						else
+							wcscat( zString, pTownNames[ MEDUNA ] );
+						break;
+					default:
+						if( ubSectorID == SEC_N4 && fSamSiteFound[ SAM_SITE_FOUR ] )
+						{	//Meduna's SAM site
+							if( fDetailed )
+								wcscat( zString, pLandTypeStrings[ MEDUNA_SAM_SITE ] );
+							else
+								wcscat( zString, pLandTypeStrings[ SAM_SITE ] );
+						}
+						else
+						{	//All other towns that are known since beginning of the game.
+							wcscat( zString, pTownNames[ bTownNameID ] );
+							if( fDetailed )
+							{
+								switch( ubSectorID )
+								{ //Append the word, "mine" for town sectors containing a mine.
+									case SEC_B2:
+									case SEC_D4:
+									case SEC_D13:
+									case SEC_H3:
+									case SEC_H8:
+									case SEC_I14:
+										wcscat( zString, L" " ); //space
+										wcscat( zString, pwMineStrings[ 0 ] ); //then "Mine"
+										break;
+								}
 							}
 						}
-					}
-					break;
+						break;
+				}
 			}
 		}
 	}
-}
 }
 
 
@@ -3653,16 +3777,52 @@ void AllMercsWalkedToExitGrid()
 {
 	PLAYERGROUP *pPlayer;
 	BOOLEAN fDone;
+	// SANDRO was here.. made some tweaks, fixed some stuff
+	BOOLEAN fEnemiesInLoadedSector = FALSE;
+	if( NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) )
+	{
+		fEnemiesInLoadedSector = TRUE;
+		////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - if enemies are in sector, handle morale hit for fleeing
+		// Minor bug fix - check certain circumstances and don't reduce the morale if the fight is not over yet
+		// if all mercs leaving, morale gets hit
+		// if one merc only leaves, but there are others fighting on, don't reduce the morale
+		// if sector is about to be loaded and there are enemies in the current, then all mercs are leaving, so the morale gets hit
+		if( ( gubAdjacentJumpCode == JUMP_ALL_NO_LOAD && gpAdjacentGroup->ubGroupSize >= PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, (UINT8)gbWorldSectorZ )) ||
+			( gubAdjacentJumpCode == JUMP_SINGLE_NO_LOAD && PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, (UINT8)gbWorldSectorZ ) <= 1 ) ||
+			( gubAdjacentJumpCode == JUMP_ALL_LOAD_NEW || gubAdjacentJumpCode == JUMP_SINGLE_LOAD_NEW ) ) 
+		{
+			HandleLoyaltyImplicationsOfMercRetreat( RETREAT_TACTICAL_TRAVERSAL, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		
+			// End inetrrogation quest if we left the sector, but haven't killed all enemies
+			if ( gWorldSectorX == 7 && gWorldSectorY == 14 && gbWorldSectorZ == 0 && gubQuest[ QUEST_INTERROGATION ] == QUESTINPROGRESS )
+			{
+				// Finish quest, although not give points here...
+				InternalEndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, FALSE );
+				// ... give them manually, but halved
+				GiveQuestRewardPoint( gWorldSectorX, gWorldSectorY, 4, NO_PROFILE );
+				// Also get us know, we finished the quest
+				ResetHistoryFact( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
+			}
+		}
+		////////////////////////////////////////////////////////////////////////////////////////
 
-  HandlePotentialMoraleHitForSkimmingSectors( gpAdjacentGroup );
+		HandlePotentialMoraleHitForSkimmingSectors( gpAdjacentGroup );
+	}
 
 	if( gubAdjacentJumpCode == JUMP_ALL_NO_LOAD || gubAdjacentJumpCode == JUMP_SINGLE_NO_LOAD )
 	{
 		Assert( gpAdjacentGroup );
-		pPlayer = gpAdjacentGroup->pPlayerList;
+		//pPlayer = gpAdjacentGroup->pPlayerList; // SANDRO - why was this here twice?
 		pPlayer = gpAdjacentGroup->pPlayerList;
 		while( pPlayer )
 		{
+			/////////////////////////////////////////////////////////////////////////////////
+			// SANDRO - merc records - times retreated counter
+			if( fEnemiesInLoadedSector && pPlayer->pSoldier->ubProfile != NO_PROFILE )
+				gMercProfiles[ pPlayer->pSoldier->ubProfile ].records.usBattlesRetreated++;
+			/////////////////////////////////////////////////////////////////////////////////
+
 			SetInsertionDataFromAdjacentMoveDirection( pPlayer->pSoldier, gubTacticalDirection, gsAdditionalData );
 
 			RemoveSoldierFromTacticalSector( pPlayer->pSoldier, TRUE );
@@ -3675,9 +3835,19 @@ void AllMercsWalkedToExitGrid()
 
 		SetDefaultSquadOnSectorEntry( TRUE );
 
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - reset num enemies here if the sector was unloaded
+		if( gWorldSectorX == 0 && gWorldSectorX == 0 && gbWorldSectorZ == -1 )
+		{
+			memset( &(gTacticalStatus.bNumFoughtInBattle), 0, MAXTEAMS );
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 	else
 	{
+		// SANDRO - reset number of enemies here, we are about to load a new sector
+		memset( &(gTacticalStatus.bNumFoughtInBattle), 0, MAXTEAMS ); 
+
 		//Because we are actually loading the new map, and we are physically traversing, we don't want
 		//to bring up the prebattle interface when we arrive if there are enemies there.  This flag
 		//ignores the initialization of the prebattle interface and clears the flag.
@@ -3698,6 +3868,7 @@ void AllMercsWalkedToExitGrid()
 					AddCharacterToUniqueSquad( pPlayer->pSoldier );
 					break;
 				}
+				InitSoldierOppList( pPlayer->pSoldier );
 				pPlayer = pPlayer->next;
 			}
 			if( !pPlayer )
@@ -3711,6 +3882,12 @@ void AllMercsWalkedToExitGrid()
 		pPlayer = gpAdjacentGroup->pPlayerList;
 		while( pPlayer )
 		{
+			/////////////////////////////////////////////////////////////////////////////////
+			// SANDRO - merc records - times retreated counter
+			if( fEnemiesInLoadedSector && pPlayer->pSoldier->ubProfile != NO_PROFILE )
+				gMercProfiles[ pPlayer->pSoldier->ubProfile ].records.usBattlesRetreated++;
+			/////////////////////////////////////////////////////////////////////////////////
+
 			SetInsertionDataFromAdjacentMoveDirection( pPlayer->pSoldier, gubTacticalDirection, gsAdditionalData );
 
 			pPlayer = pPlayer->next;
@@ -3721,10 +3898,11 @@ void AllMercsWalkedToExitGrid()
 		gFadeOutDoneCallback = DoneFadeOutExitGridSector;
 		FadeOutGameScreen( );
 	}
-	if( !PlayerMercsInSector( (UINT8)gsAdjacentSectorX, (UINT8)gsAdjacentSectorY, (UINT8)gbAdjacentSectorZ ) )
-	{
-		HandleLoyaltyImplicationsOfMercRetreat( RETREAT_TACTICAL_TRAVERSAL, gsAdjacentSectorX, gsAdjacentSectorY, gbAdjacentSectorZ );
-	}
+	// SANDRO - This actually never happeneds, moved up
+	//if( !PlayerMercsInSector( (UINT8)gsAdjacentSectorX, (UINT8)gsAdjacentSectorY, (UINT8)gbAdjacentSectorZ ) )
+	//{
+	//	HandleLoyaltyImplicationsOfMercRetreat( RETREAT_TACTICAL_TRAVERSAL, gsAdjacentSectorX, gsAdjacentSectorY, gbAdjacentSectorZ );
+	//}
 	if( gubAdjacentJumpCode == JUMP_ALL_NO_LOAD || gubAdjacentJumpCode == JUMP_SINGLE_NO_LOAD )
 	{
 		gfTacticalTraversal = FALSE;
@@ -3782,9 +3960,31 @@ void AllMercsHaveWalkedOffSector( )
 	if( NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) )
 	{
 		fEnemiesInLoadedSector = TRUE;
+		////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - if enemies are in sector, handle morale hit for fleeing
+		// Minor bug fix - check certain circumstances and don't reduce the morale if the fight is not over yet
+		// if all mercs leaving, morale gets hit
+		// if one merc only leaves, but there are others fighting on, don't reduce the morale
+		// if sector is about to be loaded and there are enemies in the current, then all mercs are leaving alway
+		if( ( gubAdjacentJumpCode == JUMP_ALL_NO_LOAD && gpAdjacentGroup->ubGroupSize >= PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, (UINT8)gbWorldSectorZ )) ||
+			( gubAdjacentJumpCode == JUMP_SINGLE_NO_LOAD && PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, (UINT8)gbWorldSectorZ ) <= 1 ) ||
+			( gubAdjacentJumpCode == JUMP_ALL_LOAD_NEW || gubAdjacentJumpCode == JUMP_SINGLE_LOAD_NEW ) ) 
+		{
+			HandleLoyaltyImplicationsOfMercRetreat( RETREAT_TACTICAL_TRAVERSAL, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		
+			// End inetrrogation quest if we left the sector, but haven't killed all enemies
+			if ( gWorldSectorX == 7 && gWorldSectorY == 14 && gbWorldSectorZ == 0 && gubQuest[ QUEST_INTERROGATION ] == QUESTINPROGRESS )
+			{
+				// Finish quest, although not give points here...
+				InternalEndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, FALSE );
+				// ... give them manually, but halved
+				GiveQuestRewardPoint( gWorldSectorX, gWorldSectorY, 4, NO_PROFILE );
+				// Also get us know, we finished the quest
+				ResetHistoryFact( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
+			}
+		}
+		////////////////////////////////////////////////////////////////////////////////////////
 	}
-
-	HandleLoyaltyImplicationsOfMercRetreat( RETREAT_TACTICAL_TRAVERSAL, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
 	//Setup strategic traversal information
 	if( guiAdjacentTraverseTime <= 5 )
@@ -3813,15 +4013,41 @@ void AllMercsHaveWalkedOffSector( )
 		pPlayer = gpAdjacentGroup->pPlayerList;
 		while( pPlayer )
 		{
+			/////////////////////////////////////////////////////////////////////////////////
+			// SANDRO - merc records - times retreated counter
+			if( fEnemiesInLoadedSector && pPlayer->pSoldier->ubProfile != NO_PROFILE )
+				gMercProfiles[ pPlayer->pSoldier->ubProfile ].records.usBattlesRetreated++;
+			/////////////////////////////////////////////////////////////////////////////////
 			RemoveSoldierFromTacticalSector( pPlayer->pSoldier, TRUE );
 			pPlayer = pPlayer->next;
 		}
 		SetDefaultSquadOnSectorEntry( TRUE );
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - reset num enemies here if the sector was unloaded
+		if( !fEnemiesInLoadedSector || (gWorldSectorX == 0 && gWorldSectorX == 0 && gbWorldSectorZ == -1 ) )
+		{
+			memset( &(gTacticalStatus.bNumFoughtInBattle), 0, MAXTEAMS );
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 	else
 	{
+		// SANDRO - reset number of enemies here, we are about to load a new sector
+		memset( &(gTacticalStatus.bNumFoughtInBattle), 0, MAXTEAMS ); 
+
 		if( fEnemiesInLoadedSector )
-		{ //We are retreating from a sector with enemies in it and there are no mercs left  so
+		{
+			/////////////////////////////////////////////////////////////////////////////////
+			// SANDRO - merc records - times retreated counter
+			pPlayer = gpAdjacentGroup->pPlayerList;
+			while( pPlayer )
+			{
+				if( fEnemiesInLoadedSector && pPlayer->pSoldier->ubProfile != NO_PROFILE )
+					gMercProfiles[ pPlayer->pSoldier->ubProfile ].records.usBattlesRetreated++;
+				pPlayer = pPlayer->next;
+			}
+			/////////////////////////////////////////////////////////////////////////////////
+			//We are retreating from a sector with enemies in it and there are no mercs left  so
 			//warp the game time by 5 minutes to simulate the actual retreat.  This restricts the
 			//player from immediately coming back to the same sector they left to perhaps take advantage
 			//of the tactical placement gui to get into better position.  Additionally, if there are any
@@ -5438,8 +5664,6 @@ void HandleSlayDailyEvent( void )
 	}
 }
 
-
-
 BOOLEAN IsSectorDesert( INT16 sSectorX, INT16 sSectorY )
 {
 	// HEADROCK HAM 3.5: Fix for assertion errors associated with rain checks.
@@ -5448,7 +5672,10 @@ BOOLEAN IsSectorDesert( INT16 sSectorX, INT16 sSectorY )
 		return( FALSE );
 	}
 
-	if ( SectorInfo[ SECTOR(sSectorX, sSectorY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] == SAND )
+	// SANDRO - added more terrain types for heat intolerant feature
+	if ( SectorInfo[ SECTOR(sSectorX, sSectorY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] == SAND ||
+		SectorInfo[ SECTOR(sSectorX, sSectorY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] == SAND_ROAD ||
+		SectorInfo[ SECTOR(sSectorX, sSectorY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] == SAND_SAM_SITE )
 	{
 		// desert
 		return( TRUE );
@@ -5458,7 +5685,20 @@ BOOLEAN IsSectorDesert( INT16 sSectorX, INT16 sSectorY )
 		return( FALSE );
 	}
 }
-
+// SANDRO - added function
+BOOLEAN IsSectorTropical( INT16 sSectorX, INT16 sSectorY )
+{
+	if (SectorInfo[ SECTOR(sSectorX, sSectorY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] == TROPICS ||
+		SectorInfo[ SECTOR(sSectorX, sSectorY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] == TROPICS_ROAD ||
+		SectorInfo[ SECTOR(sSectorX, sSectorY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] == TROPICS_SAM_SITE )
+	{
+		return ( TRUE );
+	}
+	else
+	{
+		return ( FALSE ); 
+	}
+}
 
 
 BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
@@ -5800,7 +6040,7 @@ void SetupProfileInsertionDataForSoldier( SOLDIERTYPE *pSoldier )
 
 void HandlePotentialMoraleHitForSkimmingSectors( GROUP *pGroup )
 {
-	PLAYERGROUP *pPlayer;
+	//PLAYERGROUP *pPlayer;
 
   if ( !gTacticalStatus.fHasEnteredCombatModeSinceEntering && gTacticalStatus.fEnemyInSector )
   {
@@ -5810,16 +6050,17 @@ void HandlePotentialMoraleHitForSkimmingSectors( GROUP *pGroup )
 		//time to setup a good ambush!
 		pGroup->uiFlags |= GROUPFLAG_HIGH_POTENTIAL_FOR_AMBUSH;
 
-	  pPlayer = pGroup->pPlayerList;
+	  //SANDRO - WTF?!?
+	  //pPlayer = pGroup->pPlayerList;
 
-	  while( pPlayer )
-	  {
-      // Do morale hit...
-      // CC look here!
-      // pPlayer->pSoldier
+	  //while( pPlayer )
+	  //{
+   //   // Do morale hit...
+   //   // CC look here!
+   //   // pPlayer->pSoldier
 
-		  pPlayer = pPlayer->next;
-	  }
+		 // pPlayer = pPlayer->next;
+	  //}
   }
 }
 

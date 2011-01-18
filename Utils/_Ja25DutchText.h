@@ -32,6 +32,45 @@ enum
 extern	STR16	zNewTacticalMessages[];
 extern	STR16 gzIMPSkillTraitsText[];
 
+////////////////////////////////////////////////////////
+// added by SANDRO
+extern	STR16 gzIMPSkillTraitsTextNewMajor[];
+extern	STR16 gzIMPSkillTraitsTextNewMinor[];
+
+extern  STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[];
+extern  STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[];
+extern  STR16 gzIMPMajorTraitsHelpTextsSniper[];
+extern  STR16 gzIMPMajorTraitsHelpTextsRanger[];
+extern  STR16 gzIMPMajorTraitsHelpTextsGunslinger[];
+extern  STR16 gzIMPMajorTraitsHelpTextsMartialArts[];
+extern  STR16 gzIMPMajorTraitsHelpTextsSquadleader[];
+extern  STR16 gzIMPMajorTraitsHelpTextsTechnician[];
+extern  STR16 gzIMPMajorTraitsHelpTextsDoctor[];
+extern  STR16 gzIMPMajorTraitsHelpTextsNone[];
+
+extern	STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[];
+extern	STR16 gzIMPMinorTraitsHelpTextsMelee[];
+extern	STR16 gzIMPMinorTraitsHelpTextsThrowing[];
+extern	STR16 gzIMPMinorTraitsHelpTextsStealthy[];
+extern	STR16 gzIMPMinorTraitsHelpTextsNightOps[];
+extern	STR16 gzIMPMinorTraitsHelpTextsAthletics[];
+extern	STR16 gzIMPMinorTraitsHelpTextsBodybuilding[];
+extern	STR16 gzIMPMinorTraitsHelpTextsDemolitions[];
+extern	STR16 gzIMPMinorTraitsHelpTextsTeaching[];
+extern	STR16 gzIMPMinorTraitsHelpTextsScouting[];
+extern	STR16 gzIMPMinorTraitsHelpTextsNone[];
+
+extern STR16 gzIMPOldSkillTraitsHelpTexts[];
+
+extern STR16 gzIMPNewCharacterTraitsHelpTexts[];
+
+extern STR16 gzIMPDisabilitiesHelpTexts[];
+
+extern STR16 gzIMPProfileCostText[];
+
+extern STR16 zGioNewTraitsImpossibleText[];
+///////////////////////////////////////////////////////
+
 enum
 {
 	IMM__IRON_MAN_MODE_WARNING_TEXT,

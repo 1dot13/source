@@ -1575,13 +1575,7 @@ UINT32	GetAndHandleCreditCodeFromCodeString( STR16 pzCode )
 	{
 		return( CRDT_FLAG__END_SECTION );
 	}
-
-	//else its an error
-	else
-	{
-		Assert( 0 );
-	}
-
+	
 	return( CRDT_NODE_NONE );
 }
 

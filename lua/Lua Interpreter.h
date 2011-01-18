@@ -1,3 +1,6 @@
+#ifndef _LUA_INTERPRETER_H_
+#define _LUA_INTERPRETER_H_
+
 extern "C" {
 #include "lua.h"
 #include "lauxlib.h"
@@ -29,3 +32,5 @@ void NewLuaObject( lua_State *L, STR8 ClsName, void *Ptr );
 void LuaStrategicSetup(lua_State *L);
 void LuaTacticalSetup(lua_State *L);
 void LuaEnvironmentSetup(lua_State *L);
+
+#endif // _LUA_INTERPRETER_H_

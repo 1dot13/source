@@ -76,6 +76,8 @@
 	#include "Campaign.h"
 #endif
 
+//legion by Jazz
+#include "Interface Utils.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -367,6 +369,7 @@ typedef enum
 	DONE_IMAGES,
 	MAPSCREEN_IMAGES,
 	BACKPACK_IMAGES,
+	//HOP_IMAGES, //legion by Jazz
 	NUM_SM_BUTTON_IMAGES
 };
 
@@ -435,10 +438,14 @@ UINT16	gusOldItemIndex;
 UINT16	gusNewItemIndex;
 BOOLEAN gfDeductPoints;
 
-
-
-
-
+// HEADROCK HAM 4: This variable tells the program what "page" of the description box we are currently looking at.
+// By saving this in memory, we tell the DescBox which background and values to draw, and make sure that we end up
+// on the same page every time we open the description box. UDB buttons allow switching between pages.
+UINT8 gubDescBoxPage;
+// Record which line we're looking at. This only applied to the Advanced tab in description boxes.
+UINT8 gubDescBoxLine;
+// Record how many lines this item has to display. This only applies to the Advanced tab.
+UINT8 gubDescBoxTotalAdvLines;
 
 INT32	iSMPanelButtons[ NUM_SM_BUTTONS ];
 INT32	iTEAMPanelButtons[ NUM_TEAM_BUTTONS ];
@@ -463,6 +470,8 @@ MOUSE_REGION	gTEAM_LeftBarsRegions[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
 MOUSE_REGION	gTEAM_FirstHandInv[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
 MOUSE_REGION	gTEAM_SecondHandInv[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
 MOUSE_REGION	gTEAM_EnemyIndicator[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
+
+MOUSE_REGION	gSM_SELMERCCamoRegion; // Added by Sandro
 
 BOOLEAN			gfTEAM_HandInvDispText[ NUMBER_OF_SOLDIERS_PER_SQUAD ][ NUM_INV_SLOTS ];
 BOOLEAN			gfSM_HandInvDispText[ NUM_INV_SLOTS ];
@@ -501,7 +510,9 @@ INT8		gbZipperButPos[2][2] =
 	1,	0
 };
 
-
+//Legion by Jazz
+void BtnOknoCallback(GUI_BUTTON *btn,INT32 reason); 
+void BtnFenceCallback(GUI_BUTTON *btn,INT32 reason); 
 
 // Mouse button and region callbacks
 //void BtnPositionCallback( GUI_BUTTON *btn, INT32 reason );
@@ -561,7 +572,7 @@ void UpdateSelectedSoldier( UINT16 usSoldierID, BOOLEAN fSelect );
 void CheckForFacePanelStartAnims( SOLDIERTYPE *pSoldier, INT16 sPanelX, INT16 sPanelY );
 void HandleSoldierFaceFlash( SOLDIERTYPE *pSoldier, INT16 sFaceX, INT16 sFaceY );
 BOOLEAN PlayerExistsInSlot( UINT8 ubID );
-void UpdateStatColor( UINT32 uiTimer, BOOLEAN fUpdate );
+void UpdateStatColor( UINT32 uiTimer, BOOLEAN fIncrease, BOOLEAN fDamaged ); // SADNRO - added argument
 
 extern void UpdateItemHatches();
 
@@ -795,6 +806,10 @@ void UpdateSMPanel( )
 	INT8							bDirection;
 	UINT8							ubStanceState;
 	
+	//jump window by Jazz
+	//BOOLEAN						fNearLowerLevelOkno;
+	//BOOLEAN						fNearHeigherLevelOkno;
+
 	if (TileIsOutOfBounds(gpSMCurrentMerc->sGridNo))
 	{
 		return;
@@ -940,8 +955,46 @@ void UpdateSMPanel( )
 
 
 	DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
+	
+	//DisableButton
+	//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+    //{ 	
+	//DisableButton( iSMPanelButtons[ HOP_BUTTON ] );	 //Legion by Jazz
+	//}
 
 	GetMercClimbDirection( gpSMCurrentMerc->ubID, &fNearLowerLevel, &fNearHeigherLevel );
+
+
+//---------------------	Legion-----------------
+/*
+if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+    { 	
+    
+	if ( gpSMCurrentMerc->pathing.bLevel == 0 )
+        {
+		GetMercOknoDirection( gpSMCurrentMerc->ubID, &fNearLowerLevelOkno, &fNearHeigherLevelOkno ); //Legion by JAzz
+		if ( fNearLowerLevelOkno || fNearHeigherLevelOkno )
+		{
+			if ( fNearLowerLevelOkno )
+			{
+			if ( EnoughPoints( gpSMCurrentMerc, GetAPsToJumpThroughWindows( gpSMCurrentMerc, TRUE ), 0, FALSE ) )
+				{
+				EnableButton( iSMPanelButtons[ HOP_BUTTON ] );		
+				} 
+			}
+			
+			if ( fNearHeigherLevelOkno )
+			{
+			if ( EnoughPoints( gpSMCurrentMerc, GetAPsToJumpThroughWindows( gpSMCurrentMerc, FALSE ), 0, FALSE ) )
+				{
+				EnableButton( iSMPanelButtons[ HOP_BUTTON ] );		
+				} 
+			}
+		}
+		}
+	}
+*/
+	//---------
 
 	if ( fNearLowerLevel || fNearHeigherLevel )
 	{
@@ -961,6 +1014,27 @@ void UpdateSMPanel( )
 			}
 		}
 	}
+
+	//----------------------------Legion by Jazz------------------------------
+	//DisableButton
+	/*
+	if (gGameExternalOptions.fCanJumpThroughWindows == TRUE )
+        {
+        	if ( FindOknoDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) && gpSMCurrentMerc->pathing.bLevel == 0 )
+         	{
+          	EnableButton( iSMPanelButtons[ HOP_BUTTON ] );
+            }
+		}
+	*/
+	if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
+		{
+	        if ( FindFenceDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
+            {
+            EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
+            }
+	
+		}
+	//------------------------------------------
 
 	if ( FindFenceJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
 	{
@@ -1040,6 +1114,11 @@ void UpdateSMPanel( )
 	// If not selected ( or dead ), disable/gray some buttons
 	if ( gusSelectedSoldier != gpSMCurrentMerc->ubID || ( gpSMCurrentMerc->stats.bLife < OKLIFE ) || (gTacticalStatus.ubCurrentTeam != gbPlayerNum) || gfSMDisableForItems )
 	{
+		//DisableButton
+		//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+		//{ 
+		//DisableButton( iSMPanelButtons[ HOP_BUTTON ] );	 //Legion by Jazz	
+		//}
 		DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
 		DisableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 		DisableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
@@ -1110,7 +1189,7 @@ void ReevaluateItemHatches( SOLDIERTYPE *pSoldier, BOOLEAN fAllValid )
 			//if( guiCurrentScreen != MAP_SCREEN )
 			{
 				// Check attachments, override to valid placement if valid merge...
-				if ( ValidAttachment( gpItemPointer->usItem, pSoldier->inv[ cnt ].usItem ) )
+				if ( ValidAttachment( gpItemPointer->usItem, &(pSoldier->inv[ cnt ]) ) )
 				{
 					gbInvalidPlacementSlot[ cnt ] = FALSE;
 				}
@@ -1289,6 +1368,11 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 			// only enable the following if NOT in shopkeeper's interface
 			if ( !(guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
 			{
+			    //DisableButton
+			    //if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+				//{ 
+				//EnableButton( iSMPanelButtons[ HOP_BUTTON ] );	 //Legion by JAzz
+				//}
 				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
 				EnableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 				EnableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
@@ -1332,6 +1416,11 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 		}
 		else
 		{
+			//DisableButton
+			//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+			//{ 
+			//DisableButton( iSMPanelButtons[ HOP_BUTTON ] );	//Legion by Jazz
+			//}
 			DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
 			DisableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 			DisableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
@@ -2059,6 +2148,11 @@ BOOLEAN InitializeSMPanel(	)
 						MSYS_NO_CURSOR, MSYS_NO_CALLBACK, SelectedMercButtonCallback );
 	MSYS_AddRegion( &gSM_SELMERCBarsRegion );
 
+	// Added by SANDRO - define region for camo tooltip window
+	MSYS_DefineRegion( &gSM_SELMERCCamoRegion, ( SM_CAMMO_X + 2), ( SM_CAMMO_Y ),
+					(SM_CAMMO_X + 28), (SM_CAMMO_Y + 10), MSYS_PRIORITY_NORMAL,
+						MSYS_NO_CURSOR, MSYS_NO_CALLBACK, SelectedMercButtonCallback );
+	MSYS_AddRegion( &gSM_SELMERCCamoRegion );
 
 	// CHRISL: Setup default coords
 	if((UsingNewInventorySystem() == true))
@@ -2090,7 +2184,9 @@ BOOLEAN InitializeSMPanel(	)
 
 BOOLEAN CreateSMPanelButtons( )
 {
-CHAR8 ubString[48];
+	CHAR8 ubString[48];
+  //CHAR8 ubString2[48]; //legion DisableButton
+	//CHAR8 ubString3[48]; //legion
 
 	// CHRISL: Reset backpack buttons as well
 	giSMStealthImages = giSMZipperImages = giSMDropPackImages = -1;
@@ -2099,6 +2195,14 @@ CHAR8 ubString[48];
 	gfAllDisabled	= FALSE;
 
 	FilenameForBPP("INTERFACE\\inventory_buttons.sti", ubString);
+	
+	//Legion by Jazz
+	//DisableButton
+	//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+    //{ 
+	//	FilenameForBPP("INTERFACE\\inventory_buttons_WINDOW_2.sti", ubString2); //LEGION
+	//}
+	//-----------------------
 	// Load button Graphics
 	iSMPanelImages[ STANCEUP_IMAGES	]			= LoadButtonImage(ubString,-1,0,-1,10,-1 );
 
@@ -2112,8 +2216,21 @@ CHAR8 ubString[48];
 	iSMPanelImages[ LOOK_IMAGES	]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,2,-1,12,-1 );
 	iSMPanelImages[ TALK_IMAGES	]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,6,-1,16,-1 );
 	iSMPanelImages[ MUTE_IMAGES	]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,5,-1,15,-1 );
+	
+	//Legion by Jazz
+	//DisableButton
+	/*
+	if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+    { 
+	iSMPanelImages[ OPTIONS_IMAGES	]				= LoadButtonImage(ubString2,-1,0,-1,1,-1 ); //legion
+	}
+	else
+	{
 	iSMPanelImages[ OPTIONS_IMAGES	]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,24,-1,25,-1 );
-
+	}
+	*/
+	iSMPanelImages[ OPTIONS_IMAGES	]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,24,-1,25,-1 );
+	
 	iBurstButtonImages[ WM_NORMAL ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 7, -1, -1, -1 );
 	iBurstButtonImages[ WM_BURST ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
 	iBurstButtonImages[ WM_AUTOFIRE ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
@@ -2121,6 +2238,12 @@ CHAR8 ubString[48];
 	iBurstButtonImages[ WM_ATTACHED_GL_BURST ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
 	iBurstButtonImages[ WM_ATTACHED_GL_AUTO ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
 
+	//Legion by JAzz
+	//DisableButton
+	//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+    //{ 
+	//	iSMPanelImages[ HOP_IMAGES ]		= LoadButtonImage(ubString2,-1,2,-1,3,-1 );
+	//}
 
 	FilenameForBPP("INTERFACE\\invadd-ons.sti", ubString);
 	// Load button Graphics
@@ -2140,6 +2263,29 @@ CHAR8 ubString[48];
 
 	// SET BUTTONS TO -1
 	memset( iSMPanelButtons, -1, sizeof( iSMPanelButtons ) );
+	
+	
+	//Legion by Jazz
+	//DisableButton
+	/*if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+    { 
+    
+		if (UsingNewInventorySystem() == true) 
+			{
+		iSMPanelButtons[ HOP_BUTTON ] = QuickCreateButton( iSMPanelImages[ HOP_IMAGES ], SM_BURSTMODEB_X-30, SM_BURSTMODEB_Y,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
+										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnOknoCallback );
+			}
+			else
+			{
+		iSMPanelButtons[ HOP_BUTTON ] = QuickCreateButton( iSMPanelImages[ HOP_IMAGES ], SM_BURSTMODEB_X-98, SM_BURSTMODEB_Y+35,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
+										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnOknoCallback );
+			}
+	}
+	*/
+	//-----------------------									
+										
 
 	iSMPanelButtons[ SM_MAP_SCREEN_BUTTON ] = QuickCreateButton( iSMPanelImages[ MAPSCREEN_IMAGES ], SM_MAPSCREEN_X, SM_MAPSCREEN_Y,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
@@ -2385,6 +2531,8 @@ BOOLEAN ShutdownSMPanel( )
 	MSYS_RemoveRegion( &gSM_SELMERCMoneyRegion );
 	MSYS_RemoveRegion( &gSM_SELMERCEnemyIndicatorRegion );
 
+	MSYS_RemoveRegion( &gSM_SELMERCCamoRegion ); // added - SANDRO
+
 	HandleMouseOverSoldierFaceForContMove( gpSMCurrentMerc, FALSE );
 
 	MSYS_RemoveRegion( &gViewportRegion );
@@ -2515,6 +2663,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sAgilityGain)
 				{
 					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT,0);
+					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_AGI_Y-1);
 					ClipRect.iBottom = (SM_AGI_Y-1) + SM_STATS_HEIGHT;
 					ClipRect.iLeft = SM_AGI_X;
@@ -2526,6 +2675,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sDexterityGain)
 				{
 					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT,0);
+					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_DEX_Y-1);
 					ClipRect.iBottom = (SM_DEX_Y-1) + SM_STATS_HEIGHT;
 					ClipRect.iLeft = SM_DEX_X;
@@ -2537,6 +2687,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sStrengthGain)
 				{
 					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT,0);
+					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_STR_Y-1);
 					ClipRect.iBottom = (SM_STR_Y-1) + SM_STATS_HEIGHT;
 					ClipRect.iLeft = SM_STR_X;
@@ -2548,6 +2699,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sWisdomGain)
 				{
 					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT,0);
+					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_WIS_Y-1);
 					ClipRect.iBottom = (SM_WIS_Y-1) + SM_STATS_HEIGHT;
 					ClipRect.iLeft = SM_WIS_X;
@@ -2559,6 +2711,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMarksmanshipGain)
 				{
 					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT,0);
+					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_MRKM_Y-1);
 					ClipRect.iBottom = (SM_MRKM_Y-1) + SM_STATS_HEIGHT;
 					ClipRect.iLeft = SM_MRKM_X;
@@ -2570,6 +2723,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sLeadershipGain)
 				{
 					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT,0);
+					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_CHAR_Y-1);
 					ClipRect.iBottom = (SM_CHAR_Y-1) + SM_STATS_HEIGHT;
 					ClipRect.iLeft = SM_CHAR_X;
@@ -2581,6 +2735,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMechanicGain)
 				{
 					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT,0);
+					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_MECH_Y-1);
 					ClipRect.iBottom = (SM_MECH_Y-1) + SM_STATS_HEIGHT;
 					ClipRect.iLeft = SM_MECH_X;
@@ -2592,6 +2747,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExplosivesGain)
 				{
 					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT,0);
+					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_EXPL_Y-1);
 					ClipRect.iBottom = (SM_EXPL_Y-1) + SM_STATS_HEIGHT;
 					ClipRect.iLeft = SM_EXPL_X;
@@ -2603,6 +2759,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMedicalGain)
 				{
 					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT,0);
+					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_MED_Y-1);
 					ClipRect.iBottom = (SM_MED_Y-1) + SM_STATS_HEIGHT;
 					ClipRect.iLeft = SM_MED_X;
@@ -2614,6 +2771,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				if (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExpLevelGain)
 				{
 					ubBarWidth = (SM_STATS_WIDTH * (gMercProfiles[ gpSMCurrentMerc->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, gpSMCurrentMerc->stats.bExpLevel);
+					ubBarWidth = __max(0, __min(ubBarWidth, SM_STATS_WIDTH));
 					ClipRect.iTop = (SM_EXPLVL_Y-1);
 					ClipRect.iBottom = (SM_EXPLVL_Y-1) + SM_STATS_HEIGHT;
 					ClipRect.iLeft = SM_EXPLVL_X;
@@ -2675,61 +2833,61 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 				mprintf( SM_CAMMO_PERCENT_X, SM_CAMMO_PERCENT_Y, L"%%" );
 			#endif
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeAgilityTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & AGIL_INCREASE? TRUE: FALSE ) );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeAgilityTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & AGIL_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_AGILITY] > 0 )) ? TRUE : FALSE)); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bAgility );
 			FindFontRightCoordinates(SM_AGI_X, SM_AGI_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeDexterityTime,( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & DEX_INCREASE? TRUE: FALSE )	);
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeDexterityTime,( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & DEX_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_DEXTERITY] > 0 )) ? TRUE : FALSE)); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bDexterity );
 			FindFontRightCoordinates(SM_DEX_X, SM_DEX_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeStrengthTime, ( BOOLEAN )( gpSMCurrentMerc->usValueGoneUp & STRENGTH_INCREASE?TRUE: FALSE ) );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeStrengthTime, ( BOOLEAN )( gpSMCurrentMerc->usValueGoneUp & STRENGTH_INCREASE?TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0 )) ? TRUE : FALSE)); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bStrength );
 			FindFontRightCoordinates(SM_STR_X, SM_STR_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeLeadershipTime, ( BOOLEAN )( gpSMCurrentMerc->usValueGoneUp & LDR_INCREASE? TRUE: FALSE )	);
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeLeadershipTime, ( BOOLEAN )( gpSMCurrentMerc->usValueGoneUp & LDR_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_LEADERSHIP] > 0 )) ? TRUE : FALSE)); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bLeadership );
 			FindFontRightCoordinates(SM_CHAR_X, SM_CHAR_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeWisdomTime,( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & WIS_INCREASE? TRUE: FALSE )	);
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeWisdomTime,( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & WIS_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_WISDOM] > 0 )) ? TRUE : FALSE)); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bWisdom );
 			FindFontRightCoordinates(SM_WIS_X, SM_WIS_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeLevelTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & LVL_INCREASE? TRUE: FALSE )	);
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeLevelTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & LVL_INCREASE? TRUE: FALSE ),  FALSE );
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bExpLevel );
 			FindFontRightCoordinates(SM_EXPLVL_X, SM_EXPLVL_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeMarksmanshipTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MRK_INCREASE? TRUE: FALSE )	);
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeMarksmanshipTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MRK_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_MARKSMANSHIP] > 0 )) ? TRUE : FALSE)); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bMarksmanship );
 			FindFontRightCoordinates(SM_MRKM_X, SM_MRKM_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeExplosivesTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & EXP_INCREASE? TRUE: FALSE )	);
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeExplosivesTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & EXP_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_EXPLOSIVES] > 0 )) ? TRUE : FALSE)); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bExplosive );
 			FindFontRightCoordinates(SM_EXPL_X, SM_EXPL_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeMechanicalTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MECH_INCREASE ? TRUE: FALSE )	);
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeMechanicalTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MECH_INCREASE ? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_MECHANICAL] > 0 )) ? TRUE : FALSE)); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bMechanical );
 			FindFontRightCoordinates(SM_MECH_X, SM_MECH_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeMedicalTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MED_INCREASE? TRUE: FALSE )	);
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeMedicalTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MED_INCREASE? TRUE: FALSE ), ( BOOLEAN ) ( ( gGameOptions.fNewTraitSystem && ( gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_MEDICAL] > 0 )) ? TRUE : FALSE)); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bMedical );
 			FindFontRightCoordinates(SM_MED_X, SM_MED_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
@@ -2796,6 +2954,42 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 
 	if ( *pfDirty != DIRTYLEVEL0 )
 	{
+		///////////////////////////////////////////////////////////////////////
+		// SANDRO - added a tooltip window showing exact camo percentage for every type
+		// *******************************************************************
+		CHAR16 pStrCamo[400];
+		swprintf( pStrCamo, L"" );
+		swprintf( pStr, L"");
+		if ((gpSMCurrentMerc->bCamo + gpSMCurrentMerc->wornCamo) > 0 )
+		{
+			swprintf( pStrCamo, L"\n%d/%d%s %s", gpSMCurrentMerc->bCamo, gpSMCurrentMerc->wornCamo, L"%", gzMiscItemStatsFasthelp[ 21 ]);
+			wcscat( pStr, pStrCamo);
+			swprintf( pStrCamo, L"" );
+		}
+		if ((gpSMCurrentMerc->urbanCamo + gpSMCurrentMerc->wornUrbanCamo) > 0 )
+		{
+			swprintf( pStrCamo, L"\n%d/%d%s %s", gpSMCurrentMerc->urbanCamo, gpSMCurrentMerc->wornUrbanCamo, L"%", gzMiscItemStatsFasthelp[ 22 ]);
+			wcscat( pStr, pStrCamo);
+			swprintf( pStrCamo, L"" );
+		}
+		if ((gpSMCurrentMerc->desertCamo + gpSMCurrentMerc->wornDesertCamo) > 0 )
+		{
+			swprintf( pStrCamo, L"\n%d/%d%s %s", gpSMCurrentMerc->desertCamo, gpSMCurrentMerc->wornDesertCamo, L"%", gzMiscItemStatsFasthelp[ 23 ]);
+			wcscat( pStr, pStrCamo);
+			swprintf( pStrCamo, L"" );
+		}
+		if ((gpSMCurrentMerc->snowCamo + gpSMCurrentMerc->wornSnowCamo) > 0 )
+		{
+			swprintf( pStrCamo, L"\n%d/%d%s %s", gpSMCurrentMerc->snowCamo, gpSMCurrentMerc->wornSnowCamo, L"%", gzMiscItemStatsFasthelp[ 24 ] );
+			wcscat( pStr, pStrCamo);
+			swprintf( pStrCamo, L"" );
+		}
+
+		SetRegionFastHelpText( &(gSM_SELMERCCamoRegion), pStr );
+		SetRegionHelpEndCallback( &gSM_SELMERCCamoRegion, SkiHelpTextDoneCallBack );
+
+		/////////////////////////////////////////////////////////////////////////////////////////
+
 		// UPdate stats!
 		if ( gpSMCurrentMerc->stats.bLife != 0 )
 		{
@@ -2881,10 +3075,14 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 		// Render clock
 		// CHRISL: If we're in NIV mode, don't render the clock on the SM panel
 		if(UsingNewInventorySystem() == false)
+		{
 			RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
-		CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
+			CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
+		}
+
 		// CHRISL: Change function call to include X,Y coordinates.
 		RenderTownIDString( LOCATION_NAME_X, LOCATION_NAME_Y );
+
 	}//XXXj in tactical bug is: NIV pushes town name +Y and boom
 	else
 	{
@@ -2921,11 +3119,16 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 
 }
 
-void UpdateStatColor( UINT32 uiTimer, BOOLEAN fIncrease )
+void UpdateStatColor( UINT32 uiTimer, BOOLEAN fIncrease, BOOLEAN fDamaged ) // SANDRO - added argument
 {
 	if ( gpSMCurrentMerc->stats.bLife >= OKLIFE )
 	{
-		if( ( GetJA2Clock()	< CHANGE_STAT_RECENTLY_DURATION + uiTimer) && ( uiTimer != 0 ) )
+		// SANDRO - if damaged stat we could regain, show in red until repaired
+		if( fDamaged )
+		{
+			SetFontForeground( FONT_RED );
+		}
+		else if( ( GetJA2Clock()	< CHANGE_STAT_RECENTLY_DURATION + uiTimer) && ( uiTimer != 0 ) )
 		{
 			if( fIncrease )
 			{
@@ -3063,6 +3266,34 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					{
 						if ( fGoodAPs )
 						{
+							if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+							{
+							if ( gpSMCurrentMerc->bCamo > 0 )
+							{
+								gCamoFace[gpSMCurrentMerc->ubProfile].gCamoface = TRUE;
+								DeleteSoldierFace( gpSMCurrentMerc );// remove face
+								gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
+							}
+							if ( gpSMCurrentMerc->urbanCamo > 0 )
+							{
+								gCamoFace[gpSMCurrentMerc->ubProfile].gUrbanCamoface = TRUE;
+								DeleteSoldierFace( gpSMCurrentMerc );// remove face
+								gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
+							}
+							if ( gpSMCurrentMerc->desertCamo > 0)
+							{
+								gCamoFace[gpSMCurrentMerc->ubProfile].gDesertCamoface = TRUE;
+								DeleteSoldierFace( gpSMCurrentMerc );// remove face
+								gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
+							}							
+							if ( gpSMCurrentMerc->snowCamo > 0)
+							{
+								gCamoFace[gpSMCurrentMerc->ubProfile].gSnowCamoface = TRUE;
+								DeleteSoldierFace( gpSMCurrentMerc );// remove face
+								gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
+							}
+							}
+							
 						// Dirty
 						fInterfacePanelDirty = DIRTYLEVEL2;
 
@@ -3442,7 +3673,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				if ( uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS || uiHandPos == HELMETPOS || uiHandPos == VESTPOS || uiHandPos == LEGPOS )
 				{
 					//if ( ValidAttachmentClass( usNewItemIndex, usOldItemIndex ) )
-					if ( ValidAttachment( usNewItemIndex, usOldItemIndex ) )
+					if ( ValidAttachment( usNewItemIndex, &(gpSMCurrentMerc->inv[uiHandPos]) ) )
 					{
 						// it's an attempt to attach; bring up the inventory panel
 						if ( !InItemDescriptionBox( ) )
@@ -3658,6 +3889,10 @@ BOOLEAN  ChangeZipperStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 
 	//Set AP cost based on what we're doing
 	sAPCost = (newStatus) ? APBPConstants[AP_CLOSE_ZIPPER] : APBPConstants[AP_OPEN_ZIPPER];
+		// SANDRO - ambidextrous bonus to handle things faster
+	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
+		sAPCost = (INT16)((sAPCost * (100 - gSkillTraitValues.ubAMWorkBackpackAPsReduction) / 100) + 0.5);
+
 	//Are we currently in combat?
 	if(gTacticalStatus.uiFlags & INCOMBAT)
 	{
@@ -3830,7 +4065,7 @@ void MergeMessageBoxCallBack( UINT8 ubExitValue )
 	{
 		//ADB see what happens here
 		DebugBreakpoint();
-		gpSMCurrentMerc->inv[ gubHandPos ].AttachObject( gpItemPointerSoldier, gpItemPointer );
+		gpSMCurrentMerc->inv[ gubHandPos ].AttachObject( gpItemPointerSoldier, gpItemPointer, FALSE );
 
 		// re-evaluate repairs
 		gfReEvaluateEveryonesNothingToDo = TRUE;
@@ -4205,6 +4440,18 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			gpSMCurrentMerc->BeginSoldierClimbUpRoof(	);
 		}
+		
+		//---------------Legion by JAzz-----------
+		
+		if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
+		{ 
+			if ( FindFenceDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
+			{
+				gpSMCurrentMerc->BeginSoldierFence(  );
+			}
+		}
+		
+		//------------------------------------------
 
 		if ( FindFenceJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
 		{
@@ -4686,7 +4933,7 @@ BOOLEAN InitializeTEAMPanelCoords( )
 */
 	// CHRISL: New definitions for the team panel clock and location coordinates
 	INTERFACE_CLOCK_TM_X	= ( SCREEN_WIDTH - 86 );
-	INTERFACE_CLOCK_TM_Y	= ( 98	+ INTERFACE_START_Y );
+	INTERFACE_CLOCK_TM_Y	= ( 99	+ INTERFACE_START_Y );
 	LOCATION_NAME_TM_X		= ( SCREEN_WIDTH - 92 );
 	LOCATION_NAME_TM_Y		= ( 65	+ INTERFACE_START_Y	);
 
@@ -6770,7 +7017,8 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			BOOLEAN		fOKToGo = FALSE;
 			BOOLEAN		fDeductPoints = FALSE;
 
-			if( ( gpItemPointer->usItem < FIRST_KEY ) || ( gpItemPointer->usItem > KEY_32 ) )
+			// WANNE: Instead of checking the item number for a key, check the itemclass!!!
+			if (Item[gpItemPointer->usItem].usItemClass != IC_KEY)
 			{
 				return;
 			}
@@ -6944,6 +7192,11 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void DisableSMPpanelButtonsWhenInShopKeeperInterface( BOOLEAN fDontDrawButtons )
 {
 	//Go through the buttons that will be under the ShopKeepers ATM panel and disable them
+	//DisableButton
+	//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+    //{ 
+	//DisableButton( iSMPanelButtons[ HOP_BUTTON ] ); //Legion by Jazz
+	//}
 	DisableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
 	DisableButton( iSMPanelButtons[ UPDOWN_BUTTON ] );
 	DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
@@ -6962,6 +7215,11 @@ void DisableSMPpanelButtonsWhenInShopKeeperInterface( BOOLEAN fDontDrawButtons )
 	//Make sure the mapscreen button is disabled
 	DisableButton( iSMPanelButtons[ SM_MAP_SCREEN_BUTTON ] );
 
+	//DisableButton
+	//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+    //{ 
+	//DisableButton( iSMPanelButtons[ HOP_BUTTON ] ); //legion by Jazz
+	//}
 	DisableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
 	DisableButton( iSMPanelButtons[ UPDOWN_BUTTON ] );
 	DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
@@ -6982,6 +7240,11 @@ void DisableSMPpanelButtonsWhenInShopKeeperInterface( BOOLEAN fDontDrawButtons )
 //ATM:
 
 		//Go through the buttons that will be under the ShopKeepers ATM panel and disable them
+		//DisableButton
+		//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+		//{ 		
+		//ButtonList[ iSMPanelButtons[ HOP_BUTTON ] ]->uiFlags &= ~BUTTON_DIRTY; //Legion by Jazz
+		//}
 		ButtonList[ iSMPanelButtons[ STANCEUP_BUTTON ] ]->uiFlags &= ~BUTTON_DIRTY;
 		ButtonList[ iSMPanelButtons[ UPDOWN_BUTTON ] ]->uiFlags &= ~BUTTON_DIRTY;
 		ButtonList[ iSMPanelButtons[ CLIMB_BUTTON ] ]->uiFlags &= ~BUTTON_DIRTY;
@@ -7006,7 +7269,12 @@ void DisableSMPpanelButtonsWhenInShopKeeperInterface( BOOLEAN fDontDrawButtons )
 
 		//Make sure the mapscreen button is disabled
 		ButtonList[ iSMPanelButtons[ SM_MAP_SCREEN_BUTTON ] ]->uiFlags &= ~BUTTON_ENABLED;
-
+	
+		//DisableButton
+		//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
+		//{ 
+		//ButtonList[ iSMPanelButtons[ HOP_BUTTON ] ]->uiFlags |= BUTTON_FORCE_UNDIRTY; //legion by Jazz
+		//}
 		ButtonList[ iSMPanelButtons[ STANCEUP_BUTTON ] ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
 		ButtonList[ iSMPanelButtons[ UPDOWN_BUTTON ] ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
 		ButtonList[ iSMPanelButtons[ CLIMB_BUTTON ] ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
@@ -7188,6 +7456,120 @@ void GoToMapScreenFromTactical( void )
 	// ok, proceed!
 	gfEnteringMapScreen = TRUE;
 }
+
+//-------------Legion by Jazz-----------------------------------
+void BtnOknoCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	INT8							bDirection;
+
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+		
+		
+	if ( gpSMCurrentMerc->pathing.bLevel == 1 )
+        {
+	return;
+	}
+	
+
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags |= BUTTON_CLICKED_ON;
+	}
+	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+
+		if ( FindWindowJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
+		{
+			gpSMCurrentMerc->BeginSoldierClimbWindow(  );
+		}
+
+	}
+	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+	}
+	
+}
+
+void BtnFenceCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	BOOLEAN						fNearHeigherLevelFence;
+	BOOLEAN						fNearLowerLevelFence;
+	INT8							bDirection;
+
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags |= BUTTON_CLICKED_ON;
+	}
+	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+
+		GetMercFenceDirection( gpSMCurrentMerc->ubID, &fNearLowerLevelFence, &fNearHeigherLevelFence );
+
+		
+		if ( FindFenceDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
+		{
+			gpSMCurrentMerc->BeginSoldierFence(  );
+		}
+
+	}
+	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+	}
+	
+}
+
+//----LEGION 2---------
+BOOLEAN HandleKlerykPistolet( SOLDIERTYPE *pSoldier, UINT32 uiHandPos, UINT16 usReplaceItem )
+{
+	BOOLEAN fRefuse = FALSE;
+
+	if ( pSoldier->ubProfile == 57 )
+	{
+		if ( uiHandPos == HANDPOS || uiHandPos == SECONDHANDPOS )
+		{
+			if ( usReplaceItem == NOTHING )
+			{
+				fRefuse = TRUE;
+			}
+			else
+			{	//legion
+				// Do we have nothing or the leather vest or kevlar leather vest?
+				if ( usReplaceItem == 4520 ) //z³oty pistolet items.xml
+				{
+					// This is good....
+					fRefuse = FALSE;
+				}
+				else
+				{
+					fRefuse = TRUE;
+				}
+			}
+
+			if ( fRefuse )
+			{
+				// Say quote!
+				TacticalCharacterDialogue( pSoldier, 85 );
+				return( TRUE );
+			}
+		}
+	}
+
+	return( FALSE );
+}
+
+
+//-----------
+
+
+//---------------------------------------------
 
 
 // Moved to Weapons.cpp by ADB, rev 1513

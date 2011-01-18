@@ -27,6 +27,7 @@
 	#include "Squads.h"
 #endif
 
+#include "IMP Confirm.h"
 
 #define MAIN_PAGE_BUTTON_TEXT_WIDTH 95
 
@@ -599,7 +600,8 @@ void BtnIMPMainPageBeginCallback(GUI_BUTTON *btn,INT32 reason)
 			}
 			else
 			{
-				if( LaptopSaveInfo.iCurrentBalance < COST_OF_PROFILE )
+				//if( LaptopSaveInfo.iCurrentBalance < COST_OF_PROFILE )
+				if( LaptopSaveInfo.iCurrentBalance < iGetProfileCost() ) // SANDRO - changed to find actual profile cost in IMPConfirm
 				{
 					DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 3 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, BeginMessageBoxCallBack);
 
@@ -1117,7 +1119,23 @@ BOOLEAN LoadCharacterPortraitForMainPage( void )
 	{
 		// load it
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP( pPlayerSelectedFaceFileNames[ iPortraitNumber ] , VObjectDesc.ImageFile);
+		
+		if( fCharacterIsMale )
+		{
+			if (  gIMPMaleValues[ iPortraitNumber ].Enabled == 1 )
+			{
+				sprintf( VObjectDesc.ImageFile, "Faces\\%02d.sti", gIMPMaleValues[ iPortraitNumber ].PortraitId );
+			}
+		}
+		else
+		{
+			if (  gIMPFemaleValues[ iPortraitNumber ].Enabled == 1 )
+			{
+				sprintf( VObjectDesc.ImageFile, "Faces\\%02d.sti", gIMPFemaleValues[ iPortraitNumber ].PortraitId );
+			}
+		}
+		//FilenameForBPP( pPlayerSelectedFaceFileNames[ iPortraitNumber ] , VObjectDesc.ImageFile);
+		
 		CHECKF(AddVideoObject(&VObjectDesc, &guiCHARACTERPORTRAITFORMAINPAGE));
 
 

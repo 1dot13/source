@@ -14,11 +14,18 @@
 	#include "Text.h"
 	#include "LaptopSave.h"
 	#include "Multi Language Graphic Utils.h"
+	#include "GameSettings.h"
 #endif
 
+#include "LocalizedStrings.h"
+#include "Soldier Profile.h"
 
+UINT8 MAX_NUMBER_MERCS = 0;
 
-UINT8			AimMercArray[ MAX_NUMBER_MERCS ];
+UINT8			AimMercArray[ NUM_PROFILES ]; //MAX_NUMBER_MERCS ];
+
+AIM_AVAILABLE_TEMP gAimAvailabilityTemp[ NUM_PROFILES ];
+AIM_AVAILABLE gAimAvailability[ NUM_PROFILES ];
 
 UINT8			gCurrentAimPage[ NUM_AIM_SCREENS ] =
 {
@@ -470,14 +477,27 @@ BOOLEAN InitAimDefaults()
 	CHECKF(AddVideoObject(&VObjectDesc, &guiRustBackGround));
 
 	// load the Aim Symbol graphic and add it
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	GetMLGFilename( VObjectDesc.ImageFile, MLG_AIMSYMBOL );
-	CHECKF(AddVideoObject(&VObjectDesc, &guiAimSymbol));
+	if(gGameExternalOptions.gfUseNewStartingGearInterface)
+	{
+		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+		GetMLGFilename( VObjectDesc.ImageFile, MLG_AIMSYMBOL_SMALL );
+		CHECKF(AddVideoObject(&VObjectDesc, &guiAimSymbol));
+		//Mouse region for the Links
+		MSYS_DefineRegion( &gSelectedAimLogo, AIM_SYMBOL_SMALL_X, AIM_SYMBOL_SMALL_Y, AIM_SYMBOL_SMALL_X+AIM_SYMBOL_SMALL_WIDTH, AIM_SYMBOL_SMALL_Y+AIM_SYMBOL_SMALL_HEIGHT, MSYS_PRIORITY_HIGH,
+								CURSOR_WWW, MSYS_NO_CALLBACK, SelectAimLogoRegionCallBack);
+		MSYS_AddRegion(&gSelectedAimLogo);
+	}
+	else
+	{
+		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+		GetMLGFilename( VObjectDesc.ImageFile, MLG_AIMSYMBOL );
+		CHECKF(AddVideoObject(&VObjectDesc, &guiAimSymbol));
+		//Mouse region for the Links
+		MSYS_DefineRegion( &gSelectedAimLogo, AIM_SYMBOL_X, AIM_SYMBOL_Y, AIM_SYMBOL_X+AIM_SYMBOL_WIDTH, AIM_SYMBOL_Y+AIM_SYMBOL_HEIGHT, MSYS_PRIORITY_HIGH,
+								CURSOR_WWW, MSYS_NO_CALLBACK, SelectAimLogoRegionCallBack);
+		MSYS_AddRegion(&gSelectedAimLogo);
+	}
 
-	//Mouse region for the Links
-	MSYS_DefineRegion( &gSelectedAimLogo, AIM_SYMBOL_X, AIM_SYMBOL_Y, AIM_SYMBOL_X+AIM_SYMBOL_WIDTH, AIM_SYMBOL_Y+AIM_SYMBOL_HEIGHT, MSYS_PRIORITY_HIGH,
-							CURSOR_WWW, MSYS_NO_CALLBACK, SelectAimLogoRegionCallBack);
-	MSYS_AddRegion(&gSelectedAimLogo);
 
 
 	return(TRUE);
@@ -514,8 +534,16 @@ BOOLEAN DrawAimDefaults()
 	}
 
 	// Aim Symbol
-	GetVideoObject(&hAimSymbolHandle, guiAimSymbol);
-	BltVideoObject(FRAME_BUFFER, hAimSymbolHandle, 0,AIM_SYMBOL_X, AIM_SYMBOL_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+	if(gGameExternalOptions.gfUseNewStartingGearInterface)
+	{
+		GetVideoObject(&hAimSymbolHandle, guiAimSymbol);
+		BltVideoObject(FRAME_BUFFER, hAimSymbolHandle, 0,AIM_SYMBOL_SMALL_X, AIM_SYMBOL_SMALL_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+	}
+	else
+	{
+		GetVideoObject(&hAimSymbolHandle, guiAimSymbol);
+		BltVideoObject(FRAME_BUFFER, hAimSymbolHandle, 0,AIM_SYMBOL_X, AIM_SYMBOL_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+	}
 
 	return(TRUE);
 }
@@ -541,8 +569,14 @@ void SelectAimLogoRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 BOOLEAN DisplayAimSlogan()
 {
 	CHAR16	sSlogan[400];
-
-	LoadEncryptedDataFromFile(AIMHISTORYFILE, sSlogan, 0, AIM_HISTORY_LINE_SIZE);
+	if(!g_bUseXML_Strings)
+	{
+		LoadEncryptedDataFromFile(AIMHISTORYFILE, sSlogan, 0, AIM_HISTORY_LINE_SIZE);
+	}
+	else
+	{
+		Loc::GetString(Loc::AIM_HISTORY, L"Line", 0, sSlogan, 400);
+	}
 	//Display Aim Text under the logo
 	DisplayWrappedString(AIM_LOGO_TEXT_X, AIM_LOGO_TEXT_Y, AIM_LOGO_TEXT_WIDTH, 2, AIM_LOGO_FONT, AIM_FONT_MCOLOR_WHITE, sSlogan, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
@@ -550,27 +584,37 @@ BOOLEAN DisplayAimSlogan()
 }
 
 
-
 BOOLEAN DisplayAimCopyright()
 {
 	CHAR16	sSlogan[400];
-	UINT32	uiStartLoc=0;
 
 	//Load and Display the copyright notice
+	if(!g_bUseXML_Strings)
+	{
+		UINT32	uiStartLoc=0;
+		uiStartLoc = AIM_HISTORY_LINE_SIZE * AIM_COPYRIGHT_1;
+		LoadEncryptedDataFromFile(AIMHISTORYFILE, sSlogan, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		DrawTextToScreen(sSlogan, AIM_COPYRIGHT_X, AIM_COPYRIGHT_Y, AIM_COPYRIGHT_WIDTH, AIM_COPYRIGHT_FONT, FONT_MCOLOR_DKWHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
-	uiStartLoc = AIM_HISTORY_LINE_SIZE * AIM_COPYRIGHT_1;
-	LoadEncryptedDataFromFile(AIMHISTORYFILE, sSlogan, uiStartLoc, AIM_HISTORY_LINE_SIZE);
-	DrawTextToScreen(sSlogan, AIM_COPYRIGHT_X, AIM_COPYRIGHT_Y, AIM_COPYRIGHT_WIDTH, AIM_COPYRIGHT_FONT, FONT_MCOLOR_DKWHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+		uiStartLoc = AIM_HISTORY_LINE_SIZE * AIM_COPYRIGHT_2;
+		LoadEncryptedDataFromFile(AIMHISTORYFILE, sSlogan, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		DrawTextToScreen(sSlogan, AIM_COPYRIGHT_X, AIM_COPYRIGHT_Y + AIM_COPYRIGHT_GAP, AIM_COPYRIGHT_WIDTH, AIM_COPYRIGHT_FONT, FONT_MCOLOR_DKWHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
-	uiStartLoc = AIM_HISTORY_LINE_SIZE * AIM_COPYRIGHT_2;
-	LoadEncryptedDataFromFile(AIMHISTORYFILE, sSlogan, uiStartLoc, AIM_HISTORY_LINE_SIZE);
-	DrawTextToScreen(sSlogan, AIM_COPYRIGHT_X, AIM_COPYRIGHT_Y + AIM_COPYRIGHT_GAP, AIM_COPYRIGHT_WIDTH, AIM_COPYRIGHT_FONT, FONT_MCOLOR_DKWHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+		uiStartLoc = AIM_HISTORY_LINE_SIZE * AIM_COPYRIGHT_3;
+		LoadEncryptedDataFromFile(AIMHISTORYFILE, sSlogan, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		DrawTextToScreen(sSlogan, AIM_COPYRIGHT_X, AIM_COPYRIGHT_Y + AIM_COPYRIGHT_GAP*2, AIM_COPYRIGHT_WIDTH, AIM_COPYRIGHT_FONT, FONT_MCOLOR_DKWHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+	}
+	else
+	{
+		Loc::GetString(Loc::AIM_HISTORY, L"Line", AIM_COPYRIGHT_1, sSlogan, 400);
+		DrawTextToScreen(sSlogan, AIM_COPYRIGHT_X, AIM_COPYRIGHT_Y, AIM_COPYRIGHT_WIDTH, AIM_COPYRIGHT_FONT, FONT_MCOLOR_DKWHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
-	uiStartLoc = AIM_HISTORY_LINE_SIZE * AIM_COPYRIGHT_3;
-	LoadEncryptedDataFromFile(AIMHISTORYFILE, sSlogan, uiStartLoc, AIM_HISTORY_LINE_SIZE);
-	DrawTextToScreen(sSlogan, AIM_COPYRIGHT_X, AIM_COPYRIGHT_Y + AIM_COPYRIGHT_GAP*2, AIM_COPYRIGHT_WIDTH, AIM_COPYRIGHT_FONT, FONT_MCOLOR_DKWHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+		Loc::GetString(Loc::AIM_HISTORY, L"Line", AIM_COPYRIGHT_2, sSlogan, 400);
+		DrawTextToScreen(sSlogan, AIM_COPYRIGHT_X, AIM_COPYRIGHT_Y + AIM_COPYRIGHT_GAP, AIM_COPYRIGHT_WIDTH, AIM_COPYRIGHT_FONT, FONT_MCOLOR_DKWHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
-
+		Loc::GetString(Loc::AIM_HISTORY, L"Line", AIM_COPYRIGHT_3, sSlogan, 400);
+		DrawTextToScreen(sSlogan, AIM_COPYRIGHT_X, AIM_COPYRIGHT_Y + AIM_COPYRIGHT_GAP*2, AIM_COPYRIGHT_WIDTH, AIM_COPYRIGHT_FONT, FONT_MCOLOR_DKWHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+	}
 	return(TRUE);
 }
 
@@ -847,25 +891,30 @@ BOOLEAN DisplayFlowerAd( BOOLEAN fInit, BOOLEAN fRedraw )
 
 BOOLEAN	DrawWarningBox( BOOLEAN fInit, BOOLEAN fRedraw )
 {
-	static UINT32 uiLastTime;
-	static UINT8	ubSubImage=0;
-	UINT32 uiCurTime = GetJA2Clock();
+	static UINT32	uiLastTime;
+	static UINT8	ubSubImage = 0;
+	UINT32			uiCurTime = GetJA2Clock();
 
 
 	if( fInit || fRedraw)
 	{
-		CHAR16			sText[400];
-		UINT32	uiStartLoc=0;
+		CHAR16		sText[400];
 		//UINT16	usLocY = AIM_WARNING_TEXT_Y + (GetFontHeight(AIM_WARNING_FONT) + 2) * 2;
-		HVOBJECT hWarningHandle;
+		HVOBJECT	hWarningHandle;
 
 		//Warning
 		GetVideoObject(&hWarningHandle, guiWarning);
 		BltVideoObject(FRAME_BUFFER, hWarningHandle, 0,WARNING_X, WARNING_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 
-
-		uiStartLoc = AIM_HISTORY_LINE_SIZE * AIM_WARNING_1;
-		LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		if(!g_bUseXML_Strings)
+		{
+			UINT32 uiStartLoc = AIM_HISTORY_LINE_SIZE * AIM_WARNING_1;
+			LoadEncryptedDataFromFile(AIMHISTORYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		}
+		else
+		{
+			Loc::GetString(Loc::AIM_HISTORY, L"Line", AIM_WARNING_1, sText, 400);
+		}
 
 		//Display Aim Warning Text
 		DisplayWrappedString(AIM_WARNING_TEXT_X, AIM_WARNING_TEXT_Y, AIM_WARNING_TEXT_WIDTH, 2, AIM_WARNING_FONT, FONT_RED, sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);

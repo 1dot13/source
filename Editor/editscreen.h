@@ -14,6 +14,9 @@ extern GUI_BUTTON *gpPersistantButton;
 
 extern UINT16 GenericButtonFillColors[40];
 
+// WANNE: 05.10.2010
+extern BOOLEAN fNewMapSaved;
+
 void DisplayWayPoints(void);
 
 BOOLEAN CheckForSlantRoofs( void );

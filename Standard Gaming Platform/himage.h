@@ -138,9 +138,21 @@ typedef struct
 extern "C" {
 #endif
 
+namespace ImageFileType
+{
+	enum TestOrder
+	{
+		DEFAULT = 0,  // check extension
+		JPC,          // ignore file extension, test only *.jpc
+		JPC_FALLBACK, // test *.jpc, fallback to original type
+		PNG,          // ignore file extension, test only *.png
+		PNG_FALLBACK, // test *.png, fallback to original type
+	};
+};
+
 // This function will return NULL if it fails, and call SetLastError() to set
 // error information
-HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents );
+HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents, ImageFileType::TestOrder order = ImageFileType::JPC_FALLBACK);
 
 // This function destroys the HIMAGE structure as well as its contents
 BOOLEAN DestroyImage( HIMAGE hImage );

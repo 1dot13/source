@@ -133,7 +133,7 @@ void			InitShopKeeperSubTitledText( STR16 pString );
 
 void			AddItemToPlayersOfferAreaAfterShopKeeperOpen( OBJECTTYPE *pItemObject);
 
-void			BeginSkiItemPointer( UINT8 ubSource, INT8 bSlotNum, BOOLEAN fOfferToDealerFirst );
+void			BeginSkiItemPointer( UINT8 ubSource, INT16 bSlotNum, BOOLEAN fOfferToDealerFirst );
 
 void			DeleteShopKeeperItemDescBox();
 

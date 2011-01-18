@@ -21,6 +21,9 @@
 #include "vsurface.h"
 #include "line.h"
 #include "los.h"
+// added by SANDRO
+#include "SkillCheck.h"
+#include "soldier profile type.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -90,17 +93,19 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		}
 
 		//SCORE: If UDT range, we work it out as half actual LOS
-		if ( gGameExternalOptions.gfAllowUDTRange )
+		// SANDRO - don't use this if detail set to debug!
+		if ( gGameExternalOptions.gfAllowUDTRange && gGameExternalOptions.ubSoldierTooltipDetailLevel != DL_Debug && !(gTacticalStatus.uiFlags & SHOW_ALL_MERCS) )
 		{
 			uiMaxTooltipDistance = (UINT32)( MercPtrs[ gusSelectedSoldier ]->GetMaxDistanceVisible(MercPtrs[ gusUIFullTargetID ]->sGridNo, 0, CALC_FROM_WANTED_DIR) * (gGameExternalOptions.ubUDTModifier));
 			uiMaxTooltipDistance /= 100;
 		}
 		//SCORE: Otherwise if we're using dynamics then do this
-		else if ( gGameExternalOptions.fEnableDynamicSoldierTooltips )
+		// SANDRO - don't use this if detail set to debug!
+		else if ( gGameExternalOptions.fEnableDynamicSoldierTooltips && gGameExternalOptions.ubSoldierTooltipDetailLevel != DL_Debug && !(gTacticalStatus.uiFlags & SHOW_ALL_MERCS) )
 		{
 			OBJECTTYPE* pObject = &(MercPtrs[gusSelectedSoldier]->inv[HANDPOS]);
 			for (attachmentList::iterator iter = (*pObject)[0]->attachments.begin(); iter != (*pObject)[0]->attachments.end(); ++iter) {
-				if ( Item[iter->usItem].visionrangebonus > 0 )
+				if ( Item[iter->usItem].visionrangebonus > 0 && iter->exists())
 				{
 					fMercIsUsingScope = TRUE;
 					break;
@@ -120,7 +125,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		if (gGameExternalOptions.fEnableDynamicSoldierTooltips && fMercIsUsingScope == 0 && !gGameExternalOptions.gfAllowUDTRange)
 		{
 				// add 10% to max tooltip viewing distance per level of the merc
-				uiMaxTooltipDistance *= 1 + (MercPtrs[ gusSelectedSoldier ]->stats.bExpLevel / 10);
+				uiMaxTooltipDistance *= 1 + (EffectiveExpLevel(MercPtrs[ gusSelectedSoldier ])/ 10); // SANDRO - changed to effective level calc
 
 				if ( gGameExternalOptions.gfAllowLimitedVision )
 					uiMaxTooltipDistance *= 1 - (gGameExternalOptions.ubVisDistDecreasePerRainIntensity / 100);
@@ -134,7 +139,8 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				}
 		}				
 		//SCORE: Dynamic detail, otherwise do what we usually do
-		if ( gGameExternalOptions.gfAllowUDTDetail )
+		// SANDRO - don't use this if detail set to debug!
+		if ( gGameExternalOptions.gfAllowUDTDetail && gGameExternalOptions.ubSoldierTooltipDetailLevel != DL_Debug && !(gTacticalStatus.uiFlags & SHOW_ALL_MERCS) )
 		{
 			//Check range. Less than a third? Full. Less than 2 thirds? Basic. Otherwise Limited.
 			if ( iRangeToTarget <= (INT32)(uiMaxTooltipDistance / 3) )
@@ -212,6 +218,52 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_CURRENT_APS], pStrInfo, pSoldier->bActionPoints );
 			if ( gGameExternalOptions.fEnableSoldierTooltipHealth )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_CURRENT_HEALTH], pStrInfo, pSoldier->stats.bLife );
+			
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			// Added by SANDRO - show enemy skills
+			if ( gGameExternalOptions.fEnableSoldierTooltipTraits )
+			{				
+				if ( gGameOptions.fNewTraitSystem )
+				{
+					if (( pSoldier->stats.ubSkillTraits[0] == pSoldier->stats.ubSkillTraits[1] ) && pSoldier->stats.ubSkillTraits[0] != 0 )
+					{
+						CHAR16 pStrAux[50]; 
+						swprintf( pStrAux, L"(%s)", gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[0]]);
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_1], pStrInfo, pStrAux );
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_2], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[1] + 19] );
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_3], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[2]] );
+						//swprintf( pStrInfo, L"%s\n", pStrInfo );
+					}
+					else if (( pSoldier->stats.ubSkillTraits[1] == pSoldier->stats.ubSkillTraits[2] ) && pSoldier->stats.ubSkillTraits[1] != 0 )
+					{
+						CHAR16 pStrAux[50]; 
+						swprintf( pStrAux, L"(%s)", gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[1]]);
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_1], pStrInfo, pStrAux );
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_2], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[2] + 19] );
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_3], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[0]] );
+					}
+					else if (( pSoldier->stats.ubSkillTraits[0] == pSoldier->stats.ubSkillTraits[2] ) && pSoldier->stats.ubSkillTraits[0] != 0 )
+					{
+						CHAR16 pStrAux[50]; 
+						swprintf( pStrAux, L"(%s)", gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[0]]);
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_1], pStrInfo, pStrAux );
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_2], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[2] + 19] );
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_3], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[1]] );
+					}
+					else
+					{
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_1], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[0]] );
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_2], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[1]] );
+						swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_3], pStrInfo, gzMercSkillTextNew[pSoldier->stats.ubSkillTraits[2]] );
+					}
+				}
+				else
+				{
+					swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_1], pStrInfo, gzMercSkillText[pSoldier->stats.ubSkillTraits[0]] );
+					swprintf( pStrInfo, gzTooltipStrings[STR_TT_SKILL_TRAIT_2], pStrInfo, gzMercSkillText[pSoldier->stats.ubSkillTraits[1]] );
+				}
+			}
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		}
 
 		// armor info code block start
@@ -453,28 +505,30 @@ void DisplayWeaponInfo( SOLDIERTYPE* pSoldier, CHAR16* pStrInfo, UINT8 ubSlot, U
 	{
 		// display weapon attachments
 		for (attachmentList::iterator iter = pSoldier->inv[ubSlot][0]->attachments.begin(); iter != pSoldier->inv[ubSlot][0]->attachments.end(); ++iter) {
-			if ( ubTooltipDetailLevel == DL_Basic )
-			{
-				// display only externally-visible weapon attachments
-				if ( !Item[iter->usItem].hiddenattachment )
+			if(iter->exists()){
+				if ( ubTooltipDetailLevel == DL_Basic )
 				{
-						fDisplayAttachment = TRUE;
+					// display only externally-visible weapon attachments
+					if ( !Item[iter->usItem].hiddenattachment )
+					{
+							fDisplayAttachment = TRUE;
+					}
 				}
-			}
-			else
-			{
-				// display all weapon attachments
-				fDisplayAttachment = TRUE;
-			}
-			if ( fDisplayAttachment )
-			{
-				iNumAttachments++;
-				if ( iNumAttachments == 1 )
-					wcscat( pStrInfo, L"\n[" );
 				else
-					wcscat( pStrInfo, L", " );
-				wcscat( pStrInfo, ItemNames[ iter->usItem ] );
-				fDisplayAttachment = FALSE; // clear flag for next loop iteration
+				{
+					// display all weapon attachments
+					fDisplayAttachment = TRUE;
+				}
+				if ( fDisplayAttachment )
+				{
+					iNumAttachments++;
+					if ( iNumAttachments == 1 )
+						wcscat( pStrInfo, L"\n[" );
+					else
+						wcscat( pStrInfo, L", " );
+					wcscat( pStrInfo, ItemNames[ iter->usItem ] );
+					fDisplayAttachment = FALSE; // clear flag for next loop iteration
+				}
 			}
 		} // for
 		if ( iNumAttachments > 0 )

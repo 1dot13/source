@@ -179,6 +179,8 @@ typedef struct
 	UINT8				ubMorePadding;
 	UINT16				sCreatureTenseQuoteDelay;
 	UINT32				uiCreatureTenseQuoteLastUpdate;
+	// SANDRO - added this
+	UINT8								ubLastRequesterSurgeryTargetID;
 
 	// PADDING GONE!!!!!
 

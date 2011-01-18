@@ -30,8 +30,8 @@
 #include "DirectDraw Calls.h"
 #include "Cinematics.h"
 #include "soundman.h"
-#include "VFS/vfs.h"
-#include "VFS/vfs_file_raii.h"
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_file_raii.h>
 
 #ifdef JA2
 	#include "video.h"
@@ -53,45 +53,45 @@
 
 //-Flags-and-Symbols---------------------------------------------------------------
 
-#define SMK_NUM_FLICS				4										// Maximum number of flics open
+#define SMK_NUM_FLICS				4									// Maximum number of flics open
 
 // SMKFLIC uiFlags
 #define SMK_FLIC_OPEN				0x00000001							// Flic is open
-#define SMK_FLIC_PLAYING		0x00000002							// Flic is playing
+#define SMK_FLIC_PLAYING			0x00000002							// Flic is playing
 #define SMK_FLIC_LOOP				0x00000004							// Play flic in a loop
-#define SMK_FLIC_AUTOCLOSE	0x00000008							// Close when done
+#define SMK_FLIC_AUTOCLOSE			0x00000008							// Close when done
 
 //-Globals-------------------------------------------------------------------------
 SMKFLIC SmkList[SMK_NUM_FLICS];
 
-HWND				hDisplayWindow=0;
-UINT32			uiDisplayHeight, uiDisplayWidth;
-BOOLEAN			fSuspendFlics=FALSE;
-UINT32			uiFlicsPlaying=0;
-UINT32			guiSmackPixelFormat=SMACKBUFFER565;
+HWND		hDisplayWindow = 0;
+UINT32		uiDisplayHeight, uiDisplayWidth;
+BOOLEAN		fSuspendFlics = FALSE;
+UINT32		uiFlicsPlaying = 0;
+UINT32		guiSmackPixelFormat = SMACKBUFFER565;
 
 LPDIRECTDRAWSURFACE lpVideoPlayback=NULL;
 LPDIRECTDRAWSURFACE2 lpVideoPlayback2=NULL;
 
 
 //-Function-Prototypes-------------------------------------------------------------
-void				SmkInitialize(HWND hWindow, UINT32 uiWidth, UINT32 uiHeight);
-void				SmkShutdown(void);
+void			SmkInitialize(HWND hWindow, UINT32 uiWidth, UINT32 uiHeight);
+void			SmkShutdown(void);
 SMKFLIC			*SmkPlayFlic(CHAR8 *cFilename, UINT32 uiLeft, UINT32 uiTop, BOOLEAN fAutoClose);
 BOOLEAN			SmkPollFlics(void);
 SMKFLIC			*SmkOpenFlic(CHAR8 *cFilename);
-void				SmkSetBlitPosition(SMKFLIC *pSmack, UINT32 uiLeft, UINT32 uiTop);
-void				SmkCloseFlic(SMKFLIC *pSmack);
+void			SmkSetBlitPosition(SMKFLIC *pSmack, UINT32 uiLeft, UINT32 uiTop);
+void			SmkCloseFlic(SMKFLIC *pSmack);
 SMKFLIC			*SmkGetFreeFlic(void);
-void SmkSetupVideo(void);
-void SmkShutdownVideo(void);
+void			SmkSetupVideo(void);
+void			SmkShutdownVideo(void);
 
 
 BOOLEAN SmkPollFlics(void)
 {
-UINT32 uiCount;
-BOOLEAN fFlicStatus=FALSE;
-DDSURFACEDESC SurfaceDescription;
+	UINT32 uiCount;
+	BOOLEAN fFlicStatus = FALSE;
+	DDSURFACEDESC SurfaceDescription;
 
 	for(uiCount=0; uiCount < SMK_NUM_FLICS; uiCount++)
 	{
@@ -103,7 +103,7 @@ DDSURFACEDESC SurfaceDescription;
 				if(!SmackWait(SmkList[uiCount].SmackHandle))
 				{
 					DDLockSurface(SmkList[uiCount].lpDDS, NULL, &SurfaceDescription, 0, NULL);
-			 SmackToBuffer(SmkList[uiCount].SmackHandle,SmkList[uiCount].uiLeft,
+					SmackToBuffer(SmkList[uiCount].SmackHandle,SmkList[uiCount].uiLeft,
 																					SmkList[uiCount].uiTop,
 																					SurfaceDescription.lPitch,
 																					SmkList[uiCount].SmackHandle->Height,
@@ -124,7 +124,9 @@ DDSURFACEDESC SurfaceDescription;
 							SmkCloseFlic(&SmkList[uiCount]);
 					}
 					else
+					{
 						SmackNextFrame(SmkList[uiCount].SmackHandle);
+					}
 				}
 			}
 		}
@@ -138,21 +140,19 @@ DDSURFACEDESC SurfaceDescription;
 // Lesh changed this function only -----------------------------
 void SmkInitialize(HWND hWindow, UINT32 uiWidth, UINT32 uiHeight)
 {
-	void *pSoundDriver = NULL;
-
 	// Wipe the flic list clean
 	memset(SmkList, 0, sizeof(SMKFLIC)*SMK_NUM_FLICS);
 
 	// Set playback window properties
-	hDisplayWindow=hWindow;
-	uiDisplayWidth=uiWidth;
-	uiDisplayHeight=uiHeight;
+	hDisplayWindow = hWindow;
+	uiDisplayWidth = uiWidth;
+	uiDisplayHeight= uiHeight;
 
 	// Use MMX acceleration, if available
 	SmackUseMMX(1);
 
 	//Get the sound Driver handle
-	pSoundDriver = SoundGetDriverHandle();
+	void* pSoundDriver = SoundGetDriverHandle();
 
 	//if we got the sound handle, use sound during the intro
 	if( pSoundDriver )
@@ -161,7 +161,7 @@ void SmkInitialize(HWND hWindow, UINT32 uiWidth, UINT32 uiHeight)
 
 void SmkShutdown(void)
 {
-UINT32 uiCount;
+	UINT32 uiCount;
 
 	// Close and deallocate any open flics
 	for(uiCount=0; uiCount < SMK_NUM_FLICS; uiCount++)
@@ -171,9 +171,9 @@ UINT32 uiCount;
 	}
 }
 
-SMKFLIC *SmkPlayFlic(CHAR8 *cFilename, UINT32 uiLeft, UINT32 uiTop, BOOLEAN fClose)
+SMKFLIC *SmkPlayFlic(const CHAR8 *cFilename, UINT32 uiLeft, UINT32 uiTop, BOOLEAN fClose)
 {
-SMKFLIC *pSmack;
+	SMKFLIC *pSmack;
 
 	// Open the flic
 	if((pSmack=SmkOpenFlic(cFilename))==NULL)
@@ -190,11 +190,10 @@ SMKFLIC *pSmack;
 	return(pSmack);
 }
 
-SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
+SMKFLIC *SmkOpenFlic(const CHAR8 *cFilename)
 {
 	SMKFLIC *pSmack;
 	
-
 	// Get an available flic slot from the list
 	if(!(pSmack=SmkGetFreeFlic()))
 	{
@@ -228,18 +227,16 @@ SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
 				return NULL;
 			}
 			vfs::COpenReadFile rfile(introname);
-			vfs::size_t size = rfile.file().getSize();
+			vfs::size_t size = rfile->getSize();
 			std::vector<vfs::Byte> data(size);
-			rfile.file().read(&data[0],size);
+			rfile->read(&data[0],size);
 
 			vfs::COpenWriteFile wfile(tempfile,true);
-			wfile.file().write(&data[0],size);
+			wfile->write(&data[0],size);
 		}
-		catch(CBasicException& ex)
+		catch(std::exception& ex)
 		{
-			BuildString bs;
-			bs.add(L"Intro file \"").add(filename()).add(L"\" could not be extracted");
-			RETHROWEXCEPTION(bs.get(), &ex);
+			SGP_RETHROW(_BS(L"Intro file \"") << filename << L"\" could not be extracted" << _BS::wget, ex);
 		}
 	}
 #endif
@@ -258,14 +255,14 @@ SMKFLIC *SmkOpenFlic(CHAR8 *cFilename)
 	try
 	{
 		vfs::COpenWriteFile wfile(tempfile);
-		if(!wfile.file()._getRealPath(tempfilename))
+		if(!wfile->_getRealPath(tempfilename))
 		{
 			return NULL;
 		}
 	}
-	catch(CBasicException& ex)
+	catch(std::exception& ex)
 	{
-		RETHROWEXCEPTION(L"Temporary intro file could not be read", &ex);
+		SGP_RETHROW(L"Temporary intro file could not be read", ex);
 	}
 	if(!(pSmack->SmackHandle=SmackOpen(tempfilename.to_string().c_str(), SMACKTRACKS, SMACKAUTOEXTRA)))
 #endif
@@ -310,7 +307,7 @@ void SmkCloseFlic(SMKFLIC *pSmack)
 
 SMKFLIC *SmkGetFreeFlic(void)
 {
-UINT32 uiCount;
+	UINT32 uiCount;
 
 	for(uiCount=0; uiCount < SMK_NUM_FLICS; uiCount++)
 		if(!(SmkList[uiCount].uiFlags & SMK_FLIC_OPEN))
@@ -321,26 +318,24 @@ UINT32 uiCount;
 
 void SmkSetupVideo(void)
 {
-	DDSURFACEDESC SurfaceDescription;
-	HRESULT ReturnCode;
-	UINT16 usRed, usGreen, usBlue;
-	HVSURFACE hVSurface;
-
 // DEF:
-//	lpVideoPlayback2=CinematicModeOn();
+//	lpVideoPlayback2 = CinematicModeOn();
 
+	HVSURFACE hVSurface;
 	GetVideoSurface( &hVSurface, FRAME_BUFFER );
 	lpVideoPlayback2 = GetVideoSurfaceDDSurface( hVSurface );
 
+	DDSURFACEDESC SurfaceDescription;
 	ZEROMEM(SurfaceDescription);
 	SurfaceDescription.dwSize = sizeof (DDSURFACEDESC);
-	ReturnCode = IDirectDrawSurface2_GetSurfaceDesc ( lpVideoPlayback2, &SurfaceDescription );
+	HRESULT ReturnCode = IDirectDrawSurface2_GetSurfaceDesc ( lpVideoPlayback2, &SurfaceDescription );
 	if (ReturnCode != DD_OK)
 	{
-	DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
-	return;
+		DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
+		return;
 	}
 
+	UINT16 usRed, usGreen, usBlue;
 	usRed	= (UINT16) SurfaceDescription.ddpfPixelFormat.dwRBitMask;
 	usGreen = (UINT16) SurfaceDescription.ddpfPixelFormat.dwGBitMask;
 	usBlue	= (UINT16) SurfaceDescription.ddpfPixelFormat.dwBBitMask;

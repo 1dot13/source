@@ -896,7 +896,7 @@ void BtnChatTogglesCallback( GUI_BUTTON *btn, INT32 reason )
 {
 	UINT8	ubButton = (UINT8)MSYS_GetBtnUserData( btn, 0 );
 
-	if (ubButton == 1 && PLAYER_BSIDE != 1)
+	if (ubButton == 1 && cGameType != MP_TYPE_TEAMDEATMATCH)
 		return;
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
@@ -1160,7 +1160,7 @@ void EnableDisableChatLogScrollButtonsAndRegions( void )
 		MSYS_EnableRegion( &gChatLogScrollBarRegion );
 	}
 
-	if (PLAYER_BSIDE==1)
+	if (cGameType==MP_TYPE_TEAMDEATMATCH)
 	{
 		// Only enable Allies toggle for team deathmatch
 		EnableButton( guiChatToggles[1] );

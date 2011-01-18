@@ -21,9 +21,14 @@
 	#include "IMP Compile Character.h"
 #endif
 
+#include "IMP Confirm.h"
+
 //current and last pages
 INT32 iCurrentPortrait = 0;
 INT32 iLastPicture = 7;
+
+INT32 iLastPictureF;
+INT32 iLastPictureM;
 
 // buttons needed for the IMP portrait screen
 INT32 giIMPPortraitButton[ 3 ];
@@ -52,6 +57,7 @@ void BtnIMPPortraitDoneCallback(GUI_BUTTON *btn,INT32 reason);
 void EnterIMPPortraits( void )
 {
 
+	iCurrentPortrait = 0;
 		// create buttons
 	CreateIMPPortraitButtons( );
 
@@ -121,7 +127,15 @@ BOOLEAN RenderPortrait( INT16 sX, INT16 sY )
 
 		// load it
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP( pPlayerSelectedBigFaceFileNames[ iCurrentPortrait ] , VObjectDesc.ImageFile);
+	
+	
+		if (  gIMPMaleValues[ iCurrentPortrait ].Enabled == 1 )
+		{		
+			sprintf( VObjectDesc.ImageFile, "Faces\\BigFaces\\%02d.sti", gIMPMaleValues[ iCurrentPortrait ].PortraitId );
+		}
+	
+	
+	//FilenameForBPP( pPlayerSelectedBigFaceFileNames[ iCurrentPortrait ] , VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &uiGraphicHandle));
 
 	// show it
@@ -138,7 +152,15 @@ BOOLEAN RenderPortrait( INT16 sX, INT16 sY )
 	{
 		// load it
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP( pPlayerSelectedBigFaceFileNames[ iCurrentPortrait + 8 ] , VObjectDesc.ImageFile);
+	
+	//FilenameForBPP( pPlayerSelectedBigFaceFileNames[ iCurrentPortrait + 8 ] , VObjectDesc.ImageFile);
+	
+		if (  gIMPFemaleValues[ iCurrentPortrait ].Enabled == 1 )
+		{
+			sprintf( VObjectDesc.ImageFile, "Faces\\BigFaces\\%02d.sti", gIMPFemaleValues[ iCurrentPortrait ].PortraitId );
+		}
+			
+			
 	CHECKF(AddVideoObject(&VObjectDesc, &uiGraphicHandle));
 
 	// show it
@@ -154,12 +176,35 @@ BOOLEAN RenderPortrait( INT16 sX, INT16 sY )
 	return ( TRUE );
 }
 
-
-
 void IncrementPictureIndex( void )
 {
-	// cycle to next picture
 
+iCurrentPortrait++;
+if( fCharacterIsMale )
+{
+	if( gIMPMaleValues[iCurrentPortrait].uiIndex == iCurrentPortrait && gIMPMaleValues[iCurrentPortrait].PortraitId !=0 )
+	{
+		iCurrentPortrait = gIMPMaleValues[iCurrentPortrait].uiIndex;
+	}
+	else
+	{
+		iCurrentPortrait = 0;
+	}
+}
+else
+{
+	if( gIMPFemaleValues[iCurrentPortrait].uiIndex == iCurrentPortrait && gIMPFemaleValues[iCurrentPortrait].PortraitId !=0 )
+	{
+		iCurrentPortrait = gIMPFemaleValues[iCurrentPortrait].uiIndex;
+	}
+	else
+	{
+		iCurrentPortrait = 0;
+	}
+
+}		
+	// cycle to next picture
+/*
 	iCurrentPortrait++;
 
 	// gone too far?
@@ -168,23 +213,64 @@ void IncrementPictureIndex( void )
 		iCurrentPortrait = 0;
 	}
 
-
+*/
 	return;
 }
 
-
 void DecrementPicture( void )
 {
-	// cycle to previous picture
+UINT32 cnt;
+UINT32 idPort = 0;
 
-	iCurrentPortrait--;
 
+if( fCharacterIsMale )
+{
+	for ( cnt = 0; cnt < MAX_NEW_IMP_PORTRAITS; cnt++ )
+		{	
+			if ( gIMPMaleValues[cnt].uiIndex == cnt && gIMPMaleValues[cnt].PortraitId !=0 )
+				{
+					iLastPictureM = gIMPMaleValues[cnt].uiIndex;
+				}
+		}
+		
+		iLastPicture = iLastPictureM;
+}
+else
+{	
+	for ( cnt = 0; cnt < MAX_NEW_IMP_PORTRAITS; cnt++ )
+		{
+			if ( gIMPFemaleValues[cnt].uiIndex == cnt && gIMPFemaleValues[cnt].PortraitId !=0 )
+				{
+					iLastPictureF = gIMPFemaleValues[cnt].uiIndex;
+				}
+		}
+		
+		iLastPicture = iLastPictureF;
+}
+
+iCurrentPortrait--;
+if( fCharacterIsMale )
+{
+	if( iCurrentPortrait < 0 )
+	{
+		iCurrentPortrait = iLastPicture;
+	}
+}
+else
+{
+	if( iCurrentPortrait < 0 )
+	{
+		iCurrentPortrait = iLastPicture;
+	}
+
+}
+/*
 	// gone too far?
 	if( iCurrentPortrait < 0 )
 	{
-	iCurrentPortrait = iLastPicture;
+		iCurrentPortrait = iLastPicture;
 	}
-
+*/
 	return;
 }
 
@@ -364,18 +450,20 @@ void BtnIMPPortraitDoneCallback(GUI_BUTTON *btn,INT32 reason)
 			}*/
 
 			// grab picture number
+			
+
+		
 			if( fCharacterIsMale	)
 			{
-		// male
-				iPortraitNumber = iCurrentPortrait;
+				// male
+				iPortraitNumber = gIMPMaleValues[ iCurrentPortrait ].uiIndex; //iCurrentPortrait
 			}
 			else
 			{
-		// female
-				iPortraitNumber = iCurrentPortrait + ( 8 );
-
+				// female
+				iPortraitNumber = gIMPFemaleValues[ iCurrentPortrait ].uiIndex; //iCurrentPortrait ;//+ ( 8 );
 			}
-
+		
 			fButtonPendingFlag = TRUE;
 		}
 	}

@@ -63,12 +63,20 @@
 	#include "Interface Panels.h"
 	// HEADROCK HAM 3.6: Include for adding facility debt reset
 	#include "Facilities.h"
+	// HEADROCK HAM 4: Include for initializing Manual Restrictions
+	#include "MilitiaSquads.h"
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 #endif
 
 #include "Vehicles.h"
 #include "text.h"
 #include "connect.h"
+#include "XML.h"
+#include "mercs.h"
+#include "aim.h"
+
+#include "LuaInitNPCs.h"
+
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
@@ -85,7 +93,11 @@ extern UNDERGROUND_SECTORINFO* FindUnderGroundSector( INT16 sMapX, INT16 sMapY, 
 UINT8			gubScreenCount=0;
 
 void InitNPCs( void )
-{
+{		
+	LetLuaGameInit(1);
+	
+	#if 0
+
 	MERCPROFILESTRUCT * pProfile;
 
 	// add the pilot at a random location!
@@ -264,6 +276,9 @@ void InitNPCs( void )
 
 	// set up Devin so he will be placed ASAP
 	gMercProfiles[ DEVIN ].bNPCData = 3;
+	
+#endif
+
 }
 
 void InitBloodCatSectors()
@@ -320,7 +335,7 @@ void InitBloodCatSectors()
 	}
 	else
 	{
-		THROWEXCEPTION(L"At least one Bloodcat Lair must be defined in BloodcatPlacements.XML!");
+		SGP_THROW(L"At least one Bloodcat Lair must be defined in BloodcatPlacements.XML!");
 	}
 
 	/*
@@ -430,6 +445,9 @@ void InitStrategicLayer( void )
 	// HEADROCK HAM 3.6: Initialize facilities.
 	InitFacilities();
 
+	// HEADROCK HAM 4: Initialize Manual Mobile Militia Restrictions.
+	InitManualMobileRestrictions();
+
 	// free up any leave list arrays that were left allocated
 	ShutDownLeaveList( );
 	// re-set up leave list arrays for dismissed mercs
@@ -460,11 +478,8 @@ void ShutdownStrategicLayer()
 }
 
 BOOLEAN InitNewGame( BOOLEAN fReset )
-{
-	INT32		iStartingCash;
-
+{	
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame");
-//	static fScreenCount = 0;
 
 	if( fReset )
 	{
@@ -507,6 +522,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 	}
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame: init arms dealers");
+	
 	//Initialize the Arms Dealers and Bobby Rays inventory
 	if( gubScreenCount == 0 )
 	{
@@ -516,11 +532,82 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 	}
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame: clearing messages");
+	
 	// clear tactical
 	ClearTacticalMessageQueue( );
 
 	// clear mapscreen messages
-	if(!is_networked)FreeGlobalMessageList(); //hayden
+	if(!is_networked)
+		FreeGlobalMessageList(); //hayden
+
+	// Do not hide any person names
+	if ( gGameExternalOptions.fIndividualHiddenPersonNames == FALSE )
+	{
+		for (int i=0;i<500;i++)
+		{
+			zHiddenNames[i].Hidden = FALSE;
+		}	
+	}
+	else
+	{
+		// Hide individual person names depending on HiddenNames.xml
+		LoadHiddenNames();
+	}
+	
+	// ------------------------
+	// Camo Faces
+	// ------------------------
+	if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+	{		
+		for (int i=0;i<255;i++)
+		{
+			gCamoFace[i].gCamoface = FALSE;
+			gCamoFace[i].gUrbanCamoface = FALSE;
+			gCamoFace[i].gDesertCamoface = FALSE;
+			gCamoFace[i].gSnowCamoface = FALSE;
+		}
+		
+		if ( !gGameOptions.fNewTraitSystem ) // SANDRO - only with old traits, we get the camo instantly
+		{
+			for(int uiLoop=0; uiLoop< NUM_PROFILES; uiLoop++)
+			{
+				if ( ProfileHasSkillTrait( uiLoop, CAMOUFLAGED_OT ) > 0 )
+				{
+					gCamoFace[uiLoop].gCamoface = TRUE;
+				}									
+			}
+		}
+	}
+		
+	// ------------------------
+	// Reset mercs profiles
+	// ------------------------
+	UINT8 i;
+
+	for(i=0; i<NUM_PROFILES; i++)
+	{
+		gConditionsForMercAvailability[i].uiIndex = gConditionsForMercAvailabilityTemp[i].uiIndex;
+		gConditionsForMercAvailability[i].ProfilId = gConditionsForMercAvailabilityTemp[i].ProfilId;
+		gConditionsForMercAvailability[i].usMoneyPaid = gConditionsForMercAvailabilityTemp[i].usMoneyPaid;
+		gConditionsForMercAvailability[i].usDay = gConditionsForMercAvailabilityTemp[i].usDay;
+		gConditionsForMercAvailability[i].ubMercArrayID = gConditionsForMercAvailabilityTemp[i].ubMercArrayID;
+		gConditionsForMercAvailability[i].NewMercsAvailable = gConditionsForMercAvailabilityTemp[i].NewMercsAvailable;
+		gConditionsForMercAvailability[i].StartMercsAvailable = gConditionsForMercAvailabilityTemp[i].StartMercsAvailable;
+		gConditionsForMercAvailability[i].Drunk = gConditionsForMercAvailabilityTemp[i].Drunk;
+		gConditionsForMercAvailability[i].uiAlternateIndex = gConditionsForMercAvailabilityTemp[i].uiAlternateIndex;
+		gConditionsForMercAvailability[i].MercBio = gConditionsForMercAvailabilityTemp[i].MercBio;		
+	}	
+	
+	for(i=0; i<NUM_PROFILES; i++)
+	{
+		gAimAvailability[i].uiIndex = gAimAvailabilityTemp[i].uiIndex;
+		gAimAvailability[i].ProfilId = gAimAvailabilityTemp[i].ProfilId;
+		gAimAvailability[i].ubAimArrayID = gAimAvailabilityTemp[i].ubAimArrayID;
+		gAimAvailability[i].AimBio = gAimAvailabilityTemp[i].AimBio;
+	}
+	
+	//Lua
+	IniLuaGlobal();
 
 	// IF our first time, go into laptop!
 	if ( gubScreenCount == 0 )
@@ -536,106 +623,29 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 
 		// this is for the "mercs climbing down from a rope" animation, NOT Skyrider!!
 		ResetHeliSeats( );
+		
+		LetLuaGameInit(0);
+			
+		UINT32	uiDaysTimeMercSiteAvailable = Random( 2 ) + 1;
 
-		if(!is_networked)
-		{
-		// Setup two new messages!
-		AddPreReadEmail(OLD_ENRICO_1,OLD_ENRICO_1_LENGTH,MAIL_ENRICO,	GetWorldTotalMin() );
-		AddPreReadEmail(OLD_ENRICO_2,OLD_ENRICO_2_LENGTH,MAIL_ENRICO,	GetWorldTotalMin() );
-		AddPreReadEmail(RIS_REPORT,RIS_REPORT_LENGTH,RIS_EMAIL,	GetWorldTotalMin() );
-		AddPreReadEmail(OLD_ENRICO_3,OLD_ENRICO_3_LENGTH,MAIL_ENRICO,	GetWorldTotalMin() );
-		AddEmail(IMP_EMAIL_INTRO,IMP_EMAIL_INTRO_LENGTH,CHAR_PROFILE_SITE,	GetWorldTotalMin(), -1);
-		//AddEmail(ENRICO_CONGRATS,ENRICO_CONGRATS_LENGTH,MAIL_ENRICO, GetWorldTotalMin() );
-		if(gGameExternalOptions.fMercDayOne)
-		{
-			AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1 );
-		}
-		}
-
-
-
-		// ATE: Set starting cash....
-		switch( gGameOptions.ubDifficultyLevel )
-		{
-			case DIF_LEVEL_EASY:
-
-				iStartingCash = gGameExternalOptions.iStartingCashNovice;
-				//iStartingCash	= 45000;
-				break;
-
-			case DIF_LEVEL_MEDIUM:
-
-				iStartingCash = gGameExternalOptions.iStartingCashExperienced;
-				//iStartingCash	= 35000;
-				break;
-
-			case DIF_LEVEL_HARD:
-
-				iStartingCash = gGameExternalOptions.iStartingCashExpert;
-				//iStartingCash	= 30000;
-				break;
-
-			case DIF_LEVEL_INSANE:
-
-				iStartingCash = gGameExternalOptions.iStartingCashInsane;
-				// iStartingCash	= 15000;
-				break;
-
-			default:
-				Assert(0);
-				return( FALSE );
-		}
-
-		// Setup initial money
- 		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash );
-
-
-		{
-			UINT32	uiDaysTimeMercSiteAvailable = Random( 2 ) + 1;
-
-			// schedule email for message from spec at 7am 3 days in the future
-			AddFutureDayStrategicEvent( EVENT_DAY3_ADD_EMAIL_FROM_SPECK, 60*7, 0, uiDaysTimeMercSiteAvailable );
-		}
-
+		// schedule email for message from spec at 7am 3 days in the future
+		AddFutureDayStrategicEvent( EVENT_DAY3_ADD_EMAIL_FROM_SPECK, 60*7, 0, uiDaysTimeMercSiteAvailable );
+		
 		// HEADROCK HAM 3.5: Reset LZ to default arrival
 		gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
 		gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
 
-#ifdef CRIPPLED_VERSION
-		{
-			UINT32 cnt;
-
-			//loop through the first 20 AIM mercs and set them to be away
-			for( cnt = 0; cnt < 20; cnt++)
-			{
-				gMercProfiles[ cnt ].bMercStatus = MERC_WORKING_ELSEWHERE;
-				gMercProfiles[ cnt ].uiDayBecomesAvailable = 14;		// 14 days should be ok considering crippled version only goes to day 7
-			}
-		}
-
-		//Add an event to check for the end of the crippled version
-		AddEveryDayStrategicEvent( EVENT_CRIPPLED_VERSION_END_GAME_CHECK, 0, 0 );
-#endif
-
-
 		if(is_networked)
 		{
 			SetLaptopExitScreen( MAP_SCREEN ); //hayden
-			SetPendingNewScreen( MAP_SCREEN );
-			// WANNE: No more used
-			/*
-			ScreenMsg( MSG_FONT_WHITE, MSG_MPSYSTEM, L"------------------------------------------------------");
-			ScreenMsg( MSG_FONT_WHITE, MSG_MPSYSTEM, MPHelp[0]);
-			ScreenMsg( MSG_FONT_WHITE, MSG_MPSYSTEM, L"------------------------------------------------------");
-			ScreenMsg( MSG_FONT_WHITE, MSG_MPSYSTEM, MPHelp[1]);
-			*/
-			
+			SetPendingNewScreen( MAP_SCREEN );						
 		}
 		else
 		{
-		SetLaptopExitScreen( INIT_SCREEN );
-		SetPendingNewScreen(LAPTOP_SCREEN);
+			SetLaptopExitScreen( INIT_SCREEN );
+			SetPendingNewScreen(LAPTOP_SCREEN);
 		}
+		
 		gubScreenCount = 1;
 
 		//Set the fact the game is in progress
@@ -644,53 +654,13 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		return( TRUE );
 	}
 
-	/*
-	if( ( guiExitScreen == MAP_SCREEN ) && ( LaptopSaveInfo.gfNewGameLaptop ) )
-	{
-		SetLaptopExitScreen( GAME_SCREEN );
-		return( TRUE );
-	}
-*/
 	if ( gubScreenCount == 1 )
-	{
-		// OK , FADE HERE
-		//BeginFade( INIT_SCREEN, 35, FADE_OUT_REALFADE, 5 );
-		//BeginFade( INIT_SCREEN, 35, FADE_OUT_VERSION_FASTER, 25 );
-		//BeginFade( INIT_SCREEN, 35, FADE_OUT_VERSION_SIDE, 0 );
-
-
+	{		
 		gubScreenCount = 2;
 		return( TRUE );
 	}
 
-/*
-	if ( gubScreenCount == 2 )
-	{
-
-		if ( !SetCurrentWorldSector( startingX, startingY, startingZ ) )
-		{
-
-		}
-
-		SetLaptopExitScreen( MAP_SCREEN );
-
-		FadeInGameScreen( );
-
-		EnterTacticalScreen( );
-
-		if( gfAtLeastOneMercWasHired == TRUE )
-		{
-			gubScreenCount = 3;
-		}
-		else
-		{
-
-		}
-
-		return( TRUE );
-	}
-
-	*/
+	
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame done");
 	return( TRUE );
@@ -782,7 +752,10 @@ void QuickSetupOfMercProfileItems( UINT32 uiCount, UINT8 ubProfileIndex )
 		gMercProfiles[ ubProfileIndex ].bInvStatus[ BIGPOCK1POS ] = 100;
 		gMercProfiles[ ubProfileIndex ].bInvNumber[ BIGPOCK1POS ] = 1;
 
-		gMercProfiles[ ubProfileIndex ].bSkillTrait = MARTIALARTS;
+		if (gGameOptions.fNewTraitSystem) // SANDRO - traits
+			gMercProfiles[ ubProfileIndex ].bSkillTraits[0] = MARTIAL_ARTS_NT;
+		else
+			gMercProfiles[ ubProfileIndex ].bSkillTraits[0] = MARTIALARTS_OT;
 
 		gMercProfiles[ ubProfileIndex ].inv[ SMALLPOCK3POS ] = KEY_2;
 		gMercProfiles[ ubProfileIndex ].bInvStatus[ SMALLPOCK3POS ] = 100;
@@ -938,6 +911,58 @@ void ReStartingGame()
 	//Reset the sectors
 	gWorldSectorX = gWorldSectorY = 0;
 	gbWorldSectorZ = -1;
+	
+	//Legion by Jazz
+	if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+	{
+		//Camo Face
+		for (int i=0;i<255;i++)
+		{
+			gCamoFace[i].gCamoface = FALSE;
+			gCamoFace[i].gUrbanCamoface = FALSE;
+			gCamoFace[i].gDesertCamoface = FALSE;
+			gCamoFace[i].gSnowCamoface = FALSE;
+		}
+		
+		if ( !gGameOptions.fNewTraitSystem ) // SANDRO - only with old traits, we get the camo instantly
+		{
+			for(int uiLoop=0; uiLoop< NUM_PROFILES; uiLoop++)
+			{
+				if ( ProfileHasSkillTrait( uiLoop, CAMOUFLAGED_OT ) > 0 )
+					{
+						gCamoFace[uiLoop].gCamoface = TRUE;
+					}
+//				else if ( gMercProfiles[uiLoop].bSkillTrait == CAMOUFLAGED_URBAN || gMercProfiles[uiLoop].bSkillTrait2 == CAMOUFLAGED_URBAN )
+//					{
+//						gCamoFace[uiLoop].gUrbanCamoface = TRUE;
+//					}			
+//				else if ( gMercProfiles[uiLoop].bSkillTrait == CAMOUFLAGED_DESERT || gMercProfiles[uiLoop].bSkillTrait2 == CAMOUFLAGED_DESERT )
+//					{
+//						gCamoFace[uiLoop].gDesertCamoface = TRUE;
+//					}
+//				else if ( gMercProfiles[uiLoop].bSkillTrait == CAMOUFLAGED_SNOW || gMercProfiles[uiLoop].bSkillTrait2 == CAMOUFLAGED_SNOW )
+//					{
+//						gCamoFace[uiLoop].gSnowCamoface = TRUE;
+//					}						
+			}
+		}
+		
+	}
+		
+	//Legion by Jazz
+	if ( gGameExternalOptions.fIndividualHiddenPersonNames == FALSE )
+	{
+		for (int i=0;i<500;i++)
+		{
+			zHiddenNames[i].Hidden = FALSE;
+		}
+	} 
+	else
+	{
+		//Restart Game and New Game
+		LoadHiddenNames();
+	}
+
 
 	SoundStopAll( );
 
@@ -1016,4 +1041,8 @@ void ReStartingGame()
 		gubCheatLevel = STARTING_CHEAT_LEVEL;
 	else
 		gubCheatLevel = 0;
+		
+	//Lua
+	IniLuaGlobal();
+
 }

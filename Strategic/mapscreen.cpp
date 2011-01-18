@@ -113,6 +113,8 @@
 	#include "Animation Control.h"
 	// HEADROCK HAM 3.6: Include facilities for assignment display
 	#include "Facilities.h"
+	// HEADROCK HAM 4: Include Militia Squads for Manual Militia Restrictions toggle.
+	#include "MilitiaSquads.h"
 #endif
 
 #include "connect.h" //hayden
@@ -714,6 +716,9 @@ extern BOOLEAN fSelectedListOfMercsForMapScreen[ CODE_MAXIMUM_NUMBER_OF_PLAYER_S
 extern INT32 iDialogueBox;
 extern INT32 giMapInvDescButton;
 
+// HEADROCK HAM 4: Extern tab buttons for UDB
+extern INT32 giInvDescTabButton[3];
+
 extern UINT32 guiBrownBackgroundForTeamPanel;
 
 // the town mine info box
@@ -1131,7 +1136,7 @@ void BeginSellAllCallBack( UINT8 bExitValue )
 		{
 			return;
 		}
-		for(UINT32 wItem = 0; wItem < guiNumWorldItems; wItem++)
+		for(UINT32 wItem = 0; wItem < guiNumWorldItems; wItem++) //WS TODO: is "for(UINT32 wItem = 0; wItem < pInventoryPoolList.size(); wItem++)"  better? It resolved a bug in the old SVN, but things have changed now. (It was likely only fighting symptons anyway) 
 		{
 			if(pInventoryPoolList[wItem].object.exists() == true && (pInventoryPoolList[wItem].usFlags & WORLD_ITEM_REACHABLE))
 			{
@@ -1169,7 +1174,7 @@ void BeginDeleteAllCallBack( UINT8 bExitValue )
 		{
 			return;
 		}
-		for(UINT32 wItem = 0; wItem < guiNumWorldItems; wItem++)
+		for(UINT32 wItem = 0; wItem < guiNumWorldItems; wItem++) //WS TODO: is "for(UINT32 wItem = 0; wItem < pInventoryPoolList.size(); wItem++)"
 		{
 			if(0 == pInventoryPoolList[wItem].object.MoveThisObjectTo(gItemPointer,-1,0,NUM_INV_SLOTS,MAX_OBJECTS_PER_SLOT))
 			{
@@ -2109,7 +2114,8 @@ void GlowItem( void )
 
 		if( fOldItemGlow == TRUE )
 		{
-			RestoreExternBackgroundRect( 3, 80, ( UINT16 )( 65 - 3 ), ( UINT16 )( 105 - 80 ) );
+			// this caused the attachment/burst/grenade star to disappear behind the item image
+			//RestoreExternBackgroundRect( 3, 80, ( UINT16 )( 65 - 3 ), ( UINT16 )( 105 - 80 ) );
 		}
 
 		fOldItemGlow = FALSE;
@@ -2424,11 +2430,15 @@ void DrawCharStats( INT16 sCharNum )
 	SetFontForeground(CHAR_TEXT_FONT_COLOR);
 	SetFontBackground(FONT_BLACK);
 
-
 	// strength
 	swprintf( sString, L"%d", pSoldier->stats.bStrength);
 
-	if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeStrengthTime)&& ( pSoldier->timeChanges.uiChangeStrengthTime != 0 ) )
+	// SANDRO - if damaged stat we could regain, show in red until repaired
+	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0 ))
+	{
+		SetFontForeground( FONT_RED );
+	}
+	else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeStrengthTime)&& ( pSoldier->timeChanges.uiChangeStrengthTime != 0 ) )
 	{
 		if( pSoldier->usValueGoneUp & STRENGTH_INCREASE )
 		{
@@ -2451,7 +2461,12 @@ void DrawCharStats( INT16 sCharNum )
 	// dexterity
 	swprintf( sString, L"%d", pSoldier->stats.bDexterity );
 
-	if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeDexterityTime ) && ( pSoldier->timeChanges.uiChangeDexterityTime != 0 ) )
+	// SANDRO - if damaged stat we could regain, show in red until repaired
+	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_DEXTERITY] > 0 ))
+	{
+		SetFontForeground( FONT_RED );
+	}
+	else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeDexterityTime ) && ( pSoldier->timeChanges.uiChangeDexterityTime != 0 ) )
 	{
 		if( pSoldier->usValueGoneUp & DEX_INCREASE )
 		{
@@ -2473,8 +2488,13 @@ void DrawCharStats( INT16 sCharNum )
 
 	// agility
 	swprintf( sString, L"%d", pSoldier->stats.bAgility );
-
-	if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeAgilityTime)&& ( pSoldier->timeChanges.uiChangeAgilityTime != 0 ) )
+	
+	// SANDRO - if damaged stat we could regain, show in red until repaired
+	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_AGILITY] > 0 ))
+	{
+		SetFontForeground( FONT_RED );
+	}
+	else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeAgilityTime)&& ( pSoldier->timeChanges.uiChangeAgilityTime != 0 ) )
 	{
 		if( pSoldier->usValueGoneUp & AGIL_INCREASE )
 		{
@@ -2496,8 +2516,13 @@ void DrawCharStats( INT16 sCharNum )
 
 	// wisdom
 	swprintf( sString, L"%d", pSoldier->stats.bWisdom );
-
-	if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeWisdomTime )&&( pSoldier->timeChanges.uiChangeWisdomTime != 0 ))
+	
+	// SANDRO - if damaged stat we could regain, show in red until repaired
+	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_WISDOM] > 0 ))
+	{
+		SetFontForeground( FONT_RED );
+	}
+	else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeWisdomTime )&&( pSoldier->timeChanges.uiChangeWisdomTime != 0 ))
 	{
 		if( pSoldier->usValueGoneUp & WIS_INCREASE )
 		{
@@ -2519,8 +2544,13 @@ void DrawCharStats( INT16 sCharNum )
 
 	// leadership
 	swprintf( sString, L"%d", pSoldier->stats.bLeadership );
-
-	if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeLeadershipTime ) && ( pSoldier->timeChanges.uiChangeLeadershipTime != 0 ) )
+	
+	// SANDRO - if damaged stat we could regain, show in red until repaired
+	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_LEADERSHIP] > 0 ))
+	{
+		SetFontForeground( FONT_RED );
+	}
+	else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeLeadershipTime ) && ( pSoldier->timeChanges.uiChangeLeadershipTime != 0 ) )
 	{
 		if( pSoldier->usValueGoneUp & LDR_INCREASE )
 		{
@@ -2566,7 +2596,12 @@ void DrawCharStats( INT16 sCharNum )
 	// marksmanship
 	swprintf( sString, L"%d", pSoldier->stats.bMarksmanship );
 
-	if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeMarksmanshipTime) && ( pSoldier->timeChanges.uiChangeMarksmanshipTime != 0 ) )
+	// SANDRO - if damaged stat we could regain, show in red until repaired
+	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_MARKSMANSHIP] > 0 ))
+	{
+		SetFontForeground( FONT_RED );
+	}
+	else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeMarksmanshipTime) && ( pSoldier->timeChanges.uiChangeMarksmanshipTime != 0 ) )
 	{
 		if( pSoldier->usValueGoneUp & MRK_INCREASE )
 		{
@@ -2588,8 +2623,13 @@ void DrawCharStats( INT16 sCharNum )
 
 	// explosives
 	swprintf( sString, L"%d", pSoldier->stats.bExplosive );
-
-	if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeExplosivesTime)&& ( pSoldier->timeChanges.uiChangeExplosivesTime != 0 ) )
+	
+	// SANDRO - if damaged stat we could regain, show in red until repaired
+	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_EXPLOSIVES] > 0 ))
+	{
+		SetFontForeground( FONT_RED );
+	}
+	else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeExplosivesTime)&& ( pSoldier->timeChanges.uiChangeExplosivesTime != 0 ) )
 	{
 		if( pSoldier->usValueGoneUp & EXP_INCREASE )
 		{
@@ -2611,8 +2651,13 @@ void DrawCharStats( INT16 sCharNum )
 
 	// mechanical
 	swprintf( sString, L"%d", pSoldier->stats.bMechanical );
-
-	if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeMechanicalTime )&& ( pSoldier->timeChanges.uiChangeMechanicalTime != 0 ) )
+	
+	// SANDRO - if damaged stat we could regain, show in red until repaired
+	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_MECHANICAL] > 0 ))
+	{
+		SetFontForeground( FONT_RED );
+	}
+	else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeMechanicalTime )&& ( pSoldier->timeChanges.uiChangeMechanicalTime != 0 ) )
 	{
 		if( pSoldier->usValueGoneUp & MECH_INCREASE )
 		{
@@ -2635,7 +2680,12 @@ void DrawCharStats( INT16 sCharNum )
 	// medical
 	swprintf( sString, L"%d", pSoldier->stats.bMedical );
 
-	if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeMedicalTime)&& ( pSoldier->timeChanges.uiChangeMedicalTime != 0 ) )
+	// SANDRO - if damaged stat we could regain, show in red until repaired
+	if( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_MEDICAL] > 0 ))
+	{
+		SetFontForeground( FONT_RED );
+	}
+	else if( ( GetJA2Clock() < CHANGE_STAT_RECENTLY_DURATION + pSoldier->timeChanges.uiChangeMedicalTime)&& ( pSoldier->timeChanges.uiChangeMedicalTime != 0 ) )
 	{
 		if( pSoldier->usValueGoneUp & MED_INCREASE )
 		{
@@ -3165,6 +3215,7 @@ void DisplayCharacterInfo( void )
 		if (gMercProfiles[ pSoldier->ubProfile ].sAgilityGain)
 		{
 			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sAgilityGain+1)) / SubpointsPerPoint(AGILAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
 			ClipRect.iTop = (AGL_Y-1);
 			ClipRect.iBottom = (AGL_Y-1) + STAT_HEI;
 			ClipRect.iLeft = AGL_X;
@@ -3176,6 +3227,7 @@ void DisplayCharacterInfo( void )
 		if (gMercProfiles[ pSoldier->ubProfile ].sDexterityGain)
 		{
 			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sDexterityGain+1)) / SubpointsPerPoint(DEXTAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
 			ClipRect.iTop = (DEX_Y-1);
 			ClipRect.iBottom = (DEX_Y-1) + STAT_HEI;
 			ClipRect.iLeft = DEX_X;
@@ -3187,6 +3239,7 @@ void DisplayCharacterInfo( void )
 		if (gMercProfiles[ pSoldier->ubProfile ].sStrengthGain)
 		{
 			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sStrengthGain+1)) / SubpointsPerPoint(STRAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
 			ClipRect.iTop = (STR_Y-1);
 			ClipRect.iBottom = (STR_Y-1) + STAT_HEI;
 			ClipRect.iLeft = STR_X;
@@ -3198,6 +3251,7 @@ void DisplayCharacterInfo( void )
 		if (gMercProfiles[ pSoldier->ubProfile ].sWisdomGain)
 		{
 			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sWisdomGain+1)) / SubpointsPerPoint(WISDOMAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
 			ClipRect.iTop = (WIS_Y-1);
 			ClipRect.iBottom = (WIS_Y-1) + STAT_HEI;
 			ClipRect.iLeft = WIS_X;
@@ -3209,6 +3263,7 @@ void DisplayCharacterInfo( void )
 		if (gMercProfiles[ pSoldier->ubProfile ].sMarksmanshipGain)
 		{
 			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sMarksmanshipGain+1)) / SubpointsPerPoint(MARKAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
 			ClipRect.iTop = (MRK_Y-1);
 			ClipRect.iBottom = (MRK_Y-1) + STAT_HEI;
 			ClipRect.iLeft = MRK_X;
@@ -3220,6 +3275,7 @@ void DisplayCharacterInfo( void )
 		if (gMercProfiles[ pSoldier->ubProfile ].sLeadershipGain)
 		{
 			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sLeadershipGain+1)) / SubpointsPerPoint(LDRAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
 			ClipRect.iTop = (LDR_Y-1);
 			ClipRect.iBottom = (LDR_Y-1) + STAT_HEI;
 			ClipRect.iLeft = LDR_X;
@@ -3231,6 +3287,7 @@ void DisplayCharacterInfo( void )
 		if (gMercProfiles[ pSoldier->ubProfile ].sMechanicGain)
 		{
 			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sMechanicGain+1)) / SubpointsPerPoint(MECHANAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
 			ClipRect.iTop = (MEC_Y-1);
 			ClipRect.iBottom = (MEC_Y-1) + STAT_HEI;
 			ClipRect.iLeft = MEC_X;
@@ -3242,6 +3299,7 @@ void DisplayCharacterInfo( void )
 		if (gMercProfiles[ pSoldier->ubProfile ].sExplosivesGain)
 		{
 			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sExplosivesGain+1)) / SubpointsPerPoint(EXPLODEAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
 			ClipRect.iTop = (EXP_Y-1);
 			ClipRect.iBottom = (EXP_Y-1) + STAT_HEI;
 			ClipRect.iLeft = EXP_X;
@@ -3253,6 +3311,7 @@ void DisplayCharacterInfo( void )
 		if (gMercProfiles[ pSoldier->ubProfile ].sMedicalGain)
 		{
 			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sMedicalGain+1)) / SubpointsPerPoint(MEDICALAMT,0);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
 			ClipRect.iTop = (MED_Y-1);
 			ClipRect.iBottom = (MED_Y-1) + STAT_HEI;
 			ClipRect.iLeft = MED_X;
@@ -3264,6 +3323,7 @@ void DisplayCharacterInfo( void )
 		if (gMercProfiles[ pSoldier->ubProfile ].sExpLevelGain)
 		{
 			ubBarWidth = (STAT_WID * (gMercProfiles[ pSoldier->ubProfile ].sExpLevelGain+1)) / SubpointsPerPoint(EXPERAMT, pSoldier->stats.bExpLevel);
+			ubBarWidth = __max(0, __min(ubBarWidth, STAT_WID));
 			ClipRect.iTop = (LVL_Y-1);
 			ClipRect.iBottom = (LVL_Y-1) + STAT_HEI;
 			ClipRect.iLeft = LVL_X;
@@ -3990,14 +4050,14 @@ void DrawMPPlayerList ()
 					//DrawString( (STR16)szPlayerName , usX,usY, MAP_SCREEN_FONT);
 
 					// WANNE: No team selection in DM or COOP
-					if (PLAYER_BSIDE == MP_TYPE_DEATHMATCH || PLAYER_BSIDE == MP_TYPE_COOP)
+					if (cGameType == MP_TYPE_DEATHMATCH || cGameType == MP_TYPE_COOP)
 						wcscpy(szTeam, gszMPTeamNames[4]);
 					else
 						wcscpy(szTeam,gszMPTeamNames[client_teams[i]]);
 					FindFontCenterCoordinates((short)MP_TEAM_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_TEAM_W, (short)Y_SIZE, szTeam, (long)MAP_SCREEN_FONT, &usX, &usY);
 					DrawString( szTeam,usX,(short)usY, MAP_SCREEN_FONT);
 
-					wcscpy(szCompass,(RANDOM_SPAWN==1 ? L"?" : gszMPEdgesText[client_edges[i]]));
+					wcscpy(szCompass,(gRandomStartingEdge==1 ? L"?" : gszMPEdgesText[client_edges[i]]));
 					FindFontCenterCoordinates((short)MP_COMPASS_X + 1, (short)(MP_ROWSTART_Y+(row*Y_SIZE)), (short)MP_COMPASS_W, (short)Y_SIZE, szCompass, (long)MAP_SCREEN_FONT, &usX, &usY);
 					DrawString(szCompass , usX,(short)usY, MAP_SCREEN_FONT);
 
@@ -4013,7 +4073,7 @@ void DrawMPPlayerList ()
 		// <TODO> change this text to wrap
 		/*wchar_t szServerName[30];
 		memset(szServerName,0,30*sizeof(wchar_t));
-		mbstowcs( szServerName,SERVER_NAME,30);
+		mbstowcs( szServerName,cServerName,30);
 
 		SetFontForeground( FONT_YELLOW );
 		DrawString( L"Server Name:" , MP_GAMEINFO_X ,MP_ROWSTART_Y, MAP_SCREEN_FONT);
@@ -4025,7 +4085,7 @@ void DrawMPPlayerList ()
 		DrawString( gszMPMapscreenText[0] , MP_GAMEINFO_X ,MP_ROWSTART_Y, MAP_SCREEN_FONT);
 		SetFontForeground( FONT_WHITE );
 
-		switch(PLAYER_BSIDE)
+		switch(cGameType)
 		{
 		case MP_TYPE_DEATHMATCH:
 			DrawString( gzMPHScreenText[MPH_DEATHMATCH_TEXT] , MP_GAMEINFO_X ,MP_ROWSTART_Y+(1*Y_SIZE), MAP_SCREEN_FONT);
@@ -4044,7 +4104,7 @@ void DrawMPPlayerList ()
 		SetFontForeground( FONT_WHITE );
 
 		wchar_t szMaxPlayers[10];
-		swprintf(szMaxPlayers,L"%i",MAX_CLIENTS);
+		swprintf(szMaxPlayers,L"%i",cMaxClients);
 		DrawString( szMaxPlayers , MP_GAMEINFO_X + StringPixLength(gszMPMapscreenText[1],MAP_SCREEN_FONT),MP_ROWSTART_Y+(2*Y_SIZE), MAP_SCREEN_FONT);
 
 		// Number of Mercs
@@ -4053,11 +4113,11 @@ void DrawMPPlayerList ()
 		SetFontForeground( FONT_WHITE );
 
 		wchar_t szSquadSize[10];
-		swprintf(szSquadSize,L"%i",MAX_MERCS);
+		swprintf(szSquadSize,L"%i",cMaxMercs);
 		DrawString( szSquadSize , MP_GAMEINFO_X + StringPixLength(gszMPMapscreenText[2],MAP_SCREEN_FONT),MP_ROWSTART_Y+(3*Y_SIZE), MAP_SCREEN_FONT);
 
 		row = 4;
-		if (RANDOM_MERCS)
+		if (gRandomMercs)
 		{
 			// Random Mercs
 			SetFontForeground( FONT_YELLOW );
@@ -5497,6 +5557,14 @@ UINT32 MapScreenHandle(void)
 		//UnMarkButtonDirty( giCharInfoButton[ 0 ] );
 		//UnMarkButtonDirty( giCharInfoButton[ 1 ] );
 		MarkAButtonDirty( giMapInvDescButton );
+		// HEADROCK HAM 4: Makes sure the Tab Buttons are always redrawn on top.
+		for (UINT8 cnt = 0; cnt < 3; cnt++)
+		{
+			if (giInvDescTabButton[cnt] != -1)
+			{
+				MarkAButtonDirty( giInvDescTabButton[ cnt ] );
+			}
+		}
 	}
 	else
 	{
@@ -5866,8 +5934,8 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 	}
 
 	if ( gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS] &&
-		(pSoldier->bAssignment >= TRAIN_SELF ||
-		pSoldier->bAssignment <= TRAIN_BY_OTHER ) &&
+		pSoldier->bAssignment >= TRAIN_SELF &&
+		pSoldier->bAssignment <= TRAIN_BY_OTHER &&
 		pSoldier->bAssignment != TRAIN_TEAMMATE )
 	{
 		// HEADROCK HAM 3.6: Draw militia training progress bar
@@ -5888,8 +5956,8 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 		}
 		pDestBuf = LockVideoSurface( uiDestBuffer, &uiDestPitchBYTES );
 
-		UINT8 ubProgress;
-		UINT16 usMaxProgress;
+		UINT8 ubProgress = 0;
+		UINT16 usMaxProgress = 100;
 		UINT8 sMapX = (UINT8)pSoldier->sSectorX;
 		UINT8 sMapY = (UINT8)pSoldier->sSectorY;
 		if ( pSoldier->bAssignment == TRAIN_TOWN )
@@ -5947,6 +6015,7 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 		}
 
 		ubBarWidth = (ASSIGN_WIDTH * ubProgress) / usMaxProgress;
+		ubBarWidth = __max(0, __min(ubBarWidth, ASSIGN_WIDTH));
 		ClipRect.iTop = (usY+(Y_OFFSET*sRowIndex+1))-1;
 		ClipRect.iBottom = ClipRect.iTop + Y_SIZE;
 		ClipRect.iLeft = ASSIGN_X+2;
@@ -6903,25 +6972,8 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					StopAnyCurrentlyTalkingSpeech( );
 					break;
 
-				// multiplayer: Roman: Should be changed, because the keys are already bount to another feature
 				case F1:
-					// WANNE: No more needed
-					/*
-					if (is_networked)
-					{
-						mp_help();
-						break;
-					}
-					*/
 				case F2:
-					// WANNE: No more needed
-					/*
-					if (is_networked)
-					{
-						mp_help2();
-						break;
-					}
-					*/
 				case F3:
 				case F4:
 				case F5:
@@ -7141,13 +7193,6 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 				case '5':
 				case '6':
 				case '7':
-					// WANNE: Only show the override panel when '7' is pressed
-					/*if (is_networked && InputEvent.usParam == '7')
-					{
-						// haydent
-						manual_overide();
-						break;
-					}*/
 				case '8':
 				case '9':
 					if(gGameExternalOptions.fEnableInventoryPoolQ && fShowMapInventoryPool == TRUE)//dnl ch51 081009
@@ -7166,8 +7211,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						SwitchToInventoryPoolQ('0');
 						break;
 					}
-					SelectAllCharactersInSquad( 9 ); // internal squad #s start at 0
-					if(is_networked)test_func2();
+					SelectAllCharactersInSquad( 9 ); // internal squad #s start at 0					
 					break;
 
 				case '!':
@@ -7318,67 +7362,99 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					if(bSelectedInfoChar != -1)
 					{
 						SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
-						if(OK_CONTROLLABLE_MERC( pSoldier ))
+						//CHRISL: Try to update InSector value so we don't have to "activate" a sector
+						if(pSoldier->sSectorX == sSelMapX && pSoldier->sSectorY == sSelMapY && pSoldier->bSectorZ == iCurrentMapSectorZ && !pSoldier->flags.fBetweenSectors)
+							pSoldier->bInSector=TRUE;
+						if(OK_CONTROL_MERC( pSoldier ))
 						{
-						if(!fShowMapInventoryPool)
-						{
-							fShowMapInventoryPool = TRUE;
-							CreateDestroyMapInventoryPoolButtons( TRUE );
-						}
-						if(!fShowInventoryFlag)
-						{
-							fShowInventoryFlag = TRUE;
-						}
-						if( fCtrl )
-						{
-							//CHRISL: pickup all items to vehicle
-							if ( UsingNewInventorySystem() == true && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) && gGameExternalOptions.fVehicleInventory && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
+							if(!fShowMapInventoryPool)
 							{
-								for(unsigned int i = 0; i<pInventoryPoolList.size(); i++)
+								fShowMapInventoryPool = TRUE;
+								CreateDestroyMapInventoryPoolButtons( TRUE );
+							}
+							if(!fShowInventoryFlag)
+							{
+								fShowInventoryFlag = TRUE;
+							}
+							if( fCtrl )
+							{
+								//CHRISL: pickup all items to vehicle
+								if ( UsingNewInventorySystem() == true && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) && gGameExternalOptions.fVehicleInventory && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 								{
-									if(pInventoryPoolList[i].fExists == TRUE && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
+									for(unsigned int i = 0; i<pInventoryPoolList.size(); i++)
 									{
-										for(int x = 0; x<NUM_INV_SLOTS; x++)
+										if(pInventoryPoolList[i].fExists == TRUE && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
 										{
-											if(vehicleInv[x] == FALSE)
-												continue;
-											if(pSoldier->inv[x].exists() == true)
+											for(int x = 0; x<NUM_INV_SLOTS; x++)
 											{
-												if(pSoldier->inv[x].usItem != pInventoryPoolList[i].object.usItem)
+												if(vehicleInv[x] == FALSE)
 													continue;
+												if(pSoldier->inv[x].exists() == true)
+												{
+													if(pSoldier->inv[x].usItem != pInventoryPoolList[i].object.usItem)
+														continue;
+													else
+														pInventoryPoolList[i].object.AddObjectsToStack(pSoldier->inv[x], -1, pSoldier, x);
+												}
 												else
-													pInventoryPoolList[i].object.AddObjectsToStack(pSoldier->inv[x], -1, pSoldier, x);
-											}
-											else
-												pInventoryPoolList[i].object.MoveThisObjectTo(pSoldier->inv[x], -1, pSoldier, x);
-											if(pInventoryPoolList[i].object.ubNumberOfObjects < 0)
-											{
-												//RemoveItemFromWorld(i);
-												break;
+													pInventoryPoolList[i].object.MoveThisObjectTo(pSoldier->inv[x], -1, pSoldier, x);
+												if(pInventoryPoolList[i].object.ubNumberOfObjects < 0)
+												{
+													//RemoveItemFromWorld(i);
+													break;
+												}
 											}
 										}
+										fTeamPanelDirty = TRUE;
+										fMapPanelDirty = TRUE;
+										fInterfacePanelDirty = DIRTYLEVEL2;
 									}
-									fTeamPanelDirty = TRUE;
-									fMapPanelDirty = TRUE;
-									fInterfacePanelDirty = DIRTYLEVEL2;
 								}
 							}
-						}
-						else
-						{
-							//CHRISL: drop all items
-							if ( bSelectedInfoChar != -1 && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) )
+							else if ( fAlt )
 							{
-								for(int i = BODYPOSFINAL; i<NUM_INV_SLOTS; i++)
+								//CHRISL: drop all items in backpack
+								if ( bSelectedInfoChar != -1 && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) )
 								{
-									if(pSoldier->inv[i].exists() == true)
+									for(int i = BIGPOCK4POS; i<=BIGPOCK7POS; i++)
 									{
-										AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo);
-										DeleteObj(&pSoldier->inv[i]);
+										if(pSoldier->inv[i].exists() == true)
+										{
+											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo);
+											DeleteObj(&pSoldier->inv[i]);
+										}
+										fTeamPanelDirty = TRUE;
+										fMapPanelDirty = TRUE;
+										fInterfacePanelDirty = DIRTYLEVEL2;
 									}
-									fTeamPanelDirty = TRUE;
-									fMapPanelDirty = TRUE;
-									fInterfacePanelDirty = DIRTYLEVEL2;
+									for(int i = SMALLPOCK23POS; i<NUM_INV_SLOTS; i++)
+									{
+										if(pSoldier->inv[i].exists() == true)
+										{
+											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo);
+											DeleteObj(&pSoldier->inv[i]);
+										}
+										fTeamPanelDirty = TRUE;
+										fMapPanelDirty = TRUE;
+										fInterfacePanelDirty = DIRTYLEVEL2;
+									}
+								}
+							}
+							else
+							{
+								//CHRISL: drop all items
+								if ( bSelectedInfoChar != -1 && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) )
+								{
+									for(int i = BODYPOSFINAL; i<NUM_INV_SLOTS; i++)
+									{
+										if(pSoldier->inv[i].exists() == true)
+										{
+											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo);
+											DeleteObj(&pSoldier->inv[i]);
+										}
+										fTeamPanelDirty = TRUE;
+										fMapPanelDirty = TRUE;
+										fInterfacePanelDirty = DIRTYLEVEL2;
 									}
 								}
 							}
@@ -7410,7 +7486,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						//Toggle Frame Rate Display
 						gbFPSDisplay = !gbFPSDisplay;
 						DisableFPSOverlay( (BOOLEAN)!gbFPSDisplay );
-			}
+						}
 					}
 					break;
 				case 'h':
@@ -7808,6 +7884,65 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					}
 					break;
 				case 'W':
+					if( fAlt )
+					{
+						if ( CHEATER_CHEAT_LEVEL( ) )
+						{
+							if ( InItemDescriptionBox( ) )
+							{
+								CycleItemDescriptionItem( MAP_ITEMDESC_START_X, MAP_ITEMDESC_START_Y );
+							}
+						}
+					}
+					else
+					{
+						if(bSelectedInfoChar != -1)
+						{
+							SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+							//CHRISL: Try to update InSector value so we don't have to "activate" a sector
+							if(pSoldier->sSectorX == sSelMapX && pSoldier->sSectorY == sSelMapY && pSoldier->bSectorZ == iCurrentMapSectorZ && !pSoldier->flags.fBetweenSectors)
+								pSoldier->bInSector=TRUE;
+							if(OK_CONTROL_MERC( pSoldier ))
+								{
+							if(!fShowMapInventoryPool)
+							{
+								fShowMapInventoryPool = TRUE;
+								CreateDestroyMapInventoryPoolButtons( TRUE );
+							}
+							if(!fShowInventoryFlag)
+							{
+								fShowInventoryFlag = TRUE;
+							}
+								//tais: borrowed the drop all items code from CHRISL to make it drop EVERYTHING!
+								if ( bSelectedInfoChar != -1 && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) )
+								{
+									for(int i = BODYPOSFINAL; i<NUM_INV_SLOTS; i++)
+									{
+										if(pSoldier->inv[i].exists() == true)
+										{
+											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo);
+											DeleteObj(&pSoldier->inv[i]);
+										}
+										fTeamPanelDirty = TRUE;
+										fMapPanelDirty = TRUE;
+										fInterfacePanelDirty = DIRTYLEVEL2;
+									}
+									for(int i = HELMETPOS; i<BODYPOSFINAL; i++)
+									{
+										if(pSoldier->inv[i].exists() == true)
+										{
+											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo);
+											DeleteObj(&pSoldier->inv[i]);
+										}
+										fTeamPanelDirty = TRUE;
+										fMapPanelDirty = TRUE;
+										fInterfacePanelDirty = DIRTYLEVEL2;
+									}
+								}
+							}
+						}
+					}
+					break;
 				case 'w':
 					if( fAlt )
 					{
@@ -8565,7 +8700,27 @@ void PollRightButtonInMapView( UINT32 *puiNewEvent )
 						}
 */
 
-						if( ( sSelMapX != sMapX ) || ( sSelMapY != sMapY ) )
+						// HEADROCK HAM 4: Toggle Militia Restrictions manually. This occurs when the Mobile Restrictions
+						// view is turned on. Each click advances the sector's classification by 1. If max is reached,
+						// loops back to start.
+						if ( fShowMobileRestrictionsFlag == TRUE )
+ 						{
+							// Restrict more.
+							if ( gubManualRestrictMilitia[ SECTOR( sMapX, sMapY ) ] > MANUAL_MOBILE_NO_ENTER )
+							{
+								gubManualRestrictMilitia[ SECTOR( sMapX, sMapY ) ]--;
+							}
+							else
+							{
+								// Wrap back to highest.
+								gubManualRestrictMilitia[ SECTOR( sMapX, sMapY ) ] = MANUAL_MOBILE_NO_RESTRICTION;
+							}
+							fMapPanelDirty = TRUE;
+							// Skip the rest of this function.
+							return;
+						}
+						// don't change sectors if we've just done the militia restrictions thing.
+						else if( ( sSelMapX != sMapX ) || ( sSelMapY != sMapY ) )
 						{
 							ChangeSelectedMapSector( sMapX, sMapY, ( INT8 )iCurrentMapSectorZ );
 						}
@@ -9890,12 +10045,6 @@ void MPReadyButtonCallback( GUI_BUTTON *btn, INT32 reason )
 							// warn the user that cannot change once buying has commenced
 							ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, gszMPMapscreenText[4]);
 						}
-						/*
-						else if (RANDOM_SPAWN)
-						{
-							ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, L"Cannot change edge, the game is set to random spawn");
-						}
-						*/
 					}
 					else
 					{
@@ -9958,7 +10107,7 @@ void MPTeamChangeCallback( MOUSE_REGION * pReason, INT32 iReason)
 				// warn the user that cannot change once buying has commenced
 				ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, gszMPMapscreenText[4]);
 			}
-			else if (RANDOM_SPAWN)
+			else if (gRandomStartingEdge)
 			{
 				ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, L"Cannot change edge, the game is set to random spawn");
 			}
@@ -11460,7 +11609,7 @@ void HandleShadingOfLinesForContractMenu( void )
 	}
 
 	// WANNE - MP: Disable "Dismiss" button when Random merc was selected, because we cannot hire any new merc
-	if (is_networked && RANDOM_MERCS)
+	if (is_networked && gRandomMercs)
 	{
 		ShadeStringInBox( ghContractBox, CONTRACT_MENU_TERMINATE );
 	}
@@ -15013,7 +15162,8 @@ void HandleNewDestConfirmation( INT16 sMapX, INT16 sMapY )
 				if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) SkyRiderTalk( CONFIRM_DESTINATION );
 			}
 		}
-		else
+		//CHRISL: If we're allowing Skyrider to drop mercs into a hot LZ, we don't need Skyrider telling us he isn't going to drop the mercs off.
+		else if(gGameExternalOptions.ubSkyriderHotLZ == 0)
 		{
 			// ok, but... you know there are enemies there...
 			SkyRiderTalk( BELIEVED_ENEMY_SECTOR );
@@ -15950,7 +16100,7 @@ INT32 GetTotalContractExpenses ( void )
 				{
 					iTotalCost += ( gMercProfiles[ pSoldier->ubProfile ].uiBiWeeklySalary / 14 );
 				}
-				if( pSoldier->bTypeOfLastContract == CONTRACT_EXTEND_1_WEEK )
+				else if( pSoldier->bTypeOfLastContract == CONTRACT_EXTEND_1_WEEK )
 				{
 					iTotalCost += ( gMercProfiles[ pSoldier->ubProfile ].uiWeeklySalary / 7 );
 				}

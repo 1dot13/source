@@ -8,6 +8,10 @@
 #elif defined( WIZ8_PRECOMPILED_HEADERS )
 	#include "WIZ8 SGP ALL.H"
 #else
+//** dd для подключения дефайнов доп. кнопок мыши
+#define _WIN32_WINNT 0x500
+
+//**
 	#include "types.h"
 	#include <windows.h>
 	#include <winuser.h>//dnl
@@ -69,12 +73,18 @@ BOOLEAN		gfRecordedLeftButtonUp;
 
 UINT32		guiLeftButtonRepeatTimer;
 UINT32		guiRightButtonRepeatTimer;
+UINT32		guiMiddleButtonRepeatTimer;
+UINT32		guiX1ButtonRepeatTimer;
+UINT32		guiX2ButtonRepeatTimer;
 
 BOOLEAN	gfTrackMousePos;			// TRUE = queue mouse movement events, FALSE = don't
 BOOLEAN	gfLeftButtonState;		// TRUE = Pressed, FALSE = Not Pressed
 BOOLEAN	gfRightButtonState;		// TRUE = Pressed, FALSE = Not Pressed
 BOOLEAN gfMiddleButtonState;//dnl TRUE = Pressed, FALSE = Not Pressed
-INT16 gsMouseWheelDeltaValue;//dnl positive value indicates that the wheel was rotated forward, negative value indicates that the wheel was rotated backward, and user handler procedure for mouse wheel should restore after usege this value to zero!
+//INT16 gsMouseWheelDeltaValue;//dnl positive value indicates that the wheel was rotated forward, negative value indicates that the wheel was rotated backward, and user handler procedure for mouse wheel should restore after usege this value to zero!
+BOOLEAN gfX1ButtonState;
+BOOLEAN gfX2ButtonState;
+
 INT16	 gusMouseXPos;					// X position of the mouse on screen
 INT16	 gusMouseYPos;					// y position of the mouse on screen
 
@@ -104,322 +114,131 @@ StringInput *gpCurrentStringDescriptor;
 
 void	QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam);
 void	RedirectToString(UINT16 uiInputCharacter);
-void		HandleSingleClicksAndButtonRepeats( void );
-void		AdjustMouseForWindowOrigin(void);
+void	HandleSingleClicksAndButtonRepeats( void );
+void	AdjustMouseForWindowOrigin(void);
 
 // These are the hook functions for both keyboard and mouse
 
 LRESULT CALLBACK KeyboardHandler(int Code, WPARAM wParam, LPARAM lParam)
 {
-#ifndef JA2
-	if((Code < 0) || (!gfApplicationActive))
-#else
-	if (Code < 0)
-#endif
-	{ // Do not handle this message, pass it on to another window
-	return CallNextHookEx(ghKeyboardHook, Code, wParam, lParam);
-	}
+	if (Code < 0) // Do not handle this message, pass it on to another window
+		return CallNextHookEx(ghKeyboardHook, Code, wParam, lParam);
 
-	if (lParam & TRANSITION_MASK)
-	{ // The key has been released
-	KeyUp(wParam, lParam);
-		//gfSGPInputReceived =	TRUE;
-	}
+	if (lParam & TRANSITION_MASK) // The key has been released
+		KeyUp(wParam, lParam);		//gfSGPInputReceived =	TRUE;
 	else
 	{ // Key was up
 	KeyDown(wParam, lParam);
 	gfSGPInputReceived =	TRUE;
 	}
-
 	return TRUE;
 }
 
-#ifdef JA2
 
 LRESULT CALLBACK MouseHandler(int Code, WPARAM wParam, LPARAM lParam)
 {
 	UINT32 uiParam;
 	POINT mpos;
+	MOUSEHOOKSTRUCTEX* p_mhs;
 
-#ifndef JA2
-	if((Code < 0) || (!gfApplicationActive))
-#else
-	if (Code < 0)
-#endif
-	{ // Do not handle this message, pass it on to another window
-	return CallNextHookEx(ghMouseHook, Code, wParam, lParam);
-	}
+	if (Code < 0) // Do not handle this message, pass it on to another window
+		return CallNextHookEx(ghMouseHook, Code, wParam, lParam);
+	
+	p_mhs = (MOUSEHOOKSTRUCTEX*)lParam;
+
+	mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
+	ScreenToClient( ghWindow, &mpos);
+	gusMouseXPos = (INT16)mpos.x;
+	gusMouseYPos = (INT16)mpos.y;
+	uiParam = gusMouseYPos;
+	uiParam = uiParam << 16;
+	uiParam = uiParam | gusMouseXPos;
 
 	switch (wParam)
 	{
-	case WM_LBUTTONDOWN :
-		// Update the current mouse position
-		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
-		ScreenToClient( ghWindow, &mpos);
-		gusMouseXPos = (INT16)mpos.x;
-		gusMouseYPos = (INT16)mpos.y;
-		uiParam = gusMouseYPos;
-		uiParam = uiParam << 16;
-		uiParam = uiParam | gusMouseXPos;
-		
-		// Update the button state
-		gfLeftButtonState = TRUE;
-		
-		//Set that we have input
-		gfSGPInputReceived = TRUE;
-		
-		// Trigger an input event
-		QueueEvent(LEFT_BUTTON_DOWN, 0, uiParam);
+	case WM_XBUTTONDOWN://** код рабочий	 
+		if( p_mhs->mouseData== (XBUTTON1<<16) ) 			//MessageBeep(-1);
+		{
+			gfX1ButtonState = TRUE;			
+			gfSGPInputReceived =	TRUE;
+			QueueEvent(X1_BUTTON_DOWN, 0, uiParam);
+		}
+		if( p_mhs->mouseData== (XBUTTON2<<16) ) 			//MessageBeep(0x00000040L);
+		{
+			gfX2ButtonState = TRUE;			
+			gfSGPInputReceived =	TRUE;
+			QueueEvent(X2_BUTTON_DOWN, 0, uiParam);
+		}
 		break;
-	case WM_LBUTTONUP :
-		// Update the current mouse position
-		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
-		ScreenToClient( ghWindow, &mpos);
-		gusMouseXPos = (INT16)mpos.x;
-		gusMouseYPos = (INT16)mpos.y;
-		uiParam = gusMouseYPos;
-		uiParam = uiParam << 16;
-		uiParam = uiParam | gusMouseXPos;
-		
-		// Update the button state
-		gfLeftButtonState = FALSE;
-		
-		// Set that we have input
-		gfSGPInputReceived = TRUE;
-
-		// Trigger an input event
-		QueueEvent(LEFT_BUTTON_UP, 0, uiParam);
+	case WM_XBUTTONUP://** код рабочий	 
+		if( p_mhs->mouseData== (XBUTTON1<<16) )
+		{
+			gfX1ButtonState = FALSE;			
+			gfSGPInputReceived =	TRUE;
+			QueueEvent(X1_BUTTON_UP, 0, uiParam);
+		}
+		if( p_mhs->mouseData== (XBUTTON2<<16) )
+		{
+			gfX2ButtonState = FALSE;			
+			gfSGPInputReceived =	TRUE;
+			QueueEvent(X2_BUTTON_UP, 0, uiParam);
+		}
 		break;
-	case WM_RBUTTONDOWN :
-		// Update the current mouse position
-		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
-		ScreenToClient( ghWindow, &mpos);
-		gusMouseXPos = (INT16)mpos.x;
-		gusMouseYPos = (INT16)mpos.y;
-		uiParam = gusMouseYPos;
-		uiParam = uiParam << 16;
-		uiParam = uiParam | gusMouseXPos;
-		
-		// Update the button state
-		gfRightButtonState = TRUE;
-		
-		// Set that we have input
-		gfSGPInputReceived = TRUE;
-		
-		// Trigger an input event
-		QueueEvent(RIGHT_BUTTON_DOWN, 0, uiParam);
+	case WM_MOUSEWHEEL:	 
+		if(p_mhs->mouseData==(WHEEL_DELTA<<16))  //up	MessageBeep(-1);
+			QueueEvent(MOUSE_WHEEL_UP, 0, uiParam);
+		if(p_mhs->mouseData==(-WHEEL_DELTA<<16)) //dn  MessageBeep(0x00000040L);
+			QueueEvent(MOUSE_WHEEL_DOWN, 0, uiParam);
 		break;
-	case WM_RBUTTONUP :
-		// Update the current mouse position
-		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
-		ScreenToClient( ghWindow, &mpos);
-		gusMouseXPos = (INT16)mpos.x;
-		gusMouseYPos = (INT16)mpos.y;
-		uiParam = gusMouseYPos;
-		uiParam = uiParam << 16;
-		uiParam = uiParam | gusMouseXPos;
-		
-		// Update the button state
-		gfRightButtonState = FALSE;
-		
-		//Set that we have input
-		gfSGPInputReceived = TRUE;
-		
-		// Trigger an input event
-		QueueEvent(RIGHT_BUTTON_UP, 0, uiParam);
+	case WM_MBUTTONDOWN:
+		gfMiddleButtonState= TRUE;			//Set that we have input
+		gfSGPInputReceived =	TRUE;//Set that we have input
+		QueueEvent(MIDDLE_BUTTON_DOWN, 0, uiParam);// Trigger an input event
 		break;
-
-	//dnl begin part for additional mouse events
-	case WM_MBUTTONDOWN :
-		// Update the current mouse position
-		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
-		ScreenToClient(ghWindow, &mpos);
-		gusMouseXPos = (INT16)mpos.x;
-		gusMouseYPos = (INT16)mpos.y;
-		uiParam = gusMouseYPos;
-		uiParam = uiParam << 16;
-		uiParam = uiParam | gusMouseXPos;
-		
-		// Update the button state
-		gfMiddleButtonState = TRUE;
-		
-		//Set that we have input
-		gfSGPInputReceived = TRUE;
-		
-		// Trigger an input event
-		QueueEvent(MIDDLE_BUTTON_DOWN, 0, uiParam);
-		break;
-	case WM_MBUTTONUP :
-		// Update the current mouse position
-		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
-		ScreenToClient(ghWindow, &mpos);
-		gusMouseXPos = (INT16)mpos.x;
-		gusMouseYPos = (INT16)mpos.y;
-		uiParam = gusMouseYPos;
-		uiParam = uiParam << 16;
-		uiParam = uiParam | gusMouseXPos;
-		
-		// Update the button state
-		gfMiddleButtonState = FALSE;
-		
-		//Set that we have input
-		gfSGPInputReceived = TRUE;
-		
-		// Trigger an input event
+	case WM_MBUTTONUP:
+		gfMiddleButtonState= FALSE;
+		gfSGPInputReceived =	TRUE;
 		QueueEvent(MIDDLE_BUTTON_UP, 0, uiParam);
 		break;
-	//case WM_MBUTTONDBLCLK:
-	//	break;
-	case WM_MOUSEWHEEL :
-		// Update the current mouse position
-		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
-		ScreenToClient(ghWindow, &mpos);
-		gusMouseXPos = (INT16)mpos.x;
-		gusMouseYPos = (INT16)mpos.y;
-		uiParam = gusMouseYPos;
-		uiParam = uiParam << 16;
-		uiParam = uiParam | gusMouseXPos;
-		
-		// Update mouse wheel delta value
-		gsMouseWheelDeltaValue = GetMouseWheelDeltaValue(((MOUSEHOOKSTRUCTEX *)lParam)->mouseData);
-		
-		//Set that we have input
-		gfSGPInputReceived = TRUE;
-		
-		// Trigger an input event
-		QueueEvent(MOUSE_WHEEL, 0, uiParam);
+	case WM_LBUTTONDOWN: 
+		gfLeftButtonState = TRUE;
+		gfSGPInputReceived =	TRUE;
+		QueueEvent(LEFT_BUTTON_DOWN, 0, uiParam);
 		break;
-
-	//dnl end part for additional mouse events
-	case WM_MOUSEMOVE :
-		// Update the current mouse position
-		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
-		ScreenToClient( ghWindow, &mpos);
-		gusMouseXPos = (INT16)mpos.x;
-		gusMouseYPos = (INT16)mpos.y;
-		uiParam = gusMouseYPos;
-		uiParam = uiParam << 16;
-		uiParam = uiParam | gusMouseXPos;
-		
+	case WM_LBUTTONUP: 
+		gfLeftButtonState = FALSE;
+		gfSGPInputReceived =	TRUE;
+		QueueEvent(LEFT_BUTTON_UP, 0, uiParam);
+		break;
+	case WM_RBUTTONDOWN:
+		gfRightButtonState = TRUE;
+		gfSGPInputReceived =	TRUE;
+		QueueEvent(RIGHT_BUTTON_DOWN, 0, uiParam);
+		break;
+	case WM_RBUTTONUP:
+		gfRightButtonState = FALSE;
+		gfSGPInputReceived =	TRUE;
+		QueueEvent(RIGHT_BUTTON_UP, 0, uiParam);
+		break;
+	case WM_MOUSEMOVE:
 		// Trigger an input event
 		if (gfTrackMousePos == TRUE)
-		{
 			QueueEvent(MOUSE_POS, 0, uiParam);
-		}
-		//Set that we have input
-		gfSGPInputReceived = TRUE;
+		gfSGPInputReceived =	TRUE;
 		break;
-	default :
+	default:
 		return CallNextHookEx(ghMouseHook, Code, wParam, lParam);
 	}
 
+	//ddd why below code commented?
 //	if (gusMouseXPos < 0 || gusMouseXPos >= SCREEN_WIDTH ||
 //	gusMouseYPos < 0 || gusMouseYPos >= SCREEN_HEIGHT)
-	{
 		return CallNextHookEx(ghMouseHook, Code, wParam, lParam);
-	}
 
 	return TRUE;
 }
 
-#else
 
-// Wizardry mouse hander
-
-LRESULT CALLBACK MouseHandler(int Code, WPARAM wParam, LPARAM lParam)
-{
-	UINT32			uiParam;
-	UINT32			uiXPos, uiYPos;
-	RECT			rcClient;
-	BOOLEAN			fOutsideClient=FALSE;
-	static BOOLEAN	fResizing=FALSE;
-	LRESULT			Result;
-
-	uiXPos= (((MOUSEHOOKSTRUCT *)lParam)->pt).x;
-	uiYPos= (((MOUSEHOOKSTRUCT *)lParam)->pt).y;
-
-	if(!VideoIsFullScreen())
-	{
-		if(wParam==WM_NCLBUTTONDOWN)
-		{
-			fResizing=TRUE;
-		}
-		VideoGetClientRect(&rcClient);
-		if((uiXPos < (UINT32)rcClient.left) || (uiXPos > (UINT32)rcClient.right) || (uiYPos < (UINT32)rcClient.top) || (uiYPos > (UINT32)rcClient.bottom))
-		{
-			fOutsideClient=TRUE;
-		}
-	}
-
-	if((Code < 0) || (!gfApplicationActive) || fOutsideClient || fResizing)
-	{
-		// Do not handle this message, pass it on to another window
-		Result = CallNextHookEx(ghMouseHook, Code, wParam, lParam);
-
-		if((wParam==WM_LBUTTONUP) || (wParam==WM_NCLBUTTONUP))
-		{
-			fResizing=FALSE;
-		}
-		return(Result);
-	}
-
-	switch (wParam)
-	{
-	case WM_LBUTTONUP:
-	case WM_LBUTTONDOWN:
-	case WM_RBUTTONDOWN:
-	case WM_RBUTTONUP:
-	case WM_MOUSEMOVE:
-		if(VideoIsFullScreen())
-		{
-			gusMouseXPos = (UINT16)(uiXPos);
-			gusMouseYPos = (UINT16)(uiYPos);
-		}
-		else
-		{
-			gusMouseXPos = (UINT16)(uiXPos-rcClient.left);
-			gusMouseYPos = (UINT16)(uiYPos-rcClient.top);
-		}
-		uiParam = (UINT32)gusMouseYPos<<16 | (UINT32)gusMouseXPos;
-		
-		//Set that we have input
-		gfSGPInputReceived =	TRUE;
-		break;
-	}
-
-	if ( wParam == WM_MOUSEWHEEL )
-	{
-		return( FALSE );
-	}
-
-	switch (wParam)
-	{
-	case WM_LBUTTONDOWN:
-		gfLeftButtonState = TRUE;
-		QueueEvent(LEFT_BUTTON_DOWN, 0, uiParam);
-		break;
-	case WM_LBUTTONUP:
-		gfLeftButtonState = FALSE;
-		QueueEvent(LEFT_BUTTON_UP, 0, uiParam);
-		break;
-	case WM_RBUTTONDOWN:
-		gfRightButtonState = TRUE;
-		QueueEvent(RIGHT_BUTTON_DOWN, 0, uiParam);
-		break;
-	case WM_RBUTTONUP:
-		gfRightButtonState = FALSE;
-		QueueEvent(RIGHT_BUTTON_UP, 0, uiParam);
-		break;
-	case WM_MOUSEMOVE:
-		if(gfTrackMousePos)
-		QueueEvent(MOUSE_POS, 0, uiParam);
-		break;
-	}
-
-	return(TRUE);
-}
-
-#endif
 
 BOOLEAN InitializeInputManager(void)
 {
@@ -531,19 +350,25 @@ void QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam)
 	}
 
 	if (ubInputEvent == RIGHT_BUTTON_DOWN)
-	{
 		guiRightButtonRepeatTimer = uiTimer + BUTTON_REPEAT_TIMEOUT;
-	}
+	if (ubInputEvent == MIDDLE_BUTTON_DOWN)
+		guiMiddleButtonRepeatTimer = uiTimer + BUTTON_REPEAT_TIMEOUT;
+	if (ubInputEvent == X1_BUTTON_DOWN)
+		guiX1ButtonRepeatTimer = uiTimer + BUTTON_REPEAT_TIMEOUT;
+	if (ubInputEvent == X2_BUTTON_DOWN)
+		guiX2ButtonRepeatTimer = uiTimer + BUTTON_REPEAT_TIMEOUT;
 
 	if (ubInputEvent == LEFT_BUTTON_UP)
-	{
 		guiLeftButtonRepeatTimer = 0;
-	}
-
 	if (ubInputEvent == RIGHT_BUTTON_UP)
-	{
 		guiRightButtonRepeatTimer = 0;
-	}
+	if (ubInputEvent == MIDDLE_BUTTON_UP)
+		guiMiddleButtonRepeatTimer = 0;
+	if (ubInputEvent == X1_BUTTON_UP)
+		guiX1ButtonRepeatTimer = 0;
+	if (ubInputEvent == X2_BUTTON_UP)
+		guiX2ButtonRepeatTimer = 0;
+
 
 	if ( (ubInputEvent == LEFT_BUTTON_UP) )
 	{

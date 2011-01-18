@@ -2,8 +2,8 @@
 #define _ITERFACEITEMIMAGES_H_
 
 #include "Types.h"
-#include "VFS/vfs_types.h"
-#include "VFS/vfs_path.h"
+#include <vfs/Core/vfs_types.h>
+#include <vfs/Core/vfs_path.h>
 #include <map>
 
 class MDItemVideoObjects

@@ -61,8 +61,8 @@
 	#include "IniReader.h"
 #endif
 
-#include "VFS/vfs.h"
-#include "VFS/Tools/Log.h"
+#include "sgp_logger.h"
+
 #define _UNICODE
 // Networking Stuff
 #ifdef NETWORKED
@@ -425,8 +425,9 @@ UINT32 InitScreenHandle(void)
 		// Handle queued .ini file error messages
  		int y = 40;
 #ifdef USE_VFS
-		CLog logger(L"ERROR_REPORT.iniErrorMessages.txt");
-		//logger.SetAppend();
+		sgp::Logger_ID ini_id = sgp::Logger::instance().createLogger();
+		sgp::Logger::instance().connectFile(ini_id, L"ERROR_REPORT.iniErrorMessages.txt", false, sgp::Logger::FLUSH_ON_DELETE);
+		sgp::Logger::LogInstance logger = sgp::Logger::instance().logger(ini_id);
 #endif
 		while (! iniErrorMessages.empty()) {
 #ifndef USE_VFS
@@ -459,7 +460,7 @@ UINT32 InitScreenHandle(void)
 			fprintf_s (file_pointer , "%S\n"  , str );
 			fclose( file_pointer );
 #else
-			logger << iniErrorMessage << CLog::ENDL;
+			logger << iniErrorMessage << sgp::endl;
 #endif
 		    DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 			iniErrorMessages.pop();
@@ -919,10 +920,15 @@ UINT32 SexScreenHandle(void)
 	// Update frame
 	uiTime = GetJA2Clock( );
 
+	static bool started_sound = false;
 	// if we are animation smile...
 	if ( ubCurrentScreen == 1 )
 	{
-		PlayJA2StreamingSampleFromFile( "Sounds\\Sex.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, NULL );
+		if(!started_sound)
+		{
+			PlayJA2StreamingSampleFromFile( "Sounds\\Sex.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, NULL );
+			started_sound = true;
+		}
 		if ( ( uiTime - uiTimeOfLastUpdate ) > SMILY_DELAY )
 		{
 			uiTimeOfLastUpdate = uiTime;
@@ -944,6 +950,7 @@ UINT32 SexScreenHandle(void)
 			uiTimeOfLastUpdate = uiTime;
 
 			ubCurrentScreen = 0;
+			started_sound   = false;
 
 			// Remove video object...
 			DeleteVideoObjectFromIndex( guiSMILY );
@@ -997,7 +1004,8 @@ void DoneFadeOutForDemoExitScreen( void )
 	gfProgramIsRunning = FALSE;
 }
 
-extern INT8 gbFadeSpeed;
+// unused
+//extern INT8 gbFadeSpeed;
 
 #ifdef GERMAN
 void DisplayTopwareGermanyAddress()

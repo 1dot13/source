@@ -72,6 +72,10 @@ typedef struct
 #define VOBJECT_CREATE_DEFAULT			  0x00000020		// Creates and empty object of given width, height and BPP
 #define VOBJECT_CREATE_FROMFILE			  0x00000040		// Creates a video object from a file ( using HIMAGE )
 #define VOBJECT_CREATE_FROMHIMAGE		  0x00000080		// Creates a video object from a pre-loaded hImage
+#define VOBJECT_CREATE_FROMJPC            0x00010000		// replace file extension : sti -> jpc.7z
+#define VOBJECT_CREATE_FROMPNG            0x00020000		// replace file extension : sti -> png
+#define VOBJECT_CREATE_FROMJPC_FALLBACK   0x00100000		// replace file extension : sti -> jpc.7z, fall back to sti when it doesn't exist
+#define VOBJECT_CREATE_FROMPNG_FALLBACK   0x00200000		// replace file extension : sti -> png, fall back to sti when it doesn't exist
 
 // VOBJECT FLAGS
 #define	VOBJECT_FLAG_SHADETABLE_SHARED 0x00000100

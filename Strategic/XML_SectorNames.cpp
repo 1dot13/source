@@ -19,6 +19,11 @@
 // Four different sector names, used at different times.
 extern CHAR16 gzSectorNames[256][4][MAX_SECTOR_NAME_LENGTH];
 
+// moved to lua
+//extern CHAR16 gzSectorUndergroundNames1[256][4][MAX_SECTOR_NAME_LENGTH]; 
+//extern CHAR16 gzSectorUndergroundNames2[256][4][MAX_SECTOR_NAME_LENGTH]; 
+//extern CHAR16 gzSectorUndergroundNames3[256][4][MAX_SECTOR_NAME_LENGTH]; 
+
 typedef enum
 {
 	SECTORNAME_ELEMENT_NONE = 0,
@@ -41,6 +46,10 @@ typedef struct
 	UINT32			maxReadDepth;
 } SectorNameParseData;
 
+BOOLEAN SectorName_TextOnly;
+
+INT8 Sector_Level;
+
 
 static void XMLCALL
 SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **atts)
@@ -57,10 +66,38 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 			// Initiate Array by setting first character to 0.
 			for (UINT16 x = 0; x < 256; x++)
 			{
-				gzSectorNames[x][0][0]=0;
-				gzSectorNames[x][1][0]=0;
-				gzSectorNames[x][2][0]=0;
-				gzSectorNames[x][3][0]=0;
+			
+				if (Sector_Level == 0 )
+				{
+					gzSectorNames[x][0][0]=0;
+					gzSectorNames[x][1][0]=0;
+					gzSectorNames[x][2][0]=0;
+					gzSectorNames[x][3][0]=0;
+				}
+
+				// moved to lua
+				//if (Sector_Level == 1 )
+				//{
+				//	gzSectorUndergroundNames1[x][0][0]=0;
+				//	gzSectorUndergroundNames1[x][1][0]=0;
+				//	gzSectorUndergroundNames1[x][2][0]=0;
+				//	gzSectorUndergroundNames1[x][3][0]=0;
+				//}
+				// if (Sector_Level == 2 )
+				//{
+				//	gzSectorUndergroundNames2[x][0][0]=0;
+				//	gzSectorUndergroundNames2[x][1][0]=0;
+				//	gzSectorUndergroundNames2[x][2][0]=0;
+				//	gzSectorUndergroundNames2[x][3][0]=0;
+				//}
+				//if (Sector_Level == 3 )
+				//{
+				//	gzSectorUndergroundNames3[x][0][0]=0;
+				//	gzSectorUndergroundNames3[x][1][0]=0;
+				//	gzSectorUndergroundNames3[x][2][0]=0;
+				//	gzSectorUndergroundNames3[x][3][0]=0;
+				//}
+			
 			}
 		}
 
@@ -119,11 +156,71 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 			UINT8 ubSectorId = SECTOR(pData->sCurSectorX, pData->sCurSectorY);
 			if (ubSectorId >= 0 && ubSectorId < 256)
 			{
-				wcscpy(gzSectorNames[ubSectorId][0], pData->szCurUnexploredName);
-				wcscpy(gzSectorNames[ubSectorId][1], pData->szCurDetailedUnexploredName);
-				wcscpy(gzSectorNames[ubSectorId][2], pData->szCurExploredName);
-				wcscpy(gzSectorNames[ubSectorId][3], pData->szCurDetailedExploredName);
-			}
+				if (!SectorName_TextOnly)
+				{
+					if (Sector_Level == 0 )
+					{
+						wcscpy(gzSectorNames[ubSectorId][0], pData->szCurUnexploredName);
+						wcscpy(gzSectorNames[ubSectorId][1], pData->szCurDetailedUnexploredName);
+						wcscpy(gzSectorNames[ubSectorId][2], pData->szCurExploredName);
+						wcscpy(gzSectorNames[ubSectorId][3], pData->szCurDetailedExploredName);
+					}
+					// moved to lua
+					//else if (Sector_Level == 1 )
+					//{
+					//	wcscpy(gzSectorUndergroundNames1[ubSectorId][0], pData->szCurUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames1[ubSectorId][1], pData->szCurDetailedUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames1[ubSectorId][2], pData->szCurExploredName);
+					//	wcscpy(gzSectorUndergroundNames1[ubSectorId][3], pData->szCurDetailedExploredName);					
+					//}
+					//else if (Sector_Level == 2 )
+					//{
+					//	wcscpy(gzSectorUndergroundNames2[ubSectorId][0], pData->szCurUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames2[ubSectorId][1], pData->szCurDetailedUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames2[ubSectorId][2], pData->szCurExploredName);
+					//	wcscpy(gzSectorUndergroundNames2[ubSectorId][3], pData->szCurDetailedExploredName);					
+					//}
+					//else if (Sector_Level == 3 )
+					//{
+					//	wcscpy(gzSectorUndergroundNames3[ubSectorId][0], pData->szCurUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames3[ubSectorId][1], pData->szCurDetailedUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames3[ubSectorId][2], pData->szCurExploredName);
+					//	wcscpy(gzSectorUndergroundNames3[ubSectorId][3], pData->szCurDetailedExploredName);
+					//}
+				}
+				else
+				{
+					if (Sector_Level == 0 )
+					{
+						wcscpy(gzSectorNames[ubSectorId][0], pData->szCurUnexploredName);
+						wcscpy(gzSectorNames[ubSectorId][1], pData->szCurDetailedUnexploredName);
+						wcscpy(gzSectorNames[ubSectorId][2], pData->szCurExploredName);
+						wcscpy(gzSectorNames[ubSectorId][3], pData->szCurDetailedExploredName);
+					}
+					// moved to lua
+					//else if (Sector_Level == 1 )
+					//{
+					//	wcscpy(gzSectorUndergroundNames1[ubSectorId][0], pData->szCurUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames1[ubSectorId][1], pData->szCurDetailedUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames1[ubSectorId][2], pData->szCurExploredName);
+					//	wcscpy(gzSectorUndergroundNames1[ubSectorId][3], pData->szCurDetailedExploredName);
+					//}
+					//else if (Sector_Level == 2 )
+					//{
+					//	wcscpy(gzSectorUndergroundNames2[ubSectorId][0], pData->szCurUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames2[ubSectorId][1], pData->szCurDetailedUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames2[ubSectorId][2], pData->szCurExploredName);
+					//	wcscpy(gzSectorUndergroundNames2[ubSectorId][3], pData->szCurDetailedExploredName);
+					//}					
+					//else if (Sector_Level == 3 )
+					//{
+					//	wcscpy(gzSectorUndergroundNames3[ubSectorId][0], pData->szCurUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames3[ubSectorId][1], pData->szCurDetailedUnexploredName);
+					//	wcscpy(gzSectorUndergroundNames3[ubSectorId][2], pData->szCurExploredName);
+					//	wcscpy(gzSectorUndergroundNames3[ubSectorId][3], pData->szCurDetailedExploredName);
+					//}
+				}
+			}	
 		}
 
 		else if(strcmp(name, "SectorGrid") == 0 )
@@ -178,7 +275,7 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 }
 
 
-BOOLEAN ReadInSectorNames(STR fileName)
+BOOLEAN ReadInSectorNames(STR fileName, BOOLEAN localizedVersion, INT8 Level )
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -187,10 +284,13 @@ BOOLEAN ReadInSectorNames(STR fileName)
 	XML_Parser	parser = XML_ParserCreate(NULL);
 
 	SectorNameParseData pData;
+	
+	Sector_Level = Level;
 
+	SectorName_TextOnly = localizedVersion;
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
-		return( FALSE );
+		return( localizedVersion );
 
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);

@@ -20,7 +20,7 @@ void CheckConditionsForTriggeringCreatureQuest( INT16 sSectorX, INT16 sSectorY, 
 
 void ForceCreaturesToAvoidMineTemporarily( UINT8 ubMineIndex );
 
-extern BOOLEAN gfUseCreatureMusic;
+//extern BOOLEAN gfUseCreatureMusic;
 
 BOOLEAN MineClearOfMonsters( UINT8 ubMineIndex );
 
@@ -54,5 +54,7 @@ void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT8 *pubNumCr
 
 
 BOOLEAN PlayerGroupIsInACreatureInfestedMine();
+
+extern INT32 giLairID;
 
 #endif

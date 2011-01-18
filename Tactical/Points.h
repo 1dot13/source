@@ -113,6 +113,7 @@
 #define AP_JUMPFENCE						6				// time to jump over a fence
 #define AP_JUMPFENCEBPACK						10				// time to jump over a fence
 
+#define	AP_JUMPWINDOW						10			// APs to Jump window
 
 #define AP_OPEN_SAFE			8		// time to use combination
 
@@ -195,8 +196,6 @@
 #define	BP_JUMPFENCE						200			// BPs to jump fence
 #define	BP_JUMPFENCEBPACK						500			// BPs to jump fence
 
-
-
 //#define BP_MOVE_ITEM_FREE		0		// same place, pocket->pocket
 //#define BP_MOVE_ITEM_FAST		0		// hand, holster, ground only
 //#define BP_MOVE_ITEM_AVG		0		// everything else!
@@ -277,8 +276,12 @@
 extern INT16 APBPConstants[TOTAL_APBP_VALUES];
 
 INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj );
+// HEADROCK HAM 4: Same function as above, except no modifier.
+INT16 BaseAPsToShootOrStabNoModifier( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj );
+// HEADROCK HAM 4: Same function as above, except no modifier.
+INT16 BaseAPsToShootOrStabNoModifier( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj );
 
-INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8 bLevel );
+INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridno, INT8 bDir, INT8 bLevel );
 INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode	);
 INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode, INT8 bPathIndex, INT8 bPathLength );
 BOOLEAN SelectedMercCanAffordMove(	);
@@ -301,11 +304,21 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, INT8 bInvPos );
 
 UINT16 GetAPsToPickupItem( SOLDIERTYPE *pSoldier, INT32 usMapPos );
 INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost );
+INT16 ApsToPunch( SOLDIERTYPE *pSoldier ); // SANDRO added this
 INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, INT16 bAimTime );
 INT16 CalcAPsToBurst( INT16 bBaseActionPoints, OBJECTTYPE * pObj );
+// HEADROCK HAM 4: Same as above, without percent modifiers.
+INT16 CalcAPsToBurstNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj );
+// HEADROCK HAM 4: Same as above, without percent modifiers.
+INT16 CalcAPsToBurstNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj );
 INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire );
+// HEADROCK HAM 4: Same as above, without modifiers
+INT16 CalcAPsToAutofireNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire );
+// HEADROCK HAM 4: Same as above, without modifiers
+INT16 CalcAPsToAutofireNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire );
 INT16 GetAPsToChangeStance( SOLDIERTYPE *pSoldier, INT8 bDesiredHeight );
-INT16 GetBPsToChangeStance( SOLDIERTYPE *pSoldier, INT8 bDesiredHeight );
+// SANDRO - actually this procedure is  nowhere used in the entire JA2 code - commented out
+//INT16 GetBPsToChangeStance( SOLDIERTYPE *pSoldier, INT8 bDesiredHeight );
 
 INT16 GetAPsToLook( SOLDIERTYPE *pSoldier );
 UINT16 GetAPsToGiveItem( SOLDIERTYPE *pSoldier, INT32 usMapPos );
@@ -317,8 +330,10 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState );
 INT16 GetAPsToClimbRoof( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown );
 INT16 GetBPsToClimbRoof( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown );
 
-INT16 GetAPsToJumpFence( SOLDIERTYPE *pSoldier );
-INT16 GetBPsToJumpFence( SOLDIERTYPE *pSoldier );
+INT16 GetAPsToJumpThroughWindows( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown ); //Jump
+// SANDRO - changed these 2
+INT16 GetAPsToJumpFence( SOLDIERTYPE *pSoldier, BOOLEAN fWithBackpack );
+INT16 GetBPsToJumpFence( SOLDIERTYPE *pSoldier, BOOLEAN fWithBackpack );
 
 INT16 GetAPsToCutFence( SOLDIERTYPE *pSoldier );
 INT16 GetAPsToBeginFirstAid( SOLDIERTYPE *pSoldier );
@@ -332,7 +347,7 @@ INT16 GetAPsToPlantMine( SOLDIERTYPE *pSoldier );
 UINT16 GetTotalAPsToDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 INT16 GetAPsToUseRemote( SOLDIERTYPE *pSoldier );
 
-INT16 GetAPsToStealItem( SOLDIERTYPE *pSoldier, INT32 usMapPos );
+INT16 GetAPsToStealItem( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTargetSoldier, INT16 sMapPos ); // SANDRO - added target
 INT16 GetBPsToStealItem( SOLDIERTYPE *pSoldier );
 
 INT16 GetAPsToUseJar( SOLDIERTYPE *pSoldier, INT32 usMapPos );
@@ -349,5 +364,16 @@ INT16 GetAPsToAutoReload( SOLDIERTYPE * pSoldier );
 
 INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAimTime );
 INT8 CalcAimingLevelsAvailableWithAP( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAPsLeft );
+
+// SANDRO - added these: 
+INT16 GetAPsCrouch( SOLDIERTYPE *pSoldier, BOOLEAN fBackpackCheck  );
+INT16 GetAPsProne( SOLDIERTYPE *pSoldier, BOOLEAN fBackpackCheck  );
+INT16 GetAPsStartRun( SOLDIERTYPE *pSoldier );
+INT16 GetAPsToOpenDoor( SOLDIERTYPE *pSoldier );
+INT16 GetAPsToPicklock( SOLDIERTYPE *pSoldier );
+INT16 GetAPsToBombDoor( SOLDIERTYPE *pSoldier );
+INT16 GetAPsToUntrapDoor( SOLDIERTYPE *pSoldier );
+INT16 GetBasicAPsToPickupItem( SOLDIERTYPE *pSoldier );
+INT16 GetAPsToDisarmMine( SOLDIERTYPE *pSoldier );
 
 #endif

@@ -67,7 +67,7 @@ BOOLEAN AddUIPlan( INT32 sGridNo, UINT8 ubPlanID )
 		// Adjust for running if we are not already running
 		if (	gpUIPlannedSoldier->usUIMovementMode == RUNNING )
 		{
-			sAPCost += APBPConstants[AP_START_RUN_COST];
+			sAPCost += GetAPsStartRun( gpUIPlannedSoldier ); // changed by SANDRO
 		}
 
 		if ( EnoughPoints( gpUIPlannedSoldier, sAPCost, 0, FALSE ) )

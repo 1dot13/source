@@ -40,6 +40,8 @@
 #define HELI_TOOK_MINOR_DAMAGE 52
 #define HELI_TOOK_MAJOR_DAMAGE 53
 #define HELI_GOING_DOWN 54
+#define HELI_PATH_THROUGH_ENEMEY_AIRSPACE 55
+#define HELI_HOT_DROP 56
 
 
 // enums for skyrider monologue

@@ -113,6 +113,40 @@ extern	int	MEDPOCKFINAL		;//= SMALLPOCK1POS;//RESET in initInventory
 extern	int	SMALLPOCKFINAL		;//= NUM_INV_SLOTS;//RESET in initInventory
 #define		STACK_SIZE_LIMIT	NUM_INV_SLOTS
 
+typedef enum ATTACHMENT_SLOT{
+	ATTACHMENTPOINT1 = 0,
+	ATTACHMENTPOINT2,
+	ATTACHMENTPOINT3,
+	ATTACHMENTPOINT4,
+	ATTACHMENTPOINT5,
+	ATTACHMENTPOINT6,
+	ATTACHMENTPOINT7,
+	ATTACHMENTPOINT8,
+	ATTACHMENTPOINT9,
+	ATTACHMENTPOINT10,
+	ATTACHMENTPOINT11,
+	ATTACHMENTPOINT12,
+	ATTACHMENTPOINT13,
+	ATTACHMENTPOINT14,
+	ATTACHMENTPOINT15,
+	ATTACHMENTPOINT16,
+	ATTACHMENTPOINT17,
+	ATTACHMENTPOINT18,
+	ATTACHMENTPOINT19,
+	ATTACHMENTPOINT20,
+	ATTACHMENTPOINT21,
+	ATTACHMENTPOINT22,
+	ATTACHMENTPOINT23,
+	ATTACHMENTPOINT24,
+	ATTACHMENTPOINT25,
+	ATTACHMENTPOINT26,
+	ATTACHMENTPOINT27,
+	ATTACHMENTPOINT28,
+	ATTACHMENTPOINT29,
+	ATTACHMENTPOINT30,
+	ATTACHMENTPOINT31,
+	NUM_ATTACH_SLOTS
+};
 #define INVALIDCURS 0
 #define QUESTCURS 1
 #define PUNCHCURS 2
@@ -152,7 +186,9 @@ extern	int	SMALLPOCKFINAL		;//= NUM_INV_SLOTS;//RESET in initInventory
 #define USABLE          10      // minimum work% of items to still be usable
 
 #define MAX_OBJECTS_PER_SLOT 255
-#define MAX_ATTACHMENTS 4
+#define MAX_ATTACHMENTS 32
+#define MAX_DEFAULT_ATTACHMENTS 20
+extern UINT16 LAST_SLOT_INDEX;
 #define MAX_MONEY_PER_SLOT 20000
 
 typedef enum
@@ -418,6 +454,10 @@ public:
 	~StackedObjectData();
 	void	initialize() {attachments.clear(); data.initialize();};
 	OBJECTTYPE* GetAttachmentAtIndex(UINT8 index);
+	BOOLEAN	RemoveAttachmentAtIndex(UINT8 index, attachmentList::iterator * returnIter = NULL);
+	attachmentList::iterator RemoveAttachmentAtIter(attachmentList::iterator iter);
+	BOOLEAN	AddAttachmentAtIndex(UINT8 index, OBJECTTYPE pObj);
+	UINT16 AttachmentListSize();
 	bool operator==(StackedObjectData& compare);
 	bool operator==(const StackedObjectData& compare)const;
 
@@ -446,6 +486,7 @@ public:
 	// Destructor
 	~OBJECTTYPE();
 
+	const StackedObjectData* operator[](const unsigned int index) const;
 	StackedObjectData* operator[](const unsigned int index);
 
 	// Initialize the soldier.  
@@ -474,9 +515,10 @@ private://these are only helpers for the above functions
 	bool	CanStack(OBJECTTYPE& sourceObject, int& numToStack);
 public:
 
-	BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachment, BOOLEAN playSound = TRUE, UINT8 subObject = 0);
-	BOOLEAN RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNewObj = NULL, UINT8 subObject = 0);
-
+	BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachment, BOOLEAN playSound = TRUE, UINT8 subObject = 0, INT32 iItemPos = -1, BOOLEAN fRemoveProhibited = TRUE, std::vector<UINT16> usAttachmentSlotIndexVector = std::vector<UINT16>());
+	BOOLEAN AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachment, BOOLEAN playSound = TRUE, UINT8 subObject = 0);
+	BOOLEAN AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachment, BOOLEAN playSound = TRUE, UINT8 subObject = 0, INT32 iItemPos = -1, BOOLEAN fRemoveProhibited = TRUE, std::vector<UINT16> usAttachmentSlotIndexVector = std::vector<UINT16>());
+	BOOLEAN RemoveAttachment( OBJECTTYPE* pAttachment, OBJECTTYPE * pNewObj = NULL, UINT8 subObject = 0, SOLDIERTYPE * pSoldier = NULL, BOOLEAN fForceInseperable = FALSE, BOOLEAN fRemoveProhibited = TRUE);
 
 	//see comments in .cpp
 	static	void DeleteMe(OBJECTTYPE** ppObject);
@@ -500,6 +542,7 @@ public:
 #define SIZEOF_OBJECTTYPE_POD	(offsetof(OBJECTTYPE, endOfPOD))
 
 	StackedObjects		objectStack;
+//	std::vector<UINT16>	usAttachmentSlotIndexVector;	//WarmSteel - This holds the slots indexes this weapon has.  -- CHRISL: Can't have this here because of item stacks
 };
 
 extern OBJECTTYPE gTempObject;
@@ -540,6 +583,39 @@ extern OBJECTTYPE gTempObject;
 #define IC_BOBBY_GUN			( IC_GUN | IC_LAUNCHER )
 #define IC_BOBBY_MISC			( IC_GRENADE | IC_BOMB | IC_MISC | IC_MEDKIT | IC_KIT | IC_BLADE | IC_THROWING_KNIFE | IC_PUNCH | IC_FACE | IC_LBEGEAR )
 
+// Chrisl: Define attachment classes
+#define AC_DEFAULT1		0x00000001	//1
+#define AC_BARREL		0x00000002	//2
+#define AC_LASER		0x00000004	//4
+#define AC_SIGHT		0x00000008	//8
+#define AC_SCOPE		0x00000010	//16
+#define AC_STOCK		0x00000020	//32
+#define AC_AMMO			0x00000040	//64
+#define AC_INTERNAL		0x00000080	//128
+#define AC_EXTERNAL		0x00000100	//256
+#define AC_UNDERBARREL	0x00000200	//512
+#define AC_GRENADE		0x00000400	//1024
+#define AC_ROCKET		0x00000800	//2048
+#define AC_MISC1		0x00001000	//4096
+#define AC_MISC2		0x00002000	//8192
+#define AC_MISC3		0x00004000	//16384
+#define AC_MISC4		0x00008000	//32768
+#define AC_MISC5		0x00010000	//65536
+#define AC_MISC6		0x00020000	//131072
+#define AC_MISC7		0x00040000	//262144
+#define AC_MISC8		0x00080000	//524288
+#define AC_MISC9		0x00100000	//1048576
+#define AC_MISC10		0x00200000	//2097152
+#define AC_MISC11		0x00400000	//4194304
+#define AC_MISC12		0x00800000	//8388608
+#define AC_MISC13		0x01000000	//16777216
+#define AC_MISC14		0x02000000	//33554432
+#define AC_MISC15		0x04000000	//67108864
+#define AC_MISC16		0x08000000	//134217728
+#define AC_MISC17		0x10000000	//268435456
+#define AC_MISC18		0x20000000	//536870912
+#define AC_MISC19		0x40000000	//1073741824
+#define AC_MISC20		0x80000000	//2147483648
 
 // replaces candamage
 //#define ITEM_DAMAGEABLE			0x0001
@@ -585,9 +661,26 @@ extern OBJECTTYPE gTempObject;
 
 //#define EXPLOSIVE_GUN( x ) ( x == ROCKET_LAUNCHER || x == TANK_CANNON || x == RPG7 )
 
+// HEADROCK HAM 4: As part of NCTH, over a dozen new variables have been added to the item struct. About the same number
+// have also been removed. The new variables relate to the way the new shooting mechanism works, and obviously the ones
+// taken out are no longer used anywhere as a result. Note that most of these new variables, the ones having to do with
+// the CTH part of the shooting mechanism, come in size-3 arrays. The first item ([0]) represents modifiers given when the
+// character is standing. [1] represents crouched, and [2] represents prone. Read more about how this is read from XML
+// in the XML-reader formula.
+// Removed vars:
+// bipod, 
+// tohitbonus,
+// bestlaserrange,
+// aimbonus,
+// minrangeforaimbonus,
+// autofiretohitbonus,
+// bursttohitbonus
+
 typedef struct
 {
 	UINT32		usItemClass;
+	UINT32		nasAttachmentClass;	//CHRISL: Identify the class of attachment
+	UINT32		nasLayoutClass;
 	UINT16			ubClassIndex;
 	UINT8			ubCursor;
 	INT8			bSoundType;
@@ -658,7 +751,8 @@ typedef struct
 	BOOLEAN singleshotrocketlauncher;
 	UINT16	discardedlauncheritem;
 	BOOLEAN brassknuckles;
-	UINT16  bloodieditem;
+	//*** ddd UINT16  bloodieditem;
+	INT16  bloodieditem;
 	BOOLEAN crowbar;
 	BOOLEAN glgrenade;
 	BOOLEAN flakjacket;
@@ -719,16 +813,41 @@ typedef struct
 
 	BOOLEAN scifi; // item only available in scifi mode
 	BOOLEAN newinv;	// item only available in new inventory mode
+	UINT8 ubAttachmentSystem; //Item availability per attachment system: 0 = both, 1 = OAS, 2 = NAS
 
-	UINT16 defaultattachment;
+	UINT16 defaultattachments[MAX_DEFAULT_ATTACHMENTS]; //Need more default attachments, chose an array to do so. (no vector / list just to keep this all plain data)
 
 	//zilpin: pellet spread patterns externalized in XML
 	INT32 spreadPattern;
+
+	// HEADROCK HAM 4: New variable arrays for the New CTH system.
+	INT16 flatbasemodifier[3];
+	INT16 percentbasemodifier[3];
+	INT16 flataimmodifier[3];
+	INT16 percentaimmodifier[3];
+	INT16 percentcapmodifier[3];
+	INT16 percenthandlingmodifier[3];
+	INT16 percentdropcompensationmodifier[3];
+	INT16 maxcounterforcemodifier[3];
+	INT16 counterforceaccuracymodifier[3];
+	INT16 counterforcefrequencymodifier[3];
+	INT16 targettrackingmodifier[3];
+	INT16 aimlevelsmodifier[3];
+	// HEADROCK HAM 4: New modifiers that do not require a stance array, since they affect the gun objectively, not
+	// subjectively.
+	INT16 RecoilModifierX;
+	INT16 RecoilModifierY;
+	INT16 PercentRecoilModifier;
+	INT16 percentaccuracymodifier;
+	FLOAT scopemagfactor;
+	FLOAT projectionfactor;
+	BOOLEAN speeddot;
 
 } INVTYPE;
 
 // CHRISL: Added new structures to handle LBE gear and the two new XML files that will be needed to deal
 // with the IC pockets and the new inventory system.
+//DBrot: Increased the LBE combo to 32bit to allow for multiple combos (using a bitwise system)
 class LBETYPE{
 public:
 	LBETYPE();
@@ -737,7 +856,7 @@ public:
 	~LBETYPE();
 	UINT16			lbeIndex;
 	UINT32			lbeClass;
-	UINT8			lbeCombo;
+	UINT32			lbeCombo;
 	UINT8			lbeFilledSize;
 	char			POD;
 	std::vector<UINT8>	lbePocketIndex;
@@ -1236,7 +1355,43 @@ const INT16	icDefault[NUM_INV_SLOTS] =	{
 #define MAXATTACHMENTS 30000
 
 extern INVTYPE Item[MAXITEMS];
-extern UINT16 Attachment[MAXATTACHMENTS][3];
+extern UINT16 Attachment[MAXATTACHMENTS][4];
+
+//WarmSteel - Here we have some definitions for NAS
+typedef struct
+{
+	UINT16	uiSlotIndex;
+	CHAR16	szSlotName[200];
+	UINT32	nasAttachmentClass;
+	UINT128	nasLayoutClass;
+	UINT16	usDescPanelPosX;
+	UINT16	usDescPanelPosY;
+	BOOLEAN	fMultiShot;
+	BOOLEAN	fBigSlot;
+} AttachmentSlotStruct;
+
+extern AttachmentSlotStruct AttachmentSlots[MAXITEMS+1]; 
+
+typedef struct
+{
+	UINT32	uiIndex;
+	UINT32	OIV;
+	UINT32	NIV;
+	UINT32	OAS;
+	UINT32	NAS;
+} ItemReplacementStruct;
+
+extern ItemReplacementStruct ItemReplacement[MAXATTACHMENTS];
+
+typedef struct
+{
+	std::vector<UINT16> usItemExclude;
+	std::vector<UINT16> usItemInclude;
+	std::vector<UINT16> ubWeaponClass;
+	std::vector<UINT16> usAddsSlots;
+	std::vector<UINT16> usRemovesSlots;
+
+} AlterationStruct;
 
 typedef struct
 {
@@ -1302,22 +1457,45 @@ enum
 	IMP_EXPLOSIVE,
 	IMP_MECHANICAL,
 	IMP_MEDICAL,
-//SKILLS
-	IMP_HTH,
-	IMP_MARTIALARTS,
-	IMP_NIGHTOPS,
+//SKILLS - SANDRO was here
+	IMP_AUTO_WEAPONS,
+	IMP_HEAVY_WEAPONS,
+	IMP_SNIPER,
+	IMP_RANGER,
+	IMP_GUNSLINGER,
+	IMP_MARTIAL_ARTS,
+	IMP_SQUADLEADER,
+	IMP_TECHNICIAN,
+	IMP_DOCTOR,
+	IMP_AMBIDEXTROUS,
+	IMP_MELEE,
+	IMP_THROWING,
+	IMP_NIGHT_OPS,
 	IMP_STEALTHY,
-	IMP_PROF_SNIPER,
+	IMP_ATHLETICS,
+	IMP_BODYBUILDING,
+	IMP_DEMOLITIONS,
+	IMP_TEACHING,
+	IMP_SCOUTING,
 	IMP_LOCKPICKING,
 	IMP_ELECTRONICS,
-	IMP_THROWING,
-	IMP_KNIFING,
-	IMP_HEAVYWEAPONS,
-	IMP_AUTOWEAPONS,
-	IMP_AMBIDEXTROUS,
 	IMP_CAMOUFLAGED,
-	IMP_TEACHING,
-	IMP_THIEF,
+// DBrot: added seperate choices for experts	
+	IMP_AUTO_WEAPONS_EXP,
+	IMP_HEAVY_WEAPONS_EXP,
+	IMP_SNIPER_EXP,
+	IMP_RANGER_EXP,
+	IMP_GUNSLINGER_EXP,
+	IMP_MARTIAL_ARTS_EXP,
+	IMP_SQUADLEADER_EXP,
+	IMP_TECHNICIAN_EXP,
+	IMP_DOCTOR_EXP,
+	IMP_MELEE_EXP,
+	IMP_THROWING_EXP,
+	IMP_NIGHT_OPS_EXP,
+	IMP_STEALTHY_EXP,
+	IMP_TEACHING_EXP,
+	IMP_LOCKPICKING_EXP,
 
 	MAX_IMP_ITEM_TYPES
 };

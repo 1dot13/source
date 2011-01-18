@@ -141,7 +141,7 @@ void SetupTextInputForMapInfo()
 	swprintf( str, L"%d", gExitGrid.ubGotoSectorZ );
 	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 383, 30, 18, MSYS_PRIORITY_NORMAL, str, 1, INPUTTYPE_NUMERICSTRICT );
 	swprintf( str, L"%d", gExitGrid.usGridNo );
-	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 403, 40, 18, MSYS_PRIORITY_NORMAL, str, 5, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 403, 45, 18, MSYS_PRIORITY_NORMAL, str, 6, INPUTTYPE_NUMERICSTRICT );
 }
 
 void UpdateMapInfo()
@@ -183,8 +183,8 @@ void UpdateMapInfo()
 	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 372, L"Sector" );
 	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 383, L"Destination");
 	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 392, L"Bsmt. Level" );
-	mprintf( iScreenWidthOffset + 378, 2 * iScreenHeightOffset + 403, L"Dest." );
-	mprintf( iScreenWidthOffset + 378, 2 * iScreenHeightOffset + 412, L"GridNo" );
+	mprintf( iScreenWidthOffset + 383, 2 * iScreenHeightOffset + 403, L"Dest." );
+	mprintf( iScreenWidthOffset + 383, 2 * iScreenHeightOffset + 412, L"GridNo" );
 	SetFontForeground( FONT_RED );
 }
 

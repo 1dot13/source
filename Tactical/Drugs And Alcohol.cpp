@@ -10,6 +10,7 @@
 	#include "morale.h"
 	#include "points.h"
 	#include "message.h"
+	#include "GameSettings.h" // SANDRO - had to add this, dammit!
 #include "Random.h"
 #include "Text.h"
 #include "Interface.h"
@@ -151,30 +152,84 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 				// Keel over...
 				DeductPoints( pSoldier, 0, 10000 );
 
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				// SANDRO - if our stat is damaged through facility event, make it healable
 				// Permanently lower certain stats...
-				pSoldier->stats.bWisdom	-= 5;
-				pSoldier->stats.bDexterity -= 5;
-				pSoldier->stats.bStrength	-= 5;
+				if ( gGameOptions.fNewTraitSystem )
+				{
+					// WISDOM decrease
+					if ( pSoldier->stats.bWisdom > 5 )
+					{
+						pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_WISDOM ] += 5;
+						pSoldier->stats.bWisdom -= 5;
+					}
+					else
+					{
+						pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_WISDOM ] += (pSoldier->stats.bWisdom - 1);
+						pSoldier->stats.bWisdom = 1;
+					}
+					// DEXTERITY decrease
+					if ( pSoldier->stats.bDexterity > 5 )
+					{
+						pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_DEXTERITY ] += 5;
+						pSoldier->stats.bDexterity -= 5;
+					}
+					else
+					{
+						pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_DEXTERITY ] += (pSoldier->stats.bDexterity - 1);
+						pSoldier->stats.bDexterity = 1;
+					}
+					// STRENGTH decrease
+					if ( pSoldier->stats.bStrength > 5 )
+					{
+						pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_STRENGTH ] += 5;
+						pSoldier->stats.bStrength -= 5;
+					}
+					else
+					{
+						pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_STRENGTH ] += (pSoldier->stats.bStrength - 1);
+						pSoldier->stats.bStrength = 1;
+					}
+					// AGILITY decrease
+					if ( pSoldier->stats.bAgility > 5 )
+					{
+						pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_AGILITY ] += 5;
+						pSoldier->stats.bAgility -= 5;
+					}
+					else
+					{
+						pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_AGILITY ] += (pSoldier->stats.bAgility - 1);
+						pSoldier->stats.bAgility = 1;
+					}
+				}
+				else // old system
+				{
+					pSoldier->stats.bAgility	= __max(1, pSoldier->stats.bWisdom-5);
+					pSoldier->stats.bDexterity	= __max(1, pSoldier->stats.bDexterity-5);
+					pSoldier->stats.bStrength	= __max(1, pSoldier->stats.bStrength-5);
+					pSoldier->stats.bAgility	= __max(1, pSoldier->stats.bAgility-5);
 
-				if (pSoldier->stats.bWisdom < 1)
-					pSoldier->stats.bWisdom = 1;
-				if (pSoldier->stats.bDexterity < 1)
-					pSoldier->stats.bDexterity = 1;
-				if (pSoldier->stats.bStrength < 1)
-					pSoldier->stats.bStrength = 1;
+					// make those stats RED for a while...
+					// SANDRO - we don't need to do this with new system, as we simply show all damaged stats in red until healed
+					pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
+					pSoldier->usValueGoneUp &= ~( WIS_INCREASE );
+					pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
+					pSoldier->usValueGoneUp &= ~( DEX_INCREASE );
+					pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
+					pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
+					pSoldier->timeChanges.uiChangeAgilityTime = GetJA2Clock();
+					pSoldier->usValueGoneUp &= ~( AGIL_INCREASE );
+				}
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 				// export stat changes to profile
 				gMercProfiles[ pSoldier->ubProfile ].bWisdom	= pSoldier->stats.bWisdom;
 				gMercProfiles[ pSoldier->ubProfile ].bDexterity = pSoldier->stats.bDexterity;
 				gMercProfiles[ pSoldier->ubProfile ].bStrength	= pSoldier->stats.bStrength;
+				gMercProfiles[ pSoldier->ubProfile ].bAgility	= pSoldier->stats.bAgility;
 
-				// make those stats RED for a while...
-				pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
-				pSoldier->usValueGoneUp &= ~( WIS_INCREASE );
-				pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
-				pSoldier->usValueGoneUp &= ~( DEX_INCREASE );
-				pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
-				pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
+				// SANDRO - merc records - stat damaged
+				gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
 			}
 		}
 	}
@@ -308,9 +363,16 @@ void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier )
 		// increase life
 		pSoldier->stats.bLife = __min( pSoldier->stats.bLife + LIFE_GAIN_PER_REGEN_POINT, pSoldier->stats.bLifeMax );
 
+		//SANDRO - Insta-healable injury reduction
+		if( pSoldier->iHealableInjury > 0 )
+		{
+			pSoldier->iHealableInjury = max(0, (pSoldier->iHealableInjury - (100 * LIFE_GAIN_PER_REGEN_POINT)));
+		}
+
 		if ( pSoldier->stats.bLife == pSoldier->stats.bLifeMax )
 		{
 			pSoldier->bBleeding = 0;
+			pSoldier->iHealableInjury = 0;
 		}
 		else if ( pSoldier->bBleeding + pSoldier->stats.bLife > pSoldier->stats.bLifeMax )
 		{

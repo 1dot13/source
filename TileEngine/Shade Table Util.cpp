@@ -12,7 +12,7 @@
 	#include "Fileman.h"
 #endif
 
-#include "VFS/vfs.h"
+#include <vfs/Core/vfs.h>
 
 #define		SHADE_TABLE_DIR				"ShadeTables"
 

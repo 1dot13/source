@@ -45,6 +45,7 @@
 	#include "ai.h"
 	#include "Strategic Mines.h"
 	#include "math.h"
+	#include "Game Clock.h" // added this one - SANDRO
 #endif
 
 #include "connect.h"
@@ -67,6 +68,7 @@
 
 #define MAX_PALACE_DISTANCE		20
 
+INT8 bNumSquadleadersInArmy = 0; // added by SANDRO
 
 OLD_SOLDIERCREATE_STRUCT_101::OLD_SOLDIERCREATE_STRUCT_101() {
 	initialize();
@@ -545,7 +547,7 @@ void DecideToAssignSniperOrders( SOLDIERCREATE_STRUCT * pp )
 	if ( pp->bOrders == STATIONARY || pp->bOrders == ONGUARD )
 	{
 		// 30% of anybody w/a scope and decent range being a sniper, 80% chance of a guy w/a sniper rifle being a sniper
-		if ( (GunRange(&pp->Inv[HANDPOS]) >= 40 && IsScoped(&pp->Inv[HANDPOS]) && Random(100) < 30) || ( Weapon[pp->Inv[HANDPOS].usItem].ubWeaponType == GUN_SN_RIFLE && IsScoped(&pp->Inv[HANDPOS]) && Random(100) < 80 ) )
+		if ( (GunRange(&pp->Inv[HANDPOS], NULL) >= 40 && IsScoped(&pp->Inv[HANDPOS]) && Random(100) < 30) || ( Weapon[pp->Inv[HANDPOS].usItem].ubWeaponType == GUN_SN_RIFLE && IsScoped(&pp->Inv[HANDPOS]) && Random(100) < 80 ) ) // SANDRO - added argument forGunRange
 		{
 			pp->bOrders = SNIPER;
 
@@ -1173,6 +1175,9 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 	pSoldier->stats.bExplosive								= pProfile->bExplosive;
 	pSoldier->stats.bScientific								= pProfile->bScientific;
 
+	// added by SANDRO - insta-healable injury zero on soldier creation
+	pSoldier->iHealableInjury = 0; 
+
 	pSoldier->bVocalVolume							= MIDVOLUME;
 	pSoldier->uiAnimSubFlags						= pProfile->uiBodyTypeSubFlags;
 	pSoldier->ubBodyType								= pProfile->ubBodyType;
@@ -1181,8 +1186,13 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 //	pSoldier->bAssignment=ON_DUTY;
 
 	pSoldier->bOldAssignment = NO_ASSIGNMENT;
-	pSoldier->stats.ubSkillTrait1 = pProfile->bSkillTrait;
-	pSoldier->stats.ubSkillTrait2 = pProfile->bSkillTrait2;
+	for ( INT8 bCnt = 0; bCnt < 30; bCnt++ )
+	{
+		pSoldier->stats.ubSkillTraits[ bCnt ] = pProfile->bSkillTraits[ bCnt ];	
+	}
+	//pSoldier->stats.ubSkillTrait2 = pProfile->bSkillTrait2;
+	//if ( gGameOptions.fNewTraitSystem )
+	//	pSoldier->stats.ubSkillTrait3 = pProfile->bSkillTrait3; // added by SANDRO - 3rd skill trait
 
 	pSoldier->aiData.bOrders								= pCreateStruct->bOrders;
 	pSoldier->aiData.bAttitude							= pCreateStruct->bAttitude;
@@ -1190,25 +1200,34 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 	pSoldier->aiData.bPatrolCnt						= pCreateStruct->bPatrolCnt;
 	memcpy( pSoldier->aiData.sPatrolGrid, pCreateStruct->sPatrolGrid, sizeof( INT32 ) * MAXPATROLGRIDS );
 
-	if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED ) )
+	// SANDRO - Well, it is nonsense to have 4 traits for this, one is enough, as we can now repaint the camo type by another one
+	if ( !gGameOptions.fNewTraitSystem )
 	{
-		// set camouflaged to 100 automatically
-		pSoldier->bCamo = 100;
-	}
-	if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_URBAN ) )
-	{
-		// set camouflaged to 100 automatically
-		pSoldier->urbanCamo = 100;
-	}
-	if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_DESERT ) )
-	{
-		// set camouflaged to 100 automatically
-		pSoldier->desertCamo = 100;
-	}
-	if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_SNOW ) )
-	{
-		// set camouflaged to 100 automatically
-		pSoldier->snowCamo = 100;
+		if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_OT ) )
+		{
+			// set camouflaged to 100 automatically
+			pSoldier->bCamo = 100;
+		}
+		//if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED ) )
+		//{
+		//	// set camouflaged to 100 automatically
+		//	pSoldier->bCamo = 100;
+		//}
+		//if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_URBAN ) )
+		//{
+		//	// set camouflaged to 100 automatically
+		//	pSoldier->urbanCamo = 100;
+		//}
+		//if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_DESERT ) )
+		//{
+		//	// set camouflaged to 100 automatically
+		//	pSoldier->desertCamo = 100;
+		//}
+		//if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_SNOW ) )
+		//{
+		//	// set camouflaged to 100 automatically
+		//	pSoldier->snowCamo = 100;
+		//}
 	}
 	return( TRUE );
 }
@@ -1493,6 +1512,8 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	// Randomize attributes
 	pSoldier->stats.bLife								= pCreateStruct->bLife;
 	pSoldier->stats.bLifeMax							= pCreateStruct->bLifeMax;
+	// added by SANDRO - insta-healable injury zero on soldier creation
+	pSoldier->iHealableInjury = 0; 
 	pSoldier->stats.bAgility							= pCreateStruct->bAgility;
 	pSoldier->stats.bDexterity						= pCreateStruct->bDexterity;
 	pSoldier->stats.bExpLevel							= pCreateStruct->bExpLevel;
@@ -1525,98 +1546,138 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 		sprintf( pSoldier->SkinPal, pCreateStruct->SkinPal );
 	}
 
-	//KM:	March 25, 1999
-	//Assign nightops traits to enemies/militia
-	if( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE || pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	// Added by SANDRO - the enemy/militia has a decent chance to have some traits
+	if ( gGameExternalOptions.fAssignTraitsToEnemy && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) )
+		AssignTraitsToSoldier( pSoldier, pCreateStruct );
+	if ( gGameExternalOptions.fAssignTraitsToMilitia && SOLDIER_CLASS_MILITIA( pSoldier->ubSoldierClass ) )
+		AssignTraitsToSoldier( pSoldier, pCreateStruct );
+	// SANDRO - If neither of these two options are activated, use the original code
+	// however, "no traits" means no traits at all, so commented out
+	/*if ( !(gGameExternalOptions.fAssignTraitsToEnemy) && !(gGameExternalOptions.fAssignTraitsToMilitia) )
 	{
-		INT32 iChance;
-		UINT8	ubProgress;
-
-		ubProgress = HighestPlayerProgressPercentage();
-
-		if ( ubProgress < 60 )
+		//KM:	March 25, 1999
+		//Assign nightops traits to enemies/militia
+		if( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE || pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
 		{
-			// ramp chance from 40 to 80% over the course of 60% progress
-			// 60 * 2/3 = 40, and 40+40 = 80
-			iChance = 40 + (ubProgress * 2) / 3;
-		}
-		else
-		{
-			iChance = 80;
-		}
+			INT32 iChance;
+			UINT8	ubProgress;
 
-		if ( Chance( iChance ) )
-		{
-			pSoldier->stats.ubSkillTrait1 = NIGHTOPS;
-			if ( ubProgress >= 40 && Chance( 30 ) )
+			ubProgress = HighestPlayerProgressPercentage();
+
+			if ( ubProgress < 60 )
 			{
-				pSoldier->stats.ubSkillTrait2 = NIGHTOPS;
+				// ramp chance from 40 to 80% over the course of 60% progress
+				// 60 * 2/3 = 40, and 40+40 = 80
+				iChance = 40 + (ubProgress * 2) / 3;
+			}
+			else
+			{
+				iChance = 80;
+			}
+
+			if ( Chance( iChance ) )
+			{
+				if (gGameOptions.fNewTraitSystem) // SANDRO - new/old traits
+				{
+					pSoldier->stats.ubSkillTrait1 = NIGHT_OPS_NT;
+				}
+				else
+				{
+					pSoldier->stats.ubSkillTrait1 = NIGHTOPS_OT;
+					if ( ubProgress >= 40 && Chance( 30 ) )
+					{
+						pSoldier->stats.ubSkillTrait2 = NIGHTOPS_OT;
+					}
+				}
 			}
 		}
-	}
-	else if( pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY || pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA )
-	{
-		INT32 iChance;
-		UINT8	ubProgress;
-
-		ubProgress = HighestPlayerProgressPercentage();
-
-		if ( ubProgress < 60 )
+		else if( pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY || pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA )
 		{
-			// ramp chance from 0 to 40% over the course of 60% progress
-			// 60 * 2/3 = 40
-			iChance = (ubProgress * 2) / 3;
-		}
-		else
-		{
-			iChance = 40;
-		}
+			INT32 iChance;
+			UINT8	ubProgress;
 
-		if ( Chance( iChance ) )
-		{
-			pSoldier->stats.ubSkillTrait1 = NIGHTOPS;
-			if ( ubProgress >= 50 && Chance( 20 ) )
+			ubProgress = HighestPlayerProgressPercentage();
+
+			if ( ubProgress < 60 )
 			{
-				pSoldier->stats.ubSkillTrait2 = NIGHTOPS;
+				// ramp chance from 0 to 40% over the course of 60% progress
+				// 60 * 2/3 = 40
+				iChance = (ubProgress * 2) / 3;
+			}
+			else
+			{
+				iChance = 40;
+			}
+
+			if ( Chance( iChance ) )
+			{
+				if (gGameOptions.fNewTraitSystem) // SANDRO - new/old traits
+				{
+					pSoldier->stats.ubSkillTrait1 = NIGHT_OPS_NT;
+				}
+				else
+				{
+					pSoldier->stats.ubSkillTrait1 = NIGHTOPS_OT;
+					if ( ubProgress >= 50 && Chance( 20 ) )
+					{
+						pSoldier->stats.ubSkillTrait2 = NIGHTOPS_OT;
+					}
+				}
 			}
 		}
-	}
 
 
 
-	// Lesh: give to enemies AMBIDEXTEROUS skill and a second pistol
-	if( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE || pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
-	{
-		if ( Chance( 20 ) )
+		// Lesh: give to enemies AMBIDEXTEROUS skill and a second pistol
+		if( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE || pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
 		{
-			pSoldier->stats.ubSkillTrait1 = AMBIDEXT;
+			if ( Chance( 20 ) )
+			{
+				if (gGameOptions.fNewTraitSystem) // new/old traits - SANDRO
+					pSoldier->stats.ubSkillTrait1 = AMBIDEXT_OT;
+				else
+					pSoldier->stats.ubSkillTrait1 = AMBIDEXTROUS_NT;
+
+				if ( Chance( 10 ) )
+				{
+					if (gGameOptions.fNewTraitSystem) // new/old traits - SANDRO
+						pSoldier->stats.ubSkillTrait2 = AMBIDEXT_OT;
+					else
+						pSoldier->stats.ubSkillTrait2 = AMBIDEXTROUS_NT;
+				}
+				if ( Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].usItemClass == IC_GUN &&
+					!Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded )
+				{
+					(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
+				}
+			}
+		}
+		else if( pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY || pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA )
+		{
 			if ( Chance( 10 ) )
 			{
-				pSoldier->stats.ubSkillTrait2 = AMBIDEXT;
-			}
-			if ( Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].usItemClass == IC_GUN &&
-				!Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded )
-			{
-				(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
-			}
-		}
-	}
-	else if( pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY || pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA )
-	{
-		if ( Chance( 10 ) )
-		{
-			pSoldier->stats.ubSkillTrait1 = AMBIDEXT;
-			if ( Chance( 5 ) )
-			{
-				pSoldier->stats.ubSkillTrait2 = AMBIDEXT;
-			}
-			if ( Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].usItemClass == IC_GUN &&
-				!Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded )
-			{
-				pCreateStruct->Inv[SECONDHANDPOS] = pCreateStruct->Inv[HANDPOS];
+				if (gGameOptions.fNewTraitSystem) // new/old traits - SANDRO
+					pSoldier->stats.ubSkillTrait1 = AMBIDEXT_OT;
+				else
+					pSoldier->stats.ubSkillTrait1 = AMBIDEXTROUS_NT;
+
+				if ( Chance( 5 ) )
+				{
+					if (gGameOptions.fNewTraitSystem) // new/old traits - SANDRO
+						pSoldier->stats.ubSkillTrait2 = AMBIDEXT_OT;
+					else
+						pSoldier->stats.ubSkillTrait2 = AMBIDEXTROUS_NT;
+				}
+				if ( Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].usItemClass == IC_GUN &&
+					!Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded )
+				{
+					pCreateStruct->Inv[SECONDHANDPOS] = pCreateStruct->Inv[HANDPOS];
+				}
 			}
 		}
-	}
+	}*/
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//KM:	November 10, 1997
 	//Adding patrol points
@@ -1879,8 +1940,8 @@ INT8 CalcDifficultyModifier( UINT8 ubSoldierClass )
 			else
 			{
 				bDiffModifier += (INT8)(DIFF_FACTOR_GAME_DIFFICULTY * 1.5);
-				break;
 			}
+			break;
 	}
 
 
@@ -1895,7 +1956,7 @@ INT8 CalcDifficultyModifier( UINT8 ubSoldierClass )
 	}
 
 	// drop it down a bit if we still don't have any mine income
-	if ( PredictIncomeFromPlayerMines() == 0 )
+	if ( PredictIncomeFromPlayerMines(TRUE) == 0 )
 	{
 		// -5
 		bDiffModifier += DIFF_MODIFIER_NO_INCOME;
@@ -2364,6 +2425,8 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 		if( spp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 		{
 			pp->Inv[ i ] = spp->Inv[ i ];
+			//WarmSteel - if someone in the map editor placed a wrong attachment on this gun, fix it.
+			RemoveProhibitedAttachments(NULL, &pp->Inv[i], pp->Inv[i].usItem);
 			//return;
 		}
 	}
@@ -2447,6 +2510,9 @@ void UpdateSoldierWithStaticDetailedInformation( SOLDIERTYPE *s, SOLDIERCREATE_S
 	if( s->stats.bLife > s->stats.bLifeMax )
 		s->stats.bLife = s->stats.bLifeMax;
 
+	// added by SANDRO - insta-healable injury zero on soldier creation
+	s->iHealableInjury = 0; 
+
 	s->ubScheduleID		=	spp->ubScheduleID;
 
 	//Copy over the current inventory list.
@@ -2514,6 +2580,8 @@ void ModifySoldierAttributesWithNewRelativeLevel( SOLDIERTYPE *s, INT8 bRelative
 	//Stat range is currently 40-99, slightly bell-curved around the bExpLevel
 	s->stats.bLifeMax				= (INT8)(bBaseAttribute + Random( 9 ) + Random( 8 ));
 	s->stats.bLife				= s->stats.bLifeMax;
+	// added by SANDRO - insta-healable injury zero on soldier creation
+	s->iHealableInjury = 0;
 	s->stats.bAgility				= (INT8)(bBaseAttribute + Random( 9 ) + Random( 8 ));
 	s->stats.bDexterity			= (INT8)(bBaseAttribute + Random( 9 ) + Random( 8 ));
 	s->stats.bMarksmanship	= (INT8)(bBaseAttribute + Random( 9 ) + Random( 8 ));
@@ -2987,7 +3055,7 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 				{
 					for ( cnt2 = INV_START_POS; cnt2 < NUM_INV_SLOTS; cnt2++ )
 					{
-						if ( pSoldier->inv[ cnt2 ].exists() == true && ValidAttachment( gTempObject.usItem, pSoldier->inv[ cnt2 ].usItem ) )
+						if ( pSoldier->inv[ cnt2 ].exists() == true && ValidAttachment( gTempObject.usItem, &(pSoldier->inv[ cnt2 ]) ) )
 						{
 							if(pSoldier->inv[ cnt2 ].AttachObject( NULL, &gTempObject, FALSE ))
 							{
@@ -3035,18 +3103,19 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 						// to provide one which doesn't work and would confuse everything.
 						switch( pCreateStruct->ubProfile )
 						{
+							// WANNE: Changed KEY_32 to KEY_8 because we only have 8 keys defined in Items.xml
 							case BREWSTER:
-								if ( pProfile->inv[ cnt ] >= KEY_1 && pProfile->inv[ cnt ] <= KEY_32){
+								if ( pProfile->inv[ cnt ] >= KEY_1 && pProfile->inv[ cnt ] <= KEY_8){
 									fRet = CreateKeyObject( &gTempObject , pProfile->bInvNumber[ cnt ], 19 );
 								}
 								break;
 							case SKIPPER:
-								if ( pProfile->inv[ cnt ] >= KEY_1 && pProfile->inv[ cnt ] <= KEY_32){
+								if ( pProfile->inv[ cnt ] >= KEY_1 && pProfile->inv[ cnt ] <= KEY_8){
 									fRet = CreateKeyObject( &gTempObject, pProfile->bInvNumber[ cnt ], 11 );
 								}
 								break;
 							case DOREEN:
-								if ( pProfile->inv[ cnt ] >= KEY_1 && pProfile->inv[ cnt ] <= KEY_32){
+								if ( pProfile->inv[ cnt ] >= KEY_1 && pProfile->inv[ cnt ] <= KEY_8){
 									fRet = CreateKeyObject( &gTempObject, pProfile->bInvNumber[ cnt ], 32 );
 								}
 						}
@@ -3338,4 +3407,1079 @@ BOOLEAN TranslateArrayFields(void* out, const void* inp, int len, int cmd)//dnl 
 		return(FALSE);
 	}
 	return(TRUE);
+}
+
+// SANDRO - function for resetting Squadleader traits number
+void ResetNumSquadleadersInArmyGroup( void )
+{
+	bNumSquadleadersInArmy = 0;
+}
+
+// SANDRO - Added a function to add traits to soldiers
+BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruct )
+{
+	INT32 iChance;
+	UINT8	ubProgress, ubSolClass;
+	BOOLEAN ATraitAssigned = FALSE;
+	BOOLEAN BTraitAssigned = FALSE;
+	BOOLEAN CTraitAssigned = FALSE;
+
+	ubProgress = HighestPlayerProgressPercentage();
+	ubSolClass = pSoldier->ubSoldierClass;
+
+	// First determine who will be the squadleader for this group (administrators do not get a squadleader
+	if ( gGameOptions.fNewTraitSystem && bNumSquadleadersInArmy < ((ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ARMY) ? gGameOptions.ubDifficultyLevel : 2 ) && 
+		( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA || 
+		  ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) )
+	{
+		// set the first in command 
+		if ( bNumSquadleadersInArmy == 0 )
+		{
+			if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+			{
+				iChance = 100;
+			}
+			else
+			{
+				iChance = 50;
+			}
+			if( gGameExternalOptions.bAssignedTraitsRarity < 0 )
+			{
+				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+			}
+			if( Chance( iChance ) )
+			{
+				pSoldier->stats.ubSkillTraits[0] = SQUADLEADER_NT;
+				// raise level and leadership for this guy
+				pSoldier->stats.bExpLevel = min( 10, (pSoldier->stats.bExpLevel + 1) ); 
+				pSoldier->stats.bLeadership = min( 100, (pSoldier->stats.bLeadership + 20) ); 
+				ATraitAssigned = TRUE;
+
+				bNumSquadleadersInArmy++;
+			}
+		}
+
+		// second level can be given by a chance depending on soldier type
+		if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+		{
+			// 60-100%
+			iChance = 60 + ubProgress * 2/5;
+		}
+		else 
+		{
+			// 30-70%
+			iChance = 30 + ubProgress * 2/5;
+		}
+
+		// modify the chance by preset ini setting
+		if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+		{
+			iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+		}
+
+		if( Chance( iChance ) )
+		{
+			if ( !ATraitAssigned )
+			{
+				pSoldier->stats.ubSkillTraits[0] = SQUADLEADER_NT;
+				// raise level and leadership for this guy
+				pSoldier->stats.bExpLevel = min( 10, (pSoldier->stats.bExpLevel + 1) ); 
+				pSoldier->stats.bLeadership = min( 100, (pSoldier->stats.bLeadership + 20) ); 
+				ATraitAssigned = TRUE;
+
+				bNumSquadleadersInArmy++;
+			}
+			else
+			{
+				pSoldier->stats.ubSkillTraits[1] = SQUADLEADER_NT;
+				// raise level and leadership for this guy
+				pSoldier->stats.bExpLevel = min( 10, (pSoldier->stats.bExpLevel + 1) ); 
+				pSoldier->stats.bLeadership = min( 100, (pSoldier->stats.bLeadership + 20) ); 
+				BTraitAssigned = TRUE;
+
+				bNumSquadleadersInArmy++;
+			}
+		}
+
+	}
+	
+	// Now look what we have in hands and assign traits according to it
+
+	// ASSAULT RIFLE OR LMG - CHANCE FOR AUTO WEAPONS TRAIT
+	if( Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].usItemClass == IC_GUN && 
+		( Weapon[ pCreateStruct->Inv[ HANDPOS ].usItem ].ubWeaponType == GUN_AS_RIFLE ||
+		  Weapon[ pCreateStruct->Inv[ HANDPOS ].usItem ].ubWeaponType == GUN_LMG ) ) 
+	{
+		// setup the chances
+		if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+		{
+			// 50-100%
+			iChance = 50 + ubProgress/2;
+		}
+		else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+		{
+			// 30-80%
+			iChance = 30 + ubProgress/2;
+		}
+		else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+		{
+			// 15-65%
+			iChance = 15 + ubProgress/2;
+		}
+
+		// modify the chance by preset ini setting
+		if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+		{
+			iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+		}
+
+		// Now assign the trait
+		if( Chance( iChance ) )
+		{
+			if ( !ATraitAssigned )
+			{
+				if ( gGameOptions.fNewTraitSystem )
+					pSoldier->stats.ubSkillTraits[0] = AUTO_WEAPONS_NT;
+				else
+					pSoldier->stats.ubSkillTraits[0] = AUTO_WEAPS_OT;
+
+				ATraitAssigned = TRUE;
+
+				// Half chance to assign expert level of the trait
+				if ( Chance( iChance/2 ) && !BTraitAssigned )
+				{
+					if ( gGameOptions.fNewTraitSystem )
+						pSoldier->stats.ubSkillTraits[1] = AUTO_WEAPONS_NT;
+					else
+						pSoldier->stats.ubSkillTraits[1] = AUTO_WEAPS_OT;
+
+					BTraitAssigned = TRUE;
+				}
+			}
+			else if ( !BTraitAssigned )
+			{
+				if ( gGameOptions.fNewTraitSystem )
+					pSoldier->stats.ubSkillTraits[1] = AUTO_WEAPONS_NT;
+				else
+					pSoldier->stats.ubSkillTraits[1] = AUTO_WEAPS_OT;
+
+				BTraitAssigned = TRUE;
+			}
+		}
+	}
+	// SNIPER RIFLE - CHANCE FOR SNIPER TRAIT
+	else if( Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].usItemClass == IC_GUN && 
+		Weapon[ pCreateStruct->Inv[ HANDPOS ].usItem ].ubWeaponType == GUN_SN_RIFLE ) 
+	{
+		// setup the chances
+		if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+		{
+			// 45-95%
+			iChance = 45 + ubProgress/2;
+		}
+		else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+		{
+			// 30-80%
+			iChance = 30 + ubProgress/2;
+		}
+		else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+		{
+			// 15-65%
+			iChance = 15 + ubProgress/2;
+		}
+
+		// modify the chance by preset ini setting
+		if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+		{
+			iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+		}
+
+		// Now assign the trait
+		if( Chance( iChance ) )
+		{
+			if ( !ATraitAssigned )
+			{
+				if ( gGameOptions.fNewTraitSystem )
+					pSoldier->stats.ubSkillTraits[0] = SNIPER_NT;
+				else
+					pSoldier->stats.ubSkillTraits[0] = PROF_SNIPER_OT;
+
+				ATraitAssigned = TRUE;
+
+				// Lower chance to assign expert level of the trait
+				if ( Chance( iChance*2/5 ) && !BTraitAssigned )
+				{
+					if ( gGameOptions.fNewTraitSystem )
+						pSoldier->stats.ubSkillTraits[1] = SNIPER_NT;
+					else
+						pSoldier->stats.ubSkillTraits[1] = PROF_SNIPER_OT;
+
+					BTraitAssigned = TRUE;
+				}
+			}
+			else if ( !BTraitAssigned )
+			{
+				if ( gGameOptions.fNewTraitSystem )
+					pSoldier->stats.ubSkillTraits[1] = SNIPER_NT;
+				else
+					pSoldier->stats.ubSkillTraits[1] = PROF_SNIPER_OT;
+
+				BTraitAssigned = TRUE;
+			}
+		}
+	}
+	// RIFLE OR SHOTGUN - CHANCE FOR RANGER TRAIT (new traits only)
+	else if( Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].usItemClass == IC_GUN && 
+		( Weapon[ pCreateStruct->Inv[ HANDPOS ].usItem ].ubWeaponType == GUN_RIFLE  ||
+		Weapon[ pCreateStruct->Inv[ HANDPOS ].usItem ].ubWeaponType == GUN_SHOTGUN ) ) 
+	{
+		// setup the chances
+		if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+		{
+			// 40-90%
+			iChance = 40 + ubProgress/2;
+		}
+		else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+		{
+			// 25-75%
+			iChance = 25 + ubProgress/2;
+		}
+		else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+		{
+			// 10-60%
+			iChance = 10 + ubProgress/2;
+		}
+
+		// modify the chance by preset ini setting
+		if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+		{
+			iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+		}
+
+		// Now assign the trait
+		if( gGameOptions.fNewTraitSystem ) // for STOMP traits only
+		{
+			if( Chance( iChance ) )
+			{
+				if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = RANGER_NT;
+					ATraitAssigned = TRUE;
+
+					// Lower chance to assign expert level of the trait
+					if ( Chance( iChance*2/5 ) && !BTraitAssigned )
+					{
+						pSoldier->stats.ubSkillTraits[1] = RANGER_NT;
+						BTraitAssigned = TRUE;
+					}
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = RANGER_NT;
+					BTraitAssigned = TRUE;
+				}
+			}
+		}
+		else
+		{
+			// with old traits, we have some chance to gain sniper trait with rifle in hands
+			if( Chance( iChance*2/3 ) && (Weapon[ pCreateStruct->Inv[ HANDPOS ].usItem ].ubWeaponType == GUN_RIFLE) )
+			{
+				if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = PROF_SNIPER_OT;
+					ATraitAssigned = TRUE;
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = PROF_SNIPER_OT;
+					BTraitAssigned = TRUE;
+				}
+			}
+		}
+	}
+	// SMG - CHANCE FOR AUTO WEAPONS TRAIT AND CHANCE FOR A SECOND WEAPON (+GUNSLINGER/AMBIDEXTROUS TRAIT)
+	else if( Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].usItemClass == IC_GUN && 
+		Weapon[ pCreateStruct->Inv[ HANDPOS ].usItem ].ubWeaponType == GUN_SMG ) 
+	{
+		// setup the chances
+		if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+		{
+			// 40-90%
+			iChance = 40 + ubProgress/2;
+		}
+		else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+		{
+			// 25-75%
+			iChance = 25 + ubProgress/2;
+		}
+		else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+		{
+			// 10-60%
+			iChance = 10 + ubProgress/2;
+		}
+
+		// modify the chance by preset ini setting
+		if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+		{
+			iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+		}
+
+		// Now assign the trait - Auto weapons are superior here
+		if( Chance( iChance ) )
+		{
+			if ( !ATraitAssigned )
+			{
+				if ( gGameOptions.fNewTraitSystem )
+					pSoldier->stats.ubSkillTraits[0] = AUTO_WEAPONS_NT;
+				else
+					pSoldier->stats.ubSkillTraits[0] = AUTO_WEAPS_OT;
+
+				ATraitAssigned = TRUE;
+
+				// Half chance to assign expert level of the trait
+				if ( Chance( iChance*2/5 ) && !BTraitAssigned )
+				{
+					if ( gGameOptions.fNewTraitSystem )
+						pSoldier->stats.ubSkillTraits[1] = AUTO_WEAPONS_NT;
+					else
+						pSoldier->stats.ubSkillTraits[1] = AUTO_WEAPS_OT;
+
+					BTraitAssigned = TRUE;
+				}
+			}
+			else if ( !BTraitAssigned )
+			{
+				if ( gGameOptions.fNewTraitSystem )
+					pSoldier->stats.ubSkillTraits[1] = AUTO_WEAPONS_NT;
+				else
+					pSoldier->stats.ubSkillTraits[1] = AUTO_WEAPS_OT;
+
+				BTraitAssigned = TRUE;
+			}
+		}
+		// Chance to gain second weapon
+		if ( Chance( iChance/4 ) && !Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded ) // 1/4 of chance
+		{
+			(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
+
+			// if traits not assigned, small chance to assign Gunslinger/Ambidextrous trait
+			if (!ATraitAssigned )
+			{
+				if ( gGameOptions.fNewTraitSystem )
+				{
+					if ( pSoldier->stats.ubSkillTraits[1] != AMBIDEXTROUS_NT && pSoldier->stats.ubSkillTraits[2] != AMBIDEXTROUS_NT ) // paranoya check
+						pSoldier->stats.ubSkillTraits[0] = AMBIDEXTROUS_NT;
+				}
+				else
+				{
+					if ( pSoldier->stats.ubSkillTraits[1] != AMBIDEXT_OT ) // paranoya check
+						pSoldier->stats.ubSkillTraits[0] = AMBIDEXT_OT;
+				}
+				ATraitAssigned = TRUE;
+			}
+			else if (!BTraitAssigned )
+			{
+				if ( gGameOptions.fNewTraitSystem )
+				{
+					if ( pSoldier->stats.ubSkillTraits[1] != AMBIDEXTROUS_NT && pSoldier->stats.ubSkillTraits[2] != AMBIDEXTROUS_NT ) // paranoya check
+						pSoldier->stats.ubSkillTraits[0] = AMBIDEXTROUS_NT;
+				}
+				else
+				{
+					if ( pSoldier->stats.ubSkillTraits[0] != AMBIDEXT_OT ) // paranoya check
+						pSoldier->stats.ubSkillTraits[1] = AMBIDEXT_OT;
+				}
+				BTraitAssigned = TRUE;
+			}
+			else if (gGameOptions.fNewTraitSystem && (ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA) )
+			{
+				if ( pSoldier->stats.ubSkillTraits[0] != AMBIDEXTROUS_NT && pSoldier->stats.ubSkillTraits[1] != AMBIDEXTROUS_NT ) // paranoya check
+					pSoldier->stats.ubSkillTraits[2] = AMBIDEXTROUS_NT;
+
+				CTraitAssigned = TRUE;
+				return( TRUE ); // We no longer need to continue from here
+			}
+		}
+	}
+	// PISTOL OR MACHINE PISTOL - CHANCE FOR GUNSLINGER/AMBIDEXTROUS TRAIT AND SECOND WEAPON
+	else if( Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].usItemClass == IC_GUN && 
+		( Weapon[ pCreateStruct->Inv[ HANDPOS ].usItem ].ubWeaponType == GUN_PISTOL  ||
+		Weapon[ pCreateStruct->Inv[ HANDPOS ].usItem ].ubWeaponType == GUN_M_PISTOL ) ) 
+	{
+		// setup the chances
+		if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+		{
+			// 40-90%
+			iChance = 40 + ubProgress/2;
+		}
+		else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+		{
+			// 25-75%
+			iChance = 25 + ubProgress/2;
+		}
+		else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+		{
+			// 10-60%
+			iChance = 10 + ubProgress/2;
+		}
+
+		// modify the chance by preset ini setting
+		if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+		{
+			iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+		}
+
+		// Now assign the trait
+		if( Chance( iChance ) )
+		{
+			if ( gGameOptions.fNewTraitSystem )
+			{
+				if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = GUNSLINGER_NT;
+					ATraitAssigned = TRUE;
+
+					// Lower chance to assign expert level of the trait
+					if ( Chance( iChance/2 ) && !BTraitAssigned )
+					{
+						pSoldier->stats.ubSkillTraits[1] = GUNSLINGER_NT;
+						BTraitAssigned = TRUE;
+
+						// elites can have third skill trait
+						if ( Chance( iChance/3 ) && !Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded && 
+							( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA ) )
+						{
+							pSoldier->stats.ubSkillTraits[2] = AMBIDEXTROUS_NT;
+							CTraitAssigned = TRUE;
+							return( TRUE ); // We no longer need to continue from here
+						}
+
+					}
+					// Chance to gain second weapon and ambidextrous trait
+					else if ( Chance( iChance/2 ) && !Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded && !BTraitAssigned  ) // 1/2 of chance
+					{
+						(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
+
+						pSoldier->stats.ubSkillTraits[1] = AMBIDEXTROUS_NT;
+
+						BTraitAssigned = TRUE;
+					}
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = GUNSLINGER_NT;
+					BTraitAssigned = TRUE;
+
+					// elites can have third skill trait
+					if ( Chance( iChance/3 ) && !Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded && 
+						( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA ) )
+					{
+						pSoldier->stats.ubSkillTraits[2] = AMBIDEXTROUS_NT;
+						CTraitAssigned = TRUE;
+						return( TRUE ); // We no longer need to continue from here
+					}
+				}
+			}
+			else // with original traits
+			{
+				if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = AMBIDEXT_OT;
+					ATraitAssigned = TRUE;
+					// Ambidextrous trait gives us second weapon automatically
+					if (!Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded )
+					{
+						(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
+					}
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = AMBIDEXT_OT;
+					BTraitAssigned = TRUE;
+					// Ambidextrous trait gives us second weapon automatically
+					if (!Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded )
+					{
+						(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
+					}
+				}
+			}
+		}
+	}
+	// NO GUN IN HANDS, CONTINUE
+	else
+	{
+	}
+
+	//NOW, IF SOME TRAITS HAVEN'T BEEN ASSIGNED, TRY TO ASSIGN DIFFERENT TRAITS
+	if (!ATraitAssigned || !BTraitAssigned || (!CTraitAssigned && ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )) )
+	{
+		INT8 bLoop;
+		BOOLEAN foundMortar = FALSE;
+		BOOLEAN foundRocketlauncher = FALSE;
+		BOOLEAN foundGrenadelauncher = FALSE;
+		BOOLEAN foundKnife = FALSE;
+		BOOLEAN foundGrenades = FALSE;
+		BOOLEAN foundThrowing = FALSE;
+		BOOLEAN foundHtH = FALSE;
+		BOOLEAN foundMelee = FALSE;
+
+		// FIRST FIND OUT THE COMPOSITION OF OUR GEAR
+		for (bLoop = 0; bLoop < (INT8) pSoldier->inv.size(); bLoop++)
+		{
+			if (pCreateStruct->Inv[bLoop].exists() == true)
+			{
+				if (Item[pCreateStruct->Inv[bLoop].usItem].mortar )
+					foundMortar = TRUE;
+				else if (Item[pCreateStruct->Inv[bLoop].usItem].rocketlauncher )
+					foundRocketlauncher = TRUE;
+				else if (Item[pCreateStruct->Inv[bLoop].usItem].grenadelauncher )
+					foundGrenadelauncher = TRUE;
+				else if (Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == IC_BLADE )
+					foundKnife = TRUE;
+				else if (Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == IC_THROWING_KNIFE )
+					foundThrowing = TRUE;
+				else if (Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == IC_GRENADE )
+					foundGrenades = TRUE;
+				else if ( Item[pCreateStruct->Inv[bLoop].usItem].brassknuckles )
+					foundHtH = TRUE;
+				else if (Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == 128 && // 128 is an identifier of blunt melee weapons
+						 Item[pCreateStruct->Inv[bLoop].usItem].uiIndex != 0 )
+					foundMelee = TRUE;
+			}
+		}
+
+		// NOW BASED ON WHAT WE HAVE FOUND, ASSIGN UNASSIGNED TRAITS
+
+		// HEAVY WEAPONS TRAIT 
+		if ( foundMortar || foundRocketlauncher || foundGrenadelauncher )
+		{
+			// setup basic chances based on soldier type
+			if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				iChance = 45 + ubProgress/2; // 45-95% chance
+			else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+				iChance = 30 + ubProgress/2; // 30-80% chance
+			else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+				iChance = 15 + ubProgress/2; // 15-65% chance
+
+			// adust the chance by the type of heavy weapon
+			if (foundMortar)
+				iChance = 200; // instant chance if we are a mortar guy
+			else if (foundGrenadelauncher)
+				iChance -= 15; // -15% chance if we only have a grenade launcher
+
+			// modify the chance by preset ini setting
+			if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+			{
+				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+			}
+
+			// assign the trait based on the chance
+			if ( Chance( iChance ) )
+			{
+				if ( !ATraitAssigned )
+				{
+					if ( gGameOptions.fNewTraitSystem )
+						pSoldier->stats.ubSkillTraits[0] = HEAVY_WEAPONS_NT;
+					else
+						pSoldier->stats.ubSkillTraits[0] = HEAVY_WEAPS_OT;
+
+					ATraitAssigned = TRUE;
+				
+					// half the chance to be an expert
+					if ( Chance( iChance/2 ) && !BTraitAssigned )
+					{
+						if ( gGameOptions.fNewTraitSystem )
+							pSoldier->stats.ubSkillTraits[1] = HEAVY_WEAPONS_NT;
+						else
+						{
+							pSoldier->stats.ubSkillTraits[1] = HEAVY_WEAPS_OT;
+							return( TRUE ); // We no longer need to continue from here
+						}
+						BTraitAssigned = TRUE;
+					}
+				}
+				else if ( !BTraitAssigned )
+				{
+					if ( gGameOptions.fNewTraitSystem )
+						pSoldier->stats.ubSkillTraits[1] = HEAVY_WEAPONS_NT;
+					else
+					{
+						pSoldier->stats.ubSkillTraits[1] = HEAVY_WEAPS_OT;
+						return( TRUE ); // We no longer need to continue from here
+					}
+					BTraitAssigned = TRUE;
+				}
+			}
+		}
+
+		// MARTIAL ARTS - new traits
+		if (( !ATraitAssigned || !BTraitAssigned ) && gGameOptions.fNewTraitSystem )
+		{
+			// setup basic chances based on soldier type
+			if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				iChance = 20 + ubProgress/4; // 20-45% chance
+			else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+				iChance = 10 + ubProgress/4; // 10-35% chance
+			else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+				iChance = ubProgress/4; // 0-25% chance
+
+			if( foundHtH ) // if found brass knuckless, increase the chance (doesn't happen often)
+				iChance += 35;
+
+			// modify the chance by preset ini setting
+			if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+			{
+				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+			}
+
+			// assign the trait based on the chance
+			if ( Chance( iChance ) )
+			{
+				if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
+					ATraitAssigned = TRUE;
+				
+					// reduced chance to be an expert
+					if ( Chance( iChance/4 ) && !BTraitAssigned )
+					{
+						pSoldier->stats.ubSkillTraits[1] = MARTIAL_ARTS_NT;
+						BTraitAssigned = TRUE;
+					}
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = MARTIAL_ARTS_NT;
+					BTraitAssigned = TRUE;
+				}
+			}
+		}
+
+		// NIGHT OPS TRAIT
+		if ( (DayTime() != TRUE) && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned) )
+		{
+			// setup basic chances based on soldier type
+			if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				iChance = 40 + ubProgress*2/5; // 40-80% chance
+			else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+				iChance = 25 + ubProgress*2/5; // 25-65% chance
+			else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+				iChance = 10 + ubProgress*2/5; // 10-50% chance
+
+			// modify the chance by preset ini setting
+			if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+			{
+				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+			}
+
+			// assign the trait based on the chance
+			if ( Chance( iChance ) )
+			{
+				if ( !ATraitAssigned )
+				{
+					if (gGameOptions.fNewTraitSystem)
+					{
+						pSoldier->stats.ubSkillTraits[0] = NIGHT_OPS_NT;
+						ATraitAssigned = TRUE;
+					}
+					else
+					{
+						pSoldier->stats.ubSkillTraits[0] = NIGHTOPS_OT;
+						ATraitAssigned = TRUE;
+
+						// reduced chance to be an expert
+						if ( Chance( iChance*2/5 ) && !BTraitAssigned )
+						{
+							pSoldier->stats.ubSkillTraits[1] = NIGHTOPS_OT;
+							BTraitAssigned = TRUE;
+							return( TRUE ); // We no longer need to continue from here
+						}
+					}
+				}
+				else if ( !BTraitAssigned )
+				{
+					if (gGameOptions.fNewTraitSystem)
+						pSoldier->stats.ubSkillTraits[1] = NIGHT_OPS_NT;
+					else
+					{
+						pSoldier->stats.ubSkillTraits[1] = NIGHTOPS_OT;
+						return( TRUE ); // We no longer need to continue from here
+					}
+					BTraitAssigned = TRUE;
+				}
+				// allow third only to elites
+				else if ( !CTraitAssigned && gGameOptions.fNewTraitSystem && ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA ))
+				{
+					pSoldier->stats.ubSkillTraits[2] = NIGHT_OPS_NT;
+					CTraitAssigned = TRUE;
+					return( TRUE );
+				}
+			}
+		}
+
+		// THROWING TRAIT
+		if ( (foundThrowing) && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned) )
+		{
+			// setup basic chances based on soldier type
+			if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				iChance = 30 + ubProgress/3 + 30; // 60-92% chance
+			else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+				iChance = 15 + ubProgress/3 + 25; // 40-73% chance
+			else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+				iChance = ubProgress/3 + 20; // 20-53% chance
+
+			// modify the chance by preset ini setting
+			if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+			{
+				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+			}
+
+			// assign the trait based on the chance
+			if ( Chance( iChance ) )
+			{
+				if ( !ATraitAssigned )
+				{
+					if (gGameOptions.fNewTraitSystem)
+					{
+						pSoldier->stats.ubSkillTraits[0] = THROWING_NT;
+						ATraitAssigned = TRUE;
+					}
+					else
+					{
+						pSoldier->stats.ubSkillTraits[0] = THROWING_OT;
+						ATraitAssigned = TRUE;
+
+						// reduced the chance to be an expert
+						if ( Chance( iChance*2/5 ) && !BTraitAssigned )
+						{
+							pSoldier->stats.ubSkillTraits[1] = THROWING_OT;
+							BTraitAssigned = TRUE;
+							return( TRUE ); // We no longer need to continue from here
+						}
+					}
+				}
+				else if ( !BTraitAssigned )
+				{
+					if (gGameOptions.fNewTraitSystem)
+						pSoldier->stats.ubSkillTraits[1] = THROWING_NT;
+					else
+					{
+						pSoldier->stats.ubSkillTraits[1] = THROWING_OT;
+						return( TRUE ); // We no longer need to continue from here
+					}
+
+					BTraitAssigned = TRUE;
+				}
+				// allow third only to elites
+				else if ( !CTraitAssigned && gGameOptions.fNewTraitSystem && ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA ))
+				{
+					pSoldier->stats.ubSkillTraits[2] = THROWING_NT;
+					CTraitAssigned = TRUE;
+					return( TRUE );
+				}
+			}
+		}
+
+		// DEMOLITIONS TRAIT
+		if ( (foundGrenades) && (gGameOptions.fNewTraitSystem)&& (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned) )
+		{
+			// setup basic chances based on soldier type
+			if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				iChance = 20 + ubProgress/3; // 20-53% chance
+			else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+				iChance = 10 + ubProgress/3; // 10-43% chance
+			else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+				iChance = ubProgress/3; // 0-33% chance
+
+			// modify the chance by preset ini setting
+			if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+			{
+				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+			}
+
+			// assign the trait based on the chance
+			if ( Chance( iChance ) )
+			{
+				if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = DEMOLITIONS_NT;
+					ATraitAssigned = TRUE;
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = DEMOLITIONS_NT;
+					BTraitAssigned = TRUE;
+				}
+				// allow third only to elites
+				else if ( !CTraitAssigned && gGameOptions.fNewTraitSystem && ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA ))
+				{
+					pSoldier->stats.ubSkillTraits[2] = DEMOLITIONS_NT;
+					CTraitAssigned = TRUE;
+					return( TRUE );
+				}
+			}
+		}
+
+		// MELEE / KNIFING TRAIT
+		if ( ( foundKnife || (foundMelee && gGameOptions.fNewTraitSystem)) && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned) )
+		{
+			// setup basic chances based on soldier type
+			if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				iChance = 50 + ubProgress*2/5; // 50-90% chance
+			else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+				iChance = 35 + ubProgress*2/5; // 35-75% chance
+			else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+				iChance = 15 + ubProgress*2/5; // 15-55% chance
+
+			// modify the chance by preset ini setting
+			if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+			{
+				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+			}
+
+			// assign the trait based on the chance
+			if ( Chance( iChance ) )
+			{
+				if ( !ATraitAssigned )
+				{
+
+					if (gGameOptions.fNewTraitSystem)
+					{
+						pSoldier->stats.ubSkillTraits[0] = MELEE_NT;
+						ATraitAssigned = TRUE;
+					}
+					else
+					{
+						pSoldier->stats.ubSkillTraits[0] = KNIFING_OT;
+						ATraitAssigned = TRUE;
+
+						// reduced the chance to be an expert
+						if ( Chance( iChance*2/5 ) && !BTraitAssigned )
+						{
+							pSoldier->stats.ubSkillTraits[1] = KNIFING_OT;
+							BTraitAssigned = TRUE;
+							return( TRUE ); // We no longer need to continue from here
+						}
+					}
+				}
+				else if ( !BTraitAssigned )
+				{
+					if (gGameOptions.fNewTraitSystem)
+						pSoldier->stats.ubSkillTraits[1] = MELEE_NT;
+					else
+					{
+						pSoldier->stats.ubSkillTraits[1] = KNIFING_OT;
+						return( TRUE ); // We no longer need to continue from here
+					}
+					BTraitAssigned = TRUE;
+				}
+				// allow third only to elites
+				else if ( !CTraitAssigned && gGameOptions.fNewTraitSystem && ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA ))
+				{
+					pSoldier->stats.ubSkillTraits[2] = MELEE_NT;
+					CTraitAssigned = TRUE;
+					return( TRUE ); // We no longer need to continue from here
+				}
+			}
+		}
+
+		// HAND TO HAND TRAIT - old traits nly
+		if ( foundHtH && !gGameOptions.fNewTraitSystem && (!ATraitAssigned || !BTraitAssigned ) )
+		{
+			// setup basic chances based on soldier type
+			if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				iChance = 40 + ubProgress*2/5; // 40-80% chance
+			else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+				iChance = 25 + ubProgress*2/5; // 25-65% chance
+			else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+				iChance = 10 + ubProgress*2/5; // 10-50% chance
+
+			// modify the chance by preset ini setting
+			if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+			{
+				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+			}
+
+			// assign the trait based on the chance
+			if ( Chance( iChance ) )
+			{
+				if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = HANDTOHAND_OT;
+					ATraitAssigned = TRUE;
+				
+					// half the chance to be an expert
+					if ( Chance( iChance*2/5 ) && !BTraitAssigned )
+					{
+						pSoldier->stats.ubSkillTraits[1] = HANDTOHAND_OT;
+						BTraitAssigned = TRUE;
+						return( TRUE ); // We no longer need to continue from here
+					}
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = HANDTOHAND_OT;
+					BTraitAssigned = TRUE;
+					return( TRUE ); // We no longer need to continue from here
+				}
+			}
+		}
+
+		// MARTIAL ARTS - old traits
+		if (( !ATraitAssigned || !BTraitAssigned ) && !gGameOptions.fNewTraitSystem && (pCreateStruct->bBodyType == REGMALE))
+		{
+			// setup basic chances based on soldier type
+			if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				iChance = 10 + ubProgress/4; // 10-35% chance
+			else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+				iChance = ubProgress/5; // 0-20% chance
+			else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+				iChance = 0; // 0% chance
+
+			// modify the chance by preset ini setting
+			if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+			{
+				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+			}
+
+			// assign the trait based on the chance
+			if ( Chance( iChance ) )
+			{
+				if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = MARTIALARTS_OT;
+					ATraitAssigned = TRUE;
+				
+					// reduced chance to be an expert
+					if ( Chance( iChance/2 ) && !BTraitAssigned )
+					{
+						pSoldier->stats.ubSkillTraits[1] = MARTIALARTS_OT;
+						BTraitAssigned = TRUE;
+						return( TRUE ); // We no longer need to continue from here
+					}
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = MARTIALARTS_OT;
+					BTraitAssigned = TRUE;
+					return( TRUE ); // We no longer need to continue from here
+				}
+			}
+		}
+
+		// BODYBUILDING/ATHLETICS TRAITS (only for new traits)
+		if ( gGameOptions.fNewTraitSystem && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned ) )
+		{
+			// setup basic chances based on soldier type
+			if( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				iChance = 30 + ubProgress/2; // 30-90% chance
+			else if( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA ) 
+				iChance = 10 + ubProgress/2; // 10-60% chance
+			else if( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )  
+				iChance = ubProgress/3; // 0-33% chance
+
+			// modify the chance by preset ini setting
+			if( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+			{
+				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+			}
+
+			// assign the trait based on the chance
+			if ( Chance( iChance ) )
+			{
+				UINT32 uiBodyBuildChance; // chance to geet bodybuilding rather than athletics
+				if ( pSoldier->ubBodyType == BIGMALE ) // big guys more likely take bb
+					uiBodyBuildChance = 90;
+				else if ( pSoldier->ubBodyType == REGFEMALE )  // while women athletics
+					uiBodyBuildChance = 10;
+				else
+					uiBodyBuildChance = 60; // normally prefer bb a bit
+
+				if ( Chance( uiBodyBuildChance ) )
+				{
+					if ( !ATraitAssigned )
+					{
+						pSoldier->stats.ubSkillTraits[0] = BODYBUILDING_NT;
+						ATraitAssigned = TRUE;
+					}
+					else if ( !BTraitAssigned )
+					{
+						pSoldier->stats.ubSkillTraits[1] = BODYBUILDING_NT;
+						BTraitAssigned = TRUE;
+					}
+					else if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+					{
+						pSoldier->stats.ubSkillTraits[2] = BODYBUILDING_NT;
+						CTraitAssigned = TRUE;
+						return( TRUE ); // We no longer need to continue from here
+					}
+					// give us also a small chance to get athletics on top
+					if ( Chance( iChance/3 ) && ( !ATraitAssigned || !BTraitAssigned || !CTraitAssigned ))
+					{
+						if ( !ATraitAssigned )
+						{
+							pSoldier->stats.ubSkillTraits[0] = ATHLETICS_NT;
+							ATraitAssigned = TRUE;
+						}
+						else if ( !BTraitAssigned )
+						{
+							pSoldier->stats.ubSkillTraits[1] = ATHLETICS_NT;
+							BTraitAssigned = TRUE;
+						}
+						else if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+						{
+							pSoldier->stats.ubSkillTraits[2] = ATHLETICS_NT;
+							CTraitAssigned = TRUE;
+							return( TRUE ); // We no longer need to continue from here
+						}
+					}
+				}
+				else
+				{
+					if ( !ATraitAssigned )
+					{
+						pSoldier->stats.ubSkillTraits[0] = ATHLETICS_NT;
+						ATraitAssigned = TRUE;
+					}
+					else if ( !BTraitAssigned )
+					{
+						pSoldier->stats.ubSkillTraits[1] = ATHLETICS_NT;
+						BTraitAssigned = TRUE;
+					}
+					else if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+					{
+						pSoldier->stats.ubSkillTraits[2] = ATHLETICS_NT;
+						CTraitAssigned = TRUE;
+						return( TRUE ); // We no longer need to continue from here
+					}
+					// give us also a small chance to get bodybuilding on top
+					if ( Chance( iChance/3 ) && ( !ATraitAssigned || !BTraitAssigned || !CTraitAssigned ))
+					{
+						if ( !ATraitAssigned )
+						{
+							pSoldier->stats.ubSkillTraits[0] = BODYBUILDING_NT;
+							ATraitAssigned = TRUE;
+						}
+						else if ( !BTraitAssigned )
+						{
+							pSoldier->stats.ubSkillTraits[1] = BODYBUILDING_NT;
+							BTraitAssigned = TRUE;
+						}
+						else if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+						{
+							pSoldier->stats.ubSkillTraits[2] = BODYBUILDING_NT;
+							CTraitAssigned = TRUE;
+							return( TRUE ); // We no longer need to continue from here
+						}
+					}
+				}
+			}
+		}
+	}
+	// RETURN TRUE IF ALL TRAITS ASSIGNED OTHERWISE FALSE
+	if (( !gGameOptions.fNewTraitSystem && ATraitAssigned && BTraitAssigned ) || ( gGameOptions.fNewTraitSystem && ATraitAssigned && BTraitAssigned && CTraitAssigned ) ) 
+		return( TRUE );
+	else
+		return( FALSE );
 }

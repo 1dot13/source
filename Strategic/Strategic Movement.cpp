@@ -71,10 +71,9 @@ GROUP *gpPendingSimultaneousGroup = NULL;
 extern BOOLEAN fMapScreenBottomDirty;
 extern BOOLEAN gfUsePersistantPBI;
 
-#ifdef JA2BETAVERSION
-	extern BOOLEAN gfExitViewer;
-	void ValidateGroups( GROUP *pGroup );
-#endif
+extern BOOLEAN gfExitViewer;
+BOOLEAN ValidateGroups( GROUP *pGroup );
+
 
 extern BOOLEAN gubNumAwareBattles;
 extern INT8 SquadMovementGroups[ ];
@@ -1168,9 +1167,11 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 		//then we will go straight to autoresolve, where the enemy will likely annihilate them or capture them.
 		//If there are no alive mercs, then there is nothing anybody can do.	The enemy will completely ignore
 		//this, and continue on.
-		#ifdef JA2BETAVERSION
-			ValidateGroups( pGroup );
-		#endif
+
+		// WANNE: ValidateGroups now returns a BOOLEAN Value (TRUE/FALSE) if the attacking is valid.
+		// This fixes the problem that 0 enemies could attack a sector
+		if (!ValidateGroups( pGroup ))
+			return FALSE;
 
 		StopTimeCompression();
 
@@ -1581,7 +1582,7 @@ void AddCorpsesToBloodcatLair( INT16 sSectorX, INT16 sSectorY )
 	Corpse.usFlags = ROTTING_CORPSE_FIND_SWEETSPOT_FROM_GRIDNO;
 
 	// 1st gridno
-	Corpse.sGridNo								= 14319;
+	Corpse.sGridNo								= 14319; //dnl!!!
 	ConvertGridNoToXY( Corpse.sGridNo, &sXPos, &sYPos );
 	Corpse.dXPos									= (FLOAT)( CenterX( sXPos ) );
 	Corpse.dYPos									= (FLOAT)( CenterY( sYPos ) );
@@ -1591,7 +1592,7 @@ void AddCorpsesToBloodcatLair( INT16 sSectorX, INT16 sSectorY )
 
 
 	// 2nd gridno
-	Corpse.sGridNo								= 9835;
+	Corpse.sGridNo								= 9835; //dnl!!!
 	ConvertGridNoToXY( Corpse.sGridNo, &sXPos, &sYPos );
 	Corpse.dXPos									= (FLOAT)( CenterX( sXPos ) );
 	Corpse.dYPos									= (FLOAT)( CenterY( sYPos ) );
@@ -1601,7 +1602,7 @@ void AddCorpsesToBloodcatLair( INT16 sSectorX, INT16 sSectorY )
 
 
 	// 3rd gridno
-	Corpse.sGridNo								= 11262;
+	Corpse.sGridNo								= 11262; //dnl!!!
 	ConvertGridNoToXY( Corpse.sGridNo, &sXPos, &sYPos );
 	Corpse.dXPos									= (FLOAT)( CenterX( sXPos ) );
 	Corpse.dYPos									= (FLOAT)( CenterY( sYPos ) );
@@ -3102,6 +3103,43 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 		if( iTraverseTime < iBestTraverseTime )
 			iBestTraverseTime = iTraverseTime;
 	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	// SANDRO - STOMP traits - ranger reduces time needed for travelling around
+	if( pGroup->fPlayer && !fAir && gGameOptions.fNewTraitSystem)
+	{
+		// see if we have any ranger here
+		UINT8 ubRangerHere = 0;
+		curr = pGroup->pPlayerList;
+		while( curr )
+		{
+			pSoldier = curr->pSoldier;
+			if( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
+				ubRangerHere += NUM_SKILL_TRAITS( pSoldier, RANGER_NT );
+
+			curr = curr->next;
+		}
+		// yes, we have...
+		if( ubRangerHere > 0 )
+		{
+			// no more than certain number of simultaneous bonuses
+			ubRangerHere = min( gSkillTraitValues.ubRAMaxBonusesToTravelSpeed, ubRangerHere );
+			// on foot, the bonus should be higher
+			if( fFoot )
+			{
+				// however, we cannot be quicker than the helicopter
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ( ubRangerHere * gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot )) / 100));
+			}
+			// all other types (except air)
+			else
+			{
+				// however, we cannot be quicker than the helicopter
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ( ubRangerHere * gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle )) / 100));
+			}
+		}
+	}
+	///////////////////////////////////////////////////////////////////////////////
+
 	return iBestTraverseTime;
 }
 
@@ -3277,6 +3315,7 @@ void HandleArrivalOfReinforcements( GROUP *pGroup )
 	{
 		gfPendingEnemies = TRUE;
 		ResetMortarsOnTeamCount();
+		ResetNumSquadleadersInArmyGroup(); // added by SANDRO
 		AddPossiblePendingEnemiesToBattle();
 	}
 	//Update the known number of enemies in the sector.
@@ -4816,18 +4855,75 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 	if( !fAlreadyAmbushed && PlacementType != BLOODCAT_PLACEMENT_STATIC && pSector->bBloodCats > 0 &&
 			!pGroup->fVehicle && !NumEnemiesInSector( pGroup->ubSectorX, pGroup->ubSectorY ) )
 	{
-		// Wilderness ambush, or the player has unwittingly entered the lair?
-		if( PlacementType == BLOODCAT_PLACEMENT_AMBUSH || !gubFact[ FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR ] )
+		///////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - STOMP traits - Scouting prevents the ambush of bloodcats
+		BOOLEAN fBloodCatAmbushPrevented = FALSE;
+		// The player has entered the lair
+		if(( PlacementType == BLOODCAT_PLACEMENT_LAIR )&& !gubFact[ FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR ] ) 
 		{
-			// Ambush occurs.
-			gubEnemyEncounterCode = BLOODCAT_AMBUSH_CODE;
+			// We know about the lair
+			if( gubFact[ FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR ] )
+			{
+				gubEnemyEncounterCode = ENTERING_BLOODCAT_LAIR_CODE;				
+			}
+			else
+			{
+				if ( gGameOptions.fNewTraitSystem && ScoutIsPresentInSquad( pGroup->ubSectorX, pGroup->ubSectorY ) && gSkillTraitValues.fSCPreventsBloodcatsAmbushes)
+				{	
+					// Ha..! We've found the lair, safely
+					if ( gSkillTraitValues.fSCThrowMessageIfAmbushPrevented )
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_BLOODCATS_AMBUSH_PREVENTED] );
+
+					fBloodCatAmbushPrevented = TRUE;
+
+					gubEnemyEncounterCode = ENTERING_BLOODCAT_LAIR_CODE;
+					gubFact[ FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR ] = TRUE;	
+				}
+				else
+				{
+					// Ambush in the lair.
+					gubEnemyEncounterCode = BLOODCAT_AMBUSH_CODE;
+				}
+			}
 		}
+		// Wilderness ambush
 		else
 		{
-			// Player knowingly enters lair.
-			gubEnemyEncounterCode = ENTERING_BLOODCAT_LAIR_CODE;
+			if ( gGameOptions.fNewTraitSystem && ScoutIsPresentInSquad( pGroup->ubSectorX, pGroup->ubSectorY ) && gSkillTraitValues.fSCPreventsBloodcatsAmbushes)
+			{	
+				// We are safe
+				if ( gSkillTraitValues.fSCThrowMessageIfAmbushPrevented )
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_BLOODCATS_AMBUSH_PREVENTED] );
+
+				fBloodCatAmbushPrevented = TRUE;
+
+				gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
+			}
+			else
+			{
+				// Ambush occurs.
+				gubEnemyEncounterCode = BLOODCAT_AMBUSH_CODE;
+			}
 		}
-		return TRUE;
+		// merc recoeds - get a point to scouts
+		if ( fBloodCatAmbushPrevented )
+		{
+			for( UINT16 i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+			{
+				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+				{
+					if ( MercPtrs[ i ]->sSectorX == pGroup->ubSectorX && MercPtrs[ i ]->sSectorY == pGroup->ubSectorY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->stats.bLife > OKLIFE )
+					{
+						if( HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) && MercPtrs[ i ]->ubProfile != NO_PROFILE )
+						{
+							gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usAmbushesExperienced++;
+						}
+					}
+				}
+			}
+		}
+		return( ( gubEnemyEncounterCode == NO_ENCOUNTER_CODE ) ? FALSE : TRUE);
+		///////////////////////////////////////////////////////////////////////////////////////////
 	}
 	else
 	{
@@ -5088,8 +5184,13 @@ BOOLEAN WildernessSectorWithAllProfiledNPCsNotSpokenWith( INT16 sSectorX, INT16 
 	MERCPROFILESTRUCT *		pProfile;
 	BOOLEAN fFoundSomebody = FALSE;
 
-
-	for ( ubProfile = FIRST_RPC; ubProfile < GASTON; ubProfile++ )
+	
+	//for ( ubProfile = FIRST_RPC; ubProfile < GASTON; ubProfile++ )
+	//new profiles by Jazz
+	for ( ubProfile = 0; ubProfile < NUM_PROFILES; ubProfile++ )
+	{
+	
+	if ( gProfilesRPC[ubProfile].ProfilId == ubProfile || gProfilesNPC[ubProfile].ProfilId == ubProfile || gProfilesVehicle[ubProfile].ProfilId == ubProfile)	
 	{
 		pProfile = &gMercProfiles[ ubProfile ];
 
@@ -5100,7 +5201,8 @@ BOOLEAN WildernessSectorWithAllProfiledNPCsNotSpokenWith( INT16 sSectorX, INT16 
 		}
 
  		// skip vehicles
-		if ( ubProfile >= PROF_HUMMER && ubProfile <= PROF_HELICOPTER )
+		//if ( ubProfile >= PROF_HUMMER && ubProfile <= PROF_HELICOPTER )
+		if ( gProfilesVehicle[ubProfile].ProfilId == ubProfile )
 		{
 			continue;
 		}
@@ -5122,8 +5224,14 @@ BOOLEAN WildernessSectorWithAllProfiledNPCsNotSpokenWith( INT16 sSectorX, INT16 
 				return( FALSE );
 			}
 		}
+
+	}
+	else
+	{
+		return( FALSE );
 	}
 
+	}
 
 	return( fFoundSomebody );
 }
@@ -5234,13 +5342,20 @@ UINT8 NumberMercsInVehicleGroup( GROUP *pGroup )
 	return 0;
 }
 
-#ifdef JA2BETAVERSION
-void ValidateGroups( GROUP *pGroup )
+
+BOOLEAN ValidateGroups( GROUP *pGroup )
 {
+	BOOLEAN isValid = TRUE;
+
 	//Do error checking, and report group
-	ValidatePlayersAreInOneGroupOnly();
+	#ifdef JA2BETAVERSION
+		ValidatePlayersAreInOneGroupOnly();
+	#endif
+
 	if( !pGroup->fPlayer && !pGroup->ubGroupSize )
 	{
+		isValid = FALSE;
+
 		//report error
 		CHAR16 str[ 512 ];
 		if( pGroup->ubSectorIDOfLastReassignment == 255 )
@@ -5260,7 +5375,34 @@ void ValidateGroups( GROUP *pGroup )
 		}
 		//correct error
 
-		DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
+		#ifdef JA2BETAVERSION
+			DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
+		#endif
 	}
+
+	return isValid;
 }
-#endif
+
+
+// SANDRO - added check if we have a scout in group
+BOOLEAN ScoutIsPresentInSquad( INT16 ubSectorNumX, INT16 ubSectorNumY )
+{
+	BOOLEAN fScoutPresent = FALSE;
+	INT32 i;
+
+	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	{
+		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+		{
+			if ( MercPtrs[ i ]->sSectorX == ubSectorNumX && MercPtrs[ i ]->sSectorY == ubSectorNumY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->stats.bLife > OKLIFE )
+			{
+				if( HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ))
+				{
+					fScoutPresent = TRUE;
+				}
+			}
+		}
+	}
+
+	return ( fScoutPresent );
+}

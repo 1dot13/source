@@ -42,6 +42,8 @@ BOOLEAN ValidMapFileName(STR16 szFilename);
 BOOLEAN ExternalLoadMap(STR16 szFilename);
 BOOLEAN ExternalSaveMap(STR16 szFilename);
 
+void InitErrorCatchDialog();
+
 extern BOOLEAN gfErrorCatch;
 extern CHAR16 gzErrorCatchString[ 256 ];
 

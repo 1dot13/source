@@ -24,10 +24,8 @@
 	#include <stdio.h>
 	#include "Game Clock.h"
 	#include "GameSettings.h"
+	#include "sgp_logger.h"
 #endif
-
-#include "VFS/vfs.h"
-#include "VFS/Tools/Log.h"
 
 typedef struct
 {
@@ -1515,6 +1513,13 @@ void ClearTacticalMessageQueue( void )
 	return;
 }
 
+static struct DebugMessageLog {
+	sgp::Logger_ID id;
+	DebugMessageLog() {
+		id = sgp::Logger::instance().createLogger();
+		sgp::Logger::instance().connectFile(id, L"DebugMessage.txt", true, sgp::Logger::FLUSH_ON_ENDL);
+	}
+} s_DebugMessageLog;
 void WriteMessageToFile( const STR16 pString )
 {
 #ifdef JA2BETAVERSION
@@ -1531,8 +1536,7 @@ void WriteMessageToFile( const STR16 pString )
 	fprintf( fp, "%S\n", pString );
 	fclose( fp );
 #else
-	static CLog& debugMessage = *CLog::create(L"DebugMessage.txt", true, CLog::FLUSH_IMMEDIATELY);
-	debugMessage << pString << CLog::ENDL;
+	SGP_LOG(s_DebugMessageLog.id, pString);
 #endif
 #endif
 }

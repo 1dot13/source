@@ -10,6 +10,7 @@
 #define		SM_INV_SLOT_WIDTH				30
 #define		SM_INV_SLOT_HEIGHT				23
 #define		ATTACH_SLOT_WIDTH				32
+#define		ATTACH_SLOT_BIG_WIDTH			64
 #define		VEST_INV_SLOT_WIDTH				43
 #define		VEST_INV_SLOT_HEIGHT			24
 #define		LEGS_INV_SLOT_WIDTH				43
@@ -17,6 +18,30 @@
 #define		HEAD_INV_SLOT_WIDTH				43
 #define		HEAD_INV_SLOT_HEIGHT			24
 
+#define		NUM_UDB_GEN_LINES	12
+#define		NUM_UDB_ADV_LINES	12
+ 
+// HEADROCK HAM 4: These rectangle definitions are used in UDB to determine locations for icons, data, and tooltip
+// regions. They replace the plethora of region data provided in EDB.
+typedef struct
+{
+	INT16 sLeft;
+	INT16 sTop;
+	INT16 sRight;
+	INT16 sBottom;
+} INV_DESC_REGIONS;
+
+extern INV_DESC_REGIONS gItemDescLBEBackground[4]; // Coordinates for displaying LBE background image
+extern INV_DESC_REGIONS gItemDescGenHeaderRegions[3]; // Header text regions for various parts of the General Tab
+extern INV_DESC_REGIONS gItemDescGenIndexRegions[3][4]; // Index text regions for various parts of the General Tab
+extern INV_DESC_REGIONS gItemDescGenRegions[NUM_UDB_GEN_LINES * 2][4]; // Data regions, 4 sub-columns each
+extern INV_DESC_REGIONS gItemDescGenSecondaryRegions[26]; // Secondary data regions, 3x5 for now (possible 3x6?)
+extern INV_DESC_REGIONS gItemDescTextRegions[7]; // Main description regions
+extern INV_DESC_REGIONS gItemDescAdvIndexRegions[1][4];
+extern INV_DESC_REGIONS gItemDescAdvRegions[NUM_UDB_ADV_LINES][4]; // Advanced data regions, 4 sub-columns each
+
+// ODB arrays
+extern INV_DESC_REGIONS gODBItemDescRegions[4][8]; // Four regions of eight sub-regions each.
 
 //CHRISL: moved from Interface Items.cpp
 typedef struct
@@ -54,7 +79,8 @@ void ItemDescCallback( MOUSE_REGION * pRegion, INT32 iReason );
 #define		INV_BAR_DY						21
 #define		ITEM_STATS_WIDTH				26
 #define		ITEM_STATS_HEIGHT				8
-#define		EXCEPTIONAL_DAMAGE				40
+#define		EXCEPTIONAL_GUN_DAMAGE			40
+#define		EXCEPTIONAL_MELEE_DAMAGE		40
 #define		EXCEPTIONAL_WEIGHT				20
 #define		EXCEPTIONAL_RANGE				400
 #define		EXCEPTIONAL_MAGAZINE			50
@@ -81,16 +107,13 @@ extern INT16	ITEMDESC_NAME_X;
 extern INT16	ITEMDESC_NAME_Y;
 extern INT16	ITEMDESC_ITEM_X;
 extern INT16	ITEMDESC_ITEM_Y;
-extern INT16	ITEMDESC_DESC_START_X;
-extern INT16	ITEMDESC_DESC_START_Y;
-extern INT16	ITEMDESC_PROS_START_X;
-extern INT16	ITEMDESC_PROS_START_Y;
-extern INT16	ITEMDESC_CONS_START_X;
-extern INT16	ITEMDESC_CONS_START_Y;
-extern INT16	ITEMDESC_DESC_WIDTH;
 extern INT16	ITEMDESC_ITEM_STATUS_X;
 extern INT16	ITEMDESC_ITEM_STATUS_Y;
 extern INT16	ITEMDESC_ITEM_STATUS_HEIGHT;
+extern INT16	ITEMDESC_AMMO_X;
+extern INT16	ITEMDESC_AMMO_Y;
+extern INT16	ITEMDESC_DONE_X;
+extern INT16	ITEMDESC_DONE_Y;
 
 // A STRUCT USED INTERNALLY FOR INV SLOT REGIONS
 typedef struct
@@ -211,7 +234,9 @@ BOOLEAN InitKeyItemDescriptionBox( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT1
 void RenderItemDescriptionBox( );
 void HandleItemDescriptionBox( BOOLEAN *pfDirty );
 void DeleteItemDescriptionBox( );
-
+extern BOOLEAN UseNASDesc(OBJECTTYPE  *pObject);
+INT16 sNASXCorrection(OBJECTTYPE * pObject);
+INT16 sNASYCorrection(OBJECTTYPE * pObject);
 
 BOOLEAN InItemStackPopup( );
 BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX, INT16 sInvY, INT16 sInvWidth, INT16 sInvHeight );

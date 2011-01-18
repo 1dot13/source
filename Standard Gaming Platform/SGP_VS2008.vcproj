@@ -21,7 +21,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Debug.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -83,7 +83,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -147,7 +147,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -211,7 +211,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -273,7 +273,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -373,6 +373,10 @@
 			</File>
 			<File
 				RelativePath="DEBUG.H"
+				>
+			</File>
+			<File
+				RelativePath=".\debug_util.h"
 				>
 			</File>
 			<File
@@ -496,6 +500,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\radbase.h"
+				>
+			</File>
+			<File
 				RelativePath="random.h"
 				>
 			</File>
@@ -509,6 +517,14 @@
 			</File>
 			<File
 				RelativePath="sgp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sgp_auto_memory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sgp_logger.h"
 				>
 			</File>
 			<File
@@ -632,6 +648,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\debug_util.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\debug_win_util.cpp"
+				>
+			</File>
+			<File
 				RelativePath="DirectDraw Calls.cpp"
 				>
 			</File>
@@ -725,6 +749,10 @@
 			</File>
 			<File
 				RelativePath="sgp.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\sgp_logger.cpp"
 				>
 			</File>
 			<File

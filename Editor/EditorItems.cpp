@@ -45,7 +45,7 @@
 	#include "InterfaceItemImages.h"
 #endif
 
-#include "VFS/Tools/Log.h"
+#include <vfs/Tools/vfs_log.h>
 
 #define NUMBER_TRIGGERS			27
 #define PRESSURE_ACTION_ID	(NUMBER_TRIGGERS - 1)
@@ -557,10 +557,10 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 				}
 				else
 				{
-					static CLog& editorLog = *CLog::create(L"EditorItems.log");
+					static vfs::Log& editorLog = *vfs::Log::create(L"EditorItems.log");
 					editorLog	<< L"Tried to access item [" 
 								<< item->ubGraphicNum << L"/" << hVObject->usNumberOfObjects 
-								<< L"]" << CLog::ENDL;
+								<< L"]" << vfs::Log::endl;
 				}
 			}
 			usCounter++;

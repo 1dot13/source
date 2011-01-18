@@ -54,6 +54,7 @@ struct
 	INVTYPE		curItem;
 	INVTYPE *	curArray;
 	UINT32			maxArraySize;
+	INT8		curStance;
 	
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
@@ -61,6 +62,9 @@ struct
 typedef itemParseData;
 
 BOOLEAN localizedTextOnly;
+
+// HEADROCK HAM 4: Inherits data between stance-based modifiers
+void InheritStanceModifiers( itemParseData *pData );
 
 static void XMLCALL 
 itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
@@ -86,6 +90,28 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 			if ( !localizedTextOnly )
 				memset(&pData->curItem,0,sizeof(INVTYPE));
 
+			// HEADROCK HAM 4: With the new stance-based variables, it is necessary to set vars to have an impossible
+			// value. That way when they are later recorded in the item structs, a parent->child inheritence can occur
+			// for children that do not have data put into them from XML.
+			// -10000 has been selected to pose as "no value". Modders should never even reduce the value of any of
+			// these tags below -100 anyway, and although it's not the best solution that's the only one I came up with.
+
+			for (INT8 X = 0; X < 3; X++)
+			{
+				pData->curItem.flatbasemodifier[X] = -10000;
+				pData->curItem.percentbasemodifier[X] = -10000;
+				pData->curItem.flataimmodifier[X] = -10000;
+				pData->curItem.percentaimmodifier[X] = -10000;
+				pData->curItem.percentcapmodifier[X] = -10000;
+				pData->curItem.percenthandlingmodifier[X] = -10000;
+				pData->curItem.targettrackingmodifier[X] = -10000;
+				pData->curItem.percentdropcompensationmodifier[X] = -10000;
+				pData->curItem.maxcounterforcemodifier[X] = -10000;
+				pData->curItem.counterforceaccuracymodifier[X] = -10000;
+				pData->curItem.counterforcefrequencymodifier[X] = -10000;
+				pData->curItem.aimlevelsmodifier[X] = -10000;
+			}
+
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(pData->curElement == ELEMENT &&
@@ -96,6 +122,8 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "szBRName") == 0 ||
 				strcmp(name, "szBRDesc") == 0 ||
 				strcmp(name, "usItemClass") == 0 ||
+				strcmp(name, "nasAttachmentClass") == 0 ||
+				strcmp(name, "nasLayoutClass") == 0 ||
 				strcmp(name, "ubClassIndex") == 0 ||
 				strcmp(name, "ubCursor") == 0 ||
 				strcmp(name, "bSoundType") == 0 ||
@@ -213,12 +241,65 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "StealthBonus") == 0 ||
 				strcmp(name, "SciFi") == 0 ||
 				strcmp(name, "NewInv") == 0 ||
+				strcmp(name, "AttachmentSystem") == 0 ||
 				//zilpin: pellet spread patterns externalized in XML
 				strcmp(name, "spreadPattern") == 0 ||
-	strcmp(name, "fFlags") == 0 ))
+				// HEADROCK HAM 4: new NCTH variables.
+				strcmp(name, "ScopeMagFactor") == 0 ||
+				strcmp(name, "ProjectionFactor") == 0 ||
+				strcmp(name, "PercentAccuracyModifier") == 0 ||
+				strcmp(name, "RecoilModifierX") == 0 ||
+				strcmp(name, "RecoilModifierY") == 0 ||
+				strcmp(name, "PercentRecoilModifier") == 0 ||
+
+				strcmp(name, "fFlags") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		// HEADROCK HAM 4: New depth: Stance-based variables
+		else if(pData->curElement == ELEMENT &&
+				(strcmp(name, "STAND_MODIFIERS") == 0 ||
+				strcmp(name, "CROUCH_MODIFIERS") == 0 ||
+				strcmp(name, "PRONE_MODIFIERS") == 0))
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+
+			// Set current stance.
+			if (strcmp(name, "STAND_MODIFIERS") == 0)
+			{
+				pData->curStance = 0;
+			}
+			else if (strcmp(name, "CROUCH_MODIFIERS") == 0)
+			{
+				pData->curStance = 1;
+			}
+			else // prone
+			{
+				pData->curStance = 2;
+			}
+
+			pData->maxReadDepth++;
+		}
+		
+		// HEADROCK HAM 4: Read stance-based variables
+		else if(pData->curElement == ELEMENT_SUBLIST &&
+				(strcmp(name, "FlatBase") == 0 ||
+				strcmp(name, "PercentBase") == 0 ||
+				strcmp(name, "FlatAim") == 0 ||
+				strcmp(name, "PercentAim") == 0 ||
+				strcmp(name, "PercentCap") == 0 ||
+				strcmp(name, "PercentHandling") == 0 ||
+				strcmp(name, "PercentTargetTrackingSpeed") == 0 ||
+				strcmp(name, "PercentDropCompensation") == 0 ||
+				strcmp(name, "PercentMaxCounterForce") == 0 ||
+				strcmp(name, "PercentCounterForceAccuracy") == 0 ||
+				strcmp(name, "PercentCounterForceFrequency") == 0 ||
+				strcmp(name, "AimLevels") == 0))
+		{
+			pData->curElement = ELEMENT_SUBLIST_PROPERTY;
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -264,7 +345,12 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			if(pData->curItem.uiIndex < pData->maxArraySize) 
 			{
 				if ( pData->curItem.usItemClass != 0 )
+				{
+					// HEADROCK HAM 4: Inherit stance-base modifiers upwards.
+					InheritStanceModifiers( pData );
+
 					pData->curArray[pData->curItem.uiIndex] = pData->curItem; //write the item into the table
+				}
 				else if ( sizeof(pData->curItem.szItemName)>0 && localizedTextOnly )
 				{
 					wcscpy(pData->curArray[pData->curItem.uiIndex].szItemName,pData->curItem.szItemName);
@@ -428,6 +514,16 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.usItemClass = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "nasAttachmentClass") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.nasAttachmentClass = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "nasLayoutClass") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.nasLayoutClass = (UINT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "ubClassIndex") == 0)
 		{
@@ -767,6 +863,11 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.newinv   = (BOOLEAN) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "AttachmentSystem")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.ubAttachmentSystem   = (UINT8) atol(pData->szCharData);
+		}
 		else if(strcmp(name, "HideMuzzleFlash")	 == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -840,7 +941,12 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "DefaultAttachment")	 == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.defaultattachment  = (UINT16) atol(pData->szCharData);
+			for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++){
+				if(pData->curItem.defaultattachments[cnt] == 0){
+					pData->curItem.defaultattachments[cnt]  = (UINT16) atol(pData->szCharData);
+					break;
+				}
+			}
 		}
 		else if(strcmp(name, "BrassKnuckles")	 == 0)
 		{
@@ -1028,10 +1134,116 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curItem.bestlaserrange    = (INT16) atol(pData->szCharData);
 		}
 		//zilpin: pellet spread patterns externalized in XML
-		else if(strcmp(name, "spreadPattern") == 0)
+		if(strcmp(name, "spreadPattern") == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.spreadPattern = FindSpreadPatternIndex( pData->szCharData );
+		}
+
+		//////////////////////////////////////////////////////////////////
+		// HEADROCK HAM 4: Read new variables from XML
+		else if(strcmp(name, "ScopeMagFactor")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.scopemagfactor  = (FLOAT) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "ProjectionFactor")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.projectionfactor  = (FLOAT) atof(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentAccuracyModifier")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.percentaccuracymodifier  = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "RecoilModifierX")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.RecoilModifierX  = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "RecoilModifierY")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.RecoilModifierY  = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentRecoilModifier") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.PercentRecoilModifier = (INT16) atol(pData->szCharData);
+		}
+
+
+		//////////////////////////////////////////////////////////////////
+		// HEADROCK HAM 4: Read stance-based variables and put them into the right place.
+		else if(strcmp(name, "FlatBase") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.flatbasemodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentBase") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.percentbasemodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "FlatAim") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.flataimmodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentAim") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.percentaimmodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentCap") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.percentcapmodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentHandling") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.percenthandlingmodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentTargetTrackingSpeed") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.targettrackingmodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentDropCompensation") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.percentdropcompensationmodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentMaxCounterForce") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.maxcounterforcemodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentCounterForceAccuracy") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.counterforceaccuracymodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "PercentCounterForceFrequency") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.counterforcefrequencymodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "AimLevels") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curItem.aimlevelsmodifier[pData->curStance] = (INT16) atol(pData->szCharData);
+		}
+
+		//////////////////////////////////////////////////////////////////
+		// HEADROCK HAM 4: Close opened Stance Tags.
+		else if(strcmp(name, "STAND_MODIFIERS") == 0 ||
+				strcmp(name, "CROUCH_MODIFIERS") == 0 ||
+				strcmp(name, "PRONE_MODIFIERS") == 0)
+		{
+			pData->curElement = ELEMENT;
 		}
 
 		pData->maxReadDepth--;
@@ -1425,6 +1637,8 @@ BOOLEAN WriteItemStats()
 
 
 			FilePrintf(hFile,"\t\t<usItemClass>%d</usItemClass>\r\n",						Item[cnt].usItemClass);
+			FilePrintf(hFile,"\t\t<nasAttachmentClass>%d</nasAttachmentClass>\r\n",						Item[cnt].nasAttachmentClass);
+			FilePrintf(hFile,"\t\t<nasLayoutClass>%d</nasLayoutClass>\r\n",						Item[cnt].nasLayoutClass);
 			FilePrintf(hFile,"\t\t<ubClassIndex>%d</ubClassIndex>\r\n",							Item[cnt].ubClassIndex);
 			FilePrintf(hFile,"\t\t<ubCursor>%d</ubCursor>\r\n",							Item[cnt].ubCursor);
 			FilePrintf(hFile,"\t\t<bSoundType>%d</bSoundType>\r\n",					Item[cnt].bSoundType);
@@ -1468,6 +1682,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<BigGunList>%d</BigGunList>\r\n",						Item[cnt].biggunlist   );
 			FilePrintf(hFile,"\t\t<SciFi>%d</SciFi>\r\n",						Item[cnt].scifi   );
 			FilePrintf(hFile,"\t\t<NewInv>%d</NewInv>\r\n",						Item[cnt].newinv   );
+			FilePrintf(hFile,"\t\t<AttachmentSystem>%d</AttachmentSystem>\r\n",						Item[cnt].ubAttachmentSystem   );
 			FilePrintf(hFile,"\t\t<NotInEditor>%d</NotInEditor>\r\n",						Item[cnt].notineditor  );
 			FilePrintf(hFile,"\t\t<DefaultUndroppable>%d</DefaultUndroppable>\r\n",						Item[cnt].defaultundroppable );
 			FilePrintf(hFile,"\t\t<Unaerodynamic>%d</Unaerodynamic>\r\n",						Item[cnt].unaerodynamic );
@@ -1514,7 +1729,12 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<DiscardedLauncherItem>%d</DiscardedLauncherItem>\r\n",						Item[cnt].discardedlauncheritem  );
 			FilePrintf(hFile,"\t\t<RocketRifle>%d</RocketRifle>\r\n",						Item[cnt].rocketrifle);
 			FilePrintf(hFile,"\t\t<Cannon>%d</Cannon>\r\n",						Item[cnt].cannon);
-			FilePrintf(hFile,"\t\t<DefaultAttachment>%d</DefaultAttachment>\r\n",						Item[cnt].defaultattachment  );
+			
+			for(UINT8 cnt2 = 0; cnt2 < MAX_DEFAULT_ATTACHMENTS; cnt2++){
+				if(Item[cnt].defaultattachments[cnt2] != 0){
+					FilePrintf(hFile,"\t\t<DefaultAttachment>%d</DefaultAttachment>\r\n",						Item[cnt].defaultattachments[cnt2]  );
+				}
+			}
 
 			FilePrintf(hFile,"\t\t<BrassKnuckles>%d</BrassKnuckles>\r\n",						Item[cnt].brassknuckles  );
 			FilePrintf(hFile,"\t\t<Crowbar>%d</Crowbar>\r\n",						Item[cnt].crowbar  );
@@ -1572,6 +1792,57 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<FingerPrintID>%d</FingerPrintID>\r\n",						Item[cnt].fingerprintid    );
 			FilePrintf(hFile,"\t\t<AmmoCrate>%d</AmmoCrate>\r\n",						Item[cnt].ammocrate    );
 
+			// HEADROCK HAM 4: Print out new values
+			FilePrintf(hFile,"\t\t<ScopeMagFactor>%d</ScopeMagFactor>\r\n",						Item[cnt].scopemagfactor    );
+			FilePrintf(hFile,"\t\t<ProjectionFactor>%d</ProjectionFactor>\r\n",						Item[cnt].projectionfactor    );
+			FilePrintf(hFile,"\t\t<PercentAccuracyModifier>%d</PercentAccuracyModifier>\r\n",		Item[cnt].percentaccuracymodifier    );
+			FilePrintf(hFile,"\t\t<RecoilModifierX>%d</RecoilModifierX>\r\n",						Item[cnt].RecoilModifierX    );
+			FilePrintf(hFile,"\t\t<RecoilModifierY>%d</RecoilModifierY>\r\n",						Item[cnt].RecoilModifierY    );
+			FilePrintf(hFile,"\t\t<PercentRecoilModifier>%d</PercentRecoilModifier>\r\n",			Item[cnt].PercentRecoilModifier		);
+
+			// HEADROCK HAM 4: Print out stance-based values
+			FilePrintf(hFile,"\t\t<STAND_MODIFIERS>\r\n");
+			FilePrintf(hFile,"\t\t\t<FlatBase>%d</FlatBase>\r\n",											Item[cnt].flatbasemodifier[0]    );
+			FilePrintf(hFile,"\t\t\t<PercentBase>%d</PercentBase>\r\n",										Item[cnt].percentbasemodifier[0]    );
+			FilePrintf(hFile,"\t\t\t<FlatAim>%d</FlatAim>\r\n",												Item[cnt].flataimmodifier[0]    );
+			FilePrintf(hFile,"\t\t\t<PercentCap>%d</PercentCap>\r\n",										Item[cnt].percentcapmodifier[0]    );
+			FilePrintf(hFile,"\t\t\t<PercentHandling>%d</PercentHandling>\r\n",								Item[cnt].percenthandlingmodifier[0]    );
+			FilePrintf(hFile,"\t\t\t<PercentTargetTrackingSpeed>%d</PercentTargetTrackingSpeed>\r\n",		Item[cnt].targettrackingmodifier[0]    );
+			FilePrintf(hFile,"\t\t\t<PercentDropCompensation>%d</PercentDropCompensation>\r\n",				Item[cnt].percentdropcompensationmodifier[0]    );
+			FilePrintf(hFile,"\t\t\t<PercentMaxCounterForce>%d</PercentMaxCounterForce>\r\n",				Item[cnt].maxcounterforcemodifier[0]    );
+			FilePrintf(hFile,"\t\t\t<PercentCounterForceAccuracy>%d</PercentCounterForceAccuracy>\r\n",		Item[cnt].counterforceaccuracymodifier[0]    );
+			FilePrintf(hFile,"\t\t\t<PercentCounterForceFrequency>%d</PercentCounterForceFrequency>\r\n",	Item[cnt].counterforcefrequencymodifier[0]    );
+			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",							Item[cnt].aimlevelsmodifier[0]    );
+			FilePrintf(hFile,"\t\t</STAND_MODIFIERS>\r\n");
+
+			FilePrintf(hFile,"\t\t<CROUCH_MODIFIERS>\r\n");
+			FilePrintf(hFile,"\t\t\t<FlatBase>%d</FlatBase>\r\n",											Item[cnt].flatbasemodifier[1]    );
+			FilePrintf(hFile,"\t\t\t<PercentBase>%d</PercentBase>\r\n",										Item[cnt].percentbasemodifier[1]    );
+			FilePrintf(hFile,"\t\t\t<FlatAim>%d</FlatAim>\r\n",												Item[cnt].flataimmodifier[1]    );
+			FilePrintf(hFile,"\t\t\t<PercentCap>%d</PercentCap>\r\n",										Item[cnt].percentcapmodifier[1]    );
+			FilePrintf(hFile,"\t\t\t<PercentHandling>%d</PercentHandling>\r\n",								Item[cnt].percenthandlingmodifier[1]    );
+			FilePrintf(hFile,"\t\t\t<PercentTargetTrackingSpeed>%d</PercentTargetTrackingSpeed>\r\n",		Item[cnt].targettrackingmodifier[1]    );
+			FilePrintf(hFile,"\t\t\t<PercentDropCompensation>%d</PercentDropCompensation>\r\n",				Item[cnt].percentdropcompensationmodifier[1]    );
+			FilePrintf(hFile,"\t\t\t<PercentMaxCounterForce>%d</PercentMaxCounterForce>\r\n",				Item[cnt].maxcounterforcemodifier[1]    );
+			FilePrintf(hFile,"\t\t\t<PercentCounterForceAccuracy>%d</PercentCounterForceAccuracy>\r\n",		Item[cnt].counterforceaccuracymodifier[1]    );
+			FilePrintf(hFile,"\t\t\t<PercentCounterForceFrequency>%d</PercentCounterForceFrequency>\r\n",	Item[cnt].counterforcefrequencymodifier[1]    );
+			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",							Item[cnt].aimlevelsmodifier[1]    );
+			FilePrintf(hFile,"\t\t</CROUCH_MODIFIERS>\r\n");
+
+			FilePrintf(hFile,"\t\t<PRONE_MODIFIERS>\r\n");
+			FilePrintf(hFile,"\t\t\t<FlatBase>%d</FlatBase>\r\n",											Item[cnt].flatbasemodifier[2]    );
+			FilePrintf(hFile,"\t\t\t<PercentBase>%d</PercentBase>\r\n",										Item[cnt].percentbasemodifier[2]    );
+			FilePrintf(hFile,"\t\t\t<FlatAim>%d</FlatAim>\r\n",												Item[cnt].flataimmodifier[2]    );
+			FilePrintf(hFile,"\t\t\t<PercentCap>%d</PercentCap>\r\n",										Item[cnt].percentcapmodifier[2]    );
+			FilePrintf(hFile,"\t\t\t<PercentHandling>%d</PercentHandling>\r\n",								Item[cnt].percenthandlingmodifier[2]    );
+			FilePrintf(hFile,"\t\t\t<PercentTargetTrackingSpeed>%d</PercentTargetTrackingSpeed>\r\n",		Item[cnt].targettrackingmodifier[2]    );
+			FilePrintf(hFile,"\t\t\t<PercentDropCompensation>%d</PercentDropCompensation>\r\n",				Item[cnt].percentdropcompensationmodifier[2]    );
+			FilePrintf(hFile,"\t\t\t<PercentMaxCounterForce>%d</PercentMaxCounterForce>\r\n",				Item[cnt].maxcounterforcemodifier[2]    );
+			FilePrintf(hFile,"\t\t\t<PercentCounterForceAccuracy>%d</PercentCounterForceAccuracy>\r\n",		Item[cnt].counterforceaccuracymodifier[2]    );
+			FilePrintf(hFile,"\t\t\t<PercentCounterForceFrequency>%d</PercentCounterForceFrequency>\r\n",	Item[cnt].counterforcefrequencymodifier[2]    );
+			FilePrintf(hFile,"\t\t\t<AimLevels>%d</AimLevels>\r\n",							Item[cnt].aimlevelsmodifier[2]    );
+			FilePrintf(hFile,"\t\t</PRONE_MODIFIERS>\r\n");
+
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}
 		FilePrintf(hFile,"</ITEMLIST>\r\n");
@@ -1579,4 +1850,77 @@ BOOLEAN WriteItemStats()
 	FileClose( hFile );
 
 	return( TRUE );
+}
+
+// HEADROCK HAM 4: This function runs just before the items are written into the item array. It causes all stance bonuses
+// to inherit their properties from the bonus "above" them, as long as they don't already have their own value defined.
+void InheritStanceModifiers( itemParseData *pData )
+{
+
+	// Create a two-dimensional temp array to hold all the data about stance modifiers.
+	INT16 TempArray[12][3];
+	INT8 count = 0;
+	INT8 arrcount = 0;
+
+	// Copy stance modifier data into this array
+	for (count = 0; count < 3; count++)
+	{
+		TempArray[0][count] = pData->curItem.flatbasemodifier[count];
+		TempArray[1][count] = pData->curItem.percentbasemodifier[count];
+		TempArray[2][count] = pData->curItem.flataimmodifier[count];
+		TempArray[3][count] = pData->curItem.percentaimmodifier[count];
+		TempArray[4][count] = pData->curItem.percentcapmodifier[count];
+		TempArray[5][count] = pData->curItem.percenthandlingmodifier[count];
+		TempArray[6][count] = pData->curItem.targettrackingmodifier[count];
+		TempArray[7][count] = pData->curItem.percentdropcompensationmodifier[count];
+		TempArray[8][count] = pData->curItem.maxcounterforcemodifier[count];
+		TempArray[9][count] = pData->curItem.counterforceaccuracymodifier[count];
+		TempArray[10][count] = pData->curItem.counterforcefrequencymodifier[count];
+		TempArray[11][count] = pData->curItem.aimlevelsmodifier[count];
+	}
+
+	for (arrcount = 0; arrcount < 12; arrcount++)
+	{
+		if (TempArray[arrcount][2] == -10000)
+		{
+			if (TempArray[arrcount][1] == -10000)
+			{
+				TempArray[arrcount][1] = TempArray[arrcount][0];
+				TempArray[arrcount][2] = TempArray[arrcount][0];
+			}
+			else
+			{
+				TempArray[arrcount][2] = TempArray[arrcount][1];
+			}
+		}
+		else if (TempArray[arrcount][1] == -10000)
+		{
+			TempArray[arrcount][1] = TempArray[arrcount][0];
+		}
+		for (INT8 X = 0; X < 3; X++)
+		{
+			if (TempArray[arrcount][X] == -10000)
+			{ 
+				TempArray[arrcount][X] = 0; 
+			}
+		}
+	}
+
+	// Copy stance modifier data back out of the temp array
+	for (count = 0; count < 3; count++)
+	{
+		pData->curItem.flatbasemodifier[count] = TempArray[0][count];
+		pData->curItem.percentbasemodifier[count] = TempArray[1][count];
+		pData->curItem.flataimmodifier[count] = TempArray[2][count];
+		pData->curItem.percentaimmodifier[count] = TempArray[3][count];
+		pData->curItem.percentcapmodifier[count] = TempArray[4][count];
+		pData->curItem.percenthandlingmodifier[count] = TempArray[5][count];
+		pData->curItem.targettrackingmodifier[count] = TempArray[6][count];
+		pData->curItem.percentdropcompensationmodifier[count] = TempArray[7][count];
+		pData->curItem.maxcounterforcemodifier[count] = TempArray[8][count];
+		pData->curItem.counterforceaccuracymodifier[count] = TempArray[9][count];
+		pData->curItem.counterforcefrequencymodifier[count] = TempArray[10][count];
+		pData->curItem.aimlevelsmodifier[count] = TempArray[11][count];
+	}
+
 }

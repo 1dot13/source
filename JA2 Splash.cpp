@@ -24,39 +24,39 @@ void InitJA2SplashScreen()
 	UINT32 uiLogoID = 0;
 	HVSURFACE hVSurface; // unused jonathanl	// lalien reenabled for international versions
 	VSURFACE_DESC VSurfaceDesc; //unused jonathanl // lalien reenabled for international versions
- #ifdef JA2TESTVERSION
-	INT32 i = 0;
+#	ifdef JA2TESTVERSION
+		INT32 i = 0;
+
+		memset( &VSurfaceDesc, 0, sizeof( VSURFACE_DESC ) );
+		VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
+		sprintf( VSurfaceDesc.ImageFile, "LOADSCREENS\\Notification.sti" );
+		if( !AddVideoSurface( &VSurfaceDesc, &uiLogoID ) )
+		{
+			//AssertMsg( 0, String( "Failed to load %s", VSurfaceDesc.ImageFile ) );
+			return;
+		}
+		GetVideoSurface(&hVSurface, uiLogoID );
+		//BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, 0, 0, 0, NULL );
+		BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, iScreenWidthOffset, iScreenHeightOffset, 0, NULL );
+		DeleteVideoSurfaceFromIndex( uiLogoID );
+
+
+		InvalidateScreen();
+		RefreshScreen( NULL );
+
+		guiSplashStartTime = GetJA2Clock();
+		while( i < 60 * 15 )//guiSplashStartTime + 15000 > GetJA2Clock() )
+		{
+			//Allow the user to pick his bum.
+			InvalidateScreen();
+			RefreshScreen( NULL );
+			i++;
+		}
+#	endif // JA2TESTVERSION
 
 	memset( &VSurfaceDesc, 0, sizeof( VSURFACE_DESC ) );
 	VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
-	sprintf( VSurfaceDesc.ImageFile, "LOADSCREENS\\Notification.sti" );
-	if( !AddVideoSurface( &VSurfaceDesc, &uiLogoID ) )
-	{
-		//AssertMsg( 0, String( "Failed to load %s", VSurfaceDesc.ImageFile ) );
-		return;
-	}
-	GetVideoSurface(&hVSurface, uiLogoID );
-	//BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, 0, 0, 0, NULL );
-	BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, iScreenWidthOffset, iScreenHeightOffset, 0, NULL );
-	DeleteVideoSurfaceFromIndex( uiLogoID );
-
-
-	InvalidateScreen();
-	RefreshScreen( NULL );
-
-	guiSplashStartTime = GetJA2Clock();
-	while( i < 60 * 15 )//guiSplashStartTime + 15000 > GetJA2Clock() )
-	{
-		//Allow the user to pick his bum.
-		InvalidateScreen();
-		RefreshScreen( NULL );
-		i++;
-	}
-#endif
-
-			memset( &VSurfaceDesc, 0, sizeof( VSURFACE_DESC ) );
-			VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
-			GetMLGFilename( VSurfaceDesc.ImageFile, MLG_SPLASH );
+	GetMLGFilename( VSurfaceDesc.ImageFile, MLG_SPLASH );
 	try
 	{
 		if( !AddVideoSurface( &VSurfaceDesc, &uiLogoID ) )
@@ -65,15 +65,15 @@ void InitJA2SplashScreen()
 			return;
 		}
 	}
-	catch(CBasicException &ex)
+	catch(std::exception &ex)
 	{
-		RETHROWEXCEPTION(L"Failed loading splash screen", &ex);
+		SGP_RETHROW(L"Failed loading splash screen", ex);
 	}
 
-			GetVideoSurface( &hVSurface, uiLogoID );
-			BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, iScreenWidthOffset, iScreenHeightOffset, 0, NULL );
-			DeleteVideoSurfaceFromIndex( uiLogoID );
-	#endif
+	GetVideoSurface( &hVSurface, uiLogoID );
+	BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, iScreenWidthOffset, iScreenHeightOffset, 0, NULL );
+	DeleteVideoSurfaceFromIndex( uiLogoID );
+#endif // ENGLISH
 
 	InvalidateScreen();
 	RefreshScreen( NULL );

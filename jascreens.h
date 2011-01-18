@@ -6,7 +6,7 @@
 #include "mousesystem.h"
 #include "Button System.h"
 #include <list>
-#include "VFS/utf8string.h"
+#include <vfs/Core/vfs_string.h>
 
 extern UINT32 EditScreenInit(void);
 extern UINT32 EditScreenHandle(void);
@@ -169,7 +169,7 @@ void LeaveTacticalScreen( UINT32 uiNewScreen );
 
 struct SExceptionData
 {
-	utf8string		message,function,file;
+	vfs::String		message,function,file;
 	int				line;
 };
 

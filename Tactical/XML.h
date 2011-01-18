@@ -4,7 +4,10 @@
 #include "armsdealerinvinit.h"
 #include "EnemyItemDrops.h"
 #include "Loading Screen.h"
-
+#include "faces.h"
+#include "Interface.h"
+#include "XML_SenderNameList.h"
+#include "qarray.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -16,6 +19,8 @@ enum
 	ELEMENT_LIST,
 	ELEMENT,
 	ELEMENT_PROPERTY,
+	ELEMENT_SUBLIST,
+	ELEMENT_SUBLIST_PROPERTY,
 
 	// For new merchant inventory
 	MERCHANT_CONTROL,
@@ -37,7 +42,7 @@ typedef PARSE_STAGE;
 #define POLISH_PREFIX							"Polish."
 #define FRENCH_PREFIX							"French."
 #define ITALIAN_PREFIX							"Italian."
-#define TAIWANESE_PREFIX						"Tiawanese."
+#define TAIWANESE_PREFIX						"Taiwanese."
 #define CHINESE_PREFIX							"Chinese."
 
 #define	ATTACHMENTSFILENAME						"Attachments.xml"
@@ -54,6 +59,7 @@ typedef PARSE_STAGE;
 #define	AMMOFILENAME							"AmmoStrings.xml"
 #define	AMMOTYPESFILENAME						"AmmoTypes.xml"
 #define	INCOMPATIBLEATTACHMENTSFILENAME			"IncompatibleAttachments.xml"
+#define	ATTACHMENTSLOTSFILENAME					"AttachmentSlots.xml"
 #define	ENEMYGUNCHOICESFILENAME					"EnemyGunChoices.xml"
 #define	ENEMYITEMCHOICESFILENAME				"EnemyItemChoices.xml"
 #define	IMPITEMCHOICESFILENAME					"IMPItemChoices.xml"
@@ -69,7 +75,7 @@ typedef PARSE_STAGE;
 #define KEITHINVENTORYFILENAME					"NPCInventory\\KeithInventory.xml"
 #define SAMINVENTORYFILENAME					"NPCInventory\\SamInventory.xml"
 #define JAKEINVENTORYFILENAME					"NPCInventory\\JakeInventory.xml"
-#define HOWARDINVENTORYFILENAME				 "NPCInventory\\HowardInventory.xml"
+#define HOWARDINVENTORYFILENAME					"NPCInventory\\HowardInventory.xml"
 #define GABBYINVENTORYFILENAME					"NPCInventory\\GabbyInventory.xml"
 #define FRANKINVENTORYFILENAME					"NPCInventory\\FrankInventory.xml"
 #define ELGININVENTORYFILENAME					"NPCInventory\\ElginInventory.xml"
@@ -78,16 +84,16 @@ typedef PARSE_STAGE;
 #define PETERINVENTORYFILENAME					"NPCInventory\\PeterInventory.xml"
 #define ALBERTOINVENTORYFILENAME				"NPCInventory\\AlbertoInventory.xml"
 #define CARLOINVENTORYFILENAME					"NPCInventory\\CarloInventory.xml"
-#define MICKEYINVENTORYFILENAME				 "NPCInventory\\MickeyInventory.xml"
+#define MICKEYINVENTORYFILENAME					"NPCInventory\\MickeyInventory.xml"
 #define ARNIEINVENTORYFILENAME					"NPCInventory\\ArnieInventory.xml"
 #define PERKOINVENTORYFILENAME					"NPCInventory\\PerkoInventory.xml"
 #define FREDOINVENTORYFILENAME					"NPCInventory\\FredoInventory.xml"
 
-#define BOBBYRAYSTRINGSFILENAME				 "BobbyRayStrings.xml"
+#define BOBBYRAYSTRINGSFILENAME					"BobbyRayStrings.xml"
 #define AMMOCALIBERSTRINGSFILENAME				"AmmoCaliberStrings.xml"
 
 #define SOUNDSFILENAME							"Sounds\\Sounds.xml"
-#define BURSTSOUNDSFILENAME					 "Sounds\\BurstSounds.xml"
+#define BURSTSOUNDSFILENAME						"Sounds\\BurstSounds.xml"
 
 #define EXPLOSIONDATAFILENAME					"ExplosionData.xml"
 
@@ -96,20 +102,17 @@ typedef PARSE_STAGE;
 #define ALTSECTORSFILENAME						"Map\\AltSectors.xml"
 #define SAMSITESFILENAME						"Map\\SamSites.xml"
 #define ROAMINGMILITIAFILENAME					"Map\\RestrictedRoamingMilitia.xml"
-#define EXTRAITEMSFILENAME						"Map\\A9_0_ExtraItems.xml"
-#define EXTRAITEMSFILENAME2						"Map\\A11_0_ExtraItems.xml"
-
-// Gotthard: Strategic Text Files [2007-10-19]
-#define STRATEGICSECTORNAMETEXTFILENAME			"Map\\SectorNames.xml"
+#define EXTRAITEMSFILENAME						"Map\\A9_0_ExtraItems"	// ".xml" will be added @runtime
+#define EXTRAITEMSFILENAME2						"Map\\A11_0_ExtraItems" // ".xml" will be added @runtime
 
 #define GARRISONFILENAME						"Army\\GarrisonGroups.xml"
 #define PATROLFILENAME							"Army\\PatrolGroups.xml"
-#define COMPOSITIONFILENAME					 "Army\\ArmyComposition.xml"
+#define COMPOSITIONFILENAME						"Army\\ArmyComposition.xml"
 
 // WANNE: drops filename
 #define ENEMYWEAPONDROPSFILENAME				"EnemyWeaponDrops.xml"
 #define ENEMYAMMODROPSFILENAME					"EnemyAmmoDrops.xml"
-#define ENEMYEXPLOSIVEDROPSFILENAME			 "EnemyExplosiveDrops.xml"
+#define ENEMYEXPLOSIVEDROPSFILENAME				"EnemyExplosiveDrops.xml"
 #define ENEMYARMOURDROPSFILENAME				"EnemyArmourDrops.xml"
 #define ENEMYMISCDROPSFILENAME					"EnemyMiscDrops.xml"
 
@@ -117,7 +120,7 @@ typedef PARSE_STAGE;
 #define SECTORLOADSCREENSFILENAME				"Map\\SectorLoadscreens.xml"
 
 //zilpin: pellet spread patterns externalized in XML
-#define SPREADPATTERNSFILENAME            "SpreadPatterns.xml"
+#define SPREADPATTERNSFILENAME					"SpreadPatterns.xml"
 #define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"
 
 // Dealtar: Shipping destinations and delivery methods
@@ -147,9 +150,44 @@ typedef PARSE_STAGE;
 // HEADROCK PROFEX: Merc Opinions [2009-07-27]
 #define MERCOPINIONSFILENAME					"MercOpinions.xml"
 // HEADROCK HAM 3.6: Bloodcat Placements [2009-07-31]
-#define BLOODCATPLACEMENTSFILENAME					"Map\\BloodcatPlacements.xml"
+#define BLOODCATPLACEMENTSFILENAME				"Map\\BloodcatPlacements.xml"
 // HEADROCK HAM 3.6: Uniform Colors [2009-09-29]
 #define UNIFORMCOLORSFILENAME					"Army\\UniformColors.xml"
+
+//SMALL FACES
+#define RPCFACESSMALLFILENAME					"RPCFacesSmall.xml"
+
+//Hidden Names
+#define HIDDENNAMESFILENAME						"HiddenNames.xml"
+
+//Enemy Names
+#define ENEMYNAMESFILENAME						"EnemyNames.xml"
+
+//Enemy RANK
+#define ENEMYRANKFILENAME						"EnemyRank.xml"
+
+//CIV Names
+#define CIVGROUPNAMESFILENAME					"CivGroupNames.xml"
+
+//Sender Name List
+#define SENDERNAMELISTFILENAME					"SenderNameList.xml"
+
+
+#define IMPPORTRAITS					"IMPPortraits.xml"
+
+#define SOUNDPROFILE				"SoundsProfiles.xml"
+
+#define RANDOMSTATS					"RandomStats.xml"
+
+#define SECTORLEVEL1NAMESFILENAME						"Map\\SectorNamesLevel_1.xml"
+#define SECTORLEVEL2NAMESFILENAME						"Map\\SectorNamesLevel_2.xml"
+#define SECTORLEVEL3NAMESFILENAME						"Map\\SectorNamesLevel_3.xml"
+
+#define MERCAVAILABILITY	"MercAvailability.xml"
+
+#define AIMAVAILABILITY	"AimAvailability.xml"
+
+#define QUOTEARRAYFILENAME					"MercQuote.xml"
 
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
@@ -199,6 +237,9 @@ extern BOOLEAN WriteAmmoStats();
 
 extern BOOLEAN WriteIncompatibleAttachmentStats();
 extern BOOLEAN ReadInIncompatibleAttachmentStats(STR fileName);
+//WarmSteel - for New Attachment System
+extern BOOLEAN WriteAttachmentSlotsStats();
+extern BOOLEAN ReadInAttachmentSlotsStats(STR fileName);
 
 extern BOOLEAN WriteExtendedArmyGunChoicesStats();
 extern BOOLEAN ReadInExtendedArmyGunChoicesStats(STR fileName);
@@ -294,13 +335,13 @@ extern BOOLEAN ReadInSectorFacilities(STR fileName);
 extern BOOLEAN ReadInDynamicRoamingRestrictions(STR fileName);
 
 // HEADROCK HAM 3.5: Facility Types and bonuses
-extern BOOLEAN ReadInFacilityTypes(STR fileName);
+extern BOOLEAN ReadInFacilityTypes(STR fileName, BOOLEAN localizedVersion);
 
 // HEADROCK HAM 3.6: Customized Sector Names
-extern BOOLEAN ReadInSectorNames(STR fileName);
+extern BOOLEAN ReadInSectorNames(STR fileName, BOOLEAN localizedVersion, INT8 Level );
 
 // HEADROCK PROFEX: Merc Profiles
-extern BOOLEAN ReadInMercProfiles(STR fileName);
+extern BOOLEAN ReadInMercProfiles(STR fileName, BOOLEAN localizedVersion);
 
 // HEADROCK PROFEX: Merc Opinions
 extern BOOLEAN ReadInMercOpinions(STR fileName);
@@ -310,5 +351,42 @@ extern BOOLEAN ReadInBloodcatPlacements(STR fileName);
 
 // HEADROCK HAM 3.6: Customized Uniform Colors
 extern BOOLEAN ReadInUniforms(STR fileName);
+
+//Jazz Small Faces
+extern BOOLEAN ReadInSmallFacesStats(RPC_SMALL_FACE_VALUES *pSmallFaces, STR fileName);
+extern BOOLEAN WriteSmallFacesStats(RPC_SMALL_FACE_VALUES *pSmallFaces, STR fileName);
+
+//Hidden Names
+extern BOOLEAN ReadInHiddenNamesStats(HIDDEN_NAMES_VALUES *pHiddenNames, STR fileName);
+extern BOOLEAN WriteHiddenNamesStats(HIDDEN_NAMES_VALUES *pHiddenNames, STR fileName);
+extern void LoadHiddenNames();
+
+extern BOOLEAN ReadInEnemyNames(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN ReadInCivGroupNamesStats(STR fileName, BOOLEAN localizedVersion);
+
+// the list of email sender names by Jazz
+extern BOOLEAN ReadInSenderNameList(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN ReadInEnemyRank(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN WriteEnemyRank( STR fileName);
+extern BOOLEAN ReadInIMPPortraits(STR fileName, BOOLEAN localizedVersion);
+extern void LoadIMPPortraitsTEMP();
+
+//Enabled\Disabled profile sound by Jazz
+extern BOOLEAN ReadInSoundProfile( STR fileName );
+extern BOOLEAN WriteSoundProfile( STR fileName );
+
+//Random stats by Jazz
+extern BOOLEAN WriteRandomStats( STR fileName );
+extern BOOLEAN ReadInRandomStats( STR fileName );
+
+//new profiles by Jazz	
+extern BOOLEAN ReadInMercAvailability(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN WriteMercAvailability(STR fileName);
+
+extern BOOLEAN ReadInAimAvailability(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN WriteAimAvailability(STR fileName);
+
+extern BOOLEAN WriteQarray(QARRAY_VALUES *pQarray, STR fileName);
+extern BOOLEAN ReadInQarray(QARRAY_VALUES *pQarray, STR fileName);
 
 #endif

@@ -48,8 +48,10 @@
 	#ifndef _NO_DEBUG_TXT
 		#include "fileman.h"
 	#endif
-#include	"GameSettings.h"
+#include "GameSettings.h"
 #include "SaveLoadGame.h"
+
+#include "debug_util.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -402,7 +404,7 @@ void	DbgShutdown() {};
 
 extern HVOBJECT FontObjs[25];
 
-
+#include <vfs/Core/vfs_os_functions.h>
 void _FailMessage(const char* message, unsigned lineNum, const char * functionName, const char* sourceFileName)
 {
 	// This function shouldn't recurse
@@ -410,6 +412,8 @@ void _FailMessage(const char* message, unsigned lineNum, const char * functionNa
 	if (alreadyInThisFunction)
 		return;
 	alreadyInThisFunction = true;
+
+	sgp::dumpStackTrace(message);
 
 	std::stringstream basicInformation;
 	basicInformation << "Assertion Failure [Line " << lineNum;
@@ -501,10 +505,26 @@ STR8 String(const STR8 String, ...)
 
 }
 
-void _ExceptionMessage( CBasicException &ex )
+void _ExceptionMessage( sgp::Exception &ex )
 {
 	g_ExceptionList.clear();
-	CBasicException::CALLSTACK::iterator it = ex.m_CallStack.begin();
+	std::list<sgp::Exception::Excp>::iterator it = ex._msg.begin();
+	for(; it!=ex._msg.end(); ++it)
+	{
+		SExceptionData exd;
+		exd.message = (*it).msg;
+		exd.function = (*it).function;
+		exd.file = (*it).file;
+		exd.line = (*it).line;
+		g_ExceptionList.push_back(exd);
+	}
+	_FailMessage("",0,"");
+}
+
+void _ExceptionMessage( vfs::Exception &ex )
+{
+	g_ExceptionList.clear();
+	vfs::Exception::CALLSTACK::iterator it = ex.m_CallStack.begin();
 	for(; it!=ex.m_CallStack.end(); ++it)
 	{
 		SExceptionData exd;
@@ -517,5 +537,127 @@ void _ExceptionMessage( CBasicException &ex )
 	_FailMessage("",0,"");
 }
 
+#include <vfs/Core/vfs_string.h>
+#include <vfs/Core/vfs_debug.h>
+
+sgp::Exception::Exception(sgp::WString const& msg SGP_CALLER_LOCATION_IMPL)
+{
+	Excp excp;
+	excp.line		= line;
+	excp.file		= file ? file : "";
+	excp.function	= function ? function : "";
+	excp.msg		= msg.str;
+
+	_msg.push_back(excp);
+}
+
+sgp::Exception::Exception(sgp::WString const& msg, Exception& ex SGP_CALLER_LOCATION_IMPL)
+{
+	_msg.insert(_msg.end(), ex._msg.begin(), ex._msg.end()); 
+
+	Excp excp;
+	excp.line		= line;
+	excp.file		= file ? file : "";
+	excp.function	= function ? function : "";
+	excp.msg		= msg.str;
+
+	_msg.push_back(excp);
+}
+
+#if defined(USE_VFS)
+sgp::Exception::Exception(sgp::WString const& msg, vfs::Exception& ex SGP_CALLER_LOCATION_IMPL)
+{
+	vfs::Exception::CALLSTACK::iterator it = ex.m_CallStack.begin();
+	for(; it != ex.m_CallStack.end(); ++it)
+	{
+		Excp excp;
+		excp.file		= it->file.utf8();
+		excp.function	= it->function.utf8();
+		excp.line		= it->line;
+		excp.msg		= it->message.c_wcs();
+		_msg.push_back(excp);
+	}
+
+	Excp excp;
+	excp.line		= line;
+	excp.file		= file ? file : "";
+	excp.function	= function ? function : "";
+	excp.msg		= msg.str;
+
+	_msg.push_back(excp);
+}
+#endif
+
+sgp::Exception::Exception(WString const& msg, std::exception& ex SGP_CALLER_LOCATION_IMPL)
+{
+	if(dynamic_cast<sgp::Exception*>(&ex))
+	{
+		sgp::Exception& sgp_ex = *static_cast<sgp::Exception*>(&ex);
+		_msg.insert(_msg.end(), sgp_ex._msg.begin(), sgp_ex._msg.end()); 
+	}
+	else if(dynamic_cast<vfs::Exception*>(&ex))
+	{
+		vfs::Exception& vfs_ex = *static_cast<vfs::Exception*>(&ex);
+		vfs::Exception::CALLSTACK::iterator it = vfs_ex.m_CallStack.begin();
+		for(; it != vfs_ex.m_CallStack.end(); ++it)
+		{
+			Excp excp;
+			excp.file		= it->file.utf8();
+			excp.function	= it->function.utf8();
+			excp.line		= it->line;
+			excp.msg		= it->message.c_wcs();
+			_msg.push_back(excp);
+		}
+	}
+	else
+	{
+		Excp excp;
+		excp.file		= "";
+		excp.function	= "";
+		excp.line		= -1;
+		convert_string(ex.what(), excp.msg);
+		_msg.push_back(excp);
+	}
+
+	Excp excp;
+	excp.line = line;
+	excp.file = file ? file : "";
+	excp.function = function ? function : "";
+	excp.msg = msg.str;
+
+	_msg.push_back(excp);
+}
+
+
+#if defined(_WIN32) || defined(WIN64)
+#	define ENDL "\r\n"
+#else
+#	define ENDL "\n"
+#endif
+
+static std::string gs_exception_string;
+
+const char* sgp::Exception::what() const
+{
+	// cannot return pointer local variable
+	std::stringstream ss;
+	ss.str("");
+	ss.clear();
+
+	std::list<Excp>::const_reverse_iterator rit = _msg.rbegin();
+	for(; rit != _msg.rend(); ++rit)
+	{
+		std::string msg;
+		convert_string(rit->msg, msg);
+		//wss << "========== "	<< rit->time		<< " =========="ENDL;
+		ss << "File     :  "	<< rit->file		<< ENDL;
+		ss << "Line     :  "	<< rit->line		<< ENDL;
+		ss << "Location :  "	<< rit->function	<< ENDL;
+		ss << "  "				<< msg				<< ENDL;
+	}
+
+	gs_exception_string = ss.str();
+	return gs_exception_string.c_str();
+}
 
 

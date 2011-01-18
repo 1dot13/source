@@ -39,6 +39,7 @@
 	#include "opplist.h"
 	#include "Soldier ani.h"
 	#include "GameSettings.h"
+	#include "Queen Command.h"
 #endif
 
 //INT8 gubVehicleMovementGroups[ MAX_VEHICLES ];
@@ -618,14 +619,44 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 }
 
 
-void SetSoldierExitVehicleInsertionData( SOLDIERTYPE *pSoldier, INT32 iId )
+void SetSoldierExitVehicleInsertionData( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 iOldGroupID )
 {
+	GROUP *pGroup;
+
 	if ( iId == iHelicopterVehicleId && !pSoldier->bInSector )
 	{
 	if( pSoldier->sSectorX	!= BOBBYR_SHIPPING_DEST_SECTOR_X || pSoldier->sSectorY != BOBBYR_SHIPPING_DEST_SECTOR_Y || pSoldier->bSectorZ != BOBBYR_SHIPPING_DEST_SECTOR_Z )
 	{
-		// Not anything different here - just use center gridno......
-		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
+		if( NumHostilesInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) > 0 && iOldGroupID != 0 && gGameExternalOptions.ubSkyriderHotLZ == 2 )
+		{
+			pGroup = GetGroup( iOldGroupID );
+			if( pGroup->ubSectorX < pGroup->ubPrevX )
+			{
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_EAST;
+			}
+			else if( pGroup->ubSectorX > pGroup->ubPrevX )
+			{
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_WEST;
+			}
+			else if( pGroup->ubSectorY < pGroup->ubPrevY )
+			{
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_SOUTH;
+			}
+			else if( pGroup->ubSectorY > pGroup->ubPrevY )
+			{
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+			}
+			else
+			{
+				Assert(0);
+				return;
+			}
+		}
+		else
+		{
+			// Not anything different here - just use center gridno......
+			pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
+		}
 	}
 	else
 	{
@@ -643,6 +674,7 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 	BOOLEAN fSoldierLeft = FALSE;
 	BOOLEAN	fSoldierFound = FALSE;
 	SOLDIERTYPE *pVehicleSoldier;
+	UINT8	iOldGroupID=0;
 
 
 	if( ( iId >= ubNumberOfVehicles ) || ( iId < 0 ) )
@@ -663,6 +695,7 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 		{
 			fSoldierFound = TRUE;
 
+			iOldGroupID = pVehicleList[ iId ].pPassengers[ iCounter ]->ubGroupID;
 			pVehicleList[ iId ].pPassengers[ iCounter ]->ubGroupID = 0;
 			pVehicleList[ iId ].pPassengers[ iCounter ]->sSectorY = pVehicleList[ iId ].sSectorY;
 			pVehicleList[ iId ].pPassengers[ iCounter ]->sSectorX = pVehicleList[ iId ].sSectorX;
@@ -772,7 +805,7 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 			SetSectorFlag( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, SF_ALREADY_VISITED );
 		}
 
-	SetSoldierExitVehicleInsertionData( pSoldier, iId );
+	SetSoldierExitVehicleInsertionData( pSoldier, iId, iOldGroupID );
 
 	// Update in sector if this is the current sector.....
 		if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ )

@@ -33,6 +33,8 @@
 	#include "EditorMapInfo.h"
 #endif
 
+#include "LoadScreen.h"
+
 extern SOLDIERINITNODE *gpSelected;
 extern SCHEDULENODE gCurrSchedule;
 extern void ExtractAndUpdateMercSchedule();
@@ -648,8 +650,17 @@ void BtnChangeTilesetCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
 	{
-		btn->uiFlags |= BUTTON_CLICKED_ON;
-		iEditorToolbarState = TBAR_MODE_CHANGE_TILESET;
+		// WANNE: Check if map has been saved when we have a new map that has not been saved before!
+		if (fNewMapSaved)
+		{
+			btn->uiFlags |= BUTTON_CLICKED_ON;
+			iEditorToolbarState = TBAR_MODE_CHANGE_TILESET;
+		}
+		else
+		{
+			swprintf(gzErrorCatchString, L"Before changing tilesets you have to save the new map!");
+			InitErrorCatchDialog();
+		}
 	}
 }
 

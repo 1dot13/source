@@ -7,9 +7,9 @@
 
 // Defines
 // #######################################################
-#define MAX_ANIMATIONS									320
+#define MAX_ANIMATIONS									350 //!!!!!ddd пока добавил 30 лишних словтов под анимашки. 
 #define MAX_FRAMES_PER_ANIM							100
-#define	MAX_RANDOM_ANIMS_PER_BODYTYPE		7
+#define	MAX_RANDOM_ANIMS_PER_BODYTYPE		8
 
 #define	RANDOM_ANIM_NOTHINGINHAND								0
 #define	RANDOM_ANIM_RIFLEINHAND									1
@@ -542,7 +542,18 @@ enum AnimationStates
 	//<SB> crouch throwing
 	THROW_ITEM_CROUCHED,
 	//</SB>
-
+	///ddd
+	BIGGUY_STONE,
+	SHOOT_ROCKET_CROUCHED,
+	SWATTING_WK,
+	SWAT_BACKWARDS_WK,
+	SWAT_BACKWARDS_NOTHING,
+	THROW_GRENADE_STANCE, //ddd для бабы анимации нет - используем стандартную
+	LOB_GRENADE_STANCE,
+	//перекатты
+	ROLL_PRONE_R,
+	ROLL_PRONE_L, 
+	
 	NUMANIMATIONSTATES
 
 };

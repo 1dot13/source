@@ -174,7 +174,6 @@ BOOLEAN EnterAimSort()
 	VOBJECT_DESC	VObjectDesc;
 	UINT8						ubCurNumber=0;
 	UINT16						ubWidth;
-	UINT8	i;
 
 	AimSortCheckBoxLoc[0] = AIM_SORT_SORT_BY_X + 9;
 	AimSortCheckBoxLoc[1] = AIM_SORT_SORT_BY_Y + 34;
@@ -193,11 +192,6 @@ BOOLEAN EnterAimSort()
 	AimSortCheckBoxLoc[14] = AIM_SORT_SORT_BY_X + 172;
 	AimSortCheckBoxLoc[15] = AIM_SORT_SORT_BY_Y + 17;
 
-	//Everytime into Aim Sort, reset array.
-	for(i=0; i<MAX_NUMBER_MERCS; i++)
-	{
-		AimMercArray[i] = i;
-	}
 
 	InitAimDefaults();
 

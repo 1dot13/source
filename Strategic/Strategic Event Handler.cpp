@@ -33,7 +33,9 @@
 #endif
 #include "BobbyRMailOrder.h"
 
+#include "Luaglobal.h"
 #include "connect.h"
+#include "LuaInitNPCs.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -51,6 +53,8 @@ extern INT32 gsRobotGridNo;
 UINT32 guiPabloExtraDaysBribed = 0;
 
 UINT8		gubCambriaMedicalObjects;
+
+extern INT8 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist );
 
 // WANNE: No more used for the new airport code
 //void DropOffItemsInMeduna( UINT8 ubOrderNum );
@@ -722,8 +726,10 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 				}
 				break;
 			case NPC_ACTION_DELAYED_MAKE_BRENDA_LEAVE:
-				//IC:
-				//TriggerNPCRecord( 85, 9 );
+				// silversurfer: reenabled this
+				// but only play Brendas quote when we are near enough to hear her
+				if ( NumMercsNear( 85, 8 ) > 0 )
+					TriggerNPCRecord( 85, 9 );
 				SetFactTrue( FACT_BRENDA_PATIENCE_TIMER_EXPIRED );
 				break;
 			case NPC_ACTION_SET_DELAY_TILL_GIRLS_AVAILABLE:
@@ -799,16 +805,25 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 
 void HandleEarlyMorningEvents( void )
 {
+#ifdef LUA_STRATEGY_EVENT_HANDLER
+	LetLuaHandleEarlyMorningEvents(0);
+#else
+
 	UINT32					cnt;
 	UINT32					uiAmount;
 
 	// loop through all *NPCs* and reset "default response used recently" flags
-	for (cnt = FIRST_RPC; cnt < GASTON; cnt++)
+	//for (cnt = FIRST_RPC; cnt < GASTON; cnt++)
+	for (cnt = 0; cnt < NUM_PROFILES; cnt++)
 	{
-		gMercProfiles[cnt].bFriendlyOrDirectDefaultResponseUsedRecently = FALSE;
-		gMercProfiles[cnt].bRecruitDefaultResponseUsedRecently = FALSE;
-		gMercProfiles[cnt].bThreatenDefaultResponseUsedRecently = FALSE;
-		gMercProfiles[cnt].ubMiscFlags2 &= (~PROFILE_MISC_FLAG2_BANDAGED_TODAY);
+		//new profiles by Jazz
+		if ( gProfilesRPC[cnt].ProfilId == cnt || gProfilesNPC[cnt].ProfilId == cnt || gProfilesVehicle[cnt].ProfilId == cnt )
+		{
+			gMercProfiles[cnt].bFriendlyOrDirectDefaultResponseUsedRecently = FALSE;
+			gMercProfiles[cnt].bRecruitDefaultResponseUsedRecently = FALSE;
+			gMercProfiles[cnt].bThreatenDefaultResponseUsedRecently = FALSE;
+			gMercProfiles[cnt].ubMiscFlags2 &= (~PROFILE_MISC_FLAG2_BANDAGED_TODAY);
+		}
 	}
 	// reset Father Walker's drunkenness level!
 	gMercProfiles[ FATHER ].bNPCData = (INT8) Random( 4 );
@@ -834,8 +849,8 @@ void HandleEarlyMorningEvents( void )
 
 	if( gMercProfiles[ TONY ].ubLastDateSpokenTo > 0 && !( gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_C && gbWorldSectorZ == 0 ) )
 	{
-		// San Mona C5 is not loaded so make Tony possibly not available
-		if (Random( 4 ))
+		// San Mona C5 is not loaded so make Tony possibly not availableif 
+		if (Random( 99 ) < gGameExternalOptions.ubChanceTonyAvailable) // silversurfer/SANDRO
 		{
 			// Tony IS available
 			SetFactFalse( FACT_TONY_NOT_AVAILABLE );
@@ -1026,7 +1041,7 @@ void HandleEarlyMorningEvents( void )
 	{
 		CheckForMissingHospitalSupplies();
 	}
-
+#endif
 }
 
 void MakeCivGroupHostileOnNextSectorEntrance( UINT8 ubCivGroup )

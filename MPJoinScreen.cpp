@@ -31,10 +31,10 @@
 #include "saveloadscreen.h"
 #include "game init.h"
 
-#include "VFS/vfs.h"
-#include "VFS/vfs_init.h"
-#include "VFS/PropertyContainer.h"
-#include "VFS/os_functions.h"
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_init.h>
+#include <vfs/Tools/vfs_property_container.h>
+#include <vfs/Core/vfs_os_functions.h>
 
 #include "Random.h"
 
@@ -51,15 +51,17 @@
 #define		MPJ_LABEL_TEXT_COLOR							FONT_MCOLOR_WHITE
 
 //buttons
-#define		MPJ_BTN_JOIN_X							iScreenWidthOffset + 320 + 143
-#define		MPJ_BTN_JOIN_Y							iScreenHeightOffset + 435
-#define		MPJ_BTN_HOST_X							MPJ_BTN_JOIN_X-180
-#define		MPJ_BTN_HOST_Y							iScreenHeightOffset + 435
 #define		MPJ_CANCEL_X							iScreenWidthOffset + ((320 - 115) / 2)
+
+#define		MPJ_BTN_HOST_X							iScreenWidthOffset + 265
+#define		MPJ_BTN_HOST_Y							iScreenHeightOffset + 435
+
+#define		MPJ_BTN_JOIN_X							iScreenWidthOffset + 425
+#define		MPJ_BTN_JOIN_Y							iScreenHeightOffset + 435
 
 //textboxes
 #define		MPJ_TXT_HANDLE_X						iScreenWidthOffset + 100
-#define		MPJ_TXT_HANDLE_Y						iScreenHeightOffset + 60
+#define		MPJ_TXT_HANDLE_Y						iScreenHeightOffset + 100
 #define		MPJ_TXT_HANDLE_WIDTH					120
 #define		MPJ_TXT_HANDLE_HEIGHT					17
 #define		MPJ_TXT_IP_X							iScreenWidthOffset + 100
@@ -73,7 +75,7 @@
 
 
 //main title
-#define		MPJ_MAIN_TITLE_X								0
+#define		MPJ_MAIN_TITLE_X						0
 #define		MPJ_MAIN_TITLE_Y						iScreenHeightOffset + 10
 #define		MPJ_MAIN_TITLE_WIDTH					SCREEN_WIDTH
 
@@ -90,7 +92,6 @@
 #define		MPJ_LABEL_PORT_Y						MPJ_TXT_PORT_Y + 3
 #define		MPJ_LABEL_PORT_WIDTH					80
 #define		MPJ_LABEL_PORT_HEIGHT					17
-
 
 ////////////////////////////////////////////
 //
@@ -127,9 +128,8 @@ CHAR16		gzServerPortField[ 5+1 ] = {0} ;
 // client sets this when joining
 extern CHAR16 gzFileTransferDirectory[100];
 
-#ifdef USE_VFS
 
-void CUniqueServerId::uniqueRandomString(utf8string& str)
+void CUniqueServerId::uniqueRandomString(vfs::String& str)
 {
 	std::vector<wchar_t> _rand(30,0);
 	int pos = 0;
@@ -153,25 +153,24 @@ void CUniqueServerId::uniqueRandomString(utf8string& str)
 	str.r_wcs().assign(&_rand[0],29);
 }
 
-utf8string const& CUniqueServerId::getServerId(vfs::Path dir, CPropertyContainer* props)
+vfs::String const& CUniqueServerId::getServerId(vfs::Path dir, vfs::PropertyContainer* props)
 {
 	if(!props)
 	{
 		return _id;
 	}
-	utf8string key = L"\"" + dir.c_wcs() + L"\"";
-	utf8string id = props->getStringProperty(L"SERVER",key);
+	vfs::String key = L"\"" + dir.c_wcs() + L"\"";
+	vfs::String id = props->getStringProperty(JA2MP_INI_SERVER_SECTION,key);
 	if(id.empty())
 	{
 		uniqueRandomString(id);
 	}
 	_id = id;
-	props->setStringProperty(L"SERVER",key,_id);
+	props->setStringProperty(JA2MP_INI_SERVER_SECTION,key,_id);
 	return _id;
 }
 
 CUniqueServerId s_ServerId;
-#endif
 
 ////////////////////////////////////////////
 //
@@ -217,21 +216,30 @@ void			DoneFadeOutForExitMPJScreen( void );
 void			DoneFadeInForExitMPJScreen( void );
 
 
+void MpIniExists()
+{
+	if(!getVFS()->fileExists(JA2MP_INI_FILENAME))
+	{
+		SGP_THROW_IFFALSE(getVFS()->createNewFile(JA2MP_INI_FILENAME),L"could not create file : Ja2_mp.ini");
+		vfs::tWritableFile* file = getVFS()->getWriteFile(JA2MP_INI_FILENAME);
+		if(file)
+		{
+			file->openWrite(true);
+			file->close();
+		}
+	}
+}
+
+
 UINT32	MPJoinScreenInit( void )
 {
-// WANNE - MP: Read the values from Profiles/UserProfile/ja2_mp.ini
-#ifndef USE_VFS
-	// read settings from JA2 ini
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_IP", L"127.0.0.1", gzServerIPField, 16, L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_PORT", L"60005", gzServerPortField, 6, L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"CLIENT_NAME", L"Player Name", gzPlayerHandleField, 12 , L"..\\Ja2_mp.ini" );
-#else
-	CPropertyContainer props;
-	props.initFromIniFile( L"Ja2_mp.ini");
-	props.getStringProperty( L"Ja2_mp Settings", L"SERVER_IP", gzServerIPField, 16, "127.0.0.1");
-	props.getStringProperty( L"Ja2_mp Settings", L"SERVER_PORT", gzServerPortField, 6, "60005");
-	props.getStringProperty( L"Ja2_mp Settings", L"CLIENT_NAME", gzPlayerHandleField, 12, L"Player Name");
-#endif
+	// WANNE - MP: Read the values from Profiles/UserProfile/ja2_mp.ini
+	MpIniExists();
+	vfs::PropertyContainer props;
+	props.initFromIniFile( JA2MP_INI_FILENAME);
+	props.getStringProperty( JA2MP_INI_INITIAL_SECTION, JA2MP_SERVER_IP, gzServerIPField, 16, "127.0.0.1");
+	props.getStringProperty( JA2MP_INI_INITIAL_SECTION, JA2MP_SERVER_PORT, gzServerPortField, 6, "60005");
+	props.getStringProperty( JA2MP_INI_INITIAL_SECTION, JA2MP_CLIENT_NAME, gzPlayerHandleField, 12, L"Player Name");
 	return( 1 );
 }
 
@@ -244,23 +252,17 @@ void		SaveJoinSettings(bool ReSaving)
 		Get16BitStringFromField( 2, gzServerPortField, 6 );
 	}
 	
-#ifndef USE_VFS
-	// save settings to JA2_mp.ini
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_IP",  gzServerIPField, L"..\\Ja2_mp.ini" );
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_PORT", gzServerPortField, L"..\\Ja2_mp.ini" );
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"CLIENT_NAME", gzPlayerHandleField , L"..\\Ja2_mp.ini" );
-#else
-	CPropertyContainer props;
-	props.initFromIniFile("Ja2_mp.ini");
+	MpIniExists();
+	vfs::PropertyContainer props;
+	props.initFromIniFile(JA2MP_INI_FILENAME);
 
-	props.setStringProperty(L"Ja2_mp Settings",L"SERVER_IP", gzServerIPField);
-	props.setStringProperty(L"Ja2_mp Settings",L"SERVER_PORT", gzServerPortField);
-	props.setStringProperty(L"Ja2_mp Settings",L"CLIENT_NAME", gzPlayerHandleField);
+	props.setStringProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_SERVER_IP, gzServerIPField);
+	props.setStringProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_SERVER_PORT, gzServerPortField);
+	props.setStringProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_CLIENT_NAME, gzPlayerHandleField);
 
 	s_ServerId.getServerId(vfs::Path(gzFileTransferDirectory), &props);
 
-	props.writeToIniFile(L"ja2_mp.ini",true);
-#endif
+	props.writeToIniFile(JA2MP_INI_FILENAME,false);
 }
 
 bool	ValidateJoinSettings(bool bSkipServerAddress, bool bSkipSyncDir)
@@ -326,30 +328,10 @@ bool	ValidateJoinSettings(bool bSkipServerAddress, bool bSkipSyncDir)
 
 	if (!bSkipSyncDir)
 	{
-#ifndef USE_VFS
-		// Create MULTIPLAYER / SERVERS if it dosent exist
-		STRING512 syncDir;
-		STRING512 executableDir;
-
-		GetExecutableDirectory(executableDir);
-		sprintf(syncDir, "%s\\multiplayer", executableDir);
-
-		if (!DirectoryExists(syncDir))
+		if(vfs::OS::createRealDirectory(vfs::Path(L"Multiplayer")))
 		{
-			CreateDirectoryA(syncDir, NULL);
+			vfs::OS::createRealDirectory(vfs::Path(L"Multiplayer/Servers"));
 		}
-
-		sprintf(syncDir, "%s\\multiplayer\\servers", executableDir);
-		if (!DirectoryExists(syncDir))
-		{
-			CreateDirectoryA(syncDir, NULL);
-		}
-#else
-		if(os::createRealDirectory(vfs::Path(L"Multiplayer")))
-		{
-			os::createRealDirectory(vfs::Path(L"Multiplayer/Servers"));
-		}
-#endif
 	}
 
 	return true;
@@ -361,8 +343,6 @@ UINT32	MPJoinScreenHandle( void )
 
 	if( gfMPJScreenEntry )
 	{
-//		PauseGame();
-
 		EnterMPJScreen();
 		gfMPJScreenEntry = FALSE;
 		gfMPJScreenExit = FALSE;
@@ -370,7 +350,6 @@ UINT32	MPJoinScreenHandle( void )
 	}
 
 	GetMPJScreenUserInput();
-
 
 	HandleMPJScreen();
 
@@ -380,12 +359,7 @@ UINT32	MPJoinScreenHandle( void )
 
 	// render text boxes
 	RenderAllTextFields(); // textbox system call
-
-	// render help
-//	RenderFastHelp( );
-//	RenderButtonsFastHelp( );
-
-
+	
 	ExecuteBaseDirtyRectQueue();
 	EndFrameBufferRender();
 
@@ -409,17 +383,15 @@ UINT32	MPJoinScreenHandle( void )
 
 	if ( HandleBeginFadeIn( gubMPJExitScreen ) )
 	{
-
 	}
 
-	if( gfMPJScreenExit ) // we are exiting this screen
+	if( gfMPJScreenExit )
 	{
-		ExitMPJScreen(); // perform destruction
+		ExitMPJScreen();
 	}
 
 	return( gubMPJExitScreen );
-} // end MPJoinScreenHandle()
-
+}
 
 UINT32	MPJoinScreenShutdown( void )
 {
@@ -545,9 +517,7 @@ BOOLEAN		EnterMPJScreen()
 	gfMPJButtonsAllocated = TRUE;
 
 	return( TRUE );
-
-} // End of EnterMPJScreen()
-
+}
 
 BOOLEAN		ExitMPJScreen()
 {
@@ -582,10 +552,9 @@ BOOLEAN		ExitMPJScreen()
 
 	return( TRUE );
 
-} // End of ExitMPJScreen()
+}
 
-
-void			HandleMPJScreen()
+void HandleMPJScreen()
 {
 	if( gubMPJScreenHandler != MPJ_NOTHING )
 	{
@@ -617,23 +586,54 @@ void			HandleMPJScreen()
 				}
 				break;
 			}
-
 		}
 
 		gubMPJScreenHandler = MPJ_NOTHING;
 	}
-
 
 	if( gfReRenderMPJScreen )
 	{
 		RenderMPJScreen();
 		gfReRenderMPJScreen = FALSE;
 	}
+}
 
-	// <TODO> add restore backgrounds in...
-	//RestoreGIOButtonBackGrounds();
-} // end of HandleMPJScreen
+void DrawHelpText()
+{
+	int x = MPJ_LABEL_HANDLE_X;
+	int y = iScreenHeightOffset + 60;	
+	int width = 640 - (2 * 50);
+	int lineSpacing = 12;
 
+	// Visit IRC
+	DrawTextToScreen( gzMPJHelpText[ 0 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
+	// Host
+	y += 150;
+
+	y+= lineSpacing;
+	DrawTextToScreen( gzMPJHelpText[ 1 ], x, y, width, FONT12ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	y+= lineSpacing + 5;
+	DrawTextToScreen( gzMPJHelpText[ 2 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	y+= lineSpacing;
+	DrawTextToScreen( gzMPJHelpText[ 3 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	y+= lineSpacing;
+	DrawTextToScreen( gzMPJHelpText[ 4 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	y+= lineSpacing;
+	DrawTextToScreen( gzMPJHelpText[ 5 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+
+	// Join
+	y += 20;
+
+	y += lineSpacing;
+	DrawTextToScreen( gzMPJHelpText[ 6 ], x, y, width, FONT12ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	y += lineSpacing + 5;
+	DrawTextToScreen( gzMPJHelpText[ 7 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	y += lineSpacing;
+	DrawTextToScreen( gzMPJHelpText[ 8 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	y += lineSpacing;
+	DrawTextToScreen( gzMPJHelpText[ 9 ], x, y, width, FONT10ARIAL, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+}
 
 BOOLEAN		RenderMPJScreen()
 {
@@ -648,9 +648,11 @@ BOOLEAN		RenderMPJScreen()
 
 	//Display the title
 	DrawTextToScreen( gzMPJScreenText[ MPJ_TITLE_TEXT ], MPJ_MAIN_TITLE_X, MPJ_MAIN_TITLE_Y, MPJ_MAIN_TITLE_WIDTH, MPJ_TITLE_FONT, MPJ_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
+	DrawHelpText();
 	
 	// Player name text label
-	DisplayWrappedString( MPJ_LABEL_HANDLE_X, MPJ_LABEL_HANDLE_Y, MPJ_LABEL_HANDLE_WIDTH, 2, MPJ_LABEL_TEXT_FONT, MPJ_LABEL_TEXT_COLOR, gzMPJScreenText[ MPJ_HANDLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DisplayWrappedString( MPJ_LABEL_HANDLE_X, MPJ_LABEL_HANDLE_Y, MPJ_LABEL_HANDLE_WIDTH, 2, MPJ_LABEL_TEXT_FONT, MPJ_LABEL_TEXT_COLOR, gzMPJScreenText[ MPJ_HANDLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );		
 
 	// Server IP text label
 	DisplayWrappedString( MPJ_LABEL_IP_X, MPJ_LABEL_IP_Y, MPJ_LABEL_IP_WIDTH, 2, MPJ_LABEL_TEXT_FONT, MPJ_LABEL_TEXT_COLOR, gzMPJScreenText[ MPJ_SERVERIP_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
@@ -659,16 +661,11 @@ BOOLEAN		RenderMPJScreen()
 	DisplayWrappedString( MPJ_LABEL_PORT_X, MPJ_LABEL_PORT_Y, MPJ_LABEL_PORT_WIDTH, 2, MPJ_LABEL_TEXT_FONT, MPJ_LABEL_TEXT_COLOR, gzMPJScreenText[ MPJ_SERVERPORT_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 	return( TRUE );
-} // end of RenderMPJScreen()
+}
 
-
-
-void			GetMPJScreenUserInput()
+void GetMPJScreenUserInput()
 {
 	InputAtom Event;
-//	POINT	MousePos;
-
-//	GetCursorPos(&MousePos);
 
 	while( DequeueEvent( &Event ) )
 	{
@@ -697,11 +694,9 @@ void			GetMPJScreenUserInput()
 			}
 		}
 	}
-} // end of GetMPJScreenUserInput()
-
+} 
 
 // CALLBACKS
-
 void BtnMPJoinCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -768,9 +763,6 @@ BOOLEAN DoMPJMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen
 {
 	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
 
-	// reset exit mode
-//	gfExitGioDueToMessageBox = TRUE;
-
 	// do message box and return
 	giMPJMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback,	&CenteringRect );
 
@@ -780,8 +772,7 @@ BOOLEAN DoMPJMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen
 
 void DoneFadeOutForExitMPJScreen( void )
 {
-	// As we bypassed the GIO screen, set up some game options for multiplayer here
-	// <TODO> most things i have left as thier defaults here for testing.
+	// As we bypassed the GIO screen, set up some game options for multiplayer here	
 	is_networked = true;
 	is_host = false; // we want to be a client, not we ARE a client yet (is_client)
 	auto_retry = true;

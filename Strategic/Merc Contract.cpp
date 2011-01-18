@@ -839,7 +839,8 @@ void CheckIfMercGetsAnotherContract( SOLDIERTYPE *pSoldier )
 		// multiply by experience level
 		iChance *= pSoldier->stats.bExpLevel;
 
-		if( (INT32) Random( 100 ) < iChance )
+		//tais: disabled mercs going on other assignment after being fired..
+		if( (INT32) Random( 100 ) < iChance && gGameExternalOptions.fMercsOnAssignment < 2 )
 		{
 			// B'bye!
 			pSoldier->flags.fSignedAnotherContract = TRUE;
@@ -1100,7 +1101,9 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 	}
 
 	//if the character is an RPC
-	if( pSoldier->ubProfile >= FIRST_RPC && pSoldier->ubProfile < FIRST_NPC )
+	//if( pSoldier->ubProfile >= FIRST_RPC && pSoldier->ubProfile < FIRST_NPC )
+	//new profiles by Jazz
+	if ( gProfilesRPC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile )
 	{
 		if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 		{

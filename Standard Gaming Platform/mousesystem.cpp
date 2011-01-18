@@ -40,6 +40,8 @@
 	#include "mousesystem.h"
 	#include "Cursor Control.h"
 	#include "Button System.h"
+	///***ddd
+	#include "GameSettings.h"
 #endif
 
 #ifdef JA2_PRECOMPILED_HEADERS
@@ -79,7 +81,8 @@ INT32 MSYS_CurrentID=MSYS_ID_SYSTEM;
 INT16 MSYS_CurrentMX=0;
 INT16 MSYS_CurrentMY=0;
 INT16 MSYS_CurrentButtons=0;
-INT16 MSYS_Action=0;
+INT16 MSYS_Action=MSYS_NO_ACTION;
+INT16 MSYS_Wheel=0;
 
 BOOLEAN	MSYS_SystemInitialized=FALSE;
 BOOLEAN MSYS_UseMouseHandlerHook=FALSE;
@@ -114,7 +117,7 @@ void ExecuteMouseHelpEndCallBack( MOUSE_REGION *region );
 //values there as well.	That's the only reason why I left this here.
 MOUSE_REGION MSYS_SystemBaseRegion = {
 								MSYS_ID_SYSTEM, MSYS_PRIORITY_SYSTEM, BASE_REGION_FLAGS,
-								-32767, -32767, 32767, 32767, 0, 0, 0, 0, 0, 0,
+								-32767, -32767, 32767, 32767, 0, 0, 0, 0, 0, 0, 0,
 								MSYS_NO_CALLBACK, MSYS_NO_CALLBACK, { 0,0,0,0 },
 								0, 0, -1, MSYS_NO_CALLBACK, NULL, NULL };
 
@@ -158,6 +161,7 @@ INT32 MSYS_Init(void)
 	MSYS_CurrentMX = 0;
 	MSYS_CurrentMY = 0;
 	MSYS_CurrentButtons = 0;
+	MSYS_Wheel = 0;
 	MSYS_Action=MSYS_NO_ACTION;
 
 	MSYS_PrevRegion = NULL;
@@ -168,25 +172,26 @@ INT32 MSYS_Init(void)
 	MSYS_GrabRegion = NULL;
 
 	// Setup the system's background region
-	MSYS_SystemBaseRegion.IDNumber						= MSYS_ID_SYSTEM;
-	MSYS_SystemBaseRegion.PriorityLevel				= MSYS_PRIORITY_SYSTEM;
-	MSYS_SystemBaseRegion.uiFlags								= BASE_REGION_FLAGS;
-	MSYS_SystemBaseRegion.RegionTopLeftX			= -32767;
-	MSYS_SystemBaseRegion.RegionTopLeftY			= -32767;
+	MSYS_SystemBaseRegion.IDNumber				= MSYS_ID_SYSTEM;
+	MSYS_SystemBaseRegion.PriorityLevel			= MSYS_PRIORITY_SYSTEM;
+	MSYS_SystemBaseRegion.uiFlags				= BASE_REGION_FLAGS;
+	MSYS_SystemBaseRegion.RegionTopLeftX		= -32767;
+	MSYS_SystemBaseRegion.RegionTopLeftY		= -32767;
 	MSYS_SystemBaseRegion.RegionBottomRightX	= 32767;
 	MSYS_SystemBaseRegion.RegionBottomRightY	= 32767;
-	MSYS_SystemBaseRegion.MouseXPos						= 0;
-	MSYS_SystemBaseRegion.MouseYPos						= 0;
-	MSYS_SystemBaseRegion.RelativeXPos				= 0;
-	MSYS_SystemBaseRegion.RelativeYPos				= 0;
-	MSYS_SystemBaseRegion.ButtonState					= 0;
-	MSYS_SystemBaseRegion.Cursor							= 0;
-	MSYS_SystemBaseRegion.UserData[0]					= 0;
-	MSYS_SystemBaseRegion.UserData[1]					= 0;
-	MSYS_SystemBaseRegion.UserData[2]					= 0;
-	MSYS_SystemBaseRegion.UserData[3]					= 0;
+	MSYS_SystemBaseRegion.MouseXPos				= 0;
+	MSYS_SystemBaseRegion.MouseYPos				= 0;
+	MSYS_SystemBaseRegion.RelativeXPos			= 0;
+	MSYS_SystemBaseRegion.RelativeYPos			= 0;
+	MSYS_SystemBaseRegion.ButtonState			= 0;
+	MSYS_SystemBaseRegion.Cursor				= 0;
+	MSYS_SystemBaseRegion.WheelState			= 0;
+	MSYS_SystemBaseRegion.UserData[0]			= 0;
+	MSYS_SystemBaseRegion.UserData[1]			= 0;
+	MSYS_SystemBaseRegion.UserData[2]			= 0;
+	MSYS_SystemBaseRegion.UserData[3]			= 0;
 	MSYS_SystemBaseRegion.MovementCallback		= MSYS_NO_CALLBACK;
-	MSYS_SystemBaseRegion.ButtonCallback			= MSYS_NO_CALLBACK;
+	MSYS_SystemBaseRegion.ButtonCallback		= MSYS_NO_CALLBACK;
 
 	MSYS_SystemBaseRegion.FastHelpTimer				= 0;
 	MSYS_SystemBaseRegion.FastHelpText				= 0;
@@ -204,7 +209,17 @@ INT32 MSYS_Init(void)
 
 	return(1);
 }
-
+/*
+LONG WINAPI UEFilter(PEXCEPTION_POINTERS pEI)
+{
+    MessageBox(NULL, ("Exception"), ("Oops !!!"), MB_ICONSTOP);
+    TerminateProcess(GetCurrentProcess(), -1);    
+    return -1;
+}
+	SetUnhandledExceptionFilter(UEFilter);
+ 
+*(char*)0 = 0;
+*/
 
 
 //======================================================================================================
@@ -232,6 +247,8 @@ void MSYS_Shutdown(void)
 //
 void MSYS_SGP_Mouse_Handler_Hook(UINT16 Type,UINT16 Xcoord, UINT16 Ycoord, BOOLEAN LeftButton, BOOLEAN RightButton)
 {
+
+
 	// If the mouse system isn't initialized, get out o' here
 	if(!MSYS_SystemInitialized)
 			return;
@@ -240,6 +257,12 @@ void MSYS_SGP_Mouse_Handler_Hook(UINT16 Type,UINT16 Xcoord, UINT16 Ycoord, BOOLE
 	if(!MSYS_UseMouseHandlerHook)
 			return;
 
+	if(!gGameExternalOptions.fExtMouseKeyEnabled &&
+		(Type == MIDDLE_BUTTON_UP || Type == MIDDLE_BUTTON_DOWN || 	Type == X1_BUTTON_DOWN || 
+		Type == X1_BUTTON_UP || Type == X2_BUTTON_DOWN || Type == X2_BUTTON_UP || Type == X1_BUTTON_REPEAT || 
+		Type == X2_BUTTON_REPEAT || Type == MOUSE_WHEEL_UP || Type == MOUSE_WHEEL_DOWN  )		)
+		return;
+
 	MSYS_Action=MSYS_NO_ACTION;
 	switch(Type)
 	{
@@ -247,12 +270,23 @@ void MSYS_SGP_Mouse_Handler_Hook(UINT16 Type,UINT16 Xcoord, UINT16 Ycoord, BOOLE
 		case LEFT_BUTTON_UP:
 		case RIGHT_BUTTON_DOWN:
 		case RIGHT_BUTTON_UP:
+		case MIDDLE_BUTTON_UP:
+		case MIDDLE_BUTTON_DOWN:
+		case X1_BUTTON_DOWN:
+		case X1_BUTTON_UP:
+		case X2_BUTTON_DOWN:
+		case X2_BUTTON_UP:
+
 			//MSYS_Action|=MSYS_DO_BUTTONS;
 			if(Type == LEFT_BUTTON_DOWN)
+			{
 				MSYS_Action |= MSYS_DO_LBUTTON_DWN;
+				MSYS_CurrentButtons|=MSYS_LEFT_BUTTON;
+			}
 			else if(Type == LEFT_BUTTON_UP)
 			{
 				MSYS_Action |= MSYS_DO_LBUTTON_UP;
+				MSYS_CurrentButtons&=(~MSYS_LEFT_BUTTON);
 				//Kris:
 				//Used only if applicable.	This is used for that special button that is locked with the
 				//mouse press -- just like windows.	When you release the button, the previous state
@@ -265,9 +299,45 @@ void MSYS_SGP_Mouse_Handler_Hook(UINT16 Type,UINT16 Xcoord, UINT16 Ycoord, BOOLE
 				#endif
 			}
 			else if(Type == RIGHT_BUTTON_DOWN)
+			{
 				MSYS_Action |= MSYS_DO_RBUTTON_DWN;
+				MSYS_CurrentButtons|=MSYS_RIGHT_BUTTON;
+			}
 			else if(Type == RIGHT_BUTTON_UP)
+			{
 				MSYS_Action |= MSYS_DO_RBUTTON_UP;
+				MSYS_CurrentButtons&=(~MSYS_RIGHT_BUTTON);
+			}
+			else if(Type == MIDDLE_BUTTON_DOWN)
+			{
+				MSYS_Action |= MSYS_DO_MBUTTON_DWN;
+				MSYS_CurrentButtons|=MSYS_MIDDLE_BUTTON;
+			}
+			else if(Type == MIDDLE_BUTTON_UP)
+			{
+				MSYS_Action |= MSYS_DO_MBUTTON_UP;
+				MSYS_CurrentButtons&=(~MSYS_MIDDLE_BUTTON);
+			}
+			else if(Type == X1_BUTTON_DOWN)
+			{
+				MSYS_Action |= MSYS_DO_X1BUTTON_DWN;
+				MSYS_CurrentButtons|=MSYS_X1_BUTTON;
+			}
+			else if(Type == X1_BUTTON_UP)
+			{
+				MSYS_Action |= MSYS_DO_X1BUTTON_UP;
+				MSYS_CurrentButtons&=(~MSYS_X1_BUTTON);
+			}
+			else if(Type == X2_BUTTON_DOWN)
+			{
+				MSYS_Action |= MSYS_DO_X2BUTTON_DWN;
+				MSYS_CurrentButtons|=MSYS_X2_BUTTON;
+			}
+			else if(Type == X2_BUTTON_UP)
+			{
+				MSYS_Action |= MSYS_DO_X2BUTTON_UP;
+				MSYS_CurrentButtons&=(~MSYS_X2_BUTTON);
+			}
 
 			if(LeftButton)
 				MSYS_CurrentButtons|=MSYS_LEFT_BUTTON;
@@ -293,11 +363,20 @@ void MSYS_SGP_Mouse_Handler_Hook(UINT16 Type,UINT16 Xcoord, UINT16 Ycoord, BOOLE
 		// Call mouse region with new reason
 		case LEFT_BUTTON_REPEAT:
 		case RIGHT_BUTTON_REPEAT:
+		case MIDDLE_BUTTON_REPEAT:
+		case X1_BUTTON_REPEAT:
+		case X2_BUTTON_REPEAT:
 
 			if(Type == LEFT_BUTTON_REPEAT)
 				MSYS_Action |= MSYS_DO_LBUTTON_REPEAT;
 			else if(Type == RIGHT_BUTTON_REPEAT)
 				MSYS_Action |= MSYS_DO_RBUTTON_REPEAT;
+			else if(Type == MIDDLE_BUTTON_REPEAT)
+				MSYS_Action |= MSYS_DO_MBUTTON_REPEAT;
+			else if(Type == X1_BUTTON_REPEAT)
+				MSYS_Action |= MSYS_DO_X1BUTTON_REPEAT;
+			else if(Type == X2_BUTTON_REPEAT)
+				MSYS_Action |= MSYS_DO_X2BUTTON_REPEAT;
 
 			if((Xcoord != MSYS_CurrentMX) || (Ycoord != MSYS_CurrentMY))
 			{
@@ -306,6 +385,20 @@ void MSYS_SGP_Mouse_Handler_Hook(UINT16 Type,UINT16 Xcoord, UINT16 Ycoord, BOOLE
 				MSYS_CurrentMY = Ycoord;
 			}
 
+			MSYS_UpdateMouseRegion();
+			break;
+		case MOUSE_WHEEL_UP:
+		case MOUSE_WHEEL_DOWN:
+			if(Type == MOUSE_WHEEL_UP)
+			{
+				MSYS_Action |= MSYS_DO_WHEEL_UP;
+				MSYS_Wheel++;
+			}
+			else if(Type == MOUSE_WHEEL_DOWN)
+			{
+				MSYS_Action |= MSYS_DO_WHEEL_DOWN;
+				MSYS_Wheel--;
+			}
 			MSYS_UpdateMouseRegion();
 			break;
 
@@ -326,6 +419,17 @@ void MSYS_SGP_Mouse_Handler_Hook(UINT16 Type,UINT16 Xcoord, UINT16 Ycoord, BOOLE
 		DbgMessage(TOPIC_MOUSE_SYSTEM, DBG_LEVEL_0, "ERROR -- MSYS 2 SGP Mouse Hook got bad type");
 			break;
 	}
+	// check for moved mouse
+	if((Xcoord != MSYS_CurrentMX) || (Ycoord != MSYS_CurrentMY) || gfRefreshUpdate )
+	{
+		MSYS_Action|=MSYS_DO_MOVE;
+		MSYS_CurrentMX = Xcoord;
+		MSYS_CurrentMY = Ycoord;
+	}
+	
+	// update if something happened
+	if (MSYS_Action != MSYS_NO_ACTION)
+		MSYS_UpdateMouseRegion();
 }
 
 
@@ -713,6 +817,8 @@ void MSYS_UpdateMouseRegion(void)
 			MSYS_CurrRegion->RelativeYPos = MSYS_CurrentMY - MSYS_CurrRegion->RegionTopLeftY;
 
 			MSYS_CurrRegion->ButtonState = MSYS_CurrentButtons;
+			MSYS_CurrRegion->WheelState  = MSYS_Wheel;
+			MSYS_Wheel = 0;
 
 			if( MSYS_CurrRegion->uiFlags & MSYS_REGION_ENABLED &&
 					MSYS_CurrRegion->uiFlags & MSYS_MOVE_CALLBACK && MSYS_Action & MSYS_DO_MOVE )
@@ -1080,7 +1186,7 @@ void MSYS_DisableRegion(MOUSE_REGION *region)
 //
 void MSYS_SetCurrentCursor(UINT16 Cursor)
 {
-	TRYCATCH_RETHROW(SetCurrentCursorFromDatabase( Cursor ), "Could not set Cursor");
+	SGP_TRYCATCH_RETHROW(SetCurrentCursorFromDatabase( Cursor ), "Could not set Cursor");
 }
 
 
@@ -1745,4 +1851,9 @@ MOUSE_REGION *get_first_entry_in_MSYS_RegList(void)
 MOUSE_REGION *get_next_entry_in_MSYS_RegList(MOUSE_REGION *current_region)
 {
 	return current_region->next;
+}
+
+void ResetWheelState( MOUSE_REGION *region )
+{
+	region->WheelState = 0;
 }

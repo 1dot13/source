@@ -53,6 +53,7 @@
 #include "Map Edgepoints.h"
 #include "Queen Command.h"
 
+#include "Map Edgepoints.h"
 BOOLEAN gfOriginalList = TRUE;
 
 SOLDIERINITNODE *gSoldierInitHead = NULL;
@@ -952,6 +953,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierInitListEnemyDefenceSoldiers"));
 
 	ResetMortarsOnTeamCount();
+	ResetNumSquadleadersInArmyGroup(); // added by SANDRO
 
 	//Specs call for only one profiled enemy can be in a sector at a time due to flavor reasons.
 	gfProfiledEnemyAdded = FALSE;
@@ -2142,8 +2144,14 @@ void AddProfilesUsingProfileInsertionData()
 	SOLDIERTYPE *pSoldier;
 	SOLDIERINITNODE * curr;
 
-	for( i = FIRST_RPC; i < ( PROF_HUMMER ); i++ )
+	//for( i = FIRST_RPC; i < ( PROF_HUMMER ); i++ )
+	//new profiles by Jazz
+	for( i = 0; i < NUM_PROFILES; i++ )
 	{
+	
+	if ( gProfilesRPC[i].ProfilId == i || gProfilesNPC[i].ProfilId == i ) 
+	{
+	
 		//Perform various checks to make sure the soldier is actually in the same sector, alive, and so on.
 		//More importantly, the flag to use profile insertion data must be set.
 		if( gMercProfiles[ i ].sSectorX != gWorldSectorX ||
@@ -2213,6 +2221,8 @@ void AddProfilesUsingProfileInsertionData()
 				}
 			}
 		}
+
+	}
 	}
 }
 

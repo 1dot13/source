@@ -20,7 +20,7 @@
 #endif
 
 #include "connect.h"
-#include "VFS/vfs.h"
+#include <vfs/Core/vfs.h>
 #include "XMLWriter.h"
 
 #include "UndergroundInit.h"
@@ -434,7 +434,8 @@ void BuildUndergroundSectorInfoList()
 
 	TrashUndergroundSectorInfo();
 
-	if (LetLuaBuildUndergroundSectorInfoList())
+	//if (LetLuaBuildUndergroundSectorInfoList())
+	g_luaUnderground.InitializeSectorList();
 		// lua script succeeded
 		return;
 

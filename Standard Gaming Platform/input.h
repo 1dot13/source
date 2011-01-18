@@ -18,9 +18,21 @@
 #define RIGHT_BUTTON_UP						0x0100
 #define RIGHT_BUTTON_REPEAT				0x0200
 #define MOUSE_POS									0x0400
-#define MOUSE_WHEEL								0x0800
-#define MIDDLE_BUTTON_UP						0x1000//dnl
-#define MIDDLE_BUTTON_DOWN						0x2000//dnl
+#define MOUSE_WHEEL				0x0800
+#define MOUSE_WHEEL_UP				0x0800
+#define MOUSE_WHEEL_DOWN			0x1000
+#define MIDDLE_BUTTON_DOWN			0x2000
+#define MIDDLE_BUTTON_UP			0x4000
+#define MIDDLE_BUTTON_REPEAT		0x8000
+#define X1_BUTTON_DOWN				0x8010
+#define X1_BUTTON_UP				0x8020
+#define X1_BUTTON_REPEAT			0x8030
+#define X2_BUTTON_DOWN				0x8040
+#define X2_BUTTON_UP				0x8050
+#define X2_BUTTON_REPEAT			0x8060
+//#define MIDDLE_BUTTON_UP						0x1000//dnl
+//#define MIDDLE_BUTTON_DOWN						0x2000//dnl
+
 
 #define SHIFT_DOWN								0x01
 #define CTRL_DOWN									0x02

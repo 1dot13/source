@@ -133,4 +133,12 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, BOOLEAN fSubsequent, INT8 bLevel, INT32 iSmokeEffectNum , BOOL fFromRemoteClient = FALSE , BOOL fNewSmokeEffect = FALSE );
 void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemoteClient = FALSE );
 
+extern void ToggleActionItemsByFrequency( INT8 bFrequency );
+extern void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj );
+extern BOOLEAN		 gfExplosionQueueMayHaveChangedSight;
+extern void TogglePressureActionItemsInGridNo( INT32 sGridNo );
+
+extern BOOLEAN DoesSAMExistHere( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, INT32 sGridNo );
+
+extern BOOLEAN HookerInRoom( UINT8 ubRoom );
 #endif

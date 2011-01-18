@@ -140,4 +140,12 @@ public:
 	static MapXY_t *initGridNodes() { for (INT32 i=0; i<WORLD_MAX; i++){ConvertGridNoToXY(i, &MapXY[i].x, &MapXY[i].y); } return &MapXY; };
 };
 
+//Legion by JAzz	
+BOOLEAN FindHeigherLevelOkno( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection );
+BOOLEAN FindHeigherLevelFence( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection );
+BOOLEAN FindFenceDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection );
+BOOLEAN FindLowerLevelFence( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection ); 
+BOOLEAN FindWindowJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection );
+
+
 #endif

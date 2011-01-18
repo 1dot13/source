@@ -3768,3 +3768,37 @@ void SetTreeTopStateForMap()
 	// FOR THE NEXT RENDER LOOP, RE-EVALUATE REDUNDENT TILES
 	InvalidateWorldRedundency( );
 }
+
+
+
+//--------------------legion 2 Jazz---------------------------------------------------------------
+BOOLEAN IsOknoLevel( INT32 sGridNo )
+{
+	STRUCTURE * pStructure;
+
+	pStructure = FindStructure( sGridNo, STRUCTURE_WALLNWINDOW );
+
+	if ( pStructure != NULL && !( pStructure->fFlags & STRUCTURE_OPEN ))
+	{
+		return( TRUE );
+	}
+
+	return( FALSE );
+
+}
+
+BOOLEAN IsLegionLevel( INT32 sGridNo )
+{
+	STRUCTURE * pStructure;
+
+	pStructure = FindStructure( sGridNo, STRUCTURE_FENCE );
+
+	if ( pStructure != NULL )//&& !( pStructure->fFlags & STRUCTURE_OPEN ))
+	{
+		return( TRUE );
+	}
+
+	return( FALSE );
+
+}
+//-------------------------------------------------------------------

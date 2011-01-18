@@ -15,7 +15,8 @@ typedef enum
 {
 	EXTRAITEMS_ELEMENT_NONE = 0,
 	EXTRAITEMS_ELEMENT_EXTRAITEMS,
-	EXTRAITEMS_ELEMENT_ITEM
+	EXTRAITEMS_ELEMENT_ITEM,
+	EXTRAITEMS_ELEMENT,
 } EXTRAITEMS_PARSE_STAGE;
 
 typedef struct
@@ -29,6 +30,7 @@ typedef struct
 	UINT32					quantity;
 	UINT32					condition;
 	UINT32					gridno;
+	BOOLEAN					visible;
 } ExtraItemsParseData;
 
 
@@ -56,35 +58,21 @@ ExtraItemsStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 			pData->curElement = EXTRAITEMS_ELEMENT_ITEM;
 			pData->maxReadDepth++; //we are not skipping this element
 
-			// Extract the attributes
-			// defaults
+			// set defaults
 			pData->quantity = 1;
 			pData->condition = 100;
 			pData->gridno = 0;
-			for(unsigned uiAttrIndex = 0;atts[uiAttrIndex] != NULL;uiAttrIndex += 2)
-			{
-				if(strcmp(atts[uiAttrIndex], "quantity") == 0)
-				{
-					pData->quantity = atol(atts[uiAttrIndex+1]);
-					if (pData->quantity < 1 || pData->quantity > 100) {
-						pData->quantity = 1;
-					}
-				}
-				else if(strcmp(atts[uiAttrIndex], "condition") == 0)
-				{
-					pData->condition = atol(atts[uiAttrIndex+1]);
-					if (pData->condition < 1 || pData->condition > 100) {
-						pData->condition = 100;
-					}
-				}
-				else if(strcmp(atts[uiAttrIndex], "gridno") == 0)
-				{
-					pData->gridno = atol(atts[uiAttrIndex+1]);
-					//if (pData->gridno < ???? || pData->gridno > ????) {
-					//	pData->gridno = 0;
-					//}
-				}
-			}
+			pData->visible = FALSE;
+		}
+		else if(pData->curElement == EXTRAITEMS_ELEMENT_ITEM &&
+			(strcmp(name, "uiIndex") == 0 ||
+			strcmp(name, "quantity") == 0 ||
+			strcmp(name, "condition") == 0 ||
+			strcmp(name, "gridno") == 0 ||
+			strcmp(name, "visible") == 0 ))
+		{
+			pData->curElement = EXTRAITEMS_ELEMENT;
+			pData->maxReadDepth++;
 		}
 		pData->szCharData[0] = '\0';
 	}
@@ -111,23 +99,58 @@ ExtraItemsEndElementHandle(void *userData, const XML_Char *name)
 
 	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
 	{
-		if(strcmp(name, "ExtraItems") == 0 && pData->curElement == EXTRAITEMS_ELEMENT_EXTRAITEMS)
+		if(pData->curElement == EXTRAITEMS_ELEMENT_EXTRAITEMS &&
+			strcmp(name, "ExtraItems") == 0)
 		{
 			pData->curElement = EXTRAITEMS_ELEMENT_NONE;
 		}
-		else if(strcmp(name, "Item") == 0 && pData->curElement == EXTRAITEMS_ELEMENT_ITEM)
+		else if(pData->curElement == EXTRAITEMS_ELEMENT_ITEM &&
+				strcmp(name, "Item") == 0 &&
+				pData->item > 0 && // Make sure not to create 0-index objects!
+				pData->quantity > 0 && // Quantity should be positive. Not sure what the LIMIT is, if any.
+				pData->condition > 0 && pData->condition <= 100 ) // Condition between 1 and 100!
 		{
-			pData->item = atol(pData->szCharData);
 			OBJECTTYPE object;
 			CreateItem(pData->item, pData->condition, &object);
 			for (unsigned cnt=1; cnt <= pData->quantity; ++cnt) {
 				if (gSectorIsLoaded) {
-					AddItemToPool( pData->gridno, &object, 1, 0, WORLD_ITEM_REACHABLE, 0 );
+					AddItemToPool( pData->gridno, &object, pData->visible, 0, WORLD_ITEM_REACHABLE, 0 );
 				} else {
-					AddItemsToUnLoadedSector( gX, gY, gZ, pData->gridno, 1, &object, 0, WORLD_ITEM_REACHABLE, 0, 1, 0 );
+					AddItemsToUnLoadedSector( gX, gY, gZ, pData->gridno, pData->visible, &object, 0, WORLD_ITEM_REACHABLE, 0, 1, 0 );
 				}
 			}
 			pData->curElement = EXTRAITEMS_ELEMENT_EXTRAITEMS;
+		}
+
+		else if( pData->curElement == EXTRAITEMS_ELEMENT &&
+				strcmp( name, "uiIndex" ) == 0)
+		{
+			pData->item = (UINT32)atol( pData->szCharData );
+			pData->curElement = EXTRAITEMS_ELEMENT_ITEM;
+		}
+		else if( pData->curElement == EXTRAITEMS_ELEMENT &&
+				strcmp( name, "quantity" ) == 0)
+		{
+			pData->quantity = (UINT32)atol( pData->szCharData );
+			pData->curElement = EXTRAITEMS_ELEMENT_ITEM;
+		}
+		else if( pData->curElement == EXTRAITEMS_ELEMENT &&
+				strcmp( name, "condition" ) == 0)
+		{
+			pData->condition = (UINT32)atol( pData->szCharData );
+			pData->curElement = EXTRAITEMS_ELEMENT_ITEM;
+		}
+		else if( pData->curElement == EXTRAITEMS_ELEMENT &&
+				strcmp( name, "gridno" ) == 0)
+		{
+			pData->gridno = (UINT32)atol( pData->szCharData );
+			pData->curElement = EXTRAITEMS_ELEMENT_ITEM;
+		}
+		else if( pData->curElement == EXTRAITEMS_ELEMENT &&
+				strcmp( name, "visible" ) == 0)
+		{
+			pData->visible = (UINT32)atol( pData->szCharData );
+			pData->curElement = EXTRAITEMS_ELEMENT_ITEM;
 		}
 		pData->maxReadDepth--;
 	}
@@ -184,6 +207,8 @@ void AddExtraItems(UINT8 x, UINT8 y, UINT8 z, bool sectorIsLoaded)
 		default:
 			break;
 	}
+
+	strcat(fileName, ".xml");
 
 	// Open extra items file
 	HWFILE hFile;

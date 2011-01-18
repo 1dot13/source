@@ -516,6 +516,8 @@ enum Facts
 
 	FACT_CONRAD_SHOULD_GO =																		367,
 	FACT_PLAYER_KILLED_BOXERS =																368,
+	// HEADROCK HAM 4: Seen Mobile Militia screen after having at least one mobile unit?
+	FACT_MOBILE_RESTRICTIONS_VIEWED =														369,
 } ;
 //**	END FACTS *************************
 
@@ -563,6 +565,38 @@ void InitQuestEngine();
 BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile );
 BOOLEAN SaveQuestInfoToSavedGameFile( HWFILE hFile );
 
+// added by SANDRO
+void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpReward, UINT8 bException );
+
+extern BOOLEAN CheckNPCWounded( UINT8 ubProfileID, BOOLEAN fByPlayerOnly );
+extern BOOLEAN CheckNPCInOkayHealth( UINT8 ubProfileID );
+extern BOOLEAN CheckNPCBleeding( UINT8 ubProfileID );
+extern BOOLEAN CheckNPCWithin( UINT8 ubFirstNPC, UINT8 ubSecondNPC, UINT8 ubMaxDistance );
+extern BOOLEAN CheckGuyVisible( UINT8 ubNPC, UINT8 ubGuy );
+extern BOOLEAN CheckNPCAt( UINT8 ubNPC, INT32 sGridNo );
+extern BOOLEAN CheckNPCIsEnemy( UINT8 ubProfileID );
+extern BOOLEAN CheckIfMercIsNearNPC( SOLDIERTYPE *pMerc, UINT8 ubProfileId );
+extern INT8 NumWoundedMercsNearby( UINT8 ubProfileID );
+extern INT8 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist );
+extern BOOLEAN CheckNPCIsEPC( UINT8 ubProfileID );
+extern BOOLEAN NPCInRoom( UINT8 ubProfileID, UINT8 ubRoomID );
+extern BOOLEAN NPCInRoomRange( UINT8 ubProfileID, UINT8 ubRoomID1, UINT8 ubRoomID2 );
+extern BOOLEAN PCInSameRoom( UINT8 ubProfileID );
+extern INT8 NumMalesPresent( UINT8 ubProfileID );
+extern BOOLEAN FemalePresent( UINT8 ubProfileID );
+extern BOOLEAN CheckPlayerHasHead( void );
+extern BOOLEAN CheckNPCSector( UINT8 ubProfileID, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
+extern BOOLEAN AIMMercWithin( INT32 sGridNo, INT16 sDistance );
+extern BOOLEAN CheckNPCCowering( UINT8 ubProfileID );
+extern BOOLEAN CheckNPCIsUnderFire( UINT8 ubProfileID );
+extern BOOLEAN NPCHeardShot( UINT8 ubProfileID );
+extern BOOLEAN InTownSectorWithTrainingLoyalty( INT16 sSectorX, INT16 sSectorY );
+extern BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID );
+extern BOOLEAN CheckNPCIsRPC( UINT8 ubProfileID );
+extern BOOLEAN CheckTalkerStrong( void );
+extern BOOLEAN CheckForNewShipment( void );
+extern BOOLEAN CheckTalkerFemale( void );
+extern BOOLEAN CheckTalkerUnpropositionedFemale( void );
 
 #endif
 

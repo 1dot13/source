@@ -19,6 +19,7 @@
 	#include "vobject.h"
 	#include "vobject_blitters.h"
 	#include "shading.h"
+	#include "sgp_logger.h"
 #endif
 
 #include <map>
@@ -66,29 +67,33 @@ BOOLEAN Blt32BPPTo16BPPTrans(UINT16 *pDest, UINT32 uiDestPitch, UINT32 *pSrc, UI
 		UINT32 w = uiWidth;
 		do
 		{
-			//alpha = (UINT8)((0xFF000000 & *pSrcPtr) >> 24);
-			alpha = 255;
-			// r
-			dst_channel = (UINT8)((0x1F & *pDestPtr) << 3);
-			src_channel = (UINT8)((0xFF & *pSrcPtr) );
-			//red = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
-			red = (UINT8)( g_AlphaTimesValueCache[alpha][src_channel] );
+			// a
+			alpha = (UINT8)((0xFF000000 & *pSrcPtr) >> 24);
+			//alpha = 255;
+			if(alpha > 0)
+			{
+				// r
+				dst_channel = (UINT8)((0x1F & *pDestPtr) << 3);
+				src_channel = (UINT8)((0xFF & *pSrcPtr) );
+				red = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
+				//red = (UINT8)( g_AlphaTimesValueCache[alpha][src_channel] );
 
-			// g
-			dst_channel = (UINT8)((0x7E0 & *pDestPtr) >> 3);
-			src_channel = (UINT8)((0xFF00 & *pSrcPtr) >> 8);
-			//green = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
-			green = (UINT8)( g_AlphaTimesValueCache[alpha][src_channel] );
+				// g
+				dst_channel = (UINT8)((0x7E0 & *pDestPtr) >> 3);
+				src_channel = (UINT8)((0xFF00 & *pSrcPtr) >> 8);
+				green = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
+				//green = (UINT8)( g_AlphaTimesValueCache[alpha][src_channel] );
 
-			// b
-			dst_channel = (UINT8)((0xF800 & *pDestPtr) >> 8);
-			src_channel = (UINT8)((0xFF0000 & *pSrcPtr) >> 16);
-			//blue = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
-			blue = (UINT8)( g_AlphaTimesValueCache[alpha][src_channel] );
+				// b
+				dst_channel = (UINT8)((0xF800 & *pDestPtr) >> 8);
+				src_channel = (UINT8)((0xFF0000 & *pSrcPtr) >> 16);
+				blue = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
+				//blue = (UINT8)( g_AlphaTimesValueCache[alpha][src_channel] );
 
 
-			UINT32 newcolor = FROMRGB(red,green,blue);
-			*pDestPtr = Get16BPPColor(newcolor);
+				UINT32 newcolor = FROMRGB(red,green,blue);
+				*pDestPtr = Get16BPPColor(newcolor);
+			}
 			pSrcPtr++;
 			pDestPtr++;
 		}
@@ -101,6 +106,75 @@ BOOLEAN Blt32BPPTo16BPPTrans(UINT16 *pDest, UINT32 uiDestPitch, UINT32 *pSrc, UI
 	return ( TRUE );
 }
 
+BOOLEAN Blt32BPPTo16BPPTransShadow(UINT16 *pDst, UINT32 uiDstPitch, UINT32 *pSrc, UINT32 uiSrcPitch, INT32 iDstXPos, INT32 iDstYPos, INT32 iSrcXPos, INT32 iSrcYPos, UINT32 uiWidth, UINT32 uiHeight)
+{
+	UINT32 *pSrcPtr;
+	UINT16 *pDstPtr;
+	UINT32 uiLineSkipDst, uiLineSkipSrc;
+
+	Assert(pDst!=NULL);
+	Assert(pSrc!=NULL);
+
+	pSrcPtr			= (UINT32*)((UINT8*)pSrc + (iSrcYPos * uiSrcPitch) + (iSrcXPos * 4));
+	uiLineSkipSrc	= uiSrcPitch-(uiWidth*4);
+
+	pDstPtr			= (UINT16*)((UINT8*)pDst + (iDstYPos * uiDstPitch) + (iDstXPos * 2));
+	uiLineSkipDst	= uiDstPitch-(uiWidth*2);
+
+	UINT8 alpha, dst_channel, src_channel;
+	UINT8 red, green, blue;
+	UINT16 tmpVal;
+	UINT32 newcolor;
+	do
+	{
+		UINT32 w = uiWidth;
+		do
+		{
+			// a
+			alpha = (UINT8)((0xFF000000 & *pSrcPtr) >> 24);
+			//alpha = 255;
+			if(alpha > 0)
+			{
+#if 1
+				// the darker shade
+				tmpVal = ShadeTable[*pDstPtr];
+
+				// r
+				dst_channel = (UINT8)((0x1F & *pDstPtr) << 3);
+				//src_channel = (UINT8)((0xFF & tmpVal) );
+				src_channel = (UINT8)((0x1F & tmpVal) << 3);
+				red = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
+
+				// g
+				dst_channel = (UINT8)((0x7E0  & *pDstPtr) >> 3);
+				//src_channel = (UINT8)((0xFF00 & tmpVal) >> 8);
+				src_channel = (UINT8)((0x7E0 & tmpVal) >> 3);
+				green = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
+
+				// b
+				dst_channel = (UINT8)((0xF800   & *pDstPtr) >> 8);
+				//src_channel = (UINT8)((0xFF0000 & tmpVal) >> 16);
+				src_channel = (UINT8)((0xF800 & tmpVal) >> 8);
+				blue = (UINT8)( g_AlphaTimesValueCache[255-alpha][dst_channel] + g_AlphaTimesValueCache[alpha][src_channel] );
+
+
+				newcolor = FROMRGB(red,green,blue);
+				*pDstPtr = Get16BPPColor(newcolor);
+#else
+				*pDstPtr = ShadeTable[*pDstPtr];
+#endif
+			}
+			pSrcPtr++;
+			pDstPtr++;
+		}
+		while (--w != 0);
+		pSrcPtr = (UINT32*)((UINT8*)pSrcPtr + uiLineSkipSrc);
+		pDstPtr = (UINT16*)((UINT8*)pDstPtr + uiLineSkipDst);
+	}
+	while (--uiHeight != 0);
+
+	return ( TRUE );
+}
 
 
 /*	Here are bliting functions. If you dont know what kind of functions they are so :
@@ -7007,7 +7081,7 @@ UINT32 uiLineSkipDest, uiLineSkipSrc;
 			}
 		}
 		surfID = SurfaceData::GetSurfaceID((BYTE*)pSrc);
-		if( (ct=g_SurfaceRectangle[surfID].Clip(iSrcXPos, iSrcYPos,uiWidth, uiHeight)) != ClipRectangle::NoClip )
+		if( surfID && (ct=g_SurfaceRectangle[surfID].Clip(iSrcXPos, iSrcYPos,uiWidth, uiHeight)) != ClipRectangle::NoClip )
 		{
 #if _DEBUG
 			WriteMessageToFile(L"Trying to render from outside of surface surface");
@@ -7018,9 +7092,9 @@ UINT32 uiLineSkipDest, uiLineSkipSrc;
 			}
 		}
 	}
-	catch(CBasicException& ex)
+	catch(std::exception& ex)
 	{
-		logException(ex);
+		SGP_ERROR(ex.what());
 		return false;
 	}
 
@@ -7085,16 +7159,16 @@ BlitDone:
 **********************************************************************************************/
 BOOLEAN Blt16BPPTo16BPPTrans(UINT16 *pDest, UINT32 uiDestPitch, UINT16 *pSrc, UINT32 uiSrcPitch, INT32 iDestXPos, INT32 iDestYPos, INT32 iSrcXPos, INT32 iSrcYPos, UINT32 uiWidth, UINT32 uiHeight, UINT16 usTrans)
 {
-UINT16 *pSrcPtr, *pDestPtr;
-UINT32 uiLineSkipDest, uiLineSkipSrc;
+	UINT16 *pSrcPtr, *pDestPtr;
+	UINT32 uiLineSkipDest, uiLineSkipSrc;
 
 	Assert(pDest!=NULL);
 	Assert(pSrc!=NULL);
 
-	pSrcPtr=(UINT16 *)((UINT8 *)pSrc+(iSrcYPos*uiSrcPitch)+(iSrcXPos*2));
-	pDestPtr=(UINT16 *)((UINT8 *)pDest+(iDestYPos*uiDestPitch)+(iDestXPos*2));
-	uiLineSkipDest=uiDestPitch-(uiWidth*2);
-	uiLineSkipSrc=uiSrcPitch-(uiWidth*2);
+	pSrcPtr			= (UINT16*)((UINT8 *)pSrc+(iSrcYPos*uiSrcPitch)+(iSrcXPos*2));
+	pDestPtr		= (UINT16*)((UINT8 *)pDest+(iDestYPos*uiDestPitch)+(iDestXPos*2));
+	uiLineSkipDest	= uiDestPitch - (uiWidth*2);
+	uiLineSkipSrc	= uiSrcPitch - (uiWidth*2);
 #if 1
 	do
 	{
@@ -7141,6 +7215,40 @@ Blit3:
 	}
 #endif
 	return(TRUE);
+}
+
+BOOLEAN Blt16BPPTo16BPPTransShadow(UINT16 *pDest, UINT32 uiDestPitch, UINT16 *pSrc, UINT32 uiSrcPitch, INT32 iDestXPos, INT32 iDestYPos, INT32 iSrcXPos, INT32 iSrcYPos, UINT32 uiWidth, UINT32 uiHeight, UINT16 usTrans)
+{
+	UINT16 *pSrcPtr, *pDestPtr;
+	UINT32 uiLineSkipDest, uiLineSkipSrc;
+
+	Assert(pDest != NULL);
+	Assert(pSrc  != NULL);
+
+	pSrcPtr			= (UINT16*)((UINT8 *)pSrc  + (iSrcYPos  * uiSrcPitch)  + (iSrcXPos  * 2));
+	pDestPtr		= (UINT16*)((UINT8 *)pDest + (iDestYPos * uiDestPitch) + (iDestXPos * 2));
+	uiLineSkipDest	= uiDestPitch - (uiWidth * 2);
+	uiLineSkipSrc	= uiSrcPitch  - (uiWidth * 2);
+#if 1
+	do
+	{
+		UINT32 w = uiWidth;
+		do
+		{
+			if (*pSrcPtr != usTrans)
+			{
+				*pDestPtr = ShadeTable[*pDestPtr];
+			}
+			pSrcPtr++;
+			pDestPtr++;
+		}
+		while (--w != 0);
+		pSrcPtr  = (UINT16*)((UINT8*)pSrcPtr  + uiLineSkipSrc);
+		pDestPtr = (UINT16*)((UINT8*)pDestPtr + uiLineSkipDest);
+	}
+	while (--uiHeight != 0);
+#endif
+	return TRUE;
 }
 
 /**********************************************************************************************

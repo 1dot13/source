@@ -1359,8 +1359,6 @@ void RenderOverheadOverlays()
 					if(pSoldier->bSide==0)
 					{
 						int personIndex = pSoldier->bTeam + 4;
-						// TODO.RW: Get the correct person index (depending on the pSoldier->bTeam)
-						//Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 3 );
 						Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, personIndex );
 					}
 				}
@@ -1405,9 +1403,6 @@ void RenderOverheadOverlays()
 					if(pSoldier->bSide==0)
 					{
 						int personIndex = pSoldier->bTeam + 4;
-						// TODO.RW: Get the correct person index (depending on the pSoldier->bTeam)
-
-						//Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 3 );
 						Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, personIndex );
 					}
 				}

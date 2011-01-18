@@ -45,6 +45,8 @@
 BOOLEAN gfSchedulesHosed = FALSE;
 extern UINT32 guiBrokenSaveGameVersion;
 
+UINT16 NUM_SLOT;
+
 //////////////////////////////////////////////////////
 //
 //	Defines
@@ -89,15 +91,13 @@ extern UINT32 guiBrokenSaveGameVersion;
 #define		SLG_UNSELECTED_COLOR								FONT_MCOLOR_DKWHITE
 
 #define		SLG_SAVELOCATION_WIDTH							605
-#define		SLG_SAVELOCATION_HEIGHT							30//46
+//#define		SLG_SAVELOCATION_HEIGHT							30//46 //legion off
 #define		SLG_FIRST_SAVED_SPOT_X							iScreenWidthOffset + 17
 #define		SLG_FIRST_SAVED_SPOT_Y							iScreenHeightOffset + 49
-#define		SLG_GAP_BETWEEN_LOCATIONS						35//47
-
-
+//#define		SLG_GAP_BETWEEN_LOCATIONS						35//47 //legion off
 
 #define		SLG_DATE_OFFSET_X										13
-#define		SLG_DATE_OFFSET_Y										11
+//#define		SLG_DATE_OFFSET_Y										11 //legion off
 
 #define		SLG_SECTOR_OFFSET_X									95//105//114
 #define		SLG_SECTOR_OFFSET_Y									SLG_DATE_OFFSET_Y
@@ -122,8 +122,8 @@ extern UINT32 guiBrokenSaveGameVersion;
 #define		SLG_SAVE_LOAD_BTN_POS_X							iScreenWidthOffset + 123
 #define		SLG_SAVE_LOAD_BTN_POS_Y							iScreenHeightOffset + 438
 
-#define		SLG_SELECTED_SLOT_GRAPHICS_NUMBER		3
-#define		SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER	2
+//#define		SLG_SELECTED_SLOT_GRAPHICS_NUMBER		3 //legion off
+//#define		SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER	2 //legion off
 
 #define		SLG_DOUBLE_CLICK_DELAY							500
 
@@ -176,6 +176,12 @@ INT8			gbSetSlotToBeSelected=-1;
 UINT32		guiSlgBackGroundImage;
 UINT32		guiBackGroundAddOns;
 
+UINT32	guiBackGroundAddOns_New;
+UINT32	SLG_SAVELOCATION_HEIGHT;
+UINT32	SLG_GAP_BETWEEN_LOCATIONS;
+UINT32	SLG_DATE_OFFSET_Y;
+UINT32	SLG_SELECTED_SLOT_GRAPHICS_NUMBER;
+UINT32	SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER;
 
 // The string that will contain the game desc text
 CHAR16		gzGameDescTextField[ SIZE_OF_SAVE_GAME_DESC ] = {0} ;
@@ -194,7 +200,7 @@ BOOLEAN		gfLoadedGame = FALSE;	//Used to know when a game has been loaded, the f
 
 BOOLEAN		gfLoadGameUponEntry = FALSE;
 
-BOOLEAN		gfHadToMakeBasementLevels = FALSE;
+//BOOLEAN		gfHadToMakeBasementLevels = FALSE;
 
 BOOLEAN		gfGettingNameFromSaveLoadScreen = FALSE;
 
@@ -279,6 +285,37 @@ void			StartFadeOutForSaveLoadScreen();
 //	Code
 //
 //////////////////////////////////////////////////////
+
+void LoadSaveGameOldOrNew()
+{
+	if (gGameExternalOptions.fSaveGameSlot == TRUE)
+		{
+			NUM_SLOT = NUM_SAVE_GAMES_NEW;
+			//SAVE_LOAD_SELECTED_FONT 			= FONT12ARIAL;
+			//SAVE_LOAD_NUMBER_FONT 				= FONT12ARIAL;
+			//SAVE_LOAD_HIGHLIGHTED_FONT			= FONT12ARIAL;
+			//SAVE_LOAD_NORMAL_FONT				= FONT12ARIAL;
+			SLG_SAVELOCATION_HEIGHT 			= 15;
+			SLG_GAP_BETWEEN_LOCATIONS 			= 20;
+			SLG_DATE_OFFSET_Y 					= 5;
+			SLG_SELECTED_SLOT_GRAPHICS_NUMBER	= 1;
+			SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER	= 0;
+		}
+		else
+		{
+			NUM_SLOT = NUM_SAVE_GAMES_OLD;
+			//SAVE_LOAD_SELECTED_FONT 			= FONT12ARIAL;
+			//SAVE_LOAD_NUMBER_FONT 				= FONT12ARIAL;
+			//SAVE_LOAD_HIGHLIGHTED_FONT			= FONT12ARIAL;
+			//SAVE_LOAD_NORMAL_FONT				= FONT12ARIAL;
+			SLG_SAVELOCATION_HEIGHT 			= 30;
+			SLG_GAP_BETWEEN_LOCATIONS			= 35;
+			SLG_DATE_OFFSET_Y 					= 11;
+			SLG_SELECTED_SLOT_GRAPHICS_NUMBER	= 3;
+			SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER	= 2;
+		}
+
+}
 
 
 UINT32	SaveLoadScreenInit()
@@ -466,18 +503,23 @@ BOOLEAN		EnterSaveLoadScreen()
 //	if( guiPreviousOptionScreen != MAINMENU_SCREEN )
 //		gbSetSlotToBeSelected = -1;
 
-	// This is a hack to get sector names , but... if the underground sector is NOT loaded
-	if( !gpUndergroundSectorInfoHead )
-	{
-		BuildUndergroundSectorInfoList();
-		gfHadToMakeBasementLevels = TRUE;
-	}
-	else
-	{
-		gfHadToMakeBasementLevels = FALSE;
-	}
+	// In reality, this is not needed, but even screws things up
+	//// This is a hack to get sector names , but... if the underground sector is NOT loaded
+	//if( !gpUndergroundSectorInfoHead )
+	//{
+	//	BuildUndergroundSectorInfoList();
+	//	gfHadToMakeBasementLevels = TRUE;
+	//}
+	//else
+	//{
+	//	gfHadToMakeBasementLevels = FALSE;
+	//}
 
-	guiSaveLoadExitScreen = SAVE_LOAD_SCREEN;
+	//guiSaveLoadExitScreen = SAVE_LOAD_SCREEN;
+	// this is where we came from; if loading of resources fails, this is also where we go next/back
+	extern UINT32 guiPreviousScreen;
+	guiSaveLoadExitScreen = guiPreviousScreen;
+
 	//init the list
 	InitSaveGameArray();
 
@@ -510,6 +552,14 @@ BOOLEAN		EnterSaveLoadScreen()
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	GetMLGFilename( VObjectDesc.ImageFile, MLG_LOADSAVEHEADER );
 	CHECKF(AddVideoObject(&VObjectDesc, &guiBackGroundAddOns));
+	
+	if (gGameExternalOptions.fSaveGameSlot == TRUE)
+	{
+		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+		FilenameForBPP("INTERFACE\\LOADSCREENADDONS_SAVEGAME.sti", VObjectDesc.ImageFile);
+		CHECKF(AddVideoObject(&VObjectDesc, &guiBackGroundAddOns_New));
+	}
+
 
 
 	guiSlgButtonImage = LoadButtonImage("INTERFACE\\LoadScreenAddOns.sti", -1,6,-1,9,-1 );
@@ -580,7 +630,7 @@ BOOLEAN		EnterSaveLoadScreen()
 
 	usPosX = SLG_FIRST_SAVED_SPOT_X;
 	usPosY = SLG_FIRST_SAVED_SPOT_Y;
-	for(i=0; i<NUM_SAVE_GAMES; i++)
+	for(i=0; i<NUM_SLOT; i++)
 	{
 		MSYS_DefineRegion( &gSelectedSaveRegion[i], usPosX, usPosY, (UINT16)(usPosX+SLG_SAVELOCATION_WIDTH), (UINT16)(usPosY+SLG_SAVELOCATION_HEIGHT), MSYS_PRIORITY_HIGH,
 								CURSOR_NORMAL, SelectedSaveRegionMovementCallBack, SelectedSaveRegionCallBack );
@@ -614,7 +664,7 @@ Removed so that the user can click on it and get displayed a message that the qu
 
 
 	//Reset the regions
-//	for( i=0; i<NUM_SAVE_GAMES; i++)
+//	for( i=0; i<NUM_SLOT; i++)
 //		gbSaveGameSelectedLocation[i] = SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER;
 //	gbSelectedSaveLocation=-1;
 	ClearSelectedSaveSlot();
@@ -700,6 +750,9 @@ Removed so that the user can click on it and get displayed a message that the qu
 	// Save load buttons are created
 	gfSaveLoadScreenButtonsCreated = TRUE;
 
+	// OK, loading of resources was successfull; time to enter the SAVE_LOAD screen
+	guiSaveLoadExitScreen = SAVE_LOAD_SCREEN;
+
 	gfDoingQuickLoad = FALSE;
 
 	//reset
@@ -761,14 +814,18 @@ void			ExitSaveLoadScreen()
 		UnloadButtonImage( guiSaveLoadImage );
 	}
 
-	for(i=0; i<NUM_SAVE_GAMES; i++)
+	for(i=0; i<NUM_SLOT; i++)
 	{
 		MSYS_RemoveRegion( &gSelectedSaveRegion[i]);
 	}
 
 	DeleteVideoObjectFromIndex( guiSlgBackGroundImage );
 	DeleteVideoObjectFromIndex( guiBackGroundAddOns );
-
+	
+	if (gGameExternalOptions.fSaveGameSlot == TRUE)
+	{	
+		DeleteVideoObjectFromIndex( guiBackGroundAddOns_New );
+	}
 	//Destroy the text fields ( if created )
 	DestroySaveLoadTextInputBoxes();
 
@@ -788,8 +845,8 @@ void			ExitSaveLoadScreen()
 	gfCameDirectlyFromGame = FALSE;
 
 	//unload the basement sectors
-	if( gfHadToMakeBasementLevels )
-		TrashUndergroundSectorInfo();
+	//if( gfHadToMakeBasementLevels )
+	//	TrashUndergroundSectorInfo();
 
 	gfGettingNameFromSaveLoadScreen = FALSE;
 }
@@ -846,7 +903,7 @@ void			HandleSaveLoadScreen()
 //		gbSelectedSaveLocation = -1;
 		gbHighLightedLocation=-1;
 
-//		for( i=0; i<NUM_SAVE_GAMES; i++)
+//		for( i=0; i<NUM_SLOT; i++)
 //			gbSaveGameSelectedLocation[i] = SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER;
 		ClearSelectedSaveSlot();
 
@@ -1067,7 +1124,7 @@ void SaveLoadGameNumber( INT8 bSaveGameID )
 //	CHAR16	zTemp[128];
 	UINT8		ubRetVal=0;
 
-	if( bSaveGameID >= NUM_SAVE_GAMES || bSaveGameID < 0 )
+	if( bSaveGameID >= NUM_SLOT || bSaveGameID < 0 )
 	{
 		return;
 	}
@@ -1164,7 +1221,7 @@ BOOLEAN InitSaveGameArray()
 	SAVED_GAME_HEADER SaveGameHeader;
 
 
-	for( cnt=0; cnt<NUM_SAVE_GAMES; cnt++)
+	for( cnt=0; cnt<NUM_SLOT; cnt++)
 	{
 		CreateSavedGameFileNameFromNumber( cnt, zSaveGameName );
 
@@ -1193,7 +1250,7 @@ BOOLEAN DisplaySaveGameList()
 	UINT16 usPosY = SLG_FIRST_SAVED_SPOT_Y;
 
 
-	for( bLoop1=0; bLoop1<NUM_SAVE_GAMES; bLoop1++)
+	for( bLoop1=0; bLoop1<NUM_SLOT; bLoop1++)
 	{
 		//display all the information from the header
 		DisplaySaveGameEntry( bLoop1 );//usPosY );
@@ -1233,9 +1290,16 @@ BOOLEAN DisplaySaveGameEntry( INT8 bEntryID )//, UINT16 usPosY )
 		return( TRUE );
 
 	//background
-	GetVideoObject(&hPixHandle, guiBackGroundAddOns);
-	BltVideoObject(FRAME_BUFFER, hPixHandle, gbSaveGameSelectedLocation[ bEntryID ], usPosX, usPosY, VO_BLT_SRCTRANSPARENCY,NULL);
-
+	if (gGameExternalOptions.fSaveGameSlot == TRUE)
+	{
+		GetVideoObject(&hPixHandle, guiBackGroundAddOns_New);
+		BltVideoObject(FRAME_BUFFER, hPixHandle, gbSaveGameSelectedLocation[ bEntryID ], usPosX, usPosY, VO_BLT_SRCTRANSPARENCY,NULL);
+	}
+	else
+	{
+		GetVideoObject(&hPixHandle, guiBackGroundAddOns);
+		BltVideoObject(FRAME_BUFFER, hPixHandle, gbSaveGameSelectedLocation[ bEntryID ], usPosX, usPosY, VO_BLT_SRCTRANSPARENCY,NULL);
+	}
 
 	//
 	//Set the shadow color
@@ -1358,7 +1422,7 @@ BOOLEAN DisplaySaveGameEntry( INT8 bEntryID )//, UINT16 usPosY )
 			swprintf( zDifString, L"%s %s", gzGIOScreenText[ GIO_EASY_TEXT + SaveGameHeader.sInitialGameOptions.ubDifficultyLevel - 1 ], zSaveLoadText[ SLG_DIFF ] );
 
 			//make a string containing the extended options
-			swprintf( zMouseHelpTextString, L"%20s	 %22s	 %22s	 %22s", zDifString,
+			swprintf( zMouseHelpTextString, L"%20ls     %22ls     %22ls     %22ls", zDifString,
 						/*gzGIOScreenText[ GIO_TIMED_TURN_TITLE_TEXT + SaveGameHeader.sInitialGameOptions.fTurnTimeLimit + 1],*/
 //Madd
 						//SaveGameHeader.sInitialGameOptions.fIronManMode ? gzGIOScreenText[ GIO_IRON_MAN_TEXT ] : gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT ],
@@ -1500,7 +1564,7 @@ BOOLEAN LoadSavedGameHeader( INT8 bEntry, SAVED_GAME_HEADER *pSaveGameHeader )
 	UINT32	uiNumBytesRead;
 
 	//make sure the entry is valid
-	if( bEntry < 0 || bEntry > NUM_SAVE_GAMES )
+	if( bEntry < 0 || bEntry > NUM_SLOT )
 	{
 		//memset( &pSaveGameHeader, 0, sizeof( SAVED_GAME_HEADER ) );
 		memset( pSaveGameHeader, 0, sizeof( SAVED_GAME_HEADER ) );
@@ -1685,7 +1749,7 @@ void SelectedSaveRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		}
 
 		//Reset the regions
-		for( i=0; i<NUM_SAVE_GAMES; i++)
+		for( i=0; i<NUM_SLOT; i++)
 			gbSaveGameSelectedLocation[i] = SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER;
 
 		//if the user is selecting an unselected saved game slot
@@ -2073,7 +2137,7 @@ void DeleteAllSaveGameFile( )
 {
 	UINT8	cnt;
 
-	for( cnt=0; cnt<NUM_SAVE_GAMES; cnt++)
+	for( cnt=0; cnt<NUM_SLOT; cnt++)
 	{
 		DeleteSaveGameNumber( cnt );
 	}
@@ -2104,7 +2168,7 @@ void DisplayOnScreenNumber( BOOLEAN fErase )
 
 	usPosY = SLG_FIRST_SAVED_SPOT_Y;
 
-	for( bLoopNum=0; bLoopNum<NUM_SAVE_GAMES; bLoopNum++)
+	for( bLoopNum=0; bLoopNum<NUM_SLOT; bLoopNum++)
 	{
 		//Dont diplay it for the quicksave
 		if( bLoopNum == 0 )
@@ -2142,7 +2206,7 @@ void DisplayOnScreenNumber( BOOLEAN fErase )
 void DoneFadeOutForSaveLoadScreen( void )
 {
 	//Make sure we DONT reset the levels if we are loading a game
-	gfHadToMakeBasementLevels = FALSE;
+	//gfHadToMakeBasementLevels = FALSE;
 
 	if( !LoadSavedGame( gbSelectedSaveLocation ) )
 	{
@@ -2173,7 +2237,7 @@ void DoneFadeOutForSaveLoadScreen( void )
 			{
 				DoSaveLoadMessageBox( MSG_BOX_BASIC_STYLE, zSaveLoadText[SLG_INV_CUSTUM_ERROR], SAVE_LOAD_SCREEN, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
 				NextLoopCheckForEnoughFreeHardDriveSpace();
-			}
+			}			
 			else
 			{
 				DoSaveLoadMessageBox( MSG_BOX_BASIC_STYLE, zSaveLoadText[SLG_LOAD_GAME_ERROR], SAVE_LOAD_SCREEN, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
@@ -2430,7 +2494,7 @@ BOOLEAN IsThereAnySavedGameFiles()
 	INT8	cnt;
 	CHAR8		zSaveGameName[ 512 ];
 
-	for( cnt=0; cnt<NUM_SAVE_GAMES; cnt++)
+	for( cnt=0; cnt<NUM_SLOT; cnt++)
 	{
 		CreateSavedGameFileNameFromNumber( cnt, zSaveGameName );
 
@@ -2508,7 +2572,7 @@ void MoveSelectionUpOrDown( BOOLEAN fUp )
 			}
 			else
 			{
-				if( gbSelectedSaveLocation >= 1 && gbSelectedSaveLocation < NUM_SAVE_GAMES-1 )
+				if( gbSelectedSaveLocation >= 1 && gbSelectedSaveLocation < NUM_SLOT-1 )
 				{
 					SetSelection( (UINT8)(gbSelectedSaveLocation + 1) );
 				}
@@ -2542,7 +2606,7 @@ void MoveSelectionUpOrDown( BOOLEAN fUp )
 			}
 			else
 			{
-				for( i=gbSelectedSaveLocation+1; i<NUM_SAVE_GAMES; i++)
+				for( i=gbSelectedSaveLocation+1; i<NUM_SLOT; i++)
 				{
 					if( gbSaveGameArray[i] )
 					{
@@ -2562,7 +2626,7 @@ void MoveSelectionUpOrDown( BOOLEAN fUp )
 void ClearSelectedSaveSlot()
 {
 	INT32	i;
-	for( i=0; i<NUM_SAVE_GAMES; i++)
+	for( i=0; i<NUM_SLOT; i++)
 		gbSaveGameSelectedLocation[i] = SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER;
 
 	gbSelectedSaveLocation = -1;

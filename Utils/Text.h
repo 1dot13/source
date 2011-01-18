@@ -7,6 +7,8 @@
 
 #define STRING_LENGTH 255
 
+extern CHAR16  gszAimPages[ 6 ][ 20 ];
+extern CHAR16  zGrod[][500];
 extern STR16 pCreditsJA2113[];
 extern CHAR16 ShortItemNames[MAXITEMS][80];
 extern CHAR16 ItemNames[MAXITEMS][80];
@@ -30,6 +32,7 @@ extern STR16 pAssignmentStrings[];
 extern STR16 pConditionStrings[];
 extern CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT];	// Lesh: look mapscreen.h for definitions
 extern STR16 pPersonnelScreenStrings[];
+extern STR16 pPersonnelRecordsHelpTexts[]; // added by SANDRO
 extern STR16 pPersonnelTitle[];
 extern STR16 pUpperLeftMapScreenStrings[];
 extern STR16 pTacticalPopupButtonStrings[];
@@ -76,7 +79,7 @@ extern STR16 pMapScreenBorderButtonHelpText[];
 extern STR16 pMapScreenBottomFastHelp[];
 extern STR16 pMapScreenBottomText[];
 extern STR16 pMercDeadString[];
-extern STR16 pSenderNameList[];
+extern CHAR16 pSenderNameList[500][128];
 extern STR16 pTraverseStrings[];
 extern STR16 pNewMailStrings[];
 extern STR16 pDeleteMailStrings[];
@@ -153,6 +156,7 @@ extern STR16 pMilitiaButtonsHelpText[];
 extern STR16 pMapScreenJustStartedHelpText[];
 extern STR16 pLandMarkInSectorString[];
 extern STR16 gzMercSkillText[];
+extern STR16 gzMercSkillTextNew[]; // added by SANDRO
 extern STR16 gzNonPersistantPBIText[];
 extern STR16 gzMiscString[];
 
@@ -172,6 +176,14 @@ extern STR16 gzIMPCharacterTraitText[];
 extern STR16 gzIMPColorChoosingText[];
 extern STR16 sColorChoiceExplanationTexts[];
 extern STR16 gzIMPDisabilityTraitText[];
+extern STR16 sEnemyTauntsFireGun[];
+extern STR16 sEnemyTauntsFireLauncher[];
+extern STR16 sEnemyTauntsThrow[];
+extern STR16 sEnemyTauntsChargeKnife[];
+extern STR16 sEnemyTauntsRunAway[];
+extern STR16 sEnemyTauntsSeekNoise[];
+extern STR16 sEnemyTauntsAlert[];
+extern STR16 sEnemyTauntsGotHit[];
 //****
 
 // HEADROCK HAM 3.6: New arrays for facility operation messages
@@ -179,9 +191,13 @@ extern STR16 gzFacilityErrorMessage[];
 extern STR16 gzFacilityAssignmentStrings[];
 extern STR16 gzFacilityRiskResultStrings[];
 
+// HEADROCK HAM 4: Text for the new CTH indicator.
+extern STR16 gzNCTHlabels[];
+
 enum
 {
 	ANTIHACKERSTR_EXITGAME,
+	TEXT_NUM_ANTIHACKERSTR,
 };
 extern STR16 pAntiHackerString[];
 
@@ -266,8 +282,8 @@ enum
 	MSG_HISTORY_UPDATED,
 	MSG_GL_BURST_CURSOR_ON,
 	MSG_GL_BURST_CURSOR_OFF,
-	MSG_DROP_ALL_ON,
-	MSG_DROP_ALL_OFF,
+	MSG_SOLDIER_TOOLTIPS_ON, // changed by SANDRO
+	MSG_SOLDIER_TOOLTIPS_OFF, // changed by SANDRO
 	MSG_GL_LOW_ANGLE,
 	MSG_GL_HIGH_ANGLE,
 	MSG_FORCED_TURN_MODE,
@@ -278,8 +294,9 @@ enum
 	MSG_END_TURN_AUTO_SAVE,
 #endif
 	MSG_MPSAVEDIRECTORY,//84
-	MSG_CLIENT
-
+	MSG_CLIENT,
+	MSG_NAS_AND_OIV_INCOMPATIBLE,
+	TEXT_NUM_MSG,
 };
 extern STR16 pMessageStrings[];
 
@@ -357,6 +374,23 @@ enum
 	STR_NO_SEMI_AUTO,
 	STR_NO_MORE_ITEMS_TO_STEAL,
 	STR_NO_MORE_ITEM_IN_HAND,
+	
+	//add new camo text 
+	STR_DESERT_WORN_OFF,
+	STR_DESERT_WASHED_OFF,	
+	
+	STR_JUNGLE_WORN_OFF,
+	STR_JUNGLE_WASHED_OFF,
+	
+	STR_URBAN_WORN_OFF,
+	STR_URBAN_WASHED_OFF,
+
+	STR_SNOW_WORN_OFF,
+	STR_SNOW_WASHED_OFF,		
+
+	STR_CANNOT_ATTACH_SLOT,
+	
+	TEXT_NUM_STR_MESSAGE,
 };
 
 // WANNE: Tooltips
@@ -399,6 +433,12 @@ enum
 	STR_TT_NO_VEST,
 	STR_TT_NO_LEGGING,
 	STR_TT_CAT_ARMOR_2,
+	// Following added - SANDRO
+	STR_TT_SKILL_TRAIT_1,
+	STR_TT_SKILL_TRAIT_2,
+	STR_TT_SKILL_TRAIT_3,
+
+	TEXT_NUM_STR_TT
 };
 
 #define LARGE_STRING_LENGTH			200
@@ -415,17 +455,44 @@ extern CHAR16		zTalkMenuStrings[][ SMALL_STRING_LENGTH ];
 extern STR16		gzMoneyAmounts[6];
 extern CHAR16		gzProsLabel[10];
 extern CHAR16		gzConsLabel[10];
+// HEADROCK HAM 4: Text for the UDB tabs
+extern STR16 gzItemDescTabButtonText[ 3 ];
+extern STR16 gzItemDescTabButtonShortText[ 3 ];
+extern STR16 gzItemDescGenHeaders[ 4 ];
+extern STR16 gzItemDescGenIndexes[ 4 ];
+// HEADROCK HAM 4: Added list of condition strings
+extern STR16		gConditionDesc[ 9 ];
+
 extern CHAR16		gMoneyStatsDesc[][ 13 ];
-// HEADROCK: Altered value to 16
-extern CHAR16		gWeaponStatsDesc[][ 16 ];
+// HEADROCK: Altered value to 16 //WarmSteel - And I need 17.
+extern CHAR16		gWeaponStatsDesc[][ 17 ];
 // HEADROCK: Added externs for Item Description Box icon and stat tooltips
 // Note that I've inflated some of these to 20 to avoid issues.
-extern STR16		gzWeaponStatsFasthelp[ 29 ];
-extern STR16		gzWeaponStatsFasthelpTactical[ 29 ];
+extern STR16		gzWeaponStatsFasthelp[ 32 ];
+extern STR16		gzWeaponStatsFasthelpTactical[ 32 ];
 extern STR16		gzAmmoStatsFasthelp[ 20 ];
 extern STR16		gzArmorStatsFasthelp[ 20 ];
 extern STR16		gzExplosiveStatsFasthelp[ 20 ];
 extern STR16		gzMiscItemStatsFasthelp[ 34 ];
+// HEADROCK HAM 4: New tooltip texts
+extern STR16		gzUDBButtonTooltipText[ 3 ];
+extern STR16		gzUDBHeaderTooltipText[ 4 ];
+extern STR16		gzUDBGenIndexTooltipText[ 4 ];
+extern STR16		gzUDBAdvIndexTooltipText[ 5 ];
+extern STR16		szUDBGenWeaponsStatsTooltipText[ 22 ];
+extern STR16		szUDBGenWeaponsStatsExplanationsTooltipText[ 22 ];
+extern STR16		szUDBGenArmorStatsTooltipText[ 3 ];
+extern STR16		szUDBGenArmorStatsExplanationsTooltipText[ 3 ];
+extern STR16		szUDBGenAmmoStatsTooltipText[ 3 ];
+extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 3 ];
+extern STR16		szUDBGenExplosiveStatsTooltipText[ 18 ];
+extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 18 ];
+extern STR16		szUDBGenSecondaryStatsTooltipText[ 26 ];
+extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 26 ];
+extern STR16		szUDBAdvStatsTooltipText[ 44 ];
+extern STR16		szUDBAdvStatsExplanationsTooltipText[ 44 ];
+extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 44 ];
+
 // Headrock: End Externs
 extern STR16		sKeyDescriptionStrings[2];
 extern CHAR16		zHealthStr[][13];
@@ -583,6 +650,7 @@ enum
 	NO_LOS_TO_TALK_TARGET,
 	ATTACHMENT_REMOVED,
 	VEHICLE_CAN_NOT_BE_ADDED,
+	TEXT_NUM_TACTICAL_STR
 };
 
 enum{
@@ -601,6 +669,7 @@ enum{
 	EXIT_GUI_SINGLE_TRAVERSAL_WILL_SEPARATE_SQUADS_HELPTEXT,
 	EXIT_GUI_ALL_TRAVERSAL_WILL_MOVE_CURRENT_SQUAD_HELPTEXT,
 	EXIT_GUI_ESCORTED_CHARACTERS_CANT_LEAVE_SECTOR_ALONE_STR,
+	TEXT_NUM_EXIT_GUI
 };
 extern STR16 pExitingSectorHelpText[];
 
@@ -610,6 +679,7 @@ enum
 	LARGESTR_NOONE_LEFT_CAPABLE_OF_BATTLE_STR,
 	LARGESTR_NOONE_LEFT_CAPABLE_OF_BATTLE_AGAINST_CREATURES_STR,
 	LARGESTR_HAVE_BEEN_CAPTURED,
+	TEXT_NUM_LARGESTR
 };
 
 
@@ -620,6 +690,7 @@ enum
 	INS_CONTRACT_NEXT,
 	INS_CONTRACT_ACCEPT,
 	INS_CONTRACT_CLEAR,
+	TEXT_NUM_INS_CONTRACT
 };
 extern		STR16			InsContractText[];
 
@@ -629,6 +700,7 @@ enum
 {
 	INS_INFO_PREVIOUS,
 	INS_INFO_NEXT,
+	TEXT_NUM_INS_INFO,
 };
 extern		STR16		InsInfoText[];
 
@@ -645,6 +717,7 @@ enum
 	MERC_ACCOUNT_TOTAL,
 	MERC_ACCOUNT_AUTHORIZE_CONFIRMATION,
 	MERC_ACCOUNT_NOT_ENOUGH_MONEY,
+	TEXT_NUM_MERC_ACCOUNT,
 };
 extern		STR16			MercAccountText[];
 
@@ -680,6 +753,7 @@ enum
 	MERC_FILES_HIRE_TO_MANY_PEOPLE_WARNING,
 
 	MERC_FILES_MERC_UNAVAILABLE,
+	TEXT_NUM_MERC_FILES,
 };
 extern		STR16			MercInfo[];
 
@@ -690,6 +764,7 @@ enum
 	MERC_NO_ACC_OPEN_ACCOUNT,
 	MERC_NO_ACC_CANCEL,
 	MERC_NO_ACC_NO_ACCOUNT_OPEN_ONE,
+	TEXT_NUM_MERC_NO_ACC,
 };
 extern		STR16			MercNoAccountText[];
 
@@ -703,6 +778,7 @@ enum
 	MERC_VIEW_ACCOUNT,
 	MERC_VIEW_FILES,
 	MERC_SPECK_COM,
+	TEXT_NUM_MERC,
 };
 extern		STR16			MercHomePageText[];
 
@@ -722,6 +798,7 @@ enum
 	FUNERAL_FUNERAL_ETTIQUETTE,
 	FUNERAL_OUR_CONDOLENCES,	//10
 	FUNERAL_OUR_SYMPATHIES,
+	TEXT_NUM_FUNERAL,
 };
 extern		STR16			sFuneralString[];
 
@@ -742,6 +819,8 @@ enum
 	FLORIST_ADVERTISEMENT_6,
 	FLORIST_ADVERTISEMENT_7,
 	FLORIST_ADVERTISEMENT_8,
+	FLORIST_ADVERTISEMENT_9,
+	TEXT_NUM_FLORIST,
 };
 extern		STR16			sFloristText[];
 
@@ -771,6 +850,7 @@ enum
 	FLORIST_ORDER_STANDARDIZED_CARDS,
 	FLORIST_ORDER_BILLING_INFO,							//20
 	FLORIST_ORDER_NAME,
+	TEXT_NUM_FLORIST_ORDER,
 };
 extern		STR16			sOrderFormText[];
 
@@ -784,6 +864,7 @@ enum
 	FLORIST_GALLERY_CLICK_TO_ORDER,
 	FLORIST_GALLERY_ADDIFTIONAL_FEE,
 	FLORIST_GALLERY_HOME,
+	TEXT_NUM_FLORIST_GALLERY,
 };
 extern		STR16		sFloristGalleryText[];
 
@@ -793,6 +874,7 @@ enum
 {
 	FLORIST_CARDS_CLICK_SELECTION,
 	FLORIST_CARDS_BACK,
+	TEXT_NUM_FLORIST_CARDS,
 };
 extern		STR16			sFloristCards[];
 
@@ -825,6 +907,7 @@ enum
 	BOBBYR_PACKAGE_WEIGHT,
 	BOBBYR_MINIMUM_WEIGHT,
 	BOBBYR_GOTOSHIPMENT_PAGE,
+	TEXT_NUM_BOBBYR_MAILORDER,
 };
 extern		STR16			BobbyROrderFormText[];
 
@@ -871,6 +954,7 @@ enum
 	BOBBYR_FILTER_MISC_FACE,
 	BOBBYR_FILTER_MISC_LBEGEAR,
 	BOBBYR_FILTER_MISC_MISC,
+	TEXT_NUM_BOBBYR_FILTER
 };
 
 
@@ -908,7 +992,7 @@ enum
 	BOBBYR_MORE_THEN_10_PURCHASES,
 	BOBBYR_MORE_NO_MORE_IN_STOCK,
 	BOBBYR_NO_MORE_STOCK,
-
+	TEXT_NUM_BOBBYR_GUNS,
 };
 
 extern		STR16			BobbyRText[];
@@ -927,6 +1011,7 @@ enum
 	BOBBYR_ARMOR,
 	BOBBYR_ADVERTISMENT_3,
 	BOBBYR_UNDER_CONSTRUCTION,
+	TEXT_NUM_BOBBYR
 };
 extern		STR16			BobbyRaysFrontText[];
 
@@ -945,7 +1030,8 @@ enum
 	MERCENARY_FILES,
 	ALUMNI_GALLERY,
 	ASCENDING,
-	DESCENDING
+	DESCENDING,
+	TEXT_NUM_AIM_SORT
 };
 extern		STR16			AimSortText[];
 
@@ -958,6 +1044,7 @@ enum
 	AIM_POLICIES_NEXT_PAGE,
 	AIM_POLICIES_DISAGREE,
 	AIM_POLICIES_AGREE,
+	TEXT_NUM_AIM_POLICIES
 };
 extern		STR16		AimPolicyText[];
 
@@ -968,6 +1055,7 @@ extern		STR16		AimPolicyText[];
 enum
 {
 	AIM_MEMBER_CLICK_INSTRUCTIONS,
+	TEXT_NUM_AIM_MEMBER_TEXT
 };
 extern		STR16			AimMemberText[];
 
@@ -998,7 +1086,14 @@ enum
 	AIM_MEMBER_ADDTNL_INFO,
 	AIM_MEMBER_ACTIVE_MEMBERS,	//20
 	AIM_MEMBER_OPTIONAL_GEAR,
+	AIM_MEMBER_OPTIONAL_GEAR_NSGI,
 	AIM_MEMBER_MEDICAL_DEPOSIT_REQ,
+	AIM_MEMBER_GEAR_KIT_ONE,
+	AIM_MEMBER_GEAR_KIT_TWO,	//25
+	AIM_MEMBER_GEAR_KIT_THREE,
+	AIM_MEMBER_GEAR_KIT_FOUR,
+	AIM_MEMBER_GEAR_KIT_FIVE,
+	TEXT_NUM_AIM_MEMBER_CHARINFO,
 };
 extern		STR16			CharacterInfo[];
 
@@ -1022,6 +1117,7 @@ enum
 	AIM_MEMBER_VIDEO_CONF_WITH,
 	AIM_MEMBER_CONNECTING,
 	AIM_MEMBER_WITH_MEDICAL,		//14
+	TEXT_NUM_AIM_MEMBER_VCONF
 };
 extern		STR16			VideoConfercingText[];
 
@@ -1040,7 +1136,7 @@ enum
 
 	AIM_MEMBER_PRERECORDED_MESSAGE,
 	AIM_MEMBER_MESSAGE_RECORDED,
-
+	TEXT_NUM_AIM_MEMBER_POPUP
 };
 extern		STR16			AimPopUpText[];
 
@@ -1048,6 +1144,7 @@ extern		STR16			AimPopUpText[];
 enum
 {
 	AIM_LINK_TITLE,
+	TEXM_NUM_AIM_LINK,
 };
 extern		STR16			AimLinkText[];
 
@@ -1060,6 +1157,7 @@ enum
 	AIM_HISTORY_HOME,
 	AIM_HISTORY_AIM_ALUMNI,
 	AIM_HISTORY_NEXT,
+	TEXT_NUM_AIM_HISTORY,
 };
 extern		STR16			AimHistoryText[];
 
@@ -1081,7 +1179,9 @@ enum
 	AIM_FI_RIGHT_CLICK,
 	AIM_FI_TO_ENTER_SORT_PAGE,
 	AIM_FI_AWAY,
-	AIM_FI_DEAD,					
+	AIM_FI_DEAD,
+	AIM_FI_ON_ASSIGN,
+	TEXT_NUM_AIM_FI,
 };
 extern		STR16			AimFiText[];
 
@@ -1094,6 +1194,7 @@ enum
 	AIM_ALUMNI_PAGE_3,
 	AIM_ALUMNI_ALUMNI,
 	AIM_ALUMNI_DONE,
+	TEXT_NUM_AIM_ALUMNI,
 };
 extern		STR16			AimAlumniText[];
 
@@ -1115,7 +1216,7 @@ enum
 	AIM_BOBBYR_ADD1,
 	AIM_BOBBYR_ADD2,
 	AIM_BOBBYR_ADD3,
-
+	TEXT_NUM_AIM_SCREEN
 };
 
 extern		STR16			AimScreenText[];
@@ -1129,6 +1230,7 @@ enum
 	AIM_POLICIES,
 	AIM_HISTORY,
 	AIM_LINKS,
+	TEXT_NUM_AIM_MENU
 };
 
 extern STR16			AimBottomMenuText[];
@@ -1140,6 +1242,7 @@ enum
 {
 	MAP_SCREEN_MAP_LEVEL,
 	MAP_SCREEN_NO_MILITIA_TEXT,
+	TEXT_NUM_MAP_SCREEN,
 };
 extern	STR16		zMarksMapScreenText[];
 
@@ -1244,6 +1347,7 @@ enum
 	STR_DIALOG_CREATURES_KILL_CIVILIANS,
 	STR_DIALOG_ENEMIES_ATTACK_UNCONCIOUSMERCS,
 	STR_DIALOG_CREATURES_ATTACK_UNCONCIOUSMERCS,
+	TEXT_NUM_STRATEGIC_TEXT
 };
 
 //Strings used in conjunction with above enumerations
@@ -1252,6 +1356,7 @@ extern STR16 gpStrategicString[];
 enum
 {
 	STR_GAMECLOCK_DAY_NAME,
+	TEXT_NUM_GAMECLOCK,
 };
 extern STR16 gpGameClockString[];
 
@@ -1272,6 +1377,7 @@ enum
 	SKI_TEXT_NO_MORE_ROOM_IN_PLAYER_OFFER_AREA,
 	SKI_TEXT_MINUTES,
 	SKI_TEXT_DROP_ITEM_TO_GROUND,
+	TEXT_NUM_SKI_TEXT
 };
 extern	STR16			SKI_Text[];
 
@@ -1307,6 +1413,7 @@ enum
 	SKI_ATM_MODE_TEXT_SELECT_FROM_MERC,
 	SKI_ATM_MODE_TEXT_SELECT_INUSUFFICIENT_FUNDS,
 	SKI_ATM_MODE_TEXT_BALANCE,
+	TEXT_NUM_SKI_ATM_MODE_TEXT,
 };
 extern	STR16	gzSkiAtmText[];
 
@@ -1322,6 +1429,7 @@ enum
 	SKI_DONE_BUTTON_HELP_TEXT,
 
 	SKI_PLAYERS_CURRENT_BALANCE,
+	TEXT_NUM_SKI_MBOX_TEXT
 };
 
 extern	STR16	SkiMessageBoxText[];
@@ -1362,7 +1470,9 @@ enum
 	SLG_BR_AWESOME_TEXT,
 
 	SLG_INV_RES_ERROR,
-	SLG_INV_CUSTUM_ERROR,
+	SLG_INV_CUSTUM_ERROR,	
+
+	TEXT_NUM_SLG_TEXT,
 };
 extern	STR16			zSaveLoadText[];
 
@@ -1383,6 +1493,7 @@ enum
 	OPT_MUSIC,
 	OPT_RETURN_TO_MAIN,
 	OPT_NEED_AT_LEAST_SPEECH_OR_SUBTITLE_OPTION_ON,
+	TEXT_NUM_OPT_TEXT,
 };
 
 extern	STR16	zOptionsText[];
@@ -1400,7 +1511,7 @@ enum
 	MONEY_DESC_BALANCE,
 	MONEY_DESC_AMOUNT_2_WITHDRAW,
 	MONEY_DESC_TO_WITHDRAW,
-
+	TEXT_NUM_MONEY_DESC,
 };
 
 
@@ -1409,6 +1520,7 @@ enum
 {
 	MONEY_TEXT_WITHDRAW_MORE_THEN_MAXIMUM,
 	CONFIRMATION_TO_DEPOSIT_MONEY_TO_ACCOUNT,
+	TEXT_NUM_MONEY_WITHDRAW
 };
 
 
@@ -1433,7 +1545,7 @@ enum
 	GIO_HARD_TEXT,
 	GIO_INSANE_TEXT,
 
-	GIO_OK_TEXT,
+	GIO_START_TEXT,
 	GIO_CANCEL_TEXT,
 
 	GIO_GAME_SAVE_STYLE_TEXT,
@@ -1452,6 +1564,41 @@ enum
 	GIO_INV_NEW_TEXT,
 	GIO_LOAD_MP_GAME,
 	GIO_INITIAL_GAME_SETTINGS_MP,
+	////////////////////////////////////
+	// SANDRO - added following
+	GIO_TRAITS_TEXT,
+	GIO_TRAITS_OLD_TEXT,
+	GIO_TRAITS_NEW_TEXT,
+	GIO_IMP_NUMBER_TITLE_TEXT,
+	GIO_IMP_NUMBER_1,
+	GIO_IMP_NUMBER_2,
+	GIO_IMP_NUMBER_3,
+	GIO_IMP_NUMBER_4,
+	GIO_IMP_NUMBER_5,
+	GIO_IMP_NUMBER_6,
+	GIO_DROPALL_TITLE_TEXT,
+	GIO_DROPALL_OFF_TEXT,
+	GIO_DROPALL_ON_TEXT,
+	GIO_TERRORISTS_TITLE_TEXT,
+	GIO_TERRORISTS_RANDOM_TEXT,
+	GIO_TERRORISTS_ALL_TEXT,
+	GIO_CACHES_TITLE_TEXT,
+	GIO_CACHES_RANDOM_TEXT,
+	GIO_CACHES_ALL_TEXT,
+	GIO_PROGRESS_TITLE_TEXT,
+	GIO_PROGRESS_VERY_SLOW_TEXT,
+	GIO_PROGRESS_SLOW_TEXT,
+	GIO_PROGRESS_NORMAL_TEXT,
+	GIO_PROGRESS_FAST_TEXT,
+	GIO_PROGRESS_VERY_FAST_TEXT,
+
+	// WANNE: New strings for start new game screen (for NAS)
+	GIO_INV_SETTING_OLD_TEXT,
+	GIO_INV_SETTING_NEW_TEXT,
+	GIO_INV_SETTING_NEW_NAS_TEXT,
+
+	////////////////////////////////////
+	TEXT_NUM_GIO_TEXT
 };
 extern STR16	gzGIOScreenText[];
 
@@ -1474,8 +1621,11 @@ enum
 	MPJ_PING_TEXT,
 	MPJ_HANDLE_INVALID,
 	MPJ_SERVERIP_INVALID,
-	MPJ_SERVERPORT_INVALID
+	MPJ_SERVERPORT_INVALID,	
+	TEXT_NUM_MPJ_TEXT
 };
+
+extern STR16	gzMPJHelpText[];
 
 extern STR16	gzMPJScreenText[];
 //Multiplayer Host Screen
@@ -1512,11 +1662,40 @@ enum
 	MPH_ENABLECIV_TEXT,
 	MPH_USENIV_TEXT,
 	MPH_OVERRIDEMAXAI_TEXT,
-	MPH_SYNC_CLIENT_MP_DIR,
+	MPH_SYNC_GAME_DIRECTORY,
 	MPH_FILE_TRANSFER_DIR_TEXT,
 	MPH_FILE_TRANSFER_DIR_INVALID,
 	MPH_FILE_TRANSFER_DIR_TEXT_ADDITIONAL,
 	MPH_FILE_TRANSFER_DIR_NOT_EXIST,
+	MPH_1,
+	MPH_2,
+	MPH_3,
+	MPH_4,
+	MPH_5,
+	MPH_6,
+	MPH_YES,
+	MPH_NO,	
+	MPH_MORNING,
+	MPH_AFTERNOON,
+	MPH_NIGHT,
+	MPH_CASH_LOW,
+	MPH_CASH_MEDIUM,
+	MPH_CASH_HIGH,
+	MPH_CASH_UNLIMITED,
+	MPH_TIME_NEVER,
+	MPH_TIME_SLOW,
+	MPH_TIME_MEDIUM,
+	MPH_TIME_FAST,
+	MPH_DAMAGE_VERYLOW,
+	MPH_DAMAGE_LOW,
+	MPH_DAMAGE_NORMAL,
+	MPH_HIRE_RANDOM,
+	MPH_HIRE_NORMAL,
+	MPH_EDGE_RANDOM,
+	MPH_EDGE_SELECTABLE,
+	MPH_DISABLE,
+	MPH_ALLOW,
+	TEXT_NUM_MPH_TEXT,
 };
 extern STR16	gzMPHScreenText[];
 enum
@@ -1533,7 +1712,8 @@ enum
 	MPS_ACCURACY_TEXT,
 	MPS_DMGDONE_TEXT,
 	MPS_DMGTAKEN_TEXT,
-	MPS_WAITSERVER_TEXT
+	MPS_WAITSERVER_TEXT,
+	TEXT_NUM_MPS_TEXT,
 };
 extern STR16	gzMPSScreenText[];
 enum
@@ -1545,6 +1725,7 @@ enum
 	MPC_HELP1_TEXT,
 	MPC_HELP2_TEXT,
 	MPC_READY_TEXT,
+	TEXT_NUM_MPC_TEXT,
 };
 extern STR16	gzMPCScreenText[];
 // Multiplayer Starting Edges
@@ -1594,7 +1775,7 @@ enum
 	BOOKMARK_TEXT_MCGILLICUTTY_MORTUARY,
 	BOOKMARK_TEXT_UNITED_FLORAL_SERVICE,
 	BOOKMARK_TEXT_INSURANCE_BROKERS_FOR_AIM_CONTRACTS,
-
+	TEXT_NUM_LAPTOP_BN_BOOKMARK_TEXT
 };
 
 
@@ -1602,6 +1783,7 @@ enum
 enum
 {
 	HLP_SCRN_TXT__EXIT_SCREEN,
+	TEXT_NUM_HLP
 };
 extern	STR16	gzHelpScreenText[];
 
@@ -1623,6 +1805,7 @@ enum
 	MAPINV_CANT_PICKUP_IN_COMBAT,
 	MAPINV_CANT_DROP_IN_COMBAT,
 	MAPINV_NOT_IN_SECTOR_TO_DROP,
+	TEXT_NUM_MAPINV
 };
 
 
@@ -1631,6 +1814,7 @@ enum
 {
 	BROKEN_LINK_TXT_ERROR_404,
 	BROKEN_LINK_TXT_SITE_NOT_FOUND,
+	TEXT_NUM_BROKEN_LINK,
 };
 extern	STR16		BrokenLinkText[];
 
@@ -1641,6 +1825,7 @@ enum
 	BOBBYR_SHIPMENT__ORDER_NUM,
 	BOBBYR_SHIPMENT__NUM_ITEMS,
 	BOBBYR_SHIPMENT__ORDERED_ON,
+	TEXT_NUM_BOBBYR_SHIPMENT,
 };
 
 extern STR16 gzBobbyRShipmentText[];
@@ -1652,6 +1837,7 @@ enum
 	GIO_CFS_EXPERIENCED,
 	GIO_CFS_EXPERT,
 	GIO_CFS_INSANE,
+	TEXT_NUM_GIO_CFS,
 };
 extern STR16 zGioDifConfirmText[];
 
@@ -1691,6 +1877,8 @@ extern STR16 New113Message[];
 extern STR16 New113MERCMercMailTexts[];
 extern STR16 MissingIMPSkillsDescriptions[];
 
+extern STR16 New113AIMMercMailTexts[];	// WANNE: new WF Merc text, that does not exist in Email.edt
+
 // HEADROCK: HAM Messages
 extern STR16 New113HAMMessage[];
 enum
@@ -1719,6 +1907,24 @@ enum
 	MSG113_RTM_SNEAKING_OFF,
 	MSG113_RTM_SNEAKING_ON,
 	MSG113_RTM_ENEMIES_SPOOTED,
+	// added by SANDRO
+	MSG113_THIEF_SUCCESSFUL,
+	MSG113_NOT_ENOUGH_APS_TO_STEAL_ALL,
+	MSG113_DO_WE_WANT_SURGERY_FIRST,
+	MSG113_DO_WE_WANT_SURGERY,
+	MSG113_SURGERY_BEFORE_DOCTOR_ASSIGNMENT,
+	MSG113_SURGERY_BEFORE_PATIENT_ASSIGNMENT,
+	MSG113_SURGERY_ON_TACTICAL_AUTOBANDAGE,
+	MSG113_SURGERY_FINISHED,
+	MSG113_LOSES_ONE_POINT_MAX_HEALTH,
+	MSG113_LOSES_X_POINTS_MAX_HEALTH,
+	MSG113_REGAINED_ONE_POINTS_OF_STAT,
+	MSG113_REGAINED_X_POINTS_OF_STATS,
+	MSG113_ENEMY_AMBUSH_PREVENTED,
+	MSG113_BLOODCATS_AMBUSH_PREVENTED,
+	MSG113_SOLDIER_HIT_TO_GROIN,
+
+	TEXT_NUM_MSG113,
 };
 
 //CHRISL: NewInv messages
@@ -1727,7 +1933,6 @@ extern STR16 NewInvMessage[];
 // WANNE - MP: New multiplayer messages
 extern STR16 MPServerMessage[];
 extern STR16 MPClientMessage[];
-extern STR16 MPHelp[];
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
 extern STR16 ChineseSpecString1;
@@ -1748,6 +1953,7 @@ enum
 	NIV_SELL_ALL,
 	NIV_DELETE_ALL,
 	NIV_NO_CLIMB,
+	TEXT_NUM_NIV,
 };
 
 // OJW - MP

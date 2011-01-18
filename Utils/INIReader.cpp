@@ -10,8 +10,11 @@
 
 // Kaiden: INI reading function definitions:
 
-#include "VFS/vfs.h"
+#include <vfs/Core/vfs.h>
 
+#ifdef USE_VFS
+std::set<vfs::Path,vfs::Path::Less> CIniReader::m_merge_files;
+#endif
 std::stack<std::string> iniErrorMessages;
 
 template<typename ValueType>
@@ -29,6 +32,13 @@ void PushErrorMessage(std::string const& filename,
 	iniErrorMessages.push(errMessage.str());
 }
 
+#ifdef USE_VFS
+void CIniReader::RegisterFileForMerging(vfs::Path const& filename)
+{
+	m_merge_files.insert(filename);
+}
+#endif
+
 CIniReader::CIniReader(const STR8	szFileName)
 {
 	memset(m_szFileName,0,sizeof(m_szFileName));
@@ -43,7 +53,26 @@ CIniReader::CIniReader(const STR8	szFileName)
 	}
 #else
 	strncpy(m_szFileName,szFileName, std::min<int>(strlen(szFileName), sizeof(m_szFileName)-1));
-	m_oProps.initFromIniFile(vfs::Path(szFileName));
+	if(m_merge_files.find(szFileName) == m_merge_files.end())
+	{
+		m_oProps.initFromIniFile(vfs::Path(szFileName));
+	}
+	else
+	{
+		vfs::CProfileStack* profs = getVFS()->getProfileStack();
+		vfs::CProfileStack::Iterator it = profs->begin();
+		std::stack<vfs::CVirtualProfile*> rev_order;
+		for(; !it.end(); it.next()) { rev_order.push(it.value()); }
+		while(!rev_order.empty())
+		{
+			vfs::IBaseFile* file = rev_order.top()->getFile(szFileName);
+			if(file)
+			{
+				m_oProps.initFromIniFile(vfs::tReadableFile::cast(file));
+			}
+			rev_order.pop();
+		}
+	}
 #endif
 }
 
@@ -79,7 +108,28 @@ CIniReader::CIniReader(const STR8	szFileName, BOOLEAN Force_Custom_Data_Path)
 	}
 #else
 	strncpy(m_szFileName,szFileName, std::min<int>(strlen(szFileName), sizeof(m_szFileName)-1));
-	CIniReader_File_Found = m_oProps.initFromIniFile(vfs::Path(szFileName));
+	if(m_merge_files.find(szFileName) == m_merge_files.end())
+	{
+		CIniReader_File_Found = m_oProps.initFromIniFile(vfs::Path(szFileName));
+	}
+	else
+	{
+		CIniReader_File_Found = TRUE;
+		vfs::CProfileStack* profs = getVFS()->getProfileStack();
+		vfs::CProfileStack::Iterator it = profs->begin();
+		std::stack<vfs::CVirtualProfile*> rev_order;
+		for(; !it.end(); it.next()) { rev_order.push(it.value()); }
+		while(!rev_order.empty())
+		{
+			vfs::IBaseFile* file = rev_order.top()->getFile(szFileName);
+			if(file)
+			{
+				CIniReader_File_Found = ((CIniReader_File_Found != FALSE) && m_oProps.initFromIniFile(vfs::tReadableFile::cast(file))) ? TRUE : FALSE;
+			}
+			rev_order.pop();
+		}
+	}
+
 #endif
 }
 
@@ -99,7 +149,7 @@ int CIniReader::ReadInteger(const STR8	szSection, const STR8	szKey, int iDefault
 #ifndef USE_VFS
 	return GetPrivateProfileInt(szSection,	szKey, iDefaultValue, m_szFileName);
 #else
-	return m_oProps.getIntProperty(szSection, szKey, iDefaultValue);
+	return (int)(m_oProps.getIntProperty(szSection, szKey, iDefaultValue));
 #endif
 }
 
@@ -107,9 +157,9 @@ int CIniReader::ReadInteger(const STR8	szSection, const STR8	szKey, int iDefault
 int CIniReader::ReadInteger(const STR8 szSection, const STR8 szKey, int defaultValue, int minValue, int maxValue)
 {
 #ifndef USE_VFS
-	int iniValueReadFromFile = GetPrivateProfileInt(szSection,	szKey, defaultValue, m_szFileName);
+	int iniValueReadFromFile = (int)(GetPrivateProfileInt(szSection,	szKey, defaultValue, m_szFileName));
 #else
-	int iniValueReadFromFile = m_oProps.getIntProperty(szSection, szKey, defaultValue);
+	int iniValueReadFromFile = (int)(m_oProps.getIntProperty(szSection, szKey, defaultValue));
 #endif
 	//AssertGE(iniValueReadFromFile, minValue);
 	//AssertLE(iniValueReadFromFile, maxValue);
@@ -195,7 +245,7 @@ FLOAT CIniReader::ReadFloat(const STR8 szSection, const STR8 szKey, FLOAT defaul
 	return iniValueReadFromFile;
 }
 
-BOOLEAN CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, bool defaultValue)
+BOOLEAN CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, bool defaultValue, bool bolDisplayError)
 {
 #ifndef USE_VFS
 	char szResult[255];
@@ -209,12 +259,12 @@ BOOLEAN CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, bool def
 	else if (strcmp(szResult, "FALSE") == 0)
 		return FALSE;
 #else
-	utf8string str = m_oProps.getStringProperty(szSection, szKey, L"");
-	if( StrCmp::Equal(str, L"true") )
+	vfs::String str = m_oProps.getStringProperty(szSection, szKey, L"");
+	if( vfs::StrCmp::Equal(str, L"true") )
 	{
 		return TRUE;
 	}
-	else if( StrCmp::Equal(str, L"false") )
+	else if( vfs::StrCmp::Equal(str, L"false") )
 	{
 		return FALSE;
 	}
@@ -222,10 +272,12 @@ BOOLEAN CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, bool def
 	char szDefault[255];
 	sprintf(szDefault, "%s", defaultValue? "TRUE" : "FALSE");
 #endif
-	std::stringstream errMessage;
-	errMessage << "The value [" << szSection << "][" << szKey << "] = \"" << szResult << "\" "
-		<< "in file [" << this->m_szFileName << "] is neither TRUE nor FALSE.  The value " << szDefault << " will be used.";
-	iniErrorMessages.push(errMessage.str());
+	if(bolDisplayError){
+		std::stringstream errMessage;
+		errMessage << "The value [" << szSection << "][" << szKey << "] = \"" << szResult << "\" "
+			<< "in file [" << this->m_szFileName << "] is neither TRUE nor FALSE.  The value " << szDefault << " will be used.";
+		iniErrorMessages.push(errMessage.str());
+	}
 	return defaultValue;
 }
 

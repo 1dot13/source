@@ -55,7 +55,7 @@ dynamicroamingStartElementHandle(void *userData, const XML_Char *name, const XML
 			// Set all sector IDs to -1 ("unused")
 			for (UINT16 cnt=0; cnt<5001; cnt++)
 			{
-				gDynamicRestrictions[cnt].bSectorID = -1;
+				gDynamicRestrictions[cnt].sSectorID = -1;
 			}
 			pData->curElement = ELEMENT_LIST;
 
@@ -119,7 +119,7 @@ dynamicroamingEndElementHandle(void *userData, const XML_Char *name)
 			if (SECTOR(pData->sCurSectorX, pData->sCurSectorY) >= 0 && SECTOR(pData->sCurSectorX, pData->sCurSectorY) < 256)
 			{
 				pData->curIndex++;
-				gDynamicRestrictions[pData->curIndex].bSectorID = SECTOR(pData->sCurSectorX,pData->sCurSectorY);
+				gDynamicRestrictions[pData->curIndex].sSectorID = SECTOR(pData->sCurSectorX,pData->sCurSectorY);
 				gDynamicRestrictions[pData->curIndex].uiReqTownFlags |= pData->uiReqTownFlags;
 			}
 		}

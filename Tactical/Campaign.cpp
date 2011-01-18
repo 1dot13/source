@@ -300,6 +300,20 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 			}
 */
 
+		// SANDRO - penalty for primitive people, they get lesser chance to gain point for certain skills
+		if ( gGameOptions.fNewTraitSystem && (usChance > 10) && (ubStat != EXPERAMT) && (pProfile->bCharacterTrait == CHAR_TRAIT_PRIMITIVE) )
+		{
+			switch (ubStat)
+			{
+				case WISDOMAMT:
+				case MEDICALAMT:
+				case EXPLODEAMT:
+				case MECHANAMT:
+				case LDRAMT:
+					usChance = max(1, (usChance - 10)); // -10% chance to gain the point
+					break;
+			}
+		}
 
 
       // maximum possible usChance is 99%
@@ -451,6 +465,7 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 	UINT8 ubMercMercIdValue = 0;
 	UINT16 usIncreaseValue = 0;
 	UINT16 usSubpointsPerPoint;
+	INT8 bDamagedStatToRaise = -1; // added by SANDRO 
 
 	usSubpointsPerPoint = SubpointsPerPoint(ubStat, pProfile->bExpLevel );
 
@@ -529,54 +544,63 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 	if (pSoldier != NULL)
 	{
 		// build ptrs to appropriate soldiertype stat fields
+		// SANDRO - added a variable for stat repair
 		switch( ubStat )
 		{
 		case HEALTHAMT:
 			pbSoldierStatPtr = &( pSoldier->stats.bLifeMax );
 			puiStatTimerPtr = &( pSoldier->timeChanges.uiChangeHealthTime);
 			usIncreaseValue = HEALTH_INCREASE;
+			bDamagedStatToRaise = DAMAGED_STAT_HEALTH;
 			break;
 
 		case AGILAMT:
 			pbSoldierStatPtr = &( pSoldier->stats.bAgility );
 			puiStatTimerPtr = &( pSoldier->timeChanges.uiChangeAgilityTime);
 			usIncreaseValue = AGIL_INCREASE;
+			bDamagedStatToRaise = DAMAGED_STAT_AGILITY;
 			break;
 
 		case DEXTAMT:
 			pbSoldierStatPtr = &( pSoldier->stats.bDexterity );
 			puiStatTimerPtr = &( pSoldier->timeChanges.uiChangeDexterityTime);
 			usIncreaseValue = DEX_INCREASE;
+			bDamagedStatToRaise = DAMAGED_STAT_DEXTERITY;
 			break;
 
 		case WISDOMAMT:
 			pbSoldierStatPtr = &( pSoldier->stats.bWisdom );
 			puiStatTimerPtr = &( pSoldier->timeChanges.uiChangeWisdomTime);
 			usIncreaseValue = WIS_INCREASE;
+			bDamagedStatToRaise = DAMAGED_STAT_WISDOM;
 			break;
 
 		case MEDICALAMT:
 			pbSoldierStatPtr = &( pSoldier->stats.bMedical );
 			puiStatTimerPtr = &( pSoldier->timeChanges.uiChangeMedicalTime);
 			usIncreaseValue = MED_INCREASE;
+			bDamagedStatToRaise = DAMAGED_STAT_MEDICAL;
 			break;
 
 		case EXPLODEAMT:
 			pbSoldierStatPtr = &( pSoldier->stats.bExplosive );
 			puiStatTimerPtr = &( pSoldier->timeChanges.uiChangeExplosivesTime);
 			usIncreaseValue = EXP_INCREASE;
+			bDamagedStatToRaise = DAMAGED_STAT_EXPLOSIVES;
 			break;
 
 		case MECHANAMT:
 			pbSoldierStatPtr = &( pSoldier->stats.bMechanical );
 			puiStatTimerPtr = &( pSoldier->timeChanges.uiChangeMechanicalTime);
 			usIncreaseValue = MECH_INCREASE;
+			bDamagedStatToRaise = DAMAGED_STAT_MECHANICAL;
 			break;
 
 		case MARKAMT:
 			pbSoldierStatPtr = &( pSoldier->stats.bMarksmanship );
 			puiStatTimerPtr = &( pSoldier->timeChanges.uiChangeMarksmanshipTime);
 			usIncreaseValue = MRK_INCREASE;
+			bDamagedStatToRaise = DAMAGED_STAT_MARKSMANSHIP;
 			break;
 
 		case EXPERAMT:
@@ -589,12 +613,14 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 			pbSoldierStatPtr = &(pSoldier->stats.bStrength);
 			puiStatTimerPtr = &( pSoldier->timeChanges.uiChangeStrengthTime);
 			usIncreaseValue = STRENGTH_INCREASE;
+			bDamagedStatToRaise = DAMAGED_STAT_STRENGTH;
 			break;
 
 		case LDRAMT:
 			pbSoldierStatPtr = &( pSoldier->stats.bLeadership);
 			puiStatTimerPtr = &( pSoldier->timeChanges.uiChangeLeadershipTime);
 			usIncreaseValue = LDR_INCREASE;
+			bDamagedStatToRaise = DAMAGED_STAT_LEADERSHIP;
 			break;
 		}
 	}
@@ -632,6 +658,13 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 		{
 			// transfer over change to soldiertype structure
 			*pbSoldierStatPtr = *pbStatPtr;
+
+			// SANDRO - reduce damaged stat if this stat was increased normally
+			if ( fChangeTypeIncrease && (bDamagedStatToRaise != -1) )
+			{
+				if (pSoldier->ubCriticalStatDamage[ bDamagedStatToRaise ] > 0)
+					pSoldier->ubCriticalStatDamage[ bDamagedStatToRaise ] = max( 0, (pSoldier->ubCriticalStatDamage[ bDamagedStatToRaise ] - sPtsChanged)); 
+			}
 
 			// if it's a level gain, or sometimes for other stats
 			// ( except health; not only will it sound silly, but
@@ -1016,6 +1049,7 @@ void HandleAnyStatChangesAfterAttack( void )
 UINT32 CalcNewSalary(UINT32 uiOldSalary, BOOLEAN fIncrease, UINT32 uiMaxLimit)
 {
   UINT32 uiNewSalary;
+  FLOAT SalaryMultiplier = (FLOAT) ((gGameExternalOptions.gMercLevelUpSalaryIncreasePercentage / 100) + 1);
 
 	// if he was working for free, it's still free!
 	if (uiOldSalary == 0)
@@ -1025,11 +1059,11 @@ UINT32 CalcNewSalary(UINT32 uiOldSalary, BOOLEAN fIncrease, UINT32 uiMaxLimit)
 
   if (fIncrease)
 	{
-    uiNewSalary = (UINT32) (uiOldSalary * SALARY_CHANGE_PER_LEVEL);
+    uiNewSalary = (UINT32) (uiOldSalary * SalaryMultiplier);
 	}
   else
 	{
-    uiNewSalary = (UINT32) (uiOldSalary / SALARY_CHANGE_PER_LEVEL);
+    uiNewSalary = (UINT32) (uiOldSalary / SalaryMultiplier);
 	}
 
   // round it off to a reasonable multiple
@@ -1247,26 +1281,41 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 	// calculate this merc's (small) chance to get killed today (out of 1000)
 	sChance = 10 - pProfile->bExpLevel;
 
-	switch (pProfile->bPersonalityTrait)
-	{
-		case FORGETFUL:
-		case NERVOUS:
-		case PSYCHO:
-			// these guys are somewhat more likely to get killed (they have "problems")
-			sChance += 2;
-			break;
+	// SANDRO - certain traits makes us less likely to get killed
+	if ( gGameOptions.fNewTraitSystem )
+	{	
+		if (pProfile->bDisability != NO_DISABILITY)
+		{
+			sChance += 1;
+		}
+		if ( ProfileHasSkillTrait( iProfileID, SQUADLEADER_NT ) > 0 )
+			sChance -= ProfileHasSkillTrait( iProfileID, SQUADLEADER_NT );
+		if ( ProfileHasSkillTrait( iProfileID, TECHNICIAN_NT ) > 0 )
+			sChance -= ProfileHasSkillTrait( iProfileID, TECHNICIAN_NT );
+		if ( ProfileHasSkillTrait( iProfileID, DOCTOR_NT ) > 0 )
+			sChance -= ProfileHasSkillTrait( iProfileID, DOCTOR_NT );
+		if ( ProfileHasSkillTrait( iProfileID, STEALTHY_NT ) > 0 )
+			sChance -= ProfileHasSkillTrait( iProfileID, STEALTHY_NT );
+		if ( ProfileHasSkillTrait( iProfileID, BODYBUILDING_NT ) > 0 )
+			sChance -= ProfileHasSkillTrait( iProfileID, BODYBUILDING_NT );
+		if ( ProfileHasSkillTrait( iProfileID, SCOUTING_NT ) > 0 )
+			sChance -= ProfileHasSkillTrait( iProfileID, SCOUTING_NT );
 	}
-
-	// stealthy guys are slightly less likely to get killed (they're careful)
-	if (pProfile->bSkillTrait == STEALTHY)
-	{
-		sChance -= 1;
+	else
+	{		
+		switch (pProfile->bDisability)
+		{
+			case FORGETFUL:
+			case NERVOUS:
+			case PSYCHO:
+				// these guys are somewhat more likely to get killed (they have "problems")
+				sChance += 2;
+				break;
+		}
+		// stealthy guys are slightly less likely to get killed (they're careful)
+		if ( ProfileHasSkillTrait( iProfileID, STEALTHY_OT ) > 0 )
+			sChance -= ProfileHasSkillTrait( iProfileID, STEALTHY_OT );
 	}
-	if (pProfile->bSkillTrait2 == STEALTHY)
-	{
-		sChance -= 1;
-	}
-
 
 	if ((INT16) PreRandom(1000) < sChance)
 	{
@@ -1278,7 +1327,8 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 		gStrategicStatus.ubUnhiredMercDeaths++;
 
 		//send an email as long as the merc is from aim
-		if( iProfileID < BIFF )
+	//	if( iProfileID < BIFF )
+		if ( gProfilesAIM[ iProfileID ].ProfilId == iProfileID )  //new profiles by Jazz
 		{
 			//send an email to the player telling the player that a merc died
 			AddEmailWithSpecialData(MERC_DIED_ON_OTHER_ASSIGNMENT, MERC_DIED_ON_OTHER_ASSIGNMENT_LENGTH, AIM_SITE, GetWorldTotalMin(), 0, iProfileID );
@@ -1340,7 +1390,7 @@ UINT8 CurrentPlayerProgressPercentage(void)
 
 
 	// figure out the player's current mine income
-	uiCurrentIncome = PredictIncomeFromPlayerMines();
+	uiCurrentIncome = PredictIncomeFromPlayerMines(FALSE);
 
 	// figure out the player's potential mine income
 	uiPossibleIncome = CalcMaxPlayerIncomeFromMines();
@@ -1453,8 +1503,11 @@ UINT8 CurrentPlayerProgressPercentage(void)
 	// And failsafes here. I'm not 100% sure about these though: I've never personally seen progress 
 	// values go over 100, and I don't think they SHOULD... Can the game handle values > 100? Should it?
 	usCurrentProgress = __min(100, usCurrentProgress);
+	usCurrentProgress = __max(0, usCurrentProgress);
 	// No less than 0, or the minimum set in the INI file.
-	usCurrentProgress = __max(gGameExternalOptions.ubGameProgressMinimum, __max(0, usCurrentProgress));
+	UINT32 uiMinProgress = __max(gGameExternalOptions.ubGameProgressMinimum, 0);
+	usCurrentProgress = __max(uiMinProgress, usCurrentProgress);
+
 
 	return((UINT8)usCurrentProgress);
 }

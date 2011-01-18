@@ -96,9 +96,12 @@
 #include "civ quotes.h"
 #include "Strategic Pathing.h"
 #include "Debug Control.h"
+#include "LOS.h" // added by SANDRO
 #endif
 
 #include "fresh_header.h"
+
+#include "Dialogue Control.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -231,6 +234,8 @@ BATTLESNDS_STRUCT	 gBattleSndsData[] =
 	"enem",			0,				1,			1,		1,		0,
 };
 
+extern void ReduceAttachmentsOnGunForNonPlayerChars(SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj);
+
 // CHRISL:
 MERCPROFILEGEAR::MERCPROFILEGEAR()
 {
@@ -250,6 +255,7 @@ MERCPROFILEGEAR& MERCPROFILEGEAR::operator=(const MERCPROFILEGEAR& src) {
 		lStatus = src.lStatus;
 		invCnt = src.invCnt;
 		lbeCnt = src.lbeCnt;
+		PriceModifier = src.PriceModifier;
     }
 	return *this;
 }
@@ -270,6 +276,7 @@ void MERCPROFILEGEAR::clearInventory() {
 	//ADB these really should be defines
 	invCnt = 55;
 	lbeCnt = 5;
+	PriceModifier = 0;
 
 	inv.clear();
 	iStatus.clear();
@@ -482,8 +489,8 @@ void STRUCT_Flags::ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src)
 
 void STRUCT_Statistics::ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src)
 {
-	this->ubSkillTrait1 = src.ubSkillTrait1;
-	this->ubSkillTrait2 = src.ubSkillTrait2;
+	this->ubSkillTraits[0] = src.ubSkillTrait1;
+	this->ubSkillTraits[1] = src.ubSkillTrait2;
 	this->bDexterity = src.bDexterity;		// dexterity (hand coord) value
 	this->bWisdom = src.bWisdom;
 	this->bExpLevel = src.bExpLevel;		// general experience level
@@ -648,8 +655,9 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 
 		this->dXPos = src.dXPos;
 		this->dYPos = src.dYPos;
-		this->dOldXPos = src.dOldXPos;
-		this->dOldYPos = src.dOldYPos;
+		// HEADROCK HAM 4: Changed from FLOAT to INT32 to record position at beginning of turn.
+		this->sOldXPos = src.sOldXPos;
+		this->sOldYPos = src.sOldYPos;
 		this->sInitialGridNo = src.sInitialGridNo;
 		this->sGridNo = src.sGridNo;
 		this->ubDirection = src.ubDirection;
@@ -696,6 +704,13 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->bTargetLevel = src.bTargetLevel;
 		this->bTargetCubeLevel = src.bTargetCubeLevel;
 		this->sLastTarget = src.sLastTarget;
+
+		// HEADROCK HAM 4: TODO: Added four new variables to soldiertype. MAke sure they don't screw it all up!
+		this->dPrevMuzzleOffsetX = 0.0;
+		this->dPrevMuzzleOffsetY = 0.0;
+		this->dPrevCounterForceX = 0.0;
+		this->dPrevCounterForceY = 0.0;
+
 		this->bTilesMoved = src.bTilesMoved;
 		this->dNextBleed = src.dNextBleed;
 
@@ -1047,7 +1062,12 @@ void SOLDIERTYPE::initialize()
 	memset( &pathing, 0, sizeof(STRUCT_Pathing) );
 }
 
-
+bool SOLDIERTYPE::exists()
+{
+	if(this == NULL)
+		return(FALSE);
+	return (TRUE);
+}
 
 // Ugly temporary solution
 //
@@ -1289,12 +1309,53 @@ MERCPROFILESTRUCT& MERCPROFILESTRUCT::operator=(const OLD_MERCPROFILESTRUCT_101&
 		this->bExplosivesDelta = src.bExplosivesDelta;
 		this->bStrengthDelta = src.bStrengthDelta;
 		this->bLeadershipDelta = src.bLeadershipDelta;
-		this->usKills = src.usKills;
-		this->usAssists = src.usAssists;
-		this->usShotsFired = src.usShotsFired;
-		this->usShotsHit = src.usShotsHit;
-		this->usBattlesFought = src.usBattlesFought;
-		this->usTimesWounded = src.usTimesWounded;
+		/////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - new records
+		this->records.usKillsElites = (src.usKills/4);
+		this->records.usKillsRegulars = (src.usKills/2);
+		this->records.usKillsAdmins = (src.usKills/4);
+		this->records.usKillsHostiles = 0;
+		this->records.usKillsCreatures = 0;
+		this->records.usKillsTanks = 0;
+		this->records.usKillsOthers = 0;
+		this->records.usAssistsMercs = (src.usAssists*3/4);
+		this->records.usAssistsMilitia = (src.usAssists/4);
+		this->records.usAssistsOthers = 0;
+		this->records.usShotsFired = src.usShotsFired;
+		this->records.usMissilesLaunched = 0;
+		this->records.usGrenadesThrown = 0;
+		this->records.usKnivesThrown = 0;
+		this->records.usBladeAttacks = 0;
+		this->records.usHtHAttacks = 0;
+		this->records.usShotsHit = src.usShotsHit;
+		this->records.usBattlesTactical = (src.usBattlesFought*3/4);
+		this->records.usBattlesAutoresolve = src.usBattlesFought/4;
+		this->records.usBattlesRetreated = 0;
+		this->records.usAmbushesExperienced = 0;
+		this->records.usLargestBattleFought = 0;
+		this->records.usTimesWoundedShot = src.usTimesWounded;
+		this->records.usTimesWoundedStabbed = 0;
+		this->records.usTimesWoundedPunched = 0;
+		this->records.usTimesWoundedBlasted = 0;
+		this->records.usTimesStatDamaged = 0;
+		this->records.usTimesSurgeryUndergoed = 0;
+		this->records.usFacilityAccidents = 0;
+		this->records.usLocksPicked = 0;
+		this->records.usLocksBreached = 0;
+		this->records.usTrapsRemoved = 0;
+		this->records.usExpDetonated = 0;
+		this->records.usItemsRepaired = 0;
+		this->records.usItemsCombined = 0;
+		this->records.usItemsStolen = 0;
+		this->records.usMercsBandaged = 0;
+		this->records.usSurgeriesMade = 0;
+		this->records.usNPCsDiscovered = 0;
+		this->records.usSectorsDiscovered = 0;
+		this->records.usMilitiaTrained = 0;
+		//this->records.usFacilityEvents = 0;
+		this->records.ubQuestsHandled = 0;
+
+		/////////////////////////////////////////////////////////////////////////////////////
 		this->usTotalDaysServed = src.usTotalDaysServed;
 
 		this->sLeadershipGain = src.sLeadershipGain;
@@ -1308,12 +1369,13 @@ MERCPROFILESTRUCT& MERCPROFILESTRUCT::operator=(const OLD_MERCPROFILESTRUCT_101&
 		this->sSalary = src.sSalary;
 		this->bLife = src.bLife;
 		this->bDexterity = src.bDexterity;// dexterity (hand coord) value
-		this->bPersonalityTrait = src.bPersonalityTrait;
-		this->bSkillTrait = src.bSkillTrait;
+		this->bDisability = src.bDisability;
+	
+		this->bSkillTraits[0] = src.bSkillTrait;
+		this->bSkillTraits[1] = src.bSkillTrait2;
 
 		this->bReputationTolerance = src.bReputationTolerance;
 		this->bExplosive = src.bExplosive;
-		this->bSkillTrait2 = src.bSkillTrait2;
 		this->bLeadership = src.bLeadership;
 
 		this->bExpLevel = src.bExpLevel;// general experience level
@@ -1422,6 +1484,8 @@ void MERCPROFILESTRUCT::initialize()
 {
 	memset( this, 0, SIZEOF_MERCPROFILESTRUCT_POD);
 	clearInventory();
+	// SANDRO - added this
+	memset( &records, 0, sizeof(STRUCT_Records) );
 }
 
 // Initialize the soldier.
@@ -1888,28 +1952,39 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 			ubPoints = (ubPoints * APBPConstants[AP_MONST_FRENZY_FACTOR]) / 10;
 		}
 	}
+	// SANDRO - moved this here
+	// If we are a vehicle, adjust APS...
+	else if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	{
+		AdjustVehicleAPs( this, &ubPoints );
+	}
+	// SANDRO - squadleader's bonus to APs
+	else if ( gGameOptions.fNewTraitSystem && IS_MERC_BODY_TYPE( this ) &&  
+		(this->bTeam == ENEMY_TEAM || this->bTeam == MILITIA_TEAM || this->bTeam == gbPlayerNum) )
+	{
+		// +5% APs per trait (+15% is max) (as a default)
+		ubPoints += (ubPoints * gSkillTraitValues.ubSLBonusAPsPercent * GetSquadleadersCountInVicinity( this, FALSE, FALSE ) / 100);
+	}
 
 	// adjust APs for phobia situations
 	if ( this->ubProfile != NO_PROFILE )
 	{
-		if ( (gMercProfiles[ this->ubProfile ].bPersonalityTrait == CLAUSTROPHOBIC) && (gbWorldSectorZ > 0) )
+		if ( (gMercProfiles[ this->ubProfile ].bDisability == CLAUSTROPHOBIC) && (gbWorldSectorZ > 0) )
 		{
 			ubPoints = (ubPoints * APBPConstants[AP_CLAUSTROPHOBE]) / 10;
 		}
-		else if ( (gMercProfiles[ this->ubProfile ].bPersonalityTrait == FEAR_OF_INSECTS) && (MercSeesCreature( this ) ) )
+		else if ( (gMercProfiles[ this->ubProfile ].bDisability == FEAR_OF_INSECTS) && (MercSeesCreature( this ) ) )
 		{
 			ubPoints = (ubPoints * APBPConstants[AP_AFRAID_OF_INSECTS]) / 10;
+		}
+		else if ( (gMercProfiles[ this->ubProfile ].bDisability == FEAR_OF_INSECTS) && (MercIsInTropicalSector( this ) ) )
+		{
+			ubPoints = (ubPoints * 9) / 10;
 		}
 	}
 
 	// Adjusat APs due to drugs...
 	HandleAPEffectDueToDrugs( this, &ubPoints );
-
-	// If we are a vehicle, adjust APS...
-	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
-	{
-		AdjustVehicleAPs( this, &ubPoints );
-	}
 
 	//Madd
 	//	if ( this->bTeam != CIV_TEAM && this->bTeam != gbPlayerNum && gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
@@ -1918,9 +1993,11 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 
 	//Kaiden: Took your idea a step further adding the bonus for each difficulty level
 	// and then externalized it. AND added it to the Dont max out points section below.
-	if ( this->bTeam != CIV_TEAM && this->bTeam != gbPlayerNum)
+	///////////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - following code messed a bit
+	//if ( this->bTeam != CIV_TEAM && this->bTeam != gbPlayerNum)
+	if ( this->bTeam == ENEMY_TEAM )
 	{
-
 		switch( gGameOptions.ubDifficultyLevel )
 		{
 		case DIF_LEVEL_EASY:
@@ -1947,9 +2024,56 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 			ubPoints +=0;
 		}
 	}
-	else
+	// Bonus to Militia APs
+	else if ( this->bTeam == MILITIA_TEAM )
+	{
+		// This is only affected from 2/5
+		if (this->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.bGreenMilitiaAPsBonus != 0)
+			ubPoints += gGameExternalOptions.bGreenMilitiaAPsBonus;
+		else if (this->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.bRegularMilitiaAPsBonus != 0)
+			ubPoints += gGameExternalOptions.bRegularMilitiaAPsBonus;
+		else if (this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.bVeteranMilitiaAPsBonus != 0)
+			ubPoints += gGameExternalOptions.bVeteranMilitiaAPsBonus;
+	}
+	//Kaiden: Players just max out normally unless drugged
+	else if ( this->bTeam == gbPlayerNum )
+	{
 		ubPoints += gGameExternalOptions.iPlayerAPBonus;
-
+	}
+	// nothing here
+	else
+	{
+		//ubPoints += 0;
+	}
+	
+	// option to make special NPCs stronger - AP bonus
+	if ( this->ubProfile != NO_PROFILE && gGameExternalOptions.usSpecialNPCStronger > 0 )
+	{ 
+		switch( this->ubProfile )
+		{
+			case CARMEN:
+			case QUEEN:
+			case JOE:
+			case ANNIE:
+			case CHRIS:
+			case KINGPIN:
+			case TIFFANY:
+			case T_REX:
+			case DRUGGIST:
+			case GENERAL:
+			case JACK:
+			case OLAF:
+			case RAY:
+			case OLGA:
+			case TYRONE:
+			case MIKE:
+				// Only 1/4 of the bonus
+				ubPoints += ( ubPoints * gGameExternalOptions.usSpecialNPCStronger/400 );
+				break;
+		}
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////
+	
 	// if we are in boxing mode, adjust APs... THIS MUST BE LAST!
 	if ( gTacticalStatus.bBoxingState == BOXING || gTacticalStatus.bBoxingState == PRE_BOXING )
 	{
@@ -1986,43 +2110,93 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 
 	// Don't max out if we are drugged....
 	if ( !GetDrugEffect( this, DRUG_TYPE_ADRENALINE ) )
-	{  //Kaiden: If Enemy, they can max out, but their Max is NOW = MAX + diffAPBonus
+	{
+		///////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - following code messed a bit
+		// First get max APs we can have
+		UINT16 usMaxActionPnts = gubMaxActionPoints[ this->ubBodyType ];
+		//Kaiden: If Enemy, they can max out, but their Max is NOW = MAX + diffAPBonus
 		// No sense in giving them a bonus if some of the points are wasted because we
 		// Didn't raise their cap by the same amount.
-		if ( this->bTeam != CIV_TEAM && this->bTeam != gbPlayerNum)
+		// squadleader's bonus to APs
+		if ( gGameOptions.fNewTraitSystem  && IS_MERC_BODY_TYPE( this ) &&  
+		   (this->bTeam == ENEMY_TEAM || this->bTeam == MILITIA_TEAM || this->bTeam == gbPlayerNum) )
+		{
+			// +5% APs per trait (+15% is max)
+			usMaxActionPnts += (usMaxActionPnts * gSkillTraitValues.ubSLBonusAPsPercent * GetSquadleadersCountInVicinity( this, FALSE, FALSE ) / 100);
+		}
+		if ( this->bTeam == ENEMY_TEAM )
 		{
 			switch( gGameOptions.ubDifficultyLevel )
 			{
-			case DIF_LEVEL_EASY:
-
-				this->bActionPoints	= __min( this->bActionPoints, (gubMaxActionPoints[ this->ubBodyType ] + gGameExternalOptions.iEasyAPBonus));
-				break;
-
-			case DIF_LEVEL_MEDIUM:
-
-				this->bActionPoints	= __min( this->bActionPoints, (gubMaxActionPoints[ this->ubBodyType ] + gGameExternalOptions.iExperiencedAPBonus));
-				break;
-
-			case DIF_LEVEL_HARD:
-
-				this->bActionPoints	= __min( this->bActionPoints, (gubMaxActionPoints[ this->ubBodyType ] + gGameExternalOptions.iExpertAPBonus));
-				break;
-
-			case DIF_LEVEL_INSANE:
-
-				this->bActionPoints	= __min( this->bActionPoints, (gubMaxActionPoints[ this->ubBodyType ] + gGameExternalOptions.iInsaneAPBonus));
-				break;
-
-			default:
-				this->bActionPoints					= __min( this->bActionPoints, gubMaxActionPoints[ this->ubBodyType ] );
+				case DIF_LEVEL_EASY:
+					usMaxActionPnts += gGameExternalOptions.iEasyAPBonus;
+					break;
+				case DIF_LEVEL_MEDIUM:
+					usMaxActionPnts += gGameExternalOptions.iExperiencedAPBonus;
+					break;
+				case DIF_LEVEL_HARD:
+					usMaxActionPnts += gGameExternalOptions.iExpertAPBonus;
+					break;
+				case DIF_LEVEL_INSANE:
+					usMaxActionPnts += gGameExternalOptions.iInsaneAPBonus;
+					break;
 			}
-
+		}
+		// Bonus to Militia APs
+		else if ( this->bTeam == MILITIA_TEAM )
+		{
+			if (this->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.bGreenMilitiaAPsBonus != 0)
+				usMaxActionPnts += gGameExternalOptions.bGreenMilitiaAPsBonus;
+			else if (this->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.bRegularMilitiaAPsBonus != 0)
+				usMaxActionPnts += gGameExternalOptions.bRegularMilitiaAPsBonus;
+			else if (this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.bVeteranMilitiaAPsBonus != 0)
+				usMaxActionPnts += gGameExternalOptions.bVeteranMilitiaAPsBonus;
+		}
+		//Kaiden: Players just max out normally unless drugged
+		else if ( this->bTeam == gbPlayerNum )
+		{
+			usMaxActionPnts += gGameExternalOptions.iPlayerAPBonus;
 		}
 		else
-		{ //Kaiden: Players just max out normally unless drugged
-			this->bActionPoints	= __min( this->bActionPoints, (gubMaxActionPoints[ this->ubBodyType ] + gGameExternalOptions.iPlayerAPBonus) );
+		{
+			// Nothing here
+			//MaxActionPnts += 0;
 		}
 
+		// option to make special NPCs stronger - AP bonus
+		if ( this->ubProfile != NO_PROFILE && gGameExternalOptions.usSpecialNPCStronger > 0 )
+		{ 
+			switch( this->ubProfile )
+			{
+				case CARMEN:
+				case QUEEN:
+				case JOE:
+				case ANNIE:
+				case CHRIS:
+				case KINGPIN:
+				case TIFFANY:
+				case T_REX:
+				case DRUGGIST:
+				case GENERAL:
+				case JACK:
+				case OLAF:
+				case RAY:
+				case OLGA:
+				case TYRONE:
+				case MIKE:
+					// Only 1/4 of the bonus
+					usMaxActionPnts += (usMaxActionPnts * gGameExternalOptions.usSpecialNPCStronger/400);
+					break;
+			}
+		}
+
+		// Now repair
+		if ( this->bActionPoints > usMaxActionPnts )	
+		{
+			this->bActionPoints = usMaxActionPnts;
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////
 	}
 
 	this->bInitialActionPoints	= this->bActionPoints;
@@ -2047,7 +2221,13 @@ void	SOLDIERTYPE::DoNinjaAttack( void )
 		ubTargetStance = gAnimControl[ pTSoldier->usAnimState ].ubEndHeight;
 
 		// Get his life...if < certain value, do finish!
-		if ( (pTSoldier->stats.bLife <= 30 || pTSoldier->bBreath <= 30) && ubTargetStance != ANIM_PRONE )
+		// SANDRO - Enhanced Close Combat System - Spinning kick is performed on focuse attack
+		if (gGameExternalOptions.fEnhancedCloseCombatSystem && ( ( this->aiData.bAimTime > 0 ) && ubTargetStance != ANIM_PRONE ))
+		{
+			this->ChangeSoldierState( NINJA_SPINKICK, 0 , FALSE );
+
+		}
+		else if ( !gGameExternalOptions.fEnhancedCloseCombatSystem && (pTSoldier->stats.bLife <= 30 || pTSoldier->bBreath <= 30) && ubTargetStance != ANIM_PRONE )
 		{
 			// Do finish!
 			this->ChangeSoldierState( NINJA_SPINKICK, 0 , FALSE );
@@ -2667,7 +2847,7 @@ void CheckForFreeupFromHit( SOLDIERTYPE *pSoldier, UINT32 uiOldAnimFlags, UINT32
 		//FREEUP GETTING HIT FLAG
 		// pSoldier->flags.fGettingHit = FALSE;
 
-		if ( pSoldier->stats.bLife == 0 )
+		if ( pSoldier->stats.bLife == 0 && pSoldier->ubPreviousAttackerID != NOBODY) // SANDRO added check
 		{
 			//ATE: Set previous attacker's value!
 			// This is so that the killer can say their killed quote....
@@ -2889,6 +3069,15 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// Set new state to be animation to move to new stance
 			usNewState = END_SWAT;
 		}
+		///***ddd{
+		if( (this->usAnimState == SWATTING_WK || this->usAnimState == SWAT_BACKWARDS 
+			|| this->usAnimState == SWAT_BACKWARDS_NOTHING || this->usAnimState == SWAT_BACKWARDS_WK)
+			&& usNewState == CROUCHING )
+		{
+			// Set new state to be animation to move to new stance
+			usNewState = END_SWAT;
+		}
+		///***ddd}
 
 		if( this->usAnimState == WALKING && usNewState == STANDING && this->stats.bLife < INJURED_CHANGE_THREASHOLD && this->ubBodyType <= REGFEMALE && !this->MercInWater( ) )
 		{
@@ -2982,7 +3171,9 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		// OK, if we have reverse set, do the side step!
 		if ( this->bReverse )
 		{
-			if ( usNewState == WALKING || usNewState == RUNNING || usNewState == SWATTING )
+			if ( usNewState == WALKING || usNewState == RUNNING || usNewState == SWATTING
+				//*** ddd
+				|| usNewState == SWATTING_WK)
 			{
 				// CHECK FOR SIDEWAYS!
 				if ( this->ubDirection == gPurpendicularDirection[ this->ubDirection ][ this->pathing.usPathingData[ this->pathing.usPathIndex ] ] )
@@ -2994,7 +3185,19 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 				{
 					if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_CROUCH )
 					{
-						usNewState = SWAT_BACKWARDS;
+						//*** ddd 
+						UINT16 usItem = this->inv[ HANDPOS ].usItem;
+						
+						if( this->inv[ HANDPOS ].exists() == true && Item[ usItem ].usItemClass == IC_GUN && Item[ usItem ].twohanded && !Item[usItem].rocketlauncher)   
+							usNewState = SWAT_BACKWARDS;
+						else
+							usNewState = SWAT_BACKWARDS_NOTHING;
+						// движение назад вприсядку с ножом ;)
+						if( this->inv[ HANDPOS ].exists() == true && 
+							//(this->ubBodyType == BIGMALE || this->ubBodyType == REGFEMALE )&&
+							(Item[ usItem ].usItemClass == IC_BLADE || Item[ usItem ].usItemClass == IC_THROWING_KNIFE)   )
+							usNewState = SWAT_BACKWARDS_WK;
+																		
 					}
 					else
 					{
@@ -3003,6 +3206,26 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					}
 				}
 			}
+			//***08.12.2008*** добавлена анимация переката -стырено ;) ddd
+			else if( usNewState == CRAWLING 
+				&& this->ubDirection == 
+				gPurpendicularDirection[ this->ubDirection ][ this->pathing.usPathingData
+				[ this->pathing.usPathIndex  ] ])
+			{
+				if( QuickestDirection( this->ubDirection, this->pathing.usPathingData[ this->pathing.usPathIndex] ) > 0 )
+					usNewState = ROLL_PRONE_R;
+				else if( QuickestDirection( this->ubDirection, this->pathing.usPathingData[ this->pathing.usPathIndex ] ) < 0 )
+					usNewState = ROLL_PRONE_L;
+
+				if( usNewState != CRAWLING )
+				{
+					if( this->ubDirection % 2 == 0 )
+						gAnimControl[usNewState].dMovementChange = (FLOAT)0.8;
+					else
+						gAnimControl[usNewState].dMovementChange = (FLOAT)1.1;
+				}
+			}///
+
 		}
 
 		// ATE: Patch hole for breath collapse for roofs, fences
@@ -3319,13 +3542,13 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			if ( this->usAnimState != RUNNING )
 			{
 				// CHRISL
-				if((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true)
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( this ) != ITEM_NOT_FOUND)
 				{
-					sAPCost = APBPConstants[AP_START_RUN_COST] + 2;
+					sAPCost = GetAPsStartRun( this ) + 2; // changed by SANDRO
 					sBPCost += 2;
 				}
 				else
-					sAPCost = APBPConstants[AP_START_RUN_COST];
+					sAPCost = GetAPsStartRun( this ); // changed by SANDRO
 				DeductPoints( this, sAPCost, sBPCost );
 			}
 			// Set pending action count to 0
@@ -3349,27 +3572,28 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			if ( !this->flags.fDontChargeAPsForStanceChange )
 			{
 				// CHRISL
-				if((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true && !this->flags.ZipperFlag)
+				// SANDRO - APBPConstants[AP_CROUCH] changed to GetAPsCrouch()
+				if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( this ) != ITEM_NOT_FOUND && !this->flags.ZipperFlag)
 				{
 					if(usNewState == KNEEL_UP || usNewState == BIGMERC_CROUCH_TRANS_OUTOF)
 					{
-						sAPCost=APBPConstants[AP_CROUCH]+2;
+						sAPCost=GetAPsCrouch(this, FALSE)+2;
 						sBPCost=APBPConstants[BP_CROUCH]+2;
 					}
 					else if(usNewState == KNEEL_DOWN || usNewState == BIGMERC_CROUCH_TRANS_INTO)
 					{
-						sAPCost=APBPConstants[AP_CROUCH]+1;
+						sAPCost=GetAPsCrouch(this, FALSE)+1;
 						sBPCost=APBPConstants[BP_CROUCH]+1;
 					}
 					else
 					{
-						sAPCost=APBPConstants[AP_CROUCH];
+						sAPCost=GetAPsCrouch(this, FALSE);
 						sBPCost=APBPConstants[BP_CROUCH];
 					}
 				}
 				else
 				{
-					sAPCost=APBPConstants[AP_CROUCH];
+					sAPCost=GetAPsCrouch(this, FALSE);
 					sBPCost=APBPConstants[BP_CROUCH];
 				}
 				DeductPoints( this, sAPCost, sBPCost );
@@ -3384,26 +3608,27 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			if ( this->flags.bTurningFromPronePosition < TURNING_FROM_PRONE_START_UP_FROM_MOVE && !this->flags.fDontChargeAPsForStanceChange )
 			{
 				// ATE: Don't do this if we are still 'moving'....
+				// SANDRO - APBPConstants[AP_PRONE] changed to GetAPsProne()
 				if ( this->sGridNo == this->pathing.sFinalDestination || this->pathing.usPathIndex == 0 )
 				{
 					// CHRISL
-					if((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true && !this->flags.ZipperFlag)
+					if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( this ) != ITEM_NOT_FOUND && !this->flags.ZipperFlag)
 					{
 						if(usNewState == PRONE_UP)
 						{
-						sAPCost=APBPConstants[AP_PRONE]+2;
-						sBPCost=APBPConstants[BP_PRONE]+2;
+							sAPCost=GetAPsProne(this, FALSE)+2;
+							sBPCost=APBPConstants[BP_PRONE]+2;
 						}
 						else
 						{
-						sAPCost=APBPConstants[AP_PRONE]+1;
-						sBPCost=APBPConstants[BP_PRONE]+1;
+							sAPCost=GetAPsProne(this, FALSE)+1;
+							sBPCost=APBPConstants[BP_PRONE]+1;
 						}
 					}
 					else
 					{
-					sAPCost=APBPConstants[AP_PRONE];
-					sBPCost=APBPConstants[BP_PRONE];
+						sAPCost=GetAPsProne(this, FALSE);
+						sBPCost=APBPConstants[BP_PRONE];
 					}
 					DeductPoints( this, sAPCost, sBPCost );
 				}
@@ -3428,14 +3653,15 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		case PLANT_BOMB:
 
 			if(Item[this->inv[HANDPOS].usItem].mine == 1)	// bury a mine
-				DeductPoints( this, APBPConstants[AP_BURY_MINE], APBPConstants[BP_BURY_MINE] );
+				DeductPoints( this, GetAPsToPlantMine( this ), APBPConstants[BP_BURY_MINE] ); // changed by SANDRO
 			else
-				DeductPoints( this, APBPConstants[AP_DROP_BOMB], APBPConstants[BP_DROP_BOMB] );
+				DeductPoints( this, GetAPsToDropBomb( this ), APBPConstants[BP_DROP_BOMB] ); // changed by SANDRO
 			break;
 
 		case STEAL_ITEM:
 
-			DeductPoints( this, APBPConstants[AP_STEAL_ITEM], 0 );
+			// we will deduct APs for this elsewhere (see weapons.cpp) - SANDRO
+			//DeductPoints( this, APBPConstants[AP_STEAL_ITEM], 0 );
 			break;
 
 		case CROW_DIE:
@@ -3476,10 +3702,11 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		case HOPFENCE:
 
 			// CHRISL
-			if((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true)
-				DeductPoints( this, APBPConstants[AP_JUMPFENCEBPACK], APBPConstants[BP_JUMPFENCEBPACK] );
+			// SANDRO - changed this a bit
+			if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( this ) != ITEM_NOT_FOUND )
+				DeductPoints( this, GetAPsToJumpFence( this, TRUE ), GetBPsToJumpFence( this, TRUE ) );
 			else
-				DeductPoints( this, APBPConstants[AP_JUMPFENCE], APBPConstants[BP_JUMPFENCE] );
+				DeductPoints( this, GetAPsToJumpFence( this, FALSE ), GetBPsToJumpFence( this, FALSE ) );
 			break;
 
 			// Deduct aps for falling down....
@@ -3505,7 +3732,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// disable sight
 			gTacticalStatus.uiFlags |= DISALLOW_SIGHT;
 
-			DeductPoints( this, APBPConstants[AP_CLIMBOFFROOF], APBPConstants[BP_CLIMBOFFROOF] );
+			DeductPoints( this, GetAPsToClimbRoof( this, TRUE), GetBPsToClimbRoof( this, TRUE) ); // changed by SANDRO
 			break;
 
 		case CLIMBUPROOF:
@@ -3513,7 +3740,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// disable sight
 			gTacticalStatus.uiFlags |= DISALLOW_SIGHT;
 
-			DeductPoints( this, APBPConstants[AP_CLIMBROOF], APBPConstants[BP_CLIMBROOF] );
+			DeductPoints( this, GetAPsToClimbRoof( this, FALSE), GetBPsToClimbRoof( this, FALSE) ); // changed by SANDRO
 			break;
 
 		case JUMP_OVER_BLOCKING_PERSON:
@@ -3522,7 +3749,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			{
 					INT32 usNewGridNo;
 
-				DeductPoints( this, APBPConstants[AP_JUMP_OVER], APBPConstants[BP_JUMP_OVER] );
+				DeductPoints( this, GetAPsToJumpOver( this ), APBPConstants[BP_JUMP_OVER] ); // changed by SANDRO
 
 				usNewGridNo = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
 				usNewGridNo = NewGridNo( usNewGridNo, DirectionInc( this->ubDirection ) );
@@ -3815,9 +4042,10 @@ void SOLDIERTYPE::EVENT_InternalSetSoldierPosition( FLOAT dNewXPos, FLOAT dNewYP
 		this->pathing.sFinalDestination = sNewGridNo;
 	}
 
+	// HEADROCK HAM 4: TODO: Figure out whether this has any influence in-game?
 	// Copy old values
-	this->dOldXPos = this->dXPos;
-	this->dOldYPos = this->dYPos;
+	//this->sOldXPos = this->dXPos;
+	//this->sOldYPos = this->dYPos;
 
 	// Set New pos
 	this->dXPos = dNewXPos;
@@ -4046,8 +4274,24 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 			//this->sZLevelOverride = (sZLevel*Z_SUBLAYERS)+ROOF_Z_LEVEL;
 			this->sZLevelOverride = TOPMOST_Z_LEVEL;
 		}
+		  /*
+		if ( IsJumpableWindowPresentAtGridNo( sNewGridNo ) )
+		{
+			//sX = MapX( sNewGridNo );
+			//sY = MapY( sNewGridNo );
+			//GetWorldXYAbsoluteScreenXY( sX, sY, &sWorldX, &sZLevel);
+			//this->sZLevelOverride = (sZLevel*Z_SUBLAYERS)+ROOF_Z_LEVEL;
+			this->sZLevelOverride = TOPMOST_Z_LEVEL;
+		}
+                   */
 
-
+		//dddokno{ ???????
+		//if ( IsOknoFencePresentAtGridno( sNewGridNo ) )
+		//{
+		//	this->sZLevelOverride = TOPMOST_Z_LEVEL;
+		//}
+		//dddokno}
+		
 		// Add/ remove tree if we are near it
 		// CheckForFullStructures( this );
 
@@ -4453,7 +4697,11 @@ UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight )
 	// Check for rocket laucncher....
 	if ( Item[pSoldier->inv[ HANDPOS ].usItem].rocketlauncher )
 	{
-		return( SHOOT_ROCKET );
+		//***ddd if shoot crouched
+		if(ubHeight == ANIM_STAND)
+			return( SHOOT_ROCKET );
+		if(ubHeight == ANIM_CROUCH)
+			return( SHOOT_ROCKET_CROUCHED );
 	}
 
 	// Check for mortar....
@@ -4633,7 +4881,16 @@ UINT16 SOLDIERTYPE::GetMoveStateBasedOnStance( UINT8 ubStanceHeight )
 		}
 		else
 		{
-			return( SWATTING );
+			//***ddd
+			// т.к. пока отрисован 1 бодитайп, остальные добавить
+			UINT16 usItem = this->inv[ HANDPOS ].usItem;
+			if( this->inv[ HANDPOS ].exists() == true && 
+				//(this->ubBodyType == BIGMALE || this->ubBodyType == REGFEMALE )&&
+				(Item[ usItem ].usItemClass == IC_BLADE || Item[ usItem ].usItemClass == IC_THROWING_KNIFE)   )
+				return( SWATTING_WK );
+			else 
+				return( SWATTING );
+			
 		}
 		break;
 
@@ -5018,14 +5275,72 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	}
 	else if ( Item[ usWeaponIndex ].usItemClass & IC_BLADE )
 	{
-		sBreathLoss = APBPConstants[BP_GET_HIT];
+		// SANDRO - slightly reduce breath damage of melee weapons, it is an issue for martial arts
+		if (gGameOptions.fNewTraitSystem)
+			sBreathLoss = (APBPConstants[BP_GET_HIT] * (100 + gSkillTraitValues.bPercentModifierBladesBreathLoss) / 100); 
+		else
+			sBreathLoss = APBPConstants[BP_GET_HIT]; 
 		ubReason = TAKE_DAMAGE_BLADE;
 	}
 	else if ( Item[ usWeaponIndex ].usItemClass & IC_PUNCH )
 	{
-		// damage from hand-to-hand is 1/4 normal, 3/4 breath.. the sDamage value
-		// is actually how much breath we'll take away
-		sBreathLoss = sDamage * 100;
+		////////////////////////////////////////////////////////////////////////////
+		// SANDRO - STOMP traits
+		UINT16 sBreathRegainPenaltyMultiplier = 0;
+		if (gGameOptions.fNewTraitSystem)
+		{
+			if ( ubAttackerID != NOBODY )
+			{
+				if (!(MercPtrs[ubAttackerID]->inv[HANDPOS].exists()) || Item[MercPtrs[ubAttackerID]->inv[HANDPOS].usItem].brassknuckles)
+				{
+					// with enhanced CCS, make the lost breath harder to regenerate, which makes CQC more usable
+					if ( gGameExternalOptions.fEnhancedCloseCombatSystem )
+						sBreathRegainPenaltyMultiplier = 10;
+
+					sBreathLoss = sDamage * ( 100 + gSkillTraitValues.bPercentModifierHtHBreathLoss); // 80% only for untrained mercs
+
+					// martial arts bonus for breath damage
+					if ( HAS_SKILL_TRAIT( MercPtrs[ubAttackerID], MARTIAL_ARTS_NT ))
+					{
+						sBreathLoss += sDamage * gSkillTraitValues.ubMABonusBreathDamageHandToHand * NUM_SKILL_TRAITS( MercPtrs[ubAttackerID], MARTIAL_ARTS_NT );
+
+						sBreathRegainPenaltyMultiplier += ( gSkillTraitValues.usMALostBreathRegainPenalty * NUM_SKILL_TRAITS( MercPtrs[ubAttackerID], MARTIAL_ARTS_NT ));
+					}
+				}
+				else
+				{
+					// with enhanced CCS, make the lost breath harder to regenerate, which makes CQC more usable
+					if ( gGameExternalOptions.fEnhancedCloseCombatSystem )
+						sBreathRegainPenaltyMultiplier = 15;
+
+					sBreathLoss = sDamage * (100 + gSkillTraitValues.bPercentModifierBluntBreathLoss); // 50% only for melee weapons
+				}
+			}
+			else
+			{
+				sBreathLoss = sDamage * ( 100 + gSkillTraitValues.bPercentModifierHtHBreathLoss);
+			}
+			// bodybuilding reduces this to half
+			if ( HAS_SKILL_TRAIT( this, BODYBUILDING_NT ))
+			{
+				sBreathLoss = max( 10, (sBreathLoss * (100 - gSkillTraitValues.ubBBBreathLossForHtHImpactReduction) / 100));
+			}
+		}
+		else 
+		{
+			// with enhanced CCS, make the lost breath harder to regenerate, which makes CQC more usable
+			if ( gGameExternalOptions.fEnhancedCloseCombatSystem )
+				sBreathRegainPenaltyMultiplier = 10;
+			// damage from hand-to-hand is 1/4 normal, 3/4 breath.. the sDamage value
+			// is actually how much breath we'll take away
+			sBreathLoss = sDamage * 100;
+		}
+		if ( sBreathRegainPenaltyMultiplier > 0 )
+		{
+			// unregainable breath damage
+			this->lUnregainableBreath += ((sBreathLoss * sBreathRegainPenaltyMultiplier )/100);
+		}
+		////////////////////////////////////////////////////////////////////////////
 		sDamage = sDamage / PUNCH_REAL_DAMAGE_PORTION;
 		if ( AreInMeanwhile() && gCurrentMeanwhileDef.ubMeanwhileID == INTERROGATION )
 		{
@@ -5131,6 +5446,53 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	}
 #endif
 
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - Increased breath damage resistance of Militia (bonus counted twice)
+	if (this->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.bGreenMilitiaDamageResistance != 0)
+		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.bGreenMilitiaDamageResistance) /75);
+	else if (this->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.bRegularMilitiaDamageResistance != 0)
+		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.bRegularMilitiaDamageResistance) /75);
+	else if (this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.bVeteranMilitiaDamageResistance != 0)
+		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.bVeteranMilitiaDamageResistance) /75);
+	// bonus for enemy too
+	else if (this->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminDamageResistance != 0)
+		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.sEnemyAdminDamageResistance) /100);
+	else if (this->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularDamageResistance != 0)
+		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.sEnemyRegularDamageResistance) /100);
+	else if (this->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteDamageResistance != 0)
+		sBreathLoss -= ((sBreathLoss * gGameExternalOptions.sEnemyEliteDamageResistance) /100);
+	//////////////////////////////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - option to make special NPCs stronger - breath damage resistance
+	if (gGameExternalOptions.usSpecialNPCStronger > 0)
+	{
+		switch( this->ubProfile )
+		{
+			case CARMEN:
+			case QUEEN:
+			case JOE:
+			case ANNIE:
+			case CHRIS:
+			case KINGPIN:
+			case TIFFANY:
+			case T_REX:
+			case DRUGGIST:
+			case GENERAL:
+			case JACK:
+			case OLAF:
+			case RAY:
+			case OLGA:
+			case TYRONE:
+			case MIKE:
+				sBreathLoss -= (sBreathLoss * gGameExternalOptions.usSpecialNPCStronger / 100);
+				break;
+		}
+	}
+
+	if ( sBreathLoss < 0 )
+		sBreathLoss = 0;
+	////////////////////////////////////////////////////////////////////////////////////
 
 	// OK, If we are a vehicle.... damage vehicle...( people inside... )
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
@@ -6355,20 +6717,34 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNe
 	{
 		if ( gAnimControl[ usAnimState ].uiFlags & ( ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY ) && !fInitalMove && !pSoldier->flags.fDontChargeTurningAPs )
 		{
+			// SANDRO - hey, we have a function for this around, why not to use it, hm?
+			// silversurfer: we better don't do that. GetAPsToLook( ... ) will charge APs for getting to crouched/prone position
+			// which is already done by SOLDIERTYPE::EVENT_InitNewSoldierAnim( ... ), we would charge twice...
+			// DeductPoints( pSoldier, GetAPsToLook( pSoldier ), 0 );
 			// Deduct points for initial turn!
 			switch( gAnimControl[ usAnimState ].ubEndHeight )
 			{
 				// Now change to appropriate animation
 			case ANIM_STAND:
-				DeductPoints( pSoldier, APBPConstants[AP_LOOK_STANDING], 0 );
+				// martial artists can turn faster
+				if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
+					DeductPoints( pSoldier, ( max( 1, (INT16)((APBPConstants[AP_LOOK_STANDING] * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5 ))), 0 );
+				else
+					DeductPoints( pSoldier, APBPConstants[AP_LOOK_STANDING], 0 );
 				break;
 
 			case ANIM_CROUCH:
-				DeductPoints( pSoldier, APBPConstants[AP_LOOK_CROUCHED], 0 );
+				if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
+					DeductPoints( pSoldier, ( max( 1, (INT16)((APBPConstants[AP_LOOK_CROUCHED] * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5 ))), 0 );
+				else
+					DeductPoints( pSoldier, APBPConstants[AP_LOOK_CROUCHED], 0 );
 				break;
 
 			case ANIM_PRONE:
-				DeductPoints( pSoldier, APBPConstants[AP_LOOK_PRONE], 0 );
+				if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
+					DeductPoints( pSoldier, (max( 1, (INT16)((APBPConstants[AP_LOOK_PRONE] * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5))), 0 );
+				else
+					DeductPoints( pSoldier, APBPConstants[AP_LOOK_PRONE], 0 );
 				break;
 			}
 
@@ -6655,8 +7031,20 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 
 			if ( (this->bTeam == gbPlayerNum) && (this->ubProfile != NO_PROFILE) )
 			{
-				switch( gMercProfiles[ this->ubProfile ].bPersonalityTrait )
+				switch( gMercProfiles[ this->ubProfile ].bDisability )
 				{
+				// SANDRO - added heat intolerant
+				case HEAT_INTOLERANT:
+					if ( MercIsHot( this ) )
+					{
+						HandleMoraleEvent( this, MORALE_HEAT_INTOLERANT_IN_DESERT, this->sSectorX, this->sSectorY, this->bSectorZ );
+						if ( !(this->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_PERSONALITY) && this->ubWhatKindOfMercAmI != MERC_TYPE__PLAYER_CHARACTER )
+						{
+							TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
+							this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
+						}
+					}
+					break;
 				case FEAR_OF_INSECTS:
 					if ( MercSeesCreature( this ) )
 					{
@@ -6730,6 +7118,14 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 			this->aiData.bPassedLastInterrupt = FALSE;
 		}
 	}
+
+	// HEADROCK HAM 4: Store this soldier's X/Y cell coordinates into his SOLDIERTYPE data.
+	INT16 sStartPosX = 0;
+	INT16 sStartPosY = 0;
+	ConvertGridNoToCenterCellXY( this->sGridNo, &sStartPosX, &sStartPosY );
+	this->sOldXPos = sStartPosX;
+	this->sOldYPos = sStartPosY;
+
 }
 
 // UTILITY FUNCTIONS CALLED BY OVERHEAD.H
@@ -7446,7 +7842,7 @@ void AdjustAniSpeed( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-
+	//pSoldier->sAniDelay =1;//for max speed uncomment //ddd
 	RESETTIMECOUNTER( pSoldier->timeCounters.UpdateCounter, pSoldier->sAniDelay );
 }
 
@@ -7519,6 +7915,9 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 		break;
 
 	case SWATTING:
+	//***ddd
+	case SWATTING_WK:
+	case SWAT_BACKWARDS_WK:
 
 		// Adjust based on body type
 		if ( pStatsSoldier->ubBodyType <= REGFEMALE )
@@ -7603,7 +8002,23 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 		// ATE: If realtime, and stealth mode...
 		if ( pStatsSoldier->bStealthMode )
 		{
-			pSoldier->sAniDelay = (INT16)( pSoldier->sAniDelay * 2 );
+			if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, STEALTHY_NT ))
+			{
+				// Stealthy skill decreases movement speed penalty while on stealthy mode - SANDRO
+				pSoldier->sAniDelay = (INT16)( (pSoldier->sAniDelay * (200 - gSkillTraitValues.ubSTStealthModeSpeedBonus)) / 100 );
+			}
+			else // original
+			{
+				pSoldier->sAniDelay = (INT16)( pSoldier->sAniDelay * 2 );
+			}
+		}
+		// SANDRO - STOMP traits - bonus to movement speed for Athletics
+		if ( gGameOptions.fNewTraitSystem && (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_MOVING ) )
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, ATHLETICS_NT ) )
+			{
+				pSoldier->sAniDelay = (INT16)( pSoldier->sAniDelay * (100 - min(75, gSkillTraitValues.ubATAPsMovementReduction) ) / 100 );
+			}
 		}
 
 		//pSoldier->sAniDelay = pSoldier->sAniDelay * ( 1 * gTacticalStatus.bRealtimeSpeed / 2 );
@@ -7673,6 +8088,12 @@ void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier )
 	}
 
 	AdjustAniSpeed( pSoldier );
+
+	// SANDRO - make the spin kick animation a bit faster 
+	if ( pSoldier->usAnimState == NINJA_SPINKICK )
+	{		
+		pSoldier->sAniDelay = (pSoldier->sAniDelay *3/4);
+	}
 
 	if ( _KeyDown( SPACE ) )
 	{
@@ -8055,6 +8476,116 @@ void SOLDIERTYPE::BeginSoldierClimbFence( void )
 
 }
 
+//---legion by JAzz---------------------------------------
+
+void SOLDIERTYPE::BeginSoldierClimbWindow( void )
+{
+	INT8							bDirection;
+
+	// Make sure we hop the correct fence to follow our path!
+	if (this->pathing.usPathIndex < this->pathing.usPathDataSize)
+	{
+		bDirection = (INT8) this->pathing.usPathingData[ this->pathing.usPathIndex];
+	}
+	else
+	{
+		bDirection = this->ubDirection;
+	}
+
+	if ( FindWindowJumpDirection( this, this->sGridNo, bDirection, &bDirection ) && this->pathing.bLevel == 0  && ( this->ubDirection == NORTH || this->ubDirection == EAST || this->ubDirection == SOUTH || this->ubDirection == WEST ) )
+	{
+		this->sTempNewGridNo = NewGridNo( this->sGridNo, (UINT16)DirectionInc(bDirection ) );
+		this->flags.fDontChargeTurningAPs = TRUE;
+		EVENT_InternalSetSoldierDesiredDirection( this, bDirection, FALSE, this->usAnimState );
+		this->flags.fTurningUntilDone = TRUE;
+		// ATE: Reset flag to go back to prone...
+		this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
+		this->usPendingAnimation = HOPFENCE;
+	}
+
+}
+
+void SOLDIERTYPE::BeginSoldierFence( void )
+{
+	INT8							bNewDirection;
+	UINT8							ubWhoIsThere;
+	
+
+	if ( FindFenceDirection( this, this->sGridNo, this->ubDirection, &bNewDirection ) && ( this->pathing.bLevel == 0 ) )
+	{
+		if ( EnoughPoints( this, GetAPsToClimbRoof( this, FALSE ), 0, TRUE ) )
+		{
+			//Kaiden: Helps if we look where we are going before we try to climb on top of someone
+		 ubWhoIsThere = WhoIsThere2( NewGridNo( this->sGridNo, (UINT16)DirectionInc(bNewDirection ) ), 1 );
+		 if ( ubWhoIsThere != NOBODY && ubWhoIsThere != this->ubID )
+		 {
+			return;
+		 }
+	   else
+		 {
+
+			if (this->bTeam == gbPlayerNum)
+			{
+				SetUIBusy( this->ubID );
+			}
+
+			this->sTempNewGridNo = NewGridNo( this->sGridNo, (UINT16)DirectionInc(bNewDirection ) );
+
+			this->ubPendingDirection = bNewDirection;
+			this->EVENT_InitNewSoldierAnim( CLIMBUPROOF, 0 , FALSE );
+
+			this->InternalReceivingSoldierCancelServices( FALSE );				
+			this->InternalGivingSoldierCancelServices( FALSE );	
+			
+			this->BeginSoldierFenceUp(  );	
+		}		
+
+		}		
+	}
+
+}
+
+void SOLDIERTYPE::BeginSoldierFenceUp( void )
+{
+	INT8							bNewDirection;
+	UINT8	ubWhoIsThere;
+
+	if ( FindLowerLevelFence( this, this->sGridNo, this->ubDirection, &bNewDirection ) && ( this->pathing.bLevel > 0 ) )
+	{
+		if ( EnoughPoints( this, GetAPsToClimbRoof( this, TRUE ), 0, TRUE ) )
+		{
+			//Kaiden: Helps if we look where we are going before we try to climb on top of someone
+		 ubWhoIsThere = WhoIsThere2( NewGridNo( this->sGridNo, (UINT16)DirectionInc(bNewDirection ) ), 0 );
+		 if ( ubWhoIsThere != NOBODY && ubWhoIsThere != this->ubID )
+		 {
+			return;
+		 }
+		 else
+		 {
+
+			if (this->bTeam == gbPlayerNum)
+			{
+				SetUIBusy( this->ubID );
+			}
+
+			this->sTempNewGridNo = NewGridNo( this->sGridNo, (UINT16)DirectionInc(bNewDirection ) );
+
+			bNewDirection = gTwoCDirection[ bNewDirection ];
+
+			this->ubPendingDirection = bNewDirection;
+			this->EVENT_InitNewSoldierAnim( CLIMBDOWNROOF, 0 , FALSE );
+
+			this->InternalReceivingSoldierCancelServices( FALSE );				
+			this->InternalGivingSoldierCancelServices( FALSE );				
+
+		}
+	}
+	}
+
+}
+//------------------------------------------------------------------------------------------
+
+
 UINT32 SleepDartSuccumbChance( SOLDIERTYPE * pSoldier )
 {
 	UINT32		uiChance;
@@ -8433,6 +8964,26 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		this->stats.bLife -= sLifeDeduct;
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - Doctor trait - need a variable holding the number of insta-healable hit points
+	if ((IS_MERC_BODY_TYPE( this ) || IS_CIV_BODY_TYPE( this )) && ( gGameOptions.fNewTraitSystem ))
+	{
+		if ( this->stats.bLife <= 0 )
+		{
+			// noone can help him now, he's gone
+			this->iHealableInjury = 0;
+		}
+		else
+		{
+			// Otherwise add healable injury value - it's in hundredths for better precision
+			this->iHealableInjury += (sLifeDeduct * 100);
+			// check if we are not mysteriously beyond a limit - we cannot have more than life we actually lost
+			if (this->iHealableInjury > ((this->stats.bLifeMax - this->stats.bLife) * 100) )
+				this->iHealableInjury = ((this->stats.bLifeMax - this->stats.bLife) * 100);
+		}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+
 	// ATE: Put some logic in here to allow enemies to die quicker.....
 	// Are we an enemy?
 	if ( this->bSide != gbPlayerNum && !this->aiData.bNeutral && this->ubProfile == NO_PROFILE )
@@ -8444,7 +8995,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 			if ( ubReason == TAKE_DAMAGE_BLOODLOSS )
 			{
 				// Fifty-fifty chance to die now!
-				if ( Random( 2 ) == 0 || gTacticalStatus.Team[ this->bTeam ].bMenInSector == 1 )
+				if ( Random( 3 ) == 0 || gTacticalStatus.Team[ this->bTeam ].bMenInSector == 1 )
 				{
 					// Kill!
 					this->stats.bLife = 0;
@@ -8597,6 +9148,9 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 						//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
 						usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
 					}
+					if(UsingNewAttachmentSystem()==true){
+						ReduceAttachmentsOnGunForNonPlayerChars(this, &(this->inv[ HANDPOS ]));
+					}
 					AddItemToPool( this->sGridNo, &(this->inv[ HANDPOS ]), bVisible, this->pathing.bLevel, usItemFlags, -1 ); //Madd: added usItemFlags to function arguments
 					DeleteObj( &(this->inv[HANDPOS]) );
 				}
@@ -8663,12 +9217,20 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		}
 	}
 
-
-	SOLDIERTYPE *pSoldier = this;
-	if (PTR_OURTEAM)
+	// Why this? No need for new declaration..
+	//SOLDIERTYPE *pSoldier = this;
+	//if (PTR_OURTEAM)
+	if (this->bTeam == gbPlayerNum)
 	{
 		// EXPERIENCE GAIN: Took some damage
-		StatChange( this, EXPERAMT, ( UINT16 )( 5 * ubCombinedLoss ), FROM_FAILURE );
+		if ( ubReason != TAKE_DAMAGE_BLOODLOSS ) 
+			StatChange( this, EXPERAMT, ( UINT16 )( 5 * ubCombinedLoss ), FROM_FAILURE );
+
+		// SANDRO - gain some exp towards max health if bleeding
+		if ( this->stats.bLifeMax < 100 && ubReason == TAKE_DAMAGE_BLOODLOSS && !(AM_A_ROBOT( this )) )
+		{
+			StatChange( this, HEALTHAMT, ( UINT16 )( 3 * ubCombinedLoss ), FROM_FAILURE );
+		}
 
 		// Check for quote
 		if ( !(this->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_BEING_PUMMELED ) )
@@ -8691,7 +9253,9 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		}
 	}
 
-	if ((ubAttacker != NOBODY) && (Menptr[ubAttacker].bTeam == OUR_TEAM) && (this->ubProfile != NO_PROFILE) && (this->ubProfile >= FIRST_RPC && this->ubProfile < GASTON ))
+//	if ((ubAttacker != NOBODY) && (Menptr[ubAttacker].bTeam == OUR_TEAM) && (this->ubProfile != NO_PROFILE) && (this->ubProfile >= FIRST_RPC && this->ubProfile < GASTON ))
+		//new profiles by Jazz	
+	if ( (ubAttacker != NOBODY) && (Menptr[ubAttacker].bTeam == OUR_TEAM) && (this->ubProfile != NO_PROFILE) && gProfilesRPC[this->ubProfile].ProfilId == this->ubProfile || gProfilesNPC[this->ubProfile].ProfilId == this->ubProfile )			
 	{
 		gMercProfiles[this->ubProfile].ubMiscFlags |= PROFILE_MISC_FLAG_WOUNDEDBYPLAYER;
 		if (this->ubProfile == 114)
@@ -8961,11 +9525,20 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	// Adjust based on morale...
 	if ( ubBattleSoundID == BATTLE_SOUND_OK1 && pSoldier->aiData.bMorale < LOW_MORALE_BATTLE_SND_THREASHOLD )
 	{
-		ubBattleSoundID = BATTLE_SOUND_LOWMARALE_OK1;
+		//ddd {
+			if(Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) )
+				ubBattleSoundID = BATTLE_SOUND_LOWMARALE_OK1;
+	///ddd }
+
+		//ubBattleSoundID = BATTLE_SOUND_LOWMARALE_OK1;
 	}
 	if ( ubBattleSoundID == BATTLE_SOUND_ATTN1 && pSoldier->aiData.bMorale < LOW_MORALE_BATTLE_SND_THREASHOLD )
 	{
-		ubBattleSoundID = BATTLE_SOUND_LOWMARALE_ATTN1;
+			//ddd {
+			if(Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) )
+				ubBattleSoundID = BATTLE_SOUND_LOWMARALE_ATTN1;
+
+		//ubBattleSoundID = BATTLE_SOUND_LOWMARALE_ATTN1;
 	}
 
 	ubSoundID = ubBattleSoundID;
@@ -8975,6 +9548,11 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	{
 		if( gGameSettings.fOptions[ TOPTION_MUTE_CONFIRMATIONS ] )
 			return( TRUE );
+	//ddd {
+			if(!Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) )
+				return( TRUE );
+	///ddd }
+			
 		//else a speech sound is to be played
 		else
 			fSpeechSound = TRUE;
@@ -9092,6 +9670,9 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	spParms.uiPan = SoundDir( pSoldier->sGridNo );
 	spParms.uiPriority=GROUP_PLAYER;
 
+	if ( gSoundProfileValue[pSoldier->ubProfile].EnabledSound == TRUE || pSoldier->ubProfile == NO_PROFILE )
+	{
+			
 	if ( ( uiSoundID = SoundPlay( zFilename, &spParms ) ) == SOUND_ERROR )
 	{
 		return( FALSE );
@@ -9112,6 +9693,12 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 			}
 		}
 
+		return( TRUE );
+	}
+	
+	}
+	else
+	{
 		return( TRUE );
 	}
 }
@@ -10090,6 +10677,7 @@ void SOLDIERTYPE::ReviveSoldier( void )
 
 		this->stats.bLife = this->stats.bLifeMax;
 		this->bBleeding = 0;
+		this->iHealableInjury = 0; // added by SANDRO
 		this->ubDesiredHeight = ANIM_STAND;
 
 		AddManToTeam( this->bTeam );
@@ -10502,14 +11090,14 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 		this->EVENT_SetSoldierDirection( ubDirection );
 	}
 
-	// Are we a martial artist?
-	if ( HAS_SKILL_TRAIT( this, MARTIALARTS ) )
+	// Are we a martial artist? - SANDRO - added new/old traits check
+	if ( ((NUM_SKILL_TRAITS( this, MARTIAL_ARTS_NT ) >= ((gSkillTraitValues.fPermitExtraAnimationsOnlyToMA) ? 2 : 1 ) ) && gGameOptions.fNewTraitSystem ) ||
+		 (HAS_SKILL_TRAIT( this, MARTIALARTS_OT ) && !gGameOptions.fNewTraitSystem ) )
 	{
 		fMartialArtist = TRUE;
 	}
 
-
-	if ( fMartialArtist && !AreInMeanwhile( ) && !Item[usItem].crowbar )
+	if ( fMartialArtist && !AreInMeanwhile( ) && !Item[usItem].crowbar && this->ubBodyType == REGMALE ) // SANDRO - added check for body type
 	{
 		// Are we in attack mode yet?
 		if ( this->usAnimState != NINJA_BREATH && gAnimControl[ this->usAnimState ].ubHeight == ANIM_STAND && gAnimControl[ pTSoldier->usAnimState ].ubHeight != ANIM_PRONE )
@@ -10677,10 +11265,25 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 	{
 		pTSoldier = MercPtrs[ usSoldierIndex ];
 
+		//SANDRO - hack! Find out if we are a doctor with medical bag trying to make a surgery
+		this->fDoingSurgery = FALSE;
+		if ((NUM_SKILL_TRAITS( this, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) && Item[ this->inv[HANDPOS].usItem].medicalkit && gGameOptions.fNewTraitSystem )
+		{
+			if (((pTSoldier->bTeam == OUR_TEAM) || (pTSoldier->bTeam == MILITIA_TEAM)) 
+				&& (IS_MERC_BODY_TYPE( pTSoldier ) || IS_CIV_BODY_TYPE( pTSoldier )) 
+				&& (pTSoldier->iHealableInjury >= 100) && pTSoldier->ubID != this->ubID
+				&& (gTacticalStatus.ubLastRequesterSurgeryTargetID == pTSoldier->ubID ))
+			{
+				this->fDoingSurgery = TRUE;
+			}
+		}
+
 		// OK, check if we should play quote...
 		if ( pTSoldier->bTeam != gbPlayerNum )
 		{
-			if ( pTSoldier->ubProfile != NO_PROFILE && pTSoldier->ubProfile >= FIRST_RPC && pTSoldier->ubProfile < GASTON && !RPC_RECRUITED( pTSoldier ) )
+//			if ( pTSoldier->ubProfile != NO_PROFILE && pTSoldier->ubProfile >= FIRST_RPC && pTSoldier->ubProfile < GASTON && !RPC_RECRUITED( pTSoldier ) )
+			//new profiles by Jazz	
+			if ( pTSoldier->ubProfile != NO_PROFILE && ( gProfilesRPC[pTSoldier->ubProfile].ProfilId == pTSoldier->ubProfile || gProfilesNPC[pTSoldier->ubProfile].ProfilId == pTSoldier->ubProfile ) && !RPC_RECRUITED( pTSoldier )  )			
 			{
 				fRefused = PCDoesFirstAidOnNPC( pTSoldier->ubProfile );
 			}
@@ -10704,6 +11307,8 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 
 		if ( fRefused )
 		{
+			this->fDoingSurgery = FALSE; // SANDRO
+
 			UnSetUIBusy( this->ubID );
 			return;
 		}
@@ -10768,14 +11373,17 @@ void SOLDIERTYPE::EVENT_SoldierEnterVehicle( INT32 sGridNo, UINT8 ubDirection )
 	UnSetUIBusy( this->ubID );
 }
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// SANDRO - This whole procedure was merged with the surgery ability of the doctor trait
 UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT16 sStatus )
 {
 	UINT32 uiDressSkill, uiPossible, uiActual, uiMedcost, uiDeficiency, uiAvailAPs, uiUsedAPs;
-	UINT8 ubBelowOKlife, ubPtsLeft;
+	UINT8 ubBelowOKlife, ubPtsLeft = 0;
 	BOOLEAN	fRanOut = FALSE;
+	BOOLEAN	fOnSurgery = FALSE;
+	INT8 bInitialBleeding;
 
-	if (pVictim->bBleeding < 1 && pVictim->stats.bLife >= OKLIFE )
+	if ((pVictim->bBleeding < 1 && pVictim->stats.bLife >= OKLIFE) && !(pVictim->iHealableInjury > 0 && this->fDoingSurgery))
 	{
 		return(0);		// nothing to do, shouldn't have even been called!
 	}
@@ -10785,17 +11393,36 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		return(0);
 	}
 
+	bInitialBleeding = pVictim->bBleeding;
+
 	// in case he has multiple kits in hand, limit influence of kit status to 100%!
 	if (sStatus >= 100)
 	{
 		sStatus = 100;
 	}
 
+	// if we are going to do the surgery
+	if (pVictim->iHealableInjury > 0 && this->fDoingSurgery && this->ubID != pVictim->ubID && gGameOptions.fNewTraitSystem
+		&& (NUM_SKILL_TRAITS( this, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) && Item[this->inv[ HANDPOS ].usItem].medicalkit)
+	{
+		fOnSurgery = TRUE;
+	}
+
 	// calculate wound-dressing skill (3x medical, 2x equip, 1x level, 1x dex)
-	uiDressSkill = ( ( 3 * EffectiveMedical( this ) ) +					// medical knowledge
-		( 2 * sStatus) + 																// state of medical kit
-		(10 * EffectiveExpLevel( this ) ) +					// battle injury experience
-		EffectiveDexterity( this ) )	/ 7;		// general "handiness"
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		uiDressSkill = ( ( 7 * EffectiveMedical( this ) ) +					// medical knowledge
+			( sStatus) + 																// state of medical kit
+			(10 * EffectiveExpLevel( this ) ) +					// battle injury experience
+			EffectiveDexterity( this ) )	/ 10;		// general "handiness"
+	}
+	else
+	{
+		uiDressSkill = ( ( 3 * EffectiveMedical( this ) ) +					// medical knowledge
+			( 2 * sStatus) + 																// state of medical kit
+			(10 * EffectiveExpLevel( this ) ) +					// battle injury experience
+			EffectiveDexterity( this ) )	/ 7;		// general "handiness"
+	}
 
 	// try to use every AP that the merc has left
 	uiAvailAPs = this->bActionPoints;
@@ -10814,50 +11441,70 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 	if (!uiPossible)
 		return(0);
 
-
-	if (Item[this->inv[ HANDPOS ].usItem].medicalkit )		// using the GOOD medic stuff
+	// using the GOOD medic stuff
+	if (Item[this->inv[ HANDPOS ].usItem].medicalkit && !(fOnSurgery)) // added check
 	{
 		uiPossible += ( uiPossible / 2);			// add extra 50 %
+	}
+	// Doctor trait improves basic bandaging ability
+	if (!(fOnSurgery) && gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( this, DOCTOR_NT ))
+	{
+		uiPossible = uiPossible * (100 - gSkillTraitValues.bSpeedModifierBandaging) / 100;
+		uiPossible += ( uiPossible * gSkillTraitValues.ubDOBandagingSpeedPercent * NUM_SKILL_TRAITS( this, DOCTOR_NT ) / 100);
 	}
 
 	uiActual = uiPossible;		// start by assuming maximum possible
 
 
 	// figure out how far below OKLIFE the victim is
-	if (pVictim->stats.bLife >= OKLIFE)
+	// SANDRO - only if we are actually here to bandage the target
+	if (pVictim->bBleeding)
 	{
-		ubBelowOKlife = 0;
+		if (pVictim->stats.bLife >= OKLIFE)
+		{
+			ubBelowOKlife = 0;
+		}
+		else
+		{
+			ubBelowOKlife = OKLIFE - pVictim->stats.bLife;
+		}
+
+		// figure out how many healing pts we need to stop dying (2x cost)
+		uiDeficiency = (2 * ubBelowOKlife );
+
+		// if, after that, the patient will still be bleeding
+		if ( (pVictim->bBleeding - ubBelowOKlife ) > 0)
+		{
+			// then add how many healing pts we need to stop bleeding (1x cost)
+			uiDeficiency += ( pVictim->bBleeding - ubBelowOKlife );
+		}
+		// On surgery, alter this by amount of life we can heal
+		if ( fOnSurgery )
+		{
+			uiDeficiency += (pVictim->iHealableInjury / 100);
+		}
+
+		// now, make sure we weren't going to give too much
+		if ( uiActual > uiDeficiency)	// if we were about to apply too much
+			uiActual = uiDeficiency;	// reduce actual not to waste anything
 	}
-	else
-	{
-		ubBelowOKlife = OKLIFE - pVictim->stats.bLife;
-	}
-
-	// figure out how many healing pts we need to stop dying (2x cost)
-	uiDeficiency = (2 * ubBelowOKlife );
-
-	// if, after that, the patient will still be bleeding
-	if ( (pVictim->bBleeding - ubBelowOKlife ) > 0)
-	{
-		// then add how many healing pts we need to stop bleeding (1x cost)
-		uiDeficiency += ( pVictim->bBleeding - ubBelowOKlife );
-	}
-
-	// now, make sure we weren't going to give too much
-	if ( uiActual > uiDeficiency)	// if we were about to apply too much
-		uiActual = uiDeficiency;	// reduce actual not to waste anything
-
 
 	// now make sure we HAVE that much
 	if (Item[this->inv[ HANDPOS ].usItem].medicalkit )
 	{
-		uiMedcost = (uiActual + 1) / 2;		// cost is only half, rounded up
+		if (fOnSurgery)
+			uiMedcost = (uiActual * gSkillTraitValues.usDOSurgeryMedBagConsumption ) /100;		// surgery drains the kit a lot
+		else
+			uiMedcost = (uiActual + 1) / 2;		// cost is only half, rounded up
 
 		if ( uiMedcost > (UINT32)sKitPts )     		// if we can't afford this
 		{
 			fRanOut = TRUE;
 			uiMedcost = sKitPts;		// what CAN we afford?
-			uiActual = uiMedcost * 2;		// give double this as aid
+			if (fOnSurgery) // surgery check
+				uiActual = (uiMedcost * 100 )/ gSkillTraitValues.usDOSurgeryMedBagConsumption;
+			else
+				uiActual = uiMedcost * 2;		// give double this as aid
 		}
 	}
 	else
@@ -10882,6 +11529,14 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		// if we have enough points to bring him all the way to OKLIFE this turn
 		if ( ubPtsLeft >= (2 * ubBelowOKlife ) )
 		{
+			// insta-healable injury check
+			if (pVictim->iHealableInjury > 0)
+			{
+				pVictim->iHealableInjury -= ((OKLIFE - pVictim->stats.bLife) * 100);
+				if (pVictim->iHealableInjury < 0)
+						pVictim->iHealableInjury = 0;
+			}
+
 			// raise life to OKLIFE
 			pVictim->stats.bLife = OKLIFE;
 
@@ -10893,6 +11548,14 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		}
 		else
 		{
+			// SANDRO - insta-healable injury check
+			if (pVictim->iHealableInjury > 0)
+			{
+				pVictim->iHealableInjury -= (( ubPtsLeft / 2) * 100);
+				if (pVictim->iHealableInjury < 0)
+						pVictim->iHealableInjury = 0;
+			}
+
 			pVictim->stats.bLife += ( ubPtsLeft / 2);
 			pVictim->bBleeding -= ( ubPtsLeft / 2);
 
@@ -10919,11 +11582,110 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		// update patient's entire panel (could have regained consciousness, etc.)
 	}
 
+	// SURGERY 
+	// first return the real life back, then bandage the rest if possible
+	if (fOnSurgery && gGameOptions.fNewTraitSystem ) // double check for new traits
+	{
+		UINT16 usLifeReturned = 0;
+		UINT16 usReturnDamagedStatRate = 0;
+		// find out if we will repair any stats...
+		if ( NumberOfDamagedStats( pVictim ) > 0 ) 
+		{
+			usReturnDamagedStatRate = ((gSkillTraitValues.usDORepairStatsRateBasic + gSkillTraitValues.usDORepairStatsRateOnTop * NUM_SKILL_TRAITS( this, DOCTOR_NT )));
+			usReturnDamagedStatRate -= max( 0, ((usReturnDamagedStatRate * gSkillTraitValues.ubDORepStPenaltyIfAlsoHealing ) / 100));
+
+			// ... in which case, reduce the points
+			ubPtsLeft = max(0,((ubPtsLeft * (100 - gSkillTraitValues.ubDOHealingPenaltyIfAlsoStatRepair )) / 100));
+		}
+
+		// Important note! : HealableInjury is always stores the total HPs the victim is missing, not the amount which we will heal,
+		// so we always take a portion of patient's damage here, reduce the HealableInjury by this portion, while only healing a portion of this portion in actual HPs;
+		// this means the rest of HPs will remain as "unhealable", the patient will miss X HPs but has no HealableInjury on self..
+		if (ubPtsLeft >= (pVictim->iHealableInjury/100))
+		{
+			usLifeReturned = pVictim->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( this, DOCTOR_NT ))/100;
+				
+			pVictim->iHealableInjury = 0;
+			// keep the rest of the points to bandaging if neccessary
+			if (pVictim->bBleeding > 0)
+			{
+				ubPtsLeft = max(0, (ubPtsLeft - (usLifeReturned / 100)));
+				ubPtsLeft += (ubPtsLeft/2); // we use medical bag so add the bonus for that.
+			}
+			else
+			{
+				ubPtsLeft = 0;
+			}
+
+			// We are finished !!!
+			this->fDoingSurgery = FALSE;
+			gTacticalStatus.ubLastRequesterSurgeryTargetID = NOBODY; // reset last target
+
+			// throw message
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_SURGERY_FINISHED ], pVictim->name );
+
+			// add to record - another surgery undergoed
+			if ( pVictim->ubProfile != NO_PROFILE && usLifeReturned >= 100 )
+				gMercProfiles[ pVictim->ubProfile ].records.usTimesSurgeryUndergoed++;
+
+			// add to record - another surgery made
+			if ( this->ubProfile != NO_PROFILE && usLifeReturned >= 100 )
+				gMercProfiles[ this->ubProfile ].records.usSurgeriesMade++;
+		}
+		else
+		{
+			usLifeReturned = ubPtsLeft * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( this, DOCTOR_NT ));
+				
+			pVictim->iHealableInjury -= (ubPtsLeft * 100);
+			ubPtsLeft = 0;
+		}
+		// repair the stats here!
+		if ( usReturnDamagedStatRate > 0 ) 
+		{
+			RegainDamagedStats( pVictim, (usLifeReturned * usReturnDamagedStatRate / 100) );
+		}
+		
+		// some paranoya checks for sure
+		if ((pVictim->stats.bLife + (usLifeReturned / 100)) <= pVictim->stats.bLifeMax)
+		{
+			pVictim->stats.bLife += (usLifeReturned/100);
+			if (pVictim->bBleeding >= (usLifeReturned/100))
+			{
+				pVictim->bBleeding -= (usLifeReturned/100);
+				uiMedcost += (usLifeReturned / 200); // add medkit points cost for unbandaged part
+			}
+			else
+			{
+				pVictim->bBleeding = 0;
+				uiMedcost += max( 0, (((usLifeReturned/100) - pVictim->bBleeding) / 2)); // add medkit points cost for unbandaged part 
+			}
+		}
+		else // this shouldn't even happen, but we still want to have it here for sure
+		{
+			pVictim->stats.bLife = pVictim->stats.bLifeMax;
+			pVictim->iHealableInjury = 0;
+			pVictim->bBleeding = 0;
+		}
+		// Reduce max breath based on life returned
+		if ( (pVictim->bBreathMax - (((usLifeReturned/100) * gSkillTraitValues.usDOSurgeryMaxBreathLoss )/ 100)) <= BREATHMAX_ABSOLUTE_MINIMUM )
+		{
+			pVictim->bBreathMax = BREATHMAX_ABSOLUTE_MINIMUM;
+		}
+		else
+		{
+			pVictim->bBreathMax -= (((usLifeReturned/100) * gSkillTraitValues.usDOSurgeryMaxBreathLoss )/ 100);
+		}
+
+		if (pVictim->iHealableInjury > ((pVictim->stats.bLifeMax - pVictim->stats.bLife)*100))
+			pVictim->iHealableInjury = ((pVictim->stats.bLifeMax - pVictim->stats.bLife)*100);
+		else if (pVictim->iHealableInjury < 0)
+			pVictim->iHealableInjury = 0;
+	}
 
 	// if any healing points remain, apply that to any remaining bleeding (1/1)
 	// DON'T spend any APs/kit pts to cure bleeding until merc is no longer dying
 	//if ( ubPtsLeft && pVictim->bBleeding && !pVictim->dying)
-	if ( ubPtsLeft && pVictim->bBleeding )
+	if ( ubPtsLeft && pVictim->bBleeding ) 
 	{
 		// if we have enough points to bandage all remaining bleeding this turn
 		if (ubPtsLeft >= pVictim->bBleeding )
@@ -10940,7 +11702,6 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		// update patient's life bar only
 	}
 
-
 	// if wound has been dressed enough so that bleeding won't occur, turn off
 	// the "warned about bleeding" flag so merc tells us about the next bleeding
 	if ( pVictim->bBleeding <= MIN_BLEEDING_THRESHOLD )
@@ -10950,32 +11711,56 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 
 
 	// if there are any ptsLeft now, then we didn't actually get to use them
-	uiActual -= ubPtsLeft;
+	uiActual = max(0, (uiActual - ubPtsLeft));
 
 	// usedAPs equals (actionPts) * (%of possible points actually used)
 	uiUsedAPs = ( uiActual * uiAvailAPs ) / uiPossible;
 
-	if (Item[this->inv[ HANDPOS ].usItem].medicalkit  )	// using the GOOD medic stuff
+	if (Item[this->inv[ HANDPOS ].usItem].medicalkit && !(fOnSurgery))	// using the GOOD medic stuff
 	{
 		uiUsedAPs = ( uiUsedAPs * 2) / 3;	// reverse 50% bonus by taking 2/3rds
 	}
 
-	DeductPoints( this, (INT16)uiUsedAPs, (INT16)( ( uiUsedAPs * APBPConstants[BP_PER_AP_LT_EFFORT]) ) );
-
-
-	SOLDIERTYPE* pSoldier = this;
-	if ( PTR_OURTEAM )
+	// SANDRO - surgery is harder so cost more BPs
+	if (fOnSurgery) 
 	{
-		// MEDICAL GAIN   (actual / 2):  Helped someone by giving first aid
-		StatChange(this, MEDICALAMT, (UINT16)(uiActual / 2), FALSE);
-
-		// DEXTERITY GAIN (actual / 6):  Helped someone by giving first aid
-		StatChange(this, DEXTAMT,    (UINT16)(uiActual / 6), FALSE);
+		DeductPoints( this, (INT16)uiUsedAPs, (INT16)( uiUsedAPs * 15 ) );
 	}
-	if(is_networked && pVictim->ubID > 19)send_heal(pVictim);
+	else
+	{
+		DeductPoints( this, (INT16)uiUsedAPs, (INT16)( ( uiUsedAPs * APBPConstants[BP_PER_AP_LT_EFFORT]) ) );
+	}
 
+	if ( this->bTeam == gbPlayerNum )
+	{
+		// surgery is harder so gives more exp
+		if (fOnSurgery) 
+		{
+			// MEDICAL GAIN   (actual / 2):  Helped someone by giving first aid
+			StatChange(this, MEDICALAMT, (UINT16)(uiActual + 2), FALSE);
+
+			// DEXTERITY GAIN (actual / 6):  Helped someone by giving first aid
+			StatChange(this, DEXTAMT,    (UINT16)((uiActual / 3) + 2), FALSE);
+		}
+		else
+		{
+			// MEDICAL GAIN   (actual / 2):  Helped someone by giving first aid
+			StatChange(this, MEDICALAMT, (UINT16)(uiActual / 2), FALSE);
+
+			// DEXTERITY GAIN (actual / 6):  Helped someone by giving first aid
+			StatChange(this, DEXTAMT,    (UINT16)(uiActual / 6), FALSE);
+		}
+	}
+
+	// merc records - bandaging
+	if( bInitialBleeding > 1 && pVictim->bBleeding == 0 && this->ubProfile != NO_PROFILE )
+		gMercProfiles[ this->ubProfile ].records.usMercsBandaged++;
+
+	if(is_networked && pVictim->ubID > 19)send_heal(pVictim);
+	
 	return( uiMedcost );
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 void SOLDIERTYPE::InternalReceivingSoldierCancelServices( BOOLEAN fPlayEndAnim )
@@ -10994,6 +11779,10 @@ void SOLDIERTYPE::InternalReceivingSoldierCancelServices( BOOLEAN fPlayEndAnim )
 				{
 					// END SERVICE!
 					this->ubServiceCount--;
+
+					// SANDRO - added end of surgery attempt
+					if (pTSoldier->fDoingSurgery)
+						pTSoldier->fDoingSurgery = FALSE; // Surgery finished
 
 					pTSoldier->ubServicePartner = NOBODY;
 
@@ -11042,6 +11831,10 @@ void SOLDIERTYPE::InternalGivingSoldierCancelServices( BOOLEAN fPlayEndAnim )
 		pTSoldier->ubServiceCount--;
 
 		this->ubServicePartner = NOBODY;
+
+		// SANDRO - added end of surgery attempt
+		if (this->fDoingSurgery)
+			this->fDoingSurgery = FALSE; // Surgery finished
 
 		if ( gTacticalStatus.fAutoBandageMode )
 		{
@@ -11527,11 +12320,18 @@ BOOLEAN SOLDIERTYPE::CheckForBreathCollapse( void )
 	if ( this->bBreathMax > 70 )
 	{
 		if ( this->bBreath < 20 && !(this->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_LOW_BREATH ) &&
-			gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND )
+			gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_STAND && !(this->ubServiceCount) ) // SANDRO - added check to not play this if on healing
 		{
-			// WARN!
-			TacticalCharacterDialogue( this, QUOTE_OUT_OF_BREATH );
-
+			// SANDRO - say our personality quote for being out of breath caused by heat 
+			if ( MercIsHot( this ) && this->ubWhatKindOfMercAmI != MERC_TYPE__PLAYER_CHARACTER )
+			{
+				TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
+			}
+			else
+			{
+				// WARN!
+				TacticalCharacterDialogue( this, QUOTE_OUT_OF_BREATH );
+			}
 			// Set flag indicating we were warned!
 			this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_LOW_BREATH;
 		}
@@ -11553,11 +12353,14 @@ BOOLEAN SOLDIERTYPE::CheckForBreathCollapse( void )
 
 	if ( this->bBreath == 0 && !this->bCollapsed && !( this->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_ANIMAL | SOLDIER_MONSTER ) ) )
 	{
-		// Collapse!
-		// OK, Set a flag, because we may still be in the middle of an animation what is not interruptable...
-		this->bBreathCollapsed = TRUE;
+		if (!(this->ubServiceCount)) // added by SANDRO (we don't want to collapse when on surgery)
+		{
+			// Collapse!
+			// OK, Set a flag, because we may still be in the middle of an animation what is not interruptable...
+			this->bBreathCollapsed = TRUE;
 
-		return( TRUE );
+			return( TRUE );
+		}
 	}
 
 	return( FALSE );
@@ -11895,6 +12698,8 @@ INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 								// bleeding while "dying" costs a PERMANENT point of life each time!
 								pSoldier->stats.bLifeMax--;
 								pSoldier->bBleeding--;
+								if ( pSoldier->iHealableInjury >= 100) // added check for insta-healable injury - SANDRO
+									pSoldier->iHealableInjury -= 100;
 							}
 						}
 					}
@@ -11952,7 +12757,15 @@ void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed )
 	// If we are already dead, don't show damage!
 	if ( !fBandagedBleed )
 	{
-		pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
+		// SANDRO - if the soldier is bleeding out, consider this damage as done by the last attacker
+		if ( pSoldier->ubAttackerID != NOBODY )
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubAttackerID, NOWHERE, 0, TRUE );
+		else if ( pSoldier->ubPreviousAttackerID != NOBODY )
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubPreviousAttackerID, NOWHERE, 0, TRUE );
+		else if ( pSoldier->ubNextToPreviousAttackerID != NOBODY )
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, pSoldier->ubNextToPreviousAttackerID, NOWHERE, 0, TRUE );
+		else 
+			pSoldier->SoldierTakeDamage( ANIM_CROUCH, 1, 100, TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, TRUE );
 	}
 
 }
@@ -13458,6 +14271,88 @@ void SetSoldierPersonalLightLevel( SOLDIERTYPE *pSoldier )
 	gpWorldLevelData[pSoldier->sGridNo].pMercHead->ubNaturalShadeLevel = 5;
 }
 
+//---legion by JAzz---------------------------------------
+
+void BeginSoldierFence( SOLDIERTYPE *pSoldier )
+{
+	INT8							bNewDirection;
+	UINT8							ubWhoIsThere;
+	
+
+	if ( FindFenceDirection( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) && ( pSoldier->pathing.bLevel == 0 ) )
+	{
+		if ( EnoughPoints( pSoldier, GetAPsToClimbRoof( pSoldier, FALSE ), 0, TRUE ) )
+		{
+			//Kaiden: Helps if we look where we are going before we try to climb on top of someone
+		 ubWhoIsThere = WhoIsThere2( NewGridNo( pSoldier->sGridNo, (UINT16)DirectionInc(bNewDirection ) ), 1 );
+		 if ( ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID )
+		 {
+			return;
+		 }
+	   else
+		 {
+
+			if (pSoldier->bTeam == gbPlayerNum)
+			{
+				SetUIBusy( pSoldier->ubID );
+			}
+
+			pSoldier->sTempNewGridNo = NewGridNo( pSoldier->sGridNo, (UINT16)DirectionInc(bNewDirection ) );
+
+			pSoldier->ubPendingDirection = bNewDirection;
+			pSoldier->EVENT_InitNewSoldierAnim( CLIMBUPROOF, 0 , FALSE );
+
+			pSoldier->InternalReceivingSoldierCancelServices( FALSE );				
+			pSoldier->InternalGivingSoldierCancelServices( FALSE );	
+			
+			BeginSoldierFenceUp( pSoldier );	
+		}		
+
+		}		
+	}
+
+}
+
+void BeginSoldierFenceUp( SOLDIERTYPE *pSoldier )
+{
+	INT8							bNewDirection;
+	UINT8	ubWhoIsThere;
+
+	if ( FindLowerLevelFence( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) && ( pSoldier->pathing.bLevel > 0 ) )
+	{
+		if ( EnoughPoints( pSoldier, GetAPsToClimbRoof( pSoldier, TRUE ), 0, TRUE ) )
+		{
+			//Kaiden: Helps if we look where we are going before we try to climb on top of someone
+		 ubWhoIsThere = WhoIsThere2( NewGridNo( pSoldier->sGridNo, (UINT16)DirectionInc(bNewDirection ) ), 0 );
+		 if ( ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID )
+		 {
+			return;
+		 }
+		 else
+		 {
+
+			if (pSoldier->bTeam == gbPlayerNum)
+			{
+				SetUIBusy( pSoldier->ubID );
+			}
+
+			pSoldier->sTempNewGridNo = NewGridNo( pSoldier->sGridNo, (UINT16)DirectionInc(bNewDirection ) );
+
+			bNewDirection = gTwoCDirection[ bNewDirection ];
+
+			pSoldier->ubPendingDirection = bNewDirection;
+			pSoldier->EVENT_InitNewSoldierAnim( CLIMBDOWNROOF, 0 , FALSE );
+
+			pSoldier->InternalReceivingSoldierCancelServices( FALSE );				
+			pSoldier->InternalGivingSoldierCancelServices( FALSE );				
+
+		}
+	}
+	}
+
+}
+//------------------------------------------------------------------------------------------
+
 BOOLEAN DoesSoldierWearGasMask(SOLDIERTYPE *pSoldier)//dnl ch40 200909
 {
 	INT8 bPosOfMask = FindGasMask(pSoldier);
@@ -13466,3 +14361,335 @@ BOOLEAN DoesSoldierWearGasMask(SOLDIERTYPE *pSoldier)//dnl ch40 200909
 		return(TRUE);
 	return(FALSE);
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SANDRO - added following functions
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
+{
+	if ( pSoldier == NULL )
+		return( FALSE );
+
+	INT8 bNumMajorTraitsCounted = 0;
+
+	// check old/new traits
+	if (gGameOptions.fNewTraitSystem)
+	{
+		for ( INT8 bCnt = 0; bCnt < gSkillTraitValues.ubMaxNumberOfTraits; bCnt++ )
+		{
+			if ( uiSkillTraitNumber > 0 && uiSkillTraitNumber <= NUM_MAJOR_TRAITS )
+			{
+				if (pSoldier->stats.ubSkillTraits[ bCnt ] == uiSkillTraitNumber)
+				{
+					return( TRUE );
+				}
+				else if ( pSoldier->stats.ubSkillTraits[ bCnt ] > 0 && pSoldier->stats.ubSkillTraits[ bCnt ] <= NUM_MAJOR_TRAITS )
+				{
+					bNumMajorTraitsCounted++;
+				}
+				// if we exceeded the allowed number of major traits, ignore the rest of them
+				if ( bNumMajorTraitsCounted >= gSkillTraitValues.ubNumberOfMajorTraitsAllowed )
+				{
+					break;
+				}
+			}
+			else
+			{
+				if (pSoldier->stats.ubSkillTraits[ bCnt ] == uiSkillTraitNumber)
+				{
+					return( TRUE );
+				}
+			}
+		}
+	}
+	else
+	{
+		if (pSoldier->stats.ubSkillTraits[ 0 ] == uiSkillTraitNumber)
+			return( TRUE );
+		if (pSoldier->stats.ubSkillTraits[ 1 ] == uiSkillTraitNumber)
+			return( TRUE );
+	}
+	return( FALSE );
+}
+
+INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
+{
+	if ( pSoldier == NULL )
+		return( 0 );
+
+	INT8 bNumberOfTraits = 0;
+	INT8 bNumMajorTraitsCounted = 0;
+
+	// check old/new traits
+	if (gGameOptions.fNewTraitSystem)
+	{
+		for ( INT8 bCnt = 0; bCnt < gSkillTraitValues.ubMaxNumberOfTraits; bCnt++ )
+		{
+			if ( uiSkillTraitNumber > 0 && uiSkillTraitNumber <= NUM_MAJOR_TRAITS )
+			{
+				if ( pSoldier->stats.ubSkillTraits[ bCnt ] == uiSkillTraitNumber )
+				{
+					bNumberOfTraits++;
+					bNumMajorTraitsCounted++;
+				}
+				else if ( pSoldier->stats.ubSkillTraits[ bCnt ] > 0 && pSoldier->stats.ubSkillTraits[ bCnt ] <= NUM_MAJOR_TRAITS )
+				{
+					bNumMajorTraitsCounted++;
+				}
+				// if we exceeded the allowed number of major traits, ignore the rest of them
+				if ( bNumMajorTraitsCounted >= gSkillTraitValues.ubNumberOfMajorTraitsAllowed )
+				{
+					break;
+				}
+			}
+			else
+			{
+				if ( pSoldier->stats.ubSkillTraits[ bCnt ] == uiSkillTraitNumber )
+				{
+					bNumberOfTraits++;
+				}
+			}
+		}
+		// cannot have more than one same minor trait
+		if( uiSkillTraitNumber > NUM_MAJOR_TRAITS )
+			return ( min(1, bNumberOfTraits) );
+		else
+			return ( min(2, bNumberOfTraits) );
+	}
+	else
+	{
+		if (pSoldier->stats.ubSkillTraits[ 0 ] == uiSkillTraitNumber)
+			bNumberOfTraits++;
+		if (pSoldier->stats.ubSkillTraits[ 1 ] == uiSkillTraitNumber)
+			bNumberOfTraits++;	
+
+		// Electronics, Ambidextrous and Camouflaged can only be of one grade
+		if( uiSkillTraitNumber == ELECTRONICS_OT || 
+			 uiSkillTraitNumber == AMBIDEXT_OT ||
+			  uiSkillTraitNumber == CAMOUFLAGED_OT )
+			return ( min(1, bNumberOfTraits) );
+		else
+			return ( bNumberOfTraits );
+	}
+}
+
+UINT8 GetSquadleadersCountInVicinity( SOLDIERTYPE * pSoldier, BOOLEAN fWithHigherLevel, BOOLEAN fDontCheckDistance )
+{
+	UINT8 cnt = 0;
+	UINT8 ubNumberSL = 0;
+
+	// loop through all soldiers around
+	for ( cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; cnt++ )
+	{
+		// Get active conscious soldier
+		if (MercPtrs[ cnt ] != pSoldier && MercPtrs[ cnt ]->bActive && //MercPtrs[ cnt ]->aiData.bShock < 20 &&
+			MercPtrs[ cnt ]->stats.bLife >= OKLIFE && HAS_SKILL_TRAIT( MercPtrs[ cnt ], SQUADLEADER_NT ))
+		{
+			// check if within distance
+			// if both have extended ear, the distance is bigger and they don't need to sea each other 
+			// note that enemy always get the bonus if within distance, regardless of extended ears
+			if (((( HasExtendedEarOn( pSoldier ) && HasExtendedEarOn( MercPtrs[ cnt ] )) || ( pSoldier->bTeam == ENEMY_TEAM ) ) && (PythSpacesAway( pSoldier->sGridNo, MercPtrs[ cnt ]->sGridNo ) <= gSkillTraitValues.usSLRadiusExtendedEar) ) ||
+				//((SoldierToVirtualSoldierLineOfSightTest( MercPtrs[ cnt ], pSoldier->sGridNo, pSoldier->pathing.bLevel, ANIM_STAND, TRUE, CALC_FROM_ALL_DIRS ) || 
+				//SoldierToVirtualSoldierLineOfSightTest( pSoldier, MercPtrs[ cnt ]->sGridNo, MercPtrs[ cnt ]->pathing.bLevel, ANIM_STAND, TRUE, CALC_FROM_ALL_DIRS ) ) && 
+				(PythSpacesAway( pSoldier->sGridNo, MercPtrs[ cnt ]->sGridNo ) <= gSkillTraitValues.usSLRadiusNormal) ||
+				fDontCheckDistance )
+			{
+				// If checking for higher level SL
+				// also count in already aquired level increses from other SLs
+				if (fWithHigherLevel)
+				{
+					if ( MercPtrs[ cnt ]->stats.bExpLevel > (pSoldier->stats.bExpLevel+(ubNumberSL*gSkillTraitValues.ubSLEffectiveLevelInRadius)) )
+						ubNumberSL += min( (max(0,(MercPtrs[ cnt ]->stats.bExpLevel - (pSoldier->stats.bExpLevel+(ubNumberSL*gSkillTraitValues.ubSLEffectiveLevelInRadius))))), (NUM_SKILL_TRAITS( MercPtrs[ cnt ], SQUADLEADER_NT )));
+				}
+				else
+				{
+					ubNumberSL += NUM_SKILL_TRAITS( MercPtrs[ cnt ], SQUADLEADER_NT );
+				}
+				if (ubNumberSL >= gSkillTraitValues.ubSLMaxBonuses)
+					break;
+			}
+		}
+	}
+
+	// special loop for militia - they can get a bonus from our mercs
+	if ( pSoldier->bTeam == MILITIA_TEAM && ubNumberSL < gSkillTraitValues.ubSLMaxBonuses )
+	{
+		for ( cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID ; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ; cnt++ )
+		{
+			// Get active conscious soldier
+			if (MercPtrs[ cnt ] != pSoldier && MercPtrs[ cnt ]->bActive && //MercPtrs[ cnt ]->aiData.bShock < 20 &&
+				MercPtrs[ cnt ]->stats.bLife >= OKLIFE && HAS_SKILL_TRAIT( MercPtrs[ cnt ], SQUADLEADER_NT ))
+			{
+				// check if within distance
+				if (((HasExtendedEarOn( MercPtrs[ cnt ] ) && (PythSpacesAway( pSoldier->sGridNo, MercPtrs[ cnt ]->sGridNo ) <= gSkillTraitValues.usSLRadiusExtendedEar) ) ||
+				//((SoldierToVirtualSoldierLineOfSightTest( MercPtrs[ cnt ], pSoldier->sGridNo, pSoldier->pathing.bLevel, ANIM_STAND, TRUE, CALC_FROM_ALL_DIRS ) || 
+				//SoldierToVirtualSoldierLineOfSightTest( pSoldier, MercPtrs[ cnt ]->sGridNo, MercPtrs[ cnt ]->pathing.bLevel, ANIM_STAND, TRUE, CALC_FROM_ALL_DIRS ) ) && 
+				(PythSpacesAway( pSoldier->sGridNo, MercPtrs[ cnt ]->sGridNo ) <= gSkillTraitValues.usSLRadiusNormal)) ||
+				fDontCheckDistance )
+				{
+					// If checking for higher level SL
+					// also count in already aquired level increses from other SLs
+					if (fWithHigherLevel)
+					{
+						if ( MercPtrs[ cnt ]->stats.bExpLevel > (pSoldier->stats.bExpLevel+(ubNumberSL*gSkillTraitValues.ubSLEffectiveLevelInRadius)) )
+							ubNumberSL += min( (max(0,(MercPtrs[ cnt ]->stats.bExpLevel - (pSoldier->stats.bExpLevel+(ubNumberSL*gSkillTraitValues.ubSLEffectiveLevelInRadius))))), (NUM_SKILL_TRAITS( MercPtrs[ cnt ], SQUADLEADER_NT )));
+					}
+					else
+					{
+						ubNumberSL += NUM_SKILL_TRAITS( MercPtrs[ cnt ], SQUADLEADER_NT );
+					}
+					if (ubNumberSL >= gSkillTraitValues.ubSLMaxBonuses)
+						break;
+				}
+			}
+		}
+	}
+
+	// 3 bonuses are a max by default
+	return( min( gSkillTraitValues.ubSLMaxBonuses, ubNumberSL));
+}
+
+UINT16 NumberOfDamagedStats( SOLDIERTYPE * pSoldier )
+{
+	UINT16 ubTotalStatsDamaged = 0;
+	for (UINT8 cnt = 0; cnt < NUM_DAMAGABLE_STATS; cnt++)
+	{
+		if (pSoldier->ubCriticalStatDamage[cnt] > 0 )
+			ubTotalStatsDamaged += pSoldier->ubCriticalStatDamage[cnt];
+	}
+	return( ubTotalStatsDamaged );
+}
+
+UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundredths )
+{
+	UINT16 usStatIncreasement;
+	//BOOLEAN fAnyStatToBeRepaired = FALSE;
+	UINT8 cnt, ubAmountRegained;
+	STR16 sStat = L"";
+
+	UINT8 bStatsReturned = 0;
+
+	// First determine how much we can return
+	ubAmountRegained = (usAmountRegainedHundredths / 100); //transfer to whole numbers
+	usAmountRegainedHundredths %= 100; // keep rest
+	if( usAmountRegainedHundredths > 0 ) // if some reamins, solve it as a chance
+	{
+		if (Chance(usAmountRegainedHundredths)) // if rolled true, add one point
+		{
+			ubAmountRegained += 1;
+			usAmountRegainedHundredths = 0;
+		}
+		else // otherwise ignore the rest
+		{
+			usAmountRegainedHundredths = 0;
+		}
+	}
+	// return zero if we are not able to heal anything
+	if (ubAmountRegained <= 0)
+		return( 0 );
+		
+	// Second, run through all damagable stats
+	for (cnt = 0; cnt < NUM_DAMAGABLE_STATS; cnt++)
+	{
+		// if we have a damaged stat here
+		if (pSoldier->ubCriticalStatDamage[cnt] > 0 )
+		{
+			if (ubAmountRegained >= pSoldier->ubCriticalStatDamage[cnt])
+			{
+				// if the amount we can return is bigger than what we need, keep the rest, for other stats
+				usStatIncreasement = pSoldier->ubCriticalStatDamage[cnt];
+				ubAmountRegained = max(0,(ubAmountRegained - usStatIncreasement));
+				pSoldier->ubCriticalStatDamage[cnt] = 0;
+			}
+			else
+			{
+				// if not having full amount, heal what we can
+				usStatIncreasement = ubAmountRegained;
+				ubAmountRegained = 0;
+				pSoldier->ubCriticalStatDamage[cnt] = max( 0, (pSoldier->ubCriticalStatDamage[cnt] - usStatIncreasement));
+			}
+			// so we can start regaining the stats
+			if ( usStatIncreasement > 0 )
+			{
+				bStatsReturned += usStatIncreasement; // keep value for feedback
+				
+				switch(cnt) // look on the stat
+				{
+					// actually we only test Health, Dexterity, Agility, Strength and Wisdom now, 
+					// as there are no ways to lost other stats in the current code
+					case DAMAGED_STAT_HEALTH:
+						sStat = sStatGainStrings[0]; // set string
+						pSoldier->stats.bLifeMax += usStatIncreasement;
+						pSoldier->stats.bLife += usStatIncreasement;
+						pSoldier->iHealableInjury -= (usStatIncreasement * 100); // don't forget the healable injury
+						if (pSoldier->iHealableInjury < 0)
+							pSoldier->iHealableInjury = 0;
+						if (pSoldier->stats.bLifeMax >= 100 || pSoldier->stats.bLife >= 100 ) // repair if going too far
+						{
+							pSoldier->stats.bLifeMax = 100;
+							pSoldier->stats.bLife = 100;
+							pSoldier->iHealableInjury = 0;
+							pSoldier->ubCriticalStatDamage[cnt] = 0;
+						}
+						gMercProfiles[ pSoldier->ubProfile ].bLifeMax = pSoldier->stats.bLifeMax; // update profile
+						break;
+					case DAMAGED_STAT_DEXTERITY:
+						sStat = sStatGainStrings[2]; // set string
+						pSoldier->stats.bDexterity += usStatIncreasement;
+						if (pSoldier->stats.bDexterity >= 100 ) // repair if going too far
+						{
+							pSoldier->stats.bDexterity = 100;
+							pSoldier->ubCriticalStatDamage[cnt] = 0;
+						}
+						gMercProfiles[ pSoldier->ubProfile ].bDexterity = pSoldier->stats.bDexterity; // update profile
+						break;
+					case DAMAGED_STAT_AGILITY:
+						sStat = sStatGainStrings[1]; // set string
+						pSoldier->stats.bAgility += usStatIncreasement;
+						if (pSoldier->stats.bAgility >= 100 ) // repair if going too far
+						{
+							pSoldier->stats.bAgility = 100;
+							pSoldier->ubCriticalStatDamage[cnt] = 0;
+						}
+						gMercProfiles[ pSoldier->ubProfile ].bAgility = pSoldier->stats.bAgility; // update profile
+						break;
+					case DAMAGED_STAT_STRENGTH:
+						sStat = sStatGainStrings[9]; // set string
+						pSoldier->stats.bStrength += usStatIncreasement;
+						if (pSoldier->stats.bStrength >= 100 ) // repair if going too far
+						{
+							pSoldier->stats.bStrength = 100;
+							pSoldier->ubCriticalStatDamage[cnt] = 0;
+						}
+						gMercProfiles[ pSoldier->ubProfile ].bStrength = pSoldier->stats.bStrength; // update profile
+						break;
+					case DAMAGED_STAT_WISDOM:
+						sStat = sStatGainStrings[3]; // set string
+						pSoldier->stats.bWisdom += usStatIncreasement;
+						if (pSoldier->stats.bWisdom >= 100 ) // repair if going too far
+						{
+							pSoldier->stats.bWisdom = 100;
+							pSoldier->ubCriticalStatDamage[cnt] = 0;
+						}
+						gMercProfiles[ pSoldier->ubProfile ].bWisdom = pSoldier->stats.bWisdom; // update profile
+						break;
+				}
+				// Throw a message if healed anything
+				if ( gSkillTraitValues.fDORepStShouldThrowMessage )
+				{
+					if ( usStatIncreasement == 1 )
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_ONE_POINTS_OF_STAT], pSoldier->name, sStat  );
+					else
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_REGAINED_X_POINTS_OF_STATS], pSoldier->name, usStatIncreasement, sStat  );
+				}
+			}
+			//if( pSoldier->ubCriticalStatDamage[cnt] > 0 )
+			//	fAnyStatToBeRepaired = TRUE;
+			
+		}
+	}
+
+	// Done, return what we healed
+	return( bStatsReturned );
+}
+				

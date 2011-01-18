@@ -4,8 +4,18 @@
 #include	"MessageBoxScreen.h"
 
 
-#define		NUM_SAVE_GAMES											11
+#define		NUM_SAVE_GAMES_OLD											11
+#define		NUM_SAVE_GAMES_NEW											19
 
+#define		NUM_SAVE_GAMES	19
+
+extern	UINT16 	NUM_SLOT;
+extern	UINT32	SLG_SAVELOCATION_HEIGHT;
+extern	UINT32	SLG_GAP_BETWEEN_LOCATIONS;
+extern	UINT32	SLG_DATE_OFFSET_Y;
+extern	UINT32	SLG_SELECTED_SLOT_GRAPHICS_NUMBER;
+extern	UINT32	SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER;
+extern void LoadSaveGameOldOrNew();
 
 //This flag is used to diferentiate between loading a game and saveing a game.
 // gfSaveGame=TRUE		For saving a game

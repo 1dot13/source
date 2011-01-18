@@ -248,7 +248,7 @@ void MercDailyUpdate()
 			// CJC: For some personalities, reset personality quote said flag
 			if ( pSoldier->ubProfile != NO_PROFILE )
 			{
-				switch( gMercProfiles[ pSoldier->ubProfile ].bPersonalityTrait )
+				switch( gMercProfiles[ pSoldier->ubProfile ].bDisability )
 				{
 					case HEAT_INTOLERANT:
 					case CLAUSTROPHOBIC:
@@ -282,7 +282,9 @@ void MercDailyUpdate()
 			{
 			}
 			//if the character is an RPC
-			else if( pSoldier->ubProfile >= FIRST_RPC && pSoldier->ubProfile < FIRST_NPC )
+			//else if( pSoldier->ubProfile >= FIRST_RPC && pSoldier->ubProfile < FIRST_NPC )
+			//new profiles by Jazz
+			else if ( gProfilesRPC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile )
 			{
 				INT16	sSalary = gMercProfiles[ pSoldier->ubProfile ].sSalary;
 				INT32	iMoneyOwedToMerc = 0;
@@ -397,9 +399,11 @@ void MercDailyUpdate()
 			}
 		}
 	}
-
-	//Loop through all the profiles
-	for( cnt = 0; cnt < NUM_PROFILES; cnt++)
+	
+	// WANNE: Only send mails from the original 1.13 merc, and not from the wildfire merc,
+	// otherwise we get wrong mails cause of hardcoded Email.edt structure!!!!!	
+	UINT16 numOriginalProfiles = 255;
+	for( cnt = 0; cnt < numOriginalProfiles; cnt++)
 	{
 		pProfile = &(gMercProfiles[ cnt ]);
 
@@ -461,8 +465,23 @@ void MercDailyUpdate()
 						//remove the Flag, so if the merc goes on another assignment, the player can leave an email.
 						pProfile->ubMiscFlags3 &= ~PROFILE_MISC_FLAG3_PLAYER_LEFT_MSG_FOR_MERC_AT_AIM;
 
-						// TO DO: send E-mail to player telling him the merc has returned from an assignment
-						AddEmail( ( UINT8 )( iOffset + ( cnt * AIM_REPLY_LENGTH_BARRY ) ), AIM_REPLY_LENGTH_BARRY, ( UINT8 )( 6 + cnt ), GetWorldTotalMin(), -1 );
+						// Read from Email.edt
+						if (cnt < 170)
+						{
+							// TO DO: send E-mail to player telling him the merc has returned from an assignment
+							AddEmail( ( UINT8 )( iOffset + ( cnt * AIM_REPLY_LENGTH_BARRY ) ), AIM_REPLY_LENGTH_BARRY, ( UINT8 )( 6 + cnt ), GetWorldTotalMin(), -1 );
+						}
+						else
+						{
+							UINT16 iMsgLength = cnt;
+							UINT8 sender = cnt - 119;	// SenderNameList.xml
+
+							// Fake Barry Unger mail, but with the msgLength of the WF merc ID -> Correct in PreProcessEmail()
+							AddEmailWFMercLevelUp( ( UINT8 )( iOffset + 0 * AIM_REPLY_LENGTH_BARRY ), iMsgLength, sender, GetWorldTotalMin(), -1 );							
+						}
+
+						// WANNE: Should we stop time compression. I don't know.
+						//StopTimeCompression();
 					}
 				}
 			}
@@ -473,7 +492,8 @@ void MercDailyUpdate()
 			if( IsProfileIdAnAimOrMERCMerc( (UINT8)cnt ) )
 			{
 				// check to see if he goes on another assignment
-				if (cnt < MAX_NUMBER_MERCS)
+				//if (cnt < MAX_NUMBER_MERCS)
+				if ( gProfilesAIM[ cnt ].ProfilId == cnt ) //new profiles by Jazz
 				{
 					// A.I.M. merc
 					uiChance = 2 * pProfile->bExpLevel;
@@ -481,7 +501,7 @@ void MercDailyUpdate()
 					// player has now had a chance to hire him, so he'll eligible to get killed off on another job
 					pProfile->ubMiscFlags3 |= PROFILE_MISC_FLAG3_PLAYER_HAD_CHANCE_TO_HIRE;
 				}
-				else
+				else if ( gProfilesMERC[ cnt ].ProfilId == cnt ) //new profiles by Jazz
 				{
 					// M.E.R.C. merc - very rarely get other work
 					uiChance = 1 * pProfile->bExpLevel;
@@ -493,8 +513,8 @@ void MercDailyUpdate()
 						pProfile->ubMiscFlags3 |= PROFILE_MISC_FLAG3_PLAYER_HAD_CHANCE_TO_HIRE;
 					}
 				}
-
-				if (Random(100) < uiChance)
+				// tais: disable mercs being on assignment
+				if (Random(100) < uiChance && gGameExternalOptions.fMercsOnAssignment < 2)
 				{
 					pProfile->bMercStatus = MERC_WORKING_ELSEWHERE;
 					pProfile->uiDayBecomesAvailable = 1 + Random(6 + (pProfile->bExpLevel / 2) );		// 1-(6 to 11) days
@@ -1098,41 +1118,178 @@ void HourlyCamouflageUpdate( void )
 	{
 		if ( pSoldier->bActive )
 		{
-			// if the merc has non-zero camo, degrade it by 1%
-			if( ( pSoldier->bCamo > 0) && ( !( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED) ) ) )
+			// SANDRO - new Ranger trait reduces camo degrading, which replaces camouflage trait
+			// may be a little awkward solution with chances, but can work
+			if (gGameOptions.fNewTraitSystem)
 			{
-				pSoldier->bCamo -= 2;
-				if (pSoldier->bCamo <= 0)
+				if( pSoldier->bCamo > 0 )
 				{
-					pSoldier->bCamo = 0;
-					camoWoreOff = TRUE;
+					if (HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
+					{
+						pSoldier->bCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+						pSoldier->bCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+					}
+					else
+						pSoldier->bCamo -= 2;
+
+					if (pSoldier->bCamo <= 0)
+					{
+						pSoldier->bCamo = 0;
+						camoWoreOff = TRUE;
+
+						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+						{
+							//legion camo, remove camo face and create face
+							gCamoFace[pSoldier->ubProfile].gCamoface = FALSE;
+							DeleteSoldierFace( pSoldier );
+							pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+						}
+					}
+				}
+				if( pSoldier->urbanCamo > 0 )
+				{
+					if (HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
+					{
+						pSoldier->urbanCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+						pSoldier->urbanCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+					}
+					else
+						pSoldier->urbanCamo -= 2;
+
+					if (pSoldier->urbanCamo <= 0)
+					{
+						pSoldier->urbanCamo = 0;
+						camoWoreOff = TRUE;
+
+						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+						{
+							//legion camo, remove camo face and create face
+							gCamoFace[pSoldier->ubProfile].gUrbanCamoface = FALSE;
+							DeleteSoldierFace( pSoldier );
+							pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+						}
+					}
+				}
+				if( pSoldier->desertCamo > 0 )
+				{
+					if (HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
+					{
+						pSoldier->desertCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+						pSoldier->desertCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+					}
+					else
+						pSoldier->desertCamo -= 2;
+
+					if (pSoldier->desertCamo <= 0)
+					{
+						pSoldier->desertCamo = 0;
+						camoWoreOff = TRUE;
+
+						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+						{
+							//legion camo, remove camo face and create face
+							gCamoFace[pSoldier->ubProfile].gDesertCamoface = FALSE;
+							DeleteSoldierFace( pSoldier );
+							pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+						}
+					}
+				}
+				if( pSoldier->snowCamo > 0 )
+				{
+					if (HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
+					{
+						pSoldier->snowCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+						pSoldier->snowCamo -= (Chance(__max(0, 100 - gSkillTraitValues.ubRACamoWornountSpeedReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ))) ? 1 : 0 );
+					}
+					else
+						pSoldier->snowCamo -= 2;
+
+					if (pSoldier->snowCamo <= 0)
+					{
+						pSoldier->snowCamo = 0;
+						camoWoreOff = TRUE;
+
+						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+						{
+							//legion camo, remove camo face and create face
+							gCamoFace[pSoldier->ubProfile].gSnowCamoface = FALSE;
+							DeleteSoldierFace( pSoldier );
+							pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+						}
+					}
 				}
 			}
-			if( ( pSoldier->urbanCamo > 0) && ( !( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_URBAN) ) ) )
+			else
 			{
-				pSoldier->urbanCamo -= 2;
-				if (pSoldier->urbanCamo <= 0)
+				// if the merc has non-zero camo, degrade it by 1%
+				// SANDRO - different types of Camouflaged trait have been merged together
+				if( ( pSoldier->bCamo > 0) && ( !( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_OT) ) ) )
 				{
-					pSoldier->urbanCamo = 0;
-					camoWoreOff = TRUE;
+					pSoldier->bCamo -= 2;
+					if (pSoldier->bCamo <= 0)
+					{
+						pSoldier->bCamo = 0;
+						camoWoreOff = TRUE;
+
+						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+						{
+							//legion camo, remove camo face and create face
+							gCamoFace[pSoldier->ubProfile].gCamoface = FALSE;
+							DeleteSoldierFace( pSoldier );
+							pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+						}
+					}
 				}
-			}
-			if( ( pSoldier->desertCamo > 0) && ( !( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_DESERT) ) ) )
-			{
-				pSoldier->desertCamo -= 2;
-				if (pSoldier->desertCamo <= 0)
+				if( ( pSoldier->urbanCamo > 0) && ( !( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_OT) ) ) )
 				{
-					pSoldier->desertCamo = 0;
-					camoWoreOff = TRUE;
+					pSoldier->urbanCamo -= 2;
+					if (pSoldier->urbanCamo <= 0)
+					{
+						pSoldier->urbanCamo = 0;
+						camoWoreOff = TRUE;
+
+						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+						{
+							//legion camo, remove camo face and create face
+							gCamoFace[pSoldier->ubProfile].gUrbanCamoface = FALSE;
+							DeleteSoldierFace( pSoldier );
+							pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+						}
+					}
 				}
-			}
-			if( ( pSoldier->snowCamo > 0) && ( !( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_SNOW) ) ) )
-			{
-				pSoldier->snowCamo -= 2;
-				if (pSoldier->snowCamo <= 0)
+				if( ( pSoldier->desertCamo > 0) && ( !( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_OT) ) ) )
 				{
-					pSoldier->snowCamo = 0;
-					camoWoreOff = TRUE;
+					pSoldier->desertCamo -= 2;
+					if (pSoldier->desertCamo <= 0)
+					{
+						pSoldier->desertCamo = 0;
+						camoWoreOff = TRUE;
+
+						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+						{
+							//legion camo, remove camo face and create face
+							gCamoFace[pSoldier->ubProfile].gDesertCamoface = FALSE;
+							DeleteSoldierFace( pSoldier );
+							pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+						}
+					}
+				}
+				if( ( pSoldier->snowCamo > 0) && ( !( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_OT) ) ) )
+				{
+					pSoldier->snowCamo -= 2;
+					if (pSoldier->snowCamo <= 0)
+					{
+						pSoldier->snowCamo = 0;
+						camoWoreOff = TRUE;
+
+						if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+						{
+							//legion camo, remove camo face and create face
+							gCamoFace[pSoldier->ubProfile].gSnowCamoface = FALSE;
+							DeleteSoldierFace( pSoldier );
+							pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+						}
+					}
 				}
 			}
 
@@ -1144,7 +1301,38 @@ void HourlyCamouflageUpdate( void )
 					pSoldier->CreateSoldierPalettes( );
 				}
 
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WORN_OFF], pSoldier->name );
+					if ( pSoldier->bCamo <= 0 )
+					{
+						gCamoFace[pSoldier->ubProfile].gCamoface = FALSE;
+						DeleteSoldierFace( pSoldier );// remove face
+						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_JUNGLE_WORN_OFF], pSoldier->name );
+					}
+					else if ( pSoldier->urbanCamo <= 0 )
+					{
+						gCamoFace[pSoldier->ubProfile].gUrbanCamoface = FALSE;
+						DeleteSoldierFace( pSoldier );// remove face
+						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_URBAN_WORN_OFF], pSoldier->name );
+					}
+					else if ( pSoldier->snowCamo <= 0 )
+					{
+						gCamoFace[pSoldier->ubProfile].gSnowCamoface = FALSE;
+						DeleteSoldierFace( pSoldier );// remove face
+						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_SNOW_WORN_OFF], pSoldier->name );
+					}
+					else if ( pSoldier->desertCamo <= 0 )
+					{
+						gCamoFace[pSoldier->ubProfile].gDesertCamoface = FALSE;
+						DeleteSoldierFace( pSoldier );// remove face
+						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_DESERT_WORN_OFF], pSoldier->name );
+					}
+						
+				//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WORN_OFF], pSoldier->name );
+				
+				
 				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 				camoWoreOff = FALSE;
 			}

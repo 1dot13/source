@@ -47,15 +47,21 @@
 	#include "Scheduling.h"
 	#include "Tactical Save.h"
 	#include "Campaign Types.h"
+	#include "GameSettings.h" // added by SANDRO
+	#include "Soldier Profile.h"
 #endif
-
+	#include "Soldier Profile.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
 // WANNE - BMP: DONE!
 //SB: new .npc format
-#define NPCEX_SIGNATURE 0x00070000
+#define _MAKEFOURCC(ch0, ch1, ch2, ch3)	\
+	((UINT32)(UINT8)(ch0) | ((UINT32)(UINT8)(ch1) << 8) |	\
+	((UINT32)(UINT8)(ch2) << 16) | ((UINT32)(UINT8)(ch3) << 24 ))
+
+#define NPCEX_SIGNATURE _MAKEFOURCC('B','1','1','3')
 
 #define NUM_CIVQUOTE_SECTORS 20
 #define MINERS_CIV_QUOTE_INDEX  16
@@ -143,7 +149,9 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 		// use a copy of Herve's data file instead!
 		sprintf( zFileName, "NPCData\\%03d.npc", HERVE );
 	}
-	else if ( ubNPC < FIRST_RPC || ubNPC >= GASTON || (ubNPC < FIRST_NPC && gMercProfiles[ ubNPC ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) )
+	//else if ( ubNPC < FIRST_RPC || ubNPC >= GASTON || (ubNPC < FIRST_NPC && gMercProfiles[ ubNPC ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) )
+	//new profiles by Jazz
+	else if ( gProfilesIMP[ubNPC].ProfilId == ubNPC || gProfilesAIM[ubNPC].ProfilId == ubNPC || gProfilesMERC[ubNPC].ProfilId == ubNPC || ( gProfilesRPC[ubNPC].ProfilId == ubNPC && gMercProfiles[ ubNPC ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) )	
 	{
 		sprintf( zFileName, "NPCData\\000.npc", ubNPC );
 	}
@@ -257,7 +265,7 @@ NPCQuoteInfo& NPCQuoteInfo::operator=(const _old_NPCQuoteInfo& src)
 		ubLastDay = src.ubLastDay;
 		ubApproachRequired = src.ubApproachRequired;
 		ubOpinionRequired = src.ubOpinionRequired;
-		ubUnused = 0;
+		usUnused = 0;
 		ubQuoteNum = src.ubQuoteNum;
 		ubNumQuotes = src.ubNumQuotes;
 		ubStartQuest = src.ubStartQuest;
@@ -305,7 +313,9 @@ BOOLEAN EnsureQuoteFileLoaded( UINT8 ubNPC )
 		fLoadFile = TRUE;
 	}
 
-	if ( ubNPC >= FIRST_RPC && ubNPC < FIRST_NPC )
+//	if ( ubNPC >= FIRST_RPC && ubNPC < FIRST_NPC )
+	//new profiles by Jazz		
+	if ( ( gProfilesRPC[ubNPC].ProfilId == ubNPC ) )			
 	{
 		if (gMercProfiles[ ubNPC ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED)
 		{
@@ -415,19 +425,30 @@ BOOLEAN RefreshNPCScriptRecord( UINT8 ubNPC, UINT8 ubRecord )
 	{
 		// we have some work to do...
 		// loop through all PCs, and refresh their copy of this record
-		for ( ubLoop = 0; ubLoop < FIRST_RPC; ubLoop++ ) // need more finesse here
+		//for ( ubLoop = 0; ubLoop < FIRST_RPC; ubLoop++ ) // need more finesse here
+		//new profiles by Jazz
+		for ( ubLoop = 0; ubLoop < NUM_PROFILES; ubLoop++ ) // need more finesse here		
 		{
+			//new profiles by Jazz		
+			if ( gProfilesIMP[ubLoop].ProfilId == ubLoop || gProfilesAIM[ubLoop].ProfilId == ubLoop || gProfilesMERC[ubLoop].ProfilId == ubLoop )	
 			RefreshNPCScriptRecord( ubLoop, ubRecord );
 		}
-		for ( ubLoop = GASTON; ubLoop < NUM_PROFILES; ubLoop++ ) // need more finesse here
+		
+		//for ( ubLoop = GASTON; ubLoop < NUM_PROFILES; ubLoop++ ) // need more finesse here
+		//{
+		//	RefreshNPCScriptRecord( ubLoop, ubRecord );
+		//}
+		
+		//new profiles by Jazz	
+		//for ( ubLoop = FIRST_RPC; ubLoop < FIRST_NPC; ubLoop++ )
+		for ( ubLoop = 0; ubLoop < NUM_PROFILES; ubLoop++ )
 		{
-			RefreshNPCScriptRecord( ubLoop, ubRecord );
-		}
-		for ( ubLoop = FIRST_RPC; ubLoop < FIRST_NPC; ubLoop++ )
-		{
+			if ( gProfilesRPC[ubLoop].ProfilId == ubLoop )	
+			{
 			if ( gMercProfiles[ ubNPC ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED && gpBackupNPCQuoteInfoArray[ ubNPC ] != NULL )
 			{
 				RefreshNPCScriptRecord( ubLoop, ubRecord );
+			}
 			}
 		}
 		return( TRUE );
@@ -462,21 +483,87 @@ NPCQuoteInfo * LoadCivQuoteFile( UINT8 ubIndex )
 	NPCQuoteInfo	* pFileData;
 	UINT32					uiBytesRead;
 	UINT32					uiFileSize;
+	DWORD					uiSignature = 0; // SB // WANNE - BMP: DONE!
 
-  if ( ubIndex == MINERS_CIV_QUOTE_INDEX )
-  {
-	  sprintf( zFileName, "NPCData\\miners.npc" );
-  }
-  else
-  {
-	  sprintf( zFileName, "NPCData\\%c%d.npc", 'A' + ( gsCivQuoteSector[ ubIndex ][ 1 ] - 1 ), gsCivQuoteSector[ ubIndex ][ 0 ] );
-  }
+	if ( ubIndex == MINERS_CIV_QUOTE_INDEX )
+	{
+		sprintf( zFileName, "NPCData\\miners.npc" );
+	}
+	else
+	{
+	    sprintf( zFileName, "NPCData\\%c%d.npc", 'A' + ( gsCivQuoteSector[ ubIndex ][ 1 ] - 1 ), gsCivQuoteSector[ ubIndex ][ 0 ] );
+	}
 
 	CHECKN( FileExists( zFileName ) );
 
 	hFile = FileOpen( zFileName, FILE_ACCESS_READ, FALSE );
 	CHECKN( hFile );
 
+	// -----------------------------------------------------------
+	// WANNE: This fixes the bug, that NPCs do not give hints
+	// Problem was, the missing conversion from old to new NPC structure!
+	if (!FileRead( hFile, &uiSignature, sizeof(uiSignature), &uiBytesRead ) || uiBytesRead != sizeof(uiSignature) )
+		return NULL;
+
+	if(uiSignature == NPCEX_SIGNATURE)//new fmt
+	{
+		uiFileSize = sizeof( NPCQuoteInfo ) * NUM_NPC_QUOTE_RECORDS;
+		pFileData = (NPCQuoteInfo *)MemAlloc( uiFileSize );
+		if (pFileData)
+		{
+			if (!FileRead( hFile, pFileData, uiFileSize, &uiBytesRead ) || uiBytesRead != uiFileSize )
+			{
+				MemFree( pFileData );
+				pFileData = NULL;
+			}
+		}
+
+		FileClose( hFile );
+	}
+	else //old fmt - make conversion
+	{
+		int iRecord;
+		_old_NPCQuoteInfo * pFileData_old_;
+		uiFileSize = sizeof( _old_NPCQuoteInfo ) * NUM_NPC_QUOTE_RECORDS;
+		pFileData_old_ = ( _old_NPCQuoteInfo * )MemAlloc( uiFileSize );
+		FileSeek(hFile, 0, FILE_SEEK_FROM_START);
+		if (pFileData_old_)
+		{
+			if (!FileRead( hFile, pFileData_old_, uiFileSize, &uiBytesRead ) || uiBytesRead != uiFileSize )
+			{
+				MemFree( pFileData_old_ );
+				pFileData_old_ = NULL;
+			}
+		}
+		
+		FileClose( hFile );
+		//check for Russian script & make a runtime conversion of it to International
+		if( *(DWORD*)pFileData_old_ == 0x00350039 )
+		{
+			//just offset records 4 bytes backward
+			_old_NPCQuoteInfo * pEnglishScript = ( _old_NPCQuoteInfo * )MemAlloc( uiFileSize );
+			memcpy( pEnglishScript, ((char*)pFileData_old_)+4, uiFileSize-4 );
+			MemFree( pFileData_old_ );
+			pFileData_old_ = pEnglishScript;
+		}
+
+		// Now it's time for conversion
+		uiFileSize = sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS;
+		pFileData = (NPCQuoteInfo*)MemAlloc(uiFileSize);
+		for(iRecord=0; iRecord<NUM_NPC_QUOTE_RECORDS; iRecord++)
+			pFileData[iRecord] = pFileData_old_[iRecord];//dnl ch46 021009
+		MemFree(pFileData_old_);
+	}
+
+	// -----------------------------------------------------------
+
+	// 
+	//</SB> new script format
+	return( pFileData );
+
+	// -----------------------------------------------------------
+	// WANNE: This is old vanilla JA2 code without conversion of NPC data to new format used for Big Maps project
+	/*
 	uiFileSize = sizeof( NPCQuoteInfo ) * NUM_NPC_QUOTE_RECORDS;
 	pFileData = (NPCQuoteInfo *)MemAlloc( uiFileSize );
 	if (pFileData)
@@ -491,6 +578,8 @@ NPCQuoteInfo * LoadCivQuoteFile( UINT8 ubIndex )
 	FileClose( hFile );
 
 	return( pFileData );
+	// -----------------------------------------------------------
+	*/
 }
 
 
@@ -578,8 +667,12 @@ BOOLEAN ReloadAllQuoteFiles( void )
 {
 	UINT8		ubProfile, ubLoop;
 
-	for ( ubProfile = FIRST_RPC; ubProfile < GASTON; ubProfile++ )
+	//for ( ubProfile = FIRST_RPC; ubProfile < GASTON; ubProfile++ )
+	//new profiles by Jazz	
+	for ( ubProfile = 0; ubProfile < NUM_PROFILES; ubProfile++ )
 	{
+		if ( gProfilesRPC[ubProfile].ProfilId == ubProfile || gProfilesNPC[ubProfile].ProfilId == ubProfile )	
+		{
 		// zap backup if any
 		if ( gpBackupNPCQuoteInfoArray[ ubProfile ] != NULL )
 		{
@@ -587,6 +680,7 @@ BOOLEAN ReloadAllQuoteFiles( void )
 			gpBackupNPCQuoteInfoArray[ ubProfile ] = NULL;
 		}
 		ReloadQuoteFileIfLoaded( ubProfile );
+		}
 	}
 	// reload all civ quote files
 	for ( ubLoop = 0; ubLoop < NUM_CIVQUOTE_SECTORS; ubLoop++ )
@@ -642,6 +736,12 @@ INT32 CalcThreateningEffectiveness( UINT8 ubMerc )
 		iDeadliness = -30;
 	}
 
+	// SANDRO - bonus for threatening for assertive people
+	if ( gGameOptions.fNewTraitSystem && gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_ASSERTIVE )
+	{
+		iDeadliness += 50;
+	}
+
 	return( (EffectiveLeadership( pSoldier ) + iStrength + iDeadliness) / 3 ); //Trail minor bug fix.
 }
 
@@ -659,6 +759,15 @@ UINT8 CalcDesireToTalk( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach )
 	iPersonalVal = 50; /* + pNPCProfile->bMercTownReputation[ pNPCProfile->bTown ] */;
 	if (OKToCheckOpinion(ubMerc)) {
 		iPersonalVal += pNPCProfile->bMercOpinion[ubMerc];
+	}
+
+	// SANDRO - bonus for communication with people for assertive people
+	if ( gGameOptions.fNewTraitSystem && bApproach != APPROACH_THREATEN)
+	{
+		if ( pMercProfile->bCharacterTrait == CHAR_TRAIT_ASSERTIVE )
+			iPersonalVal += 50;
+		else if ( pMercProfile->bCharacterTrait == CHAR_TRAIT_MALICIOUS )
+			iPersonalVal -= 50;
 	}
 
 	// ARM: NOTE - for towns which don't use loyalty (San Mona, Estoni, Tixa, Orta )
@@ -1215,7 +1324,9 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 						}
 						break;
 					default:
-						if ( usItemToConsider == MONEY && (ubNPC == SKYRIDER || (ubNPC >= FIRST_RPC && ubNPC < FIRST_NPC) ) )
+						//if ( usItemToConsider == MONEY && (ubNPC == SKYRIDER || (ubNPC >= FIRST_RPC && ubNPC < FIRST_NPC) ) )
+						//new profiles by Jazz
+						if ( usItemToConsider == MONEY && (ubNPC == SKYRIDER || ( gProfilesRPC[ubNPC].ProfilId == ubNPC ) ) )
 						{
 							if ( gMercProfiles[ ubNPC ].iBalance < 0 && pNPCQuoteInfo->sActionData != NPC_ACTION_DONT_ACCEPT_ITEM )
 							{
@@ -1603,14 +1714,23 @@ void ResetOncePerConvoRecordsForNPC( UINT8 ubNPC )
 void ResetOncePerConvoRecordsForAllNPCsInLoadedSector( void )
 {
 	UINT8 ubLoop;
-
+	UINT8 IDnpc;
+	
 	if ( gWorldSectorX == 0 || gWorldSectorY == 0 )
 	{
 		return;
 	}
 
-	for ( ubLoop = FIRST_RPC; ubLoop < GASTON; ubLoop++ )
+	//for ( ubLoop = FIRST_RPC; ubLoop < GASTON; ubLoop++ )
+	//new profiles by Jazz	
+	for ( IDnpc = 0; IDnpc < NUM_PROFILES; IDnpc++ )
 	{
+	
+	if ( gProfilesRPC[IDnpc].ProfilId == IDnpc || gProfilesNPC[IDnpc].ProfilId == IDnpc)
+	{
+		ubLoop = IDnpc;
+	
+	
 		if ( gMercProfiles[ ubLoop ].sSectorX == gWorldSectorX &&
 				 gMercProfiles[ ubLoop ].sSectorY == gWorldSectorY &&
 				 gMercProfiles[ ubLoop ].bSectorZ == gbWorldSectorZ &&
@@ -1618,6 +1738,9 @@ void ResetOncePerConvoRecordsForAllNPCsInLoadedSector( void )
 		{
 			ResetOncePerConvoRecordsForNPC( ubLoop );
 		}
+
+	}
+	
 	}
 }
 
@@ -1695,7 +1818,15 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 		}
 		return;
 	}
+
 	pNPCQuoteInfoArray = gpNPCQuoteInfoArray[ubNPC];
+	
+	//Legion jazz
+	if (zHiddenNames[ubNPC].Hidden == TRUE) 
+	{
+		zHiddenNames[ubNPC].Hidden = FALSE;
+	}
+
 
 	pProfile = &(gMercProfiles[ubNPC]);
 	switch( bApproach )
@@ -1849,7 +1980,7 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 					break;
 				case TRIGGER_NPC:
 					// if triggering, pass in the approach data as the record to consider
-					DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "Handling trigger %S/%d at %ld", gMercProfiles[ ubNPC ].zNickname, (UINT8)uiApproachData, GetJA2Clock() ) );
+					DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "Handling trigger %S/%d at %lu", gMercProfiles[ ubNPC ].zNickname, (UINT8)uiApproachData, GetJA2Clock() ) );
 					NPCConsiderTalking( ubNPC, ubMerc, bApproach, (UINT8)uiApproachData, pNPCQuoteInfoArray, &pQuotePtr, &ubRecordNum );
 					break;
 				default:
@@ -2242,6 +2373,11 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 		case APPROACH_DECLARATION_OF_HOSTILITY:
 		case APPROACH_INITIAL_QUOTE:
 		case APPROACH_GIVINGITEM:
+			// SANDRO - new records - NPCs discovered
+			if ( pProfile->ubLastDateSpokenTo == 0 && FindSoldierByProfileID( ubMerc, TRUE ) != NULL )
+			{
+				gMercProfiles[ubMerc].records.usNPCsDiscovered++;
+			}
 			pProfile->ubLastDateSpokenTo = (UINT8) GetWorldDay();
 			break;
 		default:

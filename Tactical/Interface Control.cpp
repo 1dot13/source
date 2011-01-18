@@ -49,6 +49,7 @@
 	#include "Militia Control.h"
 	#include "Map Screen Interface.h"
 	#include "civ quotes.h"
+	#include "GameSettings.h"
 #endif
 
 /*	I deleted here declaration of clock coords for tactical screen i will declare them
@@ -688,6 +689,14 @@ void RenderTopmostTacticalInterface( )
 	RenderTopmostMultiPurposeLocator( );
 
 	RenderAccumulatedBurstLocations( );
+
+	// HEADROCK HAM 4: The NCTH indicator is now drawn to the FRAMEBUFFER instead of the MOUSEBUFFER. This is
+	// due to size constraints related to drawing directly on the cursor. This indicator follows the mouse, and
+	// is a mouse-cursor in everything but name. See the function itself for more details.
+	if (UsingNewCTHSystem() == true && gfUICtHBar)
+	{
+		DrawCTHIndicator();
+	}
 
 	// Loop through all mercs and make go
 	for ( cnt = 0; cnt < guiNumMercSlots; cnt++ )

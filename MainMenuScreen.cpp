@@ -38,8 +38,8 @@
 #include "mercs.h"
 #include "gamesettings.h"
 #include "connect.h"
-#include "VFS/vfs.h"
-#include "VFS/vfs_profile.h"
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_profile.h>
 
 #define	MAINMENU_TEXT_FILE						"LoadScreens\\MainMenu.edt"
 #define MAINMENU_RECORD_SIZE					80 * 2
@@ -294,7 +294,7 @@ BOOLEAN InitMainMenu( )
 		vfs::CVirtualProfile *pProf = PS->getProfile("_MULTIPLAYER");
 		if( pProf && (pProf == PS->topProfile()) )
 		{
-			THROWIFFALSE(PS->popProfile(), "Leaving Multiplayer mode : Could not remove \"_MULTIPLAYER\" profile");
+			SGP_THROW_IFFALSE(PS->popProfile(), "Leaving Multiplayer mode : Could not remove \"_MULTIPLAYER\" profile");
 		}
 #endif
 
@@ -318,7 +318,7 @@ BOOLEAN InitMainMenu( )
 
 	if (iResolution == 0)
 	{
-	FilenameForBPP("LOADSCREENS\\MainMenuBackGround.sti", VObjectDesc.ImageFile);
+		FilenameForBPP("LOADSCREENS\\MainMenuBackGround.sti", VObjectDesc.ImageFile);
 	}
 	else if (iResolution == 1)
 	{
@@ -339,7 +339,7 @@ BOOLEAN InitMainMenu( )
 
 /*
 	// Gray out some buttons based on status of game!
-	if( gGameSettings.bLastSavedGameSlot < 0 || gGameSettings.bLastSavedGameSlot >= NUM_SAVE_GAMES )
+	if( gGameSettings.bLastSavedGameSlot < 0 || gGameSettings.bLastSavedGameSlot >= NUM_SLOT )
 	{
 		DisableButton( iMenuButtons[ LOAD_GAME ] );
 	}
@@ -362,7 +362,8 @@ BOOLEAN InitMainMenu( )
 	SetPendingNewScreen( MAINMENU_SCREEN);
 	guiMainMenuExitScreen = MAINMENU_SCREEN;
 
-	InitGameOptions();
+	// WANNE: I don't think that is needed!
+	//InitGameOptions();
 
 	DequeueAllKeyBoardEvents();
 
@@ -406,22 +407,14 @@ void InitDependingGameStyleOptions()
 	LoadGameAPBPConstants();
 	// Load ja2_options.ini
 	LoadGameExternalOptions();
+	// Load new STOMP ini - SANDRO
+	LoadSkillTraitsExternalSettings();
+	// HEADROCK HAM 4: CTH constants
+	LoadCTHConstants();
+
 	InitSightRange(); //lal
 
-	ReStartingGame();
-
-	if (is_networked)
-	{
-		NUMBER_OF_MERCS = 28;
-		LAST_MERC_ID = 27;
-	}
-	else
-	{
-		InitGameOptions();
-
-		NUMBER_OF_MERCS = 15;
-		LAST_MERC_ID = 14;
-	}
+	ReStartingGame();	
 }
 
 

@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="8,00"
+	Name="Strategic"
+	ProjectGUID="{AB8837DB-0435-40C7-916A-0AACF5CFF1C4}"
+	RootNamespace="Strategic"
+	Keyword="Win32Proj"
+	>
+	<Platforms>
+		<Platform
+			Name="Win32"
+		/>
+	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="..\lib\VS2005\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2005\$(ProjectName)_$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Debug.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="0"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="4"
+				DisableSpecificWarnings="4100"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="..\lib\VS2005\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2005\$(ProjectName)_$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\ja2.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="MapEditor|Win32"
+			OutputDirectory="..\lib\VS2005\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2005\$(ProjectName)_$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="MapEditorD|Win32"
+			OutputDirectory="..\lib\VS2005\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2005\$(ProjectName)_$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="0"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="4"
+				DisableSpecificWarnings="4100"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_WithDebugInfo|Win32"
+			OutputDirectory="..\lib\VS2005\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2005\$(ProjectName)_$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\ja2.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="0"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
+				RuntimeLibrary="0"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
+			<File
+				RelativePath=".\Assignments.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Auto Resolve.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Campaign Init.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Campaign Types.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Creature Spreading.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Facilities.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Game Clock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Game Event Hook.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Game Events.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Game Init.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Luaglobal.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LuaInitNPCs.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Helicopter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface Border.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface Bottom.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface Map Inventory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface Map.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface TownMine Info.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\mapscreen.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Meanwhile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Merc Contract.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MilitiaSquads.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Player Command.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PreBattle Interface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Queen Command.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Quest Debug System.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Quests.h"
+				>
+			</File>
+			<File
+				RelativePath=".\QuestText.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Reinforcement.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Scheduling.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic AI.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic All.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Event Handler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Merc Handler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Mines LUA.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Mines.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Movement.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Pathing.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Status.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Town Loyalty.h"
+				>
+			</File>
+			<File
+				RelativePath=".\strategic town reputation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Turns.h"
+				>
+			</File>
+			<File
+				RelativePath=".\strategic.h"
+				>
+			</File>
+			<File
+				RelativePath=".\strategicmap.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Town Militia.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UndergroundInit.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
+			<File
+				RelativePath=".\AI Viewer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Assignments.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Auto Resolve.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Campaign Init.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Creature Spreading.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Facilities.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Game Clock.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Game Event Hook.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Game Events.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Game Init.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Hourly Update.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Luaglobal.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LuaInitNPCs.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Helicopter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface Border.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface Bottom.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface Map Inventory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface Map.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface TownMine Info.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Map Screen Interface.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\mapscreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Meanwhile.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Merc Contract.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MilitiaSquads.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Player Command.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PreBattle Interface.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Queen Command.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Quest Debug System.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Quests.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\QuestText.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Reinforcement.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Scheduling.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic AI.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Event Handler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Merc Handler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Mines LUA.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Mines.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Movement Costs.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Movement.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Pathing.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Status.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Town Loyalty.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\strategic town reputation.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Strategic Turns.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\strategic.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\strategicmap.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Town Militia.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UndergroundInit.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Army.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Bloodcats.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_DynamicRestrictions.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_ExtraItems.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Facilities.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_FacilityTypes.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Roaming.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_SectorNames.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_UniformColors.cpp"
+				>
+			</File>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

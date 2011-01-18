@@ -185,36 +185,36 @@ void CreateJA2SelectionWindow( INT16 sWhat )
 	DisableEditorTaskbar( );
 
 	// Load up the button images
-	iButtonIcons[ CANCEL_ICON ] = LoadGenericButtonIcon( "EDITOR//bigX.sti" );
-	iButtonIcons[ UP_ICON ] = LoadGenericButtonIcon( "EDITOR//lgUpArrow.sti" );
-	iButtonIcons[ DOWN_ICON ] = LoadGenericButtonIcon( "EDITOR//lgDownArrow.sti" );
-	iButtonIcons[ OK_ICON ] = LoadGenericButtonIcon( "EDITOR//checkmark.sti" );
+	iButtonIcons[ SEL_WIN_CANCEL_ICON ] = LoadGenericButtonIcon( "EDITOR//bigX.sti" );
+	iButtonIcons[ SEL_WIN_UP_ICON ]		= LoadGenericButtonIcon( "EDITOR//lgUpArrow.sti" );
+	iButtonIcons[ SEL_WIN_DOWN_ICON ]	= LoadGenericButtonIcon( "EDITOR//lgDownArrow.sti" );
+	iButtonIcons[ SEL_WIN_OK_ICON ]		= LoadGenericButtonIcon( "EDITOR//checkmark.sti" );
 
 	iSelectWin = CreateHotSpot(0, 0, 600, 360, MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, SelWinClkCallback);
 
-	iCancelWin = CreateIconButton((INT16)iButtonIcons[CANCEL_ICON], 0,
+	iCancelWin = CreateIconButton((INT16)iButtonIcons[SEL_WIN_CANCEL_ICON], 0,
 														BUTTON_USE_DEFAULT, 600, 40,
 														40, 40, BUTTON_TOGGLE,
  														MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, CnclClkCallback);
 	SetButtonFastHelpText(iCancelWin,L"Cancel selections");
 
-	iOkWin = CreateIconButton((INT16)iButtonIcons[OK_ICON], 0,
+	iOkWin = CreateIconButton((INT16)iButtonIcons[SEL_WIN_OK_ICON], 0,
 														BUTTON_USE_DEFAULT, 600, 0,
 														40, 40, BUTTON_TOGGLE,
 														MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, OkClkCallback);
 	SetButtonFastHelpText(iOkWin,L"Accept selections");
 
-	iScrollUp = CreateIconButton((INT16)iButtonIcons[UP_ICON], 0,
+	iScrollUp = CreateIconButton((INT16)iButtonIcons[SEL_WIN_UP_ICON], 0,
 														BUTTON_USE_DEFAULT, 600, 80,
 														40, 160, BUTTON_NO_TOGGLE,
 														MSYS_PRIORITY_HIGH,
 														DEFAULT_MOVE_CALLBACK, UpClkCallback);
 	SetButtonFastHelpText(iScrollUp,L"Scroll window up");
 
-	iScrollDown = CreateIconButton((INT16)iButtonIcons[DOWN_ICON], 0,
+	iScrollDown = CreateIconButton((INT16)iButtonIcons[SEL_WIN_DOWN_ICON], 0,
 														BUTTON_USE_DEFAULT, 600, 240,
 														40, 160, BUTTON_NO_TOGGLE,
 														MSYS_PRIORITY_HIGH,

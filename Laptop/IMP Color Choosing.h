@@ -17,4 +17,6 @@ INT8 iChosenPants();
 BOOLEAN bBigBodySelected();
 BOOLEAN bBadAssSelected();
 
+void SetBadAss( BOOLEAN fSetTrue );
+
 #endif

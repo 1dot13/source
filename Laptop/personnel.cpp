@@ -31,6 +31,7 @@
 	#include "strategicmap.h"
 	#include "GameSettings.h"
 	#include "Merc Contract.h"
+	#include "_Ja25Englishtext.h" // added by SANDRO
 #endif
 
 #include "Soldier Macros.h"
@@ -139,17 +140,6 @@
 /// atm font
 #define ATM_FONT PERS_FONT
 
-// departed states
-enum{
-	DEPARTED_DEAD = 0,
-	DEPARTED_FIRED,
-	DEPARTED_OTHER,
-	DEPARTED_MARRIED,
-	DEPARTED_CONTRACT_EXPIRED,
-	DEPARTED_QUIT,
-
-};
-
 // atm button positions
 #define ATM_BUTTONS_START_Y								iScreenHeightOffset + 110
 #define ATM_BUTTONS_START_X								iScreenWidthOffset + 510
@@ -201,35 +191,6 @@ enum
 UINT8	gubPersonnelInfoState = PRSNL_STATS;
 
 
-//enums for the pPersonnelScreenStrings[]
-enum
-{
-	PRSNL_TXT_HEALTH, // HEALTH OF MERC
-	PRSNL_TXT_AGILITY,
-	PRSNL_TXT_DEXTERITY,
-	PRSNL_TXT_STRENGTH,
-	PRSNL_TXT_LEADERSHIP,
-	PRSNL_TXT_WISDOM,					//5
-	PRSNL_TXT_EXP_LVL, // EXPERIENCE LEVEL
-	PRSNL_TXT_MARKSMANSHIP,
-	PRSNL_TXT_MECHANICAL,
-	PRSNL_TXT_EXPLOSIVES,
-	PRSNL_TXT_MEDICAL,				//10
-	PRSNL_TXT_MED_DEPOSIT, // AMOUNT OF MEDICAL DEPOSIT PUT DOWN ON THE MERC
-	PRSNL_TXT_CURRENT_CONTRACT, // COST OF CURRENT CONTRACT
-	PRSNL_TXT_KILLS, // NUMBER OF KILLS BY MERC
-	PRSNL_TXT_ASSISTS, // NUMBER OF ASSISTS ON KILLS BY MERC
-	PRSNL_TXT_DAILY_COST, // DAILY COST OF MERC			//15
-	PRSNL_TXT_TOTAL_COST, // TOTAL COST OF MERC
-	PRSNL_TXT_CONTRACT, // COST OF CURRENT CONTRACT
-	PRSNL_TXT_TOTAL_SERVICE, // TOTAL SERVICE RENDERED BY MERC
-	PRSNL_TXT_UNPAID_AMOUNT, // AMOUNT LEFT ON MERC MERC TO BE PAID
-	PRSNL_TXT_HIT_PERCENTAGE, // PERCENTAGE OF SHOTS THAT HIT TARGET		//20
-	PRSNL_TXT_BATTLES, // NUMBER OF BATTLES FOUGHT
-	PRSNL_TXT_TIMES_WOUNDED, // NUMBER OF TIMES MERC HAS BEEN WOUNDED
-	PRSNL_TXT_SKILLS,
-	PRSNL_TXT_NOSKILLS,
-};
 
 extern BOOLEAN gfTemporaryDisablingOfLoadPendingFlag;
 extern BOOLEAN fExitingLaptopFlag;
@@ -275,7 +236,7 @@ POINT pPersonnelScreenPoints[]=
 	{422+PrsnlOffSetX, 380+PrsnlOffSetY}, // for contract price
 	{422+PrsnlOffSetX, 435+PrsnlOffSetY},
 	{140,33},	// Personnel Header
-	{422+PrsnlOffSetX, 330+PrsnlOffSetY},
+	{422+PrsnlOffSetX, 318+PrsnlOffSetY},
 	{422+PrsnlOffSetX, 340+PrsnlOffSetY},	//20
 	{422+PrsnlOffSetX, 355+PrsnlOffSetY},
 	{422+PrsnlOffSetX, 365+PrsnlOffSetY},
@@ -293,6 +254,7 @@ UINT32 guiFACE;
 UINT32 guiDEPARTEDTEAM;
 UINT32 guiCURRENTTEAM;
 UINT32 guiPersonnelInventory;
+UINT32 guiQMark;
 
 INT32 giPersonnelButton[6];
 INT32 giPersonnelButtonImage[6];
@@ -482,7 +444,21 @@ void DisplayAmountOnCurrentMerc( void );
 void RenderRectangleForPersonnelTransactionAmount( void );
 void HandleTimedAtmModes( void );
 
+// SANDRO - added variables for popup help text windows
+MOUSE_REGION	gSkillTraitHelpTextRegion[13];
+BOOLEAN fAddedTraitRegion[13] = { FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE };
+void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel, INT32 IMercId, INT8 bRegionNumber );
+void AssignPersonnelCharacterTraitHelpText( UINT8 ubCharacterNumber );
+void AssignPersonnelDisabilityHelpText( UINT8 ubDisabilityNumber );
+void AssignPersonnelKillsHelpText( INT32 IMercId );
+void AssignPersonnelAssistsHelpText( INT32 IMercId );
+void AssignPersonnelHitPercentageHelpText( INT32 IMercId );
+void AssignPersonnelBattlesHelpText( INT32 IMercId );
+void AssignPersonnelAchievementsHelpText( INT32 IMercId );
+void AssignPersonnelWoundsHelpText( INT32 IMercId );
+INT8 CalculateMercsAchievemntPercentage( INT32 IMercId );
 
+BOOLEAN fShowRecordsIfZero = TRUE;
 
 void GameInitPersonnel( void )
 {
@@ -553,7 +529,7 @@ void InitVariables(void)
 	pPersonnelScreenPoints[18].y = iScreenHeightOffset + 330+PrsnlOffSetY;
 
 	pPersonnelScreenPoints[19].x = iScreenWidthOffset + 422+PrsnlOffSetX;
-	pPersonnelScreenPoints[19].y = iScreenHeightOffset + 340+PrsnlOffSetY;
+	pPersonnelScreenPoints[19].y = iScreenHeightOffset + 333+PrsnlOffSetY;
 
 	pPersonnelScreenPoints[20].x = iScreenWidthOffset + 422+PrsnlOffSetX;
 	pPersonnelScreenPoints[20].y = iScreenHeightOffset + 355+PrsnlOffSetY;
@@ -682,6 +658,16 @@ void ExitPersonnel( void )
 	fCreateRegionsForPastCurrentToggle = FALSE;
 
 	CreateDestroyCurrentDepartedMouseRegions( );
+	
+	// SANDRO - remove the regions
+	for( INT8 i = 0; i < 13; i++ )
+	{
+		if( fAddedTraitRegion[i] )
+		{
+			MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[i] );
+			fAddedTraitRegion[i] = FALSE;
+		}
+	}
 }
 
 void HandlePersonnel( void )
@@ -727,6 +713,11 @@ void LoadPersonnelGraphics( void )
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("LAPTOP\\personnel_inventory.sti", VObjectDesc.ImageFile);
 	CHECKV(AddVideoObject(&VObjectDesc, &guiPersonnelInventory));
+
+	// load ? marks for tooltips
+	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("LAPTOP\\PERSONNEL_TOOLTIP_MARK.sti", VObjectDesc.ImageFile);
+	CHECKV(AddVideoObject(&VObjectDesc, &guiQMark));
 }
 
 void RemovePersonnelGraphics( void )
@@ -736,6 +727,7 @@ void RemovePersonnelGraphics( void )
 	DeleteVideoObjectFromIndex(guiSCREEN);
 	DeleteVideoObjectFromIndex(guiTITLE);
 	DeleteVideoObjectFromIndex(guiPersonnelInventory);
+	DeleteVideoObjectFromIndex(guiQMark);
 }
 
 void RenderPersonnel( void )
@@ -816,56 +808,58 @@ void RenderPersonnelStats( INT32 iId, INT32 iSlot )
 	}
 }
 
+// ID -> fortlaufende ID, und nicht die mercID
+// -> bei aktuellen Merc passt es
+// -> bei departed Merc wird die MercId anstatt der fortlaufenden ID übergeben!!
 void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, BOOLEAN fOther )
 {
+	// Get the profile id (from profileId or slotId)
+	INT32 profileId = iId;
+	if (profileId == -1)
+	{
+		profileId = MercPtrs[iSlot]->ubProfile;
+	}
+
 	char sTemp[100];
 	HVOBJECT hFaceHandle;
 	VOBJECT_DESC	VObjectDesc;
 	// draw face to soldier iId in slot iSlot
 
+	// Currently active merc!
 	// special case?..player generated merc
-	if (fCurrentTeamMode) {
-		if( ( 50 < 	MercPtrs[iId]->ubProfile )&&( 57 > 	MercPtrs[iId]->ubProfile ) ) 
+	if (fCurrentTeamMode) 
+	{
+		if( ( 50 < 	profileId )&&( 57 > 	profileId ) ) 
 		{
-			sprintf( sTemp, "%s%03d.sti", FACES_DIR, 	gMercProfiles[ MercPtrs[iId]->ubProfile	].ubFaceIndex );
+			sprintf( sTemp, "%s%03d.sti", FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
 		} 
 		else 
-		{
-			if (gGameExternalOptions.fReadProfileDataFromXML)
-			{
-				// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
-				sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[Menptr[ iId ].ubProfile].ubFaceIndex);
-			}
-			else
-			{
-				sprintf(sTemp, "%s%02d.sti", FACES_DIR,	Menptr[ iId ].ubProfile);
-			}
+		{			
+			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
 		}
 
-		if( MercPtrs[iId]->flags.uiStatusFlags & SOLDIER_VEHICLE ) {
+		// TODO: Check if needed!
+		if( MercPtrs[iSlot]->flags.uiStatusFlags & SOLDIER_VEHICLE ) 
+		{
 			return;
 		}
-	} else {
+	} 
+	// departed mercs
+	else 
+	{
 		//if this is not a valid merc
-		if( !fDead && !fFired && !fOther ) {
+		if( !fDead && !fFired && !fOther ) 
+		{
 			return;
 		}
 
-		if( ( 50 < 	iId )&&( 57 > 	iId ) ) 
+		if( ( 50 < profileId )&&( 57 > profileId ) ) 
 		{
-			sprintf( sTemp, "%s%03d.sti", FACES_DIR, 	gMercProfiles[ iId	].ubFaceIndex );
+			sprintf( sTemp, "%s%03d.sti", FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
 		} 
 		else 
 		{
-			if (gGameExternalOptions.fReadProfileDataFromXML)
-			{
-				// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
-				sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[Menptr[ iId ].ubProfile].ubFaceIndex );
-			}
-			else
-			{
-				sprintf(sTemp, "%s%02d.sti", FACES_DIR,	iId );
-			}
+			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex );			
 		}
 	}
 
@@ -876,34 +870,45 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 	//Blt face to screen to
 	GetVideoObject(&hFaceHandle, guiFACE);
 
-	if (fCurrentTeamMode) {
-		if( MercPtrs[iId]->stats.bLife <= 0 ) {
+	if (fCurrentTeamMode) 
+	{
+		if( MercPtrs[iSlot]->stats.bLife <= 0 ) 
+		{
 			hFaceHandle->pShades[ 0 ]		= Create16BPPPaletteShaded( hFaceHandle->pPaletteEntry, DEAD_MERC_COLOR_RED, DEAD_MERC_COLOR_GREEN, DEAD_MERC_COLOR_BLUE, TRUE );
 			//set the red pallete to the face
 			SetObjectHandleShade( guiFACE, 0 );
 		}
-	} else {
-		if (fDead == TRUE) {
+	} 
+	else 
+	{
+		if (fDead == TRUE)
+		{
 			hFaceHandle->pShades[ 0 ]		= Create16BPPPaletteShaded( hFaceHandle->pPaletteEntry, DEAD_MERC_COLOR_RED, DEAD_MERC_COLOR_GREEN, DEAD_MERC_COLOR_BLUE, TRUE );
 			//set the red pallete to the face
 			SetObjectHandleShade( guiFACE, 0 );
 		}
 	}
 
-	BltVideoObject(FRAME_BUFFER, hFaceHandle, 0,IMAGE_BOX_X+(iSlot*IMAGE_BOX_WIDTH), IMAGE_BOX_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+	// TODO:Check
+	BltVideoObject(FRAME_BUFFER, hFaceHandle, 0,IMAGE_BOX_X, IMAGE_BOX_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 
 	//if the merc is dead, display it
-	if (!fCurrentTeamMode) {
-		INT32 iHeightOfText = DisplayWrappedString(IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y), IMAGE_NAME_WIDTH, 1, PERS_FONT, PERS_FONT_COLOR, gMercProfiles[ iId	].zName, 0, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT );
+	if (!fCurrentTeamMode)
+	{
+		INT32 iHeightOfText = DisplayWrappedString(IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y), IMAGE_NAME_WIDTH, 1, PERS_FONT, PERS_FONT_COLOR, gMercProfiles[profileId].zName, 0, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT );
 
 		//if the string will rap
-		if( ( iHeightOfText - 2 ) > GetFontHeight( PERS_FONT ) ) {
+		if( ( iHeightOfText - 2 ) > GetFontHeight( PERS_FONT ) ) 
+		{
 			//raise where we display it, and rap it
-			DisplayWrappedString(IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y - GetFontHeight( PERS_FONT )), IMAGE_NAME_WIDTH, 1, PERS_FONT, PERS_FONT_COLOR, gMercProfiles[ iId	].zName, 0, FALSE, CENTER_JUSTIFIED);
-		} else {
-			DrawTextToScreen( gMercProfiles[ iId	].zName, IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y), IMAGE_NAME_WIDTH, PERS_FONT, PERS_FONT_COLOR, 0, FALSE, CENTER_JUSTIFIED );
+			DisplayWrappedString(IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y - GetFontHeight( PERS_FONT )), IMAGE_NAME_WIDTH, 1, PERS_FONT, PERS_FONT_COLOR, gMercProfiles[profileId].zName, 0, FALSE, CENTER_JUSTIFIED);
+		} 
+		else 
+		{
+			DrawTextToScreen( gMercProfiles[profileId].zName, IMAGE_BOX_X, (UINT16)(IMAGE_BOX_Y+IMAGE_FULL_NAME_OFFSET_Y), IMAGE_NAME_WIDTH, PERS_FONT, PERS_FONT_COLOR, 0, FALSE, CENTER_JUSTIFIED );
 		}
 	}
+
 	DeleteVideoObjectFromIndex(guiFACE);
 }
 
@@ -1343,6 +1348,15 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 	SOLDIERTYPE *pSoldier = &Menptr[iId];
 	BOOLEAN	fAmIaRobot = AM_A_ROBOT( pSoldier );
 
+	// SANDRO - remove the regions
+	for( INT8 i = 0; i < 13; i++ )
+	{
+		if( fAddedTraitRegion[i] )
+		{
+			MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[i] );
+			fAddedTraitRegion[i] = FALSE;
+		}
+	}
 
 	if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
@@ -1618,57 +1632,65 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
 		break;
 
-		case 14:
-		// kills
-		mprintf((INT16)(pPersonnelScreenPoints[21].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[21].y,pPersonnelScreenStrings[PRSNL_TXT_KILLS]);
-			swprintf(sString, L"%d",gMercProfiles[Menptr[iId].ubProfile].usKills);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[21].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[21].y,sString);
-		break;
+		/////////////////////////////////////////////////////////////////////////
+		// Added by SANDRO
 		case 15:
-			// assists
-			mprintf((INT16)(pPersonnelScreenPoints[22].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[22].y,pPersonnelScreenStrings[PRSNL_TXT_ASSISTS]);
-			swprintf(sString, L"%d",gMercProfiles[Menptr[iId].ubProfile].usAssists);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[22].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[22].y,sString);
-		break;
-		case 16:
-			// shots/hits
-			mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[23].y,pPersonnelScreenStrings[PRSNL_TXT_HIT_PERCENTAGE]);
-			uiHits = ( UINT32 )gMercProfiles[Menptr[iId].ubProfile].usShotsHit;
-			uiHits *= 100;
+		// Character Trait
+			mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[23].y + 15),pPersonnelRecordsHelpTexts[43]); //L"Character:"
+			swprintf(sString, gzIMPCharacterTraitText[gMercProfiles[Menptr[iId].ubProfile].bCharacterTrait]);
 
-			// check we have shot at least once
-			if( gMercProfiles[Menptr[iId].ubProfile].usShotsFired > 0 )
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,(pPersonnelScreenPoints[23].y + 15),sString);
+
+			//GetVideoObject(&hHandle, guiQMark);
+			//BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[23].x + 148), ( pPersonnelScreenPoints[23].y + 5), VO_BLT_SRCTRANSPARENCY,NULL );
+	
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[5] )
 			{
-			uiHits /= ( UINT32 )gMercProfiles[Menptr[iId].ubProfile].usShotsFired;
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[5] );
 			}
-			else
-			{
-				// no, set hit % to 0
-				uiHits = 0;
-			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[5], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[23].y + 10),
+							( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[23].y + 17 ), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			//MSYS_DefineRegion( &gSkillTraitHelpTextRegion[3], (UINT16)( pPersonnelScreenPoints[23].x + 147 ), (UINT16)(pPersonnelScreenPoints[23].y + 4),
+			//				(UINT16)( pPersonnelScreenPoints[23].x + 166 ), (UINT16)(pPersonnelScreenPoints[23].y + 15), MSYS_PRIORITY_HIGH,
+			//					MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[5] );
+			fAddedTraitRegion[5] = TRUE;
+			// Assign the text
+			AssignPersonnelCharacterTraitHelpText( gMercProfiles[Menptr[iId].ubProfile].bCharacterTrait );
 
+		break;
 
-			swprintf(sString, L"%d %%%%",uiHits);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		sX += StringPixLength( L"%",	PERS_FONT );
-			mprintf(sX,pPersonnelScreenPoints[23].y,sString);
-		break;
-		case 17:
-			// battles
-			mprintf((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[24].y,pPersonnelScreenStrings[PRSNL_TXT_BATTLES]);
-			swprintf(sString, L"%d",gMercProfiles[Menptr[iId].ubProfile].usBattlesFought);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[24].y,sString);
-		break;
 		case 18:
-			// wounds
-			mprintf((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[25].y,pPersonnelScreenStrings[PRSNL_TXT_TIMES_WOUNDED]);
-			swprintf(sString, L"%d",gMercProfiles[Menptr[iId].ubProfile].usTimesWounded);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[25].y,sString);
+			// Disability
+			mprintf((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[25].y + 10),pPersonnelRecordsHelpTexts[44]); //L"Disability:"
+			swprintf(sString, gzIMPDisabilityTraitText[gMercProfiles[Menptr[iId].ubProfile].bDisability]);
+
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,(pPersonnelScreenPoints[25].y + 10),sString);
+
+			//GetVideoObject(&hHandle, guiQMark);
+			//BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[25].x + 148), ( pPersonnelScreenPoints[25].y ), VO_BLT_SRCTRANSPARENCY,NULL );
+	
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[6] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[6] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[6], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[25].y + 10 ),
+							( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[25].y + 17 ), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			//MSYS_DefineRegion( &gSkillTraitHelpTextRegion[6], (UINT16)( pPersonnelScreenPoints[25].x + 147 ), (UINT16)( pPersonnelScreenPoints[25].y - 1),
+			//				(UINT16)( pPersonnelScreenPoints[25].x + 166 ), (UINT16)(pPersonnelScreenPoints[25].y + 10), MSYS_PRIORITY_HIGH,
+			//					MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[6] );
+			fAddedTraitRegion[6] = TRUE;
+			// Assign the text
+			AssignPersonnelDisabilityHelpText( gMercProfiles[Menptr[iId].ubProfile].bDisability );
 		break;
+		/////////////////////////////////////////////////////////////////////////
 
 			// The Mercs Skills
 			case 19:
@@ -1678,7 +1700,7 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 				INT8	bScreenLocIndex = 19;	//if you change the '19', change it below in the if statement
 
 				//Display the 'Skills' text
-				mprintf( (INT16)( pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[bScreenLocIndex].y,pPersonnelScreenStrings[ PRSNL_TXT_SKILLS ] );
+				mprintf( (INT16)( pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[bScreenLocIndex].y),pPersonnelScreenStrings[ PRSNL_TXT_SKILLS ] );
 
 				//KM: April 16, 1999
 				//Added support for the German version, which has potential string overrun problems.	For example, the text "Skills:" can
@@ -1689,67 +1711,256 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 
 				if( !fAmIaRobot )
 				{
-					INT8	bSkill1 = gMercProfiles[ Menptr[iId].ubProfile ].bSkillTrait;
-					INT8	bSkill2 = gMercProfiles[ Menptr[iId].ubProfile ].bSkillTrait2;
-
-					//if the 2 skills are the same, add the '(expert)' at the end
-					if( bSkill1 == bSkill2 && bSkill1 != NO_SKILLTRAIT )
+					if (gGameOptions.fNewTraitSystem) // SANDRO - old/new traits check
 					{
-						swprintf( sString, L"%s %s", gzMercSkillText[bSkill1], gzMercSkillText[NUM_SKILLTRAITS] );
+						UINT8 ubTempSkillArray[30];
+						INT8 bNumSkillTraits = 0;
 
-						FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-
-						//KM: April 16, 1999
-						//Perform the potential overrun check
-						if( sX <= iMinimumX )
+						// lets rearrange our skills to a temp array
+						// we also get the number of lines (skills) to be displayed 
+						for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
 						{
-							FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, PERS_FONT,	&sX, &sY);
-							sX = (INT16)max( sX, iMinimumX );
+							if ( ProfileHasSkillTrait( Menptr[iId].ubProfile, ubCnt ) == 2 )
+							{
+								ubTempSkillArray[bNumSkillTraits] = (ubCnt + 19);
+								bNumSkillTraits++;
+							}
+							else if ( ProfileHasSkillTrait( Menptr[iId].ubProfile, ubCnt ) == 1 )
+							{
+								ubTempSkillArray[bNumSkillTraits] = ubCnt;
+								bNumSkillTraits++;
+							}
 						}
 
-						mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
-					}
-					else
-					{
-						//Display the first skill
-						if( bSkill1 != NO_SKILLTRAIT )
-						{
-							swprintf( sString, L"%s", gzMercSkillText[bSkill1] );
-
-							FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-
-							//KM: April 16, 1999
-							//Perform the potential overrun check
-							sX = (INT16)max( sX, iMinimumX );
-
-							mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
-
-							bScreenLocIndex++;
-						}
-
-						//Display the second skill
-						if( bSkill2 != NO_SKILLTRAIT )
-						{
-							swprintf( sString, L"%s", gzMercSkillText[bSkill2] );
-
-							FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-
-							//KM: April 16, 1999
-							//Perform the potential overrun check
-							sX = (INT16)max( sX, iMinimumX );
-
-							mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
-
-							bScreenLocIndex++;
-						}
-
-						//if no skill was displayed
-						if( bScreenLocIndex == 19 )
+						if ( bNumSkillTraits == 0 )
 						{
 							swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
 
 							FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 							mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
+
+							// Add specific region for fast help window
+							if( fAddedTraitRegion[0] )
+							{
+								MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
+							}
+							MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y ),
+											( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y + 7 ), MSYS_PRIORITY_HIGH,
+												MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+							MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
+							fAddedTraitRegion[0] = TRUE;
+							// Assign the text
+							AssignPersonnelSkillTraitHelpText( 0, FALSE, iId, 0 );						
+						
+						}
+						else
+						{
+							CHAR16 sString2[500];
+							swprintf( sString2, L"" );
+							BOOLEAN fDisplayMoreTraits = FALSE;
+
+							for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
+							{
+								if ( ubCnt >= 4 && bNumSkillTraits > 4 )
+								{
+									fDisplayMoreTraits = TRUE;
+									swprintf( sString, L"%s\n", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
+									wcscat( sString2, sString );
+								}
+								else
+								{
+									swprintf( sString, L"%s", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
+								
+									if ( ubTempSkillArray[ubCnt] > 19 )
+									{
+										FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, FONT10ARIALBOLD,	&sX, &sY);
+
+										if( sX <= iMinimumX )
+										{
+											FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, FONT10ARIALBOLD,	&sX, &sY);
+											sX = (INT16)max( sX, iMinimumX );
+										}
+										sY = (INT16)(pPersonnelScreenPoints[19].y + (ubCnt * 12));
+
+										SetFont( FONT10ARIALBOLD );
+										mprintf(sX,sY,sString);
+										SetFont( PERS_FONT );
+									}
+									else
+									{
+										FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+										if( sX <= iMinimumX )
+										{
+											FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, PERS_FONT,	&sX, &sY);
+											sX = (INT16)max( sX, iMinimumX );
+										}
+										sY = (INT16)(pPersonnelScreenPoints[19].y + (ubCnt * 12));
+
+										mprintf(sX,sY,sString);
+
+									}
+
+									// Add specific region for fast help window
+									if( fAddedTraitRegion[ubCnt] )
+									{
+										MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[ubCnt] );
+									}
+									MSYS_DefineRegion( &gSkillTraitHelpTextRegion[ubCnt], ( sX ), ( sY ),
+													( sX + StringPixLength(sString,PERS_FONT) ), ( sY + 7 ), MSYS_PRIORITY_HIGH,
+														MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+									MSYS_AddRegion( &gSkillTraitHelpTextRegion[ubCnt] );
+									fAddedTraitRegion[ubCnt] = TRUE;
+									// Assign the text
+									AssignPersonnelSkillTraitHelpText( ((ubTempSkillArray[ubCnt] > 19) ? (ubTempSkillArray[ubCnt]-19) : ubTempSkillArray[ubCnt]), ((ubTempSkillArray[ubCnt] > 19) ? TRUE : FALSE), Menptr[iId].ubProfile, ubCnt );
+								}
+							}
+
+							// if we have more skills than we can display, show "more" and create a tooltip box with the rest of them
+							if ( fDisplayMoreTraits )
+							{
+								swprintf( sString, L"%s", gzMercSkillTextNew[ 29 ]); // dispaly "More..."
+								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+								if( sX <= iMinimumX )
+								{
+									FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, PERS_FONT,	&sX, &sY);
+									sX = (INT16)max( sX, iMinimumX );
+								}
+								sY = (INT16)(pPersonnelScreenPoints[19].y + 48);
+
+								mprintf(sX,sY,sString);
+
+								// Add specific region for fast help window
+								if( fAddedTraitRegion[4] )
+								{
+									MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[4] );
+								}
+								MSYS_DefineRegion( &gSkillTraitHelpTextRegion[4], ( sX ), ( sY ),
+												( sX + StringPixLength(sString,PERS_FONT) ), ( sY + 7 ), MSYS_PRIORITY_HIGH,
+													MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+								MSYS_AddRegion( &gSkillTraitHelpTextRegion[4] );
+								fAddedTraitRegion[4] = TRUE;
+								// Set region help text
+								SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[4]), sString2 );
+								SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[4], MSYS_NO_CALLBACK );
+							}
+						}
+					}
+					else
+					{
+						INT8 bSkill1 = 0, bSkill2 = 0; 	
+						bSkill1 = gMercProfiles[ Menptr[iId].ubProfile ].bSkillTraits[0];
+						bSkill2 = gMercProfiles[ Menptr[iId].ubProfile ].bSkillTraits[1];
+
+						//if the 2 skills are the same, add the '(expert)' at the end
+						if( bSkill1 == bSkill2 && bSkill1 != 0 )
+						{
+							swprintf( sString, L"%s %s", gzMercSkillText[bSkill1], gzMercSkillText[EXPERT] );
+
+							FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+
+							//KM: April 16, 1999
+							//Perform the potential overrun check
+							if( sX <= iMinimumX )
+							{
+								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, PERS_FONT,	&sX, &sY);
+								sX = (INT16)max( sX, iMinimumX );
+							}
+
+							mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
+							
+							// Add specific region for fast help window
+							if( fAddedTraitRegion[0] )
+							{
+								MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
+							}
+							MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y ),
+											( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y + 7 ), MSYS_PRIORITY_HIGH,
+												MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+							MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
+							fAddedTraitRegion[0] = TRUE;
+							// Assign the text
+							AssignPersonnelSkillTraitHelpText( bSkill1, TRUE, iId, 0 );
+
+						}
+						else
+						{
+							//Display the first skill
+							if( bSkill1 != 0 )
+							{
+								swprintf( sString, L"%s", gzMercSkillText[bSkill1] );
+
+								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+
+								//KM: April 16, 1999
+								//Perform the potential overrun check
+								sX = (INT16)max( sX, iMinimumX );
+								mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
+
+								// Add specific region for fast help window
+								if( fAddedTraitRegion[0] )
+								{
+									MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
+								}
+								MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y ),
+												( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y + 7 ), MSYS_PRIORITY_HIGH,
+													MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+								MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
+								fAddedTraitRegion[0] = TRUE;
+								// Assign the text
+								AssignPersonnelSkillTraitHelpText( bSkill1, FALSE, iId, 0 );
+	
+								bScreenLocIndex++;
+							}
+
+							//Display the second skill
+							if( bSkill2 != 0 )
+							{
+								swprintf( sString, L"%s", gzMercSkillText[bSkill2] );
+
+								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+
+								//KM: April 16, 1999
+								//Perform the potential overrun check
+								sX = (INT16)max( sX, iMinimumX );
+								mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
+
+								// Add specific region for fast help window
+								if( fAddedTraitRegion[1] )
+								{
+									MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[1] );
+								}
+								MSYS_DefineRegion( &gSkillTraitHelpTextRegion[1], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y ),
+												( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y + 7 ), MSYS_PRIORITY_HIGH,
+													MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+								MSYS_AddRegion( &gSkillTraitHelpTextRegion[1] );
+								fAddedTraitRegion[1] = TRUE;
+								// Assign the text
+								AssignPersonnelSkillTraitHelpText( bSkill2, FALSE, iId, 1 );
+	
+								bScreenLocIndex++;
+							}
+
+							//if no skill was displayed
+							if( bScreenLocIndex == 19 )
+							{
+								swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+
+								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+								mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
+
+								// Add specific region for fast help window
+								if( fAddedTraitRegion[0] )
+								{
+									MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
+								}
+								MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y ),
+												( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y + 7 ), MSYS_PRIORITY_HIGH,
+													MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+								MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
+								fAddedTraitRegion[0] = TRUE;
+								// Assign the text
+								AssignPersonnelSkillTraitHelpText( bSkill1, FALSE, iId, 0 );
+							}
 						}
 					}
 				}
@@ -1759,22 +1970,6 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			}
 			}
 			break;
-/*
-		case 19:
-			// total contract time served
-			mprintf((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[24].y,pPersonnelScreenStrings[18]);
-			if( gMercProfiles[Menptr[iId].ubProfile].usTotalDaysServed > 0 )
-			{
-				swprintf(sString, L"%d %s",gMercProfiles[Menptr[iId].ubProfile].usTotalDaysServed - 1, gpStrategicString[ STR_PB_DAYS_ABBREVIATION ] );
-			}
-			else
-			{
-				swprintf(sString, L"%d %s",gMercProfiles[Menptr[iId].ubProfile].usTotalDaysServed, gpStrategicString[ STR_PB_DAYS_ABBREVIATION ] );
-			}
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[24].y,sString);
-		break;
-*/
 		}
 	}
 	return;
@@ -1963,32 +2158,19 @@ void DisplayPicturesOfCurrentTeam( void )
 		} // if
 
 		SOLDIERTYPE *pSoldier = MercPtrs[currentTeamList[currentOnSreenIndex]];
-		if ((50 < pSoldier->ubProfile) && (57 > pSoldier->ubProfile)) {
+		if ((50 < pSoldier->ubProfile) && (57 > pSoldier->ubProfile)) 
+		{
 			sprintf( sTemp, "%s%03d.sti", SMALL_FACES_DIR, 	gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex );
-		} else {
+		} 
+		else 
+		{
 			if ( pSoldier->ubProfile < 100 ) 
 			{
-				if (gGameExternalOptions.fReadProfileDataFromXML)
-				{
-					// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
-					sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex);
-				}
-				else
-				{
-					sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, pSoldier->ubProfile);
-				}
+				sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex);				
 			} 
 			else 
 			{
-				if (gGameExternalOptions.fReadProfileDataFromXML)
-				{
-					// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
-					sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR, gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex);
-				}
-				else
-				{
-					sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR, pSoldier->ubProfile);
-				}
+				sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR, gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex);				
 			} // else
 		} // else
 
@@ -2090,27 +2272,41 @@ void PersonnelPortraitCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void DisplayFaceOfDisplayedMerc( )
 {
 	// if showing inventory, leave
-	if (fCurrentTeamMode) {
-		if (currentTeamIndex == -1) {
+	if (fCurrentTeamMode) 
+	{
+		if (currentTeamIndex == -1) 
+		{
 			return;
 		}
 		DisplayHighLightBox();
-		RenderPersonnelFace(currentTeamList[currentTeamIndex], 0, FALSE, FALSE, FALSE );
+		RenderPersonnelFace(-1, currentTeamList[currentTeamIndex], FALSE, FALSE, FALSE );
 		DisplayCharName(currentTeamList[currentTeamIndex], 0 );
-		if( gubPersonnelInfoState == PRSNL_INV ) {
+		if( gubPersonnelInfoState == PRSNL_INV ) 
+		{
 			return;
 		}
+
 		RenderPersonnelStats(currentTeamList[currentTeamIndex], 0 );
-	} else {
-		if (iCurrentPersonSelectedId == -1) {
+	} 
+	else 
+	{
+		if (iCurrentPersonSelectedId == -1) 
+		{
 			return;
 		}
+
 		DisplayHighLightBox();
+
+		// Hier dürfte der Aufruf falsch sein
+
 		RenderPersonnelFace(	GetIdOfPastMercInSlot( iCurrentPersonSelectedId ), 0, IsPastMercDead( iCurrentPersonSelectedId ), IsPastMercFired( iCurrentPersonSelectedId ), IsPastMercOther( iCurrentPersonSelectedId ) );
 		DisplayDepartedCharName(	GetIdOfPastMercInSlot( iCurrentPersonSelectedId ), 0, GetTheStateOfDepartedMerc( GetIdOfPastMercInSlot( iCurrentPersonSelectedId	) ) );
-		if( gubPersonnelInfoState == PRSNL_INV ) {
+		
+		if( gubPersonnelInfoState == PRSNL_INV ) 
+		{
 			return;
 		}
+		
 		DisplayDepartedCharStats( GetIdOfPastMercInSlot( iCurrentPersonSelectedId ), 0, GetTheStateOfDepartedMerc( GetIdOfPastMercInSlot( iCurrentPersonSelectedId	) ) );
 	}
 }
@@ -2152,6 +2348,16 @@ void RenderInventoryForCharacter( INT32 iId, INT32 iSlot )
 
 	GetVideoObject(&hHandle, guiPersonnelInventory);
 	BltVideoObject(FRAME_BUFFER, hHandle, 0,( INT16 ) ( iScreenWidthOffset + 397 ), ( INT16 ) ( iScreenHeightOffset + 200 ), VO_BLT_SRCTRANSPARENCY,NULL);
+
+	// SANDRO - remove the regions
+	for( INT8 i = 0; i < 13; i++ )
+	{
+		if( fAddedTraitRegion[i] )
+		{
+			MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[i] );
+			fAddedTraitRegion[i] = FALSE;
+		}
+	}
 
 	if (!fCurrentTeamMode) {
 		return;
@@ -2197,8 +2403,8 @@ void RenderInventoryForCharacter( INT32 iId, INT32 iSlot )
 				usHeight				= (UINT32)pTrav->usHeight;
 				usWidth					= (UINT32)pTrav->usWidth;
 
-				sCenX = PosX + ( abs( 57 - usWidth ) /	2 ) - pTrav->sOffsetX;
-				sCenY = PosY + ( abs( 22 - usHeight ) / 2 ) - pTrav->sOffsetY;
+				sCenX = PosX + ( abs( 57 - (int)usWidth ) /	2 ) - pTrav->sOffsetX;
+				sCenY = PosY + ( abs( 22 - (int)usHeight ) / 2 ) - pTrav->sOffsetY;
 
 				// shadow
 				if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), usGraphicNum, sCenX-2, sCenY+2);
@@ -3724,6 +3930,8 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 	{
 		if (fCurrentTeamMode) {
 			iId = GetIdOfMercWithLowestStat( iCounter );
+			if( iId == -1 )
+				continue;
 		} else {
 			iDepartedId = GetIdOfDepartedMercWithLowestStat( iCounter );
 			if( iDepartedId == -1 )
@@ -3739,9 +3947,9 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 
 		if (fCurrentTeamMode) {
 			// get name
-			if( iId == -1 )
+			/*if( iId == -1 )
 				swprintf( sString, L"%s", pPOWStrings[1] );
-			else
+			else*/
 				swprintf( sString, L"%s", MercPtrs[ iId ]->name );
 		} else {
 			// get name
@@ -3754,9 +3962,9 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 			case 0:
 				// health
 				if (fCurrentTeamMode) {
-					if( iId == -1 )
+					/*if( iId == -1 )
 						iStat = -1;
-					else
+					else*/
 						iStat = MercPtrs[ iId ]->stats.bLifeMax;
 				} else {
 					iStat =	gMercProfiles[ iDepartedId ] . bLife;
@@ -3844,9 +4052,9 @@ void DisplayLowestStatValuesForCurrentTeam( void )
 				break;
 			}
 
-			if( iStat == -1 )
+			/*if( iStat == -1 )
 				swprintf( sString, L"%s", pPOWStrings[1] );
-			else
+			else*/
 				swprintf( sString, L"%d", iStat );
 
 		// right justify
@@ -3895,6 +4103,9 @@ void DisplayHighestStatValuesForCurrentTeam( void )
 		else
 			iId = GetIdOfDepartedMercWithHighestStat( iCounter );
 
+		if( iId == -1 )
+			continue;
+
 		// even or odd?..color black or yellow?
 		if( iCounter % 2 == 0 )
 		{
@@ -3905,13 +4116,14 @@ void DisplayHighestStatValuesForCurrentTeam( void )
 			SetFontForeground( PERS_TEXT_FONT_COLOR );
 		}
 
-
 		if (fCurrentTeamMode)
 		{
 			// get name
-			if( iId == -1 )
+			/*if( iId == -1 )
+			{
 				swprintf( sString, L"%s", pPOWStrings[1] );
-			else
+			}
+			else*/
 				swprintf( sString, L"%s", MercPtrs[ iId ]->name );
 		}
 		else
@@ -3926,9 +4138,9 @@ void DisplayHighestStatValuesForCurrentTeam( void )
 			case 0:
 				// health
 				if (fCurrentTeamMode) {
-					if( iId == -1 )
+					/*if( iId == -1 )
 						iStat = -1;
-					else
+					else*/
 						iStat = MercPtrs[ iId ]->stats.bLifeMax;
 				} else {
 					iStat =	gMercProfiles[ iId ] . bLife;
@@ -4016,9 +4228,9 @@ void DisplayHighestStatValuesForCurrentTeam( void )
 				break;
 			}
 
-			if( iStat == -1 )
+			/*if( iStat == -1 )
 				swprintf( sString, L"%s", pPOWStrings[1] );
-			else
+			else*/
 				swprintf( sString, L"%d", iStat );
 
 		// right justify
@@ -4502,32 +4714,19 @@ void DisplayPortraitOfPastMerc( INT32 iId , INT32 iCounter, BOOLEAN fDead, BOOLE
 	HVOBJECT hFaceHandle;
 	VOBJECT_DESC	VObjectDesc;
 
-	if( ( 50 < 	iId	)&&( 57 > 	iId	) ) {
+	if( ( 50 < 	iId	)&&( 57 > 	iId	) ) 
+	{
 		sprintf( sTemp, "%s%03d.sti", SMALL_FACES_DIR, 	gMercProfiles[ iId ].ubFaceIndex );
-	} else {
+	} 
+	else 
+	{
 		if(	iId	< 100 ) 
 		{
-			if (gGameExternalOptions.fReadProfileDataFromXML)
-			{
-				// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
-				sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[ iId ].ubFaceIndex );
-			}
-			else
-			{
-				sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, iId );
-			}
+			sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[ iId ].ubFaceIndex );			
 		} 
 		else 
-		{
-			if (gGameExternalOptions.fReadProfileDataFromXML)
-			{
-				// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
-				sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR,	gMercProfiles[ iId ].ubFaceIndex	);
-			}
-			else
-			{
-				sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR,	iId	);
-			}
+		{		
+			sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR,	gMercProfiles[ iId ].ubFaceIndex	);			
 		}
 	}
 
@@ -4558,11 +4757,22 @@ void DisplayDepartedCharStats(INT32 iId, INT32 iSlot, INT32 iState)
 	CHAR16 sString[50];
 	INT16 sX, sY;
 	UINT32 uiHits = 0;
+	HVOBJECT hHandle;
 
 		// font stuff
 	SetFont( FONT10ARIAL );
 	SetFontBackground( FONT_BLACK );
 	SetFontForeground( PERS_TEXT_FONT_COLOR );
+
+	// SANDRO - remove the regions
+	for( INT8 i = 0; i < 13; i++ )
+	{
+		if( fAddedTraitRegion[i] )
+		{
+			MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[i] );
+			fAddedTraitRegion[i] = FALSE;
+		}
+	}
 
 	// display the stats for a char
 	for(iCounter=0;iCounter <MAX_STATS; iCounter++)
@@ -4663,28 +4873,64 @@ void DisplayDepartedCharStats(INT32 iId, INT32 iSlot, INT32 iState)
 
 		case 14:
 		// kills
-		mprintf((INT16)(pPersonnelScreenPoints[21].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[21].y,pPersonnelScreenStrings[PRSNL_TXT_KILLS]);
-			swprintf(sString, L"%d",gMercProfiles[iId].usKills);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[21].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[21].y,sString);
+			mprintf((INT16)(pPersonnelScreenPoints[20].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[20].y - 12),pPersonnelScreenStrings[PRSNL_TXT_KILLS]);
+			swprintf(sString, L"%d",(gMercProfiles[iId].records.usKillsElites + gMercProfiles[iId].records.usKillsRegulars + gMercProfiles[iId].records.usKillsAdmins + gMercProfiles[iId].records.usKillsHostiles + gMercProfiles[iId].records.usKillsCreatures + gMercProfiles[iId].records.usKillsTanks + gMercProfiles[iId].records.usKillsOthers));
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[20].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,(pPersonnelScreenPoints[20].y - 12),sString);
+
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[20].x + 148), ( pPersonnelScreenPoints[20].y - 13 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[7] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[7] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[7], (UINT16)( pPersonnelScreenPoints[20].x + 147 ), (UINT16)( pPersonnelScreenPoints[20].y - 14 ),
+							(UINT16)( pPersonnelScreenPoints[20].x + 166 ), (UINT16)(pPersonnelScreenPoints[20].y - 3), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[7] );
+			fAddedTraitRegion[7] = TRUE;
+			// Assign the text
+			AssignPersonnelKillsHelpText( iId );
+
 		break;
 		case 15:
 			// assists
-			mprintf((INT16)(pPersonnelScreenPoints[22].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[22].y,pPersonnelScreenStrings[PRSNL_TXT_ASSISTS]);
-			swprintf(sString, L"%d",gMercProfiles[iId].usAssists);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[22].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[22].y,sString);
+			mprintf((INT16)(pPersonnelScreenPoints[21].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[21].y - 10),pPersonnelScreenStrings[PRSNL_TXT_ASSISTS]);
+			swprintf(sString, L"%d",(gMercProfiles[iId].records.usAssistsMercs + gMercProfiles[iId].records.usAssistsMilitia + gMercProfiles[iId].records.usAssistsOthers));
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[21].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,(pPersonnelScreenPoints[21].y - 10),sString);
+		
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[21].x + 148), ( pPersonnelScreenPoints[21].y - 11 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[8] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[8] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[8], (UINT16)( pPersonnelScreenPoints[21].x + 147 ), (UINT16)( pPersonnelScreenPoints[21].y - 12 ),
+							(UINT16)( pPersonnelScreenPoints[21].x + 166 ), (UINT16)(pPersonnelScreenPoints[21].y - 1), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[8] );
+			fAddedTraitRegion[8] = TRUE;
+			// Assign the text
+			AssignPersonnelAssistsHelpText( iId );
+
 		break;
 		case 16:
 			// shots/hits
-			mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[23].y,pPersonnelScreenStrings[PRSNL_TXT_HIT_PERCENTAGE]);
-			uiHits = ( UINT32 )gMercProfiles[iId].usShotsHit;
+			mprintf((INT16)(pPersonnelScreenPoints[22].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[22].y - 8),pPersonnelScreenStrings[PRSNL_TXT_HIT_PERCENTAGE]);
+			uiHits = ( UINT32 )gMercProfiles[Menptr[iId].ubProfile].records.usShotsHit;
 			uiHits *= 100;
 
 			// check we have shot at least once
-			if( gMercProfiles[iId].usShotsFired > 0 )
+			if( (gMercProfiles[iId].records.usShotsFired + gMercProfiles[iId].records.usMissilesLaunched + gMercProfiles[iId].records.usGrenadesThrown + gMercProfiles[iId].records.usKnivesThrown + gMercProfiles[iId].records.usBladeAttacks + gMercProfiles[iId].records.usHtHAttacks) > 0 )
 			{
-			uiHits /= ( UINT32 )gMercProfiles[iId].usShotsFired;
+				uiHits /= ( UINT32 )(gMercProfiles[iId].records.usShotsFired + gMercProfiles[iId].records.usMissilesLaunched + gMercProfiles[iId].records.usGrenadesThrown + gMercProfiles[iId].records.usKnivesThrown + gMercProfiles[iId].records.usBladeAttacks + gMercProfiles[iId].records.usHtHAttacks);
+				if ( uiHits > 100 )
+					uiHits = 100;
 			}
 			else
 			{
@@ -4692,24 +4938,101 @@ void DisplayDepartedCharStats(INT32 iId, INT32 iSlot, INT32 iState)
 				uiHits = 0;
 			}
 
+
 			swprintf(sString, L"%d %%%%",uiHits);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		sX += StringPixLength( L"%",	PERS_FONT );
-			mprintf(sX,pPersonnelScreenPoints[23].y,sString);
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[22].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			sX += StringPixLength( L"%",	PERS_FONT );
+			mprintf(sX,(pPersonnelScreenPoints[22].y - 8),sString);
+			
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[22].x + 148), ( pPersonnelScreenPoints[22].y - 9 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[9] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[9] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[9], (UINT16)( pPersonnelScreenPoints[22].x + 147 ), (UINT16)( pPersonnelScreenPoints[22].y - 10 ),
+							(UINT16)( pPersonnelScreenPoints[22].x + 166 ), (UINT16)(pPersonnelScreenPoints[22].y + 1), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[9] );
+			fAddedTraitRegion[9] = TRUE;
+			// Assign the text
+			AssignPersonnelHitPercentageHelpText( iId );
+
 		break;
 		case 17:
-			// battles
-			mprintf((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[24].y,pPersonnelScreenStrings[PRSNL_TXT_BATTLES]);
-			swprintf(sString, L"%d",gMercProfiles[iId].usBattlesFought);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[24].y,sString);
+			// Achievements
+			mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[23].y - 6),pPersonnelScreenStrings[PRSNL_TXT_ACHIEVEMNTS]);
+			swprintf(sString, L"%d %%%%",CalculateMercsAchievemntPercentage( iId ));
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			sX += StringPixLength( L"%",	PERS_FONT );
+			mprintf(sX,(pPersonnelScreenPoints[23].y - 6),sString);
+			
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[23].x + 148), ( pPersonnelScreenPoints[23].y - 7 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[10] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[10] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[10], (UINT16)( pPersonnelScreenPoints[23].x + 147 ), (UINT16)( pPersonnelScreenPoints[23].y - 8 ),
+							(UINT16)( pPersonnelScreenPoints[23].x + 166 ), (UINT16)(pPersonnelScreenPoints[23].y + 3), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[10] );
+			fAddedTraitRegion[10] = TRUE;
+			// Assign the text
+			AssignPersonnelAchievementsHelpText( iId );
+
 		break;
 		case 18:
+			// battles
+			mprintf((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[24].y - 4),pPersonnelScreenStrings[PRSNL_TXT_BATTLES]);
+			swprintf(sString, L"%d",(gMercProfiles[iId].records.usBattlesTactical + gMercProfiles[iId].records.usBattlesAutoresolve));
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,(pPersonnelScreenPoints[24].y - 4),sString);
+			
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[24].x + 148), ( pPersonnelScreenPoints[24].y - 5 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[11] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[11] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[11], (UINT16)( pPersonnelScreenPoints[24].x + 147 ), (UINT16)( pPersonnelScreenPoints[24].y - 6 ),
+							(UINT16)( pPersonnelScreenPoints[24].x + 166 ), (UINT16)(pPersonnelScreenPoints[24].y + 5), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[11] );
+			fAddedTraitRegion[11] = TRUE;
+			// Assign the text
+			AssignPersonnelBattlesHelpText( iId );
+
+		break;
+		case 19:
 			// wounds
-			mprintf((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[25].y,pPersonnelScreenStrings[PRSNL_TXT_TIMES_WOUNDED]);
-			swprintf(sString, L"%d",gMercProfiles[iId].usTimesWounded);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[25].y,sString);
+			mprintf((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[25].y - 2),pPersonnelScreenStrings[PRSNL_TXT_TIMES_WOUNDED]);
+			swprintf(sString, L"%d",(gMercProfiles[iId].records.usTimesWoundedShot + gMercProfiles[iId].records.usTimesWoundedStabbed + (gMercProfiles[iId].records.usTimesWoundedPunched/2) + gMercProfiles[iId].records.usTimesWoundedBlasted));
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,(pPersonnelScreenPoints[25].y - 2),sString);
+			
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[25].x + 148), ( pPersonnelScreenPoints[25].y - 3 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[12] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[12] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[12], (UINT16)( pPersonnelScreenPoints[25].x + 147 ), (UINT16)( pPersonnelScreenPoints[25].y - 4 ),
+							(UINT16)( pPersonnelScreenPoints[25].x + 166 ), (UINT16)(pPersonnelScreenPoints[25].y + 7), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[12] );
+			fAddedTraitRegion[12] = TRUE;
+			// Assign the text
+			AssignPersonnelWoundsHelpText( iId );
+
 		break;
 		}
 	}
@@ -4781,7 +5104,8 @@ void DisplayDepartedCharName( INT32 iId, INT32 iSlot, INT32 iState )
 	}
 
 	//if the merc is an AIM merc
-	else if( iId < BIFF )
+	//else if( iId < BIFF )
+	else if ( gProfilesAIM[ iId ].ProfilId == iId )
 	{
 		//if dismissed
 		if( iState == DEPARTED_FIRED )
@@ -4791,7 +5115,8 @@ void DisplayDepartedCharName( INT32 iId, INT32 iSlot, INT32 iState )
 	}
 
 	//else if its a MERC merc
-	else if( iId >= BIFF && iId <= BUBBA )
+	//else if( iId >= BIFF && iId <= BUBBA )
+	else if ( gProfilesMERC[ iId ].ProfilId == iId )
 	{
 		if( iState == DEPARTED_FIRED )
 			swprintf( sString, L"%s", pPersonnelDepartedStateStrings[ DEPARTED_FIRED ] );
@@ -4799,7 +5124,8 @@ void DisplayDepartedCharName( INT32 iId, INT32 iSlot, INT32 iState )
 			swprintf( sString, L"%s", pPersonnelDepartedStateStrings[ DEPARTED_QUIT ] );
 	}
 	//must be a RPC
-	else
+	//else
+	else if ( gProfilesRPC[ iId ].ProfilId == iId )
 	{
 		if( iState == DEPARTED_FIRED )
 			swprintf( sString, L"%s", pPersonnelDepartedStateStrings[ DEPARTED_FIRED ] );
@@ -6153,7 +6479,18 @@ void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
 	CHAR16 sString[50];
 	CHAR16 sStringA[ 50 ];
 	INT16 sX, sY;
+	UINT32 uiHits = 0;
+	HVOBJECT hHandle;
 
+	// SANDRO - remove the regions
+	for( INT8 i = 0; i < 13; i++ )
+	{
+		if( fAddedTraitRegion[i] )
+		{
+			MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[i] );
+			fAddedTraitRegion[i] = FALSE;
+		}
+	}
 
 	if( Menptr[iId].flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
@@ -6392,6 +6729,174 @@ DEF:3/19/99:
 
 		break;
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - show num kills, hit percentage, times wounded etc. in here instead of stats table
+
+		case 14:
+		// kills
+			mprintf((INT16)(pPersonnelScreenPoints[20].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[20].y - 12),pPersonnelScreenStrings[PRSNL_TXT_KILLS]);
+			swprintf(sString, L"%d",(gMercProfiles[Menptr[iId].ubProfile].records.usKillsElites + gMercProfiles[Menptr[iId].ubProfile].records.usKillsRegulars + gMercProfiles[Menptr[iId].ubProfile].records.usKillsAdmins + gMercProfiles[Menptr[iId].ubProfile].records.usKillsHostiles + gMercProfiles[Menptr[iId].ubProfile].records.usKillsCreatures + gMercProfiles[Menptr[iId].ubProfile].records.usKillsTanks + gMercProfiles[Menptr[iId].ubProfile].records.usKillsOthers));
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[20].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,(pPersonnelScreenPoints[20].y - 12),sString);
+
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[20].x + 148), ( pPersonnelScreenPoints[20].y - 13 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[7] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[7] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[7], (UINT16)( pPersonnelScreenPoints[20].x + 147 ), (UINT16)( pPersonnelScreenPoints[20].y - 14 ),
+							(UINT16)( pPersonnelScreenPoints[20].x + 166 ), (UINT16)(pPersonnelScreenPoints[20].y - 3), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[7] );
+			fAddedTraitRegion[7] = TRUE;
+			// Assign the text
+			AssignPersonnelKillsHelpText( iId );
+
+		break;
+		case 15:
+			// assists
+			mprintf((INT16)(pPersonnelScreenPoints[21].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[21].y - 10),pPersonnelScreenStrings[PRSNL_TXT_ASSISTS]);
+			swprintf(sString, L"%d",(gMercProfiles[Menptr[iId].ubProfile].records.usAssistsMercs + gMercProfiles[Menptr[iId].ubProfile].records.usAssistsMilitia + gMercProfiles[Menptr[iId].ubProfile].records.usAssistsOthers));
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[21].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,(pPersonnelScreenPoints[21].y - 10),sString);
+		
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[21].x + 148), ( pPersonnelScreenPoints[21].y - 11 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[8] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[8] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[8], (UINT16)( pPersonnelScreenPoints[21].x + 147 ), (UINT16)( pPersonnelScreenPoints[21].y - 12 ),
+							(UINT16)( pPersonnelScreenPoints[21].x + 166 ), (UINT16)(pPersonnelScreenPoints[21].y - 1), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[8] );
+			fAddedTraitRegion[8] = TRUE;
+			// Assign the text
+			AssignPersonnelAssistsHelpText( iId );
+
+		break;
+		case 16:
+			// shots/hits
+			mprintf((INT16)(pPersonnelScreenPoints[22].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[22].y - 8),pPersonnelScreenStrings[PRSNL_TXT_HIT_PERCENTAGE]);
+			uiHits = ( UINT32 )gMercProfiles[Menptr[iId].ubProfile].records.usShotsHit;
+			uiHits *= 100;
+
+			// check we have shot at least once
+			if( (gMercProfiles[Menptr[iId].ubProfile].records.usShotsFired + gMercProfiles[Menptr[iId].ubProfile].records.usMissilesLaunched + gMercProfiles[Menptr[iId].ubProfile].records.usGrenadesThrown + gMercProfiles[Menptr[iId].ubProfile].records.usKnivesThrown + gMercProfiles[Menptr[iId].ubProfile].records.usBladeAttacks + gMercProfiles[Menptr[iId].ubProfile].records.usHtHAttacks) > 0 )
+			{
+				uiHits /= ( UINT32 )(gMercProfiles[Menptr[iId].ubProfile].records.usShotsFired + gMercProfiles[Menptr[iId].ubProfile].records.usMissilesLaunched + gMercProfiles[Menptr[iId].ubProfile].records.usGrenadesThrown + gMercProfiles[Menptr[iId].ubProfile].records.usKnivesThrown + gMercProfiles[Menptr[iId].ubProfile].records.usBladeAttacks + gMercProfiles[Menptr[iId].ubProfile].records.usHtHAttacks);
+				if ( uiHits > 100 )
+					uiHits = 100;
+			}
+			else
+			{
+				// no, set hit % to 0
+				uiHits = 0;
+			}
+
+
+			swprintf(sString, L"%d %%%%",uiHits);
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[22].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			sX += StringPixLength( L"%",	PERS_FONT );
+			mprintf(sX,(pPersonnelScreenPoints[22].y - 8),sString);
+			
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[22].x + 148), ( pPersonnelScreenPoints[22].y - 9 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[9] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[9] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[9], (UINT16)( pPersonnelScreenPoints[22].x + 147 ), (UINT16)( pPersonnelScreenPoints[22].y - 10 ),
+							(UINT16)( pPersonnelScreenPoints[22].x + 166 ), (UINT16)(pPersonnelScreenPoints[22].y + 1), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[9] );
+			fAddedTraitRegion[9] = TRUE;
+			// Assign the text
+			AssignPersonnelHitPercentageHelpText( iId );
+
+		break;
+		case 17:
+			// Achievements
+			mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[23].y - 6),pPersonnelScreenStrings[PRSNL_TXT_ACHIEVEMNTS]);
+			swprintf(sString, L"%d %%%%", CalculateMercsAchievemntPercentage( Menptr[iId].ubProfile ));
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			sX += StringPixLength( L"%",	PERS_FONT );
+			mprintf(sX,(pPersonnelScreenPoints[23].y - 6),sString);
+			
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[23].x + 148), ( pPersonnelScreenPoints[23].y - 7 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[10] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[10] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[10], (UINT16)( pPersonnelScreenPoints[23].x + 147 ), (UINT16)( pPersonnelScreenPoints[23].y - 8 ),
+							(UINT16)( pPersonnelScreenPoints[23].x + 166 ), (UINT16)(pPersonnelScreenPoints[23].y + 3), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[10] );
+			fAddedTraitRegion[10] = TRUE;
+			// Assign the text
+			AssignPersonnelAchievementsHelpText( iId );
+
+		break;
+		case 18:
+			// battles
+			mprintf((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[24].y - 4),pPersonnelScreenStrings[PRSNL_TXT_BATTLES]);
+			swprintf(sString, L"%d",(gMercProfiles[Menptr[iId].ubProfile].records.usBattlesTactical + gMercProfiles[Menptr[iId].ubProfile].records.usBattlesAutoresolve));
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[24].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,(pPersonnelScreenPoints[24].y - 4),sString);
+			
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[24].x + 148), ( pPersonnelScreenPoints[24].y - 5 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[11] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[11] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[11], (UINT16)( pPersonnelScreenPoints[24].x + 147 ), (UINT16)( pPersonnelScreenPoints[24].y - 6 ),
+							(UINT16)( pPersonnelScreenPoints[24].x + 166 ), (UINT16)(pPersonnelScreenPoints[24].y + 5), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[11] );
+			fAddedTraitRegion[11] = TRUE;
+			// Assign the text
+			AssignPersonnelBattlesHelpText( iId );
+
+		break;
+		case 19:
+			// wounds
+			mprintf((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[25].y - 2),pPersonnelScreenStrings[PRSNL_TXT_TIMES_WOUNDED]);
+			swprintf(sString, L"%d",(gMercProfiles[Menptr[iId].ubProfile].records.usTimesWoundedShot + gMercProfiles[Menptr[iId].ubProfile].records.usTimesWoundedStabbed + (gMercProfiles[Menptr[iId].ubProfile].records.usTimesWoundedPunched/2) + gMercProfiles[Menptr[iId].ubProfile].records.usTimesWoundedBlasted));
+			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+			mprintf(sX,(pPersonnelScreenPoints[25].y - 2),sString);
+			
+			GetVideoObject(&hHandle, guiQMark);
+			BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[25].x + 148), ( pPersonnelScreenPoints[25].y - 3 ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+			// Add specific region for fast help window
+			if( fAddedTraitRegion[12] )
+			{
+				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[12] );
+			}
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[12], (UINT16)( pPersonnelScreenPoints[25].x + 147 ), (UINT16)( pPersonnelScreenPoints[25].y - 4 ),
+							(UINT16)( pPersonnelScreenPoints[25].x + 166 ), (UINT16)(pPersonnelScreenPoints[25].y + 7), MSYS_PRIORITY_HIGH,
+								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_AddRegion( &gSkillTraitHelpTextRegion[12] );
+			fAddedTraitRegion[12] = TRUE;
+			// Assign the text
+			AssignPersonnelWoundsHelpText( iId );
+
+		break;
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////
 		}
 	}
 }
@@ -6429,10 +6934,1583 @@ INT32 CalcTimeLeftOnMercContract( SOLDIERTYPE *pSoldier )
 	return( iTimeLeftOnContract );
 }
 
+// SANDRO - Popup text windows for traits
+void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel, INT32 IMercId, INT8 bRegionNumber )
+{
+	CHAR16	apStr[ 5000 ];
+	CHAR16	atStr[ 1500 ];
 
+	if( gGameOptions.fNewTraitSystem )
+	{
+		switch( ubTraitNumber )
+		{
+			case AUTO_WEAPONS_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubAWBonusCtHAssaultRifles != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsAutoWeapons[0], ( gSkillTraitValues.ubAWBonusCtHAssaultRifles * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAWBonusCtHSMGs != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsAutoWeapons[1], ( gSkillTraitValues.ubAWBonusCtHSMGs * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAWBonusCtHLMGs != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsAutoWeapons[2], ( gSkillTraitValues.ubAWBonusCtHLMGs * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAWFiringSpeedBonusLMGs != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsAutoWeapons[3], ( gSkillTraitValues.ubAWFiringSpeedBonusLMGs * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAWPercentReadyLMGReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsAutoWeapons[4], ( gSkillTraitValues.ubAWPercentReadyLMGReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAWAutoFirePenaltyReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsAutoWeapons[5], ( gSkillTraitValues.ubAWAutoFirePenaltyReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAWUnwantedBulletsReduction > 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsAutoWeapons[6]);
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case HEAVY_WEAPONS_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubHWGrenadeLaunchersAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsHeavyWeapons[0], ( gSkillTraitValues.ubHWGrenadeLaunchersAPsReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubHWRocketLaunchersAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsHeavyWeapons[1], ( gSkillTraitValues.ubHWRocketLaunchersAPsReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubHWBonusCtHGrenadeLaunchers != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsHeavyWeapons[2], ( gSkillTraitValues.ubHWBonusCtHGrenadeLaunchers * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubHWBonusCtHRocketLaunchers != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsHeavyWeapons[3], ( gSkillTraitValues.ubHWBonusCtHRocketLaunchers * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubHWMortarAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsHeavyWeapons[4], ( gSkillTraitValues.ubHWMortarAPsReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubHWMortarCtHPenaltyReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsHeavyWeapons[5], ( gSkillTraitValues.ubHWMortarCtHPenaltyReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubHWDamageTanksBonusPercent != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsHeavyWeapons[6], ( gSkillTraitValues.ubHWDamageTanksBonusPercent * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubHWDamageBonusPercentForHW != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsHeavyWeapons[7], ( gSkillTraitValues.ubHWDamageBonusPercentForHW * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case SNIPER_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubSNBonusCtHRifles != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[0], ( gSkillTraitValues.ubSNBonusCtHRifles * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSNBonusCtHSniperRifles != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[1], ( gSkillTraitValues.ubSNBonusCtHSniperRifles * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSNEffRangeToTargetReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[2], ( gSkillTraitValues.ubSNEffRangeToTargetReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSNAimingBonusPerClick != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[3], ( gSkillTraitValues.ubSNAimingBonusPerClick * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSNDamageBonusPerClick != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[4], ( gSkillTraitValues.ubSNDamageBonusPerClick * (fExpertLevel ? 2 : 1)), L"%");
+					if( gSkillTraitValues.ubSNDamageBonusFromNumClicks == 0)
+					{
+						wcscat( apStr, gzIMPMajorTraitsHelpTextsSniper[5] );
+						wcscat( apStr, gzIMPMajorTraitsHelpTextsSniper[6] );
+					}
+					else if( gSkillTraitValues.ubSNDamageBonusFromNumClicks == 1 )
+					{
+						wcscat( atStr, gzIMPMajorTraitsHelpTextsSniper[6] );
+					}
+					else
+					{
+						wcscat( atStr, gzIMPMajorTraitsHelpTextsSniper[6] );
+						wcscat( atStr, gzIMPMajorTraitsHelpTextsSniper[gSkillTraitValues.ubSNDamageBonusFromNumClicks + 4] );
+					}
+					wcscat( atStr, L"\n" );
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSNChamberRoundAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[14], ( gSkillTraitValues.ubSNChamberRoundAPsReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSNAimClicksAdded != 0 )
+				{
+					if( gSkillTraitValues.ubSNAimClicksAdded == 1 && !fExpertLevel )
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[15]);
+					else
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[16], ( gSkillTraitValues.ubSNAimClicksAdded * (fExpertLevel ? 2 : 1)));
 
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case RANGER_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubRABonusCtHRifles != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[0], ( gSkillTraitValues.ubRABonusCtHRifles * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubRABonusCtHShotguns != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[1], ( gSkillTraitValues.ubRABonusCtHShotguns * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubRAPumpShotgunsAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[2], ( gSkillTraitValues.ubRAPumpShotgunsAPsReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[3], ( gSkillTraitValues.ubRAGroupTimeSpentForTravellingFoot * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[4], ( gSkillTraitValues.ubRAGroupTimeSpentForTravellingVehicle * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubRABreathForTravellingReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[5], ( gSkillTraitValues.ubRABreathForTravellingReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubRAWeatherPenaltiesReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[6], ( gSkillTraitValues.ubRAWeatherPenaltiesReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				//if( gSkillTraitValues.ubRACamoEffectivenessBonus != 0 )
+				//{
+				//	swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[7], ( gSkillTraitValues.ubRACamoEffectivenessBonus * (fExpertLevel ? 2 : 1)), L"%");
+				//	wcscat( apStr, atStr );
+				//}
+				if( gSkillTraitValues.ubRACamoWornountSpeedReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[8], ( gSkillTraitValues.ubRACamoWornountSpeedReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case GUNSLINGER_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubGSFiringSpeedBonusPistols != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsGunslinger[0], ( gSkillTraitValues.ubGSFiringSpeedBonusPistols * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubGSEffectiveRangeBonusPistols != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsGunslinger[1], ( gSkillTraitValues.ubGSEffectiveRangeBonusPistols * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubGSBonusCtHPistols != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsGunslinger[2], ( gSkillTraitValues.ubGSBonusCtHPistols * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubGSBonusCtHMachinePistols != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsGunslinger[3], ( gSkillTraitValues.ubGSBonusCtHMachinePistols * (fExpertLevel ? 2 : 1)), L"%");
+					if( gSkillTraitValues.ubGSCtHMPExcludeAuto )
+						wcscat( atStr, gzIMPMajorTraitsHelpTextsGunslinger[4] );
+					wcscat( atStr, L"\n");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubGSAimingBonusPerClick != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsGunslinger[5], ( gSkillTraitValues.ubGSAimingBonusPerClick * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubGSPercentReadyPistolsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsGunslinger[6], ( gSkillTraitValues.ubGSPercentReadyPistolsReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubGSRealoadSpeedHandgunsBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsGunslinger[7], ( gSkillTraitValues.ubGSRealoadSpeedHandgunsBonus * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubGSAimClicksAdded != 0 )
+				{
+					if( gSkillTraitValues.ubGSAimClicksAdded == 1 && !fExpertLevel )
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsGunslinger[8], ( gSkillTraitValues.ubGSAimClicksAdded * (fExpertLevel ? 2 : 1)));
+					else
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsGunslinger[9], ( gSkillTraitValues.ubGSAimClicksAdded * (fExpertLevel ? 2 : 1)));
 
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case MARTIAL_ARTS_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubMAPunchAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[0], ( gSkillTraitValues.ubMAPunchAPsReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMABonusCtHBareHands != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[1], ( gSkillTraitValues.ubMABonusCtHBareHands * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMABonusCtHBrassKnuckles != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[2], ( gSkillTraitValues.ubMABonusCtHBrassKnuckles * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMABonusDamageHandToHand != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[3], ( gSkillTraitValues.ubMABonusDamageHandToHand * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMABonusBreathDamageHandToHand != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[4], ( gSkillTraitValues.ubMABonusBreathDamageHandToHand * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.usMALostBreathRegainPenalty != 0 )
+				{
+					if( (gSkillTraitValues.usMALostBreathRegainPenalty * (fExpertLevel ? 2 : 1)) <= 25)
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[5]);
+					else if( (gSkillTraitValues.usMALostBreathRegainPenalty * (fExpertLevel ? 2 : 1)) <= 50)
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[6]);
+					else if( (gSkillTraitValues.usMALostBreathRegainPenalty * (fExpertLevel ? 2 : 1)) <= 100)
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[7]);
+					else if( (gSkillTraitValues.usMALostBreathRegainPenalty * (fExpertLevel ? 2 : 1)) <= 200)
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[8]);
+					else if( (gSkillTraitValues.usMALostBreathRegainPenalty * (fExpertLevel ? 2 : 1)) <= 400)
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[9]);
+					else if( (gSkillTraitValues.usMALostBreathRegainPenalty * (fExpertLevel ? 2 : 1)) <= 700)
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[10]);
+					else
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[11]);
 
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.usMAAimedPunchDamageBonus != 0 )
+				{
+					if (gMercProfiles[ IMercId ].ubBodyType != REGMALE  || (gSkillTraitValues.fPermitExtraAnimationsOnlyToMA && !fExpertLevel))
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[12], ( gSkillTraitValues.usMAAimedPunchDamageBonus * (fExpertLevel ? 2 : 1)), L"%");
+					else
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[13], ( gSkillTraitValues.usMAAimedPunchDamageBonus * (fExpertLevel ? 2 : 1)), L"%");
 
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMAChanceToDodgeHtH != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[14], ( gSkillTraitValues.ubMAChanceToDodgeHtH * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMAOnTopCTDHtHBareHanded != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[15], ( gSkillTraitValues.ubMAOnTopCTDHtHBareHanded * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					if( gSkillTraitValues.ubMAOnTopCTDHtHBrassKnuckles == gSkillTraitValues.ubMAOnTopCTDHtHBareHanded ) 
+						wcscat( apStr, gzIMPMajorTraitsHelpTextsMartialArts[16] );
+					else if( gSkillTraitValues.ubMAOnTopCTDHtHBrassKnuckles > 0 )
+					{
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[17], ( gSkillTraitValues.ubMAOnTopCTDHtHBrassKnuckles * (fExpertLevel ? 2 : 1)), L"%");
+						wcscat( apStr, atStr );
+					}
+					wcscat( apStr, L"\n" );
+				}
+				else if( gSkillTraitValues.ubMAOnTopCTDHtHBrassKnuckles != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[18], ( gSkillTraitValues.ubMAOnTopCTDHtHBrassKnuckles * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMAChanceToDodgeMelee != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[19], ( gSkillTraitValues.ubMAChanceToDodgeMelee * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMAReducedAPsToSteal != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[20], ( gSkillTraitValues.ubMAReducedAPsToSteal * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMAAPsChangeStanceReduction != 0 && ( gSkillTraitValues.ubMAAPsChangeStanceReduction == gSkillTraitValues.ubMAApsTurnAroundReduction == gSkillTraitValues.ubMAAPsClimbOrJumpReduction ))
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[21], ( gSkillTraitValues.ubMAAPsChangeStanceReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				else 
+				{
+					if( gSkillTraitValues.ubMAAPsChangeStanceReduction != 0 )
+					{
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[22], ( gSkillTraitValues.ubMAAPsChangeStanceReduction * (fExpertLevel ? 2 : 1)), L"%");
+						wcscat( apStr, atStr );
+					}
+					if( gSkillTraitValues.ubMAApsTurnAroundReduction != 0 )
+					{
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[23], ( gSkillTraitValues.ubMAApsTurnAroundReduction * (fExpertLevel ? 2 : 1)), L"%");
+						wcscat( apStr, atStr );
+					}
+					if( gSkillTraitValues.ubMAAPsClimbOrJumpReduction != 0 )
+					{
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[24], ( gSkillTraitValues.ubMAAPsClimbOrJumpReduction * (fExpertLevel ? 2 : 1)), L"%");
+						wcscat( apStr, atStr );
+					}
+				}
+				if( gSkillTraitValues.ubMAChanceToCkickDoors != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[25], ( gSkillTraitValues.ubMAChanceToCkickDoors * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				//if (gMercProfiles[ IMercId ].ubBodyType == REGMALE && 
+				if (gMercProfiles[ IMercId ].ubBodyType == REGMALE && 
+					((gSkillTraitValues.fPermitExtraAnimationsOnlyToMA && fExpertLevel) ||
+					!gSkillTraitValues.fPermitExtraAnimationsOnlyToMA ))
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[26]);
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case SQUADLEADER_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubSLBonusAPsPercent != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[0], ( gSkillTraitValues.ubSLBonusAPsPercent * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSLEffectiveLevelInRadius != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[1], ( gSkillTraitValues.ubSLEffectiveLevelInRadius * (fExpertLevel ? 2 : 1)), (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSLEffectiveLevelAsStandby != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[2], ( gSkillTraitValues.ubSLEffectiveLevelAsStandby * (fExpertLevel ? 2 : 1)));
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSLOverallSuppresionBonusPercent != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[3], ( gSkillTraitValues.ubSLOverallSuppresionBonusPercent * (fExpertLevel ? 2 : 1)), L"%", (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSLMoraleGainBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[4], ( gSkillTraitValues.ubSLMoraleGainBonus * (fExpertLevel ? 2 : 1)));
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSLMoraleLossReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[5], ( gSkillTraitValues.ubSLMoraleLossReduction * (fExpertLevel ? 2 : 1)));
+					wcscat( apStr, atStr );
+				}
+							
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[6], gSkillTraitValues.usSLRadiusNormal);
+				wcscat( apStr, atStr );
+				if( gSkillTraitValues.usSLRadiusExtendedEar > gSkillTraitValues.usSLRadiusNormal )
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[7], gSkillTraitValues.usSLRadiusExtendedEar);
+
+				wcscat( apStr, atStr );
+				wcscat( apStr, L"\n" );
+
+				if( gSkillTraitValues.ubSLMaxBonuses > 1 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[8], gSkillTraitValues.ubSLMaxBonuses ) ;
+					wcscat( apStr, atStr );
+				}
+				
+				if( gSkillTraitValues.ubSLFearResistance != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[9], ( gSkillTraitValues.ubSLFearResistance * (fExpertLevel ? 2 : 1)), L"%", (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSLDeathMoralelossMultiplier != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[10], (1 + ( gSkillTraitValues.ubSLDeathMoralelossMultiplier * (fExpertLevel ? 2 : 1))), (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case TECHNICIAN_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.usTERepairSpeedBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[0], ( gSkillTraitValues.usTERepairSpeedBonus * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.usTELockpickingBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[1], ( gSkillTraitValues.usTELockpickingBonus * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.usTEDisarmElTrapBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[2], ( gSkillTraitValues.usTEDisarmElTrapBonus * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.usTEAttachingItemsBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[3], ( gSkillTraitValues.usTEAttachingItemsBonus * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTEUnjamGunBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[4], ( gSkillTraitValues.ubTEUnjamGunBonus * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTERepairElectronicsPenaltyReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[5], ( gSkillTraitValues.ubTERepairElectronicsPenaltyReduction * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTEChanceToDetectTrapsBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[6], ( gSkillTraitValues.ubTEChanceToDetectTrapsBonus * (fExpertLevel ? 2 : 1)));
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTECtHControlledRobotBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[7], ( gSkillTraitValues.ubTECtHControlledRobotBonus * (fExpertLevel ? 2 : 1)), L"%", (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTETraitsNumToRepairRobot == 2 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[8], (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					wcscat( apStr, atStr );
+				}
+				else if( gSkillTraitValues.ubTETraitsNumToRepairRobot == 1 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[8], (fExpertLevel ? gzMercSkillTextNew[ubTraitNumber + 19] : gzMercSkillTextNew[ubTraitNumber]));
+					wcscat( apStr, atStr );
+
+					if( gSkillTraitValues.ubTERepairRobotPenaltyReduction != 0 && fExpertLevel)
+					{
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsTechnician[9], ( gSkillTraitValues.ubTERepairRobotPenaltyReduction * (fExpertLevel ? 2 : 1)), L"%");
+						wcscat( apStr, atStr );
+					}
+				}
+				break;
+			}
+			case DOCTOR_NT:
+			{
+				BOOLEAN fCanSurgery = FALSE;
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubDONumberTraitsNeededForSurgery != 0 && ((gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop) > 0))
+				{
+					if( gSkillTraitValues.ubDONumberTraitsNeededForSurgery <= (fExpertLevel ? 2 : 1))
+					{
+						fCanSurgery = TRUE;
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsDoctor[0]);
+						wcscat( apStr, atStr );
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsDoctor[1], (gSkillTraitValues.ubDOSurgeryHealPercentBase + ( gSkillTraitValues.ubDOSurgeryHealPercentOnTop * (fExpertLevel ? 2 : 1))), L"%");
+						wcscat( apStr, atStr );
+						if( gSkillTraitValues.usDOSurgeryMedBagConsumption >= 60 )
+							wcscat( apStr, gzIMPMajorTraitsHelpTextsDoctor[2] );
+
+						wcscat( apStr, L"\n" );
+					}
+				}
+				if( (gSkillTraitValues.usDORepairStatsRateBasic + gSkillTraitValues.usDORepairStatsRateOnTop) > 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsDoctor[3]);
+					wcscat( apStr, atStr );
+					if( fCanSurgery )
+						wcscat( apStr, gzIMPMajorTraitsHelpTextsDoctor[4] );
+
+					wcscat( apStr, gzIMPMajorTraitsHelpTextsDoctor[5] );
+				}
+				if( gSkillTraitValues.usDODoctorAssignmentBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsDoctor[6], ( gSkillTraitValues.usDODoctorAssignmentBonus * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubDOBandagingSpeedPercent != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsDoctor[7], ( gSkillTraitValues.ubDOBandagingSpeedPercent * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubDONaturalRegenBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsDoctor[8], ( gSkillTraitValues.ubDONaturalRegenBonus * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					if( gSkillTraitValues.ubDOMaxRegenBonuses > 1 )
+					{
+						swprintf( atStr, gzIMPMajorTraitsHelpTextsDoctor[9], gSkillTraitValues.ubDOMaxRegenBonuses ) ;
+						wcscat( apStr, atStr );
+					}
+					wcscat( apStr, L"\n" );
+				}
+				break;
+			}
+			case AMBIDEXTROUS_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubAMPenaltyDoubleReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[0], gSkillTraitValues.ubAMPenaltyDoubleReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAMReloadSpeedMagazines != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[1], gSkillTraitValues.ubAMReloadSpeedMagazines, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAMReloadSpeedLoose != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[2], gSkillTraitValues.ubAMReloadSpeedLoose, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAMPickItemsAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[3], gSkillTraitValues.ubAMPickItemsAPsReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAMWorkBackpackAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[4], gSkillTraitValues.ubAMWorkBackpackAPsReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAMHandleDoorsAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[5], gSkillTraitValues.ubAMHandleDoorsAPsReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAMHandleBombsAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[6], gSkillTraitValues.ubAMHandleBombsAPsReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubAMAttachingItemsAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsAmbidextrous[7], gSkillTraitValues.ubAMAttachingItemsAPsReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case MELEE_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubMEBladesAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[0], gSkillTraitValues.ubMEBladesAPsReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMECtHBladesBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[1], gSkillTraitValues.ubMECtHBladesBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMECtHBluntBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[2], gSkillTraitValues.ubMECtHBluntBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMEDamageBonusBlades != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[3], gSkillTraitValues.ubMEDamageBonusBlades, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMEDamageBonusBlunt != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[4], gSkillTraitValues.ubMEDamageBonusBlunt, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.usMEAimedMeleeAttackDamageBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[5], gSkillTraitValues.usMEAimedMeleeAttackDamageBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMEDodgeBladesBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[6], gSkillTraitValues.ubMEDodgeBladesBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMECtDBladesOnTopWithBladeInHands != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[7], gSkillTraitValues.ubMECtDBladesOnTopWithBladeInHands, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMEDodgeBluntBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[8], gSkillTraitValues.ubMEDodgeBluntBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubMECtDBluntOnTopWithBladeInHands != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsMelee[9], gSkillTraitValues.ubMECtDBluntOnTopWithBladeInHands, L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case THROWING_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubTHBladesAPsReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[0], gSkillTraitValues.ubTHBladesAPsReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTHBladesMaxRange != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[1], gSkillTraitValues.ubTHBladesMaxRange, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTHBladesCtHBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[2], gSkillTraitValues.ubTHBladesCtHBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTHBladesCtHBonusPerClick != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[3], gSkillTraitValues.ubTHBladesCtHBonusPerClick, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTHBladesDamageBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[4], gSkillTraitValues.ubTHBladesDamageBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTHBladesDamageBonusPerClick != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[5], gSkillTraitValues.ubTHBladesDamageBonusPerClick, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTHBladesSilentCriticalHitChance != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[6], gSkillTraitValues.ubTHBladesSilentCriticalHitChance, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTHBladesCriticalHitMultiplierBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[7], gSkillTraitValues.ubTHBladesCriticalHitMultiplierBonus);
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTHBladesAimClicksAdded != 0 )
+				{
+					if( gSkillTraitValues.ubTHBladesAimClicksAdded == 1 )
+						swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[8], gSkillTraitValues.ubTHBladesAimClicksAdded );
+					else
+						swprintf( atStr, gzIMPMinorTraitsHelpTextsThrowing[9], gSkillTraitValues.ubTHBladesAimClicksAdded );
+
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case NIGHT_OPS_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubNOeSightRangeBonusInDark != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsNightOps[0], gSkillTraitValues.ubNOeSightRangeBonusInDark, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubNOHearingRangeBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsNightOps[1], gSkillTraitValues.ubNOHearingRangeBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubNOHearingRangeBonusInDark != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsNightOps[2], gSkillTraitValues.ubNOHearingRangeBonusInDark, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubNOIterruptsBonusInDark != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsNightOps[3], gSkillTraitValues.ubNOIterruptsBonusInDark, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubNONeedForSleepReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsNightOps[4], gSkillTraitValues.ubNONeedForSleepReduction);
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case STEALTHY_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubSTStealthModeSpeedBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[0], gSkillTraitValues.ubSTStealthModeSpeedBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSTBonusToMoveQuietly != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[1], gSkillTraitValues.ubSTBonusToMoveQuietly, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSTStealthBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[2], gSkillTraitValues.ubSTStealthBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSTStealthPenaltyForMovingReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[3], gSkillTraitValues.ubSTStealthPenaltyForMovingReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case ATHLETICS_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubATAPsMovementReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsAthletics[0], gSkillTraitValues.ubATAPsMovementReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubATBPsMovementReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsAthletics[1], gSkillTraitValues.ubATBPsMovementReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case BODYBUILDING_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubBBDamageResistance != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsBodybuilding[0], gSkillTraitValues.ubBBDamageResistance, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubBBCarryWeightBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsBodybuilding[1], gSkillTraitValues.ubBBCarryWeightBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubBBBreathLossForHtHImpactReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsBodybuilding[2], gSkillTraitValues.ubBBBreathLossForHtHImpactReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.usBBIncreasedNeededDamageToFallDown != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsBodybuilding[3], gSkillTraitValues.usBBIncreasedNeededDamageToFallDown, L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case DEMOLITIONS_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[0], gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubDEMaxRangeToThrowGrenades != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[1], gSkillTraitValues.ubDEMaxRangeToThrowGrenades, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubDECtHWhenThrowingGrenades != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[2], gSkillTraitValues.ubDECtHWhenThrowingGrenades, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubDEDamageOfBombsAndMines != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[3], gSkillTraitValues.ubDEDamageOfBombsAndMines, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubDEAttachDetonatorCheckBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[4], gSkillTraitValues.ubDEAttachDetonatorCheckBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[5], gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubDEPlacedBombLevelBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[6], gSkillTraitValues.ubDEPlacedBombLevelBonus);
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubDEShapedChargeDamageMultiplier != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsDemolitions[7], gSkillTraitValues.ubDEShapedChargeDamageMultiplier);
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case TEACHING_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubTGBonusToTrainMilitia != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsTeaching[0], gSkillTraitValues.ubTGBonusToTrainMilitia, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsTeaching[1], gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTGBonusToTeachOtherMercs != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsTeaching[2], gSkillTraitValues.ubTGBonusToTeachOtherMercs, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTGEffectiveSkillValueForTeaching != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsTeaching[3], gSkillTraitValues.ubTGEffectiveSkillValueForTeaching);
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubTGBonusOnPractising != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsTeaching[4], gSkillTraitValues.ubTGBonusOnPractising, L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case SCOUTING_NT:
+			{
+				swprintf( apStr, L"" );
+				if( gSkillTraitValues.ubSCSightRangebonusWithScopes != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[0], gSkillTraitValues.ubSCSightRangebonusWithScopes, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.usSCSightRangebonusWithBinoculars != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[1], gSkillTraitValues.usSCSightRangebonusWithBinoculars, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSCTunnelVisionReducedWithBinoculars != 0 )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[2], gSkillTraitValues.ubSCTunnelVisionReducedWithBinoculars, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.fSCCanDetectEnemyPresenseAround  )
+				{
+					if( gSkillTraitValues.fSCCanDetermineEnemyNumbersAround )
+					{
+						swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[3]);
+						wcscat( apStr, atStr );
+					}
+					else
+					{
+						swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[4]);
+						wcscat( apStr, atStr );
+					}
+				}
+				if( gSkillTraitValues.fSCPreventsTheEnemyToAmbushMercs )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[5]);
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.fSCPreventsBloodcatsAmbushes )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsScouting[6]);
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case NO_SKILLTRAIT_NT:
+			{
+				swprintf( apStr, L"" );
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsNone[0] );
+				wcscat( apStr, atStr );
+				break;
+			}
+		}
+	}
+	else
+	{
+		switch( ubTraitNumber )
+		{
+			case LOCKPICKING_OT:
+			{
+				swprintf( apStr, L"" );
+				if( gbSkillTraitBonus[LOCKPICKING_OT] != 0 )
+				{
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[0], ( gbSkillTraitBonus[LOCKPICKING_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case HANDTOHAND_OT:
+			{
+				swprintf( apStr, L"" );
+				if( gbSkillTraitBonus[HANDTOHAND_OT] != 0 )
+				{
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[1], (  gbSkillTraitBonus[HANDTOHAND_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[2], (  3 * gbSkillTraitBonus[HANDTOHAND_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[3], (  gbSkillTraitBonus[HANDTOHAND_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case ELECTRONICS_OT:
+			{
+				swprintf( apStr, L"" );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[4] );
+				wcscat( apStr, atStr );
+				break;
+			}
+			case NIGHTOPS_OT:
+			{
+				swprintf( apStr, L"" );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[5], (fExpertLevel ? 2 : 1));
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[6], (fExpertLevel ? 2 : 1));
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[7], (fExpertLevel ? 2 : 1));
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[8], (fExpertLevel ? 2 : 1));
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[9], (fExpertLevel ? 2 : 1));
+				wcscat( apStr, atStr );
+				break;
+			}
+			case THROWING_OT:
+			{
+				swprintf( apStr, L"" );
+				if( gbSkillTraitBonus[THROWING_OT] != 0 )
+				{
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[10], (  gbSkillTraitBonus[THROWING_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[11], (  gbSkillTraitBonus[THROWING_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[12], (  10 * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case TEACHING_OT:
+			{
+				swprintf( apStr, L"" );
+				if( gGameExternalOptions.ubTeachBonusToTrain != 0 )
+				{
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[13], (  gGameExternalOptions.ubTeachBonusToTrain * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				if( (gGameExternalOptions.usTeacherTraitEffectOnLeadership - 100) > 0 )
+				{
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[14], (  (gGameExternalOptions.usTeacherTraitEffectOnLeadership - 100) * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case HEAVY_WEAPS_OT:
+			{
+				swprintf( apStr, L"" );
+				if( gbSkillTraitBonus[HEAVY_WEAPS_OT] != 0 )
+				{
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[15], (  gbSkillTraitBonus[HEAVY_WEAPS_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case AUTO_WEAPS_OT:
+			{
+				swprintf( apStr, L"" );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[16], (  2 * (fExpertLevel ? 2 : 1)), L"%");
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[17] );
+				wcscat( apStr, atStr );
+				break;
+			}
+			case STEALTHY_OT:
+			{
+				swprintf( apStr, L"" );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[18], (  25 * (fExpertLevel ? 2 : 1)), L"%");
+				wcscat( apStr, atStr );
+				if( gGameExternalOptions.ubStealthTraitCoverValue != 0 )
+				{
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[19], (  gGameExternalOptions.ubStealthTraitCoverValue * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case AMBIDEXT_OT:
+			{
+				swprintf( apStr, L"" );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[20] );
+				wcscat( apStr, atStr );
+				break;
+			}
+			case MARTIALARTS_OT:
+			{
+				swprintf( apStr, L"" );
+				if( gbSkillTraitBonus[MARTIALARTS_OT] != 0 )
+				{
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[28], (  gbSkillTraitBonus[MARTIALARTS_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[29], (  gbSkillTraitBonus[MARTIALARTS_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[30], (  gbSkillTraitBonus[MARTIALARTS_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[31], (  gbSkillTraitBonus[MARTIALARTS_OT] * 2 / 3 * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[32], (  gbSkillTraitBonus[MARTIALARTS_OT] / 2 * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[33]);
+				wcscat( apStr, atStr );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[34]);
+				wcscat( apStr, atStr );
+				break;
+			}
+			case KNIFING_OT:
+			{
+				swprintf( apStr, L"" );
+				if( gbSkillTraitBonus[KNIFING_OT] != 0 )
+				{
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[21], (  gbSkillTraitBonus[KNIFING_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[22], (  gbSkillTraitBonus[KNIFING_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[23], (  gbSkillTraitBonus[KNIFING_OT] / 3 * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[24], (  gbSkillTraitBonus[KNIFING_OT] / 2 * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				break;
+			}
+			case PROF_SNIPER_OT:
+			{
+				swprintf( apStr, L"" );
+				if( gbSkillTraitBonus[PROF_SNIPER_OT] != 0 )
+				{
+					swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[25], (  gbSkillTraitBonus[PROF_SNIPER_OT] * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[26], (  10 * (fExpertLevel ? 2 : 1)), L"%");
+				wcscat( apStr, atStr );
+				break;
+			}
+			case CAMOUFLAGED_OT:
+			{
+				swprintf( apStr, L"" );
+				swprintf( atStr, gzIMPOldSkillTraitsHelpTexts[27] );
+				wcscat( apStr, atStr );
+				break;
+			}
+			case NO_SKILLTRAIT_OT:
+			{
+				swprintf( apStr, L"" );
+				swprintf( atStr, gzIMPMajorTraitsHelpTextsNone[0] );
+				wcscat( apStr, atStr );
+				break;
+			}
+		}
+	}
+
+	// Set region help text
+	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[bRegionNumber]), apStr );
+	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[bRegionNumber], MSYS_NO_CALLBACK );
+
+	return;
+}
+// SANDRO - Popup text windows for character 
+void AssignPersonnelCharacterTraitHelpText( UINT8 ubCharacterNumber )
+{
+	CHAR16	apStr[ 1000 ];
+
+	swprintf( apStr, L"" );
+	swprintf( apStr, gzIMPNewCharacterTraitsHelpTexts[ubCharacterNumber] );
+
+	// Set region help text
+	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[5]), apStr );
+	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[5], MSYS_NO_CALLBACK );
+
+	return;
+}
+// SANDRO - Popup text windows for disability 
+void AssignPersonnelDisabilityHelpText( UINT8 ubDisabilityNumber )
+{
+	CHAR16	apStr[ 500 ];
+
+	swprintf( apStr, L"" );
+	swprintf( apStr, gzIMPDisabilitiesHelpTexts[ubDisabilityNumber] );
+
+	// Set region help text
+	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[6]), apStr );
+	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[6], MSYS_NO_CALLBACK );
+	
+	return;
+}
+
+void AssignPersonnelKillsHelpText( INT32 IMercId )
+{
+	CHAR16	apStr[ 1000 ];
+	CHAR16	atStr[ 150 ];
+
+	swprintf( apStr, L"" );
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsElites > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 0 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsElites );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsRegulars > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 1 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsRegulars );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsAdmins > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 2 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsAdmins );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsHostiles > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 3 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsHostiles );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsCreatures > 0 || fShowRecordsIfZero)
+	{
+		// WANNE: Only display the monster info, when we play with monsters!
+		if (gGameExternalOptions.fEnableCrepitus)
+		{
+			swprintf(atStr, pPersonnelRecordsHelpTexts[ 4 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsCreatures );
+			wcscat( apStr, atStr );
+		}
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsTanks > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 5 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsTanks );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsOthers > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 6 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsOthers );
+		wcscat( apStr, atStr );
+	}
+
+	// Set region help text
+	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[7]), apStr );
+	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[7], MSYS_NO_CALLBACK );
+	
+	return;
+}
+
+void AssignPersonnelAssistsHelpText( INT32 IMercId )
+{
+	CHAR16	apStr[ 350 ];
+	CHAR16	atStr[ 80 ];
+
+	swprintf( apStr, L"" );
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsMercs > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 7 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsMercs );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsMilitia > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 8 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsMilitia );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsOthers > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 9 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usAssistsOthers );
+		wcscat( apStr, atStr );
+	}
+
+	// Set region help text
+	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[8]), apStr );
+	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[8], MSYS_NO_CALLBACK );
+	
+	return;
+}
+
+void AssignPersonnelHitPercentageHelpText( INT32 IMercId )
+{
+	CHAR16	apStr[ 1000 ];
+	CHAR16	atStr[ 150 ];
+
+	swprintf( apStr, L"" );
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usShotsFired > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 10 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usShotsFired );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usMissilesLaunched > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 11 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usMissilesLaunched );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usGrenadesThrown > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 12 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usGrenadesThrown );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKnivesThrown > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 13 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKnivesThrown );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usBladeAttacks > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 14 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usBladeAttacks );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usHtHAttacks > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 15 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usHtHAttacks );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usShotsHit > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 16 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usShotsHit );
+		wcscat( apStr, atStr );
+	}
+
+	// Set region help text
+	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[9]), apStr );
+	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[9], MSYS_NO_CALLBACK );
+	
+	return;
+}
+
+void AssignPersonnelAchievementsHelpText( INT32 IMercId )
+{
+	CHAR16	apStr[ 1000 ];
+	CHAR16	atStr[ 80 ];
+
+	swprintf( apStr, L"" );
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usLocksPicked > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 17 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usLocksPicked );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usLocksBreached > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 18 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usLocksBreached );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTrapsRemoved > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 19 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTrapsRemoved );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usExpDetonated > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 20 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usExpDetonated );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsRepaired > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 21 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsRepaired );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsCombined > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 22 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsCombined );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsStolen > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 23 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usItemsStolen );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usMilitiaTrained > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 24 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usMilitiaTrained );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usMercsBandaged > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 25 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usMercsBandaged );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usSurgeriesMade > 0 || fShowRecordsIfZero)
+	{
+		if ( gGameOptions.fNewTraitSystem )
+		{
+			switch( gSkillTraitValues.ubDONumberTraitsNeededForSurgery )
+			{
+				case 0: 
+					swprintf(atStr, pPersonnelRecordsHelpTexts[ 26 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usSurgeriesMade );
+					wcscat( apStr, atStr );
+					break;
+				case 1: 
+					if ( ProfileHasSkillTrait( Menptr[IMercId].ubProfile, DOCTOR_NT ) > 0 )
+					{
+						swprintf(atStr, pPersonnelRecordsHelpTexts[ 26 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usSurgeriesMade );
+						wcscat( apStr, atStr );
+					}
+					break;
+				case 2: 
+					if ( ProfileHasSkillTrait( Menptr[IMercId].ubProfile, DOCTOR_NT ) > 1 )
+					{
+						swprintf(atStr, pPersonnelRecordsHelpTexts[ 26 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usSurgeriesMade );
+						wcscat( apStr, atStr );
+					}
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usNPCsDiscovered > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 27 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usNPCsDiscovered );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usSectorsDiscovered > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 28 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usSectorsDiscovered );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usAmbushesExperienced > 0 || fShowRecordsIfZero)
+	{
+		if ( gGameOptions.fNewTraitSystem && ( ProfileHasSkillTrait( Menptr[IMercId].ubProfile, SCOUTING_NT ) > 0 ) )
+		{
+			swprintf(atStr, pPersonnelRecordsHelpTexts[ 29 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usAmbushesExperienced );
+			wcscat( apStr, atStr );
+		}
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.ubQuestsHandled > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 30 ], gMercProfiles[Menptr[IMercId].ubProfile].records.ubQuestsHandled );
+		wcscat( apStr, atStr );
+	}
+
+	// Set region help text
+	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[10]), apStr );
+	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[10], MSYS_NO_CALLBACK );
+	
+	return;
+}
+
+void AssignPersonnelBattlesHelpText( INT32 IMercId )
+{
+	CHAR16	apStr[ 400 ];
+	CHAR16	atStr[ 80 ];
+
+	swprintf( apStr, L"" );
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesTactical > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 31 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesTactical );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesAutoresolve > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 32 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesAutoresolve );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesRetreated > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 33 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usBattlesRetreated );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usAmbushesExperienced > 0 || fShowRecordsIfZero)
+	{		
+		if (!( gGameOptions.fNewTraitSystem && ( ProfileHasSkillTrait( Menptr[IMercId].ubProfile, SCOUTING_NT ) > 0 ) ))
+		{
+			swprintf(atStr, pPersonnelRecordsHelpTexts[ 34 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usAmbushesExperienced );
+			wcscat( apStr, atStr );
+		}
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usLargestBattleFought > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 35 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usLargestBattleFought );
+		wcscat( apStr, atStr );
+	}
+
+	// Set region help text
+	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[11]), apStr );
+	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[11], MSYS_NO_CALLBACK );
+	
+	return;
+}
+
+void AssignPersonnelWoundsHelpText( INT32 IMercId )
+{
+	CHAR16	apStr[ 500 ];
+	CHAR16	atStr[ 80 ];
+
+	swprintf( apStr, L"" );
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedShot > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 36 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedShot );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedStabbed > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 37 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedStabbed );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedPunched > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 38 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedPunched );
+		wcscat( apStr, atStr );
+	}
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedBlasted > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 39 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesWoundedBlasted );
+		wcscat( apStr, atStr );
+	}
+	
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesSurgeryUndergoed > 0 || fShowRecordsIfZero)
+	{
+		if ( gGameOptions.fNewTraitSystem )
+		{
+			swprintf(atStr, pPersonnelRecordsHelpTexts[ 41 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesSurgeryUndergoed );
+			wcscat( apStr, atStr );
+		}
+	}
+
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usFacilityAccidents > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 42 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usFacilityAccidents );
+		wcscat( apStr, atStr );
+	}
+
+	// WANNE: Moved to the end
+	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesStatDamaged > 0 || fShowRecordsIfZero)
+	{
+		swprintf(atStr, pPersonnelRecordsHelpTexts[ 40 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usTimesStatDamaged );
+		wcscat( apStr, atStr );
+	}
+
+	// Set region help text
+	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[12]), apStr );
+	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[12], MSYS_NO_CALLBACK );
+	
+	return;
+}
+
+INT8 CalculateMercsAchievemntPercentage( INT32 IMercId )
+{
+	SOLDIERTYPE *pTeamSoldier;
+	INT32 cnt=0;
+	UINT32 uiMercPoints, uiMercPercentage; 
+	unsigned long ulTotalMercPoints = 0;
+
+	// run through active soldiers
+	for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++)
+	{
+		pTeamSoldier = MercPtrs[cnt];
+		// Only count stats of merc (not vehicles)
+		if ( !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pTeamSoldier ) )
+		{
+			if( pTeamSoldier->bActive && pTeamSoldier->stats.bLife > 0 && pTeamSoldier->ubProfile != 0 )
+			{
+				// get total value of all mercs, adjust by importance
+				ulTotalMercPoints += 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usLocksPicked )
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usLocksBreached )
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usTrapsRemoved *3/2)
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usExpDetonated *3/2)
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usItemsRepaired /2)
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usItemsCombined *2)
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usItemsStolen )
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usMercsBandaged *3/4)
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usSurgeriesMade *3/2)
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usNPCsDiscovered *4/3)
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usSectorsDiscovered )
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usMilitiaTrained /4)
+					+ 
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.ubQuestsHandled *2);
+
+			}
+		}
+	}
+
+	// Now get points of our mercs
+	uiMercPoints = 
+		( gMercProfiles[ IMercId ].records.usLocksPicked )
+		+ 
+		( gMercProfiles[ IMercId ].records.usLocksBreached )
+		+ 
+		( gMercProfiles[ IMercId ].records.usTrapsRemoved *3/2)
+		+ 
+		( gMercProfiles[ IMercId ].records.usExpDetonated *3/2)
+		+ 
+		( gMercProfiles[ IMercId ].records.usItemsRepaired /2)
+		+ 
+		( gMercProfiles[ IMercId ].records.usItemsCombined *2)
+		+ 
+		( gMercProfiles[ IMercId ].records.usItemsStolen )
+		+ 
+		( gMercProfiles[ IMercId ].records.usMercsBandaged *3/4)
+		+ 
+		( gMercProfiles[ IMercId ].records.usSurgeriesMade *3/2)
+		+ 
+		( gMercProfiles[ IMercId ].records.usNPCsDiscovered *4/3)
+		+ 
+		( gMercProfiles[ IMercId ].records.usSectorsDiscovered )
+		+ 
+		( gMercProfiles[ IMercId ].records.usMilitiaTrained /4)
+		+ 
+		( gMercProfiles[ IMercId ].records.ubQuestsHandled *2);
+
+	// Calculate percentage
+	if( ulTotalMercPoints != 0 )
+	{
+		uiMercPercentage = (UINT32)(((100 * uiMercPoints)/ulTotalMercPoints)+ 0.5);
+
+		uiMercPercentage = min( 100, uiMercPercentage );
+
+		return( (UINT8)(uiMercPercentage) );
+	}
+	else
+		return( 0 );
+}
 
 

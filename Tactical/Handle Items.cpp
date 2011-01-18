@@ -61,6 +61,9 @@
 	#include "end game.h"
 	#include "interface control.h"
 	#include "Map Screen Interface Map Inventory.h"
+	// added by SANDRO
+	#include "Game Clock.h" 
+	#include "Morale.h"
 #endif
 
 #define					NUM_ITEMS_LISTED			8
@@ -437,26 +440,28 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		// If this is a player guy, show message about no APS
 		if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
 		{
-			if ( (pSoldier->ubProfile != NO_PROFILE) && (gMercProfiles[ pSoldier->ubProfile ].bPersonalityTrait == PSYCHO) )
+			if ( (pSoldier->ubProfile != NO_PROFILE) && (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO) )
 			{
 				// psychos might possibly switch to burst if they can
 				// Changed by ADB, rev 1513
 				//if ( !pSoldier->bDoBurst && IsGunBurstCapable( pSoldier, HANDPOS, FALSE ) )
-				if ( !pSoldier->bDoBurst && IsGunBurstCapable( &pSoldier->inv[HANDPOS], FALSE, pSoldier ) )
+				// SANDRO - messed this a little.. decrease morale a bit when we would like to go psycho,
+				// but have not a gun capable for it
+				if ( PreRandom( 3 + pSoldier->aiData.bAimTime ) == 0 && !pSoldier->bDoBurst )
 				{
-					// chance of firing burst if we have points... chance decreasing when ordered to do aimed shot
-
-					// temporarily set burst to true to calculate action points
-					pSoldier->bDoBurst = TRUE;
-					sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, 0 );
-					// reset burst mode to false (which is what it was at originally)
-					pSoldier->bDoBurst = FALSE;
-
-					if ( EnoughPoints( pSoldier, sAPCost, 0, FALSE ) )
+					if ( IsGunBurstCapable( &pSoldier->inv[HANDPOS], FALSE, pSoldier ) )
 					{
-						// we have enough points to do this burst, roll the dice and see if we want to change
-						if ( Random( 3 + pSoldier->aiData.bAimTime ) == 0 )
+						// chance of firing burst if we have points... chance decreasing when ordered to do aimed shot
+
+						// temporarily set burst to true to calculate action points
+						pSoldier->bDoBurst = TRUE;
+						sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, 0 );
+						// reset burst mode to false (which is what it was at originally)
+						pSoldier->bDoBurst = FALSE;
+
+						if ( EnoughPoints( pSoldier, sAPCost, 0, FALSE ) )
 						{
+							// we have enough points to do this burst, roll the dice and see if we want to change						
 							pSoldier->DoMercBattleSound( BATTLE_SOUND_LAUGH1 );
 							pSoldier->bDoBurst = TRUE;
 							pSoldier->bWeaponMode = WM_BURST;
@@ -465,7 +470,12 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 26 ], pSoldier->name );
 						}
 					}
-
+					else if ( !IsGunAutofireCapable( &pSoldier->inv[HANDPOS] ) )
+					{
+						// reduce morale for we are using a gun without burst or autofire and cannot go psycho
+						//HandleMoraleEventForSoldier( pSoldier, MORALE_PSYCHO_UNABLE_TO_PSYCHO );
+						HandleMoraleEvent( pSoldier, MORALE_PSYCHO_UNABLE_TO_PSYCHO, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+					}
 				}
 			}
 
@@ -480,7 +490,19 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				//Rounding down resulted in division by zero and caused a crash.
 				UINT32 diceSides = RAND_MAX / ( max(10,pSoldier->stats.bMarksmanship) / 10) ;
 
-				DOUBLE avgAPadded = max(((400.0f-2.0f*pSoldier->stats.bAgility))*(63.0f-5.0f*(pSoldier->stats.bExpLevel+2.0f*NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS )))/2700.0f,1); //Important! don't make this zero, the formulae don't like it.
+				DOUBLE avgAPadded;
+				// SANDRO - Slightly changed this formula to make the auto weapons trait little more needed if new traits activated - 
+				if( gGameOptions.fNewTraitSystem )
+				{
+					// also include possible squadleader bonus
+					UINT8 uiEffExpLev = min( 10, (pSoldier->stats.bExpLevel + (gSkillTraitValues.ubSLEffectiveLevelInRadius * GetSquadleadersCountInVicinity( pSoldier, TRUE, FALSE ))));
+					avgAPadded = max(((400.0f-2.0f*pSoldier->stats.bDexterity))*(90.0f-5.0f*(uiEffExpLev+gSkillTraitValues.ubAWUnwantedBulletsReduction*NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT )))/2700.0f,1); //Important! don't make this zero, the formulae don't like it.
+				}
+				else
+				{
+					avgAPadded = max(((400.0f-2.0f*pSoldier->stats.bAgility))*(63.0f-5.0f*(pSoldier->stats.bExpLevel+2.0f*NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS_OT )))/2700.0f,1); //Important! don't make this zero, the formulae don't like it.
+				}
+
 				UINT32 chanceToMisfire = (UINT32)(((DOUBLE)diceSides*(2.0f*avgAPadded+1.0f-sqrt(4.0f*avgAPadded+1.0f)))/(2.0f*avgAPadded)); //derive the chace to misfire from the desired average AP overspent, derived suing
 				UINT32 chanceToMisfireDry = (UINT32)(((DOUBLE)diceSides*(avgAPadded+1.0f-sqrt(2.0f*avgAPadded+1.0f)))/(avgAPadded)); //chance to misfire if weapon is dry.	Designed to waste avgAPadded/2 APs
 				//soldiers get better at controlling bursts with levels, and reflex time (agility)
@@ -491,10 +513,13 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				//UINT32 startAPcost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, 0 );
 				UINT32 roll;
 
-				if((pSoldier->ubProfile != NO_PROFILE) && (gMercProfiles[ pSoldier->ubProfile ].bPersonalityTrait == PSYCHO) && Random(100) < 20)
+				// SANDRO - changed Random to PreRandom to avoid save-load mania
+				if((pSoldier->ubProfile != NO_PROFILE) && (gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO) && PreRandom(100) < 20)
 				{
 					chanceToMisfire = diceSides;
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 26 ], pSoldier->name );
+
+					pSoldier->DoMercBattleSound( BATTLE_SOUND_LAUGH1 ); // Added the laugh sound when going Psycho on autofire - SANDRO
 				}
 
 				chanceToMisfire = __min(diceSides-1, chanceToMisfire); //cap the misfire chance, no-one has reflexes this bad
@@ -503,11 +528,17 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				chanceToMisfireDry = __min(diceSides-1, chanceToMisfireDry); //cap the misfire chance, no-one has reflexes this bad
 				chanceToMisfireDry = __max(1, chanceToMisfireDry); //cap the misfire chance, no-one has reflexes this good
 
+				//CHRISL: Since LMGs can only use autofire, give them slightly better control over misfire
+				if(Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponClass == MGCLASS && Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType == GUN_LMG){
+					chanceToMisfire = (INT32)(chanceToMisfire * .75f);
+					chanceToMisfireDry = (INT32)(chanceToMisfireDry * .75f);
+				}
+
 				//roll dice for each AP to see if we failed to stop firing
 				do
 				{
 					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"HandleItem: auto fire - Rolling dice");
-					roll = Random(diceSides);
+					roll = PreRandom(diceSides); // changed Random to PreRandom - SANDRO
 					//roll = rand();//Random(diceSides);
 					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Rolled %d vs %d", roll, ((pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire)?chanceToMisfire:chanceToMisfireDry));
 
@@ -540,7 +571,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 						// 1 round
 						else
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 63 ], pSoldier->name, __min(pSoldier->bDoAutofire,pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft) - startAuto );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 63 ], pSoldier->name ); // SANDRO - no need for attaching the number if only one round is shot
 						}
 					}
 				}
@@ -1457,7 +1488,16 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 				// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
 				StatChange( pSoldier, EXPLODEAMT, 25, FALSE );
 
-				pSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( 10, ( EffectiveExplosive( pSoldier ) / 20) + (EffectiveExpLevel( pSoldier ) / 3) );
+				// SANDRO - STOMP traits - Demolitions bonus to trap level
+				if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT ))
+				{
+					// +5 trap level for Demolitions trait
+					pSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( max( 10, (8 + gSkillTraitValues.ubDEPlacedBombLevelBonus)), (( EffectiveExplosive( pSoldier ) / 20) + (EffectiveExpLevel( pSoldier ) / 3) + gSkillTraitValues.ubDEPlacedBombLevelBonus) );
+				}
+				else
+				{
+					pSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( 10, ( EffectiveExplosive( pSoldier ) / 20) + (EffectiveExpLevel( pSoldier ) / 3) );
+				}
 				pSoldier->inv[ HANDPOS ][0]->data.misc.ubBombOwner = pSoldier->ubID + 2;
 
 				// we now know there is something nasty here
@@ -1538,11 +1578,27 @@ void HandleSoldierThrowItem( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 			// Draw item depending on distance from buddy
 			if ( GetRangeFromGridNoDiff( sGridNo, pSoldier->sGridNo ) < MIN_LOB_RANGE )
 			{
-				pSoldier->usPendingAnimation = LOB_ITEM;
+				
+				//ddd вожможно еще надо добавить условие проверки на класс кидаемого предмета - гранаты
+				if( (pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM) && 
+					( (pSoldier->ubBodyType == BIGMALE) || (pSoldier->ubBodyType == REGMALE) ) )
+					pSoldier->usPendingAnimation = LOB_GRENADE_STANCE;
+				else
+					pSoldier->usPendingAnimation = LOB_ITEM;
+				
 			}
 			else
-			{
-				pSoldier->usPendingAnimation = THROW_ITEM;
+			{  //ddd вожможно еще надо добавить условие проверки на класс кидаемого предмета - гранаты
+				//INT32 uiItemClass; //такой код тоже работает. фальшвеер и граната из одного класса?
+				//	uiItemClass= Item[ pSoldier->inv[HANDPOS].usItem ].usItemClass;
+				//if( (uiItemClass == IC_GRENADE) && 
+
+
+				if( (pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM) && 
+					( (pSoldier->ubBodyType == BIGMALE) || (pSoldier->ubBodyType == REGMALE) ) )
+					pSoldier->usPendingAnimation = THROW_GRENADE_STANCE;
+				else
+					pSoldier->usPendingAnimation = THROW_ITEM;
 			}
 
 		}
@@ -1913,7 +1969,7 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 	if ( fShouldSayCoolQuote && pSoldier->bTeam == gbPlayerNum )
 	{
 		// Do we have this quote..?
-		if ( QuoteExp_GotGunOrUsedGun[ pSoldier->ubProfile ] == QUOTE_FOUND_SOMETHING_SPECIAL )
+		if ( QuoteExp[ pSoldier->ubProfile ].QuoteExpGotGunOrUsedGun == QUOTE_FOUND_SOMETHING_SPECIAL )
 		{
 			// Have we not said it today?
 			if ( !( pSoldier->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_FOUND_SOMETHING_NICE ) )
@@ -2007,7 +2063,7 @@ void HandleSoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 					wchar_t string2[20];
 
 					ptr = wcscat(buffer, string);
-					_ltow(APBPConstants[AP_DISARM_MINE], string2, 10);
+					_ltow(GetAPsToDisarmMine( pSoldier ), string2, 10); // SANDRO
 					ptr = wcscat(buffer, string2);
 					string = L"AP)";
 					ptr = wcscat(buffer, string);
@@ -3995,7 +4051,7 @@ void SoldierGiveItemFromAnimation( SOLDIERTYPE *pSoldier )
 	ubTargetMercID = (UINT8)pSoldier->aiData.uiPendingActionData4;
 
 	// ATE: Deduct APs!
-	DeductPoints( pSoldier, APBPConstants[AP_PICKUP_ITEM], 0 );
+	DeductPoints( pSoldier, GetBasicAPsToPickupItem( pSoldier ), 0 ); // SANDRO
 
 	if ( VerifyGiveItem( pSoldier, &pTSoldier ) )
 	{
@@ -4063,7 +4119,9 @@ void SoldierGiveItemFromAnimation( SOLDIERTYPE *pSoldier )
 
 		// Switch on target...
 		// Are we a player dude.. ( target? )
-		if ( ubProfile < FIRST_RPC || RPC_RECRUITED( pTSoldier ) || ubProfile >= GASTON )
+	//	if ( ubProfile < FIRST_RPC || RPC_RECRUITED( pTSoldier ) || ubProfile >= GASTON )
+		//new profiles by Jazz		
+		if ( ( gProfilesAIM[ubProfile].ProfilId == ubProfile || gProfilesMERC[ubProfile].ProfilId == ubProfile || gProfilesIMP[ubProfile].ProfilId == ubProfile ) || RPC_RECRUITED( pTSoldier ) )			
 		{
 			fToTargetPlayer = TRUE;
 		}
@@ -4314,7 +4372,17 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 
 			if ( ArmBomb( &(gpTempSoldier->inv[HANDPOS]), ubExitValue ) )
 			{
-				gpTempSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( 10, ( EffectiveExplosive( gpTempSoldier ) / 20) + (EffectiveExpLevel( gpTempSoldier ) / 3) );
+				// SANDRO - STOMP traits - Demolitions bonus to trap level
+				if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( gpTempSoldier, DEMOLITIONS_NT ))
+				{
+					// increase trap level for Demolitions trait
+					gpTempSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( max( 10, (8 + gSkillTraitValues.ubDEPlacedBombLevelBonus)), (( EffectiveExplosive( gpTempSoldier ) / 20) + (EffectiveExpLevel( gpTempSoldier ) / 3) + gSkillTraitValues.ubDEPlacedBombLevelBonus) );
+				}
+				else
+				{
+					gpTempSoldier->inv[ HANDPOS ][0]->data.bTrap = __min( 10, ( EffectiveExplosive( gpTempSoldier ) / 20) + (EffectiveExpLevel( gpTempSoldier ) / 3) );
+				}
+				
 				// HACK IMMINENT!
 				// value of 1 is stored in maps for SIDE of bomb owner... when we want to use IDs!
 				// so we add 2 to all owner IDs passed through here and subtract 2 later
@@ -4548,8 +4616,9 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 		//CHRISL: first things first.  If we're in combat, we need to spend some APs to disarm the device
 		if((gTacticalStatus.uiFlags & INCOMBAT) || (gTacticalStatus.fEnemyInSector))
 		{
-			if(EnoughPoints(gpBoobyTrapSoldier, APBPConstants[AP_DISARM_MINE], APBPConstants[BP_DISARM_MINE], TRUE))
-				DeductPoints(gpBoobyTrapSoldier, APBPConstants[AP_DISARM_MINE], APBPConstants[BP_DISARM_MINE]);
+			// SANDRO was here, AP_DISARM_MINE changed to GetAPsToDisarmMine
+			if(EnoughPoints(gpBoobyTrapSoldier, GetAPsToDisarmMine( gpBoobyTrapSoldier ), APBPConstants[BP_DISARM_MINE], TRUE))
+				DeductPoints(gpBoobyTrapSoldier, GetAPsToDisarmMine( gpBoobyTrapSoldier ), APBPConstants[BP_DISARM_MINE]);
 			else
 				return;
 		}
@@ -4589,12 +4658,18 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 				{
 					// disarmed our team's boobytrap!
 					StatChange( gpBoobyTrapSoldier, EXPLODEAMT, (UINT16) (4 * gbTrapDifficulty), FALSE );
+					
+					// SANDRO - merc records - trap removal count (don't count our own traps)
+					gMercProfiles[ gpBoobyTrapSoldier->ubProfile ].records.usTrapsRemoved++;
 				}
 			}
 			else
 			{
 				// disarmed a boobytrap!
 				StatChange( gpBoobyTrapSoldier, EXPLODEAMT, (UINT16) (6 * gbTrapDifficulty), FALSE );
+
+				// SANDRO - merc records - trap removal count
+				gMercProfiles[ gpBoobyTrapSoldier->ubProfile ].records.usTrapsRemoved++;
 			}
 
 			// have merc say this is good
@@ -4632,7 +4707,7 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 							CreateItem( DETONATOR, gTempObject[0]->data.misc.bBombStatus, &TempAttachment );
 						}
 						
-						if (ValidAttachment( TempAttachment.usItem , gTempObject.usItem ))
+						if (ValidAttachment( TempAttachment.usItem , &gTempObject ))
 						{
 							gTempObject.AttachObject(NULL, &TempAttachment, FALSE);
 						}
@@ -4746,6 +4821,10 @@ void BoobyTrapInMapScreenMessageBoxCallBack( UINT8 ubExitValue )
 		{
 			// disarmed a boobytrap!
 			StatChange( gpBoobyTrapSoldier, EXPLODEAMT, (UINT16) (6 * gbTrapDifficulty), FALSE );
+
+			// SANDRO - merc records - trap removal count
+			if ( gpBoobyTrapSoldier->ubProfile != NO_PROFILE )
+				gMercProfiles[ gpBoobyTrapSoldier->ubProfile ].records.usTrapsRemoved++;
 
 
 			// have merc say this is good
@@ -5467,7 +5546,7 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 		fStealItem = FALSE;
 
 		pObject=&pOpponent->inv[i];
-		if (pObject->exists() == true)
+		if ((pObject->exists() == true) && !(Item[pObject->usItem].defaultundroppable  )) // CHECK! Undroppable items cannot be stolen - SANDRO
 		{
 			// Is the enemy collapsed
 			if ( pOpponent->stats.bLife < OKLIFE || pOpponent->bCollapsed )
@@ -5591,6 +5670,7 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 	BOOLEAN			fPickup;
 	BOOLEAN			fShouldSayCoolQuote = FALSE;
 	BOOLEAN			fDidSayCoolQuote = FALSE;
+	BOOLEAN			fNotEnoughAPs = FALSE; // added by SANDRO
 
 	// OK. CHECK IF WE ARE DOING ALL IN THIS POOL....
 	if ( iItemIndex == ITEM_PICKUP_ACTION_ALL || iItemIndex == ITEM_PICKUP_SELECTION )
@@ -5611,17 +5691,51 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 			cnt++;
 			if ( fPickup )
 			{
-				// Make copy of item
-				gTempObject = pOpponent->inv[pTempItemPool->iItemIndex];
-				if ( ItemIsCool( &gTempObject ) )
+				////////////////////////////////////////////////////////////////////
+				// SANDRO - added mechanism for APs needed to steal all items..
+				if ( gGameExternalOptions.fEnhancedCloseCombatSystem )
 				{
-					fShouldSayCoolQuote = TRUE;
+					if (pSoldier->bActionPoints >= GetBasicAPsToPickupItem( pSoldier ) )
+					{
+						DeductPoints( pSoldier, GetBasicAPsToPickupItem( pSoldier ), 0 );
+					
+						// Make copy of item
+						gTempObject = pOpponent->inv[pTempItemPool->iItemIndex];
+						if ( ItemIsCool( &gTempObject ) )
+						{
+							fShouldSayCoolQuote = TRUE;
+						}
+						if ( !AutoPlaceObject( pSoldier, &gTempObject, TRUE ) )
+						{
+							AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
+						}
+						DeleteObj(&pOpponent->inv[pTempItemPool->iItemIndex]);
+
+						// add to merc records
+						if ( pSoldier->ubProfile != NO_PROFILE )
+							gMercProfiles[ pSoldier->ubProfile ].records.usItemsStolen++;
+
+					}
+					else
+					{
+						fNotEnoughAPs = TRUE;
+					}
 				}
-				if ( !AutoPlaceObject( pSoldier, &gTempObject, TRUE ) )
+				else // original code
 				{
-					AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
+					// Make copy of item
+					gTempObject = pOpponent->inv[pTempItemPool->iItemIndex];
+					if ( ItemIsCool( &gTempObject ) )
+					{
+						fShouldSayCoolQuote = TRUE;
+					}
+					if ( !AutoPlaceObject( pSoldier, &gTempObject, TRUE ) )
+					{
+						AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
+					}
+					DeleteObj(&pOpponent->inv[pTempItemPool->iItemIndex]);
 				}
-				DeleteObj(&pOpponent->inv[pTempItemPool->iItemIndex]);
+				////////////////////////////////////////////////////////////////////
 			}
 			pTempItemPool = pTempItemPool->pNext;
 		}
@@ -5649,6 +5763,13 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 	{
 		pSoldier->DoMercBattleSound( BATTLE_SOUND_GOTIT );
 	}
+
+	// SANDRO - show a message, that we had insufficient APs to take all items
+	if ( fNotEnoughAPs && pSoldier->bTeam == gbPlayerNum && gGameExternalOptions.fEnhancedCloseCombatSystem)
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_NOT_ENOUGH_APS_TO_STEAL_ALL], pSoldier->name );
+	}
+
 	gpTempSoldier = pSoldier;
 	gsTempGridNo = sGridNo;
 	SetCustomizableTimerCallbackAndDelay( 1000, CheckForPickedOwnership, TRUE );

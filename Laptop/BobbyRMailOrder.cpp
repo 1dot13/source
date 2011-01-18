@@ -31,6 +31,7 @@
 #include "Strategic Event Handler.h"
 #include "connect.h"
 
+/*
 typedef struct
 {
 	STR16	*psCityLoc;
@@ -38,8 +39,9 @@ typedef struct
 	UINT16	us2DaysService;
 	UINT16	usStandardService;
 } BobbyROrderLocationStruct;
+*/
 
-
+/*
 BobbyROrderLocationStruct BobbyROrderLocations[]=
 {
 	{	&pDeliveryLocationStrings[0],		20,		15,		10 },
@@ -60,6 +62,7 @@ BobbyROrderLocationStruct BobbyROrderLocations[]=
 	{	&pDeliveryLocationStrings[15],	100,	55,		30 },
 	{	&pDeliveryLocationStrings[16],	45,		30,		20 },
  };
+*/
 
 //drop down menu
 enum
@@ -829,7 +832,10 @@ void BtnBobbyRAcceptOrderCallback(GUI_BUTTON *btn,INT32 reason)
 				else
 				{
 					//else pop up a confirmation box
-					swprintf( zTemp, BobbyROrderFormText[BOBBYR_CONFIRM_DEST],	*BobbyROrderLocations[gbSelectedCity].psCityLoc );
+					//swprintf( zTemp, BobbyROrderFormText[BOBBYR_CONFIRM_DEST],	*BobbyROrderLocations[gbSelectedCity].psCityLoc );
+					
+					// WANNE: Replaced hard coded town names with the externalized ones (from ShippingDestination.xml).
+					swprintf( zTemp, BobbyROrderFormText[BOBBYR_CONFIRM_DEST],	gDestinationTable[gbSelectedCity]->wstrName.c_str() );
 					DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, zTemp, LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmBobbyRPurchaseMessageBoxCallBack );
 				}
 
@@ -1433,10 +1439,12 @@ BOOLEAN CreateDestroyBobbyRDropDown( UINT8 ubDropDownAction )
 			//display the name on the title bar
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, BOBBYR_SHIPPING_LOC_AREA_L_X, BOBBYR_SHIPPING_LOC_AREA_T_Y, BOBBYR_SHIPPING_LOC_AREA_L_X+175,	BOBBYR_SHIPPING_LOC_AREA_T_Y+BOBBYR_DROP_DOWN_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 
+			/*
 			if( gbSelectedCity == -1 )
 				DrawTextToScreen( BobbyROrderFormText[BOBBYR_SELECT_DEST], BOBBYR_CITY_START_LOCATION_X+BOBBYR_CITY_NAME_OFFSET, BOBBYR_SHIPPING_LOC_AREA_T_Y+3, 0, BOBBYR_DROPDOWN_FONT, BOBBYR_ORDER_DROP_DOWN_SELEC_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
-			else
+			else			
 				DrawTextToScreen( *(BobbyROrderLocations[gbSelectedCity].psCityLoc), BOBBYR_CITY_START_LOCATION_X+BOBBYR_CITY_NAME_OFFSET, BOBBYR_SHIPPING_LOC_AREA_T_Y+3, 0, BOBBYR_DROPDOWN_FONT, BOBBYR_ORDER_DROP_DOWN_SELEC_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
+			*/
 
 			//disable the r\close regiuon
 		MSYS_DisableRegion(&gSelectedCloseDropDownRegion);

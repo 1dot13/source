@@ -25,11 +25,12 @@
 	#include "IMP Confirm.h"
 	#include "messageboxscreen.h"
 	#include "LaptopSave.h"
-	// These 4 added - SANDRO
+	// These 5 added - SANDRO
 	#include "IMP Character and Disability Entrance.h"
 	#include "IMP Character Trait.h"
 	#include "IMP Disability Trait.h"
 	#include "IMP Color Choosing.h"
+	#include "IMP Minor Trait.h"
 #endif
 
 
@@ -67,6 +68,7 @@ CHAR16 pNickName[ 32 ];
 // skills
 INT32 iSkillA = 0;
 INT32 iSkillB = 0;
+INT32 iSkillC = 0; // added third skill - SANDRO
 
 // personality
 INT32 iPersonality = 0;
@@ -255,7 +257,7 @@ void HandleCharProfile()
 		case( IMP_CONFIRM ):
 			HandleIMPConfirm( );
 		break;
-		// These 4 added - SANDRO
+		// These 5 added - SANDRO
 		case( IMP_CHARACTER_AND_DISABILITY_ENTRANCE ):
 			HandleIMPCharacterAndDisabilityEntrance( );
 		break;
@@ -267,6 +269,9 @@ void HandleCharProfile()
 		break;
 		case( IMP_COLOR_CHOICE_PAGE ):
 			HandleIMPColorChoice( );
+		break;
+		case( IMP_MINOR_TRAITS_PAGE ):
+			HandleIMPMinorTrait( );
 		break;
 	}
 
@@ -328,7 +333,7 @@ void RenderCharProfile()
 		case( IMP_CONFIRM ):
 			RenderIMPConfirm( );
 		break;
-		// These 4 added - SANDRO
+		// These 5 added - SANDRO
 		case( IMP_CHARACTER_AND_DISABILITY_ENTRANCE ):
 			RenderIMPCharacterAndDisabilityEntrance( );
 		break;
@@ -340,6 +345,9 @@ void RenderCharProfile()
 		break;
 		case( IMP_COLOR_CHOICE_PAGE ):
 			RenderIMPColorChoice( );
+		break;
+		case( IMP_MINOR_TRAITS_PAGE ):
+			RenderIMPMinorTrait( );
 		break;
 	}
 
@@ -425,7 +433,7 @@ void ExitOldIMPMode( void )
 		case( IMP_CONFIRM ):
 			ExitIMPConfirm( );
 		break;
-		// These 4 added - SANDRO
+		// These 5 added - SANDRO
 		case( IMP_CHARACTER_AND_DISABILITY_ENTRANCE ):
 			DestroyIMPButtons( );
 			ExitIMPCharacterAndDisabilityEntrance( );
@@ -441,6 +449,10 @@ void ExitOldIMPMode( void )
 		case( IMP_COLOR_CHOICE_PAGE ):
 			DestroyIMPButtons( );
 			ExitIMPColorChoice( );
+		break;
+		case( IMP_MINOR_TRAITS_PAGE ):
+			DestroyIMPButtons( );
+			ExitIMPMinorTrait( );
 		break;
 	}
 
@@ -508,7 +520,7 @@ void EnterNewIMPMode( void )
 		case( IMP_CONFIRM ):
 			EnterIMPConfirm( );
 		break;
-		// These 4 added - SANDRO
+		// These 5 added - SANDRO
 		case( IMP_CHARACTER_AND_DISABILITY_ENTRANCE ):
 			CreateIMPButtons( );
 			EnterIMPCharacterAndDisabilityEntrance( );
@@ -524,6 +536,10 @@ void EnterNewIMPMode( void )
 		case( IMP_COLOR_CHOICE_PAGE ):
 			CreateIMPButtons( );
 			EnterIMPColorChoice( );
+		break;
+		case( IMP_MINOR_TRAITS_PAGE ):
+			CreateIMPButtons( );
+			EnterIMPMinorTrait( );
 		break;
 	}
 
@@ -552,6 +568,7 @@ void ResetCharacterStats( void )
 	// skills
 	iSkillA = 0;
 	iSkillB = 0;
+	iSkillC = 0; // SANDRO - added third skill
 
 	// personality
 	iPersonality = 0;
@@ -614,8 +631,9 @@ void LoadImpGraphics( void )
 	LoadAvgMercIndentFrame( );
 	LoadAboutUsIndentFrame( );
 
-	LoadAttribStartingLevelFrame( ); // Added by SANDRO
-	LoadColorChoiceFrame( ); // Added by SANDRO
+	// Added by SANDRO
+	LoadAttribStartingLevelFrame( );
+	LoadColorChoiceFrame( );
 
 	return;
 
@@ -666,9 +684,10 @@ void RemoveImpGraphics( void )
 	DeleteAttrib2IndentFrame( );
 	DeleteAvgMercIndentFrame( );
 	DeleteAboutUsIndentFrame( );
-	
-	DeleteAttribStartingLevelFrame( ); // Added by SANDRO
-	DeleteColorChoiceFrame( ); // Added by SANDRO
+
+	 // Added by SANDRO
+	DeleteAttribStartingLevelFrame( );
+	DeleteColorChoiceFrame( );
 
 	return;
 }

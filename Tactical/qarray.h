@@ -11,6 +11,21 @@ extern	BOOLEAN QuoteExp_PassingDislike[NUM_PROFILES];
 extern	BOOLEAN QuoteExp_WitnessQueenBugDeath[NUM_PROFILES];
 extern	BOOLEAN QuoteExp_WitnessDeidrannaDeath[NUM_PROFILES];
 
+typedef struct
+{
+	UINT16	uiIndex; 
+	BOOLEAN QuoteExpHeadShotOnly;
+	BOOLEAN QuoteExpTeamSpecific;
+	BOOLEAN QuoteExpGenderCode;
+	BOOLEAN QuoteExpGotGunOrUsedGun;
+	BOOLEAN QuoteExpPassingDislike;	
+	BOOLEAN QuoteExpWitnessQueenBugDeath;
+	BOOLEAN QuoteExpWitnessDeidrannaDeath;
+
+} QARRAY_VALUES;
+
+extern QARRAY_VALUES QuoteExp[NUM_PROFILES];
+
 
 
 #endif

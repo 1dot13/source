@@ -328,6 +328,8 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 				IncrementTownLoyalty( ubTownId, uiTownLoyaltyBonus );
 			}
 
+			// SANDRO - merc records (num militia trained)
+			RecordNumMilitiaTrainedForMercs( sMapX, sMapY, pTrainer->bSectorZ, ubMilitiaTrained, FALSE );
 		}
 
 	// the trainer announces to player that he's finished his assignment.	Make his sector flash!
@@ -882,6 +884,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR(pSoldier->sSectorX, pSoldier->sSectorY) ] );
 		BOOLEAN fUnfullSectorFound = FALSE;
 
+		// Test to see if not enough Town Militia
+		// HEADROCK HAM 4: No need for this check anymore. Militia can now be trained separately thanks to being
+		// able to keep them out of cities.
+		/*
+
 		if ( CountMilitia( pSectorInfo ) < gGameExternalOptions.iMaxMilitiaPerSector )
 		{
 			fUnfullSectorFound = TRUE;
@@ -925,6 +932,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 			DoContinueMilitiaTrainingMessageBox( sSectorX, sSectorY, sString, MSG_BOX_FLAG_OK, CantTrainMobileMilitiaOkBoxCallback );
 			return;
 		}
+		*/
 
 		//////////////////////////////////////////
 		// Capacity check in nearby sectors
@@ -1162,7 +1170,7 @@ void HandleMilitiaStatusInCurrentMapBeforeLoadingNewMap( void )
 }
 
 
-BOOLEAN CanNearbyMilitiaScoutThisSector( INT16 sSectorX, INT16 sSectorY )
+BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN fScoutTraitCheck ) // added argument  - SANDRO
 {
 	INT16 sSectorValue = 0, sSector = 0;
 	INT16 sCounterA = 0, sCounterB = 0;
@@ -1184,18 +1192,36 @@ BOOLEAN CanNearbyMilitiaScoutThisSector( INT16 sSectorX, INT16 sSectorY )
 
 			sSectorValue = SECTOR( sCounterA, sCounterB );
 
-			// check if any sort of militia here
-			if( SectorInfo[ sSectorValue ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] )
+			// SANDRO - STOMP traits - Scouting check
+			if (fScoutTraitCheck && gGameOptions.fNewTraitSystem && ScoutIsPresentInSquad( sCounterA, sCounterB ))
 			{
-				return( TRUE );
+				// if diagonal sector and not allowed
+				if (!gSkillTraitValues.fSCDetectionInDiagonalSectors && 
+					((sCounterA - 1 == sSectorX && sCounterB + 1 == sSectorY) ||
+					 (sCounterA - 1 == sSectorX && sCounterB - 1 == sSectorY) ||
+					 (sCounterA + 1 == sSectorX && sCounterB + 1 == sSectorY) ||
+					 (sCounterA + 1 == sSectorX && sCounterB - 1 == sSectorY))) 
+				{
+					return( FALSE );
+				}
+				else
+					return( TRUE );
 			}
-			else if( SectorInfo[ sSectorValue ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] )
+			else
 			{
-				return( TRUE );
-			}
-			else if( SectorInfo[ sSectorValue ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] )
-			{
-				return( TRUE );
+				// check if any sort of militia here
+				if( SectorInfo[ sSectorValue ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] )
+				{
+					return( TRUE );
+				}
+				else if( SectorInfo[ sSectorValue ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] )
+				{
+					return( TRUE );
+				}
+				else if( SectorInfo[ sSectorValue ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] )
+				{
+					return( TRUE );
+				}
 			}
 		}
 	}
@@ -1891,10 +1917,21 @@ UINT8 FindBestMilitiaTrainingLeadershipInSector ( INT16 sMapX, INT16 sMapY, INT8
 			{
 				usTrainerEffectiveLeadership = EffectiveLeadership(pCheckedTrainer);
 
-				// Effective leadership is modified by an INI-based percentage, once for every TEACHING trait level.
-				if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
+				if ( gGameOptions.fNewTraitSystem ) // SANDRO - old/new traits
 				{
-					for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pCheckedTrainer, TEACHING ); i++ )
+					// -10% penalty for untrained mercs
+					usTrainerEffectiveLeadership = (usTrainerEffectiveLeadership * (100 - gSkillTraitValues.bSpeedModifierTrainingMilitia) / 100);
+
+					if (HAS_SKILL_TRAIT( pCheckedTrainer, TEACHING_NT ))
+					{
+						// bonus from Teaching trait
+						usTrainerEffectiveLeadership = __min(100,(usTrainerEffectiveLeadership * (100 + gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia) / 100 ));
+					}
+				}
+				// Effective leadership is modified by an INI-based percentage, once for every TEACHING trait level.
+				else if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
+				{
+					for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pCheckedTrainer, TEACHING_OT ); i++ )
 					{
 						// percentage-based.
 						usTrainerEffectiveLeadership = __min(100,((usTrainerEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100));

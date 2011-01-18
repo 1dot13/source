@@ -250,7 +250,7 @@ enum
 #define AIM_PENALTY_TARGET_PRONE	40
 #define AIM_PENALTY_BLIND			80
 #define AIM_PENALTY_FIRING_UP		25
-#define	HIGH_POWER_SCOPE			14
+//#define	HIGH_POWER_SCOPE			14 //Externalized
 
 #define MAX_WEAPON_NAME_LENGTH		20
 
@@ -268,7 +268,8 @@ typedef struct
  UINT8	ubBulletSpeed;			 // bullet's travelling speed
  UINT8	ubImpact;					// weapon's max damage impact (size & speed)
  UINT8	ubDeadliness;							// comparative ratings of guns
- INT8	bAccuracy;								// accuracy or penalty
+ INT8	bAccuracy;								// accuracy or penalty used by OCTH
+ INT8	nAccuracy;								// accuracy or penalty used by NCTH
  UINT8	ubMagSize;
  UINT16	usRange;
  UINT16	usReloadDelay;
@@ -294,6 +295,17 @@ typedef struct
  INT16	sAniDelay;			// Lesh: for burst animation delay
  UINT8	APsToReloadManually;
  UINT16 ManualReloadSound;
+ BOOLEAN EasyUnjam; // Guns where each bullet has its own chamber (like revolvers) are easyer to unjam 
+
+ INT8	bRecoilX;		// HEADROCK HAM 4: Recoil now measured in points of muzzle deviation X and Y.
+ INT8	bRecoilY;		// Positive values indicated upwards (Y) and rightwards (X). Negatives are down (-Y) and left (-X).
+							// Note that each value is an array. Each item in the array determines recoil
+							// for a different bullet in the sequence. Not all values have to be filled,
+							// but the last filled value will determine the recoil for longer volleys.
+ UINT8	ubRecoilDelay;
+
+ UINT8	ubAimLevels;		// HEADROCK HAM 4: Dictates how many aiming levels this gun supports. If 0, the program
+							// chooses automatically based on the type of gun (see AllowedAimingLevels() ).
 
 } WEAPONTYPE;
 typedef struct
@@ -326,6 +338,7 @@ typedef struct
 	UINT32		uiIndex;
 	UINT16		ubDuration;	
 	UINT16		ubStartRadius;	
+	UINT8		ubMagSize;
 } EXPLOSIVETYPE;
 
 //GLOBALS
@@ -340,6 +353,9 @@ extern AMMOTYPE AmmoTypes[MAXITEMS];
 extern BOOLEAN ReadInWeaponStats(STR fileName);
 extern BOOLEAN WriteWeaponStats();
 
+extern bool gbForceWeaponNotReady;
+extern bool gbForceWeaponReady;
+
 extern INT32 EffectiveArmour( OBJECTTYPE * pObj );
 extern INT8 ArmourVersusExplosivesPercent( SOLDIERTYPE * pSoldier );
 extern BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
@@ -350,6 +366,7 @@ extern INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubH
 extern BOOLEAN InRange( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 extern void ShotMiss( UINT8 ubAttackerID, INT32 iBullet );
 extern UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );
+extern UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );
 extern UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );
 extern UINT32 CalcChanceToPunch(SOLDIERTYPE *pAttacker, SOLDIERTYPE * pDefender, INT16 ubAimTime);
 extern UINT32 CalcChanceToStab(SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAimTime);
@@ -382,15 +399,18 @@ void DishoutQueenSwipeDamage( SOLDIERTYPE *pQueenSoldier );
 
 INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BOOLEAN fBladeAttack );
 
-UINT16 GunRange( OBJECTTYPE * pObj );
+UINT16 GunRange( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier ); // SANDRO - added argument
 BOOLEAN IsWeapon ( UINT16 itemIndex );
 UINT8 GetDamage ( OBJECTTYPE *pObj );
+// HEADROCK HAM 4: Same function as above, but without modifiers from attached items.
+UINT8 GetBasicDamage ( OBJECTTYPE *pObj );
 UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj );
 UINT8 GetBaseAutoFireCost( OBJECTTYPE *pObj );
 UINT8 GetBurstPenalty( OBJECTTYPE *pObj, BOOLEAN fProneStance = FALSE );
 UINT8 GetAutoPenalty( OBJECTTYPE *pObj, BOOLEAN fProneStance = FALSE );
 UINT8 GetShotsPerBurst( OBJECTTYPE *pObj );
-UINT16 GetMagSize( OBJECTTYPE *pObj );
+UINT16 GetMagSize( OBJECTTYPE *pObj, UINT8 subObject = 0 );
+UINT16 GetExpMagSize( OBJECTTYPE *pObj );
 UINT8 GetAmmoType( OBJECTTYPE *pObj );
 bool WeaponReady(SOLDIERTYPE * pSoldier);
 INT8 GetAPsToReload( OBJECTTYPE *pObj );
@@ -400,5 +420,9 @@ INT8 GetAPsToReload( OBJECTTYPE *pObj );
 void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );
 extern CHAR16 gBulletCount[10];
 
+// HEADROCK HAM 4: This function generates a mag-factor bar percentage.
+void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTime );
+// HEADROCK HAM 4: This gets the Z of a target regardless of what's there.
+FLOAT GetTargetZPos( SOLDIERTYPE *pShooter, INT32 sTargetGridNo );
 
 #endif

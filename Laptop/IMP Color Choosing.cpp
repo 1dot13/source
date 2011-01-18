@@ -23,7 +23,10 @@
 	#include "IMP Begin Screen.h"
 	#include "WCheck.h"
 	#include "Animation Data.h"
+	#include "GameSettings.h"
 #endif
+
+#include "IMP Confirm.h"
 
 enum
 { 
@@ -170,7 +173,7 @@ BOOLEAN gfIST_Redraw4=FALSE;
 BOOLEAN fReDrawColorScreenFlag;
 
 BOOLEAN bBigBody;
-BOOLEAN bBadAss;
+BOOLEAN bBadAss = FALSE;
 
 // these are the buttons for the arrows
 INT32 giIMPColorChoiceButton[ 11 ];
@@ -224,8 +227,33 @@ void EnterIMPColorChoice( void )
 	bBigBody = FALSE;
 	bBadAss = FALSE;
 
+		if( fCharacterIsMale )
+		{
+			if ( gIMPMaleValues[ iPortraitNumber ].uiIndex == iPortraitNumber && gIMPMaleValues[ iPortraitNumber ].bSex == 0 )
+			{		
+				iCurrentSkin = gIMPMaleValues[ iPortraitNumber ].iCurrentSkin;
+				iCurrentHair = gIMPMaleValues[ iPortraitNumber ].iCurrentHair;
+				iCurrentShirt = gIMPMaleValues[ iPortraitNumber ].iCurrentShirt;
+				iCurrentPants = gIMPMaleValues[ iPortraitNumber ].iCurrentPants;
+				bBigBody = gIMPMaleValues[ iPortraitNumber ].bBigBody;
+			}
+		}
+		else
+		{
+			
+			if ( gIMPFemaleValues[ iPortraitNumber ].uiIndex == iPortraitNumber && gIMPFemaleValues[ iPortraitNumber ].bSex == 1 )
+			{		
+				iCurrentSkin = gIMPFemaleValues[ iPortraitNumber ].iCurrentSkin;
+				iCurrentHair = gIMPFemaleValues[ iPortraitNumber ].iCurrentHair;
+				iCurrentShirt = gIMPFemaleValues[ iPortraitNumber ].iCurrentShirt;
+				iCurrentPants = gIMPFemaleValues[ iPortraitNumber ].iCurrentPants;
+				bBigBody = gIMPFemaleValues[ iPortraitNumber ].bBigBody;
+			}
+			
+		}
+
 	// Based on the portrait chosen, set the default colors, when colors
-	switch( iPortraitNumber )
+/*	switch( iPortraitNumber )
 	{
 		case( 0 ):
 			iCurrentSkin = 3;
@@ -327,7 +355,7 @@ void EnterIMPColorChoice( void )
 			iCurrentPants = 5;
 			break;
 	}
-
+*/
 	//add the buttons
 	AddIMPColorChoiceButtons();
 
@@ -451,8 +479,8 @@ void ExitIMPColorChoice( void )
 
 	DeleteVideoObjectFromIndex( guiIST_GreyGoldBox4 );
 
-	//remove the skin buttons
-	for(iCnt = 0; iCnt < ( fCharacterIsMale ? 11 : 8); iCnt++) // fix of bug, removing unasigned buttons when female
+	//remove the buttons
+	for(iCnt = 0; iCnt < ( fCharacterIsMale ? 11 : 8); iCnt++)
 	{
 		//if there is a button allocated
 		if( giIMPColorChoiceButton[iCnt] != -1 )
@@ -643,7 +671,16 @@ void AddIMPColorChoiceButtons()
 
 		MSYS_SetBtnUserData( giIMPColorChoiceButton[10], 0, 10 );
 		SetButtonCursor( giIMPColorChoiceButton[10], CURSOR_WWW);
-		SetButtonFastHelpText( giIMPColorChoiceButton[ 10 ], gzIMPColorChoosingText[4]);
+		CHAR16 sBadAssHelpText[200];
+		if( gGameOptions.fNewTraitSystem )
+		{
+			swprintf( sBadAssHelpText, L"%s%s", gzIMPColorChoosingText[4], gzIMPColorChoosingText[5]);
+		}
+		else
+		{
+			swprintf( sBadAssHelpText, L"%s", gzIMPColorChoosingText[4]);
+		}
+		SetButtonFastHelpText( giIMPColorChoiceButton[ 10 ], sBadAssHelpText );
 
 
 		// Make respective button initialy pressed
@@ -1150,4 +1187,12 @@ BOOLEAN bBadAssSelected()
 		return( bBadAss );
 	else
 		return( FALSE );
+}
+
+void SetBadAss( BOOLEAN fSetTrue )
+{
+	if ( fSetTrue )
+		bBadAss = TRUE;
+	else
+		bBadAss = FALSE;
 }

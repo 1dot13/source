@@ -525,3 +525,39 @@ void CheckForContinue()
 		}
 	}
 }
+
+#include <vfs/Core/vfs_os_functions.h>
+#include <vfs/Core/vfs_profile.h>
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_init.h>
+
+void ja2::mp::InitializeMultiplayerProfile(vfs::Path const& profileRoot)
+{
+	// does the profile root directory actually exist
+	if(!vfs::OS::checkRealDirectory(profileRoot))
+	{
+		// OK, directory did not exist, probably a new profile
+		SGP_THROW_IFFALSE( vfs::OS::createRealDirectory(profileRoot), 
+			_BS(L"Could not create directory : ") << profileRoot << _BS::wget );
+	}
+
+	// create and initialize a new Multiplayer profile
+	std::auto_ptr<vfs::CVirtualProfile> pProf( new vfs::CVirtualProfile("_MULTIPLAYER",profileRoot,true) );
+
+	if(!vfs_init::initWriteProfile(*pProf))
+	{
+		SGP_THROW(_BS(L"Could not initialize client profile") << profileRoot << _BS::wget);
+	}
+
+	vfs::CProfileStack *PS = getVFS()->getProfileStack();
+
+	// remove old Multiplayer profile (if it exists)
+	vfs::CVirtualProfile *pOldProf = PS->getProfile("_MULTIPLAYER");
+	if( pOldProf && (pOldProf == PS->topProfile()) )
+	{
+		SGP_THROW_IFFALSE(PS->popProfile(), L"Could not remove old \"_MULTIPLAYER\" profile");
+	}
+
+	// add new profile
+	PS->pushProfile(pProf.release());
+}

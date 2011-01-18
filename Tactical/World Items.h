@@ -43,6 +43,7 @@ public:
 	bool					operator<(WORLDITEM& compare);
 	BOOLEAN					Save( HWFILE hFile, bool fSavingMap );
 	BOOLEAN					Load( HWFILE hFile );
+	BOOLEAN					Load( HWFILE hFile, float dMajorMapVersion, UINT8 ubMinorMapVersion );
 	BOOLEAN					Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion );
 	void					initialize();
 	BOOLEAN					fExists;

@@ -29,8 +29,6 @@
 	#include "lighting.h"
 	#include "Buildings.h"
 #endif
-#include "test_space.h"
-
 
 // Defines
 #define		NUM_BULLET_SLOTS					50
@@ -366,7 +364,7 @@ void UpdateBullets( )
 						pNode->sRelativeZ = (INT16) CONVERT_HEIGHTUNITS_TO_PIXELS( FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrZ ) );
 
 						//afp-start - add new tail /tracer
-						if (gGameExternalOptions.gbBulletTracer)	
+						if (gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS])	
 						{
   							if ((lastX != 0)  || (lastY != 0))
 							{
@@ -413,15 +411,15 @@ void UpdateBullets( )
 						//afp-end
 						// Display shadow
 						// afp - no more shadow if tracer enabled
-						if (!gGameExternalOptions.gbBulletTracer)	
+						if (!gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS])	
 						{
-						pNode = AddStructToTail( gBullets[ uiCount ].sGridNo, BULLETTILE2 );
-						pNode->ubShadeLevel=DEFAULT_SHADE_LEVEL;
-						pNode->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
-						pNode->uiFlags |= ( LEVELNODE_USEABSOLUTEPOS | LEVELNODE_IGNOREHEIGHT );
-						pNode->sRelativeX	= (INT16) FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrX );
-						pNode->sRelativeY	= (INT16) FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrY );
-						pNode->sRelativeZ = (INT16)gpWorldLevelData[ gBullets[ uiCount ].sGridNo ].sHeight;
+							pNode = AddStructToTail( gBullets[ uiCount ].sGridNo, BULLETTILE2 );
+							pNode->ubShadeLevel=DEFAULT_SHADE_LEVEL;
+							pNode->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
+							pNode->uiFlags |= ( LEVELNODE_USEABSOLUTEPOS | LEVELNODE_IGNOREHEIGHT );
+							pNode->sRelativeX	= (INT16) FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrX );
+							pNode->sRelativeY	= (INT16) FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrY );
+							pNode->sRelativeZ = (INT16)gpWorldLevelData[ gBullets[ uiCount ].sGridNo ].sHeight;
 						}
 					}
 				}

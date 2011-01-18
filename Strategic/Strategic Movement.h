@@ -305,4 +305,6 @@ BOOLEAN DoesPlayerExistInPGroup( UINT8 ubGroupID, SOLDIERTYPE *pSoldier );
 
 BOOLEAN GroupHasInTransitDeadOrPOWMercs( GROUP *pGroup );
 
+BOOLEAN ScoutIsPresentInSquad( INT16 ubSectorNumX, INT16 ubSectorNumY ); // added by SANDRO
+
 #endif

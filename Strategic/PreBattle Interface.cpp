@@ -44,6 +44,9 @@
 	#include "Soldier macros.h"
 	#include "history.h"
 	#include "Cheats.h"
+	// added by SANDRO
+	#include "Tactical Save.h"
+	#include "message.h"
 #endif
 
 extern void InitializeTacticalStatusAtBattleStart();
@@ -262,6 +265,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	INT8	bBestExpLevel = 0;
 	BOOLEAN fRetreatAnOption = TRUE;
 	SECTORINFO *pSector;
+	BOOLEAN fScoutPresent = FALSE; // Added by SANDRO
 
 	// ARM: Feb01/98 - Cancel out of mapscreen movement plotting if PBI subscreen is coming up
 	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
@@ -493,7 +497,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 					ubGroupID = MercPtrs[ i ]->ubGroupID;
 					if( !gpBattleGroup )
 						gpBattleGroup = GetGroup( ubGroupID );
-					if( bBestExpLevel > MercPtrs[ i ]->stats.bExpLevel )
+					//if( bBestExpLevel > MercPtrs[ i ]->stats.bExpLevel ) // SANDRO - WTF!! This is a bug!
+					if( bBestExpLevel < MercPtrs[ i ]->stats.bExpLevel ) // SANDRO - WTF!! This is a bug!
 						bBestExpLevel = MercPtrs[ i ]->stats.bExpLevel;
 					if( MercPtrs[ i ]->ubPrevSectorID == 255 )
 					{ //Not able to retreat (calculate it for group)
@@ -508,6 +513,12 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 					fUsePluralVersion = TRUE;
 				}
 				guiNumInvolved ++;
+
+				// SANDRO - added check if we have a scout in group, needed later
+				if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) && gSkillTraitValues.fSCPreventsTheEnemyToAmbushMercs )
+				{
+					fScoutPresent = TRUE;
+				}
 			}
 			else {
 				guiNumUninvolved++;
@@ -518,6 +529,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	ubNumStationaryEnemies = NumStationaryEnemiesInSector( gubPBSectorX, gubPBSectorY );
 	ubNumMobileEnemies = NumMobileEnemiesInSector( gubPBSectorX, gubPBSectorY );
 	ubNumMercs = PlayerMercsInSector( gubPBSectorX, gubPBSectorY, gubPBSectorZ );
+	
+	BOOLEAN fAmbushPrevented = FALSE;
 
 	if( gfPersistantPBI )
 	{
@@ -542,63 +555,111 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 					{
 						if( Chance( 90 ) )
 						{
-							gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
+							// SANDRO - Scout prevents ambushes no matter what
+							if ( !fScoutPresent )
+							{
+								gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
+							}
+							else 
+							{
+								fAmbushPrevented = TRUE;
+								if ( gSkillTraitValues.fSCThrowMessageIfAmbushPrevented )
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_ENEMY_AMBUSH_PREVENTED] );
+							}
 						}
 					}
 					else if( gfAutoAmbush && ubNumMobileEnemies > ubNumMercs )
 					{
-						gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
+						// SANDRO - Scout prevents ambushes no matter what
+						if ( !fScoutPresent )
+						{
+							gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
+						}
+						else 
+						{
+							fAmbushPrevented = TRUE;
+							if ( gSkillTraitValues.fSCThrowMessageIfAmbushPrevented )
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_ENEMY_AMBUSH_PREVENTED] );
+						}
 					}
 					// Madd:  
 					// WANNE: Added an ja2_options.ini Property "ENABLE_CHANCE_OF_ENEMY_AMBUSHES_ON_INSANE_DIFFICULT"
-					else if( gGameExternalOptions.fEnableChanceOfEnemyAmbushesOnInsaneDifficult && 
-						gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE && 
-									CurrentPlayerProgressPercentage() >= 25 )
-					{ //if the enemy outnumbers the players, then there is a chance of the enemies ambushing the group
-						if( ubNumMobileEnemies > ubNumMercs )
+					//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					// SANDRO - changed this a lot, now on any difficulty, the enemy can ambush your squad 
+					// based on difficulty level, number of mercs/enemies and other aspects
+					else if( gGameExternalOptions.fEnableChanceOfEnemyAmbushes )
+					{ 					
+						INT32 iChance;
+						// Basic chance - progress level/2 minus highest merc exp level*2, and 10% on top
+						iChance = (UINT8)( ((CurrentPlayerProgressPercentage() / 2 ) - bBestExpLevel*2 ) + 15 );
+
+						pSector = &SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ];
+						if( pSector->uiFlags & SF_ENEMY_AMBUSH_LOCATION )
+							iChance += 20;
+
+						if( gfCantRetreatInPBI )
+							iChance += 20;
+
+						// adjust the chance for size of our squad
+						if( ubNumMercs == 1 ) // one person is almost invisible to an army group, so reduce the chance a lot
+							iChance -= 40;
+						else if ( ubNumMercs == 2 ) // 2 persons are still hardly detectable
+							iChance -= 25;
+						else if ( ubNumMercs <= 10 ) // 3 to 10 mercs
+							iChance -= (5 * (5 - ubNumMercs)); // -5% adjustment per merc (-10% to +25%)
+						else // more than 10 mercs
+							iChance += 30; // maximum of +30% per squad size
+
+						// the more enemies are there the lesser the chance to be ambushed
+						// (large groups of enemies can be seen from afar, so the chance is lesser)
+						if ((ubNumMobileEnemies + ubNumStationaryEnemies) <= 2 )
+							iChance += 20; // can make hunting retreated enemies easier
+						else if ((ubNumMobileEnemies + ubNumStationaryEnemies) <= 6 ) // smaller groups actually increase the chance
+							iChance += (3 * (6 - (ubNumMobileEnemies + ubNumStationaryEnemies))); // +3% adjustment per enemy
+						else
+							iChance -= (2 * ((ubNumMobileEnemies + ubNumStationaryEnemies) - 6)); // -2% adjustment per enemy beyond 6
+
+						// adjust the chance for difficulty setting
+						if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+							iChance -= 15;
+						else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+							iChance += 5;
+						else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+							iChance += 12;
+						else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+							iChance += 25;
+
+						// adjust the chance for what we know about the sector
+						if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_NOTHING )
+							iChance += 20;
+						else if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_THEYRE_THERE )
+							iChance += 5;
+						//if( GetSectorFlagStatus( gubPBSectorX, gubPBSectorY, 0, SF_ALREADY_VISITED ) == TRUE )
+						//	iChance -= 10; // if we already visited this sector
+
+						// there is always a little chance
+						if( iChance <= 0 )
+							iChance = 1;
+							
+						// externalized modifier
+						if( gGameExternalOptions.bChanceModifierEnemyAmbushes != 0 )
+							iChance = ((iChance * (100 + gGameExternalOptions.bChanceModifierEnemyAmbushes)) / 100);
+
+						if( (INT32)PreRandom( 100 ) < iChance )
 						{
-							INT32 iChance;
-							pSector = &SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ];
-							iChance = (UINT8)( (CurrentPlayerProgressPercentage() - bBestExpLevel*2 ) );
-							if( pSector->uiFlags & SF_ENEMY_AMBUSH_LOCATION )
-							{
-								iChance += 20;
-							}
-							if( gfCantRetreatInPBI )
-							{
-								iChance += 20;
-							}
-							if( (INT32)PreRandom( 100 ) < iChance )
+							if ( !fScoutPresent )
 							{
 								gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
 							}
-						}
-					}
-					else if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_NOTHING &&
-									CurrentPlayerProgressPercentage() >= 30 - gGameOptions.ubDifficultyLevel * 5 )
-					{ //if the enemy outnumbers the players, then there is a small chance of the enemies ambushing the group
-						if( ubNumMobileEnemies > ubNumMercs )
-						{
-							INT32 iChance;
-							pSector = &SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ];
-							if( !(pSector->uiFlags & SF_ALREADY_VISITED) )
+							else 
 							{
-								iChance = (UINT8)( 4 - bBestExpLevel + 2 * gGameOptions.ubDifficultyLevel + CurrentPlayerProgressPercentage() / 10 );
-								if( pSector->uiFlags & SF_ENEMY_AMBUSH_LOCATION )
-								{
-									iChance += 20;
-								}
-								if( gfCantRetreatInPBI )
-								{
-									iChance += 20;
-								}
-								if( (INT32)PreRandom( 100 ) < iChance )
-								{
-									gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
-								}
+								fAmbushPrevented = TRUE;
+								if ( gSkillTraitValues.fSCThrowMessageIfAmbushPrevented )
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_ENEMY_AMBUSH_PREVENTED] );
 							}
 						}
 					}
+					//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				}
 			}
 		}
@@ -627,6 +688,26 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	}
 
 	gfHighPotentialForAmbush = FALSE;
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - merc records - ambush experienced
+	if( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || fAmbushPrevented )
+	{
+		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+		{
+			if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+			{
+				if ( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) && MercPtrs[ i ]->ubProfile != NO_PROFILE )
+				{
+					if ( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE )
+						gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usAmbushesExperienced++;
+					else if ( fAmbushPrevented && HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) ) // Scouts actually get this as number of prevented ambushes
+						gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usAmbushesExperienced++;
+				}
+			}
+		}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	if( gfAutomaticallyStartAutoResolve )
 	{
@@ -1395,6 +1476,18 @@ void RetreatMercsCallback( GUI_BUTTON *btn, INT32 reason )
 	{
 		if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 		{
+			/////////////////////////////////////////////////////////////////////////////////
+			// SANDRO - merc records - times retreated counter
+			for( UINT8 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
+			{
+				if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife >= OKLIFE )
+				{
+					if ( PlayerMercInvolvedInThisCombat( MercPtrs[i] ) && MercPtrs[i]->ubProfile != NO_PROFILE )
+						gMercProfiles[ MercPtrs[i]->ubProfile ].records.usBattlesRetreated++;
+				}
+			}
+			/////////////////////////////////////////////////////////////////////////////////
+
 			// get them outta here!
 			RetreatAllInvolvedPlayerGroups();
 

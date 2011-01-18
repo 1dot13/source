@@ -478,6 +478,31 @@ AnimationSurfaceType	gAnimSurfaceDatabase[ NUMANIMATIONSURFACETYPES ] =
 	BGMCRTHROW,	"ANIMS\\M_MERC\\M_CR_THR.STI",	C_STRUCT,	0,	8, TO_INIT,	NULL,	NULL,	0,	-1,
 	RGFCRTHROW,	"ANIMS\\F_MERC\\F_CR_THR.STI",	C_STRUCT,	0,	8, TO_INIT,	NULL,	NULL,	0,	-1,
 	//</SB>
+	//ddd big man with stone
+	BGMWITHSTONE,	"ANIMS\\M_MERC\\M_STEIN.STI",	C_STRUCT,	0,	8, TO_INIT,	NULL,	NULL,	0,	-1,
+	//ddd crouched shoot rocket
+	RGMCRROCKET, "ANIMS\\S_MERC\\S_LAW_CR.sti",	C_STRUCT,	0,	8, TO_INIT,	NULL,	NULL,	0,	-1,
+	BGMCRROCKET, "ANIMS\\M_MERC\\M_LAW_CR.sti",	C_STRUCT,	0,	8, TO_INIT,	NULL,	NULL,	0,	-1,
+	RGFCRROCKET, "ANIMS\\F_MERC\\F_LAW_CR.sti",	C_STRUCT,	0,	8, TO_INIT,	NULL,	NULL,	0,	-1,
+
+	BGMSWKNIFE , "ANIMS\\M_MERC\\M_K_SWAT_K.sti",	C_STRUCT,	0,	8, TO_INIT,	NULL,	NULL,	0,	-1,
+	RGFSWKNIFE , "ANIMS\\F_MERC\\F_K_SWAT_K.sti",	C_STRUCT,	0,	8, TO_INIT,	NULL,	NULL,	0,	-1,
+	RGMSWKNIFE , "ANIMS\\S_MERC\\S_K_SWAT.sti",	C_STRUCT,	0,	8, TO_INIT,	NULL,	NULL,	0,	-1,
+
+	//кидание гранаты стоя с выдергиванием чеки 2 варианта
+	BGMSTHRG,						"ANIMS\\M_MERC\\M_THROW_G.sti",		S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
+	//для бабы пока стандартная анимация
+	RGFSTHRG,						"ANIMS\\F_MERC\\F_THROW.STI",		S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
+	RGMSTHRG,						"ANIMS\\S_MERC\\S_THROW_G.STI",		S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
+	
+	BGMSLOBG,						"ANIMS\\M_MERC\\M_THROW_GLOB.sti",	S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
+	RGFSLOBG,						"ANIMS\\F_MERC\\F_LOB.STI",			S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
+	RGMSLOBG,						"ANIMS\\S_MERC\\S_THROW_GLOB.sti",	S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
+	//перекат
+	RGMROLL_PR,				"ANIMS\\S_MERC\\S_ROLL_N.STI",	S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
+	BGMROLL_PR,				"ANIMS\\M_MERC\\M_ROLL_N.STI",	S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
+	RGFROLL_PR,				"ANIMS\\F_MERC\\F_ROLL_N.STI",	S_STRUCT,		0,			8, TO_INIT, NULL, NULL, 0, -1,
+
 };
 
 
@@ -828,12 +853,6 @@ BOOLEAN LoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 
 {
 	AuxObjectData *pAuxData;
 
-	if (usSurfaceIndex == 251)
-	{
-		int a = 10;
-		a++;
-	}
-
 	// Check for valid surface
 	CHECKF( usSurfaceIndex < NUMANIMATIONSURFACETYPES );
 
@@ -953,13 +972,6 @@ BOOLEAN LoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 
 
 BOOLEAN UnLoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex )
 {
-
-	if (usSurfaceIndex == 251)
-	{
-		int a = 10;
-		a++;
-	}
-
 	// Decrement usage flag, only if this soldier has it currently tagged
 	if ( gbAnimUsageHistory[ usSurfaceIndex ][ usSoldierID ] > 0 )
 	{

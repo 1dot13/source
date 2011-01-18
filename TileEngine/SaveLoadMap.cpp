@@ -20,7 +20,7 @@
 	#include "Smell.h"
 #endif
 
-#include "VFS/vfs.h"
+#include <vfs/Core/vfs.h>
 //SB: make size of gpRevealedMap dependable from variable tactical map dimensions
 #define			NUM_REVEALED_BYTES			(WORLD_MAX/8)
 

@@ -263,6 +263,7 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 
 			gfPendingEnemies = TRUE;
 			ResetMortarsOnTeamCount();
+			ResetNumSquadleadersInArmyGroup(); // added by SANDRO
 		}
 	}
 
@@ -385,7 +386,7 @@ void AddPossiblePendingMilitiaToBattle()
 	// Haydent
 	if (is_networked)
 	{
-		if ((is_client && !is_server) || MILITIA_ENABLED==0)
+		if ((is_client && !is_server) || gMilitiaEnabled == 0)
 		{
 			return;
 		}

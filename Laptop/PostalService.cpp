@@ -313,8 +313,11 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 	if( (shs.pDestination->ubMapX > 0) && 
 		(shs.pDestination->ubMapX < MAP_WORLD_X - 1) &&
 		(shs.pDestination->ubMapY > 0) && 
-		(shs.pDestination->ubMapY < MAP_WORLD_Y - 1) && 
-		GridNoOnVisibleWorldTile(shs.pDestination->sGridNo) )
+		(shs.pDestination->ubMapY < MAP_WORLD_Y - 1) ) //&& 
+		//GridNoOnVisibleWorldTile(shs.pDestination->sGridNo) )
+		// silversurfer: wtf? This test checked if the delivery tile was valid for the currently loaded sector
+		// which is not necessarily the delivery sector
+		// if we are currently below ground it will crash the game...
 	{
 		BOOLEAN fSectorLoaded = ( gWorldSectorX == shs.pDestination->ubMapX ) && 
 								( gWorldSectorY == shs.pDestination->ubMapY ) && 
@@ -416,8 +419,6 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 				// simply to be consistent with the dealers in Arulco, who must sell guns empty to prevent ammo cheats by players.
 				tempObject[0]->data.gun.ubGunShotsLeft = 0;
 			}
-
-			// TODO.RW: Hier Pablo stealing code einfügen und ubItemsDelivered reduzieren!!!
 
 			UINT8 cnt = -1;
 			// Loop through the items of a package

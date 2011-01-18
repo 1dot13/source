@@ -1,21 +1,30 @@
 #include "XMLWriter.h"
+#include "sgp_logger.h"
 
-#include "VFS/vfs_file_raii.h"
-#include "VFS/File/vfs_file.h"
+#include <vfs/Core/vfs_file_raii.h>
+#include <vfs/Core/File/vfs_file.h>
 
-void XMLWriter::addValue(utf8string const& key)
+void XMLWriter::addValue(vfs::String const& key)
 {
 	m_ssBuffer << indent() <<  "<" << key.utf8();
 	insertAttributesIntoBuffer();
 	m_ssBuffer << " />\n";
 }
 
-void XMLWriter::addComment(utf8string const& comment)
+void XMLWriter::addComment(vfs::String const& comment)
 {
 	m_ssBuffer << indent() << "<!-- " << comment.utf8() << " -->\n"; 
 }
 
-void XMLWriter::openNode(utf8string const& key)
+void XMLWriter::addFlag(UINT32 const& flags, UINT32 const& flag, vfs::String strFlag)
+{
+	if( ( flags & flag) == flag )
+	{
+		this->addValue(strFlag);
+	}
+}
+
+void XMLWriter::openNode(vfs::String const& key)
 {
 	std::string utf8key = key.utf8();
 	m_ssBuffer << indent() << "<" << utf8key;
@@ -49,9 +58,9 @@ bool XMLWriter::writeToFile(vfs::Path const& sFileName)
 		vfs::COpenWriteFile file(sFileName,true,true);
 		return writeToFile( &file.file() );
 	}
-	catch(CBasicException& ex)
+	catch(vfs::Exception& ex)
 	{
-		logException(ex);
+		SGP_ERROR(ex.what());
 		vfs::CFile file(sFileName);
 		if(file.openWrite(true,true))
 		{
@@ -70,9 +79,9 @@ bool XMLWriter::writeToFile(vfs::tWritableFile* pFile)
 		pFile->write(str.c_str(), str.length() * sizeof(std::string::value_type));
 		return true;
 	}
-	catch(CBasicException& ex)
+	catch(vfs::Exception& ex)
 	{
-		logException(ex);
+		SGP_ERROR(ex.what());
 		return false;
 	}
 }

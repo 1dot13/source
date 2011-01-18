@@ -21,6 +21,8 @@
 	#include "Strategic AI.h"
 #endif
 
+#include "Luaglobal.h"
+#include "LuaInitNPCs.h"
 #include "SaveLoadGame.h"
 #include "GameSettings.h"
 #include "connect.h"
@@ -130,6 +132,10 @@ void HandleQuarterHourUpdate()
 void HourlyQuestUpdate( void )
 {
 	UINT32 uiHour = GetWorldHour();
+		
+#ifdef LUA_HOURLY_QUEST_UPDATE
+	LetLuaHourlyQuestUpdate(0);
+#else
 
 	// brothel
 	if ( uiHour == 4 )
@@ -184,6 +190,7 @@ void HourlyQuestUpdate( void )
 		SetFactFalse( FACT_MUSEUM_OPEN );
 	}
 
+#endif
 }
 
 #define BAR_TEMPTATION 4
@@ -246,7 +253,7 @@ void HourlyLarryUpdate( void )
 		if ( usTemptation < BAR_TEMPTATION && GetCurrentBalance() >= Item[ ALCOHOL ].usPrice )
 		{
 			if ( pSoldier->bSectorZ == 0 &&
-						( ( pSoldier->sSectorX == 13 && pSoldier->sSectorY == MAP_ROW_B) ||
+						( ( pSoldier->sSectorX == 13 && pSoldier->sSectorY == MAP_ROW_D) ||
 							( pSoldier->sSectorX == 13 && pSoldier->sSectorY == MAP_ROW_C) ||
 							( pSoldier->sSectorX == 5 && pSoldier->sSectorY == MAP_ROW_C) ||
 							( pSoldier->sSectorX == 6 && pSoldier->sSectorY == MAP_ROW_C) ||

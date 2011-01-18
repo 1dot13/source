@@ -189,8 +189,13 @@ INT32 GetNumberOfHiredMercs()
 
 	for (i = 0; i<=(NUMBER_OF_MERCS - 1); i++)
 	{
-		if( i == MERC_LARRY_ROACHBURN )
+		// WANNE: If we have drunken merc, then skip otherwise is will exist 2 times!
+		if (gConditionsForMercAvailability[ i ].Drunk)
 			continue;
+
+		// WANNE.LARRY
+		/*if( i == MERC_LARRY_ROACHBURN )
+			continue;*/
 
 		usMercID = GetMercIDFromMERCArray( i );
 
@@ -489,6 +494,7 @@ void DisplayHiredMercs()
 		usMercIDEnd = usMercIDStart + MAX_NUMBER_MERCS_ON_PAGE;
 	}
 
+	// WANNE.LARRY: I don't understand why this is needed??? I did not change anything on this yet.
 	// At least second page
 	// This approach is needed, because auf LARRY_ROACHBURN
 	if (usMercIDStart > 0)
@@ -503,9 +509,14 @@ void DisplayHiredMercs()
 		if (usCurrentRow == usMercIDEnd - 1)
 			break;
 
-		//if it larry Roach burn advance.	( cause larry is in twice, a sober larry and a stoned larry )
-		if( i == MERC_LARRY_ROACHBURN )
+		// WANNE: If we have drunken merc, then skip otherwise is will exist 2 times!
+		if (gConditionsForMercAvailability[ i ].Drunk)
 			continue;
+
+		// WANNE.LARRY
+		//if it larry Roach burn advance.	( cause larry is in twice, a sober larry and a stoned larry )
+		/*if( i == MERC_LARRY_ROACHBURN )
+			continue;*/
 
 		usMercID = GetMercIDFromMERCArray( i );
 
@@ -741,9 +752,14 @@ UINT32	CalculateHowMuchPlayerOwesSpeck()
 
 	for(i=0; i<(NUMBER_OF_MERCS - 1); i++)
 	{
-		//if it larry Roach burn advance.	( cause larry is in twice, a sober larry and a stoned larry )
-		if( i == MERC_LARRY_ROACHBURN )
+		// WANNE: If we have drunken merc, then skip otherwise is will exist 2 times!
+		if (gConditionsForMercAvailability[ i ].Drunk)
 			continue;
+		
+		// WANNE.LARRY
+		//if it larry Roach burn advance.	( cause larry is in twice, a sober larry and a stoned larry )
+		//if( i == MERC_LARRY_ROACHBURN )
+		//	continue;
 
 		usMercID = GetMercIDFromMERCArray( i );
 		//if( IsMercOnTeam( (UINT8)usMercID ) )

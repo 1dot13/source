@@ -55,6 +55,7 @@
 #include "Queen Command.h"
 #include "cheats.h"
 #include "points.h"
+#include "Soldier Functions.h" // added by SANDRO
 #endif
 
 #include "connect.h"
@@ -2043,6 +2044,23 @@ void AIDecideRadioAnimation( SOLDIERTYPE *pSoldier )
 	}
 }
 
+UINT32 GetTankCannonIndex()
+{
+	UINT32 tankCannonIndex = 0;
+
+	for (UINT32 i = 0; i < MAXITEMS; i++)
+	{
+		if (Item[i].cannon)
+		{
+			tankCannonIndex = Item[i].uiIndex;
+			break;
+		}
+	}
+
+	return tankCannonIndex;
+}
+
+
 
 INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 {
@@ -2056,7 +2074,28 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	// reset this field, too
 	pSoldier->aiData.bLastAttackHit = FALSE;
 
+	// WANNE.TANK: Choose cannon or rocket
 	UINT16 usHandItem = pSoldier->inv[HANDPOS].usItem;
+
+	if (TANK(pSoldier))
+	{
+		// No cannon selected to fire
+		if (!Item[pSoldier->inv[HANDPOS].usItem].cannon)
+		{
+			// 50 % chance, that the tank fires with the explosive cannon
+			UINT32 fireWithCannon = GetRndNum(2);
+			if (fireWithCannon)
+			{
+				UINT32 tankCannonIndex = GetTankCannonIndex();
+				if (tankCannonIndex > 0)
+				{
+					usHandItem = tankCannonIndex;
+				}
+			}
+		}
+	}
+
+	UINT16 usSoldierIndex; // added by SANDRO
 
 #ifdef TESTAICONTROL
 	if (gfTurnBasedAI || gTacticalStatus.fAutoBandageMode)
@@ -2065,7 +2104,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	}
 #endif
 
-	DebugAI( String( "%d does %s (a.d. %d) at time %ld", pSoldier->ubID, gzActionStr[pSoldier->aiData.bAction], pSoldier->aiData.usActionData, GetJA2Clock() ) );
+	DebugAI( String( "%d does %s (a.d. %d) at time %lu", pSoldier->ubID, gzActionStr[pSoldier->aiData.bAction], pSoldier->aiData.usActionData, GetJA2Clock() ) );
 
 	// 0verhaul:  The decideaction stage does so many path plots and overrides that
 	// relying on a stored path from there is a bad idea.
@@ -2183,7 +2222,17 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	case AI_ACTION_LEAVE_WATER_GAS:       // seek nearest spot of ungassed land
 	case AI_ACTION_SEEK_NOISE:            // seek most important noise heard
 	case AI_ACTION_RUN_AWAY:              // run away from nearby opponent(s)
-
+		// SANDRO - ENEMY TAUNTS
+		if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && pSoldier->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) && pSoldier->bVisible != -1 )
+		{
+			if ( Random( 5 ) == 0 )
+			{
+				if (pSoldier->aiData.bAction == AI_ACTION_SEEK_NOISE )
+					StartEnemyTaunt( pSoldier, TAUNT_SEEK_NOISE );
+				else if (pSoldier->aiData.bAction == AI_ACTION_RUN_AWAY )
+					StartEnemyTaunt( pSoldier, TAUNT_RUN_AWAY );
+			}
+		}
 	case AI_ACTION_APPROACH_MERC:				 // walk up to someone to talk
 	case AI_ACTION_TRACK:								 // track by ground scent
 	case AI_ACTION_EAT:									 // monster approaching corpse
@@ -2400,8 +2449,28 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			// ATE: Make sure it's a person :)
 			if ( IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->ubProfile == NO_PROFILE )
 			{
+				// SANDRO - SOLDIER TAUNTS
+				if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && pSoldier->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) )
+				{
+					if ( Random( 8 ) == 0 )
+					{
+						if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
+							StartEnemyTaunt( pSoldier, TAUNT_FIRE_GUN );
+						else if (Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher || Item[pSoldier->inv[HANDPOS].usItem].mortar || Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher )
+							StartEnemyTaunt( pSoldier, TAUNT_FIRE_LAUNCHER );
+						else if (pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_THROWN && !Item[pSoldier->inv[HANDPOS].usItem].flare )
+							StartEnemyTaunt( pSoldier, TAUNT_THROW );
+						else if (pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE )
+						{
+							if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_BLADE )
+								StartEnemyTaunt( pSoldier, TAUNT_CHARGE_KNIFE );
+							//else if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_PUNCH )
+							//	StartEnemyTaunt( pSoldier, TAUNT_CHARGE_HTH );
+						}
+					}
+				}
 				// CC, ATE here - I put in some TEMP randomness...
-				if ( Random( 50 ) == 0 )
+				else if ( Random( 50 ) == 0 )
 				{
 					StartCivQuote( pSoldier );
 				}
@@ -2488,6 +2557,15 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		if (!(pSoldier->flags.uiStatusFlags & SOLDIER_PC) && ( !(gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition) || ( ( gTacticalStatus.fPanicFlags & PANIC_TRIGGERS_HERE ) && gTacticalStatus.ubTheChosenOne == NOBODY ) ) )
 		{
 			HandleInitialRedAlert(pSoldier->bTeam, TRUE);
+		}
+		
+		// SANDRO - ENEMY TAUNTS
+		if (gGameSettings.fOptions[TOPTION_ALLOW_TAUNTS] == TRUE && pSoldier->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) && pSoldier->bVisible != -1 )
+		{
+			if ( Random( 4 ) == 0 )
+			{
+				StartEnemyTaunt( pSoldier, TAUNT_ALERT );
+			}
 		}
 		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Debug: AI radios your position!" );
 		// DROP THROUGH HERE!
@@ -2679,6 +2757,18 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		// start the offer of surrender!
 		StartCivQuote( pSoldier );
 		break;
+	/////////////////////////////////////////////////////////////
+	// SANDRO - added a possibility for enemies to try to steal your gun
+	case AI_ACTION_STEAL_MOVE:            // preparing to steal opponents weapon
+		
+		pSoldier->aiData.ubPendingAction		= NO_PENDING_ACTION;
+		pSoldier->usUIMovementMode = DetermineMovementMode( pSoldier, AI_ACTION_KNIFE_MOVE );
+		usSoldierIndex = WhoIsThere2( pSoldier->aiData.usActionData, pSoldier->bTargetLevel);
+		if ( usSoldierIndex != NOBODY )
+			MercStealFromMerc( pSoldier, MercPtrs[usSoldierIndex] );
+
+		break;
+	/////////////////////////////////////////////////////////////
 
 	default:
 #ifdef BETAVERSION

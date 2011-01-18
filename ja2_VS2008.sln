@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ja2", "ja2_VS2008.vcproj", "{B112F6BA-AF32-489C-B405-916C0F182D10}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -39,13 +40,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TileEngine", "TileEngine\Ti
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utils", "Utils\Utils_VS2008.vcproj", "{DB40B90D-13F9-4FEC-8F1D-0506CC496586}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VFS", "VFS\VFS_VS2008.vcproj", "{C63466D6-49B5-4C54-AA0D-864F6171FD9B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpng", "ext\libpng\projects\visualc71\libpng_VS2008.vcproj", "{4B544F1A-6188-4255-8877-69FC312D0D2C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpng", "ext\libpng\projects\visualc71\libpng.vcproj", "{4B544F1A-6188-4255-8877-69FC312D0D2C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "ext\libpng\projects\visualc71\zlib_VS2008.vcproj", "{A67922A0-0A3F-497F-A724-19B513EFC078}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "ext\libpng\projects\visualc71\zlib.vcproj", "{A67922A0-0A3F-497F-A724-19B513EFC078}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VFS", "ext\VFS\build\VFS_VS2008.vcproj", "{C63466D6-49B5-4C54-AA0D-864F6171FD9B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7z", "ext\7z\Archive\7z\7z.vcproj", "{9AD14886-DB5C-4EFF-AE17-35F9BD684692}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ja2export", "ext\export\ja2export_VS2008.vcproj", "{3E43B70D-A22F-4240-B00D-32BD14523335}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7z", "ext\VFS\build\7z_VS2008.vcproj", "{9AD14886-DB5C-4EFF-AE17-35F9BD684692}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -166,16 +169,6 @@ Global
 		{DB40B90D-13F9-4FEC-8F1D-0506CC496586}.Release_WithDebugInfo|Win32.Build.0 = Release_WithDebugInfo|Win32
 		{DB40B90D-13F9-4FEC-8F1D-0506CC496586}.Release|Win32.ActiveCfg = Release|Win32
 		{DB40B90D-13F9-4FEC-8F1D-0506CC496586}.Release|Win32.Build.0 = Release|Win32
-		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Debug|Win32.Build.0 = Debug|Win32
-		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.MapEditor|Win32.ActiveCfg = MapEditor|Win32
-		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.MapEditor|Win32.Build.0 = MapEditor|Win32
-		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.MapEditorD|Win32.ActiveCfg = MapEditorD|Win32
-		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.MapEditorD|Win32.Build.0 = MapEditorD|Win32
-		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Release_WithDebugInfo|Win32.ActiveCfg = Release_WithDebugInfo|Win32
-		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Release_WithDebugInfo|Win32.Build.0 = Release_WithDebugInfo|Win32
-		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Release|Win32.ActiveCfg = Release|Win32
-		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Release|Win32.Build.0 = Release|Win32
 		{4B544F1A-6188-4255-8877-69FC312D0D2C}.Debug|Win32.ActiveCfg = Debug|Win32
 		{4B544F1A-6188-4255-8877-69FC312D0D2C}.Debug|Win32.Build.0 = Debug|Win32
 		{4B544F1A-6188-4255-8877-69FC312D0D2C}.MapEditor|Win32.ActiveCfg = MapEditor|Win32
@@ -196,6 +189,24 @@ Global
 		{A67922A0-0A3F-497F-A724-19B513EFC078}.Release_WithDebugInfo|Win32.Build.0 = Release_WithDebugInfo|Win32
 		{A67922A0-0A3F-497F-A724-19B513EFC078}.Release|Win32.ActiveCfg = Release|Win32
 		{A67922A0-0A3F-497F-A724-19B513EFC078}.Release|Win32.Build.0 = Release|Win32
+		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Debug|Win32.Build.0 = Debug|Win32
+		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.MapEditor|Win32.ActiveCfg = MapEditor|Win32
+		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.MapEditor|Win32.Build.0 = MapEditor|Win32
+		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.MapEditorD|Win32.ActiveCfg = MapEditorD|Win32
+		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.MapEditorD|Win32.Build.0 = MapEditorD|Win32
+		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Release_WithDebugInfo|Win32.ActiveCfg = Release_WithDebugInfo|Win32
+		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Release_WithDebugInfo|Win32.Build.0 = Release_WithDebugInfo|Win32
+		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Release|Win32.ActiveCfg = Release|Win32
+		{C63466D6-49B5-4C54-AA0D-864F6171FD9B}.Release|Win32.Build.0 = Release|Win32
+		{3E43B70D-A22F-4240-B00D-32BD14523335}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3E43B70D-A22F-4240-B00D-32BD14523335}.Debug|Win32.Build.0 = Debug|Win32
+		{3E43B70D-A22F-4240-B00D-32BD14523335}.MapEditor|Win32.ActiveCfg = Release|Win32
+		{3E43B70D-A22F-4240-B00D-32BD14523335}.MapEditorD|Win32.ActiveCfg = Debug|Win32
+		{3E43B70D-A22F-4240-B00D-32BD14523335}.Release_WithDebugInfo|Win32.ActiveCfg = Release|Win32
+		{3E43B70D-A22F-4240-B00D-32BD14523335}.Release_WithDebugInfo|Win32.Build.0 = Release|Win32
+		{3E43B70D-A22F-4240-B00D-32BD14523335}.Release|Win32.ActiveCfg = Release|Win32
+		{3E43B70D-A22F-4240-B00D-32BD14523335}.Release|Win32.Build.0 = Release|Win32
 		{9AD14886-DB5C-4EFF-AE17-35F9BD684692}.Debug|Win32.ActiveCfg = Debug|Win32
 		{9AD14886-DB5C-4EFF-AE17-35F9BD684692}.Debug|Win32.Build.0 = Debug|Win32
 		{9AD14886-DB5C-4EFF-AE17-35F9BD684692}.MapEditor|Win32.ActiveCfg = MapEditor|Win32

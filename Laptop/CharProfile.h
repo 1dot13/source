@@ -38,6 +38,7 @@ extern CHAR16 pNickName[];
 // skills
 extern INT32 iSkillA;
 extern INT32 iSkillB;
+extern INT32 iSkillC; // Added by SANDRO
 
 // persoanlity
 extern INT32 iPersonality; 
@@ -78,11 +79,12 @@ enum{
 	IMP_VOICE,
 	IMP_ABOUT_US,
 	IMP_CONFIRM,
-	// These 4 added - SANDRO
+	// These 5 added - SANDRO
 	IMP_CHARACTER_AND_DISABILITY_ENTRANCE,
 	IMP_CHARACTER_PAGE,
 	IMP_DISABILITY_PAGE,
 	IMP_COLOR_CHOICE_PAGE,
+	IMP_MINOR_TRAITS_PAGE,
 
 	IMP_NUM_PAGES,
 };

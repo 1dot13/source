@@ -53,5 +53,6 @@ void		UpdateAnyInTransitMercsWithGlobalArrivalSector( );
 
 
 UINT32	GetMercArrivalTimeOfDay( );
+extern INT16 StrategicPythSpacesAway(INT16 sOrigin, INT16 sDest);
 
 #endif

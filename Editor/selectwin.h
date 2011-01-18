@@ -10,10 +10,10 @@
 #include "mousesystem.h"
 #include "Button System.h"
 
-#define CANCEL_ICON		0
-#define UP_ICON				1
-#define DOWN_ICON			2
-#define OK_ICON				3
+#define SEL_WIN_CANCEL_ICON			0
+#define SEL_WIN_UP_ICON				1
+#define SEL_WIN_DOWN_ICON			2
+#define SEL_WIN_OK_ICON				3
 
 extern INT32 iButtonIcons[4];
 extern INT32 iSelectWin,iCancelWin,iScrollUp,iScrollDown;

@@ -381,41 +381,7 @@ void BtnIMPVoicesDoneCallback(GUI_BUTTON *btn,INT32 reason)
 			iCurrentImpPage = IMP_COLOR_CHOICE_PAGE;
 			// Following part removed
 
-			// go to main page
-			/*iCurrentImpPage = IMP_MAIN_PAGE;
-
-			// if we are already done, leave
-	 if( iCurrentProfileMode == IMP__FINISH )
-			{
-		iCurrentImpPage = IMP_FINISH;
-			}
-			else
-			{
-				if( CameBackToVoicePageButNotFinished() )
-				{
-					iCurrentImpPage = IMP_MAIN_PAGE;
-				}
-				else
-				{
-					iCurrentProfileMode = IMP__PERSONALITY;
-				}
-			}*/
-/*
-			// current mode now is voice
-		else if( iCurrentProfileMode < IMP__PORTRAIT )
-			{
-				iCurrentProfileMode = IMP__PORTRAIT;
-			}
-
-			else if( iCurrentProfileMode == IMP__PORTRAIT )
-			{
-				// all done profiling
-				iCurrentProfileMode = IMP__VOICE;
-				iCurrentImpPage = IMP_FINISH;
-			}
-*/
 			// set voice id, to grab character slot
-
 			// WDS: Allow flexible numbers of IMPs of each sex
 			LaptopSaveInfo.iIMPIndex = gGameExternalOptions.iaIMPSlots[iCurrentVoice];
 

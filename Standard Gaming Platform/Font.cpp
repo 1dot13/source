@@ -132,7 +132,7 @@ UINT32 uiRed, uiGreen, uiBlue;
 		//return;
 		std::wstringstream wss;
 		wss << L"invalid font index ( " << FontDefault << L" )";
-		THROWEXCEPTION(wss.str().c_str());
+		SGP_THROW(wss.str().c_str());
 	}
 
 	FontForeground8=ubForeground;
@@ -197,7 +197,7 @@ UINT32 uiRed, uiGreen, uiBlue;
 		//return;
 		std::wstringstream wss;
 		wss << L"invalid color background value ( " << ubBackground << L" )";
-		THROWEXCEPTION(wss.str().c_str());
+		SGP_THROW(wss.str().c_str());
 	}
 
 	FontBackground8=ubBackground;
@@ -942,9 +942,9 @@ BOOLEAN SetFont(INT32 iFontIndex)
 	//Assert(iFontIndex >= 0);
 	//Assert(iFontIndex <= MAX_FONTS);
 	//Assert(FontObjs[iFontIndex]!=NULL);
-	THROWIFFALSE( iFontIndex >= 0 ,"negative font index");
-	THROWIFFALSE( iFontIndex <= MAX_FONTS, "font index > MAX_FONTS" );
-	THROWIFFALSE( FontObjs[iFontIndex]!=NULL, "font is not initialized" );
+	SGP_THROW_IFFALSE( iFontIndex >= 0 ,"negative font index");
+	SGP_THROW_IFFALSE( iFontIndex <= MAX_FONTS, "font index > MAX_FONTS" );
+	SGP_THROW_IFFALSE( FontObjs[iFontIndex]!=NULL, "font is not initialized" );
 #ifdef WINFONTS
 	SET_WINFONT(WinFontMap[iFontIndex]);
 #endif

@@ -54,15 +54,15 @@ typedef struct TAG_ITEM_POOL
 	struct TAG_ITEM_POOL	*pNext;
 	struct TAG_ITEM_POOL	*pPrev;
 	
-	INT32				iItemIndex;
-	INT8				bVisible;
-	INT8				bFlashColor;
-	UINT32			uiTimerID;
-	INT32 sGridNo;
-	UINT8				ubLevel;
-	UINT16			usFlags;
-	INT8				bRenderZHeightAboveLevel;
-	LEVELNODE		*pLevelNode;
+	INT32		iItemIndex;
+	INT8		bVisible;
+	INT8		bFlashColor;
+	UINT32		uiTimerID;
+	INT32		sGridNo;
+	UINT8		ubLevel;
+	UINT16		usFlags;
+	INT8		bRenderZHeightAboveLevel;
+	LEVELNODE	*pLevelNode;
 
 } ITEM_POOL;
 

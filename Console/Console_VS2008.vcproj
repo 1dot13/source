@@ -21,7 +21,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Debug.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -84,7 +84,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -149,7 +149,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -214,7 +214,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops;..\ja2_Editor.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -277,7 +277,7 @@
 			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
 			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			InheritedPropertySheets="..\ja2.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>

@@ -39,8 +39,11 @@ void InitializeProfilesForTownReputation( void )
 	UINT32 uiProfileId = 0;
 
 	// initialize the town opinion values in each recruitable merc's profile structure
-	for( uiProfileId = 0; uiProfileId < FIRST_NPC; uiProfileId++ )
+	//for( uiProfileId = 0; uiProfileId < FIRST_NPC; uiProfileId++ )
+	//new profiles by Jazz	
+	for( uiProfileId = 0; uiProfileId < NUM_PROFILES; uiProfileId++ )
 	{
+		if ( gProfilesIMP[uiProfileId].ProfilId == uiProfileId || gProfilesRPC[uiProfileId].ProfilId == uiProfileId || gProfilesAIM[uiProfileId].ProfilId == uiProfileId || gProfilesMERC[uiProfileId].ProfilId == uiProfileId) 
 		memset( &( gMercProfiles[ uiProfileId ].bMercTownReputation ), INITIAL_TOWN_REPUTATION, sizeof( gMercProfiles[ uiProfileId ].bMercTownReputation ) );
 	}
 }
@@ -62,7 +65,8 @@ void PostEventsForSpreadOfTownOpinion( void )
 
 UINT8 GetTownOpinionOfMerc( UINT8 ubProfileId, UINT8 ubTownId )
 {
-	Assert(ubProfileId < FIRST_NPC);
+		//new profiles by Jazz	
+	//Assert(ubProfileId < FIRST_NPC);
 	Assert(ubTownId < NUM_TOWNS);
 
 	// return amount
@@ -87,7 +91,8 @@ UINT8 GetTownOpinionOfMercForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubTownId )
 
 void UpdateTownOpinionOfThisMerc( UINT8 ubProfileId, UINT8 ubTownId, INT8 bAmount )
 {
-	Assert(ubProfileId < FIRST_NPC);
+		//new profiles by Jazz	
+	//Assert(ubProfileId < FIRST_NPC);
 	Assert(ubTownId < NUM_TOWNS);
 
 	// check if opinion would be affected too greatly
@@ -132,8 +137,11 @@ void HandleSpreadOfAllTownsOpinion( void )
 	ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"%s - Spreading town opinions about mercs", WORLDTIMESTR );
 
 	// run though all player-recruitable profiles and update towns opinion of mercs
-	for( ubProfileId = 0; ubProfileId < FIRST_NPC; ubProfileId++ )
+	//for( ubProfileId = 0; ubProfileId < FIRST_NPC; ubProfileId++ )
+	//new profiles by Jazz	
+	for( ubProfileId = 0; ubProfileId < NUM_PROFILES; ubProfileId++ )	
 	{
+		if ( gProfilesIMP[ubProfileId].ProfilId == ubProfileId || gProfilesAIM[ubProfileId].ProfilId == ubProfileId || gProfilesMERC[ubProfileId].ProfilId == ubProfileId || gProfilesRPC[ubProfileId].ProfilId == ubProfileId)
 		HandleSpreadOfTownOpinionForMerc( ubProfileId );
 	}
 }
@@ -146,7 +154,7 @@ void HandleSpreadOfTownOpinionForMerc( UINT8 ubProfileId )
 	INT8 iCounterA, iCounterB;
 	INT8 bOpinionOfTownA, bOpinionOfTownB;
 
-	Assert(ubProfileId < FIRST_NPC);
+	//Assert(ubProfileId < FIRST_NPC);
 
 	for( iCounterA = FIRST_TOWN; iCounterA < NUM_TOWNS; iCounterA++ )
 	{

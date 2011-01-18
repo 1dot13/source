@@ -232,7 +232,7 @@ SOLDIERTYPE*	PickRandomPassengerFromVehicle( SOLDIERTYPE *pSoldier );
 BOOLEAN DoesVehicleHaveAnyPassengers( INT32 iVehicleID );
 BOOLEAN DoesVehicleGroupHaveAnyPassengers( GROUP *pGroup );
 
-void SetSoldierExitVehicleInsertionData( SOLDIERTYPE *pSoldier, INT32 iId );
+void SetSoldierExitVehicleInsertionData( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 iOldGroupID );
 
 void InitAVehicle(int index, int x, int y);
 

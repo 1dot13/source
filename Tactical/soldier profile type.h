@@ -4,7 +4,9 @@
 #include "overhead types.h"
 #include "Soldier Control.h"
 
-#define NUM_PROFILES		170
+#define NUM_PROFILES		255 //170 new profiles by Jazz
+//tais: maximum amount of starting gear kits
+#define NUM_MERCSTARTINGGEAR_KITS	5
 #define FIRST_RPC 57
 #define FIRST_NPC 75
 
@@ -92,34 +94,100 @@ inline bool OKToCheckOpinion(int profileNumber) {
 	return (profileNumber < DontUseMeDirectly::MaxIDToCheckForMorale);
 }
 
-
+// SANDRO - replaced this list to represent the old traits only
 typedef enum
 {
-	NO_SKILLTRAIT = 0,
-	LOCKPICKING,
-	HANDTOHAND,
-	ELECTRONICS,
-	NIGHTOPS,
-	THROWING,
-	TEACHING,
-	HEAVY_WEAPS,
-	AUTO_WEAPS,
-	STEALTHY,
-	AMBIDEXT,
-	THIEF,
-	MARTIALARTS,
-	KNIFING,
-	PROF_SNIPER,
-	CAMOUFLAGED,
-	CAMOUFLAGED_URBAN,
-	CAMOUFLAGED_DESERT,
-	CAMOUFLAGED_SNOW,
-	NUM_SKILLTRAITS
+	NO_SKILLTRAIT_OT = 0,
+	LOCKPICKING_OT,
+	HANDTOHAND_OT,
+	ELECTRONICS_OT,
+	NIGHTOPS_OT,
+	THROWING_OT,
+	TEACHING_OT,
+	HEAVY_WEAPS_OT,
+	AUTO_WEAPS_OT,
+	STEALTHY_OT,
+	AMBIDEXT_OT,
+	THIEF_OT,
+	MARTIALARTS_OT,
+	KNIFING_OT,
+	PROF_SNIPER_OT,
+	CAMOUFLAGED_OT,
+	// SANDRO - I dared to remove these for it is really useless,
+	//   with the camo removing/repainting feature you only need the basic camouflage trait anyway
+	//CAMOUFLAGED_URBAN,
+	//CAMOUFLAGED_DESERT,
+	//CAMOUFLAGED_SNOW,
+	EXPERT,
+	NUM_SKILLTRAITS_OT
 } SkillTrait;
 
+//////////////////////////////////////////////////////////////////////
+// SANDRO - the list for new traits
 typedef enum
 {
-	NO_PERSONALITYTRAIT = 0,
+	NO_SKILLTRAIT_NT = 0,
+	// MAJOR TRAITS
+	AUTO_WEAPONS_NT, // 1
+	HEAVY_WEAPONS_NT, // 2
+	SNIPER_NT, // 3
+	RANGER_NT, // 4
+	GUNSLINGER_NT, // 5
+	MARTIAL_ARTS_NT, // 6
+	SQUADLEADER_NT, // 7
+	TECHNICIAN_NT, // 8
+	DOCTOR_NT, // 9
+	// MINOR TRAITS
+	AMBIDEXTROUS_NT, // 10
+	MELEE_NT, // 11
+	THROWING_NT, // 12
+	NIGHT_OPS_NT, // 13
+	STEALTHY_NT, // 14
+	ATHLETICS_NT, // 15
+	BODYBUILDING_NT, // 16
+	DEMOLITIONS_NT, // 17
+	TEACHING_NT, // 18
+	SCOUTING_NT, // 19
+	NUM_SKILLTRAITS_NT
+} SkillTraitNew;
+
+#define NUM_MAJOR_TRAITS 9
+#define NUM_MINOR_TRAITS 10
+
+// SANDRO - new set of character traits
+typedef enum
+{
+	CHAR_TRAIT_NORMAL = 0,
+	CHAR_TRAIT_SOCIABLE,
+	CHAR_TRAIT_LONER,
+	CHAR_TRAIT_OPTIMIST,
+	CHAR_TRAIT_ASSERTIVE,
+	CHAR_TRAIT_INTELLECTUAL,
+	CHAR_TRAIT_PRIMITIVE,
+	CHAR_TRAIT_AGGRESSIVE,
+	CHAR_TRAIT_PHLEGMATIC,
+	CHAR_TRAIT_DAUNTLESS,
+	CHAR_TRAIT_PACIFIST,
+	CHAR_TRAIT_MALICIOUS,
+	CHAR_TRAIT_SHOWOFF,
+	NUM_CHAR_TRAITS
+} CharacterTraits;
+
+// SANDRO - appearances
+typedef enum
+{
+	APPEARANCE_AVARAGE = 0,
+	APPEARANCE_UGLY,
+	APPEARANCE_HOMELY,
+	APPEARANCE_ATTRACTIVE,
+	APPEARANCE_BABE,
+	NUM_APPEARANCES
+} Appearances;
+//////////////////////////////////////////////////////////////////////
+
+typedef enum
+{
+	NO_DISABILITY = 0,
 	HEAT_INTOLERANT,
 	NERVOUS,
 	CLAUSTROPHOBIC,
@@ -127,7 +195,7 @@ typedef enum
 	FEAR_OF_INSECTS,
 	FORGETFUL,
 	PSYCHO,
-	NUM_PERSONALITYTRAIT
+	NUM_DISABILITIES
 } PersonalityTrait;
 
 #define NERVOUS_RADIUS 10
@@ -176,6 +244,73 @@ typedef enum{
 #define BUDDY_OPINION +25
 #define HATED_OPINION -25
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+// SANDRO - Let's add a nice new struct for records, as there are just too many of them 
+class STRUCT_Records 
+{
+public:
+
+	UINT16	usKillsElites;
+	UINT16	usKillsRegulars;
+	UINT16	usKillsAdmins;
+	UINT16  usKillsHostiles;
+	UINT16	usKillsCreatures;
+	UINT16	usKillsTanks;
+	UINT16	usKillsOthers;
+
+	UINT16	usAssistsMercs;
+	UINT16	usAssistsMilitia;
+	UINT16	usAssistsOthers;
+
+	UINT16	usShotsFired;
+	UINT16  usMissilesLaunched;
+	UINT16  usGrenadesThrown;
+	UINT16  usKnivesThrown;
+	UINT16  usBladeAttacks;
+	UINT16  usHtHAttacks;
+	UINT16	usShotsHit;
+
+	UINT16	usBattlesTactical;
+	UINT16	usBattlesAutoresolve;
+	UINT16	usBattlesRetreated;
+	UINT16  usAmbushesExperienced;
+	UINT16	usLargestBattleFought;
+
+	UINT16	usTimesWoundedShot;
+	UINT16	usTimesWoundedStabbed;
+	UINT16	usTimesWoundedPunched;
+	UINT16	usTimesWoundedBlasted;
+	UINT16	usTimesStatDamaged;
+	UINT16	usTimesSurgeryUndergoed;
+	UINT16	usFacilityAccidents;
+	
+	UINT16	usLocksPicked;
+	UINT16	usLocksBreached;
+	UINT16	usTrapsRemoved;
+	UINT16	usExpDetonated;
+	UINT16	usItemsRepaired;
+	UINT16	usItemsCombined;
+	UINT16  usItemsStolen;
+	UINT16	usMercsBandaged;
+	UINT16	usSurgeriesMade;
+	UINT16  usMilitiaTrained;
+	UINT16	usNPCsDiscovered;
+	UINT16	usSectorsDiscovered;
+	UINT8   ubQuestsHandled;
+
+	UINT16  zFiller1;
+	UINT16  zFiller2;
+	UINT16  zFiller3;
+	UINT16  zFiller4;
+	UINT16  zFiller5;
+	UINT16  zFiller6;
+	UINT16  zFiller7;
+	UINT16  zFiller8;
+	UINT8   zFiller9;
+
+}; // RECORDS
+//////////////////////////////////////////////////////////////////////////////
+
 // CHRISL: Class to handle profile equipment from XML_MercStartingGear
 class MERCPROFILEGEAR {
 public:
@@ -193,6 +328,7 @@ public:
 	void clearInventory();
 public:
 	UINT16		mIndex;
+	INT16		PriceModifier;
 	CHAR8		mName[80];
 	char		endOfPOD;	// marker for end of POD (plain old data)
 	std::vector<int>	inv;
@@ -300,7 +436,7 @@ public:
 	INT16	sSalary;
 	INT8	bLife;
 	INT8		bDexterity;		// dexterity (hand coord) value
-	INT8	bPersonalityTrait;
+	INT8	bDisability;
 	INT8	bSkillTrait;
 
 	INT8	bReputationTolerance;
@@ -524,12 +660,16 @@ public:
 	INT8		bExplosivesDelta;
 	INT8	bStrengthDelta;
 	INT8	bLeadershipDelta;
-	UINT16	usKills;
-	UINT16	usAssists;
-	UINT16	usShotsFired;
-	UINT16	usShotsHit;
-	UINT16	usBattlesFought;
-	UINT16	usTimesWounded;
+	/////////////////////////////////////////////////////////////
+	// SANDRO - converted to it's own structure
+	//UINT16	usKills;
+	//UINT16	usAssists;
+	//UINT16	usShotsFired;
+	//UINT16	usShotsHit;
+	//UINT16	usBattlesFought;
+	//UINT16	usTimesWounded;
+	/////////////////////////////////////////////////////////////
+
 	UINT16	usTotalDaysServed;
 
 	INT16		sLeadershipGain;
@@ -543,12 +683,13 @@ public:
 	INT16	sSalary;
 	INT8	bLife;
 	INT8		bDexterity;		// dexterity (hand coord) value
-	INT8	bPersonalityTrait;
-	INT8	bSkillTrait;
+	INT8	bDisability;
+	INT8	bSkillTraits[30];
 
 	INT8	bReputationTolerance;
 	INT8	bExplosive;
-	INT8	bSkillTrait2;
+	//INT8	bSkillTrait2;
+	//INT8	bSkillTrait3; // added by SANDRO
 	INT8	bLeadership;
 
 	INT8	bBuddy[5];
@@ -598,6 +739,7 @@ public:
 	UINT32 uiBiWeeklySalary;
 	INT8 bMedicalDeposit;
 	INT8 bAttitude;
+	INT8 bCharacterTrait; // added by SANDRO
 	INT8 bBaseMorale;
 	UINT16 sMedicalDepositAmount;
 	
@@ -660,6 +802,10 @@ public:
 	std::vector<int>	inv;
 	std::vector<int>	bInvStatus;
 	std::vector<int>	bInvNumber;
+
+	// SANDRO - merc records
+	STRUCT_Records		records;
+
 }; // MERCPROFILESTRUCT;
 
 // WANNE - BMP: DONE!
@@ -753,7 +899,7 @@ public:
 	INT16	sSalary;
 	INT8	bLife;
 	INT8		bDexterity;		// dexterity (hand coord) value
-	INT8	bPersonalityTrait;
+	INT8	bDisability;
 	INT8	bSkillTrait;
 
 	INT8	bReputationTolerance;

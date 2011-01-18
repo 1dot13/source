@@ -960,12 +960,13 @@ void UpdateTemperature( UINT8 ubTemperatureCode )
 
 INT8 SectorTemperature( UINT32 uiTime, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
+	// SANDRO - updated this code
 	if (bSectorZ > 0)
 	{
 		// cool underground
 		return( 0 );
 	}
-	else if ( IsSectorDesert( sSectorX, sSectorY ) ) // is desert
+	else if ( IsSectorDesert( sSectorX, sSectorY ) && !( guiEnvWeather & ( WEATHER_FORECAST_SHOWERS | WEATHER_FORECAST_THUNDERSHOWERS ) ) ) // is desert
 	{
 		return( gubDesertTemperature );
 	}

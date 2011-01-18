@@ -906,7 +906,7 @@ void RenderEditorInfo( )
 	switch( iCurrentTaskbar )
 	{
 		case TASK_OPTIONS:
-			mprintf(iScreenWidthOffset+71+15, SCREEN_HEIGHT-117, L"v1.12");//dnl ch33 160909
+			mprintf(iScreenWidthOffset+71+15, SCREEN_HEIGHT-117, L"Save map in original JA2 map format (Version: 5.00 / 25)");//dnl ch33 160909
 			if( !gfWorldLoaded || giCurrentTilesetID < 0 )
 				mprintf( iScreenWidthOffset + 260, 2 * iScreenHeightOffset + 445, L"No map currently loaded." );
 			else

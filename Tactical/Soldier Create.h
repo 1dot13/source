@@ -500,6 +500,9 @@ BOOLEAN InternalTacticalRemoveSoldier( UINT16 usSoldierIndex, BOOLEAN fRemoveVeh
 void OkayToUpgradeEliteToSpecialProfiledEnemy( SOLDIERCREATE_STRUCT *pp );
 extern BOOLEAN gfProfiledEnemyAdded; //needs to be saved (used by the above function)
 
+//Legion by Jazz
+void BeginSoldierClimbUpOkno( SOLDIERTYPE *pSoldier );
+void BeginSoldierFenceUp( SOLDIERTYPE *pSoldier );
 //dnl ch27 240909
 typedef enum
 {
@@ -516,5 +519,8 @@ BOOLEAN TranslateArrayFields(void* out, const void* inp, int len, int cmd);
 //dnl ch56 141009
 #define CENTRAL_GRIDNO (MAPROWCOLTOPOS(WORLD_ROWS/2,WORLD_COLS/2))
 #define CENTRAL_RADIUS (min(WORLD_ROWS,WORLD_COLS)/5)
+
+void ResetNumSquadleadersInArmyGroup( void ); // added by SANDRO
+BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruct ); // Added a function to add traits to soldiers - SANDRO
 
 #endif

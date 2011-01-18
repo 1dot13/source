@@ -31,13 +31,12 @@
 	#include "MemMan.h"
 	#include "Debug.h"
 	#include <stdio.h>
+	#include "sgp_logger.h"
 	#ifdef _DEBUG
 		#include <crtdbg.h>
 	#endif
 //#endif
 
-#include "VFS/vfs.h"
-#include "VFS/Tools/Log.h"
 
 #ifdef _DEBUG
 	//#define DEBUG_MEM_LEAKS // turns on tracking of every MemAlloc and MemFree!
@@ -231,16 +230,17 @@ void ShutdownMemoryManager( void )
 				}
 				fclose( fp );
 #else
-				CLog memLeak( L"MemLeakInfo.txt", true);
-				memLeak.endl().endl();
-				memLeak << ">>>>> MEMORY LEAK DETECTED!!! <<<<<" << CLog::ENDL;
-				memLeak << "	" << guiMemAlloced << " bytes memory total was allocated" << CLog::ENDL;
-				memLeak << "- " << guiMemFreed << " bytes memory total was freed" << CLog::ENDL;
-				memLeak << "_______________________________________________" << CLog::ENDL;
-				memLeak << guiMemTotal << " bytes memory total STILL allocated" << CLog::ENDL;
-				memLeak << MemDebugCounter << " memory blocks still allocated" << CLog::ENDL;
-				memLeak << "guiScreenExitedFrom = " << gzJA2ScreenNames[ gMsgBox.uiExitScreen ] << CLog::ENDL;
-				memLeak.endl().endl();
+				sgp::Logger_ID log_id = sgp::Logger::instance().createLogger();
+				sgp::Logger::LogInstance memLeak = SGP_LOG(log_id);
+				memLeak << sgp::endl << sgp::endl;
+				memLeak << ">>>>> MEMORY LEAK DETECTED!!! <<<<<" << sgp::endl;
+				memLeak << "	" << guiMemAlloced << " bytes memory total was allocated" << sgp::endl;
+				memLeak << "- " << guiMemFreed << " bytes memory total was freed" << sgp::endl;
+				memLeak << "_______________________________________________" << sgp::endl;
+				memLeak << guiMemTotal << " bytes memory total STILL allocated" << sgp::endl;
+				memLeak << MemDebugCounter << " memory blocks still allocated" << sgp::endl;
+				memLeak << "guiScreenExitedFrom = " << gzJA2ScreenNames[ gMsgBox.uiExitScreen ] << sgp::endl;
+				memLeak << sgp::endl << sgp::endl;
 #endif
 			}
 			#endif

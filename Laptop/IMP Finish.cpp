@@ -24,6 +24,9 @@
 	#include "text.h"
 #endif
 
+
+#include "IMP Confirm.h"
+
 // min time btween frames of animation
 #define ANIMATE_MIN_TIME 200
 
@@ -659,7 +662,25 @@ BOOLEAN LoadCharacterPortrait( void )
 
 	// load it
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP( pPlayerSelectedFaceFileNames[ iPortraitNumber ] , VObjectDesc.ImageFile);
+		
+	
+		if( fCharacterIsMale )
+		{
+			if (  gIMPMaleValues[ iPortraitNumber ].Enabled == 1 )
+			{
+				sprintf( VObjectDesc.ImageFile, "Faces\\%02d.sti", gIMPMaleValues[ iPortraitNumber ].PortraitId );
+			}
+		}
+		else
+		{
+			if (  gIMPFemaleValues[ iPortraitNumber ].Enabled == 1 )
+			{
+				sprintf( VObjectDesc.ImageFile, "Faces\\%02d.sti", gIMPFemaleValues[ iPortraitNumber ].PortraitId );
+			}
+		}
+		
+	//FilenameForBPP( pPlayerSelectedFaceFileNames[ iPortraitNumber ] , VObjectDesc.ImageFile);
+	
 	CHECKF(AddVideoObject(&VObjectDesc, &guiCHARACTERPORTRAIT));
 
 	return( TRUE );

@@ -21,7 +21,7 @@ class SOLDIERTYPE;
 // WDS - Automatically try to save when an assertion failure occurs
 #define		SAVE__ASSERTION_FAILURE				97
 
-#define     SAVE__TIMED_AUTOSAVE				11
+#define     SAVE__TIMED_AUTOSAVE				19	// WANNE: This slot does not show up in the load/save screen because it is > 18
 
 #define		EARLIST_SPECIAL_SAVE				97
 
@@ -64,9 +64,9 @@ typedef struct
 
 	UINT8	ubInventorySystem;
 
-	UINT8		ubFiller[109];
+	UINT8	ubAttachmentSystem;
 
-
+	UINT8		ubFiller[108];	// WANNE: Changed from 109 to 108 because of ubNewAttachmentSystem integration
 
 } SAVED_GAME_HEADER;
 

@@ -628,10 +628,12 @@ BOOLEAN PlayerForceTooStrong( UINT8 ubSectorID, UINT16 usOffensePoints, UINT16 *
 	ubSectorY = (UINT8)SECTORY( ubSectorID );
 	pSector = &SectorInfo[ ubSectorID ];
 
-	*pusDefencePoints = pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]		* 1 +
-											pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] * 2 +
-											pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]		* 3 +
-											PlayerMercsInSector( ubSectorX, ubSectorY, 0 )		* 5;
+	// SANDRO - EVALUATE THE STRENGTH OF MILITIA BASED ON INI SETTING
+	*pusDefencePoints = PlayerMercsInSector( ubSectorX, ubSectorY, 0 ) * 5;
+	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] * 1 * (100 + gGameExternalOptions.sGreenMilitiaAutoresolveStrength )/100);
+	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] * 2 * (100 + gGameExternalOptions.sRegularMilitiaAutoresolveStrength)/100);
+	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] * 3 * (100 + gGameExternalOptions.sVeteranMilitiaAutoresolveStrength)/100);
+
 	if( *pusDefencePoints > usOffensePoints )
 	{
 		return TRUE;
@@ -1513,18 +1515,116 @@ void InitStrategicAI()
 	//final thing to do is choose 1 cache map out of 5 possible maps.	Simply select the sector randomly,
 	//set up the flags to use the alternate map, then place 8-12 regular troops there (no ai though).
 	//changing MAX_STRATEGIC_TEAM_SIZE may require changes to to the defending force here.
-	if ( !gGameExternalOptions.fEnableAllWeaponCaches )
+	if ( !gGameOptions.fEnableAllWeaponCaches ) // SANDRO - weapon caches settings changed
 	{
-		switch( Random( 5 ) )
+		// added a chance to have more than one weapon caches in game
+		INT8 ubPicked[2] = { 0,0 };
+		UINT8 cnt, cnt2, ubNumberCaches, ubSector;
+		
+		ubNumberCaches = ( Chance( 50 ) ? (Chance( 25 ) ?  3 : 2 ) : 1);
+		cnt2 = 0;
+
+		for (cnt = 0; cnt < ubNumberCaches; cnt++)
 		{
-			case 0:	pSector = &SectorInfo[ SEC_E11 ]; break;
-			case 1:	pSector = &SectorInfo[ SEC_H5 ]; break;
-			case 2:	pSector = &SectorInfo[ SEC_H10 ]; break;
-			case 3:	pSector = &SectorInfo[ SEC_J12 ]; break;
-			case 4:	pSector = &SectorInfo[ SEC_M9 ]; break;
+			ubSector = (1 + Random ( 5 ));
+			switch( ubSector )
+			{
+				case 1:	
+					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
+					{
+						pSector = &SectorInfo[ SEC_E11 ]; 
+						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+						if (ubPicked[0] == 0)
+							ubPicked[0] = ubSector;
+						else if (ubPicked[1] == 0)
+							ubPicked[1] = ubSector; 
+						else 
+							cnt2 += 25;
+					}
+					else 
+					{
+						cnt--; 
+					}
+					break;
+				case 2:	
+					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
+					{
+						pSector = &SectorInfo[ SEC_H5 ];
+						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+						if (ubPicked[0] == 0)
+							ubPicked[0] = ubSector;
+						else if (ubPicked[1] == 0)
+							ubPicked[1] = ubSector; 
+						else 
+							cnt2 += 25;
+					}
+					else 
+					{
+						cnt--; 
+					}
+					break;
+				case 3:	
+					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
+					{
+						pSector = &SectorInfo[ SEC_H10 ];
+						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+						if (ubPicked[0] == 0)
+							ubPicked[0] = ubSector;
+						else if (ubPicked[1] == 0)
+							ubPicked[1] = ubSector; 
+						else 
+							cnt2 += 25;
+					}
+					else 
+					{
+						cnt--; 
+					}
+					break;
+				case 4:	
+					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
+					{
+						pSector = &SectorInfo[ SEC_J12 ];
+						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+						if (ubPicked[0] == 0)
+							ubPicked[0] = ubSector;
+						else if (ubPicked[1] == 0)
+							ubPicked[1] = ubSector; 
+						else 
+							cnt2 += 25;
+					}
+					else 
+					{
+						cnt--; 
+					}
+					break;
+				case 5:	
+					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
+					{
+						pSector = &SectorInfo[ SEC_M9 ];
+						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+						pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+						if (ubPicked[0] == 0)
+							ubPicked[0] = ubSector;
+						else if (ubPicked[1] == 0)
+							ubPicked[1] = ubSector; 
+						else 
+							cnt2 += 25;
+					}
+					else 
+					{
+						cnt--; 
+					}
+					break;
+			}
+
+			cnt2++;
+			if (cnt2 > 25)
+				break;
 		}
-		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 	}
 	else
 	{
@@ -1959,10 +2059,12 @@ BOOLEAN ReinforcementsApproved( INT32 iGarrisonID, UINT16 *pusDefencePoints )
 	ubSectorX = (UINT8)SECTORX( gGarrisonGroup[ iGarrisonID ].ubSectorID );
 	ubSectorY = (UINT8)SECTORY( gGarrisonGroup[ iGarrisonID ].ubSectorID );
 
-	*pusDefencePoints = pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]		* 1 +
-										pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] * 2 +
-										pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]		* 3 +
-										PlayerMercsInSector( ubSectorX, ubSectorY, 0 )		* 4;
+	// SANDRO - EVALUATE THE MILITIA STRENGTH REGARDING THE GAME SETTINGS
+	*pusDefencePoints = PlayerMercsInSector( ubSectorX, ubSectorY, 0 ) * 5;
+	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] * 1 * (100 + gGameExternalOptions.sGreenMilitiaAutoresolveStrength )/100);
+	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] * 2 * (100 + gGameExternalOptions.sRegularMilitiaAutoresolveStrength)/100);
+	*pusDefencePoints += (pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] * 3 * (100 + gGameExternalOptions.sVeteranMilitiaAutoresolveStrength)/100);
+
 	usOffensePoints = gArmyComp[ gGarrisonGroup[ iGarrisonID ].ubComposition ].bAdminPercentage * 2 +
 										gArmyComp[ gGarrisonGroup[ iGarrisonID ].ubComposition ].bTroopPercentage * 3 +
 										gArmyComp[ gGarrisonGroup[ iGarrisonID ].ubComposition ].bElitePercentage * 4 +
@@ -4553,10 +4655,15 @@ void HourlyCheckStrategicAI()
 
 
 #ifdef JA2BETAVERSION
-#include "VFS/vfs.h"
-#include "VFS/Tools/Log.h"
+#include "sgp_logger.h"
 
-static CLog& s_stratD = *CLog::create(L"Strategic Decisions.txt", true);
+static struct StratDecLog {
+	sgp::Logger_ID id;
+	StratDecLog() {
+		id = sgp::Logger::instance().createLogger();
+		sgp::Logger::instance().connectFile(id, L"Strategic Decisions.txt", false, sgp::Logger::FLUSH_ON_DELETE);
+	}
+} s_stratD;
 
 void LogStrategicMsg( STR8	str, ... )
 {
@@ -4576,7 +4683,7 @@ void LogStrategicMsg( STR8	str, ... )
 #ifndef USE_VFS
 	fprintf( fp, "%s\n", string );
 #else
-	s_stratD << string << CLog::ENDL;
+	SGP_LOG(s_stratD.id, string);
 #endif
 
 	if( gfDisplayStrategicAILogs )
@@ -4612,7 +4719,7 @@ void LogStrategicEvent( STR8	str, ... )
 	fprintf( fp, "\n%S:\n", WORLDTIMESTR );
 	fprintf( fp, "%s\n", string );
 #else
-	s_stratD.endl() << WORLDTIMESTR << ":" << CLog::ENDL << string << CLog::ENDL;
+	SGP_LOG(s_stratD.id) << sgp::endl << WORLDTIMESTR << ":" << sgp::endl << string << sgp::endl;
 #endif
 	if( gfDisplayStrategicAILogs )
 	{
@@ -4639,7 +4746,7 @@ void ClearStrategicLog()
 
 	fclose( fp );
 #else
-	s_stratD.flush();
+	SGP_LOG(s_stratD.id) << sgp::flush;
 #endif
 }
 #endif

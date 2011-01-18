@@ -104,8 +104,11 @@ extern UINT16 CivLastNames[MAXCIVLASTNAMES][10];
 #define	SOLDIER_TRAIT_MARTIALARTS		0x0800
 #define	SOLDIER_TRAIT_KNIFING				0x1000
 */
-#define HAS_SKILL_TRAIT( s, t ) (s->stats.ubSkillTrait1 == t || s->stats.ubSkillTrait2 == t)
-#define NUM_SKILL_TRAITS( s, t ) ( (s->stats.ubSkillTrait1 == t) ? ( (s->stats.ubSkillTrait2 == t) ? 2 : 1 ) : ( (s->stats.ubSkillTrait2 == t) ? 1 : 0 ) )
+// SANDRO was here, messed this..
+//#define HAS_SKILL_TRAIT( s, t ) (s->stats.ubSkillTrait1 == t || s->stats.ubSkillTrait2 == t)
+//#define NUM_SKILL_TRAITS( s, t ) ( (s->stats.ubSkillTrait1 == t) ? ( (s->stats.ubSkillTrait2 == t) ? 2 : 1 ) : ( (s->stats.ubSkillTrait2 == t) ? 1 : 0 ) )
+BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber );
+INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber );
 
 #define	SOLDIER_QUOTE_SAID_IN_SHIT										0x0001
 #define	SOLDIER_QUOTE_SAID_LOW_BREATH									0x0002
@@ -243,6 +246,22 @@ enum
 	MERC_TYPE__EPC,
 	MERC_TYPE__NPC_WITH_UNEXTENDABLE_CONTRACT,
 	MERC_TYPE__VEHICLE,
+};
+
+// SANDRO - added for healing damaged stats
+enum
+{
+	DAMAGED_STAT_HEALTH,
+	DAMAGED_STAT_DEXTERITY,
+	DAMAGED_STAT_AGILITY,
+	DAMAGED_STAT_STRENGTH,
+	DAMAGED_STAT_WISDOM,
+	DAMAGED_STAT_LEADERSHIP,
+	DAMAGED_STAT_MARKSMANSHIP,
+	DAMAGED_STAT_MECHANICAL,
+	DAMAGED_STAT_EXPLOSIVES,
+	DAMAGED_STAT_MEDICAL,
+	NUM_DAMAGABLE_STATS,
 };
 
 // vehicle/human path structure
@@ -602,21 +621,22 @@ class STRUCT_Statistics//last edited at version 102
 {
 public:
 	void				ConvertFrom_101_To_102(const OLDSOLDIERTYPE_101& src);
+	INT8												bExpLevel;		// general experience level
 	INT8												bLife;				// current life (hit points or health)
 	INT8												bLifeMax;			// maximum life for this merc
-	INT8												bExpLevel;		// general experience level
-	INT8												bAgility;			// agility (speed) value
 	INT8												bStrength;
-	INT8												bMechanical;
-	INT8												bMarksmanship;
-	INT8												bExplosive;
-	UINT8												ubSkillTrait1;
-	UINT8												ubSkillTrait2;
+	INT8												bAgility;			// agility (speed) value
 	INT8												bDexterity;		// dexterity (hand coord) value
 	INT8												bWisdom;
+	INT8												bLeadership;
+	INT8												bMarksmanship;
+	INT8												bMechanical;
+	INT8												bExplosive;
 	INT8												bMedical;
 	INT8												bScientific;	
-	INT8						bLeadership;
+	UINT8												ubSkillTraits[30];
+	//UINT8												ubSkillTrait2;
+	//UINT8												ubSkillTrait3; // added by SANDRO
 };
 
 class STRUCT_Pathing//last edited at version 102
@@ -664,6 +684,7 @@ public:
 	//	Use this instead of the old method of calling memset.
 	//	Note that the constructor does this automatically.
 	void initialize();
+	bool	exists();
 
 	// Note: Place all non-POD items at the end (after endOfPOD)
 	// The format of this structure affects what is written into and read from various
@@ -708,6 +729,16 @@ public:
 	UINT8												ubAttackingHand;
 	INT16												sWeightCarriedAtTurnStart;
 	
+	/////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - added following
+	// values for surgery feature
+	INT32												iHealableInjury; 
+	BOOLEAN												fDoingSurgery; 
+	// value for unregainable breath feature (for Martial Arts)
+	signed long											lUnregainableBreath;
+	// this stores possible stats lost due to critical hits
+	UINT8												ubCriticalStatDamage[ NUM_DAMAGABLE_STATS ];
+	/////////////////////////////////////////////////////////////////////////////////
 
 	//NEW MOVEMENT INFORMATION for Strategic Movement
 	UINT8												ubGroupID;		//the movement group the merc is currently part of.
@@ -720,8 +751,12 @@ public:
 	// WORLD POSITION STUFF
 	FLOAT											dXPos;
 	FLOAT											dYPos;
-	FLOAT											dOldXPos;
-	FLOAT											dOldYPos;
+	// HEADROCK HAM 4: These two vars are appropriated for the new Shooting Mechanism.
+	// They represent the soldier's position at the start of his turn.
+	//FLOAT											dOldXPos;
+	//FLOAT											dOldYPos; 
+	INT16											sOldXPos;
+	INT16											sOldYPos;
 	INT32												sInitialGridNo;
 	INT32												sGridNo;
 	UINT8												ubDirection;
@@ -774,6 +809,13 @@ public:
 	INT8												bTargetLevel;
 	INT8												bTargetCubeLevel;
 	INT32												sLastTarget;
+	// HEADROCK HAM 4: the muzzle offset of the shooter's previous bullet. (NCTH)
+	FLOAT												dPrevMuzzleOffsetX;
+	FLOAT												dPrevMuzzleOffsetY;
+	// HEADROCK HAM 4: Two more values. These record the shooter's previous Counter Force applied on the gun.
+	FLOAT												dPrevCounterForceX;
+	FLOAT												dPrevCounterForceY;
+
 	INT8												bTilesMoved;
 	FLOAT												dNextBleed;
 
@@ -1099,6 +1141,7 @@ public:
 
 	// Debugging data - not saved
 	INT32 sPlotSrcGrid;
+	//std::vector<UINT32>	CTH;
 
 
 public:
@@ -1213,6 +1256,12 @@ public:
 	void BeginSoldierClimbDownRoof( void );
 	void BeginSoldierClimbFence( void );
 	void BeginTyingToFall( void );
+	
+	//legion by Jazz
+	void BeginSoldierFence( void  ); 
+	void BeginSoldierFenceUp( void  );
+	void BeginSoldierClimbWindow( void );
+	
 	void HandleAnimationProfile( UINT16	usAnimState, BOOLEAN fRemove );
 	void HandleSoldierTakeDamageFeedback( void );
 	void ChangeToFlybackAnimation( UINT8 flyBackDirection );
@@ -1357,6 +1406,10 @@ void CrowsFlyAway( UINT8 ubTeam );
 void DebugValidateSoldierData( );
 void HandlePlayerTogglingLightEffects( BOOLEAN fToggleValue );
 
+// added by SANDRO
+UINT8 GetSquadleadersCountInVicinity( SOLDIERTYPE * pSoldier, BOOLEAN fWithHigherLevel, BOOLEAN fDontCheckDistance );
+UINT16 NumberOfDamagedStats( SOLDIERTYPE * pSoldier );
+UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundredths );
 
 //typedef struct
 class OLDSOLDIERTYPE_101
@@ -1477,8 +1530,10 @@ public:
 	// WORLD POSITION STUFF
 	FLOAT											dXPos;
 	FLOAT											dYPos;
-	FLOAT											dOldXPos;
-	FLOAT											dOldYPos;
+	//FLOAT											dOldXPos; // HEADROCK HAM 4: These values have been reappropriated.
+	//FLOAT											dOldYPos; // not sure what's going to happen with this though.
+	INT16											sOldXPos;
+	INT16											sOldYPos;
 	INT32												sInitialGridNo;
 	INT32												sGridNo;
 	UINT8												ubDirection;
@@ -1517,6 +1572,7 @@ public:
 	
 	UINT8												ubSkillTrait1;
 	UINT8												ubSkillTrait2;
+	UINT8												ubSkillTrait3; // added by SANDRO
 
 	UINT32											uiAIDelay;
 	INT8												bDexterity;		// dexterity (hand coord) value
@@ -1686,6 +1742,7 @@ public:
 	INT8												bNextTargetLevel;
 	INT8												bOrders;
 	INT8												bAttitude;
+	INT8												bCharacterTrait;	// Added by SANDRO
 	INT8												bUnderFire;
 	INT8												bShock;
 	INT8												bUnderEscort;
@@ -2052,7 +2109,5 @@ public:
 }; // OLDSOLDIERTYPE_101;	
 
 #endif
-
-
 
 

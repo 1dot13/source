@@ -72,7 +72,7 @@ extern UINT8 ubSAMControlledSectors[ MAP_WORLD_Y ][ MAP_WORLD_X ];
 extern INT32 iSeatingCapacities[];
 
 // the static NPC dialogue faces
-extern UINT32 uiExternalStaticNPCFaces[];
+//extern UINT32 uiExternalStaticNPCFaces[];
 
 // the squad mvt groups
 extern INT8 SquadMovementGroups[ ];
@@ -376,10 +376,15 @@ BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 		else
 		{
 			// Say quote: "Gonna have to abort.	Enemies below"
-			if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) 
+			//CHRISL: Whether skyrider is set to silent or not, we should still say this if we aren't allowing landing in a hot lz.
+			//if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) 
+			if(gGameExternalOptions.ubSkyriderHotLZ == 0)
 				HeliCharacterDialogue( pSkyRider, ARRIVED_IN_HOSTILE_SECTOR );
+			else
+				HeliCharacterDialogue( pSkyRider, HELI_HOT_DROP );
 			
-			//StopTimeCompression();
+			PaySkyriderBill();
+			StopTimeCompression();
 		}
 
 		if( CheckForArrivalAtRefuelPoint( ) )
@@ -2230,6 +2235,7 @@ void PaySkyriderBill( void)
 			ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, pSkyriderText[ 1 ], -gMercProfiles[ SKYRIDER ].iBalance );
 
 			// kick everyone out! (we know we're in a safe sector if we're paying)
+			//CHRISL: This may no longer be the case but I'm not sure of a better way to handle things.
 			MoveAllInHelicopterToFootMovementGroup( );
 
 			MakeHeliReturnToBase();

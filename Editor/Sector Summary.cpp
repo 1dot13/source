@@ -39,10 +39,11 @@
 	#include "Soldier Create.h"
 	#include "GameVersion.h"
 	#include "Campaign Types.h"
+	#include "GameSettings.h"
 #endif
 
-#include "VFS/vfs.h"
-#include "VFS/vfs_file_raii.h"
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_file_raii.h>
 
 extern BOOLEAN gfOverheadMapDirty;
 
@@ -416,9 +417,10 @@ void CreateSummaryWindow()
 	if( gfAutoLoadA9 )
 	{
 		gfAutoLoadA9++;
-		gsSelSectorX = 9;
-		gsSelSectorY = 1;
-		gpCurrentSectorSummary = gpSectorSummary[ 8 ][ 0 ][ 0 ];
+		gsSelSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;//9;
+		gsSelSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;//1;
+		//gpCurrentSectorSummary = gpSectorSummary[ 8 ][ 0 ][ 0 ];
+		gpCurrentSectorSummary = gpSectorSummary[ gGameExternalOptions.ubDefaultArrivalSectorX - 1 ][ gGameExternalOptions.ubDefaultArrivalSectorY - 1 ][ 0 ];
 		ButtonList[ iSummaryButton[ SUMMARY_LOAD ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	}
 }
@@ -761,6 +763,7 @@ void RenderItemDetails()
 						pItem = &gpWorldItemsSummaryArray[ i ].object;
 						uiExistChance += (100 - gpWorldItemsSummaryArray[ i ].ubNonExistChance) * pItem->ubNumberOfObjects;
 						uiStatus += (*pItem)[0]->data.objectStatus;
+						uiQuantity += pItem->ubNumberOfObjects;
 					}
 				}
 			}
@@ -1965,7 +1968,7 @@ void CreateGlobalSummary()
 	vfs::COpenWriteFile wfile(L"DevInfo\\readme.txt",true,true);
 	std::string str = "This information is used in conjunction with the editor.\n";
 	str += "This directory or it's contents shouldn't be included with final release.\n";
-	TRYCATCH_RETHROW( wfile.file().write(str.c_str(), str.length()), L"" );
+	SGP_TRYCATCH_RETHROW( wfile->write(str.c_str(), str.length()), L"" );
 #endif
 
 	// Snap: Restore the data directory once we are finished.
@@ -2154,6 +2157,8 @@ void SummaryLoadMapCallback( GUI_BUTTON *btn, INT32 reason )
 		SetFont( FONT10ARIAL );
 		SetFontForeground( FONT_LTKHAKI );
 		SetFontShadow( FONT_NEARBLACK );
+
+		fNewMapSaved = TRUE;
 
 		//swprintf( str, L"Loading map:  %s...", gszDisplayName );
 		//mprintf( MAP_LEFT, MAP_BOTTOM+100, str );
@@ -2640,11 +2645,11 @@ void GenerateSummaryList()
 		vfs::COpenWriteFile wfile(L"DevInfo/readme.txt",true,true);
 		std::string str = "This information is used in conjunction with the editor.\n";
 		str += "This directory or it's contents shouldn't be included with final release.\n";
-		TRYCATCH_RETHROW( wfile.file().write(str.c_str(), str.length()), L"");
+		SGP_TRYCATCH_RETHROW( wfile->write(str.c_str(), str.length()), L"");
 	}
-	catch(CBasicException &ex)
+	catch(std::exception &ex)
 	{
-		RETHROWEXCEPTION(L"Could not create readme.txt",&ex);
+		SGP_RETHROW(L"Could not create readme.txt", ex);
 	}
 #endif
 }
@@ -3220,6 +3225,9 @@ void SetupItemDetailsMode( BOOLEAN fAllowRecursion )
 	OBJECTTYPE *pItem;
 	UINT16 usPEnemyIndex, usNEnemyIndex;
 
+	SUMMARYFILE *s = gpCurrentSectorSummary;
+	MAPCREATE_STRUCT *m = &gpCurrentSectorSummary->MapInfo;
+
 	//Clear memory for all the item summaries loaded
 	if( gpWorldItemsSummaryArray )
 	{
@@ -3291,7 +3299,7 @@ void SetupItemDetailsMode( BOOLEAN fAllowRecursion )
 	gusWorldItemsSummaryArraySize = gpCurrentSectorSummary->usNumItems;
 	for (unsigned int x = 0; x < uiNumItems; ++x)
 	{
-		gpWorldItemsSummaryArray[x].Load(hfile);
+		gpWorldItemsSummaryArray[x].Load(hfile, s->dMajorMapVersion, m->ubMapVersion);
 	}
 
 	//NOW, do the enemy's items!

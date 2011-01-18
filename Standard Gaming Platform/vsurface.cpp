@@ -167,7 +167,7 @@ namespace SurfaceData
 			SurfaceData::_surfaceOfData[data] = surfaceID;
 			return data;
 		}
-		THROWEXCEPTION(L"Unregistered surface ID");
+		SGP_THROW(L"Unregistered surface ID");
 	}
 	BYTE* SetSurfaceData(HVSURFACE surface, BYTE* data)
 	{
@@ -181,7 +181,7 @@ namespace SurfaceData
 				return data;
 			}
 		}
-		THROWEXCEPTION(L"Unregistered surface");
+		SGP_THROW(L"Unregistered surface");
 	}
 	void ReleaseSurfaceData(tID surfaceID)
 	{
@@ -246,7 +246,8 @@ namespace SurfaceData
 		{
 			return it->second;
 		}
-		THROWEXCEPTION(L"Pointer to surface invalid");
+		//SGP_THROW(L"Pointer to surface invalid");
+		return 0;
 	}
 };
 
@@ -1035,9 +1036,20 @@ HVSURFACE CreateVideoSurface( VSURFACE_DESC *VSurfaceDesc )
 		//
 		// Create himage object from file
 		//
+		ImageFileType::TestOrder order = ImageFileType::JPC_FALLBACK;
+		if(VSurfaceDesc->fCreateFlags & VSURFACE_CREATE_FROMJPC) {
+			order = ImageFileType::JPC;
+		} if(VSurfaceDesc->fCreateFlags & VSURFACE_CREATE_FROMJPC_FALLBACK) {
+			order = ImageFileType::JPC_FALLBACK;
+		} if(VSurfaceDesc->fCreateFlags & VSURFACE_CREATE_FROMPNG) {
+			order = ImageFileType::PNG;
+		} if(VSurfaceDesc->fCreateFlags & VSURFACE_CREATE_FROMPNG_FALLBACK) {
+			order = ImageFileType::PNG_FALLBACK;
+		}
 
-		hImage = CreateImage( VSurfaceDesc->ImageFile, IMAGE_ALLIMAGEDATA );
-
+		SGP_THROW_IFFALSE(hImage = CreateImage( VSurfaceDesc->ImageFile, IMAGE_ALLIMAGEDATA, order ),
+			_BS(L"Could not create video surface from file : ") << vfs::String(VSurfaceDesc->ImageFile) << _BS::wget);
+		
 		if ( hImage == NULL )
 		{
 			DbgMessage( TOPIC_VIDEOSURFACE, DBG_LEVEL_2, "Invalid Image Filename given" );

@@ -38,6 +38,7 @@
 	#include "Game Clock.h"
 	#include "handle doors.h"
 	#include "Map Screen Interface.h"
+	#include "GameSettings.h" // added by SANDRO
 #endif
 
 
@@ -357,8 +358,12 @@ BOOLEAN AttemptToCrowbarLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 
 	if (iResult > 0)
 	{
-	// STR GAIN (20) - Pried open a lock
-	StatChange( pSoldier, STRAMT, 20, FALSE );
+		// STR GAIN (20) - Pried open a lock
+		StatChange( pSoldier, STRAMT, 20, FALSE );
+
+		// SANDRO - merc records - locks breached
+		if ( pSoldier->ubProfile != NO_PROFILE )
+			gMercProfiles[ pSoldier->ubProfile ].records.usLocksBreached++;
 
 		// succeeded! door can never be locked again, so remove from door list...
 		RemoveDoorInfoFromTable( pDoor->sGridNo );
@@ -436,8 +441,12 @@ BOOLEAN AttemptToSmashDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	}
 	if (iResult > 0)
 	{
-	// STR GAIN (20) - Pried open a lock
-	StatChange( pSoldier, STRAMT, 20, FALSE );
+		// STR GAIN (20) - Pried open a lock
+		StatChange( pSoldier, STRAMT, 20, FALSE );
+
+		// SANDRO - merc records - locks breached
+		if ( pSoldier->ubProfile != NO_PROFILE )
+			gMercProfiles[ pSoldier->ubProfile ].records.usLocksBreached++;
 
 		// succeeded! door can never be locked again, so remove from door list...
 		RemoveDoorInfoFromTable( pDoor->sGridNo );
@@ -523,7 +532,9 @@ BOOLEAN AttemptToPickLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 		else
 		 StatChange( pSoldier, WISDOMAMT, ( UINT16 ) ( pLock->ubPickDifficulty / 15 ), FALSE );
 
-
+		// SANDRO - merc records - another lock picked
+		if ( pSoldier->ubProfile != NO_PROFILE )
+			gMercProfiles[ pSoldier->ubProfile ].records.usLocksPicked++;
 
 		// succeeded!
 		pDoor->fLocked = FALSE;
@@ -554,6 +565,23 @@ BOOLEAN AttemptToUntrapDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 
 	if (iResult > 0)
 	{
+		// SANDRO - added some exp for removing traps (why was it not here anyway?)
+		// MECHANICAL/EXPLOSIVES GAIN
+		if ( pDoor->ubTrapID == EXPLOSION	)
+			StatChange( pSoldier, EXPLODEAMT, ( UINT16 ) ( pDoor->ubTrapLevel * 5 ), FALSE );
+		else
+			StatChange( pSoldier, MECHANAMT, ( UINT16 ) ( pDoor->ubTrapLevel * 5 ), FALSE );
+
+		// DEXTERITY GAIN
+		StatChange( pSoldier, DEXTAMT, ( UINT16 ) ( pDoor->ubTrapLevel * 5 ), FALSE );
+
+		// WISDOM GAIN
+		StatChange( pSoldier, WISDOMAMT, ( UINT16 ) ( pDoor->ubTrapLevel * 2 ), FALSE );
+
+		// SANDRO - merc records - another lock picked
+		if ( pSoldier->ubProfile != NO_PROFILE )
+			gMercProfiles[ pSoldier->ubProfile ].records.usTrapsRemoved++;
+
 		// succeeded!
 		pDoor->ubTrapLevel = 0;
 		pDoor->ubTrapID = NO_TRAP;
@@ -592,6 +620,8 @@ BOOLEAN ExamineDoorForTraps( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 			else
 			{
 				pDoor->bPerceivedTrapped = DOOR_PERCEIVED_TRAPPED;
+				// SANDRO - add some exp for trap exposion
+				StatChange( pSoldier, WISDOMAMT, ( UINT16 ) ( max(1,(pDoor->ubTrapLevel - 1)) ), FALSE );
 				return( TRUE );
 			}
 		}
@@ -755,12 +785,25 @@ BOOLEAN AttemptToBlowUpLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 
 		// Not sure if this makes sense, but the explosive is small.
 		// Double the damage here as we are damaging a lock rather than a person
-		pDoor->bLockDamage += Explosive[Item[pSoldier->inv[bSlot].usItem].ubClassIndex].ubDamage * 2;
+		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT ))
+		{
+			// greatly increase the effectiveness of shaped charge
+			pDoor->bLockDamage += (Explosive[Item[pSoldier->inv[bSlot].usItem].ubClassIndex].ubDamage * 2 * gSkillTraitValues.ubDEShapedChargeDamageMultiplier);
+		}
+		else
+		{
+			pDoor->bLockDamage += Explosive[Item[pSoldier->inv[bSlot].usItem].ubClassIndex].ubDamage * 2;
+		}
+
 		if (pDoor->bLockDamage > LockTable[ pDoor->ubLockID ].ubSmashDifficulty )
 		{
 			// succeeded! door can never be locked again, so remove from door list...
 			RemoveDoorInfoFromTable( pDoor->sGridNo );
-			// award experience points?
+			// award experience points? ... SANDRO - sure!
+			StatChange( pSoldier, EXPLODEAMT, ( 10 ), FALSE );
+			// also add to records - door successfuly breached
+			gMercProfiles[ pSoldier->ubProfile ].records.usLocksBreached++;
+
 			return( TRUE );
 		}
 	}

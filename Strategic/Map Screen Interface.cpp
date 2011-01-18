@@ -2699,7 +2699,8 @@ void GoToPrevCharacterInList( void )
 
 
 
-void HandleMinerEvent( UINT8 bMinerNumber, INT16 sSectorX, INT16 sSectorY, INT16 sQuoteNumber, BOOLEAN fForceMapscreen )
+//void HandleMinerEvent( UINT8 bMinerNumber, INT16 sSectorX, INT16 sSectorY, INT16 sQuoteNumber, BOOLEAN fForceMapscreen )
+void HandleMinerEvent( UINT8 ubHeadMinerIndex, INT16 sSectorX, INT16 sSectorY, INT16 sQuoteNumber, BOOLEAN fForceMapscreen )
 {
 	BOOLEAN fFromMapscreen = FALSE;
 
@@ -2719,6 +2720,8 @@ void HandleMinerEvent( UINT8 bMinerNumber, INT16 sSectorX, INT16 sSectorY, INT16
 		}
 	}
 
+	HEAD_MINER_TYPE* miner = &gHeadMinerData[ubHeadMinerIndex];
+
 	if ( fFromMapscreen )
 	{
 		// if not showing map surface level
@@ -2735,14 +2738,18 @@ void HandleMinerEvent( UINT8 bMinerNumber, INT16 sSectorX, INT16 sSectorY, INT16
 		fMapPanelDirty = TRUE;
 
 		// post dialogue events for miners to say this quote and flash the sector where his mine is
-		CharacterDialogueWithSpecialEvent( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber,	bMinerNumber , DIALOGUE_EXTERNAL_NPC_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, START_RED_SECTOR_LOCATOR, 1 );
-		CharacterDialogue( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber, ( UINT8 )( UINT8 )uiExternalStaticNPCFaces[ bMinerNumber ], DIALOGUE_EXTERNAL_NPC_UI,	FALSE , FALSE );
-		CharacterDialogueWithSpecialEvent( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber,	bMinerNumber , DIALOGUE_EXTERNAL_NPC_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, STOP_RED_SECTOR_LOCATOR, 1 );
+		//CharacterDialogueWithSpecialEvent( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber,	bMinerNumber , DIALOGUE_EXTERNAL_NPC_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, START_RED_SECTOR_LOCATOR, 1 );
+		//CharacterDialogue( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber, ( UINT8 )( UINT8 )uiExternalStaticNPCFaces[ bMinerNumber ], DIALOGUE_EXTERNAL_NPC_UI,	FALSE , FALSE );
+		//CharacterDialogueWithSpecialEvent( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber,	bMinerNumber , DIALOGUE_EXTERNAL_NPC_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, STOP_RED_SECTOR_LOCATOR, 1 );
+		CharacterDialogueWithSpecialEvent( ( UINT8 )miner->usProfileId, sQuoteNumber, miner->ubExternalFaceIndex, DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE, DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, START_RED_SECTOR_LOCATOR, 1 );
+		CharacterDialogue( ( UINT8 )miner->usProfileId, sQuoteNumber, ( UINT8 )uiExternalStaticNPCFaces[miner->ubExternalFaceIndex], DIALOGUE_EXTERNAL_NPC_UI,	FALSE, FALSE );
+		CharacterDialogueWithSpecialEvent( ( UINT8 )miner->usProfileId, sQuoteNumber, miner->ubExternalFaceIndex, DIALOGUE_EXTERNAL_NPC_UI, FALSE, FALSE, DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, STOP_RED_SECTOR_LOCATOR, 1 );
 	}
 	else	// stay in tactical
 	{
 		// no need to to highlight mine sector
-		CharacterDialogue( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber, ( UINT8 )( UINT8 )uiExternalStaticNPCFaces[ bMinerNumber ], DIALOGUE_EXTERNAL_NPC_UI,	FALSE , FALSE );
+		//CharacterDialogue( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber, ( UINT8 )( UINT8 )uiExternalStaticNPCFaces[ bMinerNumber ], DIALOGUE_EXTERNAL_NPC_UI,	FALSE , FALSE );
+		CharacterDialogue( ( UINT8 )miner->usProfileId, sQuoteNumber, ( UINT8 )uiExternalStaticNPCFaces[miner->ubExternalFaceIndex], DIALOGUE_EXTERNAL_NPC_UI,	FALSE , FALSE );
 	}
 }
 

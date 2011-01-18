@@ -67,6 +67,8 @@
 #include "fov.h"
 #include "Map Information.h"
 #include "Soldier Functions.h"//dnl ch40 200909
+#include "Text.h" // added by SANDRO
+#include "campaign.h" // yet another one added
 #endif
 
 #include "Soldier Macros.h"
@@ -1477,6 +1479,294 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 	{
 		sNewWoundAmt = 0;
 	}
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - STOMP traits
+	else
+	{
+		if ( (MercPtrs[ ubOwner ] != NULL) && gGameOptions.fNewTraitSystem)
+		{
+			// Demolitions damage bonus with bombs and mines
+			if ( HAS_SKILL_TRAIT( MercPtrs[ ubOwner ], DEMOLITIONS_NT ) &&
+				Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL && Item[usItem].usItemClass == IC_BOMB &&
+				(!Item[usItem].attachment || Item[usItem].mine ))
+			{
+				sNewWoundAmt = (INT16)(((sNewWoundAmt * (100 + gSkillTraitValues.ubDEDamageOfBombsAndMines)) / 100) + 0.5);
+			}
+			// Heavy Weapons trait bonus damage to tanks
+			if ( HAS_SKILL_TRAIT( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT ) && TANK( pSoldier ) &&
+				Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL )
+			{
+				sNewWoundAmt = (INT16)(((sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageTanksBonusPercent * NUM_SKILL_TRAITS( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT ))) / 100) + 0.5); // +30%
+			}
+			// Heavy Weapons trait bonus damage with rocket, grenade launchers and mortar
+			else if ( HAS_SKILL_TRAIT( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT ) &&
+				Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL && 
+				((Item[usItem].usItemClass == IC_BOMB && Item[usItem].attachment &&	!Item[usItem].mine ) || // mortar shells
+				(Item[usItem].usItemClass == IC_GRENADE && (Item[usItem].glgrenade || Item[usItem].electronic) ) || // rockets for rocketlaunchers (I haven't found any other way)
+				(Item[usItem].usItemClass == IC_LAUNCHER ) || Item[usItem].rocketlauncher || Item[usItem].singleshotrocketlauncher ) )
+			{
+				sNewWoundAmt = (INT16)(((sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageBonusPercentForHW * NUM_SKILL_TRAITS( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT ))) / 100) + 0.5); // +15%
+			}
+		}
+		// adjust damage resistance of TANKS
+		if ( TANK( pSoldier ) && gGameOptions.fNewTraitSystem )
+		{
+			sNewWoundAmt = (INT16)(sNewWoundAmt * (100 - gSkillTraitValues.bTanksDamageResistanceModifier) / 100);
+			// another half of this for ordinary grenades
+			if ( (( Item[usItem].usItemClass == IC_GRENADE ) || Item[usItem].glgrenade ) && !Item[usItem].electronic )
+				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 - (gSkillTraitValues.bTanksDamageResistanceModifier / 2)) / 100);
+		}
+		
+		// Bodybuilding damage resistance
+		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, BODYBUILDING_NT ) )
+			sNewWoundAmt = max( 1, (INT16)(sNewWoundAmt * (100 - gSkillTraitValues.ubBBDamageResistance) / 100)); 
+
+		// Damage resistance for Militia
+		if (pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.bGreenMilitiaDamageResistance != 0)
+			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.bGreenMilitiaDamageResistance) /100);
+		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.bRegularMilitiaDamageResistance != 0)
+			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.bRegularMilitiaDamageResistance) /100);
+		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.bVeteranMilitiaDamageResistance != 0)
+			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.bVeteranMilitiaDamageResistance) /100);
+		// bonus for enemy too
+		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminDamageResistance != 0)
+			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.sEnemyAdminDamageResistance) /100);
+		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularDamageResistance != 0)
+			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.sEnemyRegularDamageResistance) /100);
+		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteDamageResistance != 0)
+			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.sEnemyEliteDamageResistance) /100);
+
+		// we can loose stats due to being hit by the blast
+		else if ( gGameOptions.fNewTraitSystem && Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL && 
+			!AM_A_ROBOT( pSoldier ) && !(pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER) && 
+			sNewWoundAmt > 2 && sNewWoundAmt < pSoldier->stats.bLife )
+		{
+			if ( PreRandom( sNewWoundAmt ) > gSkillTraitValues.ubDamageNeededToLoseStats )
+			{
+				UINT8 ubStatLoss = PreRandom( sNewWoundAmt ) + 1;
+				UINT8 ubPickStat = PreRandom( 20 );
+				if (ubPickStat < 3 ) // 15% chance to lose Wisdom
+				{
+					if (ubStatLoss >= pSoldier->stats.bWisdom)
+					{
+						ubStatLoss = pSoldier->stats.bWisdom - 1;
+					}
+					if ( ubStatLoss > 0 )
+					{
+						pSoldier->stats.bWisdom -= ubStatLoss;
+						pSoldier->ubCriticalStatDamage[DAMAGED_STAT_WISDOM] += ubStatLoss;
+
+						if (pSoldier->ubProfile != NO_PROFILE)
+						{
+							gMercProfiles[ pSoldier->ubProfile ].bWisdom = pSoldier->stats.bWisdom;
+						}
+
+						if (pSoldier->name[0] && pSoldier->bVisible == TRUE)
+						{
+							// make stat RED for a while...
+							pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
+							pSoldier->usValueGoneUp &= ~( WIS_INCREASE );
+
+							if (ubStatLoss == 1)
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_WISDOM], pSoldier->name );
+							}
+							else
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_WISDOM], pSoldier->name, ubStatLoss );
+							}
+						}
+					}
+				}
+				else if (ubPickStat < 7 ) // 20% chance to lose Dexterity
+				{
+					if (ubStatLoss >= pSoldier->stats.bDexterity)
+					{
+						ubStatLoss = pSoldier->stats.bDexterity - 1;
+					}
+					if ( ubStatLoss > 0 )
+					{
+						pSoldier->stats.bDexterity -= ubStatLoss;
+						pSoldier->ubCriticalStatDamage[DAMAGED_STAT_DEXTERITY] += ubStatLoss;
+
+						if (pSoldier->ubProfile != NO_PROFILE)
+						{
+							gMercProfiles[ pSoldier->ubProfile ].bDexterity = pSoldier->stats.bDexterity;
+						}
+
+						if (pSoldier->name[0] && pSoldier->bVisible == TRUE)
+						{
+							// make stat RED for a while...
+							pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
+							pSoldier->usValueGoneUp &= ~( DEX_INCREASE );
+
+							if (ubStatLoss == 1)
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_DEX], pSoldier->name );
+							}
+							else
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_DEX], pSoldier->name, ubStatLoss );
+							}
+						}
+					}
+				}
+				else if (ubPickStat < 11 ) // 20% chance to lose Strength
+				{
+					if (ubStatLoss >= pSoldier->stats.bStrength)
+					{
+						ubStatLoss = pSoldier->stats.bStrength - 1;
+					}
+					if ( ubStatLoss > 0 )
+					{
+						pSoldier->stats.bStrength -= ubStatLoss;
+						// added this for healing lost stats feature
+						pSoldier->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] += ubStatLoss;
+
+						if (pSoldier->ubProfile != NO_PROFILE)
+						{
+							gMercProfiles[ pSoldier->ubProfile ].bStrength = pSoldier->stats.bStrength;
+						}
+
+						if (pSoldier->name[0] && pSoldier->bVisible == TRUE)
+						{
+							// make stat RED for a while...
+							pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
+							pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
+
+							if (ubStatLoss == 1)
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_STRENGTH], pSoldier->name );
+							}
+							else
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_STRENGTH], pSoldier->name, ubStatLoss );
+							}
+						}
+					}
+				}
+				else if (ubPickStat < 15 ) // 20% chance to lose Agility
+				{
+					if (ubStatLoss >= pSoldier->stats.bAgility)
+					{
+						ubStatLoss = pSoldier->stats.bAgility - 1;
+					}
+					if ( ubStatLoss > 0 )
+					{
+						pSoldier->stats.bAgility -= ubStatLoss;
+						// added this for healing lost stats feature
+						pSoldier->ubCriticalStatDamage[DAMAGED_STAT_AGILITY] += ubStatLoss;
+
+						if (pSoldier->ubProfile != NO_PROFILE)
+						{
+							gMercProfiles[ pSoldier->ubProfile ].bAgility = pSoldier->stats.bAgility;
+						}
+
+						if (pSoldier->name[0] && pSoldier->bVisible == TRUE)
+						{
+							// make stat RED for a while...
+							pSoldier->timeChanges.uiChangeAgilityTime = GetJA2Clock();
+							pSoldier->usValueGoneUp &= ~( AGIL_INCREASE );
+
+							if (ubStatLoss == 1)
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_AGIL], pSoldier->name );
+							}
+							else
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_AGIL], pSoldier->name, ubStatLoss );
+							}
+						}
+					}
+				}
+				else if (ubPickStat < 18 ) // 15% chance to lose Health
+				{
+					if (ubStatLoss >= (pSoldier->stats.bLifeMax - OKLIFE))
+					{
+						ubStatLoss = pSoldier->stats.bLifeMax - OKLIFE - 1;
+					}
+					if ( ubStatLoss > sNewWoundAmt)
+					{
+						ubStatLoss = (UINT8)sNewWoundAmt;
+					}
+					if ( ubStatLoss > 0 )
+					{
+						pSoldier->stats.bLifeMax -= ubStatLoss;
+						pSoldier->ubCriticalStatDamage[DAMAGED_STAT_HEALTH] += ubStatLoss;
+
+						if (pSoldier->ubProfile != NO_PROFILE)
+						{
+							gMercProfiles[ pSoldier->ubProfile ].bLifeMax = pSoldier->stats.bLifeMax;
+						}
+
+						if (pSoldier->name[0] && pSoldier->bVisible == TRUE)
+						{
+							// make stat RED for a while...
+							pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
+							pSoldier->usValueGoneUp &= ~( HEALTH_INCREASE );
+
+							if (ubStatLoss == 1)
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_LOSES_ONE_POINT_MAX_HEALTH], pSoldier->name );
+							}
+							else
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_LOSES_X_POINTS_MAX_HEALTH], pSoldier->name, ubStatLoss );
+							}
+						}
+					}
+				}
+				else // 10% chance to be blinded
+				{
+					if (pSoldier->bBlindedCounter < ubStatLoss )
+					{
+						pSoldier->bBlindedCounter = ubStatLoss ;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s was blinded by the blast!", pSoldier->name );
+					}
+				}
+				// SANDRO - new merc records - times stat damaged
+				if ( ubStatLoss > 0 && pSoldier->ubProfile != NO_PROFILE )
+					gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+			}
+		}
+
+		sNewWoundAmt = max(1, sNewWoundAmt);
+	}
+	//////////////////////////////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - option to make special NPCs stronger - damage resistance
+	if (gGameExternalOptions.usSpecialNPCStronger > 0)
+	{
+		switch( pSoldier->ubProfile )
+		{
+			case CARMEN:
+			case QUEEN:
+			case JOE:
+			case ANNIE:
+			case CHRIS:
+			case KINGPIN:
+			case TIFFANY:
+			case T_REX:
+			case DRUGGIST:
+			case GENERAL:
+			case JACK:
+			case OLAF:
+			case RAY:
+			case OLGA:
+			case TYRONE:
+			case MIKE:
+				sNewWoundAmt -= (sNewWoundAmt * gGameExternalOptions.usSpecialNPCStronger / 200);
+				sNewWoundAmt = max( 1, sNewWoundAmt);
+				break;
+		}
+	}
+
+	// SANDRO - new merc records - times wounded (blasted by explosion)
+	if ( ( sNewWoundAmt > 1 || sBreathAmt > 1000 ) && pSoldier->ubProfile != NO_PROFILE )
+		gMercProfiles[ pSoldier->ubProfile ].records.usTimesWoundedBlasted++;
+	////////////////////////////////////////////////////////////////////////////////////
+
 
 	// Lesh: flashbang does affect on soldier or not - check it
 	if ( (Item[usItem].usItemClass & IC_EXPLOSV) && fFlashbang )
@@ -3359,12 +3649,18 @@ void DecayBombTimers( void )
 					if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
 					{
 						gubPersonToSetOffExplosions = (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2);
+						// SANDRO - merc records - detonating explosives
+						if ( MercPtrs[ gubPersonToSetOffExplosions ]->ubProfile != NO_PROFILE && MercPtrs[ gubPersonToSetOffExplosions ]->bTeam == gbPlayerNum )
+						{
+							gMercProfiles[ MercPtrs[ gubPersonToSetOffExplosions ]->ubProfile ].records.usExpDetonated++;
+						}
 					}
 					else
 					{
 						gubPersonToSetOffExplosions = NOBODY;
 					}
 
+					
 					// put this bomb on the queue
 					AddBombToQueue( uiWorldBombIndex, uiTimeStamp );
 
@@ -3397,6 +3693,17 @@ void SetOffBombsByFrequency( UINT8 ubID, INT8 bFrequency )
 				// Found a remote bomb, so check to see if it has the same frequency
 				if ((*pObj)[0]->data.misc.bFrequency == bFrequency)
 				{
+					// SANDRO - added merc records and some exp
+					if ( ((*pObj)[0]->data.misc.ubBombOwner) > 1 )
+					{
+						if ( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile != NO_PROFILE &&
+							MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->bTeam == gbPlayerNum )
+						{
+							gMercProfiles[MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)]->ubProfile].records.usExpDetonated++;
+
+							StatChange( MercPtrs[((*pObj)[0]->data.misc.ubBombOwner - 2)], EXPLODEAMT, ( 5 ), FALSE );					
+						}
+					}
 
 					gubPersonToSetOffExplosions = ubID;
 
@@ -3496,6 +3803,14 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 					else
 					{
 						gubPersonToSetOffExplosions = ubID;
+
+						// SANDRO - merc records
+						// only if we blew up somebody not in our team(no achievement for blowing our guys :)), only if owner exists and have profile
+						if ( (MercPtrs[ubID]->bTeam != gbPlayerNum) && ((*pObj)[0]->data.misc.ubBombOwner > 1) )
+						{
+							if ( MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile != NO_PROFILE && MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->bTeam == gbPlayerNum ) 
+								gMercProfiles[ MercPtrs[ ((*pObj)[0]->data.misc.ubBombOwner - 2) ]->ubProfile ].records.usExpDetonated++;
+						}
 
 						// put this bomb on the queue
 						AddBombToQueue( uiWorldBombIndex, uiTimeStamp );

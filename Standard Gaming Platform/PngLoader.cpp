@@ -3,21 +3,25 @@
 #include "DEBUG.H"
 #include "vobject.h"
 #include "STIConvert.h"
+#include "MemMan.h"
 
-#include "VFS/vfs.h"
-#include "VFS/vfs_file_raii.h"
-#include "VFS/Location/vfs_7z_library.h"
-#include "VFS/Interface/vfs_location_interface.h"
-#include "VFS/File/vfs_memory_file.h"
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_file_raii.h>
+#include <vfs/Ext/7z/vfs_7z_library.h>
+#include <vfs/Core/Interface/vfs_location_interface.h>
+#include <vfs/Core/File/vfs_buffer_file.h>
+#include <vfs/Core/File/vfs_lib_file.h>
 
 #include "XML_Parser.h"
 namespace png
 {
-#include <png.h>
+#	include <png.h>
 }
 
-const utf8string::str_t CONST_DOTPNG(L".png");
-const utf8string::str_t CONST_DOTXML(L".xml");
+#include "sgp_auto_memory.h"
+
+const vfs::String::str_t CONST_DOTPNG(L".png");
+const vfs::String::str_t CONST_DOTXML(L".xml");
 
 void Load24bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info);
 void Load32bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info);
@@ -26,7 +30,7 @@ void LoadPalettedPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop in
 
 void user_read_data(png::png_structp png_ptr, png::png_bytep data, png::png_size_t length)
 {
-	TRYCATCH_RETHROW( static_cast<vfs::tReadableFile*>(png_ptr->io_ptr)->read((vfs::Byte*)data,length),
+	SGP_TRYCATCH_RETHROW( static_cast<vfs::tReadableFile*>(png_ptr->io_ptr)->read((vfs::Byte*)data,length),
 		L"error during png file reading");
 }
 
@@ -160,7 +164,7 @@ bool IndexedSTIImage::addImage(UINT8 *data, UINT32 data_size, UINT32 image_width
 	subimage.usHeight = image_height;
 
 	INT32 etrle_size = ETRLECompressSubImage( compressed, RESIZE, data, image_width, image_height, &subimage);
-	THROWIFFALSE( etrle_size > 0, L"not enough space reserved for ETRLE compression");
+	SGP_THROW_IFFALSE( etrle_size > 0, L"not enough space reserved for ETRLE compression");
 	subimage.sOffsetX = image_offset_x;
 	subimage.sOffsetY = image_offset_y;
 
@@ -247,8 +251,8 @@ static inline void setFlag(UINT8 &flags, char const* sFlag)
 	else
 	{
 		std::wstringstream wss;
-		wss << L"Unknown flag [" << utf8string::as_utf16(sFlag) << L"]";
-		THROWEXCEPTION(wss.str().c_str());
+		wss << L"Unknown flag [" << vfs::String::as_utf16(sFlag) << L"]";
+		SGP_THROW(wss.str().c_str());
 	}
 }
 
@@ -266,7 +270,7 @@ class CAppDataParser : public IXMLParser
 	};
 public:
 	CAppDataParser(XML_Parser &parser, IXMLParser* caller=NULL)
-		: IXMLParser("ImageData", parser, caller), 
+		: IXMLParser("ImageData", &parser, caller), 
 		current_state(DO_ELEMENT_NONE),
 		m_hImage(NULL),
 		m_iCurrentIndex(-1)
@@ -316,7 +320,7 @@ void CAppDataParser::onStartElement(const XML_Char* name, const XML_Char** atts)
 	else if(current_state == DO_ELEMENT_ImageData && strcmp(name, "SubImage") == 0)
 	{
 		int index = -1;
-		THROWIFFALSE(getAttributeAsInt("index",atts,index), L"could not read attribute \"index\"");
+		SGP_THROW_IFFALSE(getAttributeAsInt("index",atts,index), L"could not read attribute \"index\"");
 		m_iCurrentIndex = index;
 		if(index >= (int)m_vAppData.size())
 		{
@@ -414,7 +418,7 @@ void CAppDataParser::onEndElement(const XML_Char* name)
 		{
 			sum_frames += m_vAppData[i].aux.ubNumberOfFrames;
 		}
-		THROWIFFALSE(sum_frames <= m_vAppData.size(), L"Sum of animation frames doesn't match the total number of frames");
+		SGP_THROW_IFFALSE(sum_frames <= m_vAppData.size(), L"Sum of animation frames doesn't match the total number of frames");
 		int iAppDataSize = m_vAppData.size()*sizeof(AuxObjectData);
 		m_hImage->pAppData = (UINT8*) MemAlloc( iAppDataSize );
 		for(unsigned int i = 0; i < m_vAppData.size(); ++i)
@@ -431,6 +435,7 @@ void CAppDataParser::onEndElement(const XML_Char* name)
 				m_hImage->pETRLEObject[i].sOffsetY = m_vAppData[i].offset.y;
 			}
 		}
+		m_hImage->fFlags |= IMAGE_APPDATA;
 		current_state = DO_ELEMENT_NONE;
 	}
 }
@@ -456,16 +461,16 @@ bool IndexedSTIImage::readAppDataFromXMLFile(HIMAGE hImage, vfs::tReadableFile* 
 	try
 	{
 		vfs::COpenReadFile oFile(pFile);
-		uiSize = oFile.file().getSize();
+		uiSize = oFile->getSize();
 		vBuffer.resize(uiSize+1);
 
-		THROWIFFALSE(uiSize == oFile.file().read(&vBuffer[0],uiSize), L"Could not read XML file");
+		SGP_THROW_IFFALSE(uiSize == oFile->read(&vBuffer[0],uiSize), L"Could not read XML file");
 		vBuffer[uiSize] = 0;
-		oFile.file().close();
+		oFile->close();
 	}
-	catch(CBasicException& ex)
+	catch(std::exception& ex)
 	{
-		RETHROWEXCEPTION(L"", &ex);
+		SGP_RETHROW(L"", ex);
 	}
 
 	XML_Parser	parser = XML_ParserCreate(NULL);
@@ -480,15 +485,15 @@ bool IndexedSTIImage::readAppDataFromXMLFile(HIMAGE hImage, vfs::tReadableFile* 
 		{
 			std::wstringstream wss;
 			wss << L"XML Parser Error in Groups.xml: " 
-				<< utf8string(XML_ErrorString(XML_GetErrorCode(parser))).c_wcs()
+				<< vfs::String(XML_ErrorString(XML_GetErrorCode(parser))).c_wcs()
 				<< L" at line " 
 				<< XML_GetCurrentLineNumber(parser);
-			THROWEXCEPTION(wss.str().c_str());
+			SGP_THROW(wss.str().c_str());
 		}
 	}
-	catch(CBasicException &ex)
+	catch(std::exception &ex)
 	{
-		RETHROWEXCEPTION(L"Could not load xml file", &ex);
+		SGP_RETHROW(L"Could not load xml file", ex);
 	}
 	return true;
 }
@@ -581,7 +586,7 @@ public:
 	LoadPngFile(vfs::tReadableFile* pFile)
 		: _file(pFile), _struct(NULL), _info(NULL), _row_ptr(NULL)
 	{
-		THROWIFFALSE(_file, L"file pointer is NULL");
+		SGP_THROW_IFFALSE(_file, L"file pointer is NULL");
 	}
 	bool Load()
 	{
@@ -683,7 +688,7 @@ bool LoadPNGFileToImage(HIMAGE hImage, UINT16 fContents)
 		std::wstringstream wss;
 		wss << L"Unknown image datatype : channels = " << (int)(fpng.Info()->channels) 
 			<< L", bit depth = " << (int)(fpng.Info()->bit_depth);
-		THROWEXCEPTION(wss.str().c_str());
+		SGP_THROW(wss.str().c_str());
 	}
 
 	// data was copied to hImage, need to clean up here
@@ -698,14 +703,14 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 	{
 		return false;
 	}
-	vfs::CMemoryFile oBuffer("");
+	vfs::CBufferFile oBuffer("");
 
 	vfs::COpenReadFile oFile(hImage->ImageFile);
-	TRYCATCH_RETHROW(oBuffer.copyToBuffer(oFile.file()), L"Could not copy file to buffer");
+	SGP_TRYCATCH_RETHROW(oBuffer.copyToBuffer(oFile.file()), L"Could not copy file to buffer");
 	oBuffer.close();
 
 	//vfs::CUncompressed7zLibrary oLib(&oFile.file(),"");
-	ObjBlockAllocator<vfs::CLibFile> allocator(128);
+	vfs::ObjBlockAllocator<vfs::CLibFile> allocator(128);
 	vfs::CUncompressed7zLibrary oLib(vfs::tReadableFile::cast(&oBuffer),"",false, &allocator);
 
 	if(!oLib.init())
@@ -728,11 +733,11 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 	for(; !it.end(); it.next())
 	{
 		// check extension
-		utf8string::str_t const& fname = it.value()->getName().c_wcs();
-		utf8string::size_t dot = fname.find_last_of(vfs::Const::DOT());
-		if(dot != utf8string::str_t::npos)
+		vfs::String::str_t const& fname = it.value()->getName().c_wcs();
+		vfs::String::size_t dot = fname.find_last_of(vfs::Const::DOT());
+		if(dot != vfs::String::str_t::npos)
 		{
-			if( StrCmp::Equal(fname.substr(dot,fname.length()-dot), CONST_DOTPNG) )
+			if( vfs::StrCmp::Equal(fname.substr(dot,fname.length()-dot), CONST_DOTPNG) )
 			{
 				std::wstringstream bss;
 				bss.str( fname.substr(0,dot) );
@@ -744,10 +749,10 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 				}
 				else
 				{
-					THROWEXCEPTION(L"invalid index");
+					SGP_THROW(L"invalid index");
 				}
 			}
-			else if (StrCmp::Equal(fname.substr(dot,fname.length()-dot), CONST_DOTXML) )
+			else if (vfs::StrCmp::Equal(fname.substr(dot,fname.length()-dot), CONST_DOTXML) )
 			{
 				appdata_file = vfs::tReadableFile::cast(it.value());
 			}
@@ -783,18 +788,18 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 					std::wstringstream wss;
 					wss << L"Unknown image datatype : channels = " << (int)(lpng.Info()->channels)
 						<< L", bit depth = " << (int)(lpng.Info()->bit_depth);
-					THROWEXCEPTION(wss.str().c_str());
+					SGP_THROW(wss.str().c_str());
 				}
 				return true;
 			}
 		}
-		catch(CBasicException &ex)
+		catch(std::exception &ex)
 		{
 			std::wstringstream wss;
 			wss << L"Loading PNG image from file '"
-				<< oFile.file().getPath().c_wcs()
+				<< oFile->getPath().c_wcs()
 				<< L"' failed";
-			RETHROWEXCEPTION(wss.str().c_str(),&ex);
+			SGP_RETHROW(wss.str().c_str(), ex);
 		}
 		return false;
 	}
@@ -809,7 +814,7 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 			}
 			try
 			{
-				vfs::CMemoryFile oTempFile("");
+				vfs::CBufferFile oTempFile("");
 				oTempFile.copyToBuffer( *vfs::tReadableFile::cast(*fit) );
 
 //				LoadPngFile lpng( vfs::tReadableFile::cast(*fit) );
@@ -822,7 +827,7 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 					{
 						if(!bHasPalette)
 						{
-							THROWIFFALSE(lpng.Info()->num_palette == 256, L"size of palette is not 256");
+							SGP_THROW_IFFALSE(lpng.Info()->num_palette == 256, L"size of palette is not 256");
 							image.setPalette(lpng.Info()->palette, lpng.Info()->num_palette);
 							bHasPalette = true;
 						}
@@ -837,16 +842,16 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 					else
 					{
 						std::wstringstream wss;
-						wss << L"PNG file '" << (*fit)->getName()() << L" @ " << oFile.file().getPath()() << L"' is not a paletted image";
-						THROWEXCEPTION(wss.str().c_str());
+						wss << L"PNG file '" << (*fit)->getName()() << L" @ " << oFile->getPath()() << L"' is not a paletted image";
+						SGP_THROW(wss.str().c_str());
 					}
 				}
 			}
-			catch(CBasicException& ex)
+			catch(std::exception& ex)
 			{
 				std::wstringstream wss;
-				wss << L"Loading PNG image [" << findex << L"] from file '"	<< oFile.file().getPath().c_wcs() << L"' failed";
-				RETHROWEXCEPTION(wss.str().c_str(),&ex);
+				wss << L"Loading PNG image [" << findex << L"] from file '"	<< oFile->getPath().c_wcs() << L"' failed";
+				SGP_RETHROW(wss.str().c_str(), ex);
 			}
 		}
 	}
@@ -861,14 +866,34 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 
 void Load32bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 {
+#if 1
+	hImage->pETRLEObject = (ETRLEObject*)MemAlloc(1 * sizeof(ETRLEObject));
+	if(!hImage->pETRLEObject)
+	{
+		SGP_THROW(L"bad alloc");
+	}
+	memset(hImage->pETRLEObject, 0, sizeof(ETRLEObject));
+	hImage->usNumberOfObjects = 1;
+	
+	hImage->pETRLEObject[0].usHeight = (UINT16)info->height;
+	hImage->pETRLEObject[0].usWidth  = (UINT16)info->width;
+	
+	hImage->pETRLEObject[0].sOffsetX = (INT16)info->x_offset;
+	hImage->pETRLEObject[0].sOffsetY = (INT16)info->y_offset;
+	
 	hImage->usHeight   = (UINT16)info->height;
 	hImage->usWidth    = (UINT16)info->width;
 	hImage->ubBitDepth = 32;
+	
+	UINT32 SIZE = info->height * info->width * sizeof(UINT32);
+	hImage->p32BPPData = (UINT32*)MemAlloc(SIZE);
+	if(!hImage->p32BPPData)
+	{
+		MemFree(hImage->pETRLEObject);
+		SGP_THROW(L"bad alloc");
+	}
+	memset(hImage->p32BPPData, 0, SIZE);
 
-#if 1
-	UINT32 SIZE = info->height * info->width;
-	hImage->p32BPPData = new UINT32[SIZE];
-	memset(hImage->p32BPPData, 0, SIZE*sizeof(UINT32));
 	UINT32* dest_row = NULL;
 	UINT32 rgbcolor = 0;
 	for(unsigned int i=0; i<info->height; ++i)
@@ -877,6 +902,8 @@ void Load32bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 		png::png_bytep row_i = rows[i];
 		memcpy(dest_row,row_i,info->width * sizeof(UINT32));
 	}
+
+	hImage->fFlags |= IMAGE_BITMAPDATA;
 #else
 	UINT32 SIZE = info->height * info->width;
 	hImage->p16BPPData = new UINT16[SIZE];
@@ -913,13 +940,32 @@ void Load32bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 
 void Load24bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 {
+	hImage->pETRLEObject = (ETRLEObject*)MemAlloc(1 * sizeof(ETRLEObject));
+	if(!hImage->pETRLEObject)
+	{
+		SGP_THROW(L"bad alloc");
+	}
+	memset(hImage->pETRLEObject, 0, sizeof(ETRLEObject));
+	hImage->usNumberOfObjects = 1;
+	
+	hImage->pETRLEObject[0].usHeight = (UINT16)info->height;
+	hImage->pETRLEObject[0].usWidth  = (UINT16)info->width;
+	
+	hImage->pETRLEObject[0].sOffsetX = (UINT16)info->x_offset;
+	hImage->pETRLEObject[0].sOffsetY = (UINT16)info->y_offset;
+	
 	hImage->usHeight   = (UINT16)info->height;
 	hImage->usWidth    = (UINT16)info->width;
 	hImage->ubBitDepth = 16;
 	
-	UINT32 SIZE = info->height * info->width;
-	hImage->p16BPPData = new UINT16[SIZE];
-	memset(hImage->p16BPPData, 0, SIZE*sizeof(UINT16));
+	UINT32 SIZE = info->height * info->width * sizeof(UINT16);
+	hImage->p16BPPData = (UINT16*)MemAlloc(SIZE);
+	if(!hImage->p16BPPData)
+	{
+		MemFree(hImage->pETRLEObject);
+		SGP_THROW(L"bad alloc");
+	}
+	memset(hImage->p16BPPData, 0, SIZE);
 
 	UINT16* dest_row = NULL;
 	UINT32 rgbcolor = 0;
@@ -932,12 +978,17 @@ void Load24bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 			dest_row[dx] = Get16BPPColor( FROMRGB(row_i[sx], row_i[sx+1], row_i[sx+2]) );
 		}
 	}
+	hImage->fFlags |= IMAGE_BITMAPDATA;
 }
 
 void LoadPalettedPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 {
-	UINT32 SIZE = info->height * info->width;
-	UINT8 *data = new UINT8[SIZE];
+	UINT32 SIZE = info->height * info->width * sizeof(UINT8);
+	UINT8 *data = (UINT8*)MemAlloc(SIZE);
+	if(!data)
+	{
+		SGP_THROW(L"bad alloc");
+	}
 	memset(data,0,SIZE);
 	for(unsigned int i = 0; i < info->height; ++i)
 	{
@@ -945,7 +996,12 @@ void LoadPalettedPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop in
 	}
 
 	hImage->usNumberOfObjects = 1;
-	hImage->pETRLEObject = new ETRLEObject[hImage->usNumberOfObjects];
+	hImage->pETRLEObject = (ETRLEObject*)MemAlloc(hImage->usNumberOfObjects * sizeof(ETRLEObject));
+	if(!hImage->pETRLEObject)
+	{
+		MemFree(data);
+		SGP_THROW(L"bad alloc");
+	}
 	memset(hImage->pETRLEObject,0, hImage->usNumberOfObjects * sizeof(ETRLEObject));
 
 	ETRLEObject &subimage = hImage->pETRLEObject[0];
@@ -956,7 +1012,13 @@ void LoadPalettedPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop in
 
 	// why allocate so much? because in in the worst case we need one TAG and one DATAVALUE per pixel
 	UINT32 RESIZE = 3*SIZE;
-	hImage->p8BPPData = new UINT8[RESIZE];
+	hImage->p8BPPData = (UINT8*)MemAlloc( RESIZE );
+	if(!hImage->p8BPPData)
+	{
+		MemFree(hImage->pETRLEObject);
+		MemFree(data);
+		SGP_THROW(L"bad alloc");
+	}
 	UINT8 *compressed = hImage->p8BPPData;
 	memset(hImage->p8BPPData,0,RESIZE);
 	UINT32 compressed_size = 0;
@@ -970,7 +1032,7 @@ void LoadPalettedPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop in
 	subim.usWidth = subimage.usWidth;
 
 	UINT32 etrle_size = ETRLECompressSubImage( hImage->p8BPPData, RESIZE, data, (UINT16)info->width, (UINT16)info->height, &subim);
-	THROWIFFALSE( etrle_size > 0, L"ETRLE compression of PNG image failed" );
+	SGP_THROW_IFFALSE( etrle_size > 0, L"ETRLE compression of PNG image failed" );
 	subim.sOffsetX = subimage.sOffsetX;
 	subim.sOffsetY = subimage.sOffsetY;
 #if 0
@@ -1047,9 +1109,9 @@ void LoadPalettedPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop in
 	hImage->fFlags |= IMAGE_BITMAPDATA;
 	
 	// palette
-	THROWIFFALSE(info->num_palette == 256, L"palette has size != 256");
+	SGP_THROW_IFFALSE(info->num_palette == 256, L"palette has size != 256");
 
-	hImage->pPalette = new SGPPaletteEntry[256];
+	hImage->pPalette = (SGPPaletteEntry*)MemAlloc(sizeof(SGPPaletteEntry) *256);
 	for(int i=0; i<256; ++i)
 	{
 		hImage->pPalette[i].peRed   = info->palette[i].red;

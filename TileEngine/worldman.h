@@ -153,4 +153,8 @@ extern UINT32	gCurrentBackground;
 
 void		SetTreeTopStateForMap();
 
+//legion by Jazz
+BOOLEAN IsOknoLevel( INT32 sGridNo ); 
+BOOLEAN IsLegionLevel( INT32 sGridNo ); 
+
 #endif

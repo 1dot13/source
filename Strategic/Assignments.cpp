@@ -60,8 +60,12 @@
 	#include "history.h"
 	#include "Map Screen Interface Map Inventory.h"
 	#include "interface dialogue.h"
+	// added by SANDRO
+	#include "AIInternals.h"
+	#include "Morale.h"
 #endif
 #include <vector>
+#include <queue>
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -95,6 +99,9 @@ enum{
 	VEHICLE_MENU_VEHICLE1 = 0,
 	VEHICLE_MENU_VEHICLE2,
 	VEHICLE_MENU_VEHICLE3,
+	VEHICLE_MENU_VEHICLE4,	// WANNE: Allow up to 6 vehicles
+	VEHICLE_MENU_VEHICLE5,
+	VEHICLE_MENU_VEHICLE6,
 	VEHICLE_MENU_CANCEL,
 };
 
@@ -212,6 +219,16 @@ extern BOOLEAN fDrawCharacterList;
 extern BOOLEAN fSelectedListOfMercsForMapScreen[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 
 SOLDIERTYPE *gpDismissSoldier = NULL;
+
+/////////////////////////////////////////////////////////////////////
+// these added by SANDRO
+SOLDIERTYPE *pAutomaticSurgeryDoctor;
+SOLDIERTYPE *pAutomaticSurgeryPatient;
+void SurgeryBeforeDoctoringRequesterCallback( UINT8 bExitValue );
+void SurgeryBeforePatientingRequesterCallback( UINT8 bExitValue );
+INT16 MakeAutomaticSurgeryOnAllPatients( SOLDIERTYPE * pDoctor );
+BOOLEAN MakeAutomaticSurgery( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pDoctor );
+/////////////////////////////////////////////////////////////////////
 
 BOOLEAN gfReEvaluateEveryonesNothingToDo = FALSE;
 
@@ -427,8 +444,10 @@ INT8 GetRegainDueToSleepNeeded( SOLDIERTYPE *pSoldier, INT32 iRateOfReGain );
 void PositionCursorForTacticalAssignmentBox( void );
 
 // can this soldier be healed by this doctor?
-BOOLEAN CanSoldierBeHealedByDoctor( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pDoctor, BOOLEAN fIgnoreAssignment, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck );
-UINT8 GetNumberThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck );
+// SANDRO - attention - a variable added to these 2 functions
+BOOLEAN CanSoldierBeHealedByDoctor( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pDoctor, BOOLEAN fIgnoreAssignment, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck, BOOLEAN fCheckForSurgery );
+UINT8 GetNumberThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck, BOOLEAN fCheckForSurgery );
+
 void CheckForAndHandleHospitalPatients( void );
 void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft );
 
@@ -462,7 +481,7 @@ extern BOOLEAN SectorIsImpassable( INT16 sSector );
 
 extern BOOLEAN CanChangeSleepStatusForCharSlot( INT8 bCharNumber );
 
-extern UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OBJECTTYPE *pKit, INT16 sKitPts, INT16 sStatus );
+extern UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OBJECTTYPE *pKit, INT16 sKitPts, INT16 sStatus, BOOLEAN fOnSurgery ); // variable added by SANDRO
 
 // only 2 trainers are allowed per sector, so this function counts the # in a guy's sector
 // HEADROCK HAM 3.6: Now takes an extra argument for Militia Type
@@ -516,8 +535,21 @@ BOOLEAN IsSoldierCloseEnoughToADoctor( SOLDIERTYPE *pPatient );
 void VerifyTownTrainingIsPaidFor( void );
 #endif
 
+/// Forward declarations for dynamic repair system.
+/// They are only used in this file.
 
-
+/// Comparator function for priority_queue to determine the repair priority of an item.
+struct RepairPriority; 
+/// Struct to store items to repair in
+struct RepairItem;
+// The data structure used for collecting repairable items
+typedef std::priority_queue<RepairItem, std::vector<RepairItem>, RepairPriority> RepairQueue;
+/// Gets the minimum durability of all items in an object stack
+static INT16 GetMinimumStackDurability(const OBJECTTYPE* pObj);
+/// Check if a gun is jammed
+static BOOLEAN IsGunJammed(const OBJECTTYPE* pObj);
+/// Collect items that need repairing and add them to the repair queue
+static void CollectRepairableItems(const SOLDIERTYPE* pSoldier, RepairQueue& itemsToFix);
 
 void InitSectorsWithSoldiersList( void )
 {
@@ -1030,10 +1062,11 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 		return ( FALSE );
 	}
 
-	// is character alive and not in perfect health?
-	if( ( pSoldier->stats.bLife <= 0 ) || ( pSoldier->stats.bLife == pSoldier->stats.bLifeMax ) )
+	// SANDRO - changed a bit
+	// is character alive?
+	if( pSoldier->stats.bLife <= 0 ) 
 	{
-		// dead or in perfect health
+		// dead
 		return ( FALSE );
 	}
 
@@ -1061,6 +1094,16 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 			}
 		}
 	}
+
+	// SANDRO - added check if having damaged stat
+	for ( UINT8 i = 0; i < NUM_DAMAGABLE_STATS; i++)
+	{
+		if ( pSoldier->ubCriticalStatDamage[i] > 0 )
+			return ( TRUE );
+	}
+	// if we don't have damaged stat, look if we need healing
+	if ( pSoldier->stats.bLife == pSoldier->stats.bLifeMax )
+		return( FALSE );
 
 	// alive and can be healed
 	return ( TRUE );
@@ -1225,11 +1268,19 @@ BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		// Read BASE leadership
 		usEffectiveLeadership = pSoldier->stats.bLeadership;
  
+		if ( gGameOptions.fNewTraitSystem ) // SANDRO - old/new traits
+		{
+			if (HAS_SKILL_TRAIT( pSoldier, TEACHING_NT ))
+			{
+				// bonus from Teaching trait
+				usEffectiveLeadership = (usEffectiveLeadership * (100 + gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia) / 100 );
+			}
+		}
 		// Apply modifier for TEACHER trait, if that feature is activated
-		if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
+		else if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
 		{
 			// Modifier applied once for each TEACHING level.
-			for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING ); i++ )
+			for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING_OT ); i++ )
 			{
 				// This is a percentage modifier.
 				usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
@@ -1623,7 +1674,10 @@ BOOLEAN CanCharacterOnDuty( SOLDIERTYPE *pSoldier )
 			// enemies in sector
 			if( NumEnemiesInSector( pSoldier->sSectorX, pSoldier->sSectorY ) > 0 )
 			{
-				return( TRUE );
+				if( gGameExternalOptions.ubSkyriderHotLZ == 0 )
+					return( FALSE );
+				else
+					return( TRUE );
 			}
 		}
 	}
@@ -2250,7 +2304,7 @@ UINT8 FindNumberInSectorWithAssignment( INT16 sX, INT16 sY, INT8 bAssignment )
 	return( bNumberOfPeople );
 }
 
-UINT8 GetNumberThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck )
+UINT8 GetNumberThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck, BOOLEAN fCheckForSurgery )
 {
 	int cnt;
 	SOLDIERTYPE *pSoldier = MercPtrs[0], *pTeamSoldier = NULL;
@@ -2263,7 +2317,7 @@ UINT8 GetNumberThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLE
 	{
 		if( pTeamSoldier->bActive )
 		{
-			if( CanSoldierBeHealedByDoctor( pTeamSoldier, pDoctor, FALSE, fThisHour, fSkipKitCheck, fSkipSkillCheck ) == TRUE )
+			if( CanSoldierBeHealedByDoctor( pTeamSoldier, pDoctor, FALSE, fThisHour, fSkipKitCheck, fSkipSkillCheck, fCheckForSurgery ) == TRUE )
 			{
 				// increment number of doctorable patients/doctors
 				ubNumberOfPeople++;
@@ -2289,7 +2343,7 @@ SOLDIERTYPE *AnyDoctorWhoCanHealThisPatient( SOLDIERTYPE *pPatient, BOOLEAN fThi
 		// doctor?
 		if( ( pTeamSoldier->bActive ) && ( pTeamSoldier->bAssignment == DOCTOR ) )
 		{
-			if( CanSoldierBeHealedByDoctor( pPatient, pTeamSoldier, FALSE, fThisHour, FALSE, FALSE ) == TRUE )
+			if( CanSoldierBeHealedByDoctor( pPatient, pTeamSoldier, FALSE, fThisHour, FALSE, FALSE, FALSE ) == TRUE )
 			{
 				// found one
 				return( pTeamSoldier );
@@ -2337,7 +2391,34 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 	// calculate normal doctoring rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
 	*pusMaxPts = ( pDoctor->stats.bMedical * (( pDoctor->stats.bDexterity + pDoctor->stats.bWisdom ) / 2 ) * (100 + ( 5 * pDoctor->stats.bExpLevel) ) ) / gGameExternalOptions.ubDoctoringRateDivisor;
-	*pusMaxPts = __max(0,*pusMaxPts+((*pusMaxPts * sSectorModifier)/100));
+	*pusMaxPts = __max(0,*pusMaxPts);
+
+	// SANDRO - New Doctor Trait
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		// make normal doctoring rate slower
+		usHealPts = usHealPts * (100 + gSkillTraitValues.bSpeedModifierDoctoring) / 100;
+		*pusMaxPts = *pusMaxPts * (100 + gSkillTraitValues.bSpeedModifierDoctoring) / 100;
+
+		// But with doctor make it faster. 
+		if (HAS_SKILL_TRAIT( pDoctor, DOCTOR_NT ))
+		{
+			usHealPts += usHealPts * gSkillTraitValues.usDODoctorAssignmentBonus * NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT ) / 100;
+			*pusMaxPts += *pusMaxPts * gSkillTraitValues.usDODoctorAssignmentBonus * NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT ) / 100;
+		}
+		// penalty for aggressive people
+		if ( gMercProfiles[ pDoctor->ubProfile ].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+		{	
+			usHealPts -= usHealPts / 10;
+			*pusMaxPts -= *pusMaxPts / 10;
+		}
+		// bonus for phlegmatic people
+		else if ( gMercProfiles[ pDoctor->ubProfile ].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC )
+		{	
+			usHealPts += usHealPts / 20;
+			*pusMaxPts += *pusMaxPts / 20;
+		}
+	}
 
 	// adjust for fatigue
 	ReducePointsForFatigue( pDoctor, &usHealPts );
@@ -2400,6 +2481,30 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	// and equipment was not a hindrance
 	*pusMaxPts = ( pSoldier->stats.bMechanical * pSoldier->stats.bDexterity * (100 + ( 5 * pSoldier->stats.bExpLevel) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay );
 
+	// SANDRO - Technician trait gives a good bonus to repair items
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		usRepairPts = usRepairPts * (100 - gSkillTraitValues.bSpeedModifierRepairing) / 100;
+		*pusMaxPts = *pusMaxPts * (100 - gSkillTraitValues.bSpeedModifierRepairing) / 100;
+
+		if ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )
+		{
+			usRepairPts += usRepairPts * gSkillTraitValues.usTERepairSpeedBonus * (NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT )) / 100;
+			*pusMaxPts += *pusMaxPts * gSkillTraitValues.usTERepairSpeedBonus * (NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT )) / 100;
+		}
+		// Penalty for aggressive people
+		if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+		{	
+			usRepairPts -= usRepairPts / 10;	// -10%
+			*pusMaxPts -= *pusMaxPts / 10;
+		}
+		// Bonus for phlegmatic people
+		else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC )
+		{	
+			usRepairPts += usRepairPts / 20;	// +5%
+			*pusMaxPts += *pusMaxPts / 20;
+		}
+	}
 
 	// adjust for fatigue
 	ReducePointsForFatigue( pSoldier, &usRepairPts );
@@ -2437,7 +2542,6 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 
 	// adjust for equipment
 	usRepairPts = (usRepairPts * ubKitEffectiveness) / 100;
-
 
 	// return current repair pts
 	return(( UINT8 )usRepairPts);
@@ -2534,6 +2638,7 @@ void UpdatePatientsWhoAreDoneHealing( void )
 {
 	INT32 cnt = 0;
 	SOLDIERTYPE *pSoldier = NULL, *pTeamSoldier = NULL;
+	BOOLEAN fHasDamagedStat = FALSE; // added by SANDRO
 
 	// set as first in list
 	pSoldier = MercPtrs[0];
@@ -2546,7 +2651,14 @@ void UpdatePatientsWhoAreDoneHealing( void )
 			// patient who doesn't need healing
 			if( ( pTeamSoldier->bAssignment == PATIENT ) &&( pTeamSoldier->stats.bLife == pTeamSoldier->stats.bLifeMax ) )
 			{
-				AssignmentDone( pTeamSoldier, TRUE, TRUE );
+				// SANDRO - added check if we can help to heal lost stats to this one
+				for (UINT8 cnt = 0; cnt < NUM_DAMAGABLE_STATS; cnt++)
+				{
+					if (pTeamSoldier->ubCriticalStatDamage[cnt] > 0 )
+						fHasDamagedStat = TRUE;
+				}
+				if (!fHasDamagedStat )// || !DoctorIsPresent( pTeamSoldier, TRUE ))
+					AssignmentDone( pTeamSoldier, TRUE, TRUE );
 			}
 		}
 	}
@@ -2568,7 +2680,7 @@ void HealCharacters( SOLDIERTYPE *pDoctor, INT16 sX, INT16 sY, INT8 bZ )
 
 
 	// now find number of healable mercs in sector that are wounded
-	ubTotalNumberOfPatients = GetNumberThatCanBeDoctored( pDoctor, HEALABLE_THIS_HOUR, FALSE, FALSE );
+	ubTotalNumberOfPatients = GetNumberThatCanBeDoctored( pDoctor, HEALABLE_THIS_HOUR, FALSE, FALSE, FALSE );
 
 	// if there is anybody who can be healed right now
 	if( ubTotalNumberOfPatients > 0 )
@@ -2586,7 +2698,7 @@ void HealCharacters( SOLDIERTYPE *pDoctor, INT16 sX, INT16 sY, INT8 bZ )
 		{
 			if( pTeamSoldier->bActive )
 			{
-				if( CanSoldierBeHealedByDoctor( pTeamSoldier, pDoctor, FALSE, HEALABLE_THIS_HOUR, FALSE, FALSE ) == TRUE )
+				if( CanSoldierBeHealedByDoctor( pTeamSoldier, pDoctor, FALSE, HEALABLE_THIS_HOUR, FALSE, FALSE, FALSE ) == TRUE )
 				{
 					// can heal and is patient, heal them
 					usRemainingHealingPts -= HealPatient( pTeamSoldier, pDoctor, usEvenHealingAmount );
@@ -2608,7 +2720,7 @@ void HealCharacters( SOLDIERTYPE *pDoctor, INT16 sX, INT16 sY, INT8 bZ )
 				{
 					if( pTeamSoldier->bActive )
 					{
-						if( CanSoldierBeHealedByDoctor( pTeamSoldier, pDoctor, FALSE, HEALABLE_THIS_HOUR, FALSE, FALSE ) == TRUE )
+						if( CanSoldierBeHealedByDoctor( pTeamSoldier, pDoctor, FALSE, HEALABLE_THIS_HOUR, FALSE, FALSE, FALSE ) == TRUE )
 						{
 							if( pWorstHurtSoldier == NULL )
 							{
@@ -2653,18 +2765,18 @@ void HealCharacters( SOLDIERTYPE *pDoctor, INT16 sX, INT16 sY, INT8 bZ )
 
 
 	// if there's nobody else here who can EVER be helped by this doctor (regardless of whether they got healing this hour)
-	if( GetNumberThatCanBeDoctored( pDoctor, HEALABLE_EVER, FALSE, FALSE ) == 0 )
+	if( GetNumberThatCanBeDoctored( pDoctor, HEALABLE_EVER, FALSE, FALSE, FALSE ) == 0 )
 	{
 		// then this doctor has done all that he can do, but let's find out why and tell player the reason
 
 		// try again, but skip the med kit check!
-		if( GetNumberThatCanBeDoctored( pDoctor, HEALABLE_EVER, TRUE, FALSE ) > 0 )
+		if( GetNumberThatCanBeDoctored( pDoctor, HEALABLE_EVER, TRUE, FALSE, FALSE ) > 0 )
 		{
 			// he could doctor somebody, but can't because he doesn't have a med kit!
 			AssignmentAborted( pDoctor, NO_MORE_MED_KITS );
 		}
 		// try again, but skip the skill check!
-		else if( GetNumberThatCanBeDoctored( pDoctor, HEALABLE_EVER, FALSE, TRUE ) > 0 )
+		else if( GetNumberThatCanBeDoctored( pDoctor, HEALABLE_EVER, FALSE, TRUE, FALSE ) > 0 )
 		{
 			// he could doctor somebody, but can't because he doesn't have enough skill!
 			AssignmentAborted( pDoctor, INSUF_DOCTOR_SKILL );
@@ -2737,8 +2849,10 @@ BOOLEAN IsSoldierCloseEnoughToADoctor( SOLDIERTYPE *pPatient )
 */
 
 
-BOOLEAN CanSoldierBeHealedByDoctor( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pDoctor, BOOLEAN fIgnoreAssignment, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck )
+BOOLEAN CanSoldierBeHealedByDoctor( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pDoctor, BOOLEAN fIgnoreAssignment, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck, BOOLEAN fCheckForSurgery )
 {
+	// SANDRO - added check here, if we have damaged stat
+	BOOLEAN fHealDamagedStat = FALSE;
 
 	// must be an active guy
 	if (pSoldier->bActive == FALSE)
@@ -2752,8 +2866,8 @@ BOOLEAN CanSoldierBeHealedByDoctor( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pDoctor,
 		return(FALSE);
 	}
 
-	// if dead or unhurt
-	if ( (pSoldier->stats.bLife == 0) || (pSoldier->stats.bLife == pSoldier->stats.bLifeMax ) )
+	// if dead
+	if ( pSoldier->stats.bLife == 0) 
 	{
 		return(FALSE);
 	}
@@ -2788,6 +2902,24 @@ BOOLEAN CanSoldierBeHealedByDoctor( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pDoctor,
 		return( FALSE );
 	}
 
+	// check if having damaged stat
+	if ( gGameOptions.fNewTraitSystem && NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT) > 0 && (NumberOfDamagedStats( pSoldier ) > 0))
+	{
+		fHealDamagedStat = TRUE;
+	}
+	// added check for surgery
+	if ( !fHealDamagedStat && fCheckForSurgery && pSoldier->iHealableInjury < 100 ) // at least one life can be healed
+	{
+		// cannot be healed
+		return( FALSE );
+	}
+	// if we have no damaged stat and don't need healing
+	if (!fHealDamagedStat && (pSoldier->stats.bLife == pSoldier->stats.bLifeMax) )
+	{
+		// cannot be healed
+		return( FALSE );
+	}
+
 	return( TRUE );
 }
 
@@ -2811,177 +2943,156 @@ UINT8 GetMinHealingSkillNeeded( SOLDIERTYPE *pPatient )
 
 UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundredthsHealed )
 {
-	// heal patient and return the number of healing pts used
+	//////////////////////////////////////////////////////////////////////////////
+	// SANDRO - this whole procedure was heavily changed
+	////////////////////////////////////////////////////
 	UINT16 usHealingPtsLeft;
-	UINT16 usTotalFullPtsUsed = 0;
 	UINT16 usTotalHundredthsUsed = 0;
-	INT8 bPointsToUse = 0;
-	INT8 bPointsUsed = 0;
+	INT16 sPointsToUse = 0;
 	INT8 bPointsHealed = 0;
-	INT8 bPocket = 0;
 	INT8 bMedFactor;
-//	INT8 bOldPatientLife = pPatient->stats.bLife;
+	BOOLEAN fWillRepiarStats = FALSE;
+	BOOLEAN fWillHealLife = TRUE;
+	UINT16 usTotalMedPoints = 0;
+	UINT16 ubReturnDamagedStatRate = 0;
 
+	// Look how much life do we need to heal
+	sPointsToUse = ( pPatient->stats.bLifeMax - pPatient->stats.bLife );
+	if ( sPointsToUse <= 0 )
+		fWillHealLife = FALSE;
+	else if ( pPatient->stats.bLife < OKLIFE )
+		sPointsToUse += ((OKLIFE - pPatient->stats.bLife )* gGameExternalOptions.ubPointCostPerHealthBelowOkLife);
 
-	pPatient->sFractLife += usHundredthsHealed;
-	usTotalHundredthsUsed = usHundredthsHealed;		// we'll subtract any unused amount later if we become fully healed...
-
-	// convert fractions into full points
-	usHealingPtsLeft = pPatient->sFractLife / 100;
-	pPatient->sFractLife %= 100;
-
-	// if we haven't accumulated any full points yet
-	if (usHealingPtsLeft == 0)
+	// Look how much stats do we need to repair
+	if ( gGameOptions.fNewTraitSystem && ( NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT ) > 0 ) && (NumberOfDamagedStats( pPatient ) > 0) )
 	{
-		return( usTotalHundredthsUsed );
+		fWillRepiarStats = TRUE;
+		sPointsToUse += NumberOfDamagedStats( pPatient );
+
+		ubReturnDamagedStatRate = ((gSkillTraitValues.usDORepairStatsRateBasic + gSkillTraitValues.usDORepairStatsRateOnTop * NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT )));
+		// reduce rate if we are going to heal at the same time
+		if ( fWillHealLife )
+			ubReturnDamagedStatRate -= ((ubReturnDamagedStatRate * gSkillTraitValues.ubDORepStPenaltyIfAlsoHealing ) / 100);
 	}
 
-
-/* ARM - Eliminated.	We now have other methods of properly using doctors to auto-bandage bleeding,
-// using the correct kits points instead of this 1 pt. "special"
-
-	// stop all bleeding of patient..for 1 pt (it's fast).	But still use up normal kit pts to do it
-	if (pPatient->bBleeding > 0)
+	// Start
+	if ( sPointsToUse > 0 && ( fWillHealLife || fWillRepiarStats ))
 	{
-		usHealingPtsLeft--;
-		usTotalFullPtsUsed++;
-
-		// get points needed to heal him to dress bleeding wounds
-		bPointsToUse = pPatient->bBleeding;
-
-		// go through doctor's pockets and heal, starting at with his in-hand item
-		// the healing pts are based on what type of medkit is in his hand, so we HAVE to start there first!
-		for (bPocket = HANDPOS; bPocket <= SMALLPOCK8POS; bPocket++)
-		{
-			bMedFactor = IsMedicalKitItem( &( pDoctor->inv[ bPocket ] ) );
-			if ( bMedFactor > 0 )
-			{
-				// ok, we have med kit in this pocket, use it
-
-				// The medFactor here doesn't affect how much the doctor can heal (that's already factored into lower healing pts)
-				// but it does effect how fast the medkit is used up!	First aid kits disappear at double their doctoring rate!
-				bPointsUsed = (INT8) UseKitPoints( &( pDoctor->inv[ bPocket ] ), (UINT16) (bPointsToUse * bMedFactor), pDoctor );
-				bPointsHealed = bPointsUsed / bMedFactor;
-
-				bPointsToUse -= bPointsHealed;
-				pPatient->bBleeding -= bPointsHealed;
-
-				// if we're done all we're supposed to, or the guy's no longer bleeding, bail
-				if ( ( bPointsToUse <= 0 ) || ( pPatient->bBleeding == 0 ) )
-				{
-					break;
-				}
-			}
-		}
-	}
-*/
-
-	// if below ok life, heal these first at double point cost
-	if( pPatient->stats.bLife < OKLIFE )
-	{
-		// get points needed to heal him to OKLIFE
-		bPointsToUse = gGameExternalOptions.ubPointCostPerHealthBelowOkLife * ( OKLIFE - pPatient->stats.bLife );
-
-		// if he needs more than we have, reduce to that
-		if( bPointsToUse > usHealingPtsLeft )
-		{
-		bPointsToUse = ( INT8 )usHealingPtsLeft;
-		}
-
-		// go through doctor's pockets and heal, starting at with his in-hand item
-		// the healing pts are based on what type of medkit is in his hand, so we HAVE to start there first!
-		// CHRISL: Changed to dynamically determine max inventory locations.
-		for (bPocket = HANDPOS; bPocket < NUM_INV_SLOTS; bPocket++)
-		{
-			bMedFactor = IsMedicalKitItem( &( pDoctor->inv[ bPocket ] ) );
-			if ( bMedFactor > 0 )
-			{
-				// ok, we have med kit in this pocket, use it
-
-				// The medFactor here doesn't affect how much the doctor can heal (that's already factored into lower healing pts)
-				// but it does effect how fast the medkit is used up!	First aid kits disappear at double their doctoring rate!
-				bPointsUsed = (INT8) UseKitPoints( &( pDoctor->inv[ bPocket ] ), (UINT16) (bPointsToUse * bMedFactor), pDoctor );
-				bPointsHealed = bPointsUsed / bMedFactor;
-
-				bPointsToUse -= bPointsHealed;
-				usHealingPtsLeft -= bPointsHealed;
-				usTotalFullPtsUsed += bPointsHealed;
-
-				// heal person the amount / POINT_COST_PER_HEALTH_BELOW_OKLIFE
-				pPatient->stats.bLife += (bPointsHealed / gGameExternalOptions.ubPointCostPerHealthBelowOkLife);
-
-				// if we're done all we're supposed to, or the guy's at OKLIFE, bail
-				if ( ( bPointsToUse <= 0 ) || ( pPatient->stats.bLife >= OKLIFE ) )
-				{
-					break;
-				}
-			}
-		}
-	}
-
-	// critical conditions handled, now apply normal healing
-
-	if (pPatient->stats.bLife < pPatient->stats.bLifeMax)
-	{
-		bPointsToUse = ( pPatient->stats.bLifeMax - pPatient->stats.bLife );
+		// here is our maximum, we can heal this time
+		usHealingPtsLeft = max( 1, ((pPatient->sFractLife + usHundredthsHealed) / 100));
 
 		// if guy is hurt more than points we have...heal only what we have
-		if( bPointsToUse > usHealingPtsLeft )
+		if( sPointsToUse > usHealingPtsLeft )
 		{
-			bPointsToUse = ( INT8 )usHealingPtsLeft;
+			sPointsToUse = ( INT8 )usHealingPtsLeft;
 		}
 
-		// go through doctor's pockets and heal, starting at with his in-hand item
-		// the healing pts are based on what type of medkit is in his hand, so we HAVE to start there first!
-		// CHRISL: Changed to dynamically determine max inventory locations.
-		for (bPocket = HANDPOS; bPocket < NUM_INV_SLOTS; bPocket++)
+		bMedFactor = 1; // basic medical factor
+		// if we will heal life and stats at the same time, increases the medical cost
+		if (fWillRepiarStats && fWillHealLife)
 		{
-			bMedFactor = IsMedicalKitItem( &( pDoctor->inv[ bPocket ] ) );
-			if ( bMedFactor > 0 )
+			bMedFactor += 1;
+		}
+		// Added a penalty for not experienced mercs, they consume the bag faster
+		if ( gGameOptions.fNewTraitSystem && !HAS_SKILL_TRAIT( pDoctor, DOCTOR_NT ) && (pDoctor->stats.bMedical < 50) )
+		{
+			bMedFactor += 1;
+		}
+		/*if ( pPatient->stats.bLife < OKLIFE )
+		{
+			bMedFactor += 1;			
+		}*/
+
+		// calculate how much total points we have in all medical bags
+		usTotalMedPoints = TotalMedicalKitPoints(pDoctor);
+
+		// if having enough, no problem
+		if (usTotalMedPoints >= (sPointsToUse * bMedFactor))
+		{
+			usTotalHundredthsUsed = sPointsToUse * 100;
+			usTotalMedPoints = (sPointsToUse * bMedFactor);
+		}
+		else
+		{
+			// only heal what we have
+			usTotalHundredthsUsed = (usTotalMedPoints * 100 / bMedFactor) ;
+		}
+
+		// calculate points for healing life (it has priority)
+		if ( fWillHealLife )
+		{
+			// if we haven't accumulated any full points yet
+			if ((pPatient->sFractLife + usTotalHundredthsUsed) < 100)
 			{
-				// ok, we have med kit in this pocket, use it	(use only half if it's worth double)
-
-				// The medFactor here doesn't affect how much the doctor can heal (that's already factored into lower healing pts)
-				// but it does effect how fast the medkit is used up!	First aid kits disappear at double their doctoring rate!
-				bPointsUsed = (INT8) UseKitPoints( &( pDoctor->inv[ bPocket ] ), (UINT16) (bPointsToUse * bMedFactor), pDoctor );
-				bPointsHealed = bPointsUsed / bMedFactor;
-
-				bPointsToUse -= bPointsHealed;
-				usHealingPtsLeft -= bPointsHealed;
-				usTotalFullPtsUsed += bPointsHealed;
-
-				pPatient->stats.bLife += bPointsHealed;
-
-				// if we're done all we're supposed to, or the guy's fully healed, bail
-				if ( ( bPointsToUse <= 0 ) || ( pPatient->stats.bLife == pPatient->stats.bLifeMax ) )
-				{
-					break;
-				}
+				pPatient->sFractLife += usTotalHundredthsUsed;
+				fWillHealLife = FALSE;
+			}
+			// if we would heal more than we need
+			else if ( !fWillRepiarStats && (pPatient->stats.bLifeMax < pPatient->stats.bLife + bPointsHealed) )
+			{
+				usHundredthsHealed = max( 1, (usHundredthsHealed - usTotalHundredthsUsed));
 			}
 		}
-	}
 
-
-	// if this patient is fully healed
-	if( pPatient->stats.bLife == pPatient->stats.bLifeMax )
-	{
-		// don't count unused full healing points as being used
-		usTotalHundredthsUsed -= (100 * usHealingPtsLeft);
-
-		// wipe out fractions of extra life, and DON'T count them as used
-		usTotalHundredthsUsed -= pPatient->sFractLife;
-		pPatient->sFractLife = 0;
-
-/* ARM Removed.	This is duplicating the check in UpdatePatientsWhoAreDoneHealing(), guy would show up twice!
-		// if it isn't the doctor himself)
-		if( ( pPatient != pDoctor )
+		// repair our stats here!!
+		if ( fWillRepiarStats && (ubReturnDamagedStatRate > 0) ) 
 		{
-			AssignmentDone( pPatient, TRUE, TRUE );
+			// always at least one point if repairing stats only
+			if ( !fWillHealLife )
+				bPointsHealed = max( 1, (usTotalHundredthsUsed / 100));
+			else
+				bPointsHealed = (usTotalHundredthsUsed / 100);
+
+			// reduce remaining points for upcoming healing
+			if ( RegainDamagedStats( pPatient, (bPointsHealed * ubReturnDamagedStatRate) ) != 0 )
+			{
+				usTotalHundredthsUsed -= ((usTotalHundredthsUsed * gSkillTraitValues.ubDOHealingPenaltyIfAlsoStatRepair ) / 100);
+			}
 		}
-*/
+
+		// if we are actually here to heal life
+		if ( fWillHealLife )
+		{
+			pPatient->sFractLife += usTotalHundredthsUsed;
+
+			bPointsHealed = 0;
+			if (pPatient->sFractLife >= 100 && pPatient->stats.bLife >= OKLIFE)  
+			{
+				// convert fractions into full points
+				bPointsHealed = (pPatient->sFractLife / 100);
+				pPatient->sFractLife %= 100;
+
+				pPatient->stats.bLife = min( pPatient->stats.bLifeMax, (pPatient->stats.bLife + bPointsHealed));
+			}
+			else if (((pPatient->sFractLife / gGameExternalOptions.ubPointCostPerHealthBelowOkLife) >= 100) && (pPatient->stats.bLife < OKLIFE))
+			{
+				bPointsHealed = ((pPatient->sFractLife / gGameExternalOptions.ubPointCostPerHealthBelowOkLife) / 100);
+				pPatient->sFractLife %= 100;
+
+				pPatient->stats.bLife = min( pPatient->stats.bLifeMax, (pPatient->stats.bLife + bPointsHealed));
+			}
+			
+			// when being healed normally, reduce insta-healable HPs value 
+			if ( pPatient->iHealableInjury > 0 && bPointsHealed > 0 ) 
+			{
+				pPatient->iHealableInjury -= (bPointsHealed * 100);
+				if (pPatient->iHealableInjury < 0)
+					pPatient->iHealableInjury = 0;
+			}
+
+		}
+
+		// Finaly use all kit points (we are sure, we have that much)
+		if (UseTotalMedicalKitPoints( pDoctor, usTotalMedPoints ) == FALSE )
+		{
+			// throw message if this went wrong for feedback on debugging
+#ifdef JA2TESTVERSION
+		ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! UseTotalKitPOints returned false, not all points were probably used." );
+#endif
+		}
 	}
 
-	return ( usTotalHundredthsUsed );
+	return ( usHundredthsHealed );
 }
 
 
@@ -3051,6 +3162,14 @@ void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft )
 
 		// heal person the amount / POINT_COST_PER_HEALTH_BELOW_OKLIFE
 		pPatient->stats.bLife += ( bPointsToUse / gGameExternalOptions.ubPointCostPerHealthBelowOkLife );
+		
+		// SANDRO - doctor trait - when being healed normally, reduce insta-healable HPs value 
+		if ( gGameOptions.fNewTraitSystem && pPatient->iHealableInjury > 0 ) 
+		{
+			pPatient->iHealableInjury -= (bPointsToUse / gGameExternalOptions.ubPointCostPerHealthBelowOkLife * 100);
+			if (pPatient->iHealableInjury < 0)
+				pPatient->iHealableInjury = 0;
+		}
 	}
 
 	// critical condition handled, now solve normal healing
@@ -3069,6 +3188,14 @@ void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft )
 
 		// heal person the amount
 		pPatient->stats.bLife += bPointsToUse;
+		
+		// SANDRO - doctor trait - when being healed normally, reduce insta-healable HPs value 
+		if ( gGameOptions.fNewTraitSystem && pPatient->iHealableInjury > 0 ) 
+		{
+			pPatient->iHealableInjury -= (bPointsToUse * 100);
+			if (pPatient->iHealableInjury < 0)
+				pPatient->iHealableInjury = 0;
+		}
 	}
 
 	// if this patient is fully healed
@@ -3170,7 +3297,115 @@ INT8 HandleRepairOfSAMSite( SOLDIERTYPE *pSoldier, INT8 bPointsAvailable, BOOLEA
 }
 */
 
+struct RepairItem {
+	const OBJECTTYPE* item;
+	const SOLDIERTYPE* owner;
+	INVENTORY_SLOT inventorySlot;
 
+	RepairItem (const OBJECTTYPE* object, const SOLDIERTYPE* soldier, INVENTORY_SLOT slot) :
+		item(object), owner(soldier), inventorySlot(slot) {}
+};
+
+struct RepairPriority : std::binary_function<RepairItem, RepairItem, bool> {
+	/// Comperator function
+	bool operator() (const RepairItem& firstItem, const RepairItem& secondItem) const {
+		UINT8 priFirst = CalculateItemPriority(firstItem),
+			  priSecond = CalculateItemPriority(secondItem);
+
+		// Both items have the same priority, prefer the item with less durability
+		if (priFirst == priSecond) {
+			INT16 durabilityFirst = GetMinimumStackDurability(firstItem.item),
+				  durabilitySecond = GetMinimumStackDurability(secondItem.item);
+		
+			// Sort by durability in ascending order
+			return durabilityFirst > durabilitySecond;
+		}
+		else
+			// Sort by priority in descending order
+			return priFirst < priSecond;
+	}
+
+	/// Calculate an item's priority
+	///
+	/// LBE: 0
+	/// Items: 1
+	/// Armor: 2
+	/// Face items: 3
+	/// Weapons: 4
+	/// Equipped armor: 5
+	/// Equipped weapons: 6
+	private: UINT8 CalculateItemPriority(const RepairItem& object) const {
+		
+		UINT32 itemClass = Item[object.item->usItem].usItemClass;
+		// Default priority
+		UINT8 priority = 1;
+
+		// Set base priority
+		if ( itemClass == IC_LBEGEAR )
+			priority = 0;
+		else if ( itemClass == IC_ARMOUR )
+			priority = 2;
+		else if ( itemClass == IC_FACE )
+			priority = 3;
+		else if ( IsWeapon(object.item->usItem) )
+			priority = 4;
+		
+		// Set priority based on equip slot
+		if ((itemClass == IC_ARMOUR) &&  (object.inventorySlot == HELMETPOS || object.inventorySlot == VESTPOS || object.inventorySlot == LEGPOS))
+			priority = 5;
+		if ((IsWeapon(object.item->usItem)) && (object.inventorySlot == HANDPOS || object.inventorySlot == SECONDHANDPOS)) 
+			priority = 6;
+
+		// Set priority for jammed weapons; those weapons should always be highest priority
+		if (IsGunJammed(object.item))
+			priority = 100;
+
+		return priority;
+	}
+};
+
+static INT16 GetMinimumStackDurability(const OBJECTTYPE* pObj) {
+	INT16 minDur = 100;
+	for (UINT8 stackIndex = 0; stackIndex < pObj->ubNumberOfObjects; ++stackIndex) {
+		INT16 durability = (*pObj)[stackIndex]->data.objectStatus;
+
+		if (durability < minDur) 
+			minDur = durability;
+	}
+
+	return minDur;
+}
+
+static void CollectRepairableItems(const SOLDIERTYPE* pSoldier, RepairQueue& itemsToFix) {
+	// Iterate over all pocket slots and add items in need of repair
+	for (UINT8 pocketIndex = HELMETPOS; pocketIndex < NUM_INV_SLOTS; ++pocketIndex) {
+		const OBJECTTYPE* pObj = &(const_cast<SOLDIERTYPE *>(pSoldier)->inv[pocketIndex]);
+
+		// Check if item needs repairing
+		BOOLEAN itemAddedToQueue = FALSE;
+		for (UINT8 stackIndex = 0; stackIndex < pObj->ubNumberOfObjects; ++stackIndex) {
+			// Check the stack item itself
+			if (!itemAddedToQueue && IsItemRepairable(pObj->usItem, (*pObj)[stackIndex]->data.objectStatus)) {
+				itemAddedToQueue = TRUE;
+				RepairItem item(pObj, pSoldier, (INVENTORY_SLOT) pocketIndex);
+				itemsToFix.push(item);
+			}
+
+			// Check for attachments (are there stackable items that can take attachments though?)
+			UINT8 attachmentIndex = 0;
+			for (attachmentList::const_iterator iter = (*pObj)[stackIndex]->attachments.begin(); iter != (*pObj)[stackIndex]->attachments.end(); ++iter, ++attachmentIndex) {
+				if (IsItemRepairable(iter->usItem, (*iter)[attachmentIndex]->data.objectStatus )) {
+					RepairItem item(&(*iter), pSoldier, (INVENTORY_SLOT) pocketIndex);
+					itemsToFix.push(item);
+				}
+			}
+		}
+	}
+}
+
+static BOOLEAN IsGunJammed(const OBJECTTYPE* pObj) {
+	return (Item[pObj->usItem].usItemClass == IC_GUN) && ((*pObj)[0]->data.gun.bGunAmmoStatus < 0);
+}
 
 OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, UINT8 ubPassType )
 {
@@ -3258,7 +3493,7 @@ OBJECTTYPE* FindRepairableItemInSpecificPocket( OBJECTTYPE * pObj, UINT8 subObje
 	// have to check for attachments after...
 	for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter) {
 		// if it's repairable and NEEDS repairing
-		if ( IsItemRepairable( iter->usItem, (*iter)[subObject]->data.objectStatus ) ) {
+		if ( IsItemRepairable( iter->usItem, (*iter)[subObject]->data.objectStatus ) && iter->exists() ) {
 			return( &(*iter) );
 		}
 	}
@@ -3286,10 +3521,18 @@ void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, UI
 	}
 
 	// repairs on electronic items take twice as long if the guy doesn't have the skill
-//	if ( ( Item[ usItem ].fFlags & ITEM_ELECTRONIC ) && ( !( HAS_SKILL_TRAIT( pSoldier, ELECTRONICS ) ) ) )
-	if ( ( Item[ usItem ].electronic ) && ( !( HAS_SKILL_TRAIT( pSoldier, ELECTRONICS ) ) ) )
+	// Technician/Electronic traits - repairing electronic items - SANDRO
+	if ( Item[ usItem ].electronic )
 	{
-		sRepairCostAdj *= 2;
+		if (gGameOptions.fNewTraitSystem)
+		{
+			if (HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ))
+				sRepairCostAdj += (150 * max( 0, ((100 - gSkillTraitValues.ubTERepairElectronicsPenaltyReduction * NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT ))/100)));
+			else 
+				sRepairCostAdj += 150; 
+		}
+		else if ( !HAS_SKILL_TRAIT( pSoldier, ELECTRONICS_OT ) )
+			sRepairCostAdj *= 2; // +100% cost
 	}
 
 	// how many points of damage is the item down by?
@@ -3331,7 +3574,7 @@ void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, UI
 
 BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE * pObj, UINT8 * pubRepairPtsLeft )
 {
-	UINT8	ubLoop, ubItemsInPocket, lbeLoop;
+	UINT8	ubLoop, ubItemsInPocket, lbeLoop, ubBeforeRepair; // added by SANDRO
 	BOOLEAN fSomethingWasRepaired = FALSE;
 
 
@@ -3342,8 +3585,25 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 		// if it's repairable and NEEDS repairing
 		if ( IsItemRepairable( pObj->usItem, (*pObj)[ubLoop]->data.objectStatus ) )
 		{
+			///////////////////////////////////////////////////////////////////////////////////////////////////////
+			// SANDRO - merc records, num items repaired
+			// Actually we check if we repaired at least 5% of status, otherwise the item is not considered broken
+			ubBeforeRepair = (UINT8)((*pObj)[ubLoop]->data.objectStatus);
 			// repairable, try to repair it
 			DoActualRepair( pSoldier, pObj->usItem, &((*pObj)[ubLoop]->data.objectStatus), pubRepairPtsLeft );
+
+			// if the item was repaired to full status and the repair wa at least 5%, add a point
+			if ( (*pObj)[ubLoop]->data.objectStatus == 100 && (((*pObj)[ubLoop]->data.objectStatus - ubBeforeRepair) > 4 ))
+			{
+				gMercProfiles[ pSoldier->ubProfile ].records.usItemsRepaired++;
+			}
+			// if the item was now repaired to a status of 96-99 and the repair was at least 2%, add a point, consider the item repaired (no points will be awarded for it anyway)
+			else if ( (*pObj)[ubLoop]->data.objectStatus > 95 && (*pObj)[ubLoop]->data.objectStatus < 100 && ((*pObj)[ubLoop]->data.objectStatus - ubBeforeRepair) > 1) 
+			{
+				gMercProfiles[ pSoldier->ubProfile ].records.usItemsRepaired++;
+			}
+			// note: this system is bad if we can repair only 1% per hour (which is rather we are total losers)
+			///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 			fSomethingWasRepaired = true;
 
@@ -3369,7 +3629,7 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 		}
 		// now check for attachments after
 		for (attachmentList::iterator iter = (*pObj)[ubLoop]->attachments.begin(); iter != (*pObj)[ubLoop]->attachments.end(); ++iter) {
-			if (RepairObject(pSoldier, pOwner, &(*iter), pubRepairPtsLeft)) {
+			if (RepairObject(pSoldier, pOwner, &(*iter), pubRepairPtsLeft) && iter->exists()) {
 				fSomethingWasRepaired = true;
 				if ( *pubRepairPtsLeft == 0 )
 				{
@@ -3407,14 +3667,8 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 	UINT8 ubRepairPtsLeft =0;
 	UINT8 ubInitialRepairPts = 0;
 	UINT8 ubRepairPtsUsed = 0;
-	INT8 bPocket =0;
 	BOOLEAN fNothingLeftToRepair = FALSE;
-	INT8	bLoop, bLoopStart, bLoopEnd;
-	BOOLEAN fAnyOfSoldiersOwnItemsWereFixed = FALSE;
-	OBJECTTYPE * pObj;
-
 	UINT16 usKitDegrade = 100;
-
 
 	// grab max number of repair pts open to this soldier
 	ubRepairPtsLeft = CalculateRepairPointsForRepairman( pSoldier, &usMax, TRUE );
@@ -3444,13 +3698,31 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 		if ( CanCharacterRepairRobot( pSoldier ) )
 		{
 			// repairing the robot is very slow & difficult
-			ubRepairPtsLeft /= 2;
-			ubInitialRepairPts /= 2;
 
-			if( !( HAS_SKILL_TRAIT( pSoldier, ELECTRONICS ) ) )
+			// Check for new robot-repair system for Technicians - SANDRO
+			if (gGameOptions.fNewTraitSystem)
+			{
+				if (HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ))
+				{
+					ubRepairPtsLeft = (ubRepairPtsLeft * (100 - (80 * ( 100 - gSkillTraitValues.ubTERepairRobotPenaltyReduction * NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT ))/100))/100);
+					ubInitialRepairPts = (ubInitialRepairPts * (100 - (80 * ( 100 - gSkillTraitValues.ubTERepairRobotPenaltyReduction * NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT ))/100))/100);
+				}
+				else 
+				{ 
+					ubRepairPtsLeft = ((ubRepairPtsLeft * 20 )/100);
+					ubInitialRepairPts = ((ubInitialRepairPts * 20 )/100);
+				}
+			}
+			else if ( HAS_SKILL_TRAIT( pSoldier, ELECTRONICS_OT ) )
 			{
 				ubRepairPtsLeft /= 2;
 				ubInitialRepairPts /= 2;
+			}
+			else
+			{
+				// original value (just moved here)
+				ubRepairPtsLeft /= 4;
+				ubInitialRepairPts /= 4;
 			}
 
 			// robot
@@ -3459,83 +3731,151 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 	}
 	else
 	{
-		fAnyOfSoldiersOwnItemsWereFixed = UnjamGunsOnSoldier( pSoldier, pSoldier, &ubRepairPtsLeft );
-
-		// repair items on self
-		// HEADROCK HAM B2.8: Experimental feature: Fixes LBEs last, as they don't actually require repairs.
-		for( bLoop = 0; bLoop < 4; bLoop++ )
+		if (gGameExternalOptions.fAdditionalRepairMode) 
 		{
-			if ( bLoop == 0 )
+			// 2Points: Use new repair algorithm
+			// Collect all items in need of repair and assign them priorities
+			RepairQueue itemsToFix;
+
+			CollectRepairableItems(pSoldier, itemsToFix);
+			for(UINT8 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex < gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
 			{
-				bLoopStart = SECONDHANDPOS;
-				// HEADROCK: New loop stage only checks second hand, to avoid LBEs.
-				bLoopEnd = SECONDHANDPOS;
+				// Ignore self, mercs in other sectors, etc.
+				if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, MercPtrs[teamIndex]))
+					CollectRepairableItems(MercPtrs[teamIndex], itemsToFix);
 			}
-			else if ( bLoop == 1 )
+
+			// Step through items, starting with the highest priority item
+			while (!itemsToFix.empty() && ubRepairPtsLeft > 0) 
 			{
-				// HEADROCK: Second check is for armor and headgear only.
-				bLoopStart = HELMETPOS;
-				bLoopEnd = HEAD2POS;
-			}
-			else if ( bLoop == 2 )
-			{
-				// HEADROCK: Loop stage altered to run through inventory only
-				bLoopStart = UsingNewInventorySystem() == false ? BIGPOCKSTART : GUNSLINGPOCKPOS;
-				// CHRISL: Changed to dynamically determine max inventory locations.
-				bLoopEnd = (NUM_INV_SLOTS - 1);
-			}
-			else if ( bLoop == 3 )
-			{
-				if (UsingNewInventorySystem() == true)
+				const RepairItem object = itemsToFix.top();
+				itemsToFix.pop();
+
+				// Jammed gun; call unjam function first
+				if ( IsGunJammed(object.item) )
+					UnjamGunsOnSoldier(const_cast<SOLDIERTYPE*> (object.owner), pSoldier, &ubRepairPtsLeft);
+
+				// Regular repair function
+				BOOLEAN itemRepaired = RepairObject( pSoldier, const_cast<SOLDIERTYPE*> (object.owner), const_cast<OBJECTTYPE*> (object.item), &ubRepairPtsLeft );
+
+#ifdef _DEBUG
+				if (itemRepaired)
+					ScreenMsg(FONT_ORANGE, MSG_BETAVERSION, L"Repaired: %s's %s in item slot %d [Dur: %d]. %d points left.", 
+						object.owner->name, Item[object.item->usItem].szItemName, object.inventorySlot, GetMinimumStackDurability(object.item), ubRepairPtsLeft);
+#endif
+
+				// The following assumes that weapon/armor has higher priority than regular items! If the priorities are changed, this notification
+				// probably won't work reliably anymore.
+
+				// The item has been repaired completely
+				if (GetMinimumStackDurability(object.item) == 100) 
 				{
-					// HEADROCK: Last loop fixes LBEs
-					bLoopStart = VESTPOCKPOS;
-					bLoopEnd = BPACKPOCKPOS;
+					// No items left in queue: All items have been repaired
+					if (itemsToFix.empty())
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 3 ], pSoldier->name );
+					else {
+						// The current item was a weapon/armor
+						if ( (IsWeapon(object.item->usItem) || Item[object.item->usItem].usItemClass == IC_ARMOUR) &&
+						// ...and the next item isn't:
+							 (!IsWeapon(itemsToFix.top().item->usItem) && Item[itemsToFix.top().item->usItem].usItemClass != IC_ARMOUR) ) 
+						{
+
+							// All weapons & armor have been repaired
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 1 ], pSoldier->name );
+							StopTimeCompression();
+						}
+					}
 				}
-				else
+			}
+		}
+		else 
+		{
+			// Old repair algorithm
+
+			INT8 bPocket =0;
+ 			BOOLEAN fNothingLeftToRepair = FALSE;
+			INT8	bLoop, bLoopStart, bLoopEnd;
+			BOOLEAN fAnyOfSoldiersOwnItemsWereFixed = FALSE;
+			OBJECTTYPE * pObj;
+
+			fAnyOfSoldiersOwnItemsWereFixed = UnjamGunsOnSoldier( pSoldier, pSoldier, &ubRepairPtsLeft );
+
+			// repair items on self
+			// HEADROCK HAM B2.8: Experimental feature: Fixes LBEs last, as they don't actually require repairs.
+			for( bLoop = 0; bLoop < 4; bLoop++ )
+			{
+				if ( bLoop == 0 )
 				{
-					// HEADROCK: In OIV, simply check everything again.
 					bLoopStart = SECONDHANDPOS;
+					// HEADROCK: New loop stage only checks second hand, to avoid LBEs.
+					bLoopEnd = SECONDHANDPOS;
+				}
+				else if ( bLoop == 1 )
+				{
+					// HEADROCK: Second check is for armor and headgear only.
+					bLoopStart = HELMETPOS;
+					bLoopEnd = HEAD2POS;
+				}
+				else if ( bLoop == 2 )
+				{
+					// HEADROCK: Loop stage altered to run through inventory only
+					bLoopStart = UsingNewInventorySystem() == false ? BIGPOCKSTART : GUNSLINGPOCKPOS;
+					// CHRISL: Changed to dynamically determine max inventory locations.
 					bLoopEnd = (NUM_INV_SLOTS - 1);
 				}
-			}
-
-			// now repair objects running from left hand to small pocket
-			for( bPocket = bLoopStart; bPocket <= bLoopEnd; bPocket++ )
-			{
-				//CHRISL: These two conditions allow us to repair LBE pocket items at the same time as worn armor, while
-				//	still letting us repair the item in our offhand first.
-				// HEADROCK HAM B2.8: No longer necessary, as I've artificially added new stages for this. LBE
-				// pockets are now repaired LAST.
-				//if(UsingNewInventorySystem() == true && bLoop == 0 && bPocket>SECONDHANDPOS && bPocket<GUNSLINGPOCKPOS)
-				//	continue;
-				//if(UsingNewInventorySystem() == true && bLoop == 1 && bPocket==SECONDHANDPOS)
-				//	continue;
-				pObj = &(pSoldier->inv[ bPocket ]);
-
-				if ( RepairObject( pSoldier, pSoldier, pObj, &ubRepairPtsLeft ) )
+				else if ( bLoop == 3 )
 				{
-					fAnyOfSoldiersOwnItemsWereFixed = TRUE;
+					if (UsingNewInventorySystem() == true)
+					{
+						// HEADROCK: Last loop fixes LBEs
+						bLoopStart = VESTPOCKPOS;
+						bLoopEnd = BPACKPOCKPOS;
+					}
+					else
+					{
+						// HEADROCK: In OIV, simply check everything again.
+						bLoopStart = SECONDHANDPOS;
+						bLoopEnd = (NUM_INV_SLOTS - 1);
+					}
+				}
 
-					// quit looking if we're already out
-					if ( ubRepairPtsLeft == 0 )
-						break;
+				// now repair objects running from left hand to small pocket
+				for( bPocket = bLoopStart; bPocket <= bLoopEnd; bPocket++ )
+				{
+					//CHRISL: These two conditions allow us to repair LBE pocket items at the same time as worn armor, while
+					//	still letting us repair the item in our offhand first.
+					// HEADROCK HAM B2.8: No longer necessary, as I've artificially added new stages for this. LBE
+					// pockets are now repaired LAST.
+					//if(UsingNewInventorySystem() == true && bLoop == 0 && bPocket>SECONDHANDPOS && bPocket<GUNSLINGPOCKPOS)
+					//	continue;
+					//if(UsingNewInventorySystem() == true && bLoop == 1 && bPocket==SECONDHANDPOS)
+					//	continue;
+					pObj = &(pSoldier->inv[ bPocket ]);
+
+					if ( RepairObject( pSoldier, pSoldier, pObj, &ubRepairPtsLeft ) )
+					{
+						fAnyOfSoldiersOwnItemsWereFixed = TRUE;
+
+						// quit looking if we're already out
+						if ( ubRepairPtsLeft == 0 )
+							break;
+					}
 				}
 			}
+
+			// if he fixed something of his, and now has no more of his own items to fix
+			if ( fAnyOfSoldiersOwnItemsWereFixed && !DoesCharacterHaveAnyItemsToRepair( pSoldier, -1 ) )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 0 ], pSoldier->name );
+
+				// let player react
+				StopTimeCompression();
+			}
+
+
+			// repair items on others
+			RepairItemsOnOthers( pSoldier, &ubRepairPtsLeft );
 		}
-
-		// if he fixed something of his, and now has no more of his own items to fix
-		if ( fAnyOfSoldiersOwnItemsWereFixed && !DoesCharacterHaveAnyItemsToRepair( pSoldier, -1 ) )
-		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 0 ], pSoldier->name );
-
-			// let player react
-			StopTimeCompression();
-		}
-
-
-		// repair items on others
-		RepairItemsOnOthers( pSoldier, &ubRepairPtsLeft );
 	}
 
 	// what are the total amount of pts used by character?
@@ -3665,12 +4005,25 @@ void RestCharacter( SOLDIERTYPE *pSoldier )
 	// Night ops specialists sleep better during the day. Others sleep better during the night.
 	if (NightTime())
 	{
-		bDivisor += 4-(2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS ));
+		if ( gGameOptions.fNewTraitSystem ) // SANDRO - Old/New traits
+		{
+			if ( !HAS_SKILL_TRAIT( pSoldier, NIGHT_OPS_NT ) )
+				bDivisor += 3;
+		}
+		else
+			bDivisor += 4-(2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS_OT ));
 	}
 	else
 	{
-		bDivisor += (2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS ));
+		if ( gGameOptions.fNewTraitSystem ) // SANDRO - Old/New traits
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, NIGHT_OPS_NT ) )
+				bDivisor += 3;
+		}
+		else
+			bDivisor += (2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS_OT ));
 	}
+
 
 	// Re-enforce limits
 	bDivisor = __min(18, __max(4, bDivisor));
@@ -3736,8 +4089,10 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 	// fatigue character
 	INT32 iPercentEncumbrance;
 	INT32 iBreathLoss;
-	INT8 bMaxBreathLoss = 0, bDivisor = 1;
+	INT8 bDivisor = 1;
 	INT16 sSectorModifier = 100;
+	float bMaxBreathLoss = 0; // SANDRO - changed to float
+	INT8 bMaxBreathTaken = 0;
 
 
 	// vehicle or robot?
@@ -3766,17 +4121,30 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 	// Night ops specialists tire faster during the day. Others tire faster during the night.
 	if (NightTime())
 	{
-		bDivisor -= 4-(2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS ));
+		if ( gGameOptions.fNewTraitSystem ) // SANDRO - Old/New traits
+		{
+			if ( !HAS_SKILL_TRAIT( pSoldier, NIGHT_OPS_NT ) )
+				bDivisor -= 3;
+		}
+		else
+			bDivisor -= 4-(2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS_OT ));
 	}
 	else
 	{
-		bDivisor -= (2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS ));
+		if ( gGameOptions.fNewTraitSystem ) // SANDRO - Old/New traits
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, NIGHT_OPS_NT ) )
+				bDivisor -= 3;
+		}
+		else
+			bDivisor -= (2*NUM_SKILL_TRAITS( pSoldier, NIGHTOPS_OT ));
 	}
+
 
 	// Re-enforce limits
 	bDivisor = __min(20, __max(6, bDivisor));
 
-	bMaxBreathLoss = 50 / bDivisor;
+	bMaxBreathLoss = (float)(50 / bDivisor);
 
 	// HEADROCK HAM 3.6: And make sure we allow no more than 18 hours of straight
 	// work. (Actually, 16, but who's counting)
@@ -3792,8 +4160,8 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 		iPercentEncumbrance = CalculateCarriedWeight( pSoldier );
 		if( iPercentEncumbrance > 100 )
 		{
-			iBreathLoss = (bMaxBreathLoss * iPercentEncumbrance / 100);
-			bMaxBreathLoss = (INT8)min( 127, iBreathLoss );
+			iBreathLoss = (INT32)(bMaxBreathLoss * iPercentEncumbrance / 100);
+			bMaxBreathLoss = (float)min( 127, iBreathLoss );
 		}
 	}
 
@@ -3804,6 +4172,63 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 		bMaxBreathLoss = ( bMaxBreathLoss * 3 / 2 );
 	}
 
+	// SANDRO - STOMP traits
+	if( gGameOptions.fNewTraitSystem )
+	{
+		// bonus for ranger travelling between sectors
+		if ( pSoldier->flags.fBetweenSectors && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+		{
+			bMaxBreathLoss = (bMaxBreathLoss * (100 - gSkillTraitValues.ubRABreathForTravellingReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) ) / 100); 
+		}
+		// primitive people get exhausted slower
+		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PRIMITIVE )
+		{	
+			switch ( pSoldier->bAssignment )
+			{
+				case DOCTOR:
+				case REPAIR:
+				case TRAIN_TEAMMATE:
+				case TRAIN_TOWN:
+					break;
+				case TRAIN_BY_OTHER:
+				case TRAIN_SELF:
+					switch (pSoldier->bTrainStat)
+					{
+						case LEADERSHIP:
+						case MECHANICAL:
+						case MEDICAL:
+						case EXPLOSIVE_ASSIGN:
+							break;
+						default:
+							bMaxBreathLoss = (bMaxBreathLoss * 9 / 10);
+							break;
+					}
+					break;
+				default:
+					bMaxBreathLoss = (bMaxBreathLoss * 9 / 10);
+					break;
+			}
+		}
+		// Picifist actually gain morale, when on peaceful assignments
+		else if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_PACIFIST )
+		{
+			switch ( pSoldier->bAssignment )
+			{
+				case DOCTOR:
+				case REPAIR:
+				case TRAIN_TEAMMATE:
+					if ( Chance( 60 ) )
+						HandleMoraleEvent( pSoldier, MORALE_PACIFIST_GAIN_NONCOMBAT, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+					break;
+				case TRAIN_BY_OTHER:
+				case TRAIN_SELF:
+					if ( Chance( 20 ) )
+						HandleMoraleEvent( pSoldier, MORALE_PACIFIST_GAIN_NONCOMBAT, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+					break;
+			}
+		}
+	}
+
 	// HEADROCK HAM 3.5: Read adjustment from local sector facilities
 	if (pSoldier->bSectorZ == 0)
 	{
@@ -3811,8 +4236,23 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 		bMaxBreathLoss = (bMaxBreathLoss * sSectorModifier) / 100;
 	}
 
-
-	pSoldier->bBreathMax -= bMaxBreathLoss;
+	/////////////////////////////////////
+	// SANDRO
+	if (bMaxBreathLoss <= 0 )
+	{
+		bMaxBreathLoss = 0;		
+	}
+	// if breath loss is lower than one, handle it as a chance
+	else //if( bMaxBreathLoss < 1 )
+	{
+		bMaxBreathTaken = (INT8)(bMaxBreathLoss);
+		bMaxBreathLoss = bMaxBreathLoss * 100;
+		bMaxBreathLoss = (float)(((INT32)(bMaxBreathLoss)) % 100);
+		if (Chance( (UINT32)(bMaxBreathLoss) ) )
+			bMaxBreathTaken += 1;
+	}
+	pSoldier->bBreathMax -= bMaxBreathTaken;
+	/////////////////////////////////////
 
 	if( pSoldier->bBreathMax > 100 )
 	{
@@ -4191,37 +4631,61 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 
 	// check to see if student better than/equal to instructor's effective skill, if so, return 0
 	// don't use natural skill - if the guy's too doped up to tell what he know, student learns nothing until sobriety returns!
-	if( bTraineeSkill >= bTrainerEffSkill )
+	/////////////////////////////////////////////////////////////////////////
+	// SANDRO - Teaching Skill now increases the effective skill to determine if we can instruct other mercs
+	if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pInstructor, TEACHING_NT ))
+	{
+		if( bTraineeSkill >= (bTrainerEffSkill + gSkillTraitValues.ubTGEffectiveSkillValueForTeaching) )
+			return ( 0 );
+	}
+	else if( bTraineeSkill >= bTrainerEffSkill )
 	{
 		return ( 0 );
 	}
 
-	// calculate effective training pts
-	sTrainingPts = ( bTrainerEffSkill - bTraineeSkill ) * ( bTraineeEffWisdom + ( EffectiveWisdom( pInstructor ) + EffectiveLeadership( pInstructor ) ) / 2 ) / gGameExternalOptions.ubInstructedTrainingDivisor;
-
-	// calculate normal training pts - what it would be if his stats were "normal" (ignoring drugs, fatigue)
-	*pusMaxPts	= ( bTrainerNatSkill - bTraineeSkill ) * ( bTraineeNatWisdom + ( pInstructor->stats.bWisdom + pInstructor->stats.bLeadership ) / 2 ) / gGameExternalOptions.ubInstructedTrainingDivisor;
-
-	// put in a minimum (that can be reduced due to instructor being tired?)
-	if (*pusMaxPts == 0)
+	// old/new teaching trait behaviour - SANDRO
+	if( gGameOptions.fNewTraitSystem )
 	{
-		// we know trainer is better than trainee, make sure they are at least 10 pts better
-		if ( bTrainerEffSkill > bTraineeSkill + 10 )
+		// SANDRO - make difference between stats min 10, so if teaching trait is in place and instructor has lesser stat than trainee, the value doesn't go negative
+		// calculate effective training pts
+		sTrainingPts = max( 10, ( bTrainerEffSkill - bTraineeSkill )) * ( bTraineeEffWisdom + ( EffectiveWisdom( pInstructor ) + EffectiveLeadership( pInstructor ) ) / 2 ) / gGameExternalOptions.ubInstructedTrainingDivisor;
+		// calculate normal training pts - what it would be if his stats were "normal" (ignoring drugs, fatigue)
+		*pusMaxPts	= max( 10, ( bTrainerNatSkill - bTraineeSkill )) * ( bTraineeNatWisdom + ( pInstructor->stats.bWisdom + pInstructor->stats.bLeadership ) / 2 ) / gGameExternalOptions.ubInstructedTrainingDivisor;
+
+		// penalty for non-specialized mercs
+		bTrainingBonus = bTrainingBonus * (100 - gSkillTraitValues.bSpeedModifierTeachingOthers) / 100;
+
+		// check for teaching skill bonuses
+		if ( HAS_SKILL_TRAIT( pInstructor, TEACHING_NT) )
 		{
-			sTrainingPts = 1;
-			*pusMaxPts = 1;
+			bTrainingBonus += gSkillTraitValues.ubTGBonusToTeachOtherMercs;
 		}
 	}
+	else
+	{
+		// calculate effective training pts
+		sTrainingPts = ( bTrainerEffSkill - bTraineeSkill ) * ( bTraineeEffWisdom + ( EffectiveWisdom( pInstructor ) + EffectiveLeadership( pInstructor ) ) / 2 ) / gGameExternalOptions.ubInstructedTrainingDivisor;
+		// calculate normal training pts - what it would be if his stats were "normal" (ignoring drugs, fatigue)
+		*pusMaxPts	= ( bTrainerNatSkill - bTraineeSkill ) * ( bTraineeNatWisdom + ( pInstructor->stats.bWisdom + pInstructor->stats.bLeadership ) / 2 ) / gGameExternalOptions.ubInstructedTrainingDivisor;
 
-	// check for teaching skill bonuses
-	if( gMercProfiles[ pInstructor->ubProfile ].bSkillTrait == TEACHING )
-	{
-		bTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
+		// put in a minimum (that can be reduced due to instructor being tired?)
+		if (*pusMaxPts <= 0) // stay safe
+		{
+			// we know trainer is better than trainee, make sure they are at least 10 pts better
+			if ( bTrainerEffSkill > bTraineeSkill + 10 )
+			{
+				sTrainingPts = 1;
+				*pusMaxPts = 1;
+			}
+		}
+
+		// check for teaching skill bonuses
+		if ( HAS_SKILL_TRAIT( pInstructor, TEACHING_OT) )
+		{
+			bTrainingBonus += (gGameExternalOptions.ubTeachBonusToTrain * NUM_SKILL_TRAITS( pInstructor, TEACHING_OT));
+		}
 	}
-	if( gMercProfiles[ pInstructor->ubProfile ].bSkillTrait2 == TEACHING )
-	{
-		bTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
-	}
+	/////////////////////////////////////////////////////////////////////////
 
 	// teaching bonus is counted as normal, but gun range bonus is not
 	*pusMaxPts += ( ( ( bTrainingBonus + bOpinionFactor ) * *pusMaxPts ) / 100 );
@@ -4305,6 +4769,40 @@ INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pus
 	// calculate effective training pts
 	sTrainingPts = __max( ( ( EffectiveWisdom( pSoldier ) * ( gGameExternalOptions.ubTrainingSkillMax - bSkill ) ) / gGameExternalOptions.ubSelfTrainingDivisor ), 1 );
 
+	// SANDRO - STOMP traits
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		// Teaching trait helps to practise self a little
+		if ( HAS_SKILL_TRAIT( pSoldier, TEACHING_NT ) && pSoldier->bAssignment == TRAIN_SELF )
+		{
+			// +25%
+			*pusMaxPts += (*pusMaxPts * gSkillTraitValues.ubTGBonusOnPractising / 100);
+			bTrainingBonus += gSkillTraitValues.ubTGBonusOnPractising;
+			//sTrainingPts += (sTrainingPts * gSkillTraitValues.ubTGBonusOnPractising / 100);
+		}
+		// bonus for practising for intellectuals
+		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_INTELLECTUAL )
+		{
+			// +10%
+			*pusMaxPts += (*pusMaxPts / 10);
+			bTrainingBonus += 10;
+			//sTrainingPts += (sTrainingPts / 10);
+		}
+		// bonus for practising for intellectuals
+		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+		{
+			switch (bTrainStat)
+			{
+				case MECHANICAL:
+				case MEDICAL:
+				case EXPLOSIVE_ASSIGN:
+					*pusMaxPts -= (*pusMaxPts / 20);
+					bTrainingBonus -= 5;
+					break;
+			}
+		}
+	}
+
 	// get special bonus if we're training marksmanship and we're in the gun range sector in Alma
 	// HEADROCK HAM 3.5: Now reads from XML facilities, and works for all stats.
 	if ( pSoldier->bSectorZ == 0 )
@@ -4386,6 +4884,40 @@ INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pusM
 
 	// calculate effective training pts
 	sTrainingPts = __max( ( ( EffectiveWisdom( pSoldier ) * ( gGameExternalOptions.ubTrainingSkillMax - bSkill ) ) / gGameExternalOptions.ubSelfTrainingDivisor ), 1 );
+
+	// SANDRO - STOMP traits
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		// Teaching trait helps to practise self a little
+		if ( HAS_SKILL_TRAIT( pSoldier, TEACHING_NT ) && pSoldier->bAssignment == TRAIN_SELF )
+		{
+			// +25%
+			*pusMaxPts += (*pusMaxPts * gSkillTraitValues.ubTGBonusOnPractising / 100);
+			bTrainingBonus += gSkillTraitValues.ubTGBonusOnPractising;
+			//sTrainingPts += (sTrainingPts * gSkillTraitValues.ubTGBonusOnPractising / 100);
+		}
+		// bonus for practising for intellectuals
+		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_INTELLECTUAL )
+		{
+			// +10%
+			*pusMaxPts += (*pusMaxPts / 10);
+			bTrainingBonus += 10;
+			//sTrainingPts += (sTrainingPts / 10);
+		}
+		// bonus for practising for intellectuals
+		if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+		{
+			switch (bTrainStat)
+			{
+				case MECHANICAL:
+				case MEDICAL:
+				case EXPLOSIVE_ASSIGN:
+					*pusMaxPts -= (*pusMaxPts / 20);
+					bTrainingBonus -= 5;
+					break;
+			}
+		}
+	}
 
 	// get special bonus if we're training marksmanship and we're in the gun range sector in Alma
 	// HEADROCK HAM 3.5: Now reads from XML facilities, and works for all stats.
@@ -4599,17 +5131,44 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 	sTotalTrainingPts = ( EffectiveWisdom( pTrainer ) + EffectiveLeadership ( pTrainer ) + ( 10 * EffectiveExpLevel ( pTrainer ) ) ) * gGameExternalOptions.ubTownMilitiaTrainingRate;
 
 	// check for teaching bonuses
-	if( gMercProfiles[ pTrainer->ubProfile ].bSkillTrait == TEACHING )
+	if( gGameOptions.fNewTraitSystem ) // old/new traits - SANDRO 
 	{
-		sTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
+		sTrainingBonus -= gSkillTraitValues.bSpeedModifierTrainingMilitia; // penalty for untrained mercs
+
+		// bonus for teching trait
+		if ( HAS_SKILL_TRAIT( pTrainer, TEACHING_NT) )
+		{
+			sTrainingBonus += gSkillTraitValues.ubTGBonusToTrainMilitia;
+		}
+		// +10% for Assertive people
+		if ( gMercProfiles[pTrainer->ubProfile].bCharacterTrait == CHAR_TRAIT_ASSERTIVE )
+		{
+			sTrainingBonus += 10;
+		}
+		// -5% for Aggressive people
+		else if ( gMercProfiles[pTrainer->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+		{
+			sTrainingBonus -= 5;
+		}
+		// +5% for Phlegmatic people
+		else if ( gMercProfiles[pTrainer->ubProfile].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC )
+		{
+			sTrainingBonus += 5;
+		}
+
 	}
-	if( gMercProfiles[ pTrainer->ubProfile ].bSkillTrait2 == TEACHING )
+	else
 	{
-		sTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
+		if ( HAS_SKILL_TRAIT( pTrainer, TEACHING_OT) )
+		{
+			sTrainingBonus += (gGameExternalOptions.ubTeachBonusToTrain * NUM_SKILL_TRAITS( pTrainer, TEACHING_OT));
+		}
 	}
 
 	// RPCs get a small training bonus for being more familiar with the locals and their customs/needs than outsiders
-	if( pTrainer->ubProfile >= FIRST_RPC )
+	//new profiles by Jazz
+	//if( pTrainer->ubProfile >= FIRST_RPC )
+	if ( gProfilesRPC[pTrainer->ubProfile].ProfilId == pTrainer->ubProfile || gProfilesNPC[pTrainer->ubProfile].ProfilId == pTrainer->ubProfile )
 	{
 		sTrainingBonus += gGameExternalOptions.ubRpcBonusToTrainMilitia;
 	}
@@ -4903,8 +5462,46 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 	// what percentage of health is he down to
 	uiPercentHealth = ( pSoldier->stats.bLife * 100 ) / pSoldier->stats.bLifeMax;
 
-	// gain that many hundredths of life points back, divided by the activity level modifier
-	pSoldier->sFractLife += ( INT16 ) ((( uiPercentHealth / bActivityLevelDivisor ) * usFacilityModifier) / 100 );
+	// SANDRO - experimental - increase health regenariton of soldiers when doctors are around
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		SOLDIERTYPE *	pMedic = NULL;
+		UINT8			cnt;
+		UINT16 bRegenerationBonus = 0;
+
+		cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+		for ( pMedic = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pMedic++)
+		{
+			if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
+			{
+				continue; // NEXT!!!
+			}
+			if (pMedic->stats.bLife > OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 
+				&& pMedic->ubID != pSoldier->ubID && HAS_SKILL_TRAIT( pMedic, DOCTOR_NT ))
+			{
+				bRegenerationBonus += NUM_SKILL_TRAITS( pMedic, DOCTOR_NT );
+				if (bRegenerationBonus >= gSkillTraitValues.ubDOMaxRegenBonuses) // how many doctor traits can help
+				{
+					bRegenerationBonus = gSkillTraitValues.ubDOMaxRegenBonuses;
+					break;
+				}
+			}
+		}
+		if (bRegenerationBonus > 0)
+		{
+			pSoldier->sFractLife += ( INT16 ) (((( uiPercentHealth / bActivityLevelDivisor ) * (100 + gSkillTraitValues.ubDONaturalRegenBonus * bRegenerationBonus) / 100 ) * usFacilityModifier ) / 100 );
+		}
+		else
+		{
+			// gain that many hundredths of life points back, divided by the activity level modifier
+			pSoldier->sFractLife += ( INT16 ) ((( uiPercentHealth / bActivityLevelDivisor ) * usFacilityModifier) / 100 );
+		}
+	}
+	else // original
+	{
+		// gain that many hundredths of life points back, divided by the activity level modifier
+		pSoldier->sFractLife += ( INT16 ) ((( uiPercentHealth / bActivityLevelDivisor ) * usFacilityModifier) / 100 );
+	}
 
 	// now update the real life values
 	UpDateSoldierLife( pSoldier );
@@ -4918,6 +5515,15 @@ void UpDateSoldierLife( SOLDIERTYPE *pSoldier )
 	// update soldier life, make sure we don't go out of bounds
 	pSoldier->stats.bLife += pSoldier->sFractLife / 100;
 
+	// SANDRO - when being healed normally, reduce insta-healable HPs value 
+	if ( gGameOptions.fNewTraitSystem && pSoldier->iHealableInjury > 0 ) 
+	{
+		pSoldier->iHealableInjury -= pSoldier->sFractLife;
+
+		if (pSoldier->iHealableInjury < 0)
+			pSoldier->iHealableInjury = 0;
+	}
+
 	// keep remaining fract of life
 	pSoldier->sFractLife %= 100;
 
@@ -4927,6 +5533,7 @@ void UpDateSoldierLife( SOLDIERTYPE *pSoldier )
 		// reduce
 		pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
 		pSoldier->sFractLife = 0;
+		pSoldier->iHealableInjury = 0; // check added by SANDRO
 	}
 	return;
 }
@@ -7788,7 +8395,7 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 		if( pSoldier->bOldAssignment == VEHICLE )
 				{
-			SetSoldierExitVehicleInsertionData( pSoldier, pSoldier->iVehicleId );
+					SetSoldierExitVehicleInsertionData( pSoldier, pSoldier->iVehicleId, pSoldier->ubGroupID );
 				}
 
 				//Clear any desired squad assignments -- seeing the player has physically changed it!
@@ -8227,6 +8834,54 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 						// set assignment for group
 						SetAssignmentForList( ( INT8 ) PATIENT, 0 );
+						
+						/////////////////////////////////////////////////////////////////////////////////////////
+						// SANDRO - added check for surgery
+						if( pSoldier->iHealableInjury >= 100 && gGameOptions.fNewTraitSystem ) // if we can heal at least one life point
+						{
+							SOLDIERTYPE * pMedic = NULL;
+							SOLDIERTYPE * pBestMedic = NULL;
+							UINT8 cnt;
+							INT8 bSlot;
+
+							// Find the best doctor
+							cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+							for ( pMedic = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pMedic++)
+							{
+								if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
+									continue; // is nowhere around!
+
+								if (( pSoldier->ubID == pMedic->ubID ) || ( pMedic->bAssignment != DOCTOR ))
+									continue; // cannot make surgery on self or not on the right assignment!	
+
+								bSlot = FindMedKit( pMedic );
+								if (bSlot == NO_SLOT)
+									continue;// no medical kit!
+
+								if (pMedic->stats.bLife > OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery ))
+								{
+									if (pBestMedic != NULL)
+									{
+										if (NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) > NUM_SKILL_TRAITS( pBestMedic, DOCTOR_NT ))
+											pBestMedic = pMedic;
+									}
+									else
+									{
+										pBestMedic = pMedic;
+									}
+								}
+							}
+							if (pBestMedic != NULL)
+							{
+								CHAR16	zStr[200];
+								pAutomaticSurgeryDoctor = pBestMedic;
+								pAutomaticSurgeryPatient = pSoldier;
+								swprintf( zStr, New113Message[ MSG113_SURGERY_BEFORE_PATIENT_ASSIGNMENT ] );
+
+								DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, MSG_BOX_FLAG_YESNO, SurgeryBeforePatientingRequesterCallback );
+							}
+						}
+						/////////////////////////////////////////////////////////////////////////////////////////
 					}
 				break;
 
@@ -8317,9 +8972,21 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
 
-
 						// set assignment for group
 						SetAssignmentForList( ( INT8 ) DOCTOR, 0 );
+
+						///////////////////////////////////////////////////////////////////////////////////////////////////////
+						// SANDRO - added check for surgery
+						if( gGameOptions.fNewTraitSystem && ( GetNumberThatCanBeDoctored( pSoldier, HEALABLE_EVER, FALSE, FALSE, TRUE ) > 0 ) && 
+							( NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery ) )
+						{
+							CHAR16	zStr[200];
+							pAutomaticSurgeryDoctor = pSoldier;
+							swprintf( zStr, New113Message[ MSG113_SURGERY_BEFORE_DOCTOR_ASSIGNMENT ], GetNumberThatCanBeDoctored( pSoldier, HEALABLE_EVER, TRUE, TRUE, TRUE ) );
+
+							DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, MSG_BOX_FLAG_YESNO, SurgeryBeforeDoctoringRequesterCallback );
+						}
+						///////////////////////////////////////////////////////////////////////////////////////////////////////
 					}
 					else if( CanCharacterDoctorButDoesntHaveMedKit( pSoldier ) )
 					{
@@ -8375,6 +9042,53 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						// set assignment for group
 						SetAssignmentForList( ( INT8 ) PATIENT, 0 );
 
+						/////////////////////////////////////////////////////////////////////////////////////////
+						// SANDRO - added check for surgery
+						if( pSoldier->iHealableInjury >= 100 && gGameOptions.fNewTraitSystem ) // if we can heal at least one life point
+						{
+							SOLDIERTYPE * pMedic = NULL;
+							SOLDIERTYPE * pBestMedic = NULL;
+							UINT8 cnt;
+							INT8 bSlot;
+
+							// Find the best doctor
+							cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+							for ( pMedic = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pMedic++)
+							{
+								if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
+									continue; // is nowhere around!
+
+								if (( pSoldier->ubID == pMedic->ubID ) || ( pMedic->bAssignment != DOCTOR ))
+									continue; // cannot make surgery on self or not on the right assignment!
+
+								bSlot = FindMedKit( pMedic );
+								if (bSlot == NO_SLOT)
+									continue;// no medical kit!
+
+								if (pMedic->stats.bLife > OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery ))
+								{
+									if (pBestMedic != NULL)
+									{
+										if (NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) > NUM_SKILL_TRAITS( pBestMedic, DOCTOR_NT ))
+											pBestMedic = pMedic;
+									}
+									else
+									{
+										pBestMedic = pMedic;
+									}
+								}
+							}
+							if (pBestMedic != NULL)
+							{
+								CHAR16	zStr[200];
+								pAutomaticSurgeryDoctor = pBestMedic;
+								pAutomaticSurgeryPatient = pSoldier;
+								swprintf( zStr, New113Message[ MSG113_SURGERY_BEFORE_PATIENT_ASSIGNMENT ] );
+
+								DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, MSG_BOX_FLAG_YESNO, SurgeryBeforePatientingRequesterCallback );
+							}
+						}
+						/////////////////////////////////////////////////////////////////////////////////////////
 					}
 				break;
 
@@ -10075,6 +10789,12 @@ BOOLEAN CanCharacterRepairRobot( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
+	// Only Technicians can repair the robot! Hehehe.. - SANDRO (well, externalized now)
+	if( gSkillTraitValues.ubTETraitsNumToRepairRobot > NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT ) )
+	{
+		return( FALSE );
+	}
+
 /* Assignment distance limits removed.	Sep/11/98.	ARM
 	// if that sector is currently loaded, check distance to robot
 	if( ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ ) )
@@ -11441,6 +12161,11 @@ void BandageBleedingDyingPatientsBeingTreated( )
 
 					if ( pSoldier->stats.bLife < OKLIFE )
 					{
+						// SANDRO - added to alter the value of insta-healable injuries for doctors
+						if (pSoldier->iHealableInjury > 0)
+						{
+							pSoldier->iHealableInjury -= ((OKLIFE - pSoldier->stats.bLife) * 100);
+						}
 						pSoldier->stats.bLife = OKLIFE;
 					}
 				}
@@ -11458,7 +12183,7 @@ void BandageBleedingDyingPatientsBeingTreated( )
 							usKitPts = TotalPoints( pKit );
 							if( usKitPts )
 							{
-								uiKitPtsUsed = VirtualSoldierDressWound( pDoctor, pSoldier, pKit, usKitPts, usKitPts );
+								uiKitPtsUsed = VirtualSoldierDressWound( pDoctor, pSoldier, pKit, usKitPts, usKitPts, FALSE ); // SANDRO - added variable
 								UseKitPoints( pKit, (UINT16)uiKitPtsUsed, pDoctor );
 
 								// if he is STILL bleeding or dying
@@ -11502,7 +12227,7 @@ void ReEvaluateEveryonesNothingToDo()
 			switch( pSoldier->bAssignment )
 			{
 				case DOCTOR:
-					fNothingToDo = !CanCharacterDoctor( pSoldier ) || ( GetNumberThatCanBeDoctored( pSoldier, HEALABLE_EVER, FALSE, FALSE ) == 0 );
+					fNothingToDo = !CanCharacterDoctor( pSoldier ) || ( GetNumberThatCanBeDoctored( pSoldier, HEALABLE_EVER, FALSE, FALSE, FALSE ) == 0 ); // SANDRO - added variable
 					break;
 
 				case PATIENT:
@@ -12148,12 +12873,22 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 		ubNeedForSleep = 18;
 	}
 
-	// reduce for Night Ops trait
-	// HEADROCK HAM 3.6: This is now split and applied depending on whether the merc is resting or working.
-	//ubNeedForSleep -= NUM_SKILL_TRAITS( pSoldier, NIGHTOPS );
+	// reduce for Night Ops trait	
+	// SANDRO - new traits
+	if (gGameOptions.fNewTraitSystem)
+	{
+		if (HAS_SKILL_TRAIT( pSoldier, NIGHT_OPS_NT ))
+			ubNeedForSleep -= gSkillTraitValues.ubNONeedForSleepReduction;
 
-	// reduce for Martial Arts trait
-	ubNeedForSleep -= NUM_SKILL_TRAITS( pSoldier, MARTIALARTS );
+		if ( ubNeedForSleep < 4 )
+			ubNeedForSleep = 4;
+	}
+	else
+	{
+		// HEADROCK HAM 3.6: This is now split and applied depending on whether the merc is resting or working.
+		//ubNeedForSleep -= NUM_SKILL_TRAITS( pSoldier, NIGHTOPS );
+		ubNeedForSleep -= NUM_SKILL_TRAITS( pSoldier, MARTIALARTS_OT );
+	}
 
 	return( ubNeedForSleep );
 }
@@ -12826,7 +13561,7 @@ BOOLEAN BasicCanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 
 	// Mobile Training allowed by INI settings?
 	if (!gGameExternalOptions.gfmusttrainroaming || // Mobiles turned off?
-		GetWorldDay( ) < gGameExternalOptions.guiAllowMilitiaGroupsDelay) // Mobiles not yet available?
+		GetWorldDay( ) < gGameExternalOptions.guiAllowMilitiaGroupsDelay || !gGameExternalOptions.gfAllowMilitiaGroups) // Mobiles not yet available?
 	{
 		// No Mobile Militia training allowed!
 		return ( FALSE );
@@ -12978,11 +13713,25 @@ BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 		// Apply modifier for TEACHER trait, if that feature is activated
 		if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
 		{
-			// Modifier applied once for each TEACHING level.
-			for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING ); i++ )
+			// Read BASE leadership
+			usEffectiveLeadership = pSoldier->stats.bLeadership;
+	 
+			if ( gGameOptions.fNewTraitSystem ) // SANDRO - old/new traits
 			{
-				// This is a percentage modifier.
-				usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
+				if (HAS_SKILL_TRAIT( pSoldier, TEACHING_NT ))
+				{
+					// bonus from Teaching trait
+					usEffectiveLeadership = (usEffectiveLeadership * (100 + gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia) / 100 );
+				}
+			}
+			else
+			{
+				// Modifier applied once for each TEACHING level.
+				for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING_OT ); i++ )
+				{
+					// This is a percentage modifier.
+					usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
+				}
 			}
 		}
 		
@@ -12995,8 +13744,16 @@ BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 		}
 	}
 
+	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR(pSoldier->sSectorX, pSoldier->sSectorY) ] );
+
 	////////////////////////////////////////////////
 	// Check whether controlled town sectors already have full militia
+
+	// HEADROCK HAM 4: This check is no longer required. We can manually restrict mobiles from entering a city
+	// after being created, so we should be able to train them if we need them straight away.
+
+	/*
 
 	INT32 iCounter = 0;
 	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
@@ -13044,6 +13801,7 @@ BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 		// At least one city sector is controlled but not full of garrison militia. Can't train mobiles!
 		return (FALSE);
 	}
+	*/
 
 	//////////////////////////////////////////////
 	// HEADROCK HAM 3.5: Militia Training Facility 
@@ -13113,11 +13871,22 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 	// Apply modifier for TEACHER trait, if that feature is activated
 	if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
 	{
-		// Modifier applied once for each TEACHING level.
-		for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING ); i++ )
+		if ( gGameOptions.fNewTraitSystem ) // SANDRO - old/new traits
 		{
-			// This is a percentage modifier.
-			usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
+			if (HAS_SKILL_TRAIT( pSoldier, TEACHING_NT ))
+			{
+				// bonus from Teaching trait
+				usEffectiveLeadership = (usEffectiveLeadership * (100 + gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia) / 100 );
+			}
+		}
+		else
+		{
+			// Modifier applied once for each TEACHING level.
+			for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING_OT ); i++ )
+			{
+				// This is a percentage modifier.
+				usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
+			}
 		}
 		usEffectiveLeadership = __min(100,usEffectiveLeadership);
 	}
@@ -13256,11 +14025,22 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 	// Apply modifier for TEACHER trait, if that feature is activated
 	if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
 	{
-		// Modifier applied once for each TEACHING level.
-		for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING ); i++ )
+		if ( gGameOptions.fNewTraitSystem ) // SANDRO - old/new traits
 		{
-			// This is a percentage modifier.
-			usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
+			if (HAS_SKILL_TRAIT( pSoldier, TEACHING_NT ))
+			{
+				// bonus from Teaching trait
+				usEffectiveLeadership = (usEffectiveLeadership * (100 + gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia) / 100 );
+			}
+		}
+		else
+		{
+			// Modifier applied once for each TEACHING level.
+			for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING_OT ); i++ )
+			{
+				// This is a percentage modifier.
+				usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
+			}
 		}
 		usEffectiveLeadership = __min(100,usEffectiveLeadership);
 	}
@@ -13299,8 +14079,15 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 		return (FALSE);
 	}
 
+	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR(pSoldier->sSectorX, pSoldier->sSectorY) ] );
+
 	////////////////////////////////////////////////
 	// Check whether controlled town sectors already have full militia
+
+	// HEADROCK HAM 4: This check is no longer necessary. We can manually restrict mobiles from moving into a city
+	// in-game, so you can train mobiles straight away if you need them.
+	/*
 
 	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR(pSoldier->sSectorX, pSoldier->sSectorY) ] );
@@ -13349,6 +14136,8 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return (FALSE);
 	}
+
+	*/
 
 	//////////////////////////////////////////
 	// Capacity and Garrison checks in nearby sectors
@@ -14667,7 +15456,7 @@ void ResetAllExpensiveFacilityAssignments()
 		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
 
 		// Is character doing facility work?
-		UINT8 ubAssignmentIndex = GetSoldierFacilityAssignmentIndex( pSoldier );
+		INT8 ubAssignmentIndex = GetSoldierFacilityAssignmentIndex( pSoldier );
 		if( ubAssignmentIndex != -1 )
 		{
 			UINT8 ubFacilityType = (UINT8)pSoldier->sFacilityTypeOperated;
@@ -15326,4 +16115,210 @@ void HandleShadingOfLinesForFacilityAssignmentMenu( void )
 		}
 	}
 	return;
+}
+
+// SANDRO - function for automatic surgery button callback
+void SurgeryBeforeDoctoringRequesterCallback( UINT8 bExitValue )
+{
+	if( bExitValue == MSG_BOX_RETURN_YES )
+	{
+		if (MakeAutomaticSurgeryOnAllPatients( pAutomaticSurgeryDoctor ) > 0)
+		{
+			DoScreenIndependantMessageBox( L"Healed!" , MSG_BOX_FLAG_OK, NULL );
+		}
+		else
+		{
+			DoScreenIndependantMessageBox( L"NOT Healed!" , MSG_BOX_FLAG_OK, NULL );
+		}
+		pAutomaticSurgeryDoctor = NULL;
+
+	}
+}
+
+// SANDRO - function for automatic surgery button callback
+void SurgeryBeforePatientingRequesterCallback( UINT8 bExitValue )
+{
+	if( bExitValue == MSG_BOX_RETURN_YES )
+	{
+		if( (CanSoldierBeHealedByDoctor( pAutomaticSurgeryPatient, pAutomaticSurgeryDoctor, FALSE, HEALABLE_EVER, FALSE, FALSE, TRUE ) == TRUE ) &&
+				(MakeAutomaticSurgery( pAutomaticSurgeryPatient, pAutomaticSurgeryDoctor ) == TRUE) )
+		{
+			DoScreenIndependantMessageBox( L"Healed!" , MSG_BOX_FLAG_OK, NULL );
+		}
+		else
+		{
+			DoScreenIndependantMessageBox( L"NOT Healed!" , MSG_BOX_FLAG_OK, NULL );
+		}
+		pAutomaticSurgeryDoctor = NULL;
+
+	}
+}
+// SANDRO - function for automatic surgery on all patients
+INT16 MakeAutomaticSurgeryOnAllPatients( SOLDIERTYPE * pDoctor )
+{
+	int cnt;
+	SOLDIERTYPE *pTeamSoldier = NULL;
+	UINT8 ubNumberOfPeopleHealed = 0;
+
+	AssertNotNIL(pDoctor);
+
+	// go through list of characters, find all who are patients/doctors healable by this doctor
+	for ( cnt = 0, pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pDoctor->bTeam ].bLastID; cnt++,pTeamSoldier++)
+	{
+		if( CanSoldierBeHealedByDoctor( pTeamSoldier, pDoctor, FALSE, HEALABLE_EVER, FALSE, FALSE, TRUE ) == TRUE )
+		{
+			if( MakeAutomaticSurgery( pTeamSoldier, pDoctor ) == TRUE )
+			{
+				// increment number of doctorable patients/doctors
+				ubNumberOfPeopleHealed++;
+			}
+		}
+	}
+
+	return( ubNumberOfPeopleHealed );
+}
+// SANDRO - automatic surgery
+BOOLEAN MakeAutomaticSurgery( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pDoctor )
+{
+	UINT16 usKitPts;
+	UINT32 uiPointsUsed;
+	OBJECTTYPE *pKit = NULL;
+	INT8 bSlot, cnt;
+	INT32 bLifeToReturn = 0;
+
+	if ( gSkillTraitValues.ubDONumberTraitsNeededForSurgery > NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT ) )
+	{
+		return( FALSE );
+	}
+
+	cnt = 0;
+	while( pSoldier->iHealableInjury >= 100 )
+	{
+		bSlot = FindMedKit( pDoctor );
+		if ( bSlot != NO_SLOT )
+		{
+			pKit = &pDoctor->inv[ bSlot ];
+		}
+		else
+		{
+			break;
+		}
+		usKitPts = TotalPoints( pKit );
+
+		uiPointsUsed = VirtualSoldierDressWound( pDoctor, pSoldier, pKit, usKitPts, usKitPts, TRUE );
+		UseKitPoints( pKit, (UINT16)uiPointsUsed, pDoctor );
+		
+		cnt++;
+		if( cnt > 30 )
+			break;
+	}
+
+	if ( pSoldier->iHealableInjury < 100 )
+	{
+		pSoldier->iHealableInjury = 0;
+		return( TRUE );
+	}
+	else
+	{
+		return( FALSE );
+	}
+
+}
+
+// SANDRO - added a function to write down to our records, how many militia we trained
+void RecordNumMilitiaTrainedForMercs( INT16 sX, INT16 sY, INT8 bZ, UINT8 ubMilitiaTrained, BOOLEAN fMobile )
+{
+
+	UINT16 cnt = 0;
+	SOLDIERTYPE * pTrainer;
+	UINT16 usTotalLeadershipValue = 0;
+	UINT8 usTrainerEffectiveLeadership = 0;
+
+	// First, get total leadership value of all trainers
+	for ( pTrainer = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pTrainer++)
+	{
+		if (pTrainer->bActive && pTrainer->stats.bLife >= OKLIFE && pTrainer->sSectorX == sX && pTrainer->sSectorY == sY && pTrainer->bSectorZ == bZ &&
+			( (!fMobile && pTrainer->bAssignment == TRAIN_TOWN) || (fMobile && pTrainer->bAssignment == TRAIN_MOBILE) ) )
+		{
+			usTrainerEffectiveLeadership = EffectiveLeadership( pTrainer );
+
+			if ( gGameOptions.fNewTraitSystem ) //old/new traits
+			{
+				// -10% penalty for untrained mercs
+				usTrainerEffectiveLeadership = (usTrainerEffectiveLeadership * (100 - gSkillTraitValues.bSpeedModifierTrainingMilitia) / 100);
+
+				if (HAS_SKILL_TRAIT( pTrainer, TEACHING_NT ))
+				{
+					// bonus from Teaching trait
+					usTrainerEffectiveLeadership = __min(100,(usTrainerEffectiveLeadership * (100 + gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia) / 100 ));
+				}
+			}
+			// Effective leadership is modified by an INI-based percentage, once for every TEACHING trait level.
+			else if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
+			{
+				for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pTrainer, TEACHING_OT ); i++ )
+				{
+					// percentage-based.
+					usTrainerEffectiveLeadership = __min(100,((usTrainerEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100));
+				}
+			}
+			
+			if (gGameExternalOptions.fLeadershipAffectsMilitiaQuantity)
+			{
+				usTrainerEffectiveLeadership = __max(usTrainerEffectiveLeadership, gGameExternalOptions.ubMinimumLeadershipToTrainMilitia);
+				if (usTrainerEffectiveLeadership > gGameExternalOptions.ubReqLeadershipForFullTraining) 
+					usTrainerEffectiveLeadership = __min( 100, (gGameExternalOptions.ubReqLeadershipForFullTraining + ((usTrainerEffectiveLeadership - gGameExternalOptions.ubReqLeadershipForFullTraining)/2)));
+				
+				usTrainerEffectiveLeadership = __max( 0, (usTrainerEffectiveLeadership - gGameExternalOptions.ubMinimumLeadershipToTrainMilitia));
+			}
+
+			// Add to the total amount
+			usTotalLeadershipValue += __min(100,usTrainerEffectiveLeadership);
+		}
+	}
+	// Now we have to run again and percentually award points towards militia trained
+	cnt = 0;
+	for ( pTrainer = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pTrainer++)
+	{
+		if (pTrainer->bActive && pTrainer->stats.bLife >= OKLIFE && pTrainer->sSectorX == sX && pTrainer->sSectorY == sY && pTrainer->bSectorZ == bZ &&
+			( (!fMobile && pTrainer->bAssignment == TRAIN_TOWN) || (fMobile && pTrainer->bAssignment == TRAIN_MOBILE) ) )
+		{
+			usTrainerEffectiveLeadership = EffectiveLeadership( pTrainer );
+
+			if ( gGameOptions.fNewTraitSystem ) //old/new traits
+			{
+				// -10% penalty for untrained mercs
+				usTrainerEffectiveLeadership = (usTrainerEffectiveLeadership * (100 - gSkillTraitValues.bSpeedModifierTrainingMilitia) / 100);
+
+				if (HAS_SKILL_TRAIT( pTrainer, TEACHING_NT ))
+				{
+					// bonus from Teaching trait
+					usTrainerEffectiveLeadership = __min(100,(usTrainerEffectiveLeadership * (100 + gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia) / 100 ));
+				}
+			}
+			// Effective leadership is modified by an INI-based percentage, once for every TEACHING trait level.
+			else if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
+			{
+				for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pTrainer, TEACHING_OT ); i++ )
+				{
+					// percentage-based.
+					usTrainerEffectiveLeadership = __min(100,((usTrainerEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100));
+				}
+			}
+			
+			if (gGameExternalOptions.fLeadershipAffectsMilitiaQuantity)
+			{
+				usTrainerEffectiveLeadership = __max(usTrainerEffectiveLeadership, gGameExternalOptions.ubMinimumLeadershipToTrainMilitia);
+				if (usTrainerEffectiveLeadership > gGameExternalOptions.ubReqLeadershipForFullTraining) 
+					usTrainerEffectiveLeadership = __min( 100, (gGameExternalOptions.ubReqLeadershipForFullTraining + ((usTrainerEffectiveLeadership - gGameExternalOptions.ubReqLeadershipForFullTraining)/2)));
+				
+				usTrainerEffectiveLeadership = __max( 0, (usTrainerEffectiveLeadership - gGameExternalOptions.ubMinimumLeadershipToTrainMilitia));
+			}
+
+			if( usTrainerEffectiveLeadership > 0 )
+			{
+				gMercProfiles[ pTrainer->ubProfile ].records.usMilitiaTrained += (UINT16)((double)((double)(ubMilitiaTrained * usTrainerEffectiveLeadership) / usTotalLeadershipValue) + 0.5);
+			}
+		}
+	}
 }

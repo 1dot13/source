@@ -511,7 +511,8 @@ void GoToPrevCharacterInList( void );
 void GoToNextCharacterInList( void );
 
 // this does the whole miner giving player info speil
-void HandleMinerEvent( UINT8 bMinerNumber, INT16 sSectorX, INT16 sSectorY, INT16 sQuoteNumber, BOOLEAN fForceMapscreen );
+//void HandleMinerEvent( UINT8 bMinerNumber, INT16 sSectorX, INT16 sSectorY, INT16 sQuoteNumber, BOOLEAN fForceMapscreen );
+void HandleMinerEvent( UINT8 ubHeadMinerIndex, INT16 sSectorX, INT16 sSectorY, INT16 sQuoteNumber, BOOLEAN fForceMapscreen );
 
 // set up the event of animating a mine sector
 void SetUpAnimationOfMineSectors( INT32 iEvent );

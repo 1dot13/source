@@ -21,6 +21,8 @@
 	#include "GameSettings.h"
 	#include "Points.h"
 	#include "Multi Language Graphic Utils.h"
+	// HEADROCK HAM 4
+	#include "input.h"
 #endif
 
 
@@ -308,10 +310,12 @@ UINT16 DisplayLBEInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 UINT16 DisplayWeight(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 UINT16 DisplayCaliber(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight);
 void CreateMouseRegionForBigImage(UINT16 usPosY, UINT8 ubCount, INT16 *pItemNumbers );
-void PurchaseBobbyRayItem(UINT16	usItemNumber);
+// HEADROCK HAM 4: Now can purchase ALL items available.
+void PurchaseBobbyRayItem(UINT16	usItemNumber, BOOLEAN fAllItems );
 UINT8 CheckIfItemIsPurchased(UINT16 usItemNumber);
 UINT8 GetNextPurchaseNumber();
-void UnPurchaseBobbyRayItem(UINT16	usItemNumber);
+// HEADROCK HAM 4: Now can purchase ALL items available.
+void UnPurchaseBobbyRayItem(UINT16	usItemNumber, BOOLEAN fAllItems );
 UINT32 CalculateTotalPurchasePrice();
 void DisableBobbyRButtons();
 void CalcFirstIndexForPage( STORE_INVENTORY *pInv, UINT32 uiItemClass );
@@ -1285,17 +1289,40 @@ void BtnBobbyRNextPreviousPageCallback(GUI_BUTTON *btn,INT32 reason)
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 
 
+		///////////////////////////////////////////////////////////////////////////////
+		// HEADROCK HAM 4: Added ability to scroll forward 5 pages instead of one.
+		// This is done by holding down SHIFT while clicking.
+		//
+
 		//if previous screen
 		if( bNewValue == BOBBYR_PREVIOUS_PAGE)
 		{
 			if( gubCurPage > 0 )
-				gubCurPage--;
+			{
+				if (_KeyDown( 16 ) ) // SHIFT
+				{
+					gubCurPage = __max(gubCurPage - 5, 0);
+				}
+				else
+				{
+					gubCurPage--;
+				}
+			}
 		}
 		//else next screen
 		else
 		{
 			if( gubCurPage < gubNumPages-1 )
-				gubCurPage++;
+			{
+				if (_KeyDown( 16 ) ) // SHIFT
+				{
+					gubCurPage = __min(gubNumPages, gubCurPage+5);
+				}
+				else
+				{
+					gubCurPage++;
+				}
+			}
 		}
 
 
@@ -1736,10 +1763,11 @@ BOOLEAN DisplayAmmoInfo(UINT16 usIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT16
 
 BOOLEAN DisplayBigItemImage(UINT16 usIndex, UINT16 PosY)
 {
-	INT16			PosX, sCenX, sCenY;
-	UINT32			usHeight, usWidth;
+	INT16		PosX, sCenX, sCenY;
+	UINT32		usHeight, usWidth;
+	INT32		sOffsetX, sOffsetY;
 	ETRLEObject	*pTrav;
-	INVTYPE			*pItem;
+	INVTYPE		*pItem;
 	UINT32		uiImage;
 	HVOBJECT	hPixHandle;
 
@@ -1749,20 +1777,43 @@ BOOLEAN DisplayBigItemImage(UINT16 usIndex, UINT16 PosY)
 	LoadTileGraphicForItem(pItem, &uiImage);
 
 	GetVideoObject(&hPixHandle, uiImage);
-	pTrav = &(hPixHandle->pETRLEObject[0]);
 
-	//center picture in frame
-	usHeight				= (UINT32)pTrav->usHeight;
-	usWidth					= (UINT32)pTrav->usWidth;
+	if(hPixHandle->ubBitDepth == 8)
+	{
+		pTrav = &(hPixHandle->pETRLEObject[ 0 ] );
+	
+		//center picture in frame
+		usHeight				= (UINT32)pTrav->usHeight;
+		usWidth					= (UINT32)pTrav->usWidth;
+		sOffsetX				= (INT32)pTrav->sOffsetX;
+		sOffsetY				= (INT32)pTrav->sOffsetY;
+	}
+	else if(hPixHandle->ubBitDepth == 16 && hPixHandle->p16BPPObject)
+	{
+		usHeight				= hPixHandle->p16BPPObject->usHeight;
+		usWidth					= hPixHandle->p16BPPObject->usWidth;
+		sOffsetX				= hPixHandle->p16BPPObject->sOffsetX;
+		sOffsetY				= hPixHandle->p16BPPObject->sOffsetY;
+	}
+	else if(hPixHandle->ubBitDepth == 32)
+	{
+		usHeight				= hPixHandle->p16BPPObject->usHeight;
+		usWidth					= hPixHandle->p16BPPObject->usWidth;
+		sOffsetX				= hPixHandle->p16BPPObject->sOffsetX;
+		sOffsetY				= hPixHandle->p16BPPObject->sOffsetY;
+	}
+
 //	sCenX = PosX + ( abs( BOBBYR_GRID_PIC_WIDTH - usWidth ) / 2 );
 //	sCenY = PosY + 8;
-	sCenX = PosX + ( abs( BOBBYR_GRID_PIC_WIDTH - usWidth ) / 2 ) - pTrav->sOffsetX;
+	sCenX = PosX + ( abs( BOBBYR_GRID_PIC_WIDTH - (int)usWidth ) / 2 ) - sOffsetX;
 	sCenY = PosY + 8;
 
 
 	//blt the shadow of the item
-	if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, uiImage, 0, sCenX-2, sCenY+2);//pItem->ubGraphicNum
-
+	if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ])
+	{
+		BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, uiImage, 0, sCenX-2, sCenY+2);//pItem->ubGraphicNum
+	}
 	BltVideoObject(FRAME_BUFFER, hPixHandle, 0, sCenX, sCenY, VO_BLT_SRCTRANSPARENCY,NULL);
 	DeleteVideoObjectFromIndex(uiImage);
 
@@ -1923,9 +1974,13 @@ UINT16 DisplayDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 UINT16 DisplayRange(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 {
 	CHAR16	sTemp[20];
+	UINT16  gunRange = 0;
 
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_RANGE], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-	swprintf(sTemp, L"%3d %s", Weapon[ usIndex ].usRange, pMessageStrings[ MSG_METER_ABBREVIATION ] );
+
+	gunRange = (UINT16)GetModifiedGunRange( usIndex);
+
+	swprintf(sTemp, L"%3d %s", gunRange, pMessageStrings[ MSG_METER_ABBREVIATION ] );
 	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	usPosY += usFontHeight + 2;
 	return(usPosY);
@@ -2417,6 +2472,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 				//UINT16	gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 				UINT16		gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ pItemNumbers[ i ] ].ubImpact );
 				UINT16		readyAPs = (UINT16)(( Weapon[ pItemNumbers[ i ] ].ubReadyTime * (100 - Item[ pItemNumbers[ i ] ].percentreadytimeapreduction)) / 100);
+				UINT16		gunRange = (UINT16)GetModifiedGunRange(pItemNumbers[ i ]);
 
 				//Calculate AP's
 				CHAR16		apStr[20];
@@ -2504,18 +2560,48 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 						wcscat( attachStr, attachStr3 );
 					}
 				}
+
+				//Sum up default attachments.
+				BOOLEAN fFoundDefault = FALSE;
+				swprintf( attachStr2, L"" );
+				swprintf( attachStr3, L"" );
+				for(UINT8 cnt = 0; cnt < MAX_DEFAULT_ATTACHMENTS; cnt++){
+					if(Item[pItemNumbers[ i ]].defaultattachments[cnt] != 0){
+						if (wcslen( attachStr ) + wcslen(attachStr3) + wcslen(Item[ Item[pItemNumbers[ i ]].defaultattachments[cnt] ].szItemName) > 3800)
+						{
+							// End list early to avoid stack overflow
+							wcscat( attachStr3, L"\n..." );
+							break;
+						}
+						fFoundDefault = TRUE;
+						swprintf( attachStr2, L"\n%s", Item[ Item[pItemNumbers[ i ]].defaultattachments[cnt] ].szItemName );
+						wcscat( attachStr3, attachStr2 );
+					} else {
+						//If we found an empty entry, we can assume the rest will be empty too.
+						break;
+					}
+				}
+				if(fFoundDefault){
+					//Found at least one default attachment, write it to the attachment string.
+					CHAR16 defaultStr[50];
+					swprintf( defaultStr, L"\n \n%s", gWeaponStatsDesc[ 17 ] );
+					wcscat( attachStr, defaultStr );
+					wcscat( attachStr, attachStr3 );
+				}
+
 				// HEADROCK HAM 3: Added last string (attachStr), for display of the possible attachment list. 
 				// If the feature is deactivated, the attachStr will simply be empty at this point 
 				// (remember? we emptied it earlier!).
+				INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ pItemNumbers[ i ] ].nAccuracy:Weapon[ pItemNumbers[ i ] ].bAccuracy);
 				swprintf( pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s (%d) %s\n%s %1.1f %s%s",
 					ItemNames[ pItemNumbers[ i ] ],
 					AmmoCaliber[ Weapon[ pItemNumbers[ i ] ].ubCalibre ],
 					gWeaponStatsDesc[ 9 ],					//Accuracy String
-					Weapon[ pItemNumbers[ i ] ].bAccuracy,	//Accuracy
+					accuracy,								//Accuracy
 					gWeaponStatsDesc[ 11 ],					//Damage String
 					gunDamage,								//Gun damage
 					gWeaponStatsDesc[ 10 ],					//Range String
-					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? Weapon[ pItemNumbers[ i ] ].usRange/10 : Weapon[ pItemNumbers[ i ] ].usRange,	//Gun Range 
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? gunRange/10 : gunRange,	//Gun Range 
 					gWeaponStatsDesc[ 6 ],					//AP String
 					readyAPs,
 					apStr,									//AP's
@@ -2571,16 +2657,18 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			{
 				// HEADROCK HAM 3.6: Can now take a negative modifier.
 				UINT16 gunDamage = (UINT16)GetModifiedGunDamage( Weapon[ pItemNumbers[ i ] ].ubImpact );
+				UINT16 usRange = (UINT16)GetModifiedGunRange(pItemNumbers[ i ]);
+				INT8 accuracy = (UsingNewCTHSystem()==true?Weapon[ pItemNumbers[ i ] ].nAccuracy:Weapon[ pItemNumbers[ i ] ].bAccuracy);
 				//UINT16 gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 
 				swprintf( pStr, L"%s\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s",
 					ItemNames[ pItemNumbers[ i ] ],
 					gWeaponStatsDesc[ 9 ],					//Accuracy String
-					Weapon[ pItemNumbers[ i ] ].bAccuracy,	//Accuracy
+					accuracy,								//Accuracy
 					gWeaponStatsDesc[ 11 ],					//Damage String
 					gunDamage,								//Gun damage
 					gWeaponStatsDesc[ 10 ],					//Range String
-					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? Weapon[ pItemNumbers[ i ] ].usRange/10 : Weapon[ pItemNumbers[ i ] ].usRange,	//Gun Range 
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? usRange/10 : usRange,	//Gun Range 
 					gWeaponStatsDesc[ 6 ],					//AP String
 					//apStr,								//AP's
 					L"- / - / -",
@@ -2764,7 +2852,11 @@ void SelectBigImageRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		UINT16 usItemNum = (UINT16)MSYS_GetRegionUserData( pRegion, 0 );
 
-		PurchaseBobbyRayItem( gusItemNumberForItemsOnScreen[ usItemNum] );
+		// HEADROCK HAM 4: Purchase all at once.
+		if (_KeyDown( 16 ) ) // SHIFT
+			PurchaseBobbyRayItem( gusItemNumberForItemsOnScreen[ usItemNum], TRUE );
+		else
+			PurchaseBobbyRayItem( gusItemNumberForItemsOnScreen[ usItemNum], FALSE );
 
 		fReDrawScreenFlag = TRUE;
 		fPausedReDrawScreenFlag = TRUE;
@@ -2773,7 +2865,11 @@ void SelectBigImageRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		UINT16 usItemNum = (UINT16)MSYS_GetRegionUserData( pRegion, 0 );
 
-		UnPurchaseBobbyRayItem( gusItemNumberForItemsOnScreen[ usItemNum] );
+		// HEADROCK HAM 4: Unpurchase all at once.
+		if (_KeyDown( 16 ) ) // SHIFT
+			UnPurchaseBobbyRayItem( gusItemNumberForItemsOnScreen[ usItemNum], TRUE );
+		else
+			UnPurchaseBobbyRayItem( gusItemNumberForItemsOnScreen[ usItemNum], FALSE );
 		fReDrawScreenFlag = TRUE;
 		fPausedReDrawScreenFlag = TRUE;
 	}
@@ -2781,7 +2877,7 @@ void SelectBigImageRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		UINT16 usItemNum = (UINT16)MSYS_GetRegionUserData( pRegion, 0 );
 
-		PurchaseBobbyRayItem( gusItemNumberForItemsOnScreen[ usItemNum] );
+		PurchaseBobbyRayItem( gusItemNumberForItemsOnScreen[ usItemNum], FALSE );
 		fReDrawScreenFlag = TRUE;
 		fPausedReDrawScreenFlag = TRUE;
 	}
@@ -2789,7 +2885,7 @@ void SelectBigImageRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		UINT16 usItemNum = (UINT16)MSYS_GetRegionUserData( pRegion, 0 );
 
-		UnPurchaseBobbyRayItem( gusItemNumberForItemsOnScreen[ usItemNum] );
+		UnPurchaseBobbyRayItem( gusItemNumberForItemsOnScreen[ usItemNum], FALSE );
 		fReDrawScreenFlag = TRUE;
 		fPausedReDrawScreenFlag = TRUE;
 	}
@@ -2797,7 +2893,7 @@ void SelectBigImageRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 
 
 
-void PurchaseBobbyRayItem(UINT16	usItemNumber)
+void PurchaseBobbyRayItem(UINT16	usItemNumber, BOOLEAN fAllItems )
 {
 	UINT8	ubPurchaseNumber;
 
@@ -2816,8 +2912,10 @@ void PurchaseBobbyRayItem(UINT16	usItemNumber)
 
 				if( ubPurchaseNumber != BOBBY_RAY_NOT_PURCHASED )
 				{
+					UINT8 ubNumItems = fAllItems ? LaptopSaveInfo.BobbyRayUsedInventory[ usItemNumber ].ubQtyOnHand : 1;
+
 					BobbyRayPurchases[ ubPurchaseNumber ].usItemIndex = LaptopSaveInfo.BobbyRayUsedInventory[ usItemNumber ].usItemIndex;
-					BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased = 1;
+					BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased = ubNumItems;
 					BobbyRayPurchases[ ubPurchaseNumber ].bItemQuality = LaptopSaveInfo.BobbyRayUsedInventory[ usItemNumber ].ubItemQuality;
 					BobbyRayPurchases[ ubPurchaseNumber ].usBobbyItemIndex = usItemNumber;
 					BobbyRayPurchases[ ubPurchaseNumber ].fUsed = TRUE;
@@ -2832,8 +2930,10 @@ void PurchaseBobbyRayItem(UINT16	usItemNumber)
 			// Else If the item is already purchased increment purchase amount.	Only if ordering less then the max amount!
 			else
 			{
-				if( BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased <= BOBBY_RAY_MAX_AMOUNT_OF_ITEMS_TO_PURCHASE)
-					BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased++;
+				UINT8 ubNumItems = fAllItems ? LaptopSaveInfo.BobbyRayUsedInventory[ usItemNumber ].ubQtyOnHand - BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased : 1;
+
+				if( BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased <= BOBBY_RAY_MAX_AMOUNT_OF_ITEMS_TO_PURCHASE - (ubNumItems-1))
+					BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased += ubNumItems;
 			}
 		}
 		else
@@ -2858,8 +2958,10 @@ void PurchaseBobbyRayItem(UINT16	usItemNumber)
 
 				if( ubPurchaseNumber != BOBBY_RAY_NOT_PURCHASED )
 				{
+					UINT8 ubNumItems = fAllItems ? LaptopSaveInfo.BobbyRayInventory[ usItemNumber ].ubQtyOnHand : 1;
+
 					BobbyRayPurchases[ ubPurchaseNumber ].usItemIndex = LaptopSaveInfo.BobbyRayInventory[ usItemNumber ].usItemIndex;
-					BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased = 1;
+					BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased = ubNumItems;
 					BobbyRayPurchases[ ubPurchaseNumber ].bItemQuality = 100;
 					BobbyRayPurchases[ ubPurchaseNumber ].usBobbyItemIndex = usItemNumber;
 					BobbyRayPurchases[ ubPurchaseNumber ].fUsed = FALSE;
@@ -2873,8 +2975,10 @@ void PurchaseBobbyRayItem(UINT16	usItemNumber)
 			// Else If the item is already purchased increment purchase amount.	Only if ordering less then the max amount!
 			else
 			{
-				if( BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased <= BOBBY_RAY_MAX_AMOUNT_OF_ITEMS_TO_PURCHASE)
-					BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased++;
+				UINT8 ubNumItems = fAllItems ? LaptopSaveInfo.BobbyRayInventory[ usItemNumber ].ubQtyOnHand - BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased : 1;
+
+				if( BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased <= BOBBY_RAY_MAX_AMOUNT_OF_ITEMS_TO_PURCHASE - (ubNumItems-1))
+					BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased += ubNumItems;
 			}
 		}
 		else
@@ -2916,7 +3020,7 @@ UINT8 GetNextPurchaseNumber()
 
 
 
-void UnPurchaseBobbyRayItem(UINT16	usItemNumber)
+void UnPurchaseBobbyRayItem(UINT16	usItemNumber, BOOLEAN fAllItems )
 {
 	UINT8	ubPurchaseNumber;
 
@@ -2924,7 +3028,7 @@ void UnPurchaseBobbyRayItem(UINT16	usItemNumber)
 
 	if( ubPurchaseNumber != BOBBY_RAY_NOT_PURCHASED )
 	{
-		if( BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased > 1)
+		if( BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased > 1 && !fAllItems)
 			BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased--;
 		else
 		{

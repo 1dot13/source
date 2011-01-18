@@ -105,7 +105,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 
 
     //hayden, 7 member team limit setable in ini
-	if( NumberOfMercsOnPlayerTeam() >= gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs || (is_client && NumberOfMercsOnPlayerTeam() >= MAX_MERCS) )
+	if( NumberOfMercsOnPlayerTeam() >= gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs || (is_client && NumberOfMercsOnPlayerTeam() >= cMaxMercs) )
 		return( MERC_HIRE_OVER_PLAYER_LIMIT );
 
 	// ATE: if we are to use landing zone, update to latest value
@@ -127,7 +127,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	MercCreateStruct.bTeam								= SOLDIER_CREATE_AUTO_TEAM;
 	MercCreateStruct.fCopyProfileItemsOver= pHireMerc->fCopyProfileItemsOver;
 	
-	if(!ALLOW_EQUIP && is_networked)
+	if(!cAllowMercEquipment && is_networked)
 		MercCreateStruct.fCopyProfileItemsOver=0;//hayden : server overide
 
 	if ( !TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
@@ -246,7 +246,8 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 
 
 	//if the merc is an AIM merc
-	if( ubCurrentSoldier < 40 )
+	//if( ubCurrentSoldier < 40 )
+	if ( gProfilesAIM[ ubCurrentSoldier ].ProfilId == ubCurrentSoldier ) //new profiles by Jazz
 	{
 
 		pSoldier->ubWhatKindOfMercAmI = MERC_TYPE__AIM_MERC;
@@ -275,7 +276,8 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		pSoldier->usMedicalDeposit = gMercProfiles[ pSoldier->ubProfile ].sMedicalDepositAmount;
 	}
 	//if the merc is from M.E.R.C.
-	else if( ( ubCurrentSoldier >= BIFF && ubCurrentSoldier <= BUBBA ) || ubCurrentSoldier >= GASTON )
+	//else if( ( ubCurrentSoldier >= BIFF && ubCurrentSoldier <= BUBBA ) || ubCurrentSoldier >= GASTON )
+	else if ( gProfilesMERC[ ubCurrentSoldier ].ProfilId == ubCurrentSoldier ) //new profiles by Jazz
 	{
 		pSoldier->ubWhatKindOfMercAmI = MERC_TYPE__MERC;
 		//pSoldier->iTotalContractCharge = -1;
@@ -288,7 +290,8 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		if(!is_client)AddHistoryToPlayersLog(HISTORY_HIRED_MERC_FROM_MERC, ubCurrentSoldier, GetWorldTotalMin(), -1, -1 );
 	}
 	//If the merc is from IMP, (ie a player character)
-	else if( ( ubCurrentSoldier >= 51 ) && ( ubCurrentSoldier < 57 ) )
+	//else if( ( ubCurrentSoldier >= 51 ) && ( ubCurrentSoldier < 57 ) )
+	else if ( gProfilesIMP[ ubCurrentSoldier ].ProfilId == ubCurrentSoldier ) //new profiles by Jazz
 	{
 		pSoldier->ubWhatKindOfMercAmI = MERC_TYPE__PLAYER_CHARACTER;
 		//pSoldier->iTotalContractCharge = -1;

@@ -30,7 +30,8 @@ INT32		giX1, giX2, giY1, giY2;
 INT16		gsFadeRealCount;
 BOOLEAN	gfFadeInVideo;
 
-UINT32	uiOldMusicMode;
+// unused
+//UINT32	uiOldMusicMode;
 
 FADE_FUNCTION			gFadeFunction = NULL;
 
@@ -154,7 +155,8 @@ void BeginFade( UINT32 uiExitScreen, INT8 bFadeValue, INT8 bType, UINT32 uiDelay
 	gfFadeIn = FALSE;
 	gfFadeInVideo = TRUE;
 
-	uiOldMusicMode = uiMusicHandle;
+	// unused
+	//uiOldMusicMode = uiMusicHandle;
 
 
 	// Calculate step;

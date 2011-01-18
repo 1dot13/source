@@ -708,7 +708,7 @@ void InitEditorOptionsToolbar()
 	//dnl ch33 160909
 	iEditorButton[OPTIONS_VANILLA_MODE] =
 		CreateCheckBoxButton(iScreenWidthOffset+71, SCREEN_HEIGHT-119, "EDITOR//smcheckbox.sti", MSYS_PRIORITY_NORMAL, VanillaModeCallback);
-	SetButtonFastHelpText(iEditorButton[OPTIONS_VANILLA_MODE],L"Set save map as v1.12");
+	SetButtonFastHelpText(iEditorButton[OPTIONS_VANILLA_MODE],L"When checked, the map will be saved in original JA2 format (Version: 5.00 / 25)");
 }
 
 void InitEditorTerrainToolbar()

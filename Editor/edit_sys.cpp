@@ -365,8 +365,9 @@ void PasteSingleWallCommon( INT32 iMapIndex )
 		// TEMP STUFF FOR ONROOF THINGS!
 		if ( (usUseObjIndex >= FIRSTONROOF) && (usUseObjIndex <= SECONDONROOF ) )
 		{
+			// WANNE: Disabled the next line, because if makes placing sandbags on rooftops impossible!
 			//dnl Remove all onroof things before placing new one to avoid stacking problems of same element
-			RemoveAllOnRoofsOfTypeRange( iMapIndex, FIRSTONROOF, SECONDONROOF );
+			//RemoveAllOnRoofsOfTypeRange( iMapIndex, FIRSTONROOF, SECONDONROOF );
 
 			// Add to onroof section!
 			AddOnRoofToTail( iMapIndex, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );

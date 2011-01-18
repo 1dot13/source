@@ -197,6 +197,8 @@ BloodcatsEndElementHandle(void *userData, const XML_Char *name)
 					{
 						// Lair sector. There can be only one, and it is affected by the Quest. Bloodcats can regenerate
 						// their numbers here over time.
+						gubBloodcatLairSectorId = ubSectorId;
+
 						gBloodcatPlacements[ ubSectorId ][x].ubMinBloodcats = 0;
 						gBloodcatPlacements[ ubSectorId ][x].ubMaxBloodcats = pData->CurPlacement[x].ubMaxBloodcats;
 						gBloodcatPlacements[ ubSectorId ][x].ubAmbushChance = 0;
@@ -219,7 +221,7 @@ BloodcatsEndElementHandle(void *userData, const XML_Char *name)
 				pData->sCurSectorX	= x;
 				pData->sCurSectorY  = y;
 			}
-			THROWIFFALSE( (SECTOR(x,y) >= 0 && SECTOR(x,y) < 256) , L"Illegal sector number in BloodcatPlacements.XML" );
+			SGP_THROW_IFFALSE( (SECTOR(x,y) >= 0 && SECTOR(x,y) < 256) , L"Illegal sector number in BloodcatPlacements.XML" );
 		}
 		else if(strcmp(name, "ubPlacementType") == 0 )
 		{

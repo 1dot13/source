@@ -49,6 +49,8 @@
 	#include "GameSettings.h"
 	#include "_Ja25EnglishText.h"
 	#include "SaveLoadScreen.h"
+	#include "Interface Control.h"
+	#include "Sys Globals.h"
 #include "game init.h"
 #endif
 
@@ -1928,6 +1930,10 @@ void HandleExitsFromMapScreen( void )
 
 				case MAP_EXIT_TO_TACTICAL:
 					SetCurrentWorldSector( sSelMapX, sSelMapY, ( INT8 )iCurrentMapSectorZ );
+					// silversurfer: bugfix for panel redraw issue after quickload from tactical screen
+					// this will make sure that the tactical screen gets refreshed and guiTacticalInterfaceFlags is reset
+					fFirstTimeInGameScreen = TRUE;
+					guiTacticalInterfaceFlags &= (~INTERFACE_MAPSCREEN );
 					break;
 
 				case MAP_EXIT_TO_OPTIONS:

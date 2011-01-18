@@ -144,7 +144,7 @@ BOOLEAN StartInteractiveObject( INT32 sGridNo, UINT16 usStructureID, SOLDIERTYPE
 }
 
 
-BOOLEAN CalcInteractiveObjectAPs( INT32 sGridNo, STRUCTURE * pStructure, INT16 *psAPCost, INT16 *psBPCost )
+BOOLEAN CalcInteractiveObjectAPs( SOLDIERTYPE * pSoldier, INT32 sGridNo, STRUCTURE * pStructure, INT16 *psAPCost, INT16 *psBPCost ) // SANDRO - added argument
 {
 	if (pStructure == NULL)
 	{
@@ -156,7 +156,8 @@ BOOLEAN CalcInteractiveObjectAPs( INT32 sGridNo, STRUCTURE * pStructure, INT16 *
 		// If closed, we do not know what to do yet...
 		//if ( pStructure->fFlags & STRUCTURE_OPEN )
 		//{
-			*psAPCost = APBPConstants[AP_OPEN_DOOR];
+			// SANDRO - changed this
+			*psAPCost = GetAPsToOpenDoor( pSoldier );
 			*psBPCost = APBPConstants[AP_OPEN_DOOR];
 		//}
 		//else
@@ -167,7 +168,8 @@ BOOLEAN CalcInteractiveObjectAPs( INT32 sGridNo, STRUCTURE * pStructure, INT16 *
 	}
 	else
 	{
-		*psAPCost = APBPConstants[AP_OPEN_DOOR];
+		// SANDRO - changed this
+		*psAPCost = GetAPsToOpenDoor( pSoldier );
 		*psBPCost = APBPConstants[AP_OPEN_DOOR];
 	}
 

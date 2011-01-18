@@ -20,7 +20,7 @@
 	#include "XML.h"
 	#include "Soldier Profile.h"
 #endif
-
+		#include "Soldier Profile.h"
 //#define MAX_PROFILE_NAME_LENGTH 30
 
 struct
@@ -39,7 +39,7 @@ typedef profileParseData;
 
 TEMPPROFILETYPE tempProfiles[NUM_PROFILES+1];
 
-
+BOOLEAN MercProfiles_TextOnly;
 
 static void XMLCALL
 profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
@@ -87,7 +87,8 @@ profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 				strcmp(name, "ubBodyType") == 0 ||
 				strcmp(name, "uiBodyTypeSubFlags") == 0 ||
 				strcmp(name, "bAttitude") == 0 ||
-				strcmp(name, "bPersonalityTrait") == 0 ||
+				strcmp(name, "bCharacterTrait") == 0 || // added by SANDRO
+				strcmp(name, "bDisability") == 0 ||
 				strcmp(name, "ubNeedForSleep") == 0 ||
 				strcmp(name, "bReputationTolerance") == 0 ||
 				strcmp(name, "bDeathRate") == 0 ||
@@ -104,8 +105,40 @@ profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 				strcmp(name, "bMechanical") == 0 ||
 				strcmp(name, "bExpLevel") == 0 ||
 				strcmp(name, "bEvolution") == 0 ||
-				strcmp(name, "bSkillTrait") == 0 ||
-				strcmp(name, "bSkillTrait2") == 0 ||
+				// added by SANDRO
+				strcmp(name, "bOldSkillTrait") == 0 ||
+				strcmp(name, "bOldSkillTrait2") == 0 ||
+				strcmp(name, "bNewSkillTrait1") == 0 ||
+				strcmp(name, "bNewSkillTrait2") == 0 ||
+				strcmp(name, "bNewSkillTrait3") == 0 ||
+				strcmp(name, "bNewSkillTrait4") == 0 ||
+				strcmp(name, "bNewSkillTrait5") == 0 ||
+				strcmp(name, "bNewSkillTrait6") == 0 ||
+				strcmp(name, "bNewSkillTrait7") == 0 ||
+				strcmp(name, "bNewSkillTrait8") == 0 ||
+				strcmp(name, "bNewSkillTrait9") == 0 ||
+				strcmp(name, "bNewSkillTrait10") == 0 ||
+				strcmp(name, "bNewSkillTrait11") == 0 ||
+				strcmp(name, "bNewSkillTrait12") == 0 ||
+				strcmp(name, "bNewSkillTrait13") == 0 ||
+				strcmp(name, "bNewSkillTrait14") == 0 ||
+				strcmp(name, "bNewSkillTrait15") == 0 ||
+				strcmp(name, "bNewSkillTrait16") == 0 ||
+				strcmp(name, "bNewSkillTrait17") == 0 ||
+				strcmp(name, "bNewSkillTrait18") == 0 ||
+				strcmp(name, "bNewSkillTrait19") == 0 ||
+				strcmp(name, "bNewSkillTrait20") == 0 ||
+				strcmp(name, "bNewSkillTrait21") == 0 ||
+				strcmp(name, "bNewSkillTrait22") == 0 ||
+				strcmp(name, "bNewSkillTrait23") == 0 ||
+				strcmp(name, "bNewSkillTrait24") == 0 ||
+				strcmp(name, "bNewSkillTrait25") == 0 ||
+				strcmp(name, "bNewSkillTrait26") == 0 ||
+				strcmp(name, "bNewSkillTrait27") == 0 ||
+				strcmp(name, "bNewSkillTrait28") == 0 ||
+				strcmp(name, "bNewSkillTrait29") == 0 ||
+				strcmp(name, "bNewSkillTrait30") == 0 ||
+
 				strcmp(name, "bBuddy1") == 0 ||
 				strcmp(name, "bBuddy2") == 0 ||
 				strcmp(name, "bBuddy3") == 0 ||
@@ -137,7 +170,17 @@ profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 				strcmp(name, "usApproachFactorFriendly") == 0 ||
 				strcmp(name, "usApproachFactorDirect") == 0 ||
 				strcmp(name, "usApproachFactorThreaten") == 0 ||
-				strcmp(name, "usApproachFactorRecruit") == 0
+				strcmp(name, "usApproachFactorRecruit") == 0 ||
+				
+				//new tag
+				strcmp(name, "Type")  == 0 ||				
+				strcmp(name, "sSectorX")  == 0 ||
+				strcmp(name, "sSectorY")  == 0 ||
+				strcmp(name, "sSectorZ")  == 0 ||
+				strcmp(name, "ubCivilianGroup")  == 0 ||
+				strcmp(name, "bTown")  == 0 ||
+				strcmp(name, "bTownAttachment")  == 0
+				
 				))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -182,75 +225,126 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 
 			if(pData->curIndex < pData->maxArraySize)
 			{
-
 				// Write data into a temporary array that holds profiles. We will later copy data from that
 				// temp array into the REAL profile array, one item at a time, replacing PROF.DAT data.
-				wcscpy(tempProfiles[pData->curIndex].zName, pData->curProfile.zName); 
-				wcscpy(tempProfiles[pData->curIndex].zNickname, pData->curProfile.zNickname);
-				
-				tempProfiles[pData->curIndex].ubFaceIndex = pData->curProfile.ubFaceIndex;
-				tempProfiles[pData->curIndex].usEyesX = pData->curProfile.usEyesX;
-				tempProfiles[pData->curIndex].usEyesY = pData->curProfile.usEyesY;
-				tempProfiles[pData->curIndex].usMouthX = pData->curProfile.usMouthX;
-				tempProfiles[pData->curIndex].usMouthY = pData->curProfile.usMouthY;
-				tempProfiles[pData->curIndex].uiEyeDelay = pData->curProfile.uiEyeDelay;
-				tempProfiles[pData->curIndex].uiMouthDelay = pData->curProfile.uiMouthDelay;
-				tempProfiles[pData->curIndex].uiBlinkFrequency = pData->curProfile.uiBlinkFrequency;
-				tempProfiles[pData->curIndex].uiExpressionFrequency = pData->curProfile.uiExpressionFrequency;
+		
+				if (!MercProfiles_TextOnly)
+				{
+					wcscpy(tempProfiles[pData->curIndex].zName, pData->curProfile.zName); 
+					wcscpy(tempProfiles[pData->curIndex].zNickname, pData->curProfile.zNickname);		
+					
+					tempProfiles[pData->curIndex].ubFaceIndex = pData->curProfile.ubFaceIndex;
+					tempProfiles[pData->curIndex].usEyesX = pData->curProfile.usEyesX;
+					tempProfiles[pData->curIndex].usEyesY = pData->curProfile.usEyesY;
+					tempProfiles[pData->curIndex].usMouthX = pData->curProfile.usMouthX;
+					tempProfiles[pData->curIndex].usMouthY = pData->curProfile.usMouthY;
+					tempProfiles[pData->curIndex].uiEyeDelay = pData->curProfile.uiEyeDelay;
+					tempProfiles[pData->curIndex].uiMouthDelay = pData->curProfile.uiMouthDelay;
+					tempProfiles[pData->curIndex].uiBlinkFrequency = pData->curProfile.uiBlinkFrequency;
+					tempProfiles[pData->curIndex].uiExpressionFrequency = pData->curProfile.uiExpressionFrequency;
 
-				memcpy( &(tempProfiles[pData->curIndex].PANTS), &(pData->curProfile.PANTS), sizeof(PaletteRepID) );
-				memcpy( &(tempProfiles[pData->curIndex].VEST), &(pData->curProfile.VEST), sizeof(PaletteRepID) );
-				memcpy( &(tempProfiles[pData->curIndex].SKIN), &(pData->curProfile.SKIN), sizeof(PaletteRepID) );
-				memcpy( &(tempProfiles[pData->curIndex].HAIR), &(pData->curProfile.HAIR), sizeof(PaletteRepID) );
+					memcpy( &(tempProfiles[pData->curIndex].PANTS), &(pData->curProfile.PANTS), sizeof(PaletteRepID) );
+					memcpy( &(tempProfiles[pData->curIndex].VEST), &(pData->curProfile.VEST), sizeof(PaletteRepID) );
+					memcpy( &(tempProfiles[pData->curIndex].SKIN), &(pData->curProfile.SKIN), sizeof(PaletteRepID) );
+					memcpy( &(tempProfiles[pData->curIndex].HAIR), &(pData->curProfile.HAIR), sizeof(PaletteRepID) );
 
-				tempProfiles[pData->curIndex].bSex = pData->curProfile.bSex;
-				tempProfiles[pData->curIndex].ubBodyType = pData->curProfile.ubBodyType;
-				tempProfiles[pData->curIndex].uiBodyTypeSubFlags = pData->curProfile.uiBodyTypeSubFlags;
+					tempProfiles[pData->curIndex].bSex = pData->curProfile.bSex;
+					tempProfiles[pData->curIndex].ubBodyType = pData->curProfile.ubBodyType;
+					tempProfiles[pData->curIndex].uiBodyTypeSubFlags = pData->curProfile.uiBodyTypeSubFlags;
 
-				tempProfiles[pData->curIndex].bAttitude = pData->curProfile.bAttitude;
-				tempProfiles[pData->curIndex].bPersonalityTrait = pData->curProfile.bPersonalityTrait;
-				tempProfiles[pData->curIndex].ubNeedForSleep = pData->curProfile.ubNeedForSleep;
-				tempProfiles[pData->curIndex].bReputationTolerance = pData->curProfile.bReputationTolerance;
-				tempProfiles[pData->curIndex].bDeathRate = pData->curProfile.bDeathRate;
+					tempProfiles[pData->curIndex].bAttitude = pData->curProfile.bAttitude;
+					tempProfiles[pData->curIndex].bCharacterTrait = pData->curProfile.bCharacterTrait; // added by SANDRO
+					tempProfiles[pData->curIndex].bDisability = pData->curProfile.bDisability;
+					tempProfiles[pData->curIndex].ubNeedForSleep = pData->curProfile.ubNeedForSleep;
+					tempProfiles[pData->curIndex].bReputationTolerance = pData->curProfile.bReputationTolerance;
+					tempProfiles[pData->curIndex].bDeathRate = pData->curProfile.bDeathRate;
 
-				tempProfiles[pData->curIndex].bLifeMax = pData->curProfile.bLifeMax;
-				tempProfiles[pData->curIndex].bLife = pData->curProfile.bLife;
-				tempProfiles[pData->curIndex].bStrength = pData->curProfile.bStrength;
-				tempProfiles[pData->curIndex].bAgility = pData->curProfile.bAgility;
-				tempProfiles[pData->curIndex].bDexterity = pData->curProfile.bDexterity;
-				tempProfiles[pData->curIndex].bWisdom = pData->curProfile.bWisdom;
-				tempProfiles[pData->curIndex].bMarksmanship = pData->curProfile.bMarksmanship;
-				tempProfiles[pData->curIndex].bExplosive = pData->curProfile.bExplosive;
-				tempProfiles[pData->curIndex].bLeadership = pData->curProfile.bLeadership;
-				tempProfiles[pData->curIndex].bMedical = pData->curProfile.bMedical;
-				tempProfiles[pData->curIndex].bMechanical = pData->curProfile.bMechanical;
-				tempProfiles[pData->curIndex].bExpLevel = pData->curProfile.bExpLevel;
+					tempProfiles[pData->curIndex].bLifeMax = pData->curProfile.bLifeMax;
+					tempProfiles[pData->curIndex].bLife = pData->curProfile.bLife;
+					tempProfiles[pData->curIndex].bStrength = pData->curProfile.bStrength;
+					tempProfiles[pData->curIndex].bAgility = pData->curProfile.bAgility;
+					tempProfiles[pData->curIndex].bDexterity = pData->curProfile.bDexterity;
+					tempProfiles[pData->curIndex].bWisdom = pData->curProfile.bWisdom;
+					tempProfiles[pData->curIndex].bMarksmanship = pData->curProfile.bMarksmanship;
+					tempProfiles[pData->curIndex].bExplosive = pData->curProfile.bExplosive;
+					tempProfiles[pData->curIndex].bLeadership = pData->curProfile.bLeadership;
+					tempProfiles[pData->curIndex].bMedical = pData->curProfile.bMedical;
+					tempProfiles[pData->curIndex].bMechanical = pData->curProfile.bMechanical;
+					tempProfiles[pData->curIndex].bExpLevel = pData->curProfile.bExpLevel;
 
-				tempProfiles[pData->curIndex].bEvolution = pData->curProfile.bEvolution;
-				tempProfiles[pData->curIndex].bSkillTrait = pData->curProfile.bSkillTrait;
-				tempProfiles[pData->curIndex].bSkillTrait2 = pData->curProfile.bSkillTrait2;
+					tempProfiles[pData->curIndex].bEvolution = pData->curProfile.bEvolution;
+					// added by SANDRO
+					tempProfiles[pData->curIndex].bOldSkillTrait = pData->curProfile.bOldSkillTrait;
+					tempProfiles[pData->curIndex].bOldSkillTrait2 = pData->curProfile.bOldSkillTrait2;
+					tempProfiles[pData->curIndex].bNewSkillTrait1 = pData->curProfile.bNewSkillTrait1;
+					tempProfiles[pData->curIndex].bNewSkillTrait2 = pData->curProfile.bNewSkillTrait2;
+					tempProfiles[pData->curIndex].bNewSkillTrait3 = pData->curProfile.bNewSkillTrait3;
+					tempProfiles[pData->curIndex].bNewSkillTrait4 = pData->curProfile.bNewSkillTrait4;
+					tempProfiles[pData->curIndex].bNewSkillTrait5 = pData->curProfile.bNewSkillTrait5;
+					tempProfiles[pData->curIndex].bNewSkillTrait6 = pData->curProfile.bNewSkillTrait6;
+					tempProfiles[pData->curIndex].bNewSkillTrait7 = pData->curProfile.bNewSkillTrait7;
+					tempProfiles[pData->curIndex].bNewSkillTrait8 = pData->curProfile.bNewSkillTrait8;
+					tempProfiles[pData->curIndex].bNewSkillTrait9 = pData->curProfile.bNewSkillTrait9;
+					tempProfiles[pData->curIndex].bNewSkillTrait10 = pData->curProfile.bNewSkillTrait10;
+					tempProfiles[pData->curIndex].bNewSkillTrait11 = pData->curProfile.bNewSkillTrait11;
+					tempProfiles[pData->curIndex].bNewSkillTrait12 = pData->curProfile.bNewSkillTrait12;
+					tempProfiles[pData->curIndex].bNewSkillTrait13 = pData->curProfile.bNewSkillTrait13;
+					tempProfiles[pData->curIndex].bNewSkillTrait14 = pData->curProfile.bNewSkillTrait14;
+					tempProfiles[pData->curIndex].bNewSkillTrait15 = pData->curProfile.bNewSkillTrait15;
+					tempProfiles[pData->curIndex].bNewSkillTrait16 = pData->curProfile.bNewSkillTrait16;
+					tempProfiles[pData->curIndex].bNewSkillTrait17 = pData->curProfile.bNewSkillTrait17;
+					tempProfiles[pData->curIndex].bNewSkillTrait18 = pData->curProfile.bNewSkillTrait18;
+					tempProfiles[pData->curIndex].bNewSkillTrait19 = pData->curProfile.bNewSkillTrait19;
+					tempProfiles[pData->curIndex].bNewSkillTrait20 = pData->curProfile.bNewSkillTrait20;
+					tempProfiles[pData->curIndex].bNewSkillTrait21 = pData->curProfile.bNewSkillTrait21;
+					tempProfiles[pData->curIndex].bNewSkillTrait22 = pData->curProfile.bNewSkillTrait22;
+					tempProfiles[pData->curIndex].bNewSkillTrait23 = pData->curProfile.bNewSkillTrait23;
+					tempProfiles[pData->curIndex].bNewSkillTrait24 = pData->curProfile.bNewSkillTrait24;
+					tempProfiles[pData->curIndex].bNewSkillTrait25 = pData->curProfile.bNewSkillTrait25;
+					tempProfiles[pData->curIndex].bNewSkillTrait26 = pData->curProfile.bNewSkillTrait26;
+					tempProfiles[pData->curIndex].bNewSkillTrait27 = pData->curProfile.bNewSkillTrait27;
+					tempProfiles[pData->curIndex].bNewSkillTrait28 = pData->curProfile.bNewSkillTrait28;
+					tempProfiles[pData->curIndex].bNewSkillTrait29 = pData->curProfile.bNewSkillTrait29;
+					tempProfiles[pData->curIndex].bNewSkillTrait30 = pData->curProfile.bNewSkillTrait30;
 
-				memcpy( &(tempProfiles[pData->curIndex].bBuddy), &(pData->curProfile.bBuddy), 5 * sizeof (INT8));
-				tempProfiles[pData->curIndex].bLearnToLike = pData->curProfile.bLearnToLike;
-				tempProfiles[pData->curIndex].bLearnToLikeTime = pData->curProfile.bLearnToLikeTime;
 
-				memcpy( &(tempProfiles[pData->curIndex].bHated), &(pData->curProfile.bHated), 5 * sizeof (INT8));
-				memcpy( &(tempProfiles[pData->curIndex].bHatedTime), &(pData->curProfile.bHatedTime), 5 * sizeof (INT8));
-				tempProfiles[pData->curIndex].bLearnToHate = pData->curProfile.bLearnToHate;
-				tempProfiles[pData->curIndex].bLearnToHateTime = pData->curProfile.bLearnToHateTime;
+					memcpy( &(tempProfiles[pData->curIndex].bBuddy), &(pData->curProfile.bBuddy), 5 * sizeof (INT8));
+					tempProfiles[pData->curIndex].bLearnToLike = pData->curProfile.bLearnToLike;
+					tempProfiles[pData->curIndex].bLearnToLikeTime = pData->curProfile.bLearnToLikeTime;
 
-				tempProfiles[pData->curIndex].sSalary = pData->curProfile.sSalary;
-				tempProfiles[pData->curIndex].uiWeeklySalary = pData->curProfile.uiWeeklySalary;
-				tempProfiles[pData->curIndex].uiBiWeeklySalary = pData->curProfile.uiBiWeeklySalary;
-				tempProfiles[pData->curIndex].bMedicalDeposit = pData->curProfile.bMedicalDeposit;
-				tempProfiles[pData->curIndex].sMedicalDepositAmount = pData->curProfile.sMedicalDepositAmount;
-				tempProfiles[pData->curIndex].usOptionalGearCost = pData->curProfile.usOptionalGearCost;
+					memcpy( &(tempProfiles[pData->curIndex].bHated), &(pData->curProfile.bHated), 5 * sizeof (INT8));
+					memcpy( &(tempProfiles[pData->curIndex].bHatedTime), &(pData->curProfile.bHatedTime), 5 * sizeof (INT8));
+					tempProfiles[pData->curIndex].bLearnToHate = pData->curProfile.bLearnToHate;
+					tempProfiles[pData->curIndex].bLearnToHateTime = pData->curProfile.bLearnToHateTime;
 
-				tempProfiles[pData->curIndex].bArmourAttractiveness = pData->curProfile.bArmourAttractiveness;
-				tempProfiles[pData->curIndex].bMainGunAttractiveness = pData->curProfile.bMainGunAttractiveness;
+					tempProfiles[pData->curIndex].sSalary = pData->curProfile.sSalary;
+					tempProfiles[pData->curIndex].uiWeeklySalary = pData->curProfile.uiWeeklySalary;
+					tempProfiles[pData->curIndex].uiBiWeeklySalary = pData->curProfile.uiBiWeeklySalary;
+					tempProfiles[pData->curIndex].bMedicalDeposit = pData->curProfile.bMedicalDeposit;
+					tempProfiles[pData->curIndex].sMedicalDepositAmount = pData->curProfile.sMedicalDepositAmount;
+					tempProfiles[pData->curIndex].usOptionalGearCost = pData->curProfile.usOptionalGearCost;
 
-				tempProfiles[pData->curIndex].fGoodGuy = pData->curProfile.fGoodGuy;
-				memcpy( &(tempProfiles[pData->curIndex].usApproachFactor), &(pData->curProfile.usApproachFactor), 4 * sizeof (UINT16));
+					tempProfiles[pData->curIndex].bArmourAttractiveness = pData->curProfile.bArmourAttractiveness;
+					tempProfiles[pData->curIndex].bMainGunAttractiveness = pData->curProfile.bMainGunAttractiveness;
+					
+					tempProfiles[pData->curIndex].Type = pData->curProfile.Type;
+					
+					tempProfiles[pData->curIndex].sSectorX = pData->curProfile.sSectorX;
+					tempProfiles[pData->curIndex].sSectorY = pData->curProfile.sSectorY;
+					tempProfiles[pData->curIndex].bSectorZ = pData->curProfile.bSectorZ;
+					tempProfiles[pData->curIndex].ubCivilianGroup = pData->curProfile.ubCivilianGroup;
+					tempProfiles[pData->curIndex].bTown = pData->curProfile.bTown;
+					tempProfiles[pData->curIndex].bTownAttachment = pData->curProfile.bTownAttachment;
+
+					tempProfiles[pData->curIndex].fGoodGuy = pData->curProfile.fGoodGuy;
+					memcpy( &(tempProfiles[pData->curIndex].usApproachFactor), &(pData->curProfile.usApproachFactor), 4 * sizeof (UINT16));
+					
+				}
+				else
+				{
+					wcscpy(tempProfiles[pData->curIndex].zName, pData->curProfile.zName); 
+					wcscpy(tempProfiles[pData->curIndex].zNickname, pData->curProfile.zNickname);		
+				}	
 			}
 		}
 
@@ -371,11 +465,17 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curProfile.bAttitude = (UINT32) atol(pData->szCharData);
 		}
-
-		else if(strcmp(name, "bPersonalityTrait") == 0)
+		// SANDRO - added Character Trait
+		else if(strcmp(name, "bCharacterTrait") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curProfile.bPersonalityTrait = (UINT32) atol(pData->szCharData);
+			pData->curProfile.bCharacterTrait = (UINT32) atol(pData->szCharData);
+		}
+
+		else if(strcmp(name, "bDisability") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bDisability = (UINT32) atol(pData->szCharData);
 		}
 
 		else if(strcmp(name, "ubNeedForSleep") == 0)
@@ -473,18 +573,171 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curProfile.bEvolution = (UINT32) atol(pData->szCharData);
 		}
-		
-		else if(strcmp(name, "bSkillTrait") == 0)
+		////////////////////////////////////////////////////////////////////////////
+		// SANDRO was here - messed this a bit
+		else if(strcmp(name, "bOldSkillTrait") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curProfile.bSkillTrait = (UINT32) atol(pData->szCharData);
+			pData->curProfile.bOldSkillTrait = (UINT32) atol(pData->szCharData);
 		}
 		
-		else if(strcmp(name, "bSkillTrait2") == 0)
+		else if(strcmp(name, "bOldSkillTrait2") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curProfile.bSkillTrait2 = (UINT32) atol(pData->szCharData);
+			pData->curProfile.bOldSkillTrait2 = (UINT32) atol(pData->szCharData);
 		}
+
+		else if(strcmp(name, "bNewSkillTrait1") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait1 = (UINT32) atol(pData->szCharData);
+		}		
+		else if(strcmp(name, "bNewSkillTrait2") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait2 = (UINT32) atol(pData->szCharData);
+		}		
+		else if(strcmp(name, "bNewSkillTrait3") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait3 = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bNewSkillTrait4") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait4 = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bNewSkillTrait5") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait5 = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bNewSkillTrait6") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait6 = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bNewSkillTrait7") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait7 = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bNewSkillTrait8") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait8 = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bNewSkillTrait9") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait9 = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bNewSkillTrait10") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait10 = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bNewSkillTrait11") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait11 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait12") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait12 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait13") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait13 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait14") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait14 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait15") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait15 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait16") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait16 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait17") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait17 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait18") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait18 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait19") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait19 = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bNewSkillTrait20") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait20 = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bNewSkillTrait21") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait21 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait22") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait22 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait23") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait23 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait24") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait24 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait25") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait25 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait26") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait26 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait27") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait27 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait28") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait28 = (UINT32) atol(pData->szCharData);
+		}									 
+		else if(strcmp(name, "bNewSkillTrait29") == 0)
+		{									 
+			pData->curElement = ELEMENT;	 
+			pData->curProfile.bNewSkillTrait29 = (UINT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bNewSkillTrait30") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bNewSkillTrait30 = (UINT32) atol(pData->szCharData);
+		}
+		////////////////////////////////////////////////////////////////////////////
 
 		else if(strcmp(name, "bBuddy1") == 0)
 		{
@@ -686,6 +939,44 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 			// Sets new index for writing.
 			pData->curIndex = (UINT32) atol(pData->szCharData);
 		}
+		
+		else if(strcmp(name, "Type") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.Type = (UINT32) atol(pData->szCharData);
+		}
+		
+		else if(strcmp(name, "sSectorX") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.sSectorX = (UINT16) atol(pData->szCharData);
+		}	
+		else if(strcmp(name, "sSectorY") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.sSectorY = (UINT16) atol(pData->szCharData);
+		}			
+		else if(strcmp(name, "sSectorZ") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bSectorZ = (INT8) atol(pData->szCharData);
+		}			
+		else if(strcmp(name, "ubCivilianGroup") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.ubCivilianGroup = (UINT8) atol(pData->szCharData);
+		}	
+		else if(strcmp(name, "bTown") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bTown = (INT8) atol(pData->szCharData);
+		}	
+		else if(strcmp(name, "bTownAttachment") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.bTownAttachment = (INT8) atol(pData->szCharData);
+		}	
+		
 
 		pData->maxReadDepth--;
 	}
@@ -696,7 +987,7 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 
 
 
-BOOLEAN ReadInMercProfiles(STR fileName)
+BOOLEAN ReadInMercProfiles(STR fileName, BOOLEAN localizedVersion)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -706,12 +997,13 @@ BOOLEAN ReadInMercProfiles(STR fileName)
 
 	profileParseData pData;
 
+	MercProfiles_TextOnly = localizedVersion;
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading MercProfiles.xml" );
 
 	// Open merges file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
-		return( FALSE );
+		return( localizedVersion );
 
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
@@ -778,6 +1070,44 @@ BOOLEAN WriteMercProfiles()
 			FilePrintf(hFile,"\t<PROFILE>\r\n");
 
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",						cnt);
+			
+			if (cnt >= 0 && cnt < 40 )
+			{	
+				FilePrintf(hFile,"\t\t<Type>1</Type>\r\n");
+			}
+			else if (cnt >= 40 && cnt < 51 )
+			{	
+				FilePrintf(hFile,"\t\t<Type>2</Type>\r\n");
+			}
+			else if ( cnt >= FIRST_RPC && cnt < FIRST_NPC )
+			{	
+				FilePrintf(hFile,"\t\t<Type>3</Type>\r\n");
+			}
+			else if ( cnt >= FIRST_NPC && cnt < 160 )
+			{	
+				FilePrintf(hFile,"\t\t<Type>4</Type>\r\n");
+			}
+			else if ( cnt == 169 )
+			{	
+				FilePrintf(hFile,"\t\t<Type>4</Type>\r\n");
+			}	
+			else if ( cnt == 165 || cnt == 166 || cnt == 167 || cnt == 168 )
+			{	
+				FilePrintf(hFile,"\t\t<Type>2</Type>\r\n");
+			}
+			else if ( cnt == 51 || cnt == 52 || cnt == 53 || cnt == 54 || cnt == 55 || cnt == 56 )
+			{	
+				FilePrintf(hFile,"\t\t<Type>6</Type>\r\n");
+			}
+			else if ( cnt == 160 || cnt == 161 || cnt == 162 || cnt == 163 || cnt == 164 )
+			{	
+				FilePrintf(hFile,"\t\t<Type>5</Type>\r\n");
+			}
+			else 
+			{
+				FilePrintf(hFile,"\t\t<Type>0</Type>\r\n");			
+			}
+			
 
 			//////////////////////////////
 			// Write Character Name
@@ -1117,7 +1447,9 @@ BOOLEAN WriteMercProfiles()
 			FilePrintf(hFile,"\t\t<uiBodyTypeSubFlags>%d</uiBodyTypeSubFlags>\r\n", gMercProfiles[ cnt ].uiBodyTypeSubFlags);
 
 			FilePrintf(hFile,"\t\t<bAttitude>%d</bAttitude>\r\n", gMercProfiles[ cnt ].bAttitude);
-			FilePrintf(hFile,"\t\t<bPersonalityTrait>%d</bPersonalityTrait>\r\n", gMercProfiles[ cnt ].bPersonalityTrait);
+			// Added by SANDRO
+			FilePrintf(hFile,"\t\t<bCharacterTrait>%d</bCharacterTrait>\r\n", gMercProfiles[ cnt ].bCharacterTrait);
+			FilePrintf(hFile,"\t\t<bDisability>%d</bDisability>\r\n", gMercProfiles[ cnt ].bDisability);
 			FilePrintf(hFile,"\t\t<ubNeedForSleep>%d</ubNeedForSleep>\r\n", gMercProfiles[ cnt ].ubNeedForSleep);
 
 			FilePrintf(hFile,"\t\t<bReputationTolerance>%d</bReputationTolerance>\r\n", gMercProfiles[ cnt ].bReputationTolerance);
@@ -1136,8 +1468,30 @@ BOOLEAN WriteMercProfiles()
 			FilePrintf(hFile,"\t\t<bMechanical>%d</bMechanical>\r\n", gMercProfiles[ cnt ].bMechanical);
 			FilePrintf(hFile,"\t\t<bExpLevel>%d</bExpLevel>\r\n", gMercProfiles[ cnt ].bExpLevel);
 			FilePrintf(hFile,"\t\t<bEvolution>%d</bEvolution>\r\n", gMercProfiles[ cnt ].bEvolution);
-			FilePrintf(hFile,"\t\t<bSkillTrait>%d</bSkillTrait>\r\n", gMercProfiles[ cnt ].bSkillTrait);
-			FilePrintf(hFile,"\t\t<bSkillTrait2>%d</bSkillTrait2>\r\n", gMercProfiles[ cnt ].bSkillTrait2);
+			////////////////////////////////////////////////////////////////////////////////////////////
+			// SANDRO - old/new traits
+			if (gGameOptions.fNewTraitSystem)
+			{
+				FilePrintf(hFile,"\t\t<bOldSkillTrait>%d</bOldSkillTrait>\r\n", 0);
+				FilePrintf(hFile,"\t\t<bOldSkillTrait2>%d</bOldSkillTrait2>\r\n", 0);
+				FilePrintf(hFile,"\t\t<bNewSkillTrait1>%d</bNewSkillTrait1>\r\n", gMercProfiles[ cnt ].bSkillTraits[0]);
+				FilePrintf(hFile,"\t\t<bNewSkillTrait2>%d</bNewSkillTrait2>\r\n", gMercProfiles[ cnt ].bSkillTraits[1]);
+				FilePrintf(hFile,"\t\t<bNewSkillTrait3>%d</bNewSkillTrait3>\r\n", gMercProfiles[ cnt ].bSkillTraits[2]);
+				for ( INT8 bCnt2 = 3; bCnt2 < 30; bCnt2++ )
+				{
+					if ( gMercProfiles[ cnt ].bSkillTraits[ bCnt2 ] > 0 )
+						FilePrintf(hFile,"\t\t<bNewSkillTrait%d>%d</bNewSkillTrait%d>\r\n", (bCnt2+1), gMercProfiles[ cnt ].bSkillTraits[bCnt2], (bCnt2+1));
+				}					
+			}
+			else
+			{
+				FilePrintf(hFile,"\t\t<bOldSkillTrait>%d</bOldSkillTrait>\r\n", gMercProfiles[ cnt ].bSkillTraits[0]);
+				FilePrintf(hFile,"\t\t<bOldSkillTrait2>%d</bOldSkillTrait2>\r\n", gMercProfiles[ cnt ].bSkillTraits[1]);
+				FilePrintf(hFile,"\t\t<bNewSkillTrait1>%d</bNewSkillTrait1>\r\n", 0);
+				FilePrintf(hFile,"\t\t<bNewSkillTrait2>%d</bNewSkillTrait2>\r\n", 0);
+				FilePrintf(hFile,"\t\t<bNewSkillTrait3>%d</bNewSkillTrait3>\r\n", 0);
+			}
+			////////////////////////////////////////////////////////////////////////////////////////////
 
 			FilePrintf(hFile,"\t\t<bBuddy1>%d</bBuddy1>\r\n", gMercProfiles[ cnt ].bBuddy[0]);
 			FilePrintf(hFile,"\t\t<bBuddy2>%d</bBuddy2>\r\n", gMercProfiles[ cnt ].bBuddy[1]);
@@ -1178,6 +1532,14 @@ BOOLEAN WriteMercProfiles()
 			FilePrintf(hFile,"\t\t<usApproachFactorDirect>%d</usApproachFactorDirect>\r\n", gMercProfiles[ cnt ].usApproachFactor[1]);
 			FilePrintf(hFile,"\t\t<usApproachFactorThreaten>%d</usApproachFactorThreaten>\r\n", gMercProfiles[ cnt ].usApproachFactor[2]);
 			FilePrintf(hFile,"\t\t<usApproachFactorRecruit>%d</usApproachFactorRecruit>\r\n", gMercProfiles[ cnt ].usApproachFactor[3]);
+			
+			FilePrintf(hFile,"\t\t<sSectorX>%d</sSectorX>\r\n", gMercProfiles[ cnt ].sSectorX);
+			FilePrintf(hFile,"\t\t<sSectorY>%d</sSectorY>\r\n", gMercProfiles[ cnt ].sSectorY);
+			FilePrintf(hFile,"\t\t<sSectorZ>%d</sSectorZ>\r\n", gMercProfiles[ cnt ].bSectorZ);
+			
+			FilePrintf(hFile,"\t\t<ubCivilianGroup>%d</ubCivilianGroup>\r\n", gMercProfiles[ cnt ].ubCivilianGroup);
+			FilePrintf(hFile,"\t\t<bTown>%d</bTown>\r\n", gMercProfiles[ cnt ].bTown);
+			FilePrintf(hFile,"\t\t<bTownAttachment>%d</bTownAttachment>\r\n", gMercProfiles[ cnt ].bTownAttachment);
 
 
 			FilePrintf(hFile,"\t</PROFILE>\r\n");

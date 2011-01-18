@@ -23,7 +23,7 @@
 	#include "Smell.h"
 	#include "SaveLoadMap.h"
 	#include "strategicmap.h"
-
+	#include "sgp_logger.h"
 
 	#include "Sys Globals.h"	//for access to gfEditMode flag
 
@@ -432,25 +432,122 @@ BOOLEAN CreateFileStructureArrays( STRUCTURE_FILE_REF * pFileRef, UINT32 uiDataS
 	return( TRUE );
 }
 
+#include <vfs/Core/vfs_file_raii.h>
+#include <vfs/Core/vfs.h>
+#include "XML_StructureData.hpp"
+
+void checkStructureValidity(STRUCTURE_FILE_REF *str1, STRUCTURE_FILE_REF* str2, UINT32 size1, UINT32 size2)
+{
+	if(str1 == str2 && str1 == NULL)
+	{
+		return;
+	}
+
+	if(str1->pubStructureData && str2->pubStructureData)
+	{
+		SGP_THROW_IFFALSE( size1 == size2, L"");
+		//SGP_THROW_IFFALSE( 0 == memcmp(str1->pubStructureData, str2->pubStructureData, size1), L"" );
+		UINT8* ptr1 = str1->pubStructureData;
+		UINT8* ptr2 = str2->pubStructureData;
+		unsigned int count = 0;
+		for(; count < size1 && (*ptr1++ == *ptr2++); count++) {}
+		SGP_THROW_IFFALSE(count == size1, L"bad structure data");
+	}
+	else if(str1->pubStructureData || str2->pubStructureData)
+	{
+		SGP_THROW(L"bad structure data");
+	}
+
+	int count_tiles_1 = 0, count_tiles_2 = 0;
+	if(str1->pAuxData && str2->pAuxData)
+	{
+		SGP_THROW_IFFALSE(str1->usNumberOfStructures == str2->usNumberOfStructures, L"");
+		SGP_THROW_IFFALSE(str1->usNumberOfStructuresStored == str2->usNumberOfStructuresStored, L"");
+		//SGP_THROW_IFFALSE( 0 == memcmp(str1->pAuxData, str2->pAuxData, sizeof(AuxObjectData)*str2->usNumberOfStructures), L"" );
+		for(int i = 0; i < str2->usNumberOfStructures; ++i)
+		{
+			SGP_THROW_IFFALSE( 0 == memcmp(&str1->pAuxData[i], &str2->pAuxData[i], sizeof(AuxObjectData)), _BS(L"bad aux_image : ") << i << _BS::wget );
+		}
+
+		for(int i = 0; i < str1->usNumberOfStructures; ++i){ 
+			count_tiles_1 += str1->pAuxData[i].ubNumberOfTiles; 
+		}
+		for(int j = 0; j < str2->usNumberOfStructures; ++j){ 
+			count_tiles_2 += str2->pAuxData[j].ubNumberOfTiles; 
+		}
+		SGP_THROW_IFFALSE(count_tiles_1 == count_tiles_2, L"");
+	}
+	else if(str1->pAuxData || str2->pAuxData)
+	{
+		SGP_THROW(L"bad aux image data");
+	}
+
+	if(str1->pTileLocData && str2->pTileLocData)
+	{
+		SGP_THROW_IFFALSE( 0 == memcmp(str1->pTileLocData, str2->pTileLocData, count_tiles_1*sizeof(RelTileLoc)), L"" );
+	}
+	else if(str1->pTileLocData || str2->pTileLocData)
+	{
+		SGP_THROW(L"bad aux tile data");
+	}
+}
+
 STRUCTURE_FILE_REF * LoadStructureFile( STR szFileName )
 {
 	// NB should be passed in expected number of structures so we can check equality
-	UINT32								uiDataSize = 0;
-	BOOLEAN								fOk;
-	STRUCTURE_FILE_REF *	pFileRef;
+	UINT32				uiDataSize = 0;
+	BOOLEAN				fOk;
+	STRUCTURE_FILE_REF*	pFileRef;
 
-	pFileRef = (STRUCTURE_FILE_REF *) MemAlloc( sizeof( STRUCTURE_FILE_REF ) );
-	if (pFileRef == NULL)
+	bool found_jsd_xml_file = false;
+	extern bool g_bUseXML_Structures;
+
+	if(g_bUseXML_Structures)
 	{
-		return( NULL );
+		vfs::Path filename = std::string(szFileName) + ".xml";
+
+		if(getVFS()->fileExists(filename))
+		{
+			pFileRef = (STRUCTURE_FILE_REF *) MemAlloc( sizeof( STRUCTURE_FILE_REF ) );
+			memset( pFileRef, 0, sizeof( STRUCTURE_FILE_REF ) );
+		
+			CStructureDataReader str_reader(pFileRef);
+			xml_auto::TGenericXMLParser<CStructureDataReader> str_parser(&str_reader);
+		
+			SGP_TRYCATCH_RETHROW( str_parser.parseFile(filename), _BS(L"Could not parse file : ") << filename << _BS::wget);
+
+			uiDataSize = str_reader.structure_data_size;
+			fOk = TRUE;
+
+			found_jsd_xml_file = true;
+		}
+		else
+		{
+		}
 	}
-	memset( pFileRef, 0, sizeof( STRUCTURE_FILE_REF ) );
-	fOk = LoadStructureData( szFileName, pFileRef, &uiDataSize );
+	if(!found_jsd_xml_file)
+	{
+		pFileRef = (STRUCTURE_FILE_REF *) MemAlloc( sizeof( STRUCTURE_FILE_REF ) );
+		if (pFileRef == NULL)
+		{
+			return( NULL );
+		}
+		memset( pFileRef, 0, sizeof( STRUCTURE_FILE_REF ) );
+
+		if(g_bUseXML_Structures)
+		{
+		}
+
+		fOk = LoadStructureData( szFileName, pFileRef, &uiDataSize );
+	}
+
 	if (!fOk)
 	{
+		SGP_WARNING("Could not load structure file : ") << szFileName << "[.jsd|.xml]" << sgp::endl << sgp::flush;
 		MemFree( pFileRef );
 		return( NULL );
 	}
+
 	if (pFileRef->pubStructureData != NULL)
 	{
 		fOk = CreateFileStructureArrays( pFileRef, uiDataSize );

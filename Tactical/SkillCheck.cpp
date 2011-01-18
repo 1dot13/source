@@ -12,6 +12,10 @@
 	#include "Morale.h"
 	#include "drugs and alcohol.h"
 	#include "strategicmap.h"
+	// added by SANDRO
+	#include "GameSettings.h"
+	#include "Animation Data.h"
+	#include "Soldier Control.h"
 #endif
 
 INT8 EffectiveStrength( SOLDIERTYPE * pSoldier )
@@ -136,20 +140,36 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
 
 	iEffExpLevel = pSoldier->stats.bExpLevel;
 
+	// SANDRO - STOMP traits - Squadleader bonus to effective level
+	if ( gGameOptions.fNewTraitSystem && IS_MERC_BODY_TYPE( pSoldier ))
+	{
+		iEffExpLevel += (gSkillTraitValues.ubSLEffectiveLevelInRadius * GetSquadleadersCountInVicinity( pSoldier, TRUE, FALSE ));
+	}
+
 	bDrunkLevel = GetDrunkLevel( pSoldier );
 
 	iEffExpLevel = iEffExpLevel + iExpModifier[ bDrunkLevel ];
 
 	if (pSoldier->ubProfile != NO_PROFILE)
 	{
-		if ( (gMercProfiles[ pSoldier->ubProfile ].bPersonalityTrait == CLAUSTROPHOBIC) && pSoldier->bActive && pSoldier->bInSector && gbWorldSectorZ > 0)
+		if ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == CLAUSTROPHOBIC) && pSoldier->bActive && pSoldier->bInSector && gbWorldSectorZ > 0)
 		{
 			// claustrophobic!
-			iEffExpLevel--;
+			iEffExpLevel -= 2;
+		}
+		else if ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == FEAR_OF_INSECTS) && MercIsInTropicalSector( pSoldier ) )
+		{
+			// SANDRO - fear of insects, and we are in tropical sector
+			iEffExpLevel -= 1;
 		}
 	}
-
-	if (iEffExpLevel < 1)
+	
+	if (iEffExpLevel > 10)
+	{
+		// can't go over 10 - SANDRO
+		return( 10 );
+	}
+	else if (iEffExpLevel < 1)
 	{
 		// can't go below 1
 		return( 1 );
@@ -241,15 +261,37 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			iSkill = iSkill * (EffectiveDexterity( pSoldier ) + 100) / 200;
 			// factor in experience
 			iSkill = iSkill + EffectiveExpLevel( pSoldier ) * 3;
-			if (HAS_SKILL_TRAIT( pSoldier, LOCKPICKING ) )
+
+			// SANDRO - STOMP traits - Technician trait lockpicking bonus
+			if ( gGameOptions.fNewTraitSystem )
 			{
-				// if we specialize in picking locks...
-				iSkill += gbSkillTraitBonus[LOCKPICKING] * NUM_SKILL_TRAITS( pSoldier, LOCKPICKING );
+				iSkill += gSkillTraitValues.bCheckModifierLockpicking; // reduce skill value for untrained mercs
+
+				// Simply reduce the skill value for this as usual
+				if (bReason == ELECTRONIC_LOCKPICKING_CHECK)
+				{
+					iSkill /= 2;
+				}
+				// then add a flat bonus (undivided by the electronic lock penalty above)
+				if ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ))
+				{
+					iSkill += gSkillTraitValues.usTELockpickingBonus * NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT );
+				}
 			}
-			if (bReason == ELECTRONIC_LOCKPICKING_CHECK && !(HAS_SKILL_TRAIT( pSoldier, ELECTRONICS)) )
+			else // original code
 			{
-				// if we are unfamiliar with electronics...
-				iSkill /= 2;
+				if (HAS_SKILL_TRAIT( pSoldier, LOCKPICKING_OT ) )
+				{
+					// if we specialize in picking locks...
+					iSkill += gbSkillTraitBonus[LOCKPICKING_OT] * NUM_SKILL_TRAITS( pSoldier, LOCKPICKING_OT );
+				}
+
+				if (bReason == ELECTRONIC_LOCKPICKING_CHECK && !(HAS_SKILL_TRAIT( pSoldier, ELECTRONICS_OT)) )
+				{
+					// if we are unfamiliar with electronics...
+					iSkill /= 2;
+				}
+
 			}
 			// adjust chance based on status of kit
 			bSlot = FindLocksmithKit( pSoldier );
@@ -268,9 +310,28 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 				break;
 			}
 			iSkill = (iSkill * 3 + EffectiveDexterity( pSoldier ) ) / 4;
-			if ( bReason == ATTACHING_REMOTE_DETONATOR_CHECK && !(HAS_SKILL_TRAIT( pSoldier, ELECTRONICS )) )
+
+			// SANDRO - STOMP traits - Demolitions trait detonator attaching bonus
+			if ( gGameOptions.fNewTraitSystem )
 			{
-				iSkill /= 2;
+				iSkill += gSkillTraitValues.bCheckModifierAttachDetonators; // reduce skill value for untrained mercs
+
+				if ( bReason == ATTACHING_REMOTE_DETONATOR_CHECK )
+				{
+					iSkill /= 2;
+				}
+				// add a flat bonus instead of eliminating the penalty above
+				if ( HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT ))
+				{
+					iSkill += gSkillTraitValues.ubDEAttachDetonatorCheckBonus;
+				}
+			}
+			else // original code
+			{
+				if ( bReason == ATTACHING_REMOTE_DETONATOR_CHECK && !(HAS_SKILL_TRAIT( pSoldier, ELECTRONICS_OT )) )
+				{
+					iSkill /= 2;
+				}
 			}
 			break;
 		case PLANTING_BOMB_CHECK:
@@ -280,10 +341,28 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			iSkill += EffectiveExpLevel( pSoldier ) * 10;
 			iSkill = iSkill / 10; // bring the value down to a percentage
 
-			if ( bReason == PLANTING_REMOTE_BOMB_CHECK && !(HAS_SKILL_TRAIT( pSoldier, ELECTRONICS)) )
+			// SANDRO - STOMP traits - Demolitions trait planting bombs bonus
+			if ( gGameOptions.fNewTraitSystem )
 			{
-				// deduct only a bit...
-				iSkill = (iSkill * 3) / 4;
+				iSkill += gSkillTraitValues.bCheckModifierSetExplosives; // reduce skill for untrained mercs
+
+				if ( bReason == PLANTING_REMOTE_BOMB_CHECK )
+				{
+					iSkill = (iSkill * 3) / 4;
+				}
+				// add a flat bonus instead of eliminating the penalty above
+				if ( HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT ))
+				{
+					iSkill += gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus;
+				}
+			}
+			else // original code
+			{
+				if ( bReason == PLANTING_REMOTE_BOMB_CHECK && !(HAS_SKILL_TRAIT( pSoldier, ELECTRONICS_OT)) )
+				{
+					// deduct only a bit...
+					iSkill = (iSkill * 3) / 4;
+				}
 			}
 
 			// Ok, this is really damn easy, so skew the values...
@@ -297,26 +376,73 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 
 			fForceDamnSound = TRUE;
 
-			iSkill = EffectiveExplosive( pSoldier ) * 7;
-			if ( iSkill == 0 )
-			{
-				break;
+			// SANDRO - normal(exploding) traps should be based at least a little on mechanical skill as well
+			if ( gGameOptions.fNewTraitSystem)
+			{ 
+				// It is impossible without both skills
+				if ( (EffectiveMechanical( pSoldier ) <= 0) || (EffectiveExplosive( pSoldier ) <= 0) )
+				{
+					iSkill = 0;
+					break;
+				}
+				else
+				{
+					iSkill = EffectiveExplosive( pSoldier ) * 5;
+					iSkill += EffectiveMechanical( pSoldier ) * 2;
+				}
 			}
+			else
+			{
+				iSkill = EffectiveExplosive( pSoldier ) * 7;
+				if ( iSkill == 0 )
+				{
+					break;
+				}
+			}
+
 			iSkill += EffectiveDexterity( pSoldier ) * 2;
 			iSkill += EffectiveExpLevel( pSoldier ) * 10;
 			iSkill = iSkill / 10; // bring the value down to a percentage
+
+			// SANDRO - STOMP traits - Demolitions trait removing traps bonus
+			if ( gGameOptions.fNewTraitSystem )
+			{
+				iSkill += gSkillTraitValues.bCheckModifierDisarmExplosiveTraps; // -15% for untrained mercs
+
+				if (HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT ))
+					iSkill += gSkillTraitValues.ubDEPlantAndRemoveBombCheckBonus; // +50% bonus for Demolitions
+			}
+
 			// penalty based on poor wisdom
 			iSkill -= (100 - EffectiveWisdom( pSoldier ) ) / 5;
 			break;
 
 		case DISARM_ELECTRONIC_TRAP_CHECK:
 
-		fForceDamnSound = TRUE;
+			fForceDamnSound = TRUE;
 
-			iSkill = __max( EffectiveMechanical( pSoldier ) , EffectiveExplosive( pSoldier ) ) * 7;
-			if ( iSkill == 0 )
+			// SANDRO - electronic traps are based more on mechanical skill
+			if ( gGameOptions.fNewTraitSystem)
+			{ 
+				// It is impossible without both skills
+				if ( (EffectiveMechanical( pSoldier ) <= 0) || (EffectiveExplosive( pSoldier ) <= 0) )
+				{
+					iSkill = 0;
+					break;
+				}
+				else
+				{
+					iSkill = EffectiveExplosive( pSoldier ) * 2;
+					iSkill += EffectiveMechanical( pSoldier ) * 5;
+				}
+			}
+			else
 			{
-				break;
+				iSkill = __max( EffectiveMechanical( pSoldier ) , EffectiveExplosive( pSoldier ) ) * 7;
+				if ( iSkill == 0 )
+				{
+					break;
+				}
 			}
 			iSkill += EffectiveDexterity( pSoldier ) * 2;
 			iSkill += EffectiveExpLevel( pSoldier ) * 10;
@@ -324,9 +450,25 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			// penalty based on poor wisdom
 			iSkill -= (100 - EffectiveWisdom( pSoldier ) ) / 5;
 
-			if ( !(HAS_SKILL_TRAIT( pSoldier, ELECTRONICS )) )
+			// SANDRO - STOMP traits - Technician trait removing traps bonus
+			if ( gGameOptions.fNewTraitSystem )
 			{
-				iSkill = (iSkill * 3) / 4;
+				iSkill += gSkillTraitValues.bCheckModifierDisarmElectronicTraps; // penalty for untrained mercs
+
+				iSkill = (iSkill * 3) / 4; // original penalty
+
+				// add a flat bonus instead of eliminating the penalty above
+				if ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ))
+				{
+					iSkill += gSkillTraitValues.usTEDisarmElTrapBonus * NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT );
+				}
+			}
+			else // original code
+			{
+				if ( !(HAS_SKILL_TRAIT( pSoldier, ELECTRONICS_OT)) )
+				{
+					iSkill = (iSkill * 3) / 4;
+				}
 			}
 			break;
 
@@ -338,9 +480,19 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 
 		case SMASH_DOOR_CHECK:
 			iSkill = EffectiveStrength( pSoldier );
+			// SANDRO - STOMP traits - Martial Arts trait kick doors bonus
+			if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ))
+			{
+				iSkill += gSkillTraitValues.ubMAChanceToCkickDoors * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT );
+			}
 			break;
 		case UNJAM_GUN_CHECK:
 			iSkill = 30 + EffectiveMechanical( pSoldier ) / 2;
+			// SANDRO - STOMP traits - Technician trait unjamming guns bonus
+			if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ))
+			{
+				iSkill += gSkillTraitValues.ubTEUnjamGunBonus * NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT );
+			}
 			break;
 		case NOTICE_DART_CHECK:
 			// only a max of ~20% chance
@@ -349,6 +501,12 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		case LIE_TO_QUEEN_CHECK:
 			// competitive check vs the queen's wisdom and leadership... poor guy!
 			iSkill = 50 * ( EffectiveWisdom( pSoldier ) + EffectiveLeadership( pSoldier ) ) / ( gMercProfiles[ QUEEN ].bWisdom + gMercProfiles[ QUEEN ].bLeadership );
+			// squadleader has bonus for this, muhehe - SANDRO
+			if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SQUADLEADER_NT ))
+			{
+				iSkill += (20 * NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT ));
+			}
+
 			break;
 		case ATTACHING_SPECIAL_ITEM_CHECK:
 		case ATTACHING_SPECIAL_ELECTRONIC_ITEM_CHECK:
@@ -363,10 +521,29 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			iSkill = iSkill * (EffectiveDexterity( pSoldier ) + 100) / 200;
 			// factor in experience
 			iSkill = iSkill + EffectiveExpLevel( pSoldier ) * 3;
-			if (bReason == ATTACHING_SPECIAL_ELECTRONIC_ITEM_CHECK && !(HAS_SKILL_TRAIT( pSoldier, ELECTRONICS)) )
+
+			// SANDRO - STOMP traits - Technician trait attaching special items bonus
+			if ( gGameOptions.fNewTraitSystem )
 			{
-				// if we are unfamiliar with electronics...
-				iSkill /= 2;
+				iSkill += gSkillTraitValues.bCheckModifierAttachSpecialItems; // penalty for untrained mercs
+
+				if ( bReason == ATTACHING_SPECIAL_ELECTRONIC_ITEM_CHECK )
+				{
+					iSkill /= 2;
+				}
+				// add a flat bonus instead of eliminating the penalty above
+				if ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ))
+				{
+					iSkill += gSkillTraitValues.usTEAttachingItemsBonus * NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT );
+				}
+			}
+			else // original code
+			{
+				if (bReason == ATTACHING_SPECIAL_ELECTRONIC_ITEM_CHECK && !(HAS_SKILL_TRAIT( pSoldier, ELECTRONICS_OT)) )
+				{
+					// if we are unfamiliar with electronics...
+					iSkill /= 2;
+				}
 			}
 			break;
 		default:
@@ -378,6 +555,88 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 
 	iChance = iSkill + bChanceMod;
 
+	////////////////////////////////////////////////////////////////////////
+	// SANDRO - STOMP - character traits and disabilities modifiers
+
+	//added heat intolerant penalty
+	if ( MercIsHot( pSoldier ) )
+	{
+		iChance -= 15;
+	}
+	// also added a small penalty for fear of insects in tropical sectors
+	else if ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == FEAR_OF_INSECTS) && MercIsInTropicalSector( pSoldier ))
+	{
+		// fear of insects, and we are in tropical sector
+		iChance -= 5;
+	}
+
+	// character traits influence
+	// Sociable - better performance in groups
+	if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+	{	
+		INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_SOCIABLE );
+		if ( bNumMercs > 2 )
+			iChance += 5;
+		else if ( bNumMercs > 0 )
+			iChance += 2;
+	}
+	// Loner - better performance when alone
+	else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_LONER )
+	{	
+		INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_LONER );
+		if ( bNumMercs == 0 )
+			iChance += 5;
+		else if ( bNumMercs <= 1 )
+			iChance += 2;
+	}
+	// Aggressive - penalty for actions needing patience
+	else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+	{	
+		switch ( bReason )
+		{
+			case LOCKPICKING_CHECK:
+			case ELECTRONIC_LOCKPICKING_CHECK:
+			case PLANTING_BOMB_CHECK:
+			case PLANTING_REMOTE_BOMB_CHECK:
+			case DISARM_TRAP_CHECK:
+			case DISARM_ELECTRONIC_TRAP_CHECK:
+			case ATTACHING_SPECIAL_ITEM_CHECK:
+			case ATTACHING_SPECIAL_ELECTRONIC_ITEM_CHECK:
+				iChance -= 10;
+				break;
+		}
+	}
+	// Phlegmatic - bonus for actions needing patience
+	else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC )
+	{	
+		switch ( bReason )
+		{
+			case LOCKPICKING_CHECK:
+			case ELECTRONIC_LOCKPICKING_CHECK:
+			case PLANTING_BOMB_CHECK:
+			case PLANTING_REMOTE_BOMB_CHECK:
+			case DISARM_TRAP_CHECK:
+			case DISARM_ELECTRONIC_TRAP_CHECK:
+			case ATTACHING_SPECIAL_ITEM_CHECK:
+			case ATTACHING_SPECIAL_ELECTRONIC_ITEM_CHECK:
+				iChance += 5;
+				break;
+		}
+	}
+	// Show-off - better performance if some babes around to impress
+	else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+	{	
+		INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_SHOWOFF );
+		if ( bNumMercs > 1 )
+			iChance += 5;
+		else if ( bNumMercs > 0 )
+			iChance += 2;
+	}
+	//////////////////////////////////////////////////////////////////////
+
+	// silversurfer: moved this down here where it belongs
+	// if this wasn't the last check a merc with certain disability modifiers would never completely fail 
+	// to do something and would never do his speech telling that he can't do this
 	switch (bReason)
 	{
 		case LOCKPICKING_CHECK:
@@ -391,7 +650,10 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			// for lockpicking and smashing locks, if the chance isn't reasonable
 			// we set it to 0 so they can never get through the door if they aren't
 			// good enough
-			if (iChance < 30)
+			//CHRISL: with this set to 30, some "hard" to open doors become basically impossible.  Case in point, Drassen "dentist office" which imposes a
+			//	-75 penalty on lockpicking/forcing chances.  You find this near the start of the game but would need an 80 STR + Crowbar to open.  It's
+			//	impossible to force with just strength or lockpicking skills, regardless of how skilled you are.
+			if (iChance < 15)
 			{
 				iChance = 0;
 				break;
@@ -422,6 +684,10 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			{
 				if (iChance == 0)
 				{
+					if ( MercIsHot( pSoldier ) && pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__PLAYER_CHARACTER) // SANDRO - added this
+					{
+						TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
+					}
 					// do we realize that we just can't do this?
 					if ( (100 - (pSoldier->ubSkillCheckAttempts - 2) * 20) < EffectiveWisdom( pSoldier ) )
 					{
@@ -511,11 +777,25 @@ INT8 CalcTrapDetectLevel( SOLDIERTYPE * pSoldier, BOOLEAN fExamining )
 	bDetectLevel += (EffectiveExplosive( pSoldier ) / 40);
 	bDetectLevel -= ((100 - EffectiveWisdom( pSoldier ) ) / 20);
 
+	// STOMP traits - Technician trait detecting traps bonus - SANDRO
+	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ))
+	{
+		bDetectLevel += (gSkillTraitValues.ubTEChanceToDetectTrapsBonus * NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT )); // +2 trap level per trait
+	}
+
 	// if the examining flag is true, this isn't just a casual glance
 	// and the merc should have a higher chance
 	if (fExamining)
 	{
 		bDetectLevel += (INT8) PreRandom(bDetectLevel / 3 + 2);
+	}
+	// SANDRO - optimists just don't even think about the traps, randomly ignoring this all
+	else if ( gGameOptions.fNewTraitSystem && gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_OPTIMIST )
+	{
+		if ( Chance(50) )
+			bDetectLevel = 1;
+		else
+			bDetectLevel -= 2;
 	}
 
 	// if substantially bleeding, or still in serious shock, randomly lower value

@@ -27,6 +27,8 @@
 	#include "GameSettings.h"
 #endif
 
+#include "LuaInitNPCs.h"
+
 //#define DEBUG_GAME_CLOCK
 
 extern	BOOLEAN			gfFadeOut;
@@ -247,6 +249,10 @@ void AdvanceClock( UINT8 ubWarpCode )
 	guiDay = ( guiGameClock / NUM_SEC_IN_DAY );
 	guiHour = ( guiGameClock - ( guiDay * NUM_SEC_IN_DAY ) ) / NUM_SEC_IN_HOUR;
 	guiMin	= ( guiGameClock - ( ( guiDay * NUM_SEC_IN_DAY ) + ( guiHour * NUM_SEC_IN_HOUR ) ) ) / NUM_SEC_IN_MIN;
+	
+	uiHourLua = guiHour;
+	uiDayLua = guiDay;
+	uiMinLua = guiMin;
 
 	swprintf( WORLDTIMESTR, L"%s %d, %02d:%02d", gpGameClockString[ STR_GAMECLOCK_DAY_NAME ], guiDay, guiHour, guiMin );
 

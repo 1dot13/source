@@ -55,6 +55,7 @@ explosiveStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 				strcmp(name, "ubVolume") == 0 ||
 				strcmp(name, "ubVolatility") == 0 ||
 				strcmp(name, "ubStartRadius") == 0 ||
+				strcmp(name, "ubMagSize") == 0 ||
 				strcmp(name, "ubDuration") == 0 ||
 				strcmp(name, "ubAnimationID") == 0 ))
 		{
@@ -147,6 +148,11 @@ explosiveEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curExplosive.ubStartRadius	= (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "ubMagSize") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curExplosive.ubMagSize	= (UINT8) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "ubDuration") == 0)
 		{
@@ -255,6 +261,7 @@ BOOLEAN WriteExplosiveStats()
 			FilePrintf(hFile,"\t\t<ubAnimationID>%d</ubAnimationID>\r\n",								Explosive[cnt].ubAnimationID	);
 			FilePrintf(hFile,"\t\t<ubDuration>%d</ubDuration>\r\n",								Explosive[cnt].ubDuration	);
 			FilePrintf(hFile,"\t\t<ubStartRadius>%d</ubStartRadius>\r\n",								Explosive[cnt].ubStartRadius	);
+			FilePrintf(hFile,"\t\t<ubMagSize>%d</ubMagSize>\r\n",								Explosive[cnt].ubMagSize	);
 
 			FilePrintf(hFile,"\t</EXPLOSIVE>\r\n");
 		}

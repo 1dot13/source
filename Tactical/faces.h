@@ -17,6 +17,31 @@ struct audio_gap
 	struct audio_gap *pNext;
 };
 
+typedef struct
+{
+	BOOLEAN gCamoface;
+	BOOLEAN gUrbanCamoface;
+	BOOLEAN gDesertCamoface;
+	BOOLEAN gSnowCamoface;
+} CAMO_FACE;
+
+extern CAMO_FACE gCamoFace[255];
+
+
+typedef struct
+{
+	INT8		bEyesX;
+	INT8		bEyesY;
+	INT8		bMouthX;
+	INT8		bMouthY;
+	UINT16		uiIndex; // add
+	UINT16		FaceIndex; //add
+
+} RPC_SMALL_FACE_VALUES;
+
+extern RPC_SMALL_FACE_VALUES gRPCSmallFaceValues[200];
+extern UINT8	gubRPCSmallFaceProfileNum[200];
+
 #define	FACE_AUTO_DISPLAY_BUFFER		0xFFFFF000
 #define	FACE_AUTO_RESTORE_BUFFER		0xFFFFFF00
 #define	FACE_NO_RESTORE_BUFFER			0xFFFFFFF0
@@ -240,7 +265,9 @@ BOOLEAN ExternRenderFaceFromSoldier( UINT32 uiBuffer, UINT8 ubSoldierID, INT16 s
 
 
 
-
+//legion2 Jazz
+extern void FacesSmalllegion ();
+extern void RecountFaces(void);
 
 
 

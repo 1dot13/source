@@ -36,7 +36,8 @@ extern UINT16 LEVEL_SUBPOINTS_TO_IMPROVE;
 #define WORKIMPROVERATE	2		// increase to make working	mercs improve more
 #define TRAINIMPROVERATE 2		// increase to make training mercs improve more
 
-#define SALARY_CHANGE_PER_LEVEL 1.25		// Mercs salary is multiplied by this
+//tais: externalized the salary multiplier to gGameExternalOptions.gMercLevelUpSalaryIncreasePercentage
+//#define SALARY_CHANGE_PER_LEVEL 1.25		// Mercs salary is multiplied by this
 #define MAX_DAILY_SALARY		30000		// must fit into an INT16 (32k)
 #define MAX_LARGE_SALARY				500000	// no limit, really
 

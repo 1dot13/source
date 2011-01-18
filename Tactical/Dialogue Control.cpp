@@ -55,6 +55,7 @@
 	#include "end game.h"
 	#include "los.h"
 	#include "qarray.h"
+	#include "Soldier Profile.h"
 #endif
 #include <vector>
 #include "Auto Resolve.h"
@@ -83,7 +84,7 @@ class SOLDIERTYPE;
 #define		DIALOGUE_DEFAULT_SUBTITLE_WIDTH		200
 #define		TEXT_DELAY_MODIFIER			60
 
-
+SOUND_PROFILE_VALUES gSoundProfileValue[NUM_PROFILES];
 
 typedef struct
 {
@@ -114,16 +115,19 @@ extern BOOLEAN gfWaitingForTriggerTimer;
 
 BOOLEAN fExternFacesLoaded = FALSE;
 
-UINT32 uiExternalStaticNPCFaces[ NUMBER_OF_EXTERNAL_NPC_FACES ];
-UINT32 uiExternalFaceProfileIds[ NUMBER_OF_EXTERNAL_NPC_FACES ]=
-{
-	97,
-	106,
-	148,
-	156,
-	157,
-	158,
-};
+
+// head miners' external profile ids have been moved to lua script
+std::vector<UINT32> uiExternalStaticNPCFaces;
+//UINT32 uiExternalStaticNPCFaces[ NUMBER_OF_EXTERNAL_NPC_FACES ];
+//UINT32 uiExternalFaceProfileIds[ NUMBER_OF_EXTERNAL_NPC_FACES ]=
+//{
+//	97,
+//	106,
+//	148,
+//	156,
+//	157,
+//	158,
+//};
 
 UINT8	gubMercValidPrecedentQuoteID[ NUMBER_VALID_MERC_PRECEDENT_QUOTES ] =
 					{ 80, 81, 82, 83, 86, 87, 88, 95, 97, 99, 100, 101, 102 };
@@ -302,10 +306,16 @@ void InitalizeStaticExternalNPCFaces( void )
 
 	fExternFacesLoaded = TRUE;
 
-	for( iCounter = 0; iCounter < NUMBER_OF_EXTERNAL_NPC_FACES; iCounter++ )
-	{
-		uiExternalStaticNPCFaces[ iCounter ] = ( UINT32 )InitFace( ( UINT8 )( uiExternalFaceProfileIds[ iCounter ] ), NOBODY, FACE_FORCE_SMALL );
-	}
+
+	//
+	// Code for loading miners' faces has been moved to LuaMines::InitMinerFaces ...
+	//
+	//for( iCounter = 0; iCounter < NUMBER_OF_EXTERNAL_NPC_FACES; iCounter++ )
+	//{
+	//	uiExternalStaticNPCFaces[ iCounter ] = ( UINT32 )InitFace( ( UINT8 )( uiExternalFaceProfileIds[ iCounter ] ), NOBODY, FACE_FORCE_SMALL );
+	//}
+	// ... put Skyrider's face at index 0
+	uiExternalStaticNPCFaces.push_back(( UINT32 )InitFace( ( UINT8 )( SKYRIDER ), NOBODY, FACE_FORCE_SMALL ));
 
 	return;
 }
@@ -322,10 +332,16 @@ void ShutdownStaticExternalNPCFaces( void )
 	fExternFacesLoaded = FALSE;
 
 	// remove all external npc faces
-	for( iCounter = 0; iCounter < NUMBER_OF_EXTERNAL_NPC_FACES; iCounter++ )
+	//for( iCounter = 0; iCounter < NUMBER_OF_EXTERNAL_NPC_FACES; iCounter++ )
+	//{
+	//	DeleteFace( uiExternalStaticNPCFaces[ iCounter ] );
+	//}
+	for (std::vector<UINT32>::iterator face = uiExternalStaticNPCFaces.begin();
+		face != uiExternalStaticNPCFaces.end(); ++face)
 	{
-		DeleteFace( uiExternalStaticNPCFaces[ iCounter ] );
+		DeleteFace(*face);
 	}
+	uiExternalStaticNPCFaces.clear();
 }
 
 
@@ -1599,11 +1615,11 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 		// now being used in a different way...
 		/*
 		if ( ( (usQuoteNum == QUOTE_PERSONALITY_TRAIT &&
-					(gMercProfiles[ubCharacterNum].bPersonalityTrait == FORGETFUL ||
-					gMercProfiles[ubCharacterNum].bPersonalityTrait == CLAUSTROPHOBIC ||
-					gMercProfiles[ubCharacterNum].bPersonalityTrait == NERVOUS ||
-					gMercProfiles[ubCharacterNum].bPersonalityTrait == NONSWIMMER ||
-					gMercProfiles[ubCharacterNum].bPersonalityTrait == FEAR_OF_INSECTS))
+					(gMercProfiles[ubCharacterNum].bDisability == FORGETFUL ||
+					gMercProfiles[ubCharacterNum].bDisability == CLAUSTROPHOBIC ||
+					gMercProfiles[ubCharacterNum].bDisability == NERVOUS ||
+					gMercProfiles[ubCharacterNum].bDisability == NONSWIMMER ||
+					gMercProfiles[ubCharacterNum].bDisability == FEAR_OF_INSECTS))
 					//usQuoteNum == QUOTE_STARTING_TO_WHINE ||
 #ifdef JA2BETAVERSION
 					|| usQuoteNum == QUOTE_WHINE_EQUIPMENT) && (guiCurrentScreen != QUEST_DEBUG_SCREEN) )
@@ -1750,11 +1766,14 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 //					sprintf( zFileName,"NPC_SPEECH\\g_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
 //				}
 //			#else
+			if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
+			{
 				sprintf( zFileName,"NPC_SPEECH\\d_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 				if ( !FileExists( zFileName ) )
 				{
 					sprintf( zFileName,"NPC_SPEECH\\d_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
 				}
+			}
 //			#endif
 		}
 		else
@@ -1763,7 +1782,9 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 			sprintf( zFileName,"NPCDATA\\d_%03d.EDT", ubCharacterNum );
 		}
 	}
-	else if ( ubCharacterNum >= FIRST_RPC && ubCharacterNum < GASTON &&
+	//else if ( ubCharacterNum >= FIRST_RPC && ubCharacterNum < GASTON &&
+	//new profiles by Jazz
+	else if ( ( gProfilesRPC[ubCharacterNum].ProfilId == ubCharacterNum || gProfilesNPC[ubCharacterNum].ProfilId == ubCharacterNum || gProfilesVehicle[ubCharacterNum].ProfilId == ubCharacterNum ) &&	
 			( !( gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
 			|| ProfileCurrentlyTalkingInDialoguePanel( ubCharacterNum )
 			|| (gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_FORCENPCQUOTE) )
@@ -1786,11 +1807,14 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 
 		if ( fWavFile )
 		{
-			// Lesh: patch to allow playback ogg speech files
-			sprintf( zFileName,"NPC_SPEECH\\%03d_%03d.ogg",ubFileNumID,usQuoteNum );
-			if ( !FileExists( zFileName ) )
+			if ( gSoundProfileValue[ubFileNumID].EnabledSound == TRUE )
 			{
-				sprintf( zFileName,"NPC_SPEECH\\%03d_%03d.wav",ubFileNumID,usQuoteNum );
+				// Lesh: patch to allow playback ogg speech files
+				sprintf( zFileName,"NPC_SPEECH\\%03d_%03d.ogg",ubFileNumID,usQuoteNum );
+				if ( !FileExists( zFileName ) )
+				{
+					sprintf( zFileName,"NPC_SPEECH\\%03d_%03d.wav",ubFileNumID,usQuoteNum );
+				}
 			}
 		}
 		else
@@ -1804,8 +1828,12 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 		if ( fWavFile )
 		{
 			#ifdef RUSSIAN
-				if( ubCharacterNum >= FIRST_RPC && ubCharacterNum < GASTON && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
+			//	if( ubCharacterNum >= FIRST_RPC && ubCharacterNum < GASTON && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
+				//new profiles by Jazz
+				if ( ( gProfilesRPC[ubCharacterNum].ProfilId == ubCharacterNum || gProfilesNPC[ubCharacterNum].ProfilId == ubCharacterNum || gProfilesVehicle[ubCharacterNum].ProfilId == ubCharacterNum ) && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )	
 				{
+					if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
+					{
 					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 					if ( !FileExists( zFileName ) )
 					{
@@ -1821,14 +1849,19 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 						}
 //</SB>
 					}
+					}
 				}
 				else
 			#endif
-			{	// build name of wav file (characternum + quotenum)
+			{
+				if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
+				{
+				// build name of wav file (characternum + quotenum)
 				sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 				if ( !FileExists( zFileName ) )
 				{
 					sprintf( zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+				}
 				}
 			}
 		}
@@ -2636,12 +2669,12 @@ void SayQuote58FromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQ
 			SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo, 0, 0, TRUE ) )
 		{
 			// ATE: This is to check gedner for this quote...
-			if ( QuoteExp_GenderCode[ pTeamSoldier->ubProfile ] == 0 && bSex == FEMALE )
+			if ( QuoteExp[ pTeamSoldier->ubProfile ].QuoteExpGenderCode == 0 && bSex == FEMALE )
 			{
 				continue;
 			}
 
-			if ( QuoteExp_GenderCode[ pTeamSoldier->ubProfile ] == 1 && bSex == MALE )
+			if ( QuoteExp[ pTeamSoldier->ubProfile ].QuoteExpGenderCode == 1 && bSex == MALE )
 			{
 				continue;
 			}

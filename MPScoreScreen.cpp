@@ -329,7 +329,6 @@ void			HandleMPSScreen()
 		switch( gubMPSScreenHandler )
 		{
 			case MPS_CANCEL:
-				// TODO.RW: Exit game, disconnect
 
 				if (is_server)
 					server_disconnect();
@@ -475,7 +474,7 @@ BOOLEAN		RenderMPSScreen()
 		}
 	}
 
-	if (PLAYER_BSIDE==MP_TYPE_COOP)
+	if (cGameType==MP_TYPE_COOP)
 	{
 		// CO-OP Mode, show stats for queens army
 		usPosY = MPS_PLAYERLIST_Y + (5 * MPS_PLAYER_GAP); // leave a space between players and AI
@@ -610,7 +609,7 @@ void DoneFadeOutForExitMPSScreen( void )
 	}
 	else
 #endif
-		SetIntroType( INTRO_BEGINING );
+		SetIntroType( INTRO_BEGINNING );
 
 	ExitMPSScreen(); // cleanup please, if we called a fadeout then we didnt do it above
 

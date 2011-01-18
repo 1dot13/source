@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="ja2_Linker"
+	>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalLibraryDirectories="lib\VS2005\$(ConfigurationName)"
+		AdditionalDependencies="Console_2005Express.lib Editor_2005Express.lib Laptop_2005Express.lib lua_2005Express.lib SGP_2005Express.lib Strategic_2005Express.lib Tactical_2005Express.lib TacticalAI_2005Express.lib TileEngine_2005Express.lib Utils_2005Express.lib VFS_2005Express.lib 7z_2005Express.lib libpng.lib zlib.lib"
+	/>
+</VisualStudioPropertySheet>

@@ -40,21 +40,22 @@
 #define			HIGH_TOWN_LOYALTY						80
 #define			CIV_QUOTE_HINT							99
 
-
-typedef struct
-{
-	UINT8	ubNumEntries;
-	UINT8	ubUnusedCurrentEntry;
-
-} CIV_QUOTE;
-
 extern void CaptureTimerCallback( void );
 
 BOOLEAN gfSurrendered = FALSE;
 
-CIV_QUOTE	gCivQuotes[ NUM_CIV_QUOTES ];
+//--------------------------------------------------------------
+//Not used 
+typedef struct
+{
+	UINT16	ubNumEntries;
+	UINT16	ubUnusedCurrentEntry; //Unused
 
-UINT8	gubNumEntries[ NUM_CIV_QUOTES ] =
+} CIV_QUOTE;
+
+CIV_QUOTE	gCivQuotes[ NUM_CIV_QUOTES]; //Not used 
+
+UINT16	gubNumEntries[ NUM_CIV_QUOTES ] = // Not used 
 {
 	15,
 	15,
@@ -111,7 +112,7 @@ UINT8	gubNumEntries[ NUM_CIV_QUOTES ] =
 	3,
 	3
 };
-
+//--------------------------------------------------------------
 
 typedef struct
 {
@@ -131,20 +132,24 @@ CHAR16	gzCivQuote[ 320 ];
 UINT16	gusCivQuoteBoxWidth;
 UINT16	gusCivQuoteBoxHeight;
 
-
-void CopyNumEntriesIntoQuoteStruct( )
+//--------------------------------------------------------------
+void CopyNumEntriesIntoQuoteStruct( ) //  Not used 
 {
 	INT32	cnt;
 
 	for ( cnt = 0; cnt < NUM_CIV_QUOTES; cnt++ )
-	{
-		gCivQuotes[ cnt ].ubNumEntries = gubNumEntries[ cnt ];
+	{	
+		
+		if (cnt <= 50) 
+			gCivQuotes[ cnt ].ubNumEntries = gubNumEntries[ cnt ];
+		else 
+			gCivQuotes[ cnt ].ubNumEntries = 15;
 	}
 
 }
+//--------------------------------------------------------------
 
-
-BOOLEAN GetCivQuoteText( UINT8 ubCivQuoteID, UINT8 ubEntryID, STR16 zQuote )
+BOOLEAN GetCivQuoteText(UINT16 ubCivQuoteID, UINT16 ubEntryID, STR16 zQuote )
 {
 	CHAR8 zFileName[164];
 
@@ -163,7 +168,10 @@ BOOLEAN GetCivQuoteText( UINT8 ubCivQuoteID, UINT8 ubEntryID, STR16 zQuote )
 	}
 	else
 	{
-		sprintf( zFileName,"NPCDATA\\CIV%02d.edt",ubCivQuoteID );
+		if (ubCivQuoteID <= 9)
+			sprintf( zFileName,"NPCDATA\\CIV%02d.edt",ubCivQuoteID );
+		else
+			sprintf( zFileName,"NPCDATA\\CIV%d.edt",ubCivQuoteID );
 	}
 
 	CHECKF( FileExists( zFileName ) );
@@ -370,18 +378,18 @@ void QuoteOverlayClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 }
 
 
-void BeginCivQuote( SOLDIERTYPE *pCiv, UINT8 ubCivQuoteID, UINT8 ubEntryID, INT16 sX, INT16 sY )
+void BeginCivQuote( SOLDIERTYPE *pCiv, UINT16 ubCivQuoteID, UINT16 ubEntryID, INT16 sX, INT16 sY )
 {
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
-	CHAR16									zQuote[ 320 ];
-
+	CHAR16					zQuote[ 320 ];	
+	
 	// OK, do we have another on?
 	if ( gCivQuoteData.bActive )
 	{
 		// Delete?
 		ShutDownQuoteBox( TRUE );
 	}
-
+	
 	// get text
 	if ( !GetCivQuoteText( ubCivQuoteID, ubEntryID, zQuote ) )
 	{
@@ -469,7 +477,7 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT8 ubCivQuoteID, UINT8 ubEntryID, INT1
 
 }
 
-UINT8 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT8 *pubCivHintToUse, BOOLEAN fCanUseHints )
+UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLEAN fCanUseHints )
 {
 	UINT8	ubCivType;
 	INT8	bTownId;
@@ -478,11 +486,29 @@ UINT8 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT8 *pubCivHintToUse, BOOLEAN
 	INT8		bCivHint;
 	INT8	bMineId;
 	BOOLEAN bMiners = FALSE;
-
+	UINT16 iCounter2;
+	UINT16 FileEDTQUoteID;
+	
 	(*pubCivHintToUse) = 0;
 
 	ubCivType = GetCivType( pCiv );
-
+	
+	
+	for( iCounter2 = NON_CIV_GROUP; iCounter2 < NUM_CIV_GROUPS; iCounter2++ )
+		{	
+			if (pCiv->ubCivilianGroup > QUEENS_CIV_GROUP && pCiv->ubCivilianGroup == iCounter2)
+			{
+				if ( pCiv->aiData.bNeutral )
+					{
+						return( FileEDTQUoteID = iCounter2*2 +10);
+					}
+					else
+					{
+						return( FileEDTQUoteID = iCounter2*2 + 11);
+					}
+			}	
+		}
+	
 	if ( ubCivType == CIV_TYPE_ENEMY )
 	{
 		// Determine what type of quote to say...
@@ -778,19 +804,23 @@ void HandleCivQuote( )
 
 void StartCivQuote( SOLDIERTYPE *pCiv )
 {
-	UINT8 ubCivQuoteID;
+	UINT16 ubCivQuoteID;
 	INT16	sX, sY;
-	UINT8	ubEntryID = 0;
+	UINT16	ubEntryID = 0;
 	INT16	sScreenX, sScreenY;
-	UINT8	ubCivHintToUse;
-
+	UINT16	ubCivHintToUse;
+	UINT16 CivQuoteDelta = 0;
+	
+	UINT16 ubCivQuoteID2;
+	UINT16 RandomVal;
+	
 	// ATE: Check for old quote.....
 	// This could have been stored on last attempt...
 	if ( pCiv->bCurrentCivQuote == CIV_QUOTE_HINT )
 	{
 		// Determine which quote to say.....
-	// CAN'T USE HINTS, since we just did one...
-	pCiv->bCurrentCivQuote = -1;
+		// CAN'T USE HINTS, since we just did one...
+		pCiv->bCurrentCivQuote = -1;
 		pCiv->bCurrentCivQuoteDelta = 0;
 		ubCivQuoteID = DetermineCivQuoteEntry( pCiv, &ubCivHintToUse, FALSE );
 	}
@@ -799,7 +829,23 @@ void StartCivQuote( SOLDIERTYPE *pCiv )
 		// Determine which quote to say.....
 		ubCivQuoteID = DetermineCivQuoteEntry( pCiv, &ubCivHintToUse, TRUE );
 	}
-
+	
+	if (ubCivQuoteID == CIV_QUOTE_ADULTS_REBELS || ubCivQuoteID == CIV_QUOTE_KIDS_REBELS || ubCivQuoteID == CIV_QUOTE_ENEMY_OFFER_SURRENDER ) 
+	{
+		RandomVal = 5;
+	}
+	else if (ubCivQuoteID == CIV_QUOTE_PC_MARRIED) 
+	{
+		RandomVal = 2;
+	}
+	else if (ubCivQuoteID == CIV_QUOTE_HICKS_SEE_US_AT_NIGHT) 
+	{
+		RandomVal = 3;
+	}
+	else 
+		RandomVal = 15;
+	
+	
 	// Determine entry id
 	// ATE: Try and get entry from soldier pointer....
 	if ( ubCivQuoteID != CIV_QUOTE_HINT )
@@ -807,19 +853,23 @@ void StartCivQuote( SOLDIERTYPE *pCiv )
 		if ( pCiv->bCurrentCivQuote == -1 )
 		{
 			// Pick random one
-			pCiv->bCurrentCivQuote = (INT8)Random( gCivQuotes[ ubCivQuoteID ].ubNumEntries - 2 );
+			//pCiv->bCurrentCivQuote = (INT8)Random( gCivQuotes[ ubCivQuoteID ].ubNumEntries - 2 );
+			ubCivQuoteID2  = Random(RandomVal-2);
 			pCiv->bCurrentCivQuoteDelta = 0;
 		}
 
-		ubEntryID	= pCiv->bCurrentCivQuote + pCiv->bCurrentCivQuoteDelta;
+		//ubEntryID	= pCiv->bCurrentCivQuote + pCiv->bCurrentCivQuoteDelta;
+		ubEntryID	= ubCivQuoteID2 + pCiv->bCurrentCivQuoteDelta;
 	}
 	else
 	{
-		ubEntryID = ubCivHintToUse;
+		ubEntryID =ubCivHintToUse;
 
 		// ATE: set value for quote ID.....
-		pCiv->bCurrentCivQuote			= ubCivQuoteID;
-		pCiv->bCurrentCivQuoteDelta = ubEntryID;
+		//pCiv->bCurrentCivQuote			= ubCivQuoteID;
+		ubCivQuoteID2 = ubCivQuoteID;
+		CivQuoteDelta = ubEntryID;
+		//pCiv->bCurrentCivQuoteDelta = ubEntryID;
 
 	}
 
@@ -835,20 +885,26 @@ void StartCivQuote( SOLDIERTYPE *pCiv )
 	// Increment use
 	if ( ubCivQuoteID != CIV_QUOTE_HINT )
 	{
-		pCiv->bCurrentCivQuoteDelta++;
-
+		//pCiv->bCurrentCivQuoteDelta++;
+		CivQuoteDelta++;
+		/*
 		if ( pCiv->bCurrentCivQuoteDelta == 2 )
 		{
 			pCiv->bCurrentCivQuoteDelta = 0;
 		}
+		*/
+		if ( CivQuoteDelta == 2 )
+		{
+			CivQuoteDelta = 0;
+		}	
+		
+		
 	}
 }
 
-
 void InitCivQuoteSystem( )
 {
-	memset( &gCivQuotes, 0, sizeof( gCivQuotes ) );
-	CopyNumEntriesIntoQuoteStruct( );
+	memset( &gCivQuotes, 0, sizeof( gCivQuotes ) );  //Not used 
 
 	memset( &gCivQuoteData, 0, sizeof( gCivQuoteData ) );
 	gCivQuoteData.bActive				= FALSE;
@@ -856,12 +912,13 @@ void InitCivQuoteSystem( )
 	gCivQuoteData.iDialogueBox	= -1;
 }
 
-
+//--------------------------------------------------------------
+//is allowed remove. Not used  and remove from SaveLoadGame.cpp.
 BOOLEAN SaveCivQuotesToSaveGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesWritten;
 
-	FileWrite( hFile, &gCivQuotes, sizeof( gCivQuotes ), &uiNumBytesWritten );
+	FileWrite( hFile, &gCivQuotes, sizeof( gCivQuotes), &uiNumBytesWritten );
 	if( uiNumBytesWritten != sizeof( gCivQuotes ) )
 	{
 		return( FALSE );
@@ -870,7 +927,7 @@ BOOLEAN SaveCivQuotesToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-
+//is allowed remove. Not used and remove from SaveLoadGame.cpp.
 BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
@@ -881,7 +938,140 @@ BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile )
 		return( FALSE );
 	}
 
-	CopyNumEntriesIntoQuoteStruct( );
+	CopyNumEntriesIntoQuoteStruct( ); //Not used 
 
 	return( TRUE );
+}
+//--------------------------------------------------------------
+
+// SANDRO - soldier taunts 
+void StartEnemyTaunt( SOLDIERTYPE *pCiv, INT8 iTauntType )
+{
+	INT16	sX, sY;
+	UINT8	ubEntryID = 0;
+	INT16	sScreenX, sScreenY;
+	UINT16	iTauntNumber;
+	STR16	sTauntText;
+	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
+	CHAR16	gzTauntQuote[ 320 ];
+
+	// if we have a different quote on, return, this one is not important
+	if ( gCivQuoteData.bActive )
+	{
+		return;
+	}
+
+	switch(iTauntType)
+	{
+		case TAUNT_FIRE_GUN:
+			iTauntNumber = Random(15);
+			sTauntText = sEnemyTauntsFireGun[iTauntNumber];
+			break;
+		case TAUNT_FIRE_LAUNCHER:
+			iTauntNumber = Random(4);
+			sTauntText = sEnemyTauntsFireLauncher[iTauntNumber];
+			break;
+		case TAUNT_THROW:
+			iTauntNumber = Random(7);
+			sTauntText = sEnemyTauntsThrow[iTauntNumber];
+			break;
+		case TAUNT_CHARGE_KNIFE:
+			iTauntNumber = Random(5);
+			sTauntText = sEnemyTauntsChargeKnife[iTauntNumber];
+			break;
+		case TAUNT_RUN_AWAY:
+			iTauntNumber = Random(7);
+			sTauntText = sEnemyTauntsRunAway[iTauntNumber];
+			break;
+		case TAUNT_SEEK_NOISE:
+			iTauntNumber = Random(4);
+			sTauntText = sEnemyTauntsSeekNoise[iTauntNumber];
+			break;
+		case TAUNT_ALERT:
+			iTauntNumber = Random(3);
+			sTauntText = sEnemyTauntsAlert[iTauntNumber];
+			break;
+		case TAUNT_GOT_HIT:
+			iTauntNumber = Random(7);
+			sTauntText = sEnemyTauntsGotHit[iTauntNumber];
+			break;
+		default:
+			return;
+			break;
+	}
+
+	// Determine location...
+	// Get location of civ on screen.....
+	GetSoldierScreenPos( pCiv, &sScreenX, &sScreenY );
+	sX = sScreenX;
+	sY = sScreenY;
+
+#ifdef TAIWANESE
+	swprintf( gzTauntQuote, L"%s", sTauntText );
+#else
+	swprintf( gzTauntQuote, L"\"%s\"", sTauntText );
+#endif
+
+	// Create video oeverlay....
+	memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
+
+	// Prepare text box
+	gCivQuoteData.iDialogueBox = PrepareMercPopupBox( gCivQuoteData.iDialogueBox , BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, gzTauntQuote, DIALOGUE_DEFAULT_WIDTH, 0, 0, 0, &gusCivQuoteBoxWidth, &gusCivQuoteBoxHeight );
+
+	// OK, find center for box......
+	sX = sX - ( gusCivQuoteBoxWidth / 2 );
+	sY = sY - ( gusCivQuoteBoxHeight / 2 );
+
+	// OK, limit to screen......
+	{
+		if ( sX < 0 )
+		{
+			sX = 0;
+		}
+
+		// CHECK FOR LEFT/RIGHT
+		if ( ( sX + gusCivQuoteBoxWidth ) > SCREEN_WIDTH )
+		{
+			sX = SCREEN_WIDTH - gusCivQuoteBoxWidth;
+		}
+
+		// Now check for top
+		if ( sY < gsVIEWPORT_WINDOW_START_Y )
+		{
+			sY = gsVIEWPORT_WINDOW_START_Y;
+		}
+
+		// Check for bottom
+		if ( ( sY + gusCivQuoteBoxHeight ) > (SCREEN_HEIGHT - INV_INTERFACE_HEIGHT))
+		{
+			sY = (SCREEN_HEIGHT - INV_INTERFACE_HEIGHT) - gusCivQuoteBoxHeight;
+		}
+	}
+
+	VideoOverlayDesc.sLeft			= sX;
+	VideoOverlayDesc.sTop				= sY;
+	VideoOverlayDesc.sRight			= VideoOverlayDesc.sLeft + gusCivQuoteBoxWidth;
+	VideoOverlayDesc.sBottom		= VideoOverlayDesc.sTop + gusCivQuoteBoxHeight;
+	VideoOverlayDesc.sX					= VideoOverlayDesc.sLeft;
+	VideoOverlayDesc.sY					= VideoOverlayDesc.sTop;
+	VideoOverlayDesc.BltCallback = RenderCivQuoteBoxOverlay;
+
+	gCivQuoteData.iVideoOverlay =	RegisterVideoOverlay( 0, &VideoOverlayDesc );
+
+
+	//Define main region
+	MSYS_DefineRegion( &(gCivQuoteData.MouseRegion), VideoOverlayDesc.sLeft, VideoOverlayDesc.sTop,	VideoOverlayDesc.sRight, VideoOverlayDesc.sBottom, MSYS_PRIORITY_HIGHEST,
+						CURSOR_NORMAL, MSYS_NO_CALLBACK, QuoteOverlayClickCallback );
+	// Add region
+	MSYS_AddRegion( &(gCivQuoteData.MouseRegion) );
+
+
+	gCivQuoteData.bActive = TRUE;
+
+	gCivQuoteData.uiTimeOfCreation = GetJA2Clock( );
+
+	gCivQuoteData.uiDelayTime = FindDelayForString( gzCivQuote ) + 1500;
+
+	gCivQuoteData.pCiv = pCiv;
+
 }

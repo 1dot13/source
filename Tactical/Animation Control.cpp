@@ -18,6 +18,7 @@
 #include "rotting corpses.h"
 #include "points.h"
 #include "Debug Control.h"
+#include "Random.h"
 #endif
 
 #include "connect.h"
@@ -41,6 +42,35 @@ typedef struct
 //<SB> crouch throwing
 static UINT16 CrouchedThrowAnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,9,460,10,11,12,13,14,442,603,999,0,0,0,0 };
 //</SB>
+
+///ddd
+static UINT16 StoneAnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,402,1,2,3,4,5,6,7,8,402,1,2,3,4,5,6,7,8,601,999,0,0,0,0,0 };
+
+static UINT16 CrouchedShootRocketScript[MAX_FRAMES_PER_ANIM] = 
+{757,1,2,3,4,5,6,7,8,9,10,11,12,470,430,13,14,15,16,477,17,18,19,20,753,499,999,0,0,0,0};
+static UINT16 SwatWithKnifeScript[MAX_FRAMES_PER_ANIM] = 
+//{1,2,3,4,5,6,7,703,8,9,10,11,704,12,13,14,15,16,17,18,19,501,999,0,0,0,0};
+{5,703,6,7,8,9,10,11,704,12,13,14,15,16,501,999,0,0,0,0};//такая последовательность предлагается в джа2бин
+static UINT16 SwatBackWithKnifeScript[MAX_FRAMES_PER_ANIM] = 
+{16,15,14,13,12,704,11,10,9,8,7,6,703,5,501,999,0,0,0,0}; 
+
+static UINT16 SwatBackWithNothingScript[MAX_FRAMES_PER_ANIM] = 
+{16,15,14,13,12,704,11,10,9,8,7,6,703,5,501,999,0,0,0,0};
+
+//хз, может понадобится править цифры. скрипт кидания гранат
+static UINT16 ThrowGrenadeStanceAnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,9,10,460,11,12,13,14,15,16,17,18,19,442,601,999,0,0,0,0  };
+static UINT16 LobGrenadeStanceAnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,9,10,460,11,12,13,14,15,16,17,18,19,442,601,999,0,0,0,0  };
+//перекат
+static UINT16 ROLL_L_AnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,501,999,0,0,0,0  };
+static UINT16 ROLL_R_AnimationScript[MAX_FRAMES_PER_ANIM] = { 14,13,12,11,10,9,8,7,6,5,4,3,2,1,501,999,0,0,0,0  };
+
+
+
+
+
+
+
+
 
 ANI_SPEED_DEF gubAnimCrawlSpeeds[ TOTALBODYTYPES ];
 //Block for anim file
@@ -929,6 +959,27 @@ ANIMCONTROLTYPE		gAnimControl[ NUMANIMATIONSTATES ] =
 	//<SB> crouch throwing
 	"THROW ITEM CROUCHED",	0,	80,	(FLOAT)0,	ANIM_STATIONARY	| ANIM_NOMOVE_MARKER | ANIM_NONINTERRUPT | ANIM_MIN_EFFORT | ANIM_ATTACK,	ANIM_CROUCH,	ANIM_CROUCH, -1,
 	//</SB
+	//ddd
+		// BIG GUY with stone
+	"BIG GUY STONE" , 0, 180, (FLOAT)0, ANIM_STATIONARY | ANIM_TURNING | ANIM_MERCIDLE | ANIM_NO_EFFORT, ANIM_STAND, ANIM_STAND,	-1,
+	"SHOOT ROCKET CROUCHED" , 0,110,(FLOAT)0, ANIM_STATIONARY | ANIM_TURNING | ANIM_FASTTURN | ANIM_NORESTART | ANIM_LIGHT_EFFORT	| ANIM_ATTACK ,		ANIM_CROUCH,	ANIM_CROUCH, -1,
+	//"SWAT with knife"		,0,	0,	(FLOAT)2.2, ANIM_MOVING | ANIM_TURNING	| ANIM_NORESTART | ANIM_RAISE_WEAPON | ANIM_LIGHT_EFFORT,	ANIM_CROUCH, ANIM_CROUCH, -1,
+	"SWAT with knife"		,0,	0,	(FLOAT)2.2, ANIM_MOVING | ANIM_NORESTART | ANIM_LIGHT_EFFORT | ANIM_TURNING, ANIM_CROUCH, ANIM_CROUCH, -1,
+	"SWAT BACKWARDS with knife"	,  0, 110, (FLOAT)1.4, ANIM_MOVING | ANIM_NORESTART | ANIM_LIGHT_EFFORT | ANIM_TURNING, ANIM_CROUCH, ANIM_CROUCH, -1,
+	"SWAT BACKWARDS with nothing", 0, 110, (FLOAT)1.4, ANIM_MOVING | ANIM_NORESTART | ANIM_LIGHT_EFFORT | ANIM_TURNING, ANIM_CROUCH, ANIM_CROUCH, -1,
+	
+	//THROW gren
+	{"THROW GRENADE"	, 0,80, (FLOAT)0,	ANIM_STATIONARY	| ANIM_NOMOVE_MARKER | ANIM_NONINTERRUPT | ANIM_MIN_EFFORT	| ANIM_ATTACK ,		ANIM_STAND, ANIM_STAND, -1},
+	//LOB gren
+	{"LOB GRENADE"						, 0,		80,	 (FLOAT)0,		ANIM_STATIONARY	| ANIM_NOMOVE_MARKER | ANIM_NONINTERRUPT | ANIM_MIN_EFFORT	| ANIM_ATTACK ,		ANIM_STAND, ANIM_STAND, -1},
+
+	//ROLL PRONE LEFT
+	{"ROLL PRONE LEFT"			, 0,			80, (FLOAT)0.8 /*1.1*/, ANIM_MOVING | ANIM_NORESTART | ANIM_RAISE_WEAPON | ANIM_VARIABLE_EFFORT,	ANIM_PRONE,	ANIM_PRONE, -1},
+
+	//ROLL PRONE RIGHT
+	{"ROLL PRONE RIGHT"			, 0,			80, (FLOAT)0.8 /*1.1*/, ANIM_MOVING | ANIM_NORESTART | ANIM_RAISE_WEAPON | ANIM_VARIABLE_EFFORT,	ANIM_PRONE,	ANIM_PRONE, -1},
+	
+
 };
 
 ANI_SPEED_DEF gubAnimWalkSpeeds[ TOTALBODYTYPES ] =
@@ -1313,6 +1364,19 @@ void	InitAnimationSurfacesPerBodytype( )
 	//<SB> crouch throwing
 	gubAnimSurfaceIndex[ REGMALE ][ THROW_ITEM_CROUCHED ]										= RGMCRTHROW;
 	//</SB>
+	//ddd shoot rocket crouched
+	gubAnimSurfaceIndex[ REGMALE ][ SHOOT_ROCKET_CROUCHED ]							= RGMCRROCKET;
+	gubAnimSurfaceIndex[ REGMALE ][ SWATTING_WK ]							= RGMSWKNIFE;
+	gubAnimSurfaceIndex[ REGMALE ][ SWAT_BACKWARDS_WK ]						= RGMSWKNIFE;
+	gubAnimSurfaceIndex[ REGMALE ][ SWAT_BACKWARDS_NOTHING ]				= RGMNOTHING_SWAT;
+	//кидание гранаты
+	gubAnimSurfaceIndex[ REGMALE ][ THROW_GRENADE_STANCE ]				= RGMSTHRG;
+	gubAnimSurfaceIndex[ REGMALE ][ LOB_GRENADE_STANCE ]				= RGMSLOBG;
+	//перекат
+	gubAnimSurfaceIndex[ REGMALE ][ ROLL_PRONE_L ]					  	= RGMROLL_PR;
+	gubAnimSurfaceIndex[ REGMALE ][ ROLL_PRONE_R ]					  	= RGMROLL_PR;
+
+
 
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ STANDING][0]									= RGMWATER_R_STD;
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ WALKING ][0]									= RGMWATER_R_WALK;
@@ -1671,6 +1735,19 @@ void	InitAnimationSurfacesPerBodytype( )
 	//<SB> crouch throwing
 	gubAnimSurfaceIndex[ BIGMALE ][ THROW_ITEM_CROUCHED ]										= BGMCRTHROW;
 	//</SB>
+//dddd
+	gubAnimSurfaceIndex[ BIGMALE ][ BIGGUY_STONE ]							= BGMWITHSTONE;
+	gubAnimSurfaceIndex[ BIGMALE ][ SHOOT_ROCKET_CROUCHED ]					= BGMCRROCKET;
+	gubAnimSurfaceIndex[ BIGMALE ][ SWATTING_WK ]							= BGMSWKNIFE;
+	gubAnimSurfaceIndex[ BIGMALE ][ SWAT_BACKWARDS_WK ]						= BGMSWKNIFE;
+	gubAnimSurfaceIndex[ BIGMALE ][ SWAT_BACKWARDS_NOTHING ]				= BGMNOTHING_SWAT;
+	//кидание гранаты
+	gubAnimSurfaceIndex[ BIGMALE ][ THROW_GRENADE_STANCE ]				= BGMSTHRG;
+	gubAnimSurfaceIndex[ BIGMALE ][ LOB_GRENADE_STANCE ]				= BGMSLOBG;
+	//перекат
+	gubAnimSurfaceIndex[ BIGMALE ][ ROLL_PRONE_L ]					  	= BGMROLL_PR;
+	gubAnimSurfaceIndex[ BIGMALE ][ ROLL_PRONE_R ]					  	= BGMROLL_PR;
+
 
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ STANDING ]						= BGMPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ WALKING ]							= BGMNOTHING_WALK;
@@ -1793,6 +1870,14 @@ void	InitAnimationSurfacesPerBodytype( )
 	gRandomAnimDefs[ BIGMALE ][ 6 ].ubFlags							= RANDOM_ANIM_DRUNK;
 	gRandomAnimDefs[ BIGMALE ][ 6 ].ubAnimHeight				= ANIM_STAND;
 
+	///ddd big guy with stone
+	gRandomAnimDefs[ BIGMALE ][ 7 ].ubHandRestriction		= RANDOM_ANIM_NOTHINGINHAND;
+	gRandomAnimDefs[ BIGMALE ][ 7 ].sAnimID							= BIGGUY_STONE;
+	gRandomAnimDefs[ BIGMALE ][ 7 ].ubStartRoll					= 20;
+	gRandomAnimDefs[ BIGMALE ][ 7 ].ubEndRoll						= 26;
+	gRandomAnimDefs[ BIGMALE ][ 7 ].ubFlags							= RANDOM_ANIM_CASUAL ;
+	gRandomAnimDefs[ BIGMALE ][ 7 ].ubAnimHeight				= ANIM_STAND;
+
 
 	gubAnimSurfaceCorpseID[ BIGMALE ][ GENERIC_HIT_DEATH ]						= MMERC_FWD;
 	gubAnimSurfaceCorpseID[ BIGMALE ][ FALLBACK_HIT_DEATH ]						= MMERC_BCK;
@@ -1810,8 +1895,8 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceCorpseID[ BIGMALE ][ FALLBACK_HIT_DEATHTWITCHNB ]		= MMERC_BCK;
 	gubAnimSurfaceCorpseID[ BIGMALE ][ PRONE_HIT_DEATHTWITCHNB ]			= MMERC_PRN;
 	gubAnimSurfaceCorpseID[ BIGMALE ][ PRONE_LAY_FROMHIT ]						= MMERC_PRN;
-	gubAnimSurfaceCorpseID[ REGMALE ][ FALLOFF ]											= MMERC_FALLF;
-	gubAnimSurfaceCorpseID[ REGMALE ][ FALLFORWARD_ROOF ]							= MMERC_FALL;
+	gubAnimSurfaceCorpseID[ BIGMALE ][ FALLOFF ]											= MMERC_FALLF;
+	gubAnimSurfaceCorpseID[ BIGMALE ][ FALLFORWARD_ROOF ]							= MMERC_FALL;
 	gubAnimSurfaceCorpseID[ BIGMALE ][ FLYBACKHIT_STOP ]							= MMERC_DHD;
 	gubAnimSurfaceCorpseID[ BIGMALE ][ STAND_FALLFORWARD_STOP ]				= MMERC_FWD;
 	gubAnimSurfaceCorpseID[ BIGMALE ][ FALLBACKHIT_STOP ]							= MMERC_BCK;
@@ -2039,6 +2124,18 @@ void	InitAnimationSurfacesPerBodytype( )
 	//<SB> crouch throwing
 	gubAnimSurfaceIndex[ STOCKYMALE ][ THROW_ITEM_CROUCHED ]										= RGMCRTHROW;
 	//</SB>
+	//dddd
+	gubAnimSurfaceIndex[ STOCKYMALE ][ SHOOT_ROCKET_CROUCHED ]							= RGMCRROCKET;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ SWATTING_WK ]							= RGMSWKNIFE;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ SWAT_BACKWARDS_WK ]						= RGMSWKNIFE;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ SWAT_BACKWARDS_NOTHING ]				= RGMNOTHING_SWAT;
+		//кидание гранаты
+	gubAnimSurfaceIndex[ STOCKYMALE ][ THROW_GRENADE_STANCE ]				= RGMSTHRG;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ LOB_GRENADE_STANCE ]				= RGMSLOBG;
+	//перекат
+	gubAnimSurfaceIndex[ STOCKYMALE ][ ROLL_PRONE_L ]					  	= RGMROLL_PR;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ ROLL_PRONE_R ]					  	= RGMROLL_PR;
+
 
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ STANDING ]						= RGMPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ WALKING ]						= RGMNOTHING_WALK;
@@ -2394,6 +2491,19 @@ void	InitAnimationSurfacesPerBodytype( )
 	//<SB> crouch throwing
 	gubAnimSurfaceIndex[ REGFEMALE ][ THROW_ITEM_CROUCHED ]										= RGFCRTHROW;
 	//</SB>
+	//ddd
+	gubAnimSurfaceIndex[ REGFEMALE ][ SHOOT_ROCKET_CROUCHED ]							= RGFCRROCKET;
+	gubAnimSurfaceIndex[ REGFEMALE ][ SWAT_BACKWARDS_NOTHING ]				= RGFNOTHING_SWAT;
+	gubAnimSurfaceIndex[ REGFEMALE ][ SWATTING_WK ]							= RGFSWKNIFE;
+	gubAnimSurfaceIndex[ REGFEMALE ][ SWAT_BACKWARDS_WK ]					= RGFSWKNIFE;
+		//кидание гранаты
+	gubAnimSurfaceIndex[ REGFEMALE ][ THROW_GRENADE_STANCE ]				= RGFSTHRG;
+	gubAnimSurfaceIndex[ REGFEMALE ][ LOB_GRENADE_STANCE ]				= RGFSLOBG;
+	//перекта
+	gubAnimSurfaceIndex[ REGFEMALE ][ ROLL_PRONE_L ]					= RGFROLL_PR;
+	gubAnimSurfaceIndex[ REGFEMALE ][ ROLL_PRONE_R ]					= RGFROLL_PR;
+
+
 
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ STANDING ]						= RGFPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ WALKING ]							= RGFNOTHING_WALK;
@@ -3058,17 +3168,60 @@ BOOLEAN LoadAnimationStateInstructions( )
 		return( FALSE );
 	}
 
+	//ddd патамушта вылетает при превышении 320 значения ;( 
+	//придется мастерить вспомогательный массив, потом копировать его содержимое в гусаниминст
+	UINT16 fuckTheBoundz[320][100];
+
 	//Read in block
-	if ( !FileRead( hFile, gusAnimInst, sizeof( gusAnimInst ), &uiBytesRead ) )
+	//if ( !FileRead( hFile, gusAnimInst, sizeof( gusAnimInst ), &uiBytesRead ) ) //commentet by ddd
+	if ( !FileRead( hFile, fuckTheBoundz, sizeof( fuckTheBoundz ), &uiBytesRead ) )
 	{
 		return( FALSE );
 	}
 
 	FileClose( hFile );
 
+	//memcpy(gusAnimInst, fuckTheBoundz, sizeof(gusAnimInst)); 
+	for(int i=0;i<320;i++)
+		memcpy(gusAnimInst[i],fuckTheBoundz[i],sizeof(fuckTheBoundz[i]));
+		//gusAnimInst[i][0] = fuckTheBoundz[i][0];
+
+	//! для перегонки джа2бин в читаемый вид
+//	char gS[22];
+//	UINT32 uiNumBytesWritten = 64000;
+//	int ggg[MAX_ANIMATIONS][MAX_FRAMES_PER_ANIM];
+//	sprintf(gS, "%s\\%s", "c:", "zzz");
+//	hFile = FileOpen( gS, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
+//	
+//	for(int i=0;i<=MAX_ANIMATIONS;i++)
+//	{
+//		FilePrintf(hFile,"\r\nскрипт нумба :%02d === \r\n",i);
+//		for(int ii=0;ii<=MAX_FRAMES_PER_ANIM;ii++)
+//			FilePrintf(hFile,"%02d ",gusAnimInst[i][ii]);
+//		
+//	}
+//			//ggg[i][ii]=gusAnimInst[i][ii];
+//	//FileWrite( hFile, &ggg, sizeof( ggg ), &uiNumBytesWritten );
+//FileClose( hFile );
+//!
+//strcpy(NULL, "crash"); 
+
 		//<SB> crouch throwing
 		memcpy(gusAnimInst[ THROW_ITEM_CROUCHED ],CrouchedThrowAnimationScript,sizeof(CrouchedThrowAnimationScript));
 		//<SB> crouch throwing
+		
+		//ddd
+		memcpy(gusAnimInst[ BIGGUY_STONE ],StoneAnimationScript,sizeof(StoneAnimationScript));
+		memcpy(gusAnimInst[ SHOOT_ROCKET_CROUCHED ],CrouchedShootRocketScript,sizeof(CrouchedShootRocketScript));
+		memcpy(gusAnimInst[ SWATTING_WK ],SwatWithKnifeScript,sizeof(SwatWithKnifeScript));
+		memcpy(gusAnimInst[ SWAT_BACKWARDS_WK ],SwatBackWithKnifeScript,sizeof(SwatBackWithKnifeScript));
+		memcpy(gusAnimInst[ SWAT_BACKWARDS_NOTHING ],SwatBackWithNothingScript,sizeof(SwatBackWithNothingScript));
+
+		memcpy(gusAnimInst[ THROW_GRENADE_STANCE ],ThrowGrenadeStanceAnimationScript,sizeof(ThrowGrenadeStanceAnimationScript));
+		memcpy(gusAnimInst[ LOB_GRENADE_STANCE ],LobGrenadeStanceAnimationScript,sizeof(LobGrenadeStanceAnimationScript));
+	
+		memcpy(gusAnimInst[ ROLL_PRONE_L ],ROLL_L_AnimationScript,sizeof(ROLL_L_AnimationScript));
+		memcpy(gusAnimInst[ ROLL_PRONE_R ],ROLL_R_AnimationScript,sizeof(ROLL_R_AnimationScript));
 
 	return( TRUE );
 }
@@ -3438,7 +3591,7 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 
 		// Assume a target gridno is here.... get direction...
 		// ATE: use +2 in gridno because here head is far from body
-		bDir = (INT8)GetDirectionToGridNoFromGridNo( pSoldier->sGridNo + 2, pSoldier->sTargetGridNo );
+		bDir = (INT8)GetDirectionToGridNoFromGridNo( (INT16)( pSoldier->sGridNo + 2 ), pSoldier->sTargetGridNo );
 
 		return( gusQueenMonsterSpitAnimPerDir[ bDir ] );
 	}
@@ -3456,6 +3609,8 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 		if ( pSoldier->uiAnimSubFlags & SUB_ANIM_BIGGUYSHOOT2 )
 		{
 			usAnimSurface = BGMSTANDAIM;
+//			if(Random(2))	usAnimSurface = BGMSTANDAIM; //ddd
+//			else usAnimSurface = BGMSTANDAIM2;
 		}
 	}
 
@@ -3557,6 +3712,15 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 					usAltAnimSurface = gubAnimSurfaceItemSubIndex[pSoldier->ubBodyType][usAnimState];
 					if ( usAltAnimSurface != INVALID_ANIMATION )
 					{
+						//ddd{ сюда ставить альтернативную анимашку для выстрела из пистолета
+						/*if ( usAnimSurface == BGMSTANDAIM2 )
+						{
+						
+						usAnimSurface = BGMFLEX;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"usanimcashe");
+
+						}
+						else //}ddd*/
 						usAnimSurface = usAltAnimSurface;
 						fAdjustedForItem	= TRUE;
 					}

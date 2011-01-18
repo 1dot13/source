@@ -48,4 +48,8 @@ BOOLEAN IsCorpseAtGridNo( INT32 sGridNo, UINT8 ubLevel );
 
 BOOLEAN SetOpenableStructureToClosed( INT32 sGridNo, UINT8 ubLevel );
 
+//Legion by Jazz
+BOOLEAN	IsJumpableWindowPresentAtGridNo( INT32 sGridNo , INT8 direction2 ); //legion 2 Windows
+BOOLEAN	IsLegionFencePresentAtGridno( INT32 sGridNo ); //legion 2 Fence
+
 #endif

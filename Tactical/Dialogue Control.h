@@ -3,6 +3,17 @@
 
 #include "faces.h"
 #include "gamescreen.h"
+#include "soldier profile type.h"
+#include <vector>
+
+typedef struct
+{
+	UINT16		uiIndex; // add
+	BOOLEAN EnabledSound;
+
+} SOUND_PROFILE_VALUES;
+
+extern SOUND_PROFILE_VALUES gSoundProfileValue[NUM_PROFILES];
 
 // An enumeration for dialog quotes
 enum DialogQuoteIDs
@@ -209,12 +220,12 @@ enum DialogQuoteIDs
 
 enum{
 	SKYRIDER_EXTERNAL_FACE =0,
-	MINER_FRED_EXTERNAL_FACE,
-	MINER_MATT_EXTERNAL_FACE,
-	MINER_OSWALD_EXTERNAL_FACE,
-	MINER_CALVIN_EXTERNAL_FACE,
-	MINER_CARL_EXTERNAL_FACE,
-	NUMBER_OF_EXTERNAL_NPC_FACES,
+	//MINER_FRED_EXTERNAL_FACE,
+	//MINER_MATT_EXTERNAL_FACE,
+	//MINER_OSWALD_EXTERNAL_FACE,
+	//MINER_CALVIN_EXTERNAL_FACE,
+	//MINER_CARL_EXTERNAL_FACE,
+	//NUMBER_OF_EXTERNAL_NPC_FACES,
 };
 
 
@@ -225,8 +236,9 @@ enum{
 	UPDATE_BOX_REASON_SHOW_BOX,
 };
 
-extern UINT32 uiExternalStaticNPCFaces[ ];
-extern UINT32 uiExternalFaceProfileIds[ ];
+//extern UINT32 uiExternalStaticNPCFaces[ ];
+extern std::vector<UINT32> uiExternalStaticNPCFaces;
+//extern UINT32 uiExternalFaceProfileIds[ ];
 
 // Functions for handling dialogue Q
 BOOLEAN InitalizeDialogueControl();

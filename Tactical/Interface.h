@@ -7,6 +7,80 @@
 
 #define		MAX_UICOMPOSITES				4
 
+enum
+{
+	WALK_ICON,
+	SNEAK_ICON,
+	RUN_ICON,
+	CRAWL_ICON,
+	LOOK_ICON,
+	ACTIONC_ICON,
+	TALK_ICON,
+	HAND_ICON,
+
+	OPEN_DOOR_ICON,
+	EXAMINE_DOOR_ICON,
+	LOCKPICK_DOOR_ICON,
+	BOOT_DOOR_ICON,
+	UNTRAP_DOOR_ICON,
+	USE_KEY_ICON,
+	USE_KEYRING_ICON,
+	EXPLOSIVE_DOOR_ICON,
+	USE_CROWBAR_ICON,
+
+	CANCEL_ICON,
+	NUM_ICONS
+};
+
+#define MAX_ENEMY_NAMES_CHARS		128
+
+typedef struct
+{
+	UINT16		uiIndex; // add
+	BOOLEAN		Hidden; //add
+
+} HIDDEN_NAMES_VALUES;
+
+extern HIDDEN_NAMES_VALUES zHiddenNames[500];
+
+typedef struct
+{
+	UINT16		uiIndex; 
+	BOOLEAN		Enabled; 
+	UINT16 		ExpLevel; 
+	UINT16 		Stats; 
+	UINT16		StatsMin;
+	UINT16		StatsMax;
+	CHAR16	szCurRank[MAX_ENEMY_NAMES_CHARS];
+
+} ENEMY_RANK_VALUES;
+
+extern ENEMY_RANK_VALUES zEnemyRank[500];
+
+typedef struct
+{
+	UINT16		uiIndex; // add
+	BOOLEAN		Enabled; //add
+	UINT16 		SectorX; //add
+	UINT16 		SectorY; //add
+	CHAR16	szCurGroup[MAX_ENEMY_NAMES_CHARS];
+
+} ENEMY_NAMES_VALUES;
+
+extern ENEMY_NAMES_VALUES zEnemyName[500];
+
+typedef struct
+{
+	UINT16		uiIndex; // add
+	BOOLEAN		Enabled; //add
+	BOOLEAN Loyalty;
+	BOOLEAN AddToBattle;
+	CHAR16	szCurGroup[MAX_ENEMY_NAMES_CHARS];
+
+} CIV_NAMES_VALUES;
+
+extern CIV_NAMES_VALUES zCivGroupName[NUM_CIV_GROUPS];
+
 extern		int INTERFACE_WIDTH;		//			640
 extern		int INTERFACE_HEIGHT;		//			120
 extern		int INV_INTERFACE_HEIGHT;	//			140
@@ -84,10 +158,14 @@ extern UINT32		guiSILHOUETTE;
 extern UINT32		guiCOMPANEL;
 extern UINT32		guiCOMPANELB;
 extern UINT32		guiRADIO;
-extern UINT32		guiPORTRAITICONS;
+extern UINT32		guiPORTRAITICONS;		// Default JA2 portrait icons (+ additional headgear icons from legion)
 extern UINT32		guiBURSTACCUM;
 extern UINT32		guiITEMPOINTERHATCHES;
 
+
+//legion
+extern UINT32		guiPORTRAITICONS_NV;			//legion: NV-Face Graphic
+extern UINT32		guiPORTRAITICONS_GAS_MASK;		//legion: GASMASK-Face Graphic
 
 extern MOUSE_REGION		gViewportRegion;
 extern MOUSE_REGION		gRadarRegion;
@@ -146,8 +224,10 @@ void HandleInterfaceBackgrounds( );
 void BeginOverlayMessage( UINT32 uiFont, STR16 pFontString, ... );
 void EndOverlayMessage( );
 
-
 void DrawSelectedUIAboveGuy( UINT16 usSoldierID );
+
+// HEADROCK HAM 4: Draw the CTH indicator, using values grabbed from the global CTH array
+BOOLEAN DrawCTHIndicator();
 
 void CreateCurrentTacticalPanelButtons( );
 void RemoveCurrentTacticalPanelButtons( );

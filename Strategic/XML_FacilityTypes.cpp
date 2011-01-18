@@ -57,6 +57,7 @@ struct
 }
 typedef facilitytypeParseData;
 
+BOOLEAN FacilityTypes_TextOnly;
 
 void InitFacilityTypeEntry( facilitytypeParseData *pData )
 {
@@ -125,7 +126,7 @@ void InitAssignmentDataArray( facilitytypeParseData *pData )
 	// Set RISK data
 	for (UINT16 cnt = 0; cnt < NUM_RISKS; cnt++)
 	{
-		pData->curAssignmentData.Risk[cnt].ubChance = 0;
+		pData->curAssignmentData.Risk[cnt].usChance = 0;
 		pData->curAssignmentData.Risk[cnt].bBaseEffect = 0;
 		pData->curAssignmentData.Risk[cnt].ubRange = 0;
 	}
@@ -397,7 +398,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			}
 			else
 			{
-				THROWEXCEPTION(L"FacilityTypes.XML Error: Tag <FACILITYTYPES> encountered too early! Please make sure to close all opened tags first.");
+				SGP_THROW(L"FacilityTypes.XML Error: Tag <FACILITYTYPES> encountered too early! Please make sure to close all opened tags first.");
 			}
 		}
 		else if(strcmp(name, "FACILITYTYPE") == 0)
@@ -408,65 +409,77 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 
 				if (pData->curIndex >= 1)
 				{
-
-					// Begin with basic facility data
-					wcscpy(gFacilityTypes[pData->curIndex].szFacilityName, pData->curFacilityTypeData.szFacilityName);
-					wcscpy(gFacilityTypes[pData->curIndex].szFacilityShortName, pData->curFacilityTypeData.szFacilityShortName);
-					gFacilityTypes[pData->curIndex].ubTotalStaffLimit = pData->curFacilityTypeData.ubTotalStaffLimit;
-
-					gFacilityTypes[pData->curIndex].ubMilitiaTrainersAllowed = pData->curFacilityTypeData.ubMilitiaTrainersAllowed;
-					gFacilityTypes[pData->curIndex].ubMobileMilitiaTrainersAllowed = pData->curFacilityTypeData.ubMobileMilitiaTrainersAllowed;
-					gFacilityTypes[pData->curIndex].usMilitiaTraining = pData->curFacilityTypeData.usMilitiaTraining;
-					gFacilityTypes[pData->curIndex].usMilitiaTraining = pData->curFacilityTypeData.usMilitiaTraining;
-
-					// Set assignment-specific data
-					for (UINT16 cnt = 0; cnt < NUM_FACILITY_ASSIGNMENTS; cnt++)
+					if (!FacilityTypes_TextOnly)
 					{
-						// Performance and limits
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].usPerformance = pData->curFacilityTypeData.AssignmentData[cnt].usPerformance;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubStaffLimit = pData->curFacilityTypeData.AssignmentData[cnt].ubStaffLimit;
-						wcscpy(gFacilityTypes[pData->curIndex].AssignmentData[cnt].szTooltipText, pData->curFacilityTypeData.AssignmentData[cnt].szTooltipText);
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].sCostPerHour = pData->curFacilityTypeData.AssignmentData[cnt].sCostPerHour;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].usFatigue = pData->curFacilityTypeData.AssignmentData[cnt].usFatigue;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].usKitDegrade = pData->curFacilityTypeData.AssignmentData[cnt].usKitDegrade;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].usSleep = pData->curFacilityTypeData.AssignmentData[cnt].usSleep;
+						// Begin with basic facility data
+							wcscpy(gFacilityTypes[pData->curIndex].szFacilityName, pData->curFacilityTypeData.szFacilityName);
+						wcscpy(gFacilityTypes[pData->curIndex].szFacilityShortName, pData->curFacilityTypeData.szFacilityShortName);
+						gFacilityTypes[pData->curIndex].ubTotalStaffLimit = pData->curFacilityTypeData.ubTotalStaffLimit;
 
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMaximumBreath = pData->curFacilityTypeData.AssignmentData[cnt].ubMaximumBreath;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMaximumMorale = pData->curFacilityTypeData.AssignmentData[cnt].ubMaximumMorale;
+						gFacilityTypes[pData->curIndex].ubMilitiaTrainersAllowed = pData->curFacilityTypeData.ubMilitiaTrainersAllowed;
+						gFacilityTypes[pData->curIndex].ubMobileMilitiaTrainersAllowed = pData->curFacilityTypeData.ubMobileMilitiaTrainersAllowed;
+						gFacilityTypes[pData->curIndex].usMilitiaTraining = pData->curFacilityTypeData.usMilitiaTraining;
+						gFacilityTypes[pData->curIndex].usMilitiaTraining = pData->curFacilityTypeData.usMilitiaTraining;
 
-						// Detection abilities
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubDetectEnemiesImmediate = pData->curFacilityTypeData.AssignmentData[cnt].ubDetectEnemiesImmediate;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].fDetectEnemiesDynamic = pData->curFacilityTypeData.AssignmentData[cnt].fDetectEnemiesDynamic;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].fDetectEnemiesLongrange = pData->curFacilityTypeData.AssignmentData[cnt].fDetectEnemiesLongrange;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].fDetectEnemiesAnywhere = pData->curFacilityTypeData.AssignmentData[cnt].fDetectEnemiesAnywhere;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].fCountEnemiesInWild = pData->curFacilityTypeData.AssignmentData[cnt].fCountEnemiesInWild;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].fCountEnemiesInCities = pData->curFacilityTypeData.AssignmentData[cnt].fCountEnemiesInCities;
-
-						// Other strategic abilities
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].sSkyriderCostModifier = pData->curFacilityTypeData.AssignmentData[cnt].sSkyriderCostModifier;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].usMineIncomeModifier = pData->curFacilityTypeData.AssignmentData[cnt].usMineIncomeModifier;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].fOnlyLocalMineAffected = pData->curFacilityTypeData.AssignmentData[cnt].fOnlyLocalMineAffected;
-
-						// Conditions
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumStrength = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumStrength;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumAgility = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumAgility;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumDexterity = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumDexterity;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumHealth = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumHealth;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumWisdom = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumWisdom;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumMarksmanship = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumMarksmanship;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumLeadership = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumLeadership;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumExplosives = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumExplosives;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumMechanical = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumMechanical;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumMedical = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumMedical;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumLevel = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumLevel;
-						gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumLoyaltyHere = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumLoyaltyHere;
-
-						// Set risks associated with this assignment
-						for (UINT16 cntB = 0; cntB < NUM_RISKS; cntB++)
+						// Set assignment-specific data
+						for (UINT16 cnt = 0; cnt < NUM_FACILITY_ASSIGNMENTS; cnt++)
 						{
-							gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].ubChance = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].ubChance;
-							gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].bBaseEffect = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].bBaseEffect;
-							gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].ubRange = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].ubRange;
+							// Performance and limits
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].usPerformance = pData->curFacilityTypeData.AssignmentData[cnt].usPerformance;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubStaffLimit = pData->curFacilityTypeData.AssignmentData[cnt].ubStaffLimit;
+							wcscpy(gFacilityTypes[pData->curIndex].AssignmentData[cnt].szTooltipText, pData->curFacilityTypeData.AssignmentData[cnt].szTooltipText);
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].sCostPerHour = pData->curFacilityTypeData.AssignmentData[cnt].sCostPerHour;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].usFatigue = pData->curFacilityTypeData.AssignmentData[cnt].usFatigue;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].usKitDegrade = pData->curFacilityTypeData.AssignmentData[cnt].usKitDegrade;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].usSleep = pData->curFacilityTypeData.AssignmentData[cnt].usSleep;
+
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMaximumBreath = pData->curFacilityTypeData.AssignmentData[cnt].ubMaximumBreath;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMaximumMorale = pData->curFacilityTypeData.AssignmentData[cnt].ubMaximumMorale;
+
+							// Detection abilities
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubDetectEnemiesImmediate = pData->curFacilityTypeData.AssignmentData[cnt].ubDetectEnemiesImmediate;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].fDetectEnemiesDynamic = pData->curFacilityTypeData.AssignmentData[cnt].fDetectEnemiesDynamic;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].fDetectEnemiesLongrange = pData->curFacilityTypeData.AssignmentData[cnt].fDetectEnemiesLongrange;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].fDetectEnemiesAnywhere = pData->curFacilityTypeData.AssignmentData[cnt].fDetectEnemiesAnywhere;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].fCountEnemiesInWild = pData->curFacilityTypeData.AssignmentData[cnt].fCountEnemiesInWild;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].fCountEnemiesInCities = pData->curFacilityTypeData.AssignmentData[cnt].fCountEnemiesInCities;
+
+							// Other strategic abilities
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].sSkyriderCostModifier = pData->curFacilityTypeData.AssignmentData[cnt].sSkyriderCostModifier;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].usMineIncomeModifier = pData->curFacilityTypeData.AssignmentData[cnt].usMineIncomeModifier;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].fOnlyLocalMineAffected = pData->curFacilityTypeData.AssignmentData[cnt].fOnlyLocalMineAffected;
+
+							// Conditions
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumStrength = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumStrength;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumAgility = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumAgility;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumDexterity = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumDexterity;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumHealth = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumHealth;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumWisdom = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumWisdom;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumMarksmanship = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumMarksmanship;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumLeadership = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumLeadership;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumExplosives = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumExplosives;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumMechanical = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumMechanical;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumMedical = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumMedical;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumLevel = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumLevel;
+							gFacilityTypes[pData->curIndex].AssignmentData[cnt].ubMinimumLoyaltyHere = pData->curFacilityTypeData.AssignmentData[cnt].ubMinimumLoyaltyHere;
+
+							// Set risks associated with this assignment
+							for (UINT16 cntB = 0; cntB < NUM_RISKS; cntB++)
+							{
+								gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].usChance = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].usChance;
+								gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].bBaseEffect = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].bBaseEffect;
+								gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].ubRange = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].ubRange;
+							}
+						}
+					}
+					else
+					{
+						wcscpy(gFacilityTypes[pData->curIndex].szFacilityName, pData->curFacilityTypeData.szFacilityName);
+						wcscpy(gFacilityTypes[pData->curIndex].szFacilityShortName, pData->curFacilityTypeData.szFacilityShortName);
+					
+						for (UINT16 cnt = 0; cnt < NUM_FACILITY_ASSIGNMENTS; cnt++)
+						{
+							wcscpy(gFacilityTypes[pData->curIndex].AssignmentData[cnt].szTooltipText, pData->curFacilityTypeData.AssignmentData[cnt].szTooltipText);
 						}
 					}
 
@@ -476,7 +489,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			}
 			else
 			{
-				THROWEXCEPTION(L"FacilityTypes.XML Error: A </FACILITYTYPE> tag was encountered too early! Please make sure all tags are closed properly.");
+				SGP_THROW(L"FacilityTypes.XML Error: A </FACILITYTYPE> tag was encountered too early! Please make sure all tags are closed properly.");
 			}
 		}
 
@@ -548,64 +561,72 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			{
 				CHAR16 sErrorString[256];
 				swprintf(sErrorString, L"FacilityTypes.XML Error: Assignment data for facility type %d is missing a <ubAssignmentType> tag", pData->curIndex);
-				THROWEXCEPTION(sErrorString);
+				SGP_THROW(sErrorString);
 			}
-			else if (pData->curAssignmentData.ubStaffLimit <= 0 &&
-				pData->curAssignmentType != FAC_AMBIENT )
+			else if (pData->curAssignmentData.ubStaffLimit <= 0 && pData->curAssignmentType != FAC_AMBIENT && !FacilityTypes_TextOnly)
 			{
 				CHAR16 sErrorString[256];
 				swprintf(sErrorString, L"FacilityTypes.XML Error: Assignment data for facility type %d is missing a <ubStaffLimit> tag, or the value of the tag is 0.", pData->curIndex);
-				THROWEXCEPTION(sErrorString);
+				SGP_THROW(sErrorString);
 			}
 			else
 			{
 				// Set assignment data from memory
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usPerformance = pData->curAssignmentData.usPerformance;
-				wcscpy(pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].szTooltipText, pData->curAssignmentData.szTooltipText);
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubStaffLimit = pData->curAssignmentData.ubStaffLimit;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].sCostPerHour = pData->curAssignmentData.sCostPerHour;
-
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usFatigue = pData->curAssignmentData.usFatigue;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usSleep = pData->curAssignmentData.usSleep;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usKitDegrade = pData->curAssignmentData.usKitDegrade;
-
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].sSkyriderCostModifier = pData->curAssignmentData.sSkyriderCostModifier;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usMineIncomeModifier = pData->curAssignmentData.usMineIncomeModifier;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fOnlyLocalMineAffected = pData->curAssignmentData.fOnlyLocalMineAffected;
-
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMaximumBreath = pData->curAssignmentData.ubMaximumBreath;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMaximumMorale = pData->curAssignmentData.ubMaximumMorale;
-
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fCountEnemiesInCities = pData->curAssignmentData.fCountEnemiesInCities;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fCountEnemiesInWild = pData->curAssignmentData.fCountEnemiesInWild;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fDetectEnemiesAnywhere = pData->curAssignmentData.fDetectEnemiesAnywhere;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fDetectEnemiesDynamic = pData->curAssignmentData.fDetectEnemiesDynamic;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubDetectEnemiesImmediate = pData->curAssignmentData.ubDetectEnemiesImmediate;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fDetectEnemiesLongrange = pData->curAssignmentData.fDetectEnemiesLongrange;
-
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumAgility = pData->curAssignmentData.ubMinimumAgility;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumBreath = pData->curAssignmentData.ubMinimumBreath;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumDexterity = pData->curAssignmentData.ubMinimumDexterity;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumExplosives = pData->curAssignmentData.ubMinimumExplosives;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumHealth = pData->curAssignmentData.ubMinimumHealth;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumLeadership = pData->curAssignmentData.ubMinimumLeadership;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumLevel = pData->curAssignmentData.ubMinimumLevel;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumLoyaltyHere = pData->curAssignmentData.ubMinimumLoyaltyHere;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumMarksmanship = pData->curAssignmentData.ubMinimumMarksmanship;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumMechanical = pData->curAssignmentData.ubMinimumMechanical;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumMedical = pData->curAssignmentData.ubMinimumMedical;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumMorale = pData->curAssignmentData.ubMinimumMorale;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumStrength = pData->curAssignmentData.ubMinimumStrength;
-				pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumWisdom = pData->curAssignmentData.ubMinimumWisdom;
-
-				// Set RISK data
-				for (UINT16 cnt = 0; cnt < NUM_RISKS; cnt++)
+				if (!FacilityTypes_TextOnly)
 				{
-					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].Risk[cnt].ubChance = pData->curAssignmentData.Risk[cnt].ubChance;
-					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].Risk[cnt].bBaseEffect = pData->curAssignmentData.Risk[cnt].bBaseEffect;
-					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].Risk[cnt].ubRange = pData->curAssignmentData.Risk[cnt].ubRange;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usPerformance = pData->curAssignmentData.usPerformance;
+					wcscpy(pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].szTooltipText, pData->curAssignmentData.szTooltipText);
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubStaffLimit = pData->curAssignmentData.ubStaffLimit;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].sCostPerHour = pData->curAssignmentData.sCostPerHour;
+
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usFatigue = pData->curAssignmentData.usFatigue;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usSleep = pData->curAssignmentData.usSleep;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usKitDegrade = pData->curAssignmentData.usKitDegrade;
+
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].sSkyriderCostModifier = pData->curAssignmentData.sSkyriderCostModifier;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].usMineIncomeModifier = pData->curAssignmentData.usMineIncomeModifier;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fOnlyLocalMineAffected = pData->curAssignmentData.fOnlyLocalMineAffected;
+
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMaximumBreath = pData->curAssignmentData.ubMaximumBreath;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMaximumMorale = pData->curAssignmentData.ubMaximumMorale;
+
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fCountEnemiesInCities = pData->curAssignmentData.fCountEnemiesInCities;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fCountEnemiesInWild = pData->curAssignmentData.fCountEnemiesInWild;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fDetectEnemiesAnywhere = pData->curAssignmentData.fDetectEnemiesAnywhere;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fDetectEnemiesDynamic = pData->curAssignmentData.fDetectEnemiesDynamic;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubDetectEnemiesImmediate = pData->curAssignmentData.ubDetectEnemiesImmediate;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].fDetectEnemiesLongrange = pData->curAssignmentData.fDetectEnemiesLongrange;
+
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumAgility = pData->curAssignmentData.ubMinimumAgility;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumBreath = pData->curAssignmentData.ubMinimumBreath;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumDexterity = pData->curAssignmentData.ubMinimumDexterity;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumExplosives = pData->curAssignmentData.ubMinimumExplosives;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumHealth = pData->curAssignmentData.ubMinimumHealth;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumLeadership = pData->curAssignmentData.ubMinimumLeadership;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumLevel = pData->curAssignmentData.ubMinimumLevel;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumLoyaltyHere = pData->curAssignmentData.ubMinimumLoyaltyHere;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumMarksmanship = pData->curAssignmentData.ubMinimumMarksmanship;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumMechanical = pData->curAssignmentData.ubMinimumMechanical;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumMedical = pData->curAssignmentData.ubMinimumMedical;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumMorale = pData->curAssignmentData.ubMinimumMorale;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumStrength = pData->curAssignmentData.ubMinimumStrength;
+					pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].ubMinimumWisdom = pData->curAssignmentData.ubMinimumWisdom;
+
+					// Set RISK data
+					for (UINT16 cnt = 0; cnt < NUM_RISKS; cnt++)
+					{
+						pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].Risk[cnt].usChance = pData->curAssignmentData.Risk[cnt].usChance;
+						pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].Risk[cnt].bBaseEffect = pData->curAssignmentData.Risk[cnt].bBaseEffect;
+						pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].Risk[cnt].ubRange = pData->curAssignmentData.Risk[cnt].ubRange;
+					}
 				}
+				else
+				{
+					wcscpy(pData->curFacilityTypeData.AssignmentData[pData->curAssignmentType].szTooltipText, pData->curAssignmentData.szTooltipText);
+				}
+			
 			}
+			
 		}
 
 		////////////////////////////////////////////////
@@ -795,7 +816,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			{
 				CHAR16 sErrorString[256];
 				swprintf(sErrorString, L"FacilityTypes.XML Error: Assignment type for facility %d is unrecognized!", pData->curIndex);
-				THROWEXCEPTION(sErrorString);
+				SGP_THROW(sErrorString);
 			}
 		}
 
@@ -1029,7 +1050,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "ubChance") == 0 )
 		{
 			pData->curElement = FACILITYTYPE_RISK;
-			pData->curAssignmentData.Risk[pData->curRisk].ubChance = (UINT8) atol(pData->szCharData);
+			pData->curAssignmentData.Risk[pData->curRisk].usChance = (UINT8) atol(pData->szCharData);
 		}
 
 		else if(strcmp(name, "bBaseEffect") == 0 )
@@ -1053,7 +1074,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 
 
 
-BOOLEAN ReadInFacilityTypes(STR fileName)
+BOOLEAN ReadInFacilityTypes(STR fileName, BOOLEAN localizedVersion)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -1062,13 +1083,15 @@ BOOLEAN ReadInFacilityTypes(STR fileName)
 	XML_Parser	parser = XML_ParserCreate(NULL);
 
 	facilitytypeParseData pData;
+	
+	FacilityTypes_TextOnly = localizedVersion;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading FacilityTypes.xml" );
 
 	// Open merges file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
-		return( FALSE );
+		return( localizedVersion );
 
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);

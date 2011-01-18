@@ -508,6 +508,29 @@ typedef enum
 	RGFCRTHROW, 
 //</SB>
 
+//***ddd
+BGMWITHSTONE,
+//for crouched shoot rocket
+	RGMCRROCKET, 
+	BGMCRROCKET, 
+	RGFCRROCKET, 
+//swatting with knife
+	BGMSWKNIFE, 
+	RGFSWKNIFE,
+	RGMSWKNIFE, 
+//кидание гранаты стоя с выд. чеки
+	BGMSTHRG, 
+	RGFSTHRG,
+	RGMSTHRG, 
+//кидание гранаты стоя с выд. чеки близкое расст
+	BGMSLOBG, 
+	RGFSLOBG,
+	RGMSLOBG,
+//внаглую стырил код у терапевта! 
+	RGMROLL_PR,
+	BGMROLL_PR,
+	RGFROLL_PR,	
+
 	NUMANIMATIONSURFACETYPES
 
 } AnimationSurfaceTypes;

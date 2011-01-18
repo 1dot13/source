@@ -561,7 +561,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 
 	// OJW - 20090403 - override max ai in co-op
-	if (is_networked && is_server && OVERRIDE_MAX_AI == 1)
+	if (is_networked && is_server && gMaxEnemiesEnabled == 1)
 	{
 		float totalEnemies = (float)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites);
 		ubTotalAdmins = (unsigned int)(((float)pSector->ubNumAdmins / totalEnemies) * mapMaximumNumberOfEnemies);
@@ -1314,7 +1314,7 @@ void AddPossiblePendingEnemiesToBattle()
 	// haydent
 	if (is_networked)
 	{
-		if ((is_client && !is_server) || ENEMY_ENABLED==0)
+		if ((is_client && !is_server) || gEnemyEnabled == 0)
 		{
 			return;
 		}
@@ -1475,7 +1475,11 @@ void AddPossiblePendingEnemiesToBattle()
 				ubInsertionCode = INSERTION_CODE_NORTH;
 			else
 			{
-				Assert(0);
+				// WANNE: Hack: If no valid insertion is found, get random insertion instead of Assert() error
+				UINT32 rndInsertionCode = GetRndNum(3);				
+				ubInsertionCode = rndInsertionCode;
+
+				//Assert(0);
 			}
 		}
 		else if( pGroup->ubNextX && pGroup->ubNextY )
@@ -1490,7 +1494,11 @@ void AddPossiblePendingEnemiesToBattle()
 				ubInsertionCode = INSERTION_CODE_NORTH;
 			else
 			{
-				Assert(0);
+				// WANNE: Hack: If no valid insertion is found, get random insertion instead of Assert() error
+				UINT32 rndInsertionCode = GetRndNum(3);				
+				ubInsertionCode = rndInsertionCode;
+				
+				//Assert(0);
 			}
 		}
 		else
@@ -1914,10 +1922,10 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 
 
 // TODO.WANNE: Hardcoded grid number
-	static INT32 sAlmaCaptureGridNos[] = { 9208, 9688, 9215 };
-	static INT32 sAlmaCaptureItemsGridNo[] = { 12246, 12406, 13046 };
+	static INT32 sAlmaCaptureGridNos[] = { 9208, 9688, 9215 }; //dnl!!!
+	static INT32 sAlmaCaptureItemsGridNo[] = { 12246, 12406, 13046 }; //dnl!!!
 
-	static INT32 sInterrogationItemGridNo[] = { 12089, 12089, 12089 };
+	static INT32 sInterrogationItemGridNo[] = { 12089, 12089, 12089 }; //dnl!!!
 
 	AssertNotNIL(pSoldier);
 
@@ -1940,6 +1948,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
   if ( AM_AN_EPC( pSoldier ) )
   {
 	  pSoldier->stats.bLife = 0;
+	  pSoldier->iHealableInjury = 0; // added by SANDRO
     HandleSoldierDeath( pSoldier, &fMadeCorpse );
     return;
   }
@@ -2069,6 +2078,8 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	{
 		pSoldier->stats.bLife += (INT8)(10 - Random( 21 ) );
 	}
+	// SANDRO - make the lost life insta-healable
+	pSoldier->iHealableInjury = ((pSoldier->stats.bLifeMax - pSoldier->stats.bLife) * 100);
 
 	// make him quite exhausted when found
 	pSoldier->bBreath = pSoldier->bBreathMax = 50;
@@ -2089,6 +2100,7 @@ void HandleEnemyStatusInCurrentMapBeforeLoadingNewMap()
 		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife < OKLIFE && MercPtrs[ i ]->stats.bLife )
 		{
 			MercPtrs[ i ]->stats.bLife = 0;
+			MercPtrs[ i ]->iHealableInjury = 0; // added just for sure - SANDRO
 			HandleSoldierDeath( MercPtrs[ i ], &fMadeCorpse );
 			bKilledEnemies++;
 		}
@@ -2109,6 +2121,7 @@ void HandleEnemyStatusInCurrentMapBeforeLoadingNewMap()
 		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife < OKLIFE && MercPtrs[ i ]->stats.bLife )
 		{
 			MercPtrs[ i ]->stats.bLife = 0;
+			MercPtrs[ i ]->iHealableInjury = 0; // added just for sure - SANDRO
 			HandleSoldierDeath( MercPtrs[ i ], &fMadeCorpse );
 			bKilledRebels++;
 		}
@@ -2119,6 +2132,7 @@ void HandleEnemyStatusInCurrentMapBeforeLoadingNewMap()
 		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife < OKLIFE && MercPtrs[ i ]->stats.bLife )
 		{
 			MercPtrs[ i ]->stats.bLife = 0;
+			MercPtrs[ i ]->iHealableInjury = 0; // added just for sure - SANDRO
 			HandleSoldierDeath( MercPtrs[ i ], &fMadeCorpse );
 			bKilledCivilians++;
 		}

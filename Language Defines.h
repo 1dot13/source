@@ -37,7 +37,11 @@
 
 #endif
 
-
+//**ddd direct link libraries
+#pragma comment (lib, "user32.lib")
+#pragma comment (lib, "gdi32.lib")
+#pragma comment (lib, "advapi32.lib")
+#pragma comment (lib, "shell32.lib")
 
 /* ====================================================================
  * Regardless of if we did it Workspace wide or by uncommenting above,

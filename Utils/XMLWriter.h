@@ -2,8 +2,8 @@
 #define _XMLWRITER_H_
 
 #include "FileMan.h"
-#include "VFS/Interface/vfs_file_interface.h"
-#include "utf8string.h"
+#include <vfs/Core/Interface/vfs_file_interface.h>
+#include <vfs/Core/vfs_string.h>
 
 #include <stack>
 #include <string>
@@ -23,7 +23,7 @@ public:
 	{};
 	
 	template<typename ValueType>
-	void addAttributeToNextValue(utf8string const& attribute, ValueType const& value)
+	void addAttributeToNextValue(vfs::String const& attribute, ValueType const& value)
 	{
 		std::stringstream temp_buffer;
 		temp_buffer << value;
@@ -31,27 +31,28 @@ public:
 	}
 
 	template<typename ValueType>
-	void addValue(utf8string const& key, ValueType const& value)
+	void addValue(vfs::String const& key, ValueType const& value)
 	{
 		std::string utf8key = key.utf8();
 		m_ssBuffer << indent() <<  "<" << utf8key;
 		insertAttributesIntoBuffer();
-		m_ssBuffer << "> " << value << " </" << utf8key << ">\n";
+		m_ssBuffer << ">" << value << "</" << utf8key << ">\n";
 	}
 
 	template<>
-	void addValue<std::string >(utf8string const& key, std::string const& value)
+	void addValue<std::string>(vfs::String const& key, std::string const& value)
 	{
 		std::string utf8key = key.utf8();
 		m_ssBuffer << indent() <<  "<" << utf8key;
 		insertAttributesIntoBuffer();
-		m_ssBuffer << "> " << handleSpecialCharacters(value) << " </" << utf8key << ">\n";
+		m_ssBuffer << ">" << handleSpecialCharacters(value) << "</" << utf8key << ">\n";
 	}
 
-	void		addValue(utf8string const& key);
-	void		addComment(utf8string const& comment);
+	void		addValue(vfs::String const& key);
+	void		addComment(vfs::String const& comment);
+	void		addFlag(UINT32 const& flags, UINT32 const& flag, vfs::String strFlag);
 
-	void		openNode(utf8string const& key);
+	void		openNode(vfs::String const& key);
 	bool		closeNode();
 	
 	bool		writeToFile(vfs::Path const& sFileName);

@@ -43,8 +43,10 @@
 	#include "Item Statistics.h"
 	#include "Scheduling.h"
 	#include "MessageBoxScreen.h"
-	#include "VFS/vfs.h"//dnl ch37 110909
+	#include <vfs/Core/vfs.h>//dnl ch37 110909
 #endif
+
+INT16 gsMouseWheelDeltaValue;
 
 //===========================================================================
 
@@ -190,7 +192,7 @@ void LoadSaveScreenEntry()
 		vfs::CVirtualProfile::FileIterator fit = prof->files(L"MAPS/*");
 		while(!fit.end())
 		{
-			utf8string fname = fit.value()->getName().c_str();
+			vfs::String fname = fit.value()->getName().c_str();
 			memset(&FileInfo, 0, sizeof(GETFILESTRUCT));
 			strcpy(FileInfo.zFileName, fname.utf8().c_str());
 			FileInfo.uiFileSize = fname.length();
@@ -1013,8 +1015,7 @@ UINT32 ProcessFileIO()
 					return(EDIT_SCREEN);
 				}
 				gbCurrentFileIOStatus = IOSTATUS_NONE;
-				utf8string msg = utf8string(" Error saving ") + ubNewFilename + utf8string(" file. Try another filename? ");
-				CreateMessageBox((STR16)msg.c_wcs().c_str());
+				CreateMessageBox((STR16)(_BS(L" Error saving ") << (const char*)ubNewFilename << L" file. Try another filename? " << _BS::wget).c_str() );
 				return(guiCurrentScreen);
 			}
 			if( gfShowPits )
@@ -1035,6 +1036,9 @@ UINT32 ProcessFileIO()
 				InitErrorCatchDialog();
 				return EDIT_SCREEN;
 			}
+
+			fNewMapSaved = TRUE;
+
 			return EDIT_SCREEN;
 		case INITIATE_MAP_LOAD: //draw load message
 			SaveFontSettings();
@@ -1056,8 +1060,7 @@ UINT32 ProcessFileIO()
 				gbCurrentFileIOStatus = IOSTATUS_NONE;
 				gfGlobalError = FALSE;
 				gfLoadError = TRUE;
-				utf8string msg = utf8string(" Error loading ") + ubNewFilename + utf8string(" file. Try another filename? ");
-				CreateMessageBox((STR16)msg.c_wcs().c_str());
+				CreateMessageBox((STR16)(_BS(L" Error loading ") << (const char*)ubNewFilename << L" file. Try another filename? " << _BS::wget).c_str());
 				return(guiCurrentScreen);
 			}
 			//ADB these are NOT set yet! but they need to be, duh

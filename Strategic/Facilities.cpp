@@ -281,7 +281,7 @@ INT16 GetSectorModifier( SOLDIERTYPE *pSoldier, UINT8 ubModifierType )
 				case FACILITY_SLEEP_MOD:
 				case FACILITY_KIT_DEGRADE_MOD:
 				case FACILITY_MINE_INCOME_MOD:
-					Result = 100 + ((100-Result) + (100-sCurrent));
+					Result = 100 + ((Result-100) + (sCurrent-100));
 					break;
 
 				case FACILITY_MAX_MORALE:
@@ -517,7 +517,7 @@ void UpdateSkyriderCostModifier()
 				ubCounter++;
 				continue;
 			}
-			UINT8 ubAssignmentType = GetSoldierFacilityAssignmentIndex( pSoldier );
+			UINT8 ubAssignmentType = (UINT8)GetSoldierFacilityAssignmentIndex( pSoldier );
 
 			// Is character using a facility?
 			if ( CanCharacterFacility( pSoldier, ubFacilityType, ubAssignmentType ) &&
@@ -580,7 +580,7 @@ void UpdateFacilityUsageCosts( )
 				ubCounter++;
 				continue;
 			}
-			UINT8 ubAssignmentType = GetSoldierFacilityAssignmentIndex( pSoldier );
+			UINT8 ubAssignmentType = (UINT8)GetSoldierFacilityAssignmentIndex( pSoldier );
 
 			// Is character using a facility?
 			if ( CanCharacterFacility( pSoldier, ubFacilityType, ubAssignmentType ) &&
@@ -715,7 +715,7 @@ INT32 MineIncomeModifierFromFacility( UINT8 ubMine )
 				ubCounter++;
 				continue;
 			}
-			UINT8 ubAssignmentType = GetSoldierFacilityAssignmentIndex( pSoldier );
+			UINT8 ubAssignmentType = (UINT8)GetSoldierFacilityAssignmentIndex( pSoldier );
 
 			// Is character using a facility?
 			if ( CanCharacterFacility( pSoldier, ubFacilityType, ubAssignmentType ) &&
@@ -816,6 +816,9 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 				case EXPLOSIVE_ASSIGN:
 					bAssignmentIndex = FAC_PRACTICE_EXPLOSIVES;
 					break;
+				default:
+					bAssignmentIndex = -1;
+					break;
 			}
 			break;
 		case TRAIN_TEAMMATE:
@@ -847,6 +850,9 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 					break;
 				case EXPLOSIVE_ASSIGN:
 					bAssignmentIndex = FAC_TRAINER_EXPLOSIVES;
+					break;
+				default:
+					bAssignmentIndex = -1;
 					break;
 			}
 			break;
@@ -880,6 +886,9 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 				case EXPLOSIVE_ASSIGN:
 					bAssignmentIndex = FAC_STUDENT_EXPLOSIVES;
 					break;
+				default:
+					bAssignmentIndex = -1;
+					break;
 			}
 			break;
 		case FACILITY_STAFF:
@@ -890,6 +899,7 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 			break;
 		default:
 			bAssignmentIndex = -1;
+			break;
 	}
 
 	return (bAssignmentIndex);
@@ -901,12 +911,12 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 {
 	INT16 Result = 0;
 	
-	UINT8 ubChance;
+	INT32 iChance;
 	INT8 bBaseEffect;
 	UINT8 ubRange;
 
 	// Read risk data directly from facility array.
-	ubChance = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].Risk[ubRiskType].ubChance;
+	iChance = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].Risk[ubRiskType].usChance;
 	bBaseEffect = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].Risk[ubRiskType].bBaseEffect;
 	ubRange = gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].Risk[ubRiskType].ubRange;
 
@@ -931,24 +941,24 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 	}
 	
 	///////////////
-	INT8 bAbsoluteMaxResult;
-	INT8 bAbsoluteMinResult;
+	INT16 sAbsoluteMaxResult;
+	INT16 sAbsoluteMinResult;
 
 	// Calculate absolute maximum variance. The result can never be outside these.
 	if (bBaseEffect < 0)
 	{
-		bAbsoluteMaxResult = __min((bBaseEffect + ubRange), -1);
-		bAbsoluteMinResult = bBaseEffect - ubRange;
+		sAbsoluteMaxResult = __min((bBaseEffect + ubRange), -1);
+		sAbsoluteMinResult = bBaseEffect - ubRange;
 	}
 	else if (bBaseEffect > 0)
 	{
-		bAbsoluteMaxResult = bBaseEffect + ubRange;
-		bAbsoluteMinResult = __max(1, (bBaseEffect - ubRange));
+		sAbsoluteMaxResult = bBaseEffect + ubRange;
+		sAbsoluteMinResult = __max(1, (bBaseEffect - ubRange));
 	}
 	else
 	{
-		bAbsoluteMaxResult = bBaseEffect + ubRange;
-		bAbsoluteMinResult = bBaseEffect - ubRange;
+		sAbsoluteMaxResult = bBaseEffect + ubRange;
+		sAbsoluteMinResult = bBaseEffect - ubRange;
 	}
 
 	INT8 bCombinedStats;
@@ -995,7 +1005,7 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.2) + (ubLeadership * 0.4) + (ubExpLevel * 4));
 			break;
 		case RISK_FATIGUE:
-			bCombinedStats = (INT8)__min(100, (ubAgility * 0.1) + (ubStrength * 0.3) + (ubHealth * 0.2) + (ubExpLevel * 5));
+			bCombinedStats = (INT8)__min(100, (ubAgility * 0.1) + (ubStrength * 0.3) + (ubHealth * 0.2) + (ubExpLevel * 4));
 			break;
 		case RISK_DRUNK:
 			bCombinedStats = (INT8)__min(100, (ubWisdom * 0.5) + (ubHealth * 0.3) + (ubExpLevel * 2));
@@ -1008,15 +1018,15 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 			break;
 	}
 
-	if (bCombinedStats == 100)
+	if (bCombinedStats >= 100)
 	{
 		// Character is as skilled as possible. Automatic "best" result.
-		return (bAbsoluteMaxResult);
+		return (sAbsoluteMaxResult);
 	}
-	if (bCombinedStats == 0)
+	if (bCombinedStats <= 0)
 	{
 		// Character is completely inept? Strange. Automatic "worst" result.
-		return (bAbsoluteMinResult);
+		return (sAbsoluteMinResult);
 	}
 
 	// we now have a range of 0 to 100. Let's apply an externalized modifier of 0 to -100.
@@ -1026,20 +1036,23 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 	if (bBaseEffect > 0 )
 	{
 		// Chance increases with good stats, decreased with bad stats.
-		ubChance = ubChance + ((bCombinedStats * ubChance) / 100 );
+		iChance = iChance + ((bCombinedStats * iChance) / 100 );
 	}
 	else if (bBaseEffect < 0 )
 	{
 		// Chance decreases with good stats, increases with bad stats.
-		ubChance = ubChance - ((bCombinedStats * ubChance) / 100 );
+		iChance = iChance - ((bCombinedStats * iChance) / 100 );
 	}
 	else
 	{
 		// Chance is unaffected
 	}
 
+        // Limit iChance into a 0 to 50000 range.
+        iChance = __max(0, __min(iChance, 50000));
+
 	// Alright, let's see if the event is triggered.
-	if (PreRandom(gGameExternalOptions.usFacilityEventRarity)>ubChance)
+	if (PreRandom(gGameExternalOptions.usFacilityEventRarity)>(UINT32)iChance)
 	{
 		// Chance failed to trigger.
 		return (0);
@@ -1052,8 +1065,8 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 		// We use this to move the Base Effect point from its original location, effectively giving us a better
 		// or worse result based on our stats.
 		bBaseEffect += (bCombinedStats * (ubRange+1)) / 100;
-		bBaseEffect = __min(bBaseEffect, bAbsoluteMaxResult);
-		bBaseEffect = __max(bBaseEffect, bAbsoluteMinResult);
+		bBaseEffect = __min(bBaseEffect, sAbsoluteMaxResult);
+		bBaseEffect = __max(bBaseEffect, sAbsoluteMinResult);
 
 		// The deviation is also affected by our stats.
 		ubRange -= abs((bCombinedStats * (ubRange+1)) / 100); // If the Base Effect has moved any, then the range shrinks accordingly.
@@ -1067,12 +1080,13 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 		Result = bBaseEffect + ((PreRandom((ubRange*2)+1)) - ubRange);
 
 		// Naturally, the character can't ever breach the range of possible results as defined by the facility data.
-		Result = __min(Result, bAbsoluteMaxResult);
-		Result = __max(Result, bAbsoluteMinResult);
+		Result = __min(Result, sAbsoluteMaxResult);
+		Result = __max(Result, sAbsoluteMinResult);
 
 		return (Result);
 	}
 }
+
 
 void HandleHourlyRisks()
 {
@@ -1104,11 +1118,11 @@ void HandleRisksForSoldier( SOLDIERTYPE *pSoldier )
 	UINT8 ubFacilityType = 0;
 	UINT8 ubAssignmentType = 0;
 
-	if (pSoldier->sFacilityTypeOperated != -1)
+	if (pSoldier->sFacilityTypeOperated != -1 && GetSoldierFacilityAssignmentIndex( pSoldier ) != -1)
 	{
 		// Soldier is working at a specific facility. Risks associated with this specific facility and assignment
 		// have priority.
-		ubAssignmentType = GetSoldierFacilityAssignmentIndex( pSoldier );
+		ubAssignmentType = (UINT8)GetSoldierFacilityAssignmentIndex( pSoldier );
 		ubFacilityType = (UINT8)pSoldier->sFacilityTypeOperated;
 		HandleRisksForSoldierFacilityAssignment( pSoldier, ubFacilityType, ubAssignmentType );
 	}
@@ -1145,7 +1159,7 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 	{
 		fBadResult = FALSE;
 
-		if (gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].Risk[iCounter].ubChance > 0)
+		if (gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].Risk[iCounter].usChance > 0)
 		{
 			if (iCounter == RISK_LOYALTY_LOCAL)
 			{
@@ -1174,11 +1188,30 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						else
 						{
 							// Soldier is suffering direct stat damage.
-							pSoldier->stats.bStrength = __max(1,pSoldier->stats.bStrength + Result);
+							///////////////////////////////////////////////////////////////////////////////////////////
+							// SANDRO - if our stat is damaged through facility event, make it healable
+							if ( (-1*Result) > (pSoldier->stats.bStrength - 1))
+								Result = -1*(pSoldier->stats.bStrength - 1);
+							pSoldier->stats.bStrength += Result;
+							if ( gGameOptions.fNewTraitSystem && (Result <= 0) )
+							{
+								pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_STRENGTH ] -= Result;
+							}
+							else
+							{
+								// make this stat RED for a while...
+								pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
+							}
+							// Update Profile
 							gMercProfiles[ pSoldier->ubProfile ].bStrength	= pSoldier->stats.bStrength;
-							// make this stat RED for a while...
-							pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
+
+							// merc records - stat damaged
+							if( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+							
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
+							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
 
 							// Log message
@@ -1207,11 +1240,30 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						else
 						{
 							// Soldier is suffering direct stat damage.
-							pSoldier->stats.bAgility = __max(1,pSoldier->stats.bAgility + Result);
+							///////////////////////////////////////////////////////////////////////////////////////////
+							// SANDRO - if our stat is damaged through facility event, make it healable
+							if ( (-1*Result) > (pSoldier->stats.bAgility - 1))
+								Result = -1*(pSoldier->stats.bAgility - 1);
+							pSoldier->stats.bAgility += Result;
+							if ( gGameOptions.fNewTraitSystem && (Result <= 0) )
+							{
+								pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_AGILITY ] -= Result;
+							}
+							else
+							{
+								// make this stat RED for a while...
+								pSoldier->timeChanges.uiChangeAgilityTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( AGIL_INCREASE );
+							}
+							// Update Profile
 							gMercProfiles[ pSoldier->ubProfile ].bAgility	= pSoldier->stats.bAgility;
-							// make this stat RED for a while...
-							pSoldier->timeChanges.uiChangeAgilityTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( AGIL_INCREASE );
+
+							// merc records - stat damaged
+							if( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+							
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
+							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
 
 							// Log message
@@ -1240,11 +1292,30 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						else
 						{
 							// Soldier is suffering direct stat damage.
-							pSoldier->stats.bDexterity = __max(1,pSoldier->stats.bDexterity + Result);
+							///////////////////////////////////////////////////////////////////////////////////////////
+							// SANDRO - if our stat is damaged through facility event, make it healable
+							if ( (-1*Result) > (pSoldier->stats.bDexterity - 1))
+								Result = -1*(pSoldier->stats.bDexterity - 1);
+							pSoldier->stats.bDexterity += Result;
+							if ( gGameOptions.fNewTraitSystem && (Result <= 0) )
+							{
+								pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_DEXTERITY ] -= Result;
+							}
+							else
+							{
+								// make this stat RED for a while...
+								pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( DEX_INCREASE );
+							}
+							// Update Profile
 							gMercProfiles[ pSoldier->ubProfile ].bDexterity	= pSoldier->stats.bDexterity;
-							// make this stat RED for a while...
-							pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( DEX_INCREASE );
+
+							// merc records - stat damaged
+							if( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+							
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
+							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
 
 							// Log message
@@ -1273,11 +1344,30 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						else
 						{
 							// Soldier is suffering direct stat damage.
-							pSoldier->stats.bWisdom = __max(1,pSoldier->stats.bWisdom + Result);
+							///////////////////////////////////////////////////////////////////////////////////////////
+							// SANDRO - if our stat is damaged through facility event, make it healable
+							if ( (-1*Result) > (pSoldier->stats.bWisdom - 1))
+								Result = -1*(pSoldier->stats.bWisdom - 1);
+							pSoldier->stats.bWisdom += Result;
+							if ( gGameOptions.fNewTraitSystem && (Result <= 0) )
+							{
+								pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_WISDOM ] -= Result;
+							}
+							else
+							{
+								// make this stat RED for a while...
+								pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( WIS_INCREASE );
+							}
+							// Update Profile
 							gMercProfiles[ pSoldier->ubProfile ].bWisdom	= pSoldier->stats.bWisdom;
-							// make this stat RED for a while...
-							pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( WIS_INCREASE );
+
+							// merc records - stat damaged
+							if( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+							
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
+							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
 
 							// Log message
@@ -1306,12 +1396,31 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						else
 						{
 							// Soldier is suffering direct stat damage.
-							pSoldier->stats.bLifeMax = __max(1,pSoldier->stats.bLifeMax + Result);
-							gMercProfiles[ pSoldier->ubProfile ].bLifeMax	= pSoldier->stats.bLifeMax;
-							// make this stat RED for a while...
-							pSoldier->timeChanges.uiChangeHealthTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( HEALTH_INCREASE );
+							///////////////////////////////////////////////////////////////////////////////////////////
+							// SANDRO - if our stat is damaged through facility event, make it healable
+							if ( (-1*Result) > (pSoldier->stats.bLifeMax - 1))
+								Result = -1*(pSoldier->stats.bLifeMax - 1);
+							pSoldier->stats.bLifeMax += Result;
 							pSoldier->stats.bLife += Result;
+							if ( gGameOptions.fNewTraitSystem && (Result <= 0) )
+							{
+								pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_HEALTH ] -= Result;
+							}
+							else
+							{
+								// make this stat RED for a while...
+								pSoldier->timeChanges.uiChangeHealthTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( HEALTH_INCREASE );
+							}
+							// Update Profile
+							gMercProfiles[ pSoldier->ubProfile ].bLifeMax	= pSoldier->stats.bLifeMax;
+
+							// merc records - stat damaged
+							if( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+							
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
+							///////////////////////////////////////////////////////////////////////////////////////////
 							if (pSoldier->stats.bLife < OKLIFE)
 							{
 								HandleTakeDamageDeath( pSoldier, 0, TAKE_DAMAGE_BLOODLOSS );
@@ -1360,11 +1469,30 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						else
 						{
 							// Soldier is suffering direct stat damage.
-							pSoldier->stats.bMarksmanship = __max(1,pSoldier->stats.bMarksmanship + Result);
+							///////////////////////////////////////////////////////////////////////////////////////////
+							// SANDRO - if our stat is damaged through facility event, make it healable
+							if ( (-1*Result) > (pSoldier->stats.bMarksmanship - 1))
+								Result = -1*(pSoldier->stats.bMarksmanship - 1);
+							pSoldier->stats.bMarksmanship += Result;
+							if ( gGameOptions.fNewTraitSystem && (Result <= 0) )
+							{
+								pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_MARKSMANSHIP ] -= Result;
+							}
+							else
+							{
+								// make this stat RED for a while...
+								pSoldier->timeChanges.uiChangeMarksmanshipTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( MRK_INCREASE );
+							}
+							// Update Profile
 							gMercProfiles[ pSoldier->ubProfile ].bMarksmanship	= pSoldier->stats.bMarksmanship;
-							// make this stat RED for a while...
-							pSoldier->timeChanges.uiChangeMarksmanshipTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( MRK_INCREASE );
+
+							// merc records - stat damaged
+							if( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+							
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
+							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
 
 							// Log message
@@ -1393,11 +1521,30 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						else
 						{
 							// Soldier is suffering direct stat damage.
-							pSoldier->stats.bLeadership = __max(1,pSoldier->stats.bLeadership + Result);
+							///////////////////////////////////////////////////////////////////////////////////////////
+							// SANDRO - if our stat is damaged through facility event, make it healable
+							if ( (-1*Result) > (pSoldier->stats.bLeadership - 1))
+								Result = -1*(pSoldier->stats.bLeadership - 1);
+							pSoldier->stats.bLeadership += Result;
+							if ( gGameOptions.fNewTraitSystem && (Result <= 0) )
+							{
+								pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_LEADERSHIP ] -= Result;
+							}
+							else
+							{
+								// make this stat RED for a while...
+								pSoldier->timeChanges.uiChangeLeadershipTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( LDR_INCREASE );
+							}
+							// Update Profile
 							gMercProfiles[ pSoldier->ubProfile ].bLeadership	= pSoldier->stats.bLeadership;
-							// make this stat RED for a while...
-							pSoldier->timeChanges.uiChangeLeadershipTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( LDR_INCREASE );
+
+							// merc records - stat damaged
+							if( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+							
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
+							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
 
 							// Log message
@@ -1426,11 +1573,30 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						else
 						{
 							// Soldier is suffering direct stat damage.
-							pSoldier->stats.bMechanical = __max(1,pSoldier->stats.bMechanical + Result);
+							///////////////////////////////////////////////////////////////////////////////////////////
+							// SANDRO - if our stat is damaged through facility event, make it healable
+							if ( (-1*Result) > (pSoldier->stats.bMechanical - 1))
+								Result = -1*(pSoldier->stats.bMechanical - 1);
+							pSoldier->stats.bMechanical += Result;
+							if ( gGameOptions.fNewTraitSystem && (Result <= 0) )
+							{
+								pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_MECHANICAL ] -= Result;
+							}
+							else
+							{
+								// make this stat RED for a while...
+								pSoldier->timeChanges.uiChangeMechanicalTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( MECH_INCREASE );
+							}
+							// Update Profile
 							gMercProfiles[ pSoldier->ubProfile ].bMechanical	= pSoldier->stats.bMechanical;
-							// make this stat RED for a while...
-							pSoldier->timeChanges.uiChangeMechanicalTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( MECH_INCREASE );
+
+							// merc records - stat damaged
+							if( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+							
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
+							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
 
 							// Log message
@@ -1459,11 +1625,30 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						else
 						{
 							// Soldier is suffering direct stat damage.
-							pSoldier->stats.bMedical = __max(1,pSoldier->stats.bMedical + Result);
+							///////////////////////////////////////////////////////////////////////////////////////////
+							// SANDRO - if our stat is damaged through facility event, make it healable
+							if ( (-1*Result) > (pSoldier->stats.bMedical - 1))
+								Result = -1*(pSoldier->stats.bMedical - 1);
+							pSoldier->stats.bMedical += Result;
+							if ( gGameOptions.fNewTraitSystem && (Result <= 0) )
+							{
+								pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_MEDICAL ] -= Result;
+							}
+							else
+							{
+								// make this stat RED for a while...
+								pSoldier->timeChanges.uiChangeMedicalTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( MED_INCREASE );
+							}
+							// Update Profile
 							gMercProfiles[ pSoldier->ubProfile ].bMedical	= pSoldier->stats.bMedical;
-							// make this stat RED for a while...
-							pSoldier->timeChanges.uiChangeMedicalTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( MED_INCREASE );
+
+							// merc records - stat damaged
+							if( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+							
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
+							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
 
 							// Log message
@@ -1492,11 +1677,30 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						else
 						{
 							// Soldier is suffering direct stat damage.
-							pSoldier->stats.bExplosive = __max(1,pSoldier->stats.bExplosive + Result);
+							///////////////////////////////////////////////////////////////////////////////////////////
+							// SANDRO - if our stat is damaged through facility event, make it healable
+							if ( (-1*Result) > (pSoldier->stats.bExplosive - 1))
+								Result = -1*(pSoldier->stats.bExplosive - 1);
+							pSoldier->stats.bExplosive += Result;
+							if ( gGameOptions.fNewTraitSystem && (Result <= 0) )
+							{
+								pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_EXPLOSIVES ] -= Result;
+							}
+							else
+							{
+								// make this stat RED for a while...
+								pSoldier->timeChanges.uiChangeExplosivesTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( EXP_INCREASE );
+							}
+							// Update Profile
 							gMercProfiles[ pSoldier->ubProfile ].bExplosive	= pSoldier->stats.bExplosive;
-							// make this stat RED for a while...
-							pSoldier->timeChanges.uiChangeExplosivesTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( EXP_INCREASE );
+
+							// merc records - stat damaged
+							if( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+							
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
+							///////////////////////////////////////////////////////////////////////////////////////////
 							fBadResult = TRUE;
 
 							// Log message
@@ -1520,6 +1724,9 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// Soldier is suffering direct unbandaged injury.
 							pSoldier->SoldierTakeDamage( 0, abs(Result), abs(Result), TAKE_DAMAGE_BLOODLOSS, NOBODY, NOWHERE, 0, FALSE );
 							fBadResult = TRUE;
+
+							// SANDRO - add to merc records - facility accidents counter
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 
 							if (pSoldier->stats.bLife > 0)
 							{
@@ -1564,10 +1771,16 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 						pSoldier->aiData.bMorale = __min(100,__max(0, pSoldier->aiData.bMorale + Result));
 						pSoldier->aiData.bStrategicMoraleMod = __min(50,__max(-50, pSoldier->aiData.bStrategicMoraleMod + Result));
 						RefreshSoldierMorale( pSoldier );
+						// SANDRO - add to merc records - facility accidents counter
+						if ( Result < 0 )
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 						break;
 					case RISK_FATIGUE:
 						pSoldier->bBreathMax = __min(100,__max(0, pSoldier->bBreathMax + Result));
 						pSoldier->bBreath = pSoldier->bBreathMax;
+						// SANDRO - add to merc records - facility accidents counter
+						if ( Result < 0 )
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 						break;
 					case RISK_DRUNK:
 
@@ -1612,23 +1825,87 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							// Keel over...
 							DeductPoints( pSoldier, 0, 10000 );
 
+							///////////////////////////////////////////////////////////////////////////////////////////
+							// SANDRO - if our stat is damaged through facility event, make it healable
 							// Permanently lower certain stats...
-							pSoldier->stats.bWisdom	= __max(1, pSoldier->stats.bWisdom-5);
-							pSoldier->stats.bDexterity	= __max(1, pSoldier->stats.bDexterity-5);
-							pSoldier->stats.bStrength	= __max(1, pSoldier->stats.bStrength-5);
+							if ( gGameOptions.fNewTraitSystem )
+							{
+								// WISDOM decrease
+								if ( pSoldier->stats.bWisdom > 5 )
+								{
+									pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_WISDOM ] += 5;
+									pSoldier->stats.bWisdom -= 5;
+								}
+								else
+								{
+									pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_WISDOM ] += (pSoldier->stats.bWisdom - 1);
+									pSoldier->stats.bWisdom = 1;
+								}
+								// DEXTERITY decrease
+								if ( pSoldier->stats.bDexterity > 5 )
+								{
+									pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_DEXTERITY ] += 5;
+									pSoldier->stats.bDexterity -= 5;
+								}
+								else
+								{
+									pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_DEXTERITY ] += (pSoldier->stats.bDexterity - 1);
+									pSoldier->stats.bDexterity = 1;
+								}
+								// STRENGTH decrease
+								if ( pSoldier->stats.bStrength > 5 )
+								{
+									pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_STRENGTH ] += 5;
+									pSoldier->stats.bStrength -= 5;
+								}
+								else
+								{
+									pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_STRENGTH ] += (pSoldier->stats.bStrength - 1);
+									pSoldier->stats.bStrength = 1;
+								}
+								// AGILITY decrease
+								if ( pSoldier->stats.bAgility > 5 )
+								{
+									pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_AGILITY ] += 5;
+									pSoldier->stats.bAgility -= 5;
+								}
+								else
+								{
+									pSoldier->ubCriticalStatDamage[ DAMAGED_STAT_AGILITY ] += (pSoldier->stats.bAgility - 1);
+									pSoldier->stats.bAgility = 1;
+								}
+							}
+							else // old system
+							{
+								pSoldier->stats.bAgility	= __max(1, pSoldier->stats.bWisdom-5);
+								pSoldier->stats.bDexterity	= __max(1, pSoldier->stats.bDexterity-5);
+								pSoldier->stats.bStrength	= __max(1, pSoldier->stats.bStrength-5);
+								pSoldier->stats.bAgility	= __max(1, pSoldier->stats.bAgility-5);
+
+								// make those stats RED for a while...
+								// SANDRO - we don't need to do this with new system, as we simply show all damaged stats in red until healed
+								pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( WIS_INCREASE );
+								pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( DEX_INCREASE );
+								pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
+								pSoldier->timeChanges.uiChangeAgilityTime = GetJA2Clock();
+								pSoldier->usValueGoneUp &= ~( AGIL_INCREASE );
+							}
 
 							// export stat changes to profile
 							gMercProfiles[ pSoldier->ubProfile ].bWisdom	= pSoldier->stats.bWisdom;
 							gMercProfiles[ pSoldier->ubProfile ].bDexterity = pSoldier->stats.bDexterity;
 							gMercProfiles[ pSoldier->ubProfile ].bStrength	= pSoldier->stats.bStrength;
-
-							// make those stats RED for a while...
-							pSoldier->timeChanges.uiChangeWisdomTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( WIS_INCREASE );
-							pSoldier->timeChanges.uiChangeDexterityTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( DEX_INCREASE );
-							pSoldier->timeChanges.uiChangeStrengthTime = GetJA2Clock();
-							pSoldier->usValueGoneUp &= ~( STRENGTH_INCREASE );
+							gMercProfiles[ pSoldier->ubProfile ].bAgility	= pSoldier->stats.bAgility;
+							
+							fBadResult = TRUE; // stop the time, call a doctor, we had a heart attack!
+							
+							// merc records - stat damaged
+							gMercProfiles[ pSoldier->ubProfile ].records.usTimesStatDamaged++;
+							gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
+							////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 						}
 						break;
 					case RISK_LOYALTY_LOCAL:
@@ -1646,6 +1923,10 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							else
 								swprintf( sString, gzFacilityErrorMessage[24], pTownNames[ubTownID], pSoldier->name, gFacilityTypes[ubFacilityType].szFacilityName );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
+							
+							// SANDRO - add to merc records - facility accidents counter
+							if ( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 						}
 						break;
 					case RISK_LOYALTY_GLOBAL:
@@ -1664,6 +1945,10 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							else
 								swprintf( sString, gzFacilityErrorMessage[26], pSoldier->name, szSectorGrid, gFacilityTypes[ubFacilityType].szFacilityName );
 							ScreenMsg( usColor, MSG_INTERFACE, sString );
+							
+							// SANDRO - add to merc records - facility accidents counter
+							if ( Result < 0 )
+								gMercProfiles[ pSoldier->ubProfile ].records.usFacilityAccidents++;
 						}
 						break;
 					default:
@@ -1692,11 +1977,11 @@ INT32 GetTotalFacilityHourlyCosts( BOOLEAN fPositive )
 
 		// Is character truly valid?
 		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
-				pSoldier->bSectorZ == 0  &&
+				pSoldier->bSectorZ == 0  && pSoldier != NULL &&
 				pSoldier->stats.bLife >= OKLIFE &&
 				!(pSoldier->flags.fMercAsleep) )
 		{
-			UINT8 ubAssignmentType = GetSoldierFacilityAssignmentIndex( pSoldier );
+			INT8 ubAssignmentType = GetSoldierFacilityAssignmentIndex( pSoldier );
 			if (ubAssignmentType == -1)
 			{
 				// Skip this character.
@@ -1704,15 +1989,15 @@ INT32 GetTotalFacilityHourlyCosts( BOOLEAN fPositive )
 				continue;
 			}
 
-			UINT8 ubSector = SECTOR(pSoldier->sSectorX, pSoldier->sSectorY);
-			UINT8 ubFacilityType = (UINT8)pSoldier->sFacilityTypeOperated;
+			//UINT8 ubSector = SECTOR(pSoldier->sSectorX, pSoldier->sSectorY);
+			INT16 ubFacilityType = pSoldier->sFacilityTypeOperated;
 			
-			if (!fPositive && // We want facilities that cost money to operate
+			if (!fPositive && ubFacilityType != -1 && // We want facilities that cost money to operate
 				gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].sCostPerHour > 0) // This facility costs money
 			{
 				iTotal += gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].sCostPerHour;
 			}
-			else if (fPositive && // We want facilities that GENERATE money
+			else if (fPositive && ubFacilityType != -1 && // We want facilities that GENERATE money
 				gFacilityTypes[ubFacilityType].AssignmentData[ubAssignmentType].sCostPerHour < 0)
 			{
 				// Flip the value to positive

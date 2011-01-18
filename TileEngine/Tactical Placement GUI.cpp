@@ -386,13 +386,10 @@ void InitTacticalPlacementGUI()
 			gMercPlacement[ giPlacements ].pSoldier = MercPtrs[ i ];
 			gMercPlacement[ giPlacements ].ubStrategicInsertionCode = MercPtrs[ i ]->ubStrategicInsertionCode;
 			gMercPlacement[ giPlacements ].fPlaced = FALSE;
-			#ifdef JA2BETAVERSION
-				CheckForValidMapEdge( &MercPtrs[ i ]->ubStrategicInsertionCode );
-			#else
-				// WANNE: We need to have valid map edges in multiplayer!
-				 if (is_networked)
-					CheckForValidMapEdge( &MercPtrs[ i ]->ubStrategicInsertionCode );
-			#endif
+			
+			// WANNE: We always want to have edgepoints
+			CheckForValidMapEdge( &MercPtrs[ i ]->ubStrategicInsertionCode );
+			
 			switch( MercPtrs[ i ]->ubStrategicInsertionCode )
 			{
 				case INSERTION_CODE_NORTH:
@@ -743,7 +740,6 @@ void RenderTacticalPlacementGUI()
 		}
 		else
 		{
-			// TODO.RW: Check for insertion
 			if (is_networked)
 			{
 				gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode = GetValidInsertionDirectionForMP(gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode);
@@ -991,8 +987,8 @@ void TacticalPlacementHandle()
 				case ENTER:
 					if( ButtonList[ iTPButtons[ DONE_BUTTON ] ]->uiFlags & BUTTON_ENABLED )
 					{
-									/*if(!is_client)KillTacticalPlacementGUI();*/
-									//if(is_client)send_donegui(0); only by mouse //hayden
+									if(!is_client)KillTacticalPlacementGUI();
+									if(is_client)send_donegui(0);
 					}
 					break;
 				case 'c':
@@ -1008,25 +1004,6 @@ void TacticalPlacementHandle()
 					if( InputEvent.usKeyState & ALT_DOWN )
 					{
 						HandleShortCutExitState();
-					}
-					break;
-				case 'l'://hayden
-				if( InputEvent.usKeyState & ALT_DOWN )
-				{
-					/*
-					if (is_networked)
-					{
-						KillTacticalPlacementGUI();
-						DoQuickLoad();
-					}
-					*/
-				}
-				break;
-				case '7':
-					if (is_networked)
-					{
-						if(is_server)
-							manual_overide();
 					}
 					break;
 			}

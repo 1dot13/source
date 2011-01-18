@@ -24,6 +24,7 @@
 	#include "Animation Data.h"
 	#include "Font Control.h"
 	#include "message.h"
+	#include "GameSettings.h" // added by SANDRO
 #endif
 
 INT32	gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
@@ -386,10 +387,24 @@ BOOLEAN PickABoxer( void )
 					pBoxer->stats.bDexterity = __min( 100, pBoxer->stats.bDexterity + gubBoxersRests * 5 );
 					pBoxer->stats.bAgility = __min( 100, pBoxer->stats.bAgility + gubBoxersRests * 5 );
 					pBoxer->stats.bLifeMax = __min( 100, pBoxer->stats.bLifeMax + gubBoxersRests * 5 );
+					// give the 2nd boxer Hand to hand - SANDRO
+					if ( (uiLoop == NUM_BOXERS - 2) )
+					{
+						if (gGameOptions.fNewTraitSystem) // SANDRO - traits
+							pBoxer->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
+						else
+							pBoxer->stats.ubSkillTraits[0] = HANDTOHAND_OT;
+					}
 					// give the 3rd boxer martial arts
 					if ( (uiLoop == NUM_BOXERS - 1) && pBoxer->ubBodyType == REGMALE )
 					{
-						pBoxer->stats.ubSkillTrait1 = MARTIALARTS;
+						if (gGameOptions.fNewTraitSystem) // SANDRO - traits
+						{
+							pBoxer->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
+							pBoxer->stats.ubSkillTraits[1] = MARTIAL_ARTS_NT;
+						}
+						else
+							pBoxer->stats.ubSkillTraits[0] = MARTIALARTS_OT;
 					}
 					return( TRUE );
 				}

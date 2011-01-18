@@ -21,6 +21,7 @@
 	#include "english.h"
 #endif
 
+
 // Kaiden this line was commented before I screwed with it
 //extern struct POINT;
 
@@ -207,10 +208,10 @@ void CreateIMPPersonalityQuizButtons( void )
 	// ths Done button
 	giIMPPersonalityQuizButtonImage[0]=	LoadButtonImage( "LAPTOP\\button_7.sti" ,-1,0,-1,1,-1 );
 
-/* giIMPPersonalityQuizButton[0] = QuickCreateButton( giIMPPersonalityQuizButtonImage[0], LAPTOP_SCREEN_UL_X +	( 197 ), LAPTOP_SCREEN_WEB_UL_Y + ( 310 ),
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPPersonalityQuizAnswerConfirmCallback);
-*/
+// giIMPPersonalityQuizButton[0] = QuickCreateButton( giIMPPersonalityQuizButtonImage[0], LAPTOP_SCREEN_UL_X +	( 197 ), LAPTOP_SCREEN_WEB_UL_Y + ( 310 ),
+//										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+//										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPPersonalityQuizAnswerConfirmCallback);
+//
 	giIMPPersonalityQuizButton[0] = CreateIconAndTextButton( giIMPPersonalityQuizButtonImage[0], pImpButtonText[ 8 ], FONT12ARIAL,
 														FONT_WHITE, DEFAULT_SHADOW,
 														FONT_WHITE, DEFAULT_SHADOW,
@@ -221,10 +222,10 @@ void CreateIMPPersonalityQuizButtons( void )
 	// start over
 	giIMPPersonalityQuizButtonImage[ 1 ]=	LoadButtonImage( "LAPTOP\\button_5.sti" ,-1,0,-1,1,-1 );
 
-	/* giIMPPersonalityQuizButton[ 1 ] = QuickCreateButton( giIMPPersonalityQuizButtonImage[1], LAPTOP_SCREEN_UL_X +	( BTN_FIRST_COLUMN_X ), LAPTOP_SCREEN_WEB_UL_Y + ( 310 ),
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPPersonalityQuizStartOverCallback);
-*/
+	// giIMPPersonalityQuizButton[ 1 ] = QuickCreateButton( giIMPPersonalityQuizButtonImage[1], LAPTOP_SCREEN_UL_X +	( BTN_FIRST_COLUMN_X ), LAPTOP_SCREEN_WEB_UL_Y + ( 310 ),
+//										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+//										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPPersonalityQuizStartOverCallback);
+//
 
 	giIMPPersonalityQuizButton[ 1 ] = CreateIconAndTextButton( giIMPPersonalityQuizButtonImage[ 1 ], pImpButtonText[ 7 ], FONT12ARIAL,
 														FONT_WHITE, DEFAULT_SHADOW,
@@ -1024,12 +1025,12 @@ void CompileQuestionsInStatsAndWhatNot( void )
 						if( fCharacterIsMale )
 						{
 							// Martial arts
-							AddSkillToSkillList( MARTIALARTS );
+							AddSkillToSkillList( MARTIALARTS_OT );
 						}
 						else
 						{
 							// for women, ambidexterious
-							AddSkillToSkillList( AMBIDEXT );
+							AddSkillToSkillList( AMBIDEXT_OT );
 						}
 				break;
 			case( 1 ):
@@ -1037,15 +1038,15 @@ void CompileQuestionsInStatsAndWhatNot( void )
 					break;
 					case( 2 ):
 							// hand to hand
-						AddSkillToSkillList( HANDTOHAND );
+						AddSkillToSkillList( HANDTOHAND_OT );
 					break;
 			case( 3 ):
 					// lock picking
-			AddSkillToSkillList( LOCKPICKING );
+			AddSkillToSkillList( LOCKPICKING_OT );
 					break;
 					case( 4 ):
 					// throwing
-						AddSkillToSkillList( THROWING );
+						AddSkillToSkillList( THROWING_OT );
 					break;
 					case( 5 ):
 					// optimist
@@ -1058,10 +1059,10 @@ void CompileQuestionsInStatsAndWhatNot( void )
 				{
 				case( 0 ):
 						// teaching
-			 AddSkillToSkillList( TEACHING );
+			 AddSkillToSkillList( TEACHING_OT );
 				break;
 			case( 1 ):
-					AddSkillToSkillList( STEALTHY );
+					AddSkillToSkillList( STEALTHY_OT );
 					break;
 					case( 2 ):
 					// psycho
@@ -1077,14 +1078,14 @@ void CompileQuestionsInStatsAndWhatNot( void )
 				{
 				case( 0 ):
 						// lock picking
-			AddSkillToSkillList( LOCKPICKING );
+			AddSkillToSkillList( LOCKPICKING_OT );
 				break;
 			case( 1 ):
 					// arrogant
 						AddAnAttitudeToAttitudeList( ATT_ARROGANT );
 					break;
 					case( 2 ):
-						AddSkillToSkillList( STEALTHY );
+						AddSkillToSkillList( STEALTHY_OT );
 					break;
 			case( 3 ):
 							// normal
@@ -1098,7 +1099,7 @@ void CompileQuestionsInStatsAndWhatNot( void )
 				{
 				case( 0 ):
 						// automatic weapons
-			AddSkillToSkillList( AUTO_WEAPS );
+			AddSkillToSkillList( AUTO_WEAPS_OT );
 				break;
 			case( 1 ):
 						// friendly
@@ -1146,7 +1147,7 @@ void CompileQuestionsInStatsAndWhatNot( void )
 						AddAnAttitudeToAttitudeList( ATT_COWARD );
 				break;
 			case( 1 ):
-						AddSkillToSkillList( NIGHTOPS );
+						AddSkillToSkillList( NIGHTOPS_OT );
 					break;
 					case( 2 ):
 						// dont like boxes much
@@ -1165,14 +1166,14 @@ void CompileQuestionsInStatsAndWhatNot( void )
 				{
 				case( 0 ):
 						// electronics
-			AddSkillToSkillList( ELECTRONICS );
+			AddSkillToSkillList( ELECTRONICS_OT );
 				break;
 			case( 1 ):
 							//knifing
-			AddSkillToSkillList( KNIFING );
+			AddSkillToSkillList( KNIFING_OT );
 					break;
 					case( 2 ):
-					AddSkillToSkillList( NIGHTOPS );
+					AddSkillToSkillList( NIGHTOPS_OT );
 					break;
 			case( 3 ):
 						// none
@@ -1184,7 +1185,7 @@ void CompileQuestionsInStatsAndWhatNot( void )
 				{
 				case( 0 ):
 						// ambidexterous
-						AddSkillToSkillList( AMBIDEXT );
+						AddSkillToSkillList( AMBIDEXT_OT );
 				break;
 			case( 1 ):
 			// none
@@ -1247,7 +1248,7 @@ void CompileQuestionsInStatsAndWhatNot( void )
 				break;
 			case( 1 ):
 					// teaching
-			 AddSkillToSkillList( TEACHING );
+			 AddSkillToSkillList( TEACHING_OT );
 					break;
 					case( 2 ):
 						// aggressive
@@ -1269,32 +1270,32 @@ void CompileQuestionsInStatsAndWhatNot( void )
 						if( fCharacterIsMale )
 						{
 							// Martial arts
-							AddSkillToSkillList( MARTIALARTS );
+							AddSkillToSkillList( MARTIALARTS_OT );
 						}
 						else
 						{
 							// for women, ambidexterious
-							AddSkillToSkillList( AMBIDEXT );
+							AddSkillToSkillList( AMBIDEXT_OT );
 						}
 				break;
 			case( 1 ):
 							//knifing
-			AddSkillToSkillList( KNIFING );
+			AddSkillToSkillList( KNIFING_OT );
 					break;
 					case( 2 ):
 					// none
 					break;
 			case( 3 ):
 						// automatic weapons
-			AddSkillToSkillList( AUTO_WEAPS );
+			AddSkillToSkillList( AUTO_WEAPS_OT );
 					break;
 					case( 4 ):
 							// hand to hand
-						AddSkillToSkillList( HANDTOHAND );
+						AddSkillToSkillList( HANDTOHAND_OT );
 					break;
 					case( 5 ):
 					// electronics
-			AddSkillToSkillList( ELECTRONICS );
+			AddSkillToSkillList( ELECTRONICS_OT );
 					break;
 					case( 6 ):
 					// ashole
@@ -1350,11 +1351,11 @@ void CompileQuestionsInStatsAndWhatNot( void )
 				{
 				case( 0 ):
 						// throwing
-			AddSkillToSkillList( THROWING );
+			AddSkillToSkillList( THROWING_OT );
 				break;
 			case( 1 ):
 						// ambidexterous
-						AddSkillToSkillList( AMBIDEXT );
+						AddSkillToSkillList( AMBIDEXT_OT );
 					break;
 					case( 3 ):
 					// none
@@ -1622,71 +1623,71 @@ void HandleIMPQuizKeyBoard( void )
 		// HOOK INTO MOUSE HOOKS
 
 
-		/*
-		if( (InputEvent.usEvent == KEY_DOWN ) && ( InputEvent.usParam >= '1' ) && ( InputEvent.usParam <= '9') )
-		{
-			if( ( UINT16 )( iNumberOfPersonaButtons ) >= InputEvent.usParam - '0' )
-			{
+		//
+		//if( (InputEvent.usEvent == KEY_DOWN ) && ( InputEvent.usParam >= '1' ) && ( InputEvent.usParam <= '9') )
+		//{
+		//	if( ( UINT16 )( iNumberOfPersonaButtons ) >= InputEvent.usParam - '0' )
+		//	{
 				// reset buttons
-				ResetQuizAnswerButtons( );
+		//		ResetQuizAnswerButtons( );
 
 				// ok, check to see if button was disabled, if so, re enable
-				CheckStateOfTheConfirmButton( );
+		//		CheckStateOfTheConfirmButton( );
 
 				// toggle this button on
-				ButtonList[ giIMPPersonalityQuizAnswerButton[ InputEvent.usParam - '1' ] ]->uiFlags |= (BUTTON_CLICKED_ON);
+		//		ButtonList[ giIMPPersonalityQuizAnswerButton[ InputEvent.usParam - '1' ] ]->uiFlags |= (BUTTON_CLICKED_ON);
 
-				iCurrentAnswer = InputEvent.usParam - '1';
+		//		iCurrentAnswer = InputEvent.usParam - '1';
 
-				PrintImpText( );
+		//		PrintImpText( );
 
 				// the current and last question numbers
-				PrintQuizQuestionNumber( );
+		//		PrintQuizQuestionNumber( );
 
-				fReDrawCharProfile = TRUE;
-				fSkipFrame = TRUE;
-			}
-		}
-		else if( ( iCurrentAnswer != -1 ) && ( InputEvent.usEvent == KEY_DOWN ) && ( InputEvent.usParam == ENTER ) )
-		{
+		//		fReDrawCharProfile = TRUE;
+		//		fSkipFrame = TRUE;
+		//	}
+//		}
+//		else if( ( iCurrentAnswer != -1 ) && ( InputEvent.usEvent == KEY_DOWN ) && ( InputEvent.usParam == ENTER ) )
+//		{
 			// reset all the buttons
-			ResetQuizAnswerButtons( );
+//			ResetQuizAnswerButtons( );
 
 			// copy the answer into the list
-			iQuizAnswerList[ giCurrentPersonalityQuizQuestion ] = iCurrentAnswer;
+//			iQuizAnswerList[ giCurrentPersonalityQuizQuestion ] = iCurrentAnswer;
 
 			// reset answer for next question
-			iCurrentAnswer = -1;
+//			iCurrentAnswer = -1;
 
 			// next question, JOHNNY!
-			giCurrentPersonalityQuizQuestion++;
-			giMaxPersonalityQuizQuestion++;
+//			giCurrentPersonalityQuizQuestion++;
+//			giMaxPersonalityQuizQuestion++;
 
 
 			// OPPS!, done..time to finish up
-			if( giCurrentPersonalityQuizQuestion > 15)
-			{
-				iCurrentImpPage = IMP_PERSONALITY_FINISH;
+//			if( giCurrentPersonalityQuizQuestion > 15)
+//			{
+//				iCurrentImpPage = IMP_PERSONALITY_FINISH;
 				// process
-				CompileQuestionsInStatsAndWhatNot( );
-			}
+//				CompileQuestionsInStatsAndWhatNot( );
+//			}
 
-			fSkipFrame = TRUE;
-		}
-		else if( ( InputEvent.usEvent == KEY_DOWN ) && ( InputEvent.usParam == '=' ) )
-		{
-			MoveAheadAQuestion( );
-			fSkipFrame = TRUE;
-		}
-		else if( ( InputEvent.usEvent == KEY_DOWN ) && ( InputEvent.usParam == '-' ) )
-		{
-			MoveBackAQuestion( );
-			fSkipFrame = TRUE;
-		}
-		else
-		{
+//			fSkipFrame = TRUE;
+//		}
+//		else if( ( InputEvent.usEvent == KEY_DOWN ) && ( InputEvent.usParam == '=' ) )
+//		{
+//			MoveAheadAQuestion( );
+//			fSkipFrame = TRUE;
+//		}
+//		else if( ( InputEvent.usEvent == KEY_DOWN ) && ( InputEvent.usParam == '-' ) )
+//		{
+//			MoveBackAQuestion( );
+//			fSkipFrame = TRUE;
+//		}
+//		else
+//		{
 
-*/			switch(InputEvent.usEvent)
+			switch(InputEvent.usEvent)
 			{
 				case LEFT_BUTTON_DOWN:
 					MouseSystemHook(LEFT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
@@ -1761,19 +1762,19 @@ void MoveAheadAQuestion( void )
 
 	CheckAndUpdateNextPreviousIMPQuestionButtonStates( );
 
-/*
-	EnableButton( giPreviousQuestionButton );
 
-	if( giCurrentPersonalityQuizQuestion >= giMaxPersonalityQuizQuestion )
-	{
-		DisableButton( giNextQuestionButton );
-		iCurrentAnswer = -1;
-	}
-	else
-	{
-		EnableButton( giNextQuestionButton );
-	}
-*/
+//	EnableButton( giPreviousQuestionButton );
+
+//	if( giCurrentPersonalityQuizQuestion >= giMaxPersonalityQuizQuestion )
+//	{
+//		DisableButton( giNextQuestionButton );
+//		iCurrentAnswer = -1;
+//	}
+//	else
+//	{
+//		EnableButton( giNextQuestionButton );
+//	}
+
 	return;
 }
 
@@ -1792,16 +1793,16 @@ void MoveBackAQuestion( void )
 	EnableButton( giNextQuestionButton );
 
 	CheckAndUpdateNextPreviousIMPQuestionButtonStates( );
-/*
-	if( giCurrentPersonalityQuizQuestion == 0 )
-	{
-		DisableButton( giPreviousQuestionButton );
-	}
-	else
-	{
-		EnableButton( giPreviousQuestionButton );
-	}
-*/
+
+//	if( giCurrentPersonalityQuizQuestion == 0 )
+//	{
+//		DisableButton( giPreviousQuestionButton );
+//	}
+//	else
+//	{
+//		EnableButton( giPreviousQuestionButton );
+//	}
+
 	return;
 }
 

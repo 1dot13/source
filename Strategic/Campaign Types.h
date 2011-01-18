@@ -210,7 +210,7 @@ typedef struct FACILITYRISKTYPE
 {
 	// The risks involved with perfoming an assignment at a specific facility.
 
-	UINT8 ubChance;				// Chance out of X that this risk will trigger every hour. X is INI-defined and is normally 1000.
+	UINT16 usChance;			// Chance out of X that this risk will trigger every hour. X is INI-defined and is normally 1000.
 	INT8 bBaseEffect;			// Base result. If negative, result will always be negative. If positive, result will always be positive.
 								// If 0, result can be either negative or positive.
 	UINT8 ubRange;				// Range of deviation for the base effect.
@@ -480,6 +480,9 @@ typedef struct UNDERGROUND_SECTORINFO
 	UINT8	ubCreatureHabitat;			//determines how creatures live in this sector (see creature spreading.c)
 	UINT8	ubElitesInBattle, ubTroopsInBattle, ubAdminsInBattle, ubCreaturesInBattle;
 
+	// adding these (should not change struct layout due to padding)
+	UINT8	ubMusicMode, ubUnsed;
+
 	UINT32	uiNumberOfWorldItemsInTempFileThatCanBeSeenByPlayer;
 	INT8	bPadding[36];
 	//no padding left!
@@ -491,5 +494,13 @@ typedef struct UNDERGROUND_SECTORINFO
 extern std::vector<SECTORINFO> SectorInfo;
 
 extern UNDERGROUND_SECTORINFO *gpUndergroundSectorInfoHead;
+
+enum CreateMusic
+{
+	CM_COMPAT,
+	CM_AUTO,
+	CM_NEVER,
+	CM_ALWAYS,
+};
 
 #endif

@@ -214,6 +214,7 @@ BOOLEAN gfRealGunNut = TRUE;
 INT16 sGridX, sGridY;
 INT32 iMapIndex;
 BOOLEAN fNewMap = FALSE;
+BOOLEAN fNewMapSaved = TRUE;
 
 INT32 iPrevDrawMode = DRAW_MODE_NOTHING;
 UINT16 PrevCurrentPaste = FIRSTTEXTURE;
@@ -297,7 +298,8 @@ BOOLEAN EditModeInit( void )
 
 	//dnl after multiplayer stuff was implemeted, editor goes to assertion when you leave editor mode, because InitGameOption() is not called anymore from InitializeGame()
 	is_networked = FALSE;
-	InitGameOptions();
+	//InitGameOptions();
+	GameInitOptionsScreenInit();
 
 	ResetCustomFileSectorSummary();//dnl ch30 150909
 
@@ -375,6 +377,7 @@ BOOLEAN EditModeInit( void )
 
 	gfEditMode = TRUE;
 	fNewMap = FALSE;
+	fNewMapSaved = TRUE;
 
 	gfEditingDoor = FALSE;
 
@@ -2483,6 +2486,8 @@ void CreateNewMap()
 	ResetCustomFileSectorSummary();//dnl ch30 150909
 	SetRenderCenter(WORLD_COLS/2, WORLD_ROWS/2);//dnl ch43 280909
 	InitRenderParams(gMapInformation.ubRestrictedScrollID);//dnl ch54 101009
+
+	fNewMapSaved = FALSE;
 }
 
 

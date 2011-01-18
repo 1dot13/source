@@ -77,6 +77,11 @@ extern void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT1
 //	SANMONA_ARMS_GROUP,
 //	ANGELS_GROUP,
 //	NUM_CIV_GROUPS
+
+CHAR16 gszCivGroupNames[ NUM_CIV_GROUPS ][ 128 ];
+
+
+/*
 CHAR16 gszCivGroupNames[ NUM_CIV_GROUPS ][ 20 ] =
 {
 	L"NONE",
@@ -102,7 +107,7 @@ CHAR16 gszCivGroupNames[ NUM_CIV_GROUPS ][ 20 ] =
 	L"UNUSED18",
 	L"UNUSED19",
 };
-
+*/
 //--------------------------------------------------
 
 //	SCHEDULE_ACTION_NONE,
@@ -310,6 +315,27 @@ extern BASIC_SOLDIERCREATE_STRUCT gSaveBufferBasicPlacement;
 extern SOLDIERCREATE_STRUCT gSaveBufferDetailedPlacement;
 //void CopyMercPlacement(); // moved to header (jonathanl)
 //void PasteMercPlacement(); // moved to header (jonathanl)
+
+
+//legion2 jazz
+
+wchar_t *GetGrupaString( SOLDIERTYPE *pSoldier ) //Legion 2
+{
+	INT32 cnt, cntStart,par;
+	
+	cntStart = 0;
+	for ( cnt = cntStart; cnt < NUM_CIV_GROUPS; cnt ++ )
+	{
+			if (pSoldier->ubCivilianGroup == cnt)	
+			{
+			par = cnt;
+			}
+			
+	}
+	return gszCivGroupNames[ par ];
+}
+//------------
+
 
 void GameInitEditorMercsInfo()
 {
@@ -3106,7 +3132,7 @@ void RenderMercStrings()
 	SOLDIERTYPE								*pSoldier;
 	INT16 sXPos, sYPos;
 	INT16 sX, sY;
-	STR16 pStr;
+	STR16 pStr, pStr2;
 	SOLDIERINITNODE *curr;
 	CHAR16 str[50];
 
@@ -3154,6 +3180,24 @@ void RenderMercStrings()
 					mprintf( sX, sY, str );
 				}
 				sYPos += 10;
+				
+				
+				if (pSoldier->bTeam == CIV_TEAM )
+				{
+				//legion2
+				pStr2 = GetGrupaString( pSoldier );
+				
+				SetFontBackground( FONT_MCOLOR_BLACK );
+				SetFontForeground( FONT_YELLOW ); //FONT_MCOLOR_WHITE
+				FindFontCenterCoordinates( sXPos, sYPos, 80, 1, pStr2, TINYFONT1, &sX, &sY );
+				if( sY < (2 * iScreenHeightOffset + 352 ))
+				{
+					gprintfdirty( sX, sY, pStr2 );
+					mprintf( sX, sY, pStr2 );
+				}
+				sYPos += 10;
+				}
+				
 			}
 			else
 			{
@@ -3180,6 +3224,25 @@ void RenderMercStrings()
 					mprintf( sX, sY, str );
 				}
 				sYPos += 10;
+				
+				//legion
+				if (pSoldier->bTeam == CIV_TEAM ) //(pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == CREATURE_TEAM || pSoldier->bTeam == MILITIA_TEAM) 
+				{		
+				//legion 2
+				pStr2 = GetGrupaString( pSoldier );
+				
+				//SetFont( TINYFONT1 );
+				SetFontBackground( FONT_MCOLOR_BLACK );
+				SetFontForeground( FONT_YELLOW ); //FONT_MCOLOR_WHITE
+				FindFontCenterCoordinates( sXPos, sYPos, 80, 1, pStr2, TINYFONT1, &sX, &sY );
+				if( sY < (2 * iScreenHeightOffset + 352 ))
+				{
+					gprintfdirty( sX, sY, pStr2 );
+					mprintf( sX, sY, pStr2 );
+				}
+				sYPos += 10;
+				}
+				
 			}
 			if( curr->pBasicPlacement->bOrders == RNDPTPATROL || curr->pBasicPlacement->bOrders == POINTPATROL )
 			{ //make sure the placement has at least one waypoint.
@@ -3302,7 +3365,7 @@ void CancelCurrentScheduleAction()
 
 void RegisterCurrentScheduleAction( INT32 iMapIndex )
 {
-	CHAR16 str[6];
+	CHAR16 str[10];
 	MarkWorldDirty();
 	swprintf( str, L"%d", iMapIndex );
 	if( gfUseScheduleData2 )

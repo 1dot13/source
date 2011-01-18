@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="ja2_Libs"
+	>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalLibraryDirectories=".\.;&quot;Standard Gaming Platform&quot;"
+		AdditionalDependencies="libexpatMT.lib mss32.lib SMACKW32.LIB binkw32.lib fmodvc.lib lua51.lib VtuneApi.lib ddraw.lib"
+	/>
+</VisualStudioPropertySheet>

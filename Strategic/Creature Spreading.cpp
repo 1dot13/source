@@ -33,6 +33,7 @@
 	#include "Map Information.h"
 #endif
 
+#include "Strategic Mines.h"
 #include "connect.h"
 
 
@@ -106,7 +107,7 @@
 //When either in a cave level with blue lights or there is a creature presence, then
 //we override the normal music with the creature music.	The conditions are maintained
 //inside the function PrepareCreaturesForBattle() in this module.
-BOOLEAN gfUseCreatureMusic = FALSE;
+//BOOLEAN gfUseCreatureMusic = FALSE; // moved to music control.cpp
 BOOLEAN gfCreatureMeanwhileScenePlayed = FALSE;
 enum
 {
@@ -148,7 +149,7 @@ extern UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSect
 extern void BuildUndergroundSectorInfoList();
 void DeleteCreatureDirectives();
 
-extern MINE_STATUS_TYPE gMineStatus[ MAX_NUMBER_OF_MINES ];
+//extern MINE_STATUS_TYPE gMineStatus[ MAX_NUMBER_OF_MINES ];
 
 CREATURE_DIRECTIVE* NewDirective( UINT8 ubSectorID, UINT8 ubSectorZ, UINT8 ubCreatureHabitat )
 {
@@ -329,26 +330,35 @@ void InitCreatureQuest()
 	memset( fMineInfectible, 1, sizeof( BOOLEAN ) * 4 );
 
 	if( gMineStatus[ MINE_DRASSEN ].fAttackedHeadMiner ||
-			gMineStatus[ MINE_DRASSEN ].uiOreRunningOutPoint ||
-			StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( SEC_D13 ) ].fEnemyControlled )
+			//gMineStatus[ MINE_DRASSEN ].uiOreRunningOutPoint ||
+			!gMineStatus[ MINE_DRASSEN ].fInfectible ||
+			//StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( SEC_D13 ) ].fEnemyControlled
+			StrategicMap[ gMineStatus[MINE_DRASSEN].StrategicIndex() ].fEnemyControlled
+			)
 	{ //If head miner was attacked, ore will/has run out, or enemy controlled
 		fMineInfectible[ 0 ] = FALSE;
 	}
 	if( gMineStatus[ MINE_CAMBRIA ].fAttackedHeadMiner ||
-			gMineStatus[ MINE_CAMBRIA ].uiOreRunningOutPoint ||
-			StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( SEC_H8 ) ].fEnemyControlled )
+			//gMineStatus[ MINE_CAMBRIA ].uiOreRunningOutPoint ||
+			!gMineStatus[ MINE_CAMBRIA ].fInfectible ||
+			//StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( SEC_H8 ) ].fEnemyControlled )
+			StrategicMap[ gMineStatus[MINE_CAMBRIA].StrategicIndex() ].fEnemyControlled )
 	{ //If head miner was attacked, ore will/has run out, or enemy controlled
 		fMineInfectible[ 1 ] = FALSE;
 	}
 	if( gMineStatus[ MINE_ALMA ].fAttackedHeadMiner ||
-			gMineStatus[ MINE_ALMA ].uiOreRunningOutPoint ||
-			StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( SEC_I14 ) ].fEnemyControlled )
+			//gMineStatus[ MINE_ALMA ].uiOreRunningOutPoint ||
+			!gMineStatus[ MINE_ALMA ].fInfectible ||
+			//StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( SEC_I14 ) ].fEnemyControlled )
+			StrategicMap[ gMineStatus[MINE_ALMA].StrategicIndex() ].fEnemyControlled )
 	{ //If head miner was attacked, ore will/has run out, or enemy controlled
 		fMineInfectible[ 2 ] = FALSE;
 	}
 	if( gMineStatus[ MINE_GRUMM ].fAttackedHeadMiner ||
-			gMineStatus[ MINE_GRUMM ].uiOreRunningOutPoint ||
-			StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( SEC_H3 ) ].fEnemyControlled )
+			//gMineStatus[ MINE_GRUMM ].uiOreRunningOutPoint ||
+			!gMineStatus[ MINE_GRUMM ].fInfectible ||
+			//StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( SEC_H3 ) ].fEnemyControlled )
+			StrategicMap[ gMineStatus[MINE_GRUMM].StrategicIndex() ].fEnemyControlled )
 	{ //If head miner was attacked, ore will/has run out, or enemy controlled
 		fMineInfectible[ 3 ] = FALSE;
 	}
@@ -786,7 +796,7 @@ void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 	{
 		case SEC_D13: //DRASSEN
 			gsCreatureInsertionCode = INSERTION_CODE_GRIDNO;
-			gsCreatureInsertionGridNo = 20703;
+			gsCreatureInsertionGridNo = 20703;//dnl!!!
 			break;
 		case SEC_C13:
 			gsCreatureInsertionCode = INSERTION_CODE_SOUTH;
@@ -796,7 +806,7 @@ void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 			break;
 		case SEC_H3: //GRUMM
 			gsCreatureInsertionCode = INSERTION_CODE_GRIDNO;
-			gsCreatureInsertionGridNo = 10303;
+			gsCreatureInsertionGridNo = 10303; //dnl!!!
 			break;
 		case SEC_H2:
 			gsCreatureInsertionCode = INSERTION_CODE_EAST;
@@ -812,7 +822,7 @@ void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 			break;
 		case SEC_H8: //CAMBRIA
 			gsCreatureInsertionCode = INSERTION_CODE_GRIDNO;
-			gsCreatureInsertionGridNo = 13005;
+			gsCreatureInsertionGridNo = 13005; //dnl!!!
 			break;
 		case SEC_G8:
 			gsCreatureInsertionCode = INSERTION_CODE_SOUTH;
@@ -828,7 +838,7 @@ void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 			break;
 		case SEC_I14: //ALMA
 			gsCreatureInsertionCode = INSERTION_CODE_GRIDNO;
-			gsCreatureInsertionGridNo = 9726;
+			gsCreatureInsertionGridNo = 9726; //dnl!!!
 			break;
 		case SEC_I13:
 			gsCreatureInsertionCode = INSERTION_CODE_EAST;
@@ -940,7 +950,7 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 		case CREATURE_BATTLE_CODE_TACTICALLYADD:
 			if (is_networked)
 			{
-				if(is_server && CREATURE_ENABLED==1)
+				if(is_server && gCreatureEnabled == 1)
 					PrepareCreaturesForBattle();
 			}
 			else
@@ -1215,35 +1225,56 @@ BOOLEAN PrepareCreaturesForBattle()
 	if( !gubCreatureBattleCode )
 	{
 		ubNumColors = LightGetColors( LColors );
+
+		if (! gbWorldSectorZ )
+		{
+			UseCreatureMusic(LColors->peBlue);
+			return FALSE;	//Creatures don't attack overworld with this battle code.
+		}
+
+		pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		if( !pSector )
+		{
+			return FALSE;
+		}
+
 		//if( ubNumColors != 1 )
 		//	ScreenMsg( FONT_RED, MSG_ERROR, L"This map has more than one light color -- KM, LC : 1" );
 
 		//By default, we only play creature music in the cave levels (the creature levels all consistently
 		//have blue lights while human occupied mines have red lights.	We always play creature music
 		//when creatures are in the level.
-		if( LColors->peBlue )
-			gfUseCreatureMusic = TRUE;
-		else
-			gfUseCreatureMusic = FALSE;
+		BOOLEAN fCreatures = pSector->ubNumCreatures > 0;
 
-		if( !gbWorldSectorZ )
-			return FALSE;	//Creatures don't attack overworld with this battle code.
-		pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-		if( !pSector )
+		switch (pSector->ubMusicMode)
+		{
+			case CM_AUTO:
+				UseCreatureMusic(fCreatures);
+				break;
+			case CM_NEVER:
+				UseCreatureMusic(FALSE);
+				break;
+			case CM_ALWAYS:
+				UseCreatureMusic(TRUE);
+				break;
+			case CM_COMPAT:
+			default:
+				UseCreatureMusic(LColors->peBlue || fCreatures);
+				break;
+		}
+
+		if( !fCreatures )
 		{
 			return FALSE;
 		}
-		if( !pSector->ubNumCreatures )
-		{
-			return FALSE;
-		}
-		gfUseCreatureMusic = TRUE; //creatures are here, so play creature music
+		//gfUseCreatureMusic = TRUE; //creatures are here, so play creature music
 		ubCreatureHabitat = pSector->ubCreatureHabitat;
 		ubNumCreatures = pSector->ubNumCreatures;
 	}
 	else
 	{ //creatures are attacking a town sector
-		gfUseCreatureMusic = TRUE;
+		//gfUseCreatureMusic = TRUE;
+		UseCreatureMusic(TRUE);
 		SetMusicMode( MUSIC_TACTICAL_NOTHING );
 		ubCreatureHabitat = MINE_EXIT;
 		ubNumCreatures = gubNumCreaturesAttackingTown;
@@ -1401,6 +1432,8 @@ void CreatureNightPlanning()
 
 void CheckConditionsForTriggeringCreatureQuest( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
+
+// move to Scripts/StrategicTownLoyalty.lua
 	UINT8 ubValidMines = 0;
 	if( !(gGameOptions.ubGameStyle == STYLE_SCIFI) || !gGameExternalOptions.fEnableCrepitus)
 		return; //No scifi, no creatures...
@@ -1452,7 +1485,8 @@ BOOLEAN SaveCreatureDirectives( HWFILE hFile )
 	{
 		return( FALSE );
 	}
-	FileWrite( hFile, &gfUseCreatureMusic, 1, &uiNumBytesWritten );
+	BOOLEAN fUseCreatureMusic = UsingCreatureMusic();
+	FileWrite( hFile, &fUseCreatureMusic, 1, &uiNumBytesWritten );
 	if( uiNumBytesWritten != sizeof( BOOLEAN ) )
 	{
 		return( FALSE );
@@ -1486,11 +1520,13 @@ BOOLEAN LoadCreatureDirectives( HWFILE hFile, UINT32 uiSavedGameVersion )
 		return( FALSE );
 	}
 
-	FileRead( hFile, &gfUseCreatureMusic, 1, &uiNumBytesRead );
+	BOOLEAN fUseCreatureMusic;
+	FileRead( hFile, &fUseCreatureMusic, 1, &uiNumBytesRead );
 	if( uiNumBytesRead != sizeof( BOOLEAN ) )
 	{
 		return( FALSE );
 	}
+	UseCreatureMusic(fUseCreatureMusic);
 
 	if( uiSavedGameVersion >= 82 )
 	{
@@ -1535,7 +1571,7 @@ BOOLEAN LoadCreatureDirectives( HWFILE hFile, UINT32 uiSavedGameVersion )
 
 void ForceCreaturesToAvoidMineTemporarily( UINT8 ubMineIndex )
 {
-	gMineStatus[ MINE_GRUMM ].usValidDayCreaturesCanInfest = (UINT16)(GetWorldDay() + 2);
+	gMineStatus[ ubMineIndex ].usValidDayCreaturesCanInfest = (UINT16)(GetWorldDay() + 2);
 }
 
 BOOLEAN PlayerGroupIsInACreatureInfestedMine()

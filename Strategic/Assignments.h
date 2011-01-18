@@ -28,45 +28,47 @@
 
 
 // Assignments Defines
-enum{
- SQUAD_1 =0,
- SQUAD_2,
- SQUAD_3,
- SQUAD_4,
- SQUAD_5,
- SQUAD_6,
- SQUAD_7,
- SQUAD_8,
- SQUAD_9,
- SQUAD_10,
- SQUAD_11,
- SQUAD_12,
- SQUAD_13,
- SQUAD_14,
- SQUAD_15,
- SQUAD_16,
- SQUAD_17,
- SQUAD_18,
- SQUAD_19,
- SQUAD_20,
- ON_DUTY,
- DOCTOR,
- PATIENT,
- VEHICLE,
- IN_TRANSIT,
- REPAIR,
- TRAIN_SELF,
- TRAIN_TOWN,
- TRAIN_MOBILE,			// HEADROCK HAM 3.6: Training mobile militia.
- TRAIN_TEAMMATE,
- TRAIN_BY_OTHER,
- FACILITY_STAFF,		// HEADROCK HAM 3.6: Operating a facility for strategic gain.
- FACILITY_REST,			// HEADROCK HAM 3.6: Facility equivalent of resting (no assignment)
- ASSIGNMENT_DEAD,
- ASSIGNMENT_UNCONCIOUS,			// unused
- ASSIGNMENT_POW,
- ASSIGNMENT_HOSPITAL,
- ASSIGNMENT_EMPTY,
+enum
+{
+	SQUAD_1 = 0,
+	SQUAD_2,
+	SQUAD_3,
+	SQUAD_4,
+	SQUAD_5,
+	SQUAD_6,
+	SQUAD_7,
+	SQUAD_8,
+	SQUAD_9,
+	SQUAD_10,
+	SQUAD_11,
+	SQUAD_12,
+	SQUAD_13,
+	SQUAD_14,
+	SQUAD_15,
+	SQUAD_16,
+	SQUAD_17,
+	SQUAD_18,
+	SQUAD_19,
+	SQUAD_20,
+	ON_DUTY,
+	DOCTOR,
+	PATIENT,
+	VEHICLE,
+	IN_TRANSIT,
+	REPAIR,
+	TRAIN_SELF,
+	TRAIN_TOWN,
+	TRAIN_MOBILE,			// HEADROCK HAM 3.6: Training mobile militia.
+	TRAIN_TEAMMATE,
+	TRAIN_BY_OTHER,
+	FACILITY_STAFF,		// HEADROCK HAM 3.6: Operating a facility for strategic gain.
+	FACILITY_REST,			// HEADROCK HAM 3.6: Facility equivalent of resting (no assignment)
+	ASSIGNMENT_DEAD,
+	ASSIGNMENT_UNCONCIOUS,			// unused
+	ASSIGNMENT_POW,
+	ASSIGNMENT_HOSPITAL,
+	ASSIGNMENT_EMPTY,
+	NUM_ASSIGNMENTS,
 };
 
 #define NO_ASSIGNMENT		127 //used when no pSoldier->ubDesiredSquad
@@ -369,6 +371,9 @@ BOOLEAN IsOutstandingFacilityDebtWithErrorReport();
 extern INT8 gubFacilityInSubmenu;
 extern UINT8 gubFacilityLineForSubmenu;
 extern SOLDIERTYPE *gpFacilityStaffer;
+
+// SANDRO - function to award record points for militia training
+void RecordNumMilitiaTrainedForMercs( INT16 sX, INT16 sY, INT8 sZ, UINT8 ubMilitiaTrained, BOOLEAN fMobile );
 
 #endif
 

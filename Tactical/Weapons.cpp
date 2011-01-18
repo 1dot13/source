@@ -46,6 +46,9 @@
 	#include "SmokeEffects.h"
 	#include "lighting.h"
 	#include "Auto Resolve.h"
+	#include "Soldier Functions.h" // added by SANDRO
+	#include "Drugs And Alcohol.h" // HEADROCK HAM 4: Get drunk level
+	#include "LOS.h" // HEADROCK HAM 4: Required for new shooting mechanism. Alternately, maybe move the functions to LOS.h.
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -97,6 +100,7 @@ extern BOOLEAN	gfNextFireJam;
 BOOLEAN WillExplosiveWeaponFail( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );
 
 BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
+BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 BOOLEAN UseThrown( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
@@ -326,6 +330,9 @@ AMMOTYPE AmmoTypes[MAXITEMS];
 // used to determine whether the bullet will go through someone
 UINT8 BodyImpactReduction[4] = { 0, 15, 30, 23 };
 
+bool gbForceWeaponNotReady = false;
+bool gbForceWeaponReady = false;
+
 
 
 
@@ -389,6 +396,7 @@ weaponStartElementHandle(void *userData, const XML_Char *name, const XML_Char **
 				strcmp(name, "ubImpact") == 0 ||
 				strcmp(name, "ubDeadliness") == 0 ||
 				strcmp(name, "bAccuracy") == 0 ||
+				strcmp(name, "nAccuracy") == 0 ||
 				strcmp(name, "ubMagSize") == 0 ||
 				strcmp(name, "usRange")	 == 0 ||
 				strcmp(name, "usReloadDelay") == 0 ||
@@ -405,12 +413,16 @@ weaponStartElementHandle(void *userData, const XML_Char *name, const XML_Char **
 				strcmp(name, "SwapClips") == 0 ||
 				strcmp(name, "AutoPenalty") == 0 ||
 				strcmp(name, "NoSemiAuto") == 0 ||
+				strcmp(name, "EasyUnjam") == 0 ||
 				strcmp(name, "MaxDistForMessyDeath") == 0 ||
 				strcmp(name, "SilencedSound") == 0 || // Lesh: add new field (OR operand)
                 strcmp(name, "BurstAniDelay") == 0 || // Lesh: add new field (field itself)
 				strcmp(name, "APsToReloadManually") == 0 ||
-				strcmp(name, "ManualReloadSound") == 0)
-				)
+				strcmp(name, "ManualReloadSound") == 0 ||
+				strcmp(name, "ubAimLevels") == 0  ||// HEADROCK HAM 4: Allowed aiming levels for this gun.
+				strcmp(name, "bRecoilX") == 0 || // HEADROCK HAM 4:
+				strcmp(name, "bRecoilY") == 0 || // HEADROCK HAM 4:
+				strcmp(name, "ubRecoilDelay") == 0)) // HEADROCK HAM 4:
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON_PROPERY;
 
@@ -530,6 +542,11 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
 			pData->curWeapon.bAccuracy = (INT8) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "nAccuracy") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.nAccuracy = (INT8) atol(pData->szCharData);
+		}
 		else if(strcmp(name, "ubMagSize") == 0)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
@@ -640,6 +657,31 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
             pData->curWeapon.ManualReloadSound = (UINT16) atol(pData->szCharData);
 		}
+   		else if(strcmp(name, "EasyUnjam") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.EasyUnjam = (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "ubAimLevels") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.ubAimLevels = (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bRecoilX") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.bRecoilX = (INT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "bRecoilY") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.bRecoilY = (INT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "ubRecoilDelay") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.ubRecoilDelay = (INT8) atol(pData->szCharData);
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -710,7 +752,7 @@ BOOLEAN ReadInWeaponStats(STR fileName)
 	//Debug code; make sure that what we got from the file is the same as what's there
 	// Open a new file
 	hFile = FileOpen( "TABLEDATA\\~Weapons out.xml", FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
-	THROWIFFALSE(hFile, BuildString().add(L"Couls not open/create file : ").add(L"TABLEDATA\\~Weapons out.xml").get());
+	SGP_THROW_IFFALSE(hFile, _BS(L"Couls not open/create file : ") << L"TABLEDATA\\~Weapons out.xml" << _BS::wget);
 	//if ( !hFile )
 	//	return( FALSE );
 
@@ -781,6 +823,7 @@ BOOLEAN ReadInWeaponStats(STR fileName)
 			FilePrintf(hFile,"\t\t<ubImpact>%d</ubImpact>\r\n",									Weapon[cnt].ubImpact);
 			FilePrintf(hFile,"\t\t<ubDeadliness>%d</ubDeadliness>\r\n",							Weapon[cnt].ubDeadliness);
 			FilePrintf(hFile,"\t\t<bAccuracy>%d</bAccuracy>\r\n",								Weapon[cnt].bAccuracy);
+			FilePrintf(hFile,"\t\t<nAccuracy>%d</nAccuracy>\r\n",								Weapon[cnt].nAccuracy);
 			FilePrintf(hFile,"\t\t<ubMagSize>%d</ubMagSize>\r\n",								Weapon[cnt].ubMagSize);
 			FilePrintf(hFile,"\t\t<usRange>%d</usRange>\r\n",									Weapon[cnt].usRange);
 			FilePrintf(hFile,"\t\t<usReloadDelay>%d</usReloadDelay>\r\n",						Weapon[cnt].usReloadDelay);
@@ -795,6 +838,10 @@ BOOLEAN ReadInWeaponStats(STR fileName)
 			FilePrintf(hFile,"\t\t<bAutofireShotsPerFiveAP>%d</bAutofireShotsPerFiveAP>\r\n",	Weapon[cnt].bAutofireShotsPerFiveAP);
 			FilePrintf(hFile,"\t\t<APsToReloadManually>%d</APsToReloadManually>\r\n",			Weapon[cnt].APsToReloadManually);
 			FilePrintf(hFile,"\t\t<ManualReloadSound>%d</ManualReloadSound>\r\n",				Weapon[cnt].ManualReloadSound);
+			FilePrintf(hFile,"\t\t<ubAimLevels>%d</ubAimLevels>\r\n",							Weapon[cnt].ubAimLevels);
+			FilePrintf(hFile,"\t\t<bRecoilX>%d<\bRecoilX>\r\n",									Weapon[cnt].bRecoilX);
+			FilePrintf(hFile,"\t\t<bRecoilY>%d<\bRecoilY>\r\n",									Weapon[cnt].bRecoilY);
+			FilePrintf(hFile,"\t\t<ubRecoilDelay>%d<\ubRecoilDelay>\r\n",						Weapon[cnt].ubRecoilDelay);
 			FilePrintf(hFile,"\t</WEAPON>\r\n");
 		}
 		FilePrintf(hFile,"</WEAPONLIST>\r\n");
@@ -880,10 +927,13 @@ BOOLEAN WriteWeaponStats()
 			FilePrintf(hFile,"\t\t<ubShotsPer4Turns>%d</ubShotsPer4Turns>\r\n",					Weapon[cnt].ubShotsPer4Turns);
 			FilePrintf(hFile,"\t\t<ubShotsPerBurst>%d</ubShotsPerBurst>\r\n",					Weapon[cnt].ubShotsPerBurst);
 			FilePrintf(hFile,"\t\t<ubBurstPenalty>%d</ubBurstPenalty>\r\n",						Weapon[cnt].ubBurstPenalty);
+			FilePrintf(hFile,"\t\t<bRecoilX>%d<\bRecoilX>",										Weapon[cnt].bRecoilX);
+			FilePrintf(hFile,"\t\t<bRecoilY>%d<\bRecoilY>",										Weapon[cnt].bRecoilY);
 			FilePrintf(hFile,"\t\t<ubBulletSpeed>%d</ubBulletSpeed>\r\n",						Weapon[cnt].ubBulletSpeed);
 			FilePrintf(hFile,"\t\t<ubImpact>%d</ubImpact>\r\n",									Weapon[cnt].ubImpact);
 			FilePrintf(hFile,"\t\t<ubDeadliness>%d</ubDeadliness>\r\n",							Weapon[cnt].ubDeadliness);
 			FilePrintf(hFile,"\t\t<bAccuracy>%d</bAccuracy>\r\n",								Weapon[cnt].bAccuracy);
+			FilePrintf(hFile,"\t\t<nAccuracy>%d</nAccuracy>\r\n",								Weapon[cnt].nAccuracy);
 			FilePrintf(hFile,"\t\t<ubMagSize>%d</ubMagSize>\r\n",								Weapon[cnt].ubMagSize);
 			FilePrintf(hFile,"\t\t<usRange>%d</usRange>\r\n",									Weapon[cnt].usRange);
 			FilePrintf(hFile,"\t\t<usReloadDelay>%d</usReloadDelay>\r\n",						Weapon[cnt].usReloadDelay);
@@ -903,6 +953,8 @@ BOOLEAN WriteWeaponStats()
 			FilePrintf(hFile,"\t\t<MaxDistForMessyDeath>%d</MaxDistForMessyDeath>\r\n",			Weapon[cnt].maxdistformessydeath);
 			FilePrintf(hFile,"\t\t<AutoPenalty>%d</AutoPenalty>\r\n",			Weapon[cnt].AutoPenalty);
 			FilePrintf(hFile,"\t\t<NoSemiAuto>%d</NoSemiAuto>\r\n",			Weapon[cnt].NoSemiAuto);
+			FilePrintf(hFile,"\t\t<ubAimLevels>%d</ubAimLevels>\r\n",							Weapon[cnt].ubAimLevels );
+			FilePrintf(hFile,"\t\t<EasyUnjam>%d</EasyUnjam>\r\n",			Weapon[cnt].EasyUnjam);
 
 
 
@@ -915,7 +967,7 @@ BOOLEAN WriteWeaponStats()
 	return( TRUE );
 }
 
-UINT16 GunRange( OBJECTTYPE * pObj )
+UINT16 GunRange( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier ) // SANDRO - added argument
 {
 	//INT8 bAttachPos;
 	UINT16 rng;
@@ -953,8 +1005,20 @@ UINT16 GunRange( OBJECTTYPE * pObj )
 		//}
 
 
+		UINT16 usRange = GetModifiedGunRange(pObj->usItem);
+
 		// Snap: attachment status is factored into the range bonus calculation
-		rng = Weapon[ pObj->usItem ].usRange + GetRangeBonus(pObj);
+		rng = usRange + GetRangeBonus(pObj);
+
+		// SANDRO - STOMP traits - Gunslinger bonus range with pistols
+		if ( pSoldier != NULL && Item[ pObj->usItem ].usItemClass & IC_GUN )
+		{
+			if ((Weapon[ pObj->usItem ].ubWeaponType == GUN_PISTOL || Weapon[ pObj->usItem ].ubWeaponType == GUN_M_PISTOL) &&
+				gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) )
+			{
+				rng += (rng * gSkillTraitValues.ubGSEffectiveRangeBonusPistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ) / 100 );
+			}
+		}
 
 		return rng;
 	}
@@ -977,7 +1041,7 @@ INT32 EffectiveArmour( OBJECTTYPE * pObj )
 	iValue = iValue * (*pObj)[0]->data.objectStatus * Armour[ Item[pObj->usItem].ubClassIndex ].ubCoverage / 10000;
 
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-		if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
+		if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 && iter->exists())
 		{
 			INT32 iValue2;
 
@@ -1077,7 +1141,7 @@ INT32 ExplosiveEffectiveArmour( OBJECTTYPE * pObj )
 	}
 
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-		if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
+		if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 && iter->exists())
 		{
 			INT32 iValue2;
 
@@ -1136,7 +1200,8 @@ void AdjustImpactByHitLocation( INT32 iImpact, UINT8 ubHitLocation, INT32 * piNe
 	{
 		case AIM_SHOT_HEAD:
 			// 1.5x damage from successful hits to the head!
-			*piImpactForCrits = HEAD_DAMAGE_ADJUSTMENT( iImpact );
+			//*piImpactForCrits = HEAD_DAMAGE_ADJUSTMENT( iImpact ); //comm by ddd
+			*piImpactForCrits = INT32(gGameExternalOptions.fShotHeadDivisor*iImpact);
 			*piNewImpact = *piImpactForCrits;
 			break;
 		case AIM_SHOT_LEGS:
@@ -1173,7 +1238,7 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 			{ 
 				// Algorithm for jamming 
 				int maxJamChance = 50; // Externalize this? 
-				int reliability = Item[pObj->usItem].bReliability; 
+				int reliability =  GetReliability( pObj ); 
 				int condition = (*pObj)[0]->data.gun.bGunStatus; 
 				int invertedBaseJamChance = condition + (reliability * 2) - 
 					gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity; 
@@ -1242,15 +1307,27 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 				if(EnoughPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM], FALSE))
 				{
 					DeductPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM]);
-					int iResult = SkillCheck( pSoldier, UNJAM_GUN_CHECK, (INT8) ((Item[pObj->usItem].bReliability + Item[(*pObj)[0]->data.gun.usGunAmmoItem].bReliability)* 4) ); 
+					INT8 bChanceMod;
+					
+					if ( Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].EasyUnjam )
+						bChanceMod = 100;
+					else
+						bChanceMod = (INT8) (GetReliability( pObj )* 4);
+					
+					int iResult = SkillCheck( pSoldier, UNJAM_GUN_CHECK, bChanceMod); 
+					
 					if (iResult > 0) 
 					{ 
 						// yay! unjammed the gun 
 						(*pObj)[0]->data.gun.bGunAmmoStatus *= -1; 
 					 
 						// MECHANICAL/DEXTERITY GAIN: Unjammed a gun 
-						StatChange( pSoldier, MECHANAMT, 5, FALSE ); 
-						StatChange( pSoldier, DEXTAMT, 5, FALSE ); 
+						
+						if (bChanceMod < 100) // don't give exp for unjamming an easily unjammable gun
+						{
+							StatChange( pSoldier, MECHANAMT, 5, FALSE ); 
+							StatChange( pSoldier, DEXTAMT, 5, FALSE ); 
+						}
 					 
 						DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 ); 
 					 
@@ -1400,9 +1477,9 @@ BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			break;
 
 		case IC_LAUNCHER:
-			if ( Item[pSoldier->usAttackingWeapon].rocketlauncher )
+			if ( Item[pSoldier->usAttackingWeapon].rocketlauncher ){
 				UseGun( pSoldier, sTargetGridNo );
-			else
+			} else {
 				// ATE: PAtch up - bookkeeping for spreading done out of whak
 				if ( pSoldier->flags.fDoSpread)
 				{
@@ -1440,6 +1517,7 @@ BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 				{
 					UseLauncher( pSoldier, sTargetGridNo );
 				}
+			}
 
 			break;
 
@@ -1559,9 +1637,573 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 	*pdZPos = dTargetZ;
 }
 
+// HEADROCK HAM 4: The CTH formula has been radically altered, and the value it returns is used very differently.
+// This function now no longer rolls any random variables - that is relegated to other functions. However, this
+// function is now responsible for altering the "center point" for the attack, given target movement and previous
+// bullets fired in a volley.
+BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
+{
+	// CTH is now used as a Muzzle Sway value. That is, it determines how wide our shot can go off the "center point"
+	// of the attack. Later on, we'll randomize just how far the shot actually goes within that sway radius.
+	UINT32							uiMuzzleSway;
+	INT16								sXMapPos, sYMapPos;
+	INT16								sAPCost;
+	FLOAT								dTargetX;
+	FLOAT								dTargetY;
+	FLOAT								dTargetZ;
+	UINT16							usItemNum;
+	BOOLEAN							fBuckshot;
+	UINT8								ubVolume;
+	CHAR8								zBurstString[512];
+	UINT8								ubDirection;
+	INT32 sNewGridNo;
+	UINT8								ubMerc;
+	BOOLEAN							fGonnaHit = FALSE;
+	FLOAT							dExpGain = 0;
+	UINT32							uiDepreciateTest;
+
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("UseGun") );
+	
+	// Calculate total APs required to complete the entire attack, including all relevant weapon AP costs
+	// with possible turning and gun-raising costs as well.
+ 	sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, FALSE, pSoldier->aiData.bAimTime );
+
+	usItemNum = pSoldier->usAttackingWeapon;
+
+	// CALC MUZZLE SWAY
+	if ( Item[ usItemNum ].usItemClass == IC_THROWING_KNIFE )
+	{
+	    uiMuzzleSway = 100 - CalcThrownChanceToHit( pSoldier, sTargetGridNo, pSoldier->aiData.bAimTime, pSoldier->bAimShotLocation );
+	}
+	else
+	{
+		uiMuzzleSway = 100 - CalcChanceToHitGun( pSoldier, sTargetGridNo, pSoldier->aiData.bAimTime, pSoldier->bAimShotLocation );
+	}
+
+	//ATE: Added if we are in meanwhile, we always hit...
+	if ( AreInMeanwhile( ) )
+	{
+		uiMuzzleSway = 0; // HEADROCK HAM 4: This ensures a direct shot at the target.
+	}
+
+	#ifdef JA2BETAVERSION
+	if ( gfReportHitChances )
+	{
+		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Hit chance was %ld, roll %ld (range %d)", uiHitChance, uiDiceRoll, PythSpacesAway( pSoldier->sGridNo, pSoldier->sTargetGridNo ) );
+	}
+	#endif
+
+	if ( pSoldier->bDoBurst )
+	{
+		// Only deduct points once for Burst and Autofire (on firing the first bullet).
+		if ( pSoldier->bDoBurst == 1 )
+		{
+			INT8 bShotsToFire = pSoldier->bDoAutofire ?
+				pSoldier->bDoAutofire :
+			    GetShotsPerBurst(&pSoldier->inv[HANDPOS]);
+
+			if ( Weapon[ usItemNum ].sBurstSound != NO_WEAPON_SOUND )
+			{
+				// IF we are silenced?
+				UINT16 noisefactor = GetPercentNoiseVolume( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+				if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ usItemNum ].ubAttackVolume <= 10 )
+				{
+					// Pick sound file baed on how many bullets we are going to fire...
+					sprintf( zBurstString, gzBurstSndStrings[ Weapon[ usItemNum ].sSilencedBurstSound ], bShotsToFire );
+
+					// Try playing sound...
+					pSoldier->iBurstSoundID = PlayJA2SampleFromFile( zBurstString, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+				}
+				else
+				{
+					// Pick sound file baed on how many bullets we are going to fire...
+                    // Lesh: changed next line
+					sprintf( zBurstString, gzBurstSndStrings[ Weapon[ usItemNum ].sBurstSound ], bShotsToFire );
+
+					INT8 volume = HIGHVOLUME;
+					if ( noisefactor < 100 ) volume = (INT8) ((volume * noisefactor) / 100);
+					// Try playing sound...
+					pSoldier->iBurstSoundID = PlayJA2SampleFromFile(  zBurstString, RATE_11025, SoundVolume( (INT8) volume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+				}
+
+				/*
+				//DIGICRAB: We don't need this anymore, because of the burst sound modification
+				//	If we don't have the burst sound, a normal shot will be played for each shot
+				if ( pSoldier->iBurstSoundID == NO_SAMPLE )
+				{
+					// If failed, play normal default....
+					pSoldier->iBurstSoundID = PlayJA2Sample( Weapon[ usItemNum ].sBurstSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+				}
+				*/
+			}
+
+			DeductPoints( pSoldier, sAPCost, 0 );
+		}
+
+	}
+	else
+	{
+		// ONLY DEDUCT FOR THE FIRST HAND when doing two-pistol attacks
+		if ( pSoldier->IsValidSecondHandShot( ) && pSoldier->inv[ HANDPOS ][0]->data.gun.bGunStatus >= USABLE && pSoldier->inv[HANDPOS][0]->data.gun.bGunAmmoStatus > 0 )
+		{
+			// only deduct APs when the main gun fires
+			if ( pSoldier->ubAttackingHand == HANDPOS )
+			{
+				DeductPoints( pSoldier, sAPCost, 0 );
+			}
+		}
+		else
+		{
+			DeductPoints( pSoldier, sAPCost, 0 );
+		}
+
+		//PLAY SOUND
+		// ( For throwing knife.. it's earlier in the animation
+		if ( Weapon[ usItemNum ].sSound != NO_WEAPON_SOUND && Item[ usItemNum ].usItemClass != IC_THROWING_KNIFE )
+		{
+			// Switch on silencer...
+			UINT16 noisefactor = GetPercentNoiseVolume( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+			if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ usItemNum ].ubAttackVolume <= 10 )
+			{
+				INT32 uiSound;
+
+				uiSound = Weapon [ usItemNum ].silencedSound ;
+				//if ( Weapon[ usItemNum ].ubCalibre == AMMO9 || Weapon[ usItemNum ].ubCalibre == AMMO38 || Weapon[ usItemNum ].ubCalibre == AMMO57 )
+				//{
+				//	uiSound = S_SILENCER_1;
+				//}
+				//else
+				//{
+				//	uiSound = S_SILENCER_2;
+				//}
+
+				PlayJA2Sample( uiSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+
+			}
+			else
+			{
+				INT8 volume = HIGHVOLUME;
+				if ( noisefactor < 100 ) volume = (volume * noisefactor) / 100;
+				PlayJA2Sample( Weapon[ usItemNum ].sSound, RATE_11025, SoundVolume( volume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+			}
+		}
+	}
+
+//ddd{износ объектов с муззле флаш. silencer
+	if ( (Item[ usItemNum ].usItemClass == IC_GUN) && gGameExternalOptions.bAllowWearSuppressor)
+	{
+		OBJECTTYPE * pInHand = &(pSoldier->inv[pSoldier->ubAttackingHand]);
+		if ( IsFlashSuppressor(&pSoldier->inv[ pSoldier->ubAttackingHand ], pSoldier ) )
+		{
+			for (attachmentList::iterator iter = (*pInHand)[0]->attachments.begin(); iter != (*pInHand)[0]->attachments.end(); ++iter) 
+			{
+				if (Item[iter->usItem].hidemuzzleflash  ) 
+				{
+					OBJECTTYPE* pA=	&(*iter);
+					if ( (*pA)[0]->data.objectStatus >=USABLE)
+					{
+						INT16 ammoReliability = Item[(*pInHand)[0]->data.gun.usGunAmmoItem].bReliability;
+						INT16 uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * 
+							(Item[ iter->usItem ].bReliability + ammoReliability);
+						if ( !PreRandom( uiDepreciateTest ) && ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus > 1) )
+							(*pA)[0]->data.objectStatus--;
+						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"rel =%d ",Item[ iter->usItem ].bReliability );
+					}
+				}
+			}
+		}
+	} //if ( Item[ usItemNum ].usItemClass == IC_GUN )
+//ddd}
+
+	//DIGICRAB: Barrel extender wear code
+	// Relocated from CalcChanceToHitGun
+	if ( Item[ usItemNum ].usItemClass == IC_GUN )
+	{
+		OBJECTTYPE * pInHand = &(pSoldier->inv[pSoldier->ubAttackingHand]);
+
+		// lalien: search for barrel extender not for any item with range bonus. (else barrel extender will fall off even when none is attached)
+		OBJECTTYPE* pAttachment = FindAttachment( pInHand, GUN_BARREL_EXTENDER );
+
+		if ( pAttachment )
+		{
+			// reduce status and see if it falls off
+			(*pAttachment)[0]->data.objectStatus -= (INT8) Random( 2 );
+
+			if ( (*pAttachment)[0]->data.objectStatus - Random( 35 ) - Random( 35 ) < USABLE )
+			{
+				//CHRISL: This setup assumes that remove() will work successfully, but if it doesn't we'll duplicate the item.
+				// barrel extender falls off!
+				// drop it to ground
+				//AddItemToPool( pSoldier->sGridNo, pAttachment, 1, pSoldier->pathing.bLevel, 0, -1 );
+
+				// since barrel extenders are not removable we cannot call RemoveAttachment here
+				// and must create the item by hand
+				//(*pInHand)[0]->attachments.remove(*pAttachment);
+				//ADB ubWeight has been removed, see comments in OBJECTTYPE
+				//pInHand->ubWeight = CalculateObjectWeight( pInHand );
+
+				//CHRISL: Instead of the above, use this function which is basially redundant to what remove() does, but includes
+				//	a failsafe so we don't cause an item duplication.
+				for(std::list<OBJECTTYPE>::iterator iter = (*pInHand)[0]->attachments.begin();
+					iter != (*pInHand)[0]->attachments.end(); ++iter){
+						if(*iter == *pAttachment)
+						{
+							AddItemToPool( pSoldier->sGridNo, pAttachment, 1, pSoldier->pathing.bLevel, 0, -1 );
+
+							iter = (*pInHand)[0]->RemoveAttachmentAtIter(iter);
+
+							break;
+						}
+				}
+
+				// big penalty to hit
+				// HEADROCK HAM 4: Muzzle sway INCREASES when a barrel extender falls off.
+				if(uiMuzzleSway > 70)
+				{
+					uiMuzzleSway = 100;
+				}
+				else
+				{
+					uiMuzzleSway += 30;
+				}
+
+				// curse!
+				if ( pSoldier->bTeam == OUR_TEAM )
+				{
+					pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 46 ], pSoldier->name );
+				}
+			}
+		}
+	}
+
+	// Some things we don't do for knives...
+	if ( Item[ usItemNum ].usItemClass != IC_THROWING_KNIFE )
+	{
+		// If realtime - set counter to freeup from attacking once done
+		if ( ( ( gTacticalStatus.uiFlags & REALTIME ) || !( gTacticalStatus.uiFlags & INCOMBAT ) ) )
+		{
+
+			// Set delay based on stats, weapon type, etc
+			pSoldier->sReloadDelay	= (INT16)( Weapon[ usItemNum ].usReloadDelay + MANDATORY_WEAPON_DELAY );
+
+			// If a bad guy, double the delay!
+			if ( (pSoldier->flags.uiStatusFlags & SOLDIER_ENEMY ) )
+			{
+				pSoldier->sReloadDelay	= ( pSoldier->sReloadDelay * 2 );
+			}
+
+
+			// slow down demo mode!
+			if ( gTacticalStatus.uiFlags & DEMOMODE )
+			{
+				pSoldier->sReloadDelay *= 2;
+			}
+
+			//pSoldier->flags.fReloading		= TRUE;
+			//RESETTIMECOUNTER( pSoldier->timeCounters.ReloadCounter, pSoldier->sReloadDelay );
+		}
+
+		// Deduct AMMO!
+		DeductAmmo( pSoldier, pSoldier->ubAttackingHand );
+
+		// ATE: Check if we should say quote...
+		if ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft == 0 && !Item[pSoldier->usAttackingWeapon].rocketlauncher )
+		{
+			if ( pSoldier->bTeam == gbPlayerNum )
+			{
+				pSoldier->flags.fSayAmmoQuotePending = TRUE;
+			}
+		}
+
+		// set buckshot and muzzle flash
+		fBuckshot = FALSE;
+		if (!CREATURE_OR_BLOODCAT( pSoldier ) )
+		{
+			if ( IsFlashSuppressor(&pSoldier->inv[ pSoldier->ubAttackingHand ], pSoldier ) )
+				pSoldier->flags.fMuzzleFlash = FALSE;
+			else
+				pSoldier->flags.fMuzzleFlash = TRUE;
+
+			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("UseGun: Muzzle flash = %d",pSoldier->flags.fMuzzleFlash));
+
+			if ( AmmoTypes[pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunAmmoType].numberOfBullets > 1 )
+				fBuckshot = TRUE;
+
+			//switch ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunAmmoType )
+			//{
+			//	case AMMO_BUCKSHOT:
+			//		fBuckshot = TRUE;
+			//		break;
+			//	case AMMO_SLEEP_DART:
+			//		pSoldier->flags.fMuzzleFlash = FALSE;
+			//		break;
+			//	default:
+			//		break;
+			//}
+		}
+	}
+	else	//  throwing knife
+	{
+		fBuckshot = FALSE;
+		pSoldier->flags.fMuzzleFlash = FALSE;
+
+		// Deduct knife from inv! (not here, later?)
+	}
+
+	if ( Item[usItemNum].rocketlauncher  )
+	{
+		if ( WillExplosiveWeaponFail( pSoldier, &( pSoldier->inv[ HANDPOS ] ) ) )
+		{
+			if ( Item[usItemNum].singleshotrocketlauncher  )
+			{
+				CreateItem( Item[usItemNum].discardedlauncheritem , pSoldier->inv[ HANDPOS ][0]->data.objectStatus,&(pSoldier->inv[ HANDPOS ] ) );
+				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+				IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, C1, pSoldier->pathing.bLevel );
+			}
+			else
+			{
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("StructureHit: RPG7 item: %d, Ammo: %d",pSoldier->inv[HANDPOS].usItem , pSoldier->inv[HANDPOS][0]->data.gun.usGunAmmoItem ) );
+
+				IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem, pSoldier->pathing.bLevel );
+				pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
+			}
+		  // Reduce again for attack end 'cause it has been incremented for a normal attack
+		  //
+			// Not anymore.  Only the attack animation was increased, and it will decrease itself.
+			  DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - ATTACK ANIMATION %s ENDED BY BAD EXPLOSIVE CHECK, Now %d", gAnimControl[ pSoldier->usAnimState ].zAnimStr, gTacticalStatus.ubAttackBusyCount ) );
+			  DebugAttackBusy( String("@@@@@@@ Freeing up attacker - ATTACK ANIMATION %s ENDED BY BAD EXPLOSIVE CHECK\n", gAnimControl[ pSoldier->usAnimState ].zAnimStr ) );
+	//		  ReduceAttackBusyCount( pSoldier->ubID, FALSE );
+
+		return( FALSE );
+		}
+	}
+
+	// GET TARGET XY VALUES
+	ConvertGridNoToCenterCellXY( sTargetGridNo, &sXMapPos, &sYMapPos );
+
+	// ATE; Moved a whole blotch if logic code for finding target positions to a function
+	// so other places can use it
+	// If the target contains a soldier, this function determines the x,y,z coordinates of the center of the
+	// targeted bodypart.
+	GetTargetWorldPositions( pSoldier, sTargetGridNo, &dTargetX, &dTargetY, &dTargetZ );
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	// HEADROCK HAM 4: New Shooting Mechanism
+	//
+	// This single function is now responsible for determining the point where the bullet will go. It adjusts
+	// the target x/y/z coordinates autonomously, based on the various effects of the new shooting mechanism.
+	//
+	// Therefore, once we reach FireBulletGivenTarget, the coordinates passed to that function are the ABSOLUTE
+	// final coordinates of the bullet, so FireBullet doesn't actually need to calculate anything beyond that except
+	// the angle increments required to put the bullet through those coordinates.
+	
+	INT16 sApertureRatio = 0;
+	if ( !AreInMeanwhile() )
+	{
+		AdjustTargetCenterPoint( pSoldier, sTargetGridNo, &dTargetX, &dTargetY, &dTargetZ, &pSoldier->inv[ pSoldier->ubAttackingHand ], uiMuzzleSway, &sApertureRatio );
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	// HEADROCK HAM 4: Basic Experience Gain
+	//
+	// This part gives out basic experience gain for taking a shot or throwing a knife. It gives a few number of
+	// "free" points for any attack, and then an additional number of points based on how difficult the shot is,
+	// and how well the gun is being aimed.
+	// All points given here are FAILURE type, and cannot cause level gain.
+	// In addition, once the target is HIT, the shooter receives an additional number of points.
+
+	if ( Item[ usItemNum ].usItemClass != IC_THROWING_KNIFE )
+	{
+		// NB bDoBurst will be 2 at this point for the first shot since it was incremented
+		// above
+		// HEADROCK: Actually, it's 1 for the first shot. Works fine regardless though.
+		// HEADROCK HAM 4: Extra experience gain now given when the target is hit. This part only gives basic points
+		// for the attack (FAILURE type).
+		if ( PTR_OURTEAM && pSoldier->ubTargetID != NOBODY && (!pSoldier->bDoBurst || pSoldier->bDoBurst == 2 ) && (gTacticalStatus.uiFlags & INCOMBAT ) && ( SoldierToSoldierBodyPartChanceToGetThrough( pSoldier, MercPtrs[ pSoldier->ubTargetID ], pSoldier->bAimShotLocation ) > 0 ) )
+		{
+			// add base pts for taking a shot, whether it hits or misses
+			dExpGain = 2.0f;
+
+			if ( pSoldier->IsValidSecondHandShot( ) && pSoldier->inv[ HANDPOS ][0]->data.gun.bGunStatus >= USABLE && pSoldier->inv[HANDPOS][0]->data.gun.bGunAmmoStatus > 0 )
+			{
+				// reduce exp gain for two pistol shooting since both shots give xp
+				dExpGain = (dExpGain * 2) / 3;
+			}
+
+			if ( MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == COW || MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == CROW )
+			{
+				dExpGain /= 2;
+			}
+			else if ( MercPtrs[ pSoldier->ubTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( MercPtrs[ pSoldier->ubTargetID ] ) || TANK( MercPtrs[ pSoldier->ubTargetID ] ) )
+			{
+				// no exp from shooting a vehicle that you can't damage and can't move!
+				dExpGain = 0;
+			}
+
+			UINT16 usDextGain = (UINT16)(dExpGain / 2);
+			UINT16 usAgilGain = (UINT16)(dExpGain / 2);
+			UINT16 usMrksGain = 0;
+
+			// Extra marksmanship/dexterity bonus for aiming.
+			if (pSoldier->aiData.bAimTime)
+			{
+				dExpGain += (3 * sApertureRatio) / 100; // At this point, usExpGain could equal up to 5.
+				usDextGain += (UINT16)(dExpGain / 3);
+				usMrksGain += (UINT16)((dExpGain * 2) / 3);
+			}
+
+			// DEXTERITY/AGILITY/MARKSMANSHIP GAIN: gun attack
+			StatChange( pSoldier, AGILAMT, usAgilGain, FROM_FAILURE );
+			StatChange( pSoldier, DEXTAMT, usDextGain, FROM_FAILURE );
+			StatChange( pSoldier, MARKAMT, usMrksGain, FROM_FAILURE );
+		}
+	}
+	else
+	{
+		// HEADROCK HAM 4: Extra experience gain now done when the bullet hits the target. This part only
+		// gives basic experience for the attack (FAILURE type).
+		// Improve for using a throwing knife....
+		if (PTR_OURTEAM && pSoldier->ubTargetID != NOBODY)
+		{
+			// add base pts for taking a shot, whether it hits or misses
+			dExpGain = 5.0f;
+
+			if ( MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == COW || MercPtrs[ pSoldier->ubTargetID ]->ubBodyType == CROW )
+			{
+				dExpGain /= 2;
+			}
+			else if ( MercPtrs[ pSoldier->ubTargetID ]->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( MercPtrs[ pSoldier->ubTargetID ] ) || TANK( MercPtrs[ pSoldier->ubTargetID ] ) )
+			{
+				// no exp from shooting a vehicle that you can't damage and can't move!
+				dExpGain = 0;
+			}
+
+			UINT16 usDextGain = (UINT16)(dExpGain / 2);
+			UINT16 usAgilGain = (UINT16)(dExpGain / 2);
+			UINT16 usMrksGain = 0;
+
+			// Extra marksmanship/dexterity bonus for aiming.
+			if (pSoldier->aiData.bAimTime)
+			{
+				dExpGain += (5 * sApertureRatio) / 100; // At this point, usExpGain could equal up to 10.
+				usDextGain += (UINT16)(dExpGain / 3);
+				usMrksGain += (UINT16)((dExpGain * 2) / 3);
+			}
+
+			// DEXTERITY/AGILITY/MARKSMANSHIP GAIN: gun attack
+			StatChange( pSoldier, AGILAMT, usAgilGain, FROM_FAILURE );
+			StatChange( pSoldier, DEXTAMT, usDextGain, FROM_FAILURE );
+			StatChange( pSoldier, MARKAMT, usMrksGain, FROM_FAILURE );
+		}
+	}
+
+	/////////////////////////////// Fire bullet at the target coordinates.
+	//hayden
+	if((is_server && pSoldier->ubID<120) || (!is_server && is_client && pSoldier->ubID<20) || (!is_server && !is_client) )
+	{
+		FireBulletGivenTarget( pSoldier, dTargetX, dTargetY, dTargetZ, pSoldier->usAttackingWeapon, sApertureRatio, fBuckshot, FALSE );
+	}
+	else
+	{
+		FireBulletGivenTarget( pSoldier, dTargetX, dTargetY, dTargetZ, pSoldier->usAttackingWeapon, sApertureRatio, fBuckshot, TRUE );
+	}
+	//bottom one is fake (ie not in my control)
+
+	ubVolume = Weapon[ pSoldier->usAttackingWeapon ].ubAttackVolume;
+
+	if ( Item[ usItemNum ].usItemClass == IC_THROWING_KNIFE )
+	{
+		// Here, remove the knife...	or (for now) rocket launcher
+		pSoldier->inv[ HANDPOS ].RemoveObjectsFromStack(1);
+		DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+	}
+	else if ( Item[usItemNum].rocketlauncher )
+	{
+		if ( Item[usItemNum].singleshotrocketlauncher )
+		{
+			CreateItem( Item[usItemNum].discardedlauncheritem, pSoldier->inv[ HANDPOS ][0]->data.objectStatus, &(pSoldier->inv[ HANDPOS ] ) );
+			DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+		}
+
+		// Direction to center of explosion
+		ubDirection = gOppositeDirection[ pSoldier->ubDirection ];
+		sNewGridNo  = NewGridNo( pSoldier->sGridNo, (UINT16)(1 * DirectionInc( ubDirection ) ) );
+
+		// Check if a person exists here and is not prone....
+		ubMerc = WhoIsThere2( sNewGridNo, pSoldier->pathing.bLevel );
+
+		if ( ubMerc != NOBODY )
+		{
+			if ( gAnimControl[ MercPtrs[ ubMerc ]->usAnimState ].ubHeight != ANIM_PRONE )
+			{
+				// Increment attack counter...
+//				gTacticalStatus.ubAttackBusyCount++;
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Incrementing Attack: Exaust from LAW", gTacticalStatus.ubAttackBusyCount ) );
+				DebugAttackBusy( "Incrementing Attack: Exaust from LAW\n" );
+
+				MercPtrs[ ubMerc ]->EVENT_SoldierGotHit( MINI_GRENADE, 10, 200, pSoldier->ubDirection, 0, pSoldier->ubID, 0, ANIM_CROUCH, 0, sNewGridNo );
+			}
+		}
+	}
+	else
+	{
+		// Snap: get cumulative noise reduction from the weapon and its attachments
+		UINT16 noisefactor = GetPercentNoiseVolume( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
+		if ( ubVolume * noisefactor > 25000 )
+		{ // Snap: hack this to prevent overflow (damn miserly programmers!)
+			ubVolume = 250;
+		}
+		else
+		{
+			ubVolume = __max( 1, ( ubVolume * GetPercentNoiseVolume( &pSoldier->inv[ pSoldier->ubAttackingHand ] ) ) / 100 );
+		}
+	}
+
+	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_GUNFIRE );
+
+	if ( pSoldier->bDoBurst )
+	{
+		// done, if bursting, increment
+		pSoldier->bDoBurst++;
+	}
+
+	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
+ 	//INT16 ammoReliability = 0; // Madd: ammo reliability affects gun
+
+	//if ( Item[usItemNum].usItemClass == IC_GUN )
+	//{
+	//	OBJECTTYPE *pGun = &(pSoldier->inv[pSoldier->ubAttackingHand]);
+	//	ammoReliability = Item[(*pGun)[0]->data.gun.usGunAmmoItem].bReliability;
+	//}
+
+	uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * GetReliability( &(pSoldier->inv[pSoldier->ubAttackingHand]) );
+
+	if ( !PreRandom( uiDepreciateTest ) && ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus > 1) )
+	{
+		pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus--;
+	}
+
+	// reduce monster smell (gunpowder smell)
+	if ( pSoldier->aiData.bMonsterSmell > 0 && Random( 2 ) == 0 )
+	{
+		pSoldier->aiData.bMonsterSmell--;
+	}
+
+//<SB> manual recharge
+	if (Weapon[Item[usItemNum].ubClassIndex].APsToReloadManually > 0)
+		pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunState &= ~GS_CARTRIDGE_IN_CHAMBER;
+//<SB>
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("UseGun: done"));
+	return( TRUE );
+}
 
 BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 {
+	if(UsingNewCTHSystem() == true)
+		return UseGunNCTH(pSoldier, sTargetGridNo);
+
 	UINT32							uiHitChance, uiDiceRoll;
 	INT16								sXMapPos, sYMapPos;
 	INT16								sAPCost;
@@ -1691,8 +2333,38 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	{
 		fCalculateCTHDuringGunfire = TRUE;
 		uiHitChance = CalcChanceToHitGun( pSoldier, sTargetGridNo, pSoldier->aiData.bAimTime, pSoldier->bAimShotLocation );
+		//CHRISL:
+		//pSoldier->CTH.push_back(uiHitChance);
+		//if(pSoldier->bDoAutofire == pSoldier->bDoBurst && pSoldier->CTH.size() > 0)
+		//	pSoldier->CTH.clear();
 	}
 	fCalculateCTHDuringGunfire = FALSE;
+
+//ddd{износ объектов с муззле флаш. silencer
+	if ( (Item[ usItemNum ].usItemClass == IC_GUN) && gGameExternalOptions.bAllowWearSuppressor)
+	{
+		OBJECTTYPE * pInHand = &(pSoldier->inv[pSoldier->ubAttackingHand]);
+		if ( IsFlashSuppressor(&pSoldier->inv[ pSoldier->ubAttackingHand ], pSoldier ) )
+		{
+			for (attachmentList::iterator iter = (*pInHand)[0]->attachments.begin(); iter != (*pInHand)[0]->attachments.end(); ++iter) 
+			{
+				if (Item[iter->usItem].hidemuzzleflash  ) 
+				{
+					OBJECTTYPE* pA=	&(*iter);
+					if ( (*pA)[0]->data.objectStatus >=USABLE)
+					{
+						INT16 ammoReliability = Item[(*pInHand)[0]->data.gun.usGunAmmoItem].bReliability;
+						INT16 uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * 
+							(Item[ iter->usItem ].bReliability + ammoReliability);
+						if ( !PreRandom( uiDepreciateTest ) && ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus > 1) )
+							(*pA)[0]->data.objectStatus--;
+						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"rel =%d ",Item[ iter->usItem ].bReliability );
+					}
+				}
+			}
+		}
+	} //if ( Item[ usItemNum ].usItemClass == IC_GUN )
+//ddd}
 
 	//DIGICRAB: Barrel extender wear code
 	// Relocated from CalcChanceToHitGun
@@ -1703,7 +2375,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		// lalien: search for barrel extender not for any item with range bonus. (else barrel extender will fall off even when none is attached)
 		OBJECTTYPE* pAttachment = FindAttachment( pInHand, GUN_BARREL_EXTENDER );
 
-		if ( pAttachment )
+		if ( pAttachment->exists() )
 		{
 			// reduce status and see if it falls off
 			(*pAttachment)[0]->data.objectStatus -= (INT8) Random( 2 );
@@ -1728,7 +2400,9 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 						if(*iter == *pAttachment)
 						{
 							AddItemToPool( pSoldier->sGridNo, pAttachment, 1, pSoldier->pathing.bLevel, 0, -1 );
-							iter = (*pInHand)[0]->attachments.erase(iter);
+
+							iter = (*pInHand)[0]->RemoveAttachmentAtIter(iter);
+
 							break;
 						}
 				}
@@ -1958,7 +2632,13 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("StructureHit: RPG7 item: %d, Ammo: %d",pSoldier->inv[HANDPOS].usItem , pSoldier->inv[HANDPOS][0]->data.gun.usGunAmmoItem ) );
 
 			IgniteExplosion( pSoldier->ubID, CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), 0, pSoldier->sGridNo, pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem, pSoldier->pathing.bLevel );
-			pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
+			
+			OBJECTTYPE * pLaunchable = FindLaunchableAttachment( &(pSoldier->inv[pSoldier->ubAttackingHand ]), pSoldier->inv[pSoldier->ubAttackingHand ].usItem );
+			if(pLaunchable){
+				pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = pLaunchable->usItem;
+			} else {
+				pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
+			}
 		}
       // Reduce again for attack end 'cause it has been incremented for a normal attack
       //
@@ -2039,16 +2719,19 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		pSoldier->bDoBurst++;
 	}
 
+	/* //WarmSteel - Replaced with GetReliability( pObj )
 	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
  	INT16 ammoReliability = 0; // Madd: ammo reliability affects gun
+
 
 	if ( Item[usItemNum].usItemClass == IC_GUN )
 	{
 		OBJECTTYPE *pGun = &(pSoldier->inv[pSoldier->ubAttackingHand]);
 		ammoReliability = Item[(*pGun)[0]->data.gun.usGunAmmoItem].bReliability;
 	}
+	*/
 
-	uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * (Item[ usItemNum ].bReliability + ammoReliability);
+	uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * ( GetReliability( &(pSoldier->inv[ pSoldier->ubAttackingHand ]) ) );
 
 	if ( !PreRandom( uiDepreciateTest ) && ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus > 1) )
 	{
@@ -2117,6 +2800,15 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		iDiceRoll = (INT32) PreRandom( 100 );
 		//sprintf( gDebugStr, "Hit Chance: %d %d", (int)uiHitChance, uiDiceRoll );
 
+		// SANDRO - new mercs' records 
+		if ( pSoldier->bTeam == gbPlayerNum && pSoldier->ubProfile != NO_PROFILE )
+		{
+			gMercProfiles[ pSoldier->ubProfile ].records.usBladeAttacks++;
+			if ( iDiceRoll < iHitChance )
+			{
+				gMercProfiles[ pSoldier->ubProfile ].records.usShotsHit++;
+			}
+		}
 
 		// WDS 07/19/2008 - Random number use fix
 		if ( iDiceRoll < iHitChance )
@@ -2157,6 +2849,10 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 				pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus -= (INT8) Random( bMaxDrop );     // 0 to (maxDrop - 1)
 			}
+
+			// SANDRO - new merc records - times wounded (stabbed)
+			if ( pTargetSoldier->ubProfile != NO_PROFILE )
+				gMercProfiles[ pTargetSoldier->ubProfile ].records.usTimesWoundedStabbed++;
 
 			// Send event for getting hit
 			memset( &(SWeaponHit), 0, sizeof( SWeaponHit ) );
@@ -2263,6 +2959,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 	BOOLEAN					fNoMoreItems = FALSE;	// The enemy has no more items to steal!
 	BOOLEAN					fNoMoreItemInHand = FALSE;
 	BOOLEAN					fSoldierCollapsed = FALSE;
+	BOOLEAN					fStealAttempt = FALSE; // added - SANDRO
 	// Deduct points!
 	// August 13 2002: unless stealing - APs already deducted elsewhere
 
@@ -2276,6 +2973,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 	else
 	{
 		// APs were already reduced!
+		//SANDRO - actually we will redure them here, but lower and based on number of items stolen.
 	}
 
 	// See if a guy is here!
@@ -2292,7 +2990,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 		if (fStealing)
 		{
 			// Calculate the possible chance to steal!
-			if ( AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) || CREATURE_OR_BLOODCAT( pTargetSoldier ) || TANK( pTargetSoldier ) )
+			if ( AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) || CREATURE_OR_BLOODCAT( pTargetSoldier ) || TANK( pTargetSoldier ) || (SOLDIER_CLASS_MILITIA(pTargetSoldier->ubSoldierClass) && (gGameExternalOptions.ubMilitiaDropEquipment != 2)) ) // added militia here - SANDRO
 			{
 				iHitChance = 0;
 			}
@@ -2342,75 +3040,168 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 		// -----------------------------------
 		if (fStealing )
 		{
+			// SANDRO - unable to steal from militia if they are not allowed to drop equipment
+			if (SOLDIER_CLASS_MILITIA(pTargetSoldier->ubSoldierClass) && (gGameExternalOptions.ubMilitiaDropEquipment != 2) )
+			{
+				DeductPoints( pSoldier, (APBPConstants[AP_STEAL_ITEM] / 5), 0 );
+				pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+				return ( TRUE );
+			}
+
 			fFailure=FALSE;
 
+						// WDS 07/19/2008 - Random number use fix
+			// Do we have the chance to steal more than 1 item?
+			// SANDRO - taking items from collapsed soldiers is treated differently
+			if (( fSoldierCollapsed || (!gGameExternalOptions.fEnhancedCloseCombatSystem && iDiceRoll < (iHitChance * 2 / 3))) && pSoldier->bTeam == gbPlayerNum )
+			{
+				// first, charge extra Aps, because it's difficlut to pickup from other soldier
+				if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+					DeductPoints( pSoldier, (GetBasicAPsToPickupItem( pSoldier ) * 2), 0 );
+
+				// The item that the enemy holds in his hand before the stealing
+				usOldItem = pTargetSoldier->inv[HANDPOS].usItem;
+
+				INT16 sNumStolenItems = StealItems(pSoldier, pTargetSoldier,&ubIndexRet);
+
+				// We have only stolen 1 item, because the enemy has not more than one item.
+				if ( sNumStolenItems == 1)
+				{
+					// charge Aps
+					if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+						DeductPoints( pSoldier, GetBasicAPsToPickupItem( pSoldier ), 0 );
+
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_STOLE_SOMETHING ], pSoldier->name, ShortItemNames[ pTargetSoldier->inv[ubIndexRet].usItem ] );
+					if (pTargetSoldier->inv[ubIndexRet].MoveThisObjectTo(gTempObject, 1) == 0) {
+
+						// Try to place the item in the merc inventory
+						if (!AutoPlaceObject( pSoldier, &gTempObject, TRUE ))
+						{
+							// Place the item on the ground
+							AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
+						}
+					}
+
+					// The item that the enemy holds in his hand before the stealing
+					usNewItem = pTargetSoldier->inv[HANDPOS].usItem;
+
+					if (usOldItem != usNewItem)
+					{
+						pTargetSoldier->ReLoadSoldierAnimationDueToHandItemChange( usOldItem, usNewItem );
+					}
+				}
+				// The enemy has no more items to steal
+				else if (sNumStolenItems == 0)
+				{
+					fNoMoreItems = TRUE;
+				}
+			}
 			// WDS 07/19/2008 - Random number use fix
 			// Do we have luck on stealing?
-			if ( iDiceRoll < iHitChance && iHitChance > 0 )
+			else if ( iDiceRoll < iHitChance && iHitChance > 0 )
 			{
-				// WDS 07/19/2008 - Random number use fix
-				// Do we have the chance to steal more than 1 item?
-				if (( iDiceRoll < iHitChance * 2 / 3) || (pTargetSoldier->bCollapsed))
+				if ( pTargetSoldier->inv[HANDPOS].exists() == true )
 				{
-					// The item that the enemy holds in his hand before the stealing
-					usOldItem = pTargetSoldier->inv[HANDPOS].usItem;
+					UINT16 usOldItemTarget = pTargetSoldier->inv[HANDPOS].usItem;
 
-					INT16 sNumStolenItems = StealItems(pSoldier, pTargetSoldier,&ubIndexRet);
+					fStealAttempt = TRUE; // added for check
 
-					// We have only stolen 1 item, because the enemy has not more than one item.
-					if ( sNumStolenItems == 1)
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_STOLE_SOMETHING ], pSoldier->name, ShortItemNames[ pTargetSoldier->inv[HANDPOS].usItem ] );
+
+					// if successful - place the item to our hands
+					if (iDiceRoll < (iHitChance * 2 / 3) && gGameExternalOptions.fEnhancedCloseCombatSystem)
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_STOLE_SOMETHING ], pSoldier->name, ShortItemNames[ pTargetSoldier->inv[ubIndexRet].usItem ] );
-						if (pTargetSoldier->inv[ubIndexRet].MoveThisObjectTo(gTempObject, 1) == 0) {
+						usOldItem = pSoldier->inv[HANDPOS].usItem;
+						OBJECTTYPE oTempObjectSecondHand;
+						INT8 bEmptySl;
+						oTempObjectSecondHand.usItem = 0;
 
-							// Try to place the item in the merc inventory
-							if (!AutoPlaceObject( pSoldier, &gTempObject, TRUE ))
+						// if we have something in main hand, place it into inventory or on the ground
+						if (pSoldier->inv[HANDPOS].exists() == true )
+						{
+							if( pSoldier->bTeam != gbPlayerNum )  // for enemies, ignore rules and place it anywhere
 							{
-								// Place the item on the ground
+								bEmptySl = FindEmptySlotWithin( pSoldier, BIGPOCKSTART, NUM_INV_SLOTS );
+								SwapObjs( pSoldier, HANDPOS, bEmptySl, TRUE );
+							}
+							else if (!PlaceInAnyPocket( pSoldier, &pSoldier->inv[HANDPOS], FALSE, 5))
+							{
+								if (!AutoPlaceObject( pSoldier, &pSoldier->inv[HANDPOS], FALSE, 5))
+									AddItemToPool( pSoldier->sGridNo, &pSoldier->inv[HANDPOS], 1, pSoldier->pathing.bLevel, 0, -1 );
+							}
+						}
+						// if twohanded item, place the secondhand item if any to temp space
+						if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pTargetSoldier->inv[HANDPOS].usItem].twohanded)
+						{
+							if( pSoldier->bTeam != gbPlayerNum )  // for enemies, ignore rules and place it anywhere
+							{
+								bEmptySl = FindEmptySlotWithin( pSoldier, BIGPOCKSTART, NUM_INV_SLOTS );
+								SwapObjs( pSoldier, SECONDHANDPOS, bEmptySl, TRUE );
+							}
+							else
+							{
+								pSoldier->inv[SECONDHANDPOS].MoveThisObjectTo(oTempObjectSecondHand, 1);
+							}
+						}
+						// now take the item
+						if (pTargetSoldier->inv[HANDPOS].MoveThisObjectTo(gTempObject, 1) == 0)
+						{
+							if (PlaceObject( pSoldier, HANDPOS, &gTempObject ))
+							{
+								pSoldier->ReLoadSoldierAnimationDueToHandItemChange( usOldItem, gTempObject.usItem );
+								if( pSoldier->bTeam != gbPlayerNum )  // make sure item is droppable now, so we don't lose our gun if killed this enemy
+								{
+									pSoldier->inv[HANDPOS].fFlags &= ~OBJECT_UNDROPPABLE;
+								}
+							}
+							else
+							{
 								AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
 							}
 						}
-
-						// The item that the enemy holds in his hand before the stealing
-						usNewItem = pTargetSoldier->inv[HANDPOS].usItem;
-
-						if (usOldItem != usNewItem)
+						// if second hand item was removed place it now somewhere
+						if (oTempObjectSecondHand.usItem != 0 )
 						{
-							pTargetSoldier->ReLoadSoldierAnimationDueToHandItemChange( usOldItem, usNewItem );
+							if (!PlaceInAnyPocket( pSoldier, &pSoldier->inv[HANDPOS], FALSE, 5))
+							{
+								if (!AutoPlaceObject( pSoldier, &oTempObjectSecondHand, FALSE ))
+								{
+									AddItemToPool( pSoldier->sGridNo, &oTempObjectSecondHand, 1, pSoldier->pathing.bLevel, 0, -1 );
+								}
+							}
 						}
-					}
-					// The enemy has no more items to steal
-					else if (sNumStolenItems == 0)
-					{
-						fNoMoreItems = TRUE;
-					}
-				}
-				// We had not much luck, so we can only steal 1 item.
-				else if ( pTargetSoldier->inv[HANDPOS].exists() == true )
-				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_STOLE_SOMETHING ], pSoldier->name, ShortItemNames[ pTargetSoldier->inv[HANDPOS].usItem ] );
-					usOldItem = pTargetSoldier->inv[HANDPOS].usItem;
-					if ( pSoldier->bTeam == gbPlayerNum )
-					{
-						pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
-					}
+						// add to merc records
+						if ( pSoldier->ubProfile != NO_PROFILE )
+							gMercProfiles[ pSoldier->ubProfile ].records.usItemsStolen++;
 
+					}
 					// Item dropped somewhere... roll based on the same chance to determine where!
-					if (pTargetSoldier->inv[HANDPOS].MoveThisObjectTo(gTempObject, 1) == 0) {
-						iDiceRoll = (INT32) PreRandom( 100 );
-						if (iDiceRoll < iHitChance)
+					else
+					{
+						if ( pSoldier->bTeam == gbPlayerNum )
 						{
-							// Drop item in the our tile
-							AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
+							pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 						}
-						else
+						if (pTargetSoldier->inv[HANDPOS].MoveThisObjectTo(gTempObject, 1) == 0) 
 						{
-							// Drop item in the target's tile
-							AddItemToPool( pTargetSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
+							iDiceRoll = (INT32) PreRandom( 100 );
+							if (iDiceRoll < iHitChance)
+							{
+								// Drop item in the our tile
+								AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
+							}
+							else
+							{
+								// Drop item in the target's tile
+								AddItemToPool( pTargetSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
+							}
 						}
+						// add to merc records
+						if ( pSoldier->ubProfile != NO_PROFILE )
+							gMercProfiles[ pSoldier->ubProfile ].records.usItemsStolen++;
 					}
 					// Reload buddy's animation...
-					pTargetSoldier->ReLoadSoldierAnimationDueToHandItemChange( usOldItem, NOTHING );
+					pTargetSoldier->ReLoadSoldierAnimationDueToHandItemChange( usOldItemTarget, NOTHING );
 				}
 				// Enemy has no item in his hand.
 				else
@@ -2426,6 +3217,44 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				fFailure=TRUE;
 			}
 
+			// SANDRO - Enhanced Close Combat System 
+			// Deduct APs for stealing now (moved from Soldier Control.cpp) - SANDRO
+			// If stolen something or fail to steal, reduce APs by the full amount
+			if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+			{
+				if (fSoldierCollapsed)
+				{
+					// APs are reduced in Handle Items.cpp in "SoldierStealItemFromSoldier"
+				}
+				else if ( fStealAttempt || (fFailure == TRUE))
+				{
+					if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && ( gGameOptions.fNewTraitSystem ))
+					{
+						DeductPoints( pSoldier, max( 1, (INT16)((APBPConstants[AP_STEAL_ITEM] *  (100 - gSkillTraitValues.ubMAReducedAPsToSteal * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ))/ 100) + 0.5)), 200);
+					}
+					else
+					{
+						DeductPoints( pSoldier, APBPConstants[AP_STEAL_ITEM], 200 );
+					}
+				}
+				// Only 1/7 of original AP cost, if the enemy has nothing to steal
+				else if ((fNoMoreItems == TRUE) || (fNoMoreItemInHand == TRUE))
+				{
+					DeductPoints( pSoldier, (APBPConstants[AP_STEAL_ITEM] / 7), 0 );
+				}
+			}
+			else
+			{
+				if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && ( gGameOptions.fNewTraitSystem ))
+				{
+					DeductPoints( pSoldier, max( 1, (INT16)((APBPConstants[AP_STEAL_ITEM] *  (100 - gSkillTraitValues.ubMAReducedAPsToSteal * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ))/ 100) + 0.5)), 0);
+				}
+				else
+				{
+					DeductPoints( pSoldier, APBPConstants[AP_STEAL_ITEM], 0 );
+				}
+			}
+						
 			// We failed to steal something!
 			if (fFailure)
 			{
@@ -2466,19 +3295,53 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			{
 				if (fFailure == FALSE)
 				{
-					// We were successfull in stealing. Give some experience
-					StatChange( pSoldier, STRAMT, 8, FALSE );
-					StatChange( pSoldier, DEXTAMT, 3, FALSE );
-					StatChange( pSoldier, AGILAMT, 3, FALSE );
+					// SANDRO - Enhanced Close Combat System - experience for stealing changed
+					if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+					{
+						// stealing from unconsious opponents is not rewarded much
+						if (fSoldierCollapsed)
+						{
+							StatChange( pSoldier, DEXTAMT, 1, FALSE );
+						}
+						else
+						{
+							// We were successfull in stealing. Give some experience
+							StatChange( pSoldier, STRAMT, 6, FALSE );
+							StatChange( pSoldier, DEXTAMT, 10, FALSE );
+							StatChange( pSoldier, AGILAMT, 10, FALSE );
+						}
+					}
+					else
+					{
+						// We were successfull in stealing. Give some experience
+						StatChange( pSoldier, STRAMT, 8, FALSE );
+						StatChange( pSoldier, DEXTAMT, 3, FALSE );
+						StatChange( pSoldier, AGILAMT, 3, FALSE );
+					}
 				}
 				else
 				{
-					// failed a steal; give some experience
-					StatChange( pSoldier, STRAMT, 4, FROM_FAILURE );
-					StatChange( pSoldier, DEXTAMT, 1, FROM_FAILURE );
-					StatChange( pSoldier, AGILAMT, 1, FROM_FAILURE );
+					// SANDRO - Enhanced Close Combat System - experience for stealing changed
+					if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+					{
+						// failed a steal; give some experience - slightly changed by SANDRO
+						StatChange( pSoldier, STRAMT, 2, FROM_FAILURE );
+						StatChange( pSoldier, DEXTAMT, 4, FROM_FAILURE );
+						StatChange( pSoldier, AGILAMT, 4, FROM_FAILURE );
+					}
+					else
+					{
+						// failed a steal; give some experience
+						StatChange( pSoldier, STRAMT, 4, FROM_FAILURE );
+						StatChange( pSoldier, DEXTAMT, 1, FROM_FAILURE );
+						StatChange( pSoldier, AGILAMT, 1, FROM_FAILURE );
+					}
 				}
 			}
+
+			// SANDRO - Enhanced Close Combat System - Notice merc after stealing
+			if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+				pTargetSoldier->EVENT_SetSoldierDesiredDirection( GetDirectionFromGridNo( pSoldier->sGridNo, pTargetSoldier ) );
 
 			// 0verhaul:  Also handled in the animation transition
 			// #ifdef JA2BETAVERSION
@@ -2492,11 +3355,25 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 		// -----------------------------------
 		else
 		{
-			// ATE/CC: if doing ninja spin kick (only), automatically make it a hit
-			if ( pSoldier->usAnimState == NINJA_SPINKICK)
+			// SANDRO - new mercs' records 
+			if ( pSoldier->bTeam == gbPlayerNum && pSoldier->ubProfile != NO_PROFILE )
 			{
-				// Let him to succeed by a random amount
-				iDiceRoll = PreRandom( iHitChance );
+				gMercProfiles[ pSoldier->ubProfile ].records.usHtHAttacks++;
+				if ( iDiceRoll < iHitChance )
+				{
+					gMercProfiles[ pSoldier->ubProfile ].records.usShotsHit++;
+				}
+			}
+
+			// SANDRO - Enhanced Close Combat System - spinning kick is not automatic but just more damaging
+			if (!gGameExternalOptions.fEnhancedCloseCombatSystem)
+			{
+				// ATE/CC: if doing ninja spin kick (only), automatically make it a hit 
+				if ( pSoldier->usAnimState == NINJA_SPINKICK)
+				{
+					// Let him to succeed by a random amount
+					iDiceRoll = PreRandom( iHitChance );				
+				}
 			}
 
 			if ( pSoldier->bTeam == gbPlayerNum && pTargetSoldier->bTeam != gbPlayerNum )
@@ -2507,6 +3384,28 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				{
 					ubExpGain = 8;
 
+					// SANDRO - Enhanced Close Combat System - EXP given based on type of attack
+					if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+					{ 
+						// Increased EXP for head strike
+						if (pSoldier->bAimShotLocation == AIM_SHOT_HEAD)
+						{
+							ubExpGain += 2;
+						}
+						// Decreased EXP for leg strike
+						else if (pSoldier->bAimShotLocation == AIM_SHOT_LEGS)
+						{
+							ubExpGain -= 4;
+						}
+						
+						// Double EXP for focused attack
+						if ( (pSoldier->usAnimState == NINJA_SPINKICK || pSoldier->aiData.bAimTime >= (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6)) &&
+							((HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT)) && gGameOptions.fNewTraitSystem ))
+						{
+							ubExpGain *= 2;
+						}
+					}
+
 					if ( pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) )
 					{
 						ubExpGain = 0;
@@ -2516,15 +3415,47 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 						ubExpGain /= 2;
 					}
 
-
-					StatChange( pSoldier, DEXTAMT, ubExpGain, FALSE );
-					StatChange( pSoldier, STRAMT,  (ubExpGain+1)/3, FALSE );
-					StatChange( pSoldier, AGILAMT, (ubExpGain+1)/3, FALSE );
+					// SANDRO - Enhanced Close Combat System
+					if ( gGameExternalOptions.fEnhancedCloseCombatSystem && pTargetSoldier->bCollapsed)
+					{
+						// beating unconscious enemy is a matter of brute strength, so give exp mostly to Stregnth 
+						StatChange( pSoldier, DEXTAMT, (ubExpGain+1)/3, FALSE );
+						StatChange( pSoldier, STRAMT,  ubExpGain + 1, FALSE );
+						StatChange( pSoldier, AGILAMT, (ubExpGain+1)/3, FALSE );
+					}
+					else
+					{
+						StatChange( pSoldier, DEXTAMT, ubExpGain, FALSE );
+						StatChange( pSoldier, STRAMT,  (ubExpGain+1)/3, FALSE );
+						StatChange( pSoldier, AGILAMT, (ubExpGain+1)/3, FALSE );
+					}
 				}
 				else
 				{
 					ubExpGain = 4;
 
+					// SANDRO - Enhanced Close Combat System - EXP given based on type of attack
+					if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+					{ 
+						// Increased EXP for head strike
+						if (pSoldier->bAimShotLocation == AIM_SHOT_HEAD)
+						{
+							ubExpGain += 1;
+						}
+						// Decreased EXP for leg strike
+						else if (pSoldier->bAimShotLocation == AIM_SHOT_LEGS)
+						{
+							ubExpGain -= 2;
+						}
+						
+						// Double EXP for focused attack
+						if ( (pSoldier->usAnimState == NINJA_SPINKICK || pSoldier->aiData.bAimTime >= (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6)) &&
+							((HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT)) && gGameOptions.fNewTraitSystem ) )
+						{
+							ubExpGain *= 2;
+						}
+					}
+
 					if ( pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) )
 					{
 						ubExpGain = 0;
@@ -2533,7 +3464,6 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 					{
 						ubExpGain /= 2;
 					}
-
 
 					StatChange( pSoldier, DEXTAMT, ubExpGain, FALSE );
 					StatChange( pSoldier, STRAMT,  (ubExpGain+1)/3, FALSE );
@@ -2545,18 +3475,58 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				// being attacked... if successfully dodged, give experience
 				if ( iDiceRoll > iHitChance )
 				{
-					StatChange( pTargetSoldier, DEXTAMT, 8, FALSE );
-					StatChange( pTargetSoldier, STRAMT, 3, FALSE );
-					StatChange( pTargetSoldier, AGILAMT, 3, FALSE );
+					// SANDRO - Enhanced Close Combat System - More logical - give EXP for dodging to Agility most 
+					if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+					{ 
+						StatChange( pTargetSoldier, DEXTAMT, 5, FALSE ); // 4 istead of 8
+						StatChange( pTargetSoldier, STRAMT, 2, FALSE ); // 2 instead of 3
+						StatChange( pTargetSoldier, AGILAMT, 8, FALSE ); // 8 instead of 3
+					}
+					else
+					{
+						StatChange( pTargetSoldier, DEXTAMT, 8, FALSE );
+						StatChange( pTargetSoldier, STRAMT, 3, FALSE );
+						StatChange( pTargetSoldier, AGILAMT, 3, FALSE );
+					}
 				}
 			}
 
+			// SANDRO - Enhanced Close Combat System - Add dodge animation of target if missed ninja spin kick
+			if ( (iDiceRoll >= iHitChance) && pSoldier->usAnimState == NINJA_SPINKICK && gGameExternalOptions.fEnhancedCloseCombatSystem
+				&& gAnimControl[ pTargetSoldier->usAnimState ].ubHeight == ANIM_STAND && IS_MERC_BODY_TYPE( pTargetSoldier ))
+			{
+				pTargetSoldier->ChangeSoldierState( DODGE_ONE, 0 , FALSE ); 
+				// after dodging melee attack go to apropriate stance
+				if ( (gAnimControl[ pTargetSoldier->usAnimState ].ubHeight == ANIM_STAND) && (Item[pTargetSoldier->inv[HANDPOS].usItem].usItemClass == IC_PUNCH))
+				{
+					if ((((NUM_SKILL_TRAITS( pTargetSoldier, MARTIAL_ARTS_NT ) >= ((gSkillTraitValues.fPermitExtraAnimationsOnlyToMA) ? 2 : 1 )) && gGameOptions.fNewTraitSystem ) ||
+						(HAS_SKILL_TRAIT( pTargetSoldier, MARTIALARTS_OT ) && !gGameOptions.fNewTraitSystem ) ) &&
+						 pTargetSoldier->ubBodyType == REGMALE )
+					{
+						//pTSoldier->usPendingAnimation = NINJA_GOTOBREATH;
+						pTargetSoldier->usPendingAnimation = NINJA_BREATH ;
+					}
+					else
+					{
+						pTargetSoldier->usPendingAnimation = PUNCH_BREATH ;
+					}
+				}
+				else if ( (gAnimControl[ pTargetSoldier->usAnimState ].ubHeight == ANIM_STAND) && (Item[pTargetSoldier->inv[HANDPOS].usItem].usItemClass == IC_BLADE))
+				{
+					//pTSoldier->usPendingAnimation = KNIFE_GOTOBREATH;
+					pTargetSoldier->usPendingAnimation = KNIFE_BREATH ;
+				}
+			}
 			// WDS 07/19/2008 - Random number use fix
 			if ( iDiceRoll < iHitChance || AreInMeanwhile( ) )
 
 			{
 				// CALCULATE DAMAGE!
 				iImpact = HTHImpact( pSoldier, pTargetSoldier, (iHitChance - iDiceRoll), FALSE );
+
+				// SANDRO - new merc records - times wounded (punched)
+				if ( pTargetSoldier->ubProfile != NO_PROFILE )
+					gMercProfiles[ pTargetSoldier->ubProfile ].records.usTimesWoundedPunched++;
 
 				// Send event for getting hit
 				memset( &(SWeaponHit), 0, sizeof( SWeaponHit ) );
@@ -2687,6 +3657,14 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	}
 
 
+	/////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - new mercs' records
+	if ( Item[ pSoldier->inv[HANDPOS].usItem ].usItemClass == IC_GRENADE || Item[ pSoldier->inv[HANDPOS].usItem ].usItemClass == IC_BOMB || Item[ pSoldier->inv[HANDPOS].usItem ].usItemClass == IC_THROWN)
+	{
+		gMercProfiles[ pSoldier->ubProfile ].records.usGrenadesThrown++;			
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+
 	CalculateLaunchItemParamsForThrow( pSoldier, sTargetGridNo, pSoldier->bTargetLevel, (INT16)(pSoldier->bTargetLevel * 256 ), &(pSoldier->inv[ HANDPOS ] ), (INT8)(uiDiceRoll - uiHitChance), THROW_ARM_ITEM, 0 );
 
 	//AXP 25.03.2007: Cleaned up throwing AP costs. Now only turning + stance change AP
@@ -2737,7 +3715,7 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	pObj = &(pSoldier->inv[HANDPOS]);
 	attachmentList::iterator iter;
 	for (iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-		if ( Item[ iter->usItem ].usItemClass & IC_EXPLOSV )
+		if ( Item[ iter->usItem ].usItemClass & IC_EXPLOSV && iter->exists())
 		{
 			break;
 		}
@@ -2748,7 +3726,10 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 		return( FALSE );
 	}
 
-	if ( Weapon[GetAttachedGrenadeLauncher(pObj)].ubMagSize > 1 || ( Item[pObj->usItem].grenadelauncher && GetMagSize(pObj) > 1 ))
+	//CHRISL: Added a magsize value to Explosives.xml which is checked by GetExpMagSize.  This will allow OAS to load individual grenades into
+	//	multi-launch grenades and fire correctly
+	//if ( Weapon[GetAttachedGrenadeLauncher(pObj)].ubMagSize > 1 || ( Item[pObj->usItem].grenadelauncher && GetMagSize(pObj) > 1 ))
+	if(GetExpMagSize(&(*iter)) > 1)
 		CreateItem( iter->usItem, 100, &Launchable );
 	else
 		CreateItem( iter->usItem, (*iter)[0]->data.objectStatus, &Launchable );
@@ -2830,6 +3811,15 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	{
 		DeductPoints( pSoldier, sAPCost, 0 );
 	}
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - new mercs' records
+	if ( Item[ usItemNum ].usItemClass == IC_LAUNCHER || Item[usItemNum].grenadelauncher || 
+		Item[usItemNum].rocketlauncher || Item[usItemNum].singleshotrocketlauncher || Item[usItemNum].mortar )
+	{
+		gMercProfiles[ pSoldier->ubProfile ].records.usMissilesLaunched++;			
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
 
 	CalculateLaunchItemParamsForThrow( pSoldier, sTargetGridNo, pSoldier->bTargetLevel, 0, &Launchable, (INT8)(uiDiceRoll - uiHitChance), THROW_ARM_ITEM, 0 );
 
@@ -3051,7 +4041,14 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("WeaponHit: RPG7 item: %d, Ammo: %d",pSoldier->inv[HANDPOS].usItem , pSoldier->inv[HANDPOS][0]->data.gun.usGunAmmoItem ) );
 
 				IgniteExplosion( ubAttackerID, sXPos, sYPos, 0, GETWORLDINDEXFROMWORLDCOORDS( sYPos, sXPos ), pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem, pTargetSoldier->pathing.bLevel );
-				pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
+				
+				//This is just to make multishot launchers work in semi auto. It's not really a permanent solution because it still doesn't allow autofire, but it will do for now.
+				OBJECTTYPE * pLaunchable = FindLaunchableAttachment( &(pSoldier->inv[pSoldier->ubAttackingHand ]), pSoldier->inv[pSoldier->ubAttackingHand ].usItem );
+				if(pLaunchable){
+					pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = pLaunchable->usItem;
+				} else {
+					pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
+				}
 			}
 		    else if ( AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.ubGunAmmoType].explosionSize > 1)
 			{
@@ -3172,7 +4169,14 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 			{
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("StructureHit: RPG7 item: %d, Ammo: %d",pAttacker->inv[HANDPOS].usItem , pAttacker->inv[HANDPOS][0]->data.gun.usGunAmmoItem ) );
 				IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, pAttacker->inv[pAttacker->ubAttackingHand ][0]->data.gun.usGunAmmoItem , (INT8)( sZPos >= WALL_HEIGHT ) );
-				pAttacker->inv[pAttacker->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
+				
+				//This is just to make multishot launchers work in semi auto. It's not really a permanent solution because it still doesn't allow autofire, but it will do for now.
+				OBJECTTYPE * pLaunchable = FindLaunchableAttachment( &(pAttacker->inv[pAttacker->ubAttackingHand ]), pAttacker->inv[pAttacker->ubAttackingHand ].usItem );
+				if(pLaunchable){
+					pAttacker->inv[pAttacker->ubAttackingHand ][0]->data.gun.usGunAmmoItem = pLaunchable->usItem;
+				} else {
+					pAttacker->inv[pAttacker->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
+				}
 			}
 			else if ( AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.ubGunAmmoType].explosionSize > 1)
 			{
@@ -3513,7 +4517,9 @@ void WindowHit( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, B
 	AniParams.uiFlags							= ANITILE_FORWARD;
 
 	pNode = CreateAnimationTile( &AniParams );
-
+	//dddokno{
+CompileWorldMovementCosts();
+//dddokno}
 	PlayJA2Sample( GLASS_SHATTER1 + Random(2), RATE_11025, MIDVOLUME, 1, SoundDir( sGridNo ) );
 
 }
@@ -3544,7 +4550,7 @@ BOOLEAN InRange( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 		 else
 		 {
 			 // For given weapon, check range
-			 if ( sRange <= GunRange( &(pSoldier->inv[HANDPOS]) ) )
+			 if ( sRange <= GunRange( &(pSoldier->inv[HANDPOS]), pSoldier ) ) // SANDRO - added argument
 			 {
 					return( TRUE );
 			 }
@@ -3553,205 +4559,974 @@ BOOLEAN InRange( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 	 return( FALSE );
 }
 
-UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos )
+UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos )
 {
-  //SOLDIERTYPE *vicpSoldier;
-	SOLDIERTYPE * pTarget;
-	INT32 iChance, iRange, iSightRange, iMaxRange, iBonus; //, minRange;
-	//rain
-	//INT32 iScopeBonus;
-	//end rain
 
-  INT32 iGunCondition, iMarksmanship;
-	INT32 iPenalty;
+	//////////////////////////////////////////////////////////////////////////////////
+	// HEADROCK HAM 4: 
+	//
+	// The CTH/Firing system has been completely revamped. CTH is now the result of
+	// two completely separate calculations. One takes into account skill and conditions,
+	// the other relies on gun accuracy.
+	// See also UseGun() for further notes.
+	//
+	//////////////////////////////////////////////////////////////////////////////////
+
+	// Basic defines
+	SOLDIERTYPE * pTarget;
+	INT32 iChance, iRange, iSightRange; //, minRange;
+
 	UINT16	usInHand;
 	OBJECTTYPE * pInHand;
-//	INT8 bAttachPos;
-	INT8 bBandaged;
-	INT16	sDistVis;
-	UINT8	ubAdjAimPos;
+	INT8 bBandaged, iTraitModifier;
+	INT16	sDistVis, sDistVisNoScope;
 	UINT8 ubTargetID;
 	bool	highPowerScope = false;
-	UINT32	pScope;
-
-	// HEADROCK HAM 3.5: Variable holds total autofire penalty.
 	INT16 sTotalAutofirePenalty = 0;
-
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun"));
-
-	if ( pSoldier->stats.bMarksmanship == 0 )
-	{
-		// HEADROCK: (HAM) Altered to accept external arguments
-		// return( MINCHANCETOHIT );
-		return( gGameExternalOptions.ubMinimumCTH );
-	}
-
+	bool	fCantSeeTarget = false;
+	FLOAT	scopeRangeMod;
+	
 	// make sure the guy's actually got a weapon in his hand!
 	pInHand = &(pSoldier->inv[pSoldier->ubAttackingHand]);
 	usInHand = pSoldier->usAttackingWeapon;
-	//CHRISL: We have new modifiers when using a high power scope so find out if we have one from the start
-	for(attachmentList::iterator iter = (*pInHand)[0]->attachments.begin(); iter != (*pInHand)[0]->attachments.end(); iter++)
-	{
-		if(Item[iter->usItem].aimbonus > HIGH_POWER_SCOPE)
-		{
-			highPowerScope = true;
-			pScope = iter->usItem;
-			break;
-		}
-	}
-
-	// DETERMINE BASE CHANCE OF HITTING
-	iGunCondition = WEAPON_STATUS_MOD( (*pInHand)[0]->data.gun.bGunStatus );
-
-	if (Item[usInHand].rocketlauncher )
-	{
-		// use the same calculation as for mechanical thrown weapons
-		iMarksmanship = ( EffectiveDexterity( pSoldier ) + EffectiveMarksmanship( pSoldier ) + EffectiveWisdom( pSoldier ) + (10 * EffectiveExpLevel( pSoldier ) )) / 4;
-		// heavy weapons trait helps out
-		if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPS ))
-		{
-			iMarksmanship += gbSkillTraitBonus[HEAVY_WEAPS] * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPS );
-		}
-	}
-	else
-	{
-		iMarksmanship = EffectiveMarksmanship( pSoldier );
-
-		if ( AM_A_ROBOT( pSoldier ) )
-		{
-			SOLDIERTYPE * pSoldier2;
-
-			pSoldier2 = pSoldier->GetRobotController( );
-			if ( pSoldier2 )
-			{
-				iMarksmanship = __max( iMarksmanship, EffectiveMarksmanship( pSoldier2 ) );
-			}
-		}
-	}
-
-	// modify chance to hit by morale
-	iMarksmanship += GetMoraleModifier( pSoldier );
-
-	// penalize marksmanship for fatigue
-	iMarksmanship -= GetSkillCheckPenaltyForFatigue( pSoldier, iMarksmanship );
-
-	//if ( PTR_OURTEAM )
-	//{
-	//	iChance = ( iMarksmanship * iGunCondition ) / 100;
-	//}
-	//else
-	{
-		if (iGunCondition >= iMarksmanship)
-			// base chance is equal to the shooter's marksmanship skill
-			iChance = iMarksmanship;
-		else
-			// base chance is equal to the average of marksmanship & gun's condition!
-			iChance = (iMarksmanship + iGunCondition) / 2;
-	}
-	// if shooting same target as the last shot
-	if (sGridNo == pSoldier->sLastTarget )
-		iChance += AIM_BONUS_SAME_TARGET;		// give a bonus to hit
-
-	if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile ].bPersonalityTrait == PSYCHO )
-	{
-		iChance += AIM_BONUS_PSYCHO;
-	}
 
 	// calculate actual range (in units, 10 units = 1 tile)
 	iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );
 
-	if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND )
-	{
-		//CHRISL: Incur a penalty if using a highPowerScope
-		if(highPowerScope == true && iRange > Item[pScope].minrangeforaimbonus)
-		{
-			iPenalty = (Item[pScope].aimbonus * (iRange-Item[pScope].minrangeforaimbonus)) / 1000;
-			if (iPenalty > AIM_BONUS_PRONE)
-			{
-				iPenalty = AIM_BONUS_PRONE;
+	// Find a target in the tile
+	ubTargetID = WhoIsThere2( sGridNo, pSoldier->bTargetLevel ); // Target ubID
+	pTarget = SimpleFindSoldier( sGridNo, pSoldier->bTargetLevel ); // Target Pointer
+
+	// Calculate how easy it is to handle this gun.
+	FLOAT iGunDifficulty = (FLOAT)(( Weapon[ usInHand ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(pInHand) )) / 100);
+	iGunDifficulty *= (FLOAT)(100 / APBPConstants[AP_MAXIMUM]); // Adjust for 100AP/25AP
+	FLOAT iGunBaseDifficulty = iGunDifficulty;
+	FLOAT iGunAimDifficulty = iGunDifficulty;
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	// 
+	// CALCULATE LINE OF SIGHT
+	//
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//CHRISL: We have a new way to do this using a global variable
+	gbForceWeaponReady = true;
+
+	sDistVis = pSoldier->GetMaxDistanceVisible(sGridNo, pSoldier->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
+
+	iSightRange = 0;
+
+	if (ubTargetID != NOBODY && pSoldier->aiData.bOppList[ubTargetID] == SEEN_CURRENTLY || gbPublicOpplist[pSoldier->bTeam][ubTargetID] == SEEN_CURRENTLY)
+		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false );
+	if (iSightRange == 0) {	// didn't do a bodypart-based test or can't see specific body part aimed at
+		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, TRUE, NO_DISTANCE_LIMIT, false );
+	}
+	if (iSightRange == 0) {	// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
+		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false, true );
+		fCantSeeTarget = true;
+	}
+
+	gbForceWeaponReady = false;
+
+	//CHRIS: This next value needs to be determined with no vision modifiers from our weapon
+	gbForceWeaponNotReady = true;
+	sDistVisNoScope = pSoldier->GetMaxDistanceVisible(sGridNo, pSoldier->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
+	gbForceWeaponNotReady = false;
+	scopeRangeMod = (float)sDistVis / (float)sDistVisNoScope;	// percentage DistVis has been enhanced due to an attached scope
+	iSightRange = (INT32)(iSightRange / scopeRangeMod);
+	if(iSightRange > 0){
+		iSightRange -= GetGearAimBonus ( pSoldier, iSightRange, ubAimTime ) * iSightRange / 100;
+		if ( gGameOptions.fNewTraitSystem ) {
+			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) ) {
+				iSightRange -= ((gSkillTraitValues.ubSNEffRangeToTargetReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )) * iSightRange) /100;
 			}
-			iChance -= iPenalty;
+		}
+		else if ( HAS_SKILL_TRAIT( pSoldier, PROF_SNIPER_OT ) ) {
+			iSightRange -= ((gbSkillTraitBonus[ PROF_SNIPER_OT ] * NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )) * iSightRange) /100;
+		}
+		if (iSightRange < 1) {
+			iSightRange = 1;
 		}
 	}
-	// if shooter is crouched, he aims slightly better (to max of AIM_BONUS_CROUCHING)
-	else if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH )
+	if(iSightRange > sDistVis)
+		fCantSeeTarget = true;
+
+	//////////////////////////////////////////////////////////////////////////////////
+	// First step: Calculate a base CTH value
+	//
+	// This "Base" CTH is a percentage value describing how well our gun's muzzle is aimed
+	// when not spending any extra effort on aiming. In other words, it's the most basic state,
+	// where the shooter only brings up the gun into the general direction of the target, and
+	// pulls the trigger.
+	//
+	// This is calculated first by factoring in skills, and later by adding up various conditional
+	// factors into a percentage which is then applied to those skills.
+	//
+	// The most important skill here is EXPERIENCE.
+
+	FLOAT iBaseModifier = 0;
+
+	INT8 bExperience = EffectiveExpLevel( pSoldier );
+	INT8 bMarksmanship = EffectiveMarksmanship( pSoldier );
+	INT8 bDexterity = EffectiveDexterity( pSoldier );;
+	INT8 bWisdom = EffectiveWisdom( pSoldier );
+	
+	if ( bMarksmanship == 0 || bDexterity == 0 )
 	{
-		iBonus = iRange / 10;
-		if (iBonus > AIM_BONUS_CROUCHING)
-		{
-			iBonus = AIM_BONUS_CROUCHING;
-		}
-		iChance += iBonus;
-		//CHRISL: Incur a penalty if using a highPowerScope
-		if(highPowerScope == true && iRange > Item[pScope].minrangeforaimbonus)
-		{
-			iPenalty = ((Item[pScope].aimbonus/2) * (iRange-Item[pScope].minrangeforaimbonus)) / 1000;
-			if (iPenalty > AIM_BONUS_CROUCHING)
-			{
-				iPenalty = AIM_BONUS_CROUCHING;
-			}
-			iChance -= iPenalty;
-		}
+		return( gGameExternalOptions.ubMinimumCTH );
 	}
-	// if shooter is prone, he aims even better, except at really close range
-	else if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+
+	// Calculate the basic value for BASE CTH by factoring in all the character's skills.
+	FLOAT iCombinedSkill = (FLOAT)(gGameCTHConstants.BASE_EXP*(bExperience*10));
+	iCombinedSkill += (FLOAT)(gGameCTHConstants.BASE_MARKS * bMarksmanship);
+	iCombinedSkill += (FLOAT)(gGameCTHConstants.BASE_WIS * bWisdom);
+	iCombinedSkill += (FLOAT)(gGameCTHConstants.BASE_DEX * bDexterity);
+
+	// Divide by the total coefficient value.
+    iCombinedSkill = (FLOAT)(iCombinedSkill / 
+			(gGameCTHConstants.BASE_EXP+
+			gGameCTHConstants.BASE_MARKS+
+			gGameCTHConstants.BASE_WIS+
+			gGameCTHConstants.BASE_DEX));
+
+	// At this point we have a value of 1 to 100. Divide by 3.
+	iCombinedSkill /= 3;
+	
+	// iCombinedSkill is now our basic CTH. Its range is 0 to 33.
+	iChance = (INT32)iCombinedSkill;
+
+	// Add a flat Base bonus from the item and its attachments.
+	iChance += GetFlatBaseModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+
+	// We now begin adding up factors that may increase or decrease Base CTH. They are pooled together to form a percentage
+	// value.
+
+	// MORALE
+	INT8 iCurrentMorale = GetMoraleModifier(pSoldier);
+	if (iCurrentMorale > 0)
 	{
-		if (iRange > MIN_PRONE_RANGE)
+		iBaseModifier += (FLOAT)(iCurrentMorale * gGameCTHConstants.BASE_HIGH_MORALE);
+	}
+	else if (iCurrentMorale < 0)
+	{
+		iBaseModifier += (FLOAT)(iCurrentMorale * gGameCTHConstants.BASE_LOW_MORALE);
+	}
+
+	if ( gGameOptions.fNewTraitSystem ) 
+	{
+		iTraitModifier = 0;
+		// Bonus for heavy weapons moved here from above to get instant CtH bonus and not marksmanship bonus, 
+		// which is supressed by weapon condition
+		if (Item[usInHand].rocketlauncher || Item[usInHand].singleshotrocketlauncher)
 		{
-			iBonus = iRange / 10;
-			if (iBonus > AIM_BONUS_PRONE)
-			{
-				iBonus = AIM_BONUS_PRONE;
+			iTraitModifier += gSkillTraitValues.bCtHModifierRocketLaunchers; // -25% for untrained mercs !!!
+
+			if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ))
+				iTraitModifier += gSkillTraitValues.ubHWBonusCtHRocketLaunchers * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ); // +25% per trait
+		}
+		// Added CtH bonus for Gunslinger trait on pistols and machine-pistols
+		else if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL )
+		{
+			iTraitModifier += gSkillTraitValues.bCtHModifierPistols; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iTraitModifier += gSkillTraitValues.ubGSBonusCtHPistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ); // +10% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_M_PISTOL )
+		{
+			iTraitModifier += gSkillTraitValues.bCtHModifierMachinePistols; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) && ((pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0) || !gSkillTraitValues.ubGSCtHMPExcludeAuto))
+				iTraitModifier += gSkillTraitValues.ubGSBonusCtHMachinePistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Machinegunner skill on assault rifles, SMGs and LMGs
+		else if ( Weapon[usInHand].ubWeaponType == GUN_AS_RIFLE )
+		{
+			iTraitModifier += gSkillTraitValues.bCtHModifierAssaultRifles; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+				iTraitModifier += gSkillTraitValues.ubAWBonusCtHAssaultRifles * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SMG ) 
+		{
+			iTraitModifier += gSkillTraitValues.bCtHModifierSMGs; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+				iTraitModifier += gSkillTraitValues.ubAWBonusCtHSMGs * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_LMG )
+		{
+			iTraitModifier += gSkillTraitValues.bCtHModifierLMGs; // -10% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+				iTraitModifier += gSkillTraitValues.ubAWBonusCtHLMGs * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Gunslinger trait on pistols and machine-pistols
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SN_RIFLE )
+		{
+			iTraitModifier += gSkillTraitValues.bCtHModifierSniperRifles; // -10% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iTraitModifier += gSkillTraitValues.ubSNBonusCtHSniperRifles * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Ranger skill on rifles and shotguns
+		else if ( Weapon[usInHand].ubWeaponType == GUN_RIFLE ) 
+		{
+			iTraitModifier += gSkillTraitValues.bCtHModifierRifles; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iTraitModifier += gSkillTraitValues.ubRABonusCtHRifles * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ); // +5% per trait
+			//CHRISL: Why wouldn't sniper training include standard rifles which are often used as "poor-man sniper rifles"
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iTraitModifier += gSkillTraitValues.ubSNBonusCtHRifles * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ); // +5% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SHOTGUN )
+		{
+			iTraitModifier += gSkillTraitValues.bCtHModifierShotguns; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+				iTraitModifier += gSkillTraitValues.ubRABonusCtHShotguns * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ); // +10% per trait
+		}
+
+		// Added small CtH penalty for robot if controller hasn't the Technician trait
+		if( AM_A_ROBOT( pSoldier ) )
+		{
+			iTraitModifier += gSkillTraitValues.bCtHModifierRobot; // -10% 
+
+			if ( HAS_SKILL_TRAIT( pSoldier->GetRobotController(), TECHNICIAN_NT ) )
+				iTraitModifier += gSkillTraitValues.ubTECtHControlledRobotBonus * NUM_SKILL_TRAITS( pSoldier->GetRobotController(), TECHNICIAN_NT ); // +10% per trait
+		}
+
+		// Added character traits influence
+		if ( pSoldier->ubProfile != NO_PROFILE )
+		{		
+			// Sociable - better performance in groups
+			if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_SOCIABLE );
+				if ( bNumMercs > 2 )
+					iTraitModifier += 5;
+				else if ( bNumMercs > 0 )
+					iTraitModifier += 2;
 			}
-			// Snap: bipod bonus is now calculated in GetToHitBonus
-			//bAttachPos = FindAttachment( pInHand, BIPOD );
-			//if (bAttachPos != ITEM_NOT_FOUND)
-			//{	// extra bonus to hit for a bipod, up to half the prone bonus itself
-			//	iBonus += (iBonus * WEAPON_STATUS_MOD(GetBipodStatus(pInHand)) / 100) / 2;
-			//}
-			iChance += iBonus;
+			// Loner - better performance when alone
+			else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_LONER )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_LONER );
+				if ( bNumMercs == 0 )
+					iTraitModifier += 5;
+				else if ( bNumMercs <= 1 )
+					iTraitModifier += 2;
+			}
+			// Aggressive - bonus on bursts/autofire
+			else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+			{	
+				if (( pSoldier->bDoBurst || pSoldier->bDoAutofire ) && !ubAimTime )
+					iTraitModifier += 5;
+			}
+			// Show-off - better performance if some babes around to impress
+			else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_SHOWOFF );
+				if ( bNumMercs > 1 )
+					iTraitModifier += 5;
+				else if ( bNumMercs > 0 )
+					iTraitModifier += 2;
+			}
+			// Added disabilities
+			if ( pSoldier->ubProfile != NO_PROFILE )
+			{
+				// Heat intolerant penalty
+				if ( MercIsHot( pSoldier ) )
+				{
+					iTraitModifier -= 15;
+				}
+				// Small penalty for fear of insects in tropical sectors
+				else if ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == FEAR_OF_INSECTS) && MercIsInTropicalSector( pSoldier ) )
+				{
+					// fear of insects, and we are in tropical sector
+					iTraitModifier -= 5;
+				}
+			}
+		}
+		// Dauntless - penalty for not taking proper cover
+		if (pTarget != NULL)
+		{
+			if ( pTarget->ubProfile != NO_PROFILE )
+			{
+				if ( gMercProfiles[ pTarget->ubProfile ].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+					iTraitModifier += 5;
+			}
+		}
+		//Give 40% the normal stomp modifier as a base mod
+		iBaseModifier += (FLOAT)iTraitModifier * 0.4f;
+	}
+	else
+	{
+		// PSYCHO
+		if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO )
+		{
+			iBaseModifier += (FLOAT)gGameCTHConstants.BASE_PSYCHO;
 		}
 	}
 
-	//Madd: inherent weapon accuracy bonus
-	iChance += Weapon[usInHand].bAccuracy;
+	// SHOOTING AT SAME TARGET AGAIN
+	if (sGridNo == pSoldier->sLastTarget )
+		iBaseModifier += (FLOAT)gGameCTHConstants.BASE_SAME_TARGET;
 
-//	if ( !(Item[ usInHand ].fFlags & ITEM_TWO_HANDED) )
+	/////////////////////////////////////////////
+	// Gun Difficulty Modifiers
+		
+	// FIRING 1-HANDED WEAPONS
 	if ( !(Item[ usInHand ].twohanded ) )
 	{
-		if (pSoldier->inv[SECONDHANDPOS].exists() == false)
+		if (pSoldier->inv[SECONDHANDPOS].exists() != false)
 		{
-			// firing with gun in right hand, and second hand empty (ie: no grenade, med kit or anything there)
-			// Madd: easier to fire pistol/smg w/one hand free, essentially this will make pistols a little bit more accurate, and hopefully still useful later in the game
-			if (Weapon[usInHand].ubWeaponClass == HANDGUNCLASS)
-				iChance += AIM_BONUS_TWO_HANDED_PISTOL;
+			if ( pSoldier->IsValidSecondHandShot( ) )
+			{
+				// Penalty for shooting two pistols. Ambidextrous trait halves this, once per skill level.
+				FLOAT iTempPenalty = (gGameCTHConstants.BASE_TWO_GUNS * iGunBaseDifficulty) - iGunBaseDifficulty;
+				INT8	traitLoop = (gGameOptions.fNewTraitSystem?NUM_SKILL_TRAITS( pSoldier, AMBIDEXTROUS_NT ):NUM_SKILL_TRAITS( pSoldier, AMBIDEXT_OT ));
+
+				for (INT32 x = 0; x < traitLoop; x++)
+				{
+					iTempPenalty /= 2;
+				}
+				
+				iGunBaseDifficulty += iTempPenalty;
+			}
+			else
+			{
+				// Penalty for shooting a pistol with just one hand
+				iGunBaseDifficulty *= gGameCTHConstants.BASE_ONE_HANDED;
+			}
+		}
+	}
+
+	// HEAVY WEAPON
+	if (Item[usInHand].rocketlauncher && !(gGameOptions.fNewTraitSystem) ) 
+	{
+		// Penalty for shooting heavy weapons (launchers). Heavy Weapons skill halves this, once per skill level.
+		FLOAT iTempPenalty = (gGameCTHConstants.BASE_HEAVY_WEAPON * iGunBaseDifficulty) - iGunBaseDifficulty;
+
+		for (INT32 x=0; x < NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPS_OT ); x++)
+		{
+			iTempPenalty /= 2;
+		}
+
+		iGunBaseDifficulty += iTempPenalty;
+	}
+
+	// STANCE
+	switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
+	{
+		case ANIM_CROUCH:
+			iGunBaseDifficulty *= gGameCTHConstants.BASE_CROUCHING_STANCE;
+			break;
+		case ANIM_PRONE:
+			iGunBaseDifficulty *= gGameCTHConstants.BASE_PRONE_STANCE;
+			break;
+	}
+
+	// Percent based modifier from the gun and its attachments
+	iGunBaseDifficulty += (iGunBaseDifficulty * GetPercentHandlingModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+
+	// End gun difficulty modifiers
+	/////////////////////////////////////////////
+
+	// Now apply Gun Difficulty to the Base Modifier.
+	iBaseModifier += iGunBaseDifficulty * gGameCTHConstants.BASE_DRAW_COST;
+
+	// INJURY
+	if (pSoldier->stats.bLife < pSoldier->stats.bLifeMax)
+	{
+		FLOAT iTempPenalty = gGameCTHConstants.BASE_INJURY;
+
+		// Bleeding damage is used as a percentage off the Max Life, giving a penalty of up to BASE_INJURY.
+		iBaseModifier += (pSoldier->bBleeding * iTempPenalty) / pSoldier->stats.bLifeMax;
+
+		// Bandage damage is used similarly, but is only 1/3 as bad.
+		bBandaged = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
+		iBaseModifier += ((bBandaged * iTempPenalty) / pSoldier->stats.bLifeMax) / 3;
+	}
+
+	// FATIGUE
+	iBaseModifier += (gGameCTHConstants.BASE_FATIGUE * (100 - pSoldier->bBreath)) / 100;
+
+	// DRUNKNESS
+	INT8 iDrunkness = GetDrunkLevel(pSoldier);
+	if (iDrunkness > 0)
+	{
+		iDrunkness -= 1;
+		iBaseModifier += gGameCTHConstants.BASE_DRUNK[iDrunkness];
+	}
+
+	// GASSED
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
+	{
+		iBaseModifier += gGameCTHConstants.BASE_GASSED;
+	}
+
+	// BEING BANDAGED
+	if (pSoldier->ubServiceCount > 0)
+	{
+		iBaseModifier += gGameCTHConstants.BASE_BEING_BANDAGED;
+	}
+
+	// SHOCK (SHOOTER)
+	if (pSoldier->aiData.bShock)
+	{
+		FLOAT iTempPenalty = gGameCTHConstants.BASE_SHOCK;
+		INT32 iShockPercentage = (pSoldier->aiData.bShock * 100) / gGameExternalOptions.ubMaxSuppressionShock;
+
+		iBaseModifier += (iTempPenalty * iShockPercentage) / 100;
+	}
+
+	/////////////
+	// Target-specific tests
+
+	INT32 iHeightDifference = 0;
+	if ( pTarget == NULL )
+	{
+		// Shooting to roof.
+		if ( pSoldier->bTargetLevel > pSoldier->pathing.bLevel )
+		{
+			iHeightDifference = 3 * pSoldier->bTargetLevel;
+		}
+	}
+	else
+	{
+		// HEIGHT DIFFERENCE
+
+		UINT32 uiShooterHeight = 0;
+		UINT32 uiTargetHeight = 0;
+
+		if ( pSoldier->pathing.bLevel > 0 )
+		{
+			uiShooterHeight += 3 * pSoldier->pathing.bLevel;
+		}
+		
+		switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
+		{
+			case ANIM_STAND:
+				uiShooterHeight += 2;
+				break;
+			case ANIM_CROUCH:
+				uiShooterHeight += 1;
+				break;
+		}
+
+		if (pTarget->pathing.bLevel > 0)
+		{
+			uiTargetHeight += 3 * pTarget->pathing.bLevel;
+		}
+
+		switch ( gAnimControl[ pTarget->usAnimState ].ubEndHeight )
+		{
+			case ANIM_STAND:
+				switch (ubAimPos)
+				{
+					case AIM_SHOT_HEAD:
+						uiTargetHeight += 2;
+						break;
+					case AIM_SHOT_TORSO:
+					case AIM_SHOT_RANDOM:
+					case AIM_SHOT_GLAND:
+						uiTargetHeight += 1;
+						break;
+				}
+				break;
+			case ANIM_CROUCH:
+				switch (ubAimPos)
+				{
+					case AIM_SHOT_HEAD:
+						uiTargetHeight += 1;
+						break;
+				}
+				break;
+		}
+
+		iHeightDifference = uiShooterHeight - uiTargetHeight;
+		if (iHeightDifference < 0)
+		{
+			iHeightDifference *= -1;
 		}
 		else
 		{
-			// Madd: harder to fire smgs w/something in other hand
-			// SMGs are treated as pistols for these purpose except there is a -5 penalty;
-			if (Weapon[usInHand].ubWeaponClass == SMGCLASS)
-			{
-				iChance -= AIM_PENALTY_SMG;
-			}
+			iHeightDifference = 0;
+		}
 
-			if ( !HAS_SKILL_TRAIT( pSoldier, AMBIDEXT ) )
+		// AGILITY OR EXPERIENCE
+		FLOAT iTempPenalty = __max((pTarget->stats.bExpLevel*10), pTarget->stats.bAgility);
+		iBaseModifier += (iTempPenalty * gGameCTHConstants.BASE_AGILE_TARGET) / 100;
+	}
+
+	// Height difference is mitigated by range. A LONGER range reduces this penalty!
+	if (iRange > 0 && iHeightDifference > 0)
+	{
+		FLOAT iTempPenalty = gGameCTHConstants.BASE_SHOOTING_UPWARDS * iHeightDifference;
+		iTempPenalty /= iRange;
+
+		iBaseModifier += iTempPenalty;
+	}
+
+	// INVIS TARGET
+	if (fCantSeeTarget)
+	{
+		iBaseModifier += gGameCTHConstants.BASE_TARGET_INVISIBLE;
+	}
+
+	// GAME DIFFICULTY
+	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
+	{
+		iBaseModifier += gGameCTHConstants.BASE_DIFFICULTY[gGameOptions.ubDifficultyLevel];
+	}
+
+	// Percentage based-modifier from the weapon and its attachments
+	iBaseModifier += GetPercentBaseModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+
+
+	////////////////////////////////////
+	// Finish BASE CTH calculation:
+
+
+
+	iChance = (INT32)(iChance * (100+iBaseModifier)) / 100;
+	iChance = __max( iChance, 0 );
+	iChance = __min( iChance, 100 );
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	// Second step: Calculate bonuses from aiming
+	//
+	// In this step, we figure out how much CTH we get from aiming. Naturally, we
+	// need extra aiming (bAimTime) to be applied.
+	//
+	// CTH is capped by a value determined by the shooter's skills. The better
+	// your skills, the higher CTH can go. A steady hand (DEX) and training
+	// (MRK) are paramount here.
+	// After that, the cap is raised or lowered by other factors, like fatigue
+	// or the size of the gun.
+	//
+	// Finally, we determine how much each Aim Click will give us. Returns are
+	// diminishing, so the more clicks we put in, the less CTH for each additional
+	// click. However, the last few points can be absolutely crucial for long-range
+	// shooting.
+	//
+	// Scope magnification can be important here, but only if the target is closer
+	// than the scope's minimum aiming range. If it is closer, the shooter begins
+	// to suffer aiming penalties which can render aiming almost useless.
+
+	if (ubAimTime > 0)
+	{
+
+		// Are we using a scope? If so, what's the range factor?
+		FLOAT iScopeMagFactor = GetBestScopeMagnificationFactor( pInHand, (UINT32)iRange );
+		//CHRISL: This does make sense but it effectively makes high powered scopes worthless if a target is actually visible.  As an example, a Battle Scope
+		//	is going to have a iScopeMagFactor of 7.  With a "NORMAL_SHOOTING_DISTANCE" also of 7, we're going to end up with uiBestScopeRange of 49.  That's
+		//	effectilvey saying that any target within 490m is "too close" for the scope to be effective.  That by itself isn't realistic.  But in JA2 it's also
+		//	a big drawback.  Consider that normally (excluding terrain, lighting and environment) you can see 26 tiles.  The Battle Scope increases that by 50%
+		//	in bright light, meaning you can see up to 39 tiles away.  A target standing 49 tiles is considered "invisible" to you because the target is beyond
+		//	your 39 tile vision range.  Sniper scopes (10 iScopeMagFactor) are even worse (uiBestScopeRange = 70 but visible range limited to 49 tiles).  So the
+		//	only way to get the full benefit of a higher powered scope is to have a spotter AND to suffer the various "TARGET_INVISIBLE" penalties.  This makes
+		//	no sense.  Admittedly, higher powered scopes should be less efficienct at "close range" but is 490m (700m for sniper scope) really "close range"?
+		//	Also, we can't simply change NORMAL_SHOOTING_DISTANCE because this value also effects shooting without a scope.  We don't want ot make it harder for
+		//	"scopeless" shooting.  So to try and counter some of this, while still showing that scopes are less effecient at "close range", I'm going to cut the
+		//	uiBestScopeRange value in half.  This should allow a Battle Scope to reach full effeciency at 24 tiles and a Sniper scope will be fully effecient at
+		//	35 tiles.  ACOG becomes fully effecient at 14 tiles and 2x is fully effeciency at 7 tiles (compared to 28 and 14 respectively).  This does mean that a
+		//	2x scope reaches full effeciency at the same point as "scopeless" shooting, but I don't think this will be a serious problem.
+		FLOAT	rangeModifier = gGameCTHConstants.SCOPE_RANGE_MULTIPLIER;
+		if( gGameOptions.fNewTraitSystem )
+		{
+			if(iScopeMagFactor > .5)
+				rangeModifier -= (NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ) * 0.05f);
+			else
+				rangeModifier -= (NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) * 0.05f);
+		}
+		else
+			rangeModifier -= (NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT ) * 0.05f);
+		UINT32 uiBestScopeRange = (UINT32)(iScopeMagFactor * gGameCTHConstants.NORMAL_SHOOTING_DISTANCE * rangeModifier);
+
+		FLOAT iAimModifier = 0;
+
+		// WEAPON CONDITION
+		if ( pSoldier->inv[HANDPOS][0]->data.objectStatus < 50 )
+		{
+			iAimModifier += gGameCTHConstants.AIM_GUN_CONDITION * (50 - pSoldier->inv[HANDPOS][0]->data.objectStatus);
+		}
+
+		// MORALE
+		INT32 iTempModifier = GetMoraleModifier( pSoldier );
+		if ( iTempModifier > 0 )
+		{
+			iAimModifier += gGameCTHConstants.AIM_HIGH_MORALE * iTempModifier;
+		}
+		else if ( iTempModifier < 0 )
+		{
+			iAimModifier += gGameCTHConstants.AIM_LOW_MORALE * iTempModifier;
+		}
+
+		if(gGameOptions.fNewTraitSystem)
+		{
+			//Give 60% the normal stomp modifier as the aim mod
+			iAimModifier += (FLOAT)iTraitModifier * 0.6f;
+		}
+		else
+		{
+			if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO )
+			{
+				iAimModifier += gGameCTHConstants.AIM_PSYCHO;
+			}
+		}
+
+		//////////////////////////////////////////
+		// Gun Handling modifiers
+
+		switch (gAnimControl[ pSoldier->usAnimState ].ubEndHeight)
+		{
+			case ANIM_STAND:
+				iGunAimDifficulty *= gGameCTHConstants.AIM_STANDING_STANCE;
+				break;
+
+			case ANIM_CROUCH:
+				iGunAimDifficulty *= gGameCTHConstants.AIM_CROUCHING_STANCE;
+				break;
+
+			case ANIM_PRONE:
+				iGunAimDifficulty *= gGameCTHConstants.AIM_PRONE_STANCE;
+				break;
+		}
+
+		// FIRING 1-HANDED WEAPONS
+		if ( !(Item[ usInHand ].twohanded ) )
+		{
+			if (pSoldier->inv[SECONDHANDPOS].exists() != false)
 			{
 				if ( pSoldier->IsValidSecondHandShot( ) )
 				{
-					// penalty to aim when firing two pistols
-					iChance -= AIM_PENALTY_DUAL_PISTOLS;
+					// Penalty for shooting two pistols. Ambidextrous trait halves this, once per skill level.
+					FLOAT iTempPenalty = (gGameCTHConstants.AIM_TWO_GUNS * iGunAimDifficulty) - iGunAimDifficulty;
+					INT8	traitLoop = (gGameOptions.fNewTraitSystem?NUM_SKILL_TRAITS( pSoldier, AMBIDEXTROUS_NT ):NUM_SKILL_TRAITS( pSoldier, AMBIDEXT_OT ));
+					
+					for (INT32 x = 0; x < traitLoop; x++)
+					{
+						iTempPenalty /= 2;
+					}
+					
+					iGunAimDifficulty += iTempPenalty;
 				}
-				/*
 				else
 				{
-					// penalty to aim with pistol being fired one-handed
-					iChance -= AIM_PENALTY_ONE_HANDED_PISTOL;
+					// Penalty for shooting a pistol with just one hand
+					iGunAimDifficulty *= gGameCTHConstants.AIM_ONE_HANDED;
 				}
-				*/
 			}
 		}
+
+		// HEAVY WEAPON
+		if (Item[usInHand].rocketlauncher && !(gGameOptions.fNewTraitSystem) ) 
+		{
+			// Penalty for shooting heavy weapons (launchers). Heavy Weapons skill halves this, once per skill level.
+			FLOAT iTempPenalty = (gGameCTHConstants.AIM_HEAVY_WEAPON * iGunAimDifficulty) - iGunAimDifficulty;
+
+			for (INT32 x=0; x < NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPS_OT ); x++)
+			{
+				iTempPenalty /= 2;
+			}
+
+			iGunAimDifficulty += iTempPenalty;
+		}
+
+		iGunAimDifficulty += (iGunAimDifficulty * GetPercentHandlingModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+
+		// End Gun Handling modifiers
+		//////////////////////////////////////////
+
+		iAimModifier += gGameCTHConstants.AIM_DRAW_COST * iGunAimDifficulty;
+
+		// VISIBILITY
+		if (iRange > 0 && iSightRange > iRange)
+		{
+			FLOAT iTempPenalty = (FLOAT)((FLOAT)iSightRange / (FLOAT)iRange);
+			iTempPenalty = (FLOAT)(100 / iTempPenalty);
+			iAimModifier += ((100-iTempPenalty) * gGameCTHConstants.AIM_VISIBILITY)/100;
+			iAimModifier = __max( gGameCTHConstants.AIM_TARGET_INVISIBLE, iAimModifier );
+		}
+		//if (iSightRange == -1)
+		if(fCantSeeTarget)
+		{
+			iAimModifier += gGameCTHConstants.AIM_TARGET_INVISIBLE;
+		}
+
+		// INJURY
+		if (pSoldier->stats.bLife < pSoldier->stats.bLifeMax)
+		{
+			FLOAT iTempPenalty = gGameCTHConstants.AIM_INJURY;
+
+			// Bleeding damage is used as a percentage off the Max Life, giving a penalty of up to BASE_INJURY.
+			iAimModifier += (pSoldier->bBleeding * iTempPenalty) / pSoldier->stats.bLifeMax;
+
+			// Bandage damage is used similarly, but is only 1/3 as bad.
+			bBandaged = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
+			iAimModifier += ((bBandaged * iTempPenalty) / pSoldier->stats.bLifeMax) / 3;
+		}
+
+		// FATIGUE
+		iAimModifier += (gGameCTHConstants.AIM_FATIGUE * (100 - pSoldier->bBreath)) / 100;
+
+		// DRUNKNESS
+		INT8 iDrunkness = GetDrunkLevel(pSoldier);
+		if (iDrunkness > 0)
+		{
+			iDrunkness -= 1;
+			iAimModifier += gGameCTHConstants.AIM_DRUNK[iDrunkness];
+		}
+
+		// GASSED
+		if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
+		{
+			iAimModifier += gGameCTHConstants.AIM_GASSED;
+		}
+
+		// BEING BANDAGED
+		if (pSoldier->ubServiceCount > 0)
+		{
+			iAimModifier += gGameCTHConstants.AIM_BEING_BANDAGED;
+		}
+
+		// SHOCK (SHOOTER)
+		if (pSoldier->aiData.bShock)
+		{
+			FLOAT iTempPenalty = gGameCTHConstants.AIM_SHOCK;
+			INT32 iShockPercentage = (pSoldier->aiData.bShock * 100) / gGameExternalOptions.ubMaxSuppressionShock;
+
+			iAimModifier += (iTempPenalty * iShockPercentage) / 100;
+		}
+		
+		/////////////
+		// Target-specific tests
+
+		INT32 iHeightDifference = 0;
+		if ( pTarget == NULL )
+		{
+			// Shooting to roof.
+			if ( pSoldier->bTargetLevel > pSoldier->pathing.bLevel )
+			{
+				iHeightDifference = 3 * pSoldier->bTargetLevel;
+			}
+		}
+		else
+		{
+			// HEIGHT DIFFERENCE
+
+			UINT32 uiShooterHeight = 0;
+			UINT32 uiTargetHeight = 0;
+
+			if ( pSoldier->pathing.bLevel > 0 )
+			{
+				uiShooterHeight += 3 * pSoldier->pathing.bLevel;
+			}
+			
+			switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
+			{
+				case ANIM_STAND:
+					uiShooterHeight += 2;
+					break;
+				case ANIM_CROUCH:
+					uiShooterHeight += 1;
+					break;
+			}
+
+			if (pTarget->pathing.bLevel > 0)
+			{
+				uiTargetHeight += 3 * pTarget->pathing.bLevel;
+			}
+
+			switch ( gAnimControl[ pTarget->usAnimState ].ubEndHeight )
+			{
+				case ANIM_STAND:
+					switch (ubAimPos)
+					{
+						case AIM_SHOT_HEAD:
+							uiTargetHeight += 2;
+							break;
+						case AIM_SHOT_TORSO:
+						case AIM_SHOT_RANDOM:
+						case AIM_SHOT_GLAND:
+							uiTargetHeight += 1;
+							break;
+					}
+					break;
+				case ANIM_CROUCH:
+					switch (ubAimPos)
+					{
+						case AIM_SHOT_HEAD:
+							uiTargetHeight += 1;
+							break;
+					}
+					break;
+			}
+
+			iHeightDifference = uiShooterHeight - uiTargetHeight;
+			if (iHeightDifference < 0)
+			{
+				iHeightDifference *= -1;
+			}
+			else
+			{
+				iHeightDifference = 0;
+			}
+		}
+
+		// Height difference is mitigated by range. A LONGER range reduces this penalty!
+		if (iRange > 0 && iHeightDifference > 0)
+		{
+			FLOAT iTempPenalty = gGameCTHConstants.AIM_SHOOTING_UPWARDS * iHeightDifference;
+			iTempPenalty /= iRange;
+
+			iAimModifier += iTempPenalty;
+		}
+
+		// GAME DIFFICULTY
+		if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
+		{
+			iAimModifier += gGameCTHConstants.AIM_DIFFICULTY[gGameOptions.ubDifficultyLevel];
+		}
+
+		// Percent modifier from the weapon and its attachments
+		iAimModifier += GetPercentAimModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+
+		// Calculate final max aiming
+		
+
+		//////////////////////////////////////////
+		// Start by calculating the CTH cap, the absolute maximum CTH a shooter can get.
+		iCombinedSkill = ( gGameCTHConstants.AIM_EXP * bExperience * 10 );
+		iCombinedSkill += ( gGameCTHConstants.AIM_MARKS * bMarksmanship );
+		iCombinedSkill += ( gGameCTHConstants.AIM_WIS * bWisdom );
+		iCombinedSkill += ( gGameCTHConstants.AIM_DEX * bDexterity );
+		
+		iCombinedSkill /= (gGameCTHConstants.AIM_EXP + gGameCTHConstants.AIM_MARKS + gGameCTHConstants.AIM_WIS + gGameCTHConstants.AIM_DEX);
+
+		UINT32 uiCap = (UINT32)iCombinedSkill;
+		// Add percent-based modifier from the gun and its attachments
+		uiCap += (uiCap * GetPercentCapModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+
+		// Add bonuses from Sniper Skill. Applies only when using a scope at or above its "best" range.
+		INT16 sDifference = 99 - uiCap;
+		INT16 sSniperSkillBonus = 0;
+		if (uiCap < gGameExternalOptions.ubMaximumCTH && iScopeMagFactor > 1.0 && iRange >= (INT32)uiBestScopeRange )
+		{
+			INT8	loop;
+			if(gGameOptions.fNewTraitSystem)
+			{
+				if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL || Weapon[usInHand].ubWeaponType == GUN_M_PISTOL )
+					loop = NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT );
+				else
+					loop = NUM_SKILL_TRAITS( pSoldier, SNIPER_NT );
+			}
+			else
+				loop = NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT );
+
+			for (INT8 cnt = 0; cnt < loop; cnt++)
+			{
+				// For each level of the sniper skill, cover a defined distance between the current CTH Cap and 99 (the
+				// maximum...
+				if(gGameOptions.fNewTraitSystem)
+				{
+					if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL || Weapon[usInHand].ubWeaponType == GUN_M_PISTOL )
+						sSniperSkillBonus += (INT16)((sDifference * gSkillTraitValues.ubGSAimingBonusPerClick) / gGameExternalOptions.ubMaximumCTH);
+					else
+						sSniperSkillBonus += (INT16)((sDifference * gSkillTraitValues.ubSNAimingBonusPerClick) / gGameExternalOptions.ubMaximumCTH);
+				}
+				else
+					sSniperSkillBonus += (INT16)((sDifference * gGameCTHConstants.AIM_SNIPER_SKILL) / gGameExternalOptions.ubMaximumCTH);
+				sDifference -= sSniperSkillBonus;
+			}
+
+			uiCap += sSniperSkillBonus;
+		}
+
+		// Make sure cap is within limits
+		uiCap = __max(uiCap, __max(0,(UINT32)iChance));
+		uiCap = __min(uiCap, gGameExternalOptions.ubMaximumCTH);
+
+		// Now figure out the distance between the Base CTH and the CTH Cap. This is the distance we'll potentially
+		// cover when applying the maximum number of aiming clicks for this gun.
+		INT32 iMaxAimBonus = uiCap - iChance;
+
+		iMaxAimBonus = (UINT32)((iMaxAimBonus * (100+iAimModifier)) / 100);
+		iMaxAimBonus = __max(0, iMaxAimBonus); // can't get less than 0 points for aiming...
+		
+		// factor in scopes under their range
+		if (iScopeMagFactor > 1.0 && iRange < (INT32)uiBestScopeRange)
+		{
+			// Calculate how much penalty this scope should give at this range
+			FLOAT dScopePenaltyRatio = ((FLOAT)uiBestScopeRange / (FLOAT)iRange);
+			INT32 iScopePenalty = (INT32)(dScopePenaltyRatio * gGameCTHConstants.AIM_TOO_CLOSE_SCOPE * (iScopeMagFactor /2));
+			iMaxAimBonus += iScopePenalty;
+		}
+		else if (iScopeMagFactor == 1.0f && GetHighestScopeMagnificationFactor( pInHand ) > 1.0f )
+		{
+			// Not using a scope, but it's still there. Give half the penalty based on the size of the scope.
+			INT32 iScopePenalty = (INT32)(((GetHighestScopeMagnificationFactor( pInHand )/2) * gGameCTHConstants.AIM_TOO_CLOSE_SCOPE)/2);
+			iMaxAimBonus += iScopePenalty;
+		}
+
+		// Now let's find out how many CTH points we get per aiming level.
+		UINT8 ubAllowedAimingLevels = AllowedAimingLevels( pSoldier, sGridNo );
+		FLOAT dAimFractionsDivisor = 0.0;
+		for (UINT8 cnt = 0; cnt < ubAllowedAimingLevels; cnt++)
+		{
+			dAimFractionsDivisor += (cnt+1);
+		}			
+
+		FLOAT iAimPoints = 0;
+		FLOAT iAimPointFraction = (FLOAT)((FLOAT)iMaxAimBonus / dAimFractionsDivisor);
+		for (UINT8 x = 0; x < ubAimTime; x++)
+		{
+			iAimPoints += iAimPointFraction * (ubAllowedAimingLevels-x);
+			// Add Flat Modifier from the weapon and its attachments
+			iAimPoints += GetFlatAimModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight );
+		}
+
+		// Finally, add the appropriate number of CTH points to our chance-to-hit, and limit it into good values.
+		iChance = __max(iChance + (INT32)iAimPoints, iChance);
+		iChance = __min(iChance, (INT32)uiCap);
 	}
+		
+	// Impose global limits.	
+	iChance = __min(iChance, gGameExternalOptions.ubMaximumCTH);
+	iChance = __max(iChance, gGameExternalOptions.ubMinimumCTH);
+	
+	return (iChance);
+}
+
+/*
+
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun"));
+
+
+	if ( AM_A_ROBOT( pSoldier ) )
+	{
+		SOLDIERTYPE * pSoldier2;
+		pSoldier2 = pSoldier->GetRobotController( );
+		if ( pSoldier2 )
+		{
+			uiExperience = EffectiveExpLevel( pSoldier2 );
+			uiMarksmanship = EffectiveMarksmanship( pSoldier2 );
+			uiDexterity = EffectiveDexterity( pSoldier2 );;
+			uiWisdom = EffectiveWisdom( pSoldier2 );
+		}
+	}
+
+	// calculate actual range (in units, 10 units = 1 tile)
+	iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );
 
 	// If in burst mode, deduct points for change to hit for each shot after the first
 	if ( pSoldier->bDoBurst && pSoldier->bDoAutofire == 0 )
@@ -3783,137 +5558,6 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		sTotalAutofirePenalty = iPenalty;
 	}
 
-	//ADB we need to calculate the distance visible and SoldierTo...LOSTests that we want to
-	//calculate it when firing, so the scope can be accounted for when the weapon is raised
-	//I consider this a hack to change the global, but passing a var alllll the way down to GetVisionBonus was worse
-	//if anyone wants to change it go for it, I don't know what usAnimState should be set
-
-	//store old flag
-	UINT32 oldFlag = gAnimControl[ pSoldier->usAnimState ].uiFlags;
-	//add the necessary bits to the flag
-	gAnimControl[ pSoldier->usAnimState ].uiFlags |= (ANIM_FIREREADY | ANIM_FIRE);
-
-	// 0verhaul:  Changed to take expanded range from shooting at different levels into account
-	//ADB this change does nothing - either way it is random - we don't know what level we are shooting to, which is
-	//what the last parameter is, and the soldier's current level is as good a guess as ground level.
-	//so if you really want to fix this, pass in a value
-	sDistVis = pSoldier->GetMaxDistanceVisible(sGridNo, pSoldier->bTargetLevel, CALC_FROM_ALL_DIRS );
-
-	// CJC August 13 2002:  Wow, this has been wrong the whole time.  bTargetCubeLevel seems to be generally set to 2 -
-	// but if a character is shooting at an enemy in a particular spot, then we should be using the target position on the body.
-
-	// CJC August 13, 2002
-	// If the start soldier has a body part they are aiming at, and know about the person in the tile, then use that height instead
-	iSightRange = -1;
-
-	// give some leeway to allow people to spot for each other...
-	//so make the range to calculate the bullet at 255+
-	ubTargetID = WhoIsThere2( sGridNo, pSoldier->bTargetLevel );
-	// best to use team knowledge as well, in case of spotting for someone else
-	// 0verhaul:  Why not use the distance visible as the max for line of sight testing?
-	//ADB because A) the bullet can travel farther than I can see and B) I might have a spotter
-
-	//We are firing a gun, and so the gun will be pointed and the scope will be used, even if it isn't now, so don't forget that we are in a firing animation
-	if (ubTargetID != NOBODY && pSoldier->aiData.bOppList[ubTargetID] == SEEN_CURRENTLY || gbPublicOpplist[pSoldier->bTeam][ubTargetID] == SEEN_CURRENTLY)
-	{
-		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false );
-	}
-	if (iSightRange == -1) // didn't do a bodypart-based test
-	{
-		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, TRUE, NO_DISTANCE_LIMIT, false );
-	}
-
-	//restore old flag
-	gAnimControl[ pSoldier->usAnimState ].uiFlags = oldFlag;
-
-	if ( iSightRange > (sDistVis * CELL_X_SIZE) )
-	{
-		//CHRISL: Because of the changes I've made to how scopes modify iSightRange, this penalty makes it basically impossible
-		//	to shot at targets you can't see yourself.  While this isn't an issue for most weapons, it overly restricts the
-		//	effectiveness of sniper rifles.  So pull this penalty but leave the one that comes later in the code.
-		// shooting beyond max normal vision... penalize such distance at double (also later we halve the remaining chance)
-		//iSightRange += (iSightRange - sDistVis * CELL_X_SIZE);
-	}
-
-	// if shooter spent some extra time aiming and can see the target
-	if (iSightRange > 0 && ubAimTime && !pSoldier->bDoBurst )
-	{
-		// CHRISL: Rather then a flat +10/click bonus, we're going to try a bonus that's based on MRK and Lvl which gets
-		//	progressivly less the more we aim.  Everything is based on the maxBonus that a merc can possibly get which
-		//	uses the equation: 20+(MRK/20*LVL)+Accuracy+(Sniper trait * 10).  This value is then split between the 8
-		//	possible AimTime's using a max aimTime bonus of 10.
-		INT16	bonusProgression[8] = {500,500,600,600,750,750,750,1000};
-		FLOAT	maxBonus = 20+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER )*10);
-		INT8	maxClickBonus = 10;
-		FLOAT	aimTimeBonus;
-		for(int i = 0; i < ubAimTime; i++)
- 		{
-			aimTimeBonus = __min((maxBonus*bonusProgression[i]/1000),maxClickBonus);
-			maxBonus -= aimTimeBonus;
-			iChance += (INT32)floor(aimTimeBonus+.5);
-		}
-/*		if(highPowerScope == true)
-		{
-		{
-			if ( NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER ) == 2 )
-				aimTimeBonus = -((__max(0,75-pSoldier->stats.bMarksmanship))/(pSoldier->stats.bExpLevel*2));
-			else if( NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER ) == 1 )
-				aimTimeBonus = -((__max(0,85-pSoldier->stats.bMarksmanship))/(pSoldier->stats.bExpLevel*2));
-			else
-				aimTimeBonus = -((__max(0,100-pSoldier->stats.bMarksmanship))/(pSoldier->stats.bExpLevel));
-			aimTimeBonus = __max(-9, aimTimeBonus);
-			aimTimeBonus = __min(0, aimTimeBonus);
-			aimTimeBonus += AIM_BONUS_PER_AP;
-		}
-		else
-			aimTimeBonus = AIM_BONUS_PER_AP;
-		iChance += (aimTimeBonus * ubAimTime); // bonus for every pt of aiming*/
-	}
-
-	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) )	// if this is a computer AI controlled enemy
-	{
-		if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
-		{
-			// On easy, penalize all enemies by 5%
-			iChance -= 5;
-		}
-		else
-		{
-			// max with 0 to prevent this being a bonus, for JA2 it's just a penalty to make early enemies easy
-			// CJC note: IDIOT!  This should have been a min.  It's kind of too late now...
-			// CJC 2002-05-17: changed the max to a min to make this work.
-			iChance += __min( 0, gbDiff[ DIFF_ENEMY_TO_HIT_MOD ][ SoldierDifficultyLevel( pSoldier ) ] );
-		}
-	}
-
-	// if shooter is being affected by gas
-	if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
-	{
-	  iChance -= AIM_PENALTY_GASSED;
-	}
-
-	// if shooter is being bandaged at the same time, his concentration is off
-	if (pSoldier->ubServiceCount > 0)
-	  iChance -= AIM_PENALTY_GETTINGAID;
-
-	// if shooter is still in shock
-	if (pSoldier->aiData.bShock)
-	{
-		// HEADROCK HAM B2.8: Placed a maximum here, as shock is now also used in suppression.
-		UINT16 usShockPenalty;
-
-		usShockPenalty = pSoldier->aiData.bShock * AIM_PENALTY_PER_SHOCK;
-
-		if (gGameExternalOptions.usMaxShooterCoweringPenalty > 0)
-		{
-			if ( usShockPenalty > gGameExternalOptions.usMaxShooterCoweringPenalty )
-				usShockPenalty = gGameExternalOptions.usMaxShooterCoweringPenalty;
-		}
-		if ( usShockPenalty < 1 )
-			usShockPenalty = 1;
-
-		iChance -= usShockPenalty;
-	}
 
 	// WANNE: Changed this, because RPGs are not in the calculation, only guns
 	//if ( Item[ usInHand ].usItemClass == IC_GUN )
@@ -3926,89 +5570,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		iMaxRange = CELL_X_SIZE; // one tile
 	}
 
-	if ( iSightRange > 0 )
-	{
 
-		// Madd: Spacific item bonuses are no longer hard-coded
-
-		// Snap: use tohitbonus or aimbonus instead
-		/*if (pSoldier->inv[HEAD1POS].usItem == SUNGOGGLES || pSoldier->inv[HEAD2POS].usItem == SUNGOGGLES)
-		{
-			// decrease effective range by 10% when using sungoggles (w or w/o scope)
-			iSightRange -= iRange / 10;	//basically, +1% to hit per every 2 squares
-		}*/
-
-		//bAttachPos = FindAttachment( pInHand, SNIPERSCOPE );
-
-		//// does gun have scope, long range recommends its use, and shooter's aiming?
-		//if (bAttachPos != NO_SLOT && (iRange > MIN_SCOPE_RANGE) && (ubAimTime > 0))
-		//{
-		//	// reduce effective sight range by 20% per extra aiming time AP of the distance
-		//	// beyond MIN_SCOPE_RANGE.  Max reduction is 80% of the range beyond.
-		//	iScopeBonus = ((SNIPERSCOPE_AIM_BONUS * ubAimTime) * (iRange - MIN_SCOPE_RANGE)) / 100;
-
-		//	// adjust for scope condition, only has full affect at 100%
-		//	iScopeBonus = (iScopeBonus * WEAPON_STATUS_MOD(pInHand->bAttachStatus[bAttachPos])) / 100;
-
-		//rain
-		// reduce scope effectiveness when it's raining
-		// iScopeBonus /= 1 + gbCurrentRainIntensity; //madd: commented out -- didn't do anything but cause a warning :S
-		//end rain
-
-		//	// reduce effective range by the bonus obtained from the scope
-		//	iSightRange -= iScopeBonus;
-		//	if (iSightRange < 1)
-		//	{
-		//		iSightRange = 1;
-		//	}
-		//}
-
-		//bAttachPos = FindAttachment( pInHand, LASERSCOPE );
-		//if (usInHand == ROCKET_RIFLE || usInHand == AUTO_ROCKET_RIFLE || bAttachPos != NO_SLOT) // rocket rifle has one built in
-		//{
-		//	INT8 bLaserStatus;
-
-		//	if ( usInHand == ROCKET_RIFLE || usInHand == AUTO_ROCKET_RIFLE )
-		//	{
-		//		bLaserStatus = WEAPON_STATUS_MOD((*pInHand)[0]->data.gun.bGunStatus);
-		//	}
-		//	else
-		//	{
-		//		bLaserStatus = WEAPON_STATUS_MOD(pInHand->bAttachStatus[ bAttachPos ]);
-		//	}
-		//
-		//	// laser scope isn't of much use in high light levels; add something for that
-		//	if (bLaserStatus > 50)
-		//	{
-		//		iScopeBonus = LASERSCOPE_BONUS * (bLaserStatus - 50) / 50;
-		//	}
-		//	else
-		//	{
-		//		// laser scope in bad condition creates aim penalty!
-		//		iScopeBonus = - LASERSCOPE_BONUS * (50 - bLaserStatus) / 50;
-		//	}
-		//
-		//	iChance += iScopeBonus;
-
-		//}
-
-		//Madd: Some gear can affect the to-hit bonus and the bonus from aiming
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: before bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
-		iSightRange -= GetGearAimBonus ( pSoldier, iRange, ubAimTime );
-		iChance += GetGearToHitBonus ( pSoldier );
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: after gear bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
-
-		// Reduce effective range by the aiming bonus (e.g. from sniper scope)
-		iSightRange -= GetAimBonus( pInHand, iRange, ubAimTime );
-		//CHRISL: If we have the Sniper skill, reduce effective range
-		if ( HAS_SKILL_TRAIT( pSoldier, PROF_SNIPER ) )
-		{
-			iSightRange -= ((gbSkillTraitBonus[ PROF_SNIPER ] * NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER )) * iRange) /100;
-		}
-		if (iSightRange < 1)
-		{
-			iSightRange = 1;
-		}
 		// HEADROCK HAM B2.1 : The TARGET's shock now also affects aiming. If the target is prone
 		// and in shock, they are harder to hit! This represents a target that's cowering as close
 		// to the ground (and as close to any possible cover, like a small dune or a fold of earth
@@ -4105,35 +5667,6 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: after to hit bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
 	}
 
-	// if aiming at the head, reduce chance to hit
-	if (ubAimPos == AIM_SHOT_HEAD)
-	{
-		// penalty of 3% per tile
-		iPenalty = 3 * iSightRange / 10;
-		iChance -= iPenalty;
-	}
-	else if (ubAimPos == AIM_SHOT_LEGS)
-	{
-		// penalty of 1% per tile
-		iPenalty = iSightRange / 10;
-		iChance -= iPenalty;
-	}
-
-	//NumMessage("EFFECTIVE RANGE = ",range);
-
-	// ADJUST FOR RANGE
-	// bonus if range is less than normal range, penalty if it's more
-	//iChance += (NORMAL_RANGE - iRange) / (CELL_X_SIZE / 5);	// 5% per tile
-
-	// Effects of actual gun max range... the numbers are based on wanting -40%
-	// at range 26for a pistol with range 13, and -0 for a sniper rifle with range 80
-	iPenalty = ((iMaxRange - iRange * 3) * 10) / (17 * CELL_X_SIZE);
-	if ( iPenalty < 0 )
-	{
-		iChance += iPenalty;
-	}
-	//iChance -= 20 * iRange / iMaxRange;
-
 	if ( TANK( pSoldier ) && ( iRange / CELL_X_SIZE < MaxNormalDistanceVisible() ) )
 	{
 		// tank; penalize at close range!
@@ -4145,27 +5678,6 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	{
 		// firing blind!
 		iChance -= AIM_PENALTY_BLIND;
-	}
-	else
-	{
-		// Effects based on aiming & sight
-		// From for JA2.5:  3% bonus/penalty for each tile different from range NORMAL_RANGE.
-		// This doesn't provide a bigger bonus at close range, but stretches it out, making medium
-		// range less penalized, and longer range more penalized
-		iChance += 3 * ( NORMAL_RANGE - iSightRange ) / CELL_X_SIZE;
-		/*
-		if (iSightRange < NORMAL_RANGE)
-		{
-			// bonus to hit of 20% at point blank (would be 25% at range 0);
-			//at NORMAL_RANGE, bonus is 0
-			iChance += 25 * (NORMAL_RANGE - iSightRange) / NORMAL_RANGE;
-		}
-		else
-		{
-			// penalty of 2% / tile
-			iChance -= (iSightRange - NORMAL_RANGE) / 5;
-		}
-		*/
 	}
 
 	// HEADROCK HAM 3.5: Moved this here for now.
@@ -4250,23 +5762,6 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		}
 	}
 
-	// adjust for roof/not on roof
-	if ( pSoldier->pathing.bLevel == 0 )
-	{
-		if ( pSoldier->bTargetLevel > 0 )
-		{
-			// penalty for firing up
-			iChance -= AIM_PENALTY_FIRING_UP;
-		}
-	}
-	else // pSoldier->pathing.bLevel > 0 )
-	{
-		if ( pSoldier->bTargetLevel == 0 )
-		{
-			iChance += AIM_BONUS_FIRING_DOWN;
-		}
-	}
-
 
 	pTarget = SimpleFindSoldier( sGridNo, pSoldier->bTargetLevel );
 	if (pTarget != NULL)
@@ -4340,6 +5835,2048 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		// penalty for amount that enemy has moved
 		// HEADROCK HAM B2.6: Externalized the value
 		iPenalty = __min( (UINT16)((float)pTarget->bTilesMoved * (float)gGameExternalOptions.iMovementEffectOnAiming), 30 );
+		iChance -= iPenalty;
+
+			// reduce dodge ability by the attacker's stats
+			iBonus = ( EffectiveDexterity( pSoldier ) / 5 + EffectiveExpLevel( pSoldier ) * 2);
+			if ( TANK( pTarget ) || (pSoldier->ubBodyType != QUEENMONSTER) )
+			{
+				// reduce ability to track shots
+				iBonus = iBonus / 2;
+			}
+
+			if ( iPenalty > iBonus )
+			{
+				iChance -= (iPenalty - iBonus);
+			}
+		}
+	}
+
+
+
+	// CHECK IF TARGET IS WITHIN GUN'S EFFECTIVE MAXIMUM RANGE
+	if ( iRange > iMaxRange )
+	{
+		// a bullet WILL travel that far if not blocked, but it's NOT accurate,
+		// because beyond maximum range, the bullet drops rapidly
+
+		// This won't cause the bullet to be off to the left or right, only make it
+		// drop in flight.
+		iChance /= 2;
+	}
+
+   DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: ichance = %d",iChance));
+  return (iChance);
+}*/
+
+UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos )
+{
+	if(UsingNewCTHSystem() == true)
+		return CalcNewChanceToHitGun(pSoldier, sGridNo, ubAimTime, ubAimPos);
+
+	//CHRISL: I've tried to sort and reorganize this function to make it a little easier to follow.  I've removed most of the unused code fragments and removed
+	//	alot of the notes.  I've also tried to sort the various portions of the function so that similar actions orrucr at the same place in the code.  The
+	//	following is the newly written function
+	SOLDIERTYPE * pTarget;
+	OBJECTTYPE * pInHand;
+	INT32	iChance;	//CTH
+	INT32	iRange;		//Actual range to target
+	INT32	iSightRange = 0;	//LOS range
+	INT32	iCoverRange;	//Amount sight range is modified due to cover
+	INT32	iMaxRange;	//Weapon maximum range
+	INT32	iMinRange;	//Minimum effective range
+	INT32	iGunCondition;	//Weapons effective condition
+	INT32	iMarksmanship;	//Mercs effective marksmanship
+	INT32	iAccRangeMod;	//Range modifier granted from weapon accuracy
+	INT32	iBonus, iPenalty;
+	INT16	sDistVis, sDistVisNoScope, iMaxNormRange, iScopeVisionRangeBonus, sCoweringPenalty = 0, sTotalAutofirePenalty = 0;
+	INT16	bonusProgression[8] = {500,500,600,600,750,750,750,1000};	//Aiming progression
+	UINT16	usInHand, usShockPenalty, MIN_RANGE_FOR_FULL_COWER, MAX_TARGET_COWERING_PENALTY;
+	UINT16	iBulletsLeft, iTracersFired = 0, iBulletsPerTracer, iBulletsSinceLastTracer=0, iRoundsFiredPreviously;
+	INT8	bBandaged, maxClickBonus = 10, AIM_PENALTY_PER_TARGET_SHOCK;
+	UINT8	ubAdjAimPos, ubTargetID, bLightLevel, ubCoweringDivisor, ubAutoPenaltySinceLastTracer=0;
+	FLOAT	maxBonus, aimTimeBonus, scopeRangeMod, iAimBonus;
+	bool	fCantSeeTarget = false, fCoverObscured = false;
+
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun"));
+	if ( pSoldier->stats.bMarksmanship == 0 ) {
+		return( gGameExternalOptions.ubMinimumCTH );
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Assign basic variables
+	pTarget = SimpleFindSoldier( sGridNo, pSoldier->bTargetLevel );
+	pInHand = &(pSoldier->inv[pSoldier->ubAttackingHand]);
+	iGunCondition = WEAPON_STATUS_MOD( (*pInHand)[0]->data.gun.bGunStatus );
+	usInHand = pSoldier->usAttackingWeapon;
+	ubTargetID = WhoIsThere2( sGridNo, pSoldier->bTargetLevel );
+	bLightLevel = LightTrueLevel(sGridNo, pSoldier->bTargetLevel);
+	usShockPenalty = pSoldier->aiData.bShock * AIM_PENALTY_PER_SHOCK;
+	iBulletsPerTracer = gGameExternalOptions.ubNumBulletsPerTracer;
+	AIM_PENALTY_PER_TARGET_SHOCK = gGameExternalOptions.ubAimPenaltyPerTargetShock;
+	MIN_RANGE_FOR_FULL_COWER = gGameExternalOptions.usMinRangeForFullCoweringPenalty; 
+	MAX_TARGET_COWERING_PENALTY = gGameExternalOptions.usMaxTargetCoweringPenalty;
+	/////////////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Assign range variables -- all range values are in units (10 units = 1 tile)
+	iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );	// calculate actual range
+		gbForceWeaponReady = true;
+	sDistVis = pSoldier->GetMaxDistanceVisible(sGridNo, pSoldier->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
+	iScopeVisionRangeBonus = GetTotalVisionRangeBonus(pSoldier, bLightLevel);	// not an actual range value, simply a modifier for range calculations
+	if (ubTargetID != NOBODY && pSoldier->aiData.bOppList[ubTargetID] == SEEN_CURRENTLY || gbPublicOpplist[pSoldier->bTeam][ubTargetID] == SEEN_CURRENTLY)
+		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false );
+	if (iSightRange == 0) {	// didn't do a bodypart-based test or can't see specific body part aimed at
+		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, TRUE, NO_DISTANCE_LIMIT, false );
+		fCoverObscured = true;
+	}
+	if (iSightRange == 0) {	// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
+		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false, true );
+		fCantSeeTarget = true;
+		fCoverObscured = false;
+	}
+		gbForceWeaponReady = false;
+		gbForceWeaponNotReady = true;
+	sDistVisNoScope = pSoldier->GetMaxDistanceVisible(sGridNo, pSoldier->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
+		gbForceWeaponNotReady = false;
+	scopeRangeMod = (float)sDistVis / (float)sDistVisNoScope;	// percentage DistVis has been enhanced due to an attached scope
+	iMaxNormRange = MaxNormalDistanceVisible() * CELL_X_SIZE;
+	if ( Item[ usInHand ].usItemClass == IC_GUN || Item[ usInHand ].usItemClass == IC_LAUNCHER)
+		iMaxRange = GunRange( pInHand, pSoldier ); // SANDRO - added argument
+	else
+		iMaxRange = CELL_X_SIZE; // one tile
+	iCoverRange = iSightRange - iRange;
+	iMinRange = iMaxRange / 10;
+	iAccRangeMod = iRange * Weapon[usInHand].bAccuracy / 100;
+	/////////////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Modify Sight and Physical Range
+	iSightRange = (INT32)(iSightRange / scopeRangeMod);
+	if(iSightRange > 0){
+		iSightRange -= GetGearAimBonus ( pSoldier, iSightRange, ubAimTime ) * iSightRange / 100;
+		if ( gGameOptions.fNewTraitSystem ) {
+			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) ) {
+				iSightRange -= ((gSkillTraitValues.ubSNEffRangeToTargetReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )) * iSightRange) /100;
+			}
+		}
+		else if ( HAS_SKILL_TRAIT( pSoldier, PROF_SNIPER_OT ) ) {
+			iSightRange -= ((gbSkillTraitBonus[ PROF_SNIPER_OT ] * NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )) * iSightRange) /100;
+		}
+		if (iRange < GetMinRangeForAimBonus(pInHand) && iScopeVisionRangeBonus > 50){	// iSightRange penalty for using a high power scope within min range due to poor focus
+			for(UINT8 loop = 0; loop < ((GetMinRangeForAimBonus(pInHand) - iRange)/CELL_X_SIZE); loop++){
+				iSightRange += iSightRange * iScopeVisionRangeBonus / 100;
+			}
+		}
+		if (iSightRange < 1) {
+			iSightRange = 1;
+		}
+	}
+	if(iSightRange > sDistVis)
+		fCantSeeTarget = true;
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Determine iMarksmanship and Base CTH
+	if (Item[usInHand].rocketlauncher ){
+		// use the same calculation as for mechanical thrown weapons
+		iMarksmanship = ( EffectiveDexterity( pSoldier ) + EffectiveMarksmanship( pSoldier ) + EffectiveWisdom( pSoldier ) + (10 * EffectiveExpLevel( pSoldier ) )) / 4;
+		// heavy weapons trait helps out
+		if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPS_OT ) && !( gGameOptions.fNewTraitSystem )) // SANDRO - old/new traits
+			iMarksmanship += gbSkillTraitBonus[HEAVY_WEAPS_OT] * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPS_OT );
+	} else {
+		iMarksmanship = EffectiveMarksmanship( pSoldier );
+		if ( AM_A_ROBOT( pSoldier ) ) {
+			SOLDIERTYPE * pSoldier2;
+			pSoldier2 = pSoldier->GetRobotController( );
+			if ( pSoldier2 )
+				iMarksmanship = __max( iMarksmanship, EffectiveMarksmanship( pSoldier2 ) );
+		}
+	}
+	// modify chance to hit by morale
+	iMarksmanship += GetMoraleModifier( pSoldier );
+	// penalize marksmanship for fatigue
+	iMarksmanship -= GetSkillCheckPenaltyForFatigue( pSoldier, iMarksmanship );
+	if (iGunCondition >= iMarksmanship)	// base chance is equal to the shooter's marksmanship skill
+		iChance = iMarksmanship;
+	else	// base chance is equal to the average of marksmanship & gun's condition!
+		iChance = (iMarksmanship + iGunCondition) / 2;
+	// if shooting same target as the last shot
+	if (sGridNo == pSoldier->sLastTarget )	// give a bonus to hit
+		iChance += AIM_BONUS_SAME_TARGET;
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Range and Size modifiers
+	
+	// Effects of actual gun max range... the numbers are based on wanting -40%
+	// at range 26for a pistol with range 13, and -0 for a sniper rifle with range 80
+	// The result is about 1.5% penalty per tile but only after about 30% of max range.  Within 30% max range, there is no modifier
+	iPenalty = ((iMaxRange - (iRange-iAccRangeMod) * 3) * 10) / (17 * CELL_X_SIZE);
+	if ( iPenalty < 0 )
+		iChance += iPenalty;
+	if ( TANK( pSoldier ) && ( iRange / CELL_X_SIZE < MaxNormalDistanceVisible() ) )
+		iChance -= 2 * ( MaxNormalDistanceVisible() - (iRange / CELL_X_SIZE) );
+	// Like the above modifier, only this applies to long range weapons trying to be used in close quater.  Penalty will result when within 10% of max range
+	iPenalty = (((iRange - iMinRange - iAccRangeMod) * 12) * 10) / (17 * CELL_X_SIZE);
+	if ( iPenalty < 0 )
+		iChance += iPenalty;
+	
+	// Effects of visual range
+	// From for JA2.5:  3% bonus/penalty for each tile different from range NORMAL_RANGE.
+	if (!TANK(pSoldier))	// WANNE: No penalty on the tank
+		iPenalty = 3 * ( NORMAL_RANGE - iSightRange ) / CELL_X_SIZE;
+	if ( fCantSeeTarget )
+		iPenalty = min(iPenalty, -gGameExternalOptions.iPenaltyShootUnSeen);
+	iChance += iPenalty;
+	//CHRISL: We should probably include these target size penalties even if we can't see the target so that shooting a "hidden" head is harder then a "hidden" body
+	// if aiming at the head, reduce chance to hit
+	if (ubAimPos == AIM_SHOT_HEAD)
+	{
+		// penalty of 3% per tile
+		//iPenalty = 3 * iSightRange / 10; //comm by ddd
+		iPenalty = INT32(gGameExternalOptions.uShotHeadPenalty * iSightRange / 10);
+		iChance -= iPenalty;
+	}
+	else if (ubAimPos == AIM_SHOT_LEGS)
+	{
+		// penalty of 1% per tile
+		iPenalty = iSightRange / 10;
+		iChance -= iPenalty;
+	}
+	//CHRISL: A target's stance should have no impact on an aimed, headshot.  The head doesn't get any smaller just because the target is crouching down.
+	if (pTarget != NULL && ubAimPos != AIM_SHOT_HEAD)
+	{
+		// targeting a merc
+		// adjust for crouched/prone target
+		switch( gAnimControl[ pTarget->usAnimState ].ubHeight )
+		{
+			case ANIM_CROUCH:
+				if ( TANK( pSoldier ) && iRange < MIN_TANK_RANGE )
+				{
+					// 13% penalty per tile closer than min range
+					iChance -= 13 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE );
+				}
+				else
+				{
+					// at anything other than point-blank range
+					if (iRange > POINT_BLANK_RANGE + 10 * (AIM_PENALTY_TARGET_CROUCHED / 3) )
+					{
+						iChance -= AIM_PENALTY_TARGET_CROUCHED;
+					}
+					else if (iRange > POINT_BLANK_RANGE)
+					{
+						// at close range give same bonus as prone, up to maximum of AIM_PENALTY_TARGET_CROUCHED
+						iChance -= 3 * ((iRange - POINT_BLANK_RANGE) / CELL_X_SIZE); // penalty -3%/tile
+					}
+				}
+				break;
+			case ANIM_PRONE:
+				if ( TANK( pSoldier ) && iRange < MIN_TANK_RANGE )
+				{
+					// 25% penalty per tile closer than min range
+					iChance -= 25 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE );
+				}
+				else
+				{
+					// at anything other than point-blank range
+					if (iRange > POINT_BLANK_RANGE)
+					{
+						// reduce chance to hit with distance to the prone/immersed target
+						iPenalty = 3 * ((iRange - POINT_BLANK_RANGE) / CELL_X_SIZE); // penalty -3%/tile
+						iPenalty = __min( iPenalty, AIM_PENALTY_TARGET_PRONE );
+
+						iChance -= iPenalty;
+					}
+				}
+				break;
+			case ANIM_STAND:
+				// if we are prone and at close range, then penalize shots to the torso or head!
+				if ( iRange <= MIN_PRONE_RANGE && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+				{
+					if ( ubAimPos == AIM_SHOT_RANDOM || ubAimPos == AIM_SHOT_GLAND )
+					{
+						ubAdjAimPos = AIM_SHOT_TORSO;
+					}
+					else
+					{
+						ubAdjAimPos = ubAimPos;
+					}
+					// lose 10% per height difference, lessened by distance
+					// e.g. 30% to aim at head at range 1, only 10% at range 3
+					// or 20% to aim at torso at range 1, no penalty at range 3
+					// NB torso aim position is 2, so (5-aimpos) is 3, for legs it's 2, for head 4
+					iChance -= (5 - ubAdjAimPos - iRange / CELL_X_SIZE) * 10;
+				}
+				break;
+			default:
+				break;
+		}
+	}
+	if (pTarget != NULL)
+	{
+		// penalty for amount that enemy has moved
+		// HEADROCK HAM B2.6: Externalized the value
+		iPenalty = __min( (UINT16)((float)pTarget->bTilesMoved * (float)gGameExternalOptions.iMovementEffectOnAiming), 30 );
+		///////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - fearless characters do not even take their head down no matter what
+		if ( gGameOptions.fNewTraitSystem && pTarget->ubProfile != NO_PROFILE )
+		{
+			if ( gMercProfiles[ pTarget->ubProfile ].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+				iPenalty -= (iPenalty * 2 / 3);	// two thirds only
+		}
+		///////////////////////////////////////////////////////////////////////////////////
+		iChance -= iPenalty;
+
+		// if target sees us, he may have a chance to dodge before the gun goes off
+		// but ability to dodge is reduced if crouched or prone!
+		if (pTarget->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY && !TANK( pTarget ) && !(pSoldier->ubBodyType != QUEENMONSTER) )
+		{
+			iPenalty = ( EffectiveAgility( pTarget ) / 5 + EffectiveExpLevel( pTarget ) * 2);
+			switch( gAnimControl[ pTarget->usAnimState ].ubHeight )
+			{
+				case ANIM_CROUCH:
+					iPenalty = iPenalty * 2 / 3;
+					break;
+				case ANIM_PRONE:
+					iPenalty /= 3;
+					break;
+			}
+
+			// reduce dodge ability by the attacker's stats
+			iBonus = ( EffectiveDexterity( pSoldier ) / 5 + EffectiveExpLevel( pSoldier ) * 2);
+			if ( TANK( pTarget ) || (pSoldier->ubBodyType != QUEENMONSTER) )
+			{
+				// reduce ability to track shots
+				iBonus = iBonus / 2;
+			}
+
+			if ( iPenalty > iBonus )
+			{
+				iChance -= (iPenalty - iBonus);
+			}
+		}
+		if(fCoverObscured){	// If we can't see the body part but can see the tile include a -1%/tile penalty
+			iPenalty = iCoverRange / CELL_X_SIZE;
+			iChance -= iPenalty;
+		}
+	}
+	else if ( TANK( pSoldier ) && iRange < MIN_TANK_RANGE )
+	{
+		// 25% penalty per tile closer than min range
+		iChance -= 25 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE );
+	}
+	for(attachmentList::iterator iter = (*pInHand)[0]->attachments.begin(); iter != (*pInHand)[0]->attachments.end(); iter++)
+	{
+		if(iter->exists() && Item[iter->usItem].aimbonus >= gGameExternalOptions.sHighPowerScope && iRange > Item[iter->usItem].minrangeforaimbonus)
+		{
+			iPenalty = (Item[iter->usItem].aimbonus * (iRange - Item[iter->usItem].minrangeforaimbonus)) / 1000;
+			iPenalty = min(AIM_BONUS_PRONE, iPenalty);
+			iChance -= iPenalty;
+		}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Modify for traits
+	if( gGameOptions.fNewTraitSystem )
+	{
+		// Bonus for heavy weapons moved here from above to get instant CtH bonus and not marksmanship bonus, 
+		// which is supressed by weapon condition
+		if (Item[usInHand].rocketlauncher || Item[usInHand].singleshotrocketlauncher)
+		{
+			iChance += gSkillTraitValues.bCtHModifierRocketLaunchers; // -25% for untrained mercs !!!
+
+			if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ))
+				iChance += gSkillTraitValues.ubHWBonusCtHRocketLaunchers * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ); // +25% per trait
+		}
+		// Added CtH bonus for Gunslinger trait on pistols and machine-pistols
+		else if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL )
+		{
+			iChance += gSkillTraitValues.bCtHModifierPistols; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iChance += gSkillTraitValues.ubGSBonusCtHPistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ); // +10% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_M_PISTOL )
+		{
+			iChance += gSkillTraitValues.bCtHModifierMachinePistols; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) && ((pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0) || !gSkillTraitValues.ubGSCtHMPExcludeAuto))
+				iChance += gSkillTraitValues.ubGSBonusCtHMachinePistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Machinegunner skill on assault rifles, SMGs and LMGs
+		else if ( Weapon[usInHand].ubWeaponType == GUN_AS_RIFLE )
+		{
+			iChance += gSkillTraitValues.bCtHModifierAssaultRifles; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+				iChance += gSkillTraitValues.ubAWBonusCtHAssaultRifles * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SMG ) 
+		{
+			iChance += gSkillTraitValues.bCtHModifierSMGs; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+				iChance += gSkillTraitValues.ubAWBonusCtHSMGs * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_LMG )
+		{
+			iChance += gSkillTraitValues.bCtHModifierLMGs; // -10% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+				iChance += gSkillTraitValues.ubAWBonusCtHLMGs * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Gunslinger trait on pistols and machine-pistols
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SN_RIFLE )
+		{
+			iChance += gSkillTraitValues.bCtHModifierSniperRifles; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iChance += gSkillTraitValues.ubSNBonusCtHSniperRifles * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Ranger skill on rifles and shotguns
+		else if ( Weapon[usInHand].ubWeaponType == GUN_RIFLE ) 
+		{
+			iChance += gSkillTraitValues.bCtHModifierRifles; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iChance += gSkillTraitValues.ubRABonusCtHRifles * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ); // +5% per trait
+			//CHRISL: Why wouldn't sniper training include standard rifles which are often used as "poor-man sniper rifles"
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iChance += gSkillTraitValues.ubSNBonusCtHRifles * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ); // +5% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SHOTGUN )
+		{
+			iChance += gSkillTraitValues.bCtHModifierShotguns; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+				iChance += gSkillTraitValues.ubRABonusCtHShotguns * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ); // +10% per trait
+		}
+
+		// Added small CtH penalty for robot if controller hasn't the Technician trait
+		if( AM_A_ROBOT( pSoldier ) )
+		{
+			iChance += gSkillTraitValues.bCtHModifierRobot; // -10% 
+
+			if ( HAS_SKILL_TRAIT( pSoldier->GetRobotController(), TECHNICIAN_NT ) )
+				iChance += gSkillTraitValues.ubTECtHControlledRobotBonus * NUM_SKILL_TRAITS( pSoldier->GetRobotController(), TECHNICIAN_NT ); // +10% per trait
+		}
+
+		// Added character traits influence
+		if ( pSoldier->ubProfile != NO_PROFILE )
+		{		
+			// Sociable - better performance in groups
+			if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_SOCIABLE );
+				if ( bNumMercs > 2 )
+					iChance += 5;
+				else if ( bNumMercs > 0 )
+					iChance += 2;
+			}
+			// Loner - better performance when alone
+			else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_LONER )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_LONER );
+				if ( bNumMercs == 0 )
+					iChance += 5;
+				else if ( bNumMercs <= 1 )
+					iChance += 2;
+			}
+			// Aggressive - bonus on bursts/autofire
+			else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+			{	
+				if (( pSoldier->bDoBurst || pSoldier->bDoAutofire ) && !ubAimTime )
+					iChance += 5;
+			}
+			// Show-off - better performance if some babes around to impress
+			else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_SHOWOFF );
+				if ( bNumMercs > 1 )
+					iChance += 5;
+				else if ( bNumMercs > 0 )
+					iChance += 2;
+			}
+			// Added disabilities
+			if ( pSoldier->ubProfile != NO_PROFILE )
+			{
+				// Heat intolerant penalty
+				if ( MercIsHot( pSoldier ) )
+				{
+					iChance -= 15;
+				}
+				// Small penalty for fear of insects in tropical sectors
+				else if ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == FEAR_OF_INSECTS) && MercIsInTropicalSector( pSoldier ) )
+				{
+					// fear of insects, and we are in tropical sector
+					iChance -= 5;
+				}
+			}
+		}
+		// Dauntless - penalty for not taking proper cover
+		if (pTarget != NULL)
+		{
+			if ( pTarget->ubProfile != NO_PROFILE )
+			{
+				if ( gMercProfiles[ pTarget->ubProfile ].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+					iChance += 5;
+			}
+		}
+	}
+	else
+	{
+		// this rather unlogical bonus for psychotic characters applies only with old traits
+		if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO )
+		{
+			iChance += AIM_BONUS_PSYCHO;
+		}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Modify for stance and weapon
+	// if shooter is crouched, he aims slightly better (to max of AIM_BONUS_CROUCHING)
+	if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH )
+	{
+		iBonus = iRange / 10;
+		if (iBonus > AIM_BONUS_CROUCHING)
+		{
+			iBonus = AIM_BONUS_CROUCHING;
+		}
+		iChance += iBonus;
+	}
+	// if shooter is prone, he aims even better, except at really close range
+	else if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+	{
+		if (iRange > MIN_PRONE_RANGE)
+		{
+			iBonus = iRange / 10;
+			if (iBonus > AIM_BONUS_PRONE)
+			{
+				iBonus = AIM_BONUS_PRONE;
+			}
+			iChance += iBonus;
+		}
+	}
+	//Madd: inherent weapon accuracy bonus
+	//iChance += Weapon[usInHand].bAccuracy;
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Modify for using one hand
+	if ( !(Item[ usInHand ].twohanded ) )
+	{
+		if (pSoldier->inv[SECONDHANDPOS].exists() == false)
+		{
+			// firing with gun in right hand, and second hand empty (ie: no grenade, med kit or anything there)
+			// Madd: easier to fire pistol/smg w/one hand free, essentially this will make pistols a little bit more accurate, and hopefully still useful later in the game
+			if (Weapon[usInHand].ubWeaponClass == HANDGUNCLASS)
+				iChance += AIM_BONUS_TWO_HANDED_PISTOL;
+		}
+		else
+		{
+			// Madd: harder to fire smgs w/something in other hand
+			// SMGs are treated as pistols for these purpose except there is a -5 penalty;
+			if (Weapon[usInHand].ubWeaponClass == SMGCLASS)
+			{
+				iChance -= AIM_PENALTY_SMG;
+			}
+			if (gGameOptions.fNewTraitSystem)
+			{
+				// Okay, we will shoot from both weapons, calculate penalty to CtH
+				if ( pSoldier->IsValidSecondHandShot() )
+				{					
+					// penaly to shoot from dual weapons
+					iChance -= (INT32)(gSkillTraitValues.ubCtHPenaltyDualShot * (HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) ? ((100 - gSkillTraitValues.ubAMPenaltyDoubleReduction)/100) : 1 ));
+				}
+			}
+			else // original code
+			{
+				if ( !HAS_SKILL_TRAIT( pSoldier, AMBIDEXT_OT ) )
+				{
+					if ( pSoldier->IsValidSecondHandShot( ) )
+					{
+						// penalty to aim when firing two pistols
+						iChance -= AIM_PENALTY_DUAL_PISTOLS;
+					}
+					/*
+					else
+					{
+						// penalty to aim with pistol being fired one-handed
+						iChance -= AIM_PENALTY_ONE_HANDED_PISTOL;
+					}
+					*/
+				}
+			}
+		}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Modify for Recoil and Tracer effects
+	if ( pSoldier->bDoBurst && pSoldier->bDoAutofire == 0 )
+	{
+		/*CHRISL: At this point in the calculation, Bipods, Foregrips and other "recoil stabalizing" bonuses should reduce the weapons "recoil penalty"
+			(BurstPenalty) by a percentage.  This reduction should apply the the recoil per shot and not as a "flat" initial reduction.  Later in the code,
+			Bipods also grant their flat CTH bonus so we don't need to mess this that here*/
+		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
+		{
+			iBonus = GetBurstToHitBonus(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+			iPenalty = Weapon[pInHand->usItem].ubBurstPenalty * (pSoldier->bDoBurst - 1) * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
+			iPenalty = max(0, (iPenalty * (100 - iBonus))/100 );
+		}
+		else
+		{
+			// Snap: bipod may reduce burst penalty
+			iPenalty = GetBurstPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * (pSoldier->bDoBurst - 1);
+			if(gGameExternalOptions.bAimedBurstEnabled)
+				iPenalty += Weapon[usInHand].ubBurstPenalty * (pSoldier->bDoBurst - 1) * gGameExternalOptions.uAimedBurstPenalty;
+		}
+
+		// halve the penalty for people with the autofire trait
+		if ( gGameOptions.fNewTraitSystem ) // old/new traits - SANDRO
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+			{
+				iPenalty = max(0, ((iPenalty * (100 - gSkillTraitValues.ubAWAutoFirePenaltyReduction * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT )))/100));
+			}
+		}
+		else
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPS_OT ) )
+			{
+				iPenalty /= 2 * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS_OT );
+			}
+		}
+		iChance -= iPenalty;
+	}
+	else if ( pSoldier->bDoAutofire > 0 )
+	{
+		/*CHRISL: At this point in the calculation, Bipods, Foregrips and other "recoil stabalizing" bonuses should reduce the weapons "recoil penalty"
+			(AutoPenalty) by a percentage.  This reduction should apply the the recoil per shot and not as a "flat" initial reduction.  Later in the code,
+			Bipods also grant their flat CTH bonus so we don't need to mess this that here*/
+		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
+		{
+			iBonus = GetAutoToHitBonus(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+			iPenalty = Weapon[pInHand->usItem].AutoPenalty * (pSoldier->bDoBurst - 1) * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
+			iPenalty = max(0, (iPenalty * (100 - iBonus))/100 );
+		}
+		else
+		{
+			// Snap: bipod may reduce auto penalty
+			iPenalty = GetAutoPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * (pSoldier->bDoBurst - 1);
+			if(gGameExternalOptions.bAimedBurstEnabled)
+				iPenalty += Weapon[usInHand].AutoPenalty * (pSoldier->bDoBurst - 1) * gGameExternalOptions.uAimedBurstPenalty;
+		}
+
+		// halve the penalty for people with the autofire trait
+		if ( gGameOptions.fNewTraitSystem ) // old/new traits - SANDRO
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+			{
+				iPenalty = max(0, ((iPenalty * (100 - gSkillTraitValues.ubAWAutoFirePenaltyReduction * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT )))/100));
+			}
+		}
+		else
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPS_OT ) )
+			{
+				iPenalty /= 2 * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS_OT );
+			}
+		}
+		iChance -= iPenalty;
+		// HEADROCK HAM 3.5: Store the penalty
+		sTotalAutofirePenalty = iPenalty;
+	}
+	if (AmmoTypes[(*pInHand)[0]->data.gun.ubGunAmmoType].tracerEffect == 1 && gGameExternalOptions.ubRealisticTracers > 0 )
+	{
+		/*CHRISL: We want to know here is how many tracers have been fired during this autofire sequence.  But we also want to figure that based on how
+			much ammo we've used from the current mag.  If every 3rd round is a tracer, and we previously fired 5 rounds from our "mag", then the first
+			round of this burst is a tracer, the 2nd & 3rd are normal, the 4th is a tracer, 5th & 6th are normal, etc.*/
+		if (fCalculateCTHDuringGunfire)	// Calculate number of bullets left right before firing this burst
+			iBulletsLeft = (*pInHand)[0]->data.gun.ubGunShotsLeft + (pSoldier->bDoBurst - 1);
+		else
+			iBulletsLeft = (*pInHand)[0]->data.gun.ubGunShotsLeft;
+		iRoundsFiredPreviously = GetMagSize(pInHand) - iBulletsLeft;	//How many rounds had been fired before this autofire sequence
+		for( UINT8 cnt = 1; cnt <= pSoldier->bDoBurst; cnt++ ){	//How many tracers have been fired prior to this bullet in this autofire sequence
+			if((iRoundsFiredPreviously+cnt)%iBulletsPerTracer == 0)
+				iTracersFired++;
+		}
+		if ( iTracersFired > 0 ) {
+			if(sTotalAutofirePenalty > 0){
+				INT16 sChanceLimit = min(gGameExternalOptions.ubCTHBumpPerTracer, ((iRange-(gGameExternalOptions.ubMinRangeTracerEffect*CELL_X_SIZE)) / CELL_X_SIZE) * gGameExternalOptions.ubRangeDifficultyAimingWithTracers);
+				sChanceLimit = max(0, sChanceLimit);
+				iBonus = sChanceLimit * iTracersFired;
+				iBonus = min(iBonus, sTotalAutofirePenalty);
+			}
+
+			iChance += iBonus;
+		}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Modify for Aim
+	if(ubAimTime)
+	{
+		// CHRISL: Rather then a flat +10/click bonus, we're going to try a bonus that's based on MRK and Lvl which gets
+		//	progressivly less the more we aim.  Everything is based on the maxBonus that a merc can possibly get which
+		//	uses the equation: 20+(MRK/20*LVL)+Accuracy+(Sniper trait * 10).  This value is then split between the 8
+		//	possible AimTime's using a max aimTime bonus of 10.
+		if ( gGameOptions.fNewTraitSystem ) {
+			// bonus to snipers and gunslingers
+			if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL || Weapon[usInHand].ubWeaponType == GUN_M_PISTOL )
+				maxBonus = 20+((FLOAT)iMarksmanship/20*(EffectiveExpLevel(pSoldier)))+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT )*gSkillTraitValues.ubGSAimingBonusPerClick);
+			else
+				maxBonus = 20+((FLOAT)iMarksmanship/20*(EffectiveExpLevel(pSoldier)))+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )*gSkillTraitValues.ubSNAimingBonusPerClick);
+		} else {			
+			if(gGameExternalOptions.bAltAimEnabled) 
+				maxBonus = (20*(iMarksmanship/100))+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )*10);
+			else 
+				maxBonus = 20+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )*10);
+		}
+		iAimBonus = (float)GetAimBonus( pInHand, 100, 1 );
+		for(int i = 0; i < ubAimTime; i++) {
+			aimTimeBonus = __min((maxBonus*bonusProgression[i]/1000),maxClickBonus);
+			maxBonus -= aimTimeBonus;
+			iChance += (INT32)floor(aimTimeBonus+.5);
+			//CHRISL: This is a slight extra bonus granted from a scopes AimBonus score
+			aimTimeBonus = __min(ceil((float)(iAimBonus * bonusProgression[i] / 1000)), 3);
+			iAimBonus -= aimTimeBonus;
+			iChance+= (INT32)floor(aimTimeBonus+.5);
+		}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// AI Modifiers
+	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) )	// if this is a computer AI controlled enemy
+	{
+		if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+		{
+			// On easy, penalize all enemies by 5%
+			iChance -= 5;
+		}
+		else
+		{
+			iChance += __min( 0, gbDiff[ DIFF_ENEMY_TO_HIT_MOD ][ SoldierDifficultyLevel( pSoldier ) ] );
+		}
+	}
+	// SANDRO - Bonus CtH for Militia
+	if (pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.sGreenMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sGreenMilitiaCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.sRegularMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sRegularMilitiaCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sVeteranMilitiaCtHBonusPercent) /100);
+	// bonus for enemy
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyAdminCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyRegularCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyEliteCtHBonusPercent) /100);
+	// SANDRO - option to make special NPCs stronger - chance to hit
+	if (gGameExternalOptions.usSpecialNPCStronger > 0)
+	{
+		switch( pSoldier->ubProfile )
+		{
+			case CARMEN:
+			case QUEEN:
+			case JOE:
+			case ANNIE:
+			case CHRIS:
+			case KINGPIN:
+			case TIFFANY:
+			case T_REX:
+			case DRUGGIST:
+			case GENERAL:
+			case JACK:
+			case OLAF:
+			case RAY:
+			case OLGA:
+			case TYRONE:
+			case MIKE:
+				iChance += (iChance * gGameExternalOptions.usSpecialNPCStronger / 100);
+				break;
+		}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Situational modifiers
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
+	  iChance -= AIM_PENALTY_GASSED;
+	if (pSoldier->ubServiceCount > 0)
+	  iChance -= AIM_PENALTY_GETTINGAID;
+	if (pSoldier->aiData.bShock)
+	{
+		if (gGameExternalOptions.usMaxShooterCoweringPenalty > 0)
+		{
+			if ( usShockPenalty > gGameExternalOptions.usMaxShooterCoweringPenalty )
+				usShockPenalty = gGameExternalOptions.usMaxShooterCoweringPenalty;
+		}
+		if ( usShockPenalty < 1 )
+			usShockPenalty = 1;
+
+		iChance -= usShockPenalty;
+	}
+	// adjust for roof/not on roof
+	if ( pSoldier->pathing.bLevel == 0 )
+	{
+		if ( pSoldier->bTargetLevel > 0 )
+		{
+			// penalty for firing up
+			iChance -= AIM_PENALTY_FIRING_UP;
+		}
+	}
+	else // pSoldier->pathing.bLevel > 0 )
+	{
+		if ( pSoldier->bTargetLevel == 0 )
+		{
+			iChance += AIM_BONUS_FIRING_DOWN;
+		}
+	}
+	// IF CHANCE EXISTS, BUT SHOOTER IS INJURED
+	if ((iChance > 0) && (pSoldier->stats.bLife < pSoldier->stats.bLifeMax))
+	{
+		// if bandaged, give 1/2 of the bandaged life points back into equation
+		bBandaged = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
+
+		// injury penalty is based on % damage taken (max 2/3rds chance)
+		iPenalty = (iChance * 2 * (pSoldier->stats.bLifeMax - pSoldier->stats.bLife + (bBandaged / 2))) /
+						(3 * pSoldier->stats.bLifeMax);
+
+		// reduce injury penalty due to merc's experience level (he can take it!)
+		iChance -= (iPenalty * (100 - (10 * ( EffectiveExpLevel( pSoldier ) - 1)))) / 100;
+	}
+
+	// IF CHANCE EXISTS, BUT SHOOTER IS LOW ON BREATH
+	if ((iChance > 0) && (pSoldier->bBreath < 100))
+	{
+		// breath penalty is based on % breath missing (max 1/2 chance)
+		iPenalty = (iChance * (100 - pSoldier->bBreath)) / 200;
+		// reduce breath penalty due to merc's dexterity (he can compensate!)
+		iChance -= (iPenalty * (100 - ( EffectiveDexterity( pSoldier ) - 10))) / 100;
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Equipment Modifiers
+	iChance += GetGearToHitBonus ( pSoldier );
+	iChance += GetToHitBonus( pInHand, iRange, bLightLevel,gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && iRange > MIN_PRONE_RANGE );
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Suppression modifiers
+	if ( gGameExternalOptions.ubAimPenaltyPerTargetShock > 0 )
+	{
+		if (pTarget != NULL)
+		{
+			if (pTarget->aiData.bShock )
+			{
+				if (gAnimControl[ pTarget->usAnimState ].ubHeight == ANIM_PRONE)
+				{
+					ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorProne;
+
+					sCoweringPenalty = (pTarget->aiData.bShock * AIM_PENALTY_PER_TARGET_SHOCK);
+					sCoweringPenalty = sCoweringPenalty / ubCoweringDivisor;
+					sCoweringPenalty = (sCoweringPenalty * __min(iSightRange,MIN_RANGE_FOR_FULL_COWER)) / MIN_RANGE_FOR_FULL_COWER;
+
+					if (gGameExternalOptions.usMaxTargetCoweringPenalty > 0)
+					{
+						if ( sCoweringPenalty > gGameExternalOptions.usMaxTargetCoweringPenalty )
+							sCoweringPenalty = gGameExternalOptions.usMaxTargetCoweringPenalty;
+					}
+					if ( sCoweringPenalty < 1 )
+						sCoweringPenalty = 1;
+
+					iChance -= sCoweringPenalty;
+				}
+				else if (gAnimControl[ pTarget->usAnimState ].ubHeight == ANIM_CROUCH) 
+				{
+					switch ( ubAimPos )
+					{
+						case AIM_SHOT_HEAD:
+							ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedHead;
+							break;
+						case AIM_SHOT_TORSO:
+						case AIM_SHOT_RANDOM:
+						case AIM_SHOT_GLAND:
+							ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedTorso;
+							break;
+						case AIM_SHOT_LEGS:
+							ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedLegs;
+							break;
+					}
+
+					sCoweringPenalty = (pTarget->aiData.bShock * AIM_PENALTY_PER_TARGET_SHOCK);
+					sCoweringPenalty = sCoweringPenalty / ubCoweringDivisor;
+					sCoweringPenalty = (sCoweringPenalty * __min(iSightRange,MIN_RANGE_FOR_FULL_COWER)) / MIN_RANGE_FOR_FULL_COWER;
+
+					if (gGameExternalOptions.usMaxTargetCoweringPenalty > 0)
+					{
+						if ( sCoweringPenalty > gGameExternalOptions.usMaxTargetCoweringPenalty )
+							sCoweringPenalty = gGameExternalOptions.usMaxTargetCoweringPenalty;
+					}
+					if ( sCoweringPenalty < 1 )
+						sCoweringPenalty = 1;
+
+					// HEADROCK HAM B2.8.1: Added formula to make sure that cowering target penalties
+					// are not given when on the roof.
+
+					if (pSoldier->pathing.bLevel == pTarget->pathing.bLevel && pSoldier->pathing.bLevel > 0)
+						sCoweringPenalty = 0; // No cowering penalties when both are on the roof!
+					else if (pSoldier->pathing.bLevel < pSoldier->pathing.bLevel && gAnimControl[ pTarget->usAnimState ].ubHeight == ANIM_PRONE)
+						sCoweringPenalty *= 2; // Much harder to shoot at anyone cowering above you.
+					else if (pSoldier->pathing.bLevel > pSoldier->pathing.bLevel)
+						sCoweringPenalty /= 2; // Much easier to shoot at cowerers below you.
+					iChance -= sCoweringPenalty;
+				}
+			}
+		}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Max range modifier.  This needs to be here, near the end of the function to
+	// guarantee that the max range penalty is properly calculated.
+	/////////////////////////////////////////////////////////////////////////////////////
+	if ( iRange > iMaxRange )
+	{
+		// a bullet WILL travel that far if not blocked, but it's NOT accurate,
+		// because beyond maximum range, the bullet drops rapidly
+
+		// This won't cause the bullet to be off to the left or right, only make it
+		// drop in flight.
+		//iChance /= 2; //ddd
+		iChance = (INT32)(iChance / gGameExternalOptions.fOutOfGunRangeOrSight);
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Adjust for Max and Min values
+	// HEADROCK: (HAM) Altered so called "Defined Limits" to accept external arguments.
+	// The divisor argument only works when the minimum is set to 0. It has a chance of 1 in X to
+	// bump the minimum back to 1, where X = the Divisor value. So a divisor value of 50 gives a 1/50
+	// chance of getting some actual chance to hit despite the 0 minimum. The overall total would then
+	// be an effective CTH of only 1/5000 (50 chances to get a 1 out of 100 CTH, hehehe)
+	if (iChance <= gGameExternalOptions.ubMinimumCTH)
+	{
+		if ( TANK( pSoldier ) )
+		{
+			// allow absolute minimums
+			iChance = 0;
+		}
+		else
+		{
+			iChance = gGameExternalOptions.ubMinimumCTH;
+			if ( gGameExternalOptions.ubMinimumCTH == 0 )
+			{
+				if ( PreRandom( gGameExternalOptions.usMinimumCTHDivisor ) == (gGameExternalOptions.usMinimumCTHDivisor - 1) )
+				{
+					iChance = 1;
+				}
+			}
+		}
+	}
+	else
+	{
+		// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
+		// if (iChance > MAXCHANCETOHIT)
+		// iChance = MAXCHANCETOHIT;
+		if (iChance > gGameExternalOptions.ubMaximumCTH)
+			iChance = gGameExternalOptions.ubMaximumCTH;
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+   DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: ichance = %d",iChance));
+   return (iChance);
+	/*CHRISL: I've tried to sort and reorganize this function to make it a little easier to follow.  All of this is the original function
+  //SOLDIERTYPE *vicpSoldier;
+	SOLDIERTYPE * pTarget;
+	INT32	iChance;	//CTH
+	INT32	iRange;		//Actual range to target
+	INT32	iSightRange;	//LOS range
+	INT32	iTileRange;		//LOS range to the tile target is in - in case we can't see the target
+	INT32	iVisionRange;	//Effective visual range
+	INT32	iMaxRange;	//Weapon maximum range
+	INT32	iGunCondition;	//Weapons effective condition
+	INT32	iMarksmanship;	//Mercs effective marksmanship
+	INT32	iBonus, iPenalty;
+	//rain
+	//INT32 iScopeBonus;
+	//end rain
+	UINT16	usInHand;
+	OBJECTTYPE * pInHand;
+//	INT8 bAttachPos;
+	INT8	bBandaged;
+	INT16	sDistVis;
+	UINT8	ubAdjAimPos;
+	UINT8	ubTargetID;
+	bool	highPowerScope = false;
+	UINT32	pScope;
+	UINT8	bLightLevel = LightTrueLevel(sGridNo, pSoldier->bTargetLevel);
+
+	// HEADROCK HAM 3.5: Variable holds total autofire penalty.
+	INT16 sTotalAutofirePenalty = 0;
+
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun"));
+
+	if ( pSoldier->stats.bMarksmanship == 0 )
+	{
+		// HEADROCK: (HAM) Altered to accept external arguments
+		// return( MINCHANCETOHIT );
+		return( gGameExternalOptions.ubMinimumCTH );
+	}
+
+	// make sure the guy's actually got a weapon in his hand!
+	pInHand = &(pSoldier->inv[pSoldier->ubAttackingHand]);
+	usInHand = pSoldier->usAttackingWeapon;
+	//CHRISL: We have new modifiers when using a high power scope so find out if we have one from the start
+	for(attachmentList::iterator iter = (*pInHand)[0]->attachments.begin(); iter != (*pInHand)[0]->attachments.end(); iter++)
+	{
+		if(Item[iter->usItem].aimbonus >= gGameExternalOptions.sHighPowerScope && iter->exists())
+		{
+			highPowerScope = true;
+			pScope = iter->usItem;
+			break;
+		}
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	// DETERMINE BASE CHANCE OF HITTING
+	iGunCondition = WEAPON_STATUS_MOD( (*pInHand)[0]->data.gun.bGunStatus );
+
+	if (Item[usInHand].rocketlauncher )
+	{
+		// use the same calculation as for mechanical thrown weapons
+		iMarksmanship = ( EffectiveDexterity( pSoldier ) + EffectiveMarksmanship( pSoldier ) + EffectiveWisdom( pSoldier ) + (10 * EffectiveExpLevel( pSoldier ) )) / 4;
+		// heavy weapons trait helps out
+		if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPS_OT ) && !( gGameOptions.fNewTraitSystem )) // SANDRO - old/new traits
+		{
+			iMarksmanship += gbSkillTraitBonus[HEAVY_WEAPS_OT] * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPS_OT );
+		}
+	}
+	else
+	{
+		iMarksmanship = EffectiveMarksmanship( pSoldier );
+
+		if ( AM_A_ROBOT( pSoldier ) )
+		{
+			SOLDIERTYPE * pSoldier2;
+
+			pSoldier2 = pSoldier->GetRobotController( );
+			if ( pSoldier2 )
+			{
+				iMarksmanship = __max( iMarksmanship, EffectiveMarksmanship( pSoldier2 ) );
+			}
+		}
+	}
+
+	// modify chance to hit by morale
+	iMarksmanship += GetMoraleModifier( pSoldier );
+
+	// penalize marksmanship for fatigue
+	iMarksmanship -= GetSkillCheckPenaltyForFatigue( pSoldier, iMarksmanship );
+
+	//if ( PTR_OURTEAM )
+	//{
+	//	iChance = ( iMarksmanship * iGunCondition ) / 100;
+	//}
+	//else
+	{
+		if (iGunCondition >= iMarksmanship)
+			// base chance is equal to the shooter's marksmanship skill
+			iChance = iMarksmanship;
+		else
+			// base chance is equal to the average of marksmanship & gun's condition!
+			iChance = (iMarksmanship + iGunCondition) / 2;
+	}
+	/////////////////////////////////////////////////////////////////////////////////////
+
+	// if shooting same target as the last shot
+	if (sGridNo == pSoldier->sLastTarget )
+		iChance += AIM_BONUS_SAME_TARGET;		// give a bonus to hit
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - STOMP traits
+	////////////////////////////////////////////////////
+	// For every type of gun, there was added a penalty for untrained mercs. This penalty 
+	// is rather small and is often compensated by single trait of that type
+	if( gGameOptions.fNewTraitSystem )
+	{
+		// Bonus for heavy weapons moved here from above to get instant CtH bonus and not marksmanship bonus, 
+		// which is supressed by weapon condition
+		if (Item[usInHand].rocketlauncher || Item[usInHand].singleshotrocketlauncher)
+		{
+			iChance += gSkillTraitValues.bCtHModifierRocketLaunchers; // -25% for untrained mercs !!!
+
+			if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ))
+				iChance += gSkillTraitValues.ubHWBonusCtHRocketLaunchers * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ); // +25% per trait
+		}
+		// Added CtH bonus for Gunslinger trait on pistols and machine-pistols
+		else if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL )
+		{
+			iChance += gSkillTraitValues.bCtHModifierPistols; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iChance += gSkillTraitValues.ubGSBonusCtHPistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ); // +10% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_M_PISTOL )
+		{
+			iChance += gSkillTraitValues.bCtHModifierMachinePistols; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, GUNSLINGER_NT ) && ((pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0) || !gSkillTraitValues.ubGSCtHMPExcludeAuto))
+				iChance += gSkillTraitValues.ubGSBonusCtHMachinePistols * NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Machinegunner skill on assault rifles, SMGs and LMGs
+		else if ( Weapon[usInHand].ubWeaponType == GUN_AS_RIFLE )
+		{
+			iChance += gSkillTraitValues.bCtHModifierAssaultRifles; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+				iChance += gSkillTraitValues.ubAWBonusCtHAssaultRifles * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SMG ) 
+		{
+			iChance += gSkillTraitValues.bCtHModifierSMGs; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+				iChance += gSkillTraitValues.ubAWBonusCtHSMGs * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_LMG )
+		{
+			iChance += gSkillTraitValues.bCtHModifierLMGs; // -10% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+				iChance += gSkillTraitValues.ubAWBonusCtHLMGs * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Gunslinger trait on pistols and machine-pistols
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SN_RIFLE )
+		{
+			iChance += gSkillTraitValues.bCtHModifierSniperRifles; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iChance += gSkillTraitValues.ubSNBonusCtHSniperRifles * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ); // +5% per trait
+		}
+		// Added CtH bonus for Ranger skill on rifles and shotguns
+		else if ( Weapon[usInHand].ubWeaponType == GUN_RIFLE ) 
+		{
+			iChance += gSkillTraitValues.bCtHModifierRifles; // -5% for untrained mercs.
+
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iChance += gSkillTraitValues.ubRABonusCtHRifles * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ); // +5% per trait
+			//CHRISL: Why wouldn't sniper training include standard rifles which are often used as "poor-man sniper rifles"
+			// this bonus is applied only on single shots!
+			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) && pSoldier->bDoBurst == 0 && pSoldier->bDoAutofire == 0 )
+				iChance += gSkillTraitValues.ubSNBonusCtHRifles * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ); // +5% per trait
+		}
+		else if ( Weapon[usInHand].ubWeaponType == GUN_SHOTGUN )
+		{
+			iChance += gSkillTraitValues.bCtHModifierShotguns; // -5% for untrained mercs.
+
+			if ( HAS_SKILL_TRAIT( pSoldier, RANGER_NT ) )
+				iChance += gSkillTraitValues.ubRABonusCtHShotguns * NUM_SKILL_TRAITS( pSoldier, RANGER_NT ); // +10% per trait
+		}
+
+		// Added small CtH penalty for robot if controller hasn't the Technician trait
+		if( AM_A_ROBOT( pSoldier ) )
+		{
+			iChance += gSkillTraitValues.bCtHModifierRobot; // -10% 
+
+			if ( HAS_SKILL_TRAIT( pSoldier->GetRobotController(), TECHNICIAN_NT ) )
+				iChance += gSkillTraitValues.ubTECtHControlledRobotBonus * NUM_SKILL_TRAITS( pSoldier->GetRobotController(), TECHNICIAN_NT ); // +10% per trait
+		}
+
+		// Added character traits influence
+		if ( pSoldier->ubProfile != NO_PROFILE )
+		{		
+			// Sociable - better performance in groups
+			if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_SOCIABLE );
+				if ( bNumMercs > 2 )
+					iChance += 5;
+				else if ( bNumMercs > 0 )
+					iChance += 2;
+			}
+			// Loner - better performance when alone
+			else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_LONER )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_LONER );
+				if ( bNumMercs == 0 )
+					iChance += 5;
+				else if ( bNumMercs <= 1 )
+					iChance += 2;
+			}
+			// Aggressive - bonus on bursts/autofire
+			else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+			{	
+				if (( pSoldier->bDoBurst || pSoldier->bDoAutofire ) && !ubAimTime )
+					iChance += 5;
+			}
+			// Show-off - better performance if some babes around to impress
+			else if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+			{	
+				INT8 bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_SHOWOFF );
+				if ( bNumMercs > 1 )
+					iChance += 5;
+				else if ( bNumMercs > 0 )
+					iChance += 2;
+			}
+			// Added disabilities
+			if ( pSoldier->ubProfile != NO_PROFILE )
+			{
+				// Heat intolerant penalty
+				if ( MercIsHot( pSoldier ) )
+				{
+					iChance -= 15;
+				}
+				// Small penalty for fear of insects in tropical sectors
+				else if ( (gMercProfiles[ pSoldier->ubProfile ].bDisability == FEAR_OF_INSECTS) && MercIsInTropicalSector( pSoldier ) )
+				{
+					// fear of insects, and we are in tropical sector
+					iChance -= 5;
+				}
+			}
+		}
+		// Dauntless - penalty for not taking proper cover
+		pTarget = SimpleFindSoldier( sGridNo, pSoldier->bTargetLevel );
+		if (pTarget != NULL)
+		{
+			if ( pTarget->ubProfile != NO_PROFILE )
+			{
+				if ( gMercProfiles[ pTarget->ubProfile ].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+					iChance += 5;
+			}
+		}
+	}
+	else
+	{
+		// this rather unlogical bonus for psychotic characters applies only with old traits
+		if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO )
+		{
+			iChance += AIM_BONUS_PSYCHO;
+		}
+	}
+
+	// calculate actual range (in units, 10 units = 1 tile)
+	iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );
+
+	//CHRISL: Incur a penalty if using a highPowerScope
+	if(highPowerScope == true && iRange > Item[pScope].minrangeforaimbonus)
+	{
+		iPenalty = (Item[pScope].aimbonus * (iRange-Item[pScope].minrangeforaimbonus)) / 1000;
+		if (iPenalty > AIM_BONUS_PRONE)
+		{
+			iPenalty = AIM_BONUS_PRONE;
+		}
+		iChance -= iPenalty;
+	}
+	// if shooter is crouched, he aims slightly better (to max of AIM_BONUS_CROUCHING)
+	if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH )
+	{
+		iBonus = iRange / 10;
+		if (iBonus > AIM_BONUS_CROUCHING)
+		{
+			iBonus = AIM_BONUS_CROUCHING;
+		}
+		iChance += iBonus;
+	}
+	// if shooter is prone, he aims even better, except at really close range
+	else if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+	{
+		if (iRange > MIN_PRONE_RANGE)
+		{
+			iBonus = iRange / 10;
+			if (iBonus > AIM_BONUS_PRONE)
+			{
+				iBonus = AIM_BONUS_PRONE;
+			}
+			// Snap: bipod bonus is now calculated in GetToHitBonus
+			//bAttachPos = FindAttachment( pInHand, BIPOD );
+			//if (bAttachPos != ITEM_NOT_FOUND)
+			//{	// extra bonus to hit for a bipod, up to half the prone bonus itself
+			//	iBonus += (iBonus * WEAPON_STATUS_MOD(GetBipodStatus(pInHand)) / 100) / 2;
+			//}
+			iChance += iBonus;
+		}
+	}
+
+	//Madd: inherent weapon accuracy bonus
+	iChance += Weapon[usInHand].bAccuracy;
+
+//	if ( !(Item[ usInHand ].fFlags & ITEM_TWO_HANDED) )
+	if ( !(Item[ usInHand ].twohanded ) )
+	{
+		if (pSoldier->inv[SECONDHANDPOS].exists() == false)
+		{
+			// firing with gun in right hand, and second hand empty (ie: no grenade, med kit or anything there)
+			// Madd: easier to fire pistol/smg w/one hand free, essentially this will make pistols a little bit more accurate, and hopefully still useful later in the game
+			if (Weapon[usInHand].ubWeaponClass == HANDGUNCLASS)
+				iChance += AIM_BONUS_TWO_HANDED_PISTOL;
+		}
+		else
+		{
+			// Madd: harder to fire smgs w/something in other hand
+			// SMGs are treated as pistols for these purpose except there is a -5 penalty;
+			if (Weapon[usInHand].ubWeaponClass == SMGCLASS)
+			{
+				iChance -= AIM_PENALTY_SMG;
+			}
+
+			//////////////////////////////////////////////////////////////////
+			// SANDRO - old/new traits
+			if (gGameOptions.fNewTraitSystem)
+			{
+				// Okay, we will shoot from both weapons, calculate penalty to CtH
+				if ( pSoldier->IsValidSecondHandShot() )
+				{					
+					// penaly to shoot from dual weapons
+					iChance -= (INT32)(gSkillTraitValues.ubCtHPenaltyDualShot * (HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) ? ((100 - gSkillTraitValues.ubAMPenaltyDoubleReduction)/100) : 1 ));
+				}
+			}
+			else // original code
+			{
+				if ( !HAS_SKILL_TRAIT( pSoldier, AMBIDEXT_OT ) )
+				{
+					if ( pSoldier->IsValidSecondHandShot( ) )
+					{
+						// penalty to aim when firing two pistols
+						iChance -= AIM_PENALTY_DUAL_PISTOLS;
+					}
+//					else
+//					{
+//						// penalty to aim with pistol being fired one-handed
+//						iChance -= AIM_PENALTY_ONE_HANDED_PISTOL;
+//					}
+				}
+			}
+			//////////////////////////////////////////////////////////////////
+		}
+	}
+
+	// If in burst mode, deduct points for chance to hit for each shot after the first
+	if ( pSoldier->bDoBurst && pSoldier->bDoAutofire == 0 )
+	{
+//		CHRISL: At this point in the calculation, Bipods, Foregrips and other "recoil stabalizing" bonuses should reduce the weapons "recoil penalty"
+//			(BurstPenalty) by a percentage.  This reduction should apply the the recoil per shot and not as a "flat" initial reduction.  Later in the code,
+//			Bipods also grant their flat CTH bonus so we don't need to mess this that here
+		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
+		{
+			iBonus = GetBurstToHitBonus(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+			iPenalty = Weapon[pInHand->usItem].ubBurstPenalty * (pSoldier->bDoBurst - 1) * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
+			iPenalty = max(0, (iPenalty * (100 - iBonus))/100 );
+		}
+		else
+		{
+			// Snap: bipod may reduce burst penalty
+			iPenalty = GetBurstPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * (pSoldier->bDoBurst - 1);
+			if(gGameExternalOptions.bAimedBurstEnabled)
+				iPenalty += Weapon[usInHand].ubBurstPenalty * (pSoldier->bDoBurst - 1) * gGameExternalOptions.uAimedBurstPenalty;
+		}
+
+		// halve the penalty for people with the autofire trait
+		//////////////////////////////////////////////////////////////////
+		if ( gGameOptions.fNewTraitSystem ) // old/new traits - SANDRO
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+			{
+				iPenalty = max(0, ((iPenalty * (100 - gSkillTraitValues.ubAWAutoFirePenaltyReduction * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT )))/100));
+			}
+		}
+		else
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPS_OT ) )
+			{
+				iPenalty /= 2 * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS_OT );
+			}
+		}
+		//////////////////////////////////////////////////////////////////
+		iChance -= iPenalty;
+	}
+	else if ( pSoldier->bDoAutofire > 0 )
+	{
+//		CHRISL: At this point in the calculation, Bipods, Foregrips and other "recoil stabalizing" bonuses should reduce the weapons "recoil penalty"
+//			(AutoPenalty) by a percentage.  This reduction should apply the the recoil per shot and not as a "flat" initial reduction.  Later in the code,
+//			Bipods also grant their flat CTH bonus so we don't need to mess this that here
+		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
+		{
+			iBonus = GetAutoToHitBonus(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+			iPenalty = Weapon[pInHand->usItem].AutoPenalty * (pSoldier->bDoBurst - 1) * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
+			iPenalty = max(0, (iPenalty * (100 - iBonus))/100 );
+		}
+		else
+		{
+			// Snap: bipod may reduce auto penalty
+			iPenalty = GetAutoPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * (pSoldier->bDoBurst - 1);
+			if(gGameExternalOptions.bAimedBurstEnabled)
+				iPenalty += Weapon[usInHand].AutoPenalty * (pSoldier->bDoBurst - 1) * gGameExternalOptions.uAimedBurstPenalty;
+		}
+
+		// halve the penalty for people with the autofire trait
+		//////////////////////////////////////////////////////////////////
+		if ( gGameOptions.fNewTraitSystem ) // old/new traits - SANDRO
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+			{
+				iPenalty = max(0, ((iPenalty * (100 - gSkillTraitValues.ubAWAutoFirePenaltyReduction * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT )))/100));
+			}
+		}
+		else
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPS_OT ) )
+			{
+				iPenalty /= 2 * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS_OT );
+			}
+		}
+		//////////////////////////////////////////////////////////////////
+
+		iChance -= iPenalty;
+		// HEADROCK HAM 3.5: Store the penalty
+		sTotalAutofirePenalty = iPenalty;
+	}
+
+	//ADB we need to calculate the distance visible and SoldierTo...LOSTests that we want to
+	//calculate it when firing, so the scope can be accounted for when the weapon is raised
+	//I consider this a hack to change the global, but passing a var alllll the way down to GetVisionBonus was worse
+	//if anyone wants to change it go for it, I don't know what usAnimState should be set
+
+	//store old flag
+	UINT32 oldFlag = gAnimControl[ pSoldier->usAnimState ].uiFlags;
+	//add the necessary bits to the flag
+	gAnimControl[ pSoldier->usAnimState ].uiFlags |= (ANIM_FIREREADY | ANIM_FIRE);
+
+	// 0verhaul:  Changed to take expanded range from shooting at different levels into account
+	//ADB this change does nothing - either way it is random - we don't know what level we are shooting to, which is
+	//what the last parameter is, and the soldier's current level is as good a guess as ground level.
+	//so if you really want to fix this, pass in a value
+	sDistVis = pSoldier->GetMaxDistanceVisible(sGridNo, pSoldier->bTargetLevel, CALC_FROM_ALL_DIRS );
+
+	// CJC August 13 2002:  Wow, this has been wrong the whole time.  bTargetCubeLevel seems to be generally set to 2 -
+	// but if a character is shooting at an enemy in a particular spot, then we should be using the target position on the body.
+
+	// CJC August 13, 2002
+	// If the start soldier has a body part they are aiming at, and know about the person in the tile, then use that height instead
+	iSightRange = -1;
+
+	// give some leeway to allow people to spot for each other...
+	//so make the range to calculate the bullet at 255+
+	ubTargetID = WhoIsThere2( sGridNo, pSoldier->bTargetLevel );
+	// best to use team knowledge as well, in case of spotting for someone else
+	// 0verhaul:  Why not use the distance visible as the max for line of sight testing?
+	//ADB because A) the bullet can travel farther than I can see and B) I might have a spotter
+
+	//We are firing a gun, and so the gun will be pointed and the scope will be used, even if it isn't now, so don't forget that we are in a firing animation
+	if (ubTargetID != NOBODY && pSoldier->aiData.bOppList[ubTargetID] == SEEN_CURRENTLY || gbPublicOpplist[pSoldier->bTeam][ubTargetID] == SEEN_CURRENTLY)
+	{
+		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false );
+	}
+	//CHRISL: This is useful if we're trying to target an opponent we can't actually see
+	iTileRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, TRUE, NO_DISTANCE_LIMIT, false );
+	if (iSightRange == -1) // didn't do a bodypart-based test
+	{
+		iSightRange = iTileRange;
+	}
+	// WANNE: Changed this, because RPGs are not in the calculation, only guns
+	//if ( Item[ usInHand ].usItemClass == IC_GUN )
+	if ( Item[ usInHand ].usItemClass == IC_GUN || Item[ usInHand ].usItemClass == IC_LAUNCHER)
+	{
+		iMaxRange = GunRange( pInHand, pSoldier ); // SANDRO - added argument
+	}
+	else
+	{
+		iMaxRange = CELL_X_SIZE; // one tile
+	}
+
+	if(iSightRange > 0){
+		//Madd: Some gear can affect the to-hit bonus and the bonus from aiming
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: before bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
+		//CHRISL: This is supposed to be a percentage increase/decrease
+		//iSightRange -= GetGearAimBonus ( pSoldier, iRange, ubAimTime );
+		iSightRange -= GetGearAimBonus ( pSoldier, iRange, ubAimTime ) * iSightRange / 100;
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: after gear bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
+
+		//CHRISL: We want our AimBonus to be based on our visual range, not our actual range
+		// Reduce effective range by the aiming bonus (e.g. from sniper scope)
+		//iSightRange -= GetAimBonus( pInHand, iRange, ubAimTime );
+		iSightRange -= GetAimBonus( pInHand, iSightRange, ubAimTime );
+		//CHRISL: If we have the Sniper skill, reduce effective range
+		//////////////////////////////////////////////////////////////////
+		// SANDRO - old/new traits
+		if ( gGameOptions.fNewTraitSystem )
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) )
+			{
+				iSightRange -= ((gSkillTraitValues.ubSNEffRangeToTargetReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )) * iSightRange) /100;
+			}
+		}
+		else if ( HAS_SKILL_TRAIT( pSoldier, PROF_SNIPER_OT ) )
+		{
+			iSightRange -= ((gbSkillTraitBonus[ PROF_SNIPER_OT ] * NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )) * iSightRange) /100;
+		}
+		//////////////////////////////////////////////////////////////////
+		if (iSightRange < 1)
+		{
+			iSightRange = 1;
+		}
+	}
+
+	//restore old flag
+	gAnimControl[ pSoldier->usAnimState ].uiFlags = oldFlag;
+
+	//CHRISL: Because of the changes I've made to how scopes modify iSightRange, this penalty makes it basically impossible
+	//	to shot at targets you can't see yourself.  While this isn't an issue for most weapons, it overly restricts the
+	//	effectiveness of sniper rifles.  So pull this penalty but leave the one that comes later in the code.
+	//if ( iSightRange > (sDistVis * CELL_X_SIZE) )
+	//{
+		// shooting beyond max normal vision... penalize such distance at double (also later we halve the remaining chance)
+		//iSightRange += (iSightRange - sDistVis * CELL_X_SIZE);
+	//}
+
+	//CHRISL: Not being able to actually see the target should not restrict out ability to aim a weapon.  Aiming is more then just sighting a specific target.  It's
+	//	also steadying the weapon and aiming where you think the target is.  We will eventually get hit with a serious "Can't See the Target" penalty and aiming is
+	//	the only way to even attempt to counter that.  This is one reason for "Kevlar Grass"
+	// if shooter spent some extra time aiming and can see the target
+	//if (iSightRange > 0 && ubAimTime && !pSoldier->bDoBurst ) //comm by ddd
+	//if (iSightRange > 0 && ubAimTime )
+	//////////////////////////////////////////////////////////////////
+	if(ubAimTime)
+	{
+		// CHRISL: Rather then a flat +10/click bonus, we're going to try a bonus that's based on MRK and Lvl which gets
+		//	progressivly less the more we aim.  Everything is based on the maxBonus that a merc can possibly get which
+		//	uses the equation: 20+(MRK/20*LVL)+Accuracy+(Sniper trait * 10).  This value is then split between the 8
+		//	possible AimTime's using a max aimTime bonus of 10.
+		INT16	bonusProgression[8] = {500,500,600,600,750,750,750,1000};
+		//FLOAT	maxBonus = 20+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER )*10);
+
+		//////////////////////////////////////////////////////////////////
+		// SANDRO - old/new traits
+		FLOAT	maxBonus;
+		if ( gGameOptions.fNewTraitSystem )
+		{
+			// bonus to snipers and gunslingers
+			if ( Weapon[usInHand].ubWeaponType == GUN_PISTOL || Weapon[usInHand].ubWeaponType == GUN_PISTOL )
+				maxBonus = 20+((FLOAT)iMarksmanship/20*(EffectiveExpLevel(pSoldier)))+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT )*gSkillTraitValues.ubGSAimingBonusPerClick);
+			else
+				maxBonus = 20+((FLOAT)iMarksmanship/20*(EffectiveExpLevel(pSoldier)))+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )*gSkillTraitValues.ubSNAimingBonusPerClick);
+		}
+		else
+		{			
+			if(gGameExternalOptions.bAltAimEnabled) 
+				maxBonus = (20*(iMarksmanship/100))+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )*10);
+			else 
+				maxBonus = 20+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )*10);
+		}
+		//}ddd
+		//////////////////////////////////////////////////////////////////
+		INT8	maxClickBonus = 10;
+		FLOAT	aimTimeBonus;
+		for(int i = 0; i < ubAimTime; i++)
+ 		{
+			aimTimeBonus = __min((maxBonus*bonusProgression[i]/1000),maxClickBonus);
+			maxBonus -= aimTimeBonus;
+			iChance += (INT32)floor(aimTimeBonus+.5);
+		}
+		///ddd{
+		//zilpin: aimed burst
+		//Reduce the aim time bonus based on weapon burst penalty, after the first shot.
+		//The burst penalty was already applied, but it also reduces the benefit of aiming.
+//		CHRISL: This is actaully applying the weapons AutoPenalty a second time.  We already apply AutoPenalty/round (after the first) in the autofire
+//			section earlier in this code.  We shouldn't be applying this again here.  Plus, this modification should occur regardless of whether we aim
+//			or not.  I've moved this condition to the burst/autofire portion of the code above.
+//		if(gGameExternalOptions.bAimedBurstEnabled)
+//		{
+//			//if( pSoldier->bDoAutofire )
+//			//	iChance -= Weapon[usInHand].AutoPenalty * pSoldier->bDoBurst * gGameExternalOptions.uAimedBurstPenalty;
+//			//else if( pSoldier->bDoBurst>1 )
+//			//	iChance -= Weapon[usInHand].ubBurstPenalty * pSoldier->bDoBurst * gGameExternalOptions.uAimedBurstPenalty;
+//			if( pSoldier->bDoAutofire>0 && pSoldier->bDoBurst>1)
+//				iChance -= Weapon[usInHand].AutoPenalty * pSoldier->bDoBurst * gGameExternalOptions.uAimedBurstPenalty;
+//			//if( pSoldier->bDoAutofire>10 )
+//			//	iChance -= Weapon[usInHand].AutoPenalty * pSoldier->bDoBurst * gGameExternalOptions.uAimedBurstPenalty;
+//			//else 
+//				if( pSoldier->bDoBurst>1  && pSoldier->bDoAutofire==0)
+//				iChance -= Weapon[usInHand].ubBurstPenalty * pSoldier->bDoBurst * gGameExternalOptions.uAimedBurstPenalty;
+//
+//		}
+		///ddd}
+
+//		if(highPowerScope == true)
+//		{
+//		{
+//			if ( NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER ) == 2 )
+//				aimTimeBonus = -((__max(0,75-pSoldier->stats.bMarksmanship))/(pSoldier->stats.bExpLevel*2));
+//			else if( NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER ) == 1 )
+//				aimTimeBonus = -((__max(0,85-pSoldier->stats.bMarksmanship))/(pSoldier->stats.bExpLevel*2));
+//			else
+//				aimTimeBonus = -((__max(0,100-pSoldier->stats.bMarksmanship))/(pSoldier->stats.bExpLevel));
+//			aimTimeBonus = __max(-9, aimTimeBonus);
+//			aimTimeBonus = __min(0, aimTimeBonus);
+//			aimTimeBonus += AIM_BONUS_PER_AP;
+//		}
+//		else
+//			aimTimeBonus = AIM_BONUS_PER_AP;
+//		iChance += (aimTimeBonus * ubAimTime); // bonus for every pt of aiming
+	}
+	//////////////////////////////////////////////////////////////////
+
+	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) )	// if this is a computer AI controlled enemy
+	{
+		if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+		{
+			// On easy, penalize all enemies by 5%
+			iChance -= 5;
+		}
+		else
+		{
+			// max with 0 to prevent this being a bonus, for JA2 it's just a penalty to make early enemies easy
+			// CJC note: IDIOT!  This should have been a min.  It's kind of too late now...
+			// CJC 2002-05-17: changed the max to a min to make this work.
+			iChance += __min( 0, gbDiff[ DIFF_ENEMY_TO_HIT_MOD ][ SoldierDifficultyLevel( pSoldier ) ] );
+		}
+	}
+
+	// if shooter is being affected by gas
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
+	{
+	  iChance -= AIM_PENALTY_GASSED;
+	}
+
+	// if shooter is being bandaged at the same time, his concentration is off
+	if (pSoldier->ubServiceCount > 0)
+	  iChance -= AIM_PENALTY_GETTINGAID;
+
+	// if shooter is still in shock
+	if (pSoldier->aiData.bShock)
+	{
+		// HEADROCK HAM B2.8: Placed a maximum here, as shock is now also used in suppression.
+		UINT16 usShockPenalty;
+
+		usShockPenalty = pSoldier->aiData.bShock * AIM_PENALTY_PER_SHOCK;
+
+		if (gGameExternalOptions.usMaxShooterCoweringPenalty > 0)
+		{
+			if ( usShockPenalty > gGameExternalOptions.usMaxShooterCoweringPenalty )
+				usShockPenalty = gGameExternalOptions.usMaxShooterCoweringPenalty;
+		}
+		if ( usShockPenalty < 1 )
+			usShockPenalty = 1;
+
+		iChance -= usShockPenalty;
+	}
+
+	//CHRISL: Just because we can't see a target, doesn't mean these armor/helmet modifiers should be ignored
+	iChance += GetGearToHitBonus ( pSoldier );
+
+	if ( iSightRange > 0 )
+	{
+		//CHRISL: Moved iSightRange modifications to the range section above
+		// SANDRO - DELETED POINTLESS UNUSED PARTS OF CODE
+
+		// HEADROCK HAM B2.1 : The TARGET's shock now also affects aiming. If the target is prone
+		// and in shock, they are harder to hit! This represents a target that's cowering as close
+		// to the ground (and as close to any possible cover, like a small dune or a fold of earth
+		// or anything like that).
+		if ( gGameExternalOptions.ubAimPenaltyPerTargetShock > 0 )
+		{
+			// HEADROCK HAM B2.1 : This value determines how much penalty the target's shock-value gives the shooter.
+			// As of HAM B2.3: There's a maximum range at which 100% penalty is given.
+			// As of HAM B2.8: Target's stance and the targetted bodypart will affect the end result.
+			
+			INT8 AIM_PENALTY_PER_TARGET_SHOCK;
+			INT16 sCoweringPenalty = 0;
+			UINT8 ubCoweringDivisor;
+			UINT16 MIN_RANGE_FOR_FULL_COWER;
+			UINT16 MAX_TARGET_COWERING_PENALTY;
+
+			AIM_PENALTY_PER_TARGET_SHOCK = gGameExternalOptions.ubAimPenaltyPerTargetShock;
+			MIN_RANGE_FOR_FULL_COWER = gGameExternalOptions.usMinRangeForFullCoweringPenalty; 
+			MAX_TARGET_COWERING_PENALTY = gGameExternalOptions.usMaxTargetCoweringPenalty;
+
+			pTarget = SimpleFindSoldier( sGridNo, pSoldier->bTargetLevel );
+			if (pTarget != NULL)
+			{
+				if (pTarget->aiData.bShock )
+				{
+					if (gAnimControl[ pTarget->usAnimState ].ubHeight == ANIM_PRONE)
+					{
+						ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorProne;
+
+						sCoweringPenalty = (pTarget->aiData.bShock * AIM_PENALTY_PER_TARGET_SHOCK);
+						sCoweringPenalty = sCoweringPenalty / ubCoweringDivisor;
+						sCoweringPenalty = (sCoweringPenalty * __min(iSightRange,MIN_RANGE_FOR_FULL_COWER)) / MIN_RANGE_FOR_FULL_COWER;
+
+						if (gGameExternalOptions.usMaxTargetCoweringPenalty > 0)
+						{
+							if ( sCoweringPenalty > gGameExternalOptions.usMaxTargetCoweringPenalty )
+								sCoweringPenalty = gGameExternalOptions.usMaxTargetCoweringPenalty;
+						}
+						if ( sCoweringPenalty < 1 )
+							sCoweringPenalty = 1;
+
+						iChance -= sCoweringPenalty;
+					}
+					else if (gAnimControl[ pTarget->usAnimState ].ubHeight == ANIM_CROUCH) 
+					{
+						switch ( ubAimPos )
+						{
+							case AIM_SHOT_HEAD:
+								ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedHead;
+								break;
+							case AIM_SHOT_TORSO:
+							case AIM_SHOT_RANDOM:
+							case AIM_SHOT_GLAND:
+								ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedTorso;
+								break;
+							case AIM_SHOT_LEGS:
+								ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedLegs;
+								break;
+						}
+
+						sCoweringPenalty = (pTarget->aiData.bShock * AIM_PENALTY_PER_TARGET_SHOCK);
+						sCoweringPenalty = sCoweringPenalty / ubCoweringDivisor;
+						sCoweringPenalty = (sCoweringPenalty * __min(iSightRange,MIN_RANGE_FOR_FULL_COWER)) / MIN_RANGE_FOR_FULL_COWER;
+
+						if (gGameExternalOptions.usMaxTargetCoweringPenalty > 0)
+						{
+							if ( sCoweringPenalty > gGameExternalOptions.usMaxTargetCoweringPenalty )
+								sCoweringPenalty = gGameExternalOptions.usMaxTargetCoweringPenalty;
+						}
+						if ( sCoweringPenalty < 1 )
+							sCoweringPenalty = 1;
+
+						// HEADROCK HAM B2.8.1: Added formula to make sure that cowering target penalties
+						// are not given when on the roof.
+
+						if (pSoldier->pathing.bLevel == pTarget->pathing.bLevel && pSoldier->pathing.bLevel > 0)
+							sCoweringPenalty = 0; // No cowering penalties when both are on the roof!
+						else if (pSoldier->pathing.bLevel < pSoldier->pathing.bLevel && gAnimControl[ pTarget->usAnimState ].ubHeight == ANIM_PRONE)
+							sCoweringPenalty *= 2; // Much harder to shoot at anyone cowering above you.
+						else if (pSoldier->pathing.bLevel > pSoldier->pathing.bLevel)
+							sCoweringPenalty /= 2; // Much easier to shoot at cowerers below you.
+						iChance -= sCoweringPenalty;
+					}
+				}
+			}
+		}
+	}
+
+	//CHRISL: This should effect us regardless of whether we can see the target or not
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: after scope bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
+	// Apply flat to-hit bonus (e.g. from laser scope)
+	// Snap: If prone and range is good, apply bipod bonus here as well
+	iChance += GetToHitBonus( pInHand, iRange, bLightLevel,gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && iRange > MIN_PRONE_RANGE );
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: after to hit bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
+
+	//NumMessage("EFFECTIVE RANGE = ",range);
+
+	// ADJUST FOR RANGE
+	// bonus if range is less than normal range, penalty if it's more
+	//iChance += (NORMAL_RANGE - iRange) / (CELL_X_SIZE / 5);	// 5% per tile
+
+	// Effects of actual gun max range... the numbers are based on wanting -40%
+	// at range 26for a pistol with range 13, and -0 for a sniper rifle with range 80
+	iPenalty = ((iMaxRange - iRange * 3) * 10) / (17 * CELL_X_SIZE);
+	if ( iPenalty < 0 )
+	{
+		// No penalty on tanks
+		//if (!TANK(pSoldier))
+			iChance += iPenalty;
+	}
+	//iChance -= 20 * iRange / iMaxRange;
+
+	if ( TANK( pSoldier ) && ( iRange / CELL_X_SIZE < MaxNormalDistanceVisible() ) )
+	{
+		// tank; penalize at close range!
+		// 2 percent per tile closer than max visible distance
+		iChance -= 2 * ( MaxNormalDistanceVisible() - (iRange / CELL_X_SIZE) );
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Target Size Penalties
+	//if (iSightRange == 0)
+	//{
+		// firing blind!
+		//iChance -= AIM_PENALTY_BLIND;
+	//}
+	if ( pSoldier->aiData.bOppList[ubTargetID] != SEEN_CURRENTLY &&(pSoldier->flags.uiStatusFlags & SOLDIER_PC) 	)
+		iChance -=gGameExternalOptions.iPenaltyShootUnSeen;
+	else
+	{
+		// Effects based on aiming & sight
+		// From for JA2.5:  3% bonus/penalty for each tile different from range NORMAL_RANGE.
+		// This doesn't provide a bigger bonus at close range, but stretches it out, making medium
+		// range less penalized, and longer range more penalized
+
+		// WANNE: No penalty on the tank
+		if (!TANK(pSoldier))
+			iChance += 3 * ( NORMAL_RANGE - iSightRange ) / CELL_X_SIZE;
+		// if aiming at the head, reduce chance to hit
+		if (ubAimPos == AIM_SHOT_HEAD)
+		{
+			// penalty of 3% per tile
+			//iPenalty = 3 * iSightRange / 10; //comm by ddd
+			iPenalty = INT32(gGameExternalOptions.uShotHeadPenalty * iSightRange / 10);
+			iChance -= iPenalty;
+		}
+		else if (ubAimPos == AIM_SHOT_LEGS)
+		{
+			// penalty of 1% per tile
+			iPenalty = iSightRange / 10;
+			iChance -= iPenalty;
+		}
+
+//		if (iSightRange < NORMAL_RANGE)
+//		{
+//			// bonus to hit of 20% at point blank (would be 25% at range 0);
+//			//at NORMAL_RANGE, bonus is 0
+//			iChance += 25 * (NORMAL_RANGE - iSightRange) / NORMAL_RANGE;
+//		}
+//		else
+//		{
+//			// penalty of 2% / tile
+//			iChance -= (iSightRange - NORMAL_RANGE) / 5;
+//		}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// Tracer effects
+	// HEADROCK HAM 3.5: Moved this here for now.
+	// HEADROCK HAM B2.5: One of every X bullets in a tracer magazine is a tracer round, which will
+	// bump the CTH up by a certain amount.
+
+	if (AmmoTypes[(*pInHand)[0]->data.gun.ubGunAmmoType].tracerEffect == 1 && gGameExternalOptions.ubRealisticTracers > 0 )
+	{
+		UINT16 iBulletsLeft, iTracersFired, iBulletsPerTracer, iBulletsSinceLastTracer=0, iRoundsFiredPreviously;
+		UINT8 cnt;
+		UINT8 ubAutoPenaltySinceLastTracer=0;
+		//UINT16 iAutoPenaltySinceLastTracer;
+		iTracersFired = 0;
+		iBulletsPerTracer = gGameExternalOptions.ubNumBulletsPerTracer;
+
+		// Calculate number of bullets left right before firing this burst
+		if (fCalculateCTHDuringGunfire)
+		{
+			iBulletsLeft = (*pInHand)[0]->data.gun.ubGunShotsLeft + (pSoldier->bDoBurst - 1);
+		}
+		else
+		{
+			iBulletsLeft = (*pInHand)[0]->data.gun.ubGunShotsLeft;
+		}
+
+//		CHRISL: What we want to know here is how many tracers have been fired during this autofire sequence.  But we also want to figure that based on how
+//			much ammo we've used from the current load.  If every 3rd round is a tracer, and we previously fired 5 rounds from our "mag", then the first
+//			round of this burst is a tracer, the 2nd & 3rd are normal, the 4th is a tracer, 5th & 6th are normal, etc.
+		iRoundsFiredPreviously = GetMagSize(pInHand) - iBulletsLeft;	//How many rounds had been fired before this autofire sequence
+		for( cnt = 1; cnt <= pSoldier->bDoBurst; cnt++ ){
+			if((iRoundsFiredPreviously+cnt)%iBulletsPerTracer == 0)
+				iTracersFired++;
+		}
+
+//		iBulletsSinceLastTracer = 0;
+//		for (cnt=0;cnt<pSoldier->bDoBurst;cnt++)
+//		{
+//			iBulletsSinceLastTracer++;
+//			if ((( iBulletsLeft - (cnt - 1) ) / iBulletsPerTracer) - ((iBulletsLeft - cnt) / iBulletsPerTracer) == 1)
+//			{
+//				iBulletsSinceLastTracer = 0;
+//			}
+//		}
+//
+//		iTracersFired = ((iBulletsLeft+1) / iBulletsPerTracer) - (((iBulletsLeft+1) - (pSoldier->bDoBurst)) / iBulletsPerTracer);
+
+		if ( iTracersFired > 0 )
+		{
+			// HEADROCK HAM 3.5: I'm going to revise this - my current system makes no sense at all. What was I
+			// thinking?!
+//			 CHRISL: Headrock may come around later and revise this again, but for the time being, I'm making some adjustments.  With the current code
+//				the number of tracer rounds fired doesn't really matter.  In most cases, the range is going to limit the max bonus so much that 1 tracer or
+//				20 will have the same effect because we currently look at the "bump" value times the number of rouns and THEN modify for range.  What we
+//				should be doing is modify the bump for range, multiply that by the number of tracer rounds fired, then make sure the bonus isn't more then
+//				our combined autofire penalty.
+
+			// Correct all autofire penalty so far
+			//iBonus = iPenalty;
+			
+			// Add Tracer Bump if previous bullet was a tracer
+			//iBonus += (gGameExternalOptions.ubCTHBumpPerTracer * iTracersFired);
+			//iBonus = (gGameExternalOptions.ubCTHBumpPerTracer * iTracersFired);
+
+			// Calculate penalty since last tracer was fired
+			// CHRISL: We already look at GetAutoPenalty earlier in the code, and that result was stored as sTotalAutofirePenalty so why this wonky recalculation?
+			//UINT8 ubAutoPenaltySinceLastTracer = GetAutoPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) * iBulletsSinceLastTracer;
+			//////////////////////////////////////////////////////////////////
+//			if ( gGameOptions.fNewTraitSystem ) // old/new traits - SANDRO
+//			{
+//				if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+//				{
+//					ubAutoPenaltySinceLastTracer = max(0, ((ubAutoPenaltySinceLastTracer * (100 - gSkillTraitValues.ubAWAutoFirePenaltyReduction * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT )))/100));
+//				}
+//			}
+//			else
+//			{
+//				if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPS_OT ) )
+//				{
+//					ubAutoPenaltySinceLastTracer /= 2 * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS_OT );
+//				}
+//			}	
+//			//////////////////////////////////////////////////////////////////	
+//			// Add penalty to bonus.
+//			//iBonus -= iAutoPenaltySinceLastTracer;
+			
+			///////////////////////////////////////////////////
+			// HEADROCK HAM 3.5: Limit maximum bonus by range.
+//			 CHRISL: We want to limit the maximum bonus "per round" by range.  The way we have been doing it, it's max bonus by range, regardless of the
+//				number of rounds fired.  This means firing 1 tracer or 20 makes no difference.  And we can run this calculation directly again
+//				sTotalAutofirePenalty.
+
+			if(sTotalAutofirePenalty > 0){
+				INT16 sChanceLimit = min(gGameExternalOptions.ubCTHBumpPerTracer, ((iRange-(gGameExternalOptions.ubMinRangeTracerEffect*CELL_X_SIZE)) / CELL_X_SIZE) * gGameExternalOptions.ubRangeDifficultyAimingWithTracers);
+				sChanceLimit = max(0, sChanceLimit);
+				iBonus = sChanceLimit * iTracersFired;
+				iBonus = min(iBonus, sTotalAutofirePenalty);
+			}
+
+			//INT16 sChanceLimit = __min(0, sTotalAutofirePenalty+(((iRange-100) / CELL_X_SIZE) * gGameExternalOptions.ubRangeDifficultyAimingWithTracers));
+			
+			//INT16 sBaseChance = iChance + sTotalAutofirePenalty;
+
+			// We don't want to enforce a limit unless the tracers have actually put us over the original CtH.
+//			if (sBaseChance <= iChance+iBonus) // Base_Chance without AutoPen, less or equal to Current_Chance plus tracer bumps
+//			{
+//				// store lowest: Chance+Tracer bumps, or Range-enforced limit
+//				INT16 sChanceLimit = __min(iChance+iBonus, sBaseChance+(((iRange-100) / CELL_X_SIZE) * gGameExternalOptions.ubRangeDifficultyAimingWithTracers));
+//				// store highest: Chance Delta or base CtH
+//				//sChanceDelta = __max(sChanceDelta, sBaseChance);
+//
+//				// iBonus is the distance between the enforced limit (if any) and the current chance with all penalties so far.
+//				// But it can't be negative, 'cause it's a bonus.
+//				iBonus = __max(0,sChanceLimit - iChance);
+//				// Add autopenalty since last tracer
+//				if (iBulletsSinceLastTracer < iBulletsPerTracer)
+//				{
+//					iBonus -= ubAutoPenaltySinceLastTracer;
+//				}
+//
+//			}
+			iChance += iBonus;
+		}
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	// adjust for roof/not on roof
+	if ( pSoldier->pathing.bLevel == 0 )
+	{
+		if ( pSoldier->bTargetLevel > 0 )
+		{
+			// penalty for firing up
+			iChance -= AIM_PENALTY_FIRING_UP;
+		}
+	}
+	else // pSoldier->pathing.bLevel > 0 )
+	{
+		if ( pSoldier->bTargetLevel == 0 )
+		{
+			iChance += AIM_BONUS_FIRING_DOWN;
+		}
+	}
+
+
+	pTarget = SimpleFindSoldier( sGridNo, pSoldier->bTargetLevel );
+	//CHRISL: A target's stance should have no impact on an aimed, headshot.  The head doesn't get any smaller just because the target is crouching down.
+	if (pTarget != NULL && ubAimPos != AIM_SHOT_HEAD)
+	{
+		// targeting a merc
+		// adjust for crouched/prone target
+		switch( gAnimControl[ pTarget->usAnimState ].ubHeight )
+		{
+			case ANIM_CROUCH:
+				if ( TANK( pSoldier ) && iRange < MIN_TANK_RANGE )
+				{
+					// 13% penalty per tile closer than min range
+					iChance -= 13 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE );
+				}
+				else
+				{
+					// at anything other than point-blank range
+					if (iRange > POINT_BLANK_RANGE + 10 * (AIM_PENALTY_TARGET_CROUCHED / 3) )
+					{
+						iChance -= AIM_PENALTY_TARGET_CROUCHED;
+					}
+					else if (iRange > POINT_BLANK_RANGE)
+					{
+						// at close range give same bonus as prone, up to maximum of AIM_PENALTY_TARGET_CROUCHED
+						iChance -= 3 * ((iRange - POINT_BLANK_RANGE) / CELL_X_SIZE); // penalty -3%/tile
+					}
+				}
+				break;
+			case ANIM_PRONE:
+				if ( TANK( pSoldier ) && iRange < MIN_TANK_RANGE )
+				{
+					// 25% penalty per tile closer than min range
+					iChance -= 25 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE );
+				}
+				else
+				{
+					// at anything other than point-blank range
+					if (iRange > POINT_BLANK_RANGE)
+					{
+						// reduce chance to hit with distance to the prone/immersed target
+						iPenalty = 3 * ((iRange - POINT_BLANK_RANGE) / CELL_X_SIZE); // penalty -3%/tile
+						iPenalty = __min( iPenalty, AIM_PENALTY_TARGET_PRONE );
+
+						iChance -= iPenalty;
+					}
+				}
+				break;
+			case ANIM_STAND:
+				// if we are prone and at close range, then penalize shots to the torso or head!
+				if ( iRange <= MIN_PRONE_RANGE && gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE )
+				{
+					if ( ubAimPos == AIM_SHOT_RANDOM || ubAimPos == AIM_SHOT_GLAND )
+					{
+						ubAdjAimPos = AIM_SHOT_TORSO;
+					}
+					else
+					{
+						ubAdjAimPos = ubAimPos;
+					}
+					// lose 10% per height difference, lessened by distance
+					// e.g. 30% to aim at head at range 1, only 10% at range 3
+					// or 20% to aim at torso at range 1, no penalty at range 3
+					// NB torso aim position is 2, so (5-aimpos) is 3, for legs it's 2, for head 4
+					iChance -= (5 - ubAdjAimPos - iRange / CELL_X_SIZE) * 10;
+				}
+				break;
+			default:
+				break;
+		}
+
+		// penalty for amount that enemy has moved
+		// HEADROCK HAM B2.6: Externalized the value
+		iPenalty = __min( (UINT16)((float)pTarget->bTilesMoved * (float)gGameExternalOptions.iMovementEffectOnAiming), 30 );
+		///////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - fearless characters do not even take their head down no matter what
+		if ( gGameOptions.fNewTraitSystem && pTarget->ubProfile != NO_PROFILE )
+		{
+			if ( gMercProfiles[ pTarget->ubProfile ].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+				iPenalty -= (iPenalty * 2 / 3);	// two thirds only
+		}
+		///////////////////////////////////////////////////////////////////////////////////
 		iChance -= iPenalty;
 
 		// if target sees us, he may have a chance to dodge before the gun goes off
@@ -4442,13 +7979,59 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 
 		// This won't cause the bullet to be off to the left or right, only make it
 		// drop in flight.
-		iChance /= 2;
+		//iChance /= 2; //ddd
+		iChance /= gGameExternalOptions.fOutOfGunRangeOrSight;
 	}
 	if ( iSightRange > (sDistVis * CELL_X_SIZE) )
 	{
 		// penalize out of sight shots, cumulative to effective range penalty
 		iChance /= 2;
 	}
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - Bonus CtH for Militia
+	if (pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.sGreenMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sGreenMilitiaCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.sRegularMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sRegularMilitiaCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sVeteranMilitiaCtHBonusPercent) /100);
+	// bonus for enemy
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyAdminCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyRegularCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyEliteCtHBonusPercent) /100);
+	//////////////////////////////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - option to make special NPCs stronger - chance to hit
+	if (gGameExternalOptions.usSpecialNPCStronger > 0)
+	{
+		switch( pSoldier->ubProfile )
+		{
+			case CARMEN:
+			case QUEEN:
+			case JOE:
+			case ANNIE:
+			case CHRIS:
+			case KINGPIN:
+			case TIFFANY:
+			case T_REX:
+			case DRUGGIST:
+			case GENERAL:
+			case JACK:
+			case OLAF:
+			case RAY:
+			case OLGA:
+			case TYRONE:
+			case MIKE:
+				iChance += (iChance * gGameExternalOptions.usSpecialNPCStronger / 100);
+				break;
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////////////
 
   // MAKE SURE CHANCE TO HIT IS WITHIN DEFINED LIMITS
 	// HEADROCK: (HAM) Altered so called "Defined Limits" to accept external arguments.
@@ -4486,7 +8069,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 
 //  NumMessage("ChanceToHit = ",chance);
    DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: ichance = %d",iChance));
-  return (iChance);
+  return (iChance);*/
 }
 
 UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime, UINT8 ubAimPos )
@@ -4499,6 +8082,49 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 	pSoldier->usAnimState = STANDING;
 	uiChance = CalcChanceToHitGun( pSoldier, sGridNo, ubAimTime, ubAimPos );
 	pSoldier->usAnimState = usTrueState;
+	if(UsingNewCTHSystem() == true)
+	{
+		////////////////////////////////////////////////////////////////////////////////////
+		// HEADROCK HAM 4: NCTH calculation
+		//
+		// In the new CTH system, the value returned by CalcChanceToHitGun is not an actual
+		// chance to hit the target. In fact, it is simply a measure of how well the gun is
+		// aimed. To get a good idea of whether or not a shot is likely to hit the target,
+		// we need to take other factors into consideration.
+
+		FLOAT d2DDistance = (FLOAT) PythSpacesAway( pSoldier->sGridNo, sGridNo ) * 10.0f;
+		FLOAT dMagFactor = CalcMagFactor( pSoldier, &(pSoldier->inv[pSoldier->ubAttackingHand]), d2DDistance, (UINT8)ubAimTime );
+		FLOAT dDistanceFactor = (d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE);
+
+		uiChance = (UINT32)((uiChance * dMagFactor) / dDistanceFactor);
+
+		FLOAT dBasicAperture = CalcBasicAperture( );
+		FLOAT dAperture = (dBasicAperture * (100-uiChance)) / 100.0f;
+
+		if (dAperture == 0)
+		{
+			return 100;
+		}
+		else
+		{
+			FLOAT dTargetArea = 28.26f; // Calculated area of a target given known homan body size.
+			FLOAT dApertureArea = (FLOAT)(PI * (dAperture * dAperture));
+
+			uiChance = (UINT32)__min(100, (dTargetArea / dApertureArea) * 100);
+		}
+
+		FLOAT dGunRange = (FLOAT)(GunRange( &(pSoldier->inv[pSoldier->ubAttackingHand]), pSoldier ) );
+		if ( (dGunRange * 1.1f) < d2DDistance)
+		{
+			// Weapon out of conceivable hit range. Reduce chance to hit to 0!
+			return (0);
+		}
+		else if ( dGunRange < d2DDistance)
+		{
+			// Just outside range. Reduce considerably!
+			return (uiChance / 2);
+		}
+	}
 	return( uiChance );
 }
 
@@ -4662,7 +8288,7 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 		if (pArmour->exists() == true)
 		{
 			for (attachmentList::iterator iter = (*pArmour)[0]->attachments.begin(); iter != (*pArmour)[0]->attachments.end(); ++iter) {
-				if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
+				if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 && iter->exists())
 				{
 					// bullet got through jacket; apply ceramic plate armour
 					iTotalProtection += ArmourProtection( pTarget, Item[iter->usItem].ubClassIndex, &((*iter)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
@@ -4692,7 +8318,7 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 				{
 					//Madd: put any attachments that someone might have added to the armour in the merc's inventory
 					for (attachmentList::iterator iter = (*pArmour)[0]->attachments.begin(); iter != (*pArmour)[0]->attachments.end(); ++iter) {
-						if ( !AutoPlaceObject( pTarget, &(*iter), FALSE ) )
+						if ( !AutoPlaceObject( pTarget, &(*iter), FALSE ) && iter->exists())
 						{   // put it on the ground
 							AddItemToPool( pTarget->sGridNo, &(*iter), 1, pTarget->pathing.bLevel, 0 , -1 );
 						}
@@ -4710,7 +8336,7 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iOrigImpact, INT16 sHitBy, UINT8 * pubSpecial )
 {
 	INT32					iImpact, iFluke, iBonus, iImpactForCrits = 0;
-	INT8					bStatLoss;
+	INT8					bStatLoss = 0;
 	UINT8					ubAmmoType;
 
 	// NOTE: reduction of bullet impact due to range and obstacles is handled
@@ -4821,6 +8447,81 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocat
 		//	iImpact = AMMO_DAMAGE_ADJUSTMENT_HP( iImpact );
 		//}
 
+		////////////////////////////////////////////////////////////////////////////////////
+		if ( gGameOptions.fNewTraitSystem ) // new traits bonuses - SANDRO
+		{
+			// Throwing skill increases damage of knives here
+			if ( (ubAmmoType == AMMO_KNIFE) && HAS_SKILL_TRAIT( pFirer, THROWING_NT ))
+			{
+				iImpact += (INT32)(iImpact * (gSkillTraitValues.ubTHBladesDamageBonus + (gSkillTraitValues.ubTHBladesDamageBonusPerClick * pFirer->aiData.bAimTime))/100);
+			}
+	
+			// Sniper trait adds bonus damage per aim click
+			if (HAS_SKILL_TRAIT( pFirer, SNIPER_NT ) && (pFirer->aiData.bAimTime >= gSkillTraitValues.ubSNDamageBonusFromNumClicks))
+			{	
+				iImpact += (INT32)(iImpact * (pFirer->aiData.bAimTime - gSkillTraitValues.ubSNDamageBonusFromNumClicks + 1) * gSkillTraitValues.ubSNDamageBonusPerClick * NUM_SKILL_TRAITS( pFirer, SNIPER_NT ))/100; // +5% per trait
+			}
+		}
+
+		////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - Damage resistance for Militia
+		if (!IsAutoResolveActive())
+		{
+			if (pTarget->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.bGreenMilitiaDamageResistance != 0)
+				iImpact -= ((iImpact * gGameExternalOptions.bGreenMilitiaDamageResistance) /100);
+			else if (pTarget->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.bRegularMilitiaDamageResistance != 0)
+				iImpact -= ((iImpact * gGameExternalOptions.bRegularMilitiaDamageResistance) /100);
+			else if (pTarget->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.bVeteranMilitiaDamageResistance != 0)
+				iImpact -= ((iImpact * gGameExternalOptions.bVeteranMilitiaDamageResistance) /100);
+			// bonus for enemy too
+			else if (pTarget->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminDamageResistance != 0)
+				iImpact -= ((iImpact * gGameExternalOptions.sEnemyAdminDamageResistance) /100);
+			else if (pTarget->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularDamageResistance != 0)
+				iImpact -= ((iImpact * gGameExternalOptions.sEnemyRegularDamageResistance) /100);
+			else if (pTarget->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteDamageResistance != 0)
+				iImpact -= ((iImpact * gGameExternalOptions.sEnemyEliteDamageResistance) /100);
+
+
+			iImpact = max( 1, iImpact);
+		}
+		//////////////////////////////////////////////////////////////////////////////////////
+
+		////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - option to make special NPCs stronger - damage resistance
+		if (gGameExternalOptions.usSpecialNPCStronger > 0)
+		{
+			switch( pTarget->ubProfile )
+			{
+				case CARMEN:
+				case QUEEN:
+				case JOE:
+				case ANNIE:
+				case CHRIS:
+				case KINGPIN:
+				case TIFFANY:
+				case T_REX:
+				case DRUGGIST:
+				case GENERAL:
+				case JACK:
+				case OLAF:
+				case RAY:
+				case OLGA:
+				case TYRONE:
+				case MIKE:
+					// Only 1/2 of the bonus
+					iImpact -= (INT32)(iImpact * gGameExternalOptions.usSpecialNPCStronger / 200);
+					iImpact = max( 1, iImpact);
+					break;
+			}
+		}
+		////////////////////////////////////////////////////////////////////////////////////
+
+		////////////////////////////////////////////////////////////////////////////////////
+		// STOMP traits - Bodybuilding damage resistance
+		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pTarget, BODYBUILDING_NT ) )
+			iImpact = max( 1, (INT32)(iImpact * (100 - gSkillTraitValues.ubBBDamageResistance) / 100)); 
+		////////////////////////////////////////////////////////////////////////////////////
+
 		AdjustImpactByHitLocation( iImpact, ubHitLocation, &iImpact, &iImpactForCrits );
 
 		switch( ubHitLocation )
@@ -4835,7 +8536,11 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocat
 					{
 						// blow to the head is so deadly that it causes instant death;
 						// the target has more life than iImpact so we increase it
-						iImpact = pTarget->stats.bLife + Random( 10 );
+						if( iImpact < pTarget->stats.bLife ) // Added check here to see the real impact in game if bigger than life - SANDRO
+							iImpact = pTarget->stats.bLife + Random( 10 );
+						else
+							iImpact += Random( 10 );
+
 						iImpactForCrits = iImpact;
 					}
 
@@ -4884,13 +8589,21 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocat
 					{
 						// blow to the chest is so deadly that it causes instant death;
 						// the target has more life than iImpact so we increase it
-						iImpact = pTarget->stats.bLife + Random( 10 );
+						if( iImpact < pTarget->stats.bLife ) // Added check here to see the real impact in game if bigger than life - SANDRO
+							iImpact = pTarget->stats.bLife + Random( 10 );
+						else
+							iImpact += Random( 10 );
+
 						iImpactForCrits = iImpact;
 					}
 					// special thing for hitting chest - allow cumulative damage to count
 					else if ( (iImpact + pTarget->sDamage) > (MIN_DAMAGE_FOR_BLOWN_AWAY + MIN_DAMAGE_FOR_INSTANT_KILL) )
 					{
-						iImpact = pTarget->stats.bLife + Random( 10 );
+						if( iImpact < pTarget->stats.bLife ) // Added check here to see the real impact in game if bigger than life - SANDRO
+							iImpact = pTarget->stats.bLife + Random( 10 );
+						else
+							iImpact += Random( 10 );
+
 						iImpactForCrits = iImpact;
 					}
 
@@ -4919,168 +8632,295 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocat
 		if ( AmmoTypes[ubAmmoType].knife && pFirer->aiData.bOppList[ pTarget->ubID ] == SEEN_CURRENTLY )
 		{
 			// is this a stealth attack?
-			if ( pTarget->aiData.bOppList[ pFirer->ubID ] == NOT_HEARD_OR_SEEN && !CREATURE_OR_BLOODCAT( pTarget ) && (ubHitLocation == AIM_SHOT_HEAD || ubHitLocation == AIM_SHOT_TORSO ) )
+			if ( pTarget->aiData.bOppList[ pFirer->ubID ] == NOT_HEARD_OR_SEEN && !CREATURE_OR_BLOODCAT( pTarget ) 
+				&& (ubHitLocation == AIM_SHOT_HEAD || ubHitLocation == AIM_SHOT_TORSO ) && (pTarget->aiData.bAlertStatus < STATUS_RED || !gGameExternalOptions.fEnhancedCloseCombatSystem) ) // Added check if enemy is alerted - SANDRO
 			{
-				if ( PreRandom( 100 ) < (UINT32)(sHitBy + 10 * NUM_SKILL_TRAITS( pFirer, THROWING )) )
+				// HEADROCK HAM 4: With the original CTH system, the HitBy value represented a randomal margin by
+				// which the shooter surpassed his CTH value. Therefore, only a high CTH shot which randomly succeeded
+				// by a wide margin could reach values of 80 and above, and even then they were rare.
+				// In the new system, HitBy represents a shooter's effort to make his shot more accurate, so shots
+				// done with large amounts of aiming and skill would always result in high HitBy values (up to ~70-80%
+				// regularly for the average shooting using maximum aiming). This means that high HitBy values are now
+				// somewhat more common.
+				// With regards to this bit of code, an increase in average HitBy means that its effect on the formula
+				// should be lessened a little to maintain the same ratio of instant-deaths as in JA2. However, I am
+				// reluctant to make any changes, mainly because I think there's no problem with stealth knife hits
+				// being deadlier. If, however, it is discovered that stealth insta-kills are too common and too powerful,
+				// reduce the effect of this sHitBy, possibly by dividing it here.
+
+				//////////////////////////////////////////////////////////////////////////////////
+				// SANDRO - old/new traits
+				if( !gGameOptions.fNewTraitSystem )
 				{
-					// instant death!
-					iImpact = pTarget->stats.bLife + Random( 10 );
-					iImpactForCrits = iImpact;
+					if ( PreRandom( 100 ) < (UINT32)(sHitBy + 10 * NUM_SKILL_TRAITS( pFirer, THROWING_OT )) )
+					{
+						// instant death!
+						if( iImpact < pTarget->stats.bLife ) // Added check here to see the real impact in game if bigger than life - SANDRO
+							iImpact = pTarget->stats.bLife + Random( 10 );
+						else
+							iImpact += Random( 10 );
+
+						iImpactForCrits = iImpact;
+					}
 				}
+				else
+				{
+					// Throwing trait increases chance to silent critical hit
+					if ( PreRandom( 100 ) < (UINT32)(sHitBy + (HAS_SKILL_TRAIT( pFirer, THROWING_NT ) ? gSkillTraitValues.ubTHBladesSilentCriticalHitChance : 0)) )
+					{
+						// No no no, we don't want instant kill in this case, 
+						// but rather tripled damage, so it also always matters what knife we use - SANDRO
+						iImpact *= ( 3 + gSkillTraitValues.ubTHBladesCriticalHitMultiplierBonus);
+
+						iImpactForCrits = iImpact;
+					}
+				}
+				//////////////////////////////////////////////////////////////////////////////////
 			}
 		}
 
-		if (iImpactForCrits > 0 && iImpactForCrits < pTarget->stats.bLife )
+		if (iImpactForCrits > 0 && iImpactForCrits < pTarget->stats.bLife && !(pTarget->flags.uiStatusFlags & SOLDIER_MONSTER) ) // not to monsters - SANDRO
 		{
-			if (PreRandom( iImpactForCrits / 2 + pFirer->aiData.bAimTime * 5) + 1 > CRITICAL_HIT_THRESHOLD)
+			UINT32 uiCritChance = (iImpactForCrits / 2) + (pFirer->aiData.bAimTime * 5);
+			BOOLEAN fMaliciousHit = FALSE;
+			// SANDRO - Malicious characters inflict stat loss more often
+			if ( gGameOptions.fNewTraitSystem && pFirer->ubProfile != NO_PROFILE )
+			{
+				if ( gMercProfiles[ pFirer->ubProfile ].bCharacterTrait == CHAR_TRAIT_MALICIOUS )
+				{
+					uiCritChance += 8;
+					fMaliciousHit = TRUE;
+				}
+			}
+			// SANDRO - with new traits, the chance for stat loss is higher as we are now able to repair it
+			if ((PreRandom( uiCritChance ) + 1) > (UINT8)(gGameOptions.fNewTraitSystem ? gSkillTraitValues.ubDamageNeededToLoseStats : CRITICAL_HIT_THRESHOLD))
 			{
 				bStatLoss = (INT8) PreRandom( iImpactForCrits / 2 ) + 1;
-				switch( ubHitLocation )
+				// SANDRO - malicious hit
+				if ( fMaliciousHit && Chance( max( 15, uiCritChance )) && ( ubHitLocation == AIM_SHOT_TORSO || ubHitLocation == AIM_SHOT_LEGS ) && 
+					( sHitBy >= 20 ) && ( pTarget->ubBodyType <= STOCKYMALE ) && ( gAnimControl[ pTarget->usAnimState ].ubHeight != ANIM_PRONE ) )
 				{
-					case AIM_SHOT_HEAD:
-						if (bStatLoss >= pTarget->stats.bWisdom)
-						{
-							bStatLoss = pTarget->stats.bWisdom - 1;
-						}
-						if ( bStatLoss > 0 )
-						{
-							pTarget->stats.bWisdom -= bStatLoss;
+					// no stats to lose, but drain breath a lot
+					DeductPoints( pTarget, 0, (5 * APBPConstants[BP_GET_HIT]) );
+					SoldierCollapse( pTarget );
 
-							if (pTarget->ubProfile != NO_PROFILE)
+					if (pTarget->name[0] && pTarget->bVisible == TRUE)
+					{
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SOLDIER_HIT_TO_GROIN], pTarget->name );
+					}
+					// Gain morale for inflicting critical hit
+					HandleMoraleEvent( pFirer, MORALE_MALICIOUS_HIT, pFirer->sSectorX, pFirer->sSectorY, pFirer->bSectorZ );
+
+				}
+				else
+				{
+					switch( ubHitLocation )
+					{
+						case AIM_SHOT_HEAD:
+							if (bStatLoss >= pTarget->stats.bWisdom)
 							{
-								gMercProfiles[ pTarget->ubProfile ].bWisdom = pTarget->stats.bWisdom;
-							}
-
-
-							if (pTarget->name[0] && pTarget->bVisible == TRUE)
-							{
-								// make stat RED for a while...
-								pTarget->timeChanges.uiChangeWisdomTime = GetJA2Clock();
-								pTarget->usValueGoneUp &= ~( WIS_INCREASE );
-
-								if (bStatLoss == 1)
-								{
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_WISDOM], pTarget->name );
-								}
-								else
-								{
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_WISDOM], pTarget->name, bStatLoss );
-								}
-							}
-						}
-						else if ( pTarget->bNumPelletsHitBy == 0 )
-						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_HEAD_HIT], pTarget->name );
-						}
-						
-						// HEADROCK HAM 3.2: Critical headshots may now cause blindness, based on shot damage.
-						if (gGameExternalOptions.ubChanceBlindedByHeadshot)
-						{
-							if (__min(100,(PreRandom(100)+1 + iImpact)) <= gGameExternalOptions.ubChanceBlindedByHeadshot)
-							{
-								if (pTarget->bBlindedCounter < iImpact / 10 )
-									pTarget->bBlindedCounter = iImpact / 10;
-							}
-						}
-
-						break;
-					case AIM_SHOT_TORSO:
-						if (PreRandom( 1 ) == 0 && !(pTarget->flags.uiStatusFlags & SOLDIER_MONSTER) )
-						{
-							if (bStatLoss >= pTarget->stats.bDexterity)
-							{
-								bStatLoss = pTarget->stats.bDexterity - 1;
+								bStatLoss = pTarget->stats.bWisdom - 1;
 							}
 							if ( bStatLoss > 0 )
 							{
-								pTarget->stats.bDexterity -= bStatLoss;
+								pTarget->stats.bWisdom -= bStatLoss;
+								// SANDRO - added this for healing lost stats feature
+								pTarget->ubCriticalStatDamage[DAMAGED_STAT_WISDOM] += bStatLoss;
 
 								if (pTarget->ubProfile != NO_PROFILE)
 								{
-									gMercProfiles[ pTarget->ubProfile ].bDexterity = pTarget->stats.bDexterity;
+									gMercProfiles[ pTarget->ubProfile ].bWisdom = pTarget->stats.bWisdom;
 								}
 
 								if (pTarget->name[0] && pTarget->bVisible == TRUE)
 								{
 									// make stat RED for a while...
-									pTarget->timeChanges.uiChangeDexterityTime = GetJA2Clock();
-									pTarget->usValueGoneUp &= ~( DEX_INCREASE );
+									pTarget->timeChanges.uiChangeWisdomTime = GetJA2Clock();
+									pTarget->usValueGoneUp &= ~( WIS_INCREASE );
 
 									if (bStatLoss == 1)
 									{
-										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_DEX], pTarget->name );
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_WISDOM], pTarget->name );
 									}
 									else
 									{
-										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_DEX], pTarget->name, bStatLoss );
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_WISDOM], pTarget->name, bStatLoss );
 									}
 								}
 							}
-						}
-						else
-						{
-							if (bStatLoss >= pTarget->stats.bStrength)
+							else if ( pTarget->bNumPelletsHitBy == 0 )
 							{
-								bStatLoss = pTarget->stats.bStrength - 1;
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_HEAD_HIT], pTarget->name );
+							}
+
+							// HEADROCK HAM 3.2: Critical headshots may now cause blindness, based on shot damage.
+							if (gGameExternalOptions.ubChanceBlindedByHeadshot)
+							{
+								if (PreRandom(gGameExternalOptions.ubChanceBlindedByHeadshot) == 0)
+								{
+									if (pTarget->bBlindedCounter < iImpact / 10 )
+										pTarget->bBlindedCounter = iImpact / 10;
+								}
+							}
+
+							break;
+						case AIM_SHOT_TORSO:
+							// SANDRO - added a 20% chance to loose maximum health
+							if ( PreRandom( 5 ) == 0 )
+							{
+								if (bStatLoss >= (pTarget->stats.bLifeMax - OKLIFE))
+								{
+									bStatLoss = pTarget->stats.bLifeMax - OKLIFE - 1;
+								}
+								if ( bStatLoss > iImpact)
+								{
+									bStatLoss = iImpact;
+								}
+								if ( bStatLoss > 0 )
+								{
+									pTarget->stats.bLifeMax -= bStatLoss;
+									// SANDRO - added this for healing lost stats feature
+									pTarget->ubCriticalStatDamage[DAMAGED_STAT_HEALTH] += bStatLoss;
+
+									if (pTarget->ubProfile != NO_PROFILE)
+									{
+										gMercProfiles[ pTarget->ubProfile ].bLifeMax = pTarget->stats.bLifeMax;
+									}
+
+									if (pTarget->name[0] && pTarget->bVisible == TRUE)
+									{
+										// make stat RED for a while...
+										pTarget->timeChanges.uiChangeDexterityTime = GetJA2Clock();
+										pTarget->usValueGoneUp &= ~( HEALTH_INCREASE );
+
+										if (bStatLoss == 1)
+										{
+											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_LOSES_ONE_POINT_MAX_HEALTH], pTarget->name );
+										}
+										else
+										{
+											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_LOSES_X_POINTS_MAX_HEALTH], pTarget->name, bStatLoss );
+										}
+									}
+								}
+							}
+							else
+							{
+								// 50:50 to lose strength or dexterity
+								if (PreRandom( 3 ) < 4 )
+								{
+									if (bStatLoss >= pTarget->stats.bDexterity)
+									{
+										bStatLoss = pTarget->stats.bDexterity - 1;
+									}
+									if ( bStatLoss > 0 )
+									{
+										pTarget->stats.bDexterity -= bStatLoss;
+										// SANDRO - added this for healing lost stats feature
+										pTarget->ubCriticalStatDamage[DAMAGED_STAT_DEXTERITY] += bStatLoss;
+
+										if (pTarget->ubProfile != NO_PROFILE)
+										{
+											gMercProfiles[ pTarget->ubProfile ].bDexterity = pTarget->stats.bDexterity;
+										}
+
+										if (pTarget->name[0] && pTarget->bVisible == TRUE)
+										{
+											// make stat RED for a while...
+											pTarget->timeChanges.uiChangeDexterityTime = GetJA2Clock();
+											pTarget->usValueGoneUp &= ~( DEX_INCREASE );
+
+											if (bStatLoss == 1)
+											{
+												ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_DEX], pTarget->name );
+											}
+											else
+											{
+												ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_DEX], pTarget->name, bStatLoss );
+											}
+										}
+									}
+								}
+								else
+								{
+									if (bStatLoss >= pTarget->stats.bStrength)
+									{
+										bStatLoss = pTarget->stats.bStrength - 1;
+									}
+									if ( bStatLoss > 0 )
+									{
+										pTarget->stats.bStrength -= bStatLoss;
+										// SANDRO - added this for healing lost stats feature
+										pTarget->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] += bStatLoss;
+
+										if (pTarget->ubProfile != NO_PROFILE)
+										{
+											gMercProfiles[ pTarget->ubProfile ].bStrength = pTarget->stats.bStrength;
+										}
+
+										if (pTarget->name[0] && pTarget->bVisible == TRUE)
+										{
+											// make stat RED for a while...
+											pTarget->timeChanges.uiChangeStrengthTime = GetJA2Clock();
+											pTarget->usValueGoneUp &= ~( STRENGTH_INCREASE );
+
+											if (bStatLoss == 1)
+											{
+												ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_STRENGTH], pTarget->name );
+											}
+											else
+											{
+												ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_STRENGTH], pTarget->name, bStatLoss );
+											}
+										}
+									}
+								}
+							}
+							break;
+						case AIM_SHOT_LEGS:
+							if (bStatLoss >= pTarget->stats.bAgility)
+							{
+								bStatLoss = pTarget->stats.bAgility - 1;
 							}
 							if ( bStatLoss > 0 )
 							{
-								pTarget->stats.bStrength -= bStatLoss;
+								pTarget->stats.bAgility -= bStatLoss;
+								// SANDRO - added this for healing lost stats feature
+								pTarget->ubCriticalStatDamage[DAMAGED_STAT_AGILITY] += bStatLoss;
 
 								if (pTarget->ubProfile != NO_PROFILE)
 								{
-									gMercProfiles[ pTarget->ubProfile ].bStrength = pTarget->stats.bStrength;
+									gMercProfiles[ pTarget->ubProfile ].bAgility = pTarget->stats.bAgility;
 								}
 
 								if (pTarget->name[0] && pTarget->bVisible == TRUE)
 								{
 									// make stat RED for a while...
-									pTarget->timeChanges.uiChangeStrengthTime = GetJA2Clock();
-									pTarget->usValueGoneUp &= ~( STRENGTH_INCREASE );
+									pTarget->timeChanges.uiChangeAgilityTime = GetJA2Clock();
+									pTarget->usValueGoneUp &= ~( AGIL_INCREASE );
 
 									if (bStatLoss == 1)
 									{
-										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_STRENGTH], pTarget->name );
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_AGIL], pTarget->name );
 									}
 									else
 									{
-										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_STRENGTH], pTarget->name, bStatLoss );
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_AGIL], pTarget->name, bStatLoss );
 									}
 								}
 							}
-						}
-						break;
-					case AIM_SHOT_LEGS:
-						if (bStatLoss >= pTarget->stats.bAgility)
-						{
-							bStatLoss = pTarget->stats.bAgility - 1;
-						}
-						if ( bStatLoss > 0 )
-						{
-							pTarget->stats.bAgility -= bStatLoss;
+							break;
+					}
 
-							if (pTarget->ubProfile != NO_PROFILE)
-							{
-								gMercProfiles[ pTarget->ubProfile ].bAgility = pTarget->stats.bAgility;
-							}
+					// SANDRO - Gain morale for inflicting critical hit if malicious character
+					if ( fMaliciousHit )
+					{
+						HandleMoraleEvent( pFirer, MORALE_MALICIOUS_HIT, pFirer->sSectorX, pFirer->sSectorY, pFirer->bSectorZ );
+					}
 
-							if (pTarget->name[0] && pTarget->bVisible == TRUE)
-							{
-								// make stat RED for a while...
-								pTarget->timeChanges.uiChangeAgilityTime = GetJA2Clock();
-								pTarget->usValueGoneUp &= ~( AGIL_INCREASE );
-
-								if (bStatLoss == 1)
-								{
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_AGIL], pTarget->name );
-								}
-								else
-								{
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_AGIL], pTarget->name, bStatLoss );
-								}
-							}
-						}
-						break;
+					// SANDRO - new merc records - times stat damaged
+					if ( bStatLoss > 0 && pTarget->ubProfile != NO_PROFILE )
+						gMercProfiles[ pTarget->ubProfile ].records.usTimesStatDamaged++;
 				}
 			}
 			else if ( ubHitLocation == AIM_SHOT_HEAD && pTarget->bNumPelletsHitBy == 0 )
@@ -5095,6 +8935,10 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocat
 
 INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BOOLEAN fBladeAttack )
 {
+	////////////////////////////////////////////
+	// SANDRO - this all was somehow messed up
+	////////////////////////////////////////////
+
 	INT32 iImpact, iFluke, iBonus;
 
 	if (fBladeAttack)
@@ -5113,28 +8957,54 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 		iImpact = ( EffectiveExpLevel( pSoldier ) / 2); // 0 to 4 for level
 		iImpact += EffectiveStrength( pSoldier ) / 5; // 0 to 20 for strength, adjusted by damage taken
 
-		// NB martial artists don't get a bonus for using brass knuckles!
-		if (pSoldier->usAttackingWeapon && !( HAS_SKILL_TRAIT( pSoldier, MARTIALARTS ) ) )
+		// NB martial artists don't get a bonus for using brass knuckles! - oh, they do in STOMP - SANDRO
+		if (pSoldier->usAttackingWeapon )
 		{
-			iImpact += GetDamage(&pSoldier->inv[HANDPOS]);
-
-			if ( AM_A_ROBOT( pTarget ) )
+			if ( gGameOptions.fNewTraitSystem )
 			{
-				iImpact /= 2;
+				iImpact += GetDamage(&pSoldier->inv[HANDPOS]);
+
+				if ( AM_A_ROBOT( pTarget ) )
+				{
+					iImpact /= 2;
+				}
+			}
+			else
+			{
+				if (!HAS_SKILL_TRAIT( pSoldier, MARTIALARTS_OT ))
+				{
+					iImpact += GetDamage(&pSoldier->inv[HANDPOS]);
+				}
+				if ( AM_A_ROBOT( pTarget ) )
+				{
+					iImpact /= 2;
+				}
 			}
 		}
 		else
 		{
 			// base HTH damage
-			iImpact += 5;
+			// Enhanced Close Combat System - Slightly reduced for we can now attack to head for bigger damage
+			if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+			{
+				iImpact += 4;
+			}
+			else
+			{
+				iImpact += 5;
+			}
+
+			// Add melee damage multiplier to HtH attacks as well - SANDRO
+			// actually I make the influence a little lesser, because to the blades and so,
+			// only the item impact is multiplied, not the level and strength bonus, but here it does
+			iImpact = (INT32)(iImpact * gGameExternalOptions.iMeleeDamageModifier / 100 ); 
+
 			if ( AM_A_ROBOT( pTarget ) )
 			{
 				iImpact = 0;
 			}
 		}
-
 	}
-
 
 	iFluke = PreRandom( 51 ) - 25; // +/-25% bonus due to random factors
 	iBonus = iHitBy / 2;				// up to 50% extra impact for accurate attacks
@@ -5143,22 +9013,165 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 
 	if (!fBladeAttack)
 	{
-		// add bonuses for hand-to-hand and martial arts
-		if ( HAS_SKILL_TRAIT( pSoldier, MARTIALARTS ) )
+		if ( gGameOptions.fNewTraitSystem )
 		{
-			iImpact = iImpact * ( 100 + gbSkillTraitBonus[MARTIALARTS] * NUM_SKILL_TRAITS( pSoldier, MARTIALARTS ) ) / 100;
-			if (pSoldier->usAnimState == NINJA_SPINKICK)
+			if (!pSoldier->usAttackingWeapon || Item[pSoldier->inv[HANDPOS].usItem].brassknuckles)
 			{
-				iImpact *= 2;
+				// add bonuses for martial arts
+				if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) )
+				{
+					iImpact = (INT32)((iImpact * (100 + gSkillTraitValues.ubMABonusDamageHandToHand * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) ) / 100) + 0.5);
+
+					// The Spinning kicks or aimed punch bonus - SANDRO
+					if (pSoldier->usAnimState == NINJA_SPINKICK || (pSoldier->aiData.bAimTime >= (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6)))
+					{
+						iImpact = (INT32)((iImpact * (100 + gSkillTraitValues.usMAAimedPunchDamageBonus * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) ) / 100) + 0.5); // +75% damage per trait
+					}
+				}
+			}
+			else
+			{
+				// +30% damage of blunt weapons for melee character
+				if (HAS_SKILL_TRAIT( pSoldier, MELEE_NT ))
+				{
+					iImpact = (INT32)(iImpact * (100 + gSkillTraitValues.ubMEDamageBonusBlunt)/100);
+
+					if (pSoldier->aiData.bAimTime >= (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : 6))
+					{
+						iImpact = (INT32)(iImpact * (100 + gSkillTraitValues.usMEAimedMeleeAttackDamageBonus) / 100);  // 50% incresed damage if focused melee attack
+					}
+				}
 			}
 		}
-		if ( HAS_SKILL_TRAIT( pSoldier, HANDTOHAND ) )
+		else // original code
 		{
-			// SPECIAL  - give TRIPLE bonus for damage for hand-to-hand trait
-			// because the HTH bonus is half that of martial arts, and gets only 1x for to-hit bonus
-			iImpact = iImpact * ( 100 + 3 * gbSkillTraitBonus[HANDTOHAND] * NUM_SKILL_TRAITS( pSoldier, HANDTOHAND ) ) / 100;
+			// add bonuses for hand-to-hand and martial arts
+			if ( HAS_SKILL_TRAIT( pSoldier, MARTIALARTS_OT ) )
+			{
+				iImpact = iImpact * ( 100 + gbSkillTraitBonus[MARTIALARTS_OT] * NUM_SKILL_TRAITS( pSoldier, MARTIALARTS_OT ) ) / 100;
+				if (pSoldier->usAnimState == NINJA_SPINKICK)
+				{
+					iImpact *= 2;
+				}
+			}
+			if ( HAS_SKILL_TRAIT( pSoldier, HANDTOHAND_OT ) )
+			{
+				// SPECIAL  - give TRIPLE bonus for damage for hand-to-hand trait
+				// because the HTH bonus is half that of martial arts, and gets only 1x for to-hit bonus
+				iImpact = iImpact * ( 100 + 3 * gbSkillTraitBonus[HANDTOHAND_OT] * NUM_SKILL_TRAITS( pSoldier, HANDTOHAND_OT ) ) / 100;
+			}
+		}
+
+		// Enhanced Close Combat System - aiming at body parts makes difference
+		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+		{
+			if (pSoldier->bAimShotLocation == AIM_SHOT_HEAD)
+			{
+				iImpact = (INT32)((iImpact * 125 / 100) + 0.5); // Punch or kick to head deal more damage (as bonus for -20% accuracy )
+			}
+			else if	( pSoldier->bAimShotLocation == AIM_SHOT_LEGS )
+			{
+				// Punch or kick to legs deal less damage but takes some AP per damage out of target adjusted by AP_MAXIMUM
+				// NO, better to make hit to legs have a much better chance to hit, while only 50% damage
+				iImpact = (INT32)((iImpact * 60 / 100) + 0.5); 
+				//DeductPoints( pTarget, (APBPConstants[AP_MAXIMUM] / 10), 0 );
+			}
+			else if (gAnimControl[ pTarget->usAnimState ].ubEndHeight == ANIM_PRONE)
+			{
+				iImpact = (INT32)((iImpact * 130 / 100) + 0.5);  // 30% incresed damage to lying characters
+			}
+
+			// Surprising attack deals more damage
+			if (pTarget->aiData.bOppList[ pSoldier->ubID ] == NOT_HEARD_OR_SEEN && !CREATURE_OR_BLOODCAT( pTarget ) )
+			{
+				iImpact = (INT32)((iImpact * 140 / 100) + 0.5);  // 30% incresed damage on suprising attacks
+			}
 		}
 	}
+	// DAMAGE BONUS TO KNIFE ATTACK WITH MELEE SKILL
+	else 
+	{
+		if ( HAS_SKILL_TRAIT( pSoldier, MELEE_NT ) && ( gGameOptions.fNewTraitSystem ))
+		{
+			iImpact = (INT32)(iImpact * ( 100 + gSkillTraitValues.ubMEDamageBonusBlades ) / 100); // +30% damage
+
+			if (pSoldier->aiData.bAimTime >= (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : 6))
+			{
+				iImpact = (INT32)(iImpact * ( 100 + gSkillTraitValues.usMEAimedMeleeAttackDamageBonus ) / 100);  // 50% incresed damage if focused melee attack
+			}
+		}
+		// Enhanced Close Combat System
+		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+		{
+			if (gAnimControl[ pTarget->usAnimState ].ubEndHeight == ANIM_PRONE)
+			{
+				iImpact = (INT32)(iImpact * 125 / 100);  // 40% incresed damage to lying characters
+			}
+		}
+	}
+
+	// bonus damage for aggressive characters
+	if ( gGameOptions.fNewTraitSystem && gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
+	{
+		iImpact = (INT32)((iImpact * 11 / 10) + 0.5); // +10%
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - Damage resistance for Militia
+	if (!IsAutoResolveActive())
+	{
+		if (pTarget->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.bGreenMilitiaDamageResistance != 0)
+			iImpact -= ((iImpact * gGameExternalOptions.bGreenMilitiaDamageResistance) /100);
+		else if (pTarget->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.bRegularMilitiaDamageResistance != 0)
+			iImpact -= ((iImpact * gGameExternalOptions.bRegularMilitiaDamageResistance) /100);
+		else if (pTarget->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.bVeteranMilitiaDamageResistance != 0)
+			iImpact -= ((iImpact * gGameExternalOptions.bVeteranMilitiaDamageResistance) /100);
+		// bonus for enemy too
+		else if (pTarget->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminDamageResistance != 0)
+			iImpact -= ((iImpact * gGameExternalOptions.sEnemyAdminDamageResistance) /100);
+		else if (pTarget->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularDamageResistance != 0)
+			iImpact -= ((iImpact * gGameExternalOptions.sEnemyRegularDamageResistance) /100);
+		else if (pTarget->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteDamageResistance != 0)
+			iImpact -= ((iImpact * gGameExternalOptions.sEnemyEliteDamageResistance) /100);
+
+		iImpact = max( 1, iImpact);
+	}
+	//////////////////////////////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - option to make special NPCs stronger - damage resistance
+	if (gGameExternalOptions.usSpecialNPCStronger > 0)
+	{
+		switch( pTarget->ubProfile )
+		{
+			case CARMEN:
+			case QUEEN:
+			case JOE:
+			case ANNIE:
+			case CHRIS:
+			case KINGPIN:
+			case TIFFANY:
+			case T_REX:
+			case DRUGGIST:
+			case GENERAL:
+			case JACK:
+			case OLAF:
+			case RAY:
+			case OLGA:
+			case TYRONE:
+			case MIKE:
+				iImpact -= (INT32)(iImpact * gGameExternalOptions.usSpecialNPCStronger / 200);
+				iImpact = max( 1, iImpact);
+				break;
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// STOMP traits - Bodybuilding damage resistance
+	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pTarget, BODYBUILDING_NT ) )
+		iImpact = max( 1, (INT32)(iImpact * (100 - gSkillTraitValues.ubBBDamageResistance) / 100)); 
+	////////////////////////////////////////////////////////////////////////////////////
 
 	return( iImpact );
 }
@@ -5238,12 +9251,12 @@ void ShotMiss( UINT8 ubAttackerID, INT32 iBullet )
 
 UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAimTime, UINT8 ubMode )
 {
-  UINT16 usInHand;
+	UINT16 usInHand;
 	UINT8 ubBandaged;
-  INT32 iAttRating, iDefRating;
+	INT32 iAttRating, iDefRating;
 	INT32 iChance;
 
-  usInHand = pAttacker->usAttackingWeapon;
+	usInHand = pAttacker->usAttackingWeapon;
 
 	if ( (usInHand != CREATURE_QUEEN_TENTACLES ) && (pDefender->stats.bLife < OKLIFE || pDefender->bBreath < OKBREATH) )
 	{
@@ -5270,14 +9283,28 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 		}
 	}
 
-  // CALCULATE ATTACKER'S CLOSE COMBAT RATING (1-100)
+	// CALCULATE ATTACKER'S CLOSE COMBAT RATING (1-100)
 	if (ubMode == HTH_MODE_STEAL)
 	{
-		// this is more of a brute force strength-vs-strength check
-		iAttRating = ( EffectiveDexterity( pAttacker ) + // coordination, accuracy
-				 EffectiveAgility( pAttacker ) +    // speed & reflexes
-				 3 * pAttacker->stats.bStrength +    // physical strength (TRIPLED!)
-				 (10 * EffectiveExpLevel( pAttacker ) ) );  // experience, knowledge
+		///////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - Enhanced Close Combat System - different calculation for stealing
+		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+		{
+			// We need to be agile and dexterous
+			iAttRating = ( 2 * EffectiveDexterity( pAttacker ) + // coordination, accuracy  *
+					 2 * EffectiveAgility( pAttacker ) +    // speed & reflexes
+				     pAttacker->stats.bStrength +    // physical strength 
+					 (10 * EffectiveExpLevel( pAttacker ) ) );  // experience, knowledge
+		}
+		else
+		{
+					// this is more of a brute force strength-vs-strength check
+			iAttRating = ( EffectiveDexterity( pAttacker ) + // coordination, accuracy
+					 EffectiveAgility( pAttacker ) +    // speed & reflexes
+					 3 * pAttacker->stats.bStrength +    // physical strength (TRIPLED!)
+					 (10 * EffectiveExpLevel( pAttacker ) ) );  // experience, knowledge
+		}
+		///////////////////////////////////////////////////////////////////////////////////////
 	}
 	else
 	{
@@ -5287,10 +9314,10 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 				 (10 * EffectiveExpLevel( pAttacker ) ) );  // experience, knowledge
 	}
 
-  iAttRating /= 6;  // convert from 6-600 to 1-100
+	iAttRating /= 6;  // convert from 6-600 to 1-100
 
-	// psycho bonus
-	if ( pAttacker->ubProfile != NO_PROFILE && gMercProfiles[ pAttacker->ubProfile ].bPersonalityTrait == PSYCHO )
+	// psycho bonus - only with old traits - SANDRO
+	if ( !( gGameOptions.fNewTraitSystem ) && pAttacker->ubProfile != NO_PROFILE && gMercProfiles[ pAttacker->ubProfile ].bDisability == PSYCHO )
 	{
 		iAttRating += AIM_BONUS_PSYCHO;
 	}
@@ -5301,86 +9328,162 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	// modify for fatigue
 	iAttRating -= GetSkillCheckPenaltyForFatigue( pAttacker, iAttRating );
 
-  // if attacker spent some extra time aiming
-  if (ubAimTime)
-   {
-    // use only HALF of the normal aiming bonus for knife aiming.
-    // since there's no range penalty, the bonus is otherwise too generous
-    iAttRating += ((AIM_BONUS_PER_AP * ubAimTime) / 2);    //bonus for aiming
-   }
-
-  if (! (pAttacker->flags.uiStatusFlags & SOLDIER_PC) )   // if attacker is a computer AI controlled enemy
+	// if attacker spent some extra time aiming
+	if (ubAimTime)
 	{
-    iAttRating += gbDiff[ DIFF_ENEMY_TO_HIT_MOD ][ SoldierDifficultyLevel( pAttacker ) ];
+		// use only HALF of the normal aiming bonus for knife aiming.
+		// since there's no range penalty, the bonus is otherwise too generous
+		// SANDRO - Enhanced Close Combat System - Because you can only aim once, I've rather put here a flat number
+		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+			iAttRating += 20;
+		else
+			iAttRating += ((AIM_BONUS_PER_AP * ubAimTime) / 2);    //bonus for aiming
 	}
 
-  // if attacker is being affected by gas
-  if ( pAttacker->flags.uiStatusFlags & SOLDIER_GASSED )
-    iAttRating -= AIM_PENALTY_GASSED;
-
-  // if attacker is being bandaged at the same time, his concentration is off
-	if (pAttacker->ubServiceCount > 0)
-	  iAttRating -= AIM_PENALTY_GETTINGAID;
-
-  // if attacker is still in shock
-  if (pAttacker->aiData.bShock)
-    iAttRating -= (pAttacker->aiData.bShock * AIM_PENALTY_PER_SHOCK);
-
-/*
-  // if the attacker is an A.I.M. mercenary
-  if (pAttacker->characternum < MAX_AIM_MERCS)	// exclude Gus
-    iAttRating += AdjustChanceForProfile(pAttacker,pDefender);
-*/
-
-  // If attacker injured, reduce chance accordingly (by up to 2/3rds)
-  if ((iAttRating > 0) && (pAttacker->stats.bLife < pAttacker->stats.bLifeMax))
-   {
-    // if bandaged, give 1/2 of the bandaged life points back into equation
-    ubBandaged = pAttacker->stats.bLifeMax - pAttacker->stats.bLife - pAttacker->bBleeding;
-
-    iAttRating -= (2 * iAttRating * (pAttacker->stats.bLifeMax - pAttacker->stats.bLife + (ubBandaged / 2))) /
-		 (3 * pAttacker->stats.bLifeMax);
-   }
-
-  // If attacker tired, reduce chance accordingly (by up to 1/2)
-  if ((iAttRating > 0) && (pAttacker->bBreath < 100))
-    iAttRating -= (iAttRating * (100 - pAttacker->bBreath)) / 200;
-
-	if (pAttacker->ubProfile != NO_PROFILE)
+	if (! (pAttacker->flags.uiStatusFlags & SOLDIER_PC) )   // if attacker is a computer AI controlled enemy
 	{
-		if (ubMode == HTH_MODE_STAB)
+		iAttRating += gbDiff[ DIFF_ENEMY_TO_HIT_MOD ][ SoldierDifficultyLevel( pAttacker ) ];
+	}
+
+	// if attacker is being affected by gas
+	if ( pAttacker->flags.uiStatusFlags & SOLDIER_GASSED )
+		iAttRating -= AIM_PENALTY_GASSED;
+
+	// if attacker is being bandaged at the same time, his concentration is off
+	if (pAttacker->ubServiceCount > 0)
+		iAttRating -= AIM_PENALTY_GETTINGAID;
+
+	// if attacker is still in shock
+	if (pAttacker->aiData.bShock)
+		iAttRating -= (pAttacker->aiData.bShock * AIM_PENALTY_PER_SHOCK);
+
+	// if the attacker is an A.I.M. mercenary
+	//if (pAttacker->characternum < MAX_AIM_MERCS)	// exclude Gus
+	//	iAttRating += AdjustChanceForProfile(pAttacker,pDefender);
+
+	// If attacker injured, reduce chance accordingly (by up to 2/3rds)
+	if ((iAttRating > 0) && (pAttacker->stats.bLife < pAttacker->stats.bLifeMax))
+	{
+		// if bandaged, give 1/2 of the bandaged life points back into equation
+		ubBandaged = pAttacker->stats.bLifeMax - pAttacker->stats.bLife - pAttacker->bBleeding;
+
+		iAttRating -= (2 * iAttRating * (pAttacker->stats.bLifeMax - pAttacker->stats.bLife + (ubBandaged / 2))) / (3 * pAttacker->stats.bLifeMax);
+	}
+
+	// If attacker tired, reduce chance accordingly (by up to 1/2)
+	if ((iAttRating > 0) && (pAttacker->bBreath < 100))
+		iAttRating -= (iAttRating * (100 - pAttacker->bBreath)) / 200;
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - old/new traits
+	if (ubMode == HTH_MODE_STAB)
+	{
+		// add bonus for melee/knifing
+		if ( gGameOptions.fNewTraitSystem )
 		{
-			if (HAS_SKILL_TRAIT( pAttacker, KNIFING ))
+			iAttRating += gSkillTraitValues.bCtHModifierKnifeAttack; // Make melee attacks a little more problematic for untrained mercs
+
+			if (HAS_SKILL_TRAIT( pAttacker, MELEE_NT ))
 			{
-				iAttRating += gbSkillTraitBonus[KNIFING] * NUM_SKILL_TRAITS( pAttacker, KNIFING );
+				iAttRating += gSkillTraitValues.ubMECtHBladesBonus;
 			}
+		}
+		else if (HAS_SKILL_TRAIT( pAttacker, KNIFING_OT ))
+		{
+			iAttRating += gbSkillTraitBonus[KNIFING_OT] * NUM_SKILL_TRAITS( pAttacker, KNIFING_OT );
+		}
+	}
+	else
+	{
+		// add bonus for martial arts/melee
+		if ( gGameOptions.fNewTraitSystem )
+		{
+			iAttRating += gSkillTraitValues.bCtHModifierHtHAttack; // Make HtH attacks a little more problematic for untrained mercs
+
+			// bare hands - bonus for Martial arts
+			if (!pAttacker->usAttackingWeapon && HAS_SKILL_TRAIT( pAttacker, MARTIAL_ARTS_NT ))
+			{
+				iAttRating += gSkillTraitValues.ubMABonusCtHBareHands * NUM_SKILL_TRAITS( pAttacker, MARTIAL_ARTS_NT );
+			}
+			// brass knuckles - bonus for Martial Arts (but a little lesser)
+			else if (Item[pAttacker->inv[HANDPOS].usItem].brassknuckles && HAS_SKILL_TRAIT( pAttacker, MARTIAL_ARTS_NT ))
+			{
+				iAttRating += gSkillTraitValues.ubMABonusCtHBrassKnuckles * NUM_SKILL_TRAITS( pAttacker, MARTIAL_ARTS_NT );
+			}
+			// blunt melee weapons - bonus for Melee
+			else if (HAS_SKILL_TRAIT( pAttacker, MELEE_NT ))
+			{
+				iAttRating += gSkillTraitValues.ubMECtHBluntBonus;
+			}
+		}
+		else // original code
+		{
+			if (HAS_SKILL_TRAIT( pAttacker, MARTIALARTS_OT ))
+			{
+				iAttRating += gbSkillTraitBonus[MARTIALARTS_OT] * NUM_SKILL_TRAITS( pAttacker, MARTIALARTS_OT );
+			}
+			if ( HAS_SKILL_TRAIT( pAttacker, HANDTOHAND_OT ) )
+			{
+				iAttRating += gbSkillTraitBonus[HANDTOHAND_OT] * NUM_SKILL_TRAITS( pAttacker, HANDTOHAND_OT );
+			}
+		}
+	}
+	
+	// Added character traits influence
+	if ( gGameOptions.fNewTraitSystem && pAttacker->ubProfile != NO_PROFILE )
+	{
+		// Sociable - better performance in groups
+		if ( gMercProfiles[ pAttacker->ubProfile ].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+		{	
+			INT8 bNumMercs = CheckMercsNearForCharTraits( pAttacker->ubProfile, CHAR_TRAIT_SOCIABLE );
+			if ( bNumMercs > 2 )
+				iAttRating += 5;
+			else if ( bNumMercs > 0 )
+				iAttRating += 2;
+		}
+		// Loner - better performance when alone
+		else if ( gMercProfiles[ pAttacker->ubProfile ].bCharacterTrait == CHAR_TRAIT_LONER )
+		{	
+			INT8 bNumMercs = CheckMercsNearForCharTraits( pAttacker->ubProfile, CHAR_TRAIT_LONER );
+			if ( bNumMercs == 0 )
+				iAttRating += 5;
+			else if ( bNumMercs <= 1 )
+				iAttRating += 2;
+		}
+		// Show-off - better performance if some babes around to impress
+		else if ( gMercProfiles[ pAttacker->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+		{	
+			INT8 bNumMercs = CheckMercsNearForCharTraits( pAttacker->ubProfile, CHAR_TRAIT_SHOWOFF );
+			if ( bNumMercs > 1 )
+				iAttRating += 5;
+			else if ( bNumMercs > 0 )
+				iAttRating += 2;
+		}
+	}		
+	////////////////////////////////////////////////////////////////////////////////////
+
+	if (iAttRating < 1)
+		iAttRating = 1;
+
+
+	// CALCULATE DEFENDER'S CLOSE COMBAT RATING (0-100)
+	if (ubMode == HTH_MODE_STEAL)
+	{
+		// SANDRO - Enhanced Close Combat System - stealing defence based on dexterity and strength
+		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+		{
+			iDefRating = ( EffectiveAgility( pDefender )) +   // speed & reflexes
+			   2 * EffectiveDexterity( pDefender ) +  // coordination, accuracy
+			   2 * pDefender->stats.bStrength +    // physical strength 
+			   (10 * EffectiveExpLevel( pDefender ) );  // experience, knowledge
 		}
 		else
 		{
-			// add bonuses for hand-to-hand and martial arts
-			if (HAS_SKILL_TRAIT( pAttacker, MARTIALARTS ))
-			{
-				iAttRating += gbSkillTraitBonus[MARTIALARTS] * NUM_SKILL_TRAITS( pAttacker, MARTIALARTS );
-			}
-			if ( HAS_SKILL_TRAIT( pAttacker, HANDTOHAND ) )
-			{
-				iAttRating += gbSkillTraitBonus[HANDTOHAND] * NUM_SKILL_TRAITS( pAttacker, HANDTOHAND );
-			}
+			iDefRating = (EffectiveAgility( pDefender )) +   // speed & reflexes
+			   EffectiveDexterity( pDefender ) +  // coordination, accuracy
+			   3 * pDefender->stats.bStrength +    // physical strength (TRIPLED!)
+			   (10 * EffectiveExpLevel( pDefender ) );  // experience, knowledge
 		}
-	}
-
-
-  if (iAttRating < 1)
-    iAttRating = 1;
-
-
-  // CALCULATE DEFENDER'S CLOSE COMBAT RATING (0-100)
-	if (ubMode == HTH_MODE_STEAL)
-	{
-		iDefRating = (EffectiveAgility( pDefender )) +   // speed & reflexes
-		   EffectiveDexterity( pDefender ) +  // coordination, accuracy
-		   3 * pDefender->stats.bStrength +    // physical strength (TRIPLED!)
-	     (10 * EffectiveExpLevel( pDefender ) );  // experience, knowledge
 	}
 	else
 	{
@@ -5390,7 +9493,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	     (10 * EffectiveExpLevel( pDefender ) );  // experience, knowledge
 	}
 
-  iDefRating /= 6;  // convert from 6-600 to 1-100
+	iDefRating /= 6;  // convert from 6-600 to 1-100
 
 	// modify chance to dodge by morale
 	iDefRating += GetMoraleModifier( pDefender );
@@ -5398,38 +9501,30 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	// modify for fatigue
 	iDefRating -= GetSkillCheckPenaltyForFatigue( pDefender, iDefRating );
 
-  // if attacker is being affected by gas
-  if ( pDefender->flags.uiStatusFlags & SOLDIER_GASSED )
-    iDefRating -= AIM_PENALTY_GASSED;
+	// if attacker is being affected by gas
+	if ( pDefender->flags.uiStatusFlags & SOLDIER_GASSED )
+		iDefRating -= AIM_PENALTY_GASSED;
 
-  // if defender is being bandaged at the same time, his concentration is off
+	// if defender is being bandaged at the same time, his concentration is off
 	if (pDefender->ubServiceCount > 0)
-	  iDefRating -= AIM_PENALTY_GETTINGAID;
+		iDefRating -= AIM_PENALTY_GETTINGAID;
 
-  // if defender is still in shock
-  if (pDefender->aiData.bShock)
-    iDefRating -= (pDefender->aiData.bShock * AIM_PENALTY_PER_SHOCK);
+	// if defender is still in shock
+	if (pDefender->aiData.bShock)
+		iDefRating -= (pDefender->aiData.bShock * AIM_PENALTY_PER_SHOCK);
 
-/*
-  // if the defender is an A.I.M. mercenary
-  if (pDefender->characternum < MAX_AIM_MERCS)	// exclude Gus
-    iDefRating += AdjustChanceForProfile(pDefender,pAttacker);
-*/
+	// If defender injured, reduce chance accordingly (by up to 2/3rds)
+	if ((iDefRating > 0) && (pDefender->stats.bLife < pDefender->stats.bLifeMax))
+	{
+		// if bandaged, give 1/2 of the bandaged life points back into equation
+		ubBandaged = pDefender->stats.bLifeMax - pDefender->stats.bLife - pDefender->bBleeding;
 
-  // If defender injured, reduce chance accordingly (by up to 2/3rds)
-  if ((iDefRating > 0) && (pDefender->stats.bLife < pDefender->stats.bLifeMax))
-   {
-    // if bandaged, give 1/2 of the bandaged life points back into equation
-    ubBandaged = pDefender->stats.bLifeMax - pDefender->stats.bLife - pDefender->bBleeding;
+		iDefRating -= (2 * iDefRating * (pDefender->stats.bLifeMax - pDefender->stats.bLife + (ubBandaged / 2))) / (3 * pDefender->stats.bLifeMax);
+	}
 
-    iDefRating -= (2 * iDefRating * (pDefender->stats.bLifeMax - pDefender->stats.bLife + (ubBandaged / 2))) /
-		 (3 * pDefender->stats.bLifeMax);
-
-   }
-
-  // If defender tired, reduce chance accordingly (by up to 1/2)
-  if ((iDefRating > 0) && (pDefender->bBreath < 100))
-    iDefRating -= (iDefRating * (100 - pDefender->bBreath)) / 200;
+	// If defender tired, reduce chance accordingly (by up to 1/2)
+	if ((iDefRating > 0) && (pDefender->bBreath < 100))
+		iDefRating -= (iDefRating * (100 - pDefender->bBreath)) / 200;
 
 	if ( usInHand == CREATURE_QUEEN_TENTACLES && pDefender->ubBodyType == LARVAE_MONSTER || pDefender->ubBodyType == INFANT_MONSTER )
 	{
@@ -5463,71 +9558,175 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 		}
 	}
 
-
-	if (pDefender->ubProfile != NO_PROFILE)
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - old/new traits
+	if (ubMode == HTH_MODE_STAB)
 	{
-		if (ubMode == HTH_MODE_STAB)
+		if ( gGameOptions.fNewTraitSystem )
 		{
-			if (Item[pDefender->inv[HANDPOS].usItem].usItemClass == IC_BLADE)
+			iDefRating += gSkillTraitValues.bModifierDodgeKnifeChance; // Make HtH dodging a little more problematic for untrained mercs
+
+			// Give bonus to dodge melee blade to MA and/or Melee trait - SANDRO
+			// Note that it is no longer dependant on what you have in hands
+			if (HAS_SKILL_TRAIT( pDefender, MARTIAL_ARTS_NT ))
 			{
-				if ( HAS_SKILL_TRAIT( pDefender, KNIFING ) )
-				{
-					// good with knives, got one, so we're good at parrying
-					iDefRating += gbSkillTraitBonus[KNIFING] * NUM_SKILL_TRAITS( pDefender, KNIFING );
-				}
-				if (HAS_SKILL_TRAIT( pDefender, MARTIALARTS ))
-				{
-					// the knife gets in the way but we're still better than nobody
-					iDefRating += ( gbSkillTraitBonus[MARTIALARTS] * NUM_SKILL_TRAITS( pDefender, MARTIALARTS ) ) / 3;
-				}
+				iDefRating += ( gSkillTraitValues.ubMAChanceToDodgeMelee * NUM_SKILL_TRAITS( pDefender, MARTIAL_ARTS_NT ) );
 			}
-			else
+			if (HAS_SKILL_TRAIT( pDefender, MELEE_NT ))
 			{
-				if ( HAS_SKILL_TRAIT( pDefender, KNIFING ) )
+				iDefRating += gSkillTraitValues.ubMEDodgeBladesBonus;
+
+				if (Item[pDefender->inv[HANDPOS].usItem].usItemClass == IC_BLADE)
 				{
-					// good with knives, don't have one, but we know a bit about dodging
-					iDefRating += ( gbSkillTraitBonus[KNIFING] * NUM_SKILL_TRAITS( pDefender, KNIFING ) ) / 3;
-				}
-				if (HAS_SKILL_TRAIT( pDefender, MARTIALARTS ))
-				{
-					// bonus for dodging knives
-					iDefRating += ( gbSkillTraitBonus[MARTIALARTS] * NUM_SKILL_TRAITS( pDefender, MARTIALARTS ) )/ 2;
+					// knife-to-knife combat, we are the best around at this
+					iDefRating += gSkillTraitValues.ubMECtDBladesOnTopWithBladeInHands;
 				}
 			}
 		}
 		else
-		{	// punch/hand-to-hand/martial arts attack/steal
-			if (Item[pDefender->inv[HANDPOS].usItem].usItemClass == IC_BLADE && ubMode != HTH_MODE_STEAL)
+		{
+			if ( HAS_SKILL_TRAIT( pDefender, KNIFING_OT ) )
 			{
-				if (HAS_SKILL_TRAIT( pDefender, KNIFING ))
+				if (Item[pDefender->inv[HANDPOS].usItem].usItemClass == IC_BLADE)
 				{
-					// with our knife, we get some bonus at defending from HTH attacks
-					iDefRating += ( gbSkillTraitBonus[KNIFING] * NUM_SKILL_TRAITS( pDefender, KNIFING ) ) / 2;
+					// good with knives, got one, so we're good at parrying
+					iDefRating += gbSkillTraitBonus[KNIFING_OT] * NUM_SKILL_TRAITS( pDefender, KNIFING_OT );
+				}
+				else
+				{
+					// good with knives, don't have one, but we know a bit about dodging
+					iDefRating += ( gbSkillTraitBonus[KNIFING_OT] * NUM_SKILL_TRAITS( pDefender, KNIFING_OT ) ) / 3;
+				}
+			}
+			if (HAS_SKILL_TRAIT( pDefender, MARTIALARTS_OT ))
+			{
+				// bonus for dodging knives
+				iDefRating += ( gbSkillTraitBonus[MARTIALARTS_OT] * NUM_SKILL_TRAITS( pDefender, MARTIALARTS_OT ) )/ 2;
+			}
+		}
+	}
+	else
+	{	// punch/hand-to-hand/martial arts attack/steal
+		if ( gGameOptions.fNewTraitSystem )
+		{
+			iDefRating += gSkillTraitValues.bModifierDodgeHtHChance; // Make HtH dodging a little more problematic for untrained mercs
+
+			if ( !pAttacker->usAttackingWeapon || Item[pAttacker->inv[HANDPOS].usItem].brassknuckles )
+			{
+				if (HAS_SKILL_TRAIT( pDefender, MARTIAL_ARTS_NT ))
+				{
+					// Bonus to dodge to MA trait - SANDRO
+					// Note that it no longer depends on whatever having in hands, because before 
+					// you would have unlogicaly lesser chance to dodge with a knife in hands than with a gun
+					iDefRating += gSkillTraitValues.ubMAChanceToDodgeHtH * NUM_SKILL_TRAITS( pDefender, MARTIAL_ARTS_NT ); // +35% per trait
+
+					if ( !pDefender->inv[HANDPOS].exists() )
+					{
+						iDefRating += ( gSkillTraitValues.ubMAOnTopCTDHtHBareHanded * NUM_SKILL_TRAITS( pDefender, MARTIAL_ARTS_NT ) );
+					}
+					else if ( Item[pDefender->inv[HANDPOS].usItem].brassknuckles )
+					{
+						iDefRating += ( gSkillTraitValues.ubMAOnTopCTDHtHBrassKnuckles * NUM_SKILL_TRAITS( pDefender, MARTIAL_ARTS_NT ) );
+					}
 				}
 			}
 			else
 			{
-				if (HAS_SKILL_TRAIT( pDefender, MARTIALARTS ))
+				if (HAS_SKILL_TRAIT( pDefender, MARTIAL_ARTS_NT ))
 				{
-					iDefRating += gbSkillTraitBonus[MARTIALARTS] * NUM_SKILL_TRAITS( pDefender, MARTIALARTS );
+					iDefRating += gSkillTraitValues.ubMAChanceToDodgeMelee * NUM_SKILL_TRAITS( pDefender, MARTIAL_ARTS_NT ); // +35% per trait
 				}
-				if (HAS_SKILL_TRAIT( pDefender, HANDTOHAND ))
+				if (HAS_SKILL_TRAIT( pDefender, MELEE_NT ))
 				{
-					iDefRating += gbSkillTraitBonus[HANDTOHAND] * NUM_SKILL_TRAITS( pDefender, HANDTOHAND );
+					iDefRating += gSkillTraitValues.ubMEDodgeBluntBonus;
+
+					if (Item[pDefender->inv[HANDPOS].usItem].usItemClass == IC_BLADE)
+					{
+						// bonus, when we have our knife in hands
+						iDefRating += gSkillTraitValues.ubMECtDBluntOnTopWithBladeInHands;
+					}
 				}
+			}
+		}
+		else
+		{
+			// SANDRO - this is so idiotic, it actiually means, that martial artists and HtH 
+			// soldiers do not get their dodging bonus if they have a knife in hands, but do
+			// have it if having anything else! I just had to change it, for it is a bug more
+			// than an intended feature
+			if (HAS_SKILL_TRAIT( pDefender, KNIFING_OT ) && Item[pDefender->inv[HANDPOS].usItem].usItemClass == IC_BLADE && ubMode != HTH_MODE_STEAL)
+			{
+				// with our knife, we get some bonus at defending from HTH attacks
+				iDefRating += ( gbSkillTraitBonus[KNIFING_OT] * NUM_SKILL_TRAITS( pDefender, KNIFING_OT ) ) / 2;
+
+			}
+			if (HAS_SKILL_TRAIT( pDefender, MARTIALARTS_OT ))
+			{
+				// now the bonus depends on what we have in hands
+				if ( pDefender->inv[HANDPOS].exists() )
+				{
+					// if we have something in hands, the chance is reduced
+					iDefRating += gbSkillTraitBonus[MARTIALARTS_OT] * NUM_SKILL_TRAITS( pDefender, MARTIALARTS_OT )*2/3;
+				}
+				else
+				{
+					// else we are unbeatable
+					iDefRating += gbSkillTraitBonus[MARTIALARTS_OT] * NUM_SKILL_TRAITS( pDefender, MARTIALARTS_OT );
+				}
+			}
+			if (HAS_SKILL_TRAIT( pDefender, HANDTOHAND_OT ))
+			{
+				iDefRating += gbSkillTraitBonus[HANDTOHAND_OT] * NUM_SKILL_TRAITS( pDefender, HANDTOHAND_OT );
 			}
 		}
 	}
 
-  if (iDefRating < 1)
-    iDefRating = 1;
+	// Added character traits influence
+	if ( gGameOptions.fNewTraitSystem && pDefender->ubProfile != NO_PROFILE )
+	{
+		// Sociable - better performance in groups
+		if ( gMercProfiles[ pDefender->ubProfile ].bCharacterTrait == CHAR_TRAIT_SOCIABLE )
+		{	
+			INT8 bNumMercs = CheckMercsNearForCharTraits( pDefender->ubProfile, CHAR_TRAIT_SOCIABLE );
+			if ( bNumMercs > 2 )
+				iDefRating += 5;
+			else if ( bNumMercs > 0 )
+				iDefRating += 2;
+		}
+		// Loner - better performance when alone
+		else if ( gMercProfiles[ pDefender->ubProfile ].bCharacterTrait == CHAR_TRAIT_LONER )
+		{	
+			INT8 bNumMercs = CheckMercsNearForCharTraits( pDefender->ubProfile, CHAR_TRAIT_LONER );
+			if ( bNumMercs == 0 )
+				iDefRating += 5;
+			else if ( bNumMercs <= 1 )
+				iDefRating += 2;
+		}
+		// Show-off - better performance if some babes around to impress
+		else if ( gMercProfiles[ pDefender->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF )
+		{	
+			INT8 bNumMercs = CheckMercsNearForCharTraits( pDefender->ubProfile, CHAR_TRAIT_SHOWOFF );
+			if ( bNumMercs > 1 )
+				iDefRating += 5;
+			else if ( bNumMercs > 0 )
+				iDefRating += 2;
+		}
+		else if ( gMercProfiles[ pDefender->ubProfile ].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+		{
+			iDefRating -= 5;
+		}
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	if (iDefRating < 1)
+		iDefRating = 1;
 
 
-  //NumMessage("CalcChanceToStab - Attacker's Rating = ",iAttRating);
-  //NumMessage("CalcChanceToStab - Defender's Rating = ",iDefRating);
+	//NumMessage("CalcChanceToStab - Attacker's Rating = ",iAttRating);
+	//NumMessage("CalcChanceToStab - Defender's Rating = ",iDefRating);
 
-  // calculate chance to hit by comparing the 2 opponent's ratings
-//  iChance = (100 * iAttRating) / (iAttRating + iDefRating);
+	// calculate chance to hit by comparing the 2 opponent's ratings
+	// iChance = (100 * iAttRating) / (iAttRating + iDefRating);
 
 
 	if (ubMode == HTH_MODE_STEAL)
@@ -5541,14 +9740,53 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 		// Changed from DG by CJC to give higher chances of hitting with a stab or punch
 		iChance = 67 + (iAttRating - iDefRating) / 3;
 
-		if ( pAttacker->bAimShotLocation == AIM_SHOT_HEAD )
+		// SANDRO - Enhanced Close Combat System - chances to hit for punches aimed at body parts
+		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
 		{
-			// make this harder!
-			iChance -= 20;
-		}
+			if( gGameOptions.fNewTraitSystem  && HAS_SKILL_TRAIT( pAttacker, MARTIAL_ARTS_NT ) && 
+				((pAttacker->usAnimState == NINJA_SPINKICK) || (pAttacker->aiData.bAimTime >= (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6))) )
+			{
+				// spinning kick or focused punch modifier
+				iChance += gSkillTraitValues.bMAAimedPunchCtHModifier * NUM_SKILL_TRAITS( pAttacker, MARTIAL_ARTS_NT );
+			}
 
+			if ( pAttacker->bAimShotLocation == AIM_SHOT_HEAD )
+			{
+				// Harder to hit head (but higher damage there)
+				iChance -= 20;
+			}
+			else if( pAttacker->bAimShotLocation == AIM_SHOT_LEGS )
+			{
+				// easy to hit legs (but low damage there)
+				iChance += 25;
+			}
+		}
+		else
+		{
+			if ( pAttacker->bAimShotLocation == AIM_SHOT_HEAD )
+			{
+				// make this harder!
+				iChance -= 20;
+			}
+		}
 	}
 
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - Bonus CtH for Militia
+	if (pAttacker->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.sGreenMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sGreenMilitiaCtHBonusPercent) /100);
+	else if (pAttacker->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.sRegularMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sRegularMilitiaCtHBonusPercent) /100);
+	else if (pAttacker->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sVeteranMilitiaCtHBonusPercent) /100);
+	// bonus for enemy
+	else if (pAttacker->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyAdminCtHBonusPercent) /100);
+	else if (pAttacker->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyRegularCtHBonusPercent) /100);
+	else if (pAttacker->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyEliteCtHBonusPercent) /100);
+	//////////////////////////////////////////////////////////////////////////////////////
 
   // MAKE SURE CHANCE TO HIT IS WITHIN DEFINED LIMITS
   // HEADROCK: I urinate on your Defined Limits! Power Rangers, Externalize!
@@ -5764,7 +10002,7 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed )
 	if ( EXPLOSIVE_GUN( usItem ) )
 	{
 		// oops! return value in weapons table
-		return( Weapon[ usItem ].usRange / CELL_X_SIZE );
+		return( GetModifiedGunRange(usItem) / CELL_X_SIZE );
 	}
 
 	// if item's fired mechanically
@@ -5779,7 +10017,7 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed )
 	if ( Item[ usItem ].usItemClass == IC_LAUNCHER && fArmed )
 	{
 		// this function returns range in tiles so, stupidly, we have to divide by 10 here
-		iRange = Weapon[usItem].usRange / CELL_X_SIZE;
+		iRange = GetModifiedGunRange(usItem) / CELL_X_SIZE;
 	}
 	else
 	{
@@ -5807,11 +10045,30 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed )
 		// adjust for thrower's remaining breath (lose up to 1/2 of range)
 		iRange -= (iRange * (100 - pSoldier->bBreath)) / 200;
 
-		if ( HAS_SKILL_TRAIT( pSoldier, THROWING ) )
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - old/new traits
+		if( gGameOptions.fNewTraitSystem ) 
 		{
-			// better max range due to expertise
-			iRange = iRange * (100 + gbSkillTraitBonus[THROWING] * NUM_SKILL_TRAITS( pSoldier, THROWING ) ) / 100;
+			if ( (Item[ usItem ].usItemClass == IC_THROWING_KNIFE) && (HAS_SKILL_TRAIT( pSoldier, THROWING_NT )) )
+			{
+				// better max range due to expertise
+				iRange += ((iRange * gSkillTraitValues.ubTHBladesMaxRange ) / 100);
+			}
+			else if ( (Item[ usItem ].usItemClass == IC_GRENADE) && (HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT )) )
+			{
+				// better max range due to expertise
+				iRange += ((iRange * gSkillTraitValues.ubDEMaxRangeToThrowGrenades) / 100);
+			}
 		}
+		else
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, THROWING_OT ) )
+			{
+				// better max range due to expertise
+				iRange = iRange * (100 + gbSkillTraitBonus[THROWING_OT] * NUM_SKILL_TRAITS( pSoldier, THROWING_OT ) ) / 100;
+			}		
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Adjust for thrower's stance
 		if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight < ANIM_STAND)
@@ -5863,11 +10120,32 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		// PHYSICALLY THROWN arced projectile (ie. grenade)
 		// for lack of anything better, base throwing accuracy on dex & marskmanship
 		iChance = ( EffectiveDexterity( pSoldier ) + EffectiveMarksmanship( pSoldier ) ) / 2;
-		// throwing trait helps out
-		if ( HAS_SKILL_TRAIT( pSoldier, THROWING ) )
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - old/new traits
+		if ( gGameOptions.fNewTraitSystem )
 		{
-			iChance += gbSkillTraitBonus[THROWING] * NUM_SKILL_TRAITS( pSoldier, THROWING );
+			// throwing trait helps out on grenades and knives
+			if ( Item[ usHandItem ].usItemClass == IC_THROWING_KNIFE )
+			{
+				iChance += gSkillTraitValues.bCtHModifierThrowingKnives; // -15% for untrained mercs
+
+				if ( HAS_SKILL_TRAIT( pSoldier, THROWING_NT ) )
+					iChance += (gSkillTraitValues.ubTHBladesCtHBonus + (gSkillTraitValues.ubTHBladesCtHBonusPerClick * pSoldier->aiData.bAimTime) );
+			}
+			else
+			{
+				iChance += gSkillTraitValues.bCtHModifierThrowingGrenades; // -10% for untrained mercs
+
+				if ( HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT ) )
+					iChance += gSkillTraitValues.ubDECtHWhenThrowingGrenades; // +30% chance
+			}
 		}
+		else
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, THROWING_OT ) )
+				iChance += gbSkillTraitBonus[THROWING_OT] * NUM_SKILL_TRAITS( pSoldier, THROWING_OT );
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 	else
 	{
@@ -5875,24 +10153,68 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		// MECHANICALLY FIRED arced projectile (ie. mortar), need brains & know-how
 		iChance = ( EffectiveDexterity( pSoldier ) + EffectiveMarksmanship( pSoldier ) + EffectiveWisdom( pSoldier ) + pSoldier->stats.bExpLevel ) / 4;
 
-		// heavy weapons trait helps out
-		if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPS ))
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - old/new traits
+		if ( gGameOptions.fNewTraitSystem ) 
 		{
-			iChance += gbSkillTraitBonus[HEAVY_WEAPS] * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPS );
+			if ( Item[ usHandItem ].mortar )
+			{
+				if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ))
+					iChance += (gSkillTraitValues.sCtHModifierMortar * max( 0, ((100 - gSkillTraitValues.ubHWMortarCtHPenaltyReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ))/100)));
+				else
+					iChance += gSkillTraitValues.sCtHModifierMortar; // -60% for untrained mercs
+			}
+			else
+			{
+				iChance += gSkillTraitValues.bCtHModifierGrenadeLaunchers; // -25% for untrained mercs
+
+				if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ))
+					iChance += gSkillTraitValues.ubHWBonusCtHGrenadeLaunchers * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ); // +25% per trait - SANDRO
+			}
 		}
+		else
+		{
+			// This feature is available only if not having new traits on - SANDRO
+			// Also.. this was moved here before the Heavy Weapons bonus
+			// HEADROCK HAM 3.2: External divisor for CTH with mortars, now that they are more prevalent in the battlefield.
+			if ( Item[ usHandItem ].mortar )
+			{
+				iChance = iChance / gGameExternalOptions.ubMortarCTHDivisor;
+			}
+
+			// heavy weapons trait helps out
+			if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPS_OT ))
+			{
+				iChance += gbSkillTraitBonus[HEAVY_WEAPS_OT] * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPS_OT );
+			}
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 
-	if ( pSoldier->bDoBurst )
+	if ( UsingNewCTHSystem() == false && pSoldier->bDoBurst )
 	{
 		int iPenalty = ( Weapon[usHandItem].ubBurstPenalty
 			- GetBurstToHitBonus(&pSoldier->inv[HANDPOS], gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE) )
 			* (pSoldier->bDoBurst - 1);
 
 		// halve the penalty for people with the autofire trait
-		if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPS ) )
+		/////////////////////////////////////////////////////////////////////////
+		// SANDRO - old/new traits
+		if ( gGameOptions.fNewTraitSystem ) 
 		{
-			iPenalty /= 2 * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS );
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPONS_NT ) )
+			{
+				iPenalty = max(0, ((iPenalty * (100 - gSkillTraitValues.ubAWAutoFirePenaltyReduction * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPONS_NT )))/100));
+			}
 		}
+		else
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPS_OT ) )
+			{
+				iPenalty /= 2 * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS_OT );
+			}
+		}
+		/////////////////////////////////////////////////////////////////////////
 		iChance -= iPenalty;
 	}
 
@@ -6020,10 +10342,28 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		iChance = (iChance * WEAPON_STATUS_MOD(pSoldier->inv[HANDPOS][0]->data.objectStatus)) / 100;
 
 	// HEADROCK HAM 3.2: External divisor for CTH with mortars, now that they are more prevalent in the battlefield.
-	if ( Item[ usHandItem ].mortar )
-	{
-		iChance = iChance / gGameExternalOptions.ubMortarCTHDivisor;
-	}
+	// SANDRO - moved this up
+	//if ( Item[ usHandItem ].mortar )
+	//{
+	//	iChance = iChance / gGameExternalOptions.ubMortarCTHDivisor;
+	//}
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - Bonus CtH for Militia
+	if (pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.sGreenMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sGreenMilitiaCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.sRegularMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sRegularMilitiaCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sVeteranMilitiaCtHBonusPercent) /100);
+	// bonus for enemy
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyAdminCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyRegularCtHBonusPercent) /100);
+	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteCtHBonusPercent != 0)
+		iChance += ((iChance * gGameExternalOptions.sEnemyEliteCtHBonusPercent) /100);
+	//////////////////////////////////////////////////////////////////////////////////////
 
 	// What's with all these defined limits? Let's think out of the box for a minute, shall we?
 	// HEADROCK (HAM): externalized, effective immediately.
@@ -6115,8 +10455,10 @@ void DishoutQueenSwipeDamage( SOLDIERTYPE *pQueenSoldier )
 				// ATE: Ok, lets check for some basic things here!				
 				if ( pSoldier->stats.bLife >= OKLIFE && !TileIsOutOfBounds(pSoldier->sGridNo) && pSoldier->bActive && pSoldier->bInSector )
 				{
+					UINT16 usRange = GetModifiedGunRange(CREATURE_QUEEN_TENTACLES);
+
 					// Get Pyth spaces away....
-					if ( GetRangeInCellCoordsFromGridNoDiff( pQueenSoldier->sGridNo, pSoldier->sGridNo ) <= Weapon[ CREATURE_QUEEN_TENTACLES].usRange )
+					if ( GetRangeInCellCoordsFromGridNoDiff( pQueenSoldier->sGridNo, pSoldier->sGridNo ) <= usRange )
 					{
 						// get direction
 						bDir = (INT8)GetDirectionFromGridNo( pSoldier->sGridNo, pQueenSoldier );
@@ -6135,6 +10477,10 @@ void DishoutQueenSwipeDamage( SOLDIERTYPE *pQueenSoldier )
 								{
 									// Hit!
 									iImpact = HTHImpact( pQueenSoldier, pSoldier, iHitBy, TRUE );
+									// SANDRO - new merc records - well, crepitus queen's tentackles are brutal, count them as "stabbed"
+									if ( pSoldier->ubProfile != NO_PROFILE )
+										gMercProfiles[ pSoldier->ubProfile ].records.usTimesWoundedStabbed++;
+
 			 						pSoldier->EVENT_SoldierGotHit( CREATURE_QUEEN_TENTACLES, (INT16) iImpact, (INT16) iImpact, gOppositeDirection[ bDir ], 50, pQueenSoldier->ubID, 0, ANIM_CROUCH, 0, 0 );
 								}
 							}
@@ -6181,27 +10527,66 @@ UINT8 GetDamage ( OBJECTTYPE *pObj )
 
 	if ( Item[pObj->usItem].usItemClass == IC_BLADE || Item[pObj->usItem].usItemClass == IC_PUNCH || Item[pObj->usItem].usItemClass == IC_TENTACLES )
 	{
+		UINT8 ubDamage;
 		// HEADROCK HAM 3.6: Can now take a negative modifier 
-		UINT8 ubDamage = (UINT8)GetModifiedMeleeDamage( Weapon[ pObj->usItem ].ubImpact );
-		ubDamage += GetMeleeDamageBonus(pObj);
-		//return min(255, (UINT8)( (ubDamage) + ( (double)ubDamage / 100) * gGameExternalOptions.ubMeleeDamageMultiplier ) );
+		if(UsingNewCTHSystem() == true)
+		{
+			ubDamage = Weapon[ pObj->usItem ].ubImpact;
+			ubDamage += GetMeleeDamageBonus(pObj);
+			ubDamage = (UINT8)GetModifiedMeleeDamage( ubDamage );
+		}
+		else
+		{
+			ubDamage = (UINT8)GetModifiedMeleeDamage( Weapon[ pObj->usItem ].ubImpact );
+			ubDamage += GetMeleeDamageBonus(pObj);
+		}
+		//return min(255, (UINT8)( (ubDamage) + ( (double)ubDamage / 100) * gGameExternalOptions.iMeleeDamageModifier ) );
 		return min(255, (UINT8)ubDamage);
 	}
 	else
 	{
+		UINT8 ubDamage;
 		// HEADROCK HAM 3.6: Can now take a negative modifier 
-		UINT8 ubDamage = (UINT8)GetModifiedMeleeDamage( Weapon[ pObj->usItem ].ubImpact );
-
-		// WTF? Why do only small weapons get their damage bonus?!
-		if (FitsInSmallPocket(pObj) == true)
+		if(UsingNewCTHSystem() == true)
 		{
-			ubDamage += GetDamageBonus(pObj);
+			ubDamage = Weapon[ pObj->usItem ].ubImpact;
+			// HEADROCK HAM 4: I've decided to remove this condition. It makes no friggin sense.
+			//if (FitsInSmallPocket(pObj) == true)
+			//{
+				ubDamage += GetDamageBonus(pObj);
+			//}
+			ubDamage = (UINT8)GetModifiedGunDamage( ubDamage );
+		}
+		else
+		{
+			ubDamage = (UINT8)GetModifiedGunDamage( Weapon[ pObj->usItem ].ubImpact );
+
+			// WTF? Why do only small weapons get their damage bonus?!
+			if (FitsInSmallPocket(pObj) == true)
+			{
+				ubDamage += GetDamageBonus(pObj);
+			}
 		}
 		return min(255, (UINT8)ubDamage );
 	}
 }
 
-
+// HEADROCK HAM 4: Same function as above, but without modifiers from attached items.
+UINT8 GetBasicDamage ( OBJECTTYPE *pObj )
+{
+	if ( Item[pObj->usItem].usItemClass == IC_BLADE || Item[pObj->usItem].usItemClass == IC_PUNCH || Item[pObj->usItem].usItemClass == IC_TENTACLES )
+	{
+		// HEADROCK HAM 3.6: Can now take a negative modifier 
+		UINT8 ubDamage = (UINT8)GetModifiedMeleeDamage( Weapon[ pObj->usItem ].ubImpact );
+		return ubDamage;
+	}
+	else
+	{
+		// HEADROCK HAM 3.6: Can now take a negative modifier 
+		UINT8 ubDamage = (UINT8)GetModifiedGunDamage( Weapon[ pObj->usItem ].ubImpact );
+		return ubDamage;
+	}
+}
 
 UINT8 GetShotsPerBurst( OBJECTTYPE *pObj )
 {
@@ -6232,6 +10617,42 @@ UINT8 GetAutoPenalty( OBJECTTYPE *pObj, BOOLEAN fProneStance )
 
 	return Weapon[ pObj->usItem ].AutoPenalty - bns;
 }
+
+// HEADROCK HAM 4: This determines whether the previous bullet in a volley was a tracer bullet.
+BOOLEAN WasPrevBulletATracer( SOLDIERTYPE *pSoldier, OBJECTTYPE *pWeapon )
+{
+
+	if (!AmmoTypes[ (*pWeapon)[0]->data.gun.ubGunAmmoType ].tracerEffect)
+	{
+		// Not a tracer magazine
+		return (FALSE);
+	}
+	if (pSoldier->bDoBurst == 0)
+	{
+		// No volley? Tracers are irrelevant
+		return (FALSE);
+	}
+
+	if (gGameExternalOptions.ubRealisticTracers == 0 || gGameExternalOptions.ubNumBulletsPerTracer == 1)
+	{
+		// All bullets are tracers anyway.
+		return (TRUE);
+	}
+
+	UINT16 usShotsLeft = (*pWeapon)[0]->data.gun.ubGunShotsLeft;
+	UINT16 usMagSize = GetMagSize(pWeapon);
+	UINT16 usBulletsFired = usMagSize-usShotsLeft;
+	UINT16 usBulletsSinceTracer = (usBulletsFired+1)%gGameExternalOptions.ubNumBulletsPerTracer;
+	if (usBulletsSinceTracer == 1)
+	{
+		return (TRUE);
+	}
+	else
+	{
+		return (FALSE);
+	}
+ }
+
 UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj )
 {
 //	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetAutofireShotsPerFiveAPs"));
@@ -6239,18 +10660,34 @@ UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj )
 //	HEADROCK HAM B2.6: Added overall modifier
 	if (Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP > 0)
 	{
-		return __max((Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP + gGameExternalOptions.bAutofireBulletsPer5APModifier), 0);
+		// WANNE: Fix by Headrock
+		// Weapons shouldn't ever lose their Bp5AP due to this modifier.
+		return __max((Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP + gGameExternalOptions.bAutofireBulletsPer5APModifier), 1);
+		
+		//return __max((Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP + gGameExternalOptions.bAutofireBulletsPer5APModifier), 0);
 	}
 	else
 		return 0;
 
 }
-UINT16 GetMagSize( OBJECTTYPE *pObj )
+UINT16 GetMagSize( OBJECTTYPE *pObj, UINT8 subObject )
 {
 //	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetMagSize"));
 
-	return Weapon[ pObj->usItem ].ubMagSize + GetMagSizeBonus(pObj);
+	return Weapon[ pObj->usItem ].ubMagSize + GetMagSizeBonus(pObj, subObject);
+}
 
+UINT16 GetExpMagSize( OBJECTTYPE *pObj )
+{
+//	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetMagSize"));
+	UINT8	magSize = 0;
+	if(Item[pObj->usItem].usItemClass & IC_EXPLOSV)
+		magSize = Explosive[Item[pObj->usItem].ubClassIndex].ubMagSize;
+	else
+		magSize = Weapon[pObj->usItem].ubMagSize;
+
+	//return Weapon[ pObj->usItem ].ubMagSize + GetMagSizeBonus(pObj);
+	return magSize;
 }
 
 // HEADROCK HAM 3.3: Function to get a weapon's current ammotype.
@@ -6265,6 +10702,10 @@ bool WeaponReady(SOLDIERTYPE * pSoldier)
 	if ( AM_A_ROBOT( pSoldier) )
 		return true;
 #endif
+	if (gbForceWeaponNotReady)
+		return false;
+	if (gbForceWeaponReady)
+		return true;
 	if ( (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY ) ||
 		(gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIRE ) )
 		return true;
@@ -6317,7 +10758,7 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 	}
 
 	// Is this Soldier a psycho?
-	if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile ].bPersonalityTrait == PSYCHO )
+	if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile ].bDisability == PSYCHO )
 	{
 		fPsycho = TRUE;
 	}
@@ -6416,4 +10857,49 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 	swprintf(gBulletCount, L"%d", usRealBulletCount);
 	return;
 	
+}
+
+// HEADROCK HAM 4: Calculate the ratio between current Mag Factor and Target Factor. Used for the CTH bars.
+void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTime )
+{
+	OBJECTTYPE *pWeapon = &(pSoldier->inv[pSoldier->ubAttackingHand]);
+
+	FLOAT iActualMagFactor = 0;
+	FLOAT iHighestMagFactor = 0;
+	FLOAT iScopeFactor = 0;
+	FLOAT iProjectionFactor = 0;
+	FLOAT iTargetMagFactor = 0;
+	BOOLEAN isScopeBetter = FALSE;
+
+	// Calculate the optimal magnification that would be required for the target's current distance.
+	iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
+
+	if (bAimTime > 0)
+	{
+		iScopeFactor = GetBestScopeMagnificationFactor( pWeapon, (UINT32)d2DDistance );
+		// Set a display variable
+		gCTHDisplay.ScopeMagFactor = iScopeFactor;
+
+		iScopeFactor = __min(iScopeFactor, iTargetMagFactor);		
+		iProjectionFactor = GetProjectionFactor( pWeapon );
+
+		// Set a display variable
+		gCTHDisplay.ProjectionFactor = iProjectionFactor;
+
+		// The final factor is the largest of the two.
+
+		if (iScopeFactor > iProjectionFactor)
+			isScopeBetter=TRUE;
+
+		iHighestMagFactor = __max( iScopeFactor, iProjectionFactor );
+	}
+	else
+	{
+		gCTHDisplay.ScopeMagFactor = 1.0;
+		gCTHDisplay.ProjectionFactor = 1.0;
+		iHighestMagFactor = 1.0;
+	}
+
+	gCTHDisplay.FinalMagFactor = iHighestMagFactor;
+
 }

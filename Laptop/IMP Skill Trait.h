@@ -28,10 +28,37 @@ enum
 	IMP_SKILL_TRAITS__NUMBER_SKILLS,
 };
 
-// STR16	gzIMPSkillTraitsText[];
+// other set for new traits - SANDRO
+enum
+{
+	// major traits
+	IMP_SKILL_TRAITS_NEW_AUTO_WEAPONS,
+	IMP_SKILL_TRAITS_NEW_HEAVY_WEAPONS,
+	IMP_SKILL_TRAITS_NEW_PROF_SNIPER,
+	IMP_SKILL_TRAITS_NEW_RANGER,
+	IMP_SKILL_TRAITS_NEW_GUNSLINGER,
+	IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS,
+	IMP_SKILL_TRAITS_NEW_SQUADLEADER,
+	IMP_SKILL_TRAITS_NEW_TECHNICIAN,
+	IMP_SKILL_TRAITS_NEW_DOCTOR,
+	IMP_SKILL_TRAITS_NEW_MAJOR_NONE,
+	IMP_SKILL_TRAITS_NEW_NUMBER_MAJOR_SKILLS,
+};
 
-INT8	DoesPlayerHaveExtraAttibutePointsToDistributeBasedOnSkillSelection();
+INT8	CountNumSkillTraitsSelected( BOOLEAN fIncludeNoneSkill );
+INT32	DoesPlayerHaveExtraAttibutePointsToDistributeBasedOnSkillSelection();
 
 void AddSelectedSkillsToSkillsList();
+
+INT32 StrengthRequiredDueToMajorSkills( void );
+INT32 AgilityRequiredDueToMajorSkills( void );
+INT32 DexterityRequiredDueToMajorSkills( void );
+INT32 HealthRequiredDueToMajorSkills( void );
+INT32 LeadershipRequiredDueToMajorSkills( void );
+INT32 WisdomRequiredDueToMajorSkills( void );
+INT32 MarksmanshipRequiredDueToMajorSkills( void );
+INT32 MechanicalRequiredDueToMajorSkills( void );
+INT32 MedicalRequiredDueToMajorSkills( void );
+INT32 ExplosivesRequiredDueToMajorSkills( void );
 
 #endif

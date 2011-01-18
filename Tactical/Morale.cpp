@@ -23,6 +23,9 @@
 	#include "Event Pump.h"
 	// HEADROCK HAM 3.5: Added for facility effect on morale
 	#include "Facilities.h"
+	// addedd by SANDRO
+	#include "GameSettings.h"
+	#include "Isometric Utils.h"
 #endif
 
 #include "connect.h"
@@ -80,10 +83,16 @@ MoraleEvent gbMoraleEvent[NUM_MORALE_EVENTS] =
 	{ STRATEGIC_MORALE_EVENT,			-5},	//	MORALE_MERC_MARRIED,
 	{ STRATEGIC_MORALE_EVENT,			+8},	//	MORALE_QUEEN_BATTLE_WON,
 	{ STRATEGIC_MORALE_EVENT,			+5},	//	MORALE_SEX,
+	// added by SANDRO
+	{ STRATEGIC_MORALE_EVENT,			-1},	//	MORALE_HEAT_INTOLERANT_IN_DESERT,
+	{ TACTICAL_MORALE_EVENT,			-1},	//	MORALE_PSYCHO_UNABLE_TO_PSYCHO,
+	{ STRATEGIC_MORALE_EVENT,			+1},	//	MORALE_PACIFIST_GAIN_NONCOMBAT,
+	{ TACTICAL_MORALE_EVENT,			+1},	//	MORALE_MALICIOUS_HIT,
 };
 
 BOOLEAN gfSomeoneSaidMoraleQuote = FALSE;
 
+BOOLEAN IsShowOffNearBy( SOLDIERTYPE * pSoldier ); // Added by SANDRO
 
 INT8 GetMoraleModifier( SOLDIERTYPE * pSoldier )
 {
@@ -176,7 +185,7 @@ void DecayTacticalMoraleModifiers( void )
 				continue;
 			}
 
-			switch( gMercProfiles[ pSoldier->ubProfile ].bPersonalityTrait )
+			switch( gMercProfiles[ pSoldier->ubProfile ].bDisability )
 			{
 				case CLAUSTROPHOBIC:
 					if ( pSoldier->bSectorZ > 0 )
@@ -313,7 +322,7 @@ void RefreshSoldierMorale( SOLDIERTYPE * pSoldier )
 				GetSoldierFacilityAssignmentIndex( pSoldier ) != -1) 
 			{
 				UINT8 ubFacilityType = (UINT8)cnt;
-				UINT8 ubAssignmentType = GetSoldierFacilityAssignmentIndex( pSoldier );
+				UINT8 ubAssignmentType = (UINT8)GetSoldierFacilityAssignmentIndex( pSoldier );
 				// Check this facility both for an assignment-specific AND ambient value. Use it if it's the lowest
 				// encountered yet.
 				ubMaxMorale = __min(ubMaxMorale, (UINT8)GetFacilityModifier(FACILITY_MAX_MORALE, ubFacilityType, ubAssignmentType ));
@@ -338,11 +347,13 @@ void RefreshSoldierMorale( SOLDIERTYPE * pSoldier )
 	fCharacterInfoPanelDirty = TRUE;
 }
 
-
-void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, UINT8 ubType, INT8 bMoraleMod )
+// SANDRO - changed this a bit
+void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, INT8 bMoraleEvent )
 {
 	MERCPROFILESTRUCT *		pProfile;
 	INT32									iMoraleModTotal;
+	UINT8 ubType;
+	INT8 bMoraleMod = 0;
 
 	if ( !pSoldier->bActive || ( pSoldier->stats.bLife < CONSCIOUSNESS ) ||
 		( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || AM_A_ROBOT( pSoldier ) || AM_AN_EPC( pSoldier ) )
@@ -363,27 +374,96 @@ void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, UINT8 ubType, INT8 bMoraleMod 
 		return;
 	}
 	
-	if(DISABLE_MORALE && is_networked)
+	if(cDisableMorale && is_networked)
 	{
 		return;
 	}//hayden
+
+	ubType = gbMoraleEvent[bMoraleEvent].ubType;
+	bMoraleMod = gbMoraleEvent[bMoraleEvent].bChange;
 
 	pProfile = &(gMercProfiles[ pSoldier->ubProfile ]);
 
 	if (bMoraleMod > 0)
 	{
-		switch( pProfile->bAttitude )
+		if ( gGameOptions.fNewTraitSystem )
 		{
-			case ATT_OPTIMIST:
-			case ATT_AGGRESSIVE:
-				bMoraleMod += 1;
+			// SANDRO - STOMP traits 
+			// Squadleader's bonus to morale 
+			if ( IS_MERC_BODY_TYPE( pSoldier ) && (pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM || pSoldier->bTeam == gbPlayerNum) )
+			{
+				bMoraleMod += (gSkillTraitValues.ubSLMoraleGainBonus * GetSquadleadersCountInVicinity( pSoldier, FALSE, FALSE ));
+			}
+			// Check for character traits
+			INT8 bNumMercs = 0;
+			switch( pProfile->bCharacterTrait )
+			{
+				case CHAR_TRAIT_SOCIABLE:
+					bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_SOCIABLE );
+					if ( bNumMercs == 0 )
+						bMoraleMod -= 5;
+					else if ( bNumMercs == 1 )
+						bMoraleMod -= 2;
 				break;
-			case ATT_PESSIMIST:
-				bMoraleMod -= 1;
+				case CHAR_TRAIT_LONER:
+					bNumMercs = CheckMercsNearForCharTraits( pSoldier->ubProfile, CHAR_TRAIT_LONER );
+					if ( bNumMercs > 1 )
+						bMoraleMod -= 5;
+					else if ( bNumMercs == 1 )
+						bMoraleMod -= 2;
 				break;
-			default:
-				break;
+				case CHAR_TRAIT_OPTIMIST:
+					bMoraleMod += 1;
+					break;
+				case CHAR_TRAIT_AGGRESSIVE:
+					switch ( bMoraleEvent )
+					{
+						case MORALE_KILLED_ENEMY:
+						case MORALE_DID_LOTS_OF_DAMAGE:
+						case MORALE_MONSTER_QUEEN_KILLED:
+						case MORALE_DEIDRANNA_KILLED:
+							bMoraleMod += 1;
+							break;
+					}
+					break;
+				case CHAR_TRAIT_PACIFIST:
+					switch ( bMoraleEvent )
+					{
+						case MORALE_KILLED_ENEMY:
+						case MORALE_DID_LOTS_OF_DAMAGE:
+						case MORALE_BATTLE_WON:
+						case MORALE_HEARD_BATTLE_WON:
+						case MORALE_HATED_DIED:
+						case MORALE_MONSTER_QUEEN_KILLED:
+						case MORALE_DEIDRANNA_KILLED:
+						case MORALE_QUEEN_BATTLE_WON:
+							bMoraleMod -= 5;
+							break;
+					}
+					break;
+			}
+			if ( IsShowOffNearBy( pSoldier ) )
+			{
+				bMoraleMod -= 2;
+			}
+
 		}
+		else if ( bMoraleMod != MORALE_PSYCHO_UNABLE_TO_PSYCHO && bMoraleMod != MORALE_MALICIOUS_HIT)
+		{
+			switch( pProfile->bAttitude )
+			{
+				case ATT_OPTIMIST:
+				case ATT_AGGRESSIVE:
+					bMoraleMod += 1;
+					break;
+				case ATT_PESSIMIST:
+					bMoraleMod -= 1;
+					break;
+				default:
+					break;
+			}
+		}
+
 		if (bMoraleMod < 0)
 		{
 			// can't change a positive event into a negative one!
@@ -392,19 +472,62 @@ void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, UINT8 ubType, INT8 bMoraleMod 
 	}
 	else
 	{
-		switch( pProfile->bAttitude )
+		if ( gGameOptions.fNewTraitSystem )
 		{
-			case ATT_OPTIMIST:
+			// SANDRO - STOMP traits - squadleader's bonus to morale 
+			if ( IS_MERC_BODY_TYPE( pSoldier ) && (pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM || pSoldier->bTeam == gbPlayerNum) )
+			{
+				switch ( bMoraleEvent ) // certain thing are not supported by our squadleader
+				{
+					case MORALE_HATED_DIED:
+					case MORALE_MERC_MARRIED:
+					case MORALE_SEX:
+					case MORALE_PSYCHO_UNABLE_TO_PSYCHO:
+					case MORALE_MALICIOUS_HIT:
+						break;
+					default:
+						bMoraleMod += (gSkillTraitValues.ubSLMoraleLossReduction * GetSquadleadersCountInVicinity( pSoldier, FALSE, FALSE ));
+						break;
+				}
+			}
+			// Check for character traits
+			if ( pProfile->bCharacterTrait == CHAR_TRAIT_OPTIMIST )
+			{
 				bMoraleMod += 1;
-				break;
-			case ATT_PESSIMIST:
-				bMoraleMod -= 1;
-				break;
-			case ATT_COWARD:
-				bMoraleMod -= 2;
-			default:
-				break;
+			}
+			// Fearless character does not suffer morale loss for these so much
+			else if( pProfile->bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
+			{
+				switch ( bMoraleEvent )
+				{
+					case MORALE_SQUADMATE_DIED:
+					case MORALE_SUPPRESSED:
+					case MORALE_TOOK_LOTS_OF_DAMAGE:
+						bMoraleMod += 3;
+						break;
+					case MORALE_TEAMMATE_DIED:
+						bMoraleMod += 2;
+						break;
+				}
+			}
 		}
+		else if ( bMoraleMod != MORALE_PSYCHO_UNABLE_TO_PSYCHO)
+		{
+			switch( pProfile->bAttitude )
+			{
+				case ATT_OPTIMIST:
+					bMoraleMod += 1;
+					break;
+				case ATT_PESSIMIST:
+					bMoraleMod -= 1;
+					break;
+				case ATT_COWARD:
+					bMoraleMod -= 2;
+				default:
+					break;
+			}
+		}
+
 		if (pSoldier->pathing.bLevel == 1)
 		{
 			bMoraleMod--;
@@ -413,6 +536,7 @@ void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, UINT8 ubType, INT8 bMoraleMod 
 		{
 			bMoraleMod++;
 		}
+
 		if (bMoraleMod > 0)
 		{
 			// can't change a negative event into a positive one!
@@ -475,7 +599,8 @@ void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, UINT8 ubType, INT8 bMoraleMod 
 
 void HandleMoraleEventForSoldier( SOLDIERTYPE * pSoldier, INT8 bMoraleEvent )
 {
-	UpdateSoldierMorale( pSoldier, gbMoraleEvent[bMoraleEvent].ubType, gbMoraleEvent[bMoraleEvent].bChange );
+	// SANDRO - changed this to send the event forward
+	UpdateSoldierMorale( pSoldier, bMoraleEvent ); //, gbMoraleEvent[bMoraleEvent].ubType, gbMoraleEvent[bMoraleEvent].bChange );
 }
 
 
@@ -518,10 +643,12 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 		case MORALE_CLAUSTROPHOBE_UNDERGROUND:
 		case MORALE_INSECT_PHOBIC_SEES_CREATURE:
 		case MORALE_NERVOUS_ALONE:
+		case MORALE_HEAT_INTOLERANT_IN_DESERT: // SANDRO added this one
 			// needs specific soldier!
 			Assert( pSoldier );
 			// affects the soldier only, should be ignored if tactical morale mod is -20 or less
-			if ( pSoldier->aiData.bTacticalMoraleMod > PHOBIC_LIMIT )
+			// SANDRO - really?? I think it also shouldn't go lower if strategic morale mod is less than -20
+			if ( pSoldier->aiData.bTacticalMoraleMod > PHOBIC_LIMIT && pSoldier->aiData.bStrategicMoraleMod > PHOBIC_LIMIT )
 			{
 				HandleMoraleEventForSoldier( pSoldier, bMoraleEvent );
 			}
@@ -538,7 +665,8 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 					{
 						HandleMoraleEventForSoldier( pTeamSoldier, MORALE_BATTLE_WON );
 					}
-					else
+					// SANDRO - Assertive people don't care about actions of others
+					else if ( !gGameOptions.fNewTraitSystem || gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait != CHAR_TRAIT_ASSERTIVE )
 					{
 						HandleMoraleEventForSoldier( pTeamSoldier, MORALE_HEARD_BATTLE_WON );
 					}
@@ -557,22 +685,35 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 
 					if ( SOLDIER_IN_SECTOR( pTeamSoldier, sMapX, sMapY, bMapZ ) || ( pTeamSoldier->flags.fBetweenSectors && ((pTeamSoldier->ubPrevSectorID % 16) + 1) == sMapX && ((pTeamSoldier->ubPrevSectorID / 16) + 1) == sMapY && ( pTeamSoldier->bSectorZ == bMapZ ) ) )
 					{
-						switch ( gMercProfiles[ pTeamSoldier->ubProfile ].bAttitude )
+						if ( gGameOptions.fNewTraitSystem )
 						{
-							case ATT_AGGRESSIVE:
-								// double the penalty - these guys REALLY hate running away
+							// SANDRO - no penalty for pacifists to run away
+							if ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait != CHAR_TRAIT_PACIFIST )
 								HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
+							// Double morale drop for aggressive people
+							if  ( gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_AGGRESSIVE )
 								HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
-								break;
-							case ATT_COWARD:
-								// no penalty - cowards are perfectly happy to avoid fights!
-								break;
-							default:
-								HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
-								break;
+						}
+						else
+						{
+							switch ( gMercProfiles[ pTeamSoldier->ubProfile ].bAttitude )
+							{
+								case ATT_AGGRESSIVE:
+									// double the penalty - these guys REALLY hate running away
+									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
+									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
+									break;
+								case ATT_COWARD:
+									// no penalty - cowards are perfectly happy to avoid fights!
+									break;
+								default:
+									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
+									break;
+							}
 						}
 					}
-					else
+					// SANDRO - Assertive people don't care about actions of others
+					else if ( !gGameOptions.fNewTraitSystem || gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait != CHAR_TRAIT_ASSERTIVE )
 					{
 						HandleMoraleEventForSoldier( pTeamSoldier, MORALE_HEARD_BATTLE_LOST );
 					}
@@ -598,7 +739,22 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 			{
 				if ( pTeamSoldier->bActive )
 				{
-					HandleMoraleEventForSoldier( pTeamSoldier, bMoraleEvent );
+					if ( gGameOptions.fNewTraitSystem && bMoraleEvent != MORALE_DEIDRANNA_KILLED)
+					{
+						if ( !SOLDIER_IN_SECTOR( pTeamSoldier, sMapX, sMapY, bMapZ ) && ( gbMoraleEvent[bMoraleEvent].bChange > 0 ) && 
+							gMercProfiles[pTeamSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_ASSERTIVE )
+						{
+							// No morale gain for assertive people from actions of others
+						}
+						else
+						{
+							HandleMoraleEventForSoldier( pTeamSoldier, bMoraleEvent );
+						}
+					}
+					else
+					{
+						HandleMoraleEventForSoldier( pTeamSoldier, bMoraleEvent );
+					}
 				}
 			}
 			break;
@@ -654,11 +810,29 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 						{
 							// mate died in my sector!	tactical morale mod
 							HandleMoraleEventForSoldier( pTeamSoldier, MORALE_SQUADMATE_DIED );
+
+							// SANDRO - Squadleaders death cost a lot of morale
+							if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SQUADLEADER_NT ))
+							{
+								for ( UINT8 i = 0; i < (gSkillTraitValues.ubSLDeathMoralelossMultiplier * NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT )); i++ )
+								{
+									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_SQUADMATE_DIED );
+								}
+							}
 						}
 
 						// this is handled for everyone even if in sector, as it's a strategic morale mod
 						HandleMoraleEventForSoldier( pTeamSoldier, MORALE_TEAMMATE_DIED );
 
+						// SANDRO - Squadleaders death cost a lot of morale
+						if( gGameOptions.fNewTraitSystem && (NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT ) > 1))
+						{
+							for ( UINT8 i = 0; i < gSkillTraitValues.ubSLDeathMoralelossMultiplier; i++ )
+							{
+								HandleMoraleEventForSoldier( pTeamSoldier, MORALE_SQUADMATE_DIED );
+							}
+						}
+						
 						if (BUDDY_MERC( pProfile, pSoldier->ubProfile ))
 						{
 							// oh no!	buddy died!
@@ -714,6 +888,13 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 
 				}
 			}
+			break;
+		 // added by SANDRO
+		case MORALE_PSYCHO_UNABLE_TO_PSYCHO:
+		case MORALE_PACIFIST_GAIN_NONCOMBAT: // added by SANDRO
+		case MORALE_MALICIOUS_HIT: // added by SANDRO
+			Assert( pSoldier );
+			HandleMoraleEventForSoldier( pSoldier, bMoraleEvent );
 			break;
 
 		default:
@@ -954,6 +1135,11 @@ void HourlyMoraleUpdate( void )
 			{
 				bTeamMoraleModChange = 0;
 			}
+			// SANDRO - morale is going down faster if not fighting for malicious characters
+			if ( gGameOptions.fNewTraitSystem && pProfile->bCharacterTrait == CHAR_TRAIT_MALICIOUS )
+			{
+				bTeamMoraleModChange -= 1;
+			}
 			pSoldier->aiData.bTeamMoraleMod += bTeamMoraleModChange;
 			pSoldier->aiData.bTeamMoraleMod = __min( pSoldier->aiData.bTeamMoraleMod, MORALE_MOD_MAX );
 			pSoldier->aiData.bTeamMoraleMod = __max( pSoldier->aiData.bTeamMoraleMod, -MORALE_MOD_MAX );
@@ -1023,4 +1209,61 @@ void DailyMoraleUpdate(SOLDIERTYPE *pSoldier)
 		HandleMoraleEvent( pSoldier, MORALE_GREAT_MORALE, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 	}
 
+}
+
+// Added by SANDRO
+BOOLEAN IsShowOffNearBy( SOLDIERTYPE * pSoldier )
+{
+	UINT32					uiLoop;
+	SOLDIERTYPE *		pTeammate;
+	BOOLEAN				fOneException = FALSE;
+	BOOLEAN				fYesHeIs = FALSE;
+
+	if (!pSoldier)
+	{
+		return( FALSE );
+	}
+	if( !(pSoldier->bActive) || !(pSoldier->bInSector) )
+	{
+		return( FALSE );	
+	}
+
+	for ( uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop < gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; uiLoop++)
+	{
+		pTeammate = MercPtrs[ uiLoop ];
+		if ( pTeammate == NULL )
+		{
+			continue;
+		}
+		if ( pTeammate == pSoldier )
+		{
+			continue;
+		}
+		// Are we actually here?
+		if ( !(pTeammate->bActive) || !(pTeammate->bInSector) || ( pTeammate->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pTeammate->bAssignment == VEHICLE ) )
+		{
+			// is nowhere around!
+			continue;
+		}
+		// Are we from our team an dalive?
+		if ( pTeammate->bTeam == pSoldier->bTeam && pTeammate->stats.bLife >= OKLIFE && 
+			gMercProfiles[ pTeammate->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF && PythSpacesAway( pSoldier->sGridNo, pTeammate->sGridNo ) <= 15)
+		{
+			if ( (pSoldier->ubBodyType <= STOCKYMALE && pTeammate->ubBodyType <= STOCKYMALE) || 
+				(pSoldier->ubBodyType == REGFEMALE && pTeammate->ubBodyType == REGFEMALE) ) 
+			{
+				// phlegmatic character can ignore one
+				if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC && !fOneException)
+				{
+					fOneException = TRUE;			
+				}
+				else
+				{
+					fYesHeIs = TRUE;
+				}
+			}
+		}
+	}
+
+	return( fYesHeIs );
 }

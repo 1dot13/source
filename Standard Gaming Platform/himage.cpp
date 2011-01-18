@@ -20,9 +20,9 @@
 	#include "vobject.h"
 #endif
 
-#include "VFS/vfs.h"
+#include <vfs/Core/vfs.h>
 
-const utf8string::str_t CONST_DOTJPC(L".jpc.7z");
+const vfs::String::str_t CONST_DOTJPC(L".jpc.7z");
 
 
 
@@ -52,13 +52,91 @@ typedef union
 	UINT32	uiValue;
 } SplitUINT32;
 
-HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents )
+namespace ImageFileType
 {
-	HIMAGE			hImage = NULL;
-	SGPFILENAME	Extension;
-	CHAR8				ExtensionSep[] = ".";
-	STR					StrPtr;
+	typedef std::map<vfs::String, int, vfs::String::Less> ExtMap_t;
+
+	static int map(vfs::String const& ext)
+	{
+		static ExtMap_t _ext_map;
+		static bool inited = false;
+		if(!inited)
+		{
+			_ext_map["pcx"]    = PCX_FILE_READER;
+			_ext_map["tga"]    = TGA_FILE_READER;
+			_ext_map["sti"]    = STCI_FILE_READER;
+			_ext_map["png"]    = PNG_FILE_READER;
+			_ext_map["jpc.7z"] = JPC_FILE_READER;
+			inited = true;
+		}
+		ExtMap_t::const_iterator cit = _ext_map.find(ext);
+		if(cit != _ext_map.end())
+		{
+			return cit->second;
+		}
+		return UNKNOWN_FILE_READER;
+	}
+
+	static int getFileReaderType(std::string& filename, TestOrder order)
+	{
+		std::string::size_type pos = filename.find_last_of(".");
+		std::string ext = filename.substr(pos+1, std::string::npos);
+		if(ext.empty())
+		{
+			ext = "pcx";
+			filename += ".pcx";
+		}
+		int reader_type = map(ext);
+
+		/*
+		 * if DEFAULT, then just check existance of file
+		 * if not STI, then there is no different load order, just continue as usual
+		 */
+		if(order == DEFAULT || reader_type != STCI_FILE_READER)
+		{
+			return getVFS()->fileExists(filename) ? reader_type : UNKNOWN_FILE_READER;
+		}
+		/*
+		 * file must have originally been an STI file, but should be treated as a JPC or a PNG file
+		 */
+		else if(order == JPC || order == PNG)
+		{
+			vfs::String file = filename.substr(0, pos+1).append(order == JPC ? "jpc.7z" : "png");
+			if( getVFS()->fileExists(file) )
+			{
+				filename = file.utf8();
+				return order == JPC ? JPC_FILE_READER : PNG_FILE_READER;
+			}
+			return UNKNOWN_FILE_READER;
+		}
+		/*
+		 * file must have originally been an STI file, but should be treated as a JPC or a PNG file
+		 * if the replacement filetypes don't exist, fall back to STI
+		 */
+		else if(order == JPC_FALLBACK || order == PNG_FALLBACK)
+		{
+			vfs::String file = filename.substr(0, pos+1).append(order == JPC_FALLBACK ? "jpc.7z" : "png");
+			if( getVFS()->fileExists(file) )
+			{
+				filename = file.utf8();
+				return order == JPC_FALLBACK ? JPC_FILE_READER : PNG_FILE_READER;
+			}
+			// fallback to original type
+			return getVFS()->fileExists(filename) ? reader_type : UNKNOWN_FILE_READER;
+		}
+		return UNKNOWN_FILE_READER;
+	}
+};
+
+HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents, ImageFileType::TestOrder order )
+{
+	HIMAGE			hImage = NULL;	
+	CHAR8			ExtensionSep[] = ".";	
 	UINT32			iFileLoader;
+
+#if 0
+	SGPFILENAME	Extension;
+	STR					StrPtr;
 
 	// Depending on extension of filename, use different image readers
 	// Get extension
@@ -96,9 +174,9 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents )
 #ifdef USE_VFS
 			// see if there is a .jpc file first and when that fails, try .sti
 			vfs::Path str(ImageFile);
-			utf8string::str_t const& findext = str.c_wcs();
-			utf8string::size_t dot = findext.find_last_of(vfs::Const::DOT());
-			utf8string fname = findext.substr(0,dot).append(CONST_DOTJPC);
+			vfs::String::str_t const& findext = str.c_wcs();
+			vfs::String::size_t dot = findext.find_last_of(vfs::Const::DOT());
+			vfs::String fname = findext.substr(0,dot).append(CONST_DOTJPC);
 			if(getVFS()->fileExists(fname))
 			{
 				iFileLoader = JPC_FILE_READER;
@@ -116,7 +194,7 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents )
 			break;
 		}
 #ifdef USE_VFS
-		else if ( StrCmp::Equal(Extension, L"jpc.7z") )
+		else if ( vfs::StrCmp::Equal(Extension, L"jpc.7z") )
 		{
 			iFileLoader = JPC_FILE_READER;
 			break;
@@ -137,6 +215,23 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents )
 
 		return( NULL );
 	}
+#else
+	std::string filename(ImageFile);
+	iFileLoader = ImageFileType::getFileReaderType(filename, order);
+	if ( iFileLoader == UNKNOWN_FILE_READER )
+	{
+		//If in debug, make fatal!
+#ifdef JA2
+#ifdef _DEBUG
+		//FatalError( "Resource file %s does not exist.", ImageFile );
+#endif
+#endif
+		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, String("Resource file %s does not exist.", ImageFile) );
+
+		return( NULL );
+	}
+
+#endif
 
 	// Create memory for image structure
 	hImage = (HIMAGE)MemAlloc( sizeof( image_type ) );
@@ -152,7 +247,7 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents )
 	//hImage->pui16BPPPalette = NULL;
 
 	// Set filename and loader
-	strcpy( hImage->ImageFile, ImageFile );
+	strncpy( hImage->ImageFile, /*ImageFile*/filename.c_str(), filename.length() );
 	hImage->iFileLoader = iFileLoader;
 
 	if ( !LoadImageData( hImage, fContents ) )

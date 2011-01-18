@@ -33,6 +33,12 @@
 
 #include "PathAIDebug.h"
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SANDRO - all "APBPConstants[AP_CROUCH]" and "APBPConstants[AP_PRONE]" here    
+//           were changed to GetAPsCrouch() and GetAPsProne()					 
+//		  - also all "APBPConstants[AP_PICKUP_ITEM]" were replaced by GetBasicAPsToPickupItem()
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	INT16 * gsCoverValue = NULL;
 #ifdef _DEBUG
 
@@ -128,13 +134,13 @@ INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT32 sOpp
 		switch (bCubeLevel)
 		{
 			case 1:
-				if (iMyAPsLeft < APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE])
+				if (iMyAPsLeft < GetAPsCrouch(pSoldier,TRUE) + GetAPsProne(pSoldier,TRUE))
 				{
 					continue;
 				}
 				break;
 			case 2:
-				if (iMyAPsLeft < APBPConstants[AP_CROUCH])
+				if (iMyAPsLeft < GetAPsCrouch(pSoldier,TRUE))
 				{
 					continue;
 				}
@@ -168,13 +174,13 @@ INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT32 sO
 			switch (bCubeLevel)
 		{
 			case 1:
-				if (iMyAPsLeft < APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE])
+				if (iMyAPsLeft < GetAPsCrouch(pSoldier,TRUE) + GetAPsProne(pSoldier,TRUE))
 				{
 					continue;
 				}
 				break;
 			case 2:
-				if (iMyAPsLeft < APBPConstants[AP_CROUCH])
+				if (iMyAPsLeft < GetAPsCrouch(pSoldier,TRUE))
 				{
 					continue;
 				}
@@ -430,7 +436,7 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 	{
 	// if I CAN'T crouch when I get there, that makes it significantly less
 	// appealing a spot (how much depends on range), so that's a penalty to me
-	if (iMyAPsLeft < APBPConstants[AP_CROUCH])
+	if (iMyAPsLeft < GetAPsCrouch(pMe,TRUE))
 	 // subtract another 1 % penalty for NOT being able to crouch per tile
 	 // the farther away we are, the bigger a difference crouching will make!
 	 iMyPosValue -= ((iMyPosValue * (AIM_PENALTY_TARGET_CROUCHED + (iRange / CELL_X_SIZE))) / 100);
@@ -1662,7 +1668,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 		return AI_ACTION_NONE;
 	}
 
-	if (pSoldier->bActionPoints < APBPConstants[AP_PICKUP_ITEM])
+	if (pSoldier->bActionPoints < GetBasicAPsToPickupItem( pSoldier ))
 	{
 		return( AI_ACTION_NONE );
 	}
@@ -1719,7 +1725,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 
 	// set an AP limit too, to our APs less the cost of picking up an item
 	// and less the cost of dropping an item since we might need to do that
-	gubNPCAPBudget = pSoldier->bActionPoints - APBPConstants[AP_PICKUP_ITEM];
+	gubNPCAPBudget = pSoldier->bActionPoints - GetBasicAPsToPickupItem( pSoldier );
 
 	// reset the "reachable" flags in the region we're looking at
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
@@ -1922,7 +1928,12 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 										// WANNE: Fix a vanilla bug: When an enemy soldier is looking for items and finds a non-helmet/vest/leggings piece of armour it was incorrectly considered for pickup.
 										// Fixed by Tron (Stracciatella): Revision: 5719
 										// break;
-										continue;
+										// continue; <- silversurfer: bad idea, this causes the game to hang
+										// to make sure that the item isn't considered set iTempValue to zero and get out
+										{
+											iTempValue = 0;
+											break;
+										}
 								}
 							}
 							else
@@ -1959,7 +1970,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 			//if (pSoldier->inv[HANDPOS].exists() == true && PlaceInAnyPocket(pSoldier, &pSoldier->inv[HANDPOS], false) == false)
 			if (FindBetterSpotForItem( pSoldier, HANDPOS ) == FALSE)
 			{
-				if (pSoldier->bActionPoints < APBPConstants[AP_PICKUP_ITEM] + APBPConstants[AP_PICKUP_ITEM])
+				if (pSoldier->bActionPoints < GetBasicAPsToPickupItem( pSoldier ) + GetBasicAPsToPickupItem( pSoldier ))
 				{
 					return( AI_ACTION_NONE );
 				}
@@ -1968,7 +1979,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 					// destroy this item!
 					DebugAI( String( "%d decides he must drop %S first so destroys it", pSoldier->ubID, ItemNames[ pSoldier->inv[HANDPOS].usItem ] ) );
 					DeleteObj( &(pSoldier->inv[HANDPOS]) );
-					DeductPoints( pSoldier, APBPConstants[AP_PICKUP_ITEM], 0 );
+					DeductPoints( pSoldier, GetBasicAPsToPickupItem( pSoldier ), 0 );
 				}
 				else
 				{

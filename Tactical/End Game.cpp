@@ -116,7 +116,7 @@ void ChangeO3SectorStatue( BOOLEAN fFromExplosion )
 	ExitGrid.ubGotoSectorX = 3;
 	ExitGrid.ubGotoSectorY = MAP_ROW_O;
 	ExitGrid.ubGotoSectorZ = 1;
-	ExitGrid.usGridNo = 13037;	
+	ExitGrid.usGridNo = 13037;	 //dnl!!!
 
 	AddExitGridToWorld( 13669, &ExitGrid );
 	gpWorldLevelData[ 13669 ].uiFlags |= MAPELEMENT_REVEALED;
@@ -187,7 +187,7 @@ void HandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLev
 		{
 			if ( OK_INSECTOR_MERC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !AM_AN_EPC( pTeamSoldier ) )
 			{
-				if ( QuoteExp_WitnessDeidrannaDeath[ pTeamSoldier->ubProfile ] )
+				if ( QuoteExp[ pTeamSoldier->ubProfile ].QuoteExpWitnessDeidrannaDeath )
 				{
 					if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo,  bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 					{
@@ -475,7 +475,7 @@ void HandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLe
 		{
 			if ( OK_INSECTOR_MERC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !AM_AN_EPC( pTeamSoldier ) )
 			{
-				if ( QuoteExp_WitnessQueenBugDeath[ pTeamSoldier->ubProfile ] )
+				if ( QuoteExp[ pTeamSoldier->ubProfile ].QuoteExpWitnessQueenBugDeath )
 				{
 					if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo,  bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 					{

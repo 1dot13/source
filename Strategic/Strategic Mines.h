@@ -4,7 +4,8 @@
 // the .h to the mine management system
 
 #include "Types.h"
-
+#include "strategicmap.h"
+#include "mapscreen.h"
 
 // the mines
 enum{
@@ -14,17 +15,17 @@ enum{
 		MINE_CAMBRIA,
 		MINE_CHITZENA,
 		MINE_GRUMM,
-	MAX_NUMBER_OF_MINES,
+	//MAX_NUMBER_OF_MINES,
 };
 
-enum{
-		MINER_FRED = 0,
-		MINER_MATT,
-		MINER_OSWALD,
-		MINER_CALVIN,
-		MINER_CARL,
-	NUM_HEAD_MINERS,
-};
+//enum{
+//		MINER_FRED = 0,
+//		MINER_MATT,
+//		MINER_OSWALD,
+//		MINER_CALVIN,
+//		MINER_CARL,
+//	NUM_HEAD_MINERS,
+//};
 
 // different types of mines
 enum{
@@ -55,15 +56,20 @@ enum{
 };
 
 
+struct AssociatedMineSector
+{
+	UINT8 mineID;
+	UINT8 x, y, z;
+};
 
 // the strategic mine structures
-typedef struct MINE_LOCATION_TYPE
-{
-	INT16	sSectorX;						// x value of sector mine is in
-	INT16	sSectorY;						// y value of sector mine is in
-	INT8	bAssociatedTown;			// associated town of this mine
-
-} MINE_LOCATION_TYPE;
+//typedef struct MINE_LOCATION_TYPE
+//{
+//	INT16	sSectorX;						// x value of sector mine is in
+//	INT16	sSectorY;						// y value of sector mine is in
+//	INT8	bAssociatedTown;			// associated town of this mine
+//
+//} MINE_LOCATION_TYPE;
 
 typedef struct MINE_STATUS_TYPE
 {
@@ -90,16 +96,30 @@ typedef struct MINE_STATUS_TYPE
 
 	BYTE	 filler[11];					// reserved for expansion
 
+	// merge in MINE_LOCATION_TYPE
+	INT16	sSectorX;						// x value of sector mine is in
+	INT16	sSectorY;						// y value of sector mine is in
+	INT8	bAssociatedTown;			// associated town of this mine
+	
+	UINT32 StrategicIndex() { return CALCULATE_STRATEGIC_INDEX(sSectorX, sSectorY); };
+
+	BOOLEAN fInfectible;
+
 } MINE_STATUS_TYPE;
 
 typedef struct HEAD_MINER_TYPE
 {
 	UINT16	usProfileId;
 	INT8		bQuoteNum[NUM_HEAD_MINER_STRATEGIC_QUOTES];
-	UINT8		ubExternalFace;
+	UINT8		ubExternalFaceIndex;
 } HEAD_MINER_TYPE;
 
 
+extern INT32 MAX_NUMBER_OF_MINES;
+extern INT32 NUM_HEAD_MINERS;
+extern std::vector<MINE_STATUS_TYPE> gMineStatus;
+extern std::vector<AssociatedMineSector> associatedMineSectors;
+extern std::vector<HEAD_MINER_TYPE> gHeadMinerData;
 
 // init mines
 void InitializeMines( void );
@@ -116,9 +136,6 @@ UINT32 GetMaxDailyRemovalFromMine( INT8 bMineIndex );
 // which town does this mine belong to?
 INT8 GetTownAssociatedWithMine( INT8 bMineIndex );
 
-// which mine belongs tot his town
-INT8 GetMineAssociatedWithThisTown( INT8 bTownValue );
-
 // posts the actual mine production events daily
 void PostEventsForMineProduction(void);
 
@@ -126,10 +143,10 @@ void PostEventsForMineProduction(void);
 void HandleIncomeFromMines( void );
 
 // predict income from mines
-INT32 PredictIncomeFromPlayerMines( void );
+INT32 PredictIncomeFromPlayerMines( BOOLEAN fIncludeFacilities );
 
 // predict income from a mine
-UINT32 PredictDailyIncomeFromAMine( INT8 bMineIndex );
+UINT32 PredictDailyIncomeFromAMine( INT8 bMineIndex, BOOLEAN fIncludeFacilities );
 
 // calculate maximum possible daily income from all mines
 INT32 CalcMaxPlayerIncomeFromMines( void );
@@ -162,7 +179,7 @@ void MineShutdownIsPermanent( INT8 bMineIndex );
 BOOLEAN IsMineShutDown( INT8 bMineIndex );
 
 UINT8 GetHeadMinerIndexForMine( INT8 bMineIndex );
-UINT16 GetHeadMinerProfileIdForMine( INT8 bMineIndex );
+//UINT16 GetHeadMinerProfileIdForMine( INT8 bMineIndex );
 
 // Find the sector location of a mine
 void GetMineSector( UINT8 ubMineIndex, INT16 * psX, INT16 * psY );
@@ -193,7 +210,7 @@ BOOLEAN HasHisMineBeenProducingForPlayerForSomeTime( UINT8 ubMinerProfileId );
 INT8 GetIdOfMineForSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
 // use this for miner (civilian) quotes when *underground* in a mine
-BOOLEAN PlayerForgotToTakeOverMine( UINT8 ubMineIndex );
+//BOOLEAN PlayerForgotToTakeOverMine( UINT8 ubMineIndex );
 
 // use this to determine whether or not to place miners into a underground mine level
 BOOLEAN AreThereMinersInsideThisMine( UINT8 ubMineIndex );

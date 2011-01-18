@@ -27,13 +27,13 @@
 
 #include "gameloop.h"
 #include "connect.h"
-#include "network.h" // for client name
+#include "network.h"
 #include "saveloadscreen.h"
 
-#include "VFS/vfs.h"
-#include "VFS/vfs_init.h"
-#include "VFS/PropertyContainer.h"
-#include "VFS/os_functions.h"
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_init.h>
+#include <vfs/Tools/vfs_property_container.h>
+#include <vfs/Core/vfs_os_functions.h>
 #include "MPJoinScreen.h"
 #include "MainMenuScreen.h"
 #include "Init.h"
@@ -45,155 +45,146 @@
 //
 ///////////////////////////////////////////
 
-#define		MPH_TITLE_FONT							FONT14ARIAL//FONT16ARIAL
-#define		MPH_TITLE_COLOR									FONT_MCOLOR_WHITE
+INT32		giMPHMessageBox = -1; // message box handle
 
-#define		MPH_LABEL_TEXT_FONT					FONT12ARIAL//FONT16ARIAL
-#define		MPH_LABEL_TEXT_COLOR							FONT_MCOLOR_WHITE
-#define		MPH_TOGGLE_TEXT_FONT					FONT12ARIAL//FONT16ARIAL
-#define		MPH_TOGGLE_TEXT_COLOR							FONT_MCOLOR_WHITE
+#define		MPH_TITLE_FONT							FONT14ARIAL
+#define		MPH_TITLE_COLOR							FONT_MCOLOR_WHITE
+
+#define		MPH_LABEL_TEXT_FONT						FONT10ARIAL
+#define		MPH_LABEL_TEXT_COLOR					FONT_MCOLOR_WHITE
+
+#define		MPH_TOGGLE_TEXT_FONT					FONT10ARIAL
+#define		MPH_TOGGLE_TEXT_COLOR					FONT_MCOLOR_WHITE
 
 //buttons
-#define		MPH_BTN_START_X							iScreenWidthOffset + 320 + 143
-#define		MPH_BTN_START_Y							iScreenHeightOffset + 435
 #define		MPH_CANCEL_X							iScreenWidthOffset + ((320 - 115) / 2)
 
-//textboxes
-#define		MPH_TXT_SVRNAME_X						iScreenWidthOffset + 100
-#define		MPH_TXT_SVRNAME_Y						iScreenHeightOffset + 167
-#define		MPH_TXT_SVRNAME_WIDTH					120
-#define		MPH_TXT_SVRNAME_HEIGHT					17
-#define		MPH_TXT_MAXPLAYERS_X					iScreenWidthOffset + 100
-#define		MPH_TXT_MAXPLAYERS_Y					MPH_TXT_SVRNAME_Y + MPH_TXT_SVRNAME_HEIGHT + 13
-#define		MPH_TXT_MAXPLAYERS_WIDTH				40
-#define		MPH_TXT_MAXPLAYERS_HEIGHT				17
-#define		MPH_TXT_SQUAD_X							iScreenWidthOffset + 100
-#define		MPH_TXT_SQUAD_Y							MPH_TXT_MAXPLAYERS_Y + MPH_TXT_MAXPLAYERS_HEIGHT + 13
-#define		MPH_TXT_SQUAD_WIDTH						40
-#define		MPH_TXT_SQUAD_HEIGHT					17
-#define		MPH_TXT_TIME_X							iScreenWidthOffset + 100
-#define		MPH_TXT_TIME_Y							MPH_TXT_SQUAD_Y + MPH_TXT_SQUAD_HEIGHT + 13
-#define		MPH_TXT_TIME_WIDTH						60
-#define		MPH_TXT_TIME_HEIGHT						17
-#define		MPH_TXT_CASH_X							iScreenWidthOffset + 100
-#define		MPH_TXT_CASH_Y							MPH_TXT_TIME_Y + MPH_TXT_TIME_HEIGHT + 13
-#define		MPH_TXT_CASH_WIDTH						60
-#define		MPH_TXT_CASH_HEIGHT						17
-#define		MPH_TXT_DMG_X							iScreenWidthOffset + 100
-#define		MPH_TXT_DMG_Y							MPH_TXT_CASH_Y + MPH_TXT_CASH_HEIGHT + 13
-#define		MPH_TXT_DMG_WIDTH						60
-#define		MPH_TXT_DMG_HEIGHT						17
-#define		MPH_TXT_TIMER_X							iScreenWidthOffset + 100
-#define		MPH_TXT_TIMER_Y							MPH_TXT_DMG_Y + MPH_TXT_DMG_HEIGHT + 13
-#define		MPH_TXT_TIMER_WIDTH						60
-#define		MPH_TXT_TIMER_HEIGHT					17
-#define		MPH_TXT_FILE_TRANSFER_DIR_X				iScreenWidthOffset + 100
-#define		MPH_TXT_FILE_TRANSFER_DIR_Y				MPH_TXT_TIMER_Y + MPH_TXT_TIMER_HEIGHT + 13
-#define		MPH_TXT_FILE_TRANSFER_DIR_WIDTH			200
-#define		MPH_TXT_FILE_TRANSFER_DIR_HEIGHT		17
-
-
+#define		MPH_BTN_START_X							iScreenWidthOffset + 320 + 105
+#define		MPH_BTN_START_Y							iScreenHeightOffset + 435
 
 //main title
-#define		MPH_MAIN_TITLE_X								0
+#define		MPH_MAIN_TITLE_X						0
 #define		MPH_MAIN_TITLE_Y						iScreenHeightOffset + 10
 #define		MPH_MAIN_TITLE_WIDTH					SCREEN_WIDTH
 
-//labels
-#define		MPH_LABEL_SVRNAME_X						MPH_TXT_SVRNAME_X - 80
-#define		MPH_LABEL_SVRNAME_Y						MPH_TXT_SVRNAME_Y + 3
-#define		MPH_LABEL_SVRNAME_WIDTH					80
-#define		MPH_LABEL_SVRNAME_HEIGHT				17
-#define		MPH_LABEL_MAXPLAYERS_X					MPH_TXT_MAXPLAYERS_X - 80
-#define		MPH_LABEL_MAXPLAYERS_Y					MPH_TXT_MAXPLAYERS_Y + 3
-#define		MPH_LABEL_MAXPLAYERS_WIDTH				80
-#define		MPH_LABEL_MAXPLAYERS_HEIGHT				17
-#define		MPH_LABEL_SQUAD_X						MPH_TXT_SQUAD_X - 80
-#define		MPH_LABEL_SQUAD_Y						MPH_TXT_SQUAD_Y + 3
-#define		MPH_LABEL_SQUAD_WIDTH					80
-#define		MPH_LABEL_SQUAD_HEIGHT					17
-#define		MPH_LABEL_TIME_X						MPH_TXT_TIME_X - 80
-#define		MPH_LABEL_TIME_Y						MPH_TXT_TIME_Y + 3
-#define		MPH_LABEL_TIME_WIDTH					80
-#define		MPH_LABEL_TIME_HEIGHT					17
-#define		MPH_LABEL_CASH_X						MPH_TXT_CASH_X - 80
-#define		MPH_LABEL_CASH_Y						MPH_TXT_CASH_Y + 3
-#define		MPH_LABEL_CASH_WIDTH					80
-#define		MPH_LABEL_CASH_HEIGHT					17
-#define		MPH_LABEL_DMG_X							MPH_TXT_DMG_X - 80
-#define		MPH_LABEL_DMG_Y							MPH_TXT_DMG_Y + 3
-#define		MPH_LABEL_DMG_WIDTH						80
-#define		MPH_LABEL_DMG_HEIGHT					17
-#define		MPH_LABEL_TIMER_X						MPH_TXT_TIMER_X - 80
-#define		MPH_LABEL_TIMER_Y						MPH_TXT_TIMER_Y + 3
-#define		MPH_LABEL_TIMER_WIDTH					80
-#define		MPH_LABEL_TIMER_HEIGHT					17
-#define		MPH_LABEL_FILE_TRANSFER_DIR_X			MPH_TXT_FILE_TRANSFER_DIR_X - 80
-#define		MPH_LABEL_FILE_TRANSFER_DIR_Y			MPH_TXT_FILE_TRANSFER_DIR_Y + 3
-#define		MPH_LABEL_FILE_TRANSFER_DIR_WIDTH		80
-#define		MPH_LABEL_FILE_TRANSFER_DIR_HEIGHT		17
+#define		MPH_TITLE_DISTANCE						30 // higher means closer
 
-//radio box locations
-#define		MPH_GAP_BN_SETTINGS								35
-#define		MPH_OFFSET_TO_TEXT						30
-#define		MPH_OFFSET_TO_TOGGLE_BOX				170
-#define		MPH_OFFSET_TO_TOGGLE_BOX_Y						9
+#define		MPH_GAP_BN_SETTINGS						35
+#define		MPH_OFFSET_TO_TEXT						36
+#define		MPH_OFFSET_TO_TOGGLE_BOX				180
+#define		MPH_OFFSET_TO_TOGGLE_BOX_Y				9
 
-#define		MPH_DIF_SETTINGS_X						iScreenWidthOffset + 320 
-#define		MPH_DIF_SETTINGS_Y						iScreenHeightOffset + 75
-#define		MPH_DIF_SETTINGS_WIDTH					MPH_OFFSET_TO_TOGGLE_BOX - MPH_OFFSET_TO_TEXT
+// ---------------------------------
+// Y-Offset for Combo-Controls
+#define		COMBO_Y_OFFSET							63
+// Y-Offset for Check-Controls
+#define		CHECK_Y_OFFSET							50
 
-#define		MPH_GAMETYPE_SETTINGS_X					iScreenWidthOffset + 20
-#define		MPH_GAMETYPE_SETTINGS_Y					iScreenHeightOffset + 75
-#define		MPH_GAMETYPE_SETTINGS_WIDTH				MPH_OFFSET_TO_TOGGLE_BOX - MPH_OFFSET_TO_TEXT
+#define		CORRECTION_Y_OFFSET						(COMBO_Y_OFFSET - CHECK_Y_OFFSET)
 
-#define		MPH_OVERRIDEMAXAI_X						MPH_DIF_SETTINGS_X
-#define		MPH_OVERRIDEMAXAI_Y						MPH_TXT_SVRNAME_Y
-#define		MPH_OVERRIDEMAXAI_WIDTH					MPH_OFFSET_TO_TOGGLE_BOX
+// X-Offset for Checkbox-Controls
+#define		CHECK_X_OFFSET							36
+#define		COMBO_X_OFFSET							0
 
-#define		MPH_RNDMERC_X							MPH_DIF_SETTINGS_X
-#define		MPH_RNDMERC_Y							MPH_OVERRIDEMAXAI_Y + MPH_GAP_BN_SETTINGS - 5
-#define		MPH_RNDMERC_WIDTH						MPH_OFFSET_TO_TOGGLE_BOX
+#define		CHECK_WIDTH								(MPH_OFFSET_TO_TOGGLE_BOX - MPH_OFFSET_TO_TEXT)
+#define		COMBO_WIDTH								(MPH_OFFSET_TO_TOGGLE_BOX - MPH_OFFSET_TO_TEXT)
+// ---------------------------------
 
-#define		MPH_SAMEMERC_X							MPH_DIF_SETTINGS_X
-#define		MPH_SAMEMERC_Y							MPH_RNDMERC_Y + MPH_GAP_BN_SETTINGS - 5
-#define		MPH_SAMEMERC_WIDTH						MPH_OFFSET_TO_TOGGLE_BOX
+/*********************************
+	FIRST COLUMN
+**********************************/
 
-#define		MPH_REPORTMERC_X						MPH_DIF_SETTINGS_X
-#define		MPH_REPORTMERC_Y						MPH_SAMEMERC_Y + MPH_GAP_BN_SETTINGS - 5
-#define		MPH_REPORTMERC_WIDTH					MPH_OFFSET_TO_TOGGLE_BOX
+#define		FIRST_COLUMN_X							iScreenWidthOffset + 10
+#define		FIRST_COLUMN_Y							iScreenHeightOffset + 75
 
-#define		MPH_BOBBYRAY_X							MPH_DIF_SETTINGS_X
-#define		MPH_BOBBYRAY_Y							MPH_REPORTMERC_Y + MPH_GAP_BN_SETTINGS - 5
-#define		MPH_BOBBYRAY_WIDTH						MPH_OFFSET_TO_TOGGLE_BOX
+#define		MPH_SYNC_SETTING_X						FIRST_COLUMN_X + CHECK_X_OFFSET
+#define		MPH_SYNC_SETTING_Y						FIRST_COLUMN_Y - CORRECTION_Y_OFFSET
+#define		MPH_SYNC_SETTING_WIDTH					CHECK_WIDTH
 
-#define		MPH_RNDSPAWN_X							MPH_DIF_SETTINGS_X
-#define		MPH_RNDSPAWN_Y							MPH_BOBBYRAY_Y + MPH_GAP_BN_SETTINGS - 5
-#define		MPH_RNDSPAWN_WIDTH						MPH_OFFSET_TO_TOGGLE_BOX
+#define		MPH_SQUADSIZE_SETTING_X					FIRST_COLUMN_X + COMBO_X_OFFSET
+#define		MPH_SQUADSIZE_SETTING_Y					MPH_SYNC_SETTING_Y + COMBO_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		MPH_SQUADSIZE_SETTING_WIDTH				COMBO_WIDTH
 
-#define		MPH_CIVS_X								MPH_DIF_SETTINGS_X
-#define		MPH_CIVS_Y								MPH_RNDSPAWN_Y + MPH_GAP_BN_SETTINGS - 5
-#define		MPH_CIVS_WIDTH							MPH_OFFSET_TO_TOGGLE_BOX
+#define		MPH_TIMETURNS_SETTING_X					FIRST_COLUMN_X + COMBO_X_OFFSET
+#define		MPH_TIMETURNS_SETTING_Y					MPH_SQUADSIZE_SETTING_Y + COMBO_Y_OFFSET
+#define		MPH_TIMETURNS_SETTING_WIDTH				COMBO_WIDTH
 
-#define		MPH_USENIV_X							MPH_DIF_SETTINGS_X
-#define		MPH_USENIV_Y							MPH_CIVS_Y + MPH_GAP_BN_SETTINGS - 5
-#define		MPH_USENIV_WIDTH						MPH_OFFSET_TO_TOGGLE_BOX
+#define		MPH_INVENTORY_SETTING_X					FIRST_COLUMN_X + COMBO_X_OFFSET
+#define		MPH_INVENTORY_SETTING_Y					MPH_TIMETURNS_SETTING_Y + COMBO_Y_OFFSET
+#define		MPH_INVENTORY_SETTING_WIDTH				COMBO_WIDTH
 
-#define		MPH_SEND_FILES_X						MPH_DIF_SETTINGS_X
-#define		MPH_SEND_FILES_Y						MPH_USENIV_Y + MPH_GAP_BN_SETTINGS - 5
-#define		MPH_SEND_FILES_WIDTH					MPH_OFFSET_TO_TOGGLE_BOX
+#define		MPH_BOBBYRAY_SETTING_X					FIRST_COLUMN_X + CHECK_X_OFFSET
+#define		MPH_BOBBYRAY_SETTING_Y					MPH_INVENTORY_SETTING_Y + CHECK_Y_OFFSET
+#define		MPH_BOBBYRAY_SETTING_WIDTH				CHECK_WIDTH
 
-//Difficulty settings
-enum
-{
-	MPH_DIFF_HARD,
-	MPH_DIFF_INSANE,
-	MPH_NUM_DIFF_SETTINGS,
-};
+#define		MPH_REPORTMERC_SETTING_X				FIRST_COLUMN_X + CHECK_X_OFFSET
+#define		MPH_REPORTMERC_SETTING_Y				MPH_BOBBYRAY_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		MPH_REPORTMERC_SETTING_WIDTH			CHECK_WIDTH
 
 
+/*********************************
+	SECOND COLUMN
+**********************************/
 
-////////////////////////////////////////////
+#define		SECOND_COLUMN_X							iScreenWidthOffset + 210
+#define		SECOND_COLUMN_Y							FIRST_COLUMN_Y
+
+#define		MPH_MAXPLAYERS_SETTING_X				SECOND_COLUMN_X + COMBO_X_OFFSET
+#define		MPH_MAXPLAYERS_SETTING_Y				SECOND_COLUMN_Y
+#define		MPH_MAXPLAYERS_SETTING_WIDTH			COMBO_WIDTH
+
+#define		MPH_STARTINGTIME_SETTING_X				SECOND_COLUMN_X + COMBO_X_OFFSET
+#define		MPH_STARTINGTIME_SETTING_Y				MPH_MAXPLAYERS_SETTING_Y + COMBO_Y_OFFSET
+#define		MPH_STARTINGTIME_SETTING_WIDTH			COMBO_WIDTH
+
+#define		MPH_WEAPONDAMAGE_SETTING_X				SECOND_COLUMN_X + COMBO_X_OFFSET
+#define		MPH_WEAPONDAMAGE_SETTING_Y				MPH_STARTINGTIME_SETTING_Y + COMBO_Y_OFFSET
+#define		MPH_WEAPONDAMAGE_SETTING_WIDTH			COMBO_WIDTH
+
+#define		MPH_TRAITS_SETTING_X					SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		MPH_TRAITS_SETTING_Y					MPH_WEAPONDAMAGE_SETTING_Y + CHECK_Y_OFFSET
+#define		MPH_TRAITS_SETTING_WIDTH				CHECK_WIDTH
+
+#define		MPH_HIREMERC_SETTING_X					SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		MPH_HIREMERC_SETTING_Y					MPH_TRAITS_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		MPH_HIREMERC_SETTING_WIDTH				CHECK_WIDTH
+
+#define		MPH_CIVS_SETTING_X						SECOND_COLUMN_X + CHECK_X_OFFSET
+#define		MPH_CIVS_SETTING_Y						MPH_HIREMERC_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		MPH_CIVS_SETTING_WIDTH					CHECK_WIDTH
+
+/*********************************
+	THIRD COLUMN
+**********************************/
+
+#define		THIRD_COLUMN_X							iScreenWidthOffset + 413
+#define		THIRD_COLUMN_Y							FIRST_COLUMN_Y
+
+#define		MPH_GAMETYPE_SETTING_X					THIRD_COLUMN_X + COMBO_X_OFFSET
+#define		MPH_GAMETYPE_SETTING_Y					THIRD_COLUMN_Y
+#define		MPH_GAMETYPE_SETTING_WIDTH				COMBO_WIDTH
+
+#define		MPH_STARTINGCASH_SETTING_X				THIRD_COLUMN_X + COMBO_X_OFFSET
+#define		MPH_STARTINGCASH_SETTING_Y				MPH_GAMETYPE_SETTING_Y + COMBO_Y_OFFSET
+#define		MPH_STARTINGCASH_SETTING_WIDTH			COMBO_WIDTH
+
+#define		MPH_SECTOREDGE_SETTING_X				THIRD_COLUMN_X + CHECK_X_OFFSET
+#define		MPH_SECTOREDGE_SETTING_Y				MPH_STARTINGCASH_SETTING_Y + CHECK_Y_OFFSET
+#define		MPH_SECTOREDGE_SETTING_WIDTH			CHECK_WIDTH
+
+#define		MPH_DIFFICULTY_SETTING_X				THIRD_COLUMN_X + COMBO_X_OFFSET
+#define		MPH_DIFFICULTY_SETTING_Y				MPH_SECTOREDGE_SETTING_Y + COMBO_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		MPH_DIFFICULTY_SETTING_WIDTH			COMBO_WIDTH
+
+#define		MPH_MAXENEMIES_SETTING_X				THIRD_COLUMN_X + CHECK_X_OFFSET
+#define		MPH_MAXENEMIES_SETTING_Y				MPH_DIFFICULTY_SETTING_Y + CHECK_Y_OFFSET
+#define		MPH_MAXENEMIES_SETTING_WIDTH			CHECK_WIDTH
+
+#define		MPH_SAMEMERC_SETTING_X					THIRD_COLUMN_X + CHECK_X_OFFSET
+#define		MPH_SAMEMERC_SETTING_Y					MPH_MAXENEMIES_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
+#define		MPH_SAMEMERC_SETTING_WIDTH				CHECK_WIDTH
+
+///////////////////////////////////////////
 //
 //	Global Variables
 //
@@ -203,6 +194,1292 @@ BOOLEAN		gfMPHScreenEntry = TRUE;
 BOOLEAN		gfMPHScreenExit	= FALSE;
 BOOLEAN		gfReRenderMPHScreen=TRUE;
 BOOLEAN		gfMPHButtonsAllocated = FALSE;
+
+// RW: 
+UINT32		guiMPHSMALLFRAME;
+
+void RenderMPHSmallSelectionFrame(INT16 sX, INT16 sY);
+
+// ----------------
+// Traits
+enum
+{
+	MPH_TRAITS_OLD = 0,
+	MPH_TRAITS_NEW = 1,
+
+	MPH_NUM_TRAITS_OPTIONS,
+};
+
+UINT32	guiMPHTraitsOptionTogglesImage[ MPH_NUM_TRAITS_OPTIONS ];
+UINT32	guiMPHTraitsOptionToggles[ MPH_NUM_TRAITS_OPTIONS ];
+void BtnMPHOldTraitsCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnMPHNewTraitsCallback(GUI_BUTTON *btn,INT32 reason);
+void MTHNewTraitsNotPossibleMessageBoxCallBack( UINT8 bExitValue );
+
+void BtnMPHOldTraitsCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_TRAITS_SETTING_X), (MPH_TRAITS_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHTraitsOptionToggles[ MPH_TRAITS_NEW ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHTraitsOptionToggles[ MPH_TRAITS_OLD ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+BOOLEAN DoMPHMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+{
+	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
+
+	// do message box and return
+	giMPHMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback,	&CenteringRect );
+
+	// send back return state
+	return( ( giMPHMessageBox != -1 ) );
+}
+
+UINT8	GetMPHCurrentTraitsOptionButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<MPH_NUM_TRAITS_OPTIONS; cnt++)
+	{
+		if( ButtonList[ guiMPHTraitsOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+void BtnMPHNewTraitsCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		if (!gGameExternalOptions.fReadProfileDataFromXML)
+		{
+			PlayButtonSound( guiMPHTraitsOptionToggles[ MPH_TRAITS_NEW ], BUTTON_SOUND_DISABLED_CLICK );
+
+			DoMPHMessageBox( MSG_BOX_BASIC_STYLE, zGioNewTraitsImpossibleText[0], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, MTHNewTraitsNotPossibleMessageBoxCallBack );
+		}
+		else
+		{
+			RestoreExternBackgroundRect( (MPH_TRAITS_SETTING_X), (MPH_TRAITS_SETTING_Y + 10), 230, 40 );
+
+			ButtonList[ guiMPHTraitsOptionToggles[ MPH_TRAITS_OLD ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+			btn->uiFlags|=(BUTTON_CLICKED_ON);
+				
+			PlayButtonSound( guiMPHTraitsOptionToggles[ MPH_TRAITS_NEW ], BUTTON_SOUND_CLICKED_ON );
+		}
+	}
+}
+
+void MTHNewTraitsNotPossibleMessageBoxCallBack( UINT8 bExitValue )
+{
+}
+
+// ----------------
+
+// -------------
+// Sync
+enum
+{
+	MPH_SYNC_NO = 0,
+	MPH_SYNC_YES = 1,
+
+	MPH_NUM_SYNC_OPTIONS,
+};
+
+UINT32	guiMPHSyncOptionTogglesImage[ MPH_NUM_SYNC_OPTIONS ];
+UINT32	guiMPHSyncOptionToggles[ MPH_NUM_SYNC_OPTIONS ];
+void BtnMPHNoSyncCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnMPHYesSyncCallback(GUI_BUTTON *btn,INT32 reason);
+
+void BtnMPHNoSyncCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_SYNC_SETTING_X), (MPH_SYNC_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHSyncOptionToggles[ MPH_SYNC_YES ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHSyncOptionToggles[ MPH_SYNC_NO ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+void BtnMPHYesSyncCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_SYNC_SETTING_X), (MPH_SYNC_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHSyncOptionToggles[ MPH_SYNC_NO ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHSyncOptionToggles[ MPH_SYNC_YES ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+UINT8	GetCurrentSyncOptionButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<MPH_NUM_SYNC_OPTIONS; cnt++)
+	{
+		if( ButtonList[ guiMPHSyncOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+// -------------
+
+// -------------
+// MaxEnemies
+enum
+{
+	MPH_MAXENEMIES_NO = 0,
+	MPH_MAXENEMIES_YES = 1,
+
+	MPH_NUM_MAXENEMIES_OPTIONS,
+};
+
+UINT32	guiMPHMaxEnemiesOptionTogglesImage[ MPH_NUM_SYNC_OPTIONS ];
+UINT32	guiMPHMaxEnemiesOptionToggles[ MPH_NUM_SYNC_OPTIONS ];
+void BtnMPHNoMaxEnemiesCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnMPHYesMaxEnemiesCallback(GUI_BUTTON *btn,INT32 reason);
+
+void BtnMPHNoMaxEnemiesCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_MAXENEMIES_SETTING_X), (MPH_MAXENEMIES_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_YES ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_NO ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnMPHYesMaxEnemiesCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_MAXENEMIES_SETTING_X), (MPH_MAXENEMIES_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_NO ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_YES ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+UINT8	GetCurrentMaxEnemiesOptionButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<MPH_NUM_MAXENEMIES_OPTIONS; cnt++)
+	{
+		if( ButtonList[ guiMPHMaxEnemiesOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+// -------------
+
+// -------------
+// Civs
+enum
+{
+	MPH_CIVS_NO = 0,
+	MPH_CIVS_YES = 1,
+
+	MPH_NUM_CIVS_OPTIONS,
+};
+
+UINT32	guiMPHCivsOptionTogglesImage[ MPH_NUM_SYNC_OPTIONS ];
+UINT32	guiMPHCivsOptionToggles[ MPH_NUM_SYNC_OPTIONS ];
+void BtnMPHNoCivsCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnMPHYesCivsCallback(GUI_BUTTON *btn,INT32 reason);
+
+void BtnMPHNoCivsCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_CIVS_SETTING_X), (MPH_CIVS_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHCivsOptionToggles[ MPH_CIVS_YES ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHCivsOptionToggles[ MPH_CIVS_NO ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnMPHYesCivsCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_CIVS_SETTING_X), (MPH_CIVS_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHCivsOptionToggles[ MPH_CIVS_NO ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHCivsOptionToggles[ MPH_CIVS_YES ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+UINT8	GetCurrentCivsOptionButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<MPH_NUM_CIVS_OPTIONS; cnt++)
+	{
+		if( ButtonList[ guiMPHCivsOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+// -------------
+
+// -------------
+// ReportMerc
+enum
+{
+	MPH_REPORTMERC_NO = 0,
+	MPH_REPORTMERC_YES = 1,
+
+	MPH_NUM_REPORTMERC_OPTIONS,
+};
+
+UINT32	guiMPHReportMercOptionTogglesImage[ MPH_NUM_SYNC_OPTIONS ];
+UINT32	guiMPHReportMercOptionToggles[ MPH_NUM_SYNC_OPTIONS ];
+void BtnMPHNoReportMercCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnMPHYesReportMercCallback(GUI_BUTTON *btn,INT32 reason);
+
+void BtnMPHNoReportMercCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_REPORTMERC_SETTING_X), (MPH_REPORTMERC_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHReportMercOptionToggles[ MPH_REPORTMERC_YES ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHReportMercOptionToggles[ MPH_REPORTMERC_NO ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnMPHYesReportMercCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_REPORTMERC_SETTING_X), (MPH_REPORTMERC_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHReportMercOptionToggles[ MPH_REPORTMERC_NO ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHReportMercOptionToggles[ MPH_REPORTMERC_YES ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+UINT8	GetCurrentReportMercOptionButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<MPH_NUM_REPORTMERC_OPTIONS; cnt++)
+	{
+		if( ButtonList[ guiMPHReportMercOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+// -------------
+
+// -------------
+// HireMerc
+enum
+{
+	MPH_HIREMERC_NORMAL = 0,
+	MPH_HIREMERC_RANDOM = 1,	
+
+	MPH_NUM_HIREMERC_OPTIONS,
+};
+
+UINT32	guiMPHHireMercOptionTogglesImage[ MPH_NUM_SYNC_OPTIONS ];
+UINT32	guiMPHHireMercOptionToggles[ MPH_NUM_SYNC_OPTIONS ];
+void BtnMPHRandomHireMercCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnMPHNormalHireMercCallback(GUI_BUTTON *btn,INT32 reason);
+
+void BtnMPHRandomHireMercCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_HIREMERC_SETTING_X), (MPH_HIREMERC_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHHireMercOptionToggles[ MPH_HIREMERC_NORMAL ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHHireMercOptionToggles[ MPH_HIREMERC_RANDOM ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnMPHNormalHireMercCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_HIREMERC_SETTING_X), (MPH_HIREMERC_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHHireMercOptionToggles[ MPH_HIREMERC_RANDOM ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHHireMercOptionToggles[ MPH_HIREMERC_NORMAL ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+UINT8	GetCurrentHireMercOptionButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<MPH_NUM_HIREMERC_OPTIONS; cnt++)
+	{
+		if( ButtonList[ guiMPHHireMercOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+// -------------
+
+// -------------
+// SectorEdge
+enum
+{	
+	MPH_SECTOREDGE_SELECTABLE = 0,
+	MPH_SECTOREDGE_RANDOM = 1,
+
+	MPH_NUM_SECTOREDGE_OPTIONS,
+};
+
+UINT32	guiMPHSectorEdgeOptionTogglesImage[ MPH_NUM_SYNC_OPTIONS ];
+UINT32	guiMPHSectorEdgeOptionToggles[ MPH_NUM_SYNC_OPTIONS ];
+void BtnMPHRandomSectorEdgeCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnMPHSelectableSectorEdgeCallback(GUI_BUTTON *btn,INT32 reason);
+
+void BtnMPHRandomSectorEdgeCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_SECTOREDGE_SETTING_X), (MPH_SECTOREDGE_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_SELECTABLE ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_RANDOM ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnMPHSelectableSectorEdgeCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_SECTOREDGE_SETTING_X), (MPH_SECTOREDGE_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_RANDOM ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_SELECTABLE ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+UINT8	GetCurrentSectorEdgeOptionButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<MPH_NUM_SECTOREDGE_OPTIONS; cnt++)
+	{
+		if( ButtonList[ guiMPHSectorEdgeOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+// -------------
+
+// -------------
+// BobbyRay
+enum
+{
+	MPH_BOBBYRAY_ALLOW = 0,
+	MPH_BOBBYRAY_DISABLE = 1,	
+
+	MPH_NUM_BOBBYRAY_OPTIONS,
+};
+
+UINT32	guiMPHBobbyRayOptionTogglesImage[ MPH_NUM_SYNC_OPTIONS ];
+UINT32	guiMPHBobbyRayOptionToggles[ MPH_NUM_SYNC_OPTIONS ];
+void BtnMPHDisableBobbyRayCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnMPHAllowBobbyRayCallback(GUI_BUTTON *btn,INT32 reason);
+
+void BtnMPHDisableBobbyRayCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_BOBBYRAY_SETTING_X), (MPH_BOBBYRAY_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_ALLOW ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_DISABLE ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnMPHAllowBobbyRayCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_BOBBYRAY_SETTING_X), (MPH_BOBBYRAY_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_DISABLE ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_ALLOW ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+UINT8	GetCurrentBobbyRayOptionButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<MPH_NUM_BOBBYRAY_OPTIONS; cnt++)
+	{
+		if( ButtonList[ guiMPHBobbyRayOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+// -------------
+
+// -------------
+// SameMerc
+enum
+{
+	MPH_SAMEMERC_DISABLE = 0,
+	MPH_SAMEMERC_ALLOW = 1,
+
+	MPH_NUM_SAMEMERC_OPTIONS,
+};
+
+UINT32	guiMPHSameMercOptionTogglesImage[ MPH_NUM_SYNC_OPTIONS ];
+UINT32	guiMPHSameMercOptionToggles[ MPH_NUM_SYNC_OPTIONS ];
+void BtnMPHDisableSameMercCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnMPHAllowSameMercCallback(GUI_BUTTON *btn,INT32 reason);
+
+void BtnMPHDisableSameMercCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_SAMEMERC_SETTING_X), (MPH_SAMEMERC_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHSameMercOptionToggles[ MPH_SAMEMERC_ALLOW ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHSameMercOptionToggles[ MPH_SAMEMERC_DISABLE ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+void BtnMPHAllowSameMercCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		RestoreExternBackgroundRect( (MPH_SAMEMERC_SETTING_X), (MPH_SAMEMERC_SETTING_Y + 10), 230, 40 );
+
+		ButtonList[ guiMPHSameMercOptionToggles[ MPH_SAMEMERC_DISABLE ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+			
+		PlayButtonSound( guiMPHSameMercOptionToggles[ MPH_SAMEMERC_ALLOW ], BUTTON_SOUND_CLICKED_ON );
+	}
+}
+
+UINT8	GetCurrentSameMercOptionButtonSetting()
+{
+	UINT8	cnt;
+
+	for( cnt=0; cnt<MPH_NUM_SAMEMERC_OPTIONS; cnt++)
+	{
+		if( ButtonList[ guiMPHSameMercOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
+		{
+			return( cnt );
+		}
+	}
+	return( 0 );
+}
+
+// -------------
+
+// -------------
+// Difficulty
+enum
+{
+	MPH_DIFF_EASY = 0,
+	MPH_DIFF_MED = 1,
+	MPH_DIFF_HARD = 2,
+	MPH_DIFF_INSANE = 3,
+
+	MPH_NUM_DIFF_SETTINGS,
+};
+
+INT8 iMPHDifficulty;
+
+UINT32 giMPHDifficultyButton[ 2 ];
+INT32 giMPHDifficultyButtonImage[ 2 ];
+void BtnMPHDifficultySelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnMPHDifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+void BtnMPHDifficultySelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHDifficulty > 0 )
+		{
+			PlayButtonSound( giMPHDifficultyButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHDifficulty--;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHDifficultyButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnMPHDifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		if ( iMPHDifficulty < 3 )
+		{
+			PlayButtonSound( giMPHDifficultyButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHDifficulty++;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHDifficultyButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+// -------------
+
+// -------------
+// GameType
+enum
+{
+	MPH_GT_DEATHMATCH = 0,
+	MPH_GT_TEAM_DEATHMATCH = 1,
+	MPH_GT_COOP = 2,	
+
+	MPH_NUM_GAMETYPE_SETTINGS,
+};
+
+INT8 iMPHGameType;
+
+UINT32 giMPHGameTypeButton[ 2 ];
+INT32 giMPHGameTypeButtonImage[ 2 ];
+void BtnMPHGameTypeSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnMPHGameTypeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+void BtnMPHGameTypeSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHGameType > MPH_GT_DEATHMATCH )
+		{
+			PlayButtonSound( giMPHGameTypeButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHGameType--;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHGameTypeButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnMPHGameTypeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHGameType < MPH_GT_COOP )
+		{
+			PlayButtonSound( giMPHGameTypeButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHGameType++;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHGameTypeButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+// -------------
+
+// -------------
+// MaxPlayers
+enum
+{
+	MPH_MAXPLAYERS_2 = 2,
+	MPH_MAXPLAYERS_3 = 3,
+	MPH_MAXPLAYERS_4 = 4,
+	
+	MPH_NUM_MAXPLAYERS_SETTINGS,
+};
+
+INT8 iMPHMaxPlayers;
+
+UINT32 giMPHMaxPlayersButton[ 2 ];
+INT32 giMPHMaxPlayersButtonImage[ 2 ];
+void BtnMPHMaxPlayersSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnMPHMaxPlayersSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+void BtnMPHMaxPlayersSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHMaxPlayers > MPH_MAXPLAYERS_2 )
+		{
+			PlayButtonSound( giMPHMaxPlayersButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHMaxPlayers--;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHMaxPlayersButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnMPHMaxPlayersSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT ||  reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHMaxPlayers < MPH_MAXPLAYERS_4 )
+		{
+			PlayButtonSound( giMPHMaxPlayersButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHMaxPlayers++;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHMaxPlayersButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+// -------------
+
+// -------------
+// Inventory
+enum
+{
+	MPH_INV_OLD = 0,
+	MPH_INV_NEW = 1,
+	MPH_INV_NEW_NAS = 2,
+
+	MPH_NUM_INV_OPTIONS,
+};
+
+INT8 iMPHInventory;
+
+UINT32 giMPHInventoryButton[ 2 ];
+INT32 giMPHInventoryButtonImage[ 2 ];
+void BtnMPHInventorySelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnMPHInventorySelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+void BtnMPHInventorySelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHInventory > MPH_INV_OLD )
+		{
+			PlayButtonSound( giMPHInventoryButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHInventory--;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHInventoryButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnMPHInventorySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT ||  reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHInventory < MPH_INV_NEW_NAS )
+		{
+			PlayButtonSound( giMPHInventoryButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHInventory++;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHInventoryButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+// -------------
+
+// -------------
+// StartingTime
+enum
+{
+	MPH_STARTINGTIME_MORNING = 0,
+	MPH_STARTINGTIME_AFTERNOON = 1,
+	MPH_STARTINGTIME_NIGHT = 2,
+	
+	MPH_NUM_STARTINGTIME_SETTINGS,
+};
+
+INT8 iMPHStartingTime;
+
+UINT32 giMPHStartingTimeButton[ 2 ];
+INT32 giMPHStartingTimeButtonImage[ 2 ];
+void BtnMPHStartingTimeSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnMPHStartingTimeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+void BtnMPHStartingTimeSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHStartingTime > MPH_STARTINGTIME_MORNING )
+		{
+			PlayButtonSound( giMPHStartingTimeButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHStartingTime--;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHStartingTimeButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnMPHStartingTimeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT ||  reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHStartingTime < MPH_STARTINGTIME_NIGHT )
+		{
+			PlayButtonSound( giMPHStartingTimeButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHStartingTime++;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHStartingTimeButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+// -------------
+
+// -------------
+// StartingCash
+enum
+{
+	MPH_STARTINGCASH_LOW = 0,
+	MPH_STARTINGCASH_MEDIUM = 1,
+	MPH_STARTINGCASH_HIGH = 2,
+	MPH_STARTINGCASH_UNLIMITED = 3,
+	
+	MPH_NUM_STARTINGCASH_SETTINGS,
+};
+
+INT8 iMPHStartingCash;
+
+UINT32 giMPHStartingCashButton[ 2 ];
+INT32 giMPHStartingCashButtonImage[ 2 ];
+void BtnMPHStartingCashSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnMPHStartingCashSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+void BtnMPHStartingCashSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHStartingCash > MPH_STARTINGCASH_LOW )
+		{
+			PlayButtonSound( giMPHStartingCashButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHStartingCash--;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHStartingCashButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnMPHStartingCashSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT ||  reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHStartingCash < MPH_STARTINGCASH_UNLIMITED )
+		{
+			PlayButtonSound( giMPHStartingCashButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHStartingCash++;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHStartingCashButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+// -------------
+
+// -------------
+// WeaponDamage
+enum
+{
+	MPH_WEAPONDAMAGE_VERYLOW = 0,
+	MPH_WEAPONDAMAGE_LOW = 1,
+	MPH_WEAPONDAMAGE_NORMAL = 2,
+	
+	MPH_NUM_WEAPONDAMAGE_SETTINGS,
+};
+
+INT8 iMPHWeaponDamage;
+
+UINT32 giMPHWeaponDamageButton[ 2 ];
+INT32 giMPHWeaponDamageButtonImage[ 2 ];
+void BtnMPHWeaponDamageSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnMPHWeaponDamageSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+void BtnMPHWeaponDamageSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHWeaponDamage > MPH_WEAPONDAMAGE_VERYLOW )
+		{
+			PlayButtonSound( giMPHWeaponDamageButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHWeaponDamage--;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHWeaponDamageButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnMPHWeaponDamageSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT ||  reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHWeaponDamage < MPH_WEAPONDAMAGE_NORMAL )
+		{
+			PlayButtonSound( giMPHWeaponDamageButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHWeaponDamage++;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHWeaponDamageButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+// -------------
+
+// -------------
+// TimeTurns
+enum
+{
+	MPH_TIMETURNS_NEVER = 0,
+	MPH_TIMETURNS_SLOW = 1,
+	MPH_TIMETURNS_MEDIUM = 2,
+	MPH_TIMETURNS_FAST = 3,
+	
+	MPH_NUM_TIMETURNS_SETTINGS,
+};
+
+INT8 iMPHTimeTurns;
+
+UINT32 giMPHTimeTurnsButton[ 2 ];
+INT32 giMPHTimeTurnsButtonImage[ 2 ];
+void BtnMPHTimeTurnsSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnMPHTimeTurnsSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+void BtnMPHTimeTurnsSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHTimeTurns > MPH_TIMETURNS_NEVER )
+		{
+			PlayButtonSound( giMPHTimeTurnsButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHTimeTurns--;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHTimeTurnsButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnMPHTimeTurnsSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT ||  reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHTimeTurns < MPH_TIMETURNS_FAST )
+		{
+			PlayButtonSound( giMPHTimeTurnsButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHTimeTurns++;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHTimeTurnsButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+// -------------
+
+// -------------
+// SquadSize
+enum
+{
+	MPH_SQUADSIZE_1 = 1,
+	MPH_SQUADSIZE_2 = 2,
+	MPH_SQUADSIZE_3 = 3,
+	MPH_SQUADSIZE_4 = 4,
+	MPH_SQUADSIZE_5 = 5,
+	MPH_SQUADSIZE_6 = 6,
+	
+	MPH_NUM_SQUADSIZE_SETTINGS,
+};
+
+INT8 iMPHSquadSize;
+
+UINT32 giMPHSquadSizeButton[ 2 ];
+INT32 giMPHSquadSizeButtonImage[ 2 ];
+void BtnMPHSquadSizeSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
+void BtnMPHSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
+
+void BtnMPHSquadSizeSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT || reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHSquadSize > MPH_SQUADSIZE_1 )
+		{
+			PlayButtonSound( giMPHSquadSizeButton[0], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHSquadSize--;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHSquadSizeButton[0], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+void BtnMPHSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT ||  reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	{
+		if ( iMPHSquadSize < MPH_SQUADSIZE_6 )
+		{
+			PlayButtonSound( giMPHSquadSizeButton[1], BUTTON_SOUND_CLICKED_ON );
+
+			iMPHSquadSize++;
+			gfReRenderMPHScreen =TRUE;
+		}
+		else
+		{
+			PlayButtonSound( giMPHSquadSizeButton[1], BUTTON_SOUND_DISABLED_CLICK );
+		}
+	}	
+	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		}
+	}
+}
+
+// -------------
 
 //enum for different states of screen
 enum
@@ -218,34 +1495,38 @@ UINT32		gubMPHExitScreen = MP_HOST_SCREEN;	// The screen that is in control next
 
 UINT32		guiMPHMainBackGroundImage;
 
+// ------------
+// String fields
 // Wide-char strings that will hold the variables until they are transferred to the CHAR ascii fields
 CHAR16		gzServerNameField[ 30 ] = {0} ;
-CHAR16		gzMaxPlayersField[ 2 ] = {0} ;
-CHAR16		gzSquadSizeField[ 2 ] = {0} ;
-CHAR16		gzTimeOfDayField[ 6 ] = {0};
-CHAR16		gzStartingBalanceField[ 10 ] = {0};
-INT16		giMPHTimeHours = 0;
-INT16		giMPHTimeMins = 0;
-CHAR16		gzDmgMultiplierField[ 5 ] = {0};
-CHAR16		gzTimerField[ 6 ] = {0};
 CHAR16		gzFileTransferDirectory[ 100 ] = {0} ;
 CHAR16		gzKitBag[ 100 ] = {0};
 
-UINT8		guiMPHGameType = MP_TYPE_DEATHMATCH; // default value
-UINT8		guiMPHDifficultLevel = DIF_LEVEL_HARD; // Expert
+// ------------
+// Controls with Multi Selection!
+UINT8		guiMPHGameType;
+UINT8		guiMPHDifficultLevel;
+UINT8		guiMPHMaxPlayers;
+UINT8		guiMPHSquadSize;
+UINT8		guiMPHStartingTime;
+UINT8		guiMPHStartingCash;
+UINT8		guiMPHTimeTurns;
+UINT8		guiMPHWeaponDamage;
+UINT8		guiMPHInventory;
+// ------------
 
-INT32		giMPHMessageBox = -1; // message box handle
-
-INT			giMPHOverrideMaxAI = 0;
-INT			giMPHRandomMercs = 0;
-INT			giMPHSameMercs = 0;
-INT			giMPHReportMercs = 0;
-INT			giMPHBobbyRays = 0;
-INT			giMPHRandomSpawn = 0;
-INT			giMPHEnableCivilians = 0;
-INT			giMPHUseNIV = 0;
-INT			giMPHSendFiles = 0;
-
+// ------------
+// Controls with YES/NO
+UINT8		guiMPHMaxEnemies;
+UINT8		guiMPHSendFiles;
+UINT8		guiMPHHireMerc;
+UINT8		guiMPHSectorEdge;
+UINT8		guiMPHBobbyRay;
+UINT8		guiMPHSameMerc;
+UINT8		guiMPHReportMerc;
+UINT8		guiMPHCivs;
+UINT8		guiMPHNewTraits;
+// ------------
 
 ////////////////////////////////////////////
 //
@@ -263,51 +1544,6 @@ void	BtnMPHCancelCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32	guiMPHCancelButton;
 INT32	giMPHCancelBtnImage;
 
-//checkbox to toggle the Diff level
-UINT32	guiMPHDifficultySettingsToggles[ MPH_NUM_DIFF_SETTINGS ];
-void BtnMPHDifficultyTogglesCallback(GUI_BUTTON *btn,INT32 reason);
-
-//checkbox to toggle Game Type
-UINT32	guiMPHGameTypeToggles[ NUM_MP_GAMETYPE ];
-void BtnMPHGameTypeTogglesCallback(GUI_BUTTON *btn,INT32 reason);
-
-//checkbox for override max ai
-UINT32 guiMPHOverrideMaxAIToggle;
-void BtnMPHOverrideMaxAICallback(GUI_BUTTON *btn,INT32 reason);
-
-//checkbox for merc options
-UINT32 guiMPHRandomMercsToggle;
-void BtnMPHRandomMercCallback(GUI_BUTTON *btn,INT32 reason);
-
-//checkbox for same merc
-UINT32 guiMPHSameMercToggle;
-void BtnMPHSameMercCallback(GUI_BUTTON *btn,INT32 reason);
-
-//checkbox for report purchase
-UINT32 guiMPHReportMercToggle;
-void BtnMPHReportMercCallback(GUI_BUTTON *btn,INT32 reason);
-
-//checkbox for bobby rays
-UINT32 guiMPHBobbyRayToggle;
-void BtnMPHBobbyRayCallback(GUI_BUTTON *btn,INT32 reason);
-
-//checkbox for random spawn pos
-UINT32 guiMPHRandomSpawnToggle;
-void BtnMPHRandomSpawnCallback(GUI_BUTTON *btn,INT32 reason);
-
-//checkbox for enable civilians in CO-OP
-UINT32 guiMPHCivsToggle;
-void BtnMPHCivsCallback(GUI_BUTTON *btn,INT32 reason);
-
-//checkbox for use NIV
-UINT32 guiMPHUseNIVToggle;
-void BtnMPHUseNIVCallback(GUI_BUTTON *btn,INT32 reason);
-
-//checkbox for send files
-UINT32 guiMPHSendFiles;
-void BtnMPHSendFilesCallback(GUI_BUTTON *btn,INT32 reason);
-
-
 ////////////////////////////////////////////
 //
 //	Local Function Prototypes
@@ -321,14 +1557,12 @@ BOOLEAN		ExitMPHScreen();
 void		HandleMPHScreen();
 BOOLEAN		RenderMPHScreen();
 void		GetMPHScreenUserInput();
-void		RestoreMPHButtonBackGrounds();
 bool		ValidateMPSettings();
 void		SaveMPSettings();
-UINT8		GetMPHCurrentDifficultyButtonSetting();
 UINT8		GetMPHGameTypeButtonSetting();
-BOOLEAN DoMPHMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
-void			DoneFadeOutForExitMPHScreen( void );
-void			DoneFadeInForExitMPHScreen( void );
+BOOLEAN		DoMPHMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
+void		DoneFadeOutForExitMPHScreen( void );
+void		DoneFadeInForExitMPHScreen( void );
 
 ////////////////////////////////////////////
 //
@@ -337,423 +1571,149 @@ void			DoneFadeInForExitMPHScreen( void );
 ///////////////////////////////////////////
 
 void		SaveMPSettings()
-{
-	Get16BitStringFromField( 0, gzServerNameField, 30 ); // these indexes are based on the order created
-	Get16BitStringFromField( 1, gzMaxPlayersField, 2 );
-	Get16BitStringFromField( 2, gzSquadSizeField, 2 );
-	Get16BitStringFromField( 7, gzFileTransferDirectory, 100 );
-#ifndef USE_VFS
-	// save settings to JA2_mp.ini
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_NAME", gzServerNameField, L"..\\Ja2_mp.ini" );
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"MAX_CLIENTS", gzMaxPlayersField, L"..\\Ja2_mp.ini" );
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"MAX_MERCS", gzSquadSizeField, L"..\\Ja2_mp.ini" );
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"STARTING_BALANCE", gzStartingBalanceField, L"..\\Ja2_mp.ini" );
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"DAMAGE_MULTIPLIER", gzDmgMultiplierField, L"..\\Ja2_mp.ini" );
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"TIMED_TURN_SECS_PER_TICK", gzTimerField, L"..\\Ja2_mp.ini" );
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"FILE_TRANSFER_DIRECTORY", gzFileTransferDirectory , L"..\\Ja2_mp.ini" );
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"KIT_BAG", gzKitBag , L"..\\Ja2_mp.ini" );
+{	
+	MpIniExists();
+	vfs::PropertyContainer props;
+	props.initFromIniFile(JA2MP_INI_FILENAME);
+	
+	guiMPHMaxPlayers = iMPHMaxPlayers;
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_MAX_CLIENTS, guiMPHMaxPlayers);
+	
+	guiMPHSquadSize = iMPHSquadSize;
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_MAX_MERCS, guiMPHSquadSize);
+	
+	guiMPHStartingCash = iMPHStartingCash;
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_STARTING_BALANCE, guiMPHStartingCash);
+	
+	guiMPHWeaponDamage = iMPHWeaponDamage;
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_DAMAGE_MULTIPLIER, guiMPHWeaponDamage);
+	
+	guiMPHTimeTurns = iMPHTimeTurns;
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_TIMED_TURN_SECS_PER_TICK, guiMPHTimeTurns);
+	
+	guiMPHGameType = iMPHGameType;
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_GAME_MODE, guiMPHGameType);
+	
+	guiMPHStartingTime = iMPHStartingTime;
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_TIME, guiMPHStartingTime);
+	
+	guiMPHMaxEnemies = GetCurrentMaxEnemiesOptionButtonSetting();
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_OVERRIDE_MAX_AI, guiMPHMaxEnemies);
+	
+	guiMPHHireMerc = GetCurrentHireMercOptionButtonSetting();
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_RANDOM_MERCS, guiMPHHireMerc);
+	
+	guiMPHSameMerc = GetCurrentSameMercOptionButtonSetting();
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_SAME_MERC, guiMPHSameMerc);
+	
+	guiMPHBobbyRay = GetCurrentBobbyRayOptionButtonSetting();
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_DISABLE_BOBBY_RAYS, guiMPHBobbyRay);
+	
+	guiMPHReportMerc = GetCurrentReportMercOptionButtonSetting();
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_REPORT_NAME, guiMPHReportMerc);
+	
+	guiMPHSectorEdge = GetCurrentSectorEdgeOptionButtonSetting();
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_RANDOM_EDGES, guiMPHSectorEdge);
+	
+	guiMPHCivs = GetCurrentCivsOptionButtonSetting();
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_CIV_ENABLED, guiMPHCivs);
+	
+	guiMPHInventory = iMPHInventory;
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_ALLOW_CUSTOM_NIV, guiMPHInventory);
+	
+	guiMPHSendFiles = GetCurrentSyncOptionButtonSetting();
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_SYNC_CLIENTS_MP_DIR, guiMPHSendFiles);
 
+	guiMPHNewTraits = GetMPHCurrentTraitsOptionButtonSetting();
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_NEW_TRAITS, guiMPHNewTraits);
 
+	guiMPHDifficultLevel = iMPHDifficulty + 1;
+	props.setIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_DIFFICULT_LEVEL, guiMPHDifficultLevel - 1);
 
-	guiMPHGameType = GetMPHGameTypeButtonSetting();
-	CHAR16 tmpGTStr[2];
-	_itow(guiMPHGameType,tmpGTStr,10);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"GAME_MODE", tmpGTStr, L"..\\Ja2_mp.ini" );
-
-	CHAR16 tmpTimeStr[6];
-	swprintf(tmpTimeStr,L"%i.%i",giMPHTimeHours,giMPHTimeMins);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"TIME", tmpTimeStr, L"..\\Ja2_mp.ini" );
-
-	CHAR16 tmpVal[2];
-
-	giMPHOverrideMaxAI = ( ButtonList[ guiMPHOverrideMaxAIToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHOverrideMaxAI,tmpVal,10);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", tmpVal, L"..\\Ja2_mp.ini" );
-
-	giMPHRandomMercs = ( ButtonList[ guiMPHRandomMercsToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHRandomMercs,tmpVal,10);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"RANDOM_MERCS", tmpVal, L"..\\Ja2_mp.ini" );
-
-	giMPHSameMercs = ( ButtonList[ guiMPHSameMercToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHSameMercs,tmpVal,10);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"SAME_MERC", tmpVal, L"..\\Ja2_mp.ini" );
-
-	giMPHBobbyRays = ( ButtonList[ guiMPHBobbyRayToggle ]->uiFlags & BUTTON_CLICKED_ON  ? 0 : 1 );  // This setting is reversed
-	_itow(giMPHBobbyRays,tmpVal,10);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"DISABLE_BOBBY_RAYS", tmpVal, L"..\\Ja2_mp.ini" );
-
-	giMPHReportMercs = ( ButtonList[ guiMPHReportMercToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHReportMercs,tmpVal,10);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"REPORT_NAME", tmpVal, L"..\\Ja2_mp.ini" );
-
-	giMPHRandomSpawn = ( ButtonList[ guiMPHRandomSpawnToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHRandomSpawn,tmpVal,10);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"RANDOM_EDGES", tmpVal, L"..\\Ja2_mp.ini" );
-
-	giMPHEnableCivilians = ( ButtonList[ guiMPHCivsToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHEnableCivilians,tmpVal,10);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"CIV_ENABLED", tmpVal, L"..\\Ja2_mp.ini" );
-
-	giMPHUseNIV = ( ButtonList[ guiMPHUseNIVToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHUseNIV,tmpVal,10);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", tmpVal, L"..\\Ja2_mp.ini" );
-
-	giMPHSendFiles = ( ButtonList[ guiMPHSendFiles ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHSendFiles,tmpVal,10);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", tmpVal, L"..\\Ja2_mp.ini" );
-	guiMPHDifficultLevel = GetMPHCurrentDifficultyButtonSetting();
-	CHAR16 tmpDiffStr[2];
-	_itow(guiMPHDifficultLevel,tmpDiffStr,10);
-	WritePrivateProfileStringW( L"Ja2_mp Settings",L"DIFFICULT_LEVEL", tmpDiffStr, L"..\\Ja2_mp.ini" );
-#else
-	CPropertyContainer props;
-	props.initFromIniFile("Ja2_mp.ini");
-
-	props.setStringProperty(L"Ja2_mp Settings",L"SERVER_NAME", gzServerNameField);
-	props.setStringProperty(L"Ja2_mp Settings",L"MAX_CLIENTS", gzMaxPlayersField);
-	props.setStringProperty(L"Ja2_mp Settings",L"MAX_MERCS", gzSquadSizeField);
-	props.setStringProperty(L"Ja2_mp Settings",L"STARTING_BALANCE", gzStartingBalanceField);
-	props.setStringProperty(L"Ja2_mp Settings",L"DAMAGE_MULTIPLIER", gzDmgMultiplierField);
-	props.setStringProperty(L"Ja2_mp Settings",L"TIMED_TURN_SECS_PER_TICK", gzTimerField);
-	props.setStringProperty(L"Ja2_mp Settings",L"FILE_TRANSFER_DIRECTORY", gzFileTransferDirectory);
-	props.setStringProperty(L"Ja2_mp Settings",L"KIT_BAG", gzKitBag);
-
-
-	guiMPHGameType = GetMPHGameTypeButtonSetting();
-	CHAR16 tmpGTStr[2];
-	_itow(guiMPHGameType,tmpGTStr,10);
-	props.setStringProperty(L"Ja2_mp Settings",L"GAME_MODE", tmpGTStr);
-
-	CHAR16 tmpTimeStr[6];
-	swprintf(tmpTimeStr,L"%i.%i",giMPHTimeHours,giMPHTimeMins);
-	props.setStringProperty(L"Ja2_mp Settings",L"TIME", tmpTimeStr);
-
-	CHAR16 tmpVal[2];
-
-	giMPHOverrideMaxAI = ( ButtonList[ guiMPHOverrideMaxAIToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHOverrideMaxAI,tmpVal,10);
-	props.setStringProperty(L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", tmpVal);
-
-	giMPHRandomMercs = ( ButtonList[ guiMPHRandomMercsToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHRandomMercs,tmpVal,10);
-	props.setStringProperty(L"Ja2_mp Settings",L"RANDOM_MERCS", tmpVal);
-
-	giMPHSameMercs = ( ButtonList[ guiMPHSameMercToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHSameMercs,tmpVal,10);
-	props.setStringProperty(L"Ja2_mp Settings",L"SAME_MERC", tmpVal);
-
-	giMPHBobbyRays = ( ButtonList[ guiMPHBobbyRayToggle ]->uiFlags & BUTTON_CLICKED_ON  ? 0 : 1 );  // This setting is reversed
-	_itow(giMPHBobbyRays,tmpVal,10);
-	props.setStringProperty(L"Ja2_mp Settings",L"DISABLE_BOBBY_RAYS", tmpVal);
-
-	giMPHReportMercs = ( ButtonList[ guiMPHReportMercToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHReportMercs,tmpVal,10);
-	props.setStringProperty(L"Ja2_mp Settings",L"REPORT_NAME", tmpVal);
-
-	giMPHRandomSpawn = ( ButtonList[ guiMPHRandomSpawnToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHRandomSpawn,tmpVal,10);
-	props.setStringProperty(L"Ja2_mp Settings",L"RANDOM_EDGES", tmpVal);
-
-	giMPHEnableCivilians = ( ButtonList[ guiMPHCivsToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHEnableCivilians,tmpVal,10);
-	props.setStringProperty(L"Ja2_mp Settings",L"CIV_ENABLED", tmpVal);
-
-	giMPHUseNIV = ( ButtonList[ guiMPHUseNIVToggle ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHUseNIV,tmpVal,10);
-	props.setStringProperty(L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", tmpVal);
-
-	giMPHSendFiles = ( ButtonList[ guiMPHSendFiles ]->uiFlags & BUTTON_CLICKED_ON ? 1 : 0 );
-	_itow(giMPHSendFiles,tmpVal,10);
-	props.setStringProperty(L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", tmpVal);
-
-	guiMPHDifficultLevel = GetMPHCurrentDifficultyButtonSetting();
-	CHAR16 tmpDiffStr[2];
-	_itow(guiMPHDifficultLevel,tmpDiffStr,10);
-	props.setStringProperty(L"Ja2_mp Settings",L"DIFFICULT_LEVEL", tmpDiffStr);
-	props.writeToIniFile(L"Ja2_mp.ini",true);	// This writes to the Profiles/UserProfile/ja2_mp.ini
-#endif
-
-
-
+	// This writes the data back (from the GUI) to the Profiles/UserProfile/ja2_mp.ini
+	props.writeToIniFile(JA2MP_INI_FILENAME, false);	
 }
 
 bool	ValidateMPSettings()
-{
-	// Check a Server name is entered
-	Get16BitStringFromField( 0, gzServerNameField, 30 ); // these indexes are based on the order created
-	if (wcscmp(gzServerNameField,L"")<=0)
-	{
-		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_SERVERNAME_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
-		return false;
-	}
-
-	// Verify the Max Players
-	Get16BitStringFromField( 1, gzMaxPlayersField, 2 );
-	UINT8 numPlayers = _wtoi(gzMaxPlayersField);
-	if (numPlayers < 2 || numPlayers > 4)
-	{
-		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_MAXPLAYERS_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
-		return false;
-	}
-	
-	// Verify the Squad Size
-	Get16BitStringFromField( 2, gzSquadSizeField, 2 );
-	UINT8 squadSize = _wtoi(gzSquadSizeField);
-	if (squadSize < 1 || squadSize > 6)
-	{
-		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_SQUADSIZE_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
-		return false;
-	}
-
-	// verify the Time of Day
-	Get16BitStringFromField( 3, gzTimeOfDayField, 6 );
-	wchar_t* tok;
-	bool bTimeOK = true;
-	int hours = 0;
-	int mins = 0;
-
-	// strtok is destructive, make a copy to work on
-	CHAR16 tmpTODStr[6];
-	memcpy(tmpTODStr,gzTimeOfDayField,sizeof(CHAR16)*5);
-
-	tok = wcstok(tmpTODStr,L":");
-	if (tok != NULL)
-	{
-		// Special case, because _wtoi() returns 0 if invalid number!
-		if (wcscmp(tok, L"00") == 0)
-		{
-			hours = 0;
-		}
-		else
-		{
-			hours = _wtoi(tok);
-			// check for invalid conversion, ie alpha chars
-			// wtoi returns 0 if it cant convert, but we need this value
-			// therefore if tok <> 0 then it was a bad convert.
-			if (hours == 0 && wcscmp(tok,L"0") != 0)
-			{
-				// force error
-				bTimeOK = false;
-			}
-		}
-
-		tok = wcstok(NULL,L".");
-		if (tok != NULL)
-		{
-			if (wcsnlen(tok, 50) >= 2 && tok[0] == '0' && tok[1] == '0')
-			{
-				mins = 0;
-			}
-			else
-			{
-				mins = _wtoi(tok);
-				if (mins == 0 && wcscmp(tok,L"0") != 0)
-				{
-					// force error
-					bTimeOK = false;
-				}
-			}
-
-			// fix for single digits
-			if (wcslen(tok) == 1)
-				mins = mins * 10;
-		}
-		else
-		{
-			bTimeOK = false;
-		}
-	}
-	else
-	{
-		bTimeOK = false;
-	}
-
-
-	if (bTimeOK)
-	{
-		giMPHTimeHours = hours;
-		float ratio = (float)mins / 60.0f;
-		giMPHTimeMins = (INT16)(ratio * 100);
-
-	}
-	else
-	{
-		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_TIME_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
-		return false;
-	}
-
-
-	// verify the Starting Balance
-	Get16BitStringFromField( 4, gzStartingBalanceField, 10 );
-	UINT32 sBalance = _wtoi(gzStartingBalanceField);
-	if (sBalance < 1)
-	{
-		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_CASH_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
-		return false;
-	}
-
-	Get16BitStringFromField( 5, gzDmgMultiplierField, 5 );
-	double fDmg = _wtof(gzDmgMultiplierField);
-	if (fDmg <= 0.0f || fDmg >= 5.0f)
-	{
-		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_DMG_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
-		return false;
-	}
-
-	Get16BitStringFromField( 6, gzTimerField, 6 );
-	UINT32 iTimer = _wtoi(gzTimerField);
-	if (iTimer < 0 || iTimer > 200)
-	{
-		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_TIMER_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
-		return false;
-	}
-
-	// Verify the File Transfer Directory
-	Get16BitStringFromField( 7, gzFileTransferDirectory, 100 );
-	if (wcscmp(gzFileTransferDirectory,L"")<=0)
-	{
-		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_FILE_TRANSFER_DIR_INVALID], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
-		return false;
-	}
-
-#ifdef USE_VFS
+{	
 	vfs::Path sUserDir(gzFileTransferDirectory);
-	if(!os::createRealDirectory(sUserDir,true))
+	if(!vfs::OS::checkRealDirectory(sUserDir))
 	{
 		DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_FILE_TRANSFER_DIR_NOT_EXIST], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
 		return false;
 	}
-#endif
-
-	//if (!bSkipSyncDir)
-	//{
-#ifndef USE_VFS
-		// Check if sync folder exists
-		STRING512 syncDir;
-		STRING512 executableDir;
-
-		GetExecutableDirectory(executableDir);
-		sprintf(syncDir, "%s\\%S", executableDir, gzFileTransferDirectory);
-
-		if (!DirectoryExists(syncDir))
-		{
-			DoMPHMessageBox( MSG_BOX_BASIC_STYLE, gzMPHScreenText[MPH_FILE_TRANSFER_DIR_NOT_EXIST], MP_HOST_SCREEN, MSG_BOX_FLAG_OK, NULL );
-			return false;
-		}
-#endif
-	//}
-
+	
 	return true;
 }
 
 UINT32	MPHostScreenInit( void )
 {
+	memset( &gGameOptions, 0, sizeof( GAME_OPTIONS ) );
+
 	// this is wrong as ScreenInit is called at game start, but the settigs can change anytime
 	// has be called in ScreenEnter for example
 	std::vector<CHAR16> szTime(6,0);
-#ifndef USE_VFS
-	// read settings from JA2_mp.ini
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"SERVER_NAME", L"Server Name", gzServerNameField, 30, L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"MAX_CLIENTS", L"4", gzMaxPlayersField, 4, L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"MAX_MERCS", L"5", gzSquadSizeField, 5 , L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"STARTING_BALANCE", L"25000", gzStartingBalanceField, 10 , L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"DAMAGE_MULTIPLIER", L"0.7", gzDmgMultiplierField, 5 , L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"TIMED_TURN_SECS_PER_TICK", L"25", gzTimerField, 5 , L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"FILE_TRANSFER_DIRECTORY", L"MULTIPLAYER/Servers/My Server", gzFileTransferDirectory, 100, L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"KIT_BAG", L"[201,214,243]", gzKitBag, 100, L"..\\Ja2_mp.ini" );
-	GetPrivateProfileStringW( L"Ja2_mp Settings",L"TIME", L"13.50", &szTime[0], 5 , L"..\\Ja2_mp.ini" );
 
-	giMPHOverrideMaxAI = GetPrivateProfileIntW( L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", 0, L"..\\Ja2_mp.ini" );
-	giMPHRandomMercs = GetPrivateProfileIntW( L"Ja2_mp Settings",L"RANDOM_MERCS", 0, L"..\\Ja2_mp.ini" );
-	giMPHSameMercs = GetPrivateProfileIntW( L"Ja2_mp Settings",L"SAME_MERC", 1, L"..\\Ja2_mp.ini" );
-	giMPHReportMercs = GetPrivateProfileIntW( L"Ja2_mp Settings",L"REPORT_NAME", 1, L"..\\Ja2_mp.ini" );
-	giMPHBobbyRays = GetPrivateProfileIntW( L"Ja2_mp Settings",L"DISABLE_BOBBY_RAYS", 0, L"..\\Ja2_mp.ini" );
-	giMPHRandomSpawn = GetPrivateProfileIntW( L"Ja2_mp Settings",L"RANDOM_EDGES", 0, L"..\\Ja2_mp.ini" );
-	giMPHEnableCivilians = GetPrivateProfileIntW( L"Ja2_mp Settings",L"CIV_ENABLED", 0, L"..\\Ja2_mp.ini" );
-	giMPHUseNIV = GetPrivateProfileIntW( L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", 0, L"..\\Ja2_mp.ini" );
-	giMPHSendFiles = GetPrivateProfileIntW( L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", 1, L"..\\Ja2_mp.ini" );
-	guiMPHGameType = GetPrivateProfileIntW( L"Ja2_mp Settings",L"GAME_MODE", MP_TYPE_DEATHMATCH, L"..\\Ja2_mp.ini" );
-	guiMPHDifficultLevel = GetPrivateProfileIntW( L"Ja2_mp Settings",L"DIFFICULT_LEVEL", 2, L"..\\Ja2_mp.ini" );
-#else
 	// read settings from JA2_mp.ini
-	CPropertyContainer props;
-	props.initFromIniFile("Ja2_mp.ini");
-	props.getStringProperty( L"Ja2_mp Settings", L"SERVER_NAME", gzServerNameField, 30, L"Server Name");
-	props.getStringProperty( L"Ja2_mp Settings", L"MAX_CLIENTS", gzMaxPlayersField, 4, L"4");
-	props.getStringProperty( L"Ja2_mp Settings", L"MAX_MERCS", gzSquadSizeField, 5, L"5");
-	props.getStringProperty( L"Ja2_mp Settings", L"STARTING_BALANCE", gzStartingBalanceField, 10, L"25000");
-	props.getStringProperty( L"Ja2_mp Settings", L"DAMAGE_MULTIPLIER", gzDmgMultiplierField, 5, L"0.7");
-	props.getStringProperty( L"Ja2_mp Settings", L"TIMED_TURN_SECS_PER_TICK", gzTimerField, 5, L"25");
-	props.getStringProperty( L"Ja2_mp Settings", L"FILE_TRANSFER_DIRECTORY", gzFileTransferDirectory, 100, L"MULTIPLAYER/Servers/My Server");
-	props.getStringProperty( L"Ja2_mp Settings", L"KIT_BAG", gzKitBag, 100, L"[201,214,243]");
-	props.getStringProperty(L"Ja2_mp Settings", L"TIME", &szTime[0], 6, L"13.50");
+	MpIniExists();
+	vfs::PropertyContainer props;
+	props.initFromIniFile(JA2MP_INI_FILENAME);
+			
+	// ------------
+	// Get the data from ja2_mp.ini
+	// ------------
 
-	giMPHOverrideMaxAI =			(INT32)props.getIntProperty( L"Ja2_mp Settings",L"OVERRIDE_MAX_AI", 0);
-	giMPHRandomMercs =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"RANDOM_MERCS", 0);
-	giMPHSameMercs =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"SAME_MERC", 1);
-	giMPHReportMercs =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"REPORT_NAME", 1);
-	giMPHBobbyRays =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"DISABLE_BOBBY_RAYS", 0);
-	giMPHRandomSpawn =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"RANDOM_EDGES", 0);
-	giMPHEnableCivilians =			(INT32)props.getIntProperty( L"Ja2_mp Settings",L"CIV_ENABLED", 0);
-	giMPHUseNIV =					(INT32)props.getIntProperty( L"Ja2_mp Settings",L"ALLOW_CUSTOM_NIV", 0);
-	giMPHSendFiles =				(INT32)props.getIntProperty( L"Ja2_mp Settings",L"SYNC_CLIENTS_MP_DIR", 1);
-	guiMPHGameType =				(UINT8)props.getIntProperty( L"Ja2_mp Settings",L"GAME_MODE", MP_TYPE_DEATHMATCH);
-	guiMPHDifficultLevel =			(UINT8)props.getIntProperty( L"Ja2_mp Settings",L"DIFFICULT_LEVEL", 3);	// Expert
-#endif
+	props.getStringProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_SERVER_NAME, gzServerNameField, 30, L"My JA2 Server");
 	
-	wchar_t* tok;
-	bool bTimeOK = true;
-	int hours = 0;
-	int mins = 0;
-
-	tok = wcstok(&szTime[0],L".");
-
-	if (tok != NULL)
-	{
-		hours = _wtoi(tok);
-		// check for invalid conversion, ie alpha chars
-		// wtoi returns 0 if it cant convert, but we need this value
-		// therefore if tok <> 0 then it was a bad convert.
-		if (hours == 0 && wcscmp(tok,L"0") != 0)
-		{
-			// force error
-			bTimeOK = false;
-		}
-
-		tok = wcstok(NULL,L".");
-		if (tok != NULL)
-		{
-			mins = _wtoi(tok);
-			if (mins == 0 && wcscmp(tok,L"0") != 0)
-			{
-				// force error
-				bTimeOK = false;
-			}
-
-			// fix for single digits
-			if (wcslen(tok) == 1)
-				mins = mins * 10;
-		}
-		else
-		{
-			bTimeOK = false;
-		}
-	}
-	else
-	{
-		bTimeOK = false;
-	}
+	guiMPHMaxPlayers =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_MAX_CLIENTS, 4);
+	
+	guiMPHSquadSize =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_MAX_MERCS, 6);
+	
+	guiMPHStartingCash =	(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_STARTING_BALANCE, 1);
+	
+	guiMPHWeaponDamage =	(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_DAMAGE_MULTIPLIER, 1);
+	
+	guiMPHTimeTurns =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_TIMED_TURN_SECS_PER_TICK, 2);
+	
+	props.getStringProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_FILE_TRANSFER_DIRECTORY, gzFileTransferDirectory, 100, L"MULTIPLAYER/Servers/My Server");
+			
+	props.getStringProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_KIT_BAG, gzKitBag, 100, L"");
+		
+	guiMPHStartingTime =	(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_TIME, 1);
+	
+	guiMPHMaxEnemies =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_OVERRIDE_MAX_AI, 0);
+	
+	guiMPHNewTraits =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_NEW_TRAITS, 0);
+	
+	// It is not allowed to play with new traits
+	if (!gGameExternalOptions.fReadProfileDataFromXML)
+		guiMPHNewTraits = 0;
 
 	
+	guiMPHHireMerc =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_RANDOM_MERCS, 0);
+	
+	guiMPHSameMerc =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_SAME_MERC, 1);
+	
+	guiMPHReportMerc =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_REPORT_NAME, 1);
+	
+	guiMPHBobbyRay =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_DISABLE_BOBBY_RAYS, 0);
+	
+	guiMPHSectorEdge =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_RANDOM_EDGES, 0);
+	
+	guiMPHCivs =			(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_CIV_ENABLED, 0);
+	
+	guiMPHInventory =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_ALLOW_CUSTOM_NIV, 0);
+	
+	// It is not allowed to play with NIV
+	if (!IsNIVModeValid(true))
+		guiMPHInventory = 0;
 
-	if (bTimeOK)
-	{
-		giMPHTimeHours = hours;
-		float ratio = (float)mins / 100.0f;
-		giMPHTimeMins = (INT16)(ratio * 60);
-		swprintf(gzTimeOfDayField,L"%i:%i",giMPHTimeHours,giMPHTimeMins);
-	}
+	guiMPHSendFiles =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_SYNC_CLIENTS_MP_DIR, 1);
 
+	guiMPHGameType =		(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_GAME_MODE, MP_TYPE_DEATHMATCH);
+
+	guiMPHDifficultLevel =	(UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_DIFFICULT_LEVEL, 3) + 1;
+		
 	return( 1 );
 }
 
@@ -764,8 +1724,6 @@ UINT32	MPHostScreenHandle( void )
 
 	if( gfMPHScreenEntry )
 	{
-//		PauseGame();
-
 		// need to reload ja2_mp.ini
 		MPHostScreenInit();
 
@@ -777,7 +1735,6 @@ UINT32	MPHostScreenHandle( void )
 
 	GetMPHScreenUserInput();
 
-
 	HandleMPHScreen();
 
 	// render buttons marked dirty
@@ -786,11 +1743,6 @@ UINT32	MPHostScreenHandle( void )
 
 	// render text boxes
 	RenderAllTextFields(); // textbox system call
-
-	// render help
-//	RenderFastHelp( );
-//	RenderButtonsFastHelp( );
-
 
 	ExecuteBaseDirtyRectQueue();
 	EndFrameBufferRender();
@@ -815,7 +1767,6 @@ UINT32	MPHostScreenHandle( void )
 
 	if ( HandleBeginFadeIn( gubMPHExitScreen ) )
 	{
-
 	}
 
 	if( gfMPHScreenExit ) // we are exiting this screen
@@ -824,7 +1775,7 @@ UINT32	MPHostScreenHandle( void )
 	}
 
 	return( gubMPHExitScreen );
-} // end MPHoinScreenHandle()
+}
 
 
 UINT32	MPHostScreenShutdown( void )
@@ -834,9 +1785,7 @@ UINT32	MPHostScreenShutdown( void )
 
 BOOLEAN		EnterMPHScreen()
 {
-	VOBJECT_DESC	VObjectDesc;
-	UINT16					cnt;
-	UINT16					usPosY;
+	VOBJECT_DESC	VObjectDesc, VObjectDesc2;
 
 	if( gfMPHButtonsAllocated )
 		return( TRUE );
@@ -860,6 +1809,10 @@ BOOLEAN		EnterMPHScreen()
 	}
 
 	CHECKF(AddVideoObject(&VObjectDesc, &guiMPHMainBackGroundImage ));
+
+	VObjectDesc2.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("INTERFACE\\GIOSmallFrame.sti", VObjectDesc2.ImageFile);
+	CHECKF(AddVideoObject(&VObjectDesc2, &guiMPHSMALLFRAME));
 
 	//Join button
 	giMPHStartBtnImage = LoadButtonImage("INTERFACE\\PreferencesButtons.sti", -1,0,-1,2,-1 );
@@ -895,204 +1848,483 @@ BOOLEAN		EnterMPHScreen()
 	SetTextInputRegularColors( FONT_WHITE, 2 );
 	SetTextInputHilitedColors( 2, FONT_WHITE, FONT_WHITE	);
 	SetCursorColor( Get16BPPColor(FROMRGB(255, 255, 255) ) );
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// MAX PLAYERS
 
-	//AddUserInputField( NULL ); // API Call that sets a special input-handling routine and method for the TAB key
+	giMPHMaxPlayersButtonImage[ 0 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,0,-1,1,-1 );
+	giMPHMaxPlayersButtonImage[ 1 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,2,-1,3,-1 );
 
-	//Add Player Name textbox 
-	AddTextInputField(	MPH_TXT_SVRNAME_X,
-						MPH_TXT_SVRNAME_Y, 
-						MPH_TXT_SVRNAME_WIDTH,
-						MPH_TXT_SVRNAME_HEIGHT,
-						MSYS_PRIORITY_HIGH+2,
-						gzServerNameField,
-						30,
-						INPUTTYPE_ASCII );//23
+	// left button - decrement difficulty level
+	giMPHMaxPlayersButton[ 0 ] = QuickCreateButton( giMPHMaxPlayersButtonImage[ 0 ], MPH_MAXPLAYERS_SETTING_X + 39, MPH_MAXPLAYERS_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHMaxPlayersSelectionLeftCallback );
 
-	//Add Num Players textbox 
-	AddTextInputField(	MPH_TXT_MAXPLAYERS_X,
-						MPH_TXT_MAXPLAYERS_Y, 
-						MPH_TXT_MAXPLAYERS_WIDTH,
-						MPH_TXT_MAXPLAYERS_HEIGHT,
-						MSYS_PRIORITY_HIGH+2,
-						gzMaxPlayersField,
-						2,
-						INPUTTYPE_ASCII );//23
+	// right button - increment difficulty level
+	giMPHMaxPlayersButton[ 1 ] = QuickCreateButton( giMPHMaxPlayersButtonImage[ 1 ], MPH_MAXPLAYERS_SETTING_X + 158, MPH_MAXPLAYERS_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHMaxPlayersSelectionRightCallback );
+	
+	// set user data
+	MSYS_SetBtnUserData(giMPHMaxPlayersButton[0],0, 0 );
+	MSYS_SetBtnUserData(giMPHMaxPlayersButton[1],0, 1 );
 
-	//Add Squad Size textbox 
-	AddTextInputField(	MPH_TXT_SQUAD_X,
-						MPH_TXT_SQUAD_Y, 
-						MPH_TXT_SQUAD_WIDTH,
-						MPH_TXT_SQUAD_HEIGHT,
-						MSYS_PRIORITY_HIGH+2,
-						gzSquadSizeField,
-						2,
-						INPUTTYPE_ASCII );//23
+	iMPHMaxPlayers = guiMPHMaxPlayers;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SQUAD SIZE
 
-	//Add Time of day textbox 
-	AddTextInputField(	MPH_TXT_TIME_X,
-						MPH_TXT_TIME_Y, 
-						MPH_TXT_TIME_WIDTH,
-						MPH_TXT_TIME_HEIGHT,
-						MSYS_PRIORITY_HIGH+2,
-						gzTimeOfDayField,
-						5,
-						INPUTTYPE_ASCII );//23
+	giMPHSquadSizeButtonImage[ 0 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,0,-1,1,-1 );
+	giMPHSquadSizeButtonImage[ 1 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,2,-1,3,-1 );
 
-	//Add Starting Cash textbox 
-	AddTextInputField(	MPH_TXT_CASH_X,
-						MPH_TXT_CASH_Y, 
-						MPH_TXT_CASH_WIDTH,
-						MPH_TXT_CASH_HEIGHT,
-						MSYS_PRIORITY_HIGH+2,
-						gzStartingBalanceField,
-						10,
-						INPUTTYPE_ASCII );//23
+	// left button - decrement difficulty level
+	giMPHSquadSizeButton[ 0 ] = QuickCreateButton( giMPHSquadSizeButtonImage[ 0 ], MPH_SQUADSIZE_SETTING_X + 39, MPH_SQUADSIZE_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHSquadSizeSelectionLeftCallback );
 
-	//Add Damage Multiplyer textbox 
-	AddTextInputField(	MPH_TXT_DMG_X,
-						MPH_TXT_DMG_Y, 
-						MPH_TXT_DMG_WIDTH,
-						MPH_TXT_DMG_HEIGHT,
-						MSYS_PRIORITY_HIGH+2,
-						gzDmgMultiplierField,
-						5,
-						INPUTTYPE_ASCII );//23
+	// right button - increment difficulty level
+	giMPHSquadSizeButton[ 1 ] = QuickCreateButton( giMPHSquadSizeButtonImage[ 1 ], MPH_SQUADSIZE_SETTING_X + 158, MPH_SQUADSIZE_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHSquadSizeSelectionRightCallback );
+	
+	// set user data
+	MSYS_SetBtnUserData(giMPHSquadSizeButton[0],0, 0 );
+	MSYS_SetBtnUserData(giMPHSquadSizeButton[1],0, 1 );
 
-	//Add Turn Timer textbox 
-	AddTextInputField(	MPH_TXT_TIMER_X,
-						MPH_TXT_TIMER_Y, 
-						MPH_TXT_TIMER_WIDTH,
-						MPH_TXT_TIMER_HEIGHT,
-						MSYS_PRIORITY_HIGH+2,
-						gzTimerField,
-						5,
-						INPUTTYPE_ASCII );//23
+	iMPHSquadSize= guiMPHSquadSize;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// STARTING TIME
 
-	//Add File transfer directory textbox
-	AddTextInputField(	MPH_TXT_FILE_TRANSFER_DIR_X,
-						MPH_TXT_FILE_TRANSFER_DIR_Y,
-						MPH_TXT_FILE_TRANSFER_DIR_WIDTH,
-						MPH_TXT_FILE_TRANSFER_DIR_HEIGHT,
-						MSYS_PRIORITY_HIGH+2,
-						gzFileTransferDirectory,
-						100,
-						INPUTTYPE_ASCII );
+	giMPHStartingTimeButtonImage[ 0 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,0,-1,1,-1 );
+	giMPHStartingTimeButtonImage[ 1 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,2,-1,3,-1 );
 
+	// left button - decrement difficulty level
+	giMPHStartingTimeButton[ 0 ] = QuickCreateButton( giMPHStartingTimeButtonImage[ 0 ], MPH_STARTINGTIME_SETTING_X + 39, MPH_STARTINGTIME_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHStartingTimeSelectionLeftCallback );
 
-	SetActiveField( 0 ); // Playername textbox has focus
+	// right button - increment difficulty level
+	giMPHStartingTimeButton[ 1 ] = QuickCreateButton( giMPHStartingTimeButtonImage[ 1 ], MPH_STARTINGTIME_SETTING_X + 158, MPH_STARTINGTIME_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHStartingTimeSelectionRightCallback );
+	
+	// set user data
+	MSYS_SetBtnUserData(giMPHStartingTimeButton[0],0, 0 );
+	MSYS_SetBtnUserData(giMPHStartingTimeButton[1],0, 1 );
 
+	iMPHStartingTime = guiMPHStartingTime;	
 
-	//
-	//Check box to toggle Difficulty settings
-	//
-	usPosY = MPH_DIF_SETTINGS_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y;
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// STARTING CASH
 
-	for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
-	{
-		// create each checkbox
-		guiMPHDifficultySettingsToggles[ cnt ] = CreateCheckBoxButton(	MPH_DIF_SETTINGS_X+MPH_OFFSET_TO_TOGGLE_BOX, usPosY,
-																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnMPHDifficultyTogglesCallback );
-		MSYS_SetBtnUserData( guiMPHDifficultySettingsToggles[ cnt ], 0, cnt );
+	giMPHStartingCashButtonImage[ 0 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,0,-1,1,-1 );
+	giMPHStartingCashButtonImage[ 1 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,2,-1,3,-1 );
 
-		usPosY += MPH_GAP_BN_SETTINGS-5;
-	}
+	// left button - decrement difficulty level
+	giMPHStartingCashButton[ 0 ] = QuickCreateButton( giMPHStartingCashButtonImage[ 0 ], MPH_STARTINGCASH_SETTING_X + 39, MPH_STARTINGCASH_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHStartingCashSelectionLeftCallback );
 
-	// Set default selection
-	if( guiMPHDifficultLevel == DIF_LEVEL_HARD )
-		ButtonList[ guiMPHDifficultySettingsToggles[ MPH_DIFF_HARD ] ]->uiFlags |= BUTTON_CLICKED_ON;
-	else if( guiMPHDifficultLevel == DIF_LEVEL_INSANE )
-		ButtonList[ guiMPHDifficultySettingsToggles[ MPH_DIFF_INSANE ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	// right button - increment difficulty level
+	giMPHStartingCashButton[ 1 ] = QuickCreateButton( giMPHStartingCashButtonImage[ 1 ], MPH_STARTINGCASH_SETTING_X + 158, MPH_STARTINGCASH_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHStartingCashSelectionRightCallback );
+	
+	// set user data
+	MSYS_SetBtnUserData(giMPHStartingCashButton[0],0, 0 );
+	MSYS_SetBtnUserData(giMPHStartingCashButton[1],0, 1 );
+
+	iMPHStartingCash = guiMPHStartingCash;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// WEAPON DAMAGE
+
+	giMPHWeaponDamageButtonImage[ 0 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,0,-1,1,-1 );
+	giMPHWeaponDamageButtonImage[ 1 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,2,-1,3,-1 );
+
+	// left button - decrement difficulty level
+	giMPHWeaponDamageButton[ 0 ] = QuickCreateButton( giMPHWeaponDamageButtonImage[ 0 ], MPH_WEAPONDAMAGE_SETTING_X + 39, MPH_WEAPONDAMAGE_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHWeaponDamageSelectionLeftCallback );
+
+	// right button - increment difficulty level
+	giMPHWeaponDamageButton[ 1 ] = QuickCreateButton( giMPHWeaponDamageButtonImage[ 1 ], MPH_WEAPONDAMAGE_SETTING_X + 158, MPH_WEAPONDAMAGE_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHWeaponDamageSelectionRightCallback );
+	
+	// set user data
+	MSYS_SetBtnUserData(giMPHWeaponDamageButton[0],0, 0 );
+	MSYS_SetBtnUserData(giMPHWeaponDamageButton[1],0, 1 );
+
+	iMPHWeaponDamage = guiMPHWeaponDamage;	
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// TIME TURNS
+
+	giMPHTimeTurnsButtonImage[ 0 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,0,-1,1,-1 );
+	giMPHTimeTurnsButtonImage[ 1 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,2,-1,3,-1 );
+
+	// left button - decrement difficulty level
+	giMPHTimeTurnsButton[ 0 ] = QuickCreateButton( giMPHTimeTurnsButtonImage[ 0 ], MPH_TIMETURNS_SETTING_X + 39, MPH_TIMETURNS_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHTimeTurnsSelectionLeftCallback );
+
+	// right button - increment difficulty level
+	giMPHTimeTurnsButton[ 1 ] = QuickCreateButton( giMPHTimeTurnsButtonImage[ 1 ], MPH_TIMETURNS_SETTING_X + 158, MPH_TIMETURNS_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHTimeTurnsSelectionRightCallback );
+	
+	// set user data
+	MSYS_SetBtnUserData(giMPHTimeTurnsButton[0],0, 0 );
+	MSYS_SetBtnUserData(giMPHTimeTurnsButton[1],0, 1 );
+
+	iMPHTimeTurns = guiMPHTimeTurns;	
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// DIFFICULTY SETTING
+
+	giMPHDifficultyButtonImage[ 0 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,0,-1,1,-1 );
+	giMPHDifficultyButtonImage[ 1 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,2,-1,3,-1 );
+
+	// left button - decrement difficulty level
+	giMPHDifficultyButton[ 0 ] = QuickCreateButton( giMPHDifficultyButtonImage[ 0 ], MPH_DIFFICULTY_SETTING_X + 39, MPH_DIFFICULTY_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHDifficultySelectionLeftCallback );
+
+	// right button - increment difficulty level
+	giMPHDifficultyButton[ 1 ] = QuickCreateButton( giMPHDifficultyButtonImage[ 1 ], MPH_DIFFICULTY_SETTING_X + 158, MPH_DIFFICULTY_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHDifficultySelectionRightCallback );
+	
+	// set user data
+	MSYS_SetBtnUserData(giMPHDifficultyButton[0],0, 0 );
+	MSYS_SetBtnUserData(giMPHDifficultyButton[1],0, 1 );
+
+	iMPHDifficulty = guiMPHDifficultLevel - 1;	
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// GAME TYPE
+
+	giMPHGameTypeButtonImage[ 0 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,0,-1,1,-1 );
+	giMPHGameTypeButtonImage[ 1 ]=	LoadButtonImage( "INTERFACE\\GIO_SELECTION_ARROWS.STI" ,-1,2,-1,3,-1 );
+
+	// left button - decrement difficulty level
+	giMPHGameTypeButton[ 0 ] = QuickCreateButton( giMPHGameTypeButtonImage[ 0 ], MPH_GAMETYPE_SETTING_X + 39, MPH_GAMETYPE_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHGameTypeSelectionLeftCallback );
+
+	// right button - increment difficulty level
+	giMPHGameTypeButton[ 1 ] = QuickCreateButton( giMPHGameTypeButtonImage[ 1 ], MPH_GAMETYPE_SETTING_X + 158, MPH_GAMETYPE_SETTING_Y ,
+										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHGameTypeSelectionRightCallback );
+	
+	// set user data
+	MSYS_SetBtnUserData(giMPHGameTypeButton[0],0, 0 );
+	MSYS_SetBtnUserData(giMPHGameTypeButton[1],0, 1 );
+
+	iMPHGameType = guiMPHGameType;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// MAX ENEMIES
+
+	guiMPHMaxEnemiesOptionTogglesImage[ MPH_MAXENEMIES_NO ] = LoadButtonImage( "INTERFACE\\GIOCheckButton.sti" ,-1,0,-1,2,-1 );
+	guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_NO ] = CreateIconAndTextButton( guiMPHMaxEnemiesOptionTogglesImage[ MPH_MAXENEMIES_NO ], gzMPHScreenText[ MPH_NO ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_MAXENEMIES_SETTING_X + 74), (MPH_MAXENEMIES_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHNoMaxEnemiesCallback);
+
+	guiMPHMaxEnemiesOptionTogglesImage[ MPH_MAXENEMIES_YES ] = UseLoadedButtonImage( guiMPHMaxEnemiesOptionTogglesImage[ MPH_MAXENEMIES_NO ], -1,1,-1,3,-1 );
+	guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_YES ] = CreateIconAndTextButton( guiMPHMaxEnemiesOptionTogglesImage[ MPH_MAXENEMIES_YES ],  gzMPHScreenText[ MPH_YES ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_MAXENEMIES_SETTING_X), (MPH_MAXENEMIES_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHYesMaxEnemiesCallback );
+
+	SpecifyButtonSoundScheme( guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_NO ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_YES ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_NO ],0, 0 );
+	MSYS_SetBtnUserData(guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_YES ],0, 1 );
+
+	if( guiMPHMaxEnemies )
+		ButtonList[ guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_YES ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	else
-		ButtonList[ guiMPHDifficultySettingsToggles[ MPH_DIFF_HARD ] ]->uiFlags |= BUTTON_CLICKED_ON;
+		ButtonList[ guiMPHMaxEnemiesOptionToggles[ MPH_MAXENEMIES_NO ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// HIRE MERC
+
+	guiMPHHireMercOptionTogglesImage[ MPH_HIREMERC_RANDOM ] = LoadButtonImage( "INTERFACE\\GIOCheckButton.sti" ,-1,0,-1,2,-1 );
+	guiMPHHireMercOptionToggles[ MPH_HIREMERC_RANDOM ] = CreateIconAndTextButton( guiMPHHireMercOptionTogglesImage[ MPH_HIREMERC_RANDOM ], gzMPHScreenText[ MPH_HIRE_RANDOM ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_HIREMERC_SETTING_X + 74), (MPH_HIREMERC_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHRandomHireMercCallback);
+
+	guiMPHHireMercOptionTogglesImage[ MPH_HIREMERC_NORMAL ] = UseLoadedButtonImage( guiMPHHireMercOptionTogglesImage[ MPH_HIREMERC_RANDOM ], -1,1,-1,3,-1 );
+	guiMPHHireMercOptionToggles[ MPH_HIREMERC_NORMAL ] = CreateIconAndTextButton( guiMPHHireMercOptionTogglesImage[ MPH_HIREMERC_NORMAL ],  gzMPHScreenText[ MPH_HIRE_NORMAL ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_HIREMERC_SETTING_X), (MPH_HIREMERC_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHNormalHireMercCallback );
+
+	SpecifyButtonSoundScheme( guiMPHHireMercOptionToggles[ MPH_HIREMERC_RANDOM ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiMPHHireMercOptionToggles[ MPH_HIREMERC_NORMAL ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiMPHHireMercOptionToggles[ MPH_HIREMERC_RANDOM ],0, 0 );
+	MSYS_SetBtnUserData(guiMPHHireMercOptionToggles[ MPH_HIREMERC_NORMAL ],0, 1 );
+
+	if( guiMPHHireMerc )
+		ButtonList[ guiMPHHireMercOptionToggles[ MPH_HIREMERC_RANDOM ] ]->uiFlags |= BUTTON_CLICKED_ON;		
+	else
+		ButtonList[ guiMPHHireMercOptionToggles[ MPH_HIREMERC_NORMAL ] ]->uiFlags |= BUTTON_CLICKED_ON;
+				
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SAME MERC
+
+	guiMPHSameMercOptionTogglesImage[ MPH_SAMEMERC_DISABLE ] = LoadButtonImage( "INTERFACE\\GIOCheckButton.sti" ,-1,0,-1,2,-1 );
+	guiMPHSameMercOptionToggles[ MPH_SAMEMERC_DISABLE ] = CreateIconAndTextButton( guiMPHSameMercOptionTogglesImage[ MPH_SAMEMERC_DISABLE ], gzMPHScreenText[ MPH_DISABLE ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_SAMEMERC_SETTING_X + 74), (MPH_SAMEMERC_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHDisableSameMercCallback);
+
+	guiMPHSameMercOptionTogglesImage[ MPH_SAMEMERC_ALLOW ] = UseLoadedButtonImage( guiMPHSameMercOptionTogglesImage[ MPH_SAMEMERC_DISABLE ], -1,1,-1,3,-1 );
+	guiMPHSameMercOptionToggles[ MPH_SAMEMERC_ALLOW ] = CreateIconAndTextButton( guiMPHSameMercOptionTogglesImage[ MPH_SAMEMERC_ALLOW ],  gzMPHScreenText[ MPH_ALLOW ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_SAMEMERC_SETTING_X), (MPH_SAMEMERC_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHAllowSameMercCallback );
+
+	SpecifyButtonSoundScheme( guiMPHSameMercOptionToggles[ MPH_SAMEMERC_DISABLE ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiMPHSameMercOptionToggles[ MPH_SAMEMERC_ALLOW ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiMPHSameMercOptionToggles[ MPH_SAMEMERC_DISABLE ],0, 0 );
+	MSYS_SetBtnUserData(guiMPHSameMercOptionToggles[ MPH_SAMEMERC_ALLOW ],0, 1 );
+
+	if( guiMPHSameMerc )
+		ButtonList[ guiMPHSameMercOptionToggles[ MPH_SAMEMERC_ALLOW ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiMPHSameMercOptionToggles[ MPH_SAMEMERC_DISABLE ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// REPORT MERC
+
+	guiMPHReportMercOptionTogglesImage[ MPH_REPORTMERC_NO ] = LoadButtonImage( "INTERFACE\\GIOCheckButton.sti" ,-1,0,-1,2,-1 );
+	guiMPHReportMercOptionToggles[ MPH_REPORTMERC_NO ] = CreateIconAndTextButton( guiMPHReportMercOptionTogglesImage[ MPH_REPORTMERC_NO ], gzMPHScreenText[ MPH_NO ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_REPORTMERC_SETTING_X + 74), (MPH_REPORTMERC_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHNoReportMercCallback);
+
+	guiMPHReportMercOptionTogglesImage[ MPH_REPORTMERC_YES ] = UseLoadedButtonImage( guiMPHReportMercOptionTogglesImage[ MPH_REPORTMERC_NO ], -1,1,-1,3,-1 );
+	guiMPHReportMercOptionToggles[ MPH_REPORTMERC_YES ] = CreateIconAndTextButton( guiMPHReportMercOptionTogglesImage[ MPH_REPORTMERC_YES ],  gzMPHScreenText[ MPH_YES ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_REPORTMERC_SETTING_X), (MPH_REPORTMERC_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHYesReportMercCallback );
+
+	SpecifyButtonSoundScheme( guiMPHReportMercOptionToggles[ MPH_REPORTMERC_NO ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiMPHReportMercOptionToggles[ MPH_REPORTMERC_YES ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiMPHReportMercOptionToggles[ MPH_REPORTMERC_NO ],0, 0 );
+	MSYS_SetBtnUserData(guiMPHReportMercOptionToggles[ MPH_REPORTMERC_YES ],0, 1 );
+
+	if( guiMPHReportMerc )
+		ButtonList[ guiMPHReportMercOptionToggles[ MPH_REPORTMERC_YES ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiMPHReportMercOptionToggles[ MPH_REPORTMERC_NO ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// BOBBY RAY
+
+	guiMPHBobbyRayOptionTogglesImage[ MPH_BOBBYRAY_DISABLE ] = LoadButtonImage( "INTERFACE\\GIOCheckButton.sti" ,-1,0,-1,2,-1 );
+	guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_DISABLE ] = CreateIconAndTextButton( guiMPHBobbyRayOptionTogglesImage[ MPH_BOBBYRAY_DISABLE ], gzMPHScreenText[ MPH_DISABLE ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_BOBBYRAY_SETTING_X + 74), (MPH_BOBBYRAY_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHDisableBobbyRayCallback);
+
+	guiMPHBobbyRayOptionTogglesImage[ MPH_BOBBYRAY_ALLOW ] = UseLoadedButtonImage( guiMPHBobbyRayOptionTogglesImage[ MPH_BOBBYRAY_DISABLE ], -1,1,-1,3,-1 );
+	guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_ALLOW ] = CreateIconAndTextButton( guiMPHBobbyRayOptionTogglesImage[ MPH_BOBBYRAY_ALLOW ],  gzMPHScreenText[ MPH_ALLOW ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_BOBBYRAY_SETTING_X), (MPH_BOBBYRAY_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHAllowBobbyRayCallback );
+
+	SpecifyButtonSoundScheme( guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_DISABLE ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_ALLOW ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_DISABLE ],0, 0 );
+	MSYS_SetBtnUserData(guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_ALLOW ],0, 1 );
+	
+	if( guiMPHBobbyRay )
+		ButtonList[ guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_DISABLE ] ]->uiFlags |= BUTTON_CLICKED_ON;		
+	else
+		ButtonList[ guiMPHBobbyRayOptionToggles[ MPH_BOBBYRAY_ALLOW ] ]->uiFlags |= BUTTON_CLICKED_ON;
+			
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SECTOR EDGE
+
+	guiMPHSectorEdgeOptionTogglesImage[ MPH_SECTOREDGE_RANDOM ] = LoadButtonImage( "INTERFACE\\GIOCheckButton.sti" ,-1,0,-1,2,-1 );
+	guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_RANDOM ] = CreateIconAndTextButton( guiMPHSectorEdgeOptionTogglesImage[ MPH_SECTOREDGE_RANDOM ], gzMPHScreenText[ MPH_EDGE_RANDOM ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_SECTOREDGE_SETTING_X + 74), (MPH_SECTOREDGE_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHRandomSectorEdgeCallback);
+
+	guiMPHSectorEdgeOptionTogglesImage[ MPH_SECTOREDGE_SELECTABLE ] = UseLoadedButtonImage( guiMPHSectorEdgeOptionTogglesImage[ MPH_SECTOREDGE_RANDOM ], -1,1,-1,3,-1 );
+	guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_SELECTABLE ] = CreateIconAndTextButton( guiMPHSectorEdgeOptionTogglesImage[ MPH_SECTOREDGE_SELECTABLE ],  gzMPHScreenText[ MPH_EDGE_SELECTABLE ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_SECTOREDGE_SETTING_X), (MPH_SECTOREDGE_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHSelectableSectorEdgeCallback );
+
+	SpecifyButtonSoundScheme( guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_RANDOM ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_SELECTABLE ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_RANDOM ],0, 0 );
+	MSYS_SetBtnUserData(guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_SELECTABLE ],0, 1 );
+
+	if( guiMPHSectorEdge )
+		ButtonList[ guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_RANDOM ] ]->uiFlags |= BUTTON_CLICKED_ON;		
+	else
+		ButtonList[ guiMPHSectorEdgeOptionToggles[ MPH_SECTOREDGE_SELECTABLE ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// CIVS
+
+	guiMPHCivsOptionTogglesImage[ MPH_CIVS_NO ] = LoadButtonImage( "INTERFACE\\GIOCheckButton.sti" ,-1,0,-1,2,-1 );
+	guiMPHCivsOptionToggles[ MPH_CIVS_NO ] = CreateIconAndTextButton( guiMPHCivsOptionTogglesImage[ MPH_CIVS_NO ], gzMPHScreenText[ MPH_NO ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_CIVS_SETTING_X + 74), (MPH_CIVS_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHNoCivsCallback);
+
+	guiMPHCivsOptionTogglesImage[ MPH_CIVS_YES ] = UseLoadedButtonImage( guiMPHCivsOptionTogglesImage[ MPH_CIVS_NO ], -1,1,-1,3,-1 );
+	guiMPHCivsOptionToggles[ MPH_CIVS_YES ] = CreateIconAndTextButton( guiMPHCivsOptionTogglesImage[ MPH_CIVS_YES ],  gzMPHScreenText[ MPH_YES ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_CIVS_SETTING_X), (MPH_CIVS_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHYesCivsCallback );
+
+	SpecifyButtonSoundScheme( guiMPHCivsOptionToggles[ MPH_CIVS_NO ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiMPHCivsOptionToggles[ MPH_CIVS_YES ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiMPHCivsOptionToggles[ MPH_CIVS_NO ],0, 0 );
+	MSYS_SetBtnUserData(guiMPHCivsOptionToggles[ MPH_CIVS_YES ],0, 1 );
+
+	if( guiMPHCivs )
+		ButtonList[ guiMPHCivsOptionToggles[ MPH_CIVS_YES ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiMPHCivsOptionToggles[ MPH_CIVS_NO ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	// -------------------------------------------------
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// INVENTORY / ATTACHMENT
+
+	if (IsNIVModeValid(true))
+	{		
+		giMPHInventoryButtonImage[ 0 ]=	UseLoadedButtonImage( giMPHDifficultyButtonImage[ 0 ],-1,0,-1,1,-1 );
+		giMPHInventoryButtonImage[ 1 ]=	UseLoadedButtonImage( giMPHDifficultyButtonImage[ 1 ],-1,2,-1,3,-1 );
+
+		// left button - decrement difficulty level
+		giMPHInventoryButton[ 0 ] = QuickCreateButton( giMPHInventoryButtonImage[ 0 ], MPH_INVENTORY_SETTING_X + 39, MPH_INVENTORY_SETTING_Y ,
+											BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+											BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHInventorySelectionLeftCallback );
+
+		// right button - increment difficulty level
+		giMPHInventoryButton[ 1 ] = QuickCreateButton( giMPHInventoryButtonImage[ 1 ], MPH_INVENTORY_SETTING_X + 158, MPH_INVENTORY_SETTING_Y ,
+											BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+											BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMPHInventorySelectionRightCallback );
 
 
-	//
-	//Check box to toggle GameType settings
-	//
-	usPosY = MPH_GAMETYPE_SETTINGS_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y;
+		// set user data
+		MSYS_SetBtnUserData(giMPHInventoryButton[0],0, 0 );
+		MSYS_SetBtnUserData(giMPHInventoryButton[1],0, 1 );
 
-	for( cnt=0; cnt<NUM_MP_GAMETYPE; cnt++)
-	{
-		// create each checkbox
-		guiMPHGameTypeToggles[ cnt ] = CreateCheckBoxButton(	MPH_GAMETYPE_SETTINGS_X+MPH_OFFSET_TO_TOGGLE_BOX, usPosY,
-																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnMPHGameTypeTogglesCallback );
-		MSYS_SetBtnUserData( guiMPHGameTypeToggles[ cnt ], 0, cnt );
+		// set initial value
+		switch ( guiMPHInventory )
+		{
+			case INVENTORY_OLD:
+				iMPHInventory = MPH_INV_OLD;
+				break;
+			case INVENTORY_NEW:
+				iMPHInventory = MPH_INV_NEW;
+				break;
+			case 2:	// New/New
+				iMPHInventory = 2;
+				break;
+		}
+	}	
 
-		usPosY += MPH_GAP_BN_SETTINGS-5;
-	}
-	// set default selection
-	ButtonList[ guiMPHGameTypeToggles[ guiMPHGameType ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// OLD/NEW TARITS SETTING
 
-	// Override Max AI
-	guiMPHOverrideMaxAIToggle = CreateCheckBoxButton(	MPH_OVERRIDEMAXAI_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_OVERRIDEMAXAI_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
-																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnMPHOverrideMaxAICallback );
-	if ( giMPHOverrideMaxAI )
-		ButtonList[ guiMPHOverrideMaxAIToggle ]->uiFlags |= BUTTON_CLICKED_ON;
+	guiMPHTraitsOptionTogglesImage[ MPH_TRAITS_OLD ] = LoadButtonImage( "INTERFACE\\GIOCheckButton.sti" ,-1,0,-1,2,-1 );
+	guiMPHTraitsOptionToggles[ MPH_TRAITS_OLD ] = CreateIconAndTextButton( guiMPHTraitsOptionTogglesImage[ MPH_TRAITS_OLD ], gzGIOScreenText[ GIO_TRAITS_OLD_TEXT ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_TRAITS_SETTING_X + 74), (MPH_TRAITS_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHOldTraitsCallback);
 
-	// Random Mercs
-	guiMPHRandomMercsToggle = CreateCheckBoxButton(	MPH_RNDMERC_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_RNDMERC_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
-																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnMPHRandomMercCallback );
-	if ( giMPHRandomMercs )
-		ButtonList[ guiMPHRandomMercsToggle ]->uiFlags |= BUTTON_CLICKED_ON;
+	guiMPHTraitsOptionTogglesImage[ MPH_TRAITS_NEW ] = UseLoadedButtonImage( guiMPHTraitsOptionTogglesImage[ MPH_TRAITS_OLD ], -1,1,-1,3,-1 );
+	guiMPHTraitsOptionToggles[ MPH_TRAITS_NEW ] = CreateIconAndTextButton( guiMPHTraitsOptionTogglesImage[ MPH_TRAITS_NEW ],  gzGIOScreenText[ GIO_TRAITS_NEW_TEXT ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_TRAITS_SETTING_X), (MPH_TRAITS_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHNewTraitsCallback );
 
-	//checkbox for same merc
-	guiMPHSameMercToggle = CreateCheckBoxButton(	MPH_SAMEMERC_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_SAMEMERC_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
-																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnMPHSameMercCallback );
-	if ( giMPHSameMercs )
-		ButtonList[ guiMPHSameMercToggle ]->uiFlags |= BUTTON_CLICKED_ON;
+	SpecifyButtonSoundScheme( guiMPHTraitsOptionToggles[ MPH_TRAITS_OLD ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiMPHTraitsOptionToggles[ MPH_TRAITS_NEW ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiMPHTraitsOptionToggles[ MPH_TRAITS_OLD ],0, 0 );
+	MSYS_SetBtnUserData(guiMPHTraitsOptionToggles[ MPH_TRAITS_NEW ],0, 1 );
 
-	//checkbox for report purchase
-	guiMPHReportMercToggle  = CreateCheckBoxButton(	MPH_REPORTMERC_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_REPORTMERC_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
-																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnMPHReportMercCallback );
-	if (giMPHReportMercs)
-		ButtonList[ guiMPHReportMercToggle ]->uiFlags |= BUTTON_CLICKED_ON;
+	if( guiMPHNewTraits )
+		ButtonList[ guiMPHTraitsOptionToggles[ MPH_TRAITS_NEW ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiMPHTraitsOptionToggles[ MPH_TRAITS_OLD ] ]->uiFlags |= BUTTON_CLICKED_ON;
+		
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SYNC GAME DIR
 
-	//checkbox for bobby rays
-	guiMPHBobbyRayToggle  = CreateCheckBoxButton(	MPH_BOBBYRAY_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_BOBBYRAY_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
-																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnMPHBobbyRayCallback );
+	guiMPHSyncOptionTogglesImage[ MPH_SYNC_NO ] = LoadButtonImage( "INTERFACE\\GIOCheckButton.sti" ,-1,0,-1,2,-1 );
+	guiMPHSyncOptionToggles[ MPH_SYNC_NO ] = CreateIconAndTextButton( guiMPHSyncOptionTogglesImage[ MPH_SYNC_NO ], gzMPHScreenText[ MPH_NO ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_SYNC_SETTING_X + 74), (MPH_SYNC_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHNoSyncCallback);
 
-	if (!giMPHBobbyRays)
-		ButtonList[ guiMPHBobbyRayToggle ]->uiFlags |= BUTTON_CLICKED_ON; // the setting is actually DISABLE / NEGATIVE
+	guiMPHSyncOptionTogglesImage[ MPH_SYNC_YES ] = UseLoadedButtonImage( guiMPHSyncOptionTogglesImage[ MPH_SYNC_NO ], -1,1,-1,3,-1 );
+	guiMPHSyncOptionToggles[ MPH_SYNC_YES ] = CreateIconAndTextButton( guiMPHSyncOptionTogglesImage[ MPH_SYNC_YES ],  gzMPHScreenText[ MPH_YES ], MPH_TOGGLE_TEXT_FONT,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													MPH_TOGGLE_TEXT_COLOR, NO_SHADOW,
+													TEXT_CJUSTIFIED,
+													(MPH_SYNC_SETTING_X), (MPH_SYNC_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMPHYesSyncCallback );
 
-	//checkbox for random spawn pos
-	guiMPHRandomSpawnToggle = CreateCheckBoxButton(	MPH_RNDSPAWN_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_RNDSPAWN_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
-																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnMPHRandomSpawnCallback );
+	SpecifyButtonSoundScheme( guiMPHSyncOptionToggles[ MPH_SYNC_NO ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	SpecifyButtonSoundScheme( guiMPHSyncOptionToggles[ MPH_SYNC_YES ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
+	MSYS_SetBtnUserData(guiMPHSyncOptionToggles[ MPH_SYNC_NO ],0, 0 );
+	MSYS_SetBtnUserData(guiMPHSyncOptionToggles[ MPH_SYNC_YES ],0, 1 );
 
-	if (giMPHRandomSpawn)
-		ButtonList[ guiMPHRandomSpawnToggle ]->uiFlags |= BUTTON_CLICKED_ON;
-
-	// checkbox for civillians
-	guiMPHCivsToggle = CreateCheckBoxButton(	MPH_CIVS_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_CIVS_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
-																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnMPHCivsCallback );
-	if (giMPHEnableCivilians)
-		ButtonList[ guiMPHCivsToggle ]->uiFlags |= BUTTON_CLICKED_ON;
-
-	// checkbox for use NIV
-	guiMPHUseNIVToggle = CreateCheckBoxButton(	MPH_USENIV_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_USENIV_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
-																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnMPHUseNIVCallback );
-	if (giMPHUseNIV)
-		ButtonList[ guiMPHUseNIVToggle ]->uiFlags |= BUTTON_CLICKED_ON;
-
-
-	// checkbox for send files to clients
-	guiMPHSendFiles = CreateCheckBoxButton(	MPH_SEND_FILES_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_SEND_FILES_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y,
-																		"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10,
-																		BtnMPHSendFilesCallback );
-
-	if (giMPHSendFiles)
-		ButtonList[ guiMPHSendFiles ]->uiFlags |= BUTTON_CLICKED_ON;
-
-
+	if( guiMPHSendFiles )
+		ButtonList[ guiMPHSyncOptionToggles[ MPH_SYNC_YES ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	else
+		ButtonList[ guiMPHSyncOptionToggles[ MPH_SYNC_NO ] ]->uiFlags |= BUTTON_CLICKED_ON;
+	
 
 	//Reset the exit screen - screen the main game loop will call next iteration
 	gubMPHExitScreen = MP_HOST_SCREEN;
@@ -1106,8 +2338,7 @@ BOOLEAN		EnterMPHScreen()
 
 	return( TRUE );
 
-} // End of EnterMPHScreen()
-
+}
 
 BOOLEAN		ExitMPHScreen()
 {
@@ -1119,30 +2350,169 @@ BOOLEAN		ExitMPHScreen()
 	//Delete the main options screen background
 	DeleteVideoObjectFromIndex( guiMPHMainBackGroundImage );
 
+	DeleteVideoObjectFromIndex( guiMPHSMALLFRAME );
+
 	RemoveButton( guiMPHStartButton );
 	RemoveButton( guiMPHCancelButton );
-
 
 	UnloadButtonImage( giMPHCancelBtnImage );
 	UnloadButtonImage( giMPHStartBtnImage );
 
-	//Check box to toggle Difficulty settings
-	for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
-		RemoveButton( guiMPHDifficultySettingsToggles[ cnt ] );
+	// --------------
+	// MaxPlayers
+	RemoveButton( giMPHMaxPlayersButton[0] );
+	RemoveButton( giMPHMaxPlayersButton[1] );
+	UnloadButtonImage( giMPHMaxPlayersButtonImage[0] );
+	UnloadButtonImage( giMPHMaxPlayersButtonImage[1] );
+	// ----------
 
-	//Check box to toggle Game Types
-	for( cnt=0; cnt<NUM_MP_GAMETYPE; cnt++)
-		RemoveButton( guiMPHGameTypeToggles[ cnt ] );
+	// ----------
+	// SquadSize
+	RemoveButton( giMPHSquadSizeButton[0] );
+	RemoveButton( giMPHSquadSizeButton[1] );
+	UnloadButtonImage( giMPHSquadSizeButtonImage[0] );
+	UnloadButtonImage( giMPHSquadSizeButtonImage[1] );
+	// ---------------
 
-	RemoveButton( guiMPHOverrideMaxAIToggle );
-	RemoveButton( guiMPHRandomMercsToggle );
-	RemoveButton( guiMPHSameMercToggle );
-	RemoveButton( guiMPHReportMercToggle );
-	RemoveButton( guiMPHBobbyRayToggle );
-	RemoveButton( guiMPHRandomSpawnToggle );
-	RemoveButton( guiMPHCivsToggle );
-	RemoveButton( guiMPHUseNIVToggle );
-	RemoveButton( guiMPHSendFiles );
+	// --------------
+	// StartingTime
+	RemoveButton( giMPHStartingTimeButton[0] );
+	RemoveButton( giMPHStartingTimeButton[1] );
+	UnloadButtonImage( giMPHStartingTimeButtonImage[0] );
+	UnloadButtonImage( giMPHStartingTimeButtonImage[1] );
+	// ----------
+
+	// --------------
+	// StartingCash
+	RemoveButton( giMPHStartingCashButton[0] );
+	RemoveButton( giMPHStartingCashButton[1] );
+	UnloadButtonImage( giMPHStartingCashButtonImage[0] );
+	UnloadButtonImage( giMPHStartingCashButtonImage[1] );
+	// ----------
+
+	// --------------
+	// WeaponDamage
+	RemoveButton( giMPHWeaponDamageButton[0] );
+	RemoveButton( giMPHWeaponDamageButton[1] );
+	UnloadButtonImage( giMPHWeaponDamageButtonImage[0] );
+	UnloadButtonImage( giMPHWeaponDamageButtonImage[1] );
+	// ----------
+
+	// --------------
+	// TimeTurns
+	RemoveButton( giMPHTimeTurnsButton[0] );
+	RemoveButton( giMPHTimeTurnsButton[1] );
+	UnloadButtonImage( giMPHTimeTurnsButtonImage[0] );
+	UnloadButtonImage( giMPHTimeTurnsButtonImage[1] );
+	// ----------
+
+	// --------------
+	// Difficulty
+	RemoveButton( giMPHDifficultyButton[0] );
+	RemoveButton( giMPHDifficultyButton[1] );
+	UnloadButtonImage( giMPHDifficultyButtonImage[0] );
+	UnloadButtonImage( giMPHDifficultyButtonImage[1] );
+	// --------------
+
+	// --------------
+	// GameType
+	RemoveButton( giMPHGameTypeButton[0] );
+	RemoveButton( giMPHGameTypeButton[1] );
+	UnloadButtonImage( giMPHGameTypeButtonImage[0] );
+	UnloadButtonImage( giMPHGameTypeButtonImage[1] );
+	// --------------
+
+	// ---------------
+	// MaxEnemies
+	for (cnt = 0; cnt < MPH_NUM_MAXENEMIES_OPTIONS; cnt++)
+	{
+		RemoveButton(guiMPHMaxEnemiesOptionToggles[cnt] );
+		UnloadButtonImage(guiMPHMaxEnemiesOptionTogglesImage[cnt] );
+	}
+	// ------------------
+	
+	// -----------
+	// HireMerc
+	for (cnt = 0; cnt < MPH_NUM_HIREMERC_OPTIONS; cnt++)
+	{
+		RemoveButton(guiMPHHireMercOptionToggles[cnt] );
+		UnloadButtonImage(guiMPHHireMercOptionTogglesImage[cnt] );
+	}
+	// ---------
+
+	// -----------
+	// SameMerc
+	for (cnt = 0; cnt < MPH_NUM_SAMEMERC_OPTIONS; cnt++)
+	{
+		RemoveButton(guiMPHSameMercOptionToggles[cnt] );
+		UnloadButtonImage(guiMPHSameMercOptionTogglesImage[cnt] );
+	}
+	// ---------
+
+	// -----------
+	// ReportMerc
+	for (cnt = 0; cnt < MPH_NUM_REPORTMERC_OPTIONS; cnt++)
+	{
+		RemoveButton(guiMPHReportMercOptionToggles[cnt] );
+		UnloadButtonImage(guiMPHReportMercOptionTogglesImage[cnt] );
+	}
+	// ------------------
+	
+	// -------------------
+	// BobbyRay
+	for (cnt = 0; cnt < MPH_NUM_BOBBYRAY_OPTIONS; cnt++)
+	{
+		RemoveButton(guiMPHBobbyRayOptionToggles[cnt] );
+		UnloadButtonImage(guiMPHBobbyRayOptionTogglesImage[cnt] );
+	}
+	// ---------
+	
+	// ------------
+	// SectorEdge
+	for (cnt = 0; cnt < MPH_NUM_SECTOREDGE_OPTIONS; cnt++)
+	{
+		RemoveButton(guiMPHSectorEdgeOptionToggles[cnt] );
+		UnloadButtonImage(guiMPHSectorEdgeOptionTogglesImage[cnt] );
+	}
+	// ---------
+	
+	// ----------
+	// Civs
+	for (cnt = 0; cnt < MPH_NUM_CIVS_OPTIONS; cnt++)
+	{
+		RemoveButton(guiMPHCivsOptionToggles[cnt] );
+		UnloadButtonImage(guiMPHCivsOptionTogglesImage[cnt] );
+	}
+	// ------------------
+	
+	// -----------------
+	// Inventory / Attachments
+	if (IsNIVModeValid(true))
+	{
+		RemoveButton( giMPHInventoryButton[0] );
+		RemoveButton( giMPHInventoryButton[1] );
+		UnloadButtonImage( giMPHInventoryButtonImage[0] );
+		UnloadButtonImage( giMPHInventoryButtonImage[1] );
+	}
+	// ------------
+	
+	// ------------------
+	// Sync
+	for (cnt = 0; cnt < MPH_NUM_SYNC_OPTIONS; cnt++)
+	{
+		RemoveButton(guiMPHSyncOptionToggles[cnt] );
+		UnloadButtonImage(guiMPHSyncOptionTogglesImage[cnt] );
+	}
+	// ------------------
+
+	// ------------------
+	// Traits
+	for (cnt = 0; cnt < MPH_NUM_TRAITS_OPTIONS; cnt++)
+	{
+		RemoveButton(guiMPHTraitsOptionToggles[cnt] );
+		UnloadButtonImage(guiMPHTraitsOptionTogglesImage[cnt] );
+	}
+	// ------------------
 
 	// exit text input mode in this screen and clean up text boxes
 	KillAllTextInputModes();
@@ -1150,17 +2520,12 @@ BOOLEAN		ExitMPHScreen()
 
 	gfMPHButtonsAllocated = FALSE;
 
-	//If we are starting the game stop playing the music
-	// <TODO> review this, i think MPH_EXIT is the proceed mode...
-	//if( gubMPHScreenHandler == MPH_EXIT )
-	//	SetMusicMode( MUSIC_NONE );
-
 	gfMPHScreenExit = FALSE;
 	gfMPHScreenEntry = TRUE;
 
 	return( TRUE );
 
-} // End of ExitMPHScreen()
+}
 
 
 void			HandleMPHScreen()
@@ -1173,8 +2538,6 @@ void			HandleMPHScreen()
 				gubMPHExitScreen = MAINMENU_SCREEN;
 				gfMPHScreenExit	= TRUE;
 				break;
-
-
 			case MPH_START:
 			{
 				//if we are already fading out, get out of here
@@ -1189,27 +2552,66 @@ void			HandleMPHScreen()
 				}
 				break;
 			}
-
 		}
 
 		gubMPHScreenHandler = MPH_NOTHING;
 	}
 
-
 	if( gfReRenderMPHScreen )
 	{
 		RenderMPHScreen();
 		gfReRenderMPHScreen = FALSE;
-	}
-
-	RestoreMPHButtonBackGrounds();
-} // end of HandleMPHScreen
-
+	}	
+}
 
 BOOLEAN		RenderMPHScreen()
 {
 	HVOBJECT	hPixHandle;
-	UINT16		usPosY;
+
+	// --------------------------
+	// Difficulty	
+	RestoreExternBackgroundRect( MPH_DIFFICULTY_SETTING_X+MPH_OFFSET_TO_TEXT + 20, MPH_DIFFICULTY_SETTING_Y-3, 120, 20 );
+	// --------------------------
+
+	// --------------------------
+	// MaxPlayers	
+	RestoreExternBackgroundRect( MPH_MAXPLAYERS_SETTING_X+MPH_OFFSET_TO_TEXT + 20, MPH_MAXPLAYERS_SETTING_Y-3, 120, 20 );
+	// --------------------------
+
+	// --------------------------
+	// StartingTime	
+	RestoreExternBackgroundRect( MPH_STARTINGTIME_SETTING_X+MPH_OFFSET_TO_TEXT + 20, MPH_STARTINGTIME_SETTING_Y-3, 120, 20 );
+	// --------------------------
+
+	// --------------------------
+	// StartingCash
+	RestoreExternBackgroundRect( MPH_STARTINGCASH_SETTING_X+MPH_OFFSET_TO_TEXT + 20, MPH_STARTINGCASH_SETTING_Y-3, 120, 20 );
+	// --------------------------
+
+	// --------------------------
+	// WeaponDamage
+	RestoreExternBackgroundRect( MPH_WEAPONDAMAGE_SETTING_X+MPH_OFFSET_TO_TEXT + 20, MPH_WEAPONDAMAGE_SETTING_Y-3, 120, 20 );
+	// --------------------------
+
+	// --------------------------
+	// TimeTurns
+	RestoreExternBackgroundRect( MPH_TIMETURNS_SETTING_X+MPH_OFFSET_TO_TEXT + 20, MPH_TIMETURNS_SETTING_Y-3, 120, 20 );
+	// --------------------------
+
+	// --------------------------
+	// SquadSize
+	RestoreExternBackgroundRect( MPH_SQUADSIZE_SETTING_X+MPH_OFFSET_TO_TEXT + 20, MPH_SQUADSIZE_SETTING_Y-3, 120, 20 );
+	// --------------------------
+
+	// --------------------------
+	// GameType	
+	RestoreExternBackgroundRect( MPH_GAMETYPE_SETTING_X+MPH_OFFSET_TO_TEXT + 20, MPH_GAMETYPE_SETTING_Y-3, 120, 20 );
+	// --------------------------
+
+	// --------------------------
+	// Inventory	
+	RestoreExternBackgroundRect( MPH_INVENTORY_SETTING_X+MPH_OFFSET_TO_TEXT + 20, MPH_INVENTORY_SETTING_Y-3, 120, 20 );
+	// --------------------------
 
 	//Get the main background screen graphic and blt it
 	GetVideoObject(&hPixHandle, guiMPHMainBackGroundImage );
@@ -1221,86 +2623,116 @@ BOOLEAN		RenderMPHScreen()
 	//Display the title
 	DrawTextToScreen( gzMPHScreenText[ MPH_TITLE_TEXT ], MPH_MAIN_TITLE_X, MPH_MAIN_TITLE_Y, MPH_MAIN_TITLE_WIDTH, MPH_TITLE_FONT, MPH_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
-	// Server name text label
-	DisplayWrappedString( MPH_LABEL_SVRNAME_X, MPH_LABEL_SVRNAME_Y, MPH_LABEL_SVRNAME_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_SERVERNAME_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// ---------	
+	// MaxPlayers	
+	RenderMPHSmallSelectionFrame( (MPH_MAXPLAYERS_SETTING_X + 36), (MPH_MAXPLAYERS_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(MPH_MAXPLAYERS_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (UINT16)(MPH_MAXPLAYERS_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE - 12), MPH_MAXPLAYERS_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_NUMPLAYERS_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(MPH_MAXPLAYERS_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_MAXPLAYERS_SETTING_Y+6), MPH_MAXPLAYERS_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ (MPH_1 - MPH_MAXPLAYERS_2 + 1) + iMPHMaxPlayers ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// -----------------
 
-	// Num Players text label
-	DisplayWrappedString( MPH_LABEL_MAXPLAYERS_X, MPH_LABEL_MAXPLAYERS_Y, MPH_LABEL_MAXPLAYERS_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_NUMPLAYERS_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// -----------------
+	// SquadSize		
+	RenderMPHSmallSelectionFrame( (MPH_SQUADSIZE_SETTING_X + 36), (MPH_SQUADSIZE_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(MPH_SQUADSIZE_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (UINT16)(MPH_SQUADSIZE_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE - 12), MPH_SQUADSIZE_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_SQUADSIZE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(MPH_SQUADSIZE_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_SQUADSIZE_SETTING_Y+6), MPH_SQUADSIZE_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ (MPH_1 - MPH_SQUADSIZE_1) + iMPHSquadSize ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// -----------------
 
-	// Squad Size text label
-	DisplayWrappedString( MPH_LABEL_SQUAD_X, MPH_LABEL_SQUAD_Y, MPH_LABEL_SQUAD_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_SQUADSIZE_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// ----------
+	// StartingTime	
+	RenderMPHSmallSelectionFrame( (MPH_STARTINGTIME_SETTING_X + 36), (MPH_STARTINGTIME_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(MPH_STARTINGTIME_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (UINT16)(MPH_STARTINGTIME_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE - 12), MPH_STARTINGTIME_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_TIME_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(MPH_STARTINGTIME_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_STARTINGTIME_SETTING_Y+6), MPH_STARTINGTIME_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_MORNING + iMPHStartingTime ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// -----------------
 
-	// Time Of day text label
-	DisplayWrappedString( MPH_LABEL_TIME_X, MPH_LABEL_TIME_Y, MPH_LABEL_TIME_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_TIME_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// ------------------
+	// StartingCash	
+	RenderMPHSmallSelectionFrame( (MPH_STARTINGCASH_SETTING_X + 36), (MPH_STARTINGCASH_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(MPH_STARTINGCASH_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (UINT16)(MPH_STARTINGCASH_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE - 12), MPH_STARTINGCASH_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_BALANCE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(MPH_STARTINGCASH_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_STARTINGCASH_SETTING_Y+6), MPH_STARTINGCASH_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_CASH_LOW + iMPHStartingCash ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// -----------------
 
-	// Starting Cash text label
-	DisplayWrappedString( MPH_LABEL_CASH_X, MPH_LABEL_CASH_Y, MPH_LABEL_CASH_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_BALANCE_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// ----------
+	// WeaponDamage	
+	RenderMPHSmallSelectionFrame( (MPH_WEAPONDAMAGE_SETTING_X + 36), (MPH_WEAPONDAMAGE_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(MPH_WEAPONDAMAGE_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (UINT16)(MPH_WEAPONDAMAGE_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE - 12), MPH_WEAPONDAMAGE_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_DMG_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(MPH_WEAPONDAMAGE_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_WEAPONDAMAGE_SETTING_Y+6), MPH_STARTINGCASH_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_DAMAGE_VERYLOW + iMPHWeaponDamage ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );	
+	// --------------
 
-	// Damage multiplier text label
-	DisplayWrappedString( MPH_LABEL_DMG_X, MPH_LABEL_DMG_Y, MPH_LABEL_DMG_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_DMG_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// -----------
+	// TurnTimes	
+	RenderMPHSmallSelectionFrame( (MPH_TIMETURNS_SETTING_X + 36), (MPH_TIMETURNS_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(MPH_TIMETURNS_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (UINT16)(MPH_TIMETURNS_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE - 12), MPH_TIMETURNS_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_TIMER_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(MPH_TIMETURNS_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_TIMETURNS_SETTING_Y+6), MPH_TIMETURNS_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_TIME_NEVER + iMPHTimeTurns ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// -----------------
+	
+	// ---------------
+	// Difficulty		
+	RenderMPHSmallSelectionFrame( (MPH_DIFFICULTY_SETTING_X + 36), (MPH_DIFFICULTY_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(MPH_DIFFICULTY_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (UINT16)(MPH_DIFFICULTY_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE - 12), MPH_DIFFICULTY_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(MPH_DIFFICULTY_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_DIFFICULTY_SETTING_Y+6), MPH_DIFFICULTY_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iMPHDifficulty + 9 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// ---------------
 
-	// Turn timer text label
-	DisplayWrappedString( MPH_LABEL_TIMER_X, MPH_LABEL_TIMER_Y, MPH_LABEL_TIMER_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_TIMER_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// ---------------
+	// GameType		
+	RenderMPHSmallSelectionFrame( (MPH_GAMETYPE_SETTING_X + 36), (MPH_GAMETYPE_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(MPH_GAMETYPE_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (UINT16)(MPH_GAMETYPE_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE - 12), MPH_GAMETYPE_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_GAMETYPE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(MPH_GAMETYPE_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_GAMETYPE_SETTING_Y+6), MPH_GAMETYPE_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_DEATHMATCH_TEXT + iMPHGameType], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// ---------------
+	
+	// ---------------
+	// MaxEnemies	
+	DisplayWrappedString( (MPH_MAXENEMIES_SETTING_X - 6), (UINT16)(MPH_MAXENEMIES_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE), MPH_MAXENEMIES_SETTING_WIDTH + 14, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_OVERRIDEMAXAI_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// -------------
 
-	// File transfer directory (source directory for server, target directory for client)
-	DisplayWrappedString( MPH_LABEL_FILE_TRANSFER_DIR_X, MPH_LABEL_FILE_TRANSFER_DIR_Y, MPH_LABEL_FILE_TRANSFER_DIR_WIDTH, 2, MPH_LABEL_TEXT_FONT, MPH_LABEL_TEXT_COLOR, gzMPHScreenText[ MPH_FILE_TRANSFER_DIR_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// ---------------
+	// Traits
+	DisplayWrappedString( (MPH_TRAITS_SETTING_X - 6), (UINT16)(MPH_TRAITS_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE), MPH_TRAITS_SETTING_WIDTH + 14, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_TRAITS_TEXT], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// -------------
 
-	//Display the Dif Settings Title Text
-	DisplayWrappedString( MPH_DIF_SETTINGS_X, (UINT16)(MPH_DIF_SETTINGS_Y-MPH_GAP_BN_SETTINGS), MPH_DIF_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// -----------
+	// HireMerc	
+	DisplayWrappedString( (MPH_HIREMERC_SETTING_X - 6), (UINT16)(MPH_HIREMERC_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE), MPH_HIREMERC_SETTING_WIDTH + 14, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_RANDOMMERCS_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// ----------
 
-	// Hard
-	usPosY = MPH_DIF_SETTINGS_Y+2;
-	DisplayWrappedString( (UINT16)(MPH_DIF_SETTINGS_X+MPH_OFFSET_TO_TEXT), usPosY, MPH_DIF_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_HARD_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// ------------
+	// SameMerc	
+	DisplayWrappedString( (MPH_SAMEMERC_SETTING_X - 6), (UINT16)(MPH_SAMEMERC_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE), MPH_SAMEMERC_SETTING_WIDTH + 14, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_SAMEMERC_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// ----------
 
-	// Insane
-	usPosY += MPH_GAP_BN_SETTINGS-5;
-	//DrawTextToScreen( gzMPHScreenText[ MPH_HARD_TEXT ], (UINT16)(MPH_DIF_SETTINGS_X+MPH_OFFSET_TO_TEXT), usPosY, MPH_MAIN_TITLE_WIDTH, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DisplayWrappedString( (UINT16)(MPH_DIF_SETTINGS_X+MPH_OFFSET_TO_TEXT), usPosY, MPH_DIF_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INSANE_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// -------------
+	// ReportMerc	
+	DisplayWrappedString( (MPH_REPORTMERC_SETTING_X - 6), (UINT16)(MPH_REPORTMERC_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE), MPH_REPORTMERC_SETTING_WIDTH + 14, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_RPTMERC_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// -------------
 
-	//Display the Game Type title
-	DisplayWrappedString( MPH_GAMETYPE_SETTINGS_X, (UINT16)(MPH_GAMETYPE_SETTINGS_Y-MPH_GAP_BN_SETTINGS), MPH_GAMETYPE_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_GAMETYPE_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// -----------------
+	// BobbyRay	
+	DisplayWrappedString( (MPH_BOBBYRAY_SETTING_X - 6), (UINT16)(MPH_BOBBYRAY_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE), MPH_BOBBYRAY_SETTING_WIDTH + 14, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_BOBBYRAY_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// ----------
 
-	// Deathmatch
-	usPosY = MPH_GAMETYPE_SETTINGS_Y+2;
-	DisplayWrappedString( (UINT16)(MPH_GAMETYPE_SETTINGS_X+MPH_OFFSET_TO_TEXT), usPosY, MPH_GAMETYPE_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_DEATHMATCH_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// ------------------
+	// SectorEdge	
+	DisplayWrappedString( (MPH_SECTOREDGE_SETTING_X - 6), (UINT16)(MPH_SECTOREDGE_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE), MPH_SECTOREDGE_SETTING_WIDTH + 14, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_RNDMSTART_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// ----------
 
-	// Team Deathmatch
-	usPosY += MPH_GAP_BN_SETTINGS-5;
-	DisplayWrappedString( (UINT16)(MPH_GAMETYPE_SETTINGS_X+MPH_OFFSET_TO_TEXT), usPosY, MPH_GAMETYPE_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_TEAMDM_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// ------------
+	// Civs	
+	DisplayWrappedString( (MPH_CIVS_SETTING_X - 6), (UINT16)(MPH_CIVS_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE), MPH_CIVS_SETTING_WIDTH + 14, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_ENABLECIV_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// -------------
 
-	// Co-operative
-	usPosY += MPH_GAP_BN_SETTINGS-5;
-	DisplayWrappedString( (UINT16)(MPH_GAMETYPE_SETTINGS_X+MPH_OFFSET_TO_TEXT), usPosY, MPH_GAMETYPE_SETTINGS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_COOP_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// --------------
+	// Inventory	
+	RenderMPHSmallSelectionFrame( (MPH_INVENTORY_SETTING_X + 36), (MPH_INVENTORY_SETTING_Y - 3) );
+	DisplayWrappedString( (UINT16)(MPH_INVENTORY_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (UINT16)(MPH_INVENTORY_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE - 12), MPH_INVENTORY_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INV_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(MPH_INVENTORY_SETTING_X+MPH_OFFSET_TO_TEXT + 1), (MPH_INVENTORY_SETTING_Y+6), MPH_INVENTORY_SETTING_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iMPHInventory + 54 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// ----------------
 
-	// Override Max AI
-	DisplayWrappedString( (UINT16)MPH_OVERRIDEMAXAI_X, MPH_OVERRIDEMAXAI_Y, MPH_OVERRIDEMAXAI_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_OVERRIDEMAXAI_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-
-	// Random Mercs
-	DisplayWrappedString( (UINT16)MPH_RNDMERC_X, MPH_RNDMERC_Y, MPH_RNDMERC_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_RANDOMMERCS_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-
-	// Same Mercs
-	DisplayWrappedString( (UINT16)MPH_SAMEMERC_X, MPH_SAMEMERC_Y, MPH_SAMEMERC_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_SAMEMERC_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-
-	// Report Mercs
-	DisplayWrappedString( (UINT16)MPH_REPORTMERC_X, MPH_REPORTMERC_Y, MPH_REPORTMERC_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_RPTMERC_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-
-	// Allow Bobby-Rays
-	DisplayWrappedString( (UINT16)MPH_BOBBYRAY_X, MPH_BOBBYRAY_Y, MPH_BOBBYRAY_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_BOBBYRAY_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-
-	// Random Spawn
-	DisplayWrappedString( (UINT16)MPH_RNDSPAWN_X, MPH_RNDSPAWN_Y, MPH_RNDSPAWN_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_RNDMSTART_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-
-	// Civs
-	DisplayWrappedString( (UINT16)MPH_CIVS_X, MPH_CIVS_Y, MPH_CIVS_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_ENABLECIV_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-
-	// Use NIV
-	DisplayWrappedString( (UINT16)MPH_USENIV_X, MPH_USENIV_Y, MPH_USENIV_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_USENIV_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-
-	// Send Files
-	DisplayWrappedString( (UINT16)MPH_SEND_FILES_X, MPH_SEND_FILES_Y, MPH_SEND_FILES_WIDTH, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_SYNC_CLIENT_MP_DIR ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	// --------------------
+	// Sync	
+	DisplayWrappedString( (MPH_SYNC_SETTING_X - 6), (UINT16)(MPH_SYNC_SETTING_Y-MPH_GAP_BN_SETTINGS + MPH_TITLE_DISTANCE), MPH_SYNC_SETTING_WIDTH + 14, 2, MPH_TOGGLE_TEXT_FONT, MPH_TOGGLE_TEXT_COLOR, gzMPHScreenText[ MPH_SYNC_GAME_DIRECTORY ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	// --------------------
 
 	return( TRUE );
-} // end of RenderMPHScreen()
+}
 
 
 
@@ -1328,26 +2760,7 @@ void			GetMPHScreenUserInput()
 					if (ValidateMPSettings())
 					{
 						SaveMPSettings(); // Update Profiles/UserProfile/ja2_mp.ini
-#ifdef USE_VFS	
-						// "gzFileTransferDirectory" is the new multiplayer profile root
-						vfs::CProfileStack *PS = getVFS()->getProfileStack();
-
-						// remove Multiplayer profile if it exists
-						vfs::CVirtualProfile *pProf = PS->getProfile("_MULTIPLAYER");
-						if( pProf && (pProf == PS->topProfile()) )
-						{
-							THROWIFFALSE(PS->popProfile(), "Could not remove old \"_MULTIPLAYER\" profile");
-							// careful, pProf is not valid anymore
-						}
-						// create and initialize a new Multiplayer profile
-						pProf = new vfs::CVirtualProfile("_MULTIPLAYER",true);
-						PS->pushProfile(pProf);
-						if(!initWriteProfile(*pProf, vfs::Path(gzFileTransferDirectory)))
-						{
-							THROWIFFALSE(PS->popProfile(), L"Could not remove \"_MULTIPLAYER\" profile");			
-							THROWEXCEPTION(L"Directory exists, but Multiplayer profile could not be iniitalized");
-						}
-#endif
+						SGP_TRYCATCH_RETHROW( ja2::mp::InitializeMultiplayerProfile(vfs::Path(gzFileTransferDirectory)), L"" );
 						gubMPHScreenHandler = MPH_START;
 					}
 					break;
@@ -1374,29 +2787,11 @@ void BtnMPHStartCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			gubMPHScreenHandler = MPH_START;
 			SaveMPSettings(); // Update the Profiles/UserProfile/ja2_mp.ini
-#ifdef USE_VFS	
-			// "gzFileTransferDirectory" is the new multiplayer profile root
-			vfs::CProfileStack *PS = getVFS()->getProfileStack();
-
-			// remove Multiplayer profile if it exists
-			vfs::CVirtualProfile *pProf = PS->getProfile("_MULTIPLAYER");
-			if( pProf && (pProf == PS->topProfile()) )
-			{
-				THROWIFFALSE(PS->popProfile(), "Could not remove old \"_MULTIPLAYER\" profile");
-				// careful, pProf is not valid anymore
-			}
-			// create and initialize a new Multiplayer profile
-			pProf = new vfs::CVirtualProfile("_MULTIPLAYER",true);
-			PS->pushProfile(pProf);
-			if(!initWriteProfile(*pProf, vfs::Path(gzFileTransferDirectory)))
-			{
-				THROWIFFALSE(PS->popProfile(), L"Could not remove \"_MULTIPLAYER\" profile");			
-				THROWEXCEPTION(L"Directory exists, but Multiplayer profile could not be iniitalized");
-			}
-#endif
+			SGP_TRYCATCH_RETHROW( ja2::mp::InitializeMultiplayerProfile(vfs::Path(gzFileTransferDirectory)), L"" );
 
 			// The difficult level has to be set there. This is the only value so far, because it is used for initialization!
-			gGameOptions.ubDifficultyLevel = GetMPHCurrentDifficultyButtonSetting();
+			//gGameOptions.ubDifficultyLevel =   GetMPHCurrentDifficultyButtonSetting();
+			gGameOptions.ubDifficultyLevel = iMPHDifficulty + 1;
 
 			// WANNE - MP: Reinit TableData folder and INIs
 			LoadExternalGameplayData(TABLEDATA_DIRECTORY);
@@ -1424,162 +2819,6 @@ void BtnMPHCancelCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-void BtnMPHDifficultyTogglesCallback( GUI_BUTTON *btn, INT32 reason )
-{
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		/*UINT8	ubButton = (UINT8)*/MSYS_GetBtnUserData( btn, 0 );
-
-		if( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			UINT8	cnt;
-
-			for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
-			{
-				ButtonList[ guiMPHDifficultySettingsToggles[ cnt ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-			}
-
-			//enable the current button
-			btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-		else
-		{
-			UINT8	cnt;
-			BOOLEAN fAnyChecked=FALSE;
-
-			//if none of the other boxes are checked, do not uncheck this box
-			for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
-			{
-
-				if( ButtonList[ guiMPHDifficultySettingsToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
-				{
-					fAnyChecked = TRUE;
-				}
-			}
-			//if none are checked, re check this one
-			if( !fAnyChecked )
-				btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-	}
-}
-
-void BtnMPHGameTypeTogglesCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		/*UINT8	ubButton = (UINT8)*/MSYS_GetBtnUserData( btn, 0 );
-
-		if( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			UINT8	cnt;
-
-			for( cnt=0; cnt<NUM_MP_GAMETYPE; cnt++)
-			{
-				ButtonList[ guiMPHGameTypeToggles[ cnt ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-			}
-
-			//enable the current button
-			btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-		else
-		{
-			UINT8	cnt;
-			BOOLEAN fAnyChecked=FALSE;
-
-			//if none of the other boxes are checked, do not uncheck this box
-			for( cnt=0; cnt<NUM_MP_GAMETYPE; cnt++)
-			{
-
-				if( ButtonList[ guiMPHGameTypeToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
-				{
-					fAnyChecked = TRUE;
-				}
-			}
-			//if none are checked, re check this one
-			if( !fAnyChecked )
-				btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-	}
-}
-
-void RestoreMPHButtonBackGrounds()
-{
-	UINT8	cnt;
-	UINT16 usPosY;
-
-
-	usPosY = MPH_DIF_SETTINGS_Y-MPH_OFFSET_TO_TOGGLE_BOX_Y;
-	//Check box to toggle Difficulty settings
-	for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
-	{
-		RestoreExternBackgroundRect( MPH_DIF_SETTINGS_X+MPH_OFFSET_TO_TOGGLE_BOX, usPosY, 34, 29 );
-		usPosY += MPH_GAP_BN_SETTINGS-5;
-	}
-
-	usPosY = MPH_GAMETYPE_SETTINGS_Y-MPH_OFFSET_TO_TOGGLE_BOX_Y;
-	//Check box to toggle GameType
-	for( cnt=0; cnt<NUM_MP_GAMETYPE; cnt++)
-	{
-		RestoreExternBackgroundRect( MPH_GAMETYPE_SETTINGS_X+MPH_OFFSET_TO_TOGGLE_BOX, usPosY, 34, 29 );
-		usPosY += MPH_GAP_BN_SETTINGS-5;
-	}
-
-	RestoreExternBackgroundRect( MPH_OVERRIDEMAXAI_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_OVERRIDEMAXAI_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
-	RestoreExternBackgroundRect( MPH_RNDMERC_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_RNDMERC_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
-	RestoreExternBackgroundRect( MPH_SAMEMERC_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_SAMEMERC_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
-	RestoreExternBackgroundRect( MPH_REPORTMERC_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_REPORTMERC_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
-	RestoreExternBackgroundRect( MPH_BOBBYRAY_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_BOBBYRAY_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
-	RestoreExternBackgroundRect( MPH_RNDSPAWN_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_RNDSPAWN_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
-	RestoreExternBackgroundRect( MPH_CIVS_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_CIVS_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
-	RestoreExternBackgroundRect( MPH_USENIV_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_USENIV_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
-	RestoreExternBackgroundRect( MPH_SEND_FILES_X+MPH_OFFSET_TO_TOGGLE_BOX, MPH_SEND_FILES_Y - MPH_OFFSET_TO_TOGGLE_BOX_Y, 34, 29 );
-
-}
-
-UINT8	GetMPHCurrentDifficultyButtonSetting()
-{
-	UINT8	cnt;
-
-	for( cnt=0; cnt<MPH_NUM_DIFF_SETTINGS; cnt++)
-	{
-		if( ButtonList[ guiMPHDifficultySettingsToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
-		{
-			return( cnt + 3 ); // removed two difficulty options from MPH
-		}
-	}
-
-	return( 0 );
-}
-
-UINT8	GetMPHGameTypeButtonSetting()
-{
-	UINT8	cnt;
-
-	for( cnt=0; cnt<NUM_MP_GAMETYPE; cnt++)
-	{
-		if( ButtonList[ guiMPHGameTypeToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
-		{
-			return( cnt );
-		}
-	}
-
-	return( 0 );
-}
-
-BOOLEAN DoMPHMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
-{
-	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
-
-	// reset exit mode
-//	gfExitGioDueToMessageBox = TRUE;
-
-	// do message box and return
-	giMPHMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback,	&CenteringRect );
-
-	// send back return state
-	return( ( giMPHMessageBox != -1 ) );
-}
-
 void DoneFadeOutForExitMPHScreen( void )
 {
 	// As we bypassed the GIO screen, set up some game options for multiplayer here
@@ -1588,59 +2827,18 @@ void DoneFadeOutForExitMPHScreen( void )
 	is_host = true; // we want to be the host, not we ARE the host yet (is_server)
 	auto_retry = true;
 	giNumTries = 5;
-
-	// loop through and get the status of all the buttons
-	// Madd
-	/*gGameOptions.fGunNut = GetCurrentGunButtonSetting();
-	gGameOptions.ubGameStyle = GetCurrentGameStyleButtonSetting();
-	gGameOptions.ubDifficultyLevel = GetCurrentDifficultyButtonSetting() + 1;*/
-	// JA2Gold: no more timed turns setting
-	//gGameOptions.fTurnTimeLimit = GetCurrentTimedTurnsButtonSetting();//hayden : re-enabled
-
+	
 	if (is_networked)
 		gGameOptions.fTurnTimeLimit = TRUE;
 	else
 		gGameOptions.fTurnTimeLimit = FALSE;
 	
-	// JA2Gold: iron man
-	//gGameOptions.fIronManMode = GetCurrentGameSaveButtonSetting();
-
 	// Bobby Rays - why would we want anything less than the best
 	gGameOptions.ubBobbyRay = BR_AWESOME;
-	
-
-	// CHRISL:
-	/*if(IsNIVModeValid() == TRUE){
-		switch ( GetCurrentINVOptionButtonSetting() )
-		{
-			case GIO_INV_OLD:
-				gGameOptions.ubInventorySystem = INVENTORY_OLD;
-				break;
-			case GIO_INV_NEW:
-				gGameOptions.ubInventorySystem = INVENTORY_NEW;
-				break;
-		}
-	}*/
-
-	//	gubGIOExitScreen = INIT_SCREEN;
+			
 	gubMPHExitScreen = INTRO_SCREEN;
 
-	//set the fact that we should do the intro videos
-//	gbIntroScreenMode = INTRO_BEGINING;
-#ifdef JA2TESTVERSION
-	if( gfKeyState[ ALT ] )
-	{
-		if( gfKeyState[ CTRL ] )
-		{
-			gMercProfiles[ MIGUEL ].bMercStatus = MERC_IS_DEAD;
-			gMercProfiles[ SKYRIDER ].bMercStatus = MERC_IS_DEAD;
-		}
-
-		SetIntroType( INTRO_ENDING );
-	}
-	else
-#endif
-		SetIntroType( INTRO_BEGINING );
+	SetIntroType( INTRO_BEGINNING );
 
 	ExitMPHScreen(); // cleanup please, if we called a fadeout then we didnt do it above
 
@@ -1652,146 +2850,16 @@ void DoneFadeInForExitMPHScreen( void )
 	SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
 }
 
-void BtnMPHOverrideMaxAICallback(GUI_BUTTON *btn,INT32 reason)
+void RenderMPHSmallSelectionFrame(INT16 sX, INT16 sY)
 {
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		MSYS_GetBtnUserData( btn, 0 );
 
-		if( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			ButtonList[ guiMPHOverrideMaxAIToggle ]->uiFlags &= ~BUTTON_CLICKED_ON;
+	HVOBJECT hHandle;
 
-			//enable the current button
-			btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-	}
-}
+	// get the video object
+	GetVideoObject(&hHandle, guiMPHSMALLFRAME);
 
-void BtnMPHRandomMercCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		MSYS_GetBtnUserData( btn, 0 );
+	// blt to sX, sY relative to upper left corner
+	BltVideoObject(FRAME_BUFFER, hHandle, 0, sX, sY , VO_BLT_SRCTRANSPARENCY,NULL);
 
-		if( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			ButtonList[ guiMPHRandomMercsToggle ]->uiFlags &= ~BUTTON_CLICKED_ON;
-
-			//enable the current button
-			btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-	}
-}
-
-void BtnMPHSameMercCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		MSYS_GetBtnUserData( btn, 0 );
-
-		if( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			ButtonList[ guiMPHSameMercToggle ]->uiFlags &= ~BUTTON_CLICKED_ON;
-
-			//enable the current button
-			btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-	}
-}
-
-void BtnMPHReportMercCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		MSYS_GetBtnUserData( btn, 0 );
-
-		if( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			ButtonList[ guiMPHReportMercToggle ]->uiFlags &= ~BUTTON_CLICKED_ON;
-
-			//enable the current button
-			btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-	}
-}
-
-void BtnMPHBobbyRayCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		MSYS_GetBtnUserData( btn, 0 );
-
-		if( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			ButtonList[ guiMPHBobbyRayToggle ]->uiFlags &= ~BUTTON_CLICKED_ON;
-
-			//enable the current button
-			btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-	}
-}
-
-void BtnMPHRandomSpawnCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		MSYS_GetBtnUserData( btn, 0 );
-
-		if( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			ButtonList[ guiMPHRandomSpawnToggle ]->uiFlags &= ~BUTTON_CLICKED_ON;
-
-			//enable the current button
-			btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-	}
-}
-
-void BtnMPHUseNIVCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		MSYS_GetBtnUserData( btn, 0 );
-
-		if( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			ButtonList[ guiMPHUseNIVToggle ]->uiFlags &= ~BUTTON_CLICKED_ON;
-
-			//enable the current button
-			btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-	}
-}
-
-void BtnMPHSendFilesCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		MSYS_GetBtnUserData( btn, 0 );
-
-		if( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			ButtonList[ guiMPHSendFiles ]->uiFlags &= ~BUTTON_CLICKED_ON;
-
-			//enable the current button
-			btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-	}
-}
-
-void BtnMPHCivsCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		MSYS_GetBtnUserData( btn, 0 );
-
-		if( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			ButtonList[ guiMPHCivsToggle ]->uiFlags &= ~BUTTON_CLICKED_ON;
-
-			//enable the current button
-			btn->uiFlags |= BUTTON_CLICKED_ON;
-		}
-	}
+	return;
 }

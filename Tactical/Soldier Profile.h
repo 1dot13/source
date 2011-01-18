@@ -5,13 +5,36 @@
 #include "Soldier Profile Type.h"
 #include "Merc Hiring.h"
 
-extern INT8 gbSkillTraitBonus[NUM_SKILLTRAITS];
+typedef struct
+{
+	UINT16 uiIndex;
+	BOOLEAN Enabled;
+	INT8 BaseAttribute;
+	INT8 ExpLevel;
+	BOOLEAN RandomLife;
+	BOOLEAN RandomAgility;
+	BOOLEAN RandomLeadership;
+	BOOLEAN RandomDexterity;
+	BOOLEAN RandomWisdom;
+	BOOLEAN RandomMarksmanship;
+	BOOLEAN RandomMedical;
+	BOOLEAN RandomMechanical;
+	BOOLEAN RandomExplosive;
+	BOOLEAN RandomScientific;
+	BOOLEAN RandomStrength;
+
+} RANDOM_STATS_VALUES;
+
+extern RANDOM_STATS_VALUES gRandomStatsValue[NUM_PROFILES];
+extern void RandomStats ();
+
+extern INT8 gbSkillTraitBonus[NUM_SKILLTRAITS_OT];
 extern UINT8 gubTerrorists[];
 extern INT16 gsTerroristSector[][5][2];
 extern BOOLEAN	gfPotentialTeamChangeDuringDeath;
 
 extern MERCPROFILESTRUCT gMercProfiles[ NUM_PROFILES ];
-extern MERCPROFILEGEAR gMercProfileGear[ NUM_PROFILES ];
+extern MERCPROFILEGEAR gMercProfileGear[ NUM_PROFILES ][ NUM_MERCSTARTINGGEAR_KITS ];
 
 
 #define AIM_AND_MERC_MERCS		51		// A.I.M. is 0-39, M.E.R.C.s are 40-50
@@ -19,6 +42,49 @@ extern MERCPROFILEGEAR gMercProfileGear[ NUM_PROFILES ];
 //use this to sort out the above define
 BOOLEAN IsProfileIdAnAimOrMERCMerc( UINT8 ubProfileID );
 //enums for the mercs 
+
+//new profiles by Jazz-------------------------------
+typedef struct
+{
+	UINT8 ProfilId;
+} AIM_PROFIL;
+
+typedef struct
+{
+	UINT8 ProfilId;
+} MERC_PROFIL;
+
+typedef struct
+{
+	UINT8 ProfilId;
+} NPC_PROFIL;
+
+typedef struct
+{
+	UINT8 ProfilId;
+} RPC_PROFIL;
+
+typedef struct
+{
+	UINT8 ProfilId;
+} VEHICLE_PROFIL;
+
+typedef struct
+{
+	UINT8 ProfilId;
+} IMP_PROFIL;
+
+extern AIM_PROFIL  gProfilesAIM[ NUM_PROFILES ];
+extern MERC_PROFIL gProfilesMERC[ NUM_PROFILES ];
+extern NPC_PROFIL  gProfilesNPC[ NUM_PROFILES ];
+extern RPC_PROFIL  gProfilesRPC[ NUM_PROFILES ];
+extern VEHICLE_PROFIL  gProfilesVehicle[ NUM_PROFILES ];
+extern IMP_PROFIL gProfilesIMP[NUM_PROFILES];
+
+extern BOOLEAN SaveNewSystemMercsToSaveGameFile( HWFILE hFile );
+extern BOOLEAN LoadNewSystemMercsToSaveGameFile( HWFILE hFile );
+//---------------------------------------------------
+
 enum NPCIDs
 {
 	BIFF = 40,
@@ -158,6 +224,7 @@ enum NPCIDs
 	TEX,
 	BIGGENS,
 	NPC169,
+	NPC170 = NPC169 + 84,
 } ;
 
 BOOLEAN LoadMercProfiles(void);
@@ -184,6 +251,8 @@ void UpdateSoldierPointerDataIntoProfile( BOOLEAN fPlayerMercs );
 
 // Returns true if a buddy of the merc is on team
 BOOLEAN DoesMercHaveABuddyOnTheTeam( UINT8 ubMercID );
+BOOLEAN MercIsHot( SOLDIERTYPE * pSoldier ); // added by SANDRO
+BOOLEAN MercIsInTropicalSector( SOLDIERTYPE * pSoldier ); // added by SANDRO
 
 void StartSomeMercsOnAssignment( void );
 
@@ -221,7 +290,8 @@ typedef struct
 	UINT32		uiBodyTypeSubFlags;
 
 	INT8		bAttitude;
-	INT8		bPersonalityTrait;
+	INT8		bCharacterTrait; // added by SANDRO
+	INT8		bDisability;
 	UINT8		ubNeedForSleep;
 
 	INT8		bReputationTolerance;
@@ -242,8 +312,40 @@ typedef struct
 	INT8		bExpLevel;
 
 	INT8		bEvolution;
-	INT8		bSkillTrait;
-	INT8		bSkillTrait2;
+	// changed by SANDRO
+	INT8		bOldSkillTrait;
+	INT8		bOldSkillTrait2;
+	// added by SANDRO
+	INT8		bNewSkillTrait1;
+	INT8		bNewSkillTrait2;
+	INT8		bNewSkillTrait3;
+	INT8		bNewSkillTrait4;
+	INT8		bNewSkillTrait5;
+	INT8		bNewSkillTrait6;
+	INT8		bNewSkillTrait7;
+	INT8		bNewSkillTrait8;
+	INT8		bNewSkillTrait9;
+	INT8		bNewSkillTrait10;
+	INT8		bNewSkillTrait11;
+	INT8		bNewSkillTrait12;
+	INT8		bNewSkillTrait13;
+	INT8		bNewSkillTrait14;
+	INT8		bNewSkillTrait15;
+	INT8		bNewSkillTrait16;
+	INT8		bNewSkillTrait17;
+	INT8		bNewSkillTrait18;
+	INT8		bNewSkillTrait19;
+	INT8		bNewSkillTrait20;
+	INT8		bNewSkillTrait21;
+	INT8		bNewSkillTrait22;
+	INT8		bNewSkillTrait23;
+	INT8		bNewSkillTrait24;
+	INT8		bNewSkillTrait25;
+	INT8		bNewSkillTrait26;
+	INT8		bNewSkillTrait27;
+	INT8		bNewSkillTrait28;
+	INT8		bNewSkillTrait29;
+	INT8		bNewSkillTrait30;
 
 	INT8		bBuddy[5];
 	INT8		bLearnToLike;
@@ -271,6 +373,15 @@ typedef struct
 	UINT16		usApproachFactor[4];
 
 	INT8 bMercOpinion[75];
+	
+	UINT32 Type;
+	
+	UINT16 sSectorX;
+	UINT16 sSectorY;
+	INT8	bSectorZ;
+	UINT8 ubCivilianGroup;
+	INT8 bTown;
+	INT8 bTownAttachment;
 
 } TEMPPROFILETYPE;
 
@@ -281,5 +392,9 @@ extern BOOLEAN WriteMercOpinions();
 
 void OverwriteMercProfileWithXMLData( UINT32 uiLoop );
 void OverwriteMercOpinionsWithXMLData( UINT32 uiLoop );
+
+// SANDRO - added functions
+INT8 CheckMercsNearForCharTraits( UINT8 ubProfileID, INT8 bCharTraitID );
+INT8 ProfileHasSkillTrait( INT32 ubProfileID, INT8 bSkillTrait );
 
 #endif

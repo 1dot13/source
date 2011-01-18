@@ -1,18 +1,14 @@
-
 #include "MessageIdentifiers.h"
 #include "RakNetworkFactory.h"
 #include "RakPeerInterface.h"
 #include "RakNetStatistics.h"
 #include "RakNetTypes.h"
-
-
 #include "FileListTransfer.h"
 #include "FileListTransferCBInterface.h"
 #include "FileOperations.h"
 #include "SuperFastHash.h"
 #include "RakAssert.h"
 #include "IncrementalReadInterface.h"
-
 #include "BitStream.h"
 #include "RakSleep.h"
 #include <assert.h>
@@ -23,29 +19,22 @@
 #include <string.h>
 #include <time.h>
 #include <list>
-
 #include "connect.h"
-
 #include "types.h"
 #include "gamesettings.h"
 #include "message.h"
 #include "FileMan.h"
-
 #include "IniReader.h"
-#include "VFS/vfs.h"
-#include "VFS/Tools/ParserTools.h"
+#include <vfs/Core/vfs.h>
+#include "transfer_rules.h"
 #include "MPJoinScreen.h"
-
 #include "game init.h"
-
 #include "text.h"
 #include "network.h"
-
 #include "message.h"
 #include "overhead.h"
 #include "fresh_header.h"
 #include "Debug Control.h"
-
 #include "MPXmlTeams.hpp"
 
 extern CHAR16 gzFileTransferDirectory[100];
@@ -80,50 +69,40 @@ class ServerFileListProgress : public FileListProgress
 	}
 } serverFileListProgress;
 
-
-
-char kbag[100];
-char net_div[30];
-INT32 gsMAX_MERCS;
-bool gsMORALE;
-int gsREPORT_NAME;
-
+// ------------------------------
+// Global Server Variables from ja2_mp.ini
+// ------------------------------
+char gKitBag[100];
+UINT8 gMaxMercs;
+UINT8 gDisableMorale;
+UINT8 gReportHiredMerc;
+UINT8 gDisableBobbyRay;
+UINT8 gDisableMercEquipment;
+UINT8 gSameMercAllowed;
+float gDamageMultiplier;
+UINT8 gMaxClients ;
+UINT8 gGameType;
+UINT8 gDifficultyLevel;
+UINT8 gSkillTraits;
+UINT8 gSyncGameDirectory;
+INT32 gSecondsPerTick;
+INT32 gStartingCash;
+float gStartingTime;
+UINT8 gWeaponReadyBonus;
+UINT8 gInventoryAttachment;
+UINT8 gDisableSpectatorMode;
+UINT8 gMaxEnemiesEnabled;
+// ------------------------------
 
 UINT16 nc; //number of open connection
 UINT16 ncr; //number of ready confirmed connections
 //something keep record of ready connections ..
 int mercs_ready[255];
 
-bool gsDis_Bobby;
-bool gsDis_Equip;
-
-int gsSAME_MERC;
-float gsDAMAGE_MULTIPLIER;
-int gsINTERRUPTS ;
-int gsMAX_CLIENTS ;
-int gsPLAYER_BSIDE;
-int gsTESTING;
-int gsDIFFICULT_LEVEL;
-char gsFILE_TRANSFER_DIRECTORY_SERVER[100];
-
-int gsSYNC_CLIENTS_MP_DIR;
-
-INT32 gssecs_per_tick;
-INT32 gsstarting_balance;
-float TIME;
-int sWEAPON_READIED_BONUS;
-int sALLOW_CUSTOM_NIV;
-int sDISABLE_SPEC_MODE;
-
-// OJW - 20090403 - override max enemies for co-op
-int OVERRIDE_MAX_AI;
-
 unsigned char SGetPacketIdentifier(Packet *p);
 unsigned char SpacketIdentifier;
 
 RakPeerInterface *server;
-
-
 
 // WANNE: FILE TRANSFER
 FileListTransfer fltServer;	// flt1
@@ -131,8 +110,6 @@ IncrementalReadInterface incrementalReadInterface;
 FileList fileList;
 // OJW - 20090405
 long fileListTotalBytes=0;
-
-
 
 int numreadyteams;
 int readyteamreg[10];
@@ -149,21 +126,6 @@ typedef struct
 }client_data;
 
 client_data client_d[4];
-
-// OJW - 20081223
-// Random Merc teams
-// First attempt at "balanced" teams
-// moved to mpxmlteams.cpp
-/*
-int random_merc_teams[4][7] =
-{
-	{ 16, 10, 19, 25, 4 , 11, 39 } ,	// Gus , Shadow, Spider , Raven , Vicki , Red , Meltdown
-	{ 29, 36, 28, 2 , 22, 8 , 32 } ,	// Magic , Scope, Danny , Lynx , Hitman , Steroid , Malice
-	{ 12, 5 , 20, 23, 48, 34, 17 } ,	// Reaper , Trevor, Cliff , Buzz , Cougar , Nails , Buns
-	{ 31, 7 , 33, 35, 27, 37, 1 }		// Scully , Ivan , Dr Q  , Thor , Len , Wolf , Blood
-};
-*/
-
 int client_mercteam[4] = { 0 , 1 , 2 , 3 }; // random index of random_merc_teams per player
 
 bool inline can_joingame();
@@ -535,27 +497,6 @@ void receiveSETID(RPCParameters *rpcParameters)
 	fltServer.Send(&fileList,server,rpcParameters->sender,setID,MEDIUM_PRIORITY,0,false, &incrementalReadInterface, 5000);
 }
 
-//void sendALLFILESRECEIVED(RPCParameters *rpcParameters)
-//{
-//	ScreenMsg( FONT_BCOLOR_ORANGE, MSG_MPSYSTEM, L"%S", rpcParameters->input);
-//}
-
-
-//
-//void rINT(RPCParameters *rpcParameters)//who is first
-//{
-//
-//		AIint* data = (AIint*)rpcParameters->input;
-//
-//		if( !Sawarded )
-//		{
-//			PauseAITemporarily();
-//			Sawarded=true;
-//			//send back to sender
-//			server->RPC("awardINT",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, false, 0, UNASSIGNED_NETWORK_ID,0);
-//		}
-//}
-
 void startCOMBAT(RPCParameters *rpcParameters)
 {
 	if(!( gTacticalStatus.uiFlags & INCOMBAT ))
@@ -570,43 +511,38 @@ void startCOMBAT(RPCParameters *rpcParameters)
 
 }
 
-
-
-
-
 void sendREAL(RPCParameters *rpcParameters)
 {
 	real_struct* rData = (real_struct*)rpcParameters->input;
 
-
-	
-	//ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, L"netbTeam %d is ready for realtime",rData->bteam );//diabled unless testing as cheats
 	if(readyteamreg[rData->bteam]==0)
 	{
 		readyteamreg[rData->bteam]=1;//register vote, to prevent double voting ;p~ //hayden
 		numreadyteams++;
 
-					int numactiveteams=0;
-					int b;
-					for(int i=6;i<=LAST_TEAM;i++)
-					{
-						if(i==6)b=0;
-						else b=i;
+		int numactiveteams=0;
+		int b;
+		for(int i=6;i<=LAST_TEAM;i++)
+		{
+			if(i==6)
+				b=0;
+			else 
+				b=i;
 
-						if(gTacticalStatus.Team[ b ].bTeamActive)numactiveteams++;
+			if(gTacticalStatus.Team[ b ].bTeamActive)
+				numactiveteams++;
+		}
 
-					}//same
-					//ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, MPServerMessage[5], numreadyteams, numactiveteams );
-					//check # clients ready for realtime
-					if (numreadyteams >= numactiveteams)
-					{
-						//if all send notification for realtime changeover
-						//ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, L"Switching to realtime..." );
-						numreadyteams=0;
-						memset( &readyteamreg , 0 , sizeof (int) * 10);
+		//check # clients ready for realtime
+		if (numreadyteams >= numactiveteams)
+		{
+			//if all send notification for realtime changeover
+			//ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, L"Switching to realtime..." );
+			numreadyteams=0;
+			memset( &readyteamreg , 0 , sizeof (int) * 10);
 
-						server->RPC("gotoRT",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
-					}
+			server->RPC("gotoRT",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+		}
 	}
 }
 
@@ -622,9 +558,6 @@ void sendCHATMSG(RPCParameters *rpcParameters)
 	// ignore the RPCParams and send the server side scoreboard
 	server->RPC("recieveCHATMSG",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
-
-
-
 
 // OJW - 20081223
 // fix client disconnecting mid game, allowing the game to proceed
@@ -666,7 +599,7 @@ void rSortArray(int* arr, int len)
 	{
 		int iRandPos =  rand() % tmpList.size();
 		for(Iter = tmpList.begin(); iRandPos>0; iRandPos--, Iter++);
-		//Iter += iRandPos;
+		
 		shuffledList.push_front(*Iter);
 		tmpList.erase(Iter);
 	}
@@ -683,36 +616,17 @@ void rSortArray(int* arr, int len)
 void requestFILE_TRANSFER_SETTINGS(RPCParameters *rpcParameters)
 {
 	SystemAddress sender = rpcParameters->sender;//get senders address
-#ifndef USE_VFS
-	STRING512 executableDir;
-	GetExecutableDirectory(executableDir);
 
-	STRING512 fileTransferDir;
-	strcpy(fileTransferDir, executableDir);
-	strcat(fileTransferDir, "\\");
-	strcat(fileTransferDir, gsFILE_TRANSFER_DIRECTORY_SERVER);
-
-	// Replace all "/" with "\" from the server path
-	char* correctFileTransferDir = ReplaceCharactersInString_Server(fileTransferDir, "/", "\\");
-	
 	filetransfersettings_struct fts;
 
-	fts.syncClientsDirectory = gsSYNC_CLIENTS_MP_DIR;
-	strcpy(fts.fileTransferDirectory, correctFileTransferDir);
-	strcpy(fts.serverName, SERVER_NAME);
-	fts.totalTransferBytes = fileListTotalBytes;
-#else
-	filetransfersettings_struct fts;
-
-	fts.syncClientsDirectory = gsSYNC_CLIENTS_MP_DIR;
+	fts.syncClientsDirectory = gSyncGameDirectory;
 	strcpy(fts.fileTransferDirectory, s_ServerId.getServerId(vfs::Path(gzFileTransferDirectory)).utf8().c_str());
-	strcpy(fts.serverName, SERVER_NAME);
+	strcpy(fts.serverName, cServerName);
 	fts.totalTransferBytes = fileListTotalBytes;
-#endif
+
 	// OJW - 200907819 - Only send to the client that asked for it
 	server->RPC("recieveFILE_TRANSFER_SETTINGS",(const char*)&fts, (int)sizeof(filetransfersettings_struct)*8, HIGH_PRIORITY, RELIABLE, 0, sender, false, 0, UNASSIGNED_NETWORK_ID,0);
 }
-
 
 //************************* //UNASSIGNED_SYSTEM_ADDRESS
 //START INTERNAL SERVER
@@ -741,11 +655,7 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 			server->CloseConnection(rpcParameters->sender, true);
 			return;
 		}
-
-		// WANNE: FILE TRANSFER: A client connected -> start the file transfer!
-		if (gsSYNC_CLIENTS_MP_DIR)
-			requestSETID(rpcParameters->sender);
-
+		
 		//server assigned client numbers - hayden.
 		SystemAddress sender = rpcParameters->sender;//get senders address
 		int bslot = f_rec_num(0,blank);//get empty record slot
@@ -753,105 +663,107 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 		int new_cl_num = bslot+1;//client number to assign
 		client_d[bslot].cl_number=new_cl_num; //record clients number
 
-
 		settings_struct lan;
-
-		//lan.client_num = clinf->client_num;//old client assigned number
+		
 		lan.client_num = new_cl_num; //new server assigned number
 		strcpy(lan.client_name , clinf->client_name);
 
-		lan.RANDOM_SPAWN = RANDOM_SPAWN;
-		lan.RANDOM_MERCS = RANDOM_MERCS;
+		lan.randomStartingEdge = gRandomStartingEdge;
+		lan.randomMercs = gRandomMercs;
 
-		lan.max_clients = gsMAX_CLIENTS;
-		memcpy(lan.kitbag , kbag,sizeof (char)*100);
-		lan.damage_multiplier = gsDAMAGE_MULTIPLIER;
+		lan.maxClients = gMaxClients;
+		memcpy(lan.kitBag , gKitBag,sizeof (char)*100);
+		lan.damageMultiplier = gDamageMultiplier;
 
-		lan.same_merc = gsSAME_MERC;
+		lan.sameMercAllowed = gSameMercAllowed;
 		lan.gsMercArriveSectorX=gsMercArriveSectorX;
 		lan.gsMercArriveSectorY=gsMercArriveSectorY;
 
-		lan.ENEMY_ENABLED=ENEMY_ENABLED;
-		lan.CREATURE_ENABLED=CREATURE_ENABLED;
-		lan.MILITIA_ENABLED=MILITIA_ENABLED;
-		lan.CIV_ENABLED=CIV_ENABLED;
+		lan.enemyEnabled = gEnemyEnabled;
+		lan.creatureEnabled = gCreatureEnabled;
+		lan.militiaEnabled = gMilitiaEnabled;
+		lan.civEnabled = gCivEnabled;
 
-		lan.gsPLAYER_BSIDE=gsPLAYER_BSIDE;
+		lan.gameType=gGameType;
 
-		lan.emorale=gsMORALE;
-		lan.gsREPORT_NAME=gsREPORT_NAME;
-//something new
-		lan.secs_per_tick=gssecs_per_tick;
+		lan.disableMorale=gDisableMorale;
+		lan.reportHiredMerc=gReportHiredMerc;
+		lan.secondsPerTick = gSecondsPerTick;
 		lan.soubBobbyRay=gGameOptions.ubBobbyRay;
 		lan.sofGunNut=gGameOptions.fGunNut;	
 		lan.soubGameStyle=gGameOptions.ubGameStyle;
-		lan.soubDifficultyLevel=gsDIFFICULT_LEVEL;
+		lan.soubDifficultyLevel=gDifficultyLevel;
+		lan.soubSkillTraits=gSkillTraits;
 		lan.sofTurnTimeLimit=gGameOptions.fTurnTimeLimit;
 		lan.sofIronManMode=gGameOptions.fIronManMode;
-		lan.starting_balance=gsstarting_balance;
-
-		// OJW - 20090319 - Changing allow custom NIV to force NIV on all clients
-		// as with the new join screen setup, no way for the individual client to choose
-		// whether or not to use NIV. If this is wrong, its easily fixed...
-		// just change description text for the toggle option on the host screen to
-		// "Allow custom inventory" and delete this if statement.
-		if (sALLOW_CUSTOM_NIV==1 && IsNIVModeValid(true))
-			gGameOptions.ubInventorySystem = INVENTORY_NEW;
-		else
-			gGameOptions.ubInventorySystem = INVENTORY_OLD;
+		lan.startingCash = gStartingCash;
 		
-		lan.sofNewInv=gGameOptions.ubInventorySystem;
+		// Old/Old
+		if (gInventoryAttachment == INVENTORY_OLD)
+		{			
+			lan.inventoryAttachment = 0;	
+		}
+		else
+		{
+			// New/Old
+			if (gGameOptions.ubAttachmentSystem == ATTACHMENT_OLD)
+			{				
+				lan.inventoryAttachment = 1; // New/Old
+			}
+			// New/New
+			else
+			{				
+				lan.inventoryAttachment = 2;	// New/New
+			}
+		}		
+		
+		lan.disableBobbyRay=gDisableBobbyRay;
+		lan.disableMercEquipment=gDisableMercEquipment;
 
-		lan.soDis_Bobby=gsDis_Bobby;
-		lan.soDis_Equip=gsDis_Equip;
-
-		lan.gsMAX_MERCS=gsMAX_MERCS;
+		lan.maxMercs = gMaxMercs;
 		
 		memcpy( lan.client_names , client_names, sizeof( char ) * 4 * 30 );
 		lan.team=clinf->team;
 		// OJW - 20090530 - fix teams not initialised properly
 		client_teams[ lan.client_num - 1 ] = lan.team;
-
-		lan.TESTING=gsTESTING;
-
+		
 		// OJW - 20081218
-		if (RANDOM_SPAWN)
+		if (gRandomStartingEdge)
 		{
 			// Get the edge from the randomized "client_edges"
-			lan.cl_edge = client_edges[lan.client_num-1];
+			lan.startingSectorEdge = client_edges[lan.client_num-1];
 		}
 		else
 		{
 			// WANNE: on DM, each client should get a unique starting edge per default
-			if (gsPLAYER_BSIDE == MP_TYPE_DEATHMATCH || gsPLAYER_BSIDE == MP_TYPE_TEAMDEATMATCH)
+			if (gGameType == MP_TYPE_DEATHMATCH || gGameType == MP_TYPE_TEAMDEATMATCH)
 			{
 				client_edges[0] = MP_EDGE_NORTH;	// client 1
 				client_edges[1] = MP_EDGE_SOUTH;	// client 2
 				client_edges[2] = MP_EDGE_EAST;		// client 3
 				client_edges[3] = MP_EDGE_WEST;		// client 4
 
-				lan.cl_edge = client_edges[lan.client_num-1];
+				lan.startingSectorEdge = client_edges[lan.client_num-1];
 			}
 			else
 			{
-				lan.cl_edge=clinf->cl_edge;
+				lan.startingSectorEdge=clinf->cl_edge;
 			}
 		}
 
 		// OJW - 20081223
-		if (RANDOM_MERCS)
-		{
-			//memcpy(lan.random_mercs, random_merc_teams[client_mercteam[lan.client_num - 1]], sizeof(int) * 7);
+		if (gRandomMercs)
+		{			
 			mpTeams.SerializeProfiles(lan.random_mercs);
 		}
 
-		lan.TIME=TIME;
-		lan.WEAPON_READIED_BONUS=sWEAPON_READIED_BONUS;
-		lan.ALLOW_CUSTOM_NIV=sALLOW_CUSTOM_NIV;
-		lan.DISABLE_SPEC_MODE=sDISABLE_SPEC_MODE;
+		lan.startingTime = gStartingTime;
+		lan.weaponReadyBonus = gWeaponReadyBonus;
+		lan.inventoryAttachment = gInventoryAttachment;
+		lan.disableSpectatorMode = gDisableSpectatorMode;
 
 		// OJW - 20081204
-		strcpy(lan.server_name , SERVER_NAME);
+		strcpy(lan.server_name , cServerName);
 		memcpy(lan.client_edges,client_edges,sizeof(int)*5);
 		memcpy(lan.client_teams,client_teams,sizeof(int)*4);
 
@@ -864,7 +776,10 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 
 		server->RPC("recieveSETTINGS",(const char*)&lan, (int)sizeof(settings_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 
-	} // end if(can_joingame)
+		// WANNE: FILE TRANSFER: A client connected -> start the file transfer!
+		if (gSyncGameDirectory)
+			requestSETID(rpcParameters->sender);
+	}
 }
 
 // added 081201 by Owen , allow the server to change the map while its still not in laptop mode
@@ -876,7 +791,7 @@ void send_mapchange(void)
 
 		lan.gsMercArriveSectorX=gsMercArriveSectorX;
 		lan.gsMercArriveSectorY=gsMercArriveSectorY;
-		lan.TIME=TIME;
+		lan.startingTime = gStartingTime;
 
 		server->RPC("recieveMAPCHANGE",(const char*)&lan, (int)sizeof(mapchange_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 	}
@@ -909,53 +824,6 @@ void CheckIncomingConnection(Packet* p)
 
 void AddFilesToSendList()
 {
-#ifndef USE_VFS
-	STRING512 executableDir;
-	GetExecutableDirectory(executableDir);
-
-	HANDLE				hFileIn;
-	HCONTAINER hStack = CreateStack( 100000, 600 );
-	WIN32_FIND_DATA		find, inFind;
-
-	find.dwFileAttributes = FILE_ATTRIBUTE_NORMAL | FILE_ATTRIBUTE_DIRECTORY;
-	inFind.dwFileAttributes = FILE_ATTRIBUTE_NORMAL | FILE_ATTRIBUTE_DIRECTORY;
-
-	STRING512 fileTransferDir;
-	strcpy(fileTransferDir, executableDir);
-
-	// WANNE: Build the complete file transfer directory for the server
-	strcat(fileTransferDir, "\\");
-	strcat(fileTransferDir, gsFILE_TRANSFER_DIRECTORY_SERVER);
-	
-	char* correctFileTransferDir = ReplaceCharactersInString_Server(fileTransferDir, "/", "\\");
-	if (DirectoryExists(correctFileTransferDir))
-	{
-		strcat(correctFileTransferDir, "\\*.*");
-
-		hFileIn = FindFirstFile( correctFileTransferDir, &inFind );
-
-		// Get all files (recursive) inside the folder "cSubDir" == FILE_TRANSFER_DIR_SERVER
-		INT32 iNumFiles = GetFilesInDirectory( hStack, correctFileTransferDir, hFileIn, &inFind );
-
-		CHAR		filename[600];
-		INT32 i;
-		for ( i=0 ; i<iNumFiles ; i++ )
-		{
-			Pop( hStack, filename );
-
-			unsigned int fileLength = GetFileLength(filename);
-			fileListTotalBytes += fileLength;
-			fileList.AddFile(filename, 0, fileLength, fileLength, FileListNodeContext(0,0), true);
-		}
-
-		DeleteStack( hStack );
-	}
-	else
-	{
-		char* outputTransferDir = ReplaceCharactersInString_Server(correctFileTransferDir, "\\*.*", "");
-		ScreenMsg( FONT_RED, MSG_MPSYSTEM, L"The Sync. MP Directory '%S' does not exist on the server. Cannot send any files to the clients!", outputTransferDir);
-	}
-#else
 	// we cannot just iterate over "*/*" as we would get ALL files and we don't want to send all files
 	// instead we only iterate over the files in the "_MULTIPLAYER" profile
 	vfs::CProfileStack *PS = getVFS()->getProfileStack();
@@ -969,7 +837,7 @@ void AddFilesToSendList()
 	CTransferRules transferRules;
 	transferRules.initFromTxtFile("transfer_rules.txt");
 	vfs::IBaseLocation* loc = prof->getLocation("");
-	THROWIFFALSE(loc != NULL, "MP profile was successfully created, but the root directory is not included");
+	SGP_THROW_IFFALSE(loc != NULL, "MP profile was successfully created, but the root directory is not included");
 	vfs::IBaseLocation::Iterator it = loc->begin();
 	int i=0;
 	for(; !it.end(); it.next(), i++)
@@ -990,269 +858,167 @@ void AddFilesToSendList()
 				std::vector<vfs::Byte> data(fsize,0);
 				rfile->read(&data[0], fsize);
 				rfile->close();
-				fileList.AddFile(utf8string::as_utf8(valid_path()).c_str(),&data[0], fsize,fsize,FileListNodeContext(0,0), false);
+				fileList.AddFile(vfs::String::as_utf8(valid_path()).c_str(),&data[0], fsize,fsize,FileListNodeContext(0,0), false);
 			}
 		}
-	}
-	if(i == 0)
-	{
-		// no files? 
-		//char* outputTransferDir = ReplaceCharactersInString_Server(correctFileTransferDir, "\\*.*", "");
-		//ScreenMsg( FONT_RED, MSG_MPSYSTEM, L"The Sync. MP Directory '%S' does not exist on the server. Cannot send any files to the clients!", outputTransferDir);
-	}
-#endif
+	}	
 }
 
 void start_server (void)
 {
 	if(!is_server)
 	{	
-#ifndef USE_VFS
-		CIniReader iniReader("..\\Ja2_mp.ini");
-#else
-		CIniReader iniReader("Ja2_mp.ini");
-#endif
-			//retrieve settings from .ini
-
-			f_rec_num(1,blank);//wipe clean
-			//char maxclients[30];
-			char port[30];
-			char SERVER_PORT[30];
-			//char MAX_CLIENTS[30] ;
-#ifndef USE_VFS
-		//	GetPrivateProfileString( "Ja2_mp Settings","MAX_CLIENTS", "4", maxclients, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","SERVER_PORT", "60005", port, MAX_PATH, "..\\Ja2_mp.ini" );
-		//	strcpy( MAX_CLIENTS , maxclients );
-			strcpy( SERVER_PORT, port );
-#else
-		//	GetPrivateProfileString( "Ja2_mp Settings","MAX_CLIENTS", "", maxclients, MAX_PATH, "..\\Ja2_mp.ini" );
-			strcpy(port, iniReader.ReadString("Ja2_mp Settings","SERVER_PORT", "60005"));
-		//	strcpy( MAX_CLIENTS , maxclients );
-			strcpy( SERVER_PORT, port );
-#endif
-
-			char ints[30];
-			char maxclients[30];
-		
-			char hire_same_merc[30];
-			char bteam1_enabled[30];
-			//char bteam2_enabled[30];
-			char bteam3_enabled[30];
-			char bteam4_enabled[30];
-
-			char player_bside[30];
-			char difficult_level[30];
-
-			char sBalance[30];
-			char time_div[30];
-			char mor[30];
-
-			char sRandomMercs[30];
-			char sRandomEdges[30];
-
-			// OJW - 20081204
-#ifndef USE_VFS
-			GetPrivateProfileString( "Ja2_mp Settings","SERVER_NAME", "Server Name", SERVER_NAME, MAX_PATH, "..\\Ja2_mp.ini" );
-
-			GetPrivateProfileString( "Ja2_mp Settings","SAME_MERC", "1", hire_same_merc, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","DISABLE_MORALE", "0", mor, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","MAX_CLIENTS", "4", maxclients, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","DAMAGE_MULTIPLIER", "0.7", net_div, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","RANDOM_MERCS", "0", sRandomMercs, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","RANDOM_EDGES", "0", sRandomEdges, MAX_PATH, "..\\Ja2_mp.ini" );
-			
-			GetPrivateProfileString( "Ja2_mp Settings","ENEMY_ENABLED", "0", bteam1_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
-			//GetPrivateProfileString( "Ja2_mp Settings","CREATURE_ENABLED", "0", bteam2_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","MILITIA_ENABLED", "0", bteam3_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","CIV_ENABLED", "0", bteam4_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
-
-			GetPrivateProfileString( "Ja2_mp Settings","GAME_MODE", "0", player_bside, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","DIFFICULT_LEVEL", "3", difficult_level, MAX_PATH, "..\\Ja2_mp.ini" );
-
-			// OJW - 20090304 - override max number of ai's in co-op
-			char sOverrideMaxAI[30];
-			OVERRIDE_MAX_AI = 0;
-			GetPrivateProfileString( "Ja2_mp Settings","OVERRIDE_MAX_AI", "0", sOverrideMaxAI, MAX_PATH, "..\\Ja2_mp.ini" );
-			
-			// WANNE: FILE TRANSFER
-			GetPrivateProfileString( "Ja2_mp Settings", "FILE_TRANSFER_DIRECTORY", "Data-MP", gsFILE_TRANSFER_DIRECTORY_SERVER, MAX_PATH, "..\\Ja2_mp.ini" ); 
-
-			char sendFiles[30];
-			GetPrivateProfileString( "Ja2_mp Settings", "SYNC_CLIENTS_MP_DIR", "1", sendFiles, MAX_PATH, "..\\Ja2_mp.ini" ); 
-			gsSYNC_CLIENTS_MP_DIR = atoi(sendFiles);
-#else
-			strncpy(SERVER_NAME, iniReader.ReadString("Ja2_mp Settings","SERVER_NAME", "Server Name"), 30);
-
-			strncpy(hire_same_merc, iniReader.ReadString("Ja2_mp Settings","SAME_MERC", "1"), 30);
-			strncpy(mor, iniReader.ReadString("Ja2_mp Settings","DISABLE_MORALE", "0"), 30);
-			strncpy(maxclients, iniReader.ReadString("Ja2_mp Settings","MAX_CLIENTS", "4"), 30);
-			strncpy(net_div, iniReader.ReadString("Ja2_mp Settings","DAMAGE_MULTIPLIER", "0.7"), 30);
-			strncpy(sRandomMercs, iniReader.ReadString("Ja2_mp Settings","RANDOM_MERCS", "0"), 30);
-			strncpy(sRandomEdges, iniReader.ReadString("Ja2_mp Settings","RANDOM_EDGES", "0"), 30);
-			
-			strncpy(bteam1_enabled, iniReader.ReadString("Ja2_mp Settings","ENEMY_ENABLED", "0"), 30);
-			//GetPrivateProfileString( "Ja2_mp Settings","CREATURE_ENABLED", "", bteam2_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
-			strncpy(bteam3_enabled, iniReader.ReadString("Ja2_mp Settings","MILITIA_ENABLED", "0"), 30);
-			strncpy(bteam4_enabled, iniReader.ReadString("Ja2_mp Settings","CIV_ENABLED", "0"), 30);
-
-			strncpy(player_bside, iniReader.ReadString( "Ja2_mp Settings","GAME_MODE", "0"), 30);
-			strncpy(difficult_level, iniReader.ReadString( "Ja2_mp Settings", "DIFFICULT_LEVEL", "3"), 30);
-			
-			// OJW - 20090304 - override max number of ai's in co-op
-			char sOverrideMaxAI[30];
-			OVERRIDE_MAX_AI = 0;
-			strncpy(sOverrideMaxAI, iniReader.ReadString("Ja2_mp Settings","OVERRIDE_MAX_AI", "0"), 30);
-			
-			// WANNE: FILE TRANSFER
-			strncpy(gsFILE_TRANSFER_DIRECTORY_SERVER, iniReader.ReadString("Ja2_mp Settings", "FILE_TRANSFER_DIRECTORY", "Data-MP"), 100 ); 
-
-			char sendFiles[30];
-			strncpy(sendFiles, iniReader.ReadString( "Ja2_mp Settings", "SYNC_CLIENTS_MP_DIR", "1"), 30 ); 
-			gsSYNC_CLIENTS_MP_DIR = atoi(sendFiles);
-			
-#endif
-			gsSYNC_CLIENTS_MP_DIR = atoi(sendFiles);
-
-//something new
-			gsMORALE=0;
-			if(atoi(mor)==1)gsMORALE=1;
-
-#ifndef USE_VFS
-			GetPrivateProfileString( "Ja2_mp Settings","KIT_BAG", "[201,214,243]", kbag, MAX_PATH, "..\\Ja2_mp.ini" );
-
-			char rpn[30];
-			GetPrivateProfileString( "Ja2_mp Settings","REPORT_NAME", "1", rpn, MAX_PATH, "..\\Ja2_mp.ini" );
-			gsREPORT_NAME=atoi(rpn);
-
-			GetPrivateProfileString( "Ja2_mp Settings","STARTING_BALANCE", "25000", sBalance, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","TIMED_TURN_SECS_PER_TICK", "13.50", time_div, MAX_PATH, "..\\Ja2_mp.ini" );
-
-			char dis_bob[30];
-			char dis_equip[30];
-			char max_merc[30];
-			char test[30];
-			GetPrivateProfileString( "Ja2_mp Settings","DISABLE_BOBBY_RAYS", "", dis_bob, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","DISABLE_AIM_AND_MERC_EQUIP", "", dis_equip, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","MAX_MERCS", "5", max_merc, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","TESTING", "0", test, MAX_PATH, "..\\Ja2_mp.ini" );
-			gsDis_Bobby=false;
-			gsDis_Equip=false;
-#else
-			strncpy(kbag, iniReader.ReadString("Ja2_mp Settings","KIT_BAG", "[201,214,243]"), 100);
-
-			char rpn[30];
-			strncpy(rpn, iniReader.ReadString("Ja2_mp Settings","REPORT_NAME", "1"), 30);
-			gsREPORT_NAME=atoi(rpn);
-
-			strncpy(sBalance, iniReader.ReadString("Ja2_mp Settings","STARTING_BALANCE", "25000"), 30);
-			strncpy(time_div, iniReader.ReadString("Ja2_mp Settings","TIMED_TURN_SECS_PER_TICK", "25"), 30);
-			
-			char dis_bob[30];
-			char dis_equip[30];
-			char max_merc[30];
-			char test[30];
-			strncpy(dis_bob, iniReader.ReadString("Ja2_mp Settings","DISABLE_BOBBY_RAYS", "0"), 30);
-			strncpy(dis_equip, iniReader.ReadString("Ja2_mp Settings","DISABLE_AIM_AND_MERC_EQUIP", "0"), 30);
-			strncpy(max_merc, iniReader.ReadString("Ja2_mp Settings","MAX_MERCS", "5"), 30);
-			strncpy(test, iniReader.ReadString("Ja2_mp Settings","TESTING", "0"), 30);
-			gsDis_Bobby=false;
-			gsDis_Equip=false;
-#endif
-
-			if(atoi(dis_bob)==1)gsDis_Bobby=true;
-			if(atoi(dis_equip)==1)gsDis_Equip=true;
-
-			gsMAX_MERCS=atoi(max_merc);
-			gsTESTING = atoi(test);
-
-			gsPLAYER_BSIDE = atoi(player_bside);
-
-			gsDIFFICULT_LEVEL = atoi(difficult_level);
-			ENEMY_ENABLED=0;
-			CREATURE_ENABLED=0;
-			MILITIA_ENABLED=0;
-			CIV_ENABLED=0;
-
-			RANDOM_MERCS = atoi(sRandomMercs);
-			RANDOM_SPAWN = atoi(sRandomEdges);
-
-			if (RANDOM_SPAWN)
-			{
-				// create random starting edges
-				int spawns[5] = { 0 , 1 , 2 , 3, 9 };
+		f_rec_num(1,blank);//wipe clean
 				
-				// Randomize spawns
-				rSortArray(spawns,5);
-				memcpy(client_edges,spawns,sizeof(int)*5);
-			}
+		// ----------------------------
+		// Read from ja2_mp.ini
+		// ----------------------------
 
-			if (RANDOM_MERCS)
-			{
-				// randomly sort team indexes to give client
-				// one of four random merc teams
-				rSortArray(client_mercteam,4);
-				mpTeams.HandleServerStarted();
-			}
+		CIniReader iniReader(JA2MP_INI_FILENAME);	// Wird nur für Strings gebraucht
+		strncpy(cServerName, iniReader.ReadString(JA2MP_INI_INITIAL_SECTION, JA2MP_SERVER_NAME, "My JA2 Server"), 30 );				
+		strncpy(gKitBag, iniReader.ReadString(JA2MP_INI_INITIAL_SECTION,JA2MP_KIT_BAG, ""), 100);
+		
+		vfs::PropertyContainer props;
+		props.initFromIniFile(JA2MP_INI_FILENAME);
+		UINT16 serverPort = (UINT16)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_SERVER_PORT, 60005);		
+		UINT8 maxClients = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_MAX_CLIENTS, 4);										
+		UINT8 sameMercAllowed = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_SAME_MERC, 1);
+		UINT8 civEnabled = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_CIV_ENABLED, 0);
+		UINT8 gameType = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_GAME_MODE, 0);
+		UINT8 difficultyLevel = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_DIFFICULT_LEVEL, 3);
+		UINT8 skillTraits = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_NEW_TRAITS, 0);
+		UINT8 randomMercs = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION,JA2MP_RANDOM_MERCS, 0);
+		UINT8 randomStartingEdge = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_RANDOM_EDGES, 0);		
+		UINT8 damageSelection = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_DAMAGE_MULTIPLIER, 1);
+		UINT8 maxEnemiesEnabled = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_OVERRIDE_MAX_AI, 0);
+		UINT8 syncGameDirectory = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_SYNC_CLIENTS_MP_DIR, 1);
+		UINT8 reportHiredMerc = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_REPORT_NAME, 1);
+		UINT8 startingCashSelection = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_STARTING_BALANCE, 25000);
+		UINT8 timeTurnsSelection = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_TIMED_TURN_SECS_PER_TICK, 2);
+		UINT8 disableBobbyRay = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_DISABLE_BOBBY_RAYS, 0);
+		UINT8 maxMercs = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_MAX_MERCS, 6);
+		UINT8 timeSelection = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_TIME, 1);
+		UINT8 inventoryAttachment = (UINT8)props.getIntProperty(JA2MP_INI_INITIAL_SECTION, JA2MP_ALLOW_CUSTOM_NIV, 0);
 
-			if(gsPLAYER_BSIDE==2)//only enable ai during coop
-			{
-				ENEMY_ENABLED = 1; // always enable enemies in co-op
-				MILITIA_ENABLED = atoi(bteam3_enabled);
-				CIV_ENABLED = atoi(bteam4_enabled);
-				// OJW - 20090403 - override max ais
-				if (atoi(sOverrideMaxAI)==1)
-					OVERRIDE_MAX_AI = 1;
-			}
+		// ----------------------------
+		// Save to global values
+		// ----------------------------		
+		gMaxClients = maxClients;
+		gMaxEnemiesEnabled = 0;
+		gDisableMorale = 0;
+		gSyncGameDirectory = syncGameDirectory;										
+		gReportHiredMerc = reportHiredMerc;			
+		gDisableBobbyRay = disableBobbyRay;
+		gDisableMercEquipment = 0;		// Disable AIM and MERC equipment				
+		gMaxMercs = maxMercs;		
+		gGameType = gameType;
+		gDifficultyLevel = difficultyLevel;
+		gSkillTraits = skillTraits;
+		gEnemyEnabled = 0;
+		gCreatureEnabled = 0;
+		gMilitiaEnabled = 0;
+		gCivEnabled = 0;
+		gRandomMercs = randomMercs;
+		gRandomStartingEdge = randomStartingEdge;
+		gWeaponReadyBonus = 0;
+		gDisableSpectatorMode = 0;
+		gInventoryAttachment = inventoryAttachment;
 
-			// random_mercs implies same_merc
-			gsSAME_MERC = RANDOM_MERCS ? 1 : atoi(hire_same_merc);
-			gsDAMAGE_MULTIPLIER =(FLOAT)atof(net_div);
-			gsINTERRUPTS = atoi(ints);
-			gsMAX_CLIENTS = atoi(maxclients);
+		if (gRandomStartingEdge)
+		{
+			// create random starting edges
+			int spawns[5] = { 0 , 1 , 2 , 3, 9 };	// 9 == Center
+			
+			// Randomize spawns
+			rSortArray(spawns,5);
+			memcpy(client_edges,spawns,sizeof(int)*5);
+		}
 
-			gssecs_per_tick=atoi(time_div) ;
-			gsstarting_balance=atoi(sBalance);
-#ifndef USE_VFS
-			char time[30];
-			GetPrivateProfileString( "Ja2_mp Settings","TIME", "", time, MAX_PATH, "..\\Ja2_mp.ini" );
-			TIME=(FLOAT)atof(time);
+		if (gRandomMercs)
+		{
+			// randomly sort team indexes to give client
+			// one of four random merc teams
+			rSortArray(client_mercteam,4);
+			mpTeams.HandleServerStarted();
+		}
 
-			char wpr[30];
-			GetPrivateProfileString( "Ja2_mp Settings","WEAPON_READIED_BONUS", "", wpr, MAX_PATH, "..\\Ja2_mp.ini" );
-			sWEAPON_READIED_BONUS=atoi(wpr);
+		if(gGameType == MP_TYPE_COOP)//only enable ai during coop
+		{
+			gEnemyEnabled = 1;				// always enable enemies in co-op
+			gMilitiaEnabled = 0;			// always disable militia
+			gCivEnabled = civEnabled;
+			gMaxEnemiesEnabled = maxEnemiesEnabled;				
+		}
 
-			char acniv[30];
-			GetPrivateProfileString( "Ja2_mp Settings","ALLOW_CUSTOM_NIV", "", acniv, MAX_PATH, "..\\Ja2_mp.ini" );
-			sALLOW_CUSTOM_NIV=atoi(acniv);
+		// random_mercs implies same_merc
+		gSameMercAllowed = gRandomMercs ? 1 : sameMercAllowed;
+				
+		switch (damageSelection)
+		{
+			case 0:	// Very Low
+				gDamageMultiplier = 0.2f;
+				break;
+			case 1:	// Low
+				gDamageMultiplier = 0.7f;
+				break;
+			case 2:	// Normal
+				gDamageMultiplier = 1.0f;
+				break;
+		}									
 
-			char dspec[30];
-			GetPrivateProfileString( "Ja2_mp Settings","DISABLE_SPEC_MODE", "", dspec, MAX_PATH, "..\\Ja2_mp.ini" );
-			sDISABLE_SPEC_MODE=atoi(dspec);
-#else
-			char time[30];
-			strncpy(time, iniReader.ReadString("Ja2_mp Settings","TIME", "0"), 30);
-			TIME=(FLOAT)atof(time);
+		switch (timeTurnsSelection)
+		{
+			case 0:		// Never
+				gSecondsPerTick = 0;
+				break;
+			case 1:		// Slow
+				gSecondsPerTick = 5;
+				break;
+			case 2:		// Medium
+				gSecondsPerTick = 100;
+				break;
+			case 3:		// Fast
+				gSecondsPerTick = 400;
+				break;
+		}
 
-			char wpr[30];
-			strncpy(wpr, iniReader.ReadString("Ja2_mp Settings","WEAPON_READIED_BONUS", "0"), 30);
-			sWEAPON_READIED_BONUS=atoi(wpr);
-
-			char acniv[30];
-			strncpy(acniv, iniReader.ReadString("Ja2_mp Settings","ALLOW_CUSTOM_NIV", "0"), 30);
-			sALLOW_CUSTOM_NIV=atoi(acniv);
-
-			char dspec[30];
-			strncpy(dspec, iniReader.ReadString("Ja2_mp Settings","DISABLE_SPEC_MODE", "0"), 30);
-			sDISABLE_SPEC_MODE=atoi(dspec);
-#endif
-			//**********************
+		switch (startingCashSelection)
+		{
+			case 0:	// Low
+				gStartingCash = 5000;
+				break;
+			case 1:	// Medium
+				gStartingCash = 50000;
+				break;
+			case 2:	// High
+				gStartingCash = 100000;
+				break;
+			case 3:	// Unlimited
+				gStartingCash = 999999999;
+				break;
+		}
+		
+		switch (timeSelection)
+		{
+			case 0:	// Morning
+				gStartingTime = 7.00f;
+				break;
+			case 1:	// Afternoon
+				gStartingTime = 13.00f;
+				break;
+			case 2:	// Night
+				gStartingTime = 2.00;
+				break;
+		}
+					
+		//**********************
 
 		ScreenMsg( FONT_ORANGE, MSG_MPSYSTEM, MPServerMessage[0] );
 
 		server=RakNetworkFactory::GetRakPeerInterface();
-		bool b = server->Startup(gsMAX_CLIENTS, 30, &SocketDescriptor(atoi(SERVER_PORT),0), 1);
+		bool b = server->Startup(gMaxClients, 30, &SocketDescriptor(serverPort,0), 1);
 
-		server->SetMaximumIncomingConnections((gsMAX_CLIENTS));
+		server->SetMaximumIncomingConnections((gMaxClients));
 
 		//RPC's
 		REGISTER_STATIC_RPC(server, sendPATH);
@@ -1286,9 +1052,7 @@ void start_server (void)
 		REGISTER_STATIC_RPC(server, sendDEATH);
 		REGISTER_STATIC_RPC(server, sendhitSTRUCT);
 		REGISTER_STATIC_RPC(server, sendhitWINDOW);
-		REGISTER_STATIC_RPC(server, sendMISS);
-		//REGISTER_STATIC_RPC(server, rOVH);
-
+		REGISTER_STATIC_RPC(server, sendMISS);		
 		REGISTER_STATIC_RPC(server, updatenetworksoldier);
 		REGISTER_STATIC_RPC(server, Snull_team);
 		REGISTER_STATIC_RPC(server, sendFIREW);
@@ -1302,17 +1066,12 @@ void start_server (void)
 		REGISTER_STATIC_RPC(server, sendTEAMCHANGE);
 		REGISTER_STATIC_RPC(server, sendGAMEOVER);
 		REGISTER_STATIC_RPC(server, sendCHATMSG);
-		REGISTER_STATIC_RPC(server, receiveSETID);
-		//REGISTER_STATIC_RPC(server, sendALLFILESRECEIVED);
-		//REGISTER_STATIC_RPC(server, rINT);
-		//
+		REGISTER_STATIC_RPC(server, receiveSETID);		
 
 		if (b)
 		{
-			ScreenMsg( FONT_ORANGE, MSG_MPSYSTEM, MPServerMessage[1]);
-			//ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, MPServerMessage[2]);
+			ScreenMsg( FONT_ORANGE, MSG_MPSYSTEM, MPServerMessage[1]);			
 			is_server = true;
-
 
 			// WANNE: FILE TRANSFER
 			server->AttachPlugin(&fltServer);
@@ -1320,7 +1079,7 @@ void start_server (void)
 			fltServer.SetCallback(&serverFileListProgress);
 
 			fileListTotalBytes=0;
-			if (gsSYNC_CLIENTS_MP_DIR == 1)
+			if (gSyncGameDirectory == 1)
 			{
 				AddFilesToSendList();
 			}
@@ -1337,7 +1096,6 @@ void start_server (void)
 		ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, MPServerMessage[3]);
 	}
 }
-
 
 
 // recieve and process server info packets

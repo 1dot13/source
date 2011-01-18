@@ -9,7 +9,10 @@
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
 	#include "Text.h"
+	#include "GameSettings.h"
 #endif
+
+#include "LocalizedStrings.h"
 
 #define	NUM_AIM_POLICY_PAGES				11
 #define	NUM_AIM_POLICY_TOC_BUTTONS	9
@@ -37,6 +40,9 @@
 #define	AIM_POLICY_TITLE_X						IMAGE_OFFSET_X + 149
 #define AIM_POLICY_TITLE_Y						AIM_SYMBOL_Y + AIM_SYMBOL_SIZE_Y + 11
 #define AIM_POLICY_TITLE_WIDTH				AIM_SYMBOL_WIDTH
+
+//tais: nsgi, move title up
+#define AIM_POLICY_TITLE_Y_NSGI						AIM_SYMBOL_Y + 35
 
 #define AIM_POLICY_TITLE_STATEMENT_WIDTH	300
 #define	AIM_POLICY_TITLE_STATEMENT_X	IMAGE_OFFSET_X + (500 - AIM_POLICY_TITLE_STATEMENT_WIDTH) / 2 +5//80
@@ -456,21 +462,20 @@ BOOLEAN ExitAimPolicyMenuBar(void)
 
 BOOLEAN DrawAimPolicyMenu()
 {
-	UINT16			i, usPosY;
-	UINT16			usHeight;
-	UINT32			uiStartLoc=0;
-	CHAR16			sText[400];
-	HVOBJECT		hContentButtonHandle;
-	UINT8				ubLocInFile[]=
-								{	DEFINITIONS,
-									LENGTH_OF_ENGAGEMENT,
-									LOCATION_0F_ENGAGEMENT,
-									CONTRACT_EXTENSIONS,
-									TERMS_OF_PAYMENT,
-									TERMS_OF_ENGAGEMENT,
-									ENGAGEMENT_TERMINATION,
-									EQUIPMENT_AND_INVENTORY,
-									POLICY_MEDICAL};
+	UINT16		i, usPosY;
+	UINT16		usHeight;
+	CHAR16		sText[400];
+	HVOBJECT	hContentButtonHandle;
+	UINT8		ubLocInFile[]= {
+					DEFINITIONS,
+					LENGTH_OF_ENGAGEMENT,
+					LOCATION_0F_ENGAGEMENT,
+					CONTRACT_EXTENSIONS,
+					TERMS_OF_PAYMENT,
+					TERMS_OF_ENGAGEMENT,
+					ENGAGEMENT_TERMINATION,
+					EQUIPMENT_AND_INVENTORY,
+					POLICY_MEDICAL};
 
 	GetVideoObject(&hContentButtonHandle, guiContentButton);
 
@@ -478,10 +483,16 @@ BOOLEAN DrawAimPolicyMenu()
 	usPosY = AIM_POLICY_TOC_Y;
 	for(i=0; i<NUM_AIM_POLICY_TOC_BUTTONS; i++)
 	{
-	BltVideoObject(FRAME_BUFFER, hContentButtonHandle, 0,AIM_POLICY_TOC_X, usPosY, VO_BLT_SRCTRANSPARENCY,NULL);
-
-		uiStartLoc = AIM_POLICY_LINE_SIZE * ubLocInFile[i];
-		LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		BltVideoObject(FRAME_BUFFER, hContentButtonHandle, 0,AIM_POLICY_TOC_X, usPosY, VO_BLT_SRCTRANSPARENCY,NULL);
+		if(!g_bUseXML_Strings)
+		{
+			UINT32 uiStartLoc = AIM_POLICY_LINE_SIZE * ubLocInFile[i];
+			LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_HISTORY_LINE_SIZE);
+		}
+		else
+		{
+			Loc::GetString(Loc::AIM_POLICY, L"Line", ubLocInFile[i], sText, 400);
+		}
 		DrawTextToScreen(sText, AIM_POLICY_TOC_X + AIM_POLICY_TOC_TEXT_OFFSET_X, (UINT16)(usPosY + AIM_POLICY_TOC_TEXT_OFFSET_Y), AIM_CONTENTBUTTON_WIDTH, AIM_POLICY_TOC_FONT, AIM_POLICY_TOC_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 		usPosY += AIM_POLICY_TOC_GAP_Y;
@@ -557,17 +568,23 @@ void SelectPolicyTocMenuRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 BOOLEAN	DisplayAimPolicyTitleText(void)
 {
 	CHAR16	sText[400];
-	UINT32	uiStartLoc = 0;
 
 	//Load anfd display title
-	uiStartLoc = AIM_POLICY_LINE_SIZE * AIM_STATEMENT_OF_POLICY;
-	LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
-
+	if(!g_bUseXML_Strings)
+	{
+		UINT32 uiStartLoc = AIM_POLICY_LINE_SIZE * AIM_STATEMENT_OF_POLICY;
+		LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
+	}
+	else
+	{
+		Loc::GetString(Loc::AIM_POLICY, L"Line", AIM_STATEMENT_OF_POLICY);
+	}
 	if(gubCurPageNum == 0)
 		DrawTextToScreen(sText, AIM_POLICY_TITLE_X, AIM_POLICY_TITLE_STATEMENT_Y-25, AIM_POLICY_TITLE_WIDTH, AIM_POLICY_TITLE_FONT, AIM_POLICY_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	else
-		DrawTextToScreen(sText, AIM_POLICY_TITLE_X, AIM_POLICY_TITLE_Y, AIM_POLICY_TITLE_WIDTH, AIM_POLICY_TITLE_FONT, AIM_POLICY_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
-
+		if(gGameExternalOptions.gfUseNewStartingGearInterface) DrawTextToScreen(sText, AIM_POLICY_TITLE_X, AIM_POLICY_TITLE_Y_NSGI, AIM_POLICY_TITLE_WIDTH, AIM_POLICY_TITLE_FONT, AIM_POLICY_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+		else DrawTextToScreen(sText, AIM_POLICY_TITLE_X, AIM_POLICY_TITLE_Y, AIM_POLICY_TITLE_WIDTH, AIM_POLICY_TITLE_FONT, AIM_POLICY_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+	
 	return(TRUE);
 }
 
@@ -575,17 +592,30 @@ BOOLEAN	DisplayAimPolicyTitleText(void)
 BOOLEAN	DisplayAimPolicyStatement(void)
 {
 	CHAR16	sText[400];
-	UINT32	uiStartLoc = 0;
 	UINT16	usNumPixels;
 
 	//load and display the statment of policies
-	uiStartLoc = AIM_POLICY_LINE_SIZE * AIM_STATEMENT_OF_POLICY_1;
-	LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
+	if(!g_bUseXML_Strings)
+	{
+		UINT32 uiStartLoc = AIM_POLICY_LINE_SIZE * AIM_STATEMENT_OF_POLICY_1;
+		LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
+	}
+	else
+	{
+		Loc::GetString(Loc::AIM_POLICY, L"Line", AIM_STATEMENT_OF_POLICY_1, sText, 400);
+	}
 	usNumPixels = DisplayWrappedString(AIM_POLICY_TITLE_STATEMENT_X, AIM_POLICY_TITLE_STATEMENT_Y, AIM_POLICY_TITLE_STATEMENT_WIDTH, 2, AIM_POLICY_TEXT_FONT, AIM_POLICY_TEXT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 	//load and display the statment of policies
-	uiStartLoc = AIM_POLICY_LINE_SIZE * AIM_STATEMENT_OF_POLICY_2;
-	LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
+	if(!g_bUseXML_Strings)
+	{
+		UINT32 uiStartLoc = AIM_POLICY_LINE_SIZE * AIM_STATEMENT_OF_POLICY_2;
+		LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
+	}
+	else
+	{
+		Loc::GetString(Loc::AIM_POLICY, L"Line", AIM_STATEMENT_OF_POLICY_2, sText, 400);
+	}
 	DisplayWrappedString(AIM_POLICY_TITLE_STATEMENT_X, (UINT16)(AIM_POLICY_TITLE_STATEMENT_Y + usNumPixels+15), AIM_POLICY_TITLE_STATEMENT_WIDTH, 2, AIM_POLICY_TEXT_FONT, AIM_POLICY_TEXT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 	return(TRUE);
@@ -650,11 +680,17 @@ BOOLEAN ExitAgreementButton(void)
 BOOLEAN	DisplayAimPolicyTitle(UINT16 usPosY, UINT8	ubPageNum, FLOAT fNumber)
 {
 	CHAR16	sText[400];
-	UINT32	uiStartLoc = 0;
 
 	//Load and display title
-	uiStartLoc = AIM_POLICY_LINE_SIZE * ubPageNum;
-	LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
+	if(!g_bUseXML_Strings)
+	{
+		UINT32 uiStartLoc = AIM_POLICY_LINE_SIZE * ubPageNum;
+		LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
+	}
+	else
+	{
+		Loc::GetString(Loc::AIM_POLICY,L"Line", ubPageNum, sText, 400); 
+	}
 	DrawTextToScreen(sText, AIM_POLICY_SUBTITLE_NUMBER, usPosY, 0, AIM_POLICY_SUBTITLE_FONT, AIM_POLICY_SUBTITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 	return(TRUE);
@@ -665,12 +701,16 @@ UINT16 DisplayAimPolicyParagraph(UINT16 usPosY, UINT8	ubPageNum, FLOAT fNumber)
 {
 	CHAR16	sText[400];
 	CHAR16	sTemp[20];
-	UINT32	uiStartLoc=0;
 	UINT16	usNumPixels;
-
-	uiStartLoc = AIM_POLICY_LINE_SIZE * ubPageNum;
-	LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
-
+	if(!g_bUseXML_Strings)
+	{
+		UINT32 uiStartLoc = AIM_POLICY_LINE_SIZE * ubPageNum;
+		LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
+	}
+	else
+	{
+		Loc::GetString(Loc::AIM_POLICY, L"Line", ubPageNum, sText, 400);
+	}
 	if(fNumber != 0.0)
 	{
 		//Display the section number
@@ -688,12 +728,16 @@ UINT16 DisplayAimPolicySubParagraph(UINT16 usPosY, UINT8	ubPageNum, FLOAT fNumbe
 {
 	CHAR16	sText[400];
 	CHAR16	sTemp[20];
-	UINT32	uiStartLoc=0;
 	UINT16	usNumPixels;
-
-	uiStartLoc = AIM_POLICY_LINE_SIZE * ubPageNum;
-	LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
-
+	if(!g_bUseXML_Strings)
+	{
+		UINT32 uiStartLoc = AIM_POLICY_LINE_SIZE * ubPageNum;
+		LoadEncryptedDataFromFile(AIMPOLICYFILE, sText, uiStartLoc, AIM_POLICY_LINE_SIZE);
+	}
+	else
+	{
+		Loc::GetString(Loc::AIM_POLICY, L"Line", ubPageNum, sText, 400);
+	}
 	//Display the section number
 	swprintf(sTemp, L"%2.2f", fNumber);
 	DrawTextToScreen(sTemp, AIM_POLICY_SUBPARAGRAPH_NUMBER, usPosY, 0, AIM_POLICY_TEXT_FONT, AIM_POLICY_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);

@@ -52,7 +52,8 @@ enum
 	NIGHT,
 	HELI,
 	DAY_ALT,
-	NIGHT_ALT
+	NIGHT_ALT,
+	UNDERGROUND,
 };
 
 

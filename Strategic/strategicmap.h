@@ -160,6 +160,7 @@ INT32 GetNumberOfSAMSitesUnderPlayerControl( void );
 BOOLEAN IsThereAFunctionalSAMSiteInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
 BOOLEAN IsSectorDesert( INT16 sSectorX, INT16 sSectorY );
+BOOLEAN IsSectorTropical( INT16 sSectorX, INT16 sSectorY ); // added by SANDRO
 
 // sam site under players control?
 INT32 SAMSitesUnderPlayerControl( INT16 sX, INT16 sY );

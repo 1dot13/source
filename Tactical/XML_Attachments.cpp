@@ -16,7 +16,7 @@ struct
 
 	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 
-	UINT16			curAttachment[3];
+	UINT16			curAttachment[4];
 	UINT32			maxArraySize;
 	UINT32			curIndex;
 	UINT32			currentDepth;
@@ -51,6 +51,7 @@ attachmentStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "attachmentIndex") == 0 ||
 				strcmp(name, "APCost") == 0 ||
+				strcmp(name, "NASOnly") == 0 ||
 				strcmp(name, "itemIndex") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -116,6 +117,11 @@ attachmentEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curAttachment[2] = (UINT16) atol(pData->szCharData);
 			pData->curAttachment[2] = (UINT16)DynamicAdjustAPConstants(pData->curAttachment[2], pData->curAttachment[2]);
+		}
+		else if(strcmp(name, "NASOnly") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curAttachment[3] = (UINT16) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;
@@ -209,6 +215,7 @@ BOOLEAN WriteAttachmentStats()
 			FilePrintf(hFile,"\t\t<attachmentIndex>%d</attachmentIndex>\r\n",						Attachment[cnt][0]);
 			FilePrintf(hFile,"\t\t<itemIndex>%d</itemIndex>\r\n",							Attachment[cnt][1]);
 			FilePrintf(hFile,"\t\t<APCost>%d</APCost>\r\n",							Attachment[cnt][2]);
+			FilePrintf(hFile,"\t\t<NASOnly>%d</NASOnly>\r\n",							Attachment[cnt][3]);
 
 			FilePrintf(hFile,"\t</ATTACHMENT>\r\n");
 		}

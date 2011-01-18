@@ -48,6 +48,7 @@
 
 #include "Quests.h"
 #include "connect.h"
+#include "Strategic Mines.h"
 // HEADROCK HAM 3.5: included for detectionlevels
 #include "Facilities.h"
 #include "MilitiaSquads.h"
@@ -272,6 +273,14 @@ enum{
 	MAP_SHADE_DK_GREEN,
 	MAP_SHADE_LT_RED,
 	MAP_SHADE_DK_RED,
+	// HEADROCK HAM 4: Several new shades, used with the new Manual Mobile Militia restrictions, and the greyed-out map display.
+	MAP_SHADE_MD_RED,
+	MAP_SHADE_LT_YELLOW,
+	MAP_SHADE_DK_YELLOW,
+	MAP_SHADE_LT_CYAN,
+	MAP_SHADE_DK_CYAN,
+	MAP_SHADE_LT_GREY,
+	MAP_SHADE_DK_GREY,
 };
 // the big map .pcx
 UINT32 guiBIGMAP;
@@ -342,8 +351,8 @@ INT16 sElitesOnCursor = 0;
 INT16 sSelectedMilitiaTown = 0;
 
 
-extern MINE_LOCATION_TYPE gMineLocation[];
-extern MINE_STATUS_TYPE gMineStatus[];
+//extern MINE_LOCATION_TYPE gMineLocation[];
+//extern MINE_STATUS_TYPE gMineStatus[];
 
 // sublevel graphics
 UINT32 guiSubLevel1, guiSubLevel2, guiSubLevel3;
@@ -374,6 +383,14 @@ UINT16 *pMapLTRedPalette;
 UINT16 *pMapDKRedPalette;
 UINT16 *pMapLTGreenPalette;
 UINT16 *pMapDKGreenPalette;
+// HEADROCK HAM 4: Several new palettes for yellow, cyan, grey.
+UINT16 *pMapMDRedPalette;
+UINT16 *pMapLTYellowPalette;
+UINT16 *pMapDKYellowPalette;
+UINT16 *pMapLTCyanPalette;
+UINT16 *pMapDKCyanPalette;
+UINT16 *pMapLTGreyPalette;
+UINT16 *pMapDKGreyPalette;
 
 
 // the map border eta pop up
@@ -770,42 +787,130 @@ UINT32 DrawMap( void )
 				// LATE DESIGN CHANGE: darken sectors not yet visited, instead of those under known enemy control
 				if(!is_networked) //hayden - dont darken anything
 				{
-					if( GetSectorFlagStatus( cnt, cnt2, ( UINT8 ) iCurrentMapSectorZ, SF_ALREADY_VISITED ) == FALSE )
-	//				if ( IsTheSectorPerceivedToBeUnderEnemyControl( cnt, cnt2, ( INT8 )( iCurrentMapSectorZ ) ) )
+					// HEADROCK HAM 4: Mobile View shows all tiles as explored.
+					if (!fShowMobileRestrictionsFlag && !iCurrentMapSectorZ )
 					{
-						if( fShowAircraftFlag && !iCurrentMapSectorZ )
+						if( GetSectorFlagStatus( cnt, cnt2, ( UINT8 ) iCurrentMapSectorZ, SF_ALREADY_VISITED ) == FALSE )
+		//				if ( IsTheSectorPerceivedToBeUnderEnemyControl( cnt, cnt2, ( INT8 )( iCurrentMapSectorZ ) ) )
 						{
-							if( !StrategicMap[ cnt + cnt2 * WORLD_MAP_X ].fEnemyAirControlled )
+							if( fShowAircraftFlag && !iCurrentMapSectorZ )
 							{
-								// sector not visited, not air controlled
-								ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREEN );
+								if( !StrategicMap[ cnt + cnt2 * WORLD_MAP_X ].fEnemyAirControlled )
+								{
+									// sector not visited, not air controlled
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREEN );
+								}
+								else
+								{
+									// sector not visited, controlled and air not
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_RED );
+								}
+							}
+							// HEADROCK HAM 4: Show Manual Mobile Militia Restrictions
+							else if (fShowMobileRestrictionsFlag && !iCurrentMapSectorZ )
+							{
+								/* For now, Mobile View Mode shows all tiles as explored.
+								UINT8 ubManualMobileMovementAllowed = ManualMobileMovementAllowed( SECTOR(cnt,cnt2) );
+								switch ( ubManualMobileMovementAllowed )
+								{
+									case 0:
+										// Sector not visited, Mobiles not allowed here at all.
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_RED );
+										break;
+									case 1:
+										// sector not visited, Mobiles forbidden by player
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_YELLOW );
+										break;
+									case 2:
+										// sector not visited, Mobiles forbidden by player
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_CYAN );
+										break;
+									case 3:
+										// sector not visited, Mobiles forbidden by player
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREEN );
+										break;
+								}*/
 							}
 							else
 							{
-								// sector not visited, controlled and air not
-								ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_RED );
+								// not visited
+								if (gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR])
+								{
+									// HEADROCK HAM 4: An alternate display for the map in normal mode. Unexplored sectors
+									// are in grey, similar to a recon map. Others are left in normal vivid color.
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREY );
+								}
+								else
+								{
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_BLACK );
+								}
 							}
 						}
 						else
 						{
-							// not visited
-							ShadeMapElem( cnt, cnt2, MAP_SHADE_BLACK );
+							if( fShowAircraftFlag && !iCurrentMapSectorZ )
+							{
+								if( !StrategicMap[ cnt + cnt2 * WORLD_MAP_X ].fEnemyAirControlled )
+								{
+									// sector visited and air controlled
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN);
+								}
+								else
+								{
+									// sector visited but not air controlled
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_RED );
+								}
+							}
+							// HEADROCK HAM 4: Show Manual Mobile Militia Restrictions
+							else if (fShowMobileRestrictionsFlag && !iCurrentMapSectorZ )
+							{
+								/* For now, Mobile View Mode shows all tiles as explored.
+								UINT8 ubManualMobileMovementAllowed = ManualMobileMovementAllowed( SECTOR(cnt, cnt2) );
+								switch ( ubManualMobileMovementAllowed )
+								{
+									case 0:
+										// Sector not visited, Mobiles not allowed here at all.
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_RED );
+										break;
+									case 1:
+										// sector not visited, Mobiles forbidden by player
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_YELLOW );
+										break;
+									case 2:
+										// sector not visited, Mobiles forbidden by player
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_CYAN );
+										break;
+									case 3:
+										// sector not visited, Mobiles forbidden by player
+										ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN );
+										break;
+								}*/
+							}
 						}
 					}
-					else
+					else if (fShowMobileRestrictionsFlag && !iCurrentMapSectorZ)
 					{
-						if( fShowAircraftFlag && !iCurrentMapSectorZ )
+						// HEADROCK HAM 4: Show Manual Mobile Militia Restrictions
+
+						UINT8 ubManualMobileMovementAllowed = ManualMobileMovementAllowed( SECTOR(cnt, cnt2) );
+						switch ( ubManualMobileMovementAllowed )
 						{
-							if( !StrategicMap[ cnt + cnt2 * WORLD_MAP_X ].fEnemyAirControlled )
-							{
-								// sector visited and air controlled
-								ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN);
-							}
-							else
-							{
-								// sector visited but not air controlled
-								ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_RED );
-							}
+							case 0:
+								// Mobiles not allowed here at all.
+								ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREY );
+								break;
+							case 1:
+								// Mobiles forbidden by player
+								ShadeMapElem( cnt, cnt2, MAP_SHADE_MD_RED );
+								break;
+							case 2:
+								// Mobiles can enter but not leave
+								ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_YELLOW );
+								break;
+							case 3:
+								// Mobiles can enter
+								ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN );
+								break;
 						}
 					}
 				}
@@ -835,7 +940,8 @@ UINT32 DrawMap( void )
 		// draw mine icons
 		for( iCounter = 0; iCounter < MAX_NUMBER_OF_MINES; iCounter++ )
 		{
-			BlitMineIcon( gMineLocation[ iCounter ].sSectorX, gMineLocation[ iCounter ].sSectorY );
+			//BlitMineIcon( gMineLocation[ iCounter ].sSectorX, gMineLocation[ iCounter ].sSectorY );
+			BlitMineIcon( gMineStatus[ iCounter ].sSectorX, gMineStatus[ iCounter ].sSectorY );
 		}
 
 
@@ -845,7 +951,8 @@ UINT32 DrawMap( void )
 			// show mine name/production text
 			for( iCounter = 0; iCounter < MAX_NUMBER_OF_MINES; iCounter++ )
 			{
-				BlitMineText( gMineLocation[ iCounter ].sSectorX, gMineLocation[ iCounter ].sSectorY );
+				//BlitMineText( gMineLocation[ iCounter ].sSectorX, gMineLocation[ iCounter ].sSectorY );
+				BlitMineText( gMineStatus[ iCounter ].sSectorX, gMineStatus[ iCounter ].sSectorY );
 			}
 		}
 
@@ -1434,7 +1541,6 @@ BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor )
 		UnLockVideoSurface( guiSAVEBUFFER );
 			break;
 
-
 			case( MAP_SHADE_DK_RED ):
 				// grab video surface and set palette
 				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
@@ -1454,8 +1560,135 @@ BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor )
 
 				// unlock source and dest buffers
 				UnLockVideoSurface( guiBIGMAP );
-		UnLockVideoSurface( guiSAVEBUFFER );
-			break;
+				UnLockVideoSurface( guiSAVEBUFFER );
+				break;
+
+			/////////////////////////////////////////////////////////
+			// HEADROCK HAM 4: New colors for map shaders
+			/////////////////////////////////////////////////////////
+
+			case( MAP_SHADE_MD_RED ):
+				// grab video surface and set palette
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				hSrcVSurface->p16BPPPalette = pMapMDRedPalette;
+
+				// lock source and dest buffers
+				pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				pSrcBuf = LockVideoSurface( guiBIGMAP, &uiSrcPitchBYTES);
+
+				Blt8BPPDataTo16BPPBufferHalfRect( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf,uiSrcPitchBYTES, sScreenX, sScreenY, &clip );
+
+				// unlock source and dest buffers
+				UnLockVideoSurface( guiBIGMAP );
+				UnLockVideoSurface( guiSAVEBUFFER );
+				break;
+
+			case( MAP_SHADE_LT_YELLOW ):
+				// grab video surface and set palette
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				hSrcVSurface->p16BPPPalette = pMapLTYellowPalette;
+
+				// lock source and dest buffers
+				pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				pSrcBuf = LockVideoSurface( guiBIGMAP, &uiSrcPitchBYTES);
+
+				Blt8BPPDataTo16BPPBufferHalfRect( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf,uiSrcPitchBYTES, sScreenX, sScreenY, &clip );
+
+				// unlock source and dest buffers
+				UnLockVideoSurface( guiBIGMAP );
+				UnLockVideoSurface( guiSAVEBUFFER );
+				break;
+
+			case( MAP_SHADE_DK_YELLOW ):
+				// grab video surface and set palette
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				hSrcVSurface->p16BPPPalette = pMapDKYellowPalette;
+
+				// lock source and dest buffers
+				pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				pSrcBuf = LockVideoSurface( guiBIGMAP, &uiSrcPitchBYTES);
+
+				Blt8BPPDataTo16BPPBufferHalfRect( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf,uiSrcPitchBYTES, sScreenX, sScreenY, &clip );
+
+				// unlock source and dest buffers
+				UnLockVideoSurface( guiBIGMAP );
+				UnLockVideoSurface( guiSAVEBUFFER );
+				break;
+
+			case( MAP_SHADE_LT_CYAN ):
+				// grab video surface and set palette
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				hSrcVSurface->p16BPPPalette = pMapLTCyanPalette;
+
+				// lock source and dest buffers
+				pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				pSrcBuf = LockVideoSurface( guiBIGMAP, &uiSrcPitchBYTES);
+
+				Blt8BPPDataTo16BPPBufferHalfRect( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf,uiSrcPitchBYTES, sScreenX, sScreenY, &clip );
+
+				// unlock source and dest buffers
+				UnLockVideoSurface( guiBIGMAP );
+				UnLockVideoSurface( guiSAVEBUFFER );
+				break;
+
+			case( MAP_SHADE_DK_CYAN ):
+				// grab video surface and set palette
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				hSrcVSurface->p16BPPPalette = pMapDKCyanPalette;
+
+				// lock source and dest buffers
+				pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				pSrcBuf = LockVideoSurface( guiBIGMAP, &uiSrcPitchBYTES);
+
+				Blt8BPPDataTo16BPPBufferHalfRect( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf,uiSrcPitchBYTES, sScreenX, sScreenY, &clip );
+
+				// unlock source and dest buffers
+				UnLockVideoSurface( guiBIGMAP );
+				UnLockVideoSurface( guiSAVEBUFFER );
+				break;
+
+			case( MAP_SHADE_LT_GREY ):
+				// grab video surface and set palette
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				hSrcVSurface->p16BPPPalette = pMapLTGreyPalette;
+
+				// lock source and dest buffers
+				pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				pSrcBuf = LockVideoSurface( guiBIGMAP, &uiSrcPitchBYTES);
+
+				Blt8BPPDataTo16BPPBufferHalfRect( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf,uiSrcPitchBYTES, sScreenX, sScreenY, &clip );
+
+				// unlock source and dest buffers
+				UnLockVideoSurface( guiBIGMAP );
+				UnLockVideoSurface( guiSAVEBUFFER );
+				break;
+
+			case( MAP_SHADE_DK_GREY ):
+				// grab video surface and set palette
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				hSrcVSurface->p16BPPPalette = pMapDKGreyPalette;
+
+				// lock source and dest buffers
+				pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				pSrcBuf = LockVideoSurface( guiBIGMAP, &uiSrcPitchBYTES);
+
+				Blt8BPPDataTo16BPPBufferHalfRect( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf,uiSrcPitchBYTES, sScreenX, sScreenY, &clip );
+
+				// unlock source and dest buffers
+				UnLockVideoSurface( guiBIGMAP );
+				UnLockVideoSurface( guiSAVEBUFFER );
+				break;
+
+			///////////////////////////////////////////////
+			// HEADROCK HAM 4: End new shaders
+			///////////////////////////////////////////////
 		}
 
 		// restore original palette
@@ -1643,6 +1876,45 @@ BOOLEAN ShadeMapElemZoomIn(INT16 sMapX, INT16 sMapY, INT32 iColor )
 
 
 			break;
+
+			// HEADROCK HAM 4: Add two new colors here.
+			case( MAP_SHADE_LT_YELLOW ):
+				// grab video surface and set palette
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				hSrcVSurface->p16BPPPalette = pMapLTYellowPalette;
+
+				// lock source and dest buffers
+				pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				pSrcBuf = LockVideoSurface( guiBIGMAP, &uiSrcPitchBYTES);
+
+				// now blit
+				Blt8BPPDataSubTo16BPPBuffer( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf,uiSrcPitchBYTES, sScreenX, sScreenY , &clip);
+
+				// unlock source and dest buffers
+				UnLockVideoSurface( guiBIGMAP );
+				UnLockVideoSurface( guiSAVEBUFFER );
+
+				break;
+
+			case( MAP_SHADE_DK_YELLOW ):
+				// grab video surface and set palette
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				hSrcVSurface->p16BPPPalette = pMapDKYellowPalette;
+
+				// lock source and dest buffers
+				pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
+				CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
+				pSrcBuf = LockVideoSurface( guiBIGMAP, &uiSrcPitchBYTES);
+
+				// now blit
+				Blt8BPPDataSubTo16BPPBuffer( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf,uiSrcPitchBYTES, sScreenX, sScreenY , &clip);
+
+				// unlock source and dest buffers
+				UnLockVideoSurface( guiBIGMAP );
+				UnLockVideoSurface( guiSAVEBUFFER );
+
+				break;
 		}
 	}
 
@@ -1674,8 +1946,17 @@ BOOLEAN InitializePalettesForMap( void )
 	// set up various palettes
 	pMapLTRedPalette = Create16BPPPaletteShaded( pPalette, 400, 0, 0, TRUE );
 	pMapDKRedPalette = Create16BPPPaletteShaded( pPalette, 200, 0, 0, TRUE );
-	pMapLTGreenPalette = Create16BPPPaletteShaded( pPalette, 0, 400, 0, TRUE );
+	pMapLTGreenPalette = Create16BPPPaletteShaded( pPalette, 100, 300, 0, TRUE );
 	pMapDKGreenPalette = Create16BPPPaletteShaded( pPalette, 0, 200, 0, TRUE );
+	// HEADROCK HAM 4: Several new palettes for Yellow, Cyan, Grey
+	pMapMDRedPalette = Create16BPPPaletteShaded( pPalette, 300, 0, 0, TRUE );
+	pMapLTYellowPalette = Create16BPPPaletteShaded( pPalette, 400, 350, 0, TRUE );
+	pMapDKYellowPalette = Create16BPPPaletteShaded( pPalette, 200, 200, 0, TRUE );
+	pMapLTCyanPalette = Create16BPPPaletteShaded( pPalette, 0, 350, 350, TRUE );
+	pMapDKCyanPalette = Create16BPPPaletteShaded( pPalette, 0, 200, 200, TRUE );
+	pMapLTGreyPalette = Create16BPPPaletteShaded( pPalette, 400, 400, 400, TRUE );
+	pMapDKGreyPalette = Create16BPPPaletteShaded( pPalette, 250, 250, 250, TRUE );
+
 
 	// delete image
   DeleteVideoSurfaceFromIndex(uiTempMap);
@@ -1692,14 +1973,26 @@ void ShutDownPalettesForMap( void )
 	MemFree( pMapDKRedPalette );
 	MemFree( pMapLTGreenPalette );
 	MemFree( pMapDKGreenPalette );
+	// HEADROCK HAM 4: Several new palettes (see also below)
+	MemFree( pMapMDRedPalette );
+	MemFree( pMapLTYellowPalette );
+	MemFree( pMapDKYellowPalette );	
+	MemFree( pMapLTCyanPalette );	
+	MemFree( pMapDKCyanPalette );	
+	MemFree( pMapLTGreyPalette );	
+	MemFree( pMapDKGreyPalette );
 
 	pMapLTRedPalette = NULL;
 	pMapDKRedPalette = NULL;
 	pMapLTGreenPalette = NULL;
 	pMapDKGreenPalette = NULL;
-
-
-
+	pMapMDRedPalette = NULL;
+	pMapLTYellowPalette = NULL;
+	pMapDKYellowPalette = NULL;
+	pMapLTCyanPalette = NULL;
+	pMapDKCyanPalette = NULL;
+	pMapLTGreyPalette = NULL;
+	pMapDKGreyPalette = NULL;
 
 	return;
 }
@@ -2038,9 +2331,12 @@ void DisplayHelicopterTempPath( void )
 	return;
 }
 
+extern BOOLEAN HeliCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum );
 
 void PlotPathForHelicopter( INT16 sX, INT16 sY )
 {
+	SOLDIERTYPE *pSkyRider = NULL;
+
 	// will plot the path for the helicopter
 
 	// no heli...go back
@@ -2057,6 +2353,12 @@ void PlotPathForHelicopter( INT16 sX, INT16 sY )
 
 	// set up mvt group for helicopter
 	SetUpHelicopterForMovement( );
+
+	//CHRISL: If we've plotted a path through enemy controlled airspace, we have a new Skyrider speech we want to hear.
+	if( GetNumUnSafeSectorsInPath( ) > 0 && !gGameSettings.fOptions[TOPTION_SILENT_SKYRIDER] )
+	{
+		HeliCharacterDialogue( pSkyRider, HELI_PATH_THROUGH_ENEMEY_AIRSPACE );
+	}
 
 	// move to beginning of list
 	//pHelicopterPath = MoveToBeginningOfPathList( pVehicleList[ iHelicopterVehicleId ].pMercPath );
@@ -4723,7 +5025,7 @@ void BlitMineText( INT16 sMapX, INT16 sMapY )
 	if (PlayerControlsMine(ubMineIndex) && !gMineStatus[ ubMineIndex ].fEmpty)
 	{
 		// show current production
-		swprintf( wSubString, L"%d", PredictDailyIncomeFromAMine(ubMineIndex) );
+		swprintf( wSubString, L"%d", PredictDailyIncomeFromAMine(ubMineIndex, TRUE) );
 		InsertCommasForDollarFigure( wSubString );
 		InsertDollarSignInToString( wSubString );
 		wcscpy( wString, wSubString );
@@ -4741,9 +5043,9 @@ void BlitMineText( INT16 sMapX, INT16 sMapY )
 		if (GetMaxPeriodicRemovalFromMine(ubMineIndex) > 0)
 		{
 			#ifdef CHINESE
-				swprintf( wSubString, L" (%d%ге%%)", (PredictDailyIncomeFromAMine(ubMineIndex) * 100 ) / GetMaxDailyRemovalFromMine(ubMineIndex) );
+				swprintf( wSubString, L" (%d%ге%%)", (PredictDailyIncomeFromAMine(ubMineIndex, TRUE) * 100 ) / GetMaxDailyRemovalFromMine(ubMineIndex) );
 			#else
-				swprintf( wSubString, L" (%d%%%%)", (PredictDailyIncomeFromAMine(ubMineIndex) * 100 ) / GetMaxDailyRemovalFromMine(ubMineIndex) );
+				swprintf( wSubString, L" (%d%%%%)", (PredictDailyIncomeFromAMine(ubMineIndex, TRUE) * 100 ) / GetMaxDailyRemovalFromMine(ubMineIndex) );
 			#endif
 			
 			wcscat( wString, wSubString );
@@ -4879,7 +5181,8 @@ void BlitMineGridMarkers( void )
 	{
 		if( fZoomFlag )
 		{
-			GetScreenXYFromMapXYStationary( ( INT16 )( gMineLocation[ iCounter ].sSectorX), ( INT16 )( gMineLocation[ iCounter ].sSectorY ) , &sScreenX, &sScreenY );
+			//GetScreenXYFromMapXYStationary( ( INT16 )( gMineLocation[ iCounter ].sSectorX), ( INT16 )( gMineLocation[ iCounter ].sSectorY ) , &sScreenX, &sScreenY );
+			GetScreenXYFromMapXYStationary( ( INT16 )( gMineStatus[ iCounter ].sSectorX), ( INT16 )( gMineStatus[ iCounter ].sSectorY ) , &sScreenX, &sScreenY );
 			sScreenX -= MAP_GRID_X;
 			sScreenY -= MAP_GRID_Y;
 
@@ -4889,7 +5192,8 @@ void BlitMineGridMarkers( void )
 		else
 		{
 			// get location on screen
-			GetScreenXYFromMapXY( ( INT16 )(  gMineLocation[ iCounter ].sSectorX ), ( INT16 )(  gMineLocation[ iCounter ].sSectorY ), &sScreenX, &sScreenY );
+			//GetScreenXYFromMapXY( ( INT16 )(  gMineLocation[ iCounter ].sSectorX ), ( INT16 )(  gMineLocation[ iCounter ].sSectorY ), &sScreenX, &sScreenY );
+			GetScreenXYFromMapXY( ( INT16 )(  gMineStatus[ iCounter ].sSectorX ), ( INT16 )(  gMineStatus[ iCounter ].sSectorY ), &sScreenX, &sScreenY );
 			sWidth = MAP_GRID_X;
 			sHeight= MAP_GRID_Y;
 
@@ -6451,7 +6755,7 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	// There's also a special case flag used when players encounter enemies in a sector, then retreat. You can only
 	// see the size of their force while the clock is paused. When unpaused, the flag is reset.
 	if ( CanMercsScoutThisSector( sSectorX, sSectorY, 0 ) ||
-			CanNearbyMilitiaScoutThisSector( sSectorX, sSectorY ) ||
+			CanSomeoneNearbyScoutThisSector( sSectorX, sSectorY, FALSE ) || // merged militia check with scouting check - SANDRO
 			( uiSectorFlags & SF_PLAYER_KNOWS_ENEMIES_ARE_HERE ) )
 	{
 		fDetection = TRUE;
@@ -6461,6 +6765,18 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 		{
 			// They're also counted by default.
 			fCount = TRUE;
+		}
+	}
+	// SADNRO - Scouting trait check for detection of nearby enemies
+	if (CanSomeoneNearbyScoutThisSector( sSectorX, sSectorY, TRUE )) // scouting trait check
+	{
+		if (gSkillTraitValues.fSCCanDetectEnemyPresenseAround)
+		{
+			// show their presence
+			fDetection = TRUE;
+			// show their numbers
+			if (gSkillTraitValues.fSCCanDetermineEnemyNumbersAround)
+				fCount = TRUE;
 		}
 	}
 

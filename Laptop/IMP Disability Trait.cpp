@@ -78,6 +78,8 @@ INT32 giIMPDisabilityTraitFinsihButtonImage;
 //image handle
 UINT32	guiIST_GreyGoldBox3;
 
+MOUSE_REGION	gMR_DisabilityHelpTextRegions[ IMP_DISABILITIES_NUMBER ];
+
 //*******************************************************************
 //
 // Function Prototypes
@@ -93,6 +95,7 @@ void		IMPDisabilityTraitDisplayDisabilityTraits();
 
 BOOLEAN CameBackToDisabilityTraitPageButNotFinished();
 
+void AssignDisabilityHelpText( UINT8 ubNumber );
 
 //*******************************************************************
 //
@@ -141,7 +144,18 @@ void EnterIMPDisabilityTrait( void )
 	}
 
 	HandleDisabilityTraitButtonStates( );
-
+	
+	// add regions for help texts
+	UINT16 usPosY = IMP_DISABILITY_COLUMN_START_Y + 8;
+	for( UINT8 ubCnt=0; ubCnt<IMP_DISABILITIES_NUMBER; ubCnt++ )
+	{
+		MSYS_DefineRegion( &gMR_DisabilityHelpTextRegions[ubCnt], ( IMP_DISABILITY_COLUMN_START_X + 62 ), ( usPosY ),
+						(IMP_DISABILITY_COLUMN_START_X + 218), ( usPosY + 17), MSYS_PRIORITY_HIGH,
+							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+		MSYS_AddRegion( &gMR_DisabilityHelpTextRegions[ubCnt] );
+		
+		usPosY += IMP_DISABILITY_TRAIT__SPACE_BTN_BUTTONS;
+	}
 }
 
 
@@ -159,19 +173,21 @@ void RenderIMPDisabilityTrait( void )
 
 void ExitIMPDisabilityTrait( void )
 {
-	INT32 iCnt;
+	INT32 ubCnt;
 
 	DeleteVideoObjectFromIndex( guiIST_GreyGoldBox3 );
 
 	//remove the skill buttons
-	for(iCnt = 0; iCnt < IMP_DISABILITIES_NUMBER; iCnt++)
+	for(ubCnt = 0; ubCnt < IMP_DISABILITIES_NUMBER; ubCnt++)
 	{
 		//if there is a button allocated
-		if( giIMPDisabilityTraitAnswerButton[iCnt] != -1 )
+		if( giIMPDisabilityTraitAnswerButton[ubCnt] != -1 )
 		{
-			RemoveButton(giIMPDisabilityTraitAnswerButton[ iCnt ] );
-			UnloadButtonImage(giIMPDisabilityTraitAnswerButtonImage[ iCnt ] );
+			RemoveButton(giIMPDisabilityTraitAnswerButton[ ubCnt ] );
+			UnloadButtonImage(giIMPDisabilityTraitAnswerButtonImage[ ubCnt ] );
 		}
+
+		MSYS_RemoveRegion( &gMR_DisabilityHelpTextRegions[ubCnt] );
 	}
 
 	RemoveButton( giIMPDisabilityTraitFinsihButton );
@@ -192,47 +208,47 @@ void HandleIMPDisabilityTrait( void )
 
 void AddImpDisabilityTraitButtons()
 {
-	INT32 iCnt = 0;
+	INT8 ubCnt = 0;
 	UINT16 usPosX, usPosY;
 
 	usPosX = IMP_DISABILITY_COLUMN_START_X;
 	usPosY = IMP_DISABILITY_COLUMN_START_Y;
 
-	for(iCnt = 0; iCnt < IMP_DISABILITIES_NUMBER; iCnt++)
+	for(ubCnt = 0; ubCnt < IMP_DISABILITIES_NUMBER; ubCnt++)
 	{
 		//reset
-		giIMPDisabilityTraitAnswerButton[iCnt] = -1;
+		giIMPDisabilityTraitAnswerButton[ubCnt] = -1;
 
 		//if we are not DONE and are just reviewing
 		if( iCurrentProfileMode != IMP__FINISH )
 		{
-			gfDisabilityTraitQuestions[ iCnt ] = FALSE;
+			gfDisabilityTraitQuestions[ ubCnt ] = FALSE;
 		}
 
-		if( iCnt == 0 )
-			giIMPDisabilityTraitAnswerButtonImage[ iCnt ] =	LoadButtonImage( "LAPTOP\\button_6.sti", -1,0,-1,1,-1 );
+		if( ubCnt == 0 )
+			giIMPDisabilityTraitAnswerButtonImage[ ubCnt ] =	LoadButtonImage( "LAPTOP\\button_6.sti", -1,0,-1,1,-1 );
 		else
-			giIMPDisabilityTraitAnswerButtonImage[ iCnt ] =	UseLoadedButtonImage( giIMPDisabilityTraitAnswerButtonImage[ 0 ], -1,0,-1,1,-1 );
+			giIMPDisabilityTraitAnswerButtonImage[ ubCnt ] =	UseLoadedButtonImage( giIMPDisabilityTraitAnswerButtonImage[ 0 ], -1,0,-1,1,-1 );
 
-		giIMPDisabilityTraitAnswerButton[iCnt] = QuickCreateButton( giIMPDisabilityTraitAnswerButtonImage[ iCnt ], usPosX, usPosY,
+		giIMPDisabilityTraitAnswerButton[ubCnt] = QuickCreateButton( giIMPDisabilityTraitAnswerButtonImage[ ubCnt ], usPosX, usPosY,
 									BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 3,
 									MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnIMPDisabilityTraitAnswerCallback);
 
 		//Set the button data
-		MSYS_SetBtnUserData( giIMPDisabilityTraitAnswerButton[iCnt], 0, iCnt );
-		SetButtonCursor( giIMPDisabilityTraitAnswerButton[iCnt], CURSOR_WWW);
+		MSYS_SetBtnUserData( giIMPDisabilityTraitAnswerButton[ubCnt], 0, ubCnt );
+		SetButtonCursor( giIMPDisabilityTraitAnswerButton[ubCnt], CURSOR_WWW);
 
 		//Get rid of playing the button sound, it will be handled here
-		//ButtonList[ giIMPDisabilityTraitAnswerButton[ iCnt ] ]->ubSoundSchemeID = 0;
+		//ButtonList[ giIMPDisabilityTraitAnswerButton[ ubCnt ] ]->ubSoundSchemeID = 0;
 
 		//Determine the next x location
-		//if( iCnt < IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
+		//if( ubCnt < IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
 			usPosX = IMP_DISABILITY_COLUMN_START_X;
 		//else
 		//	usPosX = IMP_DISABILITY_2ND_COLUMN_START_X;
 
 		//Determine the next Y location
-		//if( iCnt == IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
+		//if( ubCnt == IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
 		//	usPosY = IMP_DISABILITY_2ND_COLUMN_START_Y;
 		//else
 			usPosY += IMP_DISABILITY_TRAIT__SPACE_BTN_BUTTONS;
@@ -258,7 +274,7 @@ void BtnIMPDisabilityTraitAnswerCallback(GUI_BUTTON *btn,INT32 reason)
 
 void HandleIMPDisabilityTraitAnswers( UINT32 uiSkillPressed )
 {
-	UINT32 uiCnt;
+	UINT8 ubCnt;
 
 	//if we are DONE and are just reviewing
 	if( iCurrentProfileMode == IMP__FINISH )
@@ -267,9 +283,9 @@ void HandleIMPDisabilityTraitAnswers( UINT32 uiSkillPressed )
 	}
 
 	//reset all other buttons
-	for( uiCnt=0; uiCnt<IMP_DISABILITIES_NUMBER; uiCnt++ )
+	for( ubCnt=0; ubCnt<IMP_DISABILITIES_NUMBER; ubCnt++ )
 	{
-		gfDisabilityTraitQuestions[ uiCnt ] = FALSE;
+		gfDisabilityTraitQuestions[ ubCnt ] = FALSE;
 	}
 
 	//make sure its a valid disability trait
@@ -308,26 +324,25 @@ void HandleIMPDisabilityTraitAnswers( UINT32 uiSkillPressed )
 
 void HandleDisabilityTraitButtonStates( )
 {
-	UINT32 uiCnt;
+	UINT8 ubCnt;
 
-	for( uiCnt=0; uiCnt<IMP_DISABILITIES_NUMBER; uiCnt++ )
+	for( ubCnt=0; ubCnt<IMP_DISABILITIES_NUMBER; ubCnt++ )
 	{
-
 		//if the skill is selected ( ie depressed )
-		if( gfDisabilityTraitQuestions[ uiCnt ] )
+		if( gfDisabilityTraitQuestions[ ubCnt ] )
 		{
-			ButtonList[ giIMPDisabilityTraitAnswerButton[ uiCnt ] ]->uiFlags |= BUTTON_CLICKED_ON;
+			ButtonList[ giIMPDisabilityTraitAnswerButton[ ubCnt ] ]->uiFlags |= BUTTON_CLICKED_ON;
 		}
 		else
 		{
-			ButtonList[ giIMPDisabilityTraitAnswerButton[ uiCnt ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
+			ButtonList[ giIMPDisabilityTraitAnswerButton[ ubCnt ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
 		}
 	}
 }
 
 void IMPDisabilityTraitDisplayDisabilityTraits()
 {
-	UINT32 uiCnt;
+	UINT8 ubCnt;
 	UINT16 usPosX, usPosY;
 	UINT16 usBoxPosX, usBoxPosY;
 	HVOBJECT	hImageHandle;
@@ -342,13 +357,13 @@ void IMPDisabilityTraitDisplayDisabilityTraits()
 	usPosX = IMP_DISABILITY_COLUMN_START_X + IMP_DISABILITY_TRAIT__TEXT_OFFSET_X;
 	usPosY = IMP_DISABILITY_COLUMN_START_Y + IMP_DISABILITY_TRAIT__TEXT_OFFSET_Y;
 
-	for( uiCnt=0; uiCnt<IMP_DISABILITIES_NUMBER; uiCnt++ )
+	for( ubCnt=0; ubCnt<IMP_DISABILITIES_NUMBER; ubCnt++ )
 	{
 		usBoxPosX = usPosX - IMP_DISABILITY_TRAIT__GREY_BOX_OFFSET_X;
 		usBoxPosY = usPosY - IMP_DISABILITY_TRAIT__GREY_BOX_OFFSET_Y;
 
 		//if the trait is selected
-		if( gfDisabilityTraitQuestions[ uiCnt ] )
+		if( gfDisabilityTraitQuestions[ ubCnt ] )
 		{
 			//Display the gold background box
 			BltVideoObject(FRAME_BUFFER, hImageHandle, 1, usBoxPosX, usBoxPosY, VO_BLT_SRCTRANSPARENCY,NULL);
@@ -360,16 +375,18 @@ void IMPDisabilityTraitDisplayDisabilityTraits()
 		}
 
 		//draw the text to the screenx
-		DrawTextToScreen( gzIMPDisabilityTraitText[ uiCnt ], usPosX, usPosY, 0, IMP_DISABILITY_TRAIT__FONT, IMP_DISABILITY_TRAIT__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		DrawTextToScreen( gzIMPDisabilityTraitText[ ubCnt ], usPosX, usPosY, 0, IMP_DISABILITY_TRAIT__FONT, IMP_DISABILITY_TRAIT__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+
+		AssignDisabilityHelpText( ubCnt );
 
 		//Determine the next x location
-	//	if( uiCnt < IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
+	//	if( ubCnt < IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
 			usPosX = IMP_DISABILITY_COLUMN_START_X + IMP_DISABILITY_TRAIT__TEXT_OFFSET_X;
 		//else
 		//	usPosX = IMP_DISABILITY_2ND_COLUMN_START_X + IMP_DISABILITY_TRAIT__TEXT_OFFSET_X;
 
 		//Determine the next Y location
-		//if( uiCnt == IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
+		//if( ubCnt == IMP_DISABILITY_TRAIT_NUMBER_TO_START_2ND_COLUMN )
 		//	usPosY = IMP_DISABILITY_2ND_COLUMN_START_Y + IMP_DISABILITY_TRAIT__TEXT_OFFSET_Y;
 		//else
 			usPosY += IMP_DISABILITY_TRAIT__SPACE_BTN_BUTTONS;
@@ -427,16 +444,16 @@ BOOLEAN CameBackToDisabilityTraitPageButNotFinished()
 
 INT8 iChosenDisabilityTrait()
 {
-	UINT32	uiCnt;
+	UINT8	ubCnt;
 	INT8 iDisabilityTraitNumber = 0;
 
 	//loop through all the buttons and reset them
-	for( uiCnt=0; uiCnt<IMP_DISABILITIES_NUMBER; uiCnt++ )
+	for( ubCnt=0; ubCnt<IMP_DISABILITIES_NUMBER; ubCnt++ )
 	{
 		//if the trait is selected
-		if( gfDisabilityTraitQuestions[ uiCnt ] )
+		if( gfDisabilityTraitQuestions[ ubCnt ] )
 		{
-			iDisabilityTraitNumber = uiCnt;
+			iDisabilityTraitNumber = ubCnt;
 		}
 	}
 	return( iDisabilityTraitNumber );
@@ -457,4 +474,18 @@ INT8 iPlayersAttributePointsBonusForDisabilitySelected()
 	}
 
 	return( bExtraAttributePoints );
+}
+
+void AssignDisabilityHelpText( UINT8 ubNumber )
+{
+	CHAR16	apStr[ 2000 ];
+
+	swprintf( apStr, L"" );
+	swprintf( apStr, gzIMPDisabilitiesHelpTexts[ubNumber] );
+
+	// Set region help text
+	SetRegionFastHelpText( &(gMR_DisabilityHelpTextRegions[ubNumber]), apStr );
+	SetRegionHelpEndCallback( &gMR_DisabilityHelpTextRegions[ubNumber], MSYS_NO_CALLBACK );
+
+	return;
 }

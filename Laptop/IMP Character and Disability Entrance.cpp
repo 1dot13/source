@@ -102,7 +102,7 @@ void WriteIMPCharacterAndDisabilityEntranceText( void )
 	DisplayWrappedString( LAPTOP_SCREEN_UL_X + 106, LAPTOP_SCREEN_WEB_UL_Y + 63,  ( 400 - 100 ), 2, FONT12ARIAL, FONT_WHITE, pCharacterTraitBeginIMPStrings[ 1 ],FONT_BLACK,FALSE,CENTER_JUSTIFIED);
 
 	// The disability part
-	DisplayWrappedString( LAPTOP_SCREEN_UL_X + 106, LAPTOP_SCREEN_WEB_UL_Y + 145,  ( 400 - 100 ), 2, FONT12ARIAL, FONT_WHITE, pCharacterTraitBeginIMPStrings[ 2 ],FONT_BLACK,FALSE,CENTER_JUSTIFIED);
+	DisplayWrappedString( LAPTOP_SCREEN_UL_X + 106, LAPTOP_SCREEN_WEB_UL_Y + 148,  ( 400 - 100 ), 2, FONT12ARIAL, FONT_WHITE, pCharacterTraitBeginIMPStrings[ 2 ],FONT_BLACK,FALSE,CENTER_JUSTIFIED);
 
 	return;
 }

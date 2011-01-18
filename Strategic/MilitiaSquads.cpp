@@ -66,6 +66,8 @@
 
 INT32	iRestrictedSectorArraySize;
 UINT32 gRestrictMilitia[256];
+// HEADROCK HAM 4: Yet ANOTHER array, this one holds player-set restrictions.
+UINT8 gubManualRestrictMilitia[ 256 ];
 // HEADROCK HAM B1: Alternate array keeps track of dynamically unrestricted sectors
 BOOLEAN gDynamicRestrictMilitia[ 256 ];
 // HEADROCK HAM B1: Function that dynamically unrestricts sectors as we take over towns.
@@ -172,6 +174,8 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 	UINT8 ubTargetElitePercent = 0;
 	UINT8 ubTargetRegularPercent = 0;
 	UINT8 ubTempLeadership = ubBestLeadership;
+
+	UINT8 ubActualyAdded = 0; // Added by SANDRO
 
 	// Does trainer have enough leadership to train a squad?
 	if ( ubBestLeadership < gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia )
@@ -311,6 +315,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 				StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, 1);
 				ubTargetElite--;
 				ubMilitiaToTrain--;
+				ubActualyAdded++;
 			}
 			else if (ubTargetRegular > 0)
 			{
@@ -318,6 +323,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 				StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, 1);
 				ubTargetRegular--;
 				ubMilitiaToTrain--;
+				ubActualyAdded++;
 			}
 			else if (ubTargetGreen > 0)
 			{
@@ -325,6 +331,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 				StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, 1);
 				ubTargetGreen--;
 				ubMilitiaToTrain--;
+				ubActualyAdded++;
 			}
 			else
 			{
@@ -347,6 +354,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 					StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, 1);
 					ubTargetElite--;
 					ubMilitiaToTrain--;
+					ubActualyAdded++;
 				}
 				else if (ubTargetRegular > 0 && // Got a regular
 					(!gGameExternalOptions.gfTrainVeteranMilitia || // Not allowed to train Elites
@@ -356,6 +364,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 					StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, 1);
 					ubTargetElite--;
 					ubMilitiaToTrain--;	
+					ubActualyAdded++;
 				}
 				// Else, we've got more men to train but no room for them. In this case, upgrade existing
 				// militia to the next class, using our remainder men as "upgrade points".
@@ -376,12 +385,14 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 							// Comes at a cost of one regular that we were supposed to train.
 							ubTargetRegular--;
 							ubMilitiaToTrain--;
+							ubActualyAdded++;
 						}
 						else
 						{
 							// No regulars to train? Remove two greens instead.
 							ubTargetGreen -= 2;
 							ubMilitiaToTrain -= 2;
+							ubActualyAdded += 2;
 						}
 					}
 					// Else elite training was not allowed or we simply did not have enough points to add an elite
@@ -391,6 +402,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 						StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, 1);
 						ubTargetGreen--;
 						ubMilitiaToTrain--;
+						ubActualyAdded++;
 					}
 					else
 					{
@@ -406,6 +418,11 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 			}
 		}
 	}
+
+	// SANDRO - merc records (num militia trained)
+	if( ubActualyAdded > 0 )
+		RecordNumMilitiaTrainedForMercs( sMapX, sMapY, 0, ubActualyAdded, TRUE );
+
 
 	// This reduces the group back to "maximum" size. It starts by eliminating extra greens, then regulars, then elites.
 	// That produces a group of max size, with only the best troops remaining.
@@ -463,12 +480,44 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 	{
 		// Wilderness->Wilderness movement. Calculate Spread Out chance based on threats.
 
-		if (NumEnemiesInFiveSectors( sMapX, sMapY ) == 0 &&
-			NumEnemiesInFiveSectors( sTMapX, sTMapY ) > 0 )
+		UINT8 ubNumEnemiesNearOrigin = NumEnemiesInFiveSectors( sMapX, sMapY );
+		UINT8 ubNumEnemiesNearTarget = NumEnemiesInFiveSectors( sTMapX, sTMapY );
+
+		if (ubNumEnemiesNearOrigin == 0 &&
+			ubNumEnemiesNearTarget > 0 )
 		{
 			// Target sector is threatened, while source sector is not.
 			// Target sector gets all the militia it can, in preperation for a possible enemy attack.
 			ubChanceToSpreadOut = 0;
+		}
+		else if (ubNumEnemiesNearOrigin > 0 &&
+				ubNumEnemiesNearTarget == 0 )
+		{
+			// Source sector is threatened, while destination is not. The group does not
+			// move at all, as it is already in a good position to defend.
+			return;
+		}
+
+		else if (ubNumEnemiesNearOrigin > 0 &&
+				ubNumEnemiesNearTarget > 0 )
+		{
+			// Both sectors threatened. 
+
+			if (gGameExternalOptions.gfAllowReinforcements && !gGameExternalOptions.gfAllowReinforcementsOnlyInCity)
+			{
+				// Militia will spread out between the two sectors to maximize defensive capability, since they can 
+				// always reinforce one another if either sector is attacked.
+				ubChanceToSpreadOut = 100;
+			}
+			else
+			{
+				// Militia chance to spread out is based on whether the Origin or the Destination are under greater
+				// threat. If the destination is more threatened, militia are more likely to reinforce it 
+				// (move en-masse). If the origin is more threatened, militia are more likely to spread out evenly
+				// between the two sectors, to give at least some chance of defeating ONE of the enemy groups.
+				UINT16 usTotalNumEnemies = ubNumEnemiesNearTarget + ubNumEnemiesNearOrigin;
+				ubChanceToSpreadOut = __min( 100, (ubNumEnemiesNearOrigin * 100) / usTotalNumEnemies );
+			}
 		}
 		else if (NumEnemiesInFiveSectors( sMapX, sMapY ) > 0 &&
 				NumEnemiesInFiveSectors( sTMapX, sTMapY ) > 0 )
@@ -505,6 +554,13 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			else
 			{
 				// Target sector is empty, source group is not full. Do not spread out.
+				ubChanceToSpreadOut = 0;
+			}
+
+			// HEADROCK HAM 4: Groups moving into a NO_LEAVE sector will always reinforce it.
+			// this ignores any of the possible options above.
+			if (gubManualRestrictMilitia[ SECTOR(sTMapX, sTMapY) ] == MANUAL_MOBILE_NO_LEAVE )
+			{
 				ubChanceToSpreadOut = 0;
 			}
 		}
@@ -902,6 +958,11 @@ UINT16 CountDirectionRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 			iRes = 0;
 	}
 
+	// HEADROCK HAM 4: Increase desire to move into a NO-LEAVE sector (Player-Set restrictions system)
+	if (gubManualRestrictMilitia[ SECTOR(sDMapX, sDMapY) ] == MANUAL_MOBILE_NO_LEAVE )
+	{
+		iRes = (INT32)((FLOAT)iRes * 1.5);
+	}
 
 	// Test for player mercs in target sector.
 	if( PlayerMercsInSector_MSE( (UINT8)sDMapX, (UINT8)sDMapY, FALSE ))
@@ -1338,6 +1399,12 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	UINT8 uiMilitiaCount;
 	BOOLEAN fSourceCityAllowsRoaming;
 
+	// HEADROCK HAM 4: Player can set a sector to NO_LEAVE, forcing Mobiles to stay put if they enter the sector at all.
+	if (gubManualRestrictMilitia[ SECTOR( sMapX, sMapY ) ] == MANUAL_MOBILE_NO_LEAVE )
+	{
+		// NO_LEAVE zone. Militia can't even consider moving.
+		return;
+	}
 
 	// If we don't want roaming militia
 	// We shouldn't be here.
@@ -1696,7 +1763,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 		if (gfStrategicMilitiaChangesMade)
 		{
 			RemoveMilitiaFromTactical();
-			if(is_server && MILITIA_ENABLED==1)
+			if(is_server && gMilitiaEnabled == 1)
 				PrepareMilitiaForTactical(FALSE);
 		}
 	}
@@ -2120,11 +2187,16 @@ void AdjustRoamingRestrictions()
 		gDynamicRestrictMilitia[cnt] = false;
 	}
 
-	for (cnt=0; (cnt < 5001 && gDynamicRestrictions[cnt].bSectorID >= 0); cnt++)
+	for (cnt=0; (cnt < 5001 && gDynamicRestrictions[cnt].sSectorID >= 0); cnt++)
 	{
 		if (!(~uiCapturedTownsFlag & gDynamicRestrictions[cnt].uiReqTownFlags))
 		{
-			gDynamicRestrictMilitia[gDynamicRestrictions[cnt].bSectorID] = true;
+			gDynamicRestrictMilitia[gDynamicRestrictions[cnt].sSectorID] = true;
+			// HEADROCK HAM 4: Also adjust Player-based restrictions.
+			if (gubManualRestrictMilitia[ gDynamicRestrictions[cnt].sSectorID ] == MANUAL_MOBILE_RESTRICTED)
+			{
+				gubManualRestrictMilitia[ gDynamicRestrictions[cnt].sSectorID ] = MANUAL_MOBILE_NO_RESTRICTION;
+			}
 		}
 	}
 }
@@ -2290,8 +2362,13 @@ BOOLEAN IsSectorRoamingAllowed( UINT32 uiSector )
 		// Has the sector ever been visited?
 		if ( SectorInfo[ uiSector ].fSurfaceWasEverPlayerControlled )
 		{
-			// Always return TRUE.
-			return TRUE;
+			// HEADROCK HAM 4: Take player-based restrictions into account...
+			if ( gubManualRestrictMilitia[ uiSector ] == MANUAL_MOBILE_NO_RESTRICTION ||
+				gubManualRestrictMilitia[ uiSector ] == MANUAL_MOBILE_NO_LEAVE )
+			{
+				// Always return TRUE.
+				return TRUE;
+			}
 		}
 	}
 	// Please note that with exploration restrictions, an UNVISITED sector is not neccesarily RESTRICTED.
@@ -2307,7 +2384,21 @@ BOOLEAN IsSectorRoamingAllowed( UINT32 uiSector )
 			return FALSE;
 		}
 	}
-	
+	else
+	{
+		// HEADROCK HAM 4: Take player restrictions into account
+		if ( gubManualRestrictMilitia[ uiSector ] == MANUAL_MOBILE_NO_ENTER )
+		{
+			if ( !NumEnemiesInSector( SECTORX(uiSector), SECTORY(uiSector) ) )
+			{
+				// The player has disallowed movement into this sector, manually. As the condition above
+				// dictates, this only takes effect if there are no enemies in the target sector. Otherwise,
+				// militia can move to intercept them anyway.
+				return FALSE;
+			}
+		}
+	}
+
 	return TRUE;
 }
 
@@ -2350,3 +2441,83 @@ UINT16 MilitiaUpgradeSlotsCheck( SECTORINFO * pSectorInfo )
 	return (usNumUpgradeSlots);
 }
 
+// HEADROCK HAM 4: Returns whether sector is allowed for militia roaming, taking into account player-set restrictions.
+UINT8 ManualMobileMovementAllowed( UINT8 ubSector )
+{
+	BOOLEAN fRestricted = TRUE;
+
+	if (gGameExternalOptions.gflimitedRoaming)
+	{
+		if (gGameExternalOptions.fUnrestrictVisited)
+		{
+			// Has the sector ever been visited?
+			if ( SectorInfo[ ubSector ].fSurfaceWasEverPlayerControlled )
+			{
+				// Always return TRUE.
+				fRestricted = FALSE;
+			}
+		}
+	
+		if(gGameExternalOptions.fDynamicRestrictRoaming)
+		{
+			if (gDynamicRestrictMilitia[ ubSector ] )
+			{
+				fRestricted = FALSE;
+			}
+		}
+	}
+	else
+	{
+		fRestricted = FALSE;
+	}
+
+	if (fRestricted)
+	{
+		// Restricted roaming! Militia can't go here ever.
+		return (0);
+	}
+	else
+	{
+		if (gubManualRestrictMilitia[ ubSector ] == MANUAL_MOBILE_NO_ENTER )
+		{
+			// Player-restricted. Militia can potentially go here, if the player removed the restriction.
+			return (1);
+		}
+		else if (gubManualRestrictMilitia[ ubSector ] == MANUAL_MOBILE_NO_LEAVE )
+		{
+			// Militia allowed to enter, but not leave.
+			return (2);
+		}
+		else
+		{
+			// Roaming allowed.
+			return (3);
+		}
+	}
+}
+
+void InitManualMobileRestrictions()
+{
+	UINT16 x;
+	for ( x = 0; x < 256; x++ )
+	{
+		UINT8 ubTownID = GetTownIdForSector( SECTORX(x), SECTORY(x) );
+		if (ubTownID != BLANK_SECTOR )
+		{
+			if (gfMilitiaAllowedInTown[ubTownID])
+			{
+				// Major town. Set to NO-ENTER by default.
+				gubManualRestrictMilitia[x] = MANUAL_MOBILE_NO_ENTER;
+				continue;
+			}
+			else
+			{
+				// Minor town. Set to NO_RESTRICTIONS by default.
+				gubManualRestrictMilitia[x] = MANUAL_MOBILE_NO_RESTRICTION;
+				continue;
+			}
+		}
+		// By default, all other sectors are "go".
+		gubManualRestrictMilitia[x] = MANUAL_MOBILE_NO_RESTRICTION;
+	}
+}

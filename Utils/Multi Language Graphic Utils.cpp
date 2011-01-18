@@ -20,6 +20,9 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			case MLG_AIMSYMBOL:
 				sprintf( filename, "LAPTOP\\AimSymbol.sti" );
 				return TRUE;
+			case MLG_AIMSYMBOL_SMALL:
+				sprintf( filename, "LAPTOP\\AimSymbol_Small.sti" );
+				return TRUE;
 			case MLG_BOBBYNAME:
 				sprintf( filename, "LAPTOP\\BobbyName.sti" );
 				return TRUE;
@@ -137,6 +140,10 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			case MLG_AIMSYMBOL:
 				//Same graphic (no translation needed)
 				sprintf( filename, "LAPTOP\\AimSymbol.sti" );
+				return TRUE;
+			case MLG_AIMSYMBOL_SMALL:
+				//Same graphic (no translation needed)
+				sprintf( filename, "LAPTOP\\AimSymbol_Small.sti" );
 				return TRUE;
 			case MLG_BOBBYNAME:
 				//Same graphic (no translation needed)
@@ -298,6 +305,9 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			case MLG_AIMSYMBOL:
 				sprintf( filename, "%s\\AimSymbol_%s.sti", zLanguage, zLanguage );
 				break;
+			case MLG_AIMSYMBOL_SMALL:
+				sprintf( filename, "%s\\AimSymbol_Small_%s.sti", zLanguage, zLanguage );
+				break;
 			case MLG_BOBBYNAME:
 				sprintf( filename, "%s\\BobbyName_%s.sti", zLanguage, zLanguage );
 				break;
@@ -418,6 +428,9 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 		{
 		case MLG_AIMSYMBOL:
 			sprintf( filename, "LAPTOP\\AimSymbol.sti" );
+			return TRUE;
+		case MLG_AIMSYMBOL_SMALL:
+			sprintf( filename, "LAPTOP\\AimSymbol_Small.sti" );
 			return TRUE;
 		case MLG_BOBBYNAME:
 			sprintf( filename, "LAPTOP\\BobbyName.sti" );

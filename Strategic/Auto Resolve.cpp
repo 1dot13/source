@@ -67,6 +67,7 @@
 	#include "MilitiaSquads.h"
 //	#include "Strategic AI.h"
 	#include "interface Dialogue.h"
+	#include "AIInternals.h" // added by SANDRO
 #endif
 
 #include "Reinforcement.h"
@@ -727,6 +728,7 @@ void RefreshMerc( SOLDIERTYPE *pSoldier )
 {
 	pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
 	pSoldier->bBleeding = 0;
+	pSoldier->iHealableInjury = 0; // added by SANDRO
 	pSoldier->bBreath = pSoldier->bBreathMax = 100;
 	pSoldier->sBreathRed = 0;
 	if( gpAR->pRobotCell)
@@ -1381,21 +1383,41 @@ void ExpandWindow()
 
 }
 
-UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OBJECTTYPE *pKit, INT16 sKitPts, INT16 sStatus )
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// SANDRO - This whole procedure was merged with the surgery ability of the doctor trait
+UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OBJECTTYPE *pKit, INT16 sKitPts, INT16 sStatus, BOOLEAN fOnSurgery )
 {
 	UINT32 uiDressSkill, uiPossible, uiActual, uiMedcost, uiDeficiency, uiAvailAPs, uiUsedAPs;
 	UINT8 bBelowOKlife, bPtsLeft;
+	INT8 bInitialBleeding;
 
-	if( pVictim->bBleeding < 1 )
+	if( pVictim->bBleeding < 1 && !fOnSurgery )
 		return 0;		// nothing to do, shouldn't have even been called!
 	if ( pVictim->stats.bLife == 0 )
 		return 0;
+	if (fOnSurgery && pVictim->ubID == pSoldier->ubID) // cannot make surgery on self
+		return 0;
 
-	// calculate wound-dressing skill (3x medical,	2x equip,1x level, 1x dex)
-	uiDressSkill = ( ( 3 * EffectiveMedical( pSoldier ) ) +		// medical knowledge
-									( 2 * sStatus) + 													// state of medical kit
-									(10 * EffectiveExpLevel( pSoldier ) ) +		// battle injury experience
-									EffectiveDexterity( pSoldier ) )	/ 7;		// general "handiness"
+	bInitialBleeding = pVictim->bBleeding;
+
+	if ( !gGameOptions.fNewTraitSystem && fOnSurgery) // cannot make surgery if not new traits
+		fOnSurgery = FALSE;
+
+	// calculate wound-dressing skill (3x medical, 2x equip, 1x level, 1x dex)
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		uiDressSkill = ( ( 7 * EffectiveMedical( pSoldier ) ) +					// medical knowledge
+			( sStatus) + 																// state of medical kit
+			(10 * EffectiveExpLevel( pSoldier ) ) +					// battle injury experience
+			EffectiveDexterity( pSoldier ) )	/ 10;		// general "handiness"
+	}
+	else
+	{
+		uiDressSkill = ( ( 3 * EffectiveMedical( pSoldier ) ) +					// medical knowledge
+			( 2 * sStatus) + 																// state of medical kit
+			(10 * EffectiveExpLevel( pSoldier ) ) +					// battle injury experience
+			EffectiveDexterity( pSoldier ) )	/ 7;		// general "handiness"
+	}
 
 	// try to use every AP that the merc has left
 	uiAvailAPs = pSoldier->bActionPoints;
@@ -1413,8 +1435,15 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 	if (!uiPossible)
 		return 0;
 
-	if (Item[pSoldier->inv[0].usItem].medicalkit )		// using the GOOD medic stuff
+	if (Item[pSoldier->inv[0].usItem].medicalkit && !(fOnSurgery) )		// using the GOOD medic stuff
 		uiPossible += ( uiPossible / 2);			// add extra 50 %
+
+	// Doctor trait improves basic bandaging ability
+	if (!(fOnSurgery) && gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, DOCTOR_NT ))
+	{
+		uiPossible = uiPossible * (100 - gSkillTraitValues.bSpeedModifierBandaging) / 100;
+		uiPossible += ( uiPossible * gSkillTraitValues.ubDOBandagingSpeedPercent * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) / 100);
+	}
 
 	uiActual = uiPossible;		// start by assuming maximum possible
 
@@ -1432,7 +1461,11 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 	{ // then add how many healing pts we need to stop bleeding (1x cost)
 		uiDeficiency += ( pVictim->bBleeding - bBelowOKlife );
 	}
-
+	// On surgery, alter this by amount of life we can heal
+	if ( fOnSurgery )
+	{
+		uiDeficiency += (pVictim->iHealableInjury / 100);
+	}
 	// now, make sure we weren't going to give too much
 	if ( uiActual > uiDeficiency)	// if we were about to apply too much
 		uiActual = uiDeficiency;	// reduce actual not to waste anything
@@ -1440,13 +1473,20 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 	// now make sure we HAVE that much
 	if( Item[pKit->usItem].medicalkit )
 	{
-		uiMedcost = uiActual / 2;		// cost is only half
+		if (fOnSurgery)
+			uiMedcost = (uiActual * gSkillTraitValues.usDOSurgeryMedBagConsumption ) /100;		// surgery drains the kit a lot
+		else
+			uiMedcost = (uiActual + 1) / 2;		// cost is only half, rounded up
+
 		if ( uiMedcost == 0 && uiActual > 0)
 			uiMedcost = 1;
-		if ( uiMedcost > (UINT32)sKitPts )	 		// if we can't afford this
+		if ( uiMedcost > (UINT32)sKitPts )     		// if we can't afford this
 		{
 			uiMedcost = sKitPts;		// what CAN we afford?
-			uiActual = uiMedcost * 2;		// give double this as aid
+			if (fOnSurgery) // surgery check
+				uiActual = (uiMedcost * 100 )/ gSkillTraitValues.usDOSurgeryMedBagConsumption;
+			else
+				uiActual = uiMedcost * 2;		// give double this as aid
 		}
 	}
 	else
@@ -1466,7 +1506,15 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 	{
 		// if we have enough points to bring him all the way to OKLIFE this turn
 		if ( bPtsLeft >= (2 * bBelowOKlife ) )
-		{ // raise life to OKLIFE
+		{
+			// insta-healable injury check
+			if (pVictim->iHealableInjury > 0)
+			{
+				pVictim->iHealableInjury -= ((OKLIFE - pVictim->stats.bLife) * 100);
+				if (pVictim->iHealableInjury < 0)
+					pVictim->iHealableInjury = 0;
+			}
+			// raise life to OKLIFE
 			pVictim->stats.bLife = OKLIFE;
 			// reduce bleeding by the same number of life points healed up
 			pVictim->bBleeding -= bBelowOKlife;
@@ -1475,6 +1523,13 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 		}
 		else
 		{
+			// insta-healable injury check
+			if (pVictim->iHealableInjury > 0)
+			{
+				pVictim->iHealableInjury -= (( bPtsLeft / 2) * 100);
+				if (pVictim->iHealableInjury < 0)
+						pVictim->iHealableInjury = 0;
+			}
 			pVictim->stats.bLife += ( bPtsLeft / 2);
 			pVictim->bBleeding -= ( bPtsLeft / 2);
 			bPtsLeft = bPtsLeft % 2;	// if ptsLeft was odd, ptsLeft = 1
@@ -1496,6 +1551,99 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 		}
 	}
 
+	// SURGERY 
+	// first return the real life back, then bandage the rest if possible
+	if (fOnSurgery && gGameOptions.fNewTraitSystem) // double check for new traits
+	{
+		INT32 iLifeReturned = 0;
+		UINT16 usReturnDamagedStatRate = 0;
+		// find out if we will repair any stats...
+		if ( NumberOfDamagedStats( pVictim ) > 0 ) 
+		{
+			usReturnDamagedStatRate = ((gSkillTraitValues.usDORepairStatsRateBasic + gSkillTraitValues.usDORepairStatsRateOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )));
+			usReturnDamagedStatRate -= max( 0, ((usReturnDamagedStatRate * gSkillTraitValues.ubDORepStPenaltyIfAlsoHealing ) / 100));
+
+			// ... in which case, reduce the points
+			bPtsLeft = max(0, ((bPtsLeft * ( 100 - gSkillTraitValues.ubDOHealingPenaltyIfAlsoStatRepair )) / 100));
+		}
+
+		// Important note! : HealableInjury is always stores the total HPs the victim is missing, not the amount which we will heal,
+		// so we always take a portion of patient's damage here, reduce the HealableInjury by this portion, while only healing a portion of this portion in actual HPs;
+		// this means the rest of HPs will remain as "unhealable", the patient will miss X HPs but has no HealableInjury on self..
+		if (bPtsLeft >= (pVictim->iHealableInjury/100))
+		{
+			iLifeReturned = pVictim->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ))/100;
+				
+			pVictim->iHealableInjury = 0;
+			// keep the rest of the points to bandaging if neccessary
+			if (pVictim->bBleeding > 0)
+			{
+				bPtsLeft = max(0, (bPtsLeft - (iLifeReturned / 100)));
+				bPtsLeft += (bPtsLeft/2); // we use medical bag so add the bonus for that.
+			}
+			else
+			{
+				bPtsLeft = 0;
+			}
+			
+			// add to record - another surgery undergoed
+			if ( pVictim->ubProfile != NO_PROFILE && iLifeReturned >= 100 )
+				gMercProfiles[ pVictim->ubProfile ].records.usTimesSurgeryUndergoed++;
+			
+			// add to record - another surgery made
+			if ( pSoldier->ubProfile != NO_PROFILE && iLifeReturned >= 100 )
+				gMercProfiles[ pSoldier->ubProfile ].records.usSurgeriesMade++;
+		}
+		else
+		{
+			iLifeReturned = bPtsLeft * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ));
+				
+			pVictim->iHealableInjury -= (bPtsLeft * 100);
+			bPtsLeft = 0;
+		}
+		// repair the stats here!
+		if ( usReturnDamagedStatRate > 0 ) 
+		{
+			RegainDamagedStats( pVictim, (iLifeReturned * usReturnDamagedStatRate / 100) );
+		}
+
+		// some paranoya checks for sure
+		if ((pVictim->stats.bLife + (iLifeReturned / 100)) <= pVictim->stats.bLifeMax)
+		{
+			pVictim->stats.bLife += (iLifeReturned/100);
+			if (pVictim->bBleeding >= (iLifeReturned/100))
+			{
+				pVictim->bBleeding -= (iLifeReturned/100);
+				uiMedcost += (iLifeReturned / 200); // add medkit points cost for unbandaged part
+			}
+			else
+			{
+				pVictim->bBleeding = 0;
+				uiMedcost += max( 0, (((iLifeReturned/100) - pVictim->bBleeding) / 2)); // add medkit points cost for unbandaged part
+			}
+		}
+		else // this shouldn't even happen, but we still want to have it here for sure
+		{
+			pVictim->stats.bLife = pVictim->stats.bLifeMax;
+			pVictim->iHealableInjury = 0;
+			pVictim->bBleeding = 0;
+		}
+		// Reduce max breath based on life returned
+		if ( (pVictim->bBreathMax - (((iLifeReturned/100) * gSkillTraitValues.usDOSurgeryMaxBreathLoss )/ 100)) <= BREATHMAX_ABSOLUTE_MINIMUM )
+		{
+			pVictim->bBreathMax = BREATHMAX_ABSOLUTE_MINIMUM;
+		}
+		else
+		{
+			pVictim->bBreathMax -= (((iLifeReturned/100) * gSkillTraitValues.usDOSurgeryMaxBreathLoss )/ 100);
+		}
+
+		if (pVictim->iHealableInjury > ((pVictim->stats.bLifeMax - pVictim->stats.bLife)*100))
+			pVictim->iHealableInjury = ((pVictim->stats.bLifeMax - pVictim->stats.bLife)*100);
+		else if (pVictim->iHealableInjury < 0)
+			pVictim->iHealableInjury = 0;
+	}
+
 	// if any healing points remain, apply that to any remaining bleeding (1/1)
 	// DON'T spend any APs/kit pts to cure bleeding until merc is no longer dying
 	//if ( bPtsLeft && pVictim->bBleeding && !pVictim->dying)
@@ -1513,24 +1661,47 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 		}
 	}
 	// if there are any ptsLeft now, then we didn't actually get to use them
-	uiActual -= bPtsLeft;
+	uiActual = max(0, (uiActual - bPtsLeft));
 
 	// usedAPs equals (actionPts) * (%of possible points actually used)
 	uiUsedAPs = ( uiActual * uiAvailAPs ) / uiPossible;
 
-	if (Item[pSoldier->inv[0].usItem].medicalkit )	// using the GOOD medic stuff
+	if (Item[pSoldier->inv[0].usItem].medicalkit && !(fOnSurgery))	// using the GOOD medic stuff
 		uiUsedAPs = ( uiUsedAPs * 2) / 3;	// reverse 50% bonus by taking 2/3rds
 
-	if ( uiActual / 2)
-		// MEDICAL GAIN (actual / 2):	Helped someone by giving first aid
-		StatChange(pSoldier,MEDICALAMT,( (UINT16)(uiActual / 2) ),FALSE);
+	// surgery is harder so cost more BPs
+	if (fOnSurgery) 
+		DeductPoints( pSoldier, (INT16)uiUsedAPs, (INT16)( uiUsedAPs * 15 ) );
+	else
+		DeductPoints( pSoldier, (INT16)uiUsedAPs, (INT16)( ( uiUsedAPs * APBPConstants[BP_PER_AP_LT_EFFORT]) ) );
 
-	if ( uiActual / 4)
-		// DEXTERITY GAIN (actual / 4):	Helped someone by giving first aid
-		StatChange(pSoldier,DEXTAMT,(UINT16)( ( uiActual / 4) ),FALSE);
+	// surgery is harder so gives more exp
+	if (fOnSurgery) 
+	{
+		// MEDICAL GAIN   (actual / 2):  Helped someone by giving first aid
+		StatChange(pSoldier, MEDICALAMT, (UINT16)(uiActual + 2), FALSE);
+
+		// DEXTERITY GAIN (actual / 6):  Helped someone by giving first aid
+		StatChange(pSoldier, DEXTAMT,    (UINT16)((uiActual / 3) + 2), FALSE);
+	}
+	else
+	{
+		if ( uiActual / 2)
+			// MEDICAL GAIN (actual / 2):	Helped someone by giving first aid
+			StatChange(pSoldier,MEDICALAMT,( (UINT16)(uiActual / 2) ),FALSE);
+
+		if ( uiActual / 4)
+			// DEXTERITY GAIN (actual / 4):	Helped someone by giving first aid
+			StatChange(pSoldier,DEXTAMT,(UINT16)( ( uiActual / 4) ),FALSE);
+	}
+
+	// merc records - bandaging
+	if( bInitialBleeding > 1 && pVictim->bBleeding == 0 && pSoldier->ubProfile != NO_PROFILE )
+		gMercProfiles[ pSoldier->ubProfile ].records.usMercsBandaged++;
 
 	return uiMedcost;
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 OBJECTTYPE* FindMedicalKit()
 {
@@ -1581,7 +1752,7 @@ UINT32 AutoBandageMercs()
 					continue;
 					break;
 				}
-				uiPointsUsed = VirtualSoldierDressWound( gpMercs[ i ].pSoldier, gpMercs[ i ].pSoldier, pKit, usKitPts, usKitPts );
+				uiPointsUsed = VirtualSoldierDressWound( gpMercs[ i ].pSoldier, gpMercs[ i ].pSoldier, pKit, usKitPts, usKitPts, FALSE ); // changed by SANDRO
 				UseKitPoints( pKit, (UINT16)uiPointsUsed, gpMercs[ i ].pSoldier );
 				uiCurrPointsUsed += uiPointsUsed;
 				cnt++;
@@ -1605,12 +1776,13 @@ UINT32 AutoBandageMercs()
 			if( gpMercs[ i ].pSoldier->stats.bMedical > gpMercs[ iBest ].pSoldier->stats.bMedical )
 			{
 				iBest = i;
-			}
+			}			
 		}
 	}
 
 	for( i = 0; i < gpAR->ubMercs; i++ )
 	{
+		cnt = 0; // SANDRO - added safety check
 		while( gpMercs[ i ].pSoldier->bBleeding && gpMercs[ i ].pSoldier->stats.bLife )
 		{ //This merc needs medical attention
 			if( !pKit )
@@ -1629,10 +1801,15 @@ UINT32 AutoBandageMercs()
 				fComplete = FALSE;
 				continue;
 			}
-			uiPointsUsed = VirtualSoldierDressWound( gpMercs[ iBest ].pSoldier, gpMercs[ i ].pSoldier, pKit, usKitPts, usKitPts );
+			uiPointsUsed = VirtualSoldierDressWound( gpMercs[ iBest ].pSoldier, gpMercs[ i ].pSoldier, pKit, usKitPts, usKitPts, FALSE );
 			UseKitPoints( pKit, (UINT16)uiPointsUsed, gpMercs[ i ].pSoldier );
 			uiParallelPointsUsed += uiPointsUsed;
 			fComplete = TRUE;
+
+			// SANDRO - added safety check
+			cnt++;
+			if( cnt > 500 )
+				break;
 		}
 	}
 	if( fComplete )
@@ -1941,6 +2118,7 @@ static void ARCreateMilitia( UINT8 mclass, INT32 i, INT16 sX, INT16 sY)
 {
 	// reset counter of how many mortars this team has rolled
 	ResetMortarsOnTeamCount();
+	ResetNumSquadleadersInArmyGroup(); // added by SANDRO
 
 	if( !gpBattleGroup ) {
 		//AssertMsg(0, "No battle group set while creating militia");
@@ -2370,8 +2548,40 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 				else if( gpAR->ubBattleStatus == BATTLE_VICTORY )
 				{ //merc is alive, so group them at the center gridno.
 					gpMercs[ i ].pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
+					/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					// SANDRO - records - autoresolve battles
+					if( gpMercs[ i ].pSoldier->ubProfile != NO_PROFILE )
+					{
+						// if we ran before the battle was over but the others won in the end, we still get retreated counter, no victory
+						if ( gpMercs[ i ].uiFlags & CELL_RETREATED || gpMercs[ i ].uiFlags & CELL_RETREATING )
+						{
+							gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].records.usBattlesRetreated++;
+						}
+						else
+						{
+							gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].records.usBattlesAutoresolve++; 
+							if ( gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].records.usLargestBattleFought < gpAR->ubEnemies )
+							{
+								gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].records.usLargestBattleFought = gpAR->ubEnemies;
+							}
+						}
+					}
+					/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				}
-				gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].usBattlesFought++;
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				// SANDRO - merc records - times retreated counter
+				else if( gpAR->ubBattleStatus == BATTLE_RETREAT )
+				{
+					if( gpMercs[ i ].uiFlags & CELL_RETREATED || gpMercs[ i ].uiFlags & CELL_RETREATING )
+					{
+						if( gpMercs[ i ].pSoldier->ubProfile != NO_PROFILE && !AM_A_ROBOT( gpMercs[ i ].pSoldier ) )
+						{
+							gMercProfiles[ gpMercs[ i ].pSoldier->ubProfile ].records.usBattlesRetreated++;
+						}
+					}
+				}
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 			}
 		}
 		for( i = 0; i < gpAR->iNumMercFaces; i++ )
@@ -3610,6 +3820,8 @@ void CalculateAttackValues()
 	gpAR->usPlayerAttack = 0;
 	gpAR->usPlayerDefence = 0;
 
+	UINT8 uiEffectiveLevelExp = 0; // added by SANDRO
+
 	//if( gpAR->ubEnemies )
 	//{
 	//	//bonus equals 20 if good guys outnumber bad guys 2 to 1.
@@ -3648,7 +3860,12 @@ void CalculateAttackValues()
 
 		//bExpLevel adds a bonus of 7% per level after 2, level 1 soldiers get a 7% decrease
 		//usBonus += 7 * (pSoldier->stats.bExpLevel-2);
-		usBonus += EXP_BONUS * (pSoldier->stats.bExpLevel-5);
+		// SANDRO - STOMP traits - Squadleaders bonus to effective level
+		uiEffectiveLevelExp = pSoldier->stats.bExpLevel;
+		if ( gGameOptions.fNewTraitSystem )
+			uiEffectiveLevelExp = min(10,(uiEffectiveLevelExp + (gSkillTraitValues.ubSLEffectiveLevelInRadius * GetSquadleadersCountInVicinity( pSoldier, TRUE, TRUE ))));
+		usBonus += EXP_BONUS * (uiEffectiveLevelExp-5);
+
 		usBonus += gpAR->ubPlayerDefenceAdvantage;
 		pCell->usAttack = pCell->usAttack * usBonus / 100;
 		pCell->usDefence = pCell->usDefence * usBonus / 100;
@@ -3692,7 +3909,12 @@ void CalculateAttackValues()
 		usBonus = 100 + gpAR->ubPlayerLeadership/10;// + sOutnumberBonus;
 		//bExpLevel adds a bonus of 7% per level after 2, level 1 soldiers get a 7% decrease
 		//usBonus += 7 * (pSoldier->stats.bExpLevel-2);
-		usBonus += EXP_BONUS * (pSoldier->stats.bExpLevel-5);
+		// SANDRO - STOMP traits - Squadleaders bonus to effective level
+		uiEffectiveLevelExp = pSoldier->stats.bExpLevel;
+		if ( gGameOptions.fNewTraitSystem )
+			uiEffectiveLevelExp = min(10,(uiEffectiveLevelExp + (gSkillTraitValues.ubSLEffectiveLevelInRadius * GetSquadleadersCountInVicinity( pSoldier, TRUE, TRUE ))));
+		usBonus += EXP_BONUS * (uiEffectiveLevelExp-5);
+
 		usBonus += gpAR->ubPlayerDefenceAdvantage;
 		pCell->usAttack = pCell->usAttack * usBonus / 100;
 		pCell->usDefence = pCell->usDefence * usBonus / 100;
@@ -3751,7 +3973,12 @@ void CalculateAttackValues()
 		usBonus = 100 + gpAR->ubPlayerLeadership/10;// + sOutnumberBonus;
 		//bExpLevel adds a bonus of 7% per level after 2, level 1 soldiers get a 7% decrease
 		//usBonus += 7 * (pSoldier->stats.bExpLevel-2);
-		usBonus += EXP_BONUS * (pSoldier->stats.bExpLevel-5);
+		// SANDRO - STOMP traits - Squadleaders bonus to effective level
+		uiEffectiveLevelExp = pSoldier->stats.bExpLevel;
+		if ( gGameOptions.fNewTraitSystem )
+			uiEffectiveLevelExp = min(10,(uiEffectiveLevelExp + (gSkillTraitValues.ubSLEffectiveLevelInRadius * GetSquadleadersCountInVicinity( pSoldier, TRUE, TRUE ))));
+		usBonus += EXP_BONUS * (uiEffectiveLevelExp-5);
+
 		usBonus += gpAR->ubEnemyDefenceAdvantage;
 		pCell->usAttack	= pCell->usAttack * usBonus / 100;
 		pCell->usDefence = pCell->usDefence * usBonus / 100;
@@ -3942,7 +4169,7 @@ BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 				PlayAutoResolveSample( Weapon[ pItem->usItem ].sSound, RATE_11025, 50, 1, MIDDLEPAN );
 				if( pAttacker->uiFlags & CELL_MERC )
 				{
-					gMercProfiles[ pAttacker->pSoldier->ubProfile ].usShotsFired++;
+					gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usShotsFired++;
 					// MARKSMANSHIP GAIN: Attacker fires a shot
 
 					StatChange( pAttacker->pSoldier, MARKAMT, 3, FALSE );
@@ -4020,6 +4247,61 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		usDefence = (UINT16)(pTarget->usDefence + PreRandom((INT16)(gGameExternalOptions.iAutoResolveLuckFactor*1000.0) - pTarget->usDefence ));
 	else
 		usDefence = (UINT16)(950 + PreRandom( 50 ));
+
+	///////////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - Iincrease Militia Strength in autoresolve battles 
+	// because the attack and defense is limited to max 1000, rather than only increasing the attack of milita,
+	// decrease the defense of target - so +100% bonus means +50% attack of attacker and -50% defense of target
+
+	//if militita is attacking increase attack by half and decrease the defense of enemy
+	if (pAttacker->pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.sGreenMilitiaAutoresolveStrength != 0)
+	{
+		usAttack += (usAttack * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
+		usDefence -= (usDefence * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
+	}
+	else if (pAttacker->pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.sRegularMilitiaAutoresolveStrength != 0)
+	{
+		usAttack += (usAttack * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
+		usDefence -= (usDefence * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
+	}
+	else if (pAttacker->pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaAutoresolveStrength != 0)
+	{
+		usAttack += (usAttack * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
+		usDefence -= (usDefence * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
+	}
+	else if (pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0)
+	{
+		usAttack += (usAttack * gGameExternalOptions.sMercsAutoresolveOffenseBonus /200);
+		usDefence -= (usDefence * gGameExternalOptions.sMercsAutoresolveOffenseBonus /200);
+	}
+
+	//if enemy is attacking decrease his attack by half and increase the defense of militia by half
+	if (pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.sGreenMilitiaAutoresolveStrength != 0)
+	{
+		usDefence += (usDefence * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
+		usAttack -= (usAttack * gGameExternalOptions.sGreenMilitiaAutoresolveStrength /200);
+	}
+	else if (pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.sRegularMilitiaAutoresolveStrength != 0)
+	{
+		usDefence += (usDefence * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
+		usAttack -= (usAttack * gGameExternalOptions.sRegularMilitiaAutoresolveStrength /200);
+	}
+	else if (pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaAutoresolveStrength != 0)
+	{
+		usDefence += (usDefence * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
+		usAttack -= (usAttack * gGameExternalOptions.sVeteranMilitiaAutoresolveStrength /200);
+	}
+	else if (pTarget->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveDeffenseBonus != 0)
+	{
+		usDefence += (usDefence * gGameExternalOptions.sMercsAutoresolveDeffenseBonus /200);
+		usAttack -= (usAttack * gGameExternalOptions.sMercsAutoresolveDeffenseBonus /200);
+	}
+
+	// reapair values
+	usAttack = max(0, min(1000, usAttack ));
+	usDefence = max(0, min(1000, usDefence ));
+	///////////////////////////////////////////////////////////////////////////////////////////
+
 	if( pAttacker->uiFlags & CELL_FEMALECREATURE )
 	{
 		pAttacker->bWeaponSlot = HANDPOS;
@@ -4105,6 +4387,17 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			ubLocation = AIM_SHOT_TORSO;
 		ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence ) )/10);
 		iImpact = BulletImpact( pAttacker->pSoldier, pTarget->pSoldier, ubLocation, ubImpact, ubAccuracy, NULL );
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - increased mercs' offense/deffense rating
+		if (pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0)
+		{
+			iImpact += (iImpact * gGameExternalOptions.sMercsAutoresolveOffenseBonus /150);
+		}
+		else if (pTarget->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveDeffenseBonus != 0 && (iImpact > 3))
+		{
+			iImpact = max( 3, ((iImpact * (100 - (gGameExternalOptions.sMercsAutoresolveDeffenseBonus / 2))) /100));
+		}
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		if ( bAttackIndex == -1 )
 		{
@@ -4146,7 +4439,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			//switch items
 			tempItem = pAttacker->pSoldier->inv[ HANDPOS ];
 			pAttacker->pSoldier->inv[ HANDPOS ] = pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ]; //CTD
-			iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife | fClaw) );
+			iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife || fClaw) );
 			pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ] = pAttacker->pSoldier->inv[ HANDPOS ];
 			pAttacker->pSoldier->inv[ HANDPOS ] = tempItem;
 		}
@@ -4154,6 +4447,17 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		{
 			iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife || fClaw) );
 		}
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - increased mercs' offense/deffense rating
+		if (pAttacker->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveOffenseBonus != 0)
+		{
+			iImpact += (iImpact * gGameExternalOptions.sMercsAutoresolveOffenseBonus /150);
+		}
+		else if (pTarget->uiFlags & CELL_MERC && gGameExternalOptions.sMercsAutoresolveDeffenseBonus != 0 && (iImpact > 3))
+		{
+			iImpact = max( 3, ((iImpact * (100 - (gGameExternalOptions.sMercsAutoresolveDeffenseBonus / 2))) /100));
+		}
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// WANNE: Why is impact here always set to 0? The impact was calculated a few lines before!
 		//iImpact = 0;
@@ -4166,13 +4470,14 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 
 		if( pAttacker->uiFlags & CELL_MERC )
 		{ //Attacker is a player, so increment the number of shots that hit.
-			gMercProfiles[ pAttacker->pSoldier->ubProfile ].usShotsHit++;
+			gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usShotsHit++;
 			// MARKSMANSHIP GAIN: Attacker's shot hits
 			StatChange( pAttacker->pSoldier, MARKAMT, 6, FALSE );		// in addition to 3 for taking a shot
 		}
 		if( pTarget->uiFlags & CELL_MERC )
 		{ //Target is a player, so increment the times he has been wounded.
-			gMercProfiles[ pTarget->pSoldier->ubProfile ].usTimesWounded++;
+			if( iImpact > 1 )
+				gMercProfiles[ pTarget->pSoldier->ubProfile ].records.usTimesWoundedStabbed++;
 			// EXPERIENCE GAIN: Took some damage
 			StatChange( pTarget->pSoldier, EXPERAMT, ( UINT16 )( 5 * ( iImpact / 10 ) ), FALSE );
 		}
@@ -4190,7 +4495,34 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		{ //soldier has been killed
 			if( pAttacker->uiFlags & CELL_MERC )
 			{ //Player killed the enemy soldier -- update his stats as well as any assisters.
-				gMercProfiles[ pAttacker->pSoldier->ubProfile ].usKills++;
+				/////////////////////////////////////////////////////////////////////////////////////
+				// SANDRO - experimental - more specific statistics of mercs
+				switch(pTarget->pSoldier->ubSoldierClass)
+				{
+					case SOLDIER_CLASS_ELITE :
+						gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsElites++;
+						break;
+					case SOLDIER_CLASS_ARMY :
+						gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsRegulars++;
+						break;
+					case SOLDIER_CLASS_ADMINISTRATOR :
+						gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsAdmins++;
+						break;
+					case SOLDIER_CLASS_CREATURE :
+						gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsCreatures++;
+						break;
+					default :
+						if ( CREATURE_OR_BLOODCAT( pTarget->pSoldier ) )
+							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsCreatures++;
+							else if ( TANK( pTarget->pSoldier ) ) // we hardly can kill a tank in autoresolve, but well.. who knows..
+								gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsTanks++;
+							else if ( pTarget->pSoldier->bTeam == CIV_TEAM && !pTarget->pSoldier->aiData.bNeutral && pTarget->pSoldier->bSide != gbPlayerNum )
+								gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsHostiles++;
+						else
+							gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsOthers++;
+						break;
+				}
+				/////////////////////////////////////////////////////////////////////////////////////
 				gStrategicStatus.usPlayerKills++;
 			}
 			else if( pAttacker->uiFlags & CELL_MILITIA )
@@ -4203,6 +4535,15 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 				PlayAutoResolveSample( (UINT8)HEADCR_1, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 			}
 		}
+		///////////////////////////////////////////////////////////////
+		// SANDRO - added the insta-healable value for doctor trait
+		else if ((IS_MERC_BODY_TYPE( pTarget->pSoldier ) || IS_CIV_BODY_TYPE( pTarget->pSoldier )) && ( gGameOptions.fNewTraitSystem ))
+		{
+			pTarget->pSoldier->iHealableInjury += ((pTarget->pSoldier->stats.bLife - iNewLife) * 100);
+			if (pTarget->pSoldier->iHealableInjury > ((pTarget->pSoldier->stats.bLifeMax - pTarget->pSoldier->stats.bLife) * 100))
+				pTarget->pSoldier->iHealableInjury = ((pTarget->pSoldier->stats.bLifeMax - pTarget->pSoldier->stats.bLife) * 100);
+		}
+		///////////////////////////////////////////////////////////////
 		//Adjust the soldiers stats based on the damage.
 		pTarget->pSoldier->stats.bLife = (INT8)max( iNewLife, 0 );
 		if( pTarget->uiFlags & CELL_MERC && gpAR->pRobotCell)
@@ -4218,6 +4559,10 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		}
 		if( !pTarget->pSoldier->stats.bLife )
 		{
+			// SANDRO - added check to erase insta-healable amount of HPs if dead
+			if (pTarget->pSoldier->iHealableInjury > 0)
+			{ pTarget->pSoldier->iHealableInjury = 0; } 
+
 			gpAR->fRenderAutoResolve = TRUE;
 			#ifdef INVULNERABILITY
 			if( 1 )
@@ -4294,13 +4639,14 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 
 	if( pAttacker->uiFlags & CELL_MERC )
 	{ //Attacker is a player, so increment the number of shots that hit.
-		gMercProfiles[ pAttacker->pSoldier->ubProfile ].usShotsHit++;
+		gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usShotsHit++;
 		// MARKSMANSHIP GAIN: Attacker's shot hits
 		StatChange( pAttacker->pSoldier, MARKAMT, 6, FALSE );		// in addition to 3 for taking a shot
 	}
 	if( pTarget->uiFlags & CELL_MERC && pTarget->usHitDamage[ index ] )
 	{ //Target is a player, so increment the times he has been wounded.
-		gMercProfiles[ pTarget->pSoldier->ubProfile ].usTimesWounded++;
+		if( pTarget->usHitDamage[index] > 1 )
+			gMercProfiles[ pTarget->pSoldier->ubProfile ].records.usTimesWoundedShot++;
 		// EXPERIENCE GAIN: Took some damage
 		StatChange( pTarget->pSoldier, EXPERAMT, ( UINT16 )( 5 * ( pTarget->usHitDamage[ index ] / 10 ) ), FALSE );
 	}
@@ -4337,7 +4683,34 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 			{
 				if( pKiller->uiFlags & CELL_MERC )
 				{
-					gMercProfiles[ pKiller->pSoldier->ubProfile ].usKills++;
+					/////////////////////////////////////////////////////////////////////////////////////
+					// SANDRO - new mercs' records
+					switch(pTarget->pSoldier->ubSoldierClass)
+					{
+						case SOLDIER_CLASS_ELITE :
+							gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsElites++;
+							break;
+						case SOLDIER_CLASS_ARMY :
+							gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsRegulars++;
+							break;
+						case SOLDIER_CLASS_ADMINISTRATOR :
+							gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsAdmins++;
+							break;
+						case SOLDIER_CLASS_CREATURE :
+							gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsCreatures++;
+							break;
+						default :
+							if ( CREATURE_OR_BLOODCAT( pTarget->pSoldier ) )
+								gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsCreatures++;
+							else if ( TANK( pTarget->pSoldier ) ) // we hardly can kill a tank in autoresolve, but well.. who knows..
+								gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsTanks++;
+							else if ( pTarget->pSoldier->bTeam == CIV_TEAM && !pTarget->pSoldier->aiData.bNeutral && pTarget->pSoldier->bSide != gbPlayerNum )
+								gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsHostiles++;
+							else
+								gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsOthers++;
+							break;
+					}
+					/////////////////////////////////////////////////////////////////////////////////////
 					gStrategicStatus.usPlayerKills++;
 					// EXPERIENCE CLASS GAIN:	Earned a kill
 					StatChange( pKiller->pSoldier, EXPERAMT, ( UINT16 )( 10 * pTarget->pSoldier->pathing.bLevel ), FALSE );
@@ -4350,7 +4723,22 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 			{
 				if( pAssister1->uiFlags & CELL_MERC )
 				{
-					gMercProfiles[ pAssister1->pSoldier->ubProfile ].usAssists++;
+					/////////////////////////////////////////////////////////////////////////////////////
+					// SANDRO - new mercs' records
+					if( pKiller )
+					{
+						if( pKiller->uiFlags & CELL_MERC && pKiller->pSoldier->bTeam == gbPlayerNum )
+							gMercProfiles[ pAssister1->pSoldier->ubProfile ].records.usAssistsMercs++;
+						else if ( pKiller->pSoldier->bTeam == MILITIA_TEAM )
+							gMercProfiles[ pAssister1->pSoldier->ubProfile ].records.usAssistsMilitia++;
+						else
+							gMercProfiles[ pAssister1->pSoldier->ubProfile ].records.usAssistsOthers++;
+					}
+					else
+					{
+						gMercProfiles[ pAssister1->pSoldier->ubProfile ].records.usAssistsOthers++;
+					}
+					/////////////////////////////////////////////////////////////////////////////////////
 					// EXPERIENCE CLASS GAIN:	Earned an assist
 					StatChange( pAssister1->pSoldier, EXPERAMT, ( UINT16 )( 5 * pTarget->pSoldier->pathing.bLevel ), FALSE );
 				}
@@ -4361,7 +4749,22 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 			{
 				if( pAssister2->uiFlags & CELL_MERC )
 				{
-					gMercProfiles[ pAssister2->pSoldier->ubProfile ].usAssists++;
+					/////////////////////////////////////////////////////////////////////////////////////
+					// SANDRO - new mercs' records
+					if( pKiller )
+					{
+						if( pKiller->uiFlags & CELL_MERC && pKiller->pSoldier->bTeam == gbPlayerNum )
+							gMercProfiles[ pAssister2->pSoldier->ubProfile ].records.usAssistsMercs++;
+						else if ( pKiller->pSoldier->bTeam == MILITIA_TEAM )
+							gMercProfiles[ pAssister2->pSoldier->ubProfile ].records.usAssistsMilitia++;
+						else
+							gMercProfiles[ pAssister2->pSoldier->ubProfile ].records.usAssistsOthers++;
+					}
+					else
+					{
+						gMercProfiles[ pAssister2->pSoldier->ubProfile ].records.usAssistsOthers++;
+					}
+					/////////////////////////////////////////////////////////////////////////////////////
 					// EXPERIENCE CLASS GAIN:	Earned an assist
 					StatChange( pAssister2->pSoldier, EXPERAMT, ( UINT16 )( 5 * pTarget->pSoldier->pathing.bLevel ), FALSE );
 				}
@@ -4396,6 +4799,15 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 			return;
 		#endif
 	}
+	///////////////////////////////////////////////////////////////
+	// SANDRO - added the insta-healable value for doctor trait
+	else if ((IS_MERC_BODY_TYPE( pTarget->pSoldier ) || IS_CIV_BODY_TYPE( pTarget->pSoldier )) && ( gGameOptions.fNewTraitSystem ))
+	{
+		pTarget->pSoldier->iHealableInjury += ((pTarget->pSoldier->stats.bLife - iNewLife) * 100);
+		if (pTarget->pSoldier->iHealableInjury > ((pTarget->pSoldier->stats.bLifeMax - pTarget->pSoldier->stats.bLife) * 100))
+			pTarget->pSoldier->iHealableInjury = ((pTarget->pSoldier->stats.bLifeMax - pTarget->pSoldier->stats.bLife) * 100);
+	}
+	///////////////////////////////////////////////////////////////
 	//Adjust the soldiers stats based on the damage.
 	pTarget->pSoldier->stats.bLife = (INT8)max( iNewLife, 0 );
 	if( pTarget->uiFlags & CELL_MERC && gpAR->pRobotCell)
@@ -4409,6 +4821,10 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 		pTarget->pSoldier->bBleeding = (INT8)(pTarget->pSoldier->stats.bLifeMax - pTarget->pSoldier->stats.bLife);
 	if( !pTarget->pSoldier->stats.bLife )
 	{
+		// SANDRO - added check to erase insta-healable amount of HPs if dead
+		if (pTarget->pSoldier->iHealableInjury > 0)
+		{ pTarget->pSoldier->iHealableInjury = 0; } 
+
 		gpAR->fRenderAutoResolve = TRUE;
 		if( pTarget->uiFlags & CELL_MERC )
 		{
@@ -4504,6 +4920,7 @@ BOOLEAN IsBattleOver()
 				{
 					gpMercs[ i ].pSoldier->DoMercBattleSound( BATTLE_SOUND_DIE1 );
 					gpMercs[ i ].pSoldier->stats.bLife = 0;
+					gpMercs[ i ].pSoldier->iHealableInjury = 0; // added by SANDRO
 					gpAR->ubAliveMercs--;
 				}
 			}

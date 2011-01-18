@@ -63,7 +63,7 @@ void HandleInterfaceMessageForContinuingTrainingMilitia( SOLDIERTYPE *pSoldier )
 void HandleMilitiaStatusInCurrentMapBeforeLoadingNewMap( void );
 
 // is there a town with militia here or nearby?
-BOOLEAN CanNearbyMilitiaScoutThisSector( INT16 sSectorX, INT16 sSectorY );
+BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN fScoutTraitCheck ); // changed - SANDRO
 
 // is the town militia full?
 BOOLEAN IsTownFullMilitia( INT8 bTownId, INT8 iMilitiaType );

@@ -2,7 +2,7 @@
 #define __AIM_H
 
 #include "Cursors.h"
-
+#include "Soldier Profile.h"
 
 //
 // AIM defines
@@ -12,8 +12,32 @@
 #define	AIMHISTORYFILE		"BINARYDATA\\AimHist.edt"
 #define AIM_HISTORY_LINE_SIZE 400 * 2
 
-#define		MAX_NUMBER_MERCS							40
-extern UINT8			AimMercArray[ MAX_NUMBER_MERCS ];
+//#define		MAX_NUMBER_MERCS							40
+
+extern UINT8 MAX_NUMBER_MERCS;
+
+extern UINT8			AimMercArray[ NUM_PROFILES ];//MAX_NUMBER_MERCS ];
+
+typedef struct
+{
+	UINT8   ubAimArrayID;
+	UINT8   uiIndex;
+	UINT8   ProfilId;
+	UINT8   AimBio;
+	
+}	AIM_AVAILABLE;
+
+typedef struct
+{
+	UINT8   ubAimArrayID;
+	UINT8   uiIndex;
+	UINT8   ProfilId;
+	UINT8   AimBio;
+	
+}	AIM_AVAILABLE_TEMP;
+
+extern AIM_AVAILABLE_TEMP gAimAvailabilityTemp[ NUM_PROFILES ];
+extern AIM_AVAILABLE gAimAvailability[ NUM_PROFILES ];
 
 #define		NUM_AIM_SCREENS								6
 
@@ -33,6 +57,13 @@ extern UINT8			AimMercArray[ MAX_NUMBER_MERCS ];
 #define			AIM_SYMBOL_Y								IMAGE_OFFSET_Y + 3
 #define			AIM_SYMBOL_WIDTH						203
 #define			AIM_SYMBOL_HEIGHT						51
+
+//tais: small logo for nsgi
+#define			AIM_SYMBOL_SMALL_X						IMAGE_OFFSET_X + 3
+#define			AIM_SYMBOL_SMALL_Y						IMAGE_OFFSET_Y + 3
+#define			AIM_SYMBOL_SMALL_WIDTH					102
+#define			AIM_SYMBOL_SMALL_HEIGHT					26
+
 
 // RustBackGround
 #define			RUSTBACKGROUND_SIZE_X				125

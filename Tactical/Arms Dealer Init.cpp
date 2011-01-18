@@ -16,6 +16,7 @@
 	#include "Handle Items.h"
 	#include "Quests.h"
 	#include "Scheduling.h"
+	#include "GameSettings.h"
 #endif
 
 #include <list>
@@ -92,6 +93,9 @@ void		LimitArmsDealersInventory( UINT8 ubArmsDealer, UINT32 uDealerItemType, UIN
 void		GuaranteeAtLeastOneItemOfType( UINT8 ubArmsDealer, UINT32 uiDealerItemType );
 void		GuaranteeAtLeastXItemsOfIndex( UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubHowMany );
 
+void		GuaranteeAtMostNumOfItemsForItem( UINT8 ubArmsDealer, INT16 sItemIndex, UINT8 ubAtMostNumItems );
+
+
 void		ArmsDealerGetsFreshStock( UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubNumItems );
 BOOLEAN ItemContainsLiquid( UINT16 usItemIndex );
 UINT8		DetermineDealerItemCondition( UINT8 ubArmsDealer, UINT16 usItemIndex );
@@ -147,7 +151,6 @@ void InitAllArmsDealers()
 	UINT8		ubArmsDealer;
 
 	ShutDownArmsDealers();
-
 	//Initialize the initial status & inventory for each of the arms dealers
 	for( ubArmsDealer = 0; ubArmsDealer < NUM_ARMS_DEALERS; ubArmsDealer++ )
 	{
@@ -1271,7 +1274,7 @@ BOOLEAN ItemContainsLiquid( UINT16 usItemIndex )
 bool ItemIsSpecial(DEALER_SPECIAL_ITEM& item)
 {
 	for (int x = 0; x < item.object.ubNumberOfObjects; ++x) {
-		if (item.object[x]->attachments.empty() == false) {
+		if (item.object[x]->AttachmentListSize() > 0) {
 			//items with attachments are special
 			return true;
 		}
@@ -1347,11 +1350,16 @@ void AddObjectToArmsDealerInventory( UINT8 ubArmsDealer, OBJECTTYPE *pObject )
 		for (attachmentList::iterator iter = seperateObject[0]->attachments.begin(); iter != seperateObject[0]->attachments.end();) {
 			// ARM: Note: this is only used for selling, not repairs, so attachmentes are seperated when sold to a dealer
 			// If the attachment is detachable
-			if (! (Item[ iter->usItem ].inseparable	) )
+			if (! (Item[ iter->usItem ].inseparable	) && iter->exists())
 			{
 				// add this particular attachment (they can't be imprinted, or themselves have attachments!)
 				AddObjectToArmsDealerInventory( ubArmsDealer, &(*iter) );
-				iter = pData->attachments.erase(iter);
+				
+				iter = pData->RemoveAttachmentAtIter(iter);
+					
+				if(UsingNewAttachmentSystem()==true)
+					++iter;
+
 				if (iter == pData->attachments.end()) {
 					break;
 				}
@@ -1494,7 +1502,7 @@ void AddItemToArmsDealerInventory( UINT8 ubArmsDealer, OBJECTTYPE& object )
 {
 	//we can only add items to a stack if the item has no attachments (not even default)
 	//and if it is either perfect or ammo (and same amount of ammo)
-	if (object[0]->attachments.empty() == true &&
+	if (/*object[0]->attachments.empty() == true*/ object[0]->AttachmentListSize() &&
 		(object[0]->data.objectStatus == 100 || Item [ object.usItem ].usItemClass == IC_AMMO)) {
 
 		//first find existing items with same perfect status, if found add to that, else create new one
@@ -1832,7 +1840,7 @@ UINT32 CalculateObjectItemRepairTime( UINT8 ubArmsDealer, OBJECTTYPE *pItemObjec
 		// add time to repair any attachments on it
 		for (attachmentList::iterator iter = (*pItemObject)[x]->attachments.begin(); iter != (*pItemObject)[x]->attachments.end(); ++iter) {
 			// if damaged and repairable
-			if ( ( (*iter)[x]->data.objectStatus < 100 ) && CanDealerRepairItem( ubArmsDealer, iter->usItem ) )
+			if ( ( (*iter)[x]->data.objectStatus < 100 ) && CanDealerRepairItem( ubArmsDealer, iter->usItem ) && iter->exists())
 			{
 				//uiRepairTime += CalculateSimpleItemRepairTime( ubArmsDealer, iter->usItem, (*iter)[x]->data.objectStatus );
 				uiRepairTime += CalculateObjectItemRepairTime( ubArmsDealer, &(*iter) );
@@ -1890,7 +1898,7 @@ UINT32 CalculateObjectItemRepairCost( UINT8 ubArmsDealer, OBJECTTYPE *pItemObjec
 		// add cost of repairing any attachments on it
 		for (attachmentList::iterator iter = (*pItemObject)[x]->attachments.begin(); iter != (*pItemObject)[x]->attachments.end(); ++iter) {
 			// if damaged and repairable
-			if ( ( (*iter)[x]->data.objectStatus < 100 ) && CanDealerRepairItem( ubArmsDealer, iter->usItem ) )
+			if ( ( (*iter)[x]->data.objectStatus < 100 ) && CanDealerRepairItem( ubArmsDealer, iter->usItem ) && iter->exists())
 			{
 				uiRepairCost += CalculateObjectItemRepairCost( ubArmsDealer, &(*iter));
 			}
@@ -2264,4 +2272,26 @@ UINT32 CalculateMinutesClosedBetween( UINT8 ubArmsDealer, UINT32 uiStartTime, UI
 	}
 
 	return ( uiMinutesClosed );
+}
+
+void GuaranteeAtMostNumOfItemsForItem( UINT8 ubArmsDealer, INT16 sItemIndex, UINT8 ubAtMostNumItems )
+{
+
+	if( gArmsDealerStatus[ ubArmsDealer ].fOutOfBusiness )
+		return;
+
+	//ADB, ya, a whole 1 line of extra code!
+	// not permitted for repair dealers - would take extra code to avoid counting items under repair!
+	//Assert( !DoesDealerDoRepairs( ubArmsDealer ) );
+	int itemsIHave = 0;
+	for (DealerItemList::iterator iter = gArmsDealersInventory[ ubArmsDealer ].begin();
+		iter != gArmsDealersInventory[ ubArmsDealer ].end(); ++iter) {
+		if (iter->ItemIsInInventory() == true
+			&& iter->object.usItem == sItemIndex
+			&& iter->IsUnderRepair() == false) {
+			itemsIHave -= iter->object.ubNumberOfObjects;
+			//if there are any of these in stock
+
+		}
+	}
 }
