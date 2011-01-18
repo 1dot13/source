@@ -3888,13 +3888,13 @@ STR16		zOptionsToggleText[] =
 	L"Rozszerzone Okno Opisu (EDB)",	//Enhanced Description Box
 	L"Wymuœ tryb turowy",					// add forced turn mode
 	L"Stat Progress Bars",					// Show progress towards stat increase		// TODO.Translate
-	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.	// TODO.Translate
 	L"Alternate Strategy-Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate bullet graphics",			// Show alternate bullet graphics (tracers) // TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG OPTIONS--",					// an example options screen options header (pure text)
+	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.	// TODO.Translate
 	L"Reset ALL game options",				// failsafe show/hide option to reset all options
 	L"Do you really want to reset?",		// a do once and reset self option (button like effect)
 	L"Debug Options in other builds",		// allow debugging in release or mapeditor
@@ -3989,13 +3989,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeœli W£¥CZONE, rozszerzone opisy bêd¹ pokazane dla przedmiotów i broni.",
 	L"Jeœli W£¥CZONE i wróg jest obecny, \ntryb turowy jest w³¹czony, \ndopóki sektor nie zostanie oczyszczony (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
 	L"Gdy W£¥CZONE, pokazuje postêp w doœwiadczeniu postaci.",
-	L"|H|A|M |4 |D|e|b|u|g: When ON, will report the distance each bullet deviates from the\ncenter of the target, taking all NCTH factors into account.",
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"Gdy W£¥CZONE, zastêpuje star¹ animacjê pocisku now¹.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Wymuœ wszystkie oczekiwane dostawy od Bobby Ray's.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",			// an example options screen options header (pure text)
+	L"|H|A|M |4 |D|e|b|u|g: When ON, will report the distance each bullet deviates from the\ncenter of the target, taking all NCTH factors into account.",
 	L"Kliknij by naprawiæ b³êdy w ustawieniach gry.",							// failsafe show/hide option to reset all options
 	L"Kliknij by naprawiæ b³êdy w ustawieniach gry.",							// a do once and reset self option (button like effect)
 	L"Udostêpnia tryb debugowania w edytorze map oraz wersji koñcowej.",				// allow debugging in release or mapeditor
@@ -5089,10 +5089,10 @@ STR16 MPClientMessage[] =
 
 STR16 gszMPEdgesText[] =
 {
-	L"Pn", - Pó³noc
-	L"Pd", - Po³udnie
-	L"W", - Wschód
-	L"Z", - Zachód
+	L"Pn", //- Pó³noc
+	L"Pd", //- Po³udnie
+	L"W", //- Wschód
+	L"Z", //- Zachód
 	L"C",   // "C" - Centralny
 };
 

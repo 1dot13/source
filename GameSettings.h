@@ -61,8 +61,7 @@ enum
 	// HEADROCK HAM 3.6:
 	TOPTION_STAT_PROGRESS_BARS,
 
-	// HEADROCK HAM 4:
-	TOPTION_REPORT_MISS_MARGIN,
+	
 
 	// HEADROCK HAM 4:
 	TOPTION_ALT_MAP_COLOR,
@@ -75,6 +74,10 @@ enum
 	TOPTION_FORCE_BOBBY_RAY_SHIPMENTS,			// force all pending Bobby Ray shipments
 	TOPTION_CHEAT_MODE_OPTIONS_END,
 	TOPTION_DEBUG_MODE_OPTIONS_HEADER,			// an example options screen options header (pure text)                                                         
+	
+	// HEADROCK HAM 4:
+	TOPTION_REPORT_MISS_MARGIN,
+	
 	TOPTION_SHOW_RESET_ALL_OPTIONS,				// failsafe show/hide option to reset all options 
 	TOPTION_RESET_ALL_OPTIONS,					// a do once and reset self option (button like effect)                                                         
 	TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE,	// allow debug options that were set in debug.exe to continue in a rel.exe (debugging release can be beneficial)

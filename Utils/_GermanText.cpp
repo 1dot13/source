@@ -3692,67 +3692,6 @@ STR16 gzCopyrightText[] =
 	L"Copyright (C) 1999 Sir-tech Canada Ltd. Alle Rechte vorbehalten.", //
 };
 
-/* // WANNE: not used yet, because the texts are too long!
-//option Text
-STR16 zOptionsToggleText[] = 
-{
-	L"Sound: Sprache",
-	L"Sound: Stumme Bestätigungen",
-	L"Info: Untertitel",
-	L"Spiel: Dialoge Pause",
-	L"Grafik: Rauch animieren", 
-	L"Grafik: Blut zeigen",
-	L"Input: Meinen Cursor nicht bewegen!",
-	L"Input: Alte Auswahlmethode",
-	L"Grafik: Weg vorzeichnen",
-	L"Spiel: Fehlschüsse anzeigen",
-	L"Spiel: Bestätigung bei Echtzeit",
-	L"Info: Schlaf-/Wachmeldung anzeigen", 
-	L"Info: Metrisches System benutzen",
-	L"Grafik: Boden beleuchten",
-	L"Input: Cursor autom. auf Söldner",
-	L"Input: Cursor autom. auf Türen",
-	L"Grafik: Gegenstände leuchten",
-	L"Grafik: Baumkronen zeigen",
-	L"Grafik: Drahtgitter zeigen",
-	L"Grafik: 3D Cursor zeigen",
-	L"Spiel: Trefferchance anzeigen",
-	L"Spiel: GL Burst mit Burst Cursor",
-	L"Info: Gegner-Spott aktiveren",		// Changed from "Enemies Drop all Items" - SANDRO
-	L"Spiel: Hohe Granatwerferflugbahn",
-	L"Spiel: Echtzeit-Schleichen aktivieren",	// Changed from "Restrict extra Aim Levels" - SANDRO
-	L"Input: Nächste Gruppe selektieren",
-	L"Grafik: Gegenstände mit Schatten",
-	L"Info: Waffenreichweite in Felder",
-	L"Grafik: Leuchtspur für Einzelschüsse",
-	L"Sound: Regengeräusche",
-	L"Spiel: Krähen erlauben",
-	L"Info: Tooltips über Gegner",
-	L"Spiel: Automatisch speichern",
-	L"Sound: Stummer Skyrider",
-	L"Grafik: Niedrige CPU Belastung",
-	L"Info: Erw. Gegenstandsinfo (EDB)",
-	L"Spiel: Erzwungener Runden-Modus",			// add forced turn mode
-	L"Info: Status Trainingsfortschritt",					// Show progress towards stat increase
-	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.	// TODO.Translate
-	L"Alternatives Kartenfarbschema",		// Change color scheme of Strategic Map
-	L"Alternative Projektilgrafik",			// Show alternate bullet graphics (tracers)
-	L"--Cheat Mode Optionen--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
-	L"Erzwinge Bobby Ray Lieferungen",			// force all pending Bobby Ray shipments
-	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
-	L"--DEBUG OPTIONEN--",					// an example options screen options header (pure text)
-	L"ALLE Einstellungen zurücksetzen",		// failsafe show/hide option to reset all options
-	L"Wollen Sie wirklich zurücksetzen?", 		// a do once and reset self option (button like effect)
-	L"DEBUG Options in other builds",		// allow debugging in release or mapeditor
-	L"DEBUG Render Option group",			// an example option that will show/hide other options
-	L"Render Mouse Regions",				// an example of a DEBUG build option
-	L"-----------------",					// an example options screen options divider (pure text)
-
-	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
-	L"THE_LAST_OPTION",
-};
-*/
-
 //option Text
 STR16 zOptionsToggleText[] = 
 {
@@ -3793,15 +3732,17 @@ STR16 zOptionsToggleText[] =
 	L"Niedrige CPU Belastung",
 	L"Erw. Gegenstandsinfo (EDB)",
 	L"Erzwungener Runden-Modus",			// add forced turn mode
-	L"Status Trainingsfortschritt",					// Show progress towards stat increase
+	L"Status Trainingsfortschritt",			// Show progress towards stat increase
+	L"Alternatives Kartenfarbschema",		// Change color scheme of Strategic Map
 	L"Alternative Projektilgrafik",			// Show alternate bullet graphics (tracers)
-	L"--Cheat Mode Optionen--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
-	L"Erzwinge BR Lieferungen",			// force all pending Bobby Ray shipments
+	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
+	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
-	L"--DEBUG OPTIONEN--",					// an example options screen options header (pure text)
-	L"ALLE Einstellungen rücksetzen",		// failsafe show/hide option to reset all options
-	L"Wollen Sie wirklich rücksetzen?", 		// a do once and reset self option (button like effect)
-	L"DEBUG Options in other builds",		// allow debugging in release or mapeditor
+	L"--DEBUG OPTIONS--",					// an example options screen options header (pure text)
+	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.
+	L"Reset ALL game options",				// failsafe show/hide option to reset all options
+	L"Do you really want to reset?",		// a do once and reset self option (button like effect)
+	L"Debug Options in other builds",		// allow debugging in release or mapeditor
 	L"DEBUG Render Option group",			// an example option that will show/hide other options
 	L"Render Mouse Regions",				// an example of a DEBUG build option
 	L"-----------------",					// an example options screen options divider (pure text)
@@ -3893,13 +3834,13 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden erweiterte Beschreibungen und Werte zu den Waffen und Gegenständen angezeigt.",
 	L"Wenn diese Funktion aktiviert ist und noch Gegner im Sektor sind, bleibt das Spiel im Runden-Modus, bis alle Feinde tot sind (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",
 	L"Wenn diese Funktion aktiviert ist, werden die Söldnerwerte visuell mit ihrem Trainingsfortschritt unterlegt.",
-	L"|H|A|M |4 |D|e|b|u|g: Wenn diese Funktion aktiviert ist, wird der Abstand den jede die Kugel vom Zielmittelpunkt abweicht, unter Berücksichtigung aller CTH-Faktoren, ausgegeben.",
 	L"Wenn diese Funktion aktiviert ist, wird die Strategische Karte entsprechend Ihres Erkundungsfortschrittes unterschiedlich eingefärbt.",
 	L"Wenn diese Funktion aktiviert ist, werden geschossene Projektile visuell mit Tracereffekten dargestellt.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",			// an example options screen options header (pure text)
+	L"|H|A|M |4 |D|e|b|u|g: Wenn diese Funktion aktiviert ist, wird der Abstand den jede die Kugel vom Zielmittelpunkt abweicht, unter Berücksichtigung aller CTH-Faktoren, ausgegeben.",
 	L"Hier klicken, um fehlerhafte Optionseinstellungen zu beheben.",	// failsafe show/hide option to reset all options
 	L"Hier klicken, um fehlerhafte Optionseinstellungen zu beheben.",	// a do once and reset self option (button like effect)
 	L"Allows debug options in release or mapeditor builds",				// allow debugging in release or mapeditor

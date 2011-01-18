@@ -3875,13 +3875,13 @@ STR16		zOptionsToggleText[] =
 	L"Подробное описание предметов",		//Enhanced Description Box
 	L"Только пошаговый режим",				// add forced turn mode
 	L"Подсветить навык к повышению",		//Stat Progress Bars	// Show progress towards stat increase
-	L"Сообщать координаты промахов",		//Report Miss Offsets			// Screen messages showing amount and direction of shot deviation.	// TODO.Translate
 	L"Новая расцветка стратег. карты",	//Alternate Strategy-Map Colors //Change color scheme of Strategic Map
 	L"Заметная летящая пуля",				// Show alternate bullet graphics (tracers)
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--Настройки отладочной версии--",		// an example options screen options header (pure text)
+	L"Сообщать координаты промахов",		//Report Miss Offsets			// Screen messages showing amount and direction of shot deviation.	// TODO.Translate
 	L"Сброс всех игровых настроек",			// failsafe show/hide option to reset all options
 	L"В самом деле хотите этого?",			// a do once and reset self option (button like effect)
 	L"Отладочные настройки везде",			//Debug Options in other builds		// allow debugging in release or mapeditor
@@ -3976,13 +3976,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, будет задействовано\nподробное описание предметов.",
 	L"Если включено и в секторе присутствует враг, \nпошаговый режим будет задействован \nдо полной зачистки сектора (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).", // add forced turn mode
 	L"Если включено, навык, \nкоторый вскоре повысится будет подсвечен.",
-	L"|H|A|M |4 |D|e|b|u|g: When ON, will report the distance each bullet deviates from the\ncenter of the target, taking all NCTH factors into account.",
 	L"Если включено, стратегическая карта будет окрашена \nразными цветами, основываясь на информации разведки.",	//When ON, the Strategic Map will be colored differently based on exploration.
 	L"Если включено, летящая пуля будет более заметной.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Если включено, \nзаказанный груз у Бобби Рэя \nприбудет немедленно.",	//Force all pending Bobby Ray shipments
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",	// an example options screen options header (pure text)
+	L"|H|A|M |4 |D|e|b|u|g: When ON, will report the distance each bullet deviates from the\ncenter of the target, taking all NCTH factors into account.",
 	L"Если включить, \nповреждённые игровые настройки будут восстановлены.",	// failsafe show/hide option to reset all options
 	L"Отметьте строку для подтверждения сброса игровых настроек.",	// a do once and reset self option (button like effect)
 	L"Если включено, \nотладочные настройки будут доступны как в игре, \nтак и в редакторе карт.",	// Allows debug options in release or mapeditor builds
