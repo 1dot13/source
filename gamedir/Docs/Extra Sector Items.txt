@@ -1,0 +1,56 @@
+This is an old 1.13 Feature which seems to be hidden for Modders long time.
+This feature has been reworked by Headrock
+
+-------------------------
+XML filename format:
+-------------------------
+
+\tabledata\Map\[SectorGrid]_[ZLevel]_ExtraItems_[DifficultyName].xml
+
+Examples:
+\TableData\Map\A9_0_ExtraItems_Novice.xml	-> for entering the A9 surface sector (Omerta) when playing novice difficulty.
+\TableData\Map\D13_1_ExtraItems_Expert.xml	-> for entering the first level of the Drassen Mine on Expert difficulty.
+
+The following "DifficultyNames" are valid:
+
+- Novice
+- Experienced
+- Expert
+- Insane
+
+
+-------------------------
+XML content format:
+-------------------------
+
+<ExtraItems>
+   <Item>
+      <uiIndex>#</uiIndex>
+      <quantity>#</quantity>
+      <condition>#</condition>
+      <gridno>#</gridno>
+      <visible>#</visible>
+   </Item>
+</ExtraItems>
+
+
+-------------------------
+XML notes:
+-------------------------
+
+- For clarity, uiIndex should always come first. However, I've set it so that the position of uiIndex
+  in the list is not relevant (so long as it exists). Most XMLs work that way, and I think that's fine. 
+- All other tags can come in any order. 
+- Quantity can be set to any number, but will only create an item (or more) if above 0. 
+  Quantity of 0 or less will not crash the game, it simply won't create items. 
+  If this tag is completely omitted, the game will create one item by default.
+- Condition can be set to 1-100. If it is set outside these values, the item will not be created 
+  (the game won't crash). If this tag is completely omitted, the item will have 100 condition. 
+- Gridno can be set to any positive number, including 0. However, if it is out of bounds, 
+  the game will generate a screen message that it could not place the item, but will not crash the game. 
+  Obviously, there is no rational default for this tag, so it must always be included. 
+- Visible can be set to 0 or 1. When 1, will create an item that is visible from the moment you enter the map. 
+  Otherwise, a merc must spot the item by simple sight, like all other items on the map. 
+  If this tag is omitted, the item is created with 0 visibility by default (must be spotted). 
+
+

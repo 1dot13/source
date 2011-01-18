@@ -1,0 +1,16 @@
+Per default, merging (overwriting existing property values + adding missing ones) of INI files is disabled.
+BUt you can enable it for specific INI files inside your ja2.ini.
+
+Just put the property "MERGE_INI_FILES" in your ja2.ini.
+
+For example, if you want to enable merging for the files "Ja2_Options.ini" and "Ja2Settings.ini" just enter
+the following line in your ja2.ini file:
+
+MERGE_INI_FILES = Ja2_Options.ini, Ja2Settings.ini
+
+Now you can put your custom Ja2_Options.ini and Ja2Settings.ini inside your
+"Profiles\UserProfile_JA2113" folder. Please note, you only need to put the custom properties (that differ from the base 1.13 INI) plus the section name
+inside your custom INI-Files. That's all.
+
+
+

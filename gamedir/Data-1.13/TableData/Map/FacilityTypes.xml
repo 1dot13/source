@@ -288,4 +288,23 @@
 		<ubMilitiaTrainersAllowed>2</ubMilitiaTrainersAllowed>
 		<ubMobileMilitiaTrainersAllowed>2</ubMobileMilitiaTrainersAllowed>
 	</FACILITYTYPE>
+	
+	<FACILITYTYPE> 
+		<ubIndex>19</ubIndex>  
+		<szFacilityName>Combat Support Hospital</szFacilityName>  
+		<szFacilityShortName>Camp Hospital</szFacilityShortName>  
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>  
+		<ASSIGNMENT> 
+			<ubAssignmentType>DOCTOR</ubAssignmentType>  
+			<szTooltipText>Perform urgent life-saving treatment on your wounded men in field conditions. Increases the DOCTOR's efficiency.</szTooltipText>  
+			<ubStaffLimit>2</ubStaffLimit>  
+			<usPerformance>200</usPerformance>  
+			<usKitDegrade>40</usKitDegrade>  
+			<CONDITIONS> 
+				<ubMinimumMedical>60</ubMinimumMedical>  
+				<ubMinimumWisdom>60</ubMinimumWisdom>  
+			</CONDITIONS> 
+		</ASSIGNMENT> 
+	</FACILITYTYPE>
+	
 </FACILITYTYPES>

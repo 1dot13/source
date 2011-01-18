@@ -35,6 +35,11 @@
 		<FacilityType>2</FacilityType>
 		<ubHidden>1</ubHidden>
 	</FACILITY>
+	<FACILITY> 
+		<SectorGrid>C13</SectorGrid>   
+		<FacilityType>19</FacilityType>  
+		<ubHidden>1</ubHidden>  
+	</FACILITY>
 	<FACILITY>
 		<SectorGrid>D13</SectorGrid>
 		<FacilityType>18</FacilityType>
@@ -64,6 +69,11 @@
 	</FACILITY>
 	<FACILITY>
 		<SectorGrid>H13</SectorGrid>
+		<FacilityType>8</FacilityType>
+		<ubHidden>1</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>H13</SectorGrid>
 		<FacilityType>18</FacilityType>
 		<ubHidden>2</ubHidden>
 	</FACILITY>
@@ -89,15 +99,35 @@
 	</FACILITY>
 	<FACILITY>
 		<SectorGrid>I14</SectorGrid>
+		<FacilityType>11</FacilityType>
+		<ubHidden>0</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>I14</SectorGrid>
 		<FacilityType>18</FacilityType>
 		<ubHidden>2</ubHidden>
 	</FACILITY>
 
 	<!-- SAN MONA -->
 	<FACILITY>
+		<SectorGrid>C5</SectorGrid>
+		<FacilityType>2</FacilityType>
+		<ubHidden>1</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>C6</SectorGrid>
+		<FacilityType>2</FacilityType>
+		<ubHidden>1</ubHidden>
+	</FACILITY>
+	<FACILITY>
 		<SectorGrid>D4</SectorGrid>
 		<FacilityType>11</FacilityType>
 		<ubHidden>0</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>D5</SectorGrid>
+		<FacilityType>2</FacilityType>
+		<ubHidden>1</ubHidden>
 	</FACILITY>
 	<FACILITY>
 		<SectorGrid>D5</SectorGrid>
@@ -121,7 +151,11 @@
 		<FacilityType>9</FacilityType>
 		<ubHidden>1</ubHidden>
 	</FACILITY>
-
+	<FACILITY>
+		<SectorGrid>B2</SectorGrid>
+		<FacilityType>11</FacilityType>
+		<ubHidden>0</ubHidden>
+	</FACILITY>
 	<FACILITY>
 		<SectorGrid>D2</SectorGrid>
 		<FacilityType>10</FacilityType>
@@ -160,11 +194,20 @@
 		<ubHidden>1</ubHidden>
 	</FACILITY>
 	<FACILITY>
+		<SectorGrid>G9</SectorGrid>
+		<FacilityType>18</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
 		<SectorGrid>H8</SectorGrid>
 		<FacilityType>11</FacilityType>
 		<ubHidden>0</ubHidden>
 	</FACILITY>
-
+	<FACILITY>
+		<SectorGrid>H8</SectorGrid>
+		<FacilityType>18</FacilityType>
+		<ubHidden>2</ubHidden>
+	</FACILITY>
 	<FACILITY>
 		<SectorGrid>I8</SectorGrid>
 		<FacilityType>10</FacilityType>
@@ -173,7 +216,7 @@
 
 	<!-- ESTONI -->
 	<FACILITY>
-		<SectorGrid>D13</SectorGrid>
+		<SectorGrid>I6</SectorGrid>
 		<FacilityType>16</FacilityType>
 		<ubHidden>1</ubHidden>
 	</FACILITY>
@@ -246,7 +289,7 @@
 	<FACILITY>
 		<SectorGrid>L12</SectorGrid>
 		<FacilityType>14</FacilityType>
-		<ubHidden>2</ubHidden>
+		<ubHidden>1</ubHidden>
 	</FACILITY>
 
 	<!-- ORTA -->

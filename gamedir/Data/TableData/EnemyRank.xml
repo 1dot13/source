@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+szRank - name of rank
+ExpLevel - Expert Level (1 - 9)
+Enabled - show/hide rank
+-->
+<ENEMY_RANK>
+  <RANK>
+	<uiIndex>1</uiIndex>
+	<Enabled>1</Enabled>
+	<ExpLevel>1</ExpLevel>
+    <szRank>Recruit</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>2</uiIndex>
+	<Enabled>1</Enabled>
+	<ExpLevel>2</ExpLevel>
+    <szRank>Private</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>3</uiIndex>
+	<Enabled>1</Enabled>
+	<ExpLevel>3</ExpLevel>
+    <szRank>Corporal</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>4</uiIndex>
+	<Enabled>1</Enabled>
+	<ExpLevel>4</ExpLevel>
+    <szRank>Specialist</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>5</uiIndex>
+	<Enabled>1</Enabled>
+	<ExpLevel>5</ExpLevel>
+    <szRank>Sergeant</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>6</uiIndex>
+	<Enabled>1</Enabled>
+	<ExpLevel>6</ExpLevel>
+    <szRank>Lieutenant</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>7</uiIndex>
+	<Enabled>1</Enabled>
+	<ExpLevel>7</ExpLevel>
+    <szRank>Captain</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>8</uiIndex>
+	<Enabled>1</Enabled>
+	<ExpLevel>8</ExpLevel>
+    <szRank>Major</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>9</uiIndex>
+	<Enabled>1</Enabled>
+	<ExpLevel>9</ExpLevel>
+    <szRank>Colonel</szRank>
+  </RANK>
+</ENEMY_RANK>

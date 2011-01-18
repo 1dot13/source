@@ -1,0 +1,398 @@
+##################### General Information #####################
+
+NAS is short for the New Attachment System.
+The aim of NAS is to grant more freedom with attachments, keeping everything externalized.
+
+In short, what NAS offers:
+
+    * More attachments (or less, if the modder decides to)
+    * A more intuitive way of displaying attachments around the item.
+    * A new way of determining wether attachments fit or not. However by default all items accept the same attachments as in normal 1.13.
+    * More freedom in general with attachments.
+    * Almost everything is costumizable, even the position of the slots on the screen. (but you need to edit xml)
+    * Many new tooltips concerning attachments.
+    * Enemies may have more attachments, and they have only a small chance to drop them (customizable).
+    * More possible default attachments for weapons.
+    * Attachments can now add and/or remove slots (but merges are still needed to change the caliber of a gun).
+    * Big slots are now possible.
+    * Mag extenders don't have to be permanent attachments anymore (they still are though, but you can easily change it in the items.xml)
+    * You can choose in what attachment system items are available.
+    * Multishot launchers with separate grenades are possible.
+    * Attachment swapping is more intuitive.
+    * The result of merges is now checked for validity.
+    * Default slots for undefined items.
+    * Scopes are more customizable.
+    * The option to use attachments balanced for NAS.
+
+
+NAS will NOT work with the Old Inventory System and it will NOT work in 640*480 mode.
+This is because there just isn't enough space in those cases. 
+If you try you will get a warning and you will not be able to start the game (but nothing should spontaneously combust).
+Also, attachments to LBE gear are no longer possible in NAS.
+
+Bugs should to be reported at the NAS thread at the Bear Pit:
+http://www.ja-galaxy-forum.com/board/ubbthreads.php?ubb=showflat&Number=256358
+
+
+------------------- Ja2_options.ini -------------------
+
+4 new options have been added to the Ja2_options.ini under [Item Property Settings] (the settings need to be in this section or they will not work).
+;------------------------------------------------------------------------------------------------------------------------------
+; This option lets you turn NAS on or off. It can be changed in the middle of a game, but it's not recommended (attachments may disappear if they don't fit the item anymore).
+;------------------------------------------------------------------------------------------------------------------------------
+USE_NEW_ATTACHMENT_SYSTEM = TRUE
+
+;------------------------------------------------------------------------------------------------------------------------------
+; When attachments have not been assigned for NAS, the game can add default slots that differ per item type.
+; It is recommended to play with this set to FALSE when the attachments are assigned properly.
+; This option is best used when playing a XML based mod that does not have the NAS xml fully updated.
+; However when the mod is too different from 1.13, there will be a lot of strange and/or wrong attachments.
+;------------------------------------------------------------------------------------------------------------------------------
+USE_DEFAULT_SLOTS_WHEN_MISSING = FALSE
+
+;------------------------------------------------------------------------------------------------------------------------------
+; The chance in percentages that an attachment will have to drop with the item if an NPC dies.
+; Setting this higher than 20% will unbalance your game unless you change MAX_ENEMY_ATTACHMENTS.
+; Inseperable attachments will always drop. Range: 0 - 100%
+;------------------------------------------------------------------------------------------------------------------------------
+ATTACHMENT_DROP_RATE = 10
+
+
+;------------------------------------------------------------------------------------------------------------------------------
+; The maximum amount of attachments NPC's can get on their gun when they get random equipment.
+; They will usually get less attachments than this value because of randomness. Range: 2 - 30
+;------------------------------------------------------------------------------------------------------------------------------
+MAX_ENEMY_ATTACHMENTS = 6
+
+
+Under [Tactical Gameplay Settings] there are another 3 options:
+
+; From what aiming bonus a scope is considered very high power (Sniper Scope 10x)
+VERY_HIGH_POWER_SCOPE_AIM_THRESHOLD = 18
+
+; From what aiming bonus a scope is considered high power (Battle Scope 7x)
+HIGH_POWER_SCOPE_AIM_THRESHOLD = 13
+
+; From what aiming bonus a scope is considered medium power (ACOG 4x)
+MEDIUM_POWER_SCOPE_AIM_THRESHOLD = 8
+
+
+##################### How to install #####################
+
+1: Get a clean JA2 install
+2: Install the one click installer or checkout from SVN.
+3: Download JA_3547_NAS_0.60b
+4: Extract it into your main JA2 folder.
+5: Report any bugs you find. (this is probably the most important step!)
+
+NAS was built on SVN revision 3547.
+
+
+##################### New Items.xml #####################
+
+Because NAS allows many more attachments to be attached, the main reason that made you consider what attachments to use is now gone.
+You could slap on just about any attachment you wanted to, so a change was needed.
+This change is optional however, because I don't want to force it on anyone. However in my opinion it's needed to restore the balance.
+
+The general idea was to give every attachment a drawback, so that you would at least have to think before you slap just any attachment on your gun.
+
+
+A general list of changes:
+Scopes now have a base CTH penalty and min range was increased. They're now only for long ranges, and will leave you at a disadvantage in CQC.
+
+The combination of a battle scope x7 and the reflex sight is no longer possible for balance reasons.
+
+All silencers now have a small penalty to damage, because the silencer might reduce bullet velocity (and I couldn't think of any other reasonable drawback).
+
+Mag extenders now suffer from a small CTH penalty, due to being heavy, but are now separable from the gun. (otherwise the weight it adds is enough of a drawback)
+
+Lasers and Flashlights now reduce your camo and stealth, because this is the only way I could make you more visable when using them.
+
+Bipods have a penalty to the ready costs, while grippods have only had their penalties decreased. Foregrips have remained unchanged.
+
+Rod & Spring gives a penalty to reliability now. It's just not a very solid construction...
+
+Folding stocks now have a slightly higher To-Hit penalty.
+
+The trigger group no longer adds reliability to your gun, it gives a small CTH penalty.
+
+
+
+##################### Version History #####################
+
+Update 0.61b:
+    * Fixed CTD bug when merging.
+    * Some readme parts weren't updated.
+    * Included new map editor exe, because the old exe didn't know about default attachments, but it's just the latest editor and I've not tested it beyond seeing it it crashed.
+
+Update 0.60b:
+
+    * Moved gun picture a bit to the left to allow 2 slots next to each other on the right.
+    * Fixed game sometimes not knowing about altered slots.
+    * Merged AttachmentSlotAssign.xml and AttachmentSlots.xml (Now there is just AttachmentSlots.xml)
+    * Revamped the adding and removing of slots. 
+      Now you can add slots depending on the attachment ID, and if you want the item class / ID of the item it is attached to.
+      It is no longer dependant on the slot the attachment was in, because this restricted the system.
+      This change means it's now completely possible to add/remove slots in slots that were not originally on the gun.
+    * Fixed a crash when attaching in certain cases.
+    * Fixed grenade not attaching to the gun after adding the slot with the UGL.
+    * Made the amount of aimclicks dependant on wether you are actually using your scope.
+    * Added ini options to determine when a scope is considered "high powered"
+    * Default attachments per item class for items that do not have slots assigned. This can also be turned on or off in the ini.
+    * Fixed a 1.13 bug with reloadable rockets, also made semi-auto rocket launchers possible. Auto rocket launchers are still a problem.
+    * Increased the max amount of default attachments to 20 (by request).
+    * The result of merges is now checked for validity. This also means I had to change the coolness of these items to something that's not 0.
+    * Some general speed/readability improvements for the source that I shall not bother you with.
+
+
+Update 0.503b: (also minor)
+
+    * Added a readme.
+    * Added an optional items.xml with more balanced attachments.
+
+
+Update 0.502b: (even more minor)
+
+    * Fixed attachments possibly showing up multiple times in BR tooltips.
+
+
+Update 0.501b: (minor and should not bother anyone. You don't have to redownload it.)
+
+    * Fixed default ini
+    * fixed shift+f not removing attachments
+    * fixed players being able to start a game with NAS in OIV (which is not supported)
+    * removed svn files from the download archive.
+
+
+Updates in 0.42a:
+
+    * Fixed a crash when trying to attach in certain situations.
+    * Fixed "can't attach" messaging not always doing what I wanted.
+    * Fixed removing prohibited attachments sometimes being weird.
+
+
+Updates in 0.41a:
+
+    * Up to 10 default attachments. (just add the tags more times in items.xml)
+    * Added a listing of default attachments in bobby rays.
+    * Because there can now be more default attachments, they also have the same dropchance other attachments do. (Unless they are inseparable.)
+      This should balance the drops of default attachments a lot.
+    * Fixed a bug when creating items and then initializing them only to re-use them. (yeah whatever)
+    * Made some things more efficient and clear in the source. (but should not be noticed)
+
+
+Updates in 0.40a:
+
+    * More attachment for enemies, and a droprate for attachments in options in the Ja2_Options.ini.
+    * Made attachment swapping much more intuitive for the new system.
+    * Multiple launchables can be attached and fired when you add more slots to a launcher.
+    * Implemented big slots for bigger attachments than average.
+    * Fixed some undesirable behaviour when removing invalid attachments.
+    * Tooltips and warnings involving attachments improved.
+    * Fixed a crash when attaching something to some LBE gears
+
+
+Updates in 0.36a:
+
+    * Improved structure (for better stability later).
+    * Changed the way the game checks for invalid attachments.
+    * Fixed a crash with grenade slots (for real this time).
+
+
+Updates in 0.35a:
+
+    * Fixed savegame compatibility.
+    * Fixed a crash with grenade slots. (hopefully)
+    * Fixed a crash when adding slots through attachments
+
+
+Updates in 0.34a:
+
+    * Fixed slot adding/removing attachments
+    * Made everything more reliable internally (a big change internally, but you shouldn't notice it, the game now doesn't need ewish checks to work.)
+    * Magazine Adapters can now be made detachable safely (in your own items.xml), they still aren't by default though.
+    * Broke your savegame >:D
+    * Fixed a crash when sorting the map inventory, and then trying to sell it
+
+
+Updates in 0.33a:
+
+    * a few important bugfixes
+
+
+Updates in 0.32a:
+
+    * Renamed some things for more clarity
+    * New xml structure for ItemSlotAssign.xml.
+    * Added the possibility to add attachments that can add/remove item slots (people can make stuff like expansion rails now)
+    * Added a neater way of telling the player he can't play with OIV or the lowest resolution.
+    * Fixed some xml entries
+    * Gave underslung grenade launchers their own slot because you can apparently sometimes attach a grip alongside a UGL. This was causing the overlapping slots.
+
+
+Updates in 0.31a:
+
+    * Added all xml entries for *usefull* non-gun attachments
+    * Added all xml entries for combo-merges
+    * Fixed a minor placement issue and placed the default attachment slots elsewhere
+    * Moved from a debug exe to a normal exe. (It's just more practical)
+
+
+Updates in 0.30a:
+
+    * Fixed a few random lockups and crashes.
+    * GL's now work as intended
+    * Added support for ALL gun attachments (including weird ones such as ISM-V-IR)
+
+
+##################### Modders Section #####################
+
+If you want to add a new weapon, here is what you do.
+1: Check if the slot you want exists in AttachmentSlots.xml, if it does, skip to step 3, otherwise you'll have to make a new slot.
+2: Make a slot in AttachmentSlots, following the exmaples in the specific XML explenations under this section.
+3: You can now add the slot to the itemID that you want in ItemSlotAssign.xml
+
+Booleans can be either 0 (false) or 1 (true).
+Some of these attributes will have defaults, meaning if the tags are not found, the default value will be used.
+These tags do not have to be used.
+
+
+------------------- Items.xml -------------------
+
+There are some extra tags in items.xml:
+
+<AttachmentSystem>0</AttachmentSystem>
+1 -> This item is only available with the old attachment system.
+2 -> This item is only available with the new attachment system.
+0 -> This item is available in both modes (default).
+
+<DefaultAttachment>5</DefaultAttachment> This was already in the old items.xml, but it can now be used up to 20 times.
+<DefaultAttachment>6</DefaultAttachment> Like this.
+<DefaultAttachment>2</DefaultAttachment> 
+
+
+------------------- AttachmentSlots.xml -------------------
+
+This xml is used to define the possible slots than can be used in other xml's.
+It needs to be contiguous (e.g. the first block needs to have uiSlotIndex 0, the next one needs to be 1, then 2, etc).
+
+Usable tags:
+<ATTACHMENTSLOTLIST> Start of the xml.
+	<ATTACHMENTSLOT> Start of this slot.
+		<uiSlotIndex>0</uiSlotIndex> This number will be used to identify this slot throughout the other xml's.
+		<czSlotName>I'm an example!</czSlotName> The slot name, it is not (yet) used or read ingame so don't worry too much about it. It's just to more easily identify these slots (really, you'll be doing yourself a favor if you fill in these names).
+		<usDescPanelPosX>0</usDescPanelPosX> This is the position along the X axis relative to the upper left corner of the description box.
+		<usDescPanelPosY>0</usDescPanelPosY> This is the position along the Y axis relative to the upper left corner of the description box.
+		<fLauncherSlot>0</fLauncherSlot> This is a boolean determining wether or not this slot will fit a launchable that suits this weapon. Default is 0.
+		<fBigSlot>0</fBigSlot> Another boolean, this one determines if this is a bigger slot than usual. Default is 0.
+		<fDefaultSlot>0</fDefaultSlot> Boolean, slots with this tag are assigned to items that have no other slots (after other default slots have been applied). Default is 0.
+		<fDefaultPistolSlot>0</fDefaultPistolSlot> Boolean, default slots for pistols without slots. Default is 0.
+		<fDefaultMachinePistolSlot>0</fDefaultMachinePistolSlot> Boolean, default slots for machine pistols without slots. Default is 0.
+		<fDefaultSubMachineGunSlot>0</fDefaultSubMachineGunSlot> Boolean, default slots for SMG's without slots. Default is 0.
+		<fDefaultRifleSlot>0</fDefaultRifleSlot> Boolean, default slots for rifles without slots. Default is 0.
+		<fDefaultSniperRifleSlot>0</fDefaultSniperRifleSlot> Boolean, default slots for sniper rifles without slots. Default is 0.
+		<fDefaultAssaultRifleSlot>0</fDefaultAssaultRifleSlot> Boolean, default slots for assault rifles without slots. Default is 0.
+		<fDefaultLightMachineGunSlot>0</fDefaultLightMachineGunSlot> Boolean, default slots for light machine guns without slots. Default is 0.
+		<fDefaultShotgunSlot>0</fDefaultShotgunSlot> Boolean, default slots for pistols shotguns slots. Default is 0.
+		<fDefaultRocketLauncherSlot>0</fDefaultRocketLauncherSlot> Boolean, default slots for rocket launchers without slots. Default is 0.
+		<fDefaultGrenadeLauncherSlot>0</fDefaultGrenadeLauncherSlot> Boolean, default slots for grenade launchers without slots. Default is 0.
+		<fDefaultMortarSlot>0</fDefaultMortarSlot> Boolean, default slots for mortars without slots. Default is 0.
+		<fDefaultHelmetSlot>0</fDefaultHelmetSlot> Boolean, default slots for helmets without slots. Default is 0.
+		<fDefaultVestSlot>0</fDefaultVestSlot> Boolean, default slots for vests without slots. Default is 0.
+		<fDefaultLeggingsSlot>0</fDefaultLeggingsSlot> Boolean, default slots for leggings without slots. Default is 0.
+		<ATTACHMENTASSIGN> Bind an attachment to this slot.
+			<usAttachmentIndex>0</usAttachmentIndex> The item Index (found in items.xml) of the attachment.
+			<APCost>0</APCost> The AP it costs to attach this item to this slot. (whichever item it's on and ONLY to this slot)
+		</ATTACHMENTASSIGN>
+		<ATTACHMENTASSIGN> You can have as many of these as you like.
+			<usAttachmentIndex>0</usAttachmentIndex>
+			<APCost>0</APCost>
+		</ATTACHMENTASSIGN>
+	</ATTACHMENTSLOT> End of this slot.
+</ATTACHMENTSLOTLIST> End of the xml.
+
+
+------------------- AlteringAttachments.xml -------------------
+
+This xml is used to add or remove slots with attachments. The tags that are there twice means you can add more of them.
+If ubWeaponClass and usItemInclude are both left empty, all items will get their slots changed by addsSlot and removesSlot, unless they are explicitly excluded by usItemExclude.
+If you dont want to use a tag, just don't put it there. Things may go wrong if you add tags with just a 0 and expect them to not do anything.
+
+Usable tags:
+<ALTERINGATTACHMENTLIST>
+	<ALTERINGATTACHMENT>
+		<usAttachmentIndex>902</usAttachmentIndex> This is the ID of the attachment we want to add slots.
+		<ALTERATION>
+			<ubWeaponClass>0</ubWeaponClass> The weapon class of items we want to change the slots of.
+			<ubWeaponClass>0</ubWeaponClass> 
+			<usItemExclude>0</usItemExclude> The item IDs of items we DON'T want to change the slots of.
+			<usItemExclude>0</usItemExclude>
+			<usItemInclude>0</usItemInclude> Items ID of the item we want to change the slots of.
+			<usItemInclude>0</usItemInclude>
+			<addsSlot>0</addsSlot> Slots to add if the above conditions are met.
+			<addsSlot>0</addsSlot>
+			<removesSlot>0</removesSlot> Slots to remove if the above conditions are met.
+			<removesSlot>0</removesSlot>
+		</ALTERATION>
+		<ALTERATION> You can have more effects per attachments, for different items. The game will pick the first valid ALTERATION it finds for the item.
+			<ubWeaponClass>2</ubWeaponClass> This ALTERATION will add slots to items with weaponclass 2 (AR's) or item ID 1, unless they have item ID 500.
+			<usItemExclude>500</usItemExclude>
+			<usItemInclude>1</usItemInclude>
+			<addsSlot>5</addsSlot>
+			<removesSlot>40</removesSlot>
+		</ALTERATION>
+	</ALTERINGATTACHMENT>
+</ALTERINGATTACHMENTLIST>
+
+------------------- ItemSlotAssign.xml -------------------
+
+Assigns slots to items, so that the game knows what slots every item has (and in turn, that will reveal what attachments fit on the item).
+Items that are not defined here, will get 4 default slots in which no attachments will fit, they are just there for merges.
+The order in which items are added does not matter.
+
+Usable tags:
+<ITEMSLOTASSIGNLIST> Start of the xml.
+	<ITEMSLOTASSIGN> Start of this item.
+		<itemIndex>1337</itemIndex> The ID of this item, as defined in items.xml.
+		<itemSlotAssignIndex>3</itemSlotAssignIndex> This refers to uiSlotIndex in AttachmentSlots.xml.
+		<itemSlotAssignIndex>5</itemSlotAssignIndex> It defines that the slot with this index will be available on this item.
+		<itemSlotAssignIndex>7</itemSlotAssignIndex> You can use up to 30 of these tags, right now. (because that is the maximum number of attachments)
+		<itemSlotAssignIndex>4</itemSlotAssignIndex> Nobody cares about the order in which it is done.
+		<itemSlotAssignIndex>8</itemSlotAssignIndex>
+	</ITEMSLOTASSIGN> End of this item.
+	<ITEMSLOTASSIGN> New item.
+		<itemIndex>5</itemIndex>
+		<itemSlotAssignIndex>2</itemSlotAssignIndex>
+	</ITEMSLOTASSIGN>
+</ITEMSLOTASSIGNLIST> End of the xml.
+
+
+------------------- NASIncompatibleAttachments.xml -------------------
+
+Some attachments will prohobit the use of other attachments that go in a different slot. Normally NAS would allow this, because it's another slot.
+This xml is made so that you can prohibit the use of these attachments when a certain attachment is attached (this is very similair to the way the old attachment system worked).
+
+Usable tags:
+<NASINCOMPATIBLEATTACHMENTLIST> Start of the xml (just in case you haven't been paying attention before)
+	<NASINCOMPATIBLEATTACHMENT>
+		<attachmentIndex>20</attachmentIndex> The item ID of the attachment (as defined in items.xml).
+		<incompatibleAttachmentIndex>50</incompatibleAttachmentIndex> The item ID of the attachment that this attachment is incompatible with.
+	</NASINCOMPATIBLEATTACHMENT>
+	<NASINCOMPATIBLEATTACHMENT>
+		<attachmentIndex>20</attachmentIndex>
+		<incompatibleAttachmentIndex>46</incompatibleAttachmentIndex>
+	</NASINCOMPATIBLEATTACHMENT>
+</NASINCOMPATIBLEATTACHMENTLIST> End of the xml.
+
+
+##################### Contact #####################
+
+I can be found at the Bear Pit, at the NAS thread:
+http://www.ja-galaxy-forum.com/board/ubbthreads.php?ubb=showflat&Number=256358
+
+Or I can be pm'd on the Bear Pit forums on WarmSteel.
+
+All NAS files can be found here:
+http://www.mediafire.com/NewAttachmentSystem
+
+Sorry, no email :)

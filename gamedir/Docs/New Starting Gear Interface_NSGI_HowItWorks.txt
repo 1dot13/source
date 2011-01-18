@@ -1,0 +1,110 @@
+                                              
+         ,--.                                 
+       ,--.'|  .--.--.     ,----..      ,---, 
+   ,--,:  : | /  /    '.  /   /   \  ,`--.' | 
+,`--.'`|  ' :|  :  /`. / |   :     : |   :  : 
+|   :  :  | |;  |  |--`  .   |  ;. / :   |  ' 
+:   |   \ | :|  :  ;_    .   ; /--`  |   :  | 
+|   : '  '; | \  \    `. ;   | ;  __ '   '  ; 
+'   ' ;.    ;  `----.   \|   : |.' .'|   |  | 
+|   | | \   |  __ \  \  |.   | '_.' :'   :  ; 
+'   : |  ; .' /  /`--'  /'   ; : \  ||   |  ' 
+|   | '`--'  '--'.     / '   | '/  .''   :  | 
+'   : |        `--'---'  |   :    /  ;   |.'  
+;   |.'                   \   \ .'   '---'    
+'---'                      `---`              
+                                              
+
+New Starting Gear Interface Beta 0.4
+Build from MP Beta Branch Rev. 3582
+Credits for helping: Warmsteel, Headrock and smeagol
+
+Description:
+Purpose of this modification is to make all starting gear items visible in the AIM website, at the
+same time functionality to select up to 5 starting gear kits has been added.
+
+This modification will change the way that the AIM website will look, adjustments have been made to
+the size and position of certain items to create space for the extra items that are displayed.
+
+For testing purposes the MercStartingGear.xml file has some changes, GEARKIT's from Mercs have been
+randomly copied/pasted to act as extra GEARKIT's for other Mercs, the clean file is included in a 7z
+file in the root of the folder.
+The new MercStartingGear.xml file is not compatible with the XML Editor nor is it compatible with the
+vanilla executable!
+
+Included in this release is a new hotkey for in the strategic view, SHIFT+W will make your selected merc drop ALL ITEMS
+instead of just carried items in the case of SHIFT+E
+
+There's also a modification to the way the Merc on assignment system works.
+In Ja2_Options.INI there's a way to set if a Merc can be on assignment at the start of the game, this
+has been upgraded so that there's an option
+that makes Mercs not go on any other assignments than yours during the whole duration of the campaign.
+As default it's set to standard behaviour, so if you don't like it don't edit it.
+The ini setting is placed under category [Recruitment Settings]
+
+;Mercs can be on assignment?
+; 0 = default behaviour, mercs are on assignment at start, mercs go on assignment during campaign
+; 1 = all mercs available at the start of the game, during the campaign they will go on assignment
+; 2 = all mercs at your disposal. nobody goes on any other assignment than yours
+MERCS_CAN_BE_ON_ASSIGNMENT = 0
+
+
+new in 0.4 is the possibility to enable/disable NSGI in Ja2_Options.ini under the category [Graphics Settings]
+NSGI is ofcourse enabled in the ini in this package
+
+;New Starting Gear Interface
+;This will enable the 21 item view in the AIM page and the possibility to select gearkits
+;If set to FALSE, the game will use the original AIM page and 21 item view and gearkit selection are disabled (1st kit is used)
+;If set to TRUE, the game will use the new starting gear interface, this will enable 21 item view and gearkit selection
+USE_NEW_STARTING_GEAR_INTERFACE = TRUE
+
+
+There are no settings for NSGI, it expects an altered MercStartingGear.xml
+where the gear is put into GEARKIT's.
+If only one GEARKIT is defined for a merc no selection buttons will be shown.
+Up to 5 GEARKIT's can be defined per merc, the amount of GEARKIT's can vary per merc.
+More than one GEARKIT will only work for AIM Merc's!!
+Here under a demo of how the new XML looks, this is just for one Merc...
+
+single gearkit, only the mIndex and mName tag stay outside the GEARKIT, everything else goes into the GEARKIT
+<MERCGEARLIST>
+	<MERCGEAR>
+		<mIndex>0</mIndex>
+		<mName>Barry</mName>
+    <GEARKIT>
+      items...
+    </GEARKIT>
+  </MERCGEAR>
+</GEARLIST>
+
+or multiple gearkits
+<MERCGEARLIST>
+	<MERCGEAR>
+		<mIndex>0</mIndex>
+		<mName>Barry</mName>
+    <GEARKIT>
+      items...
+    </GEARKIT>
+    <GEARKIT>
+      items...
+    </GEARKIT>
+    <GEARKIT>
+      items...
+    </GEARKIT>
+    <GEARKIT>
+      items...
+    </GEARKIT>
+    <GEARKIT>
+      items...
+    </GEARKIT>
+  </MERCGEAR>
+</GEARLIST>
+
+compared to the original way
+<MERCGEARLIST>
+	<MERCGEAR>
+		<mIndex>0</mIndex>
+		<mName>Barry</mName>
+    items...
+  </MERCGEAR>
+</GEARLIST>

@@ -1,0 +1,41 @@
+*** A nice face guide by Kazuya ***
+
+Well, two programs, that you certanly need, when you want to seriously work with sti files are STI Edit and GRV.
+you can get them here:
+http://kermi.pp.fi/JA_2/Modding_Tools/
+
+If you want to edit an existing portrait, the best thing would be to open the sti file in STI Edit and export it to bmp. Then you can edit the face with any graphics program and reimport it to sti later.
+Keep in mind that there are different faces for different types of characters.
+Those are the following face files:
+
+The bigface files. Can be found in the ".../data/faces/bigfaces/" folder.
+Their dimensions are 106x122. The files name is a two or three digits number (the slot index number). They are used in the mercenaries overvie screen in the laptop as well as in the AIM and MERC webpage. This file is just one picture with no animations.
+
+The NPC files. Can be found in the ".../data/faces/" folder.
+Their dimensions are 90x100. The files name always starts with a "B" followed by the slot index number. They are used for characters that are either NPC or ingame recruitable characters. They appear whenever you talk to a character in the sector. AIM and MERC mercenaries, don't need this file, because they are all hired via the webpages. This file contains the entire face plus seven smaller subsurface for the animation (first four for the eyes and the last three for the mouth)
+
+Mercenaries files. Can be found in the ".../data/faces/" folder.
+Their dimensions are 48x43. They are in the same folder as the NPC files, but their name is only their index slot number. All characters that can be hired or escorted, need this file. These portraites are used in various places for your mercenaries, most notably in the mercenary panel in the tactical screen. Like the NPC files, this files contains the face and the animation subsurfaces.
+
+small mercenary files. Can be found in the ".../data/faces/65face" folder.
+Dimension is 31x27. Name is the corresponding index slot again. The small faces are used in the panel, when a battle is auto resolved. Although the original face files from JA2 all contain animation subsurface, they are not used in the game.
+
+very small files. Can be found in the ".../data/faces/33face" folder.
+Dimension is 15x14. I probably don't need to mention what they are the named like. Don't ask what they are used for, every. Seriously I'm not kidding. Just don't do it.
+
+All other kind of face files you might find, have been put there for entertainment purposes only by the original JA2 developers.
+
+
+
+When you convert a new portrait to sti, keep in mind that the sti files use a reduced colour palette with a maximum of 256 colours, so reduce the colours of your new portrait, before you attempt to convert them. STI Edit and GRV don't do a good job, when handling files with more colours.
+
+
+If you merely want to change portraits with new ones from the user-made portraits thread, then you have several options. The easiest one, that will always work, would be to simply go to your JA2 data folder and paste the files in the correct folders (see above) and rename the files to the cooresponding index slot number you want to change. You can find out the correct number by starting poredit.exe in the /data/binarydata/ folder. You then might need to change the face coordinates in proedit. You won't be able to change the coordinates for the IMPs and you wont be able to change the mercenary portrait coordinates for RPCs this way.
+
+If you have a recent version of 1.13, you can change the coordinates in the mercprofile.xml in the /data-1.13/tabledata folder (the slotindex number is here called uiIndex)
+
+An even more sophisticated way, would be to load your new faces over the old ones via vfs, but that's another topic.
+
+The eyes and mouth coordinates are the position of the top left pixel of the eyes and mouth subsurface, in the original face. Even the slightest deviation of only one pixel will cause the animation to look strange.
+
+

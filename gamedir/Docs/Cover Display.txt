@@ -1,0 +1,5 @@
+o Removed: three way toggle from "END"
+o Added: Enemy-View while pressing "DELETE"
+o Added: Enemy-View toggle with SHIFT-C
+o Added: Merc-View while pressing "END"
+o Added: Merc-View toggle with SHIFT-V
