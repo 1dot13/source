@@ -1,0 +1,1795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SECTOR_NAMES>
+  <SECTOR>
+    <SectorGrid>A1</SectorGrid>
+    <szUnexploredName>Тропики</szUnexploredName>
+    <szDetailedUnexploredName>Тропики</szDetailedUnexploredName>
+    <szExploredName>Тропики</szExploredName>
+    <szDetailedExploredName>Тропики</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A2</SectorGrid>
+    <szUnexploredName>Читзена</szUnexploredName>
+    <szDetailedUnexploredName>Читзена</szDetailedUnexploredName>
+    <szExploredName>Читзена</szExploredName>
+    <szDetailedExploredName>Читзена</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A3</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A4</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A5</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A6</SectorGrid>
+    <szUnexploredName>Холмы</szUnexploredName>
+    <szDetailedUnexploredName>Холмы</szDetailedUnexploredName>
+    <szExploredName>Холмы</szExploredName>
+    <szDetailedExploredName>Холмы</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A7</SectorGrid>
+    <szUnexploredName>Холмы</szUnexploredName>
+    <szDetailedUnexploredName>Холмы</szDetailedUnexploredName>
+    <szExploredName>Холмы</szExploredName>
+    <szDetailedExploredName>Холмы</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A8</SectorGrid>
+    <szUnexploredName>Холмы</szUnexploredName>
+    <szDetailedUnexploredName>Холмы</szDetailedUnexploredName>
+    <szExploredName>Холмы</szExploredName>
+    <szDetailedExploredName>Холмы</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A9</SectorGrid>
+    <szUnexploredName>Омерта</szUnexploredName>
+    <szDetailedUnexploredName>Омерта</szDetailedUnexploredName>
+    <szExploredName>Омерта</szExploredName>
+    <szDetailedExploredName>Омерта</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A10</SectorGrid>
+    <szUnexploredName>Омерта</szUnexploredName>
+    <szDetailedUnexploredName>Омерта</szDetailedUnexploredName>
+    <szExploredName>Омерта</szExploredName>
+    <szDetailedExploredName>Омерта</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A11</SectorGrid>
+    <szUnexploredName>Ферма</szUnexploredName>
+    <szDetailedUnexploredName>Ферма</szDetailedUnexploredName>
+    <szExploredName>Ферма</szExploredName>
+    <szDetailedExploredName>Ферма</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A12</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A13</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A14</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A15</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A16</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B1</SectorGrid>
+    <szUnexploredName>Тропики</szUnexploredName>
+    <szDetailedUnexploredName>Тропики</szDetailedUnexploredName>
+    <szExploredName>Тропики</szExploredName>
+    <szDetailedExploredName>Тропики</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B2</SectorGrid>
+    <szUnexploredName>Шахта Читзены</szUnexploredName>
+    <szDetailedUnexploredName>Шахта Читзены</szDetailedUnexploredName>
+    <szExploredName>Шахта Читзены</szExploredName>
+    <szDetailedExploredName>Шахта Читзены</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B3</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B4</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B5</SectorGrid>
+    <szUnexploredName>Ферма</szUnexploredName>
+    <szDetailedUnexploredName>Ферма</szDetailedUnexploredName>
+    <szExploredName>Ферма</szExploredName>
+    <szDetailedExploredName>Ферма</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B6</SectorGrid>
+    <szUnexploredName>Ферма</szUnexploredName>
+    <szDetailedUnexploredName>Ферма</szDetailedUnexploredName>
+    <szExploredName>Ферма</szExploredName>
+    <szDetailedExploredName>Ферма</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B7</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B8</SectorGrid>
+    <szUnexploredName>Ферма</szUnexploredName>
+    <szDetailedUnexploredName>Ферма</szDetailedUnexploredName>
+    <szExploredName>Ферма</szExploredName>
+    <szDetailedExploredName>Ферма</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B9</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B10</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B11</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B12</SectorGrid>
+    <szUnexploredName>Ферма, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Ферма, дорога</szDetailedUnexploredName>
+    <szExploredName>Ферма, дорога</szExploredName>
+    <szDetailedExploredName>Ферма, дорога</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B13</SectorGrid>
+    <szUnexploredName>Аэропорт Драссена</szUnexploredName>
+    <szDetailedUnexploredName>Аэропорт Драссена</szDetailedUnexploredName>
+    <szExploredName>Аэропорт Драссена</szExploredName>
+    <szDetailedExploredName>Аэропорт Драссена</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B14</SectorGrid>
+    <szUnexploredName>Вода</szUnexploredName>
+    <szDetailedUnexploredName>Вода</szDetailedUnexploredName>
+    <szExploredName>Вода</szExploredName>
+    <szDetailedExploredName>Вода</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B15</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B16</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C1</SectorGrid>
+    <szUnexploredName>Тропики</szUnexploredName>
+    <szDetailedUnexploredName>Тропики</szDetailedUnexploredName>
+    <szExploredName>Тропики</szExploredName>
+    <szDetailedExploredName>Тропики</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C2</SectorGrid>
+    <szUnexploredName>Тропики, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Тропики, дорога</szDetailedUnexploredName>
+    <szExploredName>Тропики, дорога</szExploredName>
+    <szDetailedExploredName>Тропики, дорога</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C3</SectorGrid>
+    <szUnexploredName>Тропики, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Тропики, дорога</szDetailedUnexploredName>
+    <szExploredName>Тропики, дорога</szExploredName>
+    <szDetailedExploredName>Тропики, дорога</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C4</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C5</SectorGrid>
+    <szUnexploredName>Сан-Мона</szUnexploredName>
+    <szDetailedUnexploredName>Сан-Мона</szDetailedUnexploredName>
+    <szExploredName>Сан-Мона</szExploredName>
+    <szDetailedExploredName>Сан-Мона</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C6</SectorGrid>
+    <szUnexploredName>Сан-Мона</szUnexploredName>
+    <szDetailedUnexploredName>Сан-Мона</szDetailedUnexploredName>
+    <szExploredName>Сан-Мона</szExploredName>
+    <szDetailedExploredName>Сан-Мона</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C7</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C8</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C9</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C10</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>C11</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>C12</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>C13</SectorGrid>
+    <szUnexploredName>Драссен</szUnexploredName>
+    <szDetailedUnexploredName>Драссен</szDetailedUnexploredName>
+    <szExploredName>Драссен</szExploredName>
+    <szDetailedExploredName>Драссен</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>C14</SectorGrid>
+    <szUnexploredName>Вода</szUnexploredName>
+    <szDetailedUnexploredName>Вода</szDetailedUnexploredName>
+    <szExploredName>Вода</szExploredName>
+    <szDetailedExploredName>Вода</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>C15</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>C16</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D1</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D2</SectorGrid>
+    <szUnexploredName>Тропики</szUnexploredName>
+    <szDetailedUnexploredName>Тропики</szDetailedUnexploredName>
+    <szExploredName>База ПВО</szExploredName>
+    <szDetailedExploredName>Тропики, ПВО</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D3</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D4</SectorGrid>
+    <szUnexploredName>Шахта Сан-Моны</szUnexploredName>
+    <szDetailedUnexploredName>Шахта Сан-Моны</szDetailedUnexploredName>
+    <szExploredName>Шахта Сан-Моны</szExploredName>
+    <szDetailedExploredName>Шахта Сан-Моны</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D5</SectorGrid>
+    <szUnexploredName>Сан-Мона</szUnexploredName>
+    <szDetailedUnexploredName>Сан-Мона</szDetailedUnexploredName>
+    <szExploredName>Сан-Мона</szExploredName>
+    <szDetailedExploredName>Сан-Мона</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D6</SectorGrid>
+    <szUnexploredName>Ферма</szUnexploredName>
+    <szDetailedUnexploredName>Ферма</szDetailedUnexploredName>
+    <szExploredName>Ферма</szExploredName>
+    <szDetailedExploredName>Ферма</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D7</SectorGrid>
+    <szUnexploredName>Лес, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Лес, дорога</szDetailedUnexploredName>
+    <szExploredName>Лес, дорога</szExploredName>
+    <szDetailedExploredName>Лес, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D8</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D9</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D10</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D11</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D12</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D13</SectorGrid>
+    <szUnexploredName>Шахта Драссена</szUnexploredName>
+    <szDetailedUnexploredName>Шахта Драссена</szDetailedUnexploredName>
+    <szExploredName>Шахта Драссена</szExploredName>
+    <szDetailedExploredName>Шахта Драссена</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D14</SectorGrid>
+    <szUnexploredName>Вода</szUnexploredName>
+    <szDetailedUnexploredName>Вода</szDetailedUnexploredName>
+    <szExploredName>Вода</szExploredName>
+    <szDetailedExploredName>Вода</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D15</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>База ПВО</szExploredName>
+    <szDetailedExploredName>База ПВО</szDetailedExploredName>
+   </SECTOR>  
+   <SECTOR>
+    <SectorGrid>D16</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E1</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E2</SectorGrid>
+    <szUnexploredName>Тропики</szUnexploredName>
+    <szDetailedUnexploredName>Тропики</szDetailedUnexploredName>
+    <szExploredName>Тропики</szExploredName>
+    <szDetailedExploredName>Тропики</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E3</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E4</SectorGrid>
+    <szUnexploredName>Холмы</szUnexploredName>
+    <szDetailedUnexploredName>Холмы</szDetailedUnexploredName>
+    <szExploredName>Холмы</szExploredName>
+    <szDetailedExploredName>Холмы</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E5</SectorGrid>
+    <szUnexploredName>Холмы</szUnexploredName>
+    <szDetailedUnexploredName>Холмы</szDetailedUnexploredName>
+    <szExploredName>Холмы</szExploredName>
+    <szDetailedExploredName>Холмы</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E6</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E7</SectorGrid>
+    <szUnexploredName>Ферма, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Ферма, дорога</szDetailedUnexploredName>
+    <szExploredName>Ферма, дорога</szExploredName>
+    <szDetailedExploredName>Ферма, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E8</SectorGrid>
+    <szUnexploredName>Ферма</szUnexploredName>
+    <szDetailedUnexploredName>Ферма</szDetailedUnexploredName>
+    <szExploredName>Ферма</szExploredName>
+    <szDetailedExploredName>Ферма</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E9</SectorGrid>
+    <szUnexploredName>Ферма, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Ферма, дорога</szDetailedUnexploredName>
+    <szExploredName>Ферма, дорога</szExploredName>
+    <szDetailedExploredName>Ферма, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E10</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E11</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E12</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E13</SectorGrid>
+    <szUnexploredName>Вода</szUnexploredName>
+    <szDetailedUnexploredName>Вода</szDetailedUnexploredName>
+    <szExploredName>Вода</szExploredName>
+    <szDetailedExploredName>Вода</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E14</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR> 
+   <SECTOR>
+    <SectorGrid>E15</SectorGrid>
+    <szUnexploredName>Лес, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Лес, дорога</szDetailedUnexploredName>
+    <szExploredName>Лес, дорога</szExploredName>
+    <szDetailedExploredName>Лес, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E16</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F1</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F2</SectorGrid>
+    <szUnexploredName>Побережье</szUnexploredName>
+    <szDetailedUnexploredName>Побережье</szDetailedUnexploredName>
+    <szExploredName>Побережье</szExploredName>
+    <szDetailedExploredName>Побережье</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F3</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F4</SectorGrid>
+    <szUnexploredName>Холмы</szUnexploredName>
+    <szDetailedUnexploredName>Холмы</szDetailedUnexploredName>
+    <szExploredName>Холмы</szExploredName>
+    <szDetailedExploredName>Холмы</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F5</SectorGrid>
+    <szUnexploredName>Холмы</szUnexploredName>
+    <szDetailedUnexploredName>Холмы</szDetailedUnexploredName>
+    <szExploredName>Холмы</szExploredName>
+    <szDetailedExploredName>Холмы</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F6</SectorGrid>
+    <szUnexploredName>Холмы</szUnexploredName>
+    <szDetailedUnexploredName>Холмы</szDetailedUnexploredName>
+    <szExploredName>Холмы</szExploredName>
+    <szDetailedExploredName>Холмы</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F7</SectorGrid>
+    <szUnexploredName>Горы, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Горы, дорога</szDetailedUnexploredName>
+    <szExploredName>Горы, дорога</szExploredName>
+    <szDetailedExploredName>Горы, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F8</SectorGrid>
+    <szUnexploredName>Госпиталь Камбрии</szUnexploredName>
+    <szDetailedUnexploredName>Госпиталь Камбрии</szDetailedUnexploredName>
+    <szExploredName>Госпиталь Камбрии</szExploredName>
+    <szDetailedExploredName>Госпиталь Камбрии</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F9</SectorGrid>
+    <szUnexploredName>Камбрия</szUnexploredName>
+    <szDetailedUnexploredName>Камбрия</szDetailedUnexploredName>
+    <szExploredName>Камбрия</szExploredName>
+    <szDetailedExploredName>Камбрия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F10</SectorGrid>
+    <szUnexploredName>Ферма</szUnexploredName>
+    <szDetailedUnexploredName>Ферма</szDetailedUnexploredName>
+    <szExploredName>Ферма</szExploredName>
+    <szDetailedExploredName>Ферма</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F11</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F12</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F13</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F14</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F15</SectorGrid>
+    <szUnexploredName>Лес, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Лес, дорога</szDetailedUnexploredName>
+    <szExploredName>Лес, дорога</szExploredName>
+    <szDetailedExploredName>Лес, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F16</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G1</SectorGrid>
+    <szUnexploredName>Грам</szUnexploredName>
+    <szDetailedUnexploredName>Грам</szDetailedUnexploredName>
+    <szExploredName>Грам</szExploredName>
+    <szDetailedExploredName>Грам</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G2</SectorGrid>
+    <szUnexploredName>Грам</szUnexploredName>
+    <szDetailedUnexploredName>Грам</szDetailedUnexploredName>
+    <szExploredName>Грам</szExploredName>
+    <szDetailedExploredName>Грам</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G3</SectorGrid>
+    <szUnexploredName>Берег, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Берег, дорога</szDetailedUnexploredName>
+    <szExploredName>Берег, дорога</szExploredName>
+    <szDetailedExploredName>Берег, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G4</SectorGrid>
+    <szUnexploredName>Горы, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Горы, дорога</szDetailedUnexploredName>
+    <szExploredName>Горы, дорога</szExploredName>
+    <szDetailedExploredName>Горы, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G5</SectorGrid>
+    <szUnexploredName>Горы, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Горы, дорога</szDetailedUnexploredName>
+    <szExploredName>Горы, дорога</szExploredName>
+    <szDetailedExploredName>Горы, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G6</SectorGrid>
+    <szUnexploredName>Горы, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Горы, дорога</szDetailedUnexploredName>
+    <szExploredName>Горы, дорога</szExploredName>
+    <szDetailedExploredName>Горы, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G7</SectorGrid>
+    <szUnexploredName>Ферма, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Ферма, дорога</szDetailedUnexploredName>
+    <szExploredName>Ферма, дорога</szExploredName>
+    <szDetailedExploredName>Ферма, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G8</SectorGrid>
+    <szUnexploredName>Камбрия</szUnexploredName>
+    <szDetailedUnexploredName>Камбрия</szDetailedUnexploredName>
+    <szExploredName>Камбрия</szExploredName>
+    <szDetailedExploredName>Камбрия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G9</SectorGrid>
+    <szUnexploredName>Камбрия</szUnexploredName>
+    <szDetailedUnexploredName>Камбрия</szDetailedUnexploredName>
+    <szExploredName>Камбрия</szExploredName>
+    <szDetailedExploredName>Камбрия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G10</SectorGrid>
+    <szUnexploredName>Пустыня, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня, дорога</szDetailedUnexploredName>
+    <szExploredName>Пустыня, дорога</szExploredName>
+    <szDetailedExploredName>Пустыня, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G11</SectorGrid>
+    <szUnexploredName>Пустыня, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня, дорога</szDetailedUnexploredName>
+    <szExploredName>Пустыня, дорога</szExploredName>
+    <szDetailedExploredName>Пустыня, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G12</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G13</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G14</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G15</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G16</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H1</SectorGrid>
+    <szUnexploredName>Грам</szUnexploredName>
+    <szDetailedUnexploredName>Грам</szDetailedUnexploredName>
+    <szExploredName>Грам</szExploredName>
+    <szDetailedExploredName>Грам</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H2</SectorGrid>
+    <szUnexploredName>Грам</szUnexploredName>
+    <szDetailedUnexploredName>Грам</szDetailedUnexploredName>
+    <szExploredName>Грам</szExploredName>
+    <szDetailedExploredName>Грам</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H3</SectorGrid>
+    <szUnexploredName>Шахта Грама</szUnexploredName>
+    <szDetailedUnexploredName>Шахта Грама</szDetailedUnexploredName>
+    <szExploredName>Шахта Грама</szExploredName>
+    <szDetailedExploredName>Шахта Грама</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H4</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H5</SectorGrid>
+    <szUnexploredName>Холмы</szUnexploredName>
+    <szDetailedUnexploredName>Холмы</szDetailedUnexploredName>
+    <szExploredName>Холмы</szExploredName>
+    <szDetailedExploredName>Холмы</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H6</SectorGrid>
+    <szUnexploredName>Горы, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Горы, дорога</szDetailedUnexploredName>
+    <szExploredName>Горы, дорога</szExploredName>
+    <szDetailedExploredName>Горы, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H7</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>  
+   <SECTOR>
+    <SectorGrid>H8</SectorGrid>
+    <szUnexploredName>Шахта Камбрии</szUnexploredName>
+    <szDetailedUnexploredName>Шахта Камбрии</szDetailedUnexploredName>
+    <szExploredName>Шахта Камбрии</szExploredName>
+    <szDetailedExploredName>Шахта Камбрии</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H9</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H10</SectorGrid>
+    <szUnexploredName>Пустыня</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня</szDetailedUnexploredName>
+    <szExploredName>Пустыня</szExploredName>
+    <szDetailedExploredName>Пустыня</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H11</SectorGrid>
+    <szUnexploredName>Пустыня</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня</szDetailedUnexploredName>
+    <szExploredName>Пустыня</szExploredName>
+    <szDetailedExploredName>Пустыня</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H12</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H13</SectorGrid>
+    <szUnexploredName>Альма</szUnexploredName>
+    <szDetailedUnexploredName>Альма</szDetailedUnexploredName>
+    <szExploredName>Альма</szExploredName>
+    <szDetailedExploredName>Альма</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H14</SectorGrid>
+    <szUnexploredName>Альма</szUnexploredName>
+    <szDetailedUnexploredName>Альма</szDetailedUnexploredName>
+    <szExploredName>Альма</szExploredName>
+    <szDetailedExploredName>Альма</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H15</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H16</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I1</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I2</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I3</SectorGrid>
+    <szUnexploredName>Берег, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Берег, дорога</szDetailedUnexploredName>
+    <szExploredName>Берег, дорога</szExploredName>
+    <szDetailedExploredName>Берег, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I4</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I5</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I6</SectorGrid>
+    <szUnexploredName>Эстони</szUnexploredName>
+    <szDetailedUnexploredName>Эстони</szDetailedUnexploredName>
+    <szExploredName>Эстони</szExploredName>
+    <szDetailedExploredName>Эстони</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I7</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I8</SectorGrid>
+    <szUnexploredName>Пустыня</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня</szDetailedUnexploredName>
+    <szExploredName>База ПВО</szExploredName>
+    <szDetailedExploredName>Пустыня, ПВО</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I9</SectorGrid>
+    <szUnexploredName>Пустыня</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня</szDetailedUnexploredName>
+    <szExploredName>Пустыня</szExploredName>
+    <szDetailedExploredName>Пустыня</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I10</SectorGrid>
+    <szUnexploredName>Пустыня</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня</szDetailedUnexploredName>
+    <szExploredName>Пустыня</szExploredName>
+    <szDetailedExploredName>Пустыня</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I11</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I12</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I13</SectorGrid>
+    <szUnexploredName>Альма</szUnexploredName>
+    <szDetailedUnexploredName>Альма</szDetailedUnexploredName>
+    <szExploredName>Альма</szExploredName>
+    <szDetailedExploredName>Альма</szDetailedExploredName>
+   </SECTOR>
+    <SECTOR>
+    <SectorGrid>I14</SectorGrid>
+    <szUnexploredName>Шахта Альмы</szUnexploredName>
+    <szDetailedUnexploredName>Шахта Альмы</szDetailedUnexploredName>
+    <szExploredName>Шахта Альмы</szExploredName>
+    <szDetailedExploredName>Шахта Альмы</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I15</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I16</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J1</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J2</SectorGrid>
+    <szUnexploredName>Берег, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Берег, дорога</szDetailedUnexploredName>
+    <szExploredName>Берег, дорога</szExploredName>
+    <szDetailedExploredName>Берег, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J3</SectorGrid>
+    <szUnexploredName>Берег, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Берег, дорога</szDetailedUnexploredName>
+    <szExploredName>Берег, дорога</szExploredName>
+    <szDetailedExploredName>Берег, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J4</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J5</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J6</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J7</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J8</SectorGrid>
+    <szUnexploredName>Пустыня</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня</szDetailedUnexploredName>
+    <szExploredName>Пустыня</szExploredName>
+    <szDetailedExploredName>Пустыня</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J9</SectorGrid>
+    <szUnexploredName>Пустыня</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня</szDetailedUnexploredName>
+    <szExploredName>Пустыня</szExploredName>
+    <szDetailedExploredName>Пустыня</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J10</SectorGrid>
+    <szUnexploredName>Пустыня</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня</szDetailedUnexploredName>
+    <szExploredName>Пустыня</szExploredName>
+    <szDetailedExploredName>Пустыня</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J11</SectorGrid>
+    <szUnexploredName>Пустыня</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня</szDetailedUnexploredName>
+    <szExploredName>Пустыня</szExploredName>
+    <szDetailedExploredName>Пустыня</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J12</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J13</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J14</SectorGrid>
+    <szUnexploredName>Ферма, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Ферма, дорога</szDetailedUnexploredName>
+    <szExploredName>Ферма, дорога</szExploredName>
+    <szDetailedExploredName>Ферма, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J15</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J16</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K1</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K2</SectorGrid>
+    <szUnexploredName>Берег, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Берег, дорога</szDetailedUnexploredName>
+    <szExploredName>Берег, дорога</szExploredName>
+    <szDetailedExploredName>Берег, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K3</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K4</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Орта</szExploredName>
+    <szDetailedExploredName>Орта военная база</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K5</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K6</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K7</SectorGrid>
+    <szUnexploredName>Пустыня, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня, дорога</szDetailedUnexploredName>
+    <szExploredName>Пустыня, дорога</szExploredName>
+    <szDetailedExploredName>Пустыня, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K8</SectorGrid>
+    <szUnexploredName>Пустыня, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня, дорога</szDetailedUnexploredName>
+    <szExploredName>Пустыня, дорога</szExploredName>
+    <szDetailedExploredName>Пустыня, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K9</SectorGrid>
+    <szUnexploredName>Пустыня, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня, дорога</szDetailedUnexploredName>
+    <szExploredName>Пустыня, дорога</szExploredName>
+    <szDetailedExploredName>Пустыня, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K10</SectorGrid>
+    <szUnexploredName>Пустыня, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня, дорога</szDetailedUnexploredName>
+    <szExploredName>Пустыня, дорога</szExploredName>
+    <szDetailedExploredName>Пустыня, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K11</SectorGrid>
+    <szUnexploredName>Пустыня, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня, дорога</szDetailedUnexploredName>
+    <szExploredName>Пустыня, дорога</szExploredName>
+    <szDetailedExploredName>Пустыня, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K12</SectorGrid>
+    <szUnexploredName>Пустыня, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня, дорога</szDetailedUnexploredName>
+    <szExploredName>Пустыня, дорога</szExploredName>
+    <szDetailedExploredName>Пустыня, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K13</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K14</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K15</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K16</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR> 
+   <SECTOR>
+    <SectorGrid>L1</SectorGrid>
+    <szUnexploredName>Побережье</szUnexploredName>
+    <szDetailedUnexploredName>Побережье</szDetailedUnexploredName>
+    <szExploredName>Побережье</szExploredName>
+    <szDetailedExploredName>Побережье</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L2</SectorGrid>
+    <szUnexploredName>Берег, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Берег, дорога</szDetailedUnexploredName>
+    <szExploredName>Берег, дорога</szExploredName>
+    <szDetailedExploredName>Берег, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L3</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L4</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L5</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L6</SectorGrid>
+    <szUnexploredName>Поля, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Поля, дорога</szDetailedUnexploredName>
+    <szExploredName>Поля, дорога</szExploredName>
+    <szDetailedExploredName>Поля, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L7</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+    <SECTOR>
+    <SectorGrid>L8</SectorGrid>
+    <szUnexploredName>Пустыня</szUnexploredName>
+    <szDetailedUnexploredName>Пустыня</szDetailedUnexploredName>
+    <szExploredName>Пустыня</szExploredName>
+    <szDetailedExploredName>Пустыня</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L9</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L10</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L11</SectorGrid>
+    <szUnexploredName>Балайм</szUnexploredName>
+    <szDetailedUnexploredName>Балайм</szDetailedUnexploredName>
+    <szExploredName>Балайм</szExploredName>
+    <szDetailedExploredName>Балайм</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L12</SectorGrid>
+    <szUnexploredName>Балайм</szUnexploredName>
+    <szDetailedUnexploredName>Балайм</szDetailedUnexploredName>
+    <szExploredName>Балайм</szExploredName>
+    <szDetailedExploredName>Балайм</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L13</SectorGrid>
+    <szUnexploredName>Побережье</szUnexploredName>
+    <szDetailedUnexploredName>Побережье</szDetailedUnexploredName>
+    <szExploredName>Побережье</szExploredName>
+    <szDetailedExploredName>Побережье</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L14</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L15</SectorGrid>
+    <szUnexploredName>Лес</szUnexploredName>
+    <szDetailedUnexploredName>Лес</szDetailedUnexploredName>
+    <szExploredName>Лес</szExploredName>
+    <szDetailedExploredName>Лес</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L16</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M1</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M2</SectorGrid>
+    <szUnexploredName>Берег, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Берег, дорога</szDetailedUnexploredName>
+    <szExploredName>Берег, дорога</szExploredName>
+    <szDetailedExploredName>Берег, дорога</szDetailedExploredName>
+   </SECTOR> 
+   <SECTOR>
+    <SectorGrid>M3</SectorGrid>
+    <szUnexploredName>Болото, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Болото, дорога</szDetailedUnexploredName>
+    <szExploredName>Болото, дорога</szExploredName>
+    <szDetailedExploredName>Болото, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M4</SectorGrid>
+    <szUnexploredName>Ферма</szUnexploredName>
+    <szDetailedUnexploredName>Ферма</szDetailedUnexploredName>
+    <szExploredName>Ферма</szExploredName>
+    <szDetailedExploredName>Ферма</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M5</SectorGrid>
+    <szUnexploredName>Лес, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Лес, дорога</szDetailedUnexploredName>
+    <szExploredName>Лес, дорога</szExploredName>
+    <szDetailedExploredName>Лес, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M6</SectorGrid>
+    <szUnexploredName>Лес, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Лес, дорога</szDetailedUnexploredName>
+    <szExploredName>Лес, дорога</szExploredName>
+    <szDetailedExploredName>Лес, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M7</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M8</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M9</SectorGrid>
+    <szUnexploredName>Равнина</szUnexploredName>
+    <szDetailedUnexploredName>Равнина</szDetailedUnexploredName>
+    <szExploredName>Равнина</szExploredName>
+    <szDetailedExploredName>Равнина</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M10</SectorGrid>
+    <szUnexploredName>Тропики, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Тропики, дорога</szDetailedUnexploredName>
+    <szExploredName>Тропики, дорога</szExploredName>
+    <szDetailedExploredName>Тропики, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M11</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M12</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M13</SectorGrid>
+    <szUnexploredName>Прерия</szUnexploredName>
+    <szDetailedUnexploredName>Прерия</szDetailedUnexploredName>
+    <szExploredName>Прерия</szExploredName>
+    <szDetailedExploredName>Прерия</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M14</SectorGrid>
+    <szUnexploredName>Болото</szUnexploredName>
+    <szDetailedUnexploredName>Болото</szDetailedUnexploredName>
+    <szExploredName>Болото</szExploredName>
+    <szDetailedExploredName>Болото</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M15</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M16</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N1</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N2</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N3</SectorGrid>
+    <szUnexploredName>Аэропорт Медуны</szUnexploredName>
+    <szDetailedUnexploredName>Аэропорт Медуны</szDetailedUnexploredName>
+    <szExploredName>Аэропорт Медуны</szExploredName>
+    <szDetailedExploredName>Аэропорт Медуны</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N4</SectorGrid>
+    <szUnexploredName>Медуна</szUnexploredName>
+    <szDetailedUnexploredName>Медуна</szDetailedUnexploredName>
+    <szExploredName>База ПВО</szExploredName>
+    <szDetailedExploredName>Медуна, ПВО</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N5</SectorGrid>
+    <szUnexploredName>Медуна</szUnexploredName>
+    <szDetailedUnexploredName>Медуна</szDetailedUnexploredName>
+    <szExploredName>Медуна</szExploredName>
+    <szDetailedExploredName>Медуна</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N6</SectorGrid>
+    <szUnexploredName>Тропики, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Тропики, дорога</szDetailedUnexploredName>
+    <szExploredName>Тропики, дорога</szExploredName>
+    <szDetailedExploredName>Тропики, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N7</SectorGrid>
+    <szUnexploredName>Берег, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Берег, дорога</szDetailedUnexploredName>
+    <szExploredName>Берег, дорога</szExploredName>
+    <szDetailedExploredName>Берег, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N8</SectorGrid>
+    <szUnexploredName>Берег, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Берег, дорога</szDetailedUnexploredName>
+    <szExploredName>Берег, дорога</szExploredName>
+    <szDetailedExploredName>Берег, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N9</SectorGrid>
+    <szUnexploredName>Тропики, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Тропики, дорога</szDetailedUnexploredName>
+    <szExploredName>Тропики, дорога</szExploredName>
+    <szDetailedExploredName>Тропики, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N10</SectorGrid>
+    <szUnexploredName>Тропики, дорога</szUnexploredName>
+    <szDetailedUnexploredName>Тропики, дорога</szDetailedUnexploredName>
+    <szExploredName>Тропики, дорога</szExploredName>
+    <szDetailedExploredName>Тропики, дорога</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N11</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N12</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N13</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N14</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR> 
+   <SECTOR>
+    <SectorGrid>N15</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N16</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O1</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O2</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O3</SectorGrid>
+    <szUnexploredName>Медуна</szUnexploredName>
+    <szDetailedUnexploredName>Медуна</szDetailedUnexploredName>
+    <szExploredName>Медуна</szExploredName>
+    <szDetailedExploredName>Медуна</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O4</SectorGrid>
+    <szUnexploredName>Медуна</szUnexploredName>
+    <szDetailedUnexploredName>Медуна</szDetailedUnexploredName>
+    <szExploredName>Медуна</szExploredName>
+    <szDetailedExploredName>Медуна</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O5</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O6</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O7</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O8</SectorGrid>
+    <szUnexploredName>Тропики</szUnexploredName>
+    <szDetailedUnexploredName>Тропики</szDetailedUnexploredName>
+    <szExploredName>Тропики</szExploredName>
+    <szDetailedExploredName>Тропики</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O9</SectorGrid>
+    <szUnexploredName>Тропики</szUnexploredName>
+    <szDetailedUnexploredName>Тропики</szDetailedUnexploredName>
+    <szExploredName>Тропики</szExploredName>
+    <szDetailedExploredName>Тропики</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O10</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O11</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O12</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O13</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O14</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O15</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O16</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P1</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P2</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P3</SectorGrid>
+    <szUnexploredName>Медуна</szUnexploredName>
+    <szDetailedUnexploredName>Медуна</szDetailedUnexploredName>
+    <szExploredName>Медуна</szExploredName>
+    <szDetailedExploredName>Медуна</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P4</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P5</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P6</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P7</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P8</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P9</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P10</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P11</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P12</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P13</SectorGrid>
+    <szUnexploredName>Непроходимо</szUnexploredName>
+    <szDetailedUnexploredName>Непроходимо</szDetailedUnexploredName>
+    <szExploredName>Непроходимо</szExploredName>
+    <szDetailedExploredName>Непроходимо</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P14</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P15</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P16</SectorGrid>
+    <szUnexploredName>Неизвестно</szUnexploredName>
+    <szDetailedUnexploredName>Неизвестно</szDetailedUnexploredName>
+    <szExploredName>Неизвестно</szExploredName>
+    <szDetailedExploredName>Неизвестно</szDetailedExploredName>
+   </SECTOR>
+</SECTOR_NAMES>

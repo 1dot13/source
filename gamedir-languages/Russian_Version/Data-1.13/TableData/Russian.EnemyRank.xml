@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ENEMY_RANK>
+  <RANK>
+	<uiIndex>1</uiIndex>
+    <szRank>Солдат</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>2</uiIndex>
+    <szRank>Охранник</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>3</uiIndex>
+    <szRank>Капрал</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>4</uiIndex>
+    <szRank>Специалист</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>5</uiIndex>
+    <szRank>Сержант</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>6</uiIndex>
+    <szRank>Лейтенант</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>7</uiIndex>
+    <szRank>Капитан</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>8</uiIndex>
+    <szRank>Майор</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>9</uiIndex>
+    <szRank>Полковник</szRank>
+  </RANK>
+</ENEMY_RANK>

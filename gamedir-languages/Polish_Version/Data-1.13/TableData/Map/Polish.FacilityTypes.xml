@@ -1,0 +1,180 @@
+<FACILITYTYPES>
+	<FACILITYTYPE>
+		<ubIndex>1</ubIndex>
+		<szFacilityName>Szpital</szFacilityName>
+		<szFacilityShortName>Szpital</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>DOCTOR</ubAssignmentType>
+			<szTooltipText>Wykonaj operacje ratujące życie na swoich rannych ludziach za pomocą sprzętu najwyższej jakości. Zwiększa skuteczność LECZENIA.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>2</ubIndex>
+		<szFacilityName>Lichy Barek</szFacilityName>
+		<szFacilityShortName>Barek</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>Napij się w miejscowej knajpie! Zwiększa lojalność w tym mieście, choć wiąże się z pewnymi kosztami oraz szansą na upicie.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>3</ubIndex>
+		<szFacilityName>Kompleks Więzienny</szFacilityName>
+		<szFacilityShortName>Więzienie</szFacilityShortName>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>4</ubIndex>
+		<szFacilityName>Małe Lotnisko</szFacilityName>
+		<szFacilityShortName>Lotnisko</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_STRENGTH</ubAssignmentType>
+			<szTooltipText>Spędź trochę czasu przeładowując towar na lotnisku. Zwiększa skuteczność szkolenia w zakresie SIŁY.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>5</ubIndex>
+		<szFacilityName>Fabryka Amunicji</szFacilityName>
+		<szFacilityShortName>Fabryka</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
+			<szTooltipText>Obecna tu maszyneria może służyć do produkcji dowolnego rodzaju części zamiennych, co zwiększa skuteczność napraw, biorąc pod uwagę że potrafi się wykorzystać owe skomplikowane wyposażenie.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>6</ubIndex>
+		<szFacilityName>Koszary</szFacilityName>
+		<szFacilityShortName>Koszary</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>Jest tu wiele łóżek. Nocleg tu nie jest luksusem, lecz lepsze to niż spanie pod chmurką!</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>7</ubIndex>
+		<szFacilityName>Kwatera Główna Armii</szFacilityName>
+		<szFacilityShortName>Kwatera Gł.</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>STAFF</ubAssignmentType>
+			<szTooltipText>Tutejsza sala dowodzenia wyposażona jest we wszelkiej maści sprzęt cyfrowy, opracowany z myślą o trzymanie ręki na pulsie w sprawach strategii kraju. Ułatwia to koordynowanie działań obronnych i zbieranie danych wywiadowczych na temat ruchów sił wroga.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>8</ubIndex>
+		<szFacilityName>Strzelnica</szFacilityName>
+		<szFacilityShortName>Strzelnica</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_MARKSMANSHIP</ubAssignmentType>
+			<szTooltipText>Czemu nie poświęcić chwili na poprawę um. strzeleckich? Tarcze strzeleckie aż się o to proszą. Na pewno stanowi to przełom w stosunku do strzelania do kamieni na odludziu.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>9</ubIndex>
+		<szFacilityName>Budynek A.C.A.</szFacilityName>
+		<szFacilityShortName>A.C.A</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>STAFF</ubAssignmentType>
+			<szTooltipText>Miejscowi mogą wyrazić chęć wykonania rozpoznania sąsiednich terenów. Masz możliwość zbierania informacji zdobytych przez miejscowych, aby mieć lepsze pojęcie o ruchach wroga w tym rejonie.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>10</ubIndex>
+		<szFacilityName>Rakiety Z-P</szFacilityName>
+		<szFacilityShortName>Rakiety Z-P</szFacilityShortName>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>11</ubIndex>
+		<szFacilityName>Kopalnia</szFacilityName>
+		<szFacilityShortName>Kopalnia</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_EXPLOSIVES</ubAssignmentType>
+			<szTooltipText>Każdy, kto umie podłożyć ładunek wybuchowy będzie tu mile widziany. Zwiększa skuteczność szkolenia w zakresie MATERIAŁÓW WYBUCHOWYCH.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>12</ubIndex>
+		<szFacilityName>Kościółek</szFacilityName>
+		<szFacilityShortName>Kościół</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>Godzina szczerej modlitwy w spokoju kościelnych murów może pomóc każdemu podnieść się na duchu. Istnieje też szansa że przekonasz miejscowych o swoim szacunku do ich stylu życia.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>13</ubIndex>
+		<szFacilityName>Klub Bokserski</szFacilityName>
+		<szFacilityShortName>Klub</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_HEALTH</ubAssignmentType>
+			<szTooltipText>Jest tu mnóstwo sprzętu sportowego, proszącego się o użycie. Wspaniały sposób na bardzo wyważony, znacznie poprawiający kondycję trening. Zwiększa skuteczność szkolenia w zakresie ZDROWIA.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>14</ubIndex>
+		<szFacilityName>Muzeum Narodowe</szFacilityName>
+		<szFacilityShortName>Muzeum</szFacilityShortName>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>15</ubIndex>
+		<szFacilityName>Laboratorium</szFacilityName>
+		<szFacilityShortName>Laboratorium</szFacilityShortName>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>16</ubIndex>
+		<szFacilityName>Złomowisko</szFacilityName>
+		<szFacilityShortName>Złomowisko</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
+			<szTooltipText>To miejsce jest dosłownie zawalone wszelkiej maści częściami zamiennymi. Na pewno usprawni to skuteczność wszelkich napraw.</szTooltipText>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_VEHICLE</ubAssignmentType>
+			<szTooltipText>To miejsce jest dosłownie zawalone wszelkiej maści częściami zamiennymi. Na pewno usprawni to skuteczność wszelkich napraw.</szTooltipText>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_ROBOT</ubAssignmentType>
+			<szTooltipText>To miejsce jest dosłownie zawalone wszelkiej maści częściami zamiennymi. Na pewno usprawni to skuteczność wszelkich napraw.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>17</ubIndex>
+		<szFacilityName>Kurort na Plaży</szFacilityName>
+		<szFacilityShortName>Plaża</szFacilityShortName>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>Słońce, surfing i ciepły piasek. Wielka poprawa w stosunku spania w okopie.</szTooltipText>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>18</ubIndex>
+		<szFacilityName>Legacy Militia Training Facility</szFacilityName>
+		<szFacilityShortName>Legacy</szFacilityShortName>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE> 
+		<ubIndex>19</ubIndex>  
+		<szFacilityName>Wojskowy Szpital Polowy</szFacilityName>  
+		<szFacilityShortName>Szpital Polowy</szFacilityShortName>   
+		<ASSIGNMENT> 
+			<ubAssignmentType>DOCTOR</ubAssignmentType>  
+			<szTooltipText>Przeprowadź w warunkach polowych pilne działania ratujące życie na swoich rannych podwładnych. Zwiększa skuteczność UM. MEDYCZNYCH.</szTooltipText> 
+		</ASSIGNMENT> 
+	</FACILITYTYPE>
+	
+</FACILITYTYPES>
