@@ -1,101 +1,101 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LANGUAGE>
 	<MENU>
 
 		<!-- Form 1 -->
 		<Polish_Form1_Menu1_1>Plik</Polish_Form1_Menu1_1>
-		<Russian_Form1_Menu1_1>File</Russian_Form1_Menu1_1>
+		<Russian_Form1_Menu1_1>Файл</Russian_Form1_Menu1_1>
 		<German_Form1_Menu1_1>Datei</German_Form1_Menu1_1>
 		<English_Form1_Menu1_1>File</English_Form1_Menu1_1>	
 		
 		<Polish_Form1_Menu1_2>Wybierz katalog</Polish_Form1_Menu1_2>
-		<Russian_Form1_Menu1_2>Select Directory</Russian_Form1_Menu1_2>
+		<Russian_Form1_Menu1_2>Выберите папку</Russian_Form1_Menu1_2>
 		<German_Form1_Menu1_2>Ordner auswählen</German_Form1_Menu1_2>
 		<English_Form1_Menu1_2>Select Directory</English_Form1_Menu1_2>
 
 		<Polish_Form1_Menu1_3>Zapisz wszystkie pliki</Polish_Form1_Menu1_3>
-		<Russian_Form1_Menu1_3>Save all files</Russian_Form1_Menu1_3>
+		<Russian_Form1_Menu1_3>Сохранить все файлы</Russian_Form1_Menu1_3>
 		<German_Form1_Menu1_3>Alle Dateien speichern</German_Form1_Menu1_3>
 		<English_Form1_Menu1_3>Save all files</English_Form1_Menu1_3>
 		
 		<Polish_Form1_Menu1_4>Wyjście</Polish_Form1_Menu1_4>
-		<Russian_Form1_Menu1_4>Exit</Russian_Form1_Menu1_4>
+		<Russian_Form1_Menu1_4>Выход</Russian_Form1_Menu1_4>
 		<German_Form1_Menu1_4>Beenden</German_Form1_Menu1_4>
 		<English_Form1_Menu1_4>Exit</English_Form1_Menu1_4>
 		
 		<Polish_Form1_Menu1_5>Edycja</Polish_Form1_Menu1_5>
-		<Russian_Form1_Menu1_5>Edit</Russian_Form1_Menu1_5>
+		<Russian_Form1_Menu1_5>Править</Russian_Form1_Menu1_5>
 		<German_Form1_Menu1_5>Bearbeiten</German_Form1_Menu1_5>
 		<English_Form1_Menu1_5>Edit</English_Form1_Menu1_5>
 		
 		<Polish_Form1_Menu1_6>Dodaj nowy profil</Polish_Form1_Menu1_6>
-		<Russian_Form1_Menu1_6>Insert new profile</Russian_Form1_Menu1_6>
+		<Russian_Form1_Menu1_6>Вставить новый профиль</Russian_Form1_Menu1_6>
 		<German_Form1_Menu1_6>Neues Profil einfügen</German_Form1_Menu1_6>
 		<English_Form1_Menu1_6>Insert new profile</English_Form1_Menu1_6>
 		
 		<Polish_Form1_Menu1_7>Konwertuj slot...</Polish_Form1_Menu1_7>
-		<Russian_Form1_Menu1_7>Convert slot to...</Russian_Form1_Menu1_7>
+		<Russian_Form1_Menu1_7>Конвертировать слот в...</Russian_Form1_Menu1_7>
 		<German_Form1_Menu1_7>Konvertiere Position zu...</German_Form1_Menu1_7>
 		<English_Form1_Menu1_7>Convert slot to...</English_Form1_Menu1_7>
 		
 		
 		<Polish_Form1_Menu1_8>IMP Mężczyzna</Polish_Form1_Menu1_8>
-		<Russian_Form1_Menu1_8>IMP Male</Russian_Form1_Menu1_8>
+		<Russian_Form1_Menu1_8>IMP мужчина</Russian_Form1_Menu1_8>
 		<German_Form1_Menu1_8>BSE Mann</German_Form1_Menu1_8>
 		<English_Form1_Menu1_8>IMP Male</English_Form1_Menu1_8>
 		
 		<Polish_Form1_Menu1_9>IMP Kobieta</Polish_Form1_Menu1_9>
-		<Russian_Form1_Menu1_9>IMP Female</Russian_Form1_Menu1_9>
+		<Russian_Form1_Menu1_9>IMP женщина</Russian_Form1_Menu1_9>
 		<German_Form1_Menu1_9>BSE Frau</German_Form1_Menu1_9>
 		<English_Form1_Menu1_9>IMP Female</English_Form1_Menu1_9>
 		
 		<Polish_Form1_Menu1_10>Biblioteka</Polish_Form1_Menu1_10>
-		<Russian_Form1_Menu1_10>Library</Russian_Form1_Menu1_10>
+		<Russian_Form1_Menu1_10>Библиотека</Russian_Form1_Menu1_10>
 		<German_Form1_Menu1_10>Sammlung</German_Form1_Menu1_10>
 		<English_Form1_Menu1_10>Library</English_Form1_Menu1_10>
 		
 		<Polish_Form1_Menu1_11>Dodaj do biblioteki</Polish_Form1_Menu1_11>
-		<Russian_Form1_Menu1_11>Add to library</Russian_Form1_Menu1_11>
+		<Russian_Form1_Menu1_11>Добавить в библиотеку</Russian_Form1_Menu1_11>
 		<German_Form1_Menu1_11>Zur Sammlung hinzufügen</German_Form1_Menu1_11>
 		<English_Form1_Menu1_11>Add to library</English_Form1_Menu1_11>
 		
 		<Polish_Form1_Menu1_12>Zastąp</Polish_Form1_Menu1_12>
-		<Russian_Form1_Menu1_12>Replace</Russian_Form1_Menu1_12>
+		<Russian_Form1_Menu1_12>Заменить</Russian_Form1_Menu1_12>
 		<German_Form1_Menu1_12>Ersetzen</German_Form1_Menu1_12>
 		<English_Form1_Menu1_12>Replace</English_Form1_Menu1_12>
 		
 		<Polish_Form1_Menu1_13>Zastąp profil</Polish_Form1_Menu1_13>
-		<Russian_Form1_Menu1_13>Replace profile</Russian_Form1_Menu1_13>
+		<Russian_Form1_Menu1_13>Заменить профиль</Russian_Form1_Menu1_13>
 		<German_Form1_Menu1_13>Profil ersetzen</German_Form1_Menu1_13>
 		<English_Form1_Menu1_13>Replace profile</English_Form1_Menu1_13>
 		
 		<Polish_Form1_Menu1_14>Zamień profil</Polish_Form1_Menu1_14>
-		<Russian_Form1_Menu1_14>Swap profile</Russian_Form1_Menu1_14>
+		<Russian_Form1_Menu1_14>Запомнить профиль</Russian_Form1_Menu1_14>
 		<German_Form1_Menu1_14>Profil tauschen</German_Form1_Menu1_14>
 		<English_Form1_Menu1_14>Swap profile</English_Form1_Menu1_14>
 		
 		<Polish_Form1_Menu1_15>Kopiuj profil</Polish_Form1_Menu1_15>
-		<Russian_Form1_Menu1_15>Copy profile</Russian_Form1_Menu1_15>
+		<Russian_Form1_Menu1_15>Копировать профиль</Russian_Form1_Menu1_15>
 		<German_Form1_Menu1_15>Profil kopieren</German_Form1_Menu1_15>
 		<English_Form1_Menu1_15>Copy profile</English_Form1_Menu1_15>
 		
 		<Polish_Form1_Menu1_16>Wklej profil</Polish_Form1_Menu1_16>
-		<Russian_Form1_Menu1_16>Paste profile</Russian_Form1_Menu1_16>
+		<Russian_Form1_Menu1_16>Вставить профиль</Russian_Form1_Menu1_16>
 		<German_Form1_Menu1_16>Profil einfügen</German_Form1_Menu1_16>
 		<English_Form1_Menu1_16>Paste profile</English_Form1_Menu1_16>
 		
 		<Polish_Form1_Menu1_17>Usuń profil</Polish_Form1_Menu1_17>
-		<Russian_Form1_Menu1_17>Delete profile</Russian_Form1_Menu1_17>
+		<Russian_Form1_Menu1_17>Удалить профиль</Russian_Form1_Menu1_17>
 		<German_Form1_Menu1_17>Profil löschen</German_Form1_Menu1_17>
 		<English_Form1_Menu1_17>Delete profile</English_Form1_Menu1_17>
 		
 		<Polish_Form1_Menu1_18>Dodatkowe informacje</Polish_Form1_Menu1_18>
-		<Russian_Form1_Menu1_18>Profile info</Russian_Form1_Menu1_18>
+		<Russian_Form1_Menu1_18>Информация по профилю</Russian_Form1_Menu1_18>
 		<German_Form1_Menu1_18>Profil Information</German_Form1_Menu1_18>
 		<English_Form1_Menu1_18>Profile info</English_Form1_Menu1_18>
 		
 		<Polish_Form1_Menu1_19>Pliki XML</Polish_Form1_Menu1_19>
-		<Russian_Form1_Menu1_19>Other xml files</Russian_Form1_Menu1_19>
+		<Russian_Form1_Menu1_19>Другие XML файлы</Russian_Form1_Menu1_19>
 		<German_Form1_Menu1_19>Andere XML Datei</German_Form1_Menu1_19>
 		<English_Form1_Menu1_19>Other xml files</English_Form1_Menu1_19>
 		
@@ -120,7 +120,7 @@
 		<English_Form1_Menu1_23>SenderNameList.xml</English_Form1_Menu1_23>
 		
 		<Polish_Form1_Menu1_24>Podgląd</Polish_Form1_Menu1_24>
-		<Russian_Form1_Menu1_24>View</Russian_Form1_Menu1_24>
+		<Russian_Form1_Menu1_24>Просмотр</Russian_Form1_Menu1_24>
 		<German_Form1_Menu1_24>Anzeigen</German_Form1_Menu1_24>
 		<English_Form1_Menu1_24>View</English_Form1_Menu1_24>
 		
@@ -190,17 +190,17 @@
 		<English_Form1_Menu1_37>SenderNameList.xml</English_Form1_Menu1_37>
 		
 		<Polish_Form1_Menu1_38>Narzędzia</Polish_Form1_Menu1_38>
-		<Russian_Form1_Menu1_38>Tools</Russian_Form1_Menu1_38>
+		<Russian_Form1_Menu1_38>Инструменты</Russian_Form1_Menu1_38>
 		<German_Form1_Menu1_38>Tools</German_Form1_Menu1_38>
 		<English_Form1_Menu1_38>Tools</English_Form1_Menu1_38>
 		
 		<Polish_Form1_Menu1_39>Biblioteka</Polish_Form1_Menu1_39>
-		<Russian_Form1_Menu1_39>Library</Russian_Form1_Menu1_39>
+		<Russian_Form1_Menu1_39>Библиотека</Russian_Form1_Menu1_39>
 		<German_Form1_Menu1_39>Sammlung</German_Form1_Menu1_39>
 		<English_Form1_Menu1_39>Library</English_Form1_Menu1_39>
 		
 		<Polish_Form1_Menu1_40>Face 1.0</Polish_Form1_Menu1_40>
-		<Russian_Form1_Menu1_40>Face 1.0</Russian_Form1_Menu1_40>
+		<Russian_Form1_Menu1_40>Лица 1.0</Russian_Form1_Menu1_40>
 		<German_Form1_Menu1_40>Gesicht 1.0</German_Form1_Menu1_40>
 		<English_Form1_Menu1_40>Face 1.0</English_Form1_Menu1_40>
 		
@@ -210,7 +210,7 @@
 		<English_Form1_Menu1_41>EdtMegaEditor</English_Form1_Menu1_41>
 		
 		<Polish_Form1_Label_1>Typ</Polish_Form1_Label_1>
-		<Russian_Form1_Label_1>Type</Russian_Form1_Label_1>
+		<Russian_Form1_Label_1>Тип</Russian_Form1_Label_1>
 		<German_Form1_Label_1>Typ</German_Form1_Label_1>
 		<English_Form1_Label_1>Type</English_Form1_Label_1>
 		
