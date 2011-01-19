@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <POCKETLIST>
 	<POCKET>
 		<pIndex>0</pIndex>
@@ -22,7 +22,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>5</pIndex>
-		<pName>Походный ранец</pName>
+		<pName>Вещмешок</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>6</pIndex>
@@ -42,7 +42,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>10</pIndex>
-		<pName>Шт. маг. </pName>
+		<pName>Штурм. маг. </pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>11</pIndex>
