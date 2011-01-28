@@ -947,7 +947,7 @@
 	<ITEM>
 		<uiIndex>118</uiIndex>
 		<szItemName>9x19мм, 50</szItemName>
-		<szLongItemName>9x19мм магазин для ПП, 50 50</szLongItemName>
+		<szLongItemName>9x19мм магазин для ПП, 50</szLongItemName>
 		<szItemDesc>Магазин 9 мм патронов к "Calico". Когда впереди длинная ночь, 50-зарядный магазин весьма кстати.</szItemDesc>
 		<szBRName>9x19мм ПП, 50</szBRName>
 		<szBRDesc>Магазин 9 мм патронов к "Calico". Когда впереди длинная ночь, 50-зарядный магазин весьма кстати.</szBRDesc>
@@ -1606,7 +1606,7 @@
 		<szLongItemName>Профессиональный бинокль 7x50</szLongItemName>
 		<szItemDesc>7x50 Бинокль в классическом корпусе с дальномерной шкалой. Многослойное smc-просветление сводит к минимуму внутренние отражения, улучшая изображение. Обрезиненный пыле-влагозащищенный азотозаполненный корпус бинокля. Пригоден для использования в сумерках.</szItemDesc>
 		<szBRName>Бинокль, 7x50</szBRName>
-		<szBRDesc>Бинокль профессионала. Многослойное smc-просветление сводит к минимуму внутренние отражения, улучшая четкость, цветопередачу и контраст изображения. Обрезиненный пылевлагозащищенный азотозаполненный корпус. Работает даже в сумерках.</szBRDesc>
+		<szBRDesc>Бинокль профессионала. Многослойное smc просветление сводит к минимуму внутренние отражения улучшая чёткость, цветопередачу и контраст изображения. Обрезиненный пылевлагозащищённый азотозаполненный корпус. Работает в сумерках.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>201</uiIndex>
@@ -1618,11 +1618,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>202</uiIndex>
-		<szItemName>Аптечка</szItemName>
+		<szItemName>Док. аптечка</szItemName>
 		<szLongItemName>Докторская аптечка</szLongItemName>
 		<szItemDesc>Помимо средств оказания первой помощи, сюда входят нитки и иглы для зашивания ран, специальные ножницы, прокладочные салфетки, скальпель, пинцет, щипчики, болеутоляющее, анестетик, антибиотики, маленький фонарик и справочник хирурга.</szItemDesc>
 		<szBRName>Докторская аптечка</szBRName>
-		<szBRDesc>Аптечка медицинской помощи. В ней находятся: набор для наложения швов, подушечки, ножницы для наложения швов, скальпель, щипцы Келли, щипчики, обезболивающее, болеутолители, антибиотики, фонарик, и инструкция "Полевая хирургия".</szBRDesc>
+		<szBRDesc>Докторская аптечка. В ней находятся: набор для наложения швов, подушечки, ножницы для наложения швов, скальпель, щипцы Келли, щипчики, обезболивающее, болеутолители, антибиотики, фонарик, и инструкция "Полевая хирургия".</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>203</uiIndex>
@@ -2398,7 +2398,7 @@
 		<szLongItemName>Швейцарский армейский нож</szLongItemName>
 		<szItemDesc>Полезен как для вскрытия замков, так и для расправы над врагом. Рукоять выполнена из алюминия и пластиковых накладок красного цвета, на нее нанесена стилизованная эмблема Швейцарии - равносторонний белый кpecт.</szItemDesc>
 		<szBRName>Швейцарский нож</szBRName>
-		<szBRDesc>Швейцарский армейский нож - многофункциональный складной нож, оснащенный клинком и несколькими дополнительными инструментами, такими как отвертки, открывалки, штопор и т.д. В нерабочем положении инструменты находятся внутри рукояти.</szBRDesc>
+		<szBRDesc>Многофункциональный швейцарский армейский нож. Оснащен клинком и несколькими дополнительными инструментами, такими как отвертки, открывалки, штопор и т.д. В нерабочем положении инструменты находятся внутри рукояти.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>300</uiIndex>
@@ -2998,7 +2998,7 @@
 		<szLongItemName>9x19мм магазин для ПП, 30 целевые</szLongItemName>
 		<szItemDesc>Эти высококачественные боеприпасы повышают эффективную дальность и характеристики оружия.</szItemDesc>
 		<szBRName>9x19мм ПП, 30 Match</szBRName>
-		<szBRDesc>Дополнительные метры к эффективной дальности вашего ПП никому не повредят. Ну, почти никому…</szBRDesc>
+		<szBRDesc>Дополнительные метры к эффективной дальности вашего ПП никому не повредят. Ну, почти никому...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>375</uiIndex>
@@ -3014,7 +3014,7 @@
 		<szLongItemName>9x19мм магазин для ПП, 30 HP дозвуковые</szLongItemName>
 		<szItemDesc>Эти пули с экспансивной выемкой обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
 		<szBRName>9x19мм ПП, 30 HP Cold</szBRName>
-		<szBRDesc>В этих боеприпасах скрыта значительная убойная сила. К тому же бесшумная…</szBRDesc>
+		<szBRDesc>В этих боеприпасах скрыта значительная убойная сила. К тому же бесшумная...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>377</uiIndex>
@@ -7397,18 +7397,18 @@
 	<ITEM>
 		<uiIndex>924</uiIndex>
 		<szItemName>.38 S-Load M</szItemName>
-		<szLongItemName>.38 Speed Loader Match</szLongItemName>
-		<szItemDesc>6 rounds of wadcutter ammo, designed to be used on the gunrange to shoot at paper targets. Still more precise than standard ball ammo, though.</szItemDesc>
+		<szLongItemName>.38 быстрая обойма, Match</szLongItemName>
+		<szItemDesc>Эта шестизарядная обойма имеет 6 сверхточных патронов, разработанных для стрельбы по бумажным мишеням. Их точность гораздо выше стандартных патронов.</szItemDesc>
 		<szBRName>.38 S-Load Match</szBRName>
-		<szBRDesc>Precisely loaded .38 Special match ammo with wadcutter bullets. When precision is more important than anything else!</szBRDesc>
+		<szBRDesc>Эта шестизарядная обойма имеет 6 сверхточных патронов. Как раз то, что нужно если важна точность, а не повреждения.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>925</uiIndex>
 		<szItemName>.38 S-Load HPS</szItemName>
 		<szLongItemName>.38 быстрая обойма, HPS</szLongItemName>
-		<szItemDesc>These bullets promise to penetrate better than standard hollow points.</szItemDesc>
+		<szItemDesc>Эти патроны имеют больший проникающий эффект чем стандартные экспансивные патроны.</szItemDesc>
 		<szBRName>.38 S-Load HPS</szBRName>
-		<szBRDesc>New solid copper bullets of hollow point shape! They are better at penetrating than the usual lead-core/brass-jacket hollowpoints.</szBRDesc>
+		<szBRDesc>Новые экспансивные патроны с медным сердечником! Имеют больший проникающий эффект чем стандартные патроны с экспансивной выемкой.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>926</uiIndex>
@@ -8631,9 +8631,9 @@
 		<uiIndex>1078</uiIndex>
 		<szItemName>Cx4 Storm</szItemName>
 		<szLongItemName>Beretta Cx4 Storm</szLongItemName>
-		<szItemDesc>The action of Beretta's Storm pistol inside a rifle stock.</szItemDesc>
+		<szItemDesc>Механика пистолета Beretta Px4 Storm в винтовочной ложе.</szItemDesc>
 		<szBRName>Beretta Cx4 Storm</szBRName>
-		<szBRDesc>A futuristic looking rifle firing an unsurpassed pistol round, the .45ACP. This version has a magazine well that accepts hi-cap magazines.</szBRDesc>
+		<szBRDesc>Футуристическая винтовка под непревзойдённый .45 калибр. Эта версия с магазиноприёмником под двухрядные магазины.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1079</uiIndex>
@@ -8681,7 +8681,7 @@
 		<szLongItemName>Жилет полиции Гонконга</szLongItemName>
 		<szItemDesc>Многоцелевой жилет с карманами различных размеров, 4 из которых предназначены специально для 40мм гранат.</szItemDesc>
 		<szBRName>Полицейский жилет</szBRName>
-		<szBRDesc>Ваш специалист-гранатометчик полюбит этот жилет с четырьмя карманами для 40мм гранат. Хотя это и полицейский жилет, нет необходимости ограничиваться гранатами со слезоточивым газом…</szBRDesc>
+		<szBRDesc>Ваш специалист-гранатометчик полюбит этот жилет с четырьмя карманами для 40мм гранат. Хотя это и полицейский жилет, нет необходимости ограничиваться гранатами со слезоточивым газом...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1085</uiIndex>
@@ -10705,7 +10705,7 @@
 		<szLongItemName>AR57 6"-S верхний модуль</szLongItemName>
 		<szItemDesc>Верхний модуль для трансформации M4A1 или M4 Commando в AR57 6"-S - в бесшумную версию ПП AR57.</szItemDesc>
 		<szBRName>AR57 6"-S upper</szBRName>
-		<szBRDesc>Если вы хотите пострелять патронами калибра 5.7x28мм и в то же время не желаете расставаться с эргономичностью серии M4, купите этот верхний модуль и установите на ваш стандартный нижний модуль M4 Commando или M4A1. Поставляется комплектом: глушитель Gemtech и 6" стволик.</szBRDesc>
+		<szBRDesc>Хотите пострелять патронами калибра 5.7x28мм и в то же время не желаете расставаться с эргономичностью серии M4? Купите этот верхний модуль и установите на ваш нижний стандартный модуль M4 Commando или M4A1. В комплекте: глушитель Gemtech и 6" стволик.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1338</uiIndex>
@@ -10726,31 +10726,31 @@
 	<ITEM>
 		<uiIndex>1340</uiIndex>
 		<szItemName>5,45x39мм, 45HP C</szItemName>
-		<szLongItemName>5.45x39mm магазин, 45 HP C</szLongItemName>
+		<szLongItemName>5.45x39мм магазин, 45 HP C</szLongItemName>
 		<szItemDesc>Этот магазин вмещает 45 дозвуковых патронов калибра 5,45x39мм с экспансивной пулей.</szItemDesc>
-		<szBRName>5.45x39mm Mag, HP C</szBRName>
+		<szBRName>5.45x39мм маг., HP C</szBRName>
 		<szBRDesc>Этот магазин вмещает 45 дозвуковых патронов калибра 5,45x39мм с экспансивной пулей.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1341</uiIndex>
 		<szItemName>5,45x39мм, 45AP C</szItemName>
-		<szLongItemName>5.45x39mm магазин, 45 AP C</szLongItemName>
+		<szLongItemName>5.45x39мм магазин, 45 AP C</szLongItemName>
 		<szItemDesc>Этот магазин вмещает 45 дозвуковых патронов калибра 5,45x39мм с бронебойной пулей.</szItemDesc>
-		<szBRName>5.45x39mm магазин, AP C</szBRName>
+		<szBRName>5.45x39мм магазин, AP C</szBRName>
 		<szBRDesc>Этот магазин вмещает 45 дозвуковых патронов калибра 5,45x39мм с бронебойной пулей.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1342</uiIndex>
-		<szItemName>5.45mm C, ящик</szItemName>
-		<szLongItemName>5.45x39mm C, ящик с патронами</szLongItemName>
+		<szItemName>5.45х39мм C, ящик</szItemName>
+		<szLongItemName>5.45x39мм C, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
 		<szBRName>5.45x39mm C, ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1343</uiIndex>
-		<szItemName>5.45mm HP C, ящик</szItemName>
-		<szLongItemName>5.45x39mm HP C, ящик с патронами</szLongItemName>
+		<szItemName>5.45х39мм, HP C, ящик</szItemName>
+		<szLongItemName>5.45x39мм HP C, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
 		<szBRName>5.45x39mm HP C, ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
@@ -10758,49 +10758,49 @@
 	<ITEM>
 		<uiIndex>1344</uiIndex>
 		<szItemName>7,62x39мм, 10AP C</szItemName>
-		<szLongItemName>7.62x39mm Mag, 10AP Cold</szLongItemName>
+		<szLongItemName>7.62x39мм маг., 10AP Cold</szLongItemName>
 		<szItemDesc>Дозвуковые патроны с цельнометаллической оболочкой пули для оружия калибра 7.62x39 мм.</szItemDesc>
-		<szBRName>7,62x39мм, 10 AP Cold</szBRName>
+		<szBRName>7,62x39мм маг., 10 AP Cold</szBRName>
 		<szBRDesc>Бесшумные бронебойные патроны для оружия стран Варшавского Договора.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1345</uiIndex>
-		<szItemName>7.62x39mm Mag 10 HP C</szItemName>
-		<szLongItemName>7.62x39mm Mag, 10 HP Cold</szLongItemName>
+		<szItemName>7.62x39мм 10HP C</szItemName>
+		<szLongItemName>7.62x39мм маг, 10 HP Cold</szLongItemName>
 		<szItemDesc>Дозвуковые патроны с экспансивной пулей для оружия калибра 7.62x39 мм.</szItemDesc>
-		<szBRName>7.62x39mm Mag, 10 HP Cold</szBRName>
+		<szBRName>7.62x39мм маг., 10 HP Cold</szBRName>
 		<szBRDesc>Если у вас есть СКС и вы хотите стать бесшумным убийцей, эти патроны - для вас</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1346</uiIndex>
 		<szItemName>7,62x39мм, 30AP C</szItemName>
-		<szLongItemName>7.62x39mm Mag, 30 Cold</szLongItemName>
+		<szLongItemName>7.62x39мм маг., 30 Cold</szLongItemName>
 		<szItemDesc>Дозвуковые патроны с цельнометаллической оболочкой пули для оружия калибра 7.62x39 мм.</szItemDesc>
-		<szBRName>7.62x39mm Mag, 30 Cold</szBRName>
+		<szBRName>7.62x39мм маг., 30 Cold</szBRName>
 		<szBRDesc>Бесшумные бронебойные патроны для оружия стран Варшавского Договора.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1347</uiIndex>
-		<szItemName>7.62x39mm 30 HP C</szItemName>
-		<szLongItemName>7.62x39mm Mag, 30 HP Cold</szLongItemName>
+		<szItemName>7.62x39мм 30 HP C</szItemName>
+		<szLongItemName>7.62x39мм маг., 30 HP Cold</szLongItemName>
 		<szItemDesc>Дозвуковые патроны с экспансивной пулей для оружия калибра 7.62x39 мм.</szItemDesc>
-		<szBRName>7.62x39mm Mag, 30 HP Cold</szBRName>
+		<szBRName>7.62x39мм маг., 30 HP Cold</szBRName>
 		<szBRDesc>Если у вас есть АК и вы хотите стать бесшумным убийцей, эти патроны - для вас.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1348</uiIndex>
 		<szItemName>7,62x39мм,100AP C</szItemName>
-		<szLongItemName>7.62x39mm Drum AP Cold</szLongItemName>
+		<szLongItemName>7.62x39мм барабан, 100 AP Cold</szLongItemName>
 		<szItemDesc>Дозвуковые патроны с цельнометаллической оболочкой пули для оружия калибра 7.62x39 мм.</szItemDesc>
-		<szBRName>7.62x39mm Drum AP Cold</szBRName>
+		<szBRName>7.62x39мм Drum AP Cold</szBRName>
 		<szBRDesc>Бесшумные бронебойные патроны для оружия стран Варшавского Договора.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1349</uiIndex>
 		<szItemName>7,62x39мм,100HP C</szItemName>
-		<szLongItemName>7.62x39mm Drum, HP Cold</szLongItemName>
+		<szLongItemName>7.62x39mm барабан, HP Cold</szLongItemName>
 		<szItemDesc>Дозвуковые патроны с экспансивной пулей для оружия калибра 7.62x39 мм.</szItemDesc>
-		<szBRName>7.62x39mm Drum, HP Cold</szBRName>
+		<szBRName>7.62x39мм Drum, HP Cold</szBRName>
 		<szBRDesc>Если у вас есть АК и вы хотите стать бесшумным убийцей, эти патроны - для вас.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -10813,10 +10813,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1351</uiIndex>
-		<szItemName>7.62WP HP C crate</szItemName>
-		<szLongItemName>7.62x39mm HP C ammo crate</szLongItemName>
+		<szItemName>7.62WP HP C, ящик</szItemName>
+		<szLongItemName>7.62x39mm HP C, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
-		<szBRName>7.62x39mm HP C ammo crate</szBRName>
+		<szBRName>7.62x39mm HP C, ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -10921,46 +10921,102 @@
 		<szLongItemName>.38 HPS, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами</szItemDesc>
 		<szBRName>.38 HPS, ящик с патронами</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1365</uiIndex>
-		<szItemName>9x18мм магазин, 12 G</szItemName>
-		<szLongItemName>9x18мм магазин, 12 G</szLongItemName>
-		<szItemDesc>Пистолетный магазин, набитый 12 патронами калибра 9x18mm с пулей Glaser.</szItemDesc>
-		<szBRName>9x18мм магазин, 12 G</szBRName>
-		<szBRDesc>Патроны Glaser в калибре 9x18mm, хорошая убойная сила в малых размерах.</szBRDesc>
+		<szItemName>9x18мм, 12 G</szItemName>
+		<szLongItemName>9x18мм магазин, 12 Glaser</szLongItemName>
+		<szItemDesc>Пистолетный магазин, набитый 12 патронами калибра 9x18мм с пулей Glaser.</szItemDesc>
+		<szBRName>9x18мм маг., 12 G</szBRName>
+		<szBRDesc>Патроны Glaser в калибре 9x18мм, хорошая убойная сила в малых размерах.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1366</uiIndex>
-		<szItemName>9x18mm магазин, 8 G</szItemName>
-		<szLongItemName>9x18мм магазин, 8 G</szLongItemName>
-		<szItemDesc>Пистолетный магазин, набитый 8 патронами калибра 9x18mm с пулей Glaser.</szItemDesc>
-		<szBRName>9x18мм магазин, 8 G</szBRName>
-		<szBRDesc>Патроны Glaser в калибре 9x18mm. Вам нужна их убойная сила, особенно когда в магазине всего 8 патронов...</szBRDesc>
+		<szItemName>9x18мм, 8 G</szItemName>
+		<szLongItemName>9x18мм магазин, 8 Glaser</szLongItemName>
+		<szItemDesc>Пистолетный магазин, набитый 8 патронами калибра 9x18мм с пулей Glaser.</szItemDesc>
+		<szBRName>9x18мм маг., 8 G</szBRName>
+		<szBRDesc>Патроны Glaser в калибре 9x18мм. Вам нужна их убойная сила, особенно когда в магазине всего 8 патронов...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1367</uiIndex>
-		<szItemName>9x18мм магазин, 20 G</szItemName>
-		<szLongItemName>9x18мм магазин, 20 G</szLongItemName>
-		<szItemDesc>Магазин, набитый 20 патронами калибра 9x18mm с пулей Glaser.</szItemDesc>
-		<szBRName>9x18мм магазин, 20 G</szBRName>
-		<szBRDesc>С пулями Glaser ваш маленький ПП калибра 9x18 может порвать врагов на тряпки!</szBRDesc>
+		<szItemName>9x18мм, 20 G</szItemName>
+		<szLongItemName>9x18мм магазин, 20 Glaser</szLongItemName>
+		<szItemDesc>Магазин, набитый 20 патронами калибра 9x18мм с пулей Glaser.</szItemDesc>
+		<szBRName>9x18мм маг., 20 G</szBRName>
+		<szBRDesc>С пулями Glaser ваш маленький ПП калибра 9x18мм может порвать врагов на тряпки!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1368</uiIndex>
-		<szItemName>9x18мм магазин, 30 G</szItemName>
-		<szLongItemName>9x18мм магазин, 30 G</szLongItemName>
-		<szItemDesc>Магазин для пистолет-пулемёта, набитый 20 патронами калибра 9x18mm с пулей Glaser.</szItemDesc>
-		<szBRName>9x18мм магазин, 30 G</szBRName>
+		<szItemName>9x18мм, 30 G</szItemName>
+		<szLongItemName>9x18мм магазин, 30 Glase</szLongItemName>
+		<szItemDesc>Магазин для пистолет-пулемёта, набитый 20 патронами калибра 9x18мм с пулей Glaser.</szItemDesc>
+		<szBRName>9x18мм маг., 30 G</szBRName>
 		<szBRDesc>Сивень из пуль Glaser ужаснёт любого небронированного противника, даже в этом калибре.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1369</uiIndex>
 		<szItemName>9x18 G, ящик</szItemName>
-		<szLongItemName>9x18mm G, ящик с патронами</szLongItemName>
+		<szLongItemName>9x18мм Glaser, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами</szItemDesc>
-		<szBRName>9x18mm G, ящик с патронами</szBRName>
+		<szBRName>9x18мм G, ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1370</uiIndex>
+		<szItemName>43мм ОСВ. Г</szItemName>
+		<szLongItemName>43мм граната осветительная, 4</szLongItemName>
+		<szItemDesc>Осветительная граната для ночных боёв, разработанная специально для 43-х мм. гранатомета ГМ-94</szItemDesc>
+		<szBRName>40мм ОСВ. Г, 4</szBRName>
+		<szBRDesc>С помощью этой осветительной гранаты разработанной специально для 43-х мм. гранатомета ГМ-94, вы сможете рассеять ночьную пелену, в которой укрывается противник. Действие гранаты значительно дольше обычного осветителя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1371</uiIndex>
+		<szItemName>43мм ОГ</szItemName>
+		<szLongItemName>43мм фугасная граната</szLongItemName>
+		<szItemDesc>Фугасные боеприпасы, имеющие термобарическое снаряжение с высокой удельной массой взрывчатого вещества к массе выстрела. Это достигнуто благодаря использованию пластикового корпуса гранаты. Разработаны специально для гранатомета ГМ-94. </szItemDesc>
+		<szBRName>43мм ОГ</szBRName>
+		<szBRDesc>ВГМ-93 - фугасные гранаты, имеют термобари- ческое снаряжение с высокой удельной массой взрывчатого вещества к массе выстрела. Это достигнуто благодаря использованию пластико- вого корпуса гранаты (Сделано для безопасного применения гранатомета на мин. дальностях).</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1372</uiIndex>
+		<szItemName>43мм ГГ</szItemName>
+		<szLongItemName>43мм граната с газом Иприт</szLongItemName>
+		<szItemDesc>Этот унитарный выстрел с гранатой начиненной газом Иприт разработан специально для 43-х мм. гранатомета ГМ-94. Предупреждение: Попадание в легкие ядовитых паров газа гранаты приведет к мучительной смерти.</szItemDesc>
+		<szBRName>43мм ГГ</szBRName>
+		<szBRDesc>Внимание: Это оружие классифицируется как химическое и оно запрещено Женевской конвенцией. Покупайте только как пестицид против вредителей! Попадание в легкие ядовитых паров газа гранаты приведёт к мучительной смерти.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1373</uiIndex>
+		<szItemName>43мм ДГ</szItemName>
+		<szLongItemName>43мм дымовая граната</szLongItemName>
+		<szItemDesc>Этот выстрел с 43мм дымовой гранатой разработан специально для гранатомета ГМ-94. Такая граната при взрыве создает облако дыма, что помогает вступить в битву или покинуть её незаметно.</szItemDesc>
+		<szBRName>43мм ДГ</szBRName>
+		<szBRDesc>Выстрел с дымовой шашкой для гранатомёта ГМ-94.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1374</uiIndex>
+		<szItemName>43мм ГУ-Ш</szItemName>
+		<szLongItemName>43мм граната ударно-шокового действия</szLongItemName>
+		<szItemDesc>Этот унитарный выстрел с гранатой ударно-шокового действия разработан специально для 43-х мм. гранатомета ГМ-94.</szItemDesc>
+		<szBRName>43мм ГУ-Ш</szBRName>
+		<szBRDesc>Вас утомляет кричащая толпа митингующих? У вашего соседа счастливая семья из 10-и сверхактивных и незамолкающих детей? Этот 43мм унитарный выстрел с гранатой ударно-шокового действия мигом уймет их. Мы заботимся о вас, и о вашем здоровье.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1375</uiIndex>
+		<szItemName>43мм ГСГ</szItemName>
+		<szLongItemName>43мм граната со слезоточивым газом</szLongItemName>
+		<szItemDesc>Закидайте ваших врагов 43мм гранатами со слезоточивым газом и пускай они утонут в реках собственных слез.</szItemDesc>
+		<szBRName>43мм ГСГ</szBRName>
+		<szBRDesc>Закидайте ваших врагов 43мм гранатами со слезоточивым газом и пускай они утонут в реках собственных слез</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1376</uiIndex>
+		<szItemName>43мм ОСВ. Г</szItemName>
+		<szLongItemName>43мм граната осветительная</szLongItemName>
+		<szItemDesc>Осветительная граната для ночных боёв, разработанная специально для 43-х мм. гранатомета ГМ-94</szItemDesc>
+		<szBRName>43мм ОСВ. Г</szBRName>
+		<szBRDesc>С помощью этой осветительной гранаты, разработанной специально для 43-х мм. гранатомёта ГМ-94, вы сможете рассеять ночьную пелену, в которой укрывается противник. Действие гранаты значительно дольше обычного осветителя.</szBRDesc>
 	</ITEM>
 </ITEMLIST>

@@ -10960,4 +10960,60 @@
 		<szBRName>9x18mm G ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1370</uiIndex>
+		<szItemName>43mm Illumination</szItemName>
+		<szLongItemName>43mm Illumination Grenades, 4</szLongItemName>
+		<szItemDesc>43mm Illumination Grenades for the GM-94 grenade launcher.</szItemDesc>
+		<szBRName>43mm Illumination Grenades, 4</szBRName>
+		<szBRDesc>43mm Illumination Grenades for the GM-94 grenade launcher.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1371</uiIndex>
+		<szItemName>43mm HE</szItemName>
+		<szLongItemName>43mm HE Grenade</szLongItemName>
+		<szItemDesc>This 43mm High Explosive grenade will fit nicely in your GM-94 grenade launcher.</szItemDesc>
+		<szBRName>43mm HE Grenade</szBRName>
+		<szBRDesc>High Explosive grenade for the GM-94.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1372</uiIndex>
+		<szItemName>43mm Mustard Gas</szItemName>
+		<szLongItemName>43mm Mustard Gas Grenades</szLongItemName>
+		<szItemDesc>This 43mm Mustard Gas grenades will fit nicely in your GM-94 grenade launcher. Warning: Inhaling contents will cause a painful death.</szItemDesc>
+		<szBRName>43mm Mustard Gas Grenades</szBRName>
+		<szBRDesc>This product is classed as a chemical weapon and is banned by the Geneva convention. Sold for pest control purposes only!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1373</uiIndex>
+		<szItemName>43mm Smoke</szItemName>
+		<szLongItemName>43mm Smoke Grenade</szLongItemName>
+		<szItemDesc>This 43mm Smoke grenade will fit nicely in your GM-94 grenade launcher. When you need cover, fire off a couple of these.</szItemDesc>
+		<szBRName>43mm Smoke Grenade</szBRName>
+		<szBRDesc>Smoke round for the GM-94.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1374</uiIndex>
+		<szItemName>43mm Stun</szItemName>
+		<szLongItemName>43mm Stun Grenade</szLongItemName>
+		<szItemDesc>43mm stun grenade for the GM-94 launcher.</szItemDesc>
+		<szBRName>43mm Stun Grenade</szBRName>
+		<szBRDesc>Crowd of rioters or room full of hyperactive children (we kid, of course), a stun grenade will take the wind and the fight right out of them.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1375</uiIndex>
+		<szItemName>43mm Tear Gas</szItemName>
+		<szLongItemName>43mm Tear Gas Grenade</szLongItemName>
+		<szItemDesc>Drop a CS gas grenade on your target and reduce them to blubbering wrecks.</szItemDesc>
+		<szBRName>43mm Tear Gas Grenade</szBRName>
+		<szBRDesc>Drop a CS gas grenade on your target and reduce them to blubbering wrecks.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1376</uiIndex>
+		<szItemName>43mm Illumination</szItemName>
+		<szLongItemName>43mm Illumination Grenade</szLongItemName>
+		<szItemDesc>43mm Illumination Grenade for the GM-94 grenade launcher.</szItemDesc>
+		<szBRName>43mm Illumination Grenade</szBRName>
+		<szBRDesc>43mm Illumination Grenade for the GM-94 grenade launcher.</szBRDesc>
+	</ITEM>
 </ITEMLIST>
