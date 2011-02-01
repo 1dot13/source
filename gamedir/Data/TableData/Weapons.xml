@@ -555,7 +555,7 @@
 		<szWeaponName>Type 85</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
-		<ubCalibre>20</ubCalibre>
+		<ubCalibre>10</ubCalibre>
 		<ubReadyTime>2</ubReadyTime>
 		<ubShotsPer4Turns>16.93</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
@@ -622,7 +622,7 @@
 		<szWeaponName>Dragunov SVD</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>5</ubWeaponType>
-		<ubCalibre>24</ubCalibre>
+		<ubCalibre>10</ubCalibre>
 		<ubReadyTime>19</ubReadyTime>
 		<ubShotsPer4Turns>11.11</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -1613,10 +1613,10 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>56</uiIndex>
-		<szWeaponName>Automag III Custom</szWeaponName>
+		<szWeaponName>Automag III</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
-		<ubCalibre>38</ubCalibre>
+		<ubCalibre>9</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
 		<ubShotsPer4Turns>9.88</ubShotsPer4Turns>
 		<ubBulletSpeed>21</ubBulletSpeed>
@@ -2046,7 +2046,7 @@
 		<uiIndex>330</uiIndex>
 		<szWeaponName>Micro-Uzi</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>2</ubWeaponType>
+		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
 		<ubShotsPer4Turns>17.78</ubShotsPer4Turns>
