@@ -205,8 +205,8 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayChitzena</szDay>
 		<szNight>Loadscreens\LS_NightChitzena</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>		
+		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>		
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>19</uiIndex>
@@ -547,8 +547,8 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMine</szDay>
 		<szNight>Loadscreens\LS_NightMine</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>53</uiIndex>
@@ -1181,8 +1181,8 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMine</szDay>
 		<szNight>Loadscreens\LS_NightMine</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>116</uiIndex>
@@ -1231,8 +1231,8 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMine</szDay>
 		<szNight>Loadscreens\LS_NightMine</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>121</uiIndex>
@@ -1281,8 +1281,8 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMilitary</szDay>
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>126</uiIndex>
@@ -1291,8 +1291,8 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMilitary</szDay>
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>127</uiIndex>
@@ -1442,8 +1442,8 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMilitary</szDay>
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>142</uiIndex>
@@ -2187,8 +2187,8 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMilitary</szDay>
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>216</uiIndex>
