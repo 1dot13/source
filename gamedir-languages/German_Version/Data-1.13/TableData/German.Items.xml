@@ -1734,16 +1734,17 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>217</uiIndex>
-		<szItemName>Jelly</szItemName>
-		<szLongItemName>Royal Jelly</szLongItemName>
-		<szBRName>Royal Jelly</szBRName>
+		<szItemName>Gelee Royale</szItemName>
+		<szLongItemName>Gelee Royale</szLongItemName>
+		<szBRName>Gelee Royale</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>218</uiIndex>
-		<szItemName>Elixir</szItemName>
-		<szLongItemName>Jar of Elixir</szLongItemName>
-		<szBRName>Jar of Elixir</szBRName>
+		<szItemName>Elexier</szItemName>
+		<szLongItemName>Glass voll Elexier</szLongItemName>
+		<szItemDesc>Ein widerlich stinkendes Elexier, das irgendwelche Insekten fern halten soll. Na, wenn's schee macht...</szItemDesc>
+		<szBRName>Glass voll Elexier</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2860,7 +2861,7 @@
 		<szLongItemName>9x19mm Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US #8</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>360</uiIndex>
@@ -2868,7 +2869,7 @@
 		<szLongItemName>9x19mm Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US-HS #8</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>361</uiIndex>
@@ -2876,7 +2877,7 @@
 		<szLongItemName>9x19mm Magazin, US-PB</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US-PB #8</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die panzerbrechende EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>362</uiIndex>
@@ -2924,7 +2925,7 @@
 		<szLongItemName>9x19mm Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US #15</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>368</uiIndex>
@@ -2932,7 +2933,7 @@
 		<szLongItemName>9x19mm Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US-HS #15</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>369</uiIndex>
@@ -2940,7 +2941,7 @@
 		<szLongItemName>9x19mm Magazin, US-PB</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US-PB #15</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die panzerbrechende EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>370</uiIndex>
@@ -2988,7 +2989,7 @@
 		<szLongItemName>9x19mm MP-Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>376</uiIndex>
@@ -2996,7 +2997,7 @@
 		<szLongItemName>9x19mm MP-Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US-HS</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>377</uiIndex>
@@ -3004,7 +3005,7 @@
 		<szLongItemName>9x19mm MP-Magazin, US-PB</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US-PB</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die panzerbrechende EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>378</uiIndex>
@@ -3052,7 +3053,7 @@
 		<szLongItemName>9x19mm Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US #50</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>384</uiIndex>
@@ -3060,7 +3061,7 @@
 		<szLongItemName>9x19mm Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US-HS #50</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>385</uiIndex>
@@ -3068,7 +3069,7 @@
 		<szLongItemName>9x19mm Magazin, US-PB</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 Mag US-PB</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die panzerbrechende EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>386</uiIndex>
@@ -3140,7 +3141,7 @@
 		<szLongItemName>9x19mm Beta C-Mag, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 C-Mag US</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollamntel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>395</uiIndex>
@@ -3148,7 +3149,7 @@
 		<szLongItemName>9x19mm Beta C-Mag, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 C-Mag US-HS</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>396</uiIndex>
@@ -3156,7 +3157,7 @@
 		<szLongItemName>9x19mm Beta C-Mag, US-PB</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>9x19 C-Mag US-PB</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die panzerbrechende EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
@@ -3396,7 +3397,7 @@
 		<szLongItemName>5.56x45mm Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>5.56x45 Mag US-HS #10</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>427</uiIndex>
@@ -3404,7 +3405,7 @@
 		<szLongItemName>5.56x45mm Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>5.56x45 Mag US #10</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>428</uiIndex>
@@ -3444,7 +3445,7 @@
 		<szLongItemName>5.56x45mm Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>5.56x45 Mag US-HS</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>433</uiIndex>
@@ -3452,7 +3453,7 @@
 		<szLongItemName>5.56x45mm Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>5.56x45 Mag US</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>434</uiIndex>
@@ -3508,7 +3509,7 @@
 		<szLongItemName>5.56x45mm Beta C-Mag, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>5.56x45 C-Mag US-HS</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>441</uiIndex>
@@ -3516,7 +3517,7 @@
 		<szLongItemName>5.56x45mm Beta C-Mag, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>5.56x45 C-Mag US</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>442</uiIndex>
@@ -3556,7 +3557,7 @@
 		<szLongItemName>5.56x45mm Gurt, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>5.56x45 Gurt US-HS #200</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>447</uiIndex>
@@ -3564,7 +3565,7 @@
 		<szLongItemName>5.56x45mm Gurt, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>5.56x45 Gurt US #200</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>448</uiIndex>
@@ -3604,7 +3605,7 @@
 		<szLongItemName>7.62x51mm Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x51 Mag US-HS #5</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>453</uiIndex>
@@ -3612,7 +3613,7 @@
 		<szLongItemName>7.62x51mm Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x51 Mag US #5</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>454</uiIndex>
@@ -3668,7 +3669,7 @@
 		<szLongItemName>7.62x51mm Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x51 Mag US-HS #10</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>461</uiIndex>
@@ -3676,7 +3677,7 @@
 		<szLongItemName>7.62x51mm Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x51 Mag US #10</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>462</uiIndex>
@@ -3716,7 +3717,7 @@
 		<szLongItemName>7.62x51mm Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x51 Mag US-HS</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>467</uiIndex>
@@ -3724,7 +3725,7 @@
 		<szLongItemName>7.62x51mm Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x51 Mag US</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>468</uiIndex>
@@ -3764,7 +3765,7 @@
 		<szLongItemName>7.62x51mm Gurt, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x51 Gurt US-HS #100</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>473</uiIndex>
@@ -3772,7 +3773,7 @@
 		<szLongItemName>7.62x51mm Gurt, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x51 Gurt US #100</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>474</uiIndex>
@@ -3916,7 +3917,7 @@
 		<szLongItemName>7.62x25mm Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x25 Mag US #8</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>492</uiIndex>
@@ -3924,7 +3925,7 @@
 		<szLongItemName>7.62x25mm Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x25 Mag US-HS #8</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>493</uiIndex>
@@ -3932,7 +3933,7 @@
 		<szLongItemName>7.62x25mm Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x25 Mag US</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>494</uiIndex>
@@ -3940,7 +3941,7 @@
 		<szLongItemName>7.62x25mm Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x25 Mag US-HS</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>495</uiIndex>
@@ -3964,7 +3965,7 @@
 		<szLongItemName>7.62x25mm Bizon Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x25 Biz.Mag US</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>498</uiIndex>
@@ -3972,7 +3973,7 @@
 		<szLongItemName>7.62x25mm Bizon Mag, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x25 Biz.Mag US-HS</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>499</uiIndex>
@@ -3996,7 +3997,7 @@
 		<szLongItemName>7.62x25mm Trommel, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x25 Trommel US #100</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>502</uiIndex>
@@ -4004,7 +4005,7 @@
 		<szLongItemName>7.62x25mm Trommel, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>7.62x25 Mag US-HS</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>503</uiIndex>
@@ -4067,7 +4068,7 @@
 		<szItemName>9x18 Mag</szItemName>
 		<szLongItemName>9x18mm MP-Mag</szLongItemName>
 		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
-		<szBRName>9x18 Mag</szBRName>
+		<szBRName>9x18 Mag #30</szBRName>
 		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4075,7 +4076,7 @@
 		<szItemName>9x18 HS</szItemName>
 		<szLongItemName>9x18mm MP-Mag, HS</szLongItemName>
 		<szItemDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
-		<szBRName>9x18 Mag HS</szBRName>
+		<szBRName>9x18 Mag HS #30</szBRName>
 		<szBRDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7098,25 +7099,25 @@
 		<uiIndex>889</uiIndex>
 		<szItemName>PRO-9</szItemName>
 		<szLongItemName>FN PRO-9</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Die militärische Version der 2003 vorgestellten FN Pro, in 9x19 Para.</szItemDesc>
 		<szBRName>FN PRO-9</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Diese belgisch- amerikanische 9mm Pistole ist das Neueste von FN Herstal. Beeindrucken Sie Ihren Nachbarn!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>890</uiIndex>
 		<szItemName>Forty-Nine</szItemName>
 		<szLongItemName>FN Forty-Nine</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Die militärische Version der 2003 vorgestellten FNPro, in .40 S&amp;W.</szItemDesc>
 		<szBRName>FN Forty-Nine</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Ist Ihnen die 9mm Variante aus Herstal zu schwach, dann versuchen Sie die .40 S&amp;W. Damit hat sogar der Muskelprotz von gegenüber, der Ihrer Frau hinterherpfeift, Respekt!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>891</uiIndex>
 		<szItemName>FNP-45</szItemName>
 		<szLongItemName>FN FNP-45</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Die 2007 vorgestellte Weiterentwicklung der FNPro 9. Jetzt in .45 ACP.</szItemDesc>
 		<szBRName>FN FNP-45</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Noch mehr mannstoppende Wirkung als die FNPro 40 bietet die 2007 vorgestellte .45er Version. Jetzt brauchst Du vor gar nichts mehr Angst zu haben.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>892</uiIndex>
@@ -7362,9 +7363,9 @@
 		<uiIndex>922</uiIndex>
 		<szItemName>KAC M203</szItemName>
 		<szLongItemName>KAC Launcher System</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Bewährte Technik, neu entwicklet von KNIGHT'S ARMAMENT COMPANY. Vergessen Sie den alten Colt M203 Werfer!</szItemDesc>
 		<szBRName>KAC M203 KAC Launcher System</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>KNIGHT'S ARMAMENT COMPANY macht alles ein wenig besser. Auch den guten alten M203 40mm Unterbau-Granatwerfer.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>923</uiIndex>
@@ -7378,49 +7379,49 @@
 		<uiIndex>924</uiIndex>
 		<szItemName>.38 S-Load M</szItemName>
 		<szLongItemName>.38 Speed Loader Match</szLongItemName>
-		<szItemDesc>6 rounds of wadcutter ammo, designed to be used on the gunrange to shoot at paper targets. Still more precise than standard ball ammo, though.</szItemDesc>
+		<szItemDesc>6 Scheibenpatronen fuer Wettkämpfe. Das bündig eingesetzte Flachkopfgeschoss läßt nur wenig Raum für die (verbesserte) Treibladung. Dennoch ist sie sehr präzise.</szItemDesc>
 		<szBRName>.38 S-Load Match</szBRName>
-		<szBRDesc>Precisely loaded .38 Special match ammo with wadcutter bullets. When precision is more important than anything else!</szBRDesc>
+		<szBRDesc>6 Flachkopf-Scheibenpatronen fuer Wettkämpfe. Durch verbesserte Treibladung ungewöhnlich präzise!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>925</uiIndex>
 		<szItemName>.38 SL HSS</szItemName>
 		<szLongItemName>.38 Spc Schnelllader, HSS</szLongItemName>
-		<szItemDesc>These bullets promise to penetrate better than standard hollow points.</szItemDesc>
+		<szItemDesc>Ein .38er Schnelladeclip mit verbesserten Hohlspitzgeschossen aus Kupfer statt Blei.</szItemDesc>
 		<szBRName>.38 Spc SL HSS</szBRName>
-		<szBRDesc>New solid copper bullets of hollow point shape! They are better at penetrating than the usual lead-core/brass-jacket hollowpoints.</szBRDesc>
+		<szBRDesc>Nach der RoHS Richtline gefertigte, bleifreie Hohlspitzgeschosse. Entschuldigen Sie bitte die hohen Kupferpreise - oder befreien Sie einfach ein kupferexportierendes Land!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>926</uiIndex>
 		<szItemName>9x18 PB</szItemName>
 		<szLongItemName>9x18mm Magazin, PB</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Russische 9x18mm Patrone in panzerbrechender Stahlkernausführung. 8 Schuß-Magazin für PM.</szItemDesc>
 		<szBRName>9x18 Mag PB #8</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Russische 9x18mm Patrone in panzerbrechender Stahlkernausführung. 8 Schuß-Magazin für PM.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>927</uiIndex>
 		<szItemName>9x18 PB</szItemName>
 		<szLongItemName>9x18mm Magazin, PB</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Russische 9x18mm Patrone in panzerbrechender Stahlkernausführung. 12 Schuß-Magazin für PMM.</szItemDesc>
 		<szBRName>9x18 Mag PB #12</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Russische 9x18mm Patrone in panzerbrechender Stahlkernausführung. 12 Schuß-Magazin für PMM.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>928</uiIndex>
 		<szItemName>9x18 PB</szItemName>
 		<szLongItemName>9x18mm MP-Mag, PB</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Russische 9x18mm Patrone in panzerbrechender Stahlkernausführung. 12 Schuß-Magazin für Stechkin APS.</szItemDesc>
 		<szBRName>9x18 Mag PB #20</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Russische 9x18mm Patrone in panzerbrechender Stahlkernausführung. 12 Schuß-Magazin für Stechkin APS.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>929</uiIndex>
 		<szItemName>9x18 PB</szItemName>
 		<szLongItemName>9x18mm MP-Mag, PB</szLongItemName>
-		<szItemDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
-		<szBRName>9x18 Mag PB</szBRName>
-		<szBRDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+		<szItemDesc>Russische 9x18mm Patrone in panzerbrechender Stahlkernausführung. 12 Schuß-Magazin für Kashtan.</szItemDesc>
+		<szBRName>9x18 Mag PB #30</szBRName>
+		<szBRDesc>Russische 9x18mm Patrone in panzerbrechender Stahlkernausführung. 12 Schuß-Magazin für Kashtan.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>930</uiIndex>
@@ -7474,25 +7475,25 @@
 		<uiIndex>936</uiIndex>
 		<szItemName>7.62x54R 5 M</szItemName>
 		<szLongItemName>7.62x54R Magazin Match</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Perfekt ausgesuchte Patronen mit verbesserter Treibladung.</szItemDesc>
 		<szBRName>7.62x54R Mag #5 M</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Diese Wettkampfpatronen wurden von Bobby Ray's Sohn handgefertigt!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>937</uiIndex>
 		<szItemName>7.62x54R 10 M</szItemName>
 		<szLongItemName>7.62x54R Magazin Match</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Handgefertigte Patronen mit Wettkampflaborierung für Dein SVD.</szItemDesc>
 		<szBRName>7.62x54R Mag #10 M</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Wozu ein neues Jagdgewehr kaufen? Mit diesen handgefertigten Wettkampfpatronen zeigt Dein SVD, was weitreichende Entscheidungen sind.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>938</uiIndex>
 		<szItemName>7.62x54R Box M</szItemName>
 		<szLongItemName>7.62x54R Box Match</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Reichweitengesteigerte Präzisionsmunition im Pulemjot Kalaschnikowa? Klar!</szItemDesc>
 		<szBRName>7.62x54R Box #200 M</szBRName>
-		<szBRDesc>Not available at BR</szBRDesc>
+		<szBRDesc>Ein Mr. Kevin Cameron aus Cambria bestellte diese Munition für sein PK, holte sie aber nie ab. Sie können sie haben.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>939</uiIndex>
@@ -7506,17 +7507,17 @@
 		<uiIndex>940</uiIndex>
 		<szItemName>60mm ILL-Gran.</szItemName>
 		<szLongItemName>60mm ILL-Granate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Gefechtsfeldbeleuchtung als 60mm Granate. Den Werfer bitte auf 90 Grad stellen und auf die zu beleuchtende Stelle zielen.</szItemDesc>
 		<szBRName>60mm ILL-Granate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Gefechtsfeldbeleuchtung als Mörsergranate. Eine große Magnesiumfackel am Fallschirm, der von der aufsteigenden Wärme in der Luft gehalten wird.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>941</uiIndex>
 		<szItemName>60mm Rauch</szItemName>
 		<szLongItemName>60mm Rauch-Granate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Diese Granaten nebeln sehr schnell das Schlachtfeld ein und decken Aufmarsch oder Rückzug.</szItemDesc>
 		<szBRName>60mm Rauch-Granate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Mehr Rauch als in der Berliner Disco "La Belle" am 5. April 1986 kriegen Sie nur mit diesen Granaten hin.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>942</uiIndex>
@@ -7946,9 +7947,9 @@
 		<uiIndex>995</uiIndex>
 		<szItemName>40mm ILL</szItemName>
 		<szLongItemName>40mm ILL Granate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Den Werfer bitte auf 90 Grad stellen und auf die zu beleuchtende Stelle zielen.</szItemDesc>
 		<szBRName>40mm ILL-Granate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Gefechtsfeldbeleuchtung als 40mm Granate. Eine Magnesiumfackel mit Fallschirm, der von der aufsteigenden Wärme in der Luft gehalten wird.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>996</uiIndex>
@@ -8472,7 +8473,7 @@
 		<szLongItemName>5.56x45mm Magazin, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>5.56x45 Mag US-HS</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Hohlspitz EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1062</uiIndex>
@@ -8480,7 +8481,7 @@
 		<szLongItemName>5.56x45mm Magazin, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
 		<szBRName>5.56x45 Mag US</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie die Vollmantel EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1063</uiIndex>
@@ -8608,7 +8609,7 @@
 		<szLongItemName>Beretta Cx4 Storm</szLongItemName>
 		<szItemDesc>Der neue halbautomat. Karabiner Cx4 Storm ist futuristisch designt und leicht zu bedienen. Als PDW ist er für den professionellen Einsatz bei Polizei und Sicherheitskräften gleichermaßen geeignet.</szItemDesc>
 		<szBRName>Beretta Cx4 Storm</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Der neue halbautomat. Karabiner Cx4 Storm ist futuristisch designt und leicht zu bedienen. Als PDW ist er für den professionellen Einsatz bei Polizei und Sicherheitskräften gleichermaßen geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1079</uiIndex>
@@ -9067,7 +9068,7 @@
 		<uiIndex>1179</uiIndex>
 		<szItemName>SIG MP41/44</szItemName>
 		<szLongItemName>SIG MP41/44</szLongItemName>
-		<szItemDesc>Diese schweizer MP aus den 30er-Jahren besitzt nur Dauerfeuer und ist recht schwer, aber ihre Reichweite ist vergleichbar mit modernen MPs.</szItemDesc>
+		<szItemDesc>Diese schweizer MP aus den 30er-Jahren schießt nur Dauerfeuer und ist recht schwer, aber ihre Reichweite ist vergleichbar mit modernen MPs.</szItemDesc>
 		<szBRName>SIG MP41/44</szBRName>
 		<szBRDesc>Die MP41/44 auch als 'LMG 25 Pistole' bekannt wurde Anfang der 20er-Jahre von Oberst Adolf Fürrer, dem damaligen Direktor der Waffenfabrik Bern, entwickelt. Zwischen 1924-1946 wurden insgesamt 23.045 Stück hergestellt.</szBRDesc>
 	</ITEM>
@@ -9147,9 +9148,9 @@
 		<uiIndex>1189</uiIndex>
 		<szItemName>Flare</szItemName>
 		<szLongItemName>Notfallsflare</szLongItemName>
-		<szItemDesc>Eine Flare, die normalerweise bei Notfällen benutzt wird.</szItemDesc>
+		<szItemDesc>Eine Signalfackel, die normalerweise bei Notfällen benutzt wird.</szItemDesc>
 		<szBRName>Flare</szBRName>
-		<szBRDesc>Stärker als ein chemisches Knicklicht aber kurzlebiger.</szBRDesc>
+		<szBRDesc>Stärker als ein chemisches Knicklicht, leuchtet aber nicht so lange.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1190</uiIndex>
@@ -9235,9 +9236,9 @@
 		<uiIndex>1200</uiIndex>
 		<szItemName>R-Holster</szItemName>
 		<szLongItemName>Revolver Holster</szLongItemName>
-		<szItemDesc>Dieses Schulterholster ist für mittlere Revolver geeignet und besitzt zusätzlich zwei Fächer für Speedloader damit Sie schnell nachladen können.</szItemDesc>
+		<szItemDesc>Dieses Schulterholster ist für mittlere Revolver geeignet und hat zusätzlich zwei Fächer für Speedloader damit Sie schnell nachladen können.</szItemDesc>
 		<szBRName>Revolver Holster</szBRName>
-		<szBRDesc>Dieses Schulterholster ist für mittlere Revolver geeignet und besitzt zusätzlich zwei Fächer für Speedloader damit Sie schnell nachladen können.</szBRDesc>
+		<szBRDesc>Dieses Schulterholster ist für mittlere Revolver geeignet und hat zusätzlich zwei Fächer für Speedloader damit Sie schnell nachladen können.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1201</uiIndex>
@@ -10265,27 +10266,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1329</uiIndex>
-		<szItemName>Imp. Mod. Choke</szItemName>
-		<szLongItemName>Imp. Mod. Shotgun Choke</szLongItemName>
-		<szItemDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group tighter, permiting longer range and more shot to hit the target.</szItemDesc>
-		<szBRName>Imp. Mod. Shotgun Choke</szBRName>
-		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group tighter, permiting longer range and more shot to hit the target.</szBRDesc>
+		<szItemName>verbesserter .12 Choke</szItemName>
+		<szLongItemName>verbesserter Schrotflinten-Choke</szLongItemName>
+		<szItemDesc>Eine Flintenlauf-Drossel die den Streukreis von .12er Schrot enger setzt und somit größere Reichweiten ermöglicht.</szItemDesc>
+		<szBRName>verbesserter Schrotflinten-Choke</szBRName>
+		<szBRDesc>Schrauben Sie diese Drossel auf Ihren Flintenlauf - Sie erreichen viel engere Streukreise größere Reichweiten mit normalem .12er Schrot.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1330</uiIndex>
-		<szItemName>Full Choke</szItemName>
-		<szLongItemName>Full Shotgun Choke</szLongItemName>
-		<szItemDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.  Not for use with slugs!</szItemDesc>
-		<szBRName>Full Shotgun Choke</szBRName>
-		<szBRDesc>When attached to the end of a shotgun barrel, causes shot fired from the shotgun to group much tighter, permiting longer range and more shot to hit the target.  Not for use with slugs!</szBRDesc>
+		<szItemName>optimaler .12 Choke</szItemName>
+		<szLongItemName>optimaler Schrotflinten-Choke</szLongItemName>
+		<szItemDesc>Eine Flintenlauf-Drossel die den Streukreis von .12er Schrot enger setzt und somit größere Reichweiten ermöglicht. Nicht für Flintenlaufgeschosse!</szItemDesc>
+		<szBRName>optimaler Schrotflinten-Choke</szBRName>
+		<szBRDesc>Schrauben Sie diese Drossel auf Ihren Flintenlauf - Sie erreichen viel engere Streukreise größere Reichweiten mit normalem .12er Schrot. Bitte nicht mit Flintenlaufgeschossen verwenden!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1331</uiIndex>
-		<szItemName>Rifled Choke</szItemName>
-		<szLongItemName>Rifled Shotgun Choke</szLongItemName>
-		<szItemDesc>When attached to the end of a shotgun barrel, causes slugs to fire more accurately and farther.  However, shot will fire in a very wide, ineffective pattern.</szItemDesc>
-		<szBRName>Rifled Shotgun Choke</szBRName>
-		<szBRDesc>Makes your slugs to fire long and straight, but throws shot all over tarnation!</szBRDesc>
+		<szItemName>gezogener Choke</szItemName>
+		<szLongItemName>Flintenchoke mit Drall</szLongItemName>
+		<szItemDesc>Eine Flintenlaufverlängerung mit Drall für plastikummantelte Flintenlaufgeschosse. Verbessert Reichweite und Präzision, Schrot streut allerding unkontrolliert.</szItemDesc>
+		<szBRName>Flintenchoke mit Drall</szBRName>
+		<szBRDesc>Eine Flintenlaufverlängerung mit Drall für Flintenlaufgeschosse. Verbessert Reichweite und Präzision von Kugeln, Schrot streut allerding unkontrolliert!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1332</uiIndex>
@@ -10313,59 +10314,59 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1335</uiIndex>
-		<szItemName>AR57 16 upper</szItemName>
-		<szLongItemName>AR57 16" upper</szLongItemName>
-		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 16".</szItemDesc>
-		<szBRName>AR57 16" upper</szBRName>
-		<szBRDesc>If you want to shoot the 5.7x28mm round but still want the ergonomics of the M4 series, take this new upper receiver and mount it onto your old M4 Commando or M4A1 lower receiver. This one comes with a 16" barrel.</szBRDesc>
+		<szItemName>AR57 16 Gehäuse</szItemName>
+		<szLongItemName>AR57 16" Gehäuse</szLongItemName>
+		<szItemDesc>Bauen Sie Ihr M4A1 oder Commando durch die Montage des neuen oberen Verschlussgehäuses auf Kaliber 5.7x28mm und Standard P90-Magazine um. Der 16" Lauf rmöglicht eine größere Reichweite.</szItemDesc>
+		<szBRName>AR57 16" Gehäuse</szBRName>
+		<szBRDesc>Wünschen Sie die Leistung der FN 5.7x28mm Patrone, sind aber Ihr M4 gewohnt? Bausen Sie es einfach auf dieses neue obere Verschlussgehäuse um. Große Reichweite dank 16" Lauf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1336</uiIndex>
-		<szItemName>AR57 11 upper</szItemName>
-		<szLongItemName>AR57 11" upper</szLongItemName>
-		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 11".</szItemDesc>
-		<szBRName>AR57 11" upper</szBRName>
-		<szBRDesc>If you want to shoot the 5.7x28mm round but still want the ergonomics of the M4 series, take this new upper receiver and mount it onto your old M4 Commando or M4A1 lower receiver. Comes with a 11" barrel.</szBRDesc>
+		<szItemName>AR57 11 Gehäuse</szItemName>
+		<szLongItemName>AR57 11" Gehäuse</szLongItemName>
+		<szItemDesc>Bauen Sie Ihr M4A1 oder Commando durch die Montage des neuen oberen Verschlussgehäuses auf Kaliber 5.7x28mm und Standard P90-Magazine um. Recht kompakt dank 16" Lauf.</szItemDesc>
+		<szBRName>AR57 11" Gehäuse</szBRName>
+		<szBRDesc>Wünschen Sie die Leistung der FN 5.7x28mm Patrone, sind aber Ihr M4 gewohnt? Bausen Sie es einfach auf dieses neue obere Verschlussgehäuse um. Recht kompakt dank 16" Lauf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1337</uiIndex>
-		<szItemName>AR57 6S upper</szItemName>
-		<szLongItemName>AR57 6"-S upper</szLongItemName>
-		<szItemDesc>Upper receiver to change a M4A1 or M4 Commando into an AR57 6"-S, the silenced version of the AR57.</szItemDesc>
-		<szBRName>AR57 6"-S upper</szBRName>
-		<szBRDesc>If you want to shoot the 5.7x28mm round but still want the ergonomics of the M4 series, take this new upper receiver and mount it onto your old M4 Commando or M4A1 lower receiver. This is the silenced version, combining a Gemtech suppressor with a 6" barrel.</szBRDesc>
+		<szItemName>AR57 6SD Gehäuse</szItemName>
+		<szLongItemName>AR57 6"-SD Gehäuse</szLongItemName>
+		<szItemDesc>Bauen Sie Ihr M4A1 oder Commando durch die Montage des neuen oberen Verschlussgehäuses auf Kaliber 5.7x28mm und Standard P90-Magazine um. Integrierter Gemtech Schalldämpfer im 6" Lauf.</szItemDesc>
+		<szBRName>AR57 6"-SD Gehäuse</szBRName>
+		<szBRDesc>Wünschen Sie die Leistung der FN 5.7x28mm Patrone, sind aber Ihr M4 gewohnt? Bausen Sie es einfach auf dieses neue obere Verschlussgehäuse um. Integrierter Gemtech Schalldämpfer im 6" Lauf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1338</uiIndex>
 		<szItemName>5.45x39 US-HS</szItemName>
 		<szLongItemName>5.45x39mm Magazin, US-HS</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
+		<szItemDesc>Die Unterschall-Variante des seltenen Hohlspitzgeschosses 5.45x39mm (Patrone M 74).</szItemDesc>
 		<szBRName>5.45x39 Mag US-HS</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie mit Ihrem AK-74 nur Hohlspitz EXTREME SHOCK Silent Warrior Patronen und genießen Sie die Stille! 30 Schuß.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1339</uiIndex>
 		<szItemName>5.45x39 US</szItemName>
 		<szLongItemName>5.45x39mm Magazin, Unterschall</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
+		<szItemDesc>Die Unterschall-Variante des üblichen Stahlkern Vollmantelgeschosses 5.45x39mm (Patrone M 74).</szItemDesc>
 		<szBRName>5.45x39 Mag US</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szBRDesc>Verwenden Sie mit Ihrem AK-74 nur Vollmantel EXTREME SHOCK Silent Warrior Patronen und genießen Sie die Stille! 30 Schuß.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1340</uiIndex>
 		<szItemName>5.45x39 HS US</szItemName>
 		<szLongItemName>5.45x39mm RPK-Magazin, HS US</szLongItemName>
-		<szItemDesc>This 45-round mag contains 5.45 subsonic jacketed hollow point ammunition.</szItemDesc>
+		<szItemDesc>Die Unterschall-Variante des seltenen Hohlspitzgeschosses 5.45x39mm (Patrone M 74) in einem 45 schüssigen Magazin.</szItemDesc>
 		<szBRName>5.45x39mm RPK-Magazin, HS US</szBRName>
-		<szBRDesc>This 45-round mag contains 5.45 subsonic jacketed hollow point ammunition.</szBRDesc>
+		<szBRDesc>Verwenden Sie mit Ihrem RPK-74 nur Hohlspitz EXTREME SHOCK Silent Warrior Patronen und genießen Sie die Stille! 45 Schuß.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1341</uiIndex>
 		<szItemName>5.45x39 Mag C</szItemName>
 		<szLongItemName>5.45x39mm RPK-Magazin C</szLongItemName>
-		<szItemDesc>This 45-round mag holds 5.45 light armor piercing subsonic ammo.</szItemDesc>
+		<szItemDesc>Die Unterschall-Variante des üblichen Stahlkern Vollmantelgeschosses 5.45x39mm (Patrone M 74) in einem 45 schüssigen Magazin.</szItemDesc>
 		<szBRName>5.45x39mm RPK-Magazin C</szBRName>
-		<szBRDesc>This 45-round mag holds 5.45 light armor piercing subsonic ammo.</szBRDesc>
+		<szBRDesc>Verwenden Sie mit Ihrem RPK-74 nur Vollmantel EXTREME SHOCK Silent Warrior Patronen und genießen Sie die Stille! 45 Schuß.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1342</uiIndex>
@@ -10387,49 +10388,49 @@
 		<uiIndex>1344</uiIndex>
 		<szItemName>7.62x39 Mag US</szItemName>
 		<szLongItemName>7.62x39mm Magazin US</szLongItemName>
-		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
-		<szBRName>7.62x39 Mag US</szBRName>
-		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+		<szItemDesc>Die Unterschall-Variante des üblichen Stahlkern Vollmantelgeschosses 7.62x39mm (Kurzpatrone M 43).</szItemDesc>
+		<szBRName>7.62x39 US #10</szBRName>
+		<szBRDesc>Wir wissen zwar nicht, welcher Schalldämpfer an das SKS-45 paßt, aber eine "kalte" M-43 Vollmantelpatrone dafür hätten wir.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1345</uiIndex>
 		<szItemName>7.62x39 US-HS</szItemName>
 		<szLongItemName>7.62x39mm Magazin, US-HS</szLongItemName>
-		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
-		<szBRName>7.62x39 Mag US-HS</szBRName>
-		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+		<szItemDesc>Die Unterschall-Variante des seltenen Hohlspitzgeschosses 7.62x39mm (Kurzpatrone M 43).</szItemDesc>
+		<szBRName>7.62x39 US-HS #10</szBRName>
+		<szBRDesc>Wir wissen zwar nicht, welcher Schalldämpfer an das SKS-45 paßt, aber eine "kalte" M-43 Hohlspitzpatrone dafür hätten wir.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1346</uiIndex>
 		<szItemName>7.62x39 Mag US</szItemName>
 		<szLongItemName>7.62x39mm Magazin US</szLongItemName>
-		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
-		<szBRName>7.62x39 Mag US</szBRName>
-		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+		<szItemDesc>Die Unterschall-Variante des üblichen Stahlkern Vollmantelgeschosses 7.62x39mm (Kurzpatrone M 43).</szItemDesc>
+		<szBRName>7.62x39 US #30</szBRName>
+		<szBRDesc>Die "kalte Ladung" dieser M-43 Vollmantelpatrone ermöglicht Ihnen, einen Schalldämpfer an Ihrer AK-47 oder AKM einzusetzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1347</uiIndex>
 		<szItemName>7.62x39 US-HS</szItemName>
 		<szLongItemName>7.62x39mm Magazin, US-HS</szLongItemName>
-		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
-		<szBRName>7.62x39 Mag US-HS</szBRName>
-		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+		<szItemDesc>Die Unterschall-Variante des seltenen Hohlspitzgeschosses 7.62x39mm (Kurzpatrone M 43).</szItemDesc>
+		<szBRName>7.62x39 US-HS #30</szBRName>
+		<szBRDesc>Die "kalte Ladung" dieser M-43 Hohlspitzpatrone ermöglicht Ihnen, einen Schalldämpfer an Ihrer AK-47 oder AKM einzusetzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1348</uiIndex>
 		<szItemName>7.62x39 Tr. US</szItemName>
 		<szLongItemName>7.62x39mm Trommel US</szLongItemName>
-		<szItemDesc>Subsonic full metal jacket rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
-		<szBRName>7.62x39 Trommel US</szBRName>
-		<szBRDesc>Silent light armor piercing ammo for Eastern Bloc guns.</szBRDesc>
+		<szItemDesc>Die Unterschall-Variante des üblichen Stahlkern Vollmantelgeschosses 7.62x39mm (Kurzpatrone M 43).</szItemDesc>
+		<szBRName>7.62x39 Tr. US</szBRName>
+		<szBRDesc>Die "kalte Ladung" dieser M-43 Vollmantelpatrone ermöglicht Ihnen, einen Schalldämpfer an Ihrem RPK-74 oder RPD einzusetzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1349</uiIndex>
 		<szItemName>7.62x39 US-HS</szItemName>
 		<szLongItemName>7.62x39mm Trommel, US-HS</szLongItemName>
-		<szItemDesc>Subsonic hollow point rounds for use with 7.62x39mm Warsaw-Pact weapons.</szItemDesc>
+		<szItemDesc>Die Unterschall-Variante des seltenen Hohlspitzgeschosses 7.62x39mm (Kurzpatrone M 43).</szItemDesc>
 		<szBRName>7.62x39 Tr. US-HS</szBRName>
-		<szBRDesc>If you own an AK and want to be a silent warrior, then this ammo is for you.</szBRDesc>
+		<szBRDesc>Die "kalte Ladung" dieser M-43 Hohlspitzpatrone ermöglicht Ihnen, einen Schalldämpfer an Ihrem RPK-74 oder RPD einzusetzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1350</uiIndex>
@@ -10555,40 +10556,40 @@
 		<uiIndex>1365</uiIndex>
 		<szItemName>9x18mm Mag 12 G</szItemName>
 		<szLongItemName>9x18mm Pistol Mag, 12 G</szLongItemName>
-		<szItemDesc>A pistol magazine filled with 12 Glaser rounds in the 9x18mm caliber.</szItemDesc>
+		<szItemDesc>Ein PMM Pistolenmagazin mit 12 Defensivgeschossen 9x18mm vom Type Glaser Hydro-Schock.</szItemDesc>
 		<szBRName>9x18mm Mag 12 G</szBRName>
-		<szBRDesc>Glaser ammo in the 9x18mm caliber, to get more punch out of a small round.</szBRDesc>
+		<szBRDesc>Ideale Verteidigunsmunition für Ihre PMM Seitenwaffe: 12 Defensivgeschosse 9x18mm Glaser Hydro-Schock. Wenn es mal eng wird...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1366</uiIndex>
 		<szItemName>9x18mm Mag 8 G</szItemName>
 		<szLongItemName>9x18mm Pistol Mag, 8 G</szLongItemName>
-		<szItemDesc>A pistol magazine filled with 8 Glaser rounds in the 9x18mm caliber.</szItemDesc>
+		<szItemDesc>Ein PM Pistolenmagazin mit 8 Defensivgeschossen 9x18mm vom Type Glaser Hydro-Schock.</szItemDesc>
 		<szBRName>9x18mm Mag 8 G</szBRName>
-		<szBRDesc>Glaser ammo in the 9x18mm caliber. You need the bigger punch, especially if you only have 8 rounds in your pistol...</szBRDesc>
+		<szBRDesc>Ideale Verteidigunsmunition für Ihre kleine Makarow: 8 Defensivgeschosse 9x18mm Glaser Hydro-Schock. Wenn es mal sehr eng wird...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1367</uiIndex>
 		<szItemName>9x18mm Mag 20 G</szItemName>
 		<szLongItemName>9x18mm SMG Mag, 20 G</szLongItemName>
-		<szItemDesc>A SMG magazine filled with 20 Glaser rounds in the 9x18mm caliber.</szItemDesc>
+		<szItemDesc>Ein APS Pistolenmagazin mit 20 Defensivgeschossen 9x18mm vom Type Glaser Hydro-Schock. Damit zerreißen Sie jeden ungeschützten Gegner förmlich</szItemDesc>
 		<szBRName>9x18mm Mag 20 G</szBRName>
-		<szBRDesc>Now your little 9x18mm SMG can rip your enemy to shreds, with these Glaser bullets!</szBRDesc>
+		<szBRDesc>Ein PMM Pistolenmagazin mit 20 Defensivgeschossen 9x18mm vom Type Glaser Hydro-Schock. Wenn Sie mal mit der APS Stechkin auf Bärenjagd wollen - nur zu!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1368</uiIndex>
 		<szItemName>9x18mm Mag 30 G</szItemName>
 		<szLongItemName>9x18mm SMG Mag, 30 G</szLongItemName>
-		<szItemDesc>A SMG magazine filled with 30 Glaser rounds in the 9x18mm caliber.</szItemDesc>
+		<szItemDesc>Ein SMG Pistolenmagazin mit 30 Defensivgeschossen 9x18mm vom Type Glaser Hydro-Schock.</szItemDesc>
 		<szBRName>9x18mm Mag 30 G</szBRName>
-		<szBRDesc>A hailstorm of Glaser bullets will terrify any unarmored enemy, even in this small caliber.</szBRDesc>
+		<szBRDesc>Ein wahrer Hagelsturm an Glaser Mannstoppern wird jedem ungeschützten Gegner das Fürchten lernen, selbst in diesem Spielzeugkaliber!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1369</uiIndex>
-		<szItemName>9x18 G crate</szItemName>
-		<szLongItemName>9x18mm G ammo crate</szLongItemName>
-		<szItemDesc>ammo crate</szItemDesc>
-		<szBRName>9x18mm G ammo crate</szBRName>
+		<szItemName>9x18 G Kiste</szItemName>
+		<szLongItemName>9x18mm G Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit 9x18 (Glaser).</szItemDesc>
+		<szBRName>9x18mm G Munitionskiste</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
