@@ -7356,7 +7356,7 @@
 		<szItemName>FN EGLM</szItemName>
 		<szLongItemName>FN EGLM Granatwerfer</szLongItemName>
 		<szItemDesc>FN Herstal's Unterlauf- Granatwerfer für SCAR. Ursprünglichh für F2000 entwickelt.</szItemDesc>
-		<szBRName>FN EGLM Grenade Launcher</szBRName>
+		<szBRName>FN EGLM Granatwerfer</szBRName>
 		<szBRDesc>FN Herstal entwickelte den Werfer des F2000 so weiter, daß er nun auch an das SCAR paßt. Feuert 40mm Granaten jeder Länge und ist für künftige 'Mittelgeschwindigkeits'- Granaten geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7753,43 +7753,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>971</uiIndex>
-		<szItemName>43mm HE</szItemName>
-		<szLongItemName>43mm HE-Granaten</szLongItemName>
-		<szItemDesc>Diese HE-Granaten für den GM-94 Granatwerfer werden nur in 4er Packs geliefert. Wir von Bobby Ray's möchten sicherstellen, das Sie nicht mit halb-leerer Waffe in den Kampf ziehen.</szItemDesc>
+		<szItemName>43mm HE #4</szItemName>
+		<szLongItemName>43mm HE-Granaten, 4er Pack</szLongItemName>
+		<szItemDesc>Diese 43mm HE Granaten passen perfekt in Ihren GM-94 "Granatomet". Der thermobarische Gefechtskopf wirkt duch Druckwelle und Temperatur. 4 Stück.</szItemDesc>
 		<szBRName>43mm HE-Gran. #4</szBRName>
 		<szBRDesc>Diese HE-Granaten für den GM-94 Granatwerfer werden nur in 4er Packs geliefert. Wir von Bobby Ray's möchten sicherstellen, das Sie nicht mit halb-leerer Waffe in den Kampf ziehen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>972</uiIndex>
-		<szItemName>43mm SG</szItemName>
-		<szLongItemName>43mm Senfgas-Granaten</szLongItemName>
-		<szItemDesc>Diese Granaten setzen ein farb-, geruch- und geschmackloses Gas frei, das schwere Verätzungen in der Lunge verursacht. Ohne sofortige medizinische Hilfe stirbt das Opfer.</szItemDesc>
-		<szBRName>43mm SG-Gran. #4</szBRName>
-		<szBRDesc>Diese Granaten setzen ein farb-, geruch- und geschmackloses Gas frei, das schwere Verätzungen in der Lunge verursacht. Ohne sofortige medizinische Hilfe stirbt das Opfer.</szBRDesc>
+		<szItemName>43mm SG #4</szItemName>
+		<szLongItemName>43mm Yperit Gran., 4er Pack</szLongItemName>
+		<szItemDesc>Bis(2-chlorethyl)sulfid, wegen des Senf- oder Knoblauchgeruches auch "Senfgas" genannt. Ohne sofortige medizinische Hilfe stirbt das Opfer. 4er Pack.</szItemDesc>
+		<szBRName>43mm Yperit #4</szBRName>
+		<szBRDesc>Dieses Produkt wurde als Chemische Waffe durch die Genfer Konvention gebannt. Wir verkaufen es daher nur zur Schädlingsbekämpfung! 4 Stück.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>973</uiIndex>
-		<szItemName>43mm Nebel</szItemName>
-		<szLongItemName>43mm Nebelgranaten</szLongItemName>
-		<szItemDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlachtfeldes oder beim Rückzug Deckung bietet.</szItemDesc>
+		<szItemName>43mm Nebel #4</szItemName>
+		<szLongItemName>43mm Nebel, 4er Pack</szLongItemName>
+		<szItemDesc>Diese 4 Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlachtfeldes oder beim Rückzug Deckung bietet.</szItemDesc>
 		<szBRName>43mm Nebelgran. #4</szBRName>
-		<szBRDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlacht- feldes oder beim Rückzug Deckung bietet.</szBRDesc>
+		<szBRDesc>Diese 4 Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlacht- feldes oder beim Rückzug Deckung bietet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>974</uiIndex>
-		<szItemName>43mm V</szItemName>
-		<szLongItemName>43mm Vakuum-Granaten</szLongItemName>
-		<szItemDesc>Mit diesen Granaten nehmen Sie jeder Infanterie- Einheit den Wind aus den Segeln.</szItemDesc>
-		<szBRName>43mm V-Gran. #4</szBRName>
-		<szBRDesc>Mit diesen Granaten nehmen Sie jeder Infanterie- Einheit den Wind aus den Segeln.</szBRDesc>
+		<szItemName>43mm V #4</szItemName>
+		<szLongItemName>43mm Betäubung, 4er</szLongItemName>
+		<szItemDesc>Mit diesen Granaten nehmen Sie jeder Infanterie- Einheit den Wind aus den Segeln. 4 Stück.</szItemDesc>
+		<szBRName>43mm Vakuum #4</szBRName>
+		<szBRDesc>Mit diesen Granaten nehmen Sie jeder Infanterie- Einheit den Wind aus den Segeln. 4 Stück.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>975</uiIndex>
-		<szItemName>43mm TG</szItemName>
-		<szLongItemName>43mm Tränengasgranaten</szLongItemName>
-		<szItemDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szItemDesc>
+		<szItemName>43mm TG #4</szItemName>
+		<szLongItemName>43mm Tränengas, 4er</szLongItemName>
+		<szItemDesc>Aus diesen 4 gummiartigen Geschossen wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szItemDesc>
 		<szBRName>43mm TG-Gran. #4</szBRName>
-		<szBRDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szBRDesc>
+		<szBRDesc>Schießen Sie eine dieser 4 CS-Gas Granten zwischen Ihre Gegner und schauen Sie zu, wie diese heulend und sabbernd zusammenbrechen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>976</uiIndex>
@@ -10594,58 +10594,58 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1370</uiIndex>
-		<szItemName>43mm Illumination</szItemName>
-		<szLongItemName>43mm Illumination Grenades, 4</szLongItemName>
-		<szItemDesc>43mm Illumination Grenades for the GM-94 grenade launcher.</szItemDesc>
-		<szBRName>43mm Illumination Grenades, 4</szBRName>
-		<szBRDesc>43mm Illumination Grenades for the GM-94 grenade launcher.</szBRDesc>
+		<szItemName>43mm ILL #4</szItemName>
+		<szLongItemName>43mm Gefechtsfeldbeleuchtung, 4</szLongItemName>
+		<szItemDesc>Den Werfer bitte auf 90 Grad stellen und auf die zu beleuchtende Stelle zielen. 4er Pack für 43mm Werfer GM-94.</szItemDesc>
+		<szBRName>43mm ILL Granate, 4</szBRName>
+		<szBRDesc>Gefechtsfeldbeleuchtung als 43mm Granate. 4er Pack Magnesiumfackeln mit Fallschirm, der von der aufsteigenden Wärme in der Luft gehalten werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1371</uiIndex>
-		<szItemName>43mm HE</szItemName>
-		<szLongItemName>43mm HE Grenade</szLongItemName>
-		<szItemDesc>This 43mm High Explosive grenade will fit nicely in your GM-94 grenade launcher.</szItemDesc>
-		<szBRName>43mm HE Grenade</szBRName>
-		<szBRDesc>High Explosive grenade for the GM-94.</szBRDesc>
+		<szItemName>43mm HE #1</szItemName>
+		<szLongItemName>43mm HE Granate</szLongItemName>
+		<szItemDesc>HE Granate für den GM-94. Hohe Sprengwirkung und Druckwelle, kaum Splitter. Tötet nur duch Druckwelle und Temperatur, ist genau genommen ein thermobarischer Gefechtskopf.</szItemDesc>
+		<szBRName>43mm HE-Gran. #1</szBRName>
+		<szBRDesc>Bitte kaufen Sie diesen Artikel lieber gleich im 4er Pack!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1372</uiIndex>
-		<szItemName>43mm Mustard Gas</szItemName>
-		<szLongItemName>43mm Mustard Gas Grenades</szLongItemName>
-		<szItemDesc>This 43mm Mustard Gas grenades will fit nicely in your GM-94 grenade launcher. Warning: Inhaling contents will cause a painful death.</szItemDesc>
-		<szBRName>43mm Mustard Gas Grenades</szBRName>
-		<szBRDesc>This product is classed as a chemical weapon and is banned by the Geneva convention. Sold for pest control purposes only!</szBRDesc>
+		<szItemName>43mm SG #1</szItemName>
+		<szLongItemName>43mm Yperit Granate</szLongItemName>
+		<szItemDesc>Bis(2-chlorethyl)sulfid, wegen des Senf- oder Knoblauchgeruches auch "Senfgas" genannt. Ohne sofortige medizinische Hilfe stirbt das Opfer.</szItemDesc>
+		<szBRName>43mm Yperit #1</szBRName>
+		<szBRDesc>Diese Granate für den GM-94 setzt ein etwas nach Senf riechendes Gas frei, das Lunge und Haut verätzt. Ohne sofortige medizinische Hilfe stirbt das Opfer qualvoll!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1373</uiIndex>
-		<szItemName>43mm Smoke</szItemName>
-		<szLongItemName>43mm Smoke Grenade</szLongItemName>
-		<szItemDesc>This 43mm Smoke grenade will fit nicely in your GM-94 grenade launcher. When you need cover, fire off a couple of these.</szItemDesc>
-		<szBRName>43mm Smoke Grenade</szBRName>
-		<szBRDesc>Smoke round for the GM-94.</szBRDesc>
+		<szItemName>43mm Nebel #1</szItemName>
+		<szLongItemName>43mm Nebelgranate</szLongItemName>
+		<szItemDesc>Diese 43mm Nebelgranate paßt in den GM-94. Verschießen Sie lieber gleich mehrere, um Ihren Rückzug zu decken!</szItemDesc>
+		<szBRName>43mm Nebel #1</szBRName>
+		<szBRDesc>Diese 43mm Nebelgranate paßt in den GM-94. Verschießen Sie lieber gleich mehrere, um Ihren Rückzug zu decken. Wir bieten diesen Artikel auch als 4er Pack an!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1374</uiIndex>
-		<szItemName>43mm Stun</szItemName>
-		<szLongItemName>43mm Stun Grenade</szLongItemName>
-		<szItemDesc>43mm stun grenade for the GM-94 launcher.</szItemDesc>
-		<szBRName>43mm Stun Grenade</szBRName>
-		<szBRDesc>Crowd of rioters or room full of hyperactive children (we kid, of course), a stun grenade will take the wind and the fight right out of them.</szBRDesc>
+		<szItemName>43mm V #1</szItemName>
+		<szLongItemName>43mm Betäubung</szLongItemName>
+		<szItemDesc>Mit Ihrem GM-94 und dieser 43mm Granate agieren Sie immer atemberaubend!</szItemDesc>
+		<szBRName>43mm Vakuum #1</szBRName>
+		<szBRDesc>Demonstranten oder einen Raum voll kreischender Göhren? Eine Vakuum-Betäubungsgranate nimmt denen den Atem und Ruck-Zuck ist Ruhe. (Heh, wir machen nur Spaß!).</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1375</uiIndex>
-		<szItemName>43mm Tear Gas</szItemName>
-		<szLongItemName>43mm Tear Gas Grenade</szLongItemName>
-		<szItemDesc>Drop a CS gas grenade on your target and reduce them to blubbering wrecks.</szItemDesc>
-		<szBRName>43mm Tear Gas Grenade</szBRName>
-		<szBRDesc>Drop a CS gas grenade on your target and reduce them to blubbering wrecks.</szBRDesc>
+		<szItemName>43mm TG #1</szItemName>
+		<szLongItemName>43mm Tränengas Granate (CS)</szLongItemName>
+		<szItemDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szItemDesc>
+		<szBRName>43mm Tränengas #1</szBRName>
+		<szBRDesc>Schießen Sie diese CS-Gas Grante zwischen Ihre Gegner und schauen Sie zu, wie diese heulend und sabbernd zusammenbrechen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1376</uiIndex>
-		<szItemName>43mm Illumination</szItemName>
-		<szLongItemName>43mm Illumination Grenade</szLongItemName>
-		<szItemDesc>43mm Illumination Grenade for the GM-94 grenade launcher.</szItemDesc>
-		<szBRName>43mm Illumination Grenade</szBRName>
-		<szBRDesc>43mm Illumination Grenade for the GM-94 grenade launcher.</szBRDesc>
+		<szItemName>43mm Beleuchtung</szItemName>
+		<szLongItemName>43mm Gefechtsfeldbeleuchtung</szLongItemName>
+		<szItemDesc>Den Werfer bitte auf 90 Grad stellen und auf die zu beleuchtende Stelle zielen. Einzelne Granate für 43mm Werfer GM-94.</szItemDesc>
+		<szBRName>43mm Beleuchtung</szBRName>
+		<szBRDesc>Gefechtsfeldbeleuchtung als 43mm Granate. Eine Magnesiumfackel mit Fallschirm, der von der aufsteigenden Wärme in der Luft gehalten wird.</szBRDesc>
 	</ITEM>
 </ITEMLIST>
