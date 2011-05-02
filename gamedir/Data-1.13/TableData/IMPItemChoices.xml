@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <IMPITEMCHOICESLIST>
 	<IMPITEMCHOICES>
 		<uiIndex>0</uiIndex>
 		<name>Default Items</name>
-		<ubChoices>3</ubChoices>
-		<ubNumItems>3</ubNumItems>
+		<ubChoices>4</ubChoices>
+		<ubNumItems>4</ubNumItems>
 		<bItemNo1>164</bItemNo1>
 		<bItemNo2>1090</bItemNo2>
-		<bItemNo3>1095</bItemNo3>
-		<bItemNo4>0</bItemNo4>
+		<bItemNo3>1094</bItemNo3>
+		<bItemNo4>1097</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
@@ -787,10 +787,10 @@
 	<IMPITEMCHOICES>
 		<uiIndex>14</uiIndex>
 		<name>Sniper</name>
-		<ubChoices>2</ubChoices>
-		<ubNumItems>2</ubNumItems>
-		<bItemNo1>208</bItemNo1>
-		<bItemNo2>209</bItemNo2>
+		<ubChoices>1</ubChoices>
+		<ubNumItems>1</ubNumItems>
+		<bItemNo1>209</bItemNo1>
+		<bItemNo2>0</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -1347,10 +1347,10 @@
 	<IMPITEMCHOICES>
 		<uiIndex>24</uiIndex>
 		<name>Night Ops</name>
-		<ubChoices>1</ubChoices>
-		<ubNumItems>1</ubNumItems>
+		<ubChoices>2</ubChoices>
+		<ubNumItems>2</ubNumItems>
 		<bItemNo1>211</bItemNo1>
-		<bItemNo2>0</bItemNo2>
+		<bItemNo2>146</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -1735,7 +1735,7 @@
 		<bItemNo48>0</bItemNo48>
 		<bItemNo49>0</bItemNo49>
 		<bItemNo50>0</bItemNo50>
-	</IMPITEMCHOICES>  
+	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>31</uiIndex>
 		<name>Lockpicking</name>
@@ -1791,7 +1791,7 @@
 		<bItemNo48>0</bItemNo48>
 		<bItemNo49>0</bItemNo49>
 		<bItemNo50>0</bItemNo50>
-	</IMPITEMCHOICES> 
+	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>32</uiIndex>
 		<name>Electronics</name>
@@ -1847,7 +1847,7 @@
 		<bItemNo48>0</bItemNo48>
 		<bItemNo49>0</bItemNo49>
 		<bItemNo50>0</bItemNo50>
-	</IMPITEMCHOICES>  
+	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>33</uiIndex>
 		<name>Camouflage</name>
@@ -2523,10 +2523,10 @@
 	<IMPITEMCHOICES>
 		<uiIndex>45</uiIndex>
 		<name>Night Ops Exp</name>
-		<ubChoices>1</ubChoices>
-		<ubNumItems>1</ubNumItems>
+		<ubChoices>2</ubChoices>
+		<ubNumItems>2</ubNumItems>
 		<bItemNo1>211</bItemNo1>
-		<bItemNo2>0</bItemNo2>
+		<bItemNo2>1189</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -2743,5 +2743,5 @@
 		<bItemNo48>0</bItemNo48>
 		<bItemNo49>0</bItemNo49>
 		<bItemNo50>0</bItemNo50>
-	</IMPITEMCHOICES> 
+	</IMPITEMCHOICES>
 </IMPITEMCHOICESLIST>

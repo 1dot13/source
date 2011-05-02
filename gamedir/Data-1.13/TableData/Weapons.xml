@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<WEAPONLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WEAPONLIST>
 	<WEAPON>
 		<uiIndex>0</uiIndex>
 		<szWeaponName>Nothing</szWeaponName>
@@ -33,6 +33,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
+		<EasyUnjam>0</EasyUnjam>
 		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>0</ManualReloadSound>
 		<nAccuracy>0</nAccuracy>
@@ -40,6 +41,7 @@
 		<bRecoilY>0</bRecoilY>
 		<ubAimLevels>0</ubAimLevels>
 		<ubRecoilDelay>0</ubRecoilDelay>
+		<Handling>0</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1</uiIndex>
@@ -68,6 +70,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>2</uiIndex>
@@ -103,6 +106,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>13</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>3</uiIndex>
@@ -132,6 +136,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>4</uiIndex>
@@ -168,6 +173,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>5</uiIndex>
@@ -194,10 +200,11 @@
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>4</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>6</uiIndex>
@@ -225,10 +232,11 @@
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>7</uiIndex>
@@ -258,6 +266,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>8</uiIndex>
@@ -287,6 +296,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>9</uiIndex>
@@ -325,6 +335,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>2</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>10</uiIndex>
@@ -363,6 +374,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>13</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>7</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>11</uiIndex>
@@ -400,6 +412,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>12</uiIndex>
@@ -434,9 +447,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>61</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>5</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>13</uiIndex>
@@ -475,6 +488,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>11</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>14</uiIndex>
@@ -512,6 +526,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>8</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>15</uiIndex>
@@ -549,6 +564,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>2</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>16</uiIndex>
@@ -586,6 +602,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>2</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>17</uiIndex>
@@ -616,6 +633,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>68</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>18</uiIndex>
@@ -648,6 +666,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>19</uiIndex>
@@ -681,6 +700,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>20</uiIndex>
@@ -718,6 +738,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>10</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>21</uiIndex>
@@ -756,6 +777,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>22</uiIndex>
@@ -790,6 +812,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>23</uiIndex>
@@ -824,9 +847,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>68</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>24</uiIndex>
@@ -865,6 +888,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>25</uiIndex>
@@ -902,6 +926,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>26</uiIndex>
@@ -939,6 +964,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>27</uiIndex>
@@ -976,6 +1002,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>28</uiIndex>
@@ -1013,6 +1040,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>29</uiIndex>
@@ -1050,6 +1078,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>30</uiIndex>
@@ -1089,6 +1118,7 @@
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<ubRecoilDelay>3</ubRecoilDelay>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>31</uiIndex>
@@ -1120,6 +1150,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>32</uiIndex>
@@ -1151,6 +1182,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>33</uiIndex>
@@ -1188,6 +1220,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>13</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>34</uiIndex>
@@ -1226,6 +1259,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>20</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>35</uiIndex>
@@ -1263,6 +1297,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>36</uiIndex>
@@ -1301,6 +1336,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>22</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>37</uiIndex>
@@ -1610,6 +1646,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>73</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>56</uiIndex>
@@ -1639,6 +1676,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>57</uiIndex>
@@ -1762,6 +1800,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>40</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>62</uiIndex>
@@ -1803,6 +1842,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<nAccuracy>33</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>3</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>64</uiIndex>
@@ -1849,6 +1889,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>66</uiIndex>
@@ -1875,10 +1916,11 @@
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>29</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>67</uiIndex>
@@ -1914,6 +1956,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>68</uiIndex>
@@ -1949,6 +1992,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>6</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>69</uiIndex>
@@ -1986,6 +2030,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>5</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>297</uiIndex>
@@ -2078,6 +2123,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>331</uiIndex>
@@ -2115,6 +2161,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>10</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>332</uiIndex>
@@ -2152,6 +2199,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>8</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>333</uiIndex>
@@ -2189,6 +2237,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>334</uiIndex>
@@ -2219,6 +2268,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>21</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>335</uiIndex>
@@ -2249,6 +2299,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>89</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>336</uiIndex>
@@ -2280,6 +2331,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>337</uiIndex>
@@ -2309,6 +2361,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>338</uiIndex>
@@ -2339,6 +2392,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>339</uiIndex>
@@ -2401,6 +2455,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>341</uiIndex>
@@ -2431,6 +2486,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>342</uiIndex>
@@ -2469,6 +2525,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>4</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>343</uiIndex>
@@ -2506,6 +2563,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>7</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>344</uiIndex>
@@ -2544,6 +2602,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>345</uiIndex>
@@ -2581,6 +2640,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>346</uiIndex>
@@ -2615,9 +2675,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>37</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>6</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>347</uiIndex>
@@ -2655,6 +2715,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>348</uiIndex>
@@ -2687,6 +2748,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>68</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>349</uiIndex>
@@ -2724,6 +2786,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>2</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>350</uiIndex>
@@ -2761,6 +2824,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>397</uiIndex>
@@ -2791,6 +2855,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>593</uiIndex>
@@ -2920,6 +2985,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>602</uiIndex>
@@ -2958,6 +3024,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>603</uiIndex>
@@ -2996,6 +3063,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>604</uiIndex>
@@ -3033,6 +3101,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>605</uiIndex>
@@ -3070,6 +3139,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>10</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>606</uiIndex>
@@ -3107,6 +3177,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>607</uiIndex>
@@ -3144,6 +3215,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>608</uiIndex>
@@ -3181,6 +3253,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>609</uiIndex>
@@ -3218,6 +3291,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>610</uiIndex>
@@ -3256,6 +3330,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>611</uiIndex>
@@ -3294,6 +3369,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>612</uiIndex>
@@ -3331,6 +3407,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>613</uiIndex>
@@ -3368,6 +3445,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>614</uiIndex>
@@ -3405,6 +3483,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>615</uiIndex>
@@ -3442,6 +3521,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>616</uiIndex>
@@ -3481,6 +3561,7 @@
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
 		<ubRecoilDelay>2</ubRecoilDelay>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>617</uiIndex>
@@ -3518,6 +3599,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>11</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>618</uiIndex>
@@ -3550,6 +3632,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>91</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>22</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>619</uiIndex>
@@ -3587,10 +3670,11 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>620</uiIndex>
-		<szWeaponName>Barrett M98B</szWeaponName>
+		<szWeaponName>Barrett M98</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>5</ubWeaponType>
 		<ubCalibre>25</ubCalibre>
@@ -3617,6 +3701,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>90</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>21</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>621</uiIndex>
@@ -3647,6 +3732,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>622</uiIndex>
@@ -3676,6 +3762,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>623</uiIndex>
@@ -3705,6 +3792,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>624</uiIndex>
@@ -3742,6 +3830,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>625</uiIndex>
@@ -3773,6 +3862,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>626</uiIndex>
@@ -3810,6 +3900,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>10</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>627</uiIndex>
@@ -3848,6 +3939,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>26</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>628</uiIndex>
@@ -3885,6 +3977,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>629</uiIndex>
@@ -3922,6 +4015,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>630</uiIndex>
@@ -3954,6 +4048,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>631</uiIndex>
@@ -3984,6 +4079,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>632</uiIndex>
@@ -4017,9 +4113,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>68</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>633</uiIndex>
@@ -4054,9 +4150,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>64</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>8</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>634</uiIndex>
@@ -4088,6 +4184,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>20</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>635</uiIndex>
@@ -4119,6 +4216,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>636</uiIndex>
@@ -4150,6 +4248,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>637</uiIndex>
@@ -4179,6 +4278,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>638</uiIndex>
@@ -4208,6 +4308,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>639</uiIndex>
@@ -4239,6 +4340,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>90</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>640</uiIndex>
@@ -4270,6 +4372,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>91</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>23</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>641</uiIndex>
@@ -4308,6 +4411,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>3</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>642</uiIndex>
@@ -4346,6 +4450,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>5</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>643</uiIndex>
@@ -4384,6 +4489,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>644</uiIndex>
@@ -4414,6 +4520,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>645</uiIndex>
@@ -4445,6 +4552,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>646</uiIndex>
@@ -4482,6 +4590,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>647</uiIndex>
@@ -4519,6 +4628,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>13</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>648</uiIndex>
@@ -4556,6 +4666,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>14</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>649</uiIndex>
@@ -4594,6 +4705,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>25</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>650</uiIndex>
@@ -4632,6 +4744,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>651</uiIndex>
@@ -4666,9 +4779,9 @@
 		<AutoPenalty>9</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>70</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>652</uiIndex>
@@ -4703,9 +4816,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>58</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>653</uiIndex>
@@ -4744,6 +4857,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>654</uiIndex>
@@ -4777,6 +4891,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>21</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>655</uiIndex>
@@ -4814,6 +4929,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>656</uiIndex>
@@ -4851,6 +4967,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>657</uiIndex>
@@ -4882,6 +4999,7 @@
 		<ManualReloadSound>479</ManualReloadSound>
 		<nAccuracy>90</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>32</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>658</uiIndex>
@@ -4910,6 +5028,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>659</uiIndex>
@@ -4947,6 +5066,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>7</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>660</uiIndex>
@@ -4984,6 +5104,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>6</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>661</uiIndex>
@@ -5022,6 +5143,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>4</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>662</uiIndex>
@@ -5056,9 +5178,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>64</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>663</uiIndex>
@@ -5091,6 +5213,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>29</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>664</uiIndex>
@@ -5129,6 +5252,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>8</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>665</uiIndex>
@@ -5166,6 +5290,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>666</uiIndex>
@@ -5203,6 +5328,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>667</uiIndex>
@@ -5240,6 +5366,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>13</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>668</uiIndex>
@@ -5278,6 +5405,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>669</uiIndex>
@@ -5316,6 +5444,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>4</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>20</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>670</uiIndex>
@@ -5348,6 +5477,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>671</uiIndex>
@@ -5386,6 +5516,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>7</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>672</uiIndex>
@@ -5423,6 +5554,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>2</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>673</uiIndex>
@@ -5460,6 +5592,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>674</uiIndex>
@@ -5490,6 +5623,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>20</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>675</uiIndex>
@@ -5518,8 +5652,8 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
-		<nAccuracy>0</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>676</uiIndex>
@@ -5550,6 +5684,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>60</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>677</uiIndex>
@@ -5588,6 +5723,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>4</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>678</uiIndex>
@@ -5617,6 +5753,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>679</uiIndex>
@@ -5648,6 +5785,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>680</uiIndex>
@@ -5684,6 +5822,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>14</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>10</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>681</uiIndex>
@@ -5718,9 +5857,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>29</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>682</uiIndex>
@@ -5752,6 +5891,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>90</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>683</uiIndex>
@@ -5782,6 +5922,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>82</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>684</uiIndex>
@@ -5814,6 +5955,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>685</uiIndex>
@@ -5845,6 +5987,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>686</uiIndex>
@@ -5879,9 +6022,9 @@
 		<AutoPenalty>7</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>6</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>687</uiIndex>
@@ -5920,6 +6063,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>21</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>688</uiIndex>
@@ -5958,6 +6102,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>689</uiIndex>
@@ -5986,6 +6131,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>4</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>690</uiIndex>
@@ -6014,6 +6160,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>4</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>691</uiIndex>
@@ -6051,6 +6198,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>692</uiIndex>
@@ -6088,6 +6236,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>4</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>693</uiIndex>
@@ -6119,6 +6268,7 @@
 		<ManualReloadSound>478</ManualReloadSound>
 		<nAccuracy>80</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>694</uiIndex>
@@ -6149,6 +6299,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>695</uiIndex>
@@ -6180,6 +6331,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>696</uiIndex>
@@ -6212,6 +6364,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>697</uiIndex>
@@ -6243,6 +6396,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>90</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>35</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>698</uiIndex>
@@ -6276,6 +6430,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>699</uiIndex>
@@ -6314,6 +6469,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>23</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>700</uiIndex>
@@ -6352,6 +6508,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>22</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>701</uiIndex>
@@ -6389,6 +6546,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>702</uiIndex>
@@ -6426,6 +6584,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>703</uiIndex>
@@ -6456,6 +6615,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>704</uiIndex>
@@ -6493,6 +6653,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>705</uiIndex>
@@ -6531,6 +6692,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>20</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>706</uiIndex>
@@ -6568,6 +6730,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>707</uiIndex>
@@ -6594,10 +6757,11 @@
 		<APsToReload>24</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>708</uiIndex>
@@ -6635,6 +6799,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>709</uiIndex>
@@ -6668,6 +6833,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>710</uiIndex>
@@ -6700,6 +6866,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>91</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>20</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>711</uiIndex>
@@ -6730,6 +6897,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>3</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>712</uiIndex>
@@ -6767,6 +6935,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>713</uiIndex>
@@ -6805,6 +6974,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>714</uiIndex>
@@ -6843,6 +7013,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>715</uiIndex>
@@ -6881,6 +7052,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>11</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>716</uiIndex>
@@ -6913,6 +7085,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>717</uiIndex>
@@ -6942,6 +7115,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>718</uiIndex>
@@ -6972,6 +7146,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>719</uiIndex>
@@ -7002,6 +7177,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>720</uiIndex>
@@ -7039,6 +7215,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>721</uiIndex>
@@ -7071,6 +7248,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>722</uiIndex>
@@ -7100,6 +7278,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>723</uiIndex>
@@ -7131,6 +7310,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>724</uiIndex>
@@ -7168,6 +7348,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>725</uiIndex>
@@ -7205,6 +7386,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>5</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>726</uiIndex>
@@ -7242,6 +7424,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>4</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>11</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>727</uiIndex>
@@ -7279,6 +7462,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>7</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>728</uiIndex>
@@ -7310,6 +7494,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>80</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>729</uiIndex>
@@ -7343,6 +7528,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>730</uiIndex>
@@ -7380,6 +7566,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>731</uiIndex>
@@ -7411,6 +7598,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>732</uiIndex>
@@ -7442,6 +7630,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>4</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>2</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>733</uiIndex>
@@ -7475,6 +7664,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>20</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>734</uiIndex>
@@ -7507,6 +7697,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>735</uiIndex>
@@ -7539,6 +7730,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>11</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>736</uiIndex>
@@ -7565,10 +7757,11 @@
 		<APsToReload>24</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>737</uiIndex>
@@ -7606,6 +7799,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>738</uiIndex>
@@ -7636,6 +7830,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>739</uiIndex>
@@ -7662,11 +7857,12 @@
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<APsToReloadManually>1</APsToReloadManually>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>4</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>740</uiIndex>
@@ -7702,9 +7898,9 @@
 		<NoSemiAuto>1</NoSemiAuto>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>68</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>4</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>741</uiIndex>
@@ -7742,6 +7938,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>14</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>742</uiIndex>
@@ -7779,6 +7976,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>743</uiIndex>
@@ -7816,6 +8014,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>7</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>744</uiIndex>
@@ -7846,6 +8045,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>745</uiIndex>
@@ -7883,6 +8083,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>746</uiIndex>
@@ -7913,6 +8114,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>747</uiIndex>
@@ -7943,6 +8145,7 @@
 		<ManualReloadSound>478</ManualReloadSound>
 		<nAccuracy>45</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>8</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>748</uiIndex>
@@ -7981,6 +8184,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>749</uiIndex>
@@ -8018,6 +8222,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>750</uiIndex>
@@ -8055,6 +8260,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>8</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>751</uiIndex>
@@ -8092,6 +8298,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>4</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>752</uiIndex>
@@ -8129,6 +8336,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>11</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>753</uiIndex>
@@ -8161,6 +8369,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>754</uiIndex>
@@ -8190,6 +8399,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>29</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>755</uiIndex>
@@ -8227,6 +8437,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>756</uiIndex>
@@ -8264,6 +8475,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>757</uiIndex>
@@ -8301,6 +8513,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>758</uiIndex>
@@ -8330,6 +8543,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>759</uiIndex>
@@ -8361,6 +8575,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>760</uiIndex>
@@ -8392,6 +8607,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>70</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>761</uiIndex>
@@ -8429,6 +8645,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>8</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>762</uiIndex>
@@ -8463,9 +8680,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>66</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>11</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>763</uiIndex>
@@ -8500,9 +8717,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>58</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>6</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>764</uiIndex>
@@ -8537,6 +8754,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>3</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>765</uiIndex>
@@ -8571,6 +8789,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>14</bRecoilY>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>2</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>766</uiIndex>
@@ -8600,6 +8819,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>767</uiIndex>
@@ -8629,6 +8849,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>768</uiIndex>
@@ -8659,6 +8880,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>29</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>769</uiIndex>
@@ -8691,9 +8913,9 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>70</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>770</uiIndex>
@@ -8723,6 +8945,7 @@
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>29</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>771</uiIndex>
@@ -8749,10 +8972,11 @@
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>772</uiIndex>
@@ -8779,10 +9003,11 @@
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>773</uiIndex>
@@ -8820,6 +9045,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>774</uiIndex>
@@ -8851,6 +9077,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>76</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>775</uiIndex>
@@ -8881,6 +9108,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>776</uiIndex>
@@ -8912,6 +9140,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>81</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>777</uiIndex>
@@ -8942,6 +9171,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>778</uiIndex>
@@ -8973,6 +9203,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>779</uiIndex>
@@ -9006,6 +9237,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>10</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>780</uiIndex>
@@ -9043,6 +9275,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>10</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>781</uiIndex>
@@ -9080,6 +9313,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>10</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>782</uiIndex>
@@ -9114,9 +9348,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>61</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>783</uiIndex>
@@ -9145,6 +9379,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>784</uiIndex>
@@ -9176,6 +9411,7 @@
 		<ManualReloadSound>477</ManualReloadSound>
 		<nAccuracy>82</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>785</uiIndex>
@@ -9213,6 +9449,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>11</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>786</uiIndex>
@@ -9242,6 +9479,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>787</uiIndex>
@@ -9276,9 +9514,9 @@
 		<AutoPenalty>9</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>82</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>788</uiIndex>
@@ -9313,9 +9551,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>69</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>789</uiIndex>
@@ -9350,6 +9588,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>790</uiIndex>
@@ -9384,9 +9623,9 @@
 		<AutoPenalty>9</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>47</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>791</uiIndex>
@@ -9421,9 +9660,9 @@
 		<AutoPenalty>9</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>66</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>792</uiIndex>
@@ -9458,9 +9697,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>63</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>793</uiIndex>
@@ -9495,9 +9734,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>75</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>794</uiIndex>
@@ -9536,6 +9775,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>7</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>795</uiIndex>
@@ -9570,9 +9810,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>73</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>796</uiIndex>
@@ -9607,9 +9847,9 @@
 		<AutoPenalty>9</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>73</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>797</uiIndex>
@@ -9647,6 +9887,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>798</uiIndex>
@@ -9676,6 +9917,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>799</uiIndex>
@@ -9706,6 +9948,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>800</uiIndex>
@@ -9734,6 +9977,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>887</uiIndex>
@@ -9761,10 +10005,11 @@
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>888</uiIndex>
@@ -9792,10 +10037,11 @@
 		<APsToReload>18</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>889</uiIndex>
@@ -9827,6 +10073,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>890</uiIndex>
@@ -9857,6 +10104,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>891</uiIndex>
@@ -9889,6 +10137,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>892</uiIndex>
@@ -9916,10 +10165,11 @@
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>893</uiIndex>
@@ -9950,6 +10200,7 @@
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>894</uiIndex>
@@ -9977,10 +10228,11 @@
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>896</uiIndex>
@@ -10018,6 +10270,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>897</uiIndex>
@@ -10050,6 +10303,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>19</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>898</uiIndex>
@@ -10080,6 +10334,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>14</nAccuracy>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>899</uiIndex>
@@ -10111,6 +10366,7 @@
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>900</uiIndex>
@@ -10140,6 +10396,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>901</uiIndex>
@@ -10690,6 +10947,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1065</uiIndex>
@@ -10727,6 +10985,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1066</uiIndex>
@@ -10761,9 +11020,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>58</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>11</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1067</uiIndex>
@@ -10801,6 +11060,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1069</uiIndex>
@@ -10831,6 +11091,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>82</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1070</uiIndex>
@@ -10865,9 +11126,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>65</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1071</uiIndex>
@@ -10906,6 +11167,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>10</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1072</uiIndex>
@@ -10940,9 +11202,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>68</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1073</uiIndex>
@@ -10972,6 +11234,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>7</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1074</uiIndex>
@@ -11004,6 +11267,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>40</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>6</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1075</uiIndex>
@@ -11041,6 +11305,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>9</bRecoilY>
 		<ubAimLevels>7</ubAimLevels>
+		<Handling>23</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1076</uiIndex>
@@ -11075,9 +11340,9 @@
 		<AutoPenalty>8</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>65</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1077</uiIndex>
@@ -11112,9 +11377,9 @@
 		<AutoPenalty>9</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>73</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>12</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1078</uiIndex>
@@ -11147,6 +11412,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>43</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>3</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1177</uiIndex>
@@ -11184,6 +11450,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>6</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1178</uiIndex>
@@ -11222,6 +11489,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>10</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1179</uiIndex>
@@ -11260,6 +11528,7 @@
 		<bRecoilX>4</bRecoilX>
 		<bRecoilY>7</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1187</uiIndex>
@@ -11298,6 +11567,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>6</bRecoilY>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>17</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1188</uiIndex>
@@ -11336,6 +11606,7 @@
 		<bRecoilX>3</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>6</ubAimLevels>
+		<Handling>18</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1190</uiIndex>
@@ -11371,9 +11642,9 @@
 		<AutoPenalty>7</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>37</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>2</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1191</uiIndex>
@@ -11411,6 +11682,7 @@
 		<bRecoilX>2</bRecoilX>
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1192</uiIndex>
@@ -11440,6 +11712,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1193</uiIndex>
@@ -11472,6 +11745,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>40</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>7</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1194</uiIndex>
@@ -11499,10 +11773,11 @@
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<EasyUnjam>1</EasyUnjam>
 		<ManualReloadSound>480</ManualReloadSound>
 		<nAccuracy>6</nAccuracy>
 		<ubAimLevels>3</ubAimLevels>
-		<EasyUnjam>1</EasyUnjam>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1195</uiIndex>
@@ -11540,6 +11815,7 @@
 		<bRecoilX>1</bRecoilX>
 		<bRecoilY>14</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1201</uiIndex>
@@ -11572,6 +11848,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>68</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1202</uiIndex>
@@ -11616,9 +11893,9 @@
 		<AutoPenalty>7</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>57</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1333</uiIndex>
@@ -11653,9 +11930,9 @@
 		<AutoPenalty>6</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>50</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>3</ubAimLevels>
+		<Handling>9</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1334</uiIndex>
@@ -11690,9 +11967,9 @@
 		<AutoPenalty>7</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>25</nAccuracy>
-		<bRecoilX>0</bRecoilX>
 		<bRecoilY>5</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
+		<Handling>11</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1352</uiIndex>
@@ -11720,6 +11997,7 @@
 		<APsToReload>20</APsToReload>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
+		<Handling>11</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1353</uiIndex>
