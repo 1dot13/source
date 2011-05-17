@@ -1190,13 +1190,6 @@
 	<AddToBattle>0</AddToBattle>
 	<Loyalty>0</Loyalty>
   </NAME>
-  <NAME>
-	<uiIndex>160</uiIndex>
-	<Enabled>0</Enabled>
-    <szGroup>Empty Slot160</szGroup>
-	<AddToBattle>0</AddToBattle>
-	<Loyalty>0</Loyalty>
-  </NAME>
  <NAME>
 	<uiIndex>170</uiIndex>
 	<Enabled>0</Enabled>
