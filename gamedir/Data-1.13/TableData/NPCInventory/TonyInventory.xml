@@ -1438,7 +1438,7 @@
 	<INVENTORY>
 		<uiIndex>287</uiIndex>
 		<sItemIndex>481</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
+		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>288</uiIndex>
@@ -1448,7 +1448,7 @@
 	<INVENTORY>
 		<uiIndex>289</uiIndex>
 		<sItemIndex>482</sItemIndex>
-		<ubOptimalNumber>0</ubOptimalNumber>
+		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>290</uiIndex>

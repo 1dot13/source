@@ -1430,9 +1430,15 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>800</BR_ROF>
 		<Bipod>10</Bipod>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>20</PercentHandling>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<PRONE_MODIFIERS>
+			<PercentHandling>-75</PercentHandling>
+			<PercentMaxCounterForce>100</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>35</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>37</uiIndex>
@@ -13107,7 +13113,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>3</BR_NewInventory>
+		<BR_NewInventory>6</BR_NewInventory>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -13132,7 +13138,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>3</BR_NewInventory>
+		<BR_NewInventory>6</BR_NewInventory>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -17008,15 +17014,9 @@
 		<BR_ROF>16</BR_ROF>
 		<DefaultAttachment>208</DefaultAttachment>
 		<DefaultAttachment>209</DefaultAttachment>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
+		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>621</uiIndex>
@@ -17253,15 +17253,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>500</BR_ROF>
 		<DefaultAttachment>209</DefaultAttachment>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
+		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>628</uiIndex>
@@ -18211,15 +18205,9 @@
 		<BR_ROF>22</BR_ROF>
 		<DefaultAttachment>208</DefaultAttachment>
 		<DefaultAttachment>209</DefaultAttachment>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
+		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>655</uiIndex>
@@ -18329,15 +18317,9 @@
 		<BR_ROF>12</BR_ROF>
 		<DefaultAttachment>208</DefaultAttachment>
 		<DefaultAttachment>209</DefaultAttachment>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
+		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>658</uiIndex>
@@ -18452,7 +18434,7 @@
 		<szLongItemName>HK 23E</szLongItemName>
 		<szItemDesc>The HK 23E is a light 5.56mm NATO MG and is of the same quality one would expect from Heckler and Koch.</szItemDesc>
 		<szBRName>HK 23E</szBRName>
-		<szBRDesc>The manufacturer's name says it all.  We highly recommend the HK 23E. It's reliable and does the job effectively with 100-rounds in a Beta C-Mag.</szBRDesc>
+		<szBRDesc>The manufacturer's name says it all.  We highly recommend the HK 23E. It's reliable and does the job effectively with 100-rounds in a Beta C-Mag. Includes bipod.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>661</ubClassIndex>
@@ -18476,9 +18458,15 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>800</BR_ROF>
 		<Bipod>10</Bipod>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>20</PercentHandling>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<PRONE_MODIFIERS>
+			<PercentHandling>-75</PercentHandling>
+			<PercentMaxCounterForce>100</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>35</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>662</uiIndex>
@@ -18778,16 +18766,15 @@
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<DefaultAttachment>209</DefaultAttachment>
 		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
 			<AimLevels>1</AimLevels>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS>
-			<PercentHandling>-55</PercentHandling>
-			<PercentMaxCounterForce>50</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>10</PercentCounterForceAccuracy>
+			<PercentHandling>-80</PercentHandling>
+			<PercentMaxCounterForce>1</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>-75</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -19252,15 +19239,9 @@
 		<BR_ROF>18</BR_ROF>
 		<DefaultAttachment>1000</DefaultAttachment>
 		<DefaultAttachment>209</DefaultAttachment>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
+		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>683</uiIndex>
@@ -19783,15 +19764,9 @@
 		<BR_ROF>12</BR_ROF>
 		<DefaultAttachment>208</DefaultAttachment>
 		<DefaultAttachment>209</DefaultAttachment>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
+		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>698</uiIndex>
@@ -19886,14 +19861,11 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>600</BR_ROF>
 		<DefaultAttachment>209</DefaultAttachment>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
+			<PercentMaxCounterForce>-5</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>-5</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -21532,15 +21504,9 @@
 		<BR_ROF>24</BR_ROF>
 		<DefaultAttachment>208</DefaultAttachment>
 		<DefaultAttachment>209</DefaultAttachment>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
+		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>747</uiIndex>
@@ -22359,15 +22325,9 @@
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<DefaultAttachment>1007</DefaultAttachment>
 		<DefaultAttachment>209</DefaultAttachment>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
+		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>770</uiIndex>
@@ -22528,15 +22488,9 @@
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<DefaultAttachment>1007</DefaultAttachment>
 		<DefaultAttachment>209</DefaultAttachment>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
+		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>775</uiIndex>
