@@ -10819,201 +10819,201 @@
 	<ITEM>
 		<uiIndex>1352</uiIndex>
 		<szItemName>Hand Mortar</szItemName>
-		<szLongItemName>Hand Mortar</szLongItemName>
-		<szItemDesc>Just your standard 18th century hand mortar with a stubby brass barrel and JOURSON engraved on the lock. Worth a fortune on the collector's market.</szItemDesc>
+		<szLongItemName>手炮</szLongItemName>
+		<szItemDesc>其标志是粗短的黄铜制枪膛和刻有Jourson姓氏的保险机，18世纪典型的手炮在收藏品市场上是很有价值的。</szItemDesc>
 		<szBRName>Hand Mortar</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1353</uiIndex>
 		<szItemName>Garver Knife</szItemName>
-		<szLongItemName>Sam Garver Combat Knife</szLongItemName>
-		<szItemDesc>This limited edition, Sam Garver combat knife, is authenticated with a serial number and signed by Sam himself. It's galvanized steel blade and gator-skinned elegance have made it a highly sought-after collectable.</szItemDesc>
+		<szLongItemName>Sam Garver战斗刀</szLongItemName>
+		<szItemDesc>这个限量发售的Sam Garver战斗刀以一个序列号和Sam的签名作为认证。镀锌的钢刀刃和优雅的鳄鱼皮使它成为超级抢手的收藏品。</szItemDesc>
 		<szBRName>Sam Garver Combat Knife</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1354</uiIndex>
 		<szItemName>Cannon Ball</szItemName>
-		<szLongItemName>Cannon Ball</szLongItemName>
-		<szItemDesc>A hand-crafted cast-iron projectile for a hand mortar.</szItemDesc>
+		<szLongItemName>手炮弹</szLongItemName>
+		<szItemDesc>手工制作的铸铁炮弹，供手炮使用。</szItemDesc>
 		<szBRName>Cannon Ball</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1355</uiIndex>
 		<szItemName>Transmitter</szItemName>
-		<szLongItemName>Laptop Transmitter</szLongItemName>
-		<szItemDesc>This satellite transmitter enables a laptop computer to connect to the Internet from anywhere in the world. N.B. Works with operating system other than Windows.</szItemDesc>
+		<szLongItemName>笔记本电脑接收器</szLongItemName>
+		<szItemDesc>这个卫星信号接收器能让笔记本电脑在世界任何地方接入Internet。注意：不支持Windows系统。</szItemDesc>
 		<szBRName>Laptop Transmitter</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1356</uiIndex>
 		<szItemName>Video</szItemName>
-		<szLongItemName>Attack of the Clydesdales</szLongItemName>
-		<szItemDesc>A sushi-western classic. All Hell breaks loose in a small mid-western town when a full-team of eight Clydesdales knock over the beer wagon and get into the suds.</szItemDesc>
+		<szLongItemName>克莱兹代尔马的进攻</szLongItemName>
+		<szItemDesc>（吐槽：恶搞克隆人的进攻）一部经典的日式西部片。一个中西部小镇被八匹踢翻啤酒车，浑身是泡沫的克莱兹代尔马搅得一团糟。</szItemDesc>
 		<szBRName>Attack of the Clydesdales</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1357</uiIndex>
 		<szItemName>Video</szItemName>
-		<szLongItemName>Wild, Wild East</szLongItemName>
-		<szItemDesc>Not to be confused with the American film Wild, Wild West, which was a dud, this Sushi-western, starring Will Smithero and Tex Colburn, is a hilarious romp through time.</szItemDesc>
+		<szLongItemName>追风战警</szLongItemName>
+		<szItemDesc>（吐槽：恶搞飙风战警）不要把它和票房一败涂地的美国片《飙风战警》搞混了，由威尔.史密斯罗（吐槽：恶搞威尔.史密斯）和Tex Colburn主演的《追风战警》是一部从头到尾都很欢乐的电影。</szItemDesc>
 		<szBRName>Wild, Wild East</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1358</uiIndex>
 		<szItemName>Video</szItemName>
-		<szLongItemName>Have Honda, Will Travel</szLongItemName>
-		<szItemDesc>Perhaps one of the greatest films ever directed by Francis Honda Copella, this sushi-western replaces the horse as a means of travel with raw sub-compact horsepower.</szItemDesc>
+		<szLongItemName>车到山前必有路，有路必有本田车(Have Honda, Will Travel)</szLongItemName>
+		<szItemDesc>（吐槽：恶搞Have Gun，Will Travel）或许是由弗朗西斯.本田.科佩拉（吐槽：恶搞弗朗西斯.福特.科波拉 Francis Ford Coppola）导演的最成功作品之一，这部日式西部片用原始的本田微型车替代了马作为旅行工具（吐槽：就是骂日本车马力太小了）。</szItemDesc>
 		<szBRName>Have Honda, Will Travel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1359</uiIndex>
 		<szItemName>Canteen</szItemName>
-		<szLongItemName>Che Guevara Canteen</szLongItemName>
-		<szItemDesc>This rebel essential is made from hand-crafted tin and enclosed in insulated Mayan wool. Filled to capacity with fresh spring water from the French Alps, no guerrilla campaign would be complete without one.</szItemDesc>
+		<szLongItemName>切.格瓦拉水壶</szLongItemName>
+		<szItemDesc>这个手工制作的锡制水壶是叛军的必备品，它被包裹在绝缘的玛雅羊毛中，灌满了来自法属阿尔卑斯山顶的山泉水，每次游击战都会有它的身影。</szItemDesc>
 		<szBRName>Che Guevara Canteen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1360</uiIndex>
 		<szItemName>Wrist Watch</szItemName>
-		<szLongItemName>MERC Wrist Watch</szLongItemName>
-		<szItemDesc>This is a timepiece like no other. An official M.E.R.C. wristwatch with Flo, in the skimpiest of bikinis, showing you the exact time with her limbs. It's even water resistant, so she'll never fog up.</szItemDesc>
+		<szLongItemName>MERC腕表</szLongItemName>
+		<szItemDesc>一个不同寻常的计时器，它是M.E.R.C.官方出品的腕表。表面是Flo身着最轻薄的比基尼，用她的双手指向准确的时间。它还是防水的，绝不起雾（影响您看见她）。</szItemDesc>
 		<szBRName>MERC Wrist Watch</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1361</uiIndex>
 		<szItemName>Umbrella</szItemName>
-		<szLongItemName>MERC Umbrella</szLongItemName>
-		<szItemDesc>From formal wear to fatigues, this highly versatile umbrella will accompany you anywhere in style. It is also extremely durable; boasting a teflon-treated cloth guaranteed to withstand hail and sleet.</szItemDesc>
+		<szLongItemName>MERC雨伞</szLongItemName>
+		<szItemDesc>无论你穿的是普通衣服还是迷彩服，这个多用途雨伞适用于任何情况。它也非常耐用，特氟龙处理过的伞面可以经得住冻雨和冰雹。</szItemDesc>
 		<szBRName>MERC Umbrella</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1362</uiIndex>
 		<szItemName>Instructions</szItemName>
-		<szLongItemName>Morris' Launch Instructions</szLongItemName>
-		<szItemDesc>The note contains origin and destination coordinates as well as precise instructions to launch missiles. It includes a number of towns in Arulco and the launch facility in Tracona.</szItemDesc>
+		<szLongItemName>Morris的导弹发射手册</szLongItemName>
+		<szItemDesc>这本笔记包括了所有发射点和目标的坐标，并有详细的导弹发射说明。它包含了Arulco的城镇和Tracona的发射设施。</szItemDesc>
 		<szBRName>Morris' Launch Instructions</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1363</uiIndex>
 		<szItemName>.38 crate M</szItemName>
-		<szLongItemName>.38 ammo crate M</szLongItemName>
-		<szItemDesc>ammo crate</szItemDesc>
+		<szLongItemName>.38 M 弹箱</szLongItemName>
+		<szItemDesc>弹箱</szItemDesc>
 		<szBRName>.38 ammo crate M</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1364</uiIndex>
 		<szItemName>.38 crate HPS</szItemName>
-		<szLongItemName>.38 ammo crate HPS</szLongItemName>
-		<szItemDesc>ammo crate</szItemDesc>
+		<szLongItemName>.38 HPS 弹箱</szLongItemName>
+		<szItemDesc>弹箱</szItemDesc>
 		<szBRName>.38 ammo crate HPS</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1365</uiIndex>
 		<szItemName>9x18mm Mag 12 G</szItemName>
-		<szLongItemName>9x18mm Pistol Mag, 12 G</szLongItemName>
-		<szItemDesc>A pistol magazine filled with 12 Glaser rounds in 9x18mm.</szItemDesc>
+		<szLongItemName>9x18mm G 12发手枪弹夹</szLongItemName>
+		<szItemDesc>装填了12发9x18mm Glaser弹的手枪弹夹。</szItemDesc>
 		<szBRName>9x18mm Mag 12 G</szBRName>
-		<szBRDesc>Glaser ammo in the 9x18mm caliber, to get more punch out of a small round.</szBRDesc>
+		<szBRDesc>9x18mm口径的Glaser弹，口径小但是阻滞力大。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1366</uiIndex>
 		<szItemName>9x18mm Mag 8 G</szItemName>
-		<szLongItemName>9x18mm Pistol Mag, 8 G</szLongItemName>
-		<szItemDesc>A pistol magazine filled with 8 Glaser rounds in 9x18mm.</szItemDesc>
+		<szLongItemName>9x18mm G 8发手枪弹夹</szLongItemName>
+		<szItemDesc>装填了8发9x18mm Glaser弹的手枪弹夹。</szItemDesc>
 		<szBRName>9x18mm Mag 8 G</szBRName>
-		<szBRDesc>Glaser ammo in the 9x18mm caliber. With only 8 rounds, you'll need the bigger punch.</szBRDesc>
+		<szBRDesc>9x18mm口径的Glaser弹。只有8发而已，你需要更大的阻滞力。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1367</uiIndex>
 		<szItemName>9x18mm Mag 20 G</szItemName>
-		<szLongItemName>9x18mm SMG Mag, 20 G</szLongItemName>
-		<szItemDesc>A SMG magazine filled with 20 Glaser rounds in 9x18mm.</szItemDesc>
+		<szLongItemName>9x18mm G 20发冲锋枪弹夹</szLongItemName>
+		<szItemDesc>装填了20发9x18mm Glaser弹的冲锋枪弹夹。</szItemDesc>
 		<szBRName>9x18mm Mag 20 G</szBRName>
-		<szBRDesc>Now your little 9x18mm SMG can rip your enemy to shreds, with these Glaser bullets!</szBRDesc>
+		<szBRDesc>使用了Glaser弹，9x18mm口径的小冲锋枪就可以把敌人撕成碎片了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1368</uiIndex>
 		<szItemName>9x18mm Mag 30 G</szItemName>
-		<szLongItemName>9x18mm SMG Mag, 30 G</szLongItemName>
-		<szItemDesc>A SMG magazine filled with 30 Glaser rounds in the 9x18mm calib</szItemDesc>
+		<szLongItemName>9x18mm G 30发冲锋枪弹夹</szLongItemName>
+		<szItemDesc>装填了30发9x18mm Glaser弹的冲锋枪弹夹。</szItemDesc>
 		<szBRName>9x18mm Mag 30 G</szBRName>
-		<szBRDesc>A hailstorm of Glaser bullets will terrify any unarmored enemy, even in 9x18mm.</szBRDesc>
+		<szBRDesc>虽然口径只有9x18mm，但冰雹般的Glaser弹仍会使没穿装甲的敌人吓破胆。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1369</uiIndex>
 		<szItemName>9x18 G crate</szItemName>
-		<szLongItemName>9x18mm G ammo crate</szLongItemName>
+		<szLongItemName>9x18mm G弹箱</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
-		<szBRName>9x18mm G ammo crate</szBRName>
-		<szBRDesc>Not buyable at BR</szBRDesc>
+		<szBRName>9x18mm G crate</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1370</uiIndex>
 		<szItemName>43mm Illumination</szItemName>
-		<szLongItemName>43mm Illumination Grenades, 4</szLongItemName>
-		<szItemDesc>43mm Illumination Grenades for the GM-94 grenade launcher.</szItemDesc>
+		<szLongItemName>四连装43mm照明弹</szLongItemName>
+		<szItemDesc>供GM-94榴弹发射器使用的43mm照明弹。</szItemDesc>
 		<szBRName>43mm Illumination Grenades, 4</szBRName>
-		<szBRDesc>43mm Illumination Grenades for the GM-94 grenade launcher.</szBRDesc>
+		<szBRDesc>供GM-94榴弹发射器使用的43mm照明弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1371</uiIndex>
 		<szItemName>43mm HE</szItemName>
-		<szLongItemName>43mm HE Grenade</szLongItemName>
-		<szItemDesc>This 43mm High Explosive grenade will fit nicely in your GM-94 </szItemDesc>
+		<szLongItemName>43mm高爆弹</szLongItemName>
+		<szItemDesc>43mm高爆弹会非常适合您的GM-94榴弹发射器。</szItemDesc>
 		<szBRName>43mm HE Grenade</szBRName>
-		<szBRDesc>High Explosive grenade for the GM-94.</szBRDesc>
+		<szBRDesc>供GM-94榴弹发射器使用的43mm高爆弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1372</uiIndex>
 		<szItemName>43mm Mustard Gas</szItemName>
-		<szLongItemName>43mm Mustard Gas Grenades</szLongItemName>
-		<szItemDesc>This 43mm Mustard Gas grenades will fit nicely in your GM-94 gr</szItemDesc>
+		<szLongItemName>43mm芥子气弹</szLongItemName>
+		<szItemDesc>43mm芥子气弹会非常适合您的GM-94榴弹发射器。</szItemDesc>
 		<szBRName>43mm Mustard Gas Grenades</szBRName>
-		<szBRDesc>This product is classed as a chemical weapon and is banned by the Geneva convention. Sold </szBRDesc>
+		<szBRDesc>这个产品被归类为生化武器并被日内瓦公约禁止。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1373</uiIndex>
 		<szItemName>43mm Smoke</szItemName>
-		<szLongItemName>43mm Smoke Grenade</szLongItemName>
-		<szItemDesc>This 43mm Smoke grenade will fit nicely in your GM-94 grenade l</szItemDesc>
+		<szLongItemName>43mm烟幕弹</szLongItemName>
+		<szItemDesc>43mm烟幕弹会非常适合您的GM-94榴弹发射器。</szItemDesc>
 		<szBRName>43mm Smoke Grenade</szBRName>
-		<szBRDesc>Smoke round for the GM-94.</szBRDesc>
+		<szBRDesc>供GM-94榴弹发射器使用的43mm烟幕弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1374</uiIndex>
 		<szItemName>43mm Stun</szItemName>
-		<szLongItemName>43mm Stun Grenade</szLongItemName>
-		<szItemDesc>43mm stun grenade for the GM-94 launcher.</szItemDesc>
+		<szLongItemName>43mm眩晕弹</szLongItemName>
+		<szItemDesc>供GM-94榴弹发射器使用的43mm眩晕弹。</szItemDesc>
 		<szBRName>43mm Stun Grenade</szBRName>
-		<szBRDesc>Crowd of rioters or room full of hyperactive children (we kid, of course), a stun grenade </szBRDesc>
+		<szBRDesc>示威游行或者一屋子小屁孩（当然我们在开玩笑）？赏他们一颗43mm眩晕弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1375</uiIndex>
 		<szItemName>43mm Tear Gas</szItemName>
-		<szLongItemName>43mm Tear Gas Grenade</szLongItemName>
-		<szItemDesc>Drop a CS gas grenade on your target and reduce them to blubber</szItemDesc>
+		<szLongItemName>43mm催泪弹</szLongItemName>
+		<szItemDesc>扔一枚催泪弹给你的目标会让他变成放声大哭的婴儿。</szItemDesc>
 		<szBRName>43mm Tear Gas Grenade</szBRName>
-		<szBRDesc>Drop a CS gas grenade on your target and reduce them to blubbering wrecks.</szBRDesc>
+		<szBRDesc>扔一枚催泪弹给你的目标会让他变成放声大哭的婴儿。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1376</uiIndex>
 		<szItemName>43mm Illumination</szItemName>
-		<szLongItemName>43mm Illumination Grenade</szLongItemName>
-		<szItemDesc>43mm Illumination Grenade for the GM-94 grenade launcher.</szItemDesc>
+		<szLongItemName>43mm照明弹</szLongItemName>
+		<szItemDesc>供GM-94榴弹发射器使用的43mm照明弹。</szItemDesc>
 		<szBRName>43mm Illumination Grenade</szBRName>
-		<szBRDesc>43mm Illumination Grenade for the GM-94 grenade launcher.</szBRDesc>
+		<szBRDesc>供GM-94榴弹发射器使用的43mm照明弹。</szBRDesc>
 	</ITEM>
 </ITEMLIST>
