@@ -844,6 +844,12 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInMercAvailability(fileName,FALSE), MERCAVAILABILITY);
 	
+	strcpy(fileName, directoryName);
+	strcat(fileName, FACEGEARFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInFaceGear(zNewFaceGear, fileName), FACEGEARFILENAME);
+	//WriteFaceGear();
+	
 #ifndef ENGLISH
 		AddLanguagePrefix(fileName);
 		if ( FileExists(fileName) )

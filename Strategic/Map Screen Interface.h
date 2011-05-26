@@ -22,6 +22,9 @@ typedef struct FASTHELPREGION {
 } FASTHELPREGION;
 
 
+extern UINT8 FIRSTmercTOdisplay ;
+extern UINT8 maxNumberOfMercVisibleInStrategyList;
+
 // String Lengths Defines
 #define MAX_NAME_LENGTH 10
 #define MAX_LOCATION_SIZE 8
@@ -231,11 +234,6 @@ enum{
 #define TACT_HEIGHT_OF_UPDATE_PANEL_BLOCKS 49
 #define TACT_UPDATE_MERC_Y_OFFSET 4
 #define TACT_UPDATE_MERC_X_OFFSET 4
-
-
-// WDS - make number of mercenaries, etc. be configurable
-// the first vehicle slot in the list
-#define FIRST_VEHICLE CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS
 
 class OLD_MERC_LEAVE_ITEM_101
 {
@@ -509,6 +507,10 @@ INT32 GetNumberOfPeopleInCharacterList( void );
 // the next and previous people in the mapscreen
 void GoToPrevCharacterInList( void );
 void GoToNextCharacterInList( void );
+
+// WANNE: Go to first/last character in list (PageUp/PageDown)
+void GoToFirstCharacterInList( void );
+void GoToLastCharacterInList( void );
 
 // this does the whole miner giving player info speil
 //void HandleMinerEvent( UINT8 bMinerNumber, INT16 sSectorX, INT16 sSectorY, INT16 sQuoteNumber, BOOLEAN fForceMapscreen );

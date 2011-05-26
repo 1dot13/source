@@ -949,7 +949,7 @@ void UpdateRefuelSiteAvailability( void )
 }
 
 
-void SetUpHelicopterForPlayer( INT16 sX, INT16 sY )
+void SetUpHelicopterForPlayer( INT16 sX, INT16 sY , UINT8 SkyDrive )
 {
 	if( fSkyRiderSetUp == FALSE )
 	{
@@ -961,7 +961,7 @@ void SetUpHelicopterForPlayer( INT16 sX, INT16 sY )
 		Assert( iHelicopterVehicleId != -1 );
 
 		SoldierSkyRider.initialize();
-		SoldierSkyRider.ubProfile = SKYRIDER;
+		SoldierSkyRider.ubProfile = SkyDrive; //SKYRIDER;
 		SoldierSkyRider.stats.bLife = 80;
 
 		pSkyRider = &( SoldierSkyRider );
@@ -972,7 +972,7 @@ void SetUpHelicopterForPlayer( INT16 sX, INT16 sY )
 
 		fSkyRiderSetUp = TRUE;
 
-		gMercProfiles[ SKYRIDER ].fUseProfileInsertionInfo = FALSE;
+		gMercProfiles[ SkyDrive ].fUseProfileInsertionInfo = FALSE; //SKYRIDER
 	}
 
 	return;

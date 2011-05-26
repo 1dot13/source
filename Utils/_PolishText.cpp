@@ -1,4 +1,6 @@
-//#pragma setlocale("POLISH")
+// WANNE: Yes we need this here exclusivly in Polish version, because we do not have a codepage in the code like for other versions.
+#pragma setlocale("POLISH")
+
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 #else
@@ -6,6 +8,9 @@
 	#if defined( POLISH )
 		#include "text.h"
 		#include "Fileman.h"
+		#include "Scheduling.h"
+		#include "EditorMercs.h"
+		#include "Item Statistics.h"
 	#endif
 #endif
 
@@ -109,6 +114,1015 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 	SirTech uses the "@@@" notation.
 
 */
+
+// Editor
+//Editor Taskbar Creation.cpp
+STR16 iEditorItemStatsButtonsText[] =
+{
+	L"Usuñ",
+};
+
+STR16 FaceDirs[8] = 
+{ 
+	L"north",
+	L"northeast",
+	L"east",
+	L"southeast",
+	L"south",
+	L"southwest",
+	L"west",
+	L"northwest"
+};
+
+STR16 iEditorMercsToolbarText[] = 
+{
+ L"Prze³¹cz wyœwietlanie graczy", //0
+ L"Prze³¹cz wyœwietlanie wrogów",
+ L"Prze³¹cz wyœwietlanie zwierz¹t",
+ L"Prze³¹cz wyœwietlanie rebeliantów",
+ L"Prze³¹cz wyœwietlanie cywili",
+ 
+ L"Gracz",
+ L"Wróg",
+ L"Stworzenia",
+ L"Rebelianci",
+ L"Cywile",
+ 
+ L"Szczegó³y", //10
+ L"Tryb informacji ogólnych",
+ L"Tryb fizyczny",
+ L"Tryb atrybutów",
+ L"Tryb wyposa¿enia",
+ L"Tryb profilu",
+ L"Tryb planowania",
+ L"Tryb planowania",
+ L"Usuñ",
+ L"Usuñ zaznaczonego najemnika (DEL).",
+ L"Kolejny", //20
+ L"ZnajdŸ nastêpnego najemnika (SPACE).",
+ L"W³¹cz priorytet egzystencji",
+ L"Postaæ ma dostêp do wszystkich zamkniêtych drzwi.",
+ 
+ //Orders
+ L"STACJONARNY",
+ L"CZUJNY", 
+ L"NA STRA¯Y",
+ L"SZUKAJ WROGA",
+ L"BLISKI PATROL",
+ L"DALEKI PATROL",
+ L"PKT PATROL.",//30
+ L"LOS PKT PATR.",
+ 
+ //Attitudes
+ L"OBRONA",
+ L"DZIELNY SOLO",
+ L"DZIELNY POMOC",
+ L"AGRESYWNA",
+ L"SPRYTNY SOLO",
+ L"SPRYTNY POMOC",
+ 
+ L"Set merc to face %s",
+ 
+ L"Znaj",
+ 
+ L"MARNE", //40
+ L"S£ABE",
+ L"ŒREDNIE",
+ L"DOBRE",
+ L"ŒWIETNE",
+ 
+ L"MARNE",
+ L"S£ABE",
+ L"ŒREDNIE",
+ L"DOBRE",
+ L"ŒWIETNE",
+ 
+ L"Poprzedni zbiór kolorów",//"Previous color set", //50
+ L"Nastêpny zbiór kolorów",//"Next color set",
+ 
+ L"Poprzednia budowa cia³a",//"Previous body type",
+ L"Nastêpna budowa cia³a",//"Next body type",
+ 
+ L"Ustaw niezgodnoœæ czasu (+ or - 15 minut)",
+ L"Ustaw niezgodnoœæ czasu (+ or - 15 minut)",
+ L"Ustaw niezgodnoœæ czasu (+ or - 15 minut)",
+ L"Ustaw niezgodnoœæ czasu (+ or - 15 minut)",
+ 
+ L"Brak akcji",
+ L"Brak akcji",
+ L"Brak akcji", //60
+ L"Brak akcji",
+ 
+ L"Czyœæ zadanie",
+ 
+ L"Find selected merc",
+};
+
+STR16 iEditorBuildingsToolbarText[] =
+{
+	L"DACHY",  //0
+	L"ŒCIANY",
+	L"DANE POM.",
+
+	L"Rozmieœæ œciany, u¿ywaj¹c metody wyboru",
+	L"Rozmieœæ drzwi, u¿ywaj¹c metody wyboru",
+	L"Rozmieœæ dachy, u¿ywaj¹c metody wyboru",
+	L"Rozmieœæ okna, u¿ywaj¹c metody wyboru",
+	L"Rozmieœæ uszkodzone œciany, u¿ywaj¹c metody wyboru",
+	L"Rozmieœæ meble, u¿ywaj¹c metody wyboru",
+	L"Rozmieœæ tekstury œcian, u¿ywaj¹c metody wyboru",
+	L"Rozmieœæ pod³ogi, u¿ywaj¹c metody wyboru", //10
+	L"Rozmieœæ generyczne meble, u¿ywaj¹c metody wyboru",
+	L"Rozmieœæ œciany, u¿ywaj¹c metody domyœlnej",
+	L"Rozmieœæ drzwi, u¿ywaj¹c metody domyœlnej",
+	L"Rozmieœæ okna, u¿ywaj¹c metody domyœlnej",
+	L"Rozmieœæ uszkodzone œciany, u¿ywaj¹c metody domyœlnej",
+	L"Zablokuj drzwi, lub umieœæ pu³apkê na drzwiach",
+
+	L"Dodaj nowe pomieszczenie",
+	L"Edytuj œciany jaskini.",
+	L"Usuñ obszar z istniej¹cego budynku.",
+	L"Usuñ budynek", //20
+	L"Dodaj/zast¹p dach budynku nowym p³askim dachem.",
+	L"kopiuj budynek",
+	L"Przesuñ budynek",
+	L"Rysuj numer pomieszczenia",
+	L"Usuñ numer pomieszczenia",
+
+	L"Prze³¹cz tryb wymazywania",
+	L"Cofnij ostatni¹ zmianê",
+	L"Wybierz rozmiar pêdzla",
+};
+
+STR16 iEditorItemsToolbarText[] =
+{
+	L"Broñ", //0
+	L"Amun.",
+	L"Pancerz",
+	L"LBE",
+	L"Mat.Wyb.",
+	L"E1",
+	L"E2",
+	L"E3",
+	L"W³¹czniki",
+	L"Klucze",
+};
+
+STR16 iEditorMapInfoToolbarText[] =
+{
+	L"Dodaj Ÿród³o œwiat³a z otoczenia", //0
+	L"Prze³¹cz fa³szywe œwiat³a z otoczenia.",
+	L"Dodaj pola wyjœcia (p-klik, aby usun¹æ istniej¹ce).",
+	L"Wybierz rozmiar pêdzla",
+	L"Cofnij ostatni¹ zmianê",
+	L"Prze³¹cz tryb wymazywania",
+	L"Okreœl punkt pó³nocny dla celów potwierdzenia.",
+	L"Okreœl punkt zachodu dla celów potwierdzenia.",
+	L"Okreœl punkt wschodu dla celów potwierdzenia.",
+	L"Okreœl punkt po³udnia dla celów potwierdzenia.",
+	L"Okreœl punkt œrodka dla celów potwierdzenia.", //10
+	L"Okreœl odosobniony punkt dla celów potwierdzenia.",
+};
+
+STR16 iEditorOptionsToolbarText[]=
+{
+	L"Nowa mapa",  //0
+	L"Nowa piwnica",
+	L"Nowy poziom jaskini",
+	L"Zapisz mapê",
+	L"Wczytaj mapê",
+	L"Wybierz zestaw",
+	L"WyjdŸ z trybu edycji do trybu gry",
+	L"WyjdŸ z trybu edycji.",
+	L"Utwórz mapê radaru",
+	L"Kiedy zaznaczone, mapa bêdzie zapisana w oryginalnym formacie JA2.\nTa opcja jest wa¿na przy normalnych wielkoœciach map, których numery siatki nie s¹ (siatki wyjœcia) > 25600.",
+	L"Kiedy zaznaczone, wczytana mapa lub nowa, bêdzie powiêkszona automatycznie do wybranych rozmiarów.",
+};
+
+STR16 iEditorTerrainToolbarText[] =
+{
+	L"Rysuj tekstury terenu", //0
+	L"Ustaw tekstury terenu mapy",
+	L"Umieœæ brzegi i urwiska",
+	L"Rysuj drogi",
+	L"Rysuj gruzy",
+	L"Umieœæ drzewa i krzewy",
+	L"Umieœæ ska³y",
+	L"Umieœæ beczki i inne œmieci",
+	L"Wype³nij teren",
+	L"Cofnij ostatni¹ zmianê",
+	L"Prze³¹cz tryb wymazywania", //10
+	L"Wybierz rozmiar pêdzla",
+	L"Zwiêksz gêstoœæ pêdzla",
+	L"Zmniejsz gêstoœæ pêdzla",
+};
+
+STR16 iEditorTaskbarInternalText[]=
+{
+	L"Teren", //0
+	L"Budynki",
+	L"Przedmioty",
+	L"Najemnicy",
+	L"Dane mapy",
+	L"Opcje",
+};
+
+//Editor Taskbar Utils.cpp
+
+STR16 iRenderMapEntryPointsAndLightsText[] =
+{
+	L"Pó³nocny pkt wejœcja", //0
+	L"Zachodni pkt wejœcja",
+	L"Wschodni pkt wejœcja",
+	L"Po³udniowy pkt wejœcja",
+	L"Œrodkowy pkt wejœcja",
+	L"Odizolowany pkt wejœcja",
+	
+	L"Brzask",
+	L"Noc",
+	L"24h",
+};
+
+STR16 iBuildTriggerNameText[] =
+{
+	L"W³¹cznik Paniki1", //0
+	L"W³¹cznik Paniki2",
+	L"W³¹cznik Paniki3",
+	L"W³¹cznik%d",
+	 
+	L"Akcja nacisku",
+	L"Akcja Paniki1",
+	L"Akcja Paniki2",
+	L"Akcja Paniki3",
+	L"Akcja%d",
+};
+
+STR16 iRenderDoorLockInfoText[]=
+{
+	L"Niezablokowane (ID)", //0
+	L"Pu³apka eksploduj¹ca",
+	L"Pu³apka elektryczna",
+	L"Cicha pu³apka",
+	L"Cichy alarm",
+	L"Super-Elektryczna Pu³apka", //5
+	L"Alarm domu publicznego",
+	L"Poziom pu³apki %d",
+};
+
+STR16 iRenderEditorInfoText[]=
+{
+	L"Zapisz stary format mapy JA2 (v1.12) Version: 5.00 / 25", //0
+	L"Brak mapy.",
+	L"Plik:  %S, Aktualny zestaw:  %s",
+	L"Powiêksz istniej¹c¹ mapê lub now¹.",
+};
+//EditorBuildings.cpp
+STR16 iUpdateBuildingsInfoText[] =
+{
+	L"PRZE£¥CZ", //0
+	L"WIDOKI",
+	L"METODA WYBORU",
+	L"METODA DOMYŒLNA",
+	L"METODA BUDOWANIA",
+	L"Pomieszczenia", //5
+};
+
+STR16 iRenderDoorEditingWindowText[] =
+{
+	L"Edytuj atrybuty zamka na mapie (siatka) %d.",
+	L"Typ blokady (ID)",
+	L"Typ pu³apki",
+	L"Poziom pu³apki",
+	L"Zablokowane",
+};
+
+//EditorItems.cpp
+
+STR16 pInitEditorItemsInfoText[] = 
+{
+	L"Akcja nacisku", //0
+	L"Akcja Paniki1",
+	L"Akcja Paniki2",
+	L"Akcja Paniki3",
+	L"Akcja%d",
+	
+	L"W³¹cznik Paniki1", //5
+	L"W³¹cznik Paniki2",
+	L"W³¹cznik Paniki3",
+	L"W³¹cznik%d",
+};
+
+STR16 pDisplayItemStatisticsTex[] =
+{
+	L"Status Info Line 1",
+	L"Status Info Line 2",
+	L"Status Info Line 3",
+	L"Status Info Line 4",
+	L"Status Info Line 5",
+};
+
+//EditorMapInfo.cpp
+STR16 pUpdateMapInfoText[] =
+{
+	L"R", //0
+	L"G",
+	L"B",
+	
+	L"Brzask",
+	L"Noc",
+	L"24h", //5
+
+	L"Promieñ",
+
+	L"Pod ziemi¹",
+	L"Poziom œwiat³a",
+
+	L"Ter. Otw.",
+	L"Piwnica", //10
+	L"Jaskinia",
+
+	L"Ograniczenie",
+	L"Scroll ID",
+
+	L"Cel",
+	L"Sektor", //15
+	L"Cel",
+	L"Poziom piw.",
+	L"Cel",
+	L"Œiatka",
+};
+//EditorMercs.cpp
+CHAR16 gszScheduleActions[ 11 ][20] =
+{
+	L"Brak akcji",
+	L"Zablokuj drzwi",
+	L"Odblokuj drzwi",
+	L"Otwórz drzwi",
+	L"Zamknij drzwi",
+	L"IdŸ do siatki",
+	L"Opóœæ sektor",
+	L"WejdŸ do sektora",
+	L"Pozostañ w sektorze",
+	L"IdŸ spaæ",
+	L"Zignoruj to!"
+};
+
+STR16 zDiffNames[5] = 
+{ 
+	L"Wimp", 
+	L"Easy", 
+	L"Average",
+	L"Tough", 
+	L"Steroid Users Only" 
+};
+
+STR16 EditMercStat[12] = 
+{ 
+	L"Zdrowie",
+	L"Akt. zdrowie",
+	L"Si³a",
+	L"Zwinnoœæ",
+	L"Sprawnoœæ",
+	L"Charyzma",
+	L"M¹droœæ",
+	L"Celnoœæ",
+	L"Mat. Wybuchowe",
+	L"Medycyna",
+	L"Scientific",
+	L"Poz. doœw.", 
+};
+
+STR16 EditMercOrders[8] = 
+{ 
+	L"Stationary",
+	L"On Guard",
+	L"Close Patrol",
+	L"Far Patrol",
+	L"Point Patrol",
+	L"On Call",
+	L"Seek Enemy", 
+	L"Random Point Patrol",
+};
+
+STR16 EditMercAttitudes[6] = 
+{ 
+	L"Defensive",
+	L"Brave Loner",
+	L"Brave Buddy",
+	L"Cunning Loner",
+	L"Cunning Buddy",
+	L"Aggressive", 
+};
+
+STR16 pDisplayEditMercWindowText[] =
+{
+	L"Nazwa najemnika:", //0
+	L"Rozkaz:",
+	L"Postawa walki:",
+};
+
+STR16 pCreateEditMercWindowText[] = 
+{
+	L"Kolor najemnika", //0
+	L"Done",
+	
+	L"Previous merc standing orders",
+	L"Next merc standing orders", 
+	
+	L"Previous merc combat attitude",
+	L"Next merc combat attitude",	//5
+	
+	L"Decrease merc stat",
+	L"Increase merc stat",
+};
+
+STR16 pDisplayBodyTypeInfoText[] =
+{
+	L"Losowy", //0
+	L"Reg Male",
+	L"Big Male",
+	L"Stocky Male",
+	L"Reg Female",
+	L"NE Czo³g", //5
+	L"NW Czo³g",
+	L"Fat Civilian",
+	L"M Civilian",
+	L"Miniskirt",
+	L"F Civilian", //10
+	L"Kid w/ Hat",
+	L"Humvee",
+	L"Eldorado",
+	L"Icecream Truck",
+	L"Jeep", //15
+	L"Kid Civilian",
+	L"Domestic Cow",
+	L"Cripple",
+	L"Nieuzbrojony robot",
+	L"Larwa", //20
+	L"Infant",
+	L"Yng F Monster",
+	L"Yng M Monster",
+	L"Adt F Monster",
+	L"Adt M Monster", //25
+	L"Queen Monster",
+	L"Dziki kot",
+};
+
+STR16 pUpdateMercsInfoText[] = 
+{
+	L" --=ROZKAZY=-- ", //0
+	L"--=POSTAWA=--",
+	
+	L"RELATIVE",
+	L"ATRYBUTY",
+	
+	L"RELATIVE",
+	L"WYPOSA¯ENIA",
+			
+	L"RELATIVE",
+	L"ATRYBUTY",
+	
+	L"Armia",
+	L"Admin.",
+	L"Gwardia", //10
+	
+	L"Poz. doœw.",
+	L"Zdrowie",
+	L"Akt. zdrowie",
+	L"Celnoœæ",
+	L"Si³a",
+	L"Zwinnoœæ",
+	L"Sprawnoœæ",
+	L"Inteligencja",
+	L"Zdol. dowodzenia",
+	L"Mat. wybuchowe", //20
+	L"Zdol. medyczne",
+	L"Zdol. mechaniczne",
+	L"Morale",
+	
+	L"Kolor w³osów:",
+	L"Kolor skóry:",
+	L"Kolor kamizelki:",
+	L"Kolor spodni:",
+	
+	L"LOSOWY",
+	L"LOSOWY",
+	L"LOSOWY", //30
+	L"LOSOWY",
+	
+	L"Podaj index profilu i naciœnij ENTER. ",
+	L"Wszystkie informacje (statystyki, itd.) bêd¹ pobrane z pliku Prof.dat lub MercStartingGear.xml. ",
+	L"Jeœli nie chcesz u¿yæ profilu, to zostaw pole puste i naciœnij ENTER. ",
+	L"Nie podawaj wartoœci '200'! Wartoœæ '200' nie mo¿e byæ profilem! ",
+	L"Wybierz profil od 0 do ",
+	
+	L"Aktualny Profil:  brak              ",
+	L"Aktualny Profil: %s",
+	
+	L"STACJONARNY",
+	L"CZUJNY", //40
+	L"NA STRA¯Y",
+	L"SZUKAJ WROGA",
+	L"BLISKI PATROL",
+	L"DALEKI PATROL",
+	L"PKT PATROL.",
+	L"LOS PKT PATR.",
+
+	L"Akcja",
+	L"Czas",
+	L"V",
+	L"Siatka 1", //50
+	L"Siatka 2",
+	L"1)",
+	L"2)",
+	L"3)",
+	L"4)",
+	
+	L"zablokuj",
+	L"odblokuj",
+	L"otwórz",
+	L"zamknij",
+	
+	L"Kliknij na siatkê przylegaj¹c¹ do drzwi (%s).", //60
+	L"Kliknij na siatkê, gdzie chcesz siê przemieœciæ gdy drzwi s¹ otwarte\\zamkniête (%s).",
+	L"Kliknij na siatkê, gdzie chcia³byœ siê przemieœciæ.",
+	L"Kliknij na siatkê, gdzie chcia³byœ spaæ. Postaæ po obudzeniu siê automatycznie wróci do oryginalnej pozycji.",
+	L" Naciœnij ESC, by wyjœæ z trybu edycji planu.",
+};
+
+CHAR16 pRenderMercStringsText[][100] =
+{
+	L"Slot #%d",
+	L"Rozkaz patrolu bez punktów poœrednich",
+	L"Waypoints with no patrol orders",
+};
+
+STR16 pClearCurrentScheduleText[] =
+{
+	L"Brak akcji",
+};
+
+STR16 pCopyMercPlacementText[] =
+{
+	L"Umiejscowienie nie zosta³o skopiowane, gdy¿ ¿adne nie zosta³o wybrane.",
+	L"Umiejscowienie skopiowane.",
+};
+
+STR16 pPasteMercPlacementText[] = 
+{
+	L"Umiejscowienie nie zosta³o wklejone, gdy¿ ¿adne umiejscowienie nie jest zapisane w buforze.",
+	L"Umiejscowienie wklejone.",
+	L"Umiejscowienie nie zosta³o wklejone, gdy¿ maksymalna liczba umiejscowieñ dla tej dru¿yny jest ju¿ wykorzystana.",
+};
+
+//editscreen.cpp
+STR16 pEditModeShutdownText[] = 
+{
+	L"Czy chcesz wyjœæ z trybu edytora do trybu gry ?",
+	L"Czy chcesz zakoñczyæ pracê edytora ?",
+};
+
+STR16 pHandleKeyboardShortcutsText[] = 
+{
+	L"Czy jesteœ pewny, ¿e chcesz usun¹æ wszystkie œwiat³a?", //0
+	L"Czy jesteœ pewny, ¿e chcesz cofn¹æ plany?",
+	L"Czy jesteœ pewny, ¿e chcesz usun¹æ wszystkie plany?",
+	
+	L"W³¹czono rozmieszczanie elementów przez kilkniêcie",
+	L"Wy³¹czono rozmieszczanie elementów przez kilkniêcie",
+	
+	L"W³¹czono rysowanie wysokiego pod³o¿a", //5
+	L"Wy³¹czono rysowanie wysokiego pod³o¿a",
+	
+	L"Number of edge points: N=%d E=%d S=%d W=%d",
+	
+	L"W³¹czono losowe rozmieszczanie",
+	L"Wy³¹czono losowe rozmieszczanie",
+	
+	L"Usuñ korony drzew", //10
+	L"Poka¿ korony drzew",
+	
+	L"World Raise Reset",
+	
+	L"World Raise Set Old",
+	L"World Raise Set",
+};
+
+STR16 pPerformSelectedActionText[] = 
+{
+	L"Utworzono mape radaru dla %S", //0
+	
+	L"Usun¹æ aktualn¹ mapê i rozpocz¹æ nowy poziom piwnicy ?",
+	L"Usun¹æ aktualn¹ mapê i rozpocz¹æ nowy poziom jaskini ?",
+	L"Usun¹æ aktualn¹ mapê i rozpocz¹æ nowy poziom na wolnym powietrzu ?",
+	
+	L" Wipe out ground textures? ",
+};
+
+STR16 pWaitForHelpScreenResponseText[] = 
+{
+	L"HOME", //0
+	L"Prze³¹cz fa³szywe œwiat³a z otoczenia ON/OFF",
+
+	L"INSERT",
+	L"Prze³¹cz tryb wype³nienia ON/OFF",
+
+	L"BKSPC",
+	L"Usuñ ostatni¹  zmianê",
+
+	L"DEL",
+	L"Quick erase object under mouse cursor",
+
+	L"ESC",
+	L"WyjdŸ z edytora",
+
+	L"PGUP/PGDN", //10
+	L"Change object to be pasted",
+
+	L"F1",
+	L"Wyœwietl ekran pomocy",
+
+	L"F10",
+	L"Zapisz mapê",
+
+	L"F11",
+	L"Wczytaj mapê",
+
+	L"+/-",
+	L"Change shadow darkness by .01",
+
+	L"SHFT +/-",  //20
+	L"Change shadow darkness by .05",
+
+	L"0 - 9",
+	L"Change map/tileset filename",
+
+	L"b",
+	L"Wybierz wielkoœæ pêdzla",
+
+	L"d",
+	L"Rysuj œmieci",
+
+	L"o",
+	L"Draw obstacle",
+
+	L"r", //30
+	L"Rysuj ska³y",
+
+	L"t",
+	L"Toggle trees display ON/OFF",
+
+	L"g",
+	L"Rysuj tekstury ziemi",
+
+	L"w",
+	L"Rysuj œciany budunków",
+
+	L"e",
+	L"Prze³¹cz tryb wymazywania ON/OFF",
+
+	L"h",  //40
+	L"Prze³¹cz tryb dachów ON/OFF",
+};
+
+STR16 pAutoLoadMapText[] =
+{
+	L"Map data has just been corrupted.  Don't save, don't quit, get Kris!  If he's not here, save the map using a temp filename and document everything you just did, especially your last action!",
+	L"Schedule data has just been corrupted.  Don't save, don't quit, get Kris!  If he's not here, save the map using a temp filename and document everything you just did, especially your last action!",
+};
+
+STR16 pShowHighGroundText[] =
+{
+	L"Showing High Ground Markers",
+	L"Hiding High Ground Markers",
+};
+
+//Item Statistics.cpp
+CHAR16 gszActionItemDesc[ 34 ][ 30 ] =
+{
+	L"Mina klaksonowa",
+	L"Mina oœwietlaj¹ca",
+	L"Eksplozja gazu £zaw.",
+	L"Eksplozja granatu Osza³am.",
+	L"Eksplozja granatu dymnego",
+	L"Gaz musztardowy",
+	L"Mina przeciwpiechotna",
+	L"Otwórz drzwi",
+	L"Zamknij drzwi",
+	L"3x3 Hidden Pit",
+	L"5x5 Hidden Pit",
+	L"Ma³a eksplozja",
+	L"Œrednia eksplozja",
+	L"Du¿a eksplozja",
+	L"Otwórz/Zamknij drzwi",
+	L"Prze³¹cz wszystkie Akcje1",
+	L"Prze³¹cz wszystkie Akcje2",
+	L"Prze³¹cz wszystkie Akcje3",
+	L"Prze³¹cz wszystkie Akcje4",
+	L"Wejœcie do burdelu",
+	L"Wyjœcie z burdelu",
+	L"Alarm Kingpin'a",
+	L"Seks z prostytutk¹",
+	L"Poka¿ pokój",
+	L"Alarm lokalny",
+	L"Alarm globalny",
+	L"DŸwiêk klaksonu",
+	L"Odbezpiecz drzwi",
+	L"Prze³¹cz blokadê (drzwi)",
+	L"Usuñ pu³apkê (drzwi)",
+	L"Tog pressure items",
+	L"Alarm w Museum",
+	L"Alarm dzikich kotów",
+	L"Du¿y gaz ³zawi¹cy",
+};
+
+STR16 pUpdateItemStatsPanelText[] =
+{
+	L"Chowanie flagi", //0
+	L"Brak wybranego przedmiotu.",
+	L"Slot dostêpny dla",
+	L"losowej generacji.",
+	L"Nie mo¿na edytowaæ kluczy.",
+	L"Profil identifikacyjny w³aœciciela",
+	L"Item class not implemented.",
+	L"Slot locked as empty.",
+	L"Stan",
+	L"Naboje",
+	L"Poziom pu³apki", //10
+	L"Iloœæ",
+	L"Poziom pu³apki",
+	L"Stan",
+	L"Poziom pu³apki",
+	L"Stan",
+	L"Iloœæ",
+	L"Poziom pu³apki",
+	L"Dolary",
+	L"Stan",
+	L"Poziom pu³apki", //20
+	L"Poziom pu³apki",
+	L"Tolerancja",
+	L"Wyzwalacz alarmu",
+	L"Istn. szansa",
+	L"B",
+	L"R",
+	L"S",
+};
+
+STR16 pSetupGameTypeFlagsText[] =
+{
+	L"Przedmiot bêdzie wyœwietlany w trybie Sci-Fi i realistycznym. (|B)", //0
+	L"Przedmiot bêdzie wyœwietlany tylko |w trybie realistycznym.",
+	L"Przedmiot bêdzie wyœwietlany tylko |w trybie Sci-Fi.",
+};
+
+STR16 pSetupGunGUIText[] =
+{
+	L"T£UMIK", //0
+	L"CEL. SNAJP",
+	L"CEL. LSER.",
+	L"DWÓJNÓG",
+	L"KACZY DZIÓB",
+	L"GRANATNIK", //5
+};
+
+STR16 pSetupArmourGUIText[] =
+{
+	L"P£YTKI CERAM.", //0
+};
+
+STR16 pSetupExplosivesGUIText[] =
+{
+	L"DETONATOR",
+};
+
+STR16 pSetupTriggersGUIText[] =
+{
+	L"If the panic trigger is an alarm trigger,\nenemies won't attempt to use it if they\nare already aware of your presence.",
+};
+
+//Sector Summary.cpp
+
+STR16 pCreateSummaryWindowText[]=
+{
+	L"Ok", //0
+	L"A",
+	L"G",
+	L"B1",
+	L"B2",
+	L"B3", //5
+	L"WCZYTAJ",
+	L"ZAPISZ",
+	L"Aktual.",
+};
+
+STR16 pRenderSectorInformationText[] =
+{
+	L"Zestaw:  %s", //0
+	L"Wersja:  Podsumowanie:  1.%02d,  Map:  %1.2f / %02d",
+	L"Iloœæ przedmiotów:  %d", 
+	L"Iloœæ œwiate³:  %d",
+	L"Iloœæ punktów wyjœcia:  %d",
+	
+	L"N",
+	L"E",
+	L"S",
+	L"W",
+	L"C",
+	L"I", //10
+	
+	L"Iloœæ pomieszczeñ:  %d",
+	L"Ca³kowita populacja :  %d",
+	L"Wróg:  %d",
+	L"Admin.:  %d",
+	
+	L"(%d szczegó³owych, profile : %d  -- %d maj¹ priorytet egzystencji)",
+	L"¯o³nierze:  %d",
+	
+	L"(%d szczegó³owych, profile : %d  -- %d maj¹ priorytet egzystencji)",
+	L"Gwardia:  %d",
+	
+	L"(%d szczegó³owych, profile : %d  -- %d maj¹ priorytet egzystencji)",
+	L"Cywile:  %d",  //20
+	
+	L"(%d szczegó³owych, profile : %d  -- %d maj¹ priorytet egzystencji)",
+	
+	L"Ludzie:  %d",
+	L"Krowy:  %d",
+	L"Dzikie koty:  %d",
+	
+	L"Zwierzêta:  %d",
+	
+	L"Stworzenia:  %d",
+	L"Dzikie koty:  %d",
+	
+	L"Iloœæ zablokowanych drzwi oraz pu³apki zamontowane na drzwiach:  %d",
+	L"Zablokowane:  %d",
+	L"Pu³apki:  %d", //30
+	L"Zablokowane i pu³apki:  %d",
+	
+	L"Cywile z planami:  %d",
+	
+	L"Zbyt wiele wyjœæ (siatki) (wiêcej ni¿ 4)...",
+	L"Siatka wejœcia-wyjœcia (piwnice itd.) :  %d (%d dalekie miejsce docelowe)",
+	L"Siatka wejœcia-wyjœcia (piwnice itd.) :  brak",
+	L"Siatka wejœcia-wyjœcia (piwnice itd.) :  poziom 1 u¿ywane miejsca %d siatki",
+	L"Siatka wejœcia-wyjœcia (piwnice itd.) :  poziom 2 -- 1) Qty: %d, 2) Qty: %d",
+	L"Siatka wejœcia-wyjœcia (piwnice itd.) :  poziom 3 -- 1) Qty: %d, 2) Qty: %d, 3) Qty: %d",
+	L"Siatka wejœcia-wyjœcia (piwnice itd.) :  poziom 3 -- 1) Qty: %d, 2) Qty: %d, 3) Qty: %d, 4) Qty: %d",
+	L"Enemy Relative Attributes:  %d marne, %d s³abe, %d œrednie, %d dobre, %d œwietne (%+d Ca³kowity)", //40
+	L"Enemy Relative Equipment:  %d marne, %d s³abe, %d œrednie, %d dobre, %d œwietne (%+d Ca³kowity)",
+	L"%d umiejscowienie maj¹ rozkazy patrolu bez ¿adnego zdefiniowanego punktu poœredniego.",
+	L"%d umiejscowienia maj¹ punkty poœrednie, ale bez ¿adnych rozkazów.",
+	L"%d siatki maj¹ niejasne numery pokoju.",
+	
+};
+
+STR16 pRenderItemDetailsText[] =
+{
+	L"R",  //0
+	L"S",
+	L"Wróg",
+	
+	L"ZBYT WIELE PRZEDMIOTÓW DO WYŒWIETLENIA!",
+	
+	L"Paniki1",
+	L"Paniki2",
+	L"Paniki3",
+	L"Norm1",
+	L"Norm2",
+	L"Norm3",
+	L"Norm4", //10
+	L"Akcje nacisku",
+	
+	L"ZBYT WIELE PRZEDMIOTÓW DO WYŒWIETLENIA!",
+	
+	L"PRIORITY ENEMY DROPPED ITEMS",
+	L"Nic",
+	
+	L"ZBYT WIELE PRZEDMIOTÓW DO WYŒWIETLENIA!",
+	L"NORMAL ENEMY DROPPED ITEMS",
+	L"ZBYT WIELE PRZEDMIOTÓW DO WYŒWIETLENIA!",
+	L"Nic",
+	L"ZBYT WIELE PRZEDMIOTÓW DO WYŒWIETLENIA!",
+	L"B£¥D:  Nie mo¿na wczytaæ przedmiotów dla tej mapy. Powód nieznany.", //20	
+};
+
+STR16 pRenderSummaryWindowText[] =
+{
+	L"EDYTOR KAMPANII -- %s Version 1.%02d", //0
+	L"(NIE WCZYTANO MAPY).",
+	L"You currently have %d outdated maps.",
+	L"The more maps that need to be updated, the longer it takes.  It'll take ",
+	L"approximately 4 minutes on a P200MMX to analyse 100 maps, so",
+	L"depending on your computer, it may vary.",
+	L"Do you wish to regenerate info for ALL these maps at this time (y/n)?",
+	
+	L"Aktualnie nie ma wybranego sektora.",
+	
+	L"Entering a temp file name that doesn't follow campaign editor conventions...",
+	
+	L"You need to either load an existing map or create a new map before being",
+	L"able to enter the editor, or you can quit (ESC or Alt+x).", //10
+
+	L", poziom na powietrzu",					
+	L", podziemny poziom 1",	
+	L", podziemny poziom 2",	
+	L", podziemny poziom 3",	
+	L", alternatywny poziom G",					
+	L", alternatywny poziom 1",	
+	L", alternatywny poziom 2",	
+	L", alternatywny poziom 3",
+	
+	L"SZCZEGÓ£Y PRZEDMIOTÓW -- sektor %s",
+	L"Podsumowanie informacji dla sektora %s:", //20
+	
+	L"Podsumowanie informacji dla sektora %s",
+	L"nie egzystuj¹.",
+	
+	L"Podsumowanie informacji dla sektora %s",
+	L"nie egzystuj¹.",
+	
+	L"Brak informacji o egzystencji dla sektora %s.",
+	
+	L"Brak informacji o egzystencji dla sektora %s.",
+	
+	L"PLIK:  %s",
+	
+	L"PLIK:  %s",
+	
+	L"Override READONLY",
+	L"Nadpisz plik", //30
+	
+	L"You currently have no summary data.  By creating one, you will be able to keep track",
+	L"of information pertaining to all of the sectors you edit and save.  The creation process",
+	L"will analyse all maps in your \\MAPS directory, and generate a new one.  This could",
+	L"take a few minutes depending on how many valid maps you have.  Valid maps are",
+	L"maps following the proper naming convention from a1.dat - p16.dat.  Underground maps", 
+	L"are signified by appending _b1 to _b3 before the .dat (ex:  a9_b1.dat). ",
+	
+	L"Czy chcesz to teraz zrobiæ (y/n)?",
+	
+	L"Brak informacji o podsumowaniu.  Anulowano tworzenie.",
+	
+	L"Siatka",
+	L"Postêp", //40
+	L"Use Alternate Maps",
+	
+	L"Podsumowanie",
+	L"Przedmioty",
+};
+
+STR16 pUpdateSectorSummaryText[] =
+{
+	L"Analizujê mapê:  %s...",
+};
+
+STR16 pSummaryLoadMapCallbackText[] =
+{
+	L"Wczytujê mapê:  %s",
+};
+
+STR16 pReportErrorText[] =
+{
+	L"Skipping update for %s.  Probably due to tileset conflicts...",
+};
+
+STR16 pRegenerateSummaryInfoForAllOutdatedMapsText[] =
+{
+	L"Generuje informacjê o mapiê",
+};
+
+STR16 pSummaryUpdateCallbackText[] =
+{
+	L"Generujê podsumowanie mapy",
+};
+
+STR16 pApologizeOverrideAndForceUpdateEverythingText[] =
+{
+	L"MAJOR VERSION UPDATE",
+	L"There are %d maps requiring a major version update.",
+	L"Updating all outdated maps",
+};
+
+//selectwin.cpp
+STR16 pDisplaySelectionWindowGraphicalInformationText[] =
+{
+	L"%S[%d] pochodzi z domyœlnego zestawu %s (%S)",
+	L"Plik:  %S, podindeks:  %d (%S)",
+	L"Aktualny zestaw:  %s",
+};
+
+//Cursor Modes.cpp
+STR16 wszSelType[6] = {
+ L"Ma³y", 
+ L"Œredni", 
+ L"Du¿y", 
+ L"B.Du¿y", 
+ L"Szerokoœæ: xx", 
+ L"Obszar" 
+ };
+ 
+//---
 
 CHAR16  gszAimPages[ 6 ][ 20 ] =
 {
@@ -353,6 +1367,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s: kamufla¿ zimowy siê zmy³.",
 
 	L"Niemo¿esz przydzieliæ %s do tego slotu.",
+	L"The %s will not fit in any open slots.",
 };
 
 
@@ -856,6 +1871,8 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"Charakter:",
 	L"Niepe³nosprawnoœæ:",
+
+	L"Attitudes:",	// WANNE: For old traits display instead of "Character:"!
 };
 
 
@@ -878,10 +1895,6 @@ STR16 gzMercSkillText[] =
 	L"Broñ bia³a",
 	L"Snajper",				//JA25: modified
 	L"Kamufla¿",						//JA25: modified
-	// SANDRO - removed this
-	//L"Kamufla¿ (miasto)",
-	//L"Kamufla¿ (pustynia)",
-	//L"Kamufla¿ (œnieg)",
 	L"(Eksp.)",
 };
 
@@ -1318,10 +2331,11 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 	L"AP za Auto",
 	L"AP/prze³aduj",
 	L"AP/prze³aduj rêcznie",
-	L"",	//19
+	L"Burst Penalty (Lower is better)",	//19
 	L"Modf. dwójnogu",
 	L"Auto/5AP",
-	L"PA: (mniej - lepiej)",	//22
+	L"Autofire Penalty (Lower is better)",
+	L"PA: (mniej - lepiej)",	//23
 	L"AP za rzut",
 	L"AP za strza³",
 	L"AP/cios-nó¿",
@@ -1329,8 +2343,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 	L"Wy³. seriê!",
 	L"Wy³. auto!",
 	L"AP/cios-³om",
-	L"Autofire Penalty (Lower is better)",
-    L"Burst Penalty (Lower is better)",
+    L"",
 };
 
 STR16		gzAmmoStatsFasthelp[ 20 ] =
@@ -3884,12 +4897,15 @@ STR16		zOptionsToggleText[] =
 	L"Show Soldier Tooltips",
 	L"Automatyczny zapis",
 	L"Cichy Skyrider",
-	L"Niskie obci¹¿enie procesora",
+	//L"Niskie obci¹¿enie procesora",
 	L"Rozszerzone Okno Opisu (EDB)",	//Enhanced Description Box
 	L"Wymuœ tryb turowy",					// add forced turn mode
 	L"Stat Progress Bars",					// Show progress towards stat increase		// TODO.Translate
 	L"Alternate Strategy-Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate bullet graphics",			// Show alternate bullet graphics (tracers) // TODO.Translate
+	L"Activate New CTH system",				// use NCTH
+	L"Show Face gear graphics",				// TODO.Translate
+	L"Show Face gear icons",
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -3986,11 +5002,14 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeœli W£¥CZONE, gra bêdzie zapisywana ka¿dorazowo po zakoñczeniu tury gracza.",
 	L"Jeœli W£¥CZONE, Skyrider nie bêdzie nic mówi³.",
 	L"Jeœli W£¥CZONE, gra bêdzie obci¹¿a³a procesor w mniejszym stopniu.",
-	L"Jeœli W£¥CZONE, rozszerzone opisy bêd¹ pokazane dla przedmiotów i broni.",
+	//L"Jeœli W£¥CZONE, rozszerzone opisy bêd¹ pokazane dla przedmiotów i broni.",
 	L"Jeœli W£¥CZONE i wróg jest obecny, \ntryb turowy jest w³¹czony, \ndopóki sektor nie zostanie oczyszczony (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
 	L"Gdy W£¥CZONE, pokazuje postêp w doœwiadczeniu postaci.",
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"Gdy W£¥CZONE, zastêpuje star¹ animacjê pocisku now¹.",
+	L"When ON, New CTH system and cursor is used.",
+	L"When ON, you will see the equiped face gear on the merc portraits.",	// TODO.Translate
+	L"When ON, you will see icons for the equiped face gear on the merc portraits in the lower right corner.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Wymuœ wszystkie oczekiwane dostawy od Bobby Ray's.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -4016,8 +5035,8 @@ STR16	gzGIOScreenText[] =
 	L"S-F",
 	L"Platynowy", //Placeholder English
 	L"Opcje broni",
-	L"Mnóstwo broni",
-	L"Standardowe uzbrojenie",
+	L"Mnóstwo",
+	L"Standardowe",
 	L"Stopieñ trudnoœci",
 	L"Nowicjusz",
 	L"Doœwiadczony",
@@ -4025,9 +5044,9 @@ STR16	gzGIOScreenText[] =
 	L"SZALONY",
 	L"Start",		// TODO.Translate
 	L"Anuluj",
-	L"Rozszerzony poziom trudnoœci",
-	L"Zapis gry w dowolnym momencie",
-	L"CZ£OWIEK ZE STALI",
+	L"Zapis gry",
+	L"Zawsze",
+	L"W czasie pokoju",
 	L"Nie dzia³a w wersji demo",
 	L"Wyposa¿enie Bobby Ray's",
 	L"Normalne",
@@ -4842,6 +5861,9 @@ STR16 New113Message[] =
 	L"Twoja umiejêtnoœæ zwiadowcy pozwoli³a ci omin¹æ stado krwawych kotów!",
 	L"%s zosta³ trafiony w pachwinê i pada na ziemiê!",
 	//////////////////////////////////////////////////////////////////////////////
+	L"Warning: enemy corpse found!!!",
+	L"%s [%d rnds]\n%s %1.1f %s",
+
 };
 
 STR16 New113HAMMessage[] = 
@@ -4924,6 +5946,10 @@ STR16	New113AIMMercMailTexts[] =
 	// Rudolf
 	L"PD z Serwera AIM: Wiadomoœæ od - Rudolf Steiger",
 	L"Wiesz, ile telefonów odbieram ka¿dego dnia? Co drugi baran myœli, ¿e mo¿e do mnie wydzwaniaæ.  ± ± W ka¿dym razie ju¿ jestem, jeœli masz dla mnie coœ ciekawego.±",
+
+	// WANNE: Generic mail, for additional merc made by modders, index >= 178
+	L"FW from AIM Server: Message about merc availability",
+	L"I got your message. Waiting for your call.±",
 };
 
 // WANNE: These are the missing skills from the impass.edt file
@@ -5367,6 +6393,15 @@ STR16 gzFacilityAssignmentStrings[]=
 STR16 Additional113Text[]=
 {
 	L"Jagged Alliance 2 v1.13 trybie okienkowym wymaga g³êbi koloru 16-bitowego lub mniej.",
+
+	// TODO.Translate
+	// WANNE: Savegame slots validation against INI file
+	L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",
+	L"Mercenary (MAX_NUMBER_PLAYER_MERCS) / Vehicle (MAX_NUMBER_PLAYER_VEHICLES)", 
+	L"Enemy (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
+	L"Creature (MAX_NUMBER_CREATURES_IN_TACTICAL)", 
+	L"Militia (MAX_NUMBER_MILITIA_IN_TACTICAL)", 
+	L"Civilian (MAX_NUMBER_CIVS_IN_TACTICAL)",
 };
 
 // SANDRO - Taunts (here for now, xml for future, I hope)
@@ -5617,8 +6652,8 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 	L"|S|m|o|k|e |S|t|a|r|t |R|a|d|i|u|s",
 	L"|I|n|c|e|n|d|i|a|r|y |S|t|a|r|t |R|a|d|i|u|s",
 	L"|T|e|a|r|g|a|s |E|n|d |R|a|d|i|u|s",
-	L"|L|i|g|h|t |E|n|d |R|a|d|i|u|s",
 	L"|M|u|s|t|a|r|d |G|a|s |E|n|d |R|a|d|i|u|s",
+	L"|L|i|g|h|t |E|n|d |R|a|d|i|u|s",
 	L"|S|m|o|k|e |E|n|d |R|a|d|i|u|s",
 	L"|I|n|c|e|n|d|i|a|r|y |E|n|d |R|a|d|i|u|s",
 	L"|E|f|f|e|c|t |D|u|r|a|t|i|o|n",
@@ -5754,6 +6789,10 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|B|r|i|g|h|t|-|L|i|g|h|t |V|i|s|i|o|n |R|a|n|g|e |M|o|d|i|f|i|e|r",
 	L"|C|a|v|e |V|i|s|i|o|n |R|a|n|g|e |M|o|d|i|f|i|e|r",
 	L"|T|u|n|n|e|l |V|i|s|i|o|n",
+	L"|M|a|x|i|m|u|m |C|o|u|n|t|e|r|-|F|o|r|c|e",
+	L"|C|o|u|n|t|e|r|-|F|o|r|c|e |F|r|e|q|u|e|n|c|y",
+	L"|T|o|-|H|i|t |B|o|n|u|s",
+	L"|A|i|m |B|o|n|u|s",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -5803,6 +6842,10 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted number of tiles.\n \nThis Bright-Vision modifier works only when light\nlevels are very high, for example when looking\ninto tiles lit by Break-Lights or at high noon.\n \nHigher is better.",
 	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted number of tiles.\n \nThis Cave-Vision modifier works only in the dark\nand only underground.\n \nHigher is better.",
 	L"\n \nWhen this item is worn, or attached to a worn\nitem, it changes the wearer's field-of-view.\n \nNarrowing the field of view shortens sightrange to\neither side.\n \nLower is better.",
+	L"\n \nThis is the shooter's ability to\ncope with recoil during Burst or Autofire volleys.\n \n\n \nHigher is better.",
+	L"\n \nThis is the shooter's ability to\nfrequently reasses how much counter-force they\nneed to apply against a gun's recoil, during Burst\nor Autofire volleys.\n \nLower frequency makes volleys more accurate on the whole,\nand also makes longer volleys more accurate assuming\nthe shooter can overcome recoil correctly.\n \nLower is better.",
+	L"\n \nWhen attached to a ranged weapon, this item\nmodifies the weapon's CTH value.\n \nIncreased CTH allows the gun to hit targets\nmore often, assuming it is also well-aimed.\n \nHigher is better.",
+	L"\n \nWhen attached to a ranged weapon, this item\nmodifies the weapon's Aim Bonus.\n \nIncreased Aim Bonus allows the gun to hit\ntargets at longer ranges more often, assuming\nit is also well-aimed.\n \nHigher is better.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
@@ -5851,6 +6894,10 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted number of tiles, thanks to attachments or\ninherent properties of the weapon.\n \nThis Bright-Vision modifier works only when light\nlevels are very high, for example when looking\ninto tiles lit by Break-Lights or at high noon.\n \nHigher is better.",
 	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted number of tiles, thanks to attachments or\ninherent properties of the weapon.\n \nThis Cave-Vision modifier works only in the dark\nand only underground.\n \nHigher is better.",
 	L"\n \nWhen this weapon is raised to the shooting position,\nit changes the wearer's field-of-view.\n \nNarrowing the field of view shortens sightrange to\neither side.\n \nLower is better.",
+	L"\n \nThis is the shooter's ability to\ncope with recoil during Burst or Autofire volleys.\n \nHigher is better.",
+	L"\n \nThis is the shooter's ability to\nfrequently reasses how much counter-force they\nneed to apply against a gun's recoil.\n \nNaturally, this has no effect if the weapon lacks\nboth Burst and Auto-Fire modes.\n \nLower frequency makes volleys more accurate on the whole,\nand also makes longer volleys more accurate assuming\nthe shooter can overcome recoil correctly.\n \nLower is better.",
+	L"\n \nThis weapon's to-hit is being modified by\nan ammo, attachment, or built-in attributes.\n \nIncreased To-Hit allows the gun to hit targets\nmore often, assuming it is also well-aimed.\n \nHigher is better.",
+	L"\n \nThis weapon's Aim Bonus is being modified by\nan ammo, attachment, or built-in attributes.\n \nIncreased Aim Bonus allows the gun to hit\ntargets at longer ranges more often, assuming\nit is also well-aimed.\n \nHigher is better.",
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.

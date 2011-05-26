@@ -14,6 +14,7 @@
 	#include "bobbyr.h"
 	#include "Random.h"
 	#include "Shopkeeper Interface.h"
+	#include "connect.h"
 #endif
 
 
@@ -1184,7 +1185,14 @@ UINT8 DetermineInitialInvItems( INT8 bArmsDealerID, UINT16 usItemIndex, UINT8 ub
 	ubNumBought = 0;
 	for (ubCnt = 0; ubCnt < ubChances; ubCnt++)
 	{
-		if (ItemTransactionOccurs( bArmsDealerID, usItemIndex, DEALER_BUYING, fUsed))
+		if (!is_networked)
+		{
+			if (ItemTransactionOccurs( bArmsDealerID, usItemIndex, DEALER_BUYING, fUsed))
+			{
+				ubNumBought++;
+			}
+		}
+		else
 		{
 			ubNumBought++;
 		}

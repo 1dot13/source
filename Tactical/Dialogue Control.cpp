@@ -1893,30 +1893,33 @@ BOOLEAN DialogueDataFileExistsForProfile( UINT8 ubCharacterNum, UINT16 usQuoteNu
 BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, STR16 zDialogueText, UINT32 *puiSoundID, CHAR8 *zSoundString )
 {
 	STR8 pFilename;
+	BOOLEAN fTextAvailable = FALSE;
 
 	// first things first	- grab the text (if player has SUBTITLE PREFERENCE ON)
 	//if ( gGameSettings.fOptions[ TOPTION_SUBTITLES ] )
 	{
-			if ( DialogueDataFileExistsForProfile( ubCharacterNum, 0, FALSE, &pFilename ) )
-			{
-				LoadEncryptedDataFromFile( pFilename, zDialogueText, usQuoteNum * iDataSize, iDataSize );
-				if(zDialogueText[0] == 0)
+		if ( DialogueDataFileExistsForProfile( ubCharacterNum, 0, FALSE, &pFilename ) )
 		{
-					swprintf( zDialogueText, L"I have no text in the EDT file ( %d ) %S", usQuoteNum, pFilename );
+			LoadEncryptedDataFromFile( pFilename, zDialogueText, usQuoteNum * iDataSize, iDataSize );
+			if(zDialogueText[0] == 0)
+			{
+				swprintf( zDialogueText, L"I have no text in the EDT file ( %d ) %S", usQuoteNum, pFilename );
+
+#ifndef JA2BETAVERSION
+				return( FALSE );
+#endif
+			}
+			else
+				fTextAvailable = TRUE;
+		}
+		else
+		{
+			swprintf( zDialogueText, L"I have no text in the file ( %d ) %S", usQuoteNum , pFilename );
 
 #ifndef JA2BETAVERSION
 			return( FALSE );
 #endif
 		}
-			}
-			else
-			{
-				swprintf( zDialogueText, L"I have no text in the file ( %d ) %S", usQuoteNum , pFilename );
-
-#ifndef JA2BETAVERSION
-			return( FALSE );
-#endif
-			}
 	}
 
 
@@ -1936,23 +1939,24 @@ BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, 
 		CHAR8 sString[512];
 
 		sprintf( sString, "ERROR: Missing file for character # %d, quote # %d", ubCharacterNum, usQuoteNum );
-	ShowCursor(TRUE);
-	ShowCursor(TRUE);
-	ShutdownWithErrorBox( sString );
+		ShowCursor(TRUE);
+		ShowCursor(TRUE);
+		ShutdownWithErrorBox( sString );
 	}
 */
 
 //#endif
+
+	*puiSoundID = NO_SAMPLE;
 
 	// get speech if applicable
 	if ( gGameSettings.fOptions[ TOPTION_SPEECH ] )
 	{
 		// Load it into memory!
 		*puiSoundID = SoundLoadSample(	pFilename );
-
 	}
 
- return(TRUE);
+	return (*puiSoundID != NO_SAMPLE) || fTextAvailable;
 }
 
 

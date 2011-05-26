@@ -469,15 +469,29 @@ void MercDailyUpdate()
 						if (cnt < 170)
 						{
 							// TO DO: send E-mail to player telling him the merc has returned from an assignment
-							AddEmail( ( UINT8 )( iOffset + ( cnt * AIM_REPLY_LENGTH_BARRY ) ), AIM_REPLY_LENGTH_BARRY, ( UINT8 )( 6 + cnt ), GetWorldTotalMin(), -1 );
+							AddEmail( ( UINT8 )( iOffset + ( cnt * AIM_REPLY_LENGTH_BARRY ) ), AIM_REPLY_LENGTH_BARRY, ( UINT8 )( 6 + cnt ), GetWorldTotalMin(), -1, -1 );
 						}
 						else
 						{
-							UINT16 iMsgLength = cnt;
-							UINT8 sender = cnt - 119;	// SenderNameList.xml
+							// Wildfire mercs
+							if (cnt < 178)
+							{
+								UINT16 iMsgLength = cnt;
+								UINT8 sender = cnt - 119;	// SenderNameList.xml
 
-							// Fake Barry Unger mail, but with the msgLength of the WF merc ID -> Correct in PreProcessEmail()
-							AddEmailWFMercLevelUp( ( UINT8 )( iOffset + 0 * AIM_REPLY_LENGTH_BARRY ), iMsgLength, sender, GetWorldTotalMin(), -1 );							
+								// Fake Barry Unger mail, but with the msgLength of the WF merc ID -> Correct in PreProcessEmail()
+								AddEmailWFMercAvailable( ( UINT8 )( iOffset + 0 * AIM_REPLY_LENGTH_BARRY ), iMsgLength, sender, GetWorldTotalMin(), -1 );							
+							}
+							// Generic mail
+							else
+							{
+								// TODO.RW: Send generic mail
+								UINT16 iMsgLength = cnt;
+								UINT8 sender = cnt - 119;	// SenderNameList.xml
+
+								// Fake Barry Unger mail, but with the msgLength of the WF merc ID -> Correct in PreProcessEmail()
+								AddEmailWFMercAvailable( ( UINT8 )( iOffset + 0 * AIM_REPLY_LENGTH_BARRY ), iMsgLength, sender, GetWorldTotalMin(), -1 );							
+							}
 						}
 
 						// WANNE: Should we stop time compression. I don't know.

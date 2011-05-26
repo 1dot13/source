@@ -370,7 +370,7 @@ void	BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 
 			//Kaiden: And here is my Answer to the IMP E-mails only
 			// profiling the last IMP made. You get the results immediately
-			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), LaptopSaveInfo.iIMPIndex );
+			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), LaptopSaveInfo.iIMPIndex, -1 );
 
 			//RenderCharProfile( );
 
@@ -1526,6 +1526,7 @@ BOOLEAN LoadImpCharacter( STR nickName )
 			return FALSE;
 		}
 		
+		/*
 			//new camo face
 			if ( gGameExternalOptions.fShowCamouflageFaces == TRUE )
 				{
@@ -1534,7 +1535,7 @@ BOOLEAN LoadImpCharacter( STR nickName )
 					gCamoFace[iProfileId].gDesertCamoface = FALSE;
 					gCamoFace[iProfileId].gSnowCamoface = FALSE;
 				}
-
+		*/
 
 		// charge the player
 		// is the character male?

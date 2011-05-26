@@ -3268,22 +3268,19 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 {
 	BOOLEAN fBuddyJustDead = FALSE;
-
 	*pfMadeCorpse = FALSE;
 
 	if ( pSoldier->stats.bLife == 0 && !( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )	)
 	{
 		// Haydent/send death info
 		if (is_networked)
-		{
-			
-			if(pSoldier->bTeam==0) send_death(pSoldier);
-			else if(pSoldier->bTeam <6 && ((gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE) || (gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE)))send_death(pSoldier);
-			
-			
+		{			
+			if(pSoldier->bTeam==0) 
+				send_death(pSoldier);
+			else if(pSoldier->bTeam <6 && ((gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE) || (gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE)))
+				send_death(pSoldier);						
 		}
-		
-		
+				
 		// Cancel services here...
 		pSoldier->ReceivingSoldierCancelServices( );
 		pSoldier->GivingSoldierCancelServices( );
@@ -3348,129 +3345,133 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 					ubAssister = pSoldier->ubNextToPreviousAttackerID;
 				}
 			}
+
 			//////////////////////////////////////////////////////////////
-
-			// IF this guy has an attacker and he's a good guy, play sound
-			if ( ubAttacker != NOBODY )
+			
+			// WANNE: This should fix crash in a MP game, when someone quits playing
+			if ( (is_networked && pSoldier->ubAttackerID < 254) || !is_networked )
 			{
-				if ( MercPtrs[ pSoldier->ubAttackerID ]->bTeam == gbPlayerNum && gTacticalStatus.ubAttackBusyCount > 0 )
-				{
-					gTacticalStatus.fKilledEnemyOnAttack	= TRUE;
-					gTacticalStatus.ubEnemyKilledOnAttack = pSoldier->ubID;
-					gTacticalStatus.ubEnemyKilledOnAttackLocation = pSoldier->sGridNo;
-					gTacticalStatus.bEnemyKilledOnAttackLevel = pSoldier->pathing.bLevel;
-					gTacticalStatus.ubEnemyKilledOnAttackKiller = ubAttacker;
-
-					// also check if we are in mapscreen, if so update soldier's list
-					if( guiCurrentScreen == MAP_SCREEN )
+				// IF this guy has an attacker and he's a good guy, play sound
+				if ( ubAttacker != NOBODY )
+				{								
+					if ( MercPtrs[ pSoldier->ubAttackerID ]->bTeam == gbPlayerNum && gTacticalStatus.ubAttackBusyCount > 0 )
 					{
-						ReBuildCharactersList( );
+						gTacticalStatus.fKilledEnemyOnAttack	= TRUE;
+						gTacticalStatus.ubEnemyKilledOnAttack = pSoldier->ubID;
+						gTacticalStatus.ubEnemyKilledOnAttackLocation = pSoldier->sGridNo;
+						gTacticalStatus.bEnemyKilledOnAttackLevel = pSoldier->pathing.bLevel;
+						gTacticalStatus.ubEnemyKilledOnAttackKiller = ubAttacker;
+
+						// also check if we are in mapscreen, if so update soldier's list
+						if( guiCurrentScreen == MAP_SCREEN )
+						{
+							ReBuildCharactersList( );
+						}
 					}
-				}
-				else if ( pSoldier->bVisible == TRUE )
-				{
-					// We were a visible enemy, say laugh!
-					if ( Random(3) == 0 && !CREATURE_OR_BLOODCAT( MercPtrs[ ubAttacker ] ) )
+					else if ( pSoldier->bVisible == TRUE )
 					{
-						MercPtrs[ ubAttacker ]->DoMercBattleSound( BATTLE_SOUND_LAUGH1 );
-					}
+						// We were a visible enemy, say laugh!
+						if ( Random(3) == 0 && !CREATURE_OR_BLOODCAT( MercPtrs[ ubAttacker ] ) )
+						{
+							MercPtrs[ ubAttacker ]->DoMercBattleSound( BATTLE_SOUND_LAUGH1 );
+						}
+					}					
 				}
-			}
-
-			// Handle NPC Dead
-			HandleNPCTeamMemberDeath( pSoldier );
-
-			// if a friendly with a profile, increment kills
-			// militia also now track kills...
-			if ( ubAttacker != NOBODY )
-			{
-				if ( MercPtrs[ ubAttacker ]->bTeam == gbPlayerNum )
+			
+				// Handle NPC Dead
+				HandleNPCTeamMemberDeath( pSoldier );				
+				
+				// if a friendly with a profile, increment kills
+				// militia also now track kills...
+				if ( ubAttacker != NOBODY )
 				{
-					// increment kills
-					/////////////////////////////////////////////////////////////////////////////////////
-					// SANDRO - experimental - more specific statistics of mercs
-					switch(pSoldier->ubSoldierClass)
+					if ( MercPtrs[ ubAttacker ]->bTeam == gbPlayerNum )
 					{
-						case SOLDIER_CLASS_ELITE :
-							gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsElites++;
-							break;
-						case SOLDIER_CLASS_ARMY :
-							gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsRegulars++;
-							break;
-						case SOLDIER_CLASS_ADMINISTRATOR :
-							gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsAdmins++;
-							break;
-						case SOLDIER_CLASS_CREATURE :
-							gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsCreatures++;
-							break;
-						default :
-							if ( CREATURE_OR_BLOODCAT( pSoldier ) )
+						// increment kills
+						/////////////////////////////////////////////////////////////////////////////////////
+						// SANDRO - experimental - more specific statistics of mercs
+						switch(pSoldier->ubSoldierClass)
+						{
+							case SOLDIER_CLASS_ELITE :
+								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsElites++;
+								break;
+							case SOLDIER_CLASS_ARMY :
+								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsRegulars++;
+								break;
+							case SOLDIER_CLASS_ADMINISTRATOR :
+								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsAdmins++;
+								break;
+							case SOLDIER_CLASS_CREATURE :
 								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsCreatures++;
-							else if ( TANK( pSoldier ) )
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsTanks++;
-							else if ( pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral && pSoldier->bSide != gbPlayerNum )
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsHostiles++;
+								break;
+							default :
+								if ( CREATURE_OR_BLOODCAT( pSoldier ) )
+									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsCreatures++;
+								else if ( TANK( pSoldier ) )
+									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsTanks++;
+								else if ( pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral && pSoldier->bSide != gbPlayerNum )
+									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsHostiles++;
+								else
+									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
+								break;
+						}
+						//gMercProfiles[ MercPtrs[ pSoldier->ubAttackerID ]->ubProfile ].usKills++;
+						/////////////////////////////////////////////////////////////////////////////////////
+						gStrategicStatus.usPlayerKills++;
+					}
+					else if ( MercPtrs[ ubAttacker ]->bTeam == MILITIA_TEAM )
+					{
+						// get a kill! 2 points!
+						MercPtrs[ ubAttacker ]->ubMilitiaKills += 2;
+					}
+
+				}
+				
+				if ( ubAssister != NOBODY && ubAssister != ubAttacker )
+				{
+					if ( MercPtrs[ ubAssister ]->bTeam == gbPlayerNum )
+					{
+						/////////////////////////////////////////////////////////////////////////////////////
+						// SANDRO - new mercs' records
+						if( MercPtrs[ ubAttacker ] != NULL )
+						{
+							if( MercPtrs[ ubAttacker ]->bTeam == gbPlayerNum )
+								gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsMercs++;
+							else if ( MercPtrs[ ubAttacker ]->bTeam == MILITIA_TEAM )
+								gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsMilitia++;
 							else
-								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
-							break;
-					}
-					//gMercProfiles[ MercPtrs[ pSoldier->ubAttackerID ]->ubProfile ].usKills++;
-					/////////////////////////////////////////////////////////////////////////////////////
-					gStrategicStatus.usPlayerKills++;
-				}
-				else if ( MercPtrs[ ubAttacker ]->bTeam == MILITIA_TEAM )
-				{
-					// get a kill! 2 points!
-					MercPtrs[ ubAttacker ]->ubMilitiaKills += 2;
-				}
-
-			}
-
-
-			if ( ubAssister != NOBODY && ubAssister != ubAttacker )
-			{
-				if ( MercPtrs[ ubAssister ]->bTeam == gbPlayerNum )
-				{
-					/////////////////////////////////////////////////////////////////////////////////////
-					// SANDRO - new mercs' records
-					if( MercPtrs[ ubAttacker ] != NULL )
-					{
-						if( MercPtrs[ ubAttacker ]->bTeam == gbPlayerNum )
-							gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsMercs++;
-						else if ( MercPtrs[ ubAttacker ]->bTeam == MILITIA_TEAM )
-							gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsMilitia++;
+								gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsOthers++;
+						}
 						else
+						{
 							gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsOthers++;
+						}
+						//gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].usAssists++;
+						/////////////////////////////////////////////////////////////////////////////////////
 					}
-					else
+					else if ( MercPtrs[ ubAssister ]->bTeam == MILITIA_TEAM )
 					{
-						gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].records.usAssistsOthers++;
+						// get an assist - 1 points
+						MercPtrs[ ubAssister ]->ubMilitiaKills += 1;
 					}
-					//gMercProfiles[ MercPtrs[ ubAssister ]->ubProfile ].usAssists++;
-					/////////////////////////////////////////////////////////////////////////////////////
 				}
-				else if ( MercPtrs[ ubAssister ]->bTeam == MILITIA_TEAM )
+				/*
+				// handle assist
+				// if killer is assister, don't increment
+				if ( pSoldier->ubPreviousAttackerID != NOBODY && pSoldier->ubPreviousAttackerID != pSoldier->ubAttackerID )
 				{
-					// get an assist - 1 points
-					MercPtrs[ ubAssister ]->ubMilitiaKills += 1;
+				if ( MercPtrs[ pSoldier->ubPreviousAttackerID ]->bTeam == gbPlayerNum )
+				{
+				gMercProfiles[ MercPtrs[ pSoldier->ubPreviousAttackerID ]->ubProfile ].usAssists++;
 				}
+				else if ( MercPtrs[ pSoldier->ubPreviousAttackerID ]->bTeam == MILITIA_TEAM )
+				{
+				// get an assist - 1 points
+				MercPtrs[ pSoldier->ubPreviousAttackerID ]->ubMilitiaKills += 1;
+				}
+				}
+				*/
 			}
-			/*
-			// handle assist
-			// if killer is assister, don't increment
-			if ( pSoldier->ubPreviousAttackerID != NOBODY && pSoldier->ubPreviousAttackerID != pSoldier->ubAttackerID )
-			{
-			if ( MercPtrs[ pSoldier->ubPreviousAttackerID ]->bTeam == gbPlayerNum )
-			{
-			gMercProfiles[ MercPtrs[ pSoldier->ubPreviousAttackerID ]->ubProfile ].usAssists++;
-			}
-			else if ( MercPtrs[ pSoldier->ubPreviousAttackerID ]->bTeam == MILITIA_TEAM )
-			{
-			// get an assist - 1 points
-			MercPtrs[ pSoldier->ubPreviousAttackerID ]->ubMilitiaKills += 1;
-			}
-			}
-			*/
 		}
 
 		if ( TurnSoldierIntoCorpse( pSoldier, TRUE, TRUE ) )

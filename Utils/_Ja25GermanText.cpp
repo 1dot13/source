@@ -1,4 +1,6 @@
+// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("GERMAN")
+
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 	#include "_Ja25GermanText.h"
@@ -440,7 +442,6 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Erträgt den Anblick großer Insekten nicht und\nzeigt verringerte Leistung in tropischen Sektoren.",
 	L"Vergisst manchmal seine Befehle und verliert dadurch im Kampf einen Teil seiner APs.",
 	L"Dreht im Umgang mit Waffen manchmal durch und gibt Dauerfeuer.\nIst ihm das mit seiner Waffe nicht möglich, kann das zu Moralabzügen führen.",
-
 };
 
 
@@ -452,7 +453,7 @@ STR16 gzIMPProfileCostText[]=
 
 STR16 zGioNewTraitsImpossibleText[]=
 {
-	L"Sie können das neue Fertigkeitensystem nicht ohne aktivierte PROFEX-Utility benutzen. Suchen Sie in Ihrer JA2_Options.ini den Eintrag: READ_PROFILE_DATA_FROM_XML.",
+	L"Sie können das neue Fertigkeitensystem nicht ohne aktiviertem PROFEX-Utility benutzen. Suchen Sie in Ihrer ja2_options.ini den Eintrag: READ_PROFILE_DATA_FROM_XML.",
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -466,7 +467,8 @@ STR16	gzIronManModeWarningText[]=
 STR16 gzDisplayCoverText[]=
 {
 	L"Deckung: %d/100 %s, Helligkeit: %d/100",
-	L"Waffen-Rchwt.: %d/%d Felder, Trefferwahrsch.: %d/100",
+	L"Waffen-Reichweite: %d/%d Felder, Trefferwahrscheinlichkeit: %d/100",
+	L"Waffen-Reichweite: %d/%d Felder, Lauf-Genauigkeit: %d/100",
 	L"Deckungsanzeige ausschalten",
 	L"Zeige Ansicht für Söldner",
 	L"Zeige Gefahrenbereich für Söldner",
@@ -474,7 +476,7 @@ STR16 gzDisplayCoverText[]=
 	L"Stadt",
 	L"Wüste",
 	L"Schnee", // NOT USED!!!
-	L"Wald and Wüste",
+	L"Wald und Wüste",
 	L"" // yes empty for now
 };
 

@@ -1157,51 +1157,51 @@ BOOLEAN	GetNextCreditFromTextFile()
 			break;
 
 			case 4:
-				wcscpy(zOriginalString, L"AalaarDB");
-			break;
-
-			case 5:
-				wcscpy(zOriginalString, L"AndroidXP");
-			break;
-
-			case 6:
 				wcscpy(zOriginalString, L"Bugmonster");
 			break;
 
-			case 7:
+			case 5:
 				wcscpy(zOriginalString, L"ChrisL");
 			break;
 
-			case 8:
+			case 6:
+				wcscpy(zOriginalString, L"Jazz");
+			break;
+
+			case 7:
 				wcscpy(zOriginalString, L"Kaiden");
 			break;
 
-			case 9:
+			case 8:
 				wcscpy(zOriginalString, L"Lesh");
 			break;
 
-			case 10:
+			case 9:
 				wcscpy(zOriginalString, L"Little Alien");
 			break;
 
-			case 11:
+			case 10:
 				wcscpy(zOriginalString, L"Madd Mugsy");
 			break;
 
-			case 12:
+			case 11:
 				wcscpy(zOriginalString, L"Overhaul");
 			break;
 
-			case 13:
+			case 12:
 				wcscpy(zOriginalString, L"RoWa21 aka Roman aka Wanne");
 			break;
 
-			case 14:
+			case 13:
 				wcscpy(zOriginalString, L"Sergeant Kolja");
 			break;
 
+			case 14:
+				wcscpy(zOriginalString, L"Space Viking");
+			break;
+
 			case 15:
-				wcscpy(zOriginalString, L"@};Space Viking");
+				wcscpy(zOriginalString, L"@};Zathras");
 			break;
 
 			case 16:

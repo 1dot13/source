@@ -783,7 +783,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			break;
 			/*
 		case FACT_SKYRIDER_CLOSE_TO_CHOPPER:
-			SetUpHelicopterForPlayer( 13, MAP_ROW_B );
+			SetUpHelicopterForPlayer( 13, MAP_ROW_B , SKYRIDER );
 			break;
 			*/
 		case FACT_SPIKE_AT_DOOR:
@@ -1119,6 +1119,10 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 
 		case FACT_ROCKET_RIFLE_EXISTS:
 			gubFact[usFact] = ItemTypeExistsAtLocation( 10472, ROCKET_RIFLE, 0, NULL );
+			break;
+
+		case FACT_PABLO_ALIVE:
+			gubFact[usFact] = gMercProfiles[ PABLO ].bMercStatus != MERC_IS_DEAD;
 			break;
 
 		case FACT_DOREEN_ALIVE:

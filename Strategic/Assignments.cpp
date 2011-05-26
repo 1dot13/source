@@ -3376,29 +3376,40 @@ static INT16 GetMinimumStackDurability(const OBJECTTYPE* pObj) {
 	return minDur;
 }
 
+//CHRISL: During the repair process, we already attempt to repair the attachments on an item.  So rather then adding the attachment to the stack, we want to
+//	add the main item, even if it's just the attachment that actually needs to be repaired.  Also, if multiple items in a stack are damaged, we only want to
+//	include the stack once since the repair system already looks through the entire stack.
 static void CollectRepairableItems(const SOLDIERTYPE* pSoldier, RepairQueue& itemsToFix) {
+	bool foundItem = false;
 	// Iterate over all pocket slots and add items in need of repair
 	for (UINT8 pocketIndex = HELMETPOS; pocketIndex < NUM_INV_SLOTS; ++pocketIndex) {
 		const OBJECTTYPE* pObj = &(const_cast<SOLDIERTYPE *>(pSoldier)->inv[pocketIndex]);
+		if(pObj == NULL || pObj->ubNumberOfObjects == NOTHING || pObj->usItem == NOTHING)
+			continue;
 
 		// Check if item needs repairing
-		BOOLEAN itemAddedToQueue = FALSE;
+		foundItem = false;
 		for (UINT8 stackIndex = 0; stackIndex < pObj->ubNumberOfObjects; ++stackIndex) {
 			// Check the stack item itself
-			if (!itemAddedToQueue && IsItemRepairable(pObj->usItem, (*pObj)[stackIndex]->data.objectStatus)) {
-				itemAddedToQueue = TRUE;
+			if (IsItemRepairable(pObj->usItem, (*pObj)[stackIndex]->data.objectStatus)) {
 				RepairItem item(pObj, pSoldier, (INVENTORY_SLOT) pocketIndex);
 				itemsToFix.push(item);
+				break;
 			}
 
 			// Check for attachments (are there stackable items that can take attachments though?)
 			UINT8 attachmentIndex = 0;
 			for (attachmentList::const_iterator iter = (*pObj)[stackIndex]->attachments.begin(); iter != (*pObj)[stackIndex]->attachments.end(); ++iter, ++attachmentIndex) {
 				if (IsItemRepairable(iter->usItem, (*iter)[attachmentIndex]->data.objectStatus )) {
-					RepairItem item(&(*iter), pSoldier, (INVENTORY_SLOT) pocketIndex);
+					// Send the main item, not the attachment
+					RepairItem item(pObj, pSoldier, (INVENTORY_SLOT) pocketIndex);
 					itemsToFix.push(item);
+					foundItem = true;
+					break;
 				}
 			}
+			if(foundItem)
+				break;
 		}
 	}
 }
@@ -3627,9 +3638,12 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 			}
 
 		}
+
 		// now check for attachments after
-		for (attachmentList::iterator iter = (*pObj)[ubLoop]->attachments.begin(); iter != (*pObj)[ubLoop]->attachments.end(); ++iter) {
-			if (RepairObject(pSoldier, pOwner, &(*iter), pubRepairPtsLeft) && iter->exists()) {
+		for (attachmentList::iterator iter = (*pObj)[ubLoop]->attachments.begin(); iter != (*pObj)[ubLoop]->attachments.end(); ++iter) 
+		{
+			if (iter->exists() && RepairObject(pSoldier, pOwner, &(*iter), pubRepairPtsLeft)) 
+			{
 				fSomethingWasRepaired = true;
 				if ( *pubRepairPtsLeft == 0 )
 				{
@@ -3638,6 +3652,7 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 				}
 			}
 		}
+
 		//CHRISL: Now check and see if this is an LBENODE with items that need repairing
 		if(UsingNewInventorySystem() == true && Item[pObj->usItem].usItemClass == IC_LBEGEAR && pObj->IsActiveLBE(ubLoop) == true)
 		{
@@ -8057,65 +8072,76 @@ void BeginRemoveMercFromContract( SOLDIERTYPE *pSoldier )
 	// This function will setup the quote, then start dialogue beginning the actual leave sequence
 	if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) )
 	{
-		if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC ) || ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__NPC ) )
+		// WANNE: Nothing to do here, when we want to dismiss the robot
+		BOOLEAN	fAmIaRobot = AM_A_ROBOT( pSoldier );
+		if (!fAmIaRobot)		
 		{
-			HandleImportantMercQuote( pSoldier,	QUOTE_RESPONSE_TO_MIGUEL_SLASH_QUOTE_MERC_OR_RPC_LETGO );
-
-			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,0 ,MAP_SCREEN ,0 ,0 ,0 );
-			TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING, 1,0 );
-
-		}
-		else
-		// quote is different if he's fired in less than 48 hours
-		if( ( GetWorldTotalMin() - pSoldier->uiTimeOfLastContractUpdate ) < 60 * 48 )
-		{
-			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,1 ,MAP_SCREEN ,0 ,0 ,0 );
-			if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC ) )
-			{
-				// Only do this if they want to renew.....
-				if ( WillMercRenew( pSoldier, FALSE ) )
-				{
-					HandleImportantMercQuote( pSoldier, QUOTE_DEPART_COMMET_CONTRACT_NOT_RENEWED_OR_TERMINATED_UNDER_48 );
-				}
-			}
-
-			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,0 ,MAP_SCREEN ,0 ,0 ,0 );
-			TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING, 1,0 );
-
-		}
-		else
-		{
-			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,1 ,MAP_SCREEN ,0 ,0 ,0 );
-			if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC ) )
-			{
-				// Only do this if they want to renew.....
-				if ( WillMercRenew( pSoldier, FALSE ) )
-				{
-					HandleImportantMercQuote( pSoldier,	QUOTE_DEPARTING_COMMENT_CONTRACT_NOT_RENEWED_OR_48_OR_MORE );
-				}
-			}
-			else if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC ) || ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__NPC ) )
+			if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC ) || ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__NPC ) )
 			{
 				HandleImportantMercQuote( pSoldier,	QUOTE_RESPONSE_TO_MIGUEL_SLASH_QUOTE_MERC_OR_RPC_LETGO );
+
+				SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,0 ,MAP_SCREEN ,0 ,0 ,0 );
+				TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING, 1,0 );
+
 			}
-
-			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,0 ,MAP_SCREEN ,0 ,0 ,0 );
-			TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING, 1,0 );
-		}
-
-		if( ( GetWorldTotalMin() - pSoldier->uiTimeOfLastContractUpdate ) < 60 * 3 )
-		{
-			// this will cause him give us lame excuses for a while until he gets over it
-			// 3-6 days (but the first 1-2 days of that are spent "returning" home)
-			gMercProfiles[ pSoldier->ubProfile ].ubDaysOfMoraleHangover = (UINT8) (3 + Random(4));
-
-			// if it's an AIM merc, word of this gets back to AIM...	Bad rep.
-			if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+			else
 			{
-				ModifyPlayerReputation(REPUTATION_EARLY_FIRING);
+				// quote is different if he's fired in less than 48 hours
+				if( ( GetWorldTotalMin() - pSoldier->uiTimeOfLastContractUpdate ) < 60 * 48 )
+				{
+					SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,1 ,MAP_SCREEN ,0 ,0 ,0 );
+					if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC ) )
+					{
+						// Only do this if they want to renew.....
+						if ( WillMercRenew( pSoldier, FALSE ) )
+						{
+							HandleImportantMercQuote( pSoldier, QUOTE_DEPART_COMMET_CONTRACT_NOT_RENEWED_OR_TERMINATED_UNDER_48 );
+						}
+					}
+
+					SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,0 ,MAP_SCREEN ,0 ,0 ,0 );
+					TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING, 1,0 );
+
+				}
+				else
+				{
+					SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,1 ,MAP_SCREEN ,0 ,0 ,0 );
+					if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC ) )
+					{
+						// Only do this if they want to renew.....
+						if ( WillMercRenew( pSoldier, FALSE ) )
+						{
+							HandleImportantMercQuote( pSoldier,	QUOTE_DEPARTING_COMMENT_CONTRACT_NOT_RENEWED_OR_48_OR_MORE );
+						}
+					}
+					else if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC ) || ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__NPC ) )
+					{
+						HandleImportantMercQuote( pSoldier,	QUOTE_RESPONSE_TO_MIGUEL_SLASH_QUOTE_MERC_OR_RPC_LETGO );
+					}
+
+					SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,0 ,MAP_SCREEN ,0 ,0 ,0 );
+					TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING, 1,0 );
+				}
+			}
+
+			if( ( GetWorldTotalMin() - pSoldier->uiTimeOfLastContractUpdate ) < 60 * 3 )
+			{
+				// this will cause him give us lame excuses for a while until he gets over it
+				// 3-6 days (but the first 1-2 days of that are spent "returning" home)
+				gMercProfiles[ pSoldier->ubProfile ].ubDaysOfMoraleHangover = (UINT8) (3 + Random(4));
+
+				// if it's an AIM merc, word of this gets back to AIM...	Bad rep.
+				if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+				{
+					ModifyPlayerReputation(REPUTATION_EARLY_FIRING);
+				}
 			}
 		}
-
+		// WANNE: When we want to dismiss the robot, simply dismiss, without any special stuff
+		else
+		{
+			StrategicRemoveMerc(pSoldier);
+		}		
 	}
 }
 
@@ -11047,7 +11073,7 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 
 				if( pMilitiaTrainerSoldier == NULL )
 				{
-					if( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMilitiaTrainingPaid == FALSE )
+					if( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMobileMilitiaTrainingPaid == FALSE )
 					{
 						// show a message to confirm player wants to charge cost
 						HandleInterfaceMessageForCostOfTrainingMilitia( pSoldier );

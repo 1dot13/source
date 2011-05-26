@@ -270,7 +270,7 @@ typedef struct
  UINT8	ubDeadliness;							// comparative ratings of guns
  INT8	bAccuracy;								// accuracy or penalty used by OCTH
  INT8	nAccuracy;								// accuracy or penalty used by NCTH
- UINT8	ubMagSize;
+ UINT16	ubMagSize;
  UINT16	usRange;
  UINT16	usReloadDelay;
  UINT8	ubAttackVolume;
@@ -306,6 +306,7 @@ typedef struct
 
  UINT8	ubAimLevels;		// HEADROCK HAM 4: Dictates how many aiming levels this gun supports. If 0, the program
 							// chooses automatically based on the type of gun (see AllowedAimingLevels() ).
+ UINT8	ubHandling;			// CHRISL HAM 4: This value replaces ubReadyTime for determining a weapons base handling characteristics.
 
 } WEAPONTYPE;
 typedef struct

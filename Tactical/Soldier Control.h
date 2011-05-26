@@ -34,6 +34,8 @@ extern UINT16 CivLastNames[MAXCIVLASTNAMES][10];
 
 #define	LOCKED_NO_NEWGRIDNO			2
 
+// WANNE: Yes I know, we support up to 254 profiles, but because of compatibility, profile Id = 200
+// is not a valid profil. We in MercProfiles.xml, the profile id = 200 should not be used!
 #define	NO_PROFILE			200
 
 #define	BATTLE_SND_LOWER_VOLUME		1
@@ -815,6 +817,9 @@ public:
 	// HEADROCK HAM 4: Two more values. These record the shooter's previous Counter Force applied on the gun.
 	FLOAT												dPrevCounterForceX;
 	FLOAT												dPrevCounterForceY;
+	// CHRISL: Track initial offsets for autofire
+	FLOAT												dInitialMuzzleOffsetX;
+	FLOAT												dInitialMuzzleOffsetY;
 
 	INT8												bTilesMoved;
 	FLOAT												dNextBleed;
@@ -1258,9 +1263,9 @@ public:
 	void BeginTyingToFall( void );
 	
 	//legion by Jazz
-	void BeginSoldierFence( void  ); 
-	void BeginSoldierFenceUp( void  );
+	void BeginSoldierClimbWall( void  ); 
 	void BeginSoldierClimbWindow( void );
+	void BeginSoldierClimbWallUp( void  ); 
 	
 	void HandleAnimationProfile( UINT16	usAnimState, BOOLEAN fRemove );
 	void HandleSoldierTakeDamageFeedback( void );

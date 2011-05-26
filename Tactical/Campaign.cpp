@@ -1866,5 +1866,5 @@ void MERCMercWentUpALevelSendEmail( UINT8 ubMercMercIdValue )
 		ubEmailOffset = MERC_UP_LEVEL_BIFF + MERC_UP_LEVEL_LENGTH_BIFF * ( ubMercMercIdValue ); 
 	}
 
-	AddEmail( ubEmailOffset, iMsgLength, SPECK_FROM_MERC, GetWorldTotalMin(), -1);
+	AddEmail( ubEmailOffset, iMsgLength, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1);
 }

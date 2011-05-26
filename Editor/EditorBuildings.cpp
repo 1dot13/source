@@ -27,6 +27,7 @@
 	#include "environment.h"
 	#include "selectwin.h"
 	#include "Simple Render Utils.h"
+	#include "Text.h"
 #endif
 
 BOOLEAN fBuildingShowRoofs, fBuildingShowWalls, fBuildingShowRoomInfo;
@@ -82,16 +83,16 @@ void UpdateBuildingsInfo()
 	//print the headers on top of the columns
 	SetFont( SMALLCOMPFONT );
 	SetFontForeground( FONT_RED );
-	mprintfEditor( iScreenWidthOffset + 112, 2 * iScreenHeightOffset + 362, L"TOGGLE");
-	mprintfEditor( iScreenWidthOffset + 114, 2 * iScreenHeightOffset + 372, L"VIEWS");
+	mprintfEditor( iScreenWidthOffset + 112, 2 * iScreenHeightOffset + 362, iUpdateBuildingsInfoText[0]);
+	mprintfEditor( iScreenWidthOffset + 114, 2 * iScreenHeightOffset + 372, iUpdateBuildingsInfoText[1]);
 	SetFontForeground( FONT_YELLOW );
-	mprintfEditor( iScreenWidthOffset + 185, 2 * iScreenHeightOffset + 362, L"SELECTION METHOD");
+	mprintfEditor( iScreenWidthOffset + 185, 2 * iScreenHeightOffset + 362, iUpdateBuildingsInfoText[2]);
 	SetFontForeground( FONT_LTGREEN );
-	mprintfEditor( iScreenWidthOffset + 290, 2 * iScreenHeightOffset + 362, L"SMART METHOD");
+	mprintfEditor( iScreenWidthOffset + 290, 2 * iScreenHeightOffset + 362, iUpdateBuildingsInfoText[3]);
 	SetFontForeground( FONT_LTBLUE );
-	mprintfEditor( iScreenWidthOffset + 390, 2 * iScreenHeightOffset + 362, L"BUILDING METHOD");
+	mprintfEditor( iScreenWidthOffset + 390, 2 * iScreenHeightOffset + 362, iUpdateBuildingsInfoText[4]);
 	SetFontForeground( FONT_GRAY2 );
-	mprintfEditor( iScreenWidthOffset + 437, 2 * iScreenHeightOffset + 404, L"Room#" );
+	mprintfEditor( iScreenWidthOffset + 437, 2 * iScreenHeightOffset + 404, iUpdateBuildingsInfoText[5] );
 }
 
 //Uses a recursive method to elimate adjacent tiles of structure information.
@@ -653,13 +654,13 @@ void RenderDoorEditingWindow()
 	SetFontForeground( FONT_YELLOW );
 	SetFontShadow( FONT_NEARBLACK );
 	SetFontBackground( 0 );
-	mprintf( iScreenWidthOffset + 210, iScreenHeightOffset + 140, L"Editing lock attributes at map index %d.", iDoorMapIndex );
+	mprintf( iScreenWidthOffset + 210, iScreenHeightOffset + 140, iRenderDoorEditingWindowText[0], iDoorMapIndex );
 
 	SetFontForeground( FONT_GRAY2 );
-	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 160, L"Lock ID" );
-	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 180, L"Trap Type" );
-	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 200, L"Trap Level" );
-	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 218, L"Locked" );
+	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 160, iRenderDoorEditingWindowText[1] );
+	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 180, iRenderDoorEditingWindowText[2] );
+	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 200, iRenderDoorEditingWindowText[3] );
+	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 218, iRenderDoorEditingWindowText[4] );
 }
 
 void KillDoorEditing()

@@ -1092,6 +1092,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_NewFaceGear.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_Opinions.cpp"
 				>
 			</File>

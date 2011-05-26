@@ -152,7 +152,6 @@ extern UINT32 guiVObjectSize;
 extern UINT32 guiVSurfaceSize;
 
 extern BOOLEAN gfNextShotKills;
-BOOLEAN fAutofireBulletsMode = FALSE; // HEADROCK HAM 4: Track whether we're adjusting aim or number of bullets
 UINT32 guiSoldierFlags;
 UINT32 guiUITargetSoldierId = NOBODY;
 
@@ -217,10 +216,10 @@ void TogglePlanningMode();
 void SetBurstMode();
 void ObliterateSector();
 void RandomizeMercProfile();
-void JumpFence();
 void CreateNextCivType();
 void ToggleCliffDebug();
 void CreateCow();
+void CreateBloodCat();
 void CreatePlayerControlledCow();
 void ToggleRealTimeConfirm();
 void TestMeanWhile( INT32 iID );
@@ -648,8 +647,6 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 														{
 															// ATE: Reset refine aim..
 															pSoldier->aiData.bShownAimTime = 0;
-															// HEADROCK HAM 4: Reset Autofire Bullets mode.
-															fAutofireBulletsMode = FALSE;
 
 															if ( gsCurrentActionPoints == 0 )
 															{
@@ -669,13 +666,6 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 
 											case CONFIRM_ACTION_MODE:
 
-												// HEADROCK HAM 4: If in Autofire Mode, first click puts us in bullet adjust mode.
-												if (UsingNewCTHSystem() == true && GetSoldier( &pSoldier, gusSelectedSoldier ))
-													if (pSoldier->bDoAutofire && !fAutofireBulletsMode)
-														fAutofireBulletsMode = TRUE;
-													else
-													*puiNewEvent = CA_MERC_SHOOT;
-												else
 												*puiNewEvent = CA_MERC_SHOOT;
 												break;
 
@@ -2260,6 +2250,13 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						//EVENT_FireSoldierWeapon( MercPtrs[ gusSelectedSoldier ], sMapPos );
 					}
 				}
+				else if( fCtrl ) //toggle between the different npc debug modes
+				{
+					if ( CHEATER_CHEAT_LEVEL( ) )
+					{
+						CreateBloodCat();
+					}
+				}
 				else
 					ChangeCurrentSquad( 2 );
 
@@ -2582,23 +2579,37 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case 'j':
 				if ( fShift )
 				{
-				INT8	bDirection;
-
-				if (gGameExternalOptions.fCanJumpThroughWindows == TRUE )
-				{
+					// WANNE: Jump through window?
+					if (gGameExternalOptions.fCanJumpThroughWindows == TRUE )
+					{
+						INT16		sAPCost;
+						INT16		sBPCost;
+						INT8	bDirection;
 				       	SOLDIERTYPE *lSoldier;
 
-                                	if ( GetSoldier( &lSoldier, gusSelectedSoldier ) )
-					{
-				 	 if ( FindWindowJumpDirection( lSoldier, lSoldier->sGridNo, lSoldier->ubDirection, &bDirection ) )
-					 {
-							lSoldier->BeginSoldierClimbWindow(	);
-	   	                         }
-					
+                        if ( GetSoldier( &lSoldier, gusSelectedSoldier ) )
+						{
+				 			if ( FindWindowJumpDirection( lSoldier, lSoldier->sGridNo, lSoldier->ubDirection, &bDirection ) )
+							{
+								if((UsingNewInventorySystem() == true) && lSoldier->inv[BPACKPOCKPOS].exists() == true)
+								{
+									sAPCost = GetAPsToJumpThroughWindows( lSoldier, TRUE );
+									sBPCost = GetBPsToJumpThroughWindows( lSoldier, TRUE );
+								}
+								else
+								{
+									sAPCost = GetAPsToJumpFence( lSoldier, FALSE );
+									sBPCost = GetBPsToJumpFence( lSoldier, FALSE );
+								}
+								
+								if (EnoughPoints(lSoldier, sAPCost, sBPCost, FALSE))
+								{
+									lSoldier->BeginSoldierClimbWindow(	);
+								}
+	   	                    }
+						}
 					}
-
 				}
-			 }
 				else if( fAlt )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
@@ -2615,56 +2626,13 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 #endif
 				}
-				//ddd{ удалить закомментированный текст за ненадобностью.
-//				else if(_KeyDown( SHIFT ))
-//				{
-//INT16		sGridNo;
-//STRUCTURE *			pStructure;
-
-//GetMouseMapPos( &sGridNo );
-//ScreenMsg( FONT_MCOLOR_LTYELLOW,0, L"gubMerkCanSeeThisTile=%d,gubWorldTileInLight=%d,los=%d",gubMerkCanSeeThisTile[sGridNo],gubWorldTileInLight[sGridNo],gGameSettings.ubSizeOfLOS);
-//
-
-				//	SOLDIERTYPE *pjSoldier;
-				//	BOOLEAN	fNearHeigherLevel;
-				//	BOOLEAN	fNearLowerLevel;
-				//	INT8	bDirection;
-
-				//	if ( GetSoldier( &pjSoldier, gusSelectedSoldier ) )
-				//	{
-				//		// CHRISL: Turn off manual jumping while wearing a backpack
-				//		if(UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
-				//			break;
-
-				//		// Make sure the merc is not collapsed!
-				//		if (!IsValidStance(pjSoldier, ANIM_CROUCH) )
-				//		{
-				//			if ( pjSoldier->bCollapsed && pjSoldier->bBreath < OKBREATH )
-				//			{
-				//				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[ 4 ], pjSoldier->name );
-				//			}
-
-				//			break;
-				//		}
-				//	GetMercOknoDirection( pjSoldier->ubID, &fNearLowerLevel, &fNearHeigherLevel );
-				//	if ( FindOknoDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
-				//		{
-				//			BeginSoldierOkno( pjSoldier );
-				//		}
-
-
-				//	}
-
-				//}//ddd}
 				else
 				{
 					SOLDIERTYPE *pjSoldier;
 					if ( GetSoldier( &pjSoldier, gusSelectedSoldier ) )
 					{
-						// CHRISL: Turn off manual jumping while wearing a backpack
-						if(UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
-							break;
-
+						INT16							sAPCost;
+						INT16							sBPCost;
 						BOOLEAN	fNearHeigherLevel;
 						BOOLEAN	fNearLowerLevel;
 						INT8	bDirection;
@@ -2680,28 +2648,66 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							break;
 						}
 
+						// Climb on roof
 						GetMercClimbDirection( pjSoldier->ubID, &fNearLowerLevel, &fNearHeigherLevel );
 
 						if ( fNearLowerLevel )
 						{
-							pjSoldier->BeginSoldierClimbDownRoof( );
+							// No climbing when wearing a backpack!
+							if((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
+								return;
+						
+							if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, TRUE ), GetBPsToClimbRoof( pjSoldier, TRUE ), FALSE )	)
+							{
+								pjSoldier->BeginSoldierClimbDownRoof( );
+							}
 						}
 						if ( fNearHeigherLevel )
 						{
-							pjSoldier->BeginSoldierClimbUpRoof(	);
+							// No climbing when wearing a backpack!
+							if((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
+								return;
+						
+							if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, FALSE ), GetBPsToClimbRoof( pjSoldier, FALSE ), FALSE )	)
+							{
+								pjSoldier->BeginSoldierClimbUpRoof(	);
+							}
 						}
 
+						// Jump over fence
 						if ( FindFenceJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
 						{
-							pjSoldier->BeginSoldierClimbFence(	);
+							if((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
+							{
+								sAPCost = GetAPsToJumpFence( pjSoldier, TRUE );
+								sBPCost = GetBPsToJumpFence( pjSoldier, TRUE );
+							}
+							else
+							{
+								sAPCost = GetAPsToJumpFence( pjSoldier, FALSE );
+								sBPCost = GetBPsToJumpFence( pjSoldier, FALSE );
+							}
+
+							if ( EnoughPoints( pjSoldier, sAPCost, sBPCost, FALSE )	)
+							{
+								pjSoldier->BeginSoldierClimbFence(	);
+							}	
 						}
 						
-						if (gGameExternalOptions.fCanClimbOnWalls == TRUE )
-						{
-						if ( FindFenceDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
-						{
-							pjSoldier->BeginSoldierFence(  );
-						}
+						// Climb on walls
+						if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
+						{ 
+							if ( FindWallJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
+							{
+								// No climbing when wearing a backpack!
+								if((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
+									return;
+
+								if ( EnoughPoints( pjSoldier, GetAPsToJumpWall( pjSoldier, FALSE ), GetBPsToJumpWall( pjSoldier, FALSE ), FALSE )	)
+								{
+									pjSoldier->BeginSoldierClimbWall(  );
+								}
+							}
 						}
 					}
 				}
@@ -3210,6 +3216,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];
 					BOOLEAN handFit = (CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], GUNSLINGPOCKPOS, FALSE) || (pSoldier->inv[HANDPOS].exists() == false && pSoldier->inv[SECONDHANDPOS].exists() == false));
 					BOOLEAN slingFit = (CanItemFitInPosition(pSoldier, &pSoldier->inv[GUNSLINGPOCKPOS], HANDPOS, FALSE) || pSoldier->inv[GUNSLINGPOCKPOS].exists() == false);
+					if(Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].twohanded && pSoldier->inv[SECONDHANDPOS].exists() == true)
+						handFit = FALSE;
 					if( handFit == TRUE && slingFit == TRUE)
 					{
 						SwapObjs(&pSoldier->inv[HANDPOS], &pSoldier->inv[GUNSLINGPOCKPOS]);
@@ -3869,7 +3877,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				if ( fCtrl && fShift && fAlt && !is_networked)// ary-05/05/2009 : add forced turn mode
 				{
 					ToggleTurnMode();
-				}				
+				}
+				else if ( fCtrl && fShift )
+				{
+					SaveGame( SAVE__TIMED_AUTOSAVE, L"Auto Save" );
+				}
 				else
 				{	
 					//resort Team by ubID
@@ -4877,19 +4889,6 @@ void RandomizeMercProfile()
 	}
 }
 
-void JumpFence()
-{
-	SOLDIERTYPE *pSoldier;
-	INT8							bDirection;
-	if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
-	{
-		if ( FindFenceJumpDirection( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bDirection ) )
-		{
-			pSoldier->BeginSoldierClimbFence( );
-		}
-	}
-}
-
 void CreateNextCivType()
 {
 	INT16							sWorldX, sWorldY;
@@ -4965,6 +4964,37 @@ void CreateCow()
 		MercCreateStruct.bBodyType		= COW;
 		//MercCreateStruct.bTeam				= SOLDIER_CREATE_AUTO_TEAM;
 		MercCreateStruct.bTeam				= CIV_TEAM;
+		MercCreateStruct.sInsertionGridNo		= usMapPos;
+		RandomizeNewSoldierStats( &MercCreateStruct );
+
+		if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
+		{
+			AddSoldierToSector( iNewIndex );
+
+			// So we can see them!
+			AllTeamsLookForAll(NO_INTERRUPTS);
+
+		}
+	}
+}
+
+void CreateBloodCat()
+{
+	INT16							sWorldX, sWorldY;
+	SOLDIERCREATE_STRUCT		MercCreateStruct;
+	INT32 usMapPos;
+	// Get Grid Corrdinates of mouse
+	if ( GetMouseWorldCoordsInCenter( &sWorldX, &sWorldY ) && GetMouseMapPos( &usMapPos ) )
+	{
+		INT8							iNewIndex;
+
+		MercCreateStruct.ubProfile		= NO_PROFILE;
+		MercCreateStruct.sSectorX			= gWorldSectorX;
+		MercCreateStruct.sSectorY			= gWorldSectorY;
+		MercCreateStruct.bSectorZ			= gbWorldSectorZ;
+		MercCreateStruct.bBodyType		= BLOODCAT;
+		//MercCreateStruct.bTeam				= SOLDIER_CREATE_AUTO_TEAM;
+		MercCreateStruct.bTeam				= CREATURE_TEAM;
 		MercCreateStruct.sInsertionGridNo		= usMapPos;
 		RandomizeNewSoldierStats( &MercCreateStruct );
 
@@ -5834,105 +5864,106 @@ void SwapGoggles(SOLDIERTYPE *pTeamSoldier)
 {
     // WDS - Smart goggle switching
 	// NOTE: Investigate using GetItemVisionRangeBonus from Items.cpp???
-	if (gGameExternalOptions.smartGoggleSwitch) 
+	// Look through the head slots and find any sort of goggle or an empty spot
+	OBJECTTYPE * pGoggles = 0;
+	int slotToUse = -1;
+	INT8 swapSlot = -1;
+	BOOLEAN isAttach = FALSE;
+
+	for (int headSlot = HEAD1POS; headSlot <= HEAD2POS; ++headSlot) 
 	{
-		// Look through the head slots and find any sort of goggle or an empty spot
-		int slotToUse = -1;
-
-		for (int headSlot = HEAD1POS; headSlot <= HEAD2POS; ++headSlot) 
+		if ( (Item[pTeamSoldier->inv[headSlot].usItem].brightlightvisionrangebonus != 0) ) 
 		{
-			if ( (Item[pTeamSoldier->inv[headSlot].usItem].brightlightvisionrangebonus != 0) ) 
-			{
-				slotToUse = headSlot;
-				break;
-			} 
-			if ( (Item[pTeamSoldier->inv[headSlot].usItem].dayvisionrangebonus != 0) ) 
-			{
-				slotToUse = headSlot;
-				break;
-			} 
-			else if ( (Item[pTeamSoldier->inv[headSlot].usItem].nightvisionrangebonus != 0) ) 
-			{
-				slotToUse = headSlot;
-				break;
-			} 
-			else if ( (Item[pTeamSoldier->inv[headSlot].usItem].cavevisionrangebonus != 0) ) 
-			{
-				slotToUse = headSlot;
-				break;
-			} 
-			else if (pTeamSoldier->inv[headSlot].exists() == false) 
-			{
-				slotToUse = headSlot;
-			}
-		}
-		
-		if (slotToUse == -1) 
-		{
-			// No place to swap in a new goggle, give up
-			return;
-		}
-
-		// Find the best goggles for the current time of day anywhere in inventory
-		// silversurfer: also check if underground
-		OBJECTTYPE * pGoggles = 0;
-		if (DayTime() && pTeamSoldier->bSectorZ == 0) 
-		{
-			pGoggles = FindSunGogglesInInv( pTeamSoldier, TRUE );
+			slotToUse = headSlot;
+			break;
 		} 
-		else 
+		if ( (Item[pTeamSoldier->inv[headSlot].usItem].dayvisionrangebonus != 0) ) 
 		{
-			pGoggles = FindNightGogglesInInv( pTeamSoldier, TRUE );
+			slotToUse = headSlot;
+			break;
+		} 
+		else if ( (Item[pTeamSoldier->inv[headSlot].usItem].nightvisionrangebonus != 0) ) 
+		{
+			slotToUse = headSlot;
+			break;
+		} 
+		else if ( (Item[pTeamSoldier->inv[headSlot].usItem].cavevisionrangebonus != 0) ) 
+		{
+			slotToUse = headSlot;
+			break;
+		} 
+		else if (pTeamSoldier->inv[headSlot].exists() == false) 
+		{
+			slotToUse = headSlot;
 		}
+	}
+	
+	if (slotToUse == -1) 
+	{
+		// No place to swap in a new goggle, give up
+		return;
+	}
 
-		if (pGoggles) 
+	// Find the best goggles for the current time of day anywhere in inventory
+	// silversurfer: also check if underground
+	if (DayTime() && pTeamSoldier->bSectorZ == 0) 
+	{
+		pGoggles = FindSunGogglesInInv( pTeamSoldier, &swapSlot, &isAttach, TRUE );
+	} 
+	else 
+	{
+		pGoggles = FindNightGogglesInInv( pTeamSoldier, &swapSlot, &isAttach, TRUE );
+	}
+
+	if (pGoggles)
+	{
+		// We need to check that pGoggles is compatible with whatever is in the other face slot
+		int otherFaceSlot = (slotToUse == HEAD1POS?HEAD2POS:HEAD1POS);
+		if(pTeamSoldier->inv[otherFaceSlot].exists() == true && !CompatibleFaceItem(pGoggles->usItem, pTeamSoldier->inv[otherFaceSlot].usItem))
+			pGoggles = NULL;
+	}
+
+	if (pGoggles) 
+	{
+		// Now either swap or equip the best one that was found
+		if (pTeamSoldier->inv[slotToUse].exists()) 
 		{
-			// Now either swap or equip the best one that was found
-			if (pTeamSoldier->inv[slotToUse].exists()) 
-			{
+			if(CanItemFitInPosition(pTeamSoldier, &pTeamSoldier->inv[slotToUse], swapSlot, TRUE))
 				SwapObjs( pTeamSoldier, slotToUse, pGoggles, TRUE );
-			} 
-			else 
-			{
+			else if((pTeamSoldier->inv[HELMETPOS].exists()== true && pTeamSoldier->inv[HELMETPOS].AttachObject(pTeamSoldier, &pTeamSoldier->inv[slotToUse], FALSE)) ||
+				AutoPlaceObject(pTeamSoldier, &pTeamSoldier->inv[slotToUse], FALSE))
 				pGoggles->MoveThisObjectTo(pTeamSoldier->inv[slotToUse], 1, pTeamSoldier, slotToUse);
+			else
+			{
+				CHAR16	zTemp[ 100 ];
+				swprintf( zTemp, Message[ STR_CANNOT_ATTACH_ANY_SLOT ], ItemNames[ pTeamSoldier->inv[slotToUse].usItem ] );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, zTemp );
 			}
 		} 
 		else 
 		{
-			// No goggles to equip, should the current ones be unequiped?
-			if (pTeamSoldier->inv[slotToUse].exists()) 
+			pGoggles->MoveThisObjectTo(pTeamSoldier->inv[slotToUse], 1, pTeamSoldier, slotToUse);
+		}
+	} 
+	else 
+	{
+		// No goggles to equip, should the current ones be unequiped?
+		if (pTeamSoldier->inv[slotToUse].exists()) 
+		{
+			if ((DayTime() && Item[pTeamSoldier->inv[slotToUse].usItem].nightvisionrangebonus > 0 && pTeamSoldier->bSectorZ == 0) ||
+			    ((!DayTime() || pTeamSoldier->bSectorZ > 0) && (Item[pTeamSoldier->inv[slotToUse].usItem].brightlightvisionrangebonus > 0))) 
 			{
-				if ((DayTime() && Item[pTeamSoldier->inv[slotToUse].usItem].nightvisionrangebonus > 0 && pTeamSoldier->bSectorZ == 0) ||
-				    ((!DayTime() || pTeamSoldier->bSectorZ > 0) && (Item[pTeamSoldier->inv[slotToUse].usItem].brightlightvisionrangebonus > 0))) 
+				// It's day and we're wearing night goggles (or vice-versa), find a place to stash them
+				if (pTeamSoldier->inv[ HELMETPOS ].exists()) 
 				{
-					// It's day and we're wearing night goggles (or vice-versa), find a place to stash them
-					if (pTeamSoldier->inv[ HELMETPOS ].exists()) 
+					if (pTeamSoldier->inv[ HELMETPOS ].AttachObject( NULL, &pTeamSoldier->inv[slotToUse] )) 
 					{
-						if (pTeamSoldier->inv[ HELMETPOS ].AttachObject( NULL, &pTeamSoldier->inv[slotToUse] )) 
-						{
-							// It worked!
-						} 
-						else 
-						{
-							/* //If we're here we already know we can't attach, don't we?
-							// Try dumping it anywhere in inventory because it doesn't attach to the helmet
-							if (NASValidAttachment( pTeamSoldier->inv[slotToUse].usItem, pTeamSoldier->inv[HELMETPOS].usItem ) &&
-								pTeamSoldier->inv[slotToUse][0]->attachments.size() < MAX_ATTACHMENTS)
-							{
-								pTeamSoldier->inv[HELMETPOS].AttachObject( pTeamSoldier, &pTeamSoldier->inv[slotToUse], FALSE, 0 );
-							}
-							else
-							*/
-							//{
-								// Remove sungoggles.
-								PlaceInAnyPocket(pTeamSoldier, &pTeamSoldier->inv[slotToUse], FALSE);
-							//}
-						}
+						// It worked!
 					} 
 					else 
 					{
-						/* //again useless?
-						// Try dumping it anywhere in inventory given there's no helemt
+						/* //If we're here we already know we can't attach, don't we?
+						// Try dumping it anywhere in inventory because it doesn't attach to the helmet
 						if (NASValidAttachment( pTeamSoldier->inv[slotToUse].usItem, pTeamSoldier->inv[HELMETPOS].usItem ) &&
 							pTeamSoldier->inv[slotToUse][0]->attachments.size() < MAX_ATTACHMENTS)
 						{
@@ -5945,174 +5976,22 @@ void SwapGoggles(SOLDIERTYPE *pTeamSoldier)
 							PlaceInAnyPocket(pTeamSoldier, &pTeamSoldier->inv[slotToUse], FALSE);
 						//}
 					}
-				}
-			}
-		}
-	} 
-	else 
-	{
-		// Normal goggle switching
-		/* CHRISL - Adjusted this option to allow the game to search through Helmet attachments
-			as well as inventory positions.
-		*/
-		OBJECTTYPE * pObj;
-		OBJECTTYPE * pGoggles = NULL;
-		INT8		bSlot1;
-		int			bestBonus;
-		bool		itemFound = false;
-		//CHRISL: Before doing anything, we should look at both head slots to see if either slot has some sort of goggles
-		for(bSlot1 = HEAD1POS; bSlot1 <= HEAD2POS; bSlot1++)
-		{
-			if(Item[pTeamSoldier->inv[bSlot1].usItem].brightlightvisionrangebonus > 0)
-				itemFound = true;
-			if(Item[pTeamSoldier->inv[bSlot1].usItem].nightvisionrangebonus > 0)
-				itemFound = true;
-		}
-		//2 head slots
-		for (bSlot1 = HEAD1POS; bSlot1 <= HEAD2POS; bSlot1++)
-		{
-			// if wearing sungoggles
-			if ( Item[pTeamSoldier->inv[bSlot1].usItem].brightlightvisionrangebonus > 0	)
-			{
-				itemFound = true;
-				bestBonus = 0;
-				pGoggles = FindNightGogglesInInv( pTeamSoldier );
-				//search for better goggles on the helmet
-				if (pGoggles)
+				} 
+				else 
 				{
-					bestBonus = Item[pGoggles->usItem].nightvisionrangebonus;
-				}
-				//search helmet and vest
-				for(UINT8 gear = HELMETPOS; gear <= VESTPOS; gear++)
-				{
-					pObj = &(pTeamSoldier->inv[gear]);
-					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+					/* //again useless?
+					// Try dumping it anywhere in inventory given there's no helemt
+					if (NASValidAttachment( pTeamSoldier->inv[slotToUse].usItem, pTeamSoldier->inv[HELMETPOS].usItem ) &&
+						pTeamSoldier->inv[slotToUse][0]->attachments.size() < MAX_ATTACHMENTS)
 					{
-					if ( Item[ iter->usItem ].nightvisionrangebonus > bestBonus && Item[ iter->usItem ].usItemClass == IC_FACE && iter->exists())
-						{
-							pGoggles = &(*iter);
-							bestBonus = Item[ iter->usItem ].nightvisionrangebonus;
-						}
-					}
-				}
-				if ( pGoggles )
-				{
-					SwapObjs( pTeamSoldier, bSlot1, pGoggles, TRUE );
-					break;
-				}
-				// HEADROCK HAM B2.8: If no goggles were found to switch to, the character will remove what they're
-				// wearing, to avoid situations where a character refuses to remove the wrong set of goggles and
-				// thus suffers a penalty.
-				else
-				{	//WarmSteel - This has become more complicated to check, it's better to just try and see if it works.
-					//if (NASValidAttachment( pTeamSoldier->inv[bSlot1].usItem, pTeamSoldier->inv[HELMETPOS].usItem ) &&
-					//	pTeamSoldier->inv[bSlot1][0]->attachments.size() < MAX_ATTACHMENTS )
-					if (pTeamSoldier->inv[HELMETPOS].AttachObject( pTeamSoldier, &pTeamSoldier->inv[bSlot1], FALSE, 0 ) )
-					{
-						//pTeamSoldier->inv[HELMETPOS].AttachObject( pTeamSoldier, &pTeamSoldier->inv[bSlot1], FALSE, 0 );
-						break;
+						pTeamSoldier->inv[HELMETPOS].AttachObject( pTeamSoldier, &pTeamSoldier->inv[slotToUse], FALSE, 0 );
 					}
 					else
-					{
+					*/
+					//{
 						// Remove sungoggles.
-						PlaceInAnyPocket(pTeamSoldier, &pTeamSoldier->inv[bSlot1], FALSE);
-						break;
-					}
-				}
-			}
-			// else if wearing NVGs
-			else if(Item[pTeamSoldier->inv[bSlot1].usItem].nightvisionrangebonus > 0)
-			{
-				itemFound = true;
-				bestBonus = 0;
-				pGoggles = FindSunGogglesInInv( pTeamSoldier );
-				//search for better goggles on the helmet
-				if (pGoggles)
-				{
-					bestBonus = Item[pGoggles->usItem].brightlightvisionrangebonus;
-				}
-				//search helmet and vest
-				for(UINT8 gear = HELMETPOS; gear <= VESTPOS; gear++)
-				{
-					pObj = &(pTeamSoldier->inv[gear]);
-					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-					{
-						if ( Item[ iter->usItem ].brightlightvisionrangebonus > bestBonus && Item[ iter->usItem ].usItemClass == IC_FACE )
-						{
-							pGoggles = &(*iter);
-							bestBonus = Item[ iter->usItem ].brightlightvisionrangebonus;
-						}
-					}
-				}
-				if ( pGoggles )
-				{
-					SwapObjs( pTeamSoldier, bSlot1, pGoggles, TRUE );
-					break;
-				}
-				// HEADROCK HAM B2.8: If no goggles were found to switch to, the character will remove what they're
-				// wearing, to avoid situations where a character refuses to remove the wrong set of goggles and
-				// thus suffers a penalty.
-				else
-				{	//WarmSteel - Again, better to just try and see if it works.
-					//if (NASValidAttachment( pTeamSoldier->inv[bSlot1].usItem, pTeamSoldier->inv[HELMETPOS].usItem ) &&
-					//	pTeamSoldier->inv[bSlot1][0]->attachments.size() < MAX_ATTACHMENTS)
-					if (pTeamSoldier->inv[HELMETPOS].AttachObject( pTeamSoldier, &pTeamSoldier->inv[bSlot1], FALSE, 0 ))
-					{
-						break;
-					}
-					else
-					{
-						// Remove nightgoggles.
-						PlaceInAnyPocket(pTeamSoldier, &pTeamSoldier->inv[bSlot1], FALSE);
-						break;
-					}
-				}
-			}
-			// else if not wearing anything and no goggles found
-			else if(itemFound == false && pTeamSoldier->inv[bSlot1].exists() == false)
-			{
-				bestBonus = 0;
-				// search helmet and vest for goggles of some kind
-				for(UINT8 gear = HELMETPOS; gear <= VESTPOS; gear++)
-				{
-					pObj = &(pTeamSoldier->inv[gear]);
-					for(attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
-					{
-					if(iter->exists()){
-						if(DayTime() == TRUE && Item[iter->usItem].brightlightvisionrangebonus > bestBonus && Item[iter->usItem].usItemClass == IC_FACE)
-						{
-							pGoggles = &(*iter);
-							bestBonus = Item[iter->usItem].brightlightvisionrangebonus;
-						}
-						else if(NightTime() == TRUE && Item[iter->usItem].nightvisionrangebonus > bestBonus && Item[iter->usItem].usItemClass == IC_FACE)
-						{
-							pGoggles = &(*iter);
-							bestBonus = Item[iter->usItem].nightvisionrangebonus;
-						}
-						}
-					}
-					if(pGoggles)
-					{
-						pGoggles->MoveThisObjectTo(pTeamSoldier->inv[bSlot1], 1, pTeamSoldier, bSlot1);
-						pObj->RemoveAttachment(pGoggles);
-						break;
-					}
-				}
-				if(pTeamSoldier->inv[bSlot1].exists() == false)
-				{
-					if(DayTime() == TRUE)
-						pGoggles = FindSunGogglesInInv( pTeamSoldier );
-					else
-						pGoggles = FindNightGogglesInInv( pTeamSoldier );
-					if(pGoggles)
-					{
-						SwapObjs( pTeamSoldier, bSlot1, pGoggles, TRUE );
-						break;
-					}
-				}
-				else
-				{
-					break;
+						PlaceInAnyPocket(pTeamSoldier, &pTeamSoldier->inv[slotToUse], FALSE);
+					//}
 				}
 			}
 		}
@@ -6140,6 +6019,8 @@ void SwapGogglesUniformly(SOLDIERTYPE *pTeamSoldier, BOOLEAN fToNightVision)
 	INT8		bSlot1;
 	int			bestBonus;
 	bool		itemFound = false;
+	INT8 swapSlot = -1;
+	BOOLEAN isAttach = FALSE;
 
 	//CHRISL: Before doing anything, we should look at both head slots to see if either slot has some sort of goggles
 	for(bSlot1 = HEAD1POS; bSlot1 <= HEAD2POS; bSlot1++)
@@ -6159,7 +6040,7 @@ void SwapGogglesUniformly(SOLDIERTYPE *pTeamSoldier, BOOLEAN fToNightVision)
 			{
 				itemFound = true;
 				bestBonus = 0;
-				pGoggles = FindNightGogglesInInv( pTeamSoldier );
+				pGoggles = FindNightGogglesInInv( pTeamSoldier, &swapSlot, &isAttach );
 				//search for better goggles on the helmet
 				if (pGoggles)
 				{
@@ -6207,7 +6088,7 @@ void SwapGogglesUniformly(SOLDIERTYPE *pTeamSoldier, BOOLEAN fToNightVision)
 			{
 				itemFound = true;
 				bestBonus = 0;
-				pGoggles = FindSunGogglesInInv( pTeamSoldier );
+				pGoggles = FindSunGogglesInInv( pTeamSoldier, &swapSlot, &isAttach );
 				//search for better goggles on the helmet
 				if (pGoggles)
 				{
@@ -6281,9 +6162,9 @@ void SwapGogglesUniformly(SOLDIERTYPE *pTeamSoldier, BOOLEAN fToNightVision)
 			if(pTeamSoldier->inv[bSlot1].exists() == false)
 			{
 				if(fToNightVision == FALSE)
-					pGoggles = FindSunGogglesInInv( pTeamSoldier );
+					pGoggles = FindSunGogglesInInv( pTeamSoldier, &swapSlot, &isAttach );
 				else
-					pGoggles = FindNightGogglesInInv( pTeamSoldier );
+					pGoggles = FindNightGogglesInInv( pTeamSoldier, &swapSlot, &isAttach );
 				if(pGoggles)
 				{
 					SwapObjs( pTeamSoldier, bSlot1, pGoggles, TRUE );
@@ -6612,50 +6493,52 @@ void QueryTBX1Button( UINT32 *puiNewEvent  )
 			//*puiNewEvent = LC_LOOK;
 			fX1ButtonDown = FALSE;
 			if ( !_KeyDown( ALT ) && !_KeyDown( SHIFT ))
-					UIHandleChangeLevel( NULL );
+			{
+				UIHandleChangeLevel( NULL );
+			}
 			else if( _KeyDown( SHIFT ) )
 			{
+				// WANNE: Jump through window?
+				if (gGameExternalOptions.fCanJumpThroughWindows == TRUE )
+				{
+					INT16		sAPCost;
+					INT16		sBPCost;
 					SOLDIERTYPE *pjSoldier;
-					BOOLEAN	fNearHeigherLevel;
-					BOOLEAN	fNearLowerLevel;
 					INT8	bDirection;
 
 					if ( GetSoldier( &pjSoldier, gusSelectedSoldier ) )
 					{
-						// CHRISL: Turn off manual jumping while wearing a backpack
-						if(UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
-							return;
-
-						// Make sure the merc is not collapsed!
-						if (!IsValidStance(pjSoldier, ANIM_CROUCH) )
+						if ( FindWindowJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
 						{
-							if ( pjSoldier->bCollapsed && pjSoldier->bBreath < OKBREATH )
+							if((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
 							{
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[ 4 ], pjSoldier->name );
+								sAPCost = GetAPsToJumpThroughWindows( pjSoldier, TRUE );
+								sBPCost = GetBPsToJumpThroughWindows( pjSoldier, TRUE );
+							}
+							else
+							{
+								sAPCost = GetAPsToJumpFence( pjSoldier, FALSE );
+								sBPCost = GetBPsToJumpFence( pjSoldier, FALSE );
 							}
 
-							return;
+							if (EnoughPoints(pjSoldier, sAPCost, sBPCost, FALSE))
+							{
+								pjSoldier->BeginSoldierClimbWindow();
+							}
 						}
-					GetMercOknoDirection( pjSoldier->ubID, &fNearLowerLevel, &fNearHeigherLevel );
-					if ( FindWindowJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
-						{
-							pjSoldier->BeginSoldierClimbWindow();
-						}
-
-
 					}
+				}
 			}
 			else if (_KeyDown( ALT ) )
 			{
 				SOLDIERTYPE *pjSoldier;
 				if ( GetSoldier( &pjSoldier, gusSelectedSoldier ) )
 				{
+					INT16							sAPCost;
+					INT16							sBPCost;
 					BOOLEAN	fNearHeigherLevel;
 					BOOLEAN	fNearLowerLevel;
 					INT8	bDirection;
-						// CHRISL: Turn off manual jumping while wearing a backpack
-					if(UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
-							return;
 
 					// Make sure the merc is not collapsed!
 					if (!IsValidStance(pjSoldier, ANIM_CROUCH) )
@@ -6665,23 +6548,74 @@ void QueryTBX1Button( UINT32 *puiNewEvent  )
 						return;
 					}
 
+					// Climb on roofs
 					GetMercClimbDirection( pjSoldier->ubID, &fNearLowerLevel, &fNearHeigherLevel );
 
 					if ( fNearLowerLevel )
-						pjSoldier->BeginSoldierClimbDownRoof( );
+					{
+						// CHRISL: Turn off manual jumping while wearing a backpack
+						if(UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
+							return;
+
+						if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, TRUE ), GetBPsToClimbRoof( pjSoldier, TRUE ), FALSE )	)
+						{
+							pjSoldier->BeginSoldierClimbDownRoof( );
+						}
+					}
 					
 					if ( fNearHeigherLevel )
-						pjSoldier->BeginSoldierClimbUpRoof(	);
-					
-					if ( FindFenceJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
-						pjSoldier->BeginSoldierClimbFence(	);
-				}
-				
-			}//else
+					{
+						// No climbing when wearing a backpack!
+						if((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
+							return;
 
+						if ( EnoughPoints( pjSoldier, GetAPsToClimbRoof( pjSoldier, FALSE ), GetBPsToClimbRoof( pjSoldier, FALSE ), FALSE )	)
+						{
+							pjSoldier->BeginSoldierClimbUpRoof(	);
+						}
+					}
+					
+					// Jump over fence
+					if ( FindFenceJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
+					{
+						if((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
+						{
+							sAPCost = GetAPsToJumpFence( pjSoldier, TRUE );
+							sBPCost = GetBPsToJumpFence( pjSoldier, TRUE );
+						}
+						else
+						{
+							sAPCost = GetAPsToJumpFence( pjSoldier, FALSE );
+							sBPCost = GetBPsToJumpFence( pjSoldier, FALSE );
+						}
+
+						if ( EnoughPoints( pjSoldier, sAPCost, sBPCost, FALSE )	)
+						{
+							pjSoldier->BeginSoldierClimbFence(	);
+						}
+					}
+
+					// Climb on walls
+					if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
+					{ 
+						if ( FindWallJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
+						{
+							// No climbing when wearing a backpack!
+							if((UsingNewInventorySystem() == true) && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
+								return;
+
+							if ( EnoughPoints( pjSoldier, GetAPsToJumpWall( pjSoldier, FALSE ), GetBPsToJumpWall( pjSoldier, FALSE ), FALSE )	)
+							{
+								pjSoldier->BeginSoldierClimbWall(  );
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
+
 void QueryTBX2Button( UINT32 *puiNewEvent  )
 {
 	INT32	sMapPos;

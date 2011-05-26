@@ -9,11 +9,6 @@
 
 #define WORLD_TILE_X		40
 #define WORLD_TILE_Y		20
-//#define WORLD_COLS			160
-//#define WORLD_ROWS			160
-//#define WORLD_COORD_COLS			1600
-//#define WORLD_COORD_ROWS			1600
-//#define WORLD_MAX					25600
 #define CELL_X_SIZE					10
 #define CELL_Y_SIZE					10
 //<SB> variable map size
@@ -22,9 +17,7 @@ extern INT32 guiWorldRows;
 
 #define OLD_WORLD_COLS			160
 #define OLD_WORLD_ROWS			160
-#define OLD_WORLD_COORD_COLS			1600
-#define OLD_WORLD_COORD_ROWS			1600
-#define OLD_WORLD_MAX					25600
+#define OLD_WORLD_MAX			25600
 
 #define WORLD_COLS			guiWorldCols
 #define WORLD_ROWS			guiWorldRows

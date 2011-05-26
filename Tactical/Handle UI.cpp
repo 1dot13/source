@@ -517,28 +517,6 @@ void GetMercOknoDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp
 		}
 	}
 }
-
-void GetMercFenceDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp )
-{
-	INT8							bNewDirection;
-	SOLDIERTYPE				*pSoldier;
-
-	*pfGoDown = FALSE;
-	*pfGoUp   = FALSE;
-	
-	if ( !GetSoldier( &pSoldier, ubSoldierID ) )
-	{
-		return;
-	}
-
-	if ( pSoldier->pathing.bLevel == 0 )
-	{
-		if ( FindHeigherLevelFence( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) )
-		{
-			*pfGoUp = TRUE;
-		}
-	}
-}
 //----------------------------------------------------------------------------------
 
 
@@ -2062,7 +2040,7 @@ UINT32 UIHandleCMoveMerc( UI_EVENT *pUIEvent )
 					if(!(gTacticalStatus.uiFlags & INCOMBAT) && pSoldier->flags.ZipperFlag)
 					{
 						pSoldier->flags.ZipperFlag=FALSE;
-						RenderBackpackButtons(0);
+						RenderBackpackButtons(ACTIVATE_BUTTON);
 					}
 				}
 				// FOR REALTIME - DO MOVEMENT BASED ON STANCE!
@@ -5101,7 +5079,7 @@ UINT32 UIHandleTOnTerrain( UI_EVENT *pUIEvent )
 	gUIDisplayActionPointsOffY = 3;
 
 	// Set # of APs
-	gsCurrentActionPoints = 6;
+	gsCurrentActionPoints = APBPConstants[AP_TALK];
 
 	// Determine if we can afford!
 	if ( !EnoughPoints( pSoldier, gsCurrentActionPoints, 0, FALSE ) )

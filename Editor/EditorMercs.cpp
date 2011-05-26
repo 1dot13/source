@@ -120,6 +120,7 @@ CHAR16 gszCivGroupNames[ NUM_CIV_GROUPS ][ 20 ] =
 //	SCHEDULE_ACTION_ENTERSECTOR,
 //	SCHEDULE_ACTION_STAYINSECTOR,
 //	SCHEDULE_ACTION_SLEEP,
+/*
 CHAR16 gszScheduleActions[ NUM_SCHEDULE_ACTIONS ][20] =
 {
 	L"No action",
@@ -134,7 +135,7 @@ CHAR16 gszScheduleActions[ NUM_SCHEDULE_ACTIONS ][20] =
 	L"Sleep",
 	L"Ignore this!"
 };
-
+*/
 
 enum
 {
@@ -272,16 +273,17 @@ BOOLEAN gfShowCivilians = TRUE;
 
 INT16 sCurBaseDiff = DEFAULT_DIFF;
 BOOLEAN fAskForBaseDifficulty = TRUE;
-STR16 zDiffNames[NUM_DIFF_LVLS] = { L"Wimp", L"Easy", L"Average", L"Tough", L"Steroid Users Only" };
+//STR16 zDiffNames[NUM_DIFF_LVLS] = { L"Wimp", L"Easy", L"Average", L"Tough", L"Steroid Users Only" };
 INT16 sBaseStat[NUM_DIFF_LVLS] = { 50, 60, 70, 80, 90 };
 INT16 sBaseExpLvl[NUM_DIFF_LVLS] = { 1, 3, 5, 7, 9 };
-
+/*
 STR16 EditMercStat[12] = { L"Max Health",L"Cur Health",L"Strength",
 														L"Agility",L"Dexterity",L"Charisma",
 														L"Wisdom",L"Marksmanship",L"Explosives",
 														L"Medical",L"Scientific",L"Exp Level" };
-
+*/
 #define NUM_MERC_ORDERS 8
+/*
 STR16 EditMercOrders[8] = { L"Stationary",L"On Guard",L"Close Patrol",
 															L"Far Patrol",L"Point Patrol",L"On Call",
 															L"Seek Enemy", L"Random Point Patrol"};
@@ -289,7 +291,7 @@ STR16 EditMercOrders[8] = { L"Stationary",L"On Guard",L"Close Patrol",
 STR16 EditMercAttitudes[6] = { L"Defensive",L"Brave Loner",L"Brave Buddy",
 																	L"Cunning Loner",L"Cunning Buddy",
 																	L"Aggressive" };
-
+*/
 //information for bodytypes.
 #ifdef RANDOM
 	#undef RANDOM
@@ -835,7 +837,7 @@ void DisplayEditMercWindow( void )
 	SetFont( FONT12POINT1 );
 
 	// Name window
-	gprintf( iXPos + 128, iYPos + 3, L"Merc Name:" );
+	gprintf( iXPos + 128, iYPos + 3, pDisplayEditMercWindowText[0] );
 	ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos + 128, iYPos + 16, iXPos + 128 + 104, iYPos + 16 + 19, usFillColorDark );
 	ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos + 129, iYPos + 17, iXPos + 128 + 104, iYPos + 17 + 19, usFillColorLight );
 	ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos + 129, iYPos + 17, iXPos + 128 + 103, iYPos + 17 + 18, usFillColorTextBk );
@@ -843,7 +845,7 @@ void DisplayEditMercWindow( void )
 	gprintf( iXPos + 130 + iXOff, iYPos + 20, L"%s", pSoldier->name );
 
 	// Orders window
-	gprintf( iXPos + 128, iYPos + 38, L"Orders:" );
+	gprintf( iXPos + 128, iYPos + 38, pDisplayEditMercWindowText[1] );
 	ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos + 128, iYPos + 51, iXPos + 128 + 104, iYPos + 51 + 19, usFillColorDark );
 	ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos + 129, iYPos + 52, iXPos + 128 + 104, iYPos + 52 + 19, usFillColorLight );
 	ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos + 129, iYPos + 52, iXPos + 128 + 103, iYPos + 52 + 18, usFillColorTextBk );
@@ -851,7 +853,7 @@ void DisplayEditMercWindow( void )
 	gprintf( iXPos + 130 + iXOff, iYPos + 55, L"%s", EditMercOrders[pSoldier->aiData.bOrders] );
 
 	// Combat window
-	gprintf( iXPos + 128, iYPos + 73, L"Combat Attitude:" );
+	gprintf( iXPos + 128, iYPos + 73, pDisplayEditMercWindowText[2] );
 	ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos + 128, iYPos + 86, iXPos + 128 + 104, iYPos + 86 + 19, usFillColorDark );
 	ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos + 129, iYPos + 87, iXPos + 128 + 104, iYPos + 87 + 19, usFillColorLight );
 	ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos + 129, iYPos + 87, iXPos + 128 + 103, iYPos + 87 + 18, usFillColorTextBk );
@@ -1397,9 +1399,9 @@ void CreateEditMercWindow( void )
 
 	iEditMercBkgrndArea = CreateHotSpot((INT16)iXPos, (INT16)iYPos, (INT16)iWidth, (INT16)iHeight, MSYS_PRIORITY_NORMAL, DEFAULT_MOVE_CALLBACK, EditMercBkgrndCallback );
 
-	iEditMercColorPage = CreateTextButton( L"Merc Colors", (INT16)FONT12POINT1, FONT_BLACK, FONT_BLACK,
+	iEditMercColorPage = CreateTextButton( pCreateEditMercWindowText[0], (INT16)FONT12POINT1, FONT_BLACK, FONT_BLACK,
 		BUTTON_USE_DEFAULT, (INT16)(iXPos + 183), (INT16)(iYPos + 315), 80, 20, BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL + 1, DEFAULT_MOVE_CALLBACK, EditMercChangeToColorPageCallback );
-	iEditMercEnd = CreateTextButton( L"Done", (INT16)FONT12POINT1, FONT_MCOLOR_BLACK, FONT_BLACK,
+	iEditMercEnd = CreateTextButton( pCreateEditMercWindowText[1], (INT16)FONT12POINT1, FONT_MCOLOR_BLACK, FONT_BLACK,
 		BUTTON_USE_DEFAULT, (INT16)(iXPos + 183), (INT16)(iYPos + 337), 80, 20, BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL + 1, DEFAULT_MOVE_CALLBACK, EditMercDoneEditCallback );
 
 	// Disable color editing for PC Mercs
@@ -1408,13 +1410,13 @@ void CreateEditMercWindow( void )
 
 	iEditorButton[8] = QuickCreateButton( giEditMercImage[0], (INT16)(iXPos + 98), (INT16)(iYPos + 51), BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL + 1, DEFAULT_MOVE_CALLBACK, EditMercPrevOrderCallback );
 	iEditorButton[9] = QuickCreateButton( giEditMercImage[1], (INT16)(iXPos + 233), (INT16)(iYPos + 51), BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL + 1, DEFAULT_MOVE_CALLBACK, EditMercNextOrderCallback );
-	SetButtonFastHelpText( iEditorButton[8], L"Previous merc standing orders" );
-	SetButtonFastHelpText( iEditorButton[9], L"Next merc standing orders" );
+	SetButtonFastHelpText( iEditorButton[8], pCreateEditMercWindowText[2] );
+	SetButtonFastHelpText( iEditorButton[9], pCreateEditMercWindowText[3] );
 
 	iEditorButton[10] = QuickCreateButton( giEditMercImage[0], (INT16)(iXPos + 98), (INT16)(iYPos + 86), BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL + 1, DEFAULT_MOVE_CALLBACK, EditMercPrevAttCallback );
 	iEditorButton[11] = QuickCreateButton( giEditMercImage[1], (INT16)(iXPos + 233), (INT16)(iYPos + 86), BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL + 1, DEFAULT_MOVE_CALLBACK, EditMercNextAttCallback );
-	SetButtonFastHelpText( iEditorButton[10], L"Previous merc combat attitude" );
-	SetButtonFastHelpText( iEditorButton[11], L"Next merc combat attitude" );
+	SetButtonFastHelpText( iEditorButton[10], pCreateEditMercWindowText[4] );
+	SetButtonFastHelpText( iEditorButton[11], pCreateEditMercWindowText[5] );
 
 	iEditorButton[12] = QuickCreateButton( giEditMercImage[0], (INT16)(iXPos + 86), (INT16)(iYPos + 110), BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL + 1, DEFAULT_MOVE_CALLBACK, EditMercStatDwnCallback );
 	iEditorButton[13] = QuickCreateButton( giEditMercImage[1], (INT16)(iXPos + 146), (INT16)(iYPos + 110), BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL + 1, DEFAULT_MOVE_CALLBACK, EditMercStatUpCallback );
@@ -1454,8 +1456,8 @@ void CreateEditMercWindow( void )
 
 	for ( x = 12; x < 36; x += 2 )
 	{
-		SetButtonFastHelpText( iEditorButton[x], L"Decrease merc stat" );
-		SetButtonFastHelpText( iEditorButton[x + 1], L"Increase merc stat" );
+		SetButtonFastHelpText( iEditorButton[x], pCreateEditMercWindowText[6] );
+		SetButtonFastHelpText( iEditorButton[x + 1], pCreateEditMercWindowText[7] );
 	}
 }
 void SetMercOrders( INT8 bOrders )
@@ -2409,34 +2411,34 @@ void DisplayBodyTypeInfo()
 	CHAR16 str[20];
 	switch( gpSelected->pBasicPlacement->bBodyType )
 	{
-		case RANDOM:							swprintf( str, L"Random" );					break;
-		case REGMALE:							swprintf( str, L"Reg Male" );				break;
-		case BIGMALE:							swprintf( str, L"Big Male" );				break;
-		case STOCKYMALE:					swprintf( str, L"Stocky Male" );		break;
-		case REGFEMALE:						swprintf( str, L"Reg Female" );			break;
-		case TANK_NE:							swprintf( str, L"NE Tank" );				break;
-		case TANK_NW:							swprintf( str, L"NW Tank" );				break;
-		case FATCIV:							swprintf( str, L"Fat Civilian" );		break;
-		case MANCIV:							swprintf( str, L"M Civilian" );			break;
-		case MINICIV:							swprintf( str, L"Miniskirt" );			break;
-		case DRESSCIV:						swprintf( str, L"F Civilian" );			break;
-		case HATKIDCIV:						swprintf( str, L"Kid w/ Hat" );			break;
-		case HUMVEE:							swprintf( str, L"Humvee" );					break;
-		case ELDORADO:						swprintf( str, L"Eldorado" );				break;
-		case ICECREAMTRUCK:				swprintf( str, L"Icecream Truck" );	break;
-		case JEEP:								swprintf( str, L"Jeep" );						break;
-		case KIDCIV:							swprintf( str, L"Kid Civilian" );		break;
-		case COW:									swprintf( str, L"Domestic Cow" );		break;
-		case CRIPPLECIV:					swprintf( str, L"Cripple" );				break;
-		case ROBOTNOWEAPON:				swprintf( str, L"Unarmed Robot" );	break;
-		case LARVAE_MONSTER:			swprintf( str, L"Larvae" );					break;
-		case INFANT_MONSTER:			swprintf( str, L"Infant" );					break;
-		case YAF_MONSTER:					swprintf( str, L"Yng F Monster" );	break;
-		case YAM_MONSTER:					swprintf( str, L"Yng M Monster" );	break;
-		case ADULTFEMALEMONSTER:	swprintf( str, L"Adt F Monster" );	break;
-		case AM_MONSTER:					swprintf( str, L"Adt M Monster" );	break;
-		case QUEENMONSTER:				swprintf( str, L"Queen Monster" );	break;
-		case BLOODCAT:						swprintf( str, L"Bloodcat" );				break;
+		case RANDOM:						swprintf( str, pDisplayBodyTypeInfoText[0] );	break;
+		case REGMALE:						swprintf( str, pDisplayBodyTypeInfoText[1] );	break;
+		case BIGMALE:						swprintf( str, pDisplayBodyTypeInfoText[2] );	break;
+		case STOCKYMALE:					swprintf( str, pDisplayBodyTypeInfoText[3] );	break;
+		case REGFEMALE:						swprintf( str, pDisplayBodyTypeInfoText[4] );	break;
+		case TANK_NE:						swprintf( str, pDisplayBodyTypeInfoText[5] );	break;
+		case TANK_NW:						swprintf( str, pDisplayBodyTypeInfoText[6] );	break;
+		case FATCIV:						swprintf( str, pDisplayBodyTypeInfoText[7] );	break;
+		case MANCIV:						swprintf( str, pDisplayBodyTypeInfoText[8] );	break;
+		case MINICIV:						swprintf( str, pDisplayBodyTypeInfoText[9] );	break;
+		case DRESSCIV:						swprintf( str, pDisplayBodyTypeInfoText[10] );	break;
+		case HATKIDCIV:						swprintf( str, pDisplayBodyTypeInfoText[11] );	break;
+		case HUMVEE:						swprintf( str, pDisplayBodyTypeInfoText[12] );	break;
+		case ELDORADO:						swprintf( str, pDisplayBodyTypeInfoText[13] );	break;
+		case ICECREAMTRUCK:					swprintf( str, pDisplayBodyTypeInfoText[14] );	break;
+		case JEEP:							swprintf( str, pDisplayBodyTypeInfoText[15] );	break;
+		case KIDCIV:						swprintf( str, pDisplayBodyTypeInfoText[16] );	break;
+		case COW:							swprintf( str, pDisplayBodyTypeInfoText[17] );	break;
+		case CRIPPLECIV:					swprintf( str, pDisplayBodyTypeInfoText[18] );	break;
+		case ROBOTNOWEAPON:					swprintf( str, pDisplayBodyTypeInfoText[19] );	break;
+		case LARVAE_MONSTER:				swprintf( str, pDisplayBodyTypeInfoText[20] );	break;
+		case INFANT_MONSTER:				swprintf( str, pDisplayBodyTypeInfoText[21] );	break;
+		case YAF_MONSTER:					swprintf( str, pDisplayBodyTypeInfoText[22] );	break;
+		case YAM_MONSTER:					swprintf( str, pDisplayBodyTypeInfoText[23] );	break;
+		case ADULTFEMALEMONSTER:			swprintf( str, pDisplayBodyTypeInfoText[24] );	break;
+		case AM_MONSTER:					swprintf( str, pDisplayBodyTypeInfoText[25] );	break;
+		case QUEENMONSTER:					swprintf( str, pDisplayBodyTypeInfoText[26] );	break;
+		case BLOODCAT:						swprintf( str, pDisplayBodyTypeInfoText[27] );	break;
 	}
 	DrawEditorInfoBox( str, FONT10ARIAL, iScreenWidthOffset + 490, 2 * iScreenHeightOffset + 364, 70, 20 );
 }
@@ -2468,51 +2470,51 @@ void UpdateMercsInfo()
 			SetFont( SMALLCOMPFONT );
 			SetFontForeground( FONT_YELLOW );
 			SetFontShadow( FONT_NEARBLACK );
-			mprintf( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 363, L" --=ORDERS=-- ");
-			mprintf( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 419, L"--=ATTITUDE=--");
+			mprintf( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[0] );
+			mprintf( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 419, pUpdateMercsInfoText[1] );
 			if( iDrawMode == DRAW_MODE_CREATURE )
 			{
 				DisplayBodyTypeInfo();
 				SetFont( SMALLCOMPFONT );
 				SetFontForeground( FONT_LTBLUE );
-				mprintf( iScreenWidthOffset + 493, 2 * iScreenHeightOffset + 416, L"RELATIVE");
-				mprintf( iScreenWidthOffset + 480, 2 * iScreenHeightOffset + 422, L"ATTRIBUTES");
+				mprintf( iScreenWidthOffset + 493, 2 * iScreenHeightOffset + 416, pUpdateMercsInfoText[2] );
+				mprintf( iScreenWidthOffset + 480, 2 * iScreenHeightOffset + 422, pUpdateMercsInfoText[3] );
 			}
 			else
 			{
 				SetFontForeground( FONT_LTGREEN );
-				mprintf( iScreenWidthOffset + 480, 2 * iScreenHeightOffset + 363, L"RELATIVE");
-				mprintf( iScreenWidthOffset + 480, 2 * iScreenHeightOffset + 371, L"EQUIPMENT");
+				mprintf( iScreenWidthOffset + 480, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[4] );
+				mprintf( iScreenWidthOffset + 480, 2 * iScreenHeightOffset + 371, pUpdateMercsInfoText[5] );
 				SetFontForeground( FONT_LTBLUE );
-				mprintf( iScreenWidthOffset + 530, 2 * iScreenHeightOffset + 363, L"RELATIVE");
-				mprintf( iScreenWidthOffset + 530, 2 * iScreenHeightOffset + 371, L"ATTRIBUTES");
+				mprintf( iScreenWidthOffset + 530, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[6] );
+				mprintf( iScreenWidthOffset + 530, 2 * iScreenHeightOffset + 371, pUpdateMercsInfoText[7] );
 			}
 			if( iDrawMode == DRAW_MODE_ENEMY )
 			{
 				SetFont( FONT10ARIAL );
 				SetFontForeground( FONT_YELLOW );
-				mprintf( iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 411, L"Army" );
-				mprintf( iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 425, L"Admin" );
-				mprintf( iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 439, L"Elite" );
+				mprintf( iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 411, pUpdateMercsInfoText[8] );
+				mprintf( iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 425, pUpdateMercsInfoText[9] );
+				mprintf( iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 439, pUpdateMercsInfoText[10] );
 			}
 			break;
 		case MERC_ATTRIBUTEMODE:
 			SetFont( FONT10ARIAL );
 			SetFontForeground( FONT_YELLOW );
 			SetFontShadow( FONT_NEARBLACK );
-			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 370, L"Exp. Level");
-			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 395, L"Life");
-			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 420, L"LifeMax");
-			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 445, L"Marksmanship");
-			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 370, L"Strength");
-			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 395, L"Agility");
-			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 420, L"Dexterity");
-			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 445, L"Wisdom");
-			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 370, L"Leadership");
-			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 395, L"Explosives");
-			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 420, L"Medical");
-			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 445, L"Mechanical");
-			mprintf( iScreenWidthOffset + 525, 2 * iScreenHeightOffset + 370, L"Morale");
+			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 370, pUpdateMercsInfoText[11] );
+			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 395, pUpdateMercsInfoText[12] );
+			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 420, pUpdateMercsInfoText[13] );
+			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 445, pUpdateMercsInfoText[14] );
+			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 370, pUpdateMercsInfoText[15] );
+			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 395, pUpdateMercsInfoText[16] );
+			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 420, pUpdateMercsInfoText[17] );
+			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 445, pUpdateMercsInfoText[18] );
+			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 370, pUpdateMercsInfoText[19] );
+			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 395, pUpdateMercsInfoText[20] );
+			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 420, pUpdateMercsInfoText[21] );
+			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 445, pUpdateMercsInfoText[22] );
+			mprintf( iScreenWidthOffset + 525, 2 * iScreenHeightOffset + 370, pUpdateMercsInfoText[23] );
 			break;
 		case MERC_APPEARANCEMODE:
 			SetFont( FONT10ARIAL );
@@ -2522,10 +2524,10 @@ void UpdateMercsInfo()
 				SetFontForeground( FONT_DKYELLOW );
 			SetFontShadow( FONT_NEARBLACK );
 
-			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 364, L"Hair color:");
-			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 388, L"Skin color:");
-			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 412, L"Vest color:");
-			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 436, L"Pant color:");
+			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 364, pUpdateMercsInfoText[24] );
+			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 388, pUpdateMercsInfoText[25]);
+			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 412, pUpdateMercsInfoText[26]);
+			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 436, pUpdateMercsInfoText[27]);
 
 			SetFont( SMALLCOMPFONT );
 			SetFontForeground( FONT_BLACK );
@@ -2539,10 +2541,10 @@ void UpdateMercsInfo()
 			}
 			else
 			{
-				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 374, L"RANDOM");
-				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 398, L"RANDOM");
-				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 422, L"RANDOM");
-				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 446, L"RANDOM");
+				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 374, pUpdateMercsInfoText[28]);
+				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 398, pUpdateMercsInfoText[29]);
+				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 422, pUpdateMercsInfoText[30]);
+				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 446, pUpdateMercsInfoText[31]);
 				ShowEditMercPalettes( NULL ); //will display grey scale to signify random
 			}
 			DisplayBodyTypeInfo();
@@ -2554,23 +2556,23 @@ void UpdateMercsInfo()
 			{ //scope trick
 				CHAR16 tempStr[500];
 				swprintf( tempStr, L"%s%s%s%s%s%d.",
-					L"By specifying a profile index, all of the information will be extracted from the profile ",
-					L"and override any values that you have edited.  It will also disable the editing features ",
-					L"though, you will still be able to view stats, etc.  Pressing ENTER will automatically ",
-					L"extract the number you have typed.  A blank field will clear the profile.  The current ",
-					L"number of profiles range from 0 to ", NUM_PROFILES );
+					pUpdateMercsInfoText[32],
+					pUpdateMercsInfoText[33],
+					pUpdateMercsInfoText[34],
+					pUpdateMercsInfoText[35],
+					pUpdateMercsInfoText[36], NUM_PROFILES-1 );
 				DisplayWrappedString(iScreenWidthOffset + 180, 2 * iScreenHeightOffset + 370, 400, 2, FONT10ARIAL, 146, tempStr,	FONT_BLACK, FALSE, LEFT_JUSTIFIED );
 				SetFont( FONT12POINT1 );
 				if( gpSelected->pDetailedPlacement->ubProfile == NO_PROFILE )
 				{
 					SetFontForeground( FONT_GRAY3 );
-					mprintfEditor( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 435, L"Current Profile:  n/a              ");
+					mprintfEditor( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 435, pUpdateMercsInfoText[37]);
 				}
 				else
 				{
 					SetFontForeground( FONT_WHITE );
 					ClearTaskbarRegion( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 435, iScreenWidthOffset + 580, 2 * iScreenHeightOffset + 445 );
-					mprintf( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 435, L"Current Profile: %s", gMercProfiles[ gpSelected->pDetailedPlacement->ubProfile ].zName );
+					mprintf( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 435, pUpdateMercsInfoText[38], gMercProfiles[ gpSelected->pDetailedPlacement->ubProfile ].zName );
 				}
 			}
 			break;
@@ -2580,25 +2582,25 @@ void UpdateMercsInfo()
 			SetFontShadow( FONT_NEARBLACK );
 			switch( gpSelected->pSoldier->aiData.bOrders )
 			{
-				case STATIONARY:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"STATIONARY" );			break;
-				case ONCALL:			mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"ON CALL" );				break;
-				case ONGUARD:			mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"ON GUARD" );				break;
-				case SEEKENEMY:		mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"SEEK ENEMY" );			break;
-				case CLOSEPATROL:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"CLOSE PATROL" );		break;
-				case FARPATROL:		mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"FAR PATROL" );			break;
-				case POINTPATROL:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"POINT PATROL" );		break;
-				case RNDPTPATROL:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"RND PT PATROL" );	break;
+				case STATIONARY:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[39] );		break;
+				case ONCALL:		mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[40] );		break;
+				case ONGUARD:		mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[41] );		break;
+				case SEEKENEMY:		mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[42] );		break;
+				case CLOSEPATROL:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[43] );		break;
+				case FARPATROL:		mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[44] );		break;
+				case POINTPATROL:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[45] );		break;
+				case RNDPTPATROL:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[46] );		break;
 			}
 			SetFontForeground( FONT_YELLOW );
-			mprintf( iScreenWidthOffset + 186, 2 * iScreenHeightOffset + 363, L"Action" );
-			mprintf( iScreenWidthOffset + 268, 2 * iScreenHeightOffset + 363, L"Time" );
-			mprintf( iScreenWidthOffset + 309, 2 * iScreenHeightOffset + 363, L"V" );
-			mprintf( iScreenWidthOffset + 331, 2 * iScreenHeightOffset + 363, L"GridNo 1" );
-			mprintf( iScreenWidthOffset + 381, 2 * iScreenHeightOffset + 363, L"GridNo 2" );
-			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 376, L"1)" );
-			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 397, L"2)" );
-			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 418, L"3)" );
-			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 439, L"4)" );
+			mprintf( iScreenWidthOffset + 186, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[47] );
+			mprintf( iScreenWidthOffset + 268, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[48] );
+			mprintf( iScreenWidthOffset + 309, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[49] );
+			mprintf( iScreenWidthOffset + 331, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[50] );
+			mprintf( iScreenWidthOffset + 381, 2 * iScreenHeightOffset + 363, pUpdateMercsInfoText[51] );
+			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 376, pUpdateMercsInfoText[52] );
+			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 397, pUpdateMercsInfoText[53] );
+			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 418, pUpdateMercsInfoText[54] );
+			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 439, pUpdateMercsInfoText[55] );
 			if( gubScheduleInstructions )
 			{
 				CHAR16 str[255];
@@ -2606,28 +2608,31 @@ void UpdateMercsInfo()
 				ColorFillVideoSurfaceArea( FRAME_BUFFER, iScreenWidthOffset + 431, 2 * iScreenHeightOffset + 388, iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 450, Get16BPPColor( FROMRGB( 32, 45, 72 ) ) );
 				switch( gCurrSchedule.ubAction[ gubCurrentScheduleActionIndex ] )
 				{
-					case SCHEDULE_ACTION_LOCKDOOR:			swprintf( keyword, L"lock" );			break;
-					case SCHEDULE_ACTION_UNLOCKDOOR:		swprintf( keyword, L"unlock" );		break;
-					case SCHEDULE_ACTION_OPENDOOR:			swprintf( keyword, L"open" );			break;
-					case SCHEDULE_ACTION_CLOSEDOOR:			swprintf( keyword, L"close" );		break;
-				}
+					case SCHEDULE_ACTION_LOCKDOOR:			swprintf( keyword, pUpdateMercsInfoText[56] );		break;
+					case SCHEDULE_ACTION_UNLOCKDOOR:		swprintf( keyword, pUpdateMercsInfoText[57] );		break;
+					case SCHEDULE_ACTION_OPENDOOR:			swprintf( keyword, pUpdateMercsInfoText[58] );		break;
+					case SCHEDULE_ACTION_CLOSEDOOR:			swprintf( keyword, pUpdateMercsInfoText[59] );		break;
+				}	
 				switch( gubScheduleInstructions )
 				{
 					case SCHEDULE_INSTRUCTIONS_DOOR1:
-						swprintf( str, L"Click on the gridno adjacent to the door that you wish to %s.", keyword );
+						swprintf( str, pUpdateMercsInfoText[60], keyword );
 						break;
 					case SCHEDULE_INSTRUCTIONS_DOOR2:
-						swprintf( str, L"Click on the gridno where you wish to move after you %s the door.", keyword );
+						swprintf( str, pUpdateMercsInfoText[61], keyword );
 						break;
 					case SCHEDULE_INSTRUCTIONS_GRIDNO:
-						swprintf( str, L"Click on the gridno where you wish to move to." );
+						swprintf( str, pUpdateMercsInfoText[62] );
 						break;
 					case SCHEDULE_INSTRUCTIONS_SLEEP:
-						swprintf( str, L"Click on the gridno where you wish to sleep at.	Person will automatically return to original position after waking up." );
+						swprintf( str, pUpdateMercsInfoText[63] );
 					default:
 						return;
 				}
-				wcscat( str, L" Hit ESC to abort entering this line in the schedule." );
+				
+				if ( gCurrSchedule.ubAction[ gubCurrentScheduleActionIndex ] == SCHEDULE_ACTION_SLEEP ) swprintf( str, pUpdateMercsInfoText[63] );
+				
+				wcscat( str, pUpdateMercsInfoText[64] );
 				DisplayWrappedString( iScreenWidthOffset + 436, 2 * iScreenHeightOffset + 392, 149, 2, FONT10ARIAL, FONT_YELLOW, str, FONT_BLACK, FALSE, LEFT_JUSTIFIED );
 			}
 			break;
@@ -3172,7 +3177,7 @@ void RenderMercStrings()
 				sYPos += 10;
 
 				SetFontForeground( FONT_GRAY2 );
-				swprintf( str, L"Slot #%d", pSoldier->ubID );
+				swprintf( str, pRenderMercStringsText[0], pSoldier->ubID );
 				FindFontCenterCoordinates( sXPos, sYPos, 80, 1, str, TINYFONT1, &sX, &sY );
 				if( sY < (2 * iScreenHeightOffset + 352 ))
 				{
@@ -3216,7 +3221,7 @@ void RenderMercStrings()
 				sYPos += 10;
 
 				SetFontForeground( FONT_GRAY2 );
-				swprintf( str, L"Slot #%d", pSoldier->ubID );
+				swprintf( str, pRenderMercStringsText[0], pSoldier->ubID );
 				FindFontCenterCoordinates( sXPos, sYPos, 80, 1, str, TINYFONT1, &sX, &sY );
 				if( sY < (2 * iScreenHeightOffset + 352) )
 				{
@@ -3252,7 +3257,7 @@ void RenderMercStrings()
 						SetFontForeground( FONT_DKRED );
 					else
 						SetFontForeground( FONT_RED );
-					swprintf( str, L"Patrol orders with no waypoints" );
+					swprintf( str, pRenderMercStringsText[1] );
 					FindFontCenterCoordinates( sXPos, sYPos, 80, 1, str, TINYFONT1, &sX, &sY );
 					if( sY < (2 * iScreenHeightOffset + 352) )
 					{
@@ -3268,7 +3273,7 @@ void RenderMercStrings()
 					SetFontForeground( FONT_DKRED );
 				else
 					SetFontForeground( FONT_RED );
-				swprintf( str, L"Waypoints with no patrol orders" );
+				swprintf( str, pRenderMercStringsText[2] );
 				FindFontCenterCoordinates( sXPos, sYPos, 80, 1, str, TINYFONT1, &sX, &sY );
 				if( sY < (2 * iScreenHeightOffset + 352) )
 				{
@@ -3451,7 +3456,7 @@ void StartScheduleAction()
 		case SCHEDULE_ACTION_GRIDNO:
 		case SCHEDULE_ACTION_ENTERSECTOR:
 		case SCHEDULE_ACTION_SLEEP:
-				ShowEditorButton( MERCS_SCHEDULE_DATA1A + gubCurrentScheduleActionIndex );
+			ShowEditorButton( MERCS_SCHEDULE_DATA1A + gubCurrentScheduleActionIndex );
 			HideEditorButton( MERCS_SCHEDULE_DATA1B + gubCurrentScheduleActionIndex );
 			DisableEditorButtons( MERCS_SCHEDULE_ACTION1, MERCS_SCHEDULE_DATA4B );
 			DisableTextFields( 1, 4 );
@@ -3530,7 +3535,7 @@ void ClearCurrentSchedule()
 	for( i = 0; i < 4; i++ )
 	{
 		MSYS_SetBtnUserData( iEditorButton[ MERCS_SCHEDULE_ACTION1 + i ], 0, 0 );
-		SpecifyButtonText( iEditorButton[ MERCS_SCHEDULE_ACTION1 + i ], L"No action" );
+		SpecifyButtonText( iEditorButton[ MERCS_SCHEDULE_ACTION1 + i ], pClearCurrentScheduleText[0] );
 		gCurrSchedule.usTime[i] = 0xffff;
 		SetExclusive24HourTimeValue( (UINT8)(i+1), gCurrSchedule.usTime[ i ] ); //blanks the field
 		gCurrSchedule.usData1[i] = 0xffffffff;
@@ -3655,7 +3660,7 @@ void CopyMercPlacement( INT32 iMapIndex )
 {
 	if( gsSelectedMercID == -1 )
 	{
-		ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Placement not copied because no placement selected." );
+		ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, pCopyMercPlacementText[0] );
 		return;
 	}
 	gfSaveBuffer = TRUE;
@@ -3664,7 +3669,7 @@ void CopyMercPlacement( INT32 iMapIndex )
 	{
 		gSaveBufferDetailedPlacement = *gpSelected->pDetailedPlacement;
 	}
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Placement copied." );
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pCopyMercPlacementText[1] );
 }
 
 void PasteMercPlacement( INT32 iMapIndex )
@@ -3675,7 +3680,7 @@ void PasteMercPlacement( INT32 iMapIndex )
 
 	if( !gfSaveBuffer )
 	{
-		ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Placement not pasted as no placement is saved in buffer." );
+		ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, pPasteMercPlacementText[0] );
 		return;
 	}
 
@@ -3787,11 +3792,11 @@ void PasteMercPlacement( INT32 iMapIndex )
 			{
 				SetEnemyDroppableStatus( gbMercSlotTypes[i-FIRST_MERCS_INVENTORY_BUTTON], FALSE );
 			}
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Placement pasted." );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pPasteMercPlacementText[1] );
 		}
 		else
 		{
-			ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Placement not pasted as the maximum number of placements for this team is already used." );
+			ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, pPasteMercPlacementText[2] );
 		}
 	}
 }

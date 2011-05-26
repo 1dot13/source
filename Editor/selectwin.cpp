@@ -21,6 +21,7 @@
 #endif
 
 #include "vobject_blitters.h"
+#include "Text.h"
 
 extern BOOLEAN gfOverheadMapDirty;
 
@@ -1067,19 +1068,19 @@ void DisplaySelectionWindowGraphicalInformation()
 		//usIndex = pNode->uiIndex;
 		if( !gTilesets[ giCurrentTilesetID].TileSurfaceFilenames[ pNode->uiObjIndx ][0] )
 		{
-			mprintf( 2, 2, L"%S[%d] is from default tileset %s (%S)",
+			mprintf( 2, 2, pDisplaySelectionWindowGraphicalInformationText[0],
 				gTilesets[0].TileSurfaceFilenames[ pNode->uiObjIndx ],
 				pNode->uiIndex, gTilesets[0].zName,
 				gTileSurfaceName[ pNode->uiObjIndx ] );
 		}
 		else
 		{
-			mprintf( 2, 2, L"File:  %S, subindex:  %d (%S)",
+			mprintf( 2, 2, pDisplaySelectionWindowGraphicalInformationText[1],
 				gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ pNode->uiObjIndx ],
 				pNode->uiIndex, gTileSurfaceName[ pNode->uiObjIndx ] );
 		}
 	}
-	mprintf( 350, 2, L"Current Tileset:  %s",  gTilesets[ giCurrentTilesetID ].zName );
+	mprintf( 350, 2, pDisplaySelectionWindowGraphicalInformationText[2],  gTilesets[ giCurrentTilesetID ].zName );
 }
 
 //----------------------------------------------------------------------------------------------

@@ -631,7 +631,7 @@ void AddCommonInfoToBox(void)
 		if (ubMilitiaTotal > 0)
 		{
 			// some militia, show total & their breakdown by level
-			swprintf( wString, L"%d	(%d/%d/%d)", ubMilitiaTotal,
+			swprintf( wString, L"%d (%d/%d/%d)", ubMilitiaTotal,
 												MilitiaInSectorOfRank(bCurrentTownMineSectorX, bCurrentTownMineSectorY, GREEN_MILITIA),
 												MilitiaInSectorOfRank(bCurrentTownMineSectorX, bCurrentTownMineSectorY, REGULAR_MILITIA),
 												MilitiaInSectorOfRank(bCurrentTownMineSectorX, bCurrentTownMineSectorY, ELITE_MILITIA));

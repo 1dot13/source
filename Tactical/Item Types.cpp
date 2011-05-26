@@ -20,7 +20,7 @@ int gLastLBEUniqueID = 0;
 
 extern UINT32			guiCurrentItemDescriptionScreen;
 extern BOOLEAN			fShowMapInventoryPool;
-extern BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo );
+//extern BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo );
 
 bool IsSlotAnLBESlot(int slot)
 {
@@ -205,7 +205,7 @@ BOOLEAN MoveItemsToActivePockets( SOLDIERTYPE *pSoldier, std::vector<INT8>& LBES
 					//DBrot: changed to bitwise comparison
 					UINT32 newPack = LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbeCombo;
 					UINT32 chkPack = LoadBearingEquipment[Item[pSoldier->inv[i].usItem].ubClassIndex].lbeCombo;
-					if(newPack == 0 || (newPack & chkPack == 0))
+					if(newPack == 0 || (newPack & chkPack) == 0)
 						continue;
 				}
 				if(CanItemFitInPosition(pSoldier, &(pSoldier->inv[LBESlots[x]]), i, FALSE))
@@ -227,7 +227,8 @@ BOOLEAN MoveItemsToActivePockets( SOLDIERTYPE *pSoldier, std::vector<INT8>& LBES
 	{
 		if(pSoldier->inv[LBESlots[i]].exists() == false)	// No item in pocket
 			continue;
-		if(guiCurrentItemDescriptionScreen == MAP_SCREEN && fShowMapInventoryPool)
+		AutoPlaceObjectToWorld(pSoldier, &pSoldier->inv[LBESlots[i]]);
+		/*if(guiCurrentItemDescriptionScreen == MAP_SCREEN && fShowMapInventoryPool)
 		{
 			AutoPlaceObjectInInventoryStash(&pSoldier->inv[LBESlots[i]], pSoldier->sGridNo);
 		}
@@ -235,7 +236,7 @@ BOOLEAN MoveItemsToActivePockets( SOLDIERTYPE *pSoldier, std::vector<INT8>& LBES
 		{
 			AddItemToPool( pSoldier->sGridNo, &pSoldier->inv[LBESlots[i]], 1, pSoldier->pathing.bLevel, 0 , -1 );
 			NotifySoldiersToLookforItems( );
-		}
+		}*/
 		DeleteObj(&pSoldier->inv[LBESlots[i]]);
 	}
 

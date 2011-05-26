@@ -77,6 +77,7 @@
 	#include "cursors.h"//dnl ch2 210909
 	#include "Cursor Control.h"//dnl ch2 210909
 	#include "maputility.h"//dnl ch49 061009
+	#include "Text.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -164,6 +165,7 @@ BOOLEAN fDontUseClick = FALSE;//dnl ch7 210909
 BOOLEAN fShowHighGround = FALSE;//dnl ch2 210909
 BOOLEAN fRaiseWorld = FALSE;//dnl ch3 210909
 BOOLEAN gfVanillaMode = TRUE;//dnl ch33 091009
+BOOLEAN gfResizeMapOnLoading = FALSE;
 
 INT32 TestButtons[10];
 
@@ -476,7 +478,7 @@ BOOLEAN EditModeShutdown( void )
 	if( gfConfirmExitFirst )
 	{
 		gfConfirmExitPending = TRUE;
-		CreateMessageBox( L"Exit editor?" );
+		CreateMessageBox( pEditModeShutdownText[0] );
 		return FALSE;
 	}
 
@@ -1619,15 +1621,15 @@ void HandleKeyboardShortcuts( )
 				case F9:
 					break;
 				case F10:
-					CreateMessageBox( L"Are you sure you wish to remove all lights?" );
+					CreateMessageBox( pHandleKeyboardShortcutsText[0] );
 					gfRemoveLightsPending = TRUE;
 					break;
 				case F11:
-					CreateMessageBox( L"Are you sure you wish to reverse the schedules?" );
+					CreateMessageBox( pHandleKeyboardShortcutsText[1] );
 					gfScheduleReversalPending = TRUE;
 					break;
 				case F12:
-					CreateMessageBox( L"Are you sure you wish to clear all of the schedules?" );
+					CreateMessageBox( pHandleKeyboardShortcutsText[2] );
 					gfScheduleClearPending = TRUE;
 					break;
 
@@ -1710,12 +1712,12 @@ void HandleKeyboardShortcuts( )
 					if(fDontUseClick)
 					{
 						fDontUseClick = FALSE;
-						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, L"Clicked Placement Enabled");
+						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pHandleKeyboardShortcutsText[3] );
 					}
 					else
 					{
 						fDontUseClick = TRUE;
-						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, L"Clicked Placement Disabled");
+						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pHandleKeyboardShortcutsText[4] );
 					}
 					break;
 				case 'd': // debris
@@ -1810,12 +1812,12 @@ void HandleKeyboardShortcuts( )
 					if(iDrawMode != DRAW_MODE_HIGH_GROUND)
 					{
 						iDrawMode = DRAW_MODE_HIGH_GROUND;
-						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, L"Draw High Ground Enabled");
+						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pHandleKeyboardShortcutsText[5] );
 					}
 					else
 					{
 						iDrawMode = DRAW_MODE_NOTHING;
-						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, L"Draw High Ground Disabled");
+						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pHandleKeyboardShortcutsText[6] );
 					}
 					break;
 #ifdef dnlTEST
@@ -1851,7 +1853,7 @@ void HandleKeyboardShortcuts( )
 					}
 					break;
 				case 'L'://dnl ch23 210909
-					ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, L"Number of edge points: N=%d E=%d S=%d W=%d", gus1stNorthEdgepointArraySize, gus1stEastEdgepointArraySize, gus1stSouthEdgepointArraySize, gus1stWestEdgepointArraySize);
+					ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pHandleKeyboardShortcutsText[7], gus1stNorthEdgepointArraySize, gus1stEastEdgepointArraySize, gus1stSouthEdgepointArraySize, gus1stWestEdgepointArraySize);
 					ToggleMapEdgepoints();
 					break;
 #ifdef dnlTEST
@@ -1898,12 +1900,12 @@ void HandleKeyboardShortcuts( )
 					if(fDontUseRandom)
 					{
 						fDontUseRandom = FALSE;
-						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, L"Random Placement Enabled");
+						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pHandleKeyboardShortcutsText[8] );
 					}
 					else
 					{
 						fDontUseRandom = TRUE;
-						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, L"Random Placement Disabled");
+						ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pHandleKeyboardShortcutsText[9] );
 					}
 					break;
 				case 's':
@@ -1926,12 +1928,12 @@ void HandleKeyboardShortcuts( )
 				case 'T':
 					if ( fShowTrees )
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Removing Treetops" );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pHandleKeyboardShortcutsText[10] );
 						WorldHideTrees( );
 					}
 					else
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Showing Treetops" );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pHandleKeyboardShortcutsText[11] );
 						WorldShowTrees( );
 					}
 					fShowTrees = !fShowTrees;
@@ -1948,7 +1950,7 @@ void HandleKeyboardShortcuts( )
 							gpWorldLevelData[cnt].sHeight = 0;
 						fShowHighGround = FALSE;
 						ShowHighGround(3);
-						ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World Raise Reset");
+						ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pHandleKeyboardShortcutsText[12] );
 					}
 					else
 					{
@@ -1956,12 +1958,12 @@ void HandleKeyboardShortcuts( )
 						if(EditorInputEvent.usParam == 'U')
 						{
 							RaiseWorldLandOld();
-							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World Raise Set Old");
+							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pHandleKeyboardShortcutsText[13] );
 						}
 						else
 						{
 							RaiseWorldLand();
-							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World Raise Set");
+							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pHandleKeyboardShortcutsText[14] );
 						}
 					}
 					break;
@@ -2068,7 +2070,7 @@ UINT32 PerformSelectedAction( void )
 			break;
 
 		case ACTION_RADAR_MAP://dnl ch9 071009
-			ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, L"Creating radar map for %S", gubFilename);
+			ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pPerformSelectedActionText[0], gubFilename);
 			MarkWorldDirty();
 			return(MAPUTILITY_SCREEN);
 			break;
@@ -2119,16 +2121,16 @@ UINT32 PerformSelectedAction( void )
 			ExtractAndUpdateOptions();//dnl ch52 091009
 			fNewMap = TRUE;
 			if( gfPendingBasement )
-				CreateMessageBox( L"Delete current map and start a new basement level?" );
+				CreateMessageBox( pPerformSelectedActionText[1] );
 			else if( gfPendingCaves )
-				CreateMessageBox( L"Delete current map and start a new cave level?" );
+				CreateMessageBox( pPerformSelectedActionText[2] );
 			else
-				CreateMessageBox( L"Delete current map and start a new outdoor level?" );
+				CreateMessageBox( pPerformSelectedActionText[3] );
 			break;
 
 		case ACTION_SET_NEW_BACKGROUND:
 			if (!fBeenWarned)
-				CreateMessageBox( L" Wipe out ground textures? " );
+				CreateMessageBox( pPerformSelectedActionText[4] );
 			else
 			{
 				gCurrentBackground = TerrainBackgroundTile;
@@ -2566,68 +2568,68 @@ UINT32 WaitForHelpScreenResponse( void )
 
 	SetFont( gp12PointFont1 );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 55, L"HOME" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 55, L"Toggle fake editor lighting ON/OFF" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 55, pWaitForHelpScreenResponseText[0] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 55, pWaitForHelpScreenResponseText[1] );
 
-	gprintf( iScreenWidthOffset + 55, iScreenHeightOffset + 67, L"INSERT" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 67, L"Toggle fill mode ON/OFF" );
+	gprintf( iScreenWidthOffset + 55, iScreenHeightOffset + 67, pWaitForHelpScreenResponseText[2] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 67, pWaitForHelpScreenResponseText[3] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 79, L"BKSPC" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 79, L"Undo last change" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 79, pWaitForHelpScreenResponseText[4] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 79, pWaitForHelpScreenResponseText[5] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 91, L"DEL" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 91, L"Quick erase object under mouse cursor" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 91, pWaitForHelpScreenResponseText[6] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 91, pWaitForHelpScreenResponseText[7] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 103, L"ESC" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 103, L"Exit editor" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 103, pWaitForHelpScreenResponseText[8] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 103, pWaitForHelpScreenResponseText[9] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 115, L"PGUP/PGDN" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 115, L"Change object to be pasted" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 115, pWaitForHelpScreenResponseText[10] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 115, pWaitForHelpScreenResponseText[11] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 127, L"F1" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 127, L"This help screen" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 127, pWaitForHelpScreenResponseText[12] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 127, pWaitForHelpScreenResponseText[13] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 139, L"F10" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 139, L"Save current map" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 139, pWaitForHelpScreenResponseText[14] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 139, pWaitForHelpScreenResponseText[15] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 151, L"F11" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 151, L"Load map as current" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 151, pWaitForHelpScreenResponseText[16] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 151, pWaitForHelpScreenResponseText[17] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 163, L"+/-" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 163, L"Change shadow darkness by .01" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 163, pWaitForHelpScreenResponseText[18] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 163, pWaitForHelpScreenResponseText[19] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 175, L"SHFT +/-" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 175, L"Change shadow darkness by .05" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 175, pWaitForHelpScreenResponseText[20] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 175, pWaitForHelpScreenResponseText[21] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 187, L"0 - 9" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 187, L"Change map/tileset filename" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 187, pWaitForHelpScreenResponseText[22] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 187, pWaitForHelpScreenResponseText[23] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 199, L"b" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 199, L"Change brush size" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 199, pWaitForHelpScreenResponseText[24] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 199, pWaitForHelpScreenResponseText[25] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 211, L"d" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 211, L"Draw debris" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 211, pWaitForHelpScreenResponseText[26] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 211, pWaitForHelpScreenResponseText[27] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 223, L"o" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 223, L"Draw obstacle" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 223, pWaitForHelpScreenResponseText[28] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 223, pWaitForHelpScreenResponseText[29] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 235, L"r" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 235, L"Draw rocks" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 235, pWaitForHelpScreenResponseText[30] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 235, pWaitForHelpScreenResponseText[31] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 247, L"t" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 247, L"Toggle trees display ON/OFF" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 247, pWaitForHelpScreenResponseText[32] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 247, pWaitForHelpScreenResponseText[33] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 259, L"g" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 259, L"Draw ground textures" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 259, pWaitForHelpScreenResponseText[34] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 259, pWaitForHelpScreenResponseText[35] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 271, L"w" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 271, L"Draw building walls" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 271, pWaitForHelpScreenResponseText[36] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 271, pWaitForHelpScreenResponseText[37] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 283, L"e" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 283, L"Toggle erase mode ON/OFF" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 283, pWaitForHelpScreenResponseText[38] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 283, pWaitForHelpScreenResponseText[39] );
 
-	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 295, L"h" );
-	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 295, L"Toggle roofs ON/OFF" );
+	gprintf( iScreenWidthOffset + 55,	iScreenHeightOffset + 295, pWaitForHelpScreenResponseText[40] );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 295, pWaitForHelpScreenResponseText[41] );
 
 
 	fLeaveScreen = FALSE;
@@ -4312,7 +4314,7 @@ UINT32	EditScreenHandle( void )
 
 	if( gfWorldLoaded && gMapInformation.ubMapVersion <= 7 && !gfCorruptMap )
 	{
-		ScreenMsg( FONT_MCOLOR_RED, MSG_ERROR, L"Map data has just been corrupted.  Don't save, don't quit, get Kris!  If he's not here, save the map using a temp filename and document everything you just did, especially your last action!" );
+		ScreenMsg( FONT_MCOLOR_RED, MSG_ERROR, pAutoLoadMapText[0] );
 		gfCorruptMap = TRUE;
 	}
 	if( gfWorldLoaded && gubScheduleID > 40 && !gfCorruptSchedules )
@@ -4320,7 +4322,7 @@ UINT32	EditScreenHandle( void )
 		OptimizeSchedules();
 		if( gubScheduleID > 32 )
 		{
-			ScreenMsg( FONT_MCOLOR_RED, MSG_ERROR, L"Schedule data has just been corrupted.  Don't save, don't quit, get Kris!  If he's not here, save the map using a temp filename and document everything you just did, especially your last action!" );
+			ScreenMsg( FONT_MCOLOR_RED, MSG_ERROR, pAutoLoadMapText[1] );
 			gfCorruptSchedules = TRUE;
 		}
 	}
@@ -4527,7 +4529,7 @@ void ShowHighGround(INT32 iShowHighGroundCommand)//dnl ch2 210909
 		}
 		break;
 	case 1:
-		ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, L"Showing High Ground Markers");
+		ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pShowHighGroundText[0] );
 		for(int cnt=0; cnt<WORLD_MAX; cnt++)
 		{
 			if(gpWorldLevelData[cnt].sHeight)
@@ -4546,7 +4548,7 @@ void ShowHighGround(INT32 iShowHighGroundCommand)//dnl ch2 210909
 			RemoveTopmost(cnt, FIRSTPOINTERS7);
 		break;
 	case 3:
-		ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, L"Hiding High Ground Markers");
+		ScreenMsg(FONT_MCOLOR_WHITE, MSG_INTERFACE, pShowHighGroundText[1] );
 		for(int cnt=0; cnt<WORLD_MAX; cnt++)
 			RemoveTopmost(cnt, FIRSTPOINTERS11);
 		break;

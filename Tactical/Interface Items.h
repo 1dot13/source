@@ -208,11 +208,12 @@ BOOLEAN HandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, INT8 bInvPos, BOOLEAN fOn
 //											-	if == 1 will only dirty the name space and then set counter to 0
 //	Last parameter used mainly for when mouse is over item
 
+void RenderBulletIcon(OBJECTTYPE *pObject, UINT32 ubStatusIndex = 0);
 void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE	*pObject, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, UINT8 fDirtyLevel, UINT8 *pubHighlightCounter, UINT8 ubStatusIndex, BOOLEAN fOutline, INT16 sOutlineColor, UINT8 iter = 0 );
 // CHRISL: Add a new function that will be used to render a pocket silhouette
 void INVRenderSilhouette( UINT32 uiBugger, INT16 PocketIndex, INT16 SilIndex, INT16 sX, INT16 sY, INT16 sWideth, INT16 sHeight);
 // CHRISL: New function to handle display of inventory quantities based on item current in cursor
-void RenderPocketItemCapacity( UINT32 uiWhichBuffer, UINT8 pCapacity, INT16 bPos, SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT16 sX, INT16 sY );
+void RenderPocketItemCapacity( UINT32 uiWhichBuffer, INT8 pCapacity, INT16 bPos, SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT16 sX, INT16 sY );
 // CHRISL: New function to display items stored in an LBENODE
 void RenderLBENODEItems( OBJECTTYPE *pObj, int subObject );
 // CHRISL: New function to setup GSMInvData based on game options
@@ -257,6 +258,8 @@ void DeleteKeyRingPopup( );
 
 
 void ShutdownKeyRingInterface( void );
+void ShutdownInventoryInterface( void );
+
 BOOLEAN InKeyRingPopup( void );
 void BeginKeyRingItemPointer( SOLDIERTYPE *pSoldier, UINT8 ubKeyRingPosition );
 

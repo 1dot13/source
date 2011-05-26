@@ -34,6 +34,7 @@
 #endif
 
 #include "LoadScreen.h"
+#include "Text Input.h"
 
 extern SOLDIERINITNODE *gpSelected;
 extern SCHEDULENODE gCurrSchedule;
@@ -692,6 +693,24 @@ void VanillaModeCallback(GUI_BUTTON *btn, INT32 reason)//dnl ch33 160909
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 		(btn->uiFlags & BUTTON_CLICKED_ON) ? (gfVanillaMode = TRUE) : (gfVanillaMode = FALSE);
+}
+
+void ResizeMapOnLoadingCallback(GUI_BUTTON *btn, INT32 reason)
+{
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			// TODO.MAP: Enable/Disable the Rows textbox
+			gfResizeMapOnLoading = TRUE;
+			//EnableTextField(1);
+		}
+		else
+		{
+			gfResizeMapOnLoading = FALSE;
+			//DisableTextField(1);
+		}
+	}
 }
 
 //ITEMS

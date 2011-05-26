@@ -53,7 +53,8 @@
 	#include "Soldier Create.h"
 	#include "PATHAI.h"
 	#include "Points.h"
-#include "InterfaceItemImages.h"
+	#include "InterfaceItemImages.h"
+	#include "Interface Enhanced.h"
 #endif
 
 #include "BuildDefines.h"
@@ -1047,10 +1048,11 @@ ATM:
 
 
 //Evaluate:
+	EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, ACTIVATE_BUTTON);
 	//	guiSKI_EvaluateButtonImage = LoadButtonImage("INTERFACE\\TradeButtons.sti", -1,0,-1,1,-1 );
 //	guiSKI_TransactionButtonImage = UseLoadedButtonImage( guiSKI_EvaluateButtonImage, -1,0,-1,1,-1 );
-	guiSKI_TransactionButtonImage = LoadButtonImage("INTERFACE\\TradeButtons.sti", -1,0,-1,1,-1 );
-	guiSKI_DoneButtonImage = UseLoadedButtonImage( guiSKI_TransactionButtonImage, -1,0,-1,1,-1 );
+	//guiSKI_TransactionButtonImage = LoadButtonImage("INTERFACE\\TradeButtons.sti", -1,0,-1,1,-1 );
+	//guiSKI_DoneButtonImage = UseLoadedButtonImage( guiSKI_TransactionButtonImage, -1,0,-1,1,-1 );
 
 /*
 //Evaluate:
@@ -1065,30 +1067,30 @@ ATM:
 */
 
 	//Transaction button
-	guiSKI_TransactionButton = CreateIconAndTextButton( guiSKI_TransactionButtonImage, SKI_Text[SKI_TEXT_TRANSACTION], SKI_BUTTON_FONT,
-													 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
-													 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
-													 TEXT_CJUSTIFIED,
-													 SKI_TRANSACTION_BUTTON_X, SKI_TRANSACTION_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													 DEFAULT_MOVE_CALLBACK, BtnSKI_TransactionButtonCallback);
-	SpecifyDisabledButtonStyle( guiSKI_TransactionButton, DISABLED_STYLE_HATCHED );
+	//guiSKI_TransactionButton = CreateIconAndTextButton( guiSKI_TransactionButtonImage, SKI_Text[SKI_TEXT_TRANSACTION], SKI_BUTTON_FONT,
+	//												 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
+	//												 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
+	//												 TEXT_CJUSTIFIED,
+	//												 SKI_TRANSACTION_BUTTON_X, SKI_TRANSACTION_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+	//												 DEFAULT_MOVE_CALLBACK, BtnSKI_TransactionButtonCallback);
+	//SpecifyDisabledButtonStyle( guiSKI_TransactionButton, DISABLED_STYLE_HATCHED );
 
 	//if the dealer repairs, use the repair fast help text for the transaction button
-	if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
-		SetButtonFastHelpText( guiSKI_TransactionButton, SkiMessageBoxText[ SKI_REPAIR_TRANSACTION_BUTTON_HELP_TEXT ] );
-	else
-		SetButtonFastHelpText( guiSKI_TransactionButton, SkiMessageBoxText[ SKI_TRANSACTION_BUTTON_HELP_TEXT ] );
+	//if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+	//	SetButtonFastHelpText( guiSKI_TransactionButton, SkiMessageBoxText[ SKI_REPAIR_TRANSACTION_BUTTON_HELP_TEXT ] );
+	//else
+	//	SetButtonFastHelpText( guiSKI_TransactionButton, SkiMessageBoxText[ SKI_TRANSACTION_BUTTON_HELP_TEXT ] );
 
 
 	//Done button
-	guiSKI_DoneButton = CreateIconAndTextButton( guiSKI_DoneButtonImage, SKI_Text[SKI_TEXT_DONE], SKI_BUTTON_FONT,
-													 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
-													 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
-													 TEXT_CJUSTIFIED,
-													 SKI_DONE_BUTTON_X, SKI_DONE_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH+10,
-													 DEFAULT_MOVE_CALLBACK, BtnSKI_DoneButtonCallback);
-	SpecifyDisabledButtonStyle( guiSKI_DoneButton, DISABLED_STYLE_HATCHED );
-	SetButtonFastHelpText( guiSKI_DoneButton, SkiMessageBoxText[ SKI_DONE_BUTTON_HELP_TEXT ] );
+	//guiSKI_DoneButton = CreateIconAndTextButton( guiSKI_DoneButtonImage, SKI_Text[SKI_TEXT_DONE], SKI_BUTTON_FONT,
+	//												 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
+	//												 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
+	//												 TEXT_CJUSTIFIED,
+	//												 SKI_DONE_BUTTON_X, SKI_DONE_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH+10,
+	//												 DEFAULT_MOVE_CALLBACK, BtnSKI_DoneButtonCallback);
+	//SpecifyDisabledButtonStyle( guiSKI_DoneButton, DISABLED_STYLE_HATCHED );
+	//SetButtonFastHelpText( guiSKI_DoneButton, SkiMessageBoxText[ SKI_DONE_BUTTON_HELP_TEXT ] );
 
 
 	//Blanket the entire screen
@@ -1299,9 +1301,9 @@ BOOLEAN ExitShopKeeperInterface()
 	UnloadButtonImage( guiSKI_InvPageUpButtonImage );
 	UnloadButtonImage( guiSKI_InvPageDownButtonImage );
 
-	UnloadButtonImage( guiSKI_TransactionButtonImage );
+	//UnloadButtonImage( guiSKI_TransactionButtonImage );
 	//	UnloadButtonImage( guiSKI_EvaluateButtonImage );
-	UnloadButtonImage( guiSKI_DoneButtonImage );
+	//UnloadButtonImage( guiSKI_DoneButtonImage );
 
 	//loop through the area and delete small faces
 	for(ubCnt=0; ubCnt<gubNumberMercsInArray; ubCnt++)
@@ -1314,8 +1316,9 @@ BOOLEAN ExitShopKeeperInterface()
 
 //Evaluate:
 	//	RemoveButton( guiSKI_EvaluateButton );
-	RemoveButton( guiSKI_TransactionButton );
-	RemoveButton( guiSKI_DoneButton );
+	EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, DEACTIVATE_BUTTON);
+	//RemoveButton( guiSKI_TransactionButton );
+	//RemoveButton( guiSKI_DoneButton );
 
 	MSYS_RemoveRegion( &gSKI_EntireScreenMouseRegions);
 
@@ -1373,8 +1376,9 @@ void HandleShopKeeperInterface()
 		DisableSMPpanelButtonsWhenInShopKeeperInterface( FALSE );
 		DisableButton( guiSKI_InvPageUpButton );
 		DisableButton( guiSKI_InvPageDownButton );
-		DisableButton( guiSKI_TransactionButton );
-		DisableButton( guiSKI_DoneButton );
+		EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, DISABLE_BUTTON);
+		//DisableButton( guiSKI_TransactionButton );
+		//DisableButton( guiSKI_DoneButton );
 
 		//make sure the buttons dont render
 //		ButtonList[ guiSKI_InvPageUpButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
@@ -5548,6 +5552,82 @@ void EnableDisableDealersInventoryPageButtons()
 	}
 }
 
+void EnableDisableShopkeeperButtons(UINT32 uiCurrentItemDescriptionScreen, int bpAction)
+{
+	if(uiCurrentItemDescriptionScreen != SHOPKEEPER_SCREEN)
+		return;
+
+	switch (bpAction)
+	{
+		case ACTIVATE_BUTTON:
+			if(guiSKI_TransactionButton != 0)
+				RemoveButton( guiSKI_TransactionButton );
+			if(guiSKI_TransactionButtonImage != 0)
+				UnloadButtonImage( guiSKI_TransactionButtonImage );
+			if(guiSKI_DoneButton != 0)
+				RemoveButton( guiSKI_DoneButton );
+			if(guiSKI_DoneButtonImage != 0)
+				UnloadButtonImage( guiSKI_DoneButtonImage );
+
+			guiSKI_TransactionButtonImage = LoadButtonImage("INTERFACE\\TradeButtons.sti", -1,0,-1,1,-1 );
+			guiSKI_DoneButtonImage = UseLoadedButtonImage( guiSKI_TransactionButtonImage, -1,0,-1,1,-1 );
+
+			guiSKI_TransactionButton = CreateIconAndTextButton( guiSKI_TransactionButtonImage, SKI_Text[SKI_TEXT_TRANSACTION], SKI_BUTTON_FONT,
+															 SKI_BUTTON_COLOR, DEFAULT_SHADOW, SKI_BUTTON_COLOR, DEFAULT_SHADOW, TEXT_CJUSTIFIED,
+															 SKI_TRANSACTION_BUTTON_X, SKI_TRANSACTION_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+															 DEFAULT_MOVE_CALLBACK, BtnSKI_TransactionButtonCallback);
+			SpecifyDisabledButtonStyle( guiSKI_TransactionButton, DISABLED_STYLE_HATCHED );
+			//if the dealer repairs, use the repair fast help text for the transaction button
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+				SetButtonFastHelpText( guiSKI_TransactionButton, SkiMessageBoxText[ SKI_REPAIR_TRANSACTION_BUTTON_HELP_TEXT ] );
+			else
+				SetButtonFastHelpText( guiSKI_TransactionButton, SkiMessageBoxText[ SKI_TRANSACTION_BUTTON_HELP_TEXT ] );
+
+			//Done button
+			guiSKI_DoneButton = CreateIconAndTextButton( guiSKI_DoneButtonImage, SKI_Text[SKI_TEXT_DONE], SKI_BUTTON_FONT,
+															 SKI_BUTTON_COLOR, DEFAULT_SHADOW, SKI_BUTTON_COLOR, DEFAULT_SHADOW, TEXT_CJUSTIFIED,
+															 SKI_DONE_BUTTON_X, SKI_DONE_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH+10,
+															 DEFAULT_MOVE_CALLBACK, BtnSKI_DoneButtonCallback);
+			SpecifyDisabledButtonStyle( guiSKI_DoneButton, DISABLED_STYLE_HATCHED );
+			SetButtonFastHelpText( guiSKI_DoneButton, SkiMessageBoxText[ SKI_DONE_BUTTON_HELP_TEXT ] );
+			break;
+		case DEACTIVATE_BUTTON:
+			if(guiSKI_TransactionButton != 0)
+				RemoveButton( guiSKI_TransactionButton );
+			if(guiSKI_DoneButton != 0)
+				RemoveButton( guiSKI_DoneButton );
+			EnableDisableShopkeeperButtons(uiCurrentItemDescriptionScreen, UNLOAD_BUTTON);
+			guiSKI_TransactionButtonImage	= 0;
+			guiSKI_TransactionButton	= 0;
+			guiSKI_DoneButtonImage	= 0;
+			guiSKI_DoneButton	= 0;
+			break;
+		case ENABLE_BUTTON:
+			if(guiSKI_TransactionButton == 0 || guiSKI_DoneButton == 0)
+			{
+				EnableDisableShopkeeperButtons(uiCurrentItemDescriptionScreen, DEACTIVATE_BUTTON);
+				EnableDisableShopkeeperButtons(uiCurrentItemDescriptionScreen, ACTIVATE_BUTTON);
+			}
+			if(guiSKI_TransactionButton != 0)
+				EnableButton( guiSKI_TransactionButton );
+			if(guiSKI_DoneButton != 0)
+				EnableButton( guiSKI_DoneButton );
+			break;
+		case DISABLE_BUTTON:
+			if(guiSKI_TransactionButton != 0)
+				DisableButton( guiSKI_TransactionButton );
+			if(guiSKI_DoneButton != 0)
+				DisableButton( guiSKI_DoneButton );
+			break;
+		case UNLOAD_BUTTON:
+			if(guiSKI_TransactionButtonImage != 0)
+				UnloadButtonImage( guiSKI_TransactionButtonImage );
+			if(guiSKI_DoneButtonImage != 0)
+				UnloadButtonImage( guiSKI_DoneButtonImage );
+			break;
+	}
+}
+
 void EnableDisableEvaluateAndTransactionButtons()
 {
 	UINT8	ubCnt;
@@ -5659,8 +5739,9 @@ void EnableDisableEvaluateAndTransactionButtons()
 	{
 //Evaluate:
 //		DisableButton( guiSKI_EvaluateButton );
-		DisableButton( guiSKI_TransactionButton );
-		DisableButton( guiSKI_DoneButton );
+		EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, DISABLE_BUTTON);
+		//DisableButton( guiSKI_TransactionButton );
+		//DisableButton( guiSKI_DoneButton );
 	}
 	else
 	{
@@ -6363,9 +6444,16 @@ void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT16 ubPocket, UINT8 ubFr
 
 			UINT16	ubSelectedInvSlot = ubPocket - gSelectArmsDealerInfo.ubFirstItemIndexOnPage;
 
-			sPosX = SKI_ARMS_DEALERS_INV_START_X; // + ( SKI_INV_OFFSET_X * ( ubSelectedInvSlot % SKI_NUM_ARMS_DEALERS_INV_COLS ) - ( 358 / 2 ) ) + SKI_INV_SLOT_WIDTH / 2;
-
-			sPosY = SKI_ARMS_DEALERS_INV_START_Y; // + ( ( SKI_INV_OFFSET_Y * ubSelectedInvSlot / SKI_NUM_ARMS_DEALERS_INV_COLS ) + 1 ) - ( 128 / 2 ) + SKI_INV_SLOT_HEIGHT / 2;
+			if(gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ] == FALSE)
+			{
+				sPosX = SKI_ARMS_DEALERS_INV_START_X; // + ( SKI_INV_OFFSET_X * ( ubSelectedInvSlot % SKI_NUM_ARMS_DEALERS_INV_COLS ) - ( 358 / 2 ) ) + SKI_INV_SLOT_WIDTH / 2;
+				sPosY = SKI_ARMS_DEALERS_INV_START_Y; // + ( ( SKI_INV_OFFSET_Y * ubSelectedInvSlot / SKI_NUM_ARMS_DEALERS_INV_COLS ) + 1 ) - ( 128 / 2 ) + SKI_INV_SLOT_HEIGHT / 2;
+			}
+			else
+			{
+				sPosX = SCREEN_X_OFFSET + 2;
+				sPosY = SCREEN_Y_OFFSET + 146;
+			}
 
 			//if the start position + the height of the box is off the screen, reposition
 			if( sPosY < (0 + SCREEN_Y_OFFSET) )
@@ -6460,8 +6548,9 @@ void StartSKIDescriptionBox( void )
 	DisableButton( guiSKI_InvPageUpButton );
 	DisableButton( guiSKI_InvPageDownButton );
 //	DisableButton( guiSKI_EvaluateButton );
-	DisableButton( guiSKI_TransactionButton );
-	DisableButton( guiSKI_DoneButton );
+	EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, DISABLE_BUTTON);
+	//DisableButton( guiSKI_TransactionButton );
+	//DisableButton( guiSKI_DoneButton );
 /*
 	for (iCnt = 0; iCnt < NUM_SKI_ATM_BUTTONS; iCnt++)
 		DisableButton( guiSKI_AtmButton[ iCnt ] );
@@ -6509,8 +6598,9 @@ void DeleteShopKeeperItemDescBox()
 
 	EnableButton( guiSKI_InvPageUpButton );
 	EnableButton( guiSKI_InvPageDownButton );
-	EnableButton( guiSKI_TransactionButton );
-	EnableButton( guiSKI_DoneButton );
+	EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, ENABLE_BUTTON);
+	//EnableButton( guiSKI_TransactionButton );
+	//EnableButton( guiSKI_DoneButton );
 
 	EnableDisableDealersInventoryPageButtons();
 	EnableDisableEvaluateAndTransactionButtons();
@@ -7588,7 +7678,7 @@ void BuildDoneWhenTimeString( CHAR16 sString[], UINT8 ubArmsDealer, INVENTORY_IN
 	for (DealerItemList::iterator iter = gArmsDealersInventory[ubArmsDealer].begin();
 		iter != gArmsDealersInventory[ubArmsDealer].end(); ++iter) {
 		if (iter->ItemIsInInventory() == true &&  iter->IsUnderRepair() == true) {
-			if (pObject->ItemObject == iter->object) {
+			if (pObject->ItemObject == iter->object && pObject->uiRepairDoneTime == iter->uiRepairDoneTime) {
 				pSpecial = &(*iter);
 				break;
 			}

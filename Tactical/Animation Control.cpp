@@ -64,7 +64,8 @@ static UINT16 LobGrenadeStanceAnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5
 static UINT16 ROLL_L_AnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,501,999,0,0,0,0  };
 static UINT16 ROLL_R_AnimationScript[MAX_FRAMES_PER_ANIM] = { 14,13,12,11,10,9,8,7,6,5,4,3,2,1,501,999,0,0,0,0  };
 
-
+static UINT16 JUMP_WALL_UP_AnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,601,999,0,0,0,0  };
+static UINT16 JUMP_WALL_DOWN_AnimationScript[MAX_FRAMES_PER_ANIM] = { 44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,601,999,0,0,0,0  };
 
 
 
@@ -979,6 +980,13 @@ ANIMCONTROLTYPE		gAnimControl[ NUMANIMATIONSTATES ] =
 	//ROLL PRONE RIGHT
 	{"ROLL PRONE RIGHT"			, 0,			80, (FLOAT)0.8 /*1.1*/, ANIM_MOVING | ANIM_NORESTART | ANIM_RAISE_WEAPON | ANIM_VARIABLE_EFFORT,	ANIM_PRONE,	ANIM_PRONE, -1},
 	
+	// JUMPUPWALL
+	{"JUMPUPWALL"						, 0,			30,	(FLOAT)0,		ANIM_NONINTERRUPT | ANIM_NORESTART | ANIM_STATIONARY | ANIM_NOSHOW_MARKER | ANIM_MODERATE_EFFORT | ANIM_LOWER_WEAPON, ANIM_STAND, ANIM_CROUCH,	-1},
+
+	//JUMPDOWNWALL
+	{"JUMPDOWNWALL"				, 0,		30,	 (FLOAT)0,		ANIM_NONINTERRUPT | ANIM_NORESTART | ANIM_STATIONARY | ANIM_NOSHOW_MARKER | ANIM_MODERATE_EFFORT | ANIM_LOWER_WEAPON, ANIM_CROUCH, ANIM_STAND,	-1},
+
+	{"JUMP WINDOWS"								, 0,			50,	(FLOAT)0,		ANIM_NOCHANGE_PENDINGCOUNT | ANIM_NORESTART | ANIM_STATIONARY | ANIM_NOSHOW_MARKER | ANIM_MODERATE_EFFORT | ANIM_LOWER_WEAPON | ANIM_NONINTERRUPT, ANIM_STAND, ANIM_CROUCH,	-1},
 
 };
 
@@ -1376,7 +1384,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGMALE ][ ROLL_PRONE_L ]					  	= RGMROLL_PR;
 	gubAnimSurfaceIndex[ REGMALE ][ ROLL_PRONE_R ]					  	= RGMROLL_PR;
 
-
+	gubAnimSurfaceIndex[ REGMALE ][ JUMPUPWALL ]						= RGMWALLJUMP;
+	gubAnimSurfaceIndex[ REGMALE ][ JUMPDOWNWALL ]					= RGMWALLJUMP;
+	
+	gubAnimSurfaceIndex[ REGMALE ][ JUMPWINDOWS ]											= RGMJUMPWINDOWS;
 
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ STANDING][0]									= RGMWATER_R_STD;
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ WALKING ][0]									= RGMWATER_R_WALK;
@@ -1747,6 +1758,11 @@ void	InitAnimationSurfacesPerBodytype( )
 	//перекат
 	gubAnimSurfaceIndex[ BIGMALE ][ ROLL_PRONE_L ]					  	= BGMROLL_PR;
 	gubAnimSurfaceIndex[ BIGMALE ][ ROLL_PRONE_R ]					  	= BGMROLL_PR;
+	
+	gubAnimSurfaceIndex[ BIGMALE ][ JUMPUPWALL ]						= BGMWALLJUMP;
+	gubAnimSurfaceIndex[ BIGMALE ][ JUMPDOWNWALL ]					= BGMWALLJUMP;
+	
+	gubAnimSurfaceIndex[ BIGMALE ][ JUMPWINDOWS ]					= BGMJUMPWINDOWS;
 
 
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ STANDING ]						= BGMPISTOLBREATH;
@@ -2135,7 +2151,11 @@ void	InitAnimationSurfacesPerBodytype( )
 	//перекат
 	gubAnimSurfaceIndex[ STOCKYMALE ][ ROLL_PRONE_L ]					  	= RGMROLL_PR;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ ROLL_PRONE_R ]					  	= RGMROLL_PR;
-
+	
+	gubAnimSurfaceIndex[ STOCKYMALE ][ JUMPUPWALL ]						= RGMWALLJUMP;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ JUMPDOWNWALL ]					= RGMWALLJUMP;
+	
+	gubAnimSurfaceIndex[ STOCKYMALE ][ JUMPWINDOWS ]					= RGMJUMPWINDOWS;
 
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ STANDING ]						= RGMPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ WALKING ]						= RGMNOTHING_WALK;
@@ -2503,7 +2523,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGFEMALE ][ ROLL_PRONE_L ]					= RGFROLL_PR;
 	gubAnimSurfaceIndex[ REGFEMALE ][ ROLL_PRONE_R ]					= RGFROLL_PR;
 
-
+	gubAnimSurfaceIndex[ REGFEMALE ][ JUMPUPWALL ]						= RGFWALLJUMP;
+	gubAnimSurfaceIndex[ REGFEMALE ][ JUMPDOWNWALL ]					= RGFWALLJUMP;
+	
+	gubAnimSurfaceIndex[ REGFEMALE ][ JUMPWINDOWS ]					= RGFJUMPWINDOWS;
 
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ STANDING ]						= RGFPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ WALKING ]							= RGFNOTHING_WALK;
@@ -3222,6 +3245,15 @@ BOOLEAN LoadAnimationStateInstructions( )
 	
 		memcpy(gusAnimInst[ ROLL_PRONE_L ],ROLL_L_AnimationScript,sizeof(ROLL_L_AnimationScript));
 		memcpy(gusAnimInst[ ROLL_PRONE_R ],ROLL_R_AnimationScript,sizeof(ROLL_R_AnimationScript));
+		
+		memcpy(gusAnimInst[JUMPUPWALL],fuckTheBoundz[32],sizeof(fuckTheBoundz[32])); // copy CLIMBROOF to JUMPUPWALL
+		
+		memcpy(gusAnimInst[JUMPDOWNWALL],fuckTheBoundz[35],sizeof(fuckTheBoundz[35])); // copy CLIMBDOWNROOF to JUMPDOWNWALL
+		
+		memcpy(gusAnimInst[JUMPWINDOWS],fuckTheBoundz[HOPFENCE],sizeof(fuckTheBoundz[HOPFENCE])); // copy HOPFENCE to JUMPDOWNWALL
+		
+		//memcpy(gusAnimInst[ JUMPUPWALL ],JUMP_WALL_UP_AnimationScript,sizeof(JUMP_WALL_UP_AnimationScript));
+		//memcpy(gusAnimInst[ JUMPDOWNWALL ],JUMP_WALL_DOWN_AnimationScript,sizeof(JUMP_WALL_DOWN_AnimationScript));
 
 	return( TRUE );
 }

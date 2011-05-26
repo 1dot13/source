@@ -64,6 +64,7 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard, UINT8 maxCoolness
 UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard, UINT8 maxCoolness );
 extern BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo, UINT32 subObject = 0 );
 
+bool IsBackpackSlot(INT8 bSlot);
 // CHRISL: Add new inventory version of ItemSlotLimit function
 UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier = NULL, BOOLEAN cntAttach = TRUE);
 
@@ -84,6 +85,9 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting );
 // The following functions expect that pObj points to the object
 // "in the cursor", which should have memory allocated for it already
 BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj );
+
+BOOLEAN AutoPlaceObjectAnywhere(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fNewItem, INT8 bExcludeSlot = NO_SLOT);
+BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 bVisible = TRUE);
 
 // Send fNewItem to true to set off new item glow in inv panel
 BOOLEAN AutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fNewItem, INT8 bExcludeSlot = NO_SLOT );
@@ -272,6 +276,7 @@ INT32 GetCounterForceAccuracyModifier( OBJECTTYPE *pObj, UINT8 ubStance );
 INT32 GetCounterForceFrequencyModifier( OBJECTTYPE *pObj, UINT8 ubStance );
 INT32 GetTargetTrackingModifier( OBJECTTYPE *pObj, UINT8 ubStance );
 INT32 GetAimLevelsModifier( OBJECTTYPE *pObj, UINT8 ubStance );
+INT32 GetAimLevelsTraitModifier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );
 
 // Returns the character's stance as 0/1/2.
 INT8 GetStanceModifierRef( INT8 ubStance );
@@ -290,7 +295,7 @@ BOOLEAN HasFastBurst( OBJECTTYPE * pObj );
 INT16 GetMagSizeBonus( OBJECTTYPE * pObj, UINT8 subObject = 0 );
 
 // HEADROCK HAM 4: This function now calculates and returns the weapon's recoil as X/Y offsets.
-void GetRecoil( OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *bRecoilY, UINT8 ubNumBullet );
+void GetRecoil( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 *bRecoilX, INT8 *bRecoilY, UINT8 ubNumBullet );
 void GetFlatRecoilModifier( OBJECTTYPE *pObj, INT8 *bRecoilModifierX, INT8 *bRecoilModifierY );
 INT16 GetPercentRecoilModifier( OBJECTTYPE *pObj );
 // HEADROCK HAM 4: This function returns whether the last bullet in a burst/autofire volley was a tracer.
@@ -382,19 +387,21 @@ INT16 GetAPBonus( OBJECTTYPE * pObj );
 
 UINT16 GetFirstExplosiveOfType(UINT16 expType);
 
-OBJECTTYPE* FindSunGogglesInInv( SOLDIERTYPE * pSoldier, BOOLEAN searchAllInventory = FALSE );
-OBJECTTYPE* FindNightGogglesInInv( SOLDIERTYPE * pSoldier, BOOLEAN searchAllInventory = FALSE  );
+OBJECTTYPE* FindSunGogglesInInv( SOLDIERTYPE * pSoldier, INT8 * bSlot, BOOLEAN * isAttach, BOOLEAN searchAllInventory = FALSE );
+OBJECTTYPE* FindNightGogglesInInv( SOLDIERTYPE * pSoldier, INT8 * bSlot, BOOLEAN * isAttach, BOOLEAN searchAllInventory = FALSE  );
 
 UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo);
 // HEADROCK HAM 4: New functions to determine Scope and Laser factors on a weapon.
 FLOAT GetHighestScopeMagnificationFactor( OBJECTTYPE *pObj );
-FLOAT GetBestScopeMagnificationFactor( OBJECTTYPE *pObj, UINT32 uiRange );
+FLOAT GetScopeMagnificationFactor( OBJECTTYPE *pObj, FLOAT uiRange );
+FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT uiRange );
 FLOAT GetProjectionFactor( OBJECTTYPE *pObj );
+FLOAT GetScopeRangeMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, FLOAT d2DDistance );
 INT32 GetGunAccuracy( OBJECTTYPE *pObj );
 INT32 GetAccuracyModifier( OBJECTTYPE *pObj );
 // HEADROCK HAM 4: Added range factor
 UINT8 AllowedAimingLevelsNCTH( SOLDIERTYPE *pSoldier, INT32 sGridNo);
-UINT8 GetAllowedAimingLevelsForItem( OBJECTTYPE *pObj, UINT8 ubStance );
+UINT8 GetAllowedAimingLevelsForItem( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UINT8 ubStance );
 
 INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier );
 INT16 GetUrbanCamoBonus( OBJECTTYPE * pObj );

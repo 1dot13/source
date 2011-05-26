@@ -101,6 +101,9 @@ void InitRadarScreenCoords( )
 		RADAR_WINDOW_STRAT_Y = (SCREEN_HEIGHT - 107);
 }
 
+// WANNE.RADAR: This method is called in the main menu, so the mouse region is initialized too early. We should initialize the mouse region later, when reaching
+// strategy screen. Take a look at the following methods: CreateMouseRegionForPauseOfClock, RemoveMouseRegionForPauseOfClock
+// We should do something similiar for the radar screen mouse region creation/removal
 BOOLEAN InitRadarScreen( )
 {
 		// CHRISL: Move screen coord setup to it's own function

@@ -2293,37 +2293,40 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		char tempstring[4];
 		memset( &kit, 0, sizeof( int )*20 );
 	
-		for(cnt=0;  cnt < 100; cnt++)
+		if (strcmp(cKitBag, "") != 0)
 		{
-			char tempc = cKitBag[cnt];
-			
-			if( _strnicmp(&tempc, "[",1) == 0)
+			for(cnt=0;  cnt < 100; cnt++)
 			{
+				char tempc = cKitBag[cnt];
 				
-				continue;
-			}
+				if( _strnicmp(&tempc, "[",1) == 0)
+				{
+					
+					continue;
+				}
+				
+				else if( _strnicmp(&tempc, ",",1) == 0)
+				{
+					numnum=0;
+
+					kit[kitnum]=atoi(tempstring);
+
+					memset( &tempstring, 0, sizeof( char )*4 );
+
+					kitnum++;
+					continue;
+				}
 			
-			else if( _strnicmp(&tempc, ",",1) == 0)
-			{
-				numnum=0;
-
-				kit[kitnum]=atoi(tempstring);
-
-				memset( &tempstring, 0, sizeof( char )*4 );
-
-				kitnum++;
-				continue;
-			}
-		
-			else if( _strnicmp(&tempc, "]",1) == 0)
-			{
-				kit[kitnum]=atoi(tempstring);
-				break;
-			}
-			else
-			{
-			strncpy(&tempstring[numnum],&tempc,1);
-			numnum++;
+				else if( _strnicmp(&tempc, "]",1) == 0)
+				{
+					kit[kitnum]=atoi(tempstring);
+					break;
+				}
+				else
+				{
+				strncpy(&tempstring[numnum],&tempc,1);
+				numnum++;
+				}
 			}
 		}
 

@@ -1164,6 +1164,10 @@ BOOLEAN fRemoved;
 	if((hFile=FileOpen(pFilename, FILE_ACCESS_READ, FALSE))!=0)
 	{
 		uiSize=FileGetSize(hFile);
+		if(uiSize == 0)
+		{
+			return NO_SAMPLE;
+		}
 
 		// if insufficient memory, start unloading old samples until either
 		// there's nothing left to unload, or we fit

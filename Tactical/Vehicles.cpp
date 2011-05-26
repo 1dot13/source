@@ -1049,6 +1049,20 @@ BOOLEAN CopyVehiclePathToSoldier( SOLDIERTYPE *pSoldier )
 
 }
 
+BOOLEAN IsVehicle(SOLDIERTYPE *pSoldier)
+{
+	switch(pSoldier->ubProfile)
+	{
+		case PROF_HUMMER:
+		case PROF_ELDERODO:
+		case PROF_ICECREAM:
+			return(TRUE);
+		default:
+			return(FALSE);
+	}
+	return(FALSE);
+}
+
 
 BOOLEAN SetUpMvtGroupForVehicle( SOLDIERTYPE *pSoldier )
 {
@@ -1428,7 +1442,7 @@ void SetDriver( INT32 iID, UINT8 ubID )
 #ifdef JA2TESTVERSION
 void VehicleTest( void )
 {
-	SetUpHelicopterForPlayer( 9,1 );
+	SetUpHelicopterForPlayer( 9,1, SKYRIDER );
 }
 #endif
 

@@ -676,26 +676,28 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 		lan.damageMultiplier = gDamageMultiplier;
 
 		lan.sameMercAllowed = gSameMercAllowed;
-		lan.gsMercArriveSectorX=gsMercArriveSectorX;
-		lan.gsMercArriveSectorY=gsMercArriveSectorY;
+		lan.gsMercArriveSectorX = gsMercArriveSectorX;
+		lan.gsMercArriveSectorY = gsMercArriveSectorY;
 
 		lan.enemyEnabled = gEnemyEnabled;
 		lan.creatureEnabled = gCreatureEnabled;
 		lan.militiaEnabled = gMilitiaEnabled;
 		lan.civEnabled = gCivEnabled;
 
-		lan.gameType=gGameType;
+		lan.gameType = gGameType;
 
-		lan.disableMorale=gDisableMorale;
-		lan.reportHiredMerc=gReportHiredMerc;
+		lan.disableMorale = gDisableMorale;
+		lan.reportHiredMerc = gReportHiredMerc;
 		lan.secondsPerTick = gSecondsPerTick;
-		lan.soubBobbyRay=gGameOptions.ubBobbyRay;
-		lan.sofGunNut=gGameOptions.fGunNut;	
-		lan.soubGameStyle=gGameOptions.ubGameStyle;
-		lan.soubDifficultyLevel=gDifficultyLevel;
-		lan.soubSkillTraits=gSkillTraits;
-		lan.sofTurnTimeLimit=gGameOptions.fTurnTimeLimit;
-		lan.sofIronManMode=gGameOptions.fIronManMode;
+
+		// WANNE.MP: Check
+		lan.soubBobbyRay = BR_AWESOME;
+		lan.sofGunNut = TRUE;	
+		lan.soubGameStyle = STYLE_REALISTIC;
+		lan.soubDifficultyLevel = gDifficultyLevel;
+		lan.soubSkillTraits = gSkillTraits;
+		lan.sofTurnTimeLimit = TRUE;
+		lan.sofIronManMode = FALSE;
 		lan.startingCash = gStartingCash;
 		
 		// Old/Old

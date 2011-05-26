@@ -4723,7 +4723,7 @@ void DisplayPositionOfHelicopter( void )
 				RemoveVehicleFromList (iHelicopterVehicleId);
 				InitAVehicle (iHelicopterVehicleId, 13, MAP_ROW_B);
 				fSkyRiderSetUp = FALSE;
-				SetUpHelicopterForPlayer( 13, MAP_ROW_B );
+				SetUpHelicopterForPlayer( 13, MAP_ROW_B , SKYRIDER );
 				pGroup = GetGroup( pVehicleList[ iHelicopterVehicleId ].ubMovementGroup );
 				if (!pGroup) {
 					static bool heliMsg2Given = false;

@@ -554,6 +554,12 @@ enum AnimationStates
 	ROLL_PRONE_R,
 	ROLL_PRONE_L, 
 	
+	//jump wall
+	JUMPUPWALL,
+	JUMPDOWNWALL,
+	
+	JUMPWINDOWS,
+	
 	NUMANIMATIONSTATES
 
 };

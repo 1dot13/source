@@ -554,6 +554,11 @@ void HandleMainMenuInput()
 					if( gfKeyState[ ALT ] )
 						gfLoadGameUponEntry = TRUE;
 
+					// WANNE: Some initializing was missing when directly loading last savegame
+					// form main menu with ALT + C
+					giMAXIMUM_NUMBER_OF_PLAYER_SLOTS = CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS;
+					InitDependingGameStyleOptions();
+
 					break;
 
 				case 'o':

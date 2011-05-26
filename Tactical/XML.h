@@ -189,6 +189,8 @@ typedef PARSE_STAGE;
 
 #define QUOTEARRAYFILENAME					"MercQuote.xml"
 
+#define FACEGEARFILENAME					"FaceGear.xml"
+
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
 
@@ -388,5 +390,8 @@ extern BOOLEAN WriteAimAvailability(STR fileName);
 
 extern BOOLEAN WriteQarray(QARRAY_VALUES *pQarray, STR fileName);
 extern BOOLEAN ReadInQarray(QARRAY_VALUES *pQarray, STR fileName);
+
+extern BOOLEAN WriteFaceGear();
+extern BOOLEAN ReadInFaceGear( FACE_GEAR_VALUES *pFaceGear, STR fileName );
 
 #endif

@@ -71,6 +71,7 @@ public:
 	}
 	void Shutdown()
 	{
+		stopVideo(); // if one is still "running"
 		if(_type & VT_SMK)
 		{
 			SmkShutdown();
@@ -104,7 +105,7 @@ public:
 		{
 			return false;
 		}
-		SGP_THROW(L"Invalid Video Player state!");
+		SGP_THROW(L"Invalid Video Player state : last video was not properly stopped ");
 	}
 	
 	void stopVideo()
@@ -125,6 +126,14 @@ public:
 	bool startVideo(std::string const& filename)
 	{
 		if(isPlaying())
+		{
+			return false;
+		}
+
+		// stop running video before starting a new one
+		stopVideo();
+
+		if(filename.empty())
 		{
 			return false;
 		}
@@ -289,20 +298,24 @@ UINT32	IntroScreenInit( void )
 	gfIntroScreenEntry = TRUE;
 
 	CIniReader inireader("IntroVideos.ini");
-	s_VFN[INTRO_REBEL_CRDT]					= inireader.ReadString("INTRO_BEGINNING","INTRO_REBEL_CRDT","INTRO\\Rebel_cr");
-	s_VFN[INTRO_OMERTA]						= inireader.ReadString("INTRO_BEGINNING","INTRO_OMERTA","INTRO\\Omerta");
-	s_VFN[INTRO_PRAGUE_CRDT]				= inireader.ReadString("INTRO_BEGINNING","INTRO_PRAGUE_CRDT","INTRO\\Prague_cr");
-	s_VFN[INTRO_PRAGUE]						= inireader.ReadString("INTRO_BEGINNING","INTRO_PRAGUE","INTRO\\Prague");
+	
+	// BF: If NO_DEFAULT_VALUES is set to true, then only the explicitely used videos will be shown.
+	BOOLEAN no_defaults                        = inireader.ReadBoolean("INTRO", "NO_DEFAULT_VALUES", false);
+
+	s_VFN[INTRO_REBEL_CRDT]					= inireader.ReadString("INTRO_BEGINNING", "INTRO_REBEL_CRDT",  no_defaults ? "" : "INTRO\\Rebel_cr");
+	s_VFN[INTRO_OMERTA]						= inireader.ReadString("INTRO_BEGINNING", "INTRO_OMERTA",      no_defaults ? "" : "INTRO\\Omerta");
+	s_VFN[INTRO_PRAGUE_CRDT]				= inireader.ReadString("INTRO_BEGINNING", "INTRO_PRAGUE_CRDT", no_defaults ? "" : "INTRO\\Prague_cr");
+	s_VFN[INTRO_PRAGUE]						= inireader.ReadString("INTRO_BEGINNING", "INTRO_PRAGUE",      no_defaults ? "" : "INTRO\\Prague");
 
 	//there are no more videos shown for the begining
-	s_VFN[INTRO_END_END_SPEECH_MIGUEL]		= inireader.ReadString("INTRO_ENDING","INTRO_END_END_SPEECH_MIGUEL","INTRO\\Throne_Mig");
-	s_VFN[INTRO_END_END_SPEECH_NO_MIGUEL]	= inireader.ReadString("INTRO_ENDING","INTRO_END_END_SPEECH_NO_MIGUEL","INTRO\\Throne_NoMig");
-	s_VFN[INTRO_END_HELI_FLYBY]				= inireader.ReadString("INTRO_ENDING","INTRO_END_HELI_FLYBY","INTRO\\Heli_FlyBy");
-	s_VFN[INTRO_END_SKYRIDER_HELICOPTER]	= inireader.ReadString("INTRO_ENDING","INTRO_END_SKYRIDER_HELICOPTER","INTRO\\Heli_Sky");
-	s_VFN[INTRO_END_NOSKYRIDER_HELICOPTER]	= inireader.ReadString("INTRO_ENDING","INTRO_END_NOSKYRIDER_HELICOPTER","INTRO\\Heli_NoSky");
+	s_VFN[INTRO_END_END_SPEECH_MIGUEL]		= inireader.ReadString("INTRO_ENDING","INTRO_END_END_SPEECH_MIGUEL",     no_defaults ? "" : "INTRO\\Throne_Mig");
+	s_VFN[INTRO_END_END_SPEECH_NO_MIGUEL]	= inireader.ReadString("INTRO_ENDING","INTRO_END_END_SPEECH_NO_MIGUEL",  no_defaults ? "" : "INTRO\\Throne_NoMig");
+	s_VFN[INTRO_END_HELI_FLYBY]				= inireader.ReadString("INTRO_ENDING","INTRO_END_HELI_FLYBY",            no_defaults ? "" : "INTRO\\Heli_FlyBy");
+	s_VFN[INTRO_END_SKYRIDER_HELICOPTER]	= inireader.ReadString("INTRO_ENDING","INTRO_END_SKYRIDER_HELICOPTER",   no_defaults ? "" : "INTRO\\Heli_Sky");
+	s_VFN[INTRO_END_NOSKYRIDER_HELICOPTER]	= inireader.ReadString("INTRO_ENDING","INTRO_END_NOSKYRIDER_HELICOPTER", no_defaults ? "" : "INTRO\\Heli_NoSky");
 
-	s_VFN[INTRO_SPLASH_SCREEN]				= inireader.ReadString("INTRO_SPLASH","INTRO_SPLASH_SCREEN","INTRO\\SplashScreen");
-	s_VFN[INTRO_SPLASH_TALONSOFT]			= inireader.ReadString("INTRO_SPLASH","INTRO_SPLASH_TALONSOFT","INTRO\\TalonSoftid_endhold");
+	s_VFN[INTRO_SPLASH_SCREEN]				= inireader.ReadString("INTRO_SPLASH","INTRO_SPLASH_SCREEN",    no_defaults ? "" : "INTRO\\SplashScreen");
+	s_VFN[INTRO_SPLASH_TALONSOFT]			= inireader.ReadString("INTRO_SPLASH","INTRO_SPLASH_TALONSOFT", no_defaults ? "" : "INTRO\\TalonSoftid_endhold");
 
 	//there are no more videos shown for the endgame
 
@@ -399,6 +412,11 @@ void ExitIntroScreen()
 {
 	//shutdown video player
 	s_VP.Shutdown();
+}
+
+void StopIntroVideo()
+{
+	s_VP.stopVideo();
 }
 
 void HandleIntroScreen()
@@ -679,7 +697,7 @@ void DisplaySirtechSplashScreen()
 
 	VOBJECT_DESC VObjectDesc;
 	memset( &VObjectDesc, 0, sizeof( VOBJECT_DESC ) );
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE | VOBJECT_CREATE_FROMPNG_FALLBACK;
 	FilenameForBPP("INTERFACE\\SirtechSplash.sti", VObjectDesc.ImageFile);
 //	FilenameForBPP("INTERFACE\\TShold.sti", VObjectDesc.ImageFile);
 

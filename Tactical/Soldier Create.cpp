@@ -546,13 +546,15 @@ void DecideToAssignSniperOrders( SOLDIERCREATE_STRUCT * pp )
 
 	if ( pp->bOrders == STATIONARY || pp->bOrders == ONGUARD )
 	{
-		// 30% of anybody w/a scope and decent range being a sniper, 80% chance of a guy w/a sniper rifle being a sniper
-		if ( (GunRange(&pp->Inv[HANDPOS], NULL) >= 40 && IsScoped(&pp->Inv[HANDPOS]) && Random(100) < 30) || ( Weapon[pp->Inv[HANDPOS].usItem].ubWeaponType == GUN_SN_RIFLE && IsScoped(&pp->Inv[HANDPOS]) && Random(100) < 80 ) ) // SANDRO - added argument forGunRange
-		{
+		//CHRISL: Externalized values and added ability to restrict non-SR Snipers to Elite only
+		if(Weapon[pp->Inv[HANDPOS].usItem].ubWeaponType != GUN_SN_RIFLE && GunRange(&pp->Inv[HANDPOS], NULL) >= gGameExternalOptions.fAISniperRange && IsScoped(&pp->Inv[HANDPOS]) && Random(100) < gGameExternalOptions.fAISniperChance){
+			if((gGameExternalOptions.fAISniperElite == TRUE && pp->ubSoldierClass == SOLDIER_CLASS_ELITE) || gGameExternalOptions.fAISniperElite == FALSE)
+				pp->bOrders = SNIPER;
+		}
+		else if(Weapon[pp->Inv[HANDPOS].usItem].ubWeaponType == GUN_SN_RIFLE && IsScoped(&pp->Inv[HANDPOS]) && Random(100) < gGameExternalOptions.fAISniperChanceWithSR)
 			pp->bOrders = SNIPER;
 
-			DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Sniper Created") );
-		}
+		DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Sniper Created") );
 	}
 }
 

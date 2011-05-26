@@ -1399,7 +1399,7 @@ BOOLEAN BOOL;
 
 static int l_StopVideo(lua_State *L)
 {
-
+	StopIntroVideo();
 		Test = 1;
 	return 0;
 }
@@ -5663,13 +5663,16 @@ int i;
 UINT16 SextorX;
 UINT16 SextorY;
 
+UINT8 SkyDrive;
+
 	for (i= 1; i<=n; i++ )
 	{
 		if (i == 1 ) SextorX = lua_tointeger(L,i);
 		if (i == 2 ) SextorY = lua_tointeger(L,i);
+		if (i == 3 ) SkyDrive = lua_tointeger(L,i);
 	}
 
-	SetUpHelicopterForPlayer( SextorX, SextorY );
+	SetUpHelicopterForPlayer( SextorX, SextorY, SkyDrive );
 	
 return 0;
 }
@@ -7209,28 +7212,27 @@ return 0;
 //AddEmail
 static int l_AddEmail (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
+	UINT8  n = lua_gettop(L);
+	int i;
 
-
-INT32 iMessageOffset;
-INT32 iMessageLength;
-UINT8 ubSender;
-
-INT32 iCurrentIMPPosition;
+	INT32 iMessageOffset;
+	INT32 iMessageLength;
+	UINT8 ubSender;
+	INT32 iCurrentIMPPosition;
+	INT16 iCurrentShipmentDestinationID = -1;
 
 	for (i= 1; i<=n; i++ )
 	{
 		if (i == 1 ) iMessageOffset = lua_tointeger(L,i);
 		if (i == 2 ) iMessageLength = lua_tointeger(L,i);
 		if (i == 3 ) ubSender = lua_tointeger(L,i);
-		//if (i == 4 ) iDate = lua_tointeger(L,i);
 		if (i == 4 ) iCurrentIMPPosition = lua_tointeger(L,i);
+		if (i == 5) iCurrentShipmentDestinationID = lua_tointeger(L,i);
 	}
 
-	AddEmail(iMessageOffset,iMessageLength,ubSender,	GetWorldTotalMin(), iCurrentIMPPosition);	
+	AddEmail(iMessageOffset,iMessageLength,ubSender,	GetWorldTotalMin(), iCurrentIMPPosition, iCurrentShipmentDestinationID);	
 	
-return 0;
+	return 0;
 }
 	
 //AddPreReadEmail	
@@ -9750,10 +9752,49 @@ static int l_ubMiscFlags2Check (lua_State *L)
 		if (i == 2 ) set = lua_tointeger(L,i);
 	}
 
-	Flag = (gMercProfiles[Profile].ubMiscFlags2 & set);
+	if (set == 1)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG2_DONT_ADD_TO_SECTOR)
+			Flag = 1;		
+	}
+	else  if (set == 2)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG2_LEFT_COUNTRY)
+			Flag = 1;		
+	}
+	else  if (set == 4)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG2_BANDAGED_TODAY)
+			Flag = 1;		
+	}
+	else  if (set == 8)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE)
+			Flag = 1;
+	}
+	else  if (set == 16)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG2_NEEDS_TO_SAY_HOSTILE_QUOTE)
+			Flag = 1;
+	}
+	else  if (set == 32)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG2_MARRIED_TO_HICKS)
+			Flag = 1;
+	}
+	else  if (set == 64 )	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG2_ASKED_BY_HICKS)
+			Flag = 1;		
+	}
 
+	// Set the return value of the function
+	// --> Flag == 0 -> The specified Flag is not set
+	// --> Flag == 1 -> The specified Flag is set	
 	lua_pushinteger(L, Flag);
 				
+	// Always return 1, this tells LUA that the the function run without a problem.
+	// But THIS is not the return value of the function. The return value is specified in the "lua_pushinteger()" call above!!!
 	return 1;
 }
 
@@ -9773,7 +9814,48 @@ static int l_ubMiscFlags1Check (lua_State *L)
 		if (i == 2 ) set = lua_tointeger(L,i);
 	}
 
-	Flag = (gMercProfiles[Profile].ubMiscFlags & set);
+	if (set == 1)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_RECRUITED)
+			Flag = 1;		
+	}
+	else  if (set == 2)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_HAVESEENCREATURE)
+			Flag = 1;		
+	}
+	else  if (set == 4)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_FORCENPCQUOTE)
+			Flag = 1;		
+	}
+	else  if (set == 8)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_WOUNDEDBYPLAYER)
+			Flag = 1;
+	}
+	else  if (set == 16)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_TEMP_NPC_QUOTE_DATA_EXISTS)
+			Flag = 1;
+	}
+	else  if (set == 32)	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_SAID_HOSTILE_QUOTE)
+			Flag = 1;
+	}
+	else  if (set == 64 )	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_EPCACTIVE)
+			Flag = 1;		
+	}
+	else  if (set == 128 )	
+	{
+		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS)
+			Flag = 1;		
+	}
+
+	//Flag = (gMercProfiles[Profile].ubMiscFlags & set);
 
 
 	lua_pushinteger(L, Flag);
@@ -9856,34 +9938,39 @@ static int l_ubMiscFlags2Set(lua_State *L)
 		if (i == 2 ) set = lua_tointeger(L,i);
 	}
 	
-	 if (set == 0)	
+	 if (set == 0)
+	 {
+		gMercProfiles[Profile].ubMiscFlags2 = 0;
+	 }
+	 else if (set == 1)	
 	 {
 		gMercProfiles[Profile].ubMiscFlags2 &= (~PROFILE_MISC_FLAG2_DONT_ADD_TO_SECTOR);
 	 }
-	 else  if (set == 1)	
+	 else  if (set == 2)	
 	 {
 		gMercProfiles[Profile].ubMiscFlags2 &= (~PROFILE_MISC_FLAG2_LEFT_COUNTRY);
 	 }
-	 else  if (set == 2)	
+	 else  if (set == 4)	
 	 {
 		gMercProfiles[Profile].ubMiscFlags2 &= (~PROFILE_MISC_FLAG2_BANDAGED_TODAY);
 	 }
-	 else  if (set == 3)	
+	 else  if (set == 8)	
 	 {
 		gMercProfiles[Profile].ubMiscFlags2 &= (~PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE);
 	 }
-	 else  if (set == 4)	
+	 else  if (set == 16)	
 	 {
 		gMercProfiles[Profile].ubMiscFlags2 &= (~PROFILE_MISC_FLAG2_NEEDS_TO_SAY_HOSTILE_QUOTE);
 	 }
-	 else  if (set == 5)	
+	 else  if (set == 32)	
 	 {
 		gMercProfiles[Profile].ubMiscFlags2 &= (~PROFILE_MISC_FLAG2_MARRIED_TO_HICKS);
 	 }
-	 else  if (set == 6 )	
+	 else  if (set == 64 )	
 	 {
 		gMercProfiles[Profile].ubMiscFlags2 &= (~PROFILE_MISC_FLAG2_ASKED_BY_HICKS);
 	 }
+
 	return 0;
 }
 		

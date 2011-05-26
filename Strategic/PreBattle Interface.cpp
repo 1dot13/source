@@ -234,7 +234,7 @@ void ValidateAndCorrectInBattleCounters( GROUP *pLocGroup )
 	if( ubInvalidGroups || pSector->ubAdminsInBattle || pSector->ubTroopsInBattle || pSector->ubElitesInBattle || pSector->ubCreaturesInBattle )
 	{
 		CHAR16 str[ 512 ];
-		swprintf( str, L"Strategic info warning:	Sector 'in battle' counters are not clear when they should be.	"
+		swprintf( str, L"Strategic info warning: Sector 'in battle' counters are not clear when they should be.	"
 									L"If you can provide information on how a previous battle was resolved here or nearby patrol "
 									L"(auto resolve, tactical battle, cheat keys, or retreat),"
 									L"please forward that info (no data files necessary) as well as the following code (very important):	"
@@ -275,6 +275,17 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 	if( gfPreBattleInterfaceActive )
 		return;
+
+	//CHRISL: If for some reason we're not looking at a valid sector, leave the preBattleInterface.
+	if(	pBattleGroup != NULL && (pBattleGroup->ubSectorX < MINIMUM_VALID_X_COORDINATE ||
+		pBattleGroup->ubSectorX > MAXIMUM_VALID_X_COORDINATE ||
+		pBattleGroup->ubSectorY < MINIMUM_VALID_Y_COORDINATE ||
+		pBattleGroup->ubSectorY > MAXIMUM_VALID_Y_COORDINATE ||
+		pBattleGroup->ubSectorZ < MINIMUM_VALID_Z_COORDINATE ||
+		pBattleGroup->ubSectorZ > MAXIMUM_VALID_Z_COORDINATE) )
+	{
+		return;
+	}
 
 	gfPersistantPBI = fPersistantPBI;
 

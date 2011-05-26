@@ -204,6 +204,20 @@ MercStartingGearEndElementHandle(void *userData, const XML_Char *name)
 			if(pData->curIndex < pData->maxArraySize && pData->curGears < NUM_MERCSTARTINGGEAR_KITS)
 			{
 				pData->curArray[pData->curIndex][pData->curGears] = pData->curMercStartingGear; //write the armour into the table
+				//CHRISL: after writing the gearkit, we need to clear gear data so it won't inadvertantly be reused
+				pData->curMercStartingGear.PriceModifier = 0;
+				for(unsigned int i = 0; i < pData->curMercStartingGear.inv.size(); i++)
+				{
+					pData->curMercStartingGear.inv[i] = 0;
+					pData->curMercStartingGear.iStatus[i] = 0;
+					pData->curMercStartingGear.iDrop[i] = 0;
+					pData->curMercStartingGear.iNumber[i] = 0;
+				}
+				for(unsigned int i = 0; i < pData->curMercStartingGear.lbe.size(); i++)
+				{
+					pData->curMercStartingGear.lbe[i] = 0;
+					pData->curMercStartingGear.lStatus[i] = 0;
+				}
 			}
 
 			pData->curElement = ELEMENT;

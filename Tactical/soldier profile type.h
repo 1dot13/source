@@ -5,6 +5,7 @@
 #include "Soldier Control.h"
 
 #define NUM_PROFILES		255 //170 new profiles by Jazz
+#define NUM_PROFILES_v111	170
 //tais: maximum amount of starting gear kits
 #define NUM_MERCSTARTINGGEAR_KITS	5
 #define FIRST_RPC 57

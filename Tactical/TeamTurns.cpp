@@ -120,7 +120,8 @@ typedef struct
 	UINT8	ubFiller[16];
 } TEAM_TURN_SAVE_STRUCT;
 
-#define MIN_APS_TO_INTERRUPT 4
+// WANNE: Moved to APBPConstants
+//#define MIN_APS_TO_INTERRUPT 4
 
 void ClearIntList( void )
 {
@@ -1437,7 +1438,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponent
 	}
 
 	// if soldier doesn't have enough APs
-	if ( pSoldier->bActionPoints < MIN_APS_TO_INTERRUPT )
+	if ( pSoldier->bActionPoints < APBPConstants[MIN_APS_TO_INTERRUPT] )
 	{
 		return( FALSE );
 	}
@@ -2123,27 +2124,29 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 				}
 				// INTERRUPT is calculated on the pure client
 				else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn (we are moving)
-				{
-#ifdef BETAVERSION
+				{					
+					//// WANNE: Skip the interrupt (against enemy AI) on the pure client, when we are in a coop game!
+					//if (cGameType == MP_TYPE_COOP)
+					//{
+					//	#ifdef BETAVERSION
+					//		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for another team - pure client - skipping problematic interrupt");
+					//	#endif			
+					//}
+					//else
+					//{
+						send_interrupt( npSoldier );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for another team - PROBLEMATIC");
 
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for another team - pure client - skipping problematic interrupt");
-#endif				
-
-					/*
-					// Only send interrupt if we (the client) got interrupted
-					send_interrupt( npSoldier );
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for another team - PROBLEMATIC");
-
-					SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
-					//AdjustNoAPToFinishMove( pMerc, TRUE );	
-					pMerc->HaultSoldierFromSighting(TRUE);
-					//pMerc->fTurningFromPronePosition = FALSE;// hmmm ??
-					FreezeInterfaceForEnemyTurn();
-					InitEnemyUIBar( 0, 0 );
-					fInterfacePanelDirty = DIRTYLEVEL2;
-					AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ nbTeam ] );
-					gTacticalStatus.fInterruptOccurred = TRUE;	
-					*/
+						SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
+						//AdjustNoAPToFinishMove( pMerc, TRUE );	
+						pMerc->HaultSoldierFromSighting(TRUE);
+						//pMerc->fTurningFromPronePosition = FALSE;// hmmm ??
+						FreezeInterfaceForEnemyTurn();
+						InitEnemyUIBar( 0, 0 );
+						fInterfacePanelDirty = DIRTYLEVEL2;
+						AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ nbTeam ] );
+						gTacticalStatus.fInterruptOccurred = TRUE;
+					//}
 				}
 				else
 				{

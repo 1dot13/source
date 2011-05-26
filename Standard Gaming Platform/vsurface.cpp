@@ -1104,6 +1104,9 @@ HVSURFACE CreateVideoSurface( VSURFACE_DESC *VSurfaceDesc )
 		break;
 
 	case 16:
+	// BF: handle 24 bpp and 32 bpp images as 16 bpp ones = convert larger color space to the smaller one
+	case 24:
+	case 32:
 
 		PixelFormat.dwFlags = DDPF_RGB;
 		PixelFormat.dwRGBBitCount = 16;
@@ -1192,19 +1195,21 @@ HVSURFACE CreateVideoSurface( VSURFACE_DESC *VSurfaceDesc )
 	memset( hVSurface, 0, sizeof( SGPVSurface ) );
 	CHECKF( hVSurface != NULL );
 
-	hVSurface->usHeight					= usHeight;
-	hVSurface->usWidth						= usWidth;
-	hVSurface->ubBitDepth				= ubBitDepth;
-	hVSurface->pSurfaceData1			= (PTR)lpDDS;
+	hVSurface->usHeight				= usHeight;
+	hVSurface->usWidth				= usWidth;
+	// BF : since we use a 16bpp framebuffer and images are converted to that format, 
+	//      there is no need to set the surface bit depth to a higher value than 16
+	hVSurface->ubBitDepth			= ubBitDepth > 16 ? 16 : ubBitDepth;
+	hVSurface->pSurfaceData1		= (PTR)lpDDS;
 	hVSurface->pSurfaceData			= (PTR)lpDDS2;
-	hVSurface->pSavedSurfaceData1 = NULL;
-	hVSurface->pSavedSurfaceData = NULL;
-	hVSurface->pPalette					= NULL;
-	hVSurface->p16BPPPalette			= NULL;
-	hVSurface->TransparentColor	= FROMRGB( 0, 0, 0 );
-	hVSurface->RegionList				= CreateList( DEFAULT_NUM_REGIONS, sizeof( VSURFACE_REGION ) );
-	hVSurface->fFlags						= 0;
-	hVSurface->pClipper					= NULL;
+	hVSurface->pSavedSurfaceData1	= NULL;
+	hVSurface->pSavedSurfaceData	= NULL;
+	hVSurface->pPalette				= NULL;
+	hVSurface->p16BPPPalette		= NULL;
+	hVSurface->TransparentColor		= FROMRGB( 0, 0, 0 );
+	hVSurface->RegionList			= CreateList( DEFAULT_NUM_REGIONS, sizeof( VSURFACE_REGION ) );
+	hVSurface->fFlags				= 0;
+	hVSurface->pClipper				= NULL;
 
 	//
 	// Determine memory and other attributes of newly created surface
@@ -1306,8 +1311,9 @@ HVSURFACE CreateVideoSurface( VSURFACE_DESC *VSurfaceDesc )
 	//
 
 	hVSurface->usHeight					= usHeight;
-	hVSurface->usWidth						= usWidth;
-	hVSurface->ubBitDepth				= ubBitDepth;
+	hVSurface->usWidth					= usWidth;
+	// BF: re-set bit depth (see above)
+	hVSurface->ubBitDepth				= ubBitDepth > 16 ? 16 : ubBitDepth;
 
 	giMemUsedInSurfaces += ( hVSurface->usHeight * hVSurface->usWidth * ( hVSurface->ubBitDepth / 8 ) );
 
@@ -1432,7 +1438,7 @@ BOOLEAN SetVideoSurfaceDataFromHImage( HVSURFACE hVSurface, HIMAGE hImage, UINT1
 	BYTE		*pDest;
 	UINT32	fBufferBPP = 0;
 	UINT32  uiPitch;
-	UINT16  usEffectiveWidth;
+	UINT16  usPixelWidth;
 	SGPRect	aRect;
 
 	// Assertions
@@ -1449,6 +1455,11 @@ BOOLEAN SetVideoSurfaceDataFromHImage( HVSURFACE hVSurface, HIMAGE hImage, UINT1
 		// They are not the same, but we can go from 8->16 without much cost
 		if ( hImage->ubBitDepth == 8 && hVSurface->ubBitDepth == 16 )
 		{
+			fBufferBPP = BUFFER_16BPP;
+		}
+		else if ( (hImage->ubBitDepth == 24 || hImage->ubBitDepth == 32) && hVSurface->ubBitDepth == 16 )
+		{
+			// convert image to 16bpp
 			fBufferBPP = BUFFER_16BPP;
 		}
 	}
@@ -1476,7 +1487,7 @@ BOOLEAN SetVideoSurfaceDataFromHImage( HVSURFACE hVSurface, HIMAGE hImage, UINT1
 	pDest = LockVideoSurfaceBuffer( hVSurface, &uiPitch );
 
 	// Effective width ( in PIXELS ) is Pitch ( in bytes ) converted to pitch ( IN PIXELS )
-	usEffectiveWidth = (UINT16)( uiPitch / ( hVSurface->ubBitDepth / 8 ) );
+	usPixelWidth = (UINT16)( uiPitch / ( hVSurface->ubBitDepth / 8 ) );
 
 	CHECKF( pDest != NULL );
 
@@ -1498,7 +1509,7 @@ BOOLEAN SetVideoSurfaceDataFromHImage( HVSURFACE hVSurface, HIMAGE hImage, UINT1
 	}
 
 	// This HIMAGE function will transparently copy buffer
-	if ( !CopyImageToBuffer( hImage, fBufferBPP, pDest, usEffectiveWidth, hVSurface->usHeight, usX, usY, &aRect ) )
+	if ( !CopyImageToBuffer( hImage, fBufferBPP, pDest, usPixelWidth, hVSurface->usHeight, usX, usY, &aRect ) )
 	{
 		DbgMessage( TOPIC_VIDEOSURFACE, DBG_LEVEL_2, String( "Error Occured Copying HIMAGE to HVSURFACE" ));
 		UnLockVideoSurfaceBuffer( hVSurface );

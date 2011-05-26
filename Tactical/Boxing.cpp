@@ -383,7 +383,7 @@ BOOLEAN PickABoxer( void )
 					RESETTIMECOUNTER( pBoxer->timeCounters.AICounter, 0 );
 					gfBoxerFought[ uiLoop ] = TRUE;
 					// improve stats based on the # of rests these guys have had
-					pBoxer->stats.bStrength = __min( 100, pBoxer->stats.bStrength += gubBoxersRests * 5 );
+					pBoxer->stats.bStrength = __min( 100, pBoxer->stats.bStrength + gubBoxersRests * 5 );
 					pBoxer->stats.bDexterity = __min( 100, pBoxer->stats.bDexterity + gubBoxersRests * 5 );
 					pBoxer->stats.bAgility = __min( 100, pBoxer->stats.bAgility + gubBoxersRests * 5 );
 					pBoxer->stats.bLifeMax = __min( 100, pBoxer->stats.bLifeMax + gubBoxersRests * 5 );

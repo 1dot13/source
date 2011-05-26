@@ -204,6 +204,11 @@ void UnMarkMovementReserved( SOLDIERTYPE *pSoldier )
 	{
 		return;
 	}
+	
+	if ( pSoldier->usAnimState == JUMPWINDOWS && pSoldier->sReservedMovementGridNo != sNewGridNo )
+	{
+		return;
+	}
 
 	// For single-tiled mercs, unset this gridno
 	// See if we have one reserved!	

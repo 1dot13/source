@@ -497,35 +497,35 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 				{
 					if( i == PRESSURE_ACTION_ID )
 					{
-						swprintf( pStr, L"Pressure Action" );
+						swprintf( pStr, pInitEditorItemsInfoText[0] );
 					}
 					else if( i < 2 )
 					{
 						if( usCounter == SWITCH )
-							swprintf( pStr, L"Panic Trigger1" );
+							swprintf( pStr, pInitEditorItemsInfoText[5] );
 						else
-							swprintf( pStr, L"Panic Action1" );
+							swprintf( pStr, pInitEditorItemsInfoText[1] );
 					}
 					else if( i < 4 )
 					{
 						if( usCounter == SWITCH )
-							swprintf( pStr, L"Panic Trigger2" );
+							swprintf( pStr, pInitEditorItemsInfoText[6] );
 						else
-							swprintf( pStr, L"Panic Action2" );
+							swprintf( pStr, pInitEditorItemsInfoText[2] );
 					}
 					else if( i < 6 )
 					{
 						if( usCounter == SWITCH )
-							swprintf( pStr, L"Panic Trigger3" );
+							swprintf( pStr, pInitEditorItemsInfoText[7] );
 						else
-							swprintf( pStr, L"Panic Action3" );
+							swprintf( pStr, pInitEditorItemsInfoText[3] );
 					}
 					else
 					{
 						if( usCounter == SWITCH )
-							swprintf( pStr, L"Trigger%d", (i-4)/2 );
+							swprintf( pStr, pInitEditorItemsInfoText[8], (i-4)/2 );
 						else
-							swprintf( pStr, L"Action%d", (i-4)/2 );
+							swprintf( pStr, pInitEditorItemsInfoText[4], (i-4)/2 );
 					}
 				}
 
@@ -1669,11 +1669,11 @@ void DisplayItemStatistics()
 	LoadItemInfo( usItemIndex, pItemName, NULL );
 
 	mprintf( iScreenWidthOffset + 50 - StringPixLength( pItemName , SMALLCOMPFONT )/2, 2 * iScreenHeightOffset + 403, pItemName );
-	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 410, L"Status Info Line 1");
-	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 420, L"Status Info Line 2");
-	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 430, L"Status Info Line 3");
-	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 440, L"Status Info Line 4");
-	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 450, L"Status Info Line 5");
+	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 410, pDisplayItemStatisticsTex[0]);
+	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 420, pDisplayItemStatisticsTex[1]);
+	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 430, pDisplayItemStatisticsTex[2]);
+	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 440, pDisplayItemStatisticsTex[3]);
+	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 450, pDisplayItemStatisticsTex[4]);
 }
 
 

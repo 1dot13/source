@@ -398,8 +398,13 @@ void DoTaskbar(void)
 			iDrawMode = DRAW_MODE_NOTHING;//dnl ch22 210909
 			ClickEditorButton( TAB_OPTIONS );
 			TerrainTileDrawMode = TERRAIN_TILES_NODRAW;
-			if(gfVanillaMode)//dnl ch33 160909
+			
+			if (gfResizeMapOnLoading)
+				ClickEditorButton(OPTIONS_RESIZE_MAP_ON_LOADING);
+
+			if (gfVanillaMode)
 				ClickEditorButton(OPTIONS_VANILLA_MODE);
+
 			SetupTextInputForOptions();
 			break;
 	}
@@ -630,7 +635,7 @@ void RenderMapEntryPointsAndLights()
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
 		if( sScreenY >= (- 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)	&& sScreenX < SCREEN_WIDTH )
 		{
-			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"North Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
+			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, iRenderMapEntryPointsAndLightsText[0], FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
 	}
 	sGridNo = gMapInformation.sWestGridNo;
@@ -639,7 +644,7 @@ void RenderMapEntryPointsAndLights()
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
 		if( sScreenY >= (- 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)	&& sScreenX < SCREEN_WIDTH )
 		{
-			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"West Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
+			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, iRenderMapEntryPointsAndLightsText[1], FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
 	}
 	sGridNo = gMapInformation.sEastGridNo;
@@ -648,7 +653,7 @@ void RenderMapEntryPointsAndLights()
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
 		if( sScreenY >= (- 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)	&& sScreenX < SCREEN_WIDTH )
 		{
-			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"East Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
+			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, iRenderMapEntryPointsAndLightsText[2], FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
 	}
 	sGridNo = gMapInformation.sSouthGridNo;
@@ -657,7 +662,7 @@ void RenderMapEntryPointsAndLights()
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
 		if( sScreenY >= ( - 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)	&& sScreenX < SCREEN_WIDTH )
 		{
-			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"South Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
+			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, iRenderMapEntryPointsAndLightsText[3], FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
 	}
 	sGridNo = gMapInformation.sCenterGridNo;
@@ -666,7 +671,7 @@ void RenderMapEntryPointsAndLights()
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
 		if( sScreenY >= (- 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)	&& sScreenX < SCREEN_WIDTH )
 		{
-			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"Center Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
+			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, iRenderMapEntryPointsAndLightsText[4], FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
 	}
 	sGridNo = gMapInformation.sIsolatedGridNo;
@@ -675,7 +680,7 @@ void RenderMapEntryPointsAndLights()
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
 		if( sScreenY >= (- 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)	&& sScreenX < SCREEN_WIDTH )
 		{
-			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"Isolated Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
+			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, iRenderMapEntryPointsAndLightsText[5], FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
 	}
 
@@ -697,11 +702,11 @@ void RenderMapEntryPointsAndLights()
 			if( sScreenY >= (- 50) && sScreenY < (2 * iScreenHeightOffset + 300) && sScreenX >= (- 40)	&& sScreenX < SCREEN_WIDTH )
 			{
 				if( LightSprites[ i ].uiFlags & LIGHT_PRIMETIME )
-					DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 50, 2, FONT10ARIAL, FONT_ORANGE, L"Prime", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
+					DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 50, 2, FONT10ARIAL, FONT_ORANGE, iRenderMapEntryPointsAndLightsText[6], FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 				else if( LightSprites[ i ].uiFlags & LIGHT_NIGHTTIME )
-					DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 50, 2, FONT10ARIAL, FONT_RED, L"Night", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
+					DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 50, 2, FONT10ARIAL, FONT_RED, iRenderMapEntryPointsAndLightsText[7], FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 				else
-					DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 50, 2, FONT10ARIAL, FONT_YELLOW, L"24Hour", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
+					DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 50, 2, FONT10ARIAL, FONT_YELLOW, iRenderMapEntryPointsAndLightsText[8], FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 			}
 		}
 	}
@@ -712,26 +717,26 @@ void BuildTriggerName( OBJECTTYPE *pItem, STR16 szItemName )
 	if( pItem->usItem == SWITCH )
 	{
 		if( (*pItem)[0]->data.misc.bFrequency == PANIC_FREQUENCY )
-			swprintf( szItemName, L"Panic Trigger1" );
+			swprintf( szItemName, iBuildTriggerNameText[0] );
 		else if( (*pItem)[0]->data.misc.bFrequency == PANIC_FREQUENCY_2 )
-			swprintf( szItemName, L"Panic Trigger2" );
+			swprintf( szItemName, iBuildTriggerNameText[1] );
 		else if( (*pItem)[0]->data.misc.bFrequency == PANIC_FREQUENCY_3 )
-			swprintf( szItemName, L"Panic Trigger3" );
+			swprintf( szItemName, iBuildTriggerNameText[2] );
 		else
-			swprintf( szItemName, L"Trigger%d", (*pItem)[0]->data.misc.bFrequency - 50 );
+			swprintf( szItemName, iBuildTriggerNameText[3], (*pItem)[0]->data.misc.bFrequency - 50 );
 	}
 	else
 	{ //action item
 		if( (*pItem)[0]->data.misc.bDetonatorType == BOMB_PRESSURE )
-			swprintf( szItemName, L"Pressure Action" );
+			swprintf( szItemName, iBuildTriggerNameText[4] );
 		else if( (*pItem)[0]->data.misc.bFrequency == PANIC_FREQUENCY )
-			swprintf( szItemName, L"Panic Action1" );
+			swprintf( szItemName, iBuildTriggerNameText[5] );
 		else if( (*pItem)[0]->data.misc.bFrequency == PANIC_FREQUENCY_2 )
-			swprintf( szItemName, L"Panic Action2" );
+			swprintf( szItemName, iBuildTriggerNameText[6] );
 		else if( (*pItem)[0]->data.misc.bFrequency == PANIC_FREQUENCY_3 )
-			swprintf( szItemName, L"Panic Action3" );
+			swprintf( szItemName, iBuildTriggerNameText[7] );
 		else
-			swprintf( szItemName, L"Action%d", (*pItem)[0]->data.misc.bFrequency - 50 );
+			swprintf( szItemName, iBuildTriggerNameText[8], (*pItem)[0]->data.misc.bFrequency - 50 );
 	}
 }
 
@@ -748,7 +753,7 @@ void RenderDoorLockInfo()
 		if( DoorTable[ i ].ubLockID != 255 )
 			swprintf( str, L"%S", LockTable[ DoorTable[ i ].ubLockID ].ubEditorName );
 		else
-			swprintf( str, L"No Lock ID" );
+			swprintf( str, iRenderDoorLockInfoText[0] );
 		xp = sScreenX - 10;
 		yp = sScreenY - 40;
 		DisplayWrappedString( xp, yp, 60, 2, FONT10ARIAL, FONT_LTKHAKI, str, FONT_BLACK, TRUE, CENTER_JUSTIFIED );
@@ -760,30 +765,30 @@ void RenderDoorLockInfo()
 			switch( DoorTable[ i ].ubTrapID )
 			{
 				case EXPLOSION:
-					swprintf( str, L"Explosion Trap" );
+					swprintf( str, iRenderDoorLockInfoText[1] );
 					break;
 				case ELECTRIC:
-					swprintf( str, L"Electric Trap" );
+					swprintf( str, iRenderDoorLockInfoText[2] );
 					break;
 				case SIREN:
-					swprintf( str, L"Siren Trap" );
+					swprintf( str, iRenderDoorLockInfoText[3] );
 					break;
 				case SILENT_ALARM:
-					swprintf( str, L"Silent Alarm" );
+					swprintf( str, iRenderDoorLockInfoText[4] );
 					break;
 				case SUPER_ELECTRIC:
-					swprintf( str, L"Super Electric Trap" );
+					swprintf( str, iRenderDoorLockInfoText[5] );
 					break;
 				// WANNE: Fix a vanilla glitch in the editor: The text for the brothel siren trap was missing.
 				// Fixed by Tron (Stracciatella): Revision: 6253
 				case BROTHEL_SIREN:
-					swprintf( str, L"Brothel Siren Trap" );
+					swprintf( str, iRenderDoorLockInfoText[6] );
 					break;
 			}
 			xp = sScreenX + 20 - StringPixLength( str, FONT10ARIAL ) / 2;
 			yp = sScreenY;
 			mprintf( xp, yp, str );
-			swprintf( str, L"Trap Level %d", DoorTable[ i ].ubTrapLevel );
+			swprintf( str, iRenderDoorLockInfoText[7], DoorTable[ i ].ubTrapLevel );
 			xp = sScreenX + 20 - StringPixLength( str, FONT10ARIAL ) / 2;
 			mprintf( xp, yp+10, str );
 		}
@@ -906,12 +911,15 @@ void RenderEditorInfo( )
 	switch( iCurrentTaskbar )
 	{
 		case TASK_OPTIONS:
-			mprintf(iScreenWidthOffset+71+15, SCREEN_HEIGHT-117, L"Save map in original JA2 map format (Version: 5.00 / 25)");//dnl ch33 160909
+			mprintf(iScreenWidthOffset+71+15, SCREEN_HEIGHT-117, iRenderEditorInfoText[0]);//dnl ch33 160909
 			if( !gfWorldLoaded || giCurrentTilesetID < 0 )
-				mprintf( iScreenWidthOffset + 260, 2 * iScreenHeightOffset + 445, L"No map currently loaded." );
+				mprintf( iScreenWidthOffset + 260, 2 * iScreenHeightOffset + 445, iRenderEditorInfoText[1] );
 			else
-				mprintf( iScreenWidthOffset + 260, 2 * iScreenHeightOffset + 445, L"File:  %S, Current Tileset:  %s",
-					gubFilename, gTilesets[ giCurrentTilesetID ].zName );
+				mprintf( iScreenWidthOffset + 260, 2 * iScreenHeightOffset + 445, iRenderEditorInfoText[2], gubFilename, gTilesets[ giCurrentTilesetID ].zName );
+
+			// TODO.MAP
+			mprintf(iScreenWidthOffset+20, SCREEN_HEIGHT-40, iRenderEditorInfoText[3]);
+
 			UpdateOptions();
 			break;
 		case TASK_TERRAIN:

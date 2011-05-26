@@ -550,6 +550,7 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 {
 	UINT16 usRange=0;
 	CHAR16	zOutputString[512];
+	UINT8	title = (UsingNewCTHSystem() == true ? DC_MSG__NCTH_GUN_RANGE_INFORMATION : DC_MSG__GUN_RANGE_INFORMATION);
 
 	if( sTargetGridNo == NOWHERE || sTargetGridNo == 0 )
 	{
@@ -595,13 +596,13 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 		// HEADROCK HAM 3.6: Calculate Gun Range using formula.
 		UINT16 usGunRange = GunRange(&pSoldier->inv[HANDPOS], pSoldier ); // SANDRO - added argument
 
-		swprintf( zOutputString, gzDisplayCoverText[DC_MSG__GUN_RANGE_INFORMATION], usRange / 10, usGunRange / 10, uiHitChance );
+		swprintf( zOutputString, gzDisplayCoverText[title], usRange / 10, usGunRange / 10, uiHitChance );
 		//Display the msg
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
 	}
 	else
 	{
-		swprintf( zOutputString, gzDisplayCoverText[DC_MSG__GUN_RANGE_INFORMATION], usRange / 10, 0, 0 );
+		swprintf( zOutputString, gzDisplayCoverText[title], usRange / 10, 0, 0 );
 
 		//Display the msg
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );

@@ -52,7 +52,7 @@ enum
 	TOPTION_ALLOW_SOLDIER_TOOLTIPS,
 	TOPTION_USE_AUTO_SAVE,
 	TOPTION_SILENT_SKYRIDER,
-	TOPTION_LOW_CPU_USAGE,
+	//TOPTION_LOW_CPU_USAGE,
 	TOPTION_ENHANCED_DESC_BOX,
 
 	// arynn
@@ -68,6 +68,13 @@ enum
 
 	// WANNE: Moved alternate bullets graphics (tracers) to options
 	TOPTION_ALTERNATE_BULLET_GRAPHICS,
+
+	// CHRISL: HAM 4: Activate/Deactivate NCTH mode
+	TOPTION_USE_NCTH,
+
+	// WANNE:	
+	TOPTION_SHOW_TACTICAL_FACE_GEAR,
+	TOPTION_SHOW_TACTICAL_FACE_ICONS,
 
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
@@ -696,12 +703,19 @@ typedef struct
 	BOOLEAN fDynamicAimingTime;
 
 	// allow old behaviour
-	BOOLEAN fAimLevelsDependOnDistance;
+	BOOLEAN fAimLevelsDependOnDistance; // feel free to dump this option
+	INT32 iAimLevelsCompatibilityOption; // but not this one
 
 	//WarmSteel - These determine in which group each scope belongs. Needed for dynamic aiming limits.
 	INT16 sVeryHighPowerScope;
 	INT16 sHighPowerScope;
 	INT16 sMediumPowerScope;
+
+	//CHRISL: AI Sniper fields
+	BOOLEAN fAISniperElite;
+	UINT16 fAISniperRange;
+	UINT16 fAISniperChance;
+	UINT16 fAISniperChanceWithSR;
 
 	// HEADROCK HAM B2.6: Controls how much effect target movement has on aiming
 	FLOAT iMovementEffectOnAiming;
@@ -718,8 +732,9 @@ typedef struct
 	// HEADROCK HAM B2.6/2/1: Toggle new Burst/Auto CTH bars: 0=neither, 1=both, 2=Burst, 3=Auto
 	UINT8 ubNewCTHBars;
 
-	// HEADROCK HAM B2.6: Toggle whether AI checks for larger magazine when wanting to suppress at a distance
-	BOOLEAN fIncreaseAISuppressionFire;
+	// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
+	UINT16 ubAISuppressionMinimumMagSize;
+	UINT16 ubAISuppressionMinimumAmmo;
 
 	// HEADROCK HAM B2.7: Change the speed of skill progression. (defaults set to JA2 normal)
 	UINT16 usHealthSubpointsToImprove;
@@ -840,9 +855,6 @@ typedef struct
 	// HEADROCK HAM 3.3: Externalized maximum possible penalty for hitting a moving target. JA2 Default = 30.
 	UINT16 usMaxCTHPenaltyForMovingTarget;
 
-	// CHRISL: HAM4-NCTH
-	BOOLEAN fUseNCTH;
-
 	// HEADROCK HAM 3.3: Increases tolerance while moving.
 	UINT8 ubTilesMovedPerBonusTolerancePoint;
 
@@ -960,8 +972,8 @@ typedef struct
 	BOOLEAN fEnableInventoryPoolQ;		
 	
 	//legion by Jazz
-	BOOLEAN fShowTacticalFaceGear; //legion 2
-	BOOLEAN fShowTacticalFaceIcons; //legion 2
+	//BOOLEAN fShowTacticalFaceGear; //legion 2
+	//BOOLEAN fShowTacticalFaceIcons; //legion 2
 	INT8 bTacticalFaceIconStyle;
 	
 	//Enemy Names Group Legion 2 by Jazz
@@ -980,6 +992,9 @@ typedef struct
 	UINT8 ubChanceTonyAvailable; // silversurfer/SANDRO
 	
 	BOOLEAN fStandUpAfterBattle;
+	
+	INT32 iInitialMercArrivalLocation;
+	
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct
@@ -1230,9 +1245,11 @@ typedef struct
 {
 	UINT32 NORMAL_SHOOTING_DISTANCE;		// Distance at which 1x magnification is 100% effective. This is a major component of the entire shooting mechanism.
 	FLOAT DEGREES_MAXIMUM_APERTURE;			// Maximum possible aperture for a 100% muzzle sway shot. Decrease to make all shots more accurate.
+	FLOAT RANGE_COEFFICIENT;				// Determines maximum range which decides when gravity forces bullets to drop
 	FLOAT GRAVITY_COEFFICIENT;				// Changes the way gravity works in the game. Higher values mean bullets don't drop as quickly after reaching max range.
 	FLOAT VERTICAL_BIAS;					// This float can be used to reduce the chance of missing too far upwards or downwards (compared to left/right).
 	FLOAT SCOPE_RANGE_MULTIPLIER;			// Adjusts the minimum effective range of scopes
+	FLOAT SIDE_FACING_DIVISOR;				// Deals with a visual error in NCTH relating to shooting at a target who is facing directly perpendicular to the shooters facing.
 
 	FLOAT BASE_EXP;				// Importance of Experience for BASE CTH
 	FLOAT BASE_MARKS;				// Importance of Marksmanship for BASE CTH
@@ -1255,6 +1272,7 @@ typedef struct
 	FLOAT BASE_DRAW_COST;			// Applied per 1 AP of the weapon's Ready Cost, under 100AP.
 	FLOAT BASE_TWO_GUNS;			// Gun Difficulty Multiplier for shooting two guns
 	FLOAT BASE_ONE_HANDED;		// Gun Difficulty Multiplier for shooting a pistol with one hand.
+	FLOAT BASE_STANDING_STANCE;	// Gun Difficulty Multiplier for shooting from a standing stance
 	FLOAT BASE_CROUCHING_STANCE;	// Gun Difficulty Multiplier for shooting from a crouched stance
 	FLOAT BASE_PRONE_STANCE;		// Gun Difficulty Multiplier for shooting from a prone stance
 	FLOAT BASE_HEAVY_WEAPON;		// Gun Difficulty Multiplier for shooting a launcher
@@ -1304,6 +1322,8 @@ typedef struct
 	FLOAT RECOIL_MAX_COUNTER_AGI;
 	FLOAT RECOIL_MAX_COUNTER_EXP_LEVEL;
 	FLOAT RECOIL_MAX_COUNTER_FORCE;
+	FLOAT RECOIL_MAX_COUNTER_CROUCH;
+	FLOAT RECOIL_MAX_COUNTER_PRONE;
 	FLOAT RECOIL_COUNTER_ACCURACY_MIN_ERROR;
 	FLOAT RECOIL_COUNTER_ACCURACY_DEX;
 	FLOAT RECOIL_COUNTER_ACCURACY_WIS;
@@ -1311,11 +1331,17 @@ typedef struct
 	FLOAT RECOIL_COUNTER_ACCURACY_EXP_LEVEL;
 	FLOAT RECOIL_COUNTER_ACCURACY_AUTO_WEAPONS_DIVISOR;
 	FLOAT RECOIL_COUNTER_ACCURACY_TRACER_BONUS;
+	FLOAT RECOIL_COUNTER_ACCURACY_ANTICIPATION;
+	FLOAT RECOIL_COUNTER_ACCURACY_COMPENSATION;
 	FLOAT RECOIL_COUNTER_FREQUENCY_AGI;
 	FLOAT RECOIL_COUNTER_FREQUENCY_EXP_LEVEL;
 	FLOAT RECOIL_COUNTER_FREQUENCY_AUTO_WEAPONS_DIVISOR;
 
+	UINT8 RECOIL_COUNTER_INCREMENT;
+	UINT8 RECOIL_COUNTER_INCREMENT_TRACER;
+	UINT32 NORMAL_RECOIL_DISTANCE;
 	FLOAT MAX_BULLET_DEV;
+	BOOLEAN RANGE_EFFECTS_DEV;
 
 } CTH_CONSTANTS;
 

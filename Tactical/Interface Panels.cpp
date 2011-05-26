@@ -511,8 +511,8 @@ INT8		gbZipperButPos[2][2] =
 };
 
 //Legion by Jazz
-void BtnOknoCallback(GUI_BUTTON *btn,INT32 reason); 
-void BtnFenceCallback(GUI_BUTTON *btn,INT32 reason); 
+//void BtnOknoCallback(GUI_BUTTON *btn,INT32 reason); 
+//void BtnFenceCallback(GUI_BUTTON *btn,INT32 reason); 
 
 // Mouse button and region callbacks
 //void BtnPositionCallback( GUI_BUTTON *btn, INT32 reason );
@@ -877,7 +877,7 @@ void UpdateSMPanel( )
 		giSMStealthButton = QuickCreateButton( giSMStealthImages, SM_STEALTHMODE_X, SM_STEALTHMODE_Y,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnStealthModeCallback );
-		RenderBackpackButtons(0);	/* CHRISL: Needed for new inventory backpack buttons */
+		RenderBackpackButtons(ACTIVATE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 
 		SetButtonFastHelpText( giSMStealthButton, TacticalStr[ TOGGLE_STEALTH_MODE_POPUPTEXT ] );
 
@@ -889,7 +889,7 @@ void UpdateSMPanel( )
 			{
 					DisableButton( giSMStealthButton );
 			}
-			RenderBackpackButtons(3);	/* CHRISL: Needed for new inventory backpack buttons */
+			RenderBackpackButtons(DISABLE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 		}
 	}
 
@@ -953,48 +953,9 @@ void UpdateSMPanel( )
 		}
 	}
 
-
 	DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
 	
-	//DisableButton
-	//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-    //{ 	
-	//DisableButton( iSMPanelButtons[ HOP_BUTTON ] );	 //Legion by Jazz
-	//}
-
 	GetMercClimbDirection( gpSMCurrentMerc->ubID, &fNearLowerLevel, &fNearHeigherLevel );
-
-
-//---------------------	Legion-----------------
-/*
-if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-    { 	
-    
-	if ( gpSMCurrentMerc->pathing.bLevel == 0 )
-        {
-		GetMercOknoDirection( gpSMCurrentMerc->ubID, &fNearLowerLevelOkno, &fNearHeigherLevelOkno ); //Legion by JAzz
-		if ( fNearLowerLevelOkno || fNearHeigherLevelOkno )
-		{
-			if ( fNearLowerLevelOkno )
-			{
-			if ( EnoughPoints( gpSMCurrentMerc, GetAPsToJumpThroughWindows( gpSMCurrentMerc, TRUE ), 0, FALSE ) )
-				{
-				EnableButton( iSMPanelButtons[ HOP_BUTTON ] );		
-				} 
-			}
-			
-			if ( fNearHeigherLevelOkno )
-			{
-			if ( EnoughPoints( gpSMCurrentMerc, GetAPsToJumpThroughWindows( gpSMCurrentMerc, FALSE ), 0, FALSE ) )
-				{
-				EnableButton( iSMPanelButtons[ HOP_BUTTON ] );		
-				} 
-			}
-		}
-		}
-	}
-*/
-	//---------
 
 	if ( fNearLowerLevel || fNearHeigherLevel )
 	{
@@ -1014,31 +975,24 @@ if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
 			}
 		}
 	}
-
-	//----------------------------Legion by Jazz------------------------------
-	//DisableButton
-	/*
-	if (gGameExternalOptions.fCanJumpThroughWindows == TRUE )
-        {
-        	if ( FindOknoDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) && gpSMCurrentMerc->pathing.bLevel == 0 )
-         	{
-          	EnableButton( iSMPanelButtons[ HOP_BUTTON ] );
-            }
-		}
-	*/
-	if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
-		{
-	        if ( FindFenceDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
-            {
-            EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
-            }
 	
-		}
-	//------------------------------------------
+	if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
+	{
+        if ( FindWallJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
+        {
+			if ( EnoughPoints( gpSMCurrentMerc, GetAPsToJumpWall( gpSMCurrentMerc, FALSE ), 0, FALSE ) )
+			{
+				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
+			}
+        }
+	}
 
 	if ( FindFenceJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
 	{
-		EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
+		if ( EnoughPoints( gpSMCurrentMerc, GetAPsToJumpFence( gpSMCurrentMerc, FALSE ), 0, FALSE ) )
+		{
+			EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
+		}
 	}
 
 	if ( (gTacticalStatus.ubCurrentTeam != gbPlayerNum) || (gTacticalStatus.uiFlags & REALTIME ) || !(gTacticalStatus.uiFlags & INCOMBAT ) )
@@ -1114,11 +1068,6 @@ if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
 	// If not selected ( or dead ), disable/gray some buttons
 	if ( gusSelectedSoldier != gpSMCurrentMerc->ubID || ( gpSMCurrentMerc->stats.bLife < OKLIFE ) || (gTacticalStatus.ubCurrentTeam != gbPlayerNum) || gfSMDisableForItems )
 	{
-		//DisableButton
-		//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-		//{ 
-		//DisableButton( iSMPanelButtons[ HOP_BUTTON ] );	 //Legion by Jazz	
-		//}
 		DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
 		DisableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 		DisableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
@@ -1130,7 +1079,7 @@ if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
 		{
 				DisableButton( giSMStealthButton );
 		}
-		RenderBackpackButtons(3);	/* CHRISL: Needed for new inventory backpack buttons */
+		RenderBackpackButtons(DISABLE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 	}
 	else
 	{
@@ -1154,7 +1103,7 @@ if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
 				EnableButton( giSMStealthButton );
 		}
 		if(!gfInItemDescBox)
-			RenderBackpackButtons(2);	/* CHRISL: Needed for new inventory backpack buttons */
+			RenderBackpackButtons(ENABLE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 	}
 
 	// CJC Dec 4 2002: or if item pickup menu is up
@@ -1225,6 +1174,9 @@ void RenderBackpackButtons(int bpAction)
 	// Only run if the Tactical Inventory Panel is open
 	if(gsCurInterfacePanel != SM_PANEL)
 		return;
+	// Don't run if keyring is open
+	if(gfInKeyRingPopup)
+		return;
 	// If Merc hasn't been set, default to first merc
 	if(gpSMCurrentMerc==NULL)
 		gpSMCurrentMerc = MercPtrs[ 0 ];
@@ -1232,7 +1184,7 @@ void RenderBackpackButtons(int bpAction)
 	// Deal with buttons depending on which screen is currently active
 	switch (bpAction)
 	{
-		case 0:
+		case ACTIVATE_BUTTON:
 			// Activate buttons
 			if(giSMZipperButton != -1)
 				RemoveButton( giSMZipperButton );
@@ -1267,38 +1219,38 @@ void RenderBackpackButtons(int bpAction)
 			//SetButtonFastHelpText( giSMZipperButton, TacticalStr[  ] );
 			//SetButtonFastHelpText( giSMDropPackButton, TacticalStr[  ] );
 			break;
-		case 1:
+		case DEACTIVATE_BUTTON:
 			// Deactivate buttons
 			if(giSMZipperButton != -1)
 				RemoveButton( giSMZipperButton );
 			if(giSMDropPackButton != -1)
 				RemoveButton( giSMDropPackButton );
-			RenderBackpackButtons(4);
+			RenderBackpackButtons(UNLOAD_BUTTON);
 			giSMDropPackImages	= -1;
 			giSMDropPackButton	= -1;
 			giSMZipperImages	= -1;
 			giSMZipperButton	= -1;
 			break;
-		case 2:
+		case ENABLE_BUTTON:
 			// Enable buttons
 			if(giSMDropPackButton == -1 || giSMZipperButton == -1)
 			{
-				RenderBackpackButtons(1);
-				RenderBackpackButtons(0);
+				RenderBackpackButtons(DEACTIVATE_BUTTON);
+				RenderBackpackButtons(ACTIVATE_BUTTON);
 			}
 			if(giSMDropPackButton != -1)
 				EnableButton( giSMDropPackButton );
 			if(giSMZipperButton != -1)
 				EnableButton( giSMZipperButton );
 			break;
-		case 3:
+		case DISABLE_BUTTON:
 			// Disable buttons
 			if(giSMDropPackButton != -1)
 				DisableButton( giSMDropPackButton );
 			if(giSMZipperButton != -1)
 				DisableButton( giSMZipperButton );
 			break;
-		case 4:
+		case UNLOAD_BUTTON:
 			if(giSMZipperImages != -1)
 				UnloadButtonImage( giSMZipperImages );
 			if(giSMDropPackImages != -1)
@@ -1368,11 +1320,6 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 			// only enable the following if NOT in shopkeeper's interface
 			if ( !(guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
 			{
-			    //DisableButton
-			    //if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-				//{ 
-				//EnableButton( iSMPanelButtons[ HOP_BUTTON ] );	 //Legion by JAzz
-				//}
 				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
 				EnableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 				EnableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
@@ -1384,7 +1331,7 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 				{
 					EnableButton( giSMStealthButton );
 				}
-				RenderBackpackButtons(2);	/* CHRISL: Needed for new inventory backpack buttons */
+				RenderBackpackButtons(ENABLE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 
 				if ( gfDisableTacticalPanelButtons )
 				{
@@ -1416,11 +1363,6 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 		}
 		else
 		{
-			//DisableButton
-			//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-			//{ 
-			//DisableButton( iSMPanelButtons[ HOP_BUTTON ] );	//Legion by Jazz
-			//}
 			DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
 			DisableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 			DisableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
@@ -1432,7 +1374,7 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 			{
 					DisableButton( giSMStealthButton );
 			}
-			RenderBackpackButtons(3);	/* CHRISL: Needed for new inventory backpack buttons */
+			RenderBackpackButtons(DISABLE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 
 			if ( !fFromItemPickup )
 			{
@@ -1662,7 +1604,7 @@ BOOLEAN InitializeSMPanelCoordsOld()
 	LOCATION_NAME_Y		= ( 65	+ INTERFACE_START_Y		);
 
 	// Keyring
-	KEYRING_X			= 487;
+	KEYRING_X			= 494; //487;
 	KEYRING_Y			= (105 + INV_INTERFACE_START_Y);
 
 	// so we got everything "dynamic" now we just return TRUE
@@ -1952,9 +1894,9 @@ BOOLEAN InitializeSMPanelCoordsNew()
 	}
 
 	// WANNE 2
-	SM_DONE_X				=  (SCREEN_WIDTH - 152);
+	SM_DONE_X				=  (SCREEN_WIDTH - 146);	// 152
 	SM_DONE_Y				= ( 118 + INV_INTERFACE_START_Y );
-	SM_MAPSCREEN_X			=  (SCREEN_WIDTH - 152);
+	SM_MAPSCREEN_X			=  (SCREEN_WIDTH - 146);	// 152
 	SM_MAPSCREEN_Y			= ( 140 + INV_INTERFACE_START_Y );
 
 	SM_POSITIONB_X			= ( 106 + INTERFACE_START_X );
@@ -2030,13 +1972,13 @@ BOOLEAN InitializeSMPanelCoordsNew()
 
 	// ow and te clock and location i will put it here 
 	INTERFACE_CLOCK_X	=  	(SCREEN_WIDTH - 86);
-	INTERFACE_CLOCK_Y	= ( 116	+ INV_INTERFACE_START_Y );
+	INTERFACE_CLOCK_Y	= ( 117	+ INV_INTERFACE_START_Y );
 	LOCATION_NAME_X		=	(SCREEN_WIDTH - 92);
-	LOCATION_NAME_Y		= ( 87	+ INTERFACE_START_Y		);
+	LOCATION_NAME_Y		= ( 89	+ INTERFACE_START_Y		);
 
 	//Keyring
-	KEYRING_X			= 209;
-	KEYRING_Y			= (4 + INV_INTERFACE_START_Y);
+	KEYRING_X			= 217;	// 209
+	KEYRING_Y			= (5 + INV_INTERFACE_START_Y);
 
 	// so we got everything "dynamic" now we just return TRUE
 	return ( TRUE );
@@ -2196,12 +2138,6 @@ BOOLEAN CreateSMPanelButtons( )
 
 	FilenameForBPP("INTERFACE\\inventory_buttons.sti", ubString);
 	
-	//Legion by Jazz
-	//DisableButton
-	//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-    //{ 
-	//	FilenameForBPP("INTERFACE\\inventory_buttons_WINDOW_2.sti", ubString2); //LEGION
-	//}
 	//-----------------------
 	// Load button Graphics
 	iSMPanelImages[ STANCEUP_IMAGES	]			= LoadButtonImage(ubString,-1,0,-1,10,-1 );
@@ -2217,18 +2153,6 @@ BOOLEAN CreateSMPanelButtons( )
 	iSMPanelImages[ TALK_IMAGES	]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,6,-1,16,-1 );
 	iSMPanelImages[ MUTE_IMAGES	]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,5,-1,15,-1 );
 	
-	//Legion by Jazz
-	//DisableButton
-	/*
-	if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-    { 
-	iSMPanelImages[ OPTIONS_IMAGES	]				= LoadButtonImage(ubString2,-1,0,-1,1,-1 ); //legion
-	}
-	else
-	{
-	iSMPanelImages[ OPTIONS_IMAGES	]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,24,-1,25,-1 );
-	}
-	*/
 	iSMPanelImages[ OPTIONS_IMAGES	]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,24,-1,25,-1 );
 	
 	iBurstButtonImages[ WM_NORMAL ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 7, -1, -1, -1 );
@@ -2237,13 +2161,6 @@ BOOLEAN CreateSMPanelButtons( )
 	iBurstButtonImages[ WM_ATTACHED_GL ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 26, -1, -1, -1 );
 	iBurstButtonImages[ WM_ATTACHED_GL_BURST ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
 	iBurstButtonImages[ WM_ATTACHED_GL_AUTO ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
-
-	//Legion by JAzz
-	//DisableButton
-	//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-    //{ 
-	//	iSMPanelImages[ HOP_IMAGES ]		= LoadButtonImage(ubString2,-1,2,-1,3,-1 );
-	//}
 
 	FilenameForBPP("INTERFACE\\invadd-ons.sti", ubString);
 	// Load button Graphics
@@ -2263,30 +2180,7 @@ BOOLEAN CreateSMPanelButtons( )
 
 	// SET BUTTONS TO -1
 	memset( iSMPanelButtons, -1, sizeof( iSMPanelButtons ) );
-	
-	
-	//Legion by Jazz
-	//DisableButton
-	/*if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-    { 
-    
-		if (UsingNewInventorySystem() == true) 
-			{
-		iSMPanelButtons[ HOP_BUTTON ] = QuickCreateButton( iSMPanelImages[ HOP_IMAGES ], SM_BURSTMODEB_X-30, SM_BURSTMODEB_Y,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
-										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnOknoCallback );
-			}
-			else
-			{
-		iSMPanelButtons[ HOP_BUTTON ] = QuickCreateButton( iSMPanelImages[ HOP_IMAGES ], SM_BURSTMODEB_X-98, SM_BURSTMODEB_Y+35,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
-										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnOknoCallback );
-			}
-	}
-	*/
-	//-----------------------									
-										
-
+									
 	iSMPanelButtons[ SM_MAP_SCREEN_BUTTON ] = QuickCreateButton( iSMPanelImages[ MAPSCREEN_IMAGES ], SM_MAPSCREEN_X, SM_MAPSCREEN_Y,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnMapScreenCallback );
@@ -2477,13 +2371,13 @@ void	RemoveSMPanelButtons( )
 		RemoveButton( giSMStealthButton );
 	}
 
-	RenderBackpackButtons(1);	/* CHRISL: Needed for new inventory backpack buttons */
+	RenderBackpackButtons(DEACTIVATE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 
 	if ( giSMStealthImages != -1 )
 	{
 		UnloadButtonImage( giSMStealthImages );
 	}
-	RenderBackpackButtons(4);	/* CHRISL: Needed for new inventory backpack buttons */
+	RenderBackpackButtons(UNLOAD_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 	
 	UnloadButtonImage( iBurstButtonImages[ WM_NORMAL ] );
 	UnloadButtonImage( iBurstButtonImages[ WM_BURST ] );
@@ -2524,6 +2418,8 @@ BOOLEAN ShutdownSMPanel( )
 
 	// shutdown keyring interface
 	ShutdownKeyRingInterface( );
+
+	ShutdownInventoryInterface();
 
 	MSYS_RemoveRegion( &gSMPanelRegion );
 	MSYS_RemoveRegion( &gSM_SELMERCPanelRegion );
@@ -3079,6 +2975,10 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 			CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 		}
+		else
+		{
+			RemoveMouseRegionForPauseOfClock();
+		}
 
 		// CHRISL: Change function call to include X,Y coordinates.
 		RenderTownIDString( LOCATION_NAME_X, LOCATION_NAME_Y );
@@ -3268,78 +3168,57 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 							{
-							if ( gpSMCurrentMerc->bCamo > 0 )
-							{
-								gCamoFace[gpSMCurrentMerc->ubProfile].gCamoface = TRUE;
+								SetCamoFace( gpSMCurrentMerc );
 								DeleteSoldierFace( gpSMCurrentMerc );// remove face
 								gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
-							}
-							if ( gpSMCurrentMerc->urbanCamo > 0 )
-							{
-								gCamoFace[gpSMCurrentMerc->ubProfile].gUrbanCamoface = TRUE;
-								DeleteSoldierFace( gpSMCurrentMerc );// remove face
-								gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
-							}
-							if ( gpSMCurrentMerc->desertCamo > 0)
-							{
-								gCamoFace[gpSMCurrentMerc->ubProfile].gDesertCamoface = TRUE;
-								DeleteSoldierFace( gpSMCurrentMerc );// remove face
-								gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
-							}							
-							if ( gpSMCurrentMerc->snowCamo > 0)
-							{
-								gCamoFace[gpSMCurrentMerc->ubProfile].gSnowCamoface = TRUE;
-								DeleteSoldierFace( gpSMCurrentMerc );// remove face
-								gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
-							}
 							}
 							
-						// Dirty
-						fInterfacePanelDirty = DIRTYLEVEL2;
+							// Dirty
+							fInterfacePanelDirty = DIRTYLEVEL2;
 
-						// Check if it's the same now!
-						if ( gpItemPointer->exists() == false )
-						{
-							gbCompatibleApplyItem = FALSE;
-							EndItemPointer( );
+							// Check if it's the same now!
+							if ( gpItemPointer->exists() == false )
+							{
+								gbCompatibleApplyItem = FALSE;
+								EndItemPointer( );
+							}
+
+							// Say OK acknowledge....
+							gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 						}
-
-						// Say OK acknowledge....
-						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
-			}
 					}
 					else if ( ApplyCanteen( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
 					{
 						// Dirty
-			if ( fGoodAPs )
-			{
-						fInterfacePanelDirty = DIRTYLEVEL2;
-
-						// Check if it's the same now!
-						if ( gpItemPointer->exists() == false )
+						if ( fGoodAPs )
 						{
-							gbCompatibleApplyItem = FALSE;
-							EndItemPointer( );
+							fInterfacePanelDirty = DIRTYLEVEL2;
+
+							// Check if it's the same now!
+							if ( gpItemPointer->exists() == false )
+							{
+								gbCompatibleApplyItem = FALSE;
+								EndItemPointer( );
+							}
 						}
-			}
 					}
 					else if ( ApplyElixir( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
 					{
-			if ( fGoodAPs )
-			{
-							// Dirty
-						fInterfacePanelDirty = DIRTYLEVEL2;
-
-						// Check if it's the same now!
-						if ( gpItemPointer->exists() == false )
+						if ( fGoodAPs )
 						{
-							gbCompatibleApplyItem = FALSE;
-							EndItemPointer( );
-						}
+							// Dirty
+							fInterfacePanelDirty = DIRTYLEVEL2;
 
-						// Say OK acknowledge....
-						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
-			}
+							// Check if it's the same now!
+							if ( gpItemPointer->exists() == false )
+							{
+								gbCompatibleApplyItem = FALSE;
+								EndItemPointer( );
+							}
+
+							// Say OK acknowledge....
+							gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+						}
 					}
 					else if ( ApplyDrugs( gpSMCurrentMerc, gpItemPointer ) )
 					{
@@ -3586,7 +3465,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							break;
 						}
 					}
-					RenderBackpackButtons(0);	/* CHRISL: Needed for new inventory backpack buttons */
+					RenderBackpackButtons(ACTIVATE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 				}
 			}
 
@@ -3724,7 +3603,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 								return;
 						if(gpSMCurrentMerc->flags.DropPackFlag)
 							gpSMCurrentMerc->flags.DropPackFlag = FALSE;
-						RenderBackpackButtons(0);	/* CHRISL: Needed for new inventory backpack buttons */
+						RenderBackpackButtons(ACTIVATE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 					}
 				}
 
@@ -3740,7 +3619,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				// try to place the item in the cursor into this inventory slot
 				if ( UIHandleItemPlacement( (UINT8) uiHandPos, usOldItemIndex, usNewItemIndex, fDeductPoints ) )
 				{
-					RenderBackpackButtons(0);	/* CHRISL: Needed for new inventory backpack buttons */
+					RenderBackpackButtons(ACTIVATE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 					// it worked!	if we're in the SKI...
 					if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
 					{
@@ -4445,9 +4324,9 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 		
 		if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
 		{ 
-			if ( FindFenceDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
+			if ( FindWallJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
 			{
-				gpSMCurrentMerc->BeginSoldierFence(  );
+				gpSMCurrentMerc->BeginSoldierClimbWall(  );
 			}
 		}
 		
@@ -4457,7 +4336,6 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			gpSMCurrentMerc->BeginSoldierClimbFence(	);
 		}
-
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
@@ -7192,11 +7070,6 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void DisableSMPpanelButtonsWhenInShopKeeperInterface( BOOLEAN fDontDrawButtons )
 {
 	//Go through the buttons that will be under the ShopKeepers ATM panel and disable them
-	//DisableButton
-	//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-    //{ 
-	//DisableButton( iSMPanelButtons[ HOP_BUTTON ] ); //Legion by Jazz
-	//}
 	DisableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
 	DisableButton( iSMPanelButtons[ UPDOWN_BUTTON ] );
 	DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
@@ -7216,10 +7089,6 @@ void DisableSMPpanelButtonsWhenInShopKeeperInterface( BOOLEAN fDontDrawButtons )
 	DisableButton( iSMPanelButtons[ SM_MAP_SCREEN_BUTTON ] );
 
 	//DisableButton
-	//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-    //{ 
-	//DisableButton( iSMPanelButtons[ HOP_BUTTON ] ); //legion by Jazz
-	//}
 	DisableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
 	DisableButton( iSMPanelButtons[ UPDOWN_BUTTON ] );
 	DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
@@ -7231,20 +7100,15 @@ void DisableSMPpanelButtonsWhenInShopKeeperInterface( BOOLEAN fDontDrawButtons )
 	DisableButton( iSMPanelButtons[ MUTE_BUTTON ] );
 
 	DisableButton( giSMStealthButton );
-	RenderBackpackButtons(3);	/* CHRISL: Needed for new inventory backpack buttons */
+	RenderBackpackButtons(DISABLE_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 
 
 
 	if( fDontDrawButtons )
 	{
 //ATM:
-
 		//Go through the buttons that will be under the ShopKeepers ATM panel and disable them
 		//DisableButton
-		//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-		//{ 		
-		//ButtonList[ iSMPanelButtons[ HOP_BUTTON ] ]->uiFlags &= ~BUTTON_DIRTY; //Legion by Jazz
-		//}
 		ButtonList[ iSMPanelButtons[ STANCEUP_BUTTON ] ]->uiFlags &= ~BUTTON_DIRTY;
 		ButtonList[ iSMPanelButtons[ UPDOWN_BUTTON ] ]->uiFlags &= ~BUTTON_DIRTY;
 		ButtonList[ iSMPanelButtons[ CLIMB_BUTTON ] ]->uiFlags &= ~BUTTON_DIRTY;
@@ -7271,10 +7135,6 @@ void DisableSMPpanelButtonsWhenInShopKeeperInterface( BOOLEAN fDontDrawButtons )
 		ButtonList[ iSMPanelButtons[ SM_MAP_SCREEN_BUTTON ] ]->uiFlags &= ~BUTTON_ENABLED;
 	
 		//DisableButton
-		//if (gGameExternalOptions.fCanJumpThroughWindows == TRUE)
-		//{ 
-		//ButtonList[ iSMPanelButtons[ HOP_BUTTON ] ]->uiFlags |= BUTTON_FORCE_UNDIRTY; //legion by Jazz
-		//}
 		ButtonList[ iSMPanelButtons[ STANCEUP_BUTTON ] ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
 		ButtonList[ iSMPanelButtons[ UPDOWN_BUTTON ] ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
 		ButtonList[ iSMPanelButtons[ CLIMB_BUTTON ] ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
@@ -7455,75 +7315,6 @@ void GoToMapScreenFromTactical( void )
 	}
 	// ok, proceed!
 	gfEnteringMapScreen = TRUE;
-}
-
-//-------------Legion by Jazz-----------------------------------
-void BtnOknoCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	INT8							bDirection;
-
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-		
-		
-	if ( gpSMCurrentMerc->pathing.bLevel == 1 )
-        {
-	return;
-	}
-	
-
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags |= BUTTON_CLICKED_ON;
-	}
-	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		btn->uiFlags &= (~BUTTON_CLICKED_ON );
-
-		if ( FindWindowJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
-		{
-			gpSMCurrentMerc->BeginSoldierClimbWindow(  );
-		}
-
-	}
-	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
-	{
-		btn->uiFlags &= (~BUTTON_CLICKED_ON );
-	}
-	
-}
-
-void BtnFenceCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	BOOLEAN						fNearHeigherLevelFence;
-	BOOLEAN						fNearLowerLevelFence;
-	INT8							bDirection;
-
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags |= BUTTON_CLICKED_ON;
-	}
-	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		btn->uiFlags &= (~BUTTON_CLICKED_ON );
-
-		GetMercFenceDirection( gpSMCurrentMerc->ubID, &fNearLowerLevelFence, &fNearHeigherLevelFence );
-
-		
-		if ( FindFenceDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
-		{
-			gpSMCurrentMerc->BeginSoldierFence(  );
-		}
-
-	}
-	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
-	{
-		btn->uiFlags &= (~BUTTON_CLICKED_ON );
-	}
-	
 }
 
 //----LEGION 2---------

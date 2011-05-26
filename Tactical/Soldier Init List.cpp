@@ -1055,8 +1055,8 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 							(*pCurrTotal)--;
 							ubMaxNum--;
 						}
-						else
-							return;
+//						else
+//							return;
 					}
 					(*pCurrSlots)--;
 					//With the decrementing of the slot vars in this manner, the chances increase so that all slots

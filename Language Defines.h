@@ -21,19 +21,23 @@
 
 #if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE) && !defined(CHINESE)
 /* please set one manually here (by uncommenting) if not willingly to set Workspace wide */
+
 #define ENGLISH
 //#define GERMAN
 //#define RUSSIAN
 //#define DUTCH
-//#define POLISH
 //#define FRENCH
 //#define ITALIAN
 //#define TAIWANESE
 
-// For CHINESE language we also have to define WINFONTS!
+// WANNE: If we like to build Polish version, we have to do this in VS2008/VS2010, because in VS2005 we get weird behavior (progress bar not moving when loading sector, ...). 
+// To get correct display of Polish letters, it is needed to set "#pragma setlocale("POLISH")" in "_PolishText.cpp" and "_"Ja25PolishText.cpp.
+// Unfortunatelly setting the "pragma" causes the weird behavior when building in VS2005, this is why we should build in VS2008/VS2010.
+//#define POLISH			
+
+// WANNE: For CHINESE language we also have to define WINFONTS! So when building Chinese version, enable both defines.
 //#define CHINESE
 //#define WINFONTS
-
 
 #endif
 
@@ -50,9 +54,6 @@
 #if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE) && !defined(CHINESE)
 #  error "At least You have to specify a Language somewhere. See comments above."
 #endif
-
-
-
 
 //if the language represents words as single chars
 #ifdef TAIWAN

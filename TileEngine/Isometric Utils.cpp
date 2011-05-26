@@ -268,7 +268,7 @@ BOOLEAN FindWindowJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bSta
 	return( FALSE );
 }
 
-BOOLEAN FindFenceDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection )
+BOOLEAN FindWallJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection )
 {
 	INT32			cnt;
 	INT32			sNewGridNo, sOtherSideOfFence;
@@ -278,7 +278,7 @@ BOOLEAN FindFenceDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStarting
 	INT8			bMinDirection = 0;
 
 	// IF there is a fence in this gridno, return false!
-	if ( IsLegionFencePresentAtGridno( sGridNo ) )
+	if ( IsLegionWallPresentAtGridno( sGridNo ) )
 	{
 		return( FALSE );
 	}
@@ -296,7 +296,7 @@ BOOLEAN FindFenceDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStarting
 
 
 			// Check if we have a fence here
-			if ( IsLegionFencePresentAtGridno( sNewGridNo ) )
+			if ( IsLegionWallPresentAtGridno( sNewGridNo ) )
 			{
 				fFound = TRUE;
 
@@ -475,7 +475,7 @@ BOOLEAN FindHeigherLevelFence( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStart
 	return( FALSE );
 }
 
-BOOLEAN FindLowerLevelFence( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection )
+BOOLEAN FindLowerLevelWall( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStartingDir, INT8 *pbDirection )
 {
 	INT32			cnt;
 	INT32			sNewGridNo;

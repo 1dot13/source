@@ -41,6 +41,8 @@
 #include "connect.h"
 #include "sgp_logger.h"
 
+#include "Map Information.h"
+
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_file_raii.h>
 #include <vfs/Core/File/vfs_file.h>
@@ -95,7 +97,7 @@ bool UsingNewAttachmentSystem()
 
 bool UsingNewCTHSystem()
 {
-	return (gGameExternalOptions.fUseNCTH == TRUE);
+	return (gGameSettings.fOptions[TOPTION_USE_NCTH] == TRUE);
 }
 
 std::string StringToLower(std::string strToConvert)
@@ -152,7 +154,7 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_SHOW_MISSES]                     = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_MISSES"                      ,  FALSE );
 		gGameSettings.fOptions[TOPTION_RTCONFIRM]                       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_RTCONFIRM"                        ,  FALSE );
 		gGameSettings.fOptions[TOPTION_SLEEPWAKE_NOTIFICATION]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SLEEPWAKE_NOTIFICATION"           ,  TRUE  );
-		gGameSettings.fOptions[TOPTION_USE_METRIC_SYSTEM]               = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_METRIC_SYSTEM"                ,  FALSE );
+		gGameSettings.fOptions[TOPTION_USE_METRIC_SYSTEM]               = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_METRIC_SYSTEM"                ,  TRUE );
 		gGameSettings.fOptions[TOPTION_MERC_ALWAYS_LIGHT_UP]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERC_ALWAYS_LIGHT_UP"             ,  FALSE );
 		gGameSettings.fOptions[TOPTION_SMART_CURSOR]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SMART_CURSOR"                     ,  FALSE );
 		gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SNAP_CURSOR_TO_DOOR"              ,  TRUE  );
@@ -174,13 +176,16 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_ALLOW_SOLDIER_TOOLTIPS]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALLOW_SOLDIER_TOOLTIPS"           ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_USE_AUTO_SAVE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_AUTO_SAVE"                    ,  FALSE );
 		gGameSettings.fOptions[TOPTION_SILENT_SKYRIDER]                 = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SILENT_SKYRIDER"                  ,  FALSE );
-		gGameSettings.fOptions[TOPTION_LOW_CPU_USAGE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_LOW_CPU_USAGE"                    ,  FALSE );
-		gGameSettings.fOptions[TOPTION_ENHANCED_DESC_BOX]               = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ENHANCED_DESC_BOX"                ,  FALSE );
+		//gGameSettings.fOptions[TOPTION_LOW_CPU_USAGE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_LOW_CPU_USAGE"                    ,  FALSE );
+		gGameSettings.fOptions[TOPTION_ENHANCED_DESC_BOX]               = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ENHANCED_DESC_BOX"                ,  TRUE );
 		gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TOGGLE_TURN_MODE"                 ,  FALSE );
 		gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS]              = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_STAT_PROGRESS_BARS"               ,  TRUE ); // HEADROCK HAM 3.6: Progress Bars
 		gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_REPORT_MISS_MARGIN"			   ,  FALSE ); // HEADROCK HAM 4: Shot offset report
 		gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALT_MAP_COLOR"					   ,  FALSE ); // HEADROCK HAM 4: Strategic Map Colors
 		gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALTERNATE_BULLET_GRAPHICS"        ,  TRUE );
+		gGameSettings.fOptions[TOPTION_USE_NCTH]					    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_NCTH"						   ,  TRUE );
+		gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR]		    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_TACTICAL_FACE_GEAR"		   ,  TRUE );
+		gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_ICONS]	    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_TACTICAL_FACE_ICONS"		   ,  TRUE );
 		gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_CHEAT_MODE_OPTIONS_HEADER"        ,  FALSE );
 		gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_FORCE_BOBBY_RAY_SHIPMENTS"        ,  FALSE );
 		gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_END]          = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_CHEAT_MODE_OPTIONS_END"           ,  FALSE );
@@ -343,12 +348,15 @@ BOOLEAN	SaveGameSettings()
 	settings << "TOPTION_ALLOW_SOLDIER_TOOLTIPS           = " << (gGameSettings.fOptions[TOPTION_ALLOW_SOLDIER_TOOLTIPS]			?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_USE_AUTO_SAVE                    = " << (gGameSettings.fOptions[TOPTION_USE_AUTO_SAVE]						?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_SILENT_SKYRIDER                  = " << (gGameSettings.fOptions[TOPTION_SILENT_SKYRIDER]					?    "TRUE" : "FALSE" ) << endl;
-	settings << "TOPTION_LOW_CPU_USAGE                    = " << (gGameSettings.fOptions[TOPTION_LOW_CPU_USAGE]						?    "TRUE" : "FALSE" ) << endl;
+	//settings << "TOPTION_LOW_CPU_USAGE                    = " << (gGameSettings.fOptions[TOPTION_LOW_CPU_USAGE]						?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_ENHANCED_DESC_BOX                = " << (gGameSettings.fOptions[TOPTION_ENHANCED_DESC_BOX]					?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_TOGGLE_TURN_MODE                 = " << (gGameSettings.fOptions[TOPTION_TOGGLE_TURN_MODE]					?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_STAT_PROGRESS_BARS               = " << (gGameSettings.fOptions[TOPTION_STAT_PROGRESS_BARS]				?    "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 3.6: Progress Bars
 	settings << "TOPTION_ALT_MAP_COLOR					  = " << (gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR]						?	 "TRUE" : "FALSE" ) << endl; // HEADROCK HAM 4: Alt Map Colors
 	settings << "TOPTION_ALTERNATE_BULLET_GRAPHICS        = " << (gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS]			?    "TRUE" : "FALSE" ) << endl;
+	settings << "TOPTION_USE_NCTH                         = " << (gGameSettings.fOptions[TOPTION_USE_NCTH]							?    "TRUE" : "FALSE" ) << endl;
+	settings << "TOPTION_SHOW_TACTICAL_FACE_GEAR          = " << (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR]			?    "TRUE" : "FALSE" ) << endl;
+	settings << "TOPTION_SHOW_TACTICAL_FACE_ICONS         = " << (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_ICONS]			?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_CHEAT_MODE_OPTIONS_END           = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_END]			?    "TRUE" : "FALSE" ) << endl;
@@ -420,7 +428,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[	TOPTION_SHOW_MISSES ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_RTCONFIRM ]							= FALSE;
 	gGameSettings.fOptions[ TOPTION_SLEEPWAKE_NOTIFICATION ]			= TRUE;
-	gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ]					= FALSE;
+	gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ]					= TRUE;
 	gGameSettings.fOptions[ TOPTION_MERC_ALWAYS_LIGHT_UP ]				= FALSE;
 	gGameSettings.fOptions[ TOPTION_SMART_CURSOR ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_SNAP_CURSOR_TO_DOOR ]				= TRUE;
@@ -446,8 +454,8 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_ALLOW_SOLDIER_TOOLTIPS ]			= TRUE;
 	gGameSettings.fOptions[ TOPTION_USE_AUTO_SAVE ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ]					= FALSE;
-	gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ]						= FALSE;
-	gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ]					= FALSE;
+	//gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ]						= FALSE;
+	gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ]					= TRUE;
 
 	// arynn 
 	gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ]					= FALSE;
@@ -458,7 +466,14 @@ void InitGameSettings()
 	// HEADROCK HAM 4:
 	gGameSettings.fOptions[ TOPTION_ALT_MAP_COLOR ]						= FALSE;
 
-	gGameSettings.fOptions[ TOPTION_ALTERNATE_BULLET_GRAPHICS ]			= FALSE;
+	gGameSettings.fOptions[ TOPTION_ALTERNATE_BULLET_GRAPHICS ]			= TRUE;
+
+	// CHRISL: HAM 4: Activate/Deactivate NCTH mode
+	gGameSettings.fOptions[ TOPTION_USE_NCTH ]							= TRUE;
+
+	// WANNE:
+	gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ]			= TRUE;
+	gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ]			= TRUE;
 
 	gGameSettings.fOptions[ TOPTION_REPORT_MISS_MARGIN ]				= FALSE;
 
@@ -503,22 +518,12 @@ void InitGameOptions()
 {
 	memset( &gGameOptions, 0, sizeof( GAME_OPTIONS ) );
 
-	//Init the game options
-
-	if (is_networked)
-		gGameOptions.ubBobbyRay			= BR_AWESOME;// hayden, was BR_GOOD;
-	else
-		gGameOptions.ubBobbyRay			= BR_GOOD;
-
+	gGameOptions.ubBobbyRay			= BR_GOOD;
 	gGameOptions.fGunNut			= TRUE;
 	gGameOptions.fAirStrikes		= FALSE;
-
-	if (is_networked)
-		gGameOptions.ubGameStyle		= STYLE_REALISTIC;//hayden, was STYLE_SCIFI;
-	else
-		gGameOptions.ubGameStyle		= STYLE_SCIFI;
-
+	gGameOptions.ubGameStyle		= STYLE_SCIFI;
 	gGameOptions.ubDifficultyLevel	= DIF_LEVEL_MEDIUM;
+
 	//CHRISL: override default inventory mode when in low res
 	if(IsNIVModeValid(true) == FALSE)
 	{
@@ -531,11 +536,7 @@ void InitGameOptions()
 		gGameOptions.ubAttachmentSystem = ATTACHMENT_OLD;
 	}
 	
-	if (is_networked)
-		gGameOptions.fTurnTimeLimit	= TRUE;//hayden
-	else
-		gGameOptions.fTurnTimeLimit	= FALSE;
-	
+	gGameOptions.fTurnTimeLimit	= FALSE;
 	gGameOptions.fIronManMode		= FALSE;
 	
 	// following added by SANDRO
@@ -711,7 +712,7 @@ void LoadGameExternalOptions()
 		gGameExternalOptions.iImpAttributePoints = ((gGameExternalOptions.iMinAttribute * 5) + (gGameExternalOptions.iMaxZeroBonus * 5));
 	}
 
-	gGameExternalOptions.iMaxAttribute						= iniReader.ReadInteger("Recruitment Settings","IMP_MAX_ATTRIBUTE",90, gGameExternalOptions.iMinAttribute+1, 100);
+	gGameExternalOptions.iMaxAttribute						= iniReader.ReadInteger("Recruitment Settings","IMP_MAX_ATTRIBUTE",90, gGameExternalOptions.iMinAttribute, 100);
 	gGameExternalOptions.iIMPStartingLevelCostMultiplier	= iniReader.ReadInteger("Recruitment Settings","IMP_STARTING_LEVEL_COST_MULTIPLIER", 5, 0, 100);
 	gGameExternalOptions.iBonusPointsForDisability			= iniReader.ReadInteger("Recruitment Settings","IMP_BONUS_POINTS_FOR_DISABILITY",20, 0, 500);
 	gGameExternalOptions.iBonusPointsPerSkillNotTaken		= iniReader.ReadInteger("Recruitment Settings","IMP_BONUS_POINTS_PER_SKILL_NOT_TAKEN",25, 0, 500);
@@ -862,9 +863,11 @@ void LoadGameExternalOptions()
 			break;
 	}
 
+	// WANNE: Moved to options screen
 	//legion by Jazz
-	gGameExternalOptions.fShowTacticalFaceGear				= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_TACTICAL_FACE_GEAR",FALSE);
-	gGameExternalOptions.fShowTacticalFaceIcons				= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_TACTICAL_FACE_ICONS",FALSE);
+	/*gGameExternalOptions.fShowTacticalFaceGear				= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_TACTICAL_FACE_GEAR",FALSE);
+	gGameExternalOptions.fShowTacticalFaceIcons				= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_TACTICAL_FACE_ICONS",FALSE);*/
+
 	gGameExternalOptions.bTacticalFaceIconStyle 			= iniReader.ReadInteger("Tactical Interface Settings","TACTICAL_FACE_ICON_STYLE", 0, 0, 3);
 
 	// Camo portraits by Jazz
@@ -997,6 +1000,9 @@ void LoadGameExternalOptions()
 
 	//################# Tactical Gameplay Settings ##################
 
+	// WANNE: Externalized grid number of new merc when they arrive with the helicopter (by Jazz)
+	gGameExternalOptions.iInitialMercArrivalLocation		= iniReader.ReadInteger("Tactical Gameplay Settings","INITIAL_MERC_ARRIVAL_LOCATION", 4870 );
+
 	// HEADROCK HAM B1: Set minimum and maximum CTH
 	gGameExternalOptions.ubMaximumCTH						= iniReader.ReadInteger("Tactical Gameplay Settings","MAXIMUM_POSSIBLE_CTH", 99, 1, 100);
 
@@ -1037,20 +1043,24 @@ void LoadGameExternalOptions()
 
 	// allow old behaviour
 	gGameExternalOptions.fAimLevelsDependOnDistance			= iniReader.ReadBoolean("Tactical Gameplay Settings", "AIM_LEVELS_DEPEND_ON_DISTANCE", TRUE);
+	gGameExternalOptions.iAimLevelsCompatibilityOption		= iniReader.ReadInteger("Tactical Gameplay Settings", "AIM_LEVELS_COMPATIBILITY_OPTION", 0, -10000, 10000);
 
 	//WarmSteel - These determine in which group each scope belongs. Needed for dynamic aiming limits.
 	gGameExternalOptions.sVeryHighPowerScope				= iniReader.ReadInteger("Tactical Gameplay Settings","VERY_HIGH_POWER_SCOPE_AIM_THRESHOLD", 18, 0, 255);
 	gGameExternalOptions.sHighPowerScope					= iniReader.ReadInteger("Tactical Gameplay Settings","HIGH_POWER_SCOPE_AIM_THRESHOLD", 13, 0, 255);
 	gGameExternalOptions.sMediumPowerScope					= iniReader.ReadInteger("Tactical Gameplay Settings","MEDIUM_POWER_SCOPE_AIM_THRESHOLD", 8, 0, 255);
 
+	//CHRISL: AI Sniper fields
+	gGameExternalOptions.fAISniperElite						= iniReader.ReadBoolean("Tactical Gameplay Settings", "AI_SNIPER_RESTRICT_TO_ELITE", TRUE);
+	gGameExternalOptions.fAISniperRange						= iniReader.ReadInteger("Tactical Gameplay Settings","AI_SNIPER_MIN_RANGE ", 40, 0, 1000);
+	gGameExternalOptions.fAISniperChance					= iniReader.ReadInteger("Tactical Gameplay Settings","AI_SNIPER_CHANCE ", 30, 0, 100);
+	gGameExternalOptions.fAISniperChanceWithSR				= iniReader.ReadInteger("Tactical Gameplay Settings","AI_SNIPER_CHANCE_WITH_SR ", 80, 0, 100);
+
 	// HEADROCK HAM B2.6: Controls how much effect target movement has on aiming
 	gGameExternalOptions.iMovementEffectOnAiming			= (float)iniReader.ReadDouble("Tactical Gameplay Settings","CTH_PENALTY_FOR_TARGET_MOVEMENT", 1.5, 0.0, 255.0);
 
 	// HEADROCK HAM 3.3: Externalized maximum possible penalty for hitting a moving target. JA2 Default = 30.
 	gGameExternalOptions.usMaxCTHPenaltyForMovingTarget		= iniReader.ReadInteger("Tactical Gameplay Settings","MAX_CTH_PENALTY_FOR_TARGET_MOVEMENT", 30, 0, 300);
-
-	// CHRISL: HAM4-NCTH
-	gGameExternalOptions.fUseNCTH							= iniReader.ReadBoolean("Tactical Gameplay Settings", "USE_NCTH", FALSE, false);
 
 	// HEADROCK HAM 3.2: Critical Headshots may cause blindness. Rolls 1 to X change of being blinded. 0 = disabled.
 	gGameExternalOptions.ubChanceBlindedByHeadshot			= iniReader.ReadInteger("Tactical Gameplay Settings","CHANCE_BLINDED_BY_HEADSHOT", 0, 0, 100);
@@ -1186,8 +1196,9 @@ void LoadGameExternalOptions()
 	// HEADROCK HAM B2.3: A "cowering" soldier is twice as susceptible to suppression.
 	gGameExternalOptions.ubCowerEffectOnSuppression				= iniReader.ReadInteger("Tactical Suppression Fire Settings","COWERING_PENALTY_TO_SUPPRESSION_TOLERANCE", 4, 0, 24 );
 
-	// HEADROCK HAM B2.6: Toggle whether AI checks for larger magazine when wanting to use burst/auto or suppress from beyond sight range. Also makes enemies less prone to fleeing.
-	gGameExternalOptions.fIncreaseAISuppressionFire				= iniReader.ReadBoolean("Tactical Suppression Fire Settings","INCREASE_AI_WILLINGNESS_TO_SUPPRESS", FALSE);
+	// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
+	gGameExternalOptions.ubAISuppressionMinimumMagSize			= iniReader.ReadInteger("Tactical Suppression Fire Settings","AI_SUPPRESS_MIN_MAG_SIZE", 30, 0, 1000);
+	gGameExternalOptions.ubAISuppressionMinimumAmmo				= iniReader.ReadInteger("Tactical Suppression Fire Settings","AI_SUPPRESS_MIN_AMMO_REMAINING", 20, 0, 1000);
 
 	// HEADROCK HAM 3.5: Explosive Suppression Effectiveness alters the amount of Suppression Points you get from nearby blasts.
 	gGameExternalOptions.usExplosionSuppressionEffect			= iniReader.ReadInteger("Tactical Suppression Fire Settings","EXPLOSIVE_SUPPRESSION_EFFECTIVENESS", 100, 0, 1000);
@@ -1584,9 +1595,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubTrainingSkillMin					= iniReader.ReadInteger("Strategic Assignment Settings","MIN_REQUIRED_SKILL_TO_BEGIN_TRAINING",0, 0, 100);
 	gGameExternalOptions.ubTrainingSkillMax					= iniReader.ReadInteger("Strategic Assignment Settings","MAX_SKILL_ACHIEVABLE_BY_TRAINING",100, 0, 100);
 	gGameExternalOptions.ubSelfTrainingDivisor				= iniReader.ReadInteger("Strategic Assignment Settings","TRAINING_RATE_DIVISOR",1000, 1, 10000);
-	gGameExternalOptions.ubInstructedTrainingDivisor		= iniReader.ReadInteger("Strategic Assignment Settings","INSTRUCTED_TRAINING_BONUS_DIVISOR",3000, 1, 10000);
+	gGameExternalOptions.ubInstructedTrainingDivisor		= iniReader.ReadInteger("Strategic Assignment Settings","INSTRUCTED_TRAINING_DIVISOR",3000, 1, 10000);
 
-	gGameExternalOptions.ubTeachBonusToTrain				= iniReader.ReadInteger("Strategic Assignment Settings","TEACHER_TRAIT_BONUS_TO_TEACHING_EFFICIENCY",30, 0, 100);
+	gGameExternalOptions.ubTeachBonusToTrain				= iniReader.ReadInteger("Strategic Assignment Settings","TEACHER_TRAIT_BONUS_TO_TRAINING_EFFICIENCY",30, 0, 100);
 	gGameExternalOptions.ubMinSkillToTeach					= iniReader.ReadInteger("Strategic Assignment Settings","MIN_SKILL_REQUIRED_TO_TEACH_OTHER",25, 0, 100);
 
 	// HEADROCK HAM B2.8: New Trainer Relations: 2 = Trainees will go to sleep when their trainer goes to sleep. 3 = Trainer will go to sleep if all trainees are asleep. 1 = Both. 0 = Neither.
@@ -1619,8 +1630,8 @@ void LoadGameExternalOptions()
 	//SaveGame slot by Jazz		
 	// WANNE: No need to make it external to switch between old/new. We always use the new save/load screen with more save slots
 	//gGameExternalOptions.fSaveGameSlot					= iniReader.ReadBoolean("Extension","SAVE_GAMES_SLOT",FALSE);
-	gGameExternalOptions.fSaveGameSlot						= TRUE;				
-		
+	gGameExternalOptions.fSaveGameSlot						= TRUE;	
+	
 	// WANNE: This is just a debug setting. Only in debug version we set that property to TRUE.
 	// In Release version this should always be set to FALSE
 	// dnl ch51 081009 JA2 Debug Settings
@@ -1910,6 +1921,10 @@ void LoadGameAPBPConstants()
  
 	//CHRISL: Once we've loaded the AP_MAXIMUM value, we can use it to modifiy all the remaining values
 	APBPConstants[AP_MINIMUM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MINIMUM",40, 10, 100),40);
+	
+	// WANNE: Externalized minimum APs to get an interrupt
+	APBPConstants[MIN_APS_TO_INTERRUPT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","MIN_APS_TO_INTERRUPT",16),16);
+	
 	APBPConstants[AP_MONSTER_MAXIMUM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MONSTER_MAXIMUM",160),160);
 	APBPConstants[AP_VEHICLE_MAXIMUM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_VEHICLE_MAXIMUM",200),200);
 	APBPConstants[MAX_AP_CARRIED] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","MAX_AP_CARRIED",20),20);
@@ -2000,11 +2015,15 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_FIFTH_CLICK_AIM_SCOPE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_FIFTH_CLICK_AIM_SCOPE",4),4);
 	APBPConstants[AP_SIXTH_CLICK_AIM_SCOPE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_SIXTH_CLICK_AIM_SCOPE",4),4);
 	APBPConstants[AP_SEVENTH_CLICK_AIM_SCOPE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_SEVENTH_CLICK_AIM_SCOPE",4),4);
-	APBPConstants[AP_EIGHTTH_CLICK_AIM_SCOPE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EIGHTTH_CLICK_AIM_SCOPE",4),4);
+	APBPConstants[AP_EIGHTH_CLICK_AIM_SCOPE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EIGHTH_CLICK_AIM_SCOPE",4),4);
 	APBPConstants[AUTOFIRE_SHOTS_AP_VALUE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AUTOFIRE_SHOTS_AP_VALUE",20),20);
 	APBPConstants[BAD_AP_COST] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","BAD_AP_COST",36),36);
 	APBPConstants[AP_RELOAD_LOOSE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_RELOAD_LOOSE",8),8);
 	APBPConstants[AP_UNJAM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_UNJAM",2),2);
+	
+	// WANNE: APs needed when you jump through a window
+	APBPConstants[AP_JUMPWINDOW] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPWINDOW",40),40);
+	
 	APBPConstants[AP_MAX_SUPPRESSED] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MAX_SUPPRESSED",64),64);
 	APBPConstants[AP_MAX_TURN_SUPPRESSED] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MAX_TURN_SUPPRESSED",200),200);
 	APBPConstants[AP_MIN_LIMIT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MIN_LIMIT",-100),-100);
@@ -2014,6 +2033,7 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_SUPPRESSION_SHOCK_DIVISOR] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_SUPPRESSION_SHOCK_DIVISOR",4),4);
 	// HEADROCK HAM 3.2: Modifier for legshot AP loss based on damage
 	APBPConstants[AP_LOSS_PER_LEGSHOT_DAMAGE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_LOSS_PER_LEGSHOT_DAMAGE",4),4);
+
 	APBPConstants[DEFAULT_APS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","DEFAULT_APS",80),80);
 	APBPConstants[DEFAULT_AIMSKILL] = iniReader.ReadInteger("APConstants","DEFAULT_AIMSKILL",80);
 
@@ -2064,7 +2084,11 @@ void LoadGameAPBPConstants()
 	APBPConstants[BP_WORK_ZIPPER] = iniReader.ReadInteger("APConstants","BP_WORK_ZIPPER",250);
 	APBPConstants[BP_UNJAM] = iniReader.ReadInteger("APConstants","BP_WORK_ZIPPER",0);
 	
-	APBPConstants[AP_JUMPWINDOW] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPWINDOW",40),40);
+	APBPConstants[BP_JUMPOFFWALL] = iniReader.ReadInteger("BPConstants","BP_JUMPOFFWALL",250);
+	APBPConstants[BP_JUMPWALL] = iniReader.ReadInteger("BPConstants","BP_JUMPWALL",500);
+	
+	APBPConstants[AP_JUMPWALL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPOFFWALL",40),40);
+	APBPConstants[AP_JUMPOFFWALL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPWALL",24),24);
 
 	SetupMaxActionPointsAnimation();
 #undef ReadInteger
@@ -2077,11 +2101,13 @@ void LoadCTHConstants()
 	//Kaiden: Setting Ja2_Options.ini file to be read
 	CIniReader iniReader(CTH_COEFFICIENTS_FILE);
 
-	gGameCTHConstants.NORMAL_SHOOTING_DISTANCE			= iniReader.ReadInteger("General","NORMAL_SHOOTING_DISTANCE",100, 1, 10000);
+	gGameCTHConstants.NORMAL_SHOOTING_DISTANCE			= iniReader.ReadInteger("General","NORMAL_SHOOTING_DISTANCE",100, 10, 10000);
 	gGameCTHConstants.DEGREES_MAXIMUM_APERTURE			= iniReader.ReadFloat("General", "DEGREES_MAXIMUM_APERTURE", 15.0, 0.0, 22.5);
-	gGameCTHConstants.GRAVITY_COEFFICIENT				= iniReader.ReadFloat("General", "GRAVITY_COEFFICIENT", 2.0, 0.001f, 100.0);
+	gGameCTHConstants.RANGE_COEFFICIENT					= iniReader.ReadFloat("General", "RANGE_COEFFICIENT", 2.0, 0.001f, 100.0);
+	gGameCTHConstants.GRAVITY_COEFFICIENT				= iniReader.ReadFloat("General", "GRAVITY_COEFFICIENT", 1.0, 0.001f, 100.0);
 	gGameCTHConstants.VERTICAL_BIAS						= iniReader.ReadFloat("General", "VERTICAL_BIAS", 1.0f, 0.01f, 2.0f);
 	gGameCTHConstants.SCOPE_RANGE_MULTIPLIER			= iniReader.ReadFloat("General", "SCOPE_RANGE_MULTIPLIER", 0.7f, 0.5f, 1.5f);
+	gGameCTHConstants.SIDE_FACING_DIVISOR				= iniReader.ReadFloat("General", "SIDE_FACING_DIVISOR", 2.0, 1.0f, 10.0f);
 
 	////////////////////////////////////////////////////////////
 	// Coefficients for factors affecting Base CTH
@@ -2109,11 +2135,12 @@ void LoadCTHConstants()
 	gGameCTHConstants.BASE_AGILE_TARGET		= iniReader.ReadFloat("Base CTH","BASE_AGILE_TARGET",-5.0, -1000.0, 1000.0);
 	gGameCTHConstants.BASE_TARGET_INVISIBLE	= iniReader.ReadFloat("Base CTH","BASE_TARGET_INVISIBLE",-100.0, -1000.0, 1000.0);
 
-	gGameCTHConstants.BASE_DRAW_COST		= iniReader.ReadFloat("Base CTH","BASE_DRAW_COST",-2.0, -1000.0, 1000.0);
-	gGameCTHConstants.BASE_TWO_GUNS			= iniReader.ReadFloat("Base CTH","BASE_TWO_GUNS",3.5, -1000.0, 1000.0);
-	gGameCTHConstants.BASE_ONE_HANDED		= iniReader.ReadFloat("Base CTH","BASE_ONE_HANDED",2.0, -1000.0, 1000.0);
-	gGameCTHConstants.BASE_CROUCHING_STANCE	= iniReader.ReadFloat("Base CTH","BASE_CROUCHING_STANCE",2.0, -1000.0, 1000.0);
-	gGameCTHConstants.BASE_PRONE_STANCE		= iniReader.ReadFloat("Base CTH","BASE_PRONE_STANCE",3.0, -1000.0, 1000.0);
+	gGameCTHConstants.BASE_DRAW_COST		= iniReader.ReadFloat("Base CTH","BASE_DRAW_COST",2.0, -1000.0, 1000.0);
+	gGameCTHConstants.BASE_TWO_GUNS			= iniReader.ReadFloat("Base CTH","BASE_TWO_GUNS",5.0, -1000.0, 1000.0);
+	gGameCTHConstants.BASE_ONE_HANDED		= iniReader.ReadFloat("Base CTH","BASE_ONE_HANDED",2.5, -1000.0, 1000.0);
+	gGameCTHConstants.BASE_STANDING_STANCE	= iniReader.ReadFloat("Base CTH","BASE_STANDING_STANCE",2.0, -1000.0, 1000.0);
+	gGameCTHConstants.BASE_CROUCHING_STANCE	= iniReader.ReadFloat("Base CTH","BASE_CROUCHING_STANCE",3.0, -1000.0, 1000.0);
+	gGameCTHConstants.BASE_PRONE_STANCE		= iniReader.ReadFloat("Base CTH","BASE_PRONE_STANCE",4.0, -1000.0, 1000.0);
 	gGameCTHConstants.BASE_HEAVY_WEAPON		= iniReader.ReadFloat("Base CTH","BASE_HEAVY_WEAPON",2.0, -1000.0, 1000.0);
 
 	gGameCTHConstants.BASE_DIFFICULTY[0]	= -100.0;
@@ -2151,9 +2178,9 @@ void LoadCTHConstants()
 	gGameCTHConstants.AIM_TARGET_INVISIBLE  = iniReader.ReadFloat("Aiming CTH","AIM_TARGET_INVISIBLE",-50.0, -1000.0, 1000.0);
 	gGameCTHConstants.AIM_SNIPER_SKILL		= iniReader.ReadFloat("Aiming CTH","AIM_SNIPER_SKILL",25.0, -100.0, 100.0);
 
-	gGameCTHConstants.AIM_DRAW_COST  		= iniReader.ReadFloat("Aiming CTH","AIM_DRAW_COST",-2.5, -1000.0, 1000.0);
-	gGameCTHConstants.AIM_STANDING_STANCE  	= iniReader.ReadFloat("Aiming CTH","AIM_STANDING_STANCE",2.5, -1000.0, 1000.0);
-	gGameCTHConstants.AIM_CROUCHING_STANCE  = iniReader.ReadFloat("Aiming CTH","AIM_CROUCHING_STANCE",1.5, -1000.0, 1000.0);
+	gGameCTHConstants.AIM_DRAW_COST  		= iniReader.ReadFloat("Aiming CTH","AIM_DRAW_COST",0.5, -1000.0, 1000.0);
+	gGameCTHConstants.AIM_STANDING_STANCE  	= iniReader.ReadFloat("Aiming CTH","AIM_STANDING_STANCE",1.5, -1000.0, 1000.0);
+	gGameCTHConstants.AIM_CROUCHING_STANCE  = iniReader.ReadFloat("Aiming CTH","AIM_CROUCHING_STANCE",1.25, -1000.0, 1000.0);
 	gGameCTHConstants.AIM_PRONE_STANCE  	= iniReader.ReadFloat("Aiming CTH","AIM_PRONE_STANCE",1.0, -1000.0, 1000.0);
 	gGameCTHConstants.AIM_TWO_GUNS  		= iniReader.ReadFloat("Aiming CTH","AIM_TWO_GUNS",4.0, -1000.0, 1000.0);
 	gGameCTHConstants.AIM_ONE_HANDED  		= iniReader.ReadFloat("Aiming CTH","AIM_ONE_HANDED",2.5, -1000.0, 1000.0);
@@ -2185,18 +2212,26 @@ void LoadCTHConstants()
 	gGameCTHConstants.RECOIL_MAX_COUNTER_AGI							= iniReader.ReadFloat("Shooting Mechanism","RECOIL_MAX_COUNTER_AGI",1.0, 0.0, 100.0);
 	gGameCTHConstants.RECOIL_MAX_COUNTER_EXP_LEVEL						= iniReader.ReadFloat("Shooting Mechanism","RECOIL_MAX_COUNTER_EXP_LEVEL",1.0, 0.0, 100.0);
 	gGameCTHConstants.RECOIL_MAX_COUNTER_FORCE							= iniReader.ReadFloat("Shooting Mechanism","RECOIL_MAX_COUNTER_FORCE",5.0, 0.0, 100.0);
-	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_MIN_ERROR					= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_MIN",1.0, 0.0, 100.0);
+	gGameCTHConstants.RECOIL_MAX_COUNTER_CROUCH							= iniReader.ReadFloat("Shooting Mechanism","RECOIL_MAX_COUNTER_CROUCH",10.0, -100.0, 100.0);
+	gGameCTHConstants.RECOIL_MAX_COUNTER_PRONE							= iniReader.ReadFloat("Shooting Mechanism","RECOIL_MAX_COUNTER_PRONE",25.0, -100.0, 100.0);
+	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_MIN_ERROR					= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_MIN",0.2f, 0.0, 100.0);
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_DEX						= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_DEX",3.0, 0.0, 100.0);
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_WIS						= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_WIS",1.0, 0.0, 100.0);
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_AGI						= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_AGI",1.0, 0.0, 100.0);
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_EXP_LEVEL					= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_EXP_LEVEL",2.0, 0.0, 100.0);
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_AUTO_WEAPONS_DIVISOR		= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_AUTO_WEAPONS_DIVISOR",2.0, 1.0, 100.0);
 	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_TRACER_BONUS				= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_TRACER_BONUS",10.0, -1000.0, 1000.0);
+	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_ANTICIPATION				= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_ANTICIPATION",25.0, -1000.0, 1000.0);
+	gGameCTHConstants.RECOIL_COUNTER_ACCURACY_COMPENSATION				= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_ACCURACY_COMPENSATION",2.0, 0.0, 5.0);
 	gGameCTHConstants.RECOIL_COUNTER_FREQUENCY_AGI						= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_FREQUENCY_AGI",3.0, 0.0, 100.0);
 	gGameCTHConstants.RECOIL_COUNTER_FREQUENCY_EXP_LEVEL				= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_FREQUENCY_EXP_LEVEL",2.0, 0.0, 100.0);
 	gGameCTHConstants.RECOIL_COUNTER_FREQUENCY_AUTO_WEAPONS_DIVISOR		= iniReader.ReadFloat("Shooting Mechanism","RECOIL_COUNTER_FREQUENCY_AUTO_WEAPONS_DIVISOR",2.0, -1000.0, 1000.0);
 
-	gGameCTHConstants.MAX_BULLET_DEV  				= iniReader.ReadFloat("Shooting Mechanism","MAX_BULLET_DEV ",10.0, -1000.0, 1000.0);
+	gGameCTHConstants.RECOIL_COUNTER_INCREMENT							= iniReader.ReadInteger("Shooting Mechanism","RECOIL_COUNTER_INCREMENT",20, 0, 100);
+	gGameCTHConstants.RECOIL_COUNTER_INCREMENT_TRACER					= iniReader.ReadInteger("Shooting Mechanism","RECOIL_COUNTER_INCREMENT_TRACER",25, 0, 100);
+	gGameCTHConstants.NORMAL_RECOIL_DISTANCE							= iniReader.ReadInteger("Shooting Mechanism","NORMAL_RECOIL_DISTANCE",140, 10, 10000);
+	gGameCTHConstants.MAX_BULLET_DEV					 				= iniReader.ReadFloat("Shooting Mechanism","MAX_BULLET_DEV ",10.0, -1000.0, 1000.0);
+	gGameCTHConstants.RANGE_EFFECTS_DEV					 				= iniReader.ReadBoolean("Shooting Mechanism","RANGE_EFFECTS_DEV",  TRUE  );
 
 
 }

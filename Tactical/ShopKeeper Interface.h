@@ -118,7 +118,7 @@ bool RepairmanItemQsortCompare(INVENTORY_IN_SLOT& pInvSlot1, INVENTORY_IN_SLOT& 
 
 
 void			EnterShopKeeperInterfaceScreen( UINT8	ubArmsDealer );
-
+void EnableDisableShopkeeperButtons(UINT32 uiCurrentItemDescriptionScreen, int bpAction);
 
 void			DrawHatchOnInventory( UINT32 uiSurface, UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT16 usHeight, UINT16 usColor = 0 );
 BOOLEAN		ShouldSoldierDisplayHatchOnItem( UINT8	ubProfileID, INT16 sSlotNum );

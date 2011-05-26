@@ -2870,7 +2870,7 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 						pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
 						SetFactTrue( FACT_SKYRIDER_CLOSE_TO_CHOPPER );
 						TriggerNPCRecord( SKYRIDER, 15 );
-						SetUpHelicopterForPlayer( 13, MAP_ROW_B );
+						SetUpHelicopterForPlayer( 13, MAP_ROW_B, SKYRIDER );
 					}
 					break;
 

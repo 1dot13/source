@@ -83,7 +83,7 @@ BOOLEAN	IsOknoFencePresentAtGridno( INT32 sGridNo )
 	return( FALSE );
 }
 
-BOOLEAN	IsLegionFencePresentAtGridno( INT32 sGridNo )
+BOOLEAN	IsLegionWallPresentAtGridno( INT32 sGridNo )
 {
 	STRUCTURE * pStructure;
 
@@ -92,7 +92,7 @@ BOOLEAN	IsLegionFencePresentAtGridno( INT32 sGridNo )
 	if ( pStructure )
 	{
 		
-		if ( pStructure->fFlags & STRUCTURE_FENCE ) // && (pStructure->fFlags & STRUCTURE_SPECIAL))//&& !(pStructure->fFlags & STRUCTURE_SPECIAL)  && ( pStructure->fFlags & STRUCTURE_OPEN ))
+		if ( pStructure->fFlags & STRUCTURE_FENCE && pStructure->fFlags & STRUCTURE_SPECIAL && pStructure->fFlags & STRUCTURE_WALL ) 
 		{
 			return( TRUE );
 		}

@@ -115,8 +115,12 @@ UINT8		gubProgCurEnemy			= 0;
 
 UINT32		guiPORTRAITICONS;
 
-UINT32		guiPORTRAITICONS_NV; //legion
-UINT32		guiPORTRAITICONS_GAS_MASK; //legion
+//UINT32		guiPORTRAITICONS_NV; //legion
+//UINT32		guiPORTRAITICONS_GAS_MASK; //legion
+
+// WANNE: Additional face gear file for IMPs
+//UINT32		guiPORTRAITICONS_NV_IMP;
+//UINT32		guiPORTRAITICONS_GAS_MASK_IMP;
 
 typedef struct
 {
@@ -275,6 +279,10 @@ BOOLEAN InitializeTacticalInterface(	)
 {
 	VSURFACE_DESC		vs_desc;
 	VOBJECT_DESC	VObjectDesc;
+	
+	UINT32 iCounter2;
+	
+	char fileName[500];
 
 	// CHRISL: Setup default interface coords based on inventory system in use
 	if((UsingNewInventorySystem() == true))
@@ -414,7 +422,7 @@ BOOLEAN InitializeTacticalInterface(	)
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	
 	//legion 2 jazz
-	if (gGameExternalOptions.fShowTacticalFaceIcons == TRUE) 
+	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ] == TRUE) 
 	{
 		//additional face icons (legion 2)
 		if (gGameExternalOptions.bTacticalFaceIconStyle == 0) 
@@ -457,15 +465,56 @@ BOOLEAN InitializeTacticalInterface(	)
 			
 						
 	//legion
-	if (gGameExternalOptions.fShowTacticalFaceGear == TRUE) 
+	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE) 
 	{
-	   FilenameForBPP("INTERFACE\\portraiticons_NV.sti", VObjectDesc.ImageFile);
+		/*
+		FilenameForBPP("INTERFACE\\portraiticons_NV.sti", VObjectDesc.ImageFile);
 		if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS_NV ) )
 			AssertMsg(0, "Missing INTERFACE\\portraiticons_NV.sti" );
-			
-	   FilenameForBPP("INTERFACE\\portraiticons_GAS_MASK.sti", VObjectDesc.ImageFile);
+		
+		FilenameForBPP("INTERFACE\\portraiticons_NV_IMP.sti", VObjectDesc.ImageFile);
+		if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS_NV_IMP ) )
+			AssertMsg(0, "Missing INTERFACE\\portraiticons_NV_IMP.sti" );
+				
+		FilenameForBPP("INTERFACE\\portraiticons_GAS_MASK.sti", VObjectDesc.ImageFile);
 		if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS_GAS_MASK ) )
-			AssertMsg(0, "Missing INTERFACE\\portraiticons_GAS_MASK.sti" );		   
+			AssertMsg(0, "Missing INTERFACE\\portraiticons_GAS_MASK.sti" );	
+		
+		FilenameForBPP("INTERFACE\\portraiticons_GAS_MASK_IMP.sti", VObjectDesc.ImageFile);
+		if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS_GAS_MASK_IMP ) )
+			AssertMsg(0, "Missing INTERFACE\\portraiticons_GAS_MASK_IMP.sti" );	
+		*/	
+		for( iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
+		{
+			VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
+
+			#define SCSTI ".STI"
+			
+			if ( zNewFaceGear[iCounter2].Type > 0 )
+			{
+				strcpy(fileName, zNewFaceGear[iCounter2].szFile);
+				strcat(fileName, SCSTI);
+				strcpy(VObjectDesc.ImageFile, fileName);
+				CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGear[iCounter2].uiIndex));
+
+			}
+		}
+		
+		for( iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
+		{
+			VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
+			
+			#define SCSTI_IMP "_IMP.STI"
+			
+			if ( zNewFaceGear[iCounter2].Type > 0 )
+			{
+				//IMP
+				strcpy(fileName, zNewFaceGear[iCounter2].szFile);
+				strcat(fileName, SCSTI_IMP);
+				strcpy(VObjectDesc.ImageFile, fileName);
+				CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGearIMP[iCounter2].uiIndex));
+			}
+		}
 	}
 
 	// LOAD RADIO
@@ -2202,17 +2251,10 @@ BOOLEAN DrawCTHIndicator()
 
 	// Select the color of the indicator circles
 	UINT16 usCApertureBar;
-	if (pSoldier->bDoAutofire && fAutofireBulletsMode)
-	{
-		// When autofire bullets mode is selected, the CTH display goes greyish. This indicates to the player
-		// that the aiming levels have been set, and further right-clicks will only add bullets to the volley.
-		usCApertureBar		= Get16BPPColor( FROMRGB( 180, 180, 180 ) );
-	}
-	else
-	{
-		// Indicator changes color from red to yellow to green, based on how well the gun is aimed.
-		usCApertureBar		= Get16BPPColor( FROMRGB( ColorsRed[gCTHDisplay.MuzzleSwayPercentage/10], ColorsGreen[gCTHDisplay.MuzzleSwayPercentage/10], 0 ) ); // Crosshair color shifts from red (longshot) to green (Accurate shot)
-	}
+
+	// CHRISL: Instead of shigting the color based on MuzzleSwayPercent, let's move this line and base it on the final iAperture value
+	// Indicator changes color from red to yellow to green, based on how well the gun is aimed.
+	//usCApertureBar		= Get16BPPColor( FROMRGB( ColorsRed[gCTHDisplay.MuzzleSwayPercentage/10], ColorsGreen[gCTHDisplay.MuzzleSwayPercentage/10], 0 ) ); // Crosshair color shifts from red (longshot) to green (Accurate shot)
 
 	UINT16 usCApertureBorder	= Get16BPPColor( FROMRGB( 10, 10, 10 ) ); // Boundaries in dark color.
 
@@ -2268,7 +2310,12 @@ BOOLEAN DrawCTHIndicator()
 	iAperture = ((100 - actualPct) * iAperture) / 100;
 
 	/////////////////////////////////////////////
-	// Factor in Gun Accuracy.  Note that I may remove this at a later time.
+	// Factor in Weapon "Effective Range".
+	UINT16 sEffRange = Weapon[Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubClassIndex].usRange + GetRangeBonus(&(pSoldier->inv[ pSoldier->ubAttackingHand ]));
+	FLOAT iRangeRatio = __max(1.0f, (FLOAT)(d2DDistance / sEffRange));
+	
+	/////////////////////////////////////////////
+	// Factor in Gun Accuracy.
 	
 	INT16 sAccuracy = GetGunAccuracy( &(pSoldier->inv[ pSoldier->ubAttackingHand ]) );
 
@@ -2276,12 +2323,36 @@ BOOLEAN DrawCTHIndicator()
 	sAccuracy = __min(100, sAccuracy);
 
 	FLOAT iBulletDev = (gGameCTHConstants.MAX_BULLET_DEV * (100-sAccuracy)) / 100;
+	if( gGameCTHConstants.RANGE_EFFECTS_DEV == TRUE )
+		iBulletDev *= iRangeRatio;
 	iBulletDev *= iDistanceRatio;
 
 	// Since bullet dev is only affected by distance, we add it last as a flat modifier.
 	iBasicAperture += iBulletDev;
 	iMaxAperture += iBulletDev;
 	iAperture += iBulletDev;
+
+	// CHRISL: Moved here so we can base the cursor color on the iAperture value
+	UINT8 iColorCode = 0;
+	if(iAperture < 3.0)
+		iColorCode = 9;
+	else if(iAperture < 6.0)
+		iColorCode = 8;
+	else if(iAperture < 9.0)
+		iColorCode = 7;
+	else if(iAperture < 12.0)
+		iColorCode = 6;
+	else if(iAperture < 16.0)
+		iColorCode = 5;
+	else if(iAperture < 20.0)
+		iColorCode = 4;
+	else if(iAperture < 25.0)
+		iColorCode = 3;
+	else if(iAperture < 30.0)
+		iColorCode = 2;
+	else if(iAperture < 40.0)
+		iColorCode = 1;
+	usCApertureBar		= Get16BPPColor( FROMRGB( ColorsRed[iColorCode], ColorsGreen[iColorCode], 0 ) ); // Crosshair color shifts from red (longshot) to green (Accurate shot)
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// HEADROCK HAM 4: Calculate Screen Positions
@@ -2446,6 +2517,53 @@ BOOLEAN DrawCTHIndicator()
 		MagRect.right = sCenter + (usTotalWidth / 2);
 	}
 	
+#ifdef JA2BETAVERSION
+	/////////////// SHOT APERTURE SIZE
+	{
+		// Create a pointer to the Frame Buffer which we are going to draw directly into.
+		SetFont( TINYFONT1 );
+		SetFontBackground( FONT_MCOLOR_BLACK );
+		SetFontForeground( FONT_MCOLOR_WHITE );
+
+		// Find coordinates, using the full string ("XX AP")
+		swprintf( pStr, L"%3.2f", iAperture );
+		FindFontCenterCoordinates( (INT16)APRect.left, (INT16)APRect.top-5, (INT16)APRect.right-(INT16)APRect.left, 5, pStr, TINYFONT1, &curX, &curY);
+		// Find width of this string.
+		UINT16 usTotalWidth = StringPixLength ( pStr, TINYFONT1 );
+
+		// Draw to screen
+		gprintfdirty( curX, curY, pStr );
+		mprintf( curX, curY, pStr);
+
+		// Redefine area size based on total width plus a margin of 2 pixels.
+		usTotalWidth = usTotalWidth + 6;
+		INT16 sCenter = (INT16)((APRect.right + APRect.left) / 2);
+		APRect.left = sCenter - (usTotalWidth / 2);
+		APRect.right = sCenter + (usTotalWidth / 2);
+	}
+
+	/////////////// DISTANCE APERTURE SIZE
+	{
+		SetFont( TINYFONT1 );
+
+		// Find coordinates, using full string ("X.X x")
+		swprintf( pStr, L"%3.2f", iMaxAperture );
+		FindFontCenterCoordinates( (INT16)MagRect.left, (INT16)MagRect.top-5, (INT16)MagRect.right-(INT16)MagRect.left, 5, pStr, TINYFONT1, &curX, &curY);
+		// Find width of this string.
+		UINT16 usTotalWidth = StringPixLength ( pStr, TINYFONT1 );
+
+		// Draw to screen
+		gprintfdirty( curX, curY, pStr );
+		mprintf( curX, curY, pStr);
+
+		// Redefine area size based on total width plus a margin of 2 pixels.
+		usTotalWidth = usTotalWidth + 6;
+		INT16 sCenter = (INT16)((MagRect.right + MagRect.left) / 2);
+		MagRect.left = sCenter - (usTotalWidth / 2);
+		MagRect.right = sCenter + (usTotalWidth / 2);
+	}
+#endif
+
 	//////////////////// BURST/AUTO LABEL AND BULLETS
 	if (pSoldier->bDoBurst)
 	{
@@ -2826,96 +2944,99 @@ BOOLEAN DrawCTHIndicator()
 	INT32 Circ = 0;
 
 	Circ = (INT32)((iMaxAperture * RADIANS_IN_CIRCLE) * dVerticalBias);
-	// Draw outer circle
-	for (INT32 iCurPoint = 0; iCurPoint < Circ; iCurPoint++)
+	if(gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
 	{
-		curX = (INT16)(iMaxAperture * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-		curY = (INT16)((iMaxAperture * dVerticalBias) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-		INT16 firstX = curX;
-		INT16 firstY = curY;
+		// Draw outer circle
+		for (INT32 iCurPoint = 0; iCurPoint < Circ; iCurPoint++)
+		{
+			curX = (INT16)(iMaxAperture * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			curY = (INT16)((iMaxAperture * dVerticalBias) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			INT16 firstX = curX;
+			INT16 firstY = curY;
 
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBar );
 
-		// Draw a border circle which is 1 point wider
-		curX = (INT16)((iMaxAperture+1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-		curY = (INT16)(((iMaxAperture * dVerticalBias)+1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			// Draw a border circle which is 1 point wider
+			curX = (INT16)((iMaxAperture+1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			curY = (INT16)(((iMaxAperture * dVerticalBias)+1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
 
-		if (curX != firstX || curY != firstY)
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
+			if (curX != firstX || curY != firstY)
+				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
 
-		// Draw a border circle which is 1 point narrower
-		curX = (INT16)((iMaxAperture-1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-		curY = (INT16)(((iMaxAperture * dVerticalBias)-1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			// Draw a border circle which is 1 point narrower
+			curX = (INT16)((iMaxAperture-1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			curY = (INT16)(((iMaxAperture * dVerticalBias)-1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
 
-		if (curX != firstX || curY != firstY)
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
-	}
+			if (curX != firstX || curY != firstY)
+				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
+		}
 
-	Circ = (INT32)((iAperture * RADIANS_IN_CIRCLE) * dVerticalBias);
-	// Draw inner circle
-	for (INT32 iCurPoint = 0; iCurPoint < Circ; iCurPoint++)
-	{
-		curX = (INT16)(iAperture * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-		curY = (INT16)((iAperture * dVerticalBias) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-		INT16 firstX = curX;
-		INT16 firstY = curY;
+		Circ = (INT32)((iAperture * RADIANS_IN_CIRCLE) * dVerticalBias);
+		// Draw inner circle
+		for (INT32 iCurPoint = 0; iCurPoint < Circ; iCurPoint++)
+		{
+			curX = (INT16)(iAperture * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			curY = (INT16)((iAperture * dVerticalBias) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			INT16 firstX = curX;
+			INT16 firstY = curY;
 
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBar );
 
-		// Draw a border circle which is 1 point wider
-		curX = (INT16)((iAperture+1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-		curY = (INT16)(((iAperture * dVerticalBias)+1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			// Draw a border circle which is 1 point wider
+			curX = (INT16)((iAperture+1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			curY = (INT16)(((iAperture * dVerticalBias)+1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
 
-		if (curX != firstX || curY != firstY)
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
+			if (curX != firstX || curY != firstY)
+				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
 
-		// Draw a border circle which is 1 point narrower
-		curX = (INT16)((iAperture-1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
-		curY = (INT16)(((iAperture * dVerticalBias)-1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			// Draw a border circle which is 1 point narrower
+			curX = (INT16)((iAperture-1) * cos((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
+			curY = (INT16)(((iAperture * dVerticalBias)-1) * sin((iCurPoint * RADIANS_IN_CIRCLE)/Circ));
 
-		if (curX != firstX || curY != firstY)
-			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
-	}
+			if (curX != firstX || curY != firstY)
+				DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureBorder );
+		}
 
-	// Aperture Crosshairs
-	for (INT16 cnt = (INT16)(iAperture); cnt <= (INT16)(iAperture + uiApertureBarLength); cnt++)
-	{
-		// Horizontal Aperture Crosshairs
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, sStartScreenY+(INT16)zOffset, usCApertureBar );
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, sStartScreenY+(INT16)zOffset, usCApertureBar );
+		// Aperture Crosshairs
+		for (INT16 cnt = (INT16)(iAperture); cnt <= (INT16)(iAperture + uiApertureBarLength); cnt++)
+		{
+			// Horizontal Aperture Crosshairs
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, sStartScreenY+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, sStartScreenY+(INT16)zOffset, usCApertureBar );
 
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY+1)+(INT16)zOffset, usCApertureBar );
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY+1)+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY+1)+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY+1)+(INT16)zOffset, usCApertureBar );
 
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY-1)+(INT16)zOffset, usCApertureBar );
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY-1)+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY-1)+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY-1)+(INT16)zOffset, usCApertureBar );
 
-		// Darker borders
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY+2)+(INT16)zOffset, usCApertureBorder );
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY+2)+(INT16)zOffset, usCApertureBorder );
+			// Darker borders
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY+2)+(INT16)zOffset, usCApertureBorder );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY+2)+(INT16)zOffset, usCApertureBorder );
 
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY-2)+(INT16)zOffset, usCApertureBorder );
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY-2)+(INT16)zOffset, usCApertureBorder );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+cnt, (sStartScreenY-2)+(INT16)zOffset, usCApertureBorder );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-cnt, (sStartScreenY-2)+(INT16)zOffset, usCApertureBorder );
 
-	}
-	for (INT16 cnt = (INT16)(iAperture * dVerticalBias); cnt <= (INT16)((iAperture * dVerticalBias) + uiApertureBarLength); cnt++)
-	{
-		// Vertical Aperture Crosshairs
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBar );
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBar );
+		}
+		for (INT16 cnt = (INT16)(iAperture * dVerticalBias); cnt <= (INT16)((iAperture * dVerticalBias) + uiApertureBarLength); cnt++)
+		{
+			// Vertical Aperture Crosshairs
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBar );
 
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBar );
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+1, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBar );
 
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBar );
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBar );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-1, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBar );
 
-		// Darker borders
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+2, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBorder );
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+2, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBorder );
+			// Darker borders
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+2, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBorder );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+2, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBorder );
 
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-2, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBorder );
-		DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-2, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBorder );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-2, (sStartScreenY+cnt)+(INT16)zOffset, usCApertureBorder );
+			DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-2, (sStartScreenY-cnt)+(INT16)zOffset, usCApertureBorder );
+		}
 	}
 
 	// Unlock the Frame Buffer.

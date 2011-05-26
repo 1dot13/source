@@ -7,6 +7,7 @@ UINT32	IntroScreenShutdown( void );
 UINT32	IntroScreenHandle( void );
 UINT32	IntroScreenInit( void );
 
+void	StopIntroVideo();
 
 //enums used for when the intro screen can come up, used with 'gbIntroScreenMode'
 enum EIntroType

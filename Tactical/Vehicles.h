@@ -123,6 +123,9 @@ INT32 GetTravelTimeOfVehicle( INT32 iId );
 // is this vehicle a valid one?
 BOOLEAN VehicleIdIsValid( INT32 iId );
 
+// Test whether a soldier is actually a vehicle
+BOOLEAN IsVehicle(SOLDIERTYPE *pSoldier);
+
 // set up vehicle mvt for this grunt involved
 BOOLEAN SetUpMvtGroupForVehicle( SOLDIERTYPE *pSoldier );
 

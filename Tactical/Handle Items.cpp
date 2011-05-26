@@ -455,7 +455,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 
 						// temporarily set burst to true to calculate action points
 						pSoldier->bDoBurst = TRUE;
-						sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, 0 );
+						sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, pSoldier->aiData.bAimTime );
 						// reset burst mode to false (which is what it was at originally)
 						pSoldier->bDoBurst = FALSE;
 
@@ -545,7 +545,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 					misfirePenalty = misfirePenaltyConst + (Chance(misfirePenaltyRand)?1:0); //apply the base integral cost and the fractional cost (in the form of probablilite)
 
 					pSoldier->bDoAutofire += misfirePenalty;
-					sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, 0 );
+					sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, pSoldier->aiData.bAimTime );
 				}
 				while(EnoughPoints( pSoldier, sAPCost, 0, FALSE ) && roll < ((pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire)?chanceToMisfire:chanceToMisfireDry));
 				//note that we could misfire more bullets than we have rounds
@@ -553,7 +553,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				//the max that can be lost this way is 1AP
 
 				pSoldier->bDoAutofire -= misfirePenalty;
-				sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, 0 );
+				sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, pSoldier->aiData.bAimTime );
 
 				if((__min(pSoldier->bDoAutofire,pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft) - startAuto) > 0 && pSoldier->bTeam == OUR_TEAM)
 				{
@@ -673,6 +673,8 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 		else
 		{
+			//CHRISL: Need to reset this as it doesn't automatically get reset when we don't have enough APs to shot
+			pSoldier->flags.fDoSpread = FALSE;
 			return( ITEM_HANDLE_NOAPS );
 		}
 
@@ -851,7 +853,11 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 	}
 
-	if ( Item[usHandItem].wirecutters && pTargetSoldier == NULL ) // Madd: quick fix to allow wirecutter/knives
+	ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( sGridNo, pSoldier->pathing.bLevel );
+	BOOLEAN fCorpse = FALSE;
+	if(pCorpse != NULL)
+		fCorpse = IsValidDecapitationCorpse( pCorpse );
+	if ( Item[usHandItem].wirecutters && pTargetSoldier == NULL && !pCorpse ) // Madd: quick fix to allow wirecutter/knives
 	{
 		// See if we can get there to stab
 		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
@@ -1842,6 +1848,12 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 						}
 						else
 						{
+							//CHRISL: Make sure non-ammo item status is a valid 0-100 number
+							if(Item[gWorldItems[pItemPool->iItemIndex].object.usItem].usItemClass != IC_AMMO){
+								gWorldItems[pItemPool->iItemIndex].object[0]->data.objectStatus = __max(0,gWorldItems[pItemPool->iItemIndex].object[0]->data.objectStatus);
+								gWorldItems[pItemPool->iItemIndex].object[0]->data.objectStatus = __min(100,gWorldItems[pItemPool->iItemIndex].object[0]->data.objectStatus);
+							}
+
 							// Make copy of item
 							gTempObject = gWorldItems[ pItemPool->iItemIndex ].object;
 
@@ -1933,6 +1945,12 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 				}
 				else
 				{
+					//CHRISL: Make sure non-ammo item status is a valid 0-100 number
+					if(Item[gWorldItems[iItemIndex].object.usItem].usItemClass != IC_AMMO){
+						gWorldItems[iItemIndex].object[0]->data.objectStatus = __max(0,gWorldItems[iItemIndex].object[0]->data.objectStatus);
+						gWorldItems[iItemIndex].object[0]->data.objectStatus = __min(100,gWorldItems[iItemIndex].object[0]->data.objectStatus);
+					}
+
 					/*
 					// handle theft.. will return true if theft has failed ( if soldier was caught )
 					if( pSoldier->bTeam == OUR_TEAM )

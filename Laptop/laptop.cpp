@@ -2655,7 +2655,7 @@ void HaventMadeImpMercEmailCallBack()
 	if( ( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) && ( LaptopSaveInfo.fSentImpWarningAlready == FALSE ) )
 	{
 		LaptopSaveInfo.fSentImpWarningAlready = TRUE;
-		AddEmail(IMP_EMAIL_AGAIN,IMP_EMAIL_AGAIN_LENGTH,1, GetWorldTotalMin( ), -1 );
+		AddEmail(IMP_EMAIL_AGAIN,IMP_EMAIL_AGAIN_LENGTH,1, GetWorldTotalMin( ), -1, -1 );
 	}
 }
 

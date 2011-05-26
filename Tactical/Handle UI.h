@@ -369,9 +369,5 @@ void GetGridNoScreenXY( INT32 sGridNo, INT16 *pScreenX, INT16 *pScreenY );
 
 //Legion by Jazz
 void GetMercOknoDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp );
-void GetMercFenceDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp );
-
-// HEADROCK HAM 4: Tells the targeting cursor whether we're adding bullets to autofire, or adding aim click levels.
-extern BOOLEAN fAutofireBulletsMode;
 
 #endif

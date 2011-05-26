@@ -117,7 +117,7 @@ void DebugLevelNodePage( void )
 	{
 		gprintf( 0, LINE_HEIGHT * (uiLoop + 1), gzLevelString[uiLoop], guiLNCount[uiLoop] );
 	}
-	gprintf( 0, LINE_HEIGHT * 12, L"%d land nodes in excess of world max (25600)", guiLNCount[1] - WORLD_MAX);
+	gprintf( 0, LINE_HEIGHT * 12, L"%d land nodes in excess of world max", guiLNCount[1] - WORLD_MAX);
 	gprintf( 0, LINE_HEIGHT * 13, L"Total # levelnodes %d, %d bytes each", guiLNCount[0], sizeof( LEVELNODE ) );
 	gprintf( 0, LINE_HEIGHT * 14, L"Total memory for levelnodes %d", guiLNCount[0] * sizeof( LEVELNODE ) );
 }
@@ -3591,9 +3591,10 @@ LEVELNODE * FindLevelNodeBasedOnStructure( INT32 sGridNo, STRUCTURE * pStructure
 		pLevelNode = pLevelNode->pNext;
 	}
 
+	// WANNE: Removed the assertion, because it can happen on custom maps.
+	// It is not a big deal, if the node cannot be found.
 	// Assert here if it cannot be found....
-	AssertMsg( 0, "FindLevelNodeBasedOnStruct failed.");
-
+	//AssertMsg( 0, "FindLevelNodeBasedOnStruct failed.");
 
 	return( NULL );
 }

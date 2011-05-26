@@ -88,6 +88,7 @@ CursorFileData CursorFileDatabase[] =
 	{ "CURSORS\\wirecutr.sti"											, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\bullet_g.sti"											, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\bullet_d.sti"											, FALSE, 0, 0, 0, NULL },
+
 	{ "CURSORS\\ibeamWhite.sti"										, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\throwg.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\throwb.sti"												, FALSE, 0, 0, 0, NULL },
@@ -98,9 +99,9 @@ CursorFileData CursorFileDatabase[] =
 	{ "CURSORS\\remoteg.sti"											, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\remoter.sti"											, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\steering.sti"											, FALSE, 0, 0, 0, NULL },
+
 	{ "CURSORS\\cur_car.sti"											, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\cur_wait.sti"											, FALSE, 0, 0, 0, NULL },
-
 	//Tactical GUI cursors
 	{ "CURSORS\\singlecursor.sti"									, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\groupcursor.sti"									, FALSE, 0, 0, 0, NULL },
@@ -110,6 +111,7 @@ CursorFileData CursorFileDatabase[] =
 	{ "CURSORS\\repairr.sti"											, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\jar_cur.sti"											, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\jar_cur_red.sti"									, FALSE, 0, 0, 0, NULL },
+
 	{ "CURSORS\\cur_x.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_01.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_02.sti"												, FALSE, 0, 0, 0, NULL },
@@ -118,7 +120,14 @@ CursorFileData CursorFileDatabase[] =
 	{ "CURSORS\\deadleap.sti"											, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_01.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_02.sti"												, FALSE, 0, 0, 0, NULL },
+	{ "CURSORS\\cur_tagr_ncth.sti"									, FALSE, 0, ANIMATED_CURSOR,	7, NULL },
+	{ "CURSORS\\targblak_ncth.sti"									, FALSE, 0, ANIMATED_CURSOR,	7, NULL },
 
+	{ "CURSORS\\cur_rbst_ncth.sti"									, FALSE, 0, ANIMATED_CURSOR,	7, NULL },
+	{ "CURSORS\\burstblk_ncth.sti"									, FALSE, 0, ANIMATED_CURSOR,	7, NULL },
+	{ "CURSORS\\cur_tr_ncth.sti"										, FALSE, 0, 0, 0, NULL },
+	{ "CURSORS\\cur_trw_ncth.sti"										, FALSE, 0, 0, 0, NULL },
+	{ "CURSORS\\cur_try_ncth.sti"											, FALSE, 0, 0, 0, NULL },
 };
 
 void RaiseMouseToLevel( INT8 bLevel )
@@ -1189,19 +1198,10 @@ CursorData CursorDatabase[] =
 
 void InitCursors( )
 {
-	//CHRISL: NCTH uses a completely different cursor so if we're in NCTH mode, we want to use different graphics
-	if(UsingNewCTHSystem() == true){
-		strncpy((char *)CursorFileDatabase[2].ubFilename,"CURSORS\\cur_tagr_ncth.sti",MAX_FILENAME_LEN);
-		strncpy((char *)CursorFileDatabase[3].ubFilename,"CURSORS\\targblak_ncth.sti",MAX_FILENAME_LEN);
-		strncpy((char *)CursorFileDatabase[5].ubFilename,"CURSORS\\cur_rbst_ncth.sti",MAX_FILENAME_LEN);
-		strncpy((char *)CursorFileDatabase[6].ubFilename,"CURSORS\\burstblk_ncth.sti",MAX_FILENAME_LEN);
-		strncpy((char *)CursorFileDatabase[7].ubFilename,"CURSORS\\cur_tr_ncth.sti",MAX_FILENAME_LEN);
-		strncpy((char *)CursorFileDatabase[8].ubFilename,"CURSORS\\cur_trw_ncth.sti",MAX_FILENAME_LEN);
-		strncpy((char *)CursorFileDatabase[35].ubFilename,"CURSORS\\cur_try_ncth.sti",MAX_FILENAME_LEN);
-	}
-		InitCursorDatabase( CursorFileDatabase, CursorDatabase, NUM_CURSOR_FILES );
 
-		SetMouseBltHook( (MOUSEBLT_HOOK)BltJA2CursorData );
+	InitCursorDatabase( CursorFileDatabase, CursorDatabase, NUM_CURSOR_FILES );
+
+	SetMouseBltHook( (MOUSEBLT_HOOK)BltJA2CursorData );
 }
 
 
@@ -1690,6 +1690,44 @@ void UpdateAnimatedCursorFrames( UINT32 uiCursorIndex )
 		{
 
 			pCurImage = &( pCurData->Composites[ cnt ] );
+			//CHRISL: NCTH uses a completely different cursor so if we're in NCTH mode, we want to use different graphics
+			if(UsingNewCTHSystem() == true){
+				switch(pCurImage->uiFileIndex)
+				{
+					case 2:
+						pCurImage->uiFileIndex = 68; break;
+					case 3:
+						pCurImage->uiFileIndex = 69; break;
+					case 5:
+						pCurImage->uiFileIndex = 70; break;
+					case 6:
+						pCurImage->uiFileIndex = 71; break;
+					case 7:
+						pCurImage->uiFileIndex = 72; break;
+					case 8:
+						pCurImage->uiFileIndex = 73; break;
+					case 35:
+						pCurImage->uiFileIndex = 74; break;
+				}
+			} else {
+				switch(pCurImage->uiFileIndex)
+				{
+					case 68:
+						pCurImage->uiFileIndex = 2; break;
+					case 69:
+						pCurImage->uiFileIndex = 3; break;
+					case 70:
+						pCurImage->uiFileIndex = 5; break;
+					case 71:
+						pCurImage->uiFileIndex = 6; break;
+					case 72:
+						pCurImage->uiFileIndex = 7; break;
+					case 73:
+						pCurImage->uiFileIndex = 8; break;
+					case 74:
+						pCurImage->uiFileIndex = 35; break;
+				}
+			}
 
 			if ( CursorFileDatabase[ pCurImage->uiFileIndex ].ubFlags & ANIMATED_CURSOR )
 			{

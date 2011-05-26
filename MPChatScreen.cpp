@@ -481,7 +481,7 @@ INT32 DoChatBox( bool bIncludeChatLog, const STR16 zString, UINT32 uiExitScreen,
 	sButtonX = ((middleBox - btnWidth)/2);
 	sButtonY = usTextBoxHeight - CHATBOX_BUTTON_HEIGHT - 10;
 
-	gChatBox.uiNOButton = CreateIconAndTextButton( gChatBox.iButtonImages, pMessageStrings[ MSG_CANCEL ], FONT12ARIAL,
+	gChatBox.uiNOButton = CreateIconAndTextButton( gChatBox.iButtonImages, pMessageStrings[ MSG_CANCEL ], FONT10ARIAL,
 													CHATBOX_FONT_COLOR, ubFontShadowColor,
 													CHATBOX_FONT_COLOR, ubFontShadowColor,
 													TEXT_CJUSTIFIED,

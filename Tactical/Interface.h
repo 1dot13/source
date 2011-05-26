@@ -32,6 +32,12 @@ enum
 	NUM_ICONS
 };
 
+#define	ACTIVATE_BUTTON		0
+#define	DEACTIVATE_BUTTON	1
+#define	ENABLE_BUTTON		2
+#define	DISABLE_BUTTON		3
+#define	UNLOAD_BUTTON		4
+
 #define MAX_ENEMY_NAMES_CHARS		128
 
 typedef struct
@@ -164,8 +170,12 @@ extern UINT32		guiITEMPOINTERHATCHES;
 
 
 //legion
-extern UINT32		guiPORTRAITICONS_NV;			//legion: NV-Face Graphic
-extern UINT32		guiPORTRAITICONS_GAS_MASK;		//legion: GASMASK-Face Graphic
+//extern UINT32		guiPORTRAITICONS_NV;			//legion: NV-Face Graphic
+//extern UINT32		guiPORTRAITICONS_GAS_MASK;		//legion: GASMASK-Face Graphic
+
+// WANNE: Face gear for IMPs in additional file
+//extern UINT32		guiPORTRAITICONS_NV_IMP;
+//extern UINT32		guiPORTRAITICONS_GAS_MASK_IMP;
 
 extern MOUSE_REGION		gViewportRegion;
 extern MOUSE_REGION		gRadarRegion;

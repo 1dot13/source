@@ -56,6 +56,7 @@
 	#include "EditorMapInfo.h"
 	#include "environment.h"
 	#include "Simple Render Utils.h"
+	#include "Text.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -85,6 +86,11 @@ void SetupTextInputForOptions(void)//dnl ch52 091009
 
 void UpdateOptions()
 {
+	if (gfResizeMapOnLoading)
+		EnableTextField(1);
+	else
+		DisableTextField(1);
+
 	SetFont( FONT10ARIAL );
 	SetFontShadow( FONT_NEARBLACK );
 
@@ -98,11 +104,11 @@ void UpdateOptions()
 
 void ExtractAndUpdateOptions(void)//dnl ch52 091009
 {
-	iNewMapWorldRows = max(min(GetNumericStrictValueFromField(1), 9600), OLD_WORLD_ROWS);
+	iNewMapWorldRows = max(min(GetNumericStrictValueFromField(1), WORLD_ROWS_MAX), OLD_WORLD_ROWS);
 	iNewMapWorldRows /= 4;
 	iNewMapWorldRows *= 4;
 	iNewMapWorldCols = iNewMapWorldRows;
-	//iNewMapWorldCols = max(min(GetNumericStrictValueFromField(2), 9600), OLD_WORLD_COLS);
+	//iNewMapWorldCols = max(min(GetNumericStrictValueFromField(2), WORLD_COLS_MAX), OLD_WORLD_COLS);
 	//iNewMapWorldCols /= 4;
 	//iNewMapWorldCols *= 4;
 }
@@ -141,7 +147,7 @@ void SetupTextInputForMapInfo()
 	swprintf( str, L"%d", gExitGrid.ubGotoSectorZ );
 	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 383, 30, 18, MSYS_PRIORITY_NORMAL, str, 1, INPUTTYPE_NUMERICSTRICT );
 	swprintf( str, L"%d", gExitGrid.usGridNo );
-	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 403, 45, 18, MSYS_PRIORITY_NORMAL, str, 6, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 403, 50, 18, MSYS_PRIORITY_NORMAL, str, 7, INPUTTYPE_NUMERICSTRICT );
 }
 
 void UpdateMapInfo()
@@ -150,41 +156,41 @@ void UpdateMapInfo()
 	SetFontShadow( FONT_NEARBLACK );
 
 	SetFontForeground( FONT_RED );
-	mprintf( iScreenWidthOffset + 38, 2 * iScreenHeightOffset + 399, L"R");
+	mprintf( iScreenWidthOffset + 38, 2 * iScreenHeightOffset + 399, pUpdateMapInfoText[0]);
 	SetFontForeground( FONT_GREEN );
-	mprintf( iScreenWidthOffset + 38, 2 * iScreenHeightOffset + 419, L"G");
+	mprintf( iScreenWidthOffset + 38, 2 * iScreenHeightOffset + 419, pUpdateMapInfoText[1]);
 	SetFontForeground( FONT_DKBLUE );
-	mprintf( iScreenWidthOffset + 38, 2 * iScreenHeightOffset + 439, L"B");
+	mprintf( iScreenWidthOffset + 38, 2 * iScreenHeightOffset + 439, pUpdateMapInfoText[2]);
 
 	SetFontForeground( FONT_YELLOW );
-	mprintf( iScreenWidthOffset + 65, 2 * iScreenHeightOffset + 369, L"Prime" );
-	mprintf( iScreenWidthOffset + 65, 2 * iScreenHeightOffset + 382, L"Night" );
-	mprintf( iScreenWidthOffset + 65, 2 * iScreenHeightOffset + 397, L"24Hrs" );
+	mprintf( iScreenWidthOffset + 65, 2 * iScreenHeightOffset + 369, pUpdateMapInfoText[3] );
+	mprintf( iScreenWidthOffset + 65, 2 * iScreenHeightOffset + 382, pUpdateMapInfoText[4] );
+	mprintf( iScreenWidthOffset + 65, 2 * iScreenHeightOffset + 397, pUpdateMapInfoText[5] );
 
 	SetFontForeground( FONT_YELLOW );
-	mprintf( iScreenWidthOffset + 148, 2 * iScreenHeightOffset + 399, L"Radius");
+	mprintf( iScreenWidthOffset + 148, 2 * iScreenHeightOffset + 399, pUpdateMapInfoText[6] );
 
 	if( !gfBasement && !gfCaves )
 		SetFontForeground( FONT_DKYELLOW );
-	mprintf( iScreenWidthOffset + 148, 2 * iScreenHeightOffset + 414, L"Underground" );
-	mprintf( iScreenWidthOffset + 148, 2 * iScreenHeightOffset + 423, L"Light Level" );
+	mprintf( iScreenWidthOffset + 148, 2 * iScreenHeightOffset + 414, pUpdateMapInfoText[7] );
+	mprintf( iScreenWidthOffset + 148, 2 * iScreenHeightOffset + 423, pUpdateMapInfoText[8] );
 
 	SetFontForeground( FONT_YELLOW );
-	mprintf( iScreenWidthOffset + 230, 2 * iScreenHeightOffset + 369, L"Outdoors" );
-	mprintf( iScreenWidthOffset + 230, 2 * iScreenHeightOffset + 384, L"Basement" );
-	mprintf( iScreenWidthOffset + 230, 2 * iScreenHeightOffset + 399, L"Caves" );
+	mprintf( iScreenWidthOffset + 230, 2 * iScreenHeightOffset + 369, pUpdateMapInfoText[9] );
+	mprintf( iScreenWidthOffset + 230, 2 * iScreenHeightOffset + 384, pUpdateMapInfoText[10] );
+	mprintf( iScreenWidthOffset + 230, 2 * iScreenHeightOffset + 399, pUpdateMapInfoText[11] );
 
 	SetFontForeground( FONT_ORANGE );
-	mprintf( iScreenWidthOffset + 250, 2 * iScreenHeightOffset + 420, L"Restricted" );
-	mprintf( iScreenWidthOffset + 250, 2 * iScreenHeightOffset + 430, L"Scroll ID" );
+	mprintf( iScreenWidthOffset + 250, 2 * iScreenHeightOffset + 420, pUpdateMapInfoText[12] );
+	mprintf( iScreenWidthOffset + 250, 2 * iScreenHeightOffset + 430, pUpdateMapInfoText[13] );
 
 	SetFontForeground( FONT_YELLOW );
-	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 363, L"Destination");
-	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 372, L"Sector" );
-	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 383, L"Destination");
-	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 392, L"Bsmt. Level" );
-	mprintf( iScreenWidthOffset + 383, 2 * iScreenHeightOffset + 403, L"Dest." );
-	mprintf( iScreenWidthOffset + 383, 2 * iScreenHeightOffset + 412, L"GridNo" );
+	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 363, pUpdateMapInfoText[14] );
+	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 372, pUpdateMapInfoText[15] );
+	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 383, pUpdateMapInfoText[16] );
+	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 392, pUpdateMapInfoText[17] );
+	mprintf( iScreenWidthOffset + 388, 2 * iScreenHeightOffset + 403, pUpdateMapInfoText[18] );
+	mprintf( iScreenWidthOffset + 388, 2 * iScreenHeightOffset + 412, pUpdateMapInfoText[19] );
 	SetFontForeground( FONT_RED );
 }
 
@@ -280,7 +286,7 @@ void ExtractAndUpdateMapInfo()
 		gExitGrid.ubGotoSectorY = (UINT8)max( min( gExitGrid.ubGotoSectorY, 16 ), 1 );
 	}
 	gExitGrid.ubGotoSectorZ	= (UINT8)max( min( GetNumericStrictValueFromField( 8 ), 3 ), 0 );
-	gExitGrid.usGridNo					 = max( min( GetNumericStrictValueFromField( 9 ), 25600 ), 0 );
+	gExitGrid.usGridNo					 = max( min( GetNumericStrictValueFromField( 9 ), (WORLD_COLS_MAX * WORLD_ROWS_MAX) ), 0 );
 
 	UpdateMapInfoFields();
 }

@@ -1636,8 +1636,17 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 		// Added by SANDRO
 		case 15:
 		// Character Trait
-			mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[23].y + 15),pPersonnelRecordsHelpTexts[43]); //L"Character:"
-			swprintf(sString, gzIMPCharacterTraitText[gMercProfiles[Menptr[iId].ubProfile].bCharacterTrait]);
+
+			// WANNE: With old trait system, display "Attitudes" instead of "Character"
+			if (gGameOptions.fNewTraitSystem)			
+				mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[23].y + 15),pPersonnelRecordsHelpTexts[43]); //L"Character:"
+			else
+				mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[23].y + 15),pPersonnelRecordsHelpTexts[45]); //L"Attitudes:"
+
+			if ( gGameOptions.fNewTraitSystem)
+				swprintf(sString, gzIMPCharacterTraitText[gMercProfiles[Menptr[iId].ubProfile].bCharacterTrait]);
+			else
+				swprintf(sString, gzIMPAttitudesText[gMercProfiles[Menptr[iId].ubProfile].bAttitude]);
 
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			mprintf(sX,(pPersonnelScreenPoints[23].y + 15),sString);
@@ -1650,8 +1659,8 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			{
 				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[5] );
 			}
-			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[5], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[23].y + 10),
-							( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[23].y + 17 ), MSYS_PRIORITY_HIGH,
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[5], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[23].y + 15),	// 10
+							( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[23].y + 23 ), MSYS_PRIORITY_HIGH,	// 17
 								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 			//MSYS_DefineRegion( &gSkillTraitHelpTextRegion[3], (UINT16)( pPersonnelScreenPoints[23].x + 147 ), (UINT16)(pPersonnelScreenPoints[23].y + 4),
 			//				(UINT16)( pPersonnelScreenPoints[23].x + 166 ), (UINT16)(pPersonnelScreenPoints[23].y + 15), MSYS_PRIORITY_HIGH,
@@ -1659,7 +1668,10 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			MSYS_AddRegion( &gSkillTraitHelpTextRegion[5] );
 			fAddedTraitRegion[5] = TRUE;
 			// Assign the text
-			AssignPersonnelCharacterTraitHelpText( gMercProfiles[Menptr[iId].ubProfile].bCharacterTrait );
+
+			// Only new traits have help text
+			if (gGameOptions.fNewTraitSystem)
+				AssignPersonnelCharacterTraitHelpText( gMercProfiles[Menptr[iId].ubProfile].bCharacterTrait );
 
 		break;
 
@@ -8069,6 +8081,8 @@ void AssignPersonnelCharacterTraitHelpText( UINT8 ubCharacterNumber )
 
 	return;
 }
+
+
 // SANDRO - Popup text windows for disability 
 void AssignPersonnelDisabilityHelpText( UINT8 ubDisabilityNumber )
 {

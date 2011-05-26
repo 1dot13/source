@@ -431,8 +431,9 @@ void StrategicRemoveMilitiaFromSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UI
 {
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
+	// WANNE: BUGZILLA #357: Fixed assertion when miltia dies.
 	// damn well better have that many around to remove!
-	Assert(pSectorInfo->ubNumberOfCivsAtLevel[ ubRank ] >= ubHowMany);
+	//Assert(pSectorInfo->ubNumberOfCivsAtLevel[ ubRank ] >= ubHowMany);
 
 	//KM : July 21, 1999 patch fix
 	if( pSectorInfo->ubNumberOfCivsAtLevel[ ubRank ] < ubHowMany )

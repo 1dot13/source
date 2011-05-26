@@ -42,6 +42,19 @@ typedef struct
 extern RPC_SMALL_FACE_VALUES gRPCSmallFaceValues[200];
 extern UINT8	gubRPCSmallFaceProfileNum[200];
 
+#define MAX_FACE_GERA_CHARS		500
+
+typedef struct
+{
+	UINT16		Type;
+	UINT32		uiIndex;
+	CHAR8	szFile[MAX_FACE_GERA_CHARS];
+
+} FACE_GEAR_VALUES;
+
+extern FACE_GEAR_VALUES zNewFaceGear[MAXITEMS];
+extern FACE_GEAR_VALUES zNewFaceGearIMP[MAXITEMS];
+
 #define	FACE_AUTO_DISPLAY_BUFFER		0xFFFFF000
 #define	FACE_AUTO_RESTORE_BUFFER		0xFFFFFF00
 #define	FACE_NO_RESTORE_BUFFER			0xFFFFFFF0
@@ -238,6 +251,8 @@ void InternalShutupaYoFace( INT32 iFaceIndex, BOOLEAN fForce );
 
 // If you still want the face in moemory but want to stop if from being displayed, or handled call
 void SetAutoFaceInActive( INT32 iFaceIndex );
+
+void SetCamoFace(SOLDIERTYPE * pSoldier);
 
 // To set all currently allocated faces to either active or incactive, call these
 void SetAllAutoFacesInactive( );

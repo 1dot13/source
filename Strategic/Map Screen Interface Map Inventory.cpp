@@ -1039,6 +1039,10 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 						sObjectSourceGridNo = gMapInformation.sCenterGridNo;
 				}
 
+				//CHRISL: Make sure we put the item at the same level as the merc
+				if(gpItemPointerSoldier->exists() == true)
+					pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT)+iCounter].ubLevel = gpItemPointerSoldier->pathing.bLevel;
+
 				// set as reachable and set gridno
 				pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_REACHABLE;
 

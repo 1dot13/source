@@ -596,10 +596,12 @@ UINT32	MainGameScreenHandle(void)
 	if ( gfTacticalDoHeliRun )
 	{
 		gfGameScreenLocateToSoldier = FALSE;
-		InternalLocateGridNo( gMapInformation.sNorthGridNo, TRUE );
+		//InternalLocateGridNo( gMapInformation.sNorthGridNo, TRUE );
+		InternalLocateGridNo( gGameExternalOptions.iInitialMercArrivalLocation, TRUE );
 
 		// Start heli Run...
-		StartHelicopterRun( gMapInformation.sNorthGridNo );
+		//StartHelicopterRun( gMapInformation.sNorthGridNo );
+		StartHelicopterRun( gGameExternalOptions.iInitialMercArrivalLocation );
 
 		// Update clock by one so that our DidGameJustStatrt() returns now false for things like LAPTOP, etc...
 		SetGameTimeCompressionLevel( TIME_COMPRESS_X1 );

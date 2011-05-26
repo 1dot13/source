@@ -431,6 +431,8 @@ void GameLoop(void)
 	}
 #endif
 
+	// WANNE: Removed Low CPU option
+	/*
 	if( gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ] == TRUE )
 	{
 		// decrease CPU load patch from MTX (http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/102405/page/1#Post102405)
@@ -446,6 +448,7 @@ void GameLoop(void)
 		if( sleeptime > 0 )
 			Sleep(sleeptime);
 	}
+	*/
 
 	if ( is_networked )
 	{

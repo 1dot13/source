@@ -18,6 +18,7 @@
 	#include "wcheck.h"
 	#include "Compression.h"
 	#include "vobject.h"
+	#include "vobject_blitters.h"
 #endif
 
 #include <vfs/Core/vfs.h>
@@ -420,6 +421,19 @@ BOOLEAN CopyImageToBuffer( HIMAGE hImage, UINT32 fBufferType, BYTE *pDestBuf, UI
 
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Automatically Copying 16 BPP Imagery." );
 		return( Copy16BPPImageTo16BPPBuffer( hImage, pDestBuf, usDestWidth, usDestHeight, usX, usY, srcRect ) );
+	}
+
+	if ( hImage->ubBitDepth == 24 && fBufferType == BUFFER_16BPP )
+	{
+		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Copying 24 BPP Imagery to 16BPP Buffer." );
+		SGP_THROW("not yet implemented");
+		return( FALSE );
+	}
+
+	if ( hImage->ubBitDepth == 32 && fBufferType == BUFFER_16BPP )
+	{
+		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Copying 32 BPP Imagery to 16BPP Buffer." );
+		return Blt32BPPTo16BPPTrans((UINT16*)pDestBuf, usDestWidth * sizeof(UINT16), hImage->p32BPPData, usDestWidth*sizeof(UINT32), 0,0,0,0,usDestWidth, usDestHeight);
 	}
 
 	return( FALSE );

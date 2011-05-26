@@ -385,7 +385,9 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	else
 	{
 		// OK, otherwise, set them in north area, so once we load again, they are here.
-		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+		//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+		pSoldier->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
 	}
 
 	if ( pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER )

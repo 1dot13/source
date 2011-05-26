@@ -588,6 +588,8 @@ BOOLEAN LoadMercProfiles(void)
 			FileClose( fptr );
 			return(FALSE);
 		}
+
+		
 		
 		// WANNE: For the new WF merc, there is no entry in prof.dat, so we have to reset some flags manually!		
 		if (uiLoop >= 170)
@@ -741,7 +743,24 @@ BOOLEAN LoadMercProfiles(void)
 
 		// ----- WANNE.PROFILE: New Profile Loading - BEGIN
 		if ( gGameExternalOptions.fReadProfileDataFromXML == FALSE )
-		{						
+		{	
+			// WANNE: If all 4 (Friendly, Direct, Threaten, Recruit) are not set, set them to 100.
+			// These 4 values cannot be edit in Proedit if Merc Index >= 75.
+			// If we set these to 100 (which means it is equal the leadership of the merc), we fix the bug that the 4 UB Merc (Stogie, Tex, Gaston, Biggins) cannot recruit NPCs or do special quests).
+			if (uiLoop >= FIRST_NPC)
+			{
+				if (gMercProfiles[ uiLoop ].usApproachFactor[0] == 0 &&
+					gMercProfiles[ uiLoop ].usApproachFactor[1] == 0 &&
+					gMercProfiles[ uiLoop ].usApproachFactor[2] == 0 &&
+					gMercProfiles[ uiLoop ].usApproachFactor[3] == 0)
+				{
+					gMercProfiles[ uiLoop ].usApproachFactor[0] = 100;
+					gMercProfiles[ uiLoop ].usApproachFactor[1] = 100;
+					gMercProfiles[ uiLoop ].usApproachFactor[2] = 100;
+					gMercProfiles[ uiLoop ].usApproachFactor[3] = 100;
+				}
+			}
+
 			// AIM und MERC ( 0 - 51 )
 			if (uiLoop < 51)
 			{

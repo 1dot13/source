@@ -501,7 +501,7 @@ void OkayToUpgradeEliteToSpecialProfiledEnemy( SOLDIERCREATE_STRUCT *pp );
 extern BOOLEAN gfProfiledEnemyAdded; //needs to be saved (used by the above function)
 
 //Legion by Jazz
-void BeginSoldierClimbUpOkno( SOLDIERTYPE *pSoldier );
+//void BeginSoldierClimbUpOkno( SOLDIERTYPE *pSoldier );
 void BeginSoldierFenceUp( SOLDIERTYPE *pSoldier );
 //dnl ch27 240909
 typedef enum

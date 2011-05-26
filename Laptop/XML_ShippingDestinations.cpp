@@ -160,7 +160,7 @@ destinationEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "sGridNo") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->tempDest.sGridNo = (UINT16) atoi(pData->szCharData);
+			pData->tempDest.sGridNo = (UINT32) atoi(pData->szCharData);
 		}
 		else if(strcmp(name, "uiIndex") == 0)
 		{

@@ -20,10 +20,14 @@ extern	CHAR16		zTrackingNumber[16];
 //
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
-#define			SAVE_GAME_VERSION								117		//114	//113	//112	//111	//110	//109	//108	//107	//106	//105	//104	//103	//102	//101	//100 // 99
+#define			SAVE_GAME_VERSION								121		//114	//113	//112	//111	//110	//109	//108	//107	//106	//105	//104	//103	//102	//101	//100 // 99
 
-#define			CURRENT_SAVEGAME_DATATYPE_VERSION				116
+#define			CURRENT_SAVEGAME_DATATYPE_VERSION				121
 
+#define			FIXED_NPC_QUOTE_BUG								121	// Before this, we need to reload all npc quote information because it was not being saved and loaded correctly.
+#define			MOVED_GENERAL_INFO								120	// Before this, general game information was saved much later in the save game process.
+#define			NCTH_AUTOFIRE_UPDATE							119	// Before this, we didn't track the original autofire offsets
+#define			BR_EMAIL_DATA_CHANGE							118	// Before this, BR emails caused CTD
 #define			NCTH_DATATYPE_CHANGE							117	// Before this, we did not have HAM 4.0 NCTH
 #define			NEW_GENERAL_SAVE_INFO_DATA						116	// Before this, we did not have HAM 4.0 general info
 #define			IMP_TRAIT_EXPERT_ITEMS_CHANGE					115	// Before this, we did not have additional expert items defined in IMPItemChoices.xml

@@ -2839,6 +2839,16 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 
 		//Add the soldiers items to an unloaded sector
 		AddWorldItemsToUnLoadedSector( sMapX, sMapY, bMapZ, sGridNo, uiNumberOfItems, pWorldItems, FALSE );
+
+		//CHRISL: Now that we've copied the dead soldiers items to pWorldItems, we need to actually remove the items from the dead soldier.  Otherwise we have
+		//	actually duplicated the items and there's a chance that these duplicated items will again find their way to sector.
+		for ( i = 0; i < pSoldier->inv.size(); i++ )
+		{
+			if( pSoldier->inv[ i ].exists() == true )
+			{
+				pSoldier->inv[i].initialize();
+			}
+		}
 	}
 
   DropKeysInKeyRing( pSoldier, sGridNo, pSoldier->pathing.bLevel, 1, FALSE, 0, TRUE );

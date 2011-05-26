@@ -49,6 +49,7 @@
 	#include "Campaign Types.h"
 	#include "GameSettings.h" // added by SANDRO
 	#include "Soldier Profile.h"
+	#include "GameVersion.h"
 #endif
 	#include "Soldier Profile.h"
 //forward declarations of common classes to eliminate includes
@@ -299,6 +300,7 @@ void BackupOriginalQuoteFile( UINT8 ubNPC )
 	gpNPCQuoteInfoArray[ubNPC] = NULL;
 }
 
+extern UINT32 guiCurrentSaveGameVersion;
 BOOLEAN EnsureQuoteFileLoaded( UINT8 ubNPC )
 {
 	BOOLEAN			fLoadFile = FALSE;
@@ -308,10 +310,35 @@ BOOLEAN EnsureQuoteFileLoaded( UINT8 ubNPC )
 		return( FALSE );
 	}
 
-	if (gpNPCQuoteInfoArray[ubNPC] == NULL)
-	{
-		fLoadFile = TRUE;
-	}
+	if(guiCurrentSaveGameVersion < FIXED_NPC_QUOTE_BUG)
+ 	{
+		if (gpNPCQuoteInfoArray[ubNPC] == NULL)
+		{
+			fLoadFile = TRUE;
+		}
+		else
+		{
+			// WANNE:Reload the NPC quote files if only ONE quote exists. This seems to be a bug anywhere in the quote system.
+			// This is a hack, but works :)
+			// This should fix the bug, that special quests are not triggerd when talking to NPCs!
+			if (gpNPCQuoteInfoArray[ubNPC][1].ubQuoteNum == 0 && gpNPCQuoteInfoArray[ubNPC][1].ubNumQuotes == 0)
+			{
+				fLoadFile = TRUE;
+			}
+		}
+ 	}
+ 	else
+ 	{
+		if (gpNPCQuoteInfoArray[ubNPC] == NULL)
+ 		{
+ 			fLoadFile = TRUE;
+ 		}
+		else if (gpNPCQuoteInfoArray[ubNPC][0].ubQuoteNum != 0 && gpNPCQuoteInfoArray[ubNPC][1].ubNumQuotes == 0)
+ 		{	// CHRISL: This will reset the quote file if, for some reason, the first quote exists but the 2nd doesn't
+ 			fLoadFile = TRUE;
+ 		}
+ 	}
+
 
 //	if ( ubNPC >= FIRST_RPC && ubNPC < FIRST_NPC )
 	//new profiles by Jazz		
@@ -3050,18 +3077,25 @@ BOOLEAN SaveNPCInfoToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+extern INT32 ReadFieldByField(HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount);
+
 BOOLEAN LoadNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion )
 {
 	UINT32		uiNumBytesRead=0;
 	UINT32		cnt;
 	UINT8			ubLoadQuote=0;
 	UINT32		uiNumberToLoad=0;
+	INT32		numBytesRead = 0;
+	INT8		padding;
 
 
 	// If we are trying to restore a saved game prior to version 44, use the
 	// MAX_NUM_SOLDIERS, else use NUM_PROFILES.  Dave used the wrong define!
-	if( uiSaveGameVersion >= 44 )
+	// Verion 111 increased NUM_PROFILES from 170 to 255
+	if( uiSaveGameVersion >= 111 )
 		uiNumberToLoad = NUM_PROFILES;
+	else if( uiSaveGameVersion >= 44 )
+		uiNumberToLoad = NUM_PROFILES_v111;
 	else
 		uiNumberToLoad = MAX_NUM_SOLDIERS;
 
@@ -3097,8 +3131,75 @@ BOOLEAN LoadNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion )
 			}
 
 			//Load the NPC quote entry
-			FileRead( hFile, gpNPCQuoteInfoArray[ cnt ], sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS, &uiNumBytesRead );
-			if( uiNumBytesRead != sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS )
+			numBytesRead = 0;
+			for(UINT32 cnt2 = 0; cnt2 < NUM_NPC_QUOTE_RECORDS; cnt2++)
+			{
+				if(guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE)
+				{
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].fFlags, sizeof(gpNPCQuoteInfoArray[ cnt ]->fFlags), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].sRequiredItem, sizeof(gpNPCQuoteInfoArray[ cnt ]->sRequiredItem), sizeof(INT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usFactMustBeTrue, sizeof(gpNPCQuoteInfoArray[ cnt ]->usFactMustBeTrue), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usFactMustBeFalse, sizeof(gpNPCQuoteInfoArray[ cnt ]->usFactMustBeFalse), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubQuest, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubQuest), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubFirstDay, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubFirstDay), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubLastDay, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubLastDay), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubApproachRequired, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubApproachRequired), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubOpinionRequired, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubOpinionRequired), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubQuoteNum, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubQuoteNum), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubNumQuotes, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubNumQuotes), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubStartQuest, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubStartQuest), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubEndQuest, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubEndQuest), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubTriggerNPC, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubTriggerNPC), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubTriggerNPCRec, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubTriggerNPCRec), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubFiller, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubFiller), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usSetFactTrue, sizeof(gpNPCQuoteInfoArray[ cnt ]->usSetFactTrue), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usGiftItem, sizeof(gpNPCQuoteInfoArray[ cnt ]->usGiftItem), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usUnused, sizeof(gpNPCQuoteInfoArray[ cnt ]->usUnused), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].sActionData, sizeof(gpNPCQuoteInfoArray[ cnt ]->sActionData), sizeof(INT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].sRequiredGridNo, sizeof(gpNPCQuoteInfoArray[ cnt ]->sRequiredGridNo), sizeof(INT32), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usGoToGridNo, sizeof(gpNPCQuoteInfoArray[ cnt ]->usGoToGridNo), sizeof(INT32), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usSourceDialogueLevel, sizeof(gpNPCQuoteInfoArray[ cnt ]->usSourceDialogueLevel), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usDestDialogueLevel, sizeof(gpNPCQuoteInfoArray[ cnt ]->usDestDialogueLevel), sizeof(UINT16), numBytesRead);
+				}
+				else
+				{
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].fFlags, sizeof(gpNPCQuoteInfoArray[ cnt ]->fFlags), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].sRequiredItem, sizeof(gpNPCQuoteInfoArray[ cnt ]->sRequiredItem), sizeof(INT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].sRequiredGridNo, sizeof(gpNPCQuoteInfoArray[ cnt ]->sRequiredGridNo), sizeof(INT32), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usFactMustBeTrue, sizeof(gpNPCQuoteInfoArray[ cnt ]->usFactMustBeTrue), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usFactMustBeFalse, sizeof(gpNPCQuoteInfoArray[ cnt ]->usFactMustBeFalse), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubQuest, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubQuest), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubFirstDay, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubFirstDay), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubLastDay, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubLastDay), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubApproachRequired, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubApproachRequired), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubOpinionRequired, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubOpinionRequired), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &padding, sizeof(padding), sizeof(UINT8), numBytesRead);	//previous ubUnused no longer exists
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubQuoteNum, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubQuoteNum), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubNumQuotes, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubNumQuotes), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubStartQuest, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubStartQuest), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubEndQuest, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubEndQuest), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubTriggerNPC, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubTriggerNPC), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].ubTriggerNPCRec, sizeof(gpNPCQuoteInfoArray[ cnt ]->ubTriggerNPCRec), sizeof(UINT8), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usSetFactTrue, sizeof(gpNPCQuoteInfoArray[ cnt ]->usSetFactTrue), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usGiftItem, sizeof(gpNPCQuoteInfoArray[ cnt ]->usGiftItem), sizeof(UINT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].sActionData, sizeof(gpNPCQuoteInfoArray[ cnt ]->sActionData), sizeof(INT16), numBytesRead);
+					numBytesRead = ReadFieldByField(hFile, &gpNPCQuoteInfoArray[ cnt ][cnt2].usGoToGridNo, sizeof(gpNPCQuoteInfoArray[ cnt ]->usGoToGridNo), sizeof(INT32), numBytesRead);
+				}
+			}
+			if(guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE)
+			{
+				while(numBytesRead != (sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS) )
+					numBytesRead = ReadFieldByField(hFile, &padding, sizeof(padding), sizeof(INT8), numBytesRead);
+			}
+			else
+			{
+				while(numBytesRead != 1800 )
+					numBytesRead = ReadFieldByField(hFile, &padding, sizeof(padding), sizeof(INT8), numBytesRead);
+				numBytesRead += 200;
+			}
+			//FileRead( hFile, gpNPCQuoteInfoArray[ cnt ], sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS, &uiNumBytesRead );
+			//if( uiNumBytesRead != sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS )
+			if( numBytesRead != sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS )
 			{
 				return( FALSE );
 			}
@@ -3268,8 +3369,13 @@ BOOLEAN LoadBackupNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersi
 	UINT32		cnt;
 	UINT8			ubLoadQuote=0;
 	UINT32		uiNumberOfProfilesToLoad=0;
+	INT32		numBytesRead = 0;
+	INT8		padding;
 
-	uiNumberOfProfilesToLoad = NUM_PROFILES;
+	if( guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE )
+		uiNumberOfProfilesToLoad = NUM_PROFILES;
+	else
+		uiNumberOfProfilesToLoad = NUM_PROFILES_v111;
 
 	//Loop through all the NPC quotes
 	for( cnt=0; cnt<uiNumberOfProfilesToLoad; cnt++ )
@@ -3303,8 +3409,66 @@ BOOLEAN LoadBackupNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersi
 			}
 
 			//Load the NPC quote entry
-			FileRead( hFile, gpBackupNPCQuoteInfoArray[ cnt ], sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS, &uiNumBytesRead );
-			if( uiNumBytesRead != sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS )
+			numBytesRead = 0;
+			if(guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE)
+			{
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->fFlags, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->fFlags), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->sRequiredItem, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->sRequiredItem), sizeof(INT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usFactMustBeTrue, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usFactMustBeTrue), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usFactMustBeFalse, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usFactMustBeFalse), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubQuest, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubQuest), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubFirstDay, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubFirstDay), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubLastDay, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubLastDay), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubApproachRequired, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubApproachRequired), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubOpinionRequired, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubOpinionRequired), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubQuoteNum, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubQuoteNum), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubNumQuotes, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubNumQuotes), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubStartQuest, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubStartQuest), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubEndQuest, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubEndQuest), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubTriggerNPC, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubTriggerNPC), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubTriggerNPCRec, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubTriggerNPCRec), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubFiller, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubFiller), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usSetFactTrue, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usSetFactTrue), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usGiftItem, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usGiftItem), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usUnused, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usUnused), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->sActionData, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->sActionData), sizeof(INT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->sRequiredGridNo, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->sRequiredGridNo), sizeof(INT32), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usGoToGridNo, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usGoToGridNo), sizeof(INT32), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usSourceDialogueLevel, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usSourceDialogueLevel), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usDestDialogueLevel, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usDestDialogueLevel), sizeof(UINT16), numBytesRead);
+				while(numBytesRead != (sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS) )
+					numBytesRead = ReadFieldByField(hFile, &padding, sizeof(padding), sizeof(INT8), numBytesRead);
+			}
+			else
+			{
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->fFlags, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->fFlags), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->sRequiredItem, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->sRequiredItem), sizeof(INT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->sRequiredGridNo, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->sRequiredGridNo), sizeof(INT32), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usFactMustBeTrue, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usFactMustBeTrue), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usFactMustBeFalse, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usFactMustBeFalse), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubQuest, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubQuest), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubFirstDay, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubFirstDay), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubLastDay, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubLastDay), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubApproachRequired, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubApproachRequired), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubOpinionRequired, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubOpinionRequired), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &padding, sizeof(padding), sizeof(UINT8), numBytesRead);	//previous ubUnused no longer exists
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubQuoteNum, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubQuoteNum), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubNumQuotes, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubNumQuotes), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubStartQuest, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubStartQuest), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubEndQuest, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubEndQuest), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubTriggerNPC, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubTriggerNPC), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->ubTriggerNPCRec, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->ubTriggerNPCRec), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usSetFactTrue, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usSetFactTrue), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usGiftItem, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usGiftItem), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->sActionData, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->sActionData), sizeof(INT16), numBytesRead);
+				numBytesRead = ReadFieldByField(hFile, &gpBackupNPCQuoteInfoArray[ cnt ]->usGoToGridNo, sizeof(gpBackupNPCQuoteInfoArray[ cnt ]->usGoToGridNo), sizeof(INT32), numBytesRead);
+				while(numBytesRead != 1800 )
+					numBytesRead = ReadFieldByField(hFile, &padding, sizeof(padding), sizeof(INT8), numBytesRead);
+				numBytesRead += 200;
+			}
+			//FileRead( hFile, gpBackupNPCQuoteInfoArray[ cnt ], sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS, &uiNumBytesRead );
+			//if( uiNumBytesRead != sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS )
+			if( numBytesRead != sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS )
 			{
 				return( FALSE );
 			}

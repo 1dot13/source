@@ -28,7 +28,7 @@ void InitJA2SplashScreen()
 		INT32 i = 0;
 
 		memset( &VSurfaceDesc, 0, sizeof( VSURFACE_DESC ) );
-		VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
+		VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE | VSURFACE_CREATE_FROMPNG_FALLBACK;
 		sprintf( VSurfaceDesc.ImageFile, "LOADSCREENS\\Notification.sti" );
 		if( !AddVideoSurface( &VSurfaceDesc, &uiLogoID ) )
 		{
@@ -55,7 +55,7 @@ void InitJA2SplashScreen()
 #	endif // JA2TESTVERSION
 
 	memset( &VSurfaceDesc, 0, sizeof( VSURFACE_DESC ) );
-	VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
+	VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE | VSURFACE_CREATE_FROMPNG_FALLBACK;
 	GetMLGFilename( VSurfaceDesc.ImageFile, MLG_SPLASH );
 	try
 	{

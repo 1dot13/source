@@ -2647,11 +2647,9 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 //			(suppressionFire  && IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn] ) && GetMagSize(pObj) > 30 && (*pObj)[0]->data.gun.ubGunShotsLeft > 20 ))
 		BOOLEAN fEnableAISuppression = FALSE;
 
-		if ( gGameExternalOptions.fIncreaseAISuppressionFire && ((!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj, pSoldier) > MaxNormalDistanceVisible() ) || pSoldier->aiData.bOrders == SNIPER ) ) || // SANDRO - added argument to GunRange()
-			(suppressionFire  && IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn]))) )
-			fEnableAISuppression = TRUE;
-		else if ( !gGameExternalOptions.fIncreaseAISuppressionFire && ( (!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj, pSoldier) > MaxNormalDistanceVisible() ) || pSoldier->aiData.bOrders == SNIPER ) ) || // SANDRO - added argument
-			(suppressionFire  && IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn] ) && GetMagSize(pObj) > 30 && (*pObj)[0]->data.gun.ubGunShotsLeft > 20 )))
+		// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
+		if ( ((!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj, pSoldier) > MaxNormalDistanceVisible() ) || pSoldier->aiData.bOrders == SNIPER ) ) || // SANDRO - added argument to GunRange()
+			(suppressionFire  && IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn]) && GetMagSize(pObj) >= gGameExternalOptions.ubAISuppressionMinimumMagSize && (*pObj)[0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo)) )
 			fEnableAISuppression = TRUE;
 
 		if (fEnableAISuppression)
@@ -2811,7 +2809,7 @@ FLOAT AICalcRecoilForShot( SOLDIERTYPE *pSoldier, OBJECTTYPE *pWeapon, UINT8 ubS
 {
 	INT8 bRecoilX = 0;
 	INT8 bRecoilY = 0;
-	GetRecoil( pWeapon, &bRecoilX, &bRecoilY, ubShotNum );
+	GetRecoil( pSoldier, pWeapon, &bRecoilX, &bRecoilY, ubShotNum );
 	// Return average shooter's ability to control this gun.
 	// HEADROCK HAM 4: TODO: Incorporate items that alter max counter-force.
 	FLOAT AverageRecoil = __max(0, ((FLOAT)sqrt( (FLOAT)(bRecoilX * bRecoilX) + (FLOAT)(bRecoilY * bRecoilY) ) - (gGameCTHConstants.RECOIL_MAX_COUNTER_FORCE * 0.7f) ) );

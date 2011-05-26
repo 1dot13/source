@@ -37,7 +37,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_WARNINGS&quot;"
+				AdditionalOptions="/D _CRT_SECURE_NO_WARNINGS"
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\..\zlib"
@@ -100,7 +100,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_WARNINGS&quot;"
+				AdditionalOptions="/D _CRT_SECURE_NO_WARNINGS"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\zlib"
 				PreprocessorDefinitions="WIN32;_DEBUG"
@@ -162,7 +162,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_WARNINGS&quot;"
+				AdditionalOptions="/D _CRT_SECURE_NO_WARNINGS"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\zlib"
 				PreprocessorDefinitions="WIN32;_DEBUG"
@@ -224,7 +224,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_WARNINGS&quot;"
+				AdditionalOptions="/D _CRT_SECURE_NO_WARNINGS"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\..\zlib"
 				PreprocessorDefinitions="WIN32;NDEBUG"
@@ -286,7 +286,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_WARNINGS&quot;"
+				AdditionalOptions="/D _CRT_SECURE_NO_WARNINGS"
 				Optimization="0"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\..\zlib"

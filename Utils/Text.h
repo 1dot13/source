@@ -7,6 +7,75 @@
 
 #define STRING_LENGTH 255
 
+//Editor
+//Editor Taskbar Creation.cpp
+extern STR16 iEditorItemStatsButtonsText[];
+extern STR16 FaceDirs[8];
+extern STR16 iEditorMercsToolbarText[];
+extern STR16 iEditorBuildingsToolbarText[];
+extern STR16 iEditorItemsToolbarText[];
+extern STR16 iEditorMapInfoToolbarText[];
+extern STR16 iEditorOptionsToolbarText[];
+extern STR16 iEditorTerrainToolbarText[];
+extern STR16 iEditorTaskbarInternalText[];
+//Editor Taskbar Utils.cpp
+extern STR16 iRenderMapEntryPointsAndLightsText[];
+extern STR16 iBuildTriggerNameText[];
+extern STR16 iRenderDoorLockInfoText[];
+extern STR16 iRenderEditorInfoText[];
+//EditorBuildings.cpp
+extern STR16 iUpdateBuildingsInfoText[];
+extern STR16 iRenderDoorEditingWindowText[];
+//EditorItems.cpp
+extern STR16 pInitEditorItemsInfoText[];
+extern STR16 pDisplayItemStatisticsTex[];
+extern STR16 pUpdateMapInfoText[];
+//EditorMercs.cpp
+extern CHAR16 gszScheduleActions[ 11 ][20];	// NUM_SCHEDULE_ACTIONS = 11
+extern STR16 zDiffNames[5];	// NUM_DIFF_LVLS = 5
+extern STR16 EditMercStat[12];
+extern STR16 EditMercOrders[8];
+extern STR16 EditMercAttitudes[6];
+extern STR16 pDisplayEditMercWindowText[];
+extern STR16 pCreateEditMercWindowText[];
+extern STR16 pDisplayBodyTypeInfoText[];
+extern STR16 pUpdateMercsInfoText[];
+extern CHAR16 pRenderMercStringsText[][100];
+extern STR16 pClearCurrentScheduleText[];
+extern STR16 pCopyMercPlacementText[];
+extern STR16 pPasteMercPlacementText[];
+//editscreen.cpp
+extern STR16 pEditModeShutdownText[];
+extern STR16 pHandleKeyboardShortcutsText[];
+extern STR16 pPerformSelectedActionText[];
+extern STR16 pWaitForHelpScreenResponseText[];
+extern STR16 pAutoLoadMapText[];
+extern STR16 pShowHighGroundText[];
+//Item Statistics.cpp
+extern CHAR16 gszActionItemDesc[ 34 ][ 30 ];	// NUM_ACTIONITEMS = 34
+extern STR16 pUpdateItemStatsPanelText[];
+extern STR16 pSetupGameTypeFlagsText[];
+extern STR16 pSetupGunGUIText[];
+extern STR16 pSetupArmourGUIText[];
+extern STR16 pSetupExplosivesGUIText[];
+extern STR16 pSetupTriggersGUIText[];
+//Sector Summary.cpp
+extern STR16 pCreateSummaryWindowText[];
+extern STR16 pRenderSectorInformationText[];
+extern STR16 pRenderItemDetailsText[];
+extern STR16 pRenderSummaryWindowText[];
+extern STR16 pUpdateSectorSummaryText[];
+extern STR16 pSummaryLoadMapCallbackText[];
+extern STR16 pReportErrorText[];
+extern STR16 pRegenerateSummaryInfoForAllOutdatedMapsText[];
+extern STR16 pSummaryUpdateCallbackText[];
+extern STR16 pApologizeOverrideAndForceUpdateEverythingText[];
+//selectwin.cpp
+extern STR16 pDisplaySelectionWindowGraphicalInformationText[];
+//Cursor Modes.cpp
+extern STR16 wszSelType[6];
+//--
+
 extern CHAR16  gszAimPages[ 6 ][ 20 ];
 extern CHAR16  zGrod[][500];
 extern STR16 pCreditsJA2113[];
@@ -173,6 +242,7 @@ extern STR16 pSkillTraitBeginIMPStrings[];
 extern STR16 sgAttributeSelectionText[];
 extern STR16 pCharacterTraitBeginIMPStrings[];
 extern STR16 gzIMPCharacterTraitText[];
+extern STR16 gzIMPAttitudesText[];
 extern STR16 gzIMPColorChoosingText[];
 extern STR16 sColorChoiceExplanationTexts[];
 extern STR16 gzIMPDisabilityTraitText[];
@@ -389,6 +459,7 @@ enum
 	STR_SNOW_WASHED_OFF,		
 
 	STR_CANNOT_ATTACH_SLOT,
+	STR_CANNOT_ATTACH_ANY_SLOT,
 	
 	TEXT_NUM_STR_MESSAGE,
 };
@@ -489,9 +560,9 @@ extern STR16		szUDBGenExplosiveStatsTooltipText[ 18 ];
 extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 18 ];
 extern STR16		szUDBGenSecondaryStatsTooltipText[ 26 ];
 extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[ 26 ];
-extern STR16		szUDBAdvStatsTooltipText[ 44 ];
-extern STR16		szUDBAdvStatsExplanationsTooltipText[ 44 ];
-extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 44 ];
+extern STR16		szUDBAdvStatsTooltipText[ 48 ];
+extern STR16		szUDBAdvStatsExplanationsTooltipText[ 48 ];
+extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 48 ];
 
 // Headrock: End Externs
 extern STR16		sKeyDescriptionStrings[2];
@@ -1923,6 +1994,9 @@ enum
 	MSG113_ENEMY_AMBUSH_PREVENTED,
 	MSG113_BLOODCATS_AMBUSH_PREVENTED,
 	MSG113_SOLDIER_HIT_TO_GROIN,
+
+	MSG113_ENEMY_FOUND_DEAD_BODY,
+	MSG113_AMMO_SPEC_STRING,
 
 	TEXT_NUM_MSG113,
 };

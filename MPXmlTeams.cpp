@@ -11,8 +11,8 @@ MultiplayerTeams mpTeams = MultiplayerTeams();
 // fallback data
 const int MultiplayerTeams::random_merc_teams[NUM_RANDOM_MERC_TEAMS][RANDOM_MERC_TEAM_SIZE] = {
 	{ 16, 10, 19, 25, 4 , 11, 39 },		// Gus , Shadow, Spider , Raven , Vicki , Red , Meltdown
-	{ 173, 36, 28, 2 , 22, 8 , 32 },	// Henning , Scope, Danny , Lynx , Hitman , Steroid , Malice
-	{ 12, 175, 20, 23, 48, 34, 17 },	// Reaper , Laura, Cliff , Buzz , Cougar , Nails , Buns
+	{ 29, 36, 28, 2 , 22, 8 , 32 },		// Magic , Scope, Danny , Lynx , Hitman , Steroid , Malice
+	{ 12, 5, 20, 23, 48, 34, 17 },		// Reaper , Trevor, Cliff , Buzz , Cougar , Nails , Buns
 	{ 31, 7, 33, 35, 27, 37, 1 },		// Scully , Ivan , Dr Q  , Thor , Len , Wolf , Blood
 };
 

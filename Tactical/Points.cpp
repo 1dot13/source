@@ -1217,6 +1217,14 @@ INT16 CalcAPsToBurstNoModifier( INT16 bBaseActionPoints, OBJECTTYPE * pObj )
 
 INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire )
 {
+	//CHRISL: We send the actual number of rounds being fired in the bDoAutofire paramter.  But that implies that it would take longer to fire the first round
+	//	in an autofire sequence then it would take to fire a single round during a single fire sequence.  That doesn't make any sense.  It should only cost
+	//	additional APs to fire rounds beyond the first in an autofire sequence.  But rather then mess with all the locations that call this function, I'm going
+	//	to simply adjust the parameter once we get to the function.
+	if(bDoAutofire > 1)
+		bDoAutofire -= 1;
+	else
+		return 0;
 //	INT8 bAttachPos;
 	INT32 aps=APBPConstants[AP_MAXIMUM] + 1;
 	if ( GetAutofireShotsPerFiveAPs (pObj) )
@@ -1340,7 +1348,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 					// If the weapon has a scope, and the target is within eligible range for scope use
 					
 					if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS]) && GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) >= GetMinRangeForAimBonus(&pSoldier->inv[HANDPOS]))
-						|| (UsingNewCTHSystem() == true && GetBestScopeMagnificationFactor(&pSoldier->inv[HANDPOS], GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) > 1.0 )) )
+						|| (UsingNewCTHSystem() == true && GetBestScopeMagnificationFactor(pSoldier, &pSoldier->inv[HANDPOS], (FLOAT)GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo ) > 1.0 )) )
 					{
 						// Add an individual cost for EACH click, as necessary.
 
@@ -1359,7 +1367,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 						if (bAimTime > 6)
 							sAPCost += APBPConstants[AP_SEVENTH_CLICK_AIM_SCOPE];
 						if (bAimTime > 7)
-							sAPCost += APBPConstants[AP_EIGHTTH_CLICK_AIM_SCOPE];
+							sAPCost += APBPConstants[AP_EIGHTH_CLICK_AIM_SCOPE];
 					}
 					
 					// Weapon has no scope or not within requried range. Apply regular AP costs.
@@ -2844,31 +2852,58 @@ INT16 GetAPsToClimbRoof( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown )
 	return(iAPsToClimb);
 }
 
-INT16 GetAPsToJumpThroughWindows( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown )
+INT16 GetAPsToJumpWall( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown )
 {
-	//return(	GetAPsToChangeStance( pSoldier, ANIM_STAND ) + APBPConstants[AP_JUMPWINDOW] );
-
-	// SANDRO - STOMP traits - added a feature to reduce APs needed to jump through window for Martial Arts trait
-	UINT16 iAPsToJump = 0;
-	
-	if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
-		iAPsToJump = max( 1, (INT16)(( APBPConstants[AP_JUMPWINDOW] * ( 100 - gSkillTraitValues.ubMAAPsClimbOrJumpReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5)); // -25% per trait
-	else
-		iAPsToJump = APBPConstants[AP_JUMPWINDOW];
+	// SANDRO - STOMP traits - added a feature to reduce APs needed to climb on or off roof for Martial Arts trait
+	UINT16 iAPsToClimb = 0;
 
 	if ( !fClimbDown )
 	{
+		if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
+			iAPsToClimb = max( 1, (INT16)((APBPConstants[AP_JUMPWALL] * ( 100 - gSkillTraitValues.ubMAAPsClimbOrJumpReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5)); // -25% per trait
+		else
+			iAPsToClimb = APBPConstants[AP_JUMPWALL];
+
 		// OK, add aps to goto stand stance...
-		iAPsToJump += GetAPsToChangeStance( pSoldier, ANIM_STAND );
+		iAPsToClimb += GetAPsToChangeStance( pSoldier, ANIM_STAND );
 	}
 	else
 	{
+		if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
+			iAPsToClimb = max( 1, (INT16)((APBPConstants[AP_JUMPOFFWALL] * ( 100 - gSkillTraitValues.ubMAAPsClimbOrJumpReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5)); // -25% per trait
+		else
+			iAPsToClimb = APBPConstants[AP_JUMPOFFWALL];
+
 		// Add aps to goto crouch
-		iAPsToJump += GetAPsToChangeStance( pSoldier, ANIM_CROUCH );
+		iAPsToClimb += GetAPsToChangeStance( pSoldier, ANIM_CROUCH );
 	}
 
-	return( iAPsToJump );
-	
+	// A check if we don't go to zero somehow - SANDRO
+	if( iAPsToClimb < 1 )
+		iAPsToClimb = 1;
+
+	// return our value
+	return(iAPsToClimb);
+}
+
+INT16 GetAPsToJumpThroughWindows( SOLDIERTYPE *pSoldier, BOOLEAN fWithBackpack )
+{
+	// STOMP traits - Martial Arts reduce APs spent for jumping obstacles
+	if ( !fWithBackpack )
+	{
+		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ))
+			return( max( 1, (INT16)((APBPConstants[AP_JUMPWINDOW] * ( 100 - gSkillTraitValues.ubMAAPsClimbOrJumpReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5 ))); // -25% per trait
+		else
+			return( APBPConstants[AP_JUMPWINDOW] );
+
+	}
+	else
+	{
+		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ))
+			return( max( 1, (INT16)((APBPConstants[AP_JUMPWINDOW] * ( 100 - gSkillTraitValues.ubMAAPsClimbOrJumpReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5 ))); // -25% per trait
+		else
+			return( APBPConstants[AP_JUMPWINDOW] );
+	}
 }
 
 INT16 GetBPsToClimbRoof( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown )
@@ -2913,12 +2948,54 @@ INT16 GetAPsToJumpFence( SOLDIERTYPE *pSoldier, BOOLEAN fWithBackpack )
 	}
 }
 
+INT16 GetBPsToJumpWall( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown )
+{
+	// SANDRO - STOMP traits - Athletics reduce breath points spent for moving
+	if ( !fClimbDown )
+	{
+		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, ATHLETICS_NT ))
+			return( APBPConstants[BP_JUMPWALL] * (100 - gSkillTraitValues.ubATBPsMovementReduction) / 100 );
+		else
+			return( APBPConstants[BP_JUMPWALL] );
+
+	}
+	else
+	{
+		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, ATHLETICS_NT ))
+			return( APBPConstants[BP_JUMPOFFWALL] * (100 - gSkillTraitValues.ubATBPsMovementReduction) / 100 );
+		else
+			return( APBPConstants[BP_JUMPOFFWALL] );
+	}
+}
+
 // SANDRO - added function to calculate BPs for jumping over fence
 INT16 GetBPsToJumpFence( SOLDIERTYPE *pSoldier, BOOLEAN fWithBackpack )
 {
 	// STOMP traits - Athletics reduce breath points spent for moving
 	if ( !fWithBackpack )
 	{
+		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, ATHLETICS_NT ))
+			return( APBPConstants[BP_JUMPFENCE] * (100 - gSkillTraitValues.ubATBPsMovementReduction) / 100 );
+		else
+			return( APBPConstants[BP_JUMPFENCE] );
+
+	}
+	else
+	{
+		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, ATHLETICS_NT ))
+			return( APBPConstants[BP_JUMPFENCEBPACK] * (100 - gSkillTraitValues.ubATBPsMovementReduction) / 100 );
+		else
+			return( APBPConstants[BP_JUMPFENCEBPACK] );
+	}
+}
+
+// SANDRO - added function to calculate BPs for jumping over fence
+INT16 GetBPsToJumpThroughWindows( SOLDIERTYPE *pSoldier, BOOLEAN fWithBackpack )
+{
+	// STOMP traits - Athletics reduce breath points spent for moving
+	if ( !fWithBackpack )
+	{
+		// WANNE: Yes, we use the jumpfence BPs, it is simpler for now :)
 		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, ATHLETICS_NT ))
 			return( APBPConstants[BP_JUMPFENCE] * (100 - gSkillTraitValues.ubATBPsMovementReduction) / 100 );
 		else
@@ -3246,7 +3323,7 @@ INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAim
 			// If the weapon has a scope, and the target is within eligible range for scope use
 			
 			if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS]) && GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo ) >= GetMinRangeForAimBonus(&pSoldier->inv[HANDPOS]))
-				|| (UsingNewCTHSystem() == true && GetBestScopeMagnificationFactor(&pSoldier->inv[HANDPOS], GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo ) > 1.0 )))
+				|| (UsingNewCTHSystem() == true && GetBestScopeMagnificationFactor(pSoldier, &pSoldier->inv[HANDPOS], (FLOAT)GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo ) > 1.0 )))
 			{
 				// Add an individual cost for EACH click, as necessary.
 
@@ -3265,7 +3342,7 @@ INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAim
 				if (bAimTime > 6)
 					sAPCost += APBPConstants[AP_SEVENTH_CLICK_AIM_SCOPE];
 				if (bAimTime > 7)
-					sAPCost += APBPConstants[AP_EIGHTTH_CLICK_AIM_SCOPE];
+					sAPCost += APBPConstants[AP_EIGHTH_CLICK_AIM_SCOPE];
 			}
 			
 			// Weapon has no scope or not within requried range. Apply regular AP costs.

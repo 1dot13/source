@@ -739,21 +739,22 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 					else
 					{
 						// done!
-						pSoldier->flags.uiStatusFlags &= ~(SOLDIER_BOXER);
-						if (pSoldier->bTeam == gbPlayerNum)
-						{
-							pSoldier->flags.uiStatusFlags &= (~SOLDIER_PCUNDERAICONTROL);
-							TriggerEndOfBoxingRecord( pSoldier );
-						}
-						else if ( CountPeopleInBoxingRing() == 0 )
-						{
-							// Probably disqualified by jumping out of ring; the player
-							// character then didn't trigger the end of boxing record
-							// (and we know from the if statement above that we're
-							// still in a boxing state of some sort...)
-							//TriggerEndOfBoxingRecord( NULL );
 
-							// HEADROCK HAM 3.6: This should trigger Darren's script
+						// WANNE: This should fix the bug if any merc are still under PC control. This could happen after boxing in SAN MONA.
+						SOLDIERTYPE	*pTeamSoldier;
+						for (INT8 bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++)
+						{
+							pTeamSoldier=MercPtrs[bLoop]; 
+
+							if (pTeamSoldier->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL)
+								pTeamSoldier->flags.uiStatusFlags &= (~SOLDIER_PCUNDERAICONTROL);
+
+							if (pTeamSoldier->flags.uiStatusFlags & SOLDIER_BOXER)
+								pTeamSoldier->flags.uiStatusFlags &= (~SOLDIER_BOXER);
+						}
+
+						if (pSoldier->bTeam == gbPlayerNum || CountPeopleInBoxingRing() == 0)
+						{
 							TriggerEndOfBoxingRecord( pSoldier );
 						}
 					}
@@ -871,7 +872,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 					//if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 					if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 					{
-						ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, L"Warning: enemy corpse found!!!" );
+						ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, New113Message[MSG113_ENEMY_FOUND_DEAD_BODY]);
 						//pCorpse->def.ubAIWarningValue=0;
 						gRottingCorpse[ cnt ].def.ubAIWarningValue=0;
 						return( AI_ACTION_RED_ALERT );
@@ -2376,10 +2377,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		// current revamp of suppression fire.
 		BOOLEAN fEnableAIAutofire = FALSE;
 
-		if ( gGameExternalOptions.fIncreaseAISuppressionFire && ( ( BestShot.ubPossible && BestShot.ubChanceToReallyHit < 50 ) || (BestShot.ubPossible && BestShot.ubChanceToReallyHit < (INT16)PreRandom(100)) && Menptr[BestShot.ubOpponent].pathing.bLevel == 0 && pSoldier->aiData.bOrders != SNIPER ))
-			fEnableAIAutofire = TRUE;
-
-		else if ( !gGameExternalOptions.fIncreaseAISuppressionFire && ( BestShot.ubPossible && BestShot.ubChanceToReallyHit < 50 && Menptr[BestShot.ubOpponent].pathing.bLevel == 0 && pSoldier->aiData.bOrders != SNIPER ))
+		// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
+		if ( BestShot.bWeaponIn != -1 && (GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) >= gGameExternalOptions.ubAISuppressionMinimumMagSize && pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo) && ( ( BestShot.ubPossible && BestShot.ubChanceToReallyHit < 50 ) || (BestShot.ubPossible && BestShot.ubChanceToReallyHit < (INT16)PreRandom(100)) && Menptr[BestShot.ubOpponent].pathing.bLevel == 0 && pSoldier->aiData.bOrders != SNIPER ))
 			fEnableAIAutofire = TRUE;
 
 		if (fEnableAIAutofire)
@@ -4672,10 +4671,9 @@ INT16 ubMinAPCost;
 							case ATTACKSLAYONLY:iChance += 30; break;
 						}
 
-						// HEADROCK HAM B2.6: Allows control over increased enemy burstfire.
-						if ( gGameExternalOptions.fIncreaseAISuppressionFire && pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft > 10 )
-							iChance += 20;
-						else if ( !gGameExternalOptions.fIncreaseAISuppressionFire && pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft > 50 )
+						// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
+						if ( GetMagSize(&pSoldier->inv[BestAttack.bWeaponIn], 0) >= gGameExternalOptions.ubAISuppressionMinimumMagSize && 
+							pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo )
 							iChance += 20;
 
 						// increase chance based on proximity and difficulty of enemy
@@ -4769,10 +4767,9 @@ INT16 ubMinAPCost;
 							}
 
 
-							// HEADROCK HAM B2.6: Allows control over increased enemy autofire.
-							if ( gGameExternalOptions.fIncreaseAISuppressionFire && pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft > 20 )
-								iChance += 30;
-							else if ( !gGameExternalOptions.fIncreaseAISuppressionFire && pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft > 50 )
+							// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
+							if ( GetMagSize(&pSoldier->inv[BestAttack.bWeaponIn], 0) >= gGameExternalOptions.ubAISuppressionMinimumMagSize &&
+								pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo )
 								iChance += 30;
 
 							if ( bInGas )

@@ -1834,97 +1834,29 @@ void QueryRTX1Button( UINT32 *puiNewEvent  )
 		{
 			fX1ButtonDown = FALSE;
 			if ( !_KeyDown( ALT ) && !_KeyDown( SHIFT ))
+			{
 					UIHandleChangeLevel( NULL );
+			}
 			else if( _KeyDown( SHIFT ) )
 			{
+				// WANNE: Jump through window?
+				if (gGameExternalOptions.fCanJumpThroughWindows == TRUE )
+				{
+					INT8	bDirection;
+			       	SOLDIERTYPE *lSoldier;
 
-				
-//dddokno код для отладки прыжков через окно============================================={
-//INT16		sGridNo;
-//STRUCTURE *			pStructure;
-//
-//GetMouseMapPos( &sGridNo );
-//ScreenMsg( FONT_MCOLOR_LTYELLOW,0, L"gubMerkCanSeeThisTile=%d,gubWorldTileInLight=%d",gubMerkCanSeeThisTile[sGridNo],gubWorldTileInLight[sGridNo]);
-//pStructure = gpWorldLevelData[sGridNo].pStructureHead;
-//
-//SOLDIERTYPE *pSoldier;
-//GetSoldier( &pSoldier, gusSelectedSoldier );
-//
-//LEVELNODE *pNode = NULL; UINT32 uiTileType=0;
-//pNode = gpWorldLevelData[ sGridNo	].pStructHead;
-//
-//GetTileType( pNode->usIndex, &uiTileType );
-//
-//CHAR8 errorBuf[511];
-//
-//sprintf(errorBuf, "Tile=%s at line %d", 
-//gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], uiTileType);
-//LiveMessage(errorBuf);
-
-
-	//if ( _stricmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], "build_13.sti" ) == 0 )
-	//{
-//	UINT16 sNewIndex;
-//	GetTileIndexFromTypeSubIndex( gTileDatabase[ pNode->usIndex ].fType, uiTileType, (UINT16 *)&sNewIndex );
-//	//GetTileIndexFromTypeSubIndex( STRUCTURE_WALLNWINDOW, uiTileType, (UINT16 *)&sNewIndex );
-//	
-//	ScreenMsg( FONT_MCOLOR_LTYELLOW,0, L"13 found=%d,strID=%d",sNewIndex,pNode->usIndex);
-//	
-//	UINT16 pusSubIndex;
-//	GetSubIndexFromTileIndex( pNode->usIndex, (UINT16 *)&pusSubIndex );
-//	ScreenMsg( FONT_MCOLOR_LTYELLOW,0, L"subidx=%d",pusSubIndex);
-//	sprintf(errorBuf, "subidx= %d", pusSubIndex);
-//LiveMessage(errorBuf);
-	
-
-//STRUCTURE			*pBase;
-//UINT16 pusSubIndex;
-//pBase = FindStructure( sGridNo, STRUCTURE_WALLNWINDOW );
-//pNode = FindLevelNodeBasedOnStructure( pBase->sGridNo, pBase );
-//GetSubIndexFromTileIndex( pNode->usIndex, (UINT16 *)&pusSubIndex );
-//ScreenMsg( FONT_MCOLOR_LTYELLOW,0, L"subidx=%d",pusSubIndex);
-
-
-	
-	//}
-//dddokno код для отладки прыжков через окно============================================= }
-				
-				//dddokno{
-				// старый код от скорпиона. удалить за ненадобностью--------------------------------------
-					//SOLDIERTYPE *pjSoldier;
-					//BOOLEAN	fNearHeigherLevel;
-					//BOOLEAN	fNearLowerLevel;
-					//INT8	bDirection;
-
-					//if ( GetSoldier( &pjSoldier, gusSelectedSoldier ) )
-					//{
-					//	// CHRISL: Turn off manual jumping while wearing a backpack
-					//	if(UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
-					//		return;
-
-					//	// Make sure the merc is not collapsed!
-					//	if (!IsValidStance(pjSoldier, ANIM_CROUCH) )
-					//	{
-					//		if ( pjSoldier->bCollapsed && pjSoldier->bBreath < OKBREATH )
-					//		{
-					//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[ 4 ], pjSoldier->name );
-					//		}
-
-					//		return;
-					//	}
-					//GetMercOknoDirection( pjSoldier->ubID, &fNearLowerLevel, &fNearHeigherLevel );
-					//if ( FindOknoDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
-					//	{
-					//		BeginSoldierOkno( pjSoldier );
-					//	}
-					//}
-					//dddokno{
-					// старый код от скорпиона. удалить за ненадобностью-------------------------------------
-
+                    if ( GetSoldier( &lSoldier, gusSelectedSoldier ) )
+					{
+			 			if ( FindWindowJumpDirection( lSoldier, lSoldier->sGridNo, lSoldier->ubDirection, &bDirection ) )
+						{
+							lSoldier->BeginSoldierClimbWindow(	);
+   	                    }
+					}
+				}
 			}
 			else if (_KeyDown( ALT ) )
 			{
-
+				// Climb on roofs
 				SOLDIERTYPE *pjSoldier;
 				if ( GetSoldier( &pjSoldier, gusSelectedSoldier ) )
 				{
@@ -1954,9 +1886,7 @@ void QueryRTX1Button( UINT32 *puiNewEvent  )
 					if ( FindFenceJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
 						pjSoldier->BeginSoldierClimbFence(	);
 				}
-				
-			}//else
-
+			}
 		}
 	}
 }

@@ -277,6 +277,18 @@ BOOLEAN AddCharacterToSquad( SOLDIERTYPE *pCharacter, INT8 bSquadValue )
 				SetGroupSectorValue( pCharacter->sSectorX, pCharacter->sSectorY, pCharacter->bSectorZ, SquadMovementGroups[ bSquadValue ] );
 				pCharacter->ubGroupID = SquadMovementGroups[ bSquadValue ];
 			}
+			else if( IsVehicle(pCharacter) )
+			{
+				INT32 iCounter = 0;
+				for( iCounter = 0; iCounter < ubNumberOfVehicles ; iCounter++ )
+				{
+					if(pVehicleList[ iCounter ].ubProfileID == pCharacter->ubProfile)
+						break;
+				}
+				//AddPlayerToGroup( pVehicleList[iCounter].ubMovementGroup, pCharacter	);
+				SetGroupSectorValue( pCharacter->sSectorX, pCharacter->sSectorY, pCharacter->bSectorZ, pVehicleList[iCounter].ubMovementGroup );
+				pCharacter->ubGroupID = pVehicleList[iCounter].ubMovementGroup;
+			}
 			else
 			{
 				AddPlayerToGroup( SquadMovementGroups[ bSquadValue ], pCharacter	);

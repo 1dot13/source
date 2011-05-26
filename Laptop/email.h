@@ -182,6 +182,9 @@ struct email
 	// So we know which analyse email belongs to the imp
 	INT32		iCurrentIMPPosition;
 
+	// WANNE.MAIL: Fix
+	INT16		iCurrentShipmentDestinationID;
+
 	struct	email *Next;
 	struct	email *Prev;
 };
@@ -210,6 +213,9 @@ typedef struct
 	BOOLEAN fNew;
 
 	INT32		iCurrentIMPPosition;
+
+	// WANNE.MAIL: Fix
+	INT16		iCurrentShipmentDestinationID;
 
 } SavedEmailStruct;
 
@@ -294,14 +300,14 @@ void RenderEmail();
 
 
 // message manipulation
-void AddEmailMessage(INT32 iMessageOffset, INT32 iMessageLength,STR16 pSubject, INT32 iDate, UINT8 ubSender, BOOLEAN fAlreadyRead, INT32 uiFirstData, UINT32 uiSecondData, INT32 iCurrentIMPPosition );
+void AddEmailMessage(INT32 iMessageOffset, INT32 iMessageLength,STR16 pSubject, INT32 iDate, UINT8 ubSender, BOOLEAN fAlreadyRead, INT32 uiFirstData, UINT32 uiSecondData, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID );
 void RemoveEmailMessage(INT32 iId);
 EmailPtr GetEmailMessage(INT32 iId);
 void LookForUnread();
-void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition);
+void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID);
 
-// WANNE: For the new WF merc
-void AddEmailWFMercLevelUp(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition);
+// WANNE: For the new WF merc, when they available again
+void AddEmailWFMercAvailable(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition);
 
 void AddPreReadEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate);
 BOOLEAN DisplayNewMailBox();

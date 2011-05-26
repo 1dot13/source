@@ -1,4 +1,6 @@
+// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("RUSSIAN")
+
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 	#include "_Ja25RussianText.h"
@@ -53,7 +55,7 @@ STR16 gzIMPSkillTraitsText[]=
 	L"Взлом замков",
 	L"Рукопашный бой",
 	L"Электроника",
-	L"Ночные операции",
+	L"Ночник",
 	L"Метание",
 	L"Инструктор",
 	L"Тяжелое оружие",
@@ -103,7 +105,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"Ловкач",	//Ambidextrous
 	L"Мастер клинка",	//Melee
 	L"Мастер по метанию",	//Throwing
-	L"Человек ночи",	//Night Ops
+	L"Ночник",	//Night Ops
 	L"Бесшумный убийца",	//Stealthy
 	L"Спортсмен",	//Athletics
 	L"Культурист",	//Bodybuilding
@@ -155,7 +157,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L" после пятого",
 	L" после шестого",
 	L" после седьмого",
-	L"-%d%s ОД на передёргивание затвора у полуавтоматических винтовок\n",
+	L"-%d%s ОД на передёргивание затвора магазинных винтовок\n",
 	L"Плюс 1 клик-прицеливания к оружию типа винтовки\n",
 	L"Плюс %d клик-прицеливания к оружию типа винтовки\n",
 
@@ -189,80 +191,80 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 };
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 {
-	L"-%d%s AP cost of hand to hand attacks(bare hands or with brass knuckles)\n",
-	L"+%d%s chance to hit with hand to hand attacks with bare hands\n",
-	L"+%d%s chance to hit with hand to hand attacks with brass knuckles\n",
-	L"+%d%s damage of hand to hand attacks(bare hands or with brass knuckles)\n",
-	L"+%d%s breath damage of hand to hand attacks(bare hands or with brass knuckles)\n",
-	L"Enemy knocked out due to your HtH attacks takes slightly longer to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks takes longer to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks takes much longer to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks takes very long to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks takes extremely long to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks takes long hours to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks probably never stand up\n",
-	L"Focused (aimed) punch deals +%d%s more damage\n",
-	L"Your special spinning kick deals +%d%s more damage\n",
-	L"+%d%s change to dodge hand to hand attacks\n",
-	L"+%d%s on top chance to dodge HtH attacks with bare hands",
-	L" or brass knuckles",
-	L" (+%d%s with brass knuckles)",
-	L"+%d%s on top chance to dodge HtH attacks with brass knuckles\n",
-	L"+%d%s chance to dodge attacks by any melee weapon\n",
-	L"-%d%s APs needed to steal weapon from enemy hands\n",
-	L"-%d%s APs needed to change stance (stand, crouch, lie down), turn around, climb on/off roof and jump obstacles\n",
-	L"-%d%s APs needed to change stance (stand, crouch, lie down)\n",
-	L"-%d%s APs needed to turn around\n",
-	L"-%d%s APs needed to climb on/off roof and jump obstacles\n",
-	L"+%d%s chance to kick doors in\n",
-	L"You gain special animations for hand to hand combat\n",
+	L"-%d%s ОД на рукопашые атаки (кулаками и кастетом)\n",
+	L"+%d%s к шансу на результативный удар рукой\n",
+	L"+%d%s к шансу на результативный удар кастетом\n",
+	L"+%d%s к урону в рукопашных атаках (кулаками и кастетом)\n",
+	L"+%d%s к урону выносливости в рукопашных атаках (кулаками и кастетом)\n",
+	L"Враг, сваленный вашими ударами, немного дольше приходит в себя\n",
+	L"Враг, сваленный вашими ударами, дольше приходит в себя\n",
+	L"Враг, сваленный вашими ударами, намного дольше приходит в себя\n",
+	L"Враг, сваленный вашими ударами, очень долго приходит в себя\n",
+	L"Враг, сваленный вашими ударами, надолго теряет сознание\n",
+	L"Враг, сваленный вашими ударами, теряет сознание на много часов\n",
+	L"Враг, сваленный вашими ударами, вероятно больше не очнётся\n",
+	L"Прицельный удар наносит на %d%s больше урона\n",
+	L"Удар ногой с разворота наносит на %d%s больше урона\n",
+	L"+%d%s к шансу увернуться от удара\n",
+	L"+%d%s к шансу увернуться от удара рукой",
+	L" или кастетом",
+	L" (+%d%s с кастетом)",
+	L"+%d%s к шансу увернуться от удара кастетом\n",
+	L"+%d%s к шансу увернуться от атаки любым холодным оружием\n",
+	L"нужно на %d%s ОД меньше чтобы выхватить оружие из рук противника\n",
+	L"нужно на %d%s ОД меньше чтобы сменить положение (стоя, сидя, лежа), повернуться, слезть/залезть на крышу и перепрыгнуть препятствие\n",
+	L"нужно на %d%s ОД меньше чтобы сменить положение (стоя, сидя, лежа)\n",
+	L"нужно на %d%s ОД меньше чтобы повернуться\n",
+	L"нужно на %d%s ОД меньше чтобы слезть/залезть на крышу и перепрыгнуть препятствие\n",
+	L"+%d%s к шансу выбить дверь ногой\n",
+	L"Вы получаете специальные движения для атак в ближнем бою\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 {
-	L"+%d%s APs per round of other mercs in vicinity\n",
-	L"+%d effective exp level of other mercs in vicinity, which have lesser level than the %s\n",
-	L"+%d effective exp level to count as a standby when counting friends' bonus for suppression\n",
-	L"+%d%s total suppression tolerance for other mercs in the vicinity and %s himself\n",
-	L"+%d morale gain for other mercs in the vicinity\n",
-	L"-%d morale loss for other mercs in the vicinity\n",
-	L"The vicinity for bonuses is %d tiles",
-	L" (%d tiles with extended ears)",
-	L"(Max simultaneous bonuses for one soldier is %d)\n",
-	L"+%d%s fear resistence of %s\n",
-	L"Drawback: %dx morale loss for %s's death for all other mercs\n",
+	L"+%d%s ОД на каждый ход рядом находящимся наёмникам\n",
+	L"+%d к эффективному уровню рядом находящихся наёмников, у которых уровень ниже чем у %s\n",
+	L"+%d к уровню опыта союзников при подсчете бонуса подавления для их огня\n",
+	L"на +%d%s труднее подавить %s и наёмников рядом с ним\n",
+	L"+%d к боевому духу рядом находящихся наёмников\n",
+	L"-%d к потере боевого духа для рядом находящихся наёмников\n",
+	L"Радиус влияния лидера на других наёмников %d клеток",
+	L" (%d клеток с усилителем звука)",
+	L"(Максимальное количество одновременных бонусов для одного солдата %d)\n",
+	L"+%d%s сопротивление страху у %s\n",
+	L"Недостаток: %dx кратное ухудшение боевого духа у наёмников если погибает %s\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 {
-	L"+%d%s to repairing speed\n",
-	L"+%d%s to lockpicking (normal/electronic locks)\n",
-	L"+%d%s to disarming electronic traps\n",
-	L"+%d%s to attaching special items and combining things\n",
-	L"+%d%s to unjamming a gun in combat\n",
-	L"Reduce penalty to repair electronic items by %d%s\n",
-	L"Increased chance to detect traps and mines (+%d detect level)\n",
-	L"+%d%s CtH of robot controlled by the %s\n",
-	L"%s trait grants you the ability to repair the robot\n",
-	L"Reduced penalty to repair speed of the robot by %d%s\n",
+	L"+%d%s к скорости ремонта\n",
+	L"+%d%s к умению взлома замков (обычных/электронных)\n",
+	L"+%d%s к умению отключать электронные ловушки\n",
+	L"+%d%s к умению сборки вещей и присоединению особых деталей\n",
+	L"+%d%s к умению привести оружие в рабочее состояние в бою если оно отказало\n",
+	L"Понижен штраф на ремонт электронных предметов на %d%s\n",
+	L"Повышен шанс обнаружить электронные ловушки и мины (+%d к уровню обнаружения)\n",
+	L"+%d%s к шансу поразить цель роботу управляемому %s\n",
+	L"%s даёт возможность ремонтировать робота\n",
+	L"Понижен штраф на ремонт робота на %d%s\n",
 };
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 {
-	L"Has ability to perform surgical intervention by using medical bag on wounded soldier\n",
-	L"Surgery instantly returns %d%s of lost health back.",
-	L" (This drains the medical bag a lot.)",
-	L"Can heal lost stats (from critical hits) by the",
-	L" surgery or",
-	L" doctor assignment.\n",
-	L"+%d%s effectiveness on doctor-patient assignment\n",
-	L"+%d%s bandaging speed\n",
-	L"+%d%s natural regeneration speed for all soldiers in the same sector",
-	L" (max %d of these bonuses per sector stack)",
+	L"Может выполнять хирургические операции при наличии медицинской сумки\n",
+	L"Хирургическая операция возвращает %d%s единиц потерянного здоровья.",
+	L" (Требует значительного расхода содержимого мед. сумки.)",
+	L"Может вернуть ухудшившиеся навыки (в следствии критического ранения) путём",
+	L" хирургического вмешательства или",
+	L" обычным лечением.\n",
+	L"+%d%s к эффективности при связке доктор-пациент\n",
+	L"+%d%s к скорости перевязки\n",
+	L"+%d%s к природной скорости регенерации для всех солдат в том же секторе",
+	L" (максимум %d бонуса на находящихся в секторе)",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {
-	L"Нет преимуществ",	//No bonuses
+	L"Нет преимуществ",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
@@ -278,30 +280,30 @@ STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 };
 STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 {
-	L"-%d%s APs needed to attack by blades\n",
-	L"+%d%s chance to hit with blades\n",
-	L"+%d%s chance to hit with blunt melee weapons\n",
-	L"+%d%s damage with blades\n",
-	L"+%d%s damage with blunt melee weapons\n",
-	L"Aimed attack with any melee weapon deals +%d%s damage\n",
-	L"+%d%s chance to dodge attack by melee blades\n",
-	L"+%d%s on top chance to dodge melee blades if holding a blade\n",
-	L"+%d%s chance to dodge attack by blunt melee weapons\n",
-	L"+%d%s on top chance to dodge blunt melee weapons if holding a blade\n",
+	L"-%d%s от ОД на атаку клинковым оружием\n",
+	L"+%d%s к шансу поразить клинковым оружием\n",
+	L"+%d%s к шансу поразить бьющим холодным оружием\n",
+	L"+%d%s к урону от клинкогово оружия\n",
+	L"+%d%s к урону от бьющего холодного оружия\n",
+	L"Урон от прицельной отаки любым холодным оружием повышается на +%d%s\n",
+	L"+%d%s к шансу уклониться от атаки клинковым оружием\n",
+	L"+%d%s к шансу уклониться от атаки клинковым оружием если в руках нож\n",
+	L"+%d%s к шансу уклониться от атаки бьющим холодным оружием\n",
+	L"+%d%s к шансу уклониться от атаки бьющим холодным оружием если в руках нож\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 {
-	L"-%d%s basic APs needed to throw blades\n",
-	L"+%d%s max range when throwing blades\n",
-	L"+%d%s chance to hit when throwing blades\n",
-	L"+%d%s chance to hit when throwing blades per aim click\n",
-	L"+%d%s damage with throwing blades\n",
-	L"+%d%s damage with throwing blades per aim click\n",
-	L"+%d%s chance to inflict critical hit with throwing blade if not seen or heard\n",
-	L"+%d critical hit with throwing blade multiplier\n",
-	L"Adds %d more aim click for throwing blades\n",
-	L"Adds %d more aim clicks for throwing blades\n",
+	L"-%d%s от базовых ОД нужных на бросок ножа\n",
+	L"+%d%s к максимальной эффективной дальности броска ножа\n",
+	L"+%d%s к шансу поразить цель при метании ножа\n",
+	L"+%d%s к шансу поразить цель при метании ножа прицельно\n",
+	L"+%d%s к урону метательного ножа\n",
+	L"+%d%s к урону метательного ножа при прицельном броске\n",
+	L"+%d%s к шансу нанести критический удар при броске ножа, если вас не слышали и не видели\n",
+	L"+%d к множителю на критический удар при броске ножа\n",
+	L"Добавляет %d щелчёк мыши на прицеливание к броску ножа\n",
+	L"Добавляет %d щелчков мыши на прицеливание к броску ножа\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
@@ -336,110 +338,97 @@ STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 };
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
-	L"-%d%s APs needed to throw grenades\n",
-	L"+%d%s max range when throwing grenades\n",
-	L"+%d%s chance to hit when throwing grenades\n",
-	L"+%d%s damage of set bombs and mines\n",
-	L"+%d%s to attaching detonators check\n",
-	L"+%d%s to planting/removing bombs check\n",
-	L"Decreases chance enemy will detect your bombs and mines (+%d bomb level)\n",
-	L"Increased chance shaped charge will open the doors (damage multiplied by %d)\n",
+	L"-%d%s от ОД на бросок гранаты\n",
+	L"+%d%s к максимальной дальности броска гранаты\n",
+	L"+%d%s к точности броска гранаты\n",
+	L"+%d%s к урону от установленных бомб и мин\n",
+	L"+%d%s к у мению устанавливать детонатор\n",
+	L"+%d%s к установке/разминированию бомб\n",
+	L"Уменьшает шанс обнаружения противником установленных юомб и мин (+%d к уровню бомб)\n",
+	L"Повышает вероятность вскрытия замка формовым зарядом (множитель повреждений %d)\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 {
-	L"+%d%s bonus to militia training speed\n",
-	L"+%d%s bonus to effective leadership for determining militia training\n",
-	L"+%d%s bonus to teaching other mercs\n",
-	L"Skill value counts to be +%d higher for being able to teach this skill to other mercs\n",
-	L"+%d%s bonus to train stats through self-practising assignment\n",
+	L"+%d%s к скорости обучения ополчения\n",
+	L"+%d%s к эффективной скорости обучения ополчения\n",
+	L"+%d%s к скорости обучения других наёмников\n",
+	L"Значение уровня умения быдет выше на +%d при обучении другого бойца этому умению\n",
+	L"+%d%s к скорости самостоятельного обучения/тренировке\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
-	L"+%d to effective sight range with scopes on weapons\n",
-	L"+%d to effective sight range with binoculars (and scopes separated from weapons)\n",
-	L"-%d tunnel vision with binoculars (and scopes separated from weapons)\n",
-	L"If in sector, adjacent sectors will show exact number of enemies\n",
-	L"If in sector, adjacent sectors will show presence of enemies, if any\n",
-	L"Prevents enemy ambushes on your squad\n",
-	L"Prevents bloodcat ambushes on your squad\n",
+	L"+%d к эффективной прицельной видимости для оружия с оптическими прицелами\n",
+	L"+%d к эффективной дальности видимости для биноклей (и оптических прицелов отсоединённых от оружия)\n",
+	L"-%d от туннельного зрения для биноклей (и оптических прицелов отсоединённых от оружия)\n",
+	L"Если в секторе, в смежных секторах будет показано точное количество врагов\n",
+	L"Если в секторе, в смежных секторах будет показано наличие врагов\n",
+	L"Предотвращает попадание отряда во вражеские засады\n",
+	L"Предотвращает попадание отряда в засады кошек-убийц\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
-	L"Нет преимуществ",	//No bonuses
+	L"Нет преимуществ",
 };
 
 STR16 gzIMPOldSkillTraitsHelpTexts[]=
 {
-	L"+%d%s bonus to lockpicking\n",
-	L"+%d%s hand to hand chance to hit\n",
-	L"+%d%s hand to hand damage\n",
-	L"+%d%s chance to dodge hand to hand attacks\n",
-	L"Eliminates the penalty to repair and handle\nelectronic things (locks, traps, rem. detonators, robot, etc.)\n",
-	L"+%d to effective sight range in the dark\n",
-	L"+%d to general effective hearing range\n",
-	L"+%d extra hearing range in the dark\n",
-	L"+%d to interrupts modifier in the dark\n",
-	L"-%d need to sleep\n",
-	L"+%d%s max range when throwing anything\n",
-	L"+%d%s chance to hit when throwing anything\n",
-	L"+%d%s chance to instantly kill by throwing knife if not seen or heard\n",
-	L"+%d%s bonus to militia training and other mercs instructing speed\n",
-	L"+%d%s effective leadership for militia training calculations\n",
-	L"+%d%s chance to hit with rocket/greande launchers and mortar\n",
-	L"Auto fire/burst chance to hit penalty is divided by %d\n",
-	L"Reduced chance for shooting unwanted bullets on autofire\n",
-	L"+%d%s chance to move quietly\n",
-	L"+%d%s stealth (being 'invisible' if unnoticed)\n",
-	L"Eliminates the CtH penalty when firing two weapons at once\n",
-	L"+%d%s chance to hit with melee blades\n",
-	L"+%d%s chance to dodge attacks by melee blades if having blade in hands\n",
-	L"+%d%s chance to dodge attacks by melee blades if having anything else in hands\n",
-	L"+%d%s chance to dodge hand to hand attacks if having blade in hands\n",
-	L"-%d%s effective range to target with all weapons\n",
-	L"+%d%s aiming bonus per aim click\n",
-	L"Provides permanent camouflage\n",
-	L"+%d%s hand to hand chance to hit\n",
-	L"+%d%s hand to hand damage\n",
-	L"+%d%s chance to dodge hand to hand attacks if having empty hands\n",
-	L"+%d%s chance to dodge hand to hand attacks if not having empty hands\n",
-	L"+%d%s chance to dodge attacks by melee blades\n",
-	L"Can perform spinning kick attack on weakened enemies to deal double damage\n",
-	L"You gain special animations for hand to hand combat\n",
-	L"Нет преимуществ",	//No bonuses
+	L"+%d%s бонус к взлому замков\n",
+	L"+%d%s к точности удара в рукопашной схватке\n",
+	L"+%d%s к повреждениям в рукопашной схватке\n",
+	L"+%d%s к шансу уклониться от удара кулака в рукопашной схватке\n",
+	L"Нет штрафа для ремонта и использования электронных устройств \n(замков, ловушек, детонаторов, робота и т.д.)\n",
+	L"+%d к зрению в темноте\n",
+	L"+%d к дальности слуха\n",
+	L"+%d дополнительно к слуху в темноте\n",
+	L"+%d к вероятности перехвата хода в ночи\n",
+	L"-%d к нужде в сне\n",
+	L"+%d%s к максимальному радиусу дальности при метании\n",
+	L"+%d%s к точности при метании\n",
+	L"+%d%s шанс мгновенно убить метательным ножом, чтобы это никто не заметил и не услышал\n",
+	L"+%d%s к скорости обучения ополчения или других наемников\n",
+	L"+%d%s к эффективной скорости обучения ополчения\n",
+	L"+%d%s к шансу поразить из гранатомёта, реактивного гранатомёта и из миномёта\n",
+	L"Штраф на вероятность поражения цели при стрельбе очередью понижен на %d\n",
+	L"Понижен шанс лишних выстрелов при автоматической стрельбе\n",
+	L"+%d%s к бесшумному передвижению\n",
+	L"+%d%s к скрытности (незаметный для врага, пока вас не обнаружили)\n",
+	L"Нет штарафа на шанс поразить цель при стрельбе с двух рук\n",
+	L"+%d%s к шансу поразить холодным оружием\n",
+	L"+%d%s к шансу уклониться от удара холодным оружием, если в руках есть нож\n",
+	L"+%d%s к шансу уклониться от удара холодным оружием, если в руках не нож\n",
+	L"+%d%s к шансу уклониться от удара в рукопашную, если в руках есть нож\n",
+	L"-%d%s к эффективной дальность до цели для всего вида оружия\n",
+	L"+%d%s к бонусу прицеливания на каджый щелчок мыши\n",
+	L"Несмываемый камуфляж.\n",
+	L"+%d%s к шансу поразить в рукопашном бою\n",
+	L"+%d%s к повреждениям в рукопашном бою\n",
+	L"+%d%s к шансу уклониться от атаки в рукопашном бою если в руках ничего нет\n",
+	L"+%d%s к шансу уклониться от атаки в рукопашном бою если руки заняты\n",
+	L"+%d%s к шансу уклониться от атаки холодным оружием\n",
+	L"Способен нанести удар 'вертушка' в прыжке по слабейшему противнику с нанесением двойного урона\n",
+	L"У вас будет особая анимация при рукопашной битве.\n",
+	L"Нет преимуществ",
 };
 
 STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 {
 //I.M.P. Character Traits help text
-//Neutral
-	L"плюсы: Нет преимуществ.\n \nминусы: Без изъян.",
-//Sociable
-	L"плюсы: Лучше работает в команде.\n \nминусы: Боевой дух не растёт, когда наёмник работает один.",
-//Loner
-	L"плюсы: Лучше работает в одиночестве.\n \nминусы: Боевой дух не растёт в присутствии других бойцов.",
-//Optimist
-	L"плюсы: Боевой дух растет быстрее, а снижается медленнее обычного.\n \nминусы: Шанс обнаружить мины и ловушки ниже среднего.",
-//Assertive
-	L"плюсы: Лучше ладит с людьми и тренирует ополчение.\n \nминусы: Действия других бойцов не влияют на его боевой дух.",
-//Intellectual
-	L"плюсы: Немного быстрее обучается.\n \nминусы: Обладает меньшим сопротивлением страху и подавлению.",
-//Primitive
-	L"плюсы: Устаёт медленнее других, если не работает как врач, ремонтник, тренер или ученик.\n \nминусы: Его мудрость, лидерство, взрывное дело, механика и медицина растут медленнее обычного.",
-//Aggressive
-	L"плюсы: Имеет бонус к стрельбе очередями и урону в рукопашной. \nПри убийстве врага боевой дух растёт больше, чем у других.\n \nминусы: Хуже исполняет обязанности, для которых требуется терпение: \nремонт, вскрытие замков, снятие ловушек, лечение, тренировка ополчения.",
-//Phlegmatic
-	L"плюсы: Лучше исполняет обязанности, требующие терпения: \nремонт, вскрытие замков, снятие ловушек, лечение, тренировка ополчения.\n \nминусы: Имеет меньший шанс перехватить ход врага.",
-//Dauntless
-	L"плюсы: Имеет повышенное сопротивление подавлению и страху. \nБоевой дух при ранениях и гибели товарищей понижается медленнее, чем у других.\n \nминусы: Может быть с большей вероятностью поражен во время движения.",
-//Pacifist
-	L"плюсы: Боевой дух повышается при выполнении небоевых заданий (кроме тренировки ополчения).\n \nминусы: Убийство врагов не повышает боевой дух.",
-//Malicious
-	L"плюсы: Имеет больший шанс нанести болезненные раны и травмы, приводящие к ухудшению параметров.\n \nминусы: Имеет проблемы в общении и быстро теряет боевой дух, если не сражается.",
-//Show-off
-	L"плюсы: Лучше работает в компании представителей противоположного пола.\n \nминусы: Боевой дух бойцов того же пола в его присутствии растёт медленнее.",
+	L"плюсы: Нет преимуществ.\n \nминусы: Без изъян.",	//Neutral
+	L"плюсы: Лучше работает в команде.\n \nминусы: Боевой дух не растёт, когда наёмник работает один.",	//Sociable
+	L"плюсы: Лучше работает в одиночестве.\n \nминусы: Боевой дух не растёт в присутствии других бойцов.",	//Loner
+	L"плюсы: Боевой дух растет быстрее, а снижается медленнее обычного.\n \nминусы: Шанс обнаружить мины и ловушки ниже среднего.",	//Optimist
+	L"плюсы: Лучше ладит с людьми и тренирует ополчение.\n \nминусы: Действия других бойцов не влияют на его боевой дух.",	//Assertive
+	L"плюсы: Немного быстрее обучается.\n \nминусы: Обладает меньшим сопротивлением страху и подавлению.",	//Intellectual
+	L"плюсы: Устаёт медленнее других, если не работает как врач, ремонтник, тренер или ученик.\n \nминусы: Его мудрость, лидерство, взрывное дело, механика и медицина растут медленнее обычного.",	//Primitive
+	L"плюсы: Имеет бонус к стрельбе очередями и урону в рукопашной. \nПри убийстве врага боевой дух растёт больше, чем у других.\n \nминусы: Хуже исполняет обязанности, для которых требуется терпение: \nремонт, вскрытие замков, снятие ловушек, лечение, тренировка ополчения.",	//Aggressive
+	L"плюсы: Лучше исполняет обязанности, требующие терпения: \nремонт, вскрытие замков, снятие ловушек, лечение, тренировка ополчения.\n \nминусы: Имеет меньший шанс перехватить ход врага.",	//Phlegmatic
+	L"плюсы: Имеет повышенное сопротивление подавлению и страху. \nБоевой дух при ранениях и гибели товарищей понижается медленнее, чем у других.\n \nминусы: Может быть с большей вероятностью поражен во время движения.",	//Dauntless
+	L"плюсы: Боевой дух повышается при выполнении небоевых заданий (кроме тренировки ополчения).\n \nминусы: Убийство врагов не повышает боевой дух.",	//Pacifist
+	L"плюсы: Имеет больший шанс нанести болезненные раны и травмы, приводящие к ухудшению параметров.\n \nминусы: Имеет проблемы в общении и быстро теряет боевой дух, если не сражается.",	//Malicious
+	L"плюсы: Лучше работает в компании представителей противоположного пола.\n \nминусы: Боевой дух бойцов того же пола в его присутствии растёт медленнее.",	//Show-off
 };
 
 STR16 gzIMPDisabilitiesHelpTexts[]=
@@ -462,7 +451,7 @@ STR16 gzIMPProfileCostText[]=
 
 STR16 zGioNewTraitsImpossibleText[]=
 {
-	L"Нельзя выбрать новые умения IMP персонажа с отключенным PROFEX. Проверьте значение файла настроек JA2_Options.ini, ключ: READ_PROFILE_DATA_FROM_XML.",	//You cannot choose the New Trait System with PROFEX utility deactivated. Check your JA2_Options.ini for entry: READ_PROFILE_DATA_FROM_XML.
+	L"Нельзя выбрать новые умения IMP персонажа с отключенным PROFEX. Проверьте значение файла настроек JA2_Options.ini, ключ: READ_PROFILE_DATA_FROM_XML.",
 };
 
 //@@@:  New string as of March 3, 2000.
@@ -475,6 +464,7 @@ STR16 gzDisplayCoverText[]=
 {
 	L"Местность: %d/100 %s, Освещённость: %d/100",
 	L"Дальнобойность оружия: %d/%d ед., шанс попасть: %d/100",
+	L"Дальнобойность оружия: %d/%d ед., Muzzle Stability: %d/100",
 	L"Отключено выделение видимых зон наёмника и врага",
 	L"Видимые зоны наёмнка",
 	L"Опасные зоны для наёмника",

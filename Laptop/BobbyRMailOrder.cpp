@@ -30,6 +30,10 @@
 
 #include "Strategic Event Handler.h"
 #include "connect.h"
+#include "GameSettings.h"
+#include <vfs/Core/vfs.h>
+#include <vfs/Core/vfs_file_raii.h>
+#include <vfs/Core/File/vfs_file.h>
 
 /*
 typedef struct
@@ -334,7 +338,7 @@ MOUSE_REGION	gSelectedUpDownArrowOnScrollAreaRegion[2];
 void SelectUpDownArrowOnScrollAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
 //Dealtar's Airport Externalization.
-UINT16 gusCurShipmentDestinationID;
+INT16 gusCurShipmentDestinationID;
 extern CPostalService gPostalService;
 UINT8 guiNumOfDisplayedCities=0;
 vector<PDestinationStruct> gDestinationTable;
@@ -2219,15 +2223,29 @@ void AddJohnsGunShipment()
 
 	// want to add two guns (Automags, AUTOMAG_III), and four clips of ammo.
 
+	
+
+
 	Temp[0].usItemIndex = AUTOMAG_III;
 	Temp[0].ubNumberPurchased = 2;
 	Temp[0].bItemQuality = 100;
 	Temp[0].usBobbyItemIndex = 0;// does this get used anywhere???
 	Temp[0].fUsed = FALSE;
-
+	
 //	memcpy( &(LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray[ cnt ].BobbyRayPurchase[0]), &Temp, sizeof(BobbyRayPurchaseStruct) );
 
-	Temp[1].usItemIndex = CLIP762N_5_AP;
+	// WANNE: We have to check if profile 1.13 is available or not, to get the correct ammo
+	BOOLEAN isData113ProfileAvailable = FALSE;
+	if(getVFS()->getProfileStack()->getProfile(L"v1.13") != NULL)	
+		isData113ProfileAvailable = TRUE;	
+	else
+		isData113ProfileAvailable = FALSE;
+
+	if (isData113ProfileAvailable)
+		Temp[1].usItemIndex = 557;
+	else
+		Temp[1].usItemIndex = CLIP762N_5_AP;
+
 	Temp[1].ubNumberPurchased = 2;
 	Temp[1].bItemQuality = 5;
 	Temp[1].usBobbyItemIndex = 0;// does this get used anywhere???

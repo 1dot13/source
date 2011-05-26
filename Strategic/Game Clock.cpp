@@ -1043,8 +1043,11 @@ void CreateMouseRegionForPauseOfClock( INT16 sX, INT16 sY )
 {
 	if( fClockMouseRegionCreated == FALSE )
 	{
+		INT16 sXVal = sX;
+		INT16 sYVal = sY;
+
 		// create a mouse region for pausing of game clock
-		MSYS_DefineRegion( &gClockMouseRegion, (UINT16)( sX ), (UINT16)( sY ),(UINT16)( sX + CLOCK_REGION_WIDTH ), (UINT16)( sY + CLOCK_REGION_HEIGHT ), MSYS_PRIORITY_HIGHEST,
+		MSYS_DefineRegion( &gClockMouseRegion, (UINT16)( sXVal ), (UINT16)( sYVal ),(UINT16)( sX + CLOCK_REGION_WIDTH ), (UINT16)( sY + CLOCK_REGION_HEIGHT), MSYS_PRIORITY_HIGHEST,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, PauseOfClockBtnCallback );
 
 		fClockMouseRegionCreated = TRUE;

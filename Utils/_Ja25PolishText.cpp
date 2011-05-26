@@ -1,4 +1,6 @@
-//#pragma setlocale("POLISH")
+// WANNE: Yes we need this here exclusivly in Polish version, because we do not have a codepage in the code like for other versions.
+#pragma setlocale("POLISH")
+
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 	#include "_Ja25Polishtext.h"
@@ -414,17 +416,17 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 {
 	L"A: No advantage.\nD: No disadvantage.",
-	L"A: Has better performance when couple of mercs are nearby.\nD: Gains no morale when no other merc is nearby.",
+	L"A: Has better performance when a couple of mercs are nearby.\nD: Gains no morale when no other merc is nearby.",
 	L"A: Has better performance when no other merc is nearby.\nD: Gains no morale when in a group.",
 	L"A: His morale sinks a little slower and grows faster than normal.\nD: Has lesser chance to detect traps and mines.",
 	L"A: Has bonus on training militia and is better at communication with people.\nD: Gains no morale for actions of other mercs.",
 	L"A: Slightly faster learning when assigned on practicing or as a student.\nD: Has lesser suppression and fear resistance.",
-	L"A: His energy goes down a bit slower except on assignments as doctor, repairman, militia trainer or if learning certain skills.\nD: His wisdom, leadership, explosives, mechanical and medical skills improve slightly slower.",
-	L"A: Has slightly better chance to hit on burst/autofire and inflicts slightly bigger damage in close combat\n    Gains a little more morale for killing.\nD: Has penalty for actions which needs patience like repairing items, picking locks, removing traps, doctoring, training militia.",
-	L"A: Has bonus for actions which needs patience like repairing items, picking locks, removing traps, doctoring and training militia.\nD: His interrupts chance is slightly lowered.",
-	L"A: Incresed resistance to suppression and fear.\n    Morale loss for taking damage and companions deaths is lower for him.\nD: Can be hit easier and enemy penalty for moving target is lesser in his case.",
+	L"A: His energy goes down a bit slower except on assignments such as doctor, repairman, militia trainer or if learning certain skills.\nD: His wisdom, leadership, explosives, mechanical and medical skills improve slightly slower.",
+	L"A: Has slightly better chance to hit on burst/autofire and inflicts slightly bigger damage in close combat\n    Gains a little more morale for killing.\nD: Has penalty for actions which need patience like repairing items, picking locks, removing traps, doctoring, training militia.",
+	L"A: Has bonus for actions which need patience like repairing items, picking locks, removing traps, doctoring and training militia.\nD: His interrupt chance is slightly lowered.",
+	L"A: Increased resistance to suppression and fear.\n    Morale loss for taking damage and companions deaths is lower for him.\nD: Can be hit easier and enemy penalty for moving target is lesser in his case.",
 	L"A: He gains morale when on non-combat assignments (except training militia).\nD: Gains no morale for killing.",
-	L"A: Has bigger chance for inflicting stat loss and can inflict special painful wounds when able to\n   Gains bonus morale for inflicting stat loss.\nD: Has penalty for communication with people and his morale sinks faster if not fighting.",
+	L"A: Has greater chance of inflicting stat loss, which may also inflict special painful wounds.\n   Gains bonus morale for inflicting stat loss.\nD: Has penalty for communication with people and his morale sinks faster if not fighting.",
 	L"A: Has better performance when there are some mercs of opposite gender nearby.\nD: Morale of other mercs of the same gender grows slower if nearby.",
 
 };
@@ -436,9 +438,9 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Can suffer panic attack if left alone in certain situations.",
 	L"His overall performance is reduced if underground.",
 	L"If trying to swim he can easily drown.",
-	L"A look at large insects can make a big problems\nand being in tropical sectors also reduce his performance a bit.",
+	L"A look at large insects can cause big problems\nand being in tropical sectors also reduce his performance a bit.",
 	L"Sometimes forgets what orders he got and therefore loses some APs if in combat.",
-	L"He can go psycho and shoot like mad once per a while\nand can lose morale if unable to do that with given weapon.",
+	L"He can go psycho and shoot like mad once in a while\nand can lose morale if unable to do so with given weapon.",
 
 };
 
@@ -465,6 +467,7 @@ STR16 gzDisplayCoverText[]=
 {
 	L"Cover: %d/100 %s, Brightness: %d/100",
 	L"Gun Range: %d/%d tiles, Chance to hit: %d/100",
+	L"Gun Range: %d/%d tiles, Muzzle Stability: %d/100",
 	L"Disabling cover display",
 	L"Showing mercenary view",
 	L"Showing danger zones for mercenary",

@@ -2862,7 +2862,7 @@ void RemoveOneOpponent(SOLDIERTYPE *pSoldier)
  {
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Oppcnt for %d (%s) tried to go below 0", pSoldier->ubID, pSoldier->name ) );
 	#ifdef JA2BETAVERSION
-		ScreenMsg( MSG_FONT_YELLOW, MSG_UI_FEEDBACK,	L"Opponent counter dropped below 0 for person %d (%s).	Please inform Sir-tech of this, and what has just been happening in the game.", pSoldier->ubID, pSoldier->name );
+		ScreenMsg( MSG_FONT_YELLOW, MSG_UI_FEEDBACK,	L"Opponent counter dropped below 0 for person %d (%s). Please inform Sir-tech of this, and what has just been happening in the game.", pSoldier->ubID, pSoldier->name );
 	#endif
 	pSoldier->aiData.bOppCnt = 0;
  }
@@ -5751,7 +5751,8 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 				if (pSoldier->aiData.bOppList[ubNoiseMaker] == SEEN_CURRENTLY)
 				{
 					// civilians care about gunshots even if they come from someone they can see
-					if ( !( pSoldier->aiData.bNeutral && ubNoiseType == NOISE_GUNFIRE ) )
+					// ChrisL: Crows will fly away if they hear any noise
+					if ( !( pSoldier->aiData.bNeutral && ubNoiseType == NOISE_GUNFIRE ) && pSoldier->ubBodyType != CROW )
 					{
 						continue;		// then who cares whether he can also hear the guy?
 					}
@@ -6949,7 +6950,8 @@ void RecalculateOppCntsDueToNoLongerNeutral( SOLDIERTYPE * pSoldier )
 				if ( pOpponent->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY )
 				{
 					// have to add to opponent's oppcount as well since we just became non-neutral
-					AddOneOpponent( pOpponent );
+					//CHRISL: If we do this, Bloodcats get counted at opponents multiple times and never get removed from the OppCnt variable.
+					//AddOneOpponent( pOpponent );
 				}
 			}
 		}

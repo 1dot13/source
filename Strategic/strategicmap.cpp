@@ -2928,13 +2928,16 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 					// Are we in Omerta!
 					if ( sSectorX == gWorldSectorX && gWorldSectorX == 9 && sSectorY == gWorldSectorY && gWorldSectorY == 1 && bSectorZ == gbWorldSectorZ && gbWorldSectorZ == 0 )
 					{
+						// TODO.WANNE: Hardcoded grid number
 						// Try another location and walk into map
 						pSoldier->sInsertionGridNo = 4379;//dnl!!!
 					}
 					else
 					{
-						pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-						pSoldier->sInsertionGridNo				 = gMapInformation.sNorthGridNo;
+						//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+						//pSoldier->sInsertionGridNo				 = gMapInformation.sNorthGridNo;
+						pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+						pSoldier->sInsertionGridNo = gGameExternalOptions.iInitialMercArrivalLocation;
 					}
 					break;
 				case INSERTION_CODE_CHOPPER:
@@ -2945,6 +2948,7 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 					return;
 					break;
 				default:
+					// TODO.WANNE: Hardcoded grid number
 					pSoldier->sInsertionGridNo = 12880;//dnl!!!
 					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Improper insertion code %d given to UpdateMercsInSector", pSoldier->ubStrategicInsertionCode ) );
 					break;
@@ -3705,8 +3709,16 @@ BEGINNING_LOOP:
 		{
 			if ( !OK_CONTROLLABLE_MERC( curr->pSoldier ) )
 			{
-				RemoveCharacterFromSquads( curr->pSoldier );
-				goto BEGINNING_LOOP;
+				if(OK_CONTROL_MERC(curr->pSoldier) && curr->pSoldier->bAssignment == VEHICLE && pGroup->fVehicle)
+				{
+					//CHRISL: passengers in a vehicle movement group will not pass the OK_CONTROLLABLE_MERC check because their assignment is not "ON_DUTY".
+					//	The above conditions should allow passengers in a vehicle movement group to remain in the group.
+				}
+				else
+				{
+					RemoveCharacterFromSquads( curr->pSoldier );
+					goto BEGINNING_LOOP;
+				}
 			}
 			curr = curr->next;
 		}

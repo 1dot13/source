@@ -211,6 +211,7 @@
     <ClCompile Include="XML_Magazine.cpp" />
     <ClCompile Include="XML_MercStartingGear.cpp" />
     <ClCompile Include="XML_Merge.cpp" />
+    <ClCompile Include="XML_NewFaceGear.cpp" />
     <ClCompile Include="XML_Opinions.cpp" />
     <ClCompile Include="XML_Profiles.cpp" />
     <ClCompile Include="XML_Qarray.cpp" />

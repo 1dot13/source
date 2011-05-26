@@ -290,7 +290,7 @@ void CreateSummaryWindow()
 	DisableButton( iSummaryButton[ SUMMARY_BACKGROUND ] );
 
 	iSummaryButton[ SUMMARY_OKAY ] = 
-		CreateTextButton(L"Okay", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT, MAP_LEFT+160, MAP_BOTTOM+99, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, SummaryOkayCallback);//dnl ch36 190909
+		CreateTextButton(pCreateSummaryWindowText[0], FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT, MAP_LEFT+160, MAP_BOTTOM+99, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, SummaryOkayCallback);//dnl ch36 190909
 	//GiveButtonDefaultStatus( iSummaryButton[ SUMMARY_OKAY ], DEFAULT_STATUS_WINDOWS95 );
 
 	iSummaryButton[ SUMMARY_GRIDCHECKBOX ] = 
@@ -304,31 +304,31 @@ void CreateSummaryWindow()
 	gfRenderProgress = TRUE;
 	
 	iSummaryButton[ SUMMARY_ALL ] = 
-		CreateTextButton( L"A", SMALLCOMPFONT, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
+		CreateTextButton( pCreateSummaryWindowText[1], SMALLCOMPFONT, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
 		MAP_LEFT+110, MAP_BOTTOM+5, 16, 16, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK,
 		SummaryToggleLevelCallback );
 	if( giCurrentViewLevel == ALL_LEVELS_MASK || giCurrentViewLevel == ALTERNATE_LEVELS_MASK )
 		ButtonList[ iSummaryButton[ SUMMARY_ALL ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	iSummaryButton[ SUMMARY_G ] = 
-		CreateTextButton( L"G", SMALLCOMPFONT, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
+		CreateTextButton( pCreateSummaryWindowText[2], SMALLCOMPFONT, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
 		MAP_LEFT+128, MAP_BOTTOM+5, 16, 16, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK,
 		SummaryToggleLevelCallback );
 	if( giCurrentViewLevel == GROUND_LEVEL_MASK || giCurrentViewLevel == ALTERNATE_GROUND_MASK )
 		ButtonList[ iSummaryButton[ SUMMARY_G ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	iSummaryButton[ SUMMARY_B1 ] = 
-		CreateTextButton( L"B1", SMALLCOMPFONT, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
+		CreateTextButton( pCreateSummaryWindowText[3], SMALLCOMPFONT, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
 		MAP_LEFT+146, MAP_BOTTOM+5, 16, 16, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK,
 		SummaryToggleLevelCallback );
 	if( giCurrentViewLevel == BASEMENT1_LEVEL_MASK || giCurrentViewLevel == ALTERNATE_B1_MASK )
 		ButtonList[ iSummaryButton[ SUMMARY_B1 ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	iSummaryButton[ SUMMARY_B2 ] = 
-		CreateTextButton( L"B2", SMALLCOMPFONT, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
+		CreateTextButton( pCreateSummaryWindowText[4], SMALLCOMPFONT, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
 		MAP_LEFT+164, MAP_BOTTOM+5, 16, 16, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK,
 		SummaryToggleLevelCallback );
 	if( giCurrentViewLevel == BASEMENT2_LEVEL_MASK || giCurrentViewLevel == ALTERNATE_B2_MASK )
 		ButtonList[ iSummaryButton[ SUMMARY_B2 ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	iSummaryButton[ SUMMARY_B3 ] = 
-		CreateTextButton( L"B3", SMALLCOMPFONT, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
+		CreateTextButton( pCreateSummaryWindowText[5], SMALLCOMPFONT, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
 		MAP_LEFT+182, MAP_BOTTOM+5, 16, 16, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK,
 		SummaryToggleLevelCallback );
 	if( giCurrentViewLevel == BASEMENT3_LEVEL_MASK || giCurrentViewLevel == ALTERNATE_B3_MASK )
@@ -340,11 +340,11 @@ void CreateSummaryWindow()
 		ButtonList[ iSummaryButton[ SUMMARY_ALTERNATE ] ]->uiFlags |= BUTTON_CLICKED_ON;
 
 	iSummaryButton[ SUMMARY_LOAD ] = 
-		CreateTextButton( L"LOAD", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
+		CreateTextButton( pCreateSummaryWindowText[6], FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
 		MAP_LEFT, MAP_BOTTOM+45, 50, 26, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK,
 		SummaryLoadMapCallback );
 	iSummaryButton[ SUMMARY_SAVE ] = 
-		CreateTextButton( L"SAVE", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
+		CreateTextButton( pCreateSummaryWindowText[7], FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
 		MAP_LEFT+55, MAP_BOTTOM+45, 50, 26, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK,
 		SummarySaveMapCallback );
 	iSummaryButton[ SUMMARY_OVERRIDE ] = 
@@ -365,7 +365,7 @@ void CreateSummaryWindow()
 	
 
 	iSummaryButton[ SUMMARY_UPDATE ] = 
-		CreateTextButton( L"Update", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
+		CreateTextButton( pCreateSummaryWindowText[8], FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
 		iScreenWidthOffset + 255, iScreenHeightOffset + 15, 40, 16, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK,
 		SummaryUpdateCallback );
 
@@ -534,67 +534,67 @@ void RenderSectorInformation()
 		ePoints++;
 	//start at 10,35
 	SetFontForeground( FONT_ORANGE );
-	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 32,		L"Tileset:  %s", gTilesets[ s->ubTilesetID ].zName ); 
+	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 32,		pRenderSectorInformationText[0], gTilesets[ s->ubTilesetID ].zName ); 
 	if( m->ubMapVersion < 10 )
 		SetFontForeground( FONT_RED );
-	mprintf(iScreenWidthOffset+10, iScreenHeightOffset+42, L"Version Info:  Summary:  1.%02d,  Map:  %1.2f / %02d", s->ubSummaryVersion, s->dMajorMapVersion, m->ubMapVersion);//dnl ch30 240909
+	mprintf(iScreenWidthOffset+10, iScreenHeightOffset+42, pRenderSectorInformationText[1], s->ubSummaryVersion, s->dMajorMapVersion, m->ubMapVersion);//dnl ch30 240909
 	SetFontForeground( FONT_GRAY2 );
-	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 55,		L"Number of items:  %d", s->usNumItems );
-	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 65,		L"Number of lights:  %d", s->usNumLights );
-	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 75,		L"Number of entry points:  %d", ePoints );
+	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 55,		pRenderSectorInformationText[2], s->usNumItems );
+	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 65,		pRenderSectorInformationText[3], s->usNumLights );
+	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 75,		pRenderSectorInformationText[4], ePoints );
 	if( ePoints )
 	{
 		INT32 x;
 		x = iScreenWidthOffset + 140;
 		mprintf( x, iScreenHeightOffset + 75, L"(" );
 		x += StringPixLength( L"(", FONT10ARIAL ) + 2;
-		if( m->sNorthGridNo			!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, L"N" );	x += StringPixLength( L"N", FONT10ARIAL ) + 2; }
-		if( m->sEastGridNo			!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, L"E" );	x += StringPixLength( L"E", FONT10ARIAL ) + 2; }
-		if( m->sSouthGridNo			!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, L"S" );	x += StringPixLength( L"S", FONT10ARIAL ) + 2; }
-		if( m->sWestGridNo			!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, L"W" );	x += StringPixLength( L"W", FONT10ARIAL ) + 2; }
-		if( m->sCenterGridNo		!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, L"C" );	x += StringPixLength( L"C", FONT10ARIAL ) + 2; }
-		if( m->sIsolatedGridNo		!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, L"I" );	x += StringPixLength( L"I", FONT10ARIAL ) + 2; }
+		if( m->sNorthGridNo			!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, pRenderSectorInformationText[5] );	x += StringPixLength( pRenderSectorInformationText[5], FONT10ARIAL ) + 2; }
+		if( m->sEastGridNo			!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, pRenderSectorInformationText[6] );	x += StringPixLength( pRenderSectorInformationText[6], FONT10ARIAL ) + 2; }
+		if( m->sSouthGridNo			!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, pRenderSectorInformationText[7] );	x += StringPixLength( pRenderSectorInformationText[7], FONT10ARIAL ) + 2; }
+		if( m->sWestGridNo			!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, pRenderSectorInformationText[8] );	x += StringPixLength( pRenderSectorInformationText[8], FONT10ARIAL ) + 2; }
+		if( m->sCenterGridNo		!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, pRenderSectorInformationText[9] );	x += StringPixLength( pRenderSectorInformationText[9], FONT10ARIAL ) + 2; }
+		if( m->sIsolatedGridNo		!= -1	)	{	mprintf( x, iScreenHeightOffset + 75, pRenderSectorInformationText[10] );	x += StringPixLength( pRenderSectorInformationText[10], FONT10ARIAL ) + 2; }
 		mprintf( x, iScreenHeightOffset + 75, L")" );
 	}
-	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 85,		L"Number of rooms:  %d", s->ubNumRooms );
-	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 95,		L"Total map population:  %d", m->ubNumIndividuals );
-	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 105,			L"Enemies:  %d", s->EnemyTeam.ubTotal );
-	mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 115,			L"Admins:  %d", s->ubNumAdmins );
+	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 85,		pRenderSectorInformationText[11], s->ubNumRooms );
+	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 95,		pRenderSectorInformationText[12], m->ubNumIndividuals );
+	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 105,	pRenderSectorInformationText[13], s->EnemyTeam.ubTotal );
+	mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 115,	pRenderSectorInformationText[14], s->ubNumAdmins );
 	if( s->ubNumAdmins )
-		mprintf( iScreenWidthOffset + 100, iScreenHeightOffset + 115,			L"(%d detailed, %d profile -- %d have priority existance)", s->ubAdminDetailed, s->ubAdminProfile, s->ubAdminExistance );
-	mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 125,			L"Troops:  %d", s->ubNumTroops );
+		mprintf( iScreenWidthOffset + 100, iScreenHeightOffset + 115,		pRenderSectorInformationText[15], s->ubAdminDetailed, s->ubAdminProfile, s->ubAdminExistance );
+	mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 125,			pRenderSectorInformationText[16], s->ubNumTroops );
 	if( s->ubNumTroops )
-		mprintf( iScreenWidthOffset + 100, iScreenHeightOffset + 125,			L"(%d detailed, %d profile -- %d have priority existance)", s->ubTroopDetailed, s->ubTroopProfile, s->ubTroopExistance );
-	mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 135,			L"Elites:  %d", s->ubNumElites );
+		mprintf( iScreenWidthOffset + 100, iScreenHeightOffset + 125,		pRenderSectorInformationText[17], s->ubTroopDetailed, s->ubTroopProfile, s->ubTroopExistance );
+	mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 135,			pRenderSectorInformationText[18], s->ubNumElites );
 	if( s->ubNumElites )
-		mprintf( iScreenWidthOffset + 100, iScreenHeightOffset + 135,			L"(%d detailed, %d profile -- %d have priority existance)", s->ubEliteDetailed, s->ubEliteProfile, s->ubEliteExistance );
-	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 145,			L"Civilians:  %d", s->CivTeam.ubTotal );
+		mprintf( iScreenWidthOffset + 100, iScreenHeightOffset + 135,		pRenderSectorInformationText[19], s->ubEliteDetailed, s->ubEliteProfile, s->ubEliteExistance );
+	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 145,			pRenderSectorInformationText[20], s->CivTeam.ubTotal );
 	if( s->CivTeam.ubTotal )
-		mprintf( iScreenWidthOffset + 100, iScreenHeightOffset + 145,			L"(%d detailed, %d profile -- %d have priority existance)", s->CivTeam.ubDetailed, s->CivTeam.ubProfile, s->CivTeam.ubExistance ); 
+		mprintf( iScreenWidthOffset + 100, iScreenHeightOffset + 145,		pRenderSectorInformationText[21], s->CivTeam.ubDetailed, s->CivTeam.ubProfile, s->CivTeam.ubExistance ); 
 	if( s->ubSummaryVersion >= 9 )
 	{
-		mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 155,		  L"Humans:  %d", s->CivTeam.ubTotal - s->ubCivCows - s->ubCivBloodcats );
-		mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 165,			L"Cows:  %d", s->ubCivCows );
-		mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 175,			L"Bloodcats:  %d", s->ubCivBloodcats );
+		mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 155,		pRenderSectorInformationText[22], s->CivTeam.ubTotal - s->ubCivCows - s->ubCivBloodcats );
+		mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 165,		pRenderSectorInformationText[23], s->ubCivCows );
+		mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 175,		pRenderSectorInformationText[24], s->ubCivBloodcats );
 	}
-	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 185,			L"Creatures:  %d", s->CreatureTeam.ubTotal );
+	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 185,			pRenderSectorInformationText[25], s->CreatureTeam.ubTotal );
 	if( s->ubSummaryVersion >= 9 )
 	{
-		mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 195,     L"Monsters:  %d", s->CreatureTeam.ubTotal - s->CreatureTeam.ubNumAnimals );
-		mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 205,     L"Bloodcats:  %d", s->CreatureTeam.ubNumAnimals );
+		mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 195,     	pRenderSectorInformationText[26], s->CreatureTeam.ubTotal - s->CreatureTeam.ubNumAnimals );
+		mprintf( iScreenWidthOffset + 30, iScreenHeightOffset + 205,     	pRenderSectorInformationText[27], s->CreatureTeam.ubNumAnimals );
 	}
-	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 215,		L"Number of locked and/or trapped doors:  %d", s->ubNumDoors );
-	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 225,			L"Locked:  %d", s->ubNumDoorsLocked );
-	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 235,			L"Trapped:  %d", s->ubNumDoorsTrapped );
-	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 245,			L"Locked & Trapped:  %d", s->ubNumDoorsLockedAndTrapped );
+	mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 215,			pRenderSectorInformationText[28], s->ubNumDoors );
+	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 225,			pRenderSectorInformationText[29], s->ubNumDoorsLocked );
+	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 235,			pRenderSectorInformationText[30], s->ubNumDoorsTrapped );
+	mprintf( iScreenWidthOffset + 20, iScreenHeightOffset + 245,			pRenderSectorInformationText[31], s->ubNumDoorsLockedAndTrapped );
 	if( s->ubSummaryVersion >= 8 )
-		mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 255,			L"Civilians with schedules:  %d", s->ubCivSchedules );
+		mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 255,		pRenderSectorInformationText[32], s->ubCivSchedules );
 	if( s->ubSummaryVersion >= 10 )
 	{
 		if( s->fTooManyExitGridDests )
 		{
 			SetFontForeground( FONT_RED );
-			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, L"Too many exit grid destinations (more than 4)...");
+			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, pRenderSectorInformationText[33]);
 		}
 		else
 		{
@@ -608,25 +608,25 @@ void RenderSectorInformation()
 			if( ubNumInvalid )
 			{
 				SetFontForeground( FONT_RED );
-				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, L"ExitGrids:  %d (%d with a long distance destination)", s->ubNumExitGridDests, ubNumInvalid );
+				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, pRenderSectorInformationText[34], s->ubNumExitGridDests, ubNumInvalid );
 			}
 			else switch( s->ubNumExitGridDests )
 			{
 				case 0:
-					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, L"ExitGrids:  none" );
+					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, pRenderSectorInformationText[35] );
 					break;
 				case 1:
-					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, L"ExitGrids:  1 destination using %d exitgrids", s->usExitGridSize[0] );
+					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, pRenderSectorInformationText[36], s->usExitGridSize[0] );
 					break;
 				case 2:
-					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, L"ExitGrids:  2 -- 1) Qty: %d, 2) Qty: %d", s->usExitGridSize[0], s->usExitGridSize[1] );
+					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, pRenderSectorInformationText[37], s->usExitGridSize[0], s->usExitGridSize[1] );
 					break;
 				case 3:
-					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, L"ExitGrids:  3 -- 1) Qty: %d, 2) Qty: %d, 3) Qty: %d", 
+					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, pRenderSectorInformationText[38], 
 						s->usExitGridSize[0], s->usExitGridSize[1], s->usExitGridSize[2] );
 					break;
 				case 4:
-					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, L"ExitGrids:  3 -- 1) Qty: %d, 2) Qty: %d, 3) Qty: %d, 4) Qty: %d", 
+					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 265, pRenderSectorInformationText[39], 
 						s->usExitGridSize[0], s->usExitGridSize[1], s->usExitGridSize[2], s->usExitGridSize[3] );
 					break;
 			}
@@ -634,7 +634,7 @@ void RenderSectorInformation()
 	}
 	iOverall = - ( 2 * s->EnemyTeam.ubBadA ) - s->EnemyTeam.ubPoorA + s->EnemyTeam.ubGoodA + ( 2 * s->EnemyTeam.ubGreatA );
 	usLine = iScreenHeightOffset + 275;
-	mprintf( iScreenWidthOffset + 10, usLine, L"Enemy Relative Attributes:  %d bad, %d poor, %d norm, %d good, %d great (%+d Overall)",
+	mprintf( iScreenWidthOffset + 10, usLine, pRenderSectorInformationText[40],
 		s->EnemyTeam.ubBadA, 
 		s->EnemyTeam.ubPoorA, 
 		s->EnemyTeam.ubAvgA, 
@@ -643,7 +643,7 @@ void RenderSectorInformation()
 		iOverall );
 	iOverall = - ( 2 * s->EnemyTeam.ubBadE ) - s->EnemyTeam.ubPoorE + s->EnemyTeam.ubGoodE + ( 2 * s->EnemyTeam.ubGreatE );
 	usLine += 10;
-	mprintf( iScreenWidthOffset + 10, usLine, L"Enemy Relative Equipment:  %d bad, %d poor, %d norm, %d good, %d great (%+d Overall)",
+	mprintf( iScreenWidthOffset + 10, usLine, pRenderSectorInformationText[41],
 		s->EnemyTeam.ubBadE, 
 		s->EnemyTeam.ubPoorE, 
 		s->EnemyTeam.ubAvgE, 
@@ -656,7 +656,7 @@ void RenderSectorInformation()
 		if( s->ubEnemiesReqWaypoints )
 		{
 			SetFontForeground( FONT_RED );
-			mprintf( iScreenWidthOffset + 10, usLine, L"%d placements have patrol orders without any waypoints defined.", s->ubEnemiesReqWaypoints );
+			mprintf( iScreenWidthOffset + 10, usLine, pRenderSectorInformationText[42], s->ubEnemiesReqWaypoints );
 			usLine += 10;
 		}
 	}
@@ -665,7 +665,7 @@ void RenderSectorInformation()
 		if( s->ubEnemiesHaveWaypoints )
 		{
 			SetFontForeground( FONT_RED );
-			mprintf( iScreenWidthOffset + 10, usLine, L"%d placements have waypoints, but without any patrol orders.", s->ubEnemiesHaveWaypoints );
+			mprintf( iScreenWidthOffset + 10, usLine, pRenderSectorInformationText[43], s->ubEnemiesHaveWaypoints );
 			usLine += 10;
 		}
 	}
@@ -674,7 +674,7 @@ void RenderSectorInformation()
 		if( s->usWarningRoomNums )
 		{
 			SetFontForeground( FONT_RED );
-			mprintf( iScreenWidthOffset + 10, usLine, L"%d gridnos have questionable room numbers.  Please validate.", s->usWarningRoomNums );
+			mprintf( iScreenWidthOffset + 10, usLine, pRenderSectorInformationText[44], s->usWarningRoomNums );
 		}
 	}
 }
@@ -693,9 +693,9 @@ void RenderItemDetails()
 	SetFont( FONT10ARIAL );
 	SetFontForeground( FONT_GRAY2 );
 	SetFontShadow( FONT_NEARBLACK );
-	mprintf( iScreenWidthOffset + 364, iScreenHeightOffset + 49, L"R" );
-	mprintf( iScreenWidthOffset + 390, iScreenHeightOffset + 49, L"S" );
-	mprintf( iScreenWidthOffset + 364, iScreenHeightOffset + 62, L"Enemy" );
+	mprintf( iScreenWidthOffset + 364, iScreenHeightOffset + 49, pRenderItemDetailsText[0] );
+	mprintf( iScreenWidthOffset + 390, iScreenHeightOffset + 49, pRenderItemDetailsText[1] );
+	mprintf( iScreenWidthOffset + 364, iScreenHeightOffset + 62, pRenderItemDetailsText[2] );
 
 	xp = iScreenWidthOffset + 5;
 	yp = iScreenHeightOffset + 20;
@@ -789,7 +789,7 @@ void RenderItemDetails()
 					if( xp >= (UINT32)(iScreenWidthOffset + 300 ))
 					{
 						SetFontForeground( FONT_RED );
-						mprintf( iScreenWidthOffset + 350, iScreenHeightOffset + 350, L"TOO MANY ITEMS TO DISPLAY!");
+						mprintf( iScreenWidthOffset + 350, iScreenHeightOffset + 350, pRenderItemDetailsText[3]);
 						return;
 					}
 				}
@@ -808,14 +808,14 @@ void RenderItemDetails()
 					SetFontForeground( 77 );
 				switch( i )
 				{
-					case 0: swprintf( str, L"Panic1" );		break;
-					case 1:	swprintf( str, L"Panic2" );		break;
-					case 2:	swprintf( str, L"Panic3" );		break;
-					case 3:	swprintf( str, L"Norm1" );		break;
-					case 4:	swprintf( str, L"Norm2" );		break;
-					case 5:	swprintf( str, L"Norm3" );		break;
-					case 6:	swprintf( str, L"Norm4" );		break;
-					case 7:	swprintf( str, L"Pressure Actions" );		break;
+					case 0: swprintf( str, pRenderItemDetailsText[4] );		break;
+					case 1:	swprintf( str, pRenderItemDetailsText[5] );		break;
+					case 2:	swprintf( str, pRenderItemDetailsText[6] );		break;
+					case 3:	swprintf( str, pRenderItemDetailsText[7] );		break;
+					case 4:	swprintf( str, pRenderItemDetailsText[8] );		break;
+					case 5:	swprintf( str, pRenderItemDetailsText[9] );		break;
+					case 6:	swprintf( str, pRenderItemDetailsText[10] );		break;
+					case 7:	swprintf( str, pRenderItemDetailsText[11] );		break;
 				}
 				if( i < 7 )
 				{
@@ -836,7 +836,7 @@ void RenderItemDetails()
 					if( xp >= (UINT32)(iScreenWidthOffset + 300 ))
 					{
 						SetFontForeground( FONT_RED );
-						mprintf( iScreenWidthOffset + 350, iScreenHeightOffset + 350, L"TOO MANY ITEMS TO DISPLAY!");
+						mprintf( iScreenWidthOffset + 350, iScreenHeightOffset + 350, pRenderItemDetailsText[12]);
 						return;
 					}
 				}
@@ -847,14 +847,14 @@ void RenderItemDetails()
 	{
 		
 		SetFontForeground( FONT_YELLOW );
-		mprintf( xp, yp, L"PRIORITY ENEMY DROPPED ITEMS" );
+		mprintf( xp, yp, pRenderItemDetailsText[13] );
 		yp += 10;
 
 		//Do the priority existance guys first
 		if( !gpPEnemyItemsSummaryArray )
 		{
 			SetFontForeground( FONT_DKYELLOW );
-			mprintf( xp, yp, L"None" );
+			mprintf( xp, yp, pRenderItemDetailsText[14] );
 			yp += 10;
 		}
 		else for( index = 1; index < MAXITEMS; index++ )
@@ -898,7 +898,7 @@ void RenderItemDetails()
 					if( xp >= (UINT32)(iScreenWidthOffset + 300 ))
 					{
 						SetFontForeground( FONT_RED );
-						mprintf( iScreenWidthOffset + 350, iScreenHeightOffset + 350, L"TOO MANY ITEMS TO DISPLAY!");
+						mprintf( iScreenWidthOffset + 350, iScreenHeightOffset + 350, pRenderItemDetailsText[15] );
 						return;
 					}
 				}
@@ -908,7 +908,7 @@ void RenderItemDetails()
 		yp += 5;
 	
 		SetFontForeground( FONT_YELLOW );
-		mprintf( xp, yp, L"NORMAL ENEMY DROPPED ITEMS" );
+		mprintf( xp, yp, pRenderItemDetailsText[16] );
 		yp += 10;
 		if( yp >= (UINT32)(iScreenHeightOffset + 355 ))
 		{
@@ -917,7 +917,7 @@ void RenderItemDetails()
 			if( xp >= (UINT32)(iScreenWidthOffset + 300 ))
 			{
 				SetFontForeground( FONT_RED );
-				mprintf( iScreenWidthOffset + 350, iScreenHeightOffset + 350, L"TOO MANY ITEMS TO DISPLAY!");
+				mprintf( iScreenWidthOffset + 350, iScreenHeightOffset + 350, pRenderItemDetailsText[17] );
 				return;
 			}
 		}
@@ -926,7 +926,7 @@ void RenderItemDetails()
 		if( !gpNEnemyItemsSummaryArray )
 		{
 			SetFontForeground( FONT_DKYELLOW );
-			mprintf( xp, yp, L"None" );
+			mprintf( xp, yp, pRenderItemDetailsText[18] );
 			yp += 10;
 		}
 		for( index = 1; index < MAXITEMS; index++ )
@@ -968,7 +968,7 @@ void RenderItemDetails()
 					if( xp >= (UINT32)(iScreenWidthOffset + 300 ))
 					{
 						SetFontForeground( FONT_RED );
-						mprintf( iScreenWidthOffset + 350, iScreenHeightOffset + 350, L"TOO MANY ITEMS TO DISPLAY!");
+						mprintf( iScreenWidthOffset + 350, iScreenHeightOffset + 350, pRenderItemDetailsText[19] );
 						return;
 					}
 				}
@@ -981,7 +981,7 @@ void RenderItemDetails()
 	else
 	{
 		SetFontForeground( FONT_RED );
-		mprintf( iScreenWidthOffset + 5, iScreenHeightOffset + 50, L"ERROR:  Can't load the items for this map.  Reason unknown." );
+		mprintf( iScreenWidthOffset + 5, iScreenHeightOffset + 50, pRenderItemDetailsText[20] );
 	}
 }
 
@@ -1017,7 +1017,7 @@ void RenderSummaryWindow()
 		SetFontBackground( 0 );
 		if( !gfItemDetailsMode )
 		{
-			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 5, L"CAMPAIGN EDITOR -- %s Version 1.%02d", 
+			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 5, pRenderSummaryWindowText[0], 
 				gszVersionType[ GLOBAL_SUMMARY_STATE ], GLOBAL_SUMMARY_VERSION );
 		}
 		
@@ -1026,7 +1026,7 @@ void RenderSummaryWindow()
 		{
 			SetFontForeground( FONT_RED );
 			SetFontShadow( FONT_NEARBLACK );
-			mprintf( iScreenWidthOffset + 270, iScreenHeightOffset + 5, L"(NO MAP LOADED).");
+			mprintf( iScreenWidthOffset + 270, iScreenHeightOffset + 5, pRenderSummaryWindowText[1]);
 		}
 		SetFont( FONT10ARIAL );
 		SetFontShadow( FONT_NEARBLACK );
@@ -1038,29 +1038,29 @@ void RenderSummaryWindow()
 			{
 				DisableButton( iSummaryButton[ SUMMARY_LOAD ] );
 				SetFontForeground( FONT_YELLOW );
-				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, L"You currently have %d outdated maps.", gusNumEntriesWithOutdatedOrNoSummaryInfo);
-				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, L"The more maps that need to be updated, the longer it takes.  It'll take ");
-				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 40, L"approximately 4 minutes on a P200MMX to analyse 100 maps, so");
-				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 50, L"depending on your computer, it may vary.");
+				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, pRenderSummaryWindowText[2], gusNumEntriesWithOutdatedOrNoSummaryInfo);
+				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, pRenderSummaryWindowText[3]);
+				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 40, pRenderSummaryWindowText[4]);
+				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 50, pRenderSummaryWindowText[5]);
 				SetFontForeground( FONT_LTRED );
-				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 65, L"Do you wish to regenerate info for ALL these maps at this time (y/n)?" );
+				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 65, pRenderSummaryWindowText[6] );
 			}
 			else if( !gsSelSectorX && !gsSectorX || gfTempFile )
 			{
 				DisableButton( iSummaryButton[ SUMMARY_LOAD ] );
 				SetFontForeground( FONT_LTRED );
-				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, L"There is no sector currently selected." );
+				mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, pRenderSummaryWindowText[7] );
 				if( gfTempFile )
 				{
 					SetFontForeground( FONT_YELLOW );
-					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, L"Entering a temp file name that doesn't follow campaign editor conventions..." );
+					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, pRenderSummaryWindowText[8] );
 					goto SPECIALCASE_LABEL;  //OUCH!!!
 				}
 				else if( !gfWorldLoaded )
 				{
 					SetFontForeground( FONT_YELLOW );
-					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, L"You need to either load an existing map or create a new map before being" );
-					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 40, L"able to enter the editor, or you can quit (ESC or Alt+x).");
+					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, pRenderSummaryWindowText[9] );
+					mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 40, pRenderSummaryWindowText[10] );
 				}
 				else if(gCustomFileSectorSummary.ubSummaryVersion)//dnl ch30 150909
 				{
@@ -1147,42 +1147,42 @@ void RenderSummaryWindow()
 					{
 						case GROUND_LEVEL_MASK:			
 							giCurrLevel = 0;
-							wcscat( str, L", ground level" );					
+							wcscat( str, pRenderSummaryWindowText[11] );					
 							gpCurrentSectorSummary = gpSectorSummary[x][y][0];
 							break;
 						case BASEMENT1_LEVEL_MASK:	
 							giCurrLevel = 1;
-							wcscat( str, L", underground level 1" );	
+							wcscat( str, pRenderSummaryWindowText[12] );	
 							gpCurrentSectorSummary = gpSectorSummary[x][y][1];
 							break;
 						case BASEMENT2_LEVEL_MASK:	
 							giCurrLevel = 2;
-							wcscat( str, L", underground level 2" );	
+							wcscat( str, pRenderSummaryWindowText[13] );	
 							gpCurrentSectorSummary = gpSectorSummary[x][y][2];
 							break;
 						case BASEMENT3_LEVEL_MASK:	
 							giCurrLevel = 3;
-							wcscat( str, L", underground level 3" );	
+							wcscat( str, pRenderSummaryWindowText[14] );	
 							gpCurrentSectorSummary = gpSectorSummary[x][y][3];
 							break;
 						case ALTERNATE_GROUND_MASK:			
 							giCurrLevel = 4;
-							wcscat( str, L", alternate G level" );					
+							wcscat( str, pRenderSummaryWindowText[15] );					
 							gpCurrentSectorSummary = gpSectorSummary[x][y][4];
 							break;
 						case ALTERNATE_B1_MASK:	
 							giCurrLevel = 5;
-							wcscat( str, L", alternate B1 level" );	
+							wcscat( str, pRenderSummaryWindowText[16] );	
 							gpCurrentSectorSummary = gpSectorSummary[x][y][5];
 							break;
 						case ALTERNATE_B2_MASK:	
 							giCurrLevel = 6;
-							wcscat( str, L", alternate B2 level" );	
+							wcscat( str, pRenderSummaryWindowText[17] );	
 							gpCurrentSectorSummary = gpSectorSummary[x][y][6];
 							break;
 						case ALTERNATE_B3_MASK:	
 							giCurrLevel = 7;
-							wcscat( str, L", alternate B3 level" );	
+							wcscat( str, pRenderSummaryWindowText[18] );	
 							gpCurrentSectorSummary = gpSectorSummary[x][y][7];
 							break;
 					}
@@ -1223,12 +1223,12 @@ void RenderSummaryWindow()
 								SetupItemDetailsMode( TRUE );
 								gfSetupItemDetailsMode = FALSE;
 							}
-							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 5, L"ITEM DETAILS -- sector %s", str );
+							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 5, pRenderSummaryWindowText[19], str );
 							RenderItemDetails();
 						}
 						else
 						{
-							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, L"Summary Information for sector %s:", str );
+							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, pRenderSummaryWindowText[20], str );
 							HideButton( iSummaryButton[ SUMMARY_REAL ] );
 							HideButton( iSummaryButton[ SUMMARY_SCIFI ] );
 							HideButton( iSummaryButton[ SUMMARY_ENEMY ] );
@@ -1240,13 +1240,13 @@ void RenderSummaryWindow()
 						SetFontForeground( FONT_RED );
 						if( gfItemDetailsMode )
 						{
-							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 5, L"Summary Information for sector %s" , str );
-							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 15, L"does not exist." );
+							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 5, pRenderSummaryWindowText[21] , str );
+							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 15, pRenderSummaryWindowText[22] );
 						}
 						else
 						{
-							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, L"Summary Information for sector %s" , str );
-							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, L"does not exist." );
+							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, pRenderSummaryWindowText[23] , str );
+							mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, pRenderSummaryWindowText[24] );
 						}
 						ShowButton( iSummaryButton[ SUMMARY_UPDATE ] );
 					}
@@ -1261,9 +1261,9 @@ void RenderSummaryWindow()
 						SetFontShadow( 0 );
 					}
 					if( gfItemDetailsMode )
-						mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 5, L"No information exists for sector %s.", str );
+						mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 5, pRenderSummaryWindowText[25], str );
 					else
-						mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, L"No information exists for sector %s.", str );
+						mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, pRenderSummaryWindowText[26], str );
 					SetFontShadow( FONT_NEARBLACK );
 
 					switch( giCurrentViewLevel )
@@ -1291,7 +1291,7 @@ void RenderSummaryWindow()
 						SetFontForeground( FONT_LTKHAKI );
 					else
 						SetFontForeground( FONT_LTBLUE );
-					mprintf( MAP_LEFT+110, MAP_BOTTOM+55, L"FILE:  %s", gszDisplayName );
+					mprintf( MAP_LEFT+110, MAP_BOTTOM+55, pRenderSummaryWindowText[27], gszDisplayName );
 				}
 				else //little higher to make room for the override checkbox and text.
 				{
@@ -1299,16 +1299,16 @@ void RenderSummaryWindow()
 						SetFontForeground( FONT_LTKHAKI );
 					else
 						SetFontForeground( FONT_LTBLUE );
-					mprintf( MAP_LEFT+110, MAP_BOTTOM+46, L"FILE:  %s", gszDisplayName );
+					mprintf( MAP_LEFT+110, MAP_BOTTOM+46, pRenderSummaryWindowText[28], gszDisplayName );
 					if( gubOverrideStatus == READONLY )
 					{
 						SetFontForeground( (UINT8)(gfOverride ? FONT_YELLOW : FONT_LTRED) );
-						mprintf( MAP_LEFT+124, MAP_BOTTOM+61, L"Override READONLY" );
+						mprintf( MAP_LEFT+124, MAP_BOTTOM+61, pRenderSummaryWindowText[29] );
 					}
 					else
 					{
 						SetFontForeground( (UINT8)(gfOverride ? FONT_YELLOW: FONT_ORANGE ) );
-						mprintf( MAP_LEFT+124, MAP_BOTTOM+61, L"Overwrite File");
+						mprintf( MAP_LEFT+124, MAP_BOTTOM+61, pRenderSummaryWindowText[30]);
 					}
 				}
 			}
@@ -1316,29 +1316,29 @@ void RenderSummaryWindow()
 		else if( !gfDeniedSummaryCreation )
 		{
 			SetFontForeground( FONT_GRAY1 );
-			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, L"You currently have no summary data.  By creating one, you will be able to keep track" );
-			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, L"of information pertaining to all of the sectors you edit and save.  The creation process" );
-			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 40, L"will analyse all maps in your \\MAPS directory, and generate a new one.  This could" );
-			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 50, L"take a few minutes depending on how many valid maps you have.  Valid maps are" );
-			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 60, L"maps following the proper naming convention from a1.dat - p16.dat.  Underground maps" );  
-			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 70, L"are signified by appending _b1 to _b3 before the .dat (ex:  a9_b1.dat). ");
+			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, pRenderSummaryWindowText[31] );
+			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 30, pRenderSummaryWindowText[32] );
+			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 40, pRenderSummaryWindowText[33] );
+			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 50, pRenderSummaryWindowText[34] );
+			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 60, pRenderSummaryWindowText[35] );  
+			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 70, pRenderSummaryWindowText[36] );
 			SetFontForeground( FONT_LTRED );
-			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 85, L"Do you wish to do this now (y/n)?" );
+			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 85, pRenderSummaryWindowText[37] );
 		}
 		else
 		{
 			SetFontForeground( FONT_LTRED );
-			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, L"No summary info.  Creation denied." );
+			mprintf( iScreenWidthOffset + 10, iScreenHeightOffset + 20, pRenderSummaryWindowText[38] );
 		}
 
 		SetFont( FONT10ARIAL );
 		SetFontForeground( FONT_GRAY3 );
-		mprintf( MAP_LEFT + 15, MAP_BOTTOM + 7, L"Grid" );
-		mprintf( MAP_LEFT + 65, MAP_BOTTOM + 7, L"Progress" );
-		mprintf( MAP_LEFT + 15, MAP_BOTTOM + 27, L"Use Alternate Maps" );
+		mprintf( MAP_LEFT + 15, MAP_BOTTOM + 7, pRenderSummaryWindowText[39] );
+		mprintf( MAP_LEFT + 65, MAP_BOTTOM + 7,pRenderSummaryWindowText[40] );
+		mprintf( MAP_LEFT + 15, MAP_BOTTOM + 27, pRenderSummaryWindowText[41] );
 		//Draw the mode tabs
 		SetFontForeground( FONT_YELLOW );
-		mprintf( iScreenWidthOffset + 354, iScreenHeightOffset + 18, L"Summary" );
+		mprintf( iScreenWidthOffset + 354, iScreenHeightOffset + 18, pRenderSummaryWindowText[42] );
 		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 		RectangleDraw( TRUE, iScreenWidthOffset + 350, iScreenHeightOffset + 15, iScreenWidthOffset + 405, iScreenHeightOffset + 28, 0, pDestBuf );
@@ -1355,7 +1355,7 @@ void RenderSummaryWindow()
 		{
 			SetFontForeground( FONT_RED );
 		}
-		mprintf( iScreenWidthOffset + 354, iScreenHeightOffset + 33, L"Items" );
+		mprintf( iScreenWidthOffset + 354, iScreenHeightOffset + 33, pRenderSummaryWindowText[43] );
 		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 		RectangleDraw( TRUE, iScreenWidthOffset + 350, iScreenHeightOffset + 30, iScreenWidthOffset + 405, iScreenHeightOffset + 43, 0, pDestBuf );
@@ -1675,7 +1675,7 @@ void UpdateSectorSummary( STR16 gszFilename, BOOLEAN fUpdate )
 		SetFont( FONT10ARIAL );
 		SetFontForeground( FONT_LTKHAKI );
 		SetFontShadow( FONT_NEARBLACK );
-		swprintf( str, L"Analyzing map:  %s...", gszFilename );
+		swprintf( str, pUpdateSectorSummaryText[0], gszFilename );
 
 		if( gfSummaryWindowActive )
 		{
@@ -2168,9 +2168,12 @@ void SummaryLoadMapCallback( GUI_BUTTON *btn, INT32 reason )
 
 		//DefineProgressBarPanel( 0, 65, 79, 94, MAP_LEFT, iScreenHeightOffset + 318, iScreenWidthOffset + 578, iScreenHeightOffset + 356 );
 		DefineProgressBarPanel( 0, 65, 79, 94, MAP_LEFT, iScreenHeightOffset + 318, MAP_LEFT + 161, iScreenHeightOffset + 356 );
-		swprintf( str, L"Loading map:  %s", gszDisplayName );
+		swprintf( str, pSummaryLoadMapCallbackText[0], gszDisplayName );
 		SetProgressBarTitle( 0, str, BLOCKFONT2, FONT_RED, FONT_NEARBLACK );
 		SetProgressBarMsgAttributes( 0, SMALLCOMPFONT, FONT_BLACK, FONT_BLACK );
+
+		// WANNE: When loading from summary map, never resize the map, just load it!
+		gfResizeMapOnLoading = FALSE;
 
 		if(	ExternalLoadMap( gszDisplayName ) )
 		{
@@ -2889,7 +2892,7 @@ void ReportError( STR8 pSector, UINT8 ubLevel )
 		swprintf( temp, L"_b%d.dat", ubLevel % 4 );
 		wcscat( str, temp );
 	}
-	mprintf( iScreenWidthOffset + 10, yp, L"Skipping update for %s.  Probably due to tileset conflicts...", str );
+	mprintf( iScreenWidthOffset + 10, yp, pReportErrorText[0] , str );
 	InvalidateScreen();
 	yp++;
 }
@@ -2905,7 +2908,7 @@ void RegenerateSummaryInfoForAllOutdatedMaps()
 	//DefineProgressBarPanel( 0, 65, 79, 94, 10, 80, 310, 152 );
 	CreateProgressBar( 0, iScreenWidthOffset + 20, iScreenHeightOffset + 100, iScreenWidthOffset + 300, iScreenHeightOffset + 112 ); //master (total)
 	DefineProgressBarPanel( 0, 65, 79, 94, iScreenWidthOffset + 10, iScreenHeightOffset + 80, iScreenWidthOffset + 310, iScreenHeightOffset + 132 );
-	SetProgressBarTitle( 0, L"Generating map information", BLOCKFONT2, FONT_RED, FONT_NEARBLACK );
+	SetProgressBarTitle( 0, pRegenerateSummaryInfoForAllOutdatedMapsText[0], BLOCKFONT2, FONT_RED, FONT_NEARBLACK );
 	SetProgressBarMsgAttributes( 0, SMALLCOMPFONT, FONT_BLACK, FONT_BLACK );
 	gfUpdatingNow = TRUE;
 
@@ -2985,7 +2988,7 @@ void SummaryUpdateCallback( GUI_BUTTON *btn, INT32 reason )
 		CHAR8 str[40];
 		CreateProgressBar( 0, iScreenWidthOffset + 20, iScreenHeightOffset + 100, iScreenWidthOffset + 300, iScreenHeightOffset + 112 ); //slave (individual)
 		DefineProgressBarPanel( 0, 65, 79, 94, iScreenWidthOffset + 10, iScreenHeightOffset + 80, iScreenWidthOffset + 310, iScreenHeightOffset + 132 );
-		SetProgressBarTitle( 0, L"Generating map summary", BLOCKFONT2, FONT_RED, FONT_NEARBLACK );
+		SetProgressBarTitle( 0, pSummaryUpdateCallbackText[0], BLOCKFONT2, FONT_RED, FONT_NEARBLACK );
 		SetProgressBarMsgAttributes( 0, SMALLCOMPFONT, FONT_BLACK, FONT_BLACK );
 
 #if 0
@@ -3094,16 +3097,16 @@ void ApologizeOverrideAndForceUpdateEverything()
 	SetFont( HUGEFONT );
 	SetFontForeground( FONT_RED );
 	SetFontShadow( FONT_NEARBLACK );
-	swprintf( str, L"MAJOR VERSION UPDATE" );
+	swprintf( str, pApologizeOverrideAndForceUpdateEverythingText[0] );
 	mprintf( (iScreenWidthOffset + 320) - StringPixLength( str, HUGEFONT )/2, iScreenHeightOffset + 105, str );
 	SetFont( FONT10ARIAL );
 	SetFontForeground( FONT_YELLOW );
-	swprintf( str, L"There are %d maps requiring a major version update.", gusNumberOfMapsToBeForceUpdated );
+	swprintf( str, pApologizeOverrideAndForceUpdateEverythingText[1], gusNumberOfMapsToBeForceUpdated );
 	mprintf( (iScreenWidthOffset + 320) - StringPixLength( str, FONT10ARIAL )/2, iScreenHeightOffset + 130, str );
 
 	CreateProgressBar( 2, iScreenWidthOffset + 120, iScreenHeightOffset + 170, iScreenWidthOffset + 520, iScreenHeightOffset + 202 ); 
 	DefineProgressBarPanel( 2, 65, 79, 94, iScreenWidthOffset + 100, iScreenHeightOffset + 150, iScreenWidthOffset + 540, iScreenHeightOffset + 222 );
-	SetProgressBarTitle( 2, L"Updating all outdated maps", BLOCKFONT2, FONT_RED, 0 );
+	SetProgressBarTitle( 2, pApologizeOverrideAndForceUpdateEverythingText[2], BLOCKFONT2, FONT_RED, 0 );
 	SetProgressBarMsgAttributes( 2, SMALLCOMPFONT, FONT_BLACK, FONT_BLACK );
 
 	gusCurrent = 0;

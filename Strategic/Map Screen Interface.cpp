@@ -61,6 +61,9 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
+// marke strogg more mercs
+extern UINT8 FIRSTmercTOdisplay = 0 ; 
+extern UINT8 maxNumberOfMercVisibleInStrategyList = 0;	// WANNE: Max merc displayed in the list depends on the resolution
 
 // inventory pool position on screen
 #define MAP_INVEN_POOL_X				300
@@ -1065,17 +1068,17 @@ INT16 CharacterIsGettingPathPlotted( INT16 sCharNumber )
 	}
 
 	// is the character a valid one?
-	if( gCharactersList[ sCharNumber ].fValid == FALSE )
+	if( gCharactersList[ sCharNumber + FIRSTmercTOdisplay ].fValid == FALSE )
 	{
 		return ( FALSE );
 	}
 
 	// if the highlighted line character is also selected
-	if ( ( ( giDestHighLine != -1 ) && IsEntryInSelectedListSet ( ( INT8 ) giDestHighLine ) ) ||
+	if ( ( ( giDestHighLine != -1 ) && IsEntryInSelectedListSet ( ( INT8 ) giDestHighLine + FIRSTmercTOdisplay ) ) ||
 			( ( bSelectedDestChar != -1 ) && IsEntryInSelectedListSet ( bSelectedDestChar ) ) )
 	{
 		// then ALL selected lines will be affected
-		if( IsEntryInSelectedListSet( ( INT8 ) sCharNumber ) )
+		if( IsEntryInSelectedListSet( ( INT8 ) sCharNumber + FIRSTmercTOdisplay ) )
 		{
 			return( TRUE );
 		}
@@ -1083,7 +1086,7 @@ INT16 CharacterIsGettingPathPlotted( INT16 sCharNumber )
 	else
 	{
 		// if he is *the* selected dude
-		if( bSelectedDestChar == sCharNumber )
+		if( bSelectedDestChar == sCharNumber + FIRSTmercTOdisplay )
 		{
 			return ( TRUE );
 		}
@@ -1107,16 +1110,18 @@ BOOLEAN IsCharacterSelectedForAssignment( INT16 sCharNumber )
 	}
 
 	// is the character a valid one?
-	if( gCharactersList[ sCharNumber ].fValid == FALSE )
+	if( gCharactersList[ sCharNumber + FIRSTmercTOdisplay ].fValid == FALSE )
 	{
 		return ( FALSE );
 	}
 
 	// if the highlighted line character is also selected
-	if ( ( giAssignHighLine != -1 ) && IsEntryInSelectedListSet ( ( INT8 ) giAssignHighLine ) )
+	// marke strogg more mercs
+	if ( ( giAssignHighLine != -1 ) && IsEntryInSelectedListSet ( ( INT8 ) giAssignHighLine + FIRSTmercTOdisplay ) )
 	{
 		// then ALL selected lines will be affected
-		if( IsEntryInSelectedListSet( ( INT8 ) sCharNumber ) )
+		// marke strogg more mercs
+		if( IsEntryInSelectedListSet( ( INT8 ) sCharNumber + FIRSTmercTOdisplay ) )
 		{
 			return( TRUE );
 		}
@@ -1142,18 +1147,19 @@ BOOLEAN IsCharacterSelectedForSleep( INT16 sCharNumber )
 	{
 		return( FALSE );
 	}
-
+ 
+	// marke strogg more mercs
 	// is the character a valid one?
-	if( gCharactersList[ sCharNumber ].fValid == FALSE )
+	if( gCharactersList[ sCharNumber + FIRSTmercTOdisplay ].fValid == FALSE )
 	{
 		return ( FALSE );
 	}
 
 	// if the highlighted line character is also selected
-	if ( ( giSleepHighLine != -1 ) && IsEntryInSelectedListSet ( ( INT8 ) giSleepHighLine ) )
+	if ( ( giSleepHighLine != -1 ) && IsEntryInSelectedListSet ( ( INT8 ) giSleepHighLine + FIRSTmercTOdisplay ) )
 	{
 		// then ALL selected lines will be affected
-		if( IsEntryInSelectedListSet( ( INT8 ) sCharNumber ) )
+		if( IsEntryInSelectedListSet( ( INT8 ) sCharNumber + FIRSTmercTOdisplay ) )
 		{
 			return( TRUE );
 		}
@@ -1404,7 +1410,6 @@ void HandleDisplayOfSelectedMercArrows( void )
 	INT16 sYPosition = 0;
 	HVOBJECT hHandle;
 	UINT8 ubCount = 0;
-	INT16 usVehicleCount = 0;
 
 	// blit an arrow by the name of each merc in a selected list
 	if( bSelectedInfoChar == -1 )
@@ -1422,36 +1427,31 @@ void HandleDisplayOfSelectedMercArrows( void )
 	{
 		return;
 	}
-	// now blit one by the selected merc
-	sYPosition = Y_START+( bSelectedInfoChar * ( Y_SIZE + 2 ) ) - 1;
-
-
-	if( bSelectedInfoChar >= FIRST_VEHICLE )
+	// marke strogg more merc
+	if ( bSelectedInfoChar - FIRSTmercTOdisplay >= maxNumberOfMercVisibleInStrategyList )
 	{
-		usVehicleCount = bSelectedInfoChar - FIRST_VEHICLE;
-		sYPosition = usVehicleY+( usVehicleCount * ( Y_SIZE + 2) ) - 1;;
+		FIRSTmercTOdisplay = bSelectedInfoChar - (maxNumberOfMercVisibleInStrategyList - 1) ;
 	}
 
+	// now blit one by the selected merc
+	// marke strogg more mercs
+	sYPosition = Y_START+( ( bSelectedInfoChar - FIRSTmercTOdisplay ) * ( Y_SIZE + 2 ) ) - 1;
 
 	GetVideoObject( &hHandle, guiSelectedCharArrow );
 	BltVideoObject( guiSAVEBUFFER , hHandle, 0,SELECTED_CHAR_ARROW_X, sYPosition , VO_BLT_SRCTRANSPARENCY,NULL );
 
 	// now run through the selected list of guys, an arrow for each
-	for( ubCount = 0; ubCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ubCount++ )
-	{
-		if( gCharactersList[ ubCount ].fValid == TRUE )
+	
+	// marke strogg more mercs
+	for( ubCount = 0; ubCount < maxNumberOfMercVisibleInStrategyList; ubCount++ )
+	{ 
+		// marke strogg more mercs
+		if( gCharactersList[ ubCount + FIRSTmercTOdisplay ].fValid == TRUE )
 		{
-
 			// are they in the selected list or int he same mvt group as this guy
-			if( ( IsEntryInSelectedListSet( ubCount ) == TRUE ) || ( ( bSelectedDestChar != - 1 ) ? ( ( Menptr[ gCharactersList[ ubCount ].usSolID ].ubGroupID != 0 ) ? ( Menptr[ gCharactersList[ bSelectedDestChar ].usSolID ].ubGroupID == Menptr[ gCharactersList[ ubCount ].usSolID ].ubGroupID ) : FALSE ) : FALSE ) )
+			if( ( IsEntryInSelectedListSet( ubCount + FIRSTmercTOdisplay ) == TRUE ) || ( ( bSelectedDestChar != - 1 ) ? ( ( Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID != 0 ) ? ( Menptr[ gCharactersList[ bSelectedDestChar ].usSolID ].ubGroupID == Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID ) : FALSE ) : FALSE ) )
 			{
 				sYPosition = Y_START+( ubCount * ( Y_SIZE + 2) ) - 1;
-
-				if( ubCount >= FIRST_VEHICLE )
-				{
-					usVehicleCount = ubCount - FIRST_VEHICLE;
-					sYPosition = usVehicleY+( usVehicleCount * ( Y_SIZE + 2) ) - 1;;
-				}
 
 				GetVideoObject( &hHandle, guiSelectedCharArrow );
 				BltVideoObject( guiSAVEBUFFER , hHandle, 0,SELECTED_CHAR_ARROW_X, sYPosition , VO_BLT_SRCTRANSPARENCY,NULL );
@@ -2272,17 +2272,10 @@ void UpdateMapScreenAssignmentPositions( void )
 		// do nothing
 	}
 	else
-	{
-		giBoxY = ( Y_START + ( bSelectedAssignChar ) * ( Y_SIZE + 2 ) );
-
-/* ARM: Removed this - refreshes fine without it, apparently
-		// make sure the menus don't overlap the map screen bottom panel (but where did 102 come from?)
-		if( giBoxY >= ( MAP_BOTTOM_Y - 102 ) )
-			giBoxY = MAP_BOTTOM_Y - 102;
-*/
+	{ 
+		// marke strogg more mercs
+		giBoxY = ( Y_START + ( bSelectedAssignChar - FIRSTmercTOdisplay ) * ( Y_SIZE + 2 ) );
 	}
-
-
 
 	AssignmentPosition.iY = giBoxY;
 
@@ -2650,6 +2643,57 @@ void GoToNextCharacterInList( void )
 	}
 }
 
+// WANNE: Jump to first character in list when pressing PageUp
+void GoToFirstCharacterInList( void )
+{
+	INT32 iCounter = 0, iCount = 0;
+
+	if( fShowDescriptionFlag == TRUE )
+	{
+		return;
+	}
+
+	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+	{
+		AbortMovementPlottingMode( );
+	}
+
+	// now run through the list and find first prev guy
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	{
+		if ( ( gCharactersList[ iCounter ].fValid ) && ( iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCounter ) )
+		{
+			ChangeSelectedInfoChar( ( INT8 )iCounter, TRUE );
+			break;
+		}
+	}
+}
+
+// WANNE: Jump to last character in list when pressing PageDown
+void GoToLastCharacterInList( void )
+{
+	INT32 iCounter = 0, iCount = 0;
+
+	if( fShowDescriptionFlag == TRUE )
+	{
+		return;
+	}
+
+	if( ( bSelectedDestChar != -1 ) || ( fPlotForHelicopter == TRUE ) )
+	{
+		AbortMovementPlottingMode( );
+	}
+
+	// now run through the list and find first prev guy
+	for( iCounter = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS - 1; iCounter > 0; iCounter-- )
+	{
+		if ( ( gCharactersList[ iCounter ].fValid ) && ( iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCounter ) )
+		{
+			ChangeSelectedInfoChar( ( INT8 )iCounter, TRUE );
+			break;
+		}
+	}
+}
 
 void GoToPrevCharacterInList( void )
 {
@@ -2690,7 +2734,6 @@ void GoToPrevCharacterInList( void )
 
 			if( iCount < 0 )
 			{
-				// was FIRST_VEHICLE
 				iCount = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
 			}
 		}
@@ -5764,7 +5807,7 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 	SetUpShutDownMapScreenHelpTextScreenMask( );
 
 	// Add e-mail message
-	AddEmail(ENRICO_CONGRATS,ENRICO_CONGRATS_LENGTH,MAIL_ENRICO, GetWorldTotalMin(), -1);
+	AddEmail(ENRICO_CONGRATS,ENRICO_CONGRATS_LENGTH,MAIL_ENRICO, GetWorldTotalMin(), -1, -1);
 
 
 	return( TRUE );
@@ -6409,6 +6452,12 @@ BOOLEAN CanSoldierMoveWithVehicleId( SOLDIERTYPE *pSoldier, INT32 iVehicle1Id )
 
 		// helicopter can't move together with ground vehicles!
 		if ( ( iVehicle1Id == iHelicopterVehicleId ) || ( iVehicle2Id == iHelicopterVehicleId ) )
+		{
+			return( FALSE );
+		}
+
+		// CHRISL: Certain vehicles now have different valid sectors so we don't want to allow try to path for two different vehicles
+		if ( iVehicle1Id != iVehicle2Id )
 		{
 			return( FALSE );
 		}

@@ -24,6 +24,8 @@
 	#include "EditorBuildings.h"
 #endif
 
+#include "Text.h"
+
 BOOLEAN fValidCursor = FALSE;
 BOOLEAN fAnchored =	FALSE;
 BOOLEAN gfBrushEnabled = TRUE;
@@ -36,7 +38,7 @@ extern INT16 sGridX; // symbol already declared globally in editscreen.cpp (jona
 extern INT16 sGridY; // symbol already declared globally in editscreen.cpp (jonathanl)
 INT32 sBadMarker = -1;
 
-STR16 wszSelType[6]= { L"Small", L"Medium", L"Large", L"XLarge", L"Width: xx", L"Area" };
+//STR16 wszSelType[6]= { L"Small", L"Medium", L"Large", L"XLarge", L"Width: xx", L"Area" };
 
 BOOLEAN gfAllowRightButtonSelections = FALSE;
 BOOLEAN gfCurrentSelectionWithRightButton = FALSE;

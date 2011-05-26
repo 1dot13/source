@@ -987,6 +987,7 @@ BOOLEAN ShouldTraitBeSkipped( UINT32 uiTrait )
 	}
 	else
 	{
+		// WANNE: No material arts selection allowed for big body types and females, because we don't have a material art animation on big body types!
 		if( uiTrait == IMP_SKILL_TRAITS__MARTIAL_ARTS && (!fCharacterIsMale || bBigBodySelected()) )
 			return( TRUE );
 		else
@@ -998,6 +999,13 @@ BOOLEAN DoesSkillHaveExpertLevel( UINT32 uiSkillTrait )
 {
 	if( gGameOptions.fNewTraitSystem )
 	{
+		// WANNE: Yes we have no animation, but the Trait bonus also works with the missing animations.
+		/*
+		// WANNE: No material arts allowed for big body types and females, because we don't have a material art animation on big body types!
+		if (uiSkillTrait == IMP_SKILL_TRAITS_NEW_MARTIAL_ARTS && (!fCharacterIsMale || bBigBodySelected()))
+			return (FALSE);
+		*/
+		
 		return( TRUE );
 	}
 	else
@@ -1008,11 +1016,10 @@ BOOLEAN DoesSkillHaveExpertLevel( UINT32 uiSkillTrait )
 		{
 			return( FALSE );
 		}
-		else
-		{
-			return( TRUE );
-		}
+		
+		return( TRUE );		
 	}
+
 	return( TRUE );
 }
 

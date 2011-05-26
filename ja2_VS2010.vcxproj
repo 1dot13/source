@@ -114,7 +114,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>bin\VS2010\$(Configuration)\</OutDir>
     <IntDir>build\VS2010\$(ProjectName)_$(Configuration)\</IntDir>
-    <TargetName>JA2_EN_Release.exe</TargetName>
+    <TargetName>JA2_PO_Release.exe</TargetName>
     <TargetExt />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'">
@@ -183,7 +183,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>Multiplayer\raknet;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Winmm.lib;RakNetLibStatic.lib;ws2_32.lib;DbgHelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)\JA2_EN_Release.exe</OutputFile>
+      <OutputFile>$(OutDir)\JA2_PO_Release.exe</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'">

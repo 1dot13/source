@@ -103,6 +103,7 @@ MOUSE_REGION		gUDBFasthelpRegions[NUM_UDB_FASTHELP_REGIONS];
 extern INV_DESC_STATS gMoneyStats[];
 extern INV_DESC_STATS gLBEStats[];
 extern INV_ATTACHXY gItemDescAttachmentsXY[];
+extern SOLDIERTYPE *gpItemDescSoldier;
 // HEADROCK HAM 4: Declare here so other functions may use it.
 void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject );
 void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject );
@@ -369,22 +370,28 @@ void InitEDBCoords(OBJECTTYPE * pObject)
 
 		// NOTE a skip of Y here - these belong to the "tertiary" column, which is below the "secondary" column, separated by an index and header.
 		// Right Column, row 7
-		gItemDescGenRegions[19][0].sLeft = 130 + UDBOffsetX;		gItemDescGenRegions[19][0].sTop = 261 + UDBOffsetY;	gItemDescGenRegions[19][0].sRight = 179 + UDBOffsetX;	gItemDescGenRegions[19][0].sBottom = 273 + UDBOffsetY;	
-		gItemDescGenRegions[19][1].sLeft = 181 + UDBOffsetX;		gItemDescGenRegions[19][1].sTop = 261 + UDBOffsetY;	gItemDescGenRegions[19][1].sRight = 202 + UDBOffsetX;	gItemDescGenRegions[19][1].sBottom = 273 + UDBOffsetY;	
-		gItemDescGenRegions[19][2].sLeft = 204 + UDBOffsetX;		gItemDescGenRegions[19][2].sTop = 261 + UDBOffsetY;	gItemDescGenRegions[19][2].sRight = 223 + UDBOffsetX;	gItemDescGenRegions[19][2].sBottom = 273 + UDBOffsetY;	
-		gItemDescGenRegions[19][3].sLeft = 225 + UDBOffsetX;		gItemDescGenRegions[19][3].sTop = 261 + UDBOffsetY;	gItemDescGenRegions[19][3].sRight = 245 + UDBOffsetX;	gItemDescGenRegions[19][3].sBottom = 273 + UDBOffsetY;
+		gItemDescGenRegions[19][0].sLeft = 130 + UDBOffsetX;		gItemDescGenRegions[19][0].sTop = 256 + UDBOffsetY;	gItemDescGenRegions[19][0].sRight = 179 + UDBOffsetX;	gItemDescGenRegions[19][0].sBottom = 268 + UDBOffsetY;	
+		gItemDescGenRegions[19][1].sLeft = 181 + UDBOffsetX;		gItemDescGenRegions[19][1].sTop = 256 + UDBOffsetY;	gItemDescGenRegions[19][1].sRight = 202 + UDBOffsetX;	gItemDescGenRegions[19][1].sBottom = 268 + UDBOffsetY;	
+		gItemDescGenRegions[19][2].sLeft = 204 + UDBOffsetX;		gItemDescGenRegions[19][2].sTop = 256 + UDBOffsetY;	gItemDescGenRegions[19][2].sRight = 223 + UDBOffsetX;	gItemDescGenRegions[19][2].sBottom = 268 + UDBOffsetY;	
+		gItemDescGenRegions[19][3].sLeft = 225 + UDBOffsetX;		gItemDescGenRegions[19][3].sTop = 256 + UDBOffsetY;	gItemDescGenRegions[19][3].sRight = 245 + UDBOffsetX;	gItemDescGenRegions[19][3].sBottom = 268 + UDBOffsetY;
 
 		// Right Column, row 8
-		gItemDescGenRegions[20][0].sLeft = 130 + UDBOffsetX;		gItemDescGenRegions[20][0].sTop = 274 + UDBOffsetY;	gItemDescGenRegions[20][0].sRight = 179 + UDBOffsetX;	gItemDescGenRegions[20][0].sBottom = 286 + UDBOffsetY;	
-		gItemDescGenRegions[20][1].sLeft = 181 + UDBOffsetX;		gItemDescGenRegions[20][1].sTop = 274 + UDBOffsetY;	gItemDescGenRegions[20][1].sRight = 202 + UDBOffsetX;	gItemDescGenRegions[20][1].sBottom = 286 + UDBOffsetY;	
-		gItemDescGenRegions[20][2].sLeft = 204 + UDBOffsetX;		gItemDescGenRegions[20][2].sTop = 274 + UDBOffsetY;	gItemDescGenRegions[20][2].sRight = 223 + UDBOffsetX;	gItemDescGenRegions[20][2].sBottom = 286 + UDBOffsetY;	
-		gItemDescGenRegions[20][3].sLeft = 225 + UDBOffsetX;		gItemDescGenRegions[20][3].sTop = 274 + UDBOffsetY;	gItemDescGenRegions[20][3].sRight = 245 + UDBOffsetX;	gItemDescGenRegions[20][3].sBottom = 286 + UDBOffsetY;
+		gItemDescGenRegions[20][0].sLeft = 130 + UDBOffsetX;		gItemDescGenRegions[20][0].sTop = 269 + UDBOffsetY;	gItemDescGenRegions[20][0].sRight = 179 + UDBOffsetX;	gItemDescGenRegions[20][0].sBottom = 281 + UDBOffsetY;	
+		gItemDescGenRegions[20][1].sLeft = 181 + UDBOffsetX;		gItemDescGenRegions[20][1].sTop = 269 + UDBOffsetY;	gItemDescGenRegions[20][1].sRight = 202 + UDBOffsetX;	gItemDescGenRegions[20][1].sBottom = 281 + UDBOffsetY;	
+		gItemDescGenRegions[20][2].sLeft = 204 + UDBOffsetX;		gItemDescGenRegions[20][2].sTop = 269 + UDBOffsetY;	gItemDescGenRegions[20][2].sRight = 223 + UDBOffsetX;	gItemDescGenRegions[20][2].sBottom = 281 + UDBOffsetY;	
+		gItemDescGenRegions[20][3].sLeft = 225 + UDBOffsetX;		gItemDescGenRegions[20][3].sTop = 269 + UDBOffsetY;	gItemDescGenRegions[20][3].sRight = 245 + UDBOffsetX;	gItemDescGenRegions[20][3].sBottom = 281 + UDBOffsetY;
 
 		// Right Column, row 9
-		gItemDescGenRegions[21][0].sLeft = 130 + UDBOffsetX;		gItemDescGenRegions[21][0].sTop = 287 + UDBOffsetY;	gItemDescGenRegions[21][0].sRight = 179 + UDBOffsetX;	gItemDescGenRegions[21][0].sBottom = 299 + UDBOffsetY;	
-		gItemDescGenRegions[21][1].sLeft = 181 + UDBOffsetX;		gItemDescGenRegions[21][1].sTop = 287 + UDBOffsetY;	gItemDescGenRegions[21][1].sRight = 202 + UDBOffsetX;	gItemDescGenRegions[21][1].sBottom = 299 + UDBOffsetY;	
-		gItemDescGenRegions[21][2].sLeft = 204 + UDBOffsetX;		gItemDescGenRegions[21][2].sTop = 287 + UDBOffsetY;	gItemDescGenRegions[21][2].sRight = 223 + UDBOffsetX;	gItemDescGenRegions[21][2].sBottom = 299 + UDBOffsetY;	
-		gItemDescGenRegions[21][3].sLeft = 225 + UDBOffsetX;		gItemDescGenRegions[21][3].sTop = 287 + UDBOffsetY;	gItemDescGenRegions[21][3].sRight = 245 + UDBOffsetX;	gItemDescGenRegions[21][3].sBottom = 299 + UDBOffsetY;
+		gItemDescGenRegions[21][0].sLeft = 130 + UDBOffsetX;		gItemDescGenRegions[21][0].sTop = 282 + UDBOffsetY;	gItemDescGenRegions[21][0].sRight = 179 + UDBOffsetX;	gItemDescGenRegions[21][0].sBottom = 294 + UDBOffsetY;	
+		gItemDescGenRegions[21][1].sLeft = 181 + UDBOffsetX;		gItemDescGenRegions[21][1].sTop = 282 + UDBOffsetY;	gItemDescGenRegions[21][1].sRight = 202 + UDBOffsetX;	gItemDescGenRegions[21][1].sBottom = 294 + UDBOffsetY;	
+		gItemDescGenRegions[21][2].sLeft = 204 + UDBOffsetX;		gItemDescGenRegions[21][2].sTop = 282 + UDBOffsetY;	gItemDescGenRegions[21][2].sRight = 223 + UDBOffsetX;	gItemDescGenRegions[21][2].sBottom = 294 + UDBOffsetY;	
+		gItemDescGenRegions[21][3].sLeft = 225 + UDBOffsetX;		gItemDescGenRegions[21][3].sTop = 282 + UDBOffsetY;	gItemDescGenRegions[21][3].sRight = 245 + UDBOffsetX;	gItemDescGenRegions[21][3].sBottom = 294 + UDBOffsetY;
+
+		// Right Column, row 10
+		gItemDescGenRegions[22][0].sLeft = 130 + UDBOffsetX;		gItemDescGenRegions[22][0].sTop = 295 + UDBOffsetY;	gItemDescGenRegions[22][0].sRight = 179 + UDBOffsetX;	gItemDescGenRegions[22][0].sBottom = 307 + UDBOffsetY;	
+		gItemDescGenRegions[22][1].sLeft = 181 + UDBOffsetX;		gItemDescGenRegions[22][1].sTop = 295 + UDBOffsetY;	gItemDescGenRegions[22][1].sRight = 202 + UDBOffsetX;	gItemDescGenRegions[22][1].sBottom = 307 + UDBOffsetY;	
+		gItemDescGenRegions[22][2].sLeft = 204 + UDBOffsetX;		gItemDescGenRegions[22][2].sTop = 295 + UDBOffsetY;	gItemDescGenRegions[22][2].sRight = 223 + UDBOffsetX;	gItemDescGenRegions[22][2].sBottom = 307 + UDBOffsetY;	
+		gItemDescGenRegions[22][3].sLeft = 225 + UDBOffsetX;		gItemDescGenRegions[22][3].sTop = 295 + UDBOffsetY;	gItemDescGenRegions[22][3].sRight = 245 + UDBOffsetX;	gItemDescGenRegions[22][3].sBottom = 307 + UDBOffsetY;
 
 		///////////////////////////////////////////////////////////////////////////////////
 		// HEADROCK HAM 4: UDB General Page - Secondary Data locations
@@ -574,21 +581,18 @@ void InitEDBCoords(OBJECTTYPE * pObject)
 			// definition tables.
 			if (UseNASDesc( pObject ))
 			{
-				// No LBE/MONEY coordinates, since NAS doesn't run with either such item.
-				/*
 				gItemDescLBEBackground[0].sLeft = 320 + gsInvDescX;	gItemDescLBEBackground[0].sTop = 8 + gsInvDescY;
-				gItemDescLBEBackground[1].sLeft = 3 + gsInvDescX;	gItemDescLBEBackground[1].sTop = 137 + gsInvDescY;
+				gItemDescLBEBackground[1].sLeft = 320 + gsInvDescX;	gItemDescLBEBackground[1].sTop = 8 + gsInvDescY;
 				gItemDescLBEBackground[2].sLeft = 320 + gsInvDescX;	gItemDescLBEBackground[2].sTop = 8 + gsInvDescY;
 				gItemDescLBEBackground[3].sLeft = 320 + gsInvDescX;	gItemDescLBEBackground[3].sTop = 8 + gsInvDescY;
 
 				////////////////// MONEY TEXT COORDINATES
-				gMoneyStats[0].sX = 204 + gsInvDescX;		gMoneyStats[0].sY = 14 + gsInvDescY;	// Money
-				gMoneyStats[1].sX = 212 + gsInvDescX;		gMoneyStats[1].sY = 24 + gsInvDescY;	// Remaining
-				gMoneyStats[2].sX = 204 + gsInvDescX;		gMoneyStats[2].sY = 41 + gsInvDescY;	// Money
-				gMoneyStats[3].sX = 212 + gsInvDescX;		gMoneyStats[3].sY = 51 + gsInvDescY;	// Removing
-				gMoneyStats[4].sX = 282 + gsInvDescX;		gMoneyStats[4].sY = 24 + gsInvDescY;	// AMT remaining
-				gMoneyStats[5].sX = 282 + gsInvDescX;		gMoneyStats[5].sY = 51 + gsInvDescY;	// AMT removing
-				*/
+				gMoneyStats[0].sX = 266 + gsInvDescX;		gMoneyStats[0].sY = 14 + gsInvDescY;	// Money
+				gMoneyStats[1].sX = 274 + gsInvDescX;		gMoneyStats[1].sY = 24 + gsInvDescY;	// Remaining
+				gMoneyStats[2].sX = 266 + gsInvDescX;		gMoneyStats[2].sY = 41 + gsInvDescY;	// Money
+				gMoneyStats[3].sX = 274 + gsInvDescX;		gMoneyStats[3].sY = 51 + gsInvDescY;	// Removing
+				gMoneyStats[4].sX = 344 + gsInvDescX;		gMoneyStats[4].sY = 24 + gsInvDescY;	// AMT remaining
+				gMoneyStats[5].sX = 344 + gsInvDescX;		gMoneyStats[5].sY = 51 + gsInvDescY;	// AMT removing
 
 				//////////////////////////////////////////////////////////////////////
 				// ODB has exactly four separate regions. Each has 8 sub-regions, which can be
@@ -868,7 +872,68 @@ void InitLBECoords()
 	}
 	else
 	{
-		if(UsingEDBSystem() > 0)
+		if(UsingEDBSystem() > 0 && UsingNewAttachmentSystem() == true)	// UDB & NAS
+		{
+			gLBEStats[0].sX = 658;	gLBEStats[0].sY = 9;	gLBEStats[0].sValDx = 0;	//Thigh 1
+			gLBEStats[1].sX = 694;	gLBEStats[1].sY = 9;	gLBEStats[1].sValDx = 0;	//Thigh 2
+			gLBEStats[2].sX = 658;	gLBEStats[2].sY = 33;	gLBEStats[2].sValDx = 0;	//Thigh 3
+			gLBEStats[3].sX = 694;	gLBEStats[3].sY = 33;	gLBEStats[3].sValDx = 0;	//Thigh 4
+			gLBEStats[4].sX = 669;	gLBEStats[4].sY = 57;	gLBEStats[4].sValDx = 0;	//Thigh 5
+			gLBEStats[5].sX = 0;	gLBEStats[5].sY = 0;	gLBEStats[5].sValDx = 0;	//Thigh 6
+			gLBEStats[6].sX = 0;	gLBEStats[6].sY = 0;	gLBEStats[6].sValDx = 0;	//Thigh 7
+			gLBEStats[7].sX = 0;	gLBEStats[7].sY = 0;	gLBEStats[7].sValDx = 0;	//Thigh 8
+			gLBEStats[8].sX = 0;	gLBEStats[8].sY = 0;	gLBEStats[8].sValDx = 0;	//Thigh 9
+			gLBEStats[9].sX = 0;	gLBEStats[9].sY = 0;	gLBEStats[9].sValDx = 0;	//Thigh 10
+			gLBEStats[10].sX = 0;	gLBEStats[10].sY = 0;	gLBEStats[10].sValDx = 0;	//Thigh 11
+			gLBEStats[11].sX = 0;	gLBEStats[11].sY = 0;	gLBEStats[11].sValDx = 0;	//Thigh 12
+			gLBEStats[12].sX = 658;	gLBEStats[12].sY = 9;	gLBEStats[12].sValDx = 0;	//Vest 1
+			gLBEStats[13].sX = 694;	gLBEStats[13].sY = 9;	gLBEStats[13].sValDx = 0;	//Vest 2
+			gLBEStats[14].sX = 730;	gLBEStats[14].sY = 9;	gLBEStats[14].sValDx = 0;	//Vest 3
+			gLBEStats[15].sX = 766;	gLBEStats[15].sY = 9;	gLBEStats[15].sValDx = 0;	//Vest 4
+			gLBEStats[17].sX = 658;	gLBEStats[17].sY = 33;	gLBEStats[17].sValDx = 0;	//Vest 6
+			gLBEStats[18].sX = 694;	gLBEStats[18].sY = 33;	gLBEStats[18].sValDx = 0;	//Vest 7
+			gLBEStats[19].sX = 730;	gLBEStats[19].sY = 33;	gLBEStats[19].sValDx = 0;	//Vest 8
+			gLBEStats[20].sX = 766;	gLBEStats[20].sY = 33;	gLBEStats[20].sValDx = 0;	//Vest 9
+			if(iResolution == 2)
+			{
+				gLBEStats[16].sX = 802;	gLBEStats[16].sY = 9;	gLBEStats[16].sValDx = 0;	//Vest 5
+				gLBEStats[21].sX = 802;	gLBEStats[21].sY = 33;	gLBEStats[21].sValDx = 0;	//Vest 10
+				gLBEStats[22].sX = 838;	gLBEStats[22].sY = 9;	gLBEStats[22].sValDx = 0;	//Vest 11
+				gLBEStats[23].sX = 838;	gLBEStats[23].sY = 33;	gLBEStats[23].sValDx = 0;	//Vest 12
+			}
+			else
+			{
+				gLBEStats[16].sX = 688;	gLBEStats[16].sY = 57;	gLBEStats[16].sValDx = 0;	//Vest 5
+				gLBEStats[21].sX = 688;	gLBEStats[21].sY = 81;	gLBEStats[21].sValDx = 0;	//Vest 10
+				gLBEStats[22].sX = 724;	gLBEStats[22].sY = 57;	gLBEStats[22].sValDx = 0;	//Vest 11
+				gLBEStats[23].sX = 724;	gLBEStats[23].sY = 81;	gLBEStats[23].sValDx = 0;	//Vest 12
+			}
+			gLBEStats[24].sX = 658;	gLBEStats[24].sY = 9;	gLBEStats[24].sValDx = 0;	//CPack 1
+			gLBEStats[25].sX = 694;	gLBEStats[25].sY = 9;	gLBEStats[25].sValDx = 0;	//CPack 2
+			gLBEStats[26].sX = 658;	gLBEStats[26].sY = 33;	gLBEStats[26].sValDx = 0;	//CPack 3
+			gLBEStats[27].sX = 694;	gLBEStats[27].sY = 33;	gLBEStats[27].sValDx = 0;	//CPack 4
+			gLBEStats[28].sX = 730;	gLBEStats[28].sY = 9;	gLBEStats[28].sValDx = 0;	//CPack 5
+			gLBEStats[29].sX = 730;	gLBEStats[29].sY = 33;	gLBEStats[29].sValDx = 0;	//CPack 6
+			gLBEStats[30].sX = 730;	gLBEStats[30].sY = 57;	gLBEStats[30].sValDx = 0;	//CPack 7
+			gLBEStats[31].sX = 0;	gLBEStats[31].sY = 0;	gLBEStats[31].sValDx = 0;	//CPack 8
+			gLBEStats[32].sX = 0;	gLBEStats[32].sY = 0;	gLBEStats[32].sValDx = 0;	//CPack 9
+			gLBEStats[33].sX = 0;	gLBEStats[33].sY = 0;	gLBEStats[33].sValDx = 0;	//CPack 10
+			gLBEStats[34].sX = 0;	gLBEStats[34].sY = 0;	gLBEStats[34].sValDx = 0;	//CPack 11
+			gLBEStats[35].sX = 0;	gLBEStats[35].sY = 0;	gLBEStats[35].sValDx = 0;	//CPack 12
+			gLBEStats[36].sX = 658;	gLBEStats[36].sY = 9;	gLBEStats[36].sValDx = 0;	//BPack 1
+			gLBEStats[37].sX = 658;	gLBEStats[37].sY = 33;	gLBEStats[37].sValDx = 0;	//BPack 2
+			gLBEStats[38].sX = 658;	gLBEStats[38].sY = 57;	gLBEStats[38].sValDx = 0;	//BPack 3
+			gLBEStats[39].sX = 658;	gLBEStats[39].sY = 81;	gLBEStats[39].sValDx = 0;	//BPack 4
+			gLBEStats[40].sX = 694;	gLBEStats[40].sY = 9;	gLBEStats[40].sValDx = 0;	//BPack 5
+			gLBEStats[41].sX = 694;	gLBEStats[41].sY = 33;	gLBEStats[41].sValDx = 0;	//BPack 6
+			gLBEStats[42].sX = 694;	gLBEStats[42].sY = 57;	gLBEStats[42].sValDx = 0;	//BPack 7
+			gLBEStats[43].sX = 694;	gLBEStats[43].sY = 81;	gLBEStats[43].sValDx = 0;	//BPack 8
+			gLBEStats[44].sX = 730;	gLBEStats[44].sY = 9;	gLBEStats[44].sValDx = 0;	//BPack 9
+			gLBEStats[45].sX = 730;	gLBEStats[45].sY = 33;	gLBEStats[45].sValDx = 0;	//BPack 10
+			gLBEStats[46].sX = 730;	gLBEStats[46].sY = 57;	gLBEStats[46].sValDx = 0;	//BPack 11
+			gLBEStats[47].sX = 730;	gLBEStats[47].sY = 81;	gLBEStats[47].sValDx = 0;	//BPack 12
+		}
+		else if(UsingEDBSystem() > 0 && UsingNewAttachmentSystem() == false)	// UDB & OAS
 		{
 			gLBEStats[0].sX = 597;	gLBEStats[0].sY = 9;	gLBEStats[0].sValDx = 0;	//Thigh 1
 			gLBEStats[1].sX = 633;	gLBEStats[1].sY = 9;	gLBEStats[1].sValDx = 0;	//Thigh 2
@@ -892,15 +957,23 @@ void InitLBECoords()
 			gLBEStats[19].sX = 669;	gLBEStats[19].sY = 33;	gLBEStats[19].sValDx = 0;	//Vest 8
 			gLBEStats[20].sX = 705;	gLBEStats[20].sY = 33;	gLBEStats[20].sValDx = 0;	//Vest 9
 			gLBEStats[21].sX = 741;	gLBEStats[21].sY = 33;	gLBEStats[21].sValDx = 0;	//Vest 10
-			gLBEStats[22].sX = 663;	gLBEStats[22].sY = 57;	gLBEStats[22].sValDx = 0;	//Vest 11
-			gLBEStats[23].sX = 663;	gLBEStats[23].sY = 81;	gLBEStats[23].sValDx = 0;	//Vest 12
-			gLBEStats[24].sX = 597;	gLBEStats[24].sY = 10;	gLBEStats[24].sValDx = 0;	//CPack 1
-			gLBEStats[25].sX = 633;	gLBEStats[25].sY = 10;	gLBEStats[25].sValDx = 0;	//CPack 2
-			gLBEStats[26].sX = 597;	gLBEStats[26].sY = 34;	gLBEStats[26].sValDx = 0;	//CPack 3
-			gLBEStats[27].sX = 633;	gLBEStats[27].sY = 34;	gLBEStats[27].sValDx = 0;	//CPack 4
-			gLBEStats[28].sX = 669;	gLBEStats[28].sY = 10;	gLBEStats[28].sValDx = 0;	//CPack 5
-			gLBEStats[29].sX = 669;	gLBEStats[29].sY = 34;	gLBEStats[29].sValDx = 0;	//CPack 6
-			gLBEStats[30].sX = 669;	gLBEStats[30].sY = 58;	gLBEStats[30].sValDx = 0;	//CPack 7
+			if(iResolution == 2)
+			{
+				gLBEStats[22].sX = 777;	gLBEStats[22].sY = 9;	gLBEStats[22].sValDx = 0;	//Vest 11
+				gLBEStats[23].sX = 777;	gLBEStats[23].sY = 33;	gLBEStats[23].sValDx = 0;	//Vest 12
+			}
+			else
+			{
+				gLBEStats[22].sX = 663;	gLBEStats[22].sY = 57;	gLBEStats[22].sValDx = 0;	//Vest 11
+				gLBEStats[23].sX = 663;	gLBEStats[23].sY = 81;	gLBEStats[23].sValDx = 0;	//Vest 12
+			}
+			gLBEStats[24].sX = 597;	gLBEStats[24].sY = 9;	gLBEStats[24].sValDx = 0;	//CPack 1
+			gLBEStats[25].sX = 633;	gLBEStats[25].sY = 9;	gLBEStats[25].sValDx = 0;	//CPack 2
+			gLBEStats[26].sX = 597;	gLBEStats[26].sY = 33;	gLBEStats[26].sValDx = 0;	//CPack 3
+			gLBEStats[27].sX = 633;	gLBEStats[27].sY = 33;	gLBEStats[27].sValDx = 0;	//CPack 4
+			gLBEStats[28].sX = 669;	gLBEStats[28].sY = 9;	gLBEStats[28].sValDx = 0;	//CPack 5
+			gLBEStats[29].sX = 669;	gLBEStats[29].sY = 33;	gLBEStats[29].sValDx = 0;	//CPack 6
+			gLBEStats[30].sX = 669;	gLBEStats[30].sY = 57;	gLBEStats[30].sValDx = 0;	//CPack 7
 			gLBEStats[31].sX = 0;	gLBEStats[31].sY = 0;	gLBEStats[31].sValDx = 0;	//CPack 8
 			gLBEStats[32].sX = 0;	gLBEStats[32].sY = 0;	gLBEStats[32].sValDx = 0;	//CPack 9
 			gLBEStats[33].sX = 0;	gLBEStats[33].sY = 0;	gLBEStats[33].sValDx = 0;	//CPack 10
@@ -919,13 +992,13 @@ void InitLBECoords()
 			gLBEStats[46].sX = 669;	gLBEStats[46].sY = 57;	gLBEStats[46].sValDx = 0;	//BPack 11
 			gLBEStats[47].sX = 669;	gLBEStats[47].sY = 81;	gLBEStats[47].sValDx = 0;	//BPack 12
 		}
-		else
+		else if(UsingEDBSystem() == 0 && UsingNewAttachmentSystem() == true)	// ODB & NAS
 		{
-			gLBEStats[0].sX = 442;	gLBEStats[0].sY = 10;	gLBEStats[0].sValDx = 0;	//Thigh 1
-			gLBEStats[1].sX = 478;	gLBEStats[1].sY = 10;	gLBEStats[1].sValDx = 0;	//Thigh 2
-			gLBEStats[2].sX = 442;	gLBEStats[2].sY = 34;	gLBEStats[2].sValDx = 0;	//Thigh 3
-			gLBEStats[3].sX = 478;	gLBEStats[3].sY = 34;	gLBEStats[3].sValDx = 0;	//Thigh 4
-			gLBEStats[4].sX = 453;	gLBEStats[4].sY = 58;	gLBEStats[4].sValDx = 0;	//Thigh 5
+			gLBEStats[0].sX = 556;	gLBEStats[0].sY = 9;	gLBEStats[0].sValDx = 0;	//Thigh 1
+			gLBEStats[1].sX = 592;	gLBEStats[1].sY = 9;	gLBEStats[1].sValDx = 0;	//Thigh 2
+			gLBEStats[2].sX = 556;	gLBEStats[2].sY = 33;	gLBEStats[2].sValDx = 0;	//Thigh 3
+			gLBEStats[3].sX = 592;	gLBEStats[3].sY = 33;	gLBEStats[3].sValDx = 0;	//Thigh 4
+			gLBEStats[4].sX = 567;	gLBEStats[4].sY = 57;	gLBEStats[4].sValDx = 0;	//Thigh 5
 			gLBEStats[5].sX = 0;	gLBEStats[5].sY = 0;	gLBEStats[5].sValDx = 0;	//Thigh 6
 			gLBEStats[6].sX = 0;	gLBEStats[6].sY = 0;	gLBEStats[6].sValDx = 0;	//Thigh 7
 			gLBEStats[7].sX = 0;	gLBEStats[7].sY = 0;	gLBEStats[7].sValDx = 0;	//Thigh 8
@@ -933,42 +1006,93 @@ void InitLBECoords()
 			gLBEStats[9].sX = 0;	gLBEStats[9].sY = 0;	gLBEStats[9].sValDx = 0;	//Thigh 10
 			gLBEStats[10].sX = 0;	gLBEStats[10].sY = 0;	gLBEStats[10].sValDx = 0;	//Thigh 11
 			gLBEStats[11].sX = 0;	gLBEStats[11].sY = 0;	gLBEStats[11].sValDx = 0;	//Thigh 12
-			gLBEStats[12].sX = 125;	gLBEStats[12].sY = 139;	gLBEStats[12].sValDx = 0;	//Vest 1
-			gLBEStats[13].sX = 161;	gLBEStats[13].sY = 139;	gLBEStats[13].sValDx = 0;	//Vest 2
-			gLBEStats[14].sX = 197;	gLBEStats[14].sY = 139;	gLBEStats[14].sValDx = 0;	//Vest 3
-			gLBEStats[15].sX = 233;	gLBEStats[15].sY = 139;	gLBEStats[15].sValDx = 0;	//Vest 4
-			gLBEStats[16].sX = 269;	gLBEStats[16].sY = 139;	gLBEStats[16].sValDx = 0;	//Vest 5
-			gLBEStats[17].sX = 125;	gLBEStats[17].sY = 163;	gLBEStats[17].sValDx = 0;	//Vest 6
-			gLBEStats[18].sX = 161;	gLBEStats[18].sY = 163;	gLBEStats[18].sValDx = 0;	//Vest 7
-			gLBEStats[19].sX = 197;	gLBEStats[19].sY = 163;	gLBEStats[19].sValDx = 0;	//Vest 8
-			gLBEStats[20].sX = 233;	gLBEStats[20].sY = 163;	gLBEStats[20].sValDx = 0;	//Vest 9
-			gLBEStats[21].sX = 269;	gLBEStats[21].sY = 163;	gLBEStats[21].sValDx = 0;	//Vest 10
-			gLBEStats[22].sX = 305;	gLBEStats[22].sY = 139;	gLBEStats[22].sValDx = 0;	//Vest 11
-			gLBEStats[23].sX = 305;	gLBEStats[23].sY = 163;	gLBEStats[23].sValDx = 0;	//Vest 12
-			gLBEStats[24].sX = 442;	gLBEStats[24].sY = 10;	gLBEStats[24].sValDx = 0;	//CPack 1
-			gLBEStats[25].sX = 478;	gLBEStats[25].sY = 10;	gLBEStats[25].sValDx = 0;	//CPack 2
-			gLBEStats[26].sX = 442;	gLBEStats[26].sY = 34;	gLBEStats[26].sValDx = 0;	//CPack 3
-			gLBEStats[27].sX = 478;	gLBEStats[27].sY = 34;	gLBEStats[27].sValDx = 0;	//CPack 4
-			gLBEStats[28].sX = 514;	gLBEStats[28].sY = 10;	gLBEStats[28].sValDx = 0;	//CPack 5
-			gLBEStats[29].sX = 514;	gLBEStats[29].sY = 34;	gLBEStats[29].sValDx = 0;	//CPack 6
-			gLBEStats[30].sX = 514;	gLBEStats[30].sY = 58;	gLBEStats[30].sValDx = 0;	//CPack 7
+			gLBEStats[12].sX = 556;	gLBEStats[12].sY = 9;	gLBEStats[12].sValDx = 0;	//Vest 1
+			gLBEStats[13].sX = 592;	gLBEStats[13].sY = 9;	gLBEStats[13].sValDx = 0;	//Vest 2
+			gLBEStats[14].sX = 628;	gLBEStats[14].sY = 9;	gLBEStats[14].sValDx = 0;	//Vest 3
+			gLBEStats[15].sX = 664;	gLBEStats[15].sY = 9;	gLBEStats[15].sValDx = 0;	//Vest 4
+			gLBEStats[16].sX = 700;	gLBEStats[16].sY = 9;	gLBEStats[16].sValDx = 0;	//Vest 5
+			gLBEStats[17].sX = 556;	gLBEStats[17].sY = 33;	gLBEStats[17].sValDx = 0;	//Vest 6
+			gLBEStats[18].sX = 592;	gLBEStats[18].sY = 33;	gLBEStats[18].sValDx = 0;	//Vest 7
+			gLBEStats[19].sX = 628;	gLBEStats[19].sY = 33;	gLBEStats[19].sValDx = 0;	//Vest 8
+			gLBEStats[20].sX = 664;	gLBEStats[20].sY = 33;	gLBEStats[20].sValDx = 0;	//Vest 9
+			gLBEStats[21].sX = 700;	gLBEStats[21].sY = 33;	gLBEStats[21].sValDx = 0;	//Vest 10
+			gLBEStats[22].sX = 736;	gLBEStats[22].sY = 9;	gLBEStats[22].sValDx = 0;	//Vest 11
+			gLBEStats[23].sX = 736;	gLBEStats[23].sY = 33;	gLBEStats[23].sValDx = 0;	//Vest 12
+			gLBEStats[24].sX = 556;	gLBEStats[24].sY = 9;	gLBEStats[24].sValDx = 0;	//CPack 1
+			gLBEStats[25].sX = 592;	gLBEStats[25].sY = 9;	gLBEStats[25].sValDx = 0;	//CPack 2
+			gLBEStats[26].sX = 556;	gLBEStats[26].sY = 33;	gLBEStats[26].sValDx = 0;	//CPack 3
+			gLBEStats[27].sX = 592;	gLBEStats[27].sY = 33;	gLBEStats[27].sValDx = 0;	//CPack 4
+			gLBEStats[28].sX = 628;	gLBEStats[28].sY = 9;	gLBEStats[28].sValDx = 0;	//CPack 5
+			gLBEStats[29].sX = 628;	gLBEStats[29].sY = 33;	gLBEStats[29].sValDx = 0;	//CPack 6
+			gLBEStats[30].sX = 628;	gLBEStats[30].sY = 57;	gLBEStats[30].sValDx = 0;	//CPack 7
 			gLBEStats[31].sX = 0;	gLBEStats[31].sY = 0;	gLBEStats[31].sValDx = 0;	//CPack 8
 			gLBEStats[32].sX = 0;	gLBEStats[32].sY = 0;	gLBEStats[32].sValDx = 0;	//CPack 9
 			gLBEStats[33].sX = 0;	gLBEStats[33].sY = 0;	gLBEStats[33].sValDx = 0;	//CPack 10
 			gLBEStats[34].sX = 0;	gLBEStats[34].sY = 0;	gLBEStats[34].sValDx = 0;	//CPack 11
 			gLBEStats[35].sX = 0;	gLBEStats[35].sY = 0;	gLBEStats[35].sValDx = 0;	//CPack 12
-			gLBEStats[36].sX = 442;	gLBEStats[36].sY = 10;	gLBEStats[36].sValDx = 0;	//BPack 1
-			gLBEStats[37].sX = 442;	gLBEStats[37].sY = 34;	gLBEStats[37].sValDx = 0;	//BPack 2
-			gLBEStats[38].sX = 442;	gLBEStats[38].sY = 58;	gLBEStats[38].sValDx = 0;	//BPack 3
-			gLBEStats[39].sX = 442;	gLBEStats[39].sY = 82;	gLBEStats[39].sValDx = 0;	//BPack 4
-			gLBEStats[40].sX = 478;	gLBEStats[40].sY = 10;	gLBEStats[40].sValDx = 0;	//BPack 5
-			gLBEStats[41].sX = 478;	gLBEStats[41].sY = 34;	gLBEStats[41].sValDx = 0;	//BPack 6
-			gLBEStats[42].sX = 478;	gLBEStats[42].sY = 58;	gLBEStats[42].sValDx = 0;	//BPack 7
-			gLBEStats[43].sX = 478;	gLBEStats[43].sY = 82;	gLBEStats[43].sValDx = 0;	//BPack 8
-			gLBEStats[44].sX = 514;	gLBEStats[44].sY = 10;	gLBEStats[44].sValDx = 0;	//BPack 9
-			gLBEStats[45].sX = 514;	gLBEStats[45].sY = 34;	gLBEStats[45].sValDx = 0;	//BPack 10
-			gLBEStats[46].sX = 514;	gLBEStats[46].sY = 58;	gLBEStats[46].sValDx = 0;	//BPack 11
-			gLBEStats[47].sX = 514;	gLBEStats[47].sY = 82;	gLBEStats[47].sValDx = 0;	//BPack 12
+			gLBEStats[36].sX = 556;	gLBEStats[36].sY = 9;	gLBEStats[36].sValDx = 0;	//BPack 1
+			gLBEStats[37].sX = 556;	gLBEStats[37].sY = 33;	gLBEStats[37].sValDx = 0;	//BPack 2
+			gLBEStats[38].sX = 556;	gLBEStats[38].sY = 57;	gLBEStats[38].sValDx = 0;	//BPack 3
+			gLBEStats[39].sX = 556;	gLBEStats[39].sY = 81;	gLBEStats[39].sValDx = 0;	//BPack 4
+			gLBEStats[40].sX = 592;	gLBEStats[40].sY = 9;	gLBEStats[40].sValDx = 0;	//BPack 5
+			gLBEStats[41].sX = 592;	gLBEStats[41].sY = 33;	gLBEStats[41].sValDx = 0;	//BPack 6
+			gLBEStats[42].sX = 592;	gLBEStats[42].sY = 57;	gLBEStats[42].sValDx = 0;	//BPack 7
+			gLBEStats[43].sX = 592;	gLBEStats[43].sY = 81;	gLBEStats[43].sValDx = 0;	//BPack 8
+			gLBEStats[44].sX = 628;	gLBEStats[44].sY = 9;	gLBEStats[44].sValDx = 0;	//BPack 9
+			gLBEStats[45].sX = 628;	gLBEStats[45].sY = 33;	gLBEStats[45].sValDx = 0;	//BPack 10
+			gLBEStats[46].sX = 628;	gLBEStats[46].sY = 57;	gLBEStats[46].sValDx = 0;	//BPack 11
+			gLBEStats[47].sX = 628;	gLBEStats[47].sY = 81;	gLBEStats[47].sValDx = 0;	//BPack 12
+		}
+		else if(UsingEDBSystem() == 0 && UsingNewAttachmentSystem() == false)	// ODB & OAS
+		{
+			gLBEStats[0].sX = 446;	gLBEStats[0].sY = 9;	gLBEStats[0].sValDx = 0;	//Thigh 1
+			gLBEStats[1].sX = 482;	gLBEStats[1].sY = 9;	gLBEStats[1].sValDx = 0;	//Thigh 2
+			gLBEStats[2].sX = 446;	gLBEStats[2].sY = 33;	gLBEStats[2].sValDx = 0;	//Thigh 3
+			gLBEStats[3].sX = 482;	gLBEStats[3].sY = 33;	gLBEStats[3].sValDx = 0;	//Thigh 4
+			gLBEStats[4].sX = 457;	gLBEStats[4].sY = 57;	gLBEStats[4].sValDx = 0;	//Thigh 5
+			gLBEStats[5].sX = 0;	gLBEStats[5].sY = 0;	gLBEStats[5].sValDx = 0;	//Thigh 6
+			gLBEStats[6].sX = 0;	gLBEStats[6].sY = 0;	gLBEStats[6].sValDx = 0;	//Thigh 7
+			gLBEStats[7].sX = 0;	gLBEStats[7].sY = 0;	gLBEStats[7].sValDx = 0;	//Thigh 8
+			gLBEStats[8].sX = 0;	gLBEStats[8].sY = 0;	gLBEStats[8].sValDx = 0;	//Thigh 9
+			gLBEStats[9].sX = 0;	gLBEStats[9].sY = 0;	gLBEStats[9].sValDx = 0;	//Thigh 10
+			gLBEStats[10].sX = 0;	gLBEStats[10].sY = 0;	gLBEStats[10].sValDx = 0;	//Thigh 11
+			gLBEStats[11].sX = 0;	gLBEStats[11].sY = 0;	gLBEStats[11].sValDx = 0;	//Thigh 12
+			gLBEStats[12].sX = 445;	gLBEStats[12].sY = 9;	gLBEStats[12].sValDx = 0;	//Vest 1
+			gLBEStats[13].sX = 481;	gLBEStats[13].sY = 9;	gLBEStats[13].sValDx = 0;	//Vest 2
+			gLBEStats[14].sX = 517;	gLBEStats[14].sY = 9;	gLBEStats[14].sValDx = 0;	//Vest 3
+			gLBEStats[15].sX = 553;	gLBEStats[15].sY = 9;	gLBEStats[15].sValDx = 0;	//Vest 4
+			gLBEStats[16].sX = 589;	gLBEStats[16].sY = 9;	gLBEStats[16].sValDx = 0;	//Vest 5
+			gLBEStats[17].sX = 445;	gLBEStats[17].sY = 33;	gLBEStats[17].sValDx = 0;	//Vest 6
+			gLBEStats[18].sX = 481;	gLBEStats[18].sY = 33;	gLBEStats[18].sValDx = 0;	//Vest 7
+			gLBEStats[19].sX = 517;	gLBEStats[19].sY = 33;	gLBEStats[19].sValDx = 0;	//Vest 8
+			gLBEStats[20].sX = 553;	gLBEStats[20].sY = 33;	gLBEStats[20].sValDx = 0;	//Vest 9
+			gLBEStats[21].sX = 589;	gLBEStats[21].sY = 33;	gLBEStats[21].sValDx = 0;	//Vest 10
+			gLBEStats[22].sX = 625;	gLBEStats[22].sY = 9;	gLBEStats[22].sValDx = 0;	//Vest 11
+			gLBEStats[23].sX = 625;	gLBEStats[23].sY = 33;	gLBEStats[23].sValDx = 0;	//Vest 12
+			gLBEStats[24].sX = 446;	gLBEStats[24].sY = 9;	gLBEStats[24].sValDx = 0;	//CPack 1
+			gLBEStats[25].sX = 482;	gLBEStats[25].sY = 9;	gLBEStats[25].sValDx = 0;	//CPack 2
+			gLBEStats[26].sX = 446;	gLBEStats[26].sY = 33;	gLBEStats[26].sValDx = 0;	//CPack 3
+			gLBEStats[27].sX = 482;	gLBEStats[27].sY = 33;	gLBEStats[27].sValDx = 0;	//CPack 4
+			gLBEStats[28].sX = 518;	gLBEStats[28].sY = 9;	gLBEStats[28].sValDx = 0;	//CPack 5
+			gLBEStats[29].sX = 518;	gLBEStats[29].sY = 33;	gLBEStats[29].sValDx = 0;	//CPack 6
+			gLBEStats[30].sX = 518;	gLBEStats[30].sY = 57;	gLBEStats[30].sValDx = 0;	//CPack 7
+			gLBEStats[31].sX = 0;	gLBEStats[31].sY = 0;	gLBEStats[31].sValDx = 0;	//CPack 8
+			gLBEStats[32].sX = 0;	gLBEStats[32].sY = 0;	gLBEStats[32].sValDx = 0;	//CPack 9
+			gLBEStats[33].sX = 0;	gLBEStats[33].sY = 0;	gLBEStats[33].sValDx = 0;	//CPack 10
+			gLBEStats[34].sX = 0;	gLBEStats[34].sY = 0;	gLBEStats[34].sValDx = 0;	//CPack 11
+			gLBEStats[35].sX = 0;	gLBEStats[35].sY = 0;	gLBEStats[35].sValDx = 0;	//CPack 12
+			gLBEStats[36].sX = 446;	gLBEStats[36].sY = 9;	gLBEStats[36].sValDx = 0;	//BPack 1
+			gLBEStats[37].sX = 446;	gLBEStats[37].sY = 33;	gLBEStats[37].sValDx = 0;	//BPack 2
+			gLBEStats[38].sX = 446;	gLBEStats[38].sY = 57;	gLBEStats[38].sValDx = 0;	//BPack 3
+			gLBEStats[39].sX = 446;	gLBEStats[39].sY = 81;	gLBEStats[39].sValDx = 0;	//BPack 4
+			gLBEStats[40].sX = 482;	gLBEStats[40].sY = 9;	gLBEStats[40].sValDx = 0;	//BPack 5
+			gLBEStats[41].sX = 482;	gLBEStats[41].sY = 33;	gLBEStats[41].sValDx = 0;	//BPack 6
+			gLBEStats[42].sX = 482;	gLBEStats[42].sY = 57;	gLBEStats[42].sValDx = 0;	//BPack 7
+			gLBEStats[43].sX = 482;	gLBEStats[43].sY = 81;	gLBEStats[43].sValDx = 0;	//BPack 8
+			gLBEStats[44].sX = 518;	gLBEStats[44].sY = 9;	gLBEStats[44].sValDx = 0;	//BPack 9
+			gLBEStats[45].sX = 518;	gLBEStats[45].sY = 33;	gLBEStats[45].sValDx = 0;	//BPack 10
+			gLBEStats[46].sX = 518;	gLBEStats[46].sY = 57;	gLBEStats[46].sValDx = 0;	//BPack 11
+			gLBEStats[47].sX = 518;	gLBEStats[47].sY = 81;	gLBEStats[47].sValDx = 0;	//BPack 12
 		}
 	}
 }
@@ -1360,7 +1484,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 
 			///////////////// BURST/AUTOFIRE DATA - ICONS
-			for (cnt = 19; cnt < 22; cnt++)
+			for (cnt = 19; cnt < 23; cnt++)
 			{
 				MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
 					(INT16)(gItemDescGenRegions[cnt][0].sLeft),
@@ -1495,8 +1619,10 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 19 ] );
 				}
 			}
-			else	/////////////////// BIPOD
+			else	/////////////////// BIPOD & BURST PENALTY
 			{
+				if( GetBurstPenalty(gpItemDescObject) > 0 )
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 18 ] );
 				if( GetBipodBonus(gpItemDescObject) > 0 )
 					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 19 ] );
 			}
@@ -1506,6 +1632,10 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			{
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 20 ] );
 			}
+
+			/////////////////// AUTOFIRE PENALTY
+			if( UsingNewCTHSystem() == false && GetAutoPenalty(gpItemDescObject) > 0 )
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 21 ] );
 		}
 	}
 
@@ -2365,6 +2495,59 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			cnt++;
 		}
 
+		///////////////////// AIM BONUS MODIFIER
+		if(UsingNewCTHSystem() == false)
+		{
+			if ( GetAimBonus( gpItemDescObject, 100, 1 ) != 0 )
+			{
+				if (cnt >= sFirstLine && cnt < sLastLine)
+				{
+					if( UsingNewCTHSystem() == false )
+					{
+						swprintf( pStr, L"%s", szUDBAdvStatsTooltipText[ 46 ]);
+					}
+					else if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 46 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 46 ]);
+					}
+					else
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 46 ], szUDBAdvStatsExplanationsTooltipText[ 46 ]);
+					}
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+				}
+				cnt++;
+			}
+		}
+
+		///////////////////// TO-HIT MODIFIER
+		if(UsingNewCTHSystem() == false)
+		{
+			if ( GetToHitBonus( gpItemDescObject, 100, 1, FALSE ) != 0 
+				|| GetToHitBonus( gpItemDescObject, 100, 1, TRUE ) != 0 )
+			{
+				if (cnt >= sFirstLine && cnt < sLastLine)
+				{
+					if( UsingNewCTHSystem() == false )
+					{
+						swprintf( pStr, L"%s", szUDBAdvStatsTooltipText[ 47 ]);
+					}
+					else if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 47 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 47 ]);
+					}
+					else
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 47 ], szUDBAdvStatsExplanationsTooltipText[ 47 ]);
+					}
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+				}
+				cnt++;
+			}
+		}
+
 		///////////////////// CTH CAP MODIFIER
 		if (GetPercentCapModifier( gpItemDescObject, ANIM_STAND ) != 0 
 			|| GetPercentCapModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
@@ -2627,7 +2810,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
 			|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_PRONE ) != 0 ) )
 		{
-			if( UsingNewCTHSystem() == true )
+			if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
 			{
 				if (cnt >= sFirstLine && cnt < sLastLine)
 				{
@@ -3247,6 +3430,54 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			cnt++;
 		}
 
+		///////////////////// MAX COUNTER FORCE
+		if ((CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_STAND ) != 0 
+			|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH ) != 0 
+			|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE ) != 0 ) )
+		{
+			if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
+			{
+				if (cnt >= sFirstLine && cnt < sLastLine)
+				{
+					if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 44 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 44 ]);
+					}
+					else
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 44 ], szUDBAdvStatsExplanationsTooltipText[ 44 ]);
+					}
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+ 				}
+				cnt++;
+			}
+		}
+
+		///////////////////// COUNTER FORCE FREQUENCY
+		if ((GetCounterForceMaxModifier( gpItemDescObject, ANIM_STAND ) != 0 
+			|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
+			|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_PRONE ) != 0 ) )
+		{
+			if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
+			{
+				if (cnt >= sFirstLine && cnt < sLastLine)
+				{
+					if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 45 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 45 ]);
+					}
+					else
+					{
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 45 ], szUDBAdvStatsExplanationsTooltipText[ 45 ]);
+					}
+					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
+					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
+ 				}
+				cnt++;
+			}
+		}
+
 		gubDescBoxTotalAdvLines = (UINT8)cnt;
 	}
 }
@@ -3473,8 +3704,12 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 			}
 
 		}
-		else	///////////////// BIPOD
+		else	///////////////// BIPOD & BURST PENALTY
 		{
+			if( GetBurstPenalty(gpItemDescObject) > 0 )
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 30, gItemDescGenRegions[19][0].sLeft+sOffsetX, gItemDescGenRegions[19][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
 			if( GetBipodBonus(gpItemDescObject) > 0)
 			{
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 16, gItemDescGenRegions[20][0].sLeft+sOffsetX, gItemDescGenRegions[20][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -3486,6 +3721,12 @@ void DrawWeaponStats( OBJECTTYPE * gpItemDescObject )
 			&& GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 7, gItemDescGenRegions[21][0].sLeft+sOffsetX, gItemDescGenRegions[21][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
+		///////////////// AUTOFIRE PENALTY
+		if( UsingNewCTHSystem() == false && GetAutoPenalty(gpItemDescObject) > 0 )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoWeaponIcon, 29, gItemDescGenRegions[22][0].sLeft+sOffsetX, gItemDescGenRegions[22][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 	}
 	else if(gubDescBoxPage == 2)
@@ -3797,6 +4038,33 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		cnt++;
 	}
 
+	///////////////////// AIM BONUS MODIFIER
+	if(UsingNewCTHSystem() == false)
+	{
+		if ( GetAimBonus( gpItemDescObject, 100, 1 ) != 0 )
+		{
+			if (cnt >= sFirstLine && cnt < sLastLine)
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 1, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+			cnt++;
+		}
+	}
+
+	///////////////////// TO-HIT MODIFIER
+	if(UsingNewCTHSystem() == false)
+	{
+		if ( GetToHitBonus( gpItemDescObject, 100, 1, FALSE ) != 0 
+			|| GetToHitBonus( gpItemDescObject, 100, 1, TRUE ) != 0 )
+		{
+			if (cnt >= sFirstLine && cnt < sLastLine)
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 6, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+			cnt++;
+		}
+	}
+
 	///////////////////// CTH CAP MODIFIER
 	if (GetPercentCapModifier( gpItemDescObject, ANIM_STAND ) != 0 
 		|| GetPercentCapModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
@@ -3947,7 +4215,7 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_CROUCH ) != 0 
 		|| GetCounterForceMaxModifier( gpItemDescObject, ANIM_PRONE ) != 0 )
 	{
-		if( UsingNewCTHSystem() == true )
+		if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
 		{
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
@@ -4226,6 +4494,34 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 43, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 		cnt++;
+	}
+
+	///////////////////// MAX COUNTER FORCE
+	if (CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_STAND ) != 0 
+		|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH ) != 0 
+		|| CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE ) != 0 )
+	{
+		if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
+		{
+			if (cnt >= sFirstLine && cnt < sLastLine)
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 17, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+			cnt++;
+		}
+	}
+
+	///////////////////// COUNTER FORCE FREQUENCY
+	if (CalcCounterForceFrequency( gpItemDescSoldier, gpItemDescObject ) != 0 )
+	{
+		if( UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
+		{
+			if (cnt >= sFirstLine && cnt < sLastLine)
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 19, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+			cnt++;
+		}
 	}
 }
 
@@ -4747,10 +5043,11 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
 			
 			// Get Final Aiming Levels
-			UINT16 iFinalAimLevelsValue = GetAllowedAimingLevelsForItem( gpItemDescObject, ANIM_STAND );
+			UINT16 iFinalAimLevelsValue = GetAllowedAimingLevelsForItem( gpItemDescSoldier, gpItemDescObject, ANIM_STAND );
 
 			// Get modifier
 			INT16 iAimLevelsModifier = GetAimLevelsModifier( gpItemDescObject, ANIM_STAND );
+			iAimLevelsModifier += GetAimLevelsTraitModifier( gpItemDescSoldier, gpItemDescObject );
 
 			// Get Base Value
 			UINT16 iAimLevelsValue = iFinalAimLevelsValue - iAimLevelsModifier;
@@ -5712,7 +6009,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				INT8 iFinalRecoilY = 0;
 
 				// Get final Recoil
-				GetRecoil( gpItemDescObject, &iFinalRecoilX, &iFinalRecoilY, 2 );
+				GetRecoil( gpItemDescSoldier, gpItemDescObject, &iFinalRecoilX, &iFinalRecoilY, 3 );
 
 				// Get base Recoil
 				INT8 iRecoilX = Weapon[ gpItemDescObject->usItem ].bRecoilX;
@@ -5836,8 +6133,94 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				SetFontForeground( 6 );
 			}
 		}
-		else	///////////////// BIPOD
+		else	///////////////// BIPOD & BURST PENALTY
 		{
+			if( GetBurstPenalty(gpItemDescObject) > 0 )
+			{
+				// Set line to draw into
+				ubNumLine = 19;
+				// Set Y coordinates
+				sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+				sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+				// Get base Burst Penalty value
+				INT16 iBurstValue = Weapon[gpItemDescObject->usItem].ubBurstPenalty * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
+
+				// Get final Burst Penalty value
+				INT16 iFinalBurstValue;
+				if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
+				{
+					iFinalBurstValue = GetBurstToHitBonus(gpItemDescObject) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+					iFinalBurstValue = max(0, (iBurstValue * (100 - iFinalBurstValue))/100 );
+				}
+				else
+				{
+					iFinalBurstValue = GetBurstPenalty(gpItemDescObject);
+					if(gGameExternalOptions.bAimedBurstEnabled)
+						iFinalBurstValue += Weapon[gpItemDescObject->usItem].ubBurstPenalty * gGameExternalOptions.uAimedBurstPenalty;
+				}
+
+				// Get Burst Penalty modifier
+				INT16 iBurstModifier = iFinalBurstValue - iBurstValue;
+
+				// Print base value
+				SetFontForeground( 5 );
+				sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+				sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+				if (iBurstValue < 0)
+				{
+					SetFontForeground( ITEMDESC_FONTPOSITIVE );
+					swprintf( pStr, L"=%d", abs(iBurstValue) );
+				}
+				else if ( iBurstValue > 0 )
+				{
+					SetFontForeground( ITEMDESC_FONTNEGATIVE );
+					swprintf( pStr, L"-%d", abs(iBurstValue) );
+				}
+				else
+				{
+					swprintf( pStr, L"--" );
+				}
+
+				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				mprintf( usX, usY, pStr );
+
+				// Print modifier
+				SetFontForeground( 5 );
+				if (iBurstModifier < 0)
+				{
+					SetFontForeground( ITEMDESC_FONTPOSITIVE );
+				}
+				else if ( iBurstModifier > 0 )
+				{
+					SetFontForeground( ITEMDESC_FONTNEGATIVE );
+				}
+				// Add positive/negative sign
+				if ( iBurstModifier > 0 )
+				{
+					swprintf( pStr, L"-%d", abs(iBurstModifier) );
+				}
+				else if ( iBurstModifier < 0 )
+				{
+					swprintf( pStr, L"+%d", abs(iBurstModifier) );
+				}
+				else
+				{
+					swprintf( pStr, L"--" );
+				}
+				sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+				sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				mprintf( usX, usY, pStr );
+
+				// Print final value
+				SetFontForeground( FONT_MCOLOR_WHITE );
+				sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+				sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+				swprintf( pStr, L"%d", iFinalBurstValue );
+				FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				mprintf( usX, usY, pStr );
+			}
 			if( GetBipodBonus(gpItemDescObject) > 0)
 			{
 				// Set line to draw into
@@ -5958,6 +6341,95 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 			SetFontForeground( 6 );
 
 		}
+
+		/////////////////// AUTOFIRE PENALTY
+		if( UsingNewCTHSystem() == false && GetAutoPenalty(gpItemDescObject) > 0 )
+		{
+			// Set line to draw into
+			ubNumLine = 22;
+			// Set Y coordinates
+			sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+			sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+			// Get base Auto Penalty value
+			INT16 iAutoValue = Weapon[gpItemDescObject->usItem].AutoPenalty * (gGameExternalOptions.bAimedBurstEnabled?gGameExternalOptions.uAimedBurstPenalty:1);
+
+			// Get final Auto Penalty value
+				INT16 iFinalAutoValue;
+				if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
+				{
+					iFinalAutoValue = GetAutoToHitBonus(gpItemDescObject) * gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier;
+					iFinalAutoValue = max(0, (iAutoValue * (100 - iFinalAutoValue))/100 );
+				}
+				else
+				{
+					iFinalAutoValue = GetAutoPenalty(gpItemDescObject);
+					if(gGameExternalOptions.bAimedBurstEnabled)
+						iFinalAutoValue += Weapon[gpItemDescObject->usItem].ubBurstPenalty * gGameExternalOptions.uAimedBurstPenalty;
+				}
+
+			// Get Auto Penalty modifier
+			INT16 iAutoModifier = iFinalAutoValue - iAutoValue;
+
+			// Print base value
+			SetFontForeground( 5 );
+			sLeft = gItemDescGenRegions[ubNumLine][1].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][1].sRight - sLeft;
+			if (iAutoValue < 0)
+			{
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+				swprintf( pStr, L"+%d", abs(iAutoValue) );
+			}
+			else if ( iAutoValue > 0 )
+			{
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+				swprintf( pStr, L"-%d", abs(iAutoValue) );
+			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print modifier
+			SetFontForeground( 5 );
+			if (iAutoModifier < 0)
+			{
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			}
+			else if ( iAutoModifier > 0 )
+			{
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			}
+			// Add positive/negative sign
+			if ( iAutoModifier > 0 )
+			{
+				swprintf( pStr, L"-%d", abs(iAutoModifier) );
+			}
+			else if ( iAutoModifier < 0 )
+			{
+				swprintf( pStr, L"+%d", abs(iAutoModifier) );
+			}
+			else
+			{
+				swprintf( pStr, L"--" );
+			}
+			sLeft = gItemDescGenRegions[ubNumLine][2].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][2].sRight - sLeft;
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+
+			// Print final value
+			SetFontForeground( FONT_MCOLOR_WHITE );
+			sLeft = gItemDescGenRegions[ubNumLine][3].sLeft;
+			sWidth = gItemDescGenRegions[ubNumLine][3].sRight - sLeft;
+			swprintf( pStr, L"%d", iFinalAutoValue );
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+			mprintf( usX, usY, pStr );
+		}
+
 	}
 	if (gubDescBoxPage == 2)
 	{
@@ -7109,6 +7581,122 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		cnt++;
 	}
 
+	///////////////////// AIM BONUS MODIFIER
+	if(UsingNewCTHSystem() == false)
+	{
+		iModifier[0] = GetAimBonus( gpItemDescObject, 100, 1 );
+		iModifier[1] = 0;
+		iModifier[2] = 0;
+		if (iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0)
+		{
+			if (cnt >= sFirstLine && cnt < sLastLine)
+			{
+				// Set Y coordinates
+				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+				// Print Values
+				for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+				{
+					if (UsingNewCTHSystem() == false && cnt2 > 0)
+						break;
+					SetFontForeground( 5 );
+					sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+					sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+					if (iModifier[cnt2] > 0)
+					{
+						SetFontForeground( ITEMDESC_FONTPOSITIVE );
+						swprintf( pStr, L"+%d", iModifier[cnt2] );
+						wcscat( pStr, L"%" );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else if (iModifier[cnt2] < 0)
+					{
+						SetFontForeground( ITEMDESC_FONTNEGATIVE );
+						swprintf( pStr, L"%d", iModifier[cnt2] );
+						wcscat( pStr, L"%" );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else
+					{
+						swprintf( pStr, L"--" );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					}
+					mprintf( usX, usY, pStr );
+				}
+			}
+			cnt++;
+		}
+	}
+
+	///////////////////// TO-HIT MODIFIER
+	if(UsingNewCTHSystem() == false)
+	{
+		iModifier[0] = GetToHitBonus( gpItemDescObject, 100, 1, FALSE );
+		iModifier[1] = 0;
+		iModifier[2] = GetToHitBonus( gpItemDescObject, 100, 1, TRUE );
+		if (iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0)
+		{
+			if (cnt >= sFirstLine && cnt < sLastLine)
+			{
+				// Set Y coordinates
+				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+				// Print Values
+				for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+				{
+					if (UsingNewCTHSystem() == false && cnt2 > 0)
+						break;
+					SetFontForeground( 5 );
+					sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+					sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+					if (iModifier[cnt2] > 0)
+					{
+						SetFontForeground( ITEMDESC_FONTPOSITIVE );
+						swprintf( pStr, L"+%d", iModifier[cnt2] );
+						wcscat( pStr, L"%" );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else if (iModifier[cnt2] < 0)
+					{
+						SetFontForeground( ITEMDESC_FONTNEGATIVE );
+						swprintf( pStr, L"%d", iModifier[cnt2] );
+						wcscat( pStr, L"%" );
+						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+						#ifdef CHINESE
+							wcscat( pStr, ChineseSpecString1 );
+						#else
+							wcscat( pStr, L"%" );
+						#endif
+					}
+					else
+					{
+						//swprintf( pStr, L"--" );
+						//FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					}
+					mprintf( usX, usY, pStr );
+				}
+			}
+			cnt++;
+		}
+	}
+
 	///////////////////// CTH CAP MODIFIER
 	iModifier[0] = GetPercentCapModifier( gpItemDescObject, ANIM_STAND );
 	iModifier[1] = GetPercentCapModifier( gpItemDescObject, ANIM_CROUCH );
@@ -7616,7 +8204,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	iModifier[0] = GetCounterForceMaxModifier( gpItemDescObject, ANIM_STAND );
 	iModifier[1] = GetCounterForceMaxModifier( gpItemDescObject, ANIM_CROUCH );
 	iModifier[2] = GetCounterForceMaxModifier( gpItemDescObject, ANIM_PRONE );
-	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true )
+	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -7793,13 +8381,13 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
 				if (iModifier[cnt2] > 0)
 				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
+					SetFontForeground( ITEMDESC_FONTPOSITIVE );
 					swprintf( pStr, L"+%d", iModifier[cnt2] );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
 				else if (iModifier[cnt2] < 0)
 				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
+					SetFontForeground( ITEMDESC_FONTNEGATIVE );
 					swprintf( pStr, L"%d", iModifier[cnt2] );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
@@ -8930,6 +9518,88 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					#else
 						wcscat( pStr, L"%" );
 					#endif
+				}
+				else
+				{
+					swprintf( pStr, L"--" );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				}
+				mprintf( usX, usY, pStr );
+			}
+		}
+		cnt++;
+	}
+
+	///////////////////// MAX COUNTER FORCE
+	iFloatModifier[0] = CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_STAND );
+	iFloatModifier[1] = CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH );
+	iFloatModifier[2] = CalcCounterForceMax( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE );
+	if ((iFloatModifier[0] != 0 || iFloatModifier[1] != 0 || iFloatModifier[2] != 0) && UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
+	{
+		if (cnt >= sFirstLine && cnt < sLastLine)
+		{
+			// Set Y coordinates
+			sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+			sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+			// Print Values
+			for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+			{
+				SetFontForeground( 5 );
+				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+				if (iFloatModifier[cnt2] > 0)
+				{
+					SetFontForeground( ITEMDESC_FONTPOSITIVE );
+					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				}
+				else if (iFloatModifier[cnt2] < 0)
+				{
+					SetFontForeground( ITEMDESC_FONTNEGATIVE );
+					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				}
+				else
+				{
+					swprintf( pStr, L"--" );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				}
+				mprintf( usX, usY, pStr );
+			}
+		}
+		cnt++;
+	}
+
+	///////////////////// COUNTER FORCE FREQUENCY
+	iModifier[0] = CalcCounterForceFrequency( gpItemDescSoldier, gpItemDescObject );
+	iModifier[1] = iModifier[0];
+	iModifier[2] = iModifier[0];
+	if ((iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) && UsingNewCTHSystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
+	{
+		if (cnt >= sFirstLine && cnt < sLastLine)
+		{
+			// Set Y coordinates
+			sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+			sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+			// Print Values
+			for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+			{
+				SetFontForeground( 5 );
+				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+				if (iModifier[cnt2] > 0)
+				{
+					SetFontForeground( ITEMDESC_FONTPOSITIVE );
+					swprintf( pStr, L"%d", iModifier[cnt2] );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+				}
+				else if (iModifier[cnt2] < 0)
+				{
+					SetFontForeground( ITEMDESC_FONTNEGATIVE );
+					swprintf( pStr, L"%d", iModifier[cnt2] );
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
 				else
 				{

@@ -270,7 +270,7 @@
 
 #define DEFAULT_APS 20
 #define DEFAULT_AIMSKILL 80
-*/
+*/						
 
 //Just so the compiler will be able to use it in init.cpp, I'm a careful person.  Gotthard 1/18/07
 extern INT16 APBPConstants[TOTAL_APBP_VALUES];
@@ -330,7 +330,9 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState );
 INT16 GetAPsToClimbRoof( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown );
 INT16 GetBPsToClimbRoof( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown );
 
-INT16 GetAPsToJumpThroughWindows( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown ); //Jump
+INT16 GetAPsToJumpThroughWindows( SOLDIERTYPE *pSoldier, BOOLEAN fWithBackpack ); //Jump
+INT16 GetBPsToJumpThroughWindows( SOLDIERTYPE *pSoldier, BOOLEAN fWithBackpack ); //Jump
+
 // SANDRO - changed these 2
 INT16 GetAPsToJumpFence( SOLDIERTYPE *pSoldier, BOOLEAN fWithBackpack );
 INT16 GetBPsToJumpFence( SOLDIERTYPE *pSoldier, BOOLEAN fWithBackpack );
@@ -375,5 +377,8 @@ INT16 GetAPsToBombDoor( SOLDIERTYPE *pSoldier );
 INT16 GetAPsToUntrapDoor( SOLDIERTYPE *pSoldier );
 INT16 GetBasicAPsToPickupItem( SOLDIERTYPE *pSoldier );
 INT16 GetAPsToDisarmMine( SOLDIERTYPE *pSoldier );
+
+INT16 GetAPsToJumpWall( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown );
+INT16 GetBPsToJumpWall( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown );
 
 #endif

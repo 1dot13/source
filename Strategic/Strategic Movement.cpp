@@ -4485,16 +4485,16 @@ BOOLEAN GroupWillMoveThroughSector( GROUP *pGroup, UINT8 ubSectorX, UINT8 ubSect
 			dy = wp->y - pGroup->ubSectorY;
 			if( dx && dy )
 			{ //Can't move diagonally!
-				AssertMsg( 0, String( "GroupWillMoveThroughSector() -- Attempting to process waypoint in a diagonal direction from sector %c%d to sector %c%d for group at sector %c%d -- KM:0",
-					pGroup->ubSectorY + 'A', pGroup->ubSectorX, wp->y + 'A' - 1, wp->x, ubOrigY + 'A' - 1, ubOrigX ) );
+				//AssertMsg( 0, String( "GroupWillMoveThroughSector() -- Attempting to process waypoint in a diagonal direction from sector %c%d to sector %c%d for group at sector %c%d -- KM:0",
+				//	pGroup->ubSectorY + 'A', pGroup->ubSectorX, wp->y + 'A' - 1, wp->x, ubOrigY + 'A' - 1, ubOrigX ) );
 				pGroup->ubSectorX = ubOrigX;
 				pGroup->ubSectorY = ubOrigY;
 				return TRUE;
 			}
 			if( !dx && !dy ) //Can't move to position currently at!
 			{
-				AssertMsg( 0, String( "GroupWillMoveThroughSector() -- Attempting to process same waypoint at %c%d for group at %c%d -- KM:0",
-					wp->y + 'A' - 1, wp->x, ubOrigY + 'A' - 1, ubOrigX ) );
+				//AssertMsg( 0, String( "GroupWillMoveThroughSector() -- Attempting to process same waypoint at %c%d for group at %c%d -- KM:0",
+				//	wp->y + 'A' - 1, wp->x, ubOrigY + 'A' - 1, ubOrigX ) );
 				pGroup->ubSectorX = ubOrigX;
 				pGroup->ubSectorY = ubOrigY;
 				return TRUE;
@@ -4859,7 +4859,7 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 		// SANDRO - STOMP traits - Scouting prevents the ambush of bloodcats
 		BOOLEAN fBloodCatAmbushPrevented = FALSE;
 		// The player has entered the lair
-		if(( PlacementType == BLOODCAT_PLACEMENT_LAIR )&& !gubFact[ FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR ] ) 
+		if(( PlacementType == BLOODCAT_PLACEMENT_LAIR )) // Default: Sector I16
 		{
 			// We know about the lair
 			if( gubFact[ FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR ] )
@@ -4877,7 +4877,6 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 					fBloodCatAmbushPrevented = TRUE;
 
 					gubEnemyEncounterCode = ENTERING_BLOODCAT_LAIR_CODE;
-					gubFact[ FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR ] = TRUE;	
 				}
 				else
 				{
@@ -4896,7 +4895,6 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_BLOODCATS_AMBUSH_PREVENTED] );
 
 				fBloodCatAmbushPrevented = TRUE;
-
 				gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
 			}
 			else
@@ -5190,47 +5188,41 @@ BOOLEAN WildernessSectorWithAllProfiledNPCsNotSpokenWith( INT16 sSectorX, INT16 
 	for ( ubProfile = 0; ubProfile < NUM_PROFILES; ubProfile++ )
 	{
 	
-	if ( gProfilesRPC[ubProfile].ProfilId == ubProfile || gProfilesNPC[ubProfile].ProfilId == ubProfile || gProfilesVehicle[ubProfile].ProfilId == ubProfile)	
-	{
-		pProfile = &gMercProfiles[ ubProfile ];
-
-		// skip stiffs
-		if ( ( pProfile->bMercStatus == MERC_IS_DEAD ) || ( pProfile->bLife <= 0 ) )
+		if ( gProfilesRPC[ubProfile].ProfilId == ubProfile || gProfilesNPC[ubProfile].ProfilId == ubProfile || gProfilesVehicle[ubProfile].ProfilId == ubProfile)	
 		{
-			continue;
-		}
+			pProfile = &gMercProfiles[ ubProfile ];
 
- 		// skip vehicles
-		//if ( ubProfile >= PROF_HUMMER && ubProfile <= PROF_HELICOPTER )
-		if ( gProfilesVehicle[ubProfile].ProfilId == ubProfile )
-		{
-			continue;
-		}
-
-		// in this sector?
-		if ( pProfile->sSectorX == sSectorX && pProfile->sSectorY == sSectorY && pProfile->bSectorZ == bSectorZ )
-		{
-			// if we haven't talked to him yet, and he's not currently recruired/escorted by player (!)
-			if ( ( pProfile->ubLastDateSpokenTo == 0 ) &&
-					!(pProfile->ubMiscFlags & (PROFILE_MISC_FLAG_RECRUITED | PROFILE_MISC_FLAG_EPCACTIVE) ) )
+			// skip stiffs
+			if ( ( pProfile->bMercStatus == MERC_IS_DEAD ) || ( pProfile->bLife <= 0 ) )
 			{
-				// then this is a guy we need to stop for...
-				fFoundSomebody = TRUE;
+				continue;
 			}
-			else
+
+ 			// skip vehicles
+			//if ( ubProfile >= PROF_HUMMER && ubProfile <= PROF_HELICOPTER )
+			if ( gProfilesVehicle[ubProfile].ProfilId == ubProfile )
 			{
-				// already spoke to this guy, don't prompt about this sector again, regardless of status of other NPCs here
-				// (although Hamous wanders around, he never shares the same wilderness sector as other important NPCs)
-				return( FALSE );
+				continue;
+			}
+
+			// in this sector?
+			if ( pProfile->sSectorX == sSectorX && pProfile->sSectorY == sSectorY && pProfile->bSectorZ == bSectorZ )
+			{
+				// if we haven't talked to him yet, and he's not currently recruired/escorted by player (!)
+				if ( ( pProfile->ubLastDateSpokenTo == 0 ) &&
+						!(pProfile->ubMiscFlags & (PROFILE_MISC_FLAG_RECRUITED | PROFILE_MISC_FLAG_EPCACTIVE) ) )
+				{
+					// then this is a guy we need to stop for...
+					fFoundSomebody = TRUE;
+				}
+				else
+				{
+					// already spoke to this guy, don't prompt about this sector again, regardless of status of other NPCs here
+					// (although Hamous wanders around, he never shares the same wilderness sector as other important NPCs)
+					return( FALSE );
+				}
 			}
 		}
-
-	}
-	else
-	{
-		return( FALSE );
-	}
-
 	}
 
 	return( fFoundSomebody );

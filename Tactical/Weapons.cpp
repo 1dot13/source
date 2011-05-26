@@ -422,7 +422,8 @@ weaponStartElementHandle(void *userData, const XML_Char *name, const XML_Char **
 				strcmp(name, "ubAimLevels") == 0  ||// HEADROCK HAM 4: Allowed aiming levels for this gun.
 				strcmp(name, "bRecoilX") == 0 || // HEADROCK HAM 4:
 				strcmp(name, "bRecoilY") == 0 || // HEADROCK HAM 4:
-				strcmp(name, "ubRecoilDelay") == 0)) // HEADROCK HAM 4:
+				strcmp(name, "ubRecoilDelay") == 0 || // HEADROCK HAM 4:
+				strcmp(name, "Handling") == 0)) // CHRISL HAM 4:
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON_PROPERY;
 
@@ -550,7 +551,7 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "ubMagSize") == 0)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
-			pData->curWeapon.ubMagSize = (UINT8) atol(pData->szCharData);
+			pData->curWeapon.ubMagSize = (UINT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "usRange")	 == 0)
 		{
@@ -681,6 +682,11 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
 			pData->curWeapon.ubRecoilDelay = (INT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "Handling") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.ubHandling = (UINT8) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;
@@ -839,9 +845,10 @@ BOOLEAN ReadInWeaponStats(STR fileName)
 			FilePrintf(hFile,"\t\t<APsToReloadManually>%d</APsToReloadManually>\r\n",			Weapon[cnt].APsToReloadManually);
 			FilePrintf(hFile,"\t\t<ManualReloadSound>%d</ManualReloadSound>\r\n",				Weapon[cnt].ManualReloadSound);
 			FilePrintf(hFile,"\t\t<ubAimLevels>%d</ubAimLevels>\r\n",							Weapon[cnt].ubAimLevels);
-			FilePrintf(hFile,"\t\t<bRecoilX>%d<\bRecoilX>\r\n",									Weapon[cnt].bRecoilX);
-			FilePrintf(hFile,"\t\t<bRecoilY>%d<\bRecoilY>\r\n",									Weapon[cnt].bRecoilY);
-			FilePrintf(hFile,"\t\t<ubRecoilDelay>%d<\ubRecoilDelay>\r\n",						Weapon[cnt].ubRecoilDelay);
+			FilePrintf(hFile,"\t\t<bRecoilX>%d</bRecoilX>\r\n",									Weapon[cnt].bRecoilX);
+			FilePrintf(hFile,"\t\t<bRecoilY>%d</bRecoilY>\r\n",									Weapon[cnt].bRecoilY);
+			FilePrintf(hFile,"\t\t<ubRecoilDelay>%d</ubRecoilDelay>\r\n",						Weapon[cnt].ubRecoilDelay);
+			FilePrintf(hFile,"\t\t<Handling>%d</Handling>\r\n",									Weapon[cnt].ubHandling);
 			FilePrintf(hFile,"\t</WEAPON>\r\n");
 		}
 		FilePrintf(hFile,"</WEAPONLIST>\r\n");
@@ -955,6 +962,7 @@ BOOLEAN WriteWeaponStats()
 			FilePrintf(hFile,"\t\t<NoSemiAuto>%d</NoSemiAuto>\r\n",			Weapon[cnt].NoSemiAuto);
 			FilePrintf(hFile,"\t\t<ubAimLevels>%d</ubAimLevels>\r\n",							Weapon[cnt].ubAimLevels );
 			FilePrintf(hFile,"\t\t<EasyUnjam>%d</EasyUnjam>\r\n",			Weapon[cnt].EasyUnjam);
+			FilePrintf(hFile,"\t\t<Handling>%d</Handling>\r\n",			Weapon[cnt].ubHandling);
 
 
 
@@ -3790,7 +3798,7 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 
 		//sAPCost = MinAPsToAttack( pSoldier, sTargetGridNo, TRUE );
 
-	 	sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, FALSE, 0 );
+	 	sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, FALSE, pSoldier->aiData.bShownAimTime );
 
 	}
 	else
@@ -4589,16 +4597,20 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	// make sure the guy's actually got a weapon in his hand!
 	pInHand = &(pSoldier->inv[pSoldier->ubAttackingHand]);
 	usInHand = pSoldier->usAttackingWeapon;
+	gCTHDisplay.fMaxAimReached = FALSE;
 
 	// calculate actual range (in units, 10 units = 1 tile)
 	iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sGridNo );
+	FLOAT dDeltaX = (FLOAT)(CenterX( pSoldier->sGridNo ) - CenterX( sGridNo ));
+	FLOAT dDeltaY = (FLOAT)(CenterY( pSoldier->sGridNo ) - CenterY( sGridNo ));
+	FLOAT d2DDistance = sqrt((dDeltaX*dDeltaX)+(dDeltaY*dDeltaY));
 
 	// Find a target in the tile
 	ubTargetID = WhoIsThere2( sGridNo, pSoldier->bTargetLevel ); // Target ubID
 	pTarget = SimpleFindSoldier( sGridNo, pSoldier->bTargetLevel ); // Target Pointer
 
 	// Calculate how easy it is to handle this gun.
-	FLOAT iGunDifficulty = (FLOAT)(( Weapon[ usInHand ].ubReadyTime * (100 - GetPercentReadyTimeAPReduction(pInHand) )) / 100);
+	FLOAT iGunDifficulty = (FLOAT)(( Weapon[ usInHand ].ubHandling * (100 - GetPercentReadyTimeAPReduction(pInHand) )) / 100);
 	iGunDifficulty *= (FLOAT)(100 / APBPConstants[AP_MAXIMUM]); // Adjust for 100AP/25AP
 	FLOAT iGunBaseDifficulty = iGunDifficulty;
 	FLOAT iGunAimDifficulty = iGunDifficulty;
@@ -4648,6 +4660,10 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 			iSightRange = 1;
 		}
 	}
+	// CHRISL: There are conditions where iSightRange can still return 0.  If that happens, the result is that "impossible" shots are actually easier then
+	//	simply "really hard" shots.  As a result, if we can't see the target and we have a 0 sight range, we need to create an iSightRange based on iRange
+	if(iSightRange == 0)
+		iSightRange = __max((INT16)(sDistVis*1.5), iRange*2);
 	if(iSightRange > sDistVis)
 		fCantSeeTarget = true;
 
@@ -4940,7 +4956,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	/////////////////////////////////////////////
 
 	// Now apply Gun Difficulty to the Base Modifier.
-	iBaseModifier += iGunBaseDifficulty * gGameCTHConstants.BASE_DRAW_COST;
+	iBaseModifier -= iGunBaseDifficulty * gGameCTHConstants.BASE_DRAW_COST;
 
 	// INJURY
 	if (pSoldier->stats.bLife < pSoldier->stats.bLifeMax)
@@ -5062,7 +5078,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		}
 
 		// AGILITY OR EXPERIENCE
-		FLOAT iTempPenalty = __max((pTarget->stats.bExpLevel*10), pTarget->stats.bAgility);
+		FLOAT iTempPenalty = (FLOAT)__max((pTarget->stats.bExpLevel*10), pTarget->stats.bAgility);
 		iBaseModifier += (iTempPenalty * gGameCTHConstants.BASE_AGILE_TARGET) / 100;
 	}
 
@@ -5126,7 +5142,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	{
 
 		// Are we using a scope? If so, what's the range factor?
-		FLOAT iScopeMagFactor = GetBestScopeMagnificationFactor( pInHand, (UINT32)iRange );
+		FLOAT iScopeMagFactor = GetBestScopeMagnificationFactor( pSoldier, pInHand, d2DDistance );
 		//CHRISL: This does make sense but it effectively makes high powered scopes worthless if a target is actually visible.  As an example, a Battle Scope
 		//	is going to have a iScopeMagFactor of 7.  With a "NORMAL_SHOOTING_DISTANCE" also of 7, we're going to end up with uiBestScopeRange of 49.  That's
 		//	effectilvey saying that any target within 490m is "too close" for the scope to be effective.  That by itself isn't realistic.  But in JA2 it's also
@@ -5140,16 +5156,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		//	uiBestScopeRange value in half.  This should allow a Battle Scope to reach full effeciency at 24 tiles and a Sniper scope will be fully effecient at
 		//	35 tiles.  ACOG becomes fully effecient at 14 tiles and 2x is fully effeciency at 7 tiles (compared to 28 and 14 respectively).  This does mean that a
 		//	2x scope reaches full effeciency at the same point as "scopeless" shooting, but I don't think this will be a serious problem.
-		FLOAT	rangeModifier = gGameCTHConstants.SCOPE_RANGE_MULTIPLIER;
-		if( gGameOptions.fNewTraitSystem )
-		{
-			if(iScopeMagFactor > .5)
-				rangeModifier -= (NUM_SKILL_TRAITS( pSoldier, SNIPER_NT ) * 0.05f);
-			else
-				rangeModifier -= (NUM_SKILL_TRAITS( pSoldier, RANGER_NT ) * 0.05f);
-		}
-		else
-			rangeModifier -= (NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT ) * 0.05f);
+		FLOAT	rangeModifier = GetScopeRangeMultiplier(pSoldier, pInHand, (FLOAT)iRange);
 		UINT32 uiBestScopeRange = (UINT32)(iScopeMagFactor * gGameCTHConstants.NORMAL_SHOOTING_DISTANCE * rangeModifier);
 
 		FLOAT iAimModifier = 0;
@@ -5247,7 +5254,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 		// End Gun Handling modifiers
 		//////////////////////////////////////////
 
-		iAimModifier += gGameCTHConstants.AIM_DRAW_COST * iGunAimDifficulty;
+		iAimModifier -= gGameCTHConstants.AIM_DRAW_COST * iGunAimDifficulty;
 
 		// VISIBILITY
 		if (iRange > 0 && iSightRange > iRange)
@@ -5478,8 +5485,12 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 			iMaxAimBonus += iScopePenalty;
 		}
 
+		iMaxAimBonus = __max(0, iMaxAimBonus); // can't get less than 0 points for aiming...
+
 		// Now let's find out how many CTH points we get per aiming level.
 		UINT8 ubAllowedAimingLevels = AllowedAimingLevels( pSoldier, sGridNo );
+		if(ubAimTime == ubAllowedAimingLevels)
+			gCTHDisplay.fMaxAimReached = TRUE;
 		FLOAT dAimFractionsDivisor = 0.0;
 		for (UINT8 cnt = 0; cnt < ubAllowedAimingLevels; cnt++)
 		{
@@ -5945,7 +5956,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		iMaxRange = GunRange( pInHand, pSoldier ); // SANDRO - added argument
 	else
 		iMaxRange = CELL_X_SIZE; // one tile
-	iCoverRange = iSightRange - iRange;
+	iCoverRange = __max(0,iSightRange - iRange);
 	iMinRange = iMaxRange / 10;
 	iAccRangeMod = iRange * Weapon[usInHand].bAccuracy / 100;
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -5964,9 +5975,11 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 			iSightRange -= ((gbSkillTraitBonus[ PROF_SNIPER_OT ] * NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )) * iSightRange) /100;
 		}
 		if (iRange < GetMinRangeForAimBonus(pInHand) && iScopeVisionRangeBonus > 50){	// iSightRange penalty for using a high power scope within min range due to poor focus
+			iPenalty = 0;
 			for(UINT8 loop = 0; loop < ((GetMinRangeForAimBonus(pInHand) - iRange)/CELL_X_SIZE); loop++){
-				iSightRange += iSightRange * iScopeVisionRangeBonus / 100;
+				iPenalty += iSightRange * iScopeVisionRangeBonus / 100;
 			}
+			iSightRange += iPenalty;
 		}
 		if (iSightRange < 1) {
 			iSightRange = 1;
@@ -6026,8 +6039,14 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	// From for JA2.5:  3% bonus/penalty for each tile different from range NORMAL_RANGE.
 	if (!TANK(pSoldier))	// WANNE: No penalty on the tank
 		iPenalty = 3 * ( NORMAL_RANGE - iSightRange ) / CELL_X_SIZE;
-	if ( fCantSeeTarget )
+	if ( fCantSeeTarget ){
+		// CHRISL: There are conditions where iSightRange can still return 0.  If that happens, the result is that "impossible" shots are actually easier then
+		//	simply "really hard" shots.  As a result, if we can't see the target and we have a 0 sight range, we should reevaluate the above penalty but use
+		//	iRange instead of iSightRange, then include the unseen penalty.
+		if(iSightRange == 0)
+			iPenalty = (3 * ( NORMAL_RANGE - iRange ) / CELL_X_SIZE) - gGameExternalOptions.iPenaltyShootUnSeen;
 		iPenalty = min(iPenalty, -gGameExternalOptions.iPenaltyShootUnSeen);
+	}
 	iChance += iPenalty;
 	//CHRISL: We should probably include these target size penalties even if we can't see the target so that shooting a "hidden" head is harder then a "hidden" body
 	// if aiming at the head, reduce chance to hit
@@ -6424,7 +6443,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	if ( pSoldier->bDoBurst && pSoldier->bDoAutofire == 0 )
 	{
 		/*CHRISL: At this point in the calculation, Bipods, Foregrips and other "recoil stabalizing" bonuses should reduce the weapons "recoil penalty"
-			(BurstPenalty) by a percentage.  This reduction should apply the the recoil per shot and not as a "flat" initial reduction.  Later in the code,
+			(BurstPenalty) by a percentage.  This reduction should apply to the recoil per shot and not as a "flat" initial reduction.  Later in the code,
 			Bipods also grant their flat CTH bonus so we don't need to mess this that here*/
 		if(gGameExternalOptions.ubFlatAFTHBtoPrecentMultiplier)
 		{
@@ -10680,7 +10699,7 @@ UINT16 GetMagSize( OBJECTTYPE *pObj, UINT8 subObject )
 UINT16 GetExpMagSize( OBJECTTYPE *pObj )
 {
 //	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetMagSize"));
-	UINT8	magSize = 0;
+	UINT16	magSize = 0;
 	if(Item[pObj->usItem].usItemClass & IC_EXPLOSV)
 		magSize = Explosive[Item[pObj->usItem].ubClassIndex].ubMagSize;
 	else
@@ -10731,7 +10750,7 @@ void EstimateBulletsLeft( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 	UINT16 usExpLevel;
 	UINT16 usDexterity;
 	UINT16 usWisdom;
-	UINT8 ubMagSize = Weapon[pObj->usItem].ubMagSize;
+	UINT16 ubMagSize = Weapon[pObj->usItem].ubMagSize;
 	UINT16 usRealBulletCount = (*pObj)[0]->data.gun.ubGunShotsLeft;
 	UINT16 i = 0;
 	BOOLEAN fPsycho = FALSE;
@@ -10868,29 +10887,21 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 	FLOAT iHighestMagFactor = 0;
 	FLOAT iScopeFactor = 0;
 	FLOAT iProjectionFactor = 0;
-	FLOAT iTargetMagFactor = 0;
-	BOOLEAN isScopeBetter = FALSE;
-
-	// Calculate the optimal magnification that would be required for the target's current distance.
-	iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
+	FLOAT iTargetMagFactor = d2DDistance / gGameCTHConstants.NORMAL_SHOOTING_DISTANCE;
+	FLOAT	rangeModifier = GetScopeRangeMultiplier(pSoldier, pWeapon, d2DDistance);
 
 	if (bAimTime > 0)
 	{
-		iScopeFactor = GetBestScopeMagnificationFactor( pWeapon, (UINT32)d2DDistance );
+		iScopeFactor = GetBestScopeMagnificationFactor( pSoldier, pWeapon, d2DDistance );
 		// Set a display variable
 		gCTHDisplay.ScopeMagFactor = iScopeFactor;
 
-		iScopeFactor = __min(iScopeFactor, iTargetMagFactor);		
-		iProjectionFactor = GetProjectionFactor( pWeapon );
-
+		iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
+		iProjectionFactor = CalcProjectionFactor(pSoldier, pWeapon, d2DDistance, (UINT8)bAimTime);
 		// Set a display variable
 		gCTHDisplay.ProjectionFactor = iProjectionFactor;
 
 		// The final factor is the largest of the two.
-
-		if (iScopeFactor > iProjectionFactor)
-			isScopeBetter=TRUE;
-
 		iHighestMagFactor = __max( iScopeFactor, iProjectionFactor );
 	}
 	else

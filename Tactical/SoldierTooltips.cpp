@@ -24,6 +24,7 @@
 // added by SANDRO
 #include "SkillCheck.h"
 #include "soldier profile type.h"
+#include "Soldier macros.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -54,6 +55,13 @@ void DrawMouseTooltip(void);
 
 void SoldierTooltip( SOLDIERTYPE* pSoldier )
 {
+	// WANNE: No tooltips on bloodcats, bugs, tanks, roboter
+	if ( CREATURE_OR_BLOODCAT( pSoldier ) || TANK ( pSoldier ) ||
+		 AM_A_ROBOT( pSoldier))
+	{
+		return;
+	}
+
 	SGPRect		aRect;
 	extern void GetSoldierScreenRect(SOLDIERTYPE*,SGPRect*);
 	GetSoldierScreenRect( pSoldier,	&aRect );
