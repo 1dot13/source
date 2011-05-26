@@ -4903,7 +4903,7 @@ STR16		zOptionsToggleText[] =
 	L"Stat Progress Bars",					// Show progress towards stat increase
 	L"Alternate Strategy Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate Bullet Graphics",			// Show alternate bullet graphics (tracers)
-	L"Use new Change to Hit System",		// use NCTH
+	L"Use new Chance to Hit System",		// use NCTH
 	L"Show Face Gear Graphics",				
 	L"Show Face Gear Icons",
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
