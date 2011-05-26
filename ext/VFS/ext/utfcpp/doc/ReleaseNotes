@@ -1,0 +1,13 @@
+utf8 cpp library
+Release 2.3
+
+This is a relatively minor feature release based on reports from users of the library. There are also improvements in documentation: exception classes are documented.
+
+Changes from version 2.2.4
+- Feature request [2857462]: Proposed minor extension: safe version of is_bom. 
+- Feature request [2885695]: "Group" utf8 exceptions. 
+- Bug fix [2906315]: < instead != in utf8to32.
+- Bug fix [2915657]: 64bit portability issue. 
+- Bug fix [2960112]: is_bom wording fix. 
+
+Files included in the release: utf8.h, core.h, checked.h, unchecked.h, utf8cpp.html, ReleaseNotes

@@ -1,0 +1,70 @@
+---------------------
+---  Description  ---
+
+  The bfVFS library allows an application to link or mount many different
+  directories from the file system, thus creating a unified application-level
+  Virtual File System. Additionally, file archives can be used as read-only
+  locations in the VFS. For now only uncompressed 7-zip ans SLF archives are
+  supported.
+
+  The library supports multiple platforms and was tested under Windows with
+  MSVC 2008 and 2010, MinGW and Linux gcc.
+
+---------------
+---  Build  ---
+
+  Instead of system-dependant project or makefiles, bfVFS uses the system-
+  independant CMake for its configuration (see www.cmake.org). To compile the
+  source code you can start the CMake GUI (consult the CMake documentation
+  for that) and choose the source and destination directories. Then, in
+  multiple configure runs, you can setup the build configuration and finally
+  generate the system dependant project or makefiles. Both in-source and
+  out-of-source builds are supported.
+
+  You can select the following options:
+
+  BUILD_BFVFS_SHARED  - creates a DLL or a shared library when selected
+
+  BFVFS_WITH_7ZIP     - enables support for 7-zip archives, also compiles 
+                        the 7z library itself (either as static or shared
+	                    library)
+
+  BFVFS_WITH_SLF      - enables SLF support
+
+  ** advanced options **
+  BFVFS_7ZIP_MT       - compiles the 7-zip library with multithreading
+                        support (Windows only)
+
+  BFVFS_DEBUG_CMAKE   - prints configuration results
+
+  NOTE: Although in the configuration phase the prefix BFVFS is used, the
+        code itself uses the shorter VFS_ or vfs_ or vfs:: prefix/namespace.
+        If you can think of situations where this can lead to a conflict with
+        other libraries, please inform me about it.
+  
+----------------------------
+---  External libraries  ---
+
+  The bfVFS uses two external libraries, "utfcpp" (http://utfcpp.sourceforge.net/)
+  and "7-zip" (http://www.7-zip.org/).
+  
+  utfcpp is used for unicode strings, as C++ does not (yet) support then
+  natively, and its use is mandatory. 
+  
+  The 7-zip library is only used for the archive format, compression is not
+  supported (yet). If you don't want or cannot use the 7-zip library code
+  you can simple deactivate it in the CMake configuration or remove it from
+  source tree (see ext/7z). The 7-zip library is the, slightly modified,
+  C-code portion from the LZMA SDK. The bfVFS library uses the 7-zip library
+  to read-in 7z archives. Creating uncompressed 7z archives is also suppored,
+  but self implemented.
+  
+  As a second archive format the SLF format is supported (which probably
+  stands for SirTech Library Format). This is for historical reasons of the
+  bfVFS library.
+  
+------------------
+---  Feedback  ---
+
+  Contact me under   john.bf.smith at googlemail.com
+  or go to           http://sourceforge.net/projects/bfvfs/
