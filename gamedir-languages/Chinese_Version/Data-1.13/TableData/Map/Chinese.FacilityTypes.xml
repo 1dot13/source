@@ -71,7 +71,7 @@
 		<szFacilityShortName>靶场</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>PRACTICE_MARKSMANSHIP</ubAssignmentType>
-			<szTooltipText>为啥不花点时间来联系枪法？那些愚木的靶子在渴求被射。这肯定比在荒郊野地里射石头有趣得多。</szTooltipText>
+			<szTooltipText>为啥不花点时间来练习枪法？那些愚木的靶子在渴求被射。这肯定比在荒郊野地里射石头有趣得多。</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 

@@ -2,38 +2,38 @@
 <ENEMY_RANK>
   <RANK>
 	<uiIndex>1</uiIndex>
-    <szRank>Soldier</szRank>
+    <szRank>列兵[敌兵1级]</szRank>
   </RANK>
   <RANK>
 	<uiIndex>2</uiIndex>
-    <szRank>Corporal</szRank>
+    <szRank>下士[敌兵2级]</szRank>
   </RANK>
   <RANK>
 	<uiIndex>3</uiIndex>
-    <szRank>Corporal</szRank>
+    <szRank>中士[敌兵3级]</szRank>
   </RANK>
   <RANK>
 	<uiIndex>4</uiIndex>
-    <szRank>Sergeant</szRank>
+    <szRank>上士[敌兵4级]</szRank>
   </RANK>
   <RANK>
 	<uiIndex>5</uiIndex>
-    <szRank>Sergeant</szRank>
+    <szRank>准尉[敌兵5级]</szRank>
   </RANK>
   <RANK>
 	<uiIndex>6</uiIndex>
-    <szRank>Lieutenant</szRank>
+    <szRank>少尉[敌兵6级]</szRank>
   </RANK>
   <RANK>
 	<uiIndex>7</uiIndex>
-    <szRank>Lieutenant</szRank>
+    <szRank>中尉[敌兵7级]</szRank>
   </RANK>
   <RANK>
 	<uiIndex>8</uiIndex>
-    <szRank>Captain</szRank>
+    <szRank>上尉[敌兵8级]</szRank>
   </RANK>
   <RANK>
 	<uiIndex>9</uiIndex>
-    <szRank>Major</szRank>
+    <szRank>少校[敌兵9级]</szRank>
   </RANK>
 </ENEMY_RANK>
