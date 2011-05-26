@@ -13949,10 +13949,10 @@ Max Profiles 0 - 254
 		<bArmourAttractiveness>20</bArmourAttractiveness>
 		<bMainGunAttractiveness>22</bMainGunAttractiveness>
 		<fGoodGuy>0</fGoodGuy>
-		<usApproachFactorFriendly>0</usApproachFactorFriendly>
-		<usApproachFactorDirect>0</usApproachFactorDirect>
-		<usApproachFactorThreaten>0</usApproachFactorThreaten>
-		<usApproachFactorRecruit>0</usApproachFactorRecruit>
+		<usApproachFactorFriendly>50</usApproachFactorFriendly>
+		<usApproachFactorDirect>100</usApproachFactorDirect>
+		<usApproachFactorThreaten>100</usApproachFactorThreaten>
+		<usApproachFactorRecruit>80</usApproachFactorRecruit>
 		<sSectorX>0</sSectorX>
 		<sSectorY>0</sSectorY>
 		<sSectorZ>0</sSectorZ>
@@ -14033,10 +14033,10 @@ Max Profiles 0 - 254
 		<bArmourAttractiveness>20</bArmourAttractiveness>
 		<bMainGunAttractiveness>22</bMainGunAttractiveness>
 		<fGoodGuy>1</fGoodGuy>
-		<usApproachFactorFriendly>0</usApproachFactorFriendly>
-		<usApproachFactorDirect>0</usApproachFactorDirect>
-		<usApproachFactorThreaten>0</usApproachFactorThreaten>
-		<usApproachFactorRecruit>0</usApproachFactorRecruit>
+		<usApproachFactorFriendly>50</usApproachFactorFriendly>
+		<usApproachFactorDirect>150</usApproachFactorDirect>
+		<usApproachFactorThreaten>200</usApproachFactorThreaten>
+		<usApproachFactorRecruit>200</usApproachFactorRecruit>
 		<sSectorX>0</sSectorX>
 		<sSectorY>0</sSectorY>
 		<sSectorZ>0</sSectorZ>
@@ -14117,10 +14117,10 @@ Max Profiles 0 - 254
 		<bArmourAttractiveness>25</bArmourAttractiveness>
 		<bMainGunAttractiveness>17</bMainGunAttractiveness>
 		<fGoodGuy>1</fGoodGuy>
-		<usApproachFactorFriendly>0</usApproachFactorFriendly>
-		<usApproachFactorDirect>0</usApproachFactorDirect>
-		<usApproachFactorThreaten>0</usApproachFactorThreaten>
-		<usApproachFactorRecruit>0</usApproachFactorRecruit>
+		<usApproachFactorFriendly>100</usApproachFactorFriendly>
+		<usApproachFactorDirect>60</usApproachFactorDirect>
+		<usApproachFactorThreaten>60</usApproachFactorThreaten>
+		<usApproachFactorRecruit>50</usApproachFactorRecruit>
 		<sSectorX>0</sSectorX>
 		<sSectorY>0</sSectorY>
 		<sSectorZ>0</sSectorZ>
@@ -14201,10 +14201,10 @@ Max Profiles 0 - 254
 		<bArmourAttractiveness>23</bArmourAttractiveness>
 		<bMainGunAttractiveness>22</bMainGunAttractiveness>
 		<fGoodGuy>0</fGoodGuy>
-		<usApproachFactorFriendly>0</usApproachFactorFriendly>
-		<usApproachFactorDirect>0</usApproachFactorDirect>
-		<usApproachFactorThreaten>0</usApproachFactorThreaten>
-		<usApproachFactorRecruit>0</usApproachFactorRecruit>
+		<usApproachFactorFriendly>70</usApproachFactorFriendly>
+		<usApproachFactorDirect>100</usApproachFactorDirect>
+		<usApproachFactorThreaten>35</usApproachFactorThreaten>
+		<usApproachFactorRecruit>75</usApproachFactorRecruit>
 		<sSectorX>0</sSectorX>
 		<sSectorY>0</sSectorY>
 		<sSectorZ>0</sSectorZ>

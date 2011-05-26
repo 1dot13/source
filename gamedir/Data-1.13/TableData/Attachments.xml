@@ -16796,6 +16796,12 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>949</attachmentIndex>
+		<itemIndex>618</itemIndex>
+		<APCost>20</APCost>
+		<NASOnly>0</NASOnly>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>949</attachmentIndex>
 		<itemIndex>630</itemIndex>
 		<APCost>20</APCost>
 		<NASOnly>0</NASOnly>
@@ -17151,6 +17157,12 @@
 	<ATTACHMENT>
 		<attachmentIndex>949</attachmentIndex>
 		<itemIndex>605</itemIndex>
+		<APCost>20</APCost>
+		<NASOnly>0</NASOnly>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>949</attachmentIndex>
+		<itemIndex>20</itemIndex>
 		<APCost>20</APCost>
 		<NASOnly>0</NASOnly>
 	</ATTACHMENT>
@@ -25736,6 +25748,12 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1012</attachmentIndex>
+		<itemIndex>661</itemIndex>
+		<APCost>20</APCost>
+		<NASOnly>0</NASOnly>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1012</attachmentIndex>
 		<itemIndex>662</itemIndex>
 		<APCost>20</APCost>
 		<NASOnly>0</NASOnly>
@@ -25767,6 +25785,12 @@
 	<ATTACHMENT>
 		<attachmentIndex>1012</attachmentIndex>
 		<itemIndex>668</itemIndex>
+		<APCost>20</APCost>
+		<NASOnly>0</NASOnly>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1012</attachmentIndex>
+		<itemIndex>669</itemIndex>
 		<APCost>20</APCost>
 		<NASOnly>0</NASOnly>
 	</ATTACHMENT>
@@ -25809,6 +25833,12 @@
 	<ATTACHMENT>
 		<attachmentIndex>1012</attachmentIndex>
 		<itemIndex>715</itemIndex>
+		<APCost>20</APCost>
+		<NASOnly>0</NASOnly>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1012</attachmentIndex>
+		<itemIndex>726</itemIndex>
 		<APCost>20</APCost>
 		<NASOnly>0</NASOnly>
 	</ATTACHMENT>
@@ -25982,6 +26012,12 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1012</attachmentIndex>
+		<itemIndex>1076</itemIndex>
+		<APCost>20</APCost>
+		<NASOnly>0</NASOnly>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1012</attachmentIndex>
 		<itemIndex>1077</itemIndex>
 		<APCost>20</APCost>
 		<NASOnly>0</NASOnly>
@@ -25989,6 +26025,12 @@
 	<ATTACHMENT>
 		<attachmentIndex>1012</attachmentIndex>
 		<itemIndex>1187</itemIndex>
+		<APCost>20</APCost>
+		<NASOnly>0</NASOnly>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1012</attachmentIndex>
+		<itemIndex>1188</itemIndex>
 		<APCost>20</APCost>
 		<NASOnly>0</NASOnly>
 	</ATTACHMENT>

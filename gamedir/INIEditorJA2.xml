@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Description_ENG>This is the file "ja2.ini" which is the general settings file Jagged Alliance 2 v1.13.</Description_ENG>
+  <Description_GER>Dies hier ist die Datei "ja2.ini", welche die standard Einstellungsdatei für Jagged Alliance 2 v1.13 ist.</Description_GER>
+  <Description_RUS>Это настройки файла "ja2.ini", в котором содержатся общие установки игры Jagged Alliance 2 v1.13.</Description_RUS>
+  <Description_POL></Description_POL>
+  <Description_CHI>ja2.ini这个文件控制铁血联盟2 V1.13的综合设定。</Description_CHI>
+  <Sections>
+    <Section name="Ja2 Settings">
+      <Description_ENG>In this section you can change global settings for Jagged Alliance 2 v1.13</Description_ENG>
+      <Description_GER>In dieser Sektion können Sie globale Einstellungen für Jagged Alliance 2 v1.13 verändern.</Description_GER>
+      <Description_RUS>Здесь вы можете изменять глобальные игровые настройки Jagged Alliance 2 v1.13</Description_RUS>
+      <Description_POL></Description_POL>
+	  <Description_CHI>ja2.ini这个文件控制铁血联盟2 V1.13的总体设定。</Description_CHI>
+      <Properties>
+        <Property name="CD" datatype="select" minvalue="0" maxvalue="0" interval="0">
+          <Description_ENG>If you have not installed Jagged Alliance 2 as a full installation, this is the letter of your CD-ROM drive. Otherwise you can ignore that.</Description_ENG>
+          <Description_GER>Falls Sie Jagged Alliance 2 nicht komplett installiert haben, ist dies das CD-ROM Laufwerk für die JA2 CD, ansonsten kann dies ignoriert werden.</Description_GER>
+          <Description_RUS>Здесь необходимо указать букву вашего CD-ROM привода, 
+если игра Jagged Alliance 2 была установлена не полностью.</Description_RUS>
+		  <Description_POL></Description_POL>
+		  <Description_CHI>如果你没有完全安装《铁血联盟2》，请将这个字母设置成你的光驱的盘符。否则请无视之。</Description_CHI>
+        </Property>
+        <Property name="VFS_NO_UNICODE" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
+          <Description_ENG>Only set this to "TRUE" for compatibility reason, if you are running JA2 1.13 on a Windows 98 operating system.</Description_ENG>
+          <Description_GER>Setzen Sie diesen Wert nur auf "TRUE", falls Sie JA2 1.13 auf einem Windows 98 Betriebssystem spielen.</Description_GER>
+          <Description_RUS>Используйте значение "TRUE" лишь если вы запускаете JA2 1.13 под Windows 98.</Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI>如果你在用 Windows 98 系统请把这个选项设置为 true。</Description_CHI>
+        </Property>
+        <Property name="VFS_CONFIG_INI" datatype="select" minvalue="0" maxvalue="0" interval="0">
+          <Description_ENG>Select the 'vfs_config.*.ini' of the MOD you would like to play.</Description_ENG>
+          <Description_GER>Wählen Sie die 'vfs_config.*.ini' Datei für den MOD aus, welchen Sie spielen möchten.</Description_GER>
+          <Description_RUS>Выберите 'vfs_config.*.ini' МОДа, в который вы хотите играть.</Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI>请选择游戏mod对应的“vfs_config.*.ini”来加载这个 mod 。</Description_CHI>
+        </Property>
+        <Property name="DEFAULT_JA2_EXECUTABLE" datatype="select" minvalue="0" maxvalue="0" interval="0">
+          <Description_ENG>The default Jagged Alliance 2 v1.13 Executable. This file will be used, if you click on the button "Launch JA2 v1.13".</Description_ENG>
+          <Description_GER>Dies ist die standardmäßige Jagged Alliance 2 v1.13 Exe Datei, welche gestartet wird, wenn auf die Schaltfläche "Launch JA2 v1.13" geklickt wird.</Description_GER>
+          <Description_RUS>Стартовый файл Jagged Alliance 2 v1.13.
+Выберите нужный исполняемый файл (если их несколько),
+который запустит игру по нажатию кнопки "Launch JA2 v1.13".</Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI>选择默认启动的游戏主程序。仅对“Launch JA2 v1.13”有效。</Description_CHI>
+        </Property>
+        <Property name="SCREEN_RESOLUTION" datatype="select" minvalue="0" maxvalue="0" interval="0">
+          <Description_ENG>The screen resolution of the game Jagged Alliance 2 v1.13.</Description_ENG>
+          <Description_GER>Die Bildschirmauflösung des Spiels Jagged Alliance 2 v1.13.</Description_GER>
+          <Description_RUS>Разрешение экрана игры Jagged Alliance 2 v1.13.</Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI>游戏运行的屏幕分辨率设定。</Description_CHI>
+        </Property>
+        <Property name="EDITOR_SCREEN_RESOLUTION" datatype="select" minvalue="0" maxvalue="0" interval="0">
+          <Description_ENG>The screen resolution of the Jagged Alliance 2 v1.13 Map Editor.</Description_ENG>
+          <Description_GER>Die Bildschirmauflösung für den Jagged Alliance 2 v1.13 Karten Editor.</Description_GER>
+          <Description_RUS>Разрешение экрана редактора карт игры Jagged Alliance 2 v1.13.</Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI>地图编辑器运行的屏幕分辨率设定。</Description_CHI>
+        </Property>
+        <Property name="SCREEN_MODE_WINDOWED" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
+          <Description_ENG>Would you like to play the Jagged Alliance 2 v1.13 and the Map Editor in windowed mode?</Description_ENG>
+          <Description_GER>Wollen Sie das Spiel Jagged Alliance 2 v1.13 bzw. den Karten Editor im Fenstermodus spielen?</Description_GER>
+          <Description_RUS>Здесь вы можете выбрать полноэкранный
+либо оконный режим для игры Jagged Alliance 2 v1.13
+и для редактора карт.</Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI>是否窗口化运行游戏和地图编辑器。</Description_CHI>
+        </Property>
+        <Property name="PLAY_INTRO" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
+          <Description_ENG>Should the intro be played after starting a new game?</Description_ENG>
+          <Description_GER>Soll das Intro nach dem Start eines neuen Spiels angezeigt werden?</Description_GER>
+          <Description_RUS>Здесь вы можете включить,
+либо выключить показ игрового ролика после старта игры.</Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI>游戏开始时是否播放开头动画。</Description_CHI>
+        </Property>
+      </Properties>
+    </Section>
+  </Sections>
+</Settings>

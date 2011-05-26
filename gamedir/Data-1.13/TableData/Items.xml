@@ -703,7 +703,6 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentAPReduction>20</PercentAPReduction>
-		<ProjectionFactor>1.4</ProjectionFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>30</PercentMaxCounterForce>
@@ -1934,13 +1933,13 @@
 		<Electronic>1</Electronic>
 		<BR_ROF>30</BR_ROF>
 		<ToHitBonus>19</ToHitBonus>
-		<BestLaserRange>90</BestLaserRange>
+		<BestLaserRange>100</BestLaserRange>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<RocketRifle>1</RocketRifle>
 		<FingerPrintID>1</FingerPrintID>
-		<ProjectionFactor>1.2</ProjectionFactor>
+		<ProjectionFactor>1.3</ProjectionFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>10</PercentMaxCounterForce>
@@ -2218,13 +2217,13 @@
 		<Electronic>1</Electronic>
 		<BR_ROF>30</BR_ROF>
 		<ToHitBonus>19</ToHitBonus>
-		<BestLaserRange>90</BestLaserRange>
+		<BestLaserRange>100</BestLaserRange>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<RocketRifle>1</RocketRifle>
 		<FingerPrintID>1</FingerPrintID>
-		<ProjectionFactor>1.2</ProjectionFactor>
+		<ProjectionFactor>1.3</ProjectionFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>10</PercentMaxCounterForce>
@@ -6052,7 +6051,11 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<PercentNoiseReduction>75</PercentNoiseReduction>
 		<HideMuzzleFlash>1</HideMuzzleFlash>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-3</PercentHandling>
+			<PercentMaxCounterForce>20</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>10</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -6867,8 +6870,8 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<ToHitBonus>20</ToHitBonus>
-		<BestLaserRange>90</BestLaserRange>
-		<ProjectionFactor>1.2</ProjectionFactor>
+		<BestLaserRange>100</BestLaserRange>
+		<ProjectionFactor>1.3</ProjectionFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8614,7 +8617,9 @@
 		<RangeBonus>100</RangeBonus>
 		<PercentRecoilModifier>-10</PercentRecoilModifier>
 		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
+			<PercentHandling>-3</PercentHandling>
+			<PercentMaxCounterForce>20</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>10</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -15973,7 +15978,11 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<PercentNoiseReduction>57</PercentNoiseReduction>
 		<HideMuzzleFlash>1</HideMuzzleFlash>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-3</PercentHandling>
+			<PercentMaxCounterForce>20</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>10</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -18771,11 +18780,7 @@
 			<AimLevels>1</AimLevels>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-80</PercentHandling>
-			<PercentMaxCounterForce>1</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>-75</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
+		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>670</uiIndex>
@@ -18874,9 +18879,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>620</BR_ROF>
 		<ToHitBonus>19</ToHitBonus>
-		<BestLaserRange>90</BestLaserRange>
+		<BestLaserRange>100</BestLaserRange>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<ProjectionFactor>1.2</ProjectionFactor>
+		<ProjectionFactor>1.3</ProjectionFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -21579,7 +21584,7 @@
 		<VisionRangeBonus>50</VisionRangeBonus>
 		<PercentTunnelVision>70</PercentTunnelVision>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
-		<ProjectionFactor>1.2</ProjectionFactor>
+		<ProjectionFactor>1.4</ProjectionFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -21844,10 +21849,10 @@
 		<VisionRangeBonus>25</VisionRangeBonus>
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>3.5</ScopeMagFactor>
-		<ProjectionFactor>1.4</ProjectionFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -21889,10 +21894,10 @@
 		<VisionRangeBonus>25</VisionRangeBonus>
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>3.5</ScopeMagFactor>
-		<ProjectionFactor>1.4</ProjectionFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -27995,7 +28000,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<ToHitBonus>20</ToHitBonus>
-		<BestLaserRange>150</BestLaserRange>
+		<BestLaserRange>140</BestLaserRange>
 		<PercentAPReduction>20</PercentAPReduction>
 		<CamoBonus>-10</CamoBonus>
 		<UrbanCamoBonus>-10</UrbanCamoBonus>
@@ -28004,7 +28009,7 @@
 		<StealthBonus>-10</StealthBonus>
 		<NightVisionRangeBonus>20</NightVisionRangeBonus>
 		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
-		<ProjectionFactor>1.5</ProjectionFactor>
+		<ProjectionFactor>1.7</ProjectionFactor>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -28038,7 +28043,6 @@
 		<Bipod>7</Bipod>
 		<BurstToHitBonus>4</BurstToHitBonus>
 		<AutoFireToHitBonus>4</AutoFireToHitBonus>
-		<PercentReadyTimeAPReduction>-10</PercentReadyTimeAPReduction>
 		<STAND_MODIFIERS>
 			<PercentHandling>-5</PercentHandling>
 			<PercentMaxCounterForce>50</PercentMaxCounterForce>
@@ -28085,7 +28089,7 @@
 		<StealthBonus>-20</StealthBonus>
 		<NightVisionRangeBonus>20</NightVisionRangeBonus>
 		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
-		<ProjectionFactor>2.0</ProjectionFactor>
+		<ProjectionFactor>3.5</ProjectionFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28122,7 +28126,7 @@
 		<DesertCamoBonus>-5</DesertCamoBonus>
 		<SnowCamoBonus>-5</SnowCamoBonus>
 		<StealthBonus>-5</StealthBonus>
-		<ProjectionFactor>1.8</ProjectionFactor>
+		<ProjectionFactor>3.0</ProjectionFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -28160,7 +28164,7 @@
 		<StealthBonus>-15</StealthBonus>
 		<NightVisionRangeBonus>20</NightVisionRangeBonus>
 		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
-		<ProjectionFactor>1.8</ProjectionFactor>
+		<ProjectionFactor>3.0</ProjectionFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29503,7 +29507,11 @@
 		<ToHitBonus>-5</ToHitBonus>
 		<MagSizeBonus>45</MagSizeBonus>
 		<PercentReloadTimeAPReduction>-30</PercentReloadTimeAPReduction>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+			<PercentMaxCounterForce>10</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>5</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -29534,7 +29542,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<PercentAPReduction>20</PercentAPReduction>
-		<ProjectionFactor>1.4</ProjectionFactor>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -29649,7 +29656,11 @@
 		<ToHitBonus>-5</ToHitBonus>
 		<MagSizeBonus>70</MagSizeBonus>
 		<PercentReloadTimeAPReduction>-30</PercentReloadTimeAPReduction>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+			<PercentMaxCounterForce>10</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>5</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -29682,7 +29693,11 @@
 		<ToHitBonus>-5</ToHitBonus>
 		<MagSizeBonus>70</MagSizeBonus>
 		<PercentReloadTimeAPReduction>-30</PercentReloadTimeAPReduction>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+			<PercentMaxCounterForce>10</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>5</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -29750,7 +29765,6 @@
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<AttachmentSystem>1</AttachmentSystem>
 		<ScopeMagFactor>4.0</ScopeMagFactor>
-		<ProjectionFactor>1.2</ProjectionFactor>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -29784,7 +29798,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<ToHitBonus>20</ToHitBonus>
-		<BestLaserRange>100</BestLaserRange>
+		<BestLaserRange>130</BestLaserRange>
 		<CamoBonus>-5</CamoBonus>
 		<UrbanCamoBonus>-5</UrbanCamoBonus>
 		<DesertCamoBonus>-5</DesertCamoBonus>
@@ -29792,7 +29806,7 @@
 		<StealthBonus>-5</StealthBonus>
 		<NightVisionRangeBonus>10</NightVisionRangeBonus>
 		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
-		<ProjectionFactor>1.4</ProjectionFactor>
+		<ProjectionFactor>1.6</ProjectionFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -29823,7 +29837,6 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<PercentAPReduction>20</PercentAPReduction>
-		<ProjectionFactor>1.2</ProjectionFactor>
 		<STAND_MODIFIERS>
 			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
@@ -30035,7 +30048,11 @@
 		<PercentNoiseReduction>55</PercentNoiseReduction>
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<DamageBonus>-1</DamageBonus>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-3</PercentHandling>
+			<PercentMaxCounterForce>20</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>10</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -35410,8 +35427,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<RangeBonus>20</RangeBonus>
 		<ToHitBonus>7</ToHitBonus>
-		<ProjectionFactor>1.1</ProjectionFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<AimLevels>-1</AimLevels>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -35533,10 +35551,10 @@
 		<VisionRangeBonus>25</VisionRangeBonus>
 		<PercentTunnelVision>20</PercentTunnelVision>
 		<ScopeMagFactor>3.5</ScopeMagFactor>
-		<ProjectionFactor>1.4</ProjectionFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+			<AimLevels>-1</AimLevels>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

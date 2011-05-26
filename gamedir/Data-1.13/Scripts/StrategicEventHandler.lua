@@ -294,13 +294,13 @@ Facts =
 
 Flags2 = 
 {
-	PROFILE_MISC_FLAG2_DONT_ADD_TO_SECTOR = 0,
-	PROFILE_MISC_FLAG2_LEFT_COUNTRY = 1,
-	PROFILE_MISC_FLAG2_BANDAGED_TODAY = 2,
-	PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE = 3,
-	PROFILE_MISC_FLAG2_NEEDS_TO_SAY_HOSTILE_QUOTE = 4,
-	PROFILE_MISC_FLAG2_MARRIED_TO_HICKS = 5,
-	PROFILE_MISC_FLAG2_ASKED_BY_HICKS = 6,
+	PROFILE_MISC_FLAG2_DONT_ADD_TO_SECTOR = 1,
+	PROFILE_MISC_FLAG2_LEFT_COUNTRY = 2,
+	PROFILE_MISC_FLAG2_BANDAGED_TODAY = 4,
+	PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE = 8,
+	PROFILE_MISC_FLAG2_NEEDS_TO_SAY_HOSTILE_QUOTE = 16,
+	PROFILE_MISC_FLAG2_MARRIED_TO_HICKS = 32,
+	PROFILE_MISC_FLAG2_ASKED_BY_HICKS = 64,
 }
 
 SectorY = 
@@ -569,7 +569,7 @@ function HandleEarlyMorningEvents()
 	SetMoneyInSoldierProfile( Profil.DARREN, 15000 )
 	
 	-- Set Carmen to be placed on the map in case he moved and is waiting off screen
-	if CheckMiscFlags2(Profil.CARMEN,Flags2.PROFILE_MISC_FLAG2_DONT_ADD_TO_SECTOR) == true then
+	if CheckMiscFlags2(Profil.CARMEN,Flags2.PROFILE_MISC_FLAG2_DONT_ADD_TO_SECTOR) == 1 then
 
 		SetMiscFlags2(Profil.CARMEN, Flags2.PROFILE_MISC_FLAG2_DONT_ADD_TO_SECTOR)
 	
@@ -591,7 +591,7 @@ function HandleEarlyMorningEvents()
 			SetMoneyInSoldierProfile( Profil.CARMEN, uiAmount )
 			SetNPCData2(Profil.CARMEN,0)
 
-			for i = 249, 254 do
+			for i = 248, 254 do
 				RemoveObjectFromSoldierProfile( Profil.CARMEN, i )
 			end
 		end

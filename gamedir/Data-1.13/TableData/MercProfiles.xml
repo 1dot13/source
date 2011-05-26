@@ -89,7 +89,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude> 
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>5</bCharacterTrait>
 		<bDisability>4</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
@@ -257,7 +257,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>4</bAttitude>   
+		<bAttitude>4</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -341,7 +341,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>1</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>   
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>6</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -425,7 +425,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>   
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>3</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
@@ -509,7 +509,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude> 
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>8</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
@@ -593,7 +593,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>3</bAttitude>   
+		<bAttitude>3</bAttitude>
 		<bCharacterTrait>3</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
@@ -677,7 +677,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude> 
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
@@ -761,7 +761,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>1</uiBodyTypeSubFlags>
-		<bAttitude>7</bAttitude>   
+		<bAttitude>7</bAttitude>
 		<bCharacterTrait>6</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
@@ -845,7 +845,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -929,7 +929,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>    
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
@@ -1013,7 +1013,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>4</bAttitude>     
+		<bAttitude>4</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
@@ -1097,7 +1097,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>  
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
@@ -1181,7 +1181,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude> 
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
@@ -1265,7 +1265,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>4</bAttitude>  
+		<bAttitude>4</bAttitude>
 		<bCharacterTrait>12</bCharacterTrait>
 		<bDisability>5</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -1349,7 +1349,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>3</bAttitude>  
+		<bAttitude>3</bAttitude>
 		<bCharacterTrait>3</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
@@ -1433,7 +1433,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>  
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -1517,7 +1517,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>7</bAttitude>   
+		<bAttitude>7</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>5</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
@@ -1601,7 +1601,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude> 
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -1685,7 +1685,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude>  
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>5</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -1769,7 +1769,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>6</bAttitude>   
+		<bAttitude>6</bAttitude>
 		<bCharacterTrait>8</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
@@ -1853,7 +1853,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude> 
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>6</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
@@ -1937,7 +1937,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude> 
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>4</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -2021,7 +2021,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude> 
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
@@ -2105,7 +2105,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>7</bAttitude>  
+		<bAttitude>7</bAttitude>
 		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
@@ -2189,7 +2189,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
@@ -2273,7 +2273,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude>   
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>5</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -2357,7 +2357,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -2441,7 +2441,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>  
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
@@ -2525,7 +2525,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>6</bAttitude>  
+		<bAttitude>6</bAttitude>
 		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
@@ -2609,7 +2609,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>7</bAttitude> 
+		<bAttitude>7</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -2693,7 +2693,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude> 
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>12</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
@@ -2777,7 +2777,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>  
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -2861,7 +2861,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>4</bAttitude>   
+		<bAttitude>4</bAttitude>
 		<bCharacterTrait>10</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
@@ -2945,7 +2945,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>3</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -3029,7 +3029,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude>   
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>10</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -3113,7 +3113,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude> 
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -3197,7 +3197,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>4</bAttitude>    
+		<bAttitude>4</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
@@ -3281,7 +3281,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>3</bAttitude>   
+		<bAttitude>3</bAttitude>
 		<bCharacterTrait>5</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -3365,7 +3365,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>  
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>6</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
@@ -3449,7 +3449,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>9</bAttitude>    
+		<bAttitude>9</bAttitude>
 		<bCharacterTrait>5</bCharacterTrait>
 		<bDisability>2</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -3533,7 +3533,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>  
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
@@ -3617,7 +3617,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>8</bAttitude>  
+		<bAttitude>8</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>6</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -3701,7 +3701,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>  
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>11</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>3</ubNeedForSleep>
@@ -3785,7 +3785,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>9</bAttitude> 
+		<bAttitude>9</bAttitude>
 		<bCharacterTrait>10</bCharacterTrait>
 		<bDisability>2</bDisability>
 		<ubNeedForSleep>11</ubNeedForSleep>
@@ -3869,7 +3869,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>4</bAttitude> 
+		<bAttitude>4</bAttitude>
 		<bCharacterTrait>8</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
@@ -3953,7 +3953,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude>   
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -4037,7 +4037,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>  
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>6</bDisability>
 		<ubNeedForSleep>12</ubNeedForSleep>
@@ -4121,7 +4121,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>8</bAttitude>   
+		<bAttitude>8</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
@@ -4205,7 +4205,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>   
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
@@ -4289,7 +4289,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>    
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>6</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -4373,7 +4373,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -4457,7 +4457,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -4961,7 +4961,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>4</bAttitude> 
+		<bAttitude>4</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
@@ -5045,7 +5045,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>4</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
@@ -5129,7 +5129,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>   
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>6</bCharacterTrait>
 		<bDisability>6</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
@@ -5213,7 +5213,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude> 
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
@@ -5297,7 +5297,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>21</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>   
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -5381,7 +5381,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude> 
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>6</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
@@ -5465,7 +5465,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>17</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude> 
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>4</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -5549,7 +5549,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -5633,7 +5633,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>  
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
@@ -5717,7 +5717,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>3</bAttitude>  
+		<bAttitude>3</bAttitude>
 		<bCharacterTrait>5</bCharacterTrait>
 		<bDisability>4</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -5801,7 +5801,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>   
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>8</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -5885,7 +5885,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>10</bCharacterTrait>
 		<bDisability>3</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
@@ -5969,7 +5969,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>7</bAttitude>  
+		<bAttitude>7</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>4</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
@@ -6053,7 +6053,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>   
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -6137,7 +6137,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>   
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
@@ -6389,7 +6389,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>  
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -6557,7 +6557,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude>   
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -6641,7 +6641,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>  
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -6725,7 +6725,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>   
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -6809,7 +6809,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude>  
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -6893,7 +6893,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>4</bAttitude>  
+		<bAttitude>4</bAttitude>
 		<bCharacterTrait>11</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
@@ -6977,7 +6977,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude> 
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -7061,7 +7061,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>1</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>  
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -7145,7 +7145,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>17</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>   
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -7229,7 +7229,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>13</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>8</bAttitude>   
+		<bAttitude>8</bAttitude>
 		<bCharacterTrait>11</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -7313,7 +7313,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>6</bAttitude>   
+		<bAttitude>6</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -7565,7 +7565,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -7649,7 +7649,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude> 
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -7733,7 +7733,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>4</bAttitude>  
+		<bAttitude>4</bAttitude>
 		<bCharacterTrait>8</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -7817,7 +7817,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude>  
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -7901,7 +7901,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>  
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -7985,7 +7985,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>1</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8069,7 +8069,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude>  
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8153,7 +8153,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>4</bAttitude>  
+		<bAttitude>4</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8237,7 +8237,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>    
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8321,7 +8321,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8405,7 +8405,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>7</bAttitude>  
+		<bAttitude>7</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8489,7 +8489,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>11</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>9</bAttitude> 
+		<bAttitude>9</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>6</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8573,7 +8573,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>14</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>2</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8657,7 +8657,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>  
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8741,7 +8741,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>9</bAttitude>   
+		<bAttitude>9</bAttitude>
 		<bCharacterTrait>10</bCharacterTrait>
 		<bDisability>2</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8825,7 +8825,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>   
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8909,7 +8909,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude> 
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -8993,7 +8993,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude>  
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -9245,7 +9245,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>14</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>3</bAttitude> 
+		<bAttitude>3</bAttitude>
 		<bCharacterTrait>3</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -9329,7 +9329,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>  
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -9413,7 +9413,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude> 
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -9497,7 +9497,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>8</bAttitude> 
+		<bAttitude>8</bAttitude>
 		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -9581,7 +9581,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>   
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -9665,7 +9665,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>16</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>   
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -9749,7 +9749,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>   
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -9917,7 +9917,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>   
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -10421,7 +10421,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>13</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>6</bAttitude>  
+		<bAttitude>6</bAttitude>
 		<bCharacterTrait>5</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -11093,7 +11093,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>9</bAttitude>    
+		<bAttitude>9</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -11345,7 +11345,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>11</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>9</bAttitude>    
+		<bAttitude>9</bAttitude>
 		<bCharacterTrait>10</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -11429,7 +11429,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>   
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>6</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -11681,7 +11681,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>1</bAttitude> 
+		<bAttitude>1</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -11765,7 +11765,7 @@ Max Profiles 0 - 254
 		<bSex>1</bSex>
 		<ubBodyType>13</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>   
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -12353,7 +12353,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>6</bAttitude>   
+		<bAttitude>6</bAttitude>
 		<bCharacterTrait>5</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -13277,7 +13277,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>  
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -13949,7 +13949,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>6</bAttitude>  
+		<bAttitude>6</bAttitude>
 		<bCharacterTrait>12</bCharacterTrait>
 		<bDisability>4</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -14001,10 +14001,10 @@ Max Profiles 0 - 254
 		<bArmourAttractiveness>20</bArmourAttractiveness>
 		<bMainGunAttractiveness>22</bMainGunAttractiveness>
 		<fGoodGuy>0</fGoodGuy>
-		<usApproachFactorFriendly>0</usApproachFactorFriendly>
-		<usApproachFactorDirect>0</usApproachFactorDirect>
-		<usApproachFactorThreaten>0</usApproachFactorThreaten>
-		<usApproachFactorRecruit>0</usApproachFactorRecruit>
+		<usApproachFactorFriendly>50</usApproachFactorFriendly>
+		<usApproachFactorDirect>100</usApproachFactorDirect>
+		<usApproachFactorThreaten>100</usApproachFactorThreaten>
+		<usApproachFactorRecruit>80</usApproachFactorRecruit>
 		<sSectorX>0</sSectorX>
 		<sSectorY>0</sSectorY>
 		<sSectorZ>0</sSectorZ>
@@ -14033,7 +14033,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>1</uiBodyTypeSubFlags>
-		<bAttitude>5</bAttitude>  
+		<bAttitude>5</bAttitude>
 		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -14085,10 +14085,10 @@ Max Profiles 0 - 254
 		<bArmourAttractiveness>20</bArmourAttractiveness>
 		<bMainGunAttractiveness>22</bMainGunAttractiveness>
 		<fGoodGuy>1</fGoodGuy>
-		<usApproachFactorFriendly>0</usApproachFactorFriendly>
-		<usApproachFactorDirect>0</usApproachFactorDirect>
-		<usApproachFactorThreaten>0</usApproachFactorThreaten>
-		<usApproachFactorRecruit>0</usApproachFactorRecruit>
+		<usApproachFactorFriendly>50</usApproachFactorFriendly>
+		<usApproachFactorDirect>150</usApproachFactorDirect>
+		<usApproachFactorThreaten>200</usApproachFactorThreaten>
+		<usApproachFactorRecruit>200</usApproachFactorRecruit>
 		<sSectorX>0</sSectorX>
 		<sSectorY>0</sSectorY>
 		<sSectorZ>0</sSectorZ>
@@ -14117,7 +14117,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>0</bAttitude>  
+		<bAttitude>0</bAttitude>
 		<bCharacterTrait>12</bCharacterTrait>
 		<bDisability>3</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -14169,10 +14169,10 @@ Max Profiles 0 - 254
 		<bArmourAttractiveness>25</bArmourAttractiveness>
 		<bMainGunAttractiveness>17</bMainGunAttractiveness>
 		<fGoodGuy>1</fGoodGuy>
-		<usApproachFactorFriendly>0</usApproachFactorFriendly>
-		<usApproachFactorDirect>0</usApproachFactorDirect>
-		<usApproachFactorThreaten>0</usApproachFactorThreaten>
-		<usApproachFactorRecruit>0</usApproachFactorRecruit>
+		<usApproachFactorFriendly>100</usApproachFactorFriendly>
+		<usApproachFactorDirect>60</usApproachFactorDirect>
+		<usApproachFactorThreaten>60</usApproachFactorThreaten>
+		<usApproachFactorRecruit>50</usApproachFactorRecruit>
 		<sSectorX>0</sSectorX>
 		<sSectorY>0</sSectorY>
 		<sSectorZ>0</sSectorZ>
@@ -14201,7 +14201,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>3</bAttitude> 
+		<bAttitude>3</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -14253,10 +14253,10 @@ Max Profiles 0 - 254
 		<bArmourAttractiveness>23</bArmourAttractiveness>
 		<bMainGunAttractiveness>22</bMainGunAttractiveness>
 		<fGoodGuy>0</fGoodGuy>
-		<usApproachFactorFriendly>0</usApproachFactorFriendly>
-		<usApproachFactorDirect>0</usApproachFactorDirect>
-		<usApproachFactorThreaten>0</usApproachFactorThreaten>
-		<usApproachFactorRecruit>0</usApproachFactorRecruit>
+		<usApproachFactorFriendly>70</usApproachFactorFriendly>
+		<usApproachFactorDirect>100</usApproachFactorDirect>
+		<usApproachFactorThreaten>35</usApproachFactorThreaten>
+		<usApproachFactorRecruit>75</usApproachFactorRecruit>
 		<sSectorX>0</sSectorX>
 		<sSectorY>0</sSectorY>
 		<sSectorZ>0</sSectorZ>
@@ -14392,7 +14392,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>15</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>4</bNewSkillTrait3>
 		<bBuddy1>36</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -14412,9 +14412,9 @@ Max Profiles 0 - 254
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>70</bLearnToHate>
 		<bLearnToHateTime>20</bLearnToHateTime>
-		<sSalary>2900</sSalary>
-		<uiWeeklySalary>18600</uiWeeklySalary>
-		<uiBiWeeklySalary>34800</uiBiWeeklySalary>
+		<sSalary>2650</sSalary>
+		<uiWeeklySalary>16600</uiWeeklySalary>
+		<uiBiWeeklySalary>30000</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>3000</sMedicalDepositAmount>
 		<usOptionalGearCost>3373</usOptionalGearCost>
@@ -14453,7 +14453,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>2</bAttitude>  
+		<bAttitude>2</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -14475,7 +14475,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>1</bOldSkillTrait>
 		<bOldSkillTrait2>7</bOldSkillTrait2>
 		<bNewSkillTrait1>2</bNewSkillTrait1>
-		<bNewSkillTrait2>7</bNewSkillTrait2>
+		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
 		<bBuddy1>172</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -14537,7 +14537,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>6</bAttitude>   
+		<bAttitude>6</bAttitude>
 		<bCharacterTrait>8</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -14560,7 +14560,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>8</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>7</bNewSkillTrait3>
 		<bBuddy1>171</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -14580,9 +14580,9 @@ Max Profiles 0 - 254
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>2</bLearnToHate>
 		<bLearnToHateTime>6</bLearnToHateTime>
-		<sSalary>2600</sSalary>
-		<uiWeeklySalary>17800</uiWeeklySalary>
-		<uiBiWeeklySalary>34000</uiBiWeeklySalary>
+		<sSalary>2400</sSalary>
+		<uiWeeklySalary>16500</uiWeeklySalary>
+		<uiBiWeeklySalary>25000</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>1600</sMedicalDepositAmount>
 		<usOptionalGearCost>2403</usOptionalGearCost>
@@ -14599,7 +14599,7 @@ Max Profiles 0 - 254
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
-	</PROFILE>	
+	</PROFILE>
 	<PROFILE>
 		<uiIndex>173</uiIndex>
 		<Type>1</Type>
@@ -14642,8 +14642,8 @@ Max Profiles 0 - 254
 		<bEvolution>1</bEvolution>
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>7</bOldSkillTrait2>
-		<bNewSkillTrait1>7</bNewSkillTrait1>
-		<bNewSkillTrait2>7</bNewSkillTrait2>
+		<bNewSkillTrait1>1</bNewSkillTrait1>
+		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
 		<bBuddy1>177</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -14664,9 +14664,9 @@ Max Profiles 0 - 254
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>49</bLearnToHate>
 		<bLearnToHateTime>30</bLearnToHateTime>
-		<sSalary>8800</sSalary>
-		<uiWeeklySalary>60000</uiWeeklySalary>
-		<uiBiWeeklySalary>110000</uiBiWeeklySalary>
+		<sSalary>2790</sSalary>
+		<uiWeeklySalary>17900</uiWeeklySalary>
+		<uiBiWeeklySalary>31500</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>3400</sMedicalDepositAmount>
 		<usOptionalGearCost>4556</usOptionalGearCost>
@@ -14705,7 +14705,7 @@ Max Profiles 0 - 254
 		<bSex>0</bSex>
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
-		<bAttitude>7</bAttitude> 
+		<bAttitude>7</bAttitude>
 		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
@@ -14726,9 +14726,9 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>2</bOldSkillTrait2>
-		<bNewSkillTrait1>7</bNewSkillTrait1>
-		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait1>1</bNewSkillTrait1>
+		<bNewSkillTrait2>6</bNewSkillTrait2>
+		<bNewSkillTrait3>16</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -14748,9 +14748,9 @@ Max Profiles 0 - 254
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>44</bLearnToHate>
 		<bLearnToHateTime>70</bLearnToHateTime>
-		<sSalary>3200</sSalary>
-		<uiWeeklySalary>22000</uiWeeklySalary>
-		<uiBiWeeklySalary>42000</uiBiWeeklySalary>
+		<sSalary>2600</sSalary>
+		<uiWeeklySalary>16850</uiWeeklySalary>
+		<uiBiWeeklySalary>30500</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>2200</sMedicalDepositAmount>
 		<usOptionalGearCost>1679</usOptionalGearCost>
@@ -14810,9 +14810,9 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>9</bOldSkillTrait2>
-		<bNewSkillTrait1>3</bNewSkillTrait1>
-		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait1>1</bNewSkillTrait1>
+		<bNewSkillTrait2>9</bNewSkillTrait2>
+		<bNewSkillTrait3>14</bNewSkillTrait3>
 		<bBuddy1>177</bBuddy1>
 		<bBuddy2>170</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -14832,9 +14832,9 @@ Max Profiles 0 - 254
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>14</bLearnToHate>
 		<bLearnToHateTime>20</bLearnToHateTime>
-		<sSalary>4800</sSalary>
-		<uiWeeklySalary>30000</uiWeeklySalary>
-		<uiBiWeeklySalary>56000</uiBiWeeklySalary>
+		<sSalary>2680</sSalary>
+		<uiWeeklySalary>17000</uiWeeklySalary>
+		<uiBiWeeklySalary>30800</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>2200</sMedicalDepositAmount>
 		<usOptionalGearCost>3982</usOptionalGearCost>
@@ -14894,8 +14894,8 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>4</bOldSkillTrait2>
-		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>16</bNewSkillTrait2>
+		<bNewSkillTrait1>12</bNewSkillTrait1>
+		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -14978,8 +14978,8 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>4</bOldSkillTrait>
 		<bOldSkillTrait2>6</bOldSkillTrait2>
-		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>7</bNewSkillTrait2>
+		<bNewSkillTrait1>3</bNewSkillTrait1>
+		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
 		<bBuddy1>175</bBuddy1>
 		<bBuddy2>173</bBuddy2>
@@ -15000,9 +15000,9 @@ Max Profiles 0 - 254
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>21</bLearnToHate>
 		<bLearnToHateTime>10</bLearnToHateTime>
-		<sSalary>6800</sSalary>
-		<uiWeeklySalary>46000</uiWeeklySalary>
-		<uiBiWeeklySalary>90000</uiBiWeeklySalary>
+		<sSalary>2700</sSalary>
+		<uiWeeklySalary>17010</uiWeeklySalary>
+		<uiBiWeeklySalary>30950</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>3500</sMedicalDepositAmount>
 		<usOptionalGearCost>2529</usOptionalGearCost>

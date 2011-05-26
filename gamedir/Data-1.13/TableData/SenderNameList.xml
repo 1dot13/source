@@ -1,239 +1,310 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+In this file you can specifiy the "Subject" text of emails.
+	
+	uiIndex = Each uiIndex represents a mail Subject
+			  The uiIndex are mapped to specific lines in the EMAIL.EDT file				  
+	Name	= The Name of the Subject
+	
+Each A.I.M merc has an entry here in the file, mapped to a specific uiIndex.
+
+-->
+
 <SENDER_LIST>
 	<NAME>
+		<!-- Mails from Enrico -->
 		<uiIndex>0</uiIndex>
 		<Name>Enrico</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from Psyich Pro Inc (IMP) -->
 		<uiIndex>1</uiIndex>
 		<Name>Psych Pro Inc</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from Help Desk -->
 		<uiIndex>2</uiIndex>
 		<Name>Help Desk</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from Psyich Pro Inc (IMP) -->
 		<uiIndex>3</uiIndex>
 		<Name>Psych Pro Inc</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from Speck -->
 		<uiIndex>4</uiIndex>
 		<Name>Speck</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from R.I.S -->
 		<uiIndex>5</uiIndex>
 		<Name>R.I.S.</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 6 = Merc Profile Index: 0 -->
 		<uiIndex>6</uiIndex>
 		<Name>Barry</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 7 = Merc Profile Index: 1 -->
 		<uiIndex>7</uiIndex>
 		<Name>Blood</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 8 = Merc Profile Index: 2 -->
 		<uiIndex>8</uiIndex>
 		<Name>Lynx</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 9 = Merc Profile Index: 3 -->
 		<uiIndex>9</uiIndex>
 		<Name>Grizzly</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 10 = Merc Profile Index: 4 -->
 		<uiIndex>10</uiIndex>
 		<Name>Vicki</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 11 = Merc Profile Index: 5 -->
 		<uiIndex>11</uiIndex>
 		<Name>Trevor</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 12 = Merc Profile Index: 6 -->
 		<uiIndex>12</uiIndex>
 		<Name>Grunty</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 13 = Merc Profile Index: 7 -->
 		<uiIndex>13</uiIndex>
 		<Name>Ivan</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 14 = Merc Profile Index: 8 -->
 		<uiIndex>14</uiIndex>
 		<Name>Steroid</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 15 = Merc Profile Index: 9 -->
 		<uiIndex>15</uiIndex>
 		<Name>Igor</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 16 = Merc Profile Index: 10 -->
 		<uiIndex>16</uiIndex>
 		<Name>Shadow</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 17 = Merc Profile Index: 11 -->
 		<uiIndex>17</uiIndex>
 		<Name>Red</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 18 = Merc Profile Index: 12 -->
 		<uiIndex>18</uiIndex>
 		<Name>Reaper</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 19 = Merc Profile Index: 13 -->
 		<uiIndex>19</uiIndex>
 		<Name>Fidel</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 20 = Merc Profile Index: 14 -->
 		<uiIndex>20</uiIndex>
 		<Name>Fox</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 21 = Merc Profile Index: 15 -->
 		<uiIndex>21</uiIndex>
 		<Name>Sidney</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 22 = Merc Profile Index: 16 -->
 		<uiIndex>22</uiIndex>
 		<Name>Gus</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 23 = Merc Profile Index: 17 -->
 		<uiIndex>23</uiIndex>
 		<Name>Buns</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 24 = Merc Profile Index: 18 -->
 		<uiIndex>24</uiIndex>
 		<Name>Ice</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 25 = Merc Profile Index: 19 -->
 		<uiIndex>25</uiIndex>
 		<Name>Spider</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 26 = Merc Profile Index: 20 -->
 		<uiIndex>26</uiIndex>
 		<Name>Cliff</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 27 = Merc Profile Index: 21 -->
 		<uiIndex>27</uiIndex>
 		<Name>Bull</Name>
 	</NAME>	
 	<NAME>
+		<!-- uiIndex: 28 = Merc Profile Index: 22 -->
 		<uiIndex>28</uiIndex>
 		<Name>Hitman</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 29 = Merc Profile Index: 23 -->
 		<uiIndex>29</uiIndex>
 		<Name>Buzz</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 30 = Merc Profile Index: 24 -->
 		<uiIndex>30</uiIndex>
 		<Name>Raider</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 31 = Merc Profile Index: 25 -->
 		<uiIndex>31</uiIndex>
 		<Name>Raven</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 32 = Merc Profile Index: 26 -->
 		<uiIndex>32</uiIndex>
 		<Name>Static</Name>
 	</NAME>		
 	<NAME>
+		<!-- uiIndex: 33 = Merc Profile Index: 27 -->
 		<uiIndex>33</uiIndex>
 		<Name>Len</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 34 = Merc Profile Index: 28 -->
 		<uiIndex>34</uiIndex>
 		<Name>Danny</Name>
 	</NAME>	
 	<NAME>
+		<!-- uiIndex: 35 = Merc Profile Index: 29 -->
 		<uiIndex>35</uiIndex>
 		<Name>Magic</Name>
 	</NAME>	
 	<NAME>
+		<!-- uiIndex: 36 = Merc Profile Index: 30 -->
 		<uiIndex>36</uiIndex>
 		<Name>Stephen</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 37 = Merc Profile Index: 31 -->
 		<uiIndex>37</uiIndex>
 		<Name>Scully</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 38 = Merc Profile Index: 32 -->
 		<uiIndex>38</uiIndex>
 		<Name>Malice</Name>
 	</NAME>
-
 	<NAME>
+		<!-- uiIndex: 39 = Merc Profile Index: 33 -->
 		<uiIndex>39</uiIndex>
 		<Name>Dr.Q</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 40 = Merc Profile Index: 34 -->
 		<uiIndex>40</uiIndex>
 		<Name>Nails</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 41 = Merc Profile Index: 35 -->
 		<uiIndex>41</uiIndex>
 		<Name>Thor</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 42 = Merc Profile Index: 36 -->
 		<uiIndex>42</uiIndex>
 		<Name>Scope</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 43 = Merc Profile Index: 37 -->
 		<uiIndex>43</uiIndex>
 		<Name>Wolf</Name>
-	</NAME>
+	</NAME>	
 	<NAME>
+		<!-- uiIndex: 44 = Merc Profile Index: 38 -->
 		<uiIndex>44</uiIndex>
 		<Name>MD</Name>
-	</NAME>
+	</NAME>	
 	<NAME>
+		<!-- uiIndex: 45 = Merc Profile Index: 39 -->
 		<uiIndex>45</uiIndex>
 		<Name>Meltdown</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from M.I.S Insurance -->
 		<uiIndex>46</uiIndex>
 		<Name>M.I.S. Insurance</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from Bobby Rays -->
 		<uiIndex>47</uiIndex>
 		<Name>Bobby Rays</Name>
 	</NAME>	
 	<NAME>
+		<!-- Mails from Kingpin -->
 		<uiIndex>48</uiIndex>
 		<Name>Kingpin</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from John Kulba -->
 		<uiIndex>49</uiIndex>
 		<Name>John Kulba</Name>
 	</NAME>
 	<NAME>
+		<!-- Mails from A.I.M. -->
 		<uiIndex>50</uiIndex>
 		<Name>A.I.M.</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 51 = Merc Profile Index: 170 -->
 		<uiIndex>51</uiIndex>
 		<Name>Monk</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 52 = Merc Profile Index: 171 -->
 		<uiIndex>52</uiIndex>
 		<Name>Brain</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 53 = Merc Profile Index: 172 -->
 		<uiIndex>53</uiIndex>
 		<Name>Scream</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 54 = Merc Profile Index: 173 -->
 		<uiIndex>54</uiIndex>
 		<Name>Henning</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 55 = Merc Profile Index: 174 -->
 		<uiIndex>55</uiIndex>
 		<Name>Lucky</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 56 = Merc Profile Index: 175 -->
 		<uiIndex>56</uiIndex>
 		<Name>Laura</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 57 = Merc Profile Index: 176 -->
 		<uiIndex>57</uiIndex>
 		<Name>Grace</Name>
 	</NAME>
 	<NAME>
+		<!-- uiIndex: 58 = Merc Profile Index: 177 -->
 		<uiIndex>58</uiIndex>
 		<Name>Rudolf</Name>
 	</NAME>

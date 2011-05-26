@@ -17,8 +17,10 @@ If you want to hide any merc from M.E.R.C website, just delete the entry.
 	StartMercsAvailable:	Set to 1 and the merc is available at the beginning. Set to 0 and merc will be available after X (<usDay>) days.
 	NewMercsAvailable:		Accessible mercenary in the next day. Just set this to 0 for all mercs. This will only be set internal ingame.
 	ProfilId:			 	uiIndex from MercProfiles.xml/Prof*.dat.
-	usMoneyPaid:			Mercenary cost. If set to 0 then cost is taken from MercProfiles.xml/Prof*.dat.
+	usMoneyPaid:			The amount of money you have to pay Speck for this merc to show up on the website. If set to 0 then cost is taken from MercProfiles.xml/Prof*.dat.
 	usDay:					When <StartMercsAvailable> is set to 0, you can set the days, when the merc should be available in M.E.R.C.
+							For example, if you set <usDay> to 3, the merc will be available on Day 3 + 1 day offset on the website. 
+							Also the total amount of money you paid Speck has to be greater than <usMoneyPaid> for the merc to show up.
    
  
  The following list shows the records defined in "BinaryData\Mercbios.edt". Use this for the <MercBioID> tag.

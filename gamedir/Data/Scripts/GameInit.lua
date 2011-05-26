@@ -78,11 +78,12 @@ http://www.legion.zone.zg.pl/doku.php/modowanie/ja/art_ja_m_22_lua
 		iMessageLength - record from email.edt
 		ubSender - uiIndex from SenderNameList.xml 
 	
-	- AddEmail (iMessageOffset, iMessageLength, ubSender, iCurrentIMPPosition)
+	- AddEmail (iMessageOffset, iMessageLength, ubSender, iCurrentIMPPosition, iCurrentShipmentDestinationID)
 		iMessageOffset - record from email.edt
 		iMessageLength - record from email.edt
 		ubSender - uiIndex from SenderNameList.xml
-		iCurrentIMPPosition - -1 
+		iCurrentIMPPosition - Default = -1, or the profile ID of the IMP 
+		iCurrentShipmentDestinationID - Default = -1, or the Bobby Ray shipment destination ID
 
 
 **************        
@@ -501,10 +502,10 @@ function InitNewGame()
 		AddPreReadEmail(RIS_REPORT,RIS_REPORT_LENGTH,Sender.RIS_EMAIL)
 		AddPreReadEmail(OLD_ENRICO_3,OLD_ENRICO_3_LENGTH,Sender.MAIL_ENRICO )
 
-		AddEmail (IMP_EMAIL_INTRO, IMP_EMAIL_INTRO_LENGTH, Sender.CHAR_PROFILE_SITE, -1)
+		AddEmail (IMP_EMAIL_INTRO, IMP_EMAIL_INTRO_LENGTH, Sender.CHAR_PROFILE_SITE, -1, -1)
 		
 		if( iniMERC_WEBSITE_IMMEDIATELY_AVAILABLE == true ) then
-			AddEmail (MERC_INTRO, MERC_INTRO_LENGTH, Sender.SPECK_FROM_MERC, -1)
+			AddEmail (MERC_INTRO, MERC_INTRO_LENGTH, Sender.SPECK_FROM_MERC, -1, -1)
 		end
 	end
 		

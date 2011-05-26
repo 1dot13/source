@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<WEAPONLIST>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<WEAPONLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<WEAPON>
 		<uiIndex>0</uiIndex>
 		<szWeaponName>Nothing</szWeaponName>
@@ -698,7 +698,7 @@
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>84</nAccuracy>
+		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>19</Handling>
 	</WEAPON>
@@ -935,7 +935,7 @@
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>10</ubCalibre>
 		<ubReadyTime>14</ubReadyTime>
-		<ubShotsPer4Turns>12.50</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12.5</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>32</ubImpact>
@@ -973,7 +973,7 @@
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>9</ubCalibre>
 		<ubReadyTime>18</ubReadyTime>
-		<ubShotsPer4Turns>11.60</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11.6</ubShotsPer4Turns>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>37</ubImpact>
@@ -1191,7 +1191,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>6</ubCalibre>
 		<ubReadyTime>12</ubReadyTime>
-		<ubShotsPer4Turns>9.00</ubShotsPer4Turns>
+		<ubShotsPer4Turns>9</ubShotsPer4Turns>
 		<ubBurstPenalty>12</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>48</ubImpact>
@@ -1306,7 +1306,7 @@
 		<ubWeaponType>7</ubWeaponType>
 		<ubCalibre>9</ubCalibre>
 		<ubReadyTime>22</ubReadyTime>
-		<ubShotsPer4Turns>12.80</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12.8</ubShotsPer4Turns>
 		<ubShotsPerBurst>3</ubShotsPerBurst>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -1391,6 +1391,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>5</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>41</uiIndex>
@@ -1412,6 +1413,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>30</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>42</uiIndex>
@@ -1551,6 +1553,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>3</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>51</uiIndex>
@@ -1573,6 +1576,7 @@
 		<bBurstAP>20</bBurstAP>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>52</uiIndex>
@@ -1622,7 +1626,7 @@
 		<ubWeaponType>4</ubWeaponType>
 		<ubCalibre>14</ubCalibre>
 		<ubReadyTime>15</ubReadyTime>
-		<ubShotsPer4Turns>13.40</ubShotsPer4Turns>
+		<ubShotsPer4Turns>13.4</ubShotsPer4Turns>
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>40</ubImpact>
 		<ubDeadliness>57</ubDeadliness>
@@ -1655,7 +1659,7 @@
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>38</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
-		<ubShotsPer4Turns>9.40</ubShotsPer4Turns>
+		<ubShotsPer4Turns>9.4</ubShotsPer4Turns>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
 		<ubDeadliness>20</ubDeadliness>
@@ -1773,6 +1777,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<nAccuracy>85</nAccuracy>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>61</uiIndex>
@@ -1861,7 +1866,7 @@
 		<ubWeaponType>4</ubWeaponType>
 		<ubCalibre>14</ubCalibre>
 		<ubReadyTime>15</ubReadyTime>
-		<ubShotsPer4Turns>13.40</ubShotsPer4Turns>
+		<ubShotsPer4Turns>13.4</ubShotsPer4Turns>
 		<ubShotsPerBurst>5</ubShotsPerBurst>
 		<ubBurstPenalty>2</ubBurstPenalty>
 		<ubBulletSpeed>20</ubBulletSpeed>
@@ -2339,7 +2344,7 @@
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>12</ubCalibre>
-		<ubShotsPer4Turns>23.50</ubShotsPer4Turns>
+		<ubShotsPer4Turns>23.5</ubShotsPer4Turns>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
 		<ubDeadliness>22</ubDeadliness>
@@ -2401,7 +2406,7 @@
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
-		<ubShotsPer4Turns>18.40</ubShotsPer4Turns>
+		<ubShotsPer4Turns>18.4</ubShotsPer4Turns>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>14</ubDeadliness>
@@ -2423,6 +2428,7 @@
 		<ManualReloadSound>476</ManualReloadSound>
 		<nAccuracy>5</nAccuracy>
 		<ubAimLevels>2</ubAimLevels>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>340</uiIndex>
@@ -2611,7 +2617,7 @@
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>9</ubReadyTime>
-		<ubShotsPer4Turns>14.50</ubShotsPer4Turns>
+		<ubShotsPer4Turns>14.5</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
@@ -2931,7 +2937,7 @@
 		<uiIndex>599</uiIndex>
 		<szWeaponName>Sabre</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubShotsPer4Turns>13.50</ubShotsPer4Turns>
+		<ubShotsPer4Turns>13.5</ubShotsPer4Turns>
 		<ubImpact>27</ubImpact>
 		<ubDeadliness>9</ubDeadliness>
 		<usReloadDelay>200</usReloadDelay>
@@ -2956,7 +2962,7 @@
 		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>22</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
-		<ubShotsPer4Turns>19.00</ubShotsPer4Turns>
+		<ubShotsPer4Turns>19</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
@@ -3630,7 +3636,7 @@
 		<MaxDistForMessyDeath>27</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>91</nAccuracy>
+		<nAccuracy>93</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>22</Handling>
 	</WEAPON>
@@ -3860,7 +3866,7 @@
 		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>84</nAccuracy>
+		<nAccuracy>87</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>19</Handling>
 	</WEAPON>
@@ -4182,7 +4188,7 @@
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>85</nAccuracy>
+		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>20</Handling>
 	</WEAPON>
@@ -4338,7 +4344,7 @@
 		<MaxDistForMessyDeath>26</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>90</nAccuracy>
+		<nAccuracy>92</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>14</Handling>
 	</WEAPON>
@@ -4370,7 +4376,7 @@
 		<MaxDistForMessyDeath>30</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>91</nAccuracy>
+		<nAccuracy>93</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>23</Handling>
 	</WEAPON>
@@ -4459,7 +4465,7 @@
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>9</ubReadyTime>
-		<ubShotsPer4Turns>14.10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>14.1</ubShotsPer4Turns>
 		<ubShotsPerBurst>3</ubShotsPerBurst>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -4714,7 +4720,7 @@
 		<ubWeaponType>7</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>17</ubReadyTime>
-		<ubShotsPer4Turns>14.60</ubShotsPer4Turns>
+		<ubShotsPer4Turns>14.6</ubShotsPer4Turns>
 		<ubBurstPenalty>6</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -4889,7 +4895,7 @@
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>85</nAccuracy>
+		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>21</Handling>
 	</WEAPON>
@@ -4900,7 +4906,7 @@
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>9</ubCalibre>
 		<ubReadyTime>17</ubReadyTime>
-		<ubShotsPer4Turns>11.70</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11.7</ubShotsPer4Turns>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>37</ubImpact>
@@ -5007,7 +5013,7 @@
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
-		<ubShotsPer4Turns>18.80</ubShotsPer4Turns>
+		<ubShotsPer4Turns>18.8</ubShotsPer4Turns>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
@@ -5152,7 +5158,7 @@
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>13</ubReadyTime>
-		<ubShotsPer4Turns>14.20</ubShotsPer4Turns>
+		<ubShotsPer4Turns>14.2</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -5337,7 +5343,7 @@
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>9</ubCalibre>
 		<ubReadyTime>14</ubReadyTime>
-		<ubShotsPer4Turns>12.10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12.1</ubShotsPer4Turns>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
@@ -5831,7 +5837,7 @@
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
-		<ubShotsPer4Turns>16.40</ubShotsPer4Turns>
+		<ubShotsPer4Turns>16.4</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
@@ -5889,7 +5895,7 @@
 		<MaxDistForMessyDeath>22</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
-		<nAccuracy>90</nAccuracy>
+		<nAccuracy>92</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>19</Handling>
 	</WEAPON>
@@ -5985,7 +5991,7 @@
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>84</nAccuracy>
+		<nAccuracy>87</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>18</Handling>
 	</WEAPON>
@@ -6207,7 +6213,7 @@
 		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>4</ubReadyTime>
-		<ubShotsPer4Turns>15.60</ubShotsPer4Turns>
+		<ubShotsPer4Turns>15.6</ubShotsPer4Turns>
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
@@ -6266,7 +6272,7 @@
 		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
 		<APsToReloadManually>30</APsToReloadManually>
 		<ManualReloadSound>478</ManualReloadSound>
-		<nAccuracy>80</nAccuracy>
+		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>18</Handling>
 	</WEAPON>
@@ -6405,7 +6411,7 @@
 		<ubWeaponType>5</ubWeaponType>
 		<ubCalibre>9</ubCalibre>
 		<ubReadyTime>18</ubReadyTime>
-		<ubShotsPer4Turns>11.20</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11.2</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>47</ubDeadliness>
@@ -6428,7 +6434,7 @@
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>85</nAccuracy>
+		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>18</Handling>
 	</WEAPON>
@@ -6478,7 +6484,7 @@
 		<ubWeaponType>7</ubWeaponType>
 		<ubCalibre>24</ubCalibre>
 		<ubReadyTime>22</ubReadyTime>
-		<ubShotsPer4Turns>11.50</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11.5</ubShotsPer4Turns>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
@@ -6831,7 +6837,7 @@
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>85</nAccuracy>
+		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>19</Handling>
 	</WEAPON>
@@ -6864,7 +6870,7 @@
 		<MaxDistForMessyDeath>28</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>91</nAccuracy>
+		<nAccuracy>93</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>20</Handling>
 	</WEAPON>
@@ -7123,7 +7129,7 @@
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
-		<ubShotsPer4Turns>18.60</ubShotsPer4Turns>
+		<ubShotsPer4Turns>18.6</ubShotsPer4Turns>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
 		<ubDeadliness>14</ubDeadliness>
@@ -7357,7 +7363,7 @@
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>5</ubReadyTime>
-		<ubShotsPer4Turns>15.20</ubShotsPer4Turns>
+		<ubShotsPer4Turns>15.2</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
@@ -7433,7 +7439,7 @@
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>7</ubReadyTime>
-		<ubShotsPer4Turns>15.10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>15.1</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>27</ubImpact>
@@ -7492,7 +7498,7 @@
 		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>80</nAccuracy>
+		<nAccuracy>84</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>16</Handling>
 	</WEAPON>
@@ -7526,7 +7532,7 @@
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>85</nAccuracy>
+		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>18</Handling>
 	</WEAPON>
@@ -7607,7 +7613,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>2</ubReadyTime>
-		<ubShotsPer4Turns>11.50</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11.5</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>36</ubImpact>
 		<ubDeadliness>27</ubDeadliness>
@@ -7662,7 +7668,7 @@
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
-		<nAccuracy>85</nAccuracy>
+		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>20</Handling>
 	</WEAPON>
@@ -7909,7 +7915,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>17</ubReadyTime>
-		<ubShotsPer4Turns>11.00</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
@@ -8143,7 +8149,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<APsToReloadManually>20</APsToReloadManually>
 		<ManualReloadSound>478</ManualReloadSound>
-		<nAccuracy>45</nAccuracy>
+		<nAccuracy>55</nAccuracy>
 		<ubAimLevels>5</ubAimLevels>
 		<Handling>8</Handling>
 	</WEAPON>
@@ -8231,7 +8237,7 @@
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>8</ubReadyTime>
-		<ubShotsPer4Turns>14.90</ubShotsPer4Turns>
+		<ubShotsPer4Turns>14.9</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -8307,7 +8313,7 @@
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>11</ubReadyTime>
-		<ubShotsPer4Turns>14.00</ubShotsPer4Turns>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -8408,7 +8414,7 @@
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>16</ubReadyTime>
-		<ubShotsPer4Turns>13.70</ubShotsPer4Turns>
+		<ubShotsPer4Turns>13.7</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -8798,7 +8804,7 @@
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>37</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
-		<ubShotsPer4Turns>10.50</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10.5</ubShotsPer4Turns>
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>28</ubImpact>
 		<ubDeadliness>18</ubDeadliness>
@@ -8889,7 +8895,7 @@
 		<ubWeaponType>5</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>18</ubReadyTime>
-		<ubShotsPer4Turns>13.80</ubShotsPer4Turns>
+		<ubShotsPer4Turns>13.8</ubShotsPer4Turns>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -8954,7 +8960,7 @@
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>36</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
-		<ubShotsPer4Turns>10.00</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>28</ubImpact>
 		<ubDeadliness>19</ubDeadliness>
@@ -9138,7 +9144,7 @@
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>81</nAccuracy>
+		<nAccuracy>85</nAccuracy>
 		<ubAimLevels>6</ubAimLevels>
 		<Handling>17</Handling>
 	</WEAPON>
@@ -9149,7 +9155,7 @@
 		<ubWeaponType>5</ubWeaponType>
 		<ubCalibre>39</ubCalibre>
 		<ubReadyTime>17</ubReadyTime>
-		<ubShotsPer4Turns>10.70</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10.7</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>48</ubDeadliness>
@@ -9201,7 +9207,7 @@
 		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
 		<APsToReloadManually>23</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
-		<nAccuracy>84</nAccuracy>
+		<nAccuracy>87</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>19</Handling>
 	</WEAPON>
@@ -9235,7 +9241,7 @@
 		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
 		<APsToReloadManually>21</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
-		<nAccuracy>85</nAccuracy>
+		<nAccuracy>88</nAccuracy>
 		<ubAimLevels>7</ubAimLevels>
 		<Handling>10</Handling>
 	</WEAPON>
@@ -9246,7 +9252,7 @@
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>20</ubCalibre>
 		<ubReadyTime>10</ubReadyTime>
-		<ubShotsPer4Turns>14.40</ubShotsPer4Turns>
+		<ubShotsPer4Turns>14.4</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
@@ -9322,7 +9328,7 @@
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>10</ubCalibre>
 		<ubReadyTime>13</ubReadyTime>
-		<ubShotsPer4Turns>13.10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>13.1</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>32</ubImpact>
@@ -9409,7 +9415,7 @@
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
-		<nAccuracy>82</nAccuracy>
+		<nAccuracy>86</nAccuracy>
 		<ubAimLevels>8</ubAimLevels>
 		<Handling>17</Handling>
 	</WEAPON>
@@ -9896,7 +9902,7 @@
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
-		<ubShotsPer4Turns>18.40</ubShotsPer4Turns>
+		<ubShotsPer4Turns>18.4</ubShotsPer4Turns>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>15</ubDeadliness>
@@ -10018,7 +10024,7 @@
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>4</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
-		<ubShotsPer4Turns>12.50</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12.5</ubShotsPer4Turns>
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>27</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
@@ -10375,7 +10381,7 @@
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>27</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
-		<ubShotsPer4Turns>16.70</ubShotsPer4Turns>
+		<ubShotsPer4Turns>16.7</ubShotsPer4Turns>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
 		<ubDeadliness>18</ubDeadliness>
@@ -10418,6 +10424,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>20</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>902</uiIndex>
@@ -10440,6 +10447,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>903</uiIndex>
@@ -10463,6 +10471,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>904</uiIndex>
@@ -10485,6 +10494,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>905</uiIndex>
@@ -10507,6 +10517,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>906</uiIndex>
@@ -10530,6 +10541,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>907</uiIndex>
@@ -10552,6 +10564,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>908</uiIndex>
@@ -10575,6 +10588,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>9</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>11</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>909</uiIndex>
@@ -10602,6 +10616,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>13</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>910</uiIndex>
@@ -10624,6 +10639,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>911</uiIndex>
@@ -10646,6 +10662,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>14</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>912</uiIndex>
@@ -10669,6 +10686,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>15</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>913</uiIndex>
@@ -10691,6 +10709,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>16</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>914</uiIndex>
@@ -10714,6 +10733,7 @@
 		<APsToReload>32</APsToReload>
 		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>915</uiIndex>
@@ -10737,6 +10757,7 @@
 		<APsToReload>32</APsToReload>
 		<MaxDistForMessyDeath>11</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>916</uiIndex>
@@ -10759,6 +10780,7 @@
 		<bBurstAP>20</bBurstAP>
 		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>917</uiIndex>
@@ -10781,6 +10803,7 @@
 		<bBurstAP>20</bBurstAP>
 		<MaxDistForMessyDeath>9</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>918</uiIndex>
@@ -10803,6 +10826,7 @@
 		<bBurstAP>20</bBurstAP>
 		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>1</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>920</uiIndex>
@@ -10826,6 +10850,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>7</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>921</uiIndex>
@@ -10849,6 +10874,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>12</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>922</uiIndex>
@@ -10872,6 +10898,7 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>7</Handling>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1015</uiIndex>
@@ -10911,7 +10938,7 @@
 		<uiIndex>1055</uiIndex>
 		<szWeaponName>Katana</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubShotsPer4Turns>14.60</ubShotsPer4Turns>
+		<ubShotsPer4Turns>14.6</ubShotsPer4Turns>
 		<ubImpact>28</ubImpact>
 		<ubDeadliness>9</ubDeadliness>
 		<usReloadDelay>200</usReloadDelay>
@@ -11031,7 +11058,7 @@
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>9</ubReadyTime>
-		<ubShotsPer4Turns>13.90</ubShotsPer4Turns>
+		<ubShotsPer4Turns>13.9</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
@@ -11314,7 +11341,7 @@
 		<ubWeaponType>7</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>15</ubReadyTime>
-		<ubShotsPer4Turns>14.40</ubShotsPer4Turns>
+		<ubShotsPer4Turns>14.4</ubShotsPer4Turns>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
