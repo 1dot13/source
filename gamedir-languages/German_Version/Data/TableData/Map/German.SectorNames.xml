@@ -120,10 +120,10 @@
   </SECTOR>
   <SECTOR>
     <SectorGrid>B2</SectorGrid>
-    <szUnexploredName>Chitzena Miene</szUnexploredName>
-    <szDetailedUnexploredName>Chitzena Miene</szDetailedUnexploredName>
-    <szExploredName>Chitzena Miene</szExploredName>
-    <szDetailedExploredName>Chitzena Miene</szDetailedExploredName>
+    <szUnexploredName>Chitzena Mine</szUnexploredName>
+    <szDetailedUnexploredName>Chitzena Mine</szDetailedUnexploredName>
+    <szExploredName>Chitzena Mine</szExploredName>
+    <szDetailedExploredName>Chitzena Mine</szDetailedExploredName>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B3</SectorGrid>
@@ -358,10 +358,10 @@
    </SECTOR>
    <SECTOR>
     <SectorGrid>D4</SectorGrid>
-    <szUnexploredName>San Mona Miene</szUnexploredName>
-    <szDetailedUnexploredName>San Mona Miene</szDetailedUnexploredName>
-    <szExploredName>San Mona Miene</szExploredName>
-    <szDetailedExploredName>San Mona Miene</szDetailedExploredName>
+    <szUnexploredName>San Mona Mine</szUnexploredName>
+    <szDetailedUnexploredName>San Mona Mine</szDetailedUnexploredName>
+    <szExploredName>San Mona Mine</szExploredName>
+    <szDetailedExploredName>San Mona Mine</szDetailedExploredName>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D5</SectorGrid>
@@ -421,10 +421,10 @@
    </SECTOR>
    <SECTOR>
     <SectorGrid>D13</SectorGrid>
-    <szUnexploredName>Drassen Miene</szUnexploredName>
-    <szDetailedUnexploredName>Drassen Miene</szDetailedUnexploredName>
-    <szExploredName>Drassen Miene</szExploredName>
-    <szDetailedExploredName>Drassen Miene</szDetailedExploredName>
+    <szUnexploredName>Drassen Mine</szUnexploredName>
+    <szDetailedUnexploredName>Drassen Mine</szDetailedUnexploredName>
+    <szExploredName>Drassen Mine</szExploredName>
+    <szDetailedExploredName>Drassen Mine</szDetailedExploredName>
    </SECTOR>
    <SECTOR>
     <SectorGrid>D14</SectorGrid>
@@ -799,10 +799,10 @@
    </SECTOR>
    <SECTOR>
     <SectorGrid>H3</SectorGrid>
-    <szUnexploredName>Grumm Miene</szUnexploredName>
-    <szDetailedUnexploredName>Grumm Miene</szDetailedUnexploredName>
-    <szExploredName>Grumm Miene</szExploredName>
-    <szDetailedExploredName>Grumm Miene</szDetailedExploredName>
+    <szUnexploredName>Grumm Mine</szUnexploredName>
+    <szDetailedUnexploredName>Grumm Mine</szDetailedUnexploredName>
+    <szExploredName>Grumm Mine</szExploredName>
+    <szDetailedExploredName>Grumm Mine</szDetailedExploredName>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H4</SectorGrid>
@@ -834,10 +834,10 @@
    </SECTOR>  
    <SECTOR>
     <SectorGrid>H8</SectorGrid>
-    <szUnexploredName>Cambria Miene</szUnexploredName>
-    <szDetailedUnexploredName>Cambria Miene</szDetailedUnexploredName>
-    <szExploredName>Cambria Miene</szExploredName>
-    <szDetailedExploredName>Cambria Miene</szDetailedExploredName>
+    <szUnexploredName>Cambria Mine</szUnexploredName>
+    <szDetailedUnexploredName>Cambria Mine</szDetailedUnexploredName>
+    <szExploredName>Cambria Mine</szExploredName>
+    <szDetailedExploredName>Cambria Mine</szDetailedExploredName>
    </SECTOR>
    <SECTOR>
     <SectorGrid>H9</SectorGrid>
@@ -988,10 +988,10 @@
    </SECTOR>
     <SECTOR>
     <SectorGrid>I14</SectorGrid>
-    <szUnexploredName>Alma Miene</szUnexploredName>
-    <szDetailedUnexploredName>Alma Miene</szDetailedUnexploredName>
-    <szExploredName>Alma Miene</szExploredName>
-    <szDetailedExploredName>Alma Miene</szDetailedExploredName>
+    <szUnexploredName>Alma Mine</szUnexploredName>
+    <szDetailedUnexploredName>Alma Mine</szDetailedUnexploredName>
+    <szExploredName>Alma Mine</szExploredName>
+    <szDetailedExploredName>Alma Mine</szDetailedExploredName>
    </SECTOR>
    <SECTOR>
     <SectorGrid>I15</SectorGrid>
