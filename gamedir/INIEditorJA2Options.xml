@@ -1515,7 +1515,7 @@ This behaves the same as Bloodcat Ambushes: The mercs are placed in the center o
 This behaves the same as Bloodcat Ambushes: The mercs are placed in the center of the map, with enemies (bloodcats) closing in from all sides.</Description_CHI>
         </Property>
         <Property name="CAN_TRUE_CIVILIANS_BECOME_HOSTILE" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
-          <Description_ENG>If TRUE, civilians who cannot hold a weapon will never trigger Combat Mode when attacked, even if other civilians are killed.
+          <Description_ENG>If FALSE, civilians who cannot hold a weapon will never trigger Combat Mode when attacked, even if other civilians are killed.
 Use this to prevent situations where you have to kill all civilians if you unintentionally hurt one civilian.
 
 Note that as far as the game is concerned, a character walking into a cloud of gas you created will be considered "attacked".
@@ -1523,7 +1523,7 @@ Note that as far as the game is concerned, a character walking into a cloud of g
           <Description_GER></Description_GER>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
-          <Description_CHI>If TRUE, civilians who cannot hold a weapon will never trigger Combat Mode when attacked, even if they are killed.
+          <Description_CHI>If FALSE, civilians who cannot hold a weapon will never trigger Combat Mode when attacked, even if they are killed.
 Use this to prevent situations where hurting a civilian forces you to kill all of them!
 
 Note that as far as the game is concerned, a character walking into a cloud of gas you created will be considered "attacked".
