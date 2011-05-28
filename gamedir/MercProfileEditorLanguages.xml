@@ -3102,7 +3102,7 @@
 
 <Polish_FORM1_COMBOBOX10>
 	<Items>
-		<Item0>Normal</Item9>
+		<Item0>Normal</Item0>
 		<Item1>Sociable</Item1>
 		<Item2>Loner</Item2>
 		<Item3>Optimist</Item3>
@@ -3120,7 +3120,7 @@
 
 <Chinese_FORM1_COMBOBOX10>
 	<Items>
-		<Item0>普通</Item9>
+		<Item0>普通</Item0>
 		<Item1>喜欢社交</Item1>
 		<Item2>独行侠</Item2>
 		<Item3>乐观</Item3>
@@ -3138,7 +3138,7 @@
 
 <Dutch_FORM1_COMBOBOX10>
 	<Items>
-		<Item0>Normal</Item9>
+		<Item0>Normal</Item0>
 		<Item1>Sociable</Item1>
 		<Item2>Loner</Item2>
 		<Item3>Optimist</Item3>
@@ -3156,7 +3156,7 @@
 
 <French_FORM1_COMBOBOX10>
 	<Items>
-		<Item0>Normal</Item9>
+		<Item0>Normal</Item0>
 		<Item1>Sociable</Item1>
 		<Item2>Loner</Item2>
 		<Item3>Optimist</Item3>
@@ -3174,7 +3174,7 @@
 
 <German_FORM1_COMBOBOX10>
 	<Items>
-		<Item0>Normal</Item9>
+		<Item0>Normal</Item0>
 		<Item1>Sociable</Item1>
 		<Item2>Loner</Item2>
 		<Item3>Optimist</Item3>
@@ -3192,7 +3192,7 @@
 
 <Italian_FORM1_COMBOBOX10>
 	<Items>
-		<Item0>Normal</Item9>
+		<Item0>Normal</Item0>
 		<Item1>Sociable</Item1>
 		<Item2>Loner</Item2>
 		<Item3>Optimist</Item3>
@@ -3210,7 +3210,7 @@
 
 <Russian_FORM1_COMBOBOX10>
 	<Items>
-		<Item0>Normal</Item9>
+		<Item0>Normal</Item0>
 		<Item1>Sociable</Item1>
 		<Item2>Loner</Item2>
 		<Item3>Optimist</Item3>
@@ -3228,7 +3228,7 @@
 
 <Taiwanese_FORM1_COMBOBOX10>
 	<Items>
-		<Item0>Normal</Item9>
+		<Item0>Normal</Item0>
 		<Item1>Sociable</Item1>
 		<Item2>Loner</Item2>
 		<Item3>Optimist</Item3>
@@ -3246,7 +3246,7 @@
 
 <English_FORM1_COMBOBOX10>
 	<Items>
-		<Item0>Normal</Item9>
+		<Item0>Normal</Item0>
 		<Item1>Sociable</Item1>
 		<Item2>Loner</Item2>
 		<Item3>Optimist</Item3>
