@@ -6949,9 +6949,10 @@ void RecalculateOppCntsDueToNoLongerNeutral( SOLDIERTYPE * pSoldier )
 				}
 				if ( pOpponent->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY )
 				{
+					// WANNE: Chris, I reverted BUGZILLA #338 fix, because this leads to big problems on opponent count with enemies!
 					// have to add to opponent's oppcount as well since we just became non-neutral
 					//CHRISL: If we do this, Bloodcats get counted at opponents multiple times and never get removed from the OppCnt variable.
-					//AddOneOpponent( pOpponent );
+					AddOneOpponent( pOpponent );
 				}
 			}
 		}
