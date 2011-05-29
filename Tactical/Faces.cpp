@@ -724,7 +724,8 @@ void SetAutoFaceInActive(INT32 iFaceIndex )
 	pFace->fDisabled = TRUE;
 
 }
-void SetCamoFace(SOLDIERTYPE * pSoldier)
+
+BOOLEAN SetCamoFace(SOLDIERTYPE * pSoldier)
 {
 	INT8	worn = -1;
 	INT8	applied = -1;
@@ -754,8 +755,13 @@ void SetCamoFace(SOLDIERTYPE * pSoldier)
 			applied = loop;
 	}
 
+	
+	BOOLEAN isCamoFace = FALSE;
+
 	if(applied != -1 && worn != -1)
 	{
+		isCamoFace = TRUE;
+
 		if(appliedCamo[applied] >= wornCamo[worn])
 		{
 			if(applied == 0)
@@ -766,9 +772,13 @@ void SetCamoFace(SOLDIERTYPE * pSoldier)
 				gCamoFace[pSoldier->ubProfile].gDesertCamoface = TRUE;
 			if(applied == 3)
 				gCamoFace[pSoldier->ubProfile].gSnowCamoface = TRUE;
+		
+			return TRUE;
 		}
 		else
 		{
+			isCamoFace = TRUE;
+
 			if(worn == 0)
 				gCamoFace[pSoldier->ubProfile].gCamoface = TRUE;
 			if(worn == 1)
@@ -781,6 +791,8 @@ void SetCamoFace(SOLDIERTYPE * pSoldier)
 	}
 	else if(applied != -1 || worn != -1)
 	{
+		isCamoFace = TRUE;
+
 		if(applied == 0 || worn == 0)
 			gCamoFace[pSoldier->ubProfile].gCamoface = TRUE;
 		if(applied == 1 || worn == 1)
@@ -790,6 +802,8 @@ void SetCamoFace(SOLDIERTYPE * pSoldier)
 		if(applied == 3 || worn == 3)
 			gCamoFace[pSoldier->ubProfile].gSnowCamoface = TRUE;
 	}
+
+	return isCamoFace;
 }
 
 void SetAllAutoFacesInactive(	)

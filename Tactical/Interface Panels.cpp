@@ -3166,12 +3166,48 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					{
 						if ( fGoodAPs )
 						{
+							// WANNE: Old method for applying camo
+							/*
 							if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 							{
-								SetCamoFace( gpSMCurrentMerc );
-								DeleteSoldierFace( gpSMCurrentMerc );// remove face
-								gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
+								if ( gpSMCurrentMerc->bCamo > 0 )
+								{
+									gCamoFace[gpSMCurrentMerc->ubProfile].gCamoface = TRUE;
+									DeleteSoldierFace( gpSMCurrentMerc );// remove face
+									gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
+								}
+								if ( gpSMCurrentMerc->urbanCamo > 0 )
+								{
+									gCamoFace[gpSMCurrentMerc->ubProfile].gUrbanCamoface = TRUE;
+									DeleteSoldierFace( gpSMCurrentMerc );// remove face
+									gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
+								}
+								if ( gpSMCurrentMerc->desertCamo > 0)
+								{
+									gCamoFace[gpSMCurrentMerc->ubProfile].gDesertCamoface = TRUE;
+									DeleteSoldierFace( gpSMCurrentMerc );// remove face
+									gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
+								}							
+								if ( gpSMCurrentMerc->snowCamo > 0)
+								{
+									gCamoFace[gpSMCurrentMerc->ubProfile].gSnowCamoface = TRUE;
+									DeleteSoldierFace( gpSMCurrentMerc );// remove face
+									gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
+								}
 							}
+							*/
+
+							// WANNE: We should only delete the face, if there was a camo we applied.
+							// This should fix the bug and crashes with missing faces
+							if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
+							{
+								if (SetCamoFace( gpSMCurrentMerc ))
+								{
+									DeleteSoldierFace( gpSMCurrentMerc );// remove face
+									gpSMCurrentMerc->iFaceIndex = InitSoldierFace( gpSMCurrentMerc );// create new face
+								}
+							}
+							
 							
 							// Dirty
 							fInterfacePanelDirty = DIRTYLEVEL2;

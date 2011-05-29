@@ -252,7 +252,7 @@ void InternalShutupaYoFace( INT32 iFaceIndex, BOOLEAN fForce );
 // If you still want the face in moemory but want to stop if from being displayed, or handled call
 void SetAutoFaceInActive( INT32 iFaceIndex );
 
-void SetCamoFace(SOLDIERTYPE * pSoldier);
+BOOLEAN SetCamoFace(SOLDIERTYPE * pSoldier);
 
 // To set all currently allocated faces to either active or incactive, call these
 void SetAllAutoFacesInactive( );

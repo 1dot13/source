@@ -10990,9 +10990,13 @@ void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)
 	//if ( pSoldier->bInSector)
 	//	pSoldier->CreateSoldierPalettes( );
 
-	SetCamoFace( pSoldier );
-	DeleteSoldierFace( pSoldier );// remove face
-	pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
+	// WANNE: We should only delete the face, if there was a camo we applied.
+	// This should fix the bug and crashes with missing faces
+	if (SetCamoFace( pSoldier ))
+	{
+		DeleteSoldierFace( pSoldier );// remove face
+		pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
+	}
 
 	fInterfacePanelDirty = DIRTYLEVEL2;
 }

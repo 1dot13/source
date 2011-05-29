@@ -5001,9 +5001,13 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		if(MercPtrs[cnt]->ubID == cnt)
 		{
-			SetCamoFace( MercPtrs[cnt] );
-			DeleteSoldierFace( MercPtrs[cnt] );// remove face
-			MercPtrs[cnt]->iFaceIndex = InitSoldierFace( MercPtrs[cnt] );// create new face
+			// WANNE: We should only delete the face, if there was a camo we applied.
+			// This should fix the bug and crashes with missing faces
+			if (SetCamoFace( MercPtrs[cnt] ))
+			{
+				DeleteSoldierFace( MercPtrs[cnt] );// remove face
+				MercPtrs[cnt]->iFaceIndex = InitSoldierFace( MercPtrs[cnt] );// create new face
+			}
 		}
 	}
 
