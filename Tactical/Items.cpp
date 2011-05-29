@@ -10990,13 +10990,16 @@ void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)
 	//if ( pSoldier->bInSector)
 	//	pSoldier->CreateSoldierPalettes( );
 
-	// WANNE: We should only delete the face, if there was a camo we applied.
+	
+	// WANNE: I disabled the call, because it leeds to endless loop when examining doors with explosives!
+	/*
 	// This should fix the bug and crashes with missing faces
 	if (SetCamoFace( pSoldier ))
 	{
 		DeleteSoldierFace( pSoldier );// remove face
 		pSoldier->iFaceIndex = InitSoldierFace( pSoldier );// create new face
 	}
+	*/
 
 	fInterfacePanelDirty = DIRTYLEVEL2;
 }
