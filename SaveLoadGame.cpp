@@ -4996,6 +4996,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 			AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1, -1 );
 	}
 
+	// WANNE: I disabled that for now, because I am not sure if this works like intended
+	// We got some problems with the merc portraits, so if disabled we are on the safe side.
+	/*
 	// CHRISL: To set camo faces correctly from the start
 	for( UINT16 cnt=0; cnt< CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS; cnt++)
 	{
@@ -5010,6 +5013,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 			}
 		}
 	}
+	*/
 
 	// ATE: Patch? Patch up groups.....( will only do for old saves.. )
 	UpdatePersistantGroupsFromOldSave( guiCurrentSaveGameVersion );
