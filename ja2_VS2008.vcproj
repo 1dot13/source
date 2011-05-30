@@ -141,7 +141,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib RakNetLibStatic.lib ws2_32.lib DbgHelp.lib"
-				OutputFile="$(OutDir)\JA2_EN_Release.exe"
+				OutputFile="$(OutDir)\JA2_PL_Release.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="Multiplayer\raknet"
 				GenerateDebugInformation="false"
