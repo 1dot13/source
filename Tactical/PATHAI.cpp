@@ -4352,6 +4352,13 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 
 	 // We should reduce points for starting to run if first tile is a fence...
 		sTestGridNo  = NewGridNo(pSold->sGridNo, DirectionInc( (UINT8)guiPathingData[0]));
+
+		// WANNE: Quickfix for wrong pathing data (direction). This fixes crash that could rarly occur
+		if ((UINT8)guiPathingData[0] > 7)
+		{
+			guiPathingData[0] = 0;
+		}
+
 		if ( gubWorldMovementCosts[ sTestGridNo ][ guiPathingData[0] ][ pSold->pathing.bLevel] == TRAVELCOST_FENCE )
 		{
 			if ( usMovementMode == RUNNING && pSold->usAnimState != RUNNING )
