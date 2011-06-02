@@ -387,8 +387,6 @@ void EnterIMPColorChoice( void )
 
 void RenderIMPColorChoice( void )
 {
-	
-
 	//render the metal background graphic
 	RenderProfileBackGround();
 
@@ -1090,8 +1088,19 @@ void BtnIMPBigBodyCallback(GUI_BUTTON *btn,INT32 reason)
 
 void IMPColorChoiceDisplayBoxes()
 {
+	VOBJECT_DESC	VObjectDesc;
 	//UINT16 usPosX, usPosY;
 	HVOBJECT	hImageHandle;
+
+	// WANNE: BUGZILLA #492: This fixed the CTD when switching from the IMP color choosing page to the Email and then back
+	// load the stats graphic and add it
+	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("LAPTOP\\SkillTraitSmallGreyIdent.sti", VObjectDesc.ImageFile);
+	if( !AddVideoObject(&VObjectDesc, &guiIST_GreyGoldBox4 ) )
+	{
+		Assert( 0 );
+		return;
+	}
 
 	// Stats
 	GetVideoObject(&hImageHandle, guiIST_GreyGoldBox4 );
