@@ -4999,7 +4999,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, you will hear rain noises when it is raining.",
 	L"When ON, the crows are present in game.",
 	L"When ON, a tooltip window is shown when pressing |A|l|t and hovering cursor over an enemy.",
-	L"When ON, game will be saved in 2 alternate save slots after each players turn.\nTo load, press |C|t|r|l+|L and then |A|l|t+|A or |A|l|t+|B.",
+	L"When ON, game will be saved in 2 alternate save slots after each players turn.\nTo load, press |C|t|r|l+|L (to open the Load Game screen) and then |A|l|t+|A or |A|l|t+|B.",
 	L"When ON, Skyrider will not talk anymore.",
 	//L"When ON, game will run with much lower CPU usage.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
