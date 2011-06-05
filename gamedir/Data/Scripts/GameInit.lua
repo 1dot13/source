@@ -477,9 +477,10 @@ function InitNPCs()
 			AddAltSectorNew( 4, SectorY.MAP_ROW_I )	
 		end
 	end
-
+	
 	-- Not SciFi, so use alternate map in Tixa's B1 level that doesn't have the stairs going down to the caves.
-	if 	(newGAME_STYLE == 0 and iniENABLE_CREPITUS == 0) then
+	if 	(newGAME_STYLE == 1 and iniENABLE_CREPITUS == 1) then	
+	else
 		--J9-1
 		AddAltUGSectorNew( 9, SectorY.MAP_ROW_J, 1 )
 	end
