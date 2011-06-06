@@ -5009,8 +5009,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"When ON, alternate bullet graphics will be shown when you shoot.", // TODO.Translate
 	L"When ON, New CTH system and cursor is used.",
-	L"When ON, you will see the equiped face gear on the merc portraits.",	// TODO.Translate
-	L"When ON, you will see icons for the equiped face gear on the merc portraits in the lower right corner.",
+	L"When ON, you will see the equipped face gear on the merc portraits.",	// TODO.Translate
+	L"When ON, you will see icons for the equipped face gear on the merc portraits in the lower right corner.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

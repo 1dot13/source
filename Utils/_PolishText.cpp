@@ -5008,8 +5008,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"Gdy W£¥CZONE, zastêpuje star¹ animacjê pocisku now¹.",
 	L"When ON, New CTH system and cursor is used.",
-	L"When ON, you will see the equiped face gear on the merc portraits.",	// TODO.Translate
-	L"When ON, you will see icons for the equiped face gear on the merc portraits in the lower right corner.",
+	L"When ON, you will see the equipped face gear on the merc portraits.",	// TODO.Translate
+	L"When ON, you will see icons for the equipped face gear on the merc portraits in the lower right corner.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Wymuœ wszystkie oczekiwane dostawy od Bobby Ray's.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
