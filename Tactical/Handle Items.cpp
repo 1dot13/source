@@ -4780,6 +4780,8 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 					{
 						gpItemPointer = new OBJECTTYPE;
 						gTempObject.MoveThisObjectTo(*gpItemPointer,-1,gpBoobyTrapSoldier,NUM_INV_SLOTS,MAX_OBJECTS_PER_SLOT);
+						//CHRISL: Also make sure we list the ItemPointerSoldier as our BoobyTrapSoldier
+						gpItemPointerSoldier = gpBoobyTrapSoldier;
 					}
 					// OJW - 20091029 - disarm explosives
 					if (is_networked && is_client)
