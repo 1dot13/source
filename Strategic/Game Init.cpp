@@ -76,6 +76,7 @@
 #include "aim.h"
 
 #include "LuaInitNPCs.h"
+#include "Luaglobal.h"
 
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -94,9 +95,10 @@ UINT8			gubScreenCount=0;
 
 void InitNPCs( void )
 {		
+
+#ifdef LUA_GAME_INIT_NPCS
 	LetLuaGameInit(1);
-	
-	#if 0
+#else
 
 	MERCPROFILESTRUCT * pProfile;
 
@@ -139,14 +141,12 @@ void InitNPCs( void )
 		pProfile->bSectorZ = 0;
 	}
 
-
 	#ifdef JA2TESTVERSION
 		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Skyrider in %c %d", 'A' + pProfile->sSectorY - 1, pProfile->sSectorX );
 	#endif
 
 	// use alternate map, with Skyrider's shack, in this sector
 	SectorInfo[ SECTOR( pProfile->sSectorX, pProfile->sSectorY ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
-
 
 	// set up Madlab's secret lab (he'll be added when the meanwhile scene occurs)
 
@@ -228,7 +228,7 @@ void InitNPCs( void )
 	gfPlayerTeamSawJoey = FALSE;
 
 
-	if ( gGameOptions.ubGameStyle == STYLE_SCIFI	&& gGameExternalOptions.fEnableCrepitus )
+	if ( gGameOptions.ubGameStyle == STYLE_SCIFI && gGameExternalOptions.fEnableCrepitus )
 	{
 		// add Bob
 		pProfile = &(gMercProfiles[BOB]);
@@ -623,9 +623,61 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 
 		// this is for the "mercs climbing down from a rope" animation, NOT Skyrider!!
 		ResetHeliSeats( );
-		
-		LetLuaGameInit(0);
-			
+
+#ifdef LUA_GAME_INIT_NEW_GAME
+			LetLuaGameInit(0);
+#else
+		INT32		iStartingCash;
+
+		// Setup two new messages!
+		AddPreReadEmail(OLD_ENRICO_1,OLD_ENRICO_1_LENGTH,MAIL_ENRICO,  GetWorldTotalMin() );
+		AddPreReadEmail(OLD_ENRICO_2,OLD_ENRICO_2_LENGTH,MAIL_ENRICO,  GetWorldTotalMin() );
+		AddPreReadEmail(RIS_REPORT,RIS_REPORT_LENGTH,RIS_EMAIL,  GetWorldTotalMin() );
+		AddPreReadEmail(OLD_ENRICO_3,OLD_ENRICO_3_LENGTH,MAIL_ENRICO,  GetWorldTotalMin() );
+		AddEmail(IMP_EMAIL_INTRO,IMP_EMAIL_INTRO_LENGTH,CHAR_PROFILE_SITE,  GetWorldTotalMin(), -1, -1);
+		//AddEmail(ENRICO_CONGRATS,ENRICO_CONGRATS_LENGTH,MAIL_ENRICO, GetWorldTotalMin() );
+		if(gGameExternalOptions.fMercDayOne)
+		{
+			AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1, 1 );
+		}
+
+		// ATE: Set starting cash....
+		switch( gGameOptions.ubDifficultyLevel )
+		{
+			case DIF_LEVEL_EASY:
+
+				iStartingCash = gGameExternalOptions.iStartingCashNovice;
+				//iStartingCash	= 45000;
+				break;
+
+			case DIF_LEVEL_MEDIUM:
+
+				iStartingCash = gGameExternalOptions.iStartingCashExperienced;
+				//iStartingCash	= 35000;
+				break;
+
+			case DIF_LEVEL_HARD:
+
+				iStartingCash = gGameExternalOptions.iStartingCashExpert;
+				//iStartingCash	= 30000;
+				break;
+
+			case DIF_LEVEL_INSANE:
+
+				iStartingCash = gGameExternalOptions.iStartingCashInsane; 
+				// iStartingCash	= 15000;
+				break;
+
+			default:
+				Assert(0);
+				return( FALSE );
+		}
+
+		// Setup initial money
+ 		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash );
+
+#endif
+	
 		UINT32	uiDaysTimeMercSiteAvailable = Random( 2 ) + 1;
 
 		// schedule email for message from spec at 7am 3 days in the future

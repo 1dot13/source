@@ -5027,6 +5027,25 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		CancelAllPendingBRPurchaseOrders();
 	}
 
+	// WANNE: THis should fix the bug with initializing problem in GameInit.lua on startup, in which we could meet crepitus in Tixa underground map
+	if(guiCurrentSaveGameVersion < FIXED_CREPITUS_IN_REALISTIC_GAME_MODE)
+ 	{
+		if ( gGameOptions.ubGameStyle == STYLE_SCIFI && gGameExternalOptions.fEnableCrepitus )
+		{
+			// Nothing to do here
+		}
+		else
+		{ //not scifi, so use alternate map in Tixa's b1 level that doesn't have the stairs going down to the caves.
+			UNDERGROUND_SECTORINFO *pSector;
+			pSector = FindUnderGroundSector( 9, 10, 1 ); //j9_b1
+			if( pSector )
+			{
+				pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+			}
+		}
+	}
+
+	// ---------------------------------------------------------------------------
 
 	//if the world is loaded, apply the temp files to the loaded map
 	if( SaveGameHeader.fWorldLoaded || guiCurrentSaveGameVersion < 50 )
@@ -5317,11 +5336,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	return( TRUE );
 }
-
-
-
-
-
 
 
 BOOLEAN SaveMercProfiles( HWFILE hFile )

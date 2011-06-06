@@ -8127,7 +8127,7 @@ void AssignPersonnelKillsHelpText( INT32 IMercId )
 	if (gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsCreatures > 0 || fShowRecordsIfZero)
 	{
 		// WANNE: Only display the monster info, when we play with monsters!
-		if (gGameExternalOptions.fEnableCrepitus)
+		if (gGameOptions.ubGameStyle == STYLE_SCIFI && gGameExternalOptions.fEnableCrepitus)
 		{
 			swprintf(atStr, pPersonnelRecordsHelpTexts[ 4 ], gMercProfiles[Menptr[IMercId].ubProfile].records.usKillsCreatures );
 			wcscat( apStr, atStr );

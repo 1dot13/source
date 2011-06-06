@@ -2618,7 +2618,19 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				EndMeanwhile( );
 				break;
 			case NPC_ACTION_NO_SCI_FI_END_MEANWHILE:
-
+				if (gGameOptions.ubGameStyle == STYLE_REALISTIC || !gGameExternalOptions.fEnableCrepitus)
+				{
+					// End meanwhile....
+					// End meanwhile....
+					DeleteTalkingMenu();
+					EndMeanwhile( );
+				}
+				else
+				{
+					TriggerNPCRecord( QUEEN, 8 );
+				}
+			
+				/*
 				if ( !( gGameOptions.ubGameStyle == STYLE_SCIFI && gGameExternalOptions.fEnableCrepitus) )
 				{
 					// End meanwhile....
@@ -2630,6 +2642,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				{
 					TriggerNPCRecord( QUEEN, 8 );
 				}
+				*/
 			break;
 			case NPC_ACTION_TRIGGER_MARRY_DARYL_PROMPT:
 				DeleteTalkingMenu();

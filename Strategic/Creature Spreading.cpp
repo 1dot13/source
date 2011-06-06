@@ -965,9 +965,15 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 //Called by campaign init.
 void ChooseCreatureQuestStartDay()
 {
+	if (gGameOptions.ubGameStyle == STYLE_REALISTIC || !gGameExternalOptions.fEnableCrepitus)
+		return;
+
+	/*
 //	INT32 iRandom, iDay;
 	if( !(gGameOptions.ubGameStyle == STYLE_SCIFI) || !gGameExternalOptions.fEnableCrepitus)
 		return; //only available in science fiction mode.
+	*/
+	
 	//Post the event.	Once it becomes due, it will setup the queen monster's location, and
 	//begin spreading and attacking towns from there.
 	switch( gGameOptions.ubDifficultyLevel )
@@ -1435,8 +1441,15 @@ void CheckConditionsForTriggeringCreatureQuest( INT16 sSectorX, INT16 sSectorY, 
 
 // move to Scripts/StrategicTownLoyalty.lua
 	UINT8 ubValidMines = 0;
+
+	if (gGameOptions.ubGameStyle == STYLE_REALISTIC || !gGameExternalOptions.fEnableCrepitus)
+		return;
+	
+	/*
 	if( !(gGameOptions.ubGameStyle == STYLE_SCIFI) || !gGameExternalOptions.fEnableCrepitus)
 		return; //No scifi, no creatures...
+	*/
+
 	if( giLairID )
 		return;	//Creature quest already begun
 
