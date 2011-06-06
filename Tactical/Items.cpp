@@ -5835,7 +5835,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 						{
 							if(!(gTacticalStatus.uiFlags & INCOMBAT))
 							{
-								INT16		magSize, ubShotsLeft;
+								UINT16		magSize, ubShotsLeft;
 								OBJECTTYPE	tempClip;
 								OBJECTTYPE	tempStack;
 								bool		clipCreated;
@@ -7119,7 +7119,7 @@ BOOLEAN CreateGun( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	return( TRUE );
 }
 
-BOOLEAN CreateAmmo( UINT16 usItem, OBJECTTYPE * pObj, INT16 ubShotsLeft )
+BOOLEAN CreateAmmo( UINT16 usItem, OBJECTTYPE * pObj, UINT16 ubShotsLeft )
 {
 	if (pObj == NULL)
 	{
@@ -7129,11 +7129,11 @@ BOOLEAN CreateAmmo( UINT16 usItem, OBJECTTYPE * pObj, INT16 ubShotsLeft )
 	pObj->usItem = usItem;
 	pObj->ubNumberOfObjects = 1;
 	//pObj->objectStack.resize(1);//not necessary due to init, here for code commenting
-	if (ubShotsLeft < 0) {
+	if (ubShotsLeft == 0) {
 		(*pObj)[0]->data.ubShotsLeft = Magazine[ Item[usItem].ubClassIndex ].ubMagSize;
 	}
 	else {
-		(*pObj)[0]->data.ubShotsLeft = (UINT8)ubShotsLeft;
+		(*pObj)[0]->data.ubShotsLeft = ubShotsLeft;
 	}
 	//WarmSteel - Init attachment slots.
 	if(UsingNewAttachmentSystem()==true)
