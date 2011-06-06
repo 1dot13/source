@@ -308,11 +308,11 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 					tempProfiles[pData->curIndex].bNewSkillTrait30 = pData->curProfile.bNewSkillTrait30;
 
 
-					memcpy( &(tempProfiles[pData->curIndex].bBuddy), &(pData->curProfile.bBuddy), 5 * sizeof (INT8));
+					memcpy( &(tempProfiles[pData->curIndex].bBuddy), &(pData->curProfile.bBuddy), 5 * sizeof (UINT8));
 					tempProfiles[pData->curIndex].bLearnToLike = pData->curProfile.bLearnToLike;
 					tempProfiles[pData->curIndex].bLearnToLikeTime = pData->curProfile.bLearnToLikeTime;
 
-					memcpy( &(tempProfiles[pData->curIndex].bHated), &(pData->curProfile.bHated), 5 * sizeof (INT8));
+					memcpy( &(tempProfiles[pData->curIndex].bHated), &(pData->curProfile.bHated), 5 * sizeof (UINT8));
 					memcpy( &(tempProfiles[pData->curIndex].bHatedTime), &(pData->curProfile.bHatedTime), 5 * sizeof (INT8));
 					tempProfiles[pData->curIndex].bLearnToHate = pData->curProfile.bLearnToHate;
 					tempProfiles[pData->curIndex].bLearnToHateTime = pData->curProfile.bLearnToHateTime;

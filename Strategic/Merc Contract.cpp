@@ -481,7 +481,7 @@ BOOLEAN	MercContractHandling( SOLDIERTYPE	*pSoldier, UINT8 ubDesiredAction )
 BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 {
 	UINT8	i;
-	INT8	bMercID;
+	UINT8	bMercID;
 	BOOLEAN fBuddyAround = FALSE;
 	BOOLEAN fUnhappy = FALSE;
 	UINT16 usBuddyQuote=0;

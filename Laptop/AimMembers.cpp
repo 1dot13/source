@@ -3306,7 +3306,7 @@ UINT8 WillMercAcceptCall()
 BOOLEAN CanMercBeHired()
 {
 	UINT8	i,j;
-	INT8	bMercID;
+	UINT8	bMercID;
 	BOOLEAN fRetVal = FALSE;
 	BOOLEAN	fBuddyOnTeam=FALSE;
 

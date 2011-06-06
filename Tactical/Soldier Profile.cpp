@@ -1939,7 +1939,7 @@ void UpdateSoldierPointerDataIntoProfile( BOOLEAN fPlayerMercs )
 BOOLEAN DoesMercHaveABuddyOnTheTeam( UINT8 ubMercID )
 {
 	UINT8	ubCnt;
-	INT8	bBuddyID;
+	UINT8	bBuddyID;
 
 	// loop through the list of people the merc is buddies with
 	for(ubCnt=0; ubCnt< 3; ubCnt++)
@@ -2344,11 +2344,11 @@ void OverwriteMercProfileWithXMLData( UINT32 uiLoop )
 		}
 		//////////////////////////////////////////////////////////////////////////////////////
 
-		memcpy( &(gMercProfiles[ uiLoop ].bBuddy), &(tempProfiles[ uiLoop ].bBuddy), 5 * sizeof (INT8));
+		memcpy( &(gMercProfiles[ uiLoop ].bBuddy), &(tempProfiles[ uiLoop ].bBuddy), 5 * sizeof (UINT8));
 		gMercProfiles[ uiLoop ].bLearnToLike = tempProfiles[ uiLoop ].bLearnToLike ;
 		gMercProfiles[ uiLoop ].bLearnToLikeTime = tempProfiles[ uiLoop ].bLearnToLikeTime ;
 
-		memcpy( &(gMercProfiles[ uiLoop ].bHated), &(tempProfiles[ uiLoop ].bHated), 5 * sizeof (INT8));
+		memcpy( &(gMercProfiles[ uiLoop ].bHated), &(tempProfiles[ uiLoop ].bHated), 5 * sizeof (UINT8));
 		memcpy( &(gMercProfiles[ uiLoop ].bHatedTime), &(tempProfiles[ uiLoop ].bHatedTime), 5 * sizeof (INT8));
 		gMercProfiles[ uiLoop ].bLearnToHate = tempProfiles[ uiLoop ].bLearnToHate ;
 		gMercProfiles[ uiLoop ].bLearnToHateTime = tempProfiles[ uiLoop ].bLearnToHateTime ;

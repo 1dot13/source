@@ -347,13 +347,13 @@ typedef struct
 	INT8		bNewSkillTrait29;
 	INT8		bNewSkillTrait30;
 
-	INT8		bBuddy[5];
-	INT8		bLearnToLike;
+	UINT8		bBuddy[5];
+	UINT8		bLearnToLike;
 	INT8		bLearnToLikeTime;
 
-	INT8		bHated[5];
+	UINT8		bHated[5];
 	INT8		bHatedTime[5];
-	INT8		bLearnToHate;
+	UINT8		bLearnToHate;
 	INT8		bLearnToHateTime;
 
 	INT16		sSalary;

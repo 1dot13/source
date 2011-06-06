@@ -1229,8 +1229,8 @@ MERCPROFILESTRUCT& MERCPROFILESTRUCT::operator=(const OLD_MERCPROFILESTRUCT_101&
 		memcpy( &(this->SKIN), &(src.SKIN), sizeof(PaletteRepID) );	// 30
 		memcpy( &(this->HAIR), &(src.HAIR), sizeof(PaletteRepID) );	// 30
 
-		memcpy( &(this->bBuddy), &(src.bBuddy), 5 * sizeof (INT8));
-		memcpy( &(this->bHated), &(src.bHated), 5 * sizeof (INT8));
+		memcpy( &(this->bBuddy), &(src.bBuddy), 5 * sizeof (UINT8));
+		memcpy( &(this->bHated), &(src.bHated), 5 * sizeof (UINT8));
 		memcpy( &(this->ubRoomRangeStart), &(src.ubRoomRangeStart), 2 * sizeof (UINT8));
 		memcpy( &(this->bMercTownReputation), &(src.bMercTownReputation),  20  * sizeof (INT8));
 		memcpy( &(this->usApproachFactor), &(src.usApproachFactor), 4 * sizeof (UINT16));

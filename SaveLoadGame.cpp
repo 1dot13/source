@@ -1203,7 +1203,7 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 		numBytesRead = ReadFieldByField( hFile, &this->bEvolution, sizeof(this->bEvolution), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->ubMiscFlags, sizeof(this->ubMiscFlags), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bSexist, sizeof(this->bSexist), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField( hFile, &this->bLearnToHate, sizeof(this->bLearnToHate), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField( hFile, &this->bLearnToHate, sizeof(this->bLearnToHate), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bStealRate, sizeof(this->bStealRate), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bVocalVolume, sizeof(this->bVocalVolume), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->ubQuoteRecord, sizeof(this->ubQuoteRecord), sizeof(UINT8), numBytesRead);
@@ -1281,8 +1281,8 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 			numBytesRead += 28;
 		}
 		numBytesRead = ReadFieldByField( hFile, &this->bLeadership, sizeof(this->bLeadership), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField( hFile, this->bBuddy, sizeof(this->bBuddy), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField( hFile, this->bHated, sizeof(this->bHated), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField( hFile, this->bBuddy, sizeof(this->bBuddy), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField( hFile, this->bHated, sizeof(this->bHated), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bExpLevel, sizeof(this->bExpLevel), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bMarksmanship, sizeof(this->bMarksmanship), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bMinService, sizeof(this->bMinService), sizeof(UINT8), numBytesRead);
@@ -1325,7 +1325,7 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 		if(guiCurrentSaveGameVersion < STOMP12_SAVEGAME_DATATYPE_CHANGE)
 			ReadFieldByField( hFile, &filler, sizeof(UINT8), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->sMedicalDepositAmount, sizeof(this->sMedicalDepositAmount), sizeof(UINT16), numBytesRead);
-		numBytesRead = ReadFieldByField( hFile, &this->bLearnToLike, sizeof(this->bLearnToLike), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField( hFile, &this->bLearnToLike, sizeof(this->bLearnToLike), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, this->ubApproachVal, sizeof(this->ubApproachVal), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, this->ubApproachMod, sizeof(this->ubApproachMod), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField( hFile, &this->bTown, sizeof(this->bTown), sizeof(INT8), numBytesRead);
