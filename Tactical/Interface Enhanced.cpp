@@ -2504,15 +2504,15 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				{
 					if( UsingNewCTHSystem() == false )
 					{
-						swprintf( pStr, L"%s", szUDBAdvStatsTooltipText[ 46 ]);
+						swprintf( pStr, L"%s", szUDBAdvStatsTooltipText[ 47 ]);
 					}
 					else if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
 					{
-						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 46 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 46 ]);
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 47 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 47 ]);
 					}
 					else
 					{
-						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 46 ], szUDBAdvStatsExplanationsTooltipText[ 46 ]);
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 47 ], szUDBAdvStatsExplanationsTooltipText[ 47 ]);
 					}
 					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
 					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
@@ -2531,15 +2531,15 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				{
 					if( UsingNewCTHSystem() == false )
 					{
-						swprintf( pStr, L"%s", szUDBAdvStatsTooltipText[ 47 ]);
+						swprintf( pStr, L"%s", szUDBAdvStatsTooltipText[ 46 ]);
 					}
 					else if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON|IC_PUNCH))
 					{
-						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 47 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 47 ]);
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 46 ], szUDBAdvStatsExplanationsTooltipTextForWeapons[ 46 ]);
 					}
 					else
 					{
-						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 47 ], szUDBAdvStatsExplanationsTooltipText[ 47 ]);
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 46 ], szUDBAdvStatsExplanationsTooltipText[ 46 ]);
 					}
 					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
 					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );

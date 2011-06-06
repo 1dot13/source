@@ -11622,7 +11622,7 @@ UINT8 GetAllowedAimingLevelsForItem( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UI
 		return 1;
 	}
 
-	UINT8 aimLevels = 4;
+	INT8 aimLevels = 4;
 
 	// HEADROCK HAM B2.6: Dynamic aiming level restrictions based on gun type and attachments.
 	// HEADROCK HAM 3.5: Revamped this - it was illogically constructed.
