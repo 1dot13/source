@@ -1020,7 +1020,7 @@ void BeginSellAllCallBack( UINT8 bExitValue )
 		{
 			return;
 		}
-		for(UINT32 wItem = 0; wItem < guiNumWorldItems; wItem++) //WS TODO: is "for(UINT32 wItem = 0; wItem < pInventoryPoolList.size(); wItem++)"  better? It resolved a bug in the old SVN, but things have changed now. (It was likely only fighting symptons anyway) 
+		for(UINT32 wItem = 0; wItem < pInventoryPoolList.size(); wItem++)	//CHRISL: It's safer to use pInventoryPoolList.size() versus guiNumWorldItems as it avoids any possibility of a vector size error
 		{
 			if(pInventoryPoolList[wItem].object.exists() == true && (pInventoryPoolList[wItem].usFlags & WORLD_ITEM_REACHABLE))
 			{
