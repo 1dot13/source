@@ -274,6 +274,55 @@ UINT32 CalcUIMessageDuration( STR16 wString );
 
 
 
+BOOLEAN InitializeTacticalPortraits(	)
+{
+	VOBJECT_DESC	VObjectDesc;
+
+	//CHRISL: Moved from InitializeTacticalInterface so we can reinitialize portait graphics as we need to
+	//legion 2 jazz
+	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ] == TRUE) 
+	{
+		//additional face icons (legion 2)
+		if (gGameExternalOptions.bTacticalFaceIconStyle == 0) 
+		{	
+			FilenameForBPP("INTERFACE\\portraiticons_a.sti", VObjectDesc.ImageFile);
+
+			if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS ) )
+				AssertMsg(0, "Missing INTERFACE\\portraiticons_a.sti" );
+		}	
+		else if (gGameExternalOptions.bTacticalFaceIconStyle == 1) 
+		{	
+			FilenameForBPP("INTERFACE\\portraiticons_b.sti", VObjectDesc.ImageFile);
+
+			if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS ) )
+				AssertMsg(0, "Missing INTERFACE\\portraiticons_b.sti" );
+		}	
+		else if (gGameExternalOptions.bTacticalFaceIconStyle == 2) 
+		{
+			FilenameForBPP("INTERFACE\\portraiticons_c.sti", VObjectDesc.ImageFile);
+
+			if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS ) )
+				AssertMsg(0, "Missing INTERFACE\\portraiticons_c.sti" );
+		}
+		else if (gGameExternalOptions.bTacticalFaceIconStyle == 3) 
+		{
+			FilenameForBPP("INTERFACE\\portraiticons_d.sti", VObjectDesc.ImageFile);
+
+			if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS ) )
+				AssertMsg(0, "Missing INTERFACE\\portraiticons_d.sti" );
+		}		
+	}
+	else 
+	{
+		// JA2 classic face icons
+		FilenameForBPP("INTERFACE\\portraiticons.sti", VObjectDesc.ImageFile);
+
+		if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS ) )
+			AssertMsg(0, "Missing INTERFACE\\portraiticons.sti" );
+	}
+
+	return ( TRUE );
+}
 
 BOOLEAN InitializeTacticalInterface(	)
 {
@@ -421,48 +470,8 @@ BOOLEAN InitializeTacticalInterface(	)
 
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	
-	//legion 2 jazz
-	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ] == TRUE) 
-	{
-		//additional face icons (legion 2)
-		if (gGameExternalOptions.bTacticalFaceIconStyle == 0) 
-		{	
-			FilenameForBPP("INTERFACE\\portraiticons_a.sti", VObjectDesc.ImageFile);
-
-			if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS ) )
-				AssertMsg(0, "Missing INTERFACE\\portraiticons_a.sti" );
-		}	
-		else if (gGameExternalOptions.bTacticalFaceIconStyle == 1) 
-		{	
-			FilenameForBPP("INTERFACE\\portraiticons_b.sti", VObjectDesc.ImageFile);
-
-			if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS ) )
-				AssertMsg(0, "Missing INTERFACE\\portraiticons_b.sti" );
-		}	
-		else if (gGameExternalOptions.bTacticalFaceIconStyle == 2) 
-		{
-			FilenameForBPP("INTERFACE\\portraiticons_c.sti", VObjectDesc.ImageFile);
-
-			if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS ) )
-				AssertMsg(0, "Missing INTERFACE\\portraiticons_c.sti" );
-		}
-		else if (gGameExternalOptions.bTacticalFaceIconStyle == 3) 
-		{
-			FilenameForBPP("INTERFACE\\portraiticons_d.sti", VObjectDesc.ImageFile);
-
-			if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS ) )
-				AssertMsg(0, "Missing INTERFACE\\portraiticons_d.sti" );
-		}		
-	}
-	else 
-	{
-		// JA2 classic face icons
-		FilenameForBPP("INTERFACE\\portraiticons.sti", VObjectDesc.ImageFile);
-
-		if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS ) )
-			AssertMsg(0, "Missing INTERFACE\\portraiticons.sti" );
-	}
-			
+	//CHRISL: Moved to seperate function so we can call seperately
+	InitializeTacticalPortraits();
 						
 	//legion
 	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE) 

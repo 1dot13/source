@@ -204,7 +204,7 @@ typedef enum
 
 } InterfacePanelDefines;
 
-
+BOOLEAN InitializeTacticalPortraits( );
 BOOLEAN InitializeTacticalInterface( );
 BOOLEAN ShutdownTacticalInterface( );
 extern BOOLEAN	fInterfacePanelDirty;
