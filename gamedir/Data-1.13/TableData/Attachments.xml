@@ -24950,12 +24950,6 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1011</attachmentIndex>
-		<itemIndex>68</itemIndex>
-		<APCost>20</APCost>
-		<NASOnly>0</NASOnly>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>1011</attachmentIndex>
 		<itemIndex>331</itemIndex>
 		<APCost>20</APCost>
 		<NASOnly>0</NASOnly>
