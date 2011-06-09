@@ -3815,9 +3815,6 @@ void RenderBulletIcon(OBJECTTYPE *pObject, UINT32 ubStatusIndex)
 
 	FilenameForBPP("INTERFACE\\infobox.sti", ubString);
 
-	UnloadButtonImage(giItemDescAmmoButtonImages);
-	giItemDescAmmoButtonImages	= LoadButtonImage(ubString,AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].grayed,AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].offNormal,-1,AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].onNormal,-1 );
-	//swprintf( pStr, L"0" );
 	SpecifyButtonText( giItemDescAmmoButton, pStr );
 }
 
