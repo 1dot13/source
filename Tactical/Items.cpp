@@ -9041,6 +9041,8 @@ INT16 GetRangeBonus( OBJECTTYPE * pObj )
 {
 	INT16 bonus = 0;
 	if (pObj->exists() == true) {
+		if(Item[pObj->usItem].usItemClass == IC_AMMO)
+			return( Item[pObj->usItem].rangebonus );
 		bonus = BonusReduce( Item[pObj->usItem].rangebonus, (*pObj)[0]->data.objectStatus );
 
 		if ( (*pObj)[0]->data.gun.ubGunShotsLeft > 0 )

@@ -8026,14 +8026,26 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				if (iModifier[cnt2] > 0)
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%d", iModifier[cnt2] );
+					swprintf( pStr, L"%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
 				else if (iModifier[cnt2] < 0)
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
 					swprintf( pStr, L"%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
 				else
 				{
