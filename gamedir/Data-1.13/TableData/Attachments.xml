@@ -12026,12 +12026,6 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>310</attachmentIndex>
-		<itemIndex>732</itemIndex>
-		<APCost>20</APCost>
-		<NASOnly>0</NASOnly>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>310</attachmentIndex>
 		<itemIndex>741</itemIndex>
 		<APCost>20</APCost>
 		<NASOnly>0</NASOnly>
