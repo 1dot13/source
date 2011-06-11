@@ -132,16 +132,6 @@
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
 		<uiSlotIndex>13</uiSlotIndex>
-		<szSlotName>External Attachments 2</szSlotName>
-		<nasAttachmentClass>256</nasAttachmentClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<usDescPanelPosX>138</usDescPanelPosX>
-		<usDescPanelPosY>148</usDescPanelPosY>
-		<fMultiShot>0</fMultiShot>
-		<fBigSlot>0</fBigSlot>
-	</ATTACHMENTSLOT>
-	<ATTACHMENTSLOT>
-		<uiSlotIndex>14</uiSlotIndex>
 		<szSlotName>Underbarrel Attachments</szSlotName>
 		<nasAttachmentClass>512</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -151,7 +141,7 @@
 		<fBigSlot>0</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>15</uiSlotIndex>
+		<uiSlotIndex>14</uiSlotIndex>
 		<szSlotName>Rifle Grenade</szSlotName>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -161,7 +151,7 @@
 		<fBigSlot>0</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>16</uiSlotIndex>
+		<uiSlotIndex>15</uiSlotIndex>
 		<szSlotName>Rocket Launcher Slot</szSlotName>
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -171,7 +161,7 @@
 		<fBigSlot>1</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>17</uiSlotIndex>
+		<uiSlotIndex>16</uiSlotIndex>
 		<szSlotName>Rifle Grenade</szSlotName>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>2</nasLayoutClass>
@@ -181,7 +171,7 @@
 		<fBigSlot>0</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>18</uiSlotIndex>
+		<uiSlotIndex>17</uiSlotIndex>
 		<szSlotName>Rifle Grenade</szSlotName>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>2</nasLayoutClass>
@@ -191,7 +181,7 @@
 		<fBigSlot>0</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>19</uiSlotIndex>
+		<uiSlotIndex>18</uiSlotIndex>
 		<szSlotName>Rifle Grenade</szSlotName>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>2</nasLayoutClass>
@@ -201,7 +191,7 @@
 		<fBigSlot>0</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>20</uiSlotIndex>
+		<uiSlotIndex>19</uiSlotIndex>
 		<szSlotName>Rifle Grenade</szSlotName>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>2</nasLayoutClass>
@@ -211,7 +201,7 @@
 		<fBigSlot>0</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>21</uiSlotIndex>
+		<uiSlotIndex>20</uiSlotIndex>
 		<szSlotName>Rifle Grenade</szSlotName>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>2</nasLayoutClass>
@@ -221,7 +211,7 @@
 		<fBigSlot>0</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>22</uiSlotIndex>
+		<uiSlotIndex>21</uiSlotIndex>
 		<szSlotName>Rifle Grenade</szSlotName>
 		<nasAttachmentClass>1024</nasAttachmentClass>
 		<nasLayoutClass>2</nasLayoutClass>
@@ -231,7 +221,7 @@
 		<fBigSlot>0</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>23</uiSlotIndex>
+		<uiSlotIndex>22</uiSlotIndex>
 		<szSlotName>Rocket Launcher Slot</szSlotName>
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>2</nasLayoutClass>
@@ -241,7 +231,7 @@
 		<fBigSlot>1</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>24</uiSlotIndex>
+		<uiSlotIndex>23</uiSlotIndex>
 		<szSlotName>Rocket Launcher Slot</szSlotName>
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>2</nasLayoutClass>
@@ -251,7 +241,7 @@
 		<fBigSlot>1</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>25</uiSlotIndex>
+		<uiSlotIndex>24</uiSlotIndex>
 		<szSlotName>Rocket Launcher Slot</szSlotName>
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>2</nasLayoutClass>
@@ -261,7 +251,7 @@
 		<fBigSlot>1</fBigSlot>
 	</ATTACHMENTSLOT>
 	<ATTACHMENTSLOT>
-		<uiSlotIndex>26</uiSlotIndex>
+		<uiSlotIndex>25</uiSlotIndex>
 		<szSlotName>Rocket Launcher Slot</szSlotName>
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>2</nasLayoutClass>
