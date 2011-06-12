@@ -278,6 +278,8 @@ BOOLEAN InitializeTacticalPortraits(	)
 {
 	VOBJECT_DESC	VObjectDesc;
 
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+
 	//CHRISL: Moved from InitializeTacticalInterface so we can reinitialize portait graphics as we need to
 	//legion 2 jazz
 	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ] == TRUE) 
@@ -467,12 +469,9 @@ BOOLEAN InitializeTacticalInterface(	)
 	if( !AddVideoObject( &VObjectDesc, &guiBURSTACCUM ) )
 		AssertMsg(0, "Missing INTERFACE\\burst1.sti" );
 
-
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	
 	//CHRISL: Moved to seperate function so we can call seperately
 	InitializeTacticalPortraits();
-						
+				
 	//legion
 	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE) 
 	{
