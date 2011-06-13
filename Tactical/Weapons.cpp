@@ -3068,7 +3068,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 						// if second hand item was removed place it now somewhere
 						if (oTempObjectSecondHand.usItem != 0 )
 						{
-							if (!PlaceInAnyPocket( pSoldier, &pSoldier->inv[HANDPOS], FALSE, 5))
+							if (!PlaceInAnyPocket( pSoldier, &oTempObjectSecondHand, FALSE, 5))
 							{
 								if (!AutoPlaceObject( pSoldier, &oTempObjectSecondHand, FALSE ))
 								{
