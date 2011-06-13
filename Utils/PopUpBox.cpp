@@ -1307,6 +1307,18 @@ BOOLEAN DrawBox(UINT32 uiCounter)
 	usWidth=((UINT16)(PopUpBoxList[uiCounter]->Dimensions.iRight-PopUpBoxList[uiCounter]->Dimensions.iLeft));
 	usHeight=((UINT16)(PopUpBoxList[uiCounter]->Dimensions.iBottom-PopUpBoxList[uiCounter]->Dimensions.iTop));
 
+	//CHRISL: Adjust position for screen limits
+	if((usTopX + usWidth) > SCREEN_WIDTH && usTopX > ((usTopX + usWidth) - SCREEN_WIDTH))
+	{
+		usTopX -= ((usTopX + usWidth) - SCREEN_WIDTH);
+		PopUpBoxList[uiCounter]->Position.iX -= (PopUpBoxList[uiCounter]->Position.iX - usTopX);
+	}
+	if((usTopY + usHeight) > SCREEN_HEIGHT && usTopY > ((usTopY + usHeight) - SCREEN_HEIGHT))
+	{
+		usTopY -= ((usTopY + usHeight) - SCREEN_HEIGHT);
+		PopUpBoxList[uiCounter]->Position.iY -= (PopUpBoxList[uiCounter]->Position.iY - usTopY);
+	}
+
 	// check if we have a min width, if so then update box for such
 	if( ( PopUpBoxList[uiCounter]->uiBoxMinWidth ) && ( usWidth < PopUpBoxList[uiCounter]->uiBoxMinWidth ) )
 	{
