@@ -4545,7 +4545,11 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	scopeRangeMod = (float)sDistVis / (float)sDistVisNoScope;	// percentage DistVis has been enhanced due to an attached scope
 	iSightRange = (INT32)(iSightRange / scopeRangeMod);
 	if(iSightRange > 0){
-		iSightRange -= GetGearAimBonus ( pSoldier, iSightRange, ubAimTime ) * iSightRange / 100;
+		//CHRISL: The LOS system, which determines whether to display an enemy unit, does not factor in the AimBonus tag during it's calculations.  So having
+		//	the CTH system use that tag to adjust iSightRange for AimBonus applied from armor might not be the best option.  Especially as it can sometimes
+		//	result in 0% CTH when everything looks like you could actually hit the target.  Let's try applying this penalty to CTH at the same point we would
+		//	apply the "invisible target" penalty.
+		//iSightRange -= GetGearAimBonus ( pSoldier, iSightRange, ubAimTime ) * iSightRange / 100;
 		if ( gGameOptions.fNewTraitSystem ) {
 			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) ) {
 				iSightRange -= ((gSkillTraitValues.ubSNEffRangeToTargetReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )) * iSightRange) /100;
@@ -4994,6 +4998,9 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	{
 		iBaseModifier += gGameCTHConstants.BASE_TARGET_INVISIBLE;
 	}
+	//CHRISL: Applying the Gear AimBonus (penalty) here, and directly to iBaseModifier as a flat penalty, instead of altering iSightRange above.  For now
+	//	I'm just applying this to the BaseModifier which means that aiming can overcome the Gear AimBonus (penalty).
+	iBaseModifier += GetGearAimBonus ( pSoldier, iSightRange, ubAimTime );
 
 	// GAME DIFFICULTY
 	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
@@ -5863,7 +5870,11 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	// Modify Sight and Physical Range
 	iSightRange = (INT32)(iSightRange / scopeRangeMod);
 	if(iSightRange > 0){
-		iSightRange -= GetGearAimBonus ( pSoldier, iSightRange, ubAimTime ) * iSightRange / 100;
+		//CHRISL: The LOS system, which determines whether to display an enemy unit, does not factor in the AimBonus tag during it's calculations.  So having
+		//	the CTH system use that tag to adjust iSightRange for AimBonus applied from armor might not be the best option.  Especially as it can sometimes
+		//	result in 0% CTH when everything looks like you could actually hit the target.  Let's try applying this penalty to CTH at the same point we would
+		//	apply the "invisible target" penalty.
+		//iSightRange -= GetGearAimBonus ( pSoldier, iSightRange, ubAimTime ) * iSightRange / 100;
 		if ( gGameOptions.fNewTraitSystem ) {
 			if ( HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ) ) {
 				iSightRange -= ((gSkillTraitValues.ubSNEffRangeToTargetReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )) * iSightRange) /100;
@@ -5946,6 +5957,9 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		iPenalty = min(iPenalty, -gGameExternalOptions.iPenaltyShootUnSeen);
 	}
 	iChance += iPenalty;
+	//CHRISL: Applying the Gear AimBonus (penalty) here, and directly to iChance as a flat penalty, instead of altering iSightRange above.
+	iChance += GetGearAimBonus ( pSoldier, iSightRange, ubAimTime );
+
 	//CHRISL: We should probably include these target size penalties even if we can't see the target so that shooting a "hidden" head is harder then a "hidden" body
 	// if aiming at the head, reduce chance to hit
 	if (ubAimPos == AIM_SHOT_HEAD)
