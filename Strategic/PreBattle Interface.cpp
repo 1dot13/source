@@ -1511,7 +1511,7 @@ void RetreatMercsCallback( GUI_BUTTON *btn, INT32 reason )
 			}
 
 			//Warp time by 5 minutes so that player can't just go back into the sector he left.
-			WarpGameTime( 300, WARPTIME_NO_PROCESSING_OF_EVENTS );
+			//WarpGameTime( 300, WARPTIME_NO_PROCESSING_OF_EVENTS );
 			ResetMovementForEnemyGroupsInLocation( gubPBSectorX, gubPBSectorY );
 
 			btn->uiFlags &= ~BUTTON_CLICKED_ON;
