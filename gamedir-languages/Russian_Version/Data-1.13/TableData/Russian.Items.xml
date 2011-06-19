@@ -346,34 +346,34 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>43</uiIndex>
-		<szItemName>YM Claws</szItemName>
-		<szLongItemName>Young Male Claws</szLongItemName>
+		<szItemName>Когти</szItemName>
+		<szLongItemName>Когти молодого самца</szLongItemName>
 		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
-		<szBRName>Young Male Claws</szBRName>
+		<szBRName>Когти молодой особи</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>44</uiIndex>
-		<szItemName>AM Claws</szItemName>
-		<szLongItemName>Adult Male Claws</szLongItemName>
+		<szItemName>Когти</szItemName>
+		<szLongItemName>Когти взрослого самца</szLongItemName>
 		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
-		<szBRName>Adult Male Claws</szBRName>
+		<szBRName>Когти взрослого самца</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>45</uiIndex>
-		<szItemName>YF Claws</szItemName>
-		<szLongItemName>Young Female Claws</szLongItemName>
+		<szItemName>Когти</szItemName>
+		<szLongItemName>Когти молодой самки</szLongItemName>
 		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
-		<szBRName>Young Female Claws</szBRName>
+		<szBRName>Когти молодой самки</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>46</uiIndex>
-		<szItemName>AF Claws</szItemName>
-		<szLongItemName>Adult Female Creature Claws</szLongItemName>
+		<szItemName>Когти</szItemName>
+		<szLongItemName>Когти взрослой самки</szLongItemName>
 		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
-		<szBRName>Adult Female Creature Claws</szBRName>
+		<szBRName>Когти взрослой самки</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -386,10 +386,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>48</uiIndex>
-		<szItemName>Queen Spit</szItemName>
-		<szLongItemName>Queen Creature Spit</szLongItemName>
+		<szItemName>Плевок Королевы</szItemName>
+		<szLongItemName>Плевок Королевы тварей</szLongItemName>
 		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
-		<szBRName>Queen Creature Spit</szBRName>
+		<szBRName>Плевок Королевы тварей</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -418,18 +418,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>52</uiIndex>
-		<szItemName>Bloodcat Claws</szItemName>
-		<szLongItemName>Bloodcat Claws</szLongItemName>
+		<szItemName>Когти</szItemName>
+		<szLongItemName>Когти кошки-убийцы</szLongItemName>
 		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
-		<szBRName>Bloodcat Claws</szBRName>
+		<szBRName>Когти кошки-убийцы</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>53</uiIndex>
-		<szItemName>Bloodcat Bite</szItemName>
-		<szLongItemName>Bloodcat Bite</szLongItemName>
+		<szItemName>Укус</szItemName>
+		<szLongItemName>Укус кошки-убийцы</szLongItemName>
 		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
-		<szBRName>Bloodcat Bite</szBRName>
+		<szBRName>Укус кошки-убийцы</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -451,33 +451,33 @@
 	<ITEM>
 		<uiIndex>56</uiIndex>
 		<szItemName>Автомаг III</szItemName>
-		<szLongItemName>Автомаг III</szLongItemName>
+		<szLongItemName>Автомаг III модификация</szLongItemName>
 		<szItemDesc>Автомаг, модифицированный для стрельбы патронами убойных винтовок калибра .50 Беовульф. По бокам этого кошмара гравировка: "Большая Берта".</szItemDesc>
-		<szBRName>Automag III Custom</szBRName>
+		<szBRName>Автомаг III мод.</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>57</uiIndex>
-		<szItemName>Infant Spit</szItemName>
-		<szLongItemName>Infant Spit</szLongItemName>
+		<szItemName>Плевок</szItemName>
+		<szLongItemName>Плевок детёныша</szLongItemName>
 		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
-		<szBRName>Infant Spit</szBRName>
+		<szBRName>Плевок детёныша</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>58</uiIndex>
-		<szItemName>Young Male Spit</szItemName>
-		<szLongItemName>Young Male Spit</szLongItemName>
+		<szItemName>Плевок</szItemName>
+		<szLongItemName>Плевок молодого самца</szLongItemName>
 		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
-		<szBRName>Young Male Spit</szBRName>
+		<szBRName>Плевок молодого самца</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>59</uiIndex>
-		<szItemName>Old Male Spit</szItemName>
-		<szLongItemName>Old Male Spit</szLongItemName>
+		<szItemName>Плевок</szItemName>
+		<szLongItemName>Плевок взрослого самца</szLongItemName>
 		<szItemDesc>В ОПИСАНИИ НЕ НУЖДАЕТСЯ!</szItemDesc>
-		<szBRName>Old Male Spit</szBRName>
+		<szBRName>Плевок взрослого самца</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -506,10 +506,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>63</uiIndex>
-		<szItemName>Огнемет</szItemName>
-		<szLongItemName>Огнемет</szLongItemName>
+		<szItemName>Огнемёт</szItemName>
+		<szLongItemName>Огнемёт</szLongItemName>
 		<szItemDesc>Звиняйте, парни, в этой игре мы решили обойтись без него!</szItemDesc>
-		<szBRName>Огнемет</szBRName>
+		<szBRName>Огнемёт</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -525,7 +525,7 @@
 		<szItemName>Авт.ракетница</szItemName>
 		<szLongItemName>Автоматическая ракетница</szLongItemName>
 		<szItemDesc>Новое кровавое слово военных технологий. Эта экспериментальная модель способна выпустить всю обойму одним убийственным залпом.</szItemDesc>
-		<szBRName>А. Р. винтовка</szBRName>
+		<szBRName>А.Р. винтовка</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1413,7 +1413,7 @@
 		<szItemName>Стальная каска</szItemName>
 		<szLongItemName>Стальная каска</szLongItemName>
 		<szItemDesc>Стальная каска защитит голову от осколков снарядов, шрапнели и выстрелов из оружия невысокой мощности. Внутри кожаный подшлемник на нейлоновой подкладке. Имеется подбородочный ремень.</szItemDesc>
-		<szBRName>Шлем стальной</szBRName>
+		<szBRName>Стальная каска</szBRName>
 		<szBRDesc>Удобная и чрезвычайно практичная, эта стальная каска обеспечивает защиту от пистолетных пуль, дроби, мелких снарядов. Обделка выполнена кожей, нейлоном, имеется ремешок.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8717,7 +8717,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1089</uiIndex>
-		<szItemName>Жилет TAC-1C</szItemName>
+		<szItemName>Жилет TAC-1B</szItemName>
 		<szLongItemName>Разгрузочный жилет Tactical Tailor</szLongItemName>
 		<szItemDesc>Жилет с двумя большими карманами для ношения крупных предметов.</szItemDesc>
 		<szBRName>Разгрузочный жилет TT</szBRName>
@@ -10726,97 +10726,97 @@
 	<ITEM>
 		<uiIndex>1340</uiIndex>
 		<szItemName>5,45x39мм, 45HP C</szItemName>
-		<szLongItemName>5.45x39мм магазин, 45 HP C</szLongItemName>
+		<szLongItemName>5,45x39мм маг., 45 HP Cold</szLongItemName>
 		<szItemDesc>Этот магазин вмещает 45 дозвуковых патронов калибра 5,45x39мм с экспансивной пулей.</szItemDesc>
-		<szBRName>5.45x39мм маг., HP C</szBRName>
+		<szBRName>5,45x39мм маг., HP C</szBRName>
 		<szBRDesc>Этот магазин вмещает 45 дозвуковых патронов калибра 5,45x39мм с экспансивной пулей.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1341</uiIndex>
 		<szItemName>5,45x39мм, 45AP C</szItemName>
-		<szLongItemName>5.45x39мм магазин, 45 AP C</szLongItemName>
+		<szLongItemName>5,45x39мм магазин, 45 AP C</szLongItemName>
 		<szItemDesc>Этот магазин вмещает 45 дозвуковых патронов калибра 5,45x39мм с бронебойной пулей.</szItemDesc>
-		<szBRName>5.45x39мм магазин, AP C</szBRName>
+		<szBRName>5,45x39мм магазин, AP C</szBRName>
 		<szBRDesc>Этот магазин вмещает 45 дозвуковых патронов калибра 5,45x39мм с бронебойной пулей.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1342</uiIndex>
-		<szItemName>5.45х39мм C, ящик</szItemName>
-		<szLongItemName>5.45x39мм C, ящик с патронами</szLongItemName>
+		<szItemName>5,45х39мм C, ящик</szItemName>
+		<szLongItemName>5,45x39мм C, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
-		<szBRName>5.45x39mm C, ящик с патронами</szBRName>
+		<szBRName>5,45x39mm C, ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1343</uiIndex>
-		<szItemName>5.45х39мм, HP C, ящик</szItemName>
-		<szLongItemName>5.45x39мм HP C, ящик с патронами</szLongItemName>
+		<szItemName>5,45х39мм, HP C, ящик</szItemName>
+		<szLongItemName>5,45x39мм HP C, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
-		<szBRName>5.45x39mm HP C, ящик с патронами</szBRName>
+		<szBRName>5,45x39mm HP C, ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1344</uiIndex>
 		<szItemName>7,62x39мм, 10AP C</szItemName>
-		<szLongItemName>7.62x39мм маг., 10AP Cold</szLongItemName>
-		<szItemDesc>Дозвуковые патроны с цельнометаллической оболочкой пули для оружия калибра 7.62x39 мм.</szItemDesc>
+		<szLongItemName>7,62x39мм маг., 10AP Cold</szLongItemName>
+		<szItemDesc>Дозвуковые патроны с цельнометаллической оболочкой пули для оружия калибра 7,62x39 мм.</szItemDesc>
 		<szBRName>7,62x39мм маг., 10 AP Cold</szBRName>
 		<szBRDesc>Бесшумные бронебойные патроны для оружия стран Варшавского Договора.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1345</uiIndex>
-		<szItemName>7.62x39мм 10HP C</szItemName>
-		<szLongItemName>7.62x39мм маг, 10 HP Cold</szLongItemName>
-		<szItemDesc>Дозвуковые патроны с экспансивной пулей для оружия калибра 7.62x39 мм.</szItemDesc>
-		<szBRName>7.62x39мм маг., 10 HP Cold</szBRName>
+		<szItemName>7,62x39мм 10HP C</szItemName>
+		<szLongItemName>7,62x39мм маг, 10 HP Cold</szLongItemName>
+		<szItemDesc>Дозвуковые патроны с экспансивной пулей для оружия калибра 7,62x39 мм.</szItemDesc>
+		<szBRName>7,62x39мм маг., 10 HP Cold</szBRName>
 		<szBRDesc>Если у вас есть СКС и вы хотите стать бесшумным убийцей, эти патроны - для вас</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1346</uiIndex>
 		<szItemName>7,62x39мм, 30AP C</szItemName>
-		<szLongItemName>7.62x39мм маг., 30 Cold</szLongItemName>
-		<szItemDesc>Дозвуковые патроны с цельнометаллической оболочкой пули для оружия калибра 7.62x39 мм.</szItemDesc>
-		<szBRName>7.62x39мм маг., 30 Cold</szBRName>
+		<szLongItemName>7,62x39мм маг., 30 Cold</szLongItemName>
+		<szItemDesc>Дозвуковые патроны с цельнометаллической оболочкой пули для оружия калибра 7,62x39 мм.</szItemDesc>
+		<szBRName>7,62x39мм маг., 30 Cold</szBRName>
 		<szBRDesc>Бесшумные бронебойные патроны для оружия стран Варшавского Договора.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1347</uiIndex>
-		<szItemName>7.62x39мм 30 HP C</szItemName>
-		<szLongItemName>7.62x39мм маг., 30 HP Cold</szLongItemName>
-		<szItemDesc>Дозвуковые патроны с экспансивной пулей для оружия калибра 7.62x39 мм.</szItemDesc>
-		<szBRName>7.62x39мм маг., 30 HP Cold</szBRName>
+		<szItemName>7,62x39мм 30 HP C</szItemName>
+		<szLongItemName>7,62x39мм маг., 30 HP Cold</szLongItemName>
+		<szItemDesc>Дозвуковые патроны с экспансивной пулей для оружия калибра 7,62x39 мм.</szItemDesc>
+		<szBRName>7,62x39мм маг., 30 HP Cold</szBRName>
 		<szBRDesc>Если у вас есть АК и вы хотите стать бесшумным убийцей, эти патроны - для вас.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1348</uiIndex>
 		<szItemName>7,62x39мм,100AP C</szItemName>
-		<szLongItemName>7.62x39мм барабан, 100 AP Cold</szLongItemName>
-		<szItemDesc>Дозвуковые патроны с цельнометаллической оболочкой пули для оружия калибра 7.62x39 мм.</szItemDesc>
-		<szBRName>7.62x39мм Drum AP Cold</szBRName>
+		<szLongItemName>7,62x39мм барабан, 100 AP Cold</szLongItemName>
+		<szItemDesc>Дозвуковые патроны с цельнометаллической оболочкой пули для оружия калибра 7,62x39 мм.</szItemDesc>
+		<szBRName>7,62x39мм Drum AP Cold</szBRName>
 		<szBRDesc>Бесшумные бронебойные патроны для оружия стран Варшавского Договора.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1349</uiIndex>
 		<szItemName>7,62x39мм,100HP C</szItemName>
-		<szLongItemName>7.62x39mm барабан, HP Cold</szLongItemName>
-		<szItemDesc>Дозвуковые патроны с экспансивной пулей для оружия калибра 7.62x39 мм.</szItemDesc>
-		<szBRName>7.62x39мм Drum, HP Cold</szBRName>
+		<szLongItemName>7,62x39mm барабан, HP Cold</szLongItemName>
+		<szItemDesc>Дозвуковые патроны с экспансивной пулей для оружия калибра 7,62x39 мм.</szItemDesc>
+		<szBRName>7,62x39мм Drum, HP Cold</szBRName>
 		<szBRDesc>Если у вас есть АК и вы хотите стать бесшумным убийцей, эти патроны - для вас.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1350</uiIndex>
-		<szItemName>7.62WP C, ящик</szItemName>
-		<szLongItemName>7.62x39mm C, ящик с патронами</szLongItemName>
+		<szItemName>7,62WP C, ящик</szItemName>
+		<szLongItemName>7,62x39mm C, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
-		<szBRName>7.62x39mm C, ящик с патронами</szBRName>
+		<szBRName>7,62x39mm C, ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1351</uiIndex>
-		<szItemName>7.62WP HP C, ящик</szItemName>
-		<szLongItemName>7.62x39mm HP C, ящик с патронами</szLongItemName>
+		<szItemName>7,62WP HP C, ящик</szItemName>
+		<szLongItemName>7,62x39mm HP C, ящик с патронами</szLongItemName>
 		<szItemDesc>Ящик с патронами.</szItemDesc>
-		<szBRName>7.62x39mm HP C, ящик с патронами</szBRName>
+		<szBRName>7,62x39mm HP C, ящик с патронами</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
