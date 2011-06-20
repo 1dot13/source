@@ -1866,7 +1866,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 								{
 									if (Weapon[pObj->usItem].ubDeadliness > Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness)
 									{
-										if ((Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness != NULL) && (Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness >= 0))
+										if ((Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness != NULL) && (Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness > 0))
 										{
 											iTempValue = 100 * Weapon[pObj->usItem].ubDeadliness / Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness;
 										}
