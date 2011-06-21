@@ -9251,9 +9251,13 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 		//CHRISL: Also, determine weight differently if we're looking at a single item in a stack
 		if(subObject == -1){
 			// Find the minimum status value - not just the first one
+			if(Item[pObject->usItem].usItemClass != IC_AMMO)
+				(*pObject)[0]->data.objectStatus = __min((*pObject)[0]->data.objectStatus, 100);
 			sValue = (*pObject)[0]->data.objectStatus;
 
 			for(INT16 i = 1; i < pObject->ubNumberOfObjects; i++){
+				if(Item[pObject->usItem].usItemClass != IC_AMMO)
+					(*pObject)[ i ]->data.objectStatus = __min((*pObject)[ i ]->data.objectStatus, 100);
 				if((*pObject)[ i ]->data.objectStatus < sValue)
 				{
 					sValue = (*pObject)[ i ]->data.objectStatus;
@@ -9264,6 +9268,8 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 			subObject = 0;
 		}
 		else {
+			if(Item[pObject->usItem].usItemClass != IC_AMMO)
+				(*pObject)[subObject]->data.objectStatus = __min((*pObject)[subObject]->data.objectStatus, 100);
 			sValue = (*pObject)[subObject]->data.objectStatus;
 			fWeight = (float)(pObject->GetWeightOfObjectInStack(subObject)) / 10;
 		}
