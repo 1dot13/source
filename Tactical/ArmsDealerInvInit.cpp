@@ -1226,22 +1226,26 @@ UINT8 HowManyItemsAreSold( INT8 bArmsDealerID, UINT16 usItemIndex, UINT8 ubNumIn
 
 UINT8 HowManyItemsToReorder(UINT8 ubWanted, UINT8 ubStillHave)
 {
-	UINT8 ubNumReordered;
+	UINT8 ubNumReordered = 0;
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("HowManyItemsToReorder: wanted = %d, still have = %d",ubWanted, ubStillHave));
 
-	Assert(ubStillHave <= ubWanted);
+	// WANNE: Disabled assertion and fixed possibly problem
+	//Assert(ubStillHave <= ubWanted);
 
-	ubNumReordered = ubWanted - ubStillHave;
-
-	//randomize the amount. 33% of the time we add to it, 33% we subtract from it, rest leave it alone
-	switch (Random(3))
+	if (ubWanted > ubStillHave)
 	{
-		case 0:
-			ubNumReordered += ubNumReordered / 2;
-			break;
-		case 1:
-			ubNumReordered -= ubNumReordered / 2;
-			break;
+		ubNumReordered = ubWanted - ubStillHave;
+
+		//randomize the amount. 33% of the time we add to it, 33% we subtract from it, rest leave it alone
+		switch (Random(3))
+		{
+			case 0:
+				ubNumReordered += ubNumReordered / 2;
+				break;
+			case 1:
+				ubNumReordered -= ubNumReordered / 2;
+				break;
+		}
 	}
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("HowManyBRItemsToOrder: reordered = %d",ubNumReordered));
