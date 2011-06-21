@@ -6353,15 +6353,16 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 			sAPCost = GetAPsToGiveItem( gpItemPointerSoldier, usMapPos );
 		}
 
+		//CHRISL: This doesn't make sense to me.  If we take an item out of a stack and then click on something, why would we first attempt to put the item
+		//	back in the stack we took it from.  The item in the cursor should be recognized as a seperate stack at this point.
 		// Place it back in our hands!
-
 		gTempObject = *gpItemPointer;
 
-		if ( gbItemPointerSrcSlot != NO_SLOT )
-		{
-			PlaceObject( gpItemPointerSoldier, gbItemPointerSrcSlot, gpItemPointer );
-			fInterfacePanelDirty = DIRTYLEVEL2;
-		}
+//		if ( gbItemPointerSrcSlot != NO_SLOT )
+//		{
+//			PlaceObject( gpItemPointerSoldier, gbItemPointerSrcSlot, gpItemPointer );
+//			fInterfacePanelDirty = DIRTYLEVEL2;
+//		}
 /*
 		//if the user just clicked on an arms dealer
 		if( IsMercADealer( MercPtrs[ ubSoldierID ]->ubProfile ) )

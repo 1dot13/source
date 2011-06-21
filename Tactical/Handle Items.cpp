@@ -4206,12 +4206,15 @@ void SoldierGiveItemFromAnimation( SOLDIERTYPE *pSoldier )
 		}
 		else
 		{
+			//CHRISL: The item we're handing over potentially came from an inventory slot but was placed into the cursor.  So why are we deleting any remaining
+			//	items left in the inventory slot we started from.  When we moved the item from a stack into the cursor, we created a seperate stack and it's this
+			//	new stack we should be exclusively working with.  Not the stack we took items from.
 			// Erase!
-			if ( bInvPos != NO_SLOT )
-			{
-				DeleteObj(&pSoldier->inv[ bInvPos ]);
-				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
-			}
+//			if ( bInvPos != NO_SLOT )
+//			{
+//				DeleteObj(&pSoldier->inv[ bInvPos ]);
+//				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+//			}
 
 			// Now intiate conv
 			InitiateConversation( pTSoldier, pSoldier, APPROACH_GIVINGITEM, (INT32)&gTempObject );
