@@ -4012,8 +4012,10 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if ( gfLastBoxingMatchWonByPlayer && !BoxerAvailable() )
 				{
 					TriggerNPCRecord( KINGPIN, 15 );
+					
+					// WANNE: Disabled the quest reward points, because the whole team gets experience points too fast when doing some boxing
 					// SANDRO - merc records - quest counter (Kingpin impressed)
-					GiveQuestRewardPoint( gWorldSectorX, gWorldSectorY, 4, NO_PROFILE );
+					//GiveQuestRewardPoint( gWorldSectorX, gWorldSectorY, 4, NO_PROFILE );
 				}
 				break;
 
