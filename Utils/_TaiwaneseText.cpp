@@ -4051,6 +4051,7 @@ STR16			MercHomePageText[] =
 	L"To view files press here",
 	// The version number on the video conferencing system that pops up when Speck is talking
 	L"Speck Com v3.2",
+	L"Transfer failed. No funds available.",	// TODO.Translate
 };
 
 // For use at MiGillicutty's Web Page.

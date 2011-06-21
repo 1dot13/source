@@ -3966,7 +3966,8 @@ STR16 MercHomePageText[] =
 	L"Hier klicken, um das Konto einzusehen",
 	L"Hier klicken, um Dateien einzusehen.",
 	// The version number on the video conferencing system that pops up when Speck is talking
-	L"Speck Com v3.2", 
+	L"Speck Com v3.2",
+	L"Transfer fehlgeschlagen. Kein Geld vorhanden.",
 };
 
 // For use at MiGillicutty's Web Page.

@@ -347,7 +347,7 @@ void HandleMercsAccount()
 	{
 		gfMercPlayerDoesntHaveEnoughMoney_DisplayWarning = FALSE;
 
-		DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, L"Transfer failed.	No funds available.", LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, MercHomePageText[MERC_NO_FUNDS_TRANSFER_FAILED], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 	}
 }
 
