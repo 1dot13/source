@@ -553,6 +553,8 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 
 	iSkill -= GetSkillCheckPenaltyForFatigue( pSoldier, iSkill );
 
+	iChance = iSkill + bChanceMod;
+
 	////////////////////////////////////////////////////////////////////////
 	// SANDRO - STOMP - character traits and disabilities modifiers
 
@@ -634,9 +636,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 
 	// CHRISL: If lock is flagged OPENING_NOT_POSSIBLE, then reset iChance to 0 regardless of mercs skills.  Also, moved this check to after personality and
 	//	disability checks since an unopenable door isn't going to suddenly be openable just cause we have some other bonus.
-	if(bChanceMod != -100)
-		iChance = iSkill + bChanceMod;
-	else
+	if(bChanceMod == -100)
 		iChance = 0;
 
 	// silversurfer: moved this down here where it belongs
