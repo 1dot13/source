@@ -4346,7 +4346,7 @@ void HandleClientConnectionLost()
 
 		if (wcscmp(gszDisconnectReason,L"")==0)
 		{
-			UINT32 giMPHMessageBox = DoMessageBox(	MSG_BOX_BASIC_STYLE,	(recieved_settings ? MPClientMessage[48] : MPClientMessage[55] ),	guiCurrentScreen, ( UINT16 ) ( MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT ),disconnected_callback,	&CenteringRect );
+			UINT32 giMPHMessageBox = DoMessageBox(	MSG_BOX_BASIC_STYLE,	MPClientMessage[48],	guiCurrentScreen, ( UINT16 ) ( MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT ),disconnected_callback,	&CenteringRect );
 		}
 		else
 		{

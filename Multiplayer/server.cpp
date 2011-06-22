@@ -1018,9 +1018,15 @@ void start_server (void)
 		ScreenMsg( FONT_ORANGE, MSG_MPSYSTEM, MPServerMessage[0] );
 
 		server=RakNetworkFactory::GetRakPeerInterface();
+		
+		// WANNE: Set higher timeout than default (30 seconds)
+		server->SetTimeoutTime(120000, UNASSIGNED_SYSTEM_ADDRESS);	// 120 Seconds
+
+
 		bool b = server->Startup(gMaxClients, 30, &SocketDescriptor(serverPort,0), 1);
 
 		server->SetMaximumIncomingConnections((gMaxClients));
+		server->SetOccasionalPing(true);
 
 		//RPC's
 		REGISTER_STATIC_RPC(server, sendPATH);
