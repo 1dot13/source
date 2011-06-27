@@ -1857,14 +1857,14 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Autoresolve battles: %d\n",
 	L"Times retreated: %d\n",
 	L"Ambushes experienced: %d\n",
-	L"Hardes battle: %d Enemies\n",
+	L"Hardest battle: %d Enemies\n",
 
 	L"Shot: %d\n",
 	L"Stabbed: %d\n",
 	L"Punched: %d\n",
 	L"Blasted: %d\n",
 	L"Suffered damages in facilities: %d\n",
-	L"Surgeries undergoed: %d\n",
+	L"Surgeries undergone: %d\n",
 	L"Facility accidents: %d\n",
 
 	L"Character:",

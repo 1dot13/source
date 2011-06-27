@@ -1865,7 +1865,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Пропущенных ударов: %d\n",
 	L"Подорвался: %d\n",
 	L"Ухудшений параметров: %d\n",
-	L"Перенёс мед. вмешательств: %d\n",	//Surgeries Undergoed
+	L"Перенёс мед. вмешательств: %d\n",	//Surgeries undergone
 	L"Травм на производстве: %d\n",	//Facility Accidents
 
 	L"Характер:",
