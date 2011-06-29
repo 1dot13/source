@@ -1561,6 +1561,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						gfCameDirectlyFromGame = TRUE;
 
 						guiPreviousOptionScreen = GAME_SCREEN;
+						
+						// cancel, the player can move when it is not its turn!
 						//Heinz: 28.02.09 BUGFIX: player doesn't need to see save/load screen
 						//LeaveTacticalScreen( SAVE_LOAD_SCREEN );
 						DoQuickLoad();
@@ -1568,6 +1570,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else if( InputEvent.usKeyState & CTRL_DOWN )
 				{
+					// WANNE: Do not allow saving via the save screen when it is not our turn,
+					// because there is an explit when you close the save window without saving, you can move your merc even it is not your turn
+					// IF UI HAS LOCKED, ONLY ALLOW EXIT!
+					if ( gfDisableRegionActive || gfUserTurnRegionActive )
+					{
+						continue;
+					}
+
 					if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
 					{
 						gfSaveGame = FALSE;
@@ -3816,6 +3826,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 					else if( !fDisableMapInterfaceDueToBattle && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) && !is_networked)
 					{
+						// WANNE: Do not allow saving via the save screen when it is not our turn,
+						// because there is an explit when you close the save window without saving, you can move your merc even it is not your turn
+						// IF UI HAS LOCKED, ONLY ALLOW EXIT!
+						if ( gfDisableRegionActive || gfUserTurnRegionActive )
+						{
+							continue;
+						}
+
 						//if the game CAN be saved
 						if( CanGameBeSaved() )
 						{
