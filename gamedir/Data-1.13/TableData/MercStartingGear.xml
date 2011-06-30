@@ -2641,11 +2641,11 @@
 			<mWeaponStatus>90</mWeaponStatus>
 			<mBig0>77</mBig0>
 			<mBig0Status>100</mBig0Status>
-			<mBig0Quantity>0</mBig0Quantity>
+			<mBig0Quantity>3</mBig0Quantity>
 			<mBig0Drop>0</mBig0Drop>
 			<mBig1>202</mBig1>
 			<mBig1Status>100</mBig1Status>
-			<mBig1Quantity>0</mBig1Quantity>
+			<mBig1Quantity>1</mBig1Quantity>
 			<mBig1Drop>0</mBig1Drop>
 			<mBig2>0</mBig2>
 			<mBig2Status>0</mBig2Status>
