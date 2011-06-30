@@ -615,65 +615,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		if(!ReadInSectorNames(fileName,TRUE,0))
 			return FALSE;
 	}
-#endif
-
-	// moved to lua
-	//strcpy(fileName, directoryName);
-	//strcat(fileName, SECTORLEVEL1NAMESFILENAME);
-	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	//SGP_THROW_IFFALSE(ReadInSectorNames(fileName,FALSE,1), SECTORLEVEL1NAMESFILENAME);
-	//
-	//#ifndef ENGLISH
-	//AddLanguagePrefix(fileName);
-	//if ( FileExists(fileName) )
-	//{
-	//	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	//	if(!ReadInSectorNames(fileName,TRUE,1))
-	//		return FALSE;
-	//}
-	//#endif
-
-	//strcpy(fileName, directoryName);
-	//strcat(fileName, SECTORLEVEL2NAMESFILENAME);
-	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	//SGP_THROW_IFFALSE(ReadInSectorNames(fileName,FALSE,2), SECTORLEVEL2NAMESFILENAME);
-	//
-	//#ifndef ENGLISH
-	//AddLanguagePrefix(fileName);
-	//if ( FileExists(fileName) )
-	//{
-	//	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	//	if(!ReadInSectorNames(fileName,TRUE,2))
-	//		return FALSE;
-	//}
-	//#endif
-
-	//strcpy(fileName, directoryName);
-	//strcat(fileName, SECTORLEVEL3NAMESFILENAME);
-	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	//SGP_THROW_IFFALSE(ReadInSectorNames(fileName,FALSE,3), SECTORLEVEL3NAMESFILENAME);
-	//
-	//#ifndef ENGLISH
-	//AddLanguagePrefix(fileName);
-	//if ( FileExists(fileName) )
-	//{
-	//	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	//	if(!ReadInSectorNames(fileName,TRUE,3))
-	//		return FALSE;
-	//}
-	//#endif
-
-	
-	// code duplication?
-#ifndef ENGLISH
-	AddLanguagePrefix(fileName);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInSectorNames(fileName,TRUE,0))
-			return FALSE;
-	}
-#endif
+#endif	
 
 	// WANNE: Why do we need it. It should also run without that file!!
 	// SANDRO - always initialize those files, we need it on game start
