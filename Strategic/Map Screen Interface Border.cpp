@@ -139,9 +139,6 @@ void LevelMarkerBtnCallback(MOUSE_REGION * pRegion, INT32 iReason );
 
 void CommonBtnCallbackBtnDownChecks( void );
 
-void DrawTextOnMapBorder( void );
-
-
 /*
 void BtnScrollNorthMapScreenCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnScrollSouthMapScreenCallback( GUI_BUTTON *btn,INT32 reason );
@@ -150,31 +147,6 @@ void BtnScrollEastMapScreenCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnLowerLevelBtnCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnRaiseLevelBtnCallback(GUI_BUTTON *btn,INT32 reason);
 */
-
-void DrawTextOnMapBorder( void )
-{
-	INT16 sX = 0, sY = 0;
-	CHAR16 sString[ 64 ];
-
-	// parse the string
-	swprintf( sString, zMarksMapScreenText[ 24 ] );
-
-	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-
-	//FindFontCenterCoordinates( MAP_INV_X_OFFSET + MAP_INVENTORY_POOL_SLOT_START_X, MAP_INVENTORY_POOL_SLOT_START_Y - 20,	630 - MAP_INVENTORY_POOL_SLOT_START_X, GetFontHeight( FONT14ARIAL ), sString, FONT14ARIAL, &sX, &sY );
-
-	FindFontCenterCoordinates( 271, 18, SCREEN_WIDTH - 271, GetFontHeight( FONT14ARIAL ), sString, FONT14ARIAL, &sX, &sY );
-
-	SetFont( FONT14ARIAL );
-	SetFontForeground( FONT_WHITE );
-	SetFontBackground( FONT_BLACK );
-
-	mprintf( sX, sY, sString );
-
-	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-
-}
-
 
 BOOLEAN LoadMapBorderGraphics( void )
 {
@@ -256,11 +228,6 @@ void RenderMapBorder( void )
 		BltVideoObject( guiSAVEBUFFER , hHandle, 0, MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
 	}
 
-	if (iResolution == 1 || iResolution == 2)
-	{
-		DrawTextOnMapBorder();
-	}
-
 	RestoreExternBackgroundRect( MAP_BORDER_X, MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X, SCREEN_HEIGHT );
 
 	// show the level marker
@@ -325,13 +292,31 @@ void RenderMapBorderEtaPopUp( void )
 	// get and blt ETA box
 	GetVideoObject(&hHandle, guiMapBorderEtaPopUp );
 
-	/*BltVideoObject( FRAME_BUFFER , hHandle, 0, MAP_BORDER_X + 215, 291, VO_BLT_SRCTRANSPARENCY,NULL );
+	UINT16 offsetX = 0;
+	UINT16 offsetY = 0;
+	UINT16 offsetBorderY = 0;
 
-	InvalidateRegion( MAP_BORDER_X + 215, 291, MAP_BORDER_X + 215 + 100 , 310);*/
+	if (iResolution == 0)
+	{
+		offsetX = 215;
+		offsetY = 291;
+		offsetBorderY = offsetY + 19;
+	}
+	else if (iResolution == 1)
+	{
+		offsetX = 215 + 80;
+		offsetY = 291 + 120;
+		offsetBorderY = offsetY + 19;
+	}
+	else if (iResolution == 2)
+	{
+		offsetX = 215 + 180;
+		offsetY = 291 + 285;
+		offsetBorderY = offsetY + 19;
+	}
 
-	BltVideoObject( FRAME_BUFFER , hHandle, 0, MAP_BORDER_X + MAP_BORDER_X_OFFSET + 215, MAP_BORDER_Y_OFFSET + 291, VO_BLT_SRCTRANSPARENCY,NULL );
-
-	InvalidateRegion( MAP_BORDER_X + MAP_BORDER_X_OFFSET + 215, MAP_BORDER_Y_OFFSET + 291, MAP_BORDER_X + MAP_BORDER_X_OFFSET + 215 + 100 , MAP_BORDER_Y_OFFSET + 310);
+	BltVideoObject( FRAME_BUFFER , hHandle, 0, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, VO_BLT_SRCTRANSPARENCY,NULL );
+	InvalidateRegion( MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX + 100 , MAP_BORDER_Y_OFFSET + offsetBorderY);
 
 	return;
 }
@@ -1884,23 +1869,25 @@ void MapBorderButtonOn( UINT8 ubBorderButtonIndex )
 // HEADROCK HAM 4: Init the coordinates for all Map Border buttons
 void InitMapBorderButtonCoordinates()
 {
+	UINT32 buttonOffset = 155;	// 160
+
 	MAP_BORDER_TOWN_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 152);
-	MAP_BORDER_TOWN_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_TOWN_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
 	MAP_BORDER_MINE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 109);
-	MAP_BORDER_MINE_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_MINE_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
 	MAP_BORDER_TEAMS_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 66);
-	MAP_BORDER_TEAMS_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_TEAMS_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
 	MAP_BORDER_AIRSPACE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 20);
-	MAP_BORDER_AIRSPACE_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_AIRSPACE_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
 	MAP_BORDER_ITEM_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 63);
-	MAP_BORDER_ITEM_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_ITEM_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
 	MAP_BORDER_MILITIA_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 23);
-	MAP_BORDER_MILITIA_BTN_Y = (SCREEN_HEIGHT - 160);
+	MAP_BORDER_MILITIA_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
 	MAP_BORDER_MOBILE_BTN_X = 0;
 	MAP_BORDER_MOBILE_BTN_Y = 0;
 
 	MAP_LEVEL_MARKER_X = (MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 114));
-	MAP_LEVEL_MARKER_Y = (SCREEN_HEIGHT - 160);						//(SCREEN_HEIGHT - 157)		//323
+	MAP_LEVEL_MARKER_Y = (SCREEN_HEIGHT - buttonOffset);						//(SCREEN_HEIGHT - 157)		//323
 	MAP_LEVEL_MARKER_DELTA = 8;
 	MAP_LEVEL_MARKER_WIDTH = 55;	//( (SCREEN_WIDTH - 20) - MAP_LEVEL_MARKER_X )
 
@@ -1908,7 +1895,7 @@ void InitMapBorderButtonCoordinates()
 	{
 		// Mobile button appears next to Militia button.
 		MAP_BORDER_MOBILE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 16);
-		MAP_BORDER_MOBILE_BTN_Y = (SCREEN_HEIGHT - 160);
+		MAP_BORDER_MOBILE_BTN_Y = (SCREEN_HEIGHT - buttonOffset);
 
 		// Airspace, Items, ZLevel buttons all moved to the right (+22px, +22px, +10px).
 		MAP_BORDER_AIRSPACE_BTN_X = MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 42);

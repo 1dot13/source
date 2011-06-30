@@ -15,6 +15,8 @@ void GetScreenXYFromMapXY( INT16 sMapX, INT16 sMapY, INT16 *psX, INT16 *psY );
 void GetScreenXYFromMapXYStationary( INT16 sMapX, INT16 sMapY, INT16 *psX, INT16 *psY );
 
 BOOLEAN InitializePalettesForMap( void );
+void InitializeMilitiaPopup(void);
+
 void ShutDownPalettesForMap( void );
 
 // plot path for helicopter
@@ -145,9 +147,7 @@ enum {
 };
 
 
-// size of squares on the map
-#define			MAP_GRID_X						21
-#define			MAP_GRID_Y						18
+
 
 
 // scroll bounds
@@ -160,28 +160,45 @@ enum {
 #define MAP_BORDER_X						261
 #define MAP_BORDER_Y						0
 
+// size of squares on the map
+extern UINT16	MAP_GRID_X;
+extern UINT16	MAP_GRID_Y;
 
-// WANNE: The offset of the map border
-#define MAP_BORDER_X_OFFSET					(((SCREEN_WIDTH - 261) - 380) / 2)
-#define MAP_BORDER_Y_OFFSET					(((SCREEN_HEIGHT - 121) - 360) / 2)
+extern UINT16	MAP_BORDER_X_OFFSET;
+extern UINT16	MAP_BORDER_Y_OFFSET;
 
-// WANNE: The map view region (map image pcx)
-#define			MAP_VIEW_START_X			(MAP_BORDER_X + MAP_BORDER_X_OFFSET + 9)
-#define			MAP_VIEW_START_Y			(MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 10)
-#define			MAP_VIEW_WIDTH				336
-#define			MAP_VIEW_HEIGHT				298
+extern UINT16	MAP_VIEW_START_X;
+extern UINT16	MAP_VIEW_START_Y;
+extern UINT16	MAP_VIEW_WIDTH;
+extern UINT16	MAP_VIEW_HEIGHT;
 
-//#define			MAP_VIEW_START_X			270
-//#define			MAP_VIEW_START_Y			10
-//#define			MAP_VIEW_WIDTH				336
-//#define			MAP_VIEW_HEIGHT				298
+extern INT32	MAP_FONT;
+
+extern UINT16	MAP_HORT_INDEX_X;
+extern UINT16	MAP_HORT_INDEX_Y;
+extern UINT16	MAP_HORT_HEIGHT;
+extern UINT16	MAP_VERT_INDEX_X;
+extern UINT16	MAP_VERT_INDEX_Y;
+extern UINT16	MAP_VERT_WIDTH;
+
+// Helicopter eta popup position
+extern UINT16 MAP_HELICOPTER_ETA_POPUP_X;
+extern UINT16 MAP_HELICOPTER_ETA_POPUP_Y;
+extern UINT16 MAP_HELICOPTER_UPPER_ETA_POPUP_Y;
+extern UINT16 MAP_HELICOPTER_ETA_POPUP_WIDTH;
+extern UINT16 MAP_HELICOPTER_ETA_POPUP_HEIGHT;
+
+// sublevel text string position
+extern UINT16 MAP_LEVEL_STRING_X;
+extern UINT16 MAP_LEVEL_STRING_Y;
+
 
 // zoomed in grid sizes
 #define	 MAP_GRID_ZOOM_X		MAP_GRID_X*2
 #define	 MAP_GRID_ZOOM_Y		MAP_GRID_Y*2
 
 // number of units wide
-#define	 WORLD_MAP_X			18
+#define	 WORLD_MAP_X			18	// WANNE: 18 darf nicht geändert werden!
 
 // dirty regions for the map
 #define			DMAP_GRID_X						( MAP_GRID_X + 1 )

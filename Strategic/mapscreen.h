@@ -64,7 +64,6 @@ void ReBuildCharactersList( void );
 // WANNE - BMP: Initialize world size for a multiplayer game
 void InitializeWorldSize( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ );
 
-BOOLEAN HandlePreloadOfMapGraphics( void );
 void HandleRemovalOfPreLoadedMapGraphics( void );
 
 void ChangeSelectedMapSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ );

@@ -53,6 +53,46 @@
 #include "Facilities.h"
 #include "MilitiaSquads.h"
 
+UINT16	MAP_GRID_X;
+UINT16  MAP_GRID_Y;
+
+UINT16	MAP_BORDER_X_OFFSET;
+UINT16	MAP_BORDER_Y_OFFSET;
+
+UINT16	MAP_VIEW_START_X;
+UINT16	MAP_VIEW_START_Y;
+UINT16	MAP_VIEW_WIDTH;
+UINT16	MAP_VIEW_HEIGHT;
+
+
+INT32	MAP_FONT;
+// x start of hort index
+UINT16	MAP_HORT_INDEX_X;
+// y position of hort index
+UINT16	MAP_HORT_INDEX_Y;
+// height of hort index
+UINT16 MAP_HORT_HEIGHT;
+
+// The letters on the left side of the map
+// vert index start x
+UINT16 MAP_VERT_INDEX_X;
+// vert index start y
+UINT16 MAP_VERT_INDEX_Y;
+// vert width
+UINT16 MAP_VERT_WIDTH;
+
+// Helicopter eta popup position
+UINT16 MAP_HELICOPTER_ETA_POPUP_X;
+UINT16 MAP_HELICOPTER_ETA_POPUP_Y;
+UINT16 MAP_HELICOPTER_UPPER_ETA_POPUP_Y;
+UINT16 MAP_HELICOPTER_ETA_POPUP_WIDTH;
+UINT16 MAP_HELICOPTER_ETA_POPUP_HEIGHT;
+
+// sublevel text string position
+UINT16 MAP_LEVEL_STRING_X;
+UINT16 MAP_LEVEL_STRING_Y;
+
+
 // zoom x and y coords for map scrolling
 INT32 iZoomX = 0;
 INT32 iZoomY = 0;
@@ -83,45 +123,15 @@ INT32 iZoomY = 0;
 #define HORT_SCROLL 14
 #define VERT_SCROLL 10
 
-// the pop up for helicopter stuff
-#define MAP_HELICOPTER_ETA_POPUP_X				(400 + iScreenWidthOffset)
-#define MAP_HELICOPTER_ETA_POPUP_Y				(250 + iScreenHeightOffset)
-#define MAP_HELICOPTER_UPPER_ETA_POPUP_Y		(50 + iScreenHeightOffset)
-#define MAP_HELICOPTER_ETA_POPUP_WIDTH			120
-#define MAP_HELICOPTER_ETA_POPUP_HEIGHT			68
-
-#define MAP_LEVEL_STRING_X						(SCREEN_WIDTH - 208)		//432
-#define MAP_LEVEL_STRING_Y						(SCREEN_HEIGHT - 175)		//305
-
 // font
-#define MAP_FONT BLOCKFONT2
+//#define MAP_FONT BLOCKFONT2
+// ----------------------
 
 // index color
 #define MAP_INDEX_COLOR 32*4-9
 
 // max number of sectors viewable
 #define MAX_VIEW_SECTORS	  16
-
-
-//Map Location index regions
-
-
-// WANNE: The numbers above the map
-// x start of hort index
-#define MAP_HORT_INDEX_X						(MAP_BORDER_X + MAP_BORDER_X_OFFSET + 31)//(SCREEN_WIDTH - 348)	//292
-// y position of hort index
-#define MAP_HORT_INDEX_Y						(MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 8)
-// height of hort index
-#define MAP_HORT_HEIGHT							GetFontHeight(MAP_FONT)
-
-
-// WANNE: The letters on the left side of the map)
-// vert index start x
-#define MAP_VERT_INDEX_X						(MAP_BORDER_X + MAP_BORDER_X_OFFSET + 13)		//(SCREEN_WIDTH - 367) // 273
-// vert index start y
-#define MAP_VERT_INDEX_Y						(MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 29)
-// vert width
-#define MAP_VERT_WIDTH							GetFontHeight(MAP_FONT)
 
 
 // "Boxes" Icons
@@ -136,12 +146,8 @@ INT32 iZoomY = 0;
 #define SMALL_QUESTION_MARK		8
 #define BIG_QUESTION_MARK			9
 
-
 #define MERC_ICONS_PER_LINE 6
 #define ROWS_PER_SECTOR			5
-
-#define MAP_X_ICON_OFFSET   2
-#define MAP_Y_ICON_OFFSET   1
 
 // Arrow Offsets
 #define UP_X				13
@@ -295,6 +301,8 @@ UINT32 guiCHARICONS;
 // the merc arrival sector landing zone icon
 UINT32 guiBULLSEYE;
 
+UINT16 MAP_MILITIA_BOX_POS_X;
+UINT16 MAP_MILITIA_BOX_POS_Y;
 
 // the max allowable towns militia in a sector
 #define MAP_MILITIA_MAP_X 4
@@ -304,8 +312,8 @@ UINT32 guiBULLSEYE;
 #define MILITIA_BOX_ROWS 3
 #define MILITIA_BOX_BOX_HEIGHT 36
 #define MILITIA_BOX_BOX_WIDTH 42
-#define MAP_MILITIA_BOX_POS_X 400
-#define MAP_MILITIA_BOX_POS_Y 125
+
+
 
 #define POPUP_MILITIA_ICONS_PER_ROW 5				// max 6 rows gives the limit of 30 militia
 #define MEDIUM_MILITIA_ICON_SPACING 5
@@ -445,10 +453,14 @@ INT16 gpSamSectorY[ MAX_NUMBER_OF_SAMS ];
 extern BOOLEAN fSamSiteFoundOrig[ MAX_NUMBER_OF_SAMS ];
 
 // map region
+/*
 SGPRect MapScreenRect={	(MAP_VIEW_START_X+MAP_GRID_X - 2),
 						( MAP_VIEW_START_Y+MAP_GRID_Y - 1), 
 						MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X , 
 						MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-10+MAP_GRID_Y};
+*/
+
+SGPRect MapScreenRect;
 
 extern SGPRect gOldClipRect; // symbol already declared globally in renderworld.cpp (jonathanl)
 
@@ -581,7 +593,7 @@ extern void EndConfirmMapMoveMode( void );
 extern BOOLEAN CanDrawSectorCursor( void );
 
 
-
+// This method outputs the numbers (1-16) and letters (A - P)
 void DrawMapIndexBigMap( BOOLEAN fSelectedCursorIsYellow )
 {
 	// this procedure will draw the coord indexes on the zoomed out map
@@ -589,9 +601,7 @@ void DrawMapIndexBigMap( BOOLEAN fSelectedCursorIsYellow )
 	INT32 iCount=0;
 	BOOLEAN fDrawCursors;
 
-
 	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-  //SetFontColors(FONT_FCOLOR_GREEN)
   SetFont(MAP_FONT);
   SetFontForeground(MAP_INDEX_COLOR);
 	// Dk Red is 163
@@ -1110,9 +1120,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen1");
 			}
 
 			// red for low loyalty, green otherwise
-		SetFontForeground( ( UINT8 ) ( fLoyaltyTooLowToTrainMilitia ? FONT_MCOLOR_RED : FONT_MCOLOR_LTGREEN ) );
-
-	  DrawTownLabels(sString, sStringA, usX, usY);
+			SetFontForeground( ( UINT8 ) ( fLoyaltyTooLowToTrainMilitia ? FONT_MCOLOR_RED : FONT_MCOLOR_LTGREEN ) );
+			DrawTownLabels(sString, sStringA, usX, usY);
 		}
 	}
 }
@@ -1306,13 +1315,29 @@ void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies
 	}
 }
 
-
-
 void ShowUncertainNumberEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 {
 	INT16 sXPosition = 0, sYPosition = 0;
 	HVOBJECT hIconHandle;
 
+	UINT8 iconOffsetX = 0;
+	UINT8 iconOffsetY = 0;
+	
+	if (iResolution == 0)
+	{
+		iconOffsetX = 2;
+		iconOffsetY = 1;
+	}
+	else if (iResolution == 1)
+	{
+		iconOffsetX = 8;
+		iconOffsetY = 12;
+	}
+	else if (iResolution == 2)
+	{
+		iconOffsetX = 12;
+		iconOffsetY = 13;
+	}
 
 	// grab the x and y postions
 	sXPosition = sSectorX;
@@ -1324,8 +1349,8 @@ void ShowUncertainNumberEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	// check if we are zoomed in...need to offset in case for scrolling purposes
 	if(!fZoomFlag)
 	{
-		sXPosition = ( INT16 )( MAP_X_ICON_OFFSET + ( MAP_VIEW_START_X + ( sSectorX * MAP_GRID_X + 1 )  ) - 1 );
-		sYPosition = ( INT16 )( ( ( MAP_VIEW_START_Y + ( sSectorY * MAP_GRID_Y ) + 1 )  ) );
+		sXPosition = ( INT16 )( iconOffsetX + ( MAP_VIEW_START_X + ( sSectorX * MAP_GRID_X + 1 )  ) - 1 );
+		sYPosition = ( INT16 )( ( ( iconOffsetY + ( sSectorY * MAP_GRID_Y ) + 1 )  ) );
 		sYPosition -= 2;
 
 		// small question mark
@@ -1436,7 +1461,7 @@ BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor )
 		sScreenX += 1;
 
 		// compensate for original BIG_MAP blit being done at MAP_VIEW_START_X + 1
-	clip.iLeft = 2 * ( sScreenX - ( MAP_VIEW_START_X + 1 ) );
+		clip.iLeft = 2 * ( sScreenX - ( MAP_VIEW_START_X + 1 ) );
 		clip.iTop  = 2 * ( sScreenY - MAP_VIEW_START_Y );
 		clip.iRight  = clip.iLeft + ( 2 * MAP_GRID_X );
 		clip.iBottom = clip.iTop  + ( 2 * MAP_GRID_Y );
@@ -1925,6 +1950,25 @@ BOOLEAN ShadeMapElemZoomIn(INT16 sMapX, INT16 sMapY, INT32 iColor )
 	return ( TRUE );
 }
 
+void InitializeMilitiaPopup(void)
+{
+	// WANNE.MAP.TODO:
+	if (iResolution == 0)
+	{
+		MAP_MILITIA_BOX_POS_X = 400;
+		MAP_MILITIA_BOX_POS_Y = 125;
+	}
+	else if (iResolution == 1)
+	{
+		MAP_MILITIA_BOX_POS_X = 400 + 77;
+		MAP_MILITIA_BOX_POS_Y = 125 + 116;
+	}
+	else if (iResolution == 2)
+	{
+		MAP_MILITIA_BOX_POS_X = 400 + 190;
+		MAP_MILITIA_BOX_POS_Y = 125 + 285;
+	}
+}
 
 BOOLEAN InitializePalettesForMap( void )
 {
@@ -1936,7 +1980,14 @@ BOOLEAN InitializePalettesForMap( void )
 
 	// load image
 	vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
- 	strcpy(vs_desc.ImageFile, "INTERFACE\\b_map.pcx");
+
+	if (iResolution == 0)
+ 		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map.pcx");
+	else if (iResolution == 1)
+		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_800x600.pcx");
+	else if (iResolution == 2)
+		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_1024x768.pcx");
+
   CHECKF(AddVideoSurface(&vs_desc, &uiTempMap));
 
 	// get video surface
@@ -4328,6 +4379,24 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 		return;
 	}
 
+	UINT8 iconOffsetX = 0;
+	UINT8 iconOffsetY = 0;
+	
+	if (iResolution == 0)
+	{
+		iconOffsetX = 2;
+		iconOffsetY = 1;
+	}
+	else if (iResolution == 1)
+	{
+		iconOffsetX = 3;
+		iconOffsetY = 2;
+	}
+	else if (iResolution == 2)
+	{
+		iconOffsetX = 4;
+		iconOffsetY = 3;
+	}
 
 	// show the icons for people in motion from this sector to the next guy over
 	for( iCounter = 0; iCounter < 4; iCounter++ )
@@ -4479,7 +4548,7 @@ void ShowPeopleInMotion( INT16 sX, INT16 sY )
 				if(!fZoomFlag)
 				{
 					iX = MAP_VIEW_START_X+( iX * MAP_GRID_X ) + sOffsetX;
-					iY = MAP_Y_ICON_OFFSET + MAP_VIEW_START_Y + ( iY * MAP_GRID_Y ) + sOffsetY;
+					iY = iconOffsetY + MAP_VIEW_START_Y + ( iY * MAP_GRID_Y ) + sOffsetY;
 
 					BltVideoObject(guiSAVEBUFFER, hIconHandle, ( UINT16 )iCounter , ( INT16 ) iX, ( INT16 ) iY , VO_BLT_SRCTRANSPARENCY, NULL );
 				}
@@ -4771,6 +4840,13 @@ void DisplayPositionOfHelicopter( void )
 			ClipBlitsToMapViewRegion( );
 
 			GetVideoObject( &hHandle, guiHelicopterIcon );
+
+			if (iResolution > 0)
+			{
+				x = x + (MAP_GRID_X / 2) - 10;
+				y = y + 1 + (MAP_GRID_Y / 2) - 10;
+			}
+
 			BltVideoObject( FRAME_BUFFER, hHandle, HELI_ICON, x, y, VO_BLT_SRCTRANSPARENCY, NULL );
 
 			// now get number of people and blit that too
@@ -4834,6 +4910,13 @@ void DisplayDestinationOfHelicopter( void )
 
 		GetVideoObject( &hHandle, guiHelicopterIcon );
 		BltVideoObject( FRAME_BUFFER, hHandle, HELI_SHADOW_ICON, x, y, VO_BLT_SRCTRANSPARENCY, NULL );
+
+		if (iResolution > 0)
+		{
+			x = x + (MAP_GRID_X / 2) - 10;
+			y = y + 1 + (MAP_GRID_Y / 2) - 10;
+		}
+
 		InvalidateRegion( x, y, x + HELI_SHADOW_ICON_WIDTH, y + HELI_SHADOW_ICON_HEIGHT );
 
 		RestoreClipRegionToFullScreen( );
@@ -5408,7 +5491,14 @@ BOOLEAN LoadMilitiaPopUpBox( void )
 
 	// load the militia pop up box
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\Militia.sti", VObjectDesc.ImageFile);
+
+	if (iResolution == 0)
+		FilenameForBPP("INTERFACE\\Militia.sti", VObjectDesc.ImageFile);
+	else if (iResolution == 1)
+		FilenameForBPP("INTERFACE\\Militia_800x600.sti", VObjectDesc.ImageFile);
+	else if (iResolution == 2)
+		FilenameForBPP("INTERFACE\\Militia_1024x768.sti", VObjectDesc.ImageFile);
+
 	CHECKF(AddVideoObject(&VObjectDesc, &guiMilitia));
 
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -5438,13 +5528,10 @@ void RemoveMilitiaPopUpBox( void )
 	return;
 }
 
-
-
 BOOLEAN DrawMilitiaPopUpBox( void )
 {
 	HVOBJECT						hVObject;
 	ETRLEObject						*pTrav;
-
 
 	if( !fShowMilitia )
 	{
@@ -5555,7 +5642,6 @@ void CreateDestroyMilitiaPopUPRegions( void )
 
 	return;
 }
-
 
 void RenderIconsPerSectorForSelectedTown( void )
 {
@@ -5804,7 +5890,12 @@ void CreateDestroyMilitiaSectorButtons( void )
 			sY += ( iCounter * ( MILITIA_BTN_HEIGHT ) + 2 );
 
 			// set the button image
-			giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,3,-1,4,-1 );
+			if (iResolution == 0)
+				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia.sti", -1,3,-1,4,-1 );
+			else if (iResolution == 1)
+				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti", -1,3,-1,4,-1 );
+			else if (iResolution == 2)
+				giMapMilitiaButtonImage[ iCounter ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti", -1,3,-1,4,-1 );
 
 			// set the button value
 			giMapMilitiaButton[ iCounter ] = QuickCreateButton( giMapMilitiaButtonImage[ iCounter ], sX, sY,
@@ -6267,9 +6358,21 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 void CreateMilitiaPanelBottomButton( void )
 {
 	// set the button image
-	giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,1,-1,2,-1 );
-	giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,1,-1,2,-1 );
-
+	if (iResolution == 0)
+	{
+		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,1,-1,2,-1 );
+		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia.sti" ,-1,1,-1,2,-1 );
+	}
+	else if (iResolution == 1)
+	{
+		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti" ,-1,1,-1,2,-1 );
+		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia_800x600.sti" ,-1,1,-1,2,-1 );
+	}
+	else if (iResolution == 2)
+	{
+		giMapMilitiaButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti" ,-1,1,-1,2,-1 );
+		giMapMilitiaButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\militia_1024x768.sti" ,-1,1,-1,2,-1 );
+	}
 
 	giMapMilitiaButton[ 3 ] = QuickCreateButton( giMapMilitiaButtonImage[ 3 ], MAP_MILITIA_BOX_POS_X + MAP_MILITIA_BOX_AUTO_BOX_X, MAP_MILITIA_BOX_POS_Y + MAP_MILITIA_BOX_AUTO_BOX_Y,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
@@ -6415,7 +6518,6 @@ void RenderShadingForUnControlledSectors( void )
 
 	return;
 }
-
 
 void DrawTownMilitiaForcesOnMap( void )
 {
@@ -6646,6 +6748,9 @@ void ShadeSubLevelsNotVisited( void )
 
 void HandleLowerLevelMapBlit( void )
 {
+	UINT8 offsetX = 0;
+	UINT8 offsetY = 0;
+
 	HVOBJECT hHandle;
 
 	// blits the sub level maps
@@ -6665,8 +6770,24 @@ void HandleLowerLevelMapBlit( void )
 			return;
 	}
 
+	if (iResolution == 0)
+	{
+		offsetX = 21;
+		offsetY = 17;
+	}
+	else if (iResolution == 1)
+	{
+		offsetX = 21 + 8;
+		offsetY = 17 + 7;
+	}
+	else if (iResolution == 2)
+	{
+		offsetX = 21 + 21;
+		offsetY = 17 + 17; 
+	}
+
 	// handle the blt of the sublevel
-	BltVideoObject( guiSAVEBUFFER, hHandle, 0,MAP_VIEW_START_X + 21, MAP_VIEW_START_Y + 17, VO_BLT_SRCTRANSPARENCY, NULL );
+	BltVideoObject( guiSAVEBUFFER, hHandle, iResolution, MAP_VIEW_START_X + offsetX, MAP_VIEW_START_Y + offsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 	// handle shading of sublevels
 	ShadeSubLevelsNotVisited( );
@@ -7249,11 +7370,34 @@ void ShowItemsOnMap( void )
 }
 
 
-
 void DrawMapBoxIcon( HVOBJECT hIconHandle, UINT16 usVOIndex, INT16 sMapX, INT16 sMapY, UINT8 ubIconPosition )
 {
   INT32 iRowNumber, iColumnNumber;
 	INT32 iX, iY;
+
+
+	UINT8 iconOffsetX = 0;
+	UINT8 iconOffsetY = 0;
+	UINT8 iconSize = 0;
+	
+	if (iResolution == 0)
+	{
+		iconOffsetX = 2;
+		iconOffsetY = 1;
+		iconSize = 3;
+	}
+	else if (iResolution == 1)
+	{
+		iconOffsetX = 2;
+		iconOffsetY = 1;
+		iconSize = 4;
+	}
+	else if (iResolution == 2)
+	{
+		iconOffsetX = 2;
+		iconOffsetY = 1;
+		iconSize = 6;
+	}
 
 
 	// don't show any more icons than will fit into one sector, to keep them from spilling into sector(s) beneath
@@ -7268,8 +7412,8 @@ void DrawMapBoxIcon( HVOBJECT hIconHandle, UINT16 usVOIndex, INT16 sMapX, INT16 
 
 	if ( !fZoomFlag )
 	{
-		iX = MAP_VIEW_START_X + ( sMapX * MAP_GRID_X ) + MAP_X_ICON_OFFSET + ( 3 * iColumnNumber );
-		iY = MAP_VIEW_START_Y + ( sMapY * MAP_GRID_Y ) + MAP_Y_ICON_OFFSET + ( 3 * iRowNumber );
+		iX = MAP_VIEW_START_X + ( sMapX * MAP_GRID_X ) + iconOffsetX + ( iconSize * iColumnNumber );
+		iY = MAP_VIEW_START_Y + ( sMapY * MAP_GRID_Y ) + iconOffsetY + ( iconSize * iRowNumber );
 
 		BltVideoObject( guiSAVEBUFFER, hIconHandle, usVOIndex , iX, iY, VO_BLT_SRCTRANSPARENCY, NULL );
 		InvalidateRegion( iX, iY, iX + DMAP_GRID_X, iY + DMAP_GRID_Y );
@@ -7376,6 +7520,13 @@ void DrawBullseye()
 
 	// draw the bullseye in that sector
 	GetVideoObject( &hHandle, guiBULLSEYE);
+
+	if (iResolution > 0)
+	{
+		sX = sX + MAP_GRID_X / 2 - 10;
+		sY = sY + 1 + MAP_GRID_Y / 2 - 10;
+	}
+
 	BltVideoObject( guiSAVEBUFFER, hHandle, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 }
 

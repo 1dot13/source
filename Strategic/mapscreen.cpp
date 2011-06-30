@@ -1168,14 +1168,41 @@ BOOLEAN InitializeInvPanelCoordsOld()
 	TIME_REMAINING_X				= 215;
 	TIME_REMAINING_WIDTH			= 243 - TIME_REMAINING_X;
 
-	CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298);
+	if (iResolution == 0)
+	{
+		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298);
 
-	DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463);
-	DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345);
+		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463);
+		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345);
 
-	CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484);
-	CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518);
-	CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538);
+		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484);
+		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518);
+		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538);
+	}
+	else if (iResolution == 1)
+	{
+		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298 + 120);
+
+		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463 + 80);
+		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345 + 120);
+
+		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484 + 80);
+		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518 + 80);
+		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538 + 80);
+	}
+	else if (iResolution == 2)
+	{
+		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298 + 285);
+
+		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463 + 180);
+		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345 + 285);
+
+		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484 + 180);
+		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518 + 180);
+		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538 + 180);
+	}
+
+	// -----------------
 
 	// contract
 	CONTRACT_X						= 185;
@@ -1479,14 +1506,39 @@ BOOLEAN InitializeInvPanelCoordsNew()
 	TIME_REMAINING_X				= 215;
 	TIME_REMAINING_WIDTH			= 243 - TIME_REMAINING_X;
 
-	CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298);
+	if (iResolution == 0)
+	{
+		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298);
 
-	DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463);
-	DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345);
+		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463);
+		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345);
 
-	CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484);
-	CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518);
-	CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538);
+		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484);
+		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518);
+		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538);
+	}
+	else if (iResolution == 1)
+	{
+		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298 + 120);
+
+		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463 + 80);
+		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345 + 120);
+
+		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484 + 80);
+		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518 + 80);
+		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538 + 80);
+	}
+	else if (iResolution == 2)
+	{
+		CLOCK_Y_START					= (MAP_BORDER_Y_OFFSET + 298 + 285);
+
+		DEST_PLOT_X						= (MAP_BORDER_X_OFFSET + 463 + 180);
+		DEST_PLOT_Y						= (MAP_BORDER_Y_OFFSET + 345 + 285);
+
+		CLOCK_ETA_X						= (MAP_BORDER_X_OFFSET + 484 + 180);
+		CLOCK_HOUR_X_START				= (MAP_BORDER_X_OFFSET + 518 + 180);
+		CLOCK_MIN_X_START				= (MAP_BORDER_X_OFFSET + 538 + 180);
+	}
 
 	// contract
 	CONTRACT_X						= 185;
@@ -4334,6 +4386,8 @@ UINT32 MapScreenInit(void)
 
 	// set up leave list arrays for dismissed mercs
 	InitLeaveList( );
+	
+	InitializeMilitiaPopup();
 
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("INTERFACE\\group_confirm.sti", VObjectDesc.ImageFile);
@@ -4499,18 +4553,151 @@ UINT32 MapScreenHandle(void)
 
 		if(fPreLoadedMapGraphics == FALSE )
 		{
+			vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
+		
+			if (iResolution == 0)
+			{
+				// ------------
+				// 336 x 288	(size without the black area on top and left
+				// Important:	The size (including black area on top and left) of the PCX file has to be an even number for width and height,
+				//				otherwise the blitting method which shrinks the image by 50% does not work.
+				// ------------
+				
+				MAP_GRID_X = 21;		// Horizontal size of a square
+				MAP_GRID_Y = 18;		// Vertical size of a square
 
-			// load border graphics
+				MAP_BORDER_X_OFFSET	= (((SCREEN_WIDTH - 261) - 380) / 2);	// 380: Width of the MBS.sti file
+				MAP_BORDER_Y_OFFSET = (((SCREEN_HEIGHT - 121) - 360) / 2);  // 360: Height of the MBS.sti file
+
+				MAP_VIEW_START_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 9);	// 9: Constant, do not change it.
+				MAP_VIEW_START_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 10);	// 10: Constant, do not change it.
+				
+				// Maus Area (Ist die reine Größe der Karte/2 (ohne dem schwarzen Rand (links und oben))
+				MAP_VIEW_WIDTH = 336;			// Width of the map (without the black area on the left)
+				MAP_VIEW_HEIGHT	= 288 + 10;		// Height of the map (without the black area on the top) + constant value of 10
+
+				
+				MAP_FONT = BLOCKFONT2;
+
+				// The postion of the map numbers (1-16) above the map (horizontal)
+				MAP_HORT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 31);
+				MAP_HORT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 11);
+				MAP_HORT_HEIGHT = GetFontHeight(MAP_FONT);
+
+				// The position of the latters (A-P) on the left side of the map (vertical)
+				MAP_VERT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 15);
+				MAP_VERT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 29);
+				
+				MAP_VERT_WIDTH = GetFontHeight(MAP_FONT);
+
+				// Helicopter ETA box
+				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);
+				MAP_HELICOPTER_ETA_POPUP_Y			= (250 + iScreenHeightOffset);
+				MAP_HELICOPTER_UPPER_ETA_POPUP_Y	= (50 + iScreenHeightOffset);
+				MAP_HELICOPTER_ETA_POPUP_WIDTH		= 120;
+				MAP_HELICOPTER_ETA_POPUP_HEIGHT		= 68;
+
+				// Map Level string
+				MAP_LEVEL_STRING_X	= (SCREEN_WIDTH - 208);
+				MAP_LEVEL_STRING_Y	= (SCREEN_HEIGHT - 175);
+
+				strcpy(vs_desc.ImageFile, "INTERFACE\\b_map.pcx");
+			}
+			else if (iResolution == 1)
+			{
+				// ------------
+				// 480 x 400
+				// ------------
+
+				MAP_GRID_X = 30;
+				MAP_GRID_Y = 25;
+
+				MAP_BORDER_X_OFFSET	= (((SCREEN_WIDTH - 261) - 540) / 2);
+				MAP_BORDER_Y_OFFSET = (((SCREEN_HEIGHT - 121) - 480) / 2);
+
+				MAP_VIEW_START_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 9);
+				MAP_VIEW_START_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 10);
+				
+				MAP_VIEW_WIDTH = 480;				
+				MAP_VIEW_HEIGHT	= 400 + 10 + 7;
+
+				// The numbers on the horizontal line
+				MAP_FONT = BLOCKFONT2;
+
+				MAP_HORT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 38);
+				MAP_HORT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 15);
+				MAP_HORT_HEIGHT = GetFontHeight(MAP_FONT);
+
+				MAP_VERT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 19);
+				MAP_VERT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 36);
+				MAP_VERT_WIDTH = GetFontHeight(MAP_FONT);
+
+				// Helicopter ETA box
+				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);
+				MAP_HELICOPTER_ETA_POPUP_Y			= (250 + iScreenHeightOffset + 58);
+				MAP_HELICOPTER_UPPER_ETA_POPUP_Y	= (50 + iScreenHeightOffset - 40);
+				MAP_HELICOPTER_ETA_POPUP_WIDTH		= 120;
+				MAP_HELICOPTER_ETA_POPUP_HEIGHT		= 68;
+
+				// Map Level string
+				MAP_LEVEL_STRING_X	= (SCREEN_WIDTH - 208 - 80);
+				MAP_LEVEL_STRING_Y	= (SCREEN_HEIGHT - 175);
+
+				strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_800x600.pcx");
+			}
+			else if (iResolution == 2)
+			{
+				// ------------
+				// 688 x 560
+				// ------------
+
+				MAP_GRID_X = 43;
+				MAP_GRID_Y = 35;
+
+				MAP_BORDER_X_OFFSET	= (((SCREEN_WIDTH - 261) - 764) / 2);
+				MAP_BORDER_Y_OFFSET = (((SCREEN_HEIGHT - 121) - 648) / 2);
+
+				MAP_VIEW_START_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 9);
+				MAP_VIEW_START_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 10);
+
+				MAP_VIEW_WIDTH = 688;			
+				MAP_VIEW_HEIGHT = 560 + 10 + 17;
+
+				MAP_FONT = BLOCKFONT2;
+
+				MAP_HORT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 53);
+				MAP_HORT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 19);
+				MAP_HORT_HEIGHT = GetFontHeight(MAP_FONT);
+
+				MAP_VERT_INDEX_X = (MAP_BORDER_X + MAP_BORDER_X_OFFSET + 25);
+				MAP_VERT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 47);
+				MAP_VERT_WIDTH = GetFontHeight(MAP_FONT);
+
+				// Helicopter ETA box
+				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);
+				MAP_HELICOPTER_ETA_POPUP_Y			= (250 + iScreenHeightOffset + 140);
+				MAP_HELICOPTER_UPPER_ETA_POPUP_Y	= (50 + iScreenHeightOffset - 100);
+				MAP_HELICOPTER_ETA_POPUP_WIDTH		= 120;
+				MAP_HELICOPTER_ETA_POPUP_HEIGHT		= 68;
+
+				// Map Level string
+				MAP_LEVEL_STRING_X	= (SCREEN_WIDTH - 208 - 187);
+				MAP_LEVEL_STRING_Y	= (SCREEN_HEIGHT - 175);
+
+				strcpy(vs_desc.ImageFile, "INTERFACE\\b_map_1024x768.pcx");
+			}
+
 			LoadMapBorderGraphics( );
 
 		//fInterfacePanelDirty=DIRTYLEVEL2;
 		//RenderTacticalInterface();
-		vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
+		
 		// Grab the Map image
 
-		strcpy(vs_desc.ImageFile, "INTERFACE\\b_map.pcx");
+		
 		CHECKF(AddVideoSurface(&vs_desc, &guiBIGMAP));
 
+		vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
 		strcpy(vs_desc.ImageFile, "INTERFACE\\popupbackground.pcx");
 		CHECKF(AddVideoSurface(&vs_desc, &guiPOPUPTEX));
 
@@ -4598,7 +4785,14 @@ UINT32 MapScreenHandle(void)
 		// CHECKF(AddVideoObject(&VObjectDesc, &guiPOPUPBORDERS));
 
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\boxes.sti", VObjectDesc.ImageFile);
+
+		if (iResolution == 0)
+			FilenameForBPP("INTERFACE\\boxes.sti", VObjectDesc.ImageFile);
+		else if (iResolution == 1)
+			FilenameForBPP("INTERFACE\\boxes_800x600.sti", VObjectDesc.ImageFile);
+		else if (iResolution == 2)
+			FilenameForBPP("INTERFACE\\boxes_1024x768.sti", VObjectDesc.ImageFile);
+
 		CHECKF(AddVideoObject(&VObjectDesc, &guiCHARICONS));
 
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -4682,7 +4876,14 @@ UINT32 MapScreenHandle(void)
 			CHECKF( AddVideoObject( &VObjectDesc, &guiMINEICON ) );
 
 			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-			sprintf( VObjectDesc.ImageFile, "INTERFACE\\hilite.sti" );
+			
+			if (iResolution == 0)
+				sprintf( VObjectDesc.ImageFile, "INTERFACE\\hilite.sti" );
+			else if (iResolution == 1)
+				sprintf( VObjectDesc.ImageFile, "INTERFACE\\hilite_800x600.sti" );
+			else if (iResolution == 2)
+				sprintf( VObjectDesc.ImageFile, "INTERFACE\\hilite_1024x768.sti" );
+			
 			AddVideoObject( &VObjectDesc, &guiSectorLocatorGraphicID );
 
 			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -12625,223 +12826,6 @@ BOOLEAN AnyMercsLeavingRealSoon()
 	}
 
 	return( fFoundOne );
-}
-
-
-
-BOOLEAN HandlePreloadOfMapGraphics( void )
-{
-	// check amt of memory, if above required amt...use it
-	VSURFACE_DESC		vs_desc;
-	VOBJECT_DESC	 VObjectDesc;
-
-	fPreLoadedMapGraphics = TRUE;
-
-	vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
-	strcpy(vs_desc.ImageFile, "INTERFACE\\b_map.pcx");
-	CHECKF(AddVideoSurface(&vs_desc, &guiBIGMAP));
-	//strcpy(vs_desc.ImageFile, "INTERFACE\\popupbackground.pcx");
-	//CHECKF(AddVideoSurface(&vs_desc, &guiPOPUPTEX));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\mapcursr.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiMAPCURSORS));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\SAM.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiSAMICON));
-
-	// VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	// FilenameForBPP("INTERFACE\\s_map.sti", VObjectDesc.ImageFile);
-	// CHECKF( AddVideoObject( &VObjectDesc, &guiMAP ) );
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\mapcursr.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiMAPCURSORS));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\sleepicon.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiSleepIcon));
-
-	//VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	//FilenameForBPP("INTERFACE\\addonslcp.sti", VObjectDesc.ImageFile);
-	//CHECKF(AddVideoObject(&VObjectDesc, &guiCORNERADDONS));
-
-	//VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	//FilenameForBPP("INTERFACE\\mapborder.sti", VObjectDesc.ImageFile);
-	//CHECKF(AddVideoObject(&VObjectDesc, &guiMAPBORDER));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\charinfo.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiCHARINFO));
-	/*strcpy(vs_desc.ImageFile, "INTERFACE\\playlist3.pcx");
-	CHECKF(AddVideoSurface( &vs_desc, &guiCHARLIST ));*/
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	if (!is_networked)
-	{
-		if (iResolution == 0)
-		{
-				FilenameForBPP("INTERFACE\\newgoldpiece3.sti", VObjectDesc.ImageFile );
-		}
-		else if (iResolution == 1)
-		{
-				FilenameForBPP("INTERFACE\\newgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
-		}
-		else if (iResolution == 2)
-		{
-			FilenameForBPP("INTERFACE\\newgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
-		}
-	}
-	else
-	{
-		// OJW - 20081204 - change mapscreen interface for MP games
-		if (iResolution == 0)
-		{
-				FilenameForBPP("INTERFACE\\mpgoldpiece3.sti", VObjectDesc.ImageFile );
-		}
-		else if (iResolution == 1)
-		{
-				FilenameForBPP("INTERFACE\\mpgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
-		}
-		else if (iResolution == 2)
-		{
-			FilenameForBPP("INTERFACE\\mpgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
-		}
-	}
-	CHECKF(AddVideoObject(&VObjectDesc, &guiCHARLIST));
-
-	//VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	//FilenameForBPP("INTERFACE\\mapbordercorner.sti", VObjectDesc.ImageFile);
-	//CHECKF(AddVideoObject(&VObjectDesc, &guiMAPCORNER));
-
-	// VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	// FilenameForBPP("INTERFACE\\popup.sti", VObjectDesc.ImageFile);
-	// CHECKF(AddVideoObject(&VObjectDesc, &guiPOPUPBORDERS));
-
-	// the sublevels
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\Mine_1.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiSubLevel1));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\Mine_2.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiSubLevel2));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\Mine_3.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiSubLevel3));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\boxes.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiCHARICONS));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\incross.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiCROSS));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	if (iResolution == 0)
-	{
-		FilenameForBPP("INTERFACE\\mapinv.sti", VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 1)
-	{
-		FilenameForBPP("INTERFACE\\mapinv_800x600.sti", VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 2)
-	{
-		FilenameForBPP("INTERFACE\\mapinv_1024x768.sti", VObjectDesc.ImageFile);
-	}
-	if(!AddVideoObject(&VObjectDesc, &guiMAPINV))
-	{
-		FilenameForBPP("INTERFACE\\mapinv.sti", VObjectDesc.ImageFile);
-	}
-	CHECKF(AddVideoObject(&VObjectDesc, &guiMAPINV));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\map_inv_2nd_gun_cover.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiMapInvSecondHandBlockout));
-
-	// the upper left corner piece icons
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\top_left_corner_icons.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiULICONS));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\prison.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiTIXAICON));
-
-	HandleLoadOfMapBottomGraphics( );
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\map_item.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiORTAICON));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\mapcursr.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiMAPCURSORS));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\merc_between_sector_icons.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiCHARBETWEENSECTORICONS));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\merc_mvt_green_arrows.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiCHARBETWEENSECTORICONSCLOSE));
-
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\GreenArr.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiLEVELMARKER));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\Helicop.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiHelicopterIcon));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\eta_pop_up.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderEtaPopUp));
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\pos2.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderHeliSectors));
-
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\secondary_gun_hidden.sti", VObjectDesc.ImageFile);
-	CHECKF( AddVideoObject( &VObjectDesc, &guiSecItemHiddenVO ) );
-
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\selectedchararrow.sti", VObjectDesc.ImageFile);
-	CHECKF( AddVideoObject( &VObjectDesc, &guiSelectedCharArrow ) );
-
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\mine.sti", VObjectDesc.ImageFile);
-	CHECKF( AddVideoObject( &VObjectDesc, &guiMINEICON ) );
-
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	sprintf( VObjectDesc.ImageFile, "INTERFACE\\hilite.sti" );
-	AddVideoObject( &VObjectDesc, &guiSectorLocatorGraphicID );
-
-	//Kris:	Added this because I need to blink the icons button.
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	sprintf( VObjectDesc.ImageFile, "INTERFACE\\newemail.sti" );
-	AddVideoObject( &VObjectDesc, &guiNewMailIcons );
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\BullsEye.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiBULLSEYE));
-
-
-	// graphic for pool inventory
-	LoadInventoryPoolGraphic( );
-
-	// load border graphics
-	LoadMapBorderGraphics( );
-
-	// load the pop up for the militia pop up box
-	LoadMilitiaPopUpBox( );
-
-	return( TRUE );
 }
 
 
