@@ -39760,7 +39760,7 @@
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>18</ItemSize>
-		<usPrice>600</usPrice>
+		<usPrice>100</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<WaterDamages>1</WaterDamages>
 		<Metal>1</Metal>
@@ -39783,6 +39783,7 @@
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>21</ItemSize>
+		<usPrice>20</usPrice>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -39801,6 +39802,7 @@
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>21</ItemSize>
+		<usPrice>20</usPrice>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -39819,6 +39821,7 @@
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>21</ItemSize>
+		<usPrice>20</usPrice>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
