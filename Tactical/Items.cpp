@@ -7129,12 +7129,12 @@ BOOLEAN CreateAmmo( UINT16 usItem, OBJECTTYPE * pObj, UINT16 ubShotsLeft )
 	pObj->usItem = usItem;
 	pObj->ubNumberOfObjects = 1;
 	//pObj->objectStack.resize(1);//not necessary due to init, here for code commenting
-	if (ubShotsLeft == 0) {
-		(*pObj)[0]->data.ubShotsLeft = Magazine[ Item[usItem].ubClassIndex ].ubMagSize;
-	}
-	else {
+	//if (ubShotsLeft == 0) {
+	//	(*pObj)[0]->data.ubShotsLeft = Magazine[ Item[usItem].ubClassIndex ].ubMagSize;
+	//}
+	//else {
 		(*pObj)[0]->data.ubShotsLeft = ubShotsLeft;
-	}
+	//}
 	//WarmSteel - Init attachment slots.
 	if(UsingNewAttachmentSystem()==true)
 		InitItemAttachments(pObj);
@@ -7162,7 +7162,7 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	}
 	else if (Item[ usItem ].usItemClass == IC_AMMO)
 	{
-		fRet = CreateAmmo( usItem, pObj );
+		fRet = CreateAmmo( usItem, pObj, Magazine[Item[usItem].ubClassIndex].ubMagSize );
 	}
 	else
 	{
