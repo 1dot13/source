@@ -344,7 +344,10 @@ void EndTurn( UINT8 ubNextTeam )
 		gTacticalStatus.ubCurrentTeam	= ubNextTeam;
 
 		if(is_server || !is_client) BeginTeamTurn( gTacticalStatus.ubCurrentTeam );
+
+		// WANNE: Disabled Headrocks Experimental fix, because it causes assertion in AddPossiblePendingMilitiaToBattle();
 		// HEADROCK HAM 3.2: Experimental fix to force reinforcements enter battle with 0 APs.
+		/*
 		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 1 || gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 2)
 		{
 			AddPossiblePendingEnemiesToBattle();
@@ -353,6 +356,7 @@ void EndTurn( UINT8 ubNextTeam )
 		{
 			AddPossiblePendingMilitiaToBattle();
 		}
+		*/
 
 		BetweenTurnsVisibilityAdjustments();
 	}
