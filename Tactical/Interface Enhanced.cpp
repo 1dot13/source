@@ -9230,10 +9230,10 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// HEARING RANGE MODIFIER
-	iFloatModifier[0] = (GetItemHearingRangeBonus( gpItemDescObject ) / 10.0f);
-	iFloatModifier[1] = iFloatModifier[0];
-	iFloatModifier[2] = iFloatModifier[0];
-	if (iFloatModifier[0] != 0 )
+	iModifier[0] = GetItemHearingRangeBonus( gpItemDescObject );
+	iModifier[1] = iModifier[0];
+	iModifier[2] = iModifier[0];
+	if (iModifier[0] != 0 )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -9249,17 +9249,29 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				SetFontForeground( 5 );
 				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
 				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if (iFloatModifier[cnt2] > 0)
+				if (iModifier[cnt2] > 0)
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%3.1f", iFloatModifier[cnt2] );
+					swprintf( pStr, L"+%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
-				else if (iFloatModifier[cnt2] < 0)
+				else if (iModifier[cnt2] < 0)
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
+					wcscat( pStr, L"%" );
+					swprintf( pStr, L"%d", iModifier[cnt2] );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
 				else
 				{
@@ -9273,10 +9285,10 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// VISION RANGE MODIFIER
-	iFloatModifier[0] = (GetItemVisionRangeBonus( gpItemDescObject, 0 ) / 10.0f);
-	iFloatModifier[1] = iFloatModifier[0];
-	iFloatModifier[2] = iFloatModifier[0];
-	if (iFloatModifier[0] != 0 )
+	iModifier[0] = GetItemVisionRangeBonus( gpItemDescObject, 0 );
+	iModifier[1] = iModifier[0];
+	iModifier[2] = iModifier[0];
+	if (iModifier[0] != 0 )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -9292,17 +9304,29 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				SetFontForeground( 5 );
 				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
 				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if (iFloatModifier[cnt2] > 0)
+				if (iModifier[cnt2] > 0)
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%3.1f", iFloatModifier[cnt2] );
+					swprintf( pStr, L"+%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
-				else if (iFloatModifier[cnt2] < 0)
+				else if (iModifier[cnt2] < 0)
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
+					swprintf( pStr, L"%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
 				else
 				{
@@ -9316,10 +9340,10 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// NIGHT VISION RANGE MODIFIER
-	iFloatModifier[0] = (GetItemVisionRangeBonus( gpItemDescObject, 2 ) / 10.0f);
-	iFloatModifier[1] = iFloatModifier[0];
-	iFloatModifier[2] = iFloatModifier[0];
-	if (iFloatModifier[0] != 0 )
+	iModifier[0] = GetItemVisionRangeBonus( gpItemDescObject, 2 );
+	iModifier[1] = iModifier[0];
+	iModifier[2] = iModifier[0];
+	if (iModifier[0] != 0 )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -9335,17 +9359,29 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				SetFontForeground( 5 );
 				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
 				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if (iFloatModifier[cnt2] > 0)
+				if (iModifier[cnt2] > 0)
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%3.1f", iFloatModifier[cnt2] );
+					swprintf( pStr, L"+%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
-				else if (iFloatModifier[cnt2] < 0)
+				else if (iModifier[cnt2] < 0)
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
+					swprintf( pStr, L"%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
 				else
 				{
@@ -9359,10 +9395,10 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// DAY VISION RANGE MODIFIER
-	iFloatModifier[0] = (GetItemVisionRangeBonus( gpItemDescObject, 1 ) / 10.0f);
-	iFloatModifier[1] = iFloatModifier[0];
-	iFloatModifier[2] = iFloatModifier[0];
-	if (iFloatModifier[0] != 0 )
+	iModifier[0] = GetItemVisionRangeBonus( gpItemDescObject, 1 );
+	iModifier[1] = iModifier[0];
+	iModifier[2] = iModifier[0];
+	if (iModifier[0] != 0 )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -9378,17 +9414,29 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				SetFontForeground( 5 );
 				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
 				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if (iFloatModifier[cnt2] > 0)
+				if (iModifier[cnt2] > 0)
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%3.1f", iFloatModifier[cnt2] );
+					swprintf( pStr, L"+%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
-				else if (iFloatModifier[cnt2] < 0)
+				else if (iModifier[cnt2] < 0)
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
+					swprintf( pStr, L"%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
 				else
 				{
@@ -9402,10 +9450,10 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// BRIGHT LIGHT VISION RANGE MODIFIER
-	iFloatModifier[0] = (GetItemVisionRangeBonus( gpItemDescObject, 3 ) / 10.0f);
-	iFloatModifier[1] = iFloatModifier[0];
-	iFloatModifier[2] = iFloatModifier[0];
-	if (iFloatModifier[0] != 0 )
+	iModifier[0] = GetItemVisionRangeBonus( gpItemDescObject, 3 );
+	iModifier[1] = iModifier[0];
+	iModifier[2] = iModifier[0];
+	if (iModifier[0] != 0 )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -9421,17 +9469,29 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				SetFontForeground( 5 );
 				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
 				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if (iFloatModifier[cnt2] > 0)
+				if (iModifier[cnt2] > 0)
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%3.1f", iFloatModifier[cnt2] );
+					swprintf( pStr, L"+%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
-				else if (iFloatModifier[cnt2] < 0)
+				else if (iModifier[cnt2] < 0)
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
+					swprintf( pStr, L"%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
 				else
 				{
@@ -9445,10 +9505,10 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	}
 
 	///////////////////// CAVE VISION RANGE MODIFIER
-	iFloatModifier[0] = (GetItemVisionRangeBonus( gpItemDescObject, 4 ) / 10.0f);
-	iFloatModifier[1] = iFloatModifier[0];
-	iFloatModifier[2] = iFloatModifier[0];
-	if (iFloatModifier[0] != 0 )
+	iModifier[0] = GetItemVisionRangeBonus( gpItemDescObject, 4 );
+	iModifier[1] = iModifier[0];
+	iModifier[2] = iModifier[0];
+	if (iModifier[0] != 0 )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
 		{
@@ -9464,17 +9524,29 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				SetFontForeground( 5 );
 				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
 				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if (iFloatModifier[cnt2] > 0)
+				if (iModifier[cnt2] > 0)
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"+%3.1f", iFloatModifier[cnt2] );
+					swprintf( pStr, L"+%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
-				else if (iFloatModifier[cnt2] < 0)
+				else if (iModifier[cnt2] < 0)
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"%3.1f", iFloatModifier[cnt2] );
+					swprintf( pStr, L"%d", iModifier[cnt2] );
+					wcscat( pStr, L"%" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					#ifdef CHINESE
+						wcscat( pStr, ChineseSpecString1 );
+					#else
+						wcscat( pStr, L"%" );
+					#endif
 				}
 				else
 				{
