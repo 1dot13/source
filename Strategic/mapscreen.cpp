@@ -1008,6 +1008,18 @@ void DumpSectorDifficultyInfo( void );
 void DumpItemsList( void );
 #endif
 
+BOOLEAN IsMercInActiveSector(SOLDIERTYPE * pSoldier)
+{
+	if(pSoldier->sSectorX != sSelMapX)
+		return( FALSE );
+	if(pSoldier->sSectorY != sSelMapY)
+		return( FALSE );
+	if(pSoldier->bSectorZ != iCurrentMapSectorZ)
+		return( FALSE );
+
+	return( TRUE );
+}
+
 void BeginSellAllCallBack( UINT8 bExitValue )
 {
 	INT32	iPrice = 0;

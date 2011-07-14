@@ -6283,6 +6283,7 @@ BOOLEAN AutoPlaceObjectAnywhere(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLE
 	return FALSE;
 }
 
+extern BOOLEAN IsMercInActiveSector(SOLDIERTYPE * pSoldier);
 extern void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen );
 BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 bVisible)
 {
@@ -6294,6 +6295,12 @@ BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 b
 
 	if( guiCurrentScreen == MAP_SCREEN )
 	{
+		if(fShowMapInventoryPool && !IsMercInActiveSector(pSoldier) )
+		{
+			fShowMapInventoryPool = FALSE;
+			CreateDestroyMapInventoryPoolButtons(FALSE);
+		}
+		ChangeSelectedMapSector(pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ);
 		if(!fShowMapInventoryPool)
 		{
 			fShowMapInventoryPool = TRUE;
