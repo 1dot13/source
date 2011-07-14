@@ -5377,10 +5377,11 @@ void EjectAmmoAndPlace(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT8 subObject)
 	(*pObj)[subObject]->data.gun.ubGunAmmoType = NONE;
 	if ( pSoldier )
 	{
-		if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
-		{   // put it on the ground
-			AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0 , -1 );
-		}
+		AutoPlaceObjectAnywhere( pSoldier, &gTempObject, FALSE );
+//		if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+//		{   // put it on the ground
+//			AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0 , -1 );
+//		}
 	}
 	return;
 }
@@ -6282,6 +6283,7 @@ BOOLEAN AutoPlaceObjectAnywhere(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLE
 	return FALSE;
 }
 
+extern void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen );
 BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 bVisible)
 {
 	if(pObj->exists() == false)
@@ -6290,8 +6292,13 @@ BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 b
 	INT32 sGridNo = pSoldier?pSoldier->sGridNo:0;
 	INT8 bLevel = pSoldier?pSoldier->pathing.bLevel:0;
 
-	if( guiCurrentScreen == MAP_SCREEN && fShowMapInventoryPool )
+	if( guiCurrentScreen == MAP_SCREEN )
 	{
+		if(!fShowMapInventoryPool)
+		{
+			fShowMapInventoryPool = TRUE;
+			CreateDestroyMapInventoryPoolButtons(FALSE);
+		}
 		fMapPanelDirty = TRUE;
 		return( AutoPlaceObjectInInventoryStash(pObj, sGridNo) );
 	}
