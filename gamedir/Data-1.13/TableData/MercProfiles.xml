@@ -1,72 +1,3 @@
-<!-- 
-
-Max Profiles 0 - 254
-
-	Type :
-	0 - none (not used)
-	1 - AIM
-	2 - MERC
-	3 - RPC
-	4 - NPC
-	5 - Vehicle
-	6 - IMP
-	
-	
-	uiIndex 200 - can not be profile! 
-
--->
-
-<!-- STOMP Skill List -->
-
-<!-- major Skill (1)	Auto Weapons/Machinegunner 	-->
-<!-- major Skill (2)	Heavy Weapons/Bombardier 	-->
-<!-- major Skill (3)	Marksman/Sniper 			-->
-<!-- major Skill (4)	Hunter/Ranger 				-->
-<!-- major Skill (5)	Gunslinger/Gunfighter 		-->
-<!-- major Skill (6)	Hand-to-Hand/Martial Arts	-->
-<!-- major Skill (7)	Deputy/Squadleader 			-->
-<!-- major Skill (8)	Technician/Engineer			-->
-<!-- major Skill (9)	Paramedic/Doctor			-->
-
-<!-- minor Skills (10)	Ambidex						-->
-<!-- minor Skills (11)	Melee						-->	
-<!-- minor Skills (12)  Throwing					-->
-<!-- minor Skills (13)	Night Ops					-->
-<!-- minor Skills (14)	Stealthy					-->	
-<!-- minor Skills (15)	Athletics					-->
-<!-- minor Skills (16)	Bodybuilding				-->
-<!-- minor Skills (17)	Demolitions					-->
-<!-- minor Skills (18)	Teaching					-->
-<!-- minor Skills (19)	Scouting					-->
-
-<!-- STOMP Character Traits -->
-
-<!-- (0) Neutral 									-->
-<!-- (1) Sociable 									-->
-<!-- (2) Loner										-->
-<!-- (3) Optimist 									-->
-<!-- (4) Assertive									-->
-<!-- (5) Intellectual								-->
-<!-- (6) Primitive									-->
-<!-- (7) Aggressive									-->
-<!-- (8) Phlegmatic									-->
-<!-- (9) Dauntless									-->
-<!-- (10 Pacifist 									-->
-<!-- (11) Malicious									-->
-<!-- (12) Show-off									-->
-
-
-<!-- STOMP Disabilities -->
-
-<!-- (0) None 										-->
-<!-- (1) Heat Intolerant 							-->
-<!-- (2) Nervous 									-->
-<!-- (3) Claustrophobic 							-->
-<!-- (4) Non Swimmer 								-->
-<!-- (5) Fear of Insects 							-->
-<!-- (6) Forgetful 									-->
-<!-- (7) Psycho 									-->
-
 <MERCPROFILES>
 	<PROFILE>
 		<uiIndex>0</uiIndex>
@@ -77,7 +8,7 @@ Max Profiles 0 - 254
 		<usEyesX>10</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>7</usMouthX>
-		<usMouthY>28</usMouthY>
+		<usMouthY>27</usMouthY>
 		<uiEyeDelay>0</uiEyeDelay>
 		<uiMouthDelay>0</uiMouthDelay>
 		<uiBlinkFrequency>3000</uiBlinkFrequency>
@@ -111,8 +42,8 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>1</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
-		<bNewSkillTrait2>8</bNewSkillTrait2>
-		<bNewSkillTrait3>17</bNewSkillTrait3>
+		<bNewSkillTrait2>17</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>11</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -195,7 +126,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>5</bOldSkillTrait>
 		<bOldSkillTrait2>12</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
-		<bNewSkillTrait2>11</bNewSkillTrait2>
+		<bNewSkillTrait2>6</bNewSkillTrait2>
 		<bNewSkillTrait3>12</bNewSkillTrait3>
 		<bBuddy1>29</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -278,8 +209,8 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>4</bOldSkillTrait2>
-		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>3</bNewSkillTrait2>
+		<bNewSkillTrait1>17</bNewSkillTrait1>
+		<bNewSkillTrait2>19</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
 		<bBuddy1>18</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -448,7 +379,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>5</bOldSkillTrait2>
 		<bNewSkillTrait1>5</bNewSkillTrait1>
 		<bNewSkillTrait2>10</bNewSkillTrait2>
-		<bNewSkillTrait3>12</bNewSkillTrait3>
+		<bNewSkillTrait3>17</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -532,7 +463,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>1</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
-		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait3>17</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -616,7 +547,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>7</bOldSkillTrait2>
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>19</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>7</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -700,7 +631,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>7</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>2</bNewSkillTrait2>
-		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait3>16</bNewSkillTrait3>
 		<bBuddy1>9</bBuddy1>
 		<bBuddy2>6</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -762,7 +693,7 @@ Max Profiles 0 - 254
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>1</uiBodyTypeSubFlags>
 		<bAttitude>7</bAttitude>
-		<bCharacterTrait>6</bCharacterTrait>
+		<bCharacterTrait>12</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
 		<bReputationTolerance>70</bReputationTolerance>
@@ -783,7 +714,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>1</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
-		<bNewSkillTrait2>15</bNewSkillTrait2>
+		<bNewSkillTrait2>8</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -865,10 +796,10 @@ Max Profiles 0 - 254
 		<bExpLevel>2</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>9</bOldSkillTrait>
-		<bOldSkillTrait2>4</bOldSkillTrait2>
-		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bOldSkillTrait2>0</bOldSkillTrait2>
+		<bNewSkillTrait1>14</bNewSkillTrait1>
+		<bNewSkillTrait2>4</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>7</bBuddy1>
 		<bBuddy2>6</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -951,8 +882,8 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>9</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
 		<bNewSkillTrait1>4</bNewSkillTrait1>
-		<bNewSkillTrait2>14</bNewSkillTrait2>
-		<bNewSkillTrait3>19</bNewSkillTrait3>
+		<bNewSkillTrait2>4</bNewSkillTrait2>
+		<bNewSkillTrait3>14</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -1014,7 +945,7 @@ Max Profiles 0 - 254
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>11</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>65</bReputationTolerance>
@@ -1201,10 +1132,10 @@ Max Profiles 0 - 254
 		<bExpLevel>3</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>2</bOldSkillTrait>
-		<bOldSkillTrait2>8</bOldSkillTrait2>
-		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>11</bNewSkillTrait2>
-		<bNewSkillTrait3>17</bNewSkillTrait3>
+		<bOldSkillTrait2>0</bOldSkillTrait2>
+		<bNewSkillTrait1>6</bNewSkillTrait1>
+		<bNewSkillTrait2>0</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>43</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -1266,7 +1197,7 @@ Max Profiles 0 - 254
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>12</bCharacterTrait>
+		<bCharacterTrait>8</bCharacterTrait>
 		<bDisability>5</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>46</bReputationTolerance>
@@ -1286,7 +1217,7 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>10</bOldSkillTrait2>
-		<bNewSkillTrait1>5</bNewSkillTrait1>
+		<bNewSkillTrait1>18</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>10</bNewSkillTrait3>
 		<bBuddy1>37</bBuddy1>
@@ -1342,7 +1273,7 @@ Max Profiles 0 - 254
 		<uiMouthDelay>0</uiMouthDelay>
 		<uiBlinkFrequency>3000</uiBlinkFrequency>
 		<uiExpressionFrequency>2000</uiExpressionFrequency>
-		<PANTS>BLUEPANTS</PANTS>
+		<PANTS>TANPANTS</PANTS>
 		<VEST>WHITEVEST</VEST>
 		<SKIN>TANSKIN</SKIN>
 		<HAIR>BROWNHEAD</HAIR>
@@ -1371,8 +1302,8 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>5</bOldSkillTrait>
 		<bOldSkillTrait2>5</bOldSkillTrait2>
 		<bNewSkillTrait1>5</bNewSkillTrait1>
-		<bNewSkillTrait2>12</bNewSkillTrait2>
-		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait2>5</bNewSkillTrait2>
+		<bNewSkillTrait3>17</bNewSkillTrait3>
 		<bBuddy1>36</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -1434,7 +1365,7 @@ Max Profiles 0 - 254
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>2</bAttitude>
-		<bCharacterTrait>4</bCharacterTrait>
+		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>50</bReputationTolerance>
@@ -1456,7 +1387,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>7</bOldSkillTrait2>
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>7</bNewSkillTrait2>
-		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait3>2</bNewSkillTrait3>
 		<bBuddy1>27</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -1538,9 +1469,9 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>6</bOldSkillTrait2>
-		<bNewSkillTrait1>14</bNewSkillTrait1>
+		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>18</bNewSkillTrait2>
-		<bNewSkillTrait3>19</bNewSkillTrait3>
+		<bNewSkillTrait3>3</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -1770,7 +1701,7 @@ Max Profiles 0 - 254
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>6</bAttitude>
-		<bCharacterTrait>8</bCharacterTrait>
+		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
 		<bReputationTolerance>51</bReputationTolerance>
@@ -1778,7 +1709,7 @@ Max Profiles 0 - 254
 		<bLifeMax>82</bLifeMax>
 		<bLife>82</bLife>
 		<bStrength>64</bStrength>
-		<bAgility>60</bAgility>
+		<bAgility>59</bAgility>
 		<bDexterity>53</bDexterity>
 		<bWisdom>87</bWisdom>
 		<bMarksmanship>84</bMarksmanship>
@@ -1788,11 +1719,11 @@ Max Profiles 0 - 254
 		<bMechanical>4</bMechanical>
 		<bExpLevel>4</bExpLevel>
 		<bEvolution>0</bEvolution>
-		<bOldSkillTrait>10</bOldSkillTrait>
-		<bOldSkillTrait2>6</bOldSkillTrait2>
+		<bOldSkillTrait>0</bOldSkillTrait>
+		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
-		<bNewSkillTrait2>9</bNewSkillTrait2>
-		<bNewSkillTrait3>10</bNewSkillTrait3>
+		<bNewSkillTrait2>0</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -1854,7 +1785,7 @@ Max Profiles 0 - 254
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>5</bAttitude>
-		<bCharacterTrait>6</bCharacterTrait>
+		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
 		<bReputationTolerance>98</bReputationTolerance>
@@ -1875,7 +1806,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>2</bOldSkillTrait>
 		<bOldSkillTrait2>2</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
-		<bNewSkillTrait2>11</bNewSkillTrait2>
+		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -1938,7 +1869,7 @@ Max Profiles 0 - 254
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>1</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>4</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>80</bReputationTolerance>
@@ -1958,7 +1889,7 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>5</bOldSkillTrait>
 		<bOldSkillTrait2>6</bOldSkillTrait2>
-		<bNewSkillTrait1>1</bNewSkillTrait1>
+		<bNewSkillTrait1>12</bNewSkillTrait1>
 		<bNewSkillTrait2>7</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
 		<bBuddy1>6</bBuddy1>
@@ -2043,7 +1974,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>7</bOldSkillTrait>
 		<bOldSkillTrait2>8</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>1</bNewSkillTrait2>
+		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -2106,7 +2037,7 @@ Max Profiles 0 - 254
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>7</bAttitude>
-		<bCharacterTrait>9</bCharacterTrait>
+		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
 		<bReputationTolerance>25</bReputationTolerance>
@@ -2126,7 +2057,7 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>6</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
+		<bNewSkillTrait1>7</bNewSkillTrait1>
 		<bNewSkillTrait2>7</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
 		<bBuddy1>25</bBuddy1>
@@ -2190,7 +2121,7 @@ Max Profiles 0 - 254
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
 		<bReputationTolerance>25</bReputationTolerance>
@@ -2211,7 +2142,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>4</bOldSkillTrait>
 		<bOldSkillTrait2>8</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>3</bNewSkillTrait2>
+		<bNewSkillTrait2>19</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
 		<bBuddy1>24</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -2296,7 +2227,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>4</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>19</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>47</bBuddy1>
 		<bBuddy2>19</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -2375,11 +2306,11 @@ Max Profiles 0 - 254
 		<bMedical>35</bMedical>
 		<bMechanical>54</bMechanical>
 		<bExpLevel>7</bExpLevel>
-		<bEvolution>0</bEvolution>
+		<bEvolution>1</bEvolution>
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>6</bOldSkillTrait2>
 		<bNewSkillTrait1>7</bNewSkillTrait1>
-		<bNewSkillTrait2>7</bNewSkillTrait2>
+		<bNewSkillTrait2>1</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
 		<bBuddy1>4</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -2461,7 +2392,7 @@ Max Profiles 0 - 254
 		<bExpLevel>3</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>10</bOldSkillTrait>
-		<bOldSkillTrait2>4</bOldSkillTrait2>
+		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>9</bNewSkillTrait2>
 		<bNewSkillTrait3>10</bNewSkillTrait3>
@@ -2548,7 +2479,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>9</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>15</bNewSkillTrait2>
-		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait3>14</bNewSkillTrait3>
 		<bBuddy1>1</bBuddy1>
 		<bBuddy2>18</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -2694,7 +2625,7 @@ Max Profiles 0 - 254
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>1</bAttitude>
-		<bCharacterTrait>12</bCharacterTrait>
+		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
 		<bReputationTolerance>40</bReputationTolerance>
@@ -2714,9 +2645,9 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>13</bOldSkillTrait>
 		<bOldSkillTrait2>13</bOldSkillTrait2>
-		<bNewSkillTrait1>1</bNewSkillTrait1>
+		<bNewSkillTrait1>12</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
-		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait3>15</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -2800,7 +2731,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>2</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
-		<bNewSkillTrait3>10</bNewSkillTrait3>
+		<bNewSkillTrait3>16</bNewSkillTrait3>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>19</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -2862,7 +2793,7 @@ Max Profiles 0 - 254
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>10</bCharacterTrait>
+		<bCharacterTrait>11</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
 		<bReputationTolerance>22</bReputationTolerance>
@@ -2883,7 +2814,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>12</bOldSkillTrait>
 		<bOldSkillTrait2>4</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
-		<bNewSkillTrait2>9</bNewSkillTrait2>
+		<bNewSkillTrait2>6</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -2965,10 +2896,10 @@ Max Profiles 0 - 254
 		<bExpLevel>4</bExpLevel>
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>1</bOldSkillTrait>
-		<bOldSkillTrait2>3</bOldSkillTrait2>
+		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
-		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>17</bNewSkillTrait3>
+		<bNewSkillTrait2>0</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -3030,7 +2961,7 @@ Max Profiles 0 - 254
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>1</bAttitude>
-		<bCharacterTrait>10</bCharacterTrait>
+		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>40</bReputationTolerance>
@@ -3052,7 +2983,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>9</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
-		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait3>6</bNewSkillTrait3>
 		<bBuddy1>18</bBuddy1>
 		<bBuddy2>26</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -3075,7 +3006,7 @@ Max Profiles 0 - 254
 		<sSalary>1750</sSalary>
 		<uiWeeklySalary>10000</uiWeeklySalary>
 		<uiBiWeeklySalary>15000</uiBiWeeklySalary>
-		<bMedicalDeposit>0</bMedicalDeposit>
+		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>0</sMedicalDepositAmount>
 		<usOptionalGearCost>2564</usOptionalGearCost>
 		<bArmourAttractiveness>20</bArmourAttractiveness>
@@ -3198,7 +3129,7 @@ Max Profiles 0 - 254
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>11</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>44</bReputationTolerance>
@@ -3218,8 +3149,8 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>4</bOldSkillTrait2>
-		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>16</bNewSkillTrait2>
+		<bNewSkillTrait1>16</bNewSkillTrait1>
+		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>2</bBuddy2>
@@ -3282,7 +3213,7 @@ Max Profiles 0 - 254
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>3</bAttitude>
-		<bCharacterTrait>5</bCharacterTrait>
+		<bCharacterTrait>3</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>41</bReputationTolerance>
@@ -3366,7 +3297,7 @@ Max Profiles 0 - 254
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>5</bAttitude>
-		<bCharacterTrait>6</bCharacterTrait>
+		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
 		<bReputationTolerance>99</bReputationTolerance>
@@ -3388,7 +3319,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>10</bOldSkillTrait2>
 		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>10</bNewSkillTrait2>
-		<bNewSkillTrait3>17</bNewSkillTrait3>
+		<bNewSkillTrait3>5</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -3471,7 +3402,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>18</bNewSkillTrait1>
-		<bNewSkillTrait2>19</bNewSkillTrait2>
+		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>46</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -3554,7 +3485,7 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>13</bOldSkillTrait2>
-		<bNewSkillTrait1>1</bNewSkillTrait1>
+		<bNewSkillTrait1>11</bNewSkillTrait1>
 		<bNewSkillTrait2>1</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>43</bBuddy1>
@@ -3639,7 +3570,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>1</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
-		<bNewSkillTrait2>8</bNewSkillTrait2>
+		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>4</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -3723,7 +3654,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>13</bOldSkillTrait>
 		<bOldSkillTrait2>13</bOldSkillTrait2>
 		<bNewSkillTrait1>11</bNewSkillTrait1>
-		<bNewSkillTrait2>14</bNewSkillTrait2>
+		<bNewSkillTrait2>12</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
 		<bBuddy1>41</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -3807,7 +3738,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
 		<bNewSkillTrait1>18</bNewSkillTrait1>
-		<bNewSkillTrait2>19</bNewSkillTrait2>
+		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>40</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -3890,7 +3821,7 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
-		<bNewSkillTrait1>8</bNewSkillTrait1>
+		<bNewSkillTrait1>17</bNewSkillTrait1>
 		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
@@ -4227,8 +4158,8 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>4</bOldSkillTrait>
 		<bOldSkillTrait2>12</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
-		<bNewSkillTrait2>14</bNewSkillTrait2>
-		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait2>6</bNewSkillTrait2>
+		<bNewSkillTrait3>14</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -4290,7 +4221,7 @@ Max Profiles 0 - 254
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>5</bAttitude>
-		<bCharacterTrait>6</bCharacterTrait>
+		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -4899,7 +4830,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>4</bOldSkillTrait>
 		<bOldSkillTrait2>13</bOldSkillTrait2>
 		<bNewSkillTrait1>7</bNewSkillTrait1>
-		<bNewSkillTrait2>7</bNewSkillTrait2>
+		<bNewSkillTrait2>13</bNewSkillTrait2>
 		<bNewSkillTrait3>11</bNewSkillTrait3>
 		<bBuddy1>58</bBuddy1>
 		<bBuddy2>59</bBuddy2>
@@ -4982,7 +4913,7 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>5</bOldSkillTrait>
 		<bOldSkillTrait2>9</bOldSkillTrait2>
-		<bNewSkillTrait1>4</bNewSkillTrait1>
+		<bNewSkillTrait1>14</bNewSkillTrait1>
 		<bNewSkillTrait2>12</bNewSkillTrait2>
 		<bNewSkillTrait3>19</bNewSkillTrait3>
 		<bBuddy1>57</bBuddy1>
@@ -5067,7 +4998,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>6</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
-		<bNewSkillTrait2>14</bNewSkillTrait2>
+		<bNewSkillTrait2>0</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
 		<bBuddy1>60</bBuddy1>
 		<bBuddy2>57</bBuddy2>
@@ -5151,8 +5082,8 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>5</bOldSkillTrait>
 		<bOldSkillTrait2>5</bOldSkillTrait2>
 		<bNewSkillTrait1>12</bNewSkillTrait1>
-		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait2>17</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>57</bBuddy1>
 		<bBuddy2>58</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -5234,9 +5165,9 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>3</bOldSkillTrait>
 		<bOldSkillTrait2>13</bOldSkillTrait2>
-		<bNewSkillTrait1>8</bNewSkillTrait1>
+		<bNewSkillTrait1>17</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
-		<bNewSkillTrait3>19</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -5402,9 +5333,9 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>9</bOldSkillTrait>
 		<bOldSkillTrait2>0</bOldSkillTrait2>
-		<bNewSkillTrait1>11</bNewSkillTrait1>
+		<bNewSkillTrait1>0</bNewSkillTrait1>
 		<bNewSkillTrait2>14</bNewSkillTrait2>
-		<bNewSkillTrait3>19</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -5488,7 +5419,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>8</bOldSkillTrait2>
 		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>3</bNewSkillTrait2>
-		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait3>1</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -5570,8 +5501,8 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>5</bOldSkillTrait>
 		<bOldSkillTrait2>5</bOldSkillTrait2>
-		<bNewSkillTrait1>0</bNewSkillTrait1>
-		<bNewSkillTrait2>0</bNewSkillTrait2>
+		<bNewSkillTrait1>12</bNewSkillTrait1>
+		<bNewSkillTrait2>17</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -5655,8 +5586,8 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>1</bOldSkillTrait>
 		<bOldSkillTrait2>1</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
-		<bNewSkillTrait2>10</bNewSkillTrait2>
-		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait2>8</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>67</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -5739,7 +5670,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>5</bOldSkillTrait>
 		<bOldSkillTrait2>5</bOldSkillTrait2>
 		<bNewSkillTrait1>12</bNewSkillTrait1>
-		<bNewSkillTrait2>19</bNewSkillTrait2>
+		<bNewSkillTrait2>17</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>66</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -5822,9 +5753,9 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>7</bOldSkillTrait>
 		<bOldSkillTrait2>7</bOldSkillTrait2>
-		<bNewSkillTrait1>1</bNewSkillTrait1>
+		<bNewSkillTrait1>2</bNewSkillTrait1>
 		<bNewSkillTrait2>2</bNewSkillTrait2>
-		<bNewSkillTrait3>15</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -5907,7 +5838,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>10</bOldSkillTrait2>
 		<bNewSkillTrait1>9</bNewSkillTrait1>
-		<bNewSkillTrait2>9</bNewSkillTrait2>
+		<bNewSkillTrait2>10</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -5991,7 +5922,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>6</bOldSkillTrait>
 		<bOldSkillTrait2>8</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>7</bNewSkillTrait2>
+		<bNewSkillTrait2>1</bNewSkillTrait2>
 		<bNewSkillTrait3>18</bNewSkillTrait3>
 		<bBuddy1>68</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -6158,9 +6089,9 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>1</bOldSkillTrait>
 		<bOldSkillTrait2>1</bOldSkillTrait2>
-		<bNewSkillTrait1>6</bNewSkillTrait1>
+		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
-		<bNewSkillTrait3>11</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -6411,7 +6342,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>8</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>7</bNewSkillTrait2>
+		<bNewSkillTrait2>1</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -6748,7 +6679,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>12</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
-		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait3>6</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -6832,7 +6763,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>13</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>11</bNewSkillTrait2>
-		<bNewSkillTrait3>19</bNewSkillTrait3>
+		<bNewSkillTrait3>16</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -6915,7 +6846,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>10</bOldSkillTrait>
 		<bOldSkillTrait2>13</bOldSkillTrait2>
 		<bNewSkillTrait1>11</bNewSkillTrait1>
-		<bNewSkillTrait2>18</bNewSkillTrait2>
+		<bNewSkillTrait2>10</bNewSkillTrait2>
 		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -7335,7 +7266,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>2</bOldSkillTrait>
 		<bOldSkillTrait2>2</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>3</bNewSkillTrait2>
+		<bNewSkillTrait2>6</bNewSkillTrait2>
 		<bNewSkillTrait3>16</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -7419,7 +7350,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>7</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>7</bNewSkillTrait2>
+		<bNewSkillTrait2>2</bNewSkillTrait2>
 		<bNewSkillTrait3>15</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -9352,7 +9283,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>8</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>1</bNewSkillTrait2>
-		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait3>15</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -12376,7 +12307,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>6</bOldSkillTrait2>
 		<bNewSkillTrait1>8</bNewSkillTrait1>
 		<bNewSkillTrait2>8</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait3>18</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -13970,7 +13901,7 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>4</bOldSkillTrait>
 		<bOldSkillTrait2>14</bOldSkillTrait2>
-		<bNewSkillTrait1>7</bNewSkillTrait1>
+		<bNewSkillTrait1>3</bNewSkillTrait1>
 		<bNewSkillTrait2>3</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
 		<bBuddy1>14</bBuddy1>
@@ -14139,7 +14070,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>10</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
 		<bNewSkillTrait1>4</bNewSkillTrait1>
-		<bNewSkillTrait2>5</bNewSkillTrait2>
+		<bNewSkillTrait2>4</bNewSkillTrait2>
 		<bNewSkillTrait3>10</bNewSkillTrait3>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>46</bBuddy2>
@@ -14223,7 +14154,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait>4</bOldSkillTrait>
 		<bOldSkillTrait2>3</bOldSkillTrait2>
 		<bNewSkillTrait1>7</bNewSkillTrait1>
-		<bNewSkillTrait2>7</bNewSkillTrait2>
+		<bNewSkillTrait2>17</bNewSkillTrait2>
 		<bNewSkillTrait3>13</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
@@ -14370,7 +14301,7 @@ Max Profiles 0 - 254
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>2</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>64</bReputationTolerance>
@@ -14390,9 +14321,9 @@ Max Profiles 0 - 254
 		<bEvolution>0</bEvolution>
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
-		<bNewSkillTrait1>1</bNewSkillTrait1>
-		<bNewSkillTrait2>14</bNewSkillTrait2>
-		<bNewSkillTrait3>4</bNewSkillTrait3>
+		<bNewSkillTrait1>4</bNewSkillTrait1>
+		<bNewSkillTrait2>1</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>36</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -14454,7 +14385,7 @@ Max Profiles 0 - 254
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>2</bAttitude>
-		<bCharacterTrait>4</bCharacterTrait>
+		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>50</bReputationTolerance>
@@ -14538,7 +14469,7 @@ Max Profiles 0 - 254
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>6</bAttitude>
-		<bCharacterTrait>8</bCharacterTrait>
+		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>51</bReputationTolerance>
@@ -14644,7 +14575,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>7</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>2</bNewSkillTrait2>
-		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>177</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -14706,7 +14637,7 @@ Max Profiles 0 - 254
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>7</bAttitude>
-		<bCharacterTrait>4</bCharacterTrait>
+		<bCharacterTrait>12</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>49</bReputationTolerance>
@@ -14728,7 +14659,7 @@ Max Profiles 0 - 254
 		<bOldSkillTrait2>2</bOldSkillTrait2>
 		<bNewSkillTrait1>1</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
-		<bNewSkillTrait3>16</bNewSkillTrait3>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -14790,7 +14721,7 @@ Max Profiles 0 - 254
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>6</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>46</bReputationTolerance>
@@ -14874,7 +14805,7 @@ Max Profiles 0 - 254
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>11</bCharacterTrait>
 		<bDisability>4</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>44</bReputationTolerance>
@@ -14892,11 +14823,11 @@ Max Profiles 0 - 254
 		<bMechanical>22</bMechanical>
 		<bExpLevel>2</bExpLevel>
 		<bEvolution>0</bEvolution>
-		<bOldSkillTrait>6</bOldSkillTrait>
-		<bOldSkillTrait2>4</bOldSkillTrait2>
+		<bOldSkillTrait>5</bOldSkillTrait>
+		<bOldSkillTrait2>5</bOldSkillTrait2>
 		<bNewSkillTrait1>12</bNewSkillTrait1>
-		<bNewSkillTrait2>13</bNewSkillTrait2>
-		<bNewSkillTrait3>18</bNewSkillTrait3>
+		<bNewSkillTrait2>0</bNewSkillTrait2>
+		<bNewSkillTrait3>0</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -14958,7 +14889,7 @@ Max Profiles 0 - 254
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>1</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
 		<bReputationTolerance>90</bReputationTolerance>
