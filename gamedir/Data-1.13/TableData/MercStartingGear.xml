@@ -3315,9 +3315,9 @@
 			<mBig1Status>92</mBig1Status>
 			<mBig1Quantity>1</mBig1Quantity>
 			<mBig1Drop>0</mBig1Drop>
-			<mBig2>0</mBig2>
+			<mBig2>205</mBig2>
 			<mBig2Status>0</mBig2Status>
-			<mBig2Quantity>0</mBig2Quantity>
+			<mBig2Quantity>1</mBig2Quantity>
 			<mBig2Drop>0</mBig2Drop>
 			<mBig3>0</mBig3>
 			<mBig3Status>0</mBig3Status>
@@ -3376,9 +3376,9 @@
 			<mBig0Status>0</mBig0Status>
 			<mBig0Quantity>2</mBig0Quantity>
 			<mBig0Drop>0</mBig0Drop>
-			<mBig1>0</mBig1>
+			<mBig1>205</mBig1>
 			<mBig1Status>0</mBig1Status>
-			<mBig1Quantity>0</mBig1Quantity>
+			<mBig1Quantity>1</mBig1Quantity>
 			<mBig1Drop>0</mBig1Drop>
 			<mBig2>0</mBig2>
 			<mBig2Status>0</mBig2Status>
@@ -3445,9 +3445,9 @@
 			<mBig1Status>92</mBig1Status>
 			<mBig1Quantity>1</mBig1Quantity>
 			<mBig1Drop>0</mBig1Drop>
-			<mBig2>0</mBig2>
+			<mBig2>205</mBig2>
 			<mBig2Status>0</mBig2Status>
-			<mBig2Quantity>0</mBig2Quantity>
+			<mBig2Quantity>1</mBig2Quantity>
 			<mBig2Drop>0</mBig2Drop>
 			<mBig3>0</mBig3>
 			<mBig3Status>0</mBig3Status>
@@ -3510,9 +3510,9 @@
 			<mBig1Status>92</mBig1Status>
 			<mBig1Quantity>0</mBig1Quantity>
 			<mBig1Drop>0</mBig1Drop>
-			<mBig2>0</mBig2>
+			<mBig2>205</mBig2>
 			<mBig2Status>0</mBig2Status>
-			<mBig2Quantity>0</mBig2Quantity>
+			<mBig2Quantity>1</mBig2Quantity>
 			<mBig2Drop>0</mBig2Drop>
 			<mBig3>0</mBig3>
 			<mBig3Status>0</mBig3Status>
@@ -3595,7 +3595,7 @@
 			<mSmall3>214</mSmall3>
 			<mSmall3Status>0</mSmall3Status>
 			<mSmall3Quantity>0</mSmall3Quantity>
-			<mSmall4>0</mSmall4>
+			<mSmall4>205</mSmall4>
 			<mSmall4Status>0</mSmall4Status>
 			<mSmall4Quantity>0</mSmall4Quantity>
 			<mSmall5>0</mSmall5>
@@ -21948,9 +21948,9 @@
 			<mBig1Status>100</mBig1Status>
 			<mBig1Quantity>4</mBig1Quantity>
 			<mBig1Drop>1</mBig1Drop>
-			<mBig2>0</mBig2>
+			<mBig2>205</mBig2>
 			<mBig2Status>0</mBig2Status>
-			<mBig2Quantity>0</mBig2Quantity>
+			<mBig2Quantity>1</mBig2Quantity>
 			<mBig2Drop>0</mBig2Drop>
 			<mBig3>0</mBig3>
 			<mBig3Status>0</mBig3Status>
