@@ -5767,7 +5767,7 @@ STR16	New113AIMMercMailTexts[] =
 
 	// Luc
 	L"Weitergeleitet von AIM-Server: Nachricht von Luc Fabre",
-	L"Ich habe Ihre Nachricht erhalten, merci. Zur Zeit könnte ich gerne einen Auftrag annehmen. Sie wissen ja, wo Sie mich erreichen. ± ± Sicher hören wir bald von einander ±",
+	L"Ich habe Ihre Nachricht erhalten, merci. Zur Zeit könnte ich gerne einen Auftrag annehmen. Sie wissen ja, wo Sie mich erreichen. ± ± Sicher hören wir bald von einander. ±",
 
 	// Laura
 	L"Weitergeleitet von AIM-Server: Nachricht von Dr. Laura Colin",
@@ -5783,7 +5783,7 @@ STR16	New113AIMMercMailTexts[] =
 
 	// WANNE: Generic mail, for additional merc made by modders, index >= 178
 	L"Weitergeleitet von AIM-Server: Nachricht über Söldner Verfügbarkeit",
-	L"Ich habe Ihre Nachricht erhalten und warte auf Ihren Rückruf.±",
+	L"Ich habe Ihre Nachricht erhalten und warte auf Ihren Rückruf. ±",
 };
 
 // WANNE: These are the missing skills from the impass.edt file

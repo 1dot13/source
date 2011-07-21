@@ -5946,11 +5946,12 @@ STR16	New113AIMMercMailTexts[] =
 
 	// Rudolf
 	L"PD z Serwera AIM: Wiadomoœæ od - Rudolf Steiger",
-	L"Wiesz, ile telefonów odbieram ka¿dego dnia? Co drugi baran myœli, ¿e mo¿e do mnie wydzwaniaæ.  ± ± W ka¿dym razie ju¿ jestem, jeœli masz dla mnie coœ ciekawego.±",
+	L"Wiesz, ile telefonów odbieram ka¿dego dnia? Co drugi baran myœli, ¿e mo¿e do mnie wydzwaniaæ.  ± ± W ka¿dym razie ju¿ jestem, jeœli masz dla mnie coœ ciekawego. ±",
 
+	// TODO.Translate
 	// WANNE: Generic mail, for additional merc made by modders, index >= 178
 	L"FW from AIM Server: Message about merc availability",
-	L"I got your message. Waiting for your call.±",
+	L"I got your message. Waiting for your call. ±",
 };
 
 // WANNE: These are the missing skills from the impass.edt file

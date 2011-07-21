@@ -5949,11 +5949,11 @@ STR16	New113AIMMercMailTexts[] =
 
 	// Rudolf
 	L"TR du serveur AIM: Message de Rudolf Steiger",
-	L"Vous savez combien j’ai d’appel par jour ? Tous les branleurs pensent pouvoir m’appeler. ± ± Mais je suis de retour, si vous avez quelque chose d’intéressant pour moi.±",
+	L"Vous savez combien j’ai d’appel par jour ? Tous les branleurs pensent pouvoir m’appeler. ± ± Mais je suis de retour, si vous avez quelque chose d’intéressant pour moi. ±",
 
 	// WANNE: Generic mail, for additional merc made by modders, index >= 178
 	L"FW from AIM Server: Message about merc availability",
-	L"I got your message. Waiting for your call.±",
+	L"I got your message. Waiting for your call. ±",
 };
 
 // WANNE: These are the missing skills from the impass.edt file

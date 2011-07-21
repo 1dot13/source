@@ -5934,7 +5934,7 @@ STR16	New113AIMMercMailTexts[] =
 
 	// Luc: Text from Line 66
 	L"FW from AIM Server: Message from Luc Fabre",
-	L"Mesage received, merci! Am happy to consider your proposals. You know where to find me. ± ± Looking forward to hearing from you ±",
+	L"Mesage received, merci! Am happy to consider your proposals. You know where to find me. ± ± Looking forward to hearing from you. ±",
 
 	// Laura: Text from Line 68
 	L"FW from AIM Server: Message from Dr. Laura Colin",
@@ -5946,11 +5946,11 @@ STR16	New113AIMMercMailTexts[] =
 
 	// Rudolf: Text from Line 72
 	L"FW from AIM Server: Message from Rudolf Steiger",
-	L"Do you know how many calls I get every day? Every tosser thinks he can call me.  ± ± But I'm back, if you have something of interest for me.±",
+	L"Do you know how many calls I get every day? Every tosser thinks he can call me.  ± ± But I'm back, if you have something of interest for me. ±",
 
 	// WANNE: Generic mail, for additional merc made by modders, index >= 178
 	L"FW from AIM Server: Message about merc availability",
-	L"I got your message. Waiting for your call.±",
+	L"I got your message. Waiting for your call. ±",
 };
 
 // WANNE: These are the missing skills from the impass.edt file

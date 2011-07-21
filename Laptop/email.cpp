@@ -4989,6 +4989,7 @@ void PreProcessEmail( EmailPtr pMail )
 	// WANNE: Get the text and replace name!
 	int iNew113MERCMerc = 0;
 	int iNew113AIMMerc = 0;
+	int iNew113CustomUserMerc = 0;
 
 	if (pMail->usLength == MERC_UP_LEVEL_GASTON || pMail->usLength == MERC_UP_LEVEL_STOGIE ||
 		pMail->usLength == MERC_UP_LEVEL_TEX || pMail->usLength == MERC_UP_LEVEL_BIGGENS)
@@ -5001,6 +5002,12 @@ void PreProcessEmail( EmailPtr pMail )
 		iNew113AIMMerc = pMail->usLength;
 		pMail->usLength = 2;
 	}
+	// User made merc
+	else if (pMail->usLength >= 178 && pMail->usLength <= 254)
+	{
+		iNew113CustomUserMerc = pMail->usLength;
+		pMail->usLength = 2;
+	}
 
 	// list doesn't exist, reload
 	if( !pTempRecord )
@@ -5009,6 +5016,8 @@ void PreProcessEmail( EmailPtr pMail )
 		{
 			// read one record from email file
 			LoadEncryptedDataFromFile( "BINARYDATA\\Email.edt", pString, MAIL_STRING_SIZE * ( iOffSet + iCounter ), MAIL_STRING_SIZE );
+
+
 
 			// ----------------
 			// New MERC Merc
@@ -5042,7 +5051,7 @@ void PreProcessEmail( EmailPtr pMail )
 			// ----------------
 			// New AIM Merc
 			// ----------------
-			// WANNE: We have a new 1.13 MERC merc (Text, Gaston, Stogie or Biggens)
+			// WANNE: We have a new 1.13 AIM Wildfire merc
 			if (iNew113AIMMerc != 0)
 			{				
 				wcscpy(pString, L"\0");
@@ -5082,11 +5091,21 @@ void PreProcessEmail( EmailPtr pMail )
 					{
 						wcscpy( pString, New113AIMMercMailTexts[15] );
 					}
-					// Additional Generic Merc mail message
-					else
-					{
-						wcscpy( pString, New113AIMMercMailTexts[17] );
-					}
+				}				
+			}
+
+			// --------------------------
+			// New Customer User Merc
+			// --------------------------
+			// WANNE: We have a new 1.13 AIM Wildfire merc
+			if (iNew113CustomUserMerc != 0)
+			{	
+				wcscpy(pString, L"\0");
+
+				// Only output the mail text, not the subject, cause we already have the subject as text
+				if (iCounter == 1)
+				{
+					wcscpy( pString, New113AIMMercMailTexts[17] );
 				}
 			}
 			
@@ -5107,6 +5126,12 @@ void PreProcessEmail( EmailPtr pMail )
 		if (iNew113AIMMerc != 0)
 		{
 			pMail->usLength = iNew113AIMMerc;
+		}
+
+		// WANNE: Set the value back
+		if (iNew113CustomUserMerc != 0)
+		{
+			pMail->usLength = iNew113CustomUserMerc;
 		}
 
 		giPrevMessageId = giMessageId;

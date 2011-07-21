@@ -5922,41 +5922,41 @@ STR16	New113MERCMercMailTexts[] =
 // WANNE: This is email text (each 2 line), when we left a message on AIM and now the merc is back
 STR16	New113AIMMercMailTexts[] =
 {
-	// Monk
+	// Monk: Text from Line 58
 	L"FW from AIM Server: Message from Victor Kolesnikov",
-	L"You want to talk to me? I have time.",
+	L"Hello. Monk here. Message received. I'm back if you want to see me. ± ± Waiting for your call. ±",
 
-	// Brain
+	// Brain: Text from Line 60
 	L"FW from AIM Server: Message from Janno Allik",
-	L"I am back. Waiting for your call.",
+	L"Am now ready to consider tasks. There is a time and place for everything. ± ± Janno Allik ±",
 
-	// Scream
+	// Scream: Text from Line 62
 	L"FW from AIM Server: Message from Lennart Vilde",
-	L"Sorry, I was out of office, now I am back.",
+	L"Lennart Vilde now available! ±",
 
-	// Henning
+	// Henning: Text from Line 64
 	L"FW from AIM Server: Message from Henning von Branitz",
-	L"Back from business. You want my help?",
+	L"Have received your message, thanks. To discuss employment, contact me  at the AIM Website. ± ± Till then! ± ± Henning von Branitz ±",
 
-	// Luc
+	// Luc: Text from Line 66
 	L"FW from AIM Server: Message from Luc Fabre",
-	L"Give me a call, if you are interested.",
+	L"Mesage received, merci! Am happy to consider your proposals. You know where to find me. ± ± Looking forward to hearing from you. ±",
 
-	// Laura
+	// Laura: Text from Line 68
 	L"FW from AIM Server: Message from Dr. Laura Colin",
-	L"I am now available.",
+	L"Greetings! Good of you to leave a message  It sounds interesting. ± ± Visit AIM again I would be happy to hear more. ± ± Best regards! ± ± Dr. Laura Colin ±",
 
-	// Grace
+	// Grace: Text from Line 70
 	L"FW from AIM Server: Message from Graziella Girelli",
-	L"Got your message. If you still want me, you know what to do.",
+	L"You wanted to contact me, but were not successful.± ± A family gathering. I am sure you understand? I've now had enough of family and would be very happy if you would contact me again over the AIM Site. ± ± Ciao! ±",
 
-	// Rudolf
+	// Rudolf: Text from Line 72
 	L"FW from AIM Server: Message from Rudolf Steiger",
-	L"Rudolf here. Call me back.",	
+	L"Do you know how many calls I get every day? Every tosser thinks he can call me.  ± ± But I'm back, if you have something of interest for me. ±",
 
 	// WANNE: Generic mail, for additional merc made by modders, index >= 178
 	L"FW from AIM Server: Message about merc availability",
-	L"I got your message. Waiting for your call.±",
+	L"I got your message. Waiting for your call. ±",
 };
 
 // WANNE: These are the missing skills from the impass.edt file
