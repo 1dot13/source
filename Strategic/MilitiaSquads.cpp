@@ -203,7 +203,11 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 		ubBestLeadership = __min(ubBestLeadership, gGameExternalOptions.ubReqLeadershipForFullMobileTraining);
 		ubBestLeadership -= gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia;
 
-		UINT8 ubBestLeadershipPercentage = (ubBestLeadership * 100) / bRange;
+		UINT8 ubBestLeadershipPercentage = 0;
+		if (bRange > 0)
+			ubBestLeadershipPercentage = (ubBestLeadership * 100) / bRange;
+		else
+			bRange = 0;
 
 		// There are five "grades", which in practice actually give a smooth transition from All-Green to All-Elite.
 		// Please note that if elite training is disabled, all elites will later be converted to Regulars. In that case,
