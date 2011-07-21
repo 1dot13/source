@@ -2536,18 +2536,27 @@ void NewMercsAvailableAtMercSiteCallBack( )
 	for(UINT8 i=0; i<NUM_PROFILES; i++)
 	{			
 		if ( gConditionsForMercAvailability[i].ProfilId != 0 && gConditionsForMercAvailability[i].NewMercsAvailable == FALSE && gConditionsForMercAvailability[i].StartMercsAvailable == FALSE )
-		{
-			gConditionsForMercAvailability[i].NewMercsAvailable = TRUE;
-			
+		{			
 			if( CanMercBeAvailableYet( gConditionsForMercAvailability[i].uiIndex ) )
 			{
+				gConditionsForMercAvailability[i].NewMercsAvailable = TRUE;
+			
 				if ( gConditionsForMercAvailability[ gConditionsForMercAvailability[i].uiIndex ].Drunk == TRUE )
 				{
 					LaptopSaveInfo.gubLastMercIndex = gConditionsForMercAvailability[gConditionsForMercAvailability[i].uiAlternateIndex].uiIndex;
 				}
 				else
 				{
-					LaptopSaveInfo.gubLastMercIndex++;
+					// If Previous merc has alternate index
+					if (i > 0 && gConditionsForMercAvailability[ gConditionsForMercAvailability[i - 1].uiIndex ].uiAlternateIndex != 255)					
+					{
+						// Previous merc has alternate (drunk) merc, skip his one!						
+						LaptopSaveInfo.gubLastMercIndex = LaptopSaveInfo.gubLastMercIndex + 2;
+					}
+					else
+					{
+						LaptopSaveInfo.gubLastMercIndex++;
+					}
 				}
 
 				gConditionsForMercAvailability[gConditionsForMercAvailability[i].uiIndex].NewMercsAvailable = TRUE;

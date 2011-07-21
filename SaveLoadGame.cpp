@@ -5058,6 +5058,28 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 			}
 		}
 	}
+	
+	// WANNE: There were some problems in older savegames, that the MERC are not available on the merc site. Just recalculate the correct number of mercs
+	// Players that have a bugged savegame and are above Day 50 get ALL Merc on the website!
+	if(guiCurrentSaveGameVersion < FIXED_MERC_NOT_AVAILABLE_ON_MERC_WEBSITE)
+	{
+		// WORKAROUND: If player passed day 30, make merc available on MERC website!
+		if (LaptopSaveInfo.gubLastMercIndex <= 6 && GetWorldDay() >= 30)
+		{
+			LaptopSaveInfo.gubLastMercIndex = 0;
+
+			for(UINT8 i=0; i<NUM_PROFILES; i++)
+			{
+				if ( gConditionsForMercAvailability[i].ProfilId != 0 && (gConditionsForMercAvailability[i].NewMercsAvailable == TRUE || gConditionsForMercAvailability[i].StartMercsAvailable == TRUE ))
+				{
+					LaptopSaveInfo.gubLastMercIndex ++;
+				}
+			}
+			
+			if (LaptopSaveInfo.gubLastMercIndex > 0)
+				LaptopSaveInfo.gubLastMercIndex = LaptopSaveInfo.gubLastMercIndex - 1;
+		}
+	}
 
 	// ---------------------------------------------------------------------------
 

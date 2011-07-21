@@ -20,10 +20,11 @@ extern	CHAR16		zTrackingNumber[16];
 //
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
-#define			SAVE_GAME_VERSION								122		//114	//113	//112	//111	//110	//109	//108	//107	//106	//105	//104	//103	//102	//101	//100 // 99
+#define			SAVE_GAME_VERSION								123		//114	//113	//112	//111	//110	//109	//108	//107	//106	//105	//104	//103	//102	//101	//100 // 99
 
-#define			CURRENT_SAVEGAME_DATATYPE_VERSION				122
+#define			CURRENT_SAVEGAME_DATATYPE_VERSION				123
 
+#define			FIXED_MERC_NOT_AVAILABLE_ON_MERC_WEBSITE		123	// Before this, only Bubba was available on MERC website
 #define			FIXED_CREPITUS_IN_REALISTIC_GAME_MODE			122	// Before this, there was an initializing problem in GameInit.lua on startup, in which we could meet crepitus in Tixa underground map
 #define			FIXED_NPC_QUOTE_BUG								121	// Before this, we need to reload all npc quote information because it was not being saved and loaded correctly.
 #define			MOVED_GENERAL_INFO								120	// Before this, general game information was saved much later in the save game process.
