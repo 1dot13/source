@@ -6224,7 +6224,6 @@ STR16 Additional113Text[]=
 {
 	L"Für die korrekte Arbeit im Fenster-Modus benötigt Jagged Alliance 2 v1.13 16-bit Farbmodus.", //Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp or less.
 
-	// TODO.Translate
 	// WANNE: Savegame slots validation against INI file
 	L"Interner Fehler beim Auslesen der %s Slots des zu ladenden Spielstandes: Die Anzahl der Slots im Spielstand (%d) unterscheidet sich mit den definierten Slots in der Datei ja2_options.ini (%d)",
 	L"Söldner (MAX_NUMBER_PLAYER_MERCS) / Fahrzeuge (MAX_NUMBER_PLAYER_VEHICLES)", 
@@ -6666,12 +6665,12 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nDieser Gegenstand beeinflusst die Tarnung\nin Wüstenebieten, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand beeinflusst die Tarnung\nin Schneegebieten, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand beeinflusst das Schleichen\n, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Hearing Range by the\nlisted percent.\n \nA positive bonus makes it possible to hear noises\nfrom a greater distance.\n \nConversely, a negative modifier impairs the wearer's hearing.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted percent.\n \nThis General modifier works in all conditions.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted percent.\n \nThis Night-Vision modifier works only when light\nlevels are sufficiently low.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted percent.\n \nThis Day-Vision modifier works only when light\nlevels are average or higher.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted percent.\n \nThis Bright-Vision modifier works only when light\nlevels are very high, for example when looking\ninto tiles lit by Break-Lights or at high noon.\n \nHigher is better.",
-	L"\n \nWhen this item is worn, or attached to a worn\nitem, it modifies the wearer's Vision Range by the\nlisted percent.\n \nThis Cave-Vision modifier works only in the dark\nand only underground.\n \nHigher is better.",
+	L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Hörweite\num die angegebenen Prozent.\n \nEin positiver Bonus ermöglicht das Hören von Geräuschen\nauf größere Distanzen.\n \nHöher ist besser.",
+    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser generelle Sichtweitenmodifikator funktioniert bei allen Lichtverhältnissen.\nHöher ist besser.",
+    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Nacht-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung niedrig ist.\n \nHöher ist besser.",
+    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Tag-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung überdurchschnittlich hoch ist.\n \nHöher ist besser.",
+    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Helligkeits-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung extrem hoch und grell ist.\n \nHöher ist besser.",
+    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Höhlen-Sichtweitenmodifikator funktioniert nur\nim Dunkeln und auch nur unter Tage.\n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand beeinflusst die Sichtbreite,\nwenn er getragen oder\nan einen getragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
 	L"\n \nDie Fähigkeit des Schützen Rückstoß\nwährend Feuerstoß-/Autofeuersalven zu bewältigen.\n \nHöher ist besser.",
 	L"\n \nDie Fähigkeit des Schützen einzuschätzen\nwieviel Kraft er während Feuerstoß-/Autofeuersalven\nbenötigt um den Rückstoß auszugleichen.\n \nNiedriger ist besser.",
