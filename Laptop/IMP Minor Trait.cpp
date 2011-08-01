@@ -774,6 +774,12 @@ INT8 GetLastSelectedMinorTrait( void )
 
 UINT8 StrengthRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
+		// Only for new trait system
+	if (!gGameOptions.fNewTraitSystem)
+	{
+		return 0;
+	}
+
 	if ( gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_MELEE ] )
 	{
 		// 60 is minimum, +10 is addition to other preset requirements
@@ -792,6 +798,12 @@ UINT8 StrengthRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 }
 UINT8 DexterityRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
+	// Only for new trait system
+	if (!gGameOptions.fNewTraitSystem)
+	{
+		return 0;
+	}
+
 	if ( gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_AMBIDEXTROUS ] && gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_THROWING ] )
 	{
 		// 70 is minimum if having both, +20 is addition to other preset requirements
@@ -839,6 +851,12 @@ UINT8 DexterityRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 }
 UINT8 AgilityRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
+	// Only for new trait system
+	if (!gGameOptions.fNewTraitSystem)
+	{
+		return 0;
+	}
+
 	if ( gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_ATHLETICS ] && gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_STEALTHY ] )
 	{
 		// 70 is minimum if having both, +20 is addition to other preset requirements
@@ -886,6 +904,12 @@ UINT8 AgilityRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 }
 UINT8 HealthRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
+	// Only for new trait system
+	if (!gGameOptions.fNewTraitSystem)
+	{
+		return 0;
+	}
+
 	if ( gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_BODYBUILDING ] )
 	{
 		// 60 is minimum, +10 is addition to other preset requirements
@@ -905,6 +929,12 @@ UINT8 HealthRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 }
 UINT8 WisdomRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
+	// Only for new trait system
+	if (!gGameOptions.fNewTraitSystem)
+	{
+		return 0;
+	}
+
 	if ( gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_NIGHT_OPS ] && gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_SCOUTING ] )
 	{
 		// 70 is minimum if having both, +20 is addition to other preset requirements
@@ -952,6 +982,12 @@ UINT8 WisdomRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 }
 UINT8 LeaderShipRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
+	// Only for new trait system
+	if (!gGameOptions.fNewTraitSystem)
+	{
+		return 0;
+	}
+
 	if ( gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_TEACHING ] )
 	{
 		// 60 is minimum, +10 is addition to other preset requirements

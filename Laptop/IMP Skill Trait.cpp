@@ -1314,7 +1314,7 @@ INT32 StrengthRequiredDueToMajorSkills( void )
 	// Only for new trait system
 	if (!gGameOptions.fNewTraitSystem)
 	{
-		return (0);
+		return 0;
 	}
 
 	// Check first skill trait (plus second for double trait)
@@ -1360,7 +1360,7 @@ INT32 AgilityRequiredDueToMajorSkills( void )
 	// Only for new trait system
 	if (!gGameOptions.fNewTraitSystem)
 	{
-		return (0);
+		return 0;
 	}
 
 	// Check first skill trait (plus second for double trait)
@@ -1406,7 +1406,7 @@ INT32 DexterityRequiredDueToMajorSkills( void )
 	// Only for new trait system
 	if (!gGameOptions.fNewTraitSystem)
 	{
-		return (0);
+		return 0;
 	}
 
 	// Check first skill trait (plus second for double trait)
@@ -1496,7 +1496,7 @@ INT32 HealthRequiredDueToMajorSkills( void )
 	// Only for new trait system
 	if (!gGameOptions.fNewTraitSystem)
 	{
-		return (0);
+		return 0;
 	}
 
 	// Check first skill trait (plus second for double trait)
@@ -1542,7 +1542,7 @@ INT32 LeadershipRequiredDueToMajorSkills( void )
 	// Only for new trait system
 	if (!gGameOptions.fNewTraitSystem)
 	{
-		return (0);
+		return 0;
 	}
 
 	// Check first skill trait (plus second for double trait)
@@ -1577,7 +1577,7 @@ INT32 WisdomRequiredDueToMajorSkills( void )
 	// Only for new trait system
 	if (!gGameOptions.fNewTraitSystem)
 	{
-		return (0);
+		return 0;
 	}
 
 	// Check first skill trait (plus second for double trait)
@@ -1645,7 +1645,7 @@ INT32 MarksmanshipRequiredDueToMajorSkills( void )
 	// Only for new trait system
 	if (!gGameOptions.fNewTraitSystem)
 	{
-		return (0);
+		return 0;
 	}
 
 	// Check first skill trait (plus second for double trait)
@@ -1702,7 +1702,7 @@ INT32 MechanicalRequiredDueToMajorSkills( void )
 	// Only for new trait system
 	if (!gGameOptions.fNewTraitSystem)
 	{
-		return (0);
+		return 0;
 	}
 
 	// Check first skill trait (plus second for double trait)
@@ -1726,7 +1726,7 @@ INT32 MedicalRequiredDueToMajorSkills( void )
 	// Only for new trait system
 	if (!gGameOptions.fNewTraitSystem)
 	{
-		return (0);
+		return 0;
 	}
 
 	// Check first skill trait (plus second for double trait)
@@ -1750,7 +1750,7 @@ INT32 ExplosivesRequiredDueToMajorSkills( void )
 	// Only for new trait system
 	if (!gGameOptions.fNewTraitSystem)
 	{
-		return (0);
+		return 0;
 	}
 
 	// Check first skill trait (plus second for double trait)
