@@ -3348,13 +3348,11 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 
 			//////////////////////////////////////////////////////////////
 
-			// WANNE: This should fix crash that could occur if enemy bleeds to death
-			if ( pSoldier->ubAttackerID < 254 )
 			{
 				// IF this guy has an attacker and he's a good guy, play sound
 				if ( ubAttacker != NOBODY )
 				{								
-					if ( MercPtrs[ pSoldier->ubAttackerID ]->bTeam == gbPlayerNum && gTacticalStatus.ubAttackBusyCount > 0 )
+					if ( MercPtrs[ pSoldier->ubAttackerID ] != NULL && MercPtrs[ pSoldier->ubAttackerID ]->bTeam == gbPlayerNum && gTacticalStatus.ubAttackBusyCount > 0 )
 					{
 						gTacticalStatus.fKilledEnemyOnAttack	= TRUE;
 						gTacticalStatus.ubEnemyKilledOnAttack = pSoldier->ubID;
