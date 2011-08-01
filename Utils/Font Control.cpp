@@ -70,6 +70,9 @@ HVOBJECT				gvoBlockyFont;
 INT32			gpBlockyFont2;
 HVOBJECT				gvoBlockyFont2;
 
+INT32			gpBlockyFont3;
+HVOBJECT				gvoBlockyFont3;
+
 INT32						gp12PointArialFixedFont;
 HVOBJECT				gvo12PointArialFixedFont;
 
@@ -188,8 +191,13 @@ BOOLEAN	InitializeFonts( )
 
 //	gpBlockyFont2  = LoadFontFile( "FONTS\\interface_font.sti" );
 	gpBlockyFont2  = LoadFontFile( "FONTS\\BLOCKFONT2.sti" );
-  gvoBlockyFont2 = GetFontObject( gpBlockyFont2);
-  CHECKF( CreateFontPaletteTables( gvoBlockyFont2) );
+	gvoBlockyFont2 = GetFontObject( gpBlockyFont2);
+	CHECKF( CreateFontPaletteTables( gvoBlockyFont2) );
+
+	gpBlockyFont3  = LoadFontFile( "FONTS\\BLOCKFONT2.sti" );
+	gvoBlockyFont3 = GetFontObject( gpBlockyFont3);
+	CHECKF( CreateFontPaletteTables( gvoBlockyFont3) );
+
 
 //	gp12PointArialFixedFont = LoadFontFile( "FONTS\\Arial12FixedWidth.sti" );
 	gp12PointArialFixedFont = LoadFontFile( "FONTS\\FONT12ARIALFIXEDWIDTH.sti" );

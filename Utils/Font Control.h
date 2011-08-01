@@ -71,6 +71,9 @@ extern HVOBJECT				gvoBlockyFont;
 extern INT32						gpBlockyFont2;
 extern HVOBJECT				gvoBlockyFont2;
 
+extern INT32						gpBlockyFont3;
+extern HVOBJECT				gvoBlockyFont3;
+
 extern INT32						gp10PointArialBold;
 extern HVOBJECT				gvo10PointArialBold;
 
@@ -114,6 +117,7 @@ extern BOOLEAN					gfFontsInit;
 #define		 FONT10ARIALBOLD	gp10PointArialBold
 #define		 BLOCKFONT		 gpBlockyFont
 #define		 BLOCKFONT2		gpBlockyFont2
+#define		 BLOCKFONT3		gpBlockyFont3
 #define					FONT12ARIALFIXEDWIDTH gp12PointArialFixedFont
 #define					FONT16ARIAL				gp16PointArial
 #define					BLOCKFONTNARROW		gpBlockFontNarrow

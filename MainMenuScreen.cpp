@@ -804,6 +804,7 @@ void RenderMainMenu()
 	DrawTextToScreen( L"FONT10ARIALBOLD: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 345, 640, FONT10ARIALBOLD, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	DrawTextToScreen( L"BLOCKFONT: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 365, 640, BLOCKFONT, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	DrawTextToScreen( L"BLOCKFONT2: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 385, 640, BLOCKFONT2, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"BLOCKFONT3: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 385, 640, BLOCKFONT3, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	DrawTextToScreen( L"FONT12ARIALFIXEDWIDTH: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 405, 640, FONT12ARIALFIXEDWIDTH, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	DrawTextToScreen( L"FONT16ARIAL: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 425, 640, FONT16ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	DrawTextToScreen( L"BLOCKFONTNARROW: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 445, 640, BLOCKFONTNARROW, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
