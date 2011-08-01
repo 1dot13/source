@@ -94,9 +94,9 @@ INT32 iHealthMinimum		= gGameExternalOptions.iMinAttribute;
 INT32 iLeaderShipMinimum	= gGameExternalOptions.iMinAttribute;
 INT32 iWisdomMinimum		= gGameExternalOptions.iMinAttribute;
 INT32 iMarkmanshipMinimum = gGameExternalOptions.iMinAttribute;
-INT32 iMechanicalMinimum	= 0;
-INT32 iMedicalMinimum	 = 0;
-INT32 iExplosivesMinimum	= 0;
+INT32 iMechanicalMinimum	= gGameExternalOptions.iMinAttribute;
+INT32 iMedicalMinimum	 = gGameExternalOptions.iMinAttribute;
+INT32 iExplosivesMinimum	= gGameExternalOptions.iMinAttribute;
 
 
 
