@@ -3347,9 +3347,9 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 			}
 
 			//////////////////////////////////////////////////////////////
-			
-			// WANNE: This should fix crash in a MP game, when someone quits playing
-			if ( (is_networked && pSoldier->ubAttackerID < 254) || !is_networked )
+
+			// WANNE: This should fix crash that could occur if enemy bleeds to death
+			if ( pSoldier->ubAttackerID < 254 )
 			{
 				// IF this guy has an attacker and he's a good guy, play sound
 				if ( ubAttacker != NOBODY )
