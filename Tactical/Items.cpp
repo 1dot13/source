@@ -6295,12 +6295,17 @@ BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 b
 
 	if( guiCurrentScreen == MAP_SCREEN )
 	{
-		if(fShowMapInventoryPool && !IsMercInActiveSector(pSoldier) )
-		{
-			fShowMapInventoryPool = FALSE;
-			CreateDestroyMapInventoryPoolButtons(FALSE);
+		// the_bob : added the check for whether pSoldier actually points to something to handle calling this function with pSoldier = NULL
+		if (pSoldier){
+			if(fShowMapInventoryPool && !IsMercInActiveSector(pSoldier) )
+			{
+				fShowMapInventoryPool = FALSE;
+				CreateDestroyMapInventoryPoolButtons(FALSE);
+			}
+
+			 ChangeSelectedMapSector(pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ);
 		}
-		ChangeSelectedMapSector(pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ);
+
 		if(!fShowMapInventoryPool)
 		{
 			fShowMapInventoryPool = TRUE;
