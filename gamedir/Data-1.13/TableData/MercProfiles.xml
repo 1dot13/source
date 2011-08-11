@@ -105,7 +105,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>3</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>54</bReputationTolerance>
@@ -357,7 +357,7 @@
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>3</bCharacterTrait>
 		<bDisability>3</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>33</bReputationTolerance>
@@ -609,7 +609,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>48</bReputationTolerance>
@@ -693,7 +693,7 @@
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>1</uiBodyTypeSubFlags>
 		<bAttitude>7</bAttitude>
-		<bCharacterTrait>12</bCharacterTrait>
+		<bCharacterTrait>6</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
 		<bReputationTolerance>70</bReputationTolerance>
@@ -777,7 +777,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>48</bReputationTolerance>
@@ -945,8 +945,8 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>11</bCharacterTrait>
-		<bDisability>0</bDisability>
+		<bCharacterTrait>0</bCharacterTrait>
+		<bDisability>2</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>65</bReputationTolerance>
 		<bDeathRate>45</bDeathRate>
@@ -1197,7 +1197,7 @@
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>8</bCharacterTrait>
+		<bCharacterTrait>12</bCharacterTrait>
 		<bDisability>5</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>46</bReputationTolerance>
@@ -1701,7 +1701,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>6</bAttitude>
-		<bCharacterTrait>9</bCharacterTrait>
+		<bCharacterTrait>11</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
 		<bReputationTolerance>51</bReputationTolerance>
@@ -2037,7 +2037,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>7</bAttitude>
-		<bCharacterTrait>4</bCharacterTrait>
+		<bCharacterTrait>12</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
 		<bReputationTolerance>25</bReputationTolerance>
@@ -2121,7 +2121,7 @@
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
-		<bCharacterTrait>9</bCharacterTrait>
+		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
 		<bReputationTolerance>25</bReputationTolerance>
@@ -2793,7 +2793,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>11</bCharacterTrait>
+		<bCharacterTrait>8</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
 		<bReputationTolerance>22</bReputationTolerance>
@@ -2815,7 +2815,8 @@
 		<bOldSkillTrait2>4</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
-		<bNewSkillTrait3>13</bNewSkillTrait3>
+		<bNewSkillTrait3>9</bNewSkillTrait3>
+		<bNewSkillTrait4>13</bNewSkillTrait4>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -3129,7 +3130,7 @@
 		<ubBodyType>1</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>11</bCharacterTrait>
+		<bCharacterTrait>2</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>44</bReputationTolerance>
@@ -3297,7 +3298,7 @@
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>5</bAttitude>
-		<bCharacterTrait>7</bCharacterTrait>
+		<bCharacterTrait>11</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>5</ubNeedForSleep>
 		<bReputationTolerance>99</bReputationTolerance>
@@ -3381,7 +3382,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>9</bAttitude>
-		<bCharacterTrait>5</bCharacterTrait>
+		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>2</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -3549,7 +3550,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>8</bAttitude>
-		<bCharacterTrait>4</bCharacterTrait>
+		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>6</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -3801,7 +3802,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>8</bCharacterTrait>
+		<bCharacterTrait>5</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -4053,7 +4054,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>8</bAttitude>
-		<bCharacterTrait>4</bCharacterTrait>
+		<bCharacterTrait>12</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>6</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -4159,7 +4160,7 @@
 		<bOldSkillTrait2>12</bOldSkillTrait2>
 		<bNewSkillTrait1>6</bNewSkillTrait1>
 		<bNewSkillTrait2>6</bNewSkillTrait2>
-		<bNewSkillTrait3>14</bNewSkillTrait3>
+		<bNewSkillTrait3>13</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -5649,7 +5650,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>3</bAttitude>
-		<bCharacterTrait>5</bCharacterTrait>
+		<bCharacterTrait>3</bCharacterTrait>
 		<bDisability>4</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -5733,7 +5734,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
-		<bCharacterTrait>8</bCharacterTrait>
+		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -5817,7 +5818,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
-		<bCharacterTrait>10</bCharacterTrait>
+		<bCharacterTrait>3</bCharacterTrait>
 		<bDisability>3</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -6069,7 +6070,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>5</bAttitude>
-		<bCharacterTrait>9</bCharacterTrait>
+		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -6153,7 +6154,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>6</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -6321,7 +6322,7 @@
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>5</bAttitude>
-		<bCharacterTrait>4</bCharacterTrait>
+		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>7</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -7161,7 +7162,7 @@
 		<ubBodyType>13</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>8</bAttitude>
-		<bCharacterTrait>11</bCharacterTrait>
+		<bCharacterTrait>9</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -7749,7 +7750,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>1</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>1</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -8085,7 +8086,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>2</bCharacterTrait>
+		<bCharacterTrait>11</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -8337,7 +8338,7 @@
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>7</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>12</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -8421,7 +8422,7 @@
 		<ubBodyType>11</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>9</bAttitude>
-		<bCharacterTrait>1</bCharacterTrait>
+		<bCharacterTrait>10</bCharacterTrait>
 		<bDisability>6</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -8589,7 +8590,7 @@
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>5</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>7</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -10353,7 +10354,7 @@
 		<ubBodyType>13</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>6</bAttitude>
-		<bCharacterTrait>5</bCharacterTrait>
+		<bCharacterTrait>12</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -11025,7 +11026,7 @@
 		<ubBodyType>12</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>9</bAttitude>
-		<bCharacterTrait>0</bCharacterTrait>
+		<bCharacterTrait>10</bCharacterTrait>
 		<bDisability>0</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -14070,7 +14071,7 @@
 		<bOldSkillTrait>10</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
 		<bNewSkillTrait1>4</bNewSkillTrait1>
-		<bNewSkillTrait2>4</bNewSkillTrait2>
+		<bNewSkillTrait2>5</bNewSkillTrait2>
 		<bNewSkillTrait3>10</bNewSkillTrait3>
 		<bBuddy1>14</bBuddy1>
 		<bBuddy2>46</bBuddy2>
@@ -14133,7 +14134,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>3</bAttitude>
-		<bCharacterTrait>1</bCharacterTrait>
+		<bCharacterTrait>3</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -14322,8 +14323,8 @@
 		<bOldSkillTrait>8</bOldSkillTrait>
 		<bOldSkillTrait2>15</bOldSkillTrait2>
 		<bNewSkillTrait1>4</bNewSkillTrait1>
-		<bNewSkillTrait2>1</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait2>4</bNewSkillTrait2>
+		<bNewSkillTrait3>1</bNewSkillTrait3>
 		<bBuddy1>36</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -14469,7 +14470,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>6</bAttitude>
-		<bCharacterTrait>9</bCharacterTrait>
+		<bCharacterTrait>4</bCharacterTrait>
 		<bDisability>1</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>51</bReputationTolerance>
@@ -14511,9 +14512,9 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>2</bLearnToHate>
 		<bLearnToHateTime>6</bLearnToHateTime>
-		<sSalary>2400</sSalary>
-		<uiWeeklySalary>16500</uiWeeklySalary>
-		<uiBiWeeklySalary>25000</uiBiWeeklySalary>
+		<sSalary>1800</sSalary>
+		<uiWeeklySalary>10100</uiWeeklySalary>
+		<uiBiWeeklySalary>15500</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>1600</sMedicalDepositAmount>
 		<usOptionalGearCost>2403</usOptionalGearCost>
@@ -14553,7 +14554,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
-		<bCharacterTrait>4</bCharacterTrait>
+		<bCharacterTrait>0</bCharacterTrait>
 		<bDisability>3</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
 		<bReputationTolerance>88</bReputationTolerance>
@@ -14596,8 +14597,8 @@
 		<bLearnToHate>49</bLearnToHate>
 		<bLearnToHateTime>30</bLearnToHateTime>
 		<sSalary>2790</sSalary>
-		<uiWeeklySalary>17900</uiWeeklySalary>
-		<uiBiWeeklySalary>31500</uiBiWeeklySalary>
+		<uiWeeklySalary>18700</uiWeeklySalary>
+		<uiBiWeeklySalary>35000</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>3400</sMedicalDepositAmount>
 		<usOptionalGearCost>4556</usOptionalGearCost>
@@ -14679,9 +14680,9 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>44</bLearnToHate>
 		<bLearnToHateTime>70</bLearnToHateTime>
-		<sSalary>2600</sSalary>
-		<uiWeeklySalary>16850</uiWeeklySalary>
-		<uiBiWeeklySalary>30500</uiBiWeeklySalary>
+		<sSalary>1500</sSalary>
+		<uiWeeklySalary>8900</uiWeeklySalary>
+		<uiBiWeeklySalary>14900</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>2200</sMedicalDepositAmount>
 		<usOptionalGearCost>1679</usOptionalGearCost>
@@ -14763,9 +14764,9 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>14</bLearnToHate>
 		<bLearnToHateTime>20</bLearnToHateTime>
-		<sSalary>2680</sSalary>
-		<uiWeeklySalary>17000</uiWeeklySalary>
-		<uiBiWeeklySalary>30800</uiBiWeeklySalary>
+		<sSalary>2300</sSalary>
+		<uiWeeklySalary>14900</uiWeeklySalary>
+		<uiBiWeeklySalary>26000</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>2200</sMedicalDepositAmount>
 		<usOptionalGearCost>3982</usOptionalGearCost>
@@ -14805,7 +14806,7 @@
 		<ubBodyType>3</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>4</bAttitude>
-		<bCharacterTrait>11</bCharacterTrait>
+		<bCharacterTrait>5</bCharacterTrait>
 		<bDisability>4</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>44</bReputationTolerance>
@@ -14826,8 +14827,8 @@
 		<bOldSkillTrait>5</bOldSkillTrait>
 		<bOldSkillTrait2>5</bOldSkillTrait2>
 		<bNewSkillTrait1>12</bNewSkillTrait1>
-		<bNewSkillTrait2>0</bNewSkillTrait2>
-		<bNewSkillTrait3>0</bNewSkillTrait3>
+		<bNewSkillTrait2>17</bNewSkillTrait2>
+		<bNewSkillTrait3>15</bNewSkillTrait3>
 		<bBuddy1>-1</bBuddy1>
 		<bBuddy2>-1</bBuddy2>
 		<bBuddy3>-1</bBuddy3>
@@ -14847,9 +14848,9 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>39</bLearnToHate>
 		<bLearnToHateTime>22</bLearnToHateTime>
-		<sSalary>2200</sSalary>
-		<uiWeeklySalary>15000</uiWeeklySalary>
-		<uiBiWeeklySalary>28000</uiBiWeeklySalary>
+		<sSalary>850</sSalary>
+		<uiWeeklySalary>5300</uiWeeklySalary>
+		<uiBiWeeklySalary>8700</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>800</sMedicalDepositAmount>
 		<usOptionalGearCost>2614</usOptionalGearCost>
@@ -14931,9 +14932,9 @@
 		<bHatedTime5>0</bHatedTime5>
 		<bLearnToHate>21</bLearnToHate>
 		<bLearnToHateTime>10</bLearnToHateTime>
-		<sSalary>2700</sSalary>
-		<uiWeeklySalary>17010</uiWeeklySalary>
-		<uiBiWeeklySalary>30950</uiBiWeeklySalary>
+		<sSalary>2900</sSalary>
+		<uiWeeklySalary>18000</uiWeeklySalary>
+		<uiBiWeeklySalary>33000</uiBiWeeklySalary>
 		<bMedicalDeposit>1</bMedicalDeposit>
 		<sMedicalDepositAmount>3500</sMedicalDepositAmount>
 		<usOptionalGearCost>2529</usOptionalGearCost>
