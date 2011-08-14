@@ -1237,130 +1237,134 @@ BOOLEAN	GetNextCreditFromTextFile()
 			break;
 
 			case 24:
-				wcscpy(zOriginalString, L"Scorpion");
+				wcscpy(zOriginalString, L"PasHancock");
 			break;
 
 			case 25:
-				wcscpy(zOriginalString, L"Starwalker");
-			break;
-
-			case 26:
-				wcscpy(zOriginalString, L"Tbird94lx");
-			break;
-
-			case 27:
-				wcscpy(zOriginalString, L"Terry Thorne");
-			break;
-
-			case 28:
-				wcscpy(zOriginalString, pCreditsJA2113[3]);
-			break;
-
-			case 29:
-				wcscpy(zOriginalString, pCreditsJA2113[4]);
-			break;
-
-			case 30:
-				wcscpy(zOriginalString, L"Madd Mugsy");
-			break;
-
-			case 31:
-				wcscpy(zOriginalString,	L"Starwalker");
-			break;
-
-			case 32:
-				wcscpy(zOriginalString, L"@};Lisac");
-			break;
-
-			case 33:
-				wcscpy(zOriginalString, pCreditsJA2113[5]);
-			break;
-
-			case 34:
-				wcscpy(zOriginalString, L"BearPit");
-			break;
-
-			case 35:
-				wcscpy(zOriginalString, L"Captain J");
-			break;
-
-			case 36:
-				wcscpy(zOriginalString, L"DeFrog");
-			break;
-
-			case 37:
-				wcscpy(zOriginalString, L"Farmer Toby");
-			break;
-
-			case 38:
-				wcscpy(zOriginalString, L"Headrock");
-			break;
-
-			case 39:
-				wcscpy(zOriginalString, L"inshy");
-			break;
-
-			case 40:
-				wcscpy(zOriginalString, L"JAPH");
-			break;
-
-			case 41:
-				wcscpy(zOriginalString, L"Jones");
-			break;
-
-			case 42:
-				wcscpy(zOriginalString, L"Judge");
-			break;
-
-			case 43:
-				wcscpy(zOriginalString, L"Miro");
-			break;
-
-			case 44:
-				wcscpy(zOriginalString, L"Nitrat");
-			break;
-
-			case 45:
-				wcscpy(zOriginalString, L"Pulmu");
-			break;
-
-			case 46:
 				wcscpy(zOriginalString, L"Scorpion");
 			break;
 
+			case 26:
+				wcscpy(zOriginalString, L"Starwalker");
+			break;
+
+			case 27:
+				wcscpy(zOriginalString, L"Tbird94lx");
+			break;
+
+			case 28:
+				wcscpy(zOriginalString, L"Terry Thorne");
+			break;
+
+			case 29:
+				wcscpy(zOriginalString, pCreditsJA2113[3]);
+			break;
+
+			case 30:
+				wcscpy(zOriginalString, pCreditsJA2113[4]);
+			break;
+
+			case 31:
+				wcscpy(zOriginalString, L"Madd Mugsy");
+			break;
+
+			case 32:
+				wcscpy(zOriginalString,	L"Starwalker");
+			break;
+
+			case 33:
+				wcscpy(zOriginalString, L"@};Lisac");
+			break;
+
+			case 34:
+				wcscpy(zOriginalString, pCreditsJA2113[5]);
+			break;
+
+			case 35:
+				wcscpy(zOriginalString, L"BearPit");
+			break;
+
+			case 36:
+				wcscpy(zOriginalString, L"Captain J");
+			break;
+
+			case 37:
+				wcscpy(zOriginalString, L"DeFrog");
+			break;
+
+			case 38:
+				wcscpy(zOriginalString, L"Farmer Toby");
+			break;
+
+			case 39:
+				wcscpy(zOriginalString, L"Headrock");
+			break;
+
+			case 40:
+				wcscpy(zOriginalString, L"inshy");
+			break;
+
+			case 41:
+				wcscpy(zOriginalString, L"JAPH");
+			break;
+
+			case 42:
+				wcscpy(zOriginalString, L"Jones");
+			break;
+
+			case 43:
+				wcscpy(zOriginalString, L"Judge");
+			break;
+
+			case 44:
+				wcscpy(zOriginalString, L"Miro");
+			break;
+
+			case 45:
+				wcscpy(zOriginalString, L"Nitrat");
+			break;
+
+			case 46:
+				wcscpy(zOriginalString, L"Pulmu");
+			break;
+
 			case 47:
-				wcscpy(zOriginalString, L"ShadoWarrior");
+				wcscpy(zOriginalString, L"Scorpion");
 			break;
 
 			case 48:
-				wcscpy(zOriginalString, L"Snap");
+				wcscpy(zOriginalString, L"ShadoWarrior");
 			break;
 
 			case 49:
-				wcscpy(zOriginalString, L"TheDrill");
+				wcscpy(zOriginalString, L"Snap");
 			break;
 
 			case 50:
-				wcscpy(zOriginalString, L"Wil473");
+				wcscpy(zOriginalString, L"TheDrill");
 			break;
 
 			case 51:
+				wcscpy(zOriginalString, L"Wil473");
+			break;
+
+			case 52:
 				wcscpy(zOriginalString, pCreditsJA2113[6]);
 			break;
 
 			// Additonal lines for free space
-			case 52:
+			case 53:
 				wcscpy(zOriginalString, L"@T,B40,C208,{; ");
 			break;
 
-			case 53:
+			case 54:
 				wcscpy(zOriginalString, L"@}; ");
 			break;
 
 			// 3.)	Sir-Tech Credits
 			default:
 				//Get the current Credit record
-				uiStartLoc = CREDITS_LINESIZE * (guiCurrentCreditRecord-54);
+				uiStartLoc = CREDITS_LINESIZE * (guiCurrentCreditRecord-55);
 				if( !LoadEncryptedDataFromFile( CRDT_NAME_OF_CREDIT_FILE, zOriginalString, uiStartLoc, CREDITS_LINESIZE ) )
 				{
 					//there are no more credits
