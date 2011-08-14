@@ -2829,7 +2829,26 @@ void recieveGRENADE (RPCParameters *rpcParameters)
 
 			// Do grenade animation (todo fix this for mortars)
 			if (gren->IsThrownGrenade)
+			{
+				{
+					Assert(pThrower->pThrowParams == NULL);
+
+					// not a mem leak
+					// will be freed in AdjustToNextAnimationFrame(SOLDIERTYPE*), case 461
+					pThrower->pThrowParams = (THROW_PARAMS*) malloc(sizeof(THROW_PARAMS));
+					pThrower->pThrowParams->dForceX = gren->dForceX;
+					pThrower->pThrowParams->dForceY = gren->dForceY;
+					pThrower->pThrowParams->dForceZ = gren->dForceZ;
+					pThrower->pThrowParams->dLifeSpan = gren->dLifeSpan;
+					pThrower->pThrowParams->dX = gren->dX;
+					pThrower->pThrowParams->dY = gren->dY;
+					pThrower->pThrowParams->dZ = gren->dZ;
+					pThrower->pThrowParams->ubActionCode = gren->ubActionCode;
+					pThrower->pThrowParams->uiActionData = gren->uiActionData;
+				}
+
 				HandleSoldierThrowItem( pThrower, gren->sTargetGridNo );
+			}
 		}
 	}
 	else
