@@ -3,15 +3,29 @@
 <!--
 <ExtraItems>
    <Item>
-      <uiIndex>201</uiIndex>
-      <quantity>1</quantity>
+      <uiIndex>211</uiIndex>
+      <quantity>6</quantity>
       <condition>80</condition>
       <gridno>6479</gridno>
       <visible>1</visible>
    </Item>
    <Item>
-      <uiIndex>15</uiIndex>
-      <quantity>1</quantity>
+      <uiIndex>212</uiIndex>
+      <quantity>6</quantity>
+      <condition>80</condition>
+      <gridno>6479</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>213</uiIndex>
+      <quantity>6</quantity>
+      <condition>80</condition>
+      <gridno>6479</gridno>
+      <visible>1</visible>
+   </Item>
+    <Item>
+      <uiIndex>293</uiIndex>
+      <quantity>6</quantity>
       <condition>80</condition>
       <gridno>6479</gridno>
       <visible>1</visible>

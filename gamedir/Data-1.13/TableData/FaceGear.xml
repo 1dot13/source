@@ -1095,8 +1095,8 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>212</uiIndex>
-		<Type>0</Type>
-		<szFile></szFile>
+		<Type>4</Type>
+		<szFile>FACES\FACESGEAR\Face_SunGoggles</szFile>
 	</ITEM>
 	<!-- Gas Mask -->
 	<ITEM>
