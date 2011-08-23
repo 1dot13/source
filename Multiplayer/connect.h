@@ -185,7 +185,7 @@ extern BOOLEAN		fClientReceivedAllFiles;
 // OJW - 20090507
 // Add basic version checking, will only work from now on
 // note: this cannot be longer than char[30]
-#define MPVERSION	"MP v1.7"
+#define MPVERSION	"MP v1.8"
 
 // OJW - 2009128 - inline funcs for working with soldiers and teams
 // sick of confusing myself :)
