@@ -5502,6 +5502,10 @@ UINT32 MapScreenHandle(void)
 	UpdatePausedStatesDueToTimeCompression( );
 
 	// is there a description to be displayed?
+	// BOB : if we're displaying the attachment popup, don't redraw the IDB
+	if (giActiveAttachmentPopup > -1)
+		gItemDescAttachmentPopups[giActiveAttachmentPopup]->show();
+	else
 	RenderItemDescriptionBox( );
 
 	// render clock

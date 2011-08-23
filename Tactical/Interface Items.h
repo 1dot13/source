@@ -3,6 +3,7 @@
 
 #include "items.h"
 #include "Handle Items.h"
+#include "popup_class.h"
 
 // DEFINES FOR ITEM SLOT SIZES IN PIXELS
 #define		BIG_INV_SLOT_WIDTH				61
@@ -303,5 +304,16 @@ void CycleItemDescriptionItem( INT16 sX, INT16 sY );
 INT16 CycleItems( INT16 usOldItem );
 
 BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, ITEM_POOL *pItemPool, UINT8 ubCount);
+
+// BOB : quick attachment selection popups
+extern POPUP* gItemDescAttachmentPopups[MAX_ATTACHMENTS];	// popup list for attachment slots
+extern INT32 giActiveAttachmentPopup;	// the attachment popup to display in mapscreen
+
+// BOB : quick equip popups
+extern POPUP* gEquipPopups[NUM_INV_SLOTS];	// popup list for attachment slots
+extern INT32 giActiveEquipPopup;	// the attachment popup to display in mapscreen
+
+// BOB : duh...
+void DoAttachment( UINT8 subObject, INT32 iItemPos );
 
 #endif

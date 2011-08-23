@@ -147,6 +147,8 @@
     <ClInclude Include="Cinematics Bink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="popup_callback.h" />
+    <ClInclude Include="popup_class.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_ChineseText.cpp">
@@ -317,5 +319,6 @@
     <ClCompile Include="Cinematics Bink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="popup_class.cpp" />
   </ItemGroup>
 </Project>

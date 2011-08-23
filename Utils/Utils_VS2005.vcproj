@@ -455,6 +455,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\popup_callback.h"
+				>
+			</File>
+			<File
+				RelativePath=".\popup_class.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PopUpBox.h"
 				>
 			</File>
@@ -678,6 +686,10 @@
 			</File>
 			<File
 				RelativePath=".\Music Control.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\popup_class.cpp"
 				>
 			</File>
 			<File

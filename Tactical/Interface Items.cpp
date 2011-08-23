@@ -76,8 +76,11 @@
 	#include "Map Screen Interface Map.h"
 	#include "Interface Enhanced.h"
 	#include "InterfaceItemImages.h"
+	#include "Auto Resolve.h"
+	#include "popup_callback.h"
+	// BOB : quick attachment popup
+	#include "popup_class.h"
 #endif
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SANDRO - all "APBPConstants[AP_PICKUP_ITEM]" were replaced by GetBasicAPsToPickupItem()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -279,6 +282,16 @@ SOLDIERTYPE *gpItemDescSoldier;
 BOOLEAN			fItemDescDelete = FALSE;
 MOUSE_REGION		gItemDescAttachmentRegions[MAX_ATTACHMENTS];
 MOUSE_REGION		gProsAndConsRegions[2];
+
+// BOB : quick attachment popups
+BOOLEAN		gItemDescAttachmentPopupsInitialized = FALSE;
+
+POPUP*		gItemDescAttachmentPopups[MAX_ATTACHMENTS];
+INT32		giActiveAttachmentPopup = -1;
+
+POPUP*		gEquipPopups[NUM_INV_SLOTS];
+INT32		giActiveEquipPopup = -1;
+
 
 void				BtnMoneyButtonCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32			guiMoneyButtonBtn[OLD_MAX_ATTACHMENTS_101];
@@ -509,6 +522,65 @@ INV_DESC_REGIONS gItemDescAdvIndexRegions[1][4];
 INV_DESC_REGIONS gItemDescAdvRegions[NUM_UDB_ADV_LINES][4]; // Advanced data regions, 4 sub-columns each
 
 INV_DESC_REGIONS gODBItemDescRegions[4][8]; // Four regions of eight sub-regions each.
+
+// ------------------- Attachment popup callbacks
+
+// BOB : globals for telling attachment popups _where_ should the attachment go
+UINT8	gubPopupStatusIndex;
+UINT32	guiPopupItemPos;
+void popupCallbackItem(INT16 itemId){
+
+
+	for(UINT16 i = 0; i < pInventoryPoolList.size(); i++){
+		if( pInventoryPoolList[i].object.usItem == itemId ) {
+			
+			gpItemPointer = &pInventoryPoolList[i].object;				// pick up the object (or stack)
+			DoAttachment((UINT8)gubPopupStatusIndex, guiPopupItemPos);	// try to attach it
+			gpItemPointer = NULL;										// and drop it
+
+			gItemDescAttachmentPopups[giActiveAttachmentPopup]->hide();
+			RenderItemDescriptionBox();
+			giActiveAttachmentPopup = -1;
+
+			//UpdateAttachmentTooltips(gpItemDescObject, gubItemDescStatusIndex);
+			return;
+			
+		}
+	}
+
+}
+
+bool popupCallbackItemInSector(INT16 itemId){
+	for(UINT16 i = 0; i < pInventoryPoolList.size(); i++)
+		if( pInventoryPoolList[i].object.usItem == itemId ) return true;
+
+	return false;
+}
+
+void hideAttachmentPopup(){
+	giActiveAttachmentPopup = -1;
+
+	if (giInvDescTabButton[0] != giItemDescAmmoButton)	
+		ShowButton(giItemDescAmmoButton);
+}
+
+void hideOtherAttachmentPopups(UINT32 cnt){
+
+	// if there's a bullet icon, hide it. It tends to overlap my popup boxes
+	if (giInvDescTabButton[0] != giItemDescAmmoButton)	
+		HideButton(giItemDescAmmoButton);
+
+	RenderItemDescriptionBox();	// also, redraw the IDB to clean up helptext
+	
+	if( cnt > MAX_ATTACHMENTS  ) return;
+
+	for(UINT32 i = 0; i < cnt; i++){
+		if (gItemDescAttachmentPopups[i] != NULL)
+			gItemDescAttachmentPopups[i]->hide();
+	}
+}
+
+
 
 BOOLEAN AttemptToAddSubstring( STR16 zDest, STR16 zTemp, UINT32 * puiStringLength, UINT32 uiPixLimit )
 {
@@ -3592,6 +3664,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 }
 
 //CHRISL: This function is designed to recreate the attachment tooltips
+extern	BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier );
 void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 {
 	UINT32	slotCount = 0;
@@ -3609,11 +3682,19 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 	std::vector<UINT16>	usAttachmentSlotIndexVector = GetItemSlots(pObject);
 
 	//start by deleting the currently defined regions if they exist
+	//BOB : also, clean up the popup boxes (in case they're still around)
+	//		and init them to NULL in case they contain garbage
 	for (INT32 cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
 	{
 		if( gItemDescAttachmentRegions[cnt].IDNumber != 0 )
 			MSYS_RemoveRegion( &gItemDescAttachmentRegions[cnt]);
+
+		if( gItemDescAttachmentPopupsInitialized && gItemDescAttachmentPopups[cnt] != NULL ){
+			delete(gItemDescAttachmentPopups[cnt]);			
+		}
+		gItemDescAttachmentPopups[cnt] = NULL;
 	}
+	gItemDescAttachmentPopupsInitialized = TRUE;
 
 	//now, create new regions
 	for (slotCount = 0; ;++slotCount )
@@ -3711,6 +3792,47 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 					}
 				}
 			}
+			BOOLEAN showAttachmentPopups = FALSE;
+
+			if(		guiCurrentItemDescriptionScreen == MAP_SCREEN 
+			&&		fShowMapInventoryPool 
+			&&		(	(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX == sSelMapX )
+					&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY == sSelMapY )
+					&&	( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ == iCurrentMapSectorZ ) 
+					)
+			&&		CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] )
+			)
+			{
+				showAttachmentPopups = TRUE;
+			}
+
+			// create quick attachment popup boxes here
+			if (showAttachmentPopups)
+			{
+				gItemDescAttachmentPopups[slotCount] = new POPUP("Attachment list");	// init attachment popup for this slot
+				
+				UINT8 thisPopupsPositionType;
+				if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX < 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY < 180 ){
+					thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
+				} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX > 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY < 180 ){
+					thisPopupsPositionType = POPUP_POSITION_TOP_RIGHT;
+				} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX > 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY > 180 ){
+					thisPopupsPositionType = POPUP_POSITION_BOTTOM_RIGHT;
+				} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX < 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY > 180 ){
+					thisPopupsPositionType = POPUP_POSITION_BOTTOM_LEFT;
+				} else {
+					thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
+				}
+
+				gItemDescAttachmentPopups[slotCount]->setPosition(	(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX) + 12 ,
+				/* Put it near the current slot	 */					(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY) + 32 ,
+																	 thisPopupsPositionType );
+
+				// the show callback should redraw the description box (in case we had any helptext and close other attachment popups)
+				gItemDescAttachmentPopups[slotCount]->setCallback( POPUP_CALLBACK_SHOW, new popupCallbackFunction<void,UINT32>( &hideOtherAttachmentPopups, usAttachmentSlotIndexVector.size() ) );
+				// the hide callback tells the program we're no longer displaying an attachment callback
+				gItemDescAttachmentPopups[slotCount]->setCallback( POPUP_CALLBACK_HIDE, new popupCallbackFunction<void,void>( &hideAttachmentPopup ) );
+			}
 			for(UINT16 loop = 0; loop < attachList.size(); loop++){
 				usAttachment = attachList[loop];
 				// If the attachment is not hidden
@@ -3727,6 +3849,36 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 						fAttachmentsFound = TRUE;
 						swprintf( attachStr2, L"\n%s", Item[ usAttachment ].szItemName );
 						wcscat( attachStr3, attachStr2);
+					}
+
+					if (showAttachmentPopups)
+					{	// add the current attachment to the popup assigned to this attachment slot
+						POPUP_OPTION * o = new POPUP_OPTION(	&std::wstring( Item[ usAttachment ].szItemName ), 
+																new popupCallbackFunction<void,UINT16>(&popupCallbackItem,usAttachment));
+						// set an availiability callback to gray out any compatible attachments not found in this sector
+						o->setAvail( new popupCallbackFunction<bool,UINT16>(&popupCallbackItemInSector,usAttachment) );
+						
+						if (loop == 11 && attachList.size() > 11){ // if there's too much stuff to list, we create a subpopup for the rest
+							gItemDescAttachmentPopups[slotCount]->addSubMenuOption( &std::wstring(L"More...") );
+							POPUP_SUB_POPUP_OPTION * tmp = gItemDescAttachmentPopups[slotCount]->getSubPopupOption(0);
+
+							// positioning sub popups is handled through the option that holds them
+							tmp->setPopupPosition(	(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX),
+												(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY) + 32 ,
+												POPUP_POSITION_TOP_RIGHT);	// put it to the right of the main box
+
+							// hide the other box too
+							// note that we're working with the sub popup options's sub-popup here, not the option itself
+							tmp->subPopup->setCallback( POPUP_CALLBACK_HIDE, new popupCallbackFunction<void,UINT32>( &hideOtherAttachmentPopups, usAttachmentSlotIndexVector.size() ) );
+
+							// finally add the option
+							tmp->subPopup->addOption(*o);
+
+						} else if (loop > 11){	// add surplus options to the subpopup
+							gItemDescAttachmentPopups[slotCount]->getSubPopupOption(0)->subPopup->addOption(*o);
+						} else {	// options 0-11 go into the main popup
+							gItemDescAttachmentPopups[slotCount]->addOption(*o);
+						}
 					}
 				}
 			}
@@ -4159,7 +4311,22 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					UpdateItemHatches();
 
 				}
+
+																		// BOB : show the quick attachment popup
+			} else if( 	guiCurrentItemDescriptionScreen == MAP_SCREEN	// if we're in the map screen
+					&&	fShowMapInventoryPool							// and are viweing the sector inventory
+					&&	!pAttachment->exists()							// and the clicked attachment slot is empty
+					&&	gItemDescAttachmentPopupsInitialized && gItemDescAttachmentPopups[uiItemPos] != 0 ) {	// and the popup exists				
+
+				// the popup slot that is going to be displayed
+				giActiveAttachmentPopup = uiItemPos;
+				// which slot was this ? No better (simple) way to let the callbacks know.
+				gubPopupStatusIndex = (UINT8)ubStatusIndex;
+				guiPopupItemPos = uiItemPos;
+
+				return; // and leave before UpdateAttachmentTooltips overwrites the popup
 			}
+
 			if(gpItemDescObject != NULL)
 			{
 				InitDescStatCoords(gpItemDescObject);
@@ -5655,7 +5822,15 @@ void DeleteItemDescriptionBox( )
 				for ( cnt = 0; cnt < (INT32)(*gpItemDescObject)[0]->attachments.size(); cnt++ )
 				{
 					MSYS_RemoveRegion( &gItemDescAttachmentRegions[cnt]);
+
+					//BOB : also, clean up the popup boxes
+					if( gItemDescAttachmentPopupsInitialized && gItemDescAttachmentPopups[cnt] != NULL ){
+						delete(gItemDescAttachmentPopups[cnt]);
+						gItemDescAttachmentPopups[cnt] = NULL;
+					}
 				}
+
+				giActiveAttachmentPopup = -1;
 			}
 		}
 		else
