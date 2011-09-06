@@ -5327,7 +5327,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 
 		UINT32 uiCap = (UINT32)iCombinedSkill;
 		// Add percent-based modifier from the gun and its attachments
-		uiCap += (uiCap * GetPercentCapModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
+		uiCap += (INT32)(uiCap * GetPercentCapModifier( pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight )) / 100;
 
 		// Add bonuses from Sniper Skill. Applies only when using a scope at or above its "best" range.
 		INT16 sDifference = 99 - uiCap;

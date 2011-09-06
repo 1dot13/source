@@ -7051,7 +7051,7 @@ void CalcTargetMovementOffset( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, OBJE
 	// Add a percentage-based modifier from the weapon and its attachments. Movement tracking devices will
 	// provide faster compensation for target movement, allowing the shooter to begin adjusting the muzzle
 	// after the target moves a smaller number of tiles.
-	uiTilesForMaxPenalty += (uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
+	uiTilesForMaxPenalty += (INT16)(uiTilesForMaxPenalty * GetTargetTrackingModifier( pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight )) / 100;
 
 	if (uiTilesForMaxPenalty == 0)
 	{
