@@ -4753,6 +4753,7 @@ STR16 zOptionsToggleText[] =
 	L"Neues Zielsystem verwenden",			// use NCTH
 	L"Gesichtsequipment-Grafiken",			
 	L"Gesichtsequipment-Icons",
+	L"Cursor-Wechsel deaktivieren",		    // Disable Cursor Swap		// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Erzwinge BR Lieferung",				// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -4857,6 +4858,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird das neue Zielsystem und der neue Zielcursor verwendet.",
 	L"Wenn diese Funktion aktiviert ist, sehen sie das Gesichtsequipment Ihrer Söldner direkt auf dem Portrait.",
 	L"Wenn diese Funktion aktiviert ist, sehen sie Icons für das Gesichtsequipment in der rechten unteren Ecke des Portraits.",
+	L"Wenn diese Funktion aktiviert ist, wird der Mauscursor nicht automatisch wechseln zwischen Personen-Positionswechsel und weiteren Aktionen.\nFür manuellen Positionswechsel drücken Sie |x.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

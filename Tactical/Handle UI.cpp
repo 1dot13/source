@@ -586,10 +586,13 @@ UINT32	HandleTacticalUI( void )
 		}
 	}
 
-	if ( ( GetJA2Clock( ) - guiUIInterfaceSwapCursorsTime ) > 1000 )
+	if ( !gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP] )
 	{
-		gfOKForExchangeCursor = !gfOKForExchangeCursor;
-		guiUIInterfaceSwapCursorsTime = GetJA2Clock( );
+		if ( ( GetJA2Clock( ) - guiUIInterfaceSwapCursorsTime ) > 1000 )
+		{
+			gfOKForExchangeCursor = !gfOKForExchangeCursor;
+			guiUIInterfaceSwapCursorsTime = GetJA2Clock( );
+		}
 	}
 
 	// OK, do a check for on an int tile...
@@ -6553,13 +6556,21 @@ BOOLEAN ValidQuickExchangePosition( )
 		}
 	}
 
-	if ( fOldOnValidGuy != fOnValidGuy )
+	if ( gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP] )
 	{
-		// Update timer....
-		// ATE: Adjust clock for automatic swapping so that the 'feel' is there....
-		guiUIInterfaceSwapCursorsTime	= GetJA2Clock( );
-		// Default it!
-		gfOKForExchangeCursor = TRUE;
+		gfOKForExchangeCursor = FALSE;
+		fOnValidGuy = FALSE;
+	}
+	else
+	{
+		if ( fOldOnValidGuy != fOnValidGuy )
+		{
+			// Update timer....
+			// ATE: Adjust clock for automatic swapping so that the 'feel' is there....
+			guiUIInterfaceSwapCursorsTime	= GetJA2Clock( );
+			// Default it!
+			gfOKForExchangeCursor = TRUE;
+		}
 	}
 
 	// Update old value.....

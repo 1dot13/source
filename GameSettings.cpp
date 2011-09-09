@@ -201,6 +201,7 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_MERC_CASTS_LIGHT]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERC_CASTS_LIGHT"                 ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_HIDE_BULLETS]                    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_HIDE_BULLETS"                     ,  FALSE );
 		gGameSettings.fOptions[TOPTION_TRACKING_MODE]                   = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TRACKING_MODE"                    ,  TRUE  );
+		gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_DISABLE_CURSOR_SWAP"              ,  FALSE );
 		gGameSettings.fOptions[NUM_ALL_GAME_OPTIONS]                    = iniReader.ReadBoolean("JA2 Game Settings","NUM_ALL_GAME_OPTIONS"                     ,  FALSE );
 
 
@@ -357,6 +358,7 @@ BOOLEAN	SaveGameSettings()
 	settings << "TOPTION_USE_NCTH                         = " << (gGameSettings.fOptions[TOPTION_USE_NCTH]							?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_SHOW_TACTICAL_FACE_GEAR          = " << (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR]			?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_SHOW_TACTICAL_FACE_ICONS         = " << (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_ICONS]			?    "TRUE" : "FALSE" ) << endl;
+	settings << "TOPTION_DISABLE_CURSOR_SWAP              = " << (gGameSettings.fOptions[TOPTION_DISABLE_CURSOR_SWAP]               ?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
 	settings << "TOPTION_CHEAT_MODE_OPTIONS_END           = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_END]			?    "TRUE" : "FALSE" ) << endl;
@@ -476,6 +478,8 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ]			= TRUE;
 
 	gGameSettings.fOptions[ TOPTION_REPORT_MISS_MARGIN ]				= FALSE;
+
+	gGameSettings.fOptions[ TOPTION_DISABLE_CURSOR_SWAP ]               = FALSE;
 
 	// arynn: Cheat/Debug Menu
 	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_HEADER ]			= FALSE;	

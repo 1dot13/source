@@ -4907,6 +4907,7 @@ STR16		zOptionsToggleText[] =
 	L"Use new Chance to Hit System",		// use NCTH
 	L"Show Face Gear Graphics",				
 	L"Show Face Gear Icons",
+	L"Disable Cursor Swap",		            // Disable Cursor Swap
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5011,6 +5012,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, the new chance to hit system and cursor is used.",
 	L"When ON, you will see the equipped face gear on the merc portraits.",
 	L"When ON, you will see icons for the equipped face gear on the merc portraits in the lower right corner.",
+	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

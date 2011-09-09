@@ -4896,6 +4896,7 @@ STR16		zOptionsToggleText[] =
 	L"Новая система прицеливания",				// use NCTH
 	L"Показать снаряжение на голове",				//Show Face gear graphics
 	L"Показать иконки снаряжения",
+	L"Disable Cursor Swap",		            // Disable Cursor Swap		// TODO.Translate
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5000,6 +5001,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, будет задействована новая система прицеливания \nи новый курсор прицеливания.",
 	L"Если включено, на портрете наёмника будет отображено одетое головное снаряжение.",
 	L"Если включено, в правом нижнем углу \nна портрете наёмника будут отображены иконки \nодетого головного снаряжения.",
+	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Выберите этот пункт чтобы груз Бобби Рэя прибыл немедленно.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

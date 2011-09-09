@@ -76,6 +76,8 @@ enum
 	TOPTION_SHOW_TACTICAL_FACE_GEAR,
 	TOPTION_SHOW_TACTICAL_FACE_ICONS,
 
+	TOPTION_DISABLE_CURSOR_SWAP,				// Disable cursor swapping every second between talk and quick exchange
+
 	// arynn: Debug/Cheat
 	TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	TOPTION_FORCE_BOBBY_RAY_SHIPMENTS,			// force all pending Bobby Ray shipments

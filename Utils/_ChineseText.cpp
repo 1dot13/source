@@ -4906,6 +4906,7 @@ STR16		zOptionsToggleText[] =
 	L"开启新的 CTH 系统",				// use NCTH
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
+	L"Disable Cursor Swap",		            // Disable Cursor Swap		// TODO.Translate
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -5010,6 +5011,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"当启用时, 使用新命中率系统和光标。",
 	L"当启用时, 将会看到佣兵脸部装备图。",
 	L"当启用时, 将在佣兵肖像右下角显示脸部装备图标",
+	L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
