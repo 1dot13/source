@@ -3036,7 +3036,14 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Luftr|aum zeigen",
 	L"Gegenst‰nde zeigen (|I)",
 	L"Mili|z & Feinde zeigen",
-	L"Zeige Mobile Miliz Begrenzungen", // HEADROCK HAM 4: Mobile Restrictions Button
+	L"Zeige Mobile Miliz Begrenzungen (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
+};
+
+STR16 pMapScreenInvenButtonHelpText[] =
+{
+	L"^N‰chste (|.)",		// next page
+	L"Vorherige (|,)",		// previous page
+	L"Sektor Inventar schlieﬂen (|E|s|c)",	// exit sector inventory
 };
 
 STR16 pMapScreenBottomFastHelp[] =

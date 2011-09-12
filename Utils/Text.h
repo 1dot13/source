@@ -145,6 +145,7 @@ extern STR16 pMapScreenFastHelpTextList[];
 extern STR16 pMovementMenuStrings[];
 extern STR16 pUpdateMercStrings[];
 extern STR16 pMapScreenBorderButtonHelpText[];
+extern STR16 pMapScreenInvenButtonHelpText[];
 extern STR16 pMapScreenBottomFastHelp[];
 extern STR16 pMapScreenBottomText[];
 extern STR16 pMercDeadString[];

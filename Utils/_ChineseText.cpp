@@ -3048,9 +3048,15 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"显示领空 (|A)",
 	L"显示物品 (|I)",
 	L"显示民兵和敌人 (|Z)",
-	L"显示民兵移动", // HEADROCK HAM 4: Mobile Restrictions Button
+	L"显示民兵移动 (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
 };
 
+STR16 pMapScreenInvenButtonHelpText[] =
+{
+	L"Next (|.)",		// next page // TODO.Translate
+	L"Previous (|,)",		// previous page // TODO.Translate
+	L"Exit Sector Inventory (|E|s|c)",	// exit sector inventory // TODO.Translate
+};
 
 STR16 pMapScreenBottomFastHelp[] =
 {
@@ -4239,7 +4245,7 @@ STR16			BobbyRFilter[] =
 	// Misc
 	L"刀具", //"Blades",
 	L"飞刀", //"Th. Knives",
-	L"格斗武器", //"Punch. W.",
+	L"格斗武器", //"Blunt W.", // TODO.Translate
 	L"手雷/榴弹", //"Grenades",
 	L"炸药", //"Bombs",
 	L"医疗用品", //"Med. Kits",

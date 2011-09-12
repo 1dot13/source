@@ -7352,6 +7352,8 @@ void DeleteItemStackPopup( )
 
 	fInterfacePanelDirty = DIRTYLEVEL2;
 
+	fMapScreenBottomDirty = TRUE;
+
 	//guiTacticalInterfaceFlags &= (~INTERFACE_NORENDERBUTTONS);
 
 //	if ( !(guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )

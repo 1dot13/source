@@ -3049,9 +3049,15 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Poka¿ przestrzeñ powietrzn¹ (|A)",
 	L"Poka¿ przedmioty (|I)",
 	L"Poka¿ samoobronê i wrogów (|Z)",
-	L"Show Mobile Militia Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button
+	L"Show Mobile Militia |Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button // TODO.Translate
 };
 
+STR16 pMapScreenInvenButtonHelpText[] =
+{
+	L"Next (|.)",		// next page // TODO.Translate
+	L"Previous (|,)",		// previous page // TODO.Translate
+	L"Exit Sector Inventory (|E|s|c)",	// exit sector inventory // TODO.Translate
+};
 
 STR16 pMapScreenBottomFastHelp[] =
 {
@@ -4239,7 +4245,7 @@ STR16			BobbyRFilter[] =
 	// Misc
 	L"Ostrza",
 	L"No¿e do rzucania",
-	L"Punch. W.",
+	L"Blunt W.", // TODO.Translate
 	L"Granaty",
 	L"Bomby",
 	L"Apteczki",

@@ -3042,9 +3042,15 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Mostra spazio |aereo",
 	L"Mostra oggett|i",
 	L"Mostra esercito & nemici (|Z)",
-	L"Show Mobile Militia Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button
+	L"Show Mobile Militia |Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button // TODO.Translate
 };
 
+STR16 pMapScreenInvenButtonHelpText[] =
+{
+	L"Next (|.)",		// next page // TODO.Translate
+	L"Previous (|,)",		// previous page // TODO.Translate
+	L"Exit Sector Inventory (|E|s|c)",	// exit sector inventory // TODO.Translate
+};
 
 STR16 pMapScreenBottomFastHelp[] =
 {
@@ -4231,7 +4237,7 @@ STR16			BobbyRFilter[] =
 	// Misc
 	L"Blades",
 	L"Th. Knives",
-	L"Punch. W.",
+	L"Blunt W.",
 	L"Grenades",
 	L"Bombs",
 	L"Med. Kits",

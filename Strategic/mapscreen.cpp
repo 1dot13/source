@@ -6850,6 +6850,14 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						DeleteKeyRingPopup( );
 						fTeamPanelDirty = TRUE;
 					}
+					else if( fShowMapInventoryPool == TRUE )
+					{
+						// no item on cursor & not in either stack popup
+						if( gMPanelRegion.Cursor != EXTERN_CURSOR && !InSectorStackPopup() && !InItemStackPopup() )
+						{
+							fShowMapInventoryPool = FALSE;
+						}
+					}
 					else if( fShowInventoryFlag == TRUE )
 					{
 						if ( gMPanelRegion.Cursor != EXTERN_CURSOR && !InItemStackPopup() )
@@ -7120,6 +7128,30 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						else
 						MapScreenMessage( 0, MSG_DEBUG, L"Mouse X,Y = %d,%d", MSYS_CurrentMX, MSYS_CurrentMY );
 					#endif
+					break;
+
+				case ',': 
+					if( fShowMapInventoryPool == TRUE )
+					{
+						// if can go to previous page, go there
+						if( iCurrentInventoryPoolPage > 0 )
+						{
+							iCurrentInventoryPoolPage--;
+							fMapPanelDirty = TRUE;
+						}
+					}
+					break;
+
+				case '.': 
+					if( fShowMapInventoryPool == TRUE )
+					{
+						// if can go to next page, go there
+						if( iCurrentInventoryPoolPage < ( iLastInventoryPoolPage ) )
+						{
+							iCurrentInventoryPoolPage++;
+							fMapPanelDirty = TRUE;
+						}
+					}
 					break;
 
 				case '/':
@@ -7685,6 +7717,16 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					if( gfPreBattleInterfaceActive )
 					{ //activate autoresolve in prebattle interface.
 						ActivatePreBattleRetreatAction();
+					}
+					// WANNE: Only allow when mobile militia is allowed!
+					else if (gGameExternalOptions.gfAllowMilitiaGroups)
+					{
+						// only handle border button keyboard equivalents if the button is visible!
+						if ( !fShowMapInventoryPool )
+						{
+							// toggle show mobile restrictions filter
+							ToggleMobileFilter();
+						}
 					}
 					break;
 				case 's':

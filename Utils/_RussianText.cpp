@@ -3048,9 +3048,15 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Карта воздушного пространства (|A)",
 	L"Вещи (|I)",
 	L"Ополчение и враги (|Z)",
-	L"Мобильные группы ополченцев", //HAM 4: Show Mobile Militia Restrictions
+	L"Мобильные группы ополченцев (|R)", //HAM 4: Show Mobile Militia Restrictions
 };
 
+STR16 pMapScreenInvenButtonHelpText[] =
+{
+	L"Next (|.)",		// next page // TODO.Translate
+	L"Previous (|,)",		// previous page // TODO.Translate
+	L"Exit Sector Inventory (|E|s|c)",	// exit sector inventory // TODO.Translate
+};
 
 STR16 pMapScreenBottomFastHelp[] =
 {

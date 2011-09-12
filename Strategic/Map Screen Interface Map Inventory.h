@@ -50,6 +50,7 @@ extern INT32 iCurrentlyHighLightedItem;
 extern BOOLEAN fFlashHighLightInventoryItemOnradarMap;
 extern INT32 sObjectSourceGridNo;
 extern INT32 iCurrentInventoryPoolPage;
+extern INT32 iLastInventoryPoolPage;
 extern BOOLEAN fMapInventoryItemCompatable[ ];
 extern INT32 MAP_INVENTORY_POOL_SLOT_COUNT; 
 
