@@ -3041,7 +3041,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 
 STR16 pMapScreenInvenButtonHelpText[] =
 {
-	L"^N‰chste (|.)",		// next page
+	L"N‰chste (|.)",		// next page
 	L"Vorherige (|,)",		// previous page
 	L"Sektor Inventar schlieﬂen (|E|s|c)",	// exit sector inventory
 };
