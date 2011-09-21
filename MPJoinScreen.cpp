@@ -298,7 +298,7 @@ bool	ValidateJoinSettings(bool bSkipServerAddress, bool bSkipSyncDir)
 				break;
 			}
 
-			if (oct < 0 || oct > 254) // dont allow broadcast nums
+			if (oct < 0 || oct > 255) // allow 255 
 			{
 				// bad octet, error
 				numOctets=0;

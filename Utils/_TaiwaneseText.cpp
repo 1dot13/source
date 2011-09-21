@@ -5119,7 +5119,7 @@ STR16	gzMPJScreenText[] =
 	L"Game Type",
 	L"Ping",
 	L"You must enter a player name.",
-	L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
+	L"You must enter a valid server IP address. For example: 84.114.195.239",
 	L"You must enter a valid Server Port between 1 and 65535.",
 };
 

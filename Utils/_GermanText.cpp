@@ -4961,7 +4961,7 @@ STR16	gzMPJScreenText[] =
 	L"Spieltyp",
 	L"Ping",
 	L"Sie müssen einen Spielernamen eingeben.",
-	L"Sie müssen eine gültie Server-IP-Adresse eingeben.\n (Bsp: 84.114.195.239).",
+	L"Sie müssen eine gültie Server-IP-Adresse eingeben. Zum Beispiel: 84.114.195.239",
 	L"Sie müssen eine gültige Server-Portnummer zwischen 1 und 65535 eingeben.",
 };
 

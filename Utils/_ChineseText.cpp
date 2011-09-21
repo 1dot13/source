@@ -5115,7 +5115,7 @@ STR16	gzMPJScreenText[] =
 	L"游戏类型",//L"Game Type",
 	L"Ping",
 	L"你必须输入你的玩家名称。",//L"You must enter a player name.",
-	L"你必须输入有效的服务器IP地址。\n (例如 84.114.195.239).",//L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
+	L"你必须输入有效的服务器IP地址。 (例如 84.114.195.239).",//L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
 	L"您必须输入正确的服务器端口，范围1~65535。",//L"You must enter a valid Server Port between 1 and 65535.",
 };
 

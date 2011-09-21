@@ -5115,7 +5115,7 @@ STR16	gzMPJScreenText[] =
 	L"Typ rozgrywki",
 	L"Ping",
 	L"Musisz podaæ nazwê gracza",
-	L"Musisz podaæ odpowiedni numer IP serwera.\n (np. 84.114.195.239).",
+	L"Musisz podaæ odpowiedni numer IP serwera. (np. 84.114.195.239).",
 	L"Musisz podaæ odpowiedni port serwera pomiêdzy 1 i 65535.",
 };
 
