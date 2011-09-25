@@ -67,6 +67,7 @@ static UINT16 ROLL_R_AnimationScript[MAX_FRAMES_PER_ANIM] = { 14,13,12,11,10,9,8
 static UINT16 JUMP_WALL_UP_AnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,601,999,0,0,0,0  };
 static UINT16 JUMP_WALL_DOWN_AnimationScript[MAX_FRAMES_PER_ANIM] = { 44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,601,999,0,0,0,0  };
 
+static UINT16 REMOTE_DET_AnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,484,4,5,6,1,442,499,999,0,0,0,0  }; // SANDRO - new animation of remote detonator by PasHancock
 
 
 
@@ -1309,7 +1310,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGMALE ][ CATCH_STANDING ]								= RGMOPEN;
 	gubAnimSurfaceIndex[ REGMALE ][ CATCH_CROUCHED ]								= RGMMEDIC;
 	gubAnimSurfaceIndex[ REGMALE ][ PLANT_BOMB ]										= RGMPICKUP;
-	gubAnimSurfaceIndex[ REGMALE ][ USE_REMOTE ]										= RGMOPEN;
+	gubAnimSurfaceIndex[ REGMALE ][ USE_REMOTE ]										= RGMUSEREMOTE;
 	gubAnimSurfaceIndex[ REGMALE ][ START_COWER ]										= RGMCOWER;
 	gubAnimSurfaceIndex[ REGMALE ][ COWERING ]											= RGMCOWER;
 	gubAnimSurfaceIndex[ REGMALE ][ END_COWER ]											= RGMCOWER;
@@ -1682,7 +1683,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ BIGMALE ][ CATCH_STANDING ]								= BGMOPEN;
 	gubAnimSurfaceIndex[ BIGMALE ][ CATCH_CROUCHED ]								= BGMMEDIC;
 	gubAnimSurfaceIndex[ BIGMALE ][ PLANT_BOMB ]										= BGMPICKUP;
-	gubAnimSurfaceIndex[ BIGMALE ][ USE_REMOTE ]										= BGMOPEN;
+	gubAnimSurfaceIndex[ BIGMALE ][ USE_REMOTE ]										= BGMUSEREMOTE;
 	gubAnimSurfaceIndex[ BIGMALE ][ START_COWER ]										= BGMCOWER;
 	gubAnimSurfaceIndex[ BIGMALE ][ COWERING ]											= BGMCOWER;
 	gubAnimSurfaceIndex[ BIGMALE ][ END_COWER ]											= BGMCOWER;
@@ -2078,7 +2079,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ STOCKYMALE ][ CATCH_STANDING ]									= RGMOPEN;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ CATCH_CROUCHED ]									= RGMMEDIC;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ PLANT_BOMB ]											= RGMPICKUP;
-	gubAnimSurfaceIndex[ STOCKYMALE ][ USE_REMOTE ]											= RGMOPEN;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ USE_REMOTE ]											= RGMUSEREMOTE;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ START_COWER ]										= RGMCOWER;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ COWERING ]												= RGMCOWER;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ END_COWER ]											= RGMCOWER;
@@ -2448,7 +2449,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGFEMALE ][ CATCH_STANDING ]								= RGFOPEN;
 	gubAnimSurfaceIndex[ REGFEMALE ][ CATCH_CROUCHED ]								= RGFMEDIC;
 	gubAnimSurfaceIndex[ REGFEMALE ][ PLANT_BOMB ]										= RGFPICKUP;
-	gubAnimSurfaceIndex[ REGFEMALE ][ USE_REMOTE ]										= RGFOPEN;
+	gubAnimSurfaceIndex[ REGFEMALE ][ USE_REMOTE ]										= RGFUSEREMOTE;
 	gubAnimSurfaceIndex[ REGFEMALE ][ START_COWER ]										= RGFCOWER;
 	gubAnimSurfaceIndex[ REGFEMALE ][ COWERING ]											= RGFCOWER;
 	gubAnimSurfaceIndex[ REGFEMALE ][ END_COWER ]											= RGFCOWER;
@@ -3254,6 +3255,8 @@ BOOLEAN LoadAnimationStateInstructions( )
 		
 		//memcpy(gusAnimInst[ JUMPUPWALL ],JUMP_WALL_UP_AnimationScript,sizeof(JUMP_WALL_UP_AnimationScript));
 		//memcpy(gusAnimInst[ JUMPDOWNWALL ],JUMP_WALL_DOWN_AnimationScript,sizeof(JUMP_WALL_DOWN_AnimationScript));
+		
+		memcpy(gusAnimInst[USE_REMOTE],REMOTE_DET_AnimationScript,sizeof(REMOTE_DET_AnimationScript));  // SANDRO - new animation of remote detonator by PasHancock
 
 	return( TRUE );
 }

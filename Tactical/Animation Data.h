@@ -540,6 +540,11 @@ BGMWITHSTONE,
 	BGMJUMPWINDOWS,
 	RGFJUMPWINDOWS,
 
+	// SANDRO - new animation of remote detonator by PasHancock
+	RGMUSEREMOTE,
+	BGMUSEREMOTE,
+	RGFUSEREMOTE,
+
 	NUMANIMATIONSURFACETYPES
 
 } AnimationSurfaceTypes;
