@@ -349,27 +349,30 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 		gfDisplayPotentialRetreatPaths = FALSE;
 
-		gpBattleGroup = pBattleGroup;
-
-		//calc sector values
-		if( gpBattleGroup )
-		{
-			gubPBSectorX = gpBattleGroup->ubSectorX;
-			gubPBSectorY = gpBattleGroup->ubSectorY;
-			gubPBSectorZ = gpBattleGroup->ubSectorZ;
-
-			// get number of enemies thought to be here
-			SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ].bLastKnownEnemies = NumEnemiesInSector( gubPBSectorX, gubPBSectorY );
-			fMapPanelDirty = TRUE;
-		}
-		else
-		{
-			gubPBSectorX = (UINT8)SECTORX( gubSectorIDOfCreatureAttack );
-			gubPBSectorY = (UINT8)SECTORY( gubSectorIDOfCreatureAttack );
-			gubPBSectorZ = 0;
-		}
 	}
-	else
+
+	gpBattleGroup = pBattleGroup;
+
+	//calc sector values
+	if( gpBattleGroup )
+	{
+		gubPBSectorX = gpBattleGroup->ubSectorX;
+		gubPBSectorY = gpBattleGroup->ubSectorY;
+		gubPBSectorZ = gpBattleGroup->ubSectorZ;
+
+		// get number of enemies thought to be here
+		SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ].bLastKnownEnemies = NumEnemiesInSector( gubPBSectorX, gubPBSectorY );
+		fMapPanelDirty = TRUE;
+	}
+	else if( gfPersistantPBI )
+	{
+		gubPBSectorX = (UINT8)SECTORX( gubSectorIDOfCreatureAttack );
+		gubPBSectorY = (UINT8)SECTORY( gubSectorIDOfCreatureAttack );
+		gubPBSectorZ = 0;
+	}
+
+
+	if( !gfPersistantPBI )
 	{ //calculate the non-persistant situation
 		gfBlinkHeader = TRUE;
 
@@ -381,7 +384,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		{ //There are bloodcats in the sector, so no autoresolve allowed
 			gubExplicitEnemyEncounterCode = HOSTILE_BLOODCATS_CODE;
 		}
-		else if( gbWorldSectorZ )
+		else if( gbWorldSectorZ > 0 )
 		{ //We are underground, so no autoresolve allowed
 			pSector = &SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ];
 			if( pSector->ubCreaturesInBattle )
@@ -392,6 +395,10 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			{
 				gubExplicitEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
 			}
+		}
+		else if (pBattleGroup && !pBattleGroup->fPlayer && CountAllMilitiaInSector( pBattleGroup->ubSectorX, pBattleGroup->ubSectorY ) > 0)
+		{
+			gubEnemyEncounterCode = ENEMY_ENCOUNTER_CODE;
 		}
 		else if( gubEnemyEncounterCode == ENTERING_ENEMY_SECTOR_CODE ||
 						gubEnemyEncounterCode == ENEMY_ENCOUNTER_CODE ||
@@ -1772,7 +1779,7 @@ void CalculateNonPersistantPBIInfo()
 		{ //There are bloodcats in the sector, so no autoresolve allowed
 			gubExplicitEnemyEncounterCode = HOSTILE_BLOODCATS_CODE;
 		}
-		else if( gbWorldSectorZ )
+		else if( gbWorldSectorZ > 0 )
 		{
 			UNDERGROUND_SECTORINFO *pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 			Assert( pSector );
