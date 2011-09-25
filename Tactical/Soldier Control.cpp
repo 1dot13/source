@@ -11268,7 +11268,14 @@ void SOLDIERTYPE::EVENT_SoldierBeginKnifeThrowAttack( INT32 sGridNo, UINT8 ubDir
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Starting knifethrow attack, bullets left %d", this->bBulletsLeft) );
 	DebugAttackBusy( String( "Begin knife throwing attack: ATB  %d\n", gTacticalStatus.ubAttackBusyCount) );
 
-	this->EVENT_InitNewSoldierAnim( THROW_KNIFE, 0 , FALSE );
+	if ( this->ubBodyType == BIGMALE && ((this->ubProfile != NO_PROFILE && gMercProfiles[ this->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF) || (HAS_SKILL_TRAIT( this, THROWING_NT ) && gGameOptions.fNewTraitSystem) || (HAS_SKILL_TRAIT( this, THROWING_OT ) && !gGameOptions.fNewTraitSystem) ) )
+	{
+		this->EVENT_InitNewSoldierAnim( THROW_KNIFE_SP_BM, 0 , FALSE );
+	}
+	else
+	{
+		this->EVENT_InitNewSoldierAnim( THROW_KNIFE, 0 , FALSE );
+	}
 
 	// CHANGE DIRECTION AND GOTO ANIMATION NOW
 	this->EVENT_SetSoldierDesiredDirection( ubDirection );
@@ -11997,7 +12004,7 @@ void SOLDIERTYPE::HaultSoldierFromSighting( BOOLEAN fFromSightingEnemy )
 	// ATE: Dave, don't kill me
 	// Here, we need to handle the situation when we're throweing a knife and we see somebody
 	// cause for some reason throwing a knie does not use the pTempObject stuff that all other stuff does...
-	if ( this->usPendingAnimation == THROW_KNIFE )
+	if ( this->usPendingAnimation == THROW_KNIFE || this->usPendingAnimation == THROW_KNIFE_SP_BM )
 	{
 		// Decrement attack counter...
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Reducing attacker busy count..., ending throw knife because saw something") );

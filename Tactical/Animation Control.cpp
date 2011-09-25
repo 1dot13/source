@@ -69,6 +69,8 @@ static UINT16 JUMP_WALL_DOWN_AnimationScript[MAX_FRAMES_PER_ANIM] = { 44,43,42,4
 
 static UINT16 REMOTE_DET_AnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,484,4,5,6,1,442,499,999,0,0,0,0  }; // SANDRO - new animation of remote detonator by PasHancock
 
+static UINT16 THROW_KNIFE_SP_BM_AnimationScript[MAX_FRAMES_PER_ANIM] = { 757,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,12,13,709,14,15,16,430,16,17,17,18,19,20,21,753,442,499,999,0,0,0,0  };
+
 
 
 
@@ -989,6 +991,9 @@ ANIMCONTROLTYPE		gAnimControl[ NUMANIMATIONSTATES ] =
 
 	{"JUMP WINDOWS"								, 0,			50,	(FLOAT)0,		ANIM_NOCHANGE_PENDINGCOUNT | ANIM_NORESTART | ANIM_STATIONARY | ANIM_NOSHOW_MARKER | ANIM_MODERATE_EFFORT | ANIM_LOWER_WEAPON | ANIM_NONINTERRUPT, ANIM_STAND, ANIM_CROUCH,	-1},
 
+	//SPECIAL THROW KNIFE FOR BIG MALES
+	"THROW KNIFE 2"									, 0,		50,	 (FLOAT)0,		ANIM_STATIONARY	| ANIM_NOMOVE_MARKER | ANIM_NONINTERRUPT | ANIM_MIN_EFFORT	| ANIM_ATTACK ,		ANIM_STAND, ANIM_STAND, -1,
+
 };
 
 ANI_SPEED_DEF gubAnimWalkSpeeds[ TOTALBODYTYPES ] =
@@ -1677,6 +1682,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ BIGMALE ][ CUTTING_FENCE ]									= BGMMEDIC;
 	gubAnimSurfaceIndex[ BIGMALE ][ FROM_INJURED_TRANSITION ]				= BGMHURTTRANS;
 	gubAnimSurfaceIndex[ BIGMALE ][ THROW_KNIFE ]										= BGMTHROWKNIFE;
+	gubAnimSurfaceIndex[ BIGMALE ][ THROW_KNIFE_SP_BM ]										= BGMTHROWKNIFE2;
 	gubAnimSurfaceIndex[ BIGMALE ][ KNIFE_BREATH ]									= BGMBREATHKNIFE;
 	gubAnimSurfaceIndex[ BIGMALE ][ KNIFE_GOTOBREATH ]							= BGMBREATHKNIFE;
 	gubAnimSurfaceIndex[ BIGMALE ][ KNIFE_ENDBREATH ]								= BGMBREATHKNIFE;
@@ -3257,6 +3263,8 @@ BOOLEAN LoadAnimationStateInstructions( )
 		//memcpy(gusAnimInst[ JUMPDOWNWALL ],JUMP_WALL_DOWN_AnimationScript,sizeof(JUMP_WALL_DOWN_AnimationScript));
 		
 		memcpy(gusAnimInst[USE_REMOTE],REMOTE_DET_AnimationScript,sizeof(REMOTE_DET_AnimationScript));  // SANDRO - new animation of remote detonator by PasHancock
+
+		memcpy(gusAnimInst[THROW_KNIFE_SP_BM],THROW_KNIFE_SP_BM_AnimationScript,sizeof(THROW_KNIFE_SP_BM_AnimationScript));  // SANDRO - new animation of remote detonator by PasHancock
 
 	return( TRUE );
 }

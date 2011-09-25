@@ -560,6 +560,8 @@ enum AnimationStates
 	
 	JUMPWINDOWS,
 	
+	THROW_KNIFE_SP_BM,
+
 	NUMANIMATIONSTATES
 
 };
