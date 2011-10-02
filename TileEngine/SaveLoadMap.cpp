@@ -44,9 +44,180 @@ void DamageStructsFromMapTempFile( MODIFY_MAP * pMap );
 BOOLEAN ModifyWindowStatus( INT32 uiMapIndex );
 //ppp
 
+struct ModifiedMapFile
+{
+	UINT32 uiType;
+	INT16 sMapX;
+	INT16 sMapY;
+	INT8 bMapZ;
+	CHAR8 szMapName[128];
+	HWFILE hFileHandle;
 
+	ModifiedMapFile(UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ)
+	{
+		this->uiType = uiType;
+		this->sMapX = sMapX;
+		this->sMapY = sMapY;
+		this->bMapZ = bMapZ;
+		this->szMapName[0] = 0;
+		this->hFileHandle = NULL;
+	}
 
+	ModifiedMapFile(UINT32 uiType, STR pMapName, INT16 sMapX, INT16 sMapY, INT8 bMapZ)
+	{
+		this->uiType = uiType;
+		this->sMapX = sMapX;
+		this->sMapY = sMapY;
+		this->bMapZ = bMapZ;
+		strncpy(this->szMapName, pMapName, _countof(this->szMapName));
+		this->szMapName[_countof(this->szMapName) - 1] = 0;
+		this->hFileHandle = NULL;
+	}
 
+	~ModifiedMapFile()
+	{
+		if (this->hFileHandle != NULL)
+		{
+			FileClose(this->hFileHandle);
+			this->hFileHandle = NULL;
+		}
+	}
+
+	BOOLEAN IsOpen() const
+	{
+		return (this->hFileHandle == NULL) ? FALSE : TRUE;
+	}
+
+	BOOLEAN Open()
+	{
+		if ( hFileHandle == NULL && szMapName[0] != 0)
+		{
+			// we assume that we 'own' the file
+			hFileHandle = FileOpen( szMapName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
+
+			//Move to the end of the file
+			FileSeek( hFileHandle, 0, FILE_SEEK_FROM_END );
+		}
+		return IsOpen();
+	}
+
+	void Delete()
+	{
+		Close();
+
+		if (szMapName[0] != 0)
+		{
+			FileDelete(szMapName);
+		}
+	}
+
+	BOOLEAN Write( PTR pDest, UINT32 uiBytesToWrite )
+	{
+		UINT32 uiNumBytesWritten = 0;
+		if (!IsOpen()) return FALSE;
+
+		if ( !FileWrite( this->hFileHandle, pDest, uiBytesToWrite, &uiNumBytesWritten ) )
+		{
+			Close();
+			return FALSE;
+		}
+		if (uiBytesToWrite != uiNumBytesWritten)
+		{
+			Close();
+			return FALSE;
+		}
+		return TRUE;
+	}
+
+	void Close()
+	{
+		if (this->hFileHandle != NULL)
+		{
+			FileClose(this->hFileHandle);
+			this->hFileHandle = NULL;
+		}
+	}
+};
+
+struct ltMMF
+{
+	bool compare(const ModifiedMapFile& s1, const ModifiedMapFile& s2) const
+	{
+		int diff = s1.uiType - s2.uiType;
+		if (diff == 0)
+		{
+			diff = s1.sMapX - s2.sMapX;
+			if (diff == 0)
+			{
+				diff = s1.sMapY - s2.sMapY;
+				if (diff == 0)
+				{
+					diff = s1.bMapZ - s2.bMapZ;
+				}
+			}
+		}
+		return diff < 0;
+	}
+	bool operator()(const ModifiedMapFile& s1, const ModifiedMapFile& s2) const { return compare(s1, s2); }
+	bool operator()(const ModifiedMapFile* s1, const ModifiedMapFile* s2) const { return compare(*s1, *s2); }
+	bool operator()(const ModifiedMapFile& s1, const ModifiedMapFile* s2) const { return compare(s1, *s2); }
+	bool operator()(const ModifiedMapFile* s1, const ModifiedMapFile& s2) const { return compare(*s1, s2); }
+};
+
+typedef std::set<ModifiedMapFile, ltMMF> ModifiedMapFileSet;
+ModifiedMapFileSet g_mapFileSet;
+BOOLEAN g_useSaveCache;
+
+void ClearTempFileSets()
+{
+	//for (ModifiedMapFileSet::iterator itr = g_mapFileSet.begin(), end = g_mapFileSet.end(); itr != end; ++itr )
+	//{
+	//}
+	// destructor will close any open file handles
+	g_mapFileSet.clear();
+}
+
+BOOLEAN EnableModifiedFileSetCache(BOOLEAN value)
+{
+	BOOLEAN previousValue = g_useSaveCache;
+	if (g_useSaveCache != value)
+	{
+		ClearTempFileSets();
+	}
+	g_useSaveCache = value;
+	return previousValue;
+}
+
+bool TryGetModifiedMapFile( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ, ModifiedMapFile** ppMMF )
+{
+	if (ppMMF == NULL)
+		return false;
+
+	ModifiedMapFile key(uiType, sMapX, sMapY, bMapZ);
+	ModifiedMapFileSet::iterator itr = g_mapFileSet.find(key);
+	if (itr == g_mapFileSet.end())
+	{
+		*ppMMF = NULL;
+		return false;
+	}
+	*ppMMF = &(*itr);
+	return true;
+}
+
+ModifiedMapFile& GetOrCreateModifiedMapFile(UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ)
+{
+	ModifiedMapFile* pResult = NULL;
+	if ( TryGetModifiedMapFile(uiType, sMapX, sMapY, bMapZ, &pResult) )
+		return *pResult;
+
+	ModifiedMapFile key(uiType, sMapX, sMapY, bMapZ);
+	ModifiedMapFileSet::iterator itr = g_mapFileSet.insert(g_mapFileSet.end(), key);
+	pResult = &(*itr);
+	
+	GetMapTempFileName( pResult->uiType, pResult->szMapName, pResult->sMapX, pResult->sMapY, pResult->bMapZ );
+
+	return *pResult;
+}
 
 void	ApplyMapChangesToMapTempFile( BOOLEAN fAddToMap )
 {
@@ -56,43 +227,64 @@ void	ApplyMapChangesToMapTempFile( BOOLEAN fAddToMap )
 
 BOOLEAN SaveModifiedMapStructToMapTempFile( MODIFY_MAP *pMap, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
-	CHAR8		zMapName[ 128 ];
-	HWFILE	hFile;
-	UINT32	uiNumBytesWritten;
-
-	//Convert the current sector location into a file name
-//	GetMapFileName( sSectorX, sSectorY, bSectorZ, zTempName, FALSE );
-
-	//add the 'm' for 'Modifed Map' to the front of the map name
-//	sprintf( zMapName, "%s\\m_%s", MAPS_DIR, zTempName);
-
-	GetMapTempFileName( SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, zMapName, sSectorX, sSectorY, bSectorZ );
-
-	//Open the file for writing, Create it if it doesnt exist
-	hFile = FileOpen( zMapName, FILE_ACCESS_WRITE | FILE_OPEN_ALWAYS, FALSE );
-	if( hFile == 0 )
+	if (g_useSaveCache)
 	{
-		//Error opening map modification file
-		return( FALSE );
+		ModifiedMapFile& rMMF = GetOrCreateModifiedMapFile(SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, sSectorX, sSectorY, bSectorZ);
+		if( !rMMF.Open() )
+		{
+			//Error opening map modification file
+			return( FALSE );
+		}
+
+		if ( !rMMF.Write( pMap, sizeof( MODIFY_MAP ) ) )
+		{
+			return( FALSE );
+		}
+
+		SetSectorFlag( sSectorX, sSectorY, bSectorZ, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS );
+
+		return( TRUE );
 	}
-
-	//Move to the end of the file
-	FileSeek( hFile, 0, FILE_SEEK_FROM_END );
-
-
-	FileWrite( hFile, pMap, sizeof( MODIFY_MAP ), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( MODIFY_MAP ) )
+	else
 	{
-		//Error Writing size of array to disk
+		CHAR8		zMapName[ 128 ];
+		HWFILE	hFile;
+		UINT32	uiNumBytesWritten;
+
+		//Convert the current sector location into a file name
+		//	GetMapFileName( sSectorX, sSectorY, bSectorZ, zTempName, FALSE );
+
+		//add the 'm' for 'Modifed Map' to the front of the map name
+		//	sprintf( zMapName, "%s\\m_%s", MAPS_DIR, zTempName);
+
+		GetMapTempFileName( SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, zMapName, sSectorX, sSectorY, bSectorZ );
+
+		//Open the file for writing, Create it if it doesnt exist
+		hFile = FileOpen( zMapName, FILE_ACCESS_WRITE | FILE_OPEN_ALWAYS, FALSE );
+		if( hFile == 0 )
+		{
+			//Error opening map modification file
+			return( FALSE );
+		}
+
+		//Move to the end of the file
+		FileSeek( hFile, 0, FILE_SEEK_FROM_END );
+
+
+		FileWrite( hFile, pMap, sizeof( MODIFY_MAP ), &uiNumBytesWritten );
+		if( uiNumBytesWritten != sizeof( MODIFY_MAP ) )
+		{
+			//Error Writing size of array to disk
+			FileClose( hFile );
+			return( FALSE );
+		}
+
 		FileClose( hFile );
-		return( FALSE );
+
+		SetSectorFlag( sSectorX, sSectorY, bSectorZ, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS );
+
+		return( TRUE );
 	}
-
-	FileClose( hFile );
-
-	SetSectorFlag( sSectorX, sSectorY, bSectorZ, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS );
-
-	return( TRUE );
 }
 
 
@@ -160,6 +352,9 @@ BOOLEAN LoadAllMapChangesFromMapTempFileAndApplyThem( )
 
 	//Delete the file
 	FileDelete( zMapName );
+
+	// Begin save cache
+	EnableModifiedFileSetCache(TRUE);
 
 	uiNumberOfElements = uiFileSize / sizeof( MODIFY_MAP );
 
@@ -312,6 +507,9 @@ BOOLEAN LoadAllMapChangesFromMapTempFileAndApplyThem( )
 	//Free the memory used for the temp array
 	MemFree( pTempArrayOfMaps );
 	pTempArrayOfMaps = NULL;
+
+	// Flush any open file sets
+	EnableModifiedFileSetCache(FALSE);
 
 	return( TRUE );
 }
