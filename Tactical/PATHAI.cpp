@@ -3059,7 +3059,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 			newLoc = curLoc + dirDelta[iCnt];
 
-			if (newLoc >= WORLD_MAX || curLoc >= WORLD_MAX)
+			if (newLoc < 0 || newLoc >= WORLD_MAX)
 			{
 				goto NEXTDIR;
 			}
