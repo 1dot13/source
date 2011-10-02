@@ -7260,6 +7260,26 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 extern UINT32 guiRainLoop;
 //end rain
 
+void EnsureValidLoadScreen( UINT32* puiScreen ) 
+{
+	if (!puiScreen)
+		return;
+	
+	switch(*puiScreen)
+	{
+	case GAME_SCREEN:
+	case MAP_SCREEN:
+	case LAPTOP_SCREEN:
+		// These are valid screens
+		break;
+
+	default:
+		// By default go to the strategic map if not a valid screen otherwise
+		*puiScreen = MAP_SCREEN;
+		break;
+	}
+}
+
 BOOLEAN LoadGeneralInfo( HWFILE hFile )
 {
 	//UINT32	uiNumBytesRead;
@@ -7405,6 +7425,9 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 		FileClose( hFile );
 		return( FALSE );
 	}
+
+	// Sometimes autosaves have invalid screens references esp. when generated on assert
+	EnsureValidLoadScreen(&sGeneralInfo.uiCurrentScreen);
 
 	gMusicModeToPlay = sGeneralInfo.ubMusicMode;
 
