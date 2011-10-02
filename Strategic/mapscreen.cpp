@@ -129,7 +129,8 @@
 
 // Fonts
 #define CHAR_FONT BLOCKFONT2 // COMPFONT
-#define ETA_FONT BLOCKFONT2
+
+//#define ETA_FONT BLOCKFONT2
 
 // Colors
 #define CHAR_INFO_PANEL_BLOCK_COLOR 60
@@ -4602,6 +4603,8 @@ UINT32 MapScreenHandle(void)
 				
 				MAP_VERT_WIDTH = GetFontHeight(MAP_FONT);
 
+				ETA_FONT = BLOCKFONT2;
+
 				// Helicopter ETA box
 				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);
 				MAP_HELICOPTER_ETA_POPUP_Y			= (250 + iScreenHeightOffset);
@@ -4644,6 +4647,8 @@ UINT32 MapScreenHandle(void)
 				MAP_VERT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 36);
 				MAP_VERT_WIDTH = GetFontHeight(MAP_FONT);
 
+				ETA_FONT = BLOCKFONT2;
+
 				// Helicopter ETA box
 				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);
 				MAP_HELICOPTER_ETA_POPUP_Y			= (250 + iScreenHeightOffset + 58);
@@ -4685,12 +4690,14 @@ UINT32 MapScreenHandle(void)
 				MAP_VERT_INDEX_Y = (MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 44);
 				MAP_VERT_WIDTH = GetFontHeight(MAP_FONT);
 
+				ETA_FONT = FONT12ARIAL;
+
 				// Helicopter ETA box
 				MAP_HELICOPTER_ETA_POPUP_X			= (400 + iScreenWidthOffset);
-				MAP_HELICOPTER_ETA_POPUP_Y			= (250 + iScreenHeightOffset + 140);
+				MAP_HELICOPTER_ETA_POPUP_Y			= (250 + iScreenHeightOffset + 120);
 				MAP_HELICOPTER_UPPER_ETA_POPUP_Y	= (50 + iScreenHeightOffset - 100);
 				MAP_HELICOPTER_ETA_POPUP_WIDTH		= 120;
-				MAP_HELICOPTER_ETA_POPUP_HEIGHT		= 68;
+				MAP_HELICOPTER_ETA_POPUP_HEIGHT		= 76;
 
 				// Map Level string
 				MAP_LEVEL_STRING_X	= (SCREEN_WIDTH - 208 - 187);
@@ -4871,7 +4878,6 @@ UINT32 MapScreenHandle(void)
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\pos2.sti", VObjectDesc.ImageFile);
 		CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderHeliSectors));
-
 
 
 			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;

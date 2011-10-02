@@ -315,7 +315,8 @@ void RenderMapBorderEtaPopUp( void )
 		offsetBorderY = offsetY + 19;
 	}
 
-	BltVideoObject( FRAME_BUFFER , hHandle, 0, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, VO_BLT_SRCTRANSPARENCY,NULL );
+	// TODO.RW: Adjust for 1024x768
+	BltVideoObject( FRAME_BUFFER , hHandle, iResolution, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, VO_BLT_SRCTRANSPARENCY,NULL );
 	InvalidateRegion( MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX, MAP_BORDER_Y_OFFSET + offsetY, MAP_BORDER_X + MAP_BORDER_X_OFFSET + offsetX + 100 , MAP_BORDER_Y_OFFSET + offsetBorderY);
 
 	return;

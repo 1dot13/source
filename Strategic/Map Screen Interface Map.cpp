@@ -64,6 +64,7 @@ UINT16	MAP_VIEW_START_Y;
 UINT16	MAP_VIEW_WIDTH;
 UINT16	MAP_VIEW_HEIGHT;
 
+INT32 ETA_FONT;
 
 INT32	MAP_FONT;
 // x start of hort index
@@ -4653,7 +4654,7 @@ void DisplayDistancesForHelicopter( void )
 
 	// blit in background
 	GetVideoObject( &hHandle, guiMapBorderHeliSectors );
-	BltVideoObject( FRAME_BUFFER, hHandle, 0, MAP_HELICOPTER_ETA_POPUP_X, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
+	BltVideoObject( FRAME_BUFFER, hHandle, iResolution, MAP_HELICOPTER_ETA_POPUP_X, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
 
 
 //	sTotalCanTravel = ( INT16 )GetTotalDistanceHelicopterCanTravel( );
