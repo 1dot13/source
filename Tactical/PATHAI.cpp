@@ -3059,6 +3059,10 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 			newLoc = curLoc + dirDelta[iCnt];
 
+			if (newLoc >= WORLD_MAX || curLoc >= WORLD_MAX)
+			{
+				goto NEXTDIR;
+			}
 
 			if ( fVisitSpotsOnlyOnce && trailCostUsed[newLoc] == gubGlobalPathCount )
 			{
