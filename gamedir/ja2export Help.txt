@@ -1,0 +1,27 @@
+Use the tool ja2export.exe to export ja2 files (sti, jsd, ...) to new format (png, 7z, xml).
+
+ja2export.exe help
+	-> Shows the help
+ja2export.exe help sti
+	-> Shows specific help for the sti command
+
+----------------------------
+
+Option "ja2.ini" properties. Most of the properties need the tool ja2export.exe to first convert the data files in the proper format.
+
+USE_PNG_ITEM_IMAGES
+	-> Load item graphics from PNG files instead of STI files
+
+USE_XML_STRUCTURES
+	-> Load XML files for the tilesets structure instead of the default tileset structure (JSD files)
+
+USE_XML_TILESETS
+	-> Should the game use the new tilets structure files (XML and 7z-package) instead of the default tileset structure files (STI images)
+
+EXPORT_STRINGS
+	-> Exports the strings from the language specific files (_EnglishText.cpp, ...) to XML files when starting ja2.exe 
+	-> USE_XML_STRINGS must be set to TRUE to use this
+	-> Once the files are exported, set this property to FALSE.
+
+USE_XML_STRINGS
+	-> Should the game use the texts from the XML files instead of the *.CPP files (e.g. _EnglishText.cpp, ...)
