@@ -994,6 +994,9 @@ ANIMCONTROLTYPE		gAnimControl[ NUMANIMATIONSTATES ] =
 	//SPECIAL THROW KNIFE FOR BIG MALES
 	"THROW KNIFE 2"									, 0,		50,	 (FLOAT)0,		ANIM_STATIONARY	| ANIM_NOMOVE_MARKER | ANIM_NONINTERRUPT | ANIM_MIN_EFFORT	| ANIM_ATTACK ,		ANIM_STAND, ANIM_STAND, -1,
 
+	//RUN (with pistol)
+	{"RUN WITH PISTOL"									, 0,		0,			(FLOAT)2.6, ANIM_MOVING | ANIM_TURNING	| ANIM_NORESTART | ANIM_RAISE_WEAPON | ANIM_MODERATE_EFFORT,	ANIM_STAND, ANIM_STAND, -1},
+
 };
 
 ANI_SPEED_DEF gubAnimWalkSpeeds[ TOTALBODYTYPES ] =
@@ -1508,6 +1511,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceItemSubIndex[ REGMALE ][ END_HURT_WALKING ]					= RGMHURTSTANDINGN;
 	gubAnimSurfaceItemSubIndex[ REGMALE ][ WALK_BACKWARDS ]						= RGMNOTHING_WALK;
 	gubAnimSurfaceItemSubIndex[ REGMALE ][ DRUNK_IDLE ]								= RGMPISTOLDRUNK;
+	gubAnimSurfaceItemSubIndex[ REGMALE ][ RUNNING_W_PISTOL ]					= RGMPISTOL_RUN;
 
 
 	gubAnimSurfaceCorpseID[ REGMALE ][ GENERIC_HIT_DEATH ]						= SMERC_FWD;
@@ -1811,6 +1815,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ END_HURT_WALKING ]					= BGMHURTSTANDINGN;
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ WALK_BACKWARDS ]						= BGMNOTHING_WALK;
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ DRUNK_IDLE ]								= BGMPISTOLDRUNK;
+	gubAnimSurfaceItemSubIndex[ BIGMALE ][ RUNNING_W_PISTOL ]					= BGMPISTOL_RUN;
 
 
 	gubAnimSurfaceMidWaterSubIndex[ BIGMALE ][ STANDING][0]									= BGMWATER_R_STD;
@@ -2203,6 +2208,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ END_HURT_WALKING ]				= RGMHURTSTANDINGN;
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ WALK_BACKWARDS ]					= RGMNOTHING_WALK;
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ DRUNK_IDLE ]							= RGMPISTOLDRUNK;
+	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ RUNNING_W_PISTOL ]					= RGMPISTOL_RUN;
 
 
 	gubAnimSurfaceMidWaterSubIndex[ STOCKYMALE ][ STANDING][0]									= RGMWATER_R_STD;
@@ -2574,6 +2580,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ END_HURT_WALKING ]					= RGFHURTSTANDINGN;
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ WALK_BACKWARDS ]						= RGFNOTHING_WALK;
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ DRUNK_IDLE ]								= RGMPISTOLDRUNK;
+	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ RUNNING_W_PISTOL ]							= RGFPISTOL_RUN;
 
 
 	gubAnimSurfaceMidWaterSubIndex[ REGFEMALE ][ STANDING][0]									= RGFWATER_R_STD;
@@ -3265,6 +3272,8 @@ BOOLEAN LoadAnimationStateInstructions( )
 		memcpy(gusAnimInst[USE_REMOTE],REMOTE_DET_AnimationScript,sizeof(REMOTE_DET_AnimationScript));  // SANDRO - new animation of remote detonator by PasHancock
 
 		memcpy(gusAnimInst[THROW_KNIFE_SP_BM],THROW_KNIFE_SP_BM_AnimationScript,sizeof(THROW_KNIFE_SP_BM_AnimationScript));  // SANDRO - new animation of remote detonator by PasHancock
+		
+		memcpy(gusAnimInst[RUNNING_W_PISTOL],fuckTheBoundz[RUNNING],sizeof(fuckTheBoundz[RUNNING]));
 
 	return( TRUE );
 }
@@ -3752,7 +3761,16 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 				//				if ( !(Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
 				if ( !(Item[ usItem ].twohanded ) )
 				{
-					usAltAnimSurface = gubAnimSurfaceItemSubIndex[pSoldier->ubBodyType][usAnimState];
+					// SANDRO - new anim for running with pistol by PasHancock
+					if ( usAnimState == RUNNING )
+					{
+						usAltAnimSurface = gubAnimSurfaceItemSubIndex[ pSoldier->ubBodyType ][RUNNING_W_PISTOL];
+					}
+					else
+					{
+						usAltAnimSurface = gubAnimSurfaceItemSubIndex[pSoldier->ubBodyType][usAnimState];
+					}
+
 					if ( usAltAnimSurface != INVALID_ANIMATION )
 					{
 						//ddd{ сюда ставить альтернативную анимашку для выстрела из пистолета
