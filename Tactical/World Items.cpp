@@ -378,7 +378,8 @@ INT32 GetFreeWorldItemIndex( void )
 	}
 
 	uiOldNumWorldItems = guiNumWorldItems;
-	guiNumWorldItems += 10;
+	// grow by 3/2 as a better strategy, minimum 10
+	guiNumWorldItems = max(10, guiNumWorldItems * 3 / 2);
 	//Allocate new table with max+10 items.
 	newWorldItems = new WORLDITEM [ guiNumWorldItems ];
 	if (newWorldItems == NULL)
