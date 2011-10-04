@@ -131,7 +131,7 @@
 #define		BOBBYR_ORDER_FORM_Y								LAPTOP_SCREEN_WEB_UL_Y + 367
 #define		BOBBYR_ORDER_FORM_WIDTH						95
 
-#define		BOBBYR_ORDER_SUBTOTAL_X						iScreenWidthOffset + 490
+#define		BOBBYR_ORDER_SUBTOTAL_X						iScreenWidthOffset + 470//490
 #define		BOBBYR_ORDER_SUBTOTAL_Y						BOBBYR_ORDER_FORM_Y+2//BOBBYR_HOME_BUTTON_Y
 
 #define		BOBBYR_PERCENT_FUNTCIONAL_X				BOBBYR_ORDER_SUBTOTAL_X
@@ -166,7 +166,7 @@ BobbyRayPurchaseStruct BobbyRayPurchases[ MAX_PURCHASE_AMOUNT ];
 
 UINT32	guiBobbyRFilterGuns[ NUMBER_GUNS_FILTER_BUTTONS ];
 UINT32	guiBobbyRFilterAmmo[ NUMBER_AMMO_FILTER_BUTTONS ];
-UINT32	guiBobbyRFilterArmor[ NUMBER_ARMOUR_FILTER_BUTTONS ];
+UINT32	guiBobbyRFilterArmour[ NUMBER_ARMOUR_FILTER_BUTTONS ];
 UINT32	guiBobbyRFilterMisc[ NUMBER_MISC_FILTER_BUTTONS ];
 UINT32	guiBobbyRFilterUsed[ NUMBER_USED_FILTER_BUTTONS ];
 
@@ -181,7 +181,6 @@ void BtnBobbyRFilterMiscCallback(GUI_BUTTON *btn,INT32 reason);
 BOOLEAN IsAmmoMatchinWeaponType(UINT16 usItemIndex, UINT8 ubWeaponType);
 
 INT8			ubFilterGunsButtonValues[] = {
-							BOBBYR_FILTER_GUNS_HEAVY,
 							BOBBYR_FILTER_GUNS_PISTOL,
 							BOBBYR_FILTER_GUNS_M_PISTOL,
 							BOBBYR_FILTER_GUNS_SMG,
@@ -189,7 +188,8 @@ INT8			ubFilterGunsButtonValues[] = {
 							BOBBYR_FILTER_GUNS_SN_RIFLE,
 							BOBBYR_FILTER_GUNS_AS_RIFLE,
 							BOBBYR_FILTER_GUNS_LMG,
-							BOBBYR_FILTER_GUNS_SHOTGUN};
+							BOBBYR_FILTER_GUNS_SHOTGUN,
+							BOBBYR_FILTER_GUNS_HEAVY};
 
 INT8			ubFilterAmmoButtonValues[] = {
 							BOBBYR_FILTER_AMMO_PISTOL,
@@ -424,7 +424,7 @@ void RenderBobbyRGuns()
 
 	DisplayItemInfo( IC_BOBBY_GUN, guiCurrentGunFilterMode );
 	UpdateButtonText(guiCurrentLaptopMode);
-	UpdateGunFilterButtons(guiCurrentGunFilterMode, guiPrevGunFilterMode);
+	UpdateGunFilterButtons();
 
 	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
@@ -523,7 +523,7 @@ BOOLEAN InitBobbyRGunsFilterBar()
 		}
 
 		// Filter buttons
-		guiBobbyRFilterGuns[i] = CreateIconAndTextButton( guiBobbyRFilterImage, BobbyRFilter[BOBBYR_FILTER_GUNS_HEAVY+i], BOBBYR_GUNS_BUTTON_FONT,
+		guiBobbyRFilterGuns[i] = CreateIconAndTextButton( guiBobbyRFilterImage, BobbyRFilter[BOBBYR_FILTER_GUNS_PISTOL+i], BOBBYR_GUNS_BUTTON_FONT,
 													BOBBYR_GUNS_TEXT_COLOR_ON, BOBBYR_GUNS_SHADOW_COLOR,
 													BOBBYR_GUNS_TEXT_COLOR_OFF, BOBBYR_GUNS_SHADOW_COLOR,
 													TEXT_CJUSTIFIED,
@@ -608,16 +608,16 @@ BOOLEAN InitBobbyRArmourFilterBar()
 		}
 
 		// Filter buttons
-		guiBobbyRFilterArmor[i] = CreateIconAndTextButton( guiBobbyRFilterImage, BobbyRFilter[BOBBYR_FILTER_ARMOUR_HELM+i], BOBBYR_GUNS_BUTTON_FONT,
+		guiBobbyRFilterArmour[i] = CreateIconAndTextButton( guiBobbyRFilterImage, BobbyRFilter[BOBBYR_FILTER_ARMOUR_HELM+i], BOBBYR_GUNS_BUTTON_FONT,
 													BOBBYR_GUNS_TEXT_COLOR_ON, BOBBYR_GUNS_SHADOW_COLOR,
 													BOBBYR_GUNS_TEXT_COLOR_OFF, BOBBYR_GUNS_SHADOW_COLOR,
 													TEXT_CJUSTIFIED,
 													usPosX, FILTER_BUTTONS_Y + usYOffset, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnBobbyRFilterArmourCallback);
 
-		SetButtonCursor(guiBobbyRFilterArmor[i], CURSOR_LAPTOP_SCREEN);
+		SetButtonCursor(guiBobbyRFilterArmour[i], CURSOR_LAPTOP_SCREEN);
 
-		MSYS_SetBtnUserData( guiBobbyRFilterArmor[i], 0, ubFilterArmourButtonValues[bCurMode]);
+		MSYS_SetBtnUserData( guiBobbyRFilterArmour[i], 0, ubFilterArmourButtonValues[bCurMode]);
 
 		usPosX += BOBBYR_ARMOUR_FILTER_BUTTON_GAP;
 		bCurMode++;
@@ -841,8 +841,8 @@ BOOLEAN DeleteBobbyRArmourFilter()
 
 	for (i=0; i<NUMBER_ARMOUR_FILTER_BUTTONS; i++)
 	{
-		if(guiBobbyRFilterArmor[i])
-			RemoveButton (guiBobbyRFilterArmor[i]);
+		if(guiBobbyRFilterArmour[i])
+			RemoveButton (guiBobbyRFilterArmour[i]);
 	}
 
 	return (TRUE);
@@ -922,27 +922,25 @@ void BtnBobbyRPageMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			case LAPTOP_MODE_BOBBY_R_GUNS:
 				guiPrevGunFilterMode = guiCurrentGunFilterMode;
 				guiCurrentGunFilterMode = -1;
-				UpdateGunFilterButtons(guiCurrentGunFilterMode, guiPrevGunFilterMode);
+				UpdateGunFilterButtons();
 				SetFirstLastPagesForNew(IC_BOBBY_GUN, guiCurrentGunFilterMode);
 				break;
 			case LAPTOP_MODE_BOBBY_R_AMMO:
 				guiPrevAmmoFilterMode = guiCurrentAmmoFilterMode;
 				guiCurrentAmmoFilterMode = -1;
-				UpdateAmmoFilterButtons(guiCurrentAmmoFilterMode, guiPrevAmmoFilterMode);
+				UpdateAmmoFilterButtons();
 				SetFirstLastPagesForNew(IC_AMMO, guiCurrentAmmoFilterMode);
 				break;
 			case LAPTOP_MODE_BOBBY_R_ARMOR:
 				guiPrevArmourFilterMode = guiCurrentArmourFilterMode;
 				guiCurrentArmourFilterMode = -1;
-				UpdateArmourFilterButtons(guiCurrentArmourFilterMode, guiPrevArmourFilterMode);
+				UpdateArmourFilterButtons();
 				SetFirstLastPagesForNew(IC_ARMOUR, guiCurrentArmourFilterMode);
 				break;
 			case LAPTOP_MODE_BOBBY_R_MISC:
 				guiPrevMiscFilterMode = guiCurrentMiscFilterMode;
 				guiCurrentMiscFilterMode = -1;
-
 				UpdateMiscFilterButtons();
-
 				SetFirstLastPagesForNew(IC_BOBBY_MISC, guiCurrentMiscFilterMode);
 				break;
 			case LAPTOP_MODE_BOBBY_R_USED:
@@ -987,11 +985,6 @@ void BtnBobbyRFilterGunsCallback(GUI_BUTTON *btn,INT32 reason)
 
 		switch (bNewValue)
 		{
-			// TODO: Add a new button "Heavy Weapons" (Weapon Type = NOT_GUN
-			// ItemClass = IC_LAUNCHER. (IC_LAUNCHER is already included in IC_BOBBY_GUN!)
-			case BOBBYR_FILTER_GUNS_HEAVY:
-				guiCurrentGunFilterMode = NOT_GUN;
-				break;
 			case BOBBYR_FILTER_GUNS_PISTOL:
 				guiCurrentGunFilterMode = GUN_PISTOL;
 				break;
@@ -1016,14 +1009,15 @@ void BtnBobbyRFilterGunsCallback(GUI_BUTTON *btn,INT32 reason)
 			case BOBBYR_FILTER_GUNS_SHOTGUN:
 				guiCurrentGunFilterMode = GUN_SHOTGUN;
 				break;
+			// "Heavy Weapons" (Weapon Type = NOT_GUN
+			// ItemClass = IC_LAUNCHER. (IC_LAUNCHER is already included in IC_BOBBY_GUN!)
+			case BOBBYR_FILTER_GUNS_HEAVY:
+				guiCurrentGunFilterMode = NOT_GUN;
+				break;
 		}
 
-		//if (guiCurrentAmmoFilterMode > -1)
-		{
-			SetFirstLastPagesForNew(IC_BOBBY_GUN, guiCurrentGunFilterMode);
-		}
-
-		UpdateGunFilterButtons(guiCurrentGunFilterMode, guiPrevGunFilterMode);
+		SetFirstLastPagesForNew(IC_BOBBY_GUN, guiCurrentGunFilterMode);
+		UpdateGunFilterButtons();
 
 		DeleteMouseRegionForBigImage();
 		fReDrawScreenFlag = TRUE;
@@ -1086,7 +1080,7 @@ void BtnBobbyRFilterAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 		}
 
 		SetFirstLastPagesForNew(IC_AMMO, guiCurrentAmmoFilterMode);
-		UpdateAmmoFilterButtons(guiCurrentAmmoFilterMode, guiPrevAmmoFilterMode);
+		UpdateAmmoFilterButtons();
 
 		DeleteMouseRegionForBigImage();
 		fReDrawScreenFlag = TRUE;
@@ -1189,7 +1183,7 @@ void BtnBobbyRFilterArmourCallback(GUI_BUTTON *btn,INT32 reason)
 
 		SetFirstLastPagesForNew(IC_ARMOUR, guiCurrentArmourFilterMode);
 
-		UpdateArmourFilterButtons(guiCurrentArmourFilterMode, guiPrevArmourFilterMode);
+		UpdateArmourFilterButtons();
 
 		DeleteMouseRegionForBigImage();
 		fReDrawScreenFlag = TRUE;
@@ -3143,40 +3137,119 @@ void UpdateButtonText(UINT32	uiCurPage)
 	}
 }
 
-void UpdateAmmoFilterButtons(INT32 iNewButton, INT32 iOldButton)
+void UpdateAmmoFilterButtons()
 {
-	if (iNewButton != iOldButton)
-	{
-		if (iNewButton > -1)
-		{
-			// Disable new Button
-			DisableButton(guiBobbyRFilterAmmo[iNewButton - 1]);
-		}
+	EnableButton(guiBobbyRFilterAmmo[0]);
+	EnableButton(guiBobbyRFilterAmmo[1]);
+	EnableButton(guiBobbyRFilterAmmo[2]);
+	EnableButton(guiBobbyRFilterAmmo[3]);
+	EnableButton(guiBobbyRFilterAmmo[4]);
+	EnableButton(guiBobbyRFilterAmmo[5]);
+	EnableButton(guiBobbyRFilterAmmo[6]);
+	EnableButton(guiBobbyRFilterAmmo[7]);
 
-		if (iOldButton > -1)
-		{
-			// Enable old Button
-			EnableButton(guiBobbyRFilterAmmo[iOldButton - 1]);
-		}
+	switch (guiCurrentAmmoFilterMode)
+	{
+		case GUN_PISTOL:
+			DisableButton(guiBobbyRFilterAmmo[0]);
+			break;
+		case GUN_M_PISTOL:
+			DisableButton(guiBobbyRFilterAmmo[1]);
+			break;
+		case GUN_SMG:
+			DisableButton(guiBobbyRFilterAmmo[2]);
+			break;
+		case GUN_RIFLE:
+			DisableButton(guiBobbyRFilterAmmo[3]);
+			break;
+		case GUN_SN_RIFLE:
+			DisableButton(guiBobbyRFilterAmmo[4]);
+			break;
+		case GUN_AS_RIFLE:
+			DisableButton(guiBobbyRFilterAmmo[5]);
+			break;
+		case GUN_LMG:
+			DisableButton(guiBobbyRFilterAmmo[6]);
+			break;
+		case GUN_SHOTGUN:
+			DisableButton(guiBobbyRFilterAmmo[7]);
+			break;
 	}
+
+	//// Bugged when >1 row of buttons
+	//if (iNewButton != iOldButton)
+	//{
+	//	if (iNewButton > -1)
+	//	{
+	//		// Disable new Button
+	//		DisableButton(guiBobbyRFilterAmmo[iNewButton - 1]);
+	//	}
+
+	//	if (iOldButton > -1)
+	//	{
+	//		// Enable old Button
+	//		EnableButton(guiBobbyRFilterAmmo[iOldButton - 1]);
+	//	}
+	//}
 }
 
-void UpdateGunFilterButtons(INT32 iNewButton, INT32 iOldButton)
+void UpdateGunFilterButtons()
 {
-	if (iNewButton != iOldButton)
-	{
-		if (iNewButton > -1)
-		{
-			// Disable new Button
-			DisableButton(guiBobbyRFilterGuns[iNewButton]);
-		}
+	EnableButton(guiBobbyRFilterGuns[0]);
+	EnableButton(guiBobbyRFilterGuns[1]);
+	EnableButton(guiBobbyRFilterGuns[2]);
+	EnableButton(guiBobbyRFilterGuns[3]);
+	EnableButton(guiBobbyRFilterGuns[4]);
+	EnableButton(guiBobbyRFilterGuns[5]);
+	EnableButton(guiBobbyRFilterGuns[6]);
+	EnableButton(guiBobbyRFilterGuns[7]);
+	EnableButton(guiBobbyRFilterGuns[8]);
 
-		if (iOldButton > -1)
-		{
-			// Enable old Button
-			EnableButton(guiBobbyRFilterGuns[iOldButton]);
-		}
+	switch (guiCurrentGunFilterMode)
+	{
+		case GUN_PISTOL:
+			DisableButton(guiBobbyRFilterGuns[0]);
+			break;
+		case GUN_M_PISTOL:
+			DisableButton(guiBobbyRFilterGuns[1]);
+			break;
+		case GUN_SMG:
+			DisableButton(guiBobbyRFilterGuns[2]);
+			break;
+		case GUN_RIFLE:
+			DisableButton(guiBobbyRFilterGuns[3]);
+			break;
+		case GUN_SN_RIFLE:
+			DisableButton(guiBobbyRFilterGuns[4]);
+			break;
+		case GUN_AS_RIFLE:
+			DisableButton(guiBobbyRFilterGuns[5]);
+			break;
+		case GUN_LMG:
+			DisableButton(guiBobbyRFilterGuns[6]);
+			break;
+		case GUN_SHOTGUN:
+			DisableButton(guiBobbyRFilterGuns[7]);
+			break;
+		case NOT_GUN:
+			DisableButton(guiBobbyRFilterGuns[8]);
+			break;
 	}
+
+	//if (iNewButton != iOldButton)
+	//{
+	//	if (iNewButton > -1)
+	//	{
+	//		// Disable new Button
+	//		DisableButton(guiBobbyRFilterGuns[iNewButton - 1]);
+	//	}
+
+	//	if (iOldButton > -1)
+	//	{
+	//		// Enable old Button
+	//		EnableButton(guiBobbyRFilterGuns[iOldButton - 1]);
+	//	}
+	//}
 }
 
 void UpdateUsedFilterButtons()
@@ -3204,22 +3277,43 @@ void UpdateUsedFilterButtons()
 	}
 }
 
-void UpdateArmourFilterButtons(INT32 iNewButton, INT32 iOldButton)
+void UpdateArmourFilterButtons()
 {
-	if (iNewButton != iOldButton)
-	{
-		if (iNewButton > -1)
-		{
-			// Disable new Button
-			DisableButton(guiBobbyRFilterArmor[iNewButton]);
-		}
+	EnableButton(guiBobbyRFilterArmour[0]);
+	EnableButton(guiBobbyRFilterArmour[1]);
+	EnableButton(guiBobbyRFilterArmour[2]);
+	EnableButton(guiBobbyRFilterArmour[3]);
 
-		if (iOldButton > -1)
-		{
-			// Enable old Button
-			EnableButton(guiBobbyRFilterArmor[iOldButton]);
-		}
+	switch (guiCurrentArmourFilterMode)
+	{
+		case ARMOURCLASS_HELMET:
+			DisableButton(guiBobbyRFilterArmour[0]);
+			break;
+		case ARMOURCLASS_VEST:
+			DisableButton(guiBobbyRFilterArmour[1]);
+			break;
+		case ARMOURCLASS_LEGGINGS:
+			DisableButton(guiBobbyRFilterArmour[2]);
+			break;
+		case ARMOURCLASS_PLATE:
+			DisableButton(guiBobbyRFilterArmour[3]);
+			break;
 	}
+
+	//if (iNewButton != iOldButton)
+	//{
+	//	if (iNewButton > -1)
+	//	{
+	//		// Disable new Button
+	//		DisableButton(guiBobbyRFilterArmor[iNewButton]);
+	//	}
+
+	//	if (iOldButton > -1)
+	//	{
+	//		// Enable old Button
+	//		EnableButton(guiBobbyRFilterArmor[iOldButton]);
+	//	}
+	//}
 }
 
 void UpdateMiscFilterButtons()

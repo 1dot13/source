@@ -4207,7 +4207,6 @@ STR16			BobbyROrderFormText[] =
 STR16			BobbyRFilter[] =
 {
 	// Guns
-	L"Heavy W.",
 	L"Pistol",
 	L"M. Pistol",
 	L"SMG",
@@ -4216,6 +4215,7 @@ STR16			BobbyRFilter[] =
 	L"AS Rifle",
 	L"MG",
 	L"Shotgun",
+	L"Heavy W.",
 
 	// Ammo
 	L"Pistol",

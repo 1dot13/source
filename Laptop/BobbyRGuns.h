@@ -59,10 +59,10 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter);
 void DeleteMouseRegionForBigImage();
 void UpdateButtonText(UINT32	uiCurPage);
 
-void UpdateAmmoFilterButtons(INT32 iNewButton, INT32 iOldButton);
-void UpdateGunFilterButtons(INT32 iNewButton, INT32 iOldButton);
+void UpdateAmmoFilterButtons();
+void UpdateGunFilterButtons();
 void UpdateUsedFilterButtons();
-void UpdateArmourFilterButtons(INT32 iNewButton, INT32 iOldButton);
+void UpdateArmourFilterButtons();
 void UpdateMiscFilterButtons();
 
 void EnterInitBobbyRGuns();

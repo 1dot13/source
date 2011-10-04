@@ -5567,6 +5567,16 @@ void HandleKeyBoardShortCutsForLapTop( UINT16 usEvent, UINT32 usParam, UINT16 us
 	{
 		if( CHEATER_CHEAT_LEVEL( ) )
 		{
+			AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), 10000 );
+			MarkButtonsDirty( );
+		}
+	}
+
+	//adding lots of money
+	else if ((usEvent == KEY_DOWN )&& ( usParam == '+' ))
+	{
+		if( CHEATER_CHEAT_LEVEL( ) )
+		{
 			AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), 100000 );
 			MarkButtonsDirty( );
 		}
@@ -5578,6 +5588,16 @@ void HandleKeyBoardShortCutsForLapTop( UINT16 usEvent, UINT32 usParam, UINT16 us
 		if( CHEATER_CHEAT_LEVEL( ) )
 		{
 			AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), -10000 );
+			MarkButtonsDirty( );
+		}
+	}
+	
+	//subtracting lots of money
+	else if( (usEvent == KEY_DOWN ) && ( usParam == '_' ) )
+	{
+		if( CHEATER_CHEAT_LEVEL( ) )
+		{
+			AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), -100000 );
 			MarkButtonsDirty( );
 		}
 	}

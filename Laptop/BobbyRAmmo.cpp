@@ -91,7 +91,7 @@ void RenderBobbyRAmmo()
 	DisplayItemInfo(IC_AMMO, guiCurrentAmmoFilterMode);
 	UpdateButtonText(guiCurrentLaptopMode);
 
-	UpdateAmmoFilterButtons(guiCurrentAmmoFilterMode, guiPrevAmmoFilterMode);
+	UpdateAmmoFilterButtons();
 
 	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );

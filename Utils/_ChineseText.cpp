@@ -4210,7 +4210,6 @@ STR16			BobbyROrderFormText[] =
 STR16			BobbyRFilter[] =
 {
 	// Guns
-	L"重武器", //"Heavy W.",
 	L"手枪", //"Pistol",
 	L"自动手枪", //"M. Pistol",
 	L"冲锋枪", //"SMG",
@@ -4219,6 +4218,7 @@ STR16			BobbyRFilter[] =
 	L"突击歩枪", //"AS Rifle",
 	L"机枪", //"MG",
 	L"霰弹枪", //"Shotgun",
+	L"重武器", //"Heavy W.",
 
 	// Ammo
 	L"手枪", //"Pistol",

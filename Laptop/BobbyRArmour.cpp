@@ -92,7 +92,7 @@ void RenderBobbyRArmour()
 	UpdateButtonText(guiCurrentLaptopMode);
 	// TODO
 
-	UpdateArmourFilterButtons(guiCurrentArmourFilterMode, guiPrevArmourFilterMode);
+	UpdateArmourFilterButtons();
 
 	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
