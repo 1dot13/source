@@ -2404,7 +2404,7 @@ BOOLEAN OBJECTTYPE::Load( HWFILE hFile )
 		// The size can get any huge value, if we are using wrong items.xml on the savegame
 		// In that case, the "objectStack.resize(size) consumes ALL the memory on the system and then the game crashes because of not enough free memory!!!!
 		// When returning FALSE well tell there is something wrong and we can't load the savegame
-		if (size < 0 || size > 1000)
+		if (size < 0 || size >= 512)
 		{
 			return(FALSE);
 		}
