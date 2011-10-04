@@ -1306,9 +1306,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.usNumKillsPerProgressPointInsane		= iniReader.ReadInteger("Strategic Progress Settings","NUM_KILLS_PER_PROGRESS_POINT_INSANE", 60, 1, 1000);
 
 	//Global game events 
-	gGameExternalOptions.ubGameProgressStartMadlabQuest			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_START_MADLAB_QUEST",35, 1, 100);
-	gGameExternalOptions.ubGameProgressMikeAvailable			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MIKE_AVAILABLE",50, 1, 100);
-	gGameExternalOptions.ubGameProgressIggyAvaliable			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_IGGY_AVAILABLE",70, 1, 100);
+	gGameExternalOptions.ubGameProgressStartMadlabQuest			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_START_MADLAB_QUEST",35, 0, 100);
+	gGameExternalOptions.ubGameProgressMikeAvailable			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_MIKE_AVAILABLE",50, 0, 100);
+	gGameExternalOptions.ubGameProgressIggyAvaliable			= iniReader.ReadInteger("Strategic Progress Settings","GAME_PROGRESS_IGGY_AVAILABLE",70, 0, 100);
 
 
 	//################# Strategic Event Settings ##################
