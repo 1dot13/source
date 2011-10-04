@@ -566,9 +566,14 @@ void EnterPersonnel( void )
 	     idx <= gTacticalStatus.Team[ pTeamSoldier->bTeam ].bLastID; 
 		 ++idx) {
         pTeamSoldier = MercPtrs[ idx ]; 
-		if ((pTeamSoldier->bActive) && 
-			!(pTeamSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && 
-			/*(pTeamSoldier->stats.bLife > 0 ) && */ !AM_A_ROBOT(pTeamSoldier)) {
+				
+		// WANNE: Bugfix: Also show the roboter in ther personnel screen. This bug was introduced in revision 2498, when Many Mercenary was included.
+		//if ((pTeamSoldier->bActive) && 
+		//	!(pTeamSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)  && 
+		//	/*(pTeamSoldier->stats.bLife > 0 ) && */  !AM_A_ROBOT(pTeamSoldier)  )		
+
+		if ((pTeamSoldier->bActive) && !(pTeamSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))				
+		{		
 			currentTeamList[++maxCurrentTeamIndex] = idx;
 		}
 	}
