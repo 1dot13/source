@@ -7593,12 +7593,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 
 					// haydent
 				case 'k':
-					if (fAlt)
-					{
-						if (is_networked)
-							kick_player();
-					}
-					else if(gGameExternalOptions.fEnableInventoryPoolQ && fShowMapInventoryPool == TRUE)//dnl ch51 081009
+					if(gGameExternalOptions.fEnableInventoryPoolQ && fShowMapInventoryPool == TRUE)//dnl ch51 081009
 					{
 						CopySectorInventoryToInventoryPoolQs(0);
 						//break;

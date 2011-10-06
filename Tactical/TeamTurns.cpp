@@ -1040,7 +1040,10 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 			nubFirstInterrupter = LATEST_INTERRUPT_GUY;
 			npSoldier = MercPtrs[nubFirstInterrupter];
 			nbTeam = npSoldier->bTeam;
+
+#ifdef BETAVERSION
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"unchecked interrupt call area:(resume interrupted interrupt)...");
+#endif
 		
 			if ((nbTeam > 0) && (nbTeam <6 ) && is_server) //is AI and are server
 			{
@@ -2128,29 +2131,21 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 				}
 				// INTERRUPT is calculated on the pure client
 				else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn (we are moving)
-				{					
-					//// WANNE: Skip the interrupt (against enemy AI) on the pure client, when we are in a coop game!
-					//if (cGameType == MP_TYPE_COOP)
-					//{
-					//	#ifdef BETAVERSION
-					//		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for another team - pure client - skipping problematic interrupt");
-					//	#endif			
-					//}
-					//else
-					//{
-						send_interrupt( npSoldier );
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for another team - PROBLEMATIC");
+				{																	
+					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, MPClientMessage[79]);
 
-						SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
-						//AdjustNoAPToFinishMove( pMerc, TRUE );	
-						pMerc->HaultSoldierFromSighting(TRUE);
-						//pMerc->fTurningFromPronePosition = FALSE;// hmmm ??
-						FreezeInterfaceForEnemyTurn();
-						InitEnemyUIBar( 0, 0 );
-						fInterfacePanelDirty = DIRTYLEVEL2;
-						AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ nbTeam ] );
-						gTacticalStatus.fInterruptOccurred = TRUE;
-					//}
+					send_interrupt( npSoldier );
+
+
+					SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
+					//AdjustNoAPToFinishMove( pMerc, TRUE );	
+					pMerc->HaultSoldierFromSighting(TRUE);
+					//pMerc->fTurningFromPronePosition = FALSE;// hmmm ??
+					FreezeInterfaceForEnemyTurn();
+					InitEnemyUIBar( 0, 0 );
+					fInterfacePanelDirty = DIRTYLEVEL2;
+					AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, TeamTurnString[ nbTeam ] );
+					gTacticalStatus.fInterruptOccurred = TRUE;						
 				}
 				else
 				{

@@ -1,4 +1,4 @@
-// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
+Ôªø// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("ITALIAN")
 
 #ifdef PRECOMPILEDHEADERS
@@ -21,28 +21,28 @@ void this_is_the_Ja25ItalianText_public_symbol(void){;}
 
 STR16	zNewTacticalMessages[]=
 {
-	//L"Distanza dal bersaglio: %d caselle, Luminosit‡: %d/%d",
+	//L"Distanza dal bersaglio: %d caselle, Luminosit√†: %d/%d",
 	L"Colleghi il trasmettitore al tuo computer portatile.",
 	L"Non puoi permetterti di ingaggiare %s",
-	L"Per un periodo limitato, la tariffa qui sopra includer‡ i costi dell'intera missione, oltre all'equipaggiamento indicato sotto.",
+	L"Per un periodo limitato, la tariffa qui sopra includer√† i costi dell'intera missione, oltre all'equipaggiamento indicato sotto.",
 	L"Assolda %s adesso e approfitta della nostra nuova tariffa 'tutto incluso'. Compreso in questa incredibile offerta anche l'equipaggiamento personale del mercenario, senza alcun costo aggiuntivo.",
 	L"Tariffa",
-	L"C'Ë qualcun altro nel settore...",
-	//L"Gittata dell'arma: %d caselle, Probabilit‡ di colpire: %d percent",
+	L"C'√® qualcun altro nel settore...",
+	//L"Gittata dell'arma: %d caselle, Probabilit√† di colpire: %d percent",
 	L"Mostra nascondigli",
 	L"Linea di Vista",
 	L"Le nuove reclute non possono arrivare qui.",
-	L"PoichÈ il tuo portatile non ha un trasmettitore, non potrai assoldare nuovi mercenari. Forse questo sarebbe un buon momento per caricare una partita salvata o ricominciare daccapo!",
+	L"Poich√© il tuo portatile non ha un trasmettitore, non potrai assoldare nuovi mercenari. Forse questo sarebbe un buon momento per caricare una partita salvata o ricominciare daccapo!",
 	L"%s sente venire da sotto al corpo di Jerry il rumore di metallo che si accartoccia. E' un suono fastidioso, come se l'antenna del tuo portatile venisse schiacciata.",  //the %s is the name of a merc.
-	L"Dopo aver dato un'occhiata al biglietto lasciato dal Vice Comandante Morris, %s vede una possibilit‡. La nota contiene le coordinate per il lancio di missili contro diverse citt‡ ad Arulco. C'Ë anche la locazione della base di lancio: la fabbrica di missili.",
-	L"Guardando il pannello di controllo %s immagina che i numeri possano essere invertiti, cosicchÈ il missile distrugga proprio questa fabbrica. %s deve trovare una via di fuga. L'ascensore sembra offrire la soluzione pi˘ rapida...",
-	L"Questa Ë una partita a livello IRON MAN: non puoi salvare quando ci sono nemici nei dintorni.",
+	L"Dopo aver dato un'occhiata al biglietto lasciato dal Vice Comandante Morris, %s vede una possibilit√†. La nota contiene le coordinate per il lancio di missili contro diverse citt√† ad Arulco. C'√® anche la locazione della base di lancio: la fabbrica di missili.",
+	L"Guardando il pannello di controllo %s immagina che i numeri possano essere invertiti, cosicch√© il missile distrugga proprio questa fabbrica. %s deve trovare una via di fuga. L'ascensore sembra offrire la soluzione pi√π rapida...",
+	L"Questa √® una partita a livello IRON MAN: non puoi salvare quando ci sono nemici nei dintorni.",
 	L"(Non puoi salvare durante il combattimento.)",
-	L"Il nome della campagna Ë pi˘ grande di 30 caratteri",
+	L"Il nome della campagna √® pi√π grande di 30 caratteri",
 	L"Campagna non trovata.",
 	L"Campagna: Default ( %S )",
 	L"Campagna: %S",
-	L"Hai selezionato la campagna %S. Questa campagna Ë una versione amatoriale della campagna originale di Unfinished Business. Sei sicuro di voler giocare la campagna %S?",
+	L"Hai selezionato la campagna %S. Questa campagna √® una versione amatoriale della campagna originale di Unfinished Business. Sei sicuro di voler giocare la campagna %S?",
 	L"Per usare l'editor, selezionare una campagna diversa da quella di default.",
 };
 
@@ -67,7 +67,7 @@ STR16 gzIMPSkillTraitsText[]=
 	L"Arti Marziali",
 
 	L"Nessuna",
-	L"Specialit‡ I.M.P.",
+	L"Specialit√† I.M.P.",
 	L"(Expert)",
 };
 
@@ -459,13 +459,13 @@ STR16 zGioNewTraitsImpossibleText[]=
 //New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
 {
-	L"Hai scelto la modalit‡ IRON MAN. Questa impostazione rende il gioco notevolmente pi˘ impegnativo, poichÈ non potrai salvare la partita in un settore occupato da nemici. Non potrai cambiare questa decisione nel corso della partita. Sei sicuro di voler giocare al livello IRON MAN?",
+	L"Hai scelto la modalit√† IRON MAN. Questa impostazione rende il gioco notevolmente pi√π impegnativo, poich√© non potrai salvare la partita in un settore occupato da nemici. Non potrai cambiare questa decisione nel corso della partita. Sei sicuro di voler giocare al livello IRON MAN?",
 };
 
 STR16 gzDisplayCoverText[]=
 {
-	L"Copertura: %d/100 %s, Luminosit‡: %d/100",
-	L"Gittata dell'arma: %d/%d tiles, Probabilit‡ di colpire: %d/100",
+	L"Copertura: %d/100 %s, Luminosit√†: %d/100",
+	L"Gittata dell'arma: %d/%d tiles, Probabilit√† di colpire: %d/100",
 	L"Gittata dell'arma: %d/%d tiles, Muzzle Stability: %d/100",
 	L"Disabilita visualizzazione copertura",
 	L"Mostra visuale del mercenario",

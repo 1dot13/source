@@ -1,4 +1,4 @@
-// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
+ï»¿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("GERMAN")
 
 #ifdef PRECOMPILEDHEADERS
@@ -126,9 +126,9 @@ LOOTF - Foot note. I've rewritten a whole lot of stuff and only marked specific 
 
 I have also changed stuff people might have found okay, which only troubled me.
 This includes
-<GERMAN> "Zurückziehen". Klingt einfach nicht. Hört sich an wie sich zur Nachtruhe begeben.
-"Zurückgezogen" ist ein Waldschrat. Geändert auf "ausgewichen".
-Ich hoffe nur, dass nicht irgendjemand dumm rumschwätzt wegen Kugeln ausweichen oder so.</GERMAN>
+<GERMAN> "ZurÃ¼ckziehen". Klingt einfach nicht. HÃ¶rt sich an wie sich zur Nachtruhe begeben.
+"ZurÃ¼ckgezogen" ist ein Waldschrat. GeÃ¤ndert auf "ausgewichen".
+Ich hoffe nur, dass nicht irgendjemand dumm rumschwÃ¤tzt wegen Kugeln ausweichen oder so.</GERMAN>
 
 Anything else is a-ok and can be filtered out by comparing this cpp with the old version.
 I have also added tabs and removed some where I thought it was appropriate (format-wise).
@@ -1172,7 +1172,7 @@ STR16 pCreditsJA2113[] =
 	L"@T,C144,R134,{;Programmierung",
 	L"@T,C144,R134,{;Grafiken und Sounds",
 	L"@};(Verschiedene weitere Mods!)",
-	L"@T,C144,R134,{;Gegenstände",
+	L"@T,C144,R134,{;GegenstÃ¤nde",
 	L"@T,C144,R134,{;Weitere Mitwirkende",
 	L"@};(Alle weiteren Community-Mitglieder die Ideen und Feedback eingebracht haben!)",
 };
@@ -1287,32 +1287,32 @@ CHAR16 Message[][STRING_LENGTH] =
 	// the third is a string from pNoiseTypeStr, and the last is a string from pDirectionStr
 
 	L"", //obsolete
-	L"Verstärkung ist angekommen!",
+	L"VerstÃ¤rkung ist angekommen!",
 
 	// In the following four lines, all %s's are merc names
 
-	L"%s lädt nach.",
+	L"%s lÃ¤dt nach.",
 	L"%s hat nicht genug Action-Punkte!",
-	L"%s leistet Erste Hilfe. (Rückgängig mit beliebiger Taste.)",
-	L"%s und %s leisten Erste Hilfe. (Rückgängig mit beliebiger Taste.)",
+	L"%s leistet Erste Hilfe. (RÃ¼ckgÃ¤ngig mit beliebiger Taste.)",
+	L"%s und %s leisten Erste Hilfe. (RÃ¼ckgÃ¤ngig mit beliebiger Taste.)",
 	// the following 17 strings are used to create lists of gun advantages and disadvantages
 	// (separated by commas)
-	L"zuverlässig",
-	L"unzuverlässig",
+	L"zuverlÃ¤ssig",
+	L"unzuverlÃ¤ssig",
 	L"Reparatur leicht",
 	L"Reparatur schwer",
-	L"große Durchschlagskraft",
+	L"groÃŸe Durchschlagskraft",
 	L"kleine Durchschlagskraft",
 	L"feuert schnell",
 	L"feuert langsam",
-	L"große Reichweite",
+	L"groÃŸe Reichweite",
 	L"kurze Reichweite",
 	L"leicht",
 	L"schwer",
 	L"klein",
-	L"schneller Feuerstoß",
-	L"kein Feuerstoß",
-	L"großes Magazin",
+	L"schneller FeuerstoÃŸ",
+	L"kein FeuerstoÃŸ",
+	L"groÃŸes Magazin",
 	L"kleines Magazin",
 
 	// In the following two lines, all %s's are merc names
@@ -1327,14 +1327,14 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	// The %s is a merc name
 
-	L"%ss Waffe kann keinen Feuerstoß abgeben.",
+	L"%ss Waffe kann keinen FeuerstoÃŸ abgeben.",
 
 	L"Sie haben schon eines davon angebracht.", 
-	L"Gegenstände zusammenfügen?",
+	L"GegenstÃ¤nde zusammenfÃ¼gen?",
 
 	// Both %s's are item names
 
-	L"Sie können %s mit %s nicht kombinieren",
+	L"Sie kÃ¶nnen %s mit %s nicht kombinieren",
 
 	L"Keine",
 	L"Waffen entladen",		// = Removing ammo from weapons on the ground on pressing Shift + F if set in options.
@@ -1342,24 +1342,24 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	//You cannot use "item(s)" and your "other item" at the same time.
 	//Ex: You cannot use sun goggles and your gas mask at the same time.
-	L"Sie können %s nicht zusammen mit %s benutzen.",	//
+	L"Sie kÃ¶nnen %s nicht zusammen mit %s benutzen.",	//
 
-	L"Der Gegenstand in Ihrem Cursor kann mit anderen Gegenständen verbunden werden, indem Sie ihn in einer der vier Einbaustellen platzieren.",
-	L"Der Gegenstand in Ihrem Cursor kann mit anderen Gegenständen verbunden werden, indem Sie ihn in einer der vier Einbaustellen platzieren. (Aber in diesem Fall sind die Gegenstände nicht kompatibel.)",
+	L"Der Gegenstand in Ihrem Cursor kann mit anderen GegenstÃ¤nden verbunden werden, indem Sie ihn in einer der vier Einbaustellen platzieren.",
+	L"Der Gegenstand in Ihrem Cursor kann mit anderen GegenstÃ¤nden verbunden werden, indem Sie ihn in einer der vier Einbaustellen platzieren. (Aber in diesem Fall sind die GegenstÃ¤nde nicht kompatibel.)",
 	L"Es sind noch Feinde im Sektor!",
 	L"Geben Sie %s %s", 
 	L"%s am Kopf getroffen!",
 	L"Kampf abbrechen?",
 	L"Die Modifikation ist permanent. Weitermachen?",
-	L"%s fühlt sich frischer!",
+	L"%s fÃ¼hlt sich frischer!",
 	L"%s ist auf Murmeln ausgerutscht!",
 	L"%s konnte %s nicht aus der Hand des Feindes stehlen!",
 	L"%s hat %s repariert",
-	L"Unterbrechung für ",
+	L"Unterbrechung fÃ¼r ",
 	L"Ergeben?",
 	L"Diese Person will keine Hilfe.", 
 	L"Lieber NICHT!",
-	L"Wenn Sie zu Skyriders Heli wollen, müssen Sie Söldner einem FAHRZEUG/HELIKOPTER ZUWEISEN.",
+	L"Wenn Sie zu Skyriders Heli wollen, mÃ¼ssen Sie SÃ¶ldner einem FAHRZEUG/HELIKOPTER ZUWEISEN.",
 	L"%s hat nur Zeit, EINE Waffe zu laden",
 	L"Spielzug Bloodcats", 
 	L"Dauerfeuer",
@@ -1367,11 +1367,11 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"genau",
 	L"ungenau",
 	L"kein Einzelschuss",
-	L"Der Feind besitzt keine Gegenstände mehr zum Stehlen!",
+	L"Der Feind besitzt keine GegenstÃ¤nde mehr zum Stehlen!",
 	L"Der Feind hat keinen Gegenstand in seiner Hand!",
 
-	L"%s's Wüstentarnung ist nicht mehr effektiv.",
-	L"%s's Wüstentarnung wurde herunter gewaschen.",
+	L"%s's WÃ¼stentarnung ist nicht mehr effektiv.",
+	L"%s's WÃ¼stentarnung wurde herunter gewaschen.",
 	
 	L"%s's Waldtarnung ist nicht mehr effektiv.",
 	L"%s's Waldtarnung wurde herunter gewaschen.",
@@ -1381,7 +1381,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	
 	L"%s's Schneetarnung ist nicht mehr effektiv.",
 	L"%s's Schneetarnung wurde herunter gewaschen.",
-	L"Sie können %s nicht an dieser Einbaustelle anbringen.",
+	L"Sie kÃ¶nnen %s nicht an dieser Einbaustelle anbringen.",
 	L"%s passt in keine freie Einbaustelle.",
 };
 
@@ -1444,7 +1444,7 @@ STR16 pAssignmentStrings[] =
 	L"Fahrzeug", // in a vehicle
 	L"Transit", // in transit - abbreviated form
 	L"Repar.", // repairing
-	L"Üben", // training themselves
+	L"Ãœben", // training themselves
 	L"Miliz", // training a town to revolt 
 	L"M.Miliz", //training moving militia units		
 	L"Trainer", // training a teammate
@@ -1452,7 +1452,7 @@ STR16 pAssignmentStrings[] =
 	L"Betrieb", // operating a strategic facility
 	L"Pause", // Resting at a facility
 	L"Tot", // dead
-	L"Koma", // abbreviation for incapacitated	//LOOTF - "Unfähig" klingt schlimm. Geändert auf Koma. Vorschläge?
+	L"Koma", // abbreviation for incapacitated	//LOOTF - "UnfÃ¤hig" klingt schlimm. GeÃ¤ndert auf Koma. VorschlÃ¤ge?
 	L"Gefangen", // Prisoner of war - captured
 	L"Hospital", // patient in a hospital		
 	L"Leer",	//Vehicle is empty
@@ -1462,15 +1462,15 @@ STR16 pMilitiaString[] =
 {
 	L"Miliz", // the title of the militia box
 	L"Ohne Aufgabe", //the number of unassigned militia troops
-	L"Mit Feinden im Sektor können Sie keine Miliz einsetzen!",
-	L"Einige Milizen wurden keinem Sektor zugewiesen. Möchten Sie diese Einheiten auflösen?",
+	L"Mit Feinden im Sektor kÃ¶nnen Sie keine Miliz einsetzen!",
+	L"Einige Milizen wurden keinem Sektor zugewiesen. MÃ¶chten Sie diese Einheiten auflÃ¶sen?",
 };
 
 STR16 pMilitiaButtonString[] = 
 {
 	L"Autom.", // auto place the militia troops for the player
 	L"Fertig", // done placing militia troops
-	L"Auflösen", // HEADROCK HAM 3.6: Disband militia
+	L"AuflÃ¶sen", // HEADROCK HAM 3.6: Disband militia
 };
 
 STR16 pConditionStrings[] = 
@@ -1479,7 +1479,7 @@ STR16 pConditionStrings[] =
 	L"Gut", // good health
 	L"Mittel", // fair health
 	L"Verwundet", // wounded health
-	L"Erschöpft", // tired
+	L"ErschÃ¶pft", // tired
 	L"Verblutend", // bleeding to death
 	L"Bewusstlos", // knocked out 
 	L"Stirbt", // near death
@@ -1524,7 +1524,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Fahrzeug",
 	L"Transit",
 	L"Reparieren",
-	L"Üben", 
+	L"Ãœben", 
 	L"Miliz",
 	L"Trainiere Mobile Miliz",
 	L"Trainer",
@@ -1567,7 +1567,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Fahrzeug",
 	L"Transit",
 	L"Reparieren",
-	L"Üben", 
+	L"Ãœben", 
 	L"Miliz",
 	L"Trainiere Mobile",
 	L"Trainer",
@@ -1575,7 +1575,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Betriebspersonal",
 	L"Betriebspause",
 	L"Tot",
-	L"Unfähig",
+	L"UnfÃ¤hig",
 	L"Gefangen",
 	L"Hospital", // patient in a hospital 
 	L"Leer",	// Vehicle is empty
@@ -1608,18 +1608,18 @@ STR16 pLongAttributeStrings[] =
 	L"TREFFSICHERHEIT",
 	L"MEDIZIN",
 	L"TECHNIK",
-	L"FÜHRUNGSQUALITÄT",
+	L"FÃœHRUNGSQUALITÃ„T",
 	L"SPRENGSTOFFE",
 	L"ERFAHRUNGSSTUFE",
 };
 
 STR16 pInvPanelTitleStrings[] = 
 {
-	L"Rüstung", // the armor rating of the merc
+	L"RÃ¼stung", // the armor rating of the merc
 	L"Gew.", // the weight the merc is carrying
 	L"Tarn.", // the merc's camouflage rating
 	L"Tarnung:",
-	L"Rüstung:",
+	L"RÃ¼stung:",
 };
 
 STR16 pShortAttributeStrings[] =
@@ -1648,7 +1648,7 @@ STR16 pUpperLeftMapScreenStrings[] =
 
 STR16 pTrainingStrings[] =
 {
-	L"Üben", // tell merc to train self 
+	L"Ãœben", // tell merc to train self 
 	L"Miliz", // tell merc to train town // 
 	L"Trainer", // tell merc to act as trainer
 	L"Rekrut", // tell merc to be train by other 
@@ -1661,8 +1661,8 @@ STR16 pGuardMenuStrings[] =
 	L" Munition sparen", // conserve ammo 
 	L" Nur bei Bedarf feuern", // fire only when the merc needs to 
 	L"Andere Optionen:", // other options available to merc
-	L" Rückzug möglich", // merc can retreat
-	L" Deckung möglich", // merc is allowed to seek cover
+	L" RÃ¼ckzug mÃ¶glich", // merc can retreat
+	L" Deckung mÃ¶glich", // merc is allowed to seek cover
 	L" Kann Kameraden helfen", // merc can assist teammates
 	L"Fertig", // done with this menu
 	L"Abbruch", // cancel this menu
@@ -1676,8 +1676,8 @@ STR16 pOtherGuardMenuStrings[] =
 	L" *Munition sparen*",
 	L" *Nur bei Bedarf feuern*",
 	L"Andere Optionen:",
-	L" *Rückzug möglich*",
-	L" *Deckung möglich*",
+	L" *RÃ¼ckzug mÃ¶glich*",
+	L" *Deckung mÃ¶glich*",
 	L" *Kann Kameraden helfen*",
 	L"Fertig",
 	L"Abbruch",
@@ -1700,15 +1700,15 @@ STR16 pMilitiaControlMenuStrings[] =
 {
 	L"Angreifen",		// set militia to aggresive
 	L"Position halten",	// set militia to stationary
-	L"Rückzug",		// retreat militia
+	L"RÃ¼ckzug",		// retreat militia
 	L"An meine Position",	// retreat militia
 	L"Auf den Boden",	// retreat militia	
 	L"In Deckung gehen",
 	L"Alle: Angreifen", 
 	L"Alle: Position halten",
-	L"Alle: Rückzug",
+	L"Alle: RÃ¼ckzug",
 	L"Alle: An meine Position",
-	L"Alle: Ausschwärmen",
+	L"Alle: AusschwÃ¤rmen",
 	L"Alle: Auf den Boden",
 	L"Alle: In Deckung gehen",
 	//L"All: Find items",
@@ -1726,7 +1726,7 @@ STR16 pMilitiaControlMenuStrings[] =
 //};
 
 STR16 pRemoveMercStrings[] ={
-	L"Söldner entfernen", // remove dead merc from current team
+	L"SÃ¶ldner entfernen", // remove dead merc from current team
 	L"Abbrechen",
 };
 
@@ -1739,14 +1739,14 @@ STR16 pAttributeMenuStrings[] =
 	L"Treffsicherheit",
 	L"Medizin",
 	L"Technik",
-	L"Führungsqualität",
+	L"FÃ¼hrungsqualitÃ¤t",
 	L"Sprengstoffe",
 	L"Abbrechen",
 };
 
 STR16 pTrainingMenuStrings[] =
 {
- L"Üben", // train yourself 
+ L"Ãœben", // train yourself 
  L"Miliz", // train the town 
  L"Mobile Miliz",
  L"Trainer", // train your teammates 
@@ -1790,7 +1790,7 @@ STR16 pPersonnelScreenStrings[] =
 	L"Beweglichkeit: ",	// Stat: Agility
 	L"Geschicklichkeit: ",	// Stat: Dexterity
 	L"Kraft: ",		// Stat: Strength
-	L"Führungsqualität: ",	// Stat: Leadership
+	L"FÃ¼hrungsqualitÃ¤t: ",	// Stat: Leadership
 	L"Weisheit: ",		// Stat: Wisdom
 	L"Erfahrungsstufe: ",	// Stat: Experience level
 	L"Treffsicherheit: ", 	// Stat: Marksmanship
@@ -1799,7 +1799,7 @@ STR16 pPersonnelScreenStrings[] =
 	L"Medizin: ",		// Stat: Medical
 	L"Med. Vorsorge: ",	// amount of medical deposit put down on the merc
 	L"Laufzeit: ",		// time remaining on current contract
-	L"Getötet: ",		// number of kills by merc
+	L"GetÃ¶tet: ",		// number of kills by merc
 	L"Mithilfe: ",		// number of assists on kills by merc
 	L"Tgl. Kosten:",	// daily cost of merc
 	L"Gesamtkosten:",	// total cost of merc
@@ -1807,20 +1807,20 @@ STR16 pPersonnelScreenStrings[] =
 	L"Diensttage:",		// total service rendered by merc
 	L"Schulden:",		// amount left on MERC merc to be paid
 	L"Trefferquote:",	// percentage of shots that hit target
-	L"Einsätze:",		// number of battles fought
+	L"EinsÃ¤tze:",		// number of battles fought
 	L"Verwundungen:",	// number of times merc has been wounded
-	L"Fähigkeiten:", 	// Traits
-	L"Keine Fähigkeiten:",	// No traits
-	L"Aktivitäten:", // added by SANDRO
+	L"FÃ¤higkeiten:", 	// Traits
+	L"Keine FÃ¤higkeiten:",	// No traits
+	L"AktivitÃ¤ten:", // added by SANDRO
 };
 
 // SANDRO - helptexts for merc records
 STR16 pPersonnelRecordsHelpTexts[] =
 {
-	// GETÖTET
+	// GETÃ–TET
 	// 0
 	L"Elite Soldaten: %d\n",
-	L"Reguläre Soldaten: %d\n",
+	L"RegulÃ¤re Soldaten: %d\n",
 	L"Admin Soldaten: %d\n",
 	L"Feindliche Gruppen: %d\n",
 	L"Monster: %d\n",	
@@ -1829,13 +1829,13 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	// MITHILFE
 	// 7
-	L"Söldner: %d\n",
+	L"SÃ¶ldner: %d\n",
 	L"Miliz: %d\n",
 	L"Andere: %d\n",
 
 	// TREFFERQUOTE
 	// 10
-	L"Schüsse gefeuert: %d\n",
+	L"SchÃ¼sse gefeuert: %d\n",
 	L"Raketen gefeuert: %d\n",
 	L"Granaten geworfen: %d\n",
 	L"Messer geworfen: %d\n",
@@ -1843,27 +1843,27 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Nahkampf attakiert: %d\n",
 	L"Gelandete Treffer: %d\n",
 
-	// AKTIVITÄTEN
+	// AKTIVITÃ„TEN
 	// 17
-	L"Schlösser geknackt: %d\n",
-	L"Schlösser gebrochen: %d\n",
-	L"Fallen entschärft: %d\n",
-	L"Sprenstoffe entzündet: %d\n",
-	L"Gegenstände repariert: %d\n",
-	L"Gegenstände kombiniert: %d\n",
-	L"Gegenstände gestohlen: %d\n",
+	L"SchlÃ¶sser geknackt: %d\n",
+	L"SchlÃ¶sser gebrochen: %d\n",
+	L"Fallen entschÃ¤rft: %d\n",
+	L"Sprenstoffe entzÃ¼ndet: %d\n",
+	L"GegenstÃ¤nde repariert: %d\n",
+	L"GegenstÃ¤nde kombiniert: %d\n",
+	L"GegenstÃ¤nde gestohlen: %d\n",
 	L"Miliz trainiert: %d\n",
 	L"Soldaten verbunden: %d\n",
 	L"Operation gemacht: %d\n",
 	L"Personen bekanntgemacht: %d\n",
 	L"Sektoren erkundet: %d\n",
 	L"Hinterhalte vermieden: %d\n",
-	L"Aufträge erledigt: %d\n",
+	L"AuftrÃ¤ge erledigt: %d\n",
 
-	// EINSÄTZE
+	// EINSÃ„TZE
 	// 31
-	L"Taktische Kämpfe: %d\n",
-	L"Automatische Kämpfe: %d\n",
+	L"Taktische KÃ¤mpfe: %d\n",
+	L"Automatische KÃ¤mpfe: %d\n",
 	L"Fluchtversuche: %d\n",
 	L"Erfolgreiche Hinterhalte: %d\n",
 	L"Schwerster Kampf: %d Feinde\n",
@@ -1876,21 +1876,21 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Explosionsverletzungen: %d\n",
 	L"Schaden erlitten in Anlagen: %d\n",
 	L"Operationen ertragen: %d\n",
-	L"Unfälle in Anlagen: %d\n",
+	L"UnfÃ¤lle in Anlagen: %d\n",
 
 	// 43
 	L"Charakter:",
-	L"Schwächen:",
+	L"SchwÃ¤chen:",
 
-	L"Persönlichkeit:",	// WANNE: For old traits display instead of "Character:"!
+	L"PersÃ¶nlichkeit:",	// WANNE: For old traits display instead of "Character:"!
 };
 
 
 //These string correspond to enums used in by the SkillTrait enums in SoldierProfileType.h
 STR16 gzMercSkillText[] = 
 {
-	L"Keine Fähigkeiten",
-	L"Schlösser knacken",
+	L"Keine FÃ¤higkeiten",
+	L"SchlÃ¶sser knacken",
 	L"Nahkampf",
 	L"Elektronik",
 	L"Nachteinsatz",
@@ -1903,7 +1903,7 @@ STR16 gzMercSkillText[] =
 	L"Dieb",
 	L"Kampfsport",
 	L"Messer",
-	L"Scharfschütze",
+	L"ScharfschÃ¼tze",
 	L"Getarnt",
 	L"(Experte)",
 };
@@ -1915,36 +1915,36 @@ STR16 gzMercSkillTextNew[] =
 	// Major traits
 	L"Keine Fertigkeit",
 
-	L"MG-Schütze",
+	L"MG-SchÃ¼tze",
 	L"Grenadier",
-	L"Präzisionsschütze",
+	L"PrÃ¤zisionsschÃ¼tze",
 	L"Pfadfinder",
-	L"Pistolenschütze",
-	L"Faustkämpfer",
-	L"Gruppenführer",
+	L"PistolenschÃ¼tze",
+	L"FaustkÃ¤mpfer",
+	L"GruppenfÃ¼hrer",
 	L"Mechaniker",
-	L"Sanitäter",
+	L"SanitÃ¤ter",
 
 	// Minor traits
-	L"Beidhänder",
-	L"Messerkämpfer",
+	L"BeidhÃ¤nder",
+	L"MesserkÃ¤mpfer",
 	L"Messerwerfer",
 	L"Nachtmensch",
 	L"Schleicher",
-	L"Läufer",
+	L"LÃ¤ufer",
 	L"Kraftsportler",
 	L"Sprengmeister",
 	L"Ausbilder",
-	L"Aufklärer",
+	L"AufklÃ¤rer",
 
 	// second names for major skills
 	L"MG-Veteran",
 	L"Artillerist",
-	L"Scharfschütze",
-	L"Jäger",
+	L"ScharfschÃ¼tze",
+	L"JÃ¤ger",
 	L"Revolverheld",
 	L"Kampfsportler",
-	L"Zugführer",
+	L"ZugfÃ¼hrer",
 	L"Ingenieur",
 	L"Arzt",
 	
@@ -1964,17 +1964,17 @@ STR16 pTacticalPopupButtonStrings[] =
 	L"Untersuchen (|C|t|r|l)",
 
 	//Pop up door menu
-	L"Manuell öffnen",
+	L"Manuell Ã¶ffnen",
 	L"Auf Fallen untersuchen",
 	L"Dietrich",
-	L"Mit Gewalt öffnen",
-	L"Falle entschärfen",
-	L"Abschließen",
-	L"Aufschließen",
+	L"Mit Gewalt Ã¶ffnen",
+	L"Falle entschÃ¤rfen",
+	L"AbschlieÃŸen",
+	L"AufschlieÃŸen",
 	L"Schloss aufsprengen",
 	L"Brecheisen benutzen",
-	L"Rückgängig (|E|s|c)",
-	L"Schließen",
+	L"RÃ¼ckgÃ¤ngig (|E|s|c)",
+	L"SchlieÃŸen",
 };
 
 // Door Traps. When we examine a door, it could have a particular trap on it. These are the traps.
@@ -1998,14 +1998,14 @@ STR16 pContractExtendStrings[] =
 // On the map screen, there are four columns. This text is popup help text that identifies the individual columns.
 STR16 pMapScreenMouseRegionHelpText[] =
 {
-	L"Charakter auswählen",
-	L"Söldner einteilen",
+	L"Charakter auswÃ¤hlen",
+	L"SÃ¶ldner einteilen",
 	L"Marschroute",
 
 	//The new 'c' key activates this option. Either reword this string to include a 'c' in it, or leave as is.
-	L"Vertrag für Söldner (|c)",
+	L"Vertrag fÃ¼r SÃ¶ldner (|c)",
 
-	L"Söldner entfernen",
+	L"SÃ¶ldner entfernen",
 	L"Schlafen", 
 };
 
@@ -2021,7 +2021,7 @@ STR16 pNoiseVolStr[] =
 // types of noises 
 STR16 pNoiseTypeStr[] =
 {
-	L"EIN UNBEKANNTES GERÄUSCH",
+	L"EIN UNBEKANNTES GERÃ„USCH",
 	L"EINE BEWEGUNG",
 	L"EIN KNARREN",
 	L"EIN KLATSCHEN",
@@ -2040,9 +2040,9 @@ STR16 pDirectionStr[] =
 {
 	L"NORDOSTEN",
 	L"OSTEN",
-	L"SÜDOSTEN",
-	L"SÜDEN",
-	L"SÜDWESTEN",
+	L"SÃœDOSTEN",
+	L"SÃœDEN",
+	L"SÃœDWESTEN",
 	L"WESTEN",
 	L"NORDWESTEN",
 	L"NORDEN",
@@ -2052,14 +2052,14 @@ STR16 pDirectionStr[] =
 STR16 pLandTypeStrings[] =
 {
 	L"Stadt",
-	L"Straße",
+	L"StraÃŸe",
 	L"Ebene",
-	L"Wüste",
+	L"WÃ¼ste",
 	L"Lichter Wald",
 	L"Dichter Wald",	 
 	L"Sumpf",
 	L"See/Ozean",	
-	L"Hügel",
+	L"HÃ¼gel",
 	L"Unpassierbar",
 	L"Fluss",		//river from north to south
 	L"Fluss",		//river from east to west
@@ -2067,18 +2067,18 @@ STR16 pLandTypeStrings[] =
 	//NONE of the following are used for directional travel, just for the sector description.
 	L"Tropen",
 	L"Farmland",
-	L"Ebene, Straße",
-	L"Wald, Straße", 
-	L"Farm, Straße",
-	L"Tropen, Straße",
-	L"Wald, Straße", 
-	L"Küste",
-	L"Berge, Straße",
-	L"Küste, Straße",
-	L"Wüste, Straße",
-	L"Sumpf, Straße",
+	L"Ebene, StraÃŸe",
+	L"Wald, StraÃŸe", 
+	L"Farm, StraÃŸe",
+	L"Tropen, StraÃŸe",
+	L"Wald, StraÃŸe", 
+	L"KÃ¼ste",
+	L"Berge, StraÃŸe",
+	L"KÃ¼ste, StraÃŸe",
+	L"WÃ¼ste, StraÃŸe",
+	L"Sumpf, StraÃŸe",
 	L"Wald, Raketen",
-	L"Wüste, Raketen",
+	L"WÃ¼ste, Raketen",
 	L"Tropen, Raketen",
 	L"Meduna, Raketen",
 
@@ -2089,7 +2089,7 @@ STR16 pLandTypeStrings[] =
 	L"Raketen",
 	L"Rebellenlager", //The rebel base underground in sector A10
 	L"Tixa, Keller",	//The basement of the Tixa Prison (J9)
-	L"Monsterhöhle",	//Any mine sector with creatures in it
+	L"MonsterhÃ¶hle",	//Any mine sector with creatures in it
 	L"Orta, Keller",	//The basement of Orta (K4)
 	L"Tunnel",				//The tunnel access from the maze garden in Meduna 
 										//leading to the secret shelter underneath the palace
@@ -2108,11 +2108,11 @@ STR16 gpStrategicString[] =
 	//Dialog strings for enemies.
 
 	L"Feind bietet die Chance zum Aufgeben an.",						//STR_ENEMY_SURRENDER_OFFER
-	L"Feind hat restliche bewusstlose Söldner gefangen genommen.",				//STR_ENEMY_CAPTURED
+	L"Feind hat restliche bewusstlose SÃ¶ldner gefangen genommen.",				//STR_ENEMY_CAPTURED
 
 	//The text that goes on the autoresolve buttons							
 
-	L"Rückzug", 		//The retreat button						//STR_AR_RETREAT_BUTTON
+	L"RÃ¼ckzug", 		//The retreat button						//STR_AR_RETREAT_BUTTON
 	L"Fertig",		//The done button						//STR_AR_DONE_BUTTON
 
 	//The headers are for the autoresolve type (MUST BE UPPERCASE)
@@ -2146,7 +2146,7 @@ STR16 gpStrategicString[] =
 
 	L"IST AUSGEWICHEN",								//STR_AR_MERC_RETREATED,
 	L"WEICHT AUS",									//STR_AR_MERC_RETREATING,
-	L"RÜCKZUG",									//STR_AR_MERC_RETREAT,
+	L"RÃœCKZUG",									//STR_AR_MERC_RETREAT,
 
 	//PRE BATTLE INTERFACE STRINGS
 	//Goes on the three buttons in the prebattle interface. The Auto resolve button represents
@@ -2155,7 +2155,7 @@ STR16 gpStrategicString[] =
 
 	L"Autom. Kampf",									//STR_PB_AUTORESOLVE_BTN,
 	L"Gehe zu Sektor",								//STR_PB_GOTOSECTOR_BTN,
-	L"Rückzug",									//STR_PB_RETREATMERCS_BTN,
+	L"RÃ¼ckzug",									//STR_PB_RETREATMERCS_BTN,
 
 	//The different headers(titles) for the prebattle interface.
 	L"FEINDBEGEGNUNG",							
@@ -2164,14 +2164,14 @@ STR16 gpStrategicString[] =
 	L"FEINDLICHEN SEKTOR BETRETEN",				
 	L"MONSTERANGRIFF",
 	L"BLOODCAT-HINTERHALT",							
-	L"BLOODCAT-HÖHLE BETRETEN",			
+	L"BLOODCAT-HÃ–HLE BETRETEN",			
 
 	//Various single words for direct translation. The Civilians represent the civilian
 	//militia occupying the sector being attacked. Limited to 9-10 chars
 
 	L"Ort",
 	L"Feinde",
-	L"Söldner",
+	L"SÃ¶ldner",
 	L"Miliz",
 	L"Monster",
 	L"Bloodcats",
@@ -2184,28 +2184,28 @@ STR16 gpStrategicString[] =
 	//TACTICAL PLACEMENT USER INTERFACE STRINGS
 	//The four buttons 
 
-	L"Räumen",
+	L"RÃ¤umen",
 	L"Verteilen",
 	L"Gruppieren",
 	L"Fertig",
 
 	//The help text for the four buttons. Use \n to denote new line (just like enter).
 
-	L"Söldner räumen ihre Positionen\n und können manuell neu platziert werden. (|C)", 
-	L"Söldner |schwärmen in alle Richtungen aus\n wenn der Button gedrückt wird.",
-	L"Mit diesem Button können Sie wählen, wo die Söldner |gruppiert werden sollen.",
-	L"Klicken Sie auf diesen Button, wenn Sie die\n Positionen der Söldner gewählt haben. (|E|n|t|e|r)",
-	L"Sie müssen alle Söldner positionieren\n bevor die Schlacht beginnt.",
+	L"SÃ¶ldner rÃ¤umen ihre Positionen\n und kÃ¶nnen manuell neu platziert werden. (|C)", 
+	L"SÃ¶ldner |schwÃ¤rmen in alle Richtungen aus\n wenn der Button gedrÃ¼ckt wird.",
+	L"Mit diesem Button kÃ¶nnen Sie wÃ¤hlen, wo die SÃ¶ldner |gruppiert werden sollen.",
+	L"Klicken Sie auf diesen Button, wenn Sie die\n Positionen der SÃ¶ldner gewÃ¤hlt haben. (|E|n|t|e|r)",
+	L"Sie mÃ¼ssen alle SÃ¶ldner positionieren\n bevor die Schlacht beginnt.",
 
 	//Various strings (translate word for word)
 
 	L"Sektor",
-	L"Eintrittspunkte wählen",
+	L"Eintrittspunkte wÃ¤hlen",
 
 	//Strings used for various popup message boxes. Can be as long as desired.
 
-	L"Das sieht nicht gut aus. Gelände ist unzugänglich. Versuchen Sie es an einer anderen Stelle.",
-	L"Platzieren Sie Ihre Söldner in den markierten Sektor auf der Karte.",
+	L"Das sieht nicht gut aus. GelÃ¤nde ist unzugÃ¤nglich. Versuchen Sie es an einer anderen Stelle.",
+	L"Platzieren Sie Ihre SÃ¶ldner in den markierten Sektor auf der Karte.",
 
 	//This message is for mercs arriving in sectors. Ex: Red has arrived in sector A9.
 	//Don't uppercase first character, or add spaces on either end.
@@ -2214,11 +2214,11 @@ STR16 gpStrategicString[] =
 
 	//These entries are for button popup help text for the prebattle interface. All popup help
 	//text supports the use of \n to denote new line. Do not use spaces before or after the \n.
-	L"Entscheidet Schlacht |automatisch für Sie\nohne Karte zu laden.",
-	L"Sie können den PC-Kampf-Modus nicht benutzen, während Sie\neinen vom Feind verteidigten Ort angreifen.",
+	L"Entscheidet Schlacht |automatisch fÃ¼r Sie\nohne Karte zu laden.",
+	L"Sie kÃ¶nnen den PC-Kampf-Modus nicht benutzen, wÃ¤hrend Sie\neinen vom Feind verteidigten Ort angreifen.",
 	L"Sektor b|etreten und Feind in Kampf verwickeln.",
-	L"Gruppe zum vorigen Sektor zu|rückziehen.",				//singular version
-	L"Alle Gruppen zum vorigen Sektor zu|rückziehen.", //multiple groups with same previous sector
+	L"Gruppe zum vorigen Sektor zu|rÃ¼ckziehen.",				//singular version
+	L"Alle Gruppen zum vorigen Sektor zu|rÃ¼ckziehen.", //multiple groups with same previous sector
 
 	//various popup messages for battle conditions. 
 
@@ -2228,11 +2228,11 @@ STR16 gpStrategicString[] =
 	L"Monster attackieren Ihre Miliz im Sektor %c%d.",
 	//1st %d refers to the number of civilians eaten by monsters, %c%d is the sector -- ex: A9
 	//Note: the minimum number of civilians eaten will be two.
-	L"Monster attackieren und töten %d Zivilisten im Sektor %s.",
+	L"Monster attackieren und tÃ¶ten %d Zivilisten im Sektor %s.",
 	//%s is the sector -- ex: A9
-	L"Feinde attackieren Ihre Söldner im Sektor %s. Alle Söldner sind bewusstlos!",
+	L"Feinde attackieren Ihre SÃ¶ldner im Sektor %s. Alle SÃ¶ldner sind bewusstlos!",
 	//%s is the sector -- ex: A9
-	L"Monster attackieren Ihre Söldner im Sektor %s. Alle Söldner sind bewusstlos!",
+	L"Monster attackieren Ihre SÃ¶ldner im Sektor %s. Alle SÃ¶ldner sind bewusstlos!",
 
 };
 
@@ -2270,7 +2270,7 @@ CHAR16		gWeaponStatsDesc[][ 17 ] =
 	L"Gewicht:",		//12
 	L"Bet. Schaden:",	//13
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
-	L"Zubehör:",	//14	// Attachments
+	L"ZubehÃ¶r:",	//14	// Attachments
 	L"AUTO/5:",		//15
 	L"Verf. Munition:",		//16
 
@@ -2289,32 +2289,32 @@ STR16		gzWeaponStatsFasthelp[ 32 ] =
 	L"Zielgenauigkeit",
 	L"Zielen-Modifikator",
 	L"Durchschn. beste Laser-Reichweite",
-	L"Mündungsfeuerdämpfung",
-	L"Lautstärke (Niedriger ist besser)",
-	L"Zuverlässigkeit",
+	L"MÃ¼ndungsfeuerdÃ¤mpfung",
+	L"LautstÃ¤rke (Niedriger ist besser)",
+	L"ZuverlÃ¤ssigkeit",
 	L"Reparaturleichtigkeit",
-	L"Min. Reichweite für Zielen-Bonus",
+	L"Min. Reichweite fÃ¼r Zielen-Bonus",
 	L"Treffer-Modifikator",
 	L"",	//12
 	L"APs zum Anlegen",
-	L"APs für Einzelschuss",
-	L"APs für Feuerstoß",
-	L"APs für Autofeuer",
+	L"APs fÃ¼r Einzelschuss",
+	L"APs fÃ¼r FeuerstoÃŸ",
+	L"APs fÃ¼r Autofeuer",
 	L"APs zum Nachladen",
 	L"APs zum manuellen Nachladen",
 	L"",	//19
 	L"Zweibein-Modifikator",
-	L"Autofeuer: Schüsse je 5 AP",
+	L"Autofeuer: SchÃ¼sse je 5 AP",
 	L"Burst/Auto-Streuung (Niedriger ist besser)",	//22
 	L"APs zum Werfen",
-	L"APs zum Abschießen",
+	L"APs zum AbschieÃŸen",
 	L"APs zum Stechen",
 	L"Kein Einzelschuss!",
-	L"Kein Feuerstoß!",
+	L"Kein FeuerstoÃŸ!",
 	L"Kein Autofeuer!",
 	L"APs zum Schlagen",
 	L"Autofeuer-Streuung (Niedriger ist besser)",
-	L"Feuerstoß-Streuung (Niedriger ist besser)",
+	L"FeuerstoÃŸ-Streuung (Niedriger ist besser)",
 };
 
 STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
@@ -2325,29 +2325,29 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 	L"Zielgenauigkeit",
 	L"Zielen-Modifikator",
 	L"Durchschn. beste Laser-Reichweite",
-	L"Mündungsfeuerdämpfung",
-	L"Lautstärke (Niedriger ist besser)",
-	L"Zuverlässigkeit",
+	L"MÃ¼ndungsfeuerdÃ¤mpfung",
+	L"LautstÃ¤rke (Niedriger ist besser)",
+	L"ZuverlÃ¤ssigkeit",
 	L"Reparaturleichtigkeit",
-	L"Min. Reichweite für Zielen-Bonus",
+	L"Min. Reichweite fÃ¼r Zielen-Bonus",
 	L"Treffer-Modifikator",
 	L"",	//12
 	L"APs zum Anlegen",
-	L"APs für Einzelschuss",
-	L"APs für Feuerstoß",
-	L"APs für Autofeuer",
+	L"APs fÃ¼r Einzelschuss",
+	L"APs fÃ¼r FeuerstoÃŸ",
+	L"APs fÃ¼r Autofeuer",
 	L"APs zum Nachladen",
 	L"APs zum manuellen Nachladen",
-	L"Feuerstoß-Streuung (Niedriger ist besser)",	//19
+	L"FeuerstoÃŸ-Streuung (Niedriger ist besser)",	//19
 	L"Zweibein-Modifikator",
-	L"Autofeuer: Schüsse je 5 AP",
+	L"Autofeuer: SchÃ¼sse je 5 AP",
 	L"Autofeuer-Streuung (Niedriger ist besser)",
 	L"Burst/Auto-Streuung (Niedriger ist besser)",	//23
 	L"APs zum Werfen",
-	L"APs zum Abschießen",
+	L"APs zum AbschieÃŸen",
 	L"APs zum Stechen",
 	L"Kein Einzelschuss!",
-	L"Kein Feuerstoß!",
+	L"Kein FeuerstoÃŸ!",
 	L"Kein Autofeuer!",
 	L"APs zum Schlagen",
 	L"",
@@ -2355,21 +2355,21 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 
 STR16		gzAmmoStatsFasthelp[ 20 ] =
 {
-	L"Rüstungsdurchschlag (Niedriger ist besser)",
-	L"Schaden im Ziel (Höher ist besser)",
-	L"Nahbereichs-Explosion (Höher ist besser)",
+	L"RÃ¼stungsdurchschlag (Niedriger ist besser)",
+	L"Schaden im Ziel (HÃ¶her ist besser)",
+	L"Nahbereichs-Explosion (HÃ¶her ist besser)",
 	L"Leuchtspur-Effekt",
 	L"Panzerbrechend",
 	L"Schlossbrecher",
-	L"Ignoriert Rüstung",
-	L"Säurehaltig",
+	L"Ignoriert RÃ¼stung",
+	L"SÃ¤urehaltig",
 	L"Reichweiten-Modifikator",
 	L"Schaden-Modifikator",
 	L"Treffer-Modifikator",
-	L"Dauerfeuer-Streuungs-Modifikator (Höher ist besser)",
-	L"Feuerstoß-Streuungs-Modifikator (Höher ist besser)",
-	L"Zuverlässigkeits-Modifikator",
-	L"Schalldämpfung (Niedriger ist besser)",
+	L"Dauerfeuer-Streuungs-Modifikator (HÃ¶her ist besser)",
+	L"FeuerstoÃŸ-Streuungs-Modifikator (HÃ¶her ist besser)",
+	L"ZuverlÃ¤ssigkeits-Modifikator",
+	L"SchalldÃ¤mpfung (Niedriger ist besser)",
 	L"",
 	L"",
 	L"",
@@ -2380,22 +2380,22 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 STR16		gzArmorStatsFasthelp[ 20 ] =
 {
 	L"Schutz",
-	L"Bedeckung (Höher ist besser)",
+	L"Bedeckung (HÃ¶her ist besser)",
 	L"Abnutzungsfaktor (Niedriger ist besser) ",
 	L"AP-Modifikator",
 	L"Treffer-Modifikator",
 	L"Waldtarnung",
 	L"Stadt-Tarnung",
-	L"Wüstentarnung",
+	L"WÃ¼stentarnung",
 	L"Schneetarnung",
 	L"Anschleichen-Modifikator",
 	L"Sichtweiten-Modifikator",
 	L"Tagsichtweiten-Modifikator",
 	L"Nachtsichtweiten-Modifikator",
 	L"Grelles-Licht-Modifikator",
-	L"Höhlen-Sicht-Modifikator",
+	L"HÃ¶hlen-Sicht-Modifikator",
 	L"Tunnelblick-Modifikator",
-	L"Hörweiten-Modifikator",
+	L"HÃ¶rweiten-Modifikator",
 	L"",
 	L"",
 	L"",
@@ -2404,9 +2404,9 @@ STR16		gzArmorStatsFasthelp[ 20 ] =
 STR16		gzExplosiveStatsFasthelp[ 20 ] =
 {
 	L"Schaden",
-	L"Betäubungsschaden",
-	L"Detonationsgeräusch (Niedriger ist besser)",
-	L"Flüchtigkeit!!! (Niedriger ist besser)",
+	L"BetÃ¤ubungsschaden",
+	L"DetonationsgerÃ¤usch (Niedriger ist besser)",
+	L"FlÃ¼chtigkeit!!! (Niedriger ist besser)",
 	L"Detonationsbereich",
 	L"Startausdehnung des Wirkbereichs",
 	L"Endausdehnung des wirkbereichs",
@@ -2427,40 +2427,40 @@ STR16		gzExplosiveStatsFasthelp[ 20 ] =
 
 STR16		gzMiscItemStatsFasthelp[ 34 ] =
 {
-	L"Gegenstandsgrößen-Modifikator (Niedriger ist besser)",
-	L"Zuverlässigkeits-Modifikator",
-	L"Schalldämpfung (Niedriger ist besser)",
-	L"Mündungsfeuerdämpfung",
+	L"GegenstandsgrÃ¶ÃŸen-Modifikator (Niedriger ist besser)",
+	L"ZuverlÃ¤ssigkeits-Modifikator",
+	L"SchalldÃ¤mpfung (Niedriger ist besser)",
+	L"MÃ¼ndungsfeuerdÃ¤mpfung",
 	L"Zweibein-Modifikator",
 	L"Reichweiten-Modifikator",
 	L"Treffer-Modifikator",
 	L"Beste Laser-Reichweite",
 	L"Zielen-Bonus-Modifikator",
-	L"Schusszahlmodifikator Feuerstoß",			//LOOTF - geändert von "Feuerstoßgrößen-Modifikator"
-	L"Feuerstoßstreuungs-Modifikator",
+	L"Schusszahlmodifikator FeuerstoÃŸ",			//LOOTF - geÃ¤ndert von "FeuerstoÃŸgrÃ¶ÃŸen-Modifikator"
+	L"FeuerstoÃŸstreuungs-Modifikator",
 	L"Dauerfeuerstreuungs-Modifikator",
 	L"AP-Modifikator",
-	L"AP-Modifikator Feuerstoß (Niedriger ist besser)",	//LOOTF - geändert von "AP für Feuerstoß Modifikator.."
-	L"AP-Modifikator Dauerfeuer (Niedriger ist besser)",	//LOOTF - geändert von "AP für Autofeuer Modifikator.."
-	L"AP-Modifikator Waffenvorhalt",				//LOOTF - geändert von "AP für Anlegen Modifikator"
-	L"AP-Modifikator Nachladen",				//LOOTF - geändert von "AP für Nachladen Mofifikator"
-	L"Magazingrößen-Modifikator",
-	L"AP-Modifikator für Angriff",				//LOOTF - geändert von "AP für Angriff Modifikator"
+	L"AP-Modifikator FeuerstoÃŸ (Niedriger ist besser)",	//LOOTF - geÃ¤ndert von "AP fÃ¼r FeuerstoÃŸ Modifikator.."
+	L"AP-Modifikator Dauerfeuer (Niedriger ist besser)",	//LOOTF - geÃ¤ndert von "AP fÃ¼r Autofeuer Modifikator.."
+	L"AP-Modifikator Waffenvorhalt",				//LOOTF - geÃ¤ndert von "AP fÃ¼r Anlegen Modifikator"
+	L"AP-Modifikator Nachladen",				//LOOTF - geÃ¤ndert von "AP fÃ¼r Nachladen Mofifikator"
+	L"MagazingrÃ¶ÃŸen-Modifikator",
+	L"AP-Modifikator fÃ¼r Angriff",				//LOOTF - geÃ¤ndert von "AP fÃ¼r Angriff Modifikator"
 	L"Schaden-Modifikator",
 	L"Nahkampf-Modifikator",
 	L"Waldtarnung",
 	L"Stadt-Tarnung",
-	L"Wüstentarnung",
+	L"WÃ¼stentarnung",
 	L"Schneetarnung",
 	L"Anschleichen-Modifikator",
-	L"Hörweiten-Modifikator",
+	L"HÃ¶rweiten-Modifikator",
 	L"Sichtweiten-Modifikator",
 	L"Tagsichtweiten-Modifikator",
 	L"Nachtsichtweiten-Modifikator",
 	L"Grelles-Licht-Modifikator",
-	L"Höhlensicht-Modifikator",
+	L"HÃ¶hlensicht-Modifikator",
 	L"Tunnelblick-Modifikator (Niedriger ist besser)",
-	L"Minimale Reichweite für Zielbonus",
+	L"Minimale Reichweite fÃ¼r Zielbonus",
 };
 
 // HEADROCK: End new tooltip text
@@ -2602,18 +2602,18 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Das Schloss hat keine Falle.",
 	L"Erfolg!",
 	// The %s is a merc name
-	L"%s hat nicht den richtigen Schlüssel.",
-	L"Die Falle am Schloss ist entschärft.",
+	L"%s hat nicht den richtigen SchlÃ¼ssel.",
+	L"Die Falle am Schloss ist entschÃ¤rft.",
 	L"Das Schloss hat keine Falle.",
 	L"Geschl.",
-	L"TÜR",
+	L"TÃœR",
 	L"FALLE AN",
 	L"Geschl.",
-	L"GEÖFFNET",
+	L"GEÃ–FFNET",
 	L"EINGETRETEN",
-	L"Hier ist ein Schalter. Betätigen?",
-	L"Falle entschärfen?",
-	L"Zurück...",
+	L"Hier ist ein Schalter. BetÃ¤tigen?",
+	L"Falle entschÃ¤rfen?",
+	L"ZurÃ¼ck...",
 	L"Weiter...",
 	L"Mehr...",
 
@@ -2626,10 +2626,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	L"%s hat den vollen Betrag erhalten.",
 	L"%s bekommt noch %d.",
-	L"Detonationsfrequenz auswählen:",		//in this case, frequency refers to a radio signal
-	L"Wie viele Züge bis zur Explosion:",		//how much time, in turns, until the bomb blows
-	L"Ferngesteuerte Zündung einstellen:",		//in this case, frequency refers to a radio signal
-	L"Falle entschärfen?",
+	L"Detonationsfrequenz auswÃ¤hlen:",		//in this case, frequency refers to a radio signal
+	L"Wie viele ZÃ¼ge bis zur Explosion:",		//how much time, in turns, until the bomb blows
+	L"Ferngesteuerte ZÃ¼ndung einstellen:",		//in this case, frequency refers to a radio signal
+	L"Falle entschÃ¤rfen?",
 	L"Blaue Flagge wegnehmen?",
 	L"Blaue Flagge hier aufstellen?",
 	L"Zug beenden",
@@ -2637,18 +2637,18 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// In the next string, %s is a name. Stance refers to way they are standing.
 
 	L"Wollen Sie %s wirklich angreifen?",
-	L"Fahrzeuge können ihre Haltung nicht ändern.",
-	L"Der Roboter kann seine Haltung nicht ändern.",
+	L"Fahrzeuge kÃ¶nnen ihre Haltung nicht Ã¤ndern.",
+	L"Der Roboter kann seine Haltung nicht Ã¤ndern.",
 
 	// In the next 3 strings, %s is a name
 
 	//%s can't change to that stance here
-	L"%s kann die Haltung hier nicht ändern.",
+	L"%s kann die Haltung hier nicht Ã¤ndern.",
 
 	L"%s kann hier nicht versorgt werden.",	
 	L"%s braucht keine Erste Hilfe.",
 	L"Kann nicht dorthin gehen.",
-	L"Ihr Team ist komplett. Kein Platz mehr für Rekruten.",	//there's no room for a recruit on the player's team
+	L"Ihr Team ist komplett. Kein Platz mehr fÃ¼r Rekruten.",	//there's no room for a recruit on the player's team
 
 	// In the next string, %s is a name
 
@@ -2664,16 +2664,16 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// In the next string, the first %s is a name and the second %s is an amount of money (including $ sign)
 
-	L"%s für %s pro Tag anheuern?",
+	L"%s fÃ¼r %s pro Tag anheuern?",
 
 	// This line is used repeatedly to ask player if they wish to participate in a boxing match. 
 
-	L"Kämpfen?",
+	L"KÃ¤mpfen?",
 
 	// In the next string, the first %s is an item name and the 
 	// second %s is an amount of money (including $ sign)
 
-	L"%s für %s kaufen?",
+	L"%s fÃ¼r %s kaufen?",
 
 	// In the next string, %s is a name
 
@@ -2683,7 +2683,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	L"KLEMMT",						//weapon is jammed.
 	L"Roboter braucht Munition vom Kaliber %s.",		//Robot is out of ammo
-	L"Dorthin werfen? Unmöglich.",				//Merc can't throw to the destination he selected
+	L"Dorthin werfen? UnmÃ¶glich.",				//Merc can't throw to the destination he selected
 
 	// These are different buttons that the player can turn on and off.
 
@@ -2697,16 +2697,16 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Klettern / Springen (|J)",
 	L"Ducken (|P|g|D|n)",
 	L"Untersuchen (|C|t|r|l)",
-	L"Voriger Söldner",
-	L"Nächster Söldner (|S|p|a|c|e)",
+	L"Voriger SÃ¶ldner",
+	L"NÃ¤chster SÃ¶ldner (|S|p|a|c|e)",
 	L"|Optionen",
 	L"Feuermodus (|B)",
 	L"B|lickrichtung",
 	L"Gesundheit: %d/%d\nEnergie: %d/%d\nMoral: %s",
 	L"Was?",					//this means "what?" 
 	L"Weiter",					//an abbrieviation for "Continued" (displayed on merc portrait)
-	L"Schleichen aus für %s.",
-	L"Schleichen an für %s.",
+	L"Schleichen aus fÃ¼r %s.",
+	L"Schleichen an fÃ¼r %s.",
 	L"Fahrer",
 	L"Fahrzeug verlassen",
 	L"Trupp wechseln",
@@ -2720,17 +2720,17 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"(Fangen)",
 	L"(Nachladen)",
 	L"(Geben)",
-	L"%s Falle wurde ausgelöst.", 
+	L"%s Falle wurde ausgelÃ¶st.", 
 	L"%s ist angekommen.",
 	L"%s hat keine Action-Punkte mehr.",
-	L"%s ist nicht verfügbar.",
+	L"%s ist nicht verfÃ¼gbar.",
 	L"%s ist fertig verbunden.",
-	L"%s sind die Verbände ausgegangen.",
+	L"%s sind die VerbÃ¤nde ausgegangen.",
 	L"Feind im Sektor!",
 	L"Keine Feinde in Sicht.",
 	L"Nicht genug Action-Punkte.",
 	L"Niemand bedient die Fernbedienung.",
-	L"Feuerstoß hat Magazin geleert!",
+	L"FeuerstoÃŸ hat Magazin geleert!",
 	L"SOLDAT",
 	L"MONSTER", 
 	L"MILIZ",
@@ -2738,24 +2738,24 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Sektor verlassen",
 	L"OK",
 	L"Abbruch",
-	L"Gewählter Söldner",
+	L"GewÃ¤hlter SÃ¶ldner",
 	L"Ganzer Trupp",
 	L"Gehe zu Sektor",
 
 	L"Gehe zu Karte", 
 	
-	L"Sie können den Sektor von dieser Seite aus nicht verlassen.",
+	L"Sie kÃ¶nnen den Sektor von dieser Seite aus nicht verlassen.",
 	L"%s ist zu weit weg.",
 	L"Baumkronen entfernen",
 	L"Baumkronen zeigen",
-	L"KRÄHE",				//Crow, as in the large black bird
+	L"KRÃ„HE",				//Crow, as in the large black bird
 	L"NACKEN",
 	L"KOPF",
 	L"TORSO",
 	L"BEINE",
 	L"Der Herrin sagen, was sie wissen will?",
 	L"Fingerabdruck-ID gespeichert",
-	L"Falsche Fingerabdruck-ID. Waffe außer Betrieb",
+	L"Falsche Fingerabdruck-ID. Waffe auÃŸer Betrieb",
 	L"Ziel erfasst",
 	L"Weg blockiert",
 	L"Geld einzahlen/abheben",		//Help text over the $ button on the Single Merc Panel 
@@ -2768,38 +2768,38 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Mit der Zahlung von %s einverstanden?",
 	L"Gratisbehandlung akzeptieren?",
 	L"Daryl heiraten?",
-	L"Schlüsselring",
-	L"Das ist mit einem EPC nicht möglich.",
+	L"SchlÃ¼sselring",
+	L"Das ist mit einem EPC nicht mÃ¶glich.",
 	L"Krott verschonen?",
-	L"Außer Reichweite",
+	L"AuÃŸer Reichweite",
 	L"Arbeiter",	//People that work in mines to extract precious metals
 	L"Fahrzeug kann nur zwischen Sektoren fahren",
-	L"Automatische Erste Hilfe nicht möglich",
-	L"Weg blockiert für %s",
+	L"Automatische Erste Hilfe nicht mÃ¶glich",
+	L"Weg blockiert fÃ¼r %s",
 	L"Ihre von Deidrannas Truppe gefangenen Soldaten sind hier inhaftiert", 		
 	L"Schloss getroffen",
-	L"Schloss zerstört",
-	L"Noch jemand an der Tür.",
+	L"Schloss zerstÃ¶rt",
+	L"Noch jemand an der TÃ¼r.",
 	L"Gesundh.: %d/%d\nTank: %d/%d",
 	L"%s kann %s nicht sehen.",		// Cannot see person trying to talk to
 	L"Anbringung entfernt",
-	L"Sie können kein weiteres Fahrzeug mehr verwenden, da Sie bereits 2 haben",
+	L"Sie kÃ¶nnen kein weiteres Fahrzeug mehr verwenden, da Sie bereits 2 haben",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
 STR16 pExitingSectorHelpText[] =
 {
 	//Helptext for the "Go to Sector" checkbox button, that explains what will happen when the box is checked.
-	L"Der nächste Sektor wird sofort geladen, wenn Sie das Kästchen aktivieren.",
-	L"Sie kommen sofort zum Kartenbildschirm, wenn Sie das Kästchen aktivieren\nweil die Reise Zeit braucht.",
+	L"Der nÃ¤chste Sektor wird sofort geladen, wenn Sie das KÃ¤stchen aktivieren.",
+	L"Sie kommen sofort zum Kartenbildschirm, wenn Sie das KÃ¤stchen aktivieren\nweil die Reise Zeit braucht.",
 
 	//If you attempt to leave a sector when you have multiple squads in a hostile sector.
-	L"Der Sektor ist von Feinden besetzt. Sie können keine Söldner hier lassen.\nRegeln Sie das, bevor Sie neue Sektoren laden.",
+	L"Der Sektor ist von Feinden besetzt. Sie kÃ¶nnen keine SÃ¶ldner hier lassen.\nRegeln Sie das, bevor Sie neue Sektoren laden.",
 
 	//Because you only have one squad in the sector, and the "move all" option is checked, the "go to sector" option is locked to on. 
 	//The helptext explains why it is locked.
-	L"Wenn die restlichen Söldner den Sektor verlassen,\nwird sofort der nächste Sektor geladen.",
-	L"Wenn die restlichen Söldner den Sektor verlassen,\nkommen Sie sofort zum Kartenbildschirm\nweil die Reise Zeit braucht.",
+	L"Wenn die restlichen SÃ¶ldner den Sektor verlassen,\nwird sofort der nÃ¤chste Sektor geladen.",
+	L"Wenn die restlichen SÃ¶ldner den Sektor verlassen,\nkommen Sie sofort zum Kartenbildschirm\nweil die Reise Zeit braucht.",
 
 	//If an EPC is the selected merc, it won't allow the merc to leave alone as the merc is being escorted. The "single" button is disabled.
 	L"%s kann den Sektor nicht ohne Eskorte verlassen.",
@@ -2814,27 +2814,27 @@ STR16 pExitingSectorHelpText[] =
 
 	//If one or more of your mercs in the selected squad aren't in range of the traversal area, then the "move all" option is disabled,
 	//and this helptext explains why.
-	L"Alle Söldner müssen in der Nähe sein,\ndamit der Trupp weiterreisen kann.",
+	L"Alle SÃ¶ldner mÃ¼ssen in der NÃ¤he sein,\ndamit der Trupp weiterreisen kann.",
 
 	L"", //UNUSED
 
 	//Standard helptext for single movement. Explains what will happen (splitting the squad)
-	L"Bei aktiviertem Kästchen reist %s alleine und\nbildet automatisch wieder einen Trupp.",
+	L"Bei aktiviertem KÃ¤stchen reist %s alleine und\nbildet automatisch wieder einen Trupp.",
 
 	//Standard helptext for all movement. Explains what will happen (moving the squad)
-	L"Bei aktiviertem Kästchen reist der ausgewählte Trupp\nweiter und verlässt den Sektor.",
+	L"Bei aktiviertem KÃ¤stchen reist der ausgewÃ¤hlte Trupp\nweiter und verlÃ¤sst den Sektor.",
 
 	//This strings is used BEFORE the "exiting sector" interface is created. If you have an EPC selected and you attempt to tactically
 	//traverse the EPC while the escorting mercs aren't near enough (or dead, dying, or unconscious), this message will appear and the
 	//"exiting sector" interface will not appear. This is just like the situation where
 	//This string is special, as it is not used as helptext. Do not use the special newline character (\n) for this string.
-	L"%s wird von Söldnern eskortiert und kann den Sektor nicht alleine verlassen. Die anderen Söldner müssen in der Nähe sein.",
+	L"%s wird von SÃ¶ldnern eskortiert und kann den Sektor nicht alleine verlassen. Die anderen SÃ¶ldner mÃ¼ssen in der NÃ¤he sein.",
 };
 
 STR16 pRepairStrings[] =
 {
-	L"Gegenstände", 		// tell merc to repair items in inventory
-	L"Raketenstützpunkt", 		// tell merc to repair SAM site - SAM is an acronym for Surface to Air Missile
+	L"GegenstÃ¤nde", 		// tell merc to repair items in inventory
+	L"RaketenstÃ¼tzpunkt", 		// tell merc to repair SAM site - SAM is an acronym for Surface to Air Missile
 	L"Abbruch", 			// cancel this menu
 	L"Roboter", 			// repair the robot
 };
@@ -2859,11 +2859,11 @@ STR16 sStatGainStrings[] =
 	L"Weisheit.",
 	L"an Medizinkenntnis.",
 	L"an Sprengstoffkenntnis.",
-	L"an Technikfähigkeit.",
+	L"an TechnikfÃ¤higkeit.",
 	L"an Treffsicherheit.",
 	L"Erfahrungsstufe(n).",
 	L"an Kraft.",
-	L"an Führungsqualität.",
+	L"an FÃ¼hrungsqualitÃ¤t.",
 };
 
 STR16 pHelicopterEtaStrings[] =
@@ -2877,7 +2877,7 @@ STR16 pHelicopterEtaStrings[] =
 	// warning that the sector the helicopter is going to use for refueling is under enemy control
 	L"Helikopter hat fast keinen Sprit mehr und muss im feindlichen Gebiet landen.",	
 	L"Passagiere: ",
-	L"Skyrider oder Absprungsort auswählen?",
+	L"Skyrider oder Absprungsort auswÃ¤hlen?",
 	L"Skyrider",
 	L"Absprung",	//make sure length doesn't exceed 8 characters (used to be "Absprungsort")
 };
@@ -2889,7 +2889,7 @@ STR16 sMapLevelString[] =
 
 STR16 gsLoyalString[] =
 {
-	L"Loyalität ", 			// the loyalty rating of a town ie : Loyal 53%
+	L"LoyalitÃ¤t ", 			// the loyalty rating of a town ie : Loyal 53%
 };
 
 // error message for when player is trying to give a merc a travel order while he's underground.
@@ -2912,10 +2912,10 @@ STR16 sFacilitiesStrings[] =
 	L"Keine",
 	L"Krankenhaus",
 	L"Fabrik",		// Factory
-	L"Gefängnis",
-	L"Militär",
+	L"GefÃ¤ngnis",
+	L"MilitÃ¤r",
 	L"Flughafen",
-	L"Schießanlage",	// a field for soldiers to practise their shooting skills
+	L"SchieÃŸanlage",	// a field for soldiers to practise their shooting skills
 };
 
 // text for inventory pop up button
@@ -2928,15 +2928,15 @@ STR16 pMapPopUpInventoryText[] =
 // town strings
 STR16 pwTownInfoStrings[] =
 {
-	L"Größe",					// 0 // size of the town in sectors
+	L"GrÃ¶ÃŸe",					// 0 // size of the town in sectors
 	L"", 						// blank line, required
 	L"unter Kontrolle", 				// how much of town is controlled
 	L"Keine", 					// none of this town
 	L"Mine", 					// mine associated with this town
-	L"Loyalität",					// 5 // the loyalty level of this town
+	L"LoyalitÃ¤t",					// 5 // the loyalty level of this town
 	L"Trainiert", 					// the forces in the town trained by the player
 	L"",
-	L"Wichtigste Gebäude", 				// main facilities in this town
+	L"Wichtigste GebÃ¤ude", 				// main facilities in this town
 	L"Level", 					// the training level of civilians in this town
 	L"Zivilistentraining",				// 10 // state of civilian training in town
 	L"Miliz", 					// the state of the trained civilians in the town
@@ -2953,22 +2953,22 @@ STR16 pwMineStrings[] =
 	L"Maximale Produktion",
 	L"Aufgegeben",				// 5
 	L"Geschlossen",
-	L"Fast erschöpft",
+	L"Fast erschÃ¶pft",
 	L"Produziert",
 	L"Status",
 	L"Produktionsrate",
 	L"Erzart",				// 10
-	L"Kontrolle über Stadt",
-	L"Loyalität der Stadt",
+	L"Kontrolle Ã¼ber Stadt",
+	L"LoyalitÃ¤t der Stadt",
 //	L"Minenarbeiter",
 };
 
 // blank sector strings
 STR16 pwMiscSectorStrings[] =
 {
-	L"Feindliche Verbände",
+	L"Feindliche VerbÃ¤nde",
 	L"Sektor",
-	L"# der Gegenstände",
+	L"# der GegenstÃ¤nde",
 	L"Unbekannt",
 	L"Kontrolliert",
 	L"Ja",
@@ -2979,39 +2979,39 @@ STR16 pwMiscSectorStrings[] =
 STR16 pMapInventoryErrorString[] =
 {
 	L"%s ist nicht nah genug.",	//Merc is in sector with item but not close enough
-	L"Diesen Söldner können Sie nicht auswählen.", 
+	L"Diesen SÃ¶ldner kÃ¶nnen Sie nicht auswÃ¤hlen.", 
 	L"%s ist nicht im Sektor.",
-	L"Während einer Schlacht müssen Sie Gegenstände manuell nehmen.",
-	L"Während einer Schlacht müssen Sie Gegenstände manuell fallenlassen.",
+	L"WÃ¤hrend einer Schlacht mÃ¼ssen Sie GegenstÃ¤nde manuell nehmen.",
+	L"WÃ¤hrend einer Schlacht mÃ¼ssen Sie GegenstÃ¤nde manuell fallenlassen.",
 	L"%s ist nicht im Sektor und kann Gegenstand nicht fallen lassen.",
-	L"Während des Kampfes können Sie die Munitionskiste nicht zum Nachladen verwenden.",
+	L"WÃ¤hrend des Kampfes kÃ¶nnen Sie die Munitionskiste nicht zum Nachladen verwenden.",
 };
 
 STR16 pMapInventoryStrings[] =
 {
 	L"Ort", 				// sector these items are in
-	L"Zahl der Gegenstände", 		// total number of items in sector
+	L"Zahl der GegenstÃ¤nde", 		// total number of items in sector
 };
 
 // help text for the user
 STR16 pMapScreenFastHelpTextList[] =
 {
-	L"Um die Aufgabe eines Söldners zu ändern und ihn einem anderen Trupp, einem Reparatur- oder Ärzteteam zuzuweisen, klicken Sie in die 'Aufträge'-Spalte.",
-	L"Um einen Söldner an einen anderen Bestimmungsort zu versetzen, klicken Sie in die 'Aufträge'-Spalte.",
-	L"Wenn ein Söldner seinen Marschbefehl erhalten hat, kann er sich mit dem Zeitraffer schneller bewegen.",
-	L"Die linke Maustaste wählt den Sektor aus. Zweiter Klick auf die linke Maustaste erteilt Marschbefehl an Söldner. Mit der rechten Maustaste erhalten Sie Kurzinfos über den Sektor.",
+	L"Um die Aufgabe eines SÃ¶ldners zu Ã¤ndern und ihn einem anderen Trupp, einem Reparatur- oder Ã„rzteteam zuzuweisen, klicken Sie in die 'AuftrÃ¤ge'-Spalte.",
+	L"Um einen SÃ¶ldner an einen anderen Bestimmungsort zu versetzen, klicken Sie in die 'AuftrÃ¤ge'-Spalte.",
+	L"Wenn ein SÃ¶ldner seinen Marschbefehl erhalten hat, kann er sich mit dem Zeitraffer schneller bewegen.",
+	L"Die linke Maustaste wÃ¤hlt den Sektor aus. Zweiter Klick auf die linke Maustaste erteilt Marschbefehl an SÃ¶ldner. Mit der rechten Maustaste erhalten Sie Kurzinfos Ã¼ber den Sektor.",
 	L"Hilfe aufrufen mit Taste 'h'.",
 	L"Test-Text",
 	L"Test-Text",
 	L"Test-Text",
 	L"Test-Text",
-	L"In diesem Bildschirm können Sie nicht viel machen, bevor Sie in Arulco ankommen. Wenn Sie Ihr Team zusammengestellt haben, klicken Sie auf den Zeitraffer-Button unten rechts. Dadurch vergeht die Zeit schneller, bis Ihr Team in Arulco ankommt.",
+	L"In diesem Bildschirm kÃ¶nnen Sie nicht viel machen, bevor Sie in Arulco ankommen. Wenn Sie Ihr Team zusammengestellt haben, klicken Sie auf den Zeitraffer-Button unten rechts. Dadurch vergeht die Zeit schneller, bis Ihr Team in Arulco ankommt.",
 };
 
 // movement menu text
 STR16 pMovementMenuStrings[] =
 {
-	L"Söldner in Sektor bewegen", 	// title for movement box 
+	L"SÃ¶ldner in Sektor bewegen", 	// title for movement box 
 	L"Route planen", 		// done with movement menu, start plotting movement
 	L"Abbruch",			// cancel this menu
 	L"Andere",			// title for group of mercs not on squads nor in vehicles
@@ -3021,29 +3021,29 @@ STR16 pUpdateMercStrings[] =
 {
 	L"Ups:", 			// an error has occured
 	L"Vertrag ist abgelaufen:", 	// this pop up came up due to a merc contract ending
-	L"Auftrag wurde ausgeführt:",	// this pop up....due to more than one merc finishing assignments
-	L"Diese Söldner arbeiten wieder:", // this pop up ....due to more than one merc waking up and returing to work
-	L"Diese Söldner schlafen:",	// this pop up ....due to more than one merc being tired and going to sleep
+	L"Auftrag wurde ausgefÃ¼hrt:",	// this pop up....due to more than one merc finishing assignments
+	L"Diese SÃ¶ldner arbeiten wieder:", // this pop up ....due to more than one merc waking up and returing to work
+	L"Diese SÃ¶ldner schlafen:",	// this pop up ....due to more than one merc being tired and going to sleep
 	L"Vertrag bald abgelaufen:", 	//this pop up came up due to a merc contract ending
 };
 
 // map screen map border buttons help text
 STR16 pMapScreenBorderButtonHelpText[] =
 {
-	L"Städte zeigen (|W)",
+	L"StÃ¤dte zeigen (|W)",
 	L"|Minen zeigen",
 	L"|Teams & Feinde zeigen",
 	L"Luftr|aum zeigen",
-	L"Gegenstände zeigen (|I)",
+	L"GegenstÃ¤nde zeigen (|I)",
 	L"Mili|z & Feinde zeigen",
 	L"Zeige Mobile Miliz Begrenzungen (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
 {
-	L"Nächste (|.)",		// next page
+	L"NÃ¤chste (|.)",		// next page
 	L"Vorherige (|,)",		// previous page
-	L"Sektor Inventar schließen (|E|s|c)",	// exit sector inventory
+	L"Sektor Inventar schlieÃŸen (|E|s|c)",	// exit sector inventory
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -3053,8 +3053,8 @@ STR16 pMapScreenBottomFastHelp[] =
 	L"|Optionen",
 	L"Zeitraffer (|+)", 	// time compress more
 	L"Zeitraffer (|-)", 	// time compress less
-	L"Vorige Nachricht (|U|p)\nSeite zurück (|P|g|U|p)",		// previous message in scrollable list
-	L"Nächste Nachricht (|D|o|w|n)\nNächste Seite (|P|g|D|n)", 	// next message in the scrollable list
+	L"Vorige Nachricht (|U|p)\nSeite zurÃ¼ck (|P|g|U|p)",		// previous message in scrollable list
+	L"NÃ¤chste Nachricht (|D|o|w|n)\nNÃ¤chste Seite (|P|g|D|n)", 	// next message in the scrollable list
 	L"Zeit Start/Stop (|S|p|a|c|e)",	// start/stop time compression
 };
 
@@ -3139,7 +3139,7 @@ CHAR16 pSenderNameList[500][128] =
 STR16 pTraverseStrings[] =
 {
 	L"Vorige",
-	L"Nächste",
+	L"NÃ¤chste",
 };
 
 // new mail notify string 
@@ -3151,8 +3151,8 @@ STR16 pNewMailStrings[] =
 // confirm player's intent to delete messages
 STR16 pDeleteMailStrings[] =
 {
-	L"Mail löschen?",
-	L"UNGELESENE Mail löschen?",
+	L"Mail lÃ¶schen?",
+	L"UNGELESENE Mail lÃ¶schen?",
 };
 
 // the sort header strings
@@ -3179,7 +3179,7 @@ STR16 pFinanceSummary[] =
 {
 	L"Haben:", 				//the credits column (to ADD money to your account)
 	L"Soll:", 				//the debits column (to SUBTRACT money from your account)
-	L"Einkünfte vom Vortag:",
+	L"EinkÃ¼nfte vom Vortag:",
 	L"Sonstige Einzahlungen vom Vortag:",
 	L"Haben vom Vortag:",
 	L"Kontostand Ende des Tages:",
@@ -3187,7 +3187,7 @@ STR16 pFinanceSummary[] =
 	L"Sonstige Einzahlungen von heute:",
 	L"Haben von heute:",
 	L"Kontostand:",
-	L"Voraussichtliche Einkünfte:",
+	L"Voraussichtliche EinkÃ¼nfte:",
 	L"Prognostizierter Kontostand:", 		// projected balance for player for tommorow
 };
 
@@ -3207,39 +3207,39 @@ STR16 pTransactionText[] =
 {
 	L"Aufgelaufene Zinsen",			// interest the player has accumulated so far
 	L"Anonyme Einzahlung",
-	L"Bearbeitungsgebühr", 
+	L"BearbeitungsgebÃ¼hr", 
 	L"Angeheuert", 				// Merc was hired
 	L"Kauf bei Bobby Rays",	 		// Bobby Ray is the name of an arms dealer
 	L"Ausgeglichene Konten bei M.E.R.C.",
-	L"Krankenversicherung für %s", 		// medical deposit for merc 
+	L"Krankenversicherung fÃ¼r %s", 		// medical deposit for merc 
 	L"B.S.E.-Profilanalyse", 		// IMP is the acronym for International Mercenary Profiling
-	L"Versicherung für %s abgeschlossen", 
-	L"Versicherung für %s verringert",
-	L"Versicherung für %s verlängert", 	// johnny contract extended
-	L"Versicherung für %s gekündigt", 
-	L"Versicherungsanspruch für %s", 	// insurance claim for merc
+	L"Versicherung fÃ¼r %s abgeschlossen", 
+	L"Versicherung fÃ¼r %s verringert",
+	L"Versicherung fÃ¼r %s verlÃ¤ngert", 	// johnny contract extended
+	L"Versicherung fÃ¼r %s gekÃ¼ndigt", 
+	L"Versicherungsanspruch fÃ¼r %s", 	// insurance claim for merc
 	L"1 Tag", 				// merc's contract extended for a day
 	L"1 Woche", 				// merc's contract extended for a week
 	L"2 Wochen", 				// ... for 2 weeks
 	L"Minenertrag", 
 	L"", 
 	L"Blumen kaufen",
-	L"Volle Rückzahlung für %s",
-	L"Teilw. Rückzahlung für %s",
-	L"Keine Rückzahlung für %s",
+	L"Volle RÃ¼ckzahlung fÃ¼r %s",
+	L"Teilw. RÃ¼ckzahlung fÃ¼r %s",
+	L"Keine RÃ¼ckzahlung fÃ¼r %s",
 	L"Zahlung an %s",			// %s is the name of the npc being paid
-	L"Überweisen an %s", 			// transfer funds to a merc
-	L"Überweisen von %s", 			// transfer funds from a merc
+	L"Ãœberweisen an %s", 			// transfer funds to a merc
+	L"Ãœberweisen von %s", 			// transfer funds from a merc
 	L"Miliz in %s ausbilden",		// initial cost to equip a town's militia
-	L"Gegenstände von %s gekauft.",	//is used for the Shop keeper interface. The dealers name will be appended to the end of the string.
+	L"GegenstÃ¤nde von %s gekauft.",	//is used for the Shop keeper interface. The dealers name will be appended to the end of the string.
 	L"%s hat Geld angelegt.",
 	L"Betriebskosten",			// HEADROCK HAM 3.6
-	L"Unterhaltskosten für Miliz",		// HEADROCK HAM 3.6
+	L"Unterhaltskosten fÃ¼r Miliz",		// HEADROCK HAM 3.6
 };
 
 STR16 pTransactionAlternateText[] =
 {
-	L"Versicherung für", 				// insurance for a merc
+	L"Versicherung fÃ¼r", 				// insurance for a merc
 	L"%ss Vertrag verl. um 1 Tag", 				// entend mercs contract by a day
 	L"%ss Vertrag verl. um 1 Woche",
 	L"%ss Vertrag verl. um 2 Wochen",
@@ -3253,8 +3253,8 @@ STR16 pSkyriderText[] =
 	L"Skyrider hat aufgetankt",		// skyrider has finished refueling
 	L"",//unused
 	L"",//unused
-	L"Skyrider ist bereit für weiteren Flug.",	// Skyrider was grounded but has been freed
-	L"Skyrider hat keine Passagiere. Wenn Sie Söldner in den Sektor transportieren wollen, weisen Sie sie einem Fahrzeug/Helikopter zu.",
+	L"Skyrider ist bereit fÃ¼r weiteren Flug.",	// Skyrider was grounded but has been freed
+	L"Skyrider hat keine Passagiere. Wenn Sie SÃ¶ldner in den Sektor transportieren wollen, weisen Sie sie einem Fahrzeug/Helikopter zu.",
 };
 
 // strings for different levels of merc morale
@@ -3271,8 +3271,8 @@ STR16 pMoralStrings[] =
 // Mercs equipment has now arrived and is now available in Omerta or Drassen.
 STR16 pLeftEquipmentString[] =
 { 
-	L"%ss Ausrüstung ist in Omerta angekommen (A9).", 
-	L"%ss Ausrüstung ist in Drassen angekommen (B13).",
+	L"%ss AusrÃ¼stung ist in Omerta angekommen (A9).", 
+	L"%ss AusrÃ¼stung ist in Drassen angekommen (B13).",
 };
 
 // Status that appears on the Map Screen
@@ -3287,8 +3287,8 @@ STR16 pMapScreenStatusStrings[] =
 
 STR16 pMapScreenPrevNextCharButtonHelpText[] =
 { 
-	L"Voriger Söldner (|L|e|f|t)", 		// previous merc in the list
-	L"Nächster Söldner (|R|i|g|h|t)", 	// next merc in the list
+	L"Voriger SÃ¶ldner (|L|e|f|t)", 		// previous merc in the list
+	L"NÃ¤chster SÃ¶ldner (|R|i|g|h|t)", 	// next merc in the list
 };
 
 STR16 pEtaString[] =
@@ -3304,66 +3304,66 @@ STR16 pTrashItemText[] =
 
 STR16 pMapErrorString[] =
 {
-	L"Trupp kann nicht reisen, wenn einer schläft.",
+	L"Trupp kann nicht reisen, wenn einer schlÃ¤ft.",
 
 //1-5
-	L"Wir müssen erst an die Oberfläche.",
+	L"Wir mÃ¼ssen erst an die OberflÃ¤che.",
 	L"Marschbefehl? Wir sind in einem feindlichen Sektor!",
-	L"Wenn Söldner reisen sollen, müssen sie einem Trupp oder Fahrzeug zugewiesen werden.",
+	L"Wenn SÃ¶ldner reisen sollen, mÃ¼ssen sie einem Trupp oder Fahrzeug zugewiesen werden.",
 	L"Sie haben noch keine Teammitglieder.", 		// you have no members, can't do anything 
-	L"Söldner kann Befehl nicht ausführen.",		// merc can't comply with your order
+	L"SÃ¶ldner kann Befehl nicht ausfÃ¼hren.",		// merc can't comply with your order
 //6-10
 	L"braucht eine Eskorte. Platzieren Sie ihn in einem Trupp mit Eskorte.", // merc can't move unescorted .. for a male
 	L"braucht eine Eskorte. Platzieren Sie sie in einem Trupp mit Eskorte.", // for a female
-	L"Söldner ist noch nicht in Arulco!",
+	L"SÃ¶ldner ist noch nicht in Arulco!",
 	L"Erst mal Vertrag aushandeln!",
-	L"Marschbefehl ist nicht möglich. Luftangriffe finden statt.",
+	L"Marschbefehl ist nicht mÃ¶glich. Luftangriffe finden statt.",
 //11-15
 	L"Marschbefehl? Hier tobt ein Kampf!",
 	L"Sie sind von Bloodcats umstellt in Sektor %s!",
-	L"Sie haben gerade eine Bloodcat-Höhle betreten in Sektor %s!", 
+	L"Sie haben gerade eine Bloodcat-HÃ¶hle betreten in Sektor %s!", 
 	L"", 
-	L"Raketenstützpunkt in %s wurde erobert.",
+	L"RaketenstÃ¼tzpunkt in %s wurde erobert.",
 //16-20
 	L"Mine in %s wurde erobert. Ihre Tageseinnahmen wurden reduziert auf %s.",
 	L"Feind hat Sektor %s ohne Gegenwehr erobert.",
-	L"Mindestens ein Söldner konnte nicht eingeteilt werden.",
-	L"%s konnte sich nicht anschließen, weil %s voll ist", 
-	L"%s konnte sich %s nicht anschließen, weil er zu weit weg ist.", 
+	L"Mindestens ein SÃ¶ldner konnte nicht eingeteilt werden.",
+	L"%s konnte sich nicht anschlieÃŸen, weil %s voll ist", 
+	L"%s konnte sich %s nicht anschlieÃŸen, weil er zu weit weg ist.", 
 //21-25
 	L"Die Mine in %s ist von Deidrannas Truppen erobert worden!",
-	L"Deidrannas Truppen sind gerade in den Raketenstützpunkt in %s eingedrungen",
+	L"Deidrannas Truppen sind gerade in den RaketenstÃ¼tzpunkt in %s eingedrungen",
 	L"Deidrannas Truppen sind gerade in %s eingedrungen",
 	L"Deidrannas Truppen wurden gerade in %s gesichtet.",
 	L"Deidrannas Truppen haben gerade %s erobert.",
 //26-30
-	L"Mindestens ein Söldner kann nicht schlafen.",
-	L"Mindestens ein Söldner ist noch nicht wach.",
+	L"Mindestens ein SÃ¶ldner kann nicht schlafen.",
+	L"Mindestens ein SÃ¶ldner ist noch nicht wach.",
 	L"Die Miliz kommt erst, wenn das Training beendet ist.",
 	L"%s kann im Moment keine Marschbefehle erhalten.",
-	L"Milizen außerhalb der Stadtgrenzen können nicht in andere Sektoren reisen.",
+	L"Milizen auÃŸerhalb der Stadtgrenzen kÃ¶nnen nicht in andere Sektoren reisen.",
 //31-35
-	L"Sie können keine Milizen in %s haben.",
+	L"Sie kÃ¶nnen keine Milizen in %s haben.",
 	L"Leere Fahrzeuge fahren nicht!",
-	L"%s ist nicht transportfähig!",
-	L"Sie müssen erst das Museum verlassen!",
+	L"%s ist nicht transportfÃ¤hig!",
+	L"Sie mÃ¼ssen erst das Museum verlassen!",
 	L"%s ist tot!",
 //36-40
 	L"%s kann nicht zu %s wechseln, weil der sich bewegt", 
 	L"%s kann so nicht einsteigen",
-	L"%s kann sich %s nicht anschließen", 
-	L"Sie können den Zeitraffer erst mit neuen Söldnern benutzen!",
-	L"Dieses Fahrzeug kann nur auf Straßen fahren!",
+	L"%s kann sich %s nicht anschlieÃŸen", 
+	L"Sie kÃ¶nnen den Zeitraffer erst mit neuen SÃ¶ldnern benutzen!",
+	L"Dieses Fahrzeug kann nur auf StraÃŸen fahren!",
 //41-45
-	L"Reisenden Söldnern können Sie keine Aufträge erteilen.",
+	L"Reisenden SÃ¶ldnern kÃ¶nnen Sie keine AuftrÃ¤ge erteilen.",
 	L"Kein Benzin mehr!",
-	L"%s ist zu müde.",
+	L"%s ist zu mÃ¼de.",
 	L"Keiner kann das Fahrzeug steuern.",
-	L"Ein oder mehrere Söldner dieses Trupps können sich jetzt nicht bewegen.",
+	L"Ein oder mehrere SÃ¶ldner dieses Trupps kÃ¶nnen sich jetzt nicht bewegen.",
 //46-50
-	L"Ein oder mehrere Söldner des ANDEREN Trupps können sich gerade nicht bewegen.",
-	L"Fahrzeug zu stark beschädigt!",
-	L"Nur zwei Söldner pro Sektor können Milizen trainieren.",
+	L"Ein oder mehrere SÃ¶ldner des ANDEREN Trupps kÃ¶nnen sich gerade nicht bewegen.",
+	L"Fahrzeug zu stark beschÃ¤digt!",
+	L"Nur zwei SÃ¶ldner pro Sektor kÃ¶nnen Milizen trainieren.",
 	L"Roboter muss von jemandem bedient werden. Beide im selben Trupp platzieren.",
 
 };
@@ -3371,21 +3371,21 @@ STR16 pMapErrorString[] =
 // help text used during strategic route plotting
 STR16 pMapPlotStrings[] =
 {
-	L"Klicken Sie noch einmal auf das Ziel, um die Route zu bestätigen. Klicken Sie auf andere Sektoren, um die Route zu ändern.",
-	L"Route bestätigt.",
-	L"Ziel unverändert.",
-	L"Route geändert.",
-	L"Route verkürzt.",
+	L"Klicken Sie noch einmal auf das Ziel, um die Route zu bestÃ¤tigen. Klicken Sie auf andere Sektoren, um die Route zu Ã¤ndern.",
+	L"Route bestÃ¤tigt.",
+	L"Ziel unverÃ¤ndert.",
+	L"Route geÃ¤ndert.",
+	L"Route verkÃ¼rzt.",
 };
 
 // help text used when moving the merc arrival sector
 STR16 pBullseyeStrings[] =
 {
-	L"Klicken Sie auf den Sektor, in dem die Söldner stattdessen ankommen sollen.",
-	L"OK. Söldner werden in %s abgesetzt.",
-	L"Söldner können nicht dorthin fliegen. Luftraum nicht gesichert!",
-	L"Abbruch. Ankunftssektor unverändert,",
-	L"Luftraum über %s ist nicht mehr sicher! Ankunftssektor jetzt in %s.",
+	L"Klicken Sie auf den Sektor, in dem die SÃ¶ldner stattdessen ankommen sollen.",
+	L"OK. SÃ¶ldner werden in %s abgesetzt.",
+	L"SÃ¶ldner kÃ¶nnen nicht dorthin fliegen. Luftraum nicht gesichert!",
+	L"Abbruch. Ankunftssektor unverÃ¤ndert,",
+	L"Luftraum Ã¼ber %s ist nicht mehr sicher! Ankunftssektor jetzt in %s.",
 };
 
 // help text for mouse regions
@@ -3399,55 +3399,55 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] = 
 {
-	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Drassen (B13), wenn er Arulco verlässt?",
-	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Omerta (A9), wenn er Arulco verlässt?",
-	L"geht bald und lässt seine Ausrüstung in Omerta (A9).",
-	L"geht bald und lässt seine Ausrüstung in Drassen (B13).",
-	L"%s geht bald und lässt seine Ausrüstung in %s.",
+	L"Soll %s seine AusrÃ¼stung hier lassen (%s) oder in Drassen (B13), wenn er Arulco verlÃ¤sst?",
+	L"Soll %s seine AusrÃ¼stung hier lassen (%s) oder in Omerta (A9), wenn er Arulco verlÃ¤sst?",
+	L"geht bald und lÃ¤sst seine AusrÃ¼stung in Omerta (A9).",
+	L"geht bald und lÃ¤sst seine AusrÃ¼stung in Drassen (B13).",
+	L"%s geht bald und lÃ¤sst seine AusrÃ¼stung in %s.",
 };
 
 // female version
 STR16 pMercSheLeaveString[] =
 {
-	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Drassen (B13), bevor sie Arulco verlässt?",
-	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Omerta (A9), bevor sie Arulco verlässt?",
-	L"geht bald und lässt ihre Ausrüstung in Omerta (A9).",
-	L"geht bald und lässt ihre Ausrüstung in Drassen (B13).",
-	L"%s geht bald und lässt ihre Ausrüstung in %s.",
+	L"Soll %s ihre AusrÃ¼stung hier lassen (%s) oder in Drassen (B13), bevor sie Arulco verlÃ¤sst?",
+	L"Soll %s ihre AusrÃ¼stung hier lassen (%s) oder in Omerta (A9), bevor sie Arulco verlÃ¤sst?",
+	L"geht bald und lÃ¤sst ihre AusrÃ¼stung in Omerta (A9).",
+	L"geht bald und lÃ¤sst ihre AusrÃ¼stung in Drassen (B13).",
+	L"%s geht bald und lÃ¤sst ihre AusrÃ¼stung in %s.",
 };
 
 STR16 pMercContractOverStrings[] =
 {
 	L"s Vertrag war abgelaufen, und er ist nach Hause gegangen.", 		// merc's contract is over and has departed
 	L"s Vertrag war abgelaufen, und sie ist nach Hause gegangen.", 		// merc's contract is over and has departed
-	L"s Vertrag wurde gekündigt, und er ist weggegangen.", 			// merc's contract has been terminated
-	L"s Vertrag wurde gekündigt, und sie ist weggegangen.",			// merc's contract has been terminated
+	L"s Vertrag wurde gekÃ¼ndigt, und er ist weggegangen.", 			// merc's contract has been terminated
+	L"s Vertrag wurde gekÃ¼ndigt, und sie ist weggegangen.",			// merc's contract has been terminated
 	L"Sie schulden M.E.R.C. zu viel, also ist %s gegangen.", 		// Your M.E.R.C. account is invalid so merc left
 };
 
 // Text used on IMP Web Pages
 STR16 pImpPopUpStrings[] =
 {
-	L"Ungültiger Code",
+	L"UngÃ¼ltiger Code",
 	L"Sie wollen gerade den ganzen Evaluierungsprozess von vorn beginnen. Sind Sie sicher?",
 	L"Bitte Ihren vollen Namen und Ihr Geschlecht eingeben",
-	L"Die Überprüfung Ihrer finanziellen Mittel hat ergeben, dass Sie sich keine Evaluierung leisten können.",
-	L"Option zur Zeit nicht gültig.",
-	L"Um eine genaue Evaluierung durchzuführen, müssen Sie mindestens noch ein Teammitglied aufnehmen können.",
-	L"Evaluierung bereits durchgeführt.",
+	L"Die ÃœberprÃ¼fung Ihrer finanziellen Mittel hat ergeben, dass Sie sich keine Evaluierung leisten kÃ¶nnen.",
+	L"Option zur Zeit nicht gÃ¼ltig.",
+	L"Um eine genaue Evaluierung durchzufÃ¼hren, mÃ¼ssen Sie mindestens noch ein Teammitglied aufnehmen kÃ¶nnen.",
+	L"Evaluierung bereits durchgefÃ¼hrt.",
 	L"Fehler beim Laden des B.S.E.-Charakters.",
 	L"Sie haben bereits die maximale Anzahl an B.S.E.-Charakteren.",
 	L"Sie haben bereits drei B.S.E.-Charaktere mit dem gleichen Geschlecht.",
-	L"Sie können sich den B.S.E.-Charakter nicht leisten.",
+	L"Sie kÃ¶nnen sich den B.S.E.-Charakter nicht leisten.",
 	L"Der neue B.S.E.-Charakter ist nun in ihrem Team.",
 };
 
 // button labels used on the IMP site
 STR16 pImpButtonText[] =
 {
-	L"Wir über uns", 		// about the IMP site
+	L"Wir Ã¼ber uns", 		// about the IMP site
 	L"BEGINNEN", 			// begin profiling
-	L"Persönlichkeiten", 		// personality section
+	L"PersÃ¶nlichkeiten", 		// personality section
 	L"Eigenschaften", 		// personal stats/attributes section
 	L"Aussehen", 			// changed from portrait
 	L"Stimme %d", 			// the voice selection
@@ -3457,18 +3457,18 @@ STR16 pImpButtonText[] =
 	L"Ja", 
 	L"Nein",
 	L"Fertig", 			// finished answering questions
-	L"Zurück", 			// previous question..abbreviated form
+	L"ZurÃ¼ck", 			// previous question..abbreviated form
 	L"Weiter", 			// next question
 	L"JA",		 		// yes, I am certain 
-	L"NEIN, ICH MÖCHTE VON VORNE ANFANGEN.", // no, I want to start over the profiling process
+	L"NEIN, ICH MÃ–CHTE VON VORNE ANFANGEN.", // no, I want to start over the profiling process
 	L"JA",
 	L"NEIN",
-	L"Zurück", 			// back one page
+	L"ZurÃ¼ck", 			// back one page
 	L"Abbruch", 			// cancel selection
 	L"Ja",
-	L"Nein, ich möchte es mir nochmal ansehen.",
+	L"Nein, ich mÃ¶chte es mir nochmal ansehen.",
 	L"Registrieren", 			// the IMP site registry..when name and gender is selected
-	L"Analyse wird durchgeführt",	// analyzing your profile results
+	L"Analyse wird durchgefÃ¼hrt",	// analyzing your profile results
 	L"OK",
 	L"Charakter", // Change from "Voice"
 };
@@ -3476,9 +3476,9 @@ STR16 pImpButtonText[] =
 STR16 pExtraIMPStrings[] =
 {
 	// These texts have been also slightly changed
-	L"Nach Festlegung Ihres Charakters können Sie Ihre Fertigkeit(en) auswählen.",
-	L"Um die Evaluierung erfolgreich abzuschließen, bestimmen Sie Ihre Eigenschaften.",
-	L"Um Ihr Profil zu erstellen, wählen Sie ein Portrait und eine Stimme aus und definieren Ihre äußere Erscheinung.",
+	L"Nach Festlegung Ihres Charakters kÃ¶nnen Sie Ihre Fertigkeit(en) auswÃ¤hlen.",
+	L"Um die Evaluierung erfolgreich abzuschlieÃŸen, bestimmen Sie Ihre Eigenschaften.",
+	L"Um Ihr Profil zu erstellen, wÃ¤hlen Sie ein Portrait und eine Stimme aus und definieren Ihre Ã¤uÃŸere Erscheinung.",
 	L"Jetzt, da Sie Ihr Aussehen bestimmt haben, fahren wir mit der Charakter-Analyse fort.",
 };
 
@@ -3489,7 +3489,7 @@ STR16 pFilesTitle[] =
 
 STR16 pFilesSenderList[] =
 {
-	L"Aufklärungsbericht", 		// the recon report sent to the player. Recon is an abbreviation for reconissance
+	L"AufklÃ¤rungsbericht", 		// the recon report sent to the player. Recon is an abbreviation for reconissance
 	L"Abschnitt #1", 		// first intercept file .. Intercept is the title of the organization sending the file...similar in function to INTERPOL/CIA/KGB..refer to fist record in files.txt for the translated title
 	L"Abschnitt #2",		// second intercept file
 	L"Abschnitt #3",		// third intercept file
@@ -3530,18 +3530,18 @@ STR16 pHistoryStrings[] =
 	L"Enrico Chivaldoris Auftrag akzeptiert",	
 	//6-10
 	L"B.S.E.-Profil erstellt",
-	L"Versicherung abgeschlossen für %s.", 			// insurance contract purchased
-	L"Versicherung gekündigt für %s.", 			// insurance contract canceled
-	L"Versicherung ausgezahlt für %s.", 			// insurance claim payout for merc
-	L"%ss Vertrag um 1 Tag verlängert.",			// Extented "mercs name"'s for a day
+	L"Versicherung abgeschlossen fÃ¼r %s.", 			// insurance contract purchased
+	L"Versicherung gekÃ¼ndigt fÃ¼r %s.", 			// insurance contract canceled
+	L"Versicherung ausgezahlt fÃ¼r %s.", 			// insurance claim payout for merc
+	L"%ss Vertrag um 1 Tag verlÃ¤ngert.",			// Extented "mercs name"'s for a day
 	//11-15
-	L"%ss Vertrag um 1 Woche verlängert.", 			// Extented "mercs name"'s for a week
-	L"%ss Vertrag um 2 Wochen verlängert.", 		// Extented "mercs name"'s 2 weeks
+	L"%ss Vertrag um 1 Woche verlÃ¤ngert.", 			// Extented "mercs name"'s for a week
+	L"%ss Vertrag um 2 Wochen verlÃ¤ngert.", 		// Extented "mercs name"'s 2 weeks
 	L"%s entlassen.", 					// "merc's name" was dismissed.
 	L"%s geht.", 						// "merc's name" quit.
 	L"Quest begonnen.", 					// a particular quest started
 	//16-20
-	L"Quest gelöst.",
+	L"Quest gelÃ¶st.",
 	L"Mit Vorarbeiter in %s geredet",			// talked to head miner of town
 	L"%s befreit",
 	L"Cheat benutzt",
@@ -3557,23 +3557,23 @@ STR16 pHistoryStrings[] =
 	L"Mine in %s leer",
 	L"Mine in %s geschlossen",
 	L"Mine in %s wieder offen",
-	L"Etwas über Gefängnis in Tixa erfahren.",
+	L"Etwas Ã¼ber GefÃ¤ngnis in Tixa erfahren.",
 	//31-35
-	L"Von Waffenfabrik in Orta gehört.",
+	L"Von Waffenfabrik in Orta gehÃ¶rt.",
 	L"Forscher in Orta gab uns viele Raketengewehre.", 
-	L"Deidranna verfüttert Leichen.",
-	L"Frank erzählte von Kämpfen in San Mona.",
+	L"Deidranna verfÃ¼ttert Leichen.",
+	L"Frank erzÃ¤hlte von KÃ¤mpfen in San Mona.",
 	L"Patient denkt, er hat in den Minen etwas gesehen.",
 	//36-40
 	L"Devin getroffen - verkauft Sprengstoff",
-	L"Berühmten Ex-AIM-Mann Mike getroffen!",
+	L"BerÃ¼hmten Ex-AIM-Mann Mike getroffen!",
 	L"Tony getroffen - verkauft Waffen.",
 	L"Sergeant Krott gab mir Raketengewehr.",
-	L"Kyle die Urkunde für Angels Laden gegeben.",
+	L"Kyle die Urkunde fÃ¼r Angels Laden gegeben.",
 	//41-45
 	L"Madlab will Roboter bauen.",
-	L"Gabby kann Tinktur gegen Käfer machen.",
-	L"Keith nicht mehr im Geschäft.",
+	L"Gabby kann Tinktur gegen KÃ¤fer machen.",
+	L"Keith nicht mehr im GeschÃ¤ft.",
 	L"Howard lieferte Gift an Deidranna.",
 	L"Keith getroffen - verkauft alles in Cambria.",
 	//46-50
@@ -3585,9 +3585,9 @@ STR16 pHistoryStrings[] =
 	//51-55
 	L"Fredo repariert Elektronik in Grumm.",
 	L"Spende von Reichem aus Balime bekommen.",
-	L"Schrotthändler Jake getroffen.",
+	L"SchrotthÃ¤ndler Jake getroffen.",
 	L"Ein Depp hat uns eine Codekarte gegeben.",
-	L"Walter bestochen, damit er Keller öffnet.",
+	L"Walter bestochen, damit er Keller Ã¶ffnet.",
 	//56-60
 	L"Wenn Dave Sprit hat, bekommen wir's gratis.",
 	L"Pablo bestochen.",
@@ -3597,23 +3597,23 @@ STR16 pHistoryStrings[] =
 	//61-65
 	L"%s beim Extremkampf disqualifiziert",
 	L"Viel Geld in verlassener Mine gefunden.",
-	L"Von Kingpin geschickten Mörder getroffen", 
-	L"Kontrolle über Sektor verloren",				
+	L"Von Kingpin geschickten MÃ¶rder getroffen", 
+	L"Kontrolle Ã¼ber Sektor verloren",				
 	L"Sektor verteidigt",		
 	//66-70
 	L"Schlacht verloren",						//ENEMY_ENCOUNTER_CODE
-	L"Tödlicher Hinterhalt",					//ENEMY_AMBUSH_CODE
+	L"TÃ¶dlicher Hinterhalt",					//ENEMY_AMBUSH_CODE
 	L"Hinterhalt ausgehoben",
 	L"Angriff fehlgeschlagen",					//ENTERING_ENEMY_SECTOR_CODE
 	L"Angriff erfolgreich",
 	//71-75
 	L"Monster angegriffen",						//CREATURE_ATTACK_CODE
-	L"Von Bloodcats getötet",					//BLOODCAT_AMBUSH_CODE
-	L"Bloodcats getötet",
-	L"%s wurde getötet",	
+	L"Von Bloodcats getÃ¶tet",					//BLOODCAT_AMBUSH_CODE
+	L"Bloodcats getÃ¶tet",
+	L"%s wurde getÃ¶tet",	
 	L"Carmen den Kopf eines Terroristen gegeben",
 	L"Slay ist gegangen",						//Slay is a merc and has left the team
-	L"%s getötet",							//History log for when a merc kills an NPC or PC
+	L"%s getÃ¶tet",							//History log for when a merc kills an NPC or PC
 };
 
 STR16 pHistoryLocations[] =
@@ -3630,7 +3630,7 @@ STR16 pLaptopIcons[] =
 	L"Personal",
 	L"Logbuch",	
 	L"Dateien",
-	L"Schließen",
+	L"SchlieÃŸen",
 	L"sir-FER 4.0",		// our play on the company name (Sirtech) and web surFER
 };
 
@@ -3651,13 +3651,13 @@ STR16 pBookMarkStrings[] =
 STR16 pBookmarkTitle[] =
 {
 	 L"Lesezeichen",
-	 L"Rechts klicken, um in Zukunft in dieses Menü zu gelangen.",
+	 L"Rechts klicken, um in Zukunft in dieses MenÃ¼ zu gelangen.",
 };
 
 // When loading or download a web page
 STR16 pDownloadString[] = {
-	L"Download läuft",
-	L"Neuladen läuft",
+	L"Download lÃ¤uft",
+	L"Neuladen lÃ¤uft",
 };
 
 //This is the text used on the bank machines, here called ATMs for Automatic Teller Machine
@@ -3666,13 +3666,13 @@ STR16 gsAtmSideButtonText[] =
 	L"OK",
 	L"Nehmen", 		// take money from merc
 	L"Geben", 		// give money to merc
-	L"Rückgängig", 		// cancel transaction
-	L"Löschen", 		// clear amount being displayed on the screen
+	L"RÃ¼ckgÃ¤ngig", 		// cancel transaction
+	L"LÃ¶schen", 		// clear amount being displayed on the screen
 };
 
 STR16 gsAtmStartButtonText[] = 
 {
-	L"Überw $", 		// transfer money to merc -- short form
+	L"Ãœberw $", 		// transfer money to merc -- short form
 	L"Statistik", 		// view stats of the merc
 	L"Inventar", 		// view the inventory of the merc
 	L"Anstellung",
@@ -3680,10 +3680,10 @@ STR16 gsAtmStartButtonText[] =
 
 STR16 sATMText[] = 
 {
-	L"Geld überw.?", 	// transfer funds to merc?
+	L"Geld Ã¼berw.?", 	// transfer funds to merc?
 	L"Ok?", 		// are we certain?
 	L"Betrag eingeben", 	// enter the amount you want to transfer to merc
-	L"Art auswählen", 	// select the type of transfer to merc
+	L"Art auswÃ¤hlen", 	// select the type of transfer to merc
 	L"Nicht genug Geld", 	// not enough money to transfer to merc
 	L"Betrag muss durch $10 teilbar sein", // transfer amount must be a multiple of $10
 };
@@ -3695,14 +3695,14 @@ STR16 pErrorStrings[] =
 {
 	L"Fehler",
 	L"Server hat keinen DNS-Eintrag.",	
-	L"URL-Adresse überprüfen und nochmal versuchen.",
+	L"URL-Adresse Ã¼berprÃ¼fen und nochmal versuchen.",
 	L"OK",
-	L"Verbindung zum Host wird dauernd unterbrochen. Mit längeren Übertragungszeiten ist zu rechnen.",
+	L"Verbindung zum Host wird dauernd unterbrochen. Mit lÃ¤ngeren Ãœbertragungszeiten ist zu rechnen.",
 };
 
 STR16 pPersonnelString[] = 
 {
-	L"Söldner:", 		// mercs we have
+	L"SÃ¶ldner:", 		// mercs we have
 };
 
 STR16 pWebTitle[ ] = 
@@ -3729,7 +3729,7 @@ STR16 pWebPagesTitles[] =
 	L"Bobby Rays",
 	L"Bobby Rays - Waffen",
 	L"Bobby Rays - Munition",
-	L"Bobby Rays - Rüstungen",
+	L"Bobby Rays - RÃ¼stungen",
 	L"Bobby Rays - Sonstige",	//misc is an abbreviation for miscellaneous				
 	L"Bobby Rays - Gebraucht",
 	L"Bobby Rays - Versandauftrag",
@@ -3739,7 +3739,7 @@ STR16 pWebPagesTitles[] =
 	L"Fleuropa - Gestecke",
 	L"Fleuropa - Bestellformular",
 	L"Fleuropa - Karten",
-	L"Hammer, Amboss & Steigbügel Versicherungsmakler",
+	L"Hammer, Amboss & SteigbÃ¼gel Versicherungsmakler",
 	L"Information",
 	L"Vertrag",
 	L"Bemerkungen",
@@ -3754,14 +3754,14 @@ STR16 pWebPagesTitles[] =
 STR16 pShowBookmarkString[] = 
 {
 	L"Sir-Help",
-	L"Erneut auf Web klicken für Lesezeichen.",
+	L"Erneut auf Web klicken fÃ¼r Lesezeichen.",
 };
 
 STR16 pLaptopTitles[] = 
 {
 	L"E-Mail",
 	L"Dateien",
-	L"Söldner-Manager",
+	L"SÃ¶ldner-Manager",
 	L"Buchhalter Plus",
 	L"Logbuch",
 };
@@ -3769,12 +3769,12 @@ STR16 pLaptopTitles[] =
 STR16 pPersonnelDepartedStateStrings[] =
 { //(careful not to exceed 18 characters total including spaces)
 	//reasons why a merc has left.
-	L"Getötet",
+	L"GetÃ¶tet",
 	L"Entlassen",
 	L"Sonstiges",
 	L"Heirat",
 	L"Vertrag zu Ende",
-	L"Aufgehört",			//LOOTF - Englisch "quit", welcher Kontext? = Slay Ruttwen?
+	L"AufgehÃ¶rt",			//LOOTF - Englisch "quit", welcher Kontext? = Slay Ruttwen?
 };
 
 // personnel strings appearing in the Personnel Manager on the laptop
@@ -3783,9 +3783,9 @@ STR16 pPersonelTeamStrings[] =
 	L"Aktuelles Team",
 	L"Ausgeschieden",
 	L"Tgl. Kosten:",
-	L"Höchste Kosten:",
+	L"HÃ¶chste Kosten:",
 	L"Niedrigste Kosten:",
-	L"Im Kampf getötet:",
+	L"Im Kampf getÃ¶tet:",
 	L"Entlassen:",
 	L"Sonstiges:",
 };
@@ -3889,17 +3889,17 @@ CHAR16 LargeTacticalStr[][ LARGE_STRING_LENGTH ] =
 //The text on the buttons at the bottom of the screen.
 STR16 InsContractText[] = 
 { 
-	L"Zurück",
+	L"ZurÃ¼ck",
 	L"Vor",
 	L"OK",
-	L"Löschen",
+	L"LÃ¶schen",
 };
 
 //Insurance Info
 // Text on the buttons on the bottom of the screen
 STR16 InsInfoText[] = 
 { 
-	L"Zurück", 
+	L"ZurÃ¼ck", 
 	L"Vor",
 };
 
@@ -3910,9 +3910,9 @@ STR16 MercAccountText[] =
 	L"Befugnis ert.",
 	L"Startseite",
 	L"Konto #:",
-	L"Söldner",
+	L"SÃ¶ldner",
 	L"Tage",
-	L"Tagessatz",		//5			//LOOTF - "Rate" geändert auf "Tagessatz", ändern wenn Probleme, alt. "Sold"
+	L"Tagessatz",		//5			//LOOTF - "Rate" geÃ¤ndert auf "Tagessatz", Ã¤ndern wenn Probleme, alt. "Sold"
 	L"Belasten",
 	L"Gesamt:",
 	L"Zahlung von %s wirklich genehmigen?",		//the %s is a string that contains the dollar amount ( ex. "$150" )
@@ -3922,7 +3922,7 @@ STR16 MercAccountText[] =
 STR16 MercAccountPageText[] = 
 {
 	// Text on the buttons on the bottom of the screen
-	L"Zurück",
+	L"ZurÃ¼ck",
 	L"Weiter",
 };
 
@@ -3933,7 +3933,7 @@ STR16 MercInfo[] =
 	L"Beweglichkeit",
 	L"Geschicklichkeit",
 	L"Kraft",
-	L"Führungsqualität",
+	L"FÃ¼hrungsqualitÃ¤t",
 	L"Weisheit",
 	L"Erfahrungsstufe",
 	L"Treffsicherheit",
@@ -3941,7 +3941,7 @@ STR16 MercInfo[] =
 	L"Sprengstoffe",
 	L"Medizin",
 
-	L"Zurück",
+	L"ZurÃ¼ck",
 	L"Anheuern",
 	L"Weiter",
 	L"Zusatzinfo",
@@ -3951,7 +3951,7 @@ STR16 MercInfo[] =
 	L"Pro Tag",
 	L"Verstorben",	
 
-	L"Sie versuchen, zu viele Söldner anzuheuern. Sie haben die Maximalanzahl erreicht.",
+	L"Sie versuchen, zu viele SÃ¶ldner anzuheuern. Sie haben die Maximalanzahl erreicht.",
 	L"nicht da",											
 };
 
@@ -3959,17 +3959,17 @@ STR16 MercInfo[] =
 STR16 MercNoAccountText[] =
 {
 	//Text on the buttons at the bottom of the screen
-	L"Konto eröffnen",
-	L"Rückgängig",
-	L"Sie haben kein Konto. Möchten Sie eins eröffnen?",
+	L"Konto erÃ¶ffnen",
+	L"RÃ¼ckgÃ¤ngig",
+	L"Sie haben kein Konto. MÃ¶chten Sie eins erÃ¶ffnen?",
 };
 
 // For use at the M.E.R.C. web site. MERC Homepage
 STR16 MercHomePageText[] =
 {
 	//Description of various parts on the MERC page
-	L"Speck T. Kline, Gründer und Besitzer",
-	L"Hier klicken, um ein Konto zu eröffnen",
+	L"Speck T. Kline, GrÃ¼nder und Besitzer",
+	L"Hier klicken, um ein Konto zu erÃ¶ffnen",
 	L"Hier klicken, um das Konto einzusehen",
 	L"Hier klicken, um Dateien einzusehen.",
 	// The version number on the video conferencing system that pops up when Speck is talking
@@ -3980,22 +3980,22 @@ STR16 MercHomePageText[] =
 // For use at MiGillicutty's Web Page.
 STR16 sFuneralString[] =
 {
-	L"McGillicuttys Bestattungen: Wir trösten trauernde Familien seit 1983.",
-	L"Der Bestattungsunternehmer und frühere A.I.M.-Söldner Murray \"Pops\" McGillicutty ist ein ebenso versierter wie erfahrener Bestatter.",
-	L"Pops hat sein ganzes Leben mit Todes- und Trauerfällen verbracht. Deshalb weiß er aus erster Hand, wie schwierig das sein kann.",
-	L"Das Bestattungsunternehmen McGillicutty bietet Ihnen einen umfassenden Service, angefangen bei der Schulter zum Ausweinen bis hin zur kosmetischen Aufbereitung entstellter Körperteile.",
+	L"McGillicuttys Bestattungen: Wir trÃ¶sten trauernde Familien seit 1983.",
+	L"Der Bestattungsunternehmer und frÃ¼here A.I.M.-SÃ¶ldner Murray \"Pops\" McGillicutty ist ein ebenso versierter wie erfahrener Bestatter.",
+	L"Pops hat sein ganzes Leben mit Todes- und TrauerfÃ¤llen verbracht. Deshalb weiÃŸ er aus erster Hand, wie schwierig das sein kann.",
+	L"Das Bestattungsunternehmen McGillicutty bietet Ihnen einen umfassenden Service, angefangen bei der Schulter zum Ausweinen bis hin zur kosmetischen Aufbereitung entstellter KÃ¶rperteile.",
 	L"McGillicuttys Bestattungen - und Ihre Lieben ruhen in Frieden.",
 
 	// Text for the various links available at the bottom of the page
 	L"BLUMEN",
-	L"SÄRGE UND URNEN",
+	L"SÃ„RGE UND URNEN",
 	L"FEUERBEST.",	
-	L"GRÄBER", 
-	L"PIETÄT",	
+	L"GRÃ„BER", 
+	L"PIETÃ„T",	
 
 	// The text that comes up when you click on any of the links ( except for send flowers ).
-	L"Leider ist diese Site aufgrund eines Todesfalles in der Familie noch nicht fertiggestellt. Sobald das Testament eröffnet worden und die Verteilung des Erbes geklärt ist, wird diese Site fertiggestellt.",
-	L"Unser Mitgefühl gilt trotzdem all jenen, die es diesmal versucht haben. Bis später.",
+	L"Leider ist diese Site aufgrund eines Todesfalles in der Familie noch nicht fertiggestellt. Sobald das Testament erÃ¶ffnet worden und die Verteilung des Erbes geklÃ¤rt ist, wird diese Site fertiggestellt.",
+	L"Unser MitgefÃ¼hl gilt trotzdem all jenen, die es diesmal versucht haben. Bis spÃ¤ter.",
 };
 
 // Text for the florist Home page
@@ -4007,7 +4007,7 @@ STR16 sFloristText[] =
 
 	//Address of United Florist
 
-	L"\"Wir werfen überall per Fallschirm ab\"",
+	L"\"Wir werfen Ã¼berall per Fallschirm ab\"",
 	L"1-555-SCHNUPPER-MAL",
 	L"333 Duftmarke Dr, Aroma City, CA USA 90210",
 	L"http://www.schnupper-mal.com",
@@ -4015,14 +4015,14 @@ STR16 sFloristText[] =
 	// detail of the florist page
 
 	L"Wir arbeiten schnell und effizient",
-	L"Lieferung am darauf folgenden Tag, in fast jedes Land der Welt. Ausnahmen sind möglich. ",
+	L"Lieferung am darauf folgenden Tag, in fast jedes Land der Welt. Ausnahmen sind mÃ¶glich. ",
 	L"Wir haben die garantiert niedrigsten Preise weltweit!",
-	L"Wenn Sie anderswo einen niedrigeren Preis für irgend ein Arrangement sehen, bekommen Sie von uns ein Dutzend Rosen umsonst!",
+	L"Wenn Sie anderswo einen niedrigeren Preis fÃ¼r irgend ein Arrangement sehen, bekommen Sie von uns ein Dutzend Rosen umsonst!",
 	L"Fliegende Flora, Fauna & Blumen seit 1981.",
 	L"Unsere hochdekorierten Ex-Bomber-Piloten werfen das Bouquet in einem Radius von zehn Meilen rund um den Bestimmungsort ab. Jederzeit!",
 	L"Mit uns werden Ihre blumigsten Fantasien wahr",
-	L"Bruce, unser weltberühmter Designer-Florist, verwendet nur die frischesten handverlesenen Blumen aus unserem eigenen Gewächshaus.",
-	L"Und denken Sie daran: Was wir nicht haben, pflanzen wir für Sie - und zwar schnell!",
+	L"Bruce, unser weltberÃ¼hmter Designer-Florist, verwendet nur die frischesten handverlesenen Blumen aus unserem eigenen GewÃ¤chshaus.",
+	L"Und denken Sie daran: Was wir nicht haben, pflanzen wir fÃ¼r Sie - und zwar schnell!",
 };
 
 //Florist OrderForm
@@ -4031,9 +4031,9 @@ STR16 sOrderFormText[] =
 
 	//Text on the buttons
 
-	L"Zurück",
+	L"ZurÃ¼ck",
 	L"Senden",
-	L"Löschen",
+	L"LÃ¶schen",
 	L"Galerie",
 
 	L"Name des Gestecks:",
@@ -4047,13 +4047,13 @@ STR16 sOrderFormText[] =
 	L"Kaputtes Gesteck($10)",
 	L"Schwarze Rosen($20)",
 	L"Welkes Gesteck($10)",
-	L"Früchtekuchen (falls vorrätig)($10)",		//15
-	L"Persönliche Worte:",
-	L"Aufgrund der Kartengröße darf Ihre Botschaft nicht länger sein als 75 Zeichen.",
-	L"...oder wählen Sie eine unserer",
+	L"FrÃ¼chtekuchen (falls vorrÃ¤tig)($10)",		//15
+	L"PersÃ¶nliche Worte:",
+	L"Aufgrund der KartengrÃ¶ÃŸe darf Ihre Botschaft nicht lÃ¤nger sein als 75 Zeichen.",
+	L"...oder wÃ¤hlen Sie eine unserer",
 
 	L"STANDARD-KARTEN",	
-	L"Rechnung für",//20
+	L"Rechnung fÃ¼r",//20
 
 	//The text that goes beside the area where the user can enter their name
 
@@ -4064,17 +4064,17 @@ STR16 sOrderFormText[] =
 STR16 sFloristGalleryText[] =
 {
 	//text on the buttons
-	L"Zurück",	//abbreviation for previous
+	L"ZurÃ¼ck",	//abbreviation for previous
 	L"Weiter",	//abbreviation for next
 	L"Klicken Sie auf das Gesteck Ihrer Wahl",
-	L"Bitte beachten Sie, dass wir für jedes kaputte oder verwelkte Gesteck einen Aufpreis von $10 berechnen.",
+	L"Bitte beachten Sie, dass wir fÃ¼r jedes kaputte oder verwelkte Gesteck einen Aufpreis von $10 berechnen.",
 	L"Home",
 };
 
 STR16 sFloristCards[] = 
 {
 	L"Klicken Sie auf das Gesteck Ihrer Wahl",
-	L"Zurück",
+	L"ZurÃ¼ck",
 };
 
 // Text for Bobby Ray's Mail Order Site
@@ -4092,12 +4092,12 @@ STR16 BobbyROrderFormText[] =
 	L"Bestimmungsort",			
 	L"Liefergeschwindigkeit",	//10	// See below
 	L"$ (pro %s)",				// The cost to ship the items
-	L"Übernacht-Express",			// Gets deliverd the next day
+	L"Ãœbernacht-Express",			// Gets deliverd the next day
 	L"2 Arbeitstage",			// Gets delivered in 2 days
 	L"Standard-Service",			// Gets delivered in 3 days
-	L"Löschen",			//15	// Clears the order page
+	L"LÃ¶schen",			//15	// Clears the order page
 	L"Bestellen",				// Accept the order
-	L"Zurück",				// text on the button that returns to the previous page
+	L"ZurÃ¼ck",				// text on the button that returns to the previous page
 	L"Home",				// Text on the button that returns to the home page
 	L"* Gebrauchter Gegenstand",		// Disclaimer stating that the item is used
 	L"Sie haben nicht genug Geld.",	//20	// A popup message that to warn of not enough money
@@ -4133,7 +4133,7 @@ STR16			BobbyRFilter[] =
 
 	// Used
 	L"Feuerwfn.",
-	L"Rüstungen",
+	L"RÃ¼stungen",
 	L"Trageausr.",
 	L"Sonstiges",
 
@@ -4160,14 +4160,14 @@ STR16			BobbyRFilter[] =
 STR16 BobbyRText[] = 
 {
 	L"Bestellen",				// Title
-	L"Klicken Sie auf den gewünschten Gegenstand. Weiteres Klicken erhöht die Stückzahl. Rechte Maustaste verringert Stückzahl. Wenn Sie fertig sind, weiter mit dem Bestellformular.",			// instructions on how to order
+	L"Klicken Sie auf den gewÃ¼nschten Gegenstand. Weiteres Klicken erhÃ¶ht die StÃ¼ckzahl. Rechte Maustaste verringert StÃ¼ckzahl. Wenn Sie fertig sind, weiter mit dem Bestellformular.",			// instructions on how to order
 
 	//Text on the buttons to go the various links
 
-	L"Zurück",		// 
+	L"ZurÃ¼ck",		// 
 	L"Feuerwfn.", 			//3
 	L"Munition",			//4
-	L"Rüstung",			//5
+	L"RÃ¼stung",			//5
 	L"Sonstiges",			//6	//misc is an abbreviation for miscellaneous
 	L"Gebraucht",			//7
 	L"Vor",
@@ -4179,7 +4179,7 @@ STR16 BobbyRText[] =
 	//that can use this type of ammo
 
 	L"Ihr Team hat",				//11
-	L"Waffe(n), die diese Munition verschießen",	//12
+	L"Waffe(n), die diese Munition verschieÃŸen",	//12
 
 	//The following lines provide information on the items
 
@@ -4190,19 +4190,19 @@ STR16 BobbyRText[] =
 	L"Schaden:",			// Damage of the weapon	
 	L"Kadenz:",			// Weapon's Rate Of Fire, acroymn ROF
 	L"Preis:",			// Cost of the item
-	L"Vorrätig:",			// The number of items still in the store's inventory
+	L"VorrÃ¤tig:",			// The number of items still in the store's inventory
 	L"Bestellt:",			// The number of items on order
-	L"Beschädigt",			// If the item is damaged
+	L"BeschÃ¤digt",			// If the item is damaged
 	L"Gew.:",			// the Weight of the item
 	L"Summe:",			// The total cost of all items on order
-	L"* %% funktionstüchtig",	// if the item is damaged, displays the percent function of the item
+	L"* %% funktionstÃ¼chtig",	// if the item is damaged, displays the percent function of the item
 
 	//Popup that tells the player that they can only order 10 items at a time
-	L"Mist! Mit diesem Formular können Sie nur 10 Sachen bestellen. Wenn Sie mehr wollen (was wir sehr hoffen), füllen Sie bitte noch ein Formular aus.",
+	L"Mist! Mit diesem Formular kÃ¶nnen Sie nur 10 Sachen bestellen. Wenn Sie mehr wollen (was wir sehr hoffen), fÃ¼llen Sie bitte noch ein Formular aus.",
 
 	// A popup that tells the user that they are trying to order more items then the store has in stock
 
-	L"Sorry. Davon haben wir leider im Moment nichts mehr auf Lager. Versuchen Sie es später noch einmal.",
+	L"Sorry. Davon haben wir leider im Moment nichts mehr auf Lager. Versuchen Sie es spÃ¤ter noch einmal.",
 
 	//A popup that tells the user that the store is temporarily sold out
 
@@ -4215,7 +4215,7 @@ STR16 BobbyRaysFrontText[] =
 {
 	//Details on the web site
 
-	L"Dies ist die heißeste Seite für Waffen und militärische Ausrüstung aller Art",
+	L"Dies ist die heiÃŸeste Seite fÃ¼r Waffen und militÃ¤rische AusrÃ¼stung aller Art",
 	L"Welchen Sprengstoff Sie auch immer brauchen - wir haben ihn.",
 	L"SECOND HAND",
 
@@ -4224,7 +4224,7 @@ STR16 BobbyRaysFrontText[] =
 	L"SONSTIGES",
 	L"FEUERWAFFEN",
 	L"MUNITION",		//5
-	L"RÜSTUNG",
+	L"RÃœSTUNG",
 
 	//Details on the web site
 
@@ -4250,8 +4250,8 @@ STR16 AimSortText[] =
 
 	//Text of the links to other AIM pages
 
-	L"Den Söldner-Kurzindex ansehen",
-	L"Personalakte der Söldner ansehen",
+	L"Den SÃ¶ldner-Kurzindex ansehen",
+	L"Personalakte der SÃ¶ldner ansehen",
 	L"Die AIM-Veteranengalerie ansehen",
 
 	// text to display how the entries will be sorted
@@ -4266,10 +4266,10 @@ STR16 AimPolicyText[] =
 {
 	// The text on the buttons at the bottom of the page
 
-	L"Zurück",
+	L"ZurÃ¼ck",
 	L"AIM HomePage", 
 	L"Regel-Index",
-	L"Nächste Seite",
+	L"NÃ¤chste Seite",
 	L"Ablehnen",	
 	L"Zustimmen",
 };
@@ -4296,7 +4296,7 @@ STR16 CharacterInfo[] =
 	L"Beweglichkeit",										
 	L"Geschicklichkeit",									
 	L"Kraft",
-	L"Führungsqualität",
+	L"FÃ¼hrungsqualitÃ¤t",
 	L"Weisheit",
 	L"Erfahrungsstufe",
 	L"Treffsicherheit",
@@ -4316,12 +4316,12 @@ STR16 CharacterInfo[] =
 	// text for the buttons that either go to the previous merc, 
 	// start talking to the merc, or go to the next merc
 
-	L"Zurück",
+	L"ZurÃ¼ck",
 	L"Kontakt",
 	L"Weiter",
 	L"Zusatzinfo",				// Title for the additional info for the merc's bio
 	L"Aktive Mitglieder",		//20	// Title of the page
-	L"Zusätzl. Ausrüst:",			// Displays the optional gear cost
+	L"ZusÃ¤tzl. AusrÃ¼st:",			// Displays the optional gear cost
 	L"Ausr.",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's
 	L"VERSICHERUNG erforderlich",			// If the merc required a medical deposit, this is displayed
 	L"Kit 1",				// Text on Starting Gear Selection Button 1
@@ -4346,12 +4346,12 @@ STR16 VideoConfercingText[] =
 
 	//Text on the buttons to determine if you want the merc to come with the equipment 
 
-	L"Keine Ausrüstung",
-	L"Ausrüstung kaufen",
+	L"Keine AusrÃ¼stung",
+	L"AusrÃ¼stung kaufen",
 
 	// Text on the Buttons
 
-	L"GELD ÜBERWEISEN",			// to actually hire the merc
+	L"GELD ÃœBERWEISEN",			// to actually hire the merc
 	L"ABBRECHEN",				// go back to the previous menu
 	L"ANHEUERN",				// go to menu in which you can hire the merc
 	L"AUFLEGEN",				// stops talking with the merc
@@ -4372,8 +4372,8 @@ STR16 VideoConfercingText[] =
 // The text that pops up when you select the TRANSFER FUNDS button
 STR16 AimPopUpText[] =
 {
-	L"ELEKTRONISCHE ÜBERWEISUNG AUSGEFÜHRT",	// You hired the merc
-	L"ÜBERWEISUNG KANN NICHT BEARBEITET WERDEN",		// Player doesn't have enough money, message 1
+	L"ELEKTRONISCHE ÃœBERWEISUNG AUSGEFÃœHRT",	// You hired the merc
+	L"ÃœBERWEISUNG KANN NICHT BEARBEITET WERDEN",		// Player doesn't have enough money, message 1
 	L"NICHT GENUG GELD",				// Player doesn't have enough money, message 2
 
 	// if the merc is not available, one of the following is displayed over the merc's face
@@ -4384,7 +4384,7 @@ STR16 AimPopUpText[] =
 
 	//If you try to hire more mercs than game can support
 
-	L"Sie haben bereits ein vollständiges Team.",
+	L"Sie haben bereits ein vollstÃ¤ndiges Team.",
 
 	L"Mailbox",
 	L"Nachricht aufgenommen",
@@ -4404,7 +4404,7 @@ STR16 AimHistoryText[] =
 
 	// Text on the buttons at the bottom of the page
 
-	L"Zurück",
+	L"ZurÃ¼ck",
 	L"Startseite", 
 	L"Veteranen",
 	L"Weiter",
@@ -4430,7 +4430,7 @@ STR16 AimFiText[] =
 	// Instructions to the players on what to do
 
 	L"Linke Maustaste",
-	L"um Söldner auszuwählen",			//10
+	L"um SÃ¶ldner auszuwÃ¤hlen",			//10
 	L"Rechte Maustaste",
 	L"um Optionen einzustellen",
 
@@ -4459,14 +4459,14 @@ STR16 AimScreenText[] =
 {
 	// AIM disclaimers
 
-	L"A.I.M. und das A.I.M.-Logo sind in den meisten Ländern eingetragene Warenzeichen.",
+	L"A.I.M. und das A.I.M.-Logo sind in den meisten LÃ¤ndern eingetragene Warenzeichen.",
 	L"Also denken Sie nicht mal daran, uns nachzumachen.",
 	L"Copyright 1998-1999 A.I.M., Ltd. Alle Rechte vorbehalten.", 
 
 	//Text for an advertisement that gets displayed on the AIM page
 
 	L"Fleuropa",
-	L"\"Wir werfen überall per Fallschirm ab\"",				//10
+	L"\"Wir werfen Ã¼berall per Fallschirm ab\"",				//10
 	L"Treffen Sie gleich zu Anfang",
 	L"... die richtige Wahl.",
 	L"Was wir nicht haben, das brauchen Sie auch nicht.",
@@ -4490,11 +4490,11 @@ STR16 AimBottomMenuText[] =
 // the various store clerks scattered through out the game.
 STR16 SKI_Text[] = 
 {
-	L"WAREN VORRÄTIG",	//Header for the merchandise available
+	L"WAREN VORRÃ„TIG",	//Header for the merchandise available
 	L"SEITE",		//The current store inventory page being displayed
 	L"KOSTEN",		//The total cost of the the items in the Dealer inventory area
 	L"WERT",		//The total value of items player wishes to sell
-	L"SCHÄTZUNG",		//Button text for dealer to evaluate items the player wants to sell
+	L"SCHÃ„TZUNG",		//Button text for dealer to evaluate items the player wants to sell
 	L"TRANSAKTION",		//Button text which completes the deal. Makes the transaction.
 	L"FERTIG",		//Text for the button which will leave the shopkeeper interface.
 	L"KOSTEN",		//The amount the dealer will charge to repair the merc's goods
@@ -4525,28 +4525,28 @@ STR16 SkiAtmText[] =
 	L"Nehmen",					// Take money from the player
 	L"Geben",					// Give money to the player
 	L"Abbruch",					// Cancel the transfer
-	L"Löschen",					// Clear the money display
+	L"LÃ¶schen",					// Clear the money display
 };
 
 //Shopkeeper Interface
 STR16 gzSkiAtmText[] = 
 {	
 	// Text on the bank machine panel that....
-	L"Vorgang auswählen",			// tells the user to select either to give or take from the merc
+	L"Vorgang auswÃ¤hlen",			// tells the user to select either to give or take from the merc
 	L"Betrag eingeben",			// Enter the amount to transfer
-	L"Geld an Söldner überweisen",		// Giving money to the merc
-	L"Geld von Söldner überweisen",		// Taking money from the merc
+	L"Geld an SÃ¶ldner Ã¼berweisen",		// Giving money to the merc
+	L"Geld von SÃ¶ldner Ã¼berweisen",		// Taking money from the merc
 	L"Nicht genug Geld",			// Not enough money to transfer
 	L"Kontostand",				// Display the amount of money the player currently has
 };
 
 STR16 SkiMessageBoxText[] =
 {
-	L"Möchten Sie %s von Ihrem Konto abbuchen, um die Differenz zu begleichen?",
+	L"MÃ¶chten Sie %s von Ihrem Konto abbuchen, um die Differenz zu begleichen?",
 	L"Nicht genug Geld. Ihnen fehlen %s.",
-	L"Möchten Sie %s von Ihrem Konto abbuchen, um die Kosten zu decken?",
-	L"Händler bitten, mit der Überweisung zu beginnen.",
-	L"Händler bitten, Gegenstände zu reparieren",
+	L"MÃ¶chten Sie %s von Ihrem Konto abbuchen, um die Kosten zu decken?",
+	L"HÃ¤ndler bitten, mit der Ãœberweisung zu beginnen.",
+	L"HÃ¤ndler bitten, GegenstÃ¤nde zu reparieren",
 	L"Unterhaltung beenden",
 	L"Kontostand",
 };
@@ -4558,7 +4558,7 @@ STR16 zOptionsText[] =
 	L"Spiel sichern",
 	L"Spiel laden",
 	L"Beenden",
-	L"Nächste",
+	L"NÃ¤chste",
 	L"Vorherige",
 	L"Fertig",
 	//Text above the slider bars
@@ -4566,8 +4566,8 @@ STR16 zOptionsText[] =
 	L"Sprache",
 	L"Musik",
 	//Confirmation pop when the user selects..
-	L"Spiel verlassen und zurück zum Hauptmenü?",
-	L"Sprachoption oder Untertitel müssen aktiviert sein.",
+	L"Spiel verlassen und zurÃ¼ck zum HauptmenÃ¼?",
+	L"Sprachoption oder Untertitel mÃ¼ssen aktiviert sein.",
 };
 
 //SaveLoadScreen 
@@ -4586,16 +4586,16 @@ STR16 zSaveLoadText[] =
 
 
 	L"Der gespeicherte Spielstand unterscheidet sich vom aktuellen Spielstand. Es kann wahrscheinlich nichts passieren. Weiter?",
-	L"Die gespeicherten Spielstände sind evtl. beschädigt. Wollen Sie sie alle löschen?", 
+	L"Die gespeicherten SpielstÃ¤nde sind evtl. beschÃ¤digt. Wollen Sie sie alle lÃ¶schen?", 
 
 	
 	//Translators, the next two strings are for the same thing. The first one is for beta version releases and the second one
 	//is used for the final version. Please don't modify the "#ifdef JA2BETAVERSION" or the "#else" or the "#endif" as they are
 	//used by the compiler and will cause program errors if modified/removed. It's okay to translate the strings though.
 #ifdef JA2BETAVERSION
-	L"Gespeicherte Version wurde geändert. Bitte melden Sie etwaige Probleme. Weiter?",
+	L"Gespeicherte Version wurde geÃ¤ndert. Bitte melden Sie etwaige Probleme. Weiter?",
 #else
-	L"Versuche, älteren Spielstand zu laden. Laden und automatisch aktualisieren?",
+	L"Versuche, Ã¤lteren Spielstand zu laden. Laden und automatisch aktualisieren?",
 #endif
 
 
@@ -4603,19 +4603,19 @@ STR16 zSaveLoadText[] =
 	//is used for the final version. Please don't modify the "#ifdef JA2BETAVERSION" or the "#else" or the "#endif" as they are
 	//used by the compiler and will cause program errors if modified/removed. It's okay to translate the strings though.
 #ifdef JA2BETAVERSION
-	L"Spielstand und Spieleversion wurden geändert. Bitte melden Sie etwaige Probleme. Weiter?",
+	L"Spielstand und Spieleversion wurden geÃ¤ndert. Bitte melden Sie etwaige Probleme. Weiter?",
 #else
-	L"Versuche, älteren Spielstand zu laden. Laden und automatisch aktualisieren?",
+	L"Versuche, Ã¤lteren Spielstand zu laden. Laden und automatisch aktualisieren?",
 #endif
 
 	
-	L"Gespeichertes Spiel in Position #%d wirklich überschreiben?",
+	L"Gespeichertes Spiel in Position #%d wirklich Ã¼berschreiben?",
 	L"Wollen Sie das Spiel aus Position # speichern?",
 
 	//The first %d is a number that contains the amount of free space on the users hard drive,
 	//the second is the recommended amount of free space.
 	//
-	L"Sie haben zu wenig Festplattenspeicher. Sie haben nur %d MB frei und JA2 benötigt mindestens %d MB.",
+	L"Sie haben zu wenig Festplattenspeicher. Sie haben nur %d MB frei und JA2 benÃ¶tigt mindestens %d MB.",
 	
 										
 	L"Speichere...",	//While the game is saving this message appears.
@@ -4628,38 +4628,38 @@ STR16 zSaveLoadText[] =
 	L"Platinum Mode",	//Placeholder English
 	L"Bobby Ray's",
 	L"Normale Auswahl",
-	L"Große Auswahl",
+	L"GroÃŸe Auswahl",
 	L"Ausgezeichnete Auswahl",
 	L"Fantastische Auswahl",
 
-	L"Neues Inventar funktioniert nicht in 640x480 Auflösung. Wählen Sie eine andere Auflösung und versuchen Sie es erneut.",
-	L"Neues Inventar funktioniert nicht mit dem ausgewählten 'Data' Ordner.",	
+	L"Neues Inventar funktioniert nicht in 640x480 AuflÃ¶sung. WÃ¤hlen Sie eine andere AuflÃ¶sung und versuchen Sie es erneut.",
+	L"Neues Inventar funktioniert nicht mit dem ausgewÃ¤hlten 'Data' Ordner.",	
 };
 
 //MapScreen
 STR16 zMarksMapScreenText[] =
 {
 	L"Map-Level",
-	L"Sie haben gar keine Miliz. Sie müssen Bewohner der Stadt trainieren, wenn Sie dort eine Miliz aufstellen wollen.",
-	L"Tägl. Einkommen", 
-	L"Söldner hat Lebensversicherung", 
-	L"%s ist nicht müde.", 
+	L"Sie haben gar keine Miliz. Sie mÃ¼ssen Bewohner der Stadt trainieren, wenn Sie dort eine Miliz aufstellen wollen.",
+	L"TÃ¤gl. Einkommen", 
+	L"SÃ¶ldner hat Lebensversicherung", 
+	L"%s ist nicht mÃ¼de.", 
 	L"%s ist unterwegs und kann nicht schlafen.", 
-	L"%s ist zu müde. Versuchen Sie es ein bisschen später noch mal.",
-	L"%s fährt.", 
-	L"Der Trupp kann nicht weiter, wenn einer der Söldner pennt.",
+	L"%s ist zu mÃ¼de. Versuchen Sie es ein bisschen spÃ¤ter noch mal.",
+	L"%s fÃ¤hrt.", 
+	L"Der Trupp kann nicht weiter, wenn einer der SÃ¶ldner pennt.",
 
 
 	// stuff for contracts
-	L"Sie können zwar den Vertrag bezahlen, haben aber kein Geld für die Lebensversicherung.", 
-	L"%s Lebensversicherungsprämien kosten %s pro %d Zusatztag(en). Wollen Sie das bezahlen?",
-	L"Gegenstände im Sektor", 
+	L"Sie kÃ¶nnen zwar den Vertrag bezahlen, haben aber kein Geld fÃ¼r die Lebensversicherung.", 
+	L"%s LebensversicherungsprÃ¤mien kosten %s pro %d Zusatztag(en). Wollen Sie das bezahlen?",
+	L"GegenstÃ¤nde im Sektor", 
 
-	L"Söldner hat Krankenversicherung.", 
+	L"SÃ¶ldner hat Krankenversicherung.", 
 	
 	
 	// other items
-	L"Sanitäter", // people acting a field medics and bandaging wounded mercs 
+	L"SanitÃ¤ter", // people acting a field medics and bandaging wounded mercs 
 	L"Patienten", // people who are being bandaged by a medic 
 	L"Fertig", // Continue on with the game after autobandage is complete 
 	L"Stop", // Stop autobandaging of patients by medics now 
@@ -4669,12 +4669,12 @@ STR16 zMarksMapScreenText[] =
 	L"%s hat kein Verbandszeug.",
 	L"Es sind nicht genug Leute zum Training bereit.",
 	L"%s ist voller Milizen.",
-	L"Söldner hat begrenzten Vertrag.", 
-	L"Vertrag des Söldners beinhaltet keine Versicherung.",
-	L"Kartenübersicht",		// 24
+	L"SÃ¶ldner hat begrenzten Vertrag.", 
+	L"Vertrag des SÃ¶ldners beinhaltet keine Versicherung.",
+	L"KartenÃ¼bersicht",		// 24
 	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
-	L"Sie haben derzeit keine Mobile Miliz. Rekrutieren Sie einige Milizen und kehren Sie zurück zu dieser Ansicht.",
-	L"Diese Ansicht zeigt Ihnen, wo Ihre Mobile Miliz ins feindliche Gebiet vorrücken kann. GRAU = Mobile Miliz verweigern hier vorzurücken. ROT = Mobile Miliz kann hier vorrücken, aber Sie haben den Befehl nicht gegeben. GELB = Mobile Miliz kann in den Sektor vorrücken, aber nicht verlassen. GRÜN = Mobile Miliz kann sich hier frei bewegen. Rechtsklick auf einen GRÜNEN / GELBEN Bereich um das Verhalten der Miliz zu ändern.",
+	L"Sie haben derzeit keine Mobile Miliz. Rekrutieren Sie einige Milizen und kehren Sie zurÃ¼ck zu dieser Ansicht.",
+	L"Diese Ansicht zeigt Ihnen, wo Ihre Mobile Miliz ins feindliche Gebiet vorrÃ¼cken kann. GRAU = Mobile Miliz verweigern hier vorzurÃ¼cken. ROT = Mobile Miliz kann hier vorrÃ¼cken, aber Sie haben den Befehl nicht gegeben. GELB = Mobile Miliz kann in den Sektor vorrÃ¼cken, aber nicht verlassen. GRÃœN = Mobile Miliz kann sich hier frei bewegen. Rechtsklick auf einen GRÃœNEN / GELBEN Bereich um das Verhalten der Miliz zu Ã¤ndern.",
 };
 
 STR16 pLandMarkInSectorString[] =
@@ -4685,27 +4685,27 @@ STR16 pLandMarkInSectorString[] =
 // confirm the player wants to pay X dollars to build a militia force in town
 STR16 pMilitiaConfirmStrings[] = 
 {
-	L"Eine Milizeinheit für diese Stadt zu trainieren kostet $", // telling player how much it will cost
+	L"Eine Milizeinheit fÃ¼r diese Stadt zu trainieren kostet $", // telling player how much it will cost
 	L"Ausgabe genehmigen?", // asking player if they wish to pay the amount requested
 	L"Sie haben nicht genug Geld.", // telling the player they can't afford to train this town
 	L"Miliz in %s (%s %d) weitertrainieren?", // continue training this town?
 	L"Preis $", // the cost in dollars to train militia
 	L"( J/N )", // abbreviated yes/no
-	L"Miliz auf dem Raketenstützpunkt im Sektor %s (%s %d) weitertrainieren?", // continue trainign militia in SAM site sector
+	L"Miliz auf dem RaketenstÃ¼tzpunkt im Sektor %s (%s %d) weitertrainieren?", // continue trainign militia in SAM site sector
 	L"Milizen in %d Sektoren zu trainieren kostet $ %d. %s", // cost to train sveral sectors at once
-	L"Sie können sich keine $%d für die Miliz hier leisten.",
-	L"%s benötigt eine Loyalität von %d Prozent, um mit dem Milizen-Training fortzufahren.",
-	L"Sie können die Miliz in %s nicht mehr trainieren.", 
-	L"Sie können sich keine $%d für mobile Miliz hier leisten.", // HEADROCK HAM 3.6: Mobile Militia
+	L"Sie kÃ¶nnen sich keine $%d fÃ¼r die Miliz hier leisten.",
+	L"%s benÃ¶tigt eine LoyalitÃ¤t von %d Prozent, um mit dem Milizen-Training fortzufahren.",
+	L"Sie kÃ¶nnen die Miliz in %s nicht mehr trainieren.", 
+	L"Sie kÃ¶nnen sich keine $%d fÃ¼r mobile Miliz hier leisten.", // HEADROCK HAM 3.6: Mobile Militia
 	L"Mobile Milizen in %s (%s %d) weitertrainieren?", // HEADROCK HAM 3.6: Mobile Militia
 	L"Mobile Milizen in %d Sektoren zu trainieren kostet $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia
-	L"Eine mobile Milizeinheit für diese Stadt zu trainieren kostet $", // HEADROCK HAM 3.6: Mobile Militia
+	L"Eine mobile Milizeinheit fÃ¼r diese Stadt zu trainieren kostet $", // HEADROCK HAM 3.6: Mobile Militia
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
 STR16 gzMoneyWithdrawMessageText[] = 
 {
-	L"Sie können nur max. 20.000$ abheben.",
+	L"Sie kÃ¶nnen nur max. 20.000$ abheben.",
 	L"Wollen Sie wirklich %s auf Ihr Konto einzahlen?",
 };
 
@@ -4718,7 +4718,7 @@ STR16 gzCopyrightText[] =
 STR16 zOptionsToggleText[] = 
 {
 	L"Sprache",
-	L"Stumme Bestätigungen",
+	L"Stumme BestÃ¤tigungen",
 	L"Untertitel",
 	L"Dialoge Pause",
 	L"Rauch animieren", 
@@ -4726,14 +4726,14 @@ STR16 zOptionsToggleText[] =
 	L"Cursor nicht bewegen",
 	L"Alte Auswahlmethode",
 	L"Weg vorzeichnen",
-	L"Fehlschüsse anzeigen",
-	L"Bestätigung bei Echtzeit",
+	L"FehlschÃ¼sse anzeigen",
+	L"BestÃ¤tigung bei Echtzeit",
 	L"Schlaf-/Wachmeldung anzeigen", 
 	L"Metrisches System benutzen",
 	L"Boden beleuchten",
-	L"Cursor autom. auf Söldner",
-	L"Cursor autom. auf Türen",
-	L"Gegenstände leuchten",
+	L"Cursor autom. auf SÃ¶ldner",
+	L"Cursor autom. auf TÃ¼ren",
+	L"GegenstÃ¤nde leuchten",
 	L"Baumkronen zeigen",
 	L"Drahtgitter zeigen",
 	L"3D Cursor zeigen",
@@ -4742,13 +4742,13 @@ STR16 zOptionsToggleText[] =
 	L"Gegner-Spott aktiveren",		// Changed from "Enemies Drop all Items" - SANDRO
 	L"Hohe Granatwerfer-Flugbahn",
 	L"Echtzeit-Schleichen aktivieren",	// Changed from "Restrict extra Aim Levels" - SANDRO
-	L"Nächste Gruppe selektieren",
-	L"Gegenstände mit Schatten",
+	L"NÃ¤chste Gruppe selektieren",
+	L"GegenstÃ¤nde mit Schatten",
 	L"Waffenreichweite in Felder",
-	L"Leuchtspur für Einzelschüsse",
-	L"Regengeräusche",
-	L"Krähen erlauben",
-	L"Tooltips über Gegner",
+	L"Leuchtspur fÃ¼r EinzelschÃ¼sse",
+	L"RegengerÃ¤usche",
+	L"KrÃ¤hen erlauben",
+	L"Tooltips Ã¼ber Gegner",
 	L"Automatisch speichern",
 	L"Stummer Skyrider",
 	//L"Niedrige CPU Belastung",
@@ -4786,91 +4786,91 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden in Dialogen Stimmen wiedergegeben. Anderenfalls wird nur der Text angezeigt.",
 
 	//Mute Confirmation
-	L"Schalten Sie mit dieser Funktion die gesprochenen Bestätigungen (wie \"Okay\" oder \"Bin dran\") aus, wenn sie stören.",
+	L"Schalten Sie mit dieser Funktion die gesprochenen BestÃ¤tigungen (wie \"Okay\" oder \"Bin dran\") aus, wenn sie stÃ¶ren.",
 
 	//Subtitles
 	L"Wenn diese Funktion aktiviert ist, wird in Dialogen der entsprechende Text angezeigt.",
 
 	//Key to advance speech
-	L"Schalten Sie diese Funktion AN, wenn Sie Dialoge von NPCs ganz in Ruhe lesen wollen. Untertitel müssen dazu AN sein.",
+	L"Schalten Sie diese Funktion AN, wenn Sie Dialoge von NPCs ganz in Ruhe lesen wollen. Untertitel mÃ¼ssen dazu AN sein.",
 
 	//Toggle smoke animation
 	L"Schalten Sie diese Option ab, wenn animierter Rauch Ihre Bildwiederholrate verlangsamt.",
 
 	//Blood n Gore
-	L"Diese Option abschalten, wenn Sie kein Blut sehen können.",
+	L"Diese Option abschalten, wenn Sie kein Blut sehen kÃ¶nnen.",
 
 	//Never move my mouse
-	L"Schalten Sie diese Option ab, wenn Sie nicht möchten, dass Ihr Mauszeiger automatisch auf Pop-Up-Fenster springt.",
+	L"Schalten Sie diese Option ab, wenn Sie nicht mÃ¶chten, dass Ihr Mauszeiger automatisch auf Pop-Up-Fenster springt.",
 
 	//Old selection method
-	L"Mit dieser Option funktioniert die Auswahl der Söldner so wie in früheren JAGGED ALLIANCE-Spielen (also genau andersherum als jetzt).",
+	L"Mit dieser Option funktioniert die Auswahl der SÃ¶ldner so wie in frÃ¼heren JAGGED ALLIANCE-Spielen (also genau andersherum als jetzt).",
 
 	//Show movement path
-	L"Diese Funktion anschalten, um die geplanten Wege der Söldner zum Cursor anzuzeigen\n(oder abgeschaltet lassen und bei gewünschter Anzeige die |S|H|I|F|T-Taste drücken).",
+	L"Diese Funktion anschalten, um die geplanten Wege der SÃ¶ldner zum Cursor anzuzeigen\n(oder abgeschaltet lassen und bei gewÃ¼nschter Anzeige die |S|H|I|F|T-Taste drÃ¼cken).",
 
 	//show misses
 	L"Wenn diese Funktion aktiviert ist, folgt die Spielkamera im Rundenmodus der Geschossflugbahn bis zu ihrem Ende. Ausschalten um das Spiel zu beschleunigen.",
 
 	//Real Time Confirmation
-	L"Wenn diese Funktion aktiviert ist, wird für jede Aktion im Echtzeit-Modus ein zusätzlicher \"Sicherheits\"-Klick verlangt um versehentliche Befehle zu vermeiden.",
+	L"Wenn diese Funktion aktiviert ist, wird fÃ¼r jede Aktion im Echtzeit-Modus ein zusÃ¤tzlicher \"Sicherheits\"-Klick verlangt um versehentliche Befehle zu vermeiden.",
 
 	//Sleep/Wake notification
-	L"Schalten Sie diese Option aus, wenn Sie kein Popup erhalten wollen, sobald zu einem Dienst eingeteilte Söldner schlafen gehen oder die Arbeit wieder aufnehmen.",
+	L"Schalten Sie diese Option aus, wenn Sie kein Popup erhalten wollen, sobald zu einem Dienst eingeteilte SÃ¶ldner schlafen gehen oder die Arbeit wieder aufnehmen.",
 
 	//Use the metric system
-	L"Mit dieser Option wird im Spiel das metrische anstelle des imperialen Maßsystems verwendet (z.B. Meter und Kilogramm).",
+	L"Mit dieser Option wird im Spiel das metrische anstelle des imperialen MaÃŸsystems verwendet (z.B. Meter und Kilogramm).",
 
 	//Merc Lighted movement
-	L"Diese Funktion beleuchtet für den Spieler die Umgebung des Söldners - auch beim Bewegen. AUSgeschaltet erhöht sich die Bildwiederholrate.",
+	L"Diese Funktion beleuchtet fÃ¼r den Spieler die Umgebung des SÃ¶ldners - auch beim Bewegen. AUSgeschaltet erhÃ¶ht sich die Bildwiederholrate.",
 
 	//Smart cursor
-	L"Wenn diese Funktion aktiviert ist, springt der Cursor immer automatisch auf Söldner in seiner direkten Nähe.",
+	L"Wenn diese Funktion aktiviert ist, springt der Cursor immer automatisch auf SÃ¶ldner in seiner direkten NÃ¤he.",
 
 	//snap cursor to the door
-	L"Wenn diese Funktion aktiviert ist, springt der Cursor automatisch auf Türen in direkter Nähe des Mauszeigers.",
+	L"Wenn diese Funktion aktiviert ist, springt der Cursor automatisch auf TÃ¼ren in direkter NÃ¤he des Mauszeigers.",
 
 	//glow items
-	L"Wenn diese Funktion aktiviert ist, haben Gegenstände am Boden zur besseren Sichtbarkeit einen pulsierenden Rahmen (|I).",
+	L"Wenn diese Funktion aktiviert ist, haben GegenstÃ¤nde am Boden zur besseren Sichtbarkeit einen pulsierenden Rahmen (|I).",
 
 	//toggle tree tops
-	L"Mit der Deaktivierung dieser Funktion lassen sich Baumkronen ausblenden um bessere Sicht auf das Geschehen zu ermöglichen (|T).",
+	L"Mit der Deaktivierung dieser Funktion lassen sich Baumkronen ausblenden um bessere Sicht auf das Geschehen zu ermÃ¶glichen (|T).",
 
 	//toggle wireframe
-	L"Wenn diese Funktion aktiviert ist, werden Drahtgitter verborgener Wände gezeigt um z.B. perspektivisch verdeckte Fenster zu erkennen (|W).",
+	L"Wenn diese Funktion aktiviert ist, werden Drahtgitter verborgener WÃ¤nde gezeigt um z.B. perspektivisch verdeckte Fenster zu erkennen (|W).",
 
 	L"Wenn diese Funktion aktiviert ist, wird der Bewegungs-Cursor in 3D angezeigt (|Home).",
 	
 	// Options for 1.13
 	L"Wenn diese Funktion aktiviert ist, wird die Trefferwahrscheinlichkeit am Cursor angezeigt.",
-	L"Mit dieser Funktion lässt sich der Zielcursor für Granatwerfer-Feuerstöße umschalten. Der Burst-Cursor (wenn AN) ermöglicht den Beschuss einer größeren Fläche.",
+	L"Mit dieser Funktion lÃ¤sst sich der Zielcursor fÃ¼r Granatwerfer-FeuerstÃ¶ÃŸe umschalten. Der Burst-Cursor (wenn AN) ermÃ¶glicht den Beschuss einer grÃ¶ÃŸeren FlÃ¤che.",
 	L"Wenn diese Funktion aktiviert ist, beschimpfen Gegner den Spieler oder kommentieren ihre Situation mittels kleiner Pop-Ups.", // Changed from Enemies Drop All Items - SANDRO
-	L"Wenn diese Funktion aktiviert ist, können Granatwerfer Granaten in höherem Winkel abfeuern und so ihre volle Reichweite ausnutzen (|Q).",
-	L"Wenn diese Funktion aktiviert ist, schaltet das Spiel für unbemerkt schleichende Söldner nicht automatisch in den Rundenmodus sobald Gegner in Sicht geraten, außer Sie drücken |S|t|r|g+|X.", // Changed from Restrict Extra Aim Levels - SANDRO
-	L"Wenn diese Funktion aktiviert ist, selektiert |S|p|a|c|e automatisch die nächste Gruppe statt den nächsten Söldner der Gruppe.",
-	L"Wenn diese Funktion aktiviert ist, werfen Gegenstände einen Schatten.",
+	L"Wenn diese Funktion aktiviert ist, kÃ¶nnen Granatwerfer Granaten in hÃ¶herem Winkel abfeuern und so ihre volle Reichweite ausnutzen (|Q).",
+	L"Wenn diese Funktion aktiviert ist, schaltet das Spiel fÃ¼r unbemerkt schleichende SÃ¶ldner nicht automatisch in den Rundenmodus sobald Gegner in Sicht geraten, auÃŸer Sie drÃ¼cken |S|t|r|g+|X.", // Changed from Restrict Extra Aim Levels - SANDRO
+	L"Wenn diese Funktion aktiviert ist, selektiert |S|p|a|c|e automatisch die nÃ¤chste Gruppe statt den nÃ¤chsten SÃ¶ldner der Gruppe.",
+	L"Wenn diese Funktion aktiviert ist, werfen GegenstÃ¤nde einen Schatten.",
 	L"Wenn diese Funktion aktiviert ist, werden Waffenreichweiten in Feldern angezeigt statt in z.B. Metern.",
-	L"Wenn diese Funktion aktiviert ist, wird auch für Einzelschüsse mit Leuchtspurmunition der grafische Effekt dazu angezeigt.",
-	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar, sobald es regnet.",
-	L"Wenn diese Funktion aktiviert ist, sind Krähen im Spiel vorhanden und hacken lautstark an manchen Leichen herum, haben aber sonst keine großen Auswirkungen auf das Spiel.",
-	L"Wenn diese Funktion aktiviert ist, werden mit Druck auf |A|l|t Informationen über den Gegner eingeblendet, auf dem sich der Maus-Cursor befindet.",
-	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch abwechselnd in zwei speziellen Autosave-Spielständen gespeichert.\nLadebildschirm mit |C|t|r|l+|L anzeigen. Danach |A|l|t+|A bzw. |A|l|t+|B.",
-	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sagen. Verwenden Sie diese Option, wenn er Ihnen auf die Nüsse geht.",
-	//L"Aktivieren Sie diese Funktion, wenn Ihr Rechner steinalt ist und anderenfalls Probleme auftreten würden.",
-	L"Wenn diese Funktion aktiviert ist, werden erweiterte Beschreibungen und Werte zu den Waffen und Gegenständen angezeigt.",
+	L"Wenn diese Funktion aktiviert ist, wird auch fÃ¼r EinzelschÃ¼sse mit Leuchtspurmunition der grafische Effekt dazu angezeigt.",
+	L"Wenn diese Funktion aktiviert ist, werden RegengerÃ¤usche hÃ¶rbar, sobald es regnet.",
+	L"Wenn diese Funktion aktiviert ist, sind KrÃ¤hen im Spiel vorhanden und hacken lautstark an manchen Leichen herum, haben aber sonst keine groÃŸen Auswirkungen auf das Spiel.",
+	L"Wenn diese Funktion aktiviert ist, werden mit Druck auf |A|l|t Informationen Ã¼ber den Gegner eingeblendet, auf dem sich der Maus-Cursor befindet.",
+	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch abwechselnd in zwei speziellen Autosave-SpielstÃ¤nden gespeichert.\nLadebildschirm mit |C|t|r|l+|L anzeigen. Danach |A|l|t+|A bzw. |A|l|t+|B.",
+	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sagen. Verwenden Sie diese Option, wenn er Ihnen auf die NÃ¼sse geht.",
+	//L"Aktivieren Sie diese Funktion, wenn Ihr Rechner steinalt ist und anderenfalls Probleme auftreten wÃ¼rden.",
+	L"Wenn diese Funktion aktiviert ist, werden erweiterte Beschreibungen und Werte zu den Waffen und GegenstÃ¤nden angezeigt.",
 	L"Wenn diese Funktion aktiviert ist und noch Gegner im Sektor sind, bleibt das Spiel im Runden-Modus, bis alle Feinde tot sind (|C|t|r|l+|S|h|i|f|t+|A|l|t+|T).",
-	L"Wenn diese Funktion aktiviert ist, werden die Söldnerwerte visuell mit ihrem Trainingsfortschritt unterlegt.",
-	L"Wenn diese Funktion aktiviert ist, wird die Strategische Karte entsprechend Ihres Erkundungsfortschrittes unterschiedlich eingefärbt.",
+	L"Wenn diese Funktion aktiviert ist, werden die SÃ¶ldnerwerte visuell mit ihrem Trainingsfortschritt unterlegt.",
+	L"Wenn diese Funktion aktiviert ist, wird die Strategische Karte entsprechend Ihres Erkundungsfortschrittes unterschiedlich eingefÃ¤rbt.",
 	L"Wenn diese Funktion aktiviert ist, werden geschossene Projektile visuell mit Tracer-Effekten dargestellt.",
 	L"Wenn diese Funktion aktiviert ist, wird das neue Zielsystem und der neue Zielcursor verwendet.",
-	L"Wenn diese Funktion aktiviert ist, sehen sie das Gesichtsequipment Ihrer Söldner direkt auf dem Portrait.",
-	L"Wenn diese Funktion aktiviert ist, sehen sie Icons für das Gesichtsequipment in der rechten unteren Ecke des Portraits.",
-	L"Wenn diese Funktion aktiviert ist, wird der Mauscursor nicht automatisch wechseln zwischen Personen-Positionswechsel und weiteren Aktionen.\nFür manuellen Positionswechsel drücken Sie |x.",
+	L"Wenn diese Funktion aktiviert ist, sehen sie das Gesichtsequipment Ihrer SÃ¶ldner direkt auf dem Portrait.",
+	L"Wenn diese Funktion aktiviert ist, sehen sie Icons fÃ¼r das Gesichtsequipment in der rechten unteren Ecke des Portraits.",
+	L"Wenn diese Funktion aktiviert ist, wird der Mauscursor nicht automatisch wechseln zwischen Personen-Positionswechsel und weiteren Aktionen.\nFÃ¼r manuellen Positionswechsel drÃ¼cken Sie |x.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",			// an example options screen options header (pure text)
-	L"|H|A|M |4 |D|e|b|u|g: Wenn diese Funktion aktiviert ist, wird der Abstand den jede die Kugel vom Zielmittelpunkt abweicht, unter Berücksichtigung aller CTH-Faktoren, ausgegeben.",
+	L"|H|A|M |4 |D|e|b|u|g: Wenn diese Funktion aktiviert ist, wird der Abstand den jede die Kugel vom Zielmittelpunkt abweicht, unter BerÃ¼cksichtigung aller CTH-Faktoren, ausgegeben.",
 	L"Hier klicken, um fehlerhafte Optionseinstellungen zu beheben.",	// failsafe show/hide option to reset all options
 	L"Hier klicken, um fehlerhafte Optionseinstellungen zu beheben.",	// a do once and reset self option (button like effect)
 	L"Allows debug options in release or mapeditor builds",				// allow debugging in release or mapeditor
@@ -4903,10 +4903,10 @@ STR16 gzGIOScreenText[] =
 	L"Extraschwer (Speichern erlauben)",
 	L"Jederzeit",
 	L"Nicht im Kampf",
-	L"Option nicht verfügbar", 
+	L"Option nicht verfÃ¼gbar", 
 	L"Bobby Ray's Auswahl",
 	L"Normal",
-	L"Groß",
+	L"GroÃŸ",
 	L"Ausgezeichnet",
 	L"Fantastisch",
 	L"Inventar / Attachments",
@@ -4929,10 +4929,10 @@ STR16 gzGIOScreenText[] =
 	L"Aus",
 	L"An",
 	L"Anzahl der Terroristen",
-	L"Zufällig",
+	L"ZufÃ¤llig",
 	L"Alle vorhanden",
 	L"Geheime Waffenlager",
-	L"Zufällig",
+	L"ZufÃ¤llig",
 	L"Alle vorhanden",
 	L"Fortschritt Waffenwahl",
 	L"Sehr langsam",
@@ -4949,7 +4949,7 @@ STR16	gzMPJScreenText[] =
 {
 	L"MEHRSPIELER",
 	L"Teilnehmen",
-	L"Eröffnen",
+	L"ErÃ¶ffnen",
 	L"Abbrechen",
 	L"Aktualisieren",
 	L"Spielername",
@@ -4960,30 +4960,30 @@ STR16	gzMPJScreenText[] =
 	L"Version",
 	L"Spieltyp",
 	L"Ping",
-	L"Sie müssen einen Spielernamen eingeben.",
-	L"Sie müssen eine gültie Server-IP-Adresse eingeben. Zum Beispiel: 84.114.195.239",
-	L"Sie müssen eine gültige Server-Portnummer zwischen 1 und 65535 eingeben.",
+	L"Sie mÃ¼ssen einen Spielernamen eingeben.",
+	L"Sie mÃ¼ssen eine gÃ¼ltie Server-IP-Adresse eingeben. Zum Beispiel: 84.114.195.239",
+	L"Sie mÃ¼ssen eine gÃ¼ltige Server-Portnummer zwischen 1 und 65535 eingeben.",
 };
 
 STR16 gzMPJHelpText[] =
 {
 	L"Besuchen Sie http://webchat.quakenet.org/?channels=ja2-multiplayer um sich mit anderen Spielern zu treffen.",
 
-	L"ERÖFFNEN",
-	L"Geben Sie '127.0.0.1' für die IP Adresse ein. Die Port Nummer sollte größer als 60000 sein.",
+	L"ERÃ–FFNEN",
+	L"Geben Sie '127.0.0.1' fÃ¼r die IP Adresse ein. Die Port Nummer sollte grÃ¶ÃŸer als 60000 sein.",
 	L"Vergewissern Sie sich, dass das Port (UDP, TCP) auf dem Router weitergeleitet wird. Siehe: http://portforward.com",
-	L"Sie müssen Ihre externe IP (http://www.whatismyip.com) und die Port Nummer an die anderen Spieler schicken (via IRC, ICQ, etc.).",
-	L"Klicken Sie auf 'Eröffnen', um ein neues Spiel zu eröffnen.",
+	L"Sie mÃ¼ssen Ihre externe IP (http://www.whatismyip.com) und die Port Nummer an die anderen Spieler schicken (via IRC, ICQ, etc.).",
+	L"Klicken Sie auf 'ErÃ¶ffnen', um ein neues Spiel zu erÃ¶ffnen.",
 	
 	L"TEILNEHMEN",
 	L"Der Host muss Ihnen die externe IP Adresse und die Port Nummer schicken (via IRC, ICQ, etc.).",
 	L"Geben Sie die externe IP und die Port Nummer des Hosts ein.",
-	L"Klicken Sie auf 'Teilnehmen', um an einem bereits eröffneten Spiel teilzunehmen.",
+	L"Klicken Sie auf 'Teilnehmen', um an einem bereits erÃ¶ffneten Spiel teilzunehmen.",
 };
 
 STR16	gzMPHScreenText[] =
 {
-	L"ERÖFFNE SPIEL",
+	L"ERÃ–FFNE SPIEL",
 	L"Starten",
 	L"Abbrechen",
 	L"Servername",
@@ -4992,16 +4992,16 @@ STR16	gzMPHScreenText[] =
 	L"Team-Deathmatch",
 	L"Kooperativ (CO-OP)",
 	L"Maximale Spieler",
-	L"Maximale Söldner",
-	L"Söldnerauswahl",
-	L"Söldnerrekrutierung",
-	L"Söldner selbst wählen",
+	L"Maximale SÃ¶ldner",
+	L"SÃ¶ldnerauswahl",
+	L"SÃ¶ldnerrekrutierung",
+	L"SÃ¶ldner selbst wÃ¤hlen",
 	L"Startkapital",
-	L"Gleiche Söldner erlaubt",
-	L"Angeheuerte Söldner anzeigen",
+	L"Gleiche SÃ¶ldner erlaubt",
+	L"Angeheuerte SÃ¶ldner anzeigen",
 	L"Bobby Ray",
 	L"Sektor Startzone",
-	L"Sie müssen einen Servernamen eingeben.",
+	L"Sie mÃ¼ssen einen Servernamen eingeben.",
 	L"",
 	L"",
 	L"Tageszeit",
@@ -5016,7 +5016,7 @@ STR16	gzMPHScreenText[] =
 	L"Maximale KI-Gegner in CO-OP",
 	L"Synchronisiere Verzeichnisse",
 	L"Synchronisationsverzeichnis",
-	L"Sie müssen ein gültiges MP-Synchronisationsverzeichnis eingeben.",
+	L"Sie mÃ¼ssen ein gÃ¼ltiges MP-Synchronisationsverzeichnis eingeben.",
 	L"(Benutzen Sie '/' anstelle von '\\' als Verzeichnistrennzeichen.)",
 	L"Das angegebene MP-Synch.-Verzeichnis existiert nicht.",
 	L"1",
@@ -5047,11 +5047,11 @@ STR16	gzMPHScreenText[] =
 	L"Gering",
 	L"Normal",
 	// Merc Hire
-	L"Zufällig",
+	L"ZufÃ¤llig",
 	L"Normal",
 	// Sector Edge
-	L"Zufällig",
-	L"Wählbar",
+	L"ZufÃ¤llig",
+	L"WÃ¤hlbar",
 	// Bobby Ray / Hire same merc
 	L"Verbieten",
 	L"Erlauben",
@@ -5081,7 +5081,7 @@ STR16 pDeliveryLocationStrings[] =
 STR16 pSkillAtZeroWarning[] =
 { //This string is used in the IMP character generation. It is possible to select 0 ability
 	//in a skill meaning you can't use it. This text is confirmation to the player.
-	L"Sind Sie sicher? Ein Wert von 0 bedeutet, dass der Charakter diese Fähigkeit nicht nutzen kann.",
+	L"Sind Sie sicher? Ein Wert von 0 bedeutet, dass der Charakter diese FÃ¤higkeit nicht nutzen kann.",
 };
 
 STR16 pIMPBeginScreenStrings[] =
@@ -5091,7 +5091,7 @@ STR16 pIMPBeginScreenStrings[] =
 
 STR16 pIMPFinishButtonText[] =
 {
-	L"Analyse wird durchgeführt",
+	L"Analyse wird durchgefÃ¼hrt",
 };
 
 STR16 pIMPFinishStrings[] =
@@ -5107,7 +5107,7 @@ STR16 pIMPVoicesStrings[] =
 
 STR16 pDepartedMercPortraitStrings[] = 
 {
-	L"Im Einsatz getötet",
+	L"Im Einsatz getÃ¶tet",
 	L"Entlassen",
 	L"Sonstiges",
 };
@@ -5115,14 +5115,14 @@ STR16 pDepartedMercPortraitStrings[] =
 // title for program
 STR16 pPersTitleText[] =
 {
-	L"Söldner-Manager",
+	L"SÃ¶ldner-Manager",
 };
 
 // paused game strings
 STR16 pPausedGameText[] =
 {
 	L"Pause",
-	L"Zurück zum Spiel (|P|a|u|s|e)",
+	L"ZurÃ¼ck zum Spiel (|P|a|u|s|e)",
 	L"Pause (|P|a|u|s|e)",
 };
 
@@ -5133,25 +5133,25 @@ STR16 pMessageStrings[] =
 	L"JA",
 	L"NEIN",
 	L"ABBRECHEN",
-	L"ZURÜCK",
-	L"LÜGEN",
+	L"ZURÃœCK",
+	L"LÃœGEN",
 	L"Keine Beschreibung",			//Save slots that don't have a description.
 	L"Spiel gespeichert",	
 	L"Spiel gespeichert",	
 	L"QuickSave",		//10		//The name of the quicksave file (filename, text reference)
 	L"Spielstand",				//The name of the normal savegame file, such as SaveGame01, SaveGame02, etc.
 	L"sav",					//The 3 character dos extension (represents sav)
-	L"..\\Spielstände",			//The name of the directory where games are saved.
+	L"..\\SpielstÃ¤nde",			//The name of the directory where games are saved.
 	L"Tag",
-	L"Söldner",
+	L"SÃ¶ldner",
 	L"Leere Spiel Position",				//An empty save game slot
 	L"Demo",				//Demo of JA2
 	L"Debug",				//State of development of a project (JA2) that is a debug build
-	L"Veröffentlichung",			//Release build for JA2
+	L"VerÃ¶ffentlichung",			//Release build for JA2
 	L"RpM",			//20		//Abbreviation for Rounds per minute -- the potential # of bullets fired in a minute.	//LOOTF - KpM macht Augenkrebs, KpM gibt es einfach nicht.
 	L"min",					//Abbreviation for minute.
 	L"m",					//One character abbreviation for meter (metric distance measurement unit).
-	L"Kgln",				//Abbreviation for rounds (# of bullets)		//LOOTF - character limit? Kugeln = kacke, will ändern!
+	L"Kgln",				//Abbreviation for rounds (# of bullets)		//LOOTF - character limit? Kugeln = kacke, will Ã¤ndern!
 	L"kg",					//Abbreviation for kilogram (metric weight measurement unit)
 	L"Pfd",					//Abbreviation for pounds (Imperial weight measurement unit)
 	L"Home",				//Home as in homepage on the internet.
@@ -5161,25 +5161,25 @@ STR16 pMessageStrings[] =
 	L"%s ist im Sektor %s%s angekommen", //30 //Name/Squad has arrived in sector A9. Order must not change without notifying SirTech
 	L"Version", 
 	L"Leere Quick-Save Position",
-	L"Diese Position ist für Quick-Saves aus dem Karten- oder Taktik-Bildschirm reserviert. Speichern mit ALT+S.",
+	L"Diese Position ist fÃ¼r Quick-Saves aus dem Karten- oder Taktik-Bildschirm reserviert. Speichern mit ALT+S.",
 	L"offen",
 	L"zu",
-	L"Ihr Festplattenspeicher ist knapp. Sie haben lediglich %sMB frei und Jagged Alliance 2 v1.13 benötigt %sMB.",
+	L"Ihr Festplattenspeicher ist knapp. Sie haben lediglich %sMB frei und Jagged Alliance 2 v1.13 benÃ¶tigt %sMB.",
 	L"%s von AIM angeheuert", 
 	L"%s hat %s gefangen.",			//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
 
 	L"%s hat die Droge genommen.",			//'Merc name' has taken the drug
-	L"%s hat keine medizinischen Fähigkeiten",//40	//'Merc name' has no medical skill.
+	L"%s hat keine medizinischen FÃ¤higkeiten",//40	//'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)
-	L"Die Integrität des Spieles wurde beschädigt.", //The integrity of the game has been compromised
-	L"FEHLER: CD-ROM-Laufwerk schließen",
+	L"Die IntegritÃ¤t des Spieles wurde beschÃ¤digt.", //The integrity of the game has been compromised
+	L"FEHLER: CD-ROM-Laufwerk schlieÃŸen",
 
 	//When firing heavier weapons in close quarters, you may not have enough room to do so.
 	L"Kein Platz, um von hier aus zu feuern.",
 	
 	//Can't change stance due to objects in the way...
-	L"Kann seine Position hier nicht ändern.",
+	L"Kann seine Position hier nicht Ã¤ndern.",
 
 	//Simple text indications that appear in the game, when the merc can do one of these things.
 	L"Ablegen",
@@ -5197,10 +5197,10 @@ STR16 pMessageStrings[] =
 	L"Cheat-Level ZWEI erreicht",
 
 	//Toggling various stealth modes
-	L"Schleichbewegung für Trupp ein.",
-	L"Schleichbewegung für Trupp aus.",
-	L"Schleichbewegung für %s ein.",
-	L"Schleichbewegung für %s aus.",
+	L"Schleichbewegung fÃ¼r Trupp ein.",
+	L"Schleichbewegung fÃ¼r Trupp aus.",
+	L"Schleichbewegung fÃ¼r %s ein.",
+	L"Schleichbewegung fÃ¼r %s aus.",
 
 	//Wireframes are shown through buildings to reveal doors and windows that can't otherwise be seen in 
 	//an isometric engine. You can toggle this mode freely in the game.
@@ -5211,8 +5211,8 @@ STR16 pMessageStrings[] =
 	//an upper level, etc. 
 	L"Von dieser Ebene geht es nicht nach oben...",
 	L"Noch tiefere Ebenen gibt es nicht...",		// 60
-	L"Gewölbeebene %d betreten...",
-	L"Gewölbe verlassen...",
+	L"GewÃ¶lbeebene %d betreten...",
+	L"GewÃ¶lbe verlassen...",
 
 	L"s",		// used in the shop keeper inteface to mark the ownership of the item eg Red's gun
 	L"Autoscrolling AUS.",
@@ -5220,20 +5220,20 @@ STR16 pMessageStrings[] =
 	L"3D-Cursor AUS.",
 	L"3D-Cursor AN.",
 	L"Trupp %d aktiv.",
-	L"Sie können %ss Tagessold von %s nicht zahlen",	//first %s is the mercs name, the second is a string containing the salary
+	L"Sie kÃ¶nnen %ss Tagessold von %s nicht zahlen",	//first %s is the mercs name, the second is a string containing the salary
 	L"Abbruch",			// 70
 	L"%s kann alleine nicht gehen.",
-	L"Spielstand namens Spielstand99.sav kreiert. Wenn nötig, in Spielstand01 - Spielstand10 umbennen und über die Option 'Laden' aufrufen.",
+	L"Spielstand namens Spielstand99.sav kreiert. Wenn nÃ¶tig, in Spielstand01 - Spielstand10 umbennen und Ã¼ber die Option 'Laden' aufrufen.",
 	L"%s hat %s getrunken.",
 	L"Paket in Drassen angekommen.",
 	L"%s kommt am %d. um ca. %s am Zielort an (Sektor %s).", //first %s is mercs name(OK), next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival       !!!7 It should be like this: first one is merc (OK), next is day of arrival (OK) , next is time of the day for ex. 07:00 (not OK, now it is still sector), next should be sector (not OK, now it is still time of the day)	//LOOTF - is this still valid? I assume it's not.
 	L"Logbuch aktualisiert.",
-	L"Granatenwerfer-Feuerstöße verwenden Ziel-Cursor (Sperrfeuer aktiviert).",
-	L"Granatenwerfer-Feuerstöße verwenden Flugbahn-Cursor (Sperrfeuer deaktiviert).",
+	L"Granatenwerfer-FeuerstÃ¶ÃŸe verwenden Ziel-Cursor (Sperrfeuer aktiviert).",
+	L"Granatenwerfer-FeuerstÃ¶ÃŸe verwenden Flugbahn-Cursor (Sperrfeuer deaktiviert).",
 	L"Soldaten-Kurzinfo (\"Tooltips\") aktiviert",		// Changed from Drop All On - SANDRO
 	L"Soldaten-Kurzinfo (\"Tooltips\") deaktiviert",	// Changed from Drop All Off - SANDRO
-	L"Granatwerfer schießen in flachem Winkel.",
-	L"Granatwerfer schießen in steilem Winkel.",
+	L"Granatwerfer schieÃŸen in flachem Winkel.",
+	L"Granatwerfer schieÃŸen in steilem Winkel.",
 	// forced turn mode strings
 	L"Erzwungener Rundenmodus",
 	L"Normaler Rundenmodus",
@@ -5242,17 +5242,17 @@ STR16 pMessageStrings[] =
 #ifdef JA2BETAVERSION
 	L"Spiel erfolgreich in Position End Turn Auto Save gespeichert.",	// 83
 #endif
-	L"..\\Spielstände\\MP_Spielstände",			//The name of the directory where games are saved.
+	L"..\\SpielstÃ¤nde\\MP_SpielstÃ¤nde",			//The name of the directory where games are saved.
 	L"Client",
 	
-	L"Sie können nicht altes Inventar und neues Attachment System gleichzeitig verwenden.",
+	L"Sie kÃ¶nnen nicht altes Inventar und neues Attachment System gleichzeitig verwenden.",
 };
 
 CHAR16 ItemPickupHelpPopup[][40] =
 {
 	L"OK",
 	L"Hochscrollen",
-	L"Alle auswählen",
+	L"Alle auswÃ¤hlen",
 	L"Runterscrollen",
 	L"Abbrechen",
 };
@@ -5260,21 +5260,21 @@ CHAR16 ItemPickupHelpPopup[][40] =
 STR16 pDoctorWarningString[] =
 {
 	L"%s ist nicht nahe genug, um geheilt zu werden",
-	L"Ihre Mediziner haben noch nicht alle verbinden können.",
+	L"Ihre Mediziner haben noch nicht alle verbinden kÃ¶nnen.",
 };
 
 STR16 pMilitiaButtonsHelpText[] =
 {
-	L"Grüne Miliz aufnehmen(Rechtsklick)/absetzen(Linksklick)", // button help text informing player they can pick up or drop militia with this button
-	L"Reguläre Milizen aufnehmen(Rechtsklick)/absetzen(Linksklick)",
+	L"GrÃ¼ne Miliz aufnehmen(Rechtsklick)/absetzen(Linksklick)", // button help text informing player they can pick up or drop militia with this button
+	L"RegulÃ¤re Milizen aufnehmen(Rechtsklick)/absetzen(Linksklick)",
 	L"Elitemilizen aufnehmen(Rechtsklick)/absetzen(Linksklick)",
-	L"Milizen gleichmäßig über alle Sektoren verteilen",
+	L"Milizen gleichmÃ¤ÃŸig Ã¼ber alle Sektoren verteilen",
 };
 
 STR16 pMapScreenJustStartedHelpText[] = 
 {
-	L"Zu AIM gehen und Söldner anheuern ( *Tip*: Befindet sich im Laptop )", // to inform the player to hire some mercs to get things going
-	L"Sobald Sie für die Reise nach Arulco bereit sind, klicken Sie auf den Zeitraffer-Button unten rechts auf dem Bildschirm.", // to inform the player to hit time compression to get the game underway
+	L"Zu AIM gehen und SÃ¶ldner anheuern ( *Tip*: Befindet sich im Laptop )", // to inform the player to hire some mercs to get things going
+	L"Sobald Sie fÃ¼r die Reise nach Arulco bereit sind, klicken Sie auf den Zeitraffer-Button unten rechts auf dem Bildschirm.", // to inform the player to hit time compression to get the game underway
 };
 
 STR16 pAntiHackerString[] = 
@@ -5286,13 +5286,13 @@ STR16 gzLaptopHelpText[] =
 {
 	//Buttons:
 	L"E-Mail einsehen",
-	L"Websites durchblättern",
+	L"Websites durchblÃ¤ttern",
 	L"Dateien und Anlagen einsehen",
 	L"Logbuch lesen",
 	L"Team-Info einsehen",
 	L"Finanzen und Notizen einsehen", 
 
-	L"Laptop schließen",
+	L"Laptop schlieÃŸen",
 
 	//Bottom task bar icons (if they exist):
 	L"Sie haben neue Mail",
@@ -5301,11 +5301,11 @@ STR16 gzLaptopHelpText[] =
 	//Bookmarks:
 	L"Association of International Mercenaries",
 	L"Bobby Rays Online-Waffenversand",
-	L"Bundesinstitut für Söldnerevaluierung",
+	L"Bundesinstitut fÃ¼r SÃ¶ldnerevaluierung",
 	L"More Economic Recruiting Center",
 	L"McGillicuttys Bestattungen",
 	L"Fleuropa",
-	L"Versicherungsmakler für A.I.M.-Verträge",
+	L"Versicherungsmakler fÃ¼r A.I.M.-VertrÃ¤ge",
 };
 
 STR16 gzHelpScreenText[] =
@@ -5315,24 +5315,24 @@ STR16 gzHelpScreenText[] =
 
 STR16 gzNonPersistantPBIText[] =
 {
-	L"Es tobt eine Schlacht. Sie können sich nur im Taktik-Bildschirm zurückziehen.",
+	L"Es tobt eine Schlacht. Sie kÃ¶nnen sich nur im Taktik-Bildschirm zurÃ¼ckziehen.",
 	L"Sektor betreten und Kampf fortsetzen (|E).",
 	L"Kampf durch PC entscheiden (|A).",
-	L"Sie können den Kampf nicht vom PC entscheiden lassen, wenn Sie angreifen.",
-	L"Sie können den Kampf nicht vom PC entscheiden lassen, wenn Sie in einem Hinterhalt sind.",
-	L"Sie können den Kampf nicht vom PC entscheiden lassen, wenn Sie gegen Monster kämpfen.",
-	L"Sie können den Kampf nicht vom PC entscheiden lassen, wenn feindliche Zivilisten da sind.",
-	L"Sie können einen Kampf nicht vom PC entscheiden lassen, wenn Bloodcats da sind.",
+	L"Sie kÃ¶nnen den Kampf nicht vom PC entscheiden lassen, wenn Sie angreifen.",
+	L"Sie kÃ¶nnen den Kampf nicht vom PC entscheiden lassen, wenn Sie in einem Hinterhalt sind.",
+	L"Sie kÃ¶nnen den Kampf nicht vom PC entscheiden lassen, wenn Sie gegen Monster kÃ¤mpfen.",
+	L"Sie kÃ¶nnen den Kampf nicht vom PC entscheiden lassen, wenn feindliche Zivilisten da sind.",
+	L"Sie kÃ¶nnen einen Kampf nicht vom PC entscheiden lassen, wenn Bloodcats da sind.",
 	L"KAMPF IN GANGE",
-	L"Sie können sich nicht zurückziehen, wenn Sie in einem Hinterhalt sind.",
+	L"Sie kÃ¶nnen sich nicht zurÃ¼ckziehen, wenn Sie in einem Hinterhalt sind.",
 };
 
 STR16 gzMiscString[] =
 {
-	L"Ihre Milizen kämpfen ohne die Hilfe der Söldner weiter...",
+	L"Ihre Milizen kÃ¤mpfen ohne die Hilfe der SÃ¶ldner weiter...",
 	L"Das Fahrzeug muss nicht mehr aufgetankt werden.",
 	L"Der Tank ist %d%% voll.",
-	L"Deidrannas Armee hat wieder volle Kontrolle über %s.",
+	L"Deidrannas Armee hat wieder volle Kontrolle Ã¼ber %s.",
 	L"Sie haben ein Tanklager verloren.",
 };
 
@@ -5353,17 +5353,17 @@ STR16 pNewNoiseStr[] =
 	//	L"Gus hears a loud EXPLOSION 'to' the north.",
 	//	L"Gus hears a loud EXPLOSION 'coming from' the north.",
 	//For certain idioms, it sounds better to use one over the other. It is a matter of preference.
-	L"%s hört %s aus dem %s.",
-	L"%s hört eine BEWEGUNG (%s) von %s.", 
-	L"%s hört ein KNARREN (%s) von %s.",
-	L"%s hört ein KLATSCHEN (%s) von %s.",
-	L"%s hört einen AUFSCHLAG (%s) von %s.",
-	L"%s hört eine EXPLOSION (%s) von %s.", 
-	L"%s hört einen SCHREI (%s) von %s.",
-	L"%s hört einen AUFSCHLAG (%s) von %s.",
-	L"%s hört einen AUFSCHLAG (%s) von %s.",
-	L"%s hört ein ZERBRECHEN (%s) von %s.",
-	L"%s hört ein ZERSCHMETTERN (%s) von %s.",
+	L"%s hÃ¶rt %s aus dem %s.",
+	L"%s hÃ¶rt eine BEWEGUNG (%s) von %s.", 
+	L"%s hÃ¶rt ein KNARREN (%s) von %s.",
+	L"%s hÃ¶rt ein KLATSCHEN (%s) von %s.",
+	L"%s hÃ¶rt einen AUFSCHLAG (%s) von %s.",
+	L"%s hÃ¶rt eine EXPLOSION (%s) von %s.", 
+	L"%s hÃ¶rt einen SCHREI (%s) von %s.",
+	L"%s hÃ¶rt einen AUFSCHLAG (%s) von %s.",
+	L"%s hÃ¶rt einen AUFSCHLAG (%s) von %s.",
+	L"%s hÃ¶rt ein ZERBRECHEN (%s) von %s.",
+	L"%s hÃ¶rt ein ZERSCHMETTERN (%s) von %s.",
 };
 
 STR16 wMapScreenSortButtonHelpText[] =
@@ -5394,7 +5394,7 @@ STR16	gzCreditNames[]=
 {
 	L"Chris Camfield",
 	L"Shaun Lyng",
-	L"Kris Märnes",
+	L"Kris MÃ¤rnes",
 	L"Ian Currie",
 	L"Linda Currie",
 	L"Eric \"WTF\" Cheng",
@@ -5449,21 +5449,21 @@ STR16	gzCreditNameFunny[]=
 
 STR16 sRepairsDoneString[] =
 {
-	L"%s hat seine eigenen Gegenstände repariert",
-	L"%s hat die Waffen und Rüstungen aller Teammitglieder repariert",
-	L"%s hat die aktivierten Gegenstände aller Teammitglieder repariert",
-	L"%s hat die großen mitgeführten Gegenstände aller Teammitglieder repariert",
-	L"%s hat die mittelgroßen mitgeführten Gegenstände aller Teammitglieder repariert",
-	L"%s hat die kleinen mitgeführten Gegenstände aller Teammitglieder repariert",
-	L"%s hat die Trageausrüstung aller Teammitglieder repariert",
+	L"%s hat seine eigenen GegenstÃ¤nde repariert",
+	L"%s hat die Waffen und RÃ¼stungen aller Teammitglieder repariert",
+	L"%s hat die aktivierten GegenstÃ¤nde aller Teammitglieder repariert",
+	L"%s hat die groÃŸen mitgefÃ¼hrten GegenstÃ¤nde aller Teammitglieder repariert",
+	L"%s hat die mittelgroÃŸen mitgefÃ¼hrten GegenstÃ¤nde aller Teammitglieder repariert",
+	L"%s hat die kleinen mitgefÃ¼hrten GegenstÃ¤nde aller Teammitglieder repariert",
+	L"%s hat die TrageausrÃ¼stung aller Teammitglieder repariert",
 };
 
 STR16 zGioDifConfirmText[]=
 {
-	L"Sie haben sich für den Einsteiger-Modus entschieden. Dies ist die passende Einstellung für Spieler, die noch nie zuvor Jagged Alliance oder ähnliche Spiele gespielt haben oder für Spieler, die sich ganz einfach kürzere Schlachten wünschen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Einsteiger-Modus spielen wollen?",
-	L"Sie haben sich für den Profi-Modus entschieden. Dies ist die passende Einstellung für Spieler, die bereits Erfahrung mit Jagged Alliance oder ähnlichen Spielen haben. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Profi-Modus spielen wollen?",
-	L"Sie haben sich für den Alter Hase-Modus entschieden. Na gut, wir haben Sie gewarnt. Machen Sie hinterher bloß nicht uns dafür verantwortlich, wenn Sie im Sarg nach Hause kommen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Alter Hase-Modus spielen wollen?",
-	L"Sie haben sich für den WAHNSINNIG-Modus entschieden. WARNUNG: Beschweren Sie sich nicht, wenn Sie in kleinen Stücken zurückkommen ... Deidranna wird Sie in den Allerwertesten treten und das schmerzhaft. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im WAHNSINNIG-Modus spielen wollen?",
+	L"Sie haben sich fÃ¼r den Einsteiger-Modus entschieden. Dies ist die passende Einstellung fÃ¼r Spieler, die noch nie zuvor Jagged Alliance oder Ã¤hnliche Spiele gespielt haben oder fÃ¼r Spieler, die sich ganz einfach kÃ¼rzere Schlachten wÃ¼nschen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfÃ¤ltige Wahl. Sind Sie ganz sicher, dass Sie im Einsteiger-Modus spielen wollen?",
+	L"Sie haben sich fÃ¼r den Profi-Modus entschieden. Dies ist die passende Einstellung fÃ¼r Spieler, die bereits Erfahrung mit Jagged Alliance oder Ã¤hnlichen Spielen haben. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfÃ¤ltige Wahl. Sind Sie ganz sicher, dass Sie im Profi-Modus spielen wollen?",
+	L"Sie haben sich fÃ¼r den Alter Hase-Modus entschieden. Na gut, wir haben Sie gewarnt. Machen Sie hinterher bloÃŸ nicht uns dafÃ¼r verantwortlich, wenn Sie im Sarg nach Hause kommen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfÃ¤ltige Wahl. Sind Sie ganz sicher, dass Sie im Alter Hase-Modus spielen wollen?",
+	L"Sie haben sich fÃ¼r den WAHNSINNIG-Modus entschieden. WARNUNG: Beschweren Sie sich nicht, wenn Sie in kleinen StÃ¼cken zurÃ¼ckkommen ... Deidranna wird Sie in den Allerwertesten treten und das schmerzhaft. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfÃ¤ltige Wahl. Sind Sie ganz sicher, dass Sie im WAHNSINNIG-Modus spielen wollen?",
 };
 
 STR16 gzLateLocalizedString[] =
@@ -5473,9 +5473,9 @@ STR16 gzLateLocalizedString[] =
 	//1-5
 	L"Der Roboter kann diesen Sektor nicht verlassen, wenn niemand die Fernbedienung benutzt.",
 
-	L"Sie können den Zeitraffer jetzt nicht benutzen. Warten Sie das Feuerwerk ab!",
+	L"Sie kÃ¶nnen den Zeitraffer jetzt nicht benutzen. Warten Sie das Feuerwerk ab!",
 	L"%s will sich nicht bewegen.",
-	L"%s hat nicht genug Energie, um die Position zu ändern.",
+	L"%s hat nicht genug Energie, um die Position zu Ã¤ndern.",
 	L"%s hat kein Benzin mehr und steckt in %c%d fest.",
 
 	//6-10 
@@ -5486,12 +5486,12 @@ STR16 gzLateLocalizedString[] =
 	L"unten",
 
 	//The following strings are used in autoresolve for autobandaging related feedback.
-	L"Keiner der Söldner hat medizinische Fähigkeiten.",
+	L"Keiner der SÃ¶ldner hat medizinische FÃ¤higkeiten.",
 	L"Sie haben kein Verbandszeug.",
 	L"Sie haben nicht genug Verbandszeug, um alle zu verarzten.",
-	L"Keiner der Söldner muss verbunden werden.",
-	L"Söldner automatisch verbinden.",
-	L"Alle Söldner verarztet.",
+	L"Keiner der SÃ¶ldner muss verbunden werden.",
+	L"SÃ¶ldner automatisch verbinden.",
+	L"Alle SÃ¶ldner verarztet.",
 
 	//14-16
 	L"Arulco",
@@ -5514,9 +5514,9 @@ STR16 gzLateLocalizedString[] =
 	L"%s kann gerade nicht sprechen.",
 
 	//22-24 plural versions
-	L"%d grüne Milizen wurden zu Elitemilizen befördert.",
-	L"%d grüne Milizen wurden zu regulären Milizen befördert.",
-	L"%d reguläre Milizen wurden zu Elitemilizen befördert.",
+	L"%d grÃ¼ne Milizen wurden zu Elitemilizen befÃ¶rdert.",
+	L"%d grÃ¼ne Milizen wurden zu regulÃ¤ren Milizen befÃ¶rdert.",
+	L"%d regulÃ¤re Milizen wurden zu Elitemilizen befÃ¶rdert.",
 
 	//25 
 	L"Schalter",
@@ -5527,17 +5527,17 @@ STR16 gzLateLocalizedString[] =
 
 	//27-28
 	//Messages why a player can't time compress.
-	L"Es ist momentan gefährlich den Zeitraffer zu betätigen, da Sie noch Söldner in Sektor %s haben.",
-	L"Es ist gefährlich den Zeitraffer zu betätigen, wenn Sie noch Söldner in den von Monstern verseuchten Minen haben.",
+	L"Es ist momentan gefÃ¤hrlich den Zeitraffer zu betÃ¤tigen, da Sie noch SÃ¶ldner in Sektor %s haben.",
+	L"Es ist gefÃ¤hrlich den Zeitraffer zu betÃ¤tigen, wenn Sie noch SÃ¶ldner in den von Monstern verseuchten Minen haben.",
 
 	//29-31 singular versions
-	L"1 grüne Miliz wurde zur Elitemiliz befördert.",
-	L"1 grüne Miliz wurde zur regulären Miliz befördert.",
-	L"1 reguläre Miliz wurde zur Elitemiliz befördert.",
+	L"1 grÃ¼ne Miliz wurde zur Elitemiliz befÃ¶rdert.",
+	L"1 grÃ¼ne Miliz wurde zur regulÃ¤ren Miliz befÃ¶rdert.",
+	L"1 regulÃ¤re Miliz wurde zur Elitemiliz befÃ¶rdert.",
 
 	//32-34
-	L"%s sagt überhaupt nichts.",
-	L"Zur Oberfläche gehen?",
+	L"%s sagt Ã¼berhaupt nichts.",
+	L"Zur OberflÃ¤che gehen?",
 	L"(Trupp %d)",
 
 	//35
@@ -5547,25 +5547,25 @@ STR16 gzLateLocalizedString[] =
 	L"BLOODCAT", 
 
 	//37-38 "Name trips and falls" 
-	L"%s stolpert und stürzt",
+	L"%s stolpert und stÃ¼rzt",
 	L"Dieser Gegenstand kann von hier aus nicht aufgehoben werden.",
 
 	//39 
-	L"Keiner Ihrer übrigen Söldner ist in der Lage zu kämpfen. Die Miliz wird die Monster alleine bekämpfen",
+	L"Keiner Ihrer Ã¼brigen SÃ¶ldner ist in der Lage zu kÃ¤mpfen. Die Miliz wird die Monster alleine bekÃ¤mpfen",
 
 	//40-43
 	//%s is the name of merc.
 	L"%s hat keinen Erste-Hilfe-Kasten mehr!",
 	L"%s hat nicht das geringste Talent, jemanden zu verarzten!",
 	L"%s hat keinen Werkzeugkasten mehr!",
-	L"%s ist absolut unfähig dazu, irgendetwas zu reparieren!",
+	L"%s ist absolut unfÃ¤hig dazu, irgendetwas zu reparieren!",
 
 	//44
 	L"Repar. Zeit",
 	L"%s kann diese Person nicht sehen.", 
 
 	//46-48
-	L"%ss Gewehrlauf-Verlängerung fällt ab!",
+	L"%ss Gewehrlauf-VerlÃ¤ngerung fÃ¤llt ab!",
 	L"Es sind nicht mehr als %d Miliz-Ausbilder in diesem Sektor erlaubt.",
 	L"Sind Sie sicher?", // 
 
@@ -5582,13 +5582,13 @@ STR16 gzLateLocalizedString[] =
 	L"%s hat die Ladehemmung von %ss %s behoben",
 
 	//55
-	L"Die Zeit kann nicht komprimiert werden, während das Sektorinventar eingesehen wird.",
+	L"Die Zeit kann nicht komprimiert werden, wÃ¤hrend das Sektorinventar eingesehen wird.",
 
 	L"Die Jagged Alliance 2 v1.13 PLAY CD wurde nicht gefunden. Das Programm wird jetzt beendet.",
 
 	//L"Im Sektor sind Feinde entdeckt worden",		//STR_DETECTED_SIMULTANEOUS_ARRIVAL
 
-	L"Die Gegenstände wurden erfolgreich miteinander kombiniert.",
+	L"Die GegenstÃ¤nde wurden erfolgreich miteinander kombiniert.",
 
 	//58
 	//Displayed with the version information when cheats are enabled.
@@ -5599,14 +5599,14 @@ STR16 gzLateLocalizedString[] =
 
 	L"Schalter aktiviert.",
 
-	L"%s's Rüstungsverstärkung wurde zertrümmert!",
-	L"%s feuert %d Schüsse mehr als beabsichtigt!",
+	L"%s's RÃ¼stungsverstÃ¤rkung wurde zertrÃ¼mmert!",
+	L"%s feuert %d SchÃ¼sse mehr als beabsichtigt!",
 	L"%s feuert einen Schuss mehr als beabsichtigt!",
 };
 
 STR16 gzCWStrings[] = 
 {
-	L"Verstärkung aus benachbarten Sektoren nach %s rufen?",
+	L"VerstÃ¤rkung aus benachbarten Sektoren nach %s rufen?",
 };
 
 // WANNE: Tooltips
@@ -5626,12 +5626,12 @@ STR16 gzTooltipStrings[] =
 	L"%s|Weste: %s\n",
 	L"%s|Hose: %s\n",
 	// Limited, Basic
-	L"|Rüstung: ",
+	L"|RÃ¼stung: ",
 	L"Helm ",
 	L"Weste ",
 	L"Hose",
 	L"getragen",
-	L"keine Rüstung",
+	L"keine RÃ¼stung",
 	L"%s|N|V|G: %s\n",
 	L"kein NVG",
 	L"%s|Gasmaske: %s\n",
@@ -5651,7 +5651,7 @@ STR16 gzTooltipStrings[] =
 	L"kein Helm",
 	L"keine Weste",
 	L"keine Hose",
-	L"|Rüstung: %s\n", 
+	L"|RÃ¼stung: %s\n", 
 	 // Added - SANDRO
 	L"%s|Fertigkeit 1: %s\n",
 	L"%s|Fertigkeit 2: %s\n", 
@@ -5664,44 +5664,44 @@ STR16 New113Message[] =
 	L"Sturm endet.",
 	L"Regen startet.",
 	L"Regen endet.",
-	L"Vorsicht vor Scharfschützen...",
-	L"Unterdrückungsfeuer!",	
+	L"Vorsicht vor ScharfschÃ¼tzen...",
+	L"UnterdrÃ¼ckungsfeuer!",	
 	L"BRST",
 	L"AUTO",
 	L"GL",
 	L"GL BRST",
 	L"GL AUTO",
-	L"Scharfschütze!",
+	L"ScharfschÃ¼tze!",
 	L"Geld kann nicht aufgeteilt werden, weil ein Gegenstand am Cursor ist.",
-	L"Ankunft der neuen Söldner wurde in den Sektor %s verlegt, weil der geplante Sektor %s von Feinden belagert ist.",
-	L"Gegenstand gelöscht.",
-	L"Alle Gegenstände dieses Typs gelöscht.",
+	L"Ankunft der neuen SÃ¶ldner wurde in den Sektor %s verlegt, weil der geplante Sektor %s von Feinden belagert ist.",
+	L"Gegenstand gelÃ¶scht.",
+	L"Alle GegenstÃ¤nde dieses Typs gelÃ¶scht.",
 	L"Gegenstand verkauft.",
-	L"Alle Gegenstände dieses Typs verkauft.",
-	L"Überprüfen Sie die Sichtgeräte Ihrer Söldner!",
+	L"Alle GegenstÃ¤nde dieses Typs verkauft.",
+	L"ÃœberprÃ¼fen Sie die SichtgerÃ¤te Ihrer SÃ¶ldner!",
 	// Real Time Mode messages
 	L"Sie sind bereits im Kampfmodus",
 	L"Keine Gegner in Sicht",
 	L"Echtzeit-Schleichmodus AUS",
 	L"Echtzeit-Schleichmodus AN",
-	//L"Gegner gesichtet! (Ctrl + x für Rundenmodus)",
+	//L"Gegner gesichtet! (Ctrl + x fÃ¼r Rundenmodus)",
 	L"Gegner gesichtet!",	// this should be enough - SANDRO
 	//////////////////////////////////////////////////////////////////////////////////////
 	// These added by SANDRO 
 	L"%s hatte Erfolg beim Stehlen!",
 	L"%s hatte nicht genug Aktionspunkte um alles zu stehlen.",
-	L"Möchten Sie %s vor dem Bandagieren operativ behandeln? (Sie können etwa %i Lebenspunkte wiederherstellen.)",
-	L"Möchten Sie %s operativ behandeln? (Sie können etwa %i Lebenspunkte wiederherstellen.)",
-	L"Möchten Sie zuerst Operationen durchführen? (%i Patient(en))",
-	L"Möchten Sie an diesem Patienten zuerst eine Operation durchführen?",
-	L"Erste Hilfe automatisch mit entsprechender operativer Behandlung durchführen oder ohne?",
+	L"MÃ¶chten Sie %s vor dem Bandagieren operativ behandeln? (Sie kÃ¶nnen etwa %i Lebenspunkte wiederherstellen.)",
+	L"MÃ¶chten Sie %s operativ behandeln? (Sie kÃ¶nnen etwa %i Lebenspunkte wiederherstellen.)",
+	L"MÃ¶chten Sie zuerst Operationen durchfÃ¼hren? (%i Patient(en))",
+	L"MÃ¶chten Sie an diesem Patienten zuerst eine Operation durchfÃ¼hren?",
+	L"Erste Hilfe automatisch mit entsprechender operativer Behandlung durchfÃ¼hren oder ohne?",
 	L"%s wurde erfolgreich operiert.",
 	L"%s ist am Torso getroffen und verliert einen Punkt maximaler Gesundheit!",
 	L"%s ist am Torso getroffen und verliert %d Punkte maximaler Gesundheit!",
 	L"%s hat einen Punkt an %s wiedergewonnen.",
 	L"%s hat %d Punkte an %s wiedergewonnen.",
-	L"Ihre Späher-Fertigkeit hat Sie davor bewahrt, vom Gegner in einen Hinterhalt gelockt zu werden.",
-	L"Dank Ihrer Späher-Fertigkeit haben Sie erfolgreich ein Rudel Bloodcats umgangen.",
+	L"Ihre SpÃ¤her-Fertigkeit hat Sie davor bewahrt, vom Gegner in einen Hinterhalt gelockt zu werden.",
+	L"Dank Ihrer SpÃ¤her-Fertigkeit haben Sie erfolgreich ein Rudel Bloodcats umgangen.",
 	L"%s wurde in die Leiste getroffen und windet sich in Schmerzen!",
 	//////////////////////////////////////////////////////////////////////////////////////
 	L"Warning: enemy corpse found!!!",
@@ -5714,45 +5714,45 @@ STR16 New113HAMMessage[] =
 	// 0 - 5
 	L"%s zittert vor Angst!",
 	L"%s ist festgenagelt!",
-	L"%s feuert mehr Schüsse als beabsichtigt!",
-	L"Sie können keine Miliz in diesem Sektor ausbilden.",
+	L"%s feuert mehr SchÃ¼sse als beabsichtigt!",
+	L"Sie kÃ¶nnen keine Miliz in diesem Sektor ausbilden.",
 	L"Miliz hebt %s auf.",
-	L"Wenn Feinde im Sektor sind können Sie keine Miliz ausbilden!",
+	L"Wenn Feinde im Sektor sind kÃ¶nnen Sie keine Miliz ausbilden!",
 	// 6 - 10
-	L"%s hat nicht genug Führungsqualität um Milizen auszubilden.",	
+	L"%s hat nicht genug FÃ¼hrungsqualitÃ¤t um Milizen auszubilden.",	
 	L"Pro Sektor sind nicht mehr als %d Milizausbilder erlaubt.",	
-	L"Kein Platz für mobile Milizen in oder rund um %s!",
-	L"Sie benötigen %d Stadtmilizen in jedem von %ss befreiten Sektoren bevor Sie hier mobile Milizen ausbilden können.",
+	L"Kein Platz fÃ¼r mobile Milizen in oder rund um %s!",
+	L"Sie benÃ¶tigen %d Stadtmilizen in jedem von %ss befreiten Sektoren bevor Sie hier mobile Milizen ausbilden kÃ¶nnen.",
 	L"Anlage nicht nutzbar wenn Feinde in der Gegend sind!",
 	// 11 - 15
-	L"%s hat nicht genügend Weisheit um diese Anlage betreiben zu können.",
+	L"%s hat nicht genÃ¼gend Weisheit um diese Anlage betreiben zu kÃ¶nnen.",
 	L"%s ist schon voll besetzt.",
 	L"Diese Anlage zu betreiben kostet $%d pro Stunde. Weitermachen?",
 	L"Sie haben nicht genug Geld um alle heutigen Betriebskosten zu zahlen. $%d wurden bezahlt, $%d fehlen noch. Die Einwohner sind nicht erfreut.",
 	L"Sie haben nicht genug Geld um alle heutigen Betriebskosten zu zahlen. Es stehen $%d aus. Die Einwohner sind nicht erfreut.",
 	// 16 - 20
-	L"Sie haben eine ausstehende Forderung von $%d für Betriebskosen und kein Geld um zu bezahlen!",
-	L"Sie haben eine ausstehende Forderung von $%d für Betriebskosen. Dieser Anlage können Sie keinen Söldner zuweisen bis Sie Ihre gesamten Schulden beglichen haben.",
-	L"Sie haben eine ausstehende Forderung von $%d für Betriebskosen. Möchten Sie diese Schuld begleichen?",
-	L"Nicht möglich in diesem Sektor",
+	L"Sie haben eine ausstehende Forderung von $%d fÃ¼r Betriebskosen und kein Geld um zu bezahlen!",
+	L"Sie haben eine ausstehende Forderung von $%d fÃ¼r Betriebskosen. Dieser Anlage kÃ¶nnen Sie keinen SÃ¶ldner zuweisen bis Sie Ihre gesamten Schulden beglichen haben.",
+	L"Sie haben eine ausstehende Forderung von $%d fÃ¼r Betriebskosen. MÃ¶chten Sie diese Schuld begleichen?",
+	L"Nicht mÃ¶glich in diesem Sektor",
 	L"Tagesausgaben",
 	// 21 - 25
-	L"Nicht genug Geld für alle angeworbenen Milzen! %d Milzen wurden entlassen und sind heimgekehrt.",
+	L"Nicht genug Geld fÃ¼r alle angeworbenen Milzen! %d Milzen wurden entlassen und sind heimgekehrt.",
 
 };
 
 // WANNE: These are the email texts Speck sends when one of the 4 new 1.13 MERC mercs have levelled up
-// INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+// INFO: Do not replace the Â± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16	New113MERCMercMailTexts[] =
 {
 	// Gaston: Text from Line 39 in Email.edt
-	L"Hiermit geben wir zur Kenntnis, dass aufgrund von Gastons guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± ",
+	L"Hiermit geben wir zur Kenntnis, dass aufgrund von Gastons guten Leistungen in der Vergangenheit sein Sold erhÃ¶ht wurde. Ich persÃ¶nlich bin darÃ¼ber nicht Ã¼berrascht. Â± Â± Speck T. Kline Â± ",
 	// Stogie: Text from Line 43 in Email.edt
-	L"Bitte nehmen Sie zur Kenntnis, dass Stogies Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht werden in Anpassung an seine verbesserten Fähigkeiten. ± ± Speck T. Kline ± ", 
+	L"Bitte nehmen Sie zur Kenntnis, dass Stogies BezÃ¼ge fÃ¼r seine geleisteten Dienste mit sofortiger Wirkung erhÃ¶ht werden in Anpassung an seine verbesserten FÃ¤higkeiten. Â± Â± Speck T. Kline Â± ", 
 	// Tex: Text from Line 45 in Email.edt
-	L"Bitte nehmen Sie zur Kenntnis, dass Tex aufgrund seiner Erfahrung Anspruch auf eine angemessenere Entlohnung hat. Seine Bezüge werden daher ab sofort seinem Wert entsprechend erhöht. ± ± Speck T. Kline ± ",
+	L"Bitte nehmen Sie zur Kenntnis, dass Tex aufgrund seiner Erfahrung Anspruch auf eine angemessenere Entlohnung hat. Seine BezÃ¼ge werden daher ab sofort seinem Wert entsprechend erhÃ¶ht. Â± Â± Speck T. Kline Â± ",
 	// Biggins: Text from Line 49 in Email.edt
-	L"Zur Kenntnisnahme. Aufgrund seiner verbesserten Leistungen wurden Colonel Biggins' Dienstbezüge erhöht. ± ± Speck T. Kline ± ",
+	L"Zur Kenntnisnahme. Aufgrund seiner verbesserten Leistungen wurden Colonel Biggins' DienstbezÃ¼ge erhÃ¶ht. Â± Â± Speck T. Kline Â± ",
 };
 
 // WANNE: This is email text (each 2 line), when we left a message on AIM and now the merc is back
@@ -5760,67 +5760,67 @@ STR16	New113AIMMercMailTexts[] =
 {
 	// Monk
 	L"Weitergeleitet von AIM-Server: Nachricht von Victor Kolesnikov",
-	L"Vielen Dank für Nachricht auf Anrufbeantworter. Nun stehe ich zur Verfügung. ± ± Allerdings bin ich wählerisch mit meine Komamandanten. Ich werde mich noch über Sie erkundigen.± ± V.K. ±",
+	L"Vielen Dank fÃ¼r Nachricht auf Anrufbeantworter. Nun stehe ich zur VerfÃ¼gung. Â± Â± Allerdings bin ich wÃ¤hlerisch mit meine Komamandanten. Ich werde mich noch Ã¼ber Sie erkundigen.Â± Â± V.K. Â±",
 
 	// Brain
 	L"Weitergeleitet von AIM-Server: Nachricht von Janno Allik",
-	L"Jetzt wäre ich bereit für einen Auftrag. Sie wissen schon, alles zu seiner Zeit. ± ± Janno Allik ±",
+	L"Jetzt wÃ¤re ich bereit fÃ¼r einen Auftrag. Sie wissen schon, alles zu seiner Zeit. Â± Â± Janno Allik Â±",
 
 	// Scream
 	L"Weitergeleitet von AIM-Server: Nachricht von Lennart Vilde",
-	L"Vielen Dank für Ihre Kontaktaufnahme. Sagen Sie mir Bescheid, wenn die nächste Party steigen kann. Ab sofort erreichen Sie mich über die AIM page. ± ± Lennart Vilde.",
+	L"Vielen Dank fÃ¼r Ihre Kontaktaufnahme. Sagen Sie mir Bescheid, wenn die nÃ¤chste Party steigen kann. Ab sofort erreichen Sie mich Ã¼ber die AIM page. Â± Â± Lennart Vilde.",
 
 	// Henning
 	L"Weitergeleitet von AIM-Server: Nachricht von Henning von Branitz",
-	L"Ihre Nachricht hat mich erreicht, vielen Dank. Falls Sie mich engagieren möchten, kontaktieren Sie mich über die AIM Website. ± ± Bis die Tage! ± ± Henning von Branitz ±",
+	L"Ihre Nachricht hat mich erreicht, vielen Dank. Falls Sie mich engagieren mÃ¶chten, kontaktieren Sie mich Ã¼ber die AIM Website. Â± Â± Bis die Tage! Â± Â± Henning von Branitz Â±",
 
 	// Luc
 	L"Weitergeleitet von AIM-Server: Nachricht von Luc Fabre",
-	L"Ich habe Ihre Nachricht erhalten, merci. Zur Zeit könnte ich gerne einen Auftrag annehmen. Sie wissen ja, wo Sie mich erreichen. ± ± Sicher hören wir bald von einander. ±",
+	L"Ich habe Ihre Nachricht erhalten, merci. Zur Zeit kÃ¶nnte ich gerne einen Auftrag annehmen. Sie wissen ja, wo Sie mich erreichen. Â± Â± Sicher hÃ¶ren wir bald von einander. Â±",
 
 	// Laura
 	L"Weitergeleitet von AIM-Server: Nachricht von Dr. Laura Colin",
-	L"Ich grüße Sie! Schön, dass Sie mir eine Nachricht hinterlassen haben. Es hörte sich interessant an. ± ± Wenn Sie wieder bei AIM vorbeischauen, würde ich mich freuen, von Ihnen zu hören. ± ± Noch viel Erfolg! ± ± Dr. Laura Colin ±",
+	L"Ich grÃ¼ÃŸe Sie! SchÃ¶n, dass Sie mir eine Nachricht hinterlassen haben. Es hÃ¶rte sich interessant an. Â± Â± Wenn Sie wieder bei AIM vorbeischauen, wÃ¼rde ich mich freuen, von Ihnen zu hÃ¶ren. Â± Â± Noch viel Erfolg! Â± Â± Dr. Laura Colin Â±",
 
 	// Grace
 	L"Weitergeleitet von AIM-Server: Nachricht von Graziella Girelli",
-	L"Sie wollten mich kontaktieren, aber ich war leider nicht zu erreichen.± ± Ein Familientreffen. Sie kennen das ja sicher... Jetzt hab' ich erst mal wieder genug von Familie.± ± Jedenfalls freue ich mich, wenn Sie sich auf der AIM Site mit mir in Verbindung setzen. Ciao! ±",
+	L"Sie wollten mich kontaktieren, aber ich war leider nicht zu erreichen.Â± Â± Ein Familientreffen. Sie kennen das ja sicher... Jetzt hab' ich erst mal wieder genug von Familie.Â± Â± Jedenfalls freue ich mich, wenn Sie sich auf der AIM Site mit mir in Verbindung setzen. Ciao! Â±",
 
 	// Rudolf
 	L"Weitergeleitet von AIM-Server: Nachricht von Rudolf Steiger",
-	L"Wissen Sie eigentlich, wieviel Anrufe ich jeden Tag kriege? Jeder Pisser meint, er müsste hier anrufen.  ± ± Aber gut, ich bin jetzt wieder da. Falls Sie einen interessanten Auftrag haben. ±",
+	L"Wissen Sie eigentlich, wieviel Anrufe ich jeden Tag kriege? Jeder Pisser meint, er mÃ¼sste hier anrufen.  Â± Â± Aber gut, ich bin jetzt wieder da. Falls Sie einen interessanten Auftrag haben. Â±",
 
 	// WANNE: Generic mail, for additional merc made by modders, index >= 178
-	L"Weitergeleitet von AIM-Server: Nachricht über Söldner Verfügbarkeit",
-	L"Ich habe Ihre Nachricht erhalten und warte auf Ihren Rückruf. ±",
+	L"Weitergeleitet von AIM-Server: Nachricht Ã¼ber SÃ¶ldner VerfÃ¼gbarkeit",
+	L"Ich habe Ihre Nachricht erhalten und warte auf Ihren RÃ¼ckruf. Â±",
 };
 
 // WANNE: These are the missing skills from the impass.edt file
-// INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+// INFO: Do not replace the Â± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16 MissingIMPSkillsDescriptions[] =
 {
 	// Sniper	
-	L"Scharfschütze: Sie haben Augen wie ein Falke. Dadurch können sie sogar auf die Flügel einer Fliege aus hunderten von Metern schießen! ± ",
+	L"ScharfschÃ¼tze: Sie haben Augen wie ein Falke. Dadurch kÃ¶nnen sie sogar auf die FlÃ¼gel einer Fliege aus hunderten von Metern schieÃŸen! Â± ",
 	// Camouflage	
-	L"Tarnung: Neben Ihnen schauen sogar Büsche synthetisch aus. ± ",	
+	L"Tarnung: Neben Ihnen schauen sogar BÃ¼sche synthetisch aus. Â± ",	
 	// Ranger
-	L"Jäger: Sie haben eine bemerkenswerte Affinität zu schwer passierbarem Gelände und Ihre unermüdlichen Beine tragen Sie im Handumdrehen über Stock und Stein. ± ",	
+	L"JÃ¤ger: Sie haben eine bemerkenswerte AffinitÃ¤t zu schwer passierbarem GelÃ¤nde und Ihre unermÃ¼dlichen Beine tragen Sie im Handumdrehen Ã¼ber Stock und Stein. Â± ",	
 	// Gunslinger
-	L"Revolverheld: Sie beweisen enormes Talent im Umgang mit Pistolen und Revolvern aller Art. John Wayne lässt grüßen. ± ",
+	L"Revolverheld: Sie beweisen enormes Talent im Umgang mit Pistolen und Revolvern aller Art. John Wayne lÃ¤sst grÃ¼ÃŸen. Â± ",
 	// Squadleader
-	L"Zugführer: Ihre Rhetorik hat uns ganz schön beeindruckt und Ihre generelle Erscheinung motiviert einfach. In Ihrer Nähe kann eigentlich nichts schiefgehen. ± ",
+	L"ZugfÃ¼hrer: Ihre Rhetorik hat uns ganz schÃ¶n beeindruckt und Ihre generelle Erscheinung motiviert einfach. In Ihrer NÃ¤he kann eigentlich nichts schiefgehen. Â± ",
 	// Technician
-	L"Ingenieur: Sie können mit Hufeisen und altem Garn so gut wie alles reparieren, MacGyver würde vor Neid erblassen. ± ",
+	L"Ingenieur: Sie kÃ¶nnen mit Hufeisen und altem Garn so gut wie alles reparieren, MacGyver wÃ¼rde vor Neid erblassen. Â± ",
 	// Doctor
-	L"Arzt: Ärzte wie Sie braucht das Land! Sie können Kranke heilen wie ein junger Jesus. ± ",
+	L"Arzt: Ã„rzte wie Sie braucht das Land! Sie kÃ¶nnen Kranke heilen wie ein junger Jesus. Â± ",
 	// Athletics
-	L"Läufer: So schnell und ausdauernd wie Sie rennen, möchte ich annehmen, Sie sind mit dem Wort Marathon vertraut. Einholen wird Sie bestimmt keiner. ± ",
+	L"LÃ¤ufer: So schnell und ausdauernd wie Sie rennen, mÃ¶chte ich annehmen, Sie sind mit dem Wort Marathon vertraut. Einholen wird Sie bestimmt keiner. Â± ",
 	// Bodybuilding
-	L"Kraftsportler: Arnie? Was für ein Weichei! Sie könnten ihn selbst mit einer gebrochenen Hand zu Boden befördern. ± ",
+	L"Kraftsportler: Arnie? Was fÃ¼r ein Weichei! Sie kÃ¶nnten ihn selbst mit einer gebrochenen Hand zu Boden befÃ¶rdern. Â± ",
 	// Demolitions
-	L"Sprengmeister: Nutzen Sie Ihre Begeisterung für alles, was mit mehrfacher Schallgeschwindigkeit expandiert um sich im Training mit Granaten und Sprengstoffen hervorzutun. ± ",
+	L"Sprengmeister: Nutzen Sie Ihre Begeisterung fÃ¼r alles, was mit mehrfacher Schallgeschwindigkeit expandiert um sich im Training mit Granaten und Sprengstoffen hervorzutun. Â± ",
 	// Scouting
-	L"Aufklärer: Sie sind über die Maßen aufmerksam, haben ein sehr reges Auge und einen nimmermüden Geist. ± ",	
+	L"AufklÃ¤rer: Sie sind Ã¼ber die MaÃŸen aufmerksam, haben ein sehr reges Auge und einen nimmermÃ¼den Geist. Â± ",	
 };
 
 STR16 NewInvMessage[] = 
@@ -5828,10 +5828,10 @@ STR16 NewInvMessage[] =
 	L"Rucksack kann zur Zeit nicht aufgehoben werden",
 	L"Kein Platz zum Ablegen des Rucksacks",
 	L"Rucksack nicht gefunden",
-	L"Reißverschluss funktioniert nur im Kampf",
-	L"Bewegung nicht möglich, während Reißverschluss des Rucksacks offen ist",
-	L"Sind Sie sicher, dass Sie alle Gegenstände im Sektor verkaufen wollen?",
-	L"Sind Sie sicher, dass Sie alle Gegenstände im Sektor löschen wollen?",
+	L"ReiÃŸverschluss funktioniert nur im Kampf",
+	L"Bewegung nicht mÃ¶glich, wÃ¤hrend ReiÃŸverschluss des Rucksacks offen ist",
+	L"Sind Sie sicher, dass Sie alle GegenstÃ¤nde im Sektor verkaufen wollen?",
+	L"Sind Sie sicher, dass Sie alle GegenstÃ¤nde im Sektor lÃ¶schen wollen?",
 	L"Kann nicht beim Tragen eines Rucksacks klettern",
 };
 
@@ -5841,15 +5841,15 @@ STR16 MPServerMessage[] =
 	// 0
 	L"Initialisiere RakNet Server...",
 	L"Server gestartet, warte auf Client-Verbindungen...",
-	L"Sie müssen sich nun als Client durch drücken von '2' mit dem Server verbinden.",
-	L"Server läuft bereits.",
+	L"Sie mÃ¼ssen sich nun als Client durch drÃ¼cken von '2' mit dem Server verbinden.",
+	L"Server lÃ¤uft bereits.",
 	L"Starten des Servers ist fehlgeschlagen. Abbruch.",
 	// 5	
-	L"%d/%d Clients sind bereit für Echtzeitmodus.",
+	L"%d/%d Clients sind bereit fÃ¼r Echtzeitmodus.",
 	L"Verbindung zum Server ist unterbrochen, wird heruntergefahren.",
-	L"Server läuft nicht.",
+	L"Server lÃ¤uft nicht.",
 	L"Clients sind noch am laden, bitte warten...",
-	L"Sie können die Absprungzone nicht ändern, wenn der Server bereits gestartet wurde.",
+	L"Sie kÃ¶nnen die Absprungzone nicht Ã¤ndern, wenn der Server bereits gestartet wurde.",
 	// 10
 	L"Datei '%S' gesendet - 100/100",
 	L"Alle Dateien wurden an '%S' gesendet.",
@@ -5860,72 +5860,72 @@ STR16 MPClientMessage[] =
 {
 	// 0
 	L"Initialisiere RakNet Client...",
-	L"Verbinde zur ausgewählten Server-IP...",
+	L"Verbinde zur ausgewÃ¤hlten Server-IP...",
 	L"Erhalte Spieleinstellungen:",
 	L"Sie sind bereits verbunden.",
 	L"Sie verbinden sich bereits...",
 	// 5
 	L"Client #%d - '%S' hat '%s' angeheuert.",
-	L"Client #%d - '%S' hat einen weiteren Söldner angeheuert.",
+	L"Client #%d - '%S' hat einen weiteren SÃ¶ldner angeheuert.",
 	L"Sie sind bereit - Gesamt bereit = %d/%d",
 	L"Sie sind nicht mehr bereit - Gesamt bereit = %d/%d",
 	L"Starte Gefecht...",
 	// 10
 	L"Client #%d - '%S' ist bereit - Gesamt bereit = %d/%d",
 	L"Client #%d - '%S' ist nicht mehr bereit - Gesamt bereit = %d/%d",
-	L"Sie sind bereit. Warte auf die anderen Clients... Drücken Sie 'OK' wenn Sie doch noch nicht bereit sind.",
+	L"Sie sind bereit. Warte auf die anderen Clients... DrÃ¼cken Sie 'OK' wenn Sie doch noch nicht bereit sind.",
 	L"Lass uns das Gefecht beginnen!",
-	L"Ein Client muss laufen, um das Spiel beginnen zu können.",		//LOOTF - Hintergrund? Wenn kein Client aktiv ist, gibt es doch auch niemanden, der eine Aufforderung zum Spielstart setzt? oO
+	L"Ein Client muss laufen, um das Spiel beginnen zu kÃ¶nnen.",		//LOOTF - Hintergrund? Wenn kein Client aktiv ist, gibt es doch auch niemanden, der eine Aufforderung zum Spielstart setzt? oO
 	// 15
-	L"Spiel kann nicht gestartet werden. Es sind noch keine Söldner angeheuert.",
-	L"Erwarte Freigabe vom Server für den Laptop...",
+	L"Spiel kann nicht gestartet werden. Es sind noch keine SÃ¶ldner angeheuert.",
+	L"Erwarte Freigabe vom Server fÃ¼r den Laptop...",
 	L"Unterbrochen",
 	L"Unterbrechung beendet",
 	L"Maus-Raster-Koordinaten:",
 	// 20
 	L"X: %d, Y: %d",
 	L"Raster-Nummer: %d",
-	L"Aktion kann nur der Server durchführen.",
-	L"Wähle exklusive Server-Aktion:  ('1' - Laptop freischalten/anheuern)  ('2' - Gefecht starten/Sektor laden)  ('3' - Interface freischalten )  ('4' - Söldner Platzierung abschließen) ",
-	L"Sektor=%s, Max. Clients=%d, Teamgröße=%d, Spieltyp=%d, Gleiche Söldner=%d, Schaden-Mult.=%f, Rundenzeitbeschr.=%d, Seks/Tik=%d, Kein Bobby Ray=%d, Keine Aim/Merc-Ausrüstung=%d, Keine Moral=%d, Testen=%d",		//LOOTF - Was ist Seks/Tik? Lol. Sextick. Finde gut. Englisch = Secs/Tic, aber das sagt mir auch nix.
+	L"Aktion kann nur der Server durchfÃ¼hren.",
+	L"WÃ¤hle exklusive Server-Aktion:  ('1' - Laptop freischalten/anheuern)  ('2' - Gefecht starten/Sektor laden)  ('3' - Interface freischalten )  ('4' - SÃ¶ldner Platzierung abschlieÃŸen) ",
+	L"Sektor=%s, Max. Clients=%d, TeamgrÃ¶ÃŸe=%d, Spieltyp=%d, Gleiche SÃ¶ldner=%d, Schaden-Mult.=%f, Rundenzeitbeschr.=%d, Seks/Tik=%d, Kein Bobby Ray=%d, Keine Aim/Merc-AusrÃ¼stung=%d, Keine Moral=%d, Testen=%d",		//LOOTF - Was ist Seks/Tik? Lol. Sextick. Finde gut. Englisch = Secs/Tic, aber das sagt mir auch nix.
 	// 25
 	L"Testmodus und Cheat-Funktion mit '9' ist freigeschaltet.",
 	L"Neue Verbindung: Client #%d - '%S'.",
 	L"Team: %d.",
-	L"'%s' (Client #%d - '%S') wurde getötet von '%s' (Client #%d - '%S')",
+	L"'%s' (Client #%d - '%S') wurde getÃ¶tet von '%s' (Client #%d - '%S')",
 	L"Werfe Client #%d - '%S' aus dem Spiel.",
 	// 30
-	L"Starte Spielzug für Client Nummer: #1 - '%S' | #2 - '%S' | #3 - '%S' | #4 - '%S'",
-	L"Starte Spielzug für Client #%d",
+	L"Starte neuen Spielzug fÃ¼r gewÃ¤hlten Client. #1: <Abbruch>, #2: %S, #3: %S, #4: %S",
+	L"Starte Spielzug fÃ¼r Client #%d",
 	L"Anfrage auf Echtzeit-Modus...",
 	L"In Echtzeit-Modus gewechselt.",
-	L"Fehler: Es ist ein Fehler beim Zurückwechseln in den Echtzeit-Modus aufgetreten",
+	L"Fehler: Es ist ein Fehler beim ZurÃ¼ckwechseln in den Echtzeit-Modus aufgetreten",
 	// 35
-	L"Laptop freischalten um Söldner anzuheuern? (Sind alle Clients bereits verbunden?)",
-	L"Server hat den Laptop freigeschaltet. Söldner anheuern!",
+	L"Laptop freischalten um SÃ¶ldner anzuheuern? (Sind alle Clients bereits verbunden?)",
+	L"Server hat den Laptop freigeschaltet. SÃ¶ldner anheuern!",
 	L"Unterbrechung.",
-	L"Sie können die Absprungzone nicht ändern, wenn Sie nur der Client und nicht zusätzlich der Server sind.",
+	L"Sie kÃ¶nnen die Absprungzone nicht Ã¤ndern, wenn Sie nur der Client und nicht zusÃ¤tzlich der Server sind.",
 	L"Sie haben das Angebot zur Kampfaufgabe abgelehnt.",
 	// 40
-	L"Alle Ihre Söldner wurden getötet!",
-	L"Überwachungsmodus wurde eingeschaltet.",
+	L"Alle Ihre SÃ¶ldner wurden getÃ¶tet!",
+	L"Ãœberwachungsmodus wurde eingeschaltet.",
 	L"Sie wurden besiegt!",
-	L"Auf Dächer klettern ist in einem Mehrspieler-Spiel nicht erlaubt.",
+	L"Auf DÃ¤cher klettern ist in einem Mehrspieler-Spiel nicht erlaubt.",
 	L"Sie haben '%s' angeheuert.",
 	// 45
-	L"Sie können den Sektor nicht ändern, wenn bereits Einkäufe begonnen haben",
+	L"Sie kÃ¶nnen den Sektor nicht Ã¤ndern, wenn bereits EinkÃ¤ufe begonnen haben",
 	L"Sektor gewechselt zu '%s'",
 	L"Verbindung zu Client '%s' abgebrochen, entferne Client vom Spiel.",
-	L"Ihre Verbindung zum Spiel wurde unterbrochen, gehe zurück zum Hauptmenü.",
-	L"Verbindung fehlgeschlagen. Wiederholung des Verbindungsaufbaus in 5 Sekunden. %i Versuche übrig...",
+	L"Ihre Verbindung zum Spiel wurde unterbrochen, gehe zurÃ¼ck zum HauptmenÃ¼.",
+	L"Verbindung fehlgeschlagen. Wiederholung des Verbindungsaufbaus in 5 Sekunden. %i Versuche Ã¼brig...",
 	//50
 	L"Verbindung fehlgeschlagen, Abbruch...",
-	L"Sie können das Spiel nicht beginnen, solange sich noch kein weiterer Spieler verbunden hat.",
+	L"Sie kÃ¶nnen das Spiel nicht beginnen, solange sich noch kein weiterer Spieler verbunden hat.",
 	L"%s : %s",
 	L"Sende an alle",
-	L"Nur Verbündete",
+	L"Nur VerbÃ¼ndete",
 	// 55
-	L"Spielbeitritt nicht möglich. Das Spiel ist bereits gestartet.",
+	L"Spielbeitritt nicht mÃ¶glich. Das Spiel ist bereits gestartet.",
 	L"%s (Team): %s",
 	L"#%i - '%s'",
 	L"%S - 100/100",
@@ -5934,25 +5934,26 @@ STR16 MPClientMessage[] =
 	L"Alle Dateien vom Server erhalten.",
 	L"'%S' hat alle Dateien vom Server heruntergeladen.",
 	L"'%S' startet mit dem Download der Dateien.",
-	L"Starten des Spiels ist nicht möglich solange die Clients noch nicht alle Dateien erhalten haben.",
-	L"Dieser Server erfordert, dass sie modifizierte Dateien für das Spiel herunterladen. Möchten Sie fortfahren?",
+	L"Starten des Spiels ist nicht mÃ¶glich solange die Clients noch nicht alle Dateien erhalten haben.",
+	L"Dieser Server erfordert, dass sie modifizierte Dateien fÃ¼r das Spiel herunterladen. MÃ¶chten Sie fortfahren?",
 	// 65
-	L"Drücken Sie 'Bereit' um in den taktischen Bildschirm zu gelangen.",
+	L"DrÃ¼cken Sie 'Bereit' um in den taktischen Bildschirm zu gelangen.",
 	L"Kann keine Verbindung herstellen, weil Ihre Version %S unterschiedlich zur Server Version %S ist.",
-	L"Sie haben einen gegnerischen Soldaten getötet.",
+	L"Sie haben einen gegnerischen Soldaten getÃ¶tet.",
 	L"Spiel kann nicht gestartet werden, weil es keine unterschiedlichen Teams gibt.",
-	L"Die Spieleinstellungen erfordern Neues Inventar (NIV), aber NIV ist aufgrund der Spielauflösung nicht verwendbar.",
+	L"Die Spieleinstellungen erfordern Neues Inventar (NIV), aber NIV ist aufgrund der SpielauflÃ¶sung nicht verwendbar.",
 	// 70
 	L"Kann erhaltene Datei '%S' nicht speichern",
-	L"%s's Sprengstoff wurde von &s entschärft",
-	L"Sie haben verloren. Was für eine Schande",	// All over red rover
-	L"Überwachungsmodus wurde ausgeschaltet",
-	L"Welcher Client soll vom Spiel entfernt werden:",
+	L"%s's Sprengstoff wurde von &s entschÃ¤rft",
+	L"Sie haben verloren. Was fÃ¼r eine Schande",	// All over red rover
+	L"Ãœberwachungsmodus wurde ausgeschaltet",
+	L"WÃ¤hlen Sie den Client, der gekickt werden soll. #1: <Abbruch>, #2: %S, #3: %S, #4: %S",
 	// 75
 	L"Team #%d wurde vernichtet",
 	L"Client konnte nicht gestartet werden. Beendigung.",
-	L"Client Verbindung aufgelöst und heruntergefahren.",
-	L"Client läuft nicht.",
+	L"Client Verbindung aufgelÃ¶st und heruntergefahren.",
+	L"Client lÃ¤uft nicht.",
+	L"INFO: Falls das Spiel hÃ¤ngen bleibt (die Statusanzeige beim Gegnerischen Zug bewegt sich nicht), informieren Sie den Server, dass dieser ALT + E drÃ¼cken soll, um Ihnen den Spielzug wieder zu geben!",
 };
 
 STR16 gszMPEdgesText[] =
@@ -5977,10 +5978,10 @@ STR16 gszMPMapscreenText[] =
 {
 	L"Spieltyp: ",
 	L"Spieler: ",
-	L"Teamgröße: ",
-	L"Sie können die Startpositionen nicht mehr ändern, sobald der Laptop freigeschaltet ist.",
-	L"Sie können die Teams nicht mehr ändern, sobald der Laptop freigeschaltet ist.",
-	L"Zuf. Söldner: ",
+	L"TeamgrÃ¶ÃŸe: ",
+	L"Sie kÃ¶nnen die Startpositionen nicht mehr Ã¤ndern, sobald der Laptop freigeschaltet ist.",
+	L"Sie kÃ¶nnen die Teams nicht mehr Ã¤ndern, sobald der Laptop freigeschaltet ist.",
+	L"Zuf. SÃ¶ldner: ",
 	L"J",
 	L"Schwierigkeit:",
 	L"Server Version:",
@@ -5992,11 +5993,11 @@ STR16 gzMPSScreenText[] =
 	L"Weiter",
 	L"Abbrechen",
 	L"Spieler",
-	L"Tötungen",
+	L"TÃ¶tungen",
 	L"Tote",
 	L"Gegnerische Armee",
 	L"Treffer",
-	L"Fehlschüsse",
+	L"FehlschÃ¼sse",
 	L"Treffgenauigkeit",
 	L"Schaden verursacht",
 	L"Schaden erhalten",
@@ -6009,15 +6010,15 @@ STR16 gzMPCScreenText[] =
 	L"Verbindungsaufbau zum Server",
 	L"Erhalte Server Einstellungen",
 	L"Herunterladen von Dateien",
-	L"Drücke 'ESC' zum Verlassen oder 'Y' zum Chatten",
-	L"Drücke 'ESC' zum Verlassen",
+	L"DrÃ¼cke 'ESC' zum Verlassen oder 'Y' zum Chatten",
+	L"DrÃ¼cke 'ESC' zum Verlassen",
 	L"Fertig"
 };
 
 STR16 gzMPChatToggleText[] =
 {
 	L"Sende an alle",
-	L"Sende nur an Verbündete",
+	L"Sende nur an VerbÃ¼ndete",
 };
 
 STR16 gzMPChatboxText[] =
@@ -6031,37 +6032,37 @@ STR16 gzMPChatboxText[] =
 STR16 pSkillTraitBeginIMPStrings[] =
 {
 	// For old traits
-	L"Auf der nächsten Seite können Sie Ihre Fertigkeiten entsprechend Ihrer Spezialisierung als Söldner festlegen. Es können nicht mehr als zwei verschiedene Fertigkeiten oder eine Expertenfertigkeit gewählt werden.",
-	L"Sie können auch nur eine oder gar keine Fertigkeit auswählen. Sie erhalten dafür einen Bonus zu Ihren Attributpunkten als Gegenleistung. Beachten Sie, dass die Fertigkeiten 'Elektronik', 'Beidhändig geschickt' und 'Getarnt' keine Experten-Spezialisierung erhalten.",
+	L"Auf der nÃ¤chsten Seite kÃ¶nnen Sie Ihre Fertigkeiten entsprechend Ihrer Spezialisierung als SÃ¶ldner festlegen. Es kÃ¶nnen nicht mehr als zwei verschiedene Fertigkeiten oder eine Expertenfertigkeit gewÃ¤hlt werden.",
+	L"Sie kÃ¶nnen auch nur eine oder gar keine Fertigkeit auswÃ¤hlen. Sie erhalten dafÃ¼r einen Bonus zu Ihren Attributpunkten als Gegenleistung. Beachten Sie, dass die Fertigkeiten 'Elektronik', 'BeidhÃ¤ndig geschickt' und 'Getarnt' keine Experten-Spezialisierung erhalten.",
 	// For new major/minor traits
-	L"Auf der nächsten Seite können Sie Ihre Fertigkeiten entsprechend Ihrer Spezialisierung festlegen. Auf der ersten Seite können Sie bis zu zwei Hauptfertigkeiten auswählen, die Ihre Rolle in einem Team repräsentieren, während Sie auf der zweiten Seite eine Liste der möglichen Nebenfertigkeiten finden.",
-	L"Es können nicht mehr als insgesamt drei Fertigkeiten gewählt werden, was bedeutet, dass, wenn Sie keine Hauptfertigkeiten angeben, dafür drei Nebenfertigkeiten verfügbar sind.",
+	L"Auf der nÃ¤chsten Seite kÃ¶nnen Sie Ihre Fertigkeiten entsprechend Ihrer Spezialisierung festlegen. Auf der ersten Seite kÃ¶nnen Sie bis zu zwei Hauptfertigkeiten auswÃ¤hlen, die Ihre Rolle in einem Team reprÃ¤sentieren, wÃ¤hrend Sie auf der zweiten Seite eine Liste der mÃ¶glichen Nebenfertigkeiten finden.",
+	L"Es kÃ¶nnen nicht mehr als insgesamt drei Fertigkeiten gewÃ¤hlt werden, was bedeutet, dass, wenn Sie keine Hauptfertigkeiten angeben, dafÃ¼r drei Nebenfertigkeiten verfÃ¼gbar sind.",
 };
 
 STR16 sgAttributeSelectionText[] =
 {
-	L"Bitte verteilen Sie nun Ihre Bonuspunkte auf die gewünschten Attribute. Der Wert kann dabei nicht höher sein als",
-	L"B.S.E. Eigenschaften und Fähigkeiten.",
+	L"Bitte verteilen Sie nun Ihre Bonuspunkte auf die gewÃ¼nschten Attribute. Der Wert kann dabei nicht hÃ¶her sein als",
+	L"B.S.E. Eigenschaften und FÃ¤higkeiten.",
 	L"Bonus Pkt.:",
 	L"Anfangs-Level",
 	// New strings for new traits - SANDRO
-	L"Im nächsten Schritt können Sie Ihre Attribute und Fähigkeiten festlegen. Attribute sind Gesundheit, Geschicklichkeit, Beweglichkeit, Stärke und Weisheit. Sie können nicht weniger als %d Punkte verteilen.",
-	L"Der Rest sind Ihre Fähigkeiten, die Sie auch auf 0 setzen können.",
-	L"Beachten Sie, dass bestimmte Attribute auf spezifische Minimalwerte gesetzt werden, die den Voraussetzungen der Fertigkeiten entsprechen. Sie können diese Werte nicht weiter senken.",	
+	L"Im nÃ¤chsten Schritt kÃ¶nnen Sie Ihre Attribute und FÃ¤higkeiten festlegen. Attribute sind Gesundheit, Geschicklichkeit, Beweglichkeit, StÃ¤rke und Weisheit. Sie kÃ¶nnen nicht weniger als %d Punkte verteilen.",
+	L"Der Rest sind Ihre FÃ¤higkeiten, die Sie auch auf 0 setzen kÃ¶nnen.",
+	L"Beachten Sie, dass bestimmte Attribute auf spezifische Minimalwerte gesetzt werden, die den Voraussetzungen der Fertigkeiten entsprechen. Sie kÃ¶nnen diese Werte nicht weiter senken.",	
 };
 
 STR16 pCharacterTraitBeginIMPStrings[] =
 {
 	L"B.S.E. Charakter-Analyse",
-	L"Die Charakter-Analyse ist der nächste Schritt bei der Erstellung Ihres Profils. Auf der nun folgenden Seite steht eine Vielzahl von Charaktereigenschaften zur Auswahl. Wir können uns vorstellen, dass Sie sich mit mehreren verbunden fühlen, entscheiden Sie sich daher bitte für die zutreffendste. ",
-	L"Die zweite Seite dient der Erfassung Ihrer Unzulänglichkeiten, die Sie möglicherweise haben (wir glauben, dass jeder Mensch nur eine große Schwäche hat). Bitte seien Sie dabei ehrlich, damit potentielle Arbeitgeber über Ihr zukünftiges Einsatzfeld informiert werden können.",
+	L"Die Charakter-Analyse ist der nÃ¤chste Schritt bei der Erstellung Ihres Profils. Auf der nun folgenden Seite steht eine Vielzahl von Charaktereigenschaften zur Auswahl. Wir kÃ¶nnen uns vorstellen, dass Sie sich mit mehreren verbunden fÃ¼hlen, entscheiden Sie sich daher bitte fÃ¼r die zutreffendste. ",
+	L"Die zweite Seite dient der Erfassung Ihrer UnzulÃ¤nglichkeiten, die Sie mÃ¶glicherweise haben (wir glauben, dass jeder Mensch nur eine groÃŸe SchwÃ¤che hat). Bitte seien Sie dabei ehrlich, damit potentielle Arbeitgeber Ã¼ber Ihr zukÃ¼nftiges Einsatzfeld informiert werden kÃ¶nnen.",
 };
 
 STR16 gzIMPAttitudesText[]=
 {
 	L"Neutral",
 	L"Freundlich",
-	L"Einzelgänger",
+	L"EinzelgÃ¤nger",
 	L"Optimist",
 	L"Pessimist",
 	L"Aggressiv",
@@ -6069,35 +6070,35 @@ STR16 gzIMPAttitudesText[]=
 	L"Bonze",
 	L"Arschloch",
 	L"Feigling",
-	L"B.S.E. - Persönlichkeit",
+	L"B.S.E. - PersÃ¶nlichkeit",
 };
 
 STR16 gzIMPCharacterTraitText[]=
 {
 	L"Neutral",
-	L"Umgänglich",		//LOOTF - alt. "Extrovertiert"
-	L"Einzelgängerisch",
+	L"UmgÃ¤nglich",		//LOOTF - alt. "Extrovertiert"
+	L"EinzelgÃ¤ngerisch",
 	L"Optimistisch",
 	L"Selbstsicher",
 	L"Lernbegeistert",
 	L"Primitiv",
 	L"Aggressiv",
 	L"Phlegmatisch",
-	L"Tollkühn",
+	L"TollkÃ¼hn",
 	L"Pazifistisch",
 	L"Sadistisch",
 	L"Machohaft",		//LOOTF - alt. "Angeberisch"
-	L"B.S.E. - Charakterzüge",
+	L"B.S.E. - CharakterzÃ¼ge",
 };
 
 STR16 gzIMPColorChoosingText[] =
 {
-	L"Erscheinung und Äußeres",
+	L"Erscheinung und Ã„uÃŸeres",
 	L"Hautfarbe",
 	L"Bitte geben Sie Ihre Haar- und Hautfarbe, Ihre Statur, sowie Ihre bevorzugten Kleidungsfarben an.",
 	L"Bitte geben Sie Ihre Haar- und Hautfarbe, sowie Ihre bevorzugten Kleidungsfarben an.",
-	L"Eingeschaltet, wird ein Gewehr einhändig abgefeuert.",
-	L"\n(Warnung: Sie werden eine Menge Stärke dafür benötigen.)",
+	L"Eingeschaltet, wird ein Gewehr einhÃ¤ndig abgefeuert.",
+	L"\n(Warnung: Sie werden eine Menge StÃ¤rke dafÃ¼r benÃ¶tigen.)",
 };
 
 STR16 sColorChoiceExplanationTexts[]=
@@ -6107,20 +6108,20 @@ STR16 sColorChoiceExplanationTexts[]=
 	L"Hemdfarbe",
 	L"Hosenfarbe",
 	L"Normale Statur",
-	L"Kräftige Statur",
+	L"KrÃ¤ftige Statur",
 };
 
 STR16 gzIMPDisabilityTraitText[]=
 {
-	L"Keine Schwäche",
+	L"Keine SchwÃ¤che",
 	L"Hitzeempfindlichkeit",
-	L"Nervosität",
+	L"NervositÃ¤t",
 	L"Klaustrophobie",
 	L"Nichtschwimmer",
 	L"Angst vor Insekten",
 	L"Vergesslichkeit",
 	L"Psychopath",
-	L"Ihre größte Schwäche",
+	L"Ihre grÃ¶ÃŸte SchwÃ¤che",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
@@ -6134,30 +6135,30 @@ STR16 gzFacilityErrorMessage[]=
 	L"%s mangelt es an ausreichender Treffsicherheit um diese Aufgabe zu erledigen.",
 	// 6 - 10
 	L"%s hat nicht genug Medizinkenntnis um diese Aufgabe zu erledigen.",
-	L"%s hat zu wenig technisches Verständnis um diese Aufgabe zu erledigen.",
-	L"%s mangelt es an ausreichender Führungsqualität um diese Aufgabe zu erledigen.",
+	L"%s hat zu wenig technisches VerstÃ¤ndnis um diese Aufgabe zu erledigen.",
+	L"%s mangelt es an ausreichender FÃ¼hrungsqualitÃ¤t um diese Aufgabe zu erledigen.",
 	L"%s hat nicht genug Sprengstoffkenntnis um diese Aufgabe zu erledigen.",
 	L"%s mangelt es an ausreichender Erfahrung um diese Aufgabe zu erledigen.",
 	// 11 - 15
 	L"%s hat nicht genug Moral um diese Aufgabe zu erledigen.",
-	L"%s ist zu erschöpft um diese Aufgabe zu erledigen.",
-	L"Zu wenig Loyalität in %s. Die Einwohner lassen Sie diese Aufgabe nicht verrichten.",
+	L"%s ist zu erschÃ¶pft um diese Aufgabe zu erledigen.",
+	L"Zu wenig LoyalitÃ¤t in %s. Die Einwohner lassen Sie diese Aufgabe nicht verrichten.",
 	L"Es arbeiten bereits zu viele Personen in %s.",
 	L"Zu viele Personen verrichten diese Aufgabe schon in %s.",
 	// 16 - 20
 	L"%s findet nichts mehr zum Reparieren.",
 	L"%s verliert %s beim Arbeiten in %s.",
 	L"%s hat ein paar %s verloren beim Arbeiten in der %s in %s !",
-	L"%s wurde verletzt beim Arbeiten in Sektor %s und benötigt dringend medizinische Versorgung!",
-	L"%s wurde verletzt beim Arbeiten in der %s in %s und benötigt dringend medizinische Versorgung!",
+	L"%s wurde verletzt beim Arbeiten in Sektor %s und benÃ¶tigt dringend medizinische Versorgung!",
+	L"%s wurde verletzt beim Arbeiten in der %s in %s und benÃ¶tigt dringend medizinische Versorgung!",
 	// 21 - 25
 	L"%s wurde verletzt beim Arbeiten in Sektor %s. Es scheint aber nichts Ernstes zu sein.",
 	L"%s wurde verletzt beim Arbeiten in der %s in %s. Es scheint aber nichts Ernstes zu sein.",
-	L"Die Einwohner von %s scheinen sich über die Anwesenheit von %s aufzuregen."
-	L"Die Einwohner von %s scheinen sich über die Arbeit von %s in der %s aufzuregen."
-	L"%ss Handeln im Sektor %s hat einen Loyalitätsverlust in der gesamten Region bewirkt!",
+	L"Die Einwohner von %s scheinen sich Ã¼ber die Anwesenheit von %s aufzuregen."
+	L"Die Einwohner von %s scheinen sich Ã¼ber die Arbeit von %s in der %s aufzuregen."
+	L"%ss Handeln im Sektor %s hat einen LoyalitÃ¤tsverlust in der gesamten Region bewirkt!",
 	// 26 - 30
-	L"%ss Handeln in der %s in %s hat einen Loyalitätsverlust in der gesamten Region bewirkt!",
+	L"%ss Handeln in der %s in %s hat einen LoyalitÃ¤tsverlust in der gesamten Region bewirkt!",
 	L"%s ist betrunken.", // <--- This is a log message string.
 	L"%s ist ernsthaft krank geworden in Sektor %s und wurde vom Dienst freigestellt.",
 	L"%s ist ernsthaft krank geworden und kann keine seine Arbeiten in der %s in %s fortsetzen.",
@@ -6177,7 +6178,7 @@ STR16 gzFacilityRiskResultStrings[]=
 	L"Gesundheit",
 	L"Treffsicherheit",
 	// 5-10
-	L"Führungsqualität",
+	L"FÃ¼hrungsqualitÃ¤t",
 	L"Technik",
 	L"Medizin",
 	L"Sprengstoffe",
@@ -6189,22 +6190,22 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"UMGEBUNG",
 	L"Betrieb",
 	L"Pause",
-	L"Repariere Gegenstände",
+	L"Repariere GegenstÃ¤nde",
 	L"Repariere %s",
 	L"Repariere Roboter",
 	// 6-10
 	L"Arzt",
 	L"Patient",
-	L"Üben Kraft",
-	L"Üben Geschicklichkeit",
-	L"Üben Beweglichkeit",
-	L"Üben Gesundheit",
+	L"Ãœben Kraft",
+	L"Ãœben Geschicklichkeit",
+	L"Ãœben Beweglichkeit",
+	L"Ãœben Gesundheit",
 	// 11-15
-	L"Üben Treffsicherheit",
-	L"Üben Medizin",
-	L"Üben Technik",
-	L"Üben Führungsqualität",
-	L"Üben Sprengstoff",
+	L"Ãœben Treffsicherheit",
+	L"Ãœben Medizin",
+	L"Ãœben Technik",
+	L"Ãœben FÃ¼hrungsqualitÃ¤t",
+	L"Ãœben Sprengstoff",
 	// 16-20
 	L"Rekrut Kraft",
 	L"Rekrut Geschicklichkeit",
@@ -6214,7 +6215,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	// 21-25
 	L"Rekrut Medizin",
 	L"Rekrut Technik",
-	L"Rekrut Führungsqualität.",
+	L"Rekrut FÃ¼hrungsqualitÃ¤t.",
 	L"Rekrut Sprengstoff",
 	L"Trainer Kraft",
 	// 26-30
@@ -6225,17 +6226,17 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Trainer Medizin",
 	// 30-35
 	L"Trainer Technik",
-	L"Trainer Führungsqualität",
+	L"Trainer FÃ¼hrungsqualitÃ¤t",
 	L"Trainer Sprengstoff",
 };
 
 STR16 Additional113Text[]=
 {
-	L"Für die korrekte Arbeit im Fenster-Modus benötigt Jagged Alliance 2 v1.13 16-bit Farbmodus.", //Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp or less.
+	L"FÃ¼r die korrekte Arbeit im Fenster-Modus benÃ¶tigt Jagged Alliance 2 v1.13 16-bit Farbmodus.", //Jagged Alliance 2 v1.13 windowed mode requires a color depth of 16bpp or less.
 
 	// WANNE: Savegame slots validation against INI file
 	L"Interner Fehler beim Auslesen der %s Slots des zu ladenden Spielstandes: Die Anzahl der Slots im Spielstand (%d) unterscheidet sich mit den definierten Slots in der Datei ja2_options.ini (%d)",
-	L"Söldner (MAX_NUMBER_PLAYER_MERCS) / Fahrzeuge (MAX_NUMBER_PLAYER_VEHICLES)", 
+	L"SÃ¶ldner (MAX_NUMBER_PLAYER_MERCS) / Fahrzeuge (MAX_NUMBER_PLAYER_VEHICLES)", 
 	L"Gegner (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
 	L"Monster (MAX_NUMBER_CREATURES_IN_TACTICAL)", 
 	L"Miliz (MAX_NUMBER_MILITIA_IN_TACTICAL)", 
@@ -6248,7 +6249,7 @@ STR16 sEnemyTauntsFireGun[]=
 	L"Friss Blei!",
 	L"Duck dich!",
 	L"Komm und hol mich!",
-	L"Du gehörst mir!",
+	L"Du gehÃ¶rst mir!",
 	L"Stirb!",
 	L"Zeit zu sterben.",
 	L"Vorsicht, Kugel!",
@@ -6258,7 +6259,7 @@ STR16 sEnemyTauntsFireGun[]=
 	L"Du kommst unter die Erde.",
 	L"Du kommst hier nicht lebend raus!",
 	L"Aufs Maul!",
-	L"Du hättest daheim bleiben sollen!",
+	L"Du hÃ¤ttest daheim bleiben sollen!",
 	L"Stirb doch!",
 };
 
@@ -6266,19 +6267,19 @@ STR16 sEnemyTauntsFireLauncher[]=
 {
 
 	L"Wird Zeit den Ballermann aus dem Sack zu holen.",
-	L"Überraschung.",
+	L"Ãœberraschung.",
 	L"Beenden wir das schmerzhaft.",
-	L"Bitte lächeln!",
+	L"Bitte lÃ¤cheln!",
 };
 
 STR16 sEnemyTauntsThrow[]=
 {
 	L"Hier, fang!",
-	L"Die ist für dich.",
+	L"Die ist fÃ¼r dich.",
 	L"Spiel doch damit!",
 	L"Hab da was fallen gelassen.",
 	L"Hahaha.",
-	L"Viel Spaß damit!",
+	L"Viel SpaÃŸ damit!",
 	L"Hrrmmgh... uff!",
 };
 
@@ -6293,19 +6294,19 @@ STR16 sEnemyTauntsChargeKnife[]=
 
 STR16 sEnemyTauntsRunAway[]=
 {
-	L"Wir sitzen in der Scheiße! Raus hier!",
+	L"Wir sitzen in der ScheiÃŸe! Raus hier!",
 	L"Komm zur Armee, haben sie gesagt... Tze!",
-	L"Aufklärung erfolgreich, Feind überlegen, weg hier!",
+	L"AufklÃ¤rung erfolgreich, Feind Ã¼berlegen, weg hier!",
 	L"Ohmeingottohmeingottohmeingott.",
-	L"Ganze Kampfgruppe - Rückzug!",
-	L"Rückzug! Alle Mann Rückzug!",
+	L"Ganze Kampfgruppe - RÃ¼ckzug!",
+	L"RÃ¼ckzug! Alle Mann RÃ¼ckzug!",
 	L"Weg von hier, die machen uns platt!",
 
 };
 
 STR16 sEnemyTauntsSeekNoise[]=
 {
-	L"Ich hab da was gehört.",
+	L"Ich hab da was gehÃ¶rt.",
 	L"Wer ist da? Ist da einer?",
 	L"Was war das eben?",
 	L"Paul, bist du das? Alles in Ordnung?",
@@ -6316,7 +6317,7 @@ STR16 sEnemyTauntsAlert[]=
 {
 	L"Alarm! Feindkontakt!",
 	L"Es geht los! Da sind sie!",
-	L"Ich seh einen von ihnen hier drüben!",
+	L"Ich seh einen von ihnen hier drÃ¼ben!",
 
 };
 
@@ -6324,10 +6325,10 @@ STR16 sEnemyTauntsGotHit[]=
 {
 	L"Argh!",
 	L"Hnngh!",
-	L"Der saß...",
+	L"Der saÃŸ...",
 	L"Au! Du Penner!",
 	L"Das wirst du bereuen!",
-	L"Sanitäter!",
+	L"SanitÃ¤ter!",
 	L"Ich hab doch gar nichts gemacht!",
 
 };
@@ -6352,10 +6353,10 @@ STR16 gzItemDescTabButtonShortText[] =
 
 STR16 gzItemDescGenHeaders[] =
 {
-	L"Primär",
-	L"Sekundär",
+	L"PrimÃ¤r",
+	L"SekundÃ¤r",
 	L"AP Kosten",
-	L"Feuerstoß/Autofeuer",
+	L"FeuerstoÃŸ/Autofeuer",
 };
 
 STR16 gzItemDescGenIndexes[] =
@@ -6368,30 +6369,30 @@ STR16 gzItemDescGenIndexes[] =
 
 STR16 gzUDBButtonTooltipText[]=
 {
-	L"|B|e|s|c|h|r|e|i|b|u|n|g:\n \nZeigt allgemeine Informationen über den Gegenstand.",
-	L"|A|l|l|g|e|m|e|i|n|e |E|i|g|e|n|s|c|h|a|f|t|e|n:\n \nZeigt typische Daten über den Gegenstand.",
+	L"|B|e|s|c|h|r|e|i|b|u|n|g:\n \nZeigt allgemeine Informationen Ã¼ber den Gegenstand.",
+	L"|A|l|l|g|e|m|e|i|n|e |E|i|g|e|n|s|c|h|a|f|t|e|n:\n \nZeigt typische Daten Ã¼ber den Gegenstand.",
 	L"|E|r|w|e|i|t|e|r|t|e |E|i|g|e|n|s|c|h|a|f|t|e|n:\n \nZeigt Vor-/Nachteile des Gegenstandes.",
 };
 
 STR16 gzUDBHeaderTooltipText[]=
 {
-	L"|P|r|i|m|ä|r|e |E|i|g|e|n|s|c|h|a|f|t|e|n:\n \nEigenschaften und Daten in Bezug auf die Gegenstandsklasse\n(Waffen / Rüstungen / usw.).",
-	L"|S|e|k|u|n|d|ä|r|e |E|i|g|e|n|s|c|h|a|f|t|e|n:\n \nZusätzliche Eigenschaften des Gegenstands,\nund/oder mögliche sekundäre Fähigkeiten.",
+	L"|P|r|i|m|Ã¤|r|e |E|i|g|e|n|s|c|h|a|f|t|e|n:\n \nEigenschaften und Daten in Bezug auf die Gegenstandsklasse\n(Waffen / RÃ¼stungen / usw.).",
+	L"|S|e|k|u|n|d|Ã¤|r|e |E|i|g|e|n|s|c|h|a|f|t|e|n:\n \nZusÃ¤tzliche Eigenschaften des Gegenstands,\nund/oder mÃ¶gliche sekundÃ¤re FÃ¤higkeiten.",
 	L"|A|P |K|o|s|t|e|n:\n \nDiverse AP Kosten in Bezug auf Abfeuern\noder Handhabung der Waffe.",
-	L"|F|e|u|e|r|s|t|o|ß|/|A|u|t|o|f|e|u|e|r |E|i|g|e|n|s|c|h|a|f|t|e|n:\n \nMit dem Abfeuern dieser Waffe verbundene Daten für\nFeuerstoß-/Autofeuermodus.",
+	L"|F|e|u|e|r|s|t|o|ÃŸ|/|A|u|t|o|f|e|u|e|r |E|i|g|e|n|s|c|h|a|f|t|e|n:\n \nMit dem Abfeuern dieser Waffe verbundene Daten fÃ¼r\nFeuerstoÃŸ-/Autofeuermodus.",
 };
 
 STR16 gzUDBGenIndexTooltipText[]=
 {
-	L"|E|i|g|e|n|s|c|h|a|f|t |S|y|m|b|o|l\n \nMaus-darüber um den Namen der Eigenschaft zu erfahren.",
-	L"|G|r|u|n|d|w|e|r|t\n \nDer normale Wert des Gegenstandes ausschließlich aller\nVor-/Nachteile von Erweiterungen oder Munition.",
+	L"|E|i|g|e|n|s|c|h|a|f|t |S|y|m|b|o|l\n \nMaus-darÃ¼ber um den Namen der Eigenschaft zu erfahren.",
+	L"|G|r|u|n|d|w|e|r|t\n \nDer normale Wert des Gegenstandes ausschlieÃŸlich aller\nVor-/Nachteile von Erweiterungen oder Munition.",
 	L"|E|r|w|e|i|t|e|r|u|n|g|s|b|o|n|u|s\n \nVor-/Nachteile von Munition, Erweiterungen, \noder schlechtem Zustand des Gegenstandes.",
-	L"|E|n|d|w|e|r|t\n \nDer endgültige Wert des Gegenstandes, einschließlich aller \nVor-/Nachteile von Erweiterungen oder Munition.",
+	L"|E|n|d|w|e|r|t\n \nDer endgÃ¼ltige Wert des Gegenstandes, einschlieÃŸlich aller \nVor-/Nachteile von Erweiterungen oder Munition.",
 };
 
 STR16 gzUDBAdvIndexTooltipText[]=
 {
-	L"Eigenschaft Symbol (Maus-darüber zeigt den Namen).",
+	L"Eigenschaft Symbol (Maus-darÃ¼ber zeigt den Namen).",
 	L"Vor-/Nachteil wenn |s|t|e|h|e|n|d.",
 	L"Vor-/Nachteil wenn |h|o|c|k|e|n|d.",
 	L"Vor-/Nachteil wenn |l|i|e|g|e|n|d.",
@@ -6404,122 +6405,122 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|S|c|h|a|d|e|n",
 	L"|R|e|i|c|h|w|e|i|t|e",
 	L"|E|r|l|a|u|b|t|e |Z|i|e|l|s|t|u|f|e|n",
-	L"|V|e|r|g|r|ö|ß|e|r|u|n|g|s|f|a|k|t|o|r",
+	L"|V|e|r|g|r|Ã¶|ÃŸ|e|r|u|n|g|s|f|a|k|t|o|r",
 	L"|P|r|o|j|e|k|t|i|o|n|s|f|a|k|t|o|r",
-	L"|U|n|t|e|r|b|u|n|d|e|n|e|s M|ü|n|d|u|n|g|s|f|e|u|e|r",
-	L"|L|a|u|t|s|t|ä|r|k|e",
-	L"|Z|u|v|e|r|l|ä|s|s|i|g|k|e|i|t",
-	L"|R|e|p|a|r|i|e|r|f|ä|h|i|g|k|e|i|t",
-	L"|M|i|n|d|e|s|t |R|e|i|c|h|w|e|i|t|e |f|ü|r |Z|i|e|l|v|o|r|t|e|i|l",
+	L"|U|n|t|e|r|b|u|n|d|e|n|e|s M|Ã¼|n|d|u|n|g|s|f|e|u|e|r",
+	L"|L|a|u|t|s|t|Ã¤|r|k|e",
+	L"|Z|u|v|e|r|l|Ã¤|s|s|i|g|k|e|i|t",
+	L"|R|e|p|a|r|i|e|r|f|Ã¤|h|i|g|k|e|i|t",
+	L"|M|i|n|d|e|s|t |R|e|i|c|h|w|e|i|t|e |f|Ã¼|r |Z|i|e|l|v|o|r|t|e|i|l",
 	L"|T|r|e|f|f|e|r |M|o|d|i|f|i|k|a|t|o|r",
 	L"", // (12)
-	L"|A|P|s |f|ü|r |A|n|l|e|g|e|n",
-	L"|A|P|s |f|ü|r |S|c|h|u|s|s",
-	L"|A|P|s |f|ü|r |Fe|u|e|r|s|t|o|ß ",
-	L"|A|P|s |f|ü|r |A|u|t|o|f|e|u|e|r",
-	L"|A|P|s |f|ü|r |N|a|c|h|l|a|d|e|n",
-	L"|A|P|s |f|ü|r |R|e|p|e|t|i|e|r|e|n",
-	L"|H|o|r|i|z|o|n|t|a|l|e|r |R|ü|c|k|s|t|o|ß",
-	L"|V|e|r|t|i|k|a|l|e|r |R|ü|c|k|s|t|o|ß",
+	L"|A|P|s |f|Ã¼|r |A|n|l|e|g|e|n",
+	L"|A|P|s |f|Ã¼|r |S|c|h|u|s|s",
+	L"|A|P|s |f|Ã¼|r |Fe|u|e|r|s|t|o|ÃŸ ",
+	L"|A|P|s |f|Ã¼|r |A|u|t|o|f|e|u|e|r",
+	L"|A|P|s |f|Ã¼|r |N|a|c|h|l|a|d|e|n",
+	L"|A|P|s |f|Ã¼|r |R|e|p|e|t|i|e|r|e|n",
+	L"|H|o|r|i|z|o|n|t|a|l|e|r |R|Ã¼|c|k|s|t|o|ÃŸ",
+	L"|V|e|r|t|i|k|a|l|e|r |R|Ã¼|c|k|s|t|o|ÃŸ",
 	L"|A|u|t|o|f|e|u|e|r |p|r|o |5 |A|P|s",
 };
 
 STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 {
-	L"\n \nBestimmt ob Kugeln, welche von dieser Waffe gefeuert werden, vom\nZiel abweichen.\n \nMaßstab: 0-100.\nHöher ist besser.",
-	L"\n \nBestimmt den durchschnittlichen Schaden den von dieser Waffe gefeuerte Kugeln machen,\nbevor Berücksichtigung von Rüstung oder Rüstungsdurchdringen.\n \nHöher ist besser.",
-	L"\n \nDie gößte Entfernung (in Felder) die von dieser Waffe gefeuerte Kugel\nzurücklegen, bevor sie zu Boden fallen.\n \nHöher ist besser.",
+	L"\n \nBestimmt ob Kugeln, welche von dieser Waffe gefeuert werden, vom\nZiel abweichen.\n \nMaÃŸstab: 0-100.\nHÃ¶her ist besser.",
+	L"\n \nBestimmt den durchschnittlichen Schaden den von dieser Waffe gefeuerte Kugeln machen,\nbevor BerÃ¼cksichtigung von RÃ¼stung oder RÃ¼stungsdurchdringen.\n \nHÃ¶her ist besser.",
+	L"\n \nDie gÃ¶ÃŸte Entfernung (in Felder) die von dieser Waffe gefeuerte Kugel\nzurÃ¼cklegen, bevor sie zu Boden fallen.\n \nHÃ¶her ist besser.",
 	L"\n \nDas ist die Anzahl von extra Ziellevel welche Sie erhalten,\nwenn Sie mit der Waffe zielen.\n \nJe weniger Ziellevel erlaubt sind desto mehr\nLevel erhalten Sie. Deshalb, weniger Level zu haben,\nmacht die Waffe schneller ohne an Genauigkeit\nzu verlieren.\n \nNiedriger ist besser.",
-	L"\n \nWenn größer als 1.0, werden Zielfehler\nproportional zur Entfernung reduziert.\n \nZur Erinnernung hohe Zielfernrohrvergrößerungen sind schädlich wenn das Ziel zu nahe ist!\n \n Der Wert von 1.0 bedeutet kein Zielfernrohr wird benutzt.",
-	L"\n \nReduziert Zielfehler proportional zur Entfernung.\n \nDieser Effekt wirkt bis zu einer gegebenen Entfernung,\ndann löst er sich langsam auf und verschwindet evtl. bei ausreichender Entfernung.\n \nHöher ist besser.",
-	L"\n \nWenn diese Eigenschaft in Kraft ist, dann produziert die Waffe kein sichtbares Mündungsfeuer\nwenn abgefeuert.\n \nFeinde werden Sie nicht bloß beim Mündungsfeuer ausfindig machen können\n(aber Sie können Sie dennoch hören).",
-	L"\n \nBestimmt die Entfernung (in Felder) der erzeugten Lautstärke,\nwenn die Waffe geschossen wird.\n \nFeinde innerhalb dieser Entfernung hören den Schuss, Feinde außerhalb nicht.\n \nNiedriger ist besser.",
-	L"\n \nBestimmt, wie schnell sich diese Waffe bei Gebrauch abnutzt.\n \nHöher ist besser.",
-	L"\n \nBestimmt, wie schwierig es ist die Waffe zu reparieren.\n \nHöher ist besser.",
+	L"\n \nWenn grÃ¶ÃŸer als 1.0, werden Zielfehler\nproportional zur Entfernung reduziert.\n \nZur Erinnernung hohe ZielfernrohrvergrÃ¶ÃŸerungen sind schÃ¤dlich wenn das Ziel zu nahe ist!\n \n Der Wert von 1.0 bedeutet kein Zielfernrohr wird benutzt.",
+	L"\n \nReduziert Zielfehler proportional zur Entfernung.\n \nDieser Effekt wirkt bis zu einer gegebenen Entfernung,\ndann lÃ¶st er sich langsam auf und verschwindet evtl. bei ausreichender Entfernung.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn diese Eigenschaft in Kraft ist, dann produziert die Waffe kein sichtbares MÃ¼ndungsfeuer\nwenn abgefeuert.\n \nFeinde werden Sie nicht bloÃŸ beim MÃ¼ndungsfeuer ausfindig machen kÃ¶nnen\n(aber Sie kÃ¶nnen Sie dennoch hÃ¶ren).",
+	L"\n \nBestimmt die Entfernung (in Felder) der erzeugten LautstÃ¤rke,\nwenn die Waffe geschossen wird.\n \nFeinde innerhalb dieser Entfernung hÃ¶ren den Schuss, Feinde auÃŸerhalb nicht.\n \nNiedriger ist besser.",
+	L"\n \nBestimmt, wie schnell sich diese Waffe bei Gebrauch abnutzt.\n \nHÃ¶her ist besser.",
+	L"\n \nBestimmt, wie schwierig es ist die Waffe zu reparieren.\n \nHÃ¶her ist besser.",
 	L"\n \nDie minimale Entfernung um einen Zielvorteil zu erhalten.",
-	L"\n \nTreffermodifikator den eine Laservorrichtung gewährleistet.",
+	L"\n \nTreffermodifikator den eine Laservorrichtung gewÃ¤hrleistet.",
 	L"", // (12)
-	L"\n \nDie Anzahl von APs nötig um die Waffe anzulegen.\n \nSobald die Waffe angelegt ist, können Sie wiederholt feuern ohne diese Kosten erneut zu bezahlen.\n \nEine Waffe ist automatisch abgelegt wenn der Anwender irgendeine andere Aktivität ausübt,\nmit der Ausnahme von schießen oder ausrichten.\n \nNiedriger ist besser.",
-	L"\n \nDie Anzahl von APs nötig um einen einzelnen Angriff mit dieser Waffe durchzuführen.\n \nFür Schusswaffen ist dies der Aufwand für einen Einzelschuss ohne extra Zielen.\n \nWenn das Symbol 'grau' erscheint sind Einzelschüsse nicht möglich.\n \nNiedriger ist besser.",
-	L"\n \nDie Anzahl von APs die für einen Feuerstoß benötigt werden.\n \nDie Anzahl der Geschosse welche mit jedem Feuerstoß abgefeuert werden hängt von der Waffe selbst ab,\nund ist angedeutet bei der Anzahl der Kugeln neben dem Symbol.\n \nWenn das Symbol 'grau' erscheint ist ein Feuerstoss nicht möglich.\n \nNiedriger ist besser.",
-	L"\n \nDie Anzahl von APs die für eine Autofeuer Salve von genau 3 Kugeln benötigt werden.\nWenn das Symbol 'grau' erscheint ist Autofeuer nicht möglich.\n \nNiedriger ist besser.",
-	L"\n \nDie Anzahl von APs die für das Nachladen benötigt werden.\n \nNiedriger ist besser.",
-	L"\n \nDie Anzahl von APs die für das repetieren der Waffe benötigt werden.\n \nNiedriger ist besser.",
-	L"\n \nDie Entfernung in der die Mündung horizontal nach jeder Salve in Feurstoss- oder Autofeurmodus abweicht.\n \nPositive Zahlen zeigen Abweichungen nach rechts an.\nNegative Zahlen zeigen Abweichungen nach links an.\n \nNäher an 0 ist besser.",
-	L"\n \nDie Entfernung in der die Mündung vertikal nach jeder Salve in Feurstoss- oder Autofeurmodus abweicht.\n \nPositive Zahlen zeigen Abweichungen nach oben an.\nNegative Zahlen zeigen Abweichungen nach unten an.\n \nNäher an 0 ist besser.",
-	L"\n \nZeigt die Anzahl der Kugeln an, welche zu einer Autofeuer Salve für jeweils 5 investierte AP addiert werden.\n \nHöher ist besser.",
+	L"\n \nDie Anzahl von APs nÃ¶tig um die Waffe anzulegen.\n \nSobald die Waffe angelegt ist, kÃ¶nnen Sie wiederholt feuern ohne diese Kosten erneut zu bezahlen.\n \nEine Waffe ist automatisch abgelegt wenn der Anwender irgendeine andere AktivitÃ¤t ausÃ¼bt,\nmit der Ausnahme von schieÃŸen oder ausrichten.\n \nNiedriger ist besser.",
+	L"\n \nDie Anzahl von APs nÃ¶tig um einen einzelnen Angriff mit dieser Waffe durchzufÃ¼hren.\n \nFÃ¼r Schusswaffen ist dies der Aufwand fÃ¼r einen Einzelschuss ohne extra Zielen.\n \nWenn das Symbol 'grau' erscheint sind EinzelschÃ¼sse nicht mÃ¶glich.\n \nNiedriger ist besser.",
+	L"\n \nDie Anzahl von APs die fÃ¼r einen FeuerstoÃŸ benÃ¶tigt werden.\n \nDie Anzahl der Geschosse welche mit jedem FeuerstoÃŸ abgefeuert werden hÃ¤ngt von der Waffe selbst ab,\nund ist angedeutet bei der Anzahl der Kugeln neben dem Symbol.\n \nWenn das Symbol 'grau' erscheint ist ein Feuerstoss nicht mÃ¶glich.\n \nNiedriger ist besser.",
+	L"\n \nDie Anzahl von APs die fÃ¼r eine Autofeuer Salve von genau 3 Kugeln benÃ¶tigt werden.\nWenn das Symbol 'grau' erscheint ist Autofeuer nicht mÃ¶glich.\n \nNiedriger ist besser.",
+	L"\n \nDie Anzahl von APs die fÃ¼r das Nachladen benÃ¶tigt werden.\n \nNiedriger ist besser.",
+	L"\n \nDie Anzahl von APs die fÃ¼r das repetieren der Waffe benÃ¶tigt werden.\n \nNiedriger ist besser.",
+	L"\n \nDie Entfernung in der die MÃ¼ndung horizontal nach jeder Salve in Feurstoss- oder Autofeurmodus abweicht.\n \nPositive Zahlen zeigen Abweichungen nach rechts an.\nNegative Zahlen zeigen Abweichungen nach links an.\n \nNÃ¤her an 0 ist besser.",
+	L"\n \nDie Entfernung in der die MÃ¼ndung vertikal nach jeder Salve in Feurstoss- oder Autofeurmodus abweicht.\n \nPositive Zahlen zeigen Abweichungen nach oben an.\nNegative Zahlen zeigen Abweichungen nach unten an.\n \nNÃ¤her an 0 ist besser.",
+	L"\n \nZeigt die Anzahl der Kugeln an, welche zu einer Autofeuer Salve fÃ¼r jeweils 5 investierte AP addiert werden.\n \nHÃ¶her ist besser.",
 };
 
 STR16 szUDBGenArmorStatsTooltipText[]=
 {
 	L"|S|c|h|u|t|z |W|e|r|t",
-	L"|F|l|ä|c|h|e|n|d|e|c|k|u|n|g",
+	L"|F|l|Ã¤|c|h|e|n|d|e|c|k|u|n|g",
 	L"|Z|e|r|f|a|l|l |R|a|t|e",
 };
 
 STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 {
-	L"\n \nDiese grundlegende Rüstungseigenschaft bestimmt wie viel\nSchaden abgefangen wird.\nZur Erinnerung: Schutzdurchschlagende Angriffe und einige\nzufällige Faktoren können die Schadensreduzierung verändern.\n \nHöher ist besser.",
-	L"\n \nBestimmt wie viel des geschützten\nKörperteils durch die Rüstung abgedeckt wird.\n \nWenn weniger als 100% verdeckt wird, haben Angriffe\neine gewisse Chance die Rüstung schlichtweg\nzu umgehen, und höchsten Schaden\nauf das verdeckte Körperteil auszuüben.\n \nHöher ist besser.",
-	L"\n \nBestimmt wie schnell der Zustand der Rüstung abfällt,\nwenn sie getroffen wird, im Verhältnis zum\nSchaden durch einen Angriff.\n \nNiedriger ist besser.",
+	L"\n \nDiese grundlegende RÃ¼stungseigenschaft bestimmt wie viel\nSchaden abgefangen wird.\nZur Erinnerung: Schutzdurchschlagende Angriffe und einige\nzufÃ¤llige Faktoren kÃ¶nnen die Schadensreduzierung verÃ¤ndern.\n \nHÃ¶her ist besser.",
+	L"\n \nBestimmt wie viel des geschÃ¼tzten\nKÃ¶rperteils durch die RÃ¼stung abgedeckt wird.\n \nWenn weniger als 100% verdeckt wird, haben Angriffe\neine gewisse Chance die RÃ¼stung schlichtweg\nzu umgehen, und hÃ¶chsten Schaden\nauf das verdeckte KÃ¶rperteil auszuÃ¼ben.\n \nHÃ¶her ist besser.",
+	L"\n \nBestimmt wie schnell der Zustand der RÃ¼stung abfÃ¤llt,\nwenn sie getroffen wird, im VerhÃ¤ltnis zum\nSchaden durch einen Angriff.\n \nNiedriger ist besser.",
 };
 
 STR16 szUDBGenAmmoStatsTooltipText[]=
 {
-	L"|R|ü|s|t|u|n|g|s|d|u|r|c|h|s|c|h|l|a|g",
+	L"|R|Ã¼|s|t|u|n|g|s|d|u|r|c|h|s|c|h|l|a|g",
 	L"|K|u|g|e|l|s|t|u|r|z",
 	L"|E|x|p|l|o|s|i|o|n |v|o|r |E|i|n|s|c|h|l|a|g",
 };
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
-	L"\n \nDas ist die Fähigkeit der Kugel, in die Rüstung\neines Ziels einzudringen.\n \nWenn der Wert grösser als 1.0 ist, reduziert die Kugel \nverhältnismäßig den Schutz jeglicher Rüstung auf die sie eintrifft.\n \nIst der Wert kleiner als 1.0, steigert die Kugel den\nSchutz der Rüstung stattdessen.\n \nHöher ist besser.",
-	L"\n \nBestimmt eine verhältnismäßige Zunahme des Schadenspotentials,\nsobald die Kugel die Rüstung des Ziels\ndurchbricht und den Körper dahinter trifft.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren das Schadenspotential\nder durchbrochenen Kugel.\n \nHöher ist besser.",
-	L"\n \nEin Multiplikator zum Schadenspotential der Kugel,\nder vor dem Treffen des Zieles angewandt wird.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren den Schaden.\n \nHöher ist besser.",
+	L"\n \nDas ist die FÃ¤higkeit der Kugel, in die RÃ¼stung\neines Ziels einzudringen.\n \nWenn der Wert grÃ¶sser als 1.0 ist, reduziert die Kugel \nverhÃ¤ltnismÃ¤ÃŸig den Schutz jeglicher RÃ¼stung auf die sie eintrifft.\n \nIst der Wert kleiner als 1.0, steigert die Kugel den\nSchutz der RÃ¼stung stattdessen.\n \nHÃ¶her ist besser.",
+	L"\n \nBestimmt eine verhÃ¤ltnismÃ¤ÃŸige Zunahme des Schadenspotentials,\nsobald die Kugel die RÃ¼stung des Ziels\ndurchbricht und den KÃ¶rper dahinter trifft.\n \nWerte Ã¼ber 1.0 erhÃ¶hen, Werte unter 1.0 reduzieren das Schadenspotential\nder durchbrochenen Kugel.\n \nHÃ¶her ist besser.",
+	L"\n \nEin Multiplikator zum Schadenspotential der Kugel,\nder vor dem Treffen des Zieles angewandt wird.\n \nWerte Ã¼ber 1.0 erhÃ¶hen, Werte unter 1.0 reduzieren den Schaden.\n \nHÃ¶her ist besser.",
 };
 
 STR16 szUDBGenExplosiveStatsTooltipText[]=
 {
 	L"|S|c|h|a|d|e|n",
-	L"|B|e|t|ä|u|b|u|n|g|s|s|c|h|a|d|e|n",
+	L"|B|e|t|Ã¤|u|b|u|n|g|s|s|c|h|a|d|e|n",
 	L"|R|a|d|i|u|s|-|D|r|u|c|k|w|e|l|l|e",
-	L"|R|a|d|i|u|s|-|B|e|t|ä|u|b|u|n|g|s|s|c|h|a|d|e|n",
-	L"|R|a|d|i|u|s|-|G|e|r|ä|u|s|c|h",
-	L"|S|t|a|r|t|r|a|d|i|u|s|-|T|r|ä|n|e|n|g|a|s",
+	L"|R|a|d|i|u|s|-|B|e|t|Ã¤|u|b|u|n|g|s|s|c|h|a|d|e|n",
+	L"|R|a|d|i|u|s|-|G|e|r|Ã¤|u|s|c|h",
+	L"|S|t|a|r|t|r|a|d|i|u|s|-|T|r|Ã¤|n|e|n|g|a|s",
 	L"|S|t|a|r|t|r|a|d|i|u|s|-|S|e|n|f|g|a|s",
 	L"|S|t|a|r|t|r|a|d|i|u|s|-|L|i|c|h|t",
 	L"|S|t|a|r|t|r|a|d|i|u|s|-|R|a|u|c|h",
 	L"|S|t|a|r|t|r|a|d|i|u|s|-|F|e|u|e|r",
-	L"|E|n|d|r|a|d|i|u|s|-|T|r|ä|n|e|n|g|a|s",
+	L"|E|n|d|r|a|d|i|u|s|-|T|r|Ã¤|n|e|n|g|a|s",
 	L"|E|n|d|r|a|d|i|u|s|-|S|e|n|f|g|a|s",
 	L"|E|n|d|r|a|d|i|u|s|-|L|i|c|h|t",
 	L"|E|n|d|r|a|d|i|u|s|-|R|a|u|c|h",
 	L"|E|n|d|r|a|d|i|u|s|-|F|e|u|e|r ",
 	L"|Z|e|i|t|d|a|u|e|r",
-	L"|L|a|u|t|s|t|ä|r|k|e",
-	L"|U|n|b|e|s|t|ä|n|d|i|g|k|e|i|t",
+	L"|L|a|u|t|s|t|Ã¤|r|k|e",
+	L"|U|n|b|e|s|t|Ã¤|n|d|i|g|k|e|i|t",
 };
 
 STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 {
-	L"\n \nDer Schaden der durch diesen Sprengstoff\nverursacht wird.\n \nAnmerkung: Sprengstoffe die in einer Druckwelle explodieren liefern\nnur einmal Schaden (dann wenn Sie explodieren), während anhaltend wirkende\nSprengstoffe rundenübergreifend Schaden bis die Wirkung nachlässt.\n \nHöher ist besser.",
-	L"\n \nDer Betäubungschaden (nicht tödlich) der durch diesen\nSprengstoff verursacht wird.\n \nAnmerkung: Sprengstoffe die in einer Druckwelle explodieren liefern\nnur einmal Schaden (dann wenn Sie explodieren), während anhaltend wirkende\nSprengstoffe rundenübergreifend Schaden bis die Wirkung nachlässt.\n \nHöher ist besser.",
-	L"\n \nDas ist der Radius der Explosionswelle den dieser\nSprengstoff hervorruft.\n \nZiele werden weniger Schaden erleiden desto weiter entfernt\nsie von der Mitte der Explosion sind.\n \nHöher ist besser.",
-	L"\n \nDas ist der Radius des Betäubungsschlags den dieser\nSprengstoff hervorruft.\n \nZiele werden weniger Schaden erleiden desto weiter entfernt\nsie von der Mitte der Explosion sind.\n \nHöher ist besser.",
-	L"\n \nDie Entfernung die das Geräusch der Explosion\nzurücklegen wird. Soldaten innerhalb der Entfernung \nsind fähig das Geräusch zu hören und werden gewarnt.\n \nHöher ist besser.",
-	L"\n \nDas ist der Startradius des Tränengas\nder durch diesen Sprengstoff freigesetzt wird.\n \nFeinde die innerhalb des Radius erfasst werden erleiden\nden angegebenen Betäubungsschaden jeden Zug,\nbis Sie Gasmasken tragen.\n \nAchte auf Endradius und Dauer der Wirkung.\n \nHöher ist besser.",
-	L"\n \nDas ist der Startradius des Senfgas\nder durch diesen Sprengstoff freigesetzt wird.\n \nFeinde die innerhalb des Radius erfasst werden erleiden\nden angegebenen Schaden jeden Zug,\nbis Sie Gasmasken tragen.\n \nAchte auf Endradius und Dauer der Wirkung.\n \nHöher ist besser.",
-	L"\n \nDas ist der Startradius des Lichts\nder durch den Sprengstoff freigesetzt wird.\n \nFelder in der Nähe der Wirkung leuchten \nsehr hell, Felder nahe zum Rand\nsind nur ein weniger heller als normal.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nZur Erinnerung: Im Unterschied zu anderen Sprengstoffen mit\nzietlich festgelegter Wirkung, wird die Wirkung des Lichts nach einiger\nZeit weniger, bis es verschwindet.\n \nHöher ist besser.",
-	L"\n \nDas ist der Startradius des Rauchs\nder durch diesen Sprengstoff freigesetzt wird.\n \nJeder innerhalb der Rauchwolke wird sehr schwer zu erkennen,\nund verliert ein ganzes Stück Sichtweite.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHöher ist besser.",
-	L"\n \nDas ist der Startradius der Flammen\ndie durch den Sprengstoff freigesetzt werden.\n \nFeinde die innerhalb des Radius erfasst werden erleiden\nden angegebenen Schaden jeden Zug.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHöher ist besser.",
-	L"\n \nDas ist der Endradius den das Tränengas durch den\nSprengstoff vor dem Verschwinden freisetzt.\n \nFeinde die innerhalb des Radius erfasst werden erleiden\nden angegebenen Betäubungsschaden jeden Zug,\nbis Sie Gasmasken tragen.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHöher ist besser.",
-	L"\n \nDas ist der Endradius den das Senfgas durch den\nSprengstoff vor dem Verschwinden freisetzt.\n \nFeinde die innerhalb des Radius erfasst werden erleiden\nden angegebenen Schaden jeden Zug,\nbis Sie Gasmasken tragen.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHöher ist besser.",
-	L"\n \nDas ist der Endradius des Lichts der durch\nden Sprengstoff freigesetzt wird bevor er verschwindet.\n \nFelder in der Nähe der Wirkung leuchten \nsehr hell, Felder nah zum Rand\nsind nur ein weniger heller als normal.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nZur Erinnerung: Im Unterschied zu anderen Sprengstoffen mit\nzietlich festgelegter Wirkung, wird die Wirkung des Lichts nach einiger\nZeit weniger, bis es verschwindet.\n \nHöher ist besser.",
-	L"\n \nDas ist der Endradius den das Rauchs durch den\nSprengstoff vor dem Verschwinden freisetzt.\n \nJeder innerhalb der Rauchwolke ist sehr schwer zu erkennen,\nund verliert ein ganzes Stück Sichtweite.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHöher ist besser.",
-	L"\n \nDas ist der Endradius den die Flammen dieses\nSprengstoffs einnehmen, bevor sie verschwinden.\n \nFeinde, die innerhalb des Radius erfasst werden erleiden\nden angegebenen Schaden jede Runde.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHöher ist besser.",
-	L"\n \nDas ist die Wirkungsdauer des Sprengstoffs.\n \nJeden Zug wird der Wirkungsradius wachsen, \nein Feld in jede Richtung, bis\nder angegebene Endradius erreicht ist.\n \nWird die maximale Dauer erreicht, verschwindet\ndie Wirkung vollständig.\n \nLicht freigesetzt durch Sprengstoffe\nnimmt ab, im Unterschied zu anderen Wirkungen.\n \nHöher ist besser.",
-	L"\n \nDie Reichweite in Feldern\nin der Feinde und Söldner die Explosion wahrnehmen.\n \nFeinde die die Explosion hören werden alarmiert.\n \nNiedriger ist besser.",
-	L"\n \nDieser Wert (außerhalb von 100) stellt eine Möglichkeit für den\nSprengstoff dar, spontan zu explodieren wenn er Schaden nimmt\n(z.B. durch Explosionen in der Nähe).\n \nDas Mitführen empfindlicher Sprengstoffe innerhalb des Kampfs\nist deshalb extrem riskant und sollte vermieden werden.\n \nSkala: 0-100.\nNiedriger ist besser.",
+	L"\n \nDer Schaden der durch diesen Sprengstoff\nverursacht wird.\n \nAnmerkung: Sprengstoffe die in einer Druckwelle explodieren liefern\nnur einmal Schaden (dann wenn Sie explodieren), wÃ¤hrend anhaltend wirkende\nSprengstoffe rundenÃ¼bergreifend Schaden bis die Wirkung nachlÃ¤sst.\n \nHÃ¶her ist besser.",
+	L"\n \nDer BetÃ¤ubungschaden (nicht tÃ¶dlich) der durch diesen\nSprengstoff verursacht wird.\n \nAnmerkung: Sprengstoffe die in einer Druckwelle explodieren liefern\nnur einmal Schaden (dann wenn Sie explodieren), wÃ¤hrend anhaltend wirkende\nSprengstoffe rundenÃ¼bergreifend Schaden bis die Wirkung nachlÃ¤sst.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Radius der Explosionswelle den dieser\nSprengstoff hervorruft.\n \nZiele werden weniger Schaden erleiden desto weiter entfernt\nsie von der Mitte der Explosion sind.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Radius des BetÃ¤ubungsschlags den dieser\nSprengstoff hervorruft.\n \nZiele werden weniger Schaden erleiden desto weiter entfernt\nsie von der Mitte der Explosion sind.\n \nHÃ¶her ist besser.",
+	L"\n \nDie Entfernung die das GerÃ¤usch der Explosion\nzurÃ¼cklegen wird. Soldaten innerhalb der Entfernung \nsind fÃ¤hig das GerÃ¤usch zu hÃ¶ren und werden gewarnt.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Startradius des TrÃ¤nengas\nder durch diesen Sprengstoff freigesetzt wird.\n \nFeinde die innerhalb des Radius erfasst werden erleiden\nden angegebenen BetÃ¤ubungsschaden jeden Zug,\nbis Sie Gasmasken tragen.\n \nAchte auf Endradius und Dauer der Wirkung.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Startradius des Senfgas\nder durch diesen Sprengstoff freigesetzt wird.\n \nFeinde die innerhalb des Radius erfasst werden erleiden\nden angegebenen Schaden jeden Zug,\nbis Sie Gasmasken tragen.\n \nAchte auf Endradius und Dauer der Wirkung.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Startradius des Lichts\nder durch den Sprengstoff freigesetzt wird.\n \nFelder in der NÃ¤he der Wirkung leuchten \nsehr hell, Felder nahe zum Rand\nsind nur ein weniger heller als normal.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nZur Erinnerung: Im Unterschied zu anderen Sprengstoffen mit\nzietlich festgelegter Wirkung, wird die Wirkung des Lichts nach einiger\nZeit weniger, bis es verschwindet.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Startradius des Rauchs\nder durch diesen Sprengstoff freigesetzt wird.\n \nJeder innerhalb der Rauchwolke wird sehr schwer zu erkennen,\nund verliert ein ganzes StÃ¼ck Sichtweite.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Startradius der Flammen\ndie durch den Sprengstoff freigesetzt werden.\n \nFeinde die innerhalb des Radius erfasst werden erleiden\nden angegebenen Schaden jeden Zug.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Endradius den das TrÃ¤nengas durch den\nSprengstoff vor dem Verschwinden freisetzt.\n \nFeinde die innerhalb des Radius erfasst werden erleiden\nden angegebenen BetÃ¤ubungsschaden jeden Zug,\nbis Sie Gasmasken tragen.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Endradius den das Senfgas durch den\nSprengstoff vor dem Verschwinden freisetzt.\n \nFeinde die innerhalb des Radius erfasst werden erleiden\nden angegebenen Schaden jeden Zug,\nbis Sie Gasmasken tragen.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Endradius des Lichts der durch\nden Sprengstoff freigesetzt wird bevor er verschwindet.\n \nFelder in der NÃ¤he der Wirkung leuchten \nsehr hell, Felder nah zum Rand\nsind nur ein weniger heller als normal.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nZur Erinnerung: Im Unterschied zu anderen Sprengstoffen mit\nzietlich festgelegter Wirkung, wird die Wirkung des Lichts nach einiger\nZeit weniger, bis es verschwindet.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Endradius den das Rauchs durch den\nSprengstoff vor dem Verschwinden freisetzt.\n \nJeder innerhalb der Rauchwolke ist sehr schwer zu erkennen,\nund verliert ein ganzes StÃ¼ck Sichtweite.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist der Endradius den die Flammen dieses\nSprengstoffs einnehmen, bevor sie verschwinden.\n \nFeinde, die innerhalb des Radius erfasst werden erleiden\nden angegebenen Schaden jede Runde.\n \nAchte auf Endradius und Dauer\nder Wirkung.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist die Wirkungsdauer des Sprengstoffs.\n \nJeden Zug wird der Wirkungsradius wachsen, \nein Feld in jede Richtung, bis\nder angegebene Endradius erreicht ist.\n \nWird die maximale Dauer erreicht, verschwindet\ndie Wirkung vollstÃ¤ndig.\n \nLicht freigesetzt durch Sprengstoffe\nnimmt ab, im Unterschied zu anderen Wirkungen.\n \nHÃ¶her ist besser.",
+	L"\n \nDie Reichweite in Feldern\nin der Feinde und SÃ¶ldner die Explosion wahrnehmen.\n \nFeinde die die Explosion hÃ¶ren werden alarmiert.\n \nNiedriger ist besser.",
+	L"\n \nDieser Wert (auÃŸerhalb von 100) stellt eine MÃ¶glichkeit fÃ¼r den\nSprengstoff dar, spontan zu explodieren wenn er Schaden nimmt\n(z.B. durch Explosionen in der NÃ¤he).\n \nDas MitfÃ¼hren empfindlicher Sprengstoffe innerhalb des Kampfs\nist deshalb extrem riskant und sollte vermieden werden.\n \nSkala: 0-100.\nNiedriger ist besser.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=
@@ -6527,59 +6528,59 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|L|e|u|c|h|t|s|p|u|r|m|u|n|i|t|i|o|n",
 	L"|A|n|t|i|-|P|a|n|z|e|r M|u|n|i|t|i|o|n",
 	L"|I|g|n|o|r|i|e|r|t |S|c|h|u|t|z",
-	L"|S|ä|u|r|e|h|a|l|t|i|g|e |M|u|n|i|t|i|o|n",
-	L"|T|ü|r|z|e|r|s|c|h|l|a|g|e|n|d|e |M|u|n|i|t|i|o|n",
-	L"|W|i|d|e|r|s|t|a|n|d|s|f|ä|h|i|g|k|e|i|t |g|e|g|e|n |S|p|r|e|n|g|s|t|o|f|f|e",
+	L"|S|Ã¤|u|r|e|h|a|l|t|i|g|e |M|u|n|i|t|i|o|n",
+	L"|T|Ã¼|r|z|e|r|s|c|h|l|a|g|e|n|d|e |M|u|n|i|t|i|o|n",
+	L"|W|i|d|e|r|s|t|a|n|d|s|f|Ã¤|h|i|g|k|e|i|t |g|e|g|e|n |S|p|r|e|n|g|s|t|o|f|f|e",
 	L"|W|a|s|s|e|r|s|i|c|h|e|r",
 	L"|E|le|k|t|r|o|n|i|k",
 	L"|G|a|s|m|a|s|k|e",
-	L"|B|e|n|ö|t|i|g|t |B|a|t|t|e|r|i|e|n",
-	L"|K|a|n|n |S|c|h|l|ö|s|s|e|r |K|n|a|c|k|e|n",
+	L"|B|e|n|Ã¶|t|i|g|t |B|a|t|t|e|r|i|e|n",
+	L"|K|a|n|n |S|c|h|l|Ã¶|s|s|e|r |K|n|a|c|k|e|n",
 	L"|K|a|n|n |D|r|a|h|t |d|u|r|c|h|t|r|e|n|n|e|n",
-	L"|K|a|n|n |S|c|h|l|ö|s|s|e|r |z|e|r|b|r|e|c|h|e|n",
+	L"|K|a|n|n |S|c|h|l|Ã¶|s|s|e|r |z|e|r|b|r|e|c|h|e|n",
 	L"|M|e|t|a|l|l|d|e|t|e|k|t|o|r",
-	L"|F|e|r|n|a|u|s|l|ö|s|e|r",
-	L"|F|e|r|n|z|ü|n|d|e|r",
-	L"|Z|e|i|t|z|ü|n|d|e|r",
-	L"|E|n|t|h|ä|l|t |B|e|n|z|i|n",
+	L"|F|e|r|n|a|u|s|l|Ã¶|s|e|r",
+	L"|F|e|r|n|z|Ã¼|n|d|e|r",
+	L"|Z|e|i|t|z|Ã¼|n|d|e|r",
+	L"|E|n|t|h|Ã¤|l|t |B|e|n|z|i|n",
 	L"|W|e|r|k|z|e|u|g|k|a|s|t|e|n",
-	L"|W|ä|r|m|e|s|i|c|h|t",
-	L"|R|ö|n|t|g|e|n|g|e|r|ä|t",
-	L"|E|n|t|h|ä|l|t |D|r|i|n|k|w|a|s|s|e|r",
-	L"|E|n|t|h|ä|l|t |A|l|k|o|h|o|l",
+	L"|W|Ã¤|r|m|e|s|i|c|h|t",
+	L"|R|Ã¶|n|t|g|e|n|g|e|r|Ã¤|t",
+	L"|E|n|t|h|Ã¤|l|t |D|r|i|n|k|w|a|s|s|e|r",
+	L"|E|n|t|h|Ã¤|l|t |A|l|k|o|h|o|l",
 	L"|E|r|s|t|e|-|H|i|l|f|e|-|K|a|s|t|e|n",
 	L"|A|r|z|t|t|a|s|c|h|e",
-	L"|T|ü|r|s|p|r|e|n|g|s|a|t|z",
+	L"|T|Ã¼|r|s|p|r|e|n|g|s|a|t|z",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 {
-	L"\n \nDiese Munition lässt eine Leuchtwirkung entstehen wenn sie abgefeuert wird.\n \nLeuchtfeuer hilft Salven genauer zu kontrollieren.\n \nLeuchtpatronen geben die Position bei Tag/Nacht preis\n \nund deaktivieren Gegenstände\ndie Mündungsfeuer unterdrücken.",
-	L"\n \nDiese Munition kann einen Panzer beschädigen.\n \nMunition ohne diese Eigenschaft bewirkt keinen Schaden\nan Panzern.",
-	L"\n \nDiese Munition ignoriert die Rüstung vollständig.\n \nDas bewirkt das eine geschützte Person\nbehandelt wird als hätte sie keine Rüstung!",
-	L"\n \nWenn diese Munition auf ein Ziel trifft,\n \nwird dessen Schutz dadurch schnell verschlechtert.\n \nMöglicherweise wird ein Ziel dadurch durch seinen eigenen Schutz getrennt!",
-	L"\n \nDiese Munitionstyp ist ausnahmslos im zerstören von Schlössern.\n \nDirekt auf eine verschlossene Tür oder einen Behälter\ngefeuert richtet er enormen Schaden an.",
+	L"\n \nDiese Munition lÃ¤sst eine Leuchtwirkung entstehen wenn sie abgefeuert wird.\n \nLeuchtfeuer hilft Salven genauer zu kontrollieren.\n \nLeuchtpatronen geben die Position bei Tag/Nacht preis\n \nund deaktivieren GegenstÃ¤nde\ndie MÃ¼ndungsfeuer unterdrÃ¼cken.",
+	L"\n \nDiese Munition kann einen Panzer beschÃ¤digen.\n \nMunition ohne diese Eigenschaft bewirkt keinen Schaden\nan Panzern.",
+	L"\n \nDiese Munition ignoriert die RÃ¼stung vollstÃ¤ndig.\n \nDas bewirkt das eine geschÃ¼tzte Person\nbehandelt wird als hÃ¤tte sie keine RÃ¼stung!",
+	L"\n \nWenn diese Munition auf ein Ziel trifft,\n \nwird dessen Schutz dadurch schnell verschlechtert.\n \nMÃ¶glicherweise wird ein Ziel dadurch durch seinen eigenen Schutz getrennt!",
+	L"\n \nDiese Munitionstyp ist ausnahmslos im zerstÃ¶ren von SchlÃ¶ssern.\n \nDirekt auf eine verschlossene TÃ¼r oder einen BehÃ¤lter\ngefeuert richtet er enormen Schaden an.",
 	L"\n \nDieser Schutz ist dreifach resistent\ngegen Sprengstoffe als es durch seinen gegebenen\nSchutzwert ersichtlich ist.\n \nWenn ein Sprengstoff den Schutz trifft, wird sein Schutzwert verdreifach.",
-	L"\n \nDieser Gegenstand ist gegen Wasser immun. Nicht aber,\nwenn er Schaden nimmt und untertaucht.\n \nGegenstände ohne diese Eigenschaft verschlechtern sich allmählich,\nwenn die Person sie zum Schwimmen mitnimmt.",
-	L"\n \nDieser Gegenstand ist Elektronik pur und beinhaltet\nkomplexe Schaltungen.\n \nElektronische Gegenstände sind von Natur aus schwer\nzu reparieren noch schwieriger ohne elektronische Fähigkeiten.",
-	L"\n \nWenn dieser Gegenstand am Gesicht der Person getragen wird,\nwird Sie von allen schädlichen Gasen beschützt.\n \nEinige Gase sind ätzend und können sich\ndurch die Gasmaske fressen!",
-	L"\n \nDieser Gegenstand benötigt Batterien. Ohne Batterien,\nkönnen seine primären Fähigkeiten nicht aktiviert werden.\n \nUm seine Fähigkeiten zu aktivieren\nbefestige Batterien an ihm.",
-	L"\n \nDieser Gegenstand kann kann dazu benutzt werden verschlossene\nTüren oder Behälter zu öffnen.\n \nSchlösser knacken ist leise, doch es benötigt\nreichlich technische Fähigkeiten \nauch für die einfachsten Schlösser.",
-	L"\n \nDieser Gegenstand kann dazu benutzt werden Zäune zu zertrennen.\n \nDas ermöglicht einer Person schnell in abgezäuntes Gebiet\neinzudringen und den Feind möglicherweise zu überraschen!",
-	L"\n \nDieser Gegenstand kann kann zum zerschlagen von verschlossenen\nTÜren oder Behälter benutzt werden.\n \nDas Zerschlagen von Schlössern benötigt reichlich Stärke,\nerzeugt eine Menge Lärm und bringt\neine Person schnell zur Ermüdung. Jedoch ist eine guter\nWeg hinter verschlossenes zu gelagen ohne\nhöhere Fertigkeiten oder\nkomplizierte Werkzeuge zu besitzen.",
-	L"\n \nDieser Gegenstand kann metallische Objekte\nim Boden aufspüren.\n \nSeine Funktion ist das aufspüren\nvon Minen ohne die nötigen Fähigkeiten zu besitzen diese\nmit blosen Auge zu erkennen.\n \nVielleicht finden Sie aber auch vergrabene Schätze.",
-	L"\n \nDieser Gegenstand kann dazu benutzt werden eine Bombe\nwelche mit einem Fernzünder versehen wurde zu zünden.\n \nZu erst setzt die Bombe, dann benutze den\nFernauslöer um sie zu zünden wenn\ndie richtige Zeit ist.",
-	L"\n \nWenn an einer Sprengstoffeinheit angebracht und eingestellt\n kann der Zünder durch eine\n separate Fernsteuerung ausgelöst werden.\n \nFernzünder sind bestens geeignet um Fallen zu stellen,\nweil Sie erst dann explodieren wenn sie es sollen.\n \nDarüber hinaus hat man genüge Zeit in Deckung zu gehen!",
-	L"\n \nWenn an einer Sprengstoffeinheit angebracht und eingestellt\n zählt der Zünder von der eingegeben\nMenge an Zeit nach unten und explodiert \nwenn die Zeit abgelaufen ist.\n \nZeitzünder sind billig und einfach zu Installieren,\naber sie müssen so eingestellt werden umd\nsich selbst rechtzeitig in Deckung zu bringen!",
-	L"\n \nDieser Gegenstand enthält Benzin.\n \nEs könnte praktisch sein\nwenn man einen Benzintank findet.",
-	L"\n \nDieser Gegenstand enthält verschiedene Gerätschaften die dazu\nbenutzt werden können andere Gegenstände zu reparieren.\n \nEin Werkzeugkasten wird dafür benötigt, wenn \neinem Söldner die Aufgabe Reparieren zugewiesen wird.",
-	L"\n \nWenn ans Gesicht angebracht, bietet der Gegenstand die Möglichkeit\nPersonen durch Wände zu sehen,\ndank ihrer Wärmestrahlung.",
-	L"\n \nDieses mächtige Gerät kann dazu benutzt werden\nnach Personen zu suchen.\n \nEs zeigt alle Personen innerhalb eines bestimmten Radius\nfür einen kurzen Zeitraum.\n \nVon Geschlechtsorganen fernhalten!",
-	L"\n \nDieser Gegenstand enthält frisches Wasser.\nGebrauchen Sie es wenn Sie durstig sind.",
-	L"\n \nDieser Gegenstand enthält Spirituosen, Alkohol, Schnaps\noder was immer Sie sich einbilden.\n \nMit Vorischt zu genießen! Kein Alkohol am Steuer!\nKann ihrer Leber schaden!",
-	L"\n \nDas ist ein Erste-Hilfe-Kasten der\nGegenstände enthält die einfache medizinische Hilfe bieten.\n \nEr kann dazu benutzt werden verwundetet Personen zu bandagieren\nund Blutungen zu stoppen.\n \nFür richtige Heilung, benutze eine Arzttasche\nund/oder reichlich Ruhe.",
-	L"\n \nDas ist eine Arzttasche, die für\nOperationen und andere gravierende medizinische\nZwecke genutzt werden kann.\n \nEine Arzttasche wird dazu benötigt\neinem Söldner die Aufgabe Doktor zu geben.",
-	L"\n \nDieser Gegenstand kann dazu benutzt werden verschlossene\nTüren/Behälter zu sprengen.\n \nExplosionsfertigkeit ist erforderlich um\nvorzeitige Detonationen zu vermeiden.\n \nSchlösser zu sprengen ist der einfache Weg um schnell\ndurch verschlossene Türen/Behälter zu kommen. Wie auch immer,\nes ist Laut und für die meisten Personen gefährlich.",
+	L"\n \nDieser Gegenstand ist gegen Wasser immun. Nicht aber,\nwenn er Schaden nimmt und untertaucht.\n \nGegenstÃ¤nde ohne diese Eigenschaft verschlechtern sich allmÃ¤hlich,\nwenn die Person sie zum Schwimmen mitnimmt.",
+	L"\n \nDieser Gegenstand ist Elektronik pur und beinhaltet\nkomplexe Schaltungen.\n \nElektronische GegenstÃ¤nde sind von Natur aus schwer\nzu reparieren noch schwieriger ohne elektronische FÃ¤higkeiten.",
+	L"\n \nWenn dieser Gegenstand am Gesicht der Person getragen wird,\nwird Sie von allen schÃ¤dlichen Gasen beschÃ¼tzt.\n \nEinige Gase sind Ã¤tzend und kÃ¶nnen sich\ndurch die Gasmaske fressen!",
+	L"\n \nDieser Gegenstand benÃ¶tigt Batterien. Ohne Batterien,\nkÃ¶nnen seine primÃ¤ren FÃ¤higkeiten nicht aktiviert werden.\n \nUm seine FÃ¤higkeiten zu aktivieren\nbefestige Batterien an ihm.",
+	L"\n \nDieser Gegenstand kann kann dazu benutzt werden verschlossene\nTÃ¼ren oder BehÃ¤lter zu Ã¶ffnen.\n \nSchlÃ¶sser knacken ist leise, doch es benÃ¶tigt\nreichlich technische FÃ¤higkeiten \nauch fÃ¼r die einfachsten SchlÃ¶sser.",
+	L"\n \nDieser Gegenstand kann dazu benutzt werden ZÃ¤une zu zertrennen.\n \nDas ermÃ¶glicht einer Person schnell in abgezÃ¤untes Gebiet\neinzudringen und den Feind mÃ¶glicherweise zu Ã¼berraschen!",
+	L"\n \nDieser Gegenstand kann kann zum zerschlagen von verschlossenen\nTÃœren oder BehÃ¤lter benutzt werden.\n \nDas Zerschlagen von SchlÃ¶ssern benÃ¶tigt reichlich StÃ¤rke,\nerzeugt eine Menge LÃ¤rm und bringt\neine Person schnell zur ErmÃ¼dung. Jedoch ist eine guter\nWeg hinter verschlossenes zu gelagen ohne\nhÃ¶here Fertigkeiten oder\nkomplizierte Werkzeuge zu besitzen.",
+	L"\n \nDieser Gegenstand kann metallische Objekte\nim Boden aufspÃ¼ren.\n \nSeine Funktion ist das aufspÃ¼ren\nvon Minen ohne die nÃ¶tigen FÃ¤higkeiten zu besitzen diese\nmit blosen Auge zu erkennen.\n \nVielleicht finden Sie aber auch vergrabene SchÃ¤tze.",
+	L"\n \nDieser Gegenstand kann dazu benutzt werden eine Bombe\nwelche mit einem FernzÃ¼nder versehen wurde zu zÃ¼nden.\n \nZu erst setzt die Bombe, dann benutze den\nFernauslÃ¶er um sie zu zÃ¼nden wenn\ndie richtige Zeit ist.",
+	L"\n \nWenn an einer Sprengstoffeinheit angebracht und eingestellt\n kann der ZÃ¼nder durch eine\n separate Fernsteuerung ausgelÃ¶st werden.\n \nFernzÃ¼nder sind bestens geeignet um Fallen zu stellen,\nweil Sie erst dann explodieren wenn sie es sollen.\n \nDarÃ¼ber hinaus hat man genÃ¼ge Zeit in Deckung zu gehen!",
+	L"\n \nWenn an einer Sprengstoffeinheit angebracht und eingestellt\n zÃ¤hlt der ZÃ¼nder von der eingegeben\nMenge an Zeit nach unten und explodiert \nwenn die Zeit abgelaufen ist.\n \nZeitzÃ¼nder sind billig und einfach zu Installieren,\naber sie mÃ¼ssen so eingestellt werden umd\nsich selbst rechtzeitig in Deckung zu bringen!",
+	L"\n \nDieser Gegenstand enthÃ¤lt Benzin.\n \nEs kÃ¶nnte praktisch sein\nwenn man einen Benzintank findet.",
+	L"\n \nDieser Gegenstand enthÃ¤lt verschiedene GerÃ¤tschaften die dazu\nbenutzt werden kÃ¶nnen andere GegenstÃ¤nde zu reparieren.\n \nEin Werkzeugkasten wird dafÃ¼r benÃ¶tigt, wenn \neinem SÃ¶ldner die Aufgabe Reparieren zugewiesen wird.",
+	L"\n \nWenn ans Gesicht angebracht, bietet der Gegenstand die MÃ¶glichkeit\nPersonen durch WÃ¤nde zu sehen,\ndank ihrer WÃ¤rmestrahlung.",
+	L"\n \nDieses mÃ¤chtige GerÃ¤t kann dazu benutzt werden\nnach Personen zu suchen.\n \nEs zeigt alle Personen innerhalb eines bestimmten Radius\nfÃ¼r einen kurzen Zeitraum.\n \nVon Geschlechtsorganen fernhalten!",
+	L"\n \nDieser Gegenstand enthÃ¤lt frisches Wasser.\nGebrauchen Sie es wenn Sie durstig sind.",
+	L"\n \nDieser Gegenstand enthÃ¤lt Spirituosen, Alkohol, Schnaps\noder was immer Sie sich einbilden.\n \nMit Vorischt zu genieÃŸen! Kein Alkohol am Steuer!\nKann ihrer Leber schaden!",
+	L"\n \nDas ist ein Erste-Hilfe-Kasten der\nGegenstÃ¤nde enthÃ¤lt die einfache medizinische Hilfe bieten.\n \nEr kann dazu benutzt werden verwundetet Personen zu bandagieren\nund Blutungen zu stoppen.\n \nFÃ¼r richtige Heilung, benutze eine Arzttasche\nund/oder reichlich Ruhe.",
+	L"\n \nDas ist eine Arzttasche, die fÃ¼r\nOperationen und andere gravierende medizinische\nZwecke genutzt werden kann.\n \nEine Arzttasche wird dazu benÃ¶tigt\neinem SÃ¶ldner die Aufgabe Doktor zu geben.",
+	L"\n \nDieser Gegenstand kann dazu benutzt werden verschlossene\nTÃ¼ren/BehÃ¤lter zu sprengen.\n \nExplosionsfertigkeit ist erforderlich um\nvorzeitige Detonationen zu vermeiden.\n \nSchlÃ¶sser zu sprengen ist der einfache Weg um schnell\ndurch verschlossene TÃ¼ren/BehÃ¤lter zu kommen. Wie auch immer,\nes ist Laut und fÃ¼r die meisten Personen gefÃ¤hrlich.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -6590,38 +6591,38 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|Z|i|e|l|e|n",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|Z|i|e|l|e|n|-|P|r|o|z|e|n|t|u|e|l|l",
 	L"|M|o|d|i|f|i|k|a|t|o|r |- |E|r|l|a|u|b|t|e |Z|i|e|l|g|e|n|a|u|i|g|k|e|i|t",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|Z|i|e|l|k|a|p|a|z|i|t|ä|t",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|Z|i|e|l|k|a|p|a|z|i|t|Ã¤|t",
 	L"|M|o|d|i|f|i|k|a|t|o|r |- |W|a|f|f|e|n|h|a|n|d|h|a|b|u|n|g",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|A|b|s|e|n|k|u|n|g|s|k|o|m|p|e|n|s|i|e|r|u|n|g",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|Z|i|e|l|a|u|f|s|p|ü|r|e|n",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|Z|i|e|l|a|u|f|s|p|Ã¼|r|e|n",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|S|c|h|a|d|e|n",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|M|e|s|s|e|r|s|c|h|a|d|e|n",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|E|n|t|f|e|r|nu|n|g",
-	L"|F|a|k|t|o|r|-|V|e|r|g|ö|ß|e|r|u|n|g",
+	L"|F|a|k|t|o|r|-|V|e|r|g|Ã¶|ÃŸ|e|r|u|n|g",
 	L"|F|a|k|t|o|r|-|V|e|r|b|r|e|i|t|e|r|u|n|g",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|R|ü|c|k|s|t|o|ß|-|H|o|r|i|z|o|n|t|a|l",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|R|ü|c|k|s|t|o|ß |- |V|e|r|t|i|k|a|l",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|R|Ã¼|c|k|s|t|o|ÃŸ|-|H|o|r|i|z|o|n|t|a|l",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|R|Ã¼|c|k|s|t|o|ÃŸ |- |V|e|r|t|i|k|a|l",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|G|e|g|e|n|w|i|r|k|e|n|-|M|a|x|i|m|u|m",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|G|e|g|e|n|w|i|r|k|e|n|-|G|e|n|a|u|i|g|k|e|i|t",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|G|e|g|e|n|w|i|r|k|e|n|-|H|ä|u|f|i|g|k|e|i|t",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|G|e|g|e|n|w|i|r|k|e|n|-|H|Ã¤|u|f|i|g|k|e|i|t",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|A|P|-|T|o|t|a|l",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|A|P|-|A|n|l|e|g|e|n",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|A|P|-|E|i|n|z|e|l|s|c|h|u|s|s",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|A|P|-|F|e|u|e|r|s|t|o|ß",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|A|P|-|F|e|u|e|r|s|t|o|ÃŸ",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|A|P|-|A|u|t|o|f|e|u|e|r",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|A|P|-|N|a|c|h|l|a|d|e|n",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|M|a|g|a|z|i|n|g|r|ö|ß|e",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|F|e|u|e|r|s|t|o|ß|g|r|ö|ß|e",
-	L"|U|n|t|e|r|d|r|ü|c|k|t|e|s |M|ü|n|d|u|n|g|s|f|e|u|e|r",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|L|a|u|t|s|t|ä|r|k|e",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|G|e|g|e|n|s|t|a|n|d|g|r|ö|ß|e",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|Z|u|v|e|r|l|ä|s|s|i|g|k|e|i|t",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|M|a|g|a|z|i|n|g|r|Ã¶|ÃŸ|e",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|F|e|u|e|r|s|t|o|ÃŸ|g|r|Ã¶|ÃŸ|e",
+	L"|U|n|t|e|r|d|r|Ã¼|c|k|t|e|s |M|Ã¼|n|d|u|n|g|s|f|e|u|e|r",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|L|a|u|t|s|t|Ã¤|r|k|e",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|G|e|g|e|n|s|t|a|n|d|g|r|Ã¶|ÃŸ|e",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|Z|u|v|e|r|l|Ã¤|s|s|i|g|k|e|i|t",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|T|a|r|n|u|n|g|-|W|a|l|d",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|T|a|r|n|u|n|g|-|S|t|a|d|t",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|T|a|r|n|u|n|g|-|W|ü|s|t|e",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|T|a|r|n|u|n|g|-|W|Ã¼|s|t|e",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|T|a|r|n|u|n|g|-|S|c|h|n|e|e",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|S|c|h|l|e|i|c|h|e|n",
-	L"|M|o|d|i|f|i|k|a|t|o|r|-|H|ö|r|w|e|i|t|e",
+	L"|M|o|d|i|f|i|k|a|t|o|r|-|H|Ã¶|r|w|e|i|t|e",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|S|i|c|h|t|w|e|i|t|e|-|A|l|l|g|e|m|e|i|n",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|S|i|c|h|t|w|e|i|t|e|-|N|a|c|h|t",
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|S|i|c|h|t|w|e|i|t|e|-|T|a|g",
@@ -6629,7 +6630,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|M|o|d|i|f|i|k|a|t|o|r|-|S|i|c|h|t|w|e|i|t|e|-|U|n|t|e|r|g|r|u|n|d",
 	L"|T|u|n|n|e|l|s|i|c|h|t",
 	L"|G|e|g|e|n|w|i|r|k|e|n|-|M|a|x|i|m|u|m",
-	L"|G|e|g|e|n|w|i|r|k|e|n|-|H|ä|u|f|i|g|k|e|i|t",
+	L"|G|e|g|e|n|w|i|r|k|e|n|-|H|Ã¤|u|f|i|g|k|e|i|t",
 	L"|T|r|e|f|f|e|r|b|o|n|u|s",
 	L"|Z|i|e|l|b|o|n|u|s",
 };
@@ -6637,106 +6638,106 @@ STR16 szUDBAdvStatsTooltipText[]=
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular. 
 STR16 szUDBAdvStatsExplanationsTooltipText[]=
 {
-	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand verändert den Genauigkeitswert.\n \nEine erhöhte Genauigkeit lässt die Schusswaffe Ziele auf eine größere Entfernung öfter treffen,\nangenommen es wird auch gut gezielt.\n \nMaßstab: -100 bis +100.\nHöher ist besser.",
-	L"\n \nDieser Gegenstand verändert die Genauigkeit\nfür jede Art von Feuermodus für diese Fernwaffe um den angegebenen Wert.\n \nMaßstab: -100 bis +100.\nHöher ist besser.",
-	L"\n \nDieser Gegenstand verändert die Genauigkeit\nfür jede Art von Feuermodus für diese Fernwaffe um den angegebenen Prozentsatz mit Bezug auf die ursprünglichen Genauigkeit.\n \nMaßstab: -100 bis +100.\nHöher ist besser.",
-	L"\n \nDieser Gegenstand verändert die Genauigkeit,\nwelche die Waffe mit jedem zusätzlichen Punkt durch genaueres Zielen erhält um den genannten Wert.\n \nMaßstab: -100 bis +100.\nHöher ist besser.",
-	L"\n \nDieser Gegenstand verändert die Genauigkeit,\ndie die Waffe mit jedem zusätzlichen Punkt durch genaueres Zielen erhält um den genannten Prozentsatz der ursprünglichen Genauigkeit.\n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand verändert die Anzahl der möglichen zusätzlichen Zielpunkte dieser Waffe. \n \nEine niedrigere Anzahl von möglichen zusätzlichen Zielpunkten bedeutet,\n daß jeder Zielpunkt proportional mehr Genauigkeit zum Schuss beiträgt.\n\nDies bedeutet, das weniger mögliche zusätzliche Zielpunkte ein schnelleres Zielen mit dieser Waffen erlauben, ohne die Genauigkeit zu reduzieren!\n \nNiedriger ist besser.",
-	L"\n \nDieser Gengenstand verändert den Höchstwert für Genauigkeit des Schützen mit Fernwaffen\num den angegebenen Prozentsatz seiner ursprünglichen maximalen Genauigkeit.\n \nHöher ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand verändert die Schwierigkeit der Handhabung der Waffe.\nEine bessere Handhabung macht die Waffe genauer zu feuern; mit oder ohne zusätzliches Zielen.\n Der Wert bezieht sich dabei auf den ursprüngliche Handhabungs-Wert der Waffe,\nwelcher höher ist für Gewehre und schwere Waffen,\nund niedriger bei Pistolen und leichten Waffen.\n \nNiedriger ist besser",
-	L"\n \nDieser Gegenstand verändert die Schwierigkeit,\nmit einer Waffe auch jenseits ihrer effektiven Reichweite zu treffen.\n \nEin hoher Wert kann durchaus\ndie tatsächliche effektive Reichweite dieser Waffe\num einige Felder verlängern.\nHöher ist besser.",
-	L"\n \nDieser Gegenstand verändert die Schwierigkeit,\nein sich bewegendes Ziel zu treffen.\nEin hoher Wert kann es einfacher machen,\nsich bewegende Ziele auch in großer Entfernung zu treffen.\n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand verändert den Schaden,\nwelchen diese Waffe anrichtet.\n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand verändert den Schaden,\nden eine Handwaffe anrichtet, um den angegebenen Wert.\n \n Dies bezieht sich sowohl auf Klingen als auch auf Schlagwaffen.\n \nHöher ist besser",
-	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand verändert die größte effektive Reichweite.\n \nDie größte effektive Reichweite bestimmt,\nwie weit eine Kugel fliegt, bevor sie schnell in Richtung Boden fällt.\n \nHöher ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand bietet eine zusätzlich Zielvergrößerung an,\nwas Schüsse auf große Entfernung vergleichsweise einfacher macht.\n \nEin hoher Vergrößerungsfaktor wirkt sich allerdings nachteilig aus\nbei Zielen, die näher als die optimale Entfernung sind.\n\nHöher ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand blendet einen Punkt über das Ziel ein,\nwas das Treffen deutlich vereinfacht.\n\nDieser Effekt ist nur bis zu einer bestimmten Entfernung nützlich, darüber hinaus vermindert und schließlich verschwindet der Effekt.\n \nHöher ist besser.",
-	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen dieser Gegenstand verändert den horizontalen Rückstoß um den genannten Prozentsatz.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen dieser Gegenstand verändert den vertikalen Rückstoß um den genannten Prozentsatz.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
-	L"\n \nDieser Gegenstand verändert die Fähigkeit des Schützen,\nseine Waffe im Feuerstoß oder Dauerfeuer unter Kontrolle zu behalten.\n\n Ein hoher Wert kann auch körperlich schwachen Schützen helfen, Waffen mit starkem Rückstoß zu kontrollieren. \n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand verändert die Fähigkeit des Schützen,\ndem Rückstoß der Waffe im Feuerstoß oder Dauerfeuer wirksam entgegenzuwirken.\n\n Ein hoher Wert erlaubt dem Schützen,\n die Waffe besser auf das Ziel auszurichten,\n was im Ergebnis die Genauigkeit von Feuerstößen erhöht. \n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand verändert die Fähigkeit des Schützen,\ndie Kraft, welche er benötigt, um dem Rückstoß im Feuerstoß oder Dauerfeuer entgegenzuwirken, öfter anzupassen.\n\n Ein höherer Wert macht Feuerstöße generell genauer,\n insbesondere lange Feuerstöße,\nvorausgesetzt, der Schütze kann dem Rückstoß wirksam entgegenwirken. \n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand verändert die Anzahl der Aktionspunkte,\nwelche der Charakter zu Beginn jeder Runde bekommt. \n \nHöher ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe dieser Genestand verändert die Anzahl der Aktionspunkte,\ndie benötigt werden,\num die Waffe in Anschlag zu bringen.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an irgendeiner Waffe dieser Gegenstand verändert die Anzahl der Aktionspunkte,\ndie für einen Angriff mit der Waffe benötigt werden.\n\n Dies bezieht sich auch auf Feuerstoß oder Dauerfeuer fähige Waffen.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen dieser Gegenstand verändert die Anzahl der Aktionspunkte,\ndie für die Abgabe eines Feuerstoßes benötigt werden.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen dieser Gegenstand verändert die Anzahl der Aktionspunkte,\ndie für das Schießen im Dauerfeuer Modus benötigt werden.\n\n Dies bezieht sich allerdings nicht auf die AP, die benötigt werden,\num zusätzliche Schüsse im Feuerstoß abzugeben. .\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe, dieser Gegenstand verändert die Anzahl der Aktionspunkte,\ndie benötigt werden, um die Waffe zu laden.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe, dieser Gegenstand verändert die Magazinkapazität von Magazinen welche in die Waffe geladen werden können. \n \nHöher ist besser.",
-	L"\n \nWenn befestigt an einer Fernwaffe, dieser Gegenstand verändert die Anzahl der Kugeln,\ndie pro Feuerstoß abgegeben werden.\n\n Wenn die Waffe ursprünglich nicht für Feuerstöße angelegt war,\nkann ein positiver Faktor die Abgabe von Feuerstößen ermöglichen.\n\nIm Gegensatz kann eine Waffe mit einer solchen Funktion diese bei einem entsprechend negativem Faktor verlieren. \n \nHöher ist - gewöhnlich – besser. Allerdings ist Munitionssparen ein Grund für kontrollierte Feuerstöße.",
-	L"\n \nAn die Waffe angebracht beeinflusst der Gegenstand\nein Verbergen des Mündungsfeuers.\n \nDadruch wird es schwieriger den Schützen zu entdecken.",
-	L"\n \nAn die Waffe angebracht beeinflusst der Gegenstand\ndie Lautstärke der Waffe.\n \nNiedriger ist besser.",
-	L"\n \nDieser Gegenstand beeinflusst die Größe des Gegenstands\nan den er angebracht ist.\n \nDie Größe des Gegenstands bestimmt wie oft und worin er\nbefördert werden kann.\n \nNiedriger ist besser.",
-	L"\n \nAn die Waffe angebracht beeinflusst der Gegenstand\nden Zuverlässigkeitswert.\n \nEin positiver Wert bewirkt ein verlangsamte,\nein negativer Wert eine verschnellert Verschlechterung.\n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand beeinflusst die Tarnung\nin Waldgebieten, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand beeinflusst die Tarnung\nin Stadtgebieten, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand beeinflusst die Tarnung\nin Wüstenebieten, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand beeinflusst die Tarnung\nin Schneegebieten, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand beeinflusst das Schleichen\n, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
-	L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Hörweite\num die angegebenen Prozent.\n \nEin positiver Bonus ermöglicht das Hören von Geräuschen\nauf größere Distanzen.\n \nHöher ist besser.",
-    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser generelle Sichtweitenmodifikator funktioniert bei allen Lichtverhältnissen.\nHöher ist besser.",
-    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Nacht-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung niedrig ist.\n \nHöher ist besser.",
-    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Tag-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung überdurchschnittlich hoch ist.\n \nHöher ist besser.",
-    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Helligkeits-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung extrem hoch und grell ist.\n \nHöher ist besser.",
-    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Höhlen-Sichtweitenmodifikator funktioniert nur\nim Dunkeln und auch nur unter Tage.\n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand beeinflusst die Sichtbreite,\nwenn er getragen oder\nan einen getragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
-	L"\n \nDie Fähigkeit des Schützen Rückstoß\nwährend Feuerstoß-/Autofeuersalven zu bewältigen.\n \nHöher ist besser.",
-	L"\n \nDie Fähigkeit des Schützen einzuschätzen\nwieviel Kraft er während Feuerstoß-/Autofeuersalven\nbenötigt um den Rückstoß auszugleichen.\n \nNiedriger ist besser.",
-	L"\n \nDieser Gegenstand beeinflusst die Trefferchance\n, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
-	L"\n \nDieser Gegenstand beeinflusst den Zielbonus\n, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand verÃ¤ndert den Genauigkeitswert.\n \nEine erhÃ¶hte Genauigkeit lÃ¤sst die Schusswaffe Ziele auf eine grÃ¶ÃŸere Entfernung Ã¶fter treffen,\nangenommen es wird auch gut gezielt.\n \nMaÃŸstab: -100 bis +100.\nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert die Genauigkeit\nfÃ¼r jede Art von Feuermodus fÃ¼r diese Fernwaffe um den angegebenen Wert.\n \nMaÃŸstab: -100 bis +100.\nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert die Genauigkeit\nfÃ¼r jede Art von Feuermodus fÃ¼r diese Fernwaffe um den angegebenen Prozentsatz mit Bezug auf die ursprÃ¼nglichen Genauigkeit.\n \nMaÃŸstab: -100 bis +100.\nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert die Genauigkeit,\nwelche die Waffe mit jedem zusÃ¤tzlichen Punkt durch genaueres Zielen erhÃ¤lt um den genannten Wert.\n \nMaÃŸstab: -100 bis +100.\nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert die Genauigkeit,\ndie die Waffe mit jedem zusÃ¤tzlichen Punkt durch genaueres Zielen erhÃ¤lt um den genannten Prozentsatz der ursprÃ¼nglichen Genauigkeit.\n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert die Anzahl der mÃ¶glichen zusÃ¤tzlichen Zielpunkte dieser Waffe. \n \nEine niedrigere Anzahl von mÃ¶glichen zusÃ¤tzlichen Zielpunkten bedeutet,\n daÃŸ jeder Zielpunkt proportional mehr Genauigkeit zum Schuss beitrÃ¤gt.\n\nDies bedeutet, das weniger mÃ¶gliche zusÃ¤tzliche Zielpunkte ein schnelleres Zielen mit dieser Waffen erlauben, ohne die Genauigkeit zu reduzieren!\n \nNiedriger ist besser.",
+	L"\n \nDieser Gengenstand verÃ¤ndert den HÃ¶chstwert fÃ¼r Genauigkeit des SchÃ¼tzen mit Fernwaffen\num den angegebenen Prozentsatz seiner ursprÃ¼nglichen maximalen Genauigkeit.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand verÃ¤ndert die Schwierigkeit der Handhabung der Waffe.\nEine bessere Handhabung macht die Waffe genauer zu feuern; mit oder ohne zusÃ¤tzliches Zielen.\n Der Wert bezieht sich dabei auf den ursprÃ¼ngliche Handhabungs-Wert der Waffe,\nwelcher hÃ¶her ist fÃ¼r Gewehre und schwere Waffen,\nund niedriger bei Pistolen und leichten Waffen.\n \nNiedriger ist besser",
+	L"\n \nDieser Gegenstand verÃ¤ndert die Schwierigkeit,\nmit einer Waffe auch jenseits ihrer effektiven Reichweite zu treffen.\n \nEin hoher Wert kann durchaus\ndie tatsÃ¤chliche effektive Reichweite dieser Waffe\num einige Felder verlÃ¤ngern.\nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert die Schwierigkeit,\nein sich bewegendes Ziel zu treffen.\nEin hoher Wert kann es einfacher machen,\nsich bewegende Ziele auch in groÃŸer Entfernung zu treffen.\n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert den Schaden,\nwelchen diese Waffe anrichtet.\n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert den Schaden,\nden eine Handwaffe anrichtet, um den angegebenen Wert.\n \n Dies bezieht sich sowohl auf Klingen als auch auf Schlagwaffen.\n \nHÃ¶her ist besser",
+	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand verÃ¤ndert die grÃ¶ÃŸte effektive Reichweite.\n \nDie grÃ¶ÃŸte effektive Reichweite bestimmt,\nwie weit eine Kugel fliegt, bevor sie schnell in Richtung Boden fÃ¤llt.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand bietet eine zusÃ¤tzlich ZielvergrÃ¶ÃŸerung an,\nwas SchÃ¼sse auf groÃŸe Entfernung vergleichsweise einfacher macht.\n \nEin hoher VergrÃ¶ÃŸerungsfaktor wirkt sich allerdings nachteilig aus\nbei Zielen, die nÃ¤her als die optimale Entfernung sind.\n\nHÃ¶her ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand blendet einen Punkt Ã¼ber das Ziel ein,\nwas das Treffen deutlich vereinfacht.\n\nDieser Effekt ist nur bis zu einer bestimmten Entfernung nÃ¼tzlich, darÃ¼ber hinaus vermindert und schlieÃŸlich verschwindet der Effekt.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn befestigt an FeuerstoÃŸ oder Dauerfeuer fÃ¤higen Fernwaffen dieser Gegenstand verÃ¤ndert den horizontalen RÃ¼ckstoÃŸ um den genannten Prozentsatz.\n\n Ein geringerer RÃ¼ckstoÃŸ macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an FeuerstoÃŸ oder Dauerfeuer fÃ¤higen Fernwaffen dieser Gegenstand verÃ¤ndert den vertikalen RÃ¼ckstoÃŸ um den genannten Prozentsatz.\n\n Ein geringerer RÃ¼ckstoÃŸ macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert die FÃ¤higkeit des SchÃ¼tzen,\nseine Waffe im FeuerstoÃŸ oder Dauerfeuer unter Kontrolle zu behalten.\n\n Ein hoher Wert kann auch kÃ¶rperlich schwachen SchÃ¼tzen helfen, Waffen mit starkem RÃ¼ckstoÃŸ zu kontrollieren. \n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert die FÃ¤higkeit des SchÃ¼tzen,\ndem RÃ¼ckstoÃŸ der Waffe im FeuerstoÃŸ oder Dauerfeuer wirksam entgegenzuwirken.\n\n Ein hoher Wert erlaubt dem SchÃ¼tzen,\n die Waffe besser auf das Ziel auszurichten,\n was im Ergebnis die Genauigkeit von FeuerstÃ¶ÃŸen erhÃ¶ht. \n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert die FÃ¤higkeit des SchÃ¼tzen,\ndie Kraft, welche er benÃ¶tigt, um dem RÃ¼ckstoÃŸ im FeuerstoÃŸ oder Dauerfeuer entgegenzuwirken, Ã¶fter anzupassen.\n\n Ein hÃ¶herer Wert macht FeuerstÃ¶ÃŸe generell genauer,\n insbesondere lange FeuerstÃ¶ÃŸe,\nvorausgesetzt, der SchÃ¼tze kann dem RÃ¼ckstoÃŸ wirksam entgegenwirken. \n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand verÃ¤ndert die Anzahl der Aktionspunkte,\nwelche der Charakter zu Beginn jeder Runde bekommt. \n \nHÃ¶her ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe dieser Genestand verÃ¤ndert die Anzahl der Aktionspunkte,\ndie benÃ¶tigt werden,\num die Waffe in Anschlag zu bringen.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an irgendeiner Waffe dieser Gegenstand verÃ¤ndert die Anzahl der Aktionspunkte,\ndie fÃ¼r einen Angriff mit der Waffe benÃ¶tigt werden.\n\n Dies bezieht sich auch auf FeuerstoÃŸ oder Dauerfeuer fÃ¤hige Waffen.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an FeuerstoÃŸ oder Dauerfeuer fÃ¤higen Fernwaffen dieser Gegenstand verÃ¤ndert die Anzahl der Aktionspunkte,\ndie fÃ¼r die Abgabe eines FeuerstoÃŸes benÃ¶tigt werden.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an FeuerstoÃŸ oder Dauerfeuer fÃ¤higen Fernwaffen dieser Gegenstand verÃ¤ndert die Anzahl der Aktionspunkte,\ndie fÃ¼r das SchieÃŸen im Dauerfeuer Modus benÃ¶tigt werden.\n\n Dies bezieht sich allerdings nicht auf die AP, die benÃ¶tigt werden,\num zusÃ¤tzliche SchÃ¼sse im FeuerstoÃŸ abzugeben. .\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe, dieser Gegenstand verÃ¤ndert die Anzahl der Aktionspunkte,\ndie benÃ¶tigt werden, um die Waffe zu laden.\n \nNiedriger ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe, dieser Gegenstand verÃ¤ndert die MagazinkapazitÃ¤t von Magazinen welche in die Waffe geladen werden kÃ¶nnen. \n \nHÃ¶her ist besser.",
+	L"\n \nWenn befestigt an einer Fernwaffe, dieser Gegenstand verÃ¤ndert die Anzahl der Kugeln,\ndie pro FeuerstoÃŸ abgegeben werden.\n\n Wenn die Waffe ursprÃ¼nglich nicht fÃ¼r FeuerstÃ¶ÃŸe angelegt war,\nkann ein positiver Faktor die Abgabe von FeuerstÃ¶ÃŸen ermÃ¶glichen.\n\nIm Gegensatz kann eine Waffe mit einer solchen Funktion diese bei einem entsprechend negativem Faktor verlieren. \n \nHÃ¶her ist - gewÃ¶hnlich â€“ besser. Allerdings ist Munitionssparen ein Grund fÃ¼r kontrollierte FeuerstÃ¶ÃŸe.",
+	L"\n \nAn die Waffe angebracht beeinflusst der Gegenstand\nein Verbergen des MÃ¼ndungsfeuers.\n \nDadruch wird es schwieriger den SchÃ¼tzen zu entdecken.",
+	L"\n \nAn die Waffe angebracht beeinflusst der Gegenstand\ndie LautstÃ¤rke der Waffe.\n \nNiedriger ist besser.",
+	L"\n \nDieser Gegenstand beeinflusst die GrÃ¶ÃŸe des Gegenstands\nan den er angebracht ist.\n \nDie GrÃ¶ÃŸe des Gegenstands bestimmt wie oft und worin er\nbefÃ¶rdert werden kann.\n \nNiedriger ist besser.",
+	L"\n \nAn die Waffe angebracht beeinflusst der Gegenstand\nden ZuverlÃ¤ssigkeitswert.\n \nEin positiver Wert bewirkt ein verlangsamte,\nein negativer Wert eine verschnellert Verschlechterung.\n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand beeinflusst die Tarnung\nin Waldgebieten, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand beeinflusst die Tarnung\nin Stadtgebieten, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand beeinflusst die Tarnung\nin WÃ¼stenebieten, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand beeinflusst die Tarnung\nin Schneegebieten, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand beeinflusst das Schleichen\n, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verÃ¤ndert dies die HÃ¶rweite\num die angegebenen Prozent.\n \nEin positiver Bonus ermÃ¶glicht das HÃ¶ren von GerÃ¤uschen\nauf grÃ¶ÃŸere Distanzen.\n \nHÃ¶her ist besser.",
+    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verÃ¤ndert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser generelle Sichtweitenmodifikator funktioniert bei allen LichtverhÃ¤ltnissen.\nHÃ¶her ist besser.",
+    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verÃ¤ndert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Nacht-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung niedrig ist.\n \nHÃ¶her ist besser.",
+    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verÃ¤ndert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Tag-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung Ã¼berdurchschnittlich hoch ist.\n \nHÃ¶her ist besser.",
+    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verÃ¤ndert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Helligkeits-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung extrem hoch und grell ist.\n \nHÃ¶her ist besser.",
+    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verÃ¤ndert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser HÃ¶hlen-Sichtweitenmodifikator funktioniert nur\nim Dunkeln und auch nur unter Tage.\n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand beeinflusst die Sichtbreite,\nwenn er getragen oder\nan einen getragenen Gegenstand angebracht wird.\n \nHÃ¶her ist besser.",
+	L"\n \nDie FÃ¤higkeit des SchÃ¼tzen RÃ¼ckstoÃŸ\nwÃ¤hrend FeuerstoÃŸ-/Autofeuersalven zu bewÃ¤ltigen.\n \nHÃ¶her ist besser.",
+	L"\n \nDie FÃ¤higkeit des SchÃ¼tzen einzuschÃ¤tzen\nwieviel Kraft er wÃ¤hrend FeuerstoÃŸ-/Autofeuersalven\nbenÃ¶tigt um den RÃ¼ckstoÃŸ auszugleichen.\n \nNiedriger ist besser.",
+	L"\n \nDieser Gegenstand beeinflusst die Trefferchance\n, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHÃ¶her ist besser.",
+	L"\n \nDieser Gegenstand beeinflusst den Zielbonus\n, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHÃ¶her ist besser.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 {
-	L"\n \nDie Genauigkeit wurde verändert durch\nMunition, Erweiterungen oder inhärenter Fähigkeiten.\n \nErhöhte Genauigkeit erlaubt es Ziele die weiter entfernt sind\nöfter zu treffen, sofern \ngut gezielt wird.\n \nSkala: -100 bis +100.\nHöher ist besser.",
-	L"\n \nDie Waffe verändert die Genauigkeit des Schützen\nmit jedem Schuss durch den angegebenen Wert.\n \nSkala: -100 bis +100.\nHöher ist besser.",
-	L"\n \nDie Waffe verändert die Genauigkeit des Schützen\nmit jedem Schuss prozentual zur \nursprünglichen Genauigkeit des Schützen.\n \nHöher ist besser.",
-	L"\n \nDie Waffe verändert den Betrag an Genauigkeit\ndurch jedes zusätzlich investierte Ziellevel.\n \nSkala: -100 bis +100.\nHöher ist besser.",
-	L"\n \nDie Waffe verändert den Betrag an Genauigkeit\ndurch jedes zusätzlich investierte Ziellevel\nprozentual zur\nursprünglichen Genauigkeit des Schützen.\n \nHöher ist besser.",
-	L"\n \nDie Anzahl an zusätzlich erlaubter Ziellevel\nfür diese Waffe wurden geändert durch Munition,\nErweiterungen oder inhärenter Fähigkeiten.\nWird die Anzahl an Ziellevel reduziert, is das Zielen mit\nder Waffe schneller bei gleicher Genauigkeit.\n \nGleiches gilt für die Erhöhung der Anzahl an Ziellevel.\n \nNiedriger ist besser.",
-	L"\n \nDie Waffe ändert die maximale Genauigkeit des Schützen\nprozentual zu der ursprünglichen Genauigkeit des Schützen.\n \nHöher ist besser.",
-	L"\n \nErweiterungen oder inhärente Fähigkeiten der Waffe\nverändern ihr Handhabung.\n \nLeichtere Handhabung lässt die Waffe genauer werden.\n \nNiedriger ist besser.",
-	L"\n \nDie Fähigkeit Schüsse außerhalb\nder maximalen Reichweite zu gewährleisten wurde durch Erweiterungen\n oder inhärenter Fähigkeiten geändert.\n \nHöher ist besser.",
-	L"\n \nDie Fähigkeit entfernte, bewegende Ziele zu treffen\nwurde durch Erweiterungen\noder inhärenter Fähigkeiten geändert.\n \nHöher ist besser.",
-	L"\n \nDas Schadensergebnis wurde durch\nMunition oder Erweiterungen geändert.\n \nHöher ist besser.",
-	L"\n \nDer Messerschaden wurde durch\nErweiterungen oder inhärente Fähigkeiten geändert.\n \nHöher ist besser.",
-	L"\n \nDie maximale Reichweite wurde verbessert/verschlechtert durch Munition,\nErweiterungen oder inhärenter Fähigkeiten.\n \nHöher ist besser.",
-	L"\n \nWurde durch optische Vergrößerungen ausgerüstet,\num entfernte Ziele leichter zu treffen.\n \nZielen mit hoher Vergrößerungen außerhalb der optimalen Entfernung ist schädlich.\n \nHöher ist besser.",
-	L"\n \nMit einem Projektionsgerät ausgestattet\ndas einen Punkt (innerhalb der Reichweite) auf das Ziel projiziert\nund somit das Treffen erleichtert.\n \nHöher ist besser.",
-	L"\n \nDer horizontale Rückstoß wurde geändert\ndurch Munition, Erweiterungen oder inhärenter\nFähigkeiten.\n \nDies hat keine Wirkung bei Einzelschüssen!\n \nEin reduzierter Rückstoß erleichtert es bei einer Salve die\nMündung auf das Ziel zu richten!\n \nNiedriger ist besser.",
-	L"\n \nDer vertikale Rückstoß wurde geändert\ndurch Munition, Erweiterungen oder inhärenter\nFähigkeiten.\n \nDies hat keine Wirkung bei Einzelschüssen!\n \nEin reduzierter Rückstoß erleichtert es bei einer Salve die\nMündung auf das Ziel zu richten!.\n \nNiedriger ist besser.",
-	L"\n \nÄndert die Fertigkeit des Schützen, Rückstoß bei\nFeuerstoß-/Autofeuer zu bewältigen.\n \nEin hoher Wert hilft dem Schützen seine Waffe bei starkem Rückstoß\nzu kontrollieren selbst dann, wenn er wenig Kraft besitzt.\n \nHöher ist besser.",
-	L"\n \nÄndert die Fertigkeit des Schützen\nRückstöße genauer auszugleichen.\n \nDies hat keine Wirkung bei Einzelschüssen!\n \nEin hoher Wert hilft dem Schützen die Mündung der Waffe\nbei Salven genauer auf das Ziel zu richten.\n \nHöher ist besser.",
-	L"\n \nÄndert die Fertigkeit des Schützen\neinzuschätzen wie viel Kraft zum ausgleichen des Rückstoßes benötigt wird.\n \nDies hat keine Wirkung bei Einzelschüssen!\n \nHöhere Frequenzen machen Salven im ganzen genauer,\nlängere Salven werden genauer sofern\nder Schütze den Rückstoß bewältigen kann.\n \nHöher ist besser.",
-	L"\n \nWenn in der Hand gehalten, ändert die Waffe die Menge an AP\ndie der Soldat zu Anfang einer Runde bekommt.\n \nHöher ist besser.",
-	L"\n \nDurch Munition, Erweiterungen oder inhärenter Fähigkeiten,\nwurden die AP-Kosten zum Anlegen der Waffe\ngeändert.\n \nNiedriger ist besser.",
-	L"\n \nDurch Munition, Erweiterungen oder inhärenter Fähigkeiten,\nwurden die AP-Kosten für einen Einzelangriff\ngeändert.\n \nNiedriger ist besser.",
-	L"\n \nDurch Munition, Erweiterungen oder inhärenter Fähigkeiten,\nwurden die AP-Kosten für einen Feuerstoß\ngeändert.\n \nDies hat keine Wirkung bei Einzelschüssen!.\n \nNiedriger ist besser.",
-	L"\n \nDurch Munition, Erweiterung oder inhärenter Fähigkeiten,\nwurden die AP-Kosten für eine Salve geändert.\n \nDies hat keine Wirkung bei Einzelschüssen!\n \nNiedriger ist besser.",
-	L"\n \nDurch Munition, Erweiterungen oder inhärenter Fähigkeiten,\nwurden die AP-Kosten für Nachladen geändert.\n \nNiedriger ist besser.",
-	L"\n \nDurch Munition, Erweiterungen oder inhärenter Fähigkeiten,\nwurde die größe der fassbaren Magazine geändert.\n \nHöher ist besser.",
-	L"\n \nDurch Munition, Erweiterungen oder inhärenter Fähigkeiten,\nwurde die Anzahl der Patronen die abgefeuert werden\nkönnen geändert.",
-	L"\n \nDurch Munition, Erweiterungen oder inhärenter Fähigkeiten,\nentsteht kein Mündungsfeuer.",
-	L"\n \nDurch Munition, Erweiterungen oder inhärenter Fähigkeiten,\nwurde die Lautstärke geändert. \n \nNiedriger ist besser.",
-	L"\n \nDurch Munition, Erweiterungen oder inhärenter Fähigkeiten,\nwurde die Waffengröße geändert. Die größe des Gegenstands bestimmt wie oft und worin er\nbefördert werden kann",
-	L"\n \nDurch Munition, Erweiterungen oder inhärenter Fähigkeiten,\nwurde die Zuverlässigkeit geändert.\n \nEin positiver Wert bewirkt ein verlangsamte,\nein negativer Wert eine vergröbert Verschlechterung.\n \nHöher ist besser.",
-	L"\n \nWenn in der Hand gehalten, verändert sich\ndie Tarnung des Soldaten in Waldgebieten.\n \nHöher ist besser.",
-	L"\n \nWenn in der Hand gehalten, verändert sich\ndie Tarnung des Soldaten in Stadtgebieten.\n \nHöher ist besser.",
-	L"\n \nWenn in der Hand gehalten, verändert sich\ndie Tarnung des Soldaten in Wüstengebieten.\n \nHöher ist besser.",
-	L"\n \nWenn in der Hand gehalten, verändert sich\ndie Tarnung des Soldaten in Schneegebieten.\n \nHöher ist besser.",
-	L"\n \nWenn in der Hand gehalten, verändert sich\ndie Fähigkeit des Soldaten sich leise zu bewegen.\n \nHöher ist besser.",
-	L"\n \nWenn in der Hand gehalten, verändert sich\ndie Hörfähigkeit (in Felder) des Soldaten.\n \nHöher ist besser.",
+	L"\n \nDie Genauigkeit wurde verÃ¤ndert durch\nMunition, Erweiterungen oder inhÃ¤renter FÃ¤higkeiten.\n \nErhÃ¶hte Genauigkeit erlaubt es Ziele die weiter entfernt sind\nÃ¶fter zu treffen, sofern \ngut gezielt wird.\n \nSkala: -100 bis +100.\nHÃ¶her ist besser.",
+	L"\n \nDie Waffe verÃ¤ndert die Genauigkeit des SchÃ¼tzen\nmit jedem Schuss durch den angegebenen Wert.\n \nSkala: -100 bis +100.\nHÃ¶her ist besser.",
+	L"\n \nDie Waffe verÃ¤ndert die Genauigkeit des SchÃ¼tzen\nmit jedem Schuss prozentual zur \nursprÃ¼nglichen Genauigkeit des SchÃ¼tzen.\n \nHÃ¶her ist besser.",
+	L"\n \nDie Waffe verÃ¤ndert den Betrag an Genauigkeit\ndurch jedes zusÃ¤tzlich investierte Ziellevel.\n \nSkala: -100 bis +100.\nHÃ¶her ist besser.",
+	L"\n \nDie Waffe verÃ¤ndert den Betrag an Genauigkeit\ndurch jedes zusÃ¤tzlich investierte Ziellevel\nprozentual zur\nursprÃ¼nglichen Genauigkeit des SchÃ¼tzen.\n \nHÃ¶her ist besser.",
+	L"\n \nDie Anzahl an zusÃ¤tzlich erlaubter Ziellevel\nfÃ¼r diese Waffe wurden geÃ¤ndert durch Munition,\nErweiterungen oder inhÃ¤renter FÃ¤higkeiten.\nWird die Anzahl an Ziellevel reduziert, is das Zielen mit\nder Waffe schneller bei gleicher Genauigkeit.\n \nGleiches gilt fÃ¼r die ErhÃ¶hung der Anzahl an Ziellevel.\n \nNiedriger ist besser.",
+	L"\n \nDie Waffe Ã¤ndert die maximale Genauigkeit des SchÃ¼tzen\nprozentual zu der ursprÃ¼nglichen Genauigkeit des SchÃ¼tzen.\n \nHÃ¶her ist besser.",
+	L"\n \nErweiterungen oder inhÃ¤rente FÃ¤higkeiten der Waffe\nverÃ¤ndern ihr Handhabung.\n \nLeichtere Handhabung lÃ¤sst die Waffe genauer werden.\n \nNiedriger ist besser.",
+	L"\n \nDie FÃ¤higkeit SchÃ¼sse auÃŸerhalb\nder maximalen Reichweite zu gewÃ¤hrleisten wurde durch Erweiterungen\n oder inhÃ¤renter FÃ¤higkeiten geÃ¤ndert.\n \nHÃ¶her ist besser.",
+	L"\n \nDie FÃ¤higkeit entfernte, bewegende Ziele zu treffen\nwurde durch Erweiterungen\noder inhÃ¤renter FÃ¤higkeiten geÃ¤ndert.\n \nHÃ¶her ist besser.",
+	L"\n \nDas Schadensergebnis wurde durch\nMunition oder Erweiterungen geÃ¤ndert.\n \nHÃ¶her ist besser.",
+	L"\n \nDer Messerschaden wurde durch\nErweiterungen oder inhÃ¤rente FÃ¤higkeiten geÃ¤ndert.\n \nHÃ¶her ist besser.",
+	L"\n \nDie maximale Reichweite wurde verbessert/verschlechtert durch Munition,\nErweiterungen oder inhÃ¤renter FÃ¤higkeiten.\n \nHÃ¶her ist besser.",
+	L"\n \nWurde durch optische VergrÃ¶ÃŸerungen ausgerÃ¼stet,\num entfernte Ziele leichter zu treffen.\n \nZielen mit hoher VergrÃ¶ÃŸerungen auÃŸerhalb der optimalen Entfernung ist schÃ¤dlich.\n \nHÃ¶her ist besser.",
+	L"\n \nMit einem ProjektionsgerÃ¤t ausgestattet\ndas einen Punkt (innerhalb der Reichweite) auf das Ziel projiziert\nund somit das Treffen erleichtert.\n \nHÃ¶her ist besser.",
+	L"\n \nDer horizontale RÃ¼ckstoÃŸ wurde geÃ¤ndert\ndurch Munition, Erweiterungen oder inhÃ¤renter\nFÃ¤higkeiten.\n \nDies hat keine Wirkung bei EinzelschÃ¼ssen!\n \nEin reduzierter RÃ¼ckstoÃŸ erleichtert es bei einer Salve die\nMÃ¼ndung auf das Ziel zu richten!\n \nNiedriger ist besser.",
+	L"\n \nDer vertikale RÃ¼ckstoÃŸ wurde geÃ¤ndert\ndurch Munition, Erweiterungen oder inhÃ¤renter\nFÃ¤higkeiten.\n \nDies hat keine Wirkung bei EinzelschÃ¼ssen!\n \nEin reduzierter RÃ¼ckstoÃŸ erleichtert es bei einer Salve die\nMÃ¼ndung auf das Ziel zu richten!.\n \nNiedriger ist besser.",
+	L"\n \nÃ„ndert die Fertigkeit des SchÃ¼tzen, RÃ¼ckstoÃŸ bei\nFeuerstoÃŸ-/Autofeuer zu bewÃ¤ltigen.\n \nEin hoher Wert hilft dem SchÃ¼tzen seine Waffe bei starkem RÃ¼ckstoÃŸ\nzu kontrollieren selbst dann, wenn er wenig Kraft besitzt.\n \nHÃ¶her ist besser.",
+	L"\n \nÃ„ndert die Fertigkeit des SchÃ¼tzen\nRÃ¼ckstÃ¶ÃŸe genauer auszugleichen.\n \nDies hat keine Wirkung bei EinzelschÃ¼ssen!\n \nEin hoher Wert hilft dem SchÃ¼tzen die MÃ¼ndung der Waffe\nbei Salven genauer auf das Ziel zu richten.\n \nHÃ¶her ist besser.",
+	L"\n \nÃ„ndert die Fertigkeit des SchÃ¼tzen\neinzuschÃ¤tzen wie viel Kraft zum ausgleichen des RÃ¼ckstoÃŸes benÃ¶tigt wird.\n \nDies hat keine Wirkung bei EinzelschÃ¼ssen!\n \nHÃ¶here Frequenzen machen Salven im ganzen genauer,\nlÃ¤ngere Salven werden genauer sofern\nder SchÃ¼tze den RÃ¼ckstoÃŸ bewÃ¤ltigen kann.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn in der Hand gehalten, Ã¤ndert die Waffe die Menge an AP\ndie der Soldat zu Anfang einer Runde bekommt.\n \nHÃ¶her ist besser.",
+	L"\n \nDurch Munition, Erweiterungen oder inhÃ¤renter FÃ¤higkeiten,\nwurden die AP-Kosten zum Anlegen der Waffe\ngeÃ¤ndert.\n \nNiedriger ist besser.",
+	L"\n \nDurch Munition, Erweiterungen oder inhÃ¤renter FÃ¤higkeiten,\nwurden die AP-Kosten fÃ¼r einen Einzelangriff\ngeÃ¤ndert.\n \nNiedriger ist besser.",
+	L"\n \nDurch Munition, Erweiterungen oder inhÃ¤renter FÃ¤higkeiten,\nwurden die AP-Kosten fÃ¼r einen FeuerstoÃŸ\ngeÃ¤ndert.\n \nDies hat keine Wirkung bei EinzelschÃ¼ssen!.\n \nNiedriger ist besser.",
+	L"\n \nDurch Munition, Erweiterung oder inhÃ¤renter FÃ¤higkeiten,\nwurden die AP-Kosten fÃ¼r eine Salve geÃ¤ndert.\n \nDies hat keine Wirkung bei EinzelschÃ¼ssen!\n \nNiedriger ist besser.",
+	L"\n \nDurch Munition, Erweiterungen oder inhÃ¤renter FÃ¤higkeiten,\nwurden die AP-Kosten fÃ¼r Nachladen geÃ¤ndert.\n \nNiedriger ist besser.",
+	L"\n \nDurch Munition, Erweiterungen oder inhÃ¤renter FÃ¤higkeiten,\nwurde die grÃ¶ÃŸe der fassbaren Magazine geÃ¤ndert.\n \nHÃ¶her ist besser.",
+	L"\n \nDurch Munition, Erweiterungen oder inhÃ¤renter FÃ¤higkeiten,\nwurde die Anzahl der Patronen die abgefeuert werden\nkÃ¶nnen geÃ¤ndert.",
+	L"\n \nDurch Munition, Erweiterungen oder inhÃ¤renter FÃ¤higkeiten,\nentsteht kein MÃ¼ndungsfeuer.",
+	L"\n \nDurch Munition, Erweiterungen oder inhÃ¤renter FÃ¤higkeiten,\nwurde die LautstÃ¤rke geÃ¤ndert. \n \nNiedriger ist besser.",
+	L"\n \nDurch Munition, Erweiterungen oder inhÃ¤renter FÃ¤higkeiten,\nwurde die WaffengrÃ¶ÃŸe geÃ¤ndert. Die grÃ¶ÃŸe des Gegenstands bestimmt wie oft und worin er\nbefÃ¶rdert werden kann",
+	L"\n \nDurch Munition, Erweiterungen oder inhÃ¤renter FÃ¤higkeiten,\nwurde die ZuverlÃ¤ssigkeit geÃ¤ndert.\n \nEin positiver Wert bewirkt ein verlangsamte,\nein negativer Wert eine vergrÃ¶bert Verschlechterung.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn in der Hand gehalten, verÃ¤ndert sich\ndie Tarnung des Soldaten in Waldgebieten.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn in der Hand gehalten, verÃ¤ndert sich\ndie Tarnung des Soldaten in Stadtgebieten.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn in der Hand gehalten, verÃ¤ndert sich\ndie Tarnung des Soldaten in WÃ¼stengebieten.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn in der Hand gehalten, verÃ¤ndert sich\ndie Tarnung des Soldaten in Schneegebieten.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn in der Hand gehalten, verÃ¤ndert sich\ndie FÃ¤higkeit des Soldaten sich leise zu bewegen.\n \nHÃ¶her ist besser.",
+	L"\n \nWenn in der Hand gehalten, verÃ¤ndert sich\ndie HÃ¶rfÃ¤higkeit (in Felder) des Soldaten.\n \nHÃ¶her ist besser.",
 	L"\n \nWhen this weapon is held in hand, it modifies the\nsoldier's Hearing Range by the listed percent.\n \nA positive bonus makes it possible to hear noises\nfrom a greater distance.\n \nConversely, a negative modifier impairs the wearer's hearing.\n \nHigher is better.",
 	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted percent, thanks to attachments or\ninherent properties of the weapon.\n \nThis General modifier works in all conditions.\n \nHigher is better.",
 	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted percent, thanks to attachments or\ninherent properties of the weapon.\n \nThis Night-Vision modifier works only when light\nlevels are sufficiently low.\n \nHigher is better.",
 	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted percent, thanks to attachments or\ninherent properties of the weapon.\n \nThis Day-Vision modifier works only when light\nlevels are average or higher.\n \nHigher is better.",
 	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted percent, thanks to attachments or\ninherent properties of the weapon.\n \nThis Bright-Vision modifier works only when light\nlevels are very high, for example when looking\ninto tiles lit by Break-Lights or at high noon.\n \nHigher is better.",
 	L"\n \nWhen this weapon is raised to the shooting position,\nit modifies the wearer's Vision Range by the\nlisted percent, thanks to attachments or\ninherent properties of the weapon.\n \nThis Cave-Vision modifier works only in the dark\nand only underground.\n \nHigher is better.",
-	L"\n \nDas ist die Fähigkeit des Schützen Rückstoß\nwährend der Feuerstoß-/Autofeuersalven zu bewältigen.\n \nHöher ist besser.",
-	L"\n \nDas ist die Fähigkeit des Schützen Rückstöße\ngenauer auszugleichen.\n \nDies hat keine Wirkung bei Einzelschüssen!\n \nEin hoher Wert hilft dem Schützen die Mündung der Waffe\nbei Salven genauer auf das Ziel zu richten.\n \nNiedriger ist besser.",
-	L"\n \nDer Treffer Modifikator wird verändert durch\nMunition, Erweiterungen oder eingebauter Attribute.\n \nEin erhöhter Treffer Modifikator erlaubt es entfernte Ziele\n öfter zu treffen sofern\nanständig gezielt wird.\n \nHöher ist besser.",
-	L"\n \nDer Zielbonus wird verändert durch\nMunition, Erweiterungen oder eingebauter Attribute.\n \nEin erhöhter Zielbonus erlaubt es entfernte Ziele\n öfter zu treffen sofern\nanständig gezielt wird.\n \nHöher ist besser.",
+	L"\n \nDas ist die FÃ¤higkeit des SchÃ¼tzen RÃ¼ckstoÃŸ\nwÃ¤hrend der FeuerstoÃŸ-/Autofeuersalven zu bewÃ¤ltigen.\n \nHÃ¶her ist besser.",
+	L"\n \nDas ist die FÃ¤higkeit des SchÃ¼tzen RÃ¼ckstÃ¶ÃŸe\ngenauer auszugleichen.\n \nDies hat keine Wirkung bei EinzelschÃ¼ssen!\n \nEin hoher Wert hilft dem SchÃ¼tzen die MÃ¼ndung der Waffe\nbei Salven genauer auf das Ziel zu richten.\n \nNiedriger ist besser.",
+	L"\n \nDer Treffer Modifikator wird verÃ¤ndert durch\nMunition, Erweiterungen oder eingebauter Attribute.\n \nEin erhÃ¶hter Treffer Modifikator erlaubt es entfernte Ziele\n Ã¶fter zu treffen sofern\nanstÃ¤ndig gezielt wird.\n \nHÃ¶her ist besser.",
+	L"\n \nDer Zielbonus wird verÃ¤ndert durch\nMunition, Erweiterungen oder eingebauter Attribute.\n \nEin erhÃ¶hter Zielbonus erlaubt es entfernte Ziele\n Ã¶fter zu treffen sofern\nanstÃ¤ndig gezielt wird.\n \nHÃ¶her ist besser.",
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.

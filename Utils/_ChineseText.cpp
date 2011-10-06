@@ -6061,7 +6061,7 @@ STR16 MPClientMessage[] =
 	L"'%s' (客户端 %d - '%S') 已被 '%s' (客户端 %d - '%S' 杀死)",
 	L"踢出客户端 #%d - '%S'",
 	// 30
-	L"开始排序客户端号: #1 - '%S' | #2 - '%S' | #3 - '%S' | #4 - '%S'",
+	L"开始排序客户端号. #1: <取消>, #2: %S, #3: %S, #4: %S",
 	L"开始客户端 #%d",
 	L"请求即时模式...",
 	L"转回即时模式。",
@@ -6113,12 +6113,13 @@ STR16 MPClientMessage[] =
 	L"%s's bomb was disarmed by &s",
 	L"You loose, what a shame",	// All over red rover
 	L"Spectator mode disabled",
-	L"Choose client number to kick:",
+	L"Choose client to kick from game. #1: <Cancel>, #2: %S, #3: %S, #4: %S",
 	// 75
 	L"Team #%d is wiped out.",
 	L"Client failed to start. Terminating.",
 	L"Client disconnected and shutdown.",
 	L"Client is not running.",
+	L"INFO: If the game is stuck (the opponents progress bar is not moving), notify the server to press ALT + E to give the turn back to you!",	// TODO.Translate
 };
 
 STR16 gszMPEdgesText[] =

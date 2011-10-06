@@ -30,6 +30,7 @@
 //#define ITALIAN
 //#define TAIWANESE
 
+// WANNE: The pragma and the exclusive VS2008/VS2010 compilation should not be needed anymore for Polish version, after we set the encoding to UTF8 
 // WANNE: If we like to build Polish version, we have to do this in VS2008/VS2010, because in VS2005 we get weird behavior (progress bar not moving when loading sector, ...). 
 // To get correct display of Polish letters, it is needed to set "#pragma setlocale("POLISH")" in "_PolishText.cpp" and "_"Ja25PolishText.cpp.
 // Unfortunatelly setting the "pragma" causes the weird behavior when building in VS2005, this is why we should build in VS2008/VS2010.

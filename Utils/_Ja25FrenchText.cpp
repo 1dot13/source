@@ -1,4 +1,4 @@
-// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
+ï»¿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("FRENCH")
 
 #ifdef PRECOMPILEDHEADERS
@@ -22,28 +22,28 @@ void this_is_the_Ja25FrenchText_public_symbol(void){;}
 STR16	zNewTacticalMessages[]=
 {
 	//L"Distance cible: %d tiles, Brightness: %d/%d",
-	L"Attache le transpondeur à votre PC portable.",
+	L"Attache le transpondeur Ã  votre PC portable.",
 	L"Vous n'avez pas les moyens d'engager %s",
-	L"Pour une durée limitée, les frais ci-dessus couvrent la mission entière, équipement ci-dessous compris.",
-	L"Engagez %s et découvrez dès à présent notre prix \"tout compris\".  Aussi inclus dans cette incroyable offerte l'équipement personnel du mercenaire sans frais supplémentaires.",
+	L"Pour une durÃ©e limitÃ©e, les frais ci-dessus couvrent la mission entiÃ¨re, Ã©quipement ci-dessous compris.",
+	L"Engagez %s et dÃ©couvrez dÃ¨s Ã  prÃ©sent notre prix \"tout compris\".  Aussi inclus dans cette incroyable offerte l'Ã©quipement personnel du mercenaire sans frais supplÃ©mentaires.",
 	L"Frais",
 	L"Il y a quelqu'un d'autre dans le secteur...",
-	//L"Portée arme: %d tiles, Probabilités: %d pourcent",
+	//L"PortÃ©e arme: %d tiles, ProbabilitÃ©s: %d pourcent",
 	L"Afficher couverture",
 	L"Ligne de vision",
 	L"Les nouvelles recrues ne peuvent arriver ici.",
-	L"Comme votre PC n'a pas de transpondeur, vous ne pouvez engager de nouvelles recrues. Revenez à une sauvegarde précédente et réessayez.",
-	L"%s entend le son de métal broyé provenant d'en dessous du corps de Jerry.  On dirait que l'antenne de votre PC ne sers plus à rien.",  //the %s is the name of a merc.  @@@  Modified
-	L"Apres avoir scanné la note laissée par le Deputy Commander Morris, %s sent une oppurtinité. La note contient les coordonnées pour le lancement de missiles sur Arulco. Elle contient aussi l'emplacement de l'usine d'où les missiles proviennent.",
-	L"En examinant le panneau de contrôle, %s s'aperçoît que less chiffres peuvent être inversés, pour que les missiles détruisent cette même usine.  %s a besoin de trouver un chemin pour s'enfuir.  L'ascenseur semble être la solution la plus rapide...",
+	L"Comme votre PC n'a pas de transpondeur, vous ne pouvez engager de nouvelles recrues. Revenez Ã  une sauvegarde prÃ©cÃ©dente et rÃ©essayez.",
+	L"%s entend le son de mÃ©tal broyÃ© provenant d'en dessous du corps de Jerry.  On dirait que l'antenne de votre PC ne sers plus Ã  rien.",  //the %s is the name of a merc.  @@@  Modified
+	L"Apres avoir scannÃ© la note laissÃ©e par le Deputy Commander Morris, %s sent une oppurtinitÃ©. La note contient les coordonnÃ©es pour le lancement de missiles sur Arulco. Elle contient aussi l'emplacement de l'usine d'oÃ¹ les missiles proviennent.",
+	L"En examinant le panneau de contrÃ´le, %s s'aperÃ§oÃ®t que less chiffres peuvent Ãªtre inversÃ©s, pour que les missiles dÃ©truisent cette mÃªme usine.  %s a besoin de trouver un chemin pour s'enfuir.  L'ascenseur semble Ãªtre la solution la plus rapide...",
 	L"Ceci est un jeu IRON MAN et vous ne pouvez sauvegarder s'il ya des ennemis dans les parages.",	//	@@@  new text
 	L"(ne peut sauvegarder en plein combat)", //@@@@ new text
-	L"Le nom de la campagne actuelle est supérieur à 30 lettres.",							// @@@ new text
+	L"Le nom de la campagne actuelle est supÃ©rieur Ã  30 lettres.",							// @@@ new text
 	L"La campagne actuelle est introuvable.",																	// @@@ new text
 	L"Campaign: Defaut ( %S )",																							// @@@ new text
 	L"Campaign: %S",																													// @@@ new text
-	L"Vous avez choisi la campagne %S. Cette campagne est un mod d'unfinished business. Etes vous sûr de vouloir jouer la campagne %S ?",			// @@@ new text
-	L"Pour pouvoir utiliser l'éditeur, veuillez choisir une autre campagne que celle par defaut.",		///@@new
+	L"Vous avez choisi la campagne %S. Cette campagne est un mod d'unfinished business. Etes vous sÃ»r de vouloir jouer la campagne %S ?",			// @@@ new text
+	L"Pour pouvoir utiliser l'Ã©diteur, veuillez choisir une autre campagne que celle par defaut.",		///@@new
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ STR16	zNewTacticalMessages[]=
 STR16 gzIMPSkillTraitsText[]=
 {
 	L"crochetage",
-	L"combat à mains nues",
+	L"combat Ã  mains nues",
 	L"Electronique",
 	L"Operations de nuit",
 	L"Lancer",
@@ -62,12 +62,12 @@ STR16 gzIMPSkillTraitsText[]=
 	L"Discretion",
 	L"Ambidextre",
 	L"Couteau",
-	L"Tireur isolé",
+	L"Tireur isolÃ©",
 	L"Camouflage",
 	L"Arts martiaux",
 
 	L"aucune",
-	L"Spécialtés I.M.P.",
+	L"SpÃ©cialtÃ©s I.M.P.",
 	L"(Expert)",
 
 };
@@ -460,7 +460,7 @@ STR16 zGioNewTraitsImpossibleText[]=
 //@@@:  New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
 {
-	L"Vous avez choisi le mode IRON MAN. La difficultée du jeu s'en trouveras considerablement augmentée du fait de l'imposssiblité de sauvegarder en territoire ennemi. Ce paramètre prendra effet tout au long de la partie.  Etes vous vraiment sûr de vouloir jouer en mode IRON MAN ?",
+	L"Vous avez choisi le mode IRON MAN. La difficultÃ©e du jeu s'en trouveras considerablement augmentÃ©e du fait de l'imposssiblitÃ© de sauvegarder en territoire ennemi. Ce paramÃ¨tre prendra effet tout au long de la partie.  Etes vous vraiment sÃ»r de vouloir jouer en mode IRON MAN ?",
 };
 
 STR16 gzDisplayCoverText[]=

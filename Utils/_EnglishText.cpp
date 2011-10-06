@@ -1,4 +1,4 @@
-// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
+ï»¿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
 //#pragma setlocale("ENGLISH")
 
 #ifdef PRECOMPILEDHEADERS
@@ -5550,7 +5550,7 @@ STR16	gzCreditNames[]=
 {
 	L"Chris Camfield",
 	L"Shaun Lyng",
-	L"Kris Märnes",
+	L"Kris MÃ¤rnes",
 	L"Ian Currie",
 	L"Linda Currie",
 	L"Eric \"WTF\" Cheng",
@@ -5908,17 +5908,17 @@ STR16 New113HAMMessage[] =
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
-// INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+// INFO: Do not replace the Â± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16	New113MERCMercMailTexts[] =
 {
 	// Gaston: Text from Line 39 in Email.edt
-	L"Hereby be informed that due to Gastons's past performance his fees for services rendered have undergone an increase. Personally, I'm not surprised. ± ± Speck T. Kline ± ",
+	L"Hereby be informed that due to Gastons's past performance his fees for services rendered have undergone an increase. Personally, I'm not surprised. Â± Â± Speck T. Kline Â± ",
 	// Stogie: Text from Line 43 in Email.edt
-	L"Please be advised that, as of this moment, Stogies's fees for services rendered have increased to coincide with the increase in his abilities. ± ± Speck T. Kline ± ", 
+	L"Please be advised that, as of this moment, Stogies's fees for services rendered have increased to coincide with the increase in his abilities. Â± Â± Speck T. Kline Â± ", 
 	// Tex: Text from Line 45 in Email.edt
-	L"Please be advised that Tex's experience entitles him to more equitable compensation. He's fees have therefore been increased to more accurately reflect his worth. ± ± Speck T. Kline ± ",
+	L"Please be advised that Tex's experience entitles him to more equitable compensation. He's fees have therefore been increased to more accurately reflect his worth. Â± Â± Speck T. Kline Â± ",
 	// Biggens: Text from Line 49 in Email.edt
-	L"Please take note. Due to the improved performance of Biggens his fees for services rendered have undergone an increase. ± ± Speck T. Kline ± ",
+	L"Please take note. Due to the improved performance of Biggens his fees for services rendered have undergone an increase. Â± Â± Speck T. Kline Â± ",
 };
 
 // WANNE: This is email text (each 2 line), when we left a message on AIM and now the merc is back
@@ -5926,69 +5926,69 @@ STR16	New113AIMMercMailTexts[] =
 {
 	// Monk: Text from Line 58
 	L"FW from AIM Server: Message from Victor Kolesnikov",
-	L"Hello. Monk here. Message received. I'm back if you want to see me. ± ± Waiting for your call. ±",
+	L"Hello. Monk here. Message received. I'm back if you want to see me. Â± Â± Waiting for your call. Â±",
 
 	// Brain: Text from Line 60
 	L"FW from AIM Server: Message from Janno Allik",
-	L"Am now ready to consider tasks. There is a time and place for everything. ± ± Janno Allik ±",
+	L"Am now ready to consider tasks. There is a time and place for everything. Â± Â± Janno Allik Â±",
 
 	// Scream: Text from Line 62
 	L"FW from AIM Server: Message from Lennart Vilde",
-	L"Lennart Vilde now available! ±",
+	L"Lennart Vilde now available! Â±",
 
 	// Henning: Text from Line 64
 	L"FW from AIM Server: Message from Henning von Branitz",
-	L"Have received your message, thanks. To discuss employment, contact me  at the AIM Website. ± ± Till then! ± ± Henning von Branitz ±",
+	L"Have received your message, thanks. To discuss employment, contact me  at the AIM Website. Â± Â± Till then! Â± Â± Henning von Branitz Â±",
 
 	// Luc: Text from Line 66
 	L"FW from AIM Server: Message from Luc Fabre",
-	L"Mesage received, merci! Am happy to consider your proposals. You know where to find me. ± ± Looking forward to hearing from you. ±",
+	L"Mesage received, merci! Am happy to consider your proposals. You know where to find me. Â± Â± Looking forward to hearing from you. Â±",
 
 	// Laura: Text from Line 68
 	L"FW from AIM Server: Message from Dr. Laura Colin",
-	L"Greetings! Good of you to leave a message  It sounds interesting. ± ± Visit AIM again I would be happy to hear more. ± ± Best regards! ± ± Dr. Laura Colin ±",
+	L"Greetings! Good of you to leave a message  It sounds interesting. Â± Â± Visit AIM again I would be happy to hear more. Â± Â± Best regards! Â± Â± Dr. Laura Colin Â±",
 
 	// Grace: Text from Line 70
 	L"FW from AIM Server: Message from Graziella Girelli",
-	L"You wanted to contact me, but were not successful.± ± A family gathering. I am sure you understand? I've now had enough of family and would be very happy if you would contact me again over the AIM Site. ± ± Ciao! ±",
+	L"You wanted to contact me, but were not successful.Â± Â± A family gathering. I am sure you understand? I've now had enough of family and would be very happy if you would contact me again over the AIM Site. Â± Â± Ciao! Â±",
 
 	// Rudolf: Text from Line 72
 	L"FW from AIM Server: Message from Rudolf Steiger",
-	L"Do you know how many calls I get every day? Every tosser thinks he can call me.  ± ± But I'm back, if you have something of interest for me. ±",
+	L"Do you know how many calls I get every day? Every tosser thinks he can call me.  Â± Â± But I'm back, if you have something of interest for me. Â±",
 
 	// WANNE: Generic mail, for additional merc made by modders, index >= 178
 	L"FW from AIM Server: Message about merc availability",
-	L"I got your message. Waiting for your call. ±",
+	L"I got your message. Waiting for your call. Â±",
 };
 
 // WANNE: These are the missing skills from the impass.edt file
-// INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+// INFO: Do not replace the Â± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16 MissingIMPSkillsDescriptions[] =
 {
 	// Sniper
-	L"Sniper: Eyes of a hawk, you can shoot the wings from a fly at a hundred yards! ± ",
+	L"Sniper: Eyes of a hawk, you can shoot the wings from a fly at a hundred yards! Â± ",
 	// Camouflage
-	L"Camouflage: Beside you, even bushes look synthetic! ± ",
+	L"Camouflage: Beside you, even bushes look synthetic! Â± ",
 	// SANDRO - new strings for new traits added
 	// MINTY - Altered the texts for more natural English, and added a little flavour too
 	// Ranger
-	L"Ranger: Those amateurs from Texas have nothing on you! ± ",	
+	L"Ranger: Those amateurs from Texas have nothing on you! Â± ",	
 	// Gunslinger
-	L"Gunslinger: With one handgun or two, you can be as lethal as Billy the Kid! ± ", 
+	L"Gunslinger: With one handgun or two, you can be as lethal as Billy the Kid! Â± ", 
 	// Squadleader
-	L"Squadleader: A natural leader, your squadmates look to you for inspiration! ± ",
+	L"Squadleader: A natural leader, your squadmates look to you for inspiration! Â± ",
 	// Technician
-	L"Technician: MacGyver's got nothing on you! Mechanical, electronic or explosive, you can fix it! ± ",
+	L"Technician: MacGyver's got nothing on you! Mechanical, electronic or explosive, you can fix it! Â± ",
 	// Doctor
-	L"Doctor: From grazes to gutshot, to amputations, you can heal them all! ± ",
+	L"Doctor: From grazes to gutshot, to amputations, you can heal them all! Â± ",
 	// Athletics
-	L"Athletics: Your speed and vitality are worthy of an Olympian! ± ",
+	L"Athletics: Your speed and vitality are worthy of an Olympian! Â± ",
 	// Bodybuilding
-	L"Bodybuilding: Arnie? What a wimp! You could beat him with one arm behind your back! ± ",
+	L"Bodybuilding: Arnie? What a wimp! You could beat him with one arm behind your back! Â± ",
 	// Demolitions
-	L"Demolitions: Sowing grenades like seeds, planting bombs, watching the limbs flying.. This is what you live for! ± ",
+	L"Demolitions: Sowing grenades like seeds, planting bombs, watching the limbs flying.. This is what you live for! Â± ",
 	// Scouting
-	L"Scouting: Nothing can escape your notice! ± ",	
+	L"Scouting: Nothing can escape your notice! Â± ",	
 };
 
 STR16 NewInvMessage[] = 
@@ -6063,7 +6063,7 @@ STR16 MPClientMessage[] =
 	L"'%s' (client %d - '%S') was killed by '%s' (client %d - '%S').",
 	L"Kicked client #%d - '%S'.",
 	// 30
-	L"Start turn for client number: #1 - '%S' | #2 - '%S' | #3 - '%S' | #4 - '%S'",
+	L"Start a new turn for the selected client. #1: <Cancel>, #2: %S, #3: %S, #4: %S",
 	L"Starting turn for client #%d.",
 	L"Requesting for realtime...",
 	L"Switched back to realtime.",
@@ -6115,12 +6115,13 @@ STR16 MPClientMessage[] =
 	L"%s's bomb was disarmed by &s",
 	L"You loose, what a shame",	// All over red rover
 	L"Spectator mode disabled",
-	L"Choose client number to kick:",
+	L"Choose client to kick from game. #1: <Cancel>, #2: %S, #3: %S, #4: %S",
 	// 75
 	L"Team #%d is wiped out.",
 	L"Client failed to start. Terminating.",
 	L"Client disconnected and shutdown.",
 	L"Client is not running.",
+	L"INFO: If the game is stuck (the opponents progress bar is not moving), notify the server to press ALT + E to give the turn back to you!",	
 };
 
 STR16 gszMPEdgesText[] =
