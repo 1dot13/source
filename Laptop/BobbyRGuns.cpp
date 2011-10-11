@@ -1346,6 +1346,19 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter)
 	PosY = BOBBYR_GRID_PIC_Y;
 	usTextPosY = BOBBYR_ITEM_DESC_START_Y;
 
+	//Display the subtotal at the bottom of the screen
+	swprintf( sDollarTemp, L"%d", CalculateTotalPurchasePrice() );
+	InsertCommasForDollarFigure( sDollarTemp );
+	InsertDollarSignInToString( sDollarTemp );
+	swprintf( sTemp, L"%s %s", BobbyRText[BOBBYR_GUNS_SUB_TOTAL], sDollarTemp );
+	DrawTextToScreen(sTemp, BOBBYR_ORDER_SUBTOTAL_X, BOBBYR_ORDER_SUBTOTAL_Y, 0, BOBBYR_ORDER_TITLE_FONT, BOBBYR_ORDER_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED | TEXT_SHADOWED);
+
+	//Display the Used item disclaimer
+	if( gfOnUsedPage )
+	{
+		DrawTextToScreen( BobbyRText[BOBBYR_GUNS_PERCENT_FUNCTIONAL], BOBBYR_PERCENT_FUNTCIONAL_X, BOBBYR_PERCENT_FUNTCIONAL_Y, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ORDER_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED | TEXT_SHADOWED);
+	}
+
 //	InitFirstAndLastGlobalIndex( uiItemClass );
 
 	//if there are no items then return
@@ -1649,19 +1662,6 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter)
 		CreateMouseRegionForBigImage(BOBBYR_GRID_PIC_Y, ubCount, pItemNumbers );
 
 		gusOldItemNumOnTopOfPage = gusCurWeaponIndex;
-	}
-
-	//Display the subtotal at the bottom of the screen
-	swprintf( sDollarTemp, L"%d", CalculateTotalPurchasePrice() );
-	InsertCommasForDollarFigure( sDollarTemp );
-	InsertDollarSignInToString( sDollarTemp );
-	swprintf( sTemp, L"%s %s", BobbyRText[BOBBYR_GUNS_SUB_TOTAL], sDollarTemp );
-	DrawTextToScreen(sTemp, BOBBYR_ORDER_SUBTOTAL_X, BOBBYR_ORDER_SUBTOTAL_Y, 0, BOBBYR_ORDER_TITLE_FONT, BOBBYR_ORDER_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED | TEXT_SHADOWED);
-
-	//Display the Used item disclaimer
-	if( gfOnUsedPage )
-	{
-		DrawTextToScreen( BobbyRText[BOBBYR_GUNS_PERCENT_FUNCTIONAL], BOBBYR_PERCENT_FUNTCIONAL_X, BOBBYR_PERCENT_FUNTCIONAL_Y, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ORDER_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED | TEXT_SHADOWED);
 	}
 
 	return(TRUE);

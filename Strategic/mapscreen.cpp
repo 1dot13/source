@@ -7554,24 +7554,13 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						{
 							fDisableJustForIan = ! fDisableJustForIan;
 						}
-						else
-						{
-							// only handle border button keyboard equivalents if the button is visible!
-							if ( !fShowMapInventoryPool )
-							{
-								ToggleItemsFilter();
-							}
-						}
-					#else
-						// only handle border button keyboard equivalents if the button is visible!
-						if ( !fShowMapInventoryPool )
-						{
-							ToggleItemsFilter();
-						}
 					#endif
-
+					// only handle border button keyboard equivalents if the button is visible!
+					if ( !fShowMapInventoryPool )
+					{
+						ToggleItemsFilter();
+					}
 					break;
-
 				case 'K':
 					//CHRISL: Swap gunsling
 					if ( bSelectedInfoChar != -1 && fShowInventoryFlag && UsingNewInventorySystem() == true )
@@ -7897,7 +7886,17 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						}
 					}
 					#endif
-					break;
+					// open selected sector inventory screen
+					// if showing item counts on the map, and not already in sector inventory
+					if ( fShowItemsFlag && !fShowMapInventoryPool )
+					{
+						// show sector inventory for selected sector
+						ChangeSelectedMapSector( sSelMapX, sSelMapY, ( INT8 ) iCurrentMapSectorZ );
+
+						fShowMapInventoryPool = TRUE;
+						CreateDestroyMapInventoryPoolButtons( TRUE );
+					}
+					break;				
 				case 'v':
 					if( fCtrl )
 					{
