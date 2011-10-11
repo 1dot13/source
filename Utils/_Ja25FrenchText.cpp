@@ -22,28 +22,28 @@ void this_is_the_Ja25FrenchText_public_symbol(void){;}
 STR16	zNewTacticalMessages[]=
 {
 	//L"Distance cible: %d tiles, Brightness: %d/%d",
-	L"Attache le transpondeur à votre PC portable.",
+	L"Attachez le transpondeur à votre PC portable.",
 	L"Vous n'avez pas les moyens d'engager %s",
 	L"Pour une durée limitée, les frais ci-dessus couvrent la mission entière, équipement ci-dessous compris.",
-	L"Engagez %s et découvrez dès à présent notre prix \"tout compris\".  Aussi inclus dans cette incroyable offerte l'équipement personnel du mercenaire sans frais supplémentaires.",
+	L"Engagez %s et découvrez dès à présent notre prix \"tout compris\".  Aussi inclus dans cette incroyable offre, l'équipement personnel du mercenaire sans frais supplémentaires.",
 	L"Frais",
 	L"Il y a quelqu'un d'autre dans le secteur...",
-	//L"Portée arme: %d tiles, Probabilités: %d pourcent",
+	//L"Portée arme: %d tiles, de chances: %d pourcent",
 	L"Afficher couverture",
 	L"Ligne de vision",
 	L"Les nouvelles recrues ne peuvent arriver ici.",
 	L"Comme votre PC n'a pas de transpondeur, vous ne pouvez engager de nouvelles recrues. Revenez à une sauvegarde précédente et réessayez.",
 	L"%s entend le son de métal broyé provenant d'en dessous du corps de Jerry.  On dirait que l'antenne de votre PC ne sers plus à rien.",  //the %s is the name of a merc.  @@@  Modified
 	L"Apres avoir scanné la note laissée par le Deputy Commander Morris, %s sent une oppurtinité. La note contient les coordonnées pour le lancement de missiles sur Arulco. Elle contient aussi l'emplacement de l'usine d'où les missiles proviennent.",
-	L"En examinant le panneau de contrôle, %s s'aperçoît que less chiffres peuvent être inversés, pour que les missiles détruisent cette même usine.  %s a besoin de trouver un chemin pour s'enfuir.  L'ascenseur semble être la solution la plus rapide...",
-	L"Ceci est un jeu IRON MAN et vous ne pouvez sauvegarder s'il ya des ennemis dans les parages.",	//	@@@  new text
+	L"En examinant le panneau de contrôle, %s s'aperçoît que les chiffres peuvent être inversés pour que les missiles détruisent cette même usine.  %s a besoin de trouver un chemin pour s'enfuir.  L'ascenseur semble être la solution la plus rapide...",
+	L"Ceci est un jeu IRON MAN et vous ne pouvez pas sauvegarder s'il ya des ennemis dans les parages.",	//	@@@  new text
 	L"(ne peut sauvegarder en plein combat)", //@@@@ new text
 	L"Le nom de la campagne actuelle est supérieur à 30 lettres.",							// @@@ new text
 	L"La campagne actuelle est introuvable.",																	// @@@ new text
-	L"Campaign: Defaut ( %S )",																							// @@@ new text
-	L"Campaign: %S",																													// @@@ new text
-	L"Vous avez choisi la campagne %S. Cette campagne est un mod d'unfinished business. Etes vous sûr de vouloir jouer la campagne %S ?",			// @@@ new text
-	L"Pour pouvoir utiliser l'éditeur, veuillez choisir une autre campagne que celle par defaut.",		///@@new
+	L"Campagne: Par défaut ( %S )",																							// @@@ new text
+	L"Campagne: %S",																													// @@@ new text
+	L"Vous avez choisi la campagne %S. Cette campagne est un mod d'Unfinished Business. Etes-vous sûr de vouloir jouer la campagne %S ?",			// @@@ new text
+	L"Pour pouvoir utiliser l'éditeur, veuillez choisir une autre campagne que celle par défaut.",		///@@new
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,15 +51,15 @@ STR16	zNewTacticalMessages[]=
 //these strings match up with the defines in IMP Skill trait.cpp
 STR16 gzIMPSkillTraitsText[]=
 {
-	L"crochetage",
-	L"combat à mains nues",
+	L"Crochetage",
+	L"Combat à mains nues",
 	L"Electronique",
 	L"Operations de nuit",
 	L"Lancer",
 	L"Enseigner",
 	L"Armes lourdes",
 	L"Armes automatiques",
-	L"Discretion",
+	L"Discrétion",
 	L"Ambidextre",
 	L"Couteau",
 	L"Tireur isolé",
@@ -75,372 +75,372 @@ STR16 gzIMPSkillTraitsText[]=
 //added another set of skill texts for new major traits
 STR16 gzIMPSkillTraitsTextNewMajor[]=
 {
-	L"Auto Weapons",
-	L"Heavy Weapons",
-	L"Marksman",
-	L"Hunter",
-	L"Gunslinger",
-	L"Hand to Hand",
-	L"Deputy",
-	L"Technician",
-	L"Paramedic",
+	L"Armes automatiques",
+	L"Armes lourdes",
+	L"Tireur d'élite",
+	L"Chasseur",
+	L"Bandit",
+	L"Corps-à-corps",
+	L"Deputé",
+	L"Technicien",
+	L"Médecin",
 
-	L"None",
-	L"I.M.P. Major Traits",
+	L"Personne",
+	L"I.M.P. Traits pincipaux",
 	// second names
-	L"Machinegunner",
+	L"Mitrailleur",
 	L"Bombardier",
 	L"Sniper",
-	L"Ranger",
-	L"Gunfighter",
-	L"Martial Arts",
-	L"Squadleader",
-	L"Engineer",
-	L"Doctor",
+	L"Soldat",
+	L"Combattant",
+	L"Arts martiaux",
+	L"Commandant",
+	L"Ingénieur",
+	L"Docteur",
 };
 
 //added another set of skill texts for new minor traits
 STR16 gzIMPSkillTraitsTextNewMinor[]=
 {
-	L"Ambidextrous",
-	L"Melee",
-	L"Throwing",
-	L"Night Ops",
-	L"Stealthy",
-	L"Athletics",
-	L"Bodybuilding",
-	L"Demolitions",
-	L"Teaching",
-	L"Scouting",
+	L"Ambidextre",
+	L"Mêlée",
+	L"Lancer",
+	L"Opérations de nuit",
+	L"Santée",
+	L"Athlétic",
+	L"Masse musculaire",
+	L"Démolition",
+	L"Enseigner",
+	L"Reconnaissance",
 
-	L"None",
-	L"I.M.P. Minor Traits",
+	L"Personne",
+	L"I.M.P. Traits mineurs",
 };
 
 //these texts are for help popup windows, describing trait properties
 STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 {
-	L"+%d%s Chance to Hit with Assault Rifles\n",
-	L"+%d%s Chance to Hit with SMGs\n",
-	L"+%d%s Chance to Hit with LMGs\n",
-	L"-%d%s APs needed to fire with LMGs\n",
-	L"-%d%s APs needed to ready light machine guns\n",
-	L"Auto fire/burst chance to hit penalty is reduced by %d%s\n",
-	L"Reduced chance for shooting unwanted bullets on autofire\n",
+	L"+%d%s de chance de toucher avec une arme d'assaut\n",
+	L"+%d%s de chance de toucher avec un SMGs\n",
+	L"+%d%s de chance de toucher avec un LMGs\n",
+	L"-%d%s du nombre d'AP nécessaire pour tirer avec un LMGs\n",
+	L"-%d%s du nombre d'AP nécessaire pour préparer une arme automatique légère\n",
+	L"La chance d'un tir/explosion automatique, pour engendrer des pénalités, est réduit par %d%s\n",
+	L"Réduire la propabilité de tirer involontairement en mode automatique\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 {
-	L"-%d%s APs needed to fire grenade launchers\n",
-	L"-%d%s APs needed to fire rocket launchers\n",
-	L"+%d%s chance to hit with grenade launchers\n",
-	L"+%d%s chance to hit with rocket launchers\n",
-	L"-%d%s APs needed to fire mortar\n",
-	L"Reduce penalty for mortar CtH by %d%s\n",
-	L"+%d%s damage to tanks with heavy weapons, grenades and explosives\n",
-	L"+%d%s damage to other targets with heavy weapons\n",
+	L"-%d%s du nombre d'AP nécessaire pour lancer une grenade\n",
+	L"-%d%s du nombre d'AP nécessaire pour tirer une roquette\n",
+	L"+%d%s de chance de toucher avec une grenade\n",
+	L"+%d%s de chance de toucher avec une roquette\n",
+	L"-%d%s du nombre d'AP nécessaire pour tirer au mortier\n",
+	L"Réduit la pénalité de chance de toucher du mortier de %d%s\n",
+	L"+%d%s dégâts fait à un tank avec une arme lourde, grenades ou explosifs\n",
+	L"+%d%s dégâts fait sur les autres cibles avec une arme lourde\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 {
-	L"+%d%s Chance to Hit with Rifles\n",
-	L"+%d%s Chance to Hit with Sniper Rifles\n",
-	L"-%d%s effective range to target with all weapons\n",
-	L"+%d%s aiming bonus per aim click (except for handguns)\n",
-	L"+%d%s damage on shot",
+	L"+%d%s de chance de toucher avec un fusil\n",
+	L"+%d%s de chance de toucher avec une arme de précision\n",
+	L"-%d%s de la distance effective de toutes les armes pour viser\n",
+	L"+%d%s de bonus par niveau de visée (excepté pour les pistolets)\n",
+	L"+%d%s de dégâts sur tir",
 	L" plus",
-	L" per every aim click",
-	L" after first",
-	L" after second",
-	L" after third",
-	L" after fourth",
-	L" after fifth",
-	L" after sixth",
-	L" after seventh",
-	L"-%d%s APs needed to chamber a round with bolt-action rifles \n",
-	L"Adds one more aim click for rifle-type guns\n",
-	L"Adds %d more aim clicks for rifle-type guns\n",
+	L" pour chaque niveau",
+	L" après le premier",
+	L" après le deuxième",
+	L" après le troisième",
+	L" après le quatrième",
+	L" après le cinquième",
+	L" après le sixième",
+	L" après le septième",
+	L"-%d%s du nombre d'AP nécessaire pour recharger avec le fusil de précision\n",
+	L"Ajoute un niveau de visée en plus pour chaque fusil de précision\n",
+	L"Ajoute %d niveaux de visée pour chaque fusil de précision\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 {
-	L"+%d%s Chance to Hit with Rifles\n",
-	L"+%d%s Chance to Hit with Shotguns\n",
-	L"-%d%s APs needed to pump Shotguns\n",
-	L"+%d%s group travelling speed between sectors if traveling by foot\n",
-	L"+%d%s group travelling speed between sectors if traveling in vehicle (except helicopter)\n",
-	L"-%d%s less energy spent for travelling between sectors\n",
-	L"-%d%s weather penalties\n",
-	L"+%d%s camouflage effectiveness\n",
-	L"-%d%s worn out speed of camouflage by water or time\n",
+	L"+%d%s de chance de toucher avec un fusil\n",
+	L"+%d%s de chance de toucher avec un fusil à pompe\n",
+	L"-%d%s du nombre d'AP nécessaire pour recharger le fusil à pompe\n",
+	L"+%d%s de vitesse de déplacement du groupe entre les secteurs si ils sont à pieds\n",
+	L"+%d%s de vitesse de déplacement du groupe entre les secteurs si ils sont dans un véhicule (excepté l'hélicopter)\n",
+	L"-%d%s d'énergies nécessaire pour traverser les secteurs\n",
+	L"-%d%s de pénalités du temps\n",
+	L"+%d%s d'efficacité du camouflage\n",
+	L"-%d%s de l'usure du camouflage dû au temps ou à l'eau\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
-	L"-%d%s APs needed to fire with pistols and revolvers\n",
-	L"+%d%s effective range with pistols and revolvers\n",
-	L"+%d%s chance to hit with pistols and revolvers\n",
-	L"+%d%s chance to hit with machine pistols",
-	L" (on single shots only)",
-	L"+%d%s aiming bonus per click with pistols, machine pistols and revolvers\n",
-	L"-%d%s APs needed to raise pistols and revolvers\n",
-	L"-%d%s APs needed to reload pistols, machine pistols and revolvers\n",
-	L"Adds %d more aim click for pistols, machine pistols and revolvers\n",
-	L"Adds %d more aim clicks for pistols, machine pistols and revolvers\n",
+	L"-%d%s du nombre d'AP nécessaire pour tirer avec un pistolet ou un revovler\n",
+	L"+%d%s de la distance effective avec un pistolet ou un revolver pour viser\n",
+	L"+%d%s de chance de toucher avec un pistolet ou un revolver\n",
+	L"+%d%s de chance de toucher avec un pistolet automatique",
+	L" (en tir manuel seulement)",
+	L"+%d%s de bonus par niveau de visée avec un pistolet, pistolet automatique ou un revolver\n",
+	L"-%d%s du nombre d'AP nécessaire pour augmenter un pistolet, pistolet automatique ou un revolver\n",
+	L"-%d%s du nombre d'AP nécessaire pour recharger un pistolet, pistolet automatique ou un revolver\n",
+	L"Ajoute un niveau de visée en plus pour les pistolets, les pistolets automatique ou les revolvers\n",
+	L"Ajoute %d niveaux de visée pour chaque pistolet, pistolet automatique ou un revolver\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 {
-	L"-%d%s AP cost of hand to hand attacks(bare hands or with brass knuckles)\n",
-	L"+%d%s chance to hit with hand to hand attacks with bare hands\n",
-	L"+%d%s chance to hit with hand to hand attacks with brass knuckles\n",
-	L"+%d%s damage of hand to hand attacks(bare hands or with brass knuckles)\n",
-	L"+%d%s breath damage of hand to hand attacks(bare hands or with brass knuckles)\n",
-	L"Enemy knocked out due to your HtH attacks takes slightly longer to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks takes longer to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks takes much longer to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks takes very long to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks takes extremely long to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks takes long hours to recuperate\n",
-	L"Enemy knocked out due to your HtH attacks probably never stand up\n",
-	L"Focused (aimed) punch deals +%d%s more damage\n",
-	L"Your special spinning kick deals +%d%s more damage\n",
-	L"+%d%s change to dodge hand to hand attacks\n",
-	L"+%d%s on top chance to dodge HtH attacks with bare hands",
-	L" or brass knuckles",
-	L" (+%d%s with brass knuckles)",
-	L"+%d%s on top chance to dodge HtH attacks with brass knuckles\n",
-	L"+%d%s chance to dodge attacks by any melee weapon\n",
-	L"-%d%s APs needed to steal weapon from enemy hands\n",
-	L"-%d%s APs needed to change state (stand, crouch, lie down), turn around, climb on/off roof and jump obstacles\n",
-	L"-%d%s APs needed to change state (stand, crouch, lie down)\n",
-	L"-%d%s APs needed to turn around\n",
-	L"-%d%s APs needed to climb on/off roof and jump obstacles\n",
-	L"+%d%s chance to kick doors\n",
-	L"You gain special animations for hand to hand combat\n",
+	L"-%d%s du nombre d'AP nécessaire pour les attaques au corps-à-corps (mains nues ou avec un coup de poing américain)\n",
+	L"+%d%s de chance de toucher avec les mains nues\n",
+	L"+%d%s de chance de toucher avec un coup de poing américain\n",
+	L"+%d%s de dégâts des attaques au corps-à-corps (mains nues ou avec un coup de poing américain)\n",
+	L"+%d%s de dégâts sur le souffle des attaques au corps-à-corps (mains nues ou avec un coup de poing américain)\n",
+	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et prend en peu de temps à récupérer\n",
+	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et prend un peu plus de temps à récupérer\n",
+	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et prend plus de temps à récupérer\n",
+	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et prend beaucoup plus de temps à récupérer\n",
+	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et prend énormément de temps à récupérer\n",
+	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et met des heures à récupérer\n",
+	L"L'ennemie est abasourdi en raison de votre attaque au corps-à-corps et vas surement ne pas se relever\n",
+	L"Le coups de poing va faire +%d%s de dégâts en plus\n",
+	L"Votre coups de pieds spécial va faire +%d%s de dégâts en plus\n",
+	L"+%d%s de chance d'esquiver une attaque au corps-à-corps\n",
+	L"+%d%s de chance d'esquiver une attaque au corps-à-corps à main nues",
+	L" ou avec le coup de poing américain",
+	L" (+%d%s avec le coup de poing américain)",
+	L"+%d%s de chance d'esquiver une attaque au corps-à-corps avec un coup de poing américain\n",
+	L"+%d%s de chance d'esquiver une attaque de n'importe quelle arme de mêlée\n",
+	L"-%d%s du nombre d'AP nécessaire pour voler l'arme de son ennemie\n",
+	L"-%d%s du nombre d'AP nécessaire pour changer de posture (debout, accroupie, coucher), se retourner, monter/descendre du toit et sauter les obstacles\n",
+	L"-%d%s du nombre d'AP nécessaire pour changer de posture (debout, accroupie, coucher)\n",
+	L"-%d%s du nombre d'AP nécessaire pour se retourner\n",
+	L"-%d%s du nombre d'AP nécessaire pour monter/descendre du toit et sauter les obstacles\n",
+	L"+%d%s de chance d'ouvrir la porte\n",
+	L"Vous obtenez une animation spéciale pour votre combat au corps-à-corps\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 {
-	L"+%d%s APs per round of other mercs in vicinity\n",
-	L"+%d effective exp level of other mercs in vicinity, which have lesser level than the %s\n",
+	L"+%d%s d'Ap par tours pour les mercenaires aux alentours\n",
+	L"+%d d'expérience effective pour les mercenaires aux alentours possèdant un level plus bas que %s\n",
 	L"+%d effective exp level to count as a standby when counting friends' bonus for suppression\n",
 	L"+%d%s total suppression tolerance of other mercs in vicinity and %s himself\n",
-	L"+%d morale gain of other mercs in vicinity\n",
-	L"-%d morale loss of other mercs in vicinity\n",
-	L"The vicinity for bonuses is %d tiles",
-	L" (%d tiles with extended ears)",
-	L"(Max simultaneous bonuses for one soldier is %d)\n",
-	L"+%d%s fear resistence of %s\n",
-	L"Drawback: %dx morale loss for %s's death for all other mercs\n",
+	L"+%d de gain de moral pour les mercenaires aux alentours\n",
+	L"-%d de perte de moral pour les mercenaires aux alentours\n",
+	L"Bonus valables pour %d carreaux aux alentours",
+	L" (%d carreaux pour en encadrement élargis)",
+	L"(Le maximum de bonus simultanés pour un joueur est de %d)\n",
+	L"+%d%s de crainte de résistance à %s\n",
+	L"Inconvénient: %dx perte de moral à la mort de %s pour les autres mercenaires\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 {
-	L"+%d%s to repairing speed\n",
-	L"+%d%s to lockpicking (normal/electronic locks)\n",
-	L"+%d%s to disarming electronic traps\n",
-	L"+%d%s to attaching special items and combining things\n",
-	L"+%d%s to unjamming a gun in combat\n",
-	L"Reduce penalty to repair electronic items by %d%s\n",
-	L"Increased chance to detect traps and mines (+%d detect level)\n",
-	L"+%d%s CtH of robot controlled by the %s\n",
-	L"%s trait grants you the ability to repair the robot\n",
-	L"Reduced penalty to repair speed of the robot by %d%s\n",
+	L"+%d%s de vitesse de réparation\n",
+	L"+%d%s pour le crochetage (serrures normales/électroniques)\n",
+	L"+%d%s pour désarmer un piège électronique\n",
+	L"+%d%s pour attacher un objet spécial ou combiner différents objets\n",
+	L"+%d%s pour débloquer une arme en plein combat\n",
+	L"Réduit la pénalité pour réparer les objets électroniques de %d%s\n",
+	L"Augmente la chance de repèrer les mines et les pièges (+%d par level de détection)\n",
+	L"+%d%s de chance de toucher avec le robot controlé par %s\n",
+	L"%s vous accorde la capacité de réparer le robot\n",
+	L"Pénalité réduite pour réparer la vitesse du robot de %d%s\n",
 };
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 {
-	L"Has ability to make surgical intervention by using medical bag on wounded soldier\n",
-	L"Surgery instantly returns %d%s of lost health back.",
-	L" (This drains the medical bag a lot.)",
-	L"Can heal lost stats (from critical hits) by the",
-	L" surgery or",
-	L" doctor assignment.\n",
-	L"+%d%s effectiveness on doctor-patient assignment\n",
-	L"+%d%s bandaging speed\n",
-	L"+%d%s natural regeneration speed of all soldiers in the same sector",
-	L" (max %d these bonuses per sector)",
+	L"A les talents pour faire une opération chirurchical, en utilisant un sac médical, sur le soldat blessé\n",
+	L"La chirurgie rend immédiatement %d%s de santé perdue.",
+	L" (Cela consomme une grande partie du sac médical.)",
+	L"Peut guérir des stats perdues par les coups critiques par le",
+	L" chirurgien ou",
+	L" le docteur assigné.\n",
+	L"+%d%s de l'efficacité du docteur assigné\n",
+	L"+%d%s de vitesse de bandage\n",
+	L"+%d%s de la vitesse de régénération naturel de tous soldats présent dans le même secteur",
+	L" (un maximum de %d bonus par secteur)",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {
-	L"No bonuses",
+	L"Pas de bonus",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 {
-	L"Reduce penalty to shoot dual weapons by %d%s\n",
-	L"+%d%s speed of reloading guns with magazines\n",
-	L"+%d%s speed of reloading guns with loose rounds\n",
-	L"-%d%s APs needed to pickup items\n",
-	L"-%d%s APs needed to work backpack\n",
-	L"-%d%s APs needed to handle doors\n",
-	L"-%d%s APs needed to plant/remove bombs and mines\n",
-	L"-%d%s APs needed to attach items\n",
+	L"Réduit la pénalité de tirer avec 2 armes de %d%s\n",
+	L"+%d%s de vitesse de rechargement d'une arme avec un chargeur\n",
+	L"+%d%s de vitesse de rechargement d'une arme avec des cartouches\n",
+	L"-%d%s du nombre d'AP nécessaire pour prendre un objet\n",
+	L"-%d%s du nombre d'AP nécessaire pour utiliser le backpack\n",
+	L"-%d%s du nombre d'AP nécessaire pour ouvrir une porte\n",
+	L"-%d%s du nombre d'AP nécessaire pour poser/retirer une bombe ou une mine\n",
+	L"-%d%s du nombre d'AP nécessaire pour attacher des objets entre eux\n",
 };
 STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 {
-	L"-%d%s APs needed to attack by blades\n",
-	L"+%d%s chance to hit with blades\n",
-	L"+%d%s chance to hit with blunt melee weapons\n",
-	L"+%d%s damage of blades\n",
-	L"+%d%s damage of blunt melee weapons\n",
-	L"Aimed attack by any melee weapon deals +%d%s damage\n",
-	L"+%d%s chance to dodge attack by melee blades\n",
-	L"+%d%s on top chance to dodge melee blades if having a blade in hands\n",
-	L"+%d%s chance to dodge attack by blunt melee weapons\n",
-	L"+%d%s on top chance to dodge blunt melee weapons if having a blade in hands\n",
+	L"-%d%s du nombre d'AP nécessaire pour attaquer avec un couteau\n",
+	L"+%d%s de chance de toucher avec un couteau\n",
+	L"+%d%s de chance de toucher avec une arme de mêlée\n",
+	L"+%d%s de dégâts par un couteau\n",
+	L"+%d%s de dégâts par une arme de mêlée\n",
+	L"L'attaque visée par n'importe quelle arme de mêlée cause +%d%s de dégâts\n",
+	L"+%d%s de chance d'esquiver des attaques avec un couteau\n",
+	L"+%d%s de chance d'esquiver une attaque avec un couteau si vous avez un couteau à la main\n",
+	L"+%d%s de chance d'esquiver une attaque avec une arme de mêlée\n",
+	L"+%d%s de chance d'esquiver une attaque avec une arme de mêlée si vous avez une arme de mêlée à la main\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 {
-	L"-%d%s basic APs needed to throw blades\n",
-	L"+%d%s max range when throwing blades\n",
-	L"+%d%s chance to hit when throwing blades\n",
-	L"+%d%s chance to hit when throwing blades per aim click\n",
-	L"+%d%s damage of throwing blades\n",
-	L"+%d%s damage of throwing blades per aim click\n",
-	L"+%d%s chance to inflict critical hit by throwing blade if not seen or heard\n",
-	L"+%d critical hit by throwing blade multiplier\n",
-	L"Adds %d more aim click for throwing blades\n",
-	L"Adds %d more aim clicks for throwing blades\n",
+	L"-%d%s du nombre d'AP nécessaire pour lancer un couteau\n",
+	L"+%d%s de distance maximum quand vous lancez un couteau\n",
+	L"+%d%s de chance de toucher votre cible en lancant un couteau\n",
+	L"+%d%s de chance de toucher votre cible par niveau de visée en lancant un couteau\n",
+	L"+%d%s de dégâts avec votre lancer de couteau\n",
+	L"+%d%s de dégâts avec votre lancer de couteau par niveau de visée\n",
+	L"+%d%s de chance d'infliger des dégâts critiques en lançant un couteau si vous n'êtes pas vue ou entendu\n",
+	L"+%d de dégâts critiques si vous lancez plusieurs couteaux\n",
+	L"Ajoute %d niveaux de visée pour lancer un couteau\n",
+	L"Ajoute %d niveaux de visée pour lancer un couteau\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 {
-	L"+%d to effective sight range in dark\n",
-	L"+%d to general effective hearing range\n",
-	L"+%d to effective hearing range in dark on top\n",
-	L"+%d to interrupts modifier in dark\n",
-	L"-%d need to sleep\n",
+	L"Vue effective augmentée de +%d dans la nuit\n",
+	L"Audition augmentée de +%d\n",
+	L"Audition augmentée de +%d lorsque vous êtes en hauteur\n",
+	L"+%d de chance d'interrompre une action d'une ennemi dans la nuit\n",
+	L"Besoin de dormir réduit de -%d\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 {
-	L"-%d%s APs needed to move quietly\n",
-	L"+%d%s chance to move quietly\n",
-	L"+%d%s stealth (being 'invisible' if unnoticed)\n",
-	L"Reduced cover penalty for movement by %d%s\n",
+	L"-%d%s du nombre d'AP nécessaire pour bouger silencieusement\n",
+	L"+%d%s de chance de bouger silencieusement\n",
+	L"+%d%s en ruse (étant 'invisible si inaperçu)\n",
+	L"Réduit la pénalité dû au déplacement silencieux de %d%s\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=
 {
-	L"-%d%s APs needed for moving (running, walking, swatting, crawling, swimming, etc.)\n",
-	L"-%d%s energy spent for movement, roof-climbing, obstacle-jumping, swimming, etc.\n",
+	L"-%d%s du nombre d'AP nécessaire pour bouger (courir, marcher, tapper, ramper, nager, etc)\n",
+	L"-%d%s d'énergie dépensée pour les mouvements, monter sur les toits, sauter les obstacles, etc.\n",
 };
 STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 {
-	L"Has %d%s damage resistance\n",
-	L"+%d%s effective strength for carrying weight capacity \n",
-	L"Reduced energy lost when hit by HtH attack by %d%s\n",
-	L"Increased damage needed to fall down if hit to legs by %d%s\n",
+	L"A %d%s de résistance aux dégâts\n",
+	L"+%d%s de force effective pour porter de lourdes charges\n",
+	L"Réduit la perte d'énergie lorsque vous êtes touché au corps-à-corps de %d%s\n",
+	L"Augmente les dégâts nécessaire pour que vous tombiez à terre, si vous êtes touché aux jambes, de %d%s\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
-	L"-%d%s APs needed to throw grenades\n",
-	L"+%d%s max range when throwing grenades\n",
-	L"+%d%s chance to hit when throwing grenades\n",
-	L"+%d%s damage of set bombs and mines\n",
-	L"+%d%s to attaching detonators check\n",
-	L"+%d%s to planting/removing bombs check\n",
-	L"Decreases chance enemy will detect your bombs and mines (+%d bomb level)\n",
-	L"Increased chance shaped charge will open the doors (damage multiplied by %d)\n",
+	L"-%d%s du nombre d'AP nécessaire pour lancer une grenade\n",
+	L"+%d%s de la portée maximale d'une grenade\n",
+	L"+%d%s de chance de toucher votre cible avec une grenade\n",
+	L"+%d%s de dégâts causés par une bombe ou une mine\n",
+	L"+%d%s pour contrôler un détonateur\n",
+	L"+%d%s pour placer/retirer un contrôleur de bombe\n",
+	L"Diminue la chance que l'ennemie puisse détecter vos bombes/mines (+%d par level de bombe)\n",
+	L"Augmente la chance de former une plus grosse détonation quand l'ennemie ouvrira une porte piégée (dégâts multipliés par %d)\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 {
-	L"+%d%s bonus to train militia\n",
+	L"+%d%s de bonus pour entraîner la milice\n",
 	L"+%d%s bonus to effective leadership for determining militia training\n",
-	L"+%d%s bonus to teaching other mercs\n",
-	L"Skill value counts to be +%d higher for being able to teach this skill to other mercs\n",
-	L"+%d%s bonus to train stats through self-practising assignment\n",
+	L"+%d%s de bonus pour entraîner d'autres mercenaires\n",
+	L"Il faut que votre compétence soit supérieure à +%d pour être capable d'enseigner cette habilité à un autre mercenaire\n",
+	L"+%d%s de bonus lorsque vous vous entraînez tout seul\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
-	L"+%d to effective sight range with scopes on weapons\n",
-	L"+%d to effective sight range with binoculars (and scopes separated from weapons)\n",
-	L"-%d tunnel vision with binoculars (and scopes separated from weapons)\n",
-	L"If in sector, adjacent sectors will show exact number of enemies\n",
-	L"If in sector, adjacent sectors will show presence of enemies if any\n",
-	L"Prevents the enemy to ambush your squad\n",
-	L"Prevents the bloodcats to ambush your squad\n",
+	L"+%d de distance effective avec une lunette de visée sur votre arme\n",
+	L"+%d de distance effective avec vos jumelles (et la lunette de visée séparée de votre arme)\n",
+	L"-%d de vues étroites avec vos jumelles (et la lunette de visée séparée de votre arme)\n",
+	L"Si vous êtes dans le secteur, vous saurez le nombre exact d'ennemies présent dans les secteurs aux alentours\n",
+	L"Si vous êtes dans le secteur,vous saurez la présence au non d'ennemies dans les secteurs alentours\n",
+	L"Empêche l'ennemie de prendre en embuscade votre équipe\n",
+	L"Empêche les félins (les gros chats) de prendre en embuscade votre équipe\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
-	L"No bonuses",
+	L"Pas de bonus",
 };
 
 STR16 gzIMPOldSkillTraitsHelpTexts[]=
 {
-	L"+%d%s bonus to lockpicking\n",	// 0
-	L"+%d%s hand to hand chance to hit\n",
-	L"+%d%s hand to hand damage\n",
-	L"+%d%s chance to dodge hand to hand attacks\n",
-	L"Eliminates the penalty to repair and handle\nelectronic things (locks, traps, rem. detonators, robot, etc.)\n",
-	L"+%d to effective sight range in dark\n",
-	L"+%d to general effective hearing range\n",
-	L"+%d to effective hearing range in dark on top\n",
-	L"+%d to interrupts modifier in dark\n",
-	L"-%d need to sleep\n",
-	L"+%d%s max range when throwing anything\n",	// 10
-	L"+%d%s chance to hit when throwing anything\n",
-	L"+%d%s chance to instantly kill by throwing knife if not seen or heard\n",
-	L"+%d%s bonus to train militia and instruct other mercs\n",
+	L"+%d%s de bonus de crochetage\n",	// 0
+	L"+%d%s de chance de toucher au corps-à-corps\n",
+	L"+%d%s de dégâts au corps-à-corps\n",
+	L"+%d%s de chance d'esquiver une attaque au corps-à-corps\n",
+	L"Elimine la pénalité dû à la réparation et à la manipulation\nd'objets électriques (serrures, pièges, détonateurs, etc)\n",
+	L"+%d de vision effective dans la nuit\n",
+	L"+%d d'audition effective dans la nuit\n",
+	L"+%d d'audition effective dnas la nuit sur un toit\n",
+	L"+%d de chance d'interrompre un ennemie dans la nuit\n",
+	L"Besoin de dormir réduit de -%d\n",
+	L"+%d%s de distance maximale lors d'un lancer quelconque\n",	// 10
+	L"+%d%s de chance de toucher lors d'un lancer quelconque\n",
+	L"+%d%s de chance de tuer instantanément en lançant un couteau si vous n'êtes pas vu ou entendu\n",
+	L"+%d%s de bonus pour entraîner la milice et enseigner aux autres mercenaires\n",
 	L"+%d%s effective leadership for militia training calculations\n",
-	L"+%d%s chance to hit with rocket/greande launchers and mortar\n",
-	L"Auto fire/burst chance to hit penalty is divided by %d\n",
-	L"Reduced chance for shooting unwanted bullets on autofire\n",
-	L"+%d%s chance to move quietly\n",
-	L"+%d%s stealth (being 'invisible' if unnoticed)\n",
-	L"Eliminates the CtH penalty for second hand when firing two weapons at once\n",	// 20
-	L"+%d%s chance to hit with melee blades\n",
-	L"+%d%s chance to dodge attacks by melee blades if having blade in hands\n",
-	L"+%d%s chance to dodge attacks by melee blades if having anything else in hands\n",
-	L"+%d%s chance to dodge hand to hand attacks if having blade in hands\n",
-	L"-%d%s effective range to target with all weapons\n",
-	L"+%d%s aiming bonus per aim click\n",
-	L"Provides permanent camouflage\n",
-	L"+%d%s hand to hand chance to hit\n",
-	L"+%d%s hand to hand damage\n",
-	L"+%d%s chance to dodge hand to hand attacks if having empty hands\n",	// 30
-	L"+%d%s chance to dodge hand to hand attacks if not having empty hands\n",
-	L"+%d%s chance to dodge attacks by melee blades\n",
-	L"Can perform spinning kick attack on weakened enemies to deal double damage\n",
-	L"You gain special animations for hand to hand combat\n",
-	L"No bonuses",
+	L"+%d%s de chance de toucher votre cible avec une roquette/grenade ou un mortier\n",
+	L"La pénalité dû au tir en mode automatique est réduite de %d\n",
+	L"Réduit la probabilité d'un tir en mode automatique non voulu\n",
+	L"+%d%s de chance de bouger silencieusement\n",
+	L"+%d%s en ruse (étant 'invisible si inaperçu)\n",
+	L"Elimine la pénalité lorsque vous tirez avec une arme dans chaque main à la suite\n",	// 20
+	L"+%d%s de chance de toucher avec une arme de mêlée\n",
+	L"+%d%s de chance d'esquiver une attaque de mêlée si vous avez un couteau dans la main\n",
+	L"+%d%s de chance d'esquiver une attaque de mêlée si vous avez quelque chose d'autre dans la main\n",
+	L"+%d%s de chance d'esquiver une attaque au corps-à-corps si vous avez un couteau dans la main\n",
+	L"-%d%s de distance effective nécessaire pour viser votre cible avec n'importe quelle arme\n",
+	L"+%d%s de bonus par niveau de visée\n",
+	L"Fournit un camouflage permanent\n",
+	L"+%d%s de chance de toucher au corps-à-corps\n",
+	L"+%d%s de dégâts au corps-à-corps\n",
+	L"+%d%s de chance d'esquiver une attaque au corps-à-corps si vous avez les mains vides\n",	// 30
+	L"+%d%s de chance d'esquiver une attaque au corps-à-corps si vous n'avez pas les mains vides\n",
+	L"+%d%s de chance d'esquiver une attaque avec une arme de mêlée\n",
+	L"Peut faire un coup de pied à des ennemies affaiblis qui fera le double de dégâts\n",
+	L"ous obtenez une animation spéciale pour votre combat au corps-à-corps\n",
+	L"Pas de bonus",
 };
 
 STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 {
-	L"A: No advantage.\nD: No disadvantage.",
-	L"A: Has better performance when a couple of mercs are nearby.\nD: Gains no morale when no other merc is nearby.",
-	L"A: Has better performance when no other merc is nearby.\nD: Gains no morale when in a group.",
-	L"A: His morale sinks a little slower and grows faster than normal.\nD: Has lesser chance to detect traps and mines.",
-	L"A: Has bonus on training militia and is better at communication with people.\nD: Gains no morale for actions of other mercs.",
-	L"A: Slightly faster learning when assigned on practicing or as a student.\nD: Has lesser suppression and fear resistance.",
-	L"A: His energy goes down a bit slower except on assignments such as doctor, repairman, militia trainer or if learning certain skills.\nD: His wisdom, leadership, explosives, mechanical and medical skills improve slightly slower.",
-	L"A: Has slightly better chance to hit on burst/autofire and inflicts slightly bigger damage in close combat\n    Gains a little more morale for killing.\nD: Has penalty for actions which need patience like repairing items, picking locks, removing traps, doctoring, training militia.",
-	L"A: Has bonus for actions which need patience like repairing items, picking locks, removing traps, doctoring and training militia.\nD: His interrupt chance is slightly lowered.",
-	L"A: Increased resistance to suppression and fear.\n    Morale loss for taking damage and companions deaths is lower for him.\nD: Can be hit easier and enemy penalty for moving target is lesser in his case.",
-	L"A: He gains morale when on non-combat assignments (except training militia).\nD: Gains no morale for killing.",
-	L"A: Has greater chance of inflicting stat loss, which may also inflict special painful wounds.\n   Gains bonus morale for inflicting stat loss.\nD: Has penalty for communication with people and his morale sinks faster if not fighting.",
-	L"A: Has better performance when there are some mercs of opposite gender nearby.\nD: Morale of other mercs of the same gender grows slower if nearby.",
+	L"A: Pas d'avantâges.\nD: Pas de désaventâges.",
+	L"A: A de meilleures performances lorsque deux ou trois mercenaires sont proches.\nD: Ne gagne aucun moral quand aucun mercenaire est proche de lui.",
+	L"A: A de meilleures performances quand il est tout seul.\nD: Ne gagne aucun moral quand il est en groupe.",
+	L"A: Son moral diminue plus doucement et remonte plus rapidemment que la normale.\nD: A moins de chance de détecter les mines et les pièges.",
+	L"A: Obtiens un bonus lorsqu'il entraîne la milice et à une meilleur communication.\nD: Ne gagne aucun moral pour les actions des autres mercenaires.",
+	L"A: Apprend plus rapidemment en étant le professeur ou l'élève.\nD: A moins de résistance à la peur et la folie.",
+	L"A: Son énergie descend un peu plus lentement sauf lorsqu'il est docteur, qu'il répare, qu'il entraîne ou qu'il apprend.\nD: Ses compétences en sagesse, commandement, explosifs, technique et médecine s'améliorent légèrement plus lentement.",
+	L"A: A un peu plus de chance de toucher lors d'un tir automatique et inflige plus de dégâts au corps-à-corps.\n    Obtiens un peu plus de morale lors d'un kill.\nD: A une pénalité lorsqu'il faut de la patience comme réparer des objets, dévérouiller une serrure, enlever des pièges, entraîner la milice.",
+	L"A: A un bonus lorsqu'il faut de la patience comme réparer des objets, dévérouiller une serrure, enlever des pièges, entraîner la milice.\nD: Sa chance d'interrompre une action ennemie est légèrement diminué.",
+	L"A: Augmente la résistance à la folie et la peur.\n    La perte de moral dû aux dégâts reçus et à la mort d'un mercenaire est moindre.\nD: Vous êtes plus facilement touchable et l'ennemie a sa pénalité dû à votre mouvement réduite.",
+	L"A: Gagne du moral lorsque vous faîtes une mission qui n'est pas lié au combat (excepté l'entraînement de milice).\nD: Pas de gains lorsque vous tuez quelqu'un.",
+	L"A: A plus de chance d'infliger des pertes de stats sur l'ennemie, qui peut aussi infliger de lourds dégâts.\n   Gagne du moral lorsque vous infligez des pertes de stats sur l'ennemie.\nD: A une pénalité pour la communication et son moral baisse plus rapidement lorsqu'il ne combat pas.",
+	L"A: A de meilleures performances lorsqu'un certains types d'ennemies est opposé à lui.\nD: Les mercenaires qui possèdent le même type que l'ennemie gagne moins de moral.",
 
 };
 
 STR16 gzIMPDisabilitiesHelpTexts[]=
 {
-	L"No effects.",
-	L"Has problems with breathing and reduced overall performance if in tropical or desert sectors.",
-	L"Can suffer panic attack if left alone in certain situations.",
-	L"His overall performance is reduced if underground.",
-	L"If trying to swim he can easily drown.",
-	L"A look at large insects can cause big problems\nand being in tropical sectors also reduce his performance a bit.",
-	L"Sometimes forgets what orders he got and therefore loses some APs if in combat.",
-	L"He can go psycho and shoot like mad once in a while\nand can lose morale if unable to do so with given weapon.",
+	L"Pas d'effets.",
+	L"A des problèmes de souffle/respiration et ses performances globales sont diminuées lorsqu'il est dans des zones tropiques ou désertiques.",
+	L"Peut souffrir de panique s'il est laissé seul dans certaines situations.",
+	L"Ses performances globales sont réduites s'il se trouve dans un sous-sol.",
+	L"S'il essaye de nager, il peut facilement se noyer.",
+	L"La vue de gros insectes peut lui poser de gros problèmes\net être dans une zone tropicale lui réduit aussi légèrement ses performances globales.",
+	L"Peut parfois perdre les ordres donnés et ainsi perdre des AP lors d'un combat.",
+	L"Il peut devenir psychopathe et tirer comme un fou de temps en temps\net peut perdre du moral s'il n'est pas capable d'utiliser son arme.",
 
 };
 
@@ -448,34 +448,34 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 
 STR16 gzIMPProfileCostText[]=
 {
-	L"The profile cost is %d$. Do you authorize the payment? ",
+	L"Ce profil coûte %d$. Voulez-vous autoriser ce paiement ? ",
 };
 
 STR16 zGioNewTraitsImpossibleText[]=
 {
-	L"You cannot choose the New Trait System with PROFEX utility deactivated. Check your JA2_Options.ini for entry: READ_PROFILE_DATA_FROM_XML.",
+	L"Vous ne pouvez pas choisir le Nouveau Système de Trait avec l'outil PROFEX désactivé. Regardez votre fichier JA2_Options.ini avec l'entrée: READ_PROFILE_DATA_FROM_XML.",
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //@@@:  New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
 {
-	L"Vous avez choisi le mode IRON MAN. La difficultée du jeu s'en trouveras considerablement augmentée du fait de l'imposssiblité de sauvegarder en territoire ennemi. Ce paramètre prendra effet tout au long de la partie.  Etes vous vraiment sûr de vouloir jouer en mode IRON MAN ?",
+	L"Vous avez choisi le mode IRON MAN. La difficultée du jeu s'en trouveras considerablement augmentée du fait de l'imposssiblité de sauvegarder en territoire ennemi. Ce paramètre prendra effet tout au long de la partie.  Etes-vous vraiment sûr de vouloir jouer en mode IRON MAN ?",
 };
 
 STR16 gzDisplayCoverText[]=
 {
-	L"Cover: %d/100 %s, Brightness: %d/100",
-	L"Gun Range: %d/%d tiles, Chance to hit: %d/100",
-	L"Gun Range: %d/%d tiles, Muzzle Stability: %d/100",
+	L"Contraste: %d/100 %s, Luminosité: %d/100",
+	L"Distance de tir: %d/%d carreaux, Chance de toucher: %d/100",
+	L"Distance de tir: %d/%d carreaux, Stabilité du canon: %d/100",
 	L"Disabling cover display",
-	L"Showing mercenary view",
-	L"Showing danger zones for mercenary",
-	L"Wood", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
+	L"Afficher la vue qu'on les ennemies",
+	L"Afficher les zones de danger des mercenaires",
+	L"Bois", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
 	L"Urban",
-	L"Desert",
-	L"Snow", // NOT USED!!!
-	L"Wood and Desert",
+	L"Désert",
+	L"Neige", // NOT USED!!!
+	L"Bois et désert",
 	L"" // yes empty for now
 };
 
