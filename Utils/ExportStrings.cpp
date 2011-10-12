@@ -155,9 +155,6 @@ bool Loc::ExportStrings()
 	ExportSection(props, L"WeaponStatsDesc",			Loc::gWeaponStatsDesc,				0,	17);
 	ExportSection(props, L"WeaponStatsFasthelp",		Loc::gzWeaponStatsFasthelp,			0,	29);
 	ExportSection(props, L"WeaponStatsFasthelpTactical",Loc::gzWeaponStatsFasthelpTactical, 0,	29);
-	ExportSection(props, L"AmmoStatsFasthelp",			Loc::gzAmmoStatsFasthelp,			0,	20);
-	ExportSection(props, L"ArmorStatsFasthelp",			Loc::gzArmorStatsFasthelp,			0,	20);
-	ExportSection(props, L"ExplosiveStatsFasthelp",		Loc::gzExplosiveStatsFasthelp,		0,	20);
 	ExportSection(props, L"MiscItemStatsFasthelp",		Loc::gzMiscItemStatsFasthelp,		0,	34);
 	ExportSection(props, L"MoneyStatsDesc",				Loc::gMoneyStatsDesc,				0,	TEXT_NUM_MONEY_DESC);
 
