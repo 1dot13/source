@@ -542,9 +542,6 @@ extern CHAR16		gWeaponStatsDesc[][ 17 ];
 // Note that I've inflated some of these to 20 to avoid issues.
 extern STR16		gzWeaponStatsFasthelp[ 32 ];
 extern STR16		gzWeaponStatsFasthelpTactical[ 32 ];
-extern STR16		gzAmmoStatsFasthelp[ 20 ];
-extern STR16		gzArmorStatsFasthelp[ 20 ];
-extern STR16		gzExplosiveStatsFasthelp[ 20 ];
 extern STR16		gzMiscItemStatsFasthelp[ 34 ];
 // HEADROCK HAM 4: New tooltip texts
 extern STR16		gzUDBButtonTooltipText[ 3 ];

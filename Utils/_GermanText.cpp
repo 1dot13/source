@@ -2353,78 +2353,6 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 	L"",
 };
 
-STR16		gzAmmoStatsFasthelp[ 20 ] =
-{
-	L"Rüstungsdurchschlag (Niedriger ist besser)",
-	L"Schaden im Ziel (Höher ist besser)",
-	L"Nahbereichs-Explosion (Höher ist besser)",
-	L"Leuchtspur-Effekt",
-	L"Panzerbrechend",
-	L"Schlossbrecher",
-	L"Ignoriert Rüstung",
-	L"Säurehaltig",
-	L"Reichweiten-Modifikator",
-	L"Schaden-Modifikator",
-	L"Treffer-Modifikator",
-	L"Dauerfeuer-Streuungs-Modifikator (Höher ist besser)",
-	L"Feuerstoß-Streuungs-Modifikator (Höher ist besser)",
-	L"Zuverlässigkeits-Modifikator",
-	L"Schalldämpfung (Niedriger ist besser)",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-};
-
-STR16		gzArmorStatsFasthelp[ 20 ] =
-{
-	L"Schutz",
-	L"Bedeckung (Höher ist besser)",
-	L"Abnutzungsfaktor (Niedriger ist besser) ",
-	L"AP-Modifikator",
-	L"Treffer-Modifikator",
-	L"Waldtarnung",
-	L"Stadt-Tarnung",
-	L"Wüstentarnung",
-	L"Schneetarnung",
-	L"Anschleichen-Modifikator",
-	L"Sichtweiten-Modifikator",
-	L"Tagsichtweiten-Modifikator",
-	L"Nachtsichtweiten-Modifikator",
-	L"Grelles-Licht-Modifikator",
-	L"Höhlen-Sicht-Modifikator",
-	L"Tunnelblick-Modifikator",
-	L"Hörweiten-Modifikator",
-	L"",
-	L"",
-	L"",
-};
-
-STR16		gzExplosiveStatsFasthelp[ 20 ] =
-{
-	L"Schaden",
-	L"Betäubungsschaden",
-	L"Detonationsgeräusch (Niedriger ist besser)",
-	L"Flüchtigkeit!!! (Niedriger ist besser)",
-	L"Detonationsbereich",
-	L"Startausdehnung des Wirkbereichs",
-	L"Endausdehnung des wirkbereichs",
-	L"Wirkungsdauer",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-};
-
 STR16		gzMiscItemStatsFasthelp[ 34 ] =
 {
 	L"Gegenstandsgrößen-Modifikator (Niedriger ist besser)",
@@ -6474,7 +6402,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
-	L"\n \nDas ist die Fähigkeit der Kugel, in die Rüstung\neines Ziels einzudringen.\n \nWenn der Wert grösser als 1.0 ist, reduziert die Kugel \nverhältnismäßig den Schutz jeglicher Rüstung auf die sie eintrifft.\n \nIst der Wert kleiner als 1.0, steigert die Kugel den\nSchutz der Rüstung stattdessen.\n \nHöher ist besser.",
+	L"\n \nDas ist die Fähigkeit der Kugel, in die Rüstung\neines Ziels einzudringen.\n \nWenn der Wert grösser als 1.0 ist, reduziert die Kugel \nverhältnismäßig den Schutz jeglicher Rüstung auf die sie eintrifft.\n \nIst der Wert kleiner als 1.0, tritt die Kugel weniger tief in die Rüstung des Ziels ein.\n \nHöher ist besser.",
 	L"\n \nBestimmt eine verhältnismäßige Zunahme des Schadenspotentials,\nsobald die Kugel die Rüstung des Ziels\ndurchbricht und den Körper dahinter trifft.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren das Schadenspotential\nder durchbrochenen Kugel.\n \nHöher ist besser.",
 	L"\n \nEin Multiplikator zum Schadenspotential der Kugel,\nder vor dem Treffen des Zieles angewandt wird.\n \nWerte über 1.0 erhöhen, Werte unter 1.0 reduzieren den Schaden.\n \nHöher ist besser.",
 };

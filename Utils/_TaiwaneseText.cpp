@@ -2347,78 +2347,6 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
     L"",
 };
 
-STR16		gzAmmoStatsFasthelp[ 20 ] =
-{
-	L"Armor Penetration (Lower is better)",
-	L"Bullet Tumble (Higher is better)",
-	L"Pre-impact Explosion (Higher is better)",
-	L"Tracer Effect",
-	L"Anti-Tank",
-	L"Lockbuster",
-	L"Ignores Armor",
-	L"Acidic",
-	L"Range Modifier",
-	L"Damage Modifier",
-	L"To-Hit Modifier",
-	L"Autofire Penalty Modifier (Higher is better)",
-	L"Burst Penalty Modifier (Higher is better)",	// TODO.Translate
-	L"Reliability Modifier",
-	L"Loudness Modifier (Lower is better)",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-};
-
-STR16		gzArmorStatsFasthelp[ 20 ] =
-{
-	L"Protection",
-	L"Coverage (Higher is better)",
-	L"Degrade Rate (Lower is better)",
-	L"AP Modifier",
-	L"To-Hit Modifier",
-	L"Woodland Camo",
-	L"Urban Camo",
-	L"Desert Camo",
-	L"Snow Camo",
-	L"Stealth Modifier",
-	L"Vision Range Modifier",
-	L"Day Vision Range Modifier",
-	L"Night Vision Range Modifier",
-	L"Bright Light Vision Range Modifier",
-	L"Cave Vision Range Modifier",
-	L"Tunnel Vision Percentage",
-	L"Hearing Range Modifier",
-	L"",
-	L"",
-	L"",
-};
-
-STR16		gzExplosiveStatsFasthelp[ 20 ] =
-{
-	L"Damage",
-	L"Stun Damage",
-	L"Blast Loudness (Lower is better)",
-	L"Volatility!!! (Lower is better)",
-	L"Blast Radius",
-	L"Effect Start Radius",
-	L"Effect Final Radius ",
-	L"Effect Duration",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-	L"",
-};
-
 STR16		gzMiscItemStatsFasthelp[ 34 ] =
 {
 	L"Item Size Modifier (Lower is better)", // 0
@@ -6648,7 +6576,7 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
-	L"\n \nThis is the bullet's ability to penetrate\na target's armor.\n \nWhen above 1.0, the bullet proportionally\nreduces the Protection value of any\narmor it hits.\n \nWhen below 1.0, the bullet increases the\nprotection value of the armor instead.\n \nHigher is better.",
+	L"\n \nThis is the bullet's ability to penetrate\na target's armor.\n \nWhen above 1.0, the bullet proportionally\nreduces the protection value of any\narmor it hits.\n \nWhen below 1.0, the bullet has a minor impact on the protection value of the armor.\n \nHigher is better.",
 	L"\n \nDetermines a proportional increase of damage\npotential once the bullet gets through the\ntarget's armor and hits the bodypart behind it.\n \nWhen above 1.0, the bullet's damage\nincreases after penetrating the armor.\n \nWhen below 1.0, the bullet's damage\npotential decreases after passing through armor.\n \nHigher is better.",
 	L"\n \nA multiplier to the bullet's damage potential\nthat is applied immediately before hitting the\ntarget.\n \nValues above 1.0 indicate an increase in damage,\nvalues below 1.0 indicate a decrease.\n \nHigher is better.",
 };
