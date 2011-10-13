@@ -127,9 +127,9 @@ STR16 FaceDirs[8] =
 	L"NORD",
 	L"NORD-est",
 	L"EST",
-	L"sud-EST",
-	L"sud",
-	L"sud-OUEST",
+	L"SUD-EST",
+	L"SUD",
+	L"SUD-OUEST",
 	L"OUEST",
 	L"NORD-OUEST"
 };
@@ -279,7 +279,7 @@ STR16 iEditorMapInfoToolbarText[] =
 	L"Spécifier un point au NORD pour valider le but.",
 	L"Spécifier un point à l'OUEST pour valider le but.",
 	L"Spécifier un point à l'EST pour valider le but.",
-	L"Spécifier un point au sud pour valider le but.",
+	L"Spécifier un point au SUD pour valider le but.",
 	L"Spécifier un point du centre pour valider le but.", //10
 	L"Spécifier un point isolé pour valider le but.",
 };
@@ -354,37 +354,37 @@ STR16 iBuildTriggerNameText[] =
 	L"Panic Action1",
 	L"Panic Action2",
 	L"Panic Action3",
-	L"Action%d",
+	L"Action %d",
 };
 
 STR16 iRenderDoorLockInfoText[]=
 {
 	L"No Lock ID", //0
-	L"Explosion Trap",
-	L"Electric Trap",
-	L"Siren Trap",
-	L"Silent Alarm",
-	L"Super Electric Trap", //5
-	L"Brothel Siren Trap",
-	L"Trap Level %d",
+	L"Piège explosif",
+	L"Piège électrique",
+	L"Piège sonore",
+	L"Alarme silencieuse",
+	L"Super piège électrique", //5
+	L"Piège sonore de maison close",
+	L"Piège de level %d",
 };
 
 STR16 iRenderEditorInfoText[]=
 {
-	L"Save map in vanilla JA2 (v1.12) map format (Version: 5.00 / 25)", //0
-	L"No map currently loaded.",
+	L"Enregistrer la map au format vanilla JA2 (v1.12) (Version: 5.00 / 25)", //0
+	L"Aucune carte n'est actuellement chargée.",
 	L"File:  %S, Current Tileset:  %s",
-	L"Enlarge map on loading",
+	L"Elargir la map au chargement",
 };
 //EditorBuildings.cpp
 STR16 iUpdateBuildingsInfoText[] =
 {
-	L"TOGGLE", //0
-	L"VIEWS",
-	L"SELECTION METHOD",
-	L"SMART METHOD",
-	L"BUILDING METHOD",
-	L"Room#", //5
+	L"BASCULER", //0
+	L"VUES",
+	L"MODE DE SELECTION",
+	L"METHODE COURTE",
+	L"MODE DE CONSTRUCTION",
+	L"Pièce #", //5
 };
 
 STR16 iRenderDoorEditingWindowText[] =
@@ -430,7 +430,7 @@ STR16 pUpdateMapInfoText[] =
 	
 	L"Prime",
 	L"Night",
-	L"24Hrs", //5
+	L"24 Hrs", //5
 
 	L"Radius",
 
@@ -6602,22 +6602,22 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 {
 	L"\n \nLa quantité de dégâts causés par cet explosif.\n \nNotez que les explosifs de type 'explosion' livrent\nces dégâts seulement une fois (quand ils partent), tandis que\nles explosifs d'effet prolongés livrent cette quantité de dégâts\nà chaque tour jusqu'à ce que l'effet dissipe.\n \nValeur élevée recommandée.",
 	L"\n \nLa quantité de dégâts non mortels (étourdissant) causés\npar cet explosif.\n \nNotez que les explosifs de type 'explosion' livrent leurs dégâts seulement\nune fois (quand ils partent), tandis que les explosifs d'effet\nprolongés livrentcette quantité de dégâts\nd'étourdissement à chaque tour jusqu'à ce que l'effet dissipe.\n \nValeur élevée recommandée.",
-	L"\n \nThis is the radius of the explosive blast caused by\nthis explosive item.\n \nTargets will suffer less damage the further they are\nfrom the center of the explosion.\n \nHigher is better.",
-	L"\n \nThis is the radius of the stun-blast caused by\nthis explosive item.\n \nTargets will suffer less damage the further they are\nfrom the center of the blast.\n \nHigher is better.",
-	L"\n \nThis is the distance that the noise from this\ntrap will travel. Soldiers within this distance\nare likely to hear the noise and be alerted.\n \nLower is better.",
-	L"\n \nThis is the starting radius of the tear-gas\nreleased by this explosive item.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn,\nunless wearing a gas mask.\n \nAlso note the end radius and duration\nof the effect (displayed below).\n \nHigher is better.",
-	L"\n \nThis is the starting radius of the mustard-gas\nreleased by this explosive item.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn,\nunless wearing a gas mask.\n \nAlso note the end radius and duration\nof the effect (displayed below).\n \nHigher is better.",
-	L"\n \nThis is the starting radius of the light\nemitted by this explosive item.\n \nTiles close to the center of the effect will become\nvery bright, while tiles nearer the edge\nwill only be a little brighter than normal.\n \nAlso note the end radius and duration\nof the effect (displayed below).\n \nAlso remember that unlike other explosives with\ntimed effects, the light effect gets SMALLER\nover time, until it disappears.\n \nHigher is better.",
-	L"\n \nThis is the starting radius of the smoke\nreleased by this explosive item.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn\n(if any), unless wearing a gas mask. More importantly,\nanyone inside the cloud becomes extremely difficult to spot,\nand also loses a large chunk of sight-range themselves.\n \nAlso note the end radius and duration\nof the effect (displayed below).\n \nHigher is better.",
-	L"\n \nThis is the starting radius of the flames\ncaused by this explosive item.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn.\n \nAlso note the end radius and duration of the effect\n(displayed below).\n \nHigher is better.",
-	L"\n \nThis is the final radius of the tear-gas released\nby this explosive item before it dissipates.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn,\nunless wearing a gas mask.\n \nAlso note the start radius and duration\nof the effect.\n \nHigher is better.",
-	L"\n \nThis is the final radius of the mustard-gas released\nby this explosive item before it dissipates.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn,\nunless wearing a gas mask.\n \nAlso note the start radius and duration\nof the effect.\n \nHigher is better.",
-	L"\n \nThis is the final radius of the light emitted\nby this explosive item before it dissipates.\n \nTiles close to the center of the effect will become\nvery bright, while tiles nearer the edge\nwill only be a little brighter than normal.\n \nAlso note the start radius and duration\nof the effect.\n \nAlso remember that unlike other explosives with\ntimed effects, the light effect gets SMALLER\nover time, until it disappears.\n \nHigher is better.",
-	L"\n \nThis is the final radius of the smoke released\nby this explosive item before it dissipates.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn\n(if any), unless wearing a gas mask. More importantly,\nanyone inside the cloud becomes extremely difficult to spot,\nand also loses a large chunk of sight-range themselves.\n \nAlso note the start radius and duration\nof the effect.\n \nHigher is better.",
-	L"\n \nThis is the final radius of the flames caused\nby this explosive item before they dissipate.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn.\n \nAlso note the start radius and duration of the effect.\n \nHigher is better.",
-	L"\n \nThis is the duration of the explosive effect.\n \nEach turn, the radius of the effect will grow by\none tile in every direction, until reaching\nthe listed End Radius.\n \nOnce the duration has been reached, the effect\ndissipates completely.\n \nNote that light-type explosives become SMALLER\nover time, unlike other effects.\n \nHigher is better.",
-	L"\n \nThis is the distance (in Tiles) within which\nsoldiers and mercs will hear the explosion when\nit goes off.\n \nEnemies hearing the explosion will be alerted to your\npresence.\n \nLower is better.",
-	L"\n \nThis value represents a chance (out of 100) for this\nexplosive to spontaneously explode whenever it is damaged\n(for instance, when other explosions go off nearby).\n \nCarrying highly-volatile explosives into combat\nis therefore extremely risky and should be avoided.\n \nScale: 0-100.\nLower is better.",
+	L"\n \nRayon de l'explosion causé par cet objet.\n \nPlus les ennemis seront loin du centre de l'explosion\nmoins ils subiront de dégâts.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de l'etourdissement causé par cet objet.\n \nPlus les ennemis seront loin du centre de l'explosion\nmoins ils subiront de dégâts.\n \nValeur élevée recommandée.",
+	L"\n \nDistance du parcours du bruit causé par ce piège.\n Les ennemis placés en deçà de cette distance entendront\n votre piège et sonneront l'alerte.\n \nValeur faible recommandée.",
+	L"\n \nRayon de départ libéré par la lacrymogène.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nA noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
+	L"\n \nRayon de départ libéré par le gaz moutarde.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nA noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
+	L"\n \nRayon de départ émis par le flash lumineux.\n \nLes cases autours du centre de l'effet deviendront très\nlumineuses, quand celles autours ne seront que\nlégèrement plus lumineuse que la normale.\n \nA noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nA noter aussi que contrairement aux autres explosifs qui\nont une durée d'effet, le flash lumineux faiblit\nau cours du temps, avant de disparaître.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de départ libéré par la fumée.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz. plus important,\nquiconque se trouvant à l'intérieur de la fumée aura des difficultés à se repérer,\net perdra aussi sa visibilité.\n \nA noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
+	L"\n \nRayon de départ causés par les flammes.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour.\n \nA noter également la fin du rayon et la durée de\nl'effet (afficher ci-dessous).\n \nValeur élevée recommandée.",
+	L"\n \nRayon de fin libéré par la lacrymogène avant\nqu'il ne se dissipe.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nA noter également le début du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de fin libéré par le gaz moutarde avant\nqu'il ne se dissipe.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz.\n \nA noter également le début du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de fin émis par le flash lumineux.\n \nLes cases autours du centre de l'effet deviendront très\nlumineuses, quand celles autours ne seront que\nlégèrement plus lumineuse que la normale.\n \nA noter également la fin du rayon et la durée de\nl'effet.\n \nA noter aussi que contrairement aux autres explosifs qui\nont une durée d'effet, le flash lumineux faiblit\nau cours du temps, avant de disparaître.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de fin libéré par la fumée.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour,\nà moins qu'ils portent un masque à gaz. plus important,\nquiconque se trouvant à l'intérieur de la fumée aura des difficultés à se repérer,\net perdra aussi sa visibilité.\n \nA noter également la fin du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
+	L"\n \nRayon de départ causés par les flammes.\n \nLes ennemis placés en deçà de cette distance subiront\ndes dégâts et des étourdissements à chaque tour.\n \nA noter également la fin du rayon et la durée de\nl'effet.\n \nValeur élevée recommandée.",
+	L"\n \nDurée des effets de l'explosion.\n \nChaque tour, le rayon s'aggrandit d'un case dans\n toutes les directions, avant d'atteindre\nla vlauer de fin de rayon indiquée.\n \nQuand la durée a été atteinte, les effets se\ndissipent complètement.\n \nA noter aussi que contrairement aux autres explosifs qui\nont une durée d'effet, le flash lumineux faiblit\nau cours du temps, avant de disparaître.\n \nValeur élevée recommandée.",
+	L"\n \nDistance (en cases) en deçà de laquelle chaque\nsoldats et mercs peuvent entendre l'explosion.\n \nLes ennemis qui entendent cette explosion peuvent alerter de\nvotre présence.\n \nValeur faible recommandée.",
+	L"\n \nCette valeur représente la chance (sur 100) que cette\nexplosif explose spontanément chaque fois qu'il est endommagé\n(Par exemple, quand il y a d'autres explosions à proximité).\n \nTransporter des explosifs hautement volatiles en combat\nest donc extrêmement risqué et devrait être évitée.\n \nEchelle: 0-100.\nValeur faible recommandée.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=
