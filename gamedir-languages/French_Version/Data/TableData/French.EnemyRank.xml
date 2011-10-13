@@ -2,23 +2,23 @@
 <ENEMY_RANK>
   <RANK>
 	<uiIndex>1</uiIndex>
-    <szRank>Soldier</szRank>
+    <szRank>Novice</szRank>
   </RANK>
   <RANK>
 	<uiIndex>2</uiIndex>
-    <szRank>Corporal</szRank>
+    <szRank>Soldat</szRank>
   </RANK>
   <RANK>
 	<uiIndex>3</uiIndex>
-    <szRank>Corporal</szRank>
+    <szRank>Caporal</szRank>
   </RANK>
   <RANK>
 	<uiIndex>4</uiIndex>
-    <szRank>Sergeant</szRank>
+    <szRank>Brigadier</szRank>
   </RANK>
   <RANK>
 	<uiIndex>5</uiIndex>
-    <szRank>Sergeant</szRank>
+    <szRank>Sergent</szRank>
   </RANK>
   <RANK>
 	<uiIndex>6</uiIndex>
@@ -26,14 +26,14 @@
   </RANK>
   <RANK>
 	<uiIndex>7</uiIndex>
-    <szRank>Lieutenant</szRank>
+    <szRank>Capitaine</szRank>
   </RANK>
   <RANK>
 	<uiIndex>8</uiIndex>
-    <szRank>Captain</szRank>
+    <szRank>Colonel</szRank>
   </RANK>
   <RANK>
 	<uiIndex>9</uiIndex>
-    <szRank>Major</szRank>
+    <szRank>Général</szRank>
   </RANK>
 </ENEMY_RANK>
