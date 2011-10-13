@@ -1598,13 +1598,13 @@ STR16 pPOWStrings[] =
 
 STR16 pLongAttributeStrings[] =
 {
-  L"FORCE", 
+	L"FORCE", 
 	L"DEXTERITE",  
 	L"AGILITE", 
 	L"SAGESSE", 
 	L"PRECISION",
 	L"MEDECINE",
-	L"MECANIQUE",
+	L"TECHNIQUE",
 	L"COMMANDEMENT",
 	L"EXPLOSIFS",
 	L"NIVEAU",
@@ -1629,7 +1629,7 @@ STR16 pShortAttributeStrings[] =
 	L"Niv", // experience level
 	L"Tir", // marksmanship skill
 	L"Exp", // explosive skill
-	L"Méc", // mechanical skill
+	L"Tec", // mechanical skill
 	L"Méd", // medical skill
 };
 
@@ -1655,13 +1655,13 @@ STR16 pTrainingStrings[] =
 STR16 pGuardMenuStrings[] =
 {
 	L"Cadence de tir :", // the allowable rate of fire for a merc who is guarding
-	L" Feu à volonté", // the merc can be aggressive in their choice of fire rates
-	L" Economiser munitions", // conserve ammo 
-	L" Tir restreint", // fire only when the merc needs to 
+	L"Feu à volonté", // the merc can be aggressive in their choice of fire rates
+	L"Economiser munitions", // conserve ammo 
+	L"Tir restreint", // fire only when the merc needs to 
 	L"Autres Options :", // other options available to merc
-	L" Retraite", // merc can retreat
-	L" Abri",  // merc is allowed to seek cover
-	L" Assistance", // merc can assist teammates
+	L"Retraite", // merc can retreat
+	L"Abri",  // merc is allowed to seek cover
+	L"Assistance", // merc can assist teammates
 	L"OK", // done with this menu
 	L"Annuler", // cancel this menu
 };
@@ -1671,13 +1671,13 @@ STR16 pGuardMenuStrings[] =
 STR16 pOtherGuardMenuStrings[] =
 {
 	L"Cadence de tir :",
-	L" *Feu à volonté*",
-	L" *Economiser munitions*",
-	L" *Tir restreint*",
+	L"*Feu à volonté*",
+	L"*Economiser munitions*",
+	L"*Tir restreint*",
 	L"Autres Options :",
-	L" *Retraite*",
-	L" *Abri*",
-	L" *Assistance*",
+	L"*Retraite*",
+	L"*Abri*",
+	L"*Assistance*",
 	L"OK",
 	L"Annuler",
 };
@@ -1736,9 +1736,9 @@ STR16 pAttributeMenuStrings[] =
 	L"Dextérité",
 	L"Agilité",
 	L"Santé",
-	L"Précision",
+	L"Tir",
 	L"Médecine",
-	L"Mécanique",
+	L"Technique",
 	L"Commandement",
 	L"Explosifs",
 	L"Annuler",
@@ -1794,8 +1794,8 @@ STR16 pPersonnelScreenStrings[] =
 	L"Commandement : ",
 	L"Sagesse : ",
 	L"Niv. Exp. : ", // experience level
-	L"Précision : ", 
-	L"Mécanique : ",
+	L"Tir : ", 
+	L"Technique : ",
 	L"Explosifs : ",
 	L"Médecine : ",
 	L"Acompte méd. : ", // amount of medical deposit put down on the merc
@@ -1905,34 +1905,34 @@ STR16 gzMercSkillTextNew[] =
 
 	L"Armes automatiques",
 	L"Armes lourdes",
-	L"Tireur isolé",
-	L"Hunter",
-	L"Gunslinger",
+	L"Tireur d'élite",
+	L"Scout",
+	L"Bandit",
 	L"Corps-à-corps",
-	L"Deputé",
-	L"Electronique",
-	L"Paramedic",
+	L"Manager",
+	L"Technicien",
+	L"Médecin",
 	// Minor traits
 	L"Ambidextre",
-	L"Melee",
+	L"Mêlée",
 	L"Lancer",
 	L"Opérations de nuit",
 	L"Discrétion",
 	L"Athlétic",
-	L"Culturiste",
+	L"Masse musculaire",
 	L"Démolition",
 	L"Enseigner",
 	L"Reconnaissance",
 	// second names for major skills
-	L"Machinegunner",
+	L"Mitrailleur",
 	L"Bombardier",
 	L"Sniper",
-	L"Garde",
-	L"Gunfighter",
+	L"Chasseur",
+	L"Combattant",
 	L"Arts martiaux",
-	L"leadership",
-	L"Engénieur",
-	L"Docteur",
+	L"Commandant",
+	L"Ingénieur",
+	L"Chirurgien",
 	L"Plus...",
 };
 //////////////////////////////////////////////////////////
@@ -2306,8 +2306,8 @@ STR16		gzWeaponStatsFasthelp[ 32 ] =
 	L"Pas de tir en rafale!",
 	L"Pas de tir auto.!",
 	L"AP pour frapper",
-	L"Autofire Penalty (Lower is better)",
-    L"Burst Penalty (Lower is better)",
+	L"Pénalité Auto (Moins c'est mieux)",
+    L"Pénalité Rafale (Moins c'est mieux)",
 };
 
 STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
@@ -2331,10 +2331,10 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 	L"AP pour tir auto.",
 	L"AP pour recharger",
 	L"AP pour recharger manuellement",
-	L"Burst Penalty (Lower is better)",	//19
+	L"Pénalité Rafale (Moins c'est mieux)",	//19
 	L"Facteur de bipied",
 	L"Nombre de tirs pour 5 AP",
-	L"Autofire Penalty (Lower is better)",
+	L"Pénalité Auto (Moins c'est mieux)",
 	L"Pénalité Rafale/Auto (Moins c'est mieux)",	//23
 	L"AP pour jeter",
 	L"AP pour lancer",
@@ -2348,9 +2348,9 @@ STR16		gzWeaponStatsFasthelpTactical[ 32 ] =
 
 STR16		gzMiscItemStatsFasthelp[ 34 ] =
 {
-	L"Facteur d'encombrement (Lower is better)", // 0
+	L"Facteur d'encombrement (Valeur faible recommandée)", // 0
 	L"Facteur de fiabilité",
-	L"Facteur d'intensité sonore (Lower is better)",
+	L"Facteur d'intensité sonore (Valeur faible recommandée)",
 	L"Cache-flammes",
 	L"Facteur de bipied",
 	L"Facteur de portée", // 5
@@ -2358,15 +2358,15 @@ STR16		gzMiscItemStatsFasthelp[ 34 ] =
 	L"Portée laser optimum",
 	L"Facteur de bonus de visée",
 	L"Facteur de longueur de rafale",
-	L"Facteur de pénalité de rafale (Plus c'est mieux)", // 10
-	L"Facteur de pénalité tir auto. (Plus c'est mieux)",
+	L"Facteur de pénalité de rafale (Valeur élevée recommandée)", // 10
+	L"Facteur de pénalité tir auto. (Valeur élevée recommandée)",
 	L"Facteur de AP",
-	L"Facteur de AP rafale (Lower is better)",
-	L"Facteur de AP tir auto (Lower is better)",
-	L"Facteur de AP mise en joue (Lower is better)", // 15
-	L"Facteur de AP recharger (Lower is better)",
+	L"Facteur de AP rafale (Valeur faible recommandée)",
+	L"Facteur de AP tir auto (Valeur faible recommandée)",
+	L"Facteur de AP mise en joue (Valeur faible recommandéer)", // 15
+	L"Facteur de AP recharger (Valeur faible recommandée)",
 	L"Facteur de capacité chargeur",
-	L"Facteur de AP attaque (Lower is better)",
+	L"Facteur de AP attaque (Valeur faible recommandée)",
 	L"Facteur de dégats",
 	L"Facteur de dégats Mélée", // 20
 	L"Camouflage bois",
@@ -2380,7 +2380,7 @@ STR16		gzMiscItemStatsFasthelp[ 34 ] =
 	L"Facteur de portée visuelle nuit",
 	L"Facteur de portée visuelle faible lumiere", //30
 	L"Facteur de portée visuelle Cave",
-	L"Pourcentage d'effet tunnel (Moins c'est mieux)",
+	L"Pourcentage d'effet tunnel (Valeur faible recommandée)",
 	L"Portée minimale pour bonus de visée",
 };
 
@@ -2621,7 +2621,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Muet",
 	L"Se relever (|P|g|U|p)",
 	L"Niveau du curseur (|T|a|b)",
-	L"Grimper/Sauter (|J)",
+	L"Escalader/Sauter (|J)",
 	L"Se coucher (|P|g|D|n)",
 	L"Examiner (|C|t|r|l)",
 	L"Mercenaire précédent",
@@ -2788,8 +2788,8 @@ STR16 sStatGainStrings[] =
 	L"sagesse.",
 	L"compétence médicale.",
 	L"compétence en explosifs.",
-	L"compétence mécanique.",
-	L"précision",
+	L"compétence technique.",
+	L"tir",
 	L"expérience.",
 	L"force.",
 	L"commandement.",
@@ -3796,7 +3796,7 @@ STR16 pPersonnelTeamStatsStrings[] =
 	L"SAG",
 	L"NIV",
 	L"TIR",
-	L"MECH",
+	L"TECH",
 	L"EXPL",
 	L"MED",
 };
@@ -3941,8 +3941,8 @@ STR16			MercInfo[] =
 	L"Commandement",
 	L"Sagesse",
 	L"Niveau",
-	L"Précision",
-	L"Mécanique",
+	L"Tir",
+	L"Technique",
 	L"Explosifs",
 	L"Médecine",
 
@@ -4282,7 +4282,7 @@ STR16			AimSortText[] =
 
 	L"Prix",											
 	L"Expérience",
-	L"Précision",
+	L"Tir",
 	L"Médecine",
 	L"Explosifs",
 	L"Mécanique",
@@ -4344,7 +4344,7 @@ STR16			CharacterInfo[] =
 	L"Commandement",
 	L"Sagesse",
 	L"Niveau",
-	L"Précision",
+	L"Tir",
 	L"Mécanique",
 	L"Explosifs",
 	L"Médecine",				//10
@@ -4478,7 +4478,7 @@ STR16			AimFiText[] =
 
 	L"Prix",
 	L"Expérience",
-	L"Précision",
+	L"Tir",
 	L"Médecine",
 	L"Explosifs",
 	L"Mécanique",
@@ -4638,7 +4638,7 @@ STR16	zOptionsText[] =
 {
 	//button Text
 	L"Sauvegarder",
-	L"Charger partie",
+	L"Charger",
 	L"Quitter",
 	L">>",
 	L"<<",
@@ -4677,9 +4677,9 @@ STR16			zSaveLoadText[] =
 	//is used for the final version.  Please don't modify the "#ifdef JA2BETAVERSION" or the "#else" or the "#endif" as they are
 	//used by the compiler and will cause program errors if modified/removed.  It's okay to translate the strings though.
 #ifdef JA2BETAVERSION
-	L"La version de la sauvegarde a changé. Désirez-vous continuer?",
+	L"La version de la sauvegarde a changé. Désirez-vous continuer ?",
 #else
-	L"Tentative de chargement d'une sauvegarde de version précédente. Voulez-vous effectuer une mise à jour?",
+	L"Tentative de chargement d'une sauvegarde de version précédente. Voulez-vous effectuer une mise à jour ?",
 #endif
 
 	//Translators, the next two strings are for the same thing.  The first one is for beta version releases and the second one
@@ -4691,8 +4691,8 @@ STR16			zSaveLoadText[] =
 	L"Tentative de chargement d'une sauvegarde de version précédente. Voulez-vous effectuer une mise à jour?",
 #endif
 
-	L"Etes-vous sûr de vouloir écraser la sauvegarde #%d?",
-	L"Voulez-vous charger la sauvegarde #%d?",
+	L"Etes-vous sûr de vouloir écraser la sauvegarde #%d ?",
+	L"Voulez-vous charger la sauvegarde #%d ?",
 
 
 	//The first %d is a number that contains the amount of free space on the users hard drive,
@@ -4715,7 +4715,7 @@ STR16			zSaveLoadText[] =
 	L"Excellente Selection",
 	L"Superbe Selection",
 
-	L"Le Nouvel inventaire (NIV) ne peut se lancer en 640x480. Changez de résolution.",
+	L"Le nouvel inventaire (NIV) ne peut se lancer en 640x480. Changez de résolution.",
 	L"Le nouvel inventaire (NIV) ne fonctionne pas depuis le dossier \"data\" original.",
 };
 
@@ -4818,10 +4818,10 @@ STR16		zOptionsToggleText[] =
 	L"Objets en surbrillance",
 	L"Afficher cimes",
 	L"Affichage fil de fer",
-	L"Curseur Toît",
-	L"Afficher Chance de toucher",
-	L"Curseur raf. pour raf. LanceG.",
-	L"Allow Enemy Taunts", // Changed from "Enemies Drop all Items" - SANDRO
+	L"Curseur toît",
+	L"Afficher chance de toucher",
+	L"Curseur raf. pour raf. lance G.",
+	L"Remarques des ennemis", // Changed from "Enemies Drop all Items" - SANDRO
 	L"Lancemt Grenades grand angle",
 	L"Allow Real Time Sneaking", // Changed from "Restrict extra Aim Levels" - SANDRO
 	L"Espace pour escouade suivante",
@@ -4839,9 +4839,9 @@ STR16		zOptionsToggleText[] =
 	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.	// TODO.Translate
 	L"Alternate Strategy-Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate bullet graphics",			// Show alternate bullet graphics (tracers) // TODO.Translate
-	L"Activate New CTH system",				// use NCTH
-	L"Show Face gear graphics",				// TODO.Translate
-	L"Show Face gear icons",
+	L"Activé NCTH",				// use NCTH
+	L"Afficher équipments portrait",				// TODO.Translate
+	L"Afficher icones portraits",
 	L"Disable Cursor Swap",		            // Disable Cursor Swap		// TODO.Translate
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
@@ -4921,15 +4921,15 @@ STR16	zOptionsScreenHelpText[] =
 	//toggle wireframe
 	L"Activez cette option pour afficher les murs en fil de fer. (|W)",
 
-	L"Activez cette option pour afficher le curseur Toît. (|Home)",
+	L"Activez cette option pour afficher le curseur toît. (|Home)",
 
 	// Options for 1.13
 	L"Si activé, affiche une barre de probabilités de succès sur le curseur.",
 	L"Si activé, les rafales de lance grenades ont un curseur de rafale.",
-	L"Si activé, les ennemis feront de temps en temps des remarques de certaines actions.", // Changed from Enemies Drop All Items - SANDRO
+	L"Si activé, les ennemis feront de temps en temps des remarques sur certaines actions.", // Changed from Enemies Drop All Items - SANDRO
 	L"Si activé, les grenades lances grenades ont un grand angle (|Q).",
 	L"Si activé, le mode tour par tour ne sera pas actif si vous n'êtes pas vu ou entendu par l'ennemie à moins d'appuyer sur |C|t|r+|X.", // Changed from Restrict Extra Aim Levels - SANDRO
-	L"Si activé, |S|p|a|c|e selectionne l'escouade suivante.",
+	L"Si activé, |E|s|p|a|c|e selectionne l'escouade suivante.",
 	L"Si activé, les ombres d'objets sont affichées.",
 	L"Si activé, la portée des armes est affichée en nombres de cases.",
 	L"Si activé, les effets de traçantes sont affichés pour les tir simples.",
@@ -4944,15 +4944,15 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, montre la progression des caractères à travers le gain de niveaux.",	// TODO.Translate
 	L"Si activé, la carte stratégique sera coloré différemment selon l'exploration.",
 	L"Si activé, le graphisme des tirs alternatifs sera affiché quand vous tirerez.", // TODO.Translate
-	L"Si activé, le nouveau système CTH et le curseur sont utilisés.",
+	L"Si activé, le systéme NCTH et le curseur sont utilisés.",
 	L"Si activé, vous verrez l'équipement du mercenaire à travers son portrait.",	// TODO.Translate
-	L"Si activé, you will see icons for the equipped face gear on the merc portraits in the lower right corner.",
+	L"Si activé, vous verrez les icones correspondant à l'équipement porté en bas à droite du portrait.",
 	L"Si activé, le curseur ne basculera pas entre changer de position et une autre actions. Appuyez sur |x pour initisier un échange.",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER",			// an example options screen options header (pure text)
-	L"|H|A|M |4 |D|e|b|u|g: When ON, will report the distance each bullet deviates from the\ncenter of the target, taking all NCTH factors into account.",
+	L"|H|A|M |4 |D|e|b|u|g: Si activé, annoncera la distance de déviation de chaque tir à partir\ndu centre de la cible, en prenant en compte tous les facteurs du NCTH.",
 	L"Click me to fix corrupt game settings",							// failsafe show/hide option to reset all options
 	L"Click me to fix corrupt game settings",							// a do once and reset self option (button like effect)
 	L"Autoriser les options de debug dans les releases ou les mapeditor",				// allow debugging in release or mapeditor
@@ -4973,7 +4973,7 @@ STR16	gzGIOScreenText[] =
 	L"Réaliste",
 	L"S-F",
 	L"Platinum", //Placeholder English
-	L"Armes Lâchées",
+	L"Armes disponibles",
 	L"Toutes",
 	L"Quelques unes",
 	L"Difficulté",
@@ -5008,7 +5008,7 @@ STR16	gzGIOScreenText[] =
 	L"4",
 	L"5",
 	L"6",
-	L"Les ennemies laissent tombés tous leurs objets",
+	L"Objets lachés par les ennemis",
 	L"Off",
 	L"On",
 	L"Nombre de terroristes",
@@ -5016,10 +5016,10 @@ STR16	gzGIOScreenText[] =
 	L"Tout",
 	L"Cachettes d'armes secrètes",
 	L"Aléatoire",
-	L"Tout",
-	L"Vitesse de progression des objets choisis",
-	L"Très lent",
-	L"Lent",
+	L"Toutes",
+	L"Progression des objets choisis",
+	L"Très lente",
+	L"Lente",
 	L"Normal",
 	L"Rapide",
 	L"Très rapide",
@@ -5594,7 +5594,7 @@ STR16 gzLateLocalizedString[] =
 	//14
 	L"Arulco",
 
-  L"(roof)",
+    L"(toit)",
 
 	L"Santé : %d/%d",
 
@@ -5604,7 +5604,7 @@ STR16 gzLateLocalizedString[] =
 	
 	L"Plus de place dans le %s !",  //(ex "The ice cream truck is full")
 
-  L"%s requiert des soins bien plus importants et/ou du repos.",
+    L"%s requiert des soins bien plus importants et/ou du repos.",
 
 	//20
 	//Happens when you get shot in the legs, and you fall down.
@@ -5658,7 +5658,7 @@ STR16 gzLateLocalizedString[] =
 	L"%s n'a plus de trousse de soins !",
 	L"%s n'a aucune compétence médicale !",
 	L"%s n'a plus de trousse à outils !",
-	L"%s n'a aucune compétence mécanique !",
+	L"%s n'a aucune compétence en technique !",
 
 	//44-45
 	L"Temps de réparation",
@@ -5930,7 +5930,7 @@ STR16 NewInvMessage[] =
 	L"Ne peut se déplacer si la fermeture éclair est ouverte",
 	L"Êtes vous sûr de vouloir voulez vendre tous les articles du secteur ?",
 	L"Êtes vous sûr de vouloir supprimer tous les articles du secteur ?",
-	L"Ne peut pas grimper avec un sac à dos",
+	L"Ne peut pas escalader avec un sac à dos",
 };
 
 // WANNE - MP: Multiplayer messages
@@ -6008,7 +6008,7 @@ STR16 MPClientMessage[] =
 	L"Tous vos mercenaires sont morts !",
 	L"Mode spectateur activé.",
 	L"Vous avez été vaincu !",
-	L"Désolé, grimper sur les toits est interdit en multijoueur.",
+	L"Désolé, escalader sur les toits est interdit en multijoueur.",
 	L"Vous avez embauché '%s'",
 	// 45
 	L"Vous ne pouvez pas changer la carte une fois que l'achat a commencé",
@@ -6128,19 +6128,19 @@ STR16 gzMPChatboxText[] =
 STR16 pSkillTraitBeginIMPStrings[] =
 {
 	// For old traits
-	L"À la page suivante, vous allez choisir vos traits de compétence selon votre spécialisation professionnel comme un mercenaire. Pas plus de deux traits différents ou un trait expert peuvent être choisis.",
+	L"A la page suivante, vous allez choisir vos traits de compétence selon votre spécialisation professionnel comme un mercenaire. Pas plus de deux traits différents ou un trait expert peuvent être choisis.",
 	L"Vous pouvez aussi choisir seulement un ou même aucun trait, ce qui vous donnera un bonus à vos points d'attributs comme une compensation. Notez que les compétences : technique, ambidextre et camouflage ne peut pas être réalisées aux niveaux experts.",
 	// For new major/minor traits
-	L"L'étape suivante est le choix de vos traits de compétence selon votre spécialisation professionnel. À la première page vous pouvez choisir jusqu'à deux traits majeurs potentiels, qui représentent surtout votre rôle principal dans une équipe. Tandis qu'à la deuxième page, c'est la liste de vos traits mineurs possibles, qui représentent des exploits personnels.",
-	L"Pas plus de trois choix au total sont possibles. Ce qui signifie que si vous ne choisissez aucun trait majeur/principal, vous pourrez alors choisir trois traits mineurs/secondaires. Si vous choisissez les deux traits majeurs/principals (ou un en expert), vous pourrez alors choisir qu'un seul trait mineur/secondaire...",
+	L"L'étape suivante est le choix de vos traits de compétence selon votre spécialisation professionnel. À la première page vous pouvez choisir jusqu'à deux traits principaux, qui représentent surtout votre rôle dans une équipe. Tandis qu'à la deuxième page, c'est la liste de vos traits mineurs, qui représentent des exploits personnels.",
+	L"Pas plus de trois choix au total sont possibles. Ce qui signifie que si vous ne choisissez aucun trait principal, vous pourrez alors choisir trois traits secondaires. Si vous choisissez deux traits principaux (ou un en expert), vous pourrez alors choisir qu'un seul trait secondaire...",
 };
 
 STR16 sgAttributeSelectionText[] = 
 {
 	L"Ajustez s'il vous plaît vos attributs physiques selon vos vraies capacités. Vous ne pouvez pas augmenter les scores ci-dessus",
 	L"Review des attributs et compétences du I.M.P.",
-	L"Points bonus:",
-	L"Départ de Niveau",
+	L"Points bonus :",
+	L"Départ au niveau",
 	// New strings for new traits
 	L"À la page suivante vous allez spécifier vos attributs physiques comme : la santé, la dextérité, l'agilité, la force et la sagesse. Les attributs ne peuvent pas aller plus bas que %d.",
 	L"Le reste est appelé 'habilitées' et à la différence des attributs, ils peuvent être mis à zéro signifiant que vous serez un incapable dans cette habilitée !",
@@ -6150,8 +6150,8 @@ STR16 sgAttributeSelectionText[] =
 STR16 pCharacterTraitBeginIMPStrings[] =
 {
 	L"Analyse du cacractère I.M.P.",
-	L"L'analyse de votre personnage est l'étape suivante de la création de votre profil. À la première page on vous montrera une liste d'attitudes à choisir. Nous imaginons bien que vous pourriez vous identifier à plusieurs d'entre eux, mais ici vous pourrez en choisir qu'un seul. Choisissez celui sur lequel vous vous sentez le plus aligné. ",
-	L"La deuxième page enrôle des handicaps possibles que vous pourriez avoir. Si vous souffrez de n'importe lequel de ces handicaps, choisissez le (nous pensez fortement qu'un seul de ces handicaps ne peuvent être imputés par personne). Soyez honnête, c'est toujours important de faire connaitre votre vraie condition à vos futurs employeurs.",
+	L"L'analyse de votre personnage est l'étape suivante de la création de votre profil. À la première page on vous montrera une liste d'attitudes à choisir. Nous imaginons bien que vous pourriez vous identifier à plusieurs d'entre elles, mais vous pourrez en choisir qu'une seule. Choisissez celle qui vous correspond le plus. ",
+	L"La deuxième page montre des handicaps que vous pourriez avoir. Si vous souffrez de n'importe lequel de ces handicaps, choisissez le (un seul choix est possible). Soyez honnête, pensez que c'est un entretien d'embauche et qu'il est toujours important de faire connaitre votre vraie personnalité.",
 };
 
 STR16 gzIMPAttitudesText[]=
@@ -6194,15 +6194,15 @@ STR16 gzIMPColorChoosingText[] =
 	L"Choisissez s'il vous plaît les couleurs respectives de votre peau, vos cheveux et vos vêtements. Ainsi que votre physionomie (traits physiques). ",
 	L"Choisissez les couleurs respectives de votre peau, vos cheveux et vos vêtements.",
 	L"Activer cela pour utiliser une prise en main alternative du fusil.",
-	L"\n(Attetnion: vous devez avoir une grande force pour utiliser cela.)",
+	L"\n(Attention: vous devez avoir une grande force pour utiliser cela.)",
 };
 
 STR16 sColorChoiceExplanationTexts[]=
 {
-	L"Couleur des cheveux",
-	L"Teinte de peau",
-	L"Cuuleur du T-shirt",
-	L"Couleur du pantalon",
+	L"Cheveux",
+	L"Teinte",
+	L"T-shirt",
+	L"Pantalon",
 	L"Corps normal",
 	L"Corps musclé",
 };
@@ -6337,7 +6337,7 @@ STR16 Additional113Text[]=
 	L"Mercenaire (MAX_NUMBER_PLAYER_MERCS) / Vehicle (MAX_NUMBER_PLAYER_VEHICLES)", 
 	L"Ennemi (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
 	L"Créature (MAX_NUMBER_CREATURES_IN_TACTICAL)", 
-	L"Militice (MAX_NUMBER_MILITIA_IN_TACTICAL)", 
+	L"Milice (MAX_NUMBER_MILITIA_IN_TACTICAL)", 
 	L"Civil (MAX_NUMBER_CIVS_IN_TACTICAL)",
 };
 
@@ -6345,7 +6345,7 @@ STR16 Additional113Text[]=
 STR16 sEnemyTauntsFireGun[]=
 {
 	L"Suce moi ça !",
-	L"Prends toi çà!",
+	L"Prends toi çà !",
 	L"Viens par là !",
 	L"T'es à moi !",
 	L"Meurs !",
@@ -6377,7 +6377,7 @@ STR16 sEnemyTauntsThrow[]=
 	L"Un coup sec dans la belette.",
 	L"Et un pour toi",
 	L"Mouhahaha.",
-	L"Attrape çà, sale porc!",
+	L"Attrape çà sale porc!",
 	L"J'aime çà.",
 };
 
@@ -6393,7 +6393,7 @@ STR16 sEnemyTauntsChargeKnife[]=
 STR16 sEnemyTauntsRunAway[]=
 {
 	L"On est vraiment dans un grosse merde...",
-	L"Ils disent de rejoindre l'armée. Mais pa spour cette merde !",
+	L"Ils disent de rejoindre l'armée. Mais pas pour cette merde !",
 	L"J'en ai assez.",
 	L"Oh my God.",
 	L"On n'est pas assez payé pour çà !",
@@ -6453,7 +6453,7 @@ STR16 gzItemDescGenHeaders[] =
 	L"Primaire",
 	L"Secondaire",
 	L"Coût AP",
-	L"Coup par coup / Automatique",
+	L"Rafale / Auto",
 };
 
 STR16 gzItemDescGenIndexes[] =
@@ -6476,7 +6476,7 @@ STR16 gzUDBHeaderTooltipText[]=
 	L"|P|r|o|p|r|i|é|t|é|s |p|r|i|m|a|i|r|e|s :\n \nPropriétés et données liées à la classe de cet article\n(Armes / Armures / etc).",
 	L"|P|r|o|p|r|i|é|t|é|s |s|e|c|o|n|d|a|i|r|e|s :\n \nLes caractéristiques supplémentaires de cet article,\net/ou capacités secondaires possibles.",
 	L"|C|o|û|t |e|n |A|P :\n \nCoût en AP pour tirer\nou manipuler cette arme.",
-	L"|C|o|u|p |p|a|r |c|o|u|p |/ |A|u|t|o|m|a|t|i|q|u|e :\n \nDonnées liées au tir de cette arme au\ncoup par coup ou en automatique.",
+	L"|R|a|f|a|l|e |/ |A|u|t|o|m|a|t|i|q|u|e :\n \nDonnées liées au tir de cette arme au\ncoup par coup ou en automatique.",
 };
 
 STR16 gzUDBGenIndexTooltipText[]=
@@ -6518,93 +6518,93 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|A|P|s |p|o|u|r |r|e|c|h|a|r|g|e|r",
 	L"|A|P|s |p|o|u|r |r|e|c|h|a|r|g|e|r",
 	L"|R|e|c|u|l |l|a|t|é|r|a|l",
-	L"|R|e|c|u|l |l|a|t|é|r|a|l",
+	L"|R|e|c|u|l |v|e|r|t|i|c|a|l",
 	L"|T|i|r |a|u|t|o|m|a|t|i|q|u|e |p|a|r |5 |A|P|s",
 };
 
 STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 {
-	L"\n \nDetermines whether bullets fired by\nthis gun will stray far from where\nit is pointed.\n \nScale: 0-100.\nHigher is better.",
-	L"\n \nDetermines the average amount of damage done\nby bullets fired from this weapon, before\ntaking into account armor or armor-penetration.\n \nHigher is better.",
-	L"\n \nThe maximum distance (in tiles) that\nbullets fired from this gun will travel\nbefore they begin dropping towards the\nground.\n \nHigher is better.",
-	L"\n \nThis is the number of Extra Aiming\nLevels you can add when aiming this gun.\n \nThe FEWER aiming levels are allowed, the MORE\nbonus each aiming level gives you. Therefore,\nhaving FEWER levels makes the gun faster to aim,\nwithout making it any less accurate.\n \nLower is better.",
-	L"\n \nWhen greater than 1.0, will proportionally reduce\naiming errors at a distance.\n \nRemember that high scope magnification is detrimental\nwhen the target is too close!\n \nA value of 1.0 means no scope is installed.",
-	L"\n \nProportionally reduces aiming errors at a distance.\n \nThis effect works up to a given distance,\nthen begins to dissipate and eventually\ndisappears at sufficient range.\n \nHigher is better.",
-	L"\n \nWhen this property is in effect, the weapon\nproduces no visible flash when firing.\n \nEnemies will not be able to spot you\njust by your muzzle flash (but they\nmight still HEAR you).",
-	L"\n \nWhen firing this weapon, Loudness is the\ndistance (in tiles) that the sound of\ngunfire will travel.\n \nEnemies within this distance will probably\nhear the shot.\n \nLower is better.",
-	L"\n \nDetermines how quickly this weapon will degrade\nwith use.\n \nHigher is better.",
-	L"\n \nDetermines how difficult it is to repair this weapon.\n \nHigher is better.",
-	L"\n \nThe minimum range at which a scope can provide it's aimBonus.",
+	L"\n \nDétermine si des balles tirées par\ncette arme dévieront loin\nde l'impact d'origine.\n \nEchelle: 0-100.\nValeur élevée recommandée.",
+	L"\n \nDétermine la quantité moyenne de dégâts faits par\ndes balles tirées de cette arme, avant\n de tenir compte de l'armure et de la pénétration d'armure.\n \nValeur élevée recommandée.",
+	L"\n \nDistance maximale (en carreaux) que vont\nparcourir les balles tirées par cette arme\navant de redescendre vers le\nsol.\n \nValeur élevée recommandée.",
+	L"\n \nCeci est le nombre de niveau de visée que\nvous pouvez ajouter en visant avec cette arme.\n \nThe FEWER aiming levels are allowed, the MORE\nbonus each aiming level gives you. Cependant,\nprendre le niveau de visée le plus bas rendra le fusil plus rapide à viser,\nsans perdre en précision.\n \nValeur faible recommandée.",
+	L"\n \nUne valeur plus grande de *1.0, réduit proportionnellement\nles erreurs de visée à distance.\n \nN'oubliez pas qu'un trop gros zoom sur une cible\nproche vous pénalisera !\n \nLa valeur de 1.0 signifie qu'aucune lunette est installée.",
+	L"\n \nRéduit proportionnellement les erreurs de visée à distance.\n \nCes effets ne sont valables qu'à une distance donnée,\net se dissipent ou disparaissent\nà une longue distance.\n \nValeur élevée recommandée.",
+	L"\n \nQuand cette propriété est en vigueur, l'arme\nne produit pas de flash lors du tir.\n \nLes ennemis ne seront plus en mesure de vous repérer\nà cause du flash du tir (mais ils\npourront toujours vous entendre !).",
+	L"\n \nDistance (en cases) du bruit que fait votre arme\nlorsque vous tirez avec.\n \nLes ennemis placés en deçà de cette distance entendront\nvotre tir.\n \nValeur faible recommandée.",
+	L"\n \nDétermine la vitesse de déterioration de cett arme\nà l'usage.\n \nValeur élevée recommandée.",
+	L"\n \nDétermine la difficulté de réparation de cette arme.\n \nValeur élevée recommandée.",
+	L"\n \nPortée minimum où la lunette de visée fournit un bonus de visée.",
 	L"\n \nTo hit modifier granted by laser sights.",
 	L"", // (12)
-	L"\n \nThe number of APs required to bring this\nweapon up to firing stance.\n \nOnce the weapon is raised, you may fire repeatedly\nwithout paying this cost again.\n \nA weapon is automatically 'Unreadied' if its\nwielder performs any action other than\nfiring or turning.\n \nLower is better.",
-	L"\n \nThe number of APs required to perform\na single attack with this weapon.\n \nFor guns, this is the cost of firing\na single shot without extra aiming.\n \nIf this icon is greyed-out, single-shots\n are not possible with this weapon.\n \nLower is better.",
-	L"\n \nThe number of APs required to fire\na burst.\n \nThe number of bullets fired in each burst is\ndetermined by the weapon itself, and indicated\nby the number of bullets shown on this icon.\n \nIf this icon is greyed-out, burst fire\nis not possible with this weapon.\n \nLower is better.",
-	L"\n \nThe number of APs required to fire\nan Autofire Volley of three bullets.\n \nIf you wish to fire more than 3 bullets,\nyou will need to pay extra APs.\n \nIf this icon is greyed-out, autofire\nis not possible with this weapon.\n \nLower is better.",
-	L"\n \nThe number of APs required to reload\nthis weapon.\n \nLower is better.",
-	L"\n \nThe number of APs required to rechamber this weapon\nbetween each and every shot fired.\n \nLower is better.",
-	L"\n \nThe distance this weapon's muzzle will shift\nhorizontally between each and every bullet in a\nburst or autofire volley.\n \nPositive numbers indicate shifting to the right.\nNegative numbers indicate shifting to the left.\n \nCloser to 0 is better.",
-	L"\n \nThe distance this weapon's muzzle will shift\nvertically between each and every bullet in a\nburst or autofire volley.\n \nPositive numbers indicate shifting upwards.\nNegative numbers indicate shifting downwards.\n \nCloser to 0 is better.",
-	L"\n \nIndicates the number of bullets that will be added\nto an autofire volley for every extra 5 APs\nyou spend.\n \nHigher is better.",
+	L"\n \nLe nombre d'AP requis pour préparer l'arme\nau tir.\n \nQuand cette arme est prête, vous pouvez tirez plusieurs fois\nsans avoir de coût supplémentaire.\n \nAnnule automatiquement cette opération si vous faîtes des\nactions autre que pivoter ou tirer.\n \nValeur faible recommandée.",
+	L"\n \nLe nombre d'AP requis pour effectuer\nune attaque simple avec cette arme.\n \nPour les fusils, c'est le coût pour un tir\nsimple sans niveau de visée.\n \nSi cet icone est grisé, les tirs simples\n ne sont pas possible.\n \nValeur faible recommandée.",
+	L"\n \nLe nombre d'AP requis pour tirer\nune rafale.\n \nle nombre de balles tirées pour chaque rafale est\ndéterminé par l'arme elle-même, et indiqué\npar le nombre de balles sur cette icone.\n \nSi cette icone est grisé, le mode rafale \nn'est pas possible avec cette arme.\n \nValeur faible recommandée.",
+	L"\n \nLe nombre d'AP requis pour tirer\n en Auto de 3 balles.\n \nSi vous voulez tirez plus de 3 balles,\ncela coûtera plus d'AP.\n \nSi cette icone est grisé, le mode Auto\nn'est pas possible avec cette arme.\n \nValeur faible recommandée.",
+	L"\n \nLe nombre d'AP requis pour recharger\ncette arme.\n \nValeur faible recommandée.",
+	L"\n \nLe nombre d'AP requis pour recharger cette arme\nentre chaque tir.\n \nValeur faible recommandée.",
+	L"\n \nDistance à laquelle le canon va se déplacer\nhorizontalement après chaque tir en mode\nAuto ou rafale.\n \nUn nombre positif indique qu'il se déplacera vers la droite.\nEt un nombre négatif pour la gauche.\n \nValeur proche de 0 recommandée.",
+	L"\n \nDistance à laquelle le canon va se déplacer\nverticalement après chaque tir en mode\nAuto ou rafale.\n \nUn nombre positif indique qu'il se déplacera vers le haut.\nEt un nombre négatif pour le bas.\n \nValeur proche de 0 recommandée.",
+	L"\n \nIndique le nombre de balles qui seront ajoutés\n au mode Auto tous les 5 AP que\nvous dépensez.\n \nValeur élevée recommandée.",
 };
 
 STR16 szUDBGenArmorStatsTooltipText[]=
 {
-	L"|P|r|o|t|e|c|t|i|o|n |V|a|l|u|e",
-	L"|C|o|v|e|r|a|g|e",
-	L"|D|e|g|r|a|d|e |R|a|t|e",
+	L"|V|a|l|e|u|r |d|e |p|r|o|t|e|c|t|i||o|n",
+	L"|R|e|c|o|u|v|r|e|m|e|n|t",
+	L"|T|a|u|x |d|e |d|é|g|r|a|d|a|t|i|o|n",
 };
 
 STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 {
-	L"\n \nThis primary armor property defines how much\ndamage the armor will absorb from any attack.\n \nRemember that armor-piercing attacks and\nvarious randomal factors may alter the\nfinal damage reduction.\n \nHigher is better.",
-	L"\n \nDetermines how much of the protected\nbodypart is covered by the armor.\n \nIf coverage is below 100%, attacks have\na certain chance of bypassing the armor\ncompletely, causing maximum damage\nto the protected bodypart.\n \nHigher is better.",
-	L"\n \nIndicates how quickly this armor's condition\ndrops when it is struck, proportional to\nthe damage caused by the attack.\n \nLower is better.",
+	L"\n \nCette propriété d'armure définit de combien elle\nabsorbe les dégâts de chaque attaque.\n \nN'oubliez pas que les attaques perforantes et\ndivers facteurs aléatoires peuvent altérés\nla réduction final des dégâts.\n \nValeur élevée recommandée.",
+	L"\n \nDétermine le recouvrement de l'armure\nsur votre corps.\n \nSi le recouvrement est inférieur à 100%, les attaques\nont une certaine chance de passé à travers l'armure\nen causant de un maximum de dégâts.\n \nValeur élevée recommandée.",
+	L"\n \nIndique à quelle vitesse les conditions de l'armure\nvont chutés, et qui est proportionnel aux\ndégâts subis.\n \nValeur faible recommandée.",
 };
 
 STR16 szUDBGenAmmoStatsTooltipText[]=
 {
-	L"|A|r|m|o|r |P|i|e|r|c|i|n|g",
+	L"|T|a|u|x |d|e |p|é|n|é|t|r|a|t|i|o|n",
 	L"|B|u|l|l|e|t |T|u|m|b|l|e",
 	L"|P|r|e|-|I|m|p|a|c|t |E|x|p|l|o|s|i|o|n",
 };
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
-	L"\n \nThis is the bullet's ability to penetrate\na target's armor.\n \nWhen above 1.0, the bullet proportionally\nreduces the Protection value of any\narmor it hits.\n \nWhen below 1.0, the bullet increases the\nprotection value of the armor instead.\n \nHigher is better.",
-	L"\n \nDetermines a proportional increase of damage\npotential once the bullet gets through the\ntarget's armor and hits the bodypart behind it.\n \nWhen above 1.0, the bullet's damage\nincreases after penetrating the armor.\n \nWhen below 1.0, the bullet's damage\npotential decreases after passing through armor.\n \nHigher is better.",
-	L"\n \nA multiplier to the bullet's damage potential\nthat is applied immediately before hitting the\ntarget.\n \nValues above 1.0 indicate an increase in damage,\nvalues below 1.0 indicate a decrease.\n \nHigher is better.",
+	L"\n \nCeci est la capacité de la balle à pénétrer\nl'armure de la cible.\n \nAvec une valeur supérieure à 1.0, la balle réduiera fortement\nla valeur de protection de l'armure touchée.\n \nValeur élevée recommandée.",
+	L"\n \nDétermine le potentiel de la balle à faire des dégâts\nsur le corps après avoir traversée l'armure.\n \nAvec une valeur supérieure à 1.0, la balle fera de lourds dégâts\naprès pénétration\nAvec une valeur inférieure à 1.0, la balle fera des dégâts moindre\naprès pénétration.\n \nValeur élevée recommandée.",
+	L"\n \nMultiplicateur de potentiel de dégâts juste avant\nl'impact de la balle.\n \nAvec une valeur supérieure à 1.0, la balle fera de lourds dégâts\nUne valeur inférieure à 1.0 fera des dégâts moindre.\n \nValeur élevée recommandée.",
 };
 
 STR16 szUDBGenExplosiveStatsTooltipText[]=
 {
-	L"|D|a|m|a|g|e",
-	L"|S|t|u|n |D|a|m|a|g|e",
-	L"|B|l|a|s|t |R|a|d|i|u|s",
-	L"|S|t|u|n |B|l|a|s|t |R|a|d|i|u|s",
-	L"|N|o|i|s|e |B|l|a|s|t |R|a|d|i|u|s",
-	L"|T|e|a|r|g|a|s |S|t|a|r|t |R|a|d|i|u|s",
-	L"|M|u|s|t|a|r|d |G|a|s |S|t|a|r|t |R|a|d|i|u|s",
-	L"|L|i|g|h|t |S|t|a|r|t |R|a|d|i|u|s",
-	L"|S|m|o|k|e |S|t|a|r|t |R|a|d|i|u|s",
-	L"|I|n|c|e|n|d|i|a|r|y |S|t|a|r|t |R|a|d|i|u|s",
-	L"|T|e|a|r|g|a|s |E|n|d |R|a|d|i|u|s",
-	L"|M|u|s|t|a|r|d |G|a|s |E|n|d |R|a|d|i|u|s",
-	L"|L|i|g|h|t |E|n|d |R|a|d|i|u|s",
-	L"|S|m|o|k|e |E|n|d |R|a|d|i|u|s",
-	L"|I|n|c|e|n|d|i|a|r|y |E|n|d |R|a|d|i|u|s",
-	L"|E|f|f|e|c|t |D|u|r|a|t|i|o|n",
-	L"|L|o|u|d|n|e|s|s",
-	L"|V|o|l|a|t|i|l|i|t|y",
+	L"|D|é|g|â|t|s",
+	L"|D|é|g|â|t|s |é|t|o|u|r|d|i|s|a|n|t",
+	L"|R|a|y|o|n |d|'|e|x|p|l|o|s|i|o|n",
+	L"|R|a|y|o|n |d|'|e|x|p|l|o|s|i|o|n |é|t|o|u|r|d|i|s|a|n|t|e",
+	L"|R|a|y|o|n |d|'|e|x|p|l|o|s|i|o|n |s|o|n|o|r|e",
+	L"|D|é|b|u|t |r|a|y|o|n |g|a|z |l|a|c|r|y|m|o|g|è|n|e",
+	L"|D|é|b|u|t |r|a|y|o|n |g|a|z |m|o|u|t|a||r|d|e",
+	L"|D|é|b|u|t |r|a|y|o|n |f|l|a|s|h |l|u|m|i|n|e|u|x",
+	L"|D|é|b|u|t |r|a|y|o|n |f|u|m|é|e",
+	L"|D|é|b|u|t |r|a|y|o|n |i|n|c|e|n|d|i|e",
+	L"|F|i|n |r|a|y|o|n |g|a|z |l|a|c|r|y|m|o|g|è|n|e",
+	L"|F|i|n |r|a|y|o|n |g|a|z |m|o|u|t|a||r|d|e",
+	L"|F|i|n |r|a|y|o|n |f|l|a|s|h |l|u|m|i|n|e|u|x",
+	L"|F|i|n |r|a|y|o|n |f|u|m|é|e",
+	L"|F|i|n |r|a|y|o|n |i|n|c|e|n|d|i|e",
+	L"|D|u|r|é|e |d|e |l|'|e|f|f|e|t",
+	L"|V|o|l|u|m|e",
+	L"|V|o|l|a|t|i|l||i|t|é",
 };
 
 STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 {
-	L"\n \nThe amount of damage caused by this explosive.\n \nNote that blast-type explosives deliver this damage\nonly once (when they go off), while prolonged effect\nexplosives deliver this amount of damage every turn until the\neffect dissipates.\n \nHigher is better.",
-	L"\n \nThe amount of non-lethal (stun) damage caused\nby this explosive.\n \nNote that blast-type explosives deliver their damage\nonly once (when they go off), while prolonged effect\nexplosives deliver this amount of stun damage every\nturn until the effect dissipates.\n \nHigher is better.",
+	L"\n \nLa quantité de dégâts causés par cet explosif.\n \nNotez que les explosifs de type 'explosion' livrent\nces dégâts seulement une fois (quand ils partent), tandis que\nles explosifs d'effet prolongés livrent cette quantité de dégâts\nà chaque tour jusqu'à ce que l'effet dissipe.\n \nValeur élevée recommandée.",
+	L"\n \nLa quantité de dégâts non mortels (étourdissant) causés\npar cet explosif.\n \nNotez que les explosifs de type 'explosion' livrent leurs dégâts seulement\nune fois (quand ils partent), tandis que les explosifs d'effet\nprolongés livrentcette quantité de dégâts\nd'étourdissement à chaque tour jusqu'à ce que l'effet dissipe.\n \nValeur élevée recommandée.",
 	L"\n \nThis is the radius of the explosive blast caused by\nthis explosive item.\n \nTargets will suffer less damage the further they are\nfrom the center of the explosion.\n \nHigher is better.",
 	L"\n \nThis is the radius of the stun-blast caused by\nthis explosive item.\n \nTargets will suffer less damage the further they are\nfrom the center of the blast.\n \nHigher is better.",
-	L"\n \nThis is the distance that the noise from this\ntrap will travel. Soldiers within this distance\nare likely to hear the noise and be alerted.\n \nHigher is better.",
+	L"\n \nThis is the distance that the noise from this\ntrap will travel. Soldiers within this distance\nare likely to hear the noise and be alerted.\n \nLower is better.",
 	L"\n \nThis is the starting radius of the tear-gas\nreleased by this explosive item.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn,\nunless wearing a gas mask.\n \nAlso note the end radius and duration\nof the effect (displayed below).\n \nHigher is better.",
 	L"\n \nThis is the starting radius of the mustard-gas\nreleased by this explosive item.\n \nEnemies caught within the radius will suffer\nthe listed damage and stun-damage each turn,\nunless wearing a gas mask.\n \nAlso note the end radius and duration\nof the effect (displayed below).\n \nHigher is better.",
 	L"\n \nThis is the starting radius of the light\nemitted by this explosive item.\n \nTiles close to the center of the effect will become\nvery bright, while tiles nearer the edge\nwill only be a little brighter than normal.\n \nAlso note the end radius and duration\nof the effect (displayed below).\n \nAlso remember that unlike other explosives with\ntimed effects, the light effect gets SMALLER\nover time, until it disappears.\n \nHigher is better.",
@@ -6622,32 +6622,32 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=
 {
-	L"|T|r|a|c|e|r |A|m|m|o",
-	L"|A|n|t|i|-|T|a|n|k |A|m|m|o",
-	L"|I|g|n|o|r|e|s |A|r|m|o|r",
-	L"|A|c|i|d|i|c |A|m|m|o",
-	L"|L|o|c|k|-|B|u|s|t|i|n|g |A|m|m|o",
-	L"|R|e|s|i|s|t|a|n|t |t|o |E|x|p|l|o|s|i|v|e|s",
+	L"|B|a|l|l|e|s |t|r|a|ç|a|n|t|e|s",
+	L"|M|u|n|i|t|i|o|n|s |A|n|t|i|-|T|a|n|k",
+	L"|I|g|n|o|r|e |l|'|a|r|m|u|r|e",
+	L"|M|u|n|i|t|i|o|n|s |a|c|i|d|e|s",
+	L"|M|u|n|i|t|i|o|n|s |c|a|s|s|a|n|t |s|e|r|r|u|r|e",
+	L"|R|é|s|i|s|t|a|n|t |a|u |e|x|p|l|o|s|i|f|s",
 	L"|W|a|t|e|r|p|r|o|o|f",
-	L"|E|l|e|c|t|r|o|n|i|c",
-	L"|G|a|s |M|a|s|k",
-	L"|N|e|e|d|s |B|a|t|t|e|r|i|e|s",
-	L"|C|a|n |P|i|c|k |L|o|c|k|s",
-	L"|C|a|n |C|u|t |W|i|r|e|s",
-	L"|C|a|n |S|m|a|s|h |L|o|c|k|s",
-	L"|M|e|t|a|l |D|e|t|e|c|t|o|r",
-	L"|R|e|m|o|t|e |T|r|i|g|g|e|r",
-	L"|R|e|m|o|t|e |D|e|t|o|n|a|t|o|r",
-	L"|T|i|m|e|r |D|e|t|o|n|a|t|o|r",
-	L"|C|o|n|t|a|i|n|s |G|a|s|o|l|i|n|e",
-	L"|T|o|o|l |K|i|t",
-	L"|T|h|e|r|m|a|l |O|p|t|i|c|s",
-	L"|X|-|R|a|y |D|e|v|i|c|e",
-	L"|C|o|n|t|a|i|n|s |D|r|i|n|k|i|n|g |W|a|t|e|r",
-	L"|C|o|n|t|a|i|n|s |A|l|c|o|h|o|l",
-	L"|F|i|r|s|t |A|i|d |K|i|t",
-	L"|M|e|d|i|c|a|l |K|i|t",
-	L"|L|o|c|k |B|o|m|b",
+	L"|E|l|e|c|t|r|o|n|i|q|u|e",
+	L"|M|a|s|q|u|e |à |g|a|z",
+	L"|B|e|s|o|i|n |d|e |p|i|l|e|s",
+	L"|P|e|u|t |c|r|o|c|h|e|t|e|r |l|e|s |s|e|r|r|u|r|e|s",
+	L"|P|e|u|t |c|o|u|p|e|r |d|e|s |f|i|l|s",
+	L"|P|e|u|t |c|a|s|s|e|r |l|e|s |v|e|r|r|o|u|s",
+	L"|D|é|t|e|c|t|e|u|r |d|e |m|é|t|a|l",
+	L"|D|é|c|l|e|n|c|h|e|u|r |à |d|i|s|t|a|n|c|e",
+	L"|D|é|t|o|n|a|t|e|u|r |à |d|i|s|t|a|n|c|e",
+	L"|M|i|n|u|t|e|r|i|e |d|e| |d|é|t|o|n|a|t|e|u|r",
+	L"|C|o|n|t|i|e|n|t |d|e |l|'|e|s|s|e|n|c|e",
+	L"|T|r|o|u|s|s|e |à |o|u|t|i|l|s",
+	L"|O|p|t|i|q|u|e|s |t|h|e|r|m|i|q|u|e|s",
+	L"|D|i|s|p|o|s|i|t|i|f |à |r|a|y|o|n|s |X",
+	L"|C|o|n|t|i|e|n|t |d|e |l|'|e|a|u |p|o|t|a|b|l|e",
+	L"|C|o|n|t|i|e|n|t |d|e |l|'|a|l|c|o|o|l",
+	L"|T|r|o|u|s|s|e |d|e |1|e|r |s|o|i|n|s",
+	L"|T|r|o|u|s|s|e |d|e |s|o|i|n|s",
+	L"|B|o|m|b|e |d|e |s|e|r|r|u|r|e",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -6682,7 +6682,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 
 STR16 szUDBAdvStatsTooltipText[]=
 {
-	L"|A|c|c|u|r|a|c|y |M|o|d|i|f|i|e|r",
+	L"|M|o|d|i|f|i|c|a|t|e|u|r |d|e |p|r|é|c|i|s|i|o|n",
 	L"|F|l|a|t |S|n|a|p|s|h|o|t |M|o|d|i|f|i|e|r",
 	L"|P|e|r|c|e|n|t |S|n|a|p|s|h|o|t |M|o|d|i|f|i|e|r",
 	L"|F|l|a|t |A|i|m|i|n|g |M|o|d|i|f|i|e|r",
