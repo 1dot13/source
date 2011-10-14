@@ -3074,6 +3074,14 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				SetFactFalse( FACT_MADLAB_HAS_GOOD_CAMERA );
 				pSoldier = FindSoldierByProfileID( MADLAB, FALSE );
 				pSoldier2 = FindSoldierByProfileID( ROBOT, FALSE );
+
+				// WANNE: If we get the 2nd (repaired) robot, first recruit, then give the robot the weapon from madlab
+				if (gubFact[FACT_ROBOT_READY_SECOND_TIME] == TRUE)
+				{
+					RecruitEPC( ROBOT );
+				}
+
+				// Give the robot the weapon, we gave madlab earlier
 				if ( pSoldier && pSoldier2 )
 				{
 					// Give weapon to robot
@@ -3085,8 +3093,11 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 						AutoPlaceObject( pSoldier2, &( pSoldier->inv[ bSlot ] ) , FALSE );
 					}
 				}
-				// Allow robot to be controlled by remote!
-				RecruitEPC( ROBOT );
+
+				// WANNE: This is out first robot. Recruit it AFTER we gave him the weapon!
+				if (gubFact[FACT_ROBOT_READY_SECOND_TIME] == FALSE)
+					RecruitEPC( ROBOT );
+				
 				break;
 
 			case NPC_ACTION_READY_ROBOT:
