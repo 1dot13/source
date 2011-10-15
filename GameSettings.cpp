@@ -2236,8 +2236,9 @@ void LoadCTHConstants()
 	gGameCTHConstants.NORMAL_RECOIL_DISTANCE							= iniReader.ReadInteger("Shooting Mechanism","NORMAL_RECOIL_DISTANCE",140, 10, 10000);
 	gGameCTHConstants.MAX_BULLET_DEV					 				= iniReader.ReadFloat("Shooting Mechanism","MAX_BULLET_DEV ",10.0, -1000.0, 1000.0);
 	gGameCTHConstants.RANGE_EFFECTS_DEV					 				= iniReader.ReadBoolean("Shooting Mechanism","RANGE_EFFECTS_DEV",  TRUE  );
-
-
+	gGameCTHConstants.MAX_EFFECTIVE_RANGE_MULTIPLIER	 				= iniReader.ReadFloat("Shooting Mechanism","MAX_EFFECTIVE_RANGE_MULTIPLIER",1.1f, 0.5f, 10.0f);
+	gGameCTHConstants.MAX_EFFECTIVE_RANGE_REDUCTION	 					= iniReader.ReadFloat("Shooting Mechanism","MAX_EFFECTIVE_RANGE_REDUCTION",0.5f, 0.0f, 1.0f);
+	gGameCTHConstants.MAX_EFFECTIVE_USE_GRADIENT						= iniReader.ReadBoolean("Shooting Mechanism","MAX_EFFECTIVE_USE_GRADIENT",  FALSE );
 }
 
 void FreeGameExternalOptions()

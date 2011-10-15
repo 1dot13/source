@@ -8045,15 +8045,25 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 		}
 
 		FLOAT dGunRange = (FLOAT)(GunRange( &(pSoldier->inv[pSoldier->ubAttackingHand]), pSoldier ) );
-		if ( (dGunRange * 1.1f) < d2DDistance)
+		FLOAT dMaxGunRange = dGunRange * gGameCTHConstants.MAX_EFFECTIVE_RANGE_MULTIPLIER;
+		if ( dMaxGunRange < d2DDistance)
 		{
 			// Weapon out of conceivable hit range. Reduce chance to hit to 0!
 			return (0);
 		}
 		else if ( dGunRange < d2DDistance)
 		{
-			// Just outside range. Reduce considerably!
-			return (uiChance / 2);
+			FLOAT dChance = (FLOAT)uiChance;
+			FLOAT dMaxChanceReduction = (dChance * gGameCTHConstants.MAX_EFFECTIVE_RANGE_REDUCTION);
+			if (gGameCTHConstants.MAX_EFFECTIVE_USE_GRADIENT)
+			{
+				// Just outside range. Reduce considerably!
+				return min(uiChance, (UINT)(dChance - (dMaxChanceReduction * ((d2DDistance - dGunRange) / (dMaxGunRange - dGunRange)))));
+			}
+			else
+			{
+				return (UINT)(dChance - dMaxChanceReduction);
+			}
 		}
 	}
 	return( uiChance );
