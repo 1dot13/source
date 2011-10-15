@@ -4815,6 +4815,39 @@ INT16 ubMinAPCost;
 				pSoldier->bDoAutofire		= 0;
 			}
 
+			// IF WAY OUT OF EFFECTIVE RANGE TRY TO ADVANCE RESERVING ENOUGH AP FOR A SHOT IF NOT ACTED YET
+			if ((pSoldier->bActionPoints > BestAttack.ubAPCost) &&
+				(pSoldier->aiData.bShock == 0) && 
+				(pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2) && 
+				(BestAttack.ubChanceToReallyHit < 8) &&
+				(PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) > usRange / CELL_X_SIZE ) && 
+				(RangeChangeDesire( pSoldier ) >= 3) ) // Cunning and above
+			{
+				sClosestOpponent = Menptr[BestShot.ubOpponent].sGridNo;
+				if (!TileIsOutOfBounds(sClosestOpponent))
+				{
+					// temporarily make merc get closer reserving enough for expected cost of shot
+					USHORT tgrd = pSoldier->aiData.sPatrolGrid[0];
+					INT8 oldOrders = pSoldier->aiData.bOrders;
+					pSoldier->aiData.sPatrolGrid[0] = pSoldier->sGridNo;
+					pSoldier->aiData.bOrders = CLOSEPATROL;
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards( pSoldier, sClosestOpponent, BestAttack.ubAPCost, AI_ACTION_GET_CLOSER, 0 );
+					pSoldier->aiData.sPatrolGrid[0] = tgrd;
+					pSoldier->aiData.bOrders = oldOrders;
+
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+					{
+						pSoldier->aiData.usActionData = pSoldier->sGridNo ;
+						pSoldier->pathing.sFinalDestination = pSoldier->aiData.usActionData;
+
+						pSoldier->aiData.bNextAction = AI_ACTION_FIRE_GUN;
+						pSoldier->aiData.usNextActionData = BestAttack.sTarget;
+						pSoldier->aiData.bNextTargetLevel = BestAttack.bTargetLevel;
+						return( AI_ACTION_GET_CLOSER );
+					}
+				}
+			}
+
 			//////////////////////////////////////////////////////////////////////////
 			// IF NOT CROUCHED & WILL STILL HAVE ENOUGH APs TO DO THIS SAME BEST
 			// ATTACK AFTER A STANCE CHANGE, CONSIDER CHANGING STANCE
