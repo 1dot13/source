@@ -8337,6 +8337,8 @@ void EndMapScreen( BOOLEAN fDuringFade )
 
 	if( !gfDontStartTransitionFromLaptop )
 	{
+		// WANNE: This code blocks never gets called, but this is fine, cause we don't need it. That seems to be an "old" unused code block!
+		
 		VOBJECT_DESC	VObjectDesc;
 		UINT32 uiLaptopOn;
 
@@ -8346,8 +8348,8 @@ void EndMapScreen( BOOLEAN fDuringFade )
 		sprintf( VObjectDesc.ImageFile, "INTERFACE\\LaptopOn.sti" );
 		if( !AddVideoObject( &VObjectDesc, &uiLaptopOn ) )
 			AssertMsg( 0, "Failed to load data\\Interface\\LaptopOn.sti" );
-		BltVideoObjectFromIndex( FRAME_BUFFER, uiLaptopOn, 0, 465, 417, VO_BLT_SRCTRANSPARENCY, NULL );
-		InvalidateRegion( 465, 417, 480, 427 );
+		BltVideoObjectFromIndex( FRAME_BUFFER, uiLaptopOn, 0, iScreenWidthOffset + 465, iScreenHeightOffset + 417, VO_BLT_SRCTRANSPARENCY, NULL );
+		InvalidateRegion( iScreenWidthOffset + 465, iScreenHeightOffset + 417, iScreenWidthOffset + 480, iScreenHeightOffset + 427 );
 		ExecuteBaseDirtyRectQueue( );
 		EndFrameBufferRender( );
 		DeleteVideoObjectFromIndex( uiLaptopOn );

@@ -2527,6 +2527,9 @@ void reapplySETTINGS()
 	// Set fast loading of WWW sites
 	gfTemporaryDisablingOfLoadPendingFlag = TRUE;
 
+	// WANNE: This should fix the bug playing a "tilt" sound and showing the mini laptop graphic on the screen, when opening the laptop / option screen from map screen
+	gfDontStartTransitionFromLaptop = TRUE;
+
 	gMercProfiles[ 57 ].sSalary = 2000;
 	gMercProfiles[ 58 ].sSalary = 1500;
 	gMercProfiles[ 59 ].sSalary = 600;
@@ -4768,6 +4771,9 @@ void connect_client ( void )
 		
 		// Set fast loading of WWW sites
 		gfTemporaryDisablingOfLoadPendingFlag = TRUE;
+
+		// WANNE: This should fix the bug playing a "tilt" sound and showing the mini laptop graphic on the screen, when opening the laptop / option screen from map screen from map screen
+		gfDontStartTransitionFromLaptop = TRUE;
 										
 		//**********************
 
