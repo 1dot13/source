@@ -1016,7 +1016,8 @@ void ReStartingGame()
 	}
 
 
-	SoundStopAll( );
+	// WANNE: By disabling the following line, this should fix the bug, that the main music start again, whenever we click a button in the main menu
+	//SoundStopAll( );
 
 	//we are going to restart a game so initialize the variable so we can initialize a new game
 	InitNewGame( TRUE );
