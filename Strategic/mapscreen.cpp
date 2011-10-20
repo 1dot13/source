@@ -11960,11 +11960,15 @@ BOOLEAN CheckIfClickOnLastSectorInPath( INT16 sX, INT16 sY )
 	// check if helicopter
 	if( fPlotForHelicopter == TRUE )
 	{
+		// helicopter route confirmed
 		if( sX + ( sY * MAP_WORLD_X ) == GetLastSectorOfHelicoptersPath( ) )
 		{
-			// helicopter route confirmed - take off
-			TakeOffHelicopter( );
-
+			// if confirm moving to another sector
+			if( ( CheckForClickOverHelicopterIcon( sX, sY ) == FALSE ) )
+			{
+				// take off
+				TakeOffHelicopter( );
+			}
 			// rebuild waypoints - helicopter
 			ppMovePath = &( pVehicleList[ iHelicopterVehicleId ].pMercPath );
 			RebuildWayPointsForGroupPath( *ppMovePath, pVehicleList[ iHelicopterVehicleId ].ubMovementGroup );
