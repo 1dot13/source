@@ -242,8 +242,8 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 		}
 
 
-		// if player took control away from enemy
-		if( fWasEnemyControlled && fContested )
+		// if player took control away from enemy 
+		if( fWasEnemyControlled )
 		{
 			// WDS - New AI
 			// Hook in here for some stuff
@@ -287,9 +287,10 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 
 				HandleMoraleEvent( NULL, MORALE_SAM_SITE_LIBERATED, sMapX, sMapY, bMapZ );
 				HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_GAIN_SAM, sMapX, sMapY, bMapZ );
+				UpdateAirspaceControl( );
 
 				// if Skyrider has been delivered to chopper, and already mentioned Drassen SAM site, but not used this quote yet
-				if ( IsHelicopterPilotAvailable() && ( guiHelicopterSkyriderTalkState >= 1 ) && ( !gfSkyriderSaidCongratsOnTakingSAM ) )
+				if ( IsHelicopterPilotAvailable( ) && ( guiHelicopterSkyriderTalkState >= 1 ) && ( !gfSkyriderSaidCongratsOnTakingSAM ) )
 				{
 					SkyRiderTalk( SAM_SITE_TAKEN );
 					gfSkyriderSaidCongratsOnTakingSAM = TRUE;
@@ -318,7 +319,7 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 //			SetSectorFlag( sMapX, sMapY, bMapZ, SF_SECTOR_HAS_BEEN_LIBERATED_ONCE );
 			if ( bMapZ == 0 && ( ( sMapY == MAP_ROW_M && (sMapX >= 2 && sMapX <= 6) ) || sMapY == MAP_ROW_N && sMapX == 6) )
 			{
-				HandleOutskirtsOfMedunaMeanwhileScene();
+				HandleOutskirtsOfMedunaMeanwhileScene( );
 			}
 		}
 
@@ -346,7 +347,7 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 	//KM : Aug 11, 1999 -- Patch fix:	Relocated this check so it gets called everytime a sector changes hands,
 	//	 even if the sector isn't a SAM site.	There is a bug _somewhere_ that fails to update the airspace,
 	//	 even though the player controls it.
-	UpdateAirspaceControl( );
+	//UpdateAirspaceControl( );
 
 	// redraw map/income if in mapscreen
 	fMapPanelDirty = TRUE;
@@ -424,6 +425,7 @@ BOOLEAN SetThisSectorAsEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BO
 			{
 				HandleMoraleEvent( NULL, MORALE_SAM_SITE_LOST, sMapX, sMapY, bMapZ );
 				HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_LOSE_SAM, sMapX, sMapY, bMapZ );
+				UpdateAirspaceControl( );
 			}
 
 			// if it's a helicopter refueling site sector
@@ -464,7 +466,7 @@ BOOLEAN SetThisSectorAsEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BO
 	//KM : Aug 11, 1999 -- Patch fix:	Relocated this check so it gets called everytime a sector changes hands,
 	//	 even if the sector isn't a SAM site.	There is a bug _somewhere_ that fails to update the airspace,
 	//	 even though the player controls it.
-	UpdateAirspaceControl( );
+	//UpdateAirspaceControl( );
 
 	// redraw map/income if in mapscreen
 	fMapPanelDirty = TRUE;
