@@ -3788,9 +3788,10 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 
 					// Look for good two pistols sub anim.....
 					if ( gDoubleHandledSub.usAnimState == usAnimState )
-					{
+					{						
 						// Do we carry two pistols...
-						if ( Item[ pSoldier->inv[ SECONDHANDPOS ].usItem ].usItemClass == IC_GUN )
+						//if ( Item[ pSoldier->inv[ SECONDHANDPOS ].usItem ].usItemClass == IC_GUN )
+						if ( pSoldier->IsValidSecondHandShot() )
 						{
 							usAnimSurface = gDoubleHandledSub.usAnimationSurfaces[ pSoldier->ubBodyType ];
 							fAdjustedForItem	= TRUE;
