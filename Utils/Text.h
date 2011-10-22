@@ -1319,7 +1319,6 @@ extern	STR16		zMarksMapScreenText[];
 
 
 //Weapon Name and Description size
-#define		ITEMSTRINGFILENAME				"BINARYDATA\\ITEMDESC.EDT"
 #define	SIZE_ITEM_NAME						160
 #define	SIZE_SHORT_ITEM_NAME			160
 #define	SIZE_ITEM_INFO						480

@@ -2096,10 +2096,6 @@ void DisplayItemNameAndInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usBobbyIndex, 
 
 	UINT8	ubPurchaseNumber;
 
-		//Display Items Name
-	//uiStartLoc = BOBBYR_ITEM_DESC_FILE_SIZE * usIndex;
-	//LoadEncryptedDataFromFile(BOBBYRDESCFILE, sText, uiStartLoc, BOBBYR_ITEM_DESC_NAME_SIZE);
-
 	LoadBRName(usIndex,sText);
 
 	if( StringPixLength( sText, BOBBYR_ITEM_NAME_TEXT_FONT ) > ( BOBBYR_GRID_PIC_WIDTH - 6 ) )
@@ -2137,8 +2133,6 @@ void DisplayItemNameAndInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usBobbyIndex, 
 	}
 
 	//Display Items description
-	//uiStartLoc = (BOBBYR_ITEM_DESC_FILE_SIZE * usIndex) + BOBBYR_ITEM_DESC_NAME_SIZE;
-	//LoadEncryptedDataFromFile(BOBBYRDESCFILE, sText, uiStartLoc, BOBBYR_ITEM_DESC_INFO_SIZE);
 	LoadBRDesc(usIndex,sText);
 	DisplayWrappedString(BOBBYR_ITEM_DESC_START_X, usPosY, BOBBYR_ITEM_DESC_START_WIDTH, 2, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 }

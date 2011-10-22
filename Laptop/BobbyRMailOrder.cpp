@@ -1049,13 +1049,11 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 
 			if( pBobbyRayPurchase[i].fUsed )
 			{
-//				LoadEncryptedDataFromFile(BOBBYRDESCFILE, sBack, uiStartLoc, BOBBYR_ITEM_DESC_NAME_SIZE);
 				LoadBRName(pBobbyRayPurchase[i].usItemIndex,sBack);
 				swprintf(sText, L"%s %s", "*", sBack);
 			}
 			else
 				LoadBRName(pBobbyRayPurchase[i].usItemIndex,sText);
-//				LoadEncryptedDataFromFile(BOBBYRDESCFILE, sText, uiStartLoc, BOBBYR_ITEM_DESC_NAME_SIZE);
 
 			//if the name is bigger then can fit into the slot, reduce the size
 			if( StringPixLength(sText, BOBBYR_ORDER_DYNAMIC_TEXT_FONT) > BOBBYR_GRID_THIRD_COLUMN_WIDTH-4 )
