@@ -6045,7 +6045,7 @@ STR16 MPClientMessage[] =
 	L"The server has choosen New Inventory (NIV), but your screen resolution does not support NIV.",
 	// 70	// TODO.Translate
 	L"Could not save received file '%S'",
-	L"%s's bomb was disarmed by &s",
+	L"%s's bomb was disarmed by %s",
 	L"You loose, what a shame",	// All over red rover
 	L"Spectator mode disabled",
 	L"Choose client to kick from game. #1: <Cancel>, #2: %S, #3: %S, #4: %S",

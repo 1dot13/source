@@ -5872,7 +5872,7 @@ STR16 MPClientMessage[] =
 	L"Die Spieleinstellungen erfordern Neues Inventar (NIV), aber NIV ist aufgrund der Spielauflösung nicht verwendbar.",
 	// 70
 	L"Kann erhaltene Datei '%S' nicht speichern",
-	L"%s's Sprengstoff wurde von &s entschärft",
+	L"%s's Sprengstoff wurde von %s entschärft",
 	L"Sie haben verloren. Was für eine Schande",	// All over red rover
 	L"Überwachungsmodus wurde ausgeschaltet",
 	L"Wählen Sie den Client, der gekickt werden soll. #1: <Abbruch>, #2: %S, #3: %S, #4: %S",
