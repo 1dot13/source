@@ -1825,11 +1825,7 @@ void InitMapScreenFlags( void )
 	fShowTeamFlag = TRUE;
 	fShowMilitia = FALSE;
 
-	if (is_networked && is_server)
-		fShowAircraftFlag = TRUE;
-	else
-		fShowAircraftFlag = FALSE;
-
+	fShowAircraftFlag = FALSE;
 	fShowItemsFlag = FALSE;
 
 	// HEADROCK HAM 4: Militia Restrictions
