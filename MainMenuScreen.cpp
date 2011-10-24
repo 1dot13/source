@@ -401,6 +401,9 @@ void ExitMainMenu( )
 // differently for single and multiplayer
 void InitDependingGameStyleOptions()
 {
+	// WANNE: Initialize again, because if differs from SP to MP game!
+	LoadGameSettings();
+
 	FreeGameExternalOptions();
 
 	// Load APBPConstants.ini

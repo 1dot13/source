@@ -5782,6 +5782,7 @@ STR16 MPServerMessage[] =
 	L"Datei '%S' gesendet - 100/100",
 	L"Alle Dateien wurden an '%S' gesendet.",
 	L"Starte mit dem versenden der Dateien an '%S'.",
+	L"Verwenden Sie die Anzeige für die Absprungzone wenn Sie den Startsektor ändern möchten. Änderungen sind nur möglich, bevor Sie auf 'Starte Spiel' geklickt haben.",
 };
 
 STR16 MPClientMessage[] =

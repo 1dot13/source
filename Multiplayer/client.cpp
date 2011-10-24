@@ -134,6 +134,7 @@
 #include "Debug Control.h"
 #include "MPConnectScreen.h"
 #include "IniReader.h"
+#include "Map Screen Interface Border.h"
 
 extern CHAR16 gzFileTransferDirectory[100];
 
@@ -2483,7 +2484,7 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 				InitializeSMPanelCoordsOld();
 				InitializeInvPanelCoordsOld();
 			}
-
+			
 			// WANNE - MP: We also have to reinitialize the merc profiles because
 			// they depend on the inventory!
 			LoadMercProfiles();
@@ -2496,7 +2497,11 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 
 			// OJW - 20091024 - extract random table
 			if (!is_server)
-				memcpy(guiPreRandomNums,cl_lan->random_table,sizeof(UINT32)*MAX_PREGENERATED_NUMS);			
+				memcpy(guiPreRandomNums,cl_lan->random_table,sizeof(UINT32)*MAX_PREGENERATED_NUMS);
+
+			// WANNE: Turn on airspace mode (to switch maps) for the server!
+			if (is_server)			
+				TurnOnAirSpaceMode();			
 		}
 	}
 	else 

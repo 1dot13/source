@@ -5933,6 +5933,7 @@ STR16 MPServerMessage[] =
 	L"Отправка файла '%S' - 100/100",	//Sent file '%S' - 100/100
 	L"Завершена отправка файлов для '%S'.",	//Finished sending files to '%S'.
 	L"Начата отправка файлов для '%S'.",	//Started sending files to '%S'.
+	L"Use the Airspace view to select a map you wish to play. If you want to change the map you have to do this before clicking the 'Start Game' button.",	// TODO.Translate
 };
 
 STR16 MPClientMessage[] =

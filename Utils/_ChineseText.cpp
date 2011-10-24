@@ -5948,6 +5948,7 @@ STR16 MPServerMessage[] =
 	L"已发送文件 '%S' - 100/100",//L"Sent file '%S' - 100/100",
 	L"文件已发送到 '%S' ",//	L"Finished sending files to '%S'.",
 	L"开始发送文件到 '%S'.",//	L"Started sending files to '%S'.",
+	L"Use the Airspace view to select a map you wish to play. If you want to change the map you have to do this before clicking the 'Start Game' button.",	// TODO.Translate
 };
 
 STR16 MPClientMessage[] =

@@ -28,10 +28,10 @@
 	// Also include Town Militia for checks regarding Mobile Militia Restrictions
 	#include "Town Militia.h"
 	// Also include Quests, for checking whether a fact is true.
-	#include "Quests.h"
+	#include "Quests.h"	
 #endif
 
-
+#include "connect.h"
 
 
 
@@ -1470,6 +1470,14 @@ void TurnOnAirSpaceMode( void )
 			JumpToLevel( 0 );
 		}
 
+		// WANNE: Output info text on the airspace for changing maps
+		if (is_server )
+		{			
+			STR16 pwString = MPServerMessage[ 13 ];
+
+			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, pwString );
+		}
+
 		// dirty regions
 		fMapPanelDirty = TRUE;
 		fTeamPanelDirty = TRUE;
@@ -1817,7 +1825,11 @@ void InitMapScreenFlags( void )
 	fShowTeamFlag = TRUE;
 	fShowMilitia = FALSE;
 
-	fShowAircraftFlag = FALSE;
+	if (is_networked && is_server)
+		fShowAircraftFlag = TRUE;
+	else
+		fShowAircraftFlag = FALSE;
+
 	fShowItemsFlag = FALSE;
 
 	// HEADROCK HAM 4: Militia Restrictions

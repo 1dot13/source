@@ -5951,6 +5951,7 @@ STR16 MPServerMessage[] =
 	L"Wys³ano '%S' pliku - 100/100",
 	L"Zakoñczono wysy³anie plików do '%S'.",
 	L"Rozpoczêto wysy³anie plików do '%S'.",
+	L"Use the Airspace view to select a map you wish to play. If you want to change the map you have to do this before clicking the 'Start Game' button.",	// TODO.Translate
 };
 
 STR16 MPClientMessage[] =
