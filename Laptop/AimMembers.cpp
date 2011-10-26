@@ -722,10 +722,11 @@ UINT8	GetStatColor( INT8 bStat );
 
 #ifdef JA2TESTVERSION
 	BOOLEAN QuickHireMerc();
-	void TempHandleAimMemberKeyBoardInput();
 	extern	void SetFlagToForceHireMerc( BOOLEAN fForceHire );
 #endif
 
+//Hotkey Assignment
+void HandleAimMemberKeyBoardInput();
 
 void WaitForMercToFinishTalkingOrUserToClick();
 
@@ -1093,10 +1094,7 @@ void HandleAIMMembers()
 		gfRedrawScreen = FALSE;
 	}
 
-	#ifdef JA2TESTVERSION
-	TempHandleAimMemberKeyBoardInput();
-	#endif
-
+	HandleAimMemberKeyBoardInput();
 
 	MarkButtonsDirty( );
 }
@@ -5014,8 +5012,9 @@ BOOLEAN QuickHireMerc()
 	return( TRUE );
 }
 
+#endif
 
-void TempHandleAimMemberKeyBoardInput()
+void HandleAimMemberKeyBoardInput()
 {
 	InputAtom					InputEvent;
 
@@ -5025,6 +5024,48 @@ void TempHandleAimMemberKeyBoardInput()
 		{
 			switch (InputEvent.usParam)
 			{
+				case LEFTARROW:
+					// previous button
+					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+
+					if( gbCurrentIndex > 0)
+						gbCurrentIndex--;
+					else
+						gbCurrentIndex = MAX_NUMBER_MERCS - 1;
+
+					//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+					gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId; 			
+					gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
+					gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+
+					gfRedrawScreen = TRUE;
+				break;
+				case RIGHTARROW:
+					// next button
+					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+
+					if( gbCurrentIndex < MAX_NUMBER_MERCS -1 )
+						gbCurrentIndex++;
+					else
+						gbCurrentIndex = 0;
+
+					//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+					gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId; 			
+					gbCurrentSoldierBio = gAimAvailability[AimMercArray[gbCurrentIndex]].AimBio;
+					gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+
+					gfRedrawScreen = TRUE;
+				break;
+				case ENTER:
+					// contact
+					if( !gubVideoConferencingMode)
+					{
+						gubVideoConferencingMode = AIM_VIDEO_POPUP_MODE;
+						//gubVideoConferencingMode = AIM_VIDEO_INIT_MODE;
+						gfFirstTimeInContactScreen = TRUE;
+					}
+					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+				break;
 #ifdef JA2TESTVERSION
 				case SPACE:
 					QuickHireMerc();
@@ -5037,16 +5078,78 @@ void TempHandleAimMemberKeyBoardInput()
 					gfRedrawScreen = TRUE;
 					break;
 #endif
+				case '1':
+					if(gGameExternalOptions.gfUseNewStartingGearInterface)
+					{
+						// kit 1
+						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
+						gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+						//tais: handle selected kit
+						WeaponKitSelectionUpdate(0);
 
+						gfRedrawScreen = TRUE;
+					}
+				break;
+				case '2':
+					if(gGameExternalOptions.gfUseNewStartingGearInterface)
+					{
+						// kit 2
+						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
+						gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+						//tais: handle selected kit
+						WeaponKitSelectionUpdate(1);
+
+						gfRedrawScreen = TRUE;
+					}
+				break;
+				case '3':
+					if(gGameExternalOptions.gfUseNewStartingGearInterface)
+					{
+						// kit 3
+						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
+						gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+						//tais: handle selected kit
+						WeaponKitSelectionUpdate(2);
+
+						gfRedrawScreen = TRUE;
+					}
+				break;
+				case '4':
+					if(gGameExternalOptions.gfUseNewStartingGearInterface)
+					{
+						// kit 4
+						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
+						gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+						//tais: handle selected kit
+						WeaponKitSelectionUpdate(3);
+
+						gfRedrawScreen = TRUE;
+					}
+				break;
+				case '5':
+					if(gGameExternalOptions.gfUseNewStartingGearInterface)
+					{
+						// kit 5
+						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
+						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
+						gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+						//tais: handle selected kit
+						WeaponKitSelectionUpdate(4);
+
+						gfRedrawScreen = TRUE;
+					}
+				break;
 				default:
 					HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );
-					break;
+				break;
 			}
 		}
 	}
 }
-
-#endif
 
 
 void WaitForMercToFinishTalkingOrUserToClick()
