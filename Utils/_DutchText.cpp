@@ -2407,9 +2407,9 @@ CHAR16 gMoneyStatsDesc[][ 13 ] =
 	L"Splitsen:", // the amount he wants to separate from the overall balance to get two piles of money
 
 	L"Huidig",
-	L"Saldo",
-	L"Bedrag naar",
-	L"Opnemen",
+	L"Saldo:",
+	L"Bedrag",
+	L"naar Opnemen:",
 };
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment

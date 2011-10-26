@@ -2409,9 +2409,9 @@ CHAR16 gMoneyStatsDesc[][ 13 ] =
 	L"Отделить:", //the amount he wants to separate from the overall balance to get two piles of money
 
 	L"Текущий",
-	L"Баланс",
+	L"Баланс:",
 	L"Снимаемая",
-	L"Сумма",
+	L"Сумма:",
 };
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment

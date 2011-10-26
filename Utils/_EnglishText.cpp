@@ -2410,9 +2410,9 @@ CHAR16 gMoneyStatsDesc[][ 13 ] =
 	L"To Split:", // the amount he wants to separate from the overall balance to get two piles of money
 
 	L"Current",
-	L"Balance",
-	L"Amount to",
-	L"Withdraw",
+	L"Balance:",
+	L"Amount",
+	L"To Withdraw:",
 };
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment

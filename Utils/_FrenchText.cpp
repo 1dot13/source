@@ -2410,9 +2410,9 @@ CHAR16 gMoneyStatsDesc[][ 13 ] =
 	L"Partager :", // the amount he wants to separate from the overall balance to get two piles of money
 
 	L"Actuel",
-	L"Solde",
-	L"Montant à",
-	L"Retirer",
+	L"Solde :",
+	L"Montant",
+	L"à Retirer :",
 };
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment

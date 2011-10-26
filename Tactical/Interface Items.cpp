@@ -5348,7 +5348,7 @@ void RenderItemDescriptionBox( )
 				swprintf( pStr, L"%ld", gRemoveMoney.uiMoneyRemaining );
 				InsertCommasForDollarFigure( pStr );
 				InsertDollarSignInToString( pStr );
-				FindFontRightCoordinates( gMoneyStats[ 4 ].sX, gMoneyStats[ 4 ].sY, ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+				FindFontRightCoordinates( gMoneyStats[ 4 ].sX + 50, gMoneyStats[ 4 ].sY, ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 				mprintf( usX, usY, pStr );
 
 				//Display the total amount of money removing
@@ -5356,7 +5356,7 @@ void RenderItemDescriptionBox( )
 				swprintf( pStr, L"%ld", gRemoveMoney.uiMoneyRemoving );
 				InsertCommasForDollarFigure( pStr );
 				InsertDollarSignInToString( pStr );
-				FindFontRightCoordinates( gMoneyStats[ 5 ].sX, gMoneyStats[ 5 ].sY, ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+				FindFontRightCoordinates( gMoneyStats[ 5 ].sX + 50, gMoneyStats[ 5 ].sY, ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 				mprintf( usX, usY, pStr );
 			}
 			else

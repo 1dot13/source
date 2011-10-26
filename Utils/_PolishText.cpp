@@ -2411,9 +2411,9 @@ CHAR16 gMoneyStatsDesc[][ 13 ] =
 	L"Wydzieliæ:", // the amount he wants to separate from the overall balance to get two piles of money
 
 	L"Bie¿¹ce",
-	L"Saldo",
-	L"Kwota do",
-	L"podjêcia",
+	L"Saldo:",
+	L"Kwota",
+	L"do podjêcia:",
 };
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment

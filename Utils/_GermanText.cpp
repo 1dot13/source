@@ -2411,13 +2411,14 @@ STR16 gConditionDesc[] =
 CHAR16 gMoneyStatsDesc[][ 13 ] =
 {
 	L"Betrag",
-	L"Verbleibend:", //this is the overall balance
+	L"verbleibend:", //this is the overall balance
 	L"Betrag",
-	L"Abheben:",	// the amount he wants to separate from the overall balance to get two piles of money
+	L"teilen:",	// the amount he wants to separate from the overall balance to get two piles of money
+
 	L"Konto",	
-	L"Saldo",		
+	L"Saldo:",		
 	L"Betrag",	
-	L"abheben",	
+	L"abheben:",	
 };
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment

@@ -2409,9 +2409,9 @@ CHAR16 gMoneyStatsDesc[][ 13 ] =
 	L"金额: ", // the amount he wants to separate from the overall balance to get two piles of money
 
 	L"当前",
-	L"余额",
+	L"余额:",
 	L"提取",
-	L"金额",
+	L"金额:",
 };
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment

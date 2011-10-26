@@ -2402,9 +2402,9 @@ CHAR16 gMoneyStatsDesc[][ 13 ] =
 	L"Da separare:", // the amount he wants to separate from the overall balance to get two piles of money
 
 	L"Bilancio",
-	L"corrente",
+	L"corrente:",
 	L"Ammontare",
-	L"del prelievo",
+	L"del prelievo:",
 };
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment
