@@ -1523,8 +1523,8 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Forme la milice mobile",
 	L"Entraîneur",
 	L"Elève",
-	L"Facility Staff",
-	L"Resting at Facility",
+	L"Exploitation infras.",	
+	L"Repos infras.",
 	L"Mort(e)",
 	L"Incap.",
 	L"Capturé(e)",
@@ -1565,11 +1565,11 @@ STR16 pLongAssignmentStrings[] =
 	L"Réparation",
 	L"Formation", 
 	L"Milice",
-	L"Train Mobiles",
+	L"Milice mobile",
 	L"Entraîneur",
 	L"Elève",
-	L"Staff Facility",
-	L"Rest at Facility",
+	L"Exploitation infras.",	
+	L"Repos infras.",
 	L"Mort(e)",
 	L"Incap.",
 	L"Capturé(e)",
@@ -2266,7 +2266,6 @@ CHAR16		gWeaponStatsDesc[][ 17 ] =
 	L"Accessoire :",	//14
 	L"AUTO/5:",		//15
 	L"Munit. rest. :",		//16
-	
 	L"Par défaut :",	//17 //WarmSteel - So we can also display default attachments
 
 };
@@ -2412,7 +2411,7 @@ CHAR16 gMoneyStatsDesc[][ 13 ] =
 	L"Solde",
 	L"actuel :",
 	L"Montant",
-	L"à Retirer :",
+	L"à retirer :",
 };
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment
@@ -4369,7 +4368,7 @@ STR16			CharacterInfo[] =
 	L"Matériel optionnel :",				// Displays the optional gear cost
 	L"gear",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's
 	L"Dépôt Médical",			// If the merc required a medical deposit, this is displayed
-	L"Kit 1",				// Text on Starting Gear Selection Button 1
+	L"Kit 1",				// Text on Starting Gear Selection Button 1 
 	L"Kit 2",				// Text on Starting Gear Selection Button 2
 	L"Kit 3",				// Text on Starting Gear Selection Button 3
 	L"Kit 4",				// Text on Starting Gear Selection Button 4
@@ -4779,7 +4778,7 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Vous ne pouvez poursuivre l'entraînement de la milice à %s que si cette ville est à niveau de loyauté de %d pour-cent.",
 	L"Vous ne pouvez plus entraîner de milice à %s.",
 	L"Yous ne pouvez pas payer les %d $ nécessaires à l'entraînement de la milice mobile.", // HEADROCK HAM 3.6: Mobile Militia
-	L"Voulez-vous poursuivre l'entraînement de la milice mobile à %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia
+	L"Voulez-vous poursuivre l'entraînement de la milice mobile à %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia	
 	L"L'entraînement des milices mobiles dans %d secteurs vous coûtera %d $. %s", // HEADROCK HAM 3.6: Mobile Militia
 	L"L'entraînement de la milice mobile vous coûtera $", // HEADROCK HAM 3.6: Mobile Militia
 };
@@ -4842,12 +4841,12 @@ STR16		zOptionsToggleText[] =
 	L"Activé NCTH",				// use NCTH
 	L"Afficher équipments portrait",
 	L"Afficher icones portraits",
-	L"Désactiver echange curseur",		            // Disable Cursor Swap
+	L"Désactiver échange curseur",		            // Disable Cursor Swap		
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Forcer envois Bobby Ray",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG OPTIONS--",					// an example options screen options header (pure text)
-	L"Barre de progression des stats",					// Show progress towards stat increase
+	L"Barre de progression des stats",					// Show progress towards stat increase		
 	L"Réinitialiser TOUTES les options du jeu",				// failsafe show/hide option to reset all options
 	L"Voulez-vous vraiment réinitialiser ?",		// a do once and reset self option (button like effect)
 	L"Debug Options dans les autres releases",		// allow debugging in release or mapeditor
@@ -5023,7 +5022,6 @@ STR16	gzGIOScreenText[] =
 	L"Normal",
 	L"Rapide",
 	L"Très rapide",
-	
 	L"Ancien / Ancien",
 	L"Nouveau / Ancien",
 	L"Nouveau / Nouveau",
@@ -5048,6 +5046,7 @@ STR16	gzMPJScreenText[] =
 	L"Vous devez entrer une adresse IP de serveur valide. Par exemple : 84.114.195.239",
 	L"Vous devez entrer un port de serveur valide entre 1 et 65535.",
 };
+
 
 STR16 gzMPJHelpText[] =
 {
@@ -5662,7 +5661,7 @@ STR16 gzLateLocalizedString[] =
 
 	//46-48
 	L"Le prolongateur de %s est tombé !",
-	L"Pas plus de %d personnes pour former la milice sont autorisées dans ce secteur.",
+	L"Pas plus de %d personnes pour former la milice sont autorisées dans ce secteur.",	
     L"Etes-vous sûr ?",
 
 	//49-50
@@ -6047,7 +6046,7 @@ STR16 MPClientMessage[] =
 	L"Le client n'as pas réussi à démarrer. Terminé.",
 	L"Le client s'est déconnecté et s'est fermé.",
 	L"Le client n'est pas démarré.",
-	L"INFO: If the game is stuck (the opponents progress bar is not moving), notify the server to press ALT + E to give the turn back to you!",
+	L"INFO: Si le jeu est bloqué (la barre de progression des adversaires ne se déplace pas), notifier le au serveur en appuyant sur ALT + E pour aller directement à votre tour de jeu !",
 };
 
 STR16 gszMPEdgesText[] =
@@ -6139,7 +6138,7 @@ STR16 sgAttributeSelectionText[] =
 	L"Points bonus :",
 	L"Départ au niveau",
 	// New strings for new traits
-	L"À la page suivante vous allez spécifier vos attributs physiques comme : la santé, la dextérité, l'agilité, la force et la sagesse. Les attributs ne peuvent pas aller plus bas que %d.",
+	L"A la page suivante vous allez spécifier vos attributs physiques comme : la santé, la dextérité, l'agilité, la force et la sagesse. Les attributs ne peuvent pas aller plus bas que %d.",
 	L"Le reste est appelé 'habilitées' et à la différence des attributs, ils peuvent être mis à zéro signifiant que vous serez un incapable dans cette habilitée !",
 	L"Tous les scores sont mis à un minimum au début. Notez que certains attributs sont mis a des valeurs spécifiques correspondant aux traits de compétence que vous avez choisis. Vous ne pouvez pas mettre ces attributs plus bas.",
 };
@@ -6324,7 +6323,7 @@ STR16 gzFacilityAssignmentStrings[]=
 STR16 Additional113Text[]=
 {
 	L"Jagged Alliance 2 v1.13 mode fenêtré exige une profondeur de couleur de 16 bit ou moins.",
-	
+
 	// WANNE: Savegame slots validation against INI file
 	L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",
 	L"Mercenaire (MAX_NUMBER_PLAYER_MERCS) / Vehicle (MAX_NUMBER_PLAYER_VEHICLES)", 
