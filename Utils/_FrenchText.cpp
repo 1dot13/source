@@ -459,10 +459,10 @@ CHAR16 gszScheduleActions[ 11 ][20] =
 	L"Porte dévérouillé",
 	L"Porte ouverte",
 	L"Porte fermée",
-	L"Aller à la grille No",
+	L"Aller à la No",
 	L"Quitter le secteur",
-	L"Entrer dans le secteur",
-	L"Rester dans le secteur",
+	L"Entrer secteur",
+	L"Rester secteur",
 	L"Dormir",
 	L"Ignorez cela !"
 };
@@ -2267,7 +2267,7 @@ CHAR16		gWeaponStatsDesc[][ 17 ] =
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
 	L"Accessoire :",	//14	// TODO.Translate
 	L"AUTO/5:",		//15
-	L"Munitions rest. :",		//16	// TODO.Translate
+	L"Munit. rest. :",		//16	// TODO.Translate
 
 	// TODO.Translate
 	L"Par défaut :",	//17 //WarmSteel - So we can also display default attachments
@@ -6762,8 +6762,8 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nCet objet modifie directement le nombre de PA\nque le mercenaire a durant chaque début de tour.\n \nValeur élevée recommandée.",
 	L"\n \nLorsque attaché à une arme de distance, cet objet\nmodifie le coût en PA pour mettre en joue.\n \nValeur faible recommandée.",
 	L"\n \nLorsque attaché à une arme, cet objet\nmodifie le coût en PA pour faire une attaque simple.\n \nNotez que pour les armes ayant un mode Auto/Rafale, le\ncoût est directement influencé par ce facteur !\n \nValeur faible recommandée.",
-	L"\n \nLorsque attaché à une arme de distance ayant\nun mode Rafale, cet objet modifie le coût en PA\d'un tir en Rafale.\n \nValeur faible recommandée.",
-	L"\n \nLorsque attaché à une arme de distance ayant\nun mode Auto, cet objet modifie le coût en PA\d'un tir en Auto.\n \nNotez que cela ne modifie pas le coût supplémentaire\npour ajouter des balles à la salve, mais seulement\nle coût initiale d'une salve.\n \nValeur faible recommandée.",
+	L"\n \nLorsque attaché à une arme de distance ayant\nun mode Rafale, cet objet modifie le coût en PA d'un tir en Rafale.\n \nValeur faible recommandée.",
+	L"\n \nLorsque attaché à une arme de distance ayant\nun mode Auto, cet objet modifie le coût en PA d'un tir en Auto.\n \nNotez que cela ne modifie pas le coût supplémentaire\npour ajouter des balles à la salve, mais seulement\nle coût initiale d'une salve.\n \nValeur faible recommandée.",
 	L"\n \nLorsque attaché à une arme de distance, cet objet\nmodifie le coût en PA pour recharger.\n \nValeur faible recommandée.",
 	L"\n \nLorsque attaché à une arme de distance, cet objet\nchange la taille des munitions qui peuvent être chargé\ndans l'arme.\n \nCette arme peut maintenant accepter des tailles plus ou moins grandes de munitions\nayant un même calibre.\n \nValeur élevée recommandée.",
 	L"\n \nLorsque attaché à une arme de distance, cet objet\nmodifie le nombre de balles tiré\npar cette arme en Rafale.\n \nSi cette arme n'a pas de mode Rafale, et que la\nvaleur est positive, alors cet objet donnera à l'arme la possibilité\nde tirer en mode Rafale.\n \nInversement, si il y a un mode Rafale\net une valeur négative, cela peut retirer le mode Rafale.\n \nValeur élevée généralement recommandée. Gardée bien à l'esprit\nque le mode Rafale est là pour conserver les munitions...",
