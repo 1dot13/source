@@ -1124,7 +1124,6 @@ STR16 wszSelType[6] = {
 
 //---
 
-// TODO.Translate
 CHAR16  gszAimPages[ 6 ][ 20 ] =
 {
 	L"Page 1/2", //0
@@ -1137,7 +1136,6 @@ CHAR16  gszAimPages[ 6 ][ 20 ] =
 	L"Page 1/1", //5
 };
 
-// by Jazz: TODO.Translate
 CHAR16 zGrod[][500] =
 {
 	L"Robot", //0    // Robot
@@ -1354,7 +1352,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Pas de coup par coup",
 	L"L'ennemi n'as plus rien à voler!",
 	L"L'ennemi n'a rien dans les mains!",
-// TODO.Translate
+
 	L"%s a perdu son camouflage de désert.",
 	L"%s a perdu son camouflage de désert à cause de l'eau.",
 	
@@ -1456,7 +1454,7 @@ STR16 pMilitiaString[] =
 	L"Milice", // the title of the militia box
 	L"Disponibles", //the number of unassigned militia troops
 	L"Vous ne pouvez réorganiser la milice lors d'un combat !",
-	L"Des milices ne sont pas assignées à un secteur. Voulez-vous les dissoudre ?", // TODO.Translate
+	L"Des milices ne sont pas assignées à un secteur. Voulez-vous les dissoudre ?",
 };
 
 
@@ -1464,7 +1462,7 @@ STR16 pMilitiaButtonString[] =
 {
 	L"Auto", // auto place the militia troops for the player
 	L"OK", // done placing militia troops
-	L"Dissoudre", // HEADROCK HAM 3.6: Disband militia	// TODO.Translate
+	L"Dissoudre", // HEADROCK HAM 3.6: Disband militia
 };
 
 STR16 pConditionStrings[] = 
@@ -1522,11 +1520,11 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Réparation",
 	L"Formation", 
 	L"Milice",
-	L"Forme la milice mobile",	// TODO.Translate
+	L"Forme la milice mobile",
 	L"Entraîneur",
 	L"Elève",
-	L"Facility Staff",		// TODO.Translate
-	L"Resting at Facility",	// TODO.Translate
+	L"Facility Staff",
+	L"Resting at Facility",
 	L"Mort(e)",
 	L"Incap.",
 	L"Capturé(e)",
@@ -1567,11 +1565,11 @@ STR16 pLongAssignmentStrings[] =
 	L"Réparation",
 	L"Formation", 
 	L"Milice",
-	L"Train Mobiles",		// TODO.Translate
+	L"Train Mobiles",
 	L"Entraîneur",
 	L"Elève",
-	L"Staff Facility",		// TODO.Translate
-	L"Rest at Facility",	// TODO.Translate
+	L"Staff Facility",
+	L"Rest at Facility",
 	L"Mort(e)",
 	L"Incap.",
 	L"Capturé(e)",
@@ -1693,7 +1691,7 @@ STR16 pAssignMenuStrings[] =
 	L"Transport", // the merc is in a vehicle
 	L"Réparation", // the merc is repairing items 
 	L"Formation", // the merc is training
-	L"Construction", // the merc is using/staffing a facility	// TODO.Translate
+	L"Construction", // the merc is using/staffing a facility
 	L"Annuler", // cancel this menu
 };
 
@@ -1749,12 +1747,12 @@ STR16 pAttributeMenuStrings[] =
 
 STR16 pTrainingMenuStrings[] =
 {
- L"Formation", // train yourself 
- L"Milice", // train the town 
- L"Milice mobile",		// TODO.Translate
- L"Entraîneur", // train your teammates 
- L"Elève",  // be trained by an instructor 
- L"Annuler", // cancel this menu
+	L"Formation", // train yourself 
+	L"Milice", // train the town 
+	L"Milice mobile",
+	L"Entraîneur", // train your teammates 
+	L"Elève",  // be trained by an instructor 
+	L"Annuler", // cancel this menu
 };
 
 
@@ -2265,11 +2263,10 @@ CHAR16		gWeaponStatsDesc[][ 17 ] =
 	L"Poids :",		//12
 	L"Etourdissement :",//13
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
-	L"Accessoire :",	//14	// TODO.Translate
+	L"Accessoire :",	//14
 	L"AUTO/5:",		//15
-	L"Munit. rest. :",		//16	// TODO.Translate
-
-	// TODO.Translate
+	L"Munit. rest. :",		//16
+	
 	L"Par défaut :",	//17 //WarmSteel - So we can also display default attachments
 
 };
@@ -2845,7 +2842,7 @@ STR16 sFacilitiesStrings[] =
 {
 	L"Aucun",
 	L"Hôpital",
-	L"Usine",	// TODO.Translate
+	L"Usine",
 	L"Prison",
 	L"Militaire",
 	L"Aéroport",
@@ -2876,7 +2873,7 @@ STR16 pwTownInfoStrings[] =
 	L"Niveau", 					// the training level of civilians in this town
 	L"Formation",				// 10 // state of civilian training in town
 	L"Milice", 					// the state of the trained civilians in the town
-	L"Formation mobile",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town	// TODO.Translate
+	L"Formation mobile",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town
 };
 
 // Mine strings
@@ -2980,14 +2977,14 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Espace aérien (|A)",
 	L"Objets (|I)",
 	L"Milice & Ennemis (|Z)",
-	L"Montrer la milice mobile |Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button // TODO.Translate
+	L"Montrer la milice mobile |Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
 {
-	L"Suivant (|.)",		// next page // TODO.Translate
-	L"Précédent (|,)",		// previous page // TODO.Translate
-	L"Quitter l'inventaire du secteur (|E|s|c)",	// exit sector inventory // TODO.Translate
+	L"Suivant (|.)",		// next page
+	L"Précédent (|,)",		// previous page
+	L"Quitter l'inventaire du secteur (|E|s|c)",	// exit sector inventory
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -3192,8 +3189,8 @@ STR16 pTransactionText[] =
 	L"Achats à %s.",	//is used for the Shop keeper interface.  The dealers name will be appended to the en d of the string.
 	L"Montant déposé par %s.",
 	L"Materiel vendu à la population",
-	L"Infrastucture utilisée", // HEADROCK HAM 3.6		// TODO.Translate
-	L"Entretien de la milice", // HEADROCK HAM 3.6		// TODO.Translate
+	L"Infrastucture utilisée", // HEADROCK HAM 3.6
+	L"Entretien de la milice", // HEADROCK HAM 3.6
 };
 
 STR16 pTransactionAlternateText[] =
@@ -3988,7 +3985,7 @@ STR16			MercHomePageText[] =
 	L"Cliquez ici pour consulter les fichiers",
 	// The version number on the video conferencing system that pops up when Speck is talking
 	L"Speck Com v3.2",
-	L"Le transfert a échoué. Aucun fonds disponible.",	// TODO.Translate
+	L"Le transfert a échoué. Aucun fonds disponible.",
 };
 
 // For use at MiGillicutty's Web Page.
@@ -4372,7 +4369,7 @@ STR16			CharacterInfo[] =
 	L"Matériel optionnel :",				// Displays the optional gear cost
 	L"gear",			//"gear",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's
 	L"Dépôt Médical",			// If the merc required a medical deposit, this is displayed
-	L"Kit 1",				// Text on Starting Gear Selection Button 1  // TODO.Translate
+	L"Kit 1",				// Text on Starting Gear Selection Button 1
 	L"Kit 2",				// Text on Starting Gear Selection Button 2
 	L"Kit 3",				// Text on Starting Gear Selection Button 3
 	L"Kit 4",				// Text on Starting Gear Selection Button 4
@@ -4781,10 +4778,10 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Vous ne pouvez pas payer les %d $ nécessaires à l'entraînement.",
 	L"Vous ne pouvez poursuivre l'entraînement de la milice à %s que si cette ville est à niveau de loyauté de %d pour-cent.",
 	L"Vous ne pouvez plus entraîner de milice à %s.",
-	L"Yous ne pouvez pas payer les %d $ nécessaires à l'entraînement de la milice mobile.", // HEADROCK HAM 3.6: Mobile Militia		// TODO.Translate
-	L"Voulez-vous poursuivre l'entraînement de la milice mobile à %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia				// TODO.Translate
-	L"L'entraînement des milices mobiles dans %d secteurs vous coûtera %d $. %s", // HEADROCK HAM 3.6: Mobile Militia	// TODO.Translate
-	L"L'entraînement de la milice mobile vous coûtera $", // HEADROCK HAM 3.6: Mobile Militia				// TODO.Translate
+	L"Yous ne pouvez pas payer les %d $ nécessaires à l'entraînement de la milice mobile.", // HEADROCK HAM 3.6: Mobile Militia
+	L"Voulez-vous poursuivre l'entraînement de la milice mobile à %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia
+	L"L'entraînement des milices mobiles dans %d secteurs vous coûtera %d $. %s", // HEADROCK HAM 3.6: Mobile Militia
+	L"L'entraînement de la milice mobile vous coûtera $", // HEADROCK HAM 3.6: Mobile Militia
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
@@ -4839,18 +4836,18 @@ STR16		zOptionsToggleText[] =
 	//L"Faible consommation processeur",
 	L"EDB (mod rajoutant info utiles)",
 	L"Mode tour par tour forcé",			// add forced turn mode
-	L"Afficher deviation balle",					// Screen messages showing amount and direction of shot deviation.	// TODO.Translate
+	L"Afficher deviation balle",					// Screen messages showing amount and direction of shot deviation.
 	L"Couleur alternative map",		// Change color scheme of Strategic Map
-	L"Montrer tirs alternatifs",			// Show alternate bullet graphics (tracers) // TODO.Translate
+	L"Montrer tirs alternatifs",			// Show alternate bullet graphics (tracers)
 	L"Activé NCTH",				// use NCTH
-	L"Afficher équipments portrait",				// TODO.Translate
+	L"Afficher équipments portrait",
 	L"Afficher icones portraits",
-	L"Désactiver echange curseur",		            // Disable Cursor Swap		// TODO.Translate
+	L"Désactiver echange curseur",		            // Disable Cursor Swap
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Forcer envois Bobby Ray",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG OPTIONS--",					// an example options screen options header (pure text)
-	L"Barre de progression des stats",					// Show progress towards stat increase		// TODO.Translate
+	L"Barre de progression des stats",					// Show progress towards stat increase
 	L"Réinitialiser TOUTES les options du jeu",				// failsafe show/hide option to reset all options
 	L"Voulez-vous vraiment réinitialiser ?",		// a do once and reset self option (button like effect)
 	L"Debug Options dans les autres releases",		// allow debugging in release or mapeditor
@@ -4944,13 +4941,13 @@ STR16	zOptionsScreenHelpText[] =
 	//L"Si activé, le jeu restreint l'utilisation du processeur.",
 	L"Si activé, l'EDB sera affiché pour les armes et objets.",
 	L"Si cette option est activée et que des ennemis sont présents, \nle mode tour par tour est actif tant qu'il reste \ndes ennemis dans le secteur (|C|T|R|L+|S|H|I|F|T+|A|L|T+|T).",	// add forced turn mode
-	L"Si activé, montre la progression des caractères à travers le gain de niveaux.",	// TODO.Translate
+	L"Si activé, montre la progression des caractères à travers le gain de niveaux.",
 	L"Si activé, la carte stratégique sera coloré différemment selon l'exploration.",
-	L"Si activé, le graphisme des tirs alternatifs sera affiché quand vous tirerez.", // TODO.Translate
+	L"Si activé, le graphisme des tirs alternatifs sera affiché quand vous tirerez.",
 	L"Si activé, le nouveau systéme NCTH (chance de toucher) \nainsi que le nouveau curseur seront utilisés.",
-	L"Si activé, vous verrez l'équipement du mercenaire à travers son portrait.",	// TODO.Translate
+	L"Si activé, vous verrez l'équipement du mercenaire à travers son portrait.",
 	L"Si activé, vous verrez les icones correspondant à l'équipement porté en bas à droite du portrait.",
-	L"Si activé, le curseur ne basculera pas entre changer de position et une autre action. Appuyez sur |x pour initier un échange rapide.",	// TODO.Translate
+	L"Si activé, le curseur ne basculera pas entre changer de position et une autre action. Appuyez sur |x pour initier un échange rapide.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Forcer tous les envois en attente de Bobby Ray",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -4984,7 +4981,7 @@ STR16	gzGIOScreenText[] =
 	L"Expérimenté",
 	L"Expert",
 	L"INCROYABLE",
-	L"Commencer",	// TODO.Translate
+	L"Commencer",
 	L"Annuler",
 	L"En combat",
 	L"Sauv. à volonté",
@@ -4995,7 +4992,7 @@ STR16	gzGIOScreenText[] =
 	L"Meilleure",
 	L"Excellente",
 	L"Superbe",
-	L"Inventaire / Accessoire",	// TODO.Translate
+	L"Inventaire / Accessoire",
 	L"NON UTILISE",
 	L"NON UTILISE",
 	L"Charge jeu multi",
@@ -5026,8 +5023,7 @@ STR16	gzGIOScreenText[] =
 	L"Normal",
 	L"Rapide",
 	L"Très rapide",
-
-	// TODO.Translate
+	
 	L"Ancien / Ancien",
 	L"Nouveau / Ancien",
 	L"Nouveau / Nouveau",
@@ -5053,7 +5049,6 @@ STR16	gzMPJScreenText[] =
 	L"Vous devez entrer un port de serveur valide entre 1 et 65535.",
 };
 
-// TODO.Translate
 STR16 gzMPJHelpText[] =
 {
 	L"Visiter http://webchat.quakenet.org/?channels=ja2-multiplayer pour trouver d'autres joueurs.",
@@ -5070,7 +5065,6 @@ STR16 gzMPJHelpText[] =
 	L"Cliquer sur 'Rejoindre' pour rejoindre une partie multijoueurs déjà existante.",
 };
 
-// TODO.Translate
 STR16	gzMPHScreenText[] =
 {
 	L"HOST GAME",
@@ -5337,7 +5331,6 @@ STR16 pMessageStrings[] =
 	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.
 	L"Client",
 
-	// TODO.Translate
 	L"Vous ne pouvez pas utiliser l'ancien système d'inventaire et le nouveau système d'accessoire en même temps.",
 };
 
@@ -5669,7 +5662,7 @@ STR16 gzLateLocalizedString[] =
 
 	//46-48
 	L"Le prolongateur de %s est tombé !",
-	L"Pas plus de %d personnes pour former la milice sont autorisées dans ce secteur.",		// TODO.Translate
+	L"Pas plus de %d personnes pour former la milice sont autorisées dans ce secteur.",
     L"Etes-vous sûr ?",
 
 	//49-50
@@ -5707,7 +5700,7 @@ STR16 gzLateLocalizedString[] =
 
 STR16 gzCWStrings[] = 
 {
-	L"Faut-il appelez des renforts pour %s dans les secteurs adjacents ?",		// TODO.Translate
+	L"Faut-il appelez des renforts pour %s dans les secteurs adjacents ?",
 };
 
 // WANNE: Tooltips
@@ -5809,7 +5802,6 @@ STR16 New113Message[] =
 
 };
 
-// TODO.Translate
 STR16 New113HAMMessage[] = 
 {
 	// 0 - 5
@@ -5955,7 +5947,7 @@ STR16 MPServerMessage[] =
 	L"Fichier envoyé '%S' - 100/100",
 	L"Envoie de fichier fini pour '%S'.",
 	L"Départ d'envoie de fichier pour '%S'.",
-	L"Utilisez la vue aérienne pour sélectionner la carte que vous voulez jouer. Si vous voulez changer de carte, vous devez le faire avant de cliquer sur 'Démarrer la partie'.",	// TODO.Translate
+	L"Utilisez la vue aérienne pour sélectionner la carte que vous voulez jouer. Si vous voulez changer de carte, vous devez le faire avant de cliquer sur 'Démarrer la partie'.",
 };
 
 STR16 MPClientMessage[] =
@@ -6044,7 +6036,7 @@ STR16 MPClientMessage[] =
 	L"Vous avez tué un soldat ennemi.",
 	L"Vous ne pouvez pas commencer la partie car toutes les équipes sont les mêmes.",
 	L"Le serveur a choisi l'option du Nouvel Inventaire (NI), mais la résolution de votre écran ne le supporte pas.",
-	// 70		// TODO.Translate
+	// 70
 	L"Impossible de sauver les fichiers reçus '%S'",
 	L"La bombe de %s a été désamorcé par %s",
 	L"Vous avez perdu, quel honte !",	// All over red rover
@@ -6055,6 +6047,7 @@ STR16 MPClientMessage[] =
 	L"Le client n'as pas réussi à démarrer. Terminé.",
 	L"Le client s'est déconnecté et s'est fermé.",
 	L"Le client n'est pas démarré.",
+	L"INFO: If the game is stuck (the opponents progress bar is not moving), notify the server to press ALT + E to give the turn back to you!",
 };
 
 STR16 gszMPEdgesText[] =
@@ -6224,7 +6217,6 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Handicaps I.M.P.",
 };
 
-// TODO.Translate
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
 STR16 gzFacilityErrorMessage[]=
 {
@@ -6270,7 +6262,6 @@ STR16 gzFacilityErrorMessage[]=
 
 };
 
-// TODO.Translate
 STR16 gzFacilityRiskResultStrings[]=
 {
 	L"Force",
@@ -6286,7 +6277,6 @@ STR16 gzFacilityRiskResultStrings[]=
 	L"Explosif",
 };
 
-// TODO.Translate
 STR16 gzFacilityAssignmentStrings[]=
 {
 	L"AMBIENT",
@@ -6334,8 +6324,7 @@ STR16 gzFacilityAssignmentStrings[]=
 STR16 Additional113Text[]=
 {
 	L"Jagged Alliance 2 v1.13 mode fenêtré exige une profondeur de couleur de 16 bit ou moins.",
-
-	// TODO.Translate
+	
 	// WANNE: Savegame slots validation against INI file
 	L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",
 	L"Mercenaire (MAX_NUMBER_PLAYER_MERCS) / Vehicle (MAX_NUMBER_PLAYER_VEHICLES)", 
