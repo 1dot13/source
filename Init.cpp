@@ -316,8 +316,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInItemStats(fileName,TRUE))
-			return FALSE;
+		SGP_THROW_IFFALSE(ReadInItemStats(fileName,TRUE), fileName);
 	}
 #endif
 
@@ -386,8 +385,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInLBEPocketStats(fileName,TRUE))
-			return FALSE;
+		SGP_THROW_IFFALSE(ReadInLBEPocketStats(fileName,TRUE), fileName);
 	}
 #endif
 
@@ -511,8 +509,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInStrategicMapSectorTownNames(fileName, TRUE))
-			return FALSE;
+		SGP_THROW_IFFALSE(ReadInStrategicMapSectorTownNames(fileName,TRUE), fileName);
 	}
 #endif
 
@@ -565,7 +562,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		SGP_THROW_IFFALSE(ReadInShippingDestinations(fileName, TRUE),SHIPPINGDESTINATIONSFILENAME);
+		SGP_THROW_IFFALSE(ReadInShippingDestinations(fileName, TRUE),fileName);
 	}
 #endif
 	
@@ -585,8 +582,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInFacilityTypes(fileName,TRUE))
-			return FALSE;
+		SGP_THROW_IFFALSE(ReadInFacilityTypes(fileName,TRUE), fileName);
 	}
 #endif
 
@@ -612,8 +608,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInSectorNames(fileName,TRUE,0))
-			return FALSE;
+		SGP_THROW_IFFALSE(ReadInSectorNames(fileName,TRUE, 0), fileName);
 	}
 #endif	
 
@@ -629,12 +624,11 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 
 		#ifndef ENGLISH
 			AddLanguagePrefix(fileName);
-				if ( FileExists(fileName) )
-					{
-					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-					if(!ReadInMercProfiles(fileName,TRUE))
-					return FALSE;
-					}
+			if ( FileExists(fileName) )
+			{
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+				SGP_THROW_IFFALSE(ReadInMercProfiles(fileName,TRUE), fileName);
+			}
 		#endif
 
 		// HEADROCK PROFEX: Read in Merc Opinion data to replace PROF.DAT data
@@ -689,8 +683,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			if(!ReadInEnemyNames(fileName,TRUE))
-				return FALSE;
+			SGP_THROW_IFFALSE(ReadInEnemyNames(fileName,TRUE), fileName);
 		}
 #endif
 	}
@@ -709,8 +702,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			if(!ReadInCivGroupNamesStats(fileName,TRUE))
-				return FALSE;
+			SGP_THROW_IFFALSE(ReadInCivGroupNamesStats(fileName,TRUE), fileName);
 		}
 #endif
 	}
@@ -727,8 +719,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			if(!ReadInSenderNameList(fileName,TRUE))
-				return FALSE;
+			SGP_THROW_IFFALSE(ReadInSenderNameList(fileName,TRUE), fileName);
 		}
 #endif
 	
@@ -745,8 +736,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			if(!ReadInEnemyRank(fileName,TRUE))
-				return FALSE;
+			SGP_THROW_IFFALSE(ReadInEnemyRank(fileName,TRUE), fileName);
 		}
 #endif
 	}
@@ -762,8 +752,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			if(!ReadInIMPPortraits(fileName,TRUE))
-				return FALSE;
+			SGP_THROW_IFFALSE(ReadInIMPPortraits(fileName,TRUE), fileName);
 		}
 #endif
 
@@ -797,8 +786,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			if(!ReadInMercAvailability(fileName,TRUE))
-				return FALSE;
+			SGP_THROW_IFFALSE(ReadInMercAvailability(fileName,TRUE), fileName);
 		}
 #endif
 	UINT32 i;
@@ -819,12 +807,10 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		if ( FileExists(fileName) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			if(!ReadInAimAvailability(fileName,TRUE))
-				return FALSE;
+			SGP_THROW_IFFALSE(ReadInAimAvailability(fileName,TRUE), fileName);
 		}
 #endif
 
-	
 	LuaState::INIT(lua::LUA_STATE_STRATEGIC_MINES_AND_UNDERGROUND, true);
 	g_luaUnderground.LoadScript(GetLanguagePrefix());
 	// load Lua for Strategic Mines initialization

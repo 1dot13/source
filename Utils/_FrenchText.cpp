@@ -2411,7 +2411,7 @@ CHAR16 gMoneyStatsDesc[][ 13 ] =
 	L"Solde",
 	L"actuel :",
 	L"Montant",
-	L"à retirer :",
+	L" à retirer :",
 };
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment
@@ -3685,7 +3685,7 @@ STR16 pErrorStrings[] =
 
 STR16 pPersonnelString[] =
 {
-	L"Mercenaires :", 			// mercs we have
+	L"Merc :", 			// mercs we have
 };
 
 
