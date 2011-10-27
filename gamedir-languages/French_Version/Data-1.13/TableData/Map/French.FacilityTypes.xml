@@ -1,11 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FACILITYTYPES>
 	<FACILITYTYPE>
 		<ubIndex>1</ubIndex>
-		<szFacilityName>Hôpital</szFacilityName>
-		<szFacilityShortName>Hôpital</szFacilityShortName>
+		<szFacilityName>HÃ´pital</szFacilityName>
+		<szFacilityShortName>HÃ´pital</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>DOCTEUR</ubAssignmentType>
-			<szTooltipText>Pratiquez une opération chirurgicale sur vous soldats blessés, en utilisant un équipement de pointe. Augmente l'efficacité du docteur.</szTooltipText>
+			<ubAssignmentType>DOCTOR</ubAssignmentType>
+			<szTooltipText>Pratiquez une opÃ©ration chirurgicale sur vous soldats blessÃ©s, en utilisant un Ã©quipement de pointe. Augmente l'efficacitÃ© du docteur.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -14,8 +15,8 @@
 		<szFacilityName>Petit bar miteux</szFacilityName>
 		<szFacilityShortName>Bar</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>REPOS</ubAssignmentType>
-			<szTooltipText>Venez prendre un verre au bar du coin ! Augmente la loyauté dans cette ville pour un faible coût et surtout vous donne une chance de vous soûler.</szTooltipText>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>Venez prendre un verre au bar du coin ! Augmente la loyautÃ© dans cette ville pour un faible coÃ»t et surtout vous donne une chance de vous soÃ»ler.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -27,11 +28,11 @@
 
 	<FACILITYTYPE>
 		<ubIndex>4</ubIndex>
-		<szFacilityName>Aérodrome</szFacilityName>
-		<szFacilityShortName>Aérodrome</szFacilityShortName>
+		<szFacilityName>AÃ©rodrome</szFacilityName>
+		<szFacilityShortName>AÃ©rodrome</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>FORCE</ubAssignmentType>
-			<szTooltipText>Passez du temps à charger et décharger les cargaisons des avions. Augmente l'efficacité de l'apprentissage en FORCE.</szTooltipText>
+			<ubAssignmentType>PRACTICE_STRENGTH</ubAssignmentType>
+			<szTooltipText>Passez du temps Ã  charger et dÃ©charger les cargaisons des avions. Augmente l'efficacitÃ© de l'apprentissage en FORCE.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -40,8 +41,8 @@
 		<szFacilityName>Usine de munitions</szFacilityName>
 		<szFacilityShortName>Usine</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>REPARER OBJETS</ubAssignmentType>
-			<szTooltipText>Les machines peuvent fabriquer ici toutes sortes de pièces de rechange, ce qui permettra d'augmenter votre efficacité à réparer les objets, en supposant que vous sachiez comment utiliser ces machines.</szTooltipText>
+			<ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
+			<szTooltipText>Les machines peuvent fabriquer ici toutes sortes de piÃ¨ces de rechange, ce qui permettra d'augmenter votre efficacitÃ© Ã  rÃ©parer les objets, en supposant que vous sachiez comment utiliser ces machines.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -50,18 +51,18 @@
 		<szFacilityName>Campement militaire</szFacilityName>
 		<szFacilityShortName>Campement</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>REPOS</ubAssignmentType>
-			<szTooltipText>Il y a des tas de lits ici. Ils sont basic, mais c'est déjà mieux que de dormir dehors !</szTooltipText>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>Il y a des tas de lits ici. Ils sont basic, mais c'est dÃ©jÃ  mieux que de dormir dehors !</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
 		<ubIndex>7</ubIndex>
-		<szFacilityName>Quartier général militaire</szFacilityName>
+		<szFacilityName>Quartier gÃ©nÃ©ral militaire</szFacilityName>
 		<szFacilityShortName>QG militaire</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>COMMANDEMENT</ubAssignmentType>
-			<szTooltipText>La salle de crise militaire comporte toutes sortes de matériel numérique, conçu pour maintenir une bonne prise sur la situation stratégique à travers le pays. Cela vous aidera à coordonner vos défenses, et à recueillir des informations sur les mouvements ennemis dans le désert.</szTooltipText>
+			<ubAssignmentType>STAFF</ubAssignmentType>
+			<szTooltipText>La salle de crise militaire comporte toutes sortes de matÃ©riel numÃ©rique, conÃ§u pour maintenir une bonne prise sur la situation stratÃ©gique Ã  travers le pays. Cela vous aidera Ã  coordonner vos dÃ©fenses, et Ã  recueillir des informations sur les mouvements ennemis dans le dÃ©sert.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -70,18 +71,18 @@
 		<szFacilityName>Stand de tir</szFacilityName>
 		<szFacilityShortName>Stand</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>TIR</ubAssignmentType>
-			<szTooltipText>Pourquoi ne pas passez un peu de temps à vous entrainer à tirer ? Les cibles factices ne demandent que ça. C'est toujours mieux que de tirer sur des boîtes de conserves placés sur un rocher dans le désert... Augmente l'efficacité de l'apprentissage en TIR</szTooltipText>
+			<ubAssignmentType>PRACTICE_MARKSMANSHIP</ubAssignmentType>
+			<szTooltipText>Pourquoi ne pas passez un peu de temps Ã  vous entrainer Ã  tirer ? Les cibles factices ne demandent que Ã§a. C'est toujours mieux que de tirer sur des boÃ®tes de conserves placÃ©s sur un rocher dans le dÃ©sert... Augmente l'efficacitÃ© de l'apprentissage en TIR</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
 		<ubIndex>9</ubIndex>
-		<szFacilityName>Batîment A.C.A</szFacilityName>
+		<szFacilityName>BatÃ®ment A.C.A</szFacilityName>
 		<szFacilityShortName>A.C.A</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>REPOS</ubAssignmentType>
-			<szTooltipText>Les habitants sont disposés à aller explorer les alentours pour vous. Vous pourrrez alors collecter des informations pour vous donner une idée plus précise de l'activité ennemis dans cette région.</szTooltipText>
+			<ubAssignmentType>STAFF</ubAssignmentType>
+			<szTooltipText>Les habitants sont disposÃ©s Ã  aller explorer les alentours pour vous. Vous pourrrez alors collecter des informations pour vous donner une idÃ©e plus prÃ©cise de l'activitÃ© ennemis dans cette rÃ©gion.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -96,8 +97,8 @@
 		<szFacilityName>Mine</szFacilityName>
 		<szFacilityShortName>Mine</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>EXPLOSIF</ubAssignmentType>
-			<szTooltipText>Quelqu'un qui s'y connait en explosif sera toujours bien accueilli dans une mine. Augmente l'efficacité de l'apprentissage en EXPLOSIF.</szTooltipText>
+			<ubAssignmentType>PRACTICE_EXPLOSIVES</ubAssignmentType>
+			<szTooltipText>Quelqu'un qui s'y connait en explosif sera toujours bien accueilli dans une mine. Augmente l'efficacitÃ© de l'apprentissage en EXPLOSIF.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -106,8 +107,8 @@
 		<szFacilityName>Chapelle</szFacilityName>
 		<szFacilityShortName>Chapelle</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>REPOS</ubAssignmentType>
-			<szTooltipText>Une heure solennelle de prière et de dévotion dans une église calme peut contribuer à accroître votre esprit. Il pourrait aussi convaincre les gens du pays que vous respectez leur mode de vie.</szTooltipText>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>Une heure solennelle de priÃ¨re et de dÃ©votion dans une Ã©glise calme peut contribuer Ã  accroÃ®tre votre esprit. Il pourrait aussi convaincre les gens du pays que vous respectez leur mode de vie.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -116,15 +117,15 @@
 		<szFacilityName>Club de boxe</szFacilityName>
 		<szFacilityShortName>Club</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>SANTE</ubAssignmentType>
-			<szTooltipText>Il a un tas d'équipements sportifs qui n'attendent qu'à être utilisé. Ceci est une excellente façon d'obtenir un entraînement équilibré qui pourrait considérablement améliorer votre forme. Augmente l'efficacité de l'apprentissage en SANTE.</szTooltipText>
+			<ubAssignmentType>PRACTICE_HEALTH</ubAssignmentType>
+			<szTooltipText>Il a un tas d'Ã©quipements sportifs qui n'attendent qu'Ã  Ãªtre utilisÃ©. Ceci est une excellente faÃ§on d'obtenir un entraÃ®nement Ã©quilibrÃ© qui pourrait considÃ©rablement amÃ©liorer votre forme. Augmente l'efficacitÃ© de l'apprentissage en SANTE.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
 		<ubIndex>14</ubIndex>
-		<szFacilityName>Musée nationale</szFacilityName>
-		<szFacilityShortName>Musée</szFacilityShortName>
+		<szFacilityName>MusÃ©e nationale</szFacilityName>
+		<szFacilityShortName>MusÃ©e</szFacilityShortName>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
@@ -135,29 +136,29 @@
 
 	<FACILITYTYPE>
 		<ubIndex>16</ubIndex>
-		<szFacilityName>Entrepôt de ferrailleur</szFacilityName>
-		<szFacilityShortName>Entrepôt</szFacilityShortName>
+		<szFacilityName>EntrepÃ´t de ferrailleur</szFacilityName>
+		<szFacilityShortName>EntrepÃ´t</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>REPARER OBJETS</ubAssignmentType>
-			<szTooltipText>Cet endroit regorge de pièces de rechange et de toutes les sortes imaginables. Cela vous permettra de faire vos travaux de réparation beaucoup plus vite.</szTooltipText>
+			<ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
+			<szTooltipText>Cet endroit regorge de piÃ¨ces de rechange et de toutes les sortes imaginables. Cela vous permettra de faire vos travaux de rÃ©paration beaucoup plus vite.</szTooltipText>
 		</ASSIGNMENT>
 		<ASSIGNMENT>
-			<ubAssignmentType>REPARER VEHICULE</ubAssignmentType>
-			<szTooltipText>Cet endroit regorge de pièces de rechange et de toutes les sortes imaginables. Cela vous permettra de faire vos travaux de réparation beaucoup plus vite.</szTooltipText>
+			<ubAssignmentType>REPAIR_VEHICLE</ubAssignmentType>
+			<szTooltipText>Cet endroit regorge de piÃ¨ces de rechange et de toutes les sortes imaginables. Cela vous permettra de faire vos travaux de rÃ©paration beaucoup plus vite.</szTooltipText>
 		</ASSIGNMENT>
 		<ASSIGNMENT>
-			<ubAssignmentType>REPARER ROBOT</ubAssignmentType>
-			<szTooltipText>Cet endroit regorge de pièces de rechange et de toutes les sortes imaginables. Cela vous permettra de faire vos travaux de réparation beaucoup plus vite.</szTooltipText>
+			<ubAssignmentType>REPAIR_ROBOT</ubAssignmentType>
+			<szTooltipText>Cet endroit regorge de piÃ¨ces de rechange et de toutes les sortes imaginables. Cela vous permettra de faire vos travaux de rÃ©paration beaucoup plus vite.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
 		<ubIndex>17</ubIndex>
-		<szFacilityName>Station balnéaire</szFacilityName>
+		<szFacilityName>Station balnÃ©aire</szFacilityName>
 		<szFacilityShortName>Plage</szFacilityShortName>
 		<ASSIGNMENT>
-			<ubAssignmentType>REPOS</ubAssignmentType>
-			<szTooltipText>Soleil, sable fin, mer. On est bien loin de l'enfer des tranchées !.</szTooltipText>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>Soleil, sable fin, mer. On est bien loin de l'enfer des tranchÃ©es !.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -169,11 +170,11 @@
 	
 	<FACILITYTYPE> 
 		<ubIndex>19</ubIndex>  
-		<szFacilityName>Camps médical</szFacilityName>  
-		<szFacilityShortName>Camps médi.</szFacilityShortName>   
+		<szFacilityName>Camps mÃ©dical</szFacilityName>  
+		<szFacilityShortName>Camps mÃ©di.</szFacilityShortName>   
 		<ASSIGNMENT> 
-			<ubAssignmentType>DOCTEUR</ubAssignmentType>  
-			<szTooltipText>Effectuer une opération d'urgence sur place pour vos hommes blessés. Augmente l'efficacité du docteur.</szTooltipText> 
+			<ubAssignmentType>DOCTOR</ubAssignmentType>  
+			<szTooltipText>Effectuer une opÃ©ration d'urgence sur place pour vos hommes blessÃ©s. Augmente l'efficacitÃ© du docteur.</szTooltipText> 
 		</ASSIGNMENT> 
 	</FACILITYTYPE>
 	
