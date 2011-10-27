@@ -3979,7 +3979,7 @@ STR16			MercHomePageText[] =
 	L"Просмотр файлов",
 	// The version number on the video conferencing system that pops up when Speck is talking
 	L"Speck Com v3.2",
-	L"Денежный перевод не состоялся. Недостаточно средств на счету.",	// TODO.Translate
+	L"Денежный перевод не состоялся. Недостаточно средств на счету.",
 };
 
 // For use at MiGillicutty's Web Page.
@@ -4741,7 +4741,7 @@ STR16		zMarksMapScreenText[] =
 	L"У наемника ограниченный контракт.", 
 	L"Контракт наемника не застрахован",
 	L"Стратегическая Карта",
-	//TODO.Translate HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
+	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
 	L"Сейчас у вас нет мобильных групп ополчения. Включите этот режим в следующий раз, когда наберёте их.",
 	L"This view shows where your Mobile Militia can and cannot go. GREY = Mobile Militia refuse to go here. RED = Mobile Militia can go here, but you've told them not to. YELLOW = Mobile Militia can enter this sector, but not leave. GREEN = Mobile Militia can go here freely. Right click a Green/Yellow sector to cycle its behavior.",
 };
@@ -5053,7 +5053,6 @@ STR16 gzMPJHelpText[] =
 	L"Жмите 'Присоединиться' чтобы подключиться к уже созданной сетевой игре.",
 };
 
-// TODO.Translate
 STR16	gzMPHScreenText[] =
 {
 	L"СТАРТОВЫЕ УСТАНОВКИ СЕРВЕРА",			//HOST GAME
@@ -5833,7 +5832,6 @@ STR16	New113MERCMercMailTexts[] =
 	L"Ставим в известность, что отличная работа полковника Фредерика Биггенса заслуживает поощрения в виде повышения гонорара. Постановление считать действительным с текущего момента. ± ± Спек Т. Кляйн ± ",
 };
 
-// TODO.Translate
 // WANNE: This is email text (each 2 line), when we left a message on AIM and now the merc is back
 STR16	New113AIMMercMailTexts[] =
 {
@@ -6022,8 +6020,7 @@ STR16 MPClientMessage[] =
 	L"Вы убили вражеского солдата.",
 	L"Нельзя запустить игру потому что все команды одинаковые.",
 	L"Игра на сервере создана с Новым Инвентарём (NIV), а выбранное вами разрешение экрана не поддерживается NIV.",
-	// 70
-	// TODO.Translate
+	// 70	
 	L"Невозможно сохранить принятый файл '%S'",
 	L"%s's бомба была разряжена %s",
 	L"Вы проиграли. Стыд и срам!",	// All over red rover

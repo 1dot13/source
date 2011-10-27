@@ -1521,10 +1521,10 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"修理",
 	L"锻炼",
 	L"训练民兵",
-	L"训练游击队",	// TODO.Translate
+	L"训练游击队",
 	L"教练",
 	L"学员",
-	L"设施职员",			// TODO.Translate
+	L"设施职员",
 	L"Resting at Facility",		// TODO.Translate
 	L"休息",
 	L"无力中",
@@ -1566,11 +1566,11 @@ STR16 pLongAssignmentStrings[] =
 	L"修理",
 	L"练习",
 	L"训练民兵",
-	L"训练游击队", //L"Train Mobiles",		// TODO.Translate // done by kkkk@tbs 10-07-21
+	L"训练游击队", //L"Train Mobiles",
 	L"训练队友",
 	L"学员",
-	L"设施职员",  //L"Staff Facility",		// TODO.Translate // done by kkkk@tbs 10-07-21 
-	L"休息",  //L"Rest at Facility",	// TODO.Translate // done by kkkk@tbs 10-07-21
+	L"设施职员",  //L"Staff Facility",
+	L"休息",  //L"Rest at Facility",
 	L"死亡",
 	L"无力中",
 	L"战俘",
@@ -2265,7 +2265,7 @@ CHAR16		gWeaponStatsDesc[][ 17 ] =
 	// Obviously, THIS SHOULD BE DONE IN ALL LANGUAGES...
 	L"附件:",	//14 //ham3.6
 	L"连发/5AP: ",		//15
-	L"剩余弹药:",		//16	// TODO.Translate
+	L"剩余弹药:",		//16
 	L"默认:",	//17 //WarmSteel - So we can also display default attachments
 
 };
@@ -2981,9 +2981,9 @@ STR16 pMapScreenBorderButtonHelpText[] =
 
 STR16 pMapScreenInvenButtonHelpText[] =
 {
-	L"下一页 (|.)",		// next page // TODO.Translate
-	L"上一页 (|,)",		// previous page // TODO.Translate
-	L"Exit Sector Inventory (|E|s|c)",	// exit sector inventory // TODO.Translate
+	L"下一页 (|.)",		// next page
+	L"上一页 (|,)",		// previous page
+	L"Exit Sector Inventory (|E|s|c)",	// exit sector inventory
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -4173,7 +4173,7 @@ STR16			BobbyRFilter[] =
 	// Misc
 	L"刀具", //"Blades",
 	L"飞刀", //"Th. Knives",
-	L"格斗武器", //"Blunt W.", // TODO.Translate
+	L"格斗武器", //"Blunt W.",
 	L"手雷/榴弹", //"Grenades",
 	L"炸药", //"Bombs",
 	L"医疗用品", //"Med. Kits",
@@ -4367,7 +4367,7 @@ STR16			CharacterInfo[] =
 	L"可选装备: ",	//"Optional Gear:",				// Displays the optional gear cost
 	L"装备",	//tais: Displays the optional gear cost in nsgi, this moved and can have only a small room, so just make it "gear" without extra's
 	L"所需医疗保证金",	//"MEDICAL deposit required",			// If the merc required a medical deposit, this is displayed
-	L"装备1",				// Text on Starting Gear Selection Button 1	// TODO.Translate
+	L"装备1",				// Text on Starting Gear Selection Button 1
 	L"装备2",				// Text on Starting Gear Selection Button 2
 	L"装备3",				// Text on Starting Gear Selection Button 3
 	L"装备4",				// Text on Starting Gear Selection Button 4
@@ -4840,12 +4840,12 @@ STR16		zOptionsToggleText[] =
 	L"开启新的 CTH 系统",				// use NCTH
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
-	L"禁止光标切换",		            // Disable Cursor Swap		// TODO.Translate
+	L"禁止光标切换",		            // Disable Cursor Swap
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
 	L"--DEBUG 选项--",					// an example options screen options header (pure text)
-	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.	// TODO.Translate
+	L"Report Miss Offsets",					// Screen messages showing amount and direction of shot deviation.
 	L"重置所有选项",							// failsafe show/hide option to reset all options
 	L"确定要重置？",							// a do once and reset self option (button like effect)
 	L"Debug Options in other builds",		// allow debugging in release or mapeditor
@@ -4941,11 +4941,11 @@ STR16	zOptionsScreenHelpText[] =
 	L"当打开时，且在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭（可以通过快捷键|C|T|R|L+|S|H|I|F|T+|A|L|T+|T来控制打开或关闭强制回合制模式）",
 	L"当打开时，可显示各属性的成长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
 	L"当启用时, 战略地图将会根据探索状态显示不同的着色。",
-	L"当启用时, 当你射击时会显示间隔子弹图像。", // TODO.Translate
+	L"当启用时, 当你射击时会显示间隔子弹图像。",
 	L"当启用时, 使用新命中率系统和光标。",
 	L"当启用时, 将会看到佣兵脸部装备图。",
 	L"当启用时, 将在佣兵肖像右下角显示脸部装备图标",
-	L"当启用时，在交换位置和其它动作时光标不切换。键入 |x 可以快速切换。", // L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",	// TODO.Translate
+	L"当启用时，在交换位置和其它动作时光标不切换。键入 |x 可以快速切换。", // L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
@@ -4979,7 +4979,7 @@ STR16	gzGIOScreenText[] =
 	L"老手",
 	L"专家",
 	L"疯子",
-	L"确定",	// TODO.Translate
+	L"确定",
 	L"取消",
 	L"额外难度",
 	L"可随时存盘",
@@ -4990,7 +4990,7 @@ STR16	gzGIOScreenText[] =
 	L"较多",
 	L"很多",
 	L"囧……多",
-	L"携行系统 / 附件系统",	// TODO.Translate
+	L"携行系统 / 附件系统",
 	L"NOT USED",
 	L"NOT USED",
 	L"读取联机游戏",
