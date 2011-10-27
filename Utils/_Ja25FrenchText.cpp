@@ -415,19 +415,19 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 
 STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 {
-	L"+: Pas d'avantages.\n-: Pas de désaventages.",
-	L"+: A de meilleures performances lorsque deux ou trois mercenaires sont proches.\n-: Ne gagne aucun moral quand aucun mercenaire est proche de lui.",
-	L"+: A de meilleures performances quand il est tout seul.\n-: Ne gagne aucun moral quand il est en groupe.",
-	L"+: Son moral diminue plus doucement et remonte plus rapidemment que la normale.\n-: A moins de chance de détecter les mines et les pièges.",
-	L"+: Obtiens un bonus lorsqu'il entraîne la milice et à une meilleur communication.\n-: Ne gagne aucun moral pour les actions des autres mercenaires.",
-	L"+: Apprend plus rapidemment en étant le professeur ou l'élève.\n-: A moins de résistance à la peur et la folie.",
-	L"+: Son énergie descend un peu plus lentement sauf lorsqu'il est docteur, qu'il répare, qu'il entraîne ou qu'il apprend.\n-: Ses compétences en sagesse, commandement, explosifs, mécanique et médecine s'améliorent légèrement plus lentement.",
-	L"+: A un peu plus de chance de toucher lors d'un tir automatique et inflige plus de dégâts au corps-à-corps.\n    Obtiens un peu plus de morale lors d'un kill.\n-: A une pénalité lorsqu'il faut de la patience comme réparer des objets, dévérouiller une serrure, enlever des pièges, entraîner la milice.",
-	L"+: A un bonus lorsqu'il faut de la patience comme réparer des objets, dévérouiller une serrure, enlever des pièges, entraîner la milice.\n-: Sa chance d'interrompre une action ennemie est légèrement diminué.",
-	L"+: Augmente la résistance à la folie et la peur.\n    La perte de moral dû aux dégâts reçus et à la mort d'un mercenaire est moindre.\n-: Vous êtes plus facilement touchable et l'ennemie a sa pénalité dû à votre mouvement réduite.",
-	L"+: Gagne du moral lorsque vous faîtes une mission qui n'est pas lié au combat (excepté l'entraînement de milice).\n-: Pas de gains lorsque vous tuez quelqu'un.",
-	L"+: A plus de chance d'infliger des pertes de stats sur l'ennemie, qui peut aussi infliger de lourds dégâts.\n   Gagne du moral lorsque vous infligez des pertes de stats sur l'ennemie.\n-: A une pénalité pour la communication et son moral baisse plus rapidement lorsqu'il ne combat pas.",
-	L"+: A de meilleures performances lorsqu'un certains types d'ennemies est opposé à lui.\n-: Les mercenaires qui possèdent le même type que l'ennemie gagne moins de moral.",
+	L"+ : Pas d'avantages.\n- : Pas de désaventages.",
+	L"+ : A de meilleures performances lorsque deux ou trois mercenaires sont proches.\n- : Ne gagne aucun moral quand aucun mercenaire est proche de lui.",
+	L"+ : A de meilleures performances quand il est tout seul.\n- : Ne gagne aucun moral quand il est en groupe.",
+	L"+ : Son moral diminue plus doucement et remonte plus rapidemment que la normale.\n- : A moins de chance de détecter les mines et les pièges.",
+	L"+ : Obtiens un bonus lorsqu'il entraîne la milice et à une meilleur communication.\n- : Ne gagne aucun moral pour les actions des autres mercenaires.",
+	L"+ : Apprend plus rapidemment en étant le professeur ou l'élève.\n- : A moins de résistance à la peur et la folie.",
+	L"+ : Son énergie descend un peu plus lentement sauf lorsqu'il est docteur, qu'il répare, qu'il entraîne ou qu'il apprend.\n- : Ses compétences en sagesse, commandement, explosifs, mécanique et médecine s'améliorent légèrement plus lentement.",
+	L"+ : A un peu plus de chance de toucher lors d'un tir automatique et inflige plus de dégâts au corps-à-corps.\n	Obtiens un peu plus de morale lors d'un kill.\n- : A une pénalité lorsqu'il faut de la patience comme réparer des objets, dévérouiller une serrure, enlever des pièges, entraîner la milice.",
+	L"+ : A un bonus lorsqu'il faut de la patience comme réparer des objets, dévérouiller une serrure, enlever des pièges, entraîner la milice.\n- : Sa chance d'interrompre une action ennemie est légèrement diminué.",
+	L"+ : Augmente la résistance à la folie et la peur.\n    La perte de moral dû aux dégâts reçus et à la mort d'un mercenaire est moindre.\n- : Vous êtes plus facilement touchable et l'ennemie a sa pénalité dû à votre mouvement réduite.",
+	L"+ : Gagne du moral lorsque vous faîtes une mission qui n'est pas lié au combat (excepté l'entraînement de milice).\n- : Pas de gains lorsque vous tuez quelqu'un.",
+	L"+ : A plus de chance d'infliger des pertes de stats sur l'ennemie, qui peut aussi infliger de lourds dégâts.\n	Gagne du moral lorsque vous infligez des pertes de stats sur l'ennemie.\n- : A une pénalité pour la communication et son moral baisse plus rapidement lorsqu'il ne combat pas.",
+	L"+ : A de meilleures performances lorsqu'un certains types d'ennemies est opposé à lui.\n- : Les mercenaires qui possèdent le même type que l'ennemie gagne moins de moral.",
 
 };
 
@@ -468,7 +468,7 @@ STR16 gzDisplayCoverText[]=
 	L"Contraste: %d/100 %s, Luminosité: %d/100",
 	L"Distance de tir: %d/%d cases, Chance de toucher: %d/100",
 	L"Distance de tir: %d/%d cases, Stabilité du canon: %d/100",
-	L"Disabling cover display",
+	L"Désactivation de la couverture de l'affichage",
 	L"Afficher la vue qu'on les ennemies",
 	L"Afficher les zones de danger des mercenaires",
 	L"Bois", // wanted to use jungle , but wood is shorter in german too (dschungel vs wald)
