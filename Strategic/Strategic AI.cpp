@@ -4600,19 +4600,23 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, 0, ubNumSoldiers );
 			MoveSAIGroupToSector( &pGroup, ubSectorID, STAGE, REINFORCEMENTS );
 
-			if( gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID )
-			{	//Clear the pending group's assignment.
-				pPendingGroup = GetGroup( gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID );
-				Assert( pPendingGroup );
-				ClearPreviousAIGroupAssignment( pPendingGroup );
-			}
-			//Assign the elite squad to attack the SAM site
-			pGroup->pEnemyGroup->ubIntention = REINFORCEMENTS;
-			gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
+			// WANNE: This should fix the assertion in UC in the cutscene!
+			if (SectorInfo[ ubSectorID ].ubGarrisonID != 255)
+			{
+				if( gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID )
+				{	//Clear the pending group's assignment.
+					pPendingGroup = GetGroup( gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID );
+					Assert( pPendingGroup );
+					ClearPreviousAIGroupAssignment( pPendingGroup );
+				}
+				//Assign the elite squad to attack the SAM site
+				pGroup->pEnemyGroup->ubIntention = REINFORCEMENTS;
+				gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
 
-			if( pPendingGroup )
-			{ //Reassign the pending group
-				ReassignAIGroup( &pPendingGroup );
+				if( pPendingGroup )
+				{ //Reassign the pending group
+					ReassignAIGroup( &pPendingGroup );
+				}
 			}
 			break;
 
