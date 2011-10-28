@@ -6849,9 +6849,9 @@
 		<uiIndex>622</uiIndex>
 		<szItemName>Beretta 92FS</szItemName>
 		<szLongItemName>Beretta 92FS</szLongItemName>
-		<szItemDesc>The Beretta 92FS is a slightly modified version of the Beretta 92F used by the US military.</szItemDesc>
+		<szItemDesc>Le Beretta 92FS est une version légèrement modifiée du Beretta 92F utilisé par l'armée US.</szItemDesc>
 		<szBRName>Beretta 92FS</szBRName>
-		<szBRDesc>The Beretta 92FS is a slightly modified version of the Beretta 92F used by the US military.	It features a chrome lined barrel, new grip panels and a lanyard ring.</szBRDesc>
+		<szBRDesc>Le Beretta 92FS est une version légèrement modifiée du Beretta 92F utilisé par l'armée US.	Il dispose d'un canon chromé, d'un nouveau grip et d'un anneau de lanière.</szBRDesc>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

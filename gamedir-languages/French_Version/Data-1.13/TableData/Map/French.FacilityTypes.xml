@@ -82,7 +82,7 @@
 		<szFacilityShortName>A.C.A</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>STAFF</ubAssignmentType>
-			<szTooltipText>Les habitants sont disposés à aller explorer les alentours pour vous. Vous pourrrez alors collecter des informations pour vous donner une idée plus précise de l'activité ennemis dans cette région.</szTooltipText>
+			<szTooltipText>Les habitants sont disposés à aller explorer les alentours pour vous. Vous pourrrez alors collecter ces informations pour vous donner une idée plus précise de l'activité ennemis dans cette région.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -108,7 +108,7 @@
 		<szFacilityShortName>Chapelle</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>REST</ubAssignmentType>
-			<szTooltipText>Une heure solennelle de prière et de dévotion dans une église calme peut contribuer à accroître votre esprit. Il pourrait aussi convaincre les gens du pays que vous respectez leur mode de vie.</szTooltipText>
+			<szTooltipText>Une heure solennelle de prière et de dévotion dans une église calme peut contribuer à accroître votre esprit. Il pourrait aussi convaincre les gens du pays que vous respectez leur mode de vie et leurs coutumes.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 
@@ -118,7 +118,7 @@
 		<szFacilityShortName>Club</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>PRACTICE_HEALTH</ubAssignmentType>
-			<szTooltipText>Il a un tas d'équipements sportifs qui n'attendent qu'à être utilisé. Ceci est une excellente façon d'obtenir un entraînement équilibré qui pourrait considérablement améliorer votre forme. Augmente l'efficacité de l'apprentissage en SANTE.</szTooltipText>
+			<szTooltipText>Il a un tas d'équipements sportifs qui n'attendent qu'à être utilisé. C'est est une excellente façon d'obtenir un entraînement équilibré qui pourrait considérablement améliorer votre forme. Augmente l'efficacité de l'apprentissage en SANTE.</szTooltipText>
 		</ASSIGNMENT>
 	</FACILITYTYPE>
 

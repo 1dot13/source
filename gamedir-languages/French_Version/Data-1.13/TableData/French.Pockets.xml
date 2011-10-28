@@ -2,19 +2,19 @@
 <POCKETLIST>
 	<POCKET>
 		<pIndex>0</pIndex>
-		<pName>Nothing</pName>
+		<pName>Rien</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>1</pIndex>
-		<pName>Gun Sling</pName>
+		<pName>Sangle pour arme</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>2</pIndex>
-		<pName>Knife</pName>
+		<pName>Couteau</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>3</pIndex>
-		<pName>Vehicle</pName>
+		<pName>Véhicle</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>4</pIndex>
@@ -22,15 +22,15 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>5</pIndex>
-		<pName>Combat Pack</pName>
+		<pName>Sac de combat</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>6</pIndex>
-		<pName>Ammo Belt</pName>
+		<pName>Ceinture de munition</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>7</pIndex>
-		<pName>SMG Holster</pName>
+		<pName>Etui pour SMG</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>8</pIndex>
@@ -46,7 +46,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>11</pIndex>
-		<pName>Pistol Holster</pName>
+		<pName>Etui pour pistolet</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>12</pIndex>
@@ -54,7 +54,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>13</pIndex>
-		<pName>Rifle Grenade</pName>
+		<pName>Grenade pour fusil</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>14</pIndex>
@@ -74,22 +74,22 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>18</pIndex>
-		<pName>Belt Clip</pName>
+		<pName>Attache de ceinture</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>19</pIndex>
-		<pName>Speedloader</pName>
+		<pName>Chargeur rapide</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>20</pIndex>
-		<pName>Medical Pocket</pName>
+		<pName>Sac médical</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>21</pIndex>
-		<pName>Syringe Pocket</pName>
+		<pName>Sac de Seringues</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>22</pIndex>
-		<pName>Double Belt</pName>
+		<pName>Ceinture double</pName>
 	</POCKET>
 </POCKETLIST>
