@@ -1033,53 +1033,53 @@ STR16 pRenderSummaryWindowText[] =
 	L", alternate B2 level",	
 	L", alternate B3 level",
 	
-	L"ITEM DETAILS -- sector %s",
-	L"Summary Information for sector %s:", //20
+	L"DETAILS OBJETS -- secteur %s",
+	L"Les informations sommaires pour le secteur %s :", //20
 	
-	L"Summary Information for sector %s",
-	L"does not exist.",
+	L"Les informations sommaires pour le secteur %s",
+	L"n'existent pas.",
 	
-	L"Summary Information for sector %s",
-	L"does not exist.",
+	L"Les informations sommaires pour le secteur %s",
+	L"n'existent pas.",
 	
-	L"No information exists for sector %s.",
+	L"Pas d'informations existantes pour le secteur %s.",
 	
-	L"No information exists for sector %s.",
+	L"Pas d'informations existantes pour le secteur %s.",
 	
-	L"FILE:  %s",
+	L"FICHIER:  %s",
 	
-	L"FILE:  %s",
+	L"FICHIER:  %s",
 	
 	L"Override READONLY",
-	L"Overwrite File", //30
+	L"Écrasez Fichier", //30
 	
-	L"You currently have no summary data.  By creating one, you will be able to keep track",
-	L"of information pertaining to all of the sectors you edit and save.  The creation process",
-	L"will analyse all maps in your \\MAPS directory, and generate a new one.  This could",
-	L"take a few minutes depending on how many valid maps you have.  Valid maps are",
-	L"maps following the proper naming convention from a1.dat - p16.dat.  Underground maps", 
-	L"are signified by appending _b1 to _b3 before the .dat (ex:  a9_b1.dat). ",
+	L"Vous n'avez actuellement aucune donnée sommaire.  En en créant un, vous pourrez garder la trace",
+	L"des informations se rapportant à tous les secteurs que vous éditez et sauvez.  La progression de la création",
+	L"va analyser toutes les cartes contenu dans votre dossier \\MAPS, et en générer un nouveau. Cela peut prendre",
+	L"quelques minutes, tout dépend de combien de carte valide vous avez. Les cartes valides sont",
+	L"les maps qui suivent la convention de nommage : a1.dat - p16.dat.  Les cartes souterraines",
+	L"sont identifiées en ajoutant _b1 à _b3 avant le .dat (ex:  a9_b1.dat). ",
 	
-	L"Do you wish to do this now (y/n)?",
+	L"Voulez-vous faire cela maintenant ?(o/n)?",
 	
-	L"No summary info.  Creation denied.",
+	L"Aucun renseignement sommaire. Création refusée.",
 	
-	L"Grid",
-	L"Progress", //40
-	L"Use Alternate Maps",
+	L"Grille",
+	L"Progression", //40
+	L"Utilisez une carte alternative",
 	
-	L"Summary",
-	L"Items",
+	L"Résumé",
+	L"Objets",
 };
 
 STR16 pUpdateSectorSummaryText[] =
 {
-	L"Analyzing map:  %s...",
+	L"Analyse de la carte :  %s...",
 };
 
 STR16 pSummaryLoadMapCallbackText[] =
 {
-	L"Loading map:  %s",
+	L"Chargement de la carte :  %s",
 };
 
 STR16 pReportErrorText[] =
@@ -1089,19 +1089,19 @@ STR16 pReportErrorText[] =
 
 STR16 pRegenerateSummaryInfoForAllOutdatedMapsText[] =
 {
-	L"Generating map information",
+	L"Production d'informations sur la carte",
 };
 
 STR16 pSummaryUpdateCallbackText[] =
 {
-	L"Generating map summary",
+	L"Production de résumé de la carte",
 };
 
 STR16 pApologizeOverrideAndForceUpdateEverythingText[] =
 {
-	L"MAJOR VERSION UPDATE",
-	L"There are %d maps requiring a major version update.",
-	L"Updating all outdated maps",
+	L"MISE A JOUR VERSION MAJEURE",
+	L"Il y a %d de cartes qui requièrent une mise à jour majeure.",
+	L"Mise à jour de toutes les cartes périmées",
 };
 
 //selectwin.cpp

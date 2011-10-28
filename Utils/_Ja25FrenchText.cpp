@@ -225,7 +225,7 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"+%d%s de PA par tours pour les mercenaires aux alentours\n",
 	L"+%d d'expérience effective pour les mercenaires aux alentours possèdant un level plus bas que %s\n",
 	L"+%d effective exp level to count as a standby when counting friends' bonus for suppression\n",
-	L"+%d%s total suppression tolerance of other mercs in vicinity and %s himself\n",
+	L"+%d%s de tolérance aux tirs de suppression pour les mercenaires aux alentours et %s pour soi\n",
 	L"+%d de gain de moral pour les mercenaires aux alentours\n",
 	L"-%d de perte de moral pour les mercenaires aux alentours\n",
 	L"Bonus valables pour %d cases aux alentours",
@@ -312,14 +312,14 @@ STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 	L"Audition augmentée de +%d\n",
 	L"Audition augmentée de +%d lorsque vous êtes en hauteur\n",
 	L"+%d de chance d'interrompre une action d'une ennemi dans la nuit\n",
-	L"Besoin de dormir réduit de -%d\n",
+	L"Le besoin de dormir est réduit de -%d\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 {
 	L"-%d%s du nombre de PA nécessaire pour bouger silencieusement\n",
 	L"+%d%s de chance de bouger silencieusement\n",
-	L"+%d%s en ruse (étant 'invisible si inaperçu)\n",
+	L"+%d%s en discrétion (étant 'invisible si inaperçu)\n",
 	L"Réduit la pénalité dû au déplacement silencieux de %d%s\n",
 
 };
@@ -351,7 +351,7 @@ STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 {
 	L"+%d%s de bonus pour entraîner la milice\n",
-	L"+%d%s bonus to effective leadership for determining militia training\n",
+	L"+%d%s de bonus en Commandement pour entraîner la milice\n",
 	L"+%d%s de bonus pour entraîner d'autres mercenaires\n",
 	L"Il faut que votre compétence soit supérieure à +%d pour être capable d'enseigner cette habilité à un autre mercenaire\n",
 	L"+%d%s de bonus lorsque vous vous entraînez tout seul\n",
@@ -384,12 +384,12 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 	L"+%d d'audition effective dans la nuit\n",
 	L"+%d d'audition effective dnas la nuit sur un toit\n",
 	L"+%d de chance d'interrompre un ennemie dans la nuit\n",
-	L"Besoin de dormir réduit de -%d\n",
+	L"Le besoin de dormir est réduit de -%d\n",
 	L"+%d%s de distance maximale lors d'un lancer quelconque\n",	// 10
 	L"+%d%s de chance de toucher lors d'un lancer quelconque\n",
 	L"+%d%s de chance de tuer instantanément en lançant un couteau si vous n'êtes pas vu ou entendu\n",
 	L"+%d%s de bonus pour entraîner la milice et enseigner aux autres mercenaires\n",
-	L"+%d%s effective leadership for militia training calculations\n",
+	L"+%d%s en Commandement lors de l'entraînement de la milice mobile\n",
 	L"+%d%s de chance de toucher votre cible avec une roquette/grenade ou un mortier\n",
 	L"La pénalité dû au tir en mode automatique est réduite de %d\n",
 	L"Réduit la probabilité d'un tir en mode automatique non voulu\n",
@@ -434,11 +434,11 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 STR16 gzIMPDisabilitiesHelpTexts[]=
 {
 	L"Pas d'effets.",
-	L"A des problèmes de souffle/respiration et ses performances globales sont diminuées lorsqu'il est dans des zones tropiques ou désertiques.",
+	L"A des problèmes de souffle/respiration et ses performances globales\nsont diminuées lorsqu'il est dans des zones tropiques ou désertiques.",
 	L"Peut souffrir de panique s'il est laissé seul dans certaines situations.",
 	L"Ses performances globales sont réduites s'il se trouve dans un sous-sol.",
-	L"S'il essaye de nager, il peut facilement se noyer.",
-	L"La vue de gros insectes peut lui poser de gros problèmes\net être dans une zone tropicale lui réduit aussi légèrement ses performances globales.",
+	L"Peut facilement se noyer s'il essaye de nager.",
+	L"La vue de gros insectes peut lui poser de gros problèmes\net être dans une zone tropicale lui réduit aussi\nlégèrement ses performances globales.",
 	L"Peut parfois perdre les ordres donnés et ainsi perdre des PA lors d'un combat.",
 	L"Il peut devenir psychopathe et tirer comme un fou de temps en temps\net peut perdre du moral s'il n'est pas capable d'utiliser son arme.",
 
