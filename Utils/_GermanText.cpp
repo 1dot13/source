@@ -6488,7 +6488,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nDiese Munition lässt eine Leuchtwirkung entstehen wenn sie abgefeuert wird.\n \nLeuchtfeuer hilft Salven genauer zu kontrollieren.\n \nLeuchtpatronen geben die Position bei Tag/Nacht preis\n \nund deaktivieren Gegenstände\ndie Mündungsfeuer unterdrücken.",
 	L"\n \nDiese Munition kann einen Panzer beschädigen.\n \nMunition ohne diese Eigenschaft bewirkt keinen Schaden\nan Panzern.",
 	L"\n \nDiese Munition ignoriert die Rüstung vollständig.\n \nDas bewirkt das eine geschützte Person\nbehandelt wird als hätte sie keine Rüstung!",
-	L"\n \nWenn diese Munition auf ein Ziel trifft,\n \nwird dessen Schutz dadurch schnell verschlechtert.\n \nMöglicherweise wird ein Ziel dadurch durch seinen eigenen Schutz getrennt!",
+	L"\n \nWenn diese Munition auf ein Ziel trifft,\nwird dessen Schutz dadurch schnell verschlechtert.\n \nMöglicherweise wird ein Ziel dadurch durch seinen eigenen Schutz getrennt!",
 	L"\n \nDiese Munitionstyp ist ausnahmslos im zerstören von Schlössern.\n \nDirekt auf eine verschlossene Tür oder einen Behälter\ngefeuert richtet er enormen Schaden an.",
 	L"\n \nDieser Schutz ist dreifach resistent\ngegen Sprengstoffe als es durch seinen gegebenen\nSchutzwert ersichtlich ist.\n \nWenn ein Sprengstoff den Schutz trifft, wird sein Schutzwert verdreifach.",
 	L"\n \nDieser Gegenstand ist gegen Wasser immun. Nicht aber,\nwenn er Schaden nimmt und untertaucht.\n \nGegenstände ohne diese Eigenschaft verschlechtern sich allmählich,\nwenn die Person sie zum Schwimmen mitnimmt.",
