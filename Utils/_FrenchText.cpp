@@ -3685,7 +3685,7 @@ STR16 pErrorStrings[] =
 
 STR16 pPersonnelString[] =
 {
-	L"Merc :", 			// mercs we have
+	L"Merc. :", 			// mercs we have
 };
 
 
@@ -6592,8 +6592,8 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 
 STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 {
-	L"\n \nLa quantité de dégâts causés par cet explosif.\n \nNotez que les explosifs de type 'explosion' livrent\ndes dégâts seulement une fois (quand ils explosent), tandis que\nles explosifs à effets prolongés livrent cette quantité de dégâts\nà chaque tour jusqu'à ce que l'effet se dissipe.\n \nValeur élevée recommandée.",
-	L"\n \nLa quantité de dégâts non mortels (étourdissant) causés\npar cet explosif.\n \nNotez que les explosifs de type 'explosion' livrent des dégâts seulement\nune fois (quand ils explosent), tandis que les explosifs à effets\nprolongés livrent cette quantité de dégâts\nd'étourdissement à chaque tour jusqu'à ce que l'effet se dissipe.\n \nValeur élevée recommandée.",
+	L"\n \nLa quantité de dégâts causés par cet explosif.\n \nNotez que les explosifs de type 'explosion' livrent des dégâts\nseulement une fois (quand ils explosent), tandis que les\nexplosifs à effets prolongés livrent cette quantité de dégâts\nà chaque tour jusqu'à ce que l'effet se dissipe.\n \nValeur élevée recommandée.",
+	L"\n \nLa quantité de dégâts non mortels (étourdissant) causés\npar cet explosif.\n \nNotez que les explosifs de type 'explosion' livrent des\ndégâts seulement une fois (quand ils explosent), tandis\nque les explosifs à effets prolongés livrent cette\nquantité de dégâts d'étourdissement à chaque tour jusqu'à\nce que l'effet se dissipe.\n \nValeur élevée recommandée.",
 	L"\n \nRayon de l'explosion causé par cet objet.\n \nPlus les ennemis seront loin du centre de l'explosion\nmoins ils subiront de dégâts.\n \nValeur élevée recommandée.",
 	L"\n \nRayon de l'etourdissement causé par cet objet.\n \nPlus les ennemis seront loin du centre de l'explosion\nmoins ils subiront de dégâts.\n \nValeur élevée recommandée.",
 	L"\n \nDistance du parcours du bruit causé par ce piège.\n Les ennemis placés en deçà de cette distance entendront\n votre piège et sonneront l'alerte.\n \nValeur faible recommandée.",
@@ -6644,32 +6644,32 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 {
-	L"\n \nCes munitions, en mode Auto ou rafale,ont la propriété d'être des\ndes balles traçantes.\n \nLa lumière qu'apporte les balles traçantes lors d'une rafale permet d'avoir une\nmeilleur précision et d'être ainsi plus mortel malgré le recul de l'arme.\n \nDe plus, ces balles créent un halo lumineux permettant de révéler\nl'ennemi dans la nuit. Cependant, elles révèlent aussi\nla position du tireur à l'ennemi !\n \nLes balles traçantes désactive automatiquement\nle cache-flamme installé sur l'arme utilisé.",
-	L"\n \nCes munitions peuvent faire des dégâts aux tanks.\n \nLes munitions SANS cette propriété ne feront aucun dégâts quelque soit le tanks.\n \nMême avec cette propriété, n'oubliez pas que la plupart des armes\nne feront que peu de dégâts, donc n'en\nabusez pas.",
-	L"\n \nCes munitions ignorent complètement l'armure.\n \nQuand vous tirez sur un ennemi avec une armure, cela sera\ncomme s'il n'en avait pas,\npermettant ainsi de faire un maximum de dégâts !",
-	L"\n \nLorsque cette munition frappe une cible avec une armure,\n \ncette dernière se dégradera très rapidement.\n \nCeci peut potentiellement retirer l'armure de la cible !",
-	L"\n \nCette munition est exceptionnelle pour casser les serrures.\n \nTirez directement sur la serrure de la porte ou du containeur\npour faire de lourds dégâts sur le mécanisme.",
-	L"\n \nCette armure est trois fois plus résistante\ncontre les explosifs que sa valeur indiquée.\n \nQuand une explosion heurte cette armure, la valeur de sa protection\nest considéré comme trois fois plus élevée que celle\nindiquée.",
-	L"\n \nCet objet est imperméable à l'eau. Il ne\nrecevra pas de dégâts causé par l'eau.\n \nLes objets SANS cette propriété vont progressivement se déteriorer\nsi la personne nage avec.",
-	L"\n \nCet objet est de nature électronique, et contient\ndes circuits complexes.\n \nLes objets électroniques sont intrinsèquement plus difficiles\nà réparer, d'autant plus si vous n'avez pas les compétences nécessaires.",
-	L"\n \nLorsque cet objet est porté sur le visage,\nil le protègera de tous les gaz nocifs.\n \nNotez que certains gaz sont corrosifs, et pourrait bien\npénétrer à travers le masque...",
-	L"\n \nCet objet requière des piles. Sans les piles\nvous ne pouvez pas activer ces principales caractéristiques.\n \nPour utiliser un jeu de piles, attachez-les à\ncette objet comme si vous m'étiez une lunette de visée à votre arme.",
-	L"\n \nCet objet peut être utilisé pour crocheter des portes\nou des containeurs vérouillés.\n \nLe crochetage est silencieux, mais nécessite des compétences en Mécanique.",
-	L"\n \nCet objet peut être utilisé pour couper les clôtures de fil.\n \nCela autorise le mercenaire a passé à travers\ndes zones sécurisés, pour éventuellement surprendre l'ennemi !",
-	L"\n \nCet objet peut être utilisé pour frapper des portes\nou des containeurs vérouillés.\n \nFrapper des serrures requière une grande Force,\ngénère beaucoup de bruits, et peut facilement\nvous épuisez. Cependant, c'est une bonne façon\nd'ouvrir une serrure sans avoir des talents en Mécaniques\nou des outils adéquates.",
-	L"\n \nCet objet peut être utilisé pour détecter des objets\nmétalliques enfouis sous terre.\n \nNaturellement, sa fonction première est de détecter les mines\nsans que vous ayez les compétences nécessaires pour les repérer\nà l'oeil nu.\n \nPeut-être trouverez-vous certains trésors cachés...",
-	L"\n \nCet objet peut être utilisé pour faire exploser une bombe\nqui aura été amorçée par un détonateur.\n \nPlantez la bombe en 1er, puis utilisez votre\nDéclencheur à distance pour l'activer quand c'est le bon moment.",
-	L"\n \nQuand il est attaché à un dispositif explosif et positionné\ndans le bon sens, ce détonateur peut être déclenché\npar un détonateur (séparé) à distance.\n \nLes détonateurs à distance sont excellent pour faire des pièges,\ncar ils se déclenchent quand vous le souhaitez.\n \nDe plus, vous avez tout le temps pour déguerpir !",
-	L"\n \nQuand il est attaché à un dispositif explosif et positionné\ndans le bon sens, ce détonateur va lancer un compte à rebours\ndéfini, et explosera quand le temps sera écoulé.\n \nCes détonateurs avec minuterie sont pas chers et facile à installer,\nmais vous aurez besoin de temps pour pouvoir\ndéguerpir de là !",
+	L"\n \nCes munitions, en mode Auto ou rafale, ont la propriété d'être\ndes des balles traçantes.\n \nLa lumière qu'apporte les balles traçantes lors d'une rafale\npermet d'avoir une meilleur précision et d'être ainsi plus\nmortel malgré le recul de l'arme.\n \nDe plus, ces balles créent un halo lumineux permettant de\nrévéler l'ennemi dans la nuit. Cependant, elles révèlent\naussi la position du tireur à l'ennemi !\n \nLes balles traçantes désactive automatiquement le\ncache-flamme installé sur l'arme utilisé.",
+	L"\n \nCes munitions peuvent faire des dégâts aux tanks.\n \nLes munitions SANS cette propriété ne feront aucun dégâts quelque\nsoit le tanks.\n \nMême avec cette propriété, n'oubliez pas que la plupart des armes\nne feront que peu de dégâts, donc n'en abusez pas.",
+	L"\n \nCes munitions ignorent complètement l'armure.\n \nQuand vous tirez sur un ennemi avec une armure, cela sera comme s'il\nn'en avait pas, permettant ainsi de faire un maximum de dégâts !",
+	L"\n \nLorsque cette munition frappe une cible avec une armure,\ncette dernière se dégradera très rapidement.\n \nCeci peut potentiellement retirer l'armure de la cible !",
+	L"\n \nCette munition est exceptionnelle pour casser les serrures.\n \nTirez directement sur la serrure de la porte ou du\ncontaineur pour faire de lourds dégâts sur le mécanisme.",
+	L"\n \nCette armure est trois fois plus résistante contre les\nexplosifs que sa valeur indiquée.\n \nQuand une explosion heurte cette armure, la valeur de\nsa protection est considéré comme trois fois plus\nélevée que celle indiquée.",
+	L"\n \nCet objet est imperméable à l'eau. Il ne recevra pas de\ndégâts causé par l'eau.\n \nLes objets SANS cette propriété vont progressivement se\ndéteriorer si la personne nage avec.",
+	L"\n \nCet objet est de nature électronique, et contient des\ncircuits complexes.\n \nLes objets électroniques sont intrinsèquement plus\ndifficiles à réparer, d'autant plus si vous n'avez pas\nles compétences nécessaires.",
+	L"\n \nLorsque cet objet est porté sur le visage, il le protègera\nde tous les gaz nocifs.\n \nNotez que certains gaz sont corrosifs, et pourrait bien\npénétrer à travers le masque...",
+	L"\n \nCet objet requière des piles. Sans les piles vous ne pouvez pas\nactiver ces principales caractéristiques.\n \nPour utiliser un jeu de piles, attachez-les à cette objet\ncomme si vous m'étiez une lunette de visée à votre arme.",
+	L"\n \nCet objet peut être utilisé pour crocheter des portes\nou des containeurs vérouillés.\n \nLe crochetage est silencieux, mais nécessite des\ncompétences en Mécanique.",
+	L"\n \nCet objet peut être utilisé pour couper les clôtures de fil.\n \nCela autorise le mercenaire a passé à travers des zones\nsécurisés, pour éventuellement surprendre l'ennemi !",
+	L"\n \nCet objet peut être utilisé pour frapper des portes\nou des containeurs vérouillés.\n \nFrapper des serrures requière une grande Force,\ngénère beaucoup de bruits, et peut facilement\nvous épuisez. Cependant, c'est une bonne façon\nd'ouvrir une serrure sans avoir des talents en\nMécaniques ou des outils adéquates.",
+	L"\n \nCet objet peut être utilisé pour détecter des objets métalliques\nenfouis sous terre.\n \nNaturellement, sa fonction première est de détecter les mines\nsans que vous ayez les compétences nécessaires pour les repérer\nà l'oeil nu.\n \nPeut-être trouverez-vous certains trésors cachés...",
+	L"\n \nCet objet peut être utilisé pour faire exploser une bombe\nqui aura été amorçée par un détonateur.\n \nPlantez la bombe en 1er, puis utilisez votre Déclencheur\nà distance pour l'activer quand c'est le bon moment.",
+	L"\n \nQuand il est attaché à un dispositif explosif et positionné\ndans le bon sens, ce détonateur peut être déclenché par un\ndétonateur (séparé) à distance.\n \nLes détonateurs à distance sont excellent pour faire des\npièges, car ils se déclenchent quand vous le souhaitez.\n \nDe plus, vous avez tout le temps pour déguerpir !",
+	L"\n \nQuand il est attaché à un dispositif explosif et positionné\ndans le bon sens, ce détonateur va lancer un compte à\nrebours défini, et explosera quand le temps sera écoulé.\n \nCes détonateurs avec minuterie sont pas chers et facile à\ninstaller, mais vous aurez besoin de temps pour pouvoir\ndéguerpir de là !",
 	L"\n \nCet objet contient de l'essence.\n \nIl pourrait arrivé à point nommé si vous aviez besoin\nde remplir un réservoir d'essence...",
-	L"\n \nCet objet contient divers outils qui peuvent\nêtre utilisés pour réparer d'autres objets.\n \nUne trousse à outil est toujours nécessaire lorsque\nvous êtes en mission de Réparation.",
-	L"\n \nQuand équipé sur le visage, cet objet donne\nla capacité de repérer les ennemis à travers les murs,\ngrâce à leur signature thermique.",
+	L"\n \nCet objet contient divers outils qui peuvent être utilisés\npour réparer d'autres objets.\n \nUne trousse à outil est toujours nécessaire lorsque vous\nêtes en mission de Réparation.",
+	L"\n \nQuand équipé sur le visage, cet objet donne la capacité de\nrepérer les ennemis à travers les murs, grâce à leur\nsignature thermique.",
 	L"\n \nCe merveilleux dispositif peut être utilisé pour repérer\nles ennemis en utilisant les rayons X.\n \nCela révelera tous les ennemis à une certaine distance\npour une courte période de temps.\n \nGardez cela loin de vos organes reproductifs !",
 	L"\n \nCet objet contient de l'eau potable bien fraiche.\nA utillisé lorsque vous êtes assoiffé.",
 	L"\n \nCet objet contient du digestif, gnôle, eau-de-vie, liqueur,\nqu'importe comment vous appelez cela.\n \nA utlisez avec modération. Boire ou conduire !\nPeut causer une cirrhose du foie.",
-	L"\n \nIl s'agit d'un kit médical basic, contenant les ustensibles\nrequis pour faire une intervention médicale basic.\n \nIl peut être utilisé pour soigner un mercenaire blessé\net empêcher le saignement.\n \nPour une guérison optimale, utlisez une véritable trousse de soins\net/ou beaucoup de repos.",
+	L"\n \nIl s'agit d'un kit médical basic, contenant les ustensibles\nrequis pour faire une intervention médicale basic.\n \nIl peut être utilisé pour soigner un mercenaire blessé et\nempêcher le saignement.\n \nPour une guérison optimale, utlisez une véritable trousse\nde soins et/ou beaucoup de repos.",
 	L"\n \nIl s'agit d'un kit médicale complet, qui peut être utilisé\npour une opération chirurgicale ou autre cas sérieux.\n \nUne trousse de soins est toujours nécessaire lorsque vous\nêtes en mission de Docteur.",
-	L"\n \nCet objet peut être utilisé pour faire sauter les\nportes ou containeurs vérouillés.\n \nDes compétences en explosion sont nécessaire pour\néviter une explosion prématurée.\n \nExploser les serrures est relativement facile\net rapide à faire. Cependant, c'est très bruyant\net dangereux pour la plupart des mercernaires.",
+	L"\n \nCet objet peut être utilisé pour faire sauter les portes\nou containeurs vérouillés.\n \nDes compétences en explosion sont nécessaire pour éviter\nune explosion prématurée.\n \nExploser les serrures est relativement facile et rapide\nà faire. Cependant, c'est très bruyant et dangereux pour\nla plupart des mercernaires.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -6727,18 +6727,18 @@ STR16 szUDBAdvStatsTooltipText[]=
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
 STR16 szUDBAdvStatsExplanationsTooltipText[]=
 {
-	L"\n \nLorsque attaché à une arme de distance, cet objet\nmodifie la valeur de sa précision.\n \nLe gain en précision permet à l'arme de pouvoir toucher une cible\nà des distances plus élevées plus souvent\n \nEchelle : -100 to +100.\nValeur élevée recommandée.",
-	L"\n \nCet objet modifie la précision du tireur\npour un tir avec une arme à distance de la\nvaleur suivante.\n \nEchelle: -100 to +100.\nValeur élevée recommandée.",
-	L"\n \nCet objet modifie la précision du tireur\npour un tir avec une arme à distance avec un pourcentage\ncalculé à partir de sa précision initiale.\n \nValeur élevée recommandée.",
-	L"\n \nCet objet modifie le gain de précision pris à\nchaque niveau de visée, de la valeur suivante.\n \nEchelle : -100 to +100.\nValeur élevée recommandée.",
-	L"\n \nCet objet modifie le gain de précision pris à\nchaque niveau de visée, d'un pourcentage calculé\nà partir de sa précision initiale.\n \nValeur élevée recommandée.",
-	L"\n \nCet objet modifie le nombre de niveau de\nvisée que cette arme peut avoir.\n \nRéduire le nombre de niveau de visée\nsignifie que chaque niveau ajoute proportionnellement plus\nde précision au tir.\nPar conséquent, même les bas niveaux de visée vous permetterons de\ngarder une bonne précision avec une vitesse pour viser élevée !\n \nValeur faible recommandée.",
-	L"\n \nCet objet modifie la précision maximale du tireur\narmé d'une arme à distance, avec un pourcentage\nbasé sur sa précision initiale.\n \nValeur élevée recommandée.",
-	L"\n \nLorsque attaché à une arme à distance, cet objet modifie sa\ndifficulté de manipulation.\n \nUne meilleure prise en main permet une meilleure précision de l'arme,\navec ou sans niveaux de visée supplémentaires.\n \nNotez que c'est basé sur le facteur de prise en main des armes,\nqui est plus élevé pour les fusils et armes lourdes que les\npistolets et armes légères.\n \nValeur faible recommandée.",
-	L"\n \nCet objet modifie la difficulté des tirs\nhors de la portée de l'arme.\n \nUne valeur élevée peut augmenter la portée maximale\nde l'arme de quelques cases.\n \nValeur élevée recommandée.",
-	L"\n \nCet objet modifie la difficulté de touché\nune cible en mouvement avec une arme à distance.\n \nUne valeur élevée peut vous aider à toucher\nune cible en mouvement, même à distance.\n \nValeur élevée recommandée.",
-	L"\n \nCet objet modifie la puissance d'impact de\nvotre arme de la valeur suivante.\n \nValeur élevée recommandée.",
-	L"\n \nCet objet modifie la puissance d'impact de\nvotre arme de mêlée de la valeur suivante.\n \nCeci s'applique uniquement aux armes de mêlée, tranchantes\nou contondantes.\n \nValeur élevée recommandée.",
+	L"\n \nLorsque attaché à une arme de distance, cet objet modifie la\nvaleur de sa précision.\n \nLe gain en précision permet à l'arme de pouvoir toucher une\ncible à des distances plus élevées plus souvent\n \nEchelle : -100 to +100.\nValeur élevée recommandée.",
+	L"\n \nCet objet modifie la précision du tireur pour un tir avec\nune arme à distance de la valeur suivante.\n \nEchelle: -100 to +100.\nValeur élevée recommandée.",
+	L"\n \nCet objet modifie la précision du tireur pour un tir avec\nune arme à distance avec un pourcentage calculé à partir\nde sa précision initiale.\n \nValeur élevée recommandée.",
+	L"\n \nCet objet modifie le gain de précision pris à chaque\nniveau de visée, de la valeur suivante.\n \nEchelle : -100 to +100.\nValeur élevée recommandée.",
+	L"\n \nCet objet modifie le gain de précision pris à chaque\nniveau de visée, d'un pourcentage calculé à partir\nde sa précision initiale.\n \nValeur élevée recommandée.",
+	L"\n \nCet objet modifie le nombre de niveau de visée que cette arme\npeut avoir.\n \nRéduire le nombre de niveau de visée signifie que chaque\nniveau ajoute proportionnellement plus de précision au tir.\nPar conséquent, même les bas niveaux de visée vous\npermetterons de garder une bonne précision avec une vitesse\npour viser élevée !\n \nValeur faible recommandée.",
+	L"\n \nCet objet modifie la précision maximale du tireur équipé d'une\narme à distance, avec un pourcentage basé sur sa précision\ninitiale.\n \nValeur élevée recommandée.",
+	L"\n \nLorsque attaché à une arme à distance, cet objet modifie sa\ndifficulté de manipulation.\n \nUne meilleure prise en main permet une meilleure précision\nde l'arme, avec ou sans niveaux de visée supplémentaires.\n \nNotez que c'est basé sur le facteur de prise en main des\narmes, qui est plus élevé pour les fusils et armes lourdes\nque les pistolets et armes légères.\n \nValeur faible recommandée.",
+	L"\n \nCet objet modifie la difficulté des tirs hors de la portée de l'arme.\n \nUne valeur élevée peut augmenter la portée maximale de l'arme de\nquelques cases.\n \nValeur élevée recommandée.",
+	L"\n \nCet objet modifie la difficulté de touché une cible en mouvement\navec une arme à distance.\n \nUne valeur élevée peut vous aider à toucher une cible en\nmouvement, même à distance.\n \nValeur élevée recommandée.",
+	L"\n \nCet objet modifie la puissance d'impact de votre arme\nde la valeur suivante.\n \nValeur élevée recommandée.",
+	L"\n \nCet objet modifie la puissance d'impact de votre arme de mêlée\nde la valeur suivante.\n \nCeci s'applique uniquement aux armes de mêlée, tranchantes\nou contondantes.\n \nValeur élevée recommandée.",
 	L"\n \nLorsque attaché à une arme de distance, cet objet\nmodifie sa porté effective.\n \nLa portée maximale dicte essentiellement dans quelle mesure une balle\ntirée par l'arme peut voler avant de commencer à tomber\nbrusquement vers le sol.\n \nValeur élevée recommandée.",
 	L"\n \nLorsque attaché à une arme de distance, cet objet\nfournit un aggrandissement supplémentaire, réussisant des coups\nplus facilement que la normale.\n \nNotez qu'un facteur d'aggrandissment trop élevée est préjudiciable\nquand la cible est plus PROCHE que la distance optimale.\n \nValeur élevée recommandée.",
 	L"\n \nLorsque attaché à une arme de distance, cet objet\nprojette un point sur la cible, rendant le tir plus facile.\n \nCette projection est seulement utile à une certaine distance\n, au delà elle diminue puis éventuellement disparaît.\n \nValeur élevée recommandée.",
