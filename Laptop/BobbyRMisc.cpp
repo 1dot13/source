@@ -73,6 +73,7 @@ void ExitBobbyRMisc()
 
 void HandleBobbyRMisc()
 {
+	HandleBobbyRGuns();
 }
 
 void RenderBobbyRMisc()

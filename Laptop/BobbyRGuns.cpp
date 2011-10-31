@@ -16,11 +16,11 @@
 	#include "Finances.h"
 	#include "AimMembers.h"
 	#include "Overhead.h"
-	#include "Text.h"
 	#include "Weapons.h"
 	#include "GameSettings.h"
 	#include "Points.h"
 	#include "Multi Language Graphic Utils.h"
+	#include "english.h"
 	// HEADROCK HAM 4
 	#include "input.h"
 #endif
@@ -245,6 +245,8 @@ UINT16		gusLastItemIndex=0;
 UINT16		gusFirstItemIndex=0;
 UINT8			gubNumItemsOnScreen;
 UINT8			gubNumPages;
+UINT8			gubNumPagesMod;
+
 
 BOOLEAN		gfBigImageMouseRegionCreated;
 UINT16		gusItemNumberForItemsOnScreen[ BOBBYR_NUM_WEAPONS_ON_PAGE ];
@@ -326,6 +328,8 @@ void BobbyrRGunsHelpTextDoneCallBack( void );
 	void ReportBobbyROrderError( UINT16 usItemNumber, UINT8 ubPurchaseNum, UINT8 ubQtyOnHand, UINT8 ubNumPurchasing );
 #endif
 
+//Hotkey Assignment
+void HandleBobbyRGunsKeyBoardInput();
 
 void GameInitBobbyRGuns()
 {
@@ -406,6 +410,8 @@ void ExitBobbyRGuns()
 
 void HandleBobbyRGuns()
 {
+	//Hotkey Assignment
+	HandleBobbyRGunsKeyBoardInput();
 }
 
 void RenderBobbyRGuns()
@@ -1306,11 +1312,11 @@ void BtnBobbyRNextPreviousPageCallback(GUI_BUTTON *btn,INT32 reason)
 		//else next screen
 		else
 		{
-			if( gubCurPage < gubNumPages-1 )
+			if( gubCurPage < gubNumPages - 1 )
 			{
 				if (_KeyDown( 16 ) ) // SHIFT
 				{
-					gubCurPage = __min(gubNumPages, gubCurPage+5);
+					gubCurPage = __min(gubNumPages - 1, gubCurPage + 5);
 				}
 				else
 				{
@@ -2283,7 +2289,8 @@ void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter )
 	gusFirstItemIndex = (UINT16)sFirst;
 	gusLastItemIndex = (UINT16)sLast;
 	gubNumPages = (UINT8)( ubNumItems / (FLOAT)BOBBYR_NUM_WEAPONS_ON_PAGE );
-	if( (ubNumItems % BOBBYR_NUM_WEAPONS_ON_PAGE ) != 0 )
+	gubNumPagesMod = ubNumItems % BOBBYR_NUM_WEAPONS_ON_PAGE;
+	if( gubNumPagesMod != 0 )
 		gubNumPages += 1;
 }
 
@@ -2383,7 +2390,8 @@ void SetFirstLastPagesForUsed(INT32 iFilter)
 	gusFirstItemIndex = (UINT16)sFirst;
 	gusLastItemIndex = (UINT16)sLast;
 	gubNumPages = (UINT8)( ubNumItems / (FLOAT)BOBBYR_NUM_WEAPONS_ON_PAGE );
-	if( (ubNumItems % BOBBYR_NUM_WEAPONS_ON_PAGE ) != 0 )
+	gubNumPagesMod = ubNumItems % BOBBYR_NUM_WEAPONS_ON_PAGE;
+	if( gubNumPagesMod != 0 )
 		gubNumPages += 1;
 }
 
@@ -3719,14 +3727,195 @@ void ReportBobbyROrderError( UINT16 usItemNumber, UINT8 ubPurchaseNum, UINT8 ubQ
 }
 #endif
 
+void HandleBobbyRGunsKeyBoardInput()
+{
+	InputAtom					InputEvent;
+	BOOLEAN fCtrl, fAlt;
 
+	fCtrl = _KeyDown( CTRL );
+	fAlt = _KeyDown( ALT );
 
+	while (DequeueEvent(&InputEvent) == TRUE)
+	{
+		if( InputEvent.usEvent == KEY_DOWN )
+		{
+			switch (InputEvent.usParam)
+			{
+				case LEFTARROW:
+					// previous page
+					if( gubCurPage > 0 )
+						gubCurPage--;
 
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case RIGHTARROW:
+					// next page
+					if( gubCurPage < gubNumPages - 1 )
+						gubCurPage++;
 
-
-
-
-
-
-
-
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case SHIFT_LEFTARROW:
+					// jump to 5 pages back
+					if( gubCurPage > 0 )
+						gubCurPage = __max(gubCurPage - 5, 0);
+					
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case SHIFT_RIGHTARROW:
+					// jump to 5 pages forward
+					if( gubCurPage < gubNumPages - 1 )
+						gubCurPage = __min(gubNumPages - 1, gubCurPage + 5);
+					
+					fReDrawScreenFlag = TRUE;
+					fPausedReDrawScreenFlag = TRUE;
+				break;
+				case ENTER:
+					// order form
+					guiCurrentLaptopMode = LAPTOP_MODE_BOBBY_R_MAILORDER;
+				break;
+				case '1':
+					// 1st item on screen
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) || 
+						( ( gubCurPage == gubNumPages - 1 ) ) )
+					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 0 ], FALSE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 0 ], FALSE);
+					}
+				break;
+				case '2':
+					// 2nd item on screen
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) ||
+						( ( gubCurPage == gubNumPages - 1 ) && ( ( gubNumPagesMod == 0 ) || ( gubNumPagesMod >= 2 ) ) ) )
+					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 1 ], FALSE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 1 ], FALSE);
+					}
+				break;
+				case '3':
+					// 3rd item on screen
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) ||
+						( ( gubCurPage == gubNumPages - 1 ) && ( ( gubNumPagesMod == 0 ) || ( gubNumPagesMod >= 3 ) ) ) )					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 2 ], FALSE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 2 ], FALSE);
+					}
+				break;
+				case '4':
+					// 4th item on screen
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) ||
+						( ( gubCurPage == gubNumPages -1 ) && ( gubNumPagesMod == 0 ) ) )
+					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 3 ], FALSE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 3 ], FALSE);
+					}
+				break;
+				case '!':
+					// 1st item on screen all at once
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) || 
+						( ( gubCurPage == gubNumPages - 1 ) ) )
+					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 0 ], TRUE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 0 ], TRUE);
+					}
+				break;
+				case '@':
+					// 2nd item on screen all at once
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) ||
+						( ( gubCurPage == gubNumPages - 1 ) && ( ( gubNumPagesMod == 0 ) || ( gubNumPagesMod >= 2 ) ) ) )
+					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 1 ], TRUE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 1 ], TRUE);
+					}
+				break;
+				case '#':
+					// 3rd item on screen all at once
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) ||
+						( ( gubCurPage == gubNumPages - 1 ) && ( ( gubNumPagesMod == 0 ) || ( gubNumPagesMod >= 3 ) ) ) )					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 2 ], TRUE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 2 ], TRUE);
+					}
+				break;
+				case '$':
+					// 4th item on screen all at once
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) ||
+						( ( gubCurPage == gubNumPages -1 ) && ( gubNumPagesMod == 0 ) ) )
+					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 3 ], TRUE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 3 ], TRUE);
+					}
+				break;
+				default:
+					HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );
+				break;
+			}
+		}
+		else if( InputEvent.usEvent == KEY_REPEAT )
+		{
+			switch( InputEvent.usParam )
+			{
+				case '1':
+					// 1st item on screen
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) || 
+						( ( gubCurPage == gubNumPages - 1 ) ) )
+					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 0 ], FALSE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 0 ], FALSE);
+					}
+				break;
+				case '2':
+					// 2nd item on screen
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) ||
+						( ( gubCurPage == gubNumPages - 1 ) && ( ( gubNumPagesMod == 0 ) || ( gubNumPagesMod >= 2 ) ) ) )
+					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 1 ], FALSE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 1 ], FALSE);
+					}
+				break;
+				case '3':
+					// 3rd item on screen
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) ||
+						( ( gubCurPage == gubNumPages - 1 ) && ( ( gubNumPagesMod == 0 ) || ( gubNumPagesMod >= 3 ) ) ) )					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 2 ], FALSE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 2 ], FALSE);
+					}
+				break;
+				case '4':
+					// 4th item on screen
+					if( ( ( gubNumPages > 0 ) && ( gubCurPage != gubNumPages - 1 ) ) ||
+						( ( gubCurPage == gubNumPages -1 ) && ( gubNumPagesMod == 0 ) ) )
+					{
+						if( fCtrl )
+							UnPurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 3 ], FALSE);
+						else
+							PurchaseBobbyRayItem(gusItemNumberForItemsOnScreen[ 3 ], FALSE);
+					}
+				break;
+			}
+		}
+	}
+}

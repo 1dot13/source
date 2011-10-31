@@ -71,6 +71,7 @@ void ExitBobbyRArmour()
 
 void HandleBobbyRArmour()
 {
+	HandleBobbyRGuns();
 }
 
 void RenderBobbyRArmour()

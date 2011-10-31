@@ -71,6 +71,7 @@ void ExitBobbyRUsed()
 
 void HandleBobbyRUsed()
 {
+	HandleBobbyRGuns();
 }
 
 void RenderBobbyRUsed()

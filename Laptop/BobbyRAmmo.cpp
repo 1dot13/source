@@ -73,6 +73,7 @@ void ExitBobbyRAmmo()
 
 void HandleBobbyRAmmo()
 {
+	HandleBobbyRGuns();
 }
 
 void RenderBobbyRAmmo()
