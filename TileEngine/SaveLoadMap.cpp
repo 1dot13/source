@@ -46,29 +46,32 @@ BOOLEAN ModifyWindowStatus( INT32 uiMapIndex );
 
 struct ModifiedMapFile
 {
-	UINT32 uiType;
-	INT16 sMapX;
-	INT16 sMapY;
-	INT8 bMapZ;
+	struct Key
+	{
+		UINT32  uiType;
+		INT16   sMapX;
+		INT16   sMapY;
+		INT8    bMapZ;
+	} key;
 	CHAR8 szMapName[128];
 	HWFILE hFileHandle;
 
 	ModifiedMapFile(UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ)
 	{
-		this->uiType = uiType;
-		this->sMapX = sMapX;
-		this->sMapY = sMapY;
-		this->bMapZ = bMapZ;
+		this->key.uiType   = uiType;
+		this->key.sMapX    = sMapX;
+		this->key.sMapY    = sMapY;
+		this->key.bMapZ    = bMapZ;
 		this->szMapName[0] = 0;
-		this->hFileHandle = NULL;
+		this->hFileHandle  = NULL;
 	}
 
 	ModifiedMapFile(UINT32 uiType, STR pMapName, INT16 sMapX, INT16 sMapY, INT8 bMapZ)
 	{
-		this->uiType = uiType;
-		this->sMapX = sMapX;
-		this->sMapY = sMapY;
-		this->bMapZ = bMapZ;
+		this->key.uiType  = uiType;
+		this->key.sMapX   = sMapX;
+		this->key.sMapY   = sMapY;
+		this->key.bMapZ   = bMapZ;
 		strncpy(this->szMapName, pMapName, _countof(this->szMapName));
 		this->szMapName[_countof(this->szMapName) - 1] = 0;
 		this->hFileHandle = NULL;
@@ -141,7 +144,7 @@ struct ModifiedMapFile
 
 struct ltMMF
 {
-	bool compare(const ModifiedMapFile& s1, const ModifiedMapFile& s2) const
+	bool compare(const ModifiedMapFile::Key& s1, const ModifiedMapFile::Key& s2) const
 	{
 		int diff = s1.uiType - s2.uiType;
 		if (diff == 0)
@@ -158,13 +161,13 @@ struct ltMMF
 		}
 		return diff < 0;
 	}
-	bool operator()(const ModifiedMapFile& s1, const ModifiedMapFile& s2) const { return compare(s1, s2); }
-	bool operator()(const ModifiedMapFile* s1, const ModifiedMapFile* s2) const { return compare(*s1, *s2); }
-	bool operator()(const ModifiedMapFile& s1, const ModifiedMapFile* s2) const { return compare(s1, *s2); }
-	bool operator()(const ModifiedMapFile* s1, const ModifiedMapFile& s2) const { return compare(*s1, s2); }
+	bool operator()(const ModifiedMapFile::Key& s1, const ModifiedMapFile::Key& s2) const { return compare(s1, s2); }
+	bool operator()(const ModifiedMapFile::Key* s1, const ModifiedMapFile::Key* s2) const { return compare(*s1, *s2); }
+	bool operator()(const ModifiedMapFile::Key& s1, const ModifiedMapFile::Key* s2) const { return compare(s1, *s2); }
+	bool operator()(const ModifiedMapFile::Key* s1, const ModifiedMapFile::Key& s2) const { return compare(*s1, s2); }
 };
 
-typedef std::set<ModifiedMapFile, ltMMF> ModifiedMapFileSet;
+typedef std::map<ModifiedMapFile::Key, ModifiedMapFile, ltMMF> ModifiedMapFileSet;
 ModifiedMapFileSet g_mapFileSet;
 BOOLEAN g_useSaveCache;
 
@@ -194,13 +197,13 @@ bool TryGetModifiedMapFile( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ,
 		return false;
 
 	ModifiedMapFile key(uiType, sMapX, sMapY, bMapZ);
-	ModifiedMapFileSet::iterator itr = g_mapFileSet.find(key);
+	ModifiedMapFileSet::iterator itr = g_mapFileSet.find(key.key);
 	if (itr == g_mapFileSet.end())
 	{
 		*ppMMF = NULL;
 		return false;
 	}
-	*ppMMF = &(*itr);
+	*ppMMF = &(itr->second);
 	return true;
 }
 
@@ -211,10 +214,10 @@ ModifiedMapFile& GetOrCreateModifiedMapFile(UINT32 uiType, INT16 sMapX, INT16 sM
 		return *pResult;
 
 	ModifiedMapFile key(uiType, sMapX, sMapY, bMapZ);
-	ModifiedMapFileSet::iterator itr = g_mapFileSet.insert(g_mapFileSet.end(), key);
-	pResult = &(*itr);
+	ModifiedMapFileSet::iterator itr = g_mapFileSet.insert(g_mapFileSet.end(), std::make_pair(key.key, key));
+	pResult = &(itr->second);
 	
-	GetMapTempFileName( pResult->uiType, pResult->szMapName, pResult->sMapX, pResult->sMapY, pResult->bMapZ );
+	GetMapTempFileName( pResult->key.uiType, pResult->szMapName, pResult->key.sMapX, pResult->key.sMapY, pResult->key.bMapZ );
 
 	return *pResult;
 }
