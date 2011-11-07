@@ -2056,6 +2056,7 @@ void RenderAutoResolve()
 						gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
 						gsCiviliansEatenByMonsters = gpAR->ubAliveEnemies;
 					}
+					LogBattleResults( LOG_DEFEAT );
 					break;
 			}
 		}

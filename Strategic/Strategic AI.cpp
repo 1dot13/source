@@ -2115,6 +2115,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 	Assert( !pGroup->fPlayer );
 	if( pGroup->pEnemyGroup->ubIntention == PURSUIT )
 	{ //Lost the player group that he was going to attack.	Return to original position.
+		SetThisSectorAsEnemyControlled( pGroup->ubSectorX, pGroup->ubSectorY, 0, TRUE );
 		ReassignAIGroup( &pGroup );
 		return TRUE;
 	}

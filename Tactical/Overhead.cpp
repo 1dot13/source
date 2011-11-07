@@ -6177,6 +6177,13 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 		//	return(FALSE);
 		//}
 
+	// First check for end of battle....
+	// If there are no enemies at all in the sector
+	// Battle end should take precedence!
+	if ( CheckForEndOfBattle( FALSE ) )
+	{
+		return( TRUE );
+	}
 
 	// We can only check for end of combat if in combat mode
 	if ( ! ( gTacticalStatus.uiFlags & INCOMBAT ) )
@@ -6193,15 +6200,6 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 	{
 		return( FALSE );
 	}
-
-	// First check for end of battle....
-	// If there are no enemies at all in the sector
-	// Battle end should take presedence!
-	if ( CheckForEndOfBattle( FALSE ) )
-	{
-		return( TRUE );
-	}
-
 
 
 	fWeSeeNoOne = WeSeeNoOne();
