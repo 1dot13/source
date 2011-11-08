@@ -7887,8 +7887,8 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					}
 					#endif
 					// open selected sector inventory screen
-					// if showing item counts on the map, and not already in sector inventory
-					if ( fShowItemsFlag && !fShowMapInventoryPool )
+					// if not already in sector inventory
+					if ( !fShowMapInventoryPool )
 					{
 						// show sector inventory for selected sector
 						ChangeSelectedMapSector( sSelMapX, sSelMapY, ( INT8 ) iCurrentMapSectorZ );
