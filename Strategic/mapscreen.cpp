@@ -6862,6 +6862,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						if( gMPanelRegion.Cursor != EXTERN_CURSOR && !InSectorStackPopup() && !InItemStackPopup() )
 						{
 							fShowMapInventoryPool = FALSE;
+							CreateDestroyMapInventoryPoolButtons( FALSE );
 						}
 					}
 					else if( fShowInventoryFlag == TRUE )
