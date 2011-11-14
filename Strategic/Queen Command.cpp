@@ -1528,7 +1528,12 @@ void AddPossiblePendingEnemiesToBattle()
 		}
 		else
 		{
-			AssertMsg( 0, "AddPossiblePendingEnemiesToBattle():  Logic Error -- by Kris" );
+			// WANNE: Instead of asserting, just add a regular troop
+			//AssertMsg( 0, "AddPossiblePendingEnemiesToBattle():  Logic Error -- by Kris" );
+
+			pGroup->pEnemyGroup->ubTroopsInBattle++;
+			ubSlots--;
+			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 1, 0, FALSE );
 		}
 	}
 
