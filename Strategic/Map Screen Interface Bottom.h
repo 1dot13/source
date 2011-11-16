@@ -5,8 +5,11 @@
 #include "Soldier Control.h"
 
 
+#ifdef CHINESE //zwwoooooo: Chinese fonts relatively high , so to reduce the number of rows
+#define MAX_MESSAGES_ON_MAP_BOTTOM	7
+#else
 #define MAX_MESSAGES_ON_MAP_BOTTOM	9
-
+#endif
 
 // exit to where defines
 enum{
