@@ -1285,43 +1285,46 @@ void BeginLoadScreen( void )
 
 	if( guiCurrentScreen == MAP_SCREEN && !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME) && !AreInMeanwhile() )
 	{
-		DstRect.iLeft = 0;
-		DstRect.iTop = 0;
-		DstRect.iRight = SCREEN_WIDTH;
-		DstRect.iBottom = SCREEN_HEIGHT;
-		uiTimeRange = 2000;
-		iPercentage = 0;
-		iLastShadePercentage = 0;
-		uiStartTime = GetJA2Clock();
-
-		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-		PlayJA2SampleFromFile( "SOUNDS\\Final Psionic Blast 01 (16-44).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
-		while( iPercentage < 100  )
+		if (!gGameExternalOptions.fDisableStrategicTransition)	
 		{
-			uiCurrTime = GetJA2Clock();
-			iPercentage = (uiCurrTime-uiStartTime) * 100 / uiTimeRange;
-			iPercentage = min( iPercentage, 100 );
+			DstRect.iLeft = 0;
+			DstRect.iTop = 0;
+			DstRect.iRight = SCREEN_WIDTH;
+			DstRect.iBottom = SCREEN_HEIGHT;
+			uiTimeRange = 2000;
+			iPercentage = 0;
+			iLastShadePercentage = 0;
+			uiStartTime = GetJA2Clock();
 
-			//Factor the percentage so that it is modified by a gravity falling acceleration effect.
-			iFactor = (iPercentage - 50) * 2;
-			if( iPercentage < 50 )
-				iPercentage = (UINT32)(iPercentage + iPercentage * iFactor * 0.01 + 0.5);
-			else
-				iPercentage = (UINT32)(iPercentage + (100-iPercentage) * iFactor * 0.01 + 0.05);
-
-			if( iPercentage > 50 )
+			BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+			PlayJA2SampleFromFile( "SOUNDS\\Final Psionic Blast 01 (16-44).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
+			while( iPercentage < 100  )
 			{
-				ShadowVideoSurfaceRectUsingLowPercentTable( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+				uiCurrTime = GetJA2Clock();
+				iPercentage = (uiCurrTime-uiStartTime) * 100 / uiTimeRange;
+				iPercentage = min( iPercentage, 100 );
+
+				//Factor the percentage so that it is modified by a gravity falling acceleration effect.
+				iFactor = (iPercentage - 50) * 2;
+				if( iPercentage < 50 )
+					iPercentage = (UINT32)(iPercentage + iPercentage * iFactor * 0.01 + 0.5);
+				else
+					iPercentage = (UINT32)(iPercentage + (100-iPercentage) * iFactor * 0.01 + 0.05);
+
+				if( iPercentage > 50 )
+				{
+					ShadowVideoSurfaceRectUsingLowPercentTable( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+				}
+
+				SrcRect.iLeft = 536 * iPercentage / 100;
+				SrcRect.iRight = SCREEN_WIDTH - iPercentage / 20;
+				SrcRect.iTop = 367 * iPercentage / 100;
+				SrcRect.iBottom = SCREEN_HEIGHT - 39 * iPercentage / 100;
+
+				BltStretchVideoSurface( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, 0, &SrcRect, &DstRect );
+				InvalidateScreen();
+				RefreshScreen( NULL );
 			}
-
-			SrcRect.iLeft = 536 * iPercentage / 100;
-			SrcRect.iRight = SCREEN_WIDTH - iPercentage / 20;
-			SrcRect.iTop = 367 * iPercentage / 100;
-			SrcRect.iBottom = SCREEN_HEIGHT - 39 * iPercentage / 100;
-
-			BltStretchVideoSurface( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, 0, &SrcRect, &DstRect );
-			InvalidateScreen();
-			RefreshScreen( NULL );
 		}
 	}
 

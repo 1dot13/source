@@ -1295,6 +1295,7 @@ void LoadGameExternalOptions()
 	// HEADROCK HAM 3.6: Determines whether the extrapolated daily costs of mercs are figured into the "Daily Expenses" display. 0 = No, just facility costs. 1 = Only mercs with a fixed daily rate. 2 = All mercs, including AIM contracts.
 	gGameExternalOptions.ubIncludeContractsInExpenses			= iniReader.ReadInteger("Strategic Interface Settings","INCLUDE_CONTRACTS_IN_PROJECTED_EXPENSES_WINDOW", 1, 0, 2);
 
+	gGameExternalOptions.fDisableStrategicTransition			= iniReader.ReadBoolean("Strategic Interface Settings","DISABLE_STRATEGIC_TRANSITION", FALSE);
 
 	//################# Strategic Progress Settings ##################
 
@@ -1386,6 +1387,14 @@ void LoadGameExternalOptions()
 
 	// CHRISL: Determine how Skyrider should handle landing in enemy occupied sectors
 	gGameExternalOptions.ubSkyriderHotLZ					= iniReader.ReadInteger("Strategic Gameplay Settings", "ALLOW_SKYRIDER_HOT_LZ", 0);
+
+
+	//################# Laptop Settings ##################
+
+	gGameExternalOptions.fDisableLaptopTransition			= iniReader.ReadBoolean("Laptop Settings", "DISABLE_LAPTOP_TRANSITION", FALSE);
+	gGameExternalOptions.fFastWWWSitesLoading				= iniReader.ReadBoolean("Laptop Settings", "FAST_WWW_SITES_LOADING", FALSE);
+
+
 
 	//################# Bobby Ray Settings ##################
 

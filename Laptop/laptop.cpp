@@ -1857,101 +1857,104 @@ UINT32 LaptopScreenHandle()
 	// just entered
 	if(gfEnterLapTop)
 	{
-	EnterLaptop();
-	CreateLaptopButtons();
-	gfEnterLapTop=FALSE;
+		EnterLaptop();
+		CreateLaptopButtons();
+		gfEnterLapTop=FALSE;
 	}
 
 	if( gfStartMapScreenToLaptopTransition )
 	{
-		//Everything is set up to start the transition animation.
-		//SGPRect SrcRect1;
-		SGPRect SrcRect2, DstRect;
-		INT32 iPercentage, iScalePercentage, iFactor;
-		UINT32 uiStartTime, uiTimeRange, uiCurrTime;
-		INT32 iX, iY, iWidth, iHeight;
-		INT32 iLaptopMonitorCenterX, iLaptopMonitorCenterY;
-
-		INT32 iRealPercentage;
-
-		SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
-		//Step 1:	Build the laptop image into the save buffer.
 		gfStartMapScreenToLaptopTransition = FALSE;
-		RestoreBackgroundRects();
-		RenderLapTopImage();
-		HighLightRegion(giCurrentRegion);
-		RenderLaptop();
-		RenderButtons();
-		PrintDate( );
-		PrintBalance( );
-		PrintNumberOnTeam( );
-		ShowLights();
 
-		//Step 2:	The mapscreen image is in the EXTRABUFFER, and laptop is in the SAVEBUFFER
-		//		 Start transitioning the screen.
-		DstRect.iLeft =	iScreenWidthOffset;						//0
-		DstRect.iTop =	iScreenHeightOffset;						//0
-		DstRect.iRight = iScreenWidthOffset + 640;				//640
-		DstRect.iBottom = iScreenHeightOffset + 480;				//480
-		iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19 + sXOffset;
-		iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16 + sYOffset;
-		uiTimeRange = 1000;
-		iPercentage = iRealPercentage = 0;
-		uiStartTime = GetJA2Clock();
-
-		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, iScreenWidthOffset, iScreenHeightOffset,
-			640, 480 );
-		// Lesh: moved into loop
-		//BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset,
-		//	SCREEN_WIDTH - iScreenWidthOffset, SCREEN_HEIGHT - iScreenHeightOffset );
-
-		PlayJA2SampleFromFile( "SOUNDS\\Laptop power up (8-11).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
-
-		while( iRealPercentage < 100	)
+		if (!gGameExternalOptions.fDisableLaptopTransition)
 		{
-			// Lesh: restore mapscreen so laptop zooming won't leave "graphical trail
-			BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset,
-				SCREEN_WIDTH - iScreenWidthOffset, SCREEN_HEIGHT - iScreenHeightOffset );
+			//Everything is set up to start the transition animation.
+			//SGPRect SrcRect1;
+			SGPRect SrcRect2, DstRect;
+			INT32 iPercentage, iScalePercentage, iFactor;
+			UINT32 uiStartTime, uiTimeRange, uiCurrTime;
+			INT32 iX, iY, iWidth, iHeight;
+			INT32 iLaptopMonitorCenterX, iLaptopMonitorCenterY;
 
-			uiCurrTime = GetJA2Clock();
-			iPercentage = (uiCurrTime-uiStartTime) * 100 / uiTimeRange;
-			iPercentage = min( iPercentage, 100 );
+			INT32 iRealPercentage;
 
-			iRealPercentage = iPercentage;
+			SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
+			//Step 1:	Build the laptop image into the save buffer.		
+			RestoreBackgroundRects();
+			RenderLapTopImage();
+			HighLightRegion(giCurrentRegion);
+			RenderLaptop();
+			RenderButtons();
+			PrintDate( );
+			PrintBalance( );
+			PrintNumberOnTeam( );
+			ShowLights();
 
-			//Factor the percentage so that it is modified by a gravity falling acceleration effect.
-			iFactor = (iPercentage - 50) * 2;
-			if( iPercentage < 50 )
-				iPercentage = (UINT32)(iPercentage + iPercentage * iFactor * 0.01 + 0.5);
-			else
-				iPercentage = (UINT32)(iPercentage + (100-iPercentage) * iFactor * 0.01 + 0.5);
+			//Step 2:	The mapscreen image is in the EXTRABUFFER, and laptop is in the SAVEBUFFER
+			//		 Start transitioning the screen.
+			DstRect.iLeft =	iScreenWidthOffset;						//0
+			DstRect.iTop =	iScreenHeightOffset;						//0
+			DstRect.iRight = iScreenWidthOffset + 640;				//640
+			DstRect.iBottom = iScreenHeightOffset + 480;				//480
+			iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19 + sXOffset;
+			iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16 + sYOffset;
+			uiTimeRange = 1000;
+			iPercentage = iRealPercentage = 0;
+			uiStartTime = GetJA2Clock();
 
-			//Laptop source rect
-			if( iPercentage < 99 )
-				iScalePercentage = 10000 / (100-iPercentage);
-			else
-				iScalePercentage = 5333;
-			iWidth = 12 * iScalePercentage / 100;
-			iHeight = 9 * iScalePercentage / 100;
+			BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, iScreenWidthOffset, iScreenHeightOffset,
+				640, 480 );
+			// Lesh: moved into loop
+			//BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset,
+			//	SCREEN_WIDTH - iScreenWidthOffset, SCREEN_HEIGHT - iScreenHeightOffset );
 
-			iX = iLaptopMonitorCenterX - (iLaptopMonitorCenterX - (iScreenWidthOffset + 320)) * iScalePercentage / 5333;
-			iY = iLaptopMonitorCenterY - (iLaptopMonitorCenterY - (iScreenHeightOffset + 240)) * iScalePercentage / 5333;
+			PlayJA2SampleFromFile( "SOUNDS\\Laptop power up (8-11).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 
-			SrcRect2.iLeft = iX - iWidth / 2;
-			SrcRect2.iRight = SrcRect2.iLeft + iWidth;
-			SrcRect2.iTop = iY - iHeight / 2;
-			SrcRect2.iBottom = SrcRect2.iTop + iHeight;
+			while( iRealPercentage < 100	)
+			{
+				// Lesh: restore mapscreen so laptop zooming won't leave "graphical trail
+				BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset,
+					SCREEN_WIDTH - iScreenWidthOffset, SCREEN_HEIGHT - iScreenHeightOffset );
 
-			BltStretchVideoSurface( FRAME_BUFFER, guiSAVEBUFFER, iScreenWidthOffset, iScreenHeightOffset, 0, &DstRect, &SrcRect2 );
+				uiCurrTime = GetJA2Clock();
+				iPercentage = (uiCurrTime-uiStartTime) * 100 / uiTimeRange;
+				iPercentage = min( iPercentage, 100 );
 
-			InvalidateScreen();
+				iRealPercentage = iPercentage;
 
-			RefreshScreen( NULL );
+				//Factor the percentage so that it is modified by a gravity falling acceleration effect.
+				iFactor = (iPercentage - 50) * 2;
+				if( iPercentage < 50 )
+					iPercentage = (UINT32)(iPercentage + iPercentage * iFactor * 0.01 + 0.5);
+				else
+					iPercentage = (UINT32)(iPercentage + (100-iPercentage) * iFactor * 0.01 + 0.5);
+
+				//Laptop source rect
+				if( iPercentage < 99 )
+					iScalePercentage = 10000 / (100-iPercentage);
+				else
+					iScalePercentage = 5333;
+				iWidth = 12 * iScalePercentage / 100;
+				iHeight = 9 * iScalePercentage / 100;
+
+				iX = iLaptopMonitorCenterX - (iLaptopMonitorCenterX - (iScreenWidthOffset + 320)) * iScalePercentage / 5333;
+				iY = iLaptopMonitorCenterY - (iLaptopMonitorCenterY - (iScreenHeightOffset + 240)) * iScalePercentage / 5333;
+
+				SrcRect2.iLeft = iX - iWidth / 2;
+				SrcRect2.iRight = SrcRect2.iLeft + iWidth;
+				SrcRect2.iTop = iY - iHeight / 2;
+				SrcRect2.iBottom = SrcRect2.iTop + iHeight;
+
+				BltStretchVideoSurface( FRAME_BUFFER, guiSAVEBUFFER, iScreenWidthOffset, iScreenHeightOffset, 0, &DstRect, &SrcRect2 );
+
+				InvalidateScreen();
+
+				RefreshScreen( NULL );
+			}
+
+			fReDrawScreenFlag = TRUE;
 		}
-
-		fReDrawScreenFlag = TRUE;
 	}
-
 
 	//DO NOT MOVE THIS FUNCTION CALL!!!
 
@@ -2514,99 +2517,103 @@ BOOLEAN LeaveLapTopScreen( void )
 			gfDontStartTransitionFromLaptop = TRUE;
 		}
 
-	SetPendingNewScreen(guiExitScreen);
+		SetPendingNewScreen(guiExitScreen);
 
 		if( !gfDontStartTransitionFromLaptop )
 		{
-			SGPRect SrcRect1, SrcRect2, DstRect;
-			INT32 iPercentage, iScalePercentage, iFactor;
-			UINT32 uiStartTime, uiTimeRange, uiCurrTime;
-			INT32 iX, iY, iWidth, iHeight;
-			INT32 iRealPercentage;
-			INT32 iLaptopMonitorCenterX, iLaptopMonitorCenterY;
-
 			gfDontStartTransitionFromLaptop = TRUE;
-			SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
-			//Step 1:	Build the laptop image into the save buffer.
-			RestoreBackgroundRects();
-			RenderLapTopImage();
-			HighLightRegion(giCurrentRegion);
-			RenderLaptop();
-			RenderButtons();
-			PrintDate( );
-			PrintBalance( );
-			PrintNumberOnTeam( );
-			ShowLights();
 
-			//Step 2:	The mapscreen image is in the EXTRABUFFER, and laptop is in the SAVEBUFFER
-			//		 Start transitioning the screen.
-			DstRect.iLeft = iScreenWidthOffset + 0;			// 0
-			DstRect.iTop = iScreenHeightOffset + 0;			// 0
-			DstRect.iRight = iScreenWidthOffset + 640;		// 640
-			DstRect.iBottom = iScreenHeightOffset + 480;		// 480
-			iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19 + sXOffset;
-			iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16 + sYOffset;
-			uiTimeRange = 1000;
-			iPercentage = iRealPercentage = 100;
-			uiStartTime = GetJA2Clock();
-
-			BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, iScreenWidthOffset, iScreenHeightOffset,
-				640, 480 );
-
-			PlayJA2SampleFromFile( "SOUNDS\\Laptop power down (8-11).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
-
-			while( iRealPercentage > 0	)
+			if (!gGameExternalOptions.fDisableLaptopTransition)
 			{
-				BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset,
-					SCREEN_WIDTH - iScreenWidthOffset, SCREEN_HEIGHT - iScreenHeightOffset );
+				SGPRect SrcRect1, SrcRect2, DstRect;
+				INT32 iPercentage, iScalePercentage, iFactor;
+				UINT32 uiStartTime, uiTimeRange, uiCurrTime;
+				INT32 iX, iY, iWidth, iHeight;
+				INT32 iRealPercentage;
+				INT32 iLaptopMonitorCenterX, iLaptopMonitorCenterY;
 
-				uiCurrTime = GetJA2Clock();
-				iPercentage = (uiCurrTime-uiStartTime) * 100 / uiTimeRange;
-				iPercentage = min( iPercentage, 100 );
-				iPercentage = 100 - iPercentage;
 
-				iRealPercentage = iPercentage;
+				SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
+				//Step 1:	Build the laptop image into the save buffer.
+				RestoreBackgroundRects();
+				RenderLapTopImage();
+				HighLightRegion(giCurrentRegion);
+				RenderLaptop();
+				RenderButtons();
+				PrintDate( );
+				PrintBalance( );
+				PrintNumberOnTeam( );
+				ShowLights();
 
-				//Factor the percentage so that it is modified by a gravity falling acceleration effect.
-				iFactor = (iPercentage - 50) * 2;
-				if( iPercentage < 50 )
-					iPercentage = (UINT32)(iPercentage + iPercentage * iFactor * 0.01 + 0.5);
-				else
-					iPercentage = (UINT32)(iPercentage + (100-iPercentage) * iFactor * 0.01 + 0.5);
+				//Step 2:	The mapscreen image is in the EXTRABUFFER, and laptop is in the SAVEBUFFER
+				//		 Start transitioning the screen.
+				DstRect.iLeft = iScreenWidthOffset + 0;			// 0
+				DstRect.iTop = iScreenHeightOffset + 0;			// 0
+				DstRect.iRight = iScreenWidthOffset + 640;		// 640
+				DstRect.iBottom = iScreenHeightOffset + 480;		// 480
+				iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19 + sXOffset;
+				iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16 + sYOffset;
+				uiTimeRange = 1000;
+				iPercentage = iRealPercentage = 100;
+				uiStartTime = GetJA2Clock();
 
-				//Mapscreen source rect
-				SrcRect1.iLeft = iScreenWidthOffset + 464 * iPercentage / 100;
-				SrcRect1.iRight = iScreenWidthOffset + 640 - 163 * iPercentage / 100;
-				SrcRect1.iTop = iScreenHeightOffset + 417 * iPercentage / 100;
-				SrcRect1.iBottom = iScreenHeightOffset + 480 - 55 * iPercentage / 100;
-				//Laptop source rect
-				if( iPercentage < 99 )
-					iScalePercentage = 10000 / (100-iPercentage);
-				else
-					iScalePercentage = 5333;
-				iWidth = 12 * iScalePercentage / 100;
-				iHeight = 9 * iScalePercentage / 100;
+				BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, iScreenWidthOffset, iScreenHeightOffset,
+					640, 480 );
 
-				iX = iLaptopMonitorCenterX - (iLaptopMonitorCenterX - (iScreenWidthOffset + 320)) * iScalePercentage / 5333;
-				iY = iLaptopMonitorCenterY - (iLaptopMonitorCenterY - (iScreenHeightOffset + 240)) * iScalePercentage / 5333;
+				PlayJA2SampleFromFile( "SOUNDS\\Laptop power down (8-11).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 
-				SrcRect2.iLeft = iX - iWidth / 2;
-				SrcRect2.iRight = SrcRect2.iLeft + iWidth;
-				SrcRect2.iTop = iY - iHeight / 2;
-				SrcRect2.iBottom = SrcRect2.iTop + iHeight;
+				while( iRealPercentage > 0	)
+				{
+					BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset,
+						SCREEN_WIDTH - iScreenWidthOffset, SCREEN_HEIGHT - iScreenHeightOffset );
 
-				BltStretchVideoSurface( FRAME_BUFFER, guiSAVEBUFFER, 0, iScreenWidthOffset, iScreenHeightOffset, &DstRect, &SrcRect2 );
+					uiCurrTime = GetJA2Clock();
+					iPercentage = (uiCurrTime-uiStartTime) * 100 / uiTimeRange;
+					iPercentage = min( iPercentage, 100 );
+					iPercentage = 100 - iPercentage;
 
-				InvalidateScreen();
-				//gfPrintFrameBuffer = TRUE;
-				RefreshScreen( NULL );
+					iRealPercentage = iPercentage;
+
+					//Factor the percentage so that it is modified by a gravity falling acceleration effect.
+					iFactor = (iPercentage - 50) * 2;
+					if( iPercentage < 50 )
+						iPercentage = (UINT32)(iPercentage + iPercentage * iFactor * 0.01 + 0.5);
+					else
+						iPercentage = (UINT32)(iPercentage + (100-iPercentage) * iFactor * 0.01 + 0.5);
+
+					//Mapscreen source rect
+					SrcRect1.iLeft = iScreenWidthOffset + 464 * iPercentage / 100;
+					SrcRect1.iRight = iScreenWidthOffset + 640 - 163 * iPercentage / 100;
+					SrcRect1.iTop = iScreenHeightOffset + 417 * iPercentage / 100;
+					SrcRect1.iBottom = iScreenHeightOffset + 480 - 55 * iPercentage / 100;
+					//Laptop source rect
+					if( iPercentage < 99 )
+						iScalePercentage = 10000 / (100-iPercentage);
+					else
+						iScalePercentage = 5333;
+					iWidth = 12 * iScalePercentage / 100;
+					iHeight = 9 * iScalePercentage / 100;
+
+					iX = iLaptopMonitorCenterX - (iLaptopMonitorCenterX - (iScreenWidthOffset + 320)) * iScalePercentage / 5333;
+					iY = iLaptopMonitorCenterY - (iLaptopMonitorCenterY - (iScreenHeightOffset + 240)) * iScalePercentage / 5333;
+
+					SrcRect2.iLeft = iX - iWidth / 2;
+					SrcRect2.iRight = SrcRect2.iLeft + iWidth;
+					SrcRect2.iTop = iY - iHeight / 2;
+					SrcRect2.iBottom = SrcRect2.iTop + iHeight;
+
+					BltStretchVideoSurface( FRAME_BUFFER, guiSAVEBUFFER, 0, iScreenWidthOffset, iScreenHeightOffset, &DstRect, &SrcRect2 );
+
+					InvalidateScreen();
+					//gfPrintFrameBuffer = TRUE;
+					RefreshScreen( NULL );
+				}
 			}
 		}
 	}
+
 	return( TRUE );
-
 }
-
 
 BOOLEAN HandleExit( void )
 {
@@ -3836,6 +3843,9 @@ BOOLEAN DisplayLoadPending( void )
 	INT32 iLoadTime;
 	INT32 iUnitTime;
 	INT16 sXPosition = 0, sYPosition = 0;
+
+	if (gGameExternalOptions.fFastWWWSitesLoading)	
+		gfTemporaryDisablingOfLoadPendingFlag = TRUE;
 
 	// if merc webpage, make it longer
 		//TEMP disables the loadpending

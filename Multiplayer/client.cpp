@@ -2421,6 +2421,11 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK] = false;
 		gGameExternalOptions.fQuietRealTimeSneak = false;
 
+		// WANNE: Enable fast loading
+		gGameExternalOptions.fDisableLaptopTransition = true;
+		gGameExternalOptions.fFastWWWSitesLoading = true;
+		gGameExternalOptions.fDisableStrategicTransition = true;
+
 		// WANNE: fix HOT DAY in night at arrival by night.
 		// Explanation: If game starting time + first arrival delay < 07:00 (111600) -> we arrive before the sun rises or
 		// if game starting time + first arrival delay >= 21:00 (162000) -> we arrive after the sun goes down
@@ -2528,10 +2533,7 @@ void reapplySETTINGS()
 	LaptopSaveInfo.ubLastMercAvailableId = 7;
 	gGameExternalOptions.fEnableSlayForever	=1;
 	LaptopSaveInfo.gubPlayersMercAccountStatus = 4;
-	
-	// Set fast loading of WWW sites
-	gfTemporaryDisablingOfLoadPendingFlag = TRUE;
-
+		
 	// WANNE: This should fix the bug playing a "tilt" sound and showing the mini laptop graphic on the screen, when opening the laptop / option screen from map screen
 	gfDontStartTransitionFromLaptop = TRUE;
 
@@ -2623,6 +2625,11 @@ void reapplySETTINGS()
 	//gGameExternalOptions.fAllowRealTimeSneak = false;
 	gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK] = false;
 	gGameExternalOptions.fQuietRealTimeSneak = false;
+
+	// WANNE: Enable fast loading
+	gGameExternalOptions.fDisableLaptopTransition = true;
+	gGameExternalOptions.fFastWWWSitesLoading = true;
+	gGameExternalOptions.fDisableStrategicTransition = true;
 
 	// WANNE: fix HOT DAY in night at arrival by night.
 	// Explanation: If game starting time + first arrival delay < 07:00 (111600) -> we arrive before the sun rises or
@@ -4773,10 +4780,7 @@ void connect_client ( void )
 		LaptopSaveInfo.ubLastMercAvailableId = 7;
 		gGameExternalOptions.fEnableSlayForever	= 1;
 		LaptopSaveInfo.gubPlayersMercAccountStatus = 4;
-		
-		// Set fast loading of WWW sites
-		gfTemporaryDisablingOfLoadPendingFlag = TRUE;
-
+				
 		// WANNE: This should fix the bug playing a "tilt" sound and showing the mini laptop graphic on the screen, when opening the laptop / option screen from map screen from map screen
 		gfDontStartTransitionFromLaptop = TRUE;
 										
@@ -4975,10 +4979,7 @@ void client_disconnect (void)
 		allowlaptop=false;
 
 		TEAM=0;	
-
-		// Reset fast loading of WWW pages
-		gfTemporaryDisablingOfLoadPendingFlag = FALSE;
-
+		
 		// clear local client cache
 		memset(client_names,0,sizeof(char)*4*30);
 		memset(client_edges,0,sizeof(int)*5);

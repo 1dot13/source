@@ -640,6 +640,11 @@ typedef struct
 	// CHRISL: Skyrider and enemy occupied sectors
 	UINT8 ubSkyriderHotLZ;
 
+	// WANNE: Fast loading settings
+	BOOLEAN fDisableLaptopTransition;
+	BOOLEAN fFastWWWSitesLoading;
+	BOOLEAN fDisableStrategicTransition;
+
 	// CPT: Cover System Settings
 	UINT8 ubStealthTraitCoverValue;
 	UINT8 ubStealthEffectiveness;
