@@ -1708,9 +1708,9 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 					OBJECTTYPE* pA=	&(*iter);
 					if ( (*pA)[0]->data.objectStatus >=USABLE)
 					{
-						INT16 ammoReliability = Item[(*pInHand)[0]->data.gun.usGunAmmoItem].bReliability;
-						INT16 uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * 
-							(Item[ iter->usItem ].bReliability + ammoReliability);
+						INT8 bAmmoReliability = Item[(*pInHand)[0]->data.gun.usGunAmmoItem].bReliability;
+						uiDepreciateTest = max( BASIC_DEPRECIATE_CHANCE + 3 * 
+							(Item[ iter->usItem ].bReliability + bAmmoReliability), 0);
 						if ( !PreRandom( uiDepreciateTest ) && ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus > 1) )
 							(*pA)[0]->data.objectStatus--;
 						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"rel =%d ",Item[ iter->usItem ].bReliability );
@@ -2084,7 +2084,7 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	//	ammoReliability = Item[(*pGun)[0]->data.gun.usGunAmmoItem].bReliability;
 	//}
 
-	uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * GetReliability( &(pSoldier->inv[pSoldier->ubAttackingHand]) );
+	uiDepreciateTest = max( BASIC_DEPRECIATE_CHANCE + 3 * GetReliability( &(pSoldier->inv[pSoldier->ubAttackingHand]) ), 0);
 
 	if ( !PreRandom( uiDepreciateTest ) && ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus > 1) )
 	{
@@ -2259,9 +2259,9 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 					OBJECTTYPE* pA=	&(*iter);
 					if ( (*pA)[0]->data.objectStatus >=USABLE)
 					{
-						INT16 ammoReliability = Item[(*pInHand)[0]->data.gun.usGunAmmoItem].bReliability;
-						INT16 uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * 
-							(Item[ iter->usItem ].bReliability + ammoReliability);
+						INT8 bAmmoReliability = Item[(*pInHand)[0]->data.gun.usGunAmmoItem].bReliability;
+						uiDepreciateTest = max( BASIC_DEPRECIATE_CHANCE + 3 * 
+							(Item[ iter->usItem ].bReliability + bAmmoReliability), 0);
 						if ( !PreRandom( uiDepreciateTest ) && ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus > 1) )
 							(*pA)[0]->data.objectStatus--;
 						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"rel =%d ",Item[ iter->usItem ].bReliability );
@@ -2637,7 +2637,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	}
 	*/
 
-	uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * ( GetReliability( &(pSoldier->inv[ pSoldier->ubAttackingHand ]) ) );
+	uiDepreciateTest = max( BASIC_DEPRECIATE_CHANCE + 3 * ( GetReliability( &(pSoldier->inv[ pSoldier->ubAttackingHand ]) ) ), 0);
 
 	if ( !PreRandom( uiDepreciateTest ) && ( pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.objectStatus > 1) )
 	{
