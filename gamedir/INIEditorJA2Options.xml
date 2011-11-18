@@ -2989,6 +2989,13 @@ You can turn Stat Progress Bars on and off using the in-game Options Menu.</Desc
 1 = 只包含需要按日付款的佣兵的信息（从M.E.R.C招募的佣兵和在Arulco招募的Iggy、Conrad之类的佣兵）
 2 = 包含所有佣兵的合同信息。（尽管A.I.M的佣兵是预付款的，但是还是会算出一个他的每日平均花费计入到日常支出栏中。）</Description_CHI>
         </Property>
+		<Property name="DISABLE_STRATEGIC_TRANSITION" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
+          <Description_ENG>If disabled, the transition from the strategy screen will be skipped before entering tactical screen.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
       </Properties>
     </Section>
     <Section name="Strategic Progress Settings">
@@ -3371,6 +3378,29 @@ TRUE = New additional repair system based on priorities</Description_CHI>
         </Property>
       </Properties>
     </Section>
+	<Section name="Laptop Settings">
+	  <Description_ENG>Use these settings to make changes to the laptop screen.</Description_ENG>
+      <Description_GER></Description_GER>
+      <Description_RUS></Description_RUS>
+      <Description_POL></Description_POL>
+      <Description_CHI></Description_CHI>
+	  <Properties>
+	    <Property name="DISABLE_LAPTOP_TRANSITION" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
+          <Description_ENG>If disabled, the transition will be skipped when opening/closing the laptop.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
+		<Property name="FAST_WWW_SITES_LOADING" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
+          <Description_ENG>Fast loading of WWW laptop sites?</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
+	  </Properties> 
+	</Section>
     <Section name="Bobby Ray Settings">
       <Description_ENG>Here you can change some settings regarding Bobby Ray's on-line gun store. You can also affect shipments coming from Bobby Ray's.</Description_ENG>
       <Description_GER></Description_GER>
