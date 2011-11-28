@@ -437,7 +437,7 @@ function InitNPCs()
 			AddNPCtoSector( Profil.Micky, 9, SectorY.MAP_ROW_G, 0 ) 
 		elseif i == 2 then
 			-- D14
-			AddNPCtoSector( Profil.Micky, 14, SectorY.MAP_ROW_D, 0 ) 
+			AddNPCtoSector( Profil.Micky, 13, SectorY.MAP_ROW_D, 0 ) 
 		elseif i == 3 then	
 			-- C5
 			AddNPCtoSector( Profil.Micky, 5, SectorY.MAP_ROW_C, 0 )
