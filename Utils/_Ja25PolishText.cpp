@@ -22,29 +22,29 @@ void this_is_the_Ja25PolishText_public_symbol(void){;}
 
 STR16	zNewTacticalMessages[]=
 {
-	//L"Odleg³oœæ od celu (w polach): %d, Jasnoœæ = %d/%d",
-	L"Nadajnik zosta³ pod³¹czony do twojego laptopa.",
-	L"Nie mo¿esz zatrudniæ %s(a)",
-	L"Na okreœlony czas, poni¿sze honorarium pokryje koszt ca³ej misji razem z wyposa¿eniem zamieszonym poni¿ej.",
-	L"Zatrudnij %s(a) ju¿ teraz i weŸ udzia³ naszej promocji 'jedno honorarium pokrywa wszystko'.  Ponadto w tej niewiarygodnej ofercie ca³y ekwipunek najemnika dostaniesz za darmo.",
+	//L"Odległość od celu (w polach): %d, Jasność = %d/%d",
+	L"Nadajnik został podłączony do twojego laptopa.",
+	L"Nie mo¿esz zatrudnić %s(a)",
+	L"Na określony czas, poni¿sze honorarium pokryje koszt całej misji razem z wyposażeniem zamieszonym poniżej.",
+	L"Zatrudnij %s(a) już teraz i weź udział naszej promocji 'jedno honorarium pokrywa wszystko'.  Ponadto w tej niewiarygodnej ofercie cały ekwipunek najemnika dostaniesz za darmo.",
 	L"Honorarium",
-	L"Ktoœ jest w sektorze...",
-	//L"Zasiêg broni (w polach): %d, Szansa na trafienie: %d procent",
-	L"Poka¿ os³onê",
-	L"Zasiêg wzroku",
-	L"Nowi rekruci nie mog¹ tam przybyæ.",
-	L"Dopóki twój laprop bêdzie bez nadajnika, nie bêdziesz móg³ zatrudniaæ nowych cz³onków zespo³u.  Mo¿liwe, ¿e to odpowiedni moment ¿eby odczytaæ zapisany stan gry lub zacz¹æ graæ od nowa!",
-	L"%s s³yszy dŸwiêk zgniatanego metalu dochodz¹cy spod cia³a Jerrego.  To niestety zabrzmia³o jak dŸwiêk zgniatanej anteny od twojego laptopa.",  //the %s is the name of a merc.  @@@  Modified
-	L"Po przej¿eniu notatki zostawionej przez zastêpce dowódcy Morris'a, %s zauwa¿a pewn¹ mo¿liwoœæ.  Notatka zawiera koordynaty do wystrzelenia pocisków w dwa miasteczka w Arulco.  S¹ na niej równie¿ koordynaty z których te pociski zostan¹ wystrzelone - wojskowej placówki.",
-	L"Przygl¹daj¹c siê panelowi kontrolnemu, %s zauwa¿a, ¿e cyfry mo¿na odwróciæ, tak, ¿e pociski mog¹ zniszczyæ t¹ placówkê.  %s musi znaleŸæ drogê ucieczki. Wydaje siê, ¿e winda jest najszybszym rozwi¹zaniem...",
-	L"To jest tryb CZ£OWIEK ZE STALI i nie mo¿esz zapisywaæ gry gdy wróg jest w sektorze.",	//	@@@  new text
-	L"(Nie mo¿na zapisywaæ gry podczas walki)", //@@@@ new text
-	L"Kampania ma wiêcej ni¿ 30 postaci.",							// @@@ new text
-	L"Nie mo¿na odnaleŸæ kampanii.",																	// @@@ new text
+	L"Ktoś jest w sektorze...",
+	//L"Zasięg broni (w polach): %d, Szansa na trafienie: %d procent",
+	L"Pokaż osłonę",
+	L"Zasięg wzroku",
+	L"Nowi rekruci nie mogą tam przybyć.",
+	L"Dopóki twój laprop będzie bez nadajnika, nie będziesz mógł zatrudniać nowych członków zespołu.  Możliwe, że to odpowiedni moment żeby odczytać zapisany stan gry lub zacząć grać od nowa!",
+	L"%s słyszy dźwięk zgniatanego metalu dochodzący spod ciała Jerrego.  To niestety zabrzmiało jak dźwięk zgniatanej anteny od twojego laptopa.",  //the %s is the name of a merc.  @@@  Modified
+	L"Po przejżeniu notatki zostawionej przez zastępce dowódcy Morris'a, %s zauważa pewną możliwość.  Notatka zawiera koordynaty do wystrzelenia pocisków w dwa miasteczka w Arulco.  Są na niej również koordynaty z których te pociski zostaną wystrzelone - wojskowej placówki.",
+	L"Przyglądając się panelowi kontrolnemu, %s zauważa, że cyfry można odwrócić, tak, że pociski mogą zniszczyć tą placówkę.  %s musi znaleźć drogę ucieczki. Wydaje się, że winda jest najszybszym rozwiązaniem...",
+	L"To jest tryb CZ£OWIEK ZE STALI i nie możesz zapisywać gry gdy wróg jest w sektorze.",	//	@@@  new text
+	L"(Nie można zapisywać gry podczas walki)", //@@@@ new text
+	L"Kampania ma więcej niż 30 postaci.",							// @@@ new text
+	L"Nie można odnaleźć kampanii.",																	// @@@ new text
 	L"Kampania: Standardowa ( %S )",																							// @@@ new text
 	L"Kampania: %S",																													// @@@ new text
-	L"Wybra³eœ kampaniê %S. Ta kampania zosta³a stworzona przez fanów gry. Czy jesteœ pewien, ¿e chcesz w ni¹ zagraæ?",			// @@@ new text
-	L"¯eby u¿yæ edytora powinieneœ wczeœniej wybraæ kampaniê inn¹ ni¿ standardowa.",		///@@new
+	L"Wybrałeś kampanię %S. Ta kampania została stworzona przez fanów gry. Czy jesteś pewien, że chcesz w nią zagrać?",			// @@@ new text
+	L"Żeby użyć edytora powinieneś wcześniej wybrać kampanię inną niż standardowa.",		///@@new
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,22 +53,22 @@ STR16	zNewTacticalMessages[]=
 STR16 gzIMPSkillTraitsText[]=
 {
 	L"Otwieranie zamków",
-	L"Walka wrêcz",
+	L"Walka wręcz",
 	L"Elektronika",
 	L"Operacje nocne",
 	L"Rzucanie",
 	L"Szkolenie",
-	L"Broñ ciê¿ka",
+	L"Broñ ciężka",
 	L"Broñ automatyczna",
-	L"Skradanie siê",
-	L"Oburêcznoœæ",
-	L"Broñ bia³a",
+	L"Skradanie się",
+	L"Oburęczność",
+	L"Broñ biała",
 	L"Snajper",
-	L"Kamufla¿",
+	L"Kamuflaż",
 	L"Sztuki walki",
 
 	L"Brak",
-	L"Umiejêtnoœci",
+	L"Umiejętności",
 	L"(Ekspert)",
 
 };
@@ -77,34 +77,34 @@ STR16 gzIMPSkillTraitsText[]=
 STR16 gzIMPSkillTraitsTextNewMajor[]=
 {
 	L"Broñ automatyczna",
-	L"Broñ ciê¿ka",
+	L"Broñ ciężka",
 	L"Strzelec wyborowy",
 	L"£owca",
 	L"Rewolwerowiec",
-	L"Walka wrêcz",
-	L"Zastêpca szeryfa",
+	L"Walka wręcz",
+	L"Zastępca szeryfa",
 	L"Technik",
 	L"Paramedyk",
 
 	L"None",
-	L"G³ówne cechy I.M.P",
+	L"Główne cechy I.M.P",
 	// second names
 	L"Strzelec CKM",
 	L"Bombardier",
 	L"Snajper",
-	L"Leœniczy",
+	L"Leśniczy",
 	L"Rewolwerowiec",
-	L"Walka wrêcz",
-	L"Dowódca dru¿yny",
-	L"In¿ynier",
+	L"Walka wręcz",
+	L"Dowódca drużyny",
+	L"Inżynier",
 	L"Doktor",
 };
 
 //added another set of skill texts for new minor traits
 STR16 gzIMPSkillTraitsTextNewMinor[]=
 {
-	L"Oburêcznoœæ",
-	L"Walka wrêcz",
+	L"Oburęczność",
+	L"Walka wręcz",
 	L"Rzucanie",
 	L"Operacje nocne",
 	L"Cichy",
@@ -124,19 +124,19 @@ STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 	L"+%d%s do szansy trafienia karabinem szturmowym\n",
 	L"+%d%s do szansy trafienia pistoletem maszynowym\n",
 	L"+%d%s do szansy trafienia erkaemem\n",
-	L"-%d%s do liczby PA potrzebnych do strza³u erkaemem w trybie automatycznym lub seri¹\n",
+	L"-%d%s do liczby PA potrzebnych do strzału erkaemem w trybie automatycznym lub serią\n",
 	L"-%d%s do liczby PA potrzebnych do przygotowania erkaemu\n",
-	L"Kara do szansy trafienia ogniem automatycznym/seri¹ jest zmniejszona o %d%s\n",
-	L"Zmniejszona szansa na wystrzelenie przez przypadek wiêkszej liczby pocisków w ogniu automatycznym o -%d%s\n",
+	L"Kara do szansy trafienia ogniem automatycznym/serią jest zmniejszona o %d%s\n",
+	L"Zmniejszona szansa na wystrzelenie przez przypadek większej liczby pocisków w ogniu automatycznym o -%d%s\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 {
-	L"-%d%s do liczby PA potrzebnych do strza³u z granatnika\n",
-	L"-%d%s do liczby PA potrzebnych do strza³u z wyrzutni rakiet\n",
+	L"-%d%s do liczby PA potrzebnych do strzału z granatnika\n",
+	L"-%d%s do liczby PA potrzebnych do strzału z wyrzutni rakiet\n",
 	L"+%d%s do szansy trafienia grantnikiem\n",
-	L"+%d%s do szansy trafienia wyrzutni¹ rakiet\n",
-	L"-%d%s do liczby PA potrzebnych do strza³u z moŸdzierza\n",
+	L"+%d%s do szansy trafienia wyrzutnią rakiet\n",
+	L"-%d%s do liczby PA potrzebnych do strzału z moździerza\n",
 	L"Reduce penalty for mortar CtH by %d%s\n",
 	L"+%d%s damage to tanks with heavy weapons, grenades and explosives\n",
 	L"+%d%s damage to other targets with heavy weapons\n",
@@ -461,7 +461,7 @@ STR16 zGioNewTraitsImpossibleText[]=
 //@@@:  New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
 {
-	L"Wybra³eœ tryb CZ£OWIEK ZE STALI. Opcja ta sprawi, ¿e gra bêdzie du¿o trudniejsza poniewa¿ nie bêdzie mo¿liwoœci zapisywania gry podczas walki. Bêdzie to mia³o wp³yw na ca³y przebieg rozgrywki. Czy na pewno chcesz graæ w trybie CZ£OWIEK ZE STALI?",
+	L"Wybrałeś tryb CZ£OWIEK ZE STALI. Opcja ta sprawi, że gra będzie dużo trudniejsza ponieważ nie będzie możliwości zapisywania gry podczas walki. Będzie to miało wpływ na cały przebieg rozgrywki. Czy na pewno chcesz grać w trybie CZ£OWIEK ZE STALI?",
 };
 
 STR16 gzDisplayCoverText[]=
