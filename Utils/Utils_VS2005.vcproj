@@ -83,7 +83,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="..\lib\VS2005\$(ConfigurationName)"
-			IntermediateDirectory=".\build\VS2005\$(ProjectName)_$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2005\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2.vsprops"
 			>
