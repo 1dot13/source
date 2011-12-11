@@ -829,6 +829,13 @@ Bei FALSE gibt der Söldner wie früher einen Kommentar ab.</Description_GER>
           <Description_POL></Description_POL>
           <Description_CHI>本选项设为 True ，则佣兵在发现地雷时不说话，自动插旗，否则他们会吭一声。</Description_CHI>
         </Property>
+        <Property name="ITEMS_SPOTTED_NO_TALK" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="0">
+          <Description_ENG>If this is "TRUE" your merc won't says anything and want stop when spotting an item in turn based mode.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
         <Property name="STAND_UP_AFTER_BATTLE" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="0">
           <Description_ENG>If this is "TRUE", all mercs will stand up after the battle, which is the JA2 default behaviour.
 If set to "FALSE", the mercs will not stand up after the battle.</Description_ENG>
