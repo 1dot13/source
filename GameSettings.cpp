@@ -865,6 +865,9 @@ void LoadGameExternalOptions()
 	// silversurfer: don't play quote when mine spotted?
 	gGameExternalOptions.fMineSpottedNoTalk					= iniReader.ReadBoolean("Tactical Interface Settings","MINES_SPOTTED_NO_TALK", FALSE);
 	
+	// WANNE: Don't stop and talk in turn based when spotting an item
+	gGameExternalOptions.fItemSpottedNoTalk					= iniReader.ReadBoolean("Tactical Interface Settings","ITEMS_SPOTTED_NO_TALK", FALSE);	
+
 	//DBrot: Stand up after battle? 
 	gGameExternalOptions.fStandUpAfterBattle				= iniReader.ReadBoolean("Tactical Interface Settings","STAND_UP_AFTER_BATTLE", TRUE);
 	// Tactical militia command	

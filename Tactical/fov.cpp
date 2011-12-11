@@ -29,6 +29,9 @@
 	#include "Soldier macros.h"
 #endif
 
+#include "connect.h"
+#include "GameSettings.h"
+
 /* view directions */
 #define DLEFT			0
 #define DRIGHT			1
@@ -707,54 +710,68 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 								{
 									SetRenderFlags(RENDER_FLAG_FULL);
 
-									if ( fShowLocators )
+									// WANNE: Should we pause when item was found in tactical?
+									bool enableItemSpottingAction = true;
+
+									if ( !is_networked && gGameExternalOptions.fItemSpottedNoTalk && gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT)
+										enableItemSpottingAction = false;
+
+									if (enableItemSpottingAction)
 									{
-										// Set makred render flags
-										//gpWorldLevelData[marker].uiFlags|=MAPELEMENT_REDRAW;
-										//gpWorldLevelData[gusCurMousePos].pTopmostHead->uiFlags |= LEVELNODE_DYNAMIC;
-
-										//SetRenderFlags(RENDER_FLAG_MARKED);
-										SetRenderFlags(RENDER_FLAG_FULL);
-
-										// Hault soldier
-										// ATE: Only if in combat...
-										if ( gTacticalStatus.uiFlags & INCOMBAT )
+										if ( fShowLocators )
 										{
-											pSoldier->HaultSoldierFromSighting( FALSE );
-										}
-										else
-										{
-											// ATE: Make sure we show locators...
-											gTacticalStatus.fLockItemLocators = FALSE;
-										}
+											// Set makred render flags
+											//gpWorldLevelData[marker].uiFlags|=MAPELEMENT_REDRAW;
+											//gpWorldLevelData[gusCurMousePos].pTopmostHead->uiFlags |= LEVELNODE_DYNAMIC;
 
-										if ( !fItemsQuoteSaid && gTacticalStatus.fLockItemLocators == FALSE )
-										{
-											gTacticalStatus.fLockItemLocators = TRUE;
+											//SetRenderFlags(RENDER_FLAG_MARKED);
+											SetRenderFlags(RENDER_FLAG_FULL);
 
-											if ( gTacticalStatus.ubAttackBusyCount > 0 && ( gTacticalStatus.uiFlags & INCOMBAT ) )
+											// Hault soldier
+											// ATE: Only if in combat...
+											if ( gTacticalStatus.uiFlags & INCOMBAT )
 											{
-												gTacticalStatus.fItemsSeenOnAttack = TRUE;
-												gTacticalStatus.ubItemsSeenOnAttackSoldier = pSoldier->ubID;
-												gTacticalStatus.usItemsSeenOnAttackGridNo  = marker;
+												pSoldier->HaultSoldierFromSighting( FALSE );
 											}
 											else
 											{
-												// Display quote!
-												if ( !AM_AN_EPC( pSoldier ) )
+												// ATE: Make sure we show locators...
+												gTacticalStatus.fLockItemLocators = FALSE;
+											}
+
+											if ( !fItemsQuoteSaid && gTacticalStatus.fLockItemLocators == FALSE )
+											{
+												gTacticalStatus.fLockItemLocators = TRUE;
+
+												if ( gTacticalStatus.ubAttackBusyCount > 0 && ( gTacticalStatus.uiFlags & INCOMBAT ) )
 												{
-													TacticalCharacterDialogueWithSpecialEvent( pSoldier, (UINT16)( QUOTE_SPOTTED_SOMETHING_ONE + Random( 2 ) ), DIALOGUE_SPECIAL_EVENT_SIGNAL_ITEM_LOCATOR_START, marker, 0 );
+													gTacticalStatus.fItemsSeenOnAttack = TRUE;
+													gTacticalStatus.ubItemsSeenOnAttackSoldier = pSoldier->ubID;
+													gTacticalStatus.usItemsSeenOnAttackGridNo  = marker;
 												}
 												else
 												{
-													 // Turn off item lock for locators...
-													 gTacticalStatus.fLockItemLocators = FALSE;
-													 // Slide to location!
-													SlideToLocation( 0, marker );
+
+													// Display quote!
+													if ( !AM_AN_EPC( pSoldier ) )
+													{
+
+														TacticalCharacterDialogueWithSpecialEvent( pSoldier, (UINT16)( QUOTE_SPOTTED_SOMETHING_ONE + Random( 2 ) ), DIALOGUE_SPECIAL_EVENT_SIGNAL_ITEM_LOCATOR_START, marker, 0 );
+
+													}
+													else
+													{
+														 // Turn off item lock for locators...
+														 gTacticalStatus.fLockItemLocators = FALSE;
+														 // Slide to location!
+														SlideToLocation( 0, marker );
+													}
 												}
+
+												fItemsQuoteSaid = TRUE;
 											}
-											fItemsQuoteSaid = TRUE;
 										}
+
 									}
 								}
 							}

@@ -960,6 +960,9 @@ typedef struct
 	// silversurfer: don't play quote when merc spots a mine? TRUE = shut up! FALSE = tell me that you found a mine!
 	BOOLEAN fMineSpottedNoTalk;
 
+	// WANNE: Don't stop and talk when spotting a new item in turn based mode
+	BOOLEAN fItemSpottedNoTalk;
+
 	// The_Bob - real time sneaking code 01/06/09
 	// Suport disabling/silencing real time sneaking via external .ini file
 	//BOOLEAN fAllowRealTimeSneak; // SANDRO - moved to preferences
