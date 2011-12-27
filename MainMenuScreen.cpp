@@ -38,6 +38,11 @@
 #include "mercs.h"
 #include "gamesettings.h"
 #include "connect.h"
+#include "strategic.h"
+#include "strategic movement.h"
+#include "overhead.h"
+#include "init.h"
+#include "xml.h"
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_profile.h>
 
@@ -401,6 +406,11 @@ void ExitMainMenu( )
 // differently for single and multiplayer
 void InitDependingGameStyleOptions()
 {
+	// Yes, also initialize these ones, because of SP and MP game!
+	InitStrategicEngine();
+	InitStrategicMovementCosts();
+	InitializeFaceGearGraphics();
+	
 	// WANNE: Initialize again, because if differs from SP to MP game!
 	LoadGameSettings();
 
@@ -468,6 +478,9 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 				//if something didnt work, dont even know how to make error code...//hayden
 			}
+
+			// Reload the external gameplay data, because maybe we started a MP game before!
+			LoadExternalGameplayData(TABLEDATA_DIRECTORY);
 
 			SetMainMenuExitScreen( MP_JOIN_SCREEN ); // OJW - 20081129
 			//SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );

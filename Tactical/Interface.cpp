@@ -273,6 +273,47 @@ void DoorMenuBackregionCallback( MOUSE_REGION * pRegion, INT32 iReason );
 UINT32 CalcUIMessageDuration( STR16 wString );
 
 
+BOOLEAN InitializeFaceGearGraphics()
+{
+	VSURFACE_DESC	vs_desc;
+	VOBJECT_DESC	VObjectDesc;
+
+	char fileName[500];
+
+	for(UINT32 iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
+	{
+		VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
+
+		#define SCSTI ".STI"
+		
+		if ( zNewFaceGear[iCounter2].Type > 0 )
+		{
+			strcpy(fileName, zNewFaceGear[iCounter2].szFile);
+			strcat(fileName, SCSTI);
+			strcpy(VObjectDesc.ImageFile, fileName);
+			CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGear[iCounter2].uiIndex));
+
+		}
+	}
+	
+	for(UINT32 iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
+	{
+		VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
+		
+		#define SCSTI_IMP "_IMP.STI"
+		
+		if ( zNewFaceGear[iCounter2].Type > 0 )
+		{
+			//IMP
+			strcpy(fileName, zNewFaceGear[iCounter2].szFile);
+			strcat(fileName, SCSTI_IMP);
+			strcpy(VObjectDesc.ImageFile, fileName);
+			CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGearIMP[iCounter2].uiIndex));
+		}
+	}
+
+	return ( TRUE );
+}
 
 BOOLEAN InitializeTacticalPortraits(	)
 {
@@ -471,60 +512,43 @@ BOOLEAN InitializeTacticalInterface(	)
 
 	//CHRISL: Moved to seperate function so we can call seperately
 	InitializeTacticalPortraits();
-				
-	//legion
-	if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE) 
+
+	InitializeFaceGearGraphics();
+	
+	/*
+	for( iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
 	{
-		/*
-		FilenameForBPP("INTERFACE\\portraiticons_NV.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS_NV ) )
-			AssertMsg(0, "Missing INTERFACE\\portraiticons_NV.sti" );
-		
-		FilenameForBPP("INTERFACE\\portraiticons_NV_IMP.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS_NV_IMP ) )
-			AssertMsg(0, "Missing INTERFACE\\portraiticons_NV_IMP.sti" );
-				
-		FilenameForBPP("INTERFACE\\portraiticons_GAS_MASK.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS_GAS_MASK ) )
-			AssertMsg(0, "Missing INTERFACE\\portraiticons_GAS_MASK.sti" );	
-		
-		FilenameForBPP("INTERFACE\\portraiticons_GAS_MASK_IMP.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &guiPORTRAITICONS_GAS_MASK_IMP ) )
-			AssertMsg(0, "Missing INTERFACE\\portraiticons_GAS_MASK_IMP.sti" );	
-		*/	
-		for( iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
-		{
-			VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
+		VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
 
-			#define SCSTI ".STI"
-			
-			if ( zNewFaceGear[iCounter2].Type > 0 )
-			{
-				strcpy(fileName, zNewFaceGear[iCounter2].szFile);
-				strcat(fileName, SCSTI);
-				strcpy(VObjectDesc.ImageFile, fileName);
-				CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGear[iCounter2].uiIndex));
-
-			}
-		}
+		#define SCSTI ".STI"
 		
-		for( iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
+		if ( zNewFaceGear[iCounter2].Type > 0 )
 		{
-			VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
-			
-			#define SCSTI_IMP "_IMP.STI"
-			
-			if ( zNewFaceGear[iCounter2].Type > 0 )
-			{
-				//IMP
-				strcpy(fileName, zNewFaceGear[iCounter2].szFile);
-				strcat(fileName, SCSTI_IMP);
-				strcpy(VObjectDesc.ImageFile, fileName);
-				CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGearIMP[iCounter2].uiIndex));
-			}
+			strcpy(fileName, zNewFaceGear[iCounter2].szFile);
+			strcat(fileName, SCSTI);
+			strcpy(VObjectDesc.ImageFile, fileName);
+			CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGear[iCounter2].uiIndex));
+
 		}
 	}
-
+	
+	for( iCounter2 = 1; iCounter2 < MAXITEMS; iCounter2++ )
+	{
+		VObjectDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE;		
+		
+		#define SCSTI_IMP "_IMP.STI"
+		
+		if ( zNewFaceGear[iCounter2].Type > 0 )
+		{
+			//IMP
+			strcpy(fileName, zNewFaceGear[iCounter2].szFile);
+			strcat(fileName, SCSTI_IMP);
+			strcpy(VObjectDesc.ImageFile, fileName);
+			CHECKF(AddVideoObject(&VObjectDesc,&zNewFaceGearIMP[iCounter2].uiIndex));
+		}
+	}
+	*/
+	
 	// LOAD RADIO
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("INTERFACE\\radio.sti", VObjectDesc.ImageFile);

@@ -2494,6 +2494,8 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 			// they depend on the inventory!
 			LoadMercProfiles();
 
+			InitializeFaceGearGraphics();
+
 			ScreenMsg( FONT_LTGREEN, MSG_MPSYSTEM, MPClientMessage[26],cl_lan->client_num,szDefault );
 			
 			fDrawCharacterList = true; // set the character list to be redrawn
@@ -2689,6 +2691,8 @@ void reapplySETTINGS()
 	// WANNE - MP: We also have to reinitialize the merc profiles because
 	// they depend on the inventory!
 	LoadMercProfiles();
+
+	InitializeFaceGearGraphics();
 	
 	fDrawCharacterList = true; // set the character list to be redrawn
 }

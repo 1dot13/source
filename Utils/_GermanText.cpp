@@ -4919,7 +4919,7 @@ STR16	gzMPHScreenText[] =
 	L"Spieltyp",
 	L"Deathmatch",
 	L"Team-Deathmatch",
-	L"Kooperativ (CO-OP)",
+	L"Kooperativ",
 	L"Maximale Spieler",
 	L"Maximale Söldner",
 	L"Söldnerauswahl",
