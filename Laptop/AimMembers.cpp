@@ -5565,30 +5565,39 @@ void WeaponKitSelectionUpdate(UINT8 selectedInventory = 0)
 			}
 		}
 	}
-	gMercProfiles[ gbCurrentSoldier ].usOptionalGearCost = 0;
-	UINT16 tempGearCost = 0;
-	for ( uiLoop = 0; uiLoop< gMercProfiles[ gbCurrentSoldier ].inv.size(); uiLoop++ )
-	{
-		if ( gMercProfiles[ gbCurrentSoldier ].inv[ uiLoop ] != NOTHING )
-		{
-			//get the item
-			usItem = gMercProfiles[ gbCurrentSoldier ].inv[ uiLoop ];
 
-			//add the cost
-			tempGearCost += Item[ usItem ].usPrice;
-		}
-	}
-	//tais: added optional price modifier for gearkits, reads the xml tag mPriceMod from MercStartingGear.xml
-	if(gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier != 0 &&
-		gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier <= 200 &&
-		gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier >= -100)
+	gMercProfiles[ gbCurrentSoldier ].usOptionalGearCost = 0;
+	//tais: new tag in gearkit that sets an absolute price for gearkit that will override item value and price modifier if it's a sensible value between 0 and 32000
+	if(gMercProfileGear[gbCurrentSoldier][selectedInventory].AbsolutePrice >= 0 && gMercProfileGear[gbCurrentSoldier][selectedInventory].AbsolutePrice <= 32000)
 	{
-		FLOAT mod;
-		mod = (FLOAT) (gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier + 100) / 100;
-		gMercProfiles[ gbCurrentSoldier ].usOptionalGearCost = (UINT16)(tempGearCost * mod);
+		gMercProfiles[ gbCurrentSoldier ].usOptionalGearCost = gMercProfileGear[gbCurrentSoldier][selectedInventory].AbsolutePrice;
 	}
 	else
 	{
-		gMercProfiles[ gbCurrentSoldier ].usOptionalGearCost = tempGearCost;
+		UINT16 tempGearCost = 0;
+		for ( uiLoop = 0; uiLoop< gMercProfiles[ gbCurrentSoldier ].inv.size(); uiLoop++ )
+		{
+			if ( gMercProfiles[ gbCurrentSoldier ].inv[ uiLoop ] != NOTHING )
+			{
+				//get the item
+				usItem = gMercProfiles[ gbCurrentSoldier ].inv[ uiLoop ];
+
+				//add the cost
+				tempGearCost += Item[ usItem ].usPrice;
+			}
+		}
+		//tais: added optional price modifier for gearkits, reads the xml tag mPriceMod from MercStartingGear.xml
+		if(gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier != 0 &&
+			gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier <= 200 &&
+			gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier >= -100)
+		{
+			FLOAT mod;
+			mod = (FLOAT) (gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier + 100) / 100;
+			gMercProfiles[ gbCurrentSoldier ].usOptionalGearCost = (UINT16)(tempGearCost * mod);
+		}
+		else
+		{
+			gMercProfiles[ gbCurrentSoldier ].usOptionalGearCost = tempGearCost;
+		}
 	}
 }

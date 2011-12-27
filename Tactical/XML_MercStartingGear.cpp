@@ -66,11 +66,13 @@ MercStartingGearStartElementHandle(void *userData, const XML_Char *name, const X
 		else if(strcmp(name, "GEARKIT") == 0 && pData->curElement == ELEMENT)
 		{
 			pData->curElement = ELEMENT_SUBLIST;
-
 			pData->maxReadDepth++;
+			//tais: absolute price needs to be set to -1 at start of every gearkit, if there's no tag for it the value will stay -1 and will be ignored in the code
+			pData->curMercStartingGear.AbsolutePrice = -1;
 		}
 		else if(pData->curElement == ELEMENT_SUBLIST &&
-				(strcmp(name, "mPriceMod") == 0 ||
+				(strcmp(name, "mAbsolutePrice") == 0 ||
+				strcmp(name, "mPriceMod") == 0 ||
 				strcmp(name, "mHelmet") == 0 ||
 				strcmp(name, "mHelmetStatus") == 0 ||
 				strcmp(name, "mHelmetDrop") == 0 ||
@@ -206,6 +208,7 @@ MercStartingGearEndElementHandle(void *userData, const XML_Char *name)
 				pData->curArray[pData->curIndex][pData->curGears] = pData->curMercStartingGear; //write the armour into the table
 				//CHRISL: after writing the gearkit, we need to clear gear data so it won't inadvertantly be reused
 				pData->curMercStartingGear.PriceModifier = 0;
+				pData->curMercStartingGear.AbsolutePrice = -1;
 				for(unsigned int i = 0; i < pData->curMercStartingGear.inv.size(); i++)
 				{
 					pData->curMercStartingGear.inv[i] = 0;
@@ -228,6 +231,11 @@ MercStartingGearEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT_SUBLIST;
 			pData->curMercStartingGear.PriceModifier = (int) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "mAbsolutePrice") == 0)
+		{
+			pData->curElement = ELEMENT_SUBLIST;
+			pData->curMercStartingGear.AbsolutePrice = (int) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "mHelmet") == 0)
 		{

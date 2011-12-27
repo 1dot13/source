@@ -256,6 +256,7 @@ MERCPROFILEGEAR& MERCPROFILEGEAR::operator=(const MERCPROFILEGEAR& src) {
 		invCnt = src.invCnt;
 		lbeCnt = src.lbeCnt;
 		PriceModifier = src.PriceModifier;
+		AbsolutePrice = src.AbsolutePrice;
     }
 	return *this;
 }

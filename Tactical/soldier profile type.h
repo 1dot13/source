@@ -330,6 +330,7 @@ public:
 public:
 	UINT16		mIndex;
 	INT16		PriceModifier;
+	INT16		AbsolutePrice;
 	CHAR8		mName[80];
 	char		endOfPOD;	// marker for end of POD (plain old data)
 	std::vector<int>	inv;

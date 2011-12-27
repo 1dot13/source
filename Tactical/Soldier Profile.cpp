@@ -710,35 +710,42 @@ BOOLEAN LoadMercProfiles(void)
 			OverwriteMercProfileWithXMLData( uiLoop );
 			OverwriteMercOpinionsWithXMLData( uiLoop );
 		}
-
-
-		//tais: moved initial price calculation down to this spot because PROFEX overwrites my gearkit prices
-		//with old binary file optional gear prices which got ported into MercProfiles.xml
-		gMercProfiles[ uiLoop ].usOptionalGearCost = 0;
-		UINT16 tempGearCost = 0;
-		for ( uiLoop2 = 0; uiLoop2< gMercProfiles[ uiLoop ].inv.size(); uiLoop2++ )
+		
+		//tais: new tag in gearkit that sets an absolute price for gearkit that will override item value and price modifier if it's a sensible value between 0 and 32000
+		if(gMercProfileGear[uiLoop][0].AbsolutePrice >= 0 && gMercProfileGear[uiLoop][0].AbsolutePrice <= 32000)
 		{
-			if ( gMercProfiles[ uiLoop ].inv[ uiLoop2 ] != NOTHING )
-			{
-				//get the item
-				usItem = gMercProfiles[ uiLoop ].inv[ uiLoop2 ];
-
-				//add the cost
-				tempGearCost += Item[ usItem ].usPrice;
-			}
-		}
-		//tais: added optional price modifier for gearkits, reads the xml tag mPriceMod from MercStartingGear.xml
-		if(gMercProfileGear[uiLoop][0].PriceModifier != 0 &&
-			gMercProfileGear[uiLoop][0].PriceModifier <= 200 &&
-			gMercProfileGear[uiLoop][0].PriceModifier >= -100)
-		{
-			FLOAT mod;
-			mod = (FLOAT) (gMercProfileGear[uiLoop][0].PriceModifier + 100) / 100.0f;
-			gMercProfiles[ uiLoop ].usOptionalGearCost = (UINT16)(tempGearCost * mod);
+			gMercProfiles[ uiLoop ].usOptionalGearCost = gMercProfileGear[uiLoop][0].AbsolutePrice;
 		}
 		else
 		{
-			gMercProfiles[ uiLoop ].usOptionalGearCost = tempGearCost;
+			//tais: moved initial price calculation down to this spot because PROFEX overwrites my gearkit prices
+			//with old binary file optional gear prices which got ported into MercProfiles.xml
+			gMercProfiles[ uiLoop ].usOptionalGearCost = 0;
+			UINT16 tempGearCost = 0;
+			for ( uiLoop2 = 0; uiLoop2< gMercProfiles[ uiLoop ].inv.size(); uiLoop2++ )
+			{
+				if ( gMercProfiles[ uiLoop ].inv[ uiLoop2 ] != NOTHING )
+				{
+					//get the item
+					usItem = gMercProfiles[ uiLoop ].inv[ uiLoop2 ];
+
+					//add the cost
+					tempGearCost += Item[ usItem ].usPrice;
+				}
+			}
+			//tais: added optional price modifier for gearkits, reads the xml tag mPriceMod from MercStartingGear.xml
+			if(gMercProfileGear[uiLoop][0].PriceModifier != 0 &&
+				gMercProfileGear[uiLoop][0].PriceModifier <= 200 &&
+				gMercProfileGear[uiLoop][0].PriceModifier >= -100)
+			{
+				FLOAT mod;
+				mod = (FLOAT) (gMercProfileGear[uiLoop][0].PriceModifier + 100) / 100.0f;
+				gMercProfiles[ uiLoop ].usOptionalGearCost = (UINT16)(tempGearCost * mod);
+			}
+			else
+			{
+				gMercProfiles[ uiLoop ].usOptionalGearCost = tempGearCost;
+			}
 		}
 
 		// ----- WANNE.PROFILE: New Profile Loading - BEGIN
