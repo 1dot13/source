@@ -1461,6 +1461,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 	UINT32 uiFaceOne=0;
 	UINT32 uiFaceTwo=0;
 
+	BOOLEAN drawOpponentCount = FALSE;
+
 	// If we are using an extern buffer...
 	if ( fUseExternBuffer )
 	{
@@ -1516,11 +1518,11 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			}
 		}
 
-	// ATE: If talking in popup, don't do the other things.....
-	if ( pFace->fTalking && gTacticalStatus.uiFlags & IN_ENDGAME_SEQUENCE )
-	{
-		return;
-	}
+		// ATE: If talking in popup, don't do the other things.....
+		if ( pFace->fTalking && gTacticalStatus.uiFlags & IN_ENDGAME_SEQUENCE )
+		{
+			return;
+		}
 
 		// ATE: Only do this, because we can be talking during an interrupt....
 		if ( ( pFace->uiFlags & FACE_INACTIVE_HANDLED_ELSEWHERE ) && !fUseExternBuffer )
@@ -1537,31 +1539,34 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			if ( pSoldier->aiData.bOppCnt > 0 )
 #endif
 			{
-				SetFontDestBuffer( uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+				drawOpponentCount = TRUE;
 
-				swprintf( sString, L"%d", pSoldier->aiData.bOppCnt );
 
-				SetFont( TINYFONT1 );
-				SetFontForeground( FONT_DKRED );
-				SetFontBackground( FONT_NEARBLACK );
+				//SetFontDestBuffer( uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
-				sX1 = (INT16)( sFaceX );
-				sY1 = (INT16)( sFaceY );
+				//swprintf( sString, L"%d", pSoldier->aiData.bOppCnt );
 
-				sX2 = sX1 + StringPixLength( sString, TINYFONT1 ) + 1;
-				sY2 = sY1 + GetFontHeight( TINYFONT1 ) - 1;
+				//SetFont( TINYFONT1 );
+				//SetFontForeground( FONT_DKRED );
+				//SetFontBackground( FONT_NEARBLACK );
 
-				mprintf( (INT16)( sX1 + 1), (INT16)( sY1 - 1 ), sString );
-				SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+				//sX1 = (INT16)( sFaceX );
+				//sY1 = (INT16)( sFaceY );
 
-				// Draw box
-				pDestBuf = LockVideoSurface( uiRenderBuffer, &uiDestPitchBYTES );
-				SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+				//sX2 = sX1 + StringPixLength( sString, TINYFONT1 ) + 1;
+				//sY2 = sY1 + GetFontHeight( TINYFONT1 ) - 1;
 
-				usLineColor = Get16BPPColor( FROMRGB( 105, 8, 9 ) );
-				RectangleDraw( TRUE, sX1, sY1, sX2, sY2, usLineColor, pDestBuf );
+				//mprintf( (INT16)( sX1 + 1), (INT16)( sY1 - 1 ), sString );
+				//SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
-				UnLockVideoSurface( uiRenderBuffer );
+				//// Draw box
+				//pDestBuf = LockVideoSurface( uiRenderBuffer, &uiDestPitchBYTES );
+				//SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+
+				//usLineColor = Get16BPPColor( FROMRGB( 105, 8, 9 ) );
+				//RectangleDraw( TRUE, sX1, sY1, sX2, sY2, usLineColor, pDestBuf );
+
+				//UnLockVideoSurface( uiRenderBuffer );
 
 			}
 
@@ -2251,12 +2256,42 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 	else
 	{
 		if ( pFace->ubCharacterNum == FATHER || pFace->ubCharacterNum == MICKY )
-	{
-		if ( gMercProfiles[ pFace->ubCharacterNum ].bNPCData >= 5 )
 		{
-		DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, 0, 8 );
+			if ( gMercProfiles[ pFace->ubCharacterNum ].bNPCData >= 5 )
+			{
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, 0, 8 );
+			}
 		}
 	}
+
+	// WANNE: At the end of the method, draw the red opponent count on the merc face in the upper left corner!
+	if (drawOpponentCount)
+	{
+		SetFontDestBuffer( uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+
+		swprintf( sString, L"%d", pSoldier->aiData.bOppCnt );
+
+		SetFont( TINYFONT1 );
+		SetFontForeground( FONT_DKRED );
+		SetFontBackground( FONT_NEARBLACK );
+
+		sX1 = (INT16)( sFaceX );
+		sY1 = (INT16)( sFaceY );
+
+		sX2 = sX1 + StringPixLength( sString, TINYFONT1 ) + 1;
+		sY2 = sY1 + GetFontHeight( TINYFONT1 ) - 1;
+
+		mprintf( (INT16)( sX1 + 1), (INT16)( sY1 - 1 ), sString );
+		SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+
+		// Draw box
+		pDestBuf = LockVideoSurface( uiRenderBuffer, &uiDestPitchBYTES );
+		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+
+		usLineColor = Get16BPPColor( FROMRGB( 105, 8, 9 ) );
+		RectangleDraw( TRUE, sX1, sY1, sX2, sY2, usLineColor, pDestBuf );
+
+		UnLockVideoSurface( uiRenderBuffer );
 	}
 }
 
