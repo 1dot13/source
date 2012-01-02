@@ -5057,14 +5057,17 @@ void HandleAimMemberKeyBoardInput()
 					gfRedrawScreen = TRUE;
 				break;
 				case ENTER:
-					// contact
-					if( !gubVideoConferencingMode)
+					// contact only if merc alive
+					if( !IsMercDead( gbCurrentSoldier ) )
 					{
-						gubVideoConferencingMode = AIM_VIDEO_POPUP_MODE;
-						//gubVideoConferencingMode = AIM_VIDEO_INIT_MODE;
-						gfFirstTimeInContactScreen = TRUE;
+						if( !gubVideoConferencingMode)
+						{
+							gubVideoConferencingMode = AIM_VIDEO_POPUP_MODE;
+							//gubVideoConferencingMode = AIM_VIDEO_INIT_MODE;
+							gfFirstTimeInContactScreen = TRUE;
+						}
+						InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 					}
-					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 				break;
 #ifdef JA2TESTVERSION
 				case SPACE:
