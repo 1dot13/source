@@ -1167,10 +1167,15 @@ void PostNextSchedule( SOLDIERTYPE *pSoldier )
 			usBestTime = NUM_MIN_IN_DAY - (usTime - pSchedule->usTime[ i ]);
 			iBestIndex = i;
 		}
-	}
-	Assert( iBestIndex >= 0 );
+	}	
 
-	AddStrategicEvent( EVENT_PROCESS_TACTICAL_SCHEDULE, GetWorldDayInMinutes() + pSchedule->usTime[iBestIndex], pSchedule->ubScheduleID );
+	// WANNE: Removed the assertion and added the check instead
+	//Assert( iBestIndex >= 0 );
+
+	if (iBestIndex >= 0)
+	{
+		AddStrategicEvent( EVENT_PROCESS_TACTICAL_SCHEDULE, GetWorldDayInMinutes() + pSchedule->usTime[iBestIndex], pSchedule->ubScheduleID );
+	}
 }
 
 
