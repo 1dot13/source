@@ -339,12 +339,17 @@ UINT32	SoundPlayStreamedFile( STR pFilename, SOUNDPARMS *pParms )
 		{
 			hFile = FileOpen( pFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			if( !hFile )
-			{
+			{							
 				SoundLog((CHAR8 *)String("	ERROR in SoundPlayStreamedFile():	Couldnt open '%s'", pFilename ) );
 				return( SOUND_ERROR );
 			}
 
+			UINT32 uiSize = FileGetSize(hFile);
 			FileClose(hFile);
+
+			if (uiSize == 0)
+				return ( NO_SAMPLE);
+			
 			return(SoundStartStream( pFilename, uiChannel, pParms));
 		}
 	}
