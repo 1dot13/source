@@ -1,0 +1,1356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+Name - name of sector
+
+SectorX - sector X (1..16)
+SectorY - sector Y (1..16)
+Level - level (0 - 3)
+
+Type :
+
+	0 - unknown sector
+	1 - cities
+	2 - SAM Site
+	3 - other location
+	4 - mines 
+	5 - military complex 
+	6 - laboratory complex 
+	7 - factory complex 
+	8 - hospital 
+	9 - prison
+    10 - air port 
+	
+MaxPages - the quantity of pages max. 20
+PageDescX - Max. page 20 (PageDesc1.. PageDesc20) 
+MaxImages - the quantity of pictures. Max. 4
+szFile1 - first picture
+szFile2 - second picture
+szFile3 - third picture
+szFile4 - fourth picture
+ImageDesc1 - the description of first picture
+ImageDesc2 - the description of second picture
+ImageDesc3 - the description of third picture
+ImageDesc4 - the description of fourth picture
+ImagePosition1X - position X of first picture
+ImagePosition1Y - position Y of first picture
+ImagePosition2X - position X of second picture
+ImagePosition2Y - position Y of second picture
+ImagePosition3X - position X of third picture
+ImagePosition3Y - position Y of third picture
+ImagePosition4X - position X of fourth picture
+ImagePosition4Y - position Y of fourth picture
+
+-->
+
+<ENCYCLOPEDIA>
+		<!-- Omerta -->
+	<DATA>
+		<uiIndex>0</uiIndex>
+		<Name>Omerta</Name>
+		<SectorX>9</SectorX>
+		<SectorY>1</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\a9.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>1</uiIndex>
+		<Name>Omerta</Name>
+		<SectorX>10</SectorX>
+		<SectorY>1</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\a10.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Chitzena  -->
+	<DATA>
+		<uiIndex>2</uiIndex>
+		<Name>Chitzena </Name>
+		<SectorX>2</SectorX>
+		<SectorY>1</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\a2.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>3</uiIndex>
+		<Name>Chitzena</Name>
+		<SectorX>2</SectorX>
+		<SectorY>2</SectorY>
+		<Level>0</Level>
+		<Type>4</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\b2.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Drassen -->
+	<DATA>
+		<uiIndex>4</uiIndex>
+		<Name>Drassen</Name>
+		<SectorX>13</SectorX>
+		<SectorY>2</SectorY>
+		<Level>0</Level>
+		<Type>10</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\b13.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>5</uiIndex>
+		<Name>Drassen</Name>
+		<SectorX>13</SectorX>
+		<SectorY>3</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\c13.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>6</uiIndex>
+		<Name>Drassen</Name>
+		<SectorX>13</SectorX>
+		<SectorY>4</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\d13.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- -->
+	<DATA>
+		<uiIndex>7</uiIndex>
+		<Name>Grumm</Name>
+		<SectorX>1</SectorX>
+		<SectorY>7</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\g1.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>8</uiIndex>
+		<Name>Grumm</Name>
+		<SectorX>2</SectorX>
+		<SectorY>7</SectorY>
+		<Level>0</Level>
+		<Type>7</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\g2.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>9</uiIndex>
+		<Name>Grumm</Name>
+		<SectorX>1</SectorX>
+		<SectorY>8</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\h1.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>10</uiIndex>
+		<Name>Grumm</Name>
+		<SectorX>2</SectorX>
+		<SectorY>8</SectorY>
+		<Level>0</Level>
+		<Type>7</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\h2.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>11</uiIndex>
+		<Name>Grumm</Name>
+		<SectorX>3</SectorX>
+		<SectorY>8</SectorY>
+		<Level>0</Level>
+		<Type>4</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\h3.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- San Mona -->
+	<DATA>
+		<uiIndex>12</uiIndex>
+		<Name>San Mona</Name>
+		<SectorX>4</SectorX>
+		<SectorY>4</SectorY>
+		<Level>0</Level>
+		<Type>4</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\d4.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>13</uiIndex>
+		<Name>San Mona</Name>
+		<SectorX>5</SectorX>
+		<SectorY>4</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\d5.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>14</uiIndex>
+		<Name>San Mona</Name>
+		<SectorX>5</SectorX>
+		<SectorY>3</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\c5.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>15</uiIndex>
+		<Name>San Mona</Name>
+		<SectorX>6</SectorX>
+		<SectorY>3</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\c6.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Cambria -->
+	<DATA>
+		<uiIndex>16</uiIndex>
+		<Name>Cambria</Name>
+		<SectorX>8</SectorX>
+		<SectorY>6</SectorY>
+		<Level>0</Level>
+		<Type>8</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\f8.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>17</uiIndex>
+		<Name>Cambria</Name>
+		<SectorX>9</SectorX>
+		<SectorY>6</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\f9.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>18</uiIndex>
+		<Name>Cambria</Name>
+		<SectorX>8</SectorX>
+		<SectorY>7</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\g8.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>19</uiIndex>
+		<Name>Cambria</Name>
+		<SectorX>9</SectorX>
+		<SectorY>7</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\g9.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>20</uiIndex>
+		<Name>Cambria</Name>
+		<SectorX>8</SectorX>
+		<SectorY>8</SectorY>
+		<Level>0</Level>
+		<Type>4</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\h8.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Alma -->
+	<DATA>
+		<uiIndex>21</uiIndex>
+		<Name>Alma</Name>
+		<SectorX>13</SectorX>
+		<SectorY>8</SectorY>
+		<Level>0</Level>
+		<Type>5</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\h13.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>22</uiIndex>
+		<Name>Alma</Name>
+		<SectorX>14</SectorX>
+		<SectorY>8</SectorY>
+		<Level>0</Level>
+		<Type>5</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\h14.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>23</uiIndex>
+		<Name>Alma</Name>
+		<SectorX>13</SectorX>
+		<SectorY>9</SectorY>
+		<Level>0</Level>
+		<Type>5</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\i13.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>24</uiIndex>
+		<Name>Alma</Name>
+		<SectorX>14</SectorX>
+		<SectorY>9</SectorY>
+		<Level>0</Level>
+		<Type>4</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\i14.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Balime -->
+	<DATA>
+		<uiIndex>25</uiIndex>
+		<Name>Balime</Name>
+		<Hidden>1</Hidden>
+		<SectorX>11</SectorX>
+		<SectorY>12</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\l11.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>26</uiIndex>
+		<Name>Balime</Name>
+		<SectorX>11</SectorX>
+		<SectorY>12</SectorY>
+		<Level>0</Level>
+		<Type>1</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\l12.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Meduna -->
+	<DATA>
+		<uiIndex>27</uiIndex>
+		<Name>Meduna</Name>
+		<SectorX>3</SectorX>
+		<SectorY>14</SectorY>
+		<Level>0</Level>
+		<Type>10</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\n3.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>28</uiIndex>
+		<Name>Meduna (Sam Site)</Name>
+		<SectorX>4</SectorX>
+		<SectorY>14</SectorY>
+		<Level>0</Level>
+		<Type>2</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\n4.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>29</uiIndex>
+		<Name>Meduna</Name>
+		<SectorX>4</SectorX>
+		<SectorY>14</SectorY>
+		<Level>0</Level>
+		<Type>3</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\n5.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>30</uiIndex>
+		<Name>Meduna</Name>
+		<SectorX>3</SectorX>
+		<SectorY>15</SectorY>
+		<Level>0</Level>
+		<Type>3</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\o3.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>31</uiIndex>
+		<Name>Meduna</Name>
+		<SectorX>4</SectorX>
+		<SectorY>15</SectorY>
+		<Level>0</Level>
+		<Type>3</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\o4.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>32</uiIndex>
+		<Name>Meduna</Name>
+		<SectorX>3</SectorX>
+		<SectorY>16</SectorY>
+		<Level>0</Level>
+		<Type>3</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\p3.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Sam Site -->
+	<DATA>
+		<uiIndex>33</uiIndex>
+		<Name>Sam Site (NW)</Name>
+		<SectorX>2</SectorX>
+		<SectorY>4</SectorY>
+		<Level>0</Level>
+		<Type>2</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>2</MaxImages>
+		<szFile1>Encyclopedia\Maps\d2.sti</szFile1>
+		<szFile2>Encyclopedia\Maps\d2_sam.sti</szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X>90</ImagePosition2X>
+		<ImagePosition2Y>55</ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>34</uiIndex>
+		<Name>Sam Site (NE)</Name>
+		<SectorX>15</SectorX>
+		<SectorY>4</SectorY>
+		<Level>0</Level>
+		<Type>2</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\d15.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<DATA>
+		<uiIndex>35</uiIndex>
+		<Name>Sam Site (Central)</Name>
+		<SectorX>8</SectorX>
+		<SectorY>9</SectorY>
+		<Level>0</Level>
+		<Type>2</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\i8.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Prison -->
+	<DATA>
+		<uiIndex>36</uiIndex>
+		<Name>Prison</Name>
+		<SectorX>7</SectorX>
+		<SectorY>14</SectorY>
+		<Level>0</Level>
+		<Type>9</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\n7.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Orta -->
+	<DATA>
+		<uiIndex>37</uiIndex>
+		<Name>Orta</Name>
+		<SectorX>4</SectorX>
+		<SectorY>11</SectorY>
+		<Level>0</Level>
+		<Type>6</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\k4.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Estoni -->
+	<DATA>
+		<uiIndex>38</uiIndex>
+		<Name>Estoni</Name>
+		<SectorX>6</SectorX>
+		<SectorY>9</SectorY>
+		<Level>0</Level>
+		<Type>3</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\i6.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Gas Station -->
+	<DATA>
+		<uiIndex>39</uiIndex>
+		<Name>Gas Station</Name>
+		<SectorX>10</SectorX>
+		<SectorY>12</SectorY>
+		<Level>0</Level>
+		<Type>3</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\l10.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Hick Farm -->
+	<DATA>
+		<uiIndex>40</uiIndex>
+		<Name>Hick Farm</Name>
+		<SectorX>10</SectorX>
+		<SectorY>6</SectorY>
+		<Level>0</Level>
+		<Type>3</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\f10.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Bloodcat Lair -->
+	<DATA>
+		<uiIndex>41</uiIndex>
+		<Name>Bloodcat Lair</Name>
+		<SectorX>16</SectorX>
+		<SectorY>9</SectorY>
+		<Level>0</Level>
+		<Type>3</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\i16.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+	<!-- Tixa -->
+	<DATA>
+		<uiIndex>42</uiIndex>
+		<Name>Tixa</Name>
+		<SectorX>9</SectorX>
+		<SectorY>10</SectorY>
+		<Level>0</Level>
+		<Type>9</Type>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>no description</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<MaxImages>1</MaxImages>
+		<szFile1>Encyclopedia\Maps\j9.sti</szFile1>
+		<szFile2></szFile2>
+		<szFile3></szFile3>
+		<szFile4></szFile4>
+		<ImageDesc1>no description</ImageDesc1>
+		<ImageDesc2></ImageDesc2>
+		<ImageDesc3></ImageDesc3>
+		<ImageDesc4></ImageDesc4>
+		<ImagePosition1X>90</ImagePosition1X>
+		<ImagePosition1Y>55</ImagePosition1Y>
+		<ImagePosition2X></ImagePosition2X>
+		<ImagePosition2Y></ImagePosition2Y>
+		<ImagePosition3X></ImagePosition3X>
+		<ImagePosition3Y></ImagePosition3Y>
+		<ImagePosition4X></ImagePosition4X>
+		<ImagePosition4Y></ImagePosition4Y>
+	</DATA>
+</ENCYCLOPEDIA>

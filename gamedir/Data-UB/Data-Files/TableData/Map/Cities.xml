@@ -1,0 +1,104 @@
+<!--
+
+This file defines towns in game.
+
+Fields index:
+	uiIndex 		- it is UNIQUE number of town, used in town table (end of this xml).
+                          	  Value 0 is reserved and stands for "no town here".
+	townName		- it's simple. Town name (Max 31 char).
+	townUsesLoyalty 	- defines whether town maintains (and displays) loyalty or not.
+			  	  Possible values: 0 - no loyalty, 1 - use loyalty in this town.
+	townRebelSentiment	- this is a measure of how much each town hates the Queen's
+				  opression & is willing to stand against it. It primarily controls
+				  the RATE of loyalty change in each town: the loyalty effect of
+				  the same events depends on it. Scale of 1-100.
+	townMilitiaAllowed	- defines the ability to have and train militia in town.
+				  Possible values: 0 - no militia, 1 - allow train militia in this town.
+	baseSector		- this is co-ordinates of the top left corner of the 3x3 town
+				  tiles cutouts in Interface/MilitiaMaps.sti!
+	townPoint		- position of town names on the map. These are 10 * (X, Y) position
+				  in SECTORS (fractions possible) to the X-CENTER of the town
+				  
+	hiddenTown		- 0 - show, 1 - hide locations on strategic map
+	townIcon		- 1 - on, 0 - off , icon of the location on strategic map
+	szIconFile		- files (interface\PRISON.sti, interface\my_icon.sti...)
+	iconPosition	- position of icon on startegic map
+
+There is town table at the end on this file. The table represent town placement on the world map.
+
+NOTE: Town rows 0 and 17, and also columns 0 and 17 CANNOT BE USED.
+      It is world borders.
+
+Changes do not require starting of a new game.
+
+-->
+<CITY_INFO>
+	<CITYLIST>
+		<CITY>
+			<uiIndex>1</uiIndex>
+			<townName>Varrez</townName>
+			<townUsesLoyalty>0</townUsesLoyalty>
+			<townRebelSentiment>90</townRebelSentiment>
+			<townMilitiaAllowed>0</townMilitiaAllowed>
+			<hiddenTown>0</hiddenTown>
+			<townIcon>0</townIcon>
+			<szIconFile></szIconFile>
+			<iconPosition>
+				<x>0</x>
+				<y>0</y>
+			</iconPosition>
+			<baseSector>
+				<x>10</x>
+				<y>9</y>
+			</baseSector>
+			<townPoint>
+				<x>100</x>
+				<y>90</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>2</uiIndex>
+			<townName> </townName>
+			<townUsesLoyalty>0</townUsesLoyalty>
+			<townRebelSentiment>0</townRebelSentiment>
+			<townMilitiaAllowed>0</townMilitiaAllowed>
+			<hiddenTown>0</hiddenTown>
+			<townIcon>0</townIcon>
+			<szIconFile></szIconFile>
+			<iconPosition>
+				<x>0</x>
+				<y>0</y>
+			</iconPosition>
+			<baseSector>
+				<x>13</x>
+				<y>9</y>
+			</baseSector>
+			<townPoint>
+				<x>130</x>
+				<y>90</y>
+			</townPoint>
+		</CITY>
+	</CITYLIST>
+	<CITY_TABLE>
+		<!--        Column index: 0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 -->
+		<!--										-->
+		<CITY_TABLE_ROW row="00"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="01"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="02"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="03"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="04"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="05"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="06"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="07"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="08"> 0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="09"> 0  0  0  0  0  0  0  0  0  0  1  1  0  2  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="10"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="11"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="12"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="13"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="14"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="15"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="16"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="17"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+	</CITY_TABLE>
+</CITY_INFO>

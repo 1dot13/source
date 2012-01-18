@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+SpecialQuestImage : value = 1
+MaxPages - the quantity of pages max. 20
+PageDescX - Max. page 20 (PageDesc1.. PageDesc20) 
+
+BeforeImage - the image before quest.
+AfterImage - the image after quest.
+ImagePositionBeforeX - position X of picture
+ImagePositionBeforeY - position Y of picture
+ImagePositionAfterX - position X of picture
+ImagePositionAfterY - position Y of picture
+ImageDescBefore - the description of before
+ImageDescAfter - the description of after
+-->
+
+<ENCYCLOPEDIA>
+		<!-- Quest 1 -->
+	<DATA>
+		<uiIndex>0</uiIndex>
+		<Name>Letter</Name>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>Letter from Enrico</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest00B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest00A.sti</AfterImage>
+		<ImagePositionBeforeX>230</ImagePositionBeforeX>
+		<ImagePositionBeforeY>110</ImagePositionBeforeY>
+		<ImagePositionAfterX>230</ImagePositionAfterX>
+		<ImagePositionAfterY>110</ImagePositionAfterY>
+		<ImageDescBefore>You have to deliver the letter to Rebel leader Miguel.</ImageDescBefore>
+		<ImageDescAfter>The letter was delivered and you joined the Rebels.</ImageDescAfter>
+	</DATA>
+		<!-- Quest 2 -->
+	<DATA>
+		<uiIndex>1</uiIndex>
+		<Name>Quest 2 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage></BeforeImage>
+		<AfterImage></AfterImage>
+		<ImagePositionBeforeX>0</ImagePositionBeforeX>
+		<ImagePositionBeforeY>0</ImagePositionBeforeY>
+		<ImagePositionAfterX>0</ImagePositionAfterX>
+		<ImagePositionAfterY>0</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 2 -->
+	<DATA>
+		<uiIndex>2</uiIndex>
+		<Name>Quest 3 : </Name>
+		<EnableDesc>0</EnableDesc>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage></BeforeImage>
+		<AfterImage></AfterImage>
+		<ImagePositionBeforeX>0</ImagePositionBeforeX>
+		<ImagePositionBeforeY>0</ImagePositionBeforeY>
+		<ImagePositionAfterX>0</ImagePositionAfterX>
+		<ImagePositionAfterY>0</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 4 -->
+	<DATA>
+		<uiIndex>3</uiIndex>
+		<Name>Quest 4 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest03B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest03A.sti</AfterImage>
+		<ImagePositionBeforeX>200</ImagePositionBeforeX>
+		<ImagePositionBeforeY>100</ImagePositionBeforeY>
+		<ImagePositionAfterX>200</ImagePositionAfterX>
+		<ImagePositionAfterY>100</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 5 -->
+	<DATA>
+		<uiIndex>4</uiIndex>
+		<Name>Quest 5 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest04B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest04A.sti</AfterImage>
+		<ImagePositionBeforeX>200</ImagePositionBeforeX>
+		<ImagePositionBeforeY>100</ImagePositionBeforeY>
+		<ImagePositionAfterX>200</ImagePositionAfterX>
+		<ImagePositionAfterY>100</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 6 -->
+	<DATA>
+		<uiIndex>5</uiIndex>
+		<Name>Quest 6 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest05B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest05A.sti</AfterImage>
+		<ImagePositionBeforeX>207</ImagePositionBeforeX>
+		<ImagePositionBeforeY>90</ImagePositionBeforeY>
+		<ImagePositionAfterX>207</ImagePositionAfterX>
+		<ImagePositionAfterY>90</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 7 -->
+	<DATA>
+		<uiIndex>6</uiIndex>
+		<Name>Quest 7 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest06B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest06A.sti</AfterImage>
+		<ImagePositionBeforeX>207</ImagePositionBeforeX>
+		<ImagePositionBeforeY>90</ImagePositionBeforeY>
+		<ImagePositionAfterX>207</ImagePositionAfterX>
+		<ImagePositionAfterY>90</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 8 -->
+	<DATA>
+		<uiIndex>7</uiIndex>
+		<Name>Quest 8 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest03B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest03A.sti</AfterImage>
+		<ImagePositionBeforeX>200</ImagePositionBeforeX>
+		<ImagePositionBeforeY>100</ImagePositionBeforeY>
+		<ImagePositionAfterX>200</ImagePositionAfterX>
+		<ImagePositionAfterY>100</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 9 -->
+	<DATA>
+		<uiIndex>8</uiIndex>
+		<Name>Quest 9 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage></BeforeImage>
+		<AfterImage></AfterImage>
+		<ImagePositionBeforeX>0</ImagePositionBeforeX>
+		<ImagePositionBeforeY>0</ImagePositionBeforeY>
+		<ImagePositionAfterX>0</ImagePositionAfterX>
+		<ImagePositionAfterY>0</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 10 -->
+	<DATA>
+		<uiIndex>9</uiIndex>
+		<Name>Quest 10 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage></BeforeImage>
+		<AfterImage></AfterImage>
+		<ImagePositionBeforeX>0</ImagePositionBeforeX>
+		<ImagePositionBeforeY>0</ImagePositionBeforeY>
+		<ImagePositionAfterX>0</ImagePositionAfterX>
+		<ImagePositionAfterY>0</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 11 -->
+	<DATA>
+		<uiIndex>10</uiIndex>
+		<Name>Quest 11 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage></BeforeImage>
+		<AfterImage></AfterImage>
+		<ImagePositionBeforeX>0</ImagePositionBeforeX>
+		<ImagePositionBeforeY>0</ImagePositionBeforeY>
+		<ImagePositionAfterX>0</ImagePositionAfterX>
+		<ImagePositionAfterY>0</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 12 -->
+	<DATA>
+		<uiIndex>11</uiIndex>
+		<Name>Quest 12 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest11B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest11A.sti</AfterImage>
+		<ImagePositionBeforeX>207</ImagePositionBeforeX>
+		<ImagePositionBeforeY>90</ImagePositionBeforeY>
+		<ImagePositionAfterX>207</ImagePositionAfterX>
+		<ImagePositionAfterY>90</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 13 -->
+	<DATA>
+		<uiIndex>12</uiIndex>
+		<Name>Quest 13 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest12B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest12A.sti</AfterImage>
+		<ImagePositionBeforeX>200</ImagePositionBeforeX>
+		<ImagePositionBeforeY>100</ImagePositionBeforeY>
+		<ImagePositionAfterX>200</ImagePositionAfterX>
+		<ImagePositionAfterY>100</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 14 -->
+	<DATA>
+		<uiIndex>13</uiIndex>
+		<Name>Quest 14 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest13B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest13A.sti</AfterImage>
+		<ImagePositionBeforeX>200</ImagePositionBeforeX>
+		<ImagePositionBeforeY>90</ImagePositionBeforeY>
+		<ImagePositionAfterX>200</ImagePositionAfterX>
+		<ImagePositionAfterY>90</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 15 -->
+	<DATA>
+		<uiIndex>14</uiIndex>
+		<Name>Quest 15 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest14B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest14A.sti</AfterImage>
+		<ImagePositionBeforeX>207</ImagePositionBeforeX>
+		<ImagePositionBeforeY>90</ImagePositionBeforeY>
+		<ImagePositionAfterX>207</ImagePositionAfterX>
+		<ImagePositionAfterY>90</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 16 -->
+	<DATA>
+		<uiIndex>15</uiIndex>
+		<Name>Quest 16 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest15B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest15A.sti</AfterImage>
+		<ImagePositionBeforeX>207</ImagePositionBeforeX>
+		<ImagePositionBeforeY>90</ImagePositionBeforeY>
+		<ImagePositionAfterX>150</ImagePositionAfterX>
+		<ImagePositionAfterY>70</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 17 -->
+	<DATA>
+		<uiIndex>16</uiIndex>
+		<Name>Quest 17 : Skyrider</Name>
+		<Hidden>1</Hidden>
+		<MaxPages>1</MaxPages>
+		<PageDesc1>Skyrider</PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest16B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest16A.sti</AfterImage>
+		<ImagePositionBeforeX>207</ImagePositionBeforeX>
+		<ImagePositionBeforeY>90</ImagePositionBeforeY>
+		<ImagePositionAfterX>207</ImagePositionAfterX>
+		<ImagePositionAfterY>90</ImagePositionAfterY>
+		<ImageDescBefore>Before : Skyrider</ImageDescBefore>
+		<ImageDescAfter>After : Skyrider</ImageDescAfter>
+	</DATA>
+		<!-- Quest 18 -->
+	<DATA>
+		<uiIndex>17</uiIndex>
+		<Name>Quest 18 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest17B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest17A.sti</AfterImage>
+		<ImagePositionBeforeX>207</ImagePositionBeforeX>
+		<ImagePositionBeforeY>90</ImagePositionBeforeY>
+		<ImagePositionAfterX>150</ImagePositionAfterX>
+		<ImagePositionAfterY>90</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 19 -->
+	<DATA>
+		<uiIndex>18</uiIndex>
+		<Name>Quest 19 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest18B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest18A.sti</AfterImage>
+		<ImagePositionBeforeX>207</ImagePositionBeforeX>
+		<ImagePositionBeforeY>90</ImagePositionBeforeY>
+		<ImagePositionAfterX>207</ImagePositionAfterX>
+		<ImagePositionAfterY>90</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 20 -->
+	<DATA>
+		<uiIndex>19</uiIndex>
+		<Name>Quest 20 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage>Encyclopedia\Quests\quest19B.sti</BeforeImage>
+		<AfterImage>Encyclopedia\Quests\quest19A.sti</AfterImage>
+		<ImagePositionBeforeX>150</ImagePositionBeforeX>
+		<ImagePositionBeforeY>90</ImagePositionBeforeY>
+		<ImagePositionAfterX>150</ImagePositionAfterX>
+		<ImagePositionAfterY>90</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 21 -->
+	<DATA>
+		<uiIndex>20</uiIndex>
+		<Name>Quest 21 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage></BeforeImage>
+		<AfterImage></AfterImage>
+		<ImagePositionBeforeX>0</ImagePositionBeforeX>
+		<ImagePositionBeforeY>0</ImagePositionBeforeY>
+		<ImagePositionAfterX>0</ImagePositionAfterX>
+		<ImagePositionAfterY>0</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 22 -->
+	<DATA>
+		<uiIndex>21</uiIndex>
+		<Name>Quest 22 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage></BeforeImage>
+		<AfterImage></AfterImage>
+		<ImagePositionBeforeX>0</ImagePositionBeforeX>
+		<ImagePositionBeforeY>0</ImagePositionBeforeY>
+		<ImagePositionAfterX>0</ImagePositionAfterX>
+		<ImagePositionAfterY>0</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+		<!-- Quest 23 -->
+	<DATA>
+		<uiIndex>22</uiIndex>
+		<Name>Quest 23 : </Name>
+		<MaxPages>0</MaxPages>
+		<PageDesc1></PageDesc1>
+		<PageDesc2></PageDesc2>
+		<PageDesc3></PageDesc3>
+		<PageDesc4></PageDesc4>
+		<SpecialQuestImage>1</SpecialQuestImage>
+		<BeforeImage></BeforeImage>
+		<AfterImage></AfterImage>
+		<ImagePositionBeforeX>0</ImagePositionBeforeX>
+		<ImagePositionBeforeY>0</ImagePositionBeforeY>
+		<ImagePositionAfterX>0</ImagePositionAfterX>
+		<ImagePositionAfterY>0</ImagePositionAfterY>
+		<ImageDescBefore></ImageDescBefore>
+		<ImageDescAfter></ImageDescAfter>
+	</DATA>
+</ENCYCLOPEDIA>

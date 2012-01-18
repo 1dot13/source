@@ -1,0 +1,51 @@
+﻿<!--
+X640 Y480
+X1024 Y768
+X800 Y600
+
+ImagePositionXxxx = (X - 640) / 2
+ImagePositionYyyy = (Y - 480) / 2
+-->
+<MAINMENU>
+<!-- Menu Buttons uiIndex = 0 (required!) -->
+	<IMAGE>
+		<uiIndex>0</uiIndex>
+		<Description>Menu Buttons</Description>
+		<MainMenuX>320</MainMenuX>
+		<MainMenu800x600X>400</MainMenu800x600X>
+		<MainMenu1024x768X>512</MainMenu1024x768X>
+		<MainMenuY>210</MainMenuY>
+		<MainMenu800x600Y>270</MainMenu800x600Y>
+		<MainMenu1024x768Y>354</MainMenu1024x768Y>
+		<MainMenuYSpace>37</MainMenuYSpace>
+	</IMAGE>
+<!-- Background Images -->
+	<IMAGE>
+		<uiIndex>1</uiIndex>
+		<Visible>1</Visible>
+		<Description>BackGround</Description>
+		<FileName>LOADSCREENS\MainMenuBackground.sti</FileName>
+		<FileName800x600>LOADSCREENS\MainMenuBackground_800x600.sti</FileName800x600>
+		<FileName1024x768>LOADSCREENS\MainMenuBackground_1024x768.sti</FileName1024x768>
+		<ImagePositionX>0</ImagePositionX>
+		<ImagePositionY>0</ImagePositionY>
+		<ImagePosition800x600X>0</ImagePosition800x600X>
+		<ImagePosition800x600Y>0</ImagePosition800x600Y>
+		<ImagePosition1024x768X>0</ImagePosition1024x768X>
+		<ImagePosition1024x768Y>0</ImagePosition1024x768Y>
+	</IMAGE>
+	<IMAGE>
+		<uiIndex>2</uiIndex>
+		<Visible>1</Visible>
+		<Description>Ja2LogoImage</Description>
+		<FileName>LOADSCREENS\Ja2Logo.sti</FileName>
+		<FileName800x600>LOADSCREENS\Ja2Logo.sti</FileName800x600>
+		<FileName1024x768>LOADSCREENS\Ja2Logo.sti</FileName1024x768>
+		<ImagePositionX>188</ImagePositionX>
+		<ImagePositionY>10</ImagePositionY>
+		<ImagePosition800x600X>268</ImagePosition800x600X>
+		<ImagePosition800x600Y>70</ImagePosition800x600Y>
+		<ImagePosition1024x768X>380</ImagePosition1024x768X>
+		<ImagePosition1024x768Y>154</ImagePosition1024x768Y>
+	</IMAGE>
+</MAINMENU>

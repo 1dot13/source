@@ -238,7 +238,7 @@ function HandleAtNewGridNo( ProfileId )
 					ActionStopMerc(Profil.SKYRIDER)
 					SetFactTrue( Facts.FACT_SKYRIDER_CLOSE_TO_CHOPPER )
 					TriggerNPCRecord( Profil.SKYRIDER, 15 )
-					SetUpHelicopterForPlayer( 13, SectorY.MAP_ROW_B, Profil.SKYRIDER )
+					SetUpHelicopterForPlayer( 13, SectorY.MAP_ROW_B, Profil.SKYRIDER, 163 ) -- 163 helicopter
 							
 			elseif ( ProfileIdsSectorX == 13 and ProfileIdsSectorY == SectorY.MAP_ROW_B and ProfileIdbSectorZ == 0 ) then
 					

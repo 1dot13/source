@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Lang0 - Polish
+Lang1 - English
+.
+.
+.
+LangX - Other
+-->
+
+<LANGUAGE>
+	<MENU>
+		
+		<Lang0_FORM1_COMBOBOX5>
+			<Items>
+				<Item0>Polski</Item0>
+				<Item1>English</Item1>
+			</Items>
+		</Lang0_FORM1_COMBOBOX5>
+
+		<Lang1_FORM1_COMBOBOX5>
+			<Items>
+				<Item0>Polish</Item0>
+				<Item1>English</Item1>
+			</Items>
+		</Lang1_FORM1_COMBOBOX5>
+		
+		<!-- Form 1 -->
+		
+		<Lang0_Form1_Label1>Kampanie i modyfikacje</Lang0_Form1_Label1>
+		<Lang1_Form1_Label1>Mods and Campaigns :</Lang1_Form1_Label1>	
+		
+		<Lang0_Form1_Label2>Unfinished Business</Lang0_Form1_Label2>
+		<Lang1_Form1_Label2>Unfinished Business</Lang1_Form1_Label2>	
+		
+		<Lang0_Form1_Label3>Edytor</Lang0_Form1_Label3>
+		<Lang1_Form1_Label3>Editor</Lang1_Form1_Label3>	
+		
+		<Lang0_Form1_Label4>Przykłady</Lang0_Form1_Label4>
+		<Lang1_Form1_Label4>Examples</Lang1_Form1_Label4>	
+	
+		<Lang0_Form1_Label5>Gra i edytor</Lang0_Form1_Label5>
+		<Lang1_Form1_Label5>Game and Editor</Lang1_Form1_Label5>	
+		
+		<Lang0_Form1_Label7>Język</Lang0_Form1_Label7>
+		<Lang1_Form1_Label7>Language</Lang1_Form1_Label7>
+		
+		<Lang0_Form1_BitBtn1>Uruchom</Lang0_Form1_BitBtn1>
+		<Lang1_Form1_BitBtn1>Start</Lang1_Form1_BitBtn1>	
+		
+		<Lang0_Form1_BitBtn2>Edytor</Lang0_Form1_BitBtn2>
+		<Lang1_Form1_BitBtn2>Editor</Lang1_Form1_BitBtn2>		
+		
+		<Lang0_Form1_BitBtn3>Wyjście</Lang0_Form1_BitBtn3>
+		<Lang1_Form1_BitBtn3>Exit</Lang1_Form1_BitBtn3>	
+
+		<Lang0_Form1_BitBtn4>Narzędzia</Lang0_Form1_BitBtn4>
+		<Lang1_Form1_BitBtn4>Tools</Lang1_Form1_BitBtn4>			
+		
+		<Lang0_Form1_Button1>Opcje</Lang0_Form1_Button1>
+		<Lang1_Form1_Button1>Options</Lang1_Form1_Button1>		
+
+		<Lang0_Form1_ToggleBox1>Przykłady</Lang0_Form1_ToggleBox1>
+		<Lang1_Form1_ToggleBox1>Example</Lang1_Form1_ToggleBox1>
+		
+		<Lang0_Form1_TabSheet1>Opis</Lang0_Form1_TabSheet1>
+		<Lang1_Form1_TabSheet1>Description</Lang1_Form1_TabSheet1>
+		
+		<Lang0_Form1_TabSheet2>Pakiety</Lang0_Form1_TabSheet2>
+		<Lang1_Form1_TabSheet2>Package</Lang1_Form1_TabSheet2>
+		
+		<!-- Form 7 -->
+		
+		<Lang0_Form7_Label1>Rozdzielczość</Lang0_Form7_Label1>
+		<Lang1_Form7_Label1>Screen resolution</Lang1_Form7_Label1>
+		
+		<Lang0_Form7_Label2>Gra</Lang0_Form7_Label2>
+		<Lang1_Form7_Label2>Game</Lang1_Form7_Label2>
+		
+		<Lang0_Form7_Label3>Edytor</Lang0_Form7_Label3>
+		<Lang1_Form7_Label3>Editor</Lang1_Form7_Label3>	
+		
+		<Lang0_Form7_Label4>Kodowanie Unicode</Lang0_Form7_Label4>
+		<Lang1_Form7_Label4>No Unicode</Lang1_Form7_Label4>	
+		
+		<Lang0_Form7_Label5>Pokaż intro</Lang0_Form7_Label5>
+		<Lang1_Form7_Label5>Play Intro</Lang1_Form7_Label5>
+
+		<Lang0_Form7_Label6>Ekran</Lang0_Form7_Label6>
+		<Lang1_Form7_Label6>Screen mode</Lang1_Form7_Label6>
+		
+		<Lang0_Form7_BitBtn1>Akceptuj</Lang0_Form7_BitBtn1>
+		<Lang1_Form7_BitBtn1>OK</Lang1_Form7_BitBtn1>	
+		
+		<Lang0_Form7_BitBtn2>Anuluj</Lang0_Form7_BitBtn2>
+		<Lang1_Form7_BitBtn2>Cancel</Lang1_Form7_BitBtn2>		
+		
+		<Lang0_Form7>Opcje</Lang0_Form7>
+		<Lang1_Form7>Options</Lang1_Form7>	
+		
+		<Lang0_FORM7_COMBOBOX3>
+			<Items>
+				<Item0>Wyłącz</Item0>
+				<Item1>Włącz</Item1>
+			</Items>
+		</Lang0_FORM7_COMBOBOX3>
+
+		<Lang1_FORM7_COMBOBOX3>
+			<Items>
+				<Item0>FALSE</Item0>
+				<Item1>TRUE</Item1>
+			</Items>
+		</Lang1_FORM7_COMBOBOX3>
+		
+		<Lang0_FORM7_COMBOBOX4>
+			<Items>
+				<Item0>Wyłącz</Item0>
+				<Item1>Włącz</Item1>
+			</Items>
+		</Lang0_FORM7_COMBOBOX4>
+
+		<Lang1_FORM7_COMBOBOX4>
+			<Items>
+				<Item0>FALSE</Item0>
+				<Item1>TRUE</Item1>
+			</Items>
+		</Lang1_FORM7_COMBOBOX4>
+		
+		<Lang0_FORM7_COMBOBOX5>
+			<Items>
+				<Item0>Pełny ekran</Item0>
+				<Item1>Tryb okna</Item1>
+			</Items>
+		</Lang0_FORM7_COMBOBOX5>
+
+		<Lang1_FORM7_COMBOBOX5>
+			<Items>
+				<Item0>Full Screen</Item0>
+				<Item1>Windowed Mode</Item1>
+			</Items>
+		</Lang1_FORM7_COMBOBOX5>	
+		
+		<Lang0_FORM7_COMBOBOX1>
+			<Items>
+				<Item0>640x480</Item0>
+				<Item1>800x600</Item1>
+				<Item2>1024x768</Item2>
+			</Items>
+		</Lang0_FORM7_COMBOBOX1>
+
+		<Lang1_FORM7_COMBOBOX1>
+			<Items>
+				<Item0>640x480</Item0>
+				<Item1>800x600</Item1>
+				<Item2>1024x768</Item2>
+			</Items>
+		</Lang1_FORM7_COMBOBOX1>		
+		
+		<!-- Form 5 -->
+		
+		<Lang0_Form5_BitBtn1>INI Edytor</Lang0_Form5_BitBtn1>
+		<Lang1_Form5_BitBtn1>INI Editor</Lang1_Form5_BitBtn1>
+		
+		<Lang0_Form5_BitBtn2>Edytor map</Lang0_Form5_BitBtn2>
+		<Lang1_Form5_BitBtn2>Map editor</Lang1_Form5_BitBtn2>
+		
+		<Lang0_Form5_BitBtn5>Wyjście</Lang0_Form5_BitBtn5>
+		<Lang1_Form5_BitBtn5>Close</Lang1_Form5_BitBtn5>		
+		
+		<Lang0_Form5_Button1>Utwórz nowy dodatek</Lang0_Form5_Button1>
+		<Lang1_Form5_Button1>Create new addon</Lang1_Form5_Button1>		
+		
+		<Lang0_Form5>Narzędzia</Lang0_Form5>
+		<Lang1_Form5>Tools</Lang1_Form5>		
+		
+		<!-- Form3 -->		
+		
+		<Lang0_Form3>Nowy dodatek</Lang0_Form3>
+		<Lang1_Form3>Create New Addon</Lang1_Form3>		
+		
+		<Lang0_Form3_LabeledEdit1>Nazwa</Lang0_Form3_LabeledEdit1>
+		<Lang1_Form3_LabeledEdit1>Name</Lang1_Form3_LabeledEdit1>	
+		
+		<Lang0_Form3_Label1>Typ</Lang0_Form3_Label1>
+		<Lang1_Form3_Label1>Type</Lang1_Form3_Label1>	
+		
+		<Lang0_Form3_Label2>Opis</Lang0_Form3_Label2>
+		<Lang1_Form3_Label2>Description</Lang1_Form3_Label2>		
+		
+		<Lang0_Form3_BitBtn1>Akceptuj</Lang0_Form3_BitBtn1>
+		<Lang1_Form3_BitBtn1>OK</Lang1_Form3_BitBtn1>
+		
+		<Lang0_Form3_BitBtn2>Wyjście</Lang0_Form3_BitBtn2>
+		<Lang1_Form3_BitBtn2>Close</Lang1_Form3_BitBtn2>		
+		
+		<Lang0_Form3_BitBtn3>Opcje</Lang0_Form3_BitBtn3>
+		<Lang1_Form3_BitBtn3>Options</Lang1_Form3_BitBtn3>		
+			
+		<!-- Form4 -->
+		
+		<Lang0_Form4>Opcje</Lang0_Form4>
+		<Lang1_Form4>Options</Lang1_Form4>		
+		
+		<Lang0_Form4_Label1>Utwórz katalogi</Lang0_Form4_Label1>
+		<Lang1_Form4_Label1>Make SubDir</Lang1_Form4_Label1>	
+		
+		<Lang0_Form4_Label2>Utwórz katalogi lokalizacji</Lang0_Form4_Label2>
+		<Lang1_Form4_Label2>Make Language SubDir</Lang1_Form4_Label2>		
+		
+		<Lang0_Form4_CheckBox1>Dodaj UB_Options.ini</Lang0_Form4_CheckBox1>
+		<Lang1_Form4_CheckBox1>Add UB_Options.ini</Lang1_Form4_CheckBox1>			
+		
+		<Lang0_Form4_CheckBox2>Dodaj Ja2_Options.ini</Lang0_Form4_CheckBox2>
+		<Lang1_Form4_CheckBox2>Add Ja2_Options.ini.ini</Lang1_Form4_CheckBox2>			
+	
+		<Lang0_Form4_CheckBox3>Dodaj IntroVideos2.ini</Lang0_Form4_CheckBox3>
+		<Lang1_Form4_CheckBox3>Add IntroVideos2.ini</Lang1_Form4_CheckBox3>			
+	
+		<Lang0_Form4_CheckBox4>Dodaj APBPConstants.ini</Lang0_Form4_CheckBox4>
+		<Lang1_Form4_CheckBox4>Add APBPConstants.ini</Lang1_Form4_CheckBox4>			
+	
+		<Lang0_Form4_CheckBox5>Dodaj Skills_Settings.ini</Lang0_Form4_CheckBox5>
+		<Lang1_Form4_CheckBox5>Add Skills_Settings.ini</Lang1_Form4_CheckBox5>			
+
+		<Lang0_Form4_CheckBox6>Dodaj CTHConstants.ini</Lang0_Form4_CheckBox6>
+		<Lang1_Form4_CheckBox6>Add CTHConstants.ini</Lang1_Form4_CheckBox6>			
+			
+		<Lang0_Form4_CheckBox7>Utwórz dodatek wielojęzykowy</Lang0_Form4_CheckBox7>
+		<Lang1_Form4_CheckBox7>Create multilanguage</Lang1_Form4_CheckBox7>			
+			
+		<Lang0_Form4_BitBtn1>Akceptuj</Lang0_Form4_BitBtn1>
+		<Lang1_Form4_BitBtn1>OK</Lang1_Form4_BitBtn1>
+		
+		<Lang0_Form4_BitBtn2>Wyjście</Lang0_Form4_BitBtn2>
+		<Lang1_Form4_BitBtn2>Close</Lang1_Form4_BitBtn2>
+		
+	</MENU>
+</LANGUAGE>

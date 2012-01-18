@@ -960,6 +960,23 @@ If no camouflaged portrait is available (Data\Faces\xxxCAMO folders), you see th
           <Description_CHI>如果开启，佣兵使用迷彩时你可以在佣兵头像看到伪装效果。
 如果 Data\Faces\xxxCAMO 文件夹里面没有伪装头像，你看到的是一般头像。</Description_CHI>
         </Property>
+		<Property name="HIDE_ENEMY_HEALTH_TEXT" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
+          <Description_ENG>If enabled, you do not see the health text when hovering the mouse over an enemy / creature.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
+		<Property name="ENEMY_HIT_COUNT" datatype="numeric" minvalue="0" maxvalue="2" defaultvalue="0" interval="1">
+          <Description_ENG>How should the game display the enemy hit counter?
+0 = Show damage inflicted as used to
+1 = Show "?" as indicator if you scored a hit
+2 = Do not show anything at all (If you scored a hit you need to tell by target's reaction)</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
         <Property name="STAMINA_HIT" datatype="numeric" minvalue="5000" maxvalue="15000" defaultvalue="0" interval="100">
           <Description_ENG>Default: 10000
 Regulates the bullet hit impact to stamina. The lower is the value, the more stamina is taken out. With the value of 6900 it takes 3-4 hits to take all the breath away.</Description_ENG>
@@ -1980,7 +1997,7 @@ etc.</Description_ENG>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
           <Description_CHI>等级信息显示在士兵的装备信息里？</Description_CHI>
-        </Property>
+        </Property>		
       </Properties>
     </Section>
     <Section name="Tactical Gameplay Settings">
@@ -1992,6 +2009,13 @@ They have the potential to radically change the WAY THE GAME IS PLAYED, rather t
       <Description_CHI>这里的设置改变游戏战术规则（包括敌兵和佣兵）。
 他们有可能从根本上改变了该游戏的玩法，而不是简单地改变实际困难。</Description_CHI>
       <Properties>
+	    <Property name="ALLOW_WALKING_WITH_WEAPON_RAISED" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="0">
+          <Description_ENG>Allow walking and sidesteps with raised weapons?</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
         <Property name="INITIAL_MERC_ARRIVAL_LOCATION" datatype="numeric" minvalue="1" maxvalue="4000000" defaultvalue="0" interval="1">
           <Description_ENG>Set the grid number location where new hired merc arrive in the destination sector after you hired them.
 The JA2 default grid number is 4870.</Description_ENG>
@@ -2426,6 +2450,55 @@ False = disabled, classic behaviour.</Description_ENG>
           <Description_CHI>民兵和敌人是否一定会穿着头盔、防弹衣和防弹裤？
 打开此项的话，民兵和敌人一定会穿齐三样防弹装备。
 关闭此项的话，像以往一样，有的民兵和敌人可能不穿防弹装备或只穿其中的一两件。 </Description_CHI>
+        </Property>
+		<Property name="IMPROVED_INTERRUPT_SYSTEM" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
+          <Description_ENG>Should the new improved interrupt system (IIS) be used?</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
+		<Property name="BASIC_PERCENTAGE_APS_REGISTERED" datatype="numeric" minvalue="0" maxvalue="250" defaultvalue="0" interval="10">
+          <Description_ENG>Basic percent amount of enemy used APs our merc percieves and is counted towards his reaction time (make it higher to get 
+; interrupts more frequent)
+INFO: IMPROVED_INTERRUPT_SYSTEM must be enabled.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
+		<Property name="PERCENTAGE_APS_REGISTERED_PER_EXP_LEVEL" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="0" interval="1">
+          <Description_ENG>Percent added to basic percentage per soldier's experience level (BASIC_PERCENTAGE_APS_REGISTERED + PERCENTAGE_APS_REGISTERED_PER_EXP_LEVEL gives you the percent amount of APs registered,
+which is further adjusted by range to target).
+INFO: IMPROVED_INTERRUPT_SYSTEM must be enabled.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
+		<Property name="BASIC_REACTION_TIME_LENGTH" datatype="numeric" minvalue="5" maxvalue="100" defaultvalue="0" interval="1">
+          <Description_ENG>A value controlling how often an interrupt can be triggered, lower = more interrupts (this is an amount of registered APs after which an interrupt occurs, this value is further adjusted by stats, injuries and such though).
+INFO: IMPROVED_INTERRUPT_SYSTEM must be enabled.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
+		<Property name="ALLOW_COLLECTIVE_INTERRUPTS" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
+          <Description_ENG>Allow collective interrupts? I.e. a merc can "give" interrupt to nearby teammate if he gets an interrupt, depends on stats exp level and such.
+INFO: IMPROVED_INTERRUPT_SYSTEM must be enabled.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
+		<Property name="ALLOW_INSTANT_INTERRUPTS_ON_SPOTTING" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
+          <Description_ENG>Should we still allow the instant interrupts on sight as in vanilla, even in IIS? (I wouldn't recommend).
+INFO: IMPROVED_INTERRUPT_SYSTEM must be enabled.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
         </Property>
       </Properties>
     </Section>
@@ -3392,6 +3465,20 @@ TRUE = New additional repair system based on priorities</Description_CHI>
       <Description_POL></Description_POL>
       <Description_CHI></Description_CHI>
 	  <Properties>
+	    <Property name="BRIEFING_ROOM" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
+          <Description_ENG>If set to TRUE, you can browse to the briefing room website on the laptop.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
+		<Property name="ENCYCLOPEDIA" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
+          <Description_ENG>If set to TRUE, you can browse to the encyclopedia website on the laptop.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+          <Description_CHI></Description_CHI>
+        </Property>
 	    <Property name="DISABLE_LAPTOP_TRANSITION" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
           <Description_ENG>If disabled, the transition will be skipped when opening/closing the laptop.</Description_ENG>
           <Description_GER></Description_GER>
@@ -3547,14 +3634,16 @@ Note: This is only used if Old Trait System is played</Description_ENG>
           <Description_POL></Description_POL>
           <Description_CHI>该值影响全部迫击炮类武器命中率，在其他因素全部计算完毕之后，我们用所得命中率除该值，得到最终命中率。（注意：仅在旧技能系统下有效）</Description_CHI>
         </Property>
-        <Property name="USE_DEFAULT_SLOTS_WHEN_MISSING" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="0">
-          <Description_ENG>When attachments have not been assigned for NAS, the game can add default slots that differ per item type. It is recommended to play with this set to FALSE when the attachments are assigned properly.
-This option is best used when playing a XML based mod that does not have the NAS xml fully updated. However when the mod is too different from 1.13, there will be a lot of strange and/or wrong attachments.</Description_ENG>
+		<Property name="USE_DEFAULT_SLOTS_WHEN_MISSING" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="1">
+          <Description_ENG>When attachments have not been assigned for NAS, the game can add default slots that differ per item type.
+It is recommended to play with this set to FALSE when the attachments are assigned properly.
+This option is best used when playing a XML based mod that does not have the NAS xml fully updated.
+However when the mod is too different from 1.13, there will be a lot of strange and/or wrong attachments.</Description_ENG>
           <Description_GER></Description_GER>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
-          <Description_CHI>当某附件和NAS不兼容时，游戏会分配一个默认插槽。推荐设置为False。但是当使用不完全兼容的XML MOD时，推荐开启</Description_CHI>
-        </Property>
+          <Description_CHI></Description_CHI>
+        </Property>        
         <Property name="ATTACHMENT_DROP_RATE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="0" interval="1">
           <Description_ENG>The chance in percentages that an attachment will have to drop with the item if an NPC dies.
 Setting this higher than 20% will unbalance your game unless you change MAX_ENEMY_ATTACHMENTS.

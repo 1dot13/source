@@ -248,6 +248,13 @@ This the multiplier applied to reload AP cost when trying to reload from an impr
           <Description_POL></Description_POL>
 		  <Description_CHI>特定地形上移动需要的 AP 。</Description_CHI>
         </Property>
+		<Property name="AP_MODIFIER_WEAPON_READY" datatype="numeric" minvalue="-100" maxvalue="100" defaultvalue="4" interval="1">
+          <Description_ENG>A modifier when walking/sidestepping with weapon raised.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+        </Property>
         <Property name="AP_CHANGE_FACING" datatype="numeric" minvalue="0" maxvalue="50" defaultvalue="4" interval="1">
           <Description_ENG>AP-cost for changing facing while standing.</Description_ENG>
           <Description_GER></Description_GER>
@@ -906,6 +913,13 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
           <Description_ENG></Description_ENG>
           <Description_GER></Description_GER>
           <Description_RUS>Определяет расход энергии при движении по соответствующему типу местности.</Description_RUS>
+          <Description_POL></Description_POL>
+	      <Description_CHI></Description_CHI>
+        </Property>
+		<Property name="BP_MODIFIER_WEAPON_READY" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="30" interval="5">
+          <Description_ENG></Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 	      <Description_CHI></Description_CHI>
         </Property>

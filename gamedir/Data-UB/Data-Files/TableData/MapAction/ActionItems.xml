@@ -1,0 +1,3069 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+BombItem :
+	STUN_GRENADE 			- 241	
+	TEARGAS_GRENADE			- 242
+	MUSTARD_GRENADE			- 243
+	MINI_GRENADE			- 244
+	HAND_GRENADE   			- 245
+	RDX						- 246
+	TNT						- 247
+	HMX						- 248
+	C1						- 249
+	MORTAR_SHELL			- 250
+
+	MINE					- 251
+	C4						- 252
+	TRIP_FLARE				- 253
+	TRIP_KLAXON				- 254
+	SHAPED_CHARGE			- 255
+	BREAK_LIGHT				- 256
+	GL_HE_GRENADE			- 257
+	GL_TEARGAS_GRENADE		- 258
+	GL_STUN_GRENADE			- 259
+	GL_SMOKE_GRENADE		- 260
+
+	SMOKE_GRENADE 			- 261
+	TANK_SHELL				- 262
+	STRUCTURE_IGNITE		- 263
+	CREATURE_COCKTAIL		- 264
+	STRUCTURE_EXPLOSION		- 265
+	GREAT_BIG_EXPLOSION		- 266
+	BIG_TEAR_GAS			- 267
+	SMALL_CREATURE_GAS		- 268
+	LARGE_CREATURE_GAS		- 269
+	VERY_SMALL_CREATURE_GAS - 270
+	
+	BombItem używamy tylko w połączeniu z Blow_up = 1. 
+	
+	Blow_up - 1/0. Jeżeli ustawimy Blow_up = 1 to parametr ActionID ustawiamy na 3.
+	ActionID - 1 -255
+	Name - Nazwa
+	
+!-->
+<ACTION_ITEM_LIST>
+	<ACTION_ITEM>
+		<uiIndex>0</uiIndex>
+		<Name>Klaxon Mine</Name>
+		<ActionID>3</ActionID>
+		<Blow_up>1</Blow_up>
+		<BombItem>241</BombItem>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>1</uiIndex>
+		<Name>Flare Mine</Name>
+		<ActionID>3</ActionID>
+		<Blow_up>1</Blow_up>
+		<BombItem>253</BombItem>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>2</uiIndex>
+		<Name>Teargas Explosion</Name>
+		<ActionID>3</ActionID>
+		<Blow_up>1</Blow_up>
+		<BombItem>242</BombItem>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>3</uiIndex>
+		<Name>Stun Explosion</Name>
+		<ActionID>3</ActionID>
+		<Blow_up>1</Blow_up>
+		<BombItem>241</BombItem>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>4</uiIndex>
+		<Name>Smoke Explosion</Name>
+		<ActionID>3</ActionID>
+		<Blow_up>1</Blow_up>
+		<BombItem>261</BombItem>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>5</uiIndex>
+		<Name>Mustard Gas</Name>
+		<ActionID>3</ActionID>
+		<Blow_up>1</Blow_up>
+		<BombItem>243</BombItem>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>6</uiIndex>
+		<Name>Land Mine</Name>
+		<ActionID>3</ActionID>
+		<Blow_up>1</Blow_up>
+		<BombItem>251</BombItem>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>7</uiIndex>
+		<ActionID>1</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Open Door</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>8</uiIndex>
+		<ActionID>2</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Close Door</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>9</uiIndex>
+		<ActionID>4</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>3x3 Hidden Pit</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>10</uiIndex>
+		<ActionID>5</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>5x5 Hidden Pit</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>11</uiIndex>
+		<Name>Small Explosion</Name>
+		<ActionID>3</ActionID>
+		<Blow_up>1</Blow_up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>12</uiIndex>
+		<Name>Medium Explosion</Name>
+		<ActionID>3</ActionID>
+		<Blow_up>1</Blow_up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>13</uiIndex>
+		<Name>Large Explosion</Name>
+		<ActionID>3</ActionID>
+		<Blow_up>1</Blow_up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>14</uiIndex>
+		<ActionID>6</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Toggle Door</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>15</uiIndex>
+		<ActionID>7</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Toggle Action1s</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>16</uiIndex>
+		<ActionID>8</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Toggle Action2s</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>17</uiIndex>
+		<ActionID>9</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Toggle Action3s</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>18</uiIndex>
+		<ActionID>10</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Toggle Action4s</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>19</uiIndex>
+		<ActionID>11</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Enter Brothel</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>20</uiIndex>
+		<ActionID>12</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Exit Brothel</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>21</uiIndex>
+		<ActionID>13</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Kingpin Alarm</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>22</uiIndex>
+		<ActionID>14</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Sex with Prostitute</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>23</uiIndex>
+		<ActionID>15</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Reveal Room</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>24</uiIndex>
+		<ActionID>16</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Local Alarm</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>25</uiIndex>
+		<ActionID>17</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Global Alarm</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>26</uiIndex>
+		<ActionID>18</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Klaxon Sound</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>27</uiIndex>
+		<ActionID>19</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Unlock door</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>28</uiIndex>
+		<ActionID>20</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Toggle lock</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>29</uiIndex>
+		<ActionID>21</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Untrap door</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>30</uiIndex>
+		<ActionID>22</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Tog pressure items</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>31</uiIndex>
+		<ActionID>23</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Museum alarm</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>32</uiIndex>
+		<ActionID>24</ActionID>
+		<Blow_up>0</Blow_up>
+		<Name>Bloodcat alarm</Name>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>33</uiIndex>
+		<Name>Big teargas</Name>
+		<ActionID>3</ActionID>
+		<Blow_up>1</Blow_up>
+		<BombItem>267</BombItem>
+	</ACTION_ITEM>
+	<!-- UB -->
+	<ACTION_ITEM>
+		<uiIndex>34</uiIndex>
+		<Name>BIGGENS BOMBS</Name>
+		<ActionID>25</ActionID>
+		<Blow_up>0</Blow_up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>35</uiIndex>
+		<Name>BIGGENS WARNING</Name>
+		<ActionID>26</ActionID>
+		<Blow_up>0</Blow_up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>36</uiIndex>
+		<Name>SEE FORTIFIED DOOR</Name>
+		<ActionID>27</ActionID>
+		<Blow_up>0</Blow_up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>37</uiIndex>
+		<Name>OPEN FORTIFED DOOR</Name>
+		<ActionID>28</ActionID>
+		<Blow_up>0</Blow_up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>38</uiIndex>
+		<Name>SEE POWER GEN FAN</Name>
+		<ActionID>29</ActionID>
+		<Blow_up>0</Blow_up>
+	</ACTION_ITEM>
+	<!-- End UB -->
+	<ACTION_ITEM>
+		<uiIndex>38</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>39</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>40</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>41</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>42</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>43</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>44</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>45</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>46</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>47</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>48</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>49</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>50</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>51</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>52</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>53</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>54</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>55</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>56</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>57</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>58</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>59</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>60</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>61</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>62</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>63</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>64</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>65</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>66</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>67</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>68</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>69</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>70</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>71</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>72</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>73</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>74</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>75</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>76</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>77</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>78</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>79</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>80</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>81</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>82</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>83</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>84</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>85</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>86</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>87</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>88</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>89</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>90</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>91</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>92</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>93</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>94</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>95</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>96</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>97</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>98</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>99</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>100</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>101</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>102</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>103</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>104</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>105</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>106</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>107</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>108</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>109</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>110</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>111</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>112</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>113</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>114</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>115</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>116</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>117</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>118</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>119</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>120</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>121</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>122</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>123</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>124</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>125</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>126</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>127</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>128</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>129</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>130</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>131</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>132</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>133</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>134</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>135</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>136</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>137</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>138</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>139</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>140</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>141</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>142</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>143</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>144</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>145</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>146</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>147</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>148</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>149</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>150</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>151</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>152</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>153</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>154</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>155</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>156</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>157</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>158</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>159</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>160</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>161</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>162</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>163</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>164</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>165</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>166</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>167</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>168</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>169</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>170</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>171</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>172</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>173</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>174</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>175</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>176</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>177</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>178</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>179</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>180</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>181</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>182</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>183</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>184</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>185</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>186</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>187</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>188</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>189</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>190</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>191</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>192</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>193</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>194</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>195</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>196</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>197</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>198</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>199</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>200</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>201</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>202</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>203</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>204</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>205</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>206</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>207</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>208</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>209</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>210</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>211</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>212</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>213</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>214</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>215</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>216</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>217</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>218</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>219</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>220</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>221</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>222</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>223</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>224</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>225</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>226</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>227</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>228</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>229</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>230</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>231</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>232</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>233</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>234</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>235</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>236</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>237</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>238</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>239</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>240</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>241</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>242</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>243</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>244</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>245</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>246</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>247</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>248</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>249</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>250</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>251</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>252</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>253</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>254</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>255</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>256</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>257</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>258</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>259</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>260</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>261</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>262</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>263</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>264</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>265</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>266</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>267</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>268</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>269</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>270</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>271</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>272</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>273</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>274</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>275</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>276</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>277</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>278</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>279</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>280</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>281</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>282</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>283</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>284</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>285</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>286</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>287</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>288</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>289</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>290</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>291</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>292</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>293</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>294</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>295</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>296</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>297</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>298</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>299</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>300</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>301</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>302</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>303</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>304</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>305</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>306</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>307</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>308</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>309</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>310</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>311</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>312</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>313</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>314</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>315</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>316</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>317</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>318</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>319</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>320</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>321</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>322</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>323</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>324</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>325</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>326</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>327</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>328</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>329</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>330</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>331</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>332</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>333</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>334</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>335</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>336</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>337</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>338</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>339</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>340</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>341</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>342</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>343</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>344</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>345</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>346</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>347</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>348</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>349</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>350</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>351</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>352</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>353</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>354</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>355</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>356</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>357</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>358</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>359</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>360</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>361</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>362</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>363</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>364</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>365</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>366</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>367</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>368</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>369</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>370</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>371</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>372</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>373</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>374</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>375</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>376</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>377</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>378</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>379</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>380</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>381</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>382</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>383</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>384</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>385</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>386</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>387</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>388</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>389</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>390</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>391</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>392</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>393</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>394</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>395</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>396</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>397</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>398</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>399</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>400</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>401</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>402</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>403</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>404</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>405</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>406</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>407</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>408</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>409</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>410</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>411</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>412</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>413</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>414</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>415</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>416</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>417</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>418</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>419</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>420</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>421</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>422</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>423</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>424</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>425</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>426</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>427</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>428</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>429</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>430</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>431</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>432</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>433</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>434</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>435</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>436</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>437</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>438</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>439</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>440</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>441</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>442</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>443</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>444</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>445</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>446</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>447</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>448</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>449</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>450</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>451</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>452</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>453</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>454</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>455</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>456</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>457</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>458</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>459</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>460</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>461</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>462</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>463</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>464</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>465</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>466</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>467</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>468</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>469</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>470</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>471</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>472</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>473</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>474</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>475</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>476</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>477</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>478</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>479</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>480</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>481</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>482</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>483</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>484</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>485</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>486</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>487</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>488</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>489</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>490</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>491</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>492</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>493</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>494</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>495</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>496</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>497</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>498</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>499</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+	<ACTION_ITEM>
+		<uiIndex>500</uiIndex>
+		<Name>Empty action</Name>
+		<ActionID>0</ActionID>
+		<Blow_Up>0</Blow_Up>
+	</ACTION_ITEM>
+</ACTION_ITEM_LIST>
