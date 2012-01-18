@@ -52,6 +52,10 @@
 	#include "Explosion Control.h"//dnl ch40 200909
 #endif
 
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#endif
+
 //rain
 //#define VIS_DIST_DECREASE_PER_RAIN_INTENSITY 20
 //end rain
@@ -101,6 +105,11 @@ extern BOOLEAN NobodyAlerted(void);
 BOOLEAN		gfPlayerTeamSawCreatures = FALSE;
 BOOLEAN	gfPlayerTeamSawJoey			= FALSE;
 BOOLEAN	gfMikeShouldSayHi				= FALSE;
+
+#ifdef JA2UB
+//JA25 UB
+BOOLEAN   gfMorrisShouldSayHi				 = FALSE;
+#endif
 
 UINT8			gubBestToMakeSighting[BEST_SIGHTING_ARRAY_SIZE];
 UINT8			gubBestToMakeSightingSize = 0;
@@ -858,7 +867,8 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 	// if we've been told that interrupts are possible as a result of sighting
 	if ((gTacticalStatus.uiFlags & TURNBASED) && 
 		(gTacticalStatus.uiFlags & INCOMBAT) && 
-		(ubSightFlags & SIGHT_INTERRUPT))
+		(ubSightFlags & SIGHT_INTERRUPT) && 
+		(!gGameExternalOptions.fImprovedInterruptSystem || gGameExternalOptions.fAllowInstantInterruptsOnSight )	)
 	{
 		ResolveInterruptsVs( pSoldier, SIGHTINTERRUPT );
 	}
@@ -2194,6 +2204,9 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 						switch( pSoldier->ubProfile )
 						{
 						case CARMEN:
+#ifdef JA2UB
+// no UB 
+#else
 							if (pOpponent->ubProfile == SLAY ) // 64
 							{
 								// Carmen goes to war (against Slay)
@@ -2209,7 +2222,11 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 								EnterCombatMode( pSoldier->bTeam );
 								}
 								*/
+
 							}
+#endif								
+
+							
 							break;
 						case ELDIN:
 							if ( pSoldier->aiData.bNeutral )
@@ -2264,6 +2281,10 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 							}
 							break;
 							//case QUEEN:
+#ifdef JA2UB
+//Ja25
+//No Queen,Joe, or elliot
+#else
 						case JOE:
 						case ELLIOT:
 							if ( ! ( gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE ) )
@@ -2275,6 +2296,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 								}
 							}
 							break;
+#endif
 						default:
 							break;
 						}
@@ -2370,6 +2392,15 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 		}
 		else if ( pSoldier->bTeam == gbPlayerNum )
 		{
+#ifdef JA2UB		
+		  if( (pOpponent->ubProfile == 75 ) && 
+					( GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( NULL, NULL ) != 0 ) && 
+					!( pSoldier->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_MORRIS ) && 
+					!( gMercProfiles[ 75 ].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE ) )
+		  {
+				gfMorrisShouldSayHi = TRUE;
+		  }
+#else		  
 			if ( (pOpponent->ubProfile == MIKE) && ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC ) && !(pSoldier->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_MIKE) )
 			{
 				if (gfMikeShouldSayHi == FALSE)
@@ -2379,6 +2410,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 				TacticalCharacterDialogue( pSoldier, QUOTE_AIM_SEEN_MIKE );
 				pSoldier->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_MIKE;
 			}
+#endif
 			else if ( pOpponent->ubProfile == JOEY && gfPlayerTeamSawJoey == FALSE )
 			{
 				TacticalCharacterDialogue( pSoldier, QUOTE_SPOTTED_JOEY );
@@ -3274,12 +3306,14 @@ void SaySeenQuote( SOLDIERTYPE *pSoldier, BOOLEAN fSeenCreature, BOOLEAN fVirgin
 	UINT8				ubNumEnemies = 0;
 	UINT8				ubNumAllies = 0;
 	UINT32			cnt;
-
+#ifdef JA2UB
+//Ja25 No meanwhiles
+#else
 	if ( AreInMeanwhile( ) )
 	{
 		return;
 	}
-
+#endif
 	// Check out for our under large fire quote
 	if ( !(pSoldier->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_IN_SHIT ) )
 	{
@@ -6513,7 +6547,11 @@ void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGri
 	// if the quote was faint, say something
 	if (ubVolumeIndex == 0)
 	{
+#ifdef JA2UB
+//Ja25 No meanwhiles
+#else
 		if ( !AreInMeanwhile( ) && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV) && pSoldier->ubTurnsUntilCanSayHeardNoise == 0)
+#endif
 		{
 			TacticalCharacterDialogue( pSoldier, QUOTE_HEARD_SOMETHING );
 			if ( gTacticalStatus.uiFlags & INCOMBAT )
@@ -7499,3 +7537,10 @@ BOOLEAN SoldierHasLimitedVision(SOLDIERTYPE * pSoldier)
 	else
 		return FALSE;
 }
+
+#ifdef JA2UB
+INT32 MaxDistanceVisible( void )
+{
+	return( STRAIGHT * 2 );
+}
+#endif

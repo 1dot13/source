@@ -242,6 +242,7 @@
     <ClCompile Include="Init.cpp" />
     <ClCompile Include="Intro.cpp" />
     <ClCompile Include="JA2 Splash.cpp" />
+    <ClCompile Include="Ja25Update.cpp" />
     <ClCompile Include="jascreens.cpp" />
     <ClCompile Include="Language Defines.cpp" />
     <ClCompile Include="Loading Screen.cpp" />
@@ -262,6 +263,9 @@
     <ClCompile Include="SaveLoadScreen.cpp" />
     <ClCompile Include="SCREENS.cpp" />
     <ClCompile Include="Sys Globals.cpp" />
+    <ClCompile Include="ub_config.cpp" />
+    <ClCompile Include="XML_IntroFiles.cpp" />
+    <ClCompile Include="XML_Layout_MainMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="builddefines.h" />
@@ -281,6 +285,7 @@
     <ClInclude Include="JA2 Demo Ads.h" />
     <ClInclude Include="JA2 Splash.h" />
     <ClInclude Include="ja2.h" />
+    <ClInclude Include="Ja25Update.h" />
     <ClInclude Include="JA2Prototypes.h" />
     <ClInclude Include="jascreens.h" />
     <ClInclude Include="Language Defines.h" />
@@ -306,6 +311,7 @@
     <ClInclude Include="screenids.h" />
     <ClInclude Include="SCREENS.H" />
     <ClInclude Include="Sys Globals.h" />
+    <ClInclude Include="ub_config.h" />
     <ClInclude Include="VtuneApi.h" />
   </ItemGroup>
   <ItemGroup>

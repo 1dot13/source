@@ -61,6 +61,13 @@
 #include "AimFacialIndex.h"
 #include "mercs.h"
 
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#endif
+
+#include "ub_config.h"
+#include "XML.h"
+
 #include "connect.h"
 #ifdef JA2EDITOR
 	extern BOOLEAN gfProfileDataLoaded;
@@ -499,7 +506,9 @@ BOOLEAN LoadMercProfiles(void)
 //	FILE *fptr;
 	HWFILE fptr;
 	STR8 pFileName = "BINARYDATA\\Prof.dat";
-
+#ifdef JA2UB
+	STR8 pFileName_UB = "BINARYDATA\\JA25PROF.DAT";
+#endif
 	STR8 pFileName1_Normal = "BINARYDATA\\Prof_Novice_NormalGuns.dat";
 	STR8 pFileName2_Normal = "BINARYDATA\\Prof_Experienced_NormalGuns.dat";
 	STR8 pFileName3_Normal = "BINARYDATA\\Prof_Expert_NormalGuns.dat";
@@ -516,6 +525,7 @@ BOOLEAN LoadMercProfiles(void)
 	// ----- WANNE.PROFILE: New Profile Loading - BEGIN
 	//InitNewProfiles();
 	// ----- WANNE.PROFILE: New Profile Loading - END
+
 
 	if (gGameExternalOptions.fUseDifficultyBasedProfDat == TRUE)
 	{
@@ -552,7 +562,17 @@ BOOLEAN LoadMercProfiles(void)
 	}
 	else
 	{
+
+#ifdef JA2UB
+		fptr = FileOpen(pFileName_UB, FILE_ACCESS_READ, FALSE );   //ub
+		if( !fptr )
+		{
+			fptr = FileOpen(pFileName, FILE_ACCESS_READ, FALSE );   //ja
+		}
+#else
 		fptr = FileOpen(pFileName, FILE_ACCESS_READ, FALSE );
+#endif
+
 	}
 
 
@@ -867,6 +887,27 @@ BOOLEAN LoadMercProfiles(void)
 	}
 
 	FileClose( fptr );
+	//WriteMercStartingGearStats();
+	
+//--------------
+/*
+CHAR8						fileName[255];
+
+	//JA25 UB
+for( int i = 0; i < NUM_PROFILES; i++ )
+	{
+	strcpy(fileName, "TABLEDATA\\Profile\\prof03.xml");
+	
+	//sprintf( fileName, "TABLEDATA\\Profile\\prof%03d.xml", i );
+	
+	if ( FileExists(fileName) )
+	{
+		ReadInMercProfiles(fileName,FALSE,i,TRUE);
+	}
+
+	}
+*/
+//--------------
 
 	// ---------------
 
@@ -1061,6 +1102,9 @@ void MakeRemainingTerroristsTougher( void )
 	{
 		if ( gMercProfiles[ gubTerrorists[ ubLoop ] ].bMercStatus != MERC_IS_DEAD && gMercProfiles[ gubTerrorists[ ubLoop ] ].sSectorX != 0 && gMercProfiles[ gubTerrorists[ ubLoop ] ].sSectorY != 0 )
 		{
+#ifdef JA2UB
+//no Ub
+#else
 			if ( gubTerrorists[ ubLoop ] == SLAY )
 			{
 				if ( FindSoldierByProfileID( SLAY, TRUE ) != NULL )
@@ -1069,6 +1113,7 @@ void MakeRemainingTerroristsTougher( void )
 					continue;
 				}
 			}
+#endif
 			ubRemainingTerrorists++;
 		}
 	}
@@ -1132,6 +1177,10 @@ void MakeRemainingTerroristsTougher( void )
 	{
 		if ( gMercProfiles[ gubTerrorists[ ubLoop ] ].bMercStatus != MERC_IS_DEAD && gMercProfiles[ gubTerrorists[ ubLoop ] ].sSectorX != 0 && gMercProfiles[ gubTerrorists[ ubLoop ] ].sSectorY != 0 )
 		{
+		
+#ifdef JA2UB
+// no UB
+#else
 			if ( gubTerrorists[ ubLoop ] == SLAY )
 			{
 				if ( FindSoldierByProfileID( SLAY, TRUE ) != NULL )
@@ -1140,7 +1189,7 @@ void MakeRemainingTerroristsTougher( void )
 					continue;
 				}
 			}
-
+#endif
 			if ( usOldItem != NOTHING )
 			{
 				RemoveObjectFromSoldierProfile( gubTerrorists[ ubLoop ], usOldItem );
@@ -1289,9 +1338,29 @@ void StartSomeMercsOnAssignment(void)
 		}
 
 		pProfile = &(gMercProfiles[ uiCnt ]);
+#ifdef JA2UB		
+		//Make sure stigie and Gaston are available at the start of the game
+/*		if( uiCnt == 59 || uiCnt == 58 )
+		{
+			pProfile->bMercStatus = MERC_OK;
+			pProfile->uiDayBecomesAvailable = 0;
+			pProfile->uiPrecedentQuoteSaid = 0;
+			pProfile->ubDaysOfMoraleHangover = 0;
+
+			continue;
+		}
+*/
+		//if the merc is dead, dont modify anything
+		if( pProfile->bMercStatus == MERC_IS_DEAD )
+		{
+			continue;
+		}
 
 		// calc chance to start on assignment
+		uiChance = 3 * pProfile->bExpLevel; //5 Ja25 UB
+#else
 		uiChance = 5 * pProfile->bExpLevel;
+#endif
 
 		// tais: disable mercs being on assignment (this check is just for at the start of the campaign)
 		if (Random(100) < uiChance && gGameExternalOptions.fMercsOnAssignment < 1)
@@ -1671,13 +1740,15 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 			SwapObjs( pNewSoldier, bSlot, HANDPOS, TRUE );
 		}
 	}
-
+#ifdef JA2UB
+// no Ja25 UB
+#else
 	if ( ubCharNum == IRA )
 	{
 		// trigger 0th PCscript line
 		TriggerNPCRecord( IRA, 0 );
 	}
-
+#endif
 	// Set whatkind of merc am i
 	pNewSoldier->ubWhatKindOfMercAmI = MERC_TYPE__NPC;
 
@@ -1695,7 +1766,10 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 
 	//remove the merc from the Personnel screens departed list ( if they have never been hired before, its ok to call it )
 	RemoveNewlyHiredMercFromPersonnelDepartedList( pSoldier->ubProfile );
-
+#ifdef JA2UB	
+	//If this is a special NPC, play a quote from the team mates
+	HandlePlayingQuoteWhenHiringNpc( pNewSoldier->ubProfile );
+#endif
 	return( TRUE );
 }
 

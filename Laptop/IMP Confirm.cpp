@@ -364,13 +364,13 @@ void	BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 			//Kaiden: Below is the Imp personality E-mail as it was.
 /*
 			// send email notice
-			//AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ) );
+			//AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ),TYPE_EMAIL_NONE );
 			AddFutureDayStrategicEvent( EVENT_DAY2_ADD_EMAIL_FROM_IMP, 60 * 7, 0, 2 );
 */
 
 			//Kaiden: And here is my Answer to the IMP E-mails only
 			// profiling the last IMP made. You get the results immediately
-			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), LaptopSaveInfo.iIMPIndex, -1 );
+			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), LaptopSaveInfo.iIMPIndex, -1, TYPE_EMAIL_EMAIL_EDT);
 
 			//RenderCharProfile( );
 

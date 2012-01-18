@@ -37,6 +37,17 @@
 	#include "Tactical Save.h"
 #endif
 
+#ifdef JA2UB
+#include "Explosion Control.h"
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#include "MapScreen Quotes.h"
+#include "email.h"
+#include "interface Dialogue.h"
+#include "mercs.h"
+#include "ub_config.h"
+#endif
+
 #include "email.h"
 
 
@@ -1327,12 +1338,22 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 		gStrategicStatus.ubUnhiredMercDeaths++;
 
 		//send an email as long as the merc is from aim
+#ifdef JA2UB
+		//ja25 ub	
+	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE || gGameUBOptions.LaptopQuestEnabled == FALSE )
+	{
+		if ( gProfilesAIM[ iProfileID ].ProfilId == iProfileID && gGameUBOptions.fDeadMerc == TRUE )  //new profiles by Jazz
+			//send an email to the player telling the player that a merc died
+			AddEmailWithSpecialData(206, MERC_DIED_ON_OTHER_ASSIGNMENT_LENGTH, AIM_SITE, GetWorldTotalMin(), 0, iProfileID, TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT, TYPE_E_AIM_L1 );
+	}
+#else
 	//	if( iProfileID < BIFF )
 		if ( gProfilesAIM[ iProfileID ].ProfilId == iProfileID )  //new profiles by Jazz
 		{
 			//send an email to the player telling the player that a merc died
-			AddEmailWithSpecialData(MERC_DIED_ON_OTHER_ASSIGNMENT, MERC_DIED_ON_OTHER_ASSIGNMENT_LENGTH, AIM_SITE, GetWorldTotalMin(), 0, iProfileID );
+			AddEmailWithSpecialData(MERC_DIED_ON_OTHER_ASSIGNMENT, MERC_DIED_ON_OTHER_ASSIGNMENT_LENGTH, AIM_SITE, GetWorldTotalMin(), 0, iProfileID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
 		}
+#endif
 	}
 }
 
@@ -1347,6 +1368,11 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 // returns a number between 0-100, this is an estimate of how far a player has progressed through the game
 UINT8 CurrentPlayerProgressPercentage(void)
 {
+#ifdef JA2UB
+	INT8	bFurthestSectorPlayerOwns=-1; //JA25 UB
+	UINT8 ubCurrentProgress;
+#else
+	
 	UINT32 uiCurrentIncome;
 	UINT32 uiPossibleIncome;
 	UINT16 usCurrentProgress;
@@ -1364,8 +1390,129 @@ UINT8 CurrentPlayerProgressPercentage(void)
 	UINT16 usMaxIncomeProgress;
 	UINT16 usMaxControlProgress;
 	UINT16 usMaxVisitProgress;
+#endif
 
+#ifdef JA2UB	
+	//Get the furthest sector the player owns
+	bFurthestSectorPlayerOwns = GetTheFurthestSectorPlayerOwns();
+	//JA25 UB
+	switch( bFurthestSectorPlayerOwns )
+	{
+		//initial sector
+		case SEC_H7:
+			ubCurrentProgress = 44;
+			break;
 
+		case SEC_H8:
+			ubCurrentProgress = 45;
+			break;
+
+		//guard post
+		case SEC_H9:
+			ubCurrentProgress = 55;
+			break;
+
+		//field
+		case SEC_H10:
+			ubCurrentProgress = 58;
+			break;
+
+		//field
+		case SEC_I9:
+			ubCurrentProgress = 60;
+			break;
+
+		//first part of town
+		case SEC_I10:
+			ubCurrentProgress = 63;
+			break;
+
+		//second part of town
+		case SEC_I11:
+			ubCurrentProgress = 65;
+			break;
+
+		//field
+		case SEC_I12:
+			ubCurrentProgress = 68;
+			break;
+
+		//Abondoned mine
+		case SEC_I13:
+			ubCurrentProgress = 70;
+			break;
+
+		// cave under abondoned mine
+/*	case SEC_I13_1:
+			ubCurrentProgress = 72;
+			break;
+*/
+		//field
+		case SEC_J11:
+			ubCurrentProgress = 70;
+			break;
+
+		//field
+		case SEC_J12:
+			ubCurrentProgress = 70;
+			break;
+
+		//power gen plant
+		case SEC_J13:
+			ubCurrentProgress = 75;
+			break;
+/*
+			//power gen plant, sub level
+		case JA25_J13_1:
+			ubCurrentProgress = 75;
+			break;
+
+		//first part of tunnel
+		case JA25_J14_1:
+			ubCurrentProgress = 80;
+			break;
+
+		//second part of tunnel
+		case JA25_K14_1:
+			ubCurrentProgress = 82;
+			break;
+
+		//ground level of complex
+		case JA25_K15:
+			ubCurrentProgress = 90;
+			break;
+
+		//initial sector of complex
+		case JA25_K15_1:
+			ubCurrentProgress = 85;
+			break;
+
+		// 2nd level down of complex
+		case JA25_K15_2:
+			ubCurrentProgress = 95;
+			break;
+
+		//2nd last sector
+		case JA25_L15_2:
+			ubCurrentProgress = 98;
+			break;
+
+		//last sector
+		case JA25_L15_3:
+			ubCurrentProgress = 100;
+			break;
+*/
+		default:
+
+			// OK, use percentage complete from map...
+			//Assert( 0 );
+			//ubCurrentProgress = SectorInfo[ bFurthestSectorPlayerOwns ].ubCurrentProgressValue;
+			ubCurrentProgress = 50;
+			break;
+	}
+
+	return(ubCurrentProgress);
+#else
 	if( gfEditMode )
 		return 0;
 
@@ -1510,6 +1657,8 @@ UINT8 CurrentPlayerProgressPercentage(void)
 
 
 	return((UINT8)usCurrentProgress);
+	
+#endif
 }
 
 UINT8 HighestPlayerProgressPercentage(void)
@@ -1534,11 +1683,14 @@ void HourlyProgressUpdate(void)
 		// CJC:  note when progress goes above certain values for the first time
 
 		// at 35% start the Madlab quest
-		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressStartMadlabQuest && gStrategicStatus.ubHighestProgress <= gGameExternalOptions.ubGameProgressStartMadlabQuest )
+#ifdef JA2UB
+// no UB
+#else
+		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressStartMadlabQuest && gStrategicStatus.ubHighestProgress < gGameExternalOptions.ubGameProgressStartMadlabQuest )
 		{
 			HandleScientistAWOLMeanwhileScene();
 		}
-
+#endif
 		// at 50% make Mike available to the strategic AI
 		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressMikeAvailable && gStrategicStatus.ubHighestProgress <= gGameExternalOptions.ubGameProgressMikeAvailable )
 		{
@@ -1828,9 +1980,32 @@ UINT16 TotalVisitableSurfaceSectors( void )
 
 void MERCMercWentUpALevelSendEmail( UINT8 ubMercMercIdValue )
 {
+#ifdef JA2UB
+//JA25 UB
+#else
 	UINT8 ubEmailOffset = 0;
 	int iMsgLength = 0;
-
+	
+	UINT8 pMerc = 0;
+	UINT8 iMerc = 0;
+	UINT8 oMerc = 0;
+	
+	// Read from EmailMercAvailable.xml
+	if ( ReadXMLEmail == TRUE )
+	{		
+	oMerc = ubMercMercIdValue;				
+	iMerc = oMerc * 1;
+	
+	if ( oMerc != 0 )
+		pMerc = oMerc + 1;
+	else
+		pMerc = 0;
+	if ( gProfilesMERC[ubMercMercIdValue].ProfilId == ubMercMercIdValue )
+		AddEmailTypeXML( pMerc, iMerc, iMerc, GetWorldTotalMin(), -1 , TYPE_EMAIL_MERC_LEVEL_UP);
+	}
+	else
+	{
+	// Read from Email.edt and sender (nickname) from MercProfiles.xml
 	// WANNE: TODO: Tex, Biggins, Stoggy and Gaston have special handling because they are the new MERC merc in 1.13
 	// There is no letter template in Email.edt. We have them hardcoded in the source code.
 	if (ubMercMercIdValue == 124 || ubMercMercIdValue == 125 || ubMercMercIdValue == 126 || ubMercMercIdValue == 127)
@@ -1866,5 +2041,8 @@ void MERCMercWentUpALevelSendEmail( UINT8 ubMercMercIdValue )
 		ubEmailOffset = MERC_UP_LEVEL_BIFF + MERC_UP_LEVEL_LENGTH_BIFF * ( ubMercMercIdValue ); 
 	}
 
-	AddEmail( ubEmailOffset, iMsgLength, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1);
+	AddEmail( ubEmailOffset, iMsgLength, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT_NAME_MERC);
+	
+	}
+#endif
 }

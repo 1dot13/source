@@ -28,12 +28,13 @@
 	// Also include Town Militia for checks regarding Mobile Militia Restrictions
 	#include "Town Militia.h"
 	// Also include Quests, for checking whether a fact is true.
-	#include "Quests.h"	
+	#include "Quests.h"
 #endif
-
 #include "connect.h"
 
-
+#ifdef JA2UB
+#include "ub_config.h"
+#endif
 
 //#define MAP_BORDER_CORNER_X 584
 //#define MAP_BORDER_CORNER_Y 279
@@ -453,6 +454,65 @@ BOOLEAN CreateButtonsForMapBorder( void )
 
 //	SetButtonCursor(guiMapBorderLandRaiseButtons[ 0 ], MSYS_NO_CURSOR );
 //	SetButtonCursor(guiMapBorderLandRaiseButtons[ 1 ], MSYS_NO_CURSOR );
+
+
+#ifdef JA2UB
+    //EnableButton
+      
+	if (gGameUBOptions.BorderTown == TRUE)  
+	   { 
+	   EnableButton( giMapBorderButtons[ MAP_BORDER_TOWN_BTN ]); 
+	   }  
+	   else
+	   {
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_TOWN_BTN ]); 
+	   }
+	   
+	if (gGameUBOptions.BorderMine == TRUE)  
+	   { 
+	   EnableButton( giMapBorderButtons[ MAP_BORDER_MINE_BTN ]); 
+	   }  
+	   else
+	   {
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_MINE_BTN ]); 
+	   }
+	
+	if (gGameUBOptions.BorderTeams == TRUE)  
+	   { 
+	   EnableButton( giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ]); 
+	   }  
+	   else
+	   {
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ]); 
+	   }
+	
+	if (gGameUBOptions.BorderMilitia == TRUE)  
+	   { 
+	   EnableButton( giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ]); 
+	   }  
+	   else
+	   {
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ]); 
+	   }      
+	   
+	if (gGameUBOptions.BorderAirspace == TRUE)  
+	   { 
+	   EnableButton( giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ]); 
+	   }  
+	   else
+	   {
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ]); 
+	   }      
+
+	if (gGameUBOptions.BorderItem == TRUE)  
+	   { 
+	   EnableButton( giMapBorderButtons[ MAP_BORDER_ITEM_BTN ]); 
+	   }  
+	   else
+	   {
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_ITEM_BTN ]); 
+	   }  
+#endif
 
 	InitializeMapBorderButtonStates( );
 

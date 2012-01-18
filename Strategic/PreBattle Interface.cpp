@@ -49,6 +49,10 @@
 	#include "message.h"
 #endif
 
+#ifdef JA2UB
+#include "ub_config.h"
+#endif
+
 extern void InitializeTacticalStatusAtBattleStart();
 extern BOOLEAN gfDelayAutoResolveStart;
 extern BOOLEAN gfTransitionMapscreenToAutoResolve;
@@ -861,6 +865,10 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 	SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
+#ifdef JA2UB	
+	if ( gGameUBOptions.AutoResolve == FALSE )
+		DisableButton( iPBButton[0] );
+#endif
 	DoTransitionFromMapscreenToPreBattleInterface();
 }
 

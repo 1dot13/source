@@ -34,12 +34,15 @@
 #endif
 
 #include "soldier profile type.h"
+#include "LuaInitNPCs.h"
 
 INT32 giBothCheckboxButton = -1;
 INT32 giRealisticCheckboxButton = -1;
 INT32 giSciFiCheckboxButton = -1;
 INT32 giAlarmTriggerButton = -1;
 INT32 giOwnershipGroupButton = -1;
+
+CHAR16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ];
 /*
 CHAR16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ] =
 {
@@ -77,14 +80,93 @@ CHAR16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ] =
 	L"Museum alarm",
 	L"Bloodcat alarm",
 	L"Big teargas",
+#ifdef JA2UB
+	L"BIGGENS BOMBS",
+	L"ABIGGENS WARNING",
+	L"SEE FORTIFIED DOOR",
+	L"OPEN FORTIFED DOOR",
+	L"SEE POWER GEN FAN",
+#endif
 };
 */
 const STR16 GetActionItemName( OBJECTTYPE *pItem )
 {
+UINT32 i,o;
+CHAR16	temp[30];
+
 	if( !pItem || pItem->usItem != ACTION_ITEM )
 		return NULL;
+
+		
+if( (*pItem)[0]->data.misc.bActionValue != ACTION_ITEM_BLOW_UP )
+	{
+			for (i= ACTIONITEM_TRIP_KLAXON; i<=ACTIONITEM_NEW; i++ )
+				{
+					if ( ActionItemsValues[ i ].BlowUp == 0 )
+					{
+						if ( (*pItem)[0]->data.misc.bActionValue == ActionItemsValues[ i ].ActionID )
+						{
+							wcscpy(temp, gszActionItemDesc[i]);
+							o = i;
+						}
+					}
+				}
+			return ActionItemsValues[ o ].szName;
+	}
+	else
+	{
+				for (i= ACTIONITEM_TRIP_KLAXON; i<=ACTIONITEM_NEW; i++ )
+				{
+					if ( ActionItemsValues[ i ].BlowUp == 1 )
+					{
+						if ( (*pItem)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP )
+						{
+							if ( (*pItem)[0]->data.misc.usBombItem == ActionItemsValues[ i ].BombItem )
+								o = i;
+						}
+					}
+				}
+			return ActionItemsValues[ o ].szName;
+	/*
+
+	
+		
+		if ( (*pItem)[0]->data.misc.usBombItem == STUN_GRENADE )
+				o = ACTIONITEM_STUN;
+		else if ( (*pItem)[0]->data.misc.usBombItem == SMOKE_GRENADE )
+				o = ACTIONITEM_SMOKE;
+		else if ( (*pItem)[0]->data.misc.usBombItem == TEARGAS_GRENADE )
+				o = ACTIONITEM_TEARGAS;
+		else if ( (*pItem)[0]->data.misc.usBombItem == MUSTARD_GRENADE )
+				o = ACTIONITEM_MUSTARD;
+		else if ( (*pItem)[0]->data.misc.usBombItem == HAND_GRENADE )
+				o = ACTIONITEM_SMALL;
+		else if ( (*pItem)[0]->data.misc.usBombItem == TNT )
+				o = ACTIONITEM_MEDIUM;
+		else if ( (*pItem)[0]->data.misc.usBombItem == C4 )
+				o = ACTIONITEM_LARGE;
+		else if ( (*pItem)[0]->data.misc.usBombItem == MINE )
+				o = ACTIONITEM_MINE;
+		else if ( (*pItem)[0]->data.misc.usBombItem == TRIP_FLARE )
+				o = ACTIONITEM_FLARE;
+		else if ( (*pItem)[0]->data.misc.usBombItem == TRIP_KLAXON )
+				o = ACTIONITEM_TRIP_KLAXON;
+		else if ( (*pItem)[0]->data.misc.usBombItem == BIG_TEAR_GAS )
+				o = ACTIONITEM_BIG_TEAR_GAS;
+
+		return ActionItemsValues[ o ].szName;
+		
+		*/
+	}
+	
+/*
+	if( !pItem || pItem->usItem != ACTION_ITEM )
+		return NULL;
+		
 	if( (*pItem)[0]->data.misc.bActionValue != ACTION_ITEM_BLOW_UP )
 	{
+	
+
 		switch( (*pItem)[0]->data.misc.bActionValue )
 		{
 			case ACTION_ITEM_OPEN_DOOR:								return gszActionItemDesc[ ACTIONITEM_OPEN ];
@@ -110,6 +192,13 @@ const STR16 GetActionItemName( OBJECTTYPE *pItem )
 			case ACTION_ITEM_TOGGLE_PRESSURE_ITEMS:		return gszActionItemDesc[ ACTIONITEM_TOGGLE_PRESSURE_ITEMS ];
 			case ACTION_ITEM_MUSEUM_ALARM:						return gszActionItemDesc[ ACTIONITEM_MUSEUM_ALARM ];
 			case ACTION_ITEM_BLOODCAT_ALARM:					return gszActionItemDesc[ ACTIONITEM_BLOODCAT_ALARM ];
+#ifdef JA2UB
+			case ACTION_ITEM_BIGGENS_BOMBS:						return gszActionItemDesc[ ACTIONITEM_BIGGENS_BOMBS ];
+			case ACTION_ITEM_BIGGENS_WARNING:					return gszActionItemDesc[ ACTIONITEM_BIGGENS_WARNING ];
+			case ACTION_ITEM_SEE_FORTIFIED_DOOR:			return gszActionItemDesc[ ACTIONITEM_SEE_FORTIFIED_DOOR ];
+			case ACTION_ITEM_OPEN_FORTIFED_DOOR:			return gszActionItemDesc[ ACTIONITEM_OPEN_FORTIFED_DOOR ];
+			case ACTION_ITEM_SEE_POWER_GEN_FAN:				return gszActionItemDesc[ ACTIONITEM_SEE_POWER_GEN_FAN ];
+#endif
 			default:																	return NULL;
 		}
 	}
@@ -128,6 +217,8 @@ const STR16 GetActionItemName( OBJECTTYPE *pItem )
 		case BIG_TEAR_GAS:			return gszActionItemDesc[ ACTIONITEM_BIG_TEAR_GAS ];
 		default:								return NULL;
 	}
+	
+*/
 }
 
 enum
@@ -1412,6 +1503,26 @@ void ActionItemCallback( GUI_BUTTON *btn, INT32 reason )
 
 void ChangeActionItem( OBJECTTYPE *pItem, INT8 bActionItemIndex )
 {
+UINT32 i;
+pItem->usItem = ACTION_ITEM;
+//(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BLOW_UP;
+
+			for (i= ACTIONITEM_TRIP_KLAXON; i<=ACTIONITEM_NEW; i++ )
+				{
+						if ( bActionItemIndex == i && ActionItemsValues[ i ].BlowUp == 1  )
+						{
+							(*pItem)[0]->data.misc.usBombItem = ActionItemsValues[ i ].BombItem;
+							(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BLOW_UP;
+						}
+						else if ( bActionItemIndex == i && ActionItemsValues[ i ].BlowUp == 0 )
+						{
+							(*pItem)[0]->data.misc.usBombItem = ActionItemsValues[ i ].BombItem;
+							(*pItem)[0]->data.misc.bActionValue = ActionItemsValues[ i ].ActionID;
+						}
+				}
+
+
+/*
 	pItem->usItem = ACTION_ITEM;
 	(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BLOW_UP;
 	switch( bActionItemIndex )
@@ -1541,8 +1652,31 @@ void ChangeActionItem( OBJECTTYPE *pItem, INT8 bActionItemIndex )
 		case ACTIONITEM_BIG_TEAR_GAS:
 			(*pItem)[0]->data.misc.usBombItem = BIG_TEAR_GAS;
 			break;
-
+#ifdef JA2UB
+		case ACTIONITEM_BIGGENS_BOMBS:
+			(*pItem)[0]->data.misc.usBombItem = NOTHING;
+			(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BIGGENS_BOMBS;
+			break;
+		case ACTIONITEM_BIGGENS_WARNING:
+			(*pItem)[0]->data.misc.usBombItem = NOTHING;
+			(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_BIGGENS_WARNING;
+			break;
+		case ACTIONITEM_SEE_FORTIFIED_DOOR:
+			(*pItem)[0]->data.misc.usBombItem = NOTHING;
+			(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_SEE_FORTIFIED_DOOR;
+			break;
+		case ACTIONITEM_OPEN_FORTIFED_DOOR:
+			(*pItem)[0]->data.misc.usBombItem = NOTHING;
+			(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_OPEN_FORTIFED_DOOR;
+			break;
+		case ACTIONITEM_SEE_POWER_GEN_FAN:
+			(*pItem)[0]->data.misc.usBombItem = NOTHING;
+			(*pItem)[0]->data.misc.bActionValue = ACTION_ITEM_SEE_POWER_GEN_FAN;
+			break;
+#endif
 	}
+	
+	*/
 }
 
 void UpdateActionItem( INT8 bActionItemIndex )

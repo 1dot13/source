@@ -7,7 +7,13 @@
 #define		NUM_SAVE_GAMES_OLD											11
 #define		NUM_SAVE_GAMES_NEW											19
 
-#define		NUM_SAVE_GAMES	19
+#define		NUM_SAVE_GAMES	255//19
+
+extern BOOLEAN AutoSaveToSlot[5];
+
+// WANNE: Used For auto save games
+extern	UINT32	lastLoadedSaveGameDay;
+extern	UINT8	lastLoadedSaveGameHour;
 
 extern	UINT16 	NUM_SLOT;
 extern	UINT32	SLG_SAVELOCATION_HEIGHT;
@@ -23,7 +29,7 @@ extern void LoadSaveGameOldOrNew();
 extern BOOLEAN		gfSaveGame;
 
 //if there is to be a slot selected when entering this screen
-extern INT8			gbSetSlotToBeSelected;
+extern INT32			gbSetSlotToBeSelected;
 
 extern	BOOLEAN			gbSaveGameArray[ NUM_SAVE_GAMES ];
 
@@ -49,5 +55,7 @@ BOOLEAN IsThereAnySavedGameFiles();
 
 void			DeleteSaveGameNumber( UINT8 ubSaveGameSlotID );
 
-
+extern BOOLEAN DoAutoSave( int ubSaveGameID, STR16 pGameDesc );
+extern BOOLEAN SaveDataSaveToSaveGameFile( HWFILE hFile );
+extern BOOLEAN LoadDataSaveFromLoadGameFile( HWFILE hFile );
 #endif

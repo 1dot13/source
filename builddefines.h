@@ -4,6 +4,21 @@
 #include "Language Defines.h"
 
 
+// -----------------------------
+// *****************************
+// WANNE: Enable those 2 defines, if you want to build UB-Version!!
+
+//JA2/Unfinished Business
+//#define JA2UB
+
+//Unfinished Business - Titles (ja2set.dat)
+//#define JA2UBMAPS
+// *****************************
+// -----------------------------
+
+
+
+
 // Map Editor version - you should use the MapEditor configuration instead of messing with these defines (ChrisL)
 //#define JA2BETAVERSION
 //#define JA2EDITOR

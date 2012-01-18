@@ -11,6 +11,7 @@
 		#include "Scheduling.h"
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
+		#include "Encyclopedia.h"
 	#endif
 #endif
 
@@ -114,6 +115,201 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 	SirTech uses the "@@@" notation.
 
 */
+
+CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] = 
+{
+	L"",
+};
+//Encyclopedia
+
+STR16 pMenuStrings[] =
+{
+	//Encyclopedia
+	L"Locations", // 0
+	L"Characters",
+	L"Items",
+	L"Quests",
+	L"Menu 5",
+	L"Menu 6", //5
+	L"Menu 7", 
+	L"Menu 8",
+	L"Menu 9",
+	L"Menu 10",
+	L"Menu 11", //10
+	L"Menu 12",
+	L"Menu 13",
+	L"Menu 14",
+	L"Menu 15",
+	L"Menu 15", // 15
+	
+	//Briefing Room
+	L"Exit",
+};
+
+STR16	pOtherButtonsText[] =
+{
+	L"Briefing", 
+	L"Accept",
+};
+
+STR16	pOtherButtonsHelpText[] =
+{
+	L"Briefing",
+	L"Accept missions",
+};
+
+
+STR16	pLocationPageText[] =
+{
+	L"Prev page",
+	L"Photo", 
+	L"Next page",
+};
+
+STR16	pSectorPageText[] =
+{
+	L"<<",
+	L"Main page",
+	L">>",
+	L"Type: ",
+	L"Empty data",
+	L"Missing of defined missions. Add missions to the file TableData\\BriefingRoom\\BriefingRoom.xml. First mission has to be visible. Put value Hidden = 0.",
+};
+
+STR16	pEncyclopediaTypeText[] = 
+{
+	L"Unknown",// 0 - unknown
+	L"City", //1 - cities
+	L"SAM Site", //2 - SAM Site
+	L"Other location", //3 - other location
+	L"Mines", //4 - mines 
+	L"Military complex", //5 - military complex 
+	L"Laboratory complex",  //6 - laboratory complex 
+	L"Factory complex", //7 - factory complex 
+	L"Hospital", //8 - hospital 
+	L"Prison", //9 - prison
+    L"Airport", //10 - air port 
+};
+
+STR16	pEncyclopediaHelpCharacterText[] = 
+{
+	L"Show all",
+	L"Show AIM",
+	L"Show MERC",
+	L"Show RPC",
+	L"Show NPC",
+	L"Show Pojazd",
+	L"Show IMP",
+	L"Show EPC",
+	L"Filter",
+};
+
+STR16	pEncyclopediaShortCharacterText[] = 
+{
+	L"All",
+	L"AIM",
+	L"MERC",
+	L"RPC",
+	L"NPC",
+	L"Veh.",
+	L"IMP",
+	L"EPC",
+	L"Filter",
+};
+
+STR16	pEncyclopediaHelpText[] = 
+{
+	L"Show all",
+	L"Show cities",
+	L"Show SAM Sites",
+	L"Show other location",
+	L"Show mines",
+	L"Show military complex",
+	L"Show laboratory complex",
+	L"Show Factory complex",
+	L"Show hospital",
+	L"Show prison",
+	L"Show air port",
+};
+
+STR16	pEncyclopediaSkrotyText[] = 
+{
+	L"All",
+	L"City",
+	L"SAM",
+	L"Other",
+	L"Mine",
+	L"Mil.",
+	L"Lab.",
+	L"Fact.",
+	L"Hosp.",
+	L"Prison",
+	L"Air.",
+};
+
+STR16	pEncyclopediaShortInventoryText[] = 
+{
+	L"All", //0
+	L"Gun",
+	L"Ammo",
+	L"LBE",
+	L"Misc",
+	
+	L"All", //5
+	L"Gun",
+	L"Ammo",
+	L"LBE Gear",
+	L"Misc",
+};
+
+STR16			BoxFilter[] =
+{
+	// Guns
+	L"Heavy",
+	L"Pistol",
+	L"M. Pist.",
+	L"SMG",
+	L"Rifle",
+	L"S. Rifle",
+	L"A. Rifle",
+	L"MG",
+	L"Shotgun",
+
+	// Ammo
+	L"Pistol",
+	L"M. Pist.", //10
+	L"SMG",
+	L"Rifle",
+	L"S. Rifle",
+	L"A. Rifle",
+	L"MG",
+	L"Shotgun",
+
+	// Used
+	L"Guns",
+	L"Armor",
+	L"LBE Gear",
+	L"Misc", //20
+
+	// Armour
+	L"Helmets",
+	L"Vests",
+	L"Leggings",
+	L"Plates",
+
+	// Misc
+	L"Blades",
+	L"Th. Knife",
+	L"Melee",
+	L"Grenades",
+	L"Bombs",
+	L"Med.", //30
+	L"Kits",
+	L"Face",
+	L"LBE",
+	L"Misc.", //34
+};
+//-----------
 
 // Editor
 //Editor Taskbar Creation.cpp
@@ -798,6 +994,7 @@ STR16 pShowHighGroundText[] =
 };
 
 //Item Statistics.cpp
+/*
 CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
 {
 	L"Klaxon Mine",
@@ -835,7 +1032,7 @@ CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
 	L"Bloodcat alarm",
 	L"Big teargas",
 };
-
+*/
 STR16 pUpdateItemStatsPanelText[] =
 {
 	L"Toggle hide flag", //0
@@ -2421,6 +2618,11 @@ CHAR16 zHealthStr[][13] =
   L"ECCELLENTE",		// 	>= 90
 };
 
+STR16 gzHiddenHitCountStr[1] =
+{
+	L"?",	
+};
+
 STR16	gzMoneyAmounts[6] = 
 { 
 	L"$1000",
@@ -3270,7 +3472,11 @@ STR16 pMapErrorString[] =
 //6-10
 	L"ha bisogno di una scorta per muoversi. Inseritelo in una squadra che ne è provvista.", // merc can't move unescorted .. for a male
 	L"ha bisogno di una scorta per muoversi. Inseritela in una squadra che ne è provvista.", // for a female
+#ifdef JA2UB
+	L"Il mercenario non è ancora arrivato ad Tracona!",
+#else
 	L"Il mercenario non è ancora arrivato ad Arulco!",
+#endif
 	L"Sembra che ci siano negoziazioni di contratto da stabilire.",
 	L"",
 //11-15
@@ -3359,8 +3565,13 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] =
 {
+#ifdef JA2UB
+	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Drassen (B13) dopo aver preso il volo da Tracona?",
+	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Omerta (A9) dopo aver preso il volo da Tracona?",
+#else
 	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Drassen (B13) dopo aver preso il volo da Arulco?",
 	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Omerta (A9) dopo aver preso il volo da Arulco?",
+#endif
 	L"sta per partire e spedirà il suo equipaggiamento a Omerta (A9).",
 	L"sta per partire e spedirà il suo equipaggiamento a Drassen (B13).",
 	L"%s sta per partire e spedirà il suo equipaggiamento a %s.",
@@ -3370,8 +3581,13 @@ STR16 pMercHeLeaveString[] =
 // female version
 STR16 pMercSheLeaveString[] =
 {
+#ifdef JA2UB
+	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Drassen (B13) dopo aver preso il volo da Tracona?",
+	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Omerta (A9) dopo aver preso il volo da Tracona?",
+#else
 	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Drassen (B13) dopo aver preso il volo da Arulco?",
 	L"Volete che %s lasci il suo equipaggiamento dove si trova ora (%s) o in seguito a Omerta (A9) dopo aver preso il volo da Arulco?",
+#endif
 	L"sta per partire e spedirà il suo equipaggiamento a Omerta (A9).",
 	L"sta per partire e spedirà il suo equipaggiamento a Drassen (B13).",
 	L"%s sta per partire e spedirà il suo equipaggiamento a %s.",
@@ -3723,8 +3939,10 @@ STR16 pWebPagesTitles[] =
 	L"",
 	L"URL non ritrovato.",
 	L"Bobby Ray - Spedizioni recenti",
-	L"",
-	L"",
+	L"Encyclopedia",
+	L"Encyclopedia - Data",
+	L"Briefing Room",
+	L"Briefing Room - Data",
 };
 
 STR16 pShowBookmarkString[] =
@@ -4688,7 +4906,7 @@ STR16			zSaveLoadText[] =
 	//the second is the recommended amount of free space.
 	L"Lo spazio su disco si sta esaurendo. Sono disponibili solo %d MB, mentre per giocare a Jagged dovrebbero esserci almeno %d MB liberi .",	
 
-	L"Salvataggio in corso...",			//When saving a game, a message box with this string appears on the screen
+	L"Salvataggio in corso",			//When saving a game, a message box with this string appears on the screen
 
 	L"Armi normali",
 	L"Tonn. di armi",
@@ -4703,8 +4921,10 @@ STR16			zSaveLoadText[] =
 	L"Excellent Selection",
 	L"Awesome Selection",
 
-	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
+	L"New Inventory does not work in 640x480 screen resolution. Please increase the screen resolution and try again.",
 	L"New Inventory does not work from the default 'Data' folder.",
+
+	L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",
 };
 
 
@@ -4923,7 +5143,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, you will hear rain noises when it is raining.",
 	L"When ON, the crows are present in game.",
 	L"When ON, a tooltip window is shown when pressing |A|l|t and hovering cursor over an enemy.", 
-	L"When ON, game will be saved after each players turn.",
+	L"When ON, game will be saved in 2 alternate save slots after each players turn.",
 	L"When ON, Skyrider will not talk anymore.",
 	//L"When ON, game will run with much lower CPU usage.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",
@@ -4956,9 +5176,15 @@ STR16	zOptionsScreenHelpText[] =
 STR16	gzGIOScreenText[] =
 {
 	L"INSTALLAZIONE INIZIALE DEL GIOCO",
+#ifdef JA2UB
+	L"Random Manuel texts",
+	L"Off",
+	L"On",
+#else
 	L"Versione del gioco",
 	L"Realistica",
 	L"Fantascientifica",
+#endif	
 	L"Platinum", //Placeholder English
 	L"Opzioni delle armi",
 	L"Available Arsenal", // changed by SANDRO
@@ -4999,9 +5225,15 @@ STR16	gzGIOScreenText[] =
 	L"Enemies Drop All Items",
 	L"Off",
 	L"On",
+#ifdef JA2UB
+	L"Tex and John",
+	L"Random",
+	L"All",
+#else
 	L"Number of Terrorists",
 	L"Random",
 	L"All",
+#endif	
 	L"Secret Weapon Caches",
 	L"Random",
 	L"All",
@@ -5016,6 +5248,12 @@ STR16	gzGIOScreenText[] =
 	L"Old / Old",
 	L"New / Old",
 	L"New / New",
+
+	// Squad Size
+	L"Max. Squad Size",
+	L"6",
+	L"8",
+	L"10",
 };
 
 STR16	gzMPJScreenText[] =
@@ -5300,7 +5538,7 @@ STR16 pMessageStrings[] =
 	L"Non potete permettervi di pagare a %s un salario giornaliero di %s",	//first %s is the mercs name, the seconds is a string containing the salary
 	L"Salta",
 	L"%s non può andarsene da solo.",
-	L"Un salvataggio è stato chiamato SaveGame99.sav. Se necessario, rinominatelo da SaveGame01 a SaveGame10 e così potrete accedervi nella schermata di caricamento.",
+	L"Un salvataggio è stato chiamato SaveGame249.sav. Se necessario, rinominatelo da SaveGame01 a SaveGame10 e così potrete accedervi nella schermata di caricamento.",
 	L"%s ha bevuto del %s",
 	L"Un pacco è arivato a Drassen.",
  	L"%s dovrebbe arrivare al punto designato di partenza (settore %s) nel giorno %d, approssimativamente alle ore %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
@@ -5316,14 +5554,28 @@ STR16 pMessageStrings[] =
 	L"Normal turn mode",
 	L"Exit combat mode",
 	L"Forced Turn Mode Active, Entering Combat",
-#ifdef JA2BETAVERSION
 	L"Salvataggio riuscito della partita nello slot End Turn Auto Save.",
-#endif
 	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.
 	L"Client",
 
 	// TODO.Translate
 	L"You cannot use the Old Inventory and the New Attachment System at the same time.",
+	
+	// TODO.Translate
+	L"Auto Save #", //91		// Text des Auto Saves im Load Screen mit ID
+	L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
+	L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
+	L"AutoSaveGame",		// 94	// The filename of the auto save, such as AutoSaveGame01 - AutoSaveGame05
+	L"End-Turn Save #",	// 95	// The text for the tactical end turn auto save
+	L"Saving Auto Save #",	// 96	// The message box, when doing auto save
+	L"Saving",	// 97	// The message box, when doing end turn auto save
+	L"Empty End-Turn Save Slot #",	// 98	// The message box, when doing auto save
+	L"This Slot is reserved for Tactical End-Turn Saves, which can be enabled/disabled in the Option Screen.", //99	// The text, when the user clicks on the save screen on an auto save
+	// Mouse tooltips
+	L"QuickSave.sav",	// 100
+	L"AutoSaveGame%02d.sav",	// 101
+	L"Auto%02d.sav",	// 102
+	L"SaveGame%02d.sav", //103
 };
 
 
@@ -5385,6 +5637,10 @@ STR16 gzLaptopHelpText[] =
 	L"Impresa di pompe funebri McGillicutty",
 	L"Servizio Fioristi Riuniti",
 	L"Contratti assicurativi per agenti A.I.M.",
+	//New Bookmarks
+	L"",
+	L"Encyclopedia",
+	L"Briefing Room",
 };
 
 
@@ -5586,8 +5842,11 @@ STR16 gzLateLocalizedString[] =
 	L"Tutti i vostri mercenari sono stati bendati.",
 
 	//14
+#ifdef JA2UB
+	L"Tracona",
+#else
 	L"Arulco",
-
+#endif
   L"(tetto)",
 
 	L"Salute: %d/%d",
@@ -6845,4 +7104,37 @@ STR16 gzNCTHlabels[]=
 // HEADROCK HAM 4: End new UDB texts and tooltips
 //////////////////////////////////////////////////////
 
+STR16	gzNewLaptopMessages[]=
+{
+	L"Ask about our special offer!",
+	L"Temporarily Unavailable",
+	L"This special press preview of Jagged Alliance 2: Unfinished Business contains the only first 6 sector maps. The final version of the game will feature many more - please see the included readme file for details.",
+};
+
+STR16	zNewTacticalMessages[]=
+{
+	//L"Distanza dal bersaglio: %d caselle, Luminosità: %d/%d",
+	L"Colleghi il trasmettitore al tuo computer portatile.",
+	L"Non puoi permetterti di ingaggiare %s",
+	L"Per un periodo limitato, la tariffa qui sopra includerà i costi dell'intera missione, oltre all'equipaggiamento indicato sotto.",
+	L"Assolda %s adesso e approfitta della nostra nuova tariffa 'tutto incluso'. Compreso in questa incredibile offerta anche l'equipaggiamento personale del mercenario, senza alcun costo aggiuntivo.",
+	L"Tariffa",
+	L"C'è qualcun altro nel settore...",
+	//L"Gittata dell'arma: %d caselle, Probabilità di colpire: %d percent",
+	L"Mostra nascondigli",
+	L"Linea di Vista",
+	L"Le nuove reclute non possono arrivare qui.",
+	L"Poiché il tuo portatile non ha un trasmettitore, non potrai assoldare nuovi mercenari. Forse questo sarebbe un buon momento per caricare una partita salvata o ricominciare daccapo!",
+	L"%s sente venire da sotto al corpo di Jerry il rumore di metallo che si accartoccia. E' un suono fastidioso, come se l'antenna del tuo portatile venisse schiacciata.",  //the %s is the name of a merc.
+	L"Dopo aver dato un'occhiata al biglietto lasciato dal Vice Comandante Morris, %s vede una possibilità. La nota contiene le coordinate per il lancio di missili contro diverse città ad Arulco. C'è anche la locazione della base di lancio: la fabbrica di missili.",
+	L"Guardando il pannello di controllo %s immagina che i numeri possano essere invertiti, cosicché il missile distrugga proprio questa fabbrica. %s deve trovare una via di fuga. L'ascensore sembra offrire la soluzione più rapida...",
+	L"Questa è una partita a livello IRON MAN: non puoi salvare quando ci sono nemici nei dintorni.",
+	L"(Non puoi salvare durante il combattimento.)",
+	L"Il nome della campagna è più grande di 30 caratteri",
+	L"Campagna non trovata.",
+	L"Campagna: Default ( %S )",
+	L"Campagna: %S",
+	L"Hai selezionato la campagna %S. Questa campagna è una versione amatoriale della campagna originale di Unfinished Business. Sei sicuro di voler giocare la campagna %S?",
+	L"Per usare l'editor, selezionare una campagna diversa da quella di default.",
+};
 #endif //ITALIAN

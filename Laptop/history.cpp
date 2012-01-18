@@ -68,6 +68,11 @@ UINT32 guiSHADELINE;
 //UINT32 guiVERTLINE;
 //UINT32 guiBIGBOX;
 
+#ifdef JA2UB
+#define		QUEST_EDT_FILE_JA25			"BINARYDATA\\quests25.edt"
+#define		QUEST_EDT_FILE_JA2		"BINARYDATA\\quests.edt"
+#endif
+
 enum{
 	PREV_PAGE_BUTTON=0,
 	NEXT_PAGE_BUTTON,
@@ -1681,14 +1686,36 @@ UINT32 GetTimeQuestWasStarted( UINT8 ubCode )
 void GetQuestStartedString( UINT8 ubQuestValue, STR16 sQuestString )
 {
 	// open the file and copy the string
+#ifdef JA2UB
+	if (FileExists(QUEST_EDT_FILE_JA25))
+	{
+	LoadEncryptedDataFromFile( QUEST_EDT_FILE_JA25, sQuestString, 160 * ( ubQuestValue * 2	), 160 );
+	}
+	else
+	{
+	LoadEncryptedDataFromFile( QUEST_EDT_FILE_JA2, sQuestString, 160 * ( ubQuestValue * 2	), 160 );
+	}
+#else
 	LoadEncryptedDataFromFile( "BINARYDATA\\quests.edt", sQuestString, 160 * ( ubQuestValue * 2	), 160 );
+#endif
 }
 
 
 void GetQuestEndedString( UINT8 ubQuestValue, STR16 sQuestString )
 {
 	// open the file and copy the string
+#ifdef JA2UB
+	if (FileExists(QUEST_EDT_FILE_JA25))
+	{
+	LoadEncryptedDataFromFile( QUEST_EDT_FILE_JA25, sQuestString, 160 * ( ( ubQuestValue	* 2 ) + 1), 160 );
+	}
+	else
+	{
+	LoadEncryptedDataFromFile( QUEST_EDT_FILE_JA2, sQuestString, 160 * ( ubQuestValue * 2	), 160 );
+	}
+#else
 	LoadEncryptedDataFromFile( "BINARYDATA\\quests.edt", sQuestString, 160 * ( ( ubQuestValue	* 2 ) + 1), 160 );
+#endif
 }
 
 

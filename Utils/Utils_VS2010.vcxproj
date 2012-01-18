@@ -61,6 +61,7 @@
     <ClInclude Include="WordWrap.h" />
     <ClInclude Include="XMLWriter.h" />
     <ClInclude Include="XML_auto_parse.h" />
+    <ClInclude Include="XML_Language.h" />
     <ClInclude Include="XML_Parser.h" />
     <ClInclude Include="XML_SenderNameList.h" />
     <ClInclude Include="_Ja25DutchText.h" />
@@ -109,6 +110,7 @@
     <ClCompile Include="XMLProperties.cpp" />
     <ClCompile Include="XMLWriter.cpp" />
     <ClCompile Include="XML_Items.cpp" />
+    <ClCompile Include="XML_Language.cpp" />
     <ClCompile Include="XML_SenderNameList.cpp" />
     <ClCompile Include="XML_Strings.cpp" />
     <ClCompile Include="XML_Strings2.cpp" />

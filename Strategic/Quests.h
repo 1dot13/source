@@ -9,7 +9,8 @@
 #define	QUESTINPROGRESS					1
 #define QUESTDONE								2
 
-#define MAX_QUESTS							30
+#define MAX_QUESTS								255
+#define MAX_OLD_QUESTS							30
 #define MAX_FACTS								65536
 #define	NUM_FACTS								500			//If you increase this number, add entries to the fact text list in QuestText.c
 
@@ -67,7 +68,15 @@ enum Quests
 	QUEST_FREE_CHILDREN,	// 20
 	QUEST_LEATHER_SHOP_DREAM,
 
+#ifdef JA2UB
+	QUEST_DESTROY_MISSLES = 23,
+	QUEST_FIX_LAPTOP,
+	QUEST_GET_RID_BLOODCATS_AT_BETTYS,
+	QUEST_FIND_ANTIQUE_MUSKET_FOR_RAUL,
+#else
 	QUEST_KILL_DEIDRANNA = 25
+
+#endif
 } ;
 /*
 // The first quest is mandatory. Player must find Miguel and deliver letter to him. The tough
@@ -518,6 +527,34 @@ enum Facts
 	FACT_PLAYER_KILLED_BOXERS =																368,
 	// HEADROCK HAM 4: Seen Mobile Militia screen after having at least one mobile unit?
 	FACT_MOBILE_RESTRICTIONS_VIEWED =														369,
+#ifdef JA2UB	
+	//Ja25 UB
+	FACT_IMPORTED_SAVE_AND_MARY_WAS_DEAD	=										400,
+	FACT_JOHN_KULBA_OFFERED_TO_BE_RECRUITED,//								401,
+	FACT_TEX_IS_IN_GAME_AND_ALIVE_IN_STORE,//									402,
+	FACT_PLAYER_PAID_BETTY_MORE_THEN_X_FOR_ITEM =							403,
+	FACT_PLAYER_BOUGHT_A_TEX_VIDEO_FROM_BETTY,//							404,
+	FACT_RAULS_INVENTORY_CHANGED_SINCE_LAST_VISIT,//					405
+	FACT_PLAYER_THREATENED_RAUL_COUPLE_TIMES,//								406
+	FACT_PLAYER_BOUGHT_SOMETHING_FROM_RAUL,//									407
+//	FACT_SKYRIDER_IN_C16,//																	408
+//	FACT_SKYRIDER_IN_C16,//																	409
+//	FACT_SKYRIDER_IN_C16,//																	410
+//	FACT_SKYRIDER_IN_C16,//																	411
+	FACT_PLAYER_BOUGHT_BARRET_FROM_RAUL =											412,
+	FACT_MERC_SAY_QUOTE_WHEN_TALK_MENU_CLOSES,//							413
+	FACT_PLAYER_IMPORTED_SAVE_MIGUEL_DEAD,//									414
+	FACT_PLAYER_IMPORTED_SAVE_FATIMA_OR_PACOS_DEAD,//					415
+	FACT_PLAYER_IMPORTED_SAVE_CARLOS_DEAD,//									416
+	FACT_PLAYER_IMPORTED_SAVE_IRA_DEAD,//											417
+	FACT_PLAYER_IMPORTED_SAVE_DIMITRI_DEAD,//									418
+	FACT_PLAYER_IMPORTED_SAVE,//															419
+	FACT_PLAYER_KILLED_ALL_BETTYS_BLOODCATS,//								420
+	FACT_BIGGENS_IS_ON_TEAM,//																421
+	FACT_FAN_STOPPPED,//																			422
+	FACT_BIGGENS_ON_TEAM_AND_FAN_STOPPED,//										423
+	FACT_PLAYER_KNOWS_ABOUT_FAN_STOPPING,//										424
+#endif
 } ;
 //**	END FACTS *************************
 
@@ -562,7 +599,7 @@ extern void CheckForQuests( UINT32 uiDay );
 
 void InitQuestEngine();
 
-BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile );
+BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile, UINT8 MaxQuest );
 BOOLEAN SaveQuestInfoToSavedGameFile( HWFILE hFile );
 
 // added by SANDRO

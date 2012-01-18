@@ -30,6 +30,10 @@
 	#include "Squads.h"
 #endif
 
+#ifdef JA2UB
+#include "ub_config.h"
+#endif
+
 void GetPlayerKeyBoardInputForIMPHomePage( void );
 void DisplayPlayerActivationString( void );
 void ProcessPlayerInputActivationString( void );
@@ -403,9 +407,12 @@ void ProcessPlayerInputActivationString( void )
 	{
 		freeMercSlot = FALSE;
 	}
-
+#ifdef JA2UB
+	if( ( ( gGameUBOptions.LaptopIMPPassJA2 == TRUE && wcscmp(pPlayerActivationString, L"XEP624") == 0 ) || ( gGameUBOptions.LaptopIMPPassJA2 == TRUE && wcscmp(pPlayerActivationString, L"xep624") == 0 ) ) || ( ( gGameUBOptions.LaptopIMPPassUB == TRUE && wcscmp(pPlayerActivationString, L"GP97SL") == 0 ) || ( gGameUBOptions.LaptopIMPPassUB == TRUE && wcscmp(pPlayerActivationString, L"gp97sl") == 0 ) ) && ( LaptopSaveInfo.gfNewGameLaptop < 2 ) )
+#else
 	//Madd multiple imps if( ( ( wcscmp(pPlayerActivationString, L"XEP624") == 0 ) || ( wcscmp(pPlayerActivationString, L"xep624") == 0 ) )&&( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) &&( LaptopSaveInfo.gfNewGameLaptop < 2 ) )
 	if( ( ( wcscmp(pPlayerActivationString, L"XEP624") == 0 ) || ( wcscmp(pPlayerActivationString, L"xep624") == 0 ) ) &&( LaptopSaveInfo.gfNewGameLaptop < 2 ) )
+#endif
 	{
 		// WANNE: Check total number of hired mercs
 		if( freeMercSlot == FALSE )
@@ -444,7 +451,7 @@ void ProcessPlayerInputActivationString( void )
 				ResetActivationStringTextBox();
 
 				//DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 11 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-				AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), LaptopSaveInfo.iIMPIndex, -1 );
+				AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), LaptopSaveInfo.iIMPIndex, -1 , TYPE_EMAIL_EMAIL_EDT);
 			}
 		}
 		else
@@ -470,7 +477,7 @@ void ProcessPlayerInputActivationString( void )
 				ResetActivationStringTextBox();
 
 				//DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 11 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-				AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), LaptopSaveInfo.iIMPIndex, -1 );
+				AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), LaptopSaveInfo.iIMPIndex, -1 , TYPE_EMAIL_EMAIL_EDT);
 			}
 		}
 		else
@@ -480,7 +487,11 @@ void ProcessPlayerInputActivationString( void )
 	}
 	else
 	{
+#ifdef JA2UB
+		if( ( ( gGameUBOptions.LaptopIMPPassJA2 == TRUE && wcscmp(pPlayerActivationString, L"XEP624") != 0 ) && ( gGameUBOptions.LaptopIMPPassJA2 == TRUE && wcscmp(pPlayerActivationString, L"xep624") != 0 ) ) || ( ( gGameUBOptions.LaptopIMPPassUB == TRUE && wcscmp(pPlayerActivationString, L"GP97SL") != 0 ) && ( gGameUBOptions.LaptopIMPPassUB == TRUE && wcscmp(pPlayerActivationString, L"gp97sl") != 0 ) ) )
+#else
 		if( ( ( wcscmp(pPlayerActivationString, L"XEP624") != 0 ) && ( wcscmp(pPlayerActivationString, L"xep624") != 0 ) ) )
+#endif
 		{
 			DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 0 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 		}

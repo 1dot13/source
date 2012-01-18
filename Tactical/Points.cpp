@@ -34,6 +34,8 @@
 	#include "Map Information.h"
 	#include "Interface Items.h"
 	#include "Soldier Control.h"	// added by SANDRO 
+	#include "opplist.h"	// added by SANDRO 
+	#include "lighting.h"	// added by SANDRO 
 #endif
 #include "connect.h"
 //rain
@@ -275,6 +277,11 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 			return(0);
 	}
 
+	if ( ubMovementCost == WALKING_PISTOL_RDY || ubMovementCost == WALKING_RIFLE_RDY || ubMovementCost == WALKING_DUAL_RDY )
+	{
+		iPoints += APBPConstants[BP_MOVEMENT_READY];
+	}
+
 	iPoints = iPoints * BreathPointAdjustmentForCarriedWeight( pSoldier ) / 100;
 
 	// ATE - MAKE MOVEMENT ALWAYS WALK IF IN WATER
@@ -293,9 +300,15 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 			iPoints *= APBPConstants[BP_RUN_ENERGYCOSTFACTOR];		break;
 
 		case SIDE_STEP:
+		case SIDE_STEP_PISTOL_RDY:
+		case SIDE_STEP_RIFLE_RDY:
+		case SIDE_STEP_DUAL_RDY:
 		case WALK_BACKWARDS:
 		case BLOODCAT_WALK_BACKWARDS:
 		case MONSTER_WALK_BACKWARDS:
+		case WALKING_PISTOL_RDY:
+		case WALKING_RIFLE_RDY:
+		case WALKING_DUAL_RDY:
 		case WALKING :	iPoints *= APBPConstants[BP_WALK_ENERGYCOSTFACTOR];	break;
 
 		case START_SWAT:
@@ -310,7 +323,7 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 	// SANDRO - STOMP traits - Athletics reduce breath points spent for moving
 	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, ATHLETICS_NT ))
 	{
-		iPoints = max(1, (INT16)((iPoints * (100 - gSkillTraitValues.ubATAPsMovementReduction) / 100) + 0.5));
+		iPoints = max(1, (INT16)((iPoints * (100 - gSkillTraitValues.ubATBPsMovementReduction) / 100) + 0.5));
 	}
 
 	// ATE: Adjust these by realtime movement
@@ -378,6 +391,18 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 			case LARVAE_WALK:
 			case WALKING :
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK];
+				if ( usMovementMode == WALKING && !(pSoldier->MercInWater()) && ( (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIRE ) ))
+				{
+					sPoints += APBPConstants[AP_MODIFIER_READY];	
+				}
+				break;
+			case SIDE_STEP_PISTOL_RDY:
+			case SIDE_STEP_RIFLE_RDY:
+			case SIDE_STEP_DUAL_RDY:
+			case WALKING_PISTOL_RDY: 
+			case WALKING_RIFLE_RDY:
+			case WALKING_DUAL_RDY:
+				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];
 				break;
 			case START_SWAT:
 			case SWAT_BACKWARDS:
@@ -435,8 +460,14 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 		{
 			case RUNNING:
 			case WALKING :
+			case WALKING_PISTOL_RDY:
+			case WALKING_RIFLE_RDY:
+			case WALKING_DUAL_RDY:
 			case LARVAE_WALK:
 			case SIDE_STEP:
+			case SIDE_STEP_PISTOL_RDY:
+			case SIDE_STEP_RIFLE_RDY:
+			case SIDE_STEP_DUAL_RDY:
 			case WALK_BACKWARDS:
 				// charge crouch APs for ducking head!
 				sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed
@@ -501,6 +532,18 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 			case LARVAE_WALK:
 			case WALKING :
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK];
+				if (!(pSoldier->MercInWater()) && ( (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIRE ) ))
+				{
+					sPoints += APBPConstants[AP_MODIFIER_READY];	
+				}
+				break;
+			case SIDE_STEP_PISTOL_RDY:
+			case SIDE_STEP_RIFLE_RDY:
+			case SIDE_STEP_DUAL_RDY:
+			case WALKING_PISTOL_RDY: 
+			case WALKING_RIFLE_RDY:
+			case WALKING_DUAL_RDY:
+				sPoints = sTileCost + APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];
 				break;
 			case START_SWAT:
 			case SWAT_BACKWARDS:
@@ -564,9 +607,15 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 		switch(usMovementMode)
 		{
 			case SIDE_STEP:
+			case SIDE_STEP_PISTOL_RDY:
+			case SIDE_STEP_RIFLE_RDY:
+			case SIDE_STEP_DUAL_RDY:
 			case WALK_BACKWARDS:
 			case RUNNING:
 			case WALKING :
+			case WALKING_PISTOL_RDY:
+			case WALKING_RIFLE_RDY:
+			case WALKING_DUAL_RDY:
 
 				// Add here cost to go from crouch to stand AFTER fence hop....
 				// Since it's AFTER.. make sure we will be moving after jump...
@@ -596,7 +645,13 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 		{
 			case RUNNING:
 			case WALKING :
+			case WALKING_PISTOL_RDY:
+			case WALKING_RIFLE_RDY:
+			case WALKING_DUAL_RDY:
 			case SIDE_STEP:
+			case SIDE_STEP_PISTOL_RDY:
+			case SIDE_STEP_RIFLE_RDY:
+			case SIDE_STEP_DUAL_RDY:
 			case WALK_BACKWARDS:
 				// charge crouch APs for ducking head!
 				sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed..
@@ -670,7 +725,7 @@ BOOLEAN EnoughPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, BOOLE
 }
 
 
-void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN fProactive )
+void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ubInterruptType )
 {
 	INT16 sNewAP = 0;
 	INT8	bNewBreath;
@@ -733,7 +788,7 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN f
 		// Snap: award some health and strength for exertion
 		// Do 4 StatChange rolls for health (2 for strength) per 10 breath points spent?
 		// NB: The scale of iBPCost is 100 per breath point (APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL])
-		if ( PTR_OURTEAM && iBPCost >= APBPConstants[BP_MOVEMENT_GRASS] && fProactive
+		if ( PTR_OURTEAM && iBPCost >= APBPConstants[BP_MOVEMENT_GRASS] && ubInterruptType != DISABLED_INTERRUPT
 			&& (INT32) PreRandom( 10 * APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL] ) < iBPCost )
 		{
 			StatChange(pSoldier, HEALTHAMT, 4, FALSE);
@@ -791,6 +846,95 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN f
 	// UPDATE BAR
 	DirtyMercPanelInterface( pSoldier, DIRTYLEVEL1 );
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - Interrupt counter
+	if( gGameExternalOptions.fImprovedInterruptSystem && sAPCost > 0 && ubInterruptType != DISABLED_INTERRUPT )
+	{
+		UINT8 ubPointsRegistered = 0;
+		UINT16 uCnt = 0;
+		SOLDIERTYPE *pOpponent;
+		BOOLEAN fFoundInterrupter = FALSE;
+
+		for ( uCnt = 0; uCnt <= MAX_NUM_SOLDIERS; uCnt++ )
+		{
+			// first find all guys who watch us
+			pOpponent = MercPtrs[ uCnt ];
+			if ( pOpponent == NULL)
+				continue;			// not here or not even breathing -> next!
+			if ( pOpponent->stats.bLife < OKLIFE || pOpponent->bCollapsed || !pOpponent->bActive )
+				continue;			// not here or not even breathing -> next!
+			if ( pSoldier->bTeam == pOpponent->bTeam )
+				continue;			// same team? -> next!
+			if ( pSoldier->bSide == pOpponent->bSide )
+				continue;			// not enemy
+			if ( CONSIDERED_NEUTRAL( pSoldier, pOpponent ) )
+				continue;			// neutral
+
+			// if we see or hear him
+			// dunno if this is the best solution yet, probably yes
+			if ( pOpponent->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY ||
+				 pOpponent->aiData.bOppList[pSoldier->ubID] == HEARD_THIS_TURN)
+			//if (SoldierToSoldierLineOfSightTest( pOpponent, pSoldier, TRUE, CALC_FROM_WANTED_DIR ) != 0)
+			{
+				// calculate how much points do we "register" (let's try to avoid chance-based calc to not inspire save-load mania)
+				// Experience says how well is the observer able to notice and percieve the environment around him, i.e. gives us the actual chance per AP
+				if ( pOpponent->aiData.bOppList[pSoldier->ubID] == HEARD_THIS_TURN )
+				{
+					// if we only heard him, keep it lower
+					ubPointsRegistered = (gGameExternalOptions.ubBasicPercentRegisterValueIIS - 20) 
+										+ (gGameExternalOptions.ubPercentRegisterValuePerLevelIIS * EffectiveExpLevel( pOpponent )); // base 40% + 4% per level
+				}
+				else
+				{
+					ubPointsRegistered = gGameExternalOptions.ubBasicPercentRegisterValueIIS 
+										+ (gGameExternalOptions.ubPercentRegisterValuePerLevelIIS * EffectiveExpLevel( pOpponent )); // base 60% + 4% per level
+				}
+				// adjust by range to target
+				//INT32 iRange = GetRangeInCellCoordsFromGridNoDiff( pOpponent->sGridNo, pSoldier->sGridNo );		// calculate actual range
+				//INT16 iDistVisible = (pOpponent->GetMaxDistanceVisible(pOpponent->sGridNo, pOpponent->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE); // how far do we see
+				ubPointsRegistered -= ( 25 * GetRangeInCellCoordsFromGridNoDiff( pOpponent->sGridNo, pSoldier->sGridNo ) / 
+										(pOpponent->GetMaxDistanceVisible(pOpponent->sGridNo, pOpponent->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE) ); // -1% registered by 4% of the difference of how far we can see and how far is the target	
+				
+				if ( gGameOptions.fNewTraitSystem )
+				{
+					// Martial Arts trait reduces the points registered when moving
+					if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && (ubInterruptType == SP_MOVEMENT_INTERRUPT || ubInterruptType == MOVEMENT_INTERRUPT ))
+					{
+						ubPointsRegistered -= gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT );							
+					}
+					// Stealhty trait reduced the points registered on all actions
+					if ( HAS_SKILL_TRAIT( pSoldier, STEALTHY_NT ) )
+					{
+						ubPointsRegistered -= gSkillTraitValues.ubSTReducedAPsRegistered;							
+					}
+				}
+
+				// ALRIGHT! Get final value
+				ubPointsRegistered = max( 5, min( 100, ubPointsRegistered ) ); // 5% is minimum, 100% maximum
+				ubPointsRegistered = (UINT8)((sAPCost * ubPointsRegistered / 100) + 0.5); // now calc how many APs we will award and store it in ubPointsRegistered
+
+				// increase the counter
+				if ( ubPointsRegistered )
+				{
+					pOpponent->aiData.ubInterruptCounter[pSoldier->ubID] += ubPointsRegistered;
+					fFoundInterrupter = TRUE;
+				}
+			}	
+		}
+		// if interrupted, freeze our guy and trigger interrupt situation
+		if (fFoundInterrupter)
+		{
+			// if we've got the special movement flag type here, pass it to after-action type
+			// it's only meant for martial arts bonuses
+			if ( ubInterruptType == SP_MOVEMENT_INTERRUPT )
+			{
+				ubInterruptType = AFTERACTION_INTERRUPT;
+			}
+			// OK, something happened, set the interrupt pending flag
+			gTacticalStatus.ubInterruptPending = ubInterruptType;
+		}
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 
@@ -1107,6 +1251,9 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 					break;
 
 				case WALKING:
+				case WALKING_PISTOL_RDY:
+				case WALKING_RIFLE_RDY:
+				case WALKING_DUAL_RDY:
 
 					sBreathPerAP = APBPConstants[BP_PER_AP_LT_EFFORT];
 					break;
@@ -2111,6 +2258,9 @@ INT8 MinAPsToStartMovement( SOLDIERTYPE * pSoldier, UINT16 usMovementMode )
 	{
 		case RUNNING:
 		case WALKING:
+		case WALKING_PISTOL_RDY:
+		case WALKING_RIFLE_RDY:
+		case WALKING_DUAL_RDY:
 			if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)
 			{
 				bAPs += GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE);

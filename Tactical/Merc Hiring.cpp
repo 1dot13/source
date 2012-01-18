@@ -60,6 +60,18 @@
 	#include "GameSettings.h"
 #endif
 #include "connect.h"
+
+#ifdef JA2UB
+#include "Soldier Control.h"
+#include "Ja25 Strategic Ai.h"
+#include "Ja25_Tactical.h"
+#include "Campaign Types.h"
+#include "MapScreen Quotes.h"
+#include "opplist.h"
+#include "Ja25Update.h"
+#include "ub_config.h"
+#endif
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -84,7 +96,37 @@ INT16 gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
 
 void CheckForValidArrivalSector( );
 
+#ifdef JA2UB
+void AddItemToMerc( UINT8 ubNewMerc, INT16 sItemType );
 
+#define	NUM_INITIAL_GRIDNOS_FOR_HELI_CRASH		7
+
+UINT32	gsInitialHeliGridNo[ NUM_INITIAL_GRIDNOS_FOR_HELI_CRASH ] =
+{
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+};
+
+INT16	gsInitialHeliRandomTimes[ NUM_INITIAL_GRIDNOS_FOR_HELI_CRASH ] =
+{
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0
+};
+
+
+UINT32		GetInitialHeliGridNo( );
+UINT16	GetInitialHeliRandomTime();
+#endif
 INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 {
 	SOLDIERTYPE	*pSoldier;
@@ -136,6 +178,37 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		return( MERC_HIRE_FAILED );
 	}
 
+#ifdef JA2UB
+	//JA25 UB
+	//MErc mercs come with an umbrella
+	if ( gProfilesMERC[ubCurrentSoldier].ProfilId == ubCurrentSoldier )
+//	if( ( ubCurrentSoldier >= 40 && ubCurrentSoldier <= 50 ) || ubCurrentSoldier == 58 /*GASTON*/ || ubCurrentSoldier == 59 /*STOGIE*/ )
+	{
+		AddItemToMerc( iNewIndex, MERC_UMBRELLA ); //1361
+	}
+
+	//if this is an AIM or MERC merc
+	if( gJa25SaveStruct.fHaveAimandMercOffferItems )
+	{
+		//if its an aim merc
+		//if( ubCurrentSoldier < 40 )
+		if ( gProfilesAIM[ubCurrentSoldier].ProfilId == ubCurrentSoldier )
+		{
+			//give the mercs one of the promo items
+			AddItemToMerc( iNewIndex, SAM_GARVER_COMBAT_KNIFE ); //1353
+		}
+
+		// if its a merc merc
+		else 	if ( gProfilesMERC[ubCurrentSoldier].ProfilId == ubCurrentSoldier )
+		//else if( ubCurrentSoldier <= 50 || ubCurrentSoldier == 58 /*GASTON*/ || ubCurrentSoldier == 59 /*STOGIE*/ )
+		{
+			//give the mercs one of the promo items
+			AddItemToMerc( iNewIndex, CHE_GUEVARA_CANTEEN ); //1359
+			AddItemToMerc( iNewIndex, MERC_WRISTWATCH ); //1360
+			AddItemToMerc( iNewIndex, SAM_GARVER_COMBAT_KNIFE ); //1353
+		}
+	}
+#else //ja25: No enrico, therefore, no email
 	if( DidGameJustStart() )
 	{
 		// OK, CHECK FOR FIRST GUY, GIVE HIM SPECIAL ITEM!
@@ -160,7 +233,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		// ATE: Insert for demo , not using the heli sequence....
 		pHireMerc->ubInsertionCode				= INSERTION_CODE_CHOPPER;
 	}
-
+#endif
 
 	//record how long the merc will be gone for
 	pMerc->bMercStatus = (UINT8)pHireMerc->iTotalContractLength;
@@ -202,11 +275,47 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	{
 	if( DidGameJustStart() )
 	{
-		pHireMerc->uiTimeTillMercArrives = ( gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay ) / NUM_SEC_IN_MIN;
+#ifdef JA2UB
+		//ja25ub
+		//set a flag so we know we are doing the heli crash
+		if ( gGameUBOptions.InGameHeliCrash == TRUE || gGameUBOptions.InGameHeli == FALSE)
+			gfFirstTimeInGameHeliCrash = TRUE; //AA FALSE ??
+		else
+			gfFirstTimeInGameHeliCrash = FALSE;
 
+		// Set time of initial merc arrival in minutes
+#endif
+		pHireMerc->uiTimeTillMercArrives = ( gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay ) / NUM_SEC_IN_MIN;
+#ifdef JA2UB
+
+	if ( gGameUBOptions.InGameHeli == FALSE )
+	{
+		// Set the gridno for the soldier
+		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+		pSoldier->usStrategicInsertionData = GetInitialHeliGridNo( );
+
+		//Set a "code" to enable the merc to be in the direction we set!
+		pSoldier->ubInsertionDirection = Random( NUM_WORLD_DIRECTIONS ) + 100;
+
+		if( pSoldier->ubStrategicInsertionCode == 0 )
+		{
+			Assert( 0 );
+		}
+
+		pSoldier->fWaitingToGetupFromJA25Start = TRUE;
+
+		pSoldier->fIgnoreGetupFromCollapseCheck = TRUE;
+
+		RESETTIMECOUNTER( pSoldier->GetupFromJA25StartCounter, GetInitialHeliRandomTime() );
+		}
+		else
+		{
+		pHireMerc->ubInsertionCode				= INSERTION_CODE_CHOPPER;
+		}
+#else
 		// Set insertion for first time in chopper
 		pHireMerc->ubInsertionCode				= INSERTION_CODE_CHOPPER;
-
+#endif
 		//set when the merc's contract is finished
 		pSoldier->iEndofContractTime = GetMidnightOfFutureDayInMinutes( pSoldier->iTotalContractLength ) + ( GetHourWhenContractDone( pSoldier ) * 60 );
 	}
@@ -302,7 +411,10 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		pSoldier->ubWhatKindOfMercAmI = MERC_TYPE__NPC;
 		//pSoldier->iTotalContractCharge = -1;
 	}
-
+#ifdef JA2UB
+	//Ja25:  Need to set start time for all mercs
+	pSoldier->iStartContractTime = GetWorldDay( );
+#endif
 	//remove the merc from the Personnel screens departed list ( if they have never been hired before, its ok to call it )
 	RemoveNewlyHiredMercFromPersonnelDepartedList( pSoldier->ubProfile );
 
@@ -364,7 +476,11 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 		// OK, If this sector is currently loaded, and guy does not have CHOPPER insertion code....
 		// ( which means we are at beginning of game if so )
 		// Setup chopper....
-		if ( pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER && pSoldier->sSectorX == 9 && pSoldier->sSectorY == 1 )
+		#ifdef JA2UB
+		if ( pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER && pSoldier->sSectorX == gGameExternalOptions.ubDefaultArrivalSectorX && pSoldier->sSectorY == gGameExternalOptions.ubDefaultArrivalSectorY && gGameUBOptions.InGameHeli == TRUE )
+		#else
+		if ( pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER && pSoldier->sSectorX == gGameExternalOptions.ubDefaultArrivalSectorX && pSoldier->sSectorY == gGameExternalOptions.ubDefaultArrivalSectorY )
+		#endif
 		{
 			gfTacticalDoHeliRun = TRUE;
 
@@ -385,9 +501,15 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	else
 	{
 		// OK, otherwise, set them in north area, so once we load again, they are here.
+#ifdef JA2UB
+		//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+		pSoldier->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
+#else
 		//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 		pSoldier->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
+#endif
 	}
 
 	if ( pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER )
@@ -404,7 +526,14 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 			gsSectorLocatorY = pSoldier->sSectorY;
 
 			TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, 2, 0 );
+			
+//ja25ub
+#ifdef JA2UB
+			//if its the first time in, dont say anything
+			if( !gfFirstTimeInGameHeliCrash )
+#endif
 			TacticalCharacterDialogue( pSoldier, QUOTE_MERC_REACHED_DESTINATION );
+
 			TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, 3, 0 );
 			TacticalCharacterDialogueWithSpecialEventEx( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_UNSET_ARRIVES_FLAG, 0, 0, 0 );
 		}
@@ -514,7 +643,14 @@ void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 {
 	INT8										cnt, bHated, bLastTeamID;
 	SOLDIERTYPE							*pTeamSoldier;
-
+#ifdef JA2UB
+	//if we are at the begining of the game going through the initial heli scequence
+	if( pSoldier->fWaitingToGetupFromJA25Start )
+	{
+		//we can "leave" this function cause we dont want to do anything with buddy system
+		return;
+	}
+#endif	
 	// If we are approaching with helicopter, don't say any ( yet )
 	if ( pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER )
 	{
@@ -657,8 +793,8 @@ void CheckForValidArrivalSector( )
 	INT16	sLeft, sRight;
 	INT16	cnt1, cnt2, sGoodX, sGoodY;
 	UINT8	ubRadius = 4;
-	INT32	leftmost;
-	INT32	 sSectorGridNo, sSectorGridNo2;
+	UINT32	leftmost;
+	UINT32	 sSectorGridNo, sSectorGridNo2;
 	INT32	uiRange, uiLowestRange = 999999;
 	BOOLEAN	fFound = FALSE;
 	CHAR16 sString[ 1024 ];
@@ -724,4 +860,203 @@ void CheckForValidArrivalSector( )
 
 	}
 }
+#ifdef JA2UB
+UINT32	GetInitialHeliGridNo( )
+{
+	UINT8	ubCnt;
+	UINT32	sGridNo;
 
+	for( ubCnt=0; ubCnt<NUM_INITIAL_GRIDNOS_FOR_HELI_CRASH-1; ubCnt++)
+	{
+		if( gsInitialHeliGridNo[ ubCnt ] != 0 )
+		{
+			sGridNo = gsInitialHeliGridNo[ ubCnt ];
+			gsInitialHeliGridNo[ ubCnt ] = 0;
+
+			return( sGridNo );
+		}
+	}
+
+	return( 16233 );
+}
+
+UINT16	GetInitialHeliRandomTime()
+{
+	BOOLEAN fDone=FALSE;
+	UINT8		ubRandom;
+	UINT16	usTime;
+	UINT16	usCounter=0;
+
+	while( !fDone )
+	{
+		ubRandom = Random( NUM_INITIAL_GRIDNOS_FOR_HELI_CRASH-1 );
+
+		if( gsInitialHeliRandomTimes[ ubRandom ] != 0 )
+		{
+			usTime = gsInitialHeliRandomTimes[ ubRandom ];
+			gsInitialHeliRandomTimes[ ubRandom ] = 0;
+			return( usTime );
+		}
+
+		if( usCounter > 1000 )
+			fDone = TRUE;
+
+		usCounter++;
+	}
+	return( 1000 + Random( 2000 ) );
+}
+
+void InitializeHeliGridnoAndTime( BOOLEAN fLoading )
+{
+	Assert( NUM_INITIAL_GRIDNOS_FOR_HELI_CRASH == 7 );
+
+	if( !fLoading )
+	{
+		gfFirstTimeInGameHeliCrash = FALSE;
+	}
+
+	gsInitialHeliGridNo[ 0 ] = gGameUBOptions.InitialHeliGridNo[ 0 ];//14947;
+	gsInitialHeliGridNo[ 1 ] = gGameUBOptions.InitialHeliGridNo[ 1 ];//15584;//16067;
+	gsInitialHeliGridNo[ 2 ] = gGameUBOptions.InitialHeliGridNo[ 2 ];//15754;
+	gsInitialHeliGridNo[ 3 ] = gGameUBOptions.InitialHeliGridNo[ 3 ];//16232;
+	gsInitialHeliGridNo[ 4 ] = gGameUBOptions.InitialHeliGridNo[ 4 ];//16067;
+	gsInitialHeliGridNo[ 5 ] = gGameUBOptions.InitialHeliGridNo[ 5 ];//16230;
+	gsInitialHeliGridNo[ 6 ] = gGameUBOptions.InitialHeliGridNo[ 6 ];//15272;
+
+	gsInitialHeliRandomTimes[ 0 ] = gGameUBOptions.InitalHeliRandomTimes[ 0 ];//1300;
+	gsInitialHeliRandomTimes[ 1 ] = gGameUBOptions.InitalHeliRandomTimes[ 1 ];//2000;
+	gsInitialHeliRandomTimes[ 2 ] = gGameUBOptions.InitalHeliRandomTimes[ 2 ];//2750;
+	gsInitialHeliRandomTimes[ 3 ] = gGameUBOptions.InitalHeliRandomTimes[ 3 ];//3400;
+	gsInitialHeliRandomTimes[ 4 ] = gGameUBOptions.InitalHeliRandomTimes[ 4 ];//4160;
+	gsInitialHeliRandomTimes[ 5 ] = gGameUBOptions.InitalHeliRandomTimes[ 5 ];//4700;
+	gsInitialHeliRandomTimes[ 6 ] = gGameUBOptions.InitalHeliRandomTimes[ 6 ];//5630;
+}
+
+void InitJerryMiloInfo()
+{
+ if ( gGameUBOptions.InJerry == TRUE )
+{
+  //  return; //AA
+	//Set Jerry Milo's Gridno h7
+	gMercProfiles[ 76 ].sSectorX = JA2_5_START_SECTOR_X;
+	gMercProfiles[ 76 ].sSectorY = JA2_5_START_SECTOR_Y;
+	gMercProfiles[ 76 ].bSectorZ = 0;
+
+	gMercProfiles[ 76 ].sGridNo = gGameUBOptions.JerryGridNo; //15109;
+
+	gMercProfiles[ 76 ].fUseProfileInsertionInfo = TRUE;
+
+	gMercProfiles[ 76 ].ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+	gMercProfiles[ 76 ].usStrategicInsertionData = gGameUBOptions.JerryGridNo; //15109;
+	
+}
+	
+if ( gGameUBOptions.InGameHeliCrash == TRUE )
+	{
+	//init Jerry Milo quotes
+	InitJerryQuotes();
+	}
+}
+
+
+void UpdateJerryMiloInInitialSector()
+{
+	SOLDIERTYPE	*pSoldier = NULL;
+	SOLDIERTYPE	*pJerrySoldier=NULL;
+
+	
+    //SectorInfo[ SEC_H7 ].fSurfaceWasEverPlayerControlled = TRUE;
+	  SectorInfo[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fSurfaceWasEverPlayerControlled = TRUE;
+    //SectorInfo[ SEC_H7 ].ubNumAdmins = 2;
+	StrategicMap[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyControlled = FALSE;
+    
+if ( gGameUBOptions.InGameHeli == TRUE )
+	return; //AA
+
+if ( gGameUBOptions.InGameHeliCrash == TRUE )
+   { 
+	//if it is the first sector we are loading up, place Jerry in the map
+	if( !gfFirstTimeInGameHeliCrash )
+		return;
+
+	if ( gGameUBOptions.InJerry == TRUE ) 
+	{
+	pSoldier = FindSoldierByProfileID( 76, FALSE ); //JERRY
+	if( pSoldier == NULL )
+	{
+		Assert( 0 );
+	}
+	
+	}
+
+	//the internet part of the laptop isnt working.  It gets broken in the heli crash.
+	if ( gGameUBOptions.LaptopQuestEnabled == TRUE )
+	StartQuest( QUEST_FIX_LAPTOP, -1, -1 );
+
+	//Record the initial sector as ours
+	//SectorInfo[ SEC_H7 ].fSurfaceWasEverPlayerControlled = TRUE;
+	  SectorInfo[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fSurfaceWasEverPlayerControlled = TRUE;
+	  StrategicMap[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyControlled = FALSE;
+ 
+	  if ( gGameUBOptions.InJerry == TRUE ) 
+	{
+	//Set some variable so Jerry will be on the ground
+	pSoldier->fWaitingToGetupFromJA25Start = TRUE;
+	pSoldier->fIgnoreGetupFromCollapseCheck = TRUE;
+
+	//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO; //to by³o wy³¹czone
+	//pSoldier->usStrategicInsertionData = GetInitialHeliGridNo( ); //to by³o wy³¹czone
+
+	RESETTIMECOUNTER( pSoldier->GetupFromJA25StartCounter, gsInitialHeliRandomTimes[ 6 ] + 800 + Random( 400 ) );
+
+	//should we be on our back or tummy
+	if( Random( 100 ) < 50 )
+		pSoldier->EVENT_InitNewSoldierAnim( STAND_FALLFORWARD_STOP, 1, TRUE );
+	else
+		pSoldier->EVENT_InitNewSoldierAnim( FALLBACKHIT_STOP, 1, TRUE );
+	}
+
+//Wont work cause it gets reset every frame
+	//make sure we can see Jerry
+	
+	if ( gGameUBOptions.InJerry == TRUE ) 
+	{
+	pJerrySoldier = FindSoldierByProfileID(76, FALSE );//JERRY
+	if( pJerrySoldier != NULL )
+	{
+		//Make sure we can see the pilot
+		gbPublicOpplist[OUR_TEAM][ pJerrySoldier->ubID ] = SEEN_CURRENTLY;
+		pJerrySoldier->bVisible = TRUE;
+	}
+
+	}
+
+	//Lock the interface
+	guiPendingOverrideEvent = LU_BEGINUILOCK;
+	}
+}
+
+void AddItemToMerc( UINT8 ubNewMerc, INT16 sItemType )
+{
+
+
+	// OK, give this item to our merc!
+	OBJECTTYPE gTempObject;
+	BOOLEAN	fReturn=FALSE;
+
+	// make an objecttype
+        CreateItem(sItemType, 100, &gTempObject);
+
+	// Give it 
+	fReturn = AutoPlaceObject( MercPtrs[ ubNewMerc ], &gTempObject, FALSE );
+	
+			if(!fReturn && (UsingNewInventorySystem() == true))
+			{
+				(MercPtrs[ubNewMerc]->inv[NUM_INV_SLOTS-1]) = gTempObject;
+				fReturn=TRUE;
+			}
+	Assert( fReturn );
+	
+
+}
+#endif

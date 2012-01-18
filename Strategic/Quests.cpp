@@ -36,6 +36,15 @@
 #include "BobbyRMailOrder.h"
 #include "connect.h"
 
+#ifdef JA2UB
+#include "email.h"
+#include "Strategic Merc Handler.h"
+#include "laptop.h"
+#include "Ja25 Strategic Ai.h"
+#include "ub_config.h"
+#endif
+
+#include "LuaInitNPCs.h"
 
 #define TESTQUESTS
 
@@ -655,14 +664,23 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Quests");
 
 BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 {
+
+
+//	LuaCheckFact ( usFact, ubProfileID, 0 );
+
+//#if 0
 	INT8 bTown = -1;
 
 
 	switch( usFact )
 	{
+#ifdef JA2UB
+//Ja25 No dimitri
+#else
 		case FACT_DIMITRI_DEAD:
 			gubFact[ usFact ] = (gMercProfiles[ DIMITRI ].bMercStatus == MERC_IS_DEAD );
 			break;
+#endif
 		case FACT_CURRENT_SECTOR_IS_SAFE:
 			gubFact[FACT_CURRENT_SECTOR_IS_SAFE] = !( ( (gTacticalStatus.fEnemyInSector && NPCHeardShot( ubProfileID ) ) || gTacticalStatus.uiFlags & INCOMBAT ) );
 			break;
@@ -705,6 +723,9 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 		case FACT_NPC_WOUNDED_BY_PLAYER:
 			gubFact[FACT_NPC_WOUNDED_BY_PLAYER] = CheckNPCWounded( ubProfileID, TRUE );
 			break;
+#ifdef JA2UB
+// no ja25 UB
+#else
 		case FACT_IRA_NOT_PRESENT:
 			gubFact[FACT_IRA_NOT_PRESENT] = !CheckNPCWithin( ubProfileID, IRA, 10 );
 			break;
@@ -721,6 +742,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 				gubFact[FACT_IRA_UNHIRED_AND_ALIVE] = FALSE;
 			}
 			break;
+#endif
 		case FACT_NPC_BLEEDING:
 			gubFact[FACT_NPC_BLEEDING] = CheckNPCBleeding( ubProfileID );
 			break;
@@ -734,7 +756,9 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 				gubFact[FACT_NPC_BLEEDING_BUT_OKAY] = FALSE;
 			}
 			break;
-
+#ifdef JA2UB
+//Ja25: NO Carmen
+#else
 		case FACT_PLAYER_HAS_HEAD_AND_CARMEN_IN_SAN_MONA:
 			gubFact[usFact] = (CheckNPCSector( CARMEN, 5, MAP_ROW_C, 0 ) && CheckPlayerHasHead() );
 			break;
@@ -746,7 +770,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 		case FACT_PLAYER_HAS_HEAD_AND_CARMEN_IN_DRASSEN:
 			gubFact[usFact] = (CheckNPCSector( CARMEN, 13, MAP_ROW_C, 0 ) && CheckPlayerHasHead() );
 			break;
-
+#endif
 		case FACT_NPC_OWED_MONEY:
 			gubFact[FACT_NPC_OWED_MONEY] = (gMercProfiles[ubProfileID].iBalance < 0);
 			break;
@@ -783,7 +807,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			break;
 			/*
 		case FACT_SKYRIDER_CLOSE_TO_CHOPPER:
-			SetUpHelicopterForPlayer( 13, MAP_ROW_B , SKYRIDER );
+			SetUpHelicopterForPlayer( 13, MAP_ROW_B, gNewVehicle[ HELICOPTER ].NewPilot, HELICOPTER );
 			break;
 			*/
 		case FACT_SPIKE_AT_DOOR:
@@ -870,9 +894,13 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 		case FACT_SHANK_NOT_IN_SECTOR:
 			gubFact[usFact] = ( FindSoldierByProfileID( SHANK, FALSE ) == NULL );
 			break;
+#ifdef JA2UB
+//Ja25 No queen
+#else
 		case FACT_QUEEN_DEAD:
 			gubFact[usFact] = (gMercProfiles[ QUEEN ].bMercStatus == MERC_IS_DEAD);
 			break;
+#endif
 		case FACT_MINE_EMPTY:
 			gubFact[usFact] = IsHisMineEmpty( ubProfileID );
 			break;
@@ -1011,21 +1039,33 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			break;
 
 		case FACT_PLAYER_OWNS_2_TOWNS_INCLUDING_OMERTA:
+#ifdef JA2UB
+//UB
+#else
 			gubFact[usFact] = ( ( GetNumberOfWholeTownsUnderControl() == gGameExternalOptions.ubEarlyRebelsRecruitment[1] || gGameExternalOptions.ubEarlyRebelsRecruitment[0] == 1 
 								|| ( gubQuest[QUEST_FOOD_ROUTE] == QUESTDONE && gGameExternalOptions.ubEarlyRebelsRecruitment[0] == 4 ) ) && IsTownUnderCompleteControlByPlayer( OMERTA ) );
+#endif
 			break;
 
 		case FACT_PLAYER_OWNS_3_TOWNS_INCLUDING_OMERTA:
+#ifdef JA2UB
+//UB
+#else
 			gubFact[usFact] = ( ( GetNumberOfWholeTownsUnderControl() == gGameExternalOptions.ubEarlyRebelsRecruitment[2] || gGameExternalOptions.ubEarlyRebelsRecruitment[0] == 1 
 								|| ( gubQuest[QUEST_FOOD_ROUTE] == QUESTDONE && gGameExternalOptions.ubEarlyRebelsRecruitment[0] == 4 ) ) && IsTownUnderCompleteControlByPlayer( OMERTA ) );
+#endif
 			break;
 
 		case FACT_PLAYER_OWNS_4_TOWNS_INCLUDING_OMERTA:
+#ifdef JA2UB
+//UB
+#else
 			gubFact[usFact] = ( ( GetNumberOfWholeTownsUnderControl() >= gGameExternalOptions.ubEarlyRebelsRecruitment[3] || gGameExternalOptions.ubEarlyRebelsRecruitment[0] == 1 
 								|| ( gubQuest[QUEST_FOOD_ROUTE] == QUESTDONE && gGameExternalOptions.ubEarlyRebelsRecruitment[0] == 4 ) ) && IsTownUnderCompleteControlByPlayer( OMERTA ) );
 			// silversurfer: this is the highest requirement and therefore we will automatically enable recruitment of Miguel
 			if ( gubFact[usFact] )
 				SetFactTrue(40); // Miguel will now be willing to join and so will the other RPC
+#endif
 			break;
 
 		case FACT_PLAYER_FOUGHT_THREE_TIMES_TODAY:
@@ -1132,11 +1172,13 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 		case FACT_WALDO_ALIVE:
 			gubFact[usFact] = gMercProfiles[ WALDO ].bMercStatus != MERC_IS_DEAD;
 			break;
-
+#ifdef JA2UB
+//UB
+#else        
 		case FACT_PERKO_ALIVE:
 			gubFact[usFact] = gMercProfiles[ PERKO ].bMercStatus != MERC_IS_DEAD;
 			break;
-
+#endif
 		case FACT_TONY_ALIVE:
 			gubFact[usFact] = gMercProfiles[ TONY ].bMercStatus != MERC_IS_DEAD;
 			break;
@@ -1262,6 +1304,8 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 		default:
 			break;
 	}
+	
+//#endif
 	return( gubFact[usFact] );
 }
 
@@ -1346,9 +1390,13 @@ void InternalEndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fU
 				else
 					GiveQuestRewardPoint( sSectorX, sSectorY, 9, NO_PROFILE );
 				break;
+#ifdef JA2UB
+//off
+#else
 			case QUEST_KILL_DEIDRANNA :
 				GiveQuestRewardPoint( sSectorX, sSectorY, 25, NO_PROFILE );
 				break;
+#endif
 			default :
 				GiveQuestRewardPoint( sSectorX, sSectorY, 4, NO_PROFILE );
 				break;
@@ -1376,6 +1424,58 @@ void InternalEndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fU
 		gMercProfiles[ MADAME ].bNPCData = 0;
 		gMercProfiles[ MADAME ].bNPCData2 = 0;
 	}
+	
+#ifdef JA2UB	
+	//if the quest is the FIX LAPTOP quest
+	if( ubQuest == QUEST_FIX_LAPTOP && gGameUBOptions.LaptopQuestEnabled == TRUE )
+	{
+		//Set the fact that AIM and MERC should start selling
+		gJa25SaveStruct.fHaveAimandMercOffferItems = TRUE;
+
+		//Remeber that we should send email in the next sector
+		gJa25SaveStruct.fSendEmail_10_NextSector = TRUE;
+
+		AddEmail( EMAIL_PILOTMISSING, EMAIL_PILOTMISSING_LENGTH, MAIL_ENRICO,  GetWorldTotalMin() ,-1,-1, TYPE_EMAIL_EMAIL_EDT);
+		AddEmail( EMAIL_MAKECONTACT, EMAIL_MAKECONTACT_LENGTH, MAIL_ENRICO,  GetWorldTotalMin() ,-1,-1, TYPE_EMAIL_EMAIL_EDT);
+
+		//Merc and Aim emails
+		AddEmail( EMAIL_AIM_PROMOTION_1, EMAIL_AIM_PROMOTION_1_LENGTH, AIM_SITE,  GetWorldTotalMin(),-1 ,-1, TYPE_EMAIL_EMAIL_EDT);
+		AddEmail( EMAIL_MERC_PROMOTION_1, EMAIL_MERC_PROMOTION_1_LENGTH, SPECK_FROM_MERC,  GetWorldTotalMin(),-1,-1, TYPE_EMAIL_EMAIL_EDT);
+		AddEmail( EMAIL_AIM_PROMOTION_2, EMAIL_AIM_PROMOTION_2_LENGTH, AIM_SITE,  GetWorldTotalMin(),-1 ,-1, TYPE_EMAIL_EMAIL_EDT);
+
+		//Manuel
+		{
+			SOLDIERTYPE *pSoldier=NULL;
+
+			pSoldier = FindSoldierByProfileID( 60 , TRUE ); //MANUEL
+
+			if( pSoldier != NULL )
+			{
+				//Add the Manuel email
+				AddEmail( EMAIL_MANUEL, EMAIL_MANUEL_LENGTH, MAIL_ENRICO,  GetWorldTotalMin() ,-1, -1, TYPE_EMAIL_EMAIL_EDT);
+			}
+		}
+
+		//Miguel
+		{
+			//if miguel was dead, when importing the save
+			if( gubFact[ FACT_PLAYER_IMPORTED_SAVE_MIGUEL_DEAD ] == FALSE )
+			{
+				//Add the miguel email
+				AddEmail( EMAIL_MIGUELHELLO, EMAIL_MIGUELHELLO_LENGTH, MAIL_MIGUEL,  GetWorldTotalMin(),-1, -1, TYPE_EMAIL_EMAIL_EDT);
+			}
+		}
+
+		//If any aim mercs were asked to send emails when the get back from duty elsewhere
+		HandleAddingAnyAimAwayEmailsWhenLaptopGoesOnline();
+
+		//Should we send the IMP reminder email when we go back online
+		ShouldImpReminderEmailBeSentWhenLaptopBackOnline();
+
+		//Force which ever of these emails that needed to be sent, to be sent
+		HandleEmailBeingSentWhenEnteringSector( 0, 0, 0, TRUE );
+	}
+#endif
 };
 
 void InitQuestEngine()
@@ -1411,6 +1511,21 @@ void CheckForQuests( UINT32 uiDay )
 	ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Checking For Quests, Day %d", uiDay );
 #endif
 
+#ifdef JA2UB
+ // -------------------------------------------------------------------------------
+	// QUEST 23 : Detroy missles
+	// -------------------------------------------------------------------------------
+	// The game always starts with destrouy missles quest, so turn it on if it hasn't
+	// already started
+	if( gubQuest[ QUEST_DESTROY_MISSLES ] == QUESTNOTSTARTED )
+	{
+		StartQuest( QUEST_DESTROY_MISSLES, -1, -1 );
+#ifdef TESTQUESTS
+		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Started DESTORY MISSLES quest");
+#endif
+	}
+//Ja25: No deliver letter quest, dont start it
+#else
 	// -------------------------------------------------------------------------------
 	// QUEST 0 : DELIVER LETTER
 	// -------------------------------------------------------------------------------
@@ -1425,7 +1540,7 @@ void CheckForQuests( UINT32 uiDay )
 		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Started DELIVER LETTER quest");
 #endif
 	}
-
+#endif
 	// This quest gets turned OFF through conversation with Miguel - when user hands
 	// Miguel the letter
 }
@@ -1454,13 +1569,15 @@ BOOLEAN SaveQuestInfoToSavedGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile )
+BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile, UINT8 MaxQuest )
 {
 	UINT32	uiNumBytesRead;
 
 	//Save all the states if the Quests
-	FileRead( hFile, gubQuest, MAX_QUESTS, &uiNumBytesRead );
-	if( uiNumBytesRead != MAX_QUESTS )
+	//FileRead( hFile, gubQuest, MAX_QUESTS, &uiNumBytesRead );
+	//if( uiNumBytesRead != MAX_QUESTS )
+	FileRead( hFile, gubQuest, MaxQuest, &uiNumBytesRead );
+	if( uiNumBytesRead != MaxQuest )
 	{
 		return(FALSE);
 	}

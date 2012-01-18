@@ -519,6 +519,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Language.h"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_Parser.h"
 				>
 			</File>
@@ -742,6 +746,10 @@
 			</File>
 			<File
 				RelativePath=".\XML_Items.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Language.cpp"
 				>
 			</File>
 			<File

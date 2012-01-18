@@ -303,13 +303,15 @@ void AddTextToTownBox( void )
 			AddMonoString( &hStringHandle, pLandTypeStrings[ CAMBRIA_HOSPITAL_SITE ] );
 			break;
 		case SEC_J9: //Tixa
-			if( !fFoundTixa )
+			//if( !fFoundTixa )
+			if( gfHiddenTown[ TIXA ] == FALSE )
 				AddMonoString( &hStringHandle, pLandTypeStrings[ SAND ] );
 			else
 				AddMonoString( &hStringHandle, pTownNames[ TIXA ] );
 			break;
 		case SEC_K4: //Orta
-			if( !fFoundOrta )
+			//if( !fFoundOrta )
+			if( gfHiddenTown[ ORTA ] == FALSE )
 				AddMonoString( &hStringHandle, pLandTypeStrings[ SWAMP ] );
 			else
 				AddMonoString( &hStringHandle, pTownNames[ ORTA ] );

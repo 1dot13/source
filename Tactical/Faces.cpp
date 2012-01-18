@@ -214,6 +214,27 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 			sprintf( VObjectDesc.ImageFile, "FACES\\b%02de.sti", iFaceFileID );
 		}
 	}
+
+#ifdef JA2UB
+	else if ( usMercProfileID == 64 )
+	{
+		// SANDRO - old/new traits check (I am not sure if this is used at all)
+		if ( gGameOptions.fNewTraitSystem )
+		{
+			if ( ProfileHasSkillTrait( 64, RANGER_NT ) > 0 )
+			{
+				sprintf( VObjectDesc.ImageFile, "FACES\\B64c.sti" );
+			}
+		}
+		else
+		{
+			if ( ProfileHasSkillTrait( 64, CAMOUFLAGED_OT ) > 0 )
+			{
+				sprintf( VObjectDesc.ImageFile, "FACES\\B64c.sti" );
+			}
+		}
+	}
+#else
 	else if ( usMercProfileID == TEX )
 	{
 		// SANDRO - old/new traits check (I am not sure if this is used at all)
@@ -232,6 +253,7 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 			}
 		}
 		}
+#endif
 	}
 	else
 	{
@@ -496,6 +518,31 @@ void GetFaceRelativeCoordinates( FACETYPE *pFace, UINT16 *pusEyesX, UINT16 *pusE
 	usEyesY				= gMercProfiles[ usMercProfileID ].usEyesY;
 	usMouthY			=	gMercProfiles[ usMercProfileID ].usMouthY;
 	usMouthX			= gMercProfiles[ usMercProfileID ].usMouthX;
+	
+#ifdef JA2UB	
+
+  		if ( gGameOptions.fNewTraitSystem )
+		{
+			if( usMercProfileID == 64 && ( gMercProfiles[ 64 ].bSkillTraits[0] == RANGER_NT || gMercProfiles[ 64 ].bSkillTraits[1] == RANGER_NT ) )
+			{
+			usEyesX				= 13;
+			usEyesY				= 34;
+			usMouthX			= 13;
+			usMouthY			= 55;
+			}
+		}
+		else
+		{
+			if( usMercProfileID == 64 && ( gMercProfiles[ 64 ].bSkillTraits[0] == CAMOUFLAGED_OT || gMercProfiles[ 64 ].bSkillTraits[1] == CAMOUFLAGED_OT ) )
+			{
+			usEyesX				= 13;
+			usEyesY				= 34;
+			usMouthX			= 13;
+			usMouthY			= 55;
+			}
+		}
+	
+#endif
 
 	// Use some other values for x,y, base on if we are a RPC!
 	if ( !( pFace->uiFlags & FACE_BIGFACE ) ||( pFace->uiFlags & FACE_FORCE_SMALL ))
@@ -2834,11 +2881,14 @@ BOOLEAN SetFaceTalking( INT32 iFaceIndex, CHAR8 *zSoundFile, STR16 zTextString,
 	pFace->fAnimatingTalking = TRUE;
 	pFace->fFinishTalking = FALSE;
 
+#ifdef JA2UB
+//Ja25: No Meanwhiles
+#else
 	if ( !AreInMeanwhile( ) )
 	{
 	TurnOnSectorLocator( pFace->ubCharacterNum );
 	}
-
+#endif
 	// Play sample
 	if( gGameSettings.fOptions[ TOPTION_SPEECH ] )
 		pFace->uiSoundID = PlayJA2GapSample( zSoundFile, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, &(pFace->GapList ) );

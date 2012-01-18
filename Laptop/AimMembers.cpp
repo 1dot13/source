@@ -722,6 +722,7 @@ UINT8	GetStatColor( INT8 bStat );
 
 #ifdef JA2TESTVERSION
 	BOOLEAN QuickHireMerc();
+	void TempHandleAimMemberKeyBoardInput();
 	extern	void SetFlagToForceHireMerc( BOOLEAN fForceHire );
 #endif
 
@@ -5060,13 +5061,13 @@ void HandleAimMemberKeyBoardInput()
 					// contact only if merc alive
 					if( !IsMercDead( gbCurrentSoldier ) )
 					{
-						if( !gubVideoConferencingMode)
-						{
-							gubVideoConferencingMode = AIM_VIDEO_POPUP_MODE;
-							//gubVideoConferencingMode = AIM_VIDEO_INIT_MODE;
-							gfFirstTimeInContactScreen = TRUE;
-						}
-						InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
+					if( !gubVideoConferencingMode)
+					{
+						gubVideoConferencingMode = AIM_VIDEO_POPUP_MODE;
+						//gubVideoConferencingMode = AIM_VIDEO_INIT_MODE;
+						gfFirstTimeInContactScreen = TRUE;
+					}
+					InitCreateDeleteAimPopUpBox(AIM_POPUP_DELETE, NULL, NULL, 0, 0, 0);
 					}
 				break;
 #ifdef JA2TESTVERSION

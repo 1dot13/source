@@ -19,35 +19,6 @@ void this_is_the_Ja25ChineseText_public_symbol(void){;}
 
 // VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
 
-STR16	zNewTacticalMessages[]=
-{
-	//L"目标的距离: %d格, 亮度: %d/%d",
-	L"将发报机装到笔记本电脑上。",
-	L"你无法支付雇佣%s的费用",
-	L"在限定时间内，以上的费用包括了整个行动和下列装备的花费。",
-	L"现在就雇请%s吧。您可以享受我们提供的空前的“一次付费，全部服务”的优惠价格。在这个难以置信的出价里，佣兵的随身装备是免费的哦。",	
-	L"费用",
-	L"在本分区发现有人……",
-	//L"枪的射程: %d格， 命中率: %d％",
-	L"显示覆盖物",
-	L"视距",
-	L"新雇请的佣兵无法到达那里。",
-	L"由于你的笔记本电脑没有发报机，你无法雇请新的队员。也许你得读取存档或者重新开始游戏！",
-	L"%s听到了Jerry的身体下面传来金属的破碎的声音。听起来令人不安，似乎你的笔记本电脑的天线被压断了。", 
-	L"看完副指挥官Morris留下的备忘录后，%s觉得有机会了。备忘录里有向Arulco各个城镇发射导弹的基地的坐标。它还给出了这个罪恶计划的发源地的坐标 —— 导弹工厂。",
-	L"看到了控制面板后， %s发现它正在倒计时，因此导弹会把这个工厂炸毁。%s得找出个脱逃的路线。使用电梯看起来是最快的办法...",
-	L"现在您在铁人模式进行游戏，周围有敌人的时候不能存档。",	
-	L"(不能在战斗时存盘)",	
-	L"当前的战役名称超过了30个字符。",						
-	L"无法找到当前的战役。",											// @@@ new text
-	L"战役: 默认 ( %S )",											// @@@ new text
-	L"战役: %S",												// @@@ new text
-	L"你选择了%S战役。 该战役是原版UB战役的玩家自定义游戏版本。你确认你要在 %S 战役下进行游戏吗?",			
-	L"如果你要使用编辑器的话，请选择一个战役，不要用默认战役。",			
-};
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// SANDRO - New STOMP laptop strings
 //these strings match up with the defines in IMP Skill trait.cpp
 STR16 gzIMPSkillTraitsText[]=
 {
@@ -219,6 +190,7 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"上/下房顶所需行动点 -%d%s\n",// L"-%d%s APs needed to climb on/off roof and jump obstacles\n",
 	L"踢门成功率 +%d%s\n",// L"+%d%s chance to kick doors\n",
 	L"你的肉搏攻击将有特殊的动画效果\n",// L"You gain special animations for hand to hand combat\n",
+	L"-%d%s chance to be interrupted when moving\n", // TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
@@ -234,6 +206,7 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"(叠加效果最多是 %d 次)\n",// L"(Max simultaneous bonuses for one soldier is %d)\n",
 	L"+%d%s %s的恐惧抵抗力 (程序参数问题只能用这个语序)\n",// L"+%d%s fear resistence of %s\n",
 	L"缺陷: 会给其他人造成 %d 倍的士气下降, 如果 %s 的阵亡的话 (程序参数问题只能用这个语序)\n",// L"Drawback: %dx morale loss for %s's death for all other mercs\n",
+	L"+%d%s chance to trigger collective interrupts\n", // TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
@@ -322,6 +295,7 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"潜行保持无声的几率 +%d%s\n",// L"+%d%s chance to move quietly\n",
 	L"隐蔽性 +%d%s (没被发现时就是“隐形”状态)\n",// L"+%d%s stealth (being 'invisible' if unnoticed)\n",
 	L"降低移动给隐蔽程度 %d%s 的惩罚\n",// L"Reduced cover penalty for movement by %d%s\n",
+	L"-%d%s chance to be interrupted\n", // TODO.Translate
 
 };
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=

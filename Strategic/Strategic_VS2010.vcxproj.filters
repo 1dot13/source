@@ -150,6 +150,12 @@
     <ClInclude Include="Strategic Mines LUA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ja25 Strategic Ai.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapScreen Quotes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AI Viewer.cpp">
@@ -321,6 +327,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Strategic Mines LUA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ja25 Strategic Ai.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapScreen Quotes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

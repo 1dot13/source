@@ -117,6 +117,20 @@ void InitEngineTilesets( )
 		FileClose( hfile );
 	}
 
+	#ifdef JA2UBMAPS
+	gTilesets[ TLS_CAVES_1 ].MovementCostFnc			= (TILESET_CALLBACK)SetTilesetTwoTerrainValues;
+	gTilesets[ TLS_AIRSTRIP ].MovementCostFnc			= (TILESET_CALLBACK)SetTilesetThreeTerrainValues;
+	gTilesets[ TLS_DEAD_AIRSTRIP ].MovementCostFnc		= (TILESET_CALLBACK)SetTilesetThreeTerrainValues;
+	gTilesets[ TEMP_14 ].MovementCostFnc				= (TILESET_CALLBACK)SetTilesetThreeTerrainValues;
+	gTilesets[ TEMP_18 ].MovementCostFnc				= (TILESET_CALLBACK)SetTilesetThreeTerrainValues;
+	gTilesets[ TEMP_19 ].MovementCostFnc				= (TILESET_CALLBACK)SetTilesetThreeTerrainValues;
+	gTilesets[ TEMP_26 ].MovementCostFnc				= (TILESET_CALLBACK)SetTilesetThreeTerrainValues;
+	gTilesets[ TEMP_27 ].MovementCostFnc				= (TILESET_CALLBACK)SetTilesetThreeTerrainValues;
+	gTilesets[ TEMP_28 ].MovementCostFnc				= (TILESET_CALLBACK)SetTilesetThreeTerrainValues;
+	gTilesets[ TEMP_29 ].MovementCostFnc				= (TILESET_CALLBACK)SetTilesetThreeTerrainValues;
+	gTilesets[ TLS_TROPICAL_1 ].MovementCostFnc			= (TILESET_CALLBACK)SetTilesetFourTerrainValues;
+	gTilesets[ TEMP_20 ].MovementCostFnc				= (TILESET_CALLBACK)SetTilesetFourTerrainValues;
+	#else
 	// SET CALLBACK FUNTIONS!!!!!!!!!!!!!
 	gTilesets[ TLS_CAVES_1 ].MovementCostFnc			= (TILESET_CALLBACK)SetTilesetTwoTerrainValues;
 	gTilesets[ TLS_AIRSTRIP ].MovementCostFnc			= (TILESET_CALLBACK)SetTilesetThreeTerrainValues;
@@ -131,6 +145,7 @@ void InitEngineTilesets( )
 
 	gTilesets[ TLS_TROPICAL_1 ].MovementCostFnc			= (TILESET_CALLBACK)SetTilesetFourTerrainValues;
 	gTilesets[ TLS_DESERT_SAM ].MovementCostFnc			= (TILESET_CALLBACK)SetTilesetFourTerrainValues;
+	#endif
 }
 
 #ifdef USE_VFS

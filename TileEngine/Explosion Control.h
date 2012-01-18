@@ -141,4 +141,15 @@ extern void TogglePressureActionItemsInGridNo( INT32 sGridNo );
 extern BOOLEAN DoesSAMExistHere( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, INT32 sGridNo );
 
 extern BOOLEAN HookerInRoom( UINT8 ubRoom );
+
+#ifdef JA2UB
+extern void HavePersonAtGridnoStop( UINT32 sGridNo );
+extern BOOLEAN ShouldThePlayerStopWhenWalkingOnBiggensActionItem( UINT8 ubRecordNum );
+extern void HandleDestructionOfPowerGenFan();
+extern BOOLEAN IsFanGraphicInSectorAtThisGridNo( UINT32 sGridNo );
+extern void HandleExplosionsInTunnelSector( UINT32 sGridNo );
+extern void HandleSwitchToOpenFortifiedDoor( UINT32 sGridNo );
+extern void HandleSeeingPowerGenFan( UINT32 sGridNo );
+extern void HandleSeeingFortifiedDoor( UINT32 sGridNo );//Ja25 UB
+#endif
 #endif

@@ -609,7 +609,12 @@ void DoneFadeOutForExitMPSScreen( void )
 	}
 	else
 #endif
+
+#ifdef JA2UB
+	//SetIntroType( INTRO_BEGINNING );
+#else
 		SetIntroType( INTRO_BEGINNING );
+#endif
 
 	ExitMPSScreen(); // cleanup please, if we called a fadeout then we didnt do it above
 

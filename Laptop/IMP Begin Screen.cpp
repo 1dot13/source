@@ -114,9 +114,6 @@ void RenderGender( void );
 void DecrementTextEnterMode( void );
 void Print8CharacterOnlyString( void );
 BOOLEAN CheckCharacterInputForEgg( void );
-UINT32 GetCyrillicUnicodeChar( UINT32 uiKey );
-UINT32 TranslateKey( UINT32 uiKey, unsigned char* translationTable );
-BOOLEAN CheckIsKeyValid( UINT32 uiKey );
 
 // mouse region callbacks
 void SelectFullNameRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
@@ -589,29 +586,18 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 		break;
 	default:
 		//Heinz (18.01.2009): Russian layout
-		// ViSoR (07.01.2012) : Russian and Belarussian layouts
 		//
-#if defined(RUSSIAN) || defined(BELARUSSIAN)
-		if( ( (DWORD)GetKeyboardLayout(0) & 0xFFFF ) == 0x419) // Russian
+#if defined(RUSSIAN)
+		if( ( (DWORD)GetKeyboardLayout(0) & 0xFFFF ) == 0x419)
 		{
-			unsigned char TranslationTable[] = 
-				" #İ####ı####á-ş.0123456789ÆæÁ#Ş##ÔÈÑÂÓÀÏĞØÎËÄÜÒÙÇÉÊÛÅÃÌÖ×Íßõ#ú#_¸ôèñâóàïğøîëäüòùçéêûåãìö÷íÿÕ#Ú¨";
-
-			uiKey = TranslateKey( uiKey, TranslationTable );
-			uiKey = GetCyrillicUnicodeChar( uiKey );
+			unsigned char RussianTranslationTable[] = 
+			" #İ####ı####á-ş.0123456789ÆæÁ#Ş##ÔÈÑÂÓÀÏĞØÎËÄÜÒÙÇÉÊÛÅÃÌÖ×Íßõ#ú#_¸ôèñâóàïğøîëäüòùçéêûåãìö÷íÿÕ#Ú¨";
+			if(uiKey >= ' ' && uiKey <= '~') uiKey = RussianTranslationTable[uiKey-' '];
+			else uiKey = '#';
 		}
-		else if ( ( (DWORD)GetKeyboardLayout(0) & 0xFFFF ) == 0x423) // Belarussian
-		{
-			unsigned char TranslationTable[] = 
-				" #İ####ı####á-ş.0123456789ÆæÁ#Ş##Ô²ÑÂÓÀÏĞØÎËÄÜÒ¡ÇÉÊÛÅÃÌÖ×Íßõ#'#_¸ô³ñâóàïğøîëäüò¢çéêûåãìö÷íÿÕ#'¨";
-
-			uiKey = TranslateKey( uiKey, TranslationTable );
-			uiKey = GetCyrillicUnicodeChar( uiKey );
-		}
-		else if( !CheckIsKeyValid( uiKey ) )
-			uiKey = '#';
-
-		if( uiKey != '#')
+		else if( !(uiKey >= 'A' && uiKey <= 'Z' || uiKey >= 'a' && uiKey <= 'z' || uiKey >= '0' && uiKey <= '9' ||
+			uiKey == '_' || uiKey == '.' ||	uiKey == ' ') ) uiKey = '#';
+		if(uiKey != '#')
 #else
 	#ifndef USE_CODE_PAGE
 		if( uiKey >= 'A' && uiKey <= 'Z' ||
@@ -702,64 +688,10 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 	return;
 }
 
-UINT32 GetCyrillicUnicodeChar( UINT32 uiKey )
-{
-	// À - ÿ
-	if (uiKey >= 192 && uiKey <= 255)
-		uiKey += 0x0350;
 
-	// ¨
-	if (uiKey == 168)
-		uiKey = 0x0401;
-
-	// ¸
-	if (uiKey == 184)
-		uiKey = 0x0451;
-
-	// ¡
-	if (uiKey == 161)
-		uiKey = 0x040E;
-
-	// ¢
-	if (uiKey == 162)
-		uiKey = 0x045E;
-
-	// ²
-	if (uiKey == 178)
-		uiKey = 0x0406;
-
-	// ³
-	if (uiKey == 179)
-		uiKey = 0x0456;
-
-	return uiKey;
-}
-
-BOOLEAN CheckIsKeyValid( UINT32 uiKey )
-{
-	if(	uiKey >= 'A' && uiKey <= 'Z' ||
-		uiKey >= 'a' && uiKey <= 'z' ||
-		uiKey >= '0' && uiKey <= '9' ||
-		uiKey == '_' ||
-		uiKey == '.' ||
-		uiKey == ' ')
-		return TRUE;
-	else
-		return FALSE;
-}
-
-UINT32 TranslateKey( UINT32 uiKey, unsigned char* translationTable )
-{
-	if( uiKey >= ' ' && uiKey <= '~' )
-		uiKey = translationTable[uiKey-' '];
-	else
-		uiKey = '#';
-
-	return uiKey;
-}
 
 void DisplayFullNameStringCursor( void )
-{	
+{
 	// this procdure will draw the activation string cursor on the screen at position cursorx cursory
 	UINT32 uiDestPitchBYTES;
 	static UINT32 uiBaseTime = 0;

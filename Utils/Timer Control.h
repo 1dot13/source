@@ -18,6 +18,10 @@ enum
 	NUM_TIMER_CALLBACKS
 };
 
+#define	TILE_ANIM__NORMAL_SPEED				200
+#define	TILE_ANIM__FAST_SPEED					30
+
+
 // TIMER DEFINES
 enum
 {
@@ -120,6 +124,7 @@ extern CUSTOMIZABLE_TIMER_CALLBACK gpCustomizableTimerCallback;
 #endif
 
 
+void SetTileAnimCounter( INT32 iTime );
 
 
 #endif

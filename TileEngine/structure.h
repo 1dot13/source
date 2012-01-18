@@ -56,6 +56,10 @@ STRUCTURE * FindNonBaseStructure( INT32 sGridNo, STRUCTURE * pStructure );
 STRUCTURE * SwapStructureForPartner( INT32 sGridNo, STRUCTURE * pStructure );
 STRUCTURE * SwapStructureForPartnerWithoutTriggeringSwitches( INT32 sGridNo, STRUCTURE * pStructure );
 STRUCTURE * SwapStructureForPartnerAndStoreChangeInMap( INT32 sGridNo, STRUCTURE * pStructure );
+
+#ifdef JA2UB
+STRUCTURE * SwapStructureForPartnerForcingGraphicalChange( INT32 sGridNo, STRUCTURE * pStructure );
+#endif
 //
 // functions useful for AI that return info about heights
 //

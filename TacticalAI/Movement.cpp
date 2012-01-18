@@ -816,6 +816,15 @@ void SoldierTriesToContinueAlongPath(SOLDIERTYPE *pSoldier)
 		return;
 	}
 
+	// SANDRO - hack! interrupt issue - we don't want to recalculate our path if no new situation and we are already on move
+	// i.e. in case we interrupted a soldier who has no idea about us seeing him, he should move along as if nothing is happening
+	if ( pSoldier->aiData.bNewSituation == NOT_NEW_SITUATION && pSoldier->aiData.bActionInProgress && !TileIsOutOfBounds(pSoldier->pathing.sFinalDestination))
+	{
+		// just set our path to previously decided final destination
+		NewDest(pSoldier,pSoldier->pathing.sFinalDestination);
+		return;	
+	}
+
 	if (IsActionAffordable(pSoldier))
 	{
 		if (pSoldier->aiData.bActionInProgress == FALSE)

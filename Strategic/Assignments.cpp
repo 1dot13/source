@@ -67,6 +67,8 @@
 #include <vector>
 #include <queue>
 
+#include "Vehicles.h"
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -74,6 +76,19 @@ class SOLDIERTYPE;
 #include "MilitiaSquads.h"
 // HEADROCK HAM 3.5: Include Facility data
 #include "Facilities.h"
+
+#include "Vehicles.h"
+
+#ifdef JA2UB
+#include "Explosion Control.h"
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#include "MapScreen Quotes.h"
+#include "email.h"
+#include "interface Dialogue.h"
+#include "mercs.h"
+#include "ub_config.h"
+#endif
 
 // various reason an assignment can be aborted before completion
 enum{
@@ -519,6 +534,11 @@ SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK );
 BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE * pObj, UINT8 * pubRepairPtsLeft );
 void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft );
 BOOLEAN UnjamGunsOnSoldier( SOLDIERTYPE *pOwnerSoldier, SOLDIERTYPE *pRepairSoldier, UINT8 *pubRepairPtsLeft );
+
+#ifdef JA2UB
+void HaveMercSayWhyHeWontLeave( SOLDIERTYPE *pSoldier ); //Ja25 UB
+BOOLEAN CanMercBeAllowedToLeaveTeam( SOLDIERTYPE *pSoldier ); //JA25 UB
+#endif
 
 /* No point in allowing SAM site repair any more.	Jan/13/99.	ARM
 BOOLEAN IsTheSAMSiteInSectorRepairable( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
@@ -2109,7 +2129,8 @@ INT8 CanCharacterSquad( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 		return( CHARACTER_CANT_JOIN_SQUAD_VEHICLE );
 	}
 
-	if ( NumberOfPeopleInSquad( bSquadValue ) >= NUMBER_OF_SOLDIERS_PER_SQUAD )
+	//SQUAD10 FIX
+	if ( NumberOfPeopleInSquad( bSquadValue ) >= gGameOptions.ubSquadSize )
 	{
 		return( CHARACTER_CANT_JOIN_SQUAD_FULL );
 	}
@@ -6050,7 +6071,8 @@ BOOLEAN DisplayRepairMenu( SOLDIERTYPE *pSoldier )
 				{
 					if ( IsThisVehicleAccessibleToSoldier( pSoldier, iVehicleIndex ) )
 					{
-						AddMonoString( (UINT32 *)&hStringHandle,pVehicleStrings[ pVehicleList[ iVehicleIndex ].ubVehicleType ] );
+						//AddMonoString( (UINT32 *)&hStringHandle,pVehicleStrings[ pVehicleList[ iVehicleIndex ].ubVehicleType ] );
+						AddMonoString( (UINT32 *)&hStringHandle,gNewVehicle[ pVehicleList[ iVehicleIndex ].ubVehicleType ].NewVehicleStrings );
 					}
 				}
 			}
@@ -8072,6 +8094,17 @@ void BeginRemoveMercFromContract( SOLDIERTYPE *pSoldier )
 	// This function will setup the quote, then start dialogue beginning the actual leave sequence
 	if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) )
 	{
+
+#ifdef JA2UB	
+		//Ja25 UB
+		//if the merc cant leave
+		if( !CanMercBeAllowedToLeaveTeam( pSoldier ) )
+		{
+			HaveMercSayWhyHeWontLeave( pSoldier );
+			return;
+		}
+#endif
+
 		// WANNE: Nothing to do here, when we want to dismiss the robot
 		BOOLEAN	fAmIaRobot = AM_A_ROBOT( pSoldier );
 		if (!fAmIaRobot)		
@@ -9302,7 +9335,8 @@ void CreateSquadBox( void )
  for(uiCounter=0; uiCounter <= uiMaxSquad; uiCounter++)
  {
 	// get info about current squad and put in	string
-	swprintf( sString, L"%s ( %d/%d )", pSquadMenuStrings[uiCounter], NumberOfPeopleInSquad( ( INT8 )uiCounter ), NUMBER_OF_SOLDIERS_PER_SQUAD );
+	//SQUAD10 FIX
+	swprintf( sString, L"%s ( %d/%d )", pSquadMenuStrings[uiCounter], NumberOfPeopleInSquad( ( INT8 )uiCounter ), gGameOptions.ubSquadSize );
 	AddMonoString(&hStringHandle, sString );
 
 	// make sure it is unhighlighted
@@ -9506,7 +9540,8 @@ BOOLEAN DisplayVehicleMenu( SOLDIERTYPE *pSoldier )
 		{
 			if ( IsThisVehicleAccessibleToSoldier( pSoldier, iCounter ) )
 			{
-				AddMonoString((UINT32 *)&hStringHandle, pVehicleStrings[ pVehicleList[ iCounter ].ubVehicleType ]);
+				//AddMonoString((UINT32 *)&hStringHandle, pVehicleStrings[ pVehicleList[ iCounter ].ubVehicleType ]);
+					AddMonoString((UINT32 *)&hStringHandle, gNewVehicle[ pVehicleList[ iCounter ].ubVehicleType ].NewVehicleStrings);
 				fVehiclePresent = TRUE;
 			}
 		}
@@ -14430,7 +14465,8 @@ BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityTy
 						if ( IsThisVehicleAccessibleToSoldier( pSoldier, iCounterB ) )
 						{
 							// Create line that says "Repair X" where X is the vehicle.
-							swprintf( sTempString, gzFacilityAssignmentStrings[ FAC_REPAIR_VEHICLE ], pVehicleStrings[ pVehicleList[ iCounterB ].ubVehicleType ]);
+						//	swprintf( sTempString, gzFacilityAssignmentStrings[ FAC_REPAIR_VEHICLE ], pVehicleStrings[ pVehicleList[ iCounterB ].ubVehicleType ]);
+							swprintf( sTempString, gzFacilityAssignmentStrings[ FAC_REPAIR_VEHICLE ], gNewVehicle[ pVehicleList[ iCounterB ].ubVehicleType ].NewVehicleStrings);
 							AddMonoString((UINT32 *)&hStringHandle, sTempString );
 							fFoundVehicle = TRUE;
 						}
@@ -16348,3 +16384,36 @@ void RecordNumMilitiaTrainedForMercs( INT16 sX, INT16 sY, INT8 bZ, UINT8 ubMilit
 		}
 	}
 }
+#ifdef JA2UB
+//Ja25 UB
+
+BOOLEAN CanMercBeAllowedToLeaveTeam( SOLDIERTYPE *pSoldier )
+{
+/*
+	//if we are in sector... J14_1 && K14_1
+	if( gWorldSectorX == 14 && gWorldSectorY == MAP_ROW_J && gbWorldSectorZ == 1 ||	
+			gWorldSectorX == 14 && gWorldSectorY == MAP_ROW_K && gbWorldSectorZ == 1 )
+*/
+	//if we are in, or passed the tunnels
+	if( pSoldier->sSectorX >= 14 )
+	{
+		//dont allow anyone to leave
+		return( FALSE );
+	}
+
+	return( TRUE );
+}
+
+void HaveMercSayWhyHeWontLeave( SOLDIERTYPE *pSoldier )
+{
+	//if the merc is qualified
+	if( IsSoldierQualifiedMerc( pSoldier ) )
+	{
+		TacticalCharacterDialogue( pSoldier, QUOTE_ANSWERING_MACHINE_MSG );
+	}
+	else
+	{
+		TacticalCharacterDialogue( pSoldier, QUOTE_REFUSING_ORDER );
+	}
+}
+#endif

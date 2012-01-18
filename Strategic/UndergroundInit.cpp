@@ -55,7 +55,7 @@ BOOLEAN LuaUnderground::InitializeSectorList()
 {
 	// WANNE: Skip initialization in a multiplayer game, because some variables are not yet set
 	// No problem: Underground sectors are not currently used in a multiplayer game
-	if (!is_networked || gGameOptions.ubDifficultyLevel > 0)
+	if ( !is_networked || gGameOptions.ubDifficultyLevel > 0)
 	{
 		LuaState L = GetLuaState();
 
@@ -65,7 +65,7 @@ BOOLEAN LuaUnderground::InitializeSectorList()
 			.TableOpen()
 			.TParam("difficultyLevel", int(gGameOptions.ubDifficultyLevel))
 			.TParam("gameStyle", int(gGameOptions.ubGameStyle))
-			.TableClose();
+			.TableClose();		
 		
 		SGP_THROW_IFFALSE(initsectorlist_func.Call(1), "call to lua function BuildUndergroundSectorList failed");
 		

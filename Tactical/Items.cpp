@@ -57,6 +57,11 @@
 	#include "math.h"
 #endif
 
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#endif
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -5797,7 +5802,10 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
     }
     // Lesh: end
 
-
+#ifdef JA2UB
+	//handle the placing up of a new ja25 gun
+	HandleNewGunComment( pSoldier, pObj->usItem, FALSE );
+#endif	
 	pInSlot = &(pSoldier->inv[bPos]);
 
 	//we are placing an object, how we handle this depends on what is in the slot already

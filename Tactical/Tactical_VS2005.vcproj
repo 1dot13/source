@@ -491,6 +491,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Ja25_Tactical.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Keys.h"
 				>
 			</File>
@@ -821,6 +825,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Ja25_Tactical.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Keys.cpp"
 				>
 			</File>
@@ -1130,6 +1138,10 @@
 			</File>
 			<File
 				RelativePath=".\XML_TonyInventory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Vehicles.cpp"
 				>
 			</File>
 		</Filter>

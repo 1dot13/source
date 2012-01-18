@@ -19,35 +19,6 @@ void this_is_the_Ja25GermanText_public_symbol(void){;}
 
 // VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
 
-STR16	zNewTacticalMessages[]=
-{
-	//L"Entfernung zum Ziel: %d Felder, Helligkeit: %d/%d",
-	L"Verbinden Sie den Transmitter mit Ihrem Laptop-Computer.",
-	L"Sie haben nicht genug Geld, um %s anzuheuern",
-	L"Das obenstehende Honorar deckt für einen begrenzten Zeitraum die Kosten der Gesamtmission, und schließt untenstehendes Equipment mit ein.",
-	L"Engagieren Sie %s jetzt und nutzen Sie den Vorteil unseres beispiellosen 'Ein Betrag für alles'-Honorars. Das persönliche Equipment des Söldners ist gratis in diesem Preis mit inbegriffen.",
-	L"Honorar",
-	L"Da ist noch jemand im Sektor...",
-	//L"Waffen-Rchwt.: %d Felder, Trefferwahrsch.: %d Prozent",
-	L"Deckung anzeigen",
-	L"Sichtfeld",
-	L"Neue Rekruten können dort nicht hinkommen.",
-	L"Da Ihr Laptop keinen Transmitter besitzt, können Sie keine neuen Teammitglieder anheuern. Vielleicht ist dies eine guter Zeitpunkt, ein gespeichertes  Spiel zu laden oder ein neues zu starten!",
-	L"%s hört das Geräusch knirschenden Metalls unter Jerry hervordringen. Es klingt grässlich - die Antenne ihres Laptop-Computers ist  zerstört.",  //the %s is the name of a merc.  @@@  Modified
-	L"Nach Ansehen des Hinweises, den Commander Morris hinterließ, erkennt %s eine einmalige Gelegenheit. Der Hinweis enthält Koordinaten für den Start von Raketen gegen verschiedene Städte in Arulco. Aber er enthält auch die Koordinaten des Startpunktes - der Raketenanlage.",
-	L"Das Kontroll-Board studierend, entdeckt %s, dass die Zahlen umgedreht werden könnten, so dass die Raketen diese Anlage selbst zerstören. %s muss nun einen Fluchtweg finden. Der Aufzug scheint die schnellstmögliche Route zu bieten...",         //!!! The original reads:	L"Noticing the control panel %s, figures the numbers can be reversed..." That sounds odd for me, but I think the comma is placed one word too late... (correct?)
-	L"Dies ist ein IRON MAN-Spiel, und es kann nicht gespeichert werden, wenn sich Gegner in der Nähe befinden.",		
-	L"(Kann während Kampf nicht speichern)", 
-	L"Der Name der aktuellen Kampagne enthält mehr als 30 Buchstaben.",						
-	L"Die aktuelle Kampagne kann nicht gefunden werden.",																	
-	L"Kampagne: Standard ( %S )",																							
-	L"Kampagne: %S",																													
-	L"Sie haben die Kampagne %S gewählt. Diese ist eine vom Spieler modifizierte Version der Originalkampagne von JA2UB. Möchten Sie die Kampagne %S spielen?",			
-	L"Um den Editor zu benutzen, müssen Sie eine andere als die Standardkampgane auswählen.",		
-};
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// SANDRO - New STOMP laptop strings
 //these strings match up with the defines in IMP Skill trait.cpp
 STR16 gzIMPSkillTraitsText[]=
 {
@@ -219,6 +190,7 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"-%d%s APs benötigt um auf oder von Dächern zu klettern und Hindernisse zu überspringen\n",
 	L"+%d%s Chance eine Tür erfolgreich einzutreten\n",
 	L"Sie erhalten besondere Kung-Fu-Animationen für den Nahkampf\n",
+	L"-%d%s Wahrscheinlichkeit um unterbrochen zu werden wenn man sich bewegt\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
@@ -234,6 +206,7 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"(Maximal auf einen Söldner wirkende Boni: %d )\n",
 	L"+%d%s Resistenz gegen Angst für %s\n",
 	L"Nachteil: %dx Moralverlust bei Tod des %ss für alle anderen Söldner\n",
+	L"+%d%s Wahrscheinlichkeit für kollektive Unterbrechungen\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
@@ -322,6 +295,7 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"+%d%s Chance beim Schleichen kein Geräusch zu erzeugen zu sein\n",
 	L"+%d%s Chance, 'unsichtbar' zu sein wenn man sich nicht verrät (schleichen)\n",
 	L"Der Abzug der berechneten Sichtdeckung beim Bewegen ist %d%s geringer\n",
+	L"-%d%s Wahrscheinlichkeit um unterbrochen zu werden\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=

@@ -11,6 +11,7 @@
 		#include "Scheduling.h"
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
+		#include "Encyclopedia.h"
 	#endif
 #endif
 
@@ -114,6 +115,203 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 	SirTech uses the "@@@" notation.
 
 */
+
+CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] = 
+{
+	L"",
+};
+
+//Encyclopedia
+
+STR16 pMenuStrings[] =
+{
+	//Encyclopedia
+	L"Locations", // 0
+	L"Characters",
+	L"Items",
+	L"Quests",
+	L"Menu 5",
+	L"Menu 6", //5
+	L"Menu 7", 
+	L"Menu 8",
+	L"Menu 9",
+	L"Menu 10",
+	L"Menu 11", //10
+	L"Menu 12",
+	L"Menu 13",
+	L"Menu 14",
+	L"Menu 15",
+	L"Menu 15", // 15
+	
+	//Briefing Room
+	L"Exit",
+};
+
+STR16	pOtherButtonsText[] =
+{
+	L"Briefing", 
+	L"Accept",
+};
+
+STR16	pOtherButtonsHelpText[] =
+{
+	L"Briefing",
+	L"Accept missions",
+};
+
+
+STR16	pLocationPageText[] =
+{
+	L"Prev page",
+	L"Photo", 
+	L"Next page",
+};
+
+STR16	pSectorPageText[] =
+{
+	L"<<",
+	L"Main page",
+	L">>",
+	L"Type: ",
+	L"Empty data",
+	L"Missing of defined missions. Add missions to the file TableData\\BriefingRoom\\BriefingRoom.xml. First mission has to be visible. Put value Hidden = 0.",
+};
+
+STR16	pEncyclopediaTypeText[] = 
+{
+	L"Unknown",// 0 - unknown
+	L"City", //1 - cities
+	L"SAM Site", //2 - SAM Site
+	L"Other location", //3 - other location
+	L"Mines", //4 - mines 
+	L"Military complex", //5 - military complex 
+	L"Laboratory complex",  //6 - laboratory complex 
+	L"Factory complex", //7 - factory complex 
+	L"Hospital", //8 - hospital 
+	L"Prison", //9 - prison
+    L"Airport", //10 - air port 
+};
+
+STR16	pEncyclopediaHelpCharacterText[] = 
+{
+	L"Show all",
+	L"Show AIM",
+	L"Show MERC",
+	L"Show RPC",
+	L"Show NPC",
+	L"Show Pojazd",
+	L"Show IMP",
+	L"Show EPC",
+	L"Filter",
+};
+
+STR16	pEncyclopediaShortCharacterText[] = 
+{
+	L"All",
+	L"AIM",
+	L"MERC",
+	L"RPC",
+	L"NPC",
+	L"Veh.",
+	L"IMP",
+	L"EPC",
+	L"Filter",
+};
+
+STR16	pEncyclopediaHelpText[] = 
+{
+	L"Show all",
+	L"Show cities",
+	L"Show SAM Sites",
+	L"Show other location",
+	L"Show mines",
+	L"Show military complex",
+	L"Show laboratory complex",
+	L"Show Factory complex",
+	L"Show hospital",
+	L"Show prison",
+	L"Show air port",
+};
+
+STR16	pEncyclopediaSkrotyText[] = 
+{
+	L"All",
+	L"City",
+	L"SAM",
+	L"Other",
+	L"Mine",
+	L"Mil.",
+	L"Lab.",
+	L"Fact.",
+	L"Hosp.",
+	L"Prison",
+	L"Air.",
+};
+
+STR16	pEncyclopediaShortInventoryText[] = 
+{
+	L"All", //0
+	L"Gun",
+	L"Ammo",
+	L"LBE",
+	L"Misc",
+	
+	L"All", //5
+	L"Gun",
+	L"Ammo",
+	L"LBE Gear",
+	L"Misc",
+};
+
+STR16			BoxFilter[] =
+{
+	// Guns
+	L"Heavy",
+	L"Pistol",
+	L"M. Pist.",
+	L"SMG",
+	L"Rifle",
+	L"S. Rifle",
+	L"A. Rifle",
+	L"MG",
+	L"Shotgun",
+
+	// Ammo
+	L"Pistol",
+	L"M. Pist.", //10
+	L"SMG",
+	L"Rifle",
+	L"S. Rifle",
+	L"A. Rifle",
+	L"MG",
+	L"Shotgun",
+
+	// Used
+	L"Guns",
+	L"Armor",
+	L"LBE Gear",
+	L"Misc", //20
+
+	// Armour
+	L"Helmets",
+	L"Vests",
+	L"Leggings",
+	L"Plates",
+
+	// Misc
+	L"Blades",
+	L"Th. Knife",
+	L"Melee",
+	L"Grenades",
+	L"Bombs",
+	L"Med.", //30
+	L"Kits",
+	L"Face",
+	L"LBE",
+	L"Misc.", //34
+};
+//-----------
+
 
 // Editor
 //Editor Taskbar Creation.cpp
@@ -798,7 +996,7 @@ STR16 pShowHighGroundText[] =
 };
 
 //Item Statistics.cpp
-CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
+/*CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
 {
 	L"Klaxon Mine",
 	L"Flare Mine",
@@ -835,7 +1033,7 @@ CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
 	L"Bloodcat alarm",
 	L"Big teargas",
 };
-
+*/
 STR16 pUpdateItemStatsPanelText[] =
 {
 	L"Toggle hide flag", //0
@@ -2428,6 +2626,11 @@ CHAR16 zHealthStr[][13] =
 	L"ОТЛИЧНО",		// 	>= 90
 };
 
+STR16 gzHiddenHitCountStr[1] =
+{
+	L"?",	
+};
+
 STR16	gzMoneyAmounts[6] = 
 { 
 	L"1000$",
@@ -3277,7 +3480,11 @@ STR16 pMapErrorString[] =
 //6-10
 	L"нуждается в сопровождении чтобы идти. Назначьте его с кем-нибудь в отряд.", // merc can't move unescorted .. for a male
 	L"нуждается в сопровождении чтобы идти. Назначьте ее с кем-нибудь в отряд.", // for a female
+#ifdef JA2UB
+	L"Наёмник ещё не прибыл в Tracona!",
+#else
 	L"Наёмник ещё не прибыл в Арулько!",
+#endif
 	L"Кажется, сначала надо уладить проблемы с контрактом.",
 	L"Бежать от самолета? Только после вас!",	// Cannot give a movement order. Air raid is going on.
 //11-15
@@ -3621,6 +3828,8 @@ STR16 pBookMarkStrings[] =
 	L"Цветы",
 	L"Страховка",
 	L"Oтмeнa",
+	L"Encyclopedia",
+	L"Briefing Room",
 };
 
 STR16 pBookmarkTitle[] =
@@ -3730,8 +3939,10 @@ STR16 pWebPagesTitles[] =
 	L"",
 	L"Адрес не найден.",
 	L"Бобби Рэй - последние поступления",
-	L"",
-	L"",
+	L"Encyclopedia",
+	L"Encyclopedia - Data",
+	L"Briefing Room",
+	L"Briefing Room - Data",
 };
 
 STR16 pShowBookmarkString[] =
@@ -4689,7 +4900,7 @@ STR16			zSaveLoadText[] =
 	//the second is the recommended amount of free space.
 	L"У вас заканчивается свободное место на жестком диске. Сейчас свободно %d Мб, а требуется %d Мб свободного места для JA.",
 
-	L"Сохраняю...",		//When saving a game, a message box with this string appears on the screen
+	L"Сохраняю",		//When saving a game, a message box with this string appears on the screen
 
 	L"Нормальный",
 	L"Огромный",
@@ -4706,6 +4917,8 @@ STR16			zSaveLoadText[] =
 
 	L"Сохраненная игра была начата в режиме \"Нового Инвентаря\", этот режим не работат при разрешении экрана 640х480. Измените разрешение и загрузите игру снова.",
 	L"Загрузка игры, начатой в режиме \"Нового Инвентаря\", невозможна. Установите в Ja2.ini игровую папку 'Data-1.13' и повторите попытку.",
+
+	L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.", // TODO.Translate
 };
 
 
@@ -4957,9 +5170,15 @@ STR16	zOptionsScreenHelpText[] =
 STR16	gzGIOScreenText[] =
 {
 	L"УСТАНОВКИ НАЧАЛА ИГРЫ",
+#ifdef JA2UB
+	L"Random Manuel texts ",
+	L"Off",
+	L"On",
+#else
 	L"Элементы фантастики",
 	L"нет",
 	L"есть",
+#endif	
 	L"Платиновая серия",
 	L"Ассортимент оружия в игре",
 	L"всё доступное",
@@ -4999,9 +5218,15 @@ STR16	gzGIOScreenText[] =
 	L"Враг оставляет всё снаряжение",
 	L"нет",
 	L"да",
+#ifdef JA2UB
+	L"Tex and John",
+	L"Random",
+	L"All",
+#else
 	L"Число террористов",
 	L"случайное",
 	L"все сразу",
+#endif
 	L"Спрятанное оружие секторов",	//Secret Weapon Caches
 	L"выборочно",
 	L"всё возможное",
@@ -5015,6 +5240,12 @@ STR16	gzGIOScreenText[] =
 	L"старый / старая",
 	L"новый / старая",
 	L"новый / новая",
+
+	// Squad Size
+	L"Max. Squad Size",
+	L"6",
+	L"8",
+	L"10",
 };
 
 STR16	gzMPJScreenText[] =
@@ -5296,7 +5527,7 @@ STR16 pMessageStrings[] =
 	L"Не хватает денег, чтобы заплатить %s ежедневный гонорар %s",	//first %s is the mercs name, the seconds is a string containing the salary
 	L"Нет",	//Skip
 	L"%s не может уйти в одиночку.",
-	L"Файл сохранения был записан под названием SaveGame99.sav. Если необходимо, переименуйте его в SaveGame01 - SaveGame10 и тогда, он станет доступен в списке сохранений.", 
+	L"Файл сохранения был записан под названием SaveGame249.sav. Если необходимо, переименуйте его в SaveGame01 - SaveGame10 и тогда, он станет доступен в списке сохранений.", 
 	L"%s: выпил(а) немного %s.",
 	L"Посылка прибыла в Драссен.",
 	L"%s прибудет в точку назначения (сектор %s) в %dй день, примерно в %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
@@ -5312,12 +5543,26 @@ STR16 pMessageStrings[] =
 	L"Режим реального времени",	//Normal turn mode
 	L"Выход из пошагового режима",	//Exit combat mode
 	L"Включен только пошаговый режим. Вступаем в бой!",	//Forced Turn Mode Active, Entering Combat
-#ifdef JA2BETAVERSION
 	L"Игра сохранена в поле авто-сохранения.",
-#endif
 	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.
 	L"Клиент",	//Client
 	L"Нельзя одновременно установить \"Старый\" инвентарь и \"Новую Систему Навески\".",	//You cannot use the Old Inventory and the New Attachment System at the same time.
+
+	// TODO.Translate
+	L"Auto Save #", //91		// Text des Auto Saves im Load Screen mit ID
+	L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
+	L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
+	L"AutoSaveGame",		// 94	// The filename of the auto save, such as AutoSaveGame01 - AutoSaveGame05
+	L"End-Turn Save #",	// 95	// The text for the tactical end turn auto save
+	L"Saving Auto Save #",	// 96	// The message box, when doing auto save
+	L"Saving",	// 97	// The message box, when doing end turn auto save
+	L"Empty End-Turn Save Slot #",	// 98	// The message box, when doing auto save
+	L"This Slot is reserved for Tactical End-Turn Saves, which can be enabled/disabled in the Option Screen.", //99	// The text, when the user clicks on the save screen on an auto save
+	// Mouse tooltips
+	L"QuickSave.sav",	// 100
+	L"AutoSaveGame%02d.sav",	// 101
+	L"Auto%02d.sav",	// 102
+	L"SaveGame%02d.sav", //103
 };
 
 
@@ -5347,7 +5592,11 @@ STR16 pMilitiaButtonsHelpText[] =
 STR16 pMapScreenJustStartedHelpText[] =
 {
 	L"Отправляйтесь в A.I.M. и наймите бойцов (*Подсказка* - это в лэптопе).", // to inform the player to hired some mercs to get things going
+#ifdef JA2UB
+	L"Когда будете готовы отправиться в Tracona, включите сжатие времени в правом нижнем углу экрана.", // to inform the player to hit time compression to get the game underway
+#else
 	L"Когда будете готовы отправиться в Арулько, включите сжатие времени в правом нижнем углу экрана.", // to inform the player to hit time compression to get the game underway
+#endif
 };
 
 STR16 pAntiHackerString[] = 
@@ -5379,6 +5628,10 @@ STR16 gzLaptopHelpText[] =
 	L"Похоронная служба Макгилликатти",
 	L"'Цветы по всему миру'",
 	L"Страховые агенты по контрактам A.I.M.",
+	//New Bookmarks
+	L"",
+	L"Encyclopedia",
+	L"Briefing Room",
 };
 
 
@@ -5574,8 +5827,11 @@ STR16 gzLateLocalizedString[] =
 	L"Все ваши наемники перевязаны.",
 
 	//14
+#ifdef JA2UB
+	L"Tracona",
+#else
 	L"Арулько",
-
+#endif
 	L"(на крыше)",
 
 	L"Здоровье: %d/%d",
@@ -6824,5 +7080,39 @@ STR16 gzNCTHlabels[]=
 //////////////////////////////////////////////////////
 // HEADROCK HAM 4: End new UDB texts and tooltips
 //////////////////////////////////////////////////////
+
+STR16	gzNewLaptopMessages[]=
+{
+	L"Ask about our special offer!",
+	L"Temporarily Unavailable",
+	L"This special press preview of Jagged Alliance 2: Unfinished Business contains the only first 6 sector maps. The final version of the game will feature many more - please see the included readme file for details.",
+};
+
+STR16	zNewTacticalMessages[]=
+{
+	//L"Расстояние до цели: %d ед., Освещенность: %d/%d",
+	L"Передатчик подключен к вашему ноутбуку.",
+	L"Вы не можете нанять %s",
+	L"Предложение действует ограниченное время и покрывает стоимость найма на всю миссию, плюс вы так же получите оборудование, перечисленное ниже.",
+	L"Наемник %s - наше невероятное суперпредложение 'одна плата за все'. Вы также бесплатно получите его персональную экипировку.",
+	L"Гонорар",
+	L"В секторе кто-то есть...",
+	//L"Дальнобойность оружия: %d ед., Шанс попасть: %d%%",
+	L"Показать укрытия",
+	L"Линия прицела",
+	L"Новые наемники не могут высадиться здесь.",
+	L"Так как ваш ноутбук лишился антенны, то вы не сможете нанять новых наемников. Возможно, сейчас вам стоит загрузить одну из сохраненных игр, или начать игру заново!",
+	L"%s слышит металлический хруст под телом Джерри. Кажется, это чмо сломало антенну вашего ноутбука.",  //the %s is the name of a merc.
+	L"После прочтения записей, оставленных помощником командира Морриса, %s видит, что не все еще потеряно. В записке содержатся координаты городов Арулько для запуска по ним ракет. Кроме того, там также указаны координаты самой ракетной базы.",
+	L"Изучив панель управления, %s понимает, что координаты цели можно изменить, и тогда ракета уничтожит эту базу.  %s не собирается умирать, а значит нужно быстрее отсюда выбираться. Похоже, что самый быстрый способ это лифт...",
+	L"В начале игры вы выбрали сохранение лишь в \"мирное время\" и теперь не можете записываться во время боя.",
+	L"(Нельзя сохраняться во время боя)",
+	L"Текущая кампания длиннее 30 символов.",
+	L"Текущая кампания не найдена.",
+	L"Кампания: По умолчанию ( %S )",
+	L"Кампания: %S",
+	L"Вы выбрали кампанию %S. Эта кампания является модификацией оригинальной кампании Unfinished Business. Вы уверены, что хотите играть кампанию %S?",
+	L"Чтобы воспользоваться редактором, смените кампанию по умолчанию на другую.",
+};
 
 #endif //RUSSIAN

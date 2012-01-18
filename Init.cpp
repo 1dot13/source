@@ -71,10 +71,21 @@
 #include "Strategic Town Loyalty.h"
 #include "Soldier Profile.h"
 #include "aim.h"
+#include "mainmenuscreen.h"
+#include "email.h"
+
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#endif
+
+#include "ub_config.h"
+
 
 #include "Civ Quotes.h"
 #include "Sector Summary.h"
 #include "LuaInitNPCs.h"
+#include "Encyclopedia_Data.h"
+#include "Encyclopedia.h"
 
 extern INT16 APBPConstants[TOTAL_APBP_VALUES] = {0};
 extern INT16 gubMaxActionPoints[28];//MAXBODYTYPES = 28... JUST GETTING IT TO WORK NOW.  GOTTHARD 7/2/08
@@ -389,10 +400,20 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	}
 #endif
 
+#ifdef JA2UB
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, MERCSTARTINGGEAR25FILENAME);
+	SGP_THROW_IFFALSE(ReadInMercStartingGearStats(fileName),MERCSTARTINGGEAR25FILENAME);
+
+#else
+
 	// CHRISL:
 	strcpy(fileName, directoryName);
 	strcat(fileName, MERCSTARTINGGEARFILENAME);
 	SGP_THROW_IFFALSE(ReadInMercStartingGearStats(fileName),MERCSTARTINGGEARFILENAME);
+
+#endif
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, WEAPONSFILENAME);
@@ -427,9 +448,28 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, TONYINVENTORYFILENAME);
 	SGP_THROW_IFFALSE(ReadInInventoryStats(gTonyInventory,fileName),TONYINVENTORYFILENAME);
 
+#ifdef JA2UB
+//ja25 ub Biggins
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, BETTYINVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gBettyInventory,fileName),BETTYINVENTORYFILENAME);
+
+	//UB
+	strcpy(fileName, directoryName);
+	strcat(fileName, RAULINVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gRaulInventory,fileName),RAULINVENTORYFILENAME);
+
+#else
 	strcpy(fileName, directoryName);
 	strcat(fileName, DEVININVENTORYFILENAME);
 	SGP_THROW_IFFALSE(ReadInInventoryStats(gDevinInventory,fileName),DEVININVENTORYFILENAME);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, PERKOINVENTORYFILENAME);
+	SGP_THROW_IFFALSE(ReadInInventoryStats(gPerkoInventory,fileName),PERKOINVENTORYFILENAME);
+
+#endif
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, FRANZINVENTORYFILENAME);
@@ -492,10 +532,6 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	SGP_THROW_IFFALSE(ReadInInventoryStats(gArnieInventory,fileName),ARNIEINVENTORYFILENAME);
 
 	strcpy(fileName, directoryName);
-	strcat(fileName, PERKOINVENTORYFILENAME);
-	SGP_THROW_IFFALSE(ReadInInventoryStats(gPerkoInventory,fileName),PERKOINVENTORYFILENAME);
-
-	strcpy(fileName, directoryName);
 	strcat(fileName, FREDOINVENTORYFILENAME);
 	SGP_THROW_IFFALSE(ReadInInventoryStats(gFredoInventory,fileName),FREDOINVENTORYFILENAME);
 
@@ -527,14 +563,21 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, SAMSITESFILENAME);
 	SGP_THROW_IFFALSE(ReadInSAMInfo(fileName),SAMSITESFILENAME);
 
-	// Lesh: army externalization
-	strcpy(fileName, directoryName);
-	strcat(fileName, GARRISONFILENAME);
-	SGP_THROW_IFFALSE(ReadInGarrisonInfo(fileName),GARRISONFILENAME);
+#ifdef JA2UB
+	if ( gGameUBOptions.EnemyXML == TRUE ) 
+	{
+#endif
+		// Lesh: army externalization
+		strcpy(fileName, directoryName);
+		strcat(fileName, GARRISONFILENAME);
+		SGP_THROW_IFFALSE(ReadInGarrisonInfo(fileName),GARRISONFILENAME);
 
-	strcpy(fileName, directoryName);
-	strcat(fileName, PATROLFILENAME);
-	SGP_THROW_IFFALSE(ReadInPatrolInfo(fileName),PATROLFILENAME);
+		strcpy(fileName, directoryName);
+		strcat(fileName, PATROLFILENAME);
+		SGP_THROW_IFFALSE(ReadInPatrolInfo(fileName),PATROLFILENAME);
+#ifdef JA2UB
+	}
+#endif
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, COMPOSITIONFILENAME);
@@ -616,6 +659,36 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	// SANDRO - always initialize those files, we need it on game start
 	if (gGameExternalOptions.fReadProfileDataFromXML)
 	{
+#ifdef JA2UB		
+		// UB25
+		strcpy(fileName, directoryName);
+		strcat(fileName, MERCPROFILESFILENAME25); 
+		
+		if ( FileExists(fileName) )
+		{	
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));		
+		SGP_THROW_IFFALSE(ReadInMercProfiles(fileName, FALSE), MERCPROFILESFILENAME25);
+		
+		#ifndef ENGLISH
+			AddLanguagePrefix(fileName);
+			if ( FileExists(fileName) )
+			{
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+				if(!ReadInMercProfiles(fileName,TRUE))
+				return FALSE;
+			}
+		#endif
+		}
+
+		strcpy(fileName, directoryName);
+		strcat(fileName, MERCOPINIONSFILENAME25);
+		if ( FileExists(fileName) )
+		{		
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInMercOpinions(fileName), MERCOPINIONSFILENAME25);
+		}
+#else
+
 		// HEADROCK PROFEX: Read in Merc Profile data to replace PROF.DAT data
 		strcpy(fileName, directoryName);
 		strcat(fileName, MERCPROFILESFILENAME);
@@ -636,8 +709,9 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		strcat(fileName, MERCOPINIONSFILENAME);
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInMercOpinions(fileName), MERCOPINIONSFILENAME);
+#endif
 	}
-
+		
 	// HEADROCK HAM 3.6: Read in customized Bloodcat Placements
 	strcpy(fileName, directoryName);
 	strcat(fileName, BLOODCATPLACEMENTSFILENAME);
@@ -710,9 +784,9 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	
 		// Sender Name List by Jazz
 		strcpy(fileName, directoryName);
-		strcat(fileName, SENDERNAMELISTFILENAME);
+		strcat(fileName, EMAILSENDERNAMELIST);
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		SGP_THROW_IFFALSE(ReadInSenderNameList(fileName,FALSE), SENDERNAMELISTFILENAME);
+		SGP_THROW_IFFALSE(ReadInSenderNameList(fileName,FALSE), EMAILSENDERNAMELIST);
 
 #ifndef ENGLISH
 		AddLanguagePrefix(fileName);
@@ -811,6 +885,186 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		}
 #endif
 
+	//Main Menu by Jazz	
+	strcpy(fileName, directoryName);
+	strcat(fileName, LAYOUTMAINMENU);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInMainMenu(gMainMenulayout,fileName), LAYOUTMAINMENU);
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ACTIONITEMSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInActionItems(fileName,FALSE), ACTIONITEMSFILENAME);	
+
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			if(!ReadInActionItems(fileName,TRUE))
+				return FALSE;
+		}
+#endif
+
+if ( ReadXMLEmail == TRUE )
+{
+		// EMAIL MERC AVAILABLE by Jazz
+		strcpy(fileName, directoryName);
+		strcat(fileName, EMAILMERCAVAILABLE);
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInEmailMercAvailable(fileName,FALSE), EMAILMERCAVAILABLE);
+
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			if(!ReadInEmailMercAvailable(fileName,TRUE))
+				return FALSE;
+		}
+#endif
+
+		// EMAIL MERC LEVEL UP by Jazz
+		strcpy(fileName, directoryName);
+		strcat(fileName, EMAILMERCLEVELUP);
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInEmailMercLevelUp(fileName,FALSE), EMAILMERCLEVELUP);
+
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			if(!ReadInEmailMercLevelUp(fileName,TRUE))
+				return FALSE;
+		}
+#endif
+}
+/*
+		// EMAIL OTHER by Jazz
+		strcpy(fileName, directoryName);
+		strcat(fileName, EMAILOTHER);
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInEmailOther(fileName,FALSE), EMAILOTHER);
+
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			if(!ReadInEmailOther(fileName,TRUE))
+				return FALSE;
+		}
+#endif
+*/
+	//new vehicles by Jazz	
+	
+	InitNewVehicles ();
+	
+	strcpy(fileName, directoryName);
+	strcat(fileName, VEHICLESFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInNewVehicles(fileName,FALSE), VEHICLESFILENAME);
+	
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			if(!ReadInNewVehicles(fileName,TRUE))
+				return FALSE;
+		}
+#endif
+
+// WANNE: The file "TableData/Text/TacticalMessages.xml" is not yet used
+#if 0
+		strcpy(fileName, directoryName);
+		strcat(fileName, TEXTFILENAME);
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInLanguageLocation(fileName,FALSE,zlanguageText,0), TEXTFILENAME);
+#endif
+
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			if(!ReadInLanguageLocation(fileName,TRUE,zlanguageText,0))
+				return FALSE;
+		}
+#endif
+
+	//encyklopedia
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENCYCLOPEDIALOCATIONFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,FALSE,gEncyclopediaLocationData, 0), ENCYCLOPEDIALOCATIONFILENAME);
+	
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gEncyclopediaLocationData, 0), fileName);
+		}
+#endif
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENCYCLOPEDIAPROFILEFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,FALSE,gEncyclopediaProfilesData, 1), ENCYCLOPEDIAPROFILEFILENAME);
+	
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gEncyclopediaProfilesData, 1), fileName);
+		}
+#endif
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENCYCLOPEDIAINVENTORYFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,FALSE,gEncyclopediaInventoryData, 2), ENCYCLOPEDIAINVENTORYFILENAME);
+	
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gEncyclopediaInventoryData, 2), ENCYCLOPEDIAINVENTORYFILENAME);
+		}
+#endif
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENCYCLOPEDIAQUESTSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,FALSE,gEncyclopediaQuestsData, 3), ENCYCLOPEDIAQUESTSFILENAME);
+	
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gEncyclopediaQuestsData, 3), fileName);
+		}
+#endif
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, BRIEFINGROOMFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,FALSE,gBriefingRoomData, 4), BRIEFINGROOMFILENAME);
+	
+#ifndef ENGLISH
+		AddLanguagePrefix(fileName);
+		if ( FileExists(fileName) )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInEncyclopediaLocation(fileName,TRUE,gBriefingRoomData, 4), fileName);
+		}
+#endif
+
 	LuaState::INIT(lua::LUA_STATE_STRATEGIC_MINES_AND_UNDERGROUND, true);
 	g_luaUnderground.LoadScript(GetLanguagePrefix());
 	// load Lua for Strategic Mines initialization
@@ -830,6 +1084,10 @@ UINT32 InitializeJA2(void)
 	HandleJA2CDCheck( );
 
 	gfWorldLoaded = FALSE;
+	
+#ifdef JA2UB
+	useOldJA2Inventory = FALSE;
+#endif
 
 	//Load external game mechanic data
 	//if ( !LoadExternalGameplayData(TABLEDATA_DIRECTORY))
@@ -961,8 +1219,40 @@ UINT32 InitializeJA2(void)
 	}
 #endif
 
+#ifdef JA2UB
+	// run old UB inventory Data-UB\Addons\Data-Old-UB-Inventory
+	if( _stricmp( gzCommandLine, "-OLDUBINVENTORY" ) )
+	{
+		useOldJA2Inventory = TRUE; 
+	}
+
+	// Ignore the old UB Inventory, because it is not working
+	useOldJA2Inventory = FALSE;
+
+#endif
+
 #ifdef JA2BETAVERSION
 	#ifdef JA2EDITOR
+		#ifdef JA2UB
+			// CHECK COMMANDLINE FOR SPECIAL UTILITY
+		if( !strcmp( gzCommandLine, "-OLDUBINVENTORYEDITORAUTO" ) )
+		{
+			OutputDebugString( "Beginning JA2 using -EDITORAUTO commandline argument...\n" );
+			//For editor purposes, need to know the default map file.
+			sprintf( gubFilename, "none");
+			//also set the sector
+			gWorldSectorX = 0;
+			gWorldSectorY = 0;
+			gfAutoLoadA9 = FALSE;
+			gfIntendOnEnteringEditor = TRUE;
+			gGameOptions.fGunNut = TRUE;
+			gGameOptions.fAirStrikes = FALSE;
+			
+			useOldJA2Inventory = TRUE; 
+			return( GAME_SCREEN );
+		}
+		#endif
+	
 		// CHECK COMMANDLINE FOR SPECIAL UTILITY
 		if( !strcmp( gzCommandLine, "-EDITORAUTO" ) )
 		{
@@ -1010,6 +1300,17 @@ UINT32 InitializeJA2(void)
 			return( GAME_SCREEN );
 		#endif
 	#endif
+#endif
+
+#ifdef JA2UB
+	InitGridNoUB();
+#endif
+
+#ifdef JA2UB	
+	if ( useOldJA2Inventory == TRUE )
+		Old_UB_Inventory ();
+	else
+		New_UB_Inventory ();
 #endif
 
 //Lua

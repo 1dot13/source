@@ -36,6 +36,7 @@
 
 #include "input.h"
 #include "zmouse.h"
+#include "GameSettings.h"
 
 #include <vfs/Aspects/vfs_settings.h>
 #include <vfs/Core/vfs.h>
@@ -796,10 +797,14 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	// Snap: Initialize the Data directory catalogue
 	gDefaultDataCat.NewCat(DataDir);
 
-	// Snap: Get the custom Data directory location from ja2.ini (if any)
+	STRING512	ja2INIfile;
+	strcat(ja2INIfile, "..\\");
+	strcat(ja2INIfile, GAME_INI_FILE);
+
+	// Snap: Get the custom Data directory location from GAME_INI_FILE (if any)
 	// and initialize the custom catalogue
 	char customDataPath[MAX_PATH];
-	if ( GetPrivateProfileString( "Ja2 Settings","CUSTOM_DATA_LOCATION", "", customDataPath, MAX_PATH, "..\\Ja2.ini" ) )
+	if ( GetPrivateProfileString( "Ja2 Settings","CUSTOM_DATA_LOCATION", "", customDataPath, MAX_PATH, ja2INIfile ) )
 	{
 		gCustomDataCat.NewCat(std::string(CurrentDir) + '\\' + customDataPath);
 	}
@@ -1329,10 +1334,11 @@ void GetRuntimeSettings( )
 	// Get Executable Directory
 	GetExecutableDirectory( INIFile );
 
-	strcat(INIFile, "\\Ja2.ini");
+	strcat(INIFile, "\\");
+	strcat(INIFile, GAME_INI_FILE);
 #else
 	vfs::PropertyContainer oProps;
-	oProps.initFromIniFile("Ja2.ini");
+	oProps.initFromIniFile(GAME_INI_FILE);
 #endif
 	iResolution = -1;
 #ifndef USE_VFS
@@ -1380,6 +1386,15 @@ void GetRuntimeSettings( )
 	if(oProps.getStringListProperty(L"Ja2 Settings", L"MERGE_INI_FILES", merge_list, L""))
 	{
 		for(std::list<vfs::String>::iterator it = merge_list.begin(); it != merge_list.end(); ++it)
+		{
+			CIniReader::RegisterFileForMerging(*it);
+		}
+	}
+	
+	std::list<vfs::String> merge_list_ub;
+	if(oProps.getStringListProperty(L"Ja2 Settings", L"MERGE_INI_FILES_UB", merge_list_ub, L""))
+	{
+		for(std::list<vfs::String>::iterator it = merge_list_ub.begin(); it != merge_list_ub.end(); ++it)
 		{
 			CIniReader::RegisterFileForMerging(*it);
 		}

@@ -34,6 +34,7 @@ extern INT16 gsTerroristSector[][5][2];
 extern BOOLEAN	gfPotentialTeamChangeDuringDeath;
 
 extern MERCPROFILESTRUCT gMercProfiles[ NUM_PROFILES ];
+
 extern MERCPROFILEGEAR gMercProfileGear[ NUM_PROFILES ][ NUM_MERCSTARTINGGEAR_KITS ];
 
 
@@ -98,8 +99,11 @@ enum NPCIDs
 	COUGAR,
 	NUMB,
 	BUBBA,
-
+#ifdef JA2UB
+	MIGUEL = 58,  	//Ja25:		Was 57
+#else
 	MIGUEL = 57,
+#endif
 	CARLOS,
 	IRA,
 	DIMITRI,
@@ -108,7 +112,11 @@ enum NPCIDs
 	ROBOT,
 	HAMOUS,
 	SLAY,
+#ifdef JA2UB
+//	RPC65,
+#else
 	RPC65,
+#endif
 	DYNAMO,
 	SHANK,
 	IGGY,
@@ -219,11 +227,19 @@ enum NPCIDs
 	PROF_ICECREAM,
 	PROF_HELICOPTER,
 	NPC164,
+#ifdef JA2UB
+	NPC165,
+	NPC166,
+	NPC167,
+	NPC168,
+	NPC169,
+#else
 	GASTON,
 	STOGIE,
 	TEX,
 	BIGGENS,
 	NPC169,
+#endif	
 	NPC170 = NPC169 + 84,
 } ;
 

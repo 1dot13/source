@@ -119,6 +119,13 @@
 #include "Luaglobal.h"
 #include "LuaInitNPCs.h"
 #include "Interface.h"
+#include "Vehicles.h"
+#ifdef JA2UB
+#include "Ja25 Strategic Ai.h"
+#include "Ja25_Tactical.h"
+#include "Soldier Control.h"
+#include "ub_config.h"
+#endif
 
 // OJW - 20090419
 UINT8	giMAXIMUM_NUMBER_OF_PLAYER_MERCS = CODE_MAXIMUM_NUMBER_OF_PLAYER_MERCS;
@@ -193,6 +200,13 @@ extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndRead
 
 
 extern void PlayStealthySoldierFootstepSound( SOLDIERTYPE *pSoldier );
+
+#ifdef JA2UB
+BOOLEAN CanMsgBoxForPlayerToBeNotifiedOfSomeoneElseInSector();
+
+extern void PlayStealthySoldierFootstepSound( SOLDIERTYPE *pSoldier );
+//extern	BOOLEAN		gfFirstTimeInGameHeliCrash; //JA25 UB
+#endif
 
 extern BOOLEAN gfSurrendered;
 
@@ -1087,7 +1101,46 @@ BOOLEAN ExecuteOverhead( )
 						*/
 					}
 				}
+#ifdef JA2UB				
+				//Ja25 UB
+				// ATE: JA25 additon - poll for getting up from start of game...
+				if( pSoldier->fWaitingToGetupFromJA25Start )
+				{
+					if( !DialogueActive( ) )
+					{
+						///if the timer is done, AND no one is talking
+						if( TIMECOUNTERDONE( pSoldier->GetupFromJA25StartCounter, 0 ) )
+						{
+							//make sure they wont say this again
+							pSoldier->fWaitingToGetupFromJA25Start = FALSE;
 
+							//
+							//Get the soldier that should say the quote
+							//
+
+							//if the merc is one of the mercs who has Quote 80, say that
+							if( pSoldier->ubProfile == 58 ||//GASTON
+									pSoldier->ubProfile == 59 ||//STOGIE
+									pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER )
+							{
+								TacticalCharacterDialogue( pSoldier, QUOTE_REPUTATION_REFUSAL );
+							}
+							else
+							{
+								// Now make them say their curse sound
+								pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+							}
+
+							SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_MULTIPURPOSE, pSoldier->ubProfile, 0, 0, pSoldier->iFaceIndex, 0 );
+						}
+					}
+					else
+					{
+						pSoldier->GetupFromJA25StartCounter += giTimerDiag;
+					}
+				}				
+				
+#endif
 				// Checkout fading
 				if ( pSoldier->flags.fBeginFade )
 				{
@@ -1332,6 +1385,21 @@ BOOLEAN ExecuteOverhead( )
 
 									// Cancel reverse
 									pSoldier->bReverse = FALSE;
+
+									BOOLEAN fAimAfterMove = FALSE;
+									if ( pSoldier->usAnimState == SIDE_STEP_PISTOL_RDY || pSoldier->usAnimState == SIDE_STEP_RIFLE_RDY || 
+										pSoldier->usAnimState == WALKING_PISTOL_RDY || pSoldier->usAnimState == WALKING_RIFLE_RDY )
+									{
+										fAimAfterMove = TRUE;
+										pSoldier->usPendingAnimation = AIM_RIFLE_STAND;
+										pSoldier->ubPendingDirection = pSoldier->ubDirection;
+									}
+									else if ( pSoldier->usAnimState == SIDE_STEP_DUAL_RDY || pSoldier->usAnimState == WALKING_DUAL_RDY )
+									{
+										fAimAfterMove = TRUE;
+										pSoldier->usPendingAnimation = AIM_DUAL_STAND;
+										pSoldier->ubPendingDirection = pSoldier->ubDirection;
+									}
 
 									// OK, if we are the selected soldier, refresh some UI stuff
 									if ( pSoldier->ubID == (UINT8)gusSelectedSoldier )
@@ -1591,7 +1659,10 @@ BOOLEAN ExecuteOverhead( )
 											{
 												UnSetUIBusy( pSoldier->ubID );
 
-												pSoldier->SoldierGotoStationaryStance( );
+												if ( !fAimAfterMove ) // SANDRO - don't do this after movement with weapon raised
+												{
+													pSoldier->SoldierGotoStationaryStance( );
+												}
 											}
 										}
 									}
@@ -1740,7 +1811,10 @@ BOOLEAN ExecuteOverhead( )
 								dAngle = gdRadiansForAngle[ pSoldier->bMovementDirection ];
 
 								// For walking, base it on body type!
-								if ( pSoldier->usAnimState == WALKING )
+								if ( pSoldier->usAnimState == WALKING || 
+									 pSoldier->usAnimState == WALKING_PISTOL_RDY ||
+									 pSoldier->usAnimState == WALKING_RIFLE_RDY ||
+									 pSoldier->usAnimState == WALKING_DUAL_RDY )
 								{
 									pSoldier->MoveMerc( gubAnimWalkSpeeds[ pSoldier->ubBodyType ].dMovementChange, dAngle, TRUE );
 
@@ -1813,6 +1887,37 @@ BOOLEAN ExecuteOverhead( )
 				}
 			}
 		}
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - hack! - resolve possible pending interrupt
+		if(GetSoldier(&pSoldier, gusSelectedSoldier) && gGameExternalOptions.fImprovedInterruptSystem )
+		{
+			if ( pSoldier->bActive )
+			{
+				if ( ResolvePendingInterrupt( pSoldier, UNDEFINED_INTERRUPT ) )
+				{
+					fKeepMoving = FALSE;
+					pSoldier->AdjustNoAPToFinishMove( TRUE );
+					pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
+					pSoldier->ubPendingDirection = NO_PENDING_DIRECTION;
+
+					// "artificially" set lock ui flag in this case
+					if (pSoldier->bTeam == gbPlayerNum)
+					{
+						AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+						guiPendingOverrideEvent = LU_BEGINUILOCK;	
+						HandleTacticalUI( );
+					}
+
+					// return early
+					gubNPCAPBudget = 0;
+					gubNPCDistLimit = 0;
+
+					return( TRUE );
+				}
+			}
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Turn off auto bandage if we need to...
 		if ( gTacticalStatus.fAutoBandageMode )
@@ -2442,8 +2547,8 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
 			}
 			else
 			{
-				// Adjust AP/Breathing points to move
-				DeductPoints( pSoldier, sAPCost, sBPCost );
+				// Adjust AP/Breathing points to move				
+				DeductPoints( pSoldier, sAPCost, sBPCost, MOVEMENT_INTERRUPT );
 			}
 
 			// OK, let's check for monsters....
@@ -2702,7 +2807,7 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 
 	// Set "interrupt occurred" flag to false so that we will know whether *this
 	// particular call* to HandleSight caused an interrupt
-	gTacticalStatus.fInterruptOccurred = FALSE;
+	gTacticalStatus.fInterruptOccurred = FALSE;	
 
 	if ( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
@@ -2724,6 +2829,17 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 		HandleSight(pSoldier,SIGHT_LOOK | SIGHT_RADIO | SIGHT_INTERRUPT);
 	}
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - if pending interrupt flag was set for movement type of interupt, resolve it here
+	if ( gGameExternalOptions.fImprovedInterruptSystem )
+	{
+		if ( ResolvePendingInterrupt( pSoldier, MOVEMENT_INTERRUPT ) )
+		{
+			AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );		
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	// ATE: Check if we have sighted anyone, if so, don't do anything else...
 	// IN other words, we have stopped from sighting...
 	if (gTacticalStatus.fInterruptOccurred)
@@ -2860,7 +2976,7 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 						pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
 						SetFactTrue( FACT_SKYRIDER_CLOSE_TO_CHOPPER );
 						TriggerNPCRecord( SKYRIDER, 15 );
-						SetUpHelicopterForPlayer( 13, MAP_ROW_B, SKYRIDER );
+						SetUpHelicopterForPlayer( 13, MAP_ROW_B, gNewVehicle[ HELICOPTER ].NewPilot, HELICOPTER );
 					}
 					break;
 
@@ -3368,6 +3484,9 @@ void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
 		// handle stuff for Carmen if Slay is killed
 		switch( pSoldier->ubProfile )
 		{
+#ifdef JA2UB
+//Ja25 No carmen
+#else
 		case SLAY:
 			pTeamSoldier = FindSoldierByProfileID( CARMEN, FALSE );			
 			if (pTeamSoldier && pTeamSoldier->aiData.bAttitude == ATTACKSLAYONLY && !TileIsOutOfBounds(ClosestPC( pTeamSoldier, NULL )) )
@@ -3376,6 +3495,7 @@ void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
 				TriggerNPCRecord( CARMEN, 29 );
 			}
 			break;
+#endif
 		case ROBOT:
 			if (CheckFact( FACT_FIRST_ROBOT_DESTROYED, 0 ) == FALSE )
 			{
@@ -3450,8 +3570,10 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 
 	if (pSoldierOld->bTeam == CIV_TEAM )
 	{
+		#ifdef JA2UB
+		#else
 		SOLDIERTYPE * pOther;
-
+		#endif
 		// ATE: Added string to player
 		if ( bVisible != -1 && pSoldierOld->ubProfile != NO_PROFILE )
 		{
@@ -3460,6 +3582,24 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 
 		switch( pSoldierOld->ubProfile )
 		{
+#ifdef JA2UB
+			case 75: //MORRIS
+				{
+					INT8 bSoldierID;
+
+					//Geta a random soldier ID
+					bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+
+					//if there is any
+					if( bSoldierID != -1 )
+					{
+						//say the MORRIS dead quote
+						TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_LEARNED_TO_HATE_MERC_1_ON_TEAM_WONT_RENEW );
+					}					
+				}
+				break;
+
+#else //Ja25: none of these characters are in the exp.
 		case BRENDA:
 			SetFactTrue( FACT_BRENDA_DEAD );
 			{
@@ -3598,13 +3738,22 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 				HandleNPCDoAction( DOREEN, NPC_ACTION_FREE_KIDS, 0 );
 			}
 			break;
-		// SANDRO - Check if queen bitch is dead 
+	#endif
+
+#ifdef JA2UB
+
+#else
+			// SANDRO - Check if queen bitch is dead 
 		case QUEEN:
 			// Muhahahahaaa, QUEST COMPLETED! Give us everything!! Exp, glory, fame!
 			EndQuest( QUEST_KILL_DEIDRANNA, pSoldierOld->sSectorX, pSoldierOld->sSectorY );
-			break;
+		break;
+#endif
+			
 		}
-
+#ifdef JA2UB
+// Ja25no queen
+#else
 		// Are we looking at the queen?
 		if ( pSoldierOld->ubProfile == QUEEN )
 		{
@@ -3615,7 +3764,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 
 			BeginHandleDeidrannaDeath( pKiller, pSoldierOld->sGridNo, pSoldierOld->pathing.bLevel );
 		}
-
+#endif
 		// crows/cows are on the civilian team, but none of the following applies to them
 		if ( ( pSoldierOld->ubBodyType != CROW ) && ( pSoldierOld->ubBodyType != COW ) )
 		{
@@ -3663,6 +3812,10 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 	}
 	else	// enemies and creatures... should any of this stuff not be called if a creature dies?
 	{
+	
+#ifdef JA2UB
+//no queen, or queen monster
+#else
 		if ( pSoldierOld->ubBodyType == QUEENMONSTER )
 		{
 			SOLDIERTYPE *pKiller = NULL;
@@ -3674,7 +3827,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 				BeginHandleQueenBitchDeath( pKiller, pSoldierOld->sGridNo, pSoldierOld->pathing.bLevel );
 			}
 		}
-
+#endif
 		if ( pSoldierOld->bTeam == ENEMY_TEAM )
 		{
 			gTacticalStatus.ubArmyGuysKilled++;
@@ -3695,7 +3848,9 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 			// reset the chosen one!
 			gTacticalStatus.ubTheChosenOne = NOBODY;
 		}
-
+#ifdef JA2UB
+//no queen, or queen monster
+#else
 		if ( pSoldierOld->ubProfile == QUEEN )
 		{
 			HandleMoraleEvent( NULL, MORALE_DEIDRANNA_KILLED, gWorldSectorX, gWorldSectorY, gbWorldSectorZ	);
@@ -3710,6 +3865,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 			HandleNPCDoAction( 0, NPC_ACTION_GRANT_EXPERIENCE_5, 0 );
 
 		}
+#endif
 	}
 
 
@@ -3778,10 +3934,39 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 
 	//if the NPC is a dealer, add the dealers items to the ground
 	AddDeadArmsDealerItemsToWorld( pSoldierOld->ubProfile );
+	
+#ifdef JA2UB
+	HandleDeathInPowerGenSector( pSoldierOld ); //ja25 ub
+	HandleWhenCertainPercentageOfEnemiesDie();  //ja25 ub
+#endif
 
 	//The queen AI layer must process the event by subtracting forces, etc.
 	ProcessQueenCmdImplicationsOfDeath( pSoldierOld );
+#ifdef JA2UB
+	 //------------------- ja25 ub -------------------------
+	//if the person was Raul, and we are to say the blown up quotes
+	if( pSoldierOld->ubProfile == PERKO /*RAUL */ && IsJa25GeneralFlagSet( JA_GF__RAUL_BLOW_HIMSELF_UP ) )
+	{
+		UINT8 SoldierId1;
+		UINT8 SoldierId2;
 
+		//Get some random Soldier ID's of the valid mercs
+		if( Get3RandomQualifiedMercs( &SoldierId1, &SoldierId2, NULL ) != 0 )
+		{		
+			//Say the "he blew himself up quote"
+			TacticalCharacterDialogue( &Menptr[SoldierId1], QUOTE_GREETING );
+
+			//if there isnt a second soldier
+			if( SoldierId2 == NOBODY )
+			{
+				SoldierId2 = SoldierId1;
+			}
+
+			//say the "darn he took the inventoruy with him"
+			TacticalCharacterDialogue( &Menptr[SoldierId2], QUOTE_SMALL_TALK );
+		}
+	}
+#endif
 	// OK, check for existence of any more badguys!
 	CheckForEndOfBattle( FALSE );
 }
@@ -3905,10 +4090,14 @@ void MakeCivHostile( SOLDIERTYPE *pSoldier, INT8 bNewSide )
 
 	switch( pSoldier->ubProfile )
 	{
+#ifdef JA2UB
+//Ja25 No Ira, miguel, etc
+#else
 	case IRA:
 	case DIMITRI:
 	case MIGUEL:
 	case CARLOS:
+#endif	
 	case MADLAB:
 	case DYNAMO:
 	case SHANK:
@@ -3989,6 +4178,16 @@ void MakeCivHostile( SOLDIERTYPE *pSoldier, INT8 bNewSide )
 	{
 		CheckForPotentialAddToBattleIncrement( pSoldier );
 	}
+	
+
+		//uses Lua
+		PROFILLUA2_ubProfile = pSoldier->ubProfile;
+		PROFILLUA2_sSectorX = pSoldier->sSectorX;
+		PROFILLUA2_sSectorY = pSoldier->sSectorY;
+		PROFILLUA2_bSectorZ = pSoldier->bSectorZ;
+		PROFILLUA2_sGridNo = pSoldier->sGridNo;
+	
+	//LetLuaMyCustomHandleAtNewGridNo(bNewSide,NULL, 1);	
 }
 
 UINT8 CivilianGroupMembersChangeSidesWithinProximity( SOLDIERTYPE * pAttacked )
@@ -5703,6 +5902,7 @@ void CommonEnterCombatModeCode( )
 	gTacticalStatus.fLastBattleWon		= FALSE;
 	gTacticalStatus.fItemsSeenOnAttack	= FALSE;
 
+	gTacticalStatus.ubInterruptPending	= DISABLED_INTERRUPT;
 
 	// ATE: If we have an item pointer end it!
 	CancelItemPointer( );
@@ -5747,6 +5947,9 @@ void CommonEnterCombatModeCode( )
 				// if the last battle left a soldier at 0 points, he will not gain full points with
 				// carryover for this battle.	So we'll hit it again.
 				pSoldier->CalcNewActionPoints( );
+
+				// SANDRO - Improved Interrupt System - reset interrupt counter
+				memset(pSoldier->aiData.ubInterruptCounter,0,sizeof(pSoldier->aiData.ubInterruptCounter));
 
 				if ( pSoldier->ubProfile != NO_PROFILE )
 				{
@@ -5971,6 +6174,11 @@ void ExitCombatMode( )
 	// since this would be the same as what would happen at the end of the turn
 	gTacticalStatus.uiTimeSinceLastOpplistDecay = __max( 0, GetWorldTotalSeconds() - TIME_BETWEEN_RT_OPPLIST_DECAYS );
 	NonCombatDecayPublicOpplist( GetWorldTotalSeconds() );
+	
+#ifdef JA2UB	
+	//if we are in J13 and the fan is stopped, handle it
+	HandleFanStartingAtEndOfCombat();
+#endif
 }
 
 
@@ -5989,7 +6197,14 @@ void SetEnemyPresence( )
 		// Change music modes..
 
 		// If we are just starting game, don't do this!
+	
+#ifdef JA2UB	
+		//Ja25: no meanwhiles
+		if ( !DidGameJustStart() )
+#else
 		if ( !DidGameJustStart() && !AreInMeanwhile( ) )
+
+#endif
 		{
 			SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SetEnemyPresence: warnings = false"));
@@ -6512,7 +6727,11 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 			SetFactTrue( FACT_FIRST_BATTLE_FOUGHT );
 			SetFactFalse( FACT_FIRST_BATTLE_BEING_FOUGHT );
 			SetTheFirstBattleSector( (INT16) (gWorldSectorX + gWorldSectorY * MAP_WORLD_X) );
+#ifdef JA2UB
+//Ja25  no meanwhile
+#else
 			HandleFirstBattleEndingWhileInTown( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, FALSE );
+#endif
 		}
 
 		if( NumEnemyInSectorExceptCreatures() )
@@ -6766,7 +6985,11 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 				SetFactTrue( FACT_FIRST_BATTLE_WON );
 				SetFactFalse( FACT_FIRST_BATTLE_BEING_FOUGHT );
 				SetTheFirstBattleSector( (INT16) (gWorldSectorX + gWorldSectorY * MAP_WORLD_X) );
+#ifdef JA2UB
+//Ja25  no meanwhile
+#else
 				HandleFirstBattleEndingWhileInTown( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, FALSE );
+#endif
 			}
 		}
 
@@ -7932,6 +8155,10 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
 	}
 	else
 	{
+	
+#ifdef JA2UB
+//Ja25: No carmen
+#else
 		if (pTarget->ubProfile == CARMEN)// Carmen
 		{
 			// Special stuff for Carmen the bounty hunter
@@ -7941,7 +8168,7 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
 				pTarget->aiData.bAttitude = AGGRESSIVE;
 			}
 		}
-
+#endif
 		if ( pTarget->ubCivilianGroup && ( (pTarget->bTeam == gbPlayerNum) || pTarget->aiData.bNeutral ) )
 		{
 #ifdef JA2TESTVERSION
@@ -8184,7 +8411,9 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 			return( NULL );
 		}
 	}
-
+#ifdef JA2UB
+//Ja25 no queen
+#else
 	// ATE: IN MEANWHILES, we have 'combat' in realtime....
 	// this is so we DON'T call freeupattacker() which will cancel
 	// the AI guy's meanwhile NPC stuff.
@@ -8193,7 +8422,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 	{
 		return( NULL );
 	}
-
+#endif
 #if 0
 // 0verhaul:	This is moved to the end loop where everybody's state is reset for the next action
 	if (pTarget)
@@ -8334,7 +8563,11 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 			// Go into combat!
 
 			// If we are in a meanwhile... don't enter combat here...
+#ifdef JA2UB
+//Ja25 no meanwhiles
+#else
 			if ( !AreInMeanwhile( ) )
+#endif
 			{
 				EnterCombatMode( pSoldier->bTeam );
 			}
@@ -8426,6 +8659,25 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 	{
 		pSoldier->sLastTarget = pSoldier->sTargetGridNo;
 	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - if pending interrupt flag was set for after-shot type of interupt, try to resolve it now
+	if ( gGameExternalOptions.fImprovedInterruptSystem )
+	{
+		if ( ResolvePendingInterrupt( pSoldier, AFTERSHOT_INTERRUPT ) )
+		{
+			pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
+			pSoldier->ubPendingDirection = NO_PENDING_DIRECTION;
+			// "artificially" set lock ui flag
+			if (pSoldier->bTeam == gbPlayerNum)
+			{
+				AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+				guiPendingOverrideEvent = LU_BEGINUILOCK;			
+				HandleTacticalUI( );
+			}
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Reset various flags and values that should be 0 once the action is overwith
 	for (cnt = 0; cnt < guiNumMercSlots; cnt++)
@@ -9199,3 +9451,105 @@ INT8 CheckStatusNearbyFriendlies( SOLDIERTYPE *pSoldier )
 	return(sModifier);
 
 }
+
+
+#ifdef JA2UB
+void SetMsgBoxForPlayerBeNotifiedOfSomeoneElseInSector()
+{
+	//if the player in the same sector as MANUEL
+	if( !CanMsgBoxForPlayerToBeNotifiedOfSomeoneElseInSector() )
+	{
+		return;
+	}
+
+	gJa25SaveStruct.fShouldMsgBoxComeUpSayingSomeoneImportantIsInSector = TRUE;
+}
+
+void HandleThePlayerBeNotifiedOfSomeoneElseInSector()
+{
+	//if we shouldnt be here, get out
+	if( !gJa25SaveStruct.fShouldMsgBoxComeUpSayingSomeoneImportantIsInSector )
+	{
+		return;
+	}
+
+	//if somehting else is going on, leave
+	if( gTacticalStatus.fAutoBandageMode ||
+			DialogueActive( ) ||
+			gTacticalStatus.fAutoBandagePending ||
+			guiPendingScreen == MSG_BOX_SCREEN ||
+			guiCurrentScreen == MSG_BOX_SCREEN ||
+			AreWeInAUIMenu( )
+		)
+	{
+		return;
+	}
+
+	gJa25SaveStruct.fShouldMsgBoxComeUpSayingSomeoneImportantIsInSector = FALSE;
+
+	//if the player in the same sector as MANUEL
+	if( !CanMsgBoxForPlayerToBeNotifiedOfSomeoneElseInSector() )
+	{
+		return;
+	}
+
+	DoMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TACT_MSG__SOMEONE_ELSE_IN_SECTOR ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
+
+}
+
+BOOLEAN CanMsgBoxForPlayerToBeNotifiedOfSomeoneElseInSector()
+{
+	// ATE: if this is a custom map, return
+/*	if ( gbWorldSectorZ == 0 )
+	{
+		if ( SectorInfo[ SECTOR( gWorldSectorY, gWorldSectorX ) ].fCustomSector )
+		{
+			return( FALSE );
+		}
+	}
+*/
+	if( ( gWorldSectorX == gMercProfiles[ 60 ].sSectorX && gWorldSectorY == gMercProfiles[ 60 ].sSectorY && gbWorldSectorZ == gMercProfiles[ 60 ].bSectorZ ) )
+	{
+		//IF MANUEL is already hired
+		if( gMercProfiles[ 60 ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
+		{
+			//then we shouldnt display the message
+			return( FALSE );
+		}
+
+		return( TRUE );
+	}
+
+	return( FALSE );
+}
+
+
+INT8 NumMercsOnPlayerTeam( )
+{
+	INT32					cnt;
+	SOLDIERTYPE   *pSoldier;
+	UINT8         ubCount = 0;
+
+	cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+
+  // look for all mercs on the same team, 
+  for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pSoldier++)
+	{       
+		if( pSoldier->bActive && pSoldier->stats.bLife > 0 )
+		{
+			ubCount++;
+		}
+	}
+
+	return( ubCount );
+}
+
+void HandleDisplayingOfPlayerLostDialogue( void )
+{
+	//if the laptop transmitter is broken, and the player doesnt have any other team members
+	if( gubQuest[ QUEST_FIX_LAPTOP ] != QUESTDONE &&  NumMercsOnPlayerTeam( ) == 0 && gGameUBOptions.LaptopQuestEnabled == TRUE )
+	{
+		gJa25SaveStruct.ubDisplayPlayerLostMsgBox	= 1;	
+	}
+}
+#endif

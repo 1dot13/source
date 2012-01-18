@@ -49,6 +49,18 @@
 
 #include "connect.h"
 
+#ifdef JA2UB
+#include "Explosion Control.h"
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#include "MapScreen Quotes.h"
+#include "email.h"
+#include "interface Dialogue.h"
+#include "mercs.h"
+#include "ub_config.h"
+#endif
+
+
 #ifdef JA2BETAVERSION
 extern BOOLEAN gfMercsNeverQuit;
 #endif
@@ -209,11 +221,15 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			// WANNE: This fixes the bug, that Speck did not sent the email on Day 3, when MERC_WEBSITE_ALL_MERCS_AVAILABLE = TRUE!
 			if ( gGameExternalOptions.fMercDayOne == FALSE /* && gGameExternalOptions.fAllMercsAvailable == FALSE */ )
 			{
-				AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1, -1 );
+			#ifdef JA2UB
+			//No JA25 UB
+			#else
+				AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1, -1 ,TYPE_EMAIL_EMAIL_EDT );
+			#endif	
 			}
 			break;
 		case EVENT_DAY2_ADD_EMAIL_FROM_IMP:
-			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), -1, -1);
+			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT);
 			break;
 		//If a merc gets hired and they dont show up immediately, the merc gets added to the queue and shows up
 		// uiTimeTillMercArrives	minutes later
@@ -344,6 +360,10 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		//case EVENT_BEGIN_AIR_RAID:
 		//	BeginAirRaid( );
 		//	break;
+
+#ifdef JA2UB
+// Ja25 No meanwhiles
+#else
 		case EVENT_MEANWHILE:
 			if( !DelayEventIfBattleInProgress( pEvent ) )
 			{
@@ -351,6 +371,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 				InterruptTime();
 			}
 			break;
+#endif
 		case EVENT_BEGIN_CREATURE_QUEST:
 			break;
 		case EVENT_CREATURE_SPREAD:
@@ -407,7 +428,11 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			}
 			break;
 		case EVENT_MERC_SITE_BACK_ONLINE:
+			#ifdef JA2UB
+			// no JA25 UB
+			#else
 			GetMercSiteBackOnline();
+			#endif
 			break;
 		case EVENT_INVESTIGATE_SECTOR:
 			InvestigateSector( (UINT8)pEvent->uiParam );
@@ -444,6 +469,31 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		case EVENT_POSTAL_SERVICE_SHIPMENT:
 			gPostalService.DeliverShipment(pEvent->uiParam);
 			break;
+#ifdef JA2UB			
+		//Ja25 UB	
+		case EVENT_ATTACK_INITIAL_SECTOR_IF_PLAYER_STILL_THERE:
+			if ( gGameUBOptions.EventAttackInitialSectorIfPlayerStillThere == TRUE )
+			{
+			ShouldEnemiesBeAddedToInitialSector();
+			}
+			break;
+
+		case EVENT_SAY_DELAYED_MERC_QUOTE:
+			DelayedSayingOfMercQuote( pEvent->uiParam );
+			break;
+
+		case EVENT_DELAY_SOMEONE_IN_SECTOR_MSGBOX:
+			SetMsgBoxForPlayerBeNotifiedOfSomeoneElseInSector();
+			break;
+
+		case EVENT_SECTOR_H8_DONT_WAIT_IN_SECTOR:
+			HandleSayingDontStayToLongWarningInSectorH8();
+			break;
+
+		case EVENT_SEND_ENRICO_UNDERSTANDING_EMAIL:
+			HandleEnricosUnderstandingEmail();
+			break;
+#endif
 
 #ifdef CRIPPLED_VERSION
 		case EVENT_CRIPPLED_VERSION_END_GAME_CHECK:

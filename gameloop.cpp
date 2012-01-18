@@ -41,6 +41,11 @@
 #pragma comment (lib, "gdi32.lib")
 #pragma comment (lib, "advapi32.lib")
 #pragma comment (lib, "shell32.lib")
+
+#ifdef JA2UB
+#include "ub_config.h"
+#endif
+
 // rain
 #include "Rain.h"
 // end rain
@@ -129,6 +134,10 @@ BOOLEAN InitializeGame(void)
 
 	// HEADROCK HAM 4: Read CTH values
 	LoadCTHConstants();
+
+#ifdef JA2UB
+	LoadGameUBOptions(); // JA25 UB
+#endif
 
 	InitSightRange(); //lal
 

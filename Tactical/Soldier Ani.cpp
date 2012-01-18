@@ -597,6 +597,25 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				{
 					UnSetUIBusy( pSoldier->ubID );
 				}
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				// SANDRO - if pending interrupt flag was set for after-attack type of interupt, try to resolve it now
+				else if ( gGameExternalOptions.fImprovedInterruptSystem )
+				{
+					if ( ResolvePendingInterrupt( pSoldier, AFTERACTION_INTERRUPT ) )
+					{
+						pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
+						pSoldier->ubPendingDirection = NO_PENDING_DIRECTION;
+						// "artificially" set lock ui flag in this case
+						if (pSoldier->bTeam == gbPlayerNum)
+						{
+							AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+							guiPendingOverrideEvent = LU_BEGINUILOCK;								
+							HandleTacticalUI( );
+						}
+						return( TRUE );		
+					}
+				}
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				break;
 
 			case 443:
@@ -1013,12 +1032,12 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					{
 						//AXP 25.03.2007: MinAPsToThrow now actually returns the real cost, not 0
 						// ATE: Deduct points!
-						DeductPoints( pSoldier, MinAPsToThrow( pSoldier, pSoldier->sTargetGridNo, FALSE ), 0 );
+						DeductPoints( pSoldier, MinAPsToThrow( pSoldier, pSoldier->sTargetGridNo, FALSE ), 0, AFTERACTION_INTERRUPT );
 					}
 					else
 					{
 						// ATE: Deduct points!
-						DeductPoints( pSoldier, APBPConstants[AP_TOSS_ITEM], 0 );
+						DeductPoints( pSoldier, APBPConstants[AP_TOSS_ITEM], 0, AFTERACTION_INTERRUPT );
 					}
 
 					INT32 iRealObjectID = CreatePhysicalObject( pSoldier->pTempObject, pSoldier->pThrowParams->dLifeSpan,	pSoldier->pThrowParams->dX, pSoldier->pThrowParams->dY, pSoldier->pThrowParams->dZ, pSoldier->pThrowParams->dForceX, pSoldier->pThrowParams->dForceY, pSoldier->pThrowParams->dForceZ, pSoldier->ubID, pSoldier->pThrowParams->ubActionCode, pSoldier->pThrowParams->uiActionData, FALSE );
@@ -1221,7 +1240,13 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						}
 						else
 						{
+#ifdef JA2UB
+					//Ja25 No meanwhiles		
+					          	if ( fMartialArtist )
+#else
 							if ( fMartialArtist && !AreInMeanwhile( ) )
+
+#endif
 							{
 								pSoldier->ChangeSoldierState( NINJA_BREATH, 0, FALSE );
 								return( TRUE );
@@ -2025,6 +2050,29 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 			case 498:
 
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				// SANDRO - if pending interrupt flag was set for before-attack type of interupt, try to resolve it now
+				if ( gGameExternalOptions.fImprovedInterruptSystem )
+				{
+					if ( ResolvePendingInterrupt( pSoldier, BEFORESHOT_INTERRUPT ) )
+					{	
+						if ( pSoldier->flags.fTurningToShoot )
+							pSoldier->flags.fTurningToShoot = FALSE;
+
+						pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
+						pSoldier->ubPendingDirection = NO_PENDING_DIRECTION;
+						// "artificially" set lock ui flag in this case
+						if (pSoldier->bTeam == gbPlayerNum)
+						{
+							AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+							guiPendingOverrideEvent = LU_BEGINUILOCK;								
+							HandleTacticalUI( );
+						}
+						return( TRUE );				
+						break;
+					}
+				}
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// CONDITONAL JUMP
 				// If we have a pending animation, play it, else continue
 				if ( pSoldier->usPendingAnimation != NO_PENDING_ANIMATION )
@@ -2616,6 +2664,14 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					DebugAttackBusy( "@@@@@@@ Reducing attacker busy count for end of queen swipe" );
 					// ReduceAttackBusyCount( pSoldier->ubID, FALSE );
 				}
+				
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				// SANDRO - if pending interrupt flag was set for after-attack type of interupt, try to resolve it now
+				if ( gGameExternalOptions.fImprovedInterruptSystem )
+				{
+					ResolvePendingInterrupt( pSoldier, AFTERACTION_INTERRUPT );
+				}
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				break;
 
 			case 754:
@@ -3628,6 +3684,9 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 		}
 
 		// OK, if we are in a meanwhile and this is elliot...
+#ifdef JA2UB
+//ja25: No queen
+#else
 		if ( AreInMeanwhile( ) )
 		{
 			SOLDIERTYPE *pQueen;
@@ -3639,7 +3698,7 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 				TriggerNPCWithGivenApproach( QUEEN, APPROACH_DONE_SLAPPED, FALSE );
 			}
 		}
-
+#endif
 		// We are unconscious now, play randomly, this animation continued, or a new death
 		if ( pSoldier->CheckSoldierHitRoof( ) )
 		{
@@ -3649,7 +3708,11 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 		// If guy is now dead, play sound!
 		if ( pSoldier->stats.bLife == 0	)
 		{
+#ifdef JA2UB
+//Ja25 No meanwhiles		
+#else
 			if ( !AreInMeanwhile() )
+#endif
 			{
 				pSoldier->DoMercBattleSound( BATTLE_SOUND_DIE1 );
 				pSoldier->flags.fDeadSoundPlayed = TRUE;

@@ -2838,7 +2838,11 @@ void DoneFadeOutForExitMPHScreen( void )
 			
 	gubMPHExitScreen = INTRO_SCREEN;
 
+#ifdef JA2UB
+	//SetIntroType( INTRO_BEGINNING );
+#else
 	SetIntroType( INTRO_BEGINNING );
+#endif
 
 	ExitMPHScreen(); // cleanup please, if we called a fadeout then we didnt do it above
 

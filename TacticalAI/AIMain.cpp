@@ -60,6 +60,11 @@
 
 #include "connect.h"
 
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#endif
+
 extern void PauseAITemporarily( void );
 extern void UpdateEnemyUIBar( void );
 extern void DisplayHiddenTurnbased( SOLDIERTYPE * pActingSoldier );
@@ -855,6 +860,18 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 	// If we are not in an interrupt situation!
 	if ( (( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.uiFlags & INCOMBAT )) && gubOutOfTurnPersons == 0 )
 	{
+#ifdef JA2UB	
+			//JA25 UB
+				//if this is Morris
+			if( pSoldier->ubProfile == 75  ) //MORRIS
+			{
+				//if we are to say the line if we are hurt the player
+				if( gJa25SaveStruct.fMorrisToSayHurtPlayerQuoteNextTurn )
+				{
+					TriggerNPCRecord( 75, 6 ); //MORRIS
+				}
+			}
+#endif						
 		if( ( ( pSoldier->bVisible != -1 && pSoldier->stats.bLife) || ( gTacticalStatus.uiFlags & SHOW_ALL_MERCS ) ) && ( fInValidSoldier == FALSE ) )
 		{
 			// If we are on a roof, set flag for rendering...
@@ -2577,19 +2594,21 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 		SendNetData(ALL_NODES);
 		*/
-		DeductPoints(pSoldier,APBPConstants[AP_RADIO],APBPConstants[BP_RADIO]);// pay for it!
+		DeductPoints(pSoldier,APBPConstants[AP_RADIO],APBPConstants[BP_RADIO], AFTERACTION_INTERRUPT); // pay for it!
+		
 		RadioSightings(pSoldier,EVERYBODY,pSoldier->bTeam);      // about everybody
 		// action completed immediately, cancel it right away
 
 		// ATE: Change to an animation!
 		AIDecideRadioAnimation( pSoldier );
-		//return(FALSE);           // no longer in progress
+
 		break;
 
 	case AI_ACTION_CREATURE_CALL:									// creature calling to others
-		DeductPoints(pSoldier,APBPConstants[AP_RADIO],APBPConstants[BP_RADIO]);// pay for it!
+
+		DeductPoints(pSoldier,APBPConstants[AP_RADIO],APBPConstants[BP_RADIO], AFTERACTION_INTERRUPT); // pay for it!
 		CreatureCall( pSoldier );
-		//return( FALSE ); // no longer in progress
+
 		break;
 
 	case AI_ACTION_CHANGE_STANCE:                // crouch

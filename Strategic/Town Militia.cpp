@@ -1519,7 +1519,11 @@ void HandleContinueOfTownTraining( void )
 		if( pSoldier->bActive )
 		{
 			fContinueEventPosted = TRUE;
+#ifdef JA2UB
+//no UB
+#else
 			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_CONTINUE_TRAINING_MILITIA, pSoldier->ubProfile, 0, 0, 0, 0 );
+#endif
 
 			// now set all of these peoples assignment done too
 			//HandleInterfaceMessageForContinuingTrainingMilitia( pSoldier );

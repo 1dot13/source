@@ -1986,7 +1986,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 					// destroy this item!
 					DebugAI( String( "%d decides he must drop %S first so destroys it", pSoldier->ubID, ItemNames[ pSoldier->inv[HANDPOS].usItem ] ) );
 					DeleteObj( &(pSoldier->inv[HANDPOS]) );
-					DeductPoints( pSoldier, GetBasicAPsToPickupItem( pSoldier ), 0 );
+					DeductPoints( pSoldier, GetBasicAPsToPickupItem( pSoldier ), 0, AFTERACTION_INTERRUPT );
 				}
 				else
 				{

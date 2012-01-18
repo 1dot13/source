@@ -213,6 +213,18 @@
     <ClInclude Include="Store Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BriefingRoom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BriefingRoomM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Encyclopedia.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Encyclopedia_Data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aim.cpp">
@@ -420,6 +432,30 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_ConditionsForMercAvailability.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_EmailMercAvailable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_EmailMercLevelUp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BriefingRoom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BriefingRoomM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Encyclopedia.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Encyclopedia_Data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_EncyclopediaLocation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_Email.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

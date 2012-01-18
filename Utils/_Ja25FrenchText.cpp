@@ -19,32 +19,6 @@ void this_is_the_Ja25FrenchText_public_symbol(void){;}
 
 // VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
 
-STR16	zNewTacticalMessages[]=
-{
-	//L"Distance cible: %d tiles, Brightness: %d/%d",
-	L"Attachez le transpondeur à votre PC portable.",
-	L"Vous n'avez pas les moyens d'engager %s",
-	L"Pour une durée limitée, les frais ci-dessus couvrent la mission entière, équipement ci-dessous compris.",
-	L"Engagez %s et découvrez dès à présent notre prix \"tout compris\".  Aussi inclus dans cette incroyable offre, l'équipement personnel du mercenaire sans frais supplémentaires.",
-	L"Frais",
-	L"Il y a quelqu'un d'autre dans le secteur...",
-	//L"Portée arme: %d tiles, de chances: %d pourcent",
-	L"Afficher couverture",
-	L"Ligne de vision",
-	L"Les nouvelles recrues ne peuvent arriver ici.",
-	L"Comme votre PC n'a pas de transpondeur, vous ne pouvez engager de nouvelles recrues. Revenez à une sauvegarde précédente et réessayez.",
-	L"%s entend le son de métal broyé provenant d'en dessous du corps de Jerry.  On dirait que l'antenne de votre PC ne sers plus à rien.",  //the %s is the name of a merc.  @@@  Modified
-	L"Apres avoir scanné la note laissée par le Deputy Commander Morris, %s sent une oppurtinité. La note contient les coordonnées pour le lancement de missiles sur Arulco. Elle contient aussi l'emplacement de l'usine d'où les missiles proviennent.",
-	L"En examinant le panneau de contrôle, %s s'aperçoît que les chiffres peuvent être inversés pour que les missiles détruisent cette même usine.  %s a besoin de trouver un chemin pour s'enfuir.  L'ascenseur semble être la solution la plus rapide...",
-	L"Ceci est un jeu IRON MAN et vous ne pouvez pas sauvegarder s'il ya des ennemis dans les parages.",	//	@@@  new text
-	L"(ne peut sauvegarder en plein combat)", //@@@@ new text
-	L"Le nom de la campagne actuelle est supérieur à 30 lettres.",							// @@@ new text
-	L"La campagne actuelle est introuvable.",																	// @@@ new text
-	L"Campagne: Par défaut ( %S )",																							// @@@ new text
-	L"Campagne: %S",																													// @@@ new text
-	L"Vous avez choisi la campagne %S. Cette campagne est un mod d'Unfinished Business. Etes-vous sûr de vouloir jouer la campagne %S ?",			// @@@ new text
-	L"Pour pouvoir utiliser l'éditeur, veuillez choisir une autre campagne que celle par défaut.",		///@@new
-};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SANDRO - New STOMP laptop strings
@@ -218,6 +192,7 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"-%d%s du nombre de PA nécessaire pour monter/descendre du toit et sauter les obstacles\n",
 	L"+%d%s de chance d'ouvrir la porte\n",
 	L"Vous obtenez une animation spéciale pour votre combat au corps-à-corps\n",
+	L"-%d%s chance to be interrupted when moving\n", // TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
@@ -233,6 +208,7 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"(Le maximum de bonus simultanés pour un joueur est de %d)\n",
 	L"+%d%s de crainte de résistance à %s\n",
 	L"Inconvénient: %dx perte de moral à la mort de %s pour les autres mercenaires\n",
+	L"+%d%s chance to trigger collective interrupts\n", // TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
@@ -321,6 +297,7 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"+%d%s de chance de bouger silencieusement\n",
 	L"+%d%s en discrétion (étant 'invisible si inaperçu)\n",
 	L"Réduit la pénalité dû au déplacement silencieux de %d%s\n",
+	L"-%d%s chance to be interrupted\n", // TODO.Translate
 
 };
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=

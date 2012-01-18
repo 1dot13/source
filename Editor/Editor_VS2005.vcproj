@@ -552,6 +552,10 @@
 				RelativePath=".\Smoothing Utils.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\XML_ActionItems.cpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

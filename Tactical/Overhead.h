@@ -179,8 +179,9 @@ typedef struct
 	UINT8				ubMorePadding;
 	UINT16				sCreatureTenseQuoteDelay;
 	UINT32				uiCreatureTenseQuoteLastUpdate;
-	// SANDRO - added this
+	// SANDRO - added these
 	UINT8								ubLastRequesterSurgeryTargetID;
+	UINT8								ubInterruptPending;
 
 	// PADDING GONE!!!!!
 
@@ -366,6 +367,18 @@ UINT8 NumPCsInSector( void );
 void SetSoldierNonNeutral( SOLDIERTYPE * pSoldier );
 void SetSoldierNeutral( SOLDIERTYPE * pSoldier );
 
+#ifdef JA2UB
+void HandleThePlayerBeNotifiedOfSomeoneElseInSector();
+void SetMsgBoxForPlayerBeNotifiedOfSomeoneElseInSector();
+
+void HandleDisplayingOfPlayerLostDialogue( void );
+
+// UTILITY FUNCTIONS
+INT8	NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
+UINT8 NumEnemyInSector( );
+UINT8 NumCapableEnemyInSector( );
+INT8	NumMercsOnPlayerTeam( );
+#endif
 
 extern BOOLEAN sniperwarning;
 extern BOOLEAN biggunwarning;

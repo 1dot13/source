@@ -42,6 +42,7 @@
 	#include "Facilities.h"
 #endif
 
+#include "Vehicles.h"
 
 // the amounts of time to wait for hover stuff
 #define TIME_DELAY_FOR_HOVER_WAIT						10		// minutes
@@ -69,7 +70,7 @@ extern PathStPtr pTempHelicopterPath;
 extern UINT8 ubSAMControlledSectors[ MAP_WORLD_Y ][ MAP_WORLD_X ];
 
 // the seating capacities
-extern INT32 iSeatingCapacities[];
+//extern INT32 iSeatingCapacities[];
 
 // the static NPC dialogue faces
 //extern UINT32 uiExternalStaticNPCFaces[];
@@ -677,8 +678,13 @@ void LandHelicopter( void )
 	}
 	else
 	{
+#ifdef JA2UB
+		Assert( 0 );
+//No meanwhiles
+#else
 		// play meanwhile scene if it hasn't been used yet
 		HandleKillChopperMeanwhileScene();
+#endif
 	}
 }
 
@@ -862,7 +868,7 @@ void SetUpHelicopterForMovement( void )
 		pVehicleList[ iHelicopterVehicleId ].ubMovementGroup = CreateNewVehicleGroupDepartingFromSector( ( UINT8 )( pVehicleList[ iHelicopterVehicleId ].sSectorX ), ( UINT8 )( pVehicleList[ iHelicopterVehicleId ].sSectorY ), iHelicopterVehicleId );
 
 		// add everyone in vehicle to this mvt group
-		for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iHelicopterVehicleId ].ubVehicleType ]; iCounter++ )
+		for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iHelicopterVehicleId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 		{
 			if( pVehicleList[ iHelicopterVehicleId ].pPassengers[ iCounter ] != NULL )
 			{
@@ -949,14 +955,14 @@ void UpdateRefuelSiteAvailability( void )
 }
 
 
-void SetUpHelicopterForPlayer( INT16 sX, INT16 sY , UINT8 SkyDrive )
+void SetUpHelicopterForPlayer( INT16 sX, INT16 sY , UINT8 SkyDrive, UINT8 VehicleID )
 {
 	if( fSkyRiderSetUp == FALSE )
 	{
 		fHelicopterAvailable = TRUE;
 		fSkyRiderAvailable = TRUE;
 
-		iHelicopterVehicleId = AddVehicleToList( sX, sY, 0, HELICOPTER );
+		iHelicopterVehicleId = AddVehicleToList( sX, sY, 0, VehicleID ); //HELICOPTER
 
 		Assert( iHelicopterVehicleId != -1 );
 
@@ -1001,7 +1007,7 @@ UINT8 MoveAllInHelicopterToFootMovementGroup( void )
 	}
 
 	// go through list of everyone in helicopter
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iHelicopterVehicleId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iHelicopterVehicleId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		// get passenger
 		pSoldier = pVehicleList[ iHelicopterVehicleId ].pPassengers[ iCounter ];

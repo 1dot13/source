@@ -39,9 +39,13 @@
     <ClInclude Include="BobbyRMisc.h" />
     <ClInclude Include="BobbyRShipments.h" />
     <ClInclude Include="BobbyRUsed.h" />
+    <ClInclude Include="BriefingRoom.h" />
+    <ClInclude Include="BriefingRoomM.h" />
     <ClInclude Include="BrokenLink.h" />
     <ClInclude Include="CharProfile.h" />
     <ClInclude Include="email.h" />
+    <ClInclude Include="Encyclopedia.h" />
+    <ClInclude Include="Encyclopedia_Data.h" />
     <ClInclude Include="files.h" />
     <ClInclude Include="finances.h" />
     <ClInclude Include="florist Cards.h" />
@@ -109,9 +113,13 @@
     <ClCompile Include="BobbyRMisc.cpp" />
     <ClCompile Include="BobbyRShipments.cpp" />
     <ClCompile Include="BobbyRUsed.cpp" />
+    <ClCompile Include="BriefingRoom.cpp" />
+    <ClCompile Include="BriefingRoomM.cpp" />
     <ClCompile Include="BrokenLink.cpp" />
     <ClCompile Include="CharProfile.cpp" />
     <ClCompile Include="email.cpp" />
+    <ClCompile Include="Encyclopedia.cpp" />
+    <ClCompile Include="Encyclopedia_Data.cpp" />
     <ClCompile Include="files.cpp" />
     <ClCompile Include="finances.cpp" />
     <ClCompile Include="florist Cards.cpp" />
@@ -160,6 +168,10 @@
     <ClCompile Include="XML_AIMAvailability.cpp" />
     <ClCompile Include="XML_ConditionsForMercAvailability.cpp" />
     <ClCompile Include="XML_DeliveryMethods.cpp" />
+    <ClCompile Include="XML_Email.cpp" />
+    <ClCompile Include="XML_EmailMercAvailable.cpp" />
+    <ClCompile Include="XML_EmailMercLevelUp.cpp" />
+    <ClCompile Include="XML_EncyclopediaLocation.cpp" />
     <ClCompile Include="XML_IMPPortraits.cpp" />
     <ClCompile Include="XML_ShippingDestinations.cpp" />
   </ItemGroup>

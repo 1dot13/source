@@ -2413,7 +2413,10 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		// Disable Reinforcements
 		gGameExternalOptions.gfAllowReinforcements				= false;
 		gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= false;
-		
+
+		// WANNE: The new improved interrupt system (IIS) does not work with multiplayer, so disable it
+		gGameExternalOptions.fImprovedInterruptSystem			= false;
+
 		// Disable Real-Time Mode
 		// SANDRO - huh? real-time sneak is in preferences
 		//gGameExternalOptions.fAllowRealTimeSneak = false;
@@ -2466,6 +2469,8 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 				break;
 		}
 
+		gGameOptions.ubSquadSize = 6;
+
 		// Server forces us to play with new Inventory, but NIV is not allowed on the client,
 		// because of wrong resolution or other stuff
 		if ( UsingNewInventorySystem() == true && !IsNIVModeValid(true) )
@@ -2504,7 +2509,7 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 
 			// OJW - 20091024 - extract random table
 			if (!is_server)
-				memcpy(guiPreRandomNums,cl_lan->random_table,sizeof(UINT32)*MAX_PREGENERATED_NUMS);
+				memcpy(guiPreRandomNums,cl_lan->random_table,sizeof(UINT32)*MAX_PREGENERATED_NUMS);			
 
 			// WANNE: Turn on airspace mode (to switch maps) for the server!
 			if (is_server)			
@@ -2622,6 +2627,9 @@ void reapplySETTINGS()
 	gGameExternalOptions.gfAllowReinforcements				= false;
 	gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= false;
 
+	// WANNE: The new improved interrupt system (IIS) does not work with multiplayer, so disable it
+	gGameExternalOptions.fImprovedInterruptSystem			= false;
+
 	// Disable Real-Time Mode
 	// SANDRO - real-time sneak is in preferences
 	//gGameExternalOptions.fAllowRealTimeSneak = false;
@@ -2672,6 +2680,8 @@ void reapplySETTINGS()
 			gGameOptions.ubAttachmentSystem = ATTACHMENT_NEW;
 			break;
 	}
+
+	gGameOptions.ubSquadSize = 6;
 
 	// WANNE - MP: We have to re-initialize the correct interface
 	if((UsingNewInventorySystem() == true) && IsNIVModeValid(true))

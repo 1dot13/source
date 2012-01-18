@@ -20,6 +20,8 @@
 	#define WIN32_LEAN_AND_MEAN
 #endif
 
+#include "Soldier Control.h"
+
 INT32	giClockTimer = -1;
 INT32	giTimerDiag = 0;
 
@@ -167,6 +169,9 @@ void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	
 					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.FadeCounter );
 					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.NextTileCounter );
 					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.PanelAnimateCounter );
+#ifdef JA2UB
+					UPDATETIMECOUNTER( gPSOLDIER->GetupFromJA25StartCounter );
+#endif
 				}
 			}
 		}
@@ -348,4 +353,9 @@ void ResetJA2ClockGlobalTimers( void )
 	giFlashContractBaseTime = uiCurrentTime;
 	guiFlashCursorBaseTime = uiCurrentTime;
 	giPotCharPathBaseTime = uiCurrentTime;
+}
+
+void SetTileAnimCounter( INT32 iTime )
+{
+	giTimerIntervals[ ANIMATETILES ] = iTime;
 }

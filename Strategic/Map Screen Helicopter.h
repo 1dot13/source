@@ -191,7 +191,7 @@ BOOLEAN IsRefuelSiteInSector( INT16 sMapX, INT16 sMapY );
 void UpdateRefuelSiteAvailability( void );
 
 // setup helicopter for player
-void SetUpHelicopterForPlayer( INT16 sX, INT16 sY , UINT8 SkyDrive );
+void SetUpHelicopterForPlayer( INT16 sX, INT16 sY , UINT8 SkyDrive, UINT8 VehicleID );
 
 // the intended path of the helicopter
 INT32 DistanceOfIntendedHelicopterPath( void );

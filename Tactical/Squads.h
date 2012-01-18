@@ -6,7 +6,7 @@
 #include "Overhead Types.h"
 
 // header for squad management system
-#define NUMBER_OF_SOLDIERS_PER_SQUAD 6
+#define NUMBER_OF_SOLDIERS_PER_SQUAD 10
 
 // enums for squads
 enum{
@@ -171,5 +171,8 @@ BOOLEAN DoesVehicleExistInSquad( INT8 bSquadValue );
 
 // re-create any trashed squad movement groups
 void CheckSquadMovementGroups( void );
+
+//SQUAD10:  Check for squads that are oversized at current resolution and move them to another squad
+void FixOversizedSquadsInSector( void );
 
 #endif

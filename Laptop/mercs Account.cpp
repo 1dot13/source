@@ -83,8 +83,12 @@ INT32		guiAccountButtonImage;
 BOOLEAN	gfMercPlayerDoesntHaveEnoughMoney_DisplayWarning = FALSE;
 
 // The Authorize button
+#ifdef JA2UB
+// not UB
+#else
 void BtnMercAuthorizeButtonCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32	guiMercAuthorizeBoxButton;
+#endif
 INT32		guiMercAuthorizeButtonImage;
 
 
@@ -202,7 +206,12 @@ INT32 GetNumberOfHiredMercs()
 		// Is the merc hired?
 		if( IsMercOnTeam( (UINT8)usMercID )	|| gMercProfiles[ usMercID ].iMercMercContractLength != 0 )
 		{
+		
+			#ifdef JA2UB
+			uiContractCharge = gMercProfiles[ usMercID ].uiWeeklySalary * gMercProfiles[ usMercID ].iMercMercContractLength;
+			#else
 			uiContractCharge = gMercProfiles[ usMercID ].sSalary * gMercProfiles[ usMercID ].iMercMercContractLength;
+			#endif
 			giMercTotalContractCharge += uiContractCharge;
 
 			count++;
@@ -285,7 +294,9 @@ BOOLEAN EnterMercsAccount()
 
 
 	guiMercAuthorizeButtonImage = LoadButtonImage("LAPTOP\\BigButtons.sti", -1,0,-1,1,-1 );
-
+#ifdef JA2UB
+// not UB
+#else
 	guiMercAuthorizeBoxButton = CreateIconAndTextButton( guiMercAuthorizeButtonImage, MercAccountText[MERC_ACCOUNT_AUTHORIZE],
 													FONT12ARIAL,
 													MERC_BUTTON_UP_COLOR, DEFAULT_SHADOW,
@@ -295,6 +306,7 @@ BOOLEAN EnterMercsAccount()
 													DEFAULT_MOVE_CALLBACK, BtnMercAuthorizeButtonCallback);
 	SetButtonCursor(guiMercAuthorizeBoxButton, CURSOR_LAPTOP_SCREEN);
 	SpecifyDisabledButtonStyle( guiMercAuthorizeBoxButton, DISABLED_STYLE_SHADED);
+#endif
 
 	guiMercBackBoxButton = CreateIconAndTextButton( guiMercAuthorizeButtonImage, MercAccountText[MERC_ACCOUNT_HOME],
 													FONT12ARIAL,
@@ -329,7 +341,13 @@ void ExitMercsAccount()
 	DeleteVideoObjectFromIndex(guiAccountNumberGrid);
 
 	UnloadButtonImage( guiMercAuthorizeButtonImage );
+	
+	#ifdef JA2UB
+	//not UB
+	#else
 	RemoveButton( guiMercAuthorizeBoxButton );
+	#endif
+	
 	RemoveButton( guiMercBackBoxButton );
 
 	DeleteVideoObjectFromIndex(guiMercOrderGrid0);
@@ -391,11 +409,15 @@ void RenderMercsAccount()
 
 	DisplayHiredMercs();
 
+	#ifdef JA2UB
+	//not UB
+	#else
 	// giMercTotalContractCharge	gets set with the price in DisplayHiredMercs(), so if there is currently no charge, disable the button
 	if( giMercTotalContractCharge == 0 )
 	{
 		DisableButton( guiMercAuthorizeBoxButton );
 	}
+	#endif
 
 
 
@@ -404,7 +426,9 @@ void RenderMercsAccount()
 	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
 }
 
-
+#ifdef JA2UB
+//not UB
+#else
 void BtnMercAuthorizeButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -440,7 +464,7 @@ void BtnMercAuthorizeButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
 }
-
+#endif
 
 void BtnMercBackButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
@@ -542,11 +566,19 @@ void DisplayHiredMercs()
 			DrawTextToScreen(sTemp, MERC_AC_SECOND_COLUMN_X, usPosY, MERC_AC_SECOND_COLUMN_WIDTH, MERC_ACCOUNT_DYNAMIC_TEXT_FONT, ubFontColor, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
 			//Display the mercs rate
+			#ifdef JA2UB
+			swprintf(sTemp, L"$%6d",gMercProfiles[ usMercID ].uiWeeklySalary );
+			#else
 			swprintf(sTemp, L"$%6d",gMercProfiles[ usMercID ].sSalary );
+			#endif
 			DrawTextToScreen(sTemp, MERC_AC_THIRD_COLUMN_X, usPosY, MERC_AC_THIRD_COLUMN_WIDTH, MERC_ACCOUNT_DYNAMIC_TEXT_FONT, ubFontColor, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
 			//Display the total charge
+			#ifdef JA2UB
+			uiContractCharge = gMercProfiles[ usMercID ].uiWeeklySalary * gMercProfiles[ usMercID ].iMercMercContractLength;
+			#else
 			uiContractCharge = gMercProfiles[ usMercID ].sSalary * gMercProfiles[ usMercID ].iMercMercContractLength;
+			#endif
 			swprintf(sTemp, L"$%6d", uiContractCharge );
 			DrawTextToScreen(sTemp, MERC_AC_FOURTH_COLUMN_X, usPosY, MERC_AC_FOURTH_COLUMN_WIDTH, MERC_ACCOUNT_DYNAMIC_TEXT_FONT, ubFontColor, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
@@ -584,7 +616,11 @@ void SettleMercAccounts()
 		if( IsMercOnTeam( ubMercID ) || ( gMercProfiles[ ubMercID ].iMercMercContractLength != 0 ) )
 		{
 			//Calc the contract charge
+			#ifdef JA2UB
+			iContractCharge = gMercProfiles[ ubMercID ].uiWeeklySalary * gMercProfiles[ ubMercID ].iMercMercContractLength;
+			#else
 			iContractCharge = gMercProfiles[ ubMercID ].sSalary * gMercProfiles[ ubMercID ].iMercMercContractLength;
+			#endif
 
 			//if the player can afford to pay this merc
 			if( LaptopSaveInfo.iCurrentBalance >= iPartialPayment + iContractCharge )
@@ -611,12 +647,20 @@ void SettleMercAccounts()
 	}
 
 	// add the transaction to the finance page
+	
+	#ifdef JA2UB
 	AddTransactionToPlayersBook( PAY_SPECK_FOR_MERC, GetMercIDFromMERCArray( gubCurMercIndex ), GetWorldTotalMin(), -iPartialPayment );
+	#else
+	AddTransactionToPlayersBook( PAY_SPECK_FOR_MERC, GetMercIDFromMERCArray( gubCurMercIndex ), GetWorldTotalMin(), -iPartialPayment );
+	#endif
+	
 	AddHistoryToPlayersLog( HISTORY_SETTLED_ACCOUNTS_AT_MERC, GetMercIDFromMERCArray( gubCurMercIndex ), GetWorldTotalMin(), -1, -1 );
 
 	//Increment the amount of money paid to speck
 	LaptopSaveInfo.uiTotalMoneyPaidToSpeck += iPartialPayment;
-
+#ifdef JA2UB
+//not ub
+#else
 	//If the player only made a partial payment
 	if( iPartialPayment != giMercTotalContractCharge )
 		gusMercVideoSpeckSpeech = SPECK_QUOTE_PLAYER_MAKES_PARTIAL_PAYMENT;
@@ -633,7 +677,7 @@ void SettleMercAccounts()
 		// Since the player has paid, make sure speck wont complain about the lack of payment
 		LaptopSaveInfo.uiSpeckQuoteFlags &= ~SPECK_QUOTE__SENT_EMAIL_ABOUT_LACK_OF_PAYMENT;
 	}
-
+#endif
 	//Go to the merc homepage to say the quote
 	guiCurrentLaptopMode = LAPTOP_MODE_MERC;
 	gubArrivedFromMercSubSite = MERC_CAME_FROM_ACCOUNTS_PAGE;
@@ -765,7 +809,11 @@ UINT32	CalculateHowMuchPlayerOwesSpeck()
 		//if( IsMercOnTeam( (UINT8)usMercID ) )
 		{
 			//Calc salary for the # of days the merc has worked since last paid
+			#ifdef JA2UB
+			uiContractCharge += gMercProfiles[ usMercID ].uiWeeklySalary * gMercProfiles[ usMercID ].iMercMercContractLength;
+			#else
 			uiContractCharge += gMercProfiles[ usMercID ].sSalary * gMercProfiles[ usMercID ].iMercMercContractLength;
+			#endif
 		}
 	}
 

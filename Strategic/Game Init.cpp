@@ -74,9 +74,16 @@
 #include "XML.h"
 #include "mercs.h"
 #include "aim.h"
+#include "Map Screen Interface.h"
+#ifdef JA2UB
+#include "Ja25 Strategic Ai.h"
+#include "Ja25_Tactical.h"
+#include "Arms Dealer Init.h"
+#endif
 
 #include "LuaInitNPCs.h"
 #include "Luaglobal.h"
+#include "SaveLoadScreen.h"
 
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -92,6 +99,14 @@ extern UNDERGROUND_SECTORINFO* FindUnderGroundSector( INT16 sMapX, INT16 sMapY, 
 
 
 UINT8			gubScreenCount=0;
+
+#ifdef JA2UB
+void InitCustomStrategicLayer ( void )
+{
+	LetLuaGameInit(2); //load custom InitStrategicLayer
+}
+
+#endif
 
 void InitNPCs( void )
 {		
@@ -422,8 +437,30 @@ void InitStrategicLayer( void )
 	InitSquads();
 	// Init vehicles
 	InitAllVehicles( );
-	// init town loyalty
-	InitTownLoyalty();
+	
+	#ifdef JA2UB
+	InitCustomStrategicLayer ( );
+	#endif
+
+#ifdef JA2UB	
+	//Ja25 UB
+	InitJerryQuotes();	
+	if ( gGameUBOptions.JerryQuotes == TRUE )
+	{
+		HandleJerryMiloQuotes( TRUE ); //AA
+	}
+	
+	InitJa25StrategicAi( );
+#endif
+
+	
+#ifdef JA2UB
+	////if ( gGameUBOptions.InitTownLoyalty_UB == TRUE )
+		InitTownLoyalty(); //Ja25 no loyalty
+#else
+		// init town loyalty
+		InitTownLoyalty(); //Ja25 no loyalty
+#endif
 	// init the mine management system
 	InitializeMines();
 	// initialize map screen flags
@@ -453,6 +490,9 @@ void InitStrategicLayer( void )
 	// re-set up leave list arrays for dismissed mercs
 	InitLeaveList( );
 
+	#ifdef JA2UB
+	LuaInitStrategicLayer(0); //JA25 UB InitStrategicLayer.lua 
+	#endif
 	// reset time compression mode to X0 (this will also pause it)
 	SetGameTimeCompressionLevel( TIME_COMPRESS_X0 );
 
@@ -472,6 +512,16 @@ void ShutdownStrategicLayer()
 	DeleteAllStrategicEvents();
 	RemoveAllGroups();
 	TrashUndergroundSectorInfo();
+
+#ifdef JA2UB
+//Ja25 No creatures
+//Ja25 No strategic ai
+#else
+	DeleteCreatureDirectives(); 
+
+	KillStrategicAI();
+	
+#endif
 	DeleteCreatureDirectives();
 	KillStrategicAI();
 	ClearTacticalMessageQueue();
@@ -486,9 +536,26 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		gubScreenCount = 0;
 		return( TRUE );
 	}
+	
+	//reset autosave
+	AutoSaveToSlot[0] = FALSE;
+	AutoSaveToSlot[1] = FALSE;
+	AutoSaveToSlot[2] = FALSE;
+	AutoSaveToSlot[3] = FALSE;
+	AutoSaveToSlot[4] = FALSE;
+	
 
+#ifdef JA2UB
+//Ja25 no meanwhiles
+#else
 	// reset meanwhile flags
 	uiMeanWhileFlags = 0;
+#endif
+
+#ifdef JA2UB
+fFirstTimeInMapScreen = TRUE;
+#endif
+
 
 	// Reset the selected soldier
 	gusSelectedSoldier = NOBODY;
@@ -528,7 +595,12 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 	{
 		//Init all the arms dealers inventory
 		InitAllArmsDealers();
-		InitBobbyRayInventory();
+#ifdef JA2UB		
+		if ( gGameUBOptions.fBobbyRSite == TRUE )
+		InitBobbyRayInventory();  //Ja25 UB
+#else
+		InitBobbyRayInventory();  
+#endif
 	}
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame: clearing messages");
@@ -625,8 +697,16 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		ResetHeliSeats( );
 
 #ifdef LUA_GAME_INIT_NEW_GAME
-			LetLuaGameInit(0);
+		
+		LetLuaGameInit(0);
+
+		#ifdef JA2UB
+		InitCustomStrategicLayer ( );
+		#endif
 #else
+		#ifdef JA2UB
+
+		#else
 		INT32		iStartingCash;
 
 		// Setup two new messages!
@@ -675,7 +755,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 
 		// Setup initial money
  		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash );
-
+		#endif
 #endif
 	
 		UINT32	uiDaysTimeMercSiteAvailable = Random( 2 ) + 1;
@@ -699,6 +779,22 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		}
 		
 		gubScreenCount = 1;
+
+#ifdef JA2UB		
+		//ja25 ub
+		//Init the initial hweli crash sequence variable
+		if ( gGameUBOptions.InGameHeli == FALSE )
+		InitializeHeliGridnoAndTime( FALSE );
+	
+		//If tex is in the game ( John is NOT in the game )
+		//if( gJa25SaveStruct.fJohnKulbaIsInGame == FALSE )
+		//{
+			//make sure Betty offers his videos for sale
+			//AddTexsVideosToBettysInventory();
+		//}
+
+		InitJerryMiloInfo(); //JA25 UB
+#endif
 
 		//Set the fact the game is in progress
 		gTacticalStatus.fHasAGameBeenStarted = TRUE;

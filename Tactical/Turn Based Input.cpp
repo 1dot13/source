@@ -1437,6 +1437,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 	static BOOLEAN	fAltDown = FALSE;
 	INT32 usMapPos;
 	BOOLEAN						fGoodCheatLevelKey = FALSE;
+	
+	CHAR16	zString[128]; 
 
 	GetCursorPos(&MousePos);
 	ScreenToClient(ghWindow, &MousePos); // In window coords!
@@ -1536,7 +1538,9 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			HandleShortCutExitState( );
 			//*puiNewEvent = I_EXIT;
 		}
-
+#ifdef JA2UB
+//Ja25 No meanwhiles
+#else
 		if ((InputEvent.usEvent == KEY_UP )&& ( InputEvent.usParam == ESC) )
 		{
 			if ( AreInMeanwhile() && gCurrentMeanwhileDef.ubMeanwhileID != INTERROGATION )
@@ -1545,11 +1549,29 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				EndMeanwhile();
 			}
 		}
-
-		// ROMAN.MP
+#endif
+	
 		// It is not allowed in a network game to go to the load screen, because if you cancel the load screen it is always your turn!
 		if (!is_networked)
 		{
+			// WANNE: Just disabled for now
+			/*
+			// WANNE: If the game hangs on enemy turn, just press ALT + CTRL + E and the game will continue with enemy turn!!
+			if ( (InputEvent.usEvent == KEY_DOWN )&& (InputEvent.usKeyState & CTRL_DOWN) && ( InputEvent.usParam == 'e') )
+			{
+				if( InputEvent.usKeyState & ALT_DOWN )
+				{
+					if (gTacticalStatus.ubCurrentTeam != 0)
+					{
+						if( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+						{
+							EndTurn( 1 );
+						}
+					}
+				}		
+			}
+			*/
+
 			/// Allow to load everywhere
 			if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == 'l') )
 			{
@@ -2120,43 +2142,64 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					HandleSelectMercSlot( 5, LOCATEANDSELECT_MERC );
 				break;
 
-#ifdef JA2TESTVERSION
 			case F7:
-				if( fAlt )
+				if( fShift )
+					HandleSelectMercSlot( 6, LOCATE_MERC_ONCE );
+#ifdef JA2TESTVERSION
+				else if( fAlt )
 				{
 					TestMeanWhile( 16 );
 				}
+#endif
+				else
+					HandleSelectMercSlot( 6, LOCATEANDSELECT_MERC );
 				break;
-			case F8:
 
-				if( fAlt )
+			case F8:
+				if( fShift )
+					HandleSelectMercSlot( 7, LOCATE_MERC_ONCE );
+#ifdef JA2TESTVERSION
+				else if( fAlt )
 				{
 					TestMeanWhile( 7 );
 				}
+#endif
+				else
+					HandleSelectMercSlot( 7, LOCATEANDSELECT_MERC );
 				break;
 
 			case F9:
-
-				if( fCtrl )
+				if( fShift )
+					HandleSelectMercSlot( 8, LOCATE_MERC_ONCE );
+#ifdef JA2TESTVERSION
+				else if( fCtrl )
 				{
 					TestMeanWhile( 8 );
 				}
+#endif
 				else
 				{
 #ifdef JA2EDITOR
 					*puiNewEvent = I_ENTER_EDIT_MODE;
 					gfMercResetUponEditorEntry = !fAlt;
+					break;
 #endif
+					HandleSelectMercSlot( 8, LOCATEANDSELECT_MERC );
 				}
 				break;
-			case F10:
 
-				if( fAlt )
+			case F10:
+				if( fShift )
+					HandleSelectMercSlot( 9, LOCATE_MERC_ONCE );
+#ifdef JA2TESTVERSION
+				else if( fAlt )
 				{
 					TestMeanWhile( 9 );
 				}
-				break;
 #endif
+				else
+					HandleSelectMercSlot( 9, LOCATEANDSELECT_MERC );
+				break;
 
 			case F11:
 
@@ -3797,7 +3840,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						if ( !MercPtrs[ gusSelectedSoldier ]->MercInWater(	) && !(MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags & SOLDIER_ROBOT ) )
 						{
 							//change selected merc to run
-							if ( MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != RUNNING )
+							if ( MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != RUNNING
+								 && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_PISTOL_RDY
+								  && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_RIFLE_RDY
+								   && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING_DUAL_RDY )
 							{
 								UIHandleSoldierStanceChange( (UINT8)gusSelectedSoldier, ANIM_STAND );
 								MercPtrs[ gusSelectedSoldier ]->flags.fUIMovementFast = 1;
@@ -3905,7 +3951,9 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else if ( fCtrl && fShift )
 				{
-					SaveGame( SAVE__TIMED_AUTOSAVE, L"Auto Save" );
+					//SaveGame( SAVE__TIMED_AUTOSAVE_SLOT1, L"Auto Save 1" );
+					swprintf( zString, L"%s %d",pMessageStrings[ 90 ],SAVE__TIMED_AUTOSAVE_SLOT1);
+					DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT1,zString);
 				}
 				else
 				{	

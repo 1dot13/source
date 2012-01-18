@@ -127,7 +127,14 @@
 #include "INIReader.h"
 #include "mercs.h"
 #include "soldier Profile.h"
+#ifdef JA2UB
+#include "Ja25 Strategic Ai.h"
+#include "Ja25_Tactical.h"
+#endif
+
 #include "LuaInitNPCs.h"
+#include "Vehicles.h"
+#include "Encyclopedia_Data.h"
 
 #include <vfs/Core/vfs.h>
 //rain
@@ -143,7 +150,20 @@
 //
 /////////////////////////////////////////////////////
 
+#ifdef JA2UB
+#include "Strategic Movement.h"
 #include "LuaInitNPCs.h"
+#include "ub_config.h"
+#include "Ja25Update.h"
+#endif
+
+#include "LuaInitNPCs.h"
+
+
+#ifdef JA2UB
+//void ConvertWeapons( SOLDIERTYPE *pSoldier );
+extern void MakeBadSectorListFromMapsOnHardDrive( BOOLEAN fDisplayMessages ); // ja25 UB
+#endif
 
 void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSectorZ );
 extern void NextLoopCheckForEnoughFreeHardDriveSpace();
@@ -183,13 +203,16 @@ extern		BOOLEAN				gfCreatureMeanwhileScenePlayed;
 
 BOOLEAN				gMusicModeToPlay = FALSE;
 
+
+//extern		BOOLEAN		gfFirstTimeInGameHeliCrash;
+
 #ifdef JA2BETAVERSION
 BOOLEAN		gfDisplaySaveGamesNowInvalidatedMsg = FALSE;
 #endif
 
 BOOLEAN	gfUseConsecutiveQuickSaveSlots = FALSE;
 UINT32	guiCurrentQuickSaveNumber = 0;
-UINT32	guiLastSaveGameNum;
+UINT32	guiLastSaveGameNum = 1;
 BOOLEAN DoesAutoSaveFileExist( BOOLEAN fLatestAutoSave );
 
 UINT32	guiJA2EncryptionSet = 0;
@@ -411,6 +434,48 @@ typedef struct
 
 	// HEADROCK HAM 3.6: Global variable keeping track of Militia Upkeep Costs at last midnight.
 	UINT32 uiTotalUpkeepForMilitia;
+	
+	UINT32 	sMercArrivalGridNo;
+
+//JA25 UB
+#ifdef JA2UB
+	INT8		fMorrisShouldSayHi;
+	BOOLEAN		fFirstTimeInGameHeliCrash;
+	UINT32	sINITIALHELIGRIDNO[ 7 ];
+	UINT32	sLOCATEGRIDNO;
+	UINT32  sLOCATEGRIDNO2;
+	UINT32  sJerryGridNo;
+	
+	BOOLEAN sJerryQuotes;
+	BOOLEAN sInJerry;
+	BOOLEAN sInGameHeliCrash;
+	BOOLEAN sLaptopQuestEnabled;
+	BOOLEAN sTEX_AND_JOHN;
+	BOOLEAN sRandom_Manuel_Text;
+	
+	BOOLEAN sEVENT_ATTACK_INITIAL_SECTOR_IF_PLAYER_STILL_THERE_UB;
+	BOOLEAN sHandleAddingEnemiesToTunnelMaps_UB;
+	
+	BOOLEAN sInGameHeli;
+	BOOLEAN spJA2UB;
+	
+	BOOLEAN sfDeadMerc;
+	
+	UINT8 subEndDefaultSectorX;
+	UINT8 subEndDefaultSectorY;
+	UINT8 subEndDefaultSectorZ;
+	
+	BOOLEAN sTestUB;
+	
+	BOOLEAN sLaptopLinkInsurance;
+	BOOLEAN sLaptopLinkFuneral;
+	BOOLEAN sLaptopLinkBobby;
+	
+	BOOLEAN ubFiller2[255];
+	UINT32 ubFiller3[255];
+	INT8 ubFiller4[255];
+	
+#endif
 
 	// HEADROCK HAM 4: Added manual restrictions
 	UINT8 ubManualRestrictMilitia[256];
@@ -1906,6 +1971,12 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->snowCamo, sizeof(snowCamo), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->wornSnowCamo, sizeof(wornSnowCamo), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sFacilityTypeOperated, sizeof(sFacilityTypeOperated), sizeof(INT16), numBytesRead);
+#ifdef JA2UB
+		numBytesRead = ReadFieldByField(hFile, &this->fIgnoreGetupFromCollapseCheck, sizeof(fIgnoreGetupFromCollapseCheck), sizeof(BOOLEAN), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->GetupFromJA25StartCounter, sizeof(GetupFromJA25StartCounter), sizeof(TIMECOUNTER), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->fWaitingToGetupFromJA25Start, sizeof(fWaitingToGetupFromJA25Start), sizeof(BOOLEAN), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->ubPercentDamageInflictedByTeam, sizeof(ubPercentDamageInflictedByTeam), sizeof(UINT8), numBytesRead);
+#endif
 		numBytesRead += buffer;
 		if(numBytesRead != SIZEOF_SOLDIERTYPE_POD)
 			return(FALSE);
@@ -2014,6 +2085,18 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		else
 			numBytesRead = ReadFieldByField(hFile, &this->aiData.bAimTime, 1, 1, numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->aiData.bShownAimTime, sizeof(aiData.bShownAimTime), sizeof(INT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= IMPROVED_INTERRUPT_SYSTEM )
+			numBytesRead = ReadFieldByField(hFile, &this->aiData.ubInterruptCounter, sizeof(aiData.ubInterruptCounter), sizeof(UINT8), numBytesRead); // SANDRO - interrupt counter
+		else
+		{
+			//CHRISL: We have to make sure we add a buffer to account for the lack of ubInterruptCounter and that buffer needs to be a full DWORD in size
+			buffer = 0;
+			for(int i = 0; i < sizeof(aiData.ubInterruptCounter); i++)
+				buffer++;
+			while((buffer%4) > 0)
+				buffer++;
+			numBytesRead += buffer;
+		}
 		//CHRISL: We also need to make sure the structure aligns properly and that we don't need to read any extra
 		//	padding bytes
 		while((numBytesRead%__alignof(STRUCT_AIData)) > 0)
@@ -2411,8 +2494,7 @@ BOOLEAN OBJECTTYPE::Load( HWFILE hFile )
 
 		// WANNE.MEMORY: This call takes all the pc memory if we pass an invalid huge size as a parameter. See previous safety check.
 		objectStack.resize(size);
-			
-			
+		
 		int x = 0;
 		for (StackedObjects::iterator iter = objectStack.begin(); iter != objectStack.end(); ++iter, ++x) {
 			if (! iter->Load(hFile)) {
@@ -2425,7 +2507,6 @@ BOOLEAN OBJECTTYPE::Load( HWFILE hFile )
 				}
 			}
 		}
-		
 	}
 	else
 	{
@@ -2684,19 +2765,11 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	INT32		iSaveLoadGameMessageBoxID = -1;
 	UINT16	usPosX, usActualWidth, usActualHeight;
 	BOOLEAN fWePausedIt = FALSE;
+	
+	CHAR16	zString[128];
 
-
-	//sprintf(	saveDir, "%S", pMessageStrings[ MSG_SAVEDIRECTORY ] );
-
-#ifdef JA2BETAVERSION
-#ifndef CRIPPLED_VERSION
-	//AssertMsg( uiSizeOfGeneralInfo == 1024, String( "Saved General info is NOT 1024, it is %d.	DF 1.", uiSizeOfGeneralInfo ) );
-	//AssertMsg( sizeof( LaptopSaveInfoStruct ) == 7440, String( "LaptopSaveStruct is NOT 7440, it is %d.	DF 1.", sizeof( LaptopSaveInfoStruct ) ) );
-#endif
-#endif
-
-	if( ubSaveGameID > NUM_SLOT && ubSaveGameID < EARLIST_SPECIAL_SAVE )
-		return( FALSE );		//ddd
+	if( ubSaveGameID > NUM_SAVE_GAMES || ubSaveGameID == EARLIST_SPECIAL_SAVE )
+		return( FALSE );
 	alreadySaving = true;
 
 	//clear out the save game header
@@ -2708,14 +2781,24 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		fWePausedIt = TRUE;
 	}
 
-
 	#ifdef JA2BETAVERSION
 		InitShutDownMapTempFileTest( TRUE, "SaveMapTempFile", ubSaveGameID );
 	#endif
 
-
 	//Place a message on the screen telling the user that we are saving the game
-	iSaveLoadGameMessageBoxID = PrepareMercPopupBox( iSaveLoadGameMessageBoxID, BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, zSaveLoadText[ SLG_SAVING_GAME_MESSAGE ], 300, 0, 0, 0, &usActualWidth, &usActualHeight);
+	if ( ubSaveGameID >= SAVE__TIMED_AUTOSAVE_SLOT1 && ubSaveGameID < SAVE__TIMED_AUTOSAVE_SLOT5 + 1 )
+	{
+		swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_SAVING_TEXT ],ubSaveGameID );
+		iSaveLoadGameMessageBoxID = PrepareMercPopupBox( iSaveLoadGameMessageBoxID, BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, zString, 300, 0, 0, 0, &usActualWidth, &usActualHeight);
+	}
+	else if ( ubSaveGameID == SAVE__END_TURN_NUM ) //SAVE__END_TURN_NUM_1 || ubSaveGameID == SAVE__END_TURN_NUM_2 )
+	{
+		swprintf( zString, L"%s",pMessageStrings[ MSG_SAVE_END_TURN_SAVE_SAVING_TEXT ] );
+		iSaveLoadGameMessageBoxID = PrepareMercPopupBox( iSaveLoadGameMessageBoxID, BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, zString, 300, 0, 0, 0, &usActualWidth, &usActualHeight);
+	}
+	else	
+		iSaveLoadGameMessageBoxID = PrepareMercPopupBox( iSaveLoadGameMessageBoxID, BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, zSaveLoadText[ SLG_SAVING_GAME_MESSAGE ], 300, 0, 0, 0, &usActualWidth, &usActualHeight);
+	
 	usPosX = ( SCREEN_WIDTH - usActualWidth ) / 2 ;
 
 	RenderMercPopUpBoxFromIndex( iSaveLoadGameMessageBoxID, usPosX, iScreenHeightOffset + 160, FRAME_BUFFER );
@@ -2817,9 +2900,11 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	SaveGameHeader.uiRandom = Random( RAND_MAX );
 
 	// CHRISL: We need to know what inventory system we're using early on
-	SaveGameHeader.ubInventorySystem = gGameOptions.ubInventorySystem;
+	SaveGameHeader.sInitialGameOptions.ubInventorySystem = gGameOptions.ubInventorySystem;
 
-	SaveGameHeader.ubAttachmentSystem = gGameOptions.ubAttachmentSystem;
+	SaveGameHeader.sInitialGameOptions.ubAttachmentSystem = gGameOptions.ubAttachmentSystem;
+
+	SaveGameHeader.sInitialGameOptions.ubSquadSize = gGameOptions.ubSquadSize;
 
 	//
 	// Save the Save Game header file
@@ -3541,6 +3626,21 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		goto FAILED_TO_SAVE;
 	}
 	
+#ifdef JA2UB	
+	//save Ja25 info
+	if( !SaveJa25SaveInfoToSaveGame( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"Ja25 Save info Struct");
+		goto FAILED_TO_SAVE;
+	}
+
+	//Save the tactical info
+	if( !SaveJa25TacticalInfoToSaveGame( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"Ja25 Tactical info");
+		goto FAILED_TO_SAVE;
+	}
+#endif
 	//New profiles by Jazz
 	if( !SaveNewMercsToSaveGameFile( hFile ) )
 	{
@@ -3567,18 +3667,88 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing lua global");
 		goto FAILED_TO_SAVE;
 	}
+	
 	#ifdef JA2BETAVERSION
 		SaveGameFilePosition( FileGetPos( hFile ), "Lua global" );
 	#endif
+	
+	//New vehicles by Jazz
+	if( !SaveNewVehiclesToSaveGameFile( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing new vehicles");
+		goto FAILED_TO_SAVE;
 
-	//Close the saved game file
+	#ifdef JA2BETAVERSION
+		SaveGameFilePosition( FileGetPos( hFile ), "New Vehicles" );
+	#endif
+	
+	}
+	
+
+
+	
+	if( !SaveDataSaveToSaveGameFile( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing save data");
+		goto FAILED_TO_SAVE;
+
+	#ifdef JA2BETAVERSION
+		SaveGameFilePosition( FileGetPos( hFile ), "Save Data" );
+	#endif	
+
+	}
+	
+if( !SaveNewEmailDataToSaveGameFile( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing save data");
+		goto FAILED_TO_SAVE;
+
+	#ifdef JA2BETAVERSION
+		SaveGameFilePosition( FileGetPos( hFile ), "Save New Email Data" );
+	#endif	
+
+	}
+
+	if( !SaveHiddenTownToSaveGameFile( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing hidden town");
+		goto FAILED_TO_SAVE;
+
+	#ifdef JA2BETAVERSION
+		SaveGameFilePosition( FileGetPos( hFile ), "Hidden Town" );
+	#endif	
+
+	}
+	
+	if( !SaveEncyclopediaToSaveGameFile( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing Briefing Room & Encyclopedia");
+		goto FAILED_TO_SAVE;
+
+	#ifdef JA2BETAVERSION
+		SaveGameFilePosition( FileGetPos( hFile ), "Briefing Room & Encyclopedia" );
+	#endif	
+
+	}
+//Close the saved game file
 	FileClose( hFile );
 
-
-	//if we succesfully saved the game, mark this entry as the last saved game file
-	if( ubSaveGameID < EARLIST_SPECIAL_SAVE && ubSaveGameID != SAVE__TIMED_AUTOSAVE )
+	// This defines, which savegame is highlighted in the load screen
+	if (ubSaveGameID == SAVE__END_TURN_NUM)
+	{
+		if (guiLastSaveGameNum == 0)
+			gGameSettings.bLastSavedGameSlot = SAVE__END_TURN_NUM_1;
+		else
+			gGameSettings.bLastSavedGameSlot = SAVE__END_TURN_NUM_2;
+	}
+	else if ( ubSaveGameID >= 0 && (ubSaveGameID != SAVE__ASSERTION_FAILURE || ubSaveGameID != EARLIST_SPECIAL_SAVE))
 	{
 		gGameSettings.bLastSavedGameSlot = ubSaveGameID;
+	}
+	else
+	{
+		// No selection
+		gGameSettings.bLastSavedGameSlot = -1;
 	}
 
 	//Save the save game settings
@@ -3594,7 +3764,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, pMessageStrings[ MSG_SAVESUCCESS ] );
 	}
 //#ifdef JA2BETAVERSION
-	else if( ubSaveGameID == SAVE__END_TURN_NUM )
+	else if( ubSaveGameID == SAVE__END_TURN_NUM ) //SAVE__END_TURN_NUM_1 || ubSaveGameID == SAVE__END_TURN_NUM_2 )
 	{
 //		ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, pMessageStrings[ MSG_END_TURN_AUTO_SAVE ] );
 	}
@@ -3701,6 +3871,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//Empty the dialogue Queue cause someone could still have a quote in waiting
 	EmptyDialogueQueue( );
 
+#ifdef JA2UB	
+	//Reset Jerry Quotes  JA25UB
+	if ( gGameUBOptions.JerryQuotes == TRUE )
+	HandleJerryMiloQuotes( TRUE );
+#endif
+
 	//If there is someone talking, stop them
 	StopAnyCurrentlyTalkingSpeech( );
 
@@ -3717,7 +3893,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #endif
 
 	//is it a valid save number
-	if( ubSavedGameID >= NUM_SLOT )
+	if( ubSavedGameID >=  SAVE__END_TURN_NUM ) //NUM_SLOT )
 	{
 		if( ubSavedGameID != SAVE__END_TURN_NUM )
 			return( FALSE );
@@ -3794,6 +3970,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	guiCurrentSaveGameVersion = SaveGameHeader.uiSavedGameVersion;
 	guiBrokenSaveGameVersion = SaveGameHeader.uiSavedGameVersion;
 
+	// WANNE: Store the info
+	lastLoadedSaveGameDay = SaveGameHeader.uiDay;
+	lastLoadedSaveGameHour = SaveGameHeader.ubHour;
+
 	if(guiCurrentSaveGameVersion >= MOVED_GENERAL_INFO)
 	{
 		FileRead(hFile, &gGameOptions, sizeof( GAME_OPTIONS ), &uiNumBytesRead );
@@ -3802,10 +3982,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		// CHRISL: We need to know what inventory system we're using early on
 		if(SaveGameHeader.uiSavedGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE)
-			SaveGameHeader.ubInventorySystem = 0;
+			SaveGameHeader.sInitialGameOptions.ubInventorySystem = 0;
 		
-		gGameOptions.ubInventorySystem = SaveGameHeader.ubInventorySystem;
-		gGameOptions.ubAttachmentSystem = SaveGameHeader.ubAttachmentSystem;
+		gGameOptions.ubInventorySystem = SaveGameHeader.sInitialGameOptions.ubInventorySystem;
+		gGameOptions.ubAttachmentSystem = SaveGameHeader.sInitialGameOptions.ubAttachmentSystem;
 	}
 
 	if((UsingNewInventorySystem() == true))
@@ -3829,6 +4009,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		InitOldInventorySystem();
 		InitializeSMPanelCoordsOld();
 		InitializeInvPanelCoordsOld();
+	}
+
+	if (gGameOptions.ubSquadSize > 6 && iResolution == 0 || gGameOptions.ubSquadSize > 8 && iResolution == 1)
+	{
+		FileClose( hFile );
+		return(FALSE);
 	}
 
 	//if the player is loading up an older version of the game, and the person DOESNT have the cheats on, 
@@ -3894,6 +4080,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		gfUseAlternateMap = TRUE;
 	}
 
+#ifdef JA2UB	
+	//Re-init the heli gridnos and time..
+	InitializeHeliGridnoAndTime( TRUE );
+#endif
 
 	for (int x = 0; x < 256; ++x) {
 		gEnemyPreservedTempFileVersion[x] = guiCurrentSaveGameVersion;
@@ -4131,7 +4321,17 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		LoadGameFilePosition( FileGetPos( hFile ), "Strategic Information" );
 	#endif
 
+#ifdef JA2UB			
+			//JA25 UB
+			// ATE: Validate any new maps...
+			// OK, if we're a camapign, check for new maps
+			//if ( !InDefaultCampaign( ) )
+			//{
+			MakeBadSectorListFromMapsOnHardDrive( TRUE );
+			LetLuaMakeBadSectorListFromMapsOnHardDrive( 0 );
 
+			//}
+#endif
 
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"UnderGround Information..." );
@@ -4212,18 +4412,30 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;
 
-
-
-	if( !LoadQuestInfoFromSavedGameFile( hFile ) )
+	if( guiCurrentSaveGameVersion < QUESTS_DATATYPE_CHANGE )
 	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadQuestInfoFromSavedGameFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
+		if( !LoadQuestInfoFromSavedGameFile( hFile, MAX_OLD_QUESTS ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadQuestInfoFromSavedGameFile failed" ) );
+			FileClose( hFile );
+			return( FALSE );
+		}
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition( FileGetPos( hFile ), "Quest Info" );
+		#endif
 	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Quest Info" );
-	#endif
-
+	else
+	{
+		if( !LoadQuestInfoFromSavedGameFile( hFile, MAX_QUESTS ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadQuestInfoFromSavedGameFile failed" ) );
+			FileClose( hFile );
+			return( FALSE );
+		}
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition( FileGetPos( hFile ), "Quest Info" );
+		#endif
+	}
 
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"OppList Info..." );
@@ -4915,6 +5127,43 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		}
 	}
 
+
+
+#ifdef JA2UB	
+
+	uiRelEndPerc += 1;
+	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Ja25 Tactical info" );
+	RenderProgressBar( 0, 100 );
+	uiRelStartPerc = uiRelEndPerc;	
+
+		if ( !LoadJa25SaveInfoFromSavedGame( hFile ) )
+		{
+			FileClose( hFile );
+			return( FALSE );
+		}
+
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition( FileGetPos( hFile ), "Ja25 Tactical info" );
+		#endif
+		
+	uiRelEndPerc += 1;
+	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Ja25 Save info Struct" );
+	RenderProgressBar( 0, 100 );
+	uiRelStartPerc = uiRelEndPerc;
+	
+
+		if ( !LoadJa25TacticalInfoFromSavedGame( hFile ) )
+		{
+			FileClose( hFile );
+			return( FALSE );
+		}
+
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition( FileGetPos( hFile ), "Ja25 Save info Struct" );
+		#endif
+
+#endif
+
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load New Mercs Prfiles..." );
 	RenderProgressBar( 0, 100 );
@@ -4956,15 +5205,15 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Final Checks..." );
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Lua Global System..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
-
-
 
 	if( guiCurrentSaveGameVersion >= 114 )
 	{
+	
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Lua Global System..." );
+		RenderProgressBar( 0, 100 );
+		uiRelStartPerc = uiRelEndPerc;	
+	
 		if( !LoadLuaGlobalFromLoadGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadLuaGlobalFromLoadGameFile failed" ) );
@@ -4972,10 +5221,110 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 			return FALSE;
 		}
 	}
+
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Lua Global System" );
 	#endif
+	
+	if( guiCurrentSaveGameVersion >= VEHICLES_DATATYPE_CHANGE)
+	{
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load New Vehicles..." );
+		RenderProgressBar( 0, 100 );
+		uiRelStartPerc = uiRelEndPerc;
 
+		if( !LoadNewVehiclesToSaveGameFile( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNewVehiclesToSaveGameFile failed" ) );
+			FileClose( hFile );
+			return( FALSE );
+		}
+	}
+
+
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition( FileGetPos( hFile ), "New Vehicles" );
+	#endif
+	
+	if( guiCurrentSaveGameVersion >= NEW_SAVE_GAME_GENERAL_SAVE_INFO_DATA)
+	{
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Save Data..." );
+		RenderProgressBar( 0, 100 );
+		uiRelStartPerc = uiRelEndPerc;
+
+		if( !LoadDataSaveFromLoadGameFile( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadDataSaveFromLoadGameFile failed" ) );
+			FileClose( hFile );
+			return( FALSE );
+		}
+		
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition( FileGetPos( hFile ), "Load Save Data" );
+	#endif		
+		
+	}
+	
+	if( guiCurrentSaveGameVersion >= NEW_EMAIL_SAVE_GAME)
+	{
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load New Email Data..." );
+		RenderProgressBar( 0, 100 );
+		uiRelStartPerc = uiRelEndPerc;
+
+		if( !LoadNewEmailDataFromLoadGameFile( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNewEmailDataFromLoadGameFile failed" ) );
+			FileClose( hFile );
+			return( FALSE );
+		}
+		
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition( FileGetPos( hFile ), "Load New Email Data" );
+	#endif		
+		
+	}
+
+	if( guiCurrentSaveGameVersion >= HIDDENTOWN_DATATYPE_CHANGE)
+	{
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Hidden Towns..." );
+		RenderProgressBar( 0, 100 );
+		uiRelStartPerc = uiRelEndPerc;
+
+		if( !LoadHiddenTownFromLoadGameFile( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadHiddenTownFromLoadGameFile failed" ) );
+			FileClose( hFile );
+			return( FALSE );
+		}
+
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition( FileGetPos( hFile ), "Load Hidden Towns" );
+	#endif
+
+	}
+	
+	if( guiCurrentSaveGameVersion > ENCYCLOPEDIA_SAVEGAME_CHANGE)
+	{
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Briefing Room & Encyclopedia..." );
+		RenderProgressBar( 0, 100 );
+		uiRelStartPerc = uiRelEndPerc;
+
+		if( !LoadEncyclopediaFromLoadGameFile( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadEncyclopediaFromLoadGameFile failed" ) );
+			FileClose( hFile );
+			return( FALSE );
+		}
+
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition( FileGetPos( hFile ), "Briefing Room & Load Encyclopedia" );
+	#endif
+
+	}
 
 	//
 	//Close the saved game file
@@ -5006,8 +5355,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 				pEmail=pEmail->Next;
 			}
 		}
+#ifdef JA2UB
+
+#else
 		if(!fBookMark && !fEmail)
-			AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1, -1 );
+			AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1, -1 , TYPE_EMAIL_EMAIL_EDT);
+#endif
 	}
 
 	// WANNE: I disabled that for now, because I am not sure if this works like intended
@@ -5658,6 +6011,11 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 				}
 			}
 #endif
+			//#ifdef JA2UB
+			//if the soldier has the NON weapon version of the merc knofe or merc umbrella
+			//ConvertWeapons( &Menptr[ cnt ] );
+			//#endif
+			
 			// JA2Gold: fix next-to-previous attacker value
 			if ( guiCurrentSaveGameVersion < 99 )
 			{
@@ -5984,6 +6342,8 @@ BOOLEAN SaveEmailToSavedGame( HWFILE hFile )
 	//loop through all the email to find out the total number
 	while(pEmail)
 	{
+		gEmailT[ uiNumOfEmails ].EmailVersion = 0; //reset
+		gEmailT[ uiNumOfEmails ].EmailVersion = pEmail->EmailVersion;
 		pEmail=pEmail->Next;
 		uiNumOfEmails++;
 	}
@@ -6358,12 +6718,15 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 	if ( guiCurrentSaveGameVersion >= BUGFIX_NPC_DATA_FOR_BIG_MAPS )
 	{
 		numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubLastRequesterSurgeryTargetID, sizeof(gTacticalStatus.ubLastRequesterSurgeryTargetID), sizeof(UINT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= IMPROVED_INTERRUPT_SYSTEM )
+			numBytesRead = ReadFieldByField(hFile, &gTacticalStatus.ubInterruptPending, sizeof(gTacticalStatus.ubInterruptPending), sizeof(UINT8), numBytesRead);
 		while( (numBytesRead%4) != 0 )	// This is to make sure the total read is of DWORD length
 			numBytesRead = ReadFieldByField(hFile, &filler, sizeof(filler), sizeof(UINT8), numBytesRead);
 	}
 	else
 	{
-		numBytesRead++;
+		numBytesRead++;	//&gTacticalStatus.ubLastRequesterSurgeryTargetID added with BUGFIX_NPC_DATA_FOR_BIG_MAPS
+		numBytesRead++;	//&gTacticalStatus.ubInterruptPending added with IMPROVED_INTERRUPT_SYSTEM
 		while( (numBytesRead%4) != 0 )	// This is to make sure the total read is of DWORD length
 			numBytesRead++;
 	}
@@ -6764,25 +7127,24 @@ void CreateSavedGameFileNameFromNumber( UINT8 ubSaveGameID, STR pzNewFileName )
 #endif
 			sprintf( pzNewFileName , "%s\\%S.%S", gSaveDir, pMessageStrings[ MSG_QUICKSAVE_NAME ], pMessageStrings[ MSG_SAVEEXTENSION ] );
 	}
-//#ifdef JA2BETAVERSION
-	else if( ubSaveGameID == SAVE__END_TURN_NUM )
+	else if( ubSaveGameID>= SAVE__TIMED_AUTOSAVE_SLOT1 && ubSaveGameID < SAVE__TIMED_AUTOSAVE_SLOT5 + 1 )
 	{
-		//The name of the file
-		sprintf( pzNewFileName , "%s\\Auto%02d.%S", gSaveDir, guiLastSaveGameNum, pMessageStrings[ MSG_SAVEEXTENSION ] );
-
-		//increment end turn number
-		guiLastSaveGameNum++;
-
-		//just have 2 saves
-		if( guiLastSaveGameNum == 2 )
-		{
-			guiLastSaveGameNum = 0;
-		}
+		sprintf( pzNewFileName , "%s\\%S%02d.%S", gSaveDir, pMessageStrings[ MSG_SAVE_AUTOSAVE_FILENAME ], ubSaveGameID, pMessageStrings[ MSG_SAVEEXTENSION ] );
 	}
-//#endif
-
+	else if( ubSaveGameID == SAVE__END_TURN_NUM_1 || ubSaveGameID == SAVE__END_TURN_NUM_2 )
+	{
+		if ( ubSaveGameID == SAVE__END_TURN_NUM_1 ) 
+			sprintf( pzNewFileName , "%s\\Auto%02d.%S", gSaveDir, 0, pMessageStrings[ MSG_SAVEEXTENSION ] );
+		else if ( ubSaveGameID == SAVE__END_TURN_NUM_2 ) 
+			sprintf( pzNewFileName , "%s\\Auto%02d.%S", gSaveDir, 1, pMessageStrings[ MSG_SAVEEXTENSION ] );
+	}
+	else if( ubSaveGameID == SAVE__END_TURN_NUM  )
+	{
+			//The name of the file
+			sprintf( pzNewFileName , "%s\\Auto%02d.%S", gSaveDir, guiLastSaveGameNum, pMessageStrings[ MSG_SAVEEXTENSION ] );
+	}
 	else
-		sprintf( pzNewFileName , "%s\\%S%02d.%S", gSaveDir, pMessageStrings[ MSG_SAVE_NAME ], ubSaveGameID, pMessageStrings[ MSG_SAVEEXTENSION ] );
+		sprintf( pzNewFileName , "%s\\%S%02d.%S", gSaveDir, pMessageStrings[ MSG_SAVE_NAME ], ubSaveGameID - SAVE__END_TURN_NUM_2, pMessageStrings[ MSG_SAVEEXTENSION ] );
 }
 
 
@@ -7235,6 +7597,12 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	// HEADROCK HAM 3.6: Save new global variable for militia upkeep
 	sGeneralInfo.uiTotalUpkeepForMilitia = guiTotalUpkeepForMilitia;
 
+#ifdef JA2UB
+	//ja25 UB
+	sGeneralInfo.fMorrisShouldSayHi					= gfMorrisShouldSayHi;
+	sGeneralInfo.fFirstTimeInGameHeliCrash			= gfFirstTimeInGameHeliCrash;
+#endif
+
 	// HEADROCK HAM 4: Save global array for Manual Mobile Militia Restrictions
 	// testing for loop
 	memcpy(sGeneralInfo.ubManualRestrictMilitia, gubManualRestrictMilitia, sizeof( UINT8 )*256);
@@ -7243,6 +7611,45 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	{
 		sGeneralInfo.HiddenNames[i] = !zHiddenNames[i].Hidden; //legion2
 	}
+	
+	sGeneralInfo.sMercArrivalGridNo	= gGameExternalOptions.iInitialMercArrivalLocation;
+	
+#ifdef JA2UB		
+	sGeneralInfo.sINITIALHELIGRIDNO[ 0 ] = gGameUBOptions.InitialHeliGridNo[ 0 ];//14947;
+	sGeneralInfo.sINITIALHELIGRIDNO[ 1 ] = gGameUBOptions.InitialHeliGridNo[ 1 ];//15584;//16067;
+	sGeneralInfo.sINITIALHELIGRIDNO[ 2 ] = gGameUBOptions.InitialHeliGridNo[ 2 ];//15754;
+	sGeneralInfo.sINITIALHELIGRIDNO[ 3 ] = gGameUBOptions.InitialHeliGridNo[ 3 ];//16232;
+	sGeneralInfo.sINITIALHELIGRIDNO[ 4 ] = gGameUBOptions.InitialHeliGridNo[ 4 ];//16067;
+	sGeneralInfo.sINITIALHELIGRIDNO[ 5 ] = gGameUBOptions.InitialHeliGridNo[ 5 ];//16230;
+	sGeneralInfo.sINITIALHELIGRIDNO[ 6 ] = gGameUBOptions.InitialHeliGridNo[ 6 ];//15272;
+	
+	sGeneralInfo.sLOCATEGRIDNO				= gGameUBOptions.LOCATEGRIDNO;
+	sGeneralInfo.sLOCATEGRIDNO2				= gGameUBOptions.LOCATEGRIDNO2;
+	sGeneralInfo.sInGameHeliCrash			= gGameUBOptions.InGameHeliCrash;
+	sGeneralInfo.sJerryGridNo				= gGameUBOptions.JerryGridNo;
+	sGeneralInfo.sJerryQuotes				= gGameUBOptions.JerryQuotes;
+	sGeneralInfo.sInJerry					= gGameUBOptions.InJerry;
+	sGeneralInfo.sLaptopQuestEnabled		= gGameUBOptions.LaptopQuestEnabled;
+	sGeneralInfo.sTEX_AND_JOHN				= gGameUBOptions.fTexAndJohn;
+	sGeneralInfo.sRandom_Manuel_Text		= gGameUBOptions.fRandomManuelText;
+	sGeneralInfo.sEVENT_ATTACK_INITIAL_SECTOR_IF_PLAYER_STILL_THERE_UB		= gGameUBOptions.EventAttackInitialSectorIfPlayerStillThere;
+	sGeneralInfo.sHandleAddingEnemiesToTunnelMaps_UB						= gGameUBOptions.HandleAddingEnemiesToTunnelMaps;
+	sGeneralInfo.sInGameHeli				= gGameUBOptions.InGameHeli;
+	sGeneralInfo.spJA2UB					= gGameUBOptions.pJA2UB;
+	
+	sGeneralInfo.sfDeadMerc					= gGameUBOptions.fDeadMerc;
+	
+	sGeneralInfo.subEndDefaultSectorX		= gGameUBOptions.ubEndDefaultSectorX;
+	sGeneralInfo.subEndDefaultSectorY		= gGameUBOptions.ubEndDefaultSectorY;
+	sGeneralInfo.subEndDefaultSectorZ		= gGameUBOptions.ubEndDefaultSectorZ;
+	
+	sGeneralInfo.sTestUB					= gGameUBOptions.TestUB;
+	
+	sGeneralInfo.sLaptopLinkInsurance		= gGameUBOptions.LaptopLinkInsurance;
+	sGeneralInfo.sLaptopLinkFuneral			= gGameUBOptions.LaptopLinkFuneral;
+	sGeneralInfo.sLaptopLinkBobby			= gGameUBOptions.LaptopLinkBobby;
+	
+#endif
 
 	//Setup the 
 	//Save the current music mode
@@ -7404,6 +7811,47 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sSkyriderCostModifier, sizeof(sGeneralInfo.sSkyriderCostModifier), sizeof(INT16), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fOutstandingFacilityDebt, sizeof(sGeneralInfo.fOutstandingFacilityDebt), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.uiTotalUpkeepForMilitia, sizeof(sGeneralInfo.uiTotalUpkeepForMilitia), sizeof(UINT32), numBytesRead);
+	
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sMercArrivalGridNo, sizeof(sGeneralInfo.sMercArrivalGridNo), sizeof(UINT32), numBytesRead);
+#ifdef JA2UB
+	//ja25 UB
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fMorrisShouldSayHi, sizeof(sGeneralInfo.fMorrisShouldSayHi), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fFirstTimeInGameHeliCrash, sizeof(sGeneralInfo.fFirstTimeInGameHeliCrash), sizeof(BOOLEAN), numBytesRead);
+
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sINITIALHELIGRIDNO, sizeof(sGeneralInfo.sINITIALHELIGRIDNO), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sLOCATEGRIDNO, sizeof(sGeneralInfo.sLOCATEGRIDNO), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sLOCATEGRIDNO2, sizeof(sGeneralInfo.sLOCATEGRIDNO2), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sJerryGridNo, sizeof(sGeneralInfo.sJerryGridNo), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sJerryQuotes, sizeof(sGeneralInfo.sJerryQuotes), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sInJerry, sizeof(sGeneralInfo.sInJerry), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sInGameHeliCrash, sizeof(sGeneralInfo.sInGameHeliCrash), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sLaptopQuestEnabled, sizeof(sGeneralInfo.sLaptopQuestEnabled), sizeof(BOOLEAN), numBytesRead);
+
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sTEX_AND_JOHN, sizeof(sGeneralInfo.sTEX_AND_JOHN), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sRandom_Manuel_Text, sizeof(sGeneralInfo.sRandom_Manuel_Text), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sEVENT_ATTACK_INITIAL_SECTOR_IF_PLAYER_STILL_THERE_UB, sizeof(sGeneralInfo.sEVENT_ATTACK_INITIAL_SECTOR_IF_PLAYER_STILL_THERE_UB), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sHandleAddingEnemiesToTunnelMaps_UB, sizeof(sGeneralInfo.sHandleAddingEnemiesToTunnelMaps_UB), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sInGameHeli, sizeof(sGeneralInfo.sInGameHeli), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.spJA2UB, sizeof(sGeneralInfo.spJA2UB), sizeof(BOOLEAN), numBytesRead);
+	
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sfDeadMerc, sizeof(sGeneralInfo.sfDeadMerc), sizeof(BOOLEAN), numBytesRead);
+	
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.subEndDefaultSectorX, sizeof(sGeneralInfo.subEndDefaultSectorX), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.subEndDefaultSectorY, sizeof(sGeneralInfo.subEndDefaultSectorY), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.subEndDefaultSectorZ, sizeof(sGeneralInfo.subEndDefaultSectorZ), sizeof(UINT8), numBytesRead);
+
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sTestUB, sizeof(sGeneralInfo.sTestUB), sizeof(BOOLEAN), numBytesRead);
+
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sLaptopLinkInsurance, sizeof(sGeneralInfo.sLaptopLinkInsurance), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sLaptopLinkFuneral, sizeof(sGeneralInfo.sLaptopLinkFuneral), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.sLaptopLinkBobby, sizeof(sGeneralInfo.sLaptopLinkBobby), sizeof(BOOLEAN), numBytesRead);
+	
+
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubFiller2, sizeof(sGeneralInfo.ubFiller2), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubFiller3, sizeof(sGeneralInfo.ubFiller3), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubFiller4, sizeof(sGeneralInfo.ubFiller4), sizeof(INT8), numBytesRead);
+
+#endif	
 	if ( guiCurrentSaveGameVersion >= NEW_GENERAL_SAVE_INFO_DATA ){
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubManualRestrictMilitia, sizeof(sGeneralInfo.ubManualRestrictMilitia), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.HiddenNames, sizeof(sGeneralInfo.HiddenNames), sizeof(BOOLEAN), numBytesRead);
@@ -7645,6 +8093,14 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 
 	gsMercArriveSectorX = sGeneralInfo.sMercArriveSectorX;
 	gsMercArriveSectorY = sGeneralInfo.sMercArriveSectorY;
+	
+	gGameExternalOptions.ubDefaultArrivalSectorX = (UINT8)gsMercArriveSectorX;
+	gGameExternalOptions.ubDefaultArrivalSectorY = (UINT8)gsMercArriveSectorY;
+	
+#ifdef JA2UB
+	JA2_5_START_SECTOR_X = gGameExternalOptions.ubDefaultArrivalSectorX;
+	JA2_5_START_SECTOR_Y = gGameExternalOptions.ubDefaultArrivalSectorY;
+#endif
 
 	gfCreatureMeanwhileScenePlayed = sGeneralInfo.fCreatureMeanwhileScenePlayed;
 
@@ -7682,6 +8138,12 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	// HEADROCK HAM 3.6: Load new global variable for militia upkeep
 	guiTotalUpkeepForMilitia = sGeneralInfo.uiTotalUpkeepForMilitia;
 
+#ifdef JA2UB	
+	//JA25 UB
+	gfMorrisShouldSayHi					= sGeneralInfo.fMorrisShouldSayHi;
+	gfFirstTimeInGameHeliCrash			= sGeneralInfo.fFirstTimeInGameHeliCrash;
+#endif
+
 	// HEADROCK HAM 4: Load Manual Mobile Militia Restrictions
 	memcpy(gubManualRestrictMilitia, sGeneralInfo.ubManualRestrictMilitia, sizeof(UINT8) * 256);
 
@@ -7689,6 +8151,39 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	{
 		zHiddenNames[i].Hidden = !sGeneralInfo.HiddenNames[i];
 	}
+	
+	gGameExternalOptions.iInitialMercArrivalLocation = sGeneralInfo.sMercArrivalGridNo;
+	
+#ifdef JA2UB
+	gGameUBOptions.InitialHeliGridNo[ 0 ] = sGeneralInfo.sINITIALHELIGRIDNO[ 0 ];//14947;
+	gGameUBOptions.InitialHeliGridNo[ 1 ] = sGeneralInfo.sINITIALHELIGRIDNO[ 1 ];//15584;//16067;
+	gGameUBOptions.InitialHeliGridNo[ 2 ] = sGeneralInfo.sINITIALHELIGRIDNO[ 2 ];//15754;
+	gGameUBOptions.InitialHeliGridNo[ 3 ] = sGeneralInfo.sINITIALHELIGRIDNO[ 3 ];//16232;
+	gGameUBOptions.InitialHeliGridNo[ 4 ] = sGeneralInfo.sINITIALHELIGRIDNO[ 4 ];//16067;
+	gGameUBOptions.InitialHeliGridNo[ 5 ] = sGeneralInfo.sINITIALHELIGRIDNO[ 5 ];//16230;
+	gGameUBOptions.InitialHeliGridNo[ 6 ] = sGeneralInfo.sINITIALHELIGRIDNO[ 6 ];//15272;
+	
+	gGameUBOptions.LOCATEGRIDNO				= sGeneralInfo.sLOCATEGRIDNO;
+	gGameUBOptions.LOCATEGRIDNO2			= sGeneralInfo.sLOCATEGRIDNO2;
+	gGameUBOptions.InGameHeliCrash			= sGeneralInfo.sInGameHeliCrash;
+	gGameUBOptions.JerryGridNo				= sGeneralInfo.sJerryGridNo;
+	gGameUBOptions.JerryQuotes				= sGeneralInfo.sJerryQuotes;
+	gGameUBOptions.InJerry					= sGeneralInfo.sInJerry;
+	gGameUBOptions.InGameHeli				= sGeneralInfo.sInGameHeli;
+	gGameUBOptions.pJA2UB					= sGeneralInfo.spJA2UB;
+	
+	gGameUBOptions.fDeadMerc 				= sGeneralInfo.sfDeadMerc;
+	
+	gGameUBOptions.ubEndDefaultSectorX 		= sGeneralInfo.subEndDefaultSectorX;
+	gGameUBOptions.ubEndDefaultSectorY 		= sGeneralInfo.subEndDefaultSectorY;
+	gGameUBOptions.ubEndDefaultSectorZ 		= sGeneralInfo.subEndDefaultSectorZ;
+	
+	gGameUBOptions.TestUB 					= sGeneralInfo.sTestUB;
+	
+	gGameUBOptions.LaptopLinkInsurance 		= sGeneralInfo.sLaptopLinkInsurance;
+	gGameUBOptions.LaptopLinkFuneral 		= sGeneralInfo.sLaptopLinkFuneral;
+	gGameUBOptions.LaptopLinkBobby 			= sGeneralInfo.sLaptopLinkBobby;
+#endif
 	
 	if ( gGameExternalOptions.fShowCamouflageFaces == TRUE ) 
 	{
@@ -8337,3 +8832,30 @@ UINT32 CalcJA2EncryptionSet( SAVED_GAME_HEADER * pSaveGameHeader )
 
 	return( uiEncryptionSet );
 }
+
+//inshy: Now we dont need this convertation, all items chenged in the maps
+/*
+#ifdef JA2UB
+void ConvertWeapons( SOLDIERTYPE *pSoldier )
+{
+	INT32 iCnt;
+
+	for( iCnt=0; iCnt< NUM_INV_SLOTS; iCnt++)
+	{
+	
+	
+			if(UsingNewInventorySystem() == false && gGameOptions.ubAttachmentSystem == ATTACHMENT_OLD )
+		{
+			if( pSoldier->inv[ iCnt ].usItem == 97 || pSoldier->inv[ iCnt ].usItem == 1346 || pSoldier->inv[ iCnt ].usItem == 99 
+				|| pSoldier->inv[ iCnt ].usItem == 1347 || pSoldier->inv[ iCnt ].usItem == 584 || pSoldier->inv[ iCnt ].usItem == 551 ) 
+				pSoldier->inv[ iCnt ].usItem = 129; 	
+			
+			if( pSoldier->inv[ iCnt ].usItem == 117 || pSoldier->inv[ iCnt ].usItem ==  349 || pSoldier->inv[ iCnt ].usItem == 1263 )
+				pSoldier->inv[ iCnt ].usItem = 71; 				
+		}	
+
+		
+	}
+}
+#endif
+*/

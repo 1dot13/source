@@ -257,4 +257,9 @@ BOOLEAN NPCHasUnusedHostileRecord( UINT8 ubNPC, UINT8 ubApproach );
 
 void ResetOncePerConvoRecordsForAllNPCsInLoadedSector( void );
 
+#ifdef JA2UB
+//UB
+extern BOOLEAN HasNpcSaidQuoteBefore( UINT8 ubNPC, UINT8 ubRecord );
+#endif
+
 #endif

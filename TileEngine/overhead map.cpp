@@ -140,10 +140,27 @@ void InitNewOverheadDB( UINT8 ubTilesetID )
 
 		if ( hVObject == NULL )
 		{
-			// TRY loading from default directory
-			FilenameForBPP( gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[ uiLoop ], cFileBPP);
-			// Adjust for tileset position
-			sprintf( cAdjustedFile, "TILESETS\\0\\T\\%s", cFileBPP );
+			#ifdef JA2UBMAPS
+			if( ubTilesetID < DEFAULT_JA25_TILESET )
+			{
+				// TRY loading from default directory
+				FilenameForBPP( gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[ uiLoop ], cFileBPP);
+				// Adjust for tileset position
+				sprintf( cAdjustedFile, "TILESETS\\0\\T\\%s", cFileBPP );	
+			}
+			else
+			{
+				// TRY loading from default directory
+				FilenameForBPP( gTilesets[ DEFAULT_JA25_TILESET ].TileSurfaceFilenames[ uiLoop ], cFileBPP);
+				// Adjust for tileset position
+				sprintf( cAdjustedFile, "TILESETS\\50\\T\\%s", cFileBPP );	
+			}
+			#else
+				// TRY loading from default directory
+				FilenameForBPP( gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[ uiLoop ], cFileBPP);
+				// Adjust for tileset position
+				sprintf( cAdjustedFile, "TILESETS\\0\\T\\%s", cFileBPP );
+			#endif
 
 			// LOAD ONE WE KNOW ABOUT!
 			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;

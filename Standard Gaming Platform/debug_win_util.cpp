@@ -167,14 +167,13 @@ StackTrace::StackTrace() {
 	// From http://msdn.microsoft.com/en-us/library/bb204633(VS.85).aspx,
 	// the sum of FramesToSkip and FramesToCapture must be less than 63,
 	// so set it to 62.
-	const int kMaxCallers = 62;
-
-	void* callers[kMaxCallers];
+	const int kMaxCallers = 62;	
 	// TODO(ajwong): Migrate this to StackWalk64.
 	
 	// WANNE: VS 2005 compilation error
 	// WANNE: I disabled the method call "CaptureStackBackTrace()" because it gives a compilation error in VS 2005
 #if ENABLE_STACK_TRACE
+	void* callers[kMaxCallers];
 	int count = CaptureStackBackTrace(0, kMaxCallers, callers, NULL);
 	
 	// WANNE: This also does not work in VS 2005

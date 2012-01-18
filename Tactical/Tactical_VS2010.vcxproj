@@ -61,6 +61,7 @@
     <ClInclude Include="Inventory Choosing.h" />
     <ClInclude Include="Item Types.h" />
     <ClInclude Include="Items.h" />
+    <ClInclude Include="Ja25_Tactical.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="LOS.h" />
     <ClInclude Include="Map Information.h" />
@@ -144,6 +145,7 @@
     <ClCompile Include="Inventory Choosing.cpp" />
     <ClCompile Include="Item Types.cpp" />
     <ClCompile Include="Items.cpp" />
+    <ClCompile Include="Ja25_Tactical.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="LOS.cpp" />
     <ClCompile Include="Map Information.cpp" />
@@ -222,6 +224,7 @@
     <ClCompile Include="XML_Sounds.cpp" />
     <ClCompile Include="XML_SpreadPatterns.cpp" />
     <ClCompile Include="XML_TonyInventory.cpp" />
+    <ClCompile Include="XML_Vehicles.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{433FBCC4-F612-489C-AA28-CCD6CF27D80C}</ProjectGuid>

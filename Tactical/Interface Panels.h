@@ -34,7 +34,7 @@ typedef enum
 
 #define NEW_ITEM_CYCLE_COUNT				19
 #define NEW_ITEM_CYCLES						4
-#define	NUM_TEAM_SLOTS						6
+#define	NUM_TEAM_SLOTS						10
 
 
 #define	PASSING_ITEM_DISTANCE_OKLIFE		3

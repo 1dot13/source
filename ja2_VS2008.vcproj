@@ -489,6 +489,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Ja25Update.h"
+				>
+			</File>
+			<File
 				RelativePath="JA2Prototypes.h"
 				>
 			</File>
@@ -566,6 +570,10 @@
 			</File>
 			<File
 				RelativePath="Sys Globals.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ub_config.h"
 				>
 			</File>
 			<File
@@ -687,6 +695,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Ja25Update.cpp"
+				>
+			</File>
+			<File
 				RelativePath="jascreens.cpp"
 				>
 			</File>
@@ -752,6 +764,18 @@
 			</File>
 			<File
 				RelativePath="Sys Globals.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ub_config.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_IntroFiles.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Layout_MainMenu.cpp"
 				>
 			</File>
 		</Filter>

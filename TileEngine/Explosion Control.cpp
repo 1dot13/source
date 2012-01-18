@@ -74,11 +74,26 @@
 #include "Soldier Macros.h"
 #include "connect.h"
 #include "debug control.h"
+
+#include "LuaInitNPCs.h"
+#include "Luaglobal.h"
+
+
+#ifdef JA2UB
+#include "interface Dialogue.h"
+
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#include "Dialogue Control.h"
+#include "ub_config.h"
+#endif
+
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-
+BOOLEAN HookerInRoom( UINT8 ubRoom );
 
 // MODULE FOR EXPLOSIONS
 
@@ -92,6 +107,10 @@ extern INT8	gbSAMGraphicList[ MAX_NUMBER_OF_SAMS ];
 extern	void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID );
 extern void RecompileLocalMovementCostsForWall( INT32 sGridNo, UINT8 ubOrientation );
 void FatigueCharacter( SOLDIERTYPE *pSoldier );
+
+#ifdef JA2UB
+void HandleSeeingFortifiedDoor( UINT32 sGridNo );//Ja25 UB
+#endif
 
 #define NO_ALT_SOUND -1
 
@@ -204,6 +223,16 @@ void RecountExplosions( void );
 void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion );
 void HandleBuldingDestruction( INT32 sGridNo, UINT8 ubOwner );
 
+#ifdef JA2UB
+//JA25 UB
+void HavePersonAtGridnoStop( UINT32 sGridNo );
+BOOLEAN ShouldThePlayerStopWhenWalkingOnBiggensActionItem( UINT8 ubRecordNum );
+void HandleDestructionOfPowerGenFan();
+BOOLEAN IsFanGraphicInSectorAtThisGridNo( UINT32 sGridNo );
+void HandleExplosionsInTunnelSector( UINT32 sGridNo );
+void HandleSwitchToOpenFortifiedDoor( UINT32 sGridNo );
+void HandleSeeingPowerGenFan( UINT32 sGridNo );
+#endif
 
 INT32 GetFreeExplosion( void )
 {
@@ -615,7 +644,20 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 		ChangeO3SectorStatue( TRUE );
 		return( TRUE );
 	}
+#ifdef JA2UB	
+	//JA25 UB
+	//should we replace the mine entrance graphic
+	if( IsMineEntranceInSectorI13AtThisGridNo( sGridNo ) && ubOwner == NOBODY )
+	{
+		//Yup, replace it
+		ReplaceMineEntranceGraphicWithCollapsedEntrance();
+	}
 
+	//ja25 ub
+	//Handle Explosions in the tunnel sectors
+	HandleExplosionsInTunnelSector( sGridNo );
+#endif
+	
 	// Get xy
 	sX = CenterX( sGridNo );
 	sY = CenterY( sGridNo );
@@ -647,7 +689,14 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 		if ( ( bDamageReturnVal = DamageStructure( pCurrent, (UINT8)sWoundAmt, STRUCTURE_DAMAGE_EXPLOSION, sGridNo, sX, sY, NOBODY ) ) != 0 )
 		{
 			fContinue = FALSE;
-
+#ifdef JA2UB			
+			//Ja25 ub
+			//are we exploding the Fan in the power gen facility
+			if( IsFanGraphicInSectorAtThisGridNo( sGridNo ) )
+			{
+				HandleDestructionOfPowerGenFan();
+			}
+#endif
 			pBase = FindBaseStructure( pCurrent );
 
 			sBaseGridNo = pBase->sGridNo;
@@ -3035,6 +3084,17 @@ BOOLEAN HookerInRoom( UINT8 ubRoom )
 
 void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj )
 {
+
+#ifdef LUA_EXPLOSION_CONTROL
+
+	for (UINT32 i = ACTION_ITEM_OPEN_DOOR; i <= ACTION_ITEM_NEW; i++ )
+	{
+		if ( (*pObj)[0]->data.misc.bActionValue == i ) 
+			LetLuaPerformItemAction( i, sGridNo, 0 );
+	}
+
+#else
+
 	STRUCTURE * pStructure;
 
 	switch( (*pObj)[0]->data.misc.bActionValue )
@@ -3419,6 +3479,53 @@ void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj )
 		PlayJA2Sample( KLAXON_ALARM, RATE_11025, SoundVolume( MIDVOLUME, sGridNo ), 5, SoundDir( sGridNo ) );
 		CallEldinTo( sGridNo );
 		break;
+#ifdef JA2UB
+		case ACTION_ITEM_BIGGENS_BOMBS:
+
+			if( ShouldThePlayerStopWhenWalkingOnBiggensActionItem( 17 ) )
+			{
+				HavePersonAtGridnoStop( sGridNo );
+
+				//Make Biggens run for cover and then detonate the explosives
+				TriggerNPCRecord( 61 , 17 );  //BIGGENS
+			}
+
+			break;
+		case ACTION_ITEM_BIGGENS_WARNING:
+			
+			if( ShouldThePlayerStopWhenWalkingOnBiggensActionItem( 16 ) )
+			{
+				HavePersonAtGridnoStop( sGridNo );
+
+				//Have Biggens spit out a warning about the bombs
+				TriggerNPCRecord( 61, 16 ); //BIGGENS
+			}
+			
+			break;
+
+		case ACTION_ITEM_SEE_FORTIFIED_DOOR:
+			HandleSeeingFortifiedDoor( sGridNo );
+			break;
+
+		case ACTION_ITEM_OPEN_FORTIFED_DOOR:
+			HandleSwitchToOpenFortifiedDoor( sGridNo );
+			break;
+
+		case ACTION_ITEM_SEE_POWER_GEN_FAN:
+			
+			//if the player is in the power plant
+			if( gWorldSectorX == 13 && gWorldSectorY == 10 && gbWorldSectorZ == 0 )
+			{
+				HandleSeeingPowerGenFan( sGridNo );
+			}
+			else if( gWorldSectorX == 15 && gWorldSectorY == 12 && gbWorldSectorZ == 3 )
+			{
+				//The player is hitting the switch to launch the missles
+				HandlePlayerHittingSwitchToLaunchMissles();
+			}
+			
+			break;
+#endif
 	default:
 		// error message here
 #ifdef JA2BETAVERSION
@@ -3426,6 +3533,10 @@ void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj )
 #endif
 		break;
 	}
+	
+#endif
+
+
 }
 
 void AddBombToQueue( UINT32 uiWorldBombIndex, UINT32 uiTimeStamp, BOOL fFromRemoteClient )
@@ -4237,3 +4348,284 @@ UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOL
 
 	return ( FIRE_WEAPON_BLINDED_AND_DEAFENED );
 }
+
+#ifdef JA2UB
+
+//-- UB
+
+void HavePersonAtGridnoStop( UINT32 sGridNo )
+{
+	UINT8	ubID;
+
+	//Sewe if there is a person at the gridno
+	ubID = WhoIsThere2( sGridNo, 0 );
+
+	//is it a valid person
+	if ( (ubID != NOBODY) && (MercPtrs[ ubID ]->bTeam == gbPlayerNum) )
+	{
+		SOLDIERTYPE *pSoldier = MercPtrs[ ubID ];
+
+		//Stop the merc
+		pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
+	}
+}
+
+//JA25 UB
+BOOLEAN ShouldThePlayerStopWhenWalkingOnBiggensActionItem( UINT8 ubRecordNum )
+{
+	SOLDIERTYPE *pSoldier=NULL;
+
+	pSoldier = FindSoldierByProfileID( 61, TRUE ); //BIGGENS
+
+	//if biggens hasnt said the quote before, or is on the players team
+	if( HasNpcSaidQuoteBefore( 61, ubRecordNum ) || ( pSoldier != NULL || gMercProfiles[ 61 ].bLife <= 0 ) ) //BIGGENS
+	{
+		return( FALSE );
+	}
+	else
+	{
+		return( TRUE );
+	}
+}
+
+// This function checks if we should replace the fan graphic
+BOOLEAN IsFanGraphicInSectorAtThisGridNo( UINT32 sGridNo )
+{
+	// First check current sector......
+	if( gWorldSectorX == 13 && gWorldSectorY == MAP_ROW_J && gbWorldSectorZ == 0 )
+	{
+		//if this is the right gridno
+		/*if( sGridNo == 10978 || 
+				sGridNo == 10979 || 
+				sGridNo == 10980 || 
+				sGridNo == 10818 || 
+				sGridNo == 10819 || 
+				sGridNo == 10820 || 
+				sGridNo == 10658 || 
+				sGridNo == 10659 || 
+				sGridNo == 10660 )
+				*/
+		if( sGridNo == gGameUBOptions.FanGridNo[0] || 
+				sGridNo == gGameUBOptions.FanGridNo[1] || 
+				sGridNo == gGameUBOptions.FanGridNo[2] || 
+				sGridNo == gGameUBOptions.FanGridNo[3] || 
+				sGridNo == gGameUBOptions.FanGridNo[4] || 
+				sGridNo == gGameUBOptions.FanGridNo[5] || 
+				sGridNo == gGameUBOptions.FanGridNo[6] || 
+				sGridNo == gGameUBOptions.FanGridNo[7] || 
+				sGridNo == gGameUBOptions.FanGridNo[8] )
+		{
+			return( TRUE );
+		}
+	}
+
+	return( FALSE );
+}
+
+void HandleDestructionOfPowerGenFan()
+{
+	UINT8 ubShadeLevel=0;
+	INT8	bID;
+
+	//if we have already destroyed the fan
+	if( gJa25SaveStruct.ubHowPlayerGotThroughFan == PG__PLAYER_BLEW_UP_FAN_TO_GET_THROUGH )
+	{
+		//leave
+		return;
+	}
+
+	//if we have already been in here
+	if( gJa25SaveStruct.ubStateOfFanInPowerGenSector == PGF__BLOWN_UP )
+	{
+		return;
+	}
+
+	//Remeber that the player blew up the fan
+	gJa25SaveStruct.ubStateOfFanInPowerGenSector = PGF__BLOWN_UP;
+
+	//Remeber how the player got through
+	HandleHowPlayerGotThroughFan();
+
+	//Since the player is making LOTS of noise, add more enemies to the tunnel sector
+//	AddEnemiesToJa25TunnelMaps();
+
+	if ( gGameUBOptions.HandleAddingEnemiesToTunnelMaps == TRUE )
+        {
+        	HandleAddingEnemiesToTunnelMaps();
+	}
+
+	//Make sure to apply these changes to the map
+	ApplyMapChangesToMapTempFile( TRUE );
+
+	//Add an exit grid to the map
+	AddExitGridForFanToPowerGenSector();
+
+	//done with the changes
+	ApplyMapChangesToMapTempFile( FALSE );
+
+	//Stop the fan sound
+	HandleRemovingPowerGenFanSound();
+
+
+	//
+	// Have a qualified merc say a quote
+	//
+	//Get a random qualified merc to say the quote
+	bID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+	if( bID != -1 )
+	{
+		DelayedMercQuote( Menptr[ bID ].ubProfile, QUOTE_ACCEPT_CONTRACT_RENEWAL, GetWorldTotalSeconds() + 2 );
+	}
+}
+
+void HandleExplosionsInTunnelSector( UINT32 sGridNo )
+{
+	//if this isnt the tunnel sectors
+	if( !( gWorldSectorX == 14 && ( gWorldSectorY == MAP_ROW_J || gWorldSectorY == MAP_ROW_K ) && gbWorldSectorZ == 1 ) )
+	{
+		//get the fuck out...
+		return;
+	}
+
+	//Since the enemy will hear explosions in the tunnel, remember the player made a noise
+	gJa25SaveStruct.uiJa25GeneralFlags |= JA_GF__DID_PLAYER_MAKE_SOUND_GOING_THROUGH_TUNNEL_GATE;
+}
+
+
+void HandleSeeingFortifiedDoor( UINT32 sGridNo )
+{
+	INT32 sID=0;
+
+	//if this isnt the First level of the complex
+	if( !( gWorldSectorX == 15 && gWorldSectorY == MAP_ROW_K && gbWorldSectorZ == 1 ) )
+	{
+		//get the fuck out...
+		return;
+	}
+
+	//if the player has already seen it
+	if( gJa25SaveStruct.uiJa25GeneralFlags & JA_GF__PLAYER_HAS_SEEN_FORTIFIED_DOOR )
+	{
+		//get out
+		return;
+	}
+
+	//Remeber that we have said the quote
+	gJa25SaveStruct.uiJa25GeneralFlags |= JA_GF__PLAYER_HAS_SEEN_FORTIFIED_DOOR;
+
+	//find out whos is the one walking across the trap
+	sID = WhoIsThere2( sGridNo, 0 );
+	if( sID != NOBODY && IsSoldierQualifiedMerc( &Menptr[ sID ] ) )
+	{
+	}
+	else
+	{
+		//Get a random merc to say quote
+		sID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+	}
+
+	if( sID != -1 )
+	{
+		//say the quote
+		TacticalCharacterDialogue( &Menptr[ sID ], QUOTE_LENGTH_OF_CONTRACT );
+	}
+}
+
+void HandleSwitchToOpenFortifiedDoor( UINT32 sGridNo )
+{
+	INT8 bID;
+
+	//if the door is already opened
+	if( gJa25SaveStruct.ubStatusOfFortifiedDoor == FD__OPEN )
+	{
+		return;
+	}
+
+	//remeber that the switch to open the forified door on level 1, has been pulled
+	gJa25SaveStruct.ubStatusOfFortifiedDoor = FD__OPEN;
+
+	bID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+
+	if( bID != -1 )
+	{
+		TacticalCharacterDialogue( &Menptr[ bID ], QUOTE_COMMENT_BEFORE_HANG_UP );
+	}
+}
+
+void HandleSeeingPowerGenFan( UINT32 sGridNo )
+{
+//	INT8 bID;
+	UINT8 ubPerson;
+	BOOLEAN fFanIsStopped;
+	BOOLEAN	fFanHasBeenStopped;
+	SOLDIERTYPE *pSoldier;
+	SOLDIERTYPE *pOtherSoldier;
+	INT32	cnt;
+	BOOLEAN	fSaidQuote=FALSE;
+
+	//if the fan has already been seen
+	if( IsJa25GeneralFlagSet( JA_GF__PLAYER_SEEN_FAN_BEFORE ) ) 
+	{
+		//get out
+		return;
+	}
+
+	fFanIsStopped = ( gJa25SaveStruct.ubStateOfFanInPowerGenSector == PGF__STOPPED );
+	fFanHasBeenStopped = IsJa25GeneralFlagSet( JA_GF__POWER_GEN_FAN_HAS_BEEN_STOPPED );
+
+	//Get the person who is at the gridno
+	ubPerson = WhoIsThere2( sGridNo, 0 );
+
+	if( ubPerson != NOBODY )
+	{
+		pSoldier = &Menptr[ ubPerson ];
+
+		//if the fan is stopped And is this merc is a qualified merc but Not a power gen fan qualified merc?
+		if( IsSoldierQualifiedMerc( pSoldier ) && fFanIsStopped )
+		{
+			//Have the merc say the quote
+			TacticalCharacterDialogue( pSoldier, QUOTE_HATE_MERC_2_ON_TEAM_WONT_RENEW );
+			fSaidQuote = TRUE;
+		}
+		else if( IsSoldierQualifiedMercForSeeingPowerGenFan( pSoldier ) )
+		{
+			//Have the merc say the quote
+			TacticalCharacterDialogue( pSoldier, QUOTE_HATE_MERC_2_ON_TEAM_WONT_RENEW );
+			fSaidQuote = TRUE;
+		}
+		else
+		{
+			//see if there is another merc that is close by to say the quote
+			cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+			for ( pOtherSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pOtherSoldier++)
+			{
+				//if the soldier is in the sector
+				if( pOtherSoldier->bActive && pOtherSoldier->bInSector && ( pOtherSoldier->stats.bLife >= CONSCIOUSNESS ) )
+				{
+					INT16 sDistanceAway;
+
+					// if the soldier isnt that far away AND he is qualified merc
+					sDistanceAway = PythSpacesAway( pSoldier->sGridNo, pOtherSoldier->sGridNo );
+
+					if( sDistanceAway <= 5 && ( !InARoom( pOtherSoldier->sGridNo, NULL ) || pOtherSoldier->pathing.bLevel ) &&
+						( ( IsSoldierQualifiedMerc( pOtherSoldier ) && fFanIsStopped ) ||
+							( IsSoldierQualifiedMercForSeeingPowerGenFan( pOtherSoldier ) ) ) )
+					{
+						//Have the merc say the quote
+						TacticalCharacterDialogue( pOtherSoldier, QUOTE_HATE_MERC_2_ON_TEAM_WONT_RENEW );
+						fSaidQuote = TRUE;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	//if the quote was said, dont say it again
+	if( fSaidQuote )
+	{
+		//remeber that the fan has been seen
+		SetJa25GeneralFlag( JA_GF__PLAYER_SEEN_FAN_BEFORE );
+	}
+}
+#endif

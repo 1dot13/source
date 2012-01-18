@@ -707,6 +707,9 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 					}
 				}
 			}
+#ifdef JA2UB
+//Ja25: no queen
+#else
 			else if ( !gfInMeanwhile && gWorldSectorX == 3 && gWorldSectorY == 16 && !gbWorldSectorZ )
 			{ //Special civilian setup for queen's palace.
 				if( gubFact[ FACT_QUEEN_DEAD ] )
@@ -728,6 +731,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 					}
 				}
 			}
+#endif
 			else if ( gWorldSectorX == TIXA_SECTOR_X && gWorldSectorY == TIXA_SECTOR_Y	&& gbWorldSectorZ == 0 )
 			{
 				// Tixa prison, once liberated, should not have any civs without profiles unless
@@ -788,6 +792,20 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 		}
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: return true"));
 
+		/*
+		#ifdef JA2UB
+		INT32 iCnt;
+		for( iCnt=0; iCnt< NUM_ORIGINAL_INV_SLOTS; iCnt++)
+		{
+				if ( gGameOptions.ubInventorySystem == INVENTORY_OLD && gGameOptions.ubAttachmentSystem == ATTACHMENT_OLD )
+				{
+					if( pSoldier->inv[ iCnt ].usItem == 97 || pSoldier->inv[ iCnt ].usItem == 1346 || pSoldier->inv[ iCnt ].usItem == 99 
+						|| pSoldier->inv[ iCnt ].usItem == 1347 || pSoldier->inv[ iCnt ].usItem == 584 || pSoldier->inv[ iCnt ].usItem == 551 ) //43
+						pSoldier->inv[ iCnt ].usItem = 129; //335		
+				}
+		}	
+		#endif	
+		*/
 		return TRUE;
 	}
 	else

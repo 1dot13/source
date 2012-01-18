@@ -33,6 +33,7 @@
     <ClInclude Include="Game Event Hook.h" />
     <ClInclude Include="Game Events.h" />
     <ClInclude Include="Game Init.h" />
+    <ClInclude Include="Ja25 Strategic Ai.h" />
     <ClInclude Include="Luaglobal.h" />
     <ClInclude Include="LuaInitNPCs.h" />
     <ClInclude Include="Map Screen Helicopter.h" />
@@ -42,6 +43,7 @@
     <ClInclude Include="Map Screen Interface Map.h" />
     <ClInclude Include="Map Screen Interface TownMine Info.h" />
     <ClInclude Include="Map Screen Interface.h" />
+    <ClInclude Include="MapScreen Quotes.h" />
     <ClInclude Include="mapscreen.h" />
     <ClInclude Include="Meanwhile.h" />
     <ClInclude Include="Merc Contract.h" />
@@ -83,6 +85,7 @@
     <ClCompile Include="Game Events.cpp" />
     <ClCompile Include="Game Init.cpp" />
     <ClCompile Include="Hourly Update.cpp" />
+    <ClCompile Include="Ja25 Strategic Ai.cpp" />
     <ClCompile Include="Luaglobal.cpp" />
     <ClCompile Include="LuaInitNPCs.cpp" />
     <ClCompile Include="Map Screen Helicopter.cpp" />
@@ -92,6 +95,7 @@
     <ClCompile Include="Map Screen Interface Map.cpp" />
     <ClCompile Include="Map Screen Interface TownMine Info.cpp" />
     <ClCompile Include="Map Screen Interface.cpp" />
+    <ClCompile Include="MapScreen Quotes.cpp" />
     <ClCompile Include="mapscreen.cpp" />
     <ClCompile Include="Meanwhile.cpp" />
     <ClCompile Include="Merc Contract.cpp" />

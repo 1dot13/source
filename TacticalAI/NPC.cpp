@@ -52,6 +52,9 @@
 	#include "GameVersion.h"
 #endif
 	#include "Soldier Profile.h"
+	
+	#include "Encyclopedia.h"
+	
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -160,6 +163,10 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 	{
 		sprintf( zFileName, "NPCData\\%03d.npc", ubNPC );
 	}
+#ifdef JA2UB
+//Ja25:  No meanwhiles
+#else
+
 
 	// ATE: Put some stuff i here to use a different NPC file if we are in a meanwhile.....
 	if ( AreInMeanwhile( ) )
@@ -177,7 +184,7 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 		}
 
 	}
-
+#endif
 	CHECKN( FileExists( zFileName ) );
 
 	hFile = FileOpen( zFileName, FILE_ACCESS_READ, FALSE );
@@ -460,12 +467,14 @@ BOOLEAN RefreshNPCScriptRecord( UINT8 ubNPC, UINT8 ubRecord )
 			if ( gProfilesIMP[ubLoop].ProfilId == ubLoop || gProfilesAIM[ubLoop].ProfilId == ubLoop || gProfilesMERC[ubLoop].ProfilId == ubLoop )	
 			RefreshNPCScriptRecord( ubLoop, ubRecord );
 		}
-		
+#ifdef JA2UB
+//no UB
+#else		
 		//for ( ubLoop = GASTON; ubLoop < NUM_PROFILES; ubLoop++ ) // need more finesse here
 		//{
 		//	RefreshNPCScriptRecord( ubLoop, ubRecord );
 		//}
-		
+#endif		
 		//new profiles by Jazz	
 		//for ( ubLoop = FIRST_RPC; ubLoop < FIRST_NPC; ubLoop++ )
 		for ( ubLoop = 0; ubLoop < NUM_PROFILES; ubLoop++ )
@@ -1852,6 +1861,7 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 	if (zHiddenNames[ubNPC].Hidden == TRUE) 
 	{
 		zHiddenNames[ubNPC].Hidden = FALSE;
+		gEncyclopediaProfilesData[ubNPC].Hidden = TRUE; //encyclopedia
 	}
 
 
@@ -3270,7 +3280,11 @@ BOOLEAN LoadNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion )
 	if ( uiSaveGameVersion < 92 )
 	{
 		RefreshNPCScriptRecord( MATT, 14 );
+#ifdef JA2UB
+//no Ub
+#else
 		RefreshNPCScriptRecord( AUNTIE, 8 );
+#endif
 	}
 	if ( uiSaveGameVersion < 93 )
 	{
@@ -3823,3 +3837,15 @@ INT8 ConsiderCivilianQuotes( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, BOO
 
 	return( -1 );
 }
+
+#ifdef JA2UB
+//UB
+
+BOOLEAN HasNpcSaidQuoteBefore( UINT8 ubNPC, UINT8 ubRecord )
+{
+	if( CHECK_FLAG( gpNPCQuoteInfoArray[ ubNPC ][ ubRecord ].fFlags, QUOTE_FLAG_SAID ) )
+		return( TRUE );
+	else
+		return( FALSE );
+}
+#endif

@@ -1312,7 +1312,7 @@ INT8 GetLastSelectedSkill( void )
 INT32 StrengthRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -1358,7 +1358,7 @@ INT32 StrengthRequiredDueToMajorSkills( void )
 INT32 AgilityRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -1404,7 +1404,7 @@ INT32 AgilityRequiredDueToMajorSkills( void )
 INT32 DexterityRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -1494,7 +1494,7 @@ INT32 DexterityRequiredDueToMajorSkills( void )
 INT32 HealthRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -1540,7 +1540,7 @@ INT32 HealthRequiredDueToMajorSkills( void )
 INT32 LeadershipRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -1575,7 +1575,7 @@ INT32 LeadershipRequiredDueToMajorSkills( void )
 INT32 WisdomRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -1643,7 +1643,7 @@ INT32 WisdomRequiredDueToMajorSkills( void )
 INT32 MarksmanshipRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -1700,7 +1700,7 @@ INT32 MarksmanshipRequiredDueToMajorSkills( void )
 INT32 MechanicalRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -1724,7 +1724,7 @@ INT32 MechanicalRequiredDueToMajorSkills( void )
 INT32 MedicalRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -1748,7 +1748,7 @@ INT32 MedicalRequiredDueToMajorSkills( void )
 INT32 ExplosivesRequiredDueToMajorSkills( void )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -2148,6 +2148,11 @@ void AssignSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel )
 						wcscat( apStr, atStr );
 					}
 				}
+				if( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[27], ( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
 				if( gSkillTraitValues.ubMAChanceToCkickDoors != 0 )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[25], ( gSkillTraitValues.ubMAChanceToCkickDoors * (fExpertLevel ? 2 : 1)), L"%");
@@ -2178,6 +2183,11 @@ void AssignSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLevel )
 				if( gSkillTraitValues.ubSLEffectiveLevelAsStandby != 0 )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[2], ( gSkillTraitValues.ubSLEffectiveLevelAsStandby * (fExpertLevel ? 2 : 1)));
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSLCollectiveInterruptsBonus != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[11], ( gSkillTraitValues.ubSLCollectiveInterruptsBonus * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubSLOverallSuppresionBonusPercent != 0 )

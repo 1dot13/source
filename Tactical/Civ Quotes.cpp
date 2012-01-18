@@ -246,7 +246,9 @@ void ShutDownQuoteBox( BOOLEAN fForce )
 	gCivQuoteData.iDialogueBox = -1;
 
 		gCivQuoteData.bActive = FALSE;
-
+#ifdef JA2UB
+// no UB
+#else
 		// do we need to do anything at the end of the civ quote?
 		if ( gCivQuoteData.pCiv && gCivQuoteData.pCiv->aiData.bAction == AI_ACTION_OFFER_SURRENDER )
 		{
@@ -261,6 +263,7 @@ void ShutDownQuoteBox( BOOLEAN fForce )
 				ActionDone( gCivQuoteData.pCiv );
 			}
 		}
+#endif
 	}
 }
 
@@ -480,11 +483,17 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT16 ubCivQuoteID, UINT16 ubEntryID, IN
 UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLEAN fCanUseHints )
 {
 	UINT8	ubCivType;
+#ifdef JA2UB
+
+#else
 	INT8	bTownId;
-	BOOLEAN	bCivLowLoyalty = FALSE;
-	BOOLEAN	bCivHighLoyalty = FALSE;
 	INT8		bCivHint;
 	INT8	bMineId;
+#endif
+
+	BOOLEAN	bCivLowLoyalty = FALSE;
+	BOOLEAN	bCivHighLoyalty = FALSE;
+
 	BOOLEAN bMiners = FALSE;
 	UINT16 iCounter2;
 	UINT16 FileEDTQUoteID;
@@ -496,7 +505,11 @@ UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLE
 	
 	for( iCounter2 = NON_CIV_GROUP; iCounter2 < NUM_CIV_GROUPS; iCounter2++ )
 		{	
+#ifdef JA2UB
+			if (pCiv->ubCivilianGroup > UNNAMED_CIV_GROUP_19 && pCiv->ubCivilianGroup == iCounter2)
+#else
 			if (pCiv->ubCivilianGroup > QUEENS_CIV_GROUP && pCiv->ubCivilianGroup == iCounter2)
+#endif
 			{
 				if ( pCiv->aiData.bNeutral )
 					{
@@ -508,7 +521,68 @@ UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLE
 					}
 			}	
 		}
-	
+		
+#ifdef JA2UB		
+	if( ubCivType != CIV_TYPE_ENEMY )
+	{
+		//if the civ is not an enemy
+		if ( pCiv->aiData.bNeutral )
+		{
+			return( CIV_QUOTE__CIV_NOT_ENEMY ); //43
+		}
+		else
+		{
+			//
+			//the civ is an enemy
+			//
+
+			//if the civ can fight
+			if( pCiv->ubBodyType == REGMALE || pCiv->ubBodyType == REGFEMALE || pCiv->ubBodyType == BIGMALE )
+			{
+				return( CIV_QUOTE__CIV_ENEMY_CAN_FIGHT); //40 
+			}
+			else if( pCiv->stats.bLife < pCiv->stats.bLifeMax )
+			{
+				return( CIV_QUOTE__CIV_HURT ); //42
+			}
+			else
+			{
+				return( CIV_QUOTE__CIV_ENEMY_GENERIC ); //41
+			}
+		}
+	}
+
+
+	if( ubCivType == CIV_TYPE_ENEMY )
+	{
+		// Determine what type of quote to say...
+		// Are are we going to attack?
+
+		if ( pCiv->aiData.bAction == AI_ACTION_TOSS_PROJECTILE || pCiv->aiData.bAction == AI_ACTION_FIRE_GUN ||
+							pCiv->aiData.bAction == AI_ACTION_FIRE_GUN || pCiv->aiData.bAction == AI_ACTION_KNIFE_MOVE )
+		{
+			return( CIV_QUOTE_ENEMY_THREAT );
+		}
+
+		// Hurt?
+		else if ( pCiv->stats.bLife < 30 )
+		{
+			return( CIV_QUOTE_ENEMY_HURT );
+		}
+		// elite?
+		else if ( pCiv->ubSoldierClass == SOLDIER_CLASS_ELITE )
+		{
+			return( CIV_QUOTE_ENEMY_ELITE );
+		}
+		else
+		{
+			return( CIV_QUOTE_ENEMY_ADMIN );
+		}
+	}
+
+	return( 255 );
+#else	
+			
 	if ( ubCivType == CIV_TYPE_ENEMY )
 	{
 		// Determine what type of quote to say...
@@ -785,7 +859,7 @@ UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLE
 	{
 		return( CIV_QUOTE_KIDS_ALL_PURPOSE );
 	}
-
+#endif
 }
 
 
@@ -844,7 +918,13 @@ void StartCivQuote( SOLDIERTYPE *pCiv )
 	}
 	else 
 		RandomVal = 15;
-	
+
+#ifdef JA2UB		
+	if( ubCivQuoteID == 255 )
+	{
+		return;
+	}
+#endif	
 	
 	// Determine entry id
 	// ATE: Try and get entry from soldier pointer....

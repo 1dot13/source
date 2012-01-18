@@ -5,6 +5,8 @@
 #include "soldier control.h"
 #include "FileMan.h"
 
+#include "mapscreen.h"
+
 //The maximum size for any team strategically speaking.	For example, we can't have more than 20 enemies, militia, or creatures at a time.
 //#define MAX_STRATEGIC_TEAM_SIZE	20
 
@@ -27,6 +29,13 @@ enum{
 extern INT16	gWorldSectorX;
 extern INT16	gWorldSectorY;
 extern INT8		gbWorldSectorZ;
+
+extern BOOLEAN	gfHiddenTown			[ MAX_TOWNS ];
+extern BOOLEAN	gfDrawHiddenTown		[ MAX_TOWNS ];
+extern BOOLEAN	gfDrawHiddenTownTemp	[ MAX_TOWNS ];
+extern BOOLEAN	gfHiddenTownTemp		[ MAX_TOWNS ];
+extern BOOLEAN	gfIconTown				[ MAX_TOWNS ];
+extern BOOLEAN	gfIconTownTemp			[ MAX_TOWNS ];
 
 // SAM definitions
 extern UINT8	NUMBER_OF_SAMS;
@@ -142,9 +151,13 @@ UINT8 GetMilitiaCountAtLevelAnywhereInTown( UINT8 ubTownValue, UINT8 ubLevelValu
 
 void PrepareLoadedSector();
 
+
+#ifdef JA2UB
+// no JA2 UB
+#else
 // handle for slay...no better place to really put this stuff
 void HandleSlayDailyEvent( void );
-
+#endif
 
 void HandleQuestCodeOnSectorEntry( INT16 sNewSectorX, INT16 sNewSectorY, INT8 bNewSectorZ );
 
@@ -187,5 +200,14 @@ extern INT8 gbGreenToElitePromotions;
 extern INT8 gbGreenToRegPromotions;
 extern INT8 gbRegToElitePromotions;
 extern INT8 gbMilitiaPromotions;
+
+#ifdef JA2UB
+void 	BeginLoadScreen();
+
+//ja25 UB
+void HandleSectorSpecificModificatioToMap( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BOOLEAN fLoadingSavedGame );
+
+void HandleEmailBeingSentWhenEnteringSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BOOLEAN fLaptopJustGotFixed );
+#endif
 
 #endif

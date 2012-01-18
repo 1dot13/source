@@ -52,6 +52,17 @@
 #include "connect.h"
 #include "Reinforcement.h"
 #include "MilitiaSquads.h"
+
+#ifdef JA2UB
+#include "Explosion Control.h"
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#include "MapScreen Quotes.h"
+#include "email.h"
+#include "interface Dialogue.h"
+#include "Arms Dealer Init.h"
+#endif
+
 #include <vector>
 
 //The sector information required for the strategic AI.  Contains the number of enemy troops,
@@ -75,6 +86,13 @@ extern BOOLEAN gfOverrideSector;
 
 INT32 gsInterrogationGridNo[3] = { 7756, 7757, 7758 };
 
+#ifdef JA2UB
+INT32		gsGridNoForMapEdgePointInfo=-1;
+#endif
+
+#ifdef JA2UB
+void HandleBloodCatDeaths( SECTORINFO *pSector );
+#endif
 
 extern void Ensure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pGarraySize );
 
@@ -883,6 +901,37 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 
 	switch( pSoldier->ubProfile )
 	{
+#ifdef JA2UB	
+		case 75://MORRIS:
+
+			if( !pSoldier->bSectorZ )
+			{
+				pSector = &SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ];
+				if( pSector->ubNumElites )
+				{
+					pSector->ubNumElites--;
+				}
+				if( pSector->ubElitesInBattle )
+				{
+					pSector->ubElitesInBattle--;
+				}
+			}
+			 else
+			{
+				UNDERGROUND_SECTORINFO *pUnderground;
+				pUnderground = FindUnderGroundSector( (UINT8)pSoldier->sSectorX, (UINT8)pSoldier->sSectorY, (UINT8)pSoldier->bSectorZ );
+				Assert( pUnderground );
+				if( pUnderground->ubNumElites )
+				{
+					pUnderground->ubNumElites--;
+				}
+				if( pUnderground->ubElitesInBattle )
+				{
+					pUnderground->ubElitesInBattle--;
+				}
+			}
+			break;
+#endif			
 		case MIKE:
 		case IGGY:
 			if( pSoldier->ubProfile == IGGY && !gubFact[ FACT_IGGY_AVAILABLE_TO_ARMY ] )
@@ -1154,6 +1203,11 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 						{
 							pSector->bBloodCats--;
 						}
+#ifdef JA2UB						
+							//JA25 UB
+							//handle anything important when bloodcats die
+							HandleBloodCatDeaths( pSector );
+#endif
 					}
 
 					break;
@@ -1303,6 +1357,10 @@ void AddPossiblePendingEnemiesToBattle()
 	if(!(gWorldSectorX > 0 && gWorldSectorY > 0 && gbWorldSectorZ == 0))//dnl ch57 161009
 		return;
 
+#ifdef JA2UB
+	BOOLEAN fMagicallyAppeared=FALSE;
+#endif
+
 	UINT8 ubSlots, ubNumAvailable;
 	UINT8 ubNumElites, ubNumTroops, ubNumAdmins;
 	UINT8 ubNumGroupsInSector;
@@ -1410,6 +1468,14 @@ void AddPossiblePendingEnemiesToBattle()
 					ubStrategicInsertionCode = INSERTION_CODE_SOUTH;
 				else if( NumEnemiesInSector( gWorldSectorX, gWorldSectorY - 1 ) )
 					ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+			#ifdef JA2UB
+				else if( gsGridNoForMapEdgePointInfo != -1 )
+					{
+						//Ja25: it doesnt matter the entry point at this point, it will become GRIDNO at a later point
+						ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+						fMagicallyAppeared = FALSE;
+					}
+			#endif
 			}
 
 			if( ubStrategicInsertionCode == 255 )
@@ -1609,6 +1675,11 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 	UINT8 ubCurrSlot;
 	UINT8 ubTotalSoldiers;
 	UINT8 bDesiredDirection=0;
+
+#ifdef JA2UB
+	UINT8	ubCnt;
+#endif
+
 	switch( ubStrategicInsertionCode )
 	{
 		case INSERTION_CODE_NORTH:	bDesiredDirection = SOUTHEAST;										break;
@@ -1651,8 +1722,40 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 	}
 
 	ubTotalSoldiers = ubNumAdmins + ubNumTroops + ubNumElites;
+	
+	#ifdef JA2UB
+	if( gsGridNoForMapEdgePointInfo != -1 )
+	{
+		ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+	}
+	#endif
+	
+	#ifdef JA2UB
+	if( ubStrategicInsertionCode == INSERTION_CODE_GRIDNO )
+	{
+		if( gsGridNoForMapEdgePointInfo == -1 )
+		{
+			Assert( 0 );
+			gsGridNoForMapEdgePointInfo=0;
+		}
 
-	ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, (UINT8)(ubNumAdmins+ubNumElites+ubNumTroops) );
+		for( ubCnt=0; ubCnt<32;ubCnt++)
+		{
+			MapEdgepointInfo.sGridNo[ ubCnt ] = gsGridNoForMapEdgePointInfo;
+		}
+
+		MapEdgepointInfo.ubNumPoints = 32;
+		MapEdgepointInfo.ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+	}
+	else
+	{
+		ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, (UINT8)(ubNumAdmins+ubNumElites+ubNumTroops) );
+	}
+	#else
+	    ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, (UINT8)(ubNumAdmins+ubNumElites+ubNumTroops) );
+	#endif
+	
+	
 	ubCurrSlot = 0;
 	while( ubTotalSoldiers )
 	{
@@ -1731,6 +1834,10 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			pSoldier->bActionPoints = 0;
 		}
 	}
+	
+	#ifdef JA2UB
+		gsGridNoForMapEdgePointInfo = -1;
+	#endif
 }
 
 
@@ -1875,7 +1982,10 @@ void BeginCaptureSquence( )
 
 void EndCaptureSequence( )
 {
-
+#ifdef JA2UB
+// no UB
+#else
+     
 	// Set flag...
 	if( !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ) || !(gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE) )
 	{
@@ -1917,7 +2027,7 @@ void EndCaptureSequence( )
 			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_ESCAPE;
 		}
 	}
-
+#endif
 }
 
 void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
@@ -2272,3 +2382,41 @@ BOOLEAN CheckPendingEnemies()
 	return FALSE;
 }
 
+#ifdef JA2UB
+void HandleBloodCatDeaths( SECTORINFO *pSector )
+{
+	//if the current sector is the first part of the town
+	if( gWorldSectorX == 10 && gWorldSectorY == 9 && gbWorldSectorZ == 0 )
+	{
+		//if ALL the bloodcats are killed
+		if( pSector->bBloodCats == 0 )
+		{
+			UINT8 bId1=-1;
+			UINT8 bId2=-1;
+			UINT8 bNum=0;
+
+			SetFactTrue( FACT_PLAYER_KILLED_ALL_BETTYS_BLOODCATS );
+
+			//Instantly have betties missing items show up
+			//DailyCheckOnItemQuantities( TRUE );
+
+			// Now have a merc say the killed bloodcat quote
+			bNum = Get3RandomQualifiedMercs( &bId1, &bId2, NULL );
+
+			//if there are some qualified mercs
+			if( bNum != 0 )
+			{
+				//must make sure TEX doesnt say the quote
+				if( bId1 != NOBODY && Menptr[ bId1 ].ubProfile != 64 )
+				{
+					TacticalCharacterDialogue( &Menptr[ bId1 ], QUOTE_RENEW_REFUSAL_DUE_TO_LACK_OF_FUNDS );
+				}
+				else if( bId2 != NOBODY && Menptr[ bId2 ].ubProfile != 64 )
+				{
+					TacticalCharacterDialogue( &Menptr[ bId2 ], QUOTE_RENEW_REFUSAL_DUE_TO_LACK_OF_FUNDS );
+				}
+			}
+		}
+	}
+}
+#endif

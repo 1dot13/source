@@ -81,6 +81,12 @@
 	// BOB : quick attachment popup
 	#include "popup_class.h"
 #endif
+
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#endif
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SANDRO - all "APBPConstants[AP_PICKUP_ITEM]" were replaced by GetBasicAPsToPickupItem()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1278,15 +1284,15 @@ BOOLEAN InitInvSlotInterface( INV_REGION_DESC *pRegionDesc , INV_REGION_DESC *pC
 	// Kaiden: Vehicle Inventory change - Added two new STI's for Vehicle Inventory
 	// Feel free to change them to more appropriate pictures, I just blanked out
 	// the body image for now, I'm no graphics artist.
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\inventory_figure_Vehicle.sti",
-VObjectDesc.ImageFile);
-	CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 4 ][ 0 ] ) ) );
+	//VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	//FilenameForBPP("INTERFACE\\inventory_figure_Vehicle.sti",
+	//VObjectDesc.ImageFile);
+	//CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 4 ][ 0 ] ) ) );
 
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\inventory_figure_Vehicle_h.sti",
-VObjectDesc.ImageFile);
-	CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 4 ][ 1 ] ) ) );
+	//VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	//FilenameForBPP("INTERFACE\\inventory_figure_Vehicle_h.sti",
+	//VObjectDesc.ImageFile);
+	//CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 4 ][ 1 ] ) ) );
 
 	// add gold key graphic
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
@@ -1410,12 +1416,12 @@ void ShutdownInvSlotInterface( )
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 2 ][ 0 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 1 ][ 0 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 3 ][ 0 ] );
-	DeleteVideoObjectFromIndex( guiBodyInvVO[ 4 ][ 0 ] );
+	//DeleteVideoObjectFromIndex( guiBodyInvVO[ 4 ][ 0 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 0 ][ 1 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 2 ][ 1 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 1 ][ 1 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 3 ][ 1 ] );
-	DeleteVideoObjectFromIndex( guiBodyInvVO[ 4 ][ 1 ] );
+	//DeleteVideoObjectFromIndex( guiBodyInvVO[ 4 ][ 1 ] );
 
 	DeleteVideoObjectFromIndex( guiGoldKeyVO );
 
@@ -1441,7 +1447,7 @@ void RenderInvBodyPanel( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY )
 	// the original statement
 	if ( (gGameExternalOptions.fVehicleInventory) && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 	{
-		BltVideoObjectFromIndex( guiSAVEBUFFER, guiBodyInvVO[4][0], 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
+		//BltVideoObjectFromIndex( guiSAVEBUFFER, guiBodyInvVO[4][0], 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 	else
 	{
@@ -2487,7 +2493,7 @@ void DegradeNewlyAddedItems( )
 	{
 		guiNewlyPlacedItemTimer = uiTime;
 
-		for ( cnt2 = 0; cnt2 < NUM_TEAM_SLOTS; cnt2++ )
+		for ( cnt2 = 0; cnt2 < gGameOptions.ubSquadSize; cnt2++ )
 		{
 			// GET SOLDIER
 			if ( gTeamPanel[ cnt2 ].fOccupied )
@@ -6738,8 +6744,8 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 					}
 
 					// Charge AP values...
-					DeductPoints( pSoldier, 3, 0 );
-					DeductPoints( gpItemPointerSoldier, 3, 0 );
+					DeductPoints( pSoldier, 3, 0, UNTRIGGERED_INTERRUPT );
+					DeductPoints( gpItemPointerSoldier, 3, 0, UNTRIGGERED_INTERRUPT );
 
 					usItem = gpItemPointer->usItem;
 
@@ -7709,6 +7715,21 @@ BOOLEAN LoadTileGraphicForItem( INVTYPE *pItem, UINT32 *puiVo )
 			sprintf( zName, "p2item%d", ubGraphic );
 		}
 	}
+/*
+#ifdef JA2UB
+	else if ( pItem->ubGraphicType == 9 ) // UB Items
+	{
+		if ( ubGraphic < 10 )
+		{
+			sprintf( zName, "GUN_UB0%d", ubGraphic );
+		}
+		else
+		{
+			sprintf( zName, "GUN_UB%d", ubGraphic );
+		}
+	}
+#endif
+*/
 	else
 	{
 		if ( ubGraphic < 10 )

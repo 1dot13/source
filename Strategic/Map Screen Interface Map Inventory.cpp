@@ -40,6 +40,7 @@
 #include "InterfaceItemImages.h"
 #include "SaveLoadGame.h"//dnl ch51 081009
 #include "Map Information.h"//dnl ch51 091009
+#include "Interface Items.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

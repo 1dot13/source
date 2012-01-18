@@ -149,6 +149,10 @@ void DestroyTileSurfaces( void );
 void ProcessTilesetNamesForBPP(void);
 BOOLEAN IsRoofVisibleForWireframe( INT32 sMapPos );
 
+#ifdef JA2UBMAPS
+INT32						giOldTilesetUsed;
+#endif
+
 
 INT8 IsHiddenTileMarkerThere( INT32 sGridNo );
 extern void SetInterfaceHeightLevel( );
@@ -283,6 +287,10 @@ BOOLEAN InitializeWorld( )
 	gTileDatabaseSize = 0;
 	gSurfaceMemUsage = 0;
 	giCurrentTilesetID = -1;
+	
+	#ifdef JA2UBMAPS
+	giOldTilesetUsed = -1;
+	#endif
 
 	// DB Adds the _8 to the names if we're in 8 bit mode.
 	//ProcessTilesetNamesForBPP();
@@ -407,7 +415,22 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 	SetRelativeStartAndEndPercentage( 0, 1, 35, L"Tile Surfaces" );
 	for (uiLoop = 0; uiLoop < NUMBEROFTILETYPES; uiLoop++)
 	{
-
+	
+	
+		// ATE: Set flag indicating to use another default
+		// tileset
+	#ifdef JA2UBMAPS
+		// 1 ) If we are going from JA2 to JA25
+		if ( giOldTilesetUsed < DEFAULT_JA25_TILESET && ubTilesetID >= DEFAULT_JA25_TILESET )
+		{
+			gbDefaultSurfaceUsed[ uiLoop ] = FALSE;
+		}
+		// 2) From JA25 to JA2
+		if ( ( giOldTilesetUsed >= DEFAULT_JA25_TILESET || giOldTilesetUsed == -1 ) && ubTilesetID < DEFAULT_JA25_TILESET )
+		{
+			gbDefaultSurfaceUsed[ uiLoop ] = FALSE;
+		}
+	#endif
 		uiPercentage = (uiLoop * 100) / (NUMBEROFTILETYPES-1);
 		RenderProgressBar( 0, uiPercentage );
 
@@ -472,12 +495,34 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 					// ATE: If here, don't load default surface if already loaded...
 					if ( !gbDefaultSurfaceUsed[ uiLoop ] )
 					{
+					
+						#ifdef JA2UBMAPS
+						if( ubTilesetID < DEFAULT_JA25_TILESET && uiLoop != SPECIALTILES )
+						{
+							strcpy( TileSurfaceFilenames[uiLoop], gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[uiLoop] );//(char *)(ppTileSurfaceFilenames + (65 * uiLoop)) );
+							if (AddTileSurface( gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[uiLoop], uiLoop, TLS_GENERIC_1, FALSE ) == FALSE)
+							{
+								DestroyTileSurfaces(  );
+								return( FALSE );
+							}
+						}
+						else
+						{
+							strcpy( TileSurfaceFilenames[uiLoop], gTilesets[ DEFAULT_JA25_TILESET ].TileSurfaceFilenames[uiLoop] );//(char *)(ppTileSurfaceFilenames + (65 * uiLoop)) );
+							if (AddTileSurface( gTilesets[ DEFAULT_JA25_TILESET ].TileSurfaceFilenames[uiLoop], uiLoop, DEFAULT_JA25_TILESET, FALSE ) == FALSE)
+							{
+								DestroyTileSurfaces(  );
+								return( FALSE );
+							}
+						}						
+						#else
 						strcpy( TileSurfaceFilenames[uiLoop], gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[uiLoop] );//(ppTileSurfaceFilenames + (65 * uiLoop)) );
 						if (AddTileSurface( gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[uiLoop], uiLoop, TLS_GENERIC_1, FALSE ) == FALSE)
 						{
 							DestroyTileSurfaces(	);
 							return( FALSE );
 						}
+						#endif
 					}
 					else
 					{
@@ -533,6 +578,18 @@ BOOLEAN AddTileSurface( STR8  cFilename, UINT32 ubType, UINT8 ubTilesetID, BOOLE
 	gTileSurfaceArray[ ubType ] = TileSurf;
 
 	// OK, if we were not the default tileset, set value indicating that!
+	
+	#ifdef JA2UBMAPS
+	// OK, if we were not the default tileset, set value indicating that!
+	if ( ubTilesetID != TLS_GENERIC_1 && ubTilesetID != 0 )
+	{
+		gbDefaultSurfaceUsed[ ubType ] = FALSE;
+	}
+	else
+	{
+		gbDefaultSurfaceUsed[ ubType ] = TRUE;
+	}
+	#else
 	if ( ubTilesetID != TLS_GENERIC_1 )
 	{
 		gbDefaultSurfaceUsed[ ubType ] = FALSE;
@@ -541,7 +598,8 @@ BOOLEAN AddTileSurface( STR8  cFilename, UINT32 ubType, UINT8 ubTilesetID, BOOLE
 	{
 		gbDefaultSurfaceUsed[ ubType ] = TRUE;
 	}
-
+	#endif
+	
 	gbNewTileSurfaceLoaded[ ubType ] = TRUE;
 
 	return( TRUE );
@@ -710,7 +768,12 @@ void CompileWorldTerrainIDs( void )
 			pNode = gpWorldLevelData[ sGridNo ].pObjectHead;
 
 			// ATE: CRAPOLA! Special case stuff here for the friggen pool since art was fu*ked up
+			
+			#ifdef JA2UBMAPS
+			if ( giCurrentTilesetID == TEMP_19 )
+			#else
 			if ( giCurrentTilesetID == TLS_BALIME_MUSEUM )
+			#endif
 			{
 				// Get ID
 				if ( pNode != NULL )
@@ -3276,10 +3339,12 @@ void TrashWorld( void )
 
 	//Remove the schedules
 	DestroyAllSchedules();
-
+#ifdef JA2UB
+//Ja25 no meanwhiles
+#else
 	// on trash world sheck if we have to set up the first meanwhile
 	HandleFirstMeanWhileSetUpWithTrashWorld( );
-
+#endif
 	// Create world randomly from tiles
 	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
 	{
@@ -3479,6 +3544,10 @@ void TrashMapTile(INT16 MapTile)
 
 BOOLEAN LoadMapTileset( INT32 iTilesetID )
 {
+
+#ifdef JA2UBMAPS
+giOldTilesetUsed = giCurrentTilesetID;
+#endif
 
 	if ( iTilesetID >= gubNumSets )
 	{

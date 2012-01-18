@@ -379,6 +379,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Ja25 Strategic Ai.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Luaglobal.h"
 				>
 			</File>
@@ -412,6 +416,10 @@
 			</File>
 			<File
 				RelativePath=".\Map Screen Interface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MapScreen Quotes.h"
 				>
 			</File>
 			<File
@@ -577,6 +585,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Ja25 Strategic Ai.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Luaglobal.cpp"
 				>
 			</File>
@@ -610,6 +622,10 @@
 			</File>
 			<File
 				RelativePath=".\Map Screen Interface.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MapScreen Quotes.cpp"
 				>
 			</File>
 			<File

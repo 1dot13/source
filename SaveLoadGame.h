@@ -15,15 +15,25 @@ class SOLDIERTYPE;
 
 #define		GAME_VERSION_LENGTH					16
 
-#define		SAVE__ERROR_NUM						99
-#define		SAVE__END_TURN_NUM					98
+#define		SAVE__ERROR_NUM						249//99
+
+// WANNE:	The end turn have 2 saves (Auto00.sav and Auto01.sav). This 2 save slots should be underneath the 5 auto save slots
+#define		SAVE__END_TURN_NUM					248//98
+#define		SAVE__END_TURN_NUM_1				6//98
+#define		SAVE__END_TURN_NUM_2				7//98
 
 // WDS - Automatically try to save when an assertion failure occurs
-#define		SAVE__ASSERTION_FAILURE				97
 
-#define     SAVE__TIMED_AUTOSAVE				19	// WANNE: This slot does not show up in the load/save screen because it is > 18
+// WANNE:	This SAVEGAME should not show up in the load screen
+#define		SAVE__ASSERTION_FAILURE				247//97
 
-#define		EARLIST_SPECIAL_SAVE				97
+#define     SAVE__TIMED_AUTOSAVE_SLOT1				1 //19	// WANNE: This slot does not show up in the load/save screen because it is > 18
+#define     SAVE__TIMED_AUTOSAVE_SLOT2				2 
+#define     SAVE__TIMED_AUTOSAVE_SLOT3				3
+#define     SAVE__TIMED_AUTOSAVE_SLOT4				4
+#define     SAVE__TIMED_AUTOSAVE_SLOT5				5
+
+#define		EARLIST_SPECIAL_SAVE				247//97
 
 
 typedef struct
@@ -62,11 +72,7 @@ typedef struct
 
 	UINT32	uiRandom;
 
-	UINT8	ubInventorySystem;
-
-	UINT8	ubAttachmentSystem;
-
-	UINT8		ubFiller[108];	// WANNE: Changed from 109 to 108 because of ubNewAttachmentSystem integration
+	UINT8		ubFiller[500];	// WANNE: Decrease this filler by 1, for each new UINT8 variable!
 
 } SAVED_GAME_HEADER;
 
@@ -92,7 +98,7 @@ BOOLEAN DoesUserHaveEnoughHardDriveSpace();
 void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSectorZ );
 
 
-extern UINT32	guiLastSaveGameNum;
+extern UINT32	guiLastSaveGameNum;			// The end turn auto save number (0 = Auto00.sav, 1 = Auto01.sav)
 INT8		GetNumberForAutoSave( BOOLEAN fLatestAutoSave );
 
 #endif

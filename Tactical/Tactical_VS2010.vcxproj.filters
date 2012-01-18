@@ -258,6 +258,9 @@
     <ClInclude Include="XML_Profiles.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ja25_Tactical.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Air Raid.cpp">
@@ -600,6 +603,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_NewFaceGear.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_Vehicles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ja25_Tactical.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

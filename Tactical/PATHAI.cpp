@@ -3539,7 +3539,18 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 						ubAPCost += APBPConstants[AP_MODIFIER_RUN];
 						//ubAPCost = (INT16)(DOUBLE)( (sTileCost / RUNDIVISOR) );	break;
 						break;
+					case WALKING_PISTOL_RDY: 
+					case WALKING_RIFLE_RDY:
+					case WALKING_DUAL_RDY:
+						ubAPCost += APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];	//WALKCOST);
+						break;
 					case WALKING:
+						ubAPCost += APBPConstants[AP_MODIFIER_WALK];	//WALKCOST);
+						if (!(s->MercInWater()) && ( (gAnimControl[ s->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ s->usAnimState ].uiFlags & ANIM_FIRE ) ))
+						{
+							ubAPCost += APBPConstants[AP_MODIFIER_READY];	//WALKCOST);
+						}
+						break;
 					case ROBOT_WALK:
 						ubAPCost += APBPConstants[AP_MODIFIER_WALK];	//WALKCOST);
 						break;
@@ -3573,6 +3584,9 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 					{
 						case RUNNING:
 						case WALKING :
+						case WALKING_PISTOL_RDY:
+						case WALKING_RIFLE_RDY:
+						case WALKING_DUAL_RDY:
 							// Here pessimistically assume the path will continue after hopping the fence
 							ubAPCost += GetAPsCrouch( s, TRUE ); // SANDRO - changed
 							break;
@@ -3595,6 +3609,9 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 					{
 						case RUNNING:
 						case WALKING :
+						case WALKING_PISTOL_RDY:
+						case WALKING_RIFLE_RDY:
+						case WALKING_DUAL_RDY:
 							// charge crouch APs for ducking head!
 							ubAPCost += GetAPsCrouch( s, TRUE ); // SANDRO - changed
 							break;
@@ -4452,6 +4469,9 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 				{
 					case RUNNING:
 					case WALKING :
+					case WALKING_PISTOL_RDY:
+					case WALKING_RIFLE_RDY:
+					case WALKING_DUAL_RDY:
 
 						// Add here cost to go from crouch to stand AFTER fence hop....
 						// Since it's AFTER.. make sure we will be moving after jump...
@@ -4493,6 +4513,9 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 					{
 						case RUNNING:
 						case WALKING :
+						case WALKING_PISTOL_RDY:
+						case WALKING_RIFLE_RDY:
+						case WALKING_DUAL_RDY:
 							// charge crouch APs for ducking head!
 							sExtraCostStand += GetAPsCrouch(pSold, TRUE); // changed by SANDRO
 							break;
@@ -4513,7 +4536,19 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 						sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_RUN];
 						break;
 					case WALKING:
-						sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_WALK];
+						if (!(pSold->MercInWater()) && ( (gAnimControl[ pSold->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ pSold->usAnimState ].uiFlags & ANIM_FIRE ) ))
+						{
+							sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];	
+						}
+						else
+						{
+							sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_WALK];						
+						}
+						break;
+					case WALKING_PISTOL_RDY:
+					case WALKING_RIFLE_RDY:
+					case WALKING_DUAL_RDY:
+						sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];
 						break;
 					case SWATTING:
 						sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_SWAT];
@@ -4592,6 +4627,11 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 					sPointsCrawl += sMovementAPsCost + APBPConstants[AP_MODIFIER_CRAWL];
 					sPointsSwat += sMovementAPsCost + APBPConstants[AP_MODIFIER_SWAT];
 					sPointsRun += sMovementAPsCost + APBPConstants[AP_MODIFIER_RUN];
+				}
+				// walking with weapon raised?
+				if (!(pSold->MercInWater()) && ( (gAnimControl[ pSold->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ pSold->usAnimState ].uiFlags & ANIM_FIRE ) ))
+				{
+					sPointsWalk += APBPConstants[AP_MODIFIER_READY];
 				}
 				// Check for stealth mode
 				if ( pSold->bStealthMode || bStealth )

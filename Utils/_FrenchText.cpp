@@ -11,6 +11,7 @@
 		#include "Scheduling.h"
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
+		#include "Encyclopedia.h"
 	#endif
 #endif
 
@@ -114,6 +115,202 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 	SirTech uses the "@@@" notation.
 
 */
+
+CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] = 
+{
+	L"",
+};
+
+//Encyclopedia
+
+STR16 pMenuStrings[] =
+{
+	//Encyclopedia
+	L"Locations", // 0
+	L"Characters",
+	L"Items",
+	L"Quests",
+	L"Menu 5",
+	L"Menu 6", //5
+	L"Menu 7", 
+	L"Menu 8",
+	L"Menu 9",
+	L"Menu 10",
+	L"Menu 11", //10
+	L"Menu 12",
+	L"Menu 13",
+	L"Menu 14",
+	L"Menu 15",
+	L"Menu 15", // 15
+	
+	//Briefing Room
+	L"Exit",
+};
+
+STR16	pOtherButtonsText[] =
+{
+	L"Briefing", 
+	L"Accept",
+};
+
+STR16	pOtherButtonsHelpText[] =
+{
+	L"Briefing",
+	L"Accept missions",
+};
+
+
+STR16	pLocationPageText[] =
+{
+	L"Prev page",
+	L"Photo", 
+	L"Next page",
+};
+
+STR16	pSectorPageText[] =
+{
+	L"<<",
+	L"Main page",
+	L">>",
+	L"Type: ",
+	L"Empty data",
+	L"Missing of defined missions. Add missions to the file TableData\\BriefingRoom\\BriefingRoom.xml. First mission has to be visible. Put value Hidden = 0.",
+};
+
+STR16	pEncyclopediaTypeText[] = 
+{
+	L"Unknown",// 0 - unknown
+	L"City", //1 - cities
+	L"SAM Site", //2 - SAM Site
+	L"Other location", //3 - other location
+	L"Mines", //4 - mines 
+	L"Military complex", //5 - military complex 
+	L"Laboratory complex",  //6 - laboratory complex 
+	L"Factory complex", //7 - factory complex 
+	L"Hospital", //8 - hospital 
+	L"Prison", //9 - prison
+    L"Airport", //10 - air port 
+};
+
+STR16	pEncyclopediaHelpCharacterText[] = 
+{
+	L"Show all",
+	L"Show AIM",
+	L"Show MERC",
+	L"Show RPC",
+	L"Show NPC",
+	L"Show Pojazd",
+	L"Show IMP",
+	L"Show EPC",
+	L"Filter",
+};
+
+STR16	pEncyclopediaShortCharacterText[] = 
+{
+	L"All",
+	L"AIM",
+	L"MERC",
+	L"RPC",
+	L"NPC",
+	L"Veh.",
+	L"IMP",
+	L"EPC",
+	L"Filter",
+};
+
+STR16	pEncyclopediaHelpText[] = 
+{
+	L"Show all",
+	L"Show cities",
+	L"Show SAM Sites",
+	L"Show other location",
+	L"Show mines",
+	L"Show military complex",
+	L"Show laboratory complex",
+	L"Show Factory complex",
+	L"Show hospital",
+	L"Show prison",
+	L"Show air port",
+};
+
+STR16	pEncyclopediaSkrotyText[] = 
+{
+	L"All",
+	L"City",
+	L"SAM",
+	L"Other",
+	L"Mine",
+	L"Mil.",
+	L"Lab.",
+	L"Fact.",
+	L"Hosp.",
+	L"Prison",
+	L"Air.",
+};
+
+STR16	pEncyclopediaShortInventoryText[] = 
+{
+	L"All", //0
+	L"Gun",
+	L"Ammo",
+	L"LBE",
+	L"Misc",
+	
+	L"All", //5
+	L"Gun",
+	L"Ammo",
+	L"LBE Gear",
+	L"Misc",
+};
+
+STR16			BoxFilter[] =
+{
+	// Guns
+	L"Heavy",
+	L"Pistol",
+	L"M. Pist.",
+	L"SMG",
+	L"Rifle",
+	L"S. Rifle",
+	L"A. Rifle",
+	L"MG",
+	L"Shotgun",
+
+	// Ammo
+	L"Pistol",
+	L"M. Pist.", //10
+	L"SMG",
+	L"Rifle",
+	L"S. Rifle",
+	L"A. Rifle",
+	L"MG",
+	L"Shotgun",
+
+	// Used
+	L"Guns",
+	L"Armor",
+	L"LBE Gear",
+	L"Misc", //20
+
+	// Armour
+	L"Helmets",
+	L"Vests",
+	L"Leggings",
+	L"Plates",
+
+	// Misc
+	L"Blades",
+	L"Th. Knife",
+	L"Melee",
+	L"Grenades",
+	L"Bombs",
+	L"Med.", //30
+	L"Kits",
+	L"Face",
+	L"LBE",
+	L"Misc.", //34
+};
+//-----------
 
 // Editor
 //Editor Taskbar Creation.cpp
@@ -2428,6 +2625,11 @@ CHAR16 zHealthStr[][13] =
 	L"EXCELLENT",		// 	>= 90
 };
 
+STR16 gzHiddenHitCountStr[1] =
+{
+	L"?",	
+};
+
 STR16	gzMoneyAmounts[6] = 
 { 
 	L"1000",
@@ -3464,7 +3666,11 @@ STR16 pFilesTitle[] =
 
 STR16 pFilesSenderList[] =
 {
+#ifdef JA2UB
+L"Rapport Tracona", 		// the recon report sent to the player. Recon is an abbreviation for reconissance
+#else
 L"Rapport Arulco", 		// the recon report sent to the player. Recon is an abbreviation for reconissance
+#endif
 	L"Interception #1", 		// first intercept file .. Intercept is the title of the organization sending the file...similar in function to INTERPOL/CIA/KGB..refer to fist record in files.txt for the translated title
 	L"Interception #2",	   // second intercept file
 	L"Interception #3",			 // third intercept file
@@ -3624,6 +3830,8 @@ STR16 pBookMarkStrings[] =
 	L"Fleuriste",
 	L"Assurance",
 	L"Annuler",
+	L"Encyclopedia",
+	L"Briefing Room",
 };
 
 STR16 pBookmarkTitle[] =
@@ -3733,8 +3941,10 @@ STR16 pWebPagesTitles[] =
 	L"",
 	L"URL introuvable.",
 	L"Bobby Ray - Dernières commandes",
-	L"",
-	L"",
+	L"Encyclopedia",
+	L"Encyclopedia - Data",
+	L"Briefing Room",
+	L"Briefing Room - Data",
 };
 
 STR16 pShowBookmarkString[] =
@@ -4698,7 +4908,7 @@ STR16			zSaveLoadText[] =
 	//the second is the recommended amount of free space.
 	L"Votre risquez de manquer d'espace disque. Il ne vous reste que %d Mo de libre alors que le jeu nécessite %d Mo d'espace libre.",	
 
-	L"Enregistrement...",			//When saving a game, a message box with this string appears on the screen
+	L"Enregistrement",			//When saving a game, a message box with this string appears on the screen
 
 	L"Quelques Armes",
 	L"Toutes Armes",
@@ -4716,6 +4926,8 @@ STR16			zSaveLoadText[] =
 
 	L"Le nouvel inventaire (NIV) ne peut se lancer en 640x480. Changez de résolution.",
 	L"Le nouvel inventaire (NIV) ne fonctionne pas depuis le dossier \"data\" original.",
+
+	L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",	// TODO.Translate
 };
 
 
@@ -4968,9 +5180,15 @@ STR16	zOptionsScreenHelpText[] =
 STR16	gzGIOScreenText[] =
 {
 	L"CONFIGURATION DU JEU",
+#ifdef JA2UB
+	L"Random Manuel texts ",
+	L"Off",
+	L"On",
+#else
 	L"Style de jeu",
 	L"Réaliste",
 	L"S-F",
+#endif	
 	L"Platinum", //Placeholder English
 	L"Armes disponibles",
 	L"Toutes",
@@ -5010,9 +5228,15 @@ STR16	gzGIOScreenText[] =
 	L"Objets lachés par les ennemis",
 	L"Off",
 	L"On",
+#ifdef JA2UB
+	L"Tex and John",
+	L"Random",
+	L"All",
+#else
 	L"Nombre de terroristes",
 	L"Aléatoire",
-	L"Tous",
+	L"Tout",
+#endif	
 	L"Cachettes d'armes secrètes",
 	L"Aléatoire",
 	L"Toutes",
@@ -5025,6 +5249,12 @@ STR16	gzGIOScreenText[] =
 	L"Ancien / Ancien",
 	L"Nouveau / Ancien",
 	L"Nouveau / Nouveau",
+
+	// Squad Size
+	L"Max. Squad Size",
+	L"6",
+	L"8",
+	L"10",
 };
 
 STR16	gzMPJScreenText[] =
@@ -5308,7 +5538,7 @@ STR16 pMessageStrings[] =
 	L"Vous ne pouvez pas payer le salaire de %s qui se monte à %s",	//first %s is the mercs name, the seconds is a string containing the salary
 	L"Passer",
 	L"%s ne peut sortir seul.",
-	L"Une sauvegarde a été crée (Partie99.sav). Renommez-la (Partie01 - Partie10) pour pouvoir la charger ultérieurement.",
+	L"Une sauvegarde a été crée (Partie249.sav). Renommez-la (Partie01 - Partie10) pour pouvoir la charger ultérieurement.",
 	L"%s a bu %s",
 	L"Un colis vient d'arriver à Drassen.",
  	L"%s devrait arriver au point d'entrée (secteur %s) au jour %d vers %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
@@ -5324,13 +5554,27 @@ STR16 pMessageStrings[] =
 	L"Mode tour par tour normal",
 	L"Mode de combat quitté",
 	L"Mode tour par tour forcé activé, mode de combat activé",
-#ifdef JA2BETAVERSION
 	L"Partie enregistrée dans l'emplacement de sauvegarde automatique.",
-#endif
 	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.
 	L"Client",
-
+	
 	L"Vous ne pouvez pas utiliser l'ancien système d'inventaire et le nouveau système d'accessoire en même temps.",
+	
+	// TODO.Translate
+	L"Auto Save #", //91		// Text des Auto Saves im Load Screen mit ID
+	L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
+	L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
+	L"AutoSaveGame",		// 94	// The filename of the auto save, such as AutoSaveGame01 - AutoSaveGame05
+	L"End-Turn Save #",	// 95	// The text for the tactical end turn auto save
+	L"Saving Auto Save #",	// 96	// The message box, when doing auto save
+	L"Saving",	// 97	// The message box, when doing end turn auto save
+	L"Empty End-Turn Save Slot #",	// 98	// The message box, when doing auto save
+	L"This Slot is reserved for Tactical End-Turn Saves, which can be enabled/disabled in the Option Screen.", //99	// The text, when the user clicks on the save screen on an auto save
+	// Mouse tooltips
+	L"QuickSave.sav",	// 100
+	L"AutoSaveGame%02d.sav",	// 101
+	L"Auto%02d.sav",	// 102
+	L"SaveGame%02d.sav", //103
 };
 
 
@@ -5392,6 +5636,10 @@ STR16 gzLaptopHelpText[] =
 	L"Morgue McGillicutty",
 	L"Service des Fleuristes Associés",
 	L"Courtiers d'Assurance des Mercenaires de l'A.I.M.",
+	//New Bookmarks
+	L"",
+	L"Encyclopedia",
+	L"Briefing Room",
 };
 
 
@@ -5587,8 +5835,11 @@ STR16 gzLateLocalizedString[] =
 	L"Tous vos mercenaires ont été soignés.",
 
 	//14
+#ifdef JA2UB
+	L"Tracona",
+#else
 	L"Arulco",
-
+#endif
     L"(toit)",
 
 	L"Santé : %d/%d",
@@ -6839,4 +7090,37 @@ STR16 gzNCTHlabels[]=
 // HEADROCK HAM 4: End new UDB texts and tooltips
 //////////////////////////////////////////////////////
 
+STR16	gzNewLaptopMessages[]=
+{
+	L"Ask about our special offer!",
+	L"Temporarily Unavailable",
+	L"This special press preview of Jagged Alliance 2: Unfinished Business contains the only first 6 sector maps. The final version of the game will feature many more - please see the included readme file for details.",
+};
+
+STR16	zNewTacticalMessages[]=
+{
+	//L"Distance cible: %d tiles, Brightness: %d/%d",
+	L"Attachez le transpondeur à votre PC portable.",
+	L"Vous n'avez pas les moyens d'engager %s",
+	L"Pour une durée limitée, les frais ci-dessus couvrent la mission entière, équipement ci-dessous compris.",
+	L"Engagez %s et découvrez dès à présent notre prix \"tout compris\".  Aussi inclus dans cette incroyable offre, l'équipement personnel du mercenaire sans frais supplémentaires.",
+	L"Frais",
+	L"Il y a quelqu'un d'autre dans le secteur...",
+	//L"Portée arme: %d tiles, de chances: %d pourcent",
+	L"Afficher couverture",
+	L"Ligne de vision",
+	L"Les nouvelles recrues ne peuvent arriver ici.",
+	L"Comme votre PC n'a pas de transpondeur, vous ne pouvez engager de nouvelles recrues. Revenez à une sauvegarde précédente et réessayez.",
+	L"%s entend le son de métal broyé provenant d'en dessous du corps de Jerry.  On dirait que l'antenne de votre PC ne sers plus à rien.",  //the %s is the name of a merc.  @@@  Modified
+	L"Apres avoir scanné la note laissée par le Deputy Commander Morris, %s sent une oppurtinité. La note contient les coordonnées pour le lancement de missiles sur Arulco. Elle contient aussi l'emplacement de l'usine d'où les missiles proviennent.",
+	L"En examinant le panneau de contrôle, %s s'aperçoît que les chiffres peuvent être inversés pour que les missiles détruisent cette même usine.  %s a besoin de trouver un chemin pour s'enfuir.  L'ascenseur semble être la solution la plus rapide...",
+	L"Ceci est un jeu IRON MAN et vous ne pouvez pas sauvegarder s'il ya des ennemis dans les parages.",	//	@@@  new text
+	L"(ne peut sauvegarder en plein combat)", //@@@@ new text
+	L"Le nom de la campagne actuelle est supérieur à 30 lettres.",							// @@@ new text
+	L"La campagne actuelle est introuvable.",																	// @@@ new text
+	L"Campagne: Par défaut ( %S )",																							// @@@ new text
+	L"Campagne: %S",																													// @@@ new text
+	L"Vous avez choisi la campagne %S. Cette campagne est un mod d'Unfinished Business. Etes-vous sûr de vouloir jouer la campagne %S ?",			// @@@ new text
+	L"Pour pouvoir utiliser l'éditeur, veuillez choisir une autre campagne que celle par défaut.",		///@@new
+};
 #endif //FRENCH

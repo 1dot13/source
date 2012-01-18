@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Tactical"
 	ProjectGUID="{8E3BD72D-8791-497B-A38E-D71B255F0A66}"
 	RootNamespace="Tactical"
@@ -496,6 +496,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Ja25_Tactical.h"
+				>
+			</File>
+			<File
 				RelativePath="Keys.h"
 				>
 			</File>
@@ -824,6 +828,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Ja25_Tactical.cpp"
+				>
+			</File>
+			<File
 				RelativePath="Keys.cpp"
 				>
 			</File>
@@ -1133,6 +1141,10 @@
 			</File>
 			<File
 				RelativePath="XML_TonyInventory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Vehicles.cpp"
 				>
 			</File>
 		</Filter>

@@ -6526,6 +6526,10 @@ void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
 		case 0:
 		{
 			//UINT32 uiTimeUnderThisDisplayAsHours = 24*60;
+#ifdef JA2UB
+			wcscpy( sString, gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[PRSNL_TXT_CURRENT_CONTRACT]);
+#else
 			static const UINT32 uiMinutesInDay = 24 * 60;
 
 				if(Menptr[iId].ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC || Menptr[iId].ubProfile == SLAY )
@@ -6569,7 +6573,7 @@ void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
 					wcscpy( sString, gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
 					mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[PRSNL_TXT_CURRENT_CONTRACT]);
 				}
-
+#endif
 		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)+Prsnl_DATA_OffSetX),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
 		}
@@ -7319,6 +7323,11 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 						wcscat( apStr, atStr );
 					}
 				}
+				if( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[27], ( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving * (fExpertLevel ? 2 : 1)), L"%");
+					wcscat( apStr, atStr );
+				}
 				if( gSkillTraitValues.ubMAChanceToCkickDoors != 0 )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[25], ( gSkillTraitValues.ubMAChanceToCkickDoors * (fExpertLevel ? 2 : 1)), L"%");
@@ -7350,6 +7359,11 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				if( gSkillTraitValues.ubSLEffectiveLevelAsStandby != 0 )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[2], ( gSkillTraitValues.ubSLEffectiveLevelAsStandby * (fExpertLevel ? 2 : 1)));
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSLCollectiveInterruptsBonus != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[11], ( gSkillTraitValues.ubSLCollectiveInterruptsBonus * (fExpertLevel ? 2 : 1)), L"%");
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubSLOverallSuppresionBonusPercent != 0 )
@@ -7706,6 +7720,11 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				if( gSkillTraitValues.ubSTStealthBonus != 0 )
 				{
 					swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[2], gSkillTraitValues.ubSTStealthBonus, L"%");
+					wcscat( apStr, atStr );
+				}
+				if( gSkillTraitValues.ubSTReducedAPsRegistered != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+				{
+					swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[4], gSkillTraitValues.ubSTReducedAPsRegistered, L"%");
 					wcscat( apStr, atStr );
 				}
 				if( gSkillTraitValues.ubSTStealthPenaltyForMovingReduction != 0 )

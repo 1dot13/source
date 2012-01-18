@@ -47,7 +47,7 @@
 	#include "Queen Command.h"
 	#include "Map Screen Interface Map Inventory.h"
 #endif
-
+#include "Animation Control.h"
 #include <vfs/Core/vfs.h>
 BOOLEAN gfWasInMeanwhile = FALSE;
 
@@ -931,12 +931,15 @@ BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
 		gfWasInMeanwhile = FALSE;
 		return TRUE;
 	}
+#ifdef JA2UB
+//Ja25v No meanwhiles
+#else
 	else if( AreInMeanwhile() )
 	{
 		gfInMeanwhile = FALSE;
 		fShouldBeInMeanwhile = TRUE;
 	}
-
+#endif
 	//If we havent been to tactical yet
 	if( ( gWorldSectorX == 0 ) && ( gWorldSectorY == 0 ) )
 	{
@@ -1037,11 +1040,14 @@ BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
 
 	EnableModifiedFileSetCache(cacheResetValue);
 
+#ifdef JA2UB
+//Ja25 no meanwhile
+#else
 	if( fShouldBeInMeanwhile )
 	{
 		gfInMeanwhile = TRUE;
 	}
-
+#endif
 	return( TRUE );
 }
 
@@ -1196,7 +1202,9 @@ BOOLEAN LoadCurrentSectorsInformationFromTempItemsFile()
 	//
 	// Load in the sectors ITems
 	//
-
+#ifdef JA2UB
+//Ja25v no meanwhiles
+#else
 	if( AreInMeanwhile() )
 	{ //There will never be a temp file for the meanwhile scene, so return TRUE.  However,
 		//set a flag to not save it either!
@@ -1217,7 +1225,7 @@ BOOLEAN LoadCurrentSectorsInformationFromTempItemsFile()
 		}
 		return TRUE;
 	}
-
+#endif
 	//if we are in an above ground sector
 
 	//If there is a file, load in the Items array

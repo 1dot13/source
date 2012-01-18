@@ -20,33 +20,6 @@ void this_is_the_Ja25PolishText_public_symbol(void){;}
 
 // VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
 
-STR16	zNewTacticalMessages[]=
-{
-	//L"Odległość od celu (w polach): %d, Jasność = %d/%d",
-	L"Nadajnik został podłączony do twojego laptopa.",
-	L"Nie mo¿esz zatrudnić %s(a)",
-	L"Na określony czas, poni¿sze honorarium pokryje koszt całej misji razem z wyposażeniem zamieszonym poniżej.",
-	L"Zatrudnij %s(a) już teraz i weź udział naszej promocji 'jedno honorarium pokrywa wszystko'.  Ponadto w tej niewiarygodnej ofercie cały ekwipunek najemnika dostaniesz za darmo.",
-	L"Honorarium",
-	L"Ktoś jest w sektorze...",
-	//L"Zasięg broni (w polach): %d, Szansa na trafienie: %d procent",
-	L"Pokaż osłonę",
-	L"Zasięg wzroku",
-	L"Nowi rekruci nie mogą tam przybyć.",
-	L"Dopóki twój laprop będzie bez nadajnika, nie będziesz mógł zatrudniać nowych członków zespołu.  Możliwe, że to odpowiedni moment żeby odczytać zapisany stan gry lub zacząć grać od nowa!",
-	L"%s słyszy dźwięk zgniatanego metalu dochodzący spod ciała Jerrego.  To niestety zabrzmiało jak dźwięk zgniatanej anteny od twojego laptopa.",  //the %s is the name of a merc.  @@@  Modified
-	L"Po przejżeniu notatki zostawionej przez zastępce dowódcy Morris'a, %s zauważa pewną możliwość.  Notatka zawiera koordynaty do wystrzelenia pocisków w dwa miasteczka w Arulco.  Są na niej również koordynaty z których te pociski zostaną wystrzelone - wojskowej placówki.",
-	L"Przyglądając się panelowi kontrolnemu, %s zauważa, że cyfry można odwrócić, tak, że pociski mogą zniszczyć tą placówkę.  %s musi znaleźć drogę ucieczki. Wydaje się, że winda jest najszybszym rozwiązaniem...",
-	L"To jest tryb CZ£OWIEK ZE STALI i nie możesz zapisywać gry gdy wróg jest w sektorze.",	//	@@@  new text
-	L"(Nie można zapisywać gry podczas walki)", //@@@@ new text
-	L"Kampania ma więcej niż 30 postaci.",							// @@@ new text
-	L"Nie można odnaleźć kampanii.",																	// @@@ new text
-	L"Kampania: Standardowa ( %S )",																							// @@@ new text
-	L"Kampania: %S",																													// @@@ new text
-	L"Wybrałeś kampanię %S. Ta kampania została stworzona przez fanów gry. Czy jesteś pewien, że chcesz w nią zagrać?",			// @@@ new text
-	L"Żeby użyć edytora powinieneś wcześniej wybrać kampanię inną niż standardowa.",		///@@new
-};
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SANDRO - New STOMP laptop strings
 //these strings match up with the defines in IMP Skill trait.cpp
@@ -219,6 +192,7 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"-%d%s APs needed to climb on/off roof and jump obstacles\n",
 	L"+%d%s chance to kick doors in\n", // MINTY - Changed to "kick doors in"
 	L"You gain special animations for hand to hand combat\n",
+	L"-%d%s chance to be interrupted when moving\n", // TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
@@ -234,6 +208,7 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"(Max simultaneous bonuses for one soldier is %d)\n",
 	L"+%d%s fear resistence of %s\n",
 	L"Drawback: %dx morale loss for %s's death for all other mercs\n",
+	L"+%d%s chance to trigger collective interrupts\n", // TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
@@ -322,6 +297,7 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"+%d%s chance to move quietly\n",
 	L"+%d%s stealth (being 'invisible' if unnoticed)\n",
 	L"Reduced cover penalty for movement by %d%s\n",
+	L"-%d%s chance to be interrupted\n", // TODO.Translate
 
 };
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=

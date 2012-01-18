@@ -52,6 +52,13 @@
 	#include "GameSettings.h"
 #endif
 
+#include "connect.h"
+#include "Text.h"
+
+#ifdef JA2UB
+#include "Dialogue Control.h"
+#endif
+
 /*	I deleted here declaration of clock coords for tactical screen i will declare them
  *	in functions that Initialize coord for SMPanet and TEAMPanel
  *	any questions? joker
@@ -726,38 +733,57 @@ void RenderTopmostTacticalInterface( )
 					GetSoldierScreenPos( pSoldier, &sMercScreenX, &sMercScreenY );
 					GetSoldierAnimOffsets( pSoldier, &sOffsetX, &sOffsetY );
 
-			if ( pSoldier->ubBodyType == QUEENMONSTER )
-			{
-			 sDamageX = sMercScreenX + pSoldier->sDamageX - pSoldier->sBoundingBoxOffsetX;
-			 sDamageY = sMercScreenY + pSoldier->sDamageY - pSoldier->sBoundingBoxOffsetY;
+					if ( pSoldier->ubBodyType == QUEENMONSTER )
+					{
+						sDamageX = sMercScreenX + pSoldier->sDamageX - pSoldier->sBoundingBoxOffsetX;
+						sDamageY = sMercScreenY + pSoldier->sDamageY - pSoldier->sBoundingBoxOffsetY;
 
-			 sDamageX += 25;
-			 sDamageY += 10;
-			}
-			else
-			{
-					sDamageX = pSoldier->sDamageX + (INT16)(sMercScreenX + ( 2 * 30 / 3 )	);
-					sDamageY = pSoldier->sDamageY + (INT16)(sMercScreenY - 5 );
+						sDamageX += 25;
+						sDamageY += 10;
+					}
+					else
+					{
+						sDamageX = pSoldier->sDamageX + (INT16)(sMercScreenX + ( 2 * 30 / 3 )	);
+						sDamageY = pSoldier->sDamageY + (INT16)(sMercScreenY - 5 );
 
-					sDamageX -= sOffsetX;
-					sDamageY -= sOffsetY;
+						sDamageX -= sOffsetX;
+						sDamageY -= sOffsetY;
 
-				if ( sDamageY < gsVIEWPORT_WINDOW_START_Y )
-				{
-					sDamageY = ( sMercScreenY - sOffsetY );
-			}
-			}
-
-			SetFont( TINYFONT1 );
+						if ( sDamageY < gsVIEWPORT_WINDOW_START_Y )
+						{
+							sDamageY = ( sMercScreenY - sOffsetY );
+						}
+					}
+					
+					SetFont( TINYFONT1 );
 					SetFontBackground( FONT_MCOLOR_BLACK );
 					SetFontForeground( FONT_MCOLOR_WHITE );
-
-					gprintfdirty( sDamageX, sDamageY, L"-%d", pSoldier->sDamage );
-					mprintf( sDamageX, sDamageY, L"-%d", pSoldier->sDamage );
+					
+					bool showDamage = true;
+					if (gGameExternalOptions.ubEnemyHitCount > 0 && pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == CREATURE_TEAM)						
+							showDamage = false;
+					
+					if (showDamage)
+					{						
+						gprintfdirty( sDamageX, sDamageY, L"-%d", pSoldier->sDamage );
+						mprintf( sDamageX, sDamageY, L"-%d", pSoldier->sDamage );
+					}
+					else
+					{
+						if (gGameExternalOptions.ubEnemyHitCount == 1)
+						{
+							gprintfdirty( sDamageX, sDamageY, L"%s", gzHiddenHitCountStr[0]);
+							mprintf( sDamageX, sDamageY, L"%s", gzHiddenHitCountStr[0]);
+						}
+						else
+						{
+							gprintfdirty( sDamageX, sDamageY, L"");
+							mprintf( sDamageX, sDamageY, L"");
+						}
+					}
 				}
 			}
 		}
-
 	}
 
 	if ( gusSelectedSoldier != NOBODY )
@@ -1017,6 +1043,9 @@ void EraseInterfaceMenus( BOOLEAN fIgnoreUIUnLock )
 	PopDownMovementMenu( );
 	PopDownOpenDoorMenu( );
 	DeleteTalkingMenu( );
+#ifdef JA2UB
+	RemoveJerryMiloBrokenLaptopOverlay();
+#endif
 }
 
 

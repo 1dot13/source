@@ -64,6 +64,16 @@
 #endif
 
 #include "InterfaceItemImages.h"
+#ifdef JA2UB
+#include "Explosion Control.h"
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#include "MapScreen Quotes.h"
+#include "email.h"
+#include "interface Dialogue.h"
+#include "mercs.h"
+#include "ub_config.h"
+#endif
 
 #include "connect.h"
 //const UINT32 INTERFACE_START_X			= 0;
@@ -1888,7 +1898,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		//Legion	
 		if (pSoldier->ubBodyType == TANK_NE || pSoldier->ubBodyType == TANK_NW)
 		{
-		swprintf( NameStr, pVehicleStrings[4] );
+		  swprintf( NameStr, gNewVehicle[164].NewVehicleStrings );
+		//swprintf( NameStr, pVehicleStrings[4] );
 		}
 		else if (zHiddenNames[pSoldier->ubProfile].Hidden == TRUE) 
 		{
@@ -1925,7 +1936,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			//Legion	
 			if (pSoldier->ubBodyType == TANK_NE || pSoldier->ubBodyType == TANK_NW)
 			{
-			swprintf( NameStr, pVehicleStrings[4] );
+			//swprintf( NameStr, pVehicleStrings[4] );
+			swprintf( NameStr, gNewVehicle[164].NewVehicleStrings );
 			}
 			else if (zHiddenNames[pSoldier->ubProfile].Hidden == TRUE) 
 			{
@@ -3840,11 +3852,47 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			// OK, set cancle code!
 			gOpenDoorMenu.fMenuHandled = 2;
+#ifdef JA2UB			
+			//Handle someone trying to open the door in the tunnel gate`
+			HandlePlayerSayingQuoteWhenFailingToOpenGateInTunnel( gOpenDoorMenu.pSoldier, FALSE ); //Ja25 UB
+#endif
 		}
 
 		// Switch on command....
 		if ( uiBtnID == iActionIcons[ OPEN_DOOR_ICON ] )
 		{
+#ifdef JA2UB		
+			//Handle someone trying to open the door in the tunnel gate`
+			if( HandlePlayerSayingQuoteWhenFailingToOpenGateInTunnel( gOpenDoorMenu.pSoldier, TRUE ) ) //Ja25 UB
+			{
+				// OK, set cancle code!
+				gOpenDoorMenu.fMenuHandled = 2;
+			}
+			else
+			{
+				// Open door normally...
+				// Check APs
+			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_OPEN_DOOR], APBPConstants[BP_OPEN_DOOR], FALSE ) )
+				{
+				// Set UI
+					SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+
+					if ( gOpenDoorMenu.fClosingDoor )
+					{
+						gOpenDoorMenu.pSoldier->ChangeSoldierState( GetAnimStateForInteraction( gOpenDoorMenu.pSoldier, TRUE, CLOSE_DOOR ), 0 , FALSE );
+					}
+					else
+					{
+						InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_OPEN );
+					}
+				}
+				else
+				{
+					// OK, set cancel code!
+					gOpenDoorMenu.fMenuHandled = 2;
+				}
+			}
+#else
 			// Open door normally...
 			// Check APs
 			// SANDRO - changed APs for opening dorrs calc
@@ -3867,6 +3915,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 				// OK, set cancel code!
 				gOpenDoorMenu.fMenuHandled = 2;
 			}
+#endif
 		}
 
 		if ( uiBtnID == iActionIcons[ BOOT_DOOR_ICON ] )
@@ -3939,6 +3988,30 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 
 		if ( uiBtnID == iActionIcons[ EXPLOSIVE_DOOR_ICON ] )
 		{
+#ifdef JA2UB
+			//Handle someone trying to open the door in the tunnel gate`
+			if( HandlePlayerSayingQuoteWhenFailingToOpenGateInTunnel( gOpenDoorMenu.pSoldier, TRUE ) ) //Ja25 UB
+			{
+				// OK, set cancle code!
+				gOpenDoorMenu.fMenuHandled = 2;
+			}
+			else
+			{
+					// Explode
+				if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_EXPLODE_DOOR], APBPConstants[BP_EXPLODE_DOOR], FALSE ) )
+				{
+					// Set UI
+					SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+
+					InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_EXPLODE );
+				}
+				else
+				{
+					// OK, set cancle code!
+					gOpenDoorMenu.fMenuHandled = 2;
+				}
+			}
+#else
 			// Explode
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, GetAPsToBombDoor( gOpenDoorMenu.pSoldier ), APBPConstants[BP_EXPLODE_DOOR], FALSE ) ) // SANDRO
 			{
@@ -3952,6 +4025,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 				// OK, set cancle code!
 				gOpenDoorMenu.fMenuHandled = 2;
 			}
+#endif
 		}
 
 		if ( uiBtnID == iActionIcons[ UNTRAP_DOOR_ICON ] )
@@ -3973,6 +4047,30 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 
 		if ( uiBtnID == iActionIcons[ USE_CROWBAR_ICON ] )
 		{
+#ifdef JA2UB		
+			//Handle someone trying to open the door in the tunnel gate`
+			if( HandlePlayerSayingQuoteWhenFailingToOpenGateInTunnel( gOpenDoorMenu.pSoldier, TRUE ) ) //JA25 UB
+			{
+				// OK, set cancle code!
+				gOpenDoorMenu.fMenuHandled = 2;
+			}
+			else
+			{
+				// Explode
+				if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_USE_CROWBAR], APBPConstants[BP_USE_CROWBAR], FALSE ) )
+				{
+					// Set UI
+					SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+
+					InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_CROWBAR );
+				}
+				else
+				{
+					// OK, set cancle code!
+					gOpenDoorMenu.fMenuHandled = 2;
+				}
+			}
+#else
 			// Explode
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_USE_CROWBAR], APBPConstants[BP_USE_CROWBAR], FALSE ) )
 			{
@@ -3986,6 +4084,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 				// OK, set cancle code!
 				gOpenDoorMenu.fMenuHandled = 2;
 			}
+#endif
 		}
 
 		HandleOpenDoorMenu( );
@@ -4866,24 +4965,31 @@ void DoorMenuBackregionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 STR16 GetSoldierHealthString( SOLDIERTYPE *pSoldier )
 {
-	INT32 cnt, cntStart;
-	if( pSoldier->stats.bLife == pSoldier->stats.bLifeMax )
+	if (gGameExternalOptions.fHideEnemyHealthText && (pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == CREATURE_TEAM))
 	{
-		cntStart = 4;
+		return L"";
 	}
-	else
+	else	
 	{
-		cntStart = 0;
-	}
-	//Show health on others.........
-	for ( cnt = cntStart; cnt < 6; cnt ++ )
-	{
-		if ( pSoldier->stats.bLife < bHealthStrRanges[ cnt ] )
+		INT32 cnt, cntStart;
+		if( pSoldier->stats.bLife == pSoldier->stats.bLifeMax )
 		{
-			break;
+			cntStart = 4;
 		}
+		else
+		{
+			cntStart = 0;
+		}
+		//Show health on others.........
+		for ( cnt = cntStart; cnt < 6; cnt ++ )
+		{
+			if ( pSoldier->stats.bLife < bHealthStrRanges[ cnt ] )
+			{
+				break;
+			}
+		}
+		return zHealthStr[ cnt ];
 	}
-	return zHealthStr[ cnt ];
 }
 
 

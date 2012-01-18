@@ -419,6 +419,9 @@ void BobbyRayPurchaseEventCallback( UINT8 ubOrderID )
 
 void HandleDelayedItemsArrival( UINT32 uiReason )
 {
+
+//	LuaHandleDelayedItemsArrival( uiReason, 0);
+
 	// This function moves all the items that Pablos has stolen
 	// (or items that were delayed) to the arrival location for new shipments,
 	INT32			sStartGridNo;
@@ -426,6 +429,10 @@ void HandleDelayedItemsArrival( UINT32 uiReason )
 	BOOLEAN		fOk;
 	WORLDITEM * pTemp = 0;
 	UINT8			ubLoop;
+	
+
+	
+//#if 0
 	if (uiReason == NPC_SYSTEM_EVENT_ACTION_PARAM_BONUS + NPC_ACTION_RETURN_STOLEN_SHIPMENT_ITEMS )
 	{
 		if ( gMercProfiles[ PABLO ].bMercStatus == MERC_IS_DEAD )
@@ -523,19 +530,27 @@ void HandleDelayedItemsArrival( UINT32 uiReason )
 	if (pTemp) {
 		delete [] pTemp;
 	}
+	
+//#endif
 
 }
 
 void AddSecondAirportAttendant( void )
 {
+
+//LetLuaHandleEarlyMorningEvents(2);
+//#if 0
 	// add the second airport attendant to the Drassen airport...
 	gMercProfiles[99].sSectorX = BOBBYR_SHIPPING_DEST_SECTOR_X;
 	gMercProfiles[99].sSectorY = BOBBYR_SHIPPING_DEST_SECTOR_Y;
 	gMercProfiles[99].bSectorZ = BOBBYR_SHIPPING_DEST_SECTOR_Z;
+//#endif
 }
 
 void SetPabloToUnbribed( void )
 {
+//	LetLuaHandleEarlyMorningEvents(3);
+//#if 0
 	if (guiPabloExtraDaysBribed > 0)
 	{
 		// set new event for later on, because the player gave Pablo more money!
@@ -546,10 +561,13 @@ void SetPabloToUnbribed( void )
 	{
 		SetFactFalse( FACT_PABLOS_BRIBED );
 	}
+//#endif
 }
 
 void HandlePossiblyDamagedPackage( void )
 {
+//	LetLuaHandleEarlyMorningEvents(1);
+//#if 0
 	if (Random( 100 ) < 70)
 	{
 		SetFactTrue( FACT_PACKAGE_DAMAGED );
@@ -562,10 +580,14 @@ void HandlePossiblyDamagedPackage( void )
 	}
 	// whatever happened, the shipment is no longer delayed
 	SetFactFalse( FACT_SHIPMENT_DELAYED_24_HOURS );
+//#endif
 }
 
 void CheckForKingpinsMoneyMissing( BOOLEAN fFirstCheck )
 {
+
+//	LuaCheckForKingpinsMoneyMissing ( fFirstCheck , 0 );
+//#if 0
 	UINT32				uiLoop;
 	UINT32				uiTotalCash = 0;
 	BOOLEAN				fKingpinWillDiscover = FALSE, fKingpinDiscovers = FALSE;
@@ -644,11 +666,14 @@ void CheckForKingpinsMoneyMissing( BOOLEAN fFirstCheck )
 		// he sends email to the player
 		AddFutureDayStrategicEvent( EVENT_SET_BY_NPC_SYSTEM, Random( 120 ), FACT_KINGPIN_KNOWS_MONEY_GONE, 2 );
 	}
-
+//#endif
 }
 
 void HandleNPCSystemEvent( UINT32 uiEvent )
 {
+
+//   LetLuaHandleNPCSystemEvent( uiEvent, 0 );
+//#if 0
 	if (uiEvent < NPC_SYSTEM_EVENT_ACTION_PARAM_BONUS)
 	{
 		switch( uiEvent )
@@ -687,7 +712,12 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 					{
 						// KP knows money is gone, hasn't told player, if this event is called then the 2
 						// days are up... send email
-						AddEmail( KING_PIN_LETTER, KING_PIN_LETTER_LENGTH, KING_PIN, GetWorldTotalMin(), -1, -1 );
+
+#ifdef JA2UB
+// no UB
+#else						
+						AddEmail( KING_PIN_LETTER, KING_PIN_LETTER_LENGTH, KING_PIN, GetWorldTotalMin(), -1, -1 , TYPE_EMAIL_EMAIL_EDT );
+#endif
 						StartQuest( QUEST_KINGPIN_MONEY, 5, MAP_ROW_D );
 						// add event to send terrorists two days from now
 						AddFutureDayStrategicEvent( EVENT_SET_BY_NPC_SYSTEM, Random( 120 ), FACT_KINGPIN_KNOWS_MONEY_GONE, 2 );
@@ -786,7 +816,11 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 				break;
 
 			case NPC_ACTION_SEND_ENRICO_MIGUEL_EMAIL:
-				AddEmail( ENRICO_MIGUEL, ENRICO_MIGUEL_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1 );
+#ifdef JA2UB
+// no UB
+#else
+				AddEmail( ENRICO_MIGUEL, ENRICO_MIGUEL_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1 , TYPE_EMAIL_EMAIL_EDT);
+#endif
 				break;
 
 			case NPC_ACTION_TIMER_FOR_VEHICLE:
@@ -801,6 +835,8 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 				break;
 		}
 	}
+	
+//#endif
 }
 
 void HandleEarlyMorningEvents( void )

@@ -119,8 +119,21 @@
 #include "connect.h" //hayden
 #include "fresh_header.h"
 #include "InterfaceItemImages.h"
+
+#ifdef JA2UB
+#include "laptop.h"
+
+#include "Strategic Movement.h"
+
+
+//#include "Strategic Movement Costs.h"
 // DEFINES
 
+#include "Ja25 Strategic Ai.h"
+#include "MapScreen Quotes.h"
+#include "ub_config.h"
+#include "LuaInitNPCs.h"
+#endif
 
 #define MAX_SORT_METHODS					6
 
@@ -152,6 +165,10 @@
 #define ASSIGNMENT_DONE_FLASH_TIME	500
 
 #define	MINS_TO_FLASH_CONTRACT_TIME	(4 * 60)
+
+#ifdef JA2UB
+void MakeBadSectorListFromMapsOnHardDrive( BOOLEAN fDisplayMessages ); // ja25 UB
+#endif
 
 // CHRISL: Reclassify all coordinates as int variables and declare their values in an initialization function.
 int TOWN_INFO_X;
@@ -1002,6 +1019,9 @@ extern INT32 GetNumberOfMercsInUpdateList( void );
 extern INT32 SellItem( OBJECTTYPE& object, BOOLEAN useModifier = TRUE );
 void DeleteAllItemsInInventoryPool();
 
+#ifdef JA2UB
+void HandleWhenPlayerHasNoMercsAndNoLaptop();
+#endif
 
 #ifdef JA2TESTVERSION
 void TestDumpStatChanges( void );
@@ -2760,7 +2780,8 @@ void DrawCharacterInfo(INT16 sCharNumber)
 	if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		// vehicle
-		wcscpy(sString, pShortVehicleStrings[ pVehicleList[ pSoldier->bVehicleID ].ubVehicleType ]);
+//		wcscpy(sString, pShortVehicleStrings[ pVehicleList[ pSoldier->bVehicleID ].ubVehicleType ]);
+		wcscpy(sString, gNewVehicle[ pVehicleList[ pSoldier->bVehicleID ].ubVehicleType ].NewShortVehicleStrings);
 	}
 	else
 	{
@@ -2776,7 +2797,9 @@ void DrawCharacterInfo(INT16 sCharNumber)
 	if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		// vehicle
-		wcscpy(sString, pVehicleStrings[ pVehicleList[ pSoldier->bVehicleID ].ubVehicleType ]);
+		//wcscpy(sString, pVehicleStrings[ pVehicleList[ pSoldier->bVehicleID ].ubVehicleType ]);
+		wcscpy(sString, gNewVehicle[ pVehicleList[ pSoldier->bVehicleID ].ubVehicleType ].NewVehicleStrings);
+		
 	}
 	else
 	{
@@ -2792,7 +2815,8 @@ void DrawCharacterInfo(INT16 sCharNumber)
 	if( pSoldier->bAssignment == VEHICLE )
 	{
 		// show vehicle type
-		wcscpy( sString, pShortVehicleStrings[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ] );
+	//	wcscpy( sString, pShortVehicleStrings[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ] );
+		wcscpy( sString, gNewVehicle[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ].NewShortVehicleStrings );	
 	}
 	else
 	{
@@ -2845,7 +2869,8 @@ void DrawCharacterInfo(INT16 sCharNumber)
 		else if ( pSoldier->bVehicleUnderRepairID != -1 )
 		{
 			// vehicle
-			wcscpy( sString, pShortVehicleStrings[ pVehicleList[ pSoldier->bVehicleUnderRepairID ].ubVehicleType ] );
+		//	wcscpy( sString, pShortVehicleStrings[ pVehicleList[ pSoldier->bVehicleUnderRepairID ].ubVehicleType ] );
+			wcscpy( sString, gNewVehicle[ pVehicleList[ pSoldier->bVehicleUnderRepairID ].ubVehicleType ].NewShortVehicleStrings );		
 		}
 		else
 		{
@@ -4462,7 +4487,8 @@ UINT32 MapScreenHandle(void)
 	VOBJECT_DESC VObjectDesc;
 //	static BOOLEAN fSecondFrame = FALSE;
 	INT32 iCounter = 0;
-
+	INT32 iCounter2 = 0;
+	char fileName[500];
 
 
 	//DO NOT MOVE THIS FUNCTION CALL!!!
@@ -4853,6 +4879,59 @@ UINT32 MapScreenHandle(void)
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\prison.sti", VObjectDesc.ImageFile);
 		CHECKF(AddVideoObject(&VObjectDesc, &guiTIXAICON));
+		
+       //----------- legion 2
+		for( iCounter2 = 1; iCounter2 < NUM_TOWNS; iCounter2++ )
+		{
+			//if ( gfDrawHiddenTown[iCounter2] == TRUE )
+			//{
+				//VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+				//FilenameForBPP("INTERFACE\\PRISON.sti", VObjectDesc.ImageFile);
+				
+				/*
+				if (iResolution == 0)
+				{
+					strcpy(fileName, gHiddenIcon[iCounter2].IconSti);
+					strcat(fileName,".sti");
+				}
+				if (iResolution == 1)
+				{
+					strcpy(fileName, gHiddenIcon[iCounter2].IconSti);
+					strcat(fileName,"_800x600.sti");
+				}
+				if (iResolution == 2)
+				{
+					strcpy(fileName, gHiddenIcon[iCounter2].IconSti);
+					strcat(fileName,"_1024x768.sti");
+				}
+				
+				if ( gfIconTown[iCounter2] == TRUE )
+					strcpy(VObjectDesc.ImageFile, fileName);
+				else
+					FilenameForBPP("INTERFACE\\PRISON.sti", VObjectDesc.ImageFile);
+				*/
+
+				VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+				
+				if ( gfIconTown[iCounter2] == TRUE )
+				{
+					strcpy(VObjectDesc.ImageFile, gHiddenIcon[iCounter2].IconSti);
+				}
+				else
+				{
+					FilenameForBPP("INTERFACE\\PRISON.sti", VObjectDesc.ImageFile);
+				}
+					
+				if (!FileExists(VObjectDesc.ImageFile))
+				{
+					FilenameForBPP("INTERFACE\\PRISON.sti", VObjectDesc.ImageFile);
+				}
+					
+					
+				CHECKF(AddVideoObject(&VObjectDesc, &guiIcon2[iCounter2]));
+			//}
+		 }
+        //-------
 
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\merc_between_sector_icons.sti", VObjectDesc.ImageFile);
@@ -4878,6 +4957,7 @@ UINT32 MapScreenHandle(void)
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\pos2.sti", VObjectDesc.ImageFile);
 		CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderHeliSectors));
+
 
 
 			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
@@ -4991,6 +5071,18 @@ UINT32 MapScreenHandle(void)
 		{
 			fFirstTimeInMapScreen = FALSE;
 //			fShowMapScreenHelpText = TRUE;
+#ifdef JA2UB
+			//JA25 UB
+			//Get Jerry Milo to say his opening quote, if he hasnt said it before
+			if( !HasJerryMiloSaidQuoteBefore( MILO_QUOTE__OPENING_GREETING_PART_1 ) )
+				JerryMiloDelayedTalk( MILO_QUOTE__OPENING_GREETING_PART_1, 1100 );
+		}
+		//Should Jerry popup a new quote now
+		else if( DidPlayerInitiallyHaveLessThen6MercsAndNowHaveExactly6AndHasntSaidFullLoadQuote() )
+		{
+			//Get Jerry Milo to say his opening quote
+			JerryMiloDelayedTalk( MILO_QUOTE__ALREADY_HAS_6_MERCS, 500 );
+#endif
 		}
 
 		fShowMapInventoryPool = FALSE;
@@ -5164,7 +5256,16 @@ UINT32 MapScreenHandle(void)
 			return( MAP_SCREEN );
 		}
 	}
+#ifdef JA2UB	
+	//Ja25 UB
+	if ( gfProcessCustomMaps )
+	{
+		MakeBadSectorListFromMapsOnHardDrive( TRUE );
+		LetLuaMakeBadSectorListFromMapsOnHardDrive( 0 );
 
+		gfProcessCustomMaps = FALSE;
+	}
+#endif
 
 	// check to see if we need to rebuild the characterlist for map screen
 	HandleRebuildingOfMapScreenCharacterList( );
@@ -5334,11 +5435,26 @@ UINT32 MapScreenHandle(void)
 
 	InterruptTimeForMenus( );
 
+#ifdef JA2UB	
+	//JA25 UB
+	//Handle Jerry Milo quotes
+	if ( gGameUBOptions.JerryQuotes == TRUE )
+	HandleJerryMiloQuotes( FALSE );
+#endif
+
 	// place down background
 	BlitBackgroundToSaveBuffer( );
 
 	if( fLeavingMapScreen == TRUE )
 	{
+
+#ifdef JA2UB
+		//JA25 UB
+		//specify that we are leaving mapscreen
+		if ( gGameUBOptions.JerryQuotes == TRUE )
+		HandleJerryMiloQuotes( TRUE );
+#endif
+
 		return( MAP_SCREEN );
 	}
 
@@ -5653,8 +5769,11 @@ UINT32 MapScreenHandle(void)
 		RenderKeyRingPopup( FALSE );
 	}
 
-	CheckForMeanwhileOKStart( );
-
+#ifdef JA2UB
+/* UB */
+#else
+	CheckForMeanwhileOKStart( );	
+#endif	
 	// save background rects
 	// ATE: DO this BEFORE rendering help text....
 	SaveBackgroundRects( );
@@ -5767,6 +5886,15 @@ UINT32 MapScreenHandle(void)
 		HandleExitsFromMapScreen( );
 	}
 
+#ifdef JA2UB	
+	//Ja25 ub
+	//Handle the strategic AI
+	JA25_HandleUpdateOfStrategicAi();
+
+	//Should the msg box come up telling the user that they lost?
+	if (gGameUBOptions.InGameHeliCrash == TRUE )
+	HandleWhenPlayerHasNoMercsAndNoLaptop(); //AA
+#endif
 
 	return( MAP_SCREEN );
 }
@@ -6674,6 +6802,8 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 	BOOLEAN fCtrl, fAlt;
 
 	INT16 sMapX, sMapY;
+	
+	INT32 iCounter2 = 0;
 
 	fCtrl = _KeyDown( CTRL );
 	fAlt = _KeyDown( ALT );
@@ -7344,7 +7474,15 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						CopySectorInventoryToInventoryPoolQ(0);
 						break;
 					}
-					RequestContractMenu();
+					//Ja25 UB
+					//if ( fAlt )
+					//{
+					//	MakeBadSectorListFromMapsOnHardDrive( TRUE );
+					//}
+					//else
+					//{
+						RequestContractMenu();
+					//}
 					break;
 
 				case 'd':
@@ -7518,7 +7656,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						if( fAlt )
 						{
 							// set up the helicopter over Omerta (if it's not already set up)
-							SetUpHelicopterForPlayer( 9,1 , SKYRIDER );
+							SetUpHelicopterForPlayer( 9,1 , SKYRIDER, HELICOPTER );
 							// raise Drassen loyalty to minimum that will allow Skyrider to fly
 							if ( gTownLoyalty[ DRASSEN ].fStarted && ( gTownLoyalty[ DRASSEN ].ubRating < LOYALTY_LOW_THRESHOLD ) )
 							{
@@ -7582,7 +7720,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 					// haydent
-				case 'k':
+				case 'k':					
 					if(gGameExternalOptions.fEnableInventoryPoolQ && fShowMapInventoryPool == TRUE)//dnl ch51 081009
 					{
 						CopySectorInventoryToInventoryPoolQs(0);
@@ -7612,6 +7750,28 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					}
 					break;
 				case 'm':
+					//JA25 UB
+					// only handle border button keyboard equivalents if the button is visible!
+					/*if ( fAlt )
+					{
+						INT16 sMapX, sMapY;
+
+						// Get sector that is hilighted...
+						if ( GetMouseMapXY(&sMapX, &sMapY) )
+						{
+							AddCustomMap( sMapY, sMapX, TRUE, TRUE );
+							UpdateCustomMapMovementCosts();
+						}
+					}
+					else
+					{
+						if ( !fShowMapInventoryPool )
+						{
+							// toggle show mines flag
+							ToggleShowMinesMode();
+						}
+					}
+					*/
 					// only handle border button keyboard equivalents if the button is visible!
 					if ( !fShowMapInventoryPool )
 					{
@@ -7654,6 +7814,12 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						#ifdef JA2TESTVERSION
 							fFoundOrta = !fFoundOrta;
 							fFoundTixa = !fFoundTixa;
+								
+							for( iCounter2 = 1; iCounter2 < NUM_TOWNS; iCounter2++ )
+								{
+									gfHiddenTown [ iCounter2 ] = TRUE; 
+								}
+	
 							fMapPanelDirty = TRUE;
 						#endif
 					}
@@ -8082,6 +8248,9 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 
 void EndMapScreen( BOOLEAN fDuringFade )
 {
+
+INT32 iCounter2 = 0;
+
 	if ( fInMapMode == FALSE )
 	{
 		// shouldn't be here
@@ -8259,6 +8428,14 @@ void EndMapScreen( BOOLEAN fDuringFade )
 		DeleteVideoObjectFromIndex( guiHelicopterIcon );
 		DeleteVideoObjectFromIndex( guiMINEICON );
 		DeleteVideoObjectFromIndex( guiSectorLocatorGraphicID );
+		
+        //----------- Legion 2
+		for( iCounter2 = 1; iCounter2 < NUM_TOWNS; iCounter2++ )
+		{
+			//if ( gfDrawHiddenTown[iCounter2] == TRUE )
+                DeleteVideoObjectFromIndex(guiIcon2[iCounter2]);
+		}
+        //-------
 
 		DeleteVideoObjectFromIndex( guiBULLSEYE );
 
@@ -12897,6 +13074,8 @@ BOOLEAN AnyMercsLeavingRealSoon()
 void HandleRemovalOfPreLoadedMapGraphics( void )
 {
 
+INT32 iCounter2 = 0;
+
 	if( fPreLoadedMapGraphics == TRUE )
 	{
 		DeleteMapBottomGraphics( );
@@ -12938,6 +13117,14 @@ void HandleRemovalOfPreLoadedMapGraphics( void )
 		DeleteVideoObjectFromIndex( guiNewMailIcons );
 
 		DeleteVideoObjectFromIndex( guiBULLSEYE );
+		
+        //----------- Legion 2
+		for( iCounter2 = 1; iCounter2 < NUM_TOWNS; iCounter2++ )
+		{
+			//if ( gfDrawHiddenTown[iCounter2] == TRUE )
+				DeleteVideoObjectFromIndex(guiIcon2[iCounter2]);
+		}
+        //-------
 
 
 		// remove the graphic for the militia pop up box
@@ -13133,6 +13320,13 @@ void TellPlayerWhyHeCantCompressTime( void )
 		ScreenMsg( FONT_MCOLOR_RED, MSG_BETAVERSION, L"(BETA) If permanent, take screenshot now, send with *previous* save & describe what happened since.");
 #endif
 	}
+#ifdef JA2UB
+	else if( DoesPlayerHaveNoMercsHiredAndJerryHasntSaidQuoteYet() )
+	{
+		JerryMiloTalk( MILO_QUOTE__PLAYER_HAS_NO_MERCS );
+        DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapScreenJustStartedHelpText[ 0 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+	}
+#endif
 	else if( gfAtLeastOneMercWasHired == FALSE )
 	{
 		// no mercs hired, ever
@@ -13181,6 +13375,15 @@ void TellPlayerWhyHeCantCompressTime( void )
 	{
 		DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 55 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 	}
+#ifdef JA2UB
+	//JA25 UB
+	else if( !WillJerryMiloAllowThePlayerToCompressTimeAtBeginingOfGame() )
+	{
+		// TODO.RW: JA2UB
+		//Have jerry say why the player cant compress time 
+		HaveJerrySayWhyPlayerCantTimeCompressAtBeginningOfGame();
+	}
+#endif
 	// ARM: THIS TEST SHOULD BE THE LAST ONE, BECAUSE IT ACTUALLY RESULTS IN SOMETHING HAPPENING NOW.
 	// KM:	Except if we are in a creature lair and haven't loaded the sector yet (no battle yet)
 	else if( gTacticalStatus.uiFlags & INCOMBAT || gTacticalStatus.fEnemyInSector )
@@ -14354,11 +14557,15 @@ BOOLEAN HandleCtrlOrShiftInTeamPanel( INT8 bCharNumber, BOOLEAN fFromRightClickA
 
 INT32 GetContractExpiryTime( SOLDIERTYPE *pSoldier )
 {
+#ifdef JA2UB
+/* JA25 UB  */
+#else
 	if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC ) || ( pSoldier->ubProfile == SLAY ) )
 	{
 		return ( pSoldier->iEndofContractTime );
 	}
-	else
+	else	
+#endif
 	{
 		// never - really high number
 		return ( 999999 );
@@ -14947,7 +15154,7 @@ void DestinationPlottingCompleted( void )
 void HandleMilitiaRedistributionClick( void )
 {
 	INT8 bTownId;
-	BOOLEAN fTownStillHidden;
+	//BOOLEAN fTownStillHidden;
 	CHAR16 sString[ 128 ];
 
 
@@ -14955,9 +15162,12 @@ void HandleMilitiaRedistributionClick( void )
 	if ( iCurrentMapSectorZ == 0 )
 	{
 		bTownId = GetTownIdForSector( sSelMapX, sSelMapY );
-		fTownStillHidden = ( ( bTownId == TIXA ) && !fFoundTixa ) || ( ( bTownId == ORTA ) && !fFoundOrta );
-
-		if( ( bTownId != BLANK_SECTOR ) && !fTownStillHidden )
+		//fTownStillHidden = ( ( bTownId == TIXA ) && !fFoundTixa ) || ( ( bTownId == ORTA ) && !fFoundOrta );
+		
+	//	fTownStillHidden = ( ( bTownId == TIXA ) && !gfHiddenTown[ TIXA ] ) || ( ( bTownId == ORTA ) && !gfHiddenTown[ ORTA ] );
+		
+		// WANNE: if gfHiddenTown[townID] == TRUE, then it is not HIDDEN!!!
+		if( ( bTownId != BLANK_SECTOR ) && gfHiddenTown[ bTownId ] ) //&& !fTownStillHidden )
 		{
 			if ( MilitiaTrainingAllowedInSector( sSelMapX, sSelMapY, ( INT8 )iCurrentMapSectorZ ) )
 			{
@@ -15190,7 +15400,8 @@ void GetMapscreenMercAssignmentString( SOLDIERTYPE *pSoldier, CHAR16 sString[] )
 {
 	if ( pSoldier->bAssignment == VEHICLE )
 	{
-		wcscpy( sString, pShortVehicleStrings[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ] );
+	//	wcscpy( sString, pShortVehicleStrings[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ] );
+		wcscpy( sString, gNewVehicle[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ].NewShortVehicleStrings);	
 	}
 	else
 	{
@@ -15304,8 +15515,12 @@ void GetMapscreenMercDepartureString( SOLDIERTYPE *pSoldier, CHAR16 sString[], U
 	INT32 iDaysRemaining = 0;
 	INT32 iHoursRemaining = 0;
 
-
+#ifdef JA2UB
+//Ja25:		Removed the aim merc check because aim mercs are hired for a 1 time fee
+	if( ( pSoldier->ubProfile != SLAY ) || pSoldier->stats.bLife == 0 )
+#else
 	if( ( pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC && pSoldier->ubProfile != SLAY ) || pSoldier->stats.bLife == 0 )
+#endif
 	{
 		swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
 	}
@@ -15817,3 +16032,24 @@ INT32 GetTotalContractExpenses ( void )
 	}
 	return (iTotalCost);
 }
+
+#ifdef JA2UB
+void HandleWhenPlayerHasNoMercsAndNoLaptop()
+{
+	const UINT8	ubNumLoopsToDisplay=50;
+
+	if( gJa25SaveStruct.ubDisplayPlayerLostMsgBox == 0 || 
+			gJa25SaveStruct.ubDisplayPlayerLostMsgBox >= ubNumLoopsToDisplay ||
+			guiCurrentScreen == MSG_BOX_SCREEN )
+	{
+		return;
+	}
+
+	gJa25SaveStruct.ubDisplayPlayerLostMsgBox += 1;
+
+	if( gJa25SaveStruct.ubDisplayPlayerLostMsgBox == ubNumLoopsToDisplay )
+	{
+		DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__PLAYER_LOST_SHOULD_RESTART ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+	}
+}
+#endif

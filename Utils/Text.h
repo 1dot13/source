@@ -4,8 +4,63 @@
 #include "items.h"
 #include "types.h"
 #include "mapscreen.h"
+#include "XML_Language.h"
+
+#include "Encyclopedia.h"
 
 #define STRING_LENGTH 255
+
+enum
+{
+	//TCTL_MSG__RANGE_TO_TARGET,
+	TCTL_MSG__ATTACH_TRANSMITTER_TO_LAPTOP,
+	TACT_MSG__CANNOT_AFFORD_MERC,
+	TACT_MSG__AIMMEMBER_FEE_TEXT,
+	TACT_MSG__AIMMEMBER_ONE_TIME_FEE,
+	TACT_MSG__FEE,
+	TACT_MSG__SOMEONE_ELSE_IN_SECTOR,
+	//TCTL_MSG__GUN_RANGE_AND_CTH,
+	TCTL_MSG__DISPLAY_COVER,
+	TCTL_MSG__LOS,
+	TCTL_MSG__INVALID_DROPOFF_SECTOR,
+	TCTL_MSG__PLAYER_LOST_SHOULD_RESTART,
+	TCTL_MSG__JERRY_BREAKIN_LAPTOP_ANTENA,
+	TCTL_MSG__END_GAME_POPUP_TXT_1,
+	TCTL_MSG__END_GAME_POPUP_TXT_2,
+	TCTL_MSG__IRON_MAN_CANT_SAVE_NOW,
+	TCTL_MSG__CANNOT_SAVE_DURING_COMBAT,
+	TCTL_MSG__CAMPAIGN_NAME_TOO_LARGE,
+	TCTL_MSG__CAMPAIGN_DOESN_T_EXIST,
+	TCTL_MSG__DEFAULT_CAMPAIGN_LABEL,
+	TCTL_MSG__CAMPAIGN_LABEL,
+	TCTL_MSG__NEW_CAMPAIGN_CONFIRM,
+	TCTL_MSG__CANT_EDIT_DEFAULT,
+
+};
+//Ja25 UB
+//enums used for zNewLaptopMessages
+enum
+{
+	LPTP_MSG__MERC_SPECIAL_OFFER,
+	LPTP_MSG__TEMP_UNAVAILABLE,
+	LPTP_MSG__PREVIEW_TEXT,
+};
+
+extern	CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS];
+
+//Encyclopedia
+extern STR16 	pMenuStrings[];
+extern STR16	pLocationPageText[];
+extern STR16	pSectorPageText[];
+extern STR16	pEncyclopediaHelpText[];
+extern STR16	pEncyclopediaTypeText[];
+extern STR16	pEncyclopediaSkrotyText[];
+extern STR16	pEncyclopediaShortCharacterText[];
+extern STR16	pEncyclopediaHelpCharacterText[];
+extern STR16	pEncyclopediaShortInventoryText[];
+extern STR16	BoxFilter[];
+extern STR16	pOtherButtonsText[];
+extern STR16	pOtherButtonsHelpText[];
 
 //Editor
 //Editor Taskbar Creation.cpp
@@ -52,7 +107,7 @@ extern STR16 pWaitForHelpScreenResponseText[];
 extern STR16 pAutoLoadMapText[];
 extern STR16 pShowHighGroundText[];
 //Item Statistics.cpp
-extern CHAR16 gszActionItemDesc[ 34 ][ 30 ];	// NUM_ACTIONITEMS = 34
+//extern CHAR16 gszActionItemDesc[ 34 ][ 30 ];	// NUM_ACTIONITEMS = 34
 extern STR16 pUpdateItemStatsPanelText[];
 extern STR16 pSetupGameTypeFlagsText[];
 extern STR16 pSetupGunGUIText[];
@@ -76,6 +131,8 @@ extern STR16 pDisplaySelectionWindowGraphicalInformationText[];
 extern STR16 wszSelType[6];
 //--
 
+extern	STR16	gzNewLaptopMessages[];
+extern	STR16	zNewTacticalMessages[];
 extern CHAR16  gszAimPages[ 6 ][ 20 ];
 extern CHAR16  zGrod[][500];
 extern STR16 pCreditsJA2113[];
@@ -361,12 +418,26 @@ enum
 	MSG_NORMAL_TURN_MODE,
 	MSG_FTM_EXIT_COMBAT,
 	MSG_FTM_ENTER_COMBAT,
-#ifdef JA2BETAVERSION
 	MSG_END_TURN_AUTO_SAVE,
-#endif
-	MSG_MPSAVEDIRECTORY,//84
+	MSG_MPSAVEDIRECTORY,//88
 	MSG_CLIENT,
-	MSG_NAS_AND_OIV_INCOMPATIBLE,
+	MSG_NAS_AND_OIV_INCOMPATIBLE,	// 90
+
+	MSG_SAVE_AUTOSAVE_TEXT,			// 91
+	MSG_SAVE_AUTOSAVE_TEXT_INFO,	// 92
+	MSG_SAVE_AUTOSAVE_EMPTY_TEXT,	// 93
+	MSG_SAVE_AUTOSAVE_FILENAME,		// 94
+	MSG_SAVE_END_TURN_SAVE_TEXT,	// 95
+	MSG_SAVE_AUTOSAVE_SAVING_TEXT,	// 96
+	MSG_SAVE_END_TURN_SAVE_SAVING_TEXT,	// 97
+	MSG_SAVE_AUTOSAVE_ENDTURN_EMPTY_TEXT,	//98
+	MSG_SAVE_AUTOSAVE_ENDTURN_TEXT_INFO,	//99
+	MSG_SAVE_QUICKSAVE_SLOT,				// 100
+	MSG_SAVE_AUTOSAVE_SLOT,					// 101
+	MSG_SAVE_AUTOSAVE_ENDTURN_SLOT,			// 102
+	MSG_SAVE_NORMAL_SLOT,					// 103
+	
+
 	TEXT_NUM_MSG,
 };
 extern STR16 pMessageStrings[];
@@ -565,6 +636,7 @@ extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 48 ];
 // Headrock: End Externs
 extern STR16		sKeyDescriptionStrings[2];
 extern CHAR16		zHealthStr[][13];
+extern STR16		gzHiddenHitCountStr[1];
 extern STR16		zVehicleName[ 6 ];
 
 enum
@@ -1319,6 +1391,7 @@ extern	STR16		zMarksMapScreenText[];
 
 
 //Weapon Name and Description size
+#define		ITEMSTRINGFILENAME				"BINARYDATA\\ITEMDESC.EDT"
 #define	SIZE_ITEM_NAME						160
 #define	SIZE_SHORT_ITEM_NAME			160
 #define	SIZE_ITEM_INFO						480
@@ -1539,7 +1612,9 @@ enum
 	SLG_BR_AWESOME_TEXT,
 
 	SLG_INV_RES_ERROR,
-	SLG_INV_CUSTUM_ERROR,	
+	SLG_INV_CUSTUM_ERROR,
+
+	SLG_SQUAD_SIZE_RES_ERROR,
 
 	TEXT_NUM_SLG_TEXT,
 };
@@ -1665,6 +1740,12 @@ enum
 	GIO_INV_SETTING_OLD_TEXT,
 	GIO_INV_SETTING_NEW_TEXT,
 	GIO_INV_SETTING_NEW_NAS_TEXT,
+
+	// WANNE: Squad size
+	GIO_SQUAD_SIZE_TITLE_TEXT,
+	GIO_SQUAD_SIZE_6_TEXT,
+	GIO_SQUAD_SIZE_8_TEXT,
+	GIO_SQUAD_SIZE_10_TEXT,
 
 	////////////////////////////////////
 	TEXT_NUM_GIO_TEXT

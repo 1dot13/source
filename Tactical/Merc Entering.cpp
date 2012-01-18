@@ -45,6 +45,10 @@
 	#include "Overhead.h"
 #endif
 
+#ifdef JA2UB
+#include "ub_config.h"
+#endif
+
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -479,9 +483,15 @@ void HandleHeliDrop( )
 			for ( cnt = gbCurDrop; cnt < gbNumHeliSeatsOccupied; cnt++ )
 			{
 				// Add merc to sector
+				#ifdef JA2UB
+				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
+				#else
 				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 				MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
+				#endif
 				// HEADROCK HAM 3.5: Externalized!
 				UpdateMercInSector( MercPtrs[ gusHeliSeats[ cnt ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 
@@ -617,10 +627,15 @@ void HandleHeliDrop( )
 						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->EVENT_InitNewSoldierAnim( HELIDROP, 0 , FALSE );
 
 						// Change insertion code
+#ifdef JA2UB
+						//MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
+#else
 						//MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
-
+#endif
 						// HEADROCK HAM 3.5: Externalized!
 						UpdateMercInSector( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
 						//EVENT_SetSoldierPosition( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], sWorldX, sWorldY );
@@ -828,7 +843,7 @@ void HandleFirstHeliDropOfGame( )
 
 		// Move to header file...
 		// HEADROCK HAM 3.5: Externalized!
-		AddExtraItems( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ, true );
+		AddExtraItems( (UINT8)gGameExternalOptions.ubDefaultArrivalSectorX, (UINT8)gGameExternalOptions.ubDefaultArrivalSectorY, startingZ, true );
 
 		// HEADROCK HAM 3.5: Starting sector externalized - might not contain enemies at all!
 		if (NumEnemyInSector( ) > 0)

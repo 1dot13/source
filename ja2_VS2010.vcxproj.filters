@@ -117,6 +117,18 @@
     <ClCompile Include="MessageBoxScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ja25Update.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_IntroFiles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_Layout_MainMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ub_config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="builddefines.h">
@@ -247,6 +259,12 @@
     </ClInclude>
     <ClInclude Include="Multiplayer\network.h">
       <Filter>Multiplayer\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ja25Update.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ub_config.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

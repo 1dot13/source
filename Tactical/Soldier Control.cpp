@@ -99,6 +99,13 @@
 #include "LOS.h" // added by SANDRO
 #endif
 
+#include "ub_config.h"
+
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#endif
+
 #include "fresh_header.h"
 
 #include "Dialogue Control.h"
@@ -2884,6 +2891,8 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	// If we are NOT loading a game, continue normally
 	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
+		usItem = this->inv[ HANDPOS ].usItem;
+
 		// CHECK IF WE ARE TRYING TO INTURRUPT A SCRIPT WHICH WE DO NOT WANT INTERRUPTED!
 		if ( this->flags.fInNonintAnim )
 		{
@@ -3039,7 +3048,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					// We are told that we need to rasie weapon
 					// Do so only if
 					// 1) We have a rifle in hand...
-					usItem = this->inv[ HANDPOS ].usItem;
+					//usItem = this->inv[ HANDPOS ].usItem;
 
 					if ( this->inv[ HANDPOS ].exists() == true && (Item[ usItem ].twohanded ) && !Item[usItem].rocketlauncher )
 					{
@@ -3062,7 +3071,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					// We are told that we need to rasie weapon
 					// Do so only if
 					// 1) We have a rifle in hand...
-					usItem = this->inv[ HANDPOS ].usItem;
+					//usItem = this->inv[ HANDPOS ].usItem;
 
 					if ( this->inv[ HANDPOS ].exists() == true && (Item[ usItem ].twohanded ) && !Item[usItem].rocketlauncher )
 					{
@@ -3125,7 +3134,8 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		}
 
 		// OK.......
-		if ( this->ubBodyType > REGFEMALE )
+		// SANDRO - removing unused code
+		/*if ( this->ubBodyType > REGFEMALE )
 		{
 			if ( this->stats.bLife < INJURED_CHANGE_THREASHOLD )
 			{
@@ -3135,7 +3145,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					//	usNewState = FROM_INJURED_TRANSITION;
 				}
 			}
-		}
+		}*/
 
 		// Alrighty, check if we should free buddy up!
 		if ( usNewState == GIVING_AID )
@@ -3161,10 +3171,10 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		{
 			if ( usNewState == KNEEL_DOWN && this->usAnimState != BIGMERC_CROUCH_TRANS_INTO )
 			{
-				UINT16 usItem;
+				//UINT16 usItem;
 
 				// Do we have a rifle?
-				usItem = this->inv[ HANDPOS ].usItem;
+				//usItem = this->inv[ HANDPOS ].usItem;
 
 				if ( this->inv[ HANDPOS ].exists() == true )
 				{
@@ -3181,10 +3191,10 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 			if ( usNewState == KNEEL_UP && this->usAnimState != BIGMERC_CROUCH_TRANS_OUTOF )
 			{
-				UINT16 usItem;
+				//UINT16 usItem;
 
 				// Do we have a rifle?
-				usItem = this->inv[ HANDPOS ].usItem;
+				//usItem = this->inv[ HANDPOS ].usItem;
 
 				if ( this->inv[ HANDPOS ].exists() == true )
 				{
@@ -3211,15 +3221,39 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 				if ( this->ubDirection == gPurpendicularDirection[ this->ubDirection ][ this->pathing.usPathingData[ this->pathing.usPathIndex ] ] )
 				{
 					// We are perpendicular!
-					usNewState = SIDE_STEP;
+					// SANDRO - wait wait wait!!! We need to determine if gonna sidestep with weapon raised
+					if (( (gAnimControl[ this->usAnimState ].uiFlags & ANIM_FIREREADY ) ||
+						(gAnimControl[ this->usAnimState ].uiFlags & ANIM_FIRE ) ) && gGameExternalOptions.fAllowWalkingWithWeaponRaised )
+					//if ( WeaponReady( this ) )
+					{
+						if ( this->inv[ HANDPOS ].exists() == true && Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher)
+						{
+							if ( !(Item[ usItem ].twohanded ) )
+							{
+								if ( this->IsValidSecondHandShot() )
+								{
+									usNewState = SIDE_STEP_DUAL_RDY;
+								}
+								else
+								{
+									usNewState = SIDE_STEP_PISTOL_RDY;
+								}
+							}
+							else   
+							{
+								usNewState = SIDE_STEP_RIFLE_RDY;							
+							}
+						}
+					}
+					else
+					{
+						usNewState = SIDE_STEP;
+					}
 				}
 				else
 				{
 					if ( gAnimControl[ this->usAnimState ].ubEndHeight == ANIM_CROUCH )
-					{
-						//*** ddd 
-						UINT16 usItem = this->inv[ HANDPOS ].usItem;
-						
+					{	
 						if( this->inv[ HANDPOS ].exists() == true && Item[ usItem ].usItemClass == IC_GUN && Item[ usItem ].twohanded && !Item[usItem].rocketlauncher)   
 							usNewState = SWAT_BACKWARDS;
 						else
@@ -3286,6 +3320,29 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			if ( usNewState == RUNNING )
 			{
 				usNewState = WALKING;
+			}
+		}
+		// SANDRO - check if we are gonna move with weapon raised
+		else if (( (gAnimControl[ this->usAnimState ].uiFlags & ANIM_FIREREADY ) ||
+				(gAnimControl[ this->usAnimState ].uiFlags & ANIM_FIRE ) ) && ( usNewState == WALKING ) && gGameExternalOptions.fAllowWalkingWithWeaponRaised )
+		{
+			if ( this->inv[ HANDPOS ].exists() == true && Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher)
+			{
+				if ( !(Item[ usItem ].twohanded ) )
+				{
+					if ( this->IsValidSecondHandShot() )
+					{
+						usNewState = WALKING_DUAL_RDY;
+					}
+					else
+					{
+						usNewState = WALKING_PISTOL_RDY;
+					}
+				}
+				else   
+				{
+					usNewState = WALKING_RIFLE_RDY;							
+				}
 			}
 		}
 
@@ -3540,7 +3597,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			if ( !this->flags.fDontChargeReadyAPs )
 			{
 				sAPCost = GetAPsToReadyWeapon( this, usNewState );
-				DeductPoints( this, sAPCost, sBPCost );
+				DeductPoints( this, sAPCost, sBPCost, BEFORESHOT_INTERRUPT );
 			}
 			else
 			{
@@ -3549,6 +3606,9 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			break;
 
 		case WALKING:
+		case WALKING_PISTOL_RDY:
+		case WALKING_RIFLE_RDY:
+		case WALKING_DUAL_RDY:
 
 			this->usPendingAnimation = NO_PENDING_ANIMATION;
 			this->aiData.ubPendingActionAnimCount = 0;
@@ -3581,7 +3641,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 				}
 				else
 					sAPCost = GetAPsStartRun( this ); // changed by SANDRO
-				DeductPoints( this, sAPCost, sBPCost );
+				DeductPoints( this, sAPCost, sBPCost, MOVEMENT_INTERRUPT );
 			}
 			// Set pending action count to 0
 			this->aiData.ubPendingActionAnimCount = 0;
@@ -3679,7 +3739,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			break;
 
 		case CUTTING_FENCE:
-			DeductPoints( this, APBPConstants[AP_USEWIRECUTTERS], APBPConstants[BP_USEWIRECUTTERS] );
+			DeductPoints( this, APBPConstants[AP_USEWIRECUTTERS], APBPConstants[BP_USEWIRECUTTERS], AFTERACTION_INTERRUPT );
 			break;
 
 		case PLANT_BOMB:
@@ -3721,7 +3781,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 		case USE_REMOTE:
 
-			DeductPoints( this, APBPConstants[AP_USE_REMOTE], 0 );
+			DeductPoints( this, APBPConstants[AP_USE_REMOTE], 0, AFTERACTION_INTERRUPT );
 			break;
 
 			//case PUNCH:
@@ -3736,28 +3796,28 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// CHRISL
 			// SANDRO - changed this a bit
 			if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( this ) != ITEM_NOT_FOUND )
-				DeductPoints( this, GetAPsToJumpFence( this, TRUE ), GetBPsToJumpFence( this, TRUE ) );
+				DeductPoints( this, GetAPsToJumpFence( this, TRUE ), GetBPsToJumpFence( this, TRUE ), SP_MOVEMENT_INTERRUPT );
 			else
-				DeductPoints( this, GetAPsToJumpFence( this, FALSE ), GetBPsToJumpFence( this, FALSE ) );
+				DeductPoints( this, GetAPsToJumpFence( this, FALSE ), GetBPsToJumpFence( this, FALSE ), SP_MOVEMENT_INTERRUPT );
 			break;
 			
 		case JUMPWINDOWS:
 			if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( this ) != ITEM_NOT_FOUND )
-				DeductPoints( this, GetAPsToJumpThroughWindows( this, TRUE ), GetBPsToJumpThroughWindows( this, TRUE ) );
+				DeductPoints( this, GetAPsToJumpThroughWindows( this, TRUE ), GetBPsToJumpThroughWindows( this, TRUE ), SP_MOVEMENT_INTERRUPT );
 			else
-				DeductPoints( this, GetAPsToJumpThroughWindows( this, FALSE ), GetBPsToJumpThroughWindows( this, FALSE ) );
+				DeductPoints( this, GetAPsToJumpThroughWindows( this, FALSE ), GetBPsToJumpThroughWindows( this, FALSE ), SP_MOVEMENT_INTERRUPT );
 			break;
 
 			// Deduct aps for falling down....
 		case FALLBACK_HIT_STAND:
 		case FALLFORWARD_FROMHIT_STAND:
 
-			DeductPoints( this, APBPConstants[AP_FALL_DOWN], APBPConstants[BP_FALL_DOWN] );
+			DeductPoints( this, APBPConstants[AP_FALL_DOWN], APBPConstants[BP_FALL_DOWN], DISABLED_INTERRUPT );
 			break;
 
 		case FALLFORWARD_FROMHIT_CROUCH:
 
-			DeductPoints( this, (APBPConstants[AP_FALL_DOWN]/2), (APBPConstants[BP_FALL_DOWN]/2) );
+			DeductPoints( this, (APBPConstants[AP_FALL_DOWN]/2), (APBPConstants[BP_FALL_DOWN]/2), DISABLED_INTERRUPT );
 			break;
 
 		case QUEEN_SWIPE:
@@ -3771,7 +3831,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// disable sight
 			gTacticalStatus.uiFlags |= DISALLOW_SIGHT;
 
-			DeductPoints( this, GetAPsToClimbRoof( this, TRUE), GetBPsToClimbRoof( this, TRUE) ); // changed by SANDRO
+			DeductPoints( this, GetAPsToClimbRoof( this, TRUE), GetBPsToClimbRoof( this, TRUE), SP_MOVEMENT_INTERRUPT ); // changed by SANDRO
 			break;
 
 		case CLIMBUPROOF:
@@ -3779,7 +3839,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// disable sight
 			gTacticalStatus.uiFlags |= DISALLOW_SIGHT;
 
-			DeductPoints( this, GetAPsToClimbRoof( this, FALSE), GetBPsToClimbRoof( this, FALSE) ); // changed by SANDRO
+			DeductPoints( this, GetAPsToClimbRoof( this, FALSE), GetBPsToClimbRoof( this, FALSE), SP_MOVEMENT_INTERRUPT ); // changed by SANDRO
 			break;
 			
 		case JUMPDOWNWALL:
@@ -3787,7 +3847,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// disable sight
 			gTacticalStatus.uiFlags |= DISALLOW_SIGHT;
 
-			DeductPoints( this, GetAPsToJumpWall( this, TRUE), GetBPsToJumpWall( this, TRUE) ); 
+			DeductPoints( this, GetAPsToJumpWall( this, TRUE), GetBPsToJumpWall( this, TRUE), SP_MOVEMENT_INTERRUPT ); 
 			break;
 
 		case JUMPUPWALL:
@@ -3795,7 +3855,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// disable sight
 			gTacticalStatus.uiFlags |= DISALLOW_SIGHT;
 
-			DeductPoints( this, GetAPsToJumpWall( this, FALSE), GetBPsToJumpWall( this, FALSE) ); 
+			DeductPoints( this, GetAPsToJumpWall( this, FALSE), GetBPsToJumpWall( this, FALSE), SP_MOVEMENT_INTERRUPT ); 
 			break;
 
 		case JUMP_OVER_BLOCKING_PERSON:
@@ -3804,7 +3864,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			{
 					INT32 usNewGridNo;
 
-				DeductPoints( this, GetAPsToJumpOver( this ), APBPConstants[BP_JUMP_OVER] ); // changed by SANDRO
+				DeductPoints( this, GetAPsToJumpOver( this ), APBPConstants[BP_JUMP_OVER], SP_MOVEMENT_INTERRUPT ); // changed by SANDRO
 
 				usNewGridNo = NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) );
 				usNewGridNo = NewGridNo( usNewGridNo, DirectionInc( this->ubDirection ) );
@@ -4451,6 +4511,9 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 				switch( this->usAnimState )
 				{
 				case WALKING:
+				case WALKING_PISTOL_RDY:
+				case WALKING_RIFLE_RDY:
+				case WALKING_DUAL_RDY:
 				case RUNNING:
 
 					// IN deep water, swim!
@@ -4636,6 +4699,27 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 	// Change to fire animation
 	// Ready weapon
 	this->SoldierReadyWeapon( sTargetXPos, sTargetYPos, FALSE );
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SANDRO - hack! - an interrupt pending before shot
+	if ( gGameExternalOptions.fImprovedInterruptSystem )
+	{
+		if ( ResolvePendingInterrupt( this, BEFORESHOT_INTERRUPT ) )
+		{
+			this->usPendingAnimation = NO_PENDING_ANIMATION;
+			this->ubPendingDirection = NO_PENDING_DIRECTION;
+			// "artificially" set lock ui flag
+			if (this->bTeam == gbPlayerNum)
+			{
+				AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+				guiPendingOverrideEvent = LU_BEGINUILOCK;			
+				HandleTacticalUI( );
+			}
+			// return as we are not gonna shoot if interrupted
+			return;
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// IF WE ARE AN NPC, SLIDE VIEW TO SHOW WHO IS SHOOTING
 	{
@@ -5408,11 +5492,15 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		}
 		////////////////////////////////////////////////////////////////////////////
 		sDamage = sDamage / PUNCH_REAL_DAMAGE_PORTION;
+#ifdef JA2UB
+//Ja25: No meanwhiles
+#else
 		if ( AreInMeanwhile() && gCurrentMeanwhileDef.ubMeanwhileID == INTERROGATION )
 		{
 			sBreathLoss = 0;
 			sDamage /= 2;
 		}
+#endif
 		ubReason = TAKE_DAMAGE_HANDTOHAND;
 	}
 	// marke added one 'or' for explosive ammo. variation of: AmmoTypes[this->inv[this->ubAttackingHand ][0]->data.gun.ubGunAmmoType].explosionSize > 1
@@ -6013,7 +6101,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 		// HEADROCK HAM 3.2: Critical legshots cost an extra number of APs, based on shot damage.
 		if (gGameExternalOptions.fCriticalLegshotCausesAPLoss)
 		{
-			DeductPoints( pSoldier, APBPConstants[AP_LOSS_PER_LEGSHOT_DAMAGE]*sDamage, 0);
+			DeductPoints( pSoldier, APBPConstants[AP_LOSS_PER_LEGSHOT_DAMAGE]*sDamage, 0, DISABLED_INTERRUPT);
 		}
 		SoldierCollapse( pSoldier );
 		return;
@@ -6457,7 +6545,16 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 
 		}
 
 		// If we were aiming, end aim!
-		usAnimState = PickSoldierReadyAnimation( this, TRUE );
+		// SANDRO - we may try to move with raised weapon, so don't end aim after
+		if ( (gAnimControl[ this->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )) && 
+			(usMoveAnimState == WALKING || usMoveAnimState == SIDE_STEP ) && !( this->MercInWater( )) )
+		{
+			usAnimState = INVALID_ANIMATION;
+		}
+		else
+		{
+			usAnimState = PickSoldierReadyAnimation( this, TRUE );
+		}
 
 		// Add a pending animation first!
 		// Only if we were standing!
@@ -6649,7 +6746,8 @@ void SOLDIERTYPE::EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BO
 
 
 	// OK, ATE: If we are side_stepping, calculate a NEW desired direction....
-	if ( this->bReverse && (usAnimState == SIDE_STEP || usAnimState == ROLL_PRONE_R || usAnimState == ROLL_PRONE_L) )
+	if ( this->bReverse && (usAnimState == SIDE_STEP || usAnimState == ROLL_PRONE_R || usAnimState == ROLL_PRONE_L 
+		|| usAnimState == SIDE_STEP_PISTOL_RDY || usAnimState == SIDE_STEP_RIFLE_RDY || usAnimState == SIDE_STEP_DUAL_RDY ) )
 	{
 		UINT8 ubPerpDirection;
 
@@ -6757,7 +6855,8 @@ INT8 MultiTiledTurnDirection( SOLDIERTYPE * pSoldier, INT8 bStartDirection, INT8
 void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNewDirection, BOOLEAN fInitalMove, UINT16 usAnimState )
 {
 	//if ( usAnimState == WALK_BACKWARDS )
-	if ( pSoldier->bReverse && (usAnimState != SIDE_STEP && usAnimState != ROLL_PRONE_R && usAnimState != ROLL_PRONE_L) )
+	if ( pSoldier->bReverse && (usAnimState != SIDE_STEP && usAnimState != ROLL_PRONE_R && usAnimState != ROLL_PRONE_L 
+		&& usAnimState != SIDE_STEP_PISTOL_RDY && usAnimState != SIDE_STEP_RIFLE_RDY && usAnimState != SIDE_STEP_DUAL_RDY ) )
 	{
 		// OK, check if we are going to go in the exact opposite than our facing....
 		ubNewDirection = gOppositeDirection[ ubNewDirection ];
@@ -7055,6 +7154,9 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		}
 
 		this->CalcNewActionPoints( );
+		
+		// SANDRO - Improved Interrupt System - reset interrupt counter
+		memset(this->aiData.ubInterruptCounter,0,sizeof(this->aiData.ubInterruptCounter));
 
 		// HEADROCK HAM 3.6: If this soldier is in a "moving" animation, but has not moved any tiles
         // in the previous turn, then the player has apparently forgotten that he was moving.
@@ -7978,6 +8080,9 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 		return;
 
 	case WALKING:
+	case WALKING_PISTOL_RDY:
+	case WALKING_RIFLE_RDY:
+	case WALKING_DUAL_RDY:
 
 		// Adjust based on body type
 		bAdditional = (UINT8)( gubAnimWalkSpeeds[ pStatsSoldier->ubBodyType ].sSpeed );
@@ -8700,13 +8805,15 @@ void SOLDIERTYPE::BeginSoldierGetup( void )
 	{
 		return;
 	}
-
+#ifdef JA2UB
+//Ja25: No meanwhiles
+#else
 	// ATE: Don't getup if we are in a meanwhile
 	if ( AreInMeanwhile( ) )
 	{
 		return;
 	}
-
+#endif
 	if ( this->bCollapsed )
 	{
 		if ( this->stats.bLife >= OKLIFE && this->bBreath >= OKBREATH && (this->bSleepDrugCounter == 0) )
@@ -8945,13 +9052,15 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		// Turn off
 		this->flags.uiStatusFlags &= ( ~SOLDIER_NPC_SHOOTING );
 	}
-
+#ifdef JA2UB
+//Ja25: No meanwhiles
+#else
 	// CJC: make sure Elliot doesn't bleed to death!
 	if ( ubReason == TAKE_DAMAGE_BLOODLOSS && AreInMeanwhile() )
 	{
 		return( 0 );
 	}
-
+#endif
 
 	// Calculate bandage
 	bBandage = this->stats.bLifeMax - this->stats.bLife - this->bBleeding;
@@ -9136,7 +9245,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	// ATE: if the robot, do not deduct
 	if ( !AM_A_ROBOT( this ) )
 	{
-		DeductPoints( this, sAPCost, sBreathLoss , FALSE);
+		DeductPoints( this, sAPCost, sBreathLoss, DISABLED_INTERRUPT );
 	}
 
 	ubCombinedLoss = (UINT8) sLifeDeduct / 10 + sBreathLoss / 2000;
@@ -9352,7 +9461,39 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	{
 		DecayIndividualOpplist( this );
 	}
+	
+#ifdef JA2UB	
+	//if the attacker is MORRIS, AND he didnt kill the person
+	if( Menptr[ ubAttacker ].ubProfile == 75 )	//MORRIS			
+	{
+		//if the soldier is hurt, but not dead
+		if( this->stats.bLife < bOldLife && this->stats.bLife > 0 )
+		{
+			//if he hasnt said his quote #1 before
+			if( !( Menptr[ ubAttacker ].usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_THOUGHT_KILLED_YOU ) )
+			{
+				//said a flag so morris can say this quote next turn
+				gJa25SaveStruct.fMorrisToSayHurtPlayerQuoteNextTurn = TRUE;
 
+				//Remeber who Morris is saying the quote too
+				gJa25SaveStruct.ubPlayerMorrisHurt = this->ubProfile;
+			}
+		}
+
+		// else if morris is to say the quote, he hasnt said it yet and he just killed the person he WAS going to say it to
+		else if(	gJa25SaveStruct.fMorrisToSayHurtPlayerQuoteNextTurn && 
+							gJa25SaveStruct.ubPlayerMorrisHurt == this->ubProfile &&
+							this->stats.bLife <= 0 &&
+							!( Menptr[ ubAttacker ].usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_THOUGHT_KILLED_YOU ) )
+		{
+			//said a flag so morris can say this quote next turn
+			gJa25SaveStruct.fMorrisToSayHurtPlayerQuoteNextTurn = FALSE;
+
+			//Remeber who Morris is saying the quote too
+			gJa25SaveStruct.ubPlayerMorrisHurt = NO_PROFILE;
+		}
+	}
+#endif
 
 	return( ubCombinedLoss );
 }
@@ -11173,7 +11314,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 		fMartialArtist = TRUE;
 	}
 
+//Ja25 No meanwhiles
+#ifdef JA2UB
+	if ( fMartialArtist && !Item[usItem].crowbar && this->ubBodyType == REGMALE)
+#else
 	if ( fMartialArtist && !AreInMeanwhile( ) && !Item[usItem].crowbar && this->ubBodyType == REGMALE ) // SANDRO - added check for body type
+#endif
 	{
 		// Are we in attack mode yet?
 		if ( this->usAnimState != NINJA_BREATH && gAnimControl[ this->usAnimState ].ubHeight == ANIM_STAND && gAnimControl[ pTSoldier->usAnimState ].ubHeight != ANIM_PRONE )
@@ -11269,6 +11415,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginKnifeThrowAttack( INT32 sGridNo, UINT8 ubDir
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Starting knifethrow attack, bullets left %d", this->bBulletsLeft) );
 	DebugAttackBusy( String( "Begin knife throwing attack: ATB  %d\n", gTacticalStatus.ubAttackBusyCount) );
 
+	// SANDRO - new animation for throwing for big mercs by PasHancock
 	if ( this->ubBodyType == BIGMALE && ((this->ubProfile != NO_PROFILE && gMercProfiles[ this->ubProfile ].bCharacterTrait == CHAR_TRAIT_SHOWOFF) || (HAS_SKILL_TRAIT( this, THROWING_NT ) && gGameOptions.fNewTraitSystem) || (HAS_SKILL_TRAIT( this, THROWING_OT ) && !gGameOptions.fNewTraitSystem) ) )
 	{
 		this->EVENT_InitNewSoldierAnim( THROW_KNIFE_SP_BM, 0 , FALSE );
@@ -11963,7 +12110,7 @@ void SOLDIERTYPE::HaultSoldierFromSighting( BOOLEAN fFromSightingEnemy )
 		SStopMerc.sXPos=this->sX;
 		SStopMerc.sYPos=this->sY;
 	//AddGameEvent( S_STOP_MERC, 0, &SStopMerc ); //hayden.
-	if(this->ubID>=120 || (!is_server && this->ubID >=20)) return;//hayden
+	if((is_networked) && (this->ubID>=120 || (!is_server && this->ubID >=20))) return;//hayden
 	if(is_client)send_stop(&SStopMerc);
 
 	// If we are a 'specialmove... ignore...
@@ -13734,7 +13881,7 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 		else
 		{
 			// Deduct points from our guy....
-			DeductPoints( this, sAPCost, 0 );
+			DeductPoints( this, sAPCost, 0, UNTRIGGERED_INTERRUPT );
 			apsDeducted = TRUE;
 
 			StartCivQuote( pTSoldier );
@@ -13745,7 +13892,7 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 	// WANNE: This fixes the bug, that APs for talking are not always deducted.
 	if (!apsDeducted)
 	{
-		DeductPoints( this, sAPCost, 0 );
+		DeductPoints( this, sAPCost, 0, UNTRIGGERED_INTERRUPT );
 		apsDeducted = TRUE;
 	}
 
@@ -14440,11 +14587,19 @@ BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 		return( FALSE );
 
 	INT8 bNumMajorTraitsCounted = 0;
+	INT8 bMaxTraits = gSkillTraitValues.ubMaxNumberOfTraits;
+	INT8 bMaxMajorTraits = gSkillTraitValues.ubNumberOfMajorTraitsAllowed;
+	// special case for Dr.Q - he's allowed to have 3 major traits and one minor for total by default
+	if ( pSoldier->ubProfile == 33 && gSkillTraitValues.fAllowDrQTraitsException )
+	{
+		bMaxTraits++;
+		bMaxMajorTraits++;
+	}
 
 	// check old/new traits
 	if (gGameOptions.fNewTraitSystem)
 	{
-		for ( INT8 bCnt = 0; bCnt < gSkillTraitValues.ubMaxNumberOfTraits; bCnt++ )
+		for ( INT8 bCnt = 0; bCnt < min(30,bMaxTraits); bCnt++ )
 		{
 			if ( uiSkillTraitNumber > 0 && uiSkillTraitNumber <= NUM_MAJOR_TRAITS )
 			{
@@ -14457,7 +14612,7 @@ BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 					bNumMajorTraitsCounted++;
 				}
 				// if we exceeded the allowed number of major traits, ignore the rest of them
-				if ( bNumMajorTraitsCounted >= gSkillTraitValues.ubNumberOfMajorTraitsAllowed )
+				if ( bNumMajorTraitsCounted >= min(20,bMaxMajorTraits) )
 				{
 					break;
 				}
@@ -14488,11 +14643,19 @@ INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 
 	INT8 bNumberOfTraits = 0;
 	INT8 bNumMajorTraitsCounted = 0;
+	INT8 bMaxTraits = gSkillTraitValues.ubMaxNumberOfTraits;
+	INT8 bMaxMajorTraits = gSkillTraitValues.ubNumberOfMajorTraitsAllowed;
+	// special case for Dr.Q - he's allowed to have 3 major traits and one minor for total by default
+	if ( pSoldier->ubProfile == 33 && gSkillTraitValues.fAllowDrQTraitsException )
+	{
+		bMaxTraits++;
+		bMaxMajorTraits++;
+	}
 
 	// check old/new traits
 	if (gGameOptions.fNewTraitSystem)
 	{
-		for ( INT8 bCnt = 0; bCnt < gSkillTraitValues.ubMaxNumberOfTraits; bCnt++ )
+		for ( INT8 bCnt = 0; bCnt < min(30,bMaxTraits); bCnt++ )
 		{
 			if ( uiSkillTraitNumber > 0 && uiSkillTraitNumber <= NUM_MAJOR_TRAITS )
 			{
@@ -14506,7 +14669,7 @@ INT8 NUM_SKILL_TRAITS( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 					bNumMajorTraitsCounted++;
 				}
 				// if we exceeded the allowed number of major traits, ignore the rest of them
-				if ( bNumMajorTraitsCounted >= gSkillTraitValues.ubNumberOfMajorTraitsAllowed )
+				if ( bNumMajorTraitsCounted >= min(20,bMaxMajorTraits) )
 				{
 					break;
 				}
@@ -14761,4 +14924,250 @@ UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundred
 	// Done, return what we healed
 	return( bStatsReturned );
 }
-				
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// SANDRO - Improved Interrupt System
+/////////////////////////////////////////
+BOOLEAN ResolvePendingInterrupt( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType )
+{
+	// real time or not in combat? disable and clear
+	if (!(gTacticalStatus.uiFlags & TURNBASED) || 
+		!(gTacticalStatus.uiFlags & INCOMBAT) )
+	{
+		gTacticalStatus.ubInterruptPending = DISABLED_INTERRUPT;
+		ClearIntList();
+		return( FALSE );
+	}
+
+	// invalid guy
+	if ( pSoldier == NULL )
+	{
+		//ClearIntList();
+		return( FALSE );
+	}
+
+	// can't be interrupted if it's not our turn at all
+	if ( gTacticalStatus.ubCurrentTeam != pSoldier->bTeam )
+	{
+		return( FALSE );
+	}
+
+	// no interrupt called or not gonna trigger it now
+	if ( gTacticalStatus.ubInterruptPending == DISABLED_INTERRUPT ||
+		gTacticalStatus.ubInterruptPending == UNTRIGGERED_INTERRUPT )
+	{
+		return( FALSE );
+	}
+	
+	// if the interrupt called match the type we are trying to resolve..
+	if ( gTacticalStatus.ubInterruptPending == ubInterruptType || ubInterruptType == INSTANT_INTERRUPT )
+	{
+		/////////////////////////////
+		// Gather all interrupters //
+		/////////////////////////////
+		SOLDIERTYPE *pInterrupter;
+		UINT8 ubInterruptersFound = 0;
+		UINT8 ubaInterruptersList[64];
+		UINT16 uCnt = 0, uiReactionTime;
+		INT16 iInjuryPenalty;
+
+		for ( uCnt = 0; uCnt <= MAX_NUM_SOLDIERS; uCnt++ )
+		{
+			// first find all guys who can see us
+			pInterrupter = MercPtrs[ uCnt ];
+			if ( pInterrupter == NULL )
+				continue;			// not valid
+			if ( pInterrupter->stats.bLife < OKLIFE || pInterrupter->bCollapsed || !pInterrupter->bActive || !pInterrupter->bInSector || pInterrupter->bActionPoints < 4 )
+				continue;			// not active
+			if ( pSoldier->bTeam == pInterrupter->bTeam )
+				continue;			// same team
+			if ( pSoldier->bSide == pInterrupter->bSide )
+				continue;			// not enemy
+			if ( CONSIDERED_NEUTRAL( pSoldier, pInterrupter ) )
+				continue;			// neutral
+
+			/////////////////////////////////////////////////////////////
+			// Calculate Reaction Time (i.e. interrupt counter length) //
+			/////////////////////////////////////////////////////////////
+
+			// set base value ( interrupt per every X APs an enemy uses )
+			if ( pInterrupter->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY ) // if we see him
+			{
+				uiReactionTime = gGameExternalOptions.ubBasicReactionTimeLengthIIS;
+			}
+			else // if not seen the length is higher (we don't want to interrupt in most cases here)
+			{
+				uiReactionTime = (gGameExternalOptions.ubBasicReactionTimeLengthIIS * 2);
+			}
+			uiReactionTime = uiReactionTime * 10; // x10 ... we will divide by 10 after all adjustments done
+			// adjust based on Agility
+			if ( pInterrupter->stats.bAgility >= 80 )
+			{
+				uiReactionTime = (uiReactionTime * (100 - (2 * (pInterrupter->stats.bAgility - 80)))/100);
+			}
+			else if ( pInterrupter->stats.bAgility < 80 && pInterrupter->stats.bAgility > 50 )
+			{
+				uiReactionTime = (uiReactionTime * (100 + (2 * (80 - pInterrupter->stats.bAgility)))/100);
+			}
+			else
+			{
+				uiReactionTime = (uiReactionTime * 8/5);
+			}
+			// adjust based on APs left
+			// at full possible APs no adjustement (100% applies), +1% length per every 2% of APs down from full
+			uiReactionTime = (uiReactionTime * (100 + (50 - (50 * pInterrupter->bActionPoints / pInterrupter->CalcActionPoints())) ) /100);
+			// adjust based on injuries
+			if (pInterrupter->stats.bLife < pInterrupter->stats.bLifeMax)
+			{
+				// OK, this looks a bit complicated..
+				// our HP lost minus half of the bandaged part gives us 2% longer reaction time per 1% of our health down from full health
+				// this penalty is however slightly reduced by our experience level
+				iInjuryPenalty = ( 200 * (pInterrupter->stats.bLifeMax - pInterrupter->stats.bLife + ((pInterrupter->stats.bLifeMax - pInterrupter->stats.bLife - pInterrupter->bBleeding) / 2))) / (pInterrupter->stats.bLifeMax);
+				uiReactionTime = (uiReactionTime * (100 + iInjuryPenalty * (100 - (3 * EffectiveExpLevel( pInterrupter ))) / 100) / 100);
+			}
+			// adjust by breath down
+			if (pSoldier->bBreath < 100)
+			{
+				// +1% per 2 points of breath down
+				uiReactionTime = (uiReactionTime * (100 + ((100 - pSoldier->bBreath)/2)) /100);
+			}
+			// adjust for getting aid, being in gas or being in shock
+			if ( pInterrupter->flags.uiStatusFlags & SOLDIER_GASSED )
+				uiReactionTime = (uiReactionTime * (100 + AIM_PENALTY_GASSED) /100);
+			if (pInterrupter->ubServiceCount > 0)
+				uiReactionTime = (uiReactionTime * (100 + AIM_PENALTY_GETTINGAID) /100);
+			if (pInterrupter->aiData.bShock)
+				uiReactionTime = (uiReactionTime * (100 + (pInterrupter->aiData.bShock * 20)) /100); // this is severe, 20% per point
+			// Phlegmatic characters has slightly longer reaction time
+			if ( pSoldier->ubProfile != NO_PROFILE )
+			{
+				if ( gMercProfiles[ pSoldier->ubProfile ].bCharacterTrait == CHAR_TRAIT_PHLEGMATIC )
+				{
+					uiReactionTime = ((uiReactionTime * 110) / 100); 
+				}
+			}
+			// finally divide back by 10 to get the needed result (round properly)
+			uiReactionTime = ((uiReactionTime + 5) / 10);
+
+			/////////////////////////////////////////////
+			// Check if we reached reaction time value //
+			/////////////////////////////////////////////
+
+			// if we have hit the needed amount, the actual interrupt occurs for the observer
+			if ( pInterrupter->aiData.ubInterruptCounter[pSoldier->ubID] >= uiReactionTime )
+			{
+				///////////////////////////
+				// Success! Add to list! //
+				///////////////////////////
+
+				// the soldier to be interrupted is added to the list (once only)
+				if ( ubInterruptersFound == 0)
+				{
+					AddToIntList( pSoldier->ubID, FALSE, TRUE);
+				}
+				ubaInterruptersList[ubInterruptersFound] = pInterrupter->ubID;
+				ubInterruptersFound++;
+			
+				// add the observer who got the interrupt
+				AddToIntList( pInterrupter->ubID, TRUE, TRUE);
+				// reset the counter
+				pInterrupter->aiData.ubInterruptCounter[pSoldier->ubID] = 0;
+			}	
+		}
+		if ( ubInterruptersFound > 0 )
+		{
+			////////////////////////////////////////////////
+			// Check for possible "Collective Interrupts" //
+			////////////////////////////////////////////////
+			if ( gGameExternalOptions.fAllowCollectiveInterrupts )
+			{
+				SOLDIERTYPE *pTeammate;
+				UINT16 uCnt2 = 0, usColIntChance = 0;
+				UINT8 ubOriginalInterruptersCount = ubInterruptersFound, uCnt3 = 0;
+				BOOLEAN fAlreadyIn;
+
+				for ( uCnt = 0; uCnt < ubOriginalInterruptersCount; uCnt++ )
+				{
+					pInterrupter = MercPtrs[ ubaInterruptersList[uCnt] ];
+					
+					uCnt2 = gTacticalStatus.Team[ pInterrupter->bTeam ].bFirstID;
+					for ( pTeammate = MercPtrs[ uCnt2 ]; uCnt2 <= gTacticalStatus.Team[ pInterrupter->bTeam ].bLastID; uCnt2++,pTeammate++)
+					{
+						if ( pTeammate == NULL )
+							continue;			// not valid
+						if ( pTeammate->bTeam != pInterrupter->bTeam )
+							continue;			// little paranoya check here
+						if ( pTeammate->stats.bLife < OKLIFE || pTeammate->bCollapsed || !pTeammate->bActive || !pTeammate->bInSector || pTeammate->bActionPoints < 4 )
+							continue;			// not active
+
+						// check if we haven't been added to the list already
+						fAlreadyIn = FALSE;
+						for ( uCnt3 = 0; uCnt3 < ubInterruptersFound; uCnt3++ )
+						{
+							if ( pTeammate->ubID == ubaInterruptersList[uCnt3] )
+							{
+								fAlreadyIn = TRUE;
+								break;
+							}
+						}
+						// if we are close enough
+						if ( !fAlreadyIn && PythSpacesAway( pInterrupter->sGridNo, pTeammate->sGridNo ) <= 5 )
+						{
+							// calculate the chance
+							// we would have base chance 100% (if both have maxed stats)
+							// 0-30% is determined by Leadership of the original interrupted - i.e. how well and if he can "inform" us
+							// 0-20% is determined by his Experience Level
+							// 0-20% is determined by our Experience Level - i.e how well can we realize that we must act
+							// 0-20% is determined by our Agility - can our body react so swiftly at all
+							// 0-10% is determined by our Wisdom - do we have enough mental agility as well?
+							usColIntChance = 10*( ( (pInterrupter->stats.bLeadership * 3) + 
+													(EffectiveExpLevel( pInterrupter ) * 20) + 
+													(EffectiveExpLevel( pTeammate ) * 20) + 
+													(pTeammate->stats.bAgility * 2) + 
+													(pTeammate->stats.bWisdom) ) / 100 );
+							// add bonus per Squadleader trait of the original interrupter
+							if ( HAS_SKILL_TRAIT( pInterrupter, SQUADLEADER_NT ) && gGameOptions.fNewTraitSystem )
+							{
+								usColIntChance += gSkillTraitValues.ubSLCollectiveInterruptsBonus * NUM_SKILL_TRAITS( pInterrupter, SQUADLEADER_NT );							
+							}
+							if ( PreChance(usColIntChance))
+							{
+								ubaInterruptersList[ubInterruptersFound] = pTeammate->ubID;
+								ubInterruptersFound++;
+								// if he can react on collective interrupt, give it to him
+								AddToIntList( pTeammate->ubID, TRUE, TRUE);
+								// reset the counter for him
+								pTeammate->aiData.ubInterruptCounter[pSoldier->ubID] = 0;						
+							}
+						}
+					}
+				}
+			}
+
+			/////////////////////////////////////////////
+			// OK, done, all interrupters added, SEND! //
+			/////////////////////////////////////////////
+
+			// remove AI control from the interrupted guy just in case may not be neccessary, but it's harmless anyway
+			if ( (gTacticalStatus.ubCurrentTeam != pSoldier->bTeam) && !(gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bHuman) )
+			{
+				if ( pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL )
+				{
+					pSoldier->flags.uiStatusFlags &= (~SOLDIER_UNDERAICONTROL);
+				}
+			}
+			// reset 
+			gTacticalStatus.ubInterruptPending = DISABLED_INTERRUPT;
+			// start interrupt
+			DoneAddingToIntList( pSoldier, TRUE, 1 );
+
+			return( TRUE );
+		}
+		else // no interrupters found, reset until next occasion
+		{
+			// reset 
+			gTacticalStatus.ubInterruptPending = DISABLED_INTERRUPT;
+		}
+	}
+	return( FALSE );
+}

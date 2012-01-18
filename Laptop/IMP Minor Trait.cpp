@@ -775,7 +775,7 @@ INT8 GetLastSelectedMinorTrait( void )
 UINT8 StrengthRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
 		// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -799,7 +799,7 @@ UINT8 StrengthRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 UINT8 DexterityRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -852,7 +852,7 @@ UINT8 DexterityRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 UINT8 AgilityRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -905,7 +905,7 @@ UINT8 AgilityRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 UINT8 HealthRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -930,7 +930,7 @@ UINT8 HealthRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 UINT8 WisdomRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -983,7 +983,7 @@ UINT8 WisdomRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 UINT8 LeaderShipRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
 	// Only for new trait system
-	if (!gGameOptions.fNewTraitSystem)
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
 	{
 		return 0;
 	}
@@ -1022,6 +1022,12 @@ UINT8 MedicalRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 }
 UINT8 ExplosivesRequiredAdjustmentForMinorTraits( INT32 iInitialValue )
 {
+	// Only for new trait system
+	if (!gGameOptions.fNewTraitSystem || !gSkillTraitValues.fAllowAttributePrereq)
+	{
+		return 0;
+	}
+
 	if ( gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_DEMOLITIONS ] )
 	{
 		// 60 is minimum, +10 is addition to other preset requirements
@@ -1247,6 +1253,11 @@ void AssignMinorTraitHelpText( UINT8 ubNumber )
 			if( gSkillTraitValues.ubSTStealthBonus != 0 )
 			{
 				swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[2], gSkillTraitValues.ubSTStealthBonus, L"%");
+				wcscat( apStr, atStr );
+			}
+			if( gSkillTraitValues.ubSTReducedAPsRegistered != 0 && gGameExternalOptions.fImprovedInterruptSystem )
+			{
+				swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[4], gSkillTraitValues.ubSTReducedAPsRegistered, L"%");
 				wcscat( apStr, atStr );
 			}
 			if( gSkillTraitValues.ubSTStealthPenaltyForMovingReduction != 0 )

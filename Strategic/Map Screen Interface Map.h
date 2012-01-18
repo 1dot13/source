@@ -11,6 +11,22 @@ void DrawMapIndexBigMap( BOOLEAN fSelectedCursorIsYellow );
 
 UINT32 DrawMap( void );
 
+#define MAX_ICON_CHARS 500
+
+typedef struct
+{
+	CHAR8	IconSti[MAX_ICON_CHARS];
+	INT32 IconX;
+	INT32 IconY;
+}	ICON_FILE;
+
+extern ICON_FILE gHiddenIcon[ 256 ];
+
+extern UINT32	guiIcon2[256];
+
+extern BOOLEAN LoadHiddenTownFromLoadGameFile( HWFILE hFile );
+extern BOOLEAN SaveHiddenTownToSaveGameFile( HWFILE hFile );
+
 void GetScreenXYFromMapXY( INT16 sMapX, INT16 sMapY, INT16 *psX, INT16 *psY );
 void GetScreenXYFromMapXYStationary( INT16 sMapX, INT16 sMapY, INT16 *psX, INT16 *psY );
 
@@ -306,5 +322,9 @@ extern UINT32 guiSubLevel1, guiSubLevel2, guiSubLevel3;
 
 extern INT16 sBaseSectorList[ MAX_TOWNS - 1 ];
 extern POINT pTownPoints[ MAX_TOWNS ];
+
+#ifdef JA2UB
+extern void SetUpValidCampaignSectors( void );
+#endif
 
 #endif

@@ -11,6 +11,7 @@
 		#include "Scheduling.h"
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
+		#include "Encyclopedia.h"
 	#endif
 #endif
 
@@ -138,6 +139,202 @@ Remove any LOOTF comment that has been checked, except maybe for "alt." (alterna
 
 07/2010 LootFragg
 */
+
+CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] = 
+{
+	L"",
+};
+
+//Encyclopedia
+
+STR16 pMenuStrings[] =
+{
+	//Encyclopedia
+	L"Orte", // 0
+	L"Personen",
+	L"Gegenstände",
+	L"Aufträge",
+	L"Menu 5",
+	L"Menu 6", //5
+	L"Menu 7", 
+	L"Menu 8",
+	L"Menu 9",
+	L"Menu 10",
+	L"Menu 11", //10
+	L"Menu 12",
+	L"Menu 13",
+	L"Menu 14",
+	L"Menu 15",
+	L"Menu 15", // 15
+	
+	//Briefing Room
+	L"Beenden",
+};
+
+STR16	pOtherButtonsText[] =
+{
+	L"Auftrag", 
+	L"Akzep.",
+};
+
+STR16	pOtherButtonsHelpText[] =
+{
+	L"Einsatzbesprechung",
+	L"Auftrag annehmen",
+};
+
+
+STR16	pLocationPageText[] =
+{
+	L"Vorherige Seite",
+	L"Foto", 
+	L"Nächste Seite",
+};
+
+STR16	pSectorPageText[] =
+{
+	L"<<",
+	L"Hauptseite",
+	L">>",
+	L"Typ: ",
+	L"Keine Daten",
+	L"Es gibt keine Missionen. Fügen Sie Missionen zu der Datei TableData\\BriefingRoom\\BriefingRoom.xml hinzu. Die erste Mission muss SICHTBAR sein. Setzen Sie den Wert Hidden = 0.",	
+};
+
+STR16	pEncyclopediaTypeText[] = 
+{
+	L"Unbekannt",// 0 - unknown
+	L"Stadt", //1 - cities
+	L"Luftwaffen Stützpunkt", //2 - SAM Site
+	L"Andere Örtlichkeiten", //3 - other location
+	L"Minen", //4 - mines 
+	L"Militärstützpunkt", //5 - military complex 
+	L"Labor",  //6 - laboratory complex 
+	L"Fabrik", //7 - factory complex 
+	L"Spital", //8 - hospital 
+	L"Gefängnis", //9 - prison
+    L"Flughafen", //10 - air port 
+};
+
+STR16	pEncyclopediaHelpCharacterText[] = 
+{
+	L"Alle anzeigen",
+	L"AIM anzeigen",
+	L"MERC anzeigen",
+	L"RPC anzeigen",
+	L"NPC anzeigen",
+	L"Fahrzeuge anzeigen",
+	L"BSE anzeigen",
+	L"EPC anzeigen",
+	L"Filter",
+};
+
+STR16	pEncyclopediaShortCharacterText[] = 
+{
+	L"Alle",
+	L"AIM",
+	L"MERC",
+	L"RPC",
+	L"NPC",
+	L"Veh.",
+	L"BSE",
+	L"EPC",
+	L"Filter",
+};
+
+STR16	pEncyclopediaHelpText[] = 
+{
+	L"Alles anzeigen",
+	L"Städte anzeigen",
+	L"Luftwaffenstützpunkte anzeigen",
+	L"Andere Örtlichkeiten anzeigen",
+	L"Minen anzeigen",
+	L"Militärstützpunkte anzeigen",
+	L"Labor-Komplexe anzeigen",
+	L"Fabriken anzeigen",
+	L"Spitäler anzeigen",
+	L"Gefängnisse anzeigen",
+	L"Flughäfen anzeigen",
+};
+
+STR16	pEncyclopediaSkrotyText[] = 
+{
+	L"Alle",
+	L"Stadt",
+	L"SAM",
+	L"Andere",
+	L"Mine",
+	L"Mil.",
+	L"Lab.",
+	L"Fabr.",
+	L"Spit.",
+	L"Gefän.",
+	L"Flugh.",
+};
+
+STR16	pEncyclopediaShortInventoryText[] = 
+{
+	L"Alle", //0
+	L"Waffen",
+	L"Mun.",
+	L"LBE",
+	L"Sonst.",
+	
+	L"Alle", //5
+	L"Waffen",
+	L"Munition",
+	L"LBE Gegenstände",
+	L"Sonstige",
+};
+
+STR16			BoxFilter[] =
+{
+	// Guns
+	L"Schwer",
+	L"Pistole",
+	L"M. Pist.",
+	L"SMG",
+	L"Gewehr",
+	L"S.Gew.",
+	L"A.Gew.",
+	L"MG",
+	L"Schrot.",
+
+	// Ammo
+	L"Pistol",
+	L"M. Pist.", //10
+	L"SMG",
+	L"Gewehr",
+	L"S.Gew",
+	L"A.Gew.",
+	L"MG",
+	L"Schrot.",
+
+	// Used
+	L"Waffen",
+	L"Panz.",
+	L"LBE Ausr.",
+	L"Sonst.", //20
+
+	// Armour
+	L"Helme",
+	L"Westen",
+	L"Hosen",
+	L"Platten",
+
+	// Misc
+	L"Klingen",
+	L"Wurfm.",
+	L"Nah.",
+	L"Gran.",
+	L"Bomb.",
+	L"Med.", //30
+	L"Kits",
+	L"Gesicht",
+	L"LBE",
+	L"Sonst.", //34
+};
+//-----------
 
 // Editor
 //Editor Taskbar Creation.cpp
@@ -822,7 +1019,7 @@ STR16 pShowHighGroundText[] =
 };
 
 //Item Statistics.cpp
-CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
+/*CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
 {
 	L"Klaxon Mine",
 	L"Flare Mine",
@@ -859,7 +1056,7 @@ CHAR16 gszActionItemDesc[ 34 ][ 30 ] =	// NUM_ACTIONITEMS = 34
 	L"Bloodcat alarm",
 	L"Big teargas",
 };
-
+*/
 STR16 pUpdateItemStatsPanelText[] =
 {
 	L"Toggle hide flag", //0
@@ -2434,6 +2631,11 @@ CHAR16 zHealthStr[][13] =	//used to be 10
 	L"SEHR GUT",	// 	>= 90	 
 };
 
+STR16 gzHiddenHitCountStr[1] =
+{
+	L"?",	
+};
+
 STR16 gzMoneyAmounts[6] = 
 { 
 	L"$1000",
@@ -3244,7 +3446,11 @@ STR16 pMapErrorString[] =
 //6-10
 	L"braucht eine Eskorte. Platzieren Sie ihn in einem Trupp mit Eskorte.", // merc can't move unescorted .. for a male
 	L"braucht eine Eskorte. Platzieren Sie sie in einem Trupp mit Eskorte.", // for a female
+#ifdef JA2UB
+	L"Söldner ist noch nicht in Tracona!",
+#else
 	L"Söldner ist noch nicht in Arulco!",
+#endif
 	L"Erst mal Vertrag aushandeln!",
 	L"Marschbefehl ist nicht möglich. Luftangriffe finden statt.",
 //11-15
@@ -3328,8 +3534,13 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] = 
 {
+#ifdef JA2UB
+	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Drassen (B13), wenn er Tracona verlässt?",
+	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Omerta (A9), wenn er Tracona verlässt?",
+#else
 	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Drassen (B13), wenn er Arulco verlässt?",
 	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Omerta (A9), wenn er Arulco verlässt?",
+#endif
 	L"geht bald und lässt seine Ausrüstung in Omerta (A9).",
 	L"geht bald und lässt seine Ausrüstung in Drassen (B13).",
 	L"%s geht bald und lässt seine Ausrüstung in %s.",
@@ -3338,8 +3549,13 @@ STR16 pMercHeLeaveString[] =
 // female version
 STR16 pMercSheLeaveString[] =
 {
+#ifdef JA2UB
+	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Drassen (B13), bevor sie Tracona verlässt?",
+	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Omerta (A9), bevor sie Tracona verlässt?",
+#else
 	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Drassen (B13), bevor sie Arulco verlässt?",
 	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Omerta (A9), bevor sie Arulco verlässt?",
+#endif
 	L"geht bald und lässt ihre Ausrüstung in Omerta (A9).",
 	L"geht bald und lässt ihre Ausrüstung in Drassen (B13).",
 	L"%s geht bald und lässt ihre Ausrüstung in %s.",
@@ -3575,6 +3791,8 @@ STR16 pBookMarkStrings[] =
 	L"Florist",
 	L"Versicherung",
 	L"Abbruch",
+	L"Enzyklopädie",
+	L"Einsatzbesprechung",
 };
 
 STR16 pBookmarkTitle[] =
@@ -3676,8 +3894,12 @@ STR16 pWebPagesTitles[] =
 	L"",
 	L"URL nicht gefunden.",
 	L"Bobby Rays - Letzte Lieferungen",
-	L"",
-	L"",
+	L"Enzyklopädie",
+	L"Enzyklopädie - Daten",
+	L"Einsatzbesprechung",
+
+	L"Einsatzbesprechung - Daten",
+
 };
 
 STR16 pShowBookmarkString[] = 
@@ -4547,7 +4769,7 @@ STR16 zSaveLoadText[] =
 	L"Sie haben zu wenig Festplattenspeicher. Sie haben nur %d MB frei und JA2 benötigt mindestens %d MB.",
 	
 										
-	L"Speichere...",	//While the game is saving this message appears.
+	L"Speichere",	//While the game is saving this message appears.
 	
 	L"Normale Waffen",
 	L"Zusatzwaffen",
@@ -4561,8 +4783,10 @@ STR16 zSaveLoadText[] =
 	L"Ausgezeichnete Auswahl",
 	L"Fantastische Auswahl",
 
-	L"Neues Inventar funktioniert nicht in 640x480 Auflösung. Wählen Sie eine andere Auflösung und versuchen Sie es erneut.",
+	L"Neues Inventar funktioniert nicht in 640x480 Bildschirmauflösung. Wählen Sie eine höhere Bildschirmauflösung und versuchen Sie es erneut.",
 	L"Neues Inventar funktioniert nicht mit dem ausgewählten 'Data' Ordner.",	
+
+	L"Die gespeicherte Truppengröße im Spielstand wird nicht unterstützt bei der aktullen Bildschirmauflösung. Wählen Sie eine höhere Bildschirmauflösung und versuchen Sie es erneut.",
 };
 
 //MapScreen
@@ -4783,7 +5007,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar, sobald es regnet.",
 	L"Wenn diese Funktion aktiviert ist, sind Krähen im Spiel vorhanden und hacken lautstark an manchen Leichen herum, haben aber sonst keine großen Auswirkungen auf das Spiel.",
 	L"Wenn diese Funktion aktiviert ist, werden mit Druck auf |A|l|t Informationen über den Gegner eingeblendet, auf dem sich der Maus-Cursor befindet.",
-	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch abwechselnd in zwei speziellen Autosave-Spielständen gespeichert.\nLadebildschirm mit |C|t|r|l+|L anzeigen. Danach |A|l|t+|A bzw. |A|l|t+|B.",
+	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch abwechselnd in zwei speziellen Autosave-Spielständen gespeichert.",
 	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sagen. Verwenden Sie diese Option, wenn er Ihnen auf die Nüsse geht.",
 	//L"Aktivieren Sie diese Funktion, wenn Ihr Rechner steinalt ist und anderenfalls Probleme auftreten würden.",
 	L"Wenn diese Funktion aktiviert ist, werden erweiterte Beschreibungen und Werte zu den Waffen und Gegenständen angezeigt.",
@@ -4815,9 +5039,15 @@ STR16 zOptionsScreenHelpText[] =
 STR16 gzGIOScreenText[] =
 {
 	L"GRUNDEINSTELLUNGEN",
+#ifdef JA2UB
+	L"Random Manuel texts",
+	L"Off",
+	L"On",
+#else
 	L"Spielmodus",
 	L"Realistisch",
 	L"SciFi",
+#endif	
 	L"Platinum", //Placeholder English
 	L"Waffen",													
 	L"Zus. Waffen",
@@ -4857,9 +5087,15 @@ STR16 gzGIOScreenText[] =
 	L"Tote Gegner lassen alles fallen",
 	L"Aus",
 	L"An",
+#ifdef JA2UB
+	L"Tex and John",
+	L"Zufällig",
+	L"Alle vorhanden",
+#else
 	L"Anzahl der Terroristen",
 	L"Zufällig",
 	L"Alle vorhanden",
+#endif	
 	L"Geheime Waffenlager",
 	L"Zufällig",
 	L"Alle vorhanden",
@@ -4872,6 +5108,12 @@ STR16 gzGIOScreenText[] =
 	L"Alt / Alt",
 	L"Neu / Alt",
 	L"Neu / Neu",
+
+	// Squad Size
+	L"Max. Truppengröße",
+	L"6",
+	L"8",
+	L"10",
 };
 
 STR16	gzMPJScreenText[] =
@@ -5152,7 +5394,7 @@ STR16 pMessageStrings[] =
 	L"Sie können %ss Tagessold von %s nicht zahlen",	//first %s is the mercs name, the second is a string containing the salary
 	L"Abbruch",			// 70
 	L"%s kann alleine nicht gehen.",
-	L"Spielstand namens Spielstand99.sav kreiert. Wenn nötig, in Spielstand01 - Spielstand10 umbennen und über die Option 'Laden' aufrufen.",
+	L"Spielstand namens Spielstand249.sav kreiert. Wenn nötig, in Spielstand01 - Spielstand10 umbennen und über die Option 'Laden' aufrufen.",
 	L"%s hat %s getrunken.",
 	L"Paket in Drassen angekommen.",
 	L"%s kommt am %d. um ca. %s am Zielort an (Sektor %s).", //first %s is mercs name(OK), next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival       !!!7 It should be like this: first one is merc (OK), next is day of arrival (OK) , next is time of the day for ex. 07:00 (not OK, now it is still sector), next should be sector (not OK, now it is still time of the day)	//LOOTF - is this still valid? I assume it's not.
@@ -5168,13 +5410,25 @@ STR16 pMessageStrings[] =
 	L"Normaler Rundenmodus",
 	L"Verlasse Kampfmodus",
 	L"Erzwungener Rundenmodus ist aktiv, gehe in Kampfmodus",
-#ifdef JA2BETAVERSION
 	L"Spiel erfolgreich in Position End Turn Auto Save gespeichert.",	// 83
-#endif
 	L"..\\Spielstände\\MP_Spielstände",			//The name of the directory where games are saved.
 	L"Client",
 	
 	L"Sie können nicht altes Inventar und neues Attachment System gleichzeitig verwenden.",
+	L"Automatischer Spielstandspeicherung #", //91		// Text des Auto Saves im Load Screen mit ID
+	L"Dieser Platz ist reserviert für Spielstände die automatisch gespeichert werden. Dies kann ein/ausgeschaltet werden in der Datei ja2_options.ini (AUTO_SAVE_EVERY_N_HOURS).", //92	// The text, when the user clicks on the save screen on an auto save
+	L"Leerer Platz für automatische Spielstandspeicherung #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
+	L"AutoSpielstand",		// 94	// The filename of the auto save, such as AutoSaveGame01 - AutoSaveGame05
+	L"Zugende Spielstand #",	// 95	// The text for the tactical end turn auto save
+	L"Speichere Automatischen Spielstand #",	// 96	// The message box, when doing auto save
+	L"Speichere",	// 97	// The message box, when doing end turn auto save
+	L"Leere Platz für Spieler-Zugende Spielstandspeicherung #",	// 98	// The message box, when doing auto save
+	L"Dieser Platz ist reserviert für Spielstände am Ende eines Spieler Zuges. Dies kann ein/ausgeschaltet werden in den Spieleinstellungen.", //99	// The text, when the user clicks on the save screen on an auto save
+	// Mouse tooltips
+	L"QuickSave.sav",	// 100
+	L"AutoSpielstand%02d.sav",	// 101
+	L"Auto%02d.sav",	// 102
+	L"Spielstand%02d.sav", //103
 };
 
 CHAR16 ItemPickupHelpPopup[][40] =
@@ -5235,6 +5489,10 @@ STR16 gzLaptopHelpText[] =
 	L"McGillicuttys Bestattungen",
 	L"Fleuropa",
 	L"Versicherungsmakler für A.I.M.-Verträge",
+	//New Bookmarks
+	L"",
+	L"Enzyklopädie",
+	L"Einsatzbesprechung",
 };
 
 STR16 gzHelpScreenText[] =
@@ -5423,7 +5681,11 @@ STR16 gzLateLocalizedString[] =
 	L"Alle Söldner verarztet.",
 
 	//14-16
+#ifdef JA2UB
+	L"Tracona",
+#else
 	L"Arulco",
+#endif
 	L"(Dach)",
 	L"Gesundheit: %d/%d",
 
@@ -6681,4 +6943,37 @@ STR16 gzNCTHlabels[]=
 //////////////////////////////////////////////////////
 
 
+STR16	gzNewLaptopMessages[]=
+{
+	L"Ask about our special offer!",
+	L"Temporarily Unavailable",
+	L"This special press preview of Jagged Alliance 2: Unfinished Business contains the only first 6 sector maps. The final version of the game will feature many more - please see the included readme file for details.",
+};
+
+STR16	zNewTacticalMessages[]=
+{
+	//L"Entfernung zum Ziel: %d Felder, Helligkeit: %d/%d",
+	L"Verbinden Sie den Transmitter mit Ihrem Laptop-Computer.",
+	L"Sie haben nicht genug Geld, um %s anzuheuern",
+	L"Das obenstehende Honorar deckt für einen begrenzten Zeitraum die Kosten der Gesamtmission, und schließt untenstehendes Equipment mit ein.",
+	L"Engagieren Sie %s jetzt und nutzen Sie den Vorteil unseres beispiellosen 'Ein Betrag für alles'-Honorars. Das persönliche Equipment des Söldners ist gratis in diesem Preis mit inbegriffen.",
+	L"Honorar",
+	L"Da ist noch jemand im Sektor...",
+	//L"Waffen-Rchwt.: %d Felder, Trefferwahrsch.: %d Prozent",
+	L"Deckung anzeigen",
+	L"Sichtfeld",
+	L"Neue Rekruten können dort nicht hinkommen.",
+	L"Da Ihr Laptop keinen Transmitter besitzt, können Sie keine neuen Teammitglieder anheuern. Vielleicht ist dies eine guter Zeitpunkt, ein gespeichertes  Spiel zu laden oder ein neues zu starten!",
+	L"%s hört das Geräusch knirschenden Metalls unter Jerry hervordringen. Es klingt grässlich - die Antenne ihres Laptop-Computers ist  zerstört.",  //the %s is the name of a merc.  @@@  Modified
+	L"Nach Ansehen des Hinweises, den Commander Morris hinterließ, erkennt %s eine einmalige Gelegenheit. Der Hinweis enthält Koordinaten für den Start von Raketen gegen verschiedene Städte in Arulco. Aber er enthält auch die Koordinaten des Startpunktes - der Raketenanlage.",
+	L"Das Kontroll-Board studierend, entdeckt %s, dass die Zahlen umgedreht werden könnten, so dass die Raketen diese Anlage selbst zerstören. %s muss nun einen Fluchtweg finden. Der Aufzug scheint die schnellstmögliche Route zu bieten...",         //!!! The original reads:	L"Noticing the control panel %s, figures the numbers can be reversed..." That sounds odd for me, but I think the comma is placed one word too late... (correct?)
+	L"Dies ist ein IRON MAN-Spiel, und es kann nicht gespeichert werden, wenn sich Gegner in der Nähe befinden.",		
+	L"(Kann während Kampf nicht speichern)", 
+	L"Der Name der aktuellen Kampagne enthält mehr als 30 Buchstaben.",						
+	L"Die aktuelle Kampagne kann nicht gefunden werden.",																	
+	L"Kampagne: Standard ( %S )",																							
+	L"Kampagne: %S",																													
+	L"Sie haben die Kampagne %S gewählt. Diese ist eine vom Spieler modifizierte Version der Originalkampagne von JA2UB. Möchten Sie die Kampagne %S spielen?",			
+	L"Um den Editor zu benutzen, müssen Sie eine andere als die Standardkampgane auswählen.",		
+};
 #endif //GERMAN

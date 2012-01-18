@@ -997,6 +997,16 @@ ANIMCONTROLTYPE		gAnimControl[ NUMANIMATIONSTATES ] =
 	//RUN (with pistol)
 	{"RUN WITH PISTOL"									, 0,		0,			(FLOAT)2.6, ANIM_MOVING | ANIM_TURNING	| ANIM_NORESTART | ANIM_RAISE_WEAPON | ANIM_MODERATE_EFFORT,	ANIM_STAND, ANIM_STAND, -1},
 
+	//SIDE STEPPING WITH READIED WEAPON
+	"SIDE STEPPING WITH PISTOL RDY"			, 0,			50, (FLOAT)0.4, ANIM_MOVING | ANIM_NORESTART | ANIM_FIREREADY | ANIM_RAISE_WEAPON | ANIM_VARIABLE_EFFORT,			ANIM_STAND,	ANIM_STAND, -1,
+	"SIDE STEPPING WITH RIFLE RDY"			, 0,			50, (FLOAT)0.4, ANIM_MOVING | ANIM_NORESTART | ANIM_FIREREADY | ANIM_RAISE_WEAPON | ANIM_VARIABLE_EFFORT,			ANIM_STAND,	ANIM_STAND, -1,
+	"SIDE STEPPING WITH DUAL RDY"			, 0,			50, (FLOAT)0.4, ANIM_MOVING | ANIM_NORESTART | ANIM_FIREREADY | ANIM_RAISE_WEAPON | ANIM_VARIABLE_EFFORT,			ANIM_STAND,	ANIM_STAND, -1,
+
+	//WALKING WITH READIED WEAPON
+	{"WALKING WITH PISTOL RDY"							, 20,			0, (FLOAT)1.6, ANIM_MOVING | ANIM_TURNING | ANIM_NORESTART | ANIM_FIREREADY | ANIM_RAISE_WEAPON | ANIM_VARIABLE_EFFORT,			ANIM_STAND,	ANIM_STAND, -1},
+	{"WALKING WITH RIFLE RDY"							, 20,			0, (FLOAT)1.6, ANIM_MOVING | ANIM_TURNING | ANIM_NORESTART | ANIM_FIREREADY | ANIM_RAISE_WEAPON | ANIM_VARIABLE_EFFORT,			ANIM_STAND,	ANIM_STAND, -1},
+	{"WALKING WITH DUAL RDY"							, 20,			0, (FLOAT)1.6, ANIM_MOVING | ANIM_TURNING | ANIM_NORESTART | ANIM_FIREREADY | ANIM_RAISE_WEAPON | ANIM_VARIABLE_EFFORT,			ANIM_STAND,	ANIM_STAND, -1},
+
 };
 
 ANI_SPEED_DEF gubAnimWalkSpeeds[ TOTALBODYTYPES ] =
@@ -1397,6 +1407,14 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGMALE ][ JUMPDOWNWALL ]					= RGMWALLJUMP;
 	
 	gubAnimSurfaceIndex[ REGMALE ][ JUMPWINDOWS ]											= RGMJUMPWINDOWS;
+	
+	gubAnimSurfaceIndex[ REGMALE ][ SIDE_STEP_PISTOL_RDY ]				= RGMSIDESTEP_P_RDY;
+	gubAnimSurfaceIndex[ REGMALE ][ SIDE_STEP_RIFLE_RDY ]				= RGMSIDESTEP_R_RDY;
+	gubAnimSurfaceIndex[ REGMALE ][ SIDE_STEP_DUAL_RDY ]				= RGMSIDESTEP_D_RDY;
+	
+	gubAnimSurfaceIndex[ REGMALE ][ WALKING_PISTOL_RDY ]				= RGMWALK_P_RDY;
+	gubAnimSurfaceIndex[ REGMALE ][ WALKING_RIFLE_RDY ]					= RGMWALK_R_RDY;
+	gubAnimSurfaceIndex[ REGMALE ][ WALKING_DUAL_RDY ]					= RGMWALK_D_RDY;
 
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ STANDING][0]									= RGMWATER_R_STD;
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ WALKING ][0]									= RGMWATER_R_WALK;
@@ -1775,6 +1793,13 @@ void	InitAnimationSurfacesPerBodytype( )
 	
 	gubAnimSurfaceIndex[ BIGMALE ][ JUMPWINDOWS ]					= BGMJUMPWINDOWS;
 
+	gubAnimSurfaceIndex[ BIGMALE ][ SIDE_STEP_PISTOL_RDY ]				= BGMSIDESTEP_P_RDY;
+	gubAnimSurfaceIndex[ BIGMALE ][ SIDE_STEP_RIFLE_RDY ]				= BGMSIDESTEP_R_RDY;
+	gubAnimSurfaceIndex[ BIGMALE ][ SIDE_STEP_DUAL_RDY ]				= BGMSIDESTEP_D_RDY;
+	
+	gubAnimSurfaceIndex[ BIGMALE ][ WALKING_PISTOL_RDY ]				= BGMWALK_P_RDY;
+	gubAnimSurfaceIndex[ BIGMALE ][ WALKING_RIFLE_RDY ]					= BGMWALK_R_RDY;
+	gubAnimSurfaceIndex[ BIGMALE ][ WALKING_DUAL_RDY ]					= BGMWALK_D_RDY;
 
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ STANDING ]						= BGMPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ WALKING ]							= BGMNOTHING_WALK;
@@ -2169,6 +2194,14 @@ void	InitAnimationSurfacesPerBodytype( )
 	
 	gubAnimSurfaceIndex[ STOCKYMALE ][ JUMPWINDOWS ]					= RGMJUMPWINDOWS;
 
+	gubAnimSurfaceIndex[ STOCKYMALE ][ SIDE_STEP_PISTOL_RDY ]				= RGMSIDESTEP_P_RDY;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ SIDE_STEP_RIFLE_RDY ]				= RGMSIDESTEP_R_RDY;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ SIDE_STEP_DUAL_RDY ]					= RGMSIDESTEP_D_RDY;
+	
+	gubAnimSurfaceIndex[ STOCKYMALE ][ WALKING_PISTOL_RDY ]					= RGMWALK_P_RDY;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ WALKING_RIFLE_RDY ]					= RGMWALK_R_RDY;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ WALKING_DUAL_RDY ]					= RGMWALK_D_RDY;
+
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ STANDING ]						= RGMPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ WALKING ]						= RGMNOTHING_WALK;
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ RUNNING]							= RGMNOTHING_RUN;
@@ -2540,6 +2573,15 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGFEMALE ][ JUMPDOWNWALL ]					= RGFWALLJUMP;
 	
 	gubAnimSurfaceIndex[ REGFEMALE ][ JUMPWINDOWS ]					= RGFJUMPWINDOWS;
+
+	gubAnimSurfaceIndex[ REGFEMALE ][ SIDE_STEP_PISTOL_RDY ]				= RGFSIDESTEP_P_RDY;
+	gubAnimSurfaceIndex[ REGFEMALE ][ SIDE_STEP_RIFLE_RDY ]					= RGFSIDESTEP_R_RDY;
+	gubAnimSurfaceIndex[ REGFEMALE ][ SIDE_STEP_DUAL_RDY ]					= RGFSIDESTEP_D_RDY;
+	
+	gubAnimSurfaceIndex[ REGFEMALE ][ WALKING_PISTOL_RDY ]					= RGFWALK_P_RDY;
+	gubAnimSurfaceIndex[ REGFEMALE ][ WALKING_RIFLE_RDY ]					= RGFWALK_R_RDY;
+	gubAnimSurfaceIndex[ REGFEMALE ][ WALKING_DUAL_RDY ]					= RGFWALK_D_RDY;
+
 
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ STANDING ]						= RGFPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ WALKING ]							= RGFNOTHING_WALK;
@@ -3275,6 +3317,14 @@ BOOLEAN LoadAnimationStateInstructions( )
 		
 		memcpy(gusAnimInst[RUNNING_W_PISTOL],fuckTheBoundz[RUNNING],sizeof(fuckTheBoundz[RUNNING]));
 
+		memcpy(gusAnimInst[SIDE_STEP_PISTOL_RDY],fuckTheBoundz[SIDE_STEP],sizeof(fuckTheBoundz[SIDE_STEP]));
+		memcpy(gusAnimInst[SIDE_STEP_RIFLE_RDY],fuckTheBoundz[SIDE_STEP],sizeof(fuckTheBoundz[SIDE_STEP]));
+		memcpy(gusAnimInst[SIDE_STEP_DUAL_RDY],fuckTheBoundz[SIDE_STEP],sizeof(fuckTheBoundz[SIDE_STEP]));
+		
+		memcpy(gusAnimInst[WALKING_PISTOL_RDY],fuckTheBoundz[WALKING],sizeof(fuckTheBoundz[WALKING]));
+		memcpy(gusAnimInst[WALKING_RIFLE_RDY],fuckTheBoundz[WALKING],sizeof(fuckTheBoundz[WALKING]));
+		memcpy(gusAnimInst[WALKING_DUAL_RDY],fuckTheBoundz[WALKING],sizeof(fuckTheBoundz[WALKING]));
+
 	return( TRUE );
 }
 
@@ -3665,6 +3715,20 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 //			else usAnimSurface = BGMSTANDAIM2;
 		}
 	}
+	if ( usAnimSurface == BGMSIDESTEP_R_RDY )
+	{
+		if ( pSoldier->uiAnimSubFlags & SUB_ANIM_BIGGUYSHOOT2 )
+		{
+			usAnimSurface = BGMSIDESTEP_R_RDY2;
+		}
+	}
+	if ( usAnimSurface == BGMWALK_R_RDY )
+	{
+		if ( pSoldier->uiAnimSubFlags & SUB_ANIM_BIGGUYSHOOT2 )
+		{
+			usAnimSurface = BGMWALK_R_RDY2;
+		}
+	}
 
 	// SWITCH TO DIFFERENT STAND ANIMATION FOR BIG GUY!
 	if ( usAnimSurface == BGMSTANDING )
@@ -3788,13 +3852,17 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 
 					// Look for good two pistols sub anim.....
 					if ( gDoubleHandledSub.usAnimState == usAnimState )
-					{						
+					{
 						// Do we carry two pistols...
 						//if ( Item[ pSoldier->inv[ SECONDHANDPOS ].usItem ].usItemClass == IC_GUN )
 						if ( pSoldier->IsValidSecondHandShot() )
 						{
-							usAnimSurface = gDoubleHandledSub.usAnimationSurfaces[ pSoldier->ubBodyType ];
-							fAdjustedForItem	= TRUE;
+							usAltAnimSurface = gDoubleHandledSub.usAnimationSurfaces[ pSoldier->ubBodyType ];
+							if ( usAltAnimSurface != INVALID_ANIMATION )
+							{
+								usAnimSurface = usAltAnimSurface;
+								fAdjustedForItem	= TRUE;
+							}
 						}
 					}
 

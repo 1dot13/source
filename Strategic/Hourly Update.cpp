@@ -26,6 +26,9 @@
 #include "SaveLoadGame.h"
 #include "GameSettings.h"
 #include "connect.h"
+#include "Options Screen.h"
+#include "SaveLoadScreen.h"
+#include "Text.h"
 // HEADROCK HAM 3.5: Add facility code for hourly update of detection levels
 #include "Facilities.h"
 
@@ -34,7 +37,11 @@ void HourlyLarryUpdate( void );
 
 extern INT32 GetCurrentBalance( void );
 extern void PayOffSkyriderDebtIfAny( );
+#ifdef JA2UB
+//no UB
+#else
 void HourlyCheckIfSlayAloneSoHeCanLeave();
+#endif
 
 void UpdateRegenCounters( void );
 
@@ -48,6 +55,7 @@ void HandleMinuteUpdate()
 
 void HandleHourlyUpdate()
 {
+CHAR16	zString[128]; 
 	//if the game hasnt even started yet ( we havent arrived in the sector ) dont process this
 	if ( DidGameJustStart() )
 		return;
@@ -87,9 +95,11 @@ void HandleHourlyUpdate()
 	HourlyQuestUpdate();
 
 	HourlyLarryUpdate();
-
+#ifdef JA2UB
+// no UB
+#else
 	HourlyCheckIfSlayAloneSoHeCanLeave();
-
+#endif
 	// WDS - New AI
 	HourlyCheckStrategicAI();
 
@@ -100,9 +110,96 @@ void HandleHourlyUpdate()
 		UpdateRegenCounters();
 	}
 
-	if ((gGameExternalOptions.autoSaveTime != 0) && 
-		(GetWorldHour() % gGameExternalOptions.autoSaveTime == 0)) {
-		SaveGame( SAVE__TIMED_AUTOSAVE, L"Auto Save" );
+	// WANNE: This check should avoid the resaving of a loaded auto-save game, when entering tactical
+	BOOLEAN doAutoSave = TRUE;
+	if (lastLoadedSaveGameDay == GetWorldDay() && lastLoadedSaveGameHour == GetWorldHour() )
+	{
+		doAutoSave = FALSE;
+	}
+
+	if (doAutoSave)
+	{
+		if ( AutoSaveToSlot[1] == FALSE && AutoSaveToSlot[2] == FALSE && AutoSaveToSlot[3] == FALSE && AutoSaveToSlot[4] == FALSE )
+			AutoSaveToSlot[0] = TRUE;
+
+		if ((gGameExternalOptions.autoSaveTime != 0) && (GetWorldHour() % gGameExternalOptions.autoSaveTime == 0)) 
+		{
+				if ( AutoSaveToSlot[0] == TRUE )
+				{
+					if( CanGameBeSaved() )
+					{
+						guiPreviousOptionScreen = guiCurrentScreen;
+						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT1);
+						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT1,zString);
+					}
+					
+					AutoSaveToSlot[0] = FALSE;
+					AutoSaveToSlot[1] = TRUE;
+					AutoSaveToSlot[2] = FALSE;
+					AutoSaveToSlot[3] = FALSE;
+					AutoSaveToSlot[4] = FALSE;
+				}
+				else if ( AutoSaveToSlot[1] == TRUE )
+				{
+					if( CanGameBeSaved() )
+					{
+						guiPreviousOptionScreen = guiCurrentScreen;
+						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT2);
+						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT2,zString);
+					}
+					
+					AutoSaveToSlot[0] = FALSE;
+					AutoSaveToSlot[1] = FALSE;
+					AutoSaveToSlot[2] = TRUE;
+					AutoSaveToSlot[3] = FALSE;
+					AutoSaveToSlot[4] = FALSE;
+				}
+				else if ( AutoSaveToSlot[2] == TRUE )
+				{
+					if( CanGameBeSaved() )
+					{
+						guiPreviousOptionScreen = guiCurrentScreen;
+						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT3);
+						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT3,zString);
+					}
+					
+					AutoSaveToSlot[0] = FALSE;
+					AutoSaveToSlot[1] = FALSE;
+					AutoSaveToSlot[2] = FALSE;
+					AutoSaveToSlot[3] = TRUE;
+					AutoSaveToSlot[4] = FALSE;
+				}
+				else if ( AutoSaveToSlot[3] == TRUE )
+				{
+					if( CanGameBeSaved() )
+					{
+						guiPreviousOptionScreen = guiCurrentScreen;
+						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT4);
+						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT4,zString);
+					}
+					AutoSaveToSlot[0] = FALSE;
+					AutoSaveToSlot[1] = FALSE;
+					AutoSaveToSlot[2] = FALSE;
+					AutoSaveToSlot[3] = FALSE;
+					AutoSaveToSlot[4] = TRUE;
+					
+				}
+				else if ( AutoSaveToSlot[4] == TRUE )
+				{
+					if( CanGameBeSaved() )
+					{
+						guiPreviousOptionScreen = guiCurrentScreen;
+						swprintf( zString, L"%s%d",pMessageStrings[ MSG_SAVE_AUTOSAVE_TEXT ],SAVE__TIMED_AUTOSAVE_SLOT5);
+						DoAutoSave(SAVE__TIMED_AUTOSAVE_SLOT5,zString);
+					}
+					AutoSaveToSlot[0] = TRUE;
+					AutoSaveToSlot[1] = FALSE;
+					AutoSaveToSlot[2] = FALSE;
+					AutoSaveToSlot[3] = FALSE;
+					AutoSaveToSlot[4] = FALSE;
+					
+				}
+		}
 	}
 }
 
@@ -343,7 +440,9 @@ void HourlyLarryUpdate( void )
 	}
 
 }
-
+#ifdef JA2UB
+// no JA25 UB
+#else 
 void HourlyCheckIfSlayAloneSoHeCanLeave()
 {
 	SOLDIERTYPE *pSoldier;
@@ -369,3 +468,4 @@ void HourlyCheckIfSlayAloneSoHeCanLeave()
 		}
 	}
 }
+#endif

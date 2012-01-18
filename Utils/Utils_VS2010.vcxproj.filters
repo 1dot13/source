@@ -147,8 +147,15 @@
     <ClInclude Include="Cinematics Bink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="popup_callback.h" />
-    <ClInclude Include="popup_class.h" />
+    <ClInclude Include="popup_callback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="popup_class.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XML_Language.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_ChineseText.cpp">
@@ -319,6 +326,11 @@
     <ClCompile Include="Cinematics Bink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="popup_class.cpp" />
+    <ClCompile Include="popup_class.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_Language.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

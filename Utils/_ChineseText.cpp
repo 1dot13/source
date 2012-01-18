@@ -11,6 +11,7 @@
 		#include "Scheduling.h"
 		#include "EditorMercs.h"
 		#include "Item Statistics.h"
+		#include "Encyclopedia.h"
 	#endif
 #endif
 
@@ -114,6 +115,202 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 	SirTech uses the "@@@" notation.
 
 */
+
+CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] = 
+{
+	L"",
+};
+//Encyclopedia
+
+STR16 pMenuStrings[] =
+{
+	//Encyclopedia
+	L"Locations", // 0
+	L"Characters",
+	L"Items",
+	L"Quests",
+	L"Menu 5",
+	L"Menu 6", //5
+	L"Menu 7", 
+	L"Menu 8",
+	L"Menu 9",
+	L"Menu 10",
+	L"Menu 11", //10
+	L"Menu 12",
+	L"Menu 13",
+	L"Menu 14",
+	L"Menu 15",
+	L"Menu 15", // 15
+	
+	//Briefing Room
+	L"Exit",
+};
+
+STR16	pOtherButtonsText[] =
+{
+	L"Briefing", 
+	L"Accept",
+};
+
+STR16	pOtherButtonsHelpText[] =
+{
+	L"Briefing",
+	L"Accept missions",
+};
+
+
+STR16	pLocationPageText[] =
+{
+	L"Prev page",
+	L"Photo", 
+	L"Next page",
+};
+
+STR16	pSectorPageText[] =
+{
+	L"<<",
+	L"Main page",
+	L">>",
+	L"Type: ",
+	L"Empty data",
+	L"Missing of defined missions. Add missions to the file TableData\\BriefingRoom\\BriefingRoom.xml. First mission has to be visible. Put value Hidden = 0.",
+};
+
+STR16	pEncyclopediaTypeText[] = 
+{
+	L"Unknown",// 0 - unknown
+	L"City", //1 - cities
+	L"SAM Site", //2 - SAM Site
+	L"Other location", //3 - other location
+	L"Mines", //4 - mines 
+	L"Military complex", //5 - military complex 
+	L"Laboratory complex",  //6 - laboratory complex 
+	L"Factory complex", //7 - factory complex 
+	L"Hospital", //8 - hospital 
+	L"Prison", //9 - prison
+    L"Airport", //10 - air port 
+};
+
+STR16	pEncyclopediaHelpCharacterText[] = 
+{
+	L"Show all",
+	L"Show AIM",
+	L"Show MERC",
+	L"Show RPC",
+	L"Show NPC",
+	L"Show Pojazd",
+	L"Show IMP",
+	L"Show EPC",
+	L"Filter",
+};
+
+STR16	pEncyclopediaShortCharacterText[] = 
+{
+	L"All",
+	L"AIM",
+	L"MERC",
+	L"RPC",
+	L"NPC",
+	L"Veh.",
+	L"IMP",
+	L"EPC",
+	L"Filter",
+};
+
+STR16	pEncyclopediaHelpText[] = 
+{
+	L"Show all",
+	L"Show cities",
+	L"Show SAM Sites",
+	L"Show other location",
+	L"Show mines",
+	L"Show military complex",
+	L"Show laboratory complex",
+	L"Show Factory complex",
+	L"Show hospital",
+	L"Show prison",
+	L"Show air port",
+};
+
+STR16	pEncyclopediaSkrotyText[] = 
+{
+	L"All",
+	L"City",
+	L"SAM",
+	L"Other",
+	L"Mine",
+	L"Mil.",
+	L"Lab.",
+	L"Fact.",
+	L"Hosp.",
+	L"Prison",
+	L"Air.",
+};
+
+STR16	pEncyclopediaShortInventoryText[] = 
+{
+	L"All", //0
+	L"Gun",
+	L"Ammo",
+	L"LBE",
+	L"Misc",
+	
+	L"All", //5
+	L"Gun",
+	L"Ammo",
+	L"LBE Gear",
+	L"Misc",
+};
+
+STR16			BoxFilter[] =
+{
+	// Guns
+	L"Heavy",
+	L"Pistol",
+	L"M. Pist.",
+	L"SMG",
+	L"Rifle",
+	L"S. Rifle",
+	L"A. Rifle",
+	L"MG",
+	L"Shotgun",
+
+	// Ammo
+	L"Pistol",
+	L"M. Pist.", //10
+	L"SMG",
+	L"Rifle",
+	L"S. Rifle",
+	L"A. Rifle",
+	L"MG",
+	L"Shotgun",
+
+	// Used
+	L"Guns",
+	L"Armor",
+	L"LBE Gear",
+	L"Misc", //20
+
+	// Armour
+	L"Helmets",
+	L"Vests",
+	L"Leggings",
+	L"Plates",
+
+	// Misc
+	L"Blades",
+	L"Th. Knife",
+	L"Melee",
+	L"Grenades",
+	L"Bombs",
+	L"Med.", //30
+	L"Kits",
+	L"Face",
+	L"LBE",
+	L"Misc.", //34
+};
+//-----------
+
 
 // Editor
 //Editor Taskbar Creation.cpp
@@ -798,6 +995,7 @@ STR16 pShowHighGroundText[] =
 };
 
 //Item Statistics.cpp
+/*
 CHAR16 gszActionItemDesc[ 34 ][ 30 ] =
 {
 	L"Klaxon Mine",
@@ -835,7 +1033,7 @@ CHAR16 gszActionItemDesc[ 34 ][ 30 ] =
 	L"Bloodcat alarm",
 	L"Big teargas",
 };
-
+*/
 STR16 pUpdateItemStatsPanelText[] =
 {
 	L"Toggle hide flag", //0
@@ -2428,6 +2626,11 @@ CHAR16 zHealthStr[][13] =
   L"极好",	//"EXCELLENT",		// 	>= 90
 };
 
+STR16 gzHiddenHitCountStr[1] =
+{
+	L"?",	
+};
+
 STR16	gzMoneyAmounts[6] = 
 { 
 	L"$1000",
@@ -2942,7 +3145,11 @@ STR16 pMapScreenFastHelpTextList[] =
 	L"测试文本",
 	L"测试文本",
 	L"测试文本",
+#ifdef JA2UB
+	L"您尚未开始Tracona之旅，现在在这个屏幕上您无事可做。当您把队员都雇佣好后，请左击右下方的“时间压缩”按钮。这样在您的队伍到达Tracona前，时间就前进了。",
+#else
 	L"您尚未开始Arulco之旅，现在在这个屏幕上您无事可做。当您把队员都雇佣好后，请左击右下方的“时间压缩”按钮。这样在您的队伍到达Arulco前，时间就前进了。",
+#endif
 };
 
 // movement menu text
@@ -3277,7 +3484,11 @@ STR16 pMapErrorString[] =
 //6-10
 	L"需要有人护送才能行军。请把他分进一个小队里。", // merc can't move unescorted .. for a male
 	L"需要有人护送才能行军。请把她分进一个小队里。", // for a female
+#ifdef JA2UB
+	L"佣兵尚未到达Tracona!",
+#else
 	L"佣兵尚未到达Arulco!",
+#endif
 	L"看来得先谈妥合同。",
 	L"无法发出行军命令。目前有空袭。",
 //11-15
@@ -3366,8 +3577,13 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] =
 {
+#ifdef JA2UB
+	L"让%s把装备留在他现在所在的地方(%s)，或者在Drassen (B13)登机飞离Tracona，把装备留在那里?",
+	L"让%s把装备留在他现在所在的地方(%s)，或者在Omerta (A9)登机飞离Tracona，把装备留在那里?",
+#else
 	L"让%s把装备留在他现在所在的地方(%s)，或者在Drassen (B13)登机飞离Arulco，把装备留在那里?",
 	L"让%s把装备留在他现在所在的地方(%s)，或者在Omerta (A9)登机飞离Arulco，把装备留在那里?",
+#endif
 	L"要离开了，他的装备将被留在Omerta (A9)。",
 	L"要离开了，他的装备将被留在Drassen (B13)。",
 	L"%s要离开了，他的装备将被留在%s。",
@@ -3377,8 +3593,13 @@ STR16 pMercHeLeaveString[] =
 // female version
 STR16 pMercSheLeaveString[] =
 {
+#ifdef JA2UB
+	L"让%s把装备留在她现在所在的地方(%s)，或者在Drassen (B13)登机飞离Tracona，把装备留在那里?",
+	L"让%s把装备留在她现在所在的地方(%s)，或者在Omerta (A9)登机飞离Tracona，把装备留在那里?",
+#else
 	L"让%s把装备留在她现在所在的地方(%s)，或者在Drassen (B13)登机飞离Arulco，把装备留在那里?",
 	L"让%s把装备留在她现在所在的地方(%s)，或者在Omerta (A9)登机飞离Arulco，把装备留在那里?",
+#endif
 	L"要离开了，她的装备将被留在Omerta (A9)。",
 	L"要离开了，她的装备将被留在Drassen (B13)。",
 	L"%s要离开了，她的装备将被留在%s。",
@@ -3463,7 +3684,11 @@ STR16 pFilesTitle[] =
 
 STR16 pFilesSenderList[] =
 {
+#ifdef JA2UB
   L"侦察报告",
+#else
+  L"侦察报告",
+#endif
 	L"1号通缉令",
 	L"2号通缉令",
 	L"3号通缉令",
@@ -3623,6 +3848,9 @@ STR16 pBookMarkStrings[] =
 	L"花店",
 	L"M.I.S 保险公司",
 	L"取消",
+	L"Encyclopedia",
+	L"Briefing Room",
+
 };
 
 STR16 pBookmarkTitle[] =
@@ -3732,8 +3960,10 @@ STR16 pWebPagesTitles[] =
 	L"",
 	L"无法找到URL",
 	L"Bobby Ray's - 最近的运货",
-	L"",
-	L"",
+	L"Encyclopedia",
+	L"Encyclopedia - Data",
+	L"Briefing Room",
+	L"Briefing Room - Data",
 };
 
 STR16 pShowBookmarkString[] =
@@ -4697,7 +4927,7 @@ STR16			zSaveLoadText[] =
 	//the second is the recommended amount of free space.
 	L"你的硬盘空间不够。你现在只有 %dM 可用空间，JA2需要至少 %dM 可用空间。",
 
-	L"保存...",	//"Saving...",			//When saving a game, a message box with this string appears on the screen
+	L"保存",	//"Saving",			//When saving a game, a message box with this string appears on the screen
 
 	L"普通武器",		//"Normal Guns",
 	L"包括前华约武器",	//"Tons of Guns",
@@ -4715,6 +4945,8 @@ STR16			zSaveLoadText[] =
 
 	L"新携行系统不兼容640x480的屏幕分辨率，请重新设置分辨率。",
 	L"新携行系统无法使用默认的 Data 文件夹，请仔细读说明。",
+
+	L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",	// TODO.Translate
 };
 
 
@@ -4967,9 +5199,15 @@ STR16	zOptionsScreenHelpText[] =
 STR16	gzGIOScreenText[] =
 {
 	L"游戏初始设置",
+#ifdef JA2UB
+	L"Random Manuel texts ",
+	L"Off",
+	L"On",
+#else
 	L"游戏风格",
 	L"现实",
 	L"科幻",
+#endif	
 	L"金版",
 	L"武器数量", // changed by SANDRO
 	L"大量武器",
@@ -5009,9 +5247,16 @@ STR16	gzGIOScreenText[] =
 	L"敌人物品全掉",
 	L"关",
 	L"开",
+#ifdef JA2UB
+	L"Tex and John",
+	L"Random",
+	L"All",
+#else
 	L"通缉犯出现几率",
 	L"随机",
 	L"全部",
+
+#endif	
 	L"武器弹药储藏出现几率",
 	L"随机",
 	L"全部",
@@ -5025,6 +5270,12 @@ STR16	gzGIOScreenText[] =
 	L"旧 / 旧",
 	L"新 / 旧",
 	L"新 / 新",
+
+	// Squad Size
+	L"Max. Squad Size",
+	L"6",
+	L"8",
+	L"10",
 };
 
 STR16	gzMPJScreenText[] =
@@ -5323,12 +5574,26 @@ STR16 pMessageStrings[] =
 	L"正常回合制模式",
 	L"离开战斗",
 	L"强制回合制模式启动，进入战斗",
-#ifdef JA2BETAVERSION
 	L"自动储存成功。",
-#endif
 	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.//84
 	L"客户端", //"Client",
 	L"旧携行系统不能与新附件系统同时使用.",
+
+	// TODO.Translate
+	L"Auto Save #", //91		// Text des Auto Saves im Load Screen mit ID
+	L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
+	L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
+	L"AutoSaveGame",		// 94	// The filename of the auto save, such as AutoSaveGame01 - AutoSaveGame05
+	L"End-Turn Save #",	// 95	// The text for the tactical end turn auto save
+	L"Saving Auto Save #",	// 96	// The message box, when doing auto save
+	L"Saving",	// 97	// The message box, when doing end turn auto save
+	L"Empty End-Turn Save Slot #",	// 98	// The message box, when doing auto save
+	L"This Slot is reserved for Tactical End-Turn Saves, which can be enabled/disabled in the Option Screen.", //99	// The text, when the user clicks on the save screen on an auto save
+	// Mouse tooltips
+	L"QuickSave.sav",	// 100
+	L"AutoSaveGame%02d.sav",	// 101
+	L"Auto%02d.sav",	// 102
+	L"SaveGame%02d.sav", //103
 };
 
 
@@ -5358,7 +5623,11 @@ STR16 pMilitiaButtonsHelpText[] =
 STR16 pMapScreenJustStartedHelpText[] =
 {
 	L"去AIM雇几个佣兵( *提示* 在笔记本电脑里)",
+#ifdef JA2UB
+	L"当你准备出发前往Tracona，点击屏幕右下方的时间压缩按钮。",
+#else
 	L"当你准备出发前往Arulco，点击屏幕右下方的时间压缩按钮。",
+#endif
 };
 
 STR16 pAntiHackerString[] = 
@@ -5390,6 +5659,10 @@ STR16 gzLaptopHelpText[] =
 	L"McGillicutty公墓",
 	L"联合花卉服务公司",
 	L"A.I.M指定保险代理人",
+	//New Bookmarks				// TODO.Translate
+	L"",
+	L"Encyclopedia",
+	L"Briefing Room",
 };
 
 
@@ -5586,8 +5859,11 @@ STR16 gzLateLocalizedString[] =
 	L"全部佣兵已被包扎完毕。",	//"All your mercs are bandaged.",
 
 	//14
+#ifdef JA2UB
+	L"Tracona",
+#else
 	L"Arulco",
-
+#endif
 	L"屋顶",
 
 	L"生命: %d/%d",
@@ -6852,4 +7128,38 @@ STR16 gzNCTHlabels[]=
 // HEADROCK HAM 4: End new UDB texts and tooltips
 //////////////////////////////////////////////////////
 
+
+STR16	gzNewLaptopMessages[]=
+{
+	L"Ask about our special offer!",
+	L"Temporarily Unavailable",
+	L"This special press preview of Jagged Alliance 2: Unfinished Business contains the only first 6 sector maps. The final version of the game will feature many more - please see the included readme file for details.",
+};
+
+STR16	zNewTacticalMessages[]=
+{
+	//L"目标的距离: %d格, 亮度: %d/%d",
+	L"将发报机装到笔记本电脑上。",
+	L"你无法支付雇佣%s的费用",
+	L"在限定时间内，以上的费用包括了整个行动和下列装备的花费。",
+	L"现在就雇请%s吧。您可以享受我们提供的空前的“一次付费，全部服务”的优惠价格。在这个难以置信的出价里，佣兵的随身装备是免费的哦。",	
+	L"费用",
+	L"在本分区发现有人……",
+	//L"枪的射程: %d格， 命中率: %d％",
+	L"显示覆盖物",
+	L"视距",
+	L"新雇请的佣兵无法到达那里。",
+	L"由于你的笔记本电脑没有发报机，你无法雇请新的队员。也许你得读取存档或者重新开始游戏！",
+	L"%s听到了Jerry的身体下面传来金属的破碎的声音。听起来令人不安，似乎你的笔记本电脑的天线被压断了。", 
+	L"看完副指挥官Morris留下的备忘录后，%s觉得有机会了。备忘录里有向Arulco各个城镇发射导弹的基地的坐标。它还给出了这个罪恶计划的发源地的坐标 —— 导弹工厂。",
+	L"看到了控制面板后， %s发现它正在倒计时，因此导弹会把这个工厂炸毁。%s得找出个脱逃的路线。使用电梯看起来是最快的办法...",
+	L"现在您在铁人模式进行游戏，周围有敌人的时候不能存档。",	
+	L"(不能在战斗时存盘)",	
+	L"当前的战役名称超过了30个字符。",						
+	L"无法找到当前的战役。",											// @@@ new text
+	L"战役: 默认 ( %S )",											// @@@ new text
+	L"战役: %S",												// @@@ new text
+	L"你选择了%S战役。 该战役是原版UB战役的玩家自定义游戏版本。你确认你要在 %S 战役下进行游戏吗?",			
+	L"如果你要使用编辑器的话，请选择一个战役，不要用默认战役。",			
+};
 #endif //CHINESE

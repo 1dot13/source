@@ -17,6 +17,32 @@
 	#include "GameSettings.h"
 	#include "Text.h"
 	#include "_Ja25Englishtext.h"
+#ifdef JA2UB
+	#include "laptop.h"
+	#include "email.h"
+	#include "Utilities.h"
+	#include "WCheck.h"
+	#include "Debug.h"
+	#include "WordWrap.h"
+	#include "Render Dirty.h"
+	#include "Encrypted File.h"
+	#include "cursors.h"
+	#include "soldier profile.h"
+	#include "IMP Compile Character.h"
+	#include "IMP Voices.h"
+	#include "IMP Portraits.h"
+	#include "Game Clock.h"
+	#include "environment.h"
+	#include "AimMembers.h"
+	#include "Random.h"
+	#include "Text.h"
+	#include "LaptopSave.h"
+	#include "finances.h"
+	#include "PostalService.h"
+	#include "faces.h"
+	#include "GameSettings.h"
+#endif
+
 #endif
 
 #define IMP_SEEK_AMOUNT 5 * 80 * 2
@@ -46,8 +72,10 @@ void OffSetQuestionForFemaleSpecificQuestions( INT32 *iCurrentOffset );
 #define QTN_FIRST_COLUMN_X					iScreenWidthOffset + 80
 #define QTN_SECOND_COLUMN_X					iScreenWidthOffset + 320
 
-
-
+#ifdef JA2UB
+#define		IMPTEXT_EDT_FILE_JA25			"BINARYDATA\\IMPText25.edt"
+#define		IMPTEXT_EDT_FILE_JA2		"BINARYDATA\\IMPText.edt"
+#endif
 
 void LoadAndDisplayIMPText( INT16 sStartX, INT16 sStartY, INT16 sLineLength, INT16 sIMPTextRecordNumber, UINT32 uiFont, UINT8 ubColor, BOOLEAN fShadow, UINT32 uiFlags)
 {
@@ -62,7 +90,18 @@ void LoadAndDisplayIMPText( INT16 sStartX, INT16 sStartY, INT16 sLineLength, INT
 	}
 
 	// load the string
+#ifdef JA2UB
+	if (FileExists(IMPTEXT_EDT_FILE_JA25))
+	{
+	LoadEncryptedDataFromFile(IMPTEXT_EDT_FILE_JA25, sString, ( UINT32 ) ( ( sIMPTextRecordNumber ) * IMP_SEEK_AMOUNT ), IMP_SEEK_AMOUNT);
+	}
+	else
+	{
+	LoadEncryptedDataFromFile(IMPTEXT_EDT_FILE_JA2, sString, ( UINT32 ) ( ( sIMPTextRecordNumber ) * IMP_SEEK_AMOUNT ), IMP_SEEK_AMOUNT);	
+	}
+#else
 	LoadEncryptedDataFromFile("BINARYDATA\\IMPText.EDT", sString, ( UINT32 ) ( ( sIMPTextRecordNumber ) * IMP_SEEK_AMOUNT ), IMP_SEEK_AMOUNT);
+#endif
 
 	// null put last char
 	sString[ wcslen( sString) ] = 0;

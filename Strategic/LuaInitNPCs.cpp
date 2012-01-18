@@ -45,6 +45,14 @@
 #include "LOS.h"
 #include "Music Control.h"
 
+#ifdef JA2UB
+#include "Ja25 Strategic Ai.h"
+#include "Ja25_Tactical.h"
+#include "Ja25Update.h"
+#include "ub_config.h"
+#include "Ja25Update.h"
+#endif
+
 #include "Intro.h"
 #include "End Game.h"
 #include "Queen Command.h"
@@ -60,14 +68,79 @@ extern "C" {
 #include "lua_state.h"
 #include "lua_function.h"
 #include <vfs/Core/vfs_string.h>
+
+#include "Encrypted File.h"
 //-------------------------- UB ------------------------------
 extern	BOOLEAN	gfDoneWithSplashScreen;
 extern UINT32 iStringToUseLua;
 extern INT8 Test;
 
+//Briefing room
+static int l_SetEndMission(lua_State *L);
+static int l_SetStartMission(lua_State *L);
+static int l_CheckMission (lua_State *L);
+
 void FatigueCharacter( SOLDIERTYPE *pSoldier );
 
 static int l_AddCustomEmail (lua_State *L);
+
+static int l_SetDefaultArrivalSector (lua_State *L);
+static int l_GetDefaultArrivalSector (lua_State *L);
+static int l_SetMercArrivalLocation(lua_State *L);
+static int l_GetDefaultArrivalSectorX (lua_State *L);
+static int l_GetDefaultArrivalSectorY (lua_State *L);
+
+static int l_InitProfile(lua_State *L);
+
+#ifdef JA2UB
+
+static int l_InitMercgridNo0 (lua_State *L);
+static int l_InitMercgridNo1 (lua_State *L);
+static int l_InitMercgridNo2 (lua_State *L);
+static int l_InitMercgridNo3 (lua_State *L);
+static int l_InitMercgridNo4 (lua_State *L);
+static int l_InitMercgridNo5 (lua_State *L);
+static int l_InitMercgridNo6 (lua_State *L);
+static int l_InitJerryGridNo (lua_State *L);
+
+static int l_SetInternalLocateGridNo(lua_State *L);
+
+static int l_setInGameHeliCrash (lua_State *L);
+static int l_setJerryQuotes (lua_State *L);
+static int l_setInJerry (lua_State *L);
+static int l_setLaptopQuest (lua_State *L);
+static int l_setInGameHeli (lua_State *L);
+
+
+//static int l_getMercgridNo0 (lua_State *L);
+//static int l_getMercgridNo1 (lua_State *L);
+//static int l_getMercgridNo2 (lua_State *L);
+//static int l_getMercgridNo3 (lua_State *L);
+//static int l_getMercgridNo4 (lua_State *L);
+//static int l_getMercgridNo5 (lua_State *L);
+//static int l_getMercgridNo6 (lua_State *L);
+
+static int l_Ja25SaveStructJohnKulbaIsInGame(lua_State *L);
+static int l_Ja25SaveCheckStructJohnKulbaIsInGame(lua_State *L);
+
+static int l_Ja25SaveStructubJohnKulbaInitialSectorY(lua_State *L);
+static int l_Ja25SaveStructubJohnKulbaInitialSectorX(lua_State *L);
+
+static int l_SetNumberJa25EnemiesInSurfaceSector(lua_State *L);
+static int l_SetNumberOfJa25BloodCatsInSector(lua_State *L);
+
+static int l_HasNpcSaidQuoteBefore(lua_State *L);
+
+static int l_ShouldThePlayerStopWhenWalkingOnBiggensActionItem(lua_State *L);
+
+
+static int l_HandleSeeingPowerGenFan (lua_State *L);
+static int l_HandleSwitchToOpenFortifiedDoor (lua_State *L);
+static int l_HandleSeeingFortifiedDoor (lua_State *L);
+static int l_HandlePlayerHittingSwitchToLaunchMissles (lua_State *L);
+static int l_HavePersonAtGridnoStop(lua_State *L);
+
+#endif
 
 static int l_WhoIsThere2 (lua_State *L);
 
@@ -78,7 +151,9 @@ static int l_FindUnderGroundSector(lua_State *L);
 static int l_AddEnemyToUnderGroundSector(lua_State *L);
 static int l_FindUnderGroundSectorVisited(lua_State *L);
 
-//static int l_EnterTacticalInFinalSector(lua_State *L);
+#ifdef JA2UB
+static int l_EnterTacticalInFinalSector(lua_State *L);
+#endif
 
 static int l_ReStartingGame(lua_State *L);
 
@@ -109,8 +184,8 @@ BOOLEAN LetLuaInterfaceDialogue( UINT8 ubNPC, UINT8 InitFunction);
 BOOLEAN LuaHandlePlayerTeamMemberDeath(UINT8 ProfileId, UINT8 Init);
 BOOLEAN LuaHandleNPCTeamMemberDeath(UINT8 ProfileId, UINT8 Init);
 BOOLEAN LuaCheckForKingpinsMoneyMissing( BOOLEAN fFirstCheck, UINT8 Init);
-BOOLEAN LuaHandleQuestCodeOnSectorExit( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 Init);
-BOOLEAN LuaHandleQuestCodeOnSectorEntry( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 Init);
+BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 Init);
+//BOOLEAN LuaHandleQuestCodeOnSectorEntry( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 Init);
 BOOLEAN LuaHandleDelayedItemsArrival( UINT32 uiReason, UINT8 Init);
 BOOLEAN LetLuaHandleNPCSystemEvent( UINT32 uiEvent, UINT8 Init);
 
@@ -276,6 +351,9 @@ static int l_AddToShouldBecomeHostileOrSayQuoteList(lua_State *L);
 
 static int l_AddPreReadEmail (lua_State *L);
 static int l_AddEmail (lua_State *L);
+static int l_AddEmailXML (lua_State *L);
+static int l_AddEmailXML2 (lua_State *L);
+static int l_AddEmailLevelUpXML (lua_State *L);
 
 static int l_EVENT_SoldierGotHit (lua_State *L);
 static int l_EVENT_InitNewSoldierAnim (lua_State *L);
@@ -621,6 +699,19 @@ static int l_WhoIs(lua_State *L);
 
 static int l_SetHandleGlobalLoyaltyEvent (lua_State *L);
 
+//----05-08-2011---
+
+// tactical tex box function
+static int l_ExecuteTacticalTextBox(lua_State *L);
+
+//Town function
+static int l_VisibleTown (lua_State *L);
+static int l_HiddenTown (lua_State *L);
+//static int l_EraseTown (lua_State *L);
+//static int l_ResizeTown (lua_State *L);
+
+static int l_gubBoxerID(lua_State *L);
+static int l_RemoveGraphicFromTempFile (lua_State *L);
 
 using namespace std;
 
@@ -712,6 +803,11 @@ void IniGlobal_1(lua_State *L)
 }		
 void IniFunction(lua_State *L)
 {
+
+	//Briefing room
+	lua_register(L, "SetEndMission", l_SetEndMission);
+	lua_register(L, "SetStartMission", l_SetStartMission);
+	lua_register(L, "CheckMission", l_CheckMission);
 
 	//Sector
 	lua_register(L, "AddAlternateSector", l_AddAlternateSector);
@@ -918,7 +1014,9 @@ void IniFunction(lua_State *L)
 	//Email
 	lua_register(L, "AddPreReadEmail", l_AddPreReadEmail);
 	lua_register(L, "AddEmail", l_AddEmail);
-	
+	lua_register(L, "AddEmailMercAvailableXML", l_AddEmailXML);
+	lua_register(L, "AddEmailMercLevelUpXML", l_AddEmailLevelUpXML);
+	lua_register(L, "AddEmailXML", l_AddEmailXML2);
 	//Items
 	lua_register(L, "CreateItem", l_CreateItem);
 	lua_register(L, "CreateMoney", l_CreateMoney);	
@@ -1226,6 +1324,30 @@ void IniFunction(lua_State *L)
 	lua_register(L, "SetTurnTimeLimit", l_fTurnTimeLimit);		
 
 	lua_register(L, "InitMercFace", l_InitFace);
+	
+	
+#ifdef JA2UB	
+	//john
+	lua_register(L, "Ja25JohnKulbaIsInGame", l_Ja25SaveStructJohnKulbaIsInGame);
+	lua_register(L, "Ja25CheckJohnKulbaIsInGame", l_Ja25SaveCheckStructJohnKulbaIsInGame);
+	lua_register(L, "Ja25JohnKulbaInitialSectorY", l_Ja25SaveStructubJohnKulbaInitialSectorY);
+	lua_register(L, "Ja25JohnKulbaInitialSectorX", l_Ja25SaveStructubJohnKulbaInitialSectorX);	
+	
+	lua_register(L, "SetNumberJa25EnemiesInSurfaceSector", l_SetNumberJa25EnemiesInSurfaceSector);	
+	
+	lua_register(L, "SetNumberOfJa25BloodCatsInSector", l_SetNumberOfJa25BloodCatsInSector);
+
+	lua_register(L, "HasNpcSaidQuoteBefore", l_HasNpcSaidQuoteBefore);	
+	
+	lua_register(L, "ShouldThePlayerStopWhenWalkingOnBiggensActionItem", l_ShouldThePlayerStopWhenWalkingOnBiggensActionItem);	
+	
+	lua_register(L, "HandleSeeingPowerGenFan", l_HandleSeeingPowerGenFan);	
+	lua_register(L, "HandleSwitchToOpenFortifiedDoor", l_HandleSwitchToOpenFortifiedDoor);	
+	lua_register(L, "HandleSeeingFortifiedDoor", l_HandleSeeingFortifiedDoor);	
+	lua_register(L, "HandlePlayerHittingSwitchToLaunchMissles", l_HandlePlayerHittingSwitchToLaunchMissles);
+	lua_register(L, "HavePersonAtGridnoStop", l_HavePersonAtGridnoStop);
+	
+#endif	
 
 	lua_register(L, "WhoIsThere2", l_WhoIsThere2);	
 	
@@ -1243,11 +1365,13 @@ void IniFunction(lua_State *L)
 	
 	lua_register(L, "SetCurrentWorldSector", l_SetCurrentWorldSector);	
 
-//	lua_register(L, "EnterTacticalInFinalSector", l_EnterTacticalInFinalSector);	
+#ifdef JA2UB
+	lua_register(L, "EnterTacticalInFinalSector", l_EnterTacticalInFinalSector);	
+#endif
 
 	lua_register(L, "ReStartingGame", l_ReStartingGame);
 	
-//	lua_register(L, "AddCustomEmail", l_AddCustomEmail);
+	lua_register(L, "AddCustomEmail", l_AddCustomEmail);
 
 	//intro
 	lua_register(L, "DisplaySirtechSplashScreen", l_DisplaySirtechSplashScreen);
@@ -1263,6 +1387,56 @@ void IniFunction(lua_State *L)
 	lua_register(L, "StartVideo", l_StartVideo);	
 
 	lua_register(L, "SetGlobalLoyaltyEvent", l_SetHandleGlobalLoyaltyEvent);	
+	
+	lua_register(L, "SetDefaultArrivalSector", l_SetDefaultArrivalSector);	
+	lua_register(L, "GetDefaultArrivalSector", l_GetDefaultArrivalSector);
+	lua_register(L, "SetDefaultArrivalGridNo", l_SetMercArrivalLocation);
+	lua_register(L, "GetDefaultArrivalSectorX", l_GetDefaultArrivalSectorX);
+	lua_register(L, "GetDefaultArrivalSectorY", l_GetDefaultArrivalSectorY);
+	
+	lua_register(L, "InitialProfile", l_InitProfile);
+	
+	#ifdef JA2UB
+	lua_register(L, "InitialHeliGridNo1", l_InitMercgridNo0);
+	lua_register(L, "InitialHeliGridNo2", l_InitMercgridNo1);
+	lua_register(L, "InitialHeliGridNo3", l_InitMercgridNo2);
+	lua_register(L, "InitialHeliGridNo4", l_InitMercgridNo3);
+	lua_register(L, "InitialHeliGridNo5", l_InitMercgridNo4);
+	lua_register(L, "InitialHeliGridNo6", l_InitMercgridNo5);
+	lua_register(L, "InitialHeliGridNo7", l_InitMercgridNo6);
+	
+	lua_register(L, "InitialJerryGridNo", l_InitJerryGridNo);
+	
+	lua_register(L, "InitialLaptopQuest", l_setLaptopQuest);
+	
+	lua_register(L, "InitialHeliCrash", l_setInGameHeliCrash );
+	lua_register(L, "InitialJerryQuotes", l_setJerryQuotes );
+	lua_register(L, "InitialJerry", l_setInJerry );
+	lua_register(L, "InitialHeli", l_setInGameHeli );
+	
+	lua_register(L, "InternalLocateGridNo", l_SetInternalLocateGridNo );
+	#endif
+	
+	//lua_register(L, "GetINITIALHELIGRIDNO1", l_getMercgridNo0);
+	//lua_register(L, "GetINITIALHELIGRIDNO2", l_getMercgridNo1);
+	//lua_register(L, "GetINITIALHELIGRIDNO3", l_getMercgridNo2);
+	//lua_register(L, "GetINITIALHELIGRIDNO4", l_getMercgridNo3);
+	//lua_register(L, "GetINITIALHELIGRIDNO5", l_getMercgridNo4);
+	//lua_register(L, "GetINITIALHELIGRIDNO6", l_getMercgridNo5);
+	//lua_register(L, "GetINITIALHELIGRIDNO7", l_getMercgridNo6);
+	
+	lua_register(L, "ExecuteTacticalTextBox", l_ExecuteTacticalTextBox);
+
+	//Town function
+	lua_register(L, "VisibleTown", l_VisibleTown);
+	lua_register(L, "HiddenTown", l_HiddenTown);
+	//lua_register(L, "EraseTown", l_EraseTown);
+	//lua_register(L, "ResizeTown", l_ResizeTown);
+	
+	lua_register(L, "gubBoxerID", l_gubBoxerID);
+	
+	lua_register(L, "RemoveGraphicFromTempFile", l_RemoveGraphicFromTempFile);
+	
 
 }
 
@@ -1412,7 +1586,7 @@ static int l_StartVideo(lua_State *L)
 }
 
 //------------------- End intro -----------
-/*
+#ifdef JA2UB
 static int l_EnterTacticalInFinalSector(lua_State *L)
 {
 
@@ -1420,7 +1594,8 @@ static int l_EnterTacticalInFinalSector(lua_State *L)
 	
 	return 0;
 }
-*/
+#endif
+
 static int l_ReStartingGame(lua_State *L)
 {
 
@@ -1429,6 +1604,98 @@ static int l_ReStartingGame(lua_State *L)
 	return 0;
 }
 
+#ifdef JA2UB
+BOOLEAN LetLuaMakeBadSectorListFromMapsOnHardDrive(UINT8 Init)
+{
+	char * filename = "scripts\\MakeMapsOnHardDrive.lua";
+	UINT32 size, bytesRead;
+	char* buffer;
+
+	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+
+	if (!file)
+		return false;
+
+	size = FileSize(filename);
+	buffer = new char[size+1];
+	buffer[size] = 0;
+	FileRead(file, buffer, size, &bytesRead);
+	FileClose(file);
+
+	lua_State *L = lua_open();
+	luaL_openlibs(L);
+
+	IniFunction(L);
+	IniGlobalGameSetting(L);
+	
+	if (luaL_dostring(L, buffer))
+	{
+		// oh noes, error
+		// TODO: write to log or something
+		return false;
+	}
+	
+	if ( Init == 0 )
+	{
+		lua_getglobal(L , "MakeBadSectorListFromMapsOnHardDrive");
+		lua_call(L,0,0); 
+	}
+
+	lua_close(L);
+
+	delete[] buffer;
+	
+	
+	return true;
+
+}
+
+BOOLEAN LuaInitStrategicLayer(UINT8 Init)
+{
+	char * filename = "scripts\\InitStrategicLayer.lua";
+	UINT32 size, bytesRead;
+	char* buffer;
+
+	HWFILE file = FileOpen(filename, FILE_ACCESS_READ, FALSE);
+
+	if (!file)
+		return false;
+
+	size = FileSize(filename);
+	buffer = new char[size+1];
+	buffer[size] = 0;
+	FileRead(file, buffer, size, &bytesRead);
+	FileClose(file);
+
+	lua_State *L = lua_open();
+	luaL_openlibs(L);
+
+	IniFunction(L);
+	IniGlobalGameSetting(L);
+	
+	if (luaL_dostring(L, buffer))
+	{
+		// oh noes, error
+		// TODO: write to log or something
+		return false;
+	}
+	
+	if ( Init == 0 )
+	{
+		lua_getglobal(L , "InitStrategicLayer");
+		lua_call(L,0,0); 
+	}
+	
+	lua_close(L);
+
+	delete[] buffer;
+	
+	
+	return true;
+
+}
+
+#endif
 
 static int l_SetHandleGlobalLoyaltyEvent (lua_State *L)
 {
@@ -1452,8 +1719,6 @@ INT8 bSectorZ;
 return 0;
 }
 
-
-/*
 static int l_AddCustomEmail (lua_State *L)
 {
 UINT8  n = lua_gettop(L);
@@ -1461,7 +1726,8 @@ int i;
 INT32 iMessageOffset;
 INT32 iMessageLength;
 UINT8 ubSender;
-INT32 iCurrentIMPPosition;
+//INT32 iCurrentIMPPosition;
+INT16 iCurrentShipmentDestinationID = -1;
 
 	for (i= 1; i<=n; i++ )
 	{
@@ -1469,14 +1735,15 @@ INT32 iCurrentIMPPosition;
 		if (i == 2 ) iMessageLength = lua_tointeger(L,i);
 		if (i == 3 ) ubSender = lua_tointeger(L,i);
 		//if (i == 4 ) iDate = lua_tointeger(L,i);
-		if (i == 4 ) iCurrentIMPPosition = lua_tointeger(L,i);
+		//if (i == 4 ) iCurrentIMPPosition = lua_tointeger(L,i);
+		//if (i == 5) iCurrentShipmentDestinationID = lua_tointeger(L,i);
 	}
 
-	AddCustomEmail(iMessageOffset,iMessageLength,ubSender,	GetWorldTotalMin(), iCurrentIMPPosition);	
+	AddCustomEmail(iMessageOffset,iMessageLength,ubSender,	GetWorldTotalMin(), -1, -1, TYPE_EMAIL_OTHER);	
 	
 return 0;
 }
-*/
+
 static int l_gMercProfileGearset(lua_State *L)
 {
 UINT8 n = lua_gettop(L);
@@ -1662,6 +1929,217 @@ UINT8 Val = 0,Prof = 0, whois = 0;
 			
 	return 1;
 }
+
+#ifdef JA2UB
+static int l_HandlePlayerHittingSwitchToLaunchMissles (lua_State *L)
+{	
+
+	HandlePlayerHittingSwitchToLaunchMissles( );
+			
+	return 0;
+}
+
+static int l_HavePersonAtGridnoStop(lua_State *L)
+{
+UINT8 n = lua_gettop(L);
+int i;
+UINT32 sGridNo = 0;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) sGridNo = lua_tointeger(L,i);
+	}	
+		
+		HavePersonAtGridnoStop( sGridNo );
+			
+	return 0;
+}
+
+static int l_HandleSeeingPowerGenFan (lua_State *L)
+{
+UINT8 n = lua_gettop(L);
+int i;
+INT32 sGridNo = 0;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) sGridNo = lua_tointeger(L,i);
+	}	
+		
+		HandleSeeingPowerGenFan( sGridNo );
+			
+	return 0;
+}
+
+static int l_HandleSwitchToOpenFortifiedDoor (lua_State *L)
+{
+UINT8 n = lua_gettop(L);
+int i;
+INT32 sGridNo = 0;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) sGridNo = lua_tointeger(L,i);
+	}	
+		
+		HandleSwitchToOpenFortifiedDoor( sGridNo );
+			
+	return 0;
+}
+
+static int l_HandleSeeingFortifiedDoor (lua_State *L)
+{
+UINT8 n = lua_gettop(L);
+int i;
+INT32 sGridNo = 0;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) sGridNo = lua_tointeger(L,i);
+	}	
+		
+		HandleSeeingFortifiedDoor( sGridNo );
+			
+	return 0;
+}
+
+static int l_ShouldThePlayerStopWhenWalkingOnBiggensActionItem (lua_State *L)
+{
+UINT8 n = lua_gettop(L);
+int i;
+UINT8 ubRecordNum = 0;
+BOOLEAN Bool;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubRecordNum = lua_tointeger(L,i);
+	}	
+		
+		Bool = ShouldThePlayerStopWhenWalkingOnBiggensActionItem( ubRecordNum );
+		
+		lua_pushboolean(L, Bool);
+			
+	return 1;
+}
+
+static int l_HasNpcSaidQuoteBefore (lua_State *L)
+{
+UINT8 n = lua_gettop(L);
+int i;
+UINT8 ubNPC = 0;
+UINT8 ubRecord = 0;
+BOOLEAN Bool;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubNPC = lua_tointeger(L,i);
+		if (i == 2 ) ubRecord = lua_tointeger(L,i);
+	}	
+		
+		Bool = HasNpcSaidQuoteBefore( ubNPC, ubRecord );
+		
+			lua_pushboolean(L, Bool);
+			
+	return 1;
+}
+
+static int l_SetNumberOfJa25BloodCatsInSector(lua_State *L)
+{
+UINT8 n = lua_gettop(L);
+int i;
+INT8	bNumBloodCats=0;
+INT8	bBloodCatPlacements=0;	
+INT16 sSectorX;
+INT16 sSectorY;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) sSectorX = lua_tointeger(L,i);
+		if (i == 2 ) sSectorY = lua_tointeger(L,i);
+		if (i == 3 ) bNumBloodCats = lua_tointeger(L,i);
+		if (i == 4 ) bBloodCatPlacements = lua_tointeger(L,i);
+	}	
+		
+		SectorInfo[ SECTOR( sSectorX, sSectorY ) ].bBloodCatPlacements = bBloodCatPlacements;
+		SectorInfo[ SECTOR( sSectorX, sSectorY ) ].bBloodCats = bNumBloodCats;
+	return 0;
+}
+
+static int l_SetNumberJa25EnemiesInSurfaceSector(lua_State *L)
+{
+UINT8 n = lua_gettop(L);
+
+int i;
+	UINT8	ubNumAdmins=0;
+	UINT8	ubNumTroops=0;
+	UINT8	ubNumElites=0;
+	
+INT16 sSectorX;
+INT16 sSectorY;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) sSectorX = lua_tointeger(L,i);
+		if (i == 2 ) sSectorY = lua_tointeger(L,i);
+		if (i == 3 ) ubNumAdmins = lua_tointeger(L,i);
+		if (i == 4 ) ubNumTroops = lua_tointeger(L,i);
+		if (i == 5 ) ubNumElites = lua_tointeger(L,i);
+	}	
+		SetNumberJa25EnemiesInSurfaceSector( SECTOR( sSectorX, sSectorY ), ubNumAdmins, ubNumTroops, ubNumElites );
+	return 0;
+}
+
+static int l_Ja25SaveStructubJohnKulbaInitialSectorY(lua_State *L)
+{
+UINT32 Y;
+UINT8 n = lua_gettop(L);
+
+	 Y = lua_tointeger(L,n);
+
+	gJa25SaveStruct.ubJohnKulbaInitialSectorY = Y;
+	return 0;
+}
+
+static int l_Ja25SaveStructubJohnKulbaInitialSectorX(lua_State *L)
+{
+UINT32 X;
+UINT8 n = lua_gettop(L);
+
+	 X = lua_tointeger(L,n);
+
+	gJa25SaveStruct.ubJohnKulbaInitialSectorX = X;
+	return 0;
+}
+
+//gJa25SaveStruct.fJohnKulbaIsInGame
+static int l_Ja25SaveCheckStructJohnKulbaIsInGame(lua_State *L)
+{
+BOOLEAN FactFalse;
+UINT8 n = lua_gettop(L);
+
+	FactFalse = gJa25SaveStruct.fJohnKulbaIsInGame;
+	
+	lua_pushboolean(L, FactFalse);
+
+	return 1;
+}
+
+
+//gJa25SaveStruct.fJohnKulbaIsInGame
+static int l_Ja25SaveStructJohnKulbaIsInGame(lua_State *L)
+{
+BOOLEAN FactFalse;
+UINT8 n = lua_gettop(L);
+
+	 FactFalse = lua_toboolean(L,n);
+
+	gJa25SaveStruct.fJohnKulbaIsInGame = FactFalse;
+	return 0;
+}
+
+#endif
+
+//-------------- End UB ----------------
 
 static int l_WhoIsThere2 (lua_State *L)
 {
@@ -1973,8 +2451,8 @@ BOOLEAN LuaHandleQuestCodeOnSectorEntry( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	return true;
 
 }
-
-BOOLEAN LuaHandleQuestCodeOnSectorExit( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 Init)
+*/
+BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 Init)
 {
 	char * filename = "scripts\\strategicmap.lua";
 	UINT32 size, bytesRead;     
@@ -2017,6 +2495,15 @@ BOOLEAN LuaHandleQuestCodeOnSectorExit( INT16 sSectorX, INT16 sSectorY, INT8 bSe
 		lua_call(L,3,0); 
 	}
 	
+	if ( Init == 1 )
+	{
+		lua_getglobal(L , "HandleQuestCodeOnSectorEntry");
+		lua_pushnumber (L, sSectorX );
+		lua_pushnumber (L, sSectorY );
+		lua_pushnumber (L, bSectorZ );
+		lua_call(L,3,0); 
+	}
+	
 	lua_close(L);
 
 	delete[] buffer;
@@ -2025,7 +2512,7 @@ BOOLEAN LuaHandleQuestCodeOnSectorExit( INT16 sSectorX, INT16 sSectorY, INT8 bSe
 	return true;
 
 }
-*/
+
 BOOLEAN LetLuaGameInit(UINT8 Init)
 {
 	char * filename = "scripts\\GameInit.lua";
@@ -2076,6 +2563,12 @@ BOOLEAN LetLuaGameInit(UINT8 Init)
 		lua_call(L,0,0); 
 	}
 	
+	if ( Init == 2 )
+	{
+		lua_getglobal(L , "InitStrategicLayer");
+		lua_call(L,0,0); 
+	}	
+	
 	lua_close(L);
 
 	delete[] buffer;
@@ -2084,7 +2577,7 @@ BOOLEAN LetLuaGameInit(UINT8 Init)
 	return true;
 
 }
-/*
+
 BOOLEAN LuaHandleNPCTeamMemberDeath(UINT8 ProfileId, UINT8 Init)
 {
 	char * filename = "scripts\\Overhead.lua";
@@ -2186,7 +2679,7 @@ BOOLEAN LuaHandlePlayerTeamMemberDeath(UINT8 ProfileId, UINT8 Init)
 	return true;
 
 }
-*/
+
 BOOLEAN LetLuaMyCustomHandleAtNewGridNo(UINT8 bNewSide, UINT8 ProfileId, UINT8 Init)
 {
 	char * filename = "scripts\\Overhead.lua";
@@ -2315,7 +2808,7 @@ BOOLEAN FindSoldier( SOLDIERTYPE **ppSoldier, UINT16 usSoldierIndex, BOOLEAN fPl
 }
 
 //--------------------------------
-/*
+
 BOOLEAN LuaHandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum , UINT8 InitFunction)
 {
 	char * filename = "scripts\\InterfaceDialogue.lua";
@@ -2487,7 +2980,7 @@ BOOLEAN LetLuaPerformItemAction(UINT32 ActionID, INT32 sGridNo , UINT8 InitFunct
 	return true;
 
 }
-*/
+
 BOOLEAN LetLuaHourlyQuestUpdate(UINT8 Init)
 {
 	char * filename = "scripts\\HourlyUpdate.lua";
@@ -2548,6 +3041,395 @@ BOOLEAN LetLuaHourlyQuestUpdate(UINT8 Init)
 //object
 
 //---------------
+#ifdef JA2UB
+static int l_InitMercgridNo0 (lua_State *L)
+{
+UINT32 GridNo;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) GridNo = lua_tointeger(L,i);
+		}	
+		
+		gGameUBOptions.InitialHeliGridNo[ 0 ] = GridNo;
+		
+	return 0;
+}
+
+static int l_InitMercgridNo1 (lua_State *L)
+{
+UINT32 GridNo;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) GridNo = lua_tointeger(L,i);
+		}	
+		
+		gGameUBOptions.InitialHeliGridNo[ 1 ] = GridNo;
+		
+	return 0;
+}
+
+static int l_InitMercgridNo2 (lua_State *L)
+{
+UINT32 GridNo;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) GridNo = lua_tointeger(L,i);
+		}	
+		
+		gGameUBOptions.InitialHeliGridNo[ 2 ] = GridNo;
+		
+	return 0;
+}
+
+static int l_InitMercgridNo3 (lua_State *L)
+{
+UINT32 GridNo;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) GridNo = lua_tointeger(L,i);
+		}	
+		
+		gGameUBOptions.InitialHeliGridNo[ 3 ] = GridNo;
+		
+	return 0;
+}
+
+static int l_InitMercgridNo4 (lua_State *L)
+{
+UINT32 GridNo;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) GridNo = lua_tointeger(L,i);
+		}	
+		
+		gGameUBOptions.InitialHeliGridNo[ 4 ] = GridNo;
+		
+	return 0;
+}
+
+static int l_InitMercgridNo5 (lua_State *L)
+{
+UINT32 GridNo;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) GridNo = lua_tointeger(L,i);
+		}	
+		
+		gGameUBOptions.InitialHeliGridNo[ 5 ] = GridNo;
+		
+	return 0;
+}
+
+static int l_InitMercgridNo6 (lua_State *L)
+{
+UINT32 GridNo;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) GridNo = lua_tointeger(L,i);
+		}	
+		
+		gGameUBOptions.InitialHeliGridNo[ 6 ] = GridNo;
+		
+	return 0;
+}
+
+static int l_InitJerryGridNo (lua_State *L)
+{
+UINT32 GridNo;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) GridNo = lua_tointeger(L,i);
+		}	
+		
+		gGameUBOptions.JerryGridNo = GridNo;
+		
+	return 0;
+}
+
+static int l_setLaptopQuest (lua_State *L)
+{
+BOOLEAN set = TRUE;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) set = lua_toboolean(L,i);
+		}	
+		
+		
+		gGameUBOptions.LaptopQuestEnabled = set;
+
+		
+	return 0;
+}
+
+static int l_setInJerry (lua_State *L)
+{
+BOOLEAN set = TRUE;
+UINT8  n = lua_gettop(L);
+UINT32 GridNo = 0;
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) set = lua_toboolean(L,i);
+			if (i == 2 ) GridNo = lua_tointeger(L,i);
+		}	
+		
+		gGameUBOptions.InJerry = set;
+		
+		if ( GridNo > 0 )
+		gGameUBOptions.JerryGridNo = GridNo;
+		else if ( GridNo < -1 )
+		gGameUBOptions.JerryGridNo = 15943;
+
+	return 0;
+}
+
+static int l_setJerryQuotes (lua_State *L)
+{
+BOOLEAN set = TRUE;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) set = lua_toboolean(L,i);
+		}	
+		
+		
+		gGameUBOptions.JerryQuotes = set;
+
+		
+	return 0;
+}
+
+static int l_setInGameHeliCrash (lua_State *L)
+{
+BOOLEAN set = TRUE;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) set = lua_toboolean(L,i);
+		}	
+		
+		
+		gGameUBOptions.InGameHeliCrash = set;
+
+		
+	return 0;
+}
+
+static int l_setInGameHeli (lua_State *L)
+{
+BOOLEAN set = TRUE;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) set = lua_toboolean(L,i);
+		}	
+		
+		
+		gGameUBOptions.InGameHeli= set;
+
+		
+	return 0;
+}
+
+static int l_SetInternalLocateGridNo(lua_State *L)
+{
+UINT32 GridNo;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) GridNo = lua_tointeger(L,i);
+		}	
+		
+		gGameUBOptions.LOCATEGRIDNO = GridNo;
+		
+	return 0;
+}
+#endif
+
+
+static int l_ExecuteTacticalTextBox(lua_State *L)
+{
+INT16 sLeftPosition = 110;
+UINT32 idText = 0;
+UINT8  n = lua_gettop(L);
+wchar_t	sText[400];
+UINT32	uiStartLoc=0;  
+CHAR16	zString[512];
+int i;
+
+//#define			LANGMESSAGEFILE		"BinaryData\\TacticalMessages.EDT"
+//#define 		EDT_SIZE 400 * 2
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) sLeftPosition = lua_tointeger(L,i);
+			if (i == 2 ) idText = lua_tointeger(L,i);
+			
+		}	
+	/*	
+	if ( FileExists(LANGMESSAGEFILE) )
+	{
+		uiStartLoc = EDT_SIZE * idText;
+		LoadEncryptedDataFromFile(LANGMESSAGEFILE, sText, uiStartLoc, EDT_SIZE);	
+		swprintf( zString, sText );
+	}
+	else
+	{
+		//Create the string
+		swprintf( zString, L"Empty Text" );
+	}
+	*/
+		if ( idText >= 0 && idText <= 1000 )
+		{
+			swprintf( zString, XMLTacticalMessages[idText] );
+
+			if ( sLeftPosition <= 0 ) sLeftPosition = 110;
+	
+			ExecuteTacticalTextBox( sLeftPosition, zString );
+		}
+		
+	return 0;
+}
+
+static int l_SetMercArrivalLocation(lua_State *L)
+{
+UINT32 GridNo;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) GridNo = lua_tointeger(L,i);
+		}	
+	
+		gGameExternalOptions.iInitialMercArrivalLocation = GridNo;
+		
+	return 0;
+}
+
+static int l_GetDefaultArrivalSectorY (lua_State *L)
+{
+INT16 sSectorY = 1;
+
+		sSectorY = gsMercArriveSectorY;
+		
+		lua_pushinteger(L, sSectorY);
+		
+	return 1;
+}
+
+static int l_GetDefaultArrivalSectorX (lua_State *L)
+{
+INT16 sSectorX = 9;
+
+		sSectorX = gsMercArriveSectorX;
+		
+		lua_pushinteger(L, sSectorX);
+		
+	return 1;
+}
+
+static int l_GetDefaultArrivalSector (lua_State *L)
+{
+INT16 sSectorX = 9;
+INT16 sSectorY = 1;
+
+		sSectorX = gsMercArriveSectorX;
+		sSectorY = gsMercArriveSectorY;
+		
+		lua_pushinteger(L, sSectorX);
+		lua_pushinteger(L, sSectorY);
+		
+	return 2;
+}
+
+static int l_SetDefaultArrivalSector(lua_State *L)
+{
+UINT8 sSectorX;
+UINT8 sSectorY;
+UINT8  n = lua_gettop(L);
+int i;
+
+	for (i= 1; i<=n; i++ )
+		{
+			if (i == 1 ) sSectorX = lua_tointeger(L,i);
+			if (i == 2 ) sSectorY = lua_tointeger(L,i);
+		}	
+		
+	if ( ( sSectorX >= 1 || sSectorX <= 16 ) && ( sSectorY >= 1 || sSectorY <= 16 ) )
+		{
+			gsMercArriveSectorX	= sSectorX;
+			gsMercArriveSectorY	= sSectorY;
+			
+			#ifdef JA2UB
+			JA2_5_START_SECTOR_X = sSectorX;
+			JA2_5_START_SECTOR_Y = sSectorY;
+			#endif
+			gGameExternalOptions.ubDefaultArrivalSectorX = sSectorX;
+			gGameExternalOptions.ubDefaultArrivalSectorY = sSectorY;
+		}
+		else
+		{
+		
+			#ifdef JA2UB
+			JA2_5_START_SECTOR_X = 7;
+			JA2_5_START_SECTOR_Y = 8;
+			
+			gsMercArriveSectorX	= 7;
+			gsMercArriveSectorY	= 8;
+			
+			gGameExternalOptions.ubDefaultArrivalSectorX = 7;
+			gGameExternalOptions.ubDefaultArrivalSectorY = 8;
+			
+			#else
+			
+			gsMercArriveSectorX	= 9;
+			gsMercArriveSectorY	= 1;
+			
+
+			gGameExternalOptions.ubDefaultArrivalSectorX = 9;
+			gGameExternalOptions.ubDefaultArrivalSectorY = 1;
+			#endif
+		}
+		
+	return 0;
+}
 
 static int l_BoxerExists(lua_State *L)
 {
@@ -2558,6 +3440,24 @@ BOOLEAN Bool;
 	lua_pushboolean(L, Bool);
 	
 return 1;
+}
+
+static int l_gubBoxerID(lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+UINT8 val,val2;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) val = lua_tointeger(L,i);
+		if (i == 2 ) val2 = lua_tointeger(L,i);
+	}
+	
+	if ( val >= 0 && val <= 2 )
+		gubBoxerID[ val ] = val2;
+	
+return 0;
 }
 
 static int l_CheckTalkerUnpropositionedFemale(lua_State *L)
@@ -2617,6 +3517,37 @@ UINT32 Town;
 	}
 	
 	gMercProfiles[ ubProfileID ].bTown = Town;
+	
+return 0;
+}
+
+static int l_InitProfile(lua_State *L)
+{
+UINT8  n = lua_gettop(L);
+int i;
+UINT8 ubProfileID;
+//UINT32 Town;
+UINT16 x = 0;
+UINT16 y = 0;
+UINT8 z = 0;
+UINT32 sGridNo;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) ubProfileID = lua_tointeger(L,i);
+		if (i == 2 ) x = lua_tointeger(L,i);
+		if (i == 3 ) y = lua_tointeger(L,i);
+		if (i == 4 ) z = lua_tointeger(L,i);
+		if (i == 5 ) sGridNo = lua_tointeger(L,i);
+	}
+	
+	gMercProfiles[ ubProfileID ].sSectorX = x;
+	gMercProfiles[ ubProfileID ].sSectorY = y;
+	gMercProfiles[ ubProfileID ].bSectorZ = z;
+	gMercProfiles[ ubProfileID ].sGridNo = sGridNo; 
+	gMercProfiles[ ubProfileID ].fUseProfileInsertionInfo = TRUE;
+	gMercProfiles[ ubProfileID ].ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+	gMercProfiles[ ubProfileID ].usStrategicInsertionData = sGridNo;
 	
 return 0;
 }
@@ -5664,15 +6595,17 @@ UINT16 SextorX;
 UINT16 SextorY;
 
 UINT8 SkyDrive;
+UINT8 vehicle = 163;	// Default: Helicopter
 
 	for (i= 1; i<=n; i++ )
 	{
 		if (i == 1 ) SextorX = lua_tointeger(L,i);
 		if (i == 2 ) SextorY = lua_tointeger(L,i);
 		if (i == 3 ) SkyDrive = lua_tointeger(L,i);
+		if (i == 4 ) vehicle = lua_tointeger(L,i);
 	}
 
-	SetUpHelicopterForPlayer( SextorX, SextorY, SkyDrive );
+	SetUpHelicopterForPlayer( SextorX, SextorY, SkyDrive, vehicle );
 	
 return 0;
 }
@@ -6415,7 +7348,8 @@ static int l_SetGlobalLuaVal (lua_State *L)
 {
 UINT8  n = lua_gettop(L);
 int i;
-UINT32 val,set;
+UINT32 val;
+INT32 set;
 
 	for (i= 1; i<=n; i++ )
 	{
@@ -6433,7 +7367,8 @@ static int l_GetGlobalLuaVal (lua_State *L)
 {
 UINT8  n = lua_gettop(L);
 int i;
-UINT32 val,set;
+UINT32 val;
+INT32 set;
 
 	for (i= 1; i<=n; i++ )
 	{
@@ -6471,7 +7406,8 @@ static int l_CheckGlobalLuaVal (lua_State *L)
 {
 UINT8  n = lua_gettop(L);
 int i;
-UINT32 val,set;
+UINT32 val;
+INT32 set;
 
 	for (i= 1; i<=n; i++ )
 	{
@@ -7209,6 +8145,122 @@ INT32 option2 = 0;	// Option 2, vaies with action
 return 0;
 }
 
+//AddEmailXML
+static int l_AddEmailXML2 (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i;
+
+	//INT32 iMessageOffset;
+	//INT32 iMessageLength;
+	UINT8 ubSender;
+	UINT8 uiIndex;
+	//INT32 iCurrentIMPPosition;
+	
+	UINT8 pMerc = 0;
+	UINT8 iMerc = 0;
+	UINT8 oMerc = 0;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) uiIndex = lua_tointeger(L,i);
+		//if (i == 1 ) iMessageOffset = lua_tointeger(L,i);
+		//if (i == 2 ) iMessageLength = lua_tointeger(L,i);
+		if (i == 2 ) ubSender = lua_tointeger(L,i);
+		//if (i == 4 ) iCurrentIMPPosition = lua_tointeger(L,i);
+	}
+	
+		oMerc = uiIndex;
+		iMerc = oMerc * 1;
+						
+		if ( oMerc != 0 )
+			pMerc = oMerc + 1;
+		else
+			pMerc = 0;
+			
+		AddEmailTypeXML(pMerc,iMerc, ubSender, GetWorldTotalMin(), -1, TYPE_EMAIL_OTHER);
+	//AddEmailTypeXML(iMessageOffset,iMessageLength, ubSender, GetWorldTotalMin(), iCurrentIMPPosition, TYPE_EMAIL_AIM_AVAILABLE);
+	return 0;
+}
+
+//AddEmailXML
+static int l_AddEmailXML (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i;
+
+	//INT32 iMessageOffset;
+	//INT32 iMessageLength;
+	//UINT8 ubSender;
+	UINT8 uiIndex;
+	//INT32 iCurrentIMPPosition;
+	
+	UINT8 pMerc = 0;
+	UINT8 iMerc = 0;
+	UINT8 oMerc = 0;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) uiIndex = lua_tointeger(L,i);
+		//if (i == 1 ) iMessageOffset = lua_tointeger(L,i);
+		//if (i == 2 ) iMessageLength = lua_tointeger(L,i);
+		//if (i == 3 ) ubSender = lua_tointeger(L,i);
+		//if (i == 4 ) iCurrentIMPPosition = lua_tointeger(L,i);
+	}
+	
+		oMerc = uiIndex;
+		iMerc = oMerc * 1;
+						
+		if ( oMerc != 0 )
+			pMerc = oMerc + 1;
+		else
+			pMerc = 0;
+			
+	if ( gProfilesAIM[uiIndex].ProfilId == uiIndex )
+		AddEmailTypeXML(pMerc,iMerc, iMerc, GetWorldTotalMin(), -1, TYPE_EMAIL_AIM_AVAILABLE);
+	//AddEmailTypeXML(iMessageOffset,iMessageLength, ubSender, GetWorldTotalMin(), iCurrentIMPPosition, TYPE_EMAIL_AIM_AVAILABLE);
+	return 0;
+}
+
+//AddEmailXML
+static int l_AddEmailLevelUpXML (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i;
+
+	//INT32 iMessageOffset;
+	//INT32 iMessageLength;
+	//UINT8 ubSender;
+	UINT8 uiIndex;
+	//INT32 iCurrentIMPPosition;
+	
+	UINT8 pMerc = 0;
+	UINT8 iMerc = 0;
+	UINT8 oMerc = 0;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) uiIndex = lua_tointeger(L,i);
+		//if (i == 1 ) iMessageOffset = lua_tointeger(L,i);
+		//if (i == 2 ) iMessageLength = lua_tointeger(L,i);
+		//if (i == 3 ) ubSender = lua_tointeger(L,i);
+		//if (i == 4 ) iCurrentIMPPosition = lua_tointeger(L,i);
+	}
+	
+		oMerc = uiIndex;
+		iMerc = oMerc * 1;
+						
+		if ( oMerc != 0 )
+			pMerc = oMerc + 1;
+		else
+			pMerc = 0;
+			
+	if ( gProfilesMERC[uiIndex].ProfilId == uiIndex )
+		AddEmailTypeXML(pMerc,iMerc, iMerc, GetWorldTotalMin(), -1, TYPE_EMAIL_MERC_LEVEL_UP);
+	//AddEmailTypeXML(iMessageOffset,iMessageLength, ubSender, GetWorldTotalMin(), iCurrentIMPPosition, TYPE_EMAIL_MERC_LEVEL_UP);
+	return 0;
+}
+
 //AddEmail
 static int l_AddEmail (lua_State *L)
 {
@@ -7230,7 +8282,7 @@ static int l_AddEmail (lua_State *L)
 		if (i == 5) iCurrentShipmentDestinationID = lua_tointeger(L,i);
 	}
 
-	AddEmail(iMessageOffset,iMessageLength,ubSender,	GetWorldTotalMin(), iCurrentIMPPosition, iCurrentShipmentDestinationID);	
+	AddEmail(iMessageOffset,iMessageLength,ubSender,	GetWorldTotalMin(), iCurrentIMPPosition, iCurrentShipmentDestinationID, TYPE_EMAIL_EMAIL_EDT);	
 	
 	return 0;
 }
@@ -7253,7 +8305,7 @@ UINT8 ubSender;
 		if (i == 3 ) ubSender = lua_tointeger(L,i);
 	}
 
-	AddPreReadEmail(iMessageOffset,iMessageLength,ubSender,	GetWorldTotalMin());	
+	AddPreReadEmail(iMessageOffset,iMessageLength,ubSender,	GetWorldTotalMin(), TYPE_EMAIL_EMAIL_EDT);	
 	
 return 0;
 }
@@ -10551,6 +11603,186 @@ static int l_AddAltUnderGroundSector(lua_State *L)
 	
 	return 0;	
 }
+
+//--------------Briefing room-----------------------30-06-2011
+
+static int l_SetEndMission(lua_State *L)
+{
+	UINT32 idMission, nextMission;
+	UINT8 n = lua_gettop(L);
+	int i = 0;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) idMission = lua_tointeger(L,i);
+	}
+	
+	if ( gBriefingRoomData[idMission].CheckMission == MISSIONSTART ) 
+	{
+		gBriefingRoomData[idMission].CheckMission = MISSIONEND; //set end mission 
+		nextMission = gBriefingRoomData[idMission].NextMission;
+		if ( nextMission != -1 )
+		gBriefingRoomData[nextMission].Hidden = TRUE; // set next mission
+	}
+	 
+	return 0;
+}
+
+static int l_SetStartMission(lua_State *L)
+{
+	UINT32 idMission;
+	UINT8 n = lua_gettop(L);
+	int i = 0;
+	
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) idMission = lua_tointeger(L,i);
+	}
+	
+	if ( gBriefingRoomData[idMission].CheckMission != MISSIONSTART || gBriefingRoomData[idMission].CheckMission != MISSIONEND || gBriefingRoomData[idMission].CheckMission == MISSIONNOSTARTED ) 
+	{
+		gBriefingRoomData[idMission].CheckMission = MISSIONSTART; //set start mission 
+		gBriefingRoomData[idMission].Hidden = TRUE; // set next mission
+	}
+	 
+	return 0;
+}
+
+static int l_CheckMission (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i = 0;
+	UINT32 idMission = 0;
+	UINT32 Bool = 0;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) idMission = lua_tointeger(L,i);
+	}
+
+	if ( gBriefingRoomData[idMission].CheckMission == MISSIONNOSTARTED)
+		Bool = 0;
+	else if ( gBriefingRoomData[idMission].CheckMission == MISSIONSTART)
+		Bool = 1;
+	else if (gBriefingRoomData[idMission].CheckMission == MISSIONEND)	
+		Bool = 2;
+		
+	lua_pushinteger(L, Bool);
+		
+		
+	return 1;
+}
+
+//--------------------------------------------------------------
+
+static int l_RemoveGraphicFromTempFile (lua_State *L)
+{
+	UINT8  n = lua_gettop(L);
+	int i = 0;
+	INT32 uiMapIndex;
+	UINT16 usIndex;
+	INT16 sSectorX;
+	INT16 sSectorY;
+	UINT8 ubSectorZ; 
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) uiMapIndex = lua_tointeger(L,i);
+		if (i == 2 ) usIndex = lua_tointeger(L,i);
+		if (i == 3 ) sSectorX = lua_tointeger(L,i);
+		if (i == 4 ) sSectorY = lua_tointeger(L,i);
+		if (i == 5 ) ubSectorZ = lua_tointeger(L,i);
+	}
+	
+	RemoveGraphicFromTempFile( uiMapIndex, usIndex, sSectorX, sSectorY, ubSectorZ );
+
+
+	return 0;
+}
+
+//------------ Towns function
+/*
+static int l_ResizeTown (lua_State *L)
+{
+	UINT8 n = lua_gettop(L);
+
+	UINT16 x = 0;
+	UINT16 y = 0;
+	UINT8 TownID;
+	
+	int i = 0;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) x = lua_tointeger(L,i);
+		if (i == 2 ) y = lua_tointeger(L,i);
+		if (i == 3 ) TownID = lua_tointeger(L,i);		
+	}
+	
+	if ( TownID > 0 && TownID <= NUM_TOWNS ) //MAX_TOWNS
+		StrategicMap[SECTOR( x, y )].bNameId = TownID;
+
+	return 0;
+}
+
+static int l_EraseTown (lua_State *L)
+{
+	UINT8 n = lua_gettop(L);
+
+	UINT8 TownID,cnt;
+	
+	int i = 0;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) TownID = lua_tointeger(L,i);		
+	}
+		
+	for (cnt = 0; cnt < 256; cnt++)
+	{
+		if ( StrategicMap[cnt].bNameId == TownID && TownID < NUM_TOWNS ) StrategicMap[cnt].bNameId = 0;
+	}
+
+	return 0;
+}
+*/
+static int l_HiddenTown (lua_State *L)
+{
+	UINT8 n = lua_gettop(L);
+	UINT8 TownID;
+	
+	int i = 0;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) TownID = lua_tointeger(L,i);
+	}
+	
+	if ( TownID > 0 && TownID <= NUM_TOWNS )
+		gfHiddenTown[TownID] = FALSE;
+
+	return 0;
+}
+
+static int l_VisibleTown (lua_State *L)
+{
+	UINT8 n = lua_gettop(L);
+	UINT8 TownID;
+	
+	int i = 0;
+
+	for (i= 1; i<=n; i++ )
+	{
+		if (i == 1 ) TownID = lua_tointeger(L,i);
+	}
+	
+	if ( TownID > 0 && TownID <= NUM_TOWNS )
+		gfHiddenTown[TownID] = TRUE;
+
+	return 0;
+}
+
+//---------------
 
 static int lh_getBooleanFromTable(lua_State *L, const char * fieldname)
 {

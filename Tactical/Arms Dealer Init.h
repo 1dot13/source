@@ -8,13 +8,18 @@
 //enums for the various arms dealers
 enum
 {
+//Ja25 None are in exp.
 	ARMS_DEALER_TONY,
 	ARMS_DEALER_FRANZ,
 	ARMS_DEALER_KEITH,
 	ARMS_DEALER_JAKE,
 	ARMS_DEALER_GABBY,
-
+#ifdef JA2UB
+//no UB
+#else
 	ARMS_DEALER_DEVIN,
+#endif
+
 	ARMS_DEALER_HOWARD,
 	ARMS_DEALER_SAM,
 	ARMS_DEALER_FRANK,
@@ -28,13 +33,22 @@ enum
 
 	ARMS_DEALER_ARNIE,
 	ARMS_DEALER_FREDO,
+	
+#ifdef JA2UB
+	ARMS_DEALER_RAUL,
+#else
 	ARMS_DEALER_PERKO,
+#endif
 
 // added only in GameVersion 54
 	ARMS_DEALER_ELGIN,
 
 // added only in GameVersion 55
 	ARMS_DEALER_MANNY,
+
+#ifdef JA2UB
+	ARMS_DEALER_BETTY,
+#endif
 
 	NUM_ARMS_DEALERS,
 };
@@ -108,8 +122,13 @@ enum
 
 #define		ARMS_DEALER_ALL_WEAPONS			ARMS_DEALER_ALL_GUNS | ARMS_DEALER_BLADE | ARMS_DEALER_LAUNCHER | ARMS_DEALER_KNIFECLASS
 
-
-
+#ifdef JA2UB
+//Raul
+#define	ARMS_DEALER_FLAG__RAUL_HAS_SOLD_BARRETT_TO_PLAYER					0x00000001	// Raul has sold the Barrett to the player
+#define	ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_48											0x00000002	// Raul said the quote for when the player first puts the hand cannon down
+#define	ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_49											0x00000004	// Quote for when player removes hand cannon from players offer area
+#define	ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_50											0x00000008	// Quote for when player adds the hand cannon AGAIN into the players offer area
+#endif
 
 
 
@@ -193,6 +212,8 @@ public:
 	BOOLEAN fRepairDelayBeenUsed;		// Set when a repairman has missed his repair time estimate & given his excuse for it
 	BOOLEAN	fUnusedKnowsPlayer;			// Set if the shopkeeper has met with the player before [UNUSED]
 	UINT32	uiTimePlayerLastInSKI;		// game time (in total world minutes) when player last talked to this dealer in SKI
+	
+	BOOLEAN	fHasSoldSomethingToPlayer;	//If set, the player has at some point sold something to the player
 
 	UINT16	ubStrayAmmo[MAXITEMS];			// partially-depleted ammo mags are stored here as #bullets, and can be converted to full packs
 	BOOLEAN	fPreviouslyEligible[MAXITEMS];	// whether or not dealer has been eligible to sell this item in days prior to today
@@ -303,9 +324,9 @@ extern const ARMS_DEALER_INFO	DefaultarmsDealerInfo[ NUM_ARMS_DEALERS ];
 extern std::vector<ARMS_DEALER_INFO>	armsDealerInfo;
 extern ARMS_DEALER_STATUS		gArmsDealerStatus[ NUM_ARMS_DEALERS ];
 
-
-
-
+#ifdef JA2UB
+void AddTexsVideosToBettysInventory();
+#endif
 
 
 void		InitAllArmsDealers();
@@ -362,6 +383,9 @@ UINT16	CalcValueOfItemToDealer( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN 
 
 UINT32 CalculateOvernightRepairDelay( UINT8 ubArmsDealer, UINT32 uiTimeWhenFreeToStartIt, UINT32 uiMinutesToFix );
 UINT32 CalculateMinutesClosedBetween( UINT8 ubArmsDealer, UINT32 uiStartTime, UINT32 uiEndTime );
+#ifdef JA2UB
+extern void DailyCheckOnItemQuantities( BOOLEAN fInstallyHaveItemsAppear ); //Ja25 UB
+#endif
 extern void		GuaranteeAtLeastXItemsOfIndex( UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubHowMany );
 
 

@@ -77,6 +77,7 @@
     <ClCompile Include="SmartMethod.cpp" />
     <ClCompile Include="smooth.cpp" />
     <ClCompile Include="Smoothing Utils.cpp" />
+    <ClCompile Include="XML_ActionItems.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{23EA0500-038A-4EB8-B753-0C709B25470D}</ProjectGuid>

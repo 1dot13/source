@@ -10,7 +10,9 @@
 #else
 #define MAX_MESSAGES_ON_MAP_BOTTOM	9
 #endif
-
+#ifdef JA2UB
+extern	INT8 gbExitingMapScreenToWhere;
+#endif
 // exit to where defines
 enum{
 	MAP_EXIT_TO_LAPTOP = 0,
@@ -18,6 +20,9 @@ enum{
 	MAP_EXIT_TO_OPTIONS,
 	MAP_EXIT_TO_LOAD,
 	MAP_EXIT_TO_SAVE,
+#ifdef JA2UB
+	MAP_EXIT_TO_INTRO_SCREEN,
+#endif
 	// OJW - 20090210 - clean resources on disconnect
 	MAP_EXIT_TO_MAINMENU
 };

@@ -57,6 +57,17 @@
 	#include "Interface Enhanced.h"
 #endif
 
+#ifdef JA2UB
+#include "Explosion Control.h"
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#include "MapScreen Quotes.h"
+#include "email.h"
+#include "interface Dialogue.h"
+#include "Ja25_Tactical.h"
+#include "ub_config.h"
+#endif
+
 #include "BuildDefines.h"
 #include <algorithm>
 
@@ -281,13 +292,28 @@ SKIRGBCOLOR SkiGlowColorsA[]={
 
 #define		FLO_DISCOUNT_PERCENTAGE						10
 
+#ifdef JA2UB
+#define		SKI_BETTY_MINIMUM_AMOUNT_TO_SET_FACT		10
+#define		SKI_RAUL_MINIMUM_AMOUNT_TO_SET_FACT			100
+#endif
 
 ////////////////////////////////////////////
 //
 //	Global Variables
 //
 ///////////////////////////////////////////
+#ifdef JA2UB
+//ja25 UB
+enum
+{
+	TRNSMTR_MSG_BOX__NONE,
+	TRNSMTR_MSG_BOX__1_FRAME_WAIT,
+	TRNSMTR_MSG_BOX__DISPLAY_BOX,
+};
 
+void AskUserToAttachTransmitterToLaptop();
+void AttachLaptopTransmitterToLaptop( UINT8 ubExitValue );
+#endif
 
 UINT32		guiMainTradeScreenImage;
 UINT32		guiCornerWhereTacticalIsStillSeenImage;		//This image is for where the corner of tactical is still seen through the shop keeper interface
@@ -354,6 +380,9 @@ INT32			giPopUpBoxId=-1;
 
 BOOLEAN		gfIsTheShopKeeperTalking;
 
+#ifdef JA2UB
+UINT8		gubDisplayMsgBoxAskingUserToAttachTransmitter=0; // Ja25 UB
+#endif
 
 // the glow for unwanted items
 BOOLEAN fDeltaColorForShopkeepUnwanted = TRUE;
@@ -381,6 +410,10 @@ CHAR16 gzSkiAtmTransferString[ 32 ];
 BOOLEAN	gfExitSKIDueToMessageBox=FALSE;
 
 OBJECTTYPE	*pShopKeeperItemDescObject=NULL;
+
+#ifdef JA2UB
+BOOLEAN	gfCanSayMakeTransactionQuote; //ja25 UB
+#endif
 
 UINT32	guiNextFreeInvSlot;
 
@@ -673,7 +706,6 @@ void HatchOutInvSlot( UINT16 usPosX, UINT16 usPosY );
 
 
 extern BOOLEAN ItemIsARocketRifle( INT16 sItemIndex );
-
 
 #ifdef JA2TESTVERSION
 BOOLEAN gfTestDisplayDealerCash = FALSE;
@@ -1232,7 +1264,15 @@ ATM:
 
 	// by default re-enable calls to PerformTransaction()
 	gfPerformTransactionInProgress = FALSE;
-
+#ifdef JA2UB	
+	//JA25 UB
+	//if the dealer is RAUL
+	if( gbSelectedArmsDealerID == ARMS_DEALER_RAUL )
+	{
+		//set the fact the raul refreshed his inventory
+		SetFactFalse( FACT_RAULS_INVENTORY_CHANGED_SINCE_LAST_VISIT );
+	}
+#endif
 	return( TRUE );
 }
 
@@ -1357,7 +1397,28 @@ BOOLEAN ExitShopKeeperInterface()
 	MSYS_EnableRegion(&gRadarRegion);
 
 	gfSMDisableForItems = FALSE;
+#ifdef JA2UB	
+	//JA25 UB
+	//Check to see if a merc should say something
+	//CheckForValidQuotesWhenLeavingDealer( gTalkPanel.ubCharNum );
 
+	//if the laptop was just fixed
+	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE && !( gJa25SaveStruct.uiJa25GeneralFlags & JA_GF__PLAYER_SAID_LAPTOP_FIXED_QUOTE ) )
+	{
+
+		INT8	bSoldierID=-1;
+
+			
+		//Have a new merc say a quote
+		bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+		if( bSoldierID != -1 )
+		{
+			TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_SPARE2 );
+		}
+
+		gJa25SaveStruct.uiJa25GeneralFlags |= JA_GF__PLAYER_SAID_LAPTOP_FIXED_QUOTE;
+	}
+#endif
 	return( TRUE );
 }
 
@@ -1483,6 +1544,24 @@ void HandleShopKeeperInterface()
 	{
 		DisplayTheSkiDropItemToGroundString();
 	}
+#ifdef JA2UB
+	//ja25 UB
+	else if( gubDisplayMsgBoxAskingUserToAttachTransmitter != TRNSMTR_MSG_BOX__NONE )
+	{
+		if( gubDisplayMsgBoxAskingUserToAttachTransmitter == TRNSMTR_MSG_BOX__1_FRAME_WAIT )
+		{
+			gubDisplayMsgBoxAskingUserToAttachTransmitter = TRNSMTR_MSG_BOX__DISPLAY_BOX;
+		}
+		else if( gubDisplayMsgBoxAskingUserToAttachTransmitter == TRNSMTR_MSG_BOX__DISPLAY_BOX )
+		{
+			//Tell user that they are attaching the transmitter
+			AskUserToAttachTransmitterToLaptop();
+
+			//clear the flag
+			gubDisplayMsgBoxAskingUserToAttachTransmitter = TRNSMTR_MSG_BOX__NONE;
+		}
+	}
+#endif
 }
 
 
@@ -3086,13 +3165,16 @@ BOOLEAN RepairIsDone(DEALER_SPECIAL_ITEM* pSpecial)
 		}
 	}
 
+#ifdef JA2UB
+	//no UB
+#else
 	// if the item is imprinted (by anyone, even player's mercs), and it's Fredo repairing it
 	if ( ( gbSelectedArmsDealerID == ARMS_DEALER_FREDO ) )
 	{
 		// then reset the imprinting!
 		RepairItem.ItemObject[0]->data.ubImprintID = NO_PROFILE;
 	}
-
+#endif
 	//try to add the item to the players offer area
 	INT8		bSlotNum;
 	bSlotNum = AddItemToPlayersOfferArea( RepairItem.ubIdOfMercWhoOwnsTheItem, &RepairItem, -1 );
@@ -3149,6 +3231,9 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 	UINT32	uiTotalPrice = 0;
 	UINT32	uiDiscountValue;
 //	UINT32	uiDifFrom10 = 0;
+#ifdef JA2UB
+UINT8		ubItemsNotCounted = 0; //ja25 UB
+#endif
 	std::vector<UINT32>	uiItemPrice;
 
 	uiItemPrice.resize(pItemObject->ubNumberOfObjects);
@@ -3267,6 +3352,78 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 
 	// we're always count the first one
 	uiTotalPrice = uiUnitPrice;
+	
+#ifdef JA2UB	
+	//---------------------------JA25 UB---------------
+	// if NOT pricing just one
+	if ( !fUnitPriceOnly )
+	{
+		// add value of all that weren't already counted
+		uiTotalPrice += ( ubItemsNotCounted * uiUnitPrice );
+	}
+
+	//if the dealer is Raul
+	if( gbSelectedArmsDealerID == ARMS_DEALER_RAUL )
+	{
+		//if the item is the antique musket
+		if( usItemID == HAND_CANNON ) //4498
+		{
+			//if the "Find anitque musket" quest is active
+			if( gubQuest[ QUEST_FIND_ANTIQUE_MUSKET_FOR_RAUL ] == QUESTINPROGRESS )
+			{
+				//the price should be.... nothin ( reward for the quest )
+				uiTotalPrice = 1;
+
+				//if the player hasnt said the quote before
+				if( !( gArmsDealerStatus[ gbSelectedArmsDealerID ].ubSpecificDealerFlags & ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_48 ) )
+				{
+					StartShopKeeperTalking( SK_QUOTES_NPC_SPECIFIC_48 );
+					gArmsDealerStatus[ gbSelectedArmsDealerID ].ubSpecificDealerFlags |= ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_48;
+					gfCanSayMakeTransactionQuote = FALSE;
+				}
+
+				//else if 
+				if( gArmsDealerStatus[ gbSelectedArmsDealerID ].ubSpecificDealerFlags & ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_49 )
+				{
+					//if the player hasnt said it before
+					if( !( gArmsDealerStatus[ gbSelectedArmsDealerID ].ubSpecificDealerFlags & ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_50 ) )
+					{
+						StartShopKeeperTalking( SK_QUOTES_NPC_SPECIFIC_50 );
+						gArmsDealerStatus[ gbSelectedArmsDealerID ].ubSpecificDealerFlags |= ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_50;
+					}
+
+					//the price should be
+					uiTotalPrice = 100;
+				}
+			}
+		}
+
+		//if the item is the barrat
+		if( usItemID == BARRETT_UB )
+		{
+			//and if the player found the antique musket for Raul
+			if( IsJa25GeneralFlagSet( JA_GF__BARRETT_IS_HALF_PRICE ) )
+			{
+				//the barrett is half off
+				uiTotalPrice /= 2;
+			}
+		}
+	}
+
+        //JA25UB
+	//if the dealer is Raul
+	if( gbSelectedArmsDealerID == ARMS_DEALER_BETTY )
+	{
+		//if the item is the antique musket
+		if( usItemID == TEX_MOVIE_ATTACK_CLYDESDALES || usItemID == TEX_MOVIE_WILD_EAST || usItemID == TEX_MOVIE_HAVE_HONDA )
+	//	if( usItemID == 1356 || usItemID == 1357 || usItemID == 1358 )
+		{
+			//Make the item price top be what is listed in the item table ( 20 )
+			uiTotalPrice = Item[ usItemID ].usPrice;
+		}
+	}
+
+#endif	
 	return( uiTotalPrice );
 }
 
@@ -3922,7 +4079,29 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 
 			//Move all dealers offered items to the player
 			MoveAllArmsDealersItemsInOfferAreaToPlayersOfferArea( );
+#ifdef JA2UB			
+			//JA25 UB
+			//if the arms dealer is Raul
+			if( gbSelectedArmsDealerID == ARMS_DEALER_RAUL )
+			{
+				//if this is the first time that the player purchased somehting form raul
+				if( gArmsDealerStatus[ gbSelectedArmsDealerID ].fHasSoldSomethingToPlayer == FALSE )
+				{
+					//if RAUL doesnt have the BARRETT anymore ie the player already bought it
+					//if( gArmsDealersInventory[ ARMS_DEALER_PERKO ][ BARRETT ].ubTotalItems != 0 )
+					//{
+						if( gubQuest[ QUEST_FIND_ANTIQUE_MUSKET_FOR_RAUL ] == QUESTNOTSTARTED )
+						{
+							//Raul Start the quest and have Raul say somehitng
+							StartShopKeeperTalking( SK_QUOTES_NPC_SPECIFIC_46 );
+							StartShopKeeperTalking( SK_QUOTES_NPC_SPECIFIC_47 );
 
+							StartQuest( QUEST_FIND_ANTIQUE_MUSKET_FOR_RAUL, -1, -1 );
+						}
+					//}
+				}
+			}
+#endif
 
 			//if the arms dealer is the type of person to give change
 			if( armsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_DEALER_GIVES_CHANGE )
@@ -3951,7 +4130,34 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 				else if( iChangeToGiveToPlayer == 0 )
 					StartShopKeeperTalking( SK_QUOTES_PLAYER_HAS_EXACTLY_ENOUGH_MONEY_FOR_TRANSACTION );
 			}
+#ifdef JA2UB			
+			//Bought from dealer specific stuff
 
+			//if the arms dealer is Betty, set fact 403
+			if( gbSelectedArmsDealerID == ARMS_DEALER_BETTY )
+			{
+				//if the player spent more the X
+				if( uiMoneyFromPlayersAccount >= SKI_BETTY_MINIMUM_AMOUNT_TO_SET_FACT )
+				{
+					//set the fact
+					SetFactTrue( FACT_PLAYER_PAID_BETTY_MORE_THEN_X_FOR_ITEM  );
+				}
+			}
+
+			//if the arms dealer is Raul, set fact 407
+			if( gbSelectedArmsDealerID == ARMS_DEALER_RAUL )
+			{
+				//if the player spent more the X
+				if( uiMoneyFromPlayersAccount >= SKI_RAUL_MINIMUM_AMOUNT_TO_SET_FACT )
+				{
+					//set the fact
+					SetFactTrue( FACT_PLAYER_BOUGHT_SOMETHING_FROM_RAUL );
+				}
+			}
+
+			//Remeber the fact that the player has sold somehting to the player
+			gArmsDealerStatus[ gbSelectedArmsDealerID ].fHasSoldSomethingToPlayer = TRUE;
+#endif
 
 			//if the arms dealer is tony
 			if( gbSelectedArmsDealerID == ARMS_DEALER_TONY )
@@ -3990,19 +4196,67 @@ void MoveAllArmsDealersItemsInOfferAreaToPlayersOfferArea( )
 	//for all items in the dealers items offer area
 	UINT32	uiCnt;
 	INT16		bSlotID=0;
-
+#ifdef JA2UB	
+	BOOLEAN	fAddItemToPlayer=TRUE;
+#endif
 	//loop through all the slots in the shopkeeper's offer area
 	for( uiCnt=0; uiCnt<SKI_NUM_TRADING_INV_SLOTS; uiCnt++)
 	{
 		//if there is an item here
 		if( ArmsDealerOfferArea[ uiCnt ].fActive )
 		{
+#ifdef JA2UB
+			//JA25 UB
+			fAddItemToPlayer = TRUE; 
+
+			//if the dealer is betty
+			if( gbSelectedArmsDealerID == ARMS_DEALER_BETTY )
+			{
+				//if the item is the laptop transmitter
+				if( ArmsDealerOfferArea[ uiCnt ].sItemIndex == LAPTOP_TRANSMITTER ) //4500
+				{
+					//Dont transfer the item
+					fAddItemToPlayer = FALSE;
+
+					//Tell the user we are going to attach the transmitter to the laptop
+					//( need to wait 1 frame caus ewe are currently in a msg box )
+					gubDisplayMsgBoxAskingUserToAttachTransmitter = TRNSMTR_MSG_BOX__1_FRAME_WAIT;
+				}
+
+				//if the item is the porno mag
+				if( ArmsDealerOfferArea[ uiCnt ].sItemIndex == PORNOS )
+				{
+					StartShopKeeperTalking( SK_QUOTES_WHEN_PLAYER_BUYS_PORNO );
+				}
+
+				//if the item is Tex's videos
+				if( ArmsDealerOfferArea[ uiCnt ].sItemIndex == TEX_MOVIE_ATTACK_CLYDESDALES ||//1356  ||
+						ArmsDealerOfferArea[ uiCnt ].sItemIndex == TEX_MOVIE_WILD_EAST ||//1357 	||
+						ArmsDealerOfferArea[ uiCnt ].sItemIndex == TEX_MOVIE_HAVE_HONDA )//1358  )
+				{
+					SetFactTrue( FACT_PLAYER_BOUGHT_A_TEX_VIDEO_FROM_BETTY );
+				}
+			}
+			
+			if( fAddItemToPlayer ) //JA25 UB
+			{		
+#endif			
 			bSlotID = AddItemToPlayersOfferArea( NO_PROFILE, &ArmsDealerOfferArea[ uiCnt ], -1 );
 
 			if( bSlotID != -1 )
 			{
 				PlayersOfferArea[ bSlotID ].uiFlags |= ARMS_INV_JUST_PURCHASED;
 
+#ifdef JA2UB				
+				
+				//if the player has just purchased the BArrett form Raul
+				if( ( gbSelectedArmsDealerID == ARMS_DEALER_RAUL ) && ( ArmsDealerOfferArea[ uiCnt ].sItemIndex == BARRETT_UB ) )
+				{
+					// set a special flag
+					gArmsDealerStatus[ gbSelectedArmsDealerID ].ubSpecificDealerFlags |= ARMS_DEALER_FLAG__RAUL_HAS_SOLD_BARRETT_TO_PLAYER;
+				}
+					
+#endif					
 				//if the player has just purchased a VIDEO_CAMERA from Franz Hinkle
 				if( ( gbSelectedArmsDealerID == ARMS_DEALER_FRANZ ) && ( ArmsDealerOfferArea[ uiCnt ].sItemIndex == VIDEO_CAMERA ) )
 				{
@@ -4010,7 +4264,9 @@ void MoveAllArmsDealersItemsInOfferAreaToPlayersOfferArea( )
 					gArmsDealerStatus[ gbSelectedArmsDealerID ].ubSpecificDealerFlags |= ARMS_DEALER_FLAG__FRANZ_HAS_SOLD_VIDEO_CAMERA_TO_PLAYER;
 				}
 			}
-
+#ifdef JA2UB			
+			}
+#endif
 
 			//Remove the items out of the dealers inventory
 			RemoveItemFromDealersInventory( &ArmsDealerOfferArea[ uiCnt ], (UINT16)ArmsDealerOfferArea[ uiCnt ].bSlotIdInOtherLocation );
@@ -4051,7 +4307,9 @@ BOOLEAN RemoveItemFromDealersInventory( INVENTORY_IN_SLOT* pInvSlot, UINT16 ubSl
 void MovePlayerOfferedItemsOfValueToArmsDealersInventory()
 {
 	UINT32	uiCnt;
-
+#ifdef JA2UB
+	BOOLEAN	fAddItemToDealer=TRUE;
+#endif
 	//loop through all the slots in the players offer area
 	for( uiCnt=0; uiCnt<SKI_NUM_TRADING_INV_SLOTS; uiCnt++)
 	{
@@ -4070,6 +4328,57 @@ void MovePlayerOfferedItemsOfValueToArmsDealersInventory()
 					//add the money to the dealers 'cash'
 					gArmsDealerStatus[ gbSelectedArmsDealerID ].uiArmsDealersCash += PlayersOfferArea[ uiCnt ].ItemObject[0]->data.money.uiMoneyAmount;
 				}
+#ifdef JA2UB
+				else
+				{			
+					fAddItemToDealer = TRUE;
+
+					//if the dealer is raul
+					if( gbSelectedArmsDealerID == ARMS_DEALER_RAUL )
+					{
+						//if the item is the cannon balls
+						if( PlayersOfferArea[ uiCnt ].sItemIndex == CLIP_CANNON_BALL )// 4499 )
+						{
+							fAddItemToDealer = FALSE;
+						}
+
+						//if the item is the antique musket
+						if( PlayersOfferArea[ uiCnt ].sItemIndex == HAND_CANNON )// 4498 )
+						{
+							//Only do this if the player knew about the cannon offer
+							if( gubQuest[ QUEST_FIND_ANTIQUE_MUSKET_FOR_RAUL ] == QUESTINPROGRESS )
+							{
+								//Have raul say a quote
+								StartShopKeeperTalking( SK_QUOTES_NPC_SPECIFIC_51 );
+
+								//Trigger Rauls action #52
+								TriggerNPCRecord( PERKO, 52 );
+
+								//Remeber to discount the barrett
+								SetJa25GeneralFlag( JA_GF__BARRETT_IS_HALF_PRICE );
+							}
+
+							//Mark the quest done
+							EndQuest( QUEST_FIND_ANTIQUE_MUSKET_FOR_RAUL, -1, -1 );
+
+							fAddItemToDealer = FALSE;
+						}
+					}
+				
+					//if we ARE to transfer the item
+					if( fAddItemToDealer )
+					{
+						//if the dealer doesn't strictly buy items from the player, give the item to the dealer
+						if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_BUYS_ONLY )
+						{
+							// item cease to be merc-owned during this operation
+							AddObjectToArmsDealerInventory( gbSelectedArmsDealerID, &( PlayersOfferArea[ uiCnt ].ItemObject ) );
+							PlayersOfferArea[ uiCnt ].ItemObject.initialize();
+						}
+					
+					}
+				}
+#else
 				else
 				{
 					//if the dealer doesn't strictly buy items from the player, give the item to the dealer
@@ -4081,6 +4390,7 @@ void MovePlayerOfferedItemsOfValueToArmsDealersInventory()
 					}
 				}
 
+#endif
 				//erase the item from the player's offer area
 				ClearPlayersOfferSlot( uiCnt );
 			}
@@ -4191,7 +4501,26 @@ void BeginSkiItemPointer( UINT8 ubSource, INT16 bSlotNum, BOOLEAN fOfferToDealer
 			}
 			else
 				gpItemPointerSoldier = gpSMCurrentMerc;
-
+#ifdef JA2UB				
+				//ja25 ub
+			//if the dealer is Raul
+			if( gbSelectedArmsDealerID == ARMS_DEALER_RAUL )
+			{
+				//if the item is the antique musket
+				if( gMoveingItem.ItemObject.usItem == HAND_CANNON ) //4498  )
+				{
+					if( gubQuest[ QUEST_FIND_ANTIQUE_MUSKET_FOR_RAUL ] == QUESTINPROGRESS )
+					{
+						//if the player hasnt said the quote before
+						if( !( gArmsDealerStatus[ gbSelectedArmsDealerID ].ubSpecificDealerFlags & ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_49 ) )
+						{
+							StartShopKeeperTalking( SK_QUOTES_NPC_SPECIFIC_49 );
+							gArmsDealerStatus[ gbSelectedArmsDealerID ].ubSpecificDealerFlags |= ARMS_DEALER_FLAG__RAUL_SAID_QUOTE_49;
+						}
+					}
+				}
+			}
+#endif
 
 			break;
 
@@ -4648,7 +4977,50 @@ void HandleShopKeeperDialog( UINT8 ubInit )
 						}
 					}
 				}
+#ifdef JA2UB				
+				//ja25 UB
+				// if neither of the more precise quotes fit, or 33 percent of the time anyways
+				if ( ( sRandomQuoteToUse == -1 ) || Chance( 33 ) )
+				{
+					//If the dealer is Betty,
+					if( gbSelectedArmsDealerID == ARMS_DEALER_BETTY )
+					{
+						//she has 4 random quotes
+						UINT8	ubRandom = Random( 100 );
 
+						if( ubRandom > 75 )
+							sRandomQuoteToUse = SK_QUOTES_RANDOM_QUOTE_WHILE_PLAYER_DECIDING_1;
+						else if( ubRandom > 50 )
+							sRandomQuoteToUse = SK_QUOTES_RANDOM_QUOTE_WHILE_PLAYER_DECIDING_2;
+						else if( ubRandom > 25 )
+							sRandomQuoteToUse = SK_QUOTES_RANDOM_QUOTE_WHILE_PLAYER_DECIDING_3;
+						else
+							sRandomQuoteToUse = SK_QUOTES_RANDOM_QUOTE_WHILE_PLAYER_DECIDING_4;
+
+					}
+					else
+					{
+						if( Chance ( 50 ) )
+							sRandomQuoteToUse = SK_QUOTES_RANDOM_QUOTE_WHILE_PLAYER_DECIDING_1;
+						else
+							sRandomQuoteToUse = SK_QUOTES_RANDOM_QUOTE_WHILE_PLAYER_DECIDING_2;
+					}
+				}
+
+				Assert( sRandomQuoteToUse != -1 );
+				Assert( sRandomQuoteToUse < NUM_COMMON_SK_QUOTES );
+
+				if ( !gfCommonQuoteUsedThisSession[ sRandomQuoteToUse ] )
+				{
+					StartShopKeeperTalking( (UINT16) sRandomQuoteToUse );
+
+					gfCommonQuoteUsedThisSession[ sRandomQuoteToUse ] = TRUE;
+
+					//increase the random quote delay
+					guiRandomQuoteDelayTime += SKI_DEALERS_RANDOM_QUOTE_DELAY_INCREASE_RATE; 
+				}
+				
+#else
 				// if neither of the more precise quotes fit, or 33 percent of the time anyways
 				if ( ( sRandomQuoteToUse == -1 ) || Chance( 33 ) )
 				{
@@ -4670,6 +5042,7 @@ void HandleShopKeeperDialog( UINT8 ubInit )
 					//increase the random quote delay
 					guiRandomQuoteDelayTime += SKI_DEALERS_RANDOM_QUOTE_DELAY_INCREASE_RATE;
 				}
+#endif
 			}
 
 			uiLastTime = GetJA2Clock();
@@ -5981,12 +6354,16 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 
 	// say "Hmm... Let's see" once per trading session to start evaluation
 	// SPECIAL: Devin doesn't have this quote (he's the only one)
+
+#ifdef JA2UB
+//no UB
+#else
 	if( !gfDealerHasSaidTheEvaluateQuoteOnceThisSession && ( gbSelectedArmsDealerID != ARMS_DEALER_DEVIN ) )
 	{
 		gfDealerHasSaidTheEvaluateQuoteOnceThisSession = TRUE;
 		StartShopKeeperTalking( SK_QUOTES_PLAYER_REQUESTED_EVALUATION );
 	}
-
+#endif
 
 	//Can this particular kind of item be sold/repaired here
 	if( WillShopKeeperRejectObjectsFromPlayer( gbSelectedArmsDealerID, bSlotID ) == FALSE )
@@ -6118,6 +6495,33 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 		switch ( uiEvalResult )
 		{
 			case EVAL_RESULT_DONT_HANDLE:
+#ifdef JA2UB
+			//JA25 UB
+			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_SELLS_ONLY )
+				{
+					// then he doesn't have quotes 17, 19, or 20, always use 4.  Devin doesn't have 18 either,
+					// while the text of 18 seems wrong for Sam & Howard if offered something they should consider valuable.
+					sQuoteNum = SK_QUOTES_NOT_INTERESTED_IN_THIS_ITEM;			
+				}
+				else
+				{
+					//if the dealer is BETTY
+					if( gbSelectedArmsDealerID == ARMS_DEALER_BETTY && 
+							( Item[ PlayersOfferArea[ bSlotID ].sItemIndex ].usItemClass == IC_AMMO ||
+								Item[ PlayersOfferArea[ bSlotID ].sItemIndex ].usItemClass == IC_GUN 
+							)
+						)
+					{
+						// she accepts items, but not this one
+						sQuoteNum = SK_QUOTES_NPC_SPECIFIC_40;
+					}
+					else
+					{
+						// he accepts items, but not this one
+						sQuoteNum = SK_QUOTES_DURING_EVALUATION_STUFF_REJECTED;
+					}
+				}
+#endif
 				if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_SELLS_ONLY )
 				{
 					// then he doesn't have quotes 17, 19, or 20, always use 4.  Devin doesn't have 18 either,
@@ -7358,7 +7762,12 @@ void HandlePossibleRepairDelays()
 	gfStartWithRepairsDelayedQuote = FALSE;
 
 	// if it's Fredo or Perko
+#ifdef JA2UB
+	if ( ( gbSelectedArmsDealerID == ARMS_DEALER_FREDO ) || ( gbSelectedArmsDealerID == ARMS_DEALER_RAUL ) )
+#else
 	if ( ( gbSelectedArmsDealerID == ARMS_DEALER_FREDO ) || ( gbSelectedArmsDealerID == ARMS_DEALER_PERKO ) )
+#endif
+
 	{
 		// because the quotes are so specific, we'll only use them once per game per repairman
 		if( !gArmsDealerStatus[ gbSelectedArmsDealerID ].fRepairDelayBeenUsed )
@@ -7841,3 +8250,21 @@ void HatchOutInvSlot( UINT16 usPosX, UINT16 usPosY )
 	DrawHatchOnInventory( guiRENDERBUFFER, usSlotX, usSlotY, usSlotWidth, usSlotHeight );
 	InvalidateRegion( usSlotX, usSlotY, usSlotX + usSlotWidth, usSlotY + usSlotHeight );
 }
+#ifdef JA2UB
+//ja25 UB
+void AskUserToAttachTransmitterToLaptop()
+{
+	DoSkiMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__ATTACH_TRANSMITTER_TO_LAPTOP ], SHOPKEEPER_SCREEN, MSG_BOX_FLAG_OK, AttachLaptopTransmitterToLaptop );
+}
+
+void AttachLaptopTransmitterToLaptop( UINT8 ubExitValue )
+{
+	//
+	// Get the laptop working again
+	//
+
+	//Mark the quest done
+	if ( gGameUBOptions.LaptopQuestEnabled == TRUE )
+	EndQuest( QUEST_FIX_LAPTOP, -1, -1 );
+}
+#endif

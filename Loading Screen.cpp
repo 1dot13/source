@@ -23,7 +23,10 @@
 extern HVSURFACE ghFrameBuffer;
 extern BOOLEAN gfSchedulesHosed;
 
-
+#ifdef JA2UB
+	#include "Ja25_Tactical.h"
+	#include "Ja25 Strategic Ai.h"
+#endif
 UINT8 gubLastLoadingScreenID = LOADINGSCREEN_NOTHING;
 BOOLEAN bShowSmallImage = FALSE;
 SECTOR_LOADSCREENS gSectorLoadscreens[MAX_SECTOR_LOADSCREENS];
@@ -222,7 +225,90 @@ UINT8 GetLoadScreenID(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ)
 						Assert( 0 );
 						return fNight ? LOADINGSCREEN_NIGHTGENERIC : LOADINGSCREEN_DAYGENERIC;
 				}
+			/* WANNE: Sir-Tech System */
+		}
+#ifdef JA2UB
+
+		case 1:
+		{
+			switch( ubSectorID )
+			{
+				case SEC_I13:
+				case SEC_J13:
+					return fNight ? LOADINGSCREEN_MINE : LOADINGSCREEN_MINE;
+				//tunnels
+				case SEC_J14:
+				case SEC_K14:
+					return LOADINGSCREEN_TUNNELS;
+				case SEC_K15:
+				{
+					if( gJa25SaveStruct.ubLoadScreenStairTraversal == LS__GOING_UP_STAIRS )
+						return  LOADINGSCREEN_UP_STAIRS;
+					else if( gJa25SaveStruct.ubLoadScreenStairTraversal == LS__GOING_DOWN_STAIRS )
+						return LOADINGSCREEN_DOWN_STAIRS;
+					else
+						return LOADINGSCREEN_COMPLEX_BASEMENT_GENERIC;
+				}
+				default:
+					return LOADINGSCREEN_BASEMENT;
 			}
+		}
+		case 2:
+		{
+			switch( ubSectorID )
+			{
+				case SEC_K15:
+				{	
+					//if we are going up stairs, else traversing at same level
+					if( gJa25SaveStruct.ubLoadScreenStairTraversal == LS__GOING_UP_STAIRS )
+						return LOADINGSCREEN_UP_STAIRS;
+					else if( gJa25SaveStruct.ubLoadScreenStairTraversal == LS__GOING_DOWN_STAIRS )
+						return LOADINGSCREEN_DOWN_STAIRS;
+					else
+						return LOADINGSCREEN_COMPLEX_BASEMENT;
+				}
+				case SEC_L15:
+				{
+					//if we are going up stairs, else traversing at same level
+					if( gJa25SaveStruct.ubLoadScreenStairTraversal == LS__GOING_UP_STAIRS )
+						return LOADINGSCREEN_UP_STAIRS;
+					else
+						return LOADINGSCREEN_COMPLEX_BASEMENT;
+				}
+				default:
+					return LOADINGSCREEN_BASEMENT;
+			}
+		}
+		case 3:
+		{
+			switch( ubSectorID )
+			{
+				case SEC_L15:
+				{
+					//if we are going up stairs, else traversing at same level
+					if( gJa25SaveStruct.ubLoadScreenStairTraversal == LS__GOING_DOWN_STAIRS )
+						return LOADINGSCREEN_DOWN_STAIRS;
+					else
+						return LOADINGSCREEN_COMPLEX_BASEMENT_GENERIC;
+				}
+				default:
+					return LOADINGSCREEN_CAVE;
+			}
+		}
+		break;
+			return LOADINGSCREEN_CAVE;
+		default:
+
+    /*
+    case 1:
+    case 2:
+    case 3:
+         return LOADINGSCREEN_CAVE;
+    break;
+	return LOADINGSCREEN_CAVE;
+   default:
+   */
+#else
 			// Basement Level 1
 			case 1:
 				switch( ubSectorID )
@@ -243,6 +329,7 @@ UINT8 GetLoadScreenID(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ)
 				//all level 2 and 3 maps are caves!
 				return LOADINGSCREEN_CAVE;
 			default:
+#endif
 				// shouldn't ever happen
 				Assert( FALSE );
 				return fNight ? LOADINGSCREEN_NIGHTGENERIC : LOADINGSCREEN_DAYGENERIC;
@@ -286,6 +373,10 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 	HVSURFACE			hVSurface;
 	UINT32				uiLoadScreen;
 	STRING512			smallImage = {0};
+	
+//	STRING512 xName;
+//	char szFullImagePath[80];
+	STRING512			sImage = {0};
 
 	bShowSmallImage = FALSE;
 
@@ -365,6 +456,21 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 		std::string strBigImage;
 		BuildLoadscreenFilename(strBigImage, imagePath.c_str(), iResolution, imageFormat.c_str());
 		strBigImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile)-1);
+		
+		
+		if ( !FileExists(vs_desc.ImageFile) )
+		{
+			// Small image: 640x480
+		std::string strSmallImage("LOADSCREENS\\");
+		std::string strBigImage("LOADSCREENS\\");
+		BuildLoadscreenFilename(strSmallImage, LoadScreenNames[1], 0, imageFormat.c_str());
+		strSmallImage.copy(smallImage, sizeof(smallImage)-1);
+
+		// Actual image, depending on the resolution
+		BuildLoadscreenFilename(strBigImage, LoadScreenNames[1], iResolution, imageFormat.c_str());
+		strBigImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile)-1);		
+		
+		}
 	}
 	else
 	{

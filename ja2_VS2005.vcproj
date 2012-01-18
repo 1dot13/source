@@ -66,7 +66,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStaticDebug.lib ws2_32.lib DbgHelp.lib"
-				OutputFile="$(OutDir)\JA2_EN_Debug.exe"
+				OutputFile="$(OutDir)\JA2_EN_Debug_4882.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -145,7 +145,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStatic.lib ws2_32.lib DbgHelp.lib"
-				OutputFile="$(OutDir)\JA2_EN_Release_4870.exe"
+				OutputFile="$(OutDir)\JA2_EN_Release_4882.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -229,7 +229,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStatic.lib ws2_32.lib DbgHelp.lib"
-				OutputFile="$(OutDir)\MapEditor_EN_Release_4870.exe"
+				OutputFile="$(OutDir)\MapEditor_EN_Release_4882.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -316,7 +316,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStaticDebug.lib ws2_32.lib DbgHelp.lib"
-				OutputFile="$(OutDir)\MapEditor_EN_Debug.exe"
+				OutputFile="$(OutDir)\MapEditor_EN_Debug_4882.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -399,7 +399,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStatic.lib ws2_32.lib DbgHelp.lib"
-				OutputFile="$(OutDir)\JA2_EN_ReleaseDebugInfo.exe"
+				OutputFile="$(OutDir)\JA2_EN_ReleaseDebugInfo_4882.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				GenerateMapFile="false"
@@ -493,6 +493,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Ja25Update.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\jascreens.cpp"
 				>
 			</File>
@@ -558,6 +562,18 @@
 			</File>
 			<File
 				RelativePath=".\Sys Globals.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ub_config.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_IntroFiles.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XML_Layout_MainMenu.cpp"
 				>
 			</File>
 		</Filter>
@@ -632,6 +648,10 @@
 			</File>
 			<File
 				RelativePath=".\ja2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Ja25Update.h"
 				>
 			</File>
 			<File
@@ -712,6 +732,10 @@
 			</File>
 			<File
 				RelativePath=".\Sys Globals.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ub_config.h"
 				>
 			</File>
 			<File

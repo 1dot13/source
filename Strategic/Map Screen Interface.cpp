@@ -3932,11 +3932,13 @@ void AddStringsToMoveBox( void )
 		// add this vehicle
 		if( fVehicleIsMoving[ iCount ] )
 		{
-			swprintf( sString, L"*%s*", pVehicleStrings[ pVehicleList[ iVehicleMovingList[ iCount ] ].ubVehicleType ] );
+		//	swprintf( sString, L"*%s*", pVehicleStrings[ pVehicleList[ iVehicleMovingList[ iCount ] ].ubVehicleType ] );
+			swprintf( sString, L"*%s*", gNewVehicle[ pVehicleList[ iVehicleMovingList[ iCount ] ].ubVehicleType ].NewVehicleStrings );
 		}
 		else
 		{
-			swprintf( sString, L"%s", pVehicleStrings[ pVehicleList[ iVehicleMovingList[ iCount ]	].ubVehicleType ] );
+		//	swprintf( sString, L"%s", pVehicleStrings[ pVehicleList[ iVehicleMovingList[ iCount ]	].ubVehicleType ] );
+			swprintf( sString, L"%s", gNewVehicle[ pVehicleList[ iVehicleMovingList[ iCount ]	].ubVehicleType ].NewVehicleStrings);
 		}
 		AddMonoString(&hStringHandle, sString );
 
@@ -5781,8 +5783,8 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 			return( FALSE );
 		}
 
-		gubPBSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
-		gubPBSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
+		gubPBSectorX = (UINT8)gGameExternalOptions.ubDefaultArrivalSectorX;
+		gubPBSectorY = (UINT8)gGameExternalOptions.ubDefaultArrivalSectorY;
 	}
 	gubPBSectorZ = 0;	
 
@@ -5805,10 +5807,13 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 	FadeInGameScreen( );
 
 	SetUpShutDownMapScreenHelpTextScreenMask( );
-
+#ifdef JA2UB
+//no ja25 UB
+#else
 	// Add e-mail message
-	AddEmail(ENRICO_CONGRATS,ENRICO_CONGRATS_LENGTH,MAIL_ENRICO, GetWorldTotalMin(), -1, -1);
+	AddEmail(ENRICO_CONGRATS,ENRICO_CONGRATS_LENGTH,MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
 
+#endif
 
 	return( TRUE );
 }
@@ -5919,12 +5924,19 @@ BOOLEAN NotifyPlayerWhenEnemyTakesControlOfImportantSector( INT16 sSectorX, INT1
 
 	if( fContested && bTownId )
 	{
+#ifdef JA2UB
+	// no UB
+#else	
 		if( bTownId == SAN_MONA )
 		{ //San Mona isn't important.
 			return( TRUE );
 		}
+#endif			
 		swprintf( sStringB, pMapErrorString[ 25 ], sString );
 
+#ifdef JA2UB		
+		HandleDisplayingOfPlayerLostDialogue( );
+#endif
 		// put up the message informing the player of the event
 		DoScreenIndependantMessageBox( sStringB, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 		return( TRUE );

@@ -48,6 +48,9 @@
 	#include "Town Militia.h"
 #endif
 
+#ifdef JA2UB
+#include "ub_config.h"
+#endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -464,12 +467,36 @@ void MercDailyUpdate()
 
 						//remove the Flag, so if the merc goes on another assignment, the player can leave an email.
 						pProfile->ubMiscFlags3 &= ~PROFILE_MISC_FLAG3_PLAYER_LEFT_MSG_FOR_MERC_AT_AIM;
+#ifdef JA2UB
 
-						// Read from Email.edt
+						//if the Laptop is NOT broken
+						if( gubQuest[ QUEST_FIX_LAPTOP ] != QUESTINPROGRESS && gGameUBOptions.LaptopQuestEnabled == TRUE )
+						{
+#endif
+						// Read from EmailMercAvailable.xml
+						UINT8 pMerc = 0;
+						UINT8 iMerc = 0;
+						UINT8 oMerc = 0;
+						
+					if ( ReadXMLEmail == TRUE )
+					{
+						oMerc = cnt;
+						iMerc = oMerc * 1;
+						
+						if ( oMerc != 0 )
+							pMerc = oMerc + 1;
+						else
+							pMerc = 0;
+						if ( gProfilesAIM[cnt].ProfilId == cnt )
+							AddEmailTypeXML( pMerc, iMerc, iMerc, GetWorldTotalMin(), -1 , TYPE_EMAIL_AIM_AVAILABLE);
+					}	
+					else	 
+					{	
+						// Read from Email.edt and sender (nickname) from MercProfiles.xml
 						if (cnt < 170)
 						{
 							// TO DO: send E-mail to player telling him the merc has returned from an assignment
-							AddEmail( ( UINT8 )( iOffset + ( cnt * AIM_REPLY_LENGTH_BARRY ) ), AIM_REPLY_LENGTH_BARRY, ( UINT8 )( 6 + cnt ), GetWorldTotalMin(), -1, -1 );
+							AddEmail( ( UINT8 )( iOffset + ( cnt * AIM_REPLY_LENGTH_BARRY ) ), AIM_REPLY_LENGTH_BARRY, (UINT8) cnt, GetWorldTotalMin(), -1, -1 , TYPE_EMAIL_EMAIL_EDT_NAME_MERC);
 						}
 						else
 						{
@@ -477,25 +504,29 @@ void MercDailyUpdate()
 							if (cnt < 178)
 							{
 								UINT16 iMsgLength = cnt;
-								UINT8 sender = cnt - 119;	// SenderNameList.xml
+								//UINT8 sender = cnt - 119;	// SenderNameList.xml
 
 								// Fake Barry Unger mail, but with the msgLength of the WF merc ID -> Correct in PreProcessEmail()
-								AddEmailWFMercAvailable( ( UINT8 )( iOffset + 0 * AIM_REPLY_LENGTH_BARRY ), iMsgLength, sender, GetWorldTotalMin(), -1 );							
+								AddEmailWFMercAvailable( ( UINT8 )( iOffset + 0 * AIM_REPLY_LENGTH_BARRY ), iMsgLength, cnt, GetWorldTotalMin(), -1 , TYPE_EMAIL_EMAIL_EDT_NAME_MERC);							
 							}
 							// Generic mail
 							else
 							{
 								// TODO.RW: Send generic mail
 								UINT16 iMsgLength = cnt;
-								UINT8 sender = cnt - 119;	// SenderNameList.xml
+								//UINT8 sender = cnt - 119;	// SenderNameList.xml
 
 								// Fake Barry Unger mail, but with the msgLength of the WF merc ID -> Correct in PreProcessEmail()
-								AddEmailWFMercAvailable( ( UINT8 )( iOffset + 0 * AIM_REPLY_LENGTH_BARRY ), iMsgLength, sender, GetWorldTotalMin(), -1 );							
+								AddEmailWFMercAvailable( ( UINT8 )( iOffset + 0 * AIM_REPLY_LENGTH_BARRY ), iMsgLength, cnt, GetWorldTotalMin(), -1 , TYPE_EMAIL_EMAIL_EDT_NAME_MERC);							
 							}
 						}
-
+					
+					}
 						// WANNE: Should we stop time compression. I don't know.
 						//StopTimeCompression();
+#ifdef JA2UB
+		}
+#endif
 					}
 				}
 			}
@@ -546,8 +577,11 @@ void MercDailyUpdate()
 
 	// build quit list
 	//BuildMercQuitList( pQuitList );
+#ifdef JA2UB
+//no UB
+#else
 	HandleSlayDailyEvent( );
-
+#endif
 	// rebuild list for mapscreen
 	ReBuildCharactersList( );
 	// HEADROCK HAM B1: Run a function to redefine Roaming Militia Restrictions.
@@ -1042,8 +1076,11 @@ void UpdateBuddyAndHatedCounters( void )
 											pProfile->bHated[2] = pProfile->bLearnToHate;
 											pProfile->bMercOpinion[ubOtherProfileID] = HATED_OPINION;
 											}
-
+#ifdef JA2UB
+											if (pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC || (pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__NPC &&  ( /* pSoldier->ubProfile == DEVIN || */ pSoldier->ubProfile == SLAY || pSoldier->ubProfile == IGGY || pSoldier->ubProfile == CONRAD ) ) )
+#else
 											if (pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC || (pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__NPC && (pSoldier->ubProfile == DEVIN || pSoldier->ubProfile == SLAY || pSoldier->ubProfile == IGGY || pSoldier->ubProfile == CONRAD ) ) )
+#endif
 											{
 												// Leave now! ( handle equipment too )....
 												TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_LEARN_TO_HATE );
@@ -1374,3 +1411,56 @@ void HourlyCamouflageUpdate( void )
 		}
 	}
 }
+#ifdef JA2UB
+void HandleAddingAnyAimAwayEmailsWhenLaptopGoesOnline()
+{
+	UINT32 cnt;
+	INT32	iOffset;
+	MERCPROFILESTRUCT *pProfile;
+
+
+	//Loop through all the profiles
+	for( cnt = 0; cnt < NUM_PROFILES; cnt++)
+	{
+		pProfile = &(gMercProfiles[ cnt ]);
+
+		if (pProfile->uiDayBecomesAvailable == 0)
+		{
+			//if the merc CAN become ready
+			if( pProfile->bMercStatus != MERC_FIRED_AS_A_POW )
+			{
+				// if the player has left a message for this merc
+				if ( pProfile->ubMiscFlags3 & PROFILE_MISC_FLAG3_PLAYER_LEFT_MSG_FOR_MERC_AT_AIM )
+				{
+					iOffset = AIM_REPLY_BARRY;
+
+					//remove the Flag, so if the merc goes on another assignment, the player can leave an email.
+					pProfile->ubMiscFlags3 &= ~PROFILE_MISC_FLAG3_PLAYER_LEFT_MSG_FOR_MERC_AT_AIM;
+					
+						UINT8 pMerc = 0;
+						UINT8 iMerc = 0;
+						UINT8 oMerc = 0;
+						
+					if ( ReadXMLEmail == TRUE )
+					{
+						oMerc = cnt;
+						iMerc = oMerc * 1;
+						
+						if ( oMerc != 0 )
+							pMerc = oMerc + 1;
+						else
+							pMerc = 0;
+						if ( gProfilesAIM[cnt].ProfilId == cnt )
+							AddEmailTypeXML( pMerc, iMerc, iMerc, GetWorldTotalMin(), -1 , TYPE_EMAIL_AIM_AVAILABLE);
+					}
+					else
+					{
+					// TO DO: send E-mail to player telling him the merc has returned from an assignment
+					AddEmail( ( UINT8 )( iOffset + ( cnt * AIM_REPLY_LENGTH_BARRY ) ), AIM_REPLY_LENGTH_BARRY, ( UINT8 )( 6 + cnt ), GetWorldTotalMin(),-1 ,-1, TYPE_EMAIL_EMAIL_EDT_NAME_MERC);
+					}
+				}
+			}
+		}
+	}
+}
+#endif

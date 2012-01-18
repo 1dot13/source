@@ -3363,11 +3363,11 @@ BOOLEAN UIHandleItemPlacement( UINT8 ubHandPos, UINT16 usOldItemIndex, UINT16 us
 			// Deduct points
 			if ( gpItemPointerSoldier->stats.bLife >= CONSCIOUSNESS )
 			{
-				DeductPoints( gpItemPointerSoldier,	2, 0 );
+				DeductPoints( gpItemPointerSoldier,	2, 0, UNTRIGGERED_INTERRUPT );
 			}
 			if ( gpSMCurrentMerc->stats.bLife >= CONSCIOUSNESS )
 			{
-				DeductPoints( gpSMCurrentMerc,	2, 0 );
+				DeductPoints( gpSMCurrentMerc,	2, 0, UNTRIGGERED_INTERRUPT );
 			}
 		}
 
@@ -4725,11 +4725,11 @@ BOOLEAN InitializeTEAMPanelCoords( )
 	TM_APPANEL_HEIGHT	= 56;
 	TM_APPANEL_WIDTH	= 16;
 
-	TM_ENDTURN_X		=	(SCREEN_WIDTH - 133);		//( 507 + INTERFACE_START_X );
+	TM_ENDTURN_X		=	(SCREEN_WIDTH - 131);		//( 507 + INTERFACE_START_X );
 	TM_ENDTURN_Y		= ( 9 + INTERFACE_START_Y );
-	TM_ROSTERMODE_X	=		(SCREEN_WIDTH - 133);		//( 507 + INTERFACE_START_X );
+	TM_ROSTERMODE_X	=		(SCREEN_WIDTH - 131);		//( 507 + INTERFACE_START_X );
 	TM_ROSTERMODE_Y	= ( 45 + INTERFACE_START_Y );
-	TM_DISK_X			=	(SCREEN_WIDTH - 133);		//( 507 + INTERFACE_START_X );
+	TM_DISK_X			=	(SCREEN_WIDTH - 131);		//( 507 + INTERFACE_START_X );
 	TM_DISK_Y			= ( 81 + INTERFACE_START_Y );
 
 	TM_NAME_WIDTH		= 60;
@@ -4882,17 +4882,38 @@ BOOLEAN InitializeTEAMPanel(	)
 
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
-	if (iResolution == 0)
+	//SQUAD10 FIX:  Use panels with more slots if SquadSize at current resolution is > 6
+	switch (iResolution)
 	{
-	FilenameForBPP("INTERFACE\\bottom_bar.sti", VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 1)
-	{
-		FilenameForBPP("INTERFACE\\bottom_bar_800x600.sti", VObjectDesc.ImageFile);
-	}
-	else if (iResolution == 2)
-	{
-		FilenameForBPP("INTERFACE\\bottom_bar_1024x768.sti", VObjectDesc.ImageFile);
+		case 0:
+			FilenameForBPP("INTERFACE\\bottom_bar.sti", VObjectDesc.ImageFile);
+			break;
+		case 1:
+			if (gGameOptions.ubSquadSize > 6)
+			{
+				FilenameForBPP("INTERFACE\\bottom_bar_8_800x600.sti", VObjectDesc.ImageFile);
+			}
+			else
+			{
+				FilenameForBPP("INTERFACE\\bottom_bar_800x600.sti", VObjectDesc.ImageFile);
+			}
+			break;
+		case 2:
+			if (gGameOptions.ubSquadSize > 8)
+			{
+				FilenameForBPP("INTERFACE\\bottom_bar_10_1024x768.sti", VObjectDesc.ImageFile);
+			}
+			else if (gGameOptions.ubSquadSize > 6)
+			{
+				FilenameForBPP("INTERFACE\\bottom_bar_8_1024x768.sti", VObjectDesc.ImageFile);
+			}
+			else
+			{
+				FilenameForBPP("INTERFACE\\bottom_bar_1024x768.sti", VObjectDesc.ImageFile);
+			}
+			break;
+		default:
+			FilenameForBPP("INTERFACE\\bottom_bar.sti", VObjectDesc.ImageFile);
 	}
 
 	CHECKF( AddVideoObject( &VObjectDesc, &guiTEAMPanel ) );
@@ -4919,7 +4940,7 @@ BOOLEAN InitializeTEAMPanel(	)
 	// Add region
 	MSYS_AddRegion( &gTEAM_PanelRegion);
 
-	for ( posIndex = 0, cnt = 0; cnt < NUM_TEAM_SLOTS; cnt++, posIndex +=2 )
+	for ( posIndex = 0, cnt = 0; cnt < gGameOptions.ubSquadSize; cnt++, posIndex +=2 )
 	{
 		MSYS_DefineRegion( &gTEAM_FaceRegions[ cnt ], sTEAMFacesXY[ posIndex ], sTEAMFacesXY[ posIndex + 1 ] ,(INT16)(sTEAMFacesXY[ posIndex ] + TM_FACE_WIDTH ), (INT16)(sTEAMFacesXY[ posIndex + 1 ] + TM_FACE_HEIGHT), MSYS_PRIORITY_NORMAL,
 							MSYS_NO_CURSOR, MercFacePanelMoveCallback, MercFacePanelCallback );
@@ -5056,7 +5077,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 		RestoreExternBackgroundRect( INTERFACE_START_X, INTERFACE_START_Y, SCREEN_WIDTH - INTERFACE_START_X , INTERFACE_HEIGHT );
 
 		// LOOP THROUGH ALL MERCS ON TEAM PANEL
-		for ( cnt = 0, posIndex = 0; cnt < NUM_TEAM_SLOTS; cnt++, posIndex+= 2 )
+		for ( cnt = 0, posIndex = 0; cnt < gGameOptions.ubSquadSize; cnt++, posIndex+= 2 )
 		{
 			// GET SOLDIER
 			if ( !gTeamPanel[ cnt ].fOccupied )
@@ -5180,7 +5201,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 	}
 
 	// Loop through all mercs and make go
-	for ( cnt = 0, posIndex = 0; cnt < NUM_TEAM_SLOTS; cnt++, posIndex+= 2 )
+	for ( cnt = 0, posIndex = 0; cnt < gGameOptions.ubSquadSize; cnt++, posIndex+= 2 )
 	{
 		// GET SOLDIER
 		if ( gTeamPanel[ cnt ].fOccupied )
@@ -6345,7 +6366,7 @@ BOOLEAN PlayerExistsInSlot( UINT8 ubID )
 {
 	INT32 cnt;
 
-	for ( cnt = 0; cnt < NUM_TEAM_SLOTS; cnt++ )
+	for ( cnt = 0; cnt < gGameOptions.ubSquadSize; cnt++ )
 	{
 		if ( gTeamPanel[ cnt ].fOccupied	)
 		{
@@ -6364,7 +6385,7 @@ INT8 GetTeamSlotFromPlayerID( UINT8 ubID )
 {
 	INT8 cnt;
 
-	for ( cnt = 0; cnt < NUM_TEAM_SLOTS; cnt++ )
+	for ( cnt = 0; cnt < gGameOptions.ubSquadSize; cnt++ )
 	{
 		if ( gTeamPanel[ cnt ].fOccupied	)
 		{
@@ -6383,7 +6404,7 @@ BOOLEAN RemovePlayerFromTeamSlotGivenMercID( UINT8 ubMercID )
 {
 	INT32 cnt;
 
-	for ( cnt = 0; cnt < NUM_TEAM_SLOTS; cnt++ )
+	for ( cnt = 0; cnt < gGameOptions.ubSquadSize; cnt++ )
 	{
 		if ( gTeamPanel[ cnt ].fOccupied	)
 		{
@@ -6412,7 +6433,7 @@ void AddPlayerToInterfaceTeamSlot( UINT8 ubID )
 	if ( !PlayerExistsInSlot( ubID ) )
 	{
 		// Find a free slot
-		for ( cnt = 0; cnt < NUM_TEAM_SLOTS; cnt++ )
+		for ( cnt = 0; cnt < gGameOptions.ubSquadSize; cnt++ )
 		{
 			if ( !gTeamPanel[ cnt ].fOccupied	)
 			{
@@ -6438,7 +6459,7 @@ BOOLEAN InitTEAMSlots( )
 {
 	INT32 cnt;
 
-	for ( cnt = 0; cnt < NUM_TEAM_SLOTS; cnt++ )
+	for ( cnt = 0; cnt < gGameOptions.ubSquadSize; cnt++ )
 	{
 		gTeamPanel[ cnt ].fOccupied = FALSE;
 		gTeamPanel[ cnt ].ubID			= NOBODY;
@@ -6451,7 +6472,7 @@ BOOLEAN InitTEAMSlots( )
 
 BOOLEAN GetPlayerIDFromInterfaceTeamSlot( UINT8 ubPanelSlot, UINT8 *pubID )
 {
-	if ( ubPanelSlot >= NUM_TEAM_SLOTS )
+	if ( ubPanelSlot >= gGameOptions.ubSquadSize )
 	{
 		return( FALSE );
 	}
@@ -6471,7 +6492,7 @@ void RemoveAllPlayersFromSlot( )
 {
 	int cnt;
 
-	for ( cnt = 0; cnt < NUM_TEAM_SLOTS; cnt++ )
+	for ( cnt = 0; cnt < gGameOptions.ubSquadSize; cnt++ )
 	{
 		RemovePlayerFromInterfaceTeamSlot( (UINT8)cnt );
 	}
@@ -6480,7 +6501,7 @@ void RemoveAllPlayersFromSlot( )
 
 BOOLEAN RemovePlayerFromInterfaceTeamSlot( UINT8 ubPanelSlot )
 {
-	if ( ubPanelSlot >= NUM_TEAM_SLOTS )
+	if ( ubPanelSlot >= gGameOptions.ubSquadSize )
 	{
 		return( FALSE );
 	}
@@ -6623,7 +6644,7 @@ UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife
 		return( pSoldier->ubID );
 	}
 
-	for ( cnt = ( bFirstID + 1 ); cnt < NUM_TEAM_SLOTS; cnt++ )
+	for ( cnt = ( bFirstID + 1 ); cnt < gGameOptions.ubSquadSize; cnt++ )
 	{
 		if ( gTeamPanel[ cnt ].fOccupied )
 		{
@@ -7004,11 +7025,11 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							// Deduct points
 							if ( gpItemPointerSoldier->stats.bLife >= CONSCIOUSNESS )
 							{
-								DeductPoints( gpItemPointerSoldier,	2, 0 );
+								DeductPoints( gpItemPointerSoldier,	2, 0, UNTRIGGERED_INTERRUPT );
 							}
 							if ( gpItemPopupSoldier->stats.bLife >= CONSCIOUSNESS )
 							{
-								DeductPoints( gpItemPopupSoldier,	2, 0 );
+								DeductPoints( gpItemPopupSoldier,	2, 0, UNTRIGGERED_INTERRUPT );
 							}
 						}
 
@@ -7047,11 +7068,11 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						// Deduct points
 						if ( gpItemPointerSoldier && gpItemPointerSoldier->stats.bLife >= CONSCIOUSNESS )
 						{
-							DeductPoints( gpItemPointerSoldier,	2, 0 );
+							DeductPoints( gpItemPointerSoldier,	2, 0, UNTRIGGERED_INTERRUPT );
 						}
 						if ( gpSMCurrentMerc->stats.bLife >= CONSCIOUSNESS )
 						{
-							DeductPoints( gpSMCurrentMerc,	2, 0 );
+							DeductPoints( gpSMCurrentMerc,	2, 0, UNTRIGGERED_INTERRUPT );
 						}
 					}
 

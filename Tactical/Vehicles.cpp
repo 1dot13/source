@@ -55,10 +55,15 @@ UINT8 ubNumberOfVehicles = 0;
 extern INT8 SquadMovementGroups[ ];
 
 
+NEW_CAR gNewVehicle[NUM_PROFILES];
+BOOLEAN SaveNewVehiclesToSaveGameFile( HWFILE hFile );
+BOOLEAN LoadNewVehiclesToSaveGameFile( HWFILE hFile );
+
 //ATE: These arrays below should all be in a large LUT which contains
 // static info for each vehicle....
 
 // the mvt groups associated with vehcile types
+/*
 INT32 iMvtTypes[]={
 	CAR,	// eldorado
 	CAR,	// hummer
@@ -111,6 +116,7 @@ UINT8 ubVehicleTypeProfileID[ ] = {
 	PROF_HELICOPTER
 };
 
+*/
 
 /*
 // location of crits based on facing
@@ -133,7 +139,7 @@ INT8 bInternalCritHitsByLocation[ NUMBER_OF_EXTERNAL_HIT_LOCATIONS_ON_VEHICLE ][
 	TANK_CAR,
 	HELICOPTER,
 */
-
+/*
 INT16 sVehicleArmourType[ NUMBER_OF_TYPES_OF_VEHICLES ] =
 {
 	KEVLAR_VEST,			// El Dorado
@@ -143,7 +149,7 @@ INT16 sVehicleArmourType[ NUMBER_OF_TYPES_OF_VEHICLES ] =
 	SPECTRA_VEST,			// Tank - do we want this?
 	KEVLAR_VEST,			// Helicopter
 };
-
+*/
 
 /*
 INT16 sVehicleExternalOrigArmorValues[ NUMBER_OF_TYPES_OF_VEHICLES ][ NUMBER_OF_INTERNAL_HIT_LOCATIONS_IN_VEHICLE ]={
@@ -177,6 +183,32 @@ void SetDriver( INT32 iID, UINT8 ubID );
 
 void TeleportVehicleToItsClosestSector( INT32 iVehicleId, UINT8 ubGroupID );
 
+
+BOOLEAN SaveNewVehiclesToSaveGameFile( HWFILE hFile )
+{
+	UINT32	uiNumBytesWritten;
+
+	FileWrite( hFile, &gNewVehicle, sizeof( gNewVehicle), &uiNumBytesWritten );
+	if( uiNumBytesWritten != sizeof( gNewVehicle ) )
+	{
+		return( FALSE );
+	}
+	
+	return( TRUE );
+}
+
+BOOLEAN LoadNewVehiclesToSaveGameFile( HWFILE hFile )
+{
+	UINT32	uiNumBytesRead;
+
+	FileRead( hFile, &gNewVehicle, sizeof( gNewVehicle), &uiNumBytesRead );
+	if( uiNumBytesRead != sizeof( gNewVehicle ) )
+	{
+		return( FALSE );
+	}
+	return( TRUE );
+}
+
 void InitAVehicle(int index, int x, int y) {
 	gubVehicleMovementGroups[ index ] = CreateNewVehicleGroupDepartingFromSector( x, y, index );
 
@@ -196,8 +228,9 @@ void InitAllVehicles( ) {
 
 void SetVehicleValuesIntoSoldierType( SOLDIERTYPE *pVehicle )
 {
-	wcscpy( pVehicle->name, zVehicleName[ pVehicleList[ pVehicle->bVehicleID ].ubVehicleType ] );
-
+//	wcscpy( pVehicle->name, zVehicleName[ pVehicleList[ pVehicle->bVehicleID ].ubVehicleType ] );
+	wcscpy( pVehicle->name, gNewVehicle[ pVehicleList[ pVehicle->bVehicleID ].ubVehicleType ].NewVehicleName );
+	
 	pVehicle->ubProfile = pVehicleList[ pVehicle->bVehicleID ].ubProfileID;
 
 	// Init fuel!
@@ -292,9 +325,9 @@ INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT32 sGridNo, UINT8 ubType )
 	pVehicleList[ iCount ].pMercPath = NULL;
 	pVehicleList[ iCount ].fFunctional = TRUE;
 	pVehicleList[ iCount ].fDestroyed = FALSE;
-	pVehicleList[ iCount ].iMoveSound			= iMoveVehicleSndID[ ubType ];
-	pVehicleList[ iCount ].iOutOfSound			= iEnterVehicleSndID[ ubType ];
-	pVehicleList[ iCount ].ubProfileID			= ubVehicleTypeProfileID[ ubType ];
+	pVehicleList[ iCount ].iMoveSound			= gNewVehicle[ ubType ].iNewMoveVehicleSndID;
+	pVehicleList[ iCount ].iOutOfSound			= gNewVehicle[ ubType ].iNewEnterVehicleSndID;
+	pVehicleList[ iCount ].ubProfileID			= ubType; //gNewVehicle[ ubType ].ubNewVehicleTypeProfileID;//gNewVehicle[ ubType ].uiIndex;  //gNewVehicle[ ubType ].ubNewVehicleTypeProfileID;  //
 	pVehicleList[ iCount ].ubMovementGroup	= gubVehicleMovementGroups[ iCount ];
 
 	// ATE: Add movement mask to group...
@@ -319,8 +352,20 @@ INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT32 sGridNo, UINT8 ubType )
 		pGroup->ubTransportationMask = TRUCK;
 	}
 	else
-	{
-		pGroup->ubTransportationMask = (UINT8)iMvtTypes[ ubType ];
+	{	
+		// WANNE: This FIXES the bug (== instead of =), that the heli could only fly on roads!!
+		if ( gNewVehicle[ ubType ].iNewMvtTypes == 0 )
+			pGroup->ubTransportationMask = FOOT;
+		else if ( gNewVehicle[ ubType ].iNewMvtTypes == 1 )
+			pGroup->ubTransportationMask = CAR;	
+		else if ( gNewVehicle[ ubType ].iNewMvtTypes == 2 )
+			pGroup->ubTransportationMask = TRUCK;	
+		else if ( gNewVehicle[ ubType ].iNewMvtTypes == 3 )
+			pGroup->ubTransportationMask = TRACKED;			
+		else if ( gNewVehicle[ ubType ].iNewMvtTypes == 4 )
+			pGroup->ubTransportationMask = AIR;				
+		else 
+			pGroup->ubTransportationMask = CAR;
 	}
 
 	// ARM: setup group movement defaults
@@ -511,7 +556,7 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 	}
 
 	// check if the grunt is already here
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		if( pVehicleList[ iId ].pPassengers[ iCounter ] == pSoldier )
 		{
@@ -531,7 +576,7 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 		PlayJA2Sample( pVehicleList[ pVehicleSoldier->bVehicleID ].iOutOfSound, RATE_11025, SoundVolume( HIGHVOLUME, pVehicleSoldier->sGridNo ), 1, SoundDir( pVehicleSoldier->sGridNo ) );
 	}
 
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		// check if slot free
 		if( pVehicleList[ iId ].pPassengers[ iCounter ] == NULL )
@@ -689,7 +734,7 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 	}
 
 	// now look for the grunt
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		if( pVehicleList[ iId ].pPassengers[ iCounter ] == pSoldier )
 		{
@@ -707,7 +752,7 @@ BOOLEAN RemoveSoldierFromVehicle( SOLDIERTYPE *pSoldier, INT32 iId )
 
 			// check if anyone left in vehicle
 			fSoldierLeft = FALSE;
-			for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+			for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 			{
 				if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
 				{
@@ -1051,7 +1096,13 @@ BOOLEAN CopyVehiclePathToSoldier( SOLDIERTYPE *pSoldier )
 
 BOOLEAN IsVehicle(SOLDIERTYPE *pSoldier)
 {
-	switch(pSoldier->ubProfile)
+
+	 if ( gProfilesVehicle[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile )
+		return(TRUE);
+	else
+		return(FALSE);
+		
+	/*switch(pSoldier->ubProfile)
 	{
 		case PROF_HUMMER:
 		case PROF_ELDERODO:
@@ -1061,6 +1112,7 @@ BOOLEAN IsVehicle(SOLDIERTYPE *pSoldier)
 			return(FALSE);
 	}
 	return(FALSE);
+	*/
 }
 
 
@@ -1105,7 +1157,7 @@ BOOLEAN SetUpMvtGroupForVehicle( SOLDIERTYPE *pSoldier )
 
 
 		// add everyone in vehicle to this mvt group
-		//for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+		//for( iCounter = 0; iCounter < gNewVehicle.iNewSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
 		//{
 		//	if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
 		//	{
@@ -1181,7 +1233,7 @@ void UpdatePositionOfMercsInVehicle( INT32 iId )
 	}
 
 	// go through list of mercs in vehicle and set all thier states as arrived
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
 		{
@@ -1235,7 +1287,7 @@ BOOLEAN AddVehicleMembersToMvtGroup( INT32 iId )
 	// RemoveAllPlayersFromGroup( pVehicleList[ iId ].ubMovementGroup );
 
 	// go through list of mercs in vehicle and set all thier states as arrived
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
 		{
@@ -1323,7 +1375,7 @@ BOOLEAN KillAllInVehicle( INT32 iId )
 	}
 
 	// go through list of occupants and kill them
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
 		{
@@ -1349,7 +1401,7 @@ INT32 GetNumberInVehicle( INT32 iId )
 		return ( 0 );
 	}
 
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
 		{
@@ -1372,7 +1424,7 @@ INT32 GetNumberOfNonEPCsInVehicle( INT32 iId )
 		return ( 0 );
 	}
 
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL && !AM_AN_EPC( pVehicleList[ iId ].pPassengers[ iCounter ] ) )
 		{
@@ -1395,7 +1447,7 @@ BOOLEAN IsRobotControllerInVehicle( INT32 iId )
 		return ( 0 );
 	}
 
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		pSoldier = pVehicleList[ iId ].pPassengers[ iCounter ];
 		if ( pSoldier != NULL && pSoldier->ControllingRobot( ) )
@@ -1442,7 +1494,7 @@ void SetDriver( INT32 iID, UINT8 ubID )
 #ifdef JA2TESTVERSION
 void VehicleTest( void )
 {
-	SetUpHelicopterForPlayer( 9,1, SKYRIDER );
+	SetUpHelicopterForPlayer( 9,1, gNewVehicle[ HELICOPTER ].NewPilot, HELICOPTER );
 }
 #endif
 
@@ -1455,7 +1507,7 @@ BOOLEAN IsEnoughSpaceInVehicle( INT32 iID )
 		return ( FALSE );
 	}
 
-	if ( GetNumberInVehicle( iID ) == iSeatingCapacities[ pVehicleList[ iID ].ubVehicleType ] )
+	if ( GetNumberInVehicle( iID ) == gNewVehicle[ pVehicleList[ iID ].ubVehicleType ].iNewSeatingCapacities )
 	{
 		return( FALSE );
 	}
@@ -1629,7 +1681,7 @@ void AddPassangersToTeamPanel( INT32 iId )
 {
 	INT32 cnt;
 
-	for( cnt = 0; cnt < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; cnt++ )
+	for( cnt = 0; cnt < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; cnt++ )
 	{
 		if( pVehicleList[ iId ].pPassengers[ cnt ] != NULL )
 		{
@@ -1679,7 +1731,7 @@ void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT32 sGridN
 #if 0
 		{
 			// injure someone inside
-			iRand = Random( iSeatingCapacities[ pVehicleList[ ubID ].ubVehicleType ] );
+			iRand = Random( gNewVehicle[ pVehicleList[ ubID ].ubVehicleType ].iNewSeatingCapacities );
 			if( pVehicleList[ ubID ].pPassengers[ iRand ] )
 			{
 				// hurt this person
@@ -1887,7 +1939,7 @@ void SetUpArmorForVehicle( UINT8 ubID )
 	*/
 
 	// for armour type, store the index into the armour table itself
-	pVehicleList[ ubID ].sArmourType = Item[ sVehicleArmourType[ pVehicleList[ ubID ].ubVehicleType ] ].ubClassIndex;
+	pVehicleList[ ubID ].sArmourType = Item[ gNewVehicle[ pVehicleList[ ubID ].ubVehicleType ].sNewVehicleArmourType ].ubClassIndex;
 
 	return;
 }
@@ -2156,6 +2208,11 @@ BOOLEAN LoadVehicleInformationFromSavedGameFile( HWFILE hFile, UINT32 uiSavedGam
 					pVehicleList[cnt].pMercPath = NULL;
 				}
 			}
+
+			// WANNE: This should make savegames before the externalized vehicles compatible.
+			if (pVehicleList[cnt].ubVehicleType != pVehicleList[cnt].ubProfileID)
+				pVehicleList[cnt].ubVehicleType = pVehicleList[cnt].ubProfileID;
+			
 		}
 	}
 	return( TRUE );
@@ -2186,7 +2243,7 @@ void UpdateAllVehiclePassengersGridNo( SOLDIERTYPE *pSoldier )
 	iId = pSoldier->bVehicleID;
 
 	// Loop through passengers and update each guy's position
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
 		{
@@ -2561,7 +2618,7 @@ SOLDIERTYPE*	PickRandomPassengerFromVehicle( SOLDIERTYPE *pSoldier )
 	iId = pSoldier->bVehicleID;
 
 	// Loop through passengers and update each guy's position
-	for( iCounter = 0; iCounter < iSeatingCapacities[ pVehicleList[ iId ].ubVehicleType ]; iCounter++ )
+	for( iCounter = 0; iCounter < gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].iNewSeatingCapacities; iCounter++ )
 	{
 		if( pVehicleList[ iId ].pPassengers[ iCounter ] != NULL )
 		{

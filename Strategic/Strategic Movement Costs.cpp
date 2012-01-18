@@ -13,7 +13,25 @@
 #endif
 #include "Map Screen Interface Map.h"
 
+#ifdef JA2UB
+#include "Ja25Update.h"
+#include "message.h"
+#include "strategicmap.h"
+#include "Map Screen Interface Map.h"
+#include "Strategic Movement.h"
+//#include "Summary Info.h"
+#include "ub_config.h"
+#endif
+
 extern BOOLEAN sBadSectorsList[ WORLD_MAP_X ][ WORLD_MAP_X ];
+
+#ifdef JA2UB
+extern void UpdateCustomMapMovementCosts(); // ja25 UB
+extern void MakeBadSectorListFromMapsOnHardDrive( BOOLEAN fDisplayMessages ); // ja25 UB
+extern void AddCustomMap( INT32 iRow, INT32 iCol, BOOLEAN fDisplayMessages, BOOLEAN fMessageIfNotExist ); //ja25 UB
+extern UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
+extern BOOLEAN SectorIsImpassableUB( INT16 sSector );
+#endif
 
 typedef enum
 {
@@ -3378,33 +3396,2187 @@ void InitStrategicRowP()
 	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
 }
 */
+#ifdef JA2UB
+void InitStrategicRowA()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_A1 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A2 ];
+	pSector->ubTravelRating = 60;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A3 ];
+	pSector->ubTravelRating = 9;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A4 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A5 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A6 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A7 ];
+	pSector->ubTravelRating = 4;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A8 ];
+	pSector->ubTravelRating = 14;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A9 ];
+	pSector->ubTravelRating = 70;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A10 ];
+	pSector->ubTravelRating = 70;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A11 ];
+	pSector->ubTravelRating = 18;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A12 ];
+	pSector->ubTravelRating = 4;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A13 ];
+	pSector->ubTravelRating = 14;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A14 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A15 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_A16 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowB()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_B1 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B2 ];
+	pSector->ubTravelRating = 60;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B3 ];
+	pSector->ubTravelRating = 6;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B4 ];
+	pSector->ubTravelRating = 4;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B5 ];
+	pSector->ubTravelRating = 15;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B6 ];
+	pSector->ubTravelRating = 15;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B7 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B8 ];
+	pSector->ubTravelRating = 20;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B9 ];
+	pSector->ubTravelRating = 70;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B10 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B11 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B12 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B13 ];
+	pSector->ubTravelRating = 85;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B14 ];
+	pSector->ubTravelRating = 15;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B15 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_B16 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowC()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_C1 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C2 ];
+	pSector->ubTravelRating = 40;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C3 ];
+	pSector->ubTravelRating = 40;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C4 ];
+	pSector->ubTravelRating = 20;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C5 ];
+	pSector->ubTravelRating = 80;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C6 ];
+	pSector->ubTravelRating = 75;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C7 ];
+	pSector->ubTravelRating = 45;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C8 ];
+	pSector->ubTravelRating = 48;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C9 ];
+	pSector->ubTravelRating = 80;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C10 ];
+	pSector->ubTravelRating = 12;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C11 ];
+	pSector->ubTravelRating = 3;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C12 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C13 ];
+	pSector->ubTravelRating = 60;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C14 ];
+	pSector->ubTravelRating = 15;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C15 ];
+	pSector->ubTravelRating = 7;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_C16 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowD()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_D1 ];
+	pSector->ubTravelRating = 7;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D2 ];
+	pSector->ubTravelRating = 7;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;//EDGEOFWORLD_SAMSITE;
+
+	pSector = &SectorInfo[ SEC_D3 ];
+	pSector->ubTravelRating = 40;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D4 ];
+	pSector->ubTravelRating = 12;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D5 ];
+	pSector->ubTravelRating = 49;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D6 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D7 ];
+	pSector->ubTravelRating = 45;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D8 ];
+	pSector->ubTravelRating = 16;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D9 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D10 ];
+	pSector->ubTravelRating = 11;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D11 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D12 ];
+	pSector->ubTravelRating = 11;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D13 ];
+	pSector->ubTravelRating = 60;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D14 ];
+	pSector->ubTravelRating = 12;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_D15 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;	
+
+	pSector = &SectorInfo[ SEC_D16 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowE()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_E1 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E2 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E3 ];
+	pSector->ubTravelRating = 45;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E4 ];
+	pSector->ubTravelRating = 11;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E5 ];
+	pSector->ubTravelRating = 9;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E6 ];
+	pSector->ubTravelRating = 11;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E7 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E8 ];
+	pSector->ubTravelRating = 15;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E9 ];
+	pSector->ubTravelRating = 56;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E10 ];
+	pSector->ubTravelRating = 11;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E11 ];
+	pSector->ubTravelRating = 9;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E12 ];
+	pSector->ubTravelRating = 35;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E13 ];
+	pSector->ubTravelRating = 45;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E14 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E15 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_E16 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowF()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_F1 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F2 ];
+	pSector->ubTravelRating = 4;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F3 ];
+	pSector->ubTravelRating = 40;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F4 ];
+	pSector->ubTravelRating = 9;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F5 ];
+	pSector->ubTravelRating = 6;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F6 ];
+	pSector->ubTravelRating = 9;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F7 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F8 ];
+	pSector->ubTravelRating = 60;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F9 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F10 ];
+	pSector->ubTravelRating = 15;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F11 ];
+	pSector->ubTravelRating = 9;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F12 ];
+	pSector->ubTravelRating = 40;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F13 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F14 ];
+	pSector->ubTravelRating = 12;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F15 ];
+	pSector->ubTravelRating = 3;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_F16 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowG()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_G1 ];
+	pSector->ubTravelRating = 60;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G2 ];
+	pSector->ubTravelRating = 7;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G3 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G4 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G5 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G6 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G7 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G8 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G9 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G10 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G11 ];
+	pSector->ubTravelRating = 25;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G12 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G13 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G14 ];
+	pSector->ubTravelRating = 60;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G15 ];
+	pSector->ubTravelRating = 16;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_G16 ];
+	pSector->ubTravelRating = 4;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowH()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_H1 ];
+	pSector->ubTravelRating = 67;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_H2 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_H3 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_H4 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_H5 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_H6 ];
+	pSector->ubTravelRating = 60;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_H7 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = MOUNTAINS_TYPE;
+
+	pSector = &SectorInfo[ SEC_H8 ];
+	pSector->ubTravelRating = 15;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = MOUNTAINS_TYPE;
+
+	pSector = &SectorInfo[ SEC_H9 ];
+	pSector->ubTravelRating = 15;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = MOUNTAINS_TYPE;
+
+	pSector = &SectorInfo[ SEC_H10 ];
+	pSector->ubTravelRating = 3;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= DENSE;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= DENSE;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = SPARSE;
+
+	pSector = &SectorInfo[ SEC_H11 ];
+	pSector->ubTravelRating = 7;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= TOWN;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= GROUNDBARRIER;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = TOWN;
+
+
+	pSector = &SectorInfo[ SEC_H12 ];
+	pSector->ubTravelRating = 12;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_H13 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_H14 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_H15 ];
+	pSector->ubTravelRating = 12;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_H16 ];
+	pSector->ubTravelRating = 3;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowI()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_I1 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_I2 ];
+	pSector->ubTravelRating = 3;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_I3 ];
+	pSector->ubTravelRating = 45;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_I4 ];
+	pSector->ubTravelRating = 7;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_I5 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_I6 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_I7 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_I8 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_I9 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = SPARSE;
+
+
+#ifdef JA2UB_PRESS_PREVIEW
+
+	pSector = &SectorInfo[ SEC_I10 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+#else
+
+	pSector = &SectorInfo[ SEC_I10 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= TOWN;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = TOWN;
+
+#endif
+
+	pSector = &SectorInfo[ SEC_I11 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= TOWN;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= TOWN;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = TOWN;
+
+	pSector = &SectorInfo[ SEC_I12 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = DENSE;
+
+	pSector = &SectorInfo[ SEC_I13 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = PLAINS;
+
+	pSector = &SectorInfo[ SEC_I14 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_I15 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_I16 ];
+	pSector->ubTravelRating = 2;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowJ()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_J1 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_J2 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_J3 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_J4 ];
+	pSector->ubTravelRating = 4;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_J5 ];
+	pSector->ubTravelRating = 3;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_J6 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_J7 ];
+	pSector->ubTravelRating = 6;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_J8 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_J9 ];
+	pSector->ubTravelRating = 80;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_J10 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_J11 ];
+	pSector->ubTravelRating = 15;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = SPARSE;
+
+	pSector = &SectorInfo[ SEC_J12 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = DENSE;
+
+	pSector = &SectorInfo[ SEC_J13 ];
+	pSector->ubTravelRating = 12;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= GROUNDBARRIER;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= PLAINS;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = POWER_PLANT_TYPE;
+
+	pSector = &SectorInfo[ SEC_J14 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = GROUNDBARRIER;
+
+	pSector = &SectorInfo[ SEC_J15 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_J16 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowK()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_K1 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K2 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K3 ];
+	pSector->ubTravelRating = 4;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K4 ];
+	pSector->ubTravelRating = 45;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K5 ];
+	pSector->ubTravelRating = 15;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K6 ];
+	pSector->ubTravelRating = 60;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K7 ];
+	pSector->ubTravelRating = 60;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K8 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K9 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K10 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K11 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K12 ];
+	pSector->ubTravelRating = 70;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_K13 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= GROUNDBARRIER;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= GROUNDBARRIER;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = GROUNDBARRIER;
+
+	pSector = &SectorInfo[ SEC_K14 ];
+	pSector->ubTravelRating = 50;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= GROUNDBARRIER;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= GROUNDBARRIER;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = GROUNDBARRIER;
+
+	pSector = &SectorInfo[ SEC_K15 ];
+	pSector->ubTravelRating = 7;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= GROUNDBARRIER;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = FINAL_COMPLEX;
+
+	pSector = &SectorInfo[ SEC_K16 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = GROUNDBARRIER;
+}
+
+void InitStrategicRowL()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_L1 ];
+	pSector->ubTravelRating = 4;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L2 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L3 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L4 ];
+	pSector->ubTravelRating = 15;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L5 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L6 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L7 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L8 ];
+	pSector->ubTravelRating = 7;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L9 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L10 ];
+	pSector->ubTravelRating = 9;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L11 ];
+	pSector->ubTravelRating = 17;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L12 ];
+	pSector->ubTravelRating = 55;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L13 ];
+	pSector->ubTravelRating = 18;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L14 ];
+	pSector->ubTravelRating = 7;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_L15 ];
+	pSector->ubTravelRating = 3;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = GROUNDBARRIER;
+
+	pSector = &SectorInfo[ SEC_L16 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowM()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_M1 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M2 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M3 ];
+	pSector->ubTravelRating = 70;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M4 ];
+	pSector->ubTravelRating = 38;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M5 ];
+	pSector->ubTravelRating = 70;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M6 ];
+	pSector->ubTravelRating = 65;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M7 ];
+	pSector->ubTravelRating = 12;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M8 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M9 ];
+	pSector->ubTravelRating = 8;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M10 ];
+	pSector->ubTravelRating = 7;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M11 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M12 ];
+	pSector->ubTravelRating = 12;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M13 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M14 ];
+	pSector->ubTravelRating = 2;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M15 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_M16 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowN()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_N1 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N2 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N3 ];
+	pSector->ubTravelRating = 80;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N4 ];
+	pSector->ubTravelRating = 80;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N5 ];
+	pSector->ubTravelRating = 80;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N6 ];
+	pSector->ubTravelRating = 40;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N7 ];
+	pSector->ubTravelRating = 20;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N8 ];
+	pSector->ubTravelRating = 10;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N9 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N10 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N11 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N12 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N13 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N14 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N15 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_N16 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowO()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_O1 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O2 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O3 ];
+	pSector->ubTravelRating = 90;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O4 ];
+	pSector->ubTravelRating = 90;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O5 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O6 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O7 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O8 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O9 ];
+	pSector->ubTravelRating = 5;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O10 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O11 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O12 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O13 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O14 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O15 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_O16 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+
+void InitStrategicRowP()
+{
+	SECTORINFO *pSector;
+
+	pSector = &SectorInfo[ SEC_P1 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+//	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD; //keep as EDGEOFWORLD so we can teleport to demo maps.
+
+	pSector = &SectorInfo[ SEC_P2 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P3 ];
+	pSector->ubTravelRating = 100;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P4 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P5 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P6 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P7 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P8 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P9 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P10 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P11 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P12 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P13 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P14 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P15 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+	pSector = &SectorInfo[ SEC_P16 ];
+	pSector->ubTravelRating = 0;
+	pSector->ubTraversability[ NORTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ EAST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ SOUTH_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ WEST_STRATEGIC_MOVE ]		= EDGEOFWORLD;
+	pSector->ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+}
+#endif
+
 BOOLEAN InitStrategicMovementCosts()
 {
 	char fileName[MAX_PATH];
-
+#ifdef JA2UB
+if ( gGameUBOptions.StrategicMovementCostsXML == TRUE )
+	{
+#endif
 	// need to be here
 	strcpy(fileName, TABLEDATA_DIRECTORY);
 	strcat(fileName, MOVEMENTCOSTFILENAME);
 	if(!ReadInStrategicMovementCosts(fileName))
 		return FALSE;
-
-	//InitStrategicRowA();
-	//InitStrategicRowB();
-	//InitStrategicRowC();
-	//InitStrategicRowD();
-	//InitStrategicRowE();
-	//InitStrategicRowF();
-	//InitStrategicRowG();
-	//InitStrategicRowH();
-	//InitStrategicRowI();
-	//InitStrategicRowJ();
-	//InitStrategicRowK();
-	//InitStrategicRowL();
-	//InitStrategicRowM();
-	//InitStrategicRowN();
-	//InitStrategicRowO();
-	//InitStrategicRowP();
-
+#ifdef JA2UB
+	}
+	else
+	{
+	InitStrategicRowA();
+	InitStrategicRowB();
+	InitStrategicRowC();
+	InitStrategicRowD();
+	InitStrategicRowE();
+	InitStrategicRowF();
+	InitStrategicRowG();
+	InitStrategicRowH();
+	InitStrategicRowI();
+	InitStrategicRowJ();
+	InitStrategicRowK();
+	InitStrategicRowL();
+	InitStrategicRowM();
+	InitStrategicRowN();
+	InitStrategicRowO();
+	InitStrategicRowP();
+	}
+#endif	
 	//WriteInStrategicMovementCosts("TABLEDATA\\~MovementCosts.xml");
 
 
@@ -3457,6 +5629,581 @@ BOOLEAN InitStrategicMovementCosts()
 		}
 	}
 	#endif
+	
+	#ifdef JA2UB
+	if ( gGameUBOptions.MakeStrategicMovementCosts == TRUE )
+		UpdateCustomMapMovementCosts(); //Ja25 UB
+	//MakeBadSectorListFromMapsOnHardDrive( TRUE ); //ja25 UB
+	#endif
+	
+
 
 	return( TRUE );
 }
+
+#ifdef JA2UB
+void AddCustomMap( INT32 iRow, INT32 iCol, BOOLEAN fDisplayMessages, BOOLEAN fMessageIfNotExist ) //ja25 UB
+{
+	CHAR8			zMapName[200];
+	//SUMMARYFILE *pSummary;
+	//SUMMARYFILE *pSummary
+	INT8			bLevel;
+	UNDERGROUND_SECTORINFO *pSector;
+	//UNDERGROUND_SECTORINFO *curr;
+	//SECTORINFO			   *pSector = NULL;
+
+	// if we are the first secotr, ignore!
+	//if ( iRow == JA2_5_START_SECTOR_Y && iCol == JA2_5_START_SECTOR_X )
+	//{
+	//	return;
+	//}
+
+
+	for ( bLevel = 0; bLevel < 4; bLevel++ )
+	{
+		
+		// ATE: Check for existance of 'remove' file - if so, remove this sector from list, adjust
+		// movement costs accordingly...
+		if ( bLevel == 0 )
+		{
+			sprintf( zMapName, "Maps\\%c%d.nomap", iRow + 'A' -1, iCol );
+
+			if ( FileExistsNoDB( zMapName ) )
+			{
+				SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fValidSector = FALSE;
+				sBadSectorsList[iCol][iRow] = 1;
+				SectorInfo[ ( SECTOR( iCol , iRow ) ) ].ubTravelRating = 50;
+				SectorInfo[ ( SECTOR( iCol , iRow ) ) ].ubTraversability[ NORTH_STRATEGIC_MOVE ]   = EDGEOFWORLD;
+				SectorInfo[ ( SECTOR( iCol , iRow ) ) ].ubTraversability[ EAST_STRATEGIC_MOVE ]	   = EDGEOFWORLD;
+				SectorInfo[ ( SECTOR( iCol , iRow ) ) ].ubTraversability[ SOUTH_STRATEGIC_MOVE ]   = EDGEOFWORLD;
+				SectorInfo[ ( SECTOR( iCol , iRow ) ) ].ubTraversability[ WEST_STRATEGIC_MOVE ]	   = EDGEOFWORLD;
+				SectorInfo[ ( SECTOR( iCol , iRow ) ) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+
+				// update adjacent movement costs
+				if( iRow > 1 )
+				{
+					SectorInfo[ ( SECTOR( iCol, iRow-1 ) ) ].ubTraversability[ SOUTH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+				}
+					
+				if( iCol > 1 )
+				{
+					SectorInfo[ ( SECTOR( iCol-1, iRow ) ) ].ubTraversability[ EAST_STRATEGIC_MOVE ] = EDGEOFWORLD;
+				}
+					
+				if( iRow < 16 )
+				{
+					SectorInfo[ ( SECTOR( iCol, iRow+1 ) ) ].ubTraversability[ NORTH_STRATEGIC_MOVE ] = EDGEOFWORLD;
+				}
+					
+				if( iCol < 16 )
+				{
+					SectorInfo[ ( SECTOR( iCol+1, iRow ) ) ].ubTraversability[ WEST_STRATEGIC_MOVE ] = EDGEOFWORLD;
+				}
+				continue;
+			}
+		}
+
+		if ( bLevel == 0 )
+		{
+			sprintf( zMapName, "Maps\\%c%d.dat", iRow + 'A' -1, iCol );
+		}
+		else
+		{
+			sprintf( zMapName, "Maps\\%c%d_b%d.dat", iRow + 'A' -1, iCol, bLevel );
+		}
+
+		//check to see if there is a map here
+		if ( !FileExistsNoDB( zMapName ) )
+		{
+			if ( fMessageIfNotExist && bLevel == 0 )
+			{
+				if ( fDisplayMessages )
+				{
+					sprintf( zMapName, "Maps\\%c%d", iRow + 'A' -1, iCol );
+					ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Map file does not exist." );
+				}
+			}
+			//return;
+			continue;
+		}
+
+		if ( bLevel == 0 )
+		{
+			sprintf( zMapName, "Maps\\%c%d", iRow + 'A' -1, iCol );
+		}
+		else
+		{
+			sprintf( zMapName, "Maps\\%c%d_b%d", iRow + 'A' -1, iCol, bLevel );
+		}
+
+		// OK, now check a bunch of conditions...
+		
+		// Is this level a virgin?
+		if ( bLevel == 0 )
+		{
+			if ( GetSectorFlagStatus( (INT16)iCol, (INT16)iRow, 0, SF_ALREADY_VISITED ) )
+			{
+				if ( fDisplayMessages )
+				{
+					ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Map has already been visited." );
+					
+					SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fValidSector = TRUE;
+					sBadSectorsList[iCol][iRow] = 0;					
+				}
+				continue;
+			}
+			
+		}
+		else
+		{
+			pSector = FindUnderGroundSector( (INT16)iCol, (INT16)iRow, bLevel );
+
+			if ( pSector )
+			{
+				if ( pSector->fVisited )
+				{
+					if ( fDisplayMessages )
+					{
+						ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+						ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Map has already been visited." );
+						sBadSectorsList[iCol][iRow] = 0;
+					}
+					continue;
+				}
+			}
+		}
+		
+		// Is this the current sector?
+		if ( gWorldSectorX == iCol && gWorldSectorY == iRow && gbWorldSectorZ == bLevel )
+		{
+			if ( fDisplayMessages )
+			{
+				ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+				ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Map is the current sector." );
+				sBadSectorsList[iCol][iRow] = 0;
+			}
+			continue;
+		}
+		
+		
+			//We're good!
+			if ( fDisplayMessages )
+			{
+				ScreenMsg( FONT_MCOLOR_WHITE, MSG_CHAT, L"Added Custom map: %S.", zMapName );
+			}
+			
+			if ( bLevel == 0 )
+			{
+				if ( SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fCampaignSector )
+				{
+					// ATE: This has been changed, if a campaign sector, just remove flag...
+					SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fCampaignSector = FALSE;
+					sBadSectorsList[iCol][iRow] = 0;
+					continue;
+				}
+			}
+			
+			else
+			{
+				// See if this sector exists, and if so is it a campagin sectior?
+				pSector = FindUnderGroundSector( (INT16)iCol, (INT16)iRow, bLevel );
+
+				if ( pSector )
+				{
+					if ( pSector->fCampaignSector )
+					{
+						// ATE: This has been changed, if a campaign sector, just remove flag...
+						pSector->fCampaignSector = FALSE;
+						sBadSectorsList[iCol][iRow] = 0;
+						continue;
+					}
+				}
+			}
+					
+			if ( bLevel == 0 )
+			{
+				SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fValidSector = TRUE;
+				sBadSectorsList[iCol][iRow] = 0;
+				SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fCustomSector = TRUE;
+				
+								
+				if ( gGameUBOptions.AddRandomEnemyToSector == TRUE )
+					{
+						if ( SECTOR( iCol , iRow ) == SEC_H7 || SECTOR( iCol , iRow )  == SEC_H8  || SECTOR( iCol , iRow ) == SEC_H9  ||
+							 SECTOR( iCol , iRow ) == SEC_H10 || SECTOR( iCol , iRow ) == SEC_H11 || SECTOR( iCol , iRow ) == SEC_I9  ||
+							 SECTOR( iCol , iRow ) == SEC_I10 || SECTOR( iCol , iRow ) == SEC_I11 || SECTOR( iCol , iRow ) == SEC_I12 ||
+							 SECTOR( iCol , iRow ) == SEC_I13 || SECTOR( iCol , iRow ) == SEC_J11 || SECTOR( iCol , iRow ) == SEC_J12 ||
+							 SECTOR( iCol , iRow ) == SEC_J13 || SECTOR( iCol , iRow ) == SEC_K14 || SECTOR( iCol , iRow ) == SEC_K15 ||
+							 SECTOR( iCol , iRow ) == SEC_K16 || SECTOR( iCol , iRow ) == SEC_L15 || 
+							 ( SECTOR( iCol , iRow ) == SEC_I13 && bLevel == 1) || ( SECTOR( iCol , iRow ) == SEC_J13 && bLevel == 1) ||
+							 ( SECTOR( iCol , iRow ) == SEC_J14 && bLevel == 1) || ( SECTOR( iCol , iRow ) == SEC_K15 && bLevel == 1) ||
+							 ( SECTOR( iCol , iRow ) == SEC_K15 && bLevel == 2) || ( SECTOR( iCol , iRow ) == SEC_L15 && bLevel == 2) ||
+							 ( SECTOR( iCol , iRow ) == SEC_L15 && bLevel == 3) )
+							 {
+							 }
+							 else
+							 {
+								ScreenMsg( FONT_MCOLOR_WHITE, MSG_CHAT, L"Added Random Enemy to sector : %S.", zMapName );
+								RandomAddEnemy( iCol, iRow, bLevel );
+							 }
+					}
+			
+			
+			}
+			else
+			{
+			
+				pSector = FindUnderGroundSector( (UINT8)iCol, (UINT8)iRow, bLevel );
+				if ( pSector )
+				{
+					//ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+				}
+				else
+				{
+					ScreenMsg( FONT_MCOLOR_WHITE, MSG_CHAT, L"Added New Underground : %S.", zMapName );
+					pSector = NewUndergroundNode( (UINT8)iCol, (UINT8)iRow, bLevel );
+					sBadSectorsList[iCol][iRow] = 0;
+					if ( gGameUBOptions.AddRandomEnemyToSector == TRUE )
+						{
+						if ( SECTOR( iCol , iRow ) == SEC_H7 || SECTOR( iCol , iRow )  == SEC_H8  || SECTOR( iCol , iRow ) == SEC_H9  ||
+							 SECTOR( iCol , iRow ) == SEC_H10 || SECTOR( iCol , iRow ) == SEC_H11 || SECTOR( iCol , iRow ) == SEC_I9  ||
+							 SECTOR( iCol , iRow ) == SEC_I10 || SECTOR( iCol , iRow ) == SEC_I11 || SECTOR( iCol , iRow ) == SEC_I12 ||
+							 SECTOR( iCol , iRow ) == SEC_I13 || SECTOR( iCol , iRow ) == SEC_J11 || SECTOR( iCol , iRow ) == SEC_J12 ||
+							 SECTOR( iCol , iRow ) == SEC_J13 || SECTOR( iCol , iRow ) == SEC_K14 || SECTOR( iCol , iRow ) == SEC_K15 ||
+							 SECTOR( iCol , iRow ) == SEC_K16 || SECTOR( iCol , iRow ) == SEC_L15 || 
+							 ( SECTOR( iCol , iRow ) == SEC_I13 && bLevel == 1) || ( SECTOR( iCol , iRow ) == SEC_J13 && bLevel == 1) ||
+							 ( SECTOR( iCol , iRow ) == SEC_J14 && bLevel == 1) || ( SECTOR( iCol , iRow ) == SEC_K15 && bLevel == 1) ||
+							 ( SECTOR( iCol , iRow ) == SEC_K15 && bLevel == 2) || ( SECTOR( iCol , iRow ) == SEC_L15 && bLevel == 2) ||
+							 ( SECTOR( iCol , iRow ) == SEC_L15 && bLevel == 3) )
+							 {
+							 }
+							 else
+							 {
+								ScreenMsg( FONT_MCOLOR_WHITE, MSG_CHAT, L"Added Random Enemy to sector : %S.", zMapName );
+								RandomAddEnemy( iCol, iRow, bLevel );
+							 }
+			
+						}
+				
+				}
+			}
+	
+		// I guess we need to load level to get the map information....?
+		// we don't want to destroy the level we're in, however....
+		//pSummary = (SUMMARYFILE*)MemAlloc( sizeof( SUMMARYFILE ) );
+		//memset( pSummary, 0, sizeof( SUMMARYFILE ) );
+/*
+		if ( !EvaluateWorldEx( zMapName, 0, pSummary, FALSE, FALSE, NULL ) )
+		{
+			if ( fDisplayMessages )
+			{
+				// Spew message
+				ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+				
+				if ( gfTriedToLoadOldMapVersion )
+				{
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Incompatible map." );
+				}
+			}
+		}
+		else
+		{
+			//JA25_SECTOR_AI		SectorAIInfo;
+			UINT8							ubNumAdmins, ubNumTroops, ubNumElites, ubNumBloodcats;
+			
+			//Test some stuff here, like the total # of placements, enemies, etc
+			switch( gGameOptions.ubDifficultyLevel )
+			{
+				case DIF_LEVEL_EASY:
+					ubNumAdmins = pSummary->MapInfo.ubNumAdminsE;
+					ubNumTroops = pSummary->MapInfo.ubNumTroopsE;
+					ubNumElites = pSummary->MapInfo.ubNumElitesE;
+					ubNumBloodcats = pSummary->MapInfo.ubNumBloodcatsE;
+					break;
+				case DIF_LEVEL_MEDIUM:
+					ubNumAdmins = pSummary->MapInfo.ubNumAdminsN;
+					ubNumTroops = pSummary->MapInfo.ubNumTroopsN;
+					ubNumElites = pSummary->MapInfo.ubNumElitesN;
+					ubNumBloodcats = pSummary->MapInfo.ubNumBloodcatsN;
+					break;
+				case DIF_LEVEL_HARD:
+					ubNumAdmins = pSummary->MapInfo.ubNumAdminsD;
+					ubNumTroops = pSummary->MapInfo.ubNumTroopsD;
+					ubNumElites = pSummary->MapInfo.ubNumElitesD;
+					ubNumBloodcats = pSummary->MapInfo.ubNumBloodcatsD;
+					break;
+			}
+			
+			/*if( pSummary->MapInfo.sNorthGridNo	== -1 )
+			{
+				if ( fDisplayMessages )
+				{
+					ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Map needs NORTH entry point." );
+				}
+				MemFree( pSummary );
+				continue;
+			}
+
+			if( pSummary->MapInfo.sEastGridNo	== -1 )
+			{
+				if ( fDisplayMessages )
+				{
+					ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Map needs EAST entry point." );
+				}
+				MemFree( pSummary );
+				continue;
+			}
+
+			if( pSummary->MapInfo.sWestGridNo	== -1 )
+			{
+				if ( fDisplayMessages )
+				{
+					ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Map needs WEST entry point." );
+				}
+				MemFree( pSummary );
+				continue;
+			}
+
+			if( pSummary->MapInfo.sSouthGridNo	== -1 )
+			{
+				if ( fDisplayMessages )
+				{
+					ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Map needs SOUTH entry point." );
+				}
+				MemFree( pSummary );
+				continue;
+			}
+
+			if( pSummary->MapInfo.sCenterGridNo	== -1 )
+			{
+				if ( fDisplayMessages )
+				{
+					ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Map needs CENTER entry point." );
+				}
+				MemFree( pSummary );
+				continue;
+			}
+
+			
+			if ( ( pSummary->ubAdminDetailed + pSummary->ubTroopDetailed + pSummary->ubEliteDetailed ) != 32 )
+			{
+				if ( fDisplayMessages )
+				{
+					ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Map requires 32 enemy placements." );
+				}
+				MemFree( pSummary );
+				continue;
+			}
+			
+			// Check total populations
+			if ( ( ubNumTroops + ubNumAdmins + ubNumElites ) > 32 )
+			{
+				if ( fDisplayMessages )
+				{
+					ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+					ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Map population total must be less than 32." );
+				}
+				MemFree( pSummary );
+				continue;
+			}
+			
+			// Check insertion gridno if baaenment
+			if ( bLevel > 0 )
+			{
+				if ( pSummary->MapInfo.sInsertionGridNo == -1 )
+				{
+					if ( fDisplayMessages )
+					{
+						ScreenMsg( MSG_FONT_RED, MSG_CHAT, L"Failed to add map: %S.", zMapName );
+						ScreenMsg( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"Underground level needs invasion insertion gridno value." );
+					}
+					MemFree( pSummary );
+					continue;					
+				}
+			}
+			
+			//We're good!
+			if ( fDisplayMessages )
+			{
+				ScreenMsg( FONT_MCOLOR_WHITE, MSG_CHAT, L"Added Custom map: %S.", zMapName );
+			}
+			
+			//if the sector shoulnd have a map there
+			if ( bLevel == 0 )
+			{
+				if ( SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fCampaignSector )
+				{
+					// ATE: This has been changed, if a campaign sector, just remove flag...
+					SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fCampaignSector = FALSE;
+					//continue;
+				}
+			}
+			else
+			{
+				// See if this sector exists, and if so is it a campagin sectior?
+				pSector = FindUnderGroundSector( (INT16)iCol, (INT16)iRow, bLevel );
+
+				if ( pSector )
+				{
+					if ( pSector->fCampaignSector )
+					{
+						// ATE: This has been changed, if a campaign sector, just remove flag...
+						pSector->fCampaignSector = FALSE;
+						//continue;
+					}
+				}
+			}
+			
+			if ( bLevel == 0 )
+			{
+				SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fValidSector = TRUE;
+				SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fCustomSector = TRUE;
+
+				// Seed level
+				//SectorInfo[ ( SECTOR( iCol , iRow ) ) ].ubNumAdmins = ubNumAdmins;
+				//SectorInfo[ ( SECTOR( iCol , iRow ) ) ].ubNumTroops = ubNumTroops;
+				//SectorInfo[ ( SECTOR( iCol , iRow ) ) ].ubNumElites = ubNumElites;
+				//SectorInfo[ ( SECTOR( iCol , iRow ) ) ].bBloodCats  = ubNumBloodcats;
+
+			//	wcscpy( SectorInfo[ ( SECTOR( iCol , iRow ) ) ].zCustomLevelName, pSummary->MapInfo.zLevelName );
+			}
+			else
+			{
+				pSector = NewUndergroundNode( (UINT8)iCol, (UINT8)iRow, bLevel, FALSE );
+
+				// Seed
+				pSector->ubNumAdmins = ubNumAdmins;
+				pSector->ubNumTroops = ubNumTroops;
+				pSector->ubNumElites = ubNumElites;
+
+				wcscpy( pSector->zCustomLevelName, pSummary->MapInfo.zLevelName );
+			}
+			
+			// Seed AI
+			memset( &SectorAIInfo, 0, sizeof( SectorAIInfo ) );
+			
+			SectorAIInfo.iSectorID = SECTOR( iCol , iRow ) ;
+			SectorAIInfo.bSectorZ = bLevel;
+			SectorAIInfo.bBaseNumEnemies = pSummary->MapInfo.ubBaseNumEnemies;
+			SectorAIInfo.bRandomNumEnemies = 4;
+			SectorAIInfo.bProbabilityOfAttacking = pSummary->MapInfo.ubAttackProbabilityRate;
+			SectorAIInfo.bMaxProbabilityForAttackingSector = 60;
+			SectorAIInfo.ubMinimumProbabiltyBeforeAttack = pSummary->MapInfo.ubGracePeriod;
+			SectorAIInfo.fAutoDirection = pSummary->MapInfo.fAutoDirection;
+			SectorAIInfo.ubInsertionDirection = pSummary->MapInfo.ubInsertionDirection;
+			SectorAIInfo.sInsertionGridNo = pSummary->MapInfo.sInsertionGridNo;
+			SectorAIInfo.fCustomSector = TRUE;
+			SectorAIInfo.ubLoadingScreenID =  pSummary->MapInfo.ubLoadingScreenID;
+
+			AddJA25AIDataToSector( &SectorAIInfo );
+
+			if ( bLevel == 0 )
+			{
+				SetNumberOfJa25BloodCatsInSector( SectorAIInfo.iSectorID, ubNumBloodcats, pSummary->CreatureTeam.ubNumAnimals );
+			}
+			
+		}
+
+		MemFree( pSummary );
+		*/
+		
+	}	
+
+}
+
+void MakeBadSectorListFromMapsOnHardDrive( BOOLEAN fDisplayMessages )
+{
+	INT32			iRow, iCol;
+	
+	
+	for( iRow=1; iRow<=16; iRow++ )
+	{
+		for( iCol=1; iCol<=16; iCol++ )
+		{
+			sBadSectorsList[iCol][iRow] = 1;
+		}
+	}
+
+	SetUpValidCampaignSectors( );
+
+	//loop through all the sectors
+	for( iRow=1; iRow<=16; iRow++ )
+	{
+		for( iCol=1; iCol<=16; iCol++ )
+		{
+			AddCustomMap( iRow, iCol, fDisplayMessages, FALSE );
+		}
+	}
+	
+if ( gGameUBOptions.MakeStrategicMovementCosts == TRUE )
+	UpdateCustomMapMovementCosts();
+}
+
+void UpdateCustomMapMovementCosts()
+{
+	INT32			iRow, iCol;
+
+	//loop through all the sectors
+	for( iRow=1; iRow<=16; iRow++ )
+	{
+		for( iCol=1; iCol<=16; iCol++ )
+		{
+		
+		
+			if( SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fValidSector && SectorInfo[ ( SECTOR( iCol , iRow ) ) ].fCustomSector )
+			{
+				
+				//if ( SectorInfo[ ( SECTOR( iCol, iRow ) ) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] == EDGEOFWORLD )
+					SectorInfo[ ( SECTOR( iCol, iRow ) ) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] = PLAINS;
+				
+				//sector above is clear
+				if( iRow > 1 && SectorInfo[ ( SECTOR( iCol , iRow - 1 ) ) ].fValidSector )
+				{
+				
+					//if ( SectorInfo[ ( SECTOR( iCol, iRow-1 ) ) ].ubTraversability[ SOUTH_STRATEGIC_MOVE ] == EDGEOFWORLD )
+						SectorInfo[ ( SECTOR( iCol, iRow-1 ) ) ].ubTraversability[ SOUTH_STRATEGIC_MOVE ] = PLAINS;
+					//if ( SectorInfo[ ( SECTOR( iCol, iRow ) ) ].ubTraversability[ NORTH_STRATEGIC_MOVE ] == EDGEOFWORLD )
+						SectorInfo[ ( SECTOR( iCol, iRow ) ) ].ubTraversability[ NORTH_STRATEGIC_MOVE ] = PLAINS;
+					
+					
+				}
+					
+				//sector west is clear
+				if( iCol > 1 && SectorInfo[ ( SECTOR( iCol - 1 , iRow ) ) ].fValidSector )
+				{
+					//if ( SectorInfo[ ( SECTOR( iCol-1, iRow ) ) ].ubTraversability[ EAST_STRATEGIC_MOVE ] == EDGEOFWORLD )
+						SectorInfo[ ( SECTOR( iCol-1, iRow ) ) ].ubTraversability[ EAST_STRATEGIC_MOVE ] = PLAINS;
+					//if ( SectorInfo[ ( SECTOR( iCol, iRow ) ) ].ubTraversability[ WEST_STRATEGIC_MOVE ] == EDGEOFWORLD )
+						SectorInfo[ ( SECTOR( iCol, iRow ) ) ].ubTraversability[ WEST_STRATEGIC_MOVE ] = PLAINS;
+				}
+					
+				//sector south is clear
+				if( iRow < 16 && SectorInfo[ ( SECTOR( iCol , iRow + 1 ) ) ].fValidSector )
+				{
+					//if ( SectorInfo[ ( SECTOR( iCol, iRow+1 ) ) ].ubTraversability[ NORTH_STRATEGIC_MOVE ] == EDGEOFWORLD )
+						SectorInfo[ ( SECTOR( iCol, iRow+1 ) ) ].ubTraversability[ NORTH_STRATEGIC_MOVE ] = PLAINS;
+					//if ( SectorInfo[ ( SECTOR( iCol, iRow ) ) ].ubTraversability[ SOUTH_STRATEGIC_MOVE ] == EDGEOFWORLD )
+						SectorInfo[ ( SECTOR( iCol, iRow ) ) ].ubTraversability[ SOUTH_STRATEGIC_MOVE ] = PLAINS;
+				}
+					
+				//sector east is clear
+				if( iCol < 16 && SectorInfo[ ( SECTOR( iCol + 1 , iRow ) ) ].fValidSector )
+				{
+					//if ( SectorInfo[ ( SECTOR( iCol+1, iRow ) ) ].ubTraversability[ WEST_STRATEGIC_MOVE ] == EDGEOFWORLD )
+						SectorInfo[ ( SECTOR( iCol+1, iRow ) ) ].ubTraversability[ WEST_STRATEGIC_MOVE ] = PLAINS;
+					//if ( SectorInfo[ ( SECTOR( iCol, iRow ) ) ].ubTraversability[ EAST_STRATEGIC_MOVE ] == EDGEOFWORLD )
+						SectorInfo[ ( SECTOR( iCol, iRow ) ) ].ubTraversability[ EAST_STRATEGIC_MOVE ] = PLAINS;
+				}
+			}
+		}
+	}
+}
+#endif

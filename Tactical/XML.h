@@ -7,7 +7,14 @@
 #include "faces.h"
 #include "Interface.h"
 #include "XML_SenderNameList.h"
+#include "mainmenuscreen.h"
+
+#include "ub_config.h"
+#include "Strategic Town Loyalty.h"
 #include "qarray.h"
+#include "XML_Language.h"
+#include "Encyclopedia_Data.h"
+#include "Encyclopedia.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -69,6 +76,10 @@ typedef PARSE_STAGE;
 #define LBEPOCKETFILENAME						"Pockets.xml"
 #define MERCSTARTINGGEARFILENAME				"MercStartingGear.xml"
 
+#ifdef JA2UB
+#define MERCSTARTINGGEAR25FILENAME				"MercStartingGear25.xml"  //ja25 ub
+#endif
+
 #define TONYINVENTORYFILENAME					"NPCInventory\\TonyInventory.xml"
 #define DEVININVENTORYFILENAME					"NPCInventory\\DevinInventory.xml"
 #define FRANZINVENTORYFILENAME					"NPCInventory\\FranzInventory.xml"
@@ -88,6 +99,11 @@ typedef PARSE_STAGE;
 #define ARNIEINVENTORYFILENAME					"NPCInventory\\ArnieInventory.xml"
 #define PERKOINVENTORYFILENAME					"NPCInventory\\PerkoInventory.xml"
 #define FREDOINVENTORYFILENAME					"NPCInventory\\FredoInventory.xml"
+
+#ifdef JA2UB
+#define BETTYINVENTORYFILENAME					"NPCInventory\\BettyInventory.xml"
+#define RAULINVENTORYFILENAME					"NPCInventory\\RaulInventory.xml"
+#endif
 
 #define BOBBYRAYSTRINGSFILENAME					"BobbyRayStrings.xml"
 #define AMMOCALIBERSTRINGSFILENAME				"AmmoCaliberStrings.xml"
@@ -172,8 +188,16 @@ typedef PARSE_STAGE;
 //Sender Name List
 #define SENDERNAMELISTFILENAME					"SenderNameList.xml"
 
+#define ACTIONITEMSFILENAME					"MapAction\\Actionitems.xml"
 
 #define IMPPORTRAITS					"IMPPortraits.xml"
+
+#ifdef JA2UB
+// UB
+#define MERCPROFILESFILENAME25					"MercProfiles25.xml"
+// UB
+#define MERCOPINIONSFILENAME25					"MercOpinions25.xml"
+#endif
 
 #define SOUNDPROFILE				"SoundsProfiles.xml"
 
@@ -183,6 +207,8 @@ typedef PARSE_STAGE;
 #define SECTORLEVEL2NAMESFILENAME						"Map\\SectorNamesLevel_2.xml"
 #define SECTORLEVEL3NAMESFILENAME						"Map\\SectorNamesLevel_3.xml"
 
+#define LAYOUTMAINMENU	"Layout\\LayoutMainMenu.xml"
+#define INTROFILESFILENAME						"IntroFiles.xml"
 #define MERCAVAILABILITY	"MercAvailability.xml"
 
 #define AIMAVAILABILITY	"AimAvailability.xml"
@@ -190,6 +216,25 @@ typedef PARSE_STAGE;
 #define QUOTEARRAYFILENAME					"MercQuote.xml"
 
 #define FACEGEARFILENAME					"FaceGear.xml"
+
+//Sender Name List
+#define EMAILSENDERNAMELIST					"Email\\EmailSenderNameList.xml"
+#define EMAILMERCAVAILABLE					"Email\\EmailMercAvailable.xml"
+#define EMAILMERCLEVELUP					"Email\\EmailMercLevelUp.xml"
+#define EMAILOTHER							"Email\\EmailOther.xml"
+#define EMAILINSURANCE 						"Email\\EmailInsurance.xml"
+
+
+#define VEHICLESFILENAME					"Vehicles.xml"
+
+#define TEXTFILENAME					"Text\\TacticalMessages.xml"
+
+#define ENCYCLOPEDIALOCATIONFILENAME				"Encyclopedia\\EncyclopediaLocations.xml"
+#define ENCYCLOPEDIAPROFILEFILENAME					"Encyclopedia\\EncyclopediaProfiles.xml"
+#define ENCYCLOPEDIAINVENTORYFILENAME				"Encyclopedia\\EncyclopediaInventory.xml"
+#define ENCYCLOPEDIAOTHERFILENAME					"Encyclopedia\\EncyclopediaOthers.xml"
+#define ENCYCLOPEDIAQUESTSFILENAME					"Encyclopedia\\EncyclopediaQuests.xml"
+#define BRIEFINGROOMFILENAME						"BriefingRoom\\BriefingRoom.xml"
 
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
@@ -393,5 +438,23 @@ extern BOOLEAN ReadInQarray(QARRAY_VALUES *pQarray, STR fileName);
 
 extern BOOLEAN WriteFaceGear();
 extern BOOLEAN ReadInFaceGear( FACE_GEAR_VALUES *pFaceGear, STR fileName );
+extern BOOLEAN ReadInIntroNames(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN ReadInMainMenu(MAIN_MENU_VALUES *pMainMenu, STR fileName);
+
+extern BOOLEAN ReadInActionItems(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN WriteInActionItems( STR fileName);
+
+extern BOOLEAN ReadInEmailMercAvailable(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN ReadInEmailMercLevelUp(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN ReadInEmailOther(STR fileName, BOOLEAN localizedVersion);
+//extern BOOLEAN ReadInInsurance(STR fileName, BOOLEAN localizedVersion);
+
+extern BOOLEAN ReadInEncyclopediaLocation(STR fileName, BOOLEAN localizedVersion, ENCYCLOPEDIA_LOCATION *Ency, UINT32 FileType2 );
+
+extern BOOLEAN ReadInNewVehicles(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN WriteNewVehicles(STR fileName);
+extern void InitNewVehicles ();
+
+extern BOOLEAN ReadInLanguageLocation(STR fileName, BOOLEAN localizedVersion, LANGUAGE_LOCATION *Lang, UINT32 FileType2 );
 
 #endif

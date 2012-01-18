@@ -58,7 +58,9 @@ enum{
 };
 
 // the ids for the car portraits
-INT32 giCarPortraits[ 4 ] = { -1, -1, -1, -1 };
+//INT32 giCarPortraits[ 4 ] = { -1, -1, -1, -1 };
+
+INT32 giCarPortraits[ NUM_PROFILES ];
 
 // the car portrait file names
 STR pbCarPortraitFileNames[ ]={
@@ -74,17 +76,31 @@ BOOLEAN LoadCarPortraitValues( void )
 {
 	INT32 iCounter = 0;
 	VOBJECT_DESC	 VObjectDesc;
-
+	
+	/*
 	if( giCarPortraits[ 0 ] != -1 )
 	{
 		return FALSE;
 	}
+	*/
+	
+	for( iCounter = 0; iCounter < NUM_PROFILES; iCounter++ )
+	{
+		if ( gProfilesVehicle[ iCounter ].ProfilId == iCounter )
+		{
+		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		strcpy( VObjectDesc.ImageFile, gNewVehicle[ iCounter ].szIconFace );
+		CHECKF( AddVideoObject( &VObjectDesc, (UINT32 *)&giCarPortraits[ iCounter ] ) );
+		}
+	}
+	
+	/*
 	for( iCounter = 0; iCounter < NUMBER_CAR_PORTRAITS; iCounter++ )
 	{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 		sprintf( VObjectDesc.ImageFile, pbCarPortraitFileNames[ iCounter ] );
 		CHECKF( AddVideoObject( &VObjectDesc, (UINT32 *)&giCarPortraits[ iCounter ] ) );
-	}
+	}*/
 	return( TRUE );
 }
 
@@ -94,15 +110,27 @@ void UnLoadCarPortraits( void )
 	INT32 iCounter = 0;
 
 	// car protraits loaded?
+	/*
 	if( giCarPortraits[ 0 ] == -1 )
 	{
 		return;
 	}
+	
 	for( iCounter = 0; iCounter < NUMBER_CAR_PORTRAITS; iCounter++ )
 	{
 		DeleteVideoObjectFromIndex( giCarPortraits[ iCounter ] );
 		giCarPortraits[ iCounter ] = -1;
 	}
+	*/
+	
+	for( iCounter = 0; iCounter < NUM_PROFILES; iCounter++ )
+	{
+		if ( gProfilesVehicle[ iCounter ].ProfilId == iCounter )
+		{
+			DeleteVideoObjectFromIndex( giCarPortraits[ iCounter ] );
+		}
+	}
+	
 	return;
 }
 
@@ -444,7 +472,7 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 void RenderSoldierFace( SOLDIERTYPE *pSoldier, INT16 sFaceX, INT16 sFaceY, BOOLEAN fAutoFace )
 {
 	BOOLEAN fDoFace = FALSE;
-	UINT8 ubVehicleType = 0;
+//	UINT8 ubVehicleType = 0;
 
 
 	if ( pSoldier->bActive )
@@ -453,10 +481,11 @@ void RenderSoldierFace( SOLDIERTYPE *pSoldier, INT16 sFaceX, INT16 sFaceY, BOOLE
 		if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
 			// get the type of vehicle
-			ubVehicleType = pVehicleList[ pSoldier->bVehicleID ].ubVehicleType;
+//			ubVehicleType = pVehicleList[ pSoldier->bVehicleID ].ubVehicleType;
 
 			// just draw the vehicle
-			BltVideoObjectFromIndex( guiSAVEBUFFER, giCarPortraits[ ubVehicleType ], 0, sFaceX, sFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
+//			BltVideoObjectFromIndex( guiSAVEBUFFER, giCarPortraits[ ubVehicleType ], 0, sFaceX, sFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, giCarPortraits[ pSoldier->ubProfile ], 0, sFaceX, sFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
 			RestoreExternBackgroundRect( sFaceX, sFaceY, FACE_WIDTH, FACE_HEIGHT );
 
 			return;

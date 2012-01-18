@@ -1167,7 +1167,7 @@ void PostNextSchedule( SOLDIERTYPE *pSoldier )
 			usBestTime = NUM_MIN_IN_DAY - (usTime - pSchedule->usTime[ i ]);
 			iBestIndex = i;
 		}
-	}	
+	}
 
 	// WANNE: Removed the assertion and added the check instead
 	//Assert( iBestIndex >= 0 );

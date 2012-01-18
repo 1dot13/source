@@ -66,6 +66,11 @@
 	#include "Morale.h"
 #endif
 
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#include "Ja25 Strategic Ai.h"
+#endif
+
 #define					NUM_ITEMS_LISTED			8
 #define					NUM_ITEM_FLASH_SLOTS	50
 #define					MIN_LOB_RANGE					6
@@ -1799,7 +1804,9 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 	BOOLEAN					fShouldSayCoolQuote = FALSE;
 	BOOLEAN					fDidSayCoolQuote = FALSE;
 	BOOLEAN		 fSaidBoobyTrapQuote = FALSE;
-
+#ifdef JA2UB
+	UINT16					usItem=0;
+#endif
 	// OK. CHECK IF WE ARE DOING ALL IN THIS POOL....
 	if ( iItemIndex == ITEM_PICKUP_ACTION_ALL || iItemIndex == ITEM_PICKUP_SELECTION )
 	{
@@ -2003,7 +2010,15 @@ void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGr
 			}
 		}
 	}
-
+#ifdef JA2UB	
+	//JA25 ub
+	//if the item is valid
+	if( usItem != 0 )
+	{
+		//handle the picking up of a new ja25 gun
+		HandleNewGunComment( pSoldier, usItem, TRUE );
+	}
+#endif
 	// Aknowledge....
 	if( pSoldier->bTeam == OUR_TEAM && !fDidSayCoolQuote && !fSaidBoobyTrapQuote )
 	{
@@ -4639,7 +4654,7 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 		{
 			// SANDRO was here, AP_DISARM_MINE changed to GetAPsToDisarmMine
 			if(EnoughPoints(gpBoobyTrapSoldier, GetAPsToDisarmMine( gpBoobyTrapSoldier ), APBPConstants[BP_DISARM_MINE], TRUE))
-				DeductPoints(gpBoobyTrapSoldier, GetAPsToDisarmMine( gpBoobyTrapSoldier ), APBPConstants[BP_DISARM_MINE]);
+				DeductPoints(gpBoobyTrapSoldier, GetAPsToDisarmMine( gpBoobyTrapSoldier ), APBPConstants[BP_DISARM_MINE], AFTERACTION_INTERRUPT);
 			else
 				return;
 		}
@@ -5719,9 +5734,7 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 				if ( gGameExternalOptions.fEnhancedCloseCombatSystem )
 				{
 					if (pSoldier->bActionPoints >= GetBasicAPsToPickupItem( pSoldier ) )
-					{
-						DeductPoints( pSoldier, GetBasicAPsToPickupItem( pSoldier ), 0 );
-					
+					{					
 						// Make copy of item
 						gTempObject = pOpponent->inv[pTempItemPool->iItemIndex];
 						if ( ItemIsCool( &gTempObject ) )
@@ -5737,7 +5750,8 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 						// add to merc records
 						if ( pSoldier->ubProfile != NO_PROFILE )
 							gMercProfiles[ pSoldier->ubProfile ].records.usItemsStolen++;
-
+						
+						DeductPoints( pSoldier, GetBasicAPsToPickupItem( pSoldier ), 0, AFTERACTION_INTERRUPT );
 					}
 					else
 					{

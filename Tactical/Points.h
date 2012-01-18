@@ -287,7 +287,7 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 BOOLEAN SelectedMercCanAffordMove(	);
 
 BOOLEAN EnoughPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, BOOLEAN fDisplayMsg );
-void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, BOOLEAN fProactive = TRUE );
+void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ubInterruptType = 2 ); // SANDRO - change for improved interrupt system (ubInterruptType = 2 = UNDEFINED_INTERRUPT)
 INT32 AdjustBreathPts(SOLDIERTYPE *pSold, INT32 iBPCost);
 void UnusedAPsToBreath(SOLDIERTYPE *pSold);
 INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo,INT8 bDir, UINT16 usMovementMode);

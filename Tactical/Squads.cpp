@@ -92,6 +92,15 @@ void InitSquads( void )
 
 BOOLEAN IsThisSquadFull( INT8 bSquadValue )
 {
+	//SQUAD10 FIX:  Number of taken slots should not exceed 6/8/10 depending on resolution
+	if ( NumberOfPeopleInSquad( bSquadValue ) >= gGameOptions.ubSquadSize )
+	{
+		return( true );
+	}
+
+	return ( false );
+
+/*
 	INT32 iCounter = 0;
 
 	// run through entries in the squad list, make sure there is a free entry
@@ -107,6 +116,7 @@ BOOLEAN IsThisSquadFull( INT8 bSquadValue )
 
 	// no free slots - it's full
 	return( TRUE );
+*/
 }
 
 INT8 GetFirstEmptySquad( void )
@@ -125,6 +135,47 @@ INT8 GetFirstEmptySquad( void )
 	// not found - none are completely empty (shouldn't ever happen!)
 	Assert( FALSE );
 	return( -1 );
+}
+
+void FixOversizedSquadsInSector( void )
+{
+	// SQUAD10: Fix any squads in current tactical map with more people than allowed at current resolution
+	INT32 iCountSquad = 0;
+	INT8  iCountSoldier = 0;
+	INT8  iPeopleInSquad = 0;
+	
+	// loop through all squads
+	for( iCountSquad = 0; iCountSquad < NUMBER_OF_SQUADS; iCountSquad++ )
+	{
+		// but deal only with squads in current sector
+		if( IsSquadOnCurrentTacticalMap( iCountSquad ) == TRUE )
+		{
+			// found a squad in current sector...check size
+			iPeopleInSquad = NumberOfPeopleInSquad( iCountSquad );
+			while ( iPeopleInSquad > gGameOptions.ubSquadSize )
+			{
+				// oversized squad found -- move some people to another squad
+				// 
+				// loop backwards through the squad in order to remove the last person
+				for( iCountSoldier = NUMBER_OF_SOLDIERS_PER_SQUAD - 1; iCountSoldier >= 0 ; iCountSoldier-- )
+				{
+					// if squad is still oversized, and we have found a squad member
+					if( (Squad[ iCountSquad ][ iCountSoldier ] != NULL) && (iPeopleInSquad > gGameOptions.ubSquadSize) )
+					{
+						// ... attempt to move him to another squad						
+						if ( AddCharacterToAnySquad( Squad[ iCountSquad ][ iCountSoldier ] ) == TRUE )
+						{
+							// success: we got rid of one person in this squad
+							iPeopleInSquad--;
+						}
+					}
+				}
+				// we've looped through all members off the squad
+				// reset iPeopleInSquad as there is nothing more we can do
+				iPeopleInSquad = 0;
+			}
+		}
+	}
 }
 
 BOOLEAN AddCharacterToSquad( SOLDIERTYPE *pCharacter, INT8 bSquadValue )
@@ -178,7 +229,16 @@ BOOLEAN AddCharacterToSquad( SOLDIERTYPE *pCharacter, INT8 bSquadValue )
 			// 'successful of sorts, if there, then he's 'added'
 			return ( TRUE );
 		}
+	}
 
+	if ( NumberOfPeopleInSquad( bSquadValue ) >= gGameOptions.ubSquadSize )
+	{
+		// SQUAD10: too many people in this squad
+		return( FALSE );
+	}
+
+	for( bCounter =0; bCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; bCounter++ )
+	{
 		// free slot, add here
 		if( Squad[ bSquadValue ][ bCounter ] == NULL )
 		{
