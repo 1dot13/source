@@ -914,7 +914,7 @@ void start_server (void)
 		gDisableMercEquipment = 0;		// Disable AIM and MERC equipment				
 		gMaxMercs = maxMercs;		
 		gGameType = gameType;
-		gDifficultyLevel = difficultyLevel;
+		gDifficultyLevel = difficultyLevel + 1;
 		gSkillTraits = skillTraits;
 		gEnemyEnabled = 0;
 		gCreatureEnabled = 0;
