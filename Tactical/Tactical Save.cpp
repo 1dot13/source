@@ -1741,6 +1741,10 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 		FileClose( hFile );
 		return( FALSE );
 	}
+	
+	// WANNE: If we get wrong data (very high value) from the temp file, we assume we have wrong value and therefore set corpses to 0 which will not crash the game!
+	if (uiNumberOfCorpses > 10000)
+		uiNumberOfCorpses = 0;
 
   // Get town ID for use later....
 	bTownId = GetTownIdForSector( gWorldSectorX, gWorldSectorY );
