@@ -11,6 +11,7 @@
 	#include "Encrypted File.h"
 	#include "cursors.h"
 	#include "soldier profile.h"
+	#include "CharProfile.h"
 	#include "IMP Compile Character.h"
 	#include "IMP Voices.h"
 	#include "IMP Portraits.h"
@@ -3836,9 +3837,8 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 #define IMP_PORTRAIT_FEMALE_3 IMP_PORTRAIT_FEMALE_2 + 4
 #define IMP_PORTRAIT_FEMALE_4 IMP_PORTRAIT_FEMALE_3 + 4
 #define IMP_PORTRAIT_FEMALE_5 IMP_PORTRAIT_FEMALE_4 + 4
-#define IMP_PORTRAIT_FEMALE_6 IMP_PORTRAIT_FEMALE_5 + 4
 
-#define IMP_RESULTS_END IMP_PORTRAIT_FEMALE_6 + 1
+#define IMP_RESULTS_END IMP_PORTRAIT_FEMALE_5 + 5
 #define IMP_RESULTS_END_LENGTH 3
 
 #else
@@ -5168,42 +5168,71 @@ void HandleIMPCharProfileResultsMessage( void)
 
 		switch( iPortraitNumber )
 		{
-		case( 0 ):
-		 iOffSet = IMP_PORTRAIT_MALE_1;
+			case( 0 ):
+				if( fCharacterIsMale )
+					iOffSet = IMP_PORTRAIT_MALE_1;
+				else
+					iOffSet = IMP_PORTRAIT_FEMALE_1;
 				break;
 			case( 1 ):
-		 iOffSet = IMP_PORTRAIT_MALE_2;
+				if( fCharacterIsMale )
+					iOffSet = IMP_PORTRAIT_MALE_2;
+				else
+					iOffSet = IMP_PORTRAIT_FEMALE_2;
 				break;
 			case( 2 ):
-		 iOffSet = IMP_PORTRAIT_MALE_3;
+				if( fCharacterIsMale )
+					iOffSet = IMP_PORTRAIT_MALE_3;
+				else
+					iOffSet = IMP_PORTRAIT_FEMALE_3;
 				break;
 			case( 3 ):
-		 iOffSet = IMP_PORTRAIT_MALE_4;
+				if( fCharacterIsMale )
+					iOffSet = IMP_PORTRAIT_MALE_4;
+				else
+					iOffSet = IMP_PORTRAIT_FEMALE_4;
 				break;
 			case( 4 ):
+				if( fCharacterIsMale )
+					iOffSet = IMP_PORTRAIT_MALE_5;
+				else
+					iOffSet = IMP_PORTRAIT_FEMALE_4;
+				break;
 			case( 5 ):
-		 iOffSet = IMP_PORTRAIT_MALE_5;
+				if( fCharacterIsMale )
+					iOffSet = IMP_PORTRAIT_MALE_5;
+				else
+					iOffSet = IMP_PORTRAIT_FEMALE_5;
 				break;
 			case( 6 ):
+				if( fCharacterIsMale )
+					iOffSet = IMP_PORTRAIT_MALE_6;
+				else
+					iOffSet = IMP_PORTRAIT_FEMALE_5;
+				break;
 			case( 7 ):
-		 iOffSet = IMP_PORTRAIT_MALE_6;
+				if( fCharacterIsMale )
+					iOffSet = IMP_PORTRAIT_MALE_6;
+				else
+					iOffSet = IMP_PORTRAIT_FEMALE_3;
 				break;
 			case( 8 ):
-		 iOffSet = IMP_PORTRAIT_FEMALE_1;
+				if( fCharacterIsMale )
+					iOffSet = IMP_PORTRAIT_MALE_4;
+				else
+					iOffSet = IMP_PORTRAIT_FEMALE_4;
 				break;
 			case( 9 ):
-		 iOffSet = IMP_PORTRAIT_FEMALE_2;
+				if( fCharacterIsMale )
+					iOffSet = IMP_PORTRAIT_MALE_5;
+				else
+					iOffSet = IMP_PORTRAIT_FEMALE_5;
 				break;
-		case( 10 ):
-		 iOffSet = IMP_PORTRAIT_FEMALE_3;
-				break;
-			case( 11 ):
-			case( 12 ):
-		 iOffSet = IMP_PORTRAIT_FEMALE_4;
-				break;
-			case( 13 ):
-			case( 14 ):
-		 iOffSet = IMP_PORTRAIT_FEMALE_5;
+			default:
+				if( fCharacterIsMale )
+					iOffSet = IMP_PORTRAIT_MALE_1;
+				else
+					iOffSet = IMP_PORTRAIT_FEMALE_1;
 				break;
 		}
 
