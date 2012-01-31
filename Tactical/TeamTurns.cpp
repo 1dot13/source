@@ -968,8 +968,8 @@ void StartInterrupt( void )
 
 		//if ( gTacticalStatus.ubCurrentTeam == OUR_TEAM )//hayden
 		// if ( pSoldier->bTeam > OUR_TEAM && pSoldier->bTeam < 6) // cheap disable
-		// SANDRO - if we just saw the guy, don't flag it as hidden interrupt
-		if (!is_networked && gTacticalStatus.ubCurrentTeam == OUR_TEAM 
+		// SANDRO - we don't use the "hidden interrupt" feature with IIS
+		if (!is_networked && gTacticalStatus.ubCurrentTeam == OUR_TEAM && !gGameExternalOptions.fImprovedInterruptSystem
 			&& MercPtrs[ LATEST_INTERRUPT_GUY ]->aiData.bOppList[pTempSoldier->ubID] != SEEN_CURRENTLY 
 			&& MercPtrs[ LATEST_INTERRUPT_GUY ]->aiData.bOppList[pTempSoldier->ubID] != SEEN_THIS_TURN ) 
 		{
