@@ -2631,9 +2631,43 @@ void DisplayGameSettings( )
 			break;
 	}
 
-		// Kaiden: Following Line was commented out (Extra Bobby Rays Setting always displays Normal.
+	// Item Progress Speed Option
+	switch( gGameOptions.ubProgressSpeedOfItemsChoices )
+	{
+		case ITEM_PROGRESS_VERY_SLOW:
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_PROGRESS_TITLE_TEXT ], gzGIOScreenText[ GIO_PROGRESS_VERY_SLOW_TEXT ] );
+			break;
+		case ITEM_PROGRESS_SLOW:
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_PROGRESS_TITLE_TEXT ], gzGIOScreenText[ GIO_PROGRESS_SLOW_TEXT ] );
+			break;
+		case ITEM_PROGRESS_NORMAL:
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_PROGRESS_TITLE_TEXT ], gzGIOScreenText[ GIO_PROGRESS_NORMAL_TEXT ] );
+			break;
+		case ITEM_PROGRESS_FAST:
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_PROGRESS_TITLE_TEXT ], gzGIOScreenText[ GIO_PROGRESS_FAST_TEXT ] );
+			break;
+		case ITEM_PROGRESS_VERY_FAST:
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_PROGRESS_TITLE_TEXT ], gzGIOScreenText[ GIO_PROGRESS_VERY_FAST_TEXT ] );
+			break;
+	}
+
+	// Kaiden: Following Line was commented out (Extra Bobby Rays Setting always displays Normal)
 	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], gzGIOScreenText[ GIO_BR_GOOD_TEXT ] );
-//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_GAME_SAVE_STYLE_TEXT ], gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT + gGameOptions.fIronManMode ] );
+	
+	// Iron Man Mode
+	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_GAME_SAVE_STYLE_TEXT ], gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT + gGameOptions.fIronManMode ] );
+
+	// All Terrorists Option
+	if( gGameOptions.fEnableAllTerrorists )
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_TERRORISTS_TITLE_TEXT ], gzGIOScreenText[ GIO_TERRORISTS_ALL_TEXT ] );
+	else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_TERRORISTS_TITLE_TEXT ], gzGIOScreenText[ GIO_TERRORISTS_RANDOM_TEXT ] );
+
+	// All Weapon Caches Option
+	if( gGameOptions.fEnableAllWeaponCaches )
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_CACHES_TITLE_TEXT ], gzGIOScreenText[ GIO_CACHES_ALL_TEXT ] );
+	else
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_CACHES_TITLE_TEXT ], gzGIOScreenText[ GIO_CACHES_RANDOM_TEXT ] );
 
 	// Tons of Guns Option
 	if( gGameOptions.fGunNut )
