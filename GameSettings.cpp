@@ -205,7 +205,7 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALTERNATE_BULLET_GRAPHICS"        ,  TRUE );
 		
 		if (!is_networked)
-			gGameSettings.fOptions[TOPTION_USE_NCTH]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_NCTH"						   ,  TRUE );
+			gGameSettings.fOptions[TOPTION_USE_NCTH]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_NCTH"						   ,  FALSE );
 		else
 			gGameSettings.fOptions[TOPTION_USE_NCTH]					= FALSE;
 
@@ -498,7 +498,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_ALTERNATE_BULLET_GRAPHICS ]			= TRUE;
 
 	// CHRISL: HAM 4: Activate/Deactivate NCTH mode
-	gGameSettings.fOptions[ TOPTION_USE_NCTH ]							= TRUE;
+	gGameSettings.fOptions[ TOPTION_USE_NCTH ]							= FALSE;
 
 	// WANNE:
 	gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ]			= TRUE;

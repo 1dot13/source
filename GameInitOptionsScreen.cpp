@@ -545,8 +545,8 @@ UINT32	GameInitOptionsScreenInit( void )
 			break;
 	}
 
-	// Game Style (Default: Realistic = 0)
-	gGameOptions.ubGameStyle =  (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_GAME_STYLE, STYLE_REALISTIC);
+	// Game Style (Default: Sci Fi = 1)
+	gGameOptions.ubGameStyle =  (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_GAME_STYLE, STYLE_SCIFI);
 
 	// Enemies Drop All Items (Default: Off = 0)
 	gGameOptions.fEnemiesDropAllItems =  (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_ENEMIES_DROP_ALL_ITEMS, 0);
@@ -2971,8 +2971,8 @@ UINT32	GameInitOptionsScreenInit( void )
 			break;
 	}
 
-	// Game Style (Default: Realistic = 0)
-	gGameOptions.ubGameStyle =  (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_GAME_STYLE, STYLE_REALISTIC);
+	// Game Style (Default: Sci Fi = 0)
+	gGameOptions.ubGameStyle =  (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_GAME_STYLE, STYLE_SCIFI);
 
 	// Enemies Drop All Items (Default: Off = 0)
 	gGameOptions.fEnemiesDropAllItems =  (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_ENEMIES_DROP_ALL_ITEMS, 0);
