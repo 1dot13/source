@@ -85,6 +85,31 @@ Please note that if reinforcements are allowed (ALLOW_REINFORCEMENTS=TRUE), seve
 这个用来调整在战略界面上行动的单个敌人团队的人数。
 请注意如果允许跨地图支援（ALLOW_REINFORCEMENTS=TRUE），几个这样的团可以集结在一起攻击。然而，战斗后他们会很快分散开来，以保证单个团队人数不会过多。</Description_CHI>
         </Property>
+		<Property name="MAX_ITEM_SIZE" datatype="numeric" minvalue="0" maxvalue="250" defaultvalue="0" interval="1">
+          <Description_ENG>This is the maximum item size you can use in the game. It is possible, with enough attachments that lower a weapon size to change the weapon size to a huge number, since 0-1 = 255. 
+If any item with a size between 0 and MAX_WEAPON_SIZE s adjusted to a number bigger than MAX_ITEM_NUMBER, the item size will be 0. If the adjusted number is greater than MAX_WEAPON_SIZE but bigger than MAX_ITEM_NUMBER, MAX_WEAPON_SIZE will be set. 
+Values 0-250, default is 34.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+        </Property>
+		<Property name="MAX_WEAPON_SIZE" datatype="numeric" minvalue="0" maxvalue="9" defaultvalue="0" interval="1">
+          <Description_ENG>This is the maximum item size you want to use for weapons. All weapons will be between size 0 and MAX_WEAPON_SIZE regardless of attachments. 
+Values 0-100, default is 9.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+        </Property>
+		<Property name="OLD_INVENTORY_ITEM_NUMBER" datatype="numeric" minvalue="0" maxvalue="255" defaultvalue="0" interval="1">
+          <Description_ENG>This is used for items that will not appear in NIV.
+Values 0-255, default is 99.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+        </Property>
       </Properties>
     </Section>
     <Section name="Data File Settings">
