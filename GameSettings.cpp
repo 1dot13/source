@@ -620,6 +620,10 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubGameMaximumNumberOfCivilians				= iniReader.ReadInteger("System Limit Settings","MAX_NUMBER_CIVS_IN_TACTICAL", 32, 16, CODE_MAXIMUM_NUMBER_OF_CIVS);
 
 	gGameExternalOptions.iMaxEnemyGroupSize							= iniReader.ReadInteger("System Limit Settings","MAX_STRATEGIC_ENEMY_GROUP_SIZE",20, 10, 100);
+	//JMich
+	gGameExternalOptions.guiMaxItemSize								= iniReader.ReadInteger("System Limit Settings","MAX_ITEM_SIZE",34, 0, 250);
+	gGameExternalOptions.guiMaxWeaponSize							= iniReader.ReadInteger("System Limit Settings","MAX_WEAPON_SIZE", 9, 0, 100);
+	gGameExternalOptions.guiOIVSizeNumber							= iniReader.ReadInteger("System Limit Settings","OLD_INVENTORY_ITEM_NUMBER", 99, 0, 255);
 
 	//################# Data File Settings #################
 

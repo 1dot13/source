@@ -416,11 +416,11 @@ LBETYPE::~LBETYPE(){
 }
 POCKETTYPE::POCKETTYPE(){
 	memset(this, 0, SIZEOF_POCKETTYPE);
-	ItemCapacityPerSize.resize(35);
+	ItemCapacityPerSize.resize(gGameExternalOptions.guiMaxItemSize+1);//JMich
 }
 POCKETTYPE::POCKETTYPE(const POCKETTYPE& src){
 	memcpy(this, &src, SIZEOF_POCKETTYPE);
-	ItemCapacityPerSize.resize(35);
+	ItemCapacityPerSize.resize(gGameExternalOptions.guiMaxItemSize+1);//JMich
 	ItemCapacityPerSize = src.ItemCapacityPerSize;
 }
 POCKETTYPE& POCKETTYPE::operator=(const POCKETTYPE& src){

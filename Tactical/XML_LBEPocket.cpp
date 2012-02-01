@@ -7,6 +7,7 @@
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
+	#include "GameSettings.h"
 #endif
 
 struct
@@ -23,8 +24,24 @@ struct
 }
 typedef lbepocketParseData;
 
-BOOLEAN onlyLocalizedText;
 
+BOOLEAN onlyLocalizedText;
+BOOLEAN lbepocketStartElementHandleLoop(const XML_Char *name, lbepocketParseData * pData) //Tais
+{
+	UINT8 i=0;
+	CHAR8 str1 [40] = "";
+	CHAR8 str2 [40] = "";
+	for (i=0; i<=gGameExternalOptions.guiMaxItemSize;i++)
+	{
+		sprintf(str1,"ItemCapacityPerSize.%d",i);
+		sprintf(str2,"ItemCapacityPerSize%d",i);
+		if(strcmp(name, str1)==0||strcmp(name, str2)==0)
+		{
+			return true;
+		}
+	}
+	return false;
+}
 static void XMLCALL 
 lbepocketStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
@@ -49,12 +66,14 @@ lbepocketStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
-		else if(pData->curElement == ELEMENT &&
+		else if(pData->curElement == ELEMENT &&	
 				(strcmp(name, "pIndex") == 0 ||
 				strcmp(name, "pName") == 0 ||
 				strcmp(name, "pSilhouette") == 0 ||
 				strcmp(name, "pType") == 0 ||
 				strcmp(name, "pRestriction") == 0 ||
+				lbepocketStartElementHandleLoop(name, pData)))
+				/*	JMich - These are no longer needed
 				strcmp(name, "ItemCapacityPerSize.0") == 0 || strcmp(name, "ItemCapacityPerSize0") == 0 ||
 				strcmp(name, "ItemCapacityPerSize.1") == 0 || strcmp(name, "ItemCapacityPerSize1") == 0 ||
 				strcmp(name, "ItemCapacityPerSize.2") == 0 || strcmp(name, "ItemCapacityPerSize2") == 0 ||
@@ -89,7 +108,7 @@ lbepocketStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 				strcmp(name, "ItemCapacityPerSize.31") == 0 || strcmp(name, "ItemCapacityPerSize31") == 0 ||
 				strcmp(name, "ItemCapacityPerSize.32") == 0 || strcmp(name, "ItemCapacityPerSize32") == 0 ||
 				strcmp(name, "ItemCapacityPerSize.33") == 0 || strcmp(name, "ItemCapacityPerSize33") == 0 ||
-				strcmp(name, "ItemCapacityPerSize.34") == 0 || strcmp(name, "ItemCapacityPerSize34") == 0 ))
+				strcmp(name, "ItemCapacityPerSize.34") == 0 || strcmp(name, "ItemCapacityPerSize34") == 0 ))*/
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -119,7 +138,10 @@ lbepocketCharacterDataHandle(void *userData, const XML_Char *str, int len)
 static void XMLCALL
 lbepocketEndElementHandle(void *userData, const XML_Char *name)
 {
-	lbepocketParseData * pData = (lbepocketParseData *)userData;
+UINT8 i=0;
+CHAR8 str1 [40] = "";
+CHAR8 str2 [40] = "";
+lbepocketParseData * pData = (lbepocketParseData *)userData;
 
 	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
 	{
@@ -170,7 +192,22 @@ lbepocketEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curLBEPocket.pRestriction = (UINT32) atol(pData->szCharData);
+		}	//Tais fixed this.
+		else
+		{
+			for (i=0; i<=gGameExternalOptions.guiMaxItemSize;i++)
+			{
+				sprintf(str1,"ItemCapacityPerSize.%d",i);
+				sprintf(str2,"ItemCapacityPerSize%d",i);
+				if(strcmp(name, str1)==0||strcmp(name, str2)==0)
+				{
+					pData->curElement = ELEMENT;
+					pData->curLBEPocket.ItemCapacityPerSize[i] = (UINT8) atol(pData->szCharData);
+					break;
+				}
+			}
 		}
+		/*	JMich - these are no longer needed
 		else if(strcmp(name, "ItemCapacityPerSize.0") == 0 || strcmp(name, "ItemCapacityPerSize0") == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -346,7 +383,7 @@ lbepocketEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curLBEPocket.ItemCapacityPerSize[34] = (UINT8) atol(pData->szCharData);
 		}
-
+		*/
 		pData->maxReadDepth--;
 	}
 
@@ -423,6 +460,7 @@ BOOLEAN ReadInLBEPocketStats(STR fileName, BOOLEAN localizedVersion)
 }
 BOOLEAN WriteLBEPocketEquipmentStats()
 {
+	UINT8 i;
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"writelbepocketsstats");
 	HWFILE		hFile;
 
@@ -445,6 +483,11 @@ BOOLEAN WriteLBEPocketEquipmentStats()
 			FilePrintf(hFile,"\t\t<pSilhouette>%d</pSilhouette>\r\n",								LBEPocketType[cnt].pSilhouette  );
 			FilePrintf(hFile,"\t\t<pType>%d</pType>\r\n",								LBEPocketType[cnt].pType   );
 			FilePrintf(hFile,"\t\t<pRestriction>%d</pRestriction>\r\n",						LBEPocketType[cnt].pRestriction	);
+			for(i=0;i<=gGameExternalOptions.guiMaxItemSize;i++)		//JMich
+			{
+				FilePrintf(hFile,"\t\t<ItemCapacityPerSize%d>%d</ItemCapacityPerSize%d>\r\n",								i,LBEPocketType[cnt].ItemCapacityPerSize[i],i   );
+			}
+			/*	JMich - these are no longer needed
 			FilePrintf(hFile,"\t\t<ItemCapacityPerSize0>%d</ItemCapacityPerSize0>\r\n",								LBEPocketType[cnt].ItemCapacityPerSize[0]   );
 			FilePrintf(hFile,"\t\t<ItemCapacityPerSize1>%d</ItemCapacityPerSize1>\r\n",								LBEPocketType[cnt].ItemCapacityPerSize[1]   );
 			FilePrintf(hFile,"\t\t<ItemCapacityPerSize2>%d</ItemCapacityPerSize2>\r\n",								LBEPocketType[cnt].ItemCapacityPerSize[2]   );
@@ -480,7 +523,7 @@ BOOLEAN WriteLBEPocketEquipmentStats()
 			FilePrintf(hFile,"\t\t<ItemCapacityPerSize32>%d</ItemCapacityPerSize32>\r\n",								LBEPocketType[cnt].ItemCapacityPerSize[32]   );
 			FilePrintf(hFile,"\t\t<ItemCapacityPerSize33>%d</ItemCapacityPerSize33>\r\n",								LBEPocketType[cnt].ItemCapacityPerSize[33]   );
 			FilePrintf(hFile,"\t\t<ItemCapacityPerSize34>%d</ItemCapacityPerSize34>\r\n",								LBEPocketType[cnt].ItemCapacityPerSize[34]   );
-
+			*/
 			FilePrintf(hFile,"\t</POCKET>\r\n");
 		}
 		FilePrintf(hFile,"</POCKETLIST>\r\n");

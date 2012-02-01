@@ -46,6 +46,8 @@
 #define OLD_IMP_FILENAME_SUFFIX ".dat"
 #define NEW_IMP_FILENAME_SUFFIX ".dat2"
 
+
+
 //CHRISL: structure needed to store temporary inventory information during IMP creation
 typedef struct
 {
@@ -479,7 +481,7 @@ void DistributeInitialGear(MERCPROFILESTRUCT *pProfile)
 		{
 			if((UsingNewInventorySystem() == true))
 			{
-				if(Item[pProfile->inv[i]].ItemSize != 99)
+				if(Item[pProfile->inv[i]].ItemSize != gGameExternalOptions.guiOIVSizeNumber) //JMich
 				{
 					tInv[count].inv = pProfile->inv[i];
 					tInv[count].iSize = Item[pProfile->inv[i]].ItemSize;
@@ -511,7 +513,7 @@ void DistributeInitialGear(MERCPROFILESTRUCT *pProfile)
 	length = count;
 	count = 0;
 	// Next sort list by size
-	for(j=34; j>=0; j--)
+	for(j=gGameExternalOptions.guiMaxItemSize; j>=0; j--) //JMich
 	{
 		for(i=0; i<length; i++)
 		{

@@ -416,6 +416,11 @@ typedef struct
 	BOOLEAN autoSaveOnAssertionFailure;
 	UINT32  autoSaveTime;
 
+	//JMich
+	UINT8 guiMaxWeaponSize;
+	UINT8 guiMaxItemSize;
+	UINT8 guiOIVSizeNumber;
+
 	//Sight range
 	UINT32	ubStraightSightRange;
 	UINT32 ubVisDistDecreasePerRainIntensity;
