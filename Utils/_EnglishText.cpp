@@ -301,7 +301,7 @@ STR16			BoxFilter[] =
 	// Misc
 	L"Blade",
 	L"Th. Kn.",
-	L"Melee",
+	L"Blunt",
 	L"Grena.",
 	L"Bomb",
 	L"Med.", //30
@@ -870,7 +870,7 @@ STR16 pPasteMercPlacementText[] =
 {
 	L"Placement not pasted as no placement is saved in buffer.",
 	L"Placement pasted.",
-	L"Placement not pasted as the maximum number of placements for this team is already used.",
+	L"Placement not pasted as the maximum number of placements for this team is reached.",
 };
 
 //editscreen.cpp
@@ -1038,7 +1038,7 @@ STR16 pUpdateItemStatsPanelText[] =
 	L"Toggle hide flag", //0
 	L"No item selected.",
 	L"Slot available for",
-	L"random generation.",
+	L"Random generation.",
 	L"Keys not editable.",
 	L"ProfileID of owner",
 	L"Item class not implemented.",
@@ -4889,7 +4889,7 @@ STR16			zSaveLoadText[] =
 	L"Loaded the game successfully",
 	L"ERROR loading the game!",
 
-	L"The game version in the saved game file is different then the current version. It is most likely safe to continue.  Continue?",
+	L"The game version in the saved game file is different from the current version. It is most likely safe to continue.  Continue?",
 	L"The saved game files may be invalidated. Do you want them all deleted?",
 
 	//Translators, the next two strings are for the same thing.  The first one is for beta version releases and the second one
@@ -5157,7 +5157,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, you will hear rain noises when it is raining.",
 	L"When ON, the crows are present in game.",
 	L"When ON, a tooltip window is shown when pressing |A|l|t and hovering cursor over an enemy.",
-	L"When ON, game will be saved in 2 alternate save slots after each players turn.",
+	L"When ON, game will be saved in 2 alternate save slots after each player's turn.",
 	L"When ON, Skyrider will not talk anymore.",
 	//L"When ON, game will run with much lower CPU usage.",
 	L"When ON, enhanced descriptions will be shown for items and weapons.",

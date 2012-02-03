@@ -141,8 +141,8 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"+%d%s Chance to Hit with Rifles\n",
 	L"+%d%s Chance to Hit with Shotguns\n",
 	L"-%d%s APs needed to pump Shotguns\n",
-	L"+%d%s group travelling speed between sectors if traveling by foot\n",
-	L"+%d%s group travelling speed between sectors if traveling in vehicle (except helicopter)\n",
+	L"+%d%s group traveling speed between sectors if traveling by foot\n",
+	L"+%d%s group traveling speed between sectors if traveling in vehicle (except helicopter)\n",
 	L"-%d%s less energy spent for travelling between sectors\n",
 	L"-%d%s weather penalties\n",
 	L"+%d%s camouflage effectiveness\n",
@@ -331,7 +331,7 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 	L"+%d%s bonus to effective leadership for determining militia training\n",
 	L"+%d%s bonus to teaching other mercs\n",
 	L"Skill value counts to be +%d higher for being able to teach this skill to other mercs\n",
-	L"+%d%s bonus to train stats through self-practising assignment\n",
+	L"+%d%s bonus to train stats through self-practice assignment\n",
 
 };
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
@@ -367,7 +367,7 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 	L"+%d%s chance to instantly kill by throwing knife if not seen or heard\n",
 	L"+%d%s bonus to militia training and other mercs instructing speed\n",
 	L"+%d%s effective leadership for militia training calculations\n",
-	L"+%d%s chance to hit with rocket/greande launchers and mortar\n",
+	L"+%d%s chance to hit with rocket/grenade launchers and mortar\n",
 	L"Auto fire/burst chance to hit penalty is divided by %d\n",
 	L"Reduced chance for shooting unwanted bullets on autofire\n",
 	L"+%d%s chance to move quietly\n",
