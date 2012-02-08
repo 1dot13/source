@@ -7,6 +7,7 @@ MvtTypes:			0 - FOOT
 					3 - TRACKED			
 					4 - AIR		
 
+Neutral:			Set to 1 for vehicles that should be neutral (friendly) when encountering. Set to 0 for enemy vehicles
 VehicleEnabled: 	Set to 1 if the vehicle should be available in the game. Otherwise 0
 Pilot:				Set to -1 for all vehicles and only to the skyrider (pilot) profile id for the helicopter	
 VehicleArmourType:  uiIndex from TableData\Items.xml
@@ -2426,7 +2427,7 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 		<MoveVehicleSndID>82</MoveVehicleSndID>
 		<VehicleArmourType>167</VehicleArmourType>
 		<VehicleEnabled>1</VehicleEnabled>
-		<Neutral>0</Neutral>
+		<Neutral>1</Neutral>
 		<Pilot>-1</Pilot>
 	</VEHICLE>
 	<!-- El Dorado -->
