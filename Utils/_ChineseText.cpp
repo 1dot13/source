@@ -2115,7 +2115,7 @@ STR16 gzMercSkillTextNew[] =
 	L"肉搏",
 	L"飞刀",
 	L"夜战",
-	L"“尾行”",
+	L"潜行",
 	L"运动员",
 	L"肌肉男",
 	L"爆破",
@@ -3642,7 +3642,7 @@ STR16 pImpButtonText[] =
 {
 	L"关于我们",			// about the IMP site
 	L"开始",		// begin profiling
-	L"性格",		// personality section
+	L"特长",		// personality section
 	L"属性", 		// personal stats/attributes section
 	L"外表", 			// changed from portrait - SANDRO
 	L"嗓音%d",		// the voice selection
@@ -3665,7 +3665,7 @@ STR16 pImpButtonText[] =
 	L"注册",			// the IMP site registry..when name and gender is selected
 	L"分析...", 		// analyzing your profile results
 	L"完成",
-	L"性格特征", // Change from "Voice" - SANDRO
+	L"性格", // Change from "Voice" - SANDRO
 };
 
 STR16 pExtraIMPStrings[] =
@@ -4873,7 +4873,7 @@ STR16	zOptionsText[] =
 	L"完成",	//"Done",
 
 	//Text above the slider bars
-	L"效果音",	//"Effects",
+	L"特效",	//"Effects",
 	L"语音",	//"Speech",
 	L"音乐",	//"Music",
 
@@ -5050,7 +5050,7 @@ STR16		zOptionsToggleText[] =
 	L"显示轮廓",		//"Show Wireframes",
 	L"显示3D光标",	//"Show 3D Cursor",
 	L"显示命中机率",	//"Show Chance to Hit on cursor",
-	L"榴弹发射器连发时使用枪击光标",	//"GL Burst uses Burst cursor",
+	L"榴弹发射器用连发准星",	//"GL Burst uses Burst cursor",
 	L"允许敌人嘲讽", // Changed from "Enemies Drop all Items" - SANDRO
 	L"允许高仰角榴弹发射",	//"High angle Grenade launching",
 	L"允许实时潜行", // Changed from "Restrict extra Aim Levels" - SANDRO
@@ -5060,16 +5060,16 @@ STR16		zOptionsToggleText[] =
 	L"单发曳光弹显示曳光",	//"Tracer effect for single shot",
 	L"雨声",	//"Rain noises",
 	L"允许乌鸦",	//"Allow crows",
-	L"允许士兵工具提示",	// Show Soldier Tooltips
+	L"允许显示敌军装备",	// Show Soldier Tooltips
 	L"自动存盘",	//"Auto save",
 	L"沉默的Skyrider",	//"Silent Skyrider",
 	//L"降低CPU的使用率",	//"Low CPU usage",
-	L"Enhanced Description Box",
+	L"增强属性框(EDB)", //L"Enhanced Description Box",
 	L"强制回合制模式",						// add forced turn mode
 	L"属性进度条",	//L"Stat Progress Bars", // Show progress towards stat increase //ham3.6
 	L"替代战略地图颜色", // Change color scheme of Strategic Map
 	L"替代子弹图像", // Show alternate bullet graphics (tracers)
-	L"开启新的 CTH 系统",				// use NCTH
+	L"开启新的瞄准系统(NCTH)",				// use NCTH
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
 	L"禁止光标切换",		            // Disable Cursor Swap
@@ -5212,7 +5212,7 @@ STR16	gzGIOScreenText[] =
 	L"武器数量", // changed by SANDRO
 	L"大量武器",
 	L"少量武器", // changed by SANDRO
-	L"难度",
+	L"游戏难度",
 	L"新手",
 	L"老手",
 	L"专家",
@@ -5220,14 +5220,14 @@ STR16	gzGIOScreenText[] =
 	L"确定",
 	L"取消",
 	L"额外难度",
-	L"可随时存盘",
+	L"随时存盘",
 	L"铁人模式",
 	L"在Demo中禁用",
-	L"Bobby Ray's 库存",
-	L"普通",
-	L"较多",
+	L"Bobby Ray商店库存",
+	L"极少",
+	L"较少",
+	L"一般",
 	L"很多",
-	L"囧……多",
 	L"携行系统 / 附件系统",
 	L"NOT USED",
 	L"NOT USED",
@@ -5244,7 +5244,7 @@ STR16	gzGIOScreenText[] =
 	L"4",
 	L"5",
 	L"6",
-	L"敌人物品全掉",
+	L"敌军物品全掉",
 	L"关",
 	L"开",
 #ifdef JA2UB
@@ -5252,27 +5252,27 @@ STR16	gzGIOScreenText[] =
 	L"Random",
 	L"All",
 #else
-	L"通缉犯出现几率",
+	L"通缉犯出现方式",
 	L"随机",
 	L"全部",
 
 #endif	
-	L"武器弹药储藏出现几率",
+	L"敌军秘密基地出现方式",
 	L"随机",
 	L"全部",
-	L"装备进展速度",
-	L"超慢",
+	L"敌军装备进展速度",
+	L"很慢",
 	L"慢",
 	L"一般",
 	L"快",
-	L"超快",
+	L"很快",
 
 	L"旧 / 旧",
 	L"新 / 旧",
 	L"新 / 新",
 
 	// Squad Size
-	L"Max. Squad Size",
+	L"小队人数",//"Max. Squad Size",
 	L"6",
 	L"8",
 	L"10",
@@ -6495,7 +6495,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"身心健全",
 	L"怕热",
 	L"神经质",
-	L"幽闭恐怖症",
+	L"幽闭恐慌症",
 	L"旱鸭子",
 	L"怕虫",
 	L"健忘",
