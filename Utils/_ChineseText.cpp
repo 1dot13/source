@@ -120,27 +120,28 @@ CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] =
 {
 	L"",
 };
+
 //Encyclopedia
 
 STR16 pMenuStrings[] =
 {
 	//Encyclopedia
-	L"Locations", // 0
-	L"Characters",
-	L"Items",
-	L"Quests",
-	L"Menu 5",
-	L"Menu 6", //5
-	L"Menu 7", 
-	L"Menu 8",
-	L"Menu 9",
-	L"Menu 10",
-	L"Menu 11", //10
-	L"Menu 12",
-	L"Menu 13",
-	L"Menu 14",
-	L"Menu 15",
-	L"Menu 15", // 15
+	L"区域", // 0
+	L"人物",
+	L"物品",
+	L"探索",
+	L"菜单5",
+	L"菜单6", //5
+	L"菜单7", 
+	L"菜单8",
+	L"菜单9",
+	L"菜单10",
+	L"菜单11", //10
+	L"菜单12",
+	L"菜单13",
+	L"菜单14",
+	L"菜单15",
+	L"菜单15", // 15
 	
 	//Briefing Room
 	L"Exit",
@@ -148,30 +149,30 @@ STR16 pMenuStrings[] =
 
 STR16	pOtherButtonsText[] =
 {
-	L"Briefing", 
-	L"Accept",
+	L"简报", 
+	L"接受",
 };
 
 STR16	pOtherButtonsHelpText[] =
 {
-	L"Briefing",
-	L"Accept missions",
+	L"简报",
+	L"接受任务",
 };
 
 
 STR16	pLocationPageText[] =
 {
-	L"Prev page",
-	L"Photo", 
-	L"Next page",
+	L"前一页",
+	L"照片", 
+	L"后一页",
 };
 
 STR16	pSectorPageText[] =
 {
 	L"<<",
-	L"Main page",
+	L"主页面",
 	L">>",
-	L"Type: ",
+	L"类型: ",
 	L"Empty data",
 	L"Missing of defined missions. Add missions to the file TableData\\BriefingRoom\\BriefingRoom.xml. First mission has to be visible. Put value Hidden = 0.",
 };
@@ -179,34 +180,34 @@ STR16	pSectorPageText[] =
 STR16	pEncyclopediaTypeText[] = 
 {
 	L"Unknown",// 0 - unknown
-	L"City", //1 - cities
+	L"城市", //1 - cities
 	L"SAM Site", //2 - SAM Site
-	L"Other location", //3 - other location
-	L"Mines", //4 - mines 
-	L"Military complex", //5 - military complex 
-	L"Laboratory complex",  //6 - laboratory complex 
-	L"Factory complex", //7 - factory complex 
-	L"Hospital", //8 - hospital 
-	L"Prison", //9 - prison
-    L"Airport", //10 - air port 
+	L"其它区域", //3 - other location
+	L"矿场", //4 - mines 
+	L"军事设施", //5 - military complex 
+	L"研究设施",  //6 - laboratory complex 
+	L"工厂设施", //7 - factory complex 
+	L"医院", //8 - hospital 
+	L"监狱", //9 - prison
+    L"机场", //10 - air port 
 };
 
 STR16	pEncyclopediaHelpCharacterText[] = 
 {
-	L"Show all",
-	L"Show AIM",
-	L"Show MERC",
-	L"Show RPC",
-	L"Show NPC",
-	L"Show Pojazd",
-	L"Show IMP",
-	L"Show EPC",
-	L"Filter",
+	L"全部显示",
+	L"显示AIM",
+	L"显示MERC",
+	L"显示RPC",
+	L"显示NPC",
+	L"显示Pojazd",
+	L"显示IMP",
+	L"显示EPC",
+	L"过滤",
 };
 
 STR16	pEncyclopediaShortCharacterText[] = 
 {
-	L"All",
+	L"全部",
 	L"AIM",
 	L"MERC",
 	L"RPC",
@@ -214,103 +215,102 @@ STR16	pEncyclopediaShortCharacterText[] =
 	L"Veh.",
 	L"IMP",
 	L"EPC",
-	L"Filter",
+	L"过滤",
 };
 
 STR16	pEncyclopediaHelpText[] = 
 {
-	L"Show all",
-	L"Show cities",
-	L"Show SAM Sites",
-	L"Show other location",
-	L"Show mines",
-	L"Show military complex",
-	L"Show laboratory complex",
-	L"Show Factory complex",
-	L"Show hospital",
-	L"Show prison",
-	L"Show air port",
+	L"全部显示",
+	L"显示城市",
+	L"显示SAM Sites",
+	L"显示其它区域",
+	L"显示矿场",
+	L"显示军事设施",
+	L"显示研究设施",
+	L"显示工厂设施",
+	L"显示医院",
+	L"显示监狱",
+	L"显示机场",
 };
 
 STR16	pEncyclopediaSkrotyText[] = 
 {
-	L"All",
-	L"City",
+	L"全部",
+	L"城市",
 	L"SAM",
-	L"Other",
-	L"Mine",
-	L"Mil.",
-	L"Lab.",
-	L"Fact.",
-	L"Hosp.",
-	L"Prison",
-	L"Air.",
+	L"其它",
+	L"矿场",
+	L"军事.",
+	L"研究所.",
+	L"工厂.",
+	L"医院.",
+	L"监狱",
+	L"机场.",
 };
 
 STR16	pEncyclopediaShortInventoryText[] = 
 {
-	L"All", //0
-	L"Gun",
-	L"Ammo",
-	L"LBE",
-	L"Misc",
+	L"全部", //0
+	L"枪械",
+	L"弹药",
+	L"携行器",
+	L"附件",
 	
-	L"All", //5
-	L"Gun",
-	L"Ammo",
-	L"LBE Gear",
-	L"Misc",
+	L"全部", //5
+	L"枪械",
+	L"弹药",
+	L"携行具",
+	L"附件",
 };
 
 STR16			BoxFilter[] =
 {
 	// Guns
-	L"Heavy",
-	L"Pistol",
-	L"M. Pist.",
-	L"SMG",
-	L"Rifle",
-	L"S. Rifle",
-	L"A. Rifle",
-	L"MG",
-	L"Shotgun",
+	L"重武器",
+	L"手枪",
+	L"自动手枪.",
+	L"冲锋枪",
+	L"步枪",
+	L"狙击枪",
+	L"突击步枪",
+	L"机枪",
+	L"霰弹枪",
 
 	// Ammo
-	L"Pistol",
-	L"M. Pist.", //10
-	L"SMG",
-	L"Rifle",
-	L"S. Rifle",
-	L"A. Rifle",
-	L"MG",
-	L"Shotgun",
+	L"手枪",
+	L"自动手枪", //10
+	L"冲锋枪",
+	L"步枪",
+	L"狙击枪",
+	L"突击步枪",
+	L"机枪",
+	L"霰弹枪",
 
 	// Used
-	L"Guns",
-	L"Armor",
-	L"LBE Gear",
-	L"Misc", //20
+	L"枪械",
+	L"护甲",
+	L"携行具",
+	L"附件", //20
 
 	// Armour
-	L"Helmets",
-	L"Vests",
-	L"Leggings",
-	L"Plates",
+	L"头盔",
+	L"防弹衣",
+	L"作战裤",
+	L"防弹板",
 
 	// Misc
-	L"Blades",
-	L"Th. Knife",
-	L"Melee",
-	L"Grenades",
-	L"Bombs",
-	L"Med.", //30
-	L"Kits",
-	L"Face",
-	L"LBE",
-	L"Misc.", //34
+	L"刀具",
+	L"飞刀",
+	L"格斗武器",
+	L"手雷/榴弹",
+	L"炸药",
+	L"医疗用品", //30
+	L"工具套装",
+	L"通讯/夜视",
+	L"携行具",
+	L"附件", //34
 };
 //-----------
-
 
 // Editor
 //Editor Taskbar Creation.cpp
@@ -1436,11 +1436,11 @@ CHAR16 WeaponType[MAXITEMS][30] =
 
 CHAR16 TeamTurnString[][STRING_LENGTH] =
 {
-	L"玩家的回合",
-	L"敌军的回合",
-	L"异形的回合",
-	L"民兵的回合",
-	L"平民的回合",
+	L"玩家回合",
+	L"敌军回合",
+	L"异形回合",
+	L"民兵回合",
+	L"平民回合",
 	L"玩家部署",
 	L"#1 客户端",
 	L"#2 客户端",
@@ -2069,6 +2069,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"性格:",
 	L"弱点:",
+
 	L"态度:",	// WANNE: For old traits display instead of "Character:"!
 };
 
@@ -3145,11 +3146,7 @@ STR16 pMapScreenFastHelpTextList[] =
 	L"测试文本",
 	L"测试文本",
 	L"测试文本",
-#ifdef JA2UB
-	L"您尚未开始Tracona之旅，现在在这个屏幕上您无事可做。当您把队员都雇佣好后，请左击右下方的“时间压缩”按钮。这样在您的队伍到达Tracona前，时间就前进了。",
-#else
 	L"您尚未开始Arulco之旅，现在在这个屏幕上您无事可做。当您把队员都雇佣好后，请左击右下方的“时间压缩”按钮。这样在您的队伍到达Arulco前，时间就前进了。",
-#endif
 };
 
 // movement menu text
@@ -3231,7 +3228,7 @@ CHAR16 pSenderNameList[500][128] =
 {
 	L"Enrico",
 	L"Psych Pro Inc",
-	L"桌面帮助",
+	L"Help Desk",
 	L"Psych Pro Inc",
 	L"Speck",
 	L"R.I.S.",		//5
@@ -3276,7 +3273,7 @@ CHAR16 pSenderNameList[500][128] =
 	L"MD",
 	L"Meltdown",
 	//----------
-	L"M.I.S 保险公司",
+	L"M.I.S. Insurance",	
 	L"Bobby Rays",
 	L"Kingpin",
 	L"John Kulba",
@@ -3684,11 +3681,7 @@ STR16 pFilesTitle[] =
 
 STR16 pFilesSenderList[] =
 {
-#ifdef JA2UB
   L"侦察报告",
-#else
-  L"侦察报告",
-#endif
 	L"1号通缉令",
 	L"2号通缉令",
 	L"3号通缉令",
@@ -3848,9 +3841,8 @@ STR16 pBookMarkStrings[] =
 	L"花店",
 	L"M.I.S 保险公司",
 	L"取消",
-	L"Encyclopedia",
-	L"Briefing Room",
-
+	L"百科全书",
+	L"简报室",
 };
 
 STR16 pBookmarkTitle[] =
@@ -3939,13 +3931,13 @@ STR16 pWebPagesTitles[] =
 	L"M.E.R.C. 账号",
 	L"M.E.R.C. 注册",
 	L"M.E.R.C. 索引",
-	L"Bobby Ray's",
-	L"Bobby Ray's - 枪械",
-	L"Bobby Ray's - 弹药",
-	L"Bobby Ray's - 护甲",
-	L"Bobby Ray's - 杂货",	//"Bobby Ray's - Misc",							//misc is an abbreviation for miscellaneous
-	L"Bobby Ray's - 二手货",
-	L"Bobby Ray's - 邮购",
+	L"Bobby Ray 商店",
+	L"Bobby Ray - 枪械",
+	L"Bobby Ray - 弹药",
+	L"Bobby Ray - 护甲",
+	L"Bobby Ray - 杂货",	//"Bobby Ray's - Misc",							//misc is an abbreviation for miscellaneous
+	L"Bobby Ray - 二手货",
+	L"Bobby Ray - 邮购",
 	L"I.M.P.",
 	L"I.M.P.",
 	L"联合花卉服务公司",
@@ -3956,14 +3948,14 @@ STR16 pWebPagesTitles[] =
 	L"信息",
 	L"合同",
 	L"评论",
-	L"McGillicutty's 公墓",
+	L"McGillicutty 公墓",
 	L"",
 	L"无法找到URL",
-	L"Bobby Ray's - 最近的运货",
-	L"Encyclopedia",
-	L"Encyclopedia - Data",
-	L"Briefing Room",
-	L"Briefing Room - Data",
+	L"Bobby Ray - 最近的运货",
+	L"百科全书",
+	L"百科全书 - 数据",
+	L"简报室",
+	L"简报室 - 数据",
 };
 
 STR16 pShowBookmarkString[] =
@@ -4897,10 +4889,11 @@ STR16			zSaveLoadText[] =
 	L"保存游戏错误！",
 	L"载入游戏成功",
 	L"载入游戏错误！",
- 
+
 	L"存档的游戏版本不同于当前的游戏版本。读取它的话很可能游戏可以正常进行。要读取该存档吗？",
+
 	L"存档可能已经无效。你要删除它们吗？",
- 
+
 	//Translators, the next two strings are for the same thing.  The first one is for beta version releases and the second one
 	//is used for the final version.  Please don't modify the "#ifdef JA2BETAVERSION" or the "#else" or the "#endif" as they are
 	//used by the compiler and will cause program errors if modified/removed.  It's okay to translate the strings though.
@@ -4937,16 +4930,16 @@ STR16			zSaveLoadText[] =
 	L"难度",		//"Difficulty",
 	L"Platinum Mode", //Placeholder English
 
-	L"Bobby Ray's库存",
-	L"普通",
+	L"Bobby Ray 库存",
+	L"一般",
 	L"较多",
 	L"很多",
-	L"囧...多",
+	L"极多",
 
 	L"新携行系统不兼容640x480的屏幕分辨率，请重新设置分辨率。",
 	L"新携行系统无法使用默认的 Data 文件夹，请仔细读说明。",
 
-	L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",	// TODO.Translate
+	L"当前分辨率不支持存档文件的小队人数，请增加分辨率再试。",	//L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",
 };
 
 
@@ -5116,75 +5109,75 @@ STR16	zOptionsScreenHelpText[] =
 	L"关闭这个选项会使你的光标自动移到弹出的确认对话框上。",
 
 	//Old selection method
-	L"打开这个选项，使用铁血联盟1代的佣兵选择方式。",
+	L"打开时，使用铁血联盟1代的佣兵选择方式。",
 
 	//Show movement path
-	L"打开这个选项，会实时显示移动路径(关闭此选项。如果你想要显示路径的话，使用SHIFT键)。",
+	L"打开时，会实时显示移动路径(可用 |S|H|I|F|T 键来打开或者关闭)。",
 
 	//show misses
-	L"打开这个选项时，会显示未击中目标的子弹落点。",
+	L"打开时，会显示未击中目标的子弹落点。",
 
 	//Real Time Confirmation
-	L"当打开时，进入实时模式会有一个确认对话框。",
+	L"打开时，进入实时模式会有一个确认对话框。",
 
 	//Sleep/Wake notification
-	L"当打开时，被分配任务的佣兵睡觉和醒来时会提示你。",
+	L"打开时，被分配任务的佣兵睡觉和醒来时会提示你。",
 
 	//Use the metric system
-	L"当打开时，使用公制系统，否则使用英制系统。",
+	L"打开时，使用公制系统，否则使用英制系统。",
 
 	//Merc Lighted movement
-	L"当打开时，佣兵移动时会照亮地表。关闭这个选项会使游戏的显示速度变快。",
+	L"打开时，佣兵移动时会照亮地表（关闭这个选项会使游戏的显示速度变快）。",
 
 	//Smart cursor
-	L"当打开时，光标移动到佣兵身上时会高亮显示佣兵。",
+	L"打开时，光标移动到佣兵身上时会高亮显示佣兵。",
 
 	//snap cursor to the door
-	L"当打开时，光标靠近门时会自动定位到门上。",
+	L"打开时，光标靠近门时会自动定位到门上。",
 
 	//glow items
-	L"当打开时，物品会不断的闪烁。(|I)",
+	L"打开时，物品会不断的闪烁。(|I)",
 
 	//toggle tree tops
-	L"当打开时，显示树冠。(|T)",
+	L"打开时，显示树冠。(|T)",
 
 	//toggle wireframe
-	L"显示未探明的墙的轮廓。(|W)",
+	L"打开时，显示未探明的墙的轮廓。(|W)",
 
 	L"打开时，移动时的光标为3D式样。(|H)",
 
 	// Options for 1.13
-	L"当打开时，在光标上显示命中机率。",
-	L"开启该选项时，榴弹发射器点射使用点射的准星",
-	L"当启用时，敌人行动中有时会带有对白。", // Changed from Enemies Drop All Items - SANDRO
-	L"当打开时，榴弹发射器允许采用较高仰角发射榴弹。(|Q)",
-	L"当启用时, 潜行时没有被敌人发现时不会进入回合制模式，除非按下 |C|t|r+|X.", // Changed from Restrict Extra Aim Levels - SANDRO
-	L"当打开时，按空格键自动切换到下一小队。(|S|p|a|c|e)",
-	L"开启该选项时，会显示物品阴影",
-	L"当打开时，用格数显示武器射程。",
-	L"当打开时，单发曳光弹也显示曳光。",
-	L"当打开时，下雨时能听到雨水音效。",	//"When ON, you will hear rain noises when it is raining.",
-	L"当打开时，允许乌鸦出现。",
-	L"当启用时，把光标定位在敌人身上并且按下 |A|l|t 键会显示一个提示工具窗口。",
-	L"当打开时，游戏将在玩家回合后自动存盘",
-	L"当打开时，Skyrider将保持沉默。",
-	//L"当打开时，游戏将使用更少的CPU资源。",
-	L"当打开时，将出现物品及武器的“增强描述框”（EDB）。",
-	L"当打开时，且在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭（可以通过快捷键|C|T|R|L+|S|H|I|F|T+|A|L|T+|T来控制打开或关闭强制回合制模式）",
-	L"当打开时，可显示各属性的成长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
-	L"当启用时, 战略地图将会根据探索状态显示不同的着色。",
-	L"当启用时, 当你射击时会显示间隔子弹图像。",
-	L"当启用时, 使用新命中率系统和光标。",
-	L"当启用时, 将会看到佣兵脸部装备图。",
-	L"当启用时, 将在佣兵肖像右下角显示脸部装备图标",
-	L"当启用时，在交换位置和其它动作时光标不切换。键入 |x 可以快速切换。", // L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",
+	L"打开时，在光标上显示命中机率。",
+	L"打开时，榴弹发射器点射使用点射的准星。",
+	L"打开时，敌人行动中有时会带有对白。", // Changed from Enemies Drop All Items - SANDRO
+	L"打开时，榴弹发射器允许采用较高仰角发射榴弹(|Q)。",
+	L"打开时, 潜行状态未被敌人发现时不会进入回合制模式，除非按下 |C|t|r+|X 。", // Changed from Restrict Extra Aim Levels - SANDRO
+	L"打开时，按空格键自动切换到下一小队(|S|p|a|c|e)。",
+	L"打开时，显示物品阴影。",
+	L"打开时，用格数显示武器射程。",
+	L"打开时，单发曳光弹也显示曳光。",
+	L"打开时，下雨时能听到雨水音效。",	//"When ON, you will hear rain noises when it is raining.",
+	L"打开时，允许乌鸦出现。",
+	L"打开时，把光标定位在敌人身上并且按下 |A|l|t 键会显示敌兵装备信息窗口。",
+	L"打开时，游戏将在玩家回合后自动存盘",
+	L"打开时，Skyrider保持沉默。",
+	//L"打开时，游戏将使用更少的CPU资源。",
+	L"打开时，使用物品及武器的“增强描述框”（EDB）。",
+	L"打开时，在战术画面内存在敌军时，将一直处于回合制模式直至该地区所有敌军被消灭（可以通过快捷键 |C|T|R|L+|S|H|I|F|T+|A|L|T+|T 来控制打开或关闭强制回合制模式）",
+	L"打开时，显示各属性的增长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
+	L"打开时, 战略地图将会根据探索状态显示不同的着色。",
+	L"打开时, 当你射击时会显示间隔子弹图像。",
+	L"打开时, 使用新命中率系统（NCTH）和光标。",
+	L"打开时, 显示佣兵脸部装备图。",
+	L"打开时, 佣兵肖像右下角显示脸部装备图标",
+	L"打开时，在交换位置和其它动作时光标不切换。键入 |x 可以快速切换。", // L"When ON, the cursor will not toggle between exchange position and other actions. Press |x to initiate quick exchange.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
 	L"(text not rendered)TOPTION_DEBUG_MODE_OPTIONS_HEADER", // an example options screen options header (pure text)
-	L"|H|A|M |4 |D|e|b|u|g: 当启动时, 将报告每个子弹偏离目标中心点的距离，考虑各种NCTH因素。",
-	L"点击这里修复损坏的游戏设置", // failsafe show/hide option to reset all options
-	L"点击这里修复损坏的游戏设置", // a do once and reset self option (button like effect)
+	L"|H|A|M |4 |D|e|b|u|g: 当打开时, 将报告每个子弹偏离目标中心点的距离，考虑各种NCTH因素。",
+	L"修复损坏的游戏设置", // failsafe show/hide option to reset all options
+	L"修复损坏的游戏设置", // a do once and reset self option (button like effect)
 	L"在建立releas或mapeditor时，允许调试操作", // allow debugging in release or mapeditor
 	L"切换以显示调试渲染选项", // an example option that will show/hide other options
 	L"尝试在鼠标周围地区显示斜线矩形", // an example of a DEBUG build option
@@ -5255,7 +5248,6 @@ STR16	gzGIOScreenText[] =
 	L"通缉犯出现方式",
 	L"随机",
 	L"全部",
-
 #endif	
 	L"敌军秘密基地出现方式",
 	L"随机",
@@ -5270,7 +5262,7 @@ STR16	gzGIOScreenText[] =
 	L"旧 / 旧",
 	L"新 / 旧",
 	L"新 / 新",
-
+	
 	// Squad Size
 	L"小队人数",//"Max. Squad Size",
 	L"6",
@@ -5579,16 +5571,15 @@ STR16 pMessageStrings[] =
 	L"客户端", //"Client",
 	L"旧携行系统不能与新附件系统同时使用.",
 
-	// TODO.Translate
-	L"Auto Save #", //91		// Text des Auto Saves im Load Screen mit ID
-	L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
-	L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
+	L"自动存盘 #", //91		// Text des Auto Saves im Load Screen mit ID
+	L"自动存盘专用，可在 ja2_options.ini 里设置 AUTO_SAVE_EVERY_N_HOURS 来开启/关闭",	//L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
+	L"... 自动存盘位置 #",	//L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
 	L"AutoSaveGame",		// 94	// The filename of the auto save, such as AutoSaveGame01 - AutoSaveGame05
-	L"End-Turn Save #",	// 95	// The text for the tactical end turn auto save
-	L"Saving Auto Save #",	// 96	// The message box, when doing auto save
-	L"Saving",	// 97	// The message box, when doing end turn auto save
-	L"Empty End-Turn Save Slot #",	// 98	// The message box, when doing auto save
-	L"This Slot is reserved for Tactical End-Turn Saves, which can be enabled/disabled in the Option Screen.", //99	// The text, when the user clicks on the save screen on an auto save
+	L"End-Turn 存盘 #",	// 95	// The text for the tactical end turn auto save
+	L"自动存盘中 #",	// 96	// The message box, when doing auto save
+	L"存盘中",	// 97	// The message box, when doing end turn auto save
+	L"... End-Turn 存盘位置 #",	// 98	// The message box, when doing auto save
+	L"战术回合完毕存盘专用，可以在游戏设置开启/关闭。", //99	// The text, when the user clicks on the save screen on an auto save
 	// Mouse tooltips
 	L"QuickSave.sav",	// 100
 	L"AutoSaveGame%02d.sav",	// 101
@@ -5661,8 +5652,8 @@ STR16 gzLaptopHelpText[] =
 	L"A.I.M指定保险代理人",
 	//New Bookmarks				// TODO.Translate
 	L"",
-	L"Encyclopedia",
-	L"Briefing Room",
+	L"百科全书",
+	L"简报室",
 };
 
 
@@ -5864,7 +5855,8 @@ STR16 gzLateLocalizedString[] =
 #else
 	L"Arulco",
 #endif
-	L"屋顶",
+
+	L"（屋顶）",
 
 	L"生命: %d/%d",
 
@@ -5873,7 +5865,7 @@ STR16 gzLateLocalizedString[] =
 	L"%d vs. %d",
 	
 	L"%s满了。",
- 
+
   L"%s现在不用包扎，他（她）需要认真的治疗和休息。",
 
 	//20
@@ -6088,25 +6080,25 @@ STR16 New113HAMMessage[] =
 	L"民兵拾起 %s。",// L"Militia picks up %s.",
 	L"有敌人出没时无法训练民兵！", // L"Cannot train militia with enemies present!", 
 	// 6 - 10
-	L"%s缺乏训练民兵所需要的领导能力。",// L"%s lacks sufficient Leadership score to train militia.",
-	L"此地训练民兵的教官不能超过%d名。",// L"No more than %d Mobile Militia trainers are permitted in this sector.",
-	L"%s和周边地区的游击队已经满员了！",// L"No room in %s or around it for new Mobile Militia!",
-	L"你需要有至少%d个民兵在%s每个被解放的地区才能训练游击队。",// L"You need to have %d Town Militia in each of %s's liberated sectors before you can train Mobile Militia here.",
+	L"%s 缺乏训练民兵所需要的领导能力。",// L"%s lacks sufficient Leadership score to train militia.",
+	L"此地训练民兵的教官不能超过 %d 名。",// L"No more than %d Mobile Militia trainers are permitted in this sector.",
+	L"%s 和周边地区的游击队已经满员了！",// L"No room in %s or around it for new Mobile Militia!",
+	L"你需要有至少 %d 个民兵在 %s 每个被解放的地区才能训练游击队。",// L"You need to have %d Town Militia in each of %s's liberated sectors before you can train Mobile Militia here.",
 	L"有敌人出没时不能在任何设施内工作！",// L"Can't staff a facility while enemies are present!",
 	// 11 - 15
-	L"%s缺乏就任于该设施所需智慧。",// L"%s lacks sufficient Wisdom to staff this facility.",
-	L"%s已经满员了。",// L"The %s is already fully-staffed.",
-	L"使用该设施每小时消耗$%d，你确定吗？",// L"It will cost $%d per hour to staff this facility. Do you wish to continue?",
-	L"你没有足够的资金来支付今天的设施费用。付出$%d，还欠$%d，当地人很不满。",// L"You have insufficient funds to pay for all Facility work today. $%d have been paid, but you still owe $%d. The locals are not pleased.",
-	L"没有足够的资金来支付今天的设施费用。欠款$%d，当地人很不满.。",// L"You have insufficient funds to pay for all Facility work today. You owe $%d. The locals are not pleased.",
+	L"%s 缺乏就任于该设施所需智慧。",// L"%s lacks sufficient Wisdom to staff this facility.",
+	L"%s 已经满员了。",// L"The %s is already fully-staffed.",
+	L"使用该设施每小时消耗 $%d，你确定吗？",// L"It will cost $%d per hour to staff this facility. Do you wish to continue?",
+	L"你没有足够的资金来支付今天的设施费用。付出$%d，还欠 $%d，当地人很不满。",// L"You have insufficient funds to pay for all Facility work today. $%d have been paid, but you still owe $%d. The locals are not pleased.",
+	L"没有足够的资金来支付今天的设施费用。欠款 $%d，当地人很不满.。",// L"You have insufficient funds to pay for all Facility work today. You owe $%d. The locals are not pleased.",
 	// 16 - 20
-	L"你仍有$%d的欠款，同时你已经身无分文了！",// L"You have an outstanding debt of $%d for Facility Operation, and no money to pay it off!",
-	L"你仍有$%d的欠款，在有钱还清这笔债务之前你不能分配雇佣兵去这个设施。",// L"You have an outstanding debt of $%d for Facility Operation. You can't assign this merc to facility duty until you have enough money to pay off the entire debt.",
-	L"你有$%d的欠款，是否支付？",// L"You have an outstanding debt of $%d for Facility Operation. Would you like to pay it all back?",
+	L"你仍有 $%d 的欠款，同时你已经身无分文了！",// L"You have an outstanding debt of $%d for Facility Operation, and no money to pay it off!",
+	L"你仍有 $%d 的欠款，在有钱还清这笔债务之前你不能分配雇佣兵去这个设施。",// L"You have an outstanding debt of $%d for Facility Operation. You can't assign this merc to facility duty until you have enough money to pay off the entire debt.",
+	L"你有 $%d 的欠款，是否支付？",// L"You have an outstanding debt of $%d for Facility Operation. Would you like to pay it all back?",
 	L"这个区域没有",// L"N/A in this sector",
 	L"日常支出",// L"Daily Expenses",
 	// 21 - 25
-	L"维持民兵的资金不足！%d名民兵回老家结婚去了。",// L"Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.",
+	L"维持民兵的资金不足！%d 名民兵回老家结婚去了。",// L"Insufficient funds to pay all enlisted militia! %d militia have disbanded and returned home.",
 
 };
 
@@ -6158,6 +6150,7 @@ STR16	New113AIMMercMailTexts[] =
 	// Rudolf: Text from Line 72
 	L"转发自AIM服务器：Rudolf Steiger的信件",
 	L"你知道我每天有多少个电话要接吗？每个蠢货都认为他可以Call我。 ± ± 反正我回来了，前提是你真的有有趣的工作给我的话。 ± ",
+
 	// WANNE: Generic mail, for additional merc made by modders, index >= 178
 	L"转发自AIM服务器：Message about merc availability",
 	L"我收到你的留言，等你联系。 ± ",
@@ -6311,7 +6304,7 @@ STR16 MPClientMessage[] =
 	L"点击 '准备' 进入战术画面。",//	L"Press 'Ready' to enter tactical screen.",
 	L"不能连接到服务器，因为你的版本 %S 和服务器端的版本 %S 不同。",
 	L"你击毙了一个敌人。",
-	L"Cannot start the game, because all teams are the same.",    // TODO.Translate
+	L"无法启动游戏，因为所有小队都一样。",	//L"Cannot start the game, because all teams are the same.",    // TODO.Translate
 	L"The server has choosen New Inventory (NIV), but your screen resolution does not support NIV.",
 	// 70	// TODO.Translate
 	L"Could not save received file '%S'",
@@ -6350,7 +6343,7 @@ STR16 gszMPMapscreenText[] =
 	L"游戏类型: ",//	L"Game Type: ",
 	L"玩家: ",//	L"Players: ",
 	L"所拥有的佣兵: ",//	L"Mercs each: ",
-	L"手提电脑开启时你无法开始移动。",//	L"You cannot change starting edge once Laptop is unlocked.",
+	L"手提电脑打开时你无法开始移动。",//	L"You cannot change starting edge once Laptop is unlocked.",
 	L"手提电脑开启后你无法更换队伍。",//	L"You cannot change teams once the Laptop is unlocked.",
 	L"随机佣兵: ",//	L"Random Mercs: ",
 	L"Y",
@@ -6612,12 +6605,12 @@ STR16 Additional113Text[]=
 	L"Jagged Alliance 2 v1.13 窗口模式需要一个16bpp或更少的颜色深度。",
 	
 	// WANNE: Savegame slots validation against INI file
-	L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",
-	L"Mercenary (MAX_NUMBER_PLAYER_MERCS) / Vehicle (MAX_NUMBER_PLAYER_VEHICLES)", 
-	L"Enemy (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
-	L"Creature (MAX_NUMBER_CREATURES_IN_TACTICAL)", 
-	L"Militia (MAX_NUMBER_MILITIA_IN_TACTICAL)", 
-	L"Civilian (MAX_NUMBER_CIVS_IN_TACTICAL)",
+	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。",	//L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",
+	L"佣兵 (MAX_NUMBER_PLAYER_MERCS) / 交通工具 (MAX_NUMBER_PLAYER_VEHICLES)", 
+	L"敌人 (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
+	L"动物 (MAX_NUMBER_CREATURES_IN_TACTICAL)", 
+	L"民兵 (MAX_NUMBER_MILITIA_IN_TACTICAL)", 
+	L"平民 (MAX_NUMBER_CIVS_IN_TACTICAL)",
 
 };
 
@@ -6674,10 +6667,10 @@ STR16 sEnemyTauntsChargeKnife[]=
 STR16 sEnemyTauntsRunAway[]=
 {
 	L"靠！看来我们遇到纯爷们了...",
-	L"我参加军队是为了抢娘们的不是送死的!",
+	L"我参加军队是为了抢娘们而不是来送死的!",
 	L"我受够啦!",
 	L"上帝啊!救救我吧！",
-	L"我可不想白白送死..",
+	L"我可不想白白送死...",
 	L"妈妈咪啊",
 	L"老子还会回来的！后会有期！",
 
@@ -6696,7 +6689,7 @@ STR16 sEnemyTauntsAlert[]=
 {
 	L"他们就在那里!",
 	L"现在我们来玩玩吧!",
-	L"我可没想到事情会变成这样..",
+	L"我没想到会变成这样...",
 
 };
 
@@ -6708,7 +6701,7 @@ STR16 sEnemyTauntsGotHit[]=
 	L"操你妈妈的!",
 	L"你会后悔的!",
 	L"什么..!",
-	L"你现在可是真正把爷我惹火了.",
+	L"你现在可是真把爷我惹火了！",
 
 };
 
@@ -7131,9 +7124,9 @@ STR16 gzNCTHlabels[]=
 
 STR16	gzNewLaptopMessages[]=
 {
-	L"Ask about our special offer!",
-	L"Temporarily Unavailable",
-	L"This special press preview of Jagged Alliance 2: Unfinished Business contains the only first 6 sector maps. The final version of the game will feature many more - please see the included readme file for details.",
+	L"敬请垂询我们的最新特惠信息！",	//L"Ask about our special offer!",
+	L"暂时没货",	//L"Temporarily Unavailable",
+	L"这份预览版资料片仅提供最初6个区域的地图。最终版将提供完整支持，请阅读帮助文档获取更多信息。",	//L"This special press preview of Jagged Alliance 2: Unfinished Business contains the only first 6 sector maps. The final version of the game will feature many more - please see the included readme file for details.",
 };
 
 STR16	zNewTacticalMessages[]=

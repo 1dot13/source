@@ -19,6 +19,8 @@ void this_is_the_Ja25ChineseText_public_symbol(void){;}
 
 // VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SANDRO - New STOMP laptop strings
 //these strings match up with the defines in IMP Skill trait.cpp
 STR16 gzIMPSkillTraitsText[]=
 {
@@ -40,7 +42,7 @@ STR16 gzIMPSkillTraitsText[]=
 
 	L"无",	//"None",
 	L"I.M.P 专属技能",	//"I.M.P. Specialties",
-	L"(Expert)",
+	L"(专家)",
 
 };
 
