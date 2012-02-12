@@ -212,7 +212,7 @@ STR16	pEncyclopediaShortCharacterText[] =
 	L"MERC",
 	L"RPC",
 	L"NPC",
-	L"Veh.",
+	L"车辆",
 	L"IMP",
 	L"EPC",
 	L"过滤",
@@ -240,12 +240,12 @@ STR16	pEncyclopediaSkrotyText[] =
 	L"SAM",
 	L"其它",
 	L"矿场",
-	L"军事.",
-	L"研究所.",
-	L"工厂.",
-	L"医院.",
+	L"军事",
+	L"研究所",
+	L"工厂",
+	L"医院",
 	L"监狱",
-	L"机场.",
+	L"机场",
 };
 
 STR16	pEncyclopediaShortInventoryText[] = 
@@ -253,7 +253,7 @@ STR16	pEncyclopediaShortInventoryText[] =
 	L"全部", //0
 	L"枪械",
 	L"弹药",
-	L"携行器",
+	L"携行具",
 	L"附件",
 	
 	L"全部", //5
@@ -301,12 +301,12 @@ STR16			BoxFilter[] =
 	// Misc
 	L"刀具",
 	L"飞刀",
-	L"格斗武器",
-	L"手雷/榴弹",
+	L"格斗",
+	L"手雷等",
 	L"炸药",
-	L"医疗用品", //30
-	L"工具套装",
-	L"通讯/夜视",
+	L"医疗", //30
+	L"工具",
+	L"通讯等",
 	L"携行具",
 	L"附件", //34
 };
