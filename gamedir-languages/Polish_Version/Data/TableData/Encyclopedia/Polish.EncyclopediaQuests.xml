@@ -9,7 +9,7 @@
 	<DATA>
 		<uiIndex>0</uiIndex>
 		<Name>List</Name>
-		<PageDesc1>Page1</PageDesc1>
+		<PageDesc1>List od Enrico</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
@@ -123,7 +123,7 @@
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Farmerzy mieszkający na wschód od Cambrii, sprawiają kłopoty.</ImageDescBefore>
+		<ImageDescBefore>Farmerzy mieszkający na wschód od Cambrii sprawiają kłopoty.</ImageDescBefore>
 		<ImageDescAfter>Problem farmerów rozwiązany.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 12 -->
@@ -134,19 +134,19 @@
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Naukowiec pracujący dla Deidranny, zniknął bez śladu!</ImageDescBefore>
+		<ImageDescBefore>Naukowiec pracujący dla Deidranny zniknął bez śladu!</ImageDescBefore>
 		<ImageDescAfter>Znaleziono naukowca Deidranny.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 13 -->
 	<DATA>
 		<uiIndex>12</uiIndex>
-		<Name>Kamera video</Name>
+		<Name>Kamera wideo</Name>
 		<PageDesc1>Page1</PageDesc1>
 		<PageDesc2></PageDesc2>
 		<PageDesc3></PageDesc3>
 		<PageDesc4></PageDesc4>
-		<ImageDescBefore>Potrzebna kamera video dla robota.</ImageDescBefore>
-		<ImageDescAfter>Dostarczono kamerę video Madlabowi.</ImageDescAfter>
+		<ImageDescBefore>Potrzebna kamera wideo dla robota.</ImageDescBefore>
+		<ImageDescAfter>Dostarczono kamerę wideo Madlabowi.</ImageDescAfter>
 	</DATA>
 		<!-- Quest 14 -->
 	<DATA>
