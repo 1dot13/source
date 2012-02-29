@@ -816,14 +816,18 @@ void SoldierTriesToContinueAlongPath(SOLDIERTYPE *pSoldier)
 		return;
 	}
 
+	// WANNE: Disabled the following lines to fix the bug, that Fatima will not leave the sector!
+	// When Fatima wants to leave the sectur, the condition is met, the method returns and Fatima would stay in the sector!
+	/*
 	// SANDRO - hack! interrupt issue - we don't want to recalculate our path if no new situation and we are already on move
 	// i.e. in case we interrupted a soldier who has no idea about us seeing him, he should move along as if nothing is happening
-	if ( pSoldier->aiData.bNewSituation == NOT_NEW_SITUATION && pSoldier->aiData.bActionInProgress && !TileIsOutOfBounds(pSoldier->pathing.sFinalDestination))
+	if ( pSoldier->aiData.bNewSituation == NOT_NEW_SITUATION && pSoldier->aiData.bActionInProgress && !TileIsOutOfBounds(pSoldier->pathing.sFinalDestination ))
 	{
 		// just set our path to previously decided final destination
 		NewDest(pSoldier,pSoldier->pathing.sFinalDestination);
 		return;	
 	}
+	*/
 
 	if (IsActionAffordable(pSoldier))
 	{
