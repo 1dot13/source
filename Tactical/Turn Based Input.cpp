@@ -3278,49 +3278,15 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					BOOLEAN slingFit = (CanItemFitInPosition(pSoldier, &pSoldier->inv[GUNSLINGPOCKPOS], HANDPOS, FALSE) || pSoldier->inv[GUNSLINGPOCKPOS].exists() == false);
 					if(Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].twohanded && pSoldier->inv[SECONDHANDPOS].exists() == true)
 						handFit = FALSE;
-
 					if( handFit == TRUE && slingFit == TRUE)
 					{
-						if (gGameOptions.fInventoryCostsAP)
-						{
-							UINT8 APCost = 0;
-							if (pSoldier->inv[GUNSLINGPOCKPOS].exists())
-							{
-								APCost += ( APBPConstants [ AP_INV_FROM_SLING ] + APBPConstants [ AP_INV_TO_HANDS ] );
-								if (gGameExternalOptions.uWeightDivisor != 0)
-									APCost += DynamicAdjustAPConstants((int)((Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor),(int)((Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor));
-							}
-							if (pSoldier->inv[HANDPOS].exists())
-							{
-								APCost += ( APBPConstants [ AP_INV_TO_SLING ] + APBPConstants [ AP_INV_FROM_HANDS ] );
-								if (gGameExternalOptions.uWeightDivisor != 0)
-									APCost += DynamicAdjustAPConstants((int)((Item[pSoldier->inv[HANDPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor),(int)((Item[pSoldier->inv[HANDPOS].usItem].ubWeight) / gGameExternalOptions.uWeightDivisor));
-							}
-							APCost = __min(APCost, APBPConstants[AP_INV_MAX_COST]);
-							if (pSoldier->bActionPoints >= APCost)
-							{
-								pSoldier->bActionPoints -= APCost;
-								SwapObjs(&pSoldier->inv[HANDPOS], &pSoldier->inv[GUNSLINGPOCKPOS]);
-								HandleTacticalEffectsOfEquipmentChange(pSoldier, HANDPOS, pSoldier->inv[GUNSLINGPOCKPOS].usItem, pSoldier->inv[HANDPOS].usItem);
-							}
-							else
-							{
-								CHAR16	zOutputString[512];
-								swprintf( zOutputString, New113Message[MSG113_INVENTORY_APS_INSUFFICIENT], APCost, pSoldier->bActionPoints);
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
-							}
-						}
-						else
-						{
-							SwapObjs(&pSoldier->inv[HANDPOS], &pSoldier->inv[GUNSLINGPOCKPOS]);
-							HandleTacticalEffectsOfEquipmentChange(pSoldier, HANDPOS, pSoldier->inv[GUNSLINGPOCKPOS].usItem, pSoldier->inv[HANDPOS].usItem);
-						}
+						SwapObjs(&pSoldier->inv[HANDPOS], &pSoldier->inv[GUNSLINGPOCKPOS]);
+						HandleTacticalEffectsOfEquipmentChange(pSoldier, HANDPOS, pSoldier->inv[GUNSLINGPOCKPOS].usItem, pSoldier->inv[HANDPOS].usItem);
 					}
 					fCharacterInfoPanelDirty = TRUE;
 					fInterfacePanelDirty = DIRTYLEVEL2;
 				}
 				break;
-
 
 			case INSERT:
 				GoIntoOverheadMap();
