@@ -5897,7 +5897,7 @@ STR16 New113Message[] =
 	//////////////////////////////////////////////////////////////////////////////////////
 	L"Warning: enemy corpse found!!!",
 	L"%s [%d rnds]\n%s %1.1f %s",
-
+	L"Zu wenig APs! Es werden %d APs benötigt, Sie haben aber nur %d APs.",	// TODO.Translate
 };
 
 STR16 New113HAMMessage[] = 

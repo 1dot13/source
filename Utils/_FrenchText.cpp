@@ -6049,7 +6049,7 @@ STR16 New113Message[] =
 	//////////////////////////////////////////////////////////////////////////////////////
 	L"Attention: Cadavre ennemi trouvé !!!",
 	L"%s [%d rnds]\n%s %1.1f %s",
-
+	L"Insufficient AP Points! Cost %d, you have %d.",	// TODO.Translate
 };
 
 STR16 New113HAMMessage[] = 
