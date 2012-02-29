@@ -327,7 +327,7 @@ void BtnIMPFinishDoneCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 		iCurrentImpPage = IMP_CONFIRM;
-			CreateACharacterFromPlayerEnteredStats( );
+			//CreateACharacterFromPlayerEnteredStats( );
 			fButtonPendingFlag = TRUE;
 			iCurrentProfileMode = IMP__REGISTRY;
 			fFinishedCharGeneration = FALSE;

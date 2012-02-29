@@ -346,6 +346,8 @@ void	BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 				 return;
 			}
 
+			CreateACharacterFromPlayerEnteredStats( );
+
 			// line moved by CJC Nov 28 2002 to AFTER the check for money
 			LaptopSaveInfo.fIMPCompletedFlag = TRUE;
 
