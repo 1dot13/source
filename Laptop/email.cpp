@@ -1,4 +1,4 @@
-#ifdef PRECOMPILEDHEADERS
+﻿#ifdef PRECOMPILEDHEADERS
 	#include "Laptop All.h"
 #else
 	#include "laptop.h"
@@ -4207,7 +4207,7 @@ void HandleIMPCharProfileResultsMessage( void)
 					break;
 			}
 
-			wcscat(pString, L". �");
+			wcscat(pString, L". ±");
 		}
 		
 		// add to list
