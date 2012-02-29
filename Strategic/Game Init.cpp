@@ -85,6 +85,9 @@
 #include "Luaglobal.h"
 #include "SaveLoadScreen.h"
 
+#include "PostalService.h"
+extern CPostalService gPostalService;
+
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
@@ -1178,6 +1181,9 @@ void ReStartingGame()
 
 	//Delete all the strategic events
 	DeleteAllStrategicEvents();
+
+	// Dealtar: Read in shipping destinations and delivery methods
+	gPostalService.Clear(true);
 
 	//This function gets called when ur in a game a click the quit to main menu button, therefore no game is in progress
 	gTacticalStatus.fHasAGameBeenStarted = FALSE;

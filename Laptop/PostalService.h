@@ -232,7 +232,7 @@ public:
 	UINT16 GetDestinationFee(UINT8 ubDeliveryMethodIndex, UINT16 usDestinationID);
 	RefToDeliveryMethodStruct GetDeliveryMethod(UINT8 ubDeliveryMethodIndex) const;
 
-	void Clear();
+	void Clear(bool clearOnlyData);
 	CPostalService();
 private:
 	ShipmentList _Shipments;

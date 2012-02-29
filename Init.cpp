@@ -91,9 +91,6 @@ extern INT16 APBPConstants[TOTAL_APBP_VALUES] = {0};
 extern INT16 gubMaxActionPoints[28];//MAXBODYTYPES = 28... JUST GETTING IT TO WORK NOW.  GOTTHARD 7/2/08
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );
 
-#include "PostalService.h"
-extern CPostalService gPostalService;
-
 // The InitializeGame function is responsible for setting up all data and Gaming Engine
 // tasks which will run the game
 
@@ -594,7 +591,6 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	SGP_THROW_IFFALSE(ReadInRoamingInfo(fileName),ROAMINGMILITIAFILENAME);
 
 	// Dealtar: Read in shipping destinations and delivery methods
-	gPostalService.Clear();
 	strcpy(fileName, directoryName);
 	strcat(fileName, SHIPPINGDESTINATIONSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));

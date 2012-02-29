@@ -97,16 +97,19 @@ CPostalService::CPostalService()
 {
 }
 
-void CPostalService::Clear()
+void CPostalService::Clear(bool clearDataOnly)
 {
 	_Shipments.clear();
-	_UsedShipmentIDList.clear();;
-	_DeliveryCallbacks.clear();
-	_Destinations.clear();
-	_UsedDestinationIDList.clear();
-	_DeliveryMethods.clear();
-}
 
+	if (!clearDataOnly)
+	{
+		_UsedShipmentIDList.clear();;
+		_DeliveryCallbacks.clear();
+		_Destinations.clear();
+		_UsedDestinationIDList.clear();
+		_DeliveryMethods.clear();	
+	}
+}
 
 UINT16 CPostalService::CreateNewShipment(UINT16 usDestinationID, UINT8  ubDeliveryMethodIndex, INT16 sSenderID)
 {
