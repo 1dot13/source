@@ -2424,10 +2424,11 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 		gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK] = false;
 		gGameExternalOptions.fQuietRealTimeSneak = false;
 
+				// WANNE: Take the settings from the ja2_options.ini
 		// WANNE: Enable fast loading
-		gGameExternalOptions.fDisableLaptopTransition = true;
+		/*gGameExternalOptions.fDisableLaptopTransition = true;
 		gGameExternalOptions.fFastWWWSitesLoading = true;
-		gGameExternalOptions.fDisableStrategicTransition = true;
+		gGameExternalOptions.fDisableStrategicTransition = true;*/
 
 		// WANNE: fix HOT DAY in night at arrival by night.
 		// Explanation: If game starting time + first arrival delay < 07:00 (111600) -> we arrive before the sun rises or
@@ -2636,10 +2637,11 @@ void reapplySETTINGS()
 	gGameSettings.fOptions[TOPTION_ALLOW_REAL_TIME_SNEAK] = false;
 	gGameExternalOptions.fQuietRealTimeSneak = false;
 
+		// WANNE: Take the settings from the ja2_options.ini
 	// WANNE: Enable fast loading
-	gGameExternalOptions.fDisableLaptopTransition = true;
+	/*gGameExternalOptions.fDisableLaptopTransition = true;
 	gGameExternalOptions.fFastWWWSitesLoading = true;
-	gGameExternalOptions.fDisableStrategicTransition = true;
+	gGameExternalOptions.fDisableStrategicTransition = true;*/
 
 	// WANNE: fix HOT DAY in night at arrival by night.
 	// Explanation: If game starting time + first arrival delay < 07:00 (111600) -> we arrive before the sun rises or

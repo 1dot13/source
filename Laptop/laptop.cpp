@@ -2090,12 +2090,24 @@ UINT32 LaptopScreenHandle()
 
 	if( gfStartMapScreenToLaptopTransition )
 	{
+		SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
+		
 		gfStartMapScreenToLaptopTransition = FALSE;
+
+		//Step 1:	Build the laptop image into the save buffer.		
+		RestoreBackgroundRects();
+		RenderLapTopImage();
+		HighLightRegion(giCurrentRegion);
+		RenderLaptop();
+		RenderButtons();
+		PrintDate( );
+		PrintBalance( );
+		PrintNumberOnTeam( );
+		ShowLights();
 
 		if (!gGameExternalOptions.fDisableLaptopTransition)
 		{
 			//Everything is set up to start the transition animation.
-			//SGPRect SrcRect1;
 			SGPRect SrcRect2, DstRect;
 			INT32 iPercentage, iScalePercentage, iFactor;
 			UINT32 uiStartTime, uiTimeRange, uiCurrTime;
@@ -2103,18 +2115,6 @@ UINT32 LaptopScreenHandle()
 			INT32 iLaptopMonitorCenterX, iLaptopMonitorCenterY;
 
 			INT32 iRealPercentage;
-
-			SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
-			//Step 1:	Build the laptop image into the save buffer.		
-			RestoreBackgroundRects();
-			RenderLapTopImage();
-			HighLightRegion(giCurrentRegion);
-			RenderLaptop();
-			RenderButtons();
-			PrintDate( );
-			PrintBalance( );
-			PrintNumberOnTeam( );
-			ShowLights();
 
 			//Step 2:	The mapscreen image is in the EXTRABUFFER, and laptop is in the SAVEBUFFER
 			//		 Start transitioning the screen.
@@ -2393,6 +2393,7 @@ UINT32 LaptopScreenHandle()
 	EndFrameBufferRender( );
 	return (LAPTOP_SCREEN);
 }
+
 
 
 
@@ -2808,6 +2809,19 @@ BOOLEAN LeaveLapTopScreen( void )
 		{
 			gfDontStartTransitionFromLaptop = TRUE;
 
+			SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
+
+			//Step 1:	Build the laptop image into the save buffer.
+			RestoreBackgroundRects();
+			RenderLapTopImage();
+			HighLightRegion(giCurrentRegion);
+			RenderLaptop();
+			RenderButtons();
+			PrintDate( );
+			PrintBalance( );
+			PrintNumberOnTeam( );
+			ShowLights();
+
 			if (!gGameExternalOptions.fDisableLaptopTransition)
 			{
 				SGPRect SrcRect1, SrcRect2, DstRect;
@@ -2816,19 +2830,6 @@ BOOLEAN LeaveLapTopScreen( void )
 				INT32 iX, iY, iWidth, iHeight;
 				INT32 iRealPercentage;
 				INT32 iLaptopMonitorCenterX, iLaptopMonitorCenterY;
-
-
-				SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
-				//Step 1:	Build the laptop image into the save buffer.
-				RestoreBackgroundRects();
-				RenderLapTopImage();
-				HighLightRegion(giCurrentRegion);
-				RenderLaptop();
-				RenderButtons();
-				PrintDate( );
-				PrintBalance( );
-				PrintNumberOnTeam( );
-				ShowLights();
 
 				//Step 2:	The mapscreen image is in the EXTRABUFFER, and laptop is in the SAVEBUFFER
 				//		 Start transitioning the screen.
@@ -2899,6 +2900,7 @@ BOOLEAN LeaveLapTopScreen( void )
 
 	return( TRUE );
 }
+
 
 BOOLEAN HandleExit( void )
 {
