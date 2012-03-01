@@ -5964,6 +5964,8 @@ STR16 gzLateLocalizedString[] =
 	L"%s's armour attachment has been smashed!",
 	L"%s fires %d more rounds than intended!",
 	L"%s fires one more round than intended!",
+
+	L"You need to close the item description box first!",	// TODO.Translate
 };
 
 STR16 gzCWStrings[] = 

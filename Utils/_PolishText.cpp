@@ -5959,6 +5959,8 @@ STR16 gzLateLocalizedString[] =
 	L"%s: dodatki do pancerza zostały zniszczone!",
 	L"%s wystrzelił(a) %d pocisk(ów) więcej niż to było zamierzone!",
 	L"%s wystrzelił(a) 1 pocisk(ów) więcej niż to było zamierzone!",
+
+	L"You need to close the item description box first!",	// TODO.Translate
 };
 
 STR16 gzCWStrings[] = 

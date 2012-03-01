@@ -5793,6 +5793,8 @@ STR16 gzLateLocalizedString[] =
 	L"%s's Rüstungsverstärkung wurde zertrümmert!",
 	L"%s feuert %d Schüsse mehr als beabsichtigt!",
 	L"%s feuert einen Schuss mehr als beabsichtigt!",
+
+	L"Sie müssen zuerst das Gegenstandsbeschreibungsfenster schließen!",	// TODO.Translate
 };
 
 STR16 gzCWStrings[] = 

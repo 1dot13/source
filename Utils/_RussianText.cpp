@@ -5939,6 +5939,8 @@ STR16 gzLateLocalizedString[] =
 	L"%s чувствует что в бронежилете что-то треснуло!",
 	L"%s выпустил на %d больше пуль!",
 	L"%s выпустил на одну пулю больше!",
+
+	L"You need to close the item description box first!",	// TODO.Translate
 };
 
 STR16 gzCWStrings[] = 

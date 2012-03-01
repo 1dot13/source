@@ -5946,6 +5946,8 @@ STR16 gzLateLocalizedString[] =
 	L"%s: attachement de protection détruit !",
 	L"%s tire %d fois de plus que prévu !",
 	L"%s tire 1 fois de plus que prévu !",
+
+	L"You need to close the item description box first!",	// TODO.Translate
 };
 
 STR16 gzCWStrings[] = 

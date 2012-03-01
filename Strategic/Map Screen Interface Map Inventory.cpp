@@ -1705,16 +1705,23 @@ void MapInventoryPoolDoneBtn( GUI_BUTTON *btn, INT32 reason )
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
-    if (btn->uiFlags & BUTTON_CLICKED_ON)
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-      btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
-			// done
-			fShowMapInventoryPool = FALSE;
+			if (gfInItemDescBox)
+			{
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[64], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+			}
+			else
+			{
+				// done
+				fShowMapInventoryPool = FALSE;
+			}
 		}
 	}
 }
