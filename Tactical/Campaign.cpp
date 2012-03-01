@@ -761,6 +761,7 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 						// M.E.R.C.
 						ubMercMercIdValue = pSoldier->ubProfile;
 
+						/*
 						// Biff's profile id ( 40 ) is the base
 						ubMercMercIdValue -= BIFF;
 
@@ -769,14 +770,16 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 						{
 							ubMercMercIdValue--;
 						}
+						*/
 
 						//
 						// Send special E-mail
 						//
 
-//	DEF: 03/06/99 Now sets an event that will be processed later in the day
-//						ubEmailOffset = MERC_UP_LEVEL_BIFF + MERC_UP_LEVEL_LENGTH_BIFF * ( ubMercMercIdValue );
-//						AddEmail( ubEmailOffset, MERC_UP_LEVEL_LENGTH_BIFF, SPECK_FROM_MERC, GetWorldTotalMin() );
+						//	DEF: 03/06/99 Now sets an event that will be processed later in the day
+						//	ubEmailOffset = MERC_UP_LEVEL_BIFF + MERC_UP_LEVEL_LENGTH_BIFF * ( ubMercMercIdValue );
+						//	AddEmail( ubEmailOffset, MERC_UP_LEVEL_LENGTH_BIFF, SPECK_FROM_MERC, GetWorldTotalMin() );
+						
 						AddStrategicEvent( EVENT_MERC_MERC_WENT_UP_LEVEL_EMAIL_DELAY, GetWorldTotalMin( ) + 60 + Random( 60 ), ubMercMercIdValue );
 
 						fChangeSalary = TRUE;
@@ -1993,55 +1996,57 @@ void MERCMercWentUpALevelSendEmail( UINT8 ubMercMercIdValue )
 	// Read from EmailMercAvailable.xml
 	if ( ReadXMLEmail == TRUE )
 	{		
-	oMerc = ubMercMercIdValue;				
-	iMerc = oMerc * 1;
-	
-	if ( oMerc != 0 )
-		pMerc = oMerc + 1;
-	else
-		pMerc = 0;
-	if ( gProfilesMERC[ubMercMercIdValue].ProfilId == ubMercMercIdValue )
-		AddEmailTypeXML( pMerc, iMerc, iMerc, GetWorldTotalMin(), -1 , TYPE_EMAIL_MERC_LEVEL_UP);
+		oMerc = ubMercMercIdValue;				
+		iMerc = oMerc * 1;
+		
+		if ( oMerc != 0 )
+			pMerc = oMerc + 1;
+		else
+			pMerc = 0;
+		if ( gProfilesMERC[ubMercMercIdValue].ProfilId == ubMercMercIdValue )
+			AddEmailTypeXML( pMerc, iMerc, iMerc, GetWorldTotalMin(), -1 , TYPE_EMAIL_MERC_LEVEL_UP);
 	}
 	else
 	{
-	// Read from Email.edt and sender (nickname) from MercProfiles.xml
-	// WANNE: TODO: Tex, Biggins, Stoggy and Gaston have special handling because they are the new MERC merc in 1.13
-	// There is no letter template in Email.edt. We have them hardcoded in the source code.
-	if (ubMercMercIdValue == 124 || ubMercMercIdValue == 125 || ubMercMercIdValue == 126 || ubMercMercIdValue == 127)
-	{
-		// Gaston
-		if (ubMercMercIdValue == 124)
-		{
-			ubEmailOffset = MERC_UP_LEVEL_BIFF;
-			iMsgLength = MERC_UP_LEVEL_GASTON;
-		}
-		// Stogie
-		else if (ubMercMercIdValue == 125)
-		{
-			ubEmailOffset = MERC_UP_LEVEL_BIFF;
-			iMsgLength = MERC_UP_LEVEL_STOGIE;
-		}
-		// Tex
-		else if (ubMercMercIdValue == 126)
-		{
-			ubEmailOffset = MERC_UP_LEVEL_BIFF;
-			iMsgLength = MERC_UP_LEVEL_TEX;
-		}
-		// Biggens
-		else if (ubMercMercIdValue == 127)
-		{
-			ubEmailOffset = MERC_UP_LEVEL_BIFF;
-			iMsgLength = MERC_UP_LEVEL_BIGGENS;
-		}
-	}
-	else
-	{
-		iMsgLength = MERC_UP_LEVEL_LENGTH_BIFF;
-		ubEmailOffset = MERC_UP_LEVEL_BIFF + MERC_UP_LEVEL_LENGTH_BIFF * ( ubMercMercIdValue ); 
-	}
+		// TODO.RW: This workaround should not be needed anymore, because we now have all the emails externalized to XML files (TableData\Email)		
 
-	AddEmail( ubEmailOffset, iMsgLength, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT_NAME_MERC);
+		// Read from Email.edt and sender (nickname) from MercProfiles.xml
+		// WANNE: TODO: Tex, Biggins, Stoggy and Gaston have special handling because they are the new MERC merc in 1.13
+		// There is no letter template in Email.edt. We have them hardcoded in the source code.
+		if (ubMercMercIdValue == 124 || ubMercMercIdValue == 125 || ubMercMercIdValue == 126 || ubMercMercIdValue == 127)
+		{
+			// Gaston
+			if (ubMercMercIdValue == 124)
+			{
+				ubEmailOffset = MERC_UP_LEVEL_BIFF;
+				iMsgLength = MERC_UP_LEVEL_GASTON;
+			}
+			// Stogie
+			else if (ubMercMercIdValue == 125)
+			{
+				ubEmailOffset = MERC_UP_LEVEL_BIFF;
+				iMsgLength = MERC_UP_LEVEL_STOGIE;
+			}
+			// Tex
+			else if (ubMercMercIdValue == 126)
+			{
+				ubEmailOffset = MERC_UP_LEVEL_BIFF;
+				iMsgLength = MERC_UP_LEVEL_TEX;
+			}
+			// Biggens
+			else if (ubMercMercIdValue == 127)
+			{
+				ubEmailOffset = MERC_UP_LEVEL_BIFF;
+				iMsgLength = MERC_UP_LEVEL_BIGGENS;
+			}
+		}
+		else
+		{
+			iMsgLength = MERC_UP_LEVEL_LENGTH_BIFF;
+			ubEmailOffset = MERC_UP_LEVEL_BIFF + MERC_UP_LEVEL_LENGTH_BIFF * ( ubMercMercIdValue ); 
+		}
+
+		AddEmail( ubEmailOffset, iMsgLength, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT_NAME_MERC);
 	
 	}
 #endif
