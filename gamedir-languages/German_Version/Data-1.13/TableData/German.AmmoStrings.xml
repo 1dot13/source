@@ -22,7 +22,7 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>4</uiIndex>
-		<AmmoCaliber>.357 Magnum</AmmoCaliber>
+		<AmmoCaliber>.357 Mag</AmmoCaliber>
 		<BRCaliber>.357 Mag</BRCaliber>
 	</AMMO>
 	<AMMO>
@@ -132,7 +132,7 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>26</uiIndex>
-		<AmmoCaliber>.44 Magnum</AmmoCaliber>
+		<AmmoCaliber>.44 Mag</AmmoCaliber>
 		<BRCaliber>.44 Mag</BRCaliber>
 	</AMMO>
 	<AMMO>
@@ -193,7 +193,7 @@
 	<AMMO>
 		<uiIndex>38</uiIndex>
 		<AmmoCaliber>.50 Beowulf</AmmoCaliber>
-		<BRCaliber>.50 Beowulf</BRCaliber>
+		<BRCaliber>.50 Beo</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>39</uiIndex>
@@ -212,8 +212,8 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>42</uiIndex>
-		<AmmoCaliber>6.8x43mm SPC</AmmoCaliber>
-		<BRCaliber>6.8mm SPC</BRCaliber>
+		<AmmoCaliber>6.8x43mm Rem SPC</AmmoCaliber>
+		<BRCaliber>6.8mm Rem SPC</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>43</uiIndex>
@@ -228,7 +228,7 @@
 	<AMMO>
 		<uiIndex>45</uiIndex>
 		<AmmoCaliber>.30 Carbine</AmmoCaliber>
-		<BRCaliber>.30 Carbine</BRCaliber>
+		<BRCaliber>.30 Car</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>46</uiIndex>
